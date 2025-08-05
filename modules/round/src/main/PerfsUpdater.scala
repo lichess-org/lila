@@ -21,8 +21,8 @@ final class PerfsUpdater(
     (game.rated.yes && game.finished && (game.playedPlies >= 2 || game.isTournament)).so:
       for
         isBotFarming <- farming.botFarming(game)
-        isBoosting   <- farming.newAccountBoosting(game, users)
-        result       <- (!isBotFarming && !isBoosting).so:
+        isBoosting <- farming.newAccountBoosting(game, users)
+        result <- (!isBotFarming && !isBoosting).so:
           calculateRatingAndPerfs(game, users).so:
             saveRatings(game.id, users)
       yield result
@@ -36,7 +36,7 @@ final class PerfsUpdater(
       then game.isTournament.option(PerfKey(game.ratingVariant, game.speed))
       else game.perfKey.some
     if !users.exists(_.user.lame)
-    prevPerfs   = users.map(_.perfs)
+    prevPerfs = users.map(_.perfs)
     prevPlayers = prevPerfs.map(_(perfKey).toGlickoPlayer)
     computedPlayers <- computeGlicko(game.id, prevPlayers, outcome)
   yield
@@ -46,7 +46,7 @@ final class PerfsUpdater(
       computedPlayers.map(_.glicko),
       users.map(_.isBot)
     )
-    val newPerfs    = prevPerfs.zip(newGlickos, (perfs, gl) => addToPerfs(game, perfs, perfKey, gl))
+    val newPerfs = prevPerfs.zip(newGlickos, (perfs, gl) => addToPerfs(game, perfs, perfKey, gl))
     val ratingDiffs =
       def ratingOf(perfs: UserPerfs) = perfs(perfKey).glicko.intRating.value
       prevPerfs.zip(newPerfs, (prev, next) => IntRatingDiff(ratingOf(next) - ratingOf(prev)))
@@ -86,7 +86,7 @@ final class PerfsUpdater(
       standard =
         val subs = List(p.bullet, p.blitz, p.rapid, p.classical, p.correspondence).filter(_.provisional.no)
         subs.maxByOption(_.latest.fold(0L)(_.toMillis)).flatMap(_.latest).fold(p.standard) { date =>
-          val nb     = subs.map(_.nb).sum
+          val nb = subs.map(_.nb).sum
           val glicko = Glicko(
             rating = subs.map(s => s.glicko.rating * (s.nb / nb.toDouble)).sum,
             deviation = subs.map(s => s.glicko.deviation * (s.nb / nb.toDouble)).sum,

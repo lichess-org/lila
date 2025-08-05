@@ -61,7 +61,7 @@ final class FormUi(helpers: Helpers, bits: TeamUi)(
               explainInput,
               submitButton(
                 dataIcon := Icon.CautionCircle,
-                cls      := "submit button text explain button-empty button-red",
+                cls := "submit button text explain button-empty button-red",
                 st.title := trans.team.closeTeamDescription.txt() // can actually be reverted
               )(trt.closeTeam())
             )
@@ -73,7 +73,7 @@ final class FormUi(helpers: Helpers, bits: TeamUi)(
                 explainInput,
                 submitButton(
                   dataIcon := Icon.Trash,
-                  cls      := "text button button-empty button-red explain",
+                  cls := "text button button-empty button-red explain",
                   st.title := "Deletes the team and its memberships. Cannot be reverted!"
                 )(trans.site.delete())
               )
@@ -82,7 +82,7 @@ final class FormUi(helpers: Helpers, bits: TeamUi)(
             postForm(cls := "inline", action := routes.Team.disable(t.id))(
               explainInput,
               submitButton(
-                cls      := "button button-empty explain",
+                cls := "button button-empty explain",
                 st.title := "Re-enables the team and restores memberships"
               )("Re-enable")
             )
@@ -135,7 +135,7 @@ final class FormUi(helpers: Helpers, bits: TeamUi)(
           form3.select(
             f,
             Seq(
-              Access.None.id    -> "No chat",
+              Access.None.id -> "No chat",
               Access.Leaders.id -> "Team leaders",
               Access.Members.id -> "Team members"
             )
@@ -154,9 +154,9 @@ final class FormUi(helpers: Helpers, bits: TeamUi)(
             f,
             Seq(
               Access.Everyone.id -> "Show to everyone",
-              Access.Members.id  -> "Show to members",
-              Access.Leaders.id  -> "Show to team leaders",
-              Access.None.id     -> "Hide the forum"
+              Access.Members.id -> "Show to members",
+              Access.Leaders.id -> "Show to team leaders",
+              Access.None.id -> "Hide the forum"
             )
           )
         }

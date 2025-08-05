@@ -14,8 +14,8 @@ val formMapping: play.api.data.Mapping[IntRating] =
   number(min = Glicko.minRating.value, max = Glicko.maxRating.value).into[IntRating]
 
 val ratingApi: lila.ui.RatingApi = new:
-  val toNameKey     = PerfType(_).nameKey
-  val toDescKey     = PerfType(_).descKey
-  val toIcon        = PerfType(_).icon
-  val bestRated     = UserPerfsExt.bestRatedPerf
+  val toNameKey = PerfType(_).nameKey
+  val toDescKey = PerfType(_).descKey
+  val toIcon = PerfType(_).icon
+  val bestRated = UserPerfsExt.bestRatedPerf
   val dubiousPuzzle = UserPerfs.dubiousPuzzle

@@ -18,10 +18,10 @@ object Chronometer:
         try await(duration, name)
         catch case _: Exception => default
 
-      def chronometer    = Chronometer(fua)
+      def chronometer = Chronometer(fua)
       def chronometerTry = Chronometer.lapTry(fua)
 
-      def mon(path: lila.mon.TimerPath): Fu[A]                         = chronometer.mon(path).result
+      def mon(path: lila.mon.TimerPath): Fu[A] = chronometer.mon(path).result
       def monTry(path: scala.util.Try[A] => lila.mon.TimerPath): Fu[A] =
         chronometerTry.mon(r => path(r)(lila.mon)).result
       def monSuccess(path: lila.mon.type => Boolean => kamon.metric.Timer): Fu[A] =
@@ -31,14 +31,14 @@ object Chronometer:
           .result
       def monValue(path: A => lila.mon.TimerPath): Fu[A] = chronometer.monValue(path).result
 
-      def logTime(name: String): Fu[A]                               = chronometer.pp(name)
+      def logTime(name: String): Fu[A] = chronometer.pp(name)
       def logTimeIfGt(name: String, duration: FiniteDuration): Fu[A] = chronometer.ppIfGt(name, duration)
   end futureExtension
 
   case class Lap[A](result: A, nanos: Long):
 
-    def millis  = (nanos / 1000000).toInt
-    def micros  = (nanos / 1000).toInt
+    def millis = (nanos / 1000000).toInt
+    def micros = (nanos / 1000).toInt
     def seconds = (millis / 1000).toInt
 
     def logIfSlow(threshold: Int, logger: lila.log.Logger)(msg: A => String) =
@@ -90,8 +90,8 @@ object Chronometer:
       lap.dforeach(_.log(logger)(msg))
       this
 
-    def pp: Fu[A]                                            = lap.dmap(_.pp)
-    def pp(msg: String): Fu[A]                               = lap.dmap(_.pp(msg))
+    def pp: Fu[A] = lap.dmap(_.pp)
+    def pp(msg: String): Fu[A] = lap.dmap(_.pp(msg))
     def ppIfGt(msg: String, duration: FiniteDuration): Fu[A] = lap.dmap(_.ppIfGt(msg, duration))
 
     def tap(f: Lap[A] => Unit) =
@@ -125,7 +125,7 @@ object Chronometer:
 
   def sync[A](f: => A): Lap[A] =
     val start = nowNanosRel
-    val res   = f
+    val res = f
     Lap(res, nowNanosRel - start)
 
   def syncEffect[A](f: => A)(effect: Lap[A] => Unit): A =
@@ -135,7 +135,7 @@ object Chronometer:
 
   def syncMon[A](path: lila.mon.TimerPath)(f: => A): A =
     val timer = path(lila.mon).start()
-    val res   = f
+    val res = f
     timer.stop()
     res
 

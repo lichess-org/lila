@@ -17,7 +17,7 @@ final class Search(env: Env) extends LilaController(env):
         NoCrawlers:
           val page = p.atLeast(1)
           Reasonable(page, Max(100)):
-            val cost               = scala.math.sqrt(page.toDouble).toInt
+            val cost = scala.math.sqrt(page.toDouble).toInt
             def concurrencyLimited =
               val form = searchForm
                 .bindFromRequest()

@@ -50,11 +50,11 @@ def mobile(helpers: Helpers)(renderedCmsPage: Frag) =
             div(cls := "right-side")(
               a(href := routes.Main.redirectToAppStore):
                 img(
-                  widthA  := "358",
+                  widthA := "358",
                   heightA := "766",
-                  cls     := "mobile-playing",
-                  src     := assetUrl("images/mobile/lichess-mobile-screen.png"),
-                  alt     := "Lichess mobile screen"
+                  cls := "mobile-playing",
+                  src := assetUrl("images/mobile/lichess-mobile-screen.png"),
+                  alt := "Lichess mobile screen"
                 )
             )
           )

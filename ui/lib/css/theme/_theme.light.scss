@@ -1,4 +1,4 @@
-@import 'default';
+@import 'theme.default';
 
 @function _clear($color, $weight: 17%) {
   @return mix(#000, $color, $weight);

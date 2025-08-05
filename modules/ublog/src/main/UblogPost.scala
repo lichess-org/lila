@@ -30,13 +30,13 @@ case class UblogPost(
 ) extends UblogPost.BasePost
     with lila.core.ublog.UblogPost:
 
-  def isBy[U: UserIdOf](u: U)       = created.by.is(u)
+  def isBy[U: UserIdOf](u: U) = created.by.is(u)
   def isUserBlog[U: UserIdOf](u: U) = blog == UblogBlog.Id.User(u.id)
 
   def indexable = live && topics.exists(UblogTopic.chessExists)
-  def allText   = s"$title $intro $markdown"
+  def allText = s"$title $intro $markdown"
 
-  def allows                    = UblogBlog.Allows(created.by)
+  def allows = UblogBlog.Allows(created.by)
   def canView(using Option[Me]) = live || allows.draft
 
 case class UblogImage(id: ImageId, alt: Option[String] = None, credit: Option[String] = None)
@@ -66,7 +66,7 @@ object UblogPost:
     val lived: Option[Recorded]
     val featured: Option[Featured]
     val sticky: Option[Boolean]
-    def slug      = UblogPost.slug(title)
+    def slug = UblogPost.slug(title)
     def isLichess = created.by.is(UserId.lichess)
 
   case class PreviewPost(

@@ -9,11 +9,13 @@ import lila.db.dsl.{ *, given }
 final class RelayListing(
     colls: RelayColls,
     groupRepo: RelayGroupRepo,
+    tourRepo: RelayTourRepo,
     cacheApi: lila.memo.CacheApi,
     groupCrowd: RelayGroupCrowdSumCache
 )(using Executor):
 
   import BSONHandlers.given
+  import RelayListing.tierPriority
 
   def spotlight: List[RelayCard] = spotlightCache
 
@@ -21,10 +23,17 @@ final class RelayListing(
     _.expireAfterWrite(5.seconds).buildAsyncFuture: tourId =>
       tourWithRounds(tourId).mapz(RelayListing.defaultRoundToLink)
 
+  val defaultTourOfGroup = cacheApi[RelayGroupId, Option[RelayTour]](8, "relay.defaultTourOfGroup"):
+    _.expireAfterWrite(10.seconds).buildAsyncFuture: groupId =>
+      groupRepo
+        .byId(groupId)
+        .flatMapz: group =>
+          tourRepo.byIds(group.tours).map(RelayListing.defaultTourOfGroup)
+
   def active: Fu[List[RelayCard]] = activeCache.get({})
 
   private enum Spot:
-    case UngroupedTour(tour: RelayTour.WithRounds)                                    extends Spot
+    case UngroupedTour(tour: RelayTour.WithRounds) extends Spot
     case GroupWithTours(group: RelayGroup, tours: NonEmptyList[RelayTour.WithRounds]) extends Spot
 
   private case class Selected(t: RelayTour.WithRounds, round: RelayRound, group: Option[RelayGroup.Name])
@@ -40,18 +49,18 @@ final class RelayListing(
             t.rounds.find(!_.isFinished).map(Selected(t, _, none)).map(NonEmptyList.one)
           case Spot.GroupWithTours(group, tours) =>
             val all = for
-              tour  <- tours.toList
+              tour <- tours.toList
               round <- tour.rounds.find(!_.isFinished)
             yield Selected(tour, round, group.name.some)
             // sorted preserves the original ordering while adding its own
             all.sorted(using Ordering.by(s => (tierPriority(s.t.tour), !s.round.hasStarted))).take(3).toNel
         cards <- selected.traverse(toRelayCard)
         sorted = cards.sortBy: t =>
-          val startAt       = t.display.startedAt.orElse(t.display.startsAtTime)
+          val startAt = t.display.startedAt.orElse(t.display.startsAtTime)
           val crowdRelevant = startAt.exists(_.isBefore(nowInstant.plusHours(1)))
           (
-            tierPriority(t.tour),                   // by tier
-            crowdRelevant.so(0 - t.crowd.value),    // then by viewers
+            tierPriority(t.tour), // by tier
+            crowdRelevant.so(0 - t.crowd.value), // then by viewers
             startAt.fold(Long.MaxValue)(_.toMillis) // then by next round date
           )
       yield
@@ -75,8 +84,6 @@ final class RelayListing(
           alts = s.tail.filter(_.round.hasStarted).map(s => s.round.withTour(s.t.tour))
         )
 
-  private def tierPriority(t: RelayTour) = -t.tier.so(_.v)
-
   private object dynamicTier:
 
     def apply(t: RelayTour.WithRounds): Option[RelayTour.WithRounds] =
@@ -86,9 +93,12 @@ final class RelayListing(
           t.focus(_.tour.tier).replace(tier.some)
 
     private def nextRoundTier(t: RelayTour.WithRounds): Option[RelayTour.Tier] = for
-      round   <- t.rounds.find(!_.isFinished)
-      tier    <- t.tour.tier
-      startAt <- round.startedAt.orElse(round.startsAtTime)
+      round <- t.rounds.find(!_.isFinished)
+      tier <- t.tour.tier
+      startAt <- round.startedAt
+        .orElse(round.startsAtTime)
+        .orElse:
+          round.startsAfterPrevious.option(nowInstant)
       days = scalalib.time.daysBetween(nowInstant.withTimeAtStartOfDay, startAt)
       newTier <-
         import RelayTour.Tier.*
@@ -100,8 +110,8 @@ final class RelayListing(
     yield newTier
 
     private def lastRoundTier(t: RelayTour.WithRounds): Option[RelayTour.Tier] = for
-      round    <- t.rounds.findLast(_.isFinished)
-      tier     <- t.tour.tier
+      round <- t.rounds.findLast(_.isFinished)
+      tier <- t.tour.tier
       finishAt <- round.finishedAt
       hours = ChronoUnit.HOURS.between(finishAt, nowInstant).toInt
       newTier <-
@@ -124,7 +134,7 @@ final class RelayListing(
     tours = rawTours.flatMap(dynamicTier.apply)
     groups <- groupRepo.byTours(tours.map(_.tour.id))
   yield
-    val toursById                  = tours.mapBy(_.tour.id)
+    val toursById = tours.mapBy(_.tour.id)
     val ungroupedTours: List[Spot] = tours
       .filter(t => !groups.exists(_.tours.contains(t.tour.id)))
       .map(Spot.UngroupedTour.apply)
@@ -138,7 +148,7 @@ final class RelayListing(
       .aggregateList(max): framework =>
         import framework.*
         Match(RelayTourRepo.selectors.officialActive) -> List(
-          Project(tourUnsets),
+          Project(RelayTourRepo.unsetHeavyOptionalFields),
           Sort(Descending("tier")),
           Limit(max),
           PipelineOperator(tourRoundPipeline)
@@ -150,17 +160,13 @@ final class RelayListing(
       .aggregateOne(): framework =>
         import framework.*
         Match($id(id)) -> List(
-          Project(tourUnsets),
+          Project(RelayTourRepo.unsetHeavyOptionalFields),
           PipelineOperator(tourRoundPipeline)
         )
       .map(_.flatMap(readTourRound))
 
-  // unset heavy fields that we don't use for listing
-  private val tourUnsets =
-    $doc("subscribers" -> false, "notified" -> false, "teams" -> false, "players" -> false)
-
   private val tourRoundPipeline: Bdoc =
-    $lookup.pipeline(
+    $lookup.simple(
       from = colls.round,
       as = "rounds",
       local = "_id",
@@ -169,12 +175,14 @@ final class RelayListing(
     )
 
   private def readTourRound(doc: Bdoc): Option[RelayTour.WithRounds] = for
-    tour   <- doc.asOpt[RelayTour]
+    tour <- doc.asOpt[RelayTour]
     rounds <- doc.getAsOpt[List[RelayRound]]("rounds")
     if rounds.nonEmpty
   yield tour.withRounds(rounds)
 
 private object RelayListing:
+
+  private def tierPriority(t: RelayTour) = -t.tier.so(_.v)
 
   def defaultRoundToLink(trs: RelayTour.WithRounds): Option[RelayRound] =
     if !trs.tour.active then trs.rounds.headOption
@@ -185,11 +193,17 @@ private object RelayListing:
         .sortBy(-_._1.getEpochSecond)
         .headOption
         .match
-          case None          => trs.rounds.headOption
+          case None => trs.rounds.headOption
           case Some(_, last) =>
             trs.rounds.find(!_.isFinished) match
-              case None       => last.some
+              case None => last.some
               case Some(next) =>
                 if next.startsAtTime.exists(_.isBefore(nowInstant.plusHours(1)))
                 then next.some
                 else last.some
+
+  def defaultTourOfGroup(tours: List[RelayTour]): Option[RelayTour] =
+    val active = tours.filter(_.active)
+    val filtered = if active.nonEmpty then active else tours
+    // sorted preserves the original ordering while adding its own
+    filtered.sorted(using Ordering.by(tierPriority)).headOption

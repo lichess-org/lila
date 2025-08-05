@@ -15,7 +15,7 @@
   <string name="onlyLeaderLeavesTeam">Vinsamlegast bættu við nýjum liðsstjóra áður en þú ferð, eða lokaðu liðinu.</string>
   <string name="quitTeam">Ganga úr liði</string>
   <string name="manuallyReviewAdmissionRequests">Fara handvirkt yfir umsóknir um inngöngu</string>
-  <string name="manuallyReviewAdmissionRequestsHelp">Ef hakað er við þetta þurfa leikmenn að senda inn beiðni um að gerast meðlimur, sem þú getur annaðhvort hafnað eða samþykkt.</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Ef hakað er við þetta þurfa notendur að senda inn beiðni um að gerast meðlimur, sem þú getur annaðhvort hafnað eða samþykkt.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Liðsstjóri</item>
     <item quantity="other">Liðsstjórar</item>
@@ -32,14 +32,20 @@
   <string name="requestDeclined">Liðsstjóri hafnaði beiðni þinni um að gerast meðlimur.</string>
   <string name="subToTeamMessages">Fáðu fregnir af liðsskilaboðum</string>
   <string name="teamBattle">Liðsorrusta</string>
+  <string name="teamBattleOverview">Orrusta margra liða, hver skákmaður skorar stig fyrir sitt lið</string>
   <string name="teamTournament">Liðsmót</string>
+  <string name="teamTournamentOverview">Arena-mót sem aðeins meðlimir liðsins þíns geta tekið þátt í</string>
   <string name="swissTournamentOverview">Swiss-mót sem eingöngu meðlimir liðs þíns geta tekið þátt í</string>
   <string name="messageAllMembers">Sendu öllum meðlimum skilaboð</string>
   <string name="messageAllMembersOverview">Senda einkaskilaboð til allra meðlima liðsins</string>
+  <string name="messageAllMembersLongDescription">Senda einkaskilaboð til ALLRA meðlima liðsins.
+Þú getur notað þetta til að kalla á notendur til að taka þátt í móti eða liðsorrustu.
+Notendur sem vilja ekki fá skilaboð frá þér gætu yfirgefið liðið.</string>
   <string name="teamsIlead">Lið sem ég stjórna</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Viltu kannski deila tengli á eitt af þessum væntanlegu mótum?</string>
   <string name="leadersChat">Liðsstjóraspjall</string>
   <string name="introduction">Kynning</string>
+  <string name="teamIntroductionHelp">Stutt lýsing sýnileg á liðalistum. Allt að 200 stafir.</string>
   <string name="teamDescriptionHelp">Lýsinguna í heild sinni má sjá á síðu liðsins.</string>
   <string name="closeTeam">Loka liði</string>
   <string name="closeTeamDescription">Lokar liðinu fyrir fullt og allt.</string>
@@ -59,6 +65,7 @@
 
 Þú getur ekki fjarlægt lið ef meðlimur liðs hefur þegar tekið þátt í mótinu.</string>
   <string name="numberOfLeadsPerTeam">Fjöldi liðsstjóra í hverju liði. Summa stiga þeirra er stig liðsins.</string>
+  <string name="numberOfLeadsPerTeamHelp">Þú ættir alls ekki að breyta þessu gildi eftir að mótið er hafið!</string>
   <string name="innerTeam">Innra liðið</string>
   <plurals name="battleOfNbTeams">
     <item quantity="one">Orrusta á milli %s liðs</item>

@@ -13,10 +13,10 @@ object LightGame:
     lila.db.dsl.$doc(
       F.whitePlayer -> true,
       F.blackPlayer -> true,
-      F.playerUids  -> true,
+      F.playerUids -> true,
       F.winnerColor -> true,
-      F.status      -> true,
-      F.variant     -> true
+      F.status -> true,
+      F.variant -> true
     )
 
 object LightPlayer:
@@ -28,7 +28,7 @@ object LightPlayer:
 
   private def safeRange[A](range: Range)(a: A)(using ir: IntRuntime[A]): Option[A] =
     range.contains(ir(a)).option(a)
-  private val ratingRange     = safeRange[IntRating](0 to 4000)
+  private val ratingRange = safeRange[IntRating](0 to 4000)
   private val ratingDiffRange = safeRange[IntRatingDiff](-1000 to 1000)
 
   given lightPlayerReader: BSONDocumentReader[Builder] with

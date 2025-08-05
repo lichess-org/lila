@@ -15,9 +15,9 @@ final class Flood(using Executor) extends lila.core.security.FloodApi:
     .build[Source, Messages]()
 
   def allowMessage(source: Source, text: String): Boolean =
-    val msg  = Message(text, nowInstant)
+    val msg = Message(text, nowInstant)
     val msgs = ~cache.getIfPresent(source)
-    val ok   = !duplicateMessage(msg, msgs) && !quickPost(msg, msgs)
+    val ok = !duplicateMessage(msg, msgs) && !quickPost(msg, msgs)
     if ok then cache.put(source, msg :: msgs)
     ok
 

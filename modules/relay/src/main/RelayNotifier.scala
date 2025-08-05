@@ -39,7 +39,7 @@ final private class RelayNotifier(
       dedupNotif(chapter.id).so:
         for
           whiteFollowers <- followersOf(Color.white)
-          _              <- notify(whiteFollowers, Color.white)
+          _ <- notify(whiteFollowers, Color.white)
           blackFollowers <- followersOf(Color.black)
           newFollowers = blackFollowers -- whiteFollowers
           _ <- notify(newFollowers, Color.black)
@@ -56,9 +56,9 @@ final private class RelayNotifier(
           .not
           .flatMapz:
             for
-              _           <- tourRepo.setNotified(rt)
+              _ <- tourRepo.setNotified(rt)
               subscribers <- tourRepo.subscribers(rt.tour.id)
-              _           <- subscribers.nonEmpty.so:
+              _ <- subscribers.nonEmpty.so:
                 notifyApi.notifyMany(
                   subscribers,
                   NotificationContent.BroadcastRound(

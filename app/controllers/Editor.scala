@@ -12,9 +12,9 @@ final class Editor(env: Env) extends LilaController(env):
   private lazy val positionsJson =
     JsArray(chess.StartingPosition.all.map { p =>
       Json.obj(
-        "eco"  -> p.eco,
+        "eco" -> p.eco,
         "name" -> p.name,
-        "fen"  -> p.fen
+        "fen" -> p.fen
       )
     })
 
@@ -22,7 +22,7 @@ final class Editor(env: Env) extends LilaController(env):
     JsArray(chess.EndgamePosition.positions.map { p =>
       Json.obj(
         "name" -> p.name,
-        "fen"  -> p.fen
+        "fen" -> p.fen
       )
     })
 

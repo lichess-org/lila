@@ -22,9 +22,9 @@ final class StringToken[A](
 
   def make(payload: A) =
     hashCurrentValue(payload).map: hashedValue =>
-      val signed   = signPayload(iso to payload, hashedValue)
+      val signed = signPayload(iso to payload, hashedValue)
       val checksum = makeHash(signed)
-      val token    = s"$signed$separator$checksum"
+      val token = s"$signed$separator$checksum"
       base64.encode(token)
 
   def read(token: String): Fu[Option[A]] =
@@ -42,7 +42,7 @@ final class StringToken[A](
                 val payload = iso.from(payloadStr)
                 valueChecker
                   .match
-                    case ValueChecker.Same()    => hashCurrentValue(payload).map(hashed ==)
+                    case ValueChecker.Same() => hashCurrentValue(payload).map(hashed ==)
                     case ValueChecker.Custom(f) => f(payload, hashed)
                   .map { _.option(payload) }
           case _ => fuccess(none)
@@ -61,12 +61,12 @@ object StringToken:
 
   sealed trait ValueChecker[A]
   object ValueChecker:
-    case class Same[A]()                                extends ValueChecker[A]
+    case class Same[A]() extends ValueChecker[A]
     case class Custom[A](f: (A, Hashed) => Fu[Boolean]) extends ValueChecker[A]
 
   object DateStr:
-    def toStr(date: Instant)                              = date.toMillis.toString
-    def toInstant(str: String)                            = str.toLongOption.map(millisToInstant)
+    def toStr(date: Instant) = date.toMillis.toString
+    def toInstant(str: String) = str.toLongOption.map(millisToInstant)
     def valueCheck(str: String, lifetime: FiniteDuration) =
       toInstant(str).exists(nowInstant.minus(lifetime).isBefore)
 

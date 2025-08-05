@@ -13,7 +13,7 @@ case class AllChallenges(in: List[Challenge], out: List[Challenge]):
 
 enum Direction:
   def name = Direction.this.toString.toLowerCase
-  case In  // I can accept this challenge
+  case In // I can accept this challenge
   case Out // I created this challenge
 
 enum NegativeEvent:

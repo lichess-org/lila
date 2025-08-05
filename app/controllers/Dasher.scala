@@ -25,9 +25,9 @@ final class Dasher(env: Env) extends LilaController(env):
           Ok:
             Json.obj(
               "lang" -> Json.obj(
-                "current"  -> ctx.lang.code,
+                "current" -> ctx.lang.code,
                 "accepted" -> LangPicker.allFromRequestHeaders(ctx.req).map(_.code),
-                "list"     -> LangList.allChoices
+                "list" -> LangList.allChoices
               ),
               "streamer" -> isStreamer
             ) ++ DasherJson(ctx.pref, gallery)

@@ -25,8 +25,8 @@ case class ChapterPreview(
      */
     points: Option[Option[Outcome.GamePoints]]
 ):
-  def finished              = points.exists(_.isDefined)
-  def thinkTime             = finished.not.so(lastMoveAt.map(at => (nowSeconds - at.toSeconds).toInt))
+  def finished = points.exists(_.isDefined)
+  def thinkTime = finished.not.so(lastMoveAt.map(at => (nowSeconds - at.toSeconds).toInt))
   def fideIds: List[FideId] = players.so(_.mapList(_.fideId)).flatten
 
 final class ChapterPreviewApi(
@@ -43,7 +43,7 @@ final class ChapterPreviewApi(
   object jsonList:
     // Can't be higher without skewing the clocks
     // because of Preview.secondsSinceLastMove
-    private val cacheDuration            = 1.second
+    private val cacheDuration = 1.second
     private[ChapterPreviewApi] val cache =
       cacheApi[StudyId, AsJsons](32, "study.chapterPreview.json"):
         _.expireAfterWrite(cacheDuration).buildAsyncFuture: studyId =>
@@ -60,7 +60,7 @@ final class ChapterPreviewApi(
           .flatMap(_.headOption)
           .exists:
             case single: JsObject => single.str("name").contains("Chapter 1")
-            case _                => false
+            case _ => false
         if singleInitial then JsArray.empty else json
 
   object dataList:
@@ -134,17 +134,17 @@ object ChapterPreview:
     def readFirstId(js: AsJsons): Option[StudyChapterId] = for
       arr <- js.asOpt[JsArray]
       obj <- arr.value.headOption
-      id  <- obj.get[StudyChapterId]("id")
+      id <- obj.get[StudyChapterId]("id")
     yield id
 
     private given Writes[Chapter.Check] = Writes:
       case Chapter.Check.Check => JsString("+")
-      case Chapter.Check.Mate  => JsString("#")
+      case Chapter.Check.Mate => JsString("#")
 
     given OWrites[ChapterPreview] = OWrites: c =>
       Json
         .obj(
-          "id"   -> c.id,
+          "id" -> c.id,
           "name" -> c.name
         )
         .add("fen", Option.when(!c.fen.isInitial)(c.fen))
@@ -159,22 +159,22 @@ object ChapterPreview:
     import BSONHandlers.given
 
     val projection = $doc(
-      "name"        -> true,
-      "denorm"      -> true,
-      "tags"        -> true,
-      "lastMoveAt"  -> "$relay.lastMoveAt",
+      "name" -> true,
+      "denorm" -> true,
+      "tags" -> true,
+      "lastMoveAt" -> "$relay.lastMoveAt",
       "orientation" -> "$setup.orientation",
-      "rootFen"     -> "$root._.f"
+      "rootFen" -> "$root._.f"
     )
 
     given BSONDocumentReader[ChapterPreview] =
       BSONDocumentReader.option[ChapterPreview]: doc =>
         for
-          id   <- doc.getAsOpt[StudyChapterId]("_id")
+          id <- doc.getAsOpt[StudyChapterId]("_id")
           name <- doc.getAsOpt[StudyChapterName]("name")
-          lastMoveAt  = doc.getAsOpt[Instant]("lastMoveAt")
-          lastPos     = doc.getAsOpt[Chapter.LastPosDenorm]("denorm")
-          tags        = doc.getAsOpt[Tags]("tags")
+          lastMoveAt = doc.getAsOpt[Instant]("lastMoveAt")
+          lastPos = doc.getAsOpt[Chapter.LastPosDenorm]("denorm")
+          tags = doc.getAsOpt[Tags]("tags")
           orientation = doc.getAsOpt[Color]("orientation") | Color.White
         yield ChapterPreview(
           id = id,

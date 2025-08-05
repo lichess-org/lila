@@ -1658,7 +1658,7 @@ object Quote:
 
   given OWrites[Quote] = OWrites { q =>
     Json.obj(
-      "text"   -> q.text,
+      "text" -> q.text,
       "author" -> q.author
     )
   }

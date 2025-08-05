@@ -27,7 +27,7 @@ The Lichess team"""
     mailer.canSend.so:
       lila.mon.email.send.welcome.increment()
       val profileUrl = s"$baseUrl/@/${user.username}"
-      val editUrl    = s"$baseUrl/account/profile"
+      val editUrl = s"$baseUrl/account/profile"
       mailer.sendOrSkip:
         Mailer.Message(
           to = email,
@@ -46,7 +46,7 @@ The Lichess team"""
 
   def onTitleSet(username: UserStr, title: chess.PlayerTitle): Funit = {
     for
-      user        <- userApi.byId(username).orFail(s"No such user $username")
+      user <- userApi.byId(username).orFail(s"No such user $username")
       emailOption <- userApi.email(user.id)
       body = alsoSendAsPrivateMessage(user): _ =>
         s"""Hello,
@@ -190,7 +190,7 @@ $baseUrl/patron"""
           .filterNot(_.isNoReply)
           .so: email =>
             given Lang = userLang(userWithEmail.user)
-            val hello  =
+            val hello =
               "Hello and thank you for playing correspondence chess on Lichess!"
             val disableSettingNotice =
               "You are receiving this email because you have correspondence email notification turned on. You can turn it off in your settings:"

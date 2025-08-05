@@ -6,6 +6,7 @@
   <string name="notEnoughRatedGames">Hefur ekki teflt nógu margar stigaskákir til að meta skákstyrk með vissu.</string>
   <string name="progressOverLastXGames">Framfarir síðustu %s skáka:</string>
   <string name="ratingDeviation">Skákstigafrávik: %s.</string>
+  <string name="ratingDeviationTooltip" comment="ratingDeviationTooltip&#10;&#10;This is a tooltip (appears on mouseover) for the rating deviation. Appears on performance statistics pages such as https://lichess.org/@/thibault/perf/ultraBullet&#10;&#10;As of 2021-05-19, $1%s is set to 110.">Lægra gildi þýðir að skákstigatalan sé stöðugri. Ef talan er hærri en %1$s telst hún vera tímabundin. Til að vera með á stigatöflunni þarf hún að vera undir %2$s (hefðbundin skák) eða %3$s (afbrigðaskák).</string>
   <string name="totalGames">Skákir alls</string>
   <string name="ratedGames">Skákir með stigagjöf</string>
   <string name="tournamentGames">Mótsskákir</string>
@@ -19,10 +20,10 @@
   <string name="highestRating">Flestu skákstig: %s</string>
   <string name="lowestRating">Fæstu skákstig: %s</string>
   <string name="fromXToY">frá %1$s til %2$s</string>
-  <string name="winningStreak">Sigurdöngun</string>
-  <string name="losingStreak">Ósigurdöngun</string>
-  <string name="longestStreak">Lengsta döngun: %s</string>
-  <string name="currentStreak">Núverandi döngun: %s</string>
+  <string name="winningStreak">Sigurhrina</string>
+  <string name="losingStreak">Taphrina</string>
+  <string name="longestStreak">Lengsta hrina: %s</string>
+  <string name="currentStreak">Núverandi hrina: %s</string>
   <string name="bestRated">Bestu sigrar eftir skákstigum</string>
   <string name="gamesInARow">Skákir tefldar í röð</string>
   <string name="lessThanOneHour">Minna en ein klukkustund á milli skáka</string>

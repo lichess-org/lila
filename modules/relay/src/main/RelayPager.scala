@@ -15,7 +15,7 @@ final class RelayPager(
 )(using Executor):
 
   import BSONHandlers.given
-  import RelayTourRepo.{ selectors, readToursWithRound }
+  import RelayTourRepo.{ selectors, readToursWithRoundAndGroup, unsetHeavyOptionalFields }
 
   private val maxPerPage = MaxPerPage(24)
 
@@ -29,7 +29,7 @@ final class RelayPager(
             .aggregateList(length, _.sec): framework =>
               import framework.*
               Match(selectors.ownerId(owner.id) ++ isMe.not.so(selectors.vis.public)) -> {
-                List(Sort(Descending("createdAt"))) :::
+                List(Project(unsetHeavyOptionalFields), Sort(Descending("createdAt"))) :::
                   tourRepo.aggregateRound(colls, framework, onlyKeepGroupFirst = false) :::
                   List(Skip(offset), Limit(length))
               }
@@ -41,19 +41,19 @@ final class RelayPager(
 
   def allPrivate(page: Int): Fu[Paginator[RelayTour | WithLastRound]] = Paginator(
     adapter = new:
-      def nbResults: Fu[Int]                                       = fuccess(9999)
+      def nbResults: Fu[Int] = fuccess(9999)
       def slice(offset: Int, length: Int): Fu[List[WithLastRound]] =
         tourRepo.coll
           .aggregateList(length, _.sec): framework =>
             import framework.*
             Match(selectors.officialNotPublic) -> {
-              List(Sort(Descending("createdAt"))) ::: tourRepo
+              List(Project(unsetHeavyOptionalFields), Sort(Descending("createdAt"))) ::: tourRepo
                 .aggregateRoundAndUnwind(colls, framework) ::: List(
                 Skip(offset),
                 Limit(length)
               )
             }
-          .map(readToursWithRound(RelayTour.WithLastRound.apply))
+          .map(readToursWithRoundAndGroup(RelayTour.WithLastRound.apply))
     ,
     currentPage = page,
     maxPerPage = maxPerPage
@@ -61,19 +61,19 @@ final class RelayPager(
 
   def subscribedBy(userId: UserId, page: Int): Fu[Paginator[RelayTour | WithLastRound]] = Paginator(
     adapter = new:
-      def nbResults: Fu[Int]                                       = tourRepo.countBySubscriberId(userId)
+      def nbResults: Fu[Int] = tourRepo.countBySubscriberId(userId)
       def slice(offset: Int, length: Int): Fu[List[WithLastRound]] =
         tourRepo.coll
           .aggregateList(length, _.sec): framework =>
             import framework.*
             Match(selectors.subscriberId(userId)) -> {
-              List(Sort(Descending("createdAt"))) ::: tourRepo
+              List(Project(unsetHeavyOptionalFields), Sort(Descending("createdAt"))) ::: tourRepo
                 .aggregateRoundAndUnwind(colls, framework) ::: List(
                 Skip(offset),
                 Limit(length)
               )
             }
-          .map(readToursWithRound(RelayTour.WithLastRound.apply))
+          .map(readToursWithRoundAndGroup(RelayTour.WithLastRound.apply))
     ,
     currentPage = page,
     maxPerPage = maxPerPage
@@ -86,15 +86,11 @@ final class RelayPager(
         .aggregateList(length, _.sec): framework =>
           import framework.*
           Match(selectors.officialInactive) -> {
-            List(Sort(Descending("syncedAt"))) ::: tourRepo.aggregateRoundAndUnwind(
-              colls,
-              framework
-            ) ::: List(
-              Skip(offset),
-              Limit(length)
-            )
+            List(Project(unsetHeavyOptionalFields), Sort(Descending("syncedAt"))) :::
+              tourRepo.aggregateRoundAndUnwind(colls, framework) :::
+              List(Skip(offset), Limit(length))
           }
-        .map(readToursWithRound(RelayTour.WithLastRound.apply))
+        .map(readToursWithRoundAndGroup(RelayTour.WithLastRound.apply))
 
     private val firstPageCache = cacheApi.unit[List[WithLastRound]]:
       _.refreshAfterWrite(3.seconds).buildAsyncFuture: _ =>
@@ -103,7 +99,7 @@ final class RelayPager(
     def apply(page: Int): Fu[Paginator[WithLastRound]] =
       Paginator(
         adapter = new:
-          def nbResults: Fu[Int]                                       = fuccess(9999)
+          def nbResults: Fu[Int] = fuccess(9999)
           def slice(offset: Int, length: Int): Fu[List[WithLastRound]] =
             if offset == 0 then firstPageCache.get({})
             else inactive.slice(offset, length)
@@ -123,7 +119,7 @@ final class RelayPager(
     val textSelector = $text(exactQuery) ++ selectors.officialPublic
 
     // Special case of querying so that users can filter broadcasts by year
-    val yearOpt  = """\b(20)\d{2}\b""".r.findFirstIn(query)
+    val yearOpt = """\b(20)\d{2}\b""".r.findFirstIn(query)
     val selector = yearOpt.foldLeft(textSelector): (sel, year) =>
       sel ++ "name".$regex(s"\\b$year\\b")
 
@@ -134,7 +130,7 @@ final class RelayPager(
       addFields = $doc(
         "searchDate" -> $doc(
           "$add" -> $arr(
-            $doc("$ifNull"   -> $arr("$syncedAt", "$createdAt")),
+            $doc("$ifNull" -> $arr("$syncedAt", "$createdAt")),
             $doc("$multiply" -> $arr($doc("$add" -> $arr("$tier", -RelayTour.Tier.normal.v)), 60 * day)),
             $doc("$multiply" -> $arr($doc("$meta" -> "textScore"), 30 * day))
           )
@@ -160,26 +156,27 @@ final class RelayPager(
   ): Fu[Paginator[WithLastRound]] =
     Paginator(
       adapter = new:
-        def nbResults: Fu[Int]                                       = tourRepo.coll.countSel(selector)
+        def nbResults: Fu[Int] = tourRepo.coll.countSel(selector)
         def slice(offset: Int, length: Int): Fu[List[WithLastRound]] =
           tourRepo.coll
             .aggregateList(length, _.sec): framework =>
               import framework.*
               Match(selector) -> {
-                addFields.map(AddFields(_)).toList :::
+                List(Project(unsetHeavyOptionalFields)) :::
+                  addFields.map(AddFields(_)).toList :::
                   List(Sort(sortFields.map(Descending(_))*)) :::
                   tourRepo.aggregateRoundAndUnwind(colls, framework, onlyKeepGroupFirst) :::
                   List(Skip(offset), Limit(length))
               }
-            .map(readToursWithRound(RelayTour.WithLastRound.apply))
+            .map(readToursWithRoundAndGroup(RelayTour.WithLastRound.apply))
       ,
       currentPage = page,
       maxPerPage = maxPerPage
     )
 
   private def readTours(docs: List[Bdoc]): List[RelayTour | WithLastRound] = for
-    doc    <- docs
-    tour   <- doc.asOpt[RelayTour]
+    doc <- docs
+    tour <- doc.asOpt[RelayTour]
     rounds <- doc.getAsOpt[List[RelayRound]]("round")
     round = rounds.headOption
     group = RelayTourRepo.group.readFrom(doc)

@@ -7,8 +7,8 @@ import lila.db.ByteArray
 
 class BinaryUnmovedRooksTest extends munit.FunSuite:
 
-  val _0_                                    = "00000000"
-  val _1_                                    = "11111111"
+  val _0_ = "00000000"
+  val _1_ = "11111111"
   def write(all: UnmovedRooks): List[String] =
     (BinaryFormat.unmovedRooks.write(all)).showBytes.split(',').toList
   def read(bytes: List[String]): UnmovedRooks =

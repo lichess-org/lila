@@ -38,7 +38,7 @@ final class Env(
   private lazy val autoAnalysis = wire[AutoAnalysis]
 
   private given UserIdOf[Report.SnoozeKey] = _.snoozerId
-  private lazy val snoozer                 = new lila.memo.Snoozer[Report.SnoozeKey](cacheApi)
+  private lazy val snoozer = new lila.memo.Snoozer[Report.SnoozeKey](cacheApi)
 
   lazy val api = wire[ReportApi]
 

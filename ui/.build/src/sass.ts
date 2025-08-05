@@ -9,7 +9,7 @@ import { c, env, errorMark, trimLines } from './env.ts';
 import { hashedBasename, symlinkTargetHashes } from './hash.ts';
 import { updateManifest } from './manifest.ts';
 import { glob, readable } from './parse.ts';
-import { task } from './task.ts';
+import { makeTask, runTask } from './task.ts';
 
 const importMap = new Map<string, Set<string>>();
 const colorMixMap = new Map<string, { c1: string; c2?: string; op: string; val: number }>();
@@ -35,15 +35,26 @@ export async function sass(): Promise<any> {
     fs.promises.mkdir(join(env.buildTempDir, 'css')),
   ]);
 
-  let remaining: Set<string>;
+  let remaining: Set<string> | undefined;
 
-  return task({
+  makeTask({
+    // this one just tickles the main sass task when scss variable mappings change
+    includes: { cwd: env.themeGenDir, path: '_wrap.scss' },
+    debounce: 500,
+    monitorOnly: true,
+    execute: () => {
+      remaining = undefined;
+      return runTask('sass');
+    },
+  });
+  return makeTask({
     ctx: 'sass',
+    key: 'sass',
     includes: [
       { cwd: env.uiDir, path: '*/css/**/*.scss' },
       { cwd: env.hashOutDir, path: '*' },
     ],
-    excludes: '**/gen/**',
+    excludes: '**/gen/**.scss',
     debounce: 300,
     root: env.rootDir,
     execute: async (modified, fullList) => {
@@ -52,30 +63,26 @@ export async function sass(): Promise<any> {
       const urlTargetTouched = await sourcesWithUrls(modified.filter(isUrlTarget));
       const transitiveTouched = [...partialTouched, ...urlTargetTouched].flatMap(p => [...dependsOn(p)]);
       const concreteTouched = [...new Set([...transitiveTouched, ...modified])].filter(isConcrete);
-
+      const themesTouched = partialTouched.some(src => src.startsWith('ui/lib/css/theme/_theme.'));
       remaining = remaining
         ? new Set([...remaining, ...concreteTouched].filter(x => concreteAll.has(x)))
         : concreteAll;
+      if (themesTouched) await parseThemeColorDefs();
 
-      if (partialTouched.some(src => src.startsWith('ui/lib/css/theme/_'))) {
-        await parseThemeColorDefs();
-      }
-
-      const oldMixes = Object.fromEntries(colorMixMap);
+      const oldMixes = Object.fromEntries(colorMixMap); // no clone needed, we don't modify color objects
       const processed = new Set<string>();
       await Promise.all(concreteTouched.map(src => parseScss(src, processed)));
 
-      if (!isEquivalent(oldMixes, Object.fromEntries(colorMixMap))) {
+      if (themesTouched || !isEquivalent(oldMixes, Object.fromEntries(colorMixMap))) {
         await buildColorMixes();
         await buildColorWrap();
         for (const src of await glob('lib.theme.*.scss', { cwd: 'ui/lib/css/build' }))
-          remaining.add(relative(env.rootDir, src)); // TODO test me
+          remaining.add(relative(env.rootDir, src));
       }
       const buildSources = [...remaining];
       remaining = new Set(await compile(buildSources, remaining.size < concreteAll.size));
 
-      if (remaining.size) return;
-
+      if (remaining.size) throw `in ${[...remaining].map(s => `'${c.cyan(s)}'`).join(', ')}`;
       const replacements = urlReplacements();
       updateManifest({
         css: Object.fromEntries(
@@ -116,8 +123,8 @@ async function compile(sources: string[], logAll = true): Promise<string[]> {
       sassPs = undefined;
       if (code === 0) resolveWithErrors([]);
       else
-        Promise.all(sources.filter(scss => !readable(absTempCss(scss))))
-          .then(resolveWithErrors)
+        Promise.all(sources.map(async s => ({ s, exists: await readable(absTempCss(s)) })))
+          .then(srcExists => resolveWithErrors(srcExists.filter(({ exists }) => !exists).map(({ s }) => s)))
           .catch(() => resolveWithErrors(sources));
     });
   });
@@ -176,32 +183,21 @@ async function parseThemeColorDefs() {
     }
     return colorMap;
   }
-  const themes: string[] = ['dark'];
 
-  const defaultThemeColors = await loadThemeColors(join(env.themeDir, '_default.scss'));
+  const defaultThemeColors = await loadThemeColors(join(env.themeDir, '_theme.default.scss'));
   themeColorMap.set('default', defaultThemeColors);
 
   const themeFiles = await glob(join(env.themeDir, '_*.scss'), { absolute: false });
   for (const themeFile of themeFiles ?? []) {
-    const theme = /_([^/]+)\.scss/.exec(themeFile)?.[1];
-    if (!theme) {
-      env.log(`${errorMark} Invalid theme filename '${c.cyan(themeFile)}'`, 'sass');
-      continue;
-    }
-    if (theme === 'default') {
-      continue;
-    }
+    const theme = /_theme\.([^/]+)\.scss/.exec(themeFile)?.[1];
+    if (!theme || theme === 'default') continue;
 
-    themes.push(theme);
-    themeColorMap.set(theme, await loadThemeColors(themeFile));
-  }
-
-  for (const theme of themes) {
-    const colorDefMap = themeColorMap.get(theme) ?? new Map<string, clr.Instance>();
+    const colorDefMap = await loadThemeColors(themeFile);
 
     for (const [color, colorVal] of defaultThemeColors) {
       if (!colorDefMap.has(color)) colorDefMap.set(color, colorVal.clone());
     }
+    themeColorMap.set(theme, colorDefMap);
   }
 }
 
@@ -241,6 +237,7 @@ async function buildColorWrap() {
   for (const color of colorMixMap.keys()) cssVars.add(`m-${color}`);
 
   for (const file of await glob(join(env.themeDir, '_*.scss'))) {
+    if (!file.includes('theme.')) continue;
     for (const line of (await fs.promises.readFile(file, 'utf8')).split('\n')) {
       if (line.indexOf('--') === -1) continue;
       const commentIndex = line.indexOf('//');
@@ -258,9 +255,9 @@ async function buildColorWrap() {
   const wrapFile = join(env.themeDir, 'gen', '_wrap.scss');
   await fs.promises.mkdir(dirname(wrapFile), { recursive: true });
   if (await readable(wrapFile)) {
-    if ((await fs.promises.readFile(wrapFile, 'utf8')) === scssWrap) return; // don't touch wrap if no changes
+    if ((await fs.promises.readFile(wrapFile, 'utf8')) === scssWrap) return; // dont touch wrap if same
   }
-  await fs.promises.writeFile(wrapFile, scssWrap);
+  return fs.promises.writeFile(wrapFile, scssWrap);
 }
 
 function parseColor(colorMix: string) {

@@ -33,9 +33,9 @@ final class RelayPush(
   private def push(rt: RelayRound.WithTour, pgn: PgnStr): Fu[Results] =
     cantHaveUpstream(rt.round) match
       case Some(failure) => fuccess(List(Left(failure)))
-      case None          =>
-        val parsed                                   = pgnToGames(pgn, rt.tour.info.clock)
-        val games                                    = parsed.collect { case Right(g) => g }.toVector
+      case None =>
+        val parsed = pgnToGames(pgn, rt.tour.info.clock)
+        val games = parsed.collect { case Right(g) => g }.toVector
         val response: List[Either[Failure, Success]] =
           parsed.map(_.map(g => Success(g.tags, g.root.mainline.size)))
 
@@ -50,7 +50,7 @@ final class RelayPush(
               fuccess(response)
 
   private def monitor(rt: RelayRound.WithTour)(results: Results)(using me: Me, req: RequestHeader): Unit =
-    val ua     = HTTPRequest.userAgent(req)
+    val ua = HTTPRequest.userAgent(req)
     val client = ua
       .filter(_.value.startsWith("Lichess Broadcaster"))
       .flatMap(_.value.split("as:").headOption)
@@ -64,10 +64,10 @@ final class RelayPush(
   private def push(prev: RelayRound.WithTour, rawGames: Vector[RelayGame]) =
     workQueue(prev.round.id):
       for
-        rt          <- api.byIdWithTour(prev.round.id).orFail(s"Relay $prev no longer available")
-        _           <- cantHaveUpstream(rt.round).so(fail => fufail[Unit](fail.error))
+        rt <- api.byIdWithTour(prev.round.id).orFail(s"Relay $prev no longer available")
+        _ <- cantHaveUpstream(rt.round).so(fail => fufail[Unit](fail.error))
         withPlayers <- playerEnrich.enrichAndReportAmbiguous(rt)(rawGames)
-        withFide    <- fidePlayers.enrichGames(rt.tour)(withPlayers)
+        withFide <- fidePlayers.enrichGames(rt.tour)(withPlayers)
         games = rt.tour.teams.fold(withFide)(_.update(withFide))
         event <- sync
           .updateStudyChapters(rt, games)
@@ -80,8 +80,8 @@ final class RelayPush(
         allGamesFinished <- (games.nonEmpty && games.forall(_.points.isDefined)).so:
           chapterPreview.dataList(rt.round.studyId).map(_.forall(_.finished))
         round <- api.update(rt.round): r1 =>
-          val r2         = r1.withSync(_.addLog(event))
-          val r3         = if event.hasMoves then r2.ensureStarted.resume(rt.tour.official) else r2
+          val r2 = r1.withSync(_.addLog(event))
+          val r3 = if event.hasMoves then r2.ensureStarted.resume(rt.tour.official) else r2
           val finishedAt = allGamesFinished.option(r3.finishedAt.|(nowInstant))
           r3.copy(finishedAt = finishedAt)
         _ <- games.nonEmpty.so(api.syncTargetsOfSource(round))

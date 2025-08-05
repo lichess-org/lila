@@ -35,7 +35,7 @@ final class Env(
 
   def vapidPublicKey = config.web.vapidPublicKey
 
-  private val deviceApi  = DeviceApi(db(config.deviceColl))
+  private val deviceApi = DeviceApi(db(config.deviceColl))
   val webSubscriptionApi = WebSubscriptionApi(db(config.subscriptionColl))
 
   export deviceApi.{ register as registerDevice, unregister as unregisterDevices }
@@ -72,13 +72,11 @@ final class Env(
     case lila.core.challenge.PositiveEvent.Accept(c, joinerId) =>
       logUnit { pushApi.challengeAccept(c, joinerId) }
 
-  Bus.sub[lila.core.game.CorresAlarmEvent]:
-    case lila.core.game.CorresAlarmEvent(userId, pov: Pov, opponent) =>
-      logUnit { pushApi.corresAlarm(pov) }
+  Bus.sub[lila.core.game.CorresAlarmEvent]: e =>
+    logUnit { pushApi.corresAlarm(e.pov) }
 
-  Bus.sub[lila.core.notify.PushNotification]:
-    case lila.core.notify.PushNotification(to, content, _) =>
-      logUnit { pushApi.notifyPush(to, content) }
+  Bus.sub[lila.core.notify.PushNotification]: n =>
+    logUnit { pushApi.notifyPush(n.to, n.content) }
 
   Bus.sub[lila.core.misc.push.TourSoon]: t =>
     logUnit { pushApi.tourSoon(t) }

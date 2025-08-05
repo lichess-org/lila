@@ -14,11 +14,11 @@ object StormBsonHandlers:
 
   given puzzleReader: BSONDocumentReader[StormPuzzle] with
     def readDocument(r: BSONDocument) = for
-      id      <- r.getAsTry[PuzzleId]("_id")
-      fen     <- r.getAsTry[Fen.Full]("fen")
+      id <- r.getAsTry[PuzzleId]("_id")
+      fen <- r.getAsTry[Fen.Full]("fen")
       lineStr <- r.getAsTry[String]("line")
-      line    <- lineStr.split(' ').toList.flatMap(Uci.Move.apply).toNel.toTry("Empty move list?!")
-      rating  <- r.getAsTry[IntRating]("rating")
+      line <- lineStr.split(' ').toList.flatMap(Uci.Move.apply).toNel.toTry("Empty move list?!")
+      rating <- r.getAsTry[IntRating]("rating")
     yield StormPuzzle(id, fen, line, rating)
 
   given BSONHandler[StormDay.Id] =

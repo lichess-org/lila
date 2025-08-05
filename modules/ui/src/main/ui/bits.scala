@@ -23,9 +23,9 @@ object bits:
   def mselect(id: String, current: Frag, items: Seq[Tag]) =
     div(cls := "mselect")(
       input(
-        tpe          := "checkbox",
-        cls          := "mselect__toggle fullscreen-toggle",
-        st.id        := s"mselect-$id",
+        tpe := "checkbox",
+        cls := "mselect__toggle fullscreen-toggle",
+        st.id := s"mselect-$id",
         autocomplete := "off"
       ),
       label(`for` := s"mselect-$id", cls := "mselect__label")(current),
@@ -42,19 +42,19 @@ object bits:
       url: (Int, Int) => play.api.mvc.Call
   )(at: YearMonth)(using Lang) =
     import helpers.showMonth
-    val prefix                        = s"calendar-mselect"
-    def prefixed(suffix: String)      = s"${prefix}$suffix"
+    val prefix = s"calendar-mselect"
+    def prefixed(suffix: String) = s"${prefix}$suffix"
     def nonEmptyDate(date: YearMonth) =
       val ok = date.isAfter(firstMonth.minusMonths(1)) && date.isBefore(YearMonth.now.plusMonths(1))
       Option.when(ok)(date)
-    val prev                 = nonEmptyDate(at.minusMonths(1))
-    val next                 = nonEmptyDate(at.plusMonths(1))
+    val prev = nonEmptyDate(at.minusMonths(1))
+    val next = nonEmptyDate(at.plusMonths(1))
     def urlOf(ym: YearMonth) = url(ym.getYear, ym.getMonthValue)
     div(cls := s"$prefix $prefix--$id")(
       a(
-        href     := prev.map(urlOf),
+        href := prev.map(urlOf),
         dataIcon := Icon.LessThan,
-        cls      := List("disabled" -> prev.isEmpty)
+        cls := List("disabled" -> prev.isEmpty)
       ),
       div(cls := prefixed("__selects"))(
         mselect(
@@ -62,7 +62,7 @@ object bits:
           span(at.getYear),
           allYears.map: y =>
             a(
-              cls  := (y == at.getYear).option("current"),
+              cls := (y == at.getYear).option("current"),
               href := url(y, at.getMonthValue)
             )(y)
         ),
@@ -71,15 +71,15 @@ object bits:
           span(showMonth(at.getMonth)),
           java.time.Month.values.toIndexedSeq.map: m =>
             a(
-              cls  := (m == at.getMonth).option("current"),
+              cls := (m == at.getMonth).option("current"),
               href := url(at.getYear, m.getValue)
             )(showMonth(m))
         )
       ),
       a(
-        href     := next.map(urlOf),
+        href := next.map(urlOf),
         dataIcon := Icon.GreaterThan,
-        cls      := List("disabled" -> next.isEmpty)
+        cls := List("disabled" -> next.isEmpty)
       )
     )
 
@@ -100,22 +100,22 @@ object bits:
     div(cls := "tab-list", role := "tablist")(
       tabs.map: (id, name, _) =>
         button(
-          st.id            := s"$prefix-tab-$id",
+          st.id := s"$prefix-tab-$id",
           aria("controls") := s"$prefix-panel-$id",
-          role             := "tab",
-          cls              := "tab-list__tab",
+          role := "tab",
+          cls := "tab-list__tab",
           aria("selected") := (selected == id).option("true"),
-          tabindex         := 0
+          tabindex := 0
         )(name)
     ),
     div(cls := "panel-list")(
       tabs.map: (id, _, content) =>
         div(
-          st.id              := s"$prefix-panel-$id",
+          st.id := s"$prefix-panel-$id",
           aria("labelledby") := s"$prefix-tab-$id",
-          role               := "tabpanel",
-          cls                := List("panel-list__panel" -> true, "none" -> (selected != id)),
-          tabindex           := 0
+          role := "tabpanel",
+          cls := List("panel-list__panel" -> true, "none" -> (selected != id)),
+          tabindex := 0
         )(content)
     )
   )

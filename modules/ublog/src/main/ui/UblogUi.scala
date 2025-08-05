@@ -15,16 +15,16 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
 
   def thumbnail(post: UblogPost.BasePost, size: UblogPost.thumbnail.SizeSelector) =
     img(
-      cls     := "ublog-post-image",
-      widthA  := size(UblogPost.thumbnail).width,
+      cls := "ublog-post-image",
+      widthA := size(UblogPost.thumbnail).width,
       heightA := size(UblogPost.thumbnail).height,
-      alt     := post.image.flatMap(_.alt)
+      alt := post.image.flatMap(_.alt)
     )(src := thumbnailUrl(post, size))
 
   def thumbnailUrl(post: UblogPost.BasePost, size: UblogPost.thumbnail.SizeSelector) =
     post.image match
       case Some(image) => UblogPost.thumbnail(picfitUrl, image.id, size)
-      case _           => assetUrl("images/user-blog-default.png")
+      case _ => assetUrl("images/user-blog-default.png")
 
   enum ShowAt:
     case top, bottom, none
@@ -37,7 +37,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
       strictDate: Boolean = true
   )(using Context) =
     a(
-      cls  := s"ublog-post-card ublog-post-card--link ublog-post-card--by-${post.created.by}",
+      cls := s"ublog-post-card ublog-post-card--link ublog-post-card--by-${post.created.by}",
       href := makeUrl(post)
     )(
       span(cls := "ublog-post-card__top")(
@@ -72,10 +72,10 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
   def editUrlOfPost(post: UblogPost.BasePost) = routes.Ublog.edit(post.id)
 
   def newPostLink(user: User)(using Context) = a(
-    href     := routes.Ublog.form(user.username),
-    cls      := "button button-green",
+    href := routes.Ublog.form(user.username),
+    cls := "button button-green",
     dataIcon := Icon.PlusButton,
-    title    := trans.ublog.newPost.txt()
+    title := trans.ublog.newPost.txt()
   )
 
   def blogPage(user: User, blog: UblogBlog, posts: Paginator[UblogPost.PreviewPost])(using ctx: Context) =
@@ -91,7 +91,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
             boxTop(
               h1(trans.ublog.xBlog(userLink(user, withFlair = false))),
               div(cls := "box__top__actions")(
-                blog.allows.moderate.option(tierForm(blog)),
+                blog.allows.moderate.option(modForm(blog)),
                 blog.allows.draft.option(
                   frag(
                     a(href := routes.Ublog.drafts(user.username))(trans.ublog.drafts()),
@@ -126,7 +126,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
       .js(posts.hasNextPage.option(infiniteScrollEsmInit))
       .copy(
         atomLinkTag = link(
-          href     := routes.Ublog.communityAtom(languageOrAll),
+          href := routes.Ublog.communityAtom(languageOrAll),
           st.title := "Lichess community blogs"
         ).some
       )
@@ -356,30 +356,30 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
         )
       )
 
-  def urlOfBlog(blog: UblogBlog): Call      = urlOfBlog(blog.id)
+  def urlOfBlog(blog: UblogBlog): Call = urlOfBlog(blog.id)
   def urlOfBlog(blogId: UblogBlog.Id): Call = blogId match
     case UblogBlog.Id.User(userId) => routes.Ublog.index(usernameOrId(userId))
 
   def menu(active: Either[UserId, String])(using ctx: Context) =
-    def isRight(s: String)  = active.fold(_ => false, _ == s)
+    def isRight(s: String) = active.fold(_ => false, _ == s)
     def isActive(s: String) = isRight(s).option("active")
-    val lichess             = active.left.toOption.has(UserId.lichess)
+    val lichess = active.left.toOption.has(UserId.lichess)
     val community = active == Right("community") || (active.left.toOption.exists(ctx.isnt) && !lichess)
-    val mine      = active.left.toOption.exists(ctx.is)
+    val mine = active.left.toOption.exists(ctx.is)
     lila.ui.bits.pageMenuSubnav(
       cls := "force-ltr",
       ctx.kid.no.option(
         frag(
           a(
-            cls  := community.option("active"),
+            cls := community.option("active"),
             href := langHref(routes.Ublog.communityAll())
           )(trans.ublog.community()),
           a(
-            cls  := isActive("search"),
+            cls := isActive("search"),
             href := langHref(routes.Ublog.search())
           )("Search"),
           a(
-            cls  := isActive("by-month"),
+            cls := isActive("by-month"),
             href := langHref(routes.Ublog.thisMonth())
           )(trans.ublog.byMonth()),
           a(cls := isActive("topics"), href := routes.Ublog.topics)(
@@ -399,7 +399,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
           ctx.me.map: me =>
             frag(
               a(
-                cls  := isActive("friends"),
+                cls := isActive("friends"),
                 href := routes.Ublog.friends()
               )(trans.ublog.myFriends()),
               a(cls := mine.option("active"), href := routes.Ublog.index(me.username))(trans.ublog.myBlog())
@@ -444,8 +444,8 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
       route: (QualityFilter, BlogsBy) => Call
   )(using Context) =
     import BlogsBy.*
-    val sort      = sortOpt | newest
-    val filter    = filterOpt | QualityFilter.best
+    val sort = sortOpt | newest
+    val filter = filterOpt | QualityFilter.best
     val filterBtn = (f: QualityFilter) => a(btnCls(filter == f), href := route(f, sort))(f.name)
     div(cls := "filter-and-sort")(
       filterOpt.isDefined.option(
@@ -474,11 +474,18 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
   private def btnCls(active: Boolean, other: String = ""): Modifier =
     cls := s"btn-rack__btn $other" + (if active then " lit" else "")
 
-  private def tierForm(blog: UblogBlog) = postForm(action := routes.Ublog.setTier(blog.id.full)):
-    val form = lila.ublog.UblogForm.tier.fill(blog.tier)
-    frag(
-      span(dataIcon := Icon.Agent, cls := "text")("Set to:"),
-      form3.select(form("tier"), lila.ublog.UblogBlog.Tier.options)
+  private def modForm(blog: UblogBlog) =
+    val colorCls = if blog.modNote.isDefined then "button-red" else "button-dim"
+    val form = lila.ublog.UblogForm.modBlogForm.fill(blog.tier, blog.modNote.getOrElse(""))
+    val options = lila.ublog.UblogBlog.Tier.options.map((t, n) => (t, s"$n tier")).toList
+    postForm(cls := s"ublog-mod-blog-form", action := routes.Ublog.modBlog(blog.id.full))(
+      button(
+        cls := s"ublog-mod-note-btn button button-empty $colorCls",
+        dataIcon := Icon.Pencil,
+        title := "Edit this blog's moderation note"
+      ),
+      form3.hidden(form("note"), blog.modNote),
+      form3.select(form("tier"), options)
     )
 
   object atom:
@@ -512,8 +519,8 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
         tag("published")(post.lived.map(_.at).map(atomUi.atomDate)),
         tag("updated")(post.updated.orElse(post.lived).map(_.at).map(atomUi.atomDate)),
         link(
-          rel  := "alternate",
-          tpe  := "text/html",
+          rel := "alternate",
+          tpe := "text/html",
           href := s"$netBaseUrl${urlOfPost(post)}"
         ),
         tag("title")(post.title),

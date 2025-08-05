@@ -15,7 +15,7 @@ final private class UblogConfig(
     val carouselSize: Int,
     val automod: AutomodConfig
 )
-final private class AutomodConfig(val url: String, val apiKey: Secret, val model: String)
+final private class AutomodConfig(val url: String, val apiKey: Secret)
 
 @Module
 final class Env(
@@ -39,7 +39,7 @@ final class Env(
   export net.{ assetBaseUrl, baseUrl, domain, assetDomain }
 
   private given ConfigLoader[AutomodConfig] = AutoConfig.loader[AutomodConfig]
-  private val config                        = appConfig.get[UblogConfig]("ublog")(using AutoConfig.loader)
+  private val config = appConfig.get[UblogConfig]("ublog")(using AutoConfig.loader)
   private val colls = UblogColls(db(CollName("ublog_blog")), db(CollName("ublog_post")))
 
   val topic = wire[UblogTopicApi]

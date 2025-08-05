@@ -66,8 +66,8 @@ final private class Titivate(
         Right.apply
       )
 
-  private val unplayedHours     = 24
-  private def unplayedDate      = nowInstant.minusHours(unplayedHours)
+  private val unplayedHours = 24
+  private def unplayedDate = nowInstant.minusHours(unplayedHours)
   private def unplayed(g: Game) = !g.bothPlayersHaveMoved && (g.createdAt.isBefore(unplayedDate))
 
   private val gameFlow: Flow[GameOrFail, Unit, ?] = Flow[GameOrFail].mapAsyncUnordered(8):
@@ -85,7 +85,7 @@ final private class Titivate(
 
         case game if game.outoftime(withGrace = true) =>
           fuccess:
-            roundApi.tell(game.id, RoundBus.QuietFlag)
+            roundApi.tell(game.id, RoundBus.QuietFlagCheck)
 
         case game if game.abandoned =>
           fuccess:

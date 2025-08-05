@@ -24,17 +24,17 @@ object UblogTopic extends OpaqueString[UblogTopic]:
     "Tournament",
     "Chess variant"
   )
-  val offTopic: UblogTopic  = "Off topic"
+  val offTopic: UblogTopic = "Off topic"
   val all: List[UblogTopic] = chess ::: List(
     "Software Development",
     "Lichess",
     offTopic
   )
-  val exists: Set[UblogTopic]                    = all.toSet
-  val chessExists: Set[UblogTopic]               = chess.toSet
-  def get(str: String): Option[UblogTopic]       = exists(str).option(UblogTopic(str))
+  val exists: Set[UblogTopic] = all.toSet
+  val chessExists: Set[UblogTopic] = chess.toSet
+  def get(str: String): Option[UblogTopic] = exists(str).option(UblogTopic(str))
   def fromStrList(str: String): List[UblogTopic] = str.split(',').toList.flatMap(get).distinct
-  def fromUrl(str: String): Option[UblogTopic]   = get(str.replace("_", " "))
+  def fromUrl(str: String): Option[UblogTopic] = get(str.replace("_", " "))
 
   case class WithPosts(topic: UblogTopic, posts: List[UblogPost.PreviewPost], nb: Int)
 
@@ -53,10 +53,10 @@ final class UblogTopicApi(colls: UblogColls, cacheApi: CacheApi)(using Executor)
               posts <- colls.post
                 .find(
                   $doc(
-                    "live"            -> true,
-                    "topics"          -> topic,
+                    "live" -> true,
+                    "topics" -> topic,
                     "automod.quality" -> $gte(Quality.good.ordinal),
-                    "likes"           -> $gt(50)
+                    "likes" -> $gt(50)
                   ),
                   previewPostProjection.some
                 )

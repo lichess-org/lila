@@ -48,7 +48,7 @@ private final class ConfigStore[A](coll: Coll, id: String, cacheApi: CacheApi, l
         "text" -> text.verifying(Constraint[String]("constraint.text_parsable") { t =>
           parse(t) match
             case Left(errs) => Invalid(ValidationError(errs.mkString(",")))
-            case _          => Valid
+            case _ => Valid
         })
       )
     )

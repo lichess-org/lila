@@ -129,7 +129,7 @@ object ServerEval:
     end saveAnalysis
 
     private def analysisLine(root: Node, variant: chess.variant.Variant, info: Info): Option[Branch] =
-      val setup           = chess.Position.AndFullMoveNumber(variant, root.fen)
+      val setup = chess.Position.AndFullMoveNumber(variant, root.fen)
       val (result, error) = setup.position
         .foldRight(info.variation.take(20), setup.ply)(
           none[Branch],
@@ -177,7 +177,7 @@ object ServerEval:
       then fuTrue
       else
         lila.common.Bus
-          .safeAsk[Int, GetRelayCrowd](GetRelayCrowd(studyId, _))
+          .ask[Int, GetRelayCrowd](GetRelayCrowd(studyId, _))
           .map(_ < 5000)
 
     def divisionOf(chapter: Chapter) =

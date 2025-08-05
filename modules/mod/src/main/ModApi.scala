@@ -48,9 +48,9 @@ final class ModApi(
 
   def autoMark(suspectId: SuspectId, note: String)(using MyId): Funit =
     for
-      sus       <- reportApi.getSuspect(suspectId.value).orFail(s"No such suspect $suspectId")
+      sus <- reportApi.getSuspect(suspectId.value).orFail(s"No such suspect $suspectId")
       unengined <- logApi.wasUnengined(sus)
-      _         <- (!sus.user.isBot && !sus.user.marks.engine && !unengined).so:
+      _ <- (!sus.user.isBot && !sus.user.marks.engine && !unengined).so:
         lila.mon.cheat.autoMark.increment()
         setEngine(sus, v = true) >>
           noteApi.lichessWrite(sus.user, note) >>
@@ -75,7 +75,7 @@ final class ModApi(
     then setIsolate(prev, value).flatMap(setTroll(_, value))
     else
       val changed = value != prev.user.marks.troll
-      val sus     = prev.set(_.withMarks(_.set(_.troll, value)))
+      val sus = prev.set(_.withMarks(_.set(_.troll, value)))
       for
         _ <- changed.so:
           for _ <- userRepo.updateTroll(sus.user)
@@ -96,7 +96,7 @@ final class ModApi(
     then setTroll(prev, value).flatMap(setIsolate(_, value))
     else
       val changed = value != prev.user.marks.isolate
-      val sus     = prev.set(_.withMarks(_.set(_.isolate, value)))
+      val sus = prev.set(_.withMarks(_.set(_.isolate, value)))
       for
         _ <- changed.so:
           for
@@ -110,8 +110,8 @@ final class ModApi(
     given MyId = UserId.lichessAsMe
     for
       sus <- reportApi.getSuspect(userId).orFail(s"No such suspect $userId")
-      _   <- setAlt(sus, v = true)
-      _   <- logApi.garbageCollect(sus)
+      _ <- setAlt(sus, v = true)
+      _ <- logApi.garbageCollect(sus)
     yield ()
 
   def disableTwoFactor(mod: ModId, username: UserStr): Funit =
@@ -130,7 +130,7 @@ final class ModApi(
     withUser(username): user =>
       for
         prev <- userRepo.isKid(user.id)
-        _    <- (v != prev).so(userRepo.setKid(user, v))
+        _ <- (v != prev).so(userRepo.setKid(user, v))
       yield if v != prev then logApi.setKidMode(mod, user.id, v)
 
   def setTitle(username: UserStr, title: Option[PlayerTitle])(using Me): Funit =

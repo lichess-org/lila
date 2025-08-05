@@ -37,9 +37,9 @@ final class Env(
     msgApi: lila.core.msg.MsgApi
 )(using Executor, Scheduler, lila.core.i18n.Translator, akka.stream.Materializer):
 
-  private lazy val logRepo        = ModlogRepo(db(CollName("modlog")))
+  private lazy val logRepo = ModlogRepo(db(CollName("modlog")))
   private lazy val assessmentRepo = AssessmentRepo(db(CollName("player_assessment")))
-  private lazy val historyRepo    = HistoryRepo(db(CollName("mod_gaming_history")))
+  private lazy val historyRepo = HistoryRepo(db(CollName("mod_gaming_history")))
   private lazy val queueStatsRepo = ModQueueStatsRepo(db(CollName("mod_queue_stat")))
 
   lazy val presets = wire[ModPresetsApi]
@@ -111,19 +111,17 @@ final class Env(
     case lila.core.mod.ChatTimeout(mod, user, reason, text) =>
       logApi.chatTimeout(user, reason, text)(using mod.into(MyId))
 
-  Bus.sub[lila.core.team.TeamUpdate]:
-    case t: lila.core.team.TeamUpdate if t.byMod =>
-      logApi.teamEdit(t.team.userId, t.team.name)(using t.me)
+  Bus.sub[lila.core.team.TeamUpdate]: t =>
+    if t.byMod then logApi.teamEdit(t.team.userId, t.team.name)(using t.me)
 
-  Bus.sub[lila.core.team.KickFromTeam]:
-    case t: lila.core.team.KickFromTeam =>
-      logApi.teamKick(t.userId, t.teamName)(using t.me)
+  Bus.sub[lila.core.team.KickFromTeam]: t =>
+    logApi.teamKick(t.userId, t.teamName)(using t.me)
 
-  Bus.sub[LoginWithWeakPassword]:
-    case LoginWithWeakPassword(userId) => logApi.loginWithWeakPassword(userId)
+  Bus.sub[LoginWithWeakPassword]: l =>
+    logApi.loginWithWeakPassword(l.userId)
 
-  Bus.sub[LoginWithBlankedPassword]:
-    case LoginWithBlankedPassword(userId) => logApi.loginWithBlankedPassword(userId)
+  Bus.sub[LoginWithBlankedPassword]: l =>
+    logApi.loginWithBlankedPassword(l.userId)
 
   Bus.sub[BusForum]:
     case p: BusForum.RemovePost =>
@@ -133,6 +131,5 @@ final class Env(
         logger.info:
           s"${p.me} deletes post ${p.id} by ${p.by.so(_.value)} \"${p.text.take(200)}\""
 
-  Bus.sub[BoardApiMark]:
-    case BoardApiMark(userId, name) =>
-      api.autoMark(SuspectId(userId), s"Board API: ${name}")(using UserId.lichessAsMe)
+  Bus.sub[BoardApiMark]: m =>
+    api.autoMark(SuspectId(m.userId), s"Board API: ${m.name}")(using UserId.lichessAsMe)

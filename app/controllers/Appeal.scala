@@ -10,7 +10,7 @@ import lila.report.Suspect
 
 final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends LilaController(env):
 
-  private def modForm  = AppealModel.modForm
+  private def modForm = AppealModel.modForm
   private def userForm = AppealModel.form
 
   def home = Auth { _ ?=> me ?=>
@@ -56,11 +56,11 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
   def queue(filterStr: Option[String] = None) = Secure(_.Appeals) { ctx ?=> me ?=>
     val filter = env.appeal.api.modFilter.fromQuery(filterStr)
     for
-      appeals           <- env.appeal.api.myQueue(filter)
-      inquiries         <- env.report.api.inquiries.allBySuspect
+      appeals <- env.appeal.api.myQueue(filter)
+      inquiries <- env.report.api.inquiries.allBySuspect
       (scores, pending) <- reportC.getScores
-      _                 <- env.user.lightUserApi.preloadMany(appeals.map(_.user.id))
-      markedByMap       <- env.mod.logApi.wereMarkedBy(appeals.map(_.user.id))
+      _ <- env.user.lightUserApi.preloadMany(appeals.map(_.user.id))
+      markedByMap <- env.mod.logApi.wereMarkedBy(appeals.map(_.user.id))
       page <- renderPage(views.appeal.queue(appeals, inquiries, filter, markedByMap, scores, pending))
     yield Ok(page)
   }
@@ -79,8 +79,8 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
             BadRequest.page(views.appeal.discussion.show(appeal, err, modData)),
         (text, process) =>
           for
-            _      <- env.mailer.automaticEmail.onAppealReply(suspect.user)
-            _      <- env.appeal.api.reply(text, appeal)
+            _ <- env.mailer.automaticEmail.onAppealReply(suspect.user)
+            _ <- env.appeal.api.reply(text, appeal)
             result <-
               if process then
                 env.report.api.inquiries
@@ -93,10 +93,10 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
 
   private def getModData(suspect: Suspect)(using Context)(using me: Me) =
     for
-      users      <- env.security.userLogins(suspect.user, 100)
-      logins     <- userC.loginsTableData(suspect.user, users, 100)
-      appeals    <- env.appeal.api.byUserIds(suspect.user.id :: logins.userLogins.otherUserIds)
-      inquiry    <- env.report.api.inquiries.ofSuspectId(suspect.user.id)
+      users <- env.security.userLogins(suspect.user, 100)
+      logins <- userC.loginsTableData(suspect.user, users, 100)
+      appeals <- env.appeal.api.byUserIds(suspect.user.id :: logins.userLogins.otherUserIds)
+      inquiry <- env.report.api.inquiries.ofSuspectId(suspect.user.id)
       markedByMe <- env.mod.logApi.wasMarkedBy(suspect.user.id)
     yield views.appeal.discussion.ModData(
       mod = me,

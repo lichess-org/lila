@@ -26,7 +26,7 @@ case class Forecast(_id: GameFullId, steps: Forecast.Steps, date: Instant):
   private def nextMove(g: Game, last: Move) =
     steps.collectFirstSome:
       case fst :: snd :: _ if g.ply == fst.ply && fst.is(last) => snd.uciMove
-      case _                                                   => none
+      case _ => none
 
 object Forecast:
 
@@ -42,12 +42,12 @@ object Forecast:
       check: Option[Boolean]
   ):
 
-    def is(move: Move)     = move.toUci.uci == uci
+    def is(move: Move) = move.toUci.uci == uci
     def is(move: Uci.Move) = move.uci == uci
 
     def uciMove = Uci.Move(uci)
 
-  given Format[Step]     = Json.format
+  given Format[Step] = Json.format
   given Writes[Forecast] = Json.writes
 
   case object OutOfSync extends lila.core.lilaism.LilaException:

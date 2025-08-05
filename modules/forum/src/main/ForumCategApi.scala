@@ -3,6 +3,7 @@ package lila.forum
 import scalalib.paginator.*
 
 import lila.db.dsl.{ *, given }
+import lila.core.id.ForumTopicSlug
 
 final class ForumCategApi(
     postRepo: ForumPostRepo,
@@ -28,7 +29,7 @@ final class ForumCategApi(
     )
     val topic = ForumTopic.make(
       categId = categ.id,
-      slug = s"$teamId-forum",
+      slug = ForumTopicSlug(s"$teamId-forum"),
       name = name + " forum",
       userId = author,
       troll = false
@@ -58,13 +59,13 @@ final class ForumCategApi(
 
   def denormalize(categ: ForumCateg): Funit =
     for
-      nbTopics      <- topicRepo.countByCateg(categ.id)
-      nbPosts       <- postRepo.countByCateg(categ)
-      lastPost      <- postRepo.lastByCateg(categ)
+      nbTopics <- topicRepo.countByCateg(categ.id)
+      nbPosts <- postRepo.countByCateg(categ)
+      lastPost <- postRepo.lastByCateg(categ)
       nbTopicsTroll <- topicRepo.unsafe.countByCateg(categ.id)
-      nbPostsTroll  <- postRepo.unsafe.countByCateg(categ)
+      nbPostsTroll <- postRepo.unsafe.countByCateg(categ)
       lastPostTroll <- postRepo.unsafe.lastByCateg(categ)
-      _             <-
+      _ <-
         categRepo.coll.update
           .one(
             $id(categ.id),

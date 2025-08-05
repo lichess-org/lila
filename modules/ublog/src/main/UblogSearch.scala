@@ -17,8 +17,8 @@ final class UblogSearch(client: SearchClient, config: UblogConfig)(using Executo
   private def toSearchSort(by: BlogsBy): SortBlogsBy = by match
     case BlogsBy.newest => SortBlogsBy.newest
     case BlogsBy.oldest => SortBlogsBy.oldest
-    case BlogsBy.score  => SortBlogsBy.score
-    case BlogsBy.likes  => SortBlogsBy.likes
+    case BlogsBy.score => SortBlogsBy.score
+    case BlogsBy.likes => SortBlogsBy.likes
 
   def search(query: Query.Ublog, from: From, size: Size): Fu[List[UblogPostId]] =
     client

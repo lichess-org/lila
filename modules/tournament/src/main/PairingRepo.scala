@@ -11,17 +11,17 @@ import BSONHandlers.given
 
 final class PairingRepo(coll: Coll)(using Executor, Materializer):
 
-  def selectTour(tourId: TourId)                             = $doc("tid" -> tourId)
-  def selectUser(userId: UserId)                             = $doc("u" -> userId)
+  def selectTour(tourId: TourId) = $doc("tid" -> tourId)
+  def selectUser(userId: UserId) = $doc("u" -> userId)
   private def selectTourUser(tourId: TourId, userId: UserId) =
     $doc(
       "tid" -> tourId,
-      "u"   -> userId
+      "u" -> userId
     )
-  private val selectPlaying  = $doc("s".$lt(chess.Status.Mate.id))
+  private val selectPlaying = $doc("s".$lt(chess.Status.Mate.id))
   private val selectFinished = $doc("s".$gte(chess.Status.Mate.id))
-  private val recentSort     = $doc("d" -> -1)
-  private val chronoSort     = $doc("d" -> 1)
+  private val recentSort = $doc("d" -> -1)
+  private val chronoSort = $doc("d" -> 1)
 
   def byId(id: GameId): Fu[Option[Pairing]] = coll.find($id(id)).one[Pairing]
 
@@ -45,8 +45,8 @@ final class PairingRepo(coll: Coll)(using Executor, Materializer):
           .mapConcat(_.getAsOpt[List[UserId]]("u").toList)
           .scan(Map.empty[UserId, UserId]):
             case (acc, List(u1, u2)) =>
-              val b1   = userIds.contains(u1)
-              val b2   = !b1 || userIds.contains(u2)
+              val b1 = userIds.contains(u1)
+              val b2 = !b1 || userIds.contains(u2)
               val acc1 = if !b1 || acc.contains(u1) then acc else acc.updated(u1, u2)
               if !b2 || acc.contains(u2) then acc1 else acc1.updated(u2, u1)
             case (acc, _) => acc
@@ -132,7 +132,7 @@ final class PairingRepo(coll: Coll)(using Executor, Materializer):
         for
           doc <- docs
           uid <- doc.getAsOpt[UserId]("_id")
-          nb  <- doc.int("nb")
+          nb <- doc.int("nb")
         yield (uid, nb)
       .map(_.toMap)
 
@@ -214,17 +214,17 @@ final class PairingRepo(coll: Coll)(using Executor, Materializer):
         Project(
           $doc(
             "_id" -> false,
-            "w"   -> true,
-            "t"   -> true,
-            "b1"  -> $doc("$cond" -> $arr("$b1", 1, 0)),
-            "b2"  -> $doc("$cond" -> $arr("$b2", 1, 0))
+            "w" -> true,
+            "t" -> true,
+            "b1" -> $doc("$cond" -> $arr("$b1", 1, 0)),
+            "b2" -> $doc("$cond" -> $arr("$b2", 1, 0))
           )
         ),
         GroupField("w")(
           "games" -> SumAll,
           "moves" -> SumField("t"),
-          "b1"    -> SumField("b1"),
-          "b2"    -> SumField("b2")
+          "b1" -> SumField("b1"),
+          "b2" -> SumField("b2")
         )
       )
 

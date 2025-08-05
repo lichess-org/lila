@@ -17,7 +17,7 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
 
   import BSONHandlers.{ writeBranch, given }
 
-  val $sortOrder     = $sort.asc("order")
+  val $sortOrder = $sort.asc("order")
   val $sortOrderDesc = $sort.desc("order")
 
   def byId(id: StudyChapterId): Fu[Option[Chapter]] = coll(_.byId[Chapter](id))
@@ -113,7 +113,7 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
       clock: Clock,
       denorm: Option[Chapter.BothClocks]
   ) =
-    val updateNode   = $doc(pathToField(path, F.clock) -> clock)
+    val updateNode = $doc(pathToField(path, F.clock) -> clock)
     val updateDenorm = denorm.map(clocks => $doc("denorm.clocks" -> clocks))
     coll:
       _.update
@@ -181,7 +181,7 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
     values.collect { case (field, Some(v)) =>
       pathToField(path, field) -> v
     } match
-      case Nil  => funit
+      case Nil => funit
       case sets =>
         coll:
           _.update
@@ -212,7 +212,7 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
           doc.getAsOpt[StudyId]("studyId").fold(hash) { studyId =>
             hash.get(studyId) match
               case Some(chapters) if chapters.sizeIs >= nbChaptersPerStudy => hash
-              case maybe                                                   =>
+              case maybe =>
                 val chapters = ~maybe
                 hash + (studyId -> chapterIdNameHandler.readOpt(doc).fold(chapters)(chapters :+ _))
           }
@@ -234,10 +234,10 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
           .listAll()
           .map: docs =>
             for
-              doc       <- docs
+              doc <- docs
               chapterId <- doc.getAsOpt[StudyChapterId]("_id")
-              studyId   <- doc.getAsOpt[StudyId]("studyId")
-              tags      <- doc.getAsOpt[Tags]("tags")
+              studyId <- doc.getAsOpt[StudyId]("studyId")
+              tags <- doc.getAsOpt[Tags]("tags")
             yield (studyId, chapterId, tags)
           .map:
             _.groupBy(_._1).view
@@ -276,6 +276,6 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
   def update(c: Chapter): Funit = coll(_.update.one($id(c.id), c.updateDenorm)).void
 
   def delete(id: StudyChapterId): Funit = coll(_.delete.one($id(id))).void
-  def delete(c: Chapter): Funit         = delete(c.id)
+  def delete(c: Chapter): Funit = delete(c.id)
 
   def $studyId(id: StudyId) = $doc("studyId" -> id)

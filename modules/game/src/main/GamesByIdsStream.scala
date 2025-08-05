@@ -16,7 +16,7 @@ final class GamesByIdsStream(gameRepo: lila.game.GameRepo)(using akka.stream.Mat
       )
       .mapMaterializedValue: queue =>
         var watchedIds = initialIds
-        val subStart   = Bus.sub[lila.core.game.StartGame]:
+        val subStart = Bus.sub[lila.core.game.StartGame]:
           case lila.core.game.StartGame(game) if watchedIds(game.id) => queue.offer(game)
         val subFinish = Bus.sub[lila.core.game.FinishGame]:
           case lila.core.game.FinishGame(game, _) if watchedIds(game.id) =>
@@ -41,6 +41,8 @@ final class GamesByIdsStream(gameRepo: lila.game.GameRepo)(using akka.stream.Mat
 
   def addGameIds(streamId: String, gameIds: Set[GameId]) =
     Bus.publishDyn(WatchGames(gameIds), streamChan(streamId))
+
+  def exists(streamId: String): Boolean = Bus.exists(streamChan(streamId))
 
   private case class WatchGames(ids: Set[GameId])
   private def streamChan(streamId: String) = s"gamesByIdsStream:$streamId"

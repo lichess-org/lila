@@ -43,8 +43,8 @@ final class RelationApi(
 
   def accountTermination(user: User): Fu[Set[UserId]] = for
     followedIds <- fetchFollowing(user.id)
-    _           <- repo.removeAllRelationsFrom(user.id)
-    _           <- removeAllFollowers(user.id)
+    _ <- repo.removeAllRelationsFrom(user.id)
+    _ <- removeAllFollowers(user.id)
   yield followedIds
 
   def fetchFriends(userId: UserId): Fu[Set[UserId]] =
@@ -55,7 +55,7 @@ final class RelationApi(
           Match(
             $doc(
               "$or" -> $arr($doc("u1" -> userId), $doc("u2" -> userId)),
-              "r"   -> Follow
+              "r" -> Follow
             )
           ),
           Group(BSONNull)(
@@ -89,8 +89,8 @@ final class RelationApi(
     unfollowInactiveAccountsOnceEvery(userId).so:
       for
         following <- fetchFollowing(userId)
-        inactive  <- userApi.filterClosedOrInactiveIds(since)(following)
-        _         <- inactive.nonEmpty.so:
+        inactive <- userApi.filterClosedOrInactiveIds(since)(following)
+        _ <- inactive.nonEmpty.so:
           countFollowingCache.update(userId, _ - inactive.size)
           repo.unfollowMany(userId, inactive)
       yield inactive
@@ -131,8 +131,8 @@ final class RelationApi(
       userApi.isEnabled(u2).flatMapz {
         fetchRelation(u1, u2).zip(fetchRelation(u2, u1)).flatMap {
           case (Some(Follow), _) => funit
-          case (_, Some(Block))  => funit
-          case _                 =>
+          case (_, Some(Block)) => funit
+          case _ =>
             for
               _ <- repo.follow(u1.id, u2)
               _ <- limitFollow(u1.id)

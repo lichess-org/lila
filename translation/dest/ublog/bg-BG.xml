@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="community">Общност</string>
+  <string name="byMonth">По месеци</string>
+  <string name="byTopic">По теми</string>
+  <string name="byLichess">От Lichess</string>
+  <string name="myFriends">Моите приятели</string>
   <string name="myBlog">Моят блог</string>
   <string name="xBlog">Блогът на %s</string>
   <string name="newPost">Нова публикация</string>

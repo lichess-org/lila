@@ -39,14 +39,14 @@ final class User(
           _.fold(fuccess(Redirect(routes.User.show(username)))): pov =>
             ctx.me.filterNot(_ => pov.game.bothPlayersHaveMoved).flatMap { Pov(pov.game, _) } match
               case Some(mine) => Redirect(routes.Round.player(mine.fullId))
-              case _          => roundC.watch(pov, userTv = user.some)
+              case _ => roundC.watch(pov, userTv = user.some)
 
   def tvExport(username: UserStr) = Anon:
     env.game.cached
       .lastPlayedPlayingId(username.id)
       .orElse(env.game.gameRepo.quickLastPlayedId(username.id))
       .flatMap:
-        case None         => NotFound("No ongoing game")
+        case None => NotFound("No ongoing game")
         case Some(gameId) => gameC.exportGame(gameId)
 
   private def apiGames(u: UserModel, filter: String, page: Int)(using BodyContext[?]) =
@@ -66,9 +66,9 @@ final class User(
 
   def search(term: String) = Open: _ ?=>
     UserStr.read(term) match
-      case Some(username)                  => Redirect(routes.User.show(username)).toFuccess
+      case Some(username) => Redirect(routes.User.show(username)).toFuccess
       case _ if isGrantedOpt(_.UserSearch) => Redirect(s"${routes.Mod.search}?q=$term").toFuccess
-      case _                               => notFound
+      case _ => notFound
 
   private def renderShow(u: UserModel, status: Results.Status = Results.Ok)(using Context): Fu[Result] =
     if HTTPRequest.isSynchronousHttp(ctx.req)
@@ -79,19 +79,19 @@ final class User(
         else 2
       userShowHtmlRateLimit(rateLimited, cost = cost):
         for
-          as     <- env.activity.read.recentAndPreload(u)
-          nbs    <- env.userNbGames(u, withCrosstable = false)
-          info   <- env.userInfo(u, nbs)
-          _      <- env.userInfo.preloadTeams(info)
+          as <- env.activity.read.recentAndPreload(u)
+          nbs <- env.userNbGames(u, withCrosstable = false)
+          info <- env.userInfo(u, nbs)
+          _ <- env.userInfo.preloadTeams(info)
           social <- env.socialInfo(u)
-          page   <- renderPage:
+          page <- renderPage:
             lila.mon.chronoSync(_.user.segment("renderSync")):
               views.user.show.page.activity(as, info, social)
         yield status(page).withCanonical(routes.User.show(u.username))
     else
       for
         withPerfs <- env.user.perfsRepo.withPerfs(u)
-        as        <- env.activity.read.recentAndPreload(u)
+        as <- env.activity.read.recentAndPreload(u)
         snip = lila.ui.Snippet(views.activity(withPerfs, as))
       yield status(snip)
 
@@ -133,8 +133,8 @@ final class User(
               res <-
                 if HTTPRequest.isSynchronousHttp(ctx.req) then
                   for
-                    info   <- env.userInfo(u, nbs, withUblog = true)
-                    _      <- env.team.cached.lightCache.preloadMany(info.teamIds)
+                    info <- env.userInfo(u, nbs, withUblog = true)
+                    _ <- env.team.cached.lightCache.preloadMany(info.teamIds)
                     social <- env.socialInfo(u)
                     searchForm = (filters.current == GameFilter.Search).option(
                       lila.app.mashup.GameFilterMenu.searchForm(userGameSearch, filters.current)
@@ -164,11 +164,11 @@ final class User(
           env.api.anySearch
             .redirect(username.value)
             .flatMap:
-              case Some(url)                           => Redirect(url).toFuccess
+              case Some(url) => Redirect(url).toFuccess
               case None if isGrantedOpt(_.UserModView) => ctx.me.soUse(modC.searchTerm(username.value))
-              case None                                => notFound(true)
+              case None => notFound(true)
         case Some(u) if u.enabled.yes || isGrantedOpt(_.UserModView) => f(u)
-        case u                                                       => notFound(u.isEmpty)
+        case u => notFound(u.isEmpty)
 
   def showMini(username: UserStr) = Open:
     Found(env.user.api.withPerfs(username)): user =>
@@ -193,7 +193,7 @@ final class User(
                   Ok:
                     Json.obj(
                       "crosstable" -> crosstable,
-                      "perfs"      -> lila.user.JsonView.perfsJson(user.perfs, user.perfs.best8Perfs)
+                      "perfs" -> lila.user.JsonView.perfsJson(user.perfs, user.perfs.best8Perfs)
                     )
               )
           else Ok(views.user.bits.miniClosed(user.user, relation))
@@ -238,7 +238,7 @@ final class User(
           page = page
         )
         pag <- pagFromDb.mapFutureResults(env.round.proxyRepo.upgradeIfPresent)
-        _   <- env.tournament.cached.nameCache.preloadMany:
+        _ <- env.tournament.cached.nameCache.preloadMany:
           pag.currentPageResults.flatMap(_.tournamentId).map(_ -> ctx.lang)
         _ <- lightUserApi.preloadMany(pag.currentPageResults.flatMap(_.userIds))
       yield pag
@@ -247,11 +247,11 @@ final class User(
     env.user.cached.top10.get {}.flatMap { leaderboards =>
       negotiate(
         html = for
-          nbAllTime      <- env.user.cached.top10NbGame.get {}
+          nbAllTime <- env.user.cached.top10NbGame.get {}
           tourneyWinners <- env.tournament.winners.all.map(_.top)
-          topOnline      <- env.user.cached.getTop50Online
-          _              <- lightUserApi.preloadMany(tourneyWinners.map(_.userId))
-          page           <- renderPage:
+          topOnline <- env.user.cached.getTop50Online
+          _ <- lightUserApi.preloadMany(tourneyWinners.map(_.userId))
+          page <- renderPage:
             views.user.list(tourneyWinners, topOnline, leaderboards, nbAllTime)
         yield Ok(page),
         json =
@@ -333,7 +333,7 @@ final class User(
           .zip(env.playban.api.bansOf(familyUserIds).logTimeIfGt(s"${user.username} playban.bans", 2.seconds))
           .zip(lila.security.UserLogins.withMeSortedWithEmails(env.user.repo, user, userLogins))
       otherUsers <- env.user.perfsRepo.withPerfs(othersWithEmail.others.map(_.user))
-      otherUsers <- env.mod.logApi.addModlog(otherUsers)
+      otherUsers <- env.mod.logApi.withModlogs(otherUsers)
       others = othersWithEmail.withUsers(otherUsers)
     yield UserLogins.TableData(userLogins, others, notes, bans, max)
 
@@ -369,7 +369,7 @@ final class User(
         val reportLog = isGranted(_.SeeReport).so:
           for
             reports <- env.report.api.by(user, Max(30))
-            _       <- lightUserApi.preloadMany(reports.flatMap(_.userIds))
+            _ <- lightUserApi.preloadMany(reports.flatMap(_.userIds))
           yield ui.reportLog(user, reports)
 
         val prefs = isGranted(_.CheatHunter).so:
@@ -391,11 +391,11 @@ final class User(
           ui.actions(user, emails, deleted, env.mod.presets.getPmPresets)
         }
 
-        val userLoginsFu    = env.security.userLogins(user, nbOthers)
+        val userLoginsFu = env.security.userLogins(user, nbOthers)
         val othersAndLogins = for
           userLogins <- userLoginsFu
-          appeals    <- env.appeal.api.byUserIds(user.id :: userLogins.otherUserIds)
-          data       <- loginsTableData(user, userLogins, nbOthers)
+          appeals <- env.appeal.api.byUserIds(user.id :: userLogins.otherUserIds)
+          data <- loginsTableData(user, userLogins, nbOthers)
         yield (views.user.mod.otherUsers(user, data, appeals), data)
 
         val identification = isGranted(_.ViewPrintNoIP).so:
@@ -503,7 +503,7 @@ final class User(
     Found(meOrFetch(username)): user =>
       val isMod = data.mod && isGranted(_.ModNote)
       for
-        _      <- env.user.noteApi.write(user.id, data.text, isMod, dox = isMod && data.dox)
+        _ <- env.user.noteApi.write(user.id, data.text, isMod, dox = isMod && data.dox)
         result <- f(user)
       yield result
 
@@ -524,10 +524,10 @@ final class User(
     Found(user): user =>
       for
         usersAndGames <- env.game.favoriteOpponents(user.id)
-        withPerfs     <- env.user.api.listWithPerfs(usersAndGames.map(_._1))
+        withPerfs <- env.user.api.listWithPerfs(usersAndGames.map(_._1))
         ops = withPerfs.toList.zip(usersAndGames.map(_._2))
         followables <- env.pref.api.followables(ops.map(_._1.id))
-        relateds    <-
+        relateds <-
           ops
             .zip(followables)
             .sequentially { case ((u, nb), followable) =>
@@ -560,17 +560,17 @@ final class User(
   def autocomplete = OpenOrScoped(): ctx ?=>
     NoTor:
       get("term").flatMap(UserSearch.read) match
-        case None                            => BadRequest("No search term provided")
+        case None => BadRequest("No search term provided")
         case Some(term) if getBool("exists") =>
           term.into(UserStr).validateId.so(env.user.repo.exists).map(JsonOk)
         case Some(term) =>
           {
             (get("tour"), get("swiss"), get("team")) match
-              case (Some(tourId), _, _)  => env.tournament.playerRepo.searchPlayers(TourId(tourId), term, 10)
+              case (Some(tourId), _, _) => env.tournament.playerRepo.searchPlayers(TourId(tourId), term, 10)
               case (_, Some(swissId), _) =>
                 env.swiss.api.searchPlayers(SwissId(swissId), term, 10)
               case (_, _, Some(teamId)) => env.team.api.searchMembersAs(TeamId(teamId), term, 10)
-              case _                    =>
+              case _ =>
                 ctx.me.ifTrue(getBool("friend")) match
                   case Some(follower) =>
                     env.relation.api.searchFollowedBy(follower, term, 10).flatMap { userIds =>

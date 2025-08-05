@@ -53,9 +53,9 @@ object page:
       social: UserInfo.Social,
       notes: Map[GameId, String]
   )(using Context) =
-    val u          = info.user
+    val u = info.user
     val filterName = userGameFilterTitleNoTag(u, info.nbs, filters.current)
-    val pageName   = (games.currentPage > 1).so(s" - page ${games.currentPage}")
+    val pageName = (games.currentPage > 1).so(s" - page ${games.currentPage}")
     Page(s"${u.username} $filterName$pageName")
       .js(pageModule(info))
       .js(esModules(filters.current.name == "search"))
@@ -100,13 +100,13 @@ object page:
   def userGameFilterTitleNoTag(u: User, nbs: UserInfo.NbGames, filter: GameFilter)(using Translate): String =
     import ui.transLocalize
     filter match
-      case GameFilter.All      => transLocalize(trans.site.nbGames, u.count.game)
-      case GameFilter.Me       => nbs.withMe.so { transLocalize(trans.site.nbGamesWithYou, _) }
-      case GameFilter.Rated    => transLocalize(trans.site.nbRated, u.count.rated)
-      case GameFilter.Win      => transLocalize(trans.site.nbWins, u.count.win)
-      case GameFilter.Loss     => transLocalize(trans.site.nbLosses, u.count.loss)
-      case GameFilter.Draw     => transLocalize(trans.site.nbDraws, u.count.draw)
-      case GameFilter.Playing  => transLocalize(trans.site.nbPlaying, nbs.playing)
+      case GameFilter.All => transLocalize(trans.site.nbGames, u.count.game)
+      case GameFilter.Me => nbs.withMe.so { transLocalize(trans.site.nbGamesWithYou, _) }
+      case GameFilter.Rated => transLocalize(trans.site.nbRated, u.count.rated)
+      case GameFilter.Win => transLocalize(trans.site.nbWins, u.count.win)
+      case GameFilter.Loss => transLocalize(trans.site.nbLosses, u.count.loss)
+      case GameFilter.Draw => transLocalize(trans.site.nbDraws, u.count.draw)
+      case GameFilter.Playing => transLocalize(trans.site.nbPlaying, nbs.playing)
       case GameFilter.Bookmark => transLocalize(trans.site.nbBookmarks, nbs.bookmark)
       case GameFilter.Imported => transLocalize(trans.site.nbImportedGames, nbs.imported)
-      case GameFilter.Search   => trans.search.advancedSearch.txt()
+      case GameFilter.Search => trans.search.advancedSearch.txt()

@@ -43,7 +43,7 @@ object user:
 
     override def equals(other: Any) = other match
       case u: User => id == u.id
-      case _       => false
+      case _ => false
 
     override def hashCode: Int = id.hashCode
 
@@ -67,7 +67,7 @@ object user:
 
     def everLoggedIn = seenAt.exists(createdAt != _)
 
-    def lame        = marks.boost || marks.engine
+    def lame = marks.boost || marks.engine
     def lameOrTroll = lame || marks.troll
 
     def withMarks(f: UserMarks => UserMarks) = copy(marks = f(marks))
@@ -84,11 +84,11 @@ object user:
     def addRole(role: RoleDbKey) = copy(roles = role :: roles)
 
     import lila.core.perm.Granter
-    def isSuperAdmin               = Granter.ofUser(_.SuperAdmin)(this)
-    def isAdmin                    = Granter.ofUser(_.Admin)(this)
-    def isVerified                 = Granter.ofUser(_.Verified)(this)
-    def isApiHog                   = Granter.ofUser(_.ApiHog)(this)
-    def isVerifiedOrAdmin          = isVerified || isAdmin
+    def isSuperAdmin = Granter.ofUser(_.SuperAdmin)(this)
+    def isAdmin = Granter.ofUser(_.Admin)(this)
+    def isVerified = Granter.ofUser(_.Verified)(this)
+    def isApiHog = Granter.ofUser(_.ApiHog)(this)
+    def isVerifiedOrAdmin = isVerified || isAdmin
     def isVerifiedOrChallengeAdmin = isVerifiedOrAdmin || Granter.ofUser(_.ApiChallengeAdmin)(this)
   end User
 
@@ -104,7 +104,7 @@ object user:
   case class PlayTime(total: Int, tv: Int)
 
   case class Plan(months: Int, active: Boolean, since: Option[Instant]):
-    def isEmpty: Boolean       = months == 0
+    def isEmpty: Boolean = months == 0
     def nonEmpty: Option[Plan] = Option.when(!isEmpty)(this)
 
   case class TotpSecret(secret: Array[Byte]) extends AnyVal:
@@ -142,7 +142,7 @@ object user:
     val default = Profile()
 
   object User:
-    given UserIdOf[User]  = _.id
+    given UserIdOf[User] = _.id
     given AtInstant[User] = _.createdAt
 
   case class Count(
@@ -261,23 +261,23 @@ object user:
 
   object UserMark:
     val byKey: Map[String, UserMark] = values.mapBy(_.key)
-    val bannable: Set[UserMark]      = Set(boost, engine, troll, alt)
+    val bannable: Set[UserMark] = Set(boost, engine, troll, alt)
 
   opaque type UserMarks = List[UserMark]
   object UserMarks extends TotalWrapper[UserMarks, List[UserMark]]:
     extension (a: UserMarks)
       def hasMark(mark: UserMark): Boolean = a.value contains mark
-      def dirty                            = a.value.exists(UserMark.bannable.contains)
-      def clean                            = !a.dirty
-      def boost: Boolean                   = hasMark(UserMark.boost)
-      def engine: Boolean                  = hasMark(UserMark.engine)
-      def troll: Boolean                   = hasMark(UserMark.troll)
-      def isolate: Boolean                 = hasMark(UserMark.isolate)
-      def reportban: Boolean               = hasMark(UserMark.reportban)
-      def rankban: Boolean                 = hasMark(UserMark.rankban)
-      def prizeban: Boolean                = hasMark(UserMark.prizeban)
-      def arenaBan: Boolean                = hasMark(UserMark.arenaban)
-      def alt: Boolean                     = hasMark(UserMark.alt)
+      def dirty = a.value.exists(UserMark.bannable.contains)
+      def clean = !a.dirty
+      def boost: Boolean = hasMark(UserMark.boost)
+      def engine: Boolean = hasMark(UserMark.engine)
+      def troll: Boolean = hasMark(UserMark.troll)
+      def isolate: Boolean = hasMark(UserMark.isolate)
+      def reportban: Boolean = hasMark(UserMark.reportban)
+      def rankban: Boolean = hasMark(UserMark.rankban)
+      def prizeban: Boolean = hasMark(UserMark.prizeban)
+      def arenaBan: Boolean = hasMark(UserMark.arenaban)
+      def alt: Boolean = hasMark(UserMark.alt)
 
   abstract class UserRepo(val coll: BSONCollection):
     given userHandler: BSONDocumentHandler[User]
@@ -287,14 +287,14 @@ object user:
     def aggregateReadFirst[U: UserIdOf](root: BSONDocument, u: U): UserPerfs
 
   object BSONFields:
-    val enabled   = "enabled"
-    val title     = "title"
-    val roles     = "roles"
-    val marks     = "marks"
-    val username  = "username"
-    val flair     = "flair"
-    val plan      = "plan"
-    val kid       = "kid"
+    val enabled = "enabled"
+    val title = "title"
+    val roles = "roles"
+    val marks = "marks"
+    val username = "username"
+    val flair = "flair"
+    val plan = "plan"
+    val kid = "kid"
     val createdAt = "createdAt"
 
   trait Note:
@@ -307,8 +307,8 @@ object user:
 
   abstract class RankingRepo(val coll: lila.core.db.AsyncCollFailingSilently)
 
-  type FlairMap    = Map[UserId, Flair]
-  type FlairGet    = UserId => Fu[Option[Flair]]
+  type FlairMap = Map[UserId, Flair]
+  type FlairGet = UserId => Fu[Option[Flair]]
   type FlairGetMap = List[UserId] => Fu[FlairMap]
   trait FlairApi:
     given flairOf: FlairGet
@@ -321,18 +321,18 @@ object user:
   opaque type Me = User
   object Me extends TotalWrapper[Me, User]:
     export lila.core.userId.MyId as Id
-    given UserIdOf[Me]                           = _.id
-    given Conversion[Me, User]                   = identity
-    given Conversion[Me, UserId]                 = _.id
+    given UserIdOf[Me] = _.id
+    given Conversion[Me, User] = identity
+    given Conversion[Me, UserId] = _.id
     given Conversion[Option[Me], Option[UserId]] = _.map(_.id)
-    given (using me: Me): LightUser.Me           = me.lightMe
-    given [M[_]]: Conversion[M[Me], M[User]]     = Me.raw(_)
-    given (using me: Me): Option[Me]             = Some(me)
+    given (using me: Me): LightUser.Me = me.lightMe
+    given [M[_]]: Conversion[M[Me], M[User]] = Me.raw(_)
+    given (using me: Me): Option[Me] = Some(me)
     extension (me: Me)
-      def userId: UserId        = me.id
+      def userId: UserId = me.id
       def lightMe: LightUser.Me = LightUser.Me(me.value.light)
-      inline def modId: ModId   = userId.into(ModId)
-      inline def myId: MyId     = userId.into(MyId)
+      inline def modId: ModId = userId.into(ModId)
+      inline def myId: MyId = userId.into(MyId)
 
   final class Flag(val code: FlagCode, val name: FlagName, val abrev: Option[String]):
     def shortName = abrev | name
@@ -346,16 +346,16 @@ object user:
     val nonCountries: List[FlagCode]
     def name(flag: Flag): FlagName
 
-  type GameUser  = Option[WithPerf]
+  type GameUser = Option[WithPerf]
   type GameUsers = ByColor[GameUser]
 
   type PublicFideIdOf = LightUser => Fu[Option[_root_.chess.FideId]]
 
   object TrophyKind:
-    val marathonWinner         = "marathonWinner"
-    val marathonTopTen         = "marathonTopTen"
-    val marathonTopFifty       = "marathonTopFifty"
-    val marathonTopHundred     = "marathonTopHundred"
+    val marathonWinner = "marathonWinner"
+    val marathonTopTen = "marathonTopTen"
+    val marathonTopFifty = "marathonTopFifty"
+    val marathonTopHundred = "marathonTopHundred"
     val marathonTopFivehundred = "marathonTopFivehundred"
 
   trait TrophyApi:

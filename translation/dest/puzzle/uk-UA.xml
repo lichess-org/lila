@@ -83,6 +83,12 @@
   <string name="searchPuzzles">Шукати задачі</string>
   <string name="fromMyGamesNone">Ваших задач немає в базі даних, проте Lichess все одно дуже сильно вас любить.
 Грайте ігри в рапід або з класичною системою контролю часу, для того щоб збільшити можливість додання вашої задачі!</string>
+  <plurals name="puzzlesFoundInUserGames">
+    <item quantity="one">Одну задачу знайдено в іграх від %2$s</item>
+    <item quantity="few">%1$s задачі знайдено в іграх від %2$s</item>
+    <item quantity="many">%1$s задач знайдено в іграх від %2$s</item>
+    <item quantity="other">%1$s задач знайдено в іграх від %2$s</item>
+  </plurals>
   <string name="puzzleDashboardDescription">Тренуйтеся, аналізуйте, вдосконалюйтесь</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s зіграно</item>

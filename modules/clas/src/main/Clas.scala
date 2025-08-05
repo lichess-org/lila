@@ -17,7 +17,7 @@ case class Clas(
   def withStudents(students: List[Student]) = Clas.WithStudents(this, students)
 
   def isArchived = archived.isDefined
-  def isActive   = !isArchived
+  def isActive = !isArchived
 
 object Clas:
 

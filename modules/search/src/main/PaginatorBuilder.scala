@@ -10,7 +10,7 @@ final class PaginatorBuilder[A, Q](
   def apply(query: Q, page: Int): Fu[Paginator[A]] =
     Paginator(
       adapter = new AdapterLike[A]:
-        def nbResults                       = searchApi.count(query).dmap(_.toInt)
+        def nbResults = searchApi.count(query).dmap(_.toInt)
         def slice(offset: Int, length: Int) =
           searchApi.search(query, From(offset), Size(length))
       ,

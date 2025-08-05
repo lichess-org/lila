@@ -34,7 +34,7 @@ final private class SwissSocket(
       roomId => _.Swiss(SwissId(roomId.value)).some,
       localTimeout = Some: (roomId, modId, _) =>
         teamOf(SwissId(roomId.value)).flatMapz: teamId =>
-          lila.common.Bus.safeAsk[Boolean, IsLeaderWithCommPerm](IsLeaderWithCommPerm(teamId, modId, _)),
+          lila.common.Bus.ask[Boolean, IsLeaderWithCommPerm](IsLeaderWithCommPerm(teamId, modId, _)),
       chatBusChan = _.swiss
     )
 

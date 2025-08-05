@@ -67,9 +67,7 @@
   <string name="officialStandings">Virallinen tulostaulu</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Lisäasetuksia löytyy %s</string>
   <string name="webmastersPage">webmasterin sivulta</string>
-  <string name="pgnSourceHelp" comment="%s is 'streaming API'">Tämän kierroksen julkinen ja reaaliaikainen PGN-tiedosto. Nopeampaan ja tehokkaampaan synkronisointiin on tarjolla myös %s.</string>
   <string name="embedThisBroadcast">Upota tämä lähetys sivustoosi</string>
-  <string name="embedThisRound">Upota %s sivustoosi</string>
   <string name="ratingDiff">Vahvuuslukujen erotus</string>
   <string name="gamesThisTournament">Pelit tässä turnauksessa</string>
   <string name="score">Pisteet</string>
@@ -85,6 +83,6 @@
   <string name="backToLiveMove">Takaisin siirtojen reaaliaikaiseen seurantaan</string>
   <string name="sinceHideResults">Koska olet päättänyt piilottaa tulokset ja koska vältämme spoilereita, ovat kaikkien lautojen esikatselut tyhjiä.</string>
   <string name="liveboard">Live-pelilauta</string>
-  <string name="communityBroadcast" comment="A broadcast (https://lichess.org/broadcast) created and managed by a member of the website (so the community), instead of Lichess itself as an organisation.">Yhteisölähetys</string>
-  <string name="createdAndManagedBy" comment="%s is the Lichess username of the broadcast's manager.&#10;&#10;Appears when the broadcast was created and is being managed by a community member, instead of Lichess itself.">Lähetyksen on luonut ja sitä hallinnoi %s.</string>
+  <string name="communityBroadcast">Yhteisölähetys</string>
+  <string name="createdAndManagedBy">Lähetyksen on luonut ja sitä hallinnoi %s.</string>
 </resources>

@@ -46,7 +46,7 @@ private final class HttpClient(
       .map: res =>
         val newEtag = extractEtagValue(res)
         if res.status == 304
-        then none                         -> newEtag.orElse(etag)
+        then none -> newEtag.orElse(etag)
         else decodeResponseBody(res).some -> newEtag
       .recoverWith:
         case Status(400, _) if etag.isDefined =>
@@ -86,7 +86,7 @@ private final class HttpClient(
     val charset = Option(extractContentTypeCharsetAttribute(res.contentType))
       .orElse(res.contentType.startsWith("text/").option(StandardCharsets.ISO_8859_1))
     charset match
-      case None        => lila.common.String.charset.guessAndDecode(res.bodyAsBytes)
+      case None => lila.common.String.charset.guessAndDecode(res.bodyAsBytes)
       case Some(known) => res.bodyAsBytes.decodeString(known)
 
   private def toRequest(url: URL)(using CanProxy): StandaloneWSRequest =
@@ -98,10 +98,10 @@ private final class HttpClient(
 
   private def monitorEtagHit(req: StandaloneWSRequest, res: StandaloneWSResponse): String =
     (req.header("If-None-Match"), res.header("Etag")) match
-      case (None, None)                      => "none"  // endpoint doesn't support Etag
-      case (None, Some(_))                   => "first" // local cache is cold
-      case (Some(_), _) if res.status == 304 => "hit"   // cache hit
-      case (Some(_), Some(_))                => "miss"  // new data from the endpoint
+      case (None, None) => "none" // endpoint doesn't support Etag
+      case (None, Some(_)) => "first" // local cache is cold
+      case (Some(_), _) if res.status == 304 => "hit" // cache hit
+      case (Some(_), Some(_)) => "miss" // new data from the endpoint
       case (Some(_), None) => "fail" // we sent an etag but the endpoint doesn't support it?
 
 private object HttpClient:

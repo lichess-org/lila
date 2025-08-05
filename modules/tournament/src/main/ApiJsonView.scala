@@ -14,47 +14,42 @@ final class ApiJsonView(lightUserApi: lila.core.user.LightUserApi)(using Executo
   import JsonView.{ *, given }
 
   def apply(tournaments: VisibleTournaments)(using Translate): Fu[JsObject] = for
-    created  <- tournaments.created.map(fullJson).parallel
-    started  <- tournaments.started.map(fullJson).parallel
+    created <- tournaments.created.map(fullJson).parallel
+    started <- tournaments.started.map(fullJson).parallel
     finished <- tournaments.finished.map(fullJson).parallel
   yield Json.obj(
-    "created"  -> created,
-    "started"  -> started,
+    "created" -> created,
+    "started" -> started,
     "finished" -> finished
   )
 
-  def featured(tournaments: List[Tournament])(using Translate): Fu[JsObject] =
-    tournaments.map(fullJson).parallel.map { objs =>
-      Json.obj("featured" -> objs)
-    }
-
   def calendar(tournaments: List[Tournament])(using Translate): JsObject =
     Json.obj(
-      "since"       -> tournaments.headOption.map(_.startsAt.withTimeAtStartOfDay),
-      "to"          -> tournaments.lastOption.map(_.finishesAt.withTimeAtStartOfDay.plusDays(1)),
+      "since" -> tournaments.headOption.map(_.startsAt.withTimeAtStartOfDay),
+      "to" -> tournaments.lastOption.map(_.finishesAt.withTimeAtStartOfDay.plusDays(1)),
       "tournaments" -> JsArray(tournaments.map(baseJson))
     )
 
   private def baseJson(tour: Tournament)(using Translate): JsObject =
     Json
       .obj(
-        "id"        -> tour.id,
+        "id" -> tour.id,
         "createdBy" -> tour.createdBy,
-        "system"    -> "arena", // BC
-        "minutes"   -> tour.minutes,
-        "clock"     -> tour.clock,
-        "rated"     -> tour.rated,
-        "fullName"  -> tour.name(),
+        "system" -> "arena", // BC
+        "minutes" -> tour.minutes,
+        "clock" -> tour.clock,
+        "rated" -> tour.rated,
+        "fullName" -> tour.name(),
         "nbPlayers" -> tour.nbPlayers,
-        "variant"   -> Json.obj(
-          "key"   -> tour.variant.key,
+        "variant" -> Json.obj(
+          "key" -> tour.variant.key,
           "short" -> tour.variant.shortName,
-          "name"  -> tour.variant.name
+          "name" -> tour.variant.name
         ),
-        "startsAt"   -> tour.startsAt,
+        "startsAt" -> tour.startsAt,
         "finishesAt" -> tour.finishesAt,
-        "status"     -> tour.status.id,
-        "perf"       -> perfJson(tour.perfType)
+        "status" -> tour.status.id,
+        "perf" -> perfJson(tour.perfType)
       )
       .add("secondsToStart", tour.secondsToStart.some.filter(_ > 0))
       .add("hasMaxRating", tour.conditions.maxRating.isDefined) // BC
@@ -70,7 +65,7 @@ final class ApiJsonView(lightUserApi: lila.core.user.LightUserApi)(using Executo
         "teamBattle",
         tour.teamBattle.map { battle =>
           Json.obj(
-            "teams"     -> battle.teams,
+            "teams" -> battle.teams,
             "nbLeaders" -> battle.nbLeaders
           )
         }
@@ -84,11 +79,11 @@ final class ApiJsonView(lightUserApi: lila.core.user.LightUserApi)(using Executo
   def byPlayer(e: LeaderboardApi.TourEntry)(using Translate): JsObject =
     Json.obj(
       "tournament" -> baseJson(e.tour),
-      "player"     -> Json
+      "player" -> Json
         .obj(
           "games" -> e.entry.nbGames,
           "score" -> e.entry.score,
-          "rank"  -> e.entry.rank
+          "rank" -> e.entry.rank
         )
         .add("performance" -> e.performance)
     )
@@ -101,8 +96,8 @@ final class ApiJsonView(lightUserApi: lila.core.user.LightUserApi)(using Executo
   private def perfJson(p: PerfType)(using Translate) =
     Json
       .obj(
-        "key"      -> p.key,
-        "name"     -> p.trans,
+        "key" -> p.key,
+        "name" -> p.trans,
         "position" -> { ~perfPositions.get(p): Int }
       )
       .add("icon" -> mobileBcIcons.get(p)) // mobile BC only

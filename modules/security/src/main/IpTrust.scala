@@ -30,7 +30,7 @@ final class IpTrust(proxyApi: Ip2ProxyApi, geoApi: GeoIP, firewallApi: Firewall)
     .ofReq(req)
     .dmap:
       case IsProxy.public | IsProxy.tor => true
-      case _                            => false
+      case _ => false
 
   final class rateLimit(
       credits: Int,
@@ -78,31 +78,31 @@ object IpTrust:
 
   // https://blog.ip2location.com/knowledge-base/what-are-the-proxy-types-supported-in-ip2proxy/
   val defaultRateLimitStrategy: RateLimitStrategy =
-    case IsProxy.vpn         => 3
-    case IsProxy.privacy     => 3
-    case IsProxy.tor         => 4
-    case IsProxy.server      => 1.5
-    case IsProxy.enterprise  => 1.5
-    case IsProxy.public      => 5
-    case IsProxy.web         => 3
-    case IsProxy.search      => 0.5
+    case IsProxy.vpn => 3
+    case IsProxy.privacy => 3
+    case IsProxy.tor => 4
+    case IsProxy.server => 1.5
+    case IsProxy.enterprise => 1.5
+    case IsProxy.public => 5
+    case IsProxy.web => 3
+    case IsProxy.search => 0.5
     case IsProxy.residential => 3
-    case _                   => 1
+    case _ => 1
 
   def proxyMultiplier(times: Float): RateLimitStrategy =
-    case IsProxy.empty  => 1
+    case IsProxy.empty => 1
     case IsProxy.search => 0.5 // search factor is < 1 so don't multiply it
-    case proxy          => defaultRateLimitStrategy(proxy) * times
+    case proxy => defaultRateLimitStrategy(proxy) * times
 
   def antiScraping(dch: Float, others: Float): RateLimitStrategy =
     case IsProxy.server => dch
     case IsProxy.search => 0.5 // search factor is < 1 so don't multiply it
-    case proxy          => defaultRateLimitStrategy(proxy) * others
+    case proxy => defaultRateLimitStrategy(proxy) * others
 
   type ThrottleStrategy = IsProxy => Float
 
   val defaultThrottleStrategy: ThrottleStrategy =
-    case IsProxy.server     => 1
+    case IsProxy.server => 1
     case IsProxy.enterprise => 1
-    case IsProxy.search     => 1
-    case p                  => defaultRateLimitStrategy(p)
+    case IsProxy.search => 1
+    case p => defaultRateLimitStrategy(p)

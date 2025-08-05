@@ -11,7 +11,7 @@ enum RelayVideoEmbed:
   case Stream(userId: UserId)
   override def toString = this match
     case No => "no"
-    case _  => ""
+    case _ => ""
 
 final class RelayVideoEmbedStore(baker: LilaCookie):
 
@@ -22,12 +22,12 @@ final class RelayVideoEmbedStore(baker: LilaCookie):
     def fromCookie = req.cookies.get(cookieName).map(_.value).filter(_.nonEmpty) match
       case Some("no") => No
       case Some("ps") => PinnedStream
-      case _          => Auto
+      case _ => Auto
     req.queryString.get("embed").flatMap(_.headOption) match
       case Some("no") => No
       case Some("ps") => PinnedStream
       case Some(name) => UserStr.read(name).fold(Auto)(u => Stream(u.id))
-      case _          => fromCookie
+      case _ => fromCookie
 
   def write(embed: RelayVideoEmbed) = baker.cookie(
     name = cookieName,

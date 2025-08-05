@@ -10,18 +10,18 @@ final private class SwissOfficialSchedule(mongo: SwissMongo, cache: SwissCache)(
 ):
   import SwissOfficialSchedule.*
 
-  private val classical   = Config("Classical", 30, IncrementSeconds(0), 5, 5)
-  private val rapid       = Config("Rapid", 10, IncrementSeconds(0), 7, 8)
-  private val blitz       = Config("Blitz", 5, IncrementSeconds(0), 10, 12)
-  private val superblitz  = Config("SuperBlitz", 3, IncrementSeconds(0), 12, 12)
-  private val bullet      = Config("Bullet", 1, IncrementSeconds(0), 15, 15)
+  private val classical = Config("Classical", 30, IncrementSeconds(0), 5, 5)
+  private val rapid = Config("Rapid", 10, IncrementSeconds(0), 7, 8)
+  private val blitz = Config("Blitz", 5, IncrementSeconds(0), 10, 12)
+  private val superblitz = Config("SuperBlitz", 3, IncrementSeconds(0), 12, 12)
+  private val bullet = Config("Bullet", 1, IncrementSeconds(0), 15, 15)
   private val hyperbullet = Config("HyperBullet", 0.5, IncrementSeconds(0), 20, 15)
 
-  private val classicalInc   = Config("Classical Increment", 25, IncrementSeconds(3), 5, 5)
-  private val rapidInc       = Config("Rapid Increment", 7, IncrementSeconds(2), 7, 8)
-  private val blitzInc       = Config("Blitz Increment", 5, IncrementSeconds(2), 10, 12)
-  private val superblitzInc  = Config("SuperBlitz Increment", 3, IncrementSeconds(1), 12, 12)
-  private val bulletInc      = Config("Bullet Increment", 1, IncrementSeconds(1), 20, 15)
+  private val classicalInc = Config("Classical Increment", 25, IncrementSeconds(3), 5, 5)
+  private val rapidInc = Config("Rapid Increment", 7, IncrementSeconds(2), 7, 8)
+  private val blitzInc = Config("Blitz Increment", 5, IncrementSeconds(2), 10, 12)
+  private val superblitzInc = Config("SuperBlitz Increment", 3, IncrementSeconds(1), 12, 12)
+  private val bulletInc = Config("Bullet Increment", 1, IncrementSeconds(1), 20, 15)
   private val hyperbulletInc = Config("HyperBullet Increment", 0, IncrementSeconds(1), 20, 15)
 
   // length must divide 48 (schedule starts at 0AM)
@@ -46,8 +46,8 @@ final private class SwissOfficialSchedule(mongo: SwissMongo, cache: SwissCache)(
     val dayStart = nowInstant.plusDays(3).withTimeAtStartOfDay
     daySchedule
       .mapWithIndex { (config, position) =>
-        val hour    = position / 2
-        val minute  = (position % 2) * 30
+        val hour = position / 2
+        val minute = (position % 2) * 30
         val startAt = dayStart.plusHours(hour).plusMinutes(minute)
         mongo.swiss
           .exists($doc("teamId" -> lichessTeamId, "startsAt" -> startAt))

@@ -50,7 +50,7 @@ final class UblogPaginator(
         val select =
           $doc("live" -> true, selectQuality(filter), "topics".$ne(UblogTopic.offTopic)) ++
             language.so(l => $doc("language" -> l))
-        def nbResults: Fu[Int]              = fuccess(50 * maxPerPage.value)
+        def nbResults: Fu[Int] = fuccess(50 * maxPerPage.value)
         def slice(offset: Int, length: Int) = aggregateVisiblePosts(select, offset, length)
       ,
       currentPage = page,
@@ -78,7 +78,7 @@ final class UblogPaginator(
   ): Fu[Paginator[PreviewPost]] =
     Paginator(
       adapter = new AdapterLike[PreviewPost]:
-        def nbResults: Fu[Int]              = fuccess(50 * maxPerPage.value)
+        def nbResults: Fu[Int] = fuccess(50 * maxPerPage.value)
         def slice(offset: Int, length: Int) =
           aggregateVisiblePosts(
             $doc("topics" -> topic, selectQuality(filter, topic == UblogTopic.offTopic)),
@@ -118,7 +118,7 @@ final class UblogPaginator(
 
   private def selectQuality(filter: QualityFilter, offTopic: Boolean = false): Bdoc =
     filter match
-      case QualityFilter.all  => $doc("automod.quality".$gte(if offTopic then Quality.spam else Quality.weak))
+      case QualityFilter.all => $doc("automod.quality".$gte(if offTopic then Quality.spam else Quality.weak))
       case QualityFilter.best => $doc("automod.quality".$gte(if offTopic then Quality.weak else Quality.good))
       case QualityFilter.weak => $doc("automod.quality".$eq(Quality.weak))
       case QualityFilter.spam => $doc("automod.quality".$eq(Quality.spam))
@@ -128,7 +128,7 @@ final class UblogPaginator(
     def apply(user: User, page: Int): Fu[Paginator[PreviewPost]] =
       Paginator(
         adapter = new AdapterLike[PreviewPost]:
-          def nbResults: Fu[Int]              = fuccess(10 * maxPerPage.value)
+          def nbResults: Fu[Int] = fuccess(10 * maxPerPage.value)
           def slice(offset: Int, length: Int) = cache.get((user.id, offset, length))
         ,
         currentPage = page,
@@ -158,9 +158,9 @@ final class UblogPaginator(
                       )
                     ),
                     $doc("$project" -> previewPostProjection),
-                    $doc("$sort"    -> $doc("lived.at" -> -1)),
-                    $doc("$skip"    -> offset),
-                    $doc("$limit"   -> length)
+                    $doc("$sort" -> $doc("lived.at" -> -1)),
+                    $doc("$skip" -> offset),
+                    $doc("$limit" -> length)
                   )
                 )
               ,
@@ -172,6 +172,6 @@ final class UblogPaginator(
           }
           .map: docs =>
             for
-              doc  <- docs
+              doc <- docs
               post <- doc.asOpt[PreviewPost]
             yield post

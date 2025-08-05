@@ -79,9 +79,9 @@ final class EmailAddressValidator(
       .idByAnyEmail(variations)
       .dmap(_ -> forUser)
       .dmap:
-        case (None, _)                  => false
+        case (None, _) => false
         case (Some(userId), Some(user)) => user.isnt(userId)
-        case (_, _)                     => true
+        case (_, _) => true
 
   private def domainAliasVariationsOf(email: NormalizedEmailAddress): List[NormalizedEmailAddress] =
     val variations = email
@@ -99,8 +99,8 @@ final class EmailAddressValidator(
     duckAliases.is(e) || randomPlus.is(e)
 
   private object duckAliases:
-    private val domain      = Domain.Lower.from("duck.com")
-    private val regex       = """^\w{3,}-\w{3,}-\w{3,}$""".r
+    private val domain = Domain.Lower.from("duck.com")
+    private val regex = """^\w{3,}-\w{3,}-\w{3,}$""".r
     def is(e: EmailAddress) = e.nameAndDomain.exists((n, d) => d.lower == domain && regex.matches(n))
 
   private object randomPlus:
@@ -119,12 +119,12 @@ final class EmailAddressValidator(
 object EmailAddressValidator:
   enum Result(val error: Option[String]):
     def valid = error.isEmpty
-    case Passlist      extends Result(none)
-    case Alright       extends Result(none)
+    case Passlist extends Result(none)
+    case Alright extends Result(none)
     case DomainMissing extends Result("The email address domain is missing.".some) // no translation needed
-    case Blocklist     extends Result("Cannot use disposable email addresses (Blocklist).".some)
-    case Alias         extends Result("Cannot use email address aliases.".some)
-    case DnsMissing    extends Result("This email domain doesn't seem to work (missing MX DNS)".some)
-    case DnsTimeout    extends Result("This email domain doesn't seem to work (timeout MX DNS)".some)
-    case DnsBlocklist  extends Result("Cannot use disposable email addresses (DNS blocklist).".some)
-    case Reputation    extends Result("This email domain has a poor reputation and cannot be used.".some)
+    case Blocklist extends Result("Cannot use disposable email addresses (Blocklist).".some)
+    case Alias extends Result("Cannot use email address aliases.".some)
+    case DnsMissing extends Result("This email domain doesn't seem to work (missing MX DNS)".some)
+    case DnsTimeout extends Result("This email domain doesn't seem to work (timeout MX DNS)".some)
+    case DnsBlocklist extends Result("Cannot use disposable email addresses (DNS blocklist).".some)
+    case Reputation extends Result("This email domain has a poor reputation and cannot be used.".some)

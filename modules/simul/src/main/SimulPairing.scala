@@ -11,9 +11,9 @@ final case class SimulPairing(
 ):
 
   def finished = status >= chess.Status.Aborted
-  def ongoing  = !finished
+  def ongoing = !finished
 
-  def is(userId: UserId): Boolean     = player.is(userId)
+  def is(userId: UserId): Boolean = player.is(userId)
   def is(other: SimulPlayer): Boolean = player.is(other)
 
   def finish(s: chess.Status, w: Option[UserId]) =

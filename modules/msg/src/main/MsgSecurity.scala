@@ -23,7 +23,7 @@ final private class MsgSecurity(
   import MsgSecurity.*
 
   private object limitCost:
-    val normal                 = 25
+    val normal = 25
     def apply(u: Contact): Int =
       if u.isApiHog then 1
       else if u.isVerified then 5
@@ -64,7 +64,7 @@ final private class MsgSecurity(
           .post(contacts, isNew)
           .flatMap:
             case false => fuccess(Block)
-            case _     =>
+            case _ =>
               isLimited(contacts, isNew, unlimited, text)
                 .orElse(isFakeTeamMessage(rawText, unlimited))
                 .orElse(isSpam(text))
@@ -153,7 +153,7 @@ final private class MsgSecurity(
       prefApi
         .getMessage(contacts.dest.id)
         .flatMap:
-          case lila.core.pref.Message.NEVER  => fuccess(false)
+          case lila.core.pref.Message.NEVER => fuccess(false)
           case lila.core.pref.Message.FRIEND => relationApi.fetchFollows(contacts.dest.id, contacts.orig.id)
           case lila.core.pref.Message.ALWAYS => fuccess(true)
 
@@ -172,34 +172,34 @@ final private class MsgSecurity(
       else
         (orig.isKid, dest.isKid) match
           case (true, true) =>
-            Bus.safeAsk[Boolean, ClasBus] { ClasBus.AreKidsInSameClass(orig.id, dest.id, _) }
+            Bus.ask[Boolean, ClasBus] { ClasBus.AreKidsInSameClass(orig.id, dest.id, _) }
           case (false, true) => isTeacherOf(orig.id, dest.id)
           case (true, false) => isTeacherOf(dest.id, orig.id)
-          case _             => fuFalse
+          case _ => fuFalse
 
   private def isTeacherOf(contacts: Contacts): Fu[Boolean] =
     isTeacherOf(contacts.orig.id, contacts.dest.id)
 
   private def isTeacherOf(teacher: UserId, student: UserId): Fu[Boolean] =
-    Bus.safeAsk[Boolean, ClasBus] { ClasBus.IsTeacherOf(teacher, student, _) }
+    Bus.ask[Boolean, ClasBus] { ClasBus.IsTeacherOf(teacher, student, _) }
 
   private def isLeaderOf(contacts: Contacts) =
-    Bus.safeAsk[Boolean, IsLeaderOf](IsLeaderOf(contacts.orig.id, contacts.dest.id, _))
+    Bus.ask[Boolean, IsLeaderOf](IsLeaderOf(contacts.orig.id, contacts.dest.id, _))
 
 private object MsgSecurity:
 
   sealed trait Verdict
-  sealed trait Reject                           extends Verdict
+  sealed trait Reject extends Verdict
   sealed abstract class Send(val mute: Boolean) extends Verdict
-  sealed abstract class Mute                    extends Send(true)
+  sealed abstract class Mute extends Send(true)
 
-  case object Ok              extends Send(mute = false)
-  case object TrollFriend     extends Send(mute = false)
-  case object Troll           extends Mute
-  case object Spam            extends Mute
-  case object Dirt            extends Mute
+  case object Ok extends Send(mute = false)
+  case object TrollFriend extends Send(mute = false)
+  case object Troll extends Mute
+  case object Spam extends Mute
+  case object Dirt extends Mute
   case object FakeTeamMessage extends Reject
-  case object Block           extends Reject
-  case object Limit           extends Reject
-  case object Invalid         extends Reject
-  case object BotUser         extends Reject
+  case object Block extends Reject
+  case object Limit extends Reject
+  case object Invalid extends Reject
+  case object BotUser extends Reject

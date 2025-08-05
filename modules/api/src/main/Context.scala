@@ -20,16 +20,16 @@ final class LoginContext(
     val oauth: Option[TokenScopes]
 ):
   export me.{ isDefined as isAuth, isEmpty as isAnon }
-  def user: Option[User]         = Me.raw(me)
-  def userId: Option[UserId]     = user.map(_.id)
+  def user: Option[User] = Me.raw(me)
+  def userId: Option[UserId] = user.map(_.id)
   def username: Option[UserName] = user.map(_.username)
-  def isBot                      = me.exists(_.isBot)
-  def troll                      = user.exists(_.marks.troll)
-  def isAppealUser               = me.exists(_.enabled.no)
-  def isWebAuth                  = isAuth && oauth.isEmpty
-  def isOAuth                    = isAuth && oauth.isDefined
-  def isMobileOauth              = oauth.exists(_.has(_.Web.Mobile))
-  def scopes                     = oauth | TokenScopes(Nil)
+  def isBot = me.exists(_.isBot)
+  def troll = user.exists(_.marks.troll)
+  def isAppealUser = me.exists(_.enabled.no)
+  def isWebAuth = isAuth && oauth.isEmpty
+  def isOAuth = isAuth && oauth.isDefined
+  def isMobileOauth = oauth.exists(_.has(_.Web.Mobile))
+  def scopes = oauth | TokenScopes(Nil)
 
 object LoginContext:
   val anon = LoginContext(none, false, none, none)
@@ -42,24 +42,24 @@ class Context(
     val pref: Pref
 ) extends lila.ui.Context:
   export loginContext.*
-  def ip: IpAddress         = HTTPRequest.ipAddress(req)
+  def ip: IpAddress = HTTPRequest.ipAddress(req)
   lazy val mobileApiVersion = lila.security.Mobile.Api.requestVersion(req)
-  lazy val blind            = req.cookies.get(lila.web.WebConfig.blindCookie.name).exists(_.value.nonEmpty)
-  def isMobileApi           = mobileApiVersion.isDefined
-  def kid                   = KidMode(HTTPRequest.isKid(req) || loginContext.user.exists(_.kid.yes))
-  def withLang(l: Lang)     = new Context(req, l, loginContext, pref)
+  lazy val blind = req.cookies.get(lila.web.WebConfig.blindCookie.name).exists(_.value.nonEmpty)
+  def isMobileApi = mobileApiVersion.isDefined
+  def kid = KidMode(HTTPRequest.isKid(req) || loginContext.user.exists(_.kid.yes))
+  def withLang(l: Lang) = new Context(req, l, loginContext, pref)
   def updatePref(f: Update[Pref]) = new Context(req, lang, loginContext, f(pref))
-  def canVoiceChat                = kid.no && me.exists(!_.marks.troll)
-  lazy val translate              = Translate(lila.i18n.Translator, lang)
+  def canVoiceChat = kid.no && me.exists(!_.marks.troll)
+  lazy val translate = Translate(lila.i18n.Translator, lang)
 
 object Context:
   export lila.api.{ Context, BodyContext, LoginContext, PageContext, EmbedContext }
-  given (using ctx: Context): Option[Me]              = ctx.me
-  given (using ctx: Context): Option[MyId]            = ctx.myId
-  given (using ctx: Context): KidMode                 = ctx.kid
+  given (using ctx: Context): Option[Me] = ctx.me
+  given (using ctx: Context): Option[MyId] = ctx.myId
+  given (using ctx: Context): KidMode = ctx.kid
   given ctxToTranslate(using ctx: Context): Translate = ctx.translate
-  given (using page: PageContext): Context            = page.ctx
-  given (using embed: EmbedContext): Context          = embed.ctx
+  given (using page: PageContext): Context = page.ctx
+  given (using embed: EmbedContext): Context = embed.ctx
 
   import lila.i18n.LangPicker
   import lila.pref.RequestPref
@@ -87,7 +87,7 @@ case class PageData(
 )
 
 object PageData:
-  def anon(nonce: Option[Nonce])  = PageData(0, 0, UnreadCount(0), false, none, nonce)
+  def anon(nonce: Option[Nonce]) = PageData(0, 0, UnreadCount(0), false, none, nonce)
   def error(nonce: Option[Nonce]) = anon(nonce).copy(error = true)
 
 final class PageContext(val ctx: Context, val data: PageData) extends lila.ui.PageContext:
@@ -98,11 +98,11 @@ final class PageContext(val ctx: Context, val data: PageData) extends lila.ui.Pa
 final class EmbedContext(val ctx: Context, val bg: String, val nonce: Nonce):
   export ctx.*
   def boardClass = ctx.pref.realTheme.name
-  def pieceSet   = ctx.pref.realPieceSet
+  def pieceSet = ctx.pref.realPieceSet
 
 object EmbedContext:
   given (using config: EmbedContext): Lang = config.lang
-  def apply(ctx: Context): EmbedContext    = new EmbedContext(
+  def apply(ctx: Context): EmbedContext = new EmbedContext(
     ctx,
     bg = ctx.req.queryString.get("bg").flatMap(_.headOption).filterNot("auto".==) | "system",
     nonce = Nonce.random

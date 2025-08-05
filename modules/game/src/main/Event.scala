@@ -48,8 +48,8 @@ object Event:
     )(extra: JsObject) =
       extra ++ Json
         .obj(
-          "fen"   -> fen,
-          "ply"   -> state.turns,
+          "fen" -> fen,
+          "ply" -> state.turns,
           "dests" -> PossibleMoves.oldJson(possibleMoves)
         )
         .add("clock" -> clock.map(_.data))
@@ -81,7 +81,7 @@ object Event:
       possibleDrops: Option[List[Square]],
       crazyData: Option[Crazyhouse.Data]
   ) extends Event:
-    def typ  = "move"
+    def typ = "move"
     def data = MoveOrDrop.data(
       fen,
       check,
@@ -141,13 +141,13 @@ object Event:
       crazyData: Option[Crazyhouse.Data],
       possibleDrops: Option[List[Square]]
   ) extends Event:
-    def typ  = "drop"
+    def typ = "drop"
     def data =
       MoveOrDrop.data(fen, check, threefold, false, state, clock, possibleMoves, possibleDrops, crazyData):
         Json.obj(
           "role" -> role.name,
-          "uci"  -> s"${role.pgn}@${pos.key}",
-          "san"  -> san
+          "uci" -> s"${role.pgn}@${pos.key}",
+          "san" -> san
         )
     override def moveBy = Some(!state.turns.turn)
   object Drop:
@@ -176,7 +176,7 @@ object Event:
     def json(moves: Map[Square, Bitboard]): JsValue =
       if moves.isEmpty then JsNull
       else
-        val sb    = new java.lang.StringBuilder(128)
+        val sb = new java.lang.StringBuilder(128)
         var first = true
         moves.foreach: (orig, dests) =>
           if first then first = false
@@ -192,20 +192,20 @@ object Event:
           case (res, (o, d)) => res + (o.key -> JsString(d.map(_.key).mkString))
 
   case class Enpassant(pos: Square, color: Color) extends Event:
-    def typ  = "enpassant"
+    def typ = "enpassant"
     def data =
       Json.obj(
-        "key"   -> pos.key,
+        "key" -> pos.key,
         "color" -> color
       )
 
   case class Castling(castle: ChessMove.Castle, color: Color) extends Event:
-    def typ  = "castling"
+    def typ = "castling"
     def data =
       import castle.*
       Json.obj(
-        "king"  -> Json.arr(king.key, kingTo.key),
-        "rook"  -> Json.arr(rook.key, rookTo.key),
+        "king" -> Json.arr(king.key, kingTo.key),
+        "rook" -> Json.arr(rook.key, rookTo.key),
         "color" -> color
       )
 
@@ -214,36 +214,36 @@ object Event:
       id: GameFullId,
       cookie: Option[JsObject]
   ) extends Event:
-    def typ  = "redirect"
+    def typ = "redirect"
     def data =
       Json
         .obj(
-          "id"  -> id,
+          "id" -> id,
           "url" -> s"/$id"
         )
         .add("cookie" -> cookie)
     override def only = Some(color)
 
   case class Promotion(role: PromotableRole, pos: Square) extends Event:
-    def typ  = "promotion"
+    def typ = "promotion"
     def data =
       Json.obj(
-        "key"        -> pos.key,
+        "key" -> pos.key,
         "pieceClass" -> role.toString.toLowerCase
       )
 
   case class PlayerMessage(data: JsObject) extends Event:
-    def typ            = "message"
+    def typ = "message"
     override def owner = true
     override def troll = false
 
   case class UserMessage(data: JsObject, override val troll: Boolean, w: Boolean) extends Event:
-    def typ              = "message"
+    def typ = "message"
     override def watcher = w
-    override def owner   = !w
+    override def owner = !w
 
   case class EndData(game: Game, ratingDiff: Option[chess.ByColor[IntRatingDiff]]) extends Event:
-    def typ  = "endData"
+    def typ = "endData"
     def data =
       Json
         .obj(
@@ -265,7 +265,7 @@ object Event:
   case object Reload extends Empty:
     def typ = "reload"
   case object ReloadOwner extends Empty:
-    def typ            = "reload"
+    def typ = "reload"
     override def owner = true
 
   private def reloadOr[A: Writes](typ: String, data: A) = Json.obj("t" -> typ, "d" -> data)
@@ -273,31 +273,31 @@ object Event:
   // use t:reload for mobile app BC,
   // but send extra data for the web to avoid reloading
   case class RematchOffer(by: Option[Color]) extends Event:
-    def typ            = "reload"
-    def data           = reloadOr("rematchOffer", by)
+    def typ = "reload"
+    def data = reloadOr("rematchOffer", by)
     override def owner = true
 
   case class RematchTaken(nextId: GameId) extends Event:
-    def typ  = "reload"
+    def typ = "reload"
     def data = reloadOr("rematchTaken", nextId)
 
   case class DrawOffer(by: Option[Color]) extends Event:
-    def typ  = "reload"
+    def typ = "reload"
     def data = reloadOr("drawOffer", by)
 
   case class ClockInc(color: Color, time: Centis, newClock: ChessClock) extends Event:
-    def typ  = "clockInc"
+    def typ = "clockInc"
     def data =
       Json.obj(
         "color" -> color,
-        "time"  -> time.centis,
+        "time" -> time.centis,
         "total" -> newClock.remainingTime(color).centis
       )
 
   sealed trait ClockEvent extends Event
 
   case class Clock(white: Centis, black: Centis, nextLagComp: Option[Centis] = None) extends ClockEvent:
-    def typ  = "clock"
+    def typ = "clock"
     def data =
       Json
         .obj(
@@ -314,18 +314,18 @@ object Event:
       )
 
   case class Berserk(color: Color) extends Event:
-    def typ  = "berserk"
+    def typ = "berserk"
     def data = Json.toJson(color)
 
   case class CorrespondenceClock(white: Float, black: Float) extends ClockEvent:
-    def typ  = "cclock"
+    def typ = "cclock"
     def data = Json.obj("white" -> white, "black" -> black)
   object CorrespondenceClock:
     def apply(clock: chess.CorrespondenceClock): CorrespondenceClock =
       CorrespondenceClock(clock.whiteTime, clock.blackTime)
 
   case class CheckCount(white: Int, black: Int) extends Event:
-    def typ  = "checkCount"
+    def typ = "checkCount"
     def data =
       Json.obj(
         "white" -> white,
@@ -339,7 +339,7 @@ object Event:
       whiteOffersDraw: Boolean,
       blackOffersDraw: Boolean
   ) extends Event:
-    def typ  = "state"
+    def typ = "state"
     def data =
       Json
         .obj(
@@ -355,7 +355,7 @@ object Event:
       white: Boolean,
       black: Boolean
   ) extends Event:
-    def typ  = "takebackOffers"
+    def typ = "takebackOffers"
     def data =
       Json
         .obj()
@@ -368,7 +368,7 @@ object Event:
       black: Boolean,
       watchers: Option[JsValue]
   ) extends Event:
-    def typ  = "crowd"
+    def typ = "crowd"
     def data =
       Json
         .obj(

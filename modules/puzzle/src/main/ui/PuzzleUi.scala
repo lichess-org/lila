@@ -38,8 +38,8 @@ final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
           "puzzle",
           Json
             .obj(
-              "data"        -> data,
-              "pref"        -> pref,
+              "data" -> data,
+              "pref" -> pref,
               "showRatings" -> ctx.pref.showRatings,
               "settings" -> Json.obj("difficulty" -> settings.difficulty.key).add("color" -> settings.color),
               "externalEngineEndpoint" -> externalEngineEndpoint
@@ -108,7 +108,7 @@ final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
             if pt.theme == PuzzleTheme.mix then routes.Puzzle.home
             else routes.Puzzle.show(pt.theme.key.value)
           a(
-            cls  := "puzzle-themes__link",
+            cls := "puzzle-themes__link",
             href := (pt.count > 0).option(langHref(url))
           )(
             img(src := assetUrl(s"images/puzzle-themes/${iconFile(pt.theme.key)}.svg")),
@@ -194,9 +194,9 @@ final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
             openings.map: op =>
               a(
                 dataFen := op.opening.ref.fen,
-                cls     := List(
+                cls := List(
                   "blpt puzzle-openings__link" -> true,
-                  "opening-mine"               -> mine.exists(_.variationKeys(op.opening.key))
+                  "opening-mine" -> mine.exists(_.variationKeys(op.opening.key))
                 ),
                 href := routes.Puzzle.show(op.opening.key.value)
               ):
@@ -204,7 +204,7 @@ final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
         )
 
     private def familyLink(family: LilaOpeningFamily, mine: Option[PuzzleOpening.Mine]): Tag = a(
-      cls     := List("blpt" -> true, "opening-mine" -> mine.exists(_.familyKeys(family.key))),
+      cls := List("blpt" -> true, "opening-mine" -> mine.exists(_.familyKeys(family.key))),
       dataFen := family.full.map(_.fen)
     )(href := routes.Puzzle.show(family.key.value))(family.name)
 
@@ -230,15 +230,15 @@ final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
             form(
               action := routes.Puzzle.ofPlayer(),
               method := "get",
-              cls    := "form3 puzzle-of-player__form complete-parent"
+              cls := "form3 puzzle-of-player__form complete-parent"
             )(
               st.input(
-                name         := "name",
-                value        := query,
-                cls          := "form-control user-autocomplete",
-                placeholder  := trans.clas.lichessUsername.txt(),
+                name := "name",
+                value := query,
+                cls := "form-control user-autocomplete",
+                placeholder := trans.clas.lichessUsername.txt(),
                 autocomplete := "off",
-                dataTag      := "span",
+                dataTag := "span",
                 autofocus
               ),
               submitButton(cls := "button")(trans.puzzle.searchPuzzles.txt())
@@ -263,7 +263,7 @@ final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
                             lastMove = puzzle.line.head.some
                           )(
                             a(
-                              cls  := s"puzzle-of-player__puzzle__board",
+                              cls := s"puzzle-of-player__puzzle__board",
                               href := routes.Puzzle.show(puzzle.id.value)
                             )
                           ),

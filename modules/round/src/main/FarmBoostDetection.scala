@@ -41,8 +41,8 @@ final private class FarmBoostDetection(
       .map(users(_))
       .filterNot(_.user.createdSinceDays(7))
       .so: winner =>
-        val perf              = winner.perfs(g.perfKey)
-        val minSeconds        = linearInterpolation(perf.nb)(0 -> 90, 5 -> 60)
+        val perf = winner.perfs(g.perfKey)
+        val minSeconds = linearInterpolation(perf.nb)(0 -> 90, 5 -> 60)
         def minPliesForPerfNb =
           if g.variant.standard
           then linearInterpolation(perf.nb)(0 -> 40, 5 -> 20)
@@ -73,4 +73,4 @@ final private class FarmBoostDetection(
       game.userIdPair.sequence
         .map(_.toPair)
         .so: userIds =>
-          lila.common.Bus.safeAsk(lila.core.security.AskAreRelated(userIds, _))
+          lila.common.Bus.ask(lila.core.security.AskAreRelated(userIds, _))

@@ -14,34 +14,34 @@ trait CtrlExtensions extends play.api.mvc.ControllerHelpers with ResponseHeaders
 
   def baseUrl: BaseUrl
 
-  given (using ctx: Context): Lang          = ctx.lang
-  given (using ctx: Context): Translate     = ctx.translate
+  given (using ctx: Context): Lang = ctx.lang
+  given (using ctx: Context): Translate = ctx.translate
   given (using ctx: Context): RequestHeader = ctx.req
-  given (using ctx: Context): Pref          = ctx.pref
+  given (using ctx: Context): Pref = ctx.pref
 
   given Conversion[UserWithPerfs, User] = _.user
 
   extension (req: RequestHeader)
     def ipAddress = HTTPRequest.ipAddress(req)
-    def sid       = lila.core.security.LilaCookie.sid(req)
+    def sid = lila.core.security.LilaCookie.sid(req)
 
   extension (result: Result)
-    def toFuccess                          = Future.successful(result)
-    def flashSuccess(msg: String): Result  = result.flashing("success" -> msg)
-    def flashSuccess: Result               = flashSuccess("")
-    def flashFailure(msg: String): Result  = result.flashing("failure" -> msg)
-    def flashFailure: Result               = flashFailure("")
+    def toFuccess = Future.successful(result)
+    def flashSuccess(msg: String): Result = result.flashing("success" -> msg)
+    def flashSuccess: Result = flashSuccess("")
+    def flashFailure(msg: String): Result = result.flashing("failure" -> msg)
+    def flashFailure: Result = flashFailure("")
     def withCanonical(url: String): Result =
       result.withHeaders(LINK -> s"<${baseUrl}${url}>; rel=\"canonical\"")
-    def withCanonical(url: Call): Result                            = withCanonical(url.url)
+    def withCanonical(url: Call): Result = withCanonical(url.url)
     def enforceCrossSiteIsolation(using req: RequestHeader): Result =
       result.withHeaders(crossOriginPolicy.forReq(req)*)
     def noCache: Result = result.withHeaders(
       CACHE_CONTROL -> "no-cache, no-store, must-revalidate",
-      EXPIRES       -> "0"
+      EXPIRES -> "0"
     )
-    def hasPersonalData                        = result.noCache
-    def noProxyBuffer                          = result.withHeaders("X-Accel-Buffering" -> "no")
+    def hasPersonalData = result.noCache
+    def noProxyBuffer = result.withHeaders("X-Accel-Buffering" -> "no")
     def withServiceWorker(using RequestHeader) =
       result.enforceCrossSiteIsolation.withHeaders("Service-Worker-Allowed" -> "/")
     def asAttachment(name: String) = result.withHeaders(CONTENT_DISPOSITION -> s"attachment; filename=$name")

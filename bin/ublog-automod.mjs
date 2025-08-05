@@ -69,7 +69,7 @@ const qualities = { spam: 0, weak: 1, good: 2, great: 3 }; // in sync with Ublog
 const schemaVersion = 1;
 const flushEvery = 100; // bulk write after every <flushEvery> assessments
 const concurrentRequests = 32;
-const model = 'Qwen/Qwen3-235B-A22B-fp8-tput';
+const model = 'Qwen/Qwen3-235B-A22B-Thinking-2507';
 
 let client = undefined;
 
@@ -84,7 +84,7 @@ const db = client.db();
 if (args.merge) await mergeAndExit();
 
 const prompt = (await db.collection('flag').findOne({ _id: 'ublogAutomodPrompt' })).setting;
-const temperature = (await db.collection('flag').findOne({ _id: 'ublogAutomodTemperature' }))?.setting ?? 0.3;
+const temperature = 0; //(await db.collection('flag').findOne({ _id: 'ublogAutomodTemperature' }))?.setting ?? 0.3;
 const posts = await db
   .collection('ublog_post')
   .find(getQuery(), { projection: { _id: 1, title: 1, intro: 1, markdown: 1, automod: 1 } })
@@ -154,7 +154,8 @@ async function assess(post) {
     headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${args.key}` },
     body: JSON.stringify({
       model,
-      temperature,
+      max_tokens: 4096,
+      temperature: temperature + 0.1 * retry[id].count,
       messages: [
         { role: 'system', content: prompt },
         { role: 'user', content },
@@ -242,7 +243,6 @@ async function maybeBulkWrite(bufferSize) {
   if (bulkOps.length === 0 || bulkOps.length < bufferSize) return;
   const ops = bulkOps.slice();
   bulkOps.length = 0;
-  console.log(`bulk writing ${ops.length} operations`);
   return await db.collection('ublog_post').bulkWrite(ops, { ordered: false });
 }
 

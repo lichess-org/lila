@@ -54,8 +54,8 @@ object mod:
             li(
               c.giftTo match
                 case Some(giftedId) if u.is(giftedId) => frag("Gift from", userIdLink(c.userId), " ")
-                case Some(giftedId)                   => frag("Gift to", userIdLink(giftedId.some), " ")
-                case _                                => emptyFrag
+                case Some(giftedId) => frag("Gift to", userIdLink(giftedId.some), " ")
+                case _ => emptyFrag
               ,
               c.money.display,
               " with ",
@@ -70,10 +70,12 @@ object mod:
       )
     )
 
-  def otherUsers(u: User, data: UserLogins.TableData[UserWithModlog], appeals: List[Appeal])(using
-      ctx: Context,
-      renderIp: lila.mod.IpRender.RenderIp
-  ): Tag =
+  def otherUsers(
+      u: User,
+      data: UserLogins.TableData[UserWithModlog],
+      appeals: List[Appeal],
+      readOnly: Boolean = false
+  )(using ctx: Context, renderIp: lila.mod.IpRender.RenderIp): Tag =
     import data.*
     val canLocate = Granter.opt(_.Admin)
     mzSection("others")(
@@ -82,28 +84,24 @@ object mod:
           tr(
             th(
               pluralize("linked user", userLogins.otherUsers.size),
-              (max < 1000 || othersPartiallyLoaded).option(
-                frag(
-                  nbsp,
-                  a(cls := "more-others")("Load more")
-                )
-              )
+              ((max < 1000 || othersPartiallyLoaded) && !readOnly).option:
+                frag(nbsp, a(cls := "more-others")("Load more"))
             ),
             Granter.opt(_.Admin).option(th("Email")),
             thSortNumber(dataSortDefault)("Same"),
             th("Games"),
-            thSortNumber(playban)(cls                := "i", title := "Playban"),
-            thSortNumber(alt)(cls                    := "i", title := "Alt"),
-            thSortNumber(shadowban)(cls              := "i", title := "Shadowban"),
-            thSortNumber(boosting)(cls               := "i", title := "Boosting"),
-            thSortNumber(engine)(cls                 := "i", title := "Engine"),
-            thSortNumber(closed)(cls                 := "i", title := "Closed"),
-            thSortNumber(reportban)(cls              := "i", title := "Reportban"),
-            thSortNumber(notesText)(cls              := "i", title := "Notes"),
+            thSortNumber(playban)(cls := "i", title := "Playban"),
+            thSortNumber(alt)(cls := "i", title := "Alt"),
+            thSortNumber(shadowban)(cls := "i", title := "Shadowban"),
+            thSortNumber(boosting)(cls := "i", title := "Boosting"),
+            thSortNumber(engine)(cls := "i", title := "Engine"),
+            thSortNumber(closed)(cls := "i", title := "Closed"),
+            thSortNumber(reportban)(cls := "i", title := "Reportban"),
+            thSortNumber(notesText)(cls := "i", title := "Notes"),
             thSortNumber(iconTag(Icon.InkQuill))(cls := "i", title := "Appeals"),
             thSortNumber("Created"),
             thSortNumber("Active"),
-            ModUserTableUi.selectAltAll
+            readOnly.not.option(ModUserTableUi.selectAltAll)
           )
         ),
         tbody(
@@ -142,26 +140,25 @@ object mod:
               markTd(o.enabled.no.so(1), closed, log.dateOf(_.closeAccount)),
               markTd(o.marks.reportban.so(1), reportban, log.dateOf(_.reportban)),
               userNotes.nonEmpty
-                .option {
+                .option:
                   td(dataSort := userNotes.size)(
                     a(href := s"${routes.User.show(o.username)}?notes")(
                       notesText(
                         title := s"Notes from ${userNotes.map(_.from).map(titleNameOrId).mkString(", ")}",
-                        cls   := "is-green"
+                        cls := "is-green"
                       ),
                       userNotes.size
                     )
                   )
-                }
                 .getOrElse(td(dataSort := 0)),
               userAppeal match
-                case None         => td(dataSort := 0)
+                case None => td(dataSort := 0)
                 case Some(appeal) =>
                   td(dataSort := 1)(
                     a(
                       href := Granter.opt(_.Appeals).option(routes.Appeal.show(o.username).url),
-                      cls  := List(
-                        "text"         -> true,
+                      cls := List(
+                        "text" -> true,
                         "appeal-muted" -> appeal.isMuted
                       ),
                       dataIcon := Icon.InkQuill,
@@ -171,7 +168,7 @@ object mod:
               ,
               td(dataSort := o.createdAt.toMillis)(momentFromNowServer(o.createdAt)),
               td(dataSort := o.seenAt.map(_.toMillis.toString))(o.seenAt.map(momentFromNowServer)),
-              ModUserTableUi.userCheckboxTd(o.marks.alt)
+              readOnly.not.option(ModUserTableUi.userCheckboxTd(o.marks.alt))
             )
           }
         )
@@ -191,8 +188,8 @@ object mod:
       ctx: Context,
       renderIp: RenderIp
   ): Frag =
-    val canIpBan  = Granter.opt(_.IpBan)
-    val canFpBan  = Granter.opt(_.PrintBan)
+    val canIpBan = Granter.opt(_.IpBan)
+    val canFpBan = Granter.opt(_.PrintBan)
     val canLocate = Granter.opt(_.Admin)
     mzSection("identification")(
       canLocate.option(
@@ -330,11 +327,11 @@ object mod:
   private def altMarks(alts: UserLogins.Alts) =
     List[(Int, Frag)](
       alts.boosters -> boosting,
-      alts.engines  -> engine,
-      alts.trolls   -> shadowban,
-      alts.alts     -> alt,
-      alts.closed   -> closed,
-      alts.cleans   -> clean
+      alts.engines -> engine,
+      alts.trolls -> shadowban,
+      alts.alts -> alt,
+      alts.closed -> closed,
+      alts.cleans -> clean
     ).collect:
       case (nb, tag) if nb > 4 => frag(List.fill(3)(tag), "+", nb - 3)
       case (nb, tag) if nb > 0 => frag(List.fill(nb)(tag))

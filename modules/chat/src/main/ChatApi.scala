@@ -58,7 +58,7 @@ final class ChatApi(
     private def makeMine(chat: UserChat)(using me: Option[Me], all: AllMessages): Fu[UserChat.Mine] =
       val mine = chat.forMe
       for
-        lines   <- JsonView.asyncLines(mine)
+        lines <- JsonView.asyncLines(mine)
         timeout <- me
           .ifFalse(mine.isEmpty)
           .so:
@@ -85,7 +85,7 @@ final class ChatApi(
                     if publicSource.isDefined then cached.invalidate(chatId)
                     publicSource.match
                       case Some(source) => shutupApi.publicText(userId, text, source)
-                      case _            => shutupApi.privateChat(chatId.value, userId, text)
+                      case _ => shutupApi.privateChat(chatId.value, userId, text)
                     lila.mon.chat
                       .message(publicSource.fold("player")(_.typeName), line.troll)
                       .increment()
@@ -107,12 +107,12 @@ final class ChatApi(
 
     private def linkCheck(line: UserLine, source: Option[PublicSource]) =
       source.fold(fuccess(true)): s =>
-        Bus.safeAsk(GetLinkCheck(line, s, _))
+        Bus.ask(GetLinkCheck(line, s, _))
 
     private object isChatFresh:
       private val cache = cacheApi[PublicSource, Boolean](256, "chat.fresh"):
         _.expireAfterWrite(3.minutes).buildAsyncFuture: source =>
-          Bus.safeAsk(IsChatFresh(source, _))
+          Bus.ask(IsChatFresh(source, _))
       def apply(source: Option[PublicSource]) =
         source.fold(fuccess(true))(cache.get)
 
@@ -161,9 +161,9 @@ final class ChatApi(
             text = data.text,
             busChan = data.chan match
               case "tournament" => _.tournament
-              case "swiss"      => _.swiss
-              case "team"       => _.team
-              case _            => _.study
+              case "swiss" => _.swiss
+              case "team" => _.team
+              case _ => _.study
           )
 
     def userModInfo(username: UserStr): Fu[Option[UserModInfo]] =
@@ -197,7 +197,7 @@ final class ChatApi(
               deleted = false
             )
           )
-          val c2   = c.markDeleted(user)
+          val c2 = c.markDeleted(user)
           val chat = line.fold(c2)(c2.add)
           for _ <- coll.update.one($id(chat.id), chat)
           yield
@@ -218,7 +218,7 @@ final class ChatApi(
             else logger.info(s"${mod.username} times out ${user.username} in #${c.id} for ${reason.key}")
 
     def delete(c: UserChat, user: User, busChan: BusChan.Select): Fu[Boolean] =
-      val chat   = c.markDeleted(user)
+      val chat = c.markDeleted(user)
       val change = chat != c
       change
         .so:
@@ -228,7 +228,7 @@ final class ChatApi(
             publish(chat.id, OnTimeout(chat.id, user.id), busChan)
         .inject(change)
 
-    private def isMod(using Me)      = Granter(_.ChatTimeout)
+    private def isMod(using Me) = Granter(_.ChatTimeout)
     private def isRelayMod(using Me) = Granter(_.BroadcastTimeout)
 
     def reinstate(list: List[ChatTimeout.Reinstate]) =
@@ -260,10 +260,10 @@ final class ChatApi(
           case _ => none
 
     def removeMessagesBy(gameIds: Seq[GameId], userId: UserId) =
-      val regex  = s"^$userId[" + Line.separatorChars.mkString("") + "]"
+      val regex = s"^$userId[" + Line.separatorChars.mkString("") + "]"
       val update = $pull("l".$regex(regex, "i"))
       val allIds = for
-        id   <- gameIds
+        id <- gameIds
         both <- List(id.value, s"${id.value}/w")
       yield both
       coll.update.one($inIds(allIds), update, multi = true).void
@@ -273,11 +273,11 @@ final class ChatApi(
     import lila.core.user.BSONFields as F
     val projection = lila.db.dsl.$doc(
       F.username -> true,
-      F.title    -> true,
-      F.plan     -> true,
-      F.flair    -> true,
-      F.enabled  -> true,
-      F.marks    -> true
+      F.title -> true,
+      F.plan -> true,
+      F.flair -> true,
+      F.enabled -> true,
+      F.marks -> true
     )
     import reactivemongo.api.bson.*
     import userRepo.given
@@ -333,7 +333,7 @@ final class ChatApi(
         $doc(
           "$push" -> $doc(
             Chat.BSONFields.lines -> $doc(
-              "$each"  -> List(line),
+              "$each" -> List(line),
               "$slice" -> -150
             )
           )
@@ -357,9 +357,9 @@ final class ChatApi(
         ("""(?i)@(?<![\w@#/]@)""" + username + """(?![@\w-]|\.\w)""").r.replaceAllIn(in, username.value)
       else in
 
-    private val gameUrlRegex   = (Pattern.quote(netDomain.value) + """\b/(\w{8})\w{4}\b""").r
+    private val gameUrlRegex = (Pattern.quote(netDomain.value) + """\b/(\w{8})\w{4}\b""").r
     private val gameUrlReplace = Matcher.quoteReplacement(netDomain.value) + "/$1"
 
     private def noPrivateUrl(str: String): String = gameUrlRegex.replaceAllIn(str, gameUrlReplace)
-    private val multilineRegex                    = """\n\n{1,}+""".r
-    private def multiline(str: String)            = multilineRegex.replaceAllIn(str, " ")
+    private val multilineRegex = """\n\n{1,}+""".r
+    private def multiline(str: String) = multilineRegex.replaceAllIn(str, " ")

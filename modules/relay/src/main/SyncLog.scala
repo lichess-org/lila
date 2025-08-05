@@ -32,7 +32,7 @@ object SyncLog:
       at: Instant
   ):
     export error.{ isEmpty as isOk, nonEmpty as isKo }
-    def hasMoves  = moves > 0
+    def hasMoves = moves > 0
     def isTimeout = error.has(SyncResult.Timeout.getMessage)
 
   def event(moves: Int, e: Option[Exception]) =
@@ -40,7 +40,7 @@ object SyncLog:
       moves = moves,
       error = e.map {
         case _: java.util.concurrent.TimeoutException => "Request timeout"
-        case e: Exception                             => e.getMessage.take(100)
+        case e: Exception => e.getMessage.take(100)
       },
       at = nowInstant
     )

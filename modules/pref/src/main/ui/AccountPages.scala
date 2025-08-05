@@ -143,8 +143,8 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
             form3.flairPickerGroup(form("flair"), u.flair):
               p(cls := "form-help"):
                 a(
-                  href     := s"${routes.Pref.form("display")}#showFlairs",
-                  cls      := "text",
+                  href := s"${routes.Pref.form("display")}#showFlairs",
+                  cls := "text",
                   dataIcon := Icon.InfoCircle
                 ):
                   trans.site.youCanHideFlair()
@@ -192,7 +192,7 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
                   .passwordModified(form("passwd"), trans.site.password())(autofocus, autocomplete := "off"),
                 submitButton(
                   cls := List(
-                    "button"     -> true,
+                    "button" -> true,
                     "button-red" -> u.kid.yes
                   )
                 )(if u.kid.yes then trans.site.disableKidMode.txt() else trans.site.enableKidMode.txt())

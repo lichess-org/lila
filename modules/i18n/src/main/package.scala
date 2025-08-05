@@ -5,7 +5,7 @@ import play.api.i18n.Lang
 export lila.core.lilaism.Lilaism.{ *, given }
 export lila.common.extensions.*
 
-private type Count      = Long
+private type Count = Long
 private type MessageKey = String
 private type MessageMap = java.util.Map[MessageKey, Translation]
 

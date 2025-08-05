@@ -70,7 +70,7 @@ final class ActivityReadApi(
             .mon(_.user.segment("activity.ublogs"))
         .dmap(_.filter(_.nonEmpty))
       practice = for
-        p       <- a.practice
+        p <- a.practice
         studies <- practiceStudies
       yield p.value.flatMap { (studyId, nb) =>
         studies(studyId).map(_ -> nb)
@@ -165,7 +165,7 @@ final class ActivityReadApi(
   private def addSignup(at: Instant, recent: List[ActivityView]) =
     val (found, views) = recent.foldLeft(false -> List.empty[ActivityView]):
       case ((false, as), a) if a.interval.contains(at) => (true, as :+ a.copy(signup = true))
-      case ((found, as), a)                            => (found, as :+ a)
+      case ((found, as), a) => (found, as :+ a)
     if !found && views.sizeIs < Activity.recentNb && nowInstant.minusDays(8).isBefore(at) then
       views :+ ActivityView(
         interval = TimeInterval(at.withTimeAtStartOfDay, at.withTimeAtStartOfDay.plusDays(1)),

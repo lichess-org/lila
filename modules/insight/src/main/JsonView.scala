@@ -15,19 +15,19 @@ final class JsonView:
   def ui(families: List[LilaOpeningFamily], openings: List[SimpleOpening], asMod: Boolean)(using Translate) =
 
     val openingFamilyJson = Json.obj(
-      "key"         -> D.OpeningFamily.key,
-      "name"        -> D.OpeningFamily.name,
-      "position"    -> D.OpeningFamily.position,
+      "key" -> D.OpeningFamily.key,
+      "name" -> D.OpeningFamily.name,
+      "position" -> D.OpeningFamily.position,
       "description" -> D.OpeningFamily.description,
-      "values"      -> families.map(InsightDimension.valueToJson(D.OpeningFamily))
+      "values" -> families.map(InsightDimension.valueToJson(D.OpeningFamily))
     )
 
     val openingJson = Json.obj(
-      "key"         -> D.OpeningVariation.key,
-      "name"        -> D.OpeningVariation.name,
-      "position"    -> D.OpeningVariation.position,
+      "key" -> D.OpeningVariation.key,
+      "name" -> D.OpeningVariation.name,
+      "position" -> D.OpeningVariation.position,
       "description" -> D.OpeningVariation.description,
-      "values"      -> openings.map(InsightDimension.valueToJson(D.OpeningVariation))
+      "values" -> openings.map(InsightDimension.valueToJson(D.OpeningVariation))
     )
 
     val dimensionCategs = List(
@@ -126,7 +126,7 @@ final class JsonView:
     Json
       .obj(
         "dimensionCategs" -> dimensionCategs,
-        "metricCategs"    -> metricCategs
+        "metricCategs" -> metricCategs
       )
       .add("asMod" -> asMod)
 
@@ -135,31 +135,31 @@ final class JsonView:
   private given dimWrites[X](using Translate): Writes[InsightDimension[X]] =
     Writes: d =>
       Json.obj(
-        "key"         -> d.key,
-        "name"        -> d.name,
-        "position"    -> d.position,
+        "key" -> d.key,
+        "name" -> d.name,
+        "position" -> d.position,
         "description" -> d.description,
-        "values"      -> InsightDimension.valuesOf(d).map(InsightDimension.valueToJson(d))
+        "values" -> InsightDimension.valuesOf(d).map(InsightDimension.valueToJson(d))
       )
 
   given Writes[InsightMetric] = Writes: m =>
     Json.obj(
-      "key"         -> m.key,
-      "name"        -> m.name,
+      "key" -> m.key,
+      "name" -> m.name,
       "description" -> m.description,
-      "position"    -> m.position
+      "position" -> m.position
     )
 
   private given Writes[Chart.Xaxis] = Json.writes
   private given Writes[Chart.Yaxis] = Json.writes
   private given Writes[Chart.Serie] = Json.writes
-  given chartWrites: Writes[Chart]  = Json.writes
+  given chartWrites: Writes[Chart] = Json.writes
 
   def question(metric: String, dimension: String, filters: String) =
     Json.obj(
-      "metric"    -> metric,
+      "metric" -> metric,
       "dimension" -> dimension,
-      "filters"   -> (filters
+      "filters" -> (filters
         .split('/')
         .view
         .map(_.split(':'))

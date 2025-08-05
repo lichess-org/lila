@@ -24,9 +24,9 @@ final class UserShowSide(helpers: Helpers):
       val isPuzzle = pk == PerfKey.puzzle
       a(
         dataIcon := pk.perfIcon,
-        title    := pk.perfDesc.txt(),
-        cls      := List(
-          "empty"  -> perf.isEmpty,
+        title := pk.perfDesc.txt(),
+        cls := List(
+          "empty" -> perf.isEmpty,
           "active" -> active.contains(pk)
         ),
         href := ctx.pref.showRatings.so:
@@ -105,7 +105,7 @@ final class UserShowSide(helpers: Helpers):
   private def showStorm(storm: PuzPerf, user: User)(using Translate) =
     a(
       dataIcon := Icon.Storm,
-      cls      := List(
+      cls := List(
         "empty" -> !storm.nonEmpty
       ),
       href := routes.Storm.dashboardOf(user.username),
@@ -127,7 +127,7 @@ final class UserShowSide(helpers: Helpers):
   private def showRacer(racer: PuzPerf)(using Translate) =
     a(
       dataIcon := Icon.FlagChessboard,
-      cls      := List(
+      cls := List(
         "empty" -> !racer.nonEmpty
       ),
       href := routes.Racer.home,
@@ -149,7 +149,7 @@ final class UserShowSide(helpers: Helpers):
   private def showStreak(streak: PuzPerf)(using Translate) =
     a(
       dataIcon := Icon.ArrowThruApple,
-      cls      := List(
+      cls := List(
         "empty" -> !streak.nonEmpty
       ),
       href := routes.Puzzle.streak,

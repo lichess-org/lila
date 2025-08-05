@@ -25,9 +25,9 @@ object Advice:
 
   enum Judgement(val glyph: Glyph, val name: String):
     case Inaccuracy extends Judgement(Glyph.MoveAssessment.dubious, "Inaccuracy")
-    case Mistake    extends Judgement(Glyph.MoveAssessment.mistake, "Mistake")
-    case Blunder    extends Judgement(Glyph.MoveAssessment.blunder, "Blunder")
-    override def toString  = name
+    case Mistake extends Judgement(Glyph.MoveAssessment.mistake, "Mistake")
+    case Blunder extends Judgement(Glyph.MoveAssessment.blunder, "Blunder")
+    override def toString = name
     def isMistakeOrBlunder = this == Judgement.Mistake || this == Judgement.Blunder
   object Judgement:
     val all = values.toList
@@ -50,11 +50,11 @@ private[tree] object CpAdvice:
 
   def apply(prev: Info, info: Info): Option[CpAdvice] =
     for
-      cp     <- prev.cp
+      cp <- prev.cp
       infoCp <- info.cp
-      prevWinningChances    = WinPercent.winningChances(cp)
+      prevWinningChances = WinPercent.winningChances(cp)
       currentWinningChances = WinPercent.winningChances(infoCp)
-      delta                 = (currentWinningChances - prevWinningChances).pipe(d => info.color.fold(-d, d))
+      delta = (currentWinningChances - prevWinningChances).pipe(d => info.color.fold(-d, d))
       judgement <- winningChanceJudgements.find((d, _) => d <= delta).map(_._2)
     yield CpAdvice(judgement, info, prev)
 
@@ -75,8 +75,8 @@ private[tree] case object MateLost
 private[tree] object MateSequence:
   def apply(prev: Score, next: Score): Option[MateSequence] =
     (prev, next).some.collect:
-      case (Score.Cp(_), Score.Mate(n)) if n.negative                 => MateCreated
-      case (Score.Mate(p), Score.Cp(_)) if p.positive                 => MateLost
+      case (Score.Cp(_), Score.Mate(n)) if n.negative => MateCreated
+      case (Score.Mate(p), Score.Cp(_)) if p.positive => MateLost
       case (Score.Mate(p), Score.Mate(n)) if p.positive && n.negative => MateLost
 private[tree] case class MateAdvice(
     sequence: MateSequence,
@@ -90,18 +90,18 @@ private[tree] object MateAdvice:
   def apply(prev: Info, info: Info): Option[MateAdvice] =
     for
       prevScore <- prev.eval.score
-      score     <- info.eval.score
-      prevPovScore    = prevScore.invertIf(info.color.black)
-      povScore        = score.invertIf(info.color.black)
+      score <- info.eval.score
+      prevPovScore = prevScore.invertIf(info.color.black)
+      povScore = score.invertIf(info.color.black)
       prevPovCpOrZero = prevPovScore.cp.so(_.centipawns)
-      povCpOrZero     = povScore.cp.so(_.centipawns)
-      sequence  <- MateSequence(prevPovScore, povScore)
+      povCpOrZero = povScore.cp.so(_.centipawns)
+      sequence <- MateSequence(prevPovScore, povScore)
       judgement <- sequence match
         case MateCreated if prevPovCpOrZero < -999 => Some(Advice.Judgement.Inaccuracy)
         case MateCreated if prevPovCpOrZero < -700 => Some(Advice.Judgement.Mistake)
-        case MateCreated                           => Some(Advice.Judgement.Blunder)
-        case MateLost if povCpOrZero > 999         => Some(Advice.Judgement.Inaccuracy)
-        case MateLost if povCpOrZero > 700         => Some(Advice.Judgement.Mistake)
-        case MateLost                              => Some(Advice.Judgement.Blunder)
-        case MateDelayed                           => None
+        case MateCreated => Some(Advice.Judgement.Blunder)
+        case MateLost if povCpOrZero > 999 => Some(Advice.Judgement.Inaccuracy)
+        case MateLost if povCpOrZero > 700 => Some(Advice.Judgement.Mistake)
+        case MateLost => Some(Advice.Judgement.Blunder)
+        case MateDelayed => None
     yield MateAdvice(sequence, judgement, info, prev)

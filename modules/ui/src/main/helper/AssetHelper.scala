@@ -37,7 +37,7 @@ trait AssetHelper:
     Esm(key, embedJsUnsafeLoadThen(s"site.asset.loadEsmPage('$key')"))
 
   val infiniteScrollEsmInit: Esm = esmInit("bits.infiniteScroll")
-  val captchaEsm: Esm            = Esm("bits.captcha")
+  val captchaEsm: Esm = Esm("bits.captcha")
 
   // load iife scripts in <head> and defer
   def iifeModule(path: String): Frag = script(deferAttr, src := assetUrl(path))

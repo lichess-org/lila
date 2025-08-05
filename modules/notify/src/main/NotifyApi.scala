@@ -58,11 +58,11 @@ final class NotifyApi(
           .listAll()
           .map: docs =>
             val customAllows = for
-              doc    <- docs
+              doc <- docs
               userId <- doc.getAsOpt[UserId]("_id")
               allows <- doc.getAsOpt[Allows](event.key)
             yield NotifyAllows(userId, allows)
-            val customIds     = customAllows.view.map(_.userId).toSet
+            val customIds = customAllows.view.map(_.userId).toSet
             val defaultAllows = userIds
               .filterNot(customIds.contains)
               .map:
@@ -117,7 +117,7 @@ final class NotifyApi(
     val note = Notification.make(to, content)
     shouldSkip(note).not.flatMapz:
       NotificationPref.events.get(content.key) match
-        case None        => bellOne(note)
+        case None => bellOne(note)
         case Some(event) =>
           prefs.allows(note.to, event).map { allows =>
             if allows.bell then bellOne(note)
@@ -142,23 +142,24 @@ final class NotifyApi(
     bellMany(recips, content)
 
   private def bellOne(note: Notification): Funit =
-    for _ <- insertNotification(note)
-    yield Bus.pub:
-      SendToOnlineUser(
-        note.to,
-        LazyFu: () =>
-          for notifications <- getNotifications(note.to, 1).zip(unreadCount(note.to)).dmap(AndUnread.apply)
-          yield Json.obj(
-            "t" -> "notifications",
-            "d" -> jsonHandlers(notifications)
-          )
-      )
+    shouldSkipBell(note).not.flatMapz:
+      for _ <- insertNotification(note)
+      yield Bus.pub:
+        SendToOnlineUser(
+          note.to,
+          LazyFu: () =>
+            for notifications <- getNotifications(note.to, 1).zip(unreadCount(note.to)).dmap(AndUnread.apply)
+            yield Json.obj(
+              "t" -> "notifications",
+              "d" -> jsonHandlers(notifications)
+            )
+        )
 
   private def bellMany(recips: Iterable[NotifyAllows], content: NotificationContent): Funit =
     val expiresIn = content match
-      case _: StreamStart    => 6.hours.some
+      case _: StreamStart => 6.hours.some
       case _: BroadcastRound => 6.hours.some
-      case _                 => none
+      case _ => none
     val bells = recips.collect { case r if r.allows.bell => r.userId }
     bells.foreach(unreadCountCache.invalidate) // or maybe update only if getIfPresent?
     for _ <- repo.insertMany(bells.map(to => Notification.make(to, content, expiresIn)))
@@ -179,7 +180,11 @@ final class NotifyApi(
     case InvitedToStudy(_, _, studyId) =>
       userApi.isKid(note.to).dmap(_.yes) >>|
         repo.hasRecent(note, "content.studyId" -> studyId, 3.days)
+    case _: PrivateMessage => fuFalse
+    case _: CorresAlarm => fuFalse
+    case _ => userApi.isKid(note.to).dmap(_.yes)
+
+  private def shouldSkipBell(note: Notification): Fu[Boolean] = note.content match
     case PrivateMessage(sender, _) =>
       repo.hasRecentPrivateMessageFrom(note.to, sender)
-    case _: CorresAlarm => fuFalse
-    case _              => userApi.isKid(note.to).dmap(_.yes)
+    case _ => fuFalse

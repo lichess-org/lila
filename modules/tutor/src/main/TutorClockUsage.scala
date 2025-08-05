@@ -14,19 +14,19 @@ object TutorClockUsage:
   private[tutor] def compute(
       users: NonEmptyList[TutorUser]
   )(using insightApi: InsightApi, ec: Executor): Fu[TutorBuilder.Answers[PerfType]] =
-    val perfs    = users.toList.map(_.perfType)
+    val perfs = users.toList.map(_.perfType)
     val question = Question(
       InsightDimension.Perf,
       InsightMetric.ClockPercent,
       List(Filter(InsightDimension.Perf, perfs.filter(_ != PerfType.Correspondence)))
     )
-    val select  = $doc(F.result -> Result.Loss.id)
+    val select = $doc(F.result -> Result.Loss.id)
     val compute = TutorCustomInsight(users, question, "clock_usage", _.clockUsage) { docs =>
       for
-        doc          <- docs
-        perf         <- doc.getAsOpt[PerfType]("_id")
+        doc <- docs
+        perf <- doc.getAsOpt[PerfType]("_id")
         clockPercent <- doc.getAsOpt[ClockPercent]("cp")
-        size         <- doc.int("nb")
+        size <- doc.int("nb")
       yield Cluster(perf, Insight.Single(Point(100 - clockPercent.value)), size, Nil)
     }
     insightApi.coll { coll =>

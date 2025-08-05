@@ -51,8 +51,8 @@ final class NoteUi(helpers: Helpers)(using NetDomain):
               br,
               postForm(action := routes.User.deleteNote(note._id))(
                 submitButton(
-                  cls      := "button-empty button-red yes-no-confirm button text",
-                  style    := "float:right",
+                  cls := "button-empty button-red yes-no-confirm button text",
+                  style := "float:right",
                   dataIcon := Icon.Trash
                 )(trans.site.delete())
               )

@@ -8,12 +8,15 @@ body {
 }
 
 @mixin resizable-side {
-  .vertical-resize-separator {
+  .vertical-resize {
     display: flex;
   }
   .mchat {
     margin-top: 0;
     min-height: 52px;
+  }
+  .chat__members {
+    margin: 2px;
   }
   .relay-admin {
     margin-top: 0;
@@ -116,7 +119,7 @@ main.analyse.is-relay:not(.has-relay-tour) {
     }
     .mchat:has(.liveboard.mchat__tab-active) {
       max-height: 380px;
-      min-height: 380px; // constrain height set by vertical-resize-separator
+      min-height: 380px; // constrain height set by vertical-resize
     }
   }
   .eval-chart-and-training {
@@ -133,39 +136,6 @@ main.analyse.is-relay:not(.has-relay-tour) {
     .main-board cg-board {
       filter: saturate(0.7) brightness(0.9);
     }
-  }
-}
-
-.vertical-resize-separator {
-  @extend %flex-column;
-  @include transition;
-  position: relative;
-  display: none;
-  justify-content: center;
-  align-items: center;
-  cursor: row-resize;
-  width: 100%;
-  height: 22px;
-
-  &:hover {
-    background: $m-primary--fade-70;
-    hr {
-      background: $c-font;
-      width: 40px;
-    }
-  }
-  hr {
-    @include transition;
-    margin: 0;
-    width: 14px;
-    height: 1px;
-    pointer-events: none;
-  }
-  .chat__members {
-    position: absolute;
-    top: 0;
-    left: 0;
-    margin: 4px;
   }
 }
 

@@ -6,13 +6,13 @@ object I18nKey:
   def apply(key: String): I18nKey = key
   import scalatags.Text.RawFrag
   extension (key: I18nKey)
-    def value: String                                   = key
+    def value: String = key
     def txt(args: Any*)(using trans: Translate): String =
       trans.translator.txt.literal(key, args, trans.lang)
     def pluralTxt(count: Count, args: Any*)(using trans: Translate): String =
       trans.translator.txt.plural(key, count, args, trans.lang)
     def pluralSameTxt(count: Long)(using trans: Translate): String = pluralTxt(count, count)
-    def apply(args: Matchable*)(using trans: Translate): RawFrag   =
+    def apply(args: Matchable*)(using trans: Translate): RawFrag =
       trans.translator.frag.literal(key, args, trans.lang)
     def plural(count: Count, args: Matchable*)(using trans: Translate): RawFrag =
       trans.translator.frag.plural(key, count, args, trans.lang)
@@ -189,9 +189,7 @@ object I18nKey:
     val `officialStandings`: I18nKey = "broadcast:officialStandings"
     val `iframeHelp`: I18nKey = "broadcast:iframeHelp"
     val `webmastersPage`: I18nKey = "broadcast:webmastersPage"
-    val `pgnSourceHelp`: I18nKey = "broadcast:pgnSourceHelp"
     val `embedThisBroadcast`: I18nKey = "broadcast:embedThisBroadcast"
-    val `embedThisRound`: I18nKey = "broadcast:embedThisRound"
     val `ratingDiff`: I18nKey = "broadcast:ratingDiff"
     val `gamesThisTournament`: I18nKey = "broadcast:gamesThisTournament"
     val `score`: I18nKey = "broadcast:score"
@@ -958,6 +956,10 @@ object I18nKey:
     val `invalidMove`: I18nKey = "nvui:invalidMove"
     val `premoveCancelled`: I18nKey = "nvui:premoveCancelled"
     val `premoveRecorded`: I18nKey = "nvui:premoveRecorded"
+    val `pockets`: I18nKey = "nvui:pockets"
+    val `copyToClipboard`: I18nKey = "nvui:copyToClipboard"
+    val `copiedToClipboard`: I18nKey = "nvui:copiedToClipboard"
+    val `pgnAndFen`: I18nKey = "nvui:pgnAndFen"
 
   object oauthScope:
     val `newAccessToken`: I18nKey = "oauthScope:newAccessToken"
@@ -1789,7 +1791,7 @@ object I18nKey:
     val `openTournaments`: I18nKey = "openTournaments"
     val `duration`: I18nKey = "duration"
     val `winner`: I18nKey = "winner"
-    val `standing`: I18nKey = "standing"
+    val `standings`: I18nKey = "standings"
     val `createANewTournament`: I18nKey = "createANewTournament"
     val `tournamentCalendar`: I18nKey = "tournamentCalendar"
     val `conditionOfEntry`: I18nKey = "conditionOfEntry"
@@ -2278,6 +2280,7 @@ object I18nKey:
     val `accessibility`: I18nKey = "accessibility"
     val `enableBlindMode`: I18nKey = "enableBlindMode"
     val `disableBlindMode`: I18nKey = "disableBlindMode"
+    val `copyToClipboard`: I18nKey = "copyToClipboard"
     val `opponentLeftCounter`: I18nKey = "opponentLeftCounter"
     val `mateInXHalfMoves`: I18nKey = "mateInXHalfMoves"
     val `nbBlunders`: I18nKey = "nbBlunders"

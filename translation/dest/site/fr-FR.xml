@@ -1009,4 +1009,5 @@ Tous les coûts d\'exploitation, le développement et le contenu sont financés 
   <string name="accessibility">Accessibilité</string>
   <string name="enableBlindMode">Activer le mode pour non-voyant</string>
   <string name="disableBlindMode">Désactiver le mode pour non-voyant</string>
+  <string name="copyToClipboard">Copier dans le presse-papier</string>
 </resources>

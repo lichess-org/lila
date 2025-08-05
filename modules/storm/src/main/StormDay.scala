@@ -39,10 +39,10 @@ object StormDay:
 
   case class Id(userId: UserId, day: LichessDay)
   object Id:
-    def today(userId: UserId)     = Id(userId, LichessDay.today)
-    def lastWeek(userId: UserId)  = Id(userId, LichessDay.daysAgo(7))
+    def today(userId: UserId) = Id(userId, LichessDay.today)
+    def lastWeek(userId: UserId) = Id(userId, LichessDay.daysAgo(7))
     def lastMonth(userId: UserId) = Id(userId, LichessDay.daysAgo(30))
-    def allTime(userId: UserId)   = Id(userId, LichessDay(0))
+    def allTime(userId: UserId) = Id(userId, LichessDay(0))
 
   def empty(id: Id) = StormDay(id, 0, 0, 0, 0, 0, IntRating(0), 0)
 
@@ -78,10 +78,10 @@ final class StormDayApi(coll: Coll, highApi: StormHighApi, userApi: lila.core.us
         if data.time > 40 then
           if data.score > 99 then logger.warn(s"badly signed run from ${u.username} $data")
           val signature = data.signed match
-            case None              => "missing"
-            case Some("")          => "empty"
+            case None => "missing"
+            case Some("") => "empty"
             case Some("undefined") => "undefined"
-            case _                 => "wrong"
+            case _ => "wrong"
           lila.mon.storm.run.sign(signature).increment()
         fuccess(none)
 

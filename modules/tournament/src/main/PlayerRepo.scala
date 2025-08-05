@@ -12,16 +12,16 @@ import lila.tournament.BSONHandlers.given
 
 final class PlayerRepo(private[tournament] val coll: Coll)(using Executor):
 
-  def selectTour(tourId: TourId)                             = $doc("tid" -> tourId)
+  def selectTour(tourId: TourId) = $doc("tid" -> tourId)
   private def selectTourUser(tourId: TourId, userId: UserId) =
     $doc(
       "tid" -> tourId,
       "uid" -> userId
     )
-  private val selectActive   = $doc("w".$ne(true))
-  private val selectBot      = $doc("bot" -> true)
+  private val selectActive = $doc("w".$ne(true))
+  private val selectBot = $doc("bot" -> true)
   private val selectWithdraw = $doc("w" -> true)
-  private val bestSort       = $doc("m" -> -1)
+  private val bestSort = $doc("m" -> -1)
 
   def byId(id: TourId): Fu[Option[Player]] = coll.one[Player]($id(id))
 
@@ -90,11 +90,11 @@ final class PlayerRepo(private[tournament] val coll: Coll)(using Executor):
       .map:
         _.flatMap: doc =>
           for
-            teamId      <- doc.getAsOpt[TeamId]("_id")
+            teamId <- doc.getAsOpt[TeamId]("_id")
             leadersBson <- doc.getAsOpt[List[Bdoc]]("p")
             leaders = leadersBson.flatMap: p =>
               for
-                id    <- p.getAsOpt[UserId]("u")
+                id <- p.getAsOpt[UserId]("u")
                 magic <- p.int("m")
               yield TeamLeader(id, magic)
           yield new RankedTeam(0, teamId, leaders)
@@ -124,10 +124,10 @@ final class PlayerRepo(private[tournament] val coll: Coll)(using Executor):
             List(
               "agg" -> List(
                 Group(BSONNull)(
-                  "nb"     -> SumAll,
+                  "nb" -> SumAll,
                   "rating" -> AvgField("r"),
-                  "perf"   -> Avg($doc("$cond" -> $arr("$e", "$e", "$r"))),
-                  "score"  -> AvgField("s")
+                  "perf" -> Avg($doc("$cond" -> $arr("$e", "$e", "$r"))),
+                  "score" -> AvgField("s")
                 )
               ),
               "topPlayers" -> List(Limit(50))
@@ -136,13 +136,13 @@ final class PlayerRepo(private[tournament] val coll: Coll)(using Executor):
         )
       .map: docO =>
         for
-          doc       <- docO
-          aggs      <- doc.getAsOpt[List[Bdoc]]("agg")
-          agg       <- aggs.headOption
+          doc <- docO
+          aggs <- doc.getAsOpt[List[Bdoc]]("agg")
+          agg <- aggs.headOption
           nbPlayers <- agg.int("nb")
           rating = agg.double("rating").so(math.round)
-          perf   = agg.double("perf").so(math.round)
-          score  = agg.double("score").so(math.round)
+          perf = agg.double("perf").so(math.round)
+          score = agg.double("score").so(math.round)
           topPlayers <- doc.getAsOpt[List[Player]]("topPlayers")
         yield TeamBattle.TeamInfo(teamId, nbPlayers, rating.toInt, perf.toInt, score.toInt, topPlayers)
       .dmap(_ | TeamBattle.TeamInfo(teamId, 0, 0, 0, 0, Nil))
@@ -160,7 +160,7 @@ final class PlayerRepo(private[tournament] val coll: Coll)(using Executor):
       .listAll()
       .map: doc =>
         for
-          doc    <- doc
+          doc <- doc
           userId <- doc.getAsOpt[UserId]("uid")
           teamId <- doc.getAsOpt[TeamId]("t")
         yield (userId, teamId)
@@ -212,8 +212,8 @@ final class PlayerRepo(private[tournament] val coll: Coll)(using Executor):
       prev: Option[Player]
   ) = prev match
     case Some(p) if p.withdraw => coll.update.one($id(p._id), $unset("w"))
-    case Some(_)               => funit
-    case None                  => coll.insert.one(Player.make(tourId, user, team, user.user.isBot))
+    case Some(_) => funit
+    case None => coll.insert.one(Player.make(tourId, user, team, user.user.isBot))
 
   def withdraw(tourId: TourId, userId: UserId) =
     coll.update.one(selectTourUser(tourId, userId), $set("w" -> true)).void
@@ -251,10 +251,10 @@ final class PlayerRepo(private[tournament] val coll: Coll)(using Executor):
           .fold(FullRanking(Map.empty, Array.empty)): all =>
             // mutable optimized implementation
             val playerIndex = new Array[TourPlayerId](all.size)
-            val ranking     = Map.newBuilder[UserId, Rank]
-            var r           = 0
+            val ranking = Map.newBuilder[UserId, Rank]
+            var r = 0
             for u <- all.values do
-              val both   = u.asInstanceOf[BSONString].value
+              val both = u.asInstanceOf[BSONString].value
               val userId = UserId(both.drop(8))
               playerIndex(r) = TourPlayerId(both.take(8))
               ranking += (userId -> Rank(r))
@@ -286,7 +286,7 @@ final class PlayerRepo(private[tournament] val coll: Coll)(using Executor):
     byTourAndUserIds(tourId, List(id1, id2)).map:
       case List(p1, p2) if p1.is(id1) && p2.is(id2) => Some(p1 -> p2)
       case List(p1, p2) if p1.is(id2) && p2.is(id1) => Some(p2 -> p1)
-      case _                                        => none
+      case _ => none
 
   private def rankPlayers(players: List[Player], ranking: Ranking): RankedPlayers =
     players

@@ -39,7 +39,7 @@ final class ModInquiryUi(helpers: Helpers)(
   def noteZone(u: User, notes: List[lila.user.Note])(using Context, NetDomain) = div(
     cls := List(
       "dropper counter notes" -> true,
-      "empty"                 -> notes.isEmpty
+      "empty" -> notes.isEmpty
     )
   )(
     span(
@@ -54,8 +54,8 @@ final class ModInquiryUi(helpers: Helpers)(
         div(cls := "submission")(
           submitButton(cls := "button thin", name := "noteType", value := "mod")("SEND"),
           button(
-            cls   := "button thin",
-            name  := "noteType",
+            cls := "button thin",
+            name := "noteType",
             value := "copy-url",
             title := "copy current URL to note"
           )("ADD URL"),
@@ -105,7 +105,7 @@ final class ModInquiryUi(helpers: Helpers)(
       div(
         cls := List(
           "dropper counter history" -> true,
-          "empty"                   -> history.isEmpty
+          "empty" -> history.isEmpty
         )
       )(
         span(
@@ -138,16 +138,16 @@ final class ModInquiryUi(helpers: Helpers)(
         a(href := routes.GameMod.index(in.user.username))("View", br, "Games"),
         div(cls := "view-games-dropdown")(
           a(
-            cls  := "fbt",
+            cls := "fbt",
             href := s"$searchUrl?turnsMax=5&mode=1&players.loser=${in.user.id}&sort.field=d&sort.order=desc"
           )("Quick rated losses"),
           a(
-            cls  := "fbt",
+            cls := "fbt",
             href := s"$searchUrl?turnsMax=5&mode=1&players.winner=${in.user.id}&sort.field=d&sort.order=desc"
           )("Quick rated wins"),
           boostOpponents(in.report, in.allReports, in.user.user).map { opponents =>
             a(
-              cls  := "fbt",
+              cls := "fbt",
               href := s"${routes.GameMod.index(in.user.id)}?opponents=${opponents.toList.mkString(", ")}"
             )("With these opponents")
           }
@@ -194,8 +194,8 @@ final class ModInquiryUi(helpers: Helpers)(
       div(cls := "dropper shadowban buttons")(
         postForm(
           action := url,
-          title  := (if in.user.marks.troll then "Un-shadowban" else "Shadowban"),
-          cls    := "main"
+          title := (if in.user.marks.troll then "Un-shadowban" else "Shadowban"),
+          cls := "main"
         )(
           markButton(in.user.marks.troll, Left(Icon.BubbleSpeech)),
           autoNextInput
@@ -257,16 +257,16 @@ final class ModInquiryUi(helpers: Helpers)(
       ),
       postForm(
         action := routes.Report.process(in.report.id),
-        title  := "Dismiss this report as processed. (Hotkey: d)",
-        cls    := "process"
+        title := "Dismiss this report as processed. (Hotkey: d)",
+        cls := "process"
       )(
         submitButton(dataIcon := Icon.Checkmark, cls := "fbt"),
         autoNextInput
       ),
       postForm(
         action := routes.Report.inquiry(in.report.id.value),
-        title  := "Cancel the inquiry, re-instore the report",
-        cls    := "cancel"
+        title := "Cancel the inquiry, re-instore the report",
+        cls := "cancel"
       ):
         submitButton(dataIcon := Icon.X, cls := "fbt")(in.alreadyMarked.option(disabled))
     )
@@ -289,7 +289,7 @@ final class ModInquiryUi(helpers: Helpers)(
         .withFilter(_.byLichess)
         .flatMap(_.text.linesIterator)
         .collect:
-          case farmWithRegex(userId)     => List(userId)
+          case farmWithRegex(userId) => List(userId)
           case sandbagWithRegex(userIds) => userIds.split(' ').toList.map(_.replace("@", ""))
         .flatten
         .flatMap(UserStr.read)
@@ -300,7 +300,7 @@ final class ModInquiryUi(helpers: Helpers)(
   private def renderAtomText(atom: Report.Atom, highlight: Boolean)(using Translate) =
     val (link, text) = atom.parseFlag.match
       case Some(flag) => sourceOf(flag.source).some -> flag.quotes.mkString("\n")
-      case None       => None                       -> atom.text
+      case None => None -> atom.text
     frag(
       link,
       " ",
@@ -314,7 +314,7 @@ final class ModInquiryUi(helpers: Helpers)(
     "^Sandbagging: throws games to (.+)".r.unanchored
 
   private def markButton(active: Boolean, icon: Either[Icon, String]) = submitButton(
-    cls      := List("fbt icon" -> true, "active" -> active, "text" -> icon.isLeft),
+    cls := List("fbt icon" -> true, "active" -> active, "text" -> icon.isLeft),
     dataIcon := icon.left.toOption
   )(icon.toOption.map(str => frag(i(str), " ")))
 

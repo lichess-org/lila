@@ -1,6 +1,5 @@
 package lila.fishnet
 
-import chess.format.Uci
 import chess.format.pgn.SanStr
 import chess.{ Position, Ply }
 
@@ -27,12 +26,12 @@ private object UciToSan:
     def uciToSan(ply: Ply, variation: List[String]): Either[String, List[SanStr]] =
       for
         position <- positions.lift(ply.value - startedAt.value - 1).toRight(s"No move found at ply $ply")
-        moves    <- position.play(variation, ply)(_.move.toSanStr).leftMap(_.value)
+        moves <- position.play(variation, ply)(_.move.toSanStr).leftMap(_.value)
       yield moves
 
     onlyMeaningfulVariations.foldLeft[WithErrors[List[Info]]]((Nil, Nil)):
       case ((infos, errs), info) if info.variation.isEmpty => (info :: infos, errs)
-      case ((infos, errs), info)                           =>
+      case ((infos, errs), info) =>
         uciToSan(info.ply, SanStr.raw(info.variation)).fold(
           err => (info.dropVariation :: infos, LilaException(err) :: errs),
           sans => (info.copy(variation = sans) :: infos, errs)

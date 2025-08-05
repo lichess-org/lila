@@ -1009,4 +1009,5 @@ Alle driftsomkostninger, udvikling og indhold finansieres udelukkende af brugerd
   <string name="accessibility">Tilgængelighed</string>
   <string name="enableBlindMode">Aktiver blindtilstand</string>
   <string name="disableBlindMode">Deaktiver blindtilstand</string>
+  <string name="copyToClipboard">Kopiér til udklipsholder</string>
 </resources>

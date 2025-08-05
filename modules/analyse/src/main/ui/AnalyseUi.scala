@@ -17,9 +17,9 @@ final class AnalyseUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
   def explorerAndCevalConfig(using ctx: Context) =
     Json.obj(
       "explorer" -> Json.obj(
-        "endpoint"          -> endpoints.explorer,
+        "endpoint" -> endpoints.explorer,
         "tablebaseEndpoint" -> endpoints.tablebase,
-        "showRatings"       -> ctx.pref.showRatings
+        "showRatings" -> ctx.pref.showRatings
       ),
       "externalEngineEndpoint" -> endpoints.externalEngine
     )
@@ -60,7 +60,7 @@ final class AnalyseUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
       .flag(_.zoom):
         main(
           cls := List(
-            "analyse"       -> true,
+            "analyse" -> true,
             "analyse--wiki" -> pov.game.variant.standard
           )
         )(
@@ -74,8 +74,8 @@ final class AnalyseUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
                   .map: v =>
                     a(
                       dataIcon := iconByVariant(v),
-                      cls      := (pov.game.variant == v).option("current"),
-                      href     := routes.UserAnalysis.parseArg(v.key.value)
+                      cls := (pov.game.variant == v).option("current"),
+                      href := routes.UserAnalysis.parseArg(v.key.value)
                     )(v.name)
               ),
               pov.game.variant.chess960.option(chess960selector(chess960PositionNum)),
@@ -97,17 +97,17 @@ final class AnalyseUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
       num.map(pos => label(`for` := "chess960-position")(trans.site.chess960StartPosition(pos))),
       br,
       form(
-        cls    := "control-960",
+        cls := "control-960",
         method := "GET",
         action := routes.UserAnalysis.parseArg("chess960")
       )(
         input(
-          id     := "chess960-position",
+          id := "chess960-position",
           `type` := "number",
-          name   := "position",
-          min    := 0,
-          max    := 959,
-          value  := num
+          name := "position",
+          min := 0,
+          max := 959,
+          value := num
         ),
         form3.submit(trans.site.loadPosition(), icon = none)
       )

@@ -39,7 +39,7 @@ final class TutorHome(helpers: Helpers, bits: TutorBits, perfUi: PerfUi):
 
   private def waitGame(game: (Pov, PgnStr)) =
     div(
-      cls            := "tutor__waiting-game lpv lpv--todo lpv--moves-false lpv--controls-false",
+      cls := "tutor__waiting-game lpv lpv--todo lpv--moves-false lpv--controls-false",
       st.data("pgn") := game._2.value,
       st.data("pov") := game._1.color.name
     )
@@ -60,7 +60,7 @@ final class TutorHome(helpers: Helpers, bits: TutorBits, perfUi: PerfUi):
       Context
   ) =
     st.article(
-      cls      := "tutor__perfs__perf tutor-card tutor-card--link",
+      cls := "tutor__perfs__perf tutor-card tutor-card--link",
       dataHref := routes.Tutor.perf(user.username, perfReport.perf.key)
     )(
       div(cls := "tutor-card__top")(

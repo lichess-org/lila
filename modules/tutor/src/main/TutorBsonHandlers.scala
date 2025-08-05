@@ -13,7 +13,7 @@ private object TutorBsonHandlers:
   import lila.rating.BSONHandlers.perfTypeIdHandler
 
   given BSONHandler[FiniteDuration] = lila.db.dsl.minutesHandler
-  given BSONHandler[GoodPercent]    = percentAsIntHandler[GoodPercent]
+  given BSONHandler[GoodPercent] = percentAsIntHandler[GoodPercent]
 
   given [A](using handler: BSONHandler[A]): BSONHandler[ByColor[A]] =
     mapHandler[A]
@@ -63,8 +63,8 @@ private object TutorBsonHandlers:
         .map: docs =>
           TutorColorOpenings(docs.flatMap(_.asOpt[TutorOpeningFamily]))
 
-  given BSONDocumentHandler[TutorPhase]       = Macros.handler
-  given BSONDocumentHandler[TutorFlagging]    = Macros.handler
+  given BSONDocumentHandler[TutorPhase] = Macros.handler
+  given BSONDocumentHandler[TutorFlagging] = Macros.handler
   given BSONDocumentHandler[InsightPerfStats] = Macros.handler
-  given BSONDocumentHandler[TutorPerfReport]  = Macros.handler
-  given BSONDocumentHandler[TutorFullReport]  = Macros.handler
+  given BSONDocumentHandler[TutorPerfReport] = Macros.handler
+  given BSONDocumentHandler[TutorFullReport] = Macros.handler

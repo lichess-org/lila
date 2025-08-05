@@ -26,10 +26,11 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
     maxConcurrency = 1
   )
 
-  val forumPost  = RateLimit[IpAddress](credits = 4, duration = 5.minutes, key = "forum.post")
+  val forumPost = RateLimit[IpAddress](credits = 4, duration = 5.minutes, key = "forum.post")
   val forumTopic = RateLimit[IpAddress](credits = 2, duration = 5.minutes, key = "forum.topic")
 
   val apiMe = RateLimit[UserId](30, 5.minutes, "api.account.user")
+  val apiMobileHome = RateLimit[UserId | IpAddress](30, 5.minutes, "api.mobile.home")
 
   val apiUsers = RateLimit.composite[IpAddress](
     key = "users.api.ip"
@@ -112,7 +113,7 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
 
   val follow = RateLimit[UserId](credits = 150, duration = 72.hour, key = "follow.user")
 
-  val search            = RateLimit[IpAddress](credits = 50, duration = 5.minutes, key = "search.games.ip")
+  val search = RateLimit[IpAddress](credits = 50, duration = 5.minutes, key = "search.games.ip")
   val searchConcurrency = lila.web.FutureConcurrencyLimit[IpAddress](
     key = "search.games.concurrency.ip",
     ttl = 10.minutes,

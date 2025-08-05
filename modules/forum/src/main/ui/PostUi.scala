@@ -23,6 +23,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
         div(cls := "forum-post__metas")(
           (!post.erased || canModCateg).option(
             div(
+              ctx.blind.option(h2(a(cls := "anchor", href := url)(s"Post ${post.number}"))),
               bits.authorLink(
                 post = post,
                 cssClass = s"author${(topic.userId == post.userId).so(" author--op")}".some
@@ -48,27 +49,27 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                 then
                   postForm(action := routes.ForumPost.delete(post.id))(
                     submitButton(
-                      cls      := "mod delete button button-empty yes-no-confirm",
+                      cls := "mod delete button button-empty yes-no-confirm",
                       dataIcon := Icon.Trash,
-                      title    := "Delete"
+                      title := "Delete"
                     )
                   ).some
                 else
                   frag(
                     (canModCateg && post.number == 1).option:
                       a(
-                        cls      := "mod mod-relocate button button-empty",
-                        href     := routes.ForumPost.relocate(post.id),
+                        cls := "mod mod-relocate button button-empty",
+                        href := routes.ForumPost.relocate(post.id),
                         dataIcon := Icon.Forward,
-                        title    := "Relocate"
+                        title := "Relocate"
                       )
                     ,
                     if canModCateg || topic.isUblogAuthor(me) then
                       a(
-                        cls      := "mod delete button button-empty",
-                        href     := routes.ForumPost.delete(post.id),
+                        cls := "mod delete button button-empty",
+                        href := routes.ForumPost.delete(post.id),
                         dataIcon := Icon.Trash,
-                        title    := "Delete"
+                        title := "Delete"
                       )
                     else
                       post.userId.map: userId =>
@@ -77,7 +78,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                           nbsp,
                           a(
                             titleOrText(trans.site.reportXToModerators.txt(userId)),
-                            cls  := "mod report button button-empty",
+                            cls := "mod report button button-empty",
                             href := addQueryParams(
                               routes.Report.form.url,
                               Map("username" -> userId.value, "postUrl" -> postUrl, "from" -> "forum")
@@ -89,14 +90,15 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
               ,
               (canReply && !post.erased).option(
                 button(
-                  cls      := "mod quote button button-empty text",
-                  tpe      := "button",
+                  cls := "mod quote button button-empty text",
+                  tpe := "button",
                   dataIcon := "❝"
                 )("Quote")
               )
             )
           ),
-          a(cls := "anchor", href := url)(s"#${post.number}")
+          ctx.blind.not.option:
+            a(cls := "anchor", href := url)(s"#${post.number}")
         ),
         frag:
           val postFrag = div(cls := s"forum-post__message expand-text")(
@@ -119,15 +121,15 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
             postForm(cls := "edit-post-form", action := routes.ForumPost.edit(post.id))(
               textarea(
                 bits.dataTopic := topic.id,
-                name           := "changes",
-                cls            := "post-text-area edit-post-box",
-                minlength      := 3,
+                name := "changes",
+                cls := "post-text-area edit-post-box",
+                minlength := 3,
                 required
               )(post.text),
               div(cls := "edit-buttons")(
                 a(
-                  cls   := "edit-post-cancel",
-                  href  := routes.ForumPost.redirect(post.id),
+                  cls := "edit-post-cancel",
+                  href := routes.ForumPost.redirect(post.id),
                   style := "margin-left:20px"
                 ):
                   trans.site.cancel()
@@ -139,19 +141,19 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
       )
 
   def reactions(post: ForumPost, canReact: Boolean)(using ctx: Context) =
-    val mine             = ctx.me.so { ForumPost.Reaction.of(~post.reactions, _) }
+    val mine = ctx.me.so { ForumPost.Reaction.of(~post.reactions, _) }
     val canActuallyReact = canReact && ctx.me.exists(me => !me.isBot && !post.isBy(me))
     div(cls := List("reactions" -> true, "reactions-auth" -> canActuallyReact))(
       ForumPost.Reaction.list.map: r =>
         val users = ~post.reactions.flatMap(_.get(r))
-        val size  = users.size
+        val size = users.size
         button(
           dataHref := canActuallyReact.option(
             routes.ForumPost
               .react(post.categId, post.id, r.key, !mine(r))
               .url
           ),
-          cls   := List("mine" -> mine(r), "yes" -> (size > 0), "no" -> (size < 1)),
+          cls := List("mine" -> mine(r), "yes" -> (size > 0), "no" -> (size < 1)),
           title := {
             if size > 0 then
               val who =

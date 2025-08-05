@@ -65,7 +65,7 @@ case class MixedChat(
     if all.yes || me.exists(_.marks.troll) then this
     else
       copy(lines = lines.filter:
-        case l: UserLine   => !l.troll
+        case l: UserLine => !l.troll
         case _: PlayerLine => true)
 
   def mapLines(f: Line => Line) = copy(lines = lines.map(f))
@@ -83,7 +83,7 @@ object Chat:
   case class Setup(id: ChatId, publicSource: PublicSource)
 
   def tournamentSetup(tourId: TourId) = Setup(tourId.into(ChatId), PublicSource.Tournament(tourId))
-  def simulSetup(simulId: SimulId)    = Setup(simulId.into(ChatId), PublicSource.Simul(simulId))
+  def simulSetup(simulId: SimulId) = Setup(simulId.into(ChatId), PublicSource.Simul(simulId))
 
   // if restricted, only presets are available
   case class Restricted(chat: MixedChat, lines: JsonChatLines, restricted: Boolean)
@@ -95,13 +95,13 @@ object Chat:
 
   import lila.db.BSON
 
-  def makeUser(id: ChatId)  = UserChat(id, Nil)
+  def makeUser(id: ChatId) = UserChat(id, Nil)
   def makeMixed(id: ChatId) = MixedChat(id, Nil)
 
   def chanOf(id: ChatId) = s"chat:$id"
 
   object BSONFields:
-    val id    = "_id"
+    val id = "_id"
     val lines = "l"
 
   import BSONFields.*
@@ -117,7 +117,7 @@ object Chat:
       )
     def writes(w: BSON.Writer, o: MixedChat) =
       BSONDocument(
-        id    -> o.id,
+        id -> o.id,
         lines -> o.lines
       )
 
@@ -129,6 +129,6 @@ object Chat:
       )
     def writes(w: BSON.Writer, o: UserChat) =
       BSONDocument(
-        id    -> o.id,
+        id -> o.id,
         lines -> o.lines
       )

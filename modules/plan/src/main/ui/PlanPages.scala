@@ -14,11 +14,11 @@ final class PlanPages(helpers: Helpers)(fishnetPerDay: Int):
     )
     val unlimited =
       span(dataIcon := Icon.Checkmark, cls := "is is-green text unlimited")(trans.site.unlimited())
-    val custom                       = span(dataIcon := Icon.Checkmark, cls := "is is-green text check")
-    val check                        = custom(trans.site.yes())
-    def all(content: Frag)           = frag(td(content), td(content))
+    val custom = span(dataIcon := Icon.Checkmark, cls := "is is-green text check")
+    val check = custom(trans.site.yes())
+    def all(content: Frag) = frag(td(content), td(content))
     def tr(value: Frag)(text: Frag*) = st.tr(th(text), all(value))
-    val title                        = "Lichess features"
+    val title = "Lichess features"
     Page(title)
       .css("bits.feature")
       .graph(

@@ -50,44 +50,45 @@ final class UblogAutomod(
     default = Text("")
   )
 
-  val temperatureSetting = settingStore[Float](
-    "ublogAutomodTemperature",
-    text = "Ublog automod temperature".some,
-    default = 0.3
+  val modelSetting = settingStore[String](
+    "ublogAutomodModel",
+    text = "Ublog automod model".some,
+    default = "Qwen/Qwen3-235B-A22B-Thinking-2507"
   )
 
   private val dedup = scalalib.cache.OnceEvery.hashCode[String](1.hour)
 
-  private[ublog] def apply(post: UblogPost): Fu[Option[Assessment]] = post.live.so:
+  private[ublog] def apply(post: UblogPost, temperature: Double = 0): Fu[Option[Assessment]] = post.live.so:
     val text = post.allText.take(40_000) // bin/ublog-automod.mjs, important for hash
-    dedup(s"${post.id}:$text").so(assess(text))
+    dedup(s"${post.id}:$text").so(assess(text, temperature))
 
-  private def assess(userText: String): Fu[Option[Assessment]] =
+  private def assess(userText: String, temperature: Double): Fu[Option[Assessment]] =
     val prompt = promptSetting.get().value
     (config.apiKey.value.nonEmpty && prompt.nonEmpty).so:
       val body = Json.obj(
-        "model"       -> config.model,
-        "temperature" -> temperatureSetting.get(),
-        "messages"    -> Json.arr(
+        "model" -> modelSetting.get(),
+        "temperature" -> temperature,
+        "max_tokens" -> 4096,
+        "messages" -> Json.arr(
           Json.obj("role" -> "system", "content" -> prompt),
-          Json.obj("role" -> "user", "content"   -> userText)
+          Json.obj("role" -> "user", "content" -> userText)
         )
       )
       ws.url(config.url)
         .withHttpHeaders(
           "Authorization" -> s"Bearer ${config.apiKey.value}",
-          "Content-Type"  -> "application/json"
+          "Content-Type" -> "application/json"
         )
         .post(body)
         .flatMap: rsp =>
           (for
             choices <- (Json.parse(rsp.body) \ "choices").asOpt[List[JsObject]]
             if rsp.status == 200
-            best      <- choices.headOption
+            best <- choices.headOption
             resultStr <- (best \ "message" \ "content").asOpt[String]
-            result    <- normalize(resultStr)
+            result <- normalize(resultStr)
           yield result) match
-            case None      => fufail(s"${rsp.status} ${rsp.body.take(500)}")
+            case None => fufail(s"${rsp.status} ${rsp.body.take(500)}")
             case Some(res) =>
               lila.mon.ublog.automod.quality(res.quality.toString).increment()
               lila.mon.ublog.automod.flagged(res.flagged.isDefined).increment()
@@ -116,4 +117,4 @@ final class UblogAutomod(
     val isBad = (v: String) => Set("none", "false", "").exists(_.equalsIgnoreCase(v))
     field match
       case Some(JsString(value)) => value.trim().some.filterNot(isBad)
-      case _                     => none
+      case _ => none

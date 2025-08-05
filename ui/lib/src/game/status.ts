@@ -15,6 +15,7 @@ export const status: { [name in StatusName]: number } = {
   cheat: 36,
   noStart: 37,
   unknownFinish: 38,
+  insufficientMaterialClaim: 39,
   variantEnd: 60,
 };
 
@@ -27,6 +28,7 @@ export type StatusName =
   | 'stalemate'
   | 'timeout'
   | 'draw'
+  | 'insufficientMaterialClaim'
   | 'outoftime'
   | 'noStart'
   | 'cheat'

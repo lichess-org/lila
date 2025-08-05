@@ -15,6 +15,7 @@
   <string name="voteToLoadNextOne">Kjóstu til að hlaða inn sú næsta!</string>
   <string name="upVote">Ýta undir þraut</string>
   <string name="downVote">Ýta burt þraut</string>
+  <string name="yourPuzzleRatingWillNotChange">Skákþrautastyrkur þinn helst óbreyttur. Athugaðu að þrautir eru ekki keppni. Slíkur styrkur hjálpar til við að velja bestu þrautirnar fyrir núverandi getu þína.</string>
   <string name="findTheBestMoveForWhite">Finndu besta leikinn fyrir hvítan.</string>
   <string name="findTheBestMoveForBlack">Finndu besta leikinn fyrir svartan.</string>
   <string name="toGetPersonalizedPuzzles">Til að fá sérsniðaðar þrautir:</string>
@@ -29,6 +30,7 @@
   <string name="puzzleComplete">Þraut leyst!</string>
   <string name="byOpenings">Eftir byrjunum</string>
   <string name="puzzlesByOpenings">Þrautir eftir byrjunum</string>
+  <string name="openingsYouPlayedTheMost">Byrjanir sem þú notfærðir þér mest í stigaskákum</string>
   <string name="useFindInPage">Notaðu „Finna á síðu“ í vafravalmyndinni til þess að finna uppáhaldsbyrjunina þína!</string>
   <string name="useCtrlF">Notaðu Ctrl+f til þess að finna uppáhaldsbyrjun þína!</string>
   <string name="notTheMove">Þetta er ekki leikurinn!</string>
@@ -45,24 +47,33 @@
   <string name="normal">Miðlungs</string>
   <string name="easier">Léttari</string>
   <string name="easiest">Léttust</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="one">Eitt stig lægra en skákþrautastyrkur þinn</item>
+    <item quantity="other">%s stig lægra en skákþrautastyrkur þinn</item>
+  </plurals>
   <string name="harder">Þyngri</string>
   <string name="hardest">Þyngst</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="one">Eitt stig hærra en skákþrautastyrkur þinn</item>
+    <item quantity="other">%s stig hærra en skákþrautastyrkur þinn</item>
+  </plurals>
   <string name="example">Dæmi</string>
   <string name="addAnotherTheme">Bæta við annan þema</string>
   <string name="nextPuzzle">Næsta þraut</string>
   <string name="jumpToNextPuzzleImmediately">Fara strax á næsta þraut</string>
-  <string name="puzzleDashboard">Þrautastjórnborð</string>
+  <string name="puzzleDashboard">Þrautalesborð</string>
   <string name="improvementAreas">Þar sem hægt er að bæta</string>
   <string name="strengths">Styrkleikar</string>
   <string name="history">Þrautsaga</string>
   <string name="solved">leyst</string>
   <string name="failed">vitlaust</string>
-  <string name="streakDescription">Leystu þrautir sem verða sífellt erfiðari og byggðu upp sigurdöngun. Það er enginn tímamælir, svo þú getur farið þér að engu óðslega. Einn vitlaus leikur og það er búið spil! En þú getur sleppt einum leik í hverri lotu.</string>
-  <string name="yourStreakX">Döngun þín: %s</string>
-  <string name="streakSkipExplanation">Slepptu þessum leik til að varðveita döngun þína! Virkar aðeins einu sinni í hverri umferð.</string>
-  <string name="continueTheStreak">Halda dönguninni áfram</string>
-  <string name="newStreak">Ný döngun</string>
+  <string name="streakDescription">Leystu þrautir sem verða sífellt erfiðari og byggðu upp sigurhrinu. Það er enginn tímamælir, svo þú getur farið þér að engu óðslega. Einn vitlaus leikur og það er búið spil! En þú getur sleppt einum leik í hverri lotu.</string>
+  <string name="yourStreakX">Hrina þín: %s</string>
+  <string name="streakSkipExplanation">Slepptu þessum leik til þess að varðveita hrinu þína! Virkar aðeins einu sinni í hverri umferð.</string>
+  <string name="continueTheStreak">Halda áfram með hrinu</string>
+  <string name="newStreak">Ný hrina</string>
   <string name="fromMyGames">Úr skákum mínum</string>
+  <string name="lookupOfPlayer">Fletta upp þrautum útfrá skákum notanda</string>
   <string name="searchPuzzles">Leita að þrautum</string>
   <string name="fromMyGamesNone">Þú átt engar þrautir í gagnagrunninum, en Lichess þykir samt svo vænt um þig.
 
@@ -76,6 +87,12 @@ Tefldu atskákir og hefðbundnar skákir til þess að auka líkurnar á því a
     <item quantity="one">%s leikin</item>
     <item quantity="other">%s leiknar</item>
   </plurals>
+  <plurals name="nbToReplay">
+    <item quantity="one">%s til að endurtaka</item>
+    <item quantity="other">%s til að endurtaka</item>
+  </plurals>
   <string name="percentSolved">%s leystar</string>
-  <string name="improvementAreasDescription">Temdu þér eftirfarandi til þess að hámarka framfarir þínar!</string>
+  <string name="noPuzzlesToShow">Ekkert til að sýna, farðu og leystu nokkrar þrautir fyrst!</string>
+  <string name="improvementAreasDescription">Æfðu eftirfarandi til þess að hámarka framfarir þínar!</string>
+  <string name="strengthDescription">Þú stendur þig best í þessum þemum</string>
 </resources>

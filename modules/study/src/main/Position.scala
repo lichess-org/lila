@@ -27,5 +27,5 @@ case object Position:
     def decode(str: String): Option[Ref] =
       str.split(' ') match
         case Array(chapterId, path) => Ref(StudyChapterId(chapterId), UciPath(path)).some
-        case Array(chapterId)       => Ref(StudyChapterId(chapterId), UciPath.root).some
-        case _                      => none
+        case Array(chapterId) => Ref(StudyChapterId(chapterId), UciPath.root).some
+        case _ => none

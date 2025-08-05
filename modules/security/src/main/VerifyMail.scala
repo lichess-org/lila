@@ -59,7 +59,7 @@ final private class VerifyMail(
       .map(_.forall(identity)) // ok if both say the domain is ok
 
   object fetchFree:
-    private var rateLimitedUntil                 = java.time.Instant.EPOCH
+    private var rateLimitedUntil = java.time.Instant.EPOCH
     def apply(domain: Domain.Lower): Fu[Boolean] =
       if rateLimitedUntil.isAfterNow then fuccess(true)
       else
@@ -99,7 +99,7 @@ final private class VerifyMail(
           if res.status == 200
           block <- js.boolean("block")
           disposable = ~js.boolean("disposable")
-          privacy    = ~js.boolean("privacy")
+          privacy = ~js.boolean("privacy")
         yield
           val ok = !disposable
           logger.info:

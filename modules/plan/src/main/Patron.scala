@@ -11,7 +11,7 @@ case class Patron(
     lastLevelUp: Option[Instant] = None
 ):
 
-  inline def id     = _id
+  inline def id = _id
   inline def userId = _id
 
   def canLevelUp = lastLevelUp.exists(_.isBefore(nowInstant.minusDays(25)))

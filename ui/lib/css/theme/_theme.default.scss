@@ -35,10 +35,11 @@ $c-blunder: hsl(0, 69%, 60%);
 $c-brilliant: hsl(129, 71%, 45%);
 $c-interesting: hsl(307, 80%, 70%);
 $c-paper: hsl(60, 56%, 91%);
-$c-white: #fff;
 $c-dark: #333;
 $c-dimmer: #000;
 $c-clearer: #fff;
+$c-mv-branch-white: #fff;
+$c-mv-branch-black: #000;
 
 /* shared-color-defs is the location for theme colors that share the same definition syntax.
    important: the assigned values often depend on variables from the including scope and
@@ -124,6 +125,8 @@ $c-clearer: #fff;
   --c-good-move: #{$c-secondary};
   --c-brilliant: #{$c-brilliant};
   --c-interesting: #{$c-interesting};
+  --c-mv-branch-white: #{$c-mv-branch-white};
+  --c-mv-branch-black: #{$c-mv-branch-black};
   --c-pool-button: #{hsla($site-hue, 7%, 19%, 66%)};
   --c-paper: #{$c-paper};
 }

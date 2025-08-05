@@ -3,7 +3,7 @@ package forum
 
 import reactivemongo.api.bson.Macros.Annotations.Key
 
-import lila.core.id.{ ForumCategId, ForumPostId, ForumTopicId, TeamId }
+import lila.core.id.{ ForumCategId, ForumPostId, ForumTopicId, ForumTopicSlug, TeamId }
 import lila.core.userId.*
 
 enum BusForum:
@@ -25,7 +25,7 @@ case class ForumPostMini(
 case class ForumTopicMini(
     @Key("_id") id: ForumTopicId,
     name: String,
-    slug: String,
+    slug: ForumTopicSlug,
     categId: ForumCategId
 ):
   def possibleTeamId: Option[TeamId] = ForumCateg.toTeamId(categId)
@@ -33,7 +33,7 @@ case class ForumTopicMini(
 case class ForumPostMiniView(post: ForumPostMini, topic: ForumTopicMini)
 
 object ForumCateg:
-  def isTeamSlug(id: ForumCategId)               = id.value.startsWith("team-")
+  def isTeamSlug(id: ForumCategId) = id.value.startsWith("team-")
   def toTeamId(id: ForumCategId): Option[TeamId] = isTeamSlug(id).option(TeamId(id.value.drop(5)))
 
 trait ForumPostApi:

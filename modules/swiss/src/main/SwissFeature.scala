@@ -72,20 +72,20 @@ final class SwissFeature(
             "featurable" -> true,
             "settings.i".$lte(600), // hits the partial index
             "settings.o.playYourGames" -> true,
-            "startsAt"                 -> startsAtRange,
+            "startsAt" -> startsAtRange,
             "garbage".$ne(true)
           )
         ) -> List(
           Sort(Descending("nbPlayers")),
           Limit(nb * 50),
           PipelineOperator(
-            $lookup.pipeline(
-              from = "team",
+            $lookup.simple(
+              from = lila.core.config.CollName("team"),
               as = "team",
               local = "teamId",
               foreign = "_id",
               pipe = List(
-                $doc("$match"   -> $doc("open" -> true, "password".$exists(false))),
+                $doc("$match" -> $doc("open" -> true, "password".$exists(false))),
                 $doc("$project" -> $id(true))
               )
             )

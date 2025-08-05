@@ -13,7 +13,7 @@ final class UserBits(helpers: Helpers):
     lila.ui.bits.pageMenuSubnav(
       a(cls := active.active("leaderboard"), href := routes.User.list)(trans.site.leaderboard()),
       a(
-        cls  := active.active("ratings"),
+        cls := active.active("ratings"),
         href := routes.User.ratingDistribution(PerfKey.blitz)
       )(
         trans.site.ratingStats()
@@ -24,6 +24,10 @@ final class UserBits(helpers: Helpers):
       a(cls := active.active("shield"), href := routes.Tournament.shields)(
         trans.arena.tournamentShields()
       ),
+      a(href := routes.Fide.index())(
+        "FIDE players"
+      ),
+      div(cls := "sep"),
       a(cls := active.active("bots"), href := routes.PlayApi.botOnline)(
         trans.site.onlineBots()
       )
@@ -37,9 +41,9 @@ final class UserBits(helpers: Helpers):
         .exists(!_.isFollow)
         .option(
           a(
-            cls      := "btn-rack__btn relation-button text aclose",
-            title    := trans.site.unblock.txt(),
-            href     := s"${routes.Relation.unblock(u.id)}?mini=1",
+            cls := "btn-rack__btn relation-button text aclose",
+            title := trans.site.unblock.txt(),
+            href := s"${routes.Relation.unblock(u.id)}?mini=1",
             dataIcon := Icon.NotAllowed
           )(trans.site.blocked())
         ),
@@ -47,9 +51,9 @@ final class UserBits(helpers: Helpers):
         .exists(_.isFollow)
         .option(
           a(
-            cls      := "btn-rack__btn relation-button text aclose",
-            title    := trans.site.unfollow.txt(),
-            href     := s"${routes.Relation.unfollow(u.id)}?mini=1",
+            cls := "btn-rack__btn relation-button text aclose",
+            title := trans.site.unfollow.txt(),
+            href := s"${routes.Relation.unfollow(u.id)}?mini=1",
             dataIcon := Icon.ThumbsUp
           )(trans.site.following())
         )
@@ -73,22 +77,21 @@ final class UserBits(helpers: Helpers):
       .map: (perf, rank) =>
         lila.rating.PerfType(perf) -> rank
       .collect:
-        case (perf, rank) if rank == 1 =>
-          span(cls := "trophy perf top1", title := s"${perf.trans} Champion!")(
-            img(src := assetUrl("images/trophy/gold-cup-2.png"))
-          )
+        case (perf, 1) =>
+          (perf, "trophy perf top1", s"${perf.trans} Champion!", "images/trophy/gold-cup-2.png")
         case (perf, rank) if rank <= 10 =>
-          span(cls := "trophy perf top10", title := s"${perf.trans} Top 10!")(
-            img(src := assetUrl("images/trophy/silver-cup-2.png"))
-          )
+          (perf, "trophy perf top10", s"${perf.trans} Top 10!", "images/trophy/silver-cup-2.png")
         case (perf, rank) if rank <= 50 =>
-          span(cls := "trophy perf top50", title := s"${perf.trans} Top 50 player!")(
-            img(src := assetUrl("images/trophy/Fancy-Gold.png"))
-          )
+          (perf, "trophy perf top50", s"${perf.trans} Top 50 player!", "images/trophy/Fancy-Gold.png")
         case (perf, rank) if rank <= 100 =>
-          span(cls := "trophy perf", title := s"${perf.trans} Top 100 player!")(
-            img(src := assetUrl("images/trophy/Gold-Cup.png"))
+          (perf, "trophy perf", s"${perf.trans} Top 100 player!", "images/trophy/Gold-Cup.png")
+      .map { (perf, cssClass, trophyTitle, imgPath) =>
+        a(href := routes.User.topNb(200, perf.key))(
+          span(cls := cssClass, title := trophyTitle)(
+            img(src := assetUrl(imgPath))
           )
+        )
+      }
 
   object awards:
     def awardCls(t: Trophy) = cls := s"trophy award ${t.kind._id} ${~t.kind.klass}"

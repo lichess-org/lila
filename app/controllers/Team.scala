@@ -32,14 +32,17 @@ final class Team(env: Env) extends LilaController(env):
 
   def show(id: TeamId, page: Int, mod: Boolean) = Open:
     Reasonable(page):
-      Found(api.team(id)) { renderTeam(_, page, mod && canEnterModView) }
+      Found(api.team(id)): team =>
+        if !team.notable && HTTPRequest.isCrawler(req).yes
+        then notFound
+        else renderTeam(team, page, mod && canEnterModView)
 
   def members(id: TeamId, page: Int) = Open:
     Reasonable(page, Max(50)):
       Found(api.teamEnabled(id)): team =>
         val canSee =
-          fuccess(team.publicMembers || isGrantedOpt(_.ManageTeam)) >>| ctx.userId.so:
-            api.belongsTo(team.id, _)
+          fuccess(team.publicMembers || isGrantedOpt(_.ManageTeam)) >>|
+            ctx.userId.so(api.belongsTo(team.id, _))
         canSee.flatMap:
           if _ then
             Ok.async:
@@ -56,22 +59,22 @@ final class Team(env: Env) extends LilaController(env):
         then paginator.popularTeams(page).map { views.team.list.all(_) }
         else
           for
-            ids   <- env.teamSearch(text, page)
+            ids <- env.teamSearch(text, page)
             teams <- ids.mapFutureList(env.team.teamRepo.byOrderedIds)
             forMe <- teams.mapFutureList(env.team.memberRepo.addMyLeadership)
           yield views.team.list.search(text, forMe)
 
   private def renderTeam(team: TeamModel, page: Int, asMod: Boolean)(using ctx: Context) = for
-    team    <- api.withLeaders(team)
-    info    <- env.teamInfo(team, ctx.me, withForum = canHaveForum(team.team, asMod))
+    team <- api.withLeaders(team)
+    info <- env.teamInfo(team, ctx.me, withForum = canHaveForum(team.team, asMod))
     members <- paginator.teamMembers(team.team, page)
-    log     <- (asMod && isGrantedOpt(_.ManageTeam)).so(env.mod.logApi.teamLog(team.id))
+    log <- (asMod && isGrantedOpt(_.ManageTeam)).so(env.mod.logApi.teamLog(team.id))
     hasChat = canHaveChat(info, asMod)
     chat <- hasChat.soFu(env.chat.api.userChat.cached.findMine(team.id.into(ChatId)))
-    _    <- env.user.lightUserApi.preloadMany:
+    _ <- env.user.lightUserApi.preloadMany:
       info.publicLeaders.map(_.user) ::: info.userIds
     version <- hasChat.soFu(env.team.version(team.id))
-    page    <- renderPage(views.team.show(team, members, info, chat, version, asMod, log))
+    page <- renderPage(views.team.show(team, members, info, chat, version, asMod, log))
   yield Ok(page).withCanonical(routes.Team.show(team.id))
 
   private def canEnterModView(using Context) =
@@ -106,7 +109,7 @@ final class Team(env: Env) extends LilaController(env):
 
   private def renderEdit(team: TeamModel, form: Form[?])(using me: Me, ctx: Context) = for
     member <- env.team.memberRepo.get(team.id, me)
-    _      <- env.msg.twoFactorReminder(me)
+    _ <- env.msg.twoFactorReminder(me)
   yield views.team.form.edit(team, form, member)
 
   def edit(id: TeamId) = Auth { ctx ?=> me ?=>
@@ -296,10 +299,10 @@ final class Team(env: Env) extends LilaController(env):
                 api
                   .join(team, setup.message, setup.password)
                   .flatMap:
-                    case Requesting.Joined       => jsonOkResult
-                    case Requesting.NeedRequest  => BadRequest(jsonError("This team requires confirmation."))
+                    case Requesting.Joined => jsonOkResult
+                    case Requesting.NeedRequest => BadRequest(jsonError("This team requires confirmation."))
                     case Requesting.NeedPassword => BadRequest(jsonError("This team requires a password."))
-                    case Requesting.Blocklist    => BadRequest(jsonError("You cannot join this team."))
+                    case Requesting.Blocklist => BadRequest(jsonError("You cannot join this team."))
             )
           )
   }
@@ -349,8 +352,8 @@ final class Team(env: Env) extends LilaController(env):
   def requestProcess(requestId: String) = AuthBody { ctx ?=> me ?=>
     Found(for
       requestOption <- api.request(requestId)
-      teamOption    <- requestOption.so(req => env.team.teamRepo.byId(req.team))
-      isGranted     <- teamOption.so: team =>
+      teamOption <- requestOption.so(req => env.team.teamRepo.byId(req.team))
+      isGranted <- teamOption.so: team =>
         api.isGranted(team.id, me, _.Request)
     yield (teamOption.ifTrue(isGranted), requestOption).tupled): (team, request) =>
       bindForm(forms.processRequest)(
@@ -394,17 +397,17 @@ final class Team(env: Env) extends LilaController(env):
 
   def autocomplete = Anon:
     get("term").filter(_.nonEmpty) match
-      case None       => BadRequest("No search term provided")
+      case None => BadRequest("No search term provided")
       case Some(term) =>
         for
           teams <- api.autocomplete(term, 10)
-          _     <- env.user.lightUserApi.preloadMany(teams.map(_.createdBy))
+          _ <- env.user.lightUserApi.preloadMany(teams.map(_.createdBy))
         yield JsonOk:
           JsArray(teams.map: team =>
             Json.obj(
-              "id"      -> team.id,
-              "name"    -> team.name,
-              "owner"   -> env.user.lightUserApi.syncFallback(team.createdBy).name,
+              "id" -> team.id,
+              "name" -> team.name,
+              "owner" -> env.user.lightUserApi.syncFallback(team.createdBy).name,
               "members" -> team.nbMembers
             ))
 
@@ -414,10 +417,10 @@ final class Team(env: Env) extends LilaController(env):
   }
 
   private def renderPmAll(team: TeamModel, form: Form[?])(using Context) = for
-    tours   <- env.tournament.api.visibleByTeam(team.id, 0, 20).dmap(_.next)
-    unsubs  <- env.team.cached.unsubs.get(team.id)
+    tours <- env.tournament.api.visibleByTeam(team.id, 0, 20).dmap(_.next)
+    unsubs <- env.team.cached.unsubs.get(team.id)
     limiter <- env.teamInfo.pmAll.status(team.id)
-    page    <- renderPage(views.team.admin.pmAll(team, form, tours, unsubs, limiter))
+    page <- renderPage(views.team.admin.pmAll(team, form, tours, unsubs, limiter))
   yield Ok(page)
 
   def pmAllSubmit(id: TeamId) = AuthOrScopedBody(_.Team.Lead) { ctx ?=> me ?=>
@@ -433,7 +436,7 @@ final class Team(env: Env) extends LilaController(env):
                 team.id,
                 if me.isVerifiedOrAdmin then 1 else mashup.TeamInfo.pmAllCost
               ) {
-                val url  = s"${env.net.baseUrl}${routes.Team.show(team.id)}"
+                val url = s"${env.net.baseUrl}${routes.Team.show(team.id)}"
                 val full = s"""$normalized
   ---
   You received this because you are subscribed to messages of the team $url."""

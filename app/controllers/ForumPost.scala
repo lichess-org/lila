@@ -2,7 +2,7 @@ package controllers
 
 import lila.app.{ *, given }
 import lila.core.i18n.I18nKey as trans
-import lila.core.id.ForumCategId
+import lila.core.id.{ ForumCategId, ForumTopicSlug }
 import lila.msg.MsgPreset
 
 final class ForumPost(env: Env) extends LilaController(env) with ForumController:
@@ -14,7 +14,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
         then Redirect(routes.ForumCateg.index)
         else
           for
-            ids   <- env.forumSearch(text, page, ctx.troll)
+            ids <- env.forumSearch(text, page, ctx.troll)
             posts <- ids.mapFutureList(env.forum.postApi.viewsFromIds)
             pager <- posts.mapFutureResults: post =>
               access
@@ -24,16 +24,16 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
             page <- renderPage(views.forum.post.search(text, pager))
           yield Ok(page)
 
-  def create(categId: ForumCategId, slug: String, page: Int) = AuthBody { ctx ?=> me ?=>
+  def create(categId: ForumCategId, slug: ForumTopicSlug, page: Int) = AuthBody { ctx ?=> me ?=>
     NoBot:
       Found(topicApi.show(categId, slug, page)): (categ, topic, posts) =>
         if topic.closed then BadRequest("This topic is closed")
         else if topic.isOld then BadRequest("This topic is archived")
         else
           for
-            canModCateg  <- access.isGrantedMod(categ.id)
+            canModCateg <- access.isGrantedMod(categ.id)
             replyBlocked <- access.isReplyBlockedOnUBlog(topic, canModCateg)
-            res          <-
+            res <-
               if replyBlocked then BadRequest.snip(trans.ublog.youBlockedByBlogAuthor()).toFuccess
               else
                 categ.team.so(env.team.api.isLeader(_, me)).flatMap { inOwnTeam =>
@@ -41,9 +41,9 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
                     err =>
                       CategGrantWrite(categId, tryingToPostAsMod = true):
                         for
-                          unsub       <- env.timeline.status(s"forum:${topic.id}")
+                          unsub <- env.timeline.status(s"forum:${topic.id}")
                           canModCateg <- access.isGrantedMod(categ.id)
-                          page        <- renderPage:
+                          page <- renderPage:
                             views.forum.topic
                               .show(
                                 categ,
@@ -95,10 +95,10 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
             .deletePost(view)
             .inject:
               for
-                userId    <- post.userId
+                userId <- post.userId
                 reasonOpt <- forms.deleteWithReason.bindFromRequest().value
-                topic     <- topicRepo.forUser(me.some).byId(post.topicId)
-                reason    <- reasonOpt.filter(MsgPreset.forumDeletion.presets.contains)
+                topic <- topicRepo.forUser(me.some).byId(post.topicId)
+                reason <- reasonOpt.filter(MsgPreset.forumDeletion.presets.contains)
                 preset =
                   if isGranted(_.ModerateForum) then MsgPreset.forumDeletion.byModerator
                   else if topic.exists(_.isUblogAuthor(me)) then

@@ -26,9 +26,9 @@ final class GeoIP(config: GeoIP.Config)(using Executor):
       .build(compute)
 
   private def compute(ip: IpAddress): Option[Location] = for
-    r    <- reader
+    r <- reader
     inet <- ip.inet
-    res  <- Try(r.city(inet)).toOption
+    res <- Try(r.city(inet)).toOption
   yield Location(res)
 
   def apply(ip: IpAddress): Option[Location] = cache.get(ip)
@@ -73,6 +73,7 @@ object Location:
   def isSuspicious(loc: Location) =
     loc == unknown ||
       loc.region.has("Kirov Oblast") ||
-      (loc.region.has("Samsun") && loc.city.has("Samsun"))
+      (loc.region.has("Samsun") && loc.city.has("Samsun")) ||
+      (loc.region.has("Istanbul") && loc.city.has("Istanbul"))
 
   case class WithProxy(location: Location, proxy: IsProxy)

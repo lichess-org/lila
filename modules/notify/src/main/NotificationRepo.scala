@@ -30,7 +30,7 @@ final private class NotificationRepo(colls: NotifyColls)(using Executor):
     coll.update.one(selector, $set("read" -> true), multi = true).dmap(_.n)
 
   def expireAndCount(userId: UserId): Fu[UnreadCount] = for
-    count   <- UnreadCount.from(coll.countSel(unreadOnlyQuery(userId)))
+    count <- UnreadCount.from(coll.countSel(unreadOnlyQuery(userId)))
     expired <- (count > 0).so(markManyRead(expiredQuery(userId)))
   yield count - expired
 

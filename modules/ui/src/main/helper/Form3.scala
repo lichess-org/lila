@@ -15,11 +15,11 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
   def id(field: Field): String = s"$idPrefix-${field.id}"
 
   private def groupLabel(field: Field) = label(cls := "form-label", `for` := id(field))
-  private val helper                   = small(cls := "form-help")
+  private val helper = small(cls := "form-help")
 
-  def errors(field: Field)(using Translate): Frag                 = errors(field.errors)
+  def errors(field: Field)(using Translate): Frag = errors(field.errors)
   private def errors(errs: Seq[FormError])(using Translate): Frag = errs.distinct.map(error)
-  private def error(err: FormError)(using Translate): Frag        =
+  private def error(err: FormError)(using Translate): Frag =
     p(cls := "error")(transKey(trans(err.message), err.args))
 
   private def validationModifiers(field: Field): Seq[Modifier] =
@@ -31,8 +31,8 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
       // case ("constraint.required", _) => required
       case ("constraint.minLength", Seq(m: Int)) => minlength := m
       case ("constraint.maxLength", Seq(m: Int)) => maxlength := m
-      case ("constraint.min", Seq(m: Int))       => min       := m
-      case ("constraint.max", Seq(m: Int))       => max       := m
+      case ("constraint.min", Seq(m: Int)) => min := m
+      case ("constraint.max", Seq(m: Int)) => max := m
 
   val split = div(cls := "form-split")
 
@@ -47,8 +47,8 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
       cls := List(
         "form-group" -> true,
         "is-invalid" -> field.hasErrors,
-        "form-half"  -> half,
-        klass        -> klass.nonEmpty
+        "form-half" -> half,
+        klass -> klass.nonEmpty
       )
     )(
       groupLabel(field)(labelContent),
@@ -60,10 +60,10 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
   def input(field: Field, typ: String = "", klass: String = "") /*: BaseTagType*/ =
     st.input(
       st.id := id(field),
-      name  := field.name,
+      name := field.name,
       value := field.value,
-      tpe   := typ.nonEmpty.option(typ),
-      cls   := List("form-control" -> true, klass -> klass.nonEmpty)
+      tpe := typ.nonEmpty.option(typ),
+      cls := List("form-control" -> true, klass -> klass.nonEmpty)
     )(validationModifiers(field))
 
   def checkbox(
@@ -76,7 +76,7 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
     div(
       cls := List(
         "form-check form-group" -> true,
-        "form-half"             -> half
+        "form-half" -> half
       )
     )(
       div(
@@ -102,11 +102,11 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
         hidden(fieldName, value)
       ,
       st.input(
-        st.id    := fieldId,
-        name     := fieldName,
+        st.id := fieldId,
+        name := fieldName,
         st.value := value.show,
-        tpe      := "checkbox",
-        cls      := "form-control cmn-toggle",
+        tpe := "checkbox",
+        cls := "form-control cmn-toggle",
         checked.option(st.checked),
         disabled.option(st.disabled),
         action.map(st.data("action") := _)
@@ -124,10 +124,10 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
       value: Value = "true"
   ) =
     st.input(
-      st.id    := fieldId,
-      name     := fieldName,
+      st.id := fieldId,
+      name := fieldName,
       st.value := value.show,
-      tpe      := "checkbox",
+      tpe := "checkbox",
       checked.option(st.checked)
     )
 
@@ -141,8 +141,8 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
     frag(
       st.select(
         st.id := id(field),
-        name  := field.name,
-        cls   := "form-control",
+        name := field.name,
+        cls := "form-control",
         disabled.option(st.disabled),
         required.option(st.required)
       )(validationModifiers(field))(
@@ -163,12 +163,12 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
   )(modifiers: Modifier*): Tag =
     st.textarea(
       st.id := id(field),
-      name  := field.name,
-      cls   := List("form-control" -> true, klass -> klass.nonEmpty)
+      name := field.name,
+      cls := List("form-control" -> true, klass -> klass.nonEmpty)
     )(validationModifiers(field))(modifiers)((field.value.orZero: String))
 
   val actions = div(cls := "form-actions")
-  val action  = div(cls := "form-actions single")
+  val action = div(cls := "form-actions single")
 
   def submit(
       content: Frag,
@@ -177,13 +177,13 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
       confirm: Option[String] = None
   ): Tag =
     button(
-      tpe      := "submit",
+      tpe := "submit",
       dataIcon := icon,
-      name     := nameValue.map(_._1),
-      value    := nameValue.map(_._2),
-      cls      := List(
-        "submit button"  -> true,
-        "text"           -> icon.isDefined,
+      name := nameValue.map(_._1),
+      value := nameValue.map(_._2),
+      cls := List(
+        "submit button" -> true,
+        "text" -> icon.isDefined,
         "yes-no-confirm" -> confirm.nonEmpty
       ),
       title := confirm
@@ -194,9 +194,9 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
 
   def hidden[Value: Show](name: String, value: Value): Tag =
     st.input(
-      st.name  := name,
+      st.name := name,
       st.value := value.show,
-      tpe      := "hidden"
+      tpe := "hidden"
     )
 
   // allows disabling of a field that defaults to true
@@ -225,15 +225,15 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
   def fieldset(legend: Frag, toggle: Option[Boolean] = none): Tag =
     st.fieldset(
       cls := List(
-        "toggle-box"             -> true,
-        "toggle-box--toggle"     -> toggle.isDefined,
+        "toggle-box" -> true,
+        "toggle-box--toggle" -> toggle.isDefined,
         "toggle-box--toggle-off" -> toggle.has(false)
       )
     )(st.legend(toggle.map(_ => tabindex := 0))(legend))
 
   private val dataEnableTime = attr("data-enable-time")
-  private val dataMinDate    = attr("data-min-date")
-  private val dataLocal      = attr("data-local")
+  private val dataMinDate = attr("data-min-date")
+  private val dataLocal = attr("data-local")
 
   def flatpickr(
       field: Field,
@@ -243,10 +243,10 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
   ): Tag =
     input(field, klass = s"flatpickr")(
       withTime.option(dataEnableTime := true),
-      local.option(dataLocal         := true),
+      local.option(dataLocal := true),
       dataMinDate := minDate.map:
         case "today" if local => "yesterday"
-        case d                => d
+        case d => d
     )
 
   private lazy val exceptEmojis = data("except-emojis") := flairApi.adminFlairs.mkString(" ")
@@ -267,7 +267,7 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
         ),
         div(
           cls := "flair-picker none",
-          (!ctx.me.exists(_.isAdmin) && !anyFlair).option(exceptEmojis)
+          (!Granter.opt(_.LichessTeam) && !anyFlair).option(exceptEmojis)
         )(
           button(cls := "button button-metal emoji-remove")("clear")
         )
@@ -278,4 +278,4 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
     def image(name: String): Frag =
       st.input(tpe := "file", st.name := name, accept := "image/png, image/jpeg, image/webp")
     def pgn(name: String): Frag = st.input(tpe := "file", st.name := name, accept := ".pgn")
-    def selectImage             = button(cls := "button select-image", tpe := "button")("Select image")
+    def selectImage = button(cls := "button select-image", tpe := "button")("Select image")

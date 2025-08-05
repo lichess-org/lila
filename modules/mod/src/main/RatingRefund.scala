@@ -50,7 +50,7 @@ final private class RatingRefund(
                 op <- g.opponentOf(sus.user)
                 if op.provisional.no
                 victim <- op.userId
-                diff   <- op.ratingDiff
+                diff <- op.ratingDiff
                 if diff < IntRatingDiff(0)
                 rating <- op.rating
               yield refs.add(victim, g.perfKey, -diff, rating)) | refs
@@ -82,12 +82,12 @@ private object RatingRefund:
   val delay = 1.minute
 
   case class Refund(victim: UserId, perf: PerfKey, diff: IntRatingDiff, topRating: IntRating):
-    def is(v: UserId, p: PerfKey): Boolean  = v == victim && p == perf
-    def is(r: Refund): Boolean              = is(r.victim, r.perf)
+    def is(v: UserId, p: PerfKey): Boolean = v == victim && p == perf
+    def is(r: Refund): Boolean = is(r.victim, r.perf)
     def add(d: IntRatingDiff, r: IntRating) = copy(diff = diff + d, topRating = topRating.atLeast(r))
 
   case class Refunds(all: List[Refund]):
     def add(victim: UserId, perf: PerfKey, diff: IntRatingDiff, rating: IntRating) =
       copy(all = all.find(_.is(victim, perf)) match
-        case None    => Refund(victim, perf, diff, rating) :: all
+        case None => Refund(victim, perf, diff, rating) :: all
         case Some(r) => r.add(diff, rating) :: all.filterNot(_.is(r)))

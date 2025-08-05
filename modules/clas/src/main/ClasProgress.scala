@@ -38,8 +38,8 @@ case class StudentProgress(
     rating: (IntRating, IntRating)
 ):
   def ratingProgress = (rating._2 - rating._1).into(IntRatingDiff)
-  def winRate        = if nb > 0 then wins * 100 / nb else 0
-  def duration       = Duration.ofMillis(millis)
+  def winRate = if nb > 0 then wins * 100 / nb else 0
+  def duration = Duration.ofMillis(millis)
 
 final class ClasProgressApi(
     gameRepo: GameRepo,
@@ -52,7 +52,7 @@ final class ClasProgressApi(
   case class PlayStats(nb: Int, wins: Int, millis: Long)
 
   def apply(perfType: PerfType, days: Days, students: List[Student.WithUser]): Fu[ClasProgress] =
-    val users   = students.map(_.user)
+    val users = students.map(_.user)
     val userIds = users.map(_.id)
 
     val playStatsFu =
@@ -62,7 +62,7 @@ final class ClasProgressApi(
 
     val progressesFu = for
       usersWithPerf <- perfsRepo.withPerf(users, perfType)
-      progresses    <- historyApi.progresses(usersWithPerf, perfType.key, days)
+      progresses <- historyApi.progresses(usersWithPerf, perfType.key, days)
     yield progresses
 
     playStatsFu.zip(progressesFu).map { (playStats, progresses) =>
@@ -95,7 +95,7 @@ final class ClasProgressApi(
           )
         ) -> List:
           GroupField("u")(
-            "nb"  -> SumAll,
+            "nb" -> SumAll,
             "win" -> Sum(
               $doc(
                 "$cond" -> $arr("$w", 1, 0)
@@ -132,15 +132,15 @@ final class ClasProgressApi(
           Project(
             $doc(
               F.playerUids -> true,
-              F.winnerId   -> true,
-              "ms"         -> $doc("$subtract" -> $arr(s"$$${F.movedAt}", s"$$${F.createdAt}")),
-              F.id         -> false
+              F.winnerId -> true,
+              "ms" -> $doc("$subtract" -> $arr(s"$$${F.movedAt}", s"$$${F.createdAt}")),
+              F.id -> false
             )
           ),
           UnwindField(F.playerUids),
           Match($doc(F.playerUids.$in(userIds))),
           GroupField(F.playerUids)(
-            "nb"  -> SumAll,
+            "nb" -> SumAll,
             "win" -> Sum(
               $doc(
                 "$cond" -> $arr($doc("$eq" -> $arr("$us", "$wid")), 1, 0)

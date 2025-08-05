@@ -11,6 +11,7 @@ import { view as keyboardView } from '../keyboard';
 import { render as renderKeyboardMove } from 'keyboardMove';
 import type * as studyDeps from '../study/studyDeps';
 import { relayView } from '../study/relay/relayView';
+import { studyView } from '../study/studyView';
 import {
   viewContext,
   renderBoard,
@@ -22,67 +23,90 @@ import {
 import { wikiToggleBox } from '../wiki';
 import { watchers } from 'lib/view/watchers';
 import { renderChat } from 'lib/chat/renderChat';
+import { displayColumns } from 'lib/device';
+
+let resizeCache: {
+  columns: number;
+  chat: HTMLElement | null;
+  board: HTMLElement | null;
+  meta: HTMLElement | null;
+};
 
 export default function (deps?: typeof studyDeps) {
   return function (ctrl: AnalyseCtrl): VNode {
+    resizeCache ??= resizeHandler(ctrl);
     if (ctrl.nvui) return ctrl.nvui.render(deps);
     else if (deps && ctrl.study?.relay) return relayView(ctrl, ctrl.study, ctrl.study.relay, deps);
+    else if (deps && ctrl.study) return studyView(ctrl, ctrl.study, deps);
     else return analyseView(ctrl, deps);
   };
 }
 
 function analyseView(ctrl: AnalyseCtrl, deps?: typeof studyDeps): VNode {
   const ctx = viewContext(ctrl, deps);
-  const { study, gamebookPlayView, gaugeOn } = ctx;
   return renderMain(
     ctx,
     ctrl.keyboardHelp && keyboardView(ctrl),
-    study && deps?.studyView.overboard(study),
     renderBoard(ctx),
-    gaugeOn && cevalView.renderGauge(ctrl),
+    ctx.gaugeOn && cevalView.renderGauge(ctrl),
     crazyView(ctrl, ctrl.topColor(), 'top'),
-    gamebookPlayView || renderTools(ctx),
+    renderTools(ctx),
     crazyView(ctrl, ctrl.bottomColor(), 'bottom'),
-    !gamebookPlayView && renderControls(ctrl),
+    renderControls(ctrl),
     renderUnderboard(ctx),
     ctrl.keyboardMove && renderKeyboardMove(ctrl.keyboardMove),
     trainingView(ctrl),
-    ctrl.studyPractice
-      ? deps?.studyPracticeView.side(study!)
-      : hl(
-          'aside.analyse__side',
-          {
-            hook: onInsert(elm => {
-              if (ctrl.opts.$side && ctrl.opts.$side.length) {
-                $(elm).replaceWith(ctrl.opts.$side);
-                wikiToggleBox();
-              }
-            }),
-          },
-          ctrl.studyPractice
-            ? [deps?.studyPracticeView.side(study!)]
-            : study
-              ? [deps?.studyView.side(study, true)]
-              : [
-                  ctrl.forecast && forecastView(ctrl, ctrl.forecast),
-                  !ctrl.synthetic &&
-                    playable(ctrl.data) &&
-                    hl(
-                      'div.back-to-game',
-                      hl(
-                        'a.button.button-empty.text',
-                        {
-                          attrs: {
-                            href: router.game(ctrl.data, ctrl.data.player.color),
-                            'data-icon': licon.Back,
-                          },
-                        },
-                        i18n.site.backToGame,
-                      ),
-                    ),
-                ],
-        ),
-    ctrl.chatCtrl && renderChat(ctrl.chatCtrl),
+    hl(
+      'aside.analyse__side',
+      {
+        hook: onInsert(elm => {
+          if (ctrl.opts.$side && ctrl.opts.$side.length) {
+            $(elm).replaceWith(ctrl.opts.$side);
+            wikiToggleBox();
+          }
+        }),
+      },
+      [
+        ctrl.forecast && forecastView(ctrl, ctrl.forecast),
+        !ctrl.synthetic &&
+          playable(ctrl.data) &&
+          hl(
+            'div.back-to-game',
+            hl(
+              'a.button.button-empty.text',
+              {
+                attrs: {
+                  href: router.game(ctrl.data, ctrl.data.player.color),
+                  'data-icon': licon.Back,
+                },
+              },
+              i18n.site.backToGame,
+            ),
+          ),
+      ],
+    ),
+    ctrl.chatCtrl && renderChat(ctrl.chatCtrl, { insert: v => fixChatHeight(v.elm) }),
     hl('div.chat__members.none', { hook: onInsert(watchers) }),
   );
+}
+
+function resizeHandler(ctrl: AnalyseCtrl) {
+  window.addEventListener('resize', () => {
+    if (resizeCache.columns !== displayColumns()) ctrl.redraw();
+    resizeCache.columns = displayColumns();
+
+    if (ctrl.study || resizeCache.columns < 3) return;
+
+    resizeCache.chat ??= document.querySelector<HTMLElement>('.mchat');
+    fixChatHeight(resizeCache.chat);
+  });
+  return { columns: displayColumns(), chat: null, board: null, meta: null };
+}
+
+function fixChatHeight(el: Node | null | undefined) {
+  if (!(el instanceof HTMLElement)) return;
+  resizeCache.board ??= document.querySelector<HTMLElement>('.analyse__board .cg-wrap');
+  resizeCache.meta ??= document.querySelector<HTMLElement>('.game__meta');
+  if (!resizeCache.board || !resizeCache.meta) return;
+  el.style.height = `${resizeCache.board.offsetHeight - resizeCache.meta.offsetHeight - 16}px`;
 }

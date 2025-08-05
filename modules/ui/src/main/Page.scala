@@ -35,34 +35,34 @@ case class Page(
     flags: Set[PageFlags] = Set.empty,
     transform: Update[Frag] = identity
 ):
-  def js(esm: Esm): Page                   = copy(modules = modules :+ esm.some)
-  def js(esm: EsmList): Page               = copy(modules = modules ::: esm)
-  def js(f: WithNonce[Frag]): Page         = copy(jsFrag = jsFrag.foldLeft(f)(_ |+| _).some)
+  def js(esm: Esm): Page = copy(modules = modules :+ esm.some)
+  def js(esm: EsmList): Page = copy(modules = modules ::: esm)
+  def js(f: WithNonce[Frag]): Page = copy(jsFrag = jsFrag.foldLeft(f)(_ |+| _).some)
   def js(f: Option[WithNonce[Frag]]): Page = f.foldLeft(this)(_.js(_))
-  def js(pm: PageModule): Page             = copy(pageModule = pm.some)
+  def js(pm: PageModule): Page = copy(pageModule = pm.some)
   @scala.annotation.targetName("jsModuleOption")
-  def js(pm: Option[PageModule]): Page       = copy(pageModule = pm)
-  def iife(iifeFrag: Frag): Page             = js(_ => iifeFrag)
-  def iife(iifeFrag: Option[Frag]): Page     = iifeFrag.foldLeft(this)(_.iife(_))
+  def js(pm: Option[PageModule]): Page = copy(pageModule = pm)
+  def iife(iifeFrag: Frag): Page = js(_ => iifeFrag)
+  def iife(iifeFrag: Option[Frag]): Page = iifeFrag.foldLeft(this)(_.iife(_))
   def i18n(mods: I18nModule.Selector*): Page = copy(i18nModules = i18nModules ::: mods.toList)
   def i18nOpt(cond: Boolean, mods: => I18nModule.Selector*): Page =
     if cond then copy(i18nModules = i18nModules.appendedAll(mods)) else this
-  def graph(og: OpenGraph): Page                                   = copy(openGraph = og.some)
+  def graph(og: OpenGraph): Page = copy(openGraph = og.some)
   def graph(title: String, description: String, url: String): Page = graph(OpenGraph(title, description, url))
   def flag(f: PageFlags.type => PageFlags, v: Boolean = true): Page =
     copy(flags = if v then flags + f(PageFlags) else flags - f(PageFlags))
-  def css(keys: String*): Page                     = copy(cssKeys = cssKeys ::: keys.toList)
-  def css(key: Option[String]): Page               = copy(cssKeys = cssKeys ::: key.toList)
+  def css(keys: String*): Page = copy(cssKeys = cssKeys ::: keys.toList)
+  def css(key: Option[String]): Page = copy(cssKeys = cssKeys ::: key.toList)
   def csp(up: Update[ContentSecurityPolicy]): Page = copy(csp = csp.fold(up)(up.compose).some)
-  def hrefLangs(path: Option[LangPath]): Page      = copy(withHrefLangs = path)
-  def hrefLangs(path: LangPath): Page              = copy(withHrefLangs = path.some)
+  def hrefLangs(path: Option[LangPath]): Page = copy(withHrefLangs = path)
+  def hrefLangs(path: LangPath): Page = copy(withHrefLangs = path.some)
 
   // body stuff
-  def body(b: Frag): Page              = copy(body = b.some)
-  def apply(b: Frag): Page             = copy(body = b.some)
+  def body(b: Frag): Page = copy(body = b.some)
+  def apply(b: Frag): Page = copy(body = b.some)
   def transform(f: Update[Frag]): Page = copy(transform = transform.compose(f))
-  def wrap(f: Update[Frag]): Page      = transform(f)
-  def prepend(prelude: Frag): Page     = transform(body => frag(prelude, body))
+  def wrap(f: Update[Frag]): Page = transform(f)
+  def prepend(prelude: Frag): Page = transform(body => frag(prelude, body))
 
 final class RenderedPage(val html: String)
 

@@ -40,7 +40,7 @@ final class Env(
     langList: lila.core.i18n.LangList
 )(using scheduler: Scheduler)(using Executor, akka.stream.Materializer):
 
-  private given ConfigLoader[TwitchConfig]   = AutoConfig.loader[TwitchConfig]
+  private given ConfigLoader[TwitchConfig] = AutoConfig.loader[TwitchConfig]
   private given ConfigLoader[Stream.Keyword] = strLoader(Stream.Keyword.apply)
   private val config = appConfig.get[StreamerConfig]("streamer")(using AutoConfig.loader)
 
@@ -63,7 +63,7 @@ final class Env(
     )
 
   lazy val ytApi: YouTubeApi = wire[YouTubeApi]
-  lazy val api: StreamerApi  = wire[StreamerApi]
+  lazy val api: StreamerApi = wire[StreamerApi]
 
   lazy val pager = wire[StreamerPager]
 
@@ -86,7 +86,7 @@ final class Env(
   Bus.sub[lila.core.mod.MarkBooster]: m =>
     api.demote(m.userId)
   Bus.sub[lila.core.mod.Shadowban]:
-    case lila.core.mod.Shadowban(userId, true)  => api.demote(userId)
+    case lila.core.mod.Shadowban(userId, true) => api.demote(userId)
     case lila.core.mod.Shadowban(userId, false) => api.unignore(userId)
 
   scheduler.scheduleWithFixedDelay(1.hour, 1.day): () =>

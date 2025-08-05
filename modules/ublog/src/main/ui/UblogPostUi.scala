@@ -33,7 +33,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
       )
       .copy(atomLinkTag =
         link(
-          href     := routes.Ublog.userAtom(user.username),
+          href := routes.Ublog.userAtom(user.username),
           st.title := trans.ublog.xBlog.txt(user.username)
         ).some
       )
@@ -56,12 +56,12 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
             ,
             div(cls := "ublog-post__meta")(
               a(
-                cls      := userClass(user.id, none, withOnline = true),
-                href     := routes.Ublog.index(user.username),
+                cls := userClass(user.id, none, withOnline = true),
+                href := routes.Ublog.index(user.username),
                 dataHref := routes.User.show(user.username)
               )(userLinkContent(user)),
               iconTag(Icon.InfoCircle)(
-                cls      := "ublog-post__meta__disclaimer",
+                cls := "ublog-post__meta__disclaimer",
                 st.title := "Opinions expressed by Lichess contributors are their own."
               ),
               post.lived.map: live =>
@@ -85,13 +85,13 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
               else
                 a(
                   titleOrText(trans.site.reportXToModerators.txt(user.username)),
-                  cls  := "button button-empty ublog-post__meta__report",
+                  cls := "button button-empty ublog-post__meta__report",
                   href := addQueryParams(
                     routes.Report.form.url,
                     Map(
                       "username" -> user.username.value,
-                      "postUrl"  -> s"$netBaseUrl${ui.urlOfPost(post)}",
-                      "from"     -> "ublog"
+                      "postUrl" -> s"$netBaseUrl${ui.urlOfPost(post)}",
+                      "from" -> "ublog"
                     )
                   ),
                   dataIcon := Icon.CautionTriangle
@@ -119,8 +119,8 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
             div(cls := "ublog-post__footer")(
               (post.live && ~post.discuss).option(
                 a(
-                  href     := routes.Ublog.discuss(post.id),
-                  cls      := "button text ublog-post__discuss",
+                  href := routes.Ublog.discuss(post.id),
+                  cls := "button text ublog-post__discuss",
                   dataIcon := Icon.BubbleConvo
                 )(trans.ublog.discussThisBlogPostInTheForum())
               ),
@@ -144,8 +144,8 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
         )
 
   private def editButton(post: UblogPost)(using Context) = a(
-    href     := ui.editUrlOfPost(post),
-    cls      := "button button-empty text",
+    href := ui.editUrlOfPost(post),
+    cls := "button button-empty text",
     dataIcon := Icon.Pencil
   )(trans.site.edit())
 
@@ -154,19 +154,19 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
     button(
       tpe := "button",
       cls := List(
-        "ublog-post__like is"                     -> true,
-        "ublog-post__like--liked"                 -> liked,
+        "ublog-post__like is" -> true,
+        "ublog-post__like--liked" -> liked,
         "ublog-post__like--big button button-red" -> showText,
-        "ublog-post__like--mini button-link"      -> !showText
+        "ublog-post__like--mini button-link" -> !showText
       ),
       dataRel := post.id,
-      title   := text
+      title := text
     )(
       span(cls := "ublog-post__like__nb")(post.likes.value.localize),
       showText.option(
         span(
-          cls                      := "button-label",
-          attr("data-i18n-like")   := trans.study.like.txt(),
+          cls := "button-label",
+          attr("data-i18n-like") := trans.study.like.txt(),
           attr("data-i18n-unlike") := trans.study.unlike.txt()
         )(text)
       )
@@ -176,7 +176,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
     div(
       cls := List(
         "ublog-post__follow" -> true,
-        "followed"           -> followed
+        "followed" -> followed
       )
     ):
       List(
@@ -188,17 +188,17 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
         )
 
   def modTools(post: UblogPost, isInCarousel: Boolean) =
-    val am        = post.automod
+    val am = post.automod
     val evergreen = ~am.flatMap(_.evergreen)
-    val flagged   = ~am.flatMap(_.flagged)
-    val comm      = ~am.flatMap(_.commercial)
+    val flagged = ~am.flatMap(_.flagged)
+    val comm = ~am.flatMap(_.commercial)
 
     div(id := "mod-tools", data("url") := routes.Ublog.modPost(post.id).url)(
       div(
         span(cls := "btn-rack")(
           lila.core.ublog.Quality.values.map: q =>
             button(
-              cls   := s"quality-btn btn-rack__btn ${am.exists(_.quality == q).so("lit")}",
+              cls := s"quality-btn btn-rack__btn ${am.exists(_.quality == q).so("lit")}",
               value := q.ordinal.toString
             )(q.name.capitalize)
         ),

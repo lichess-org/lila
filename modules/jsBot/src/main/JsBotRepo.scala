@@ -33,7 +33,7 @@ final private class JsBotRepo(bots: Coll, assets: Coll)(using Executor):
   def putBot(bot: BotJson, author: UserId): Fu[BotJson] = for
     fullBot <- bots.find($doc("uid" -> bot.uid)).sort($doc("version" -> -1)).one[Bdoc]
     nextVersion = fullBot.flatMap(_.int("version")).getOrElse(-1) + 1 // race condition
-    newBot      = bot.withMeta(BotMeta(bot.uid, author, nextVersion))
+    newBot = bot.withMeta(BotMeta(bot.uid, author, nextVersion))
     _ <- bots.insert.one(JSON.bdoc(newBot.value))
   yield newBot
 
@@ -44,8 +44,8 @@ final private class JsBotRepo(bots: Coll, assets: Coll)(using Executor):
       .list(Int.MaxValue)
       .map: docs =>
         for
-          doc  <- docs
-          id   <- doc.getAsOpt[String]("_id")
+          doc <- docs
+          id <- doc.getAsOpt[String]("_id")
           name <- doc.getAsOpt[AssetName]("name")
         yield id -> name
       .map(_.toMap)
@@ -53,7 +53,7 @@ final private class JsBotRepo(bots: Coll, assets: Coll)(using Executor):
   def nameAsset(tpe: Option[AssetType], key: AssetKey, name: AssetName, author: Option[UserId]): Funit =
     // filter out bookCovers as they share the same key as the book
     if !(tpe.has("book") && key.endsWith(".png")) then
-      val id     = if tpe.has("book") then key.dropRight(4) else key
+      val id = if tpe.has("book") then key.dropRight(4) else key
       val setDoc = $doc("name" -> name) ++ author.so(a => $doc("author" -> a))
       assets.update.one($doc("_id" -> id), $doc("$set" -> setDoc), upsert = true).void
     else funit

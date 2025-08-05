@@ -51,4 +51,6 @@
   <string name="timezone">Часова зона</string>
   <string name="pastBroadcasts">Минали излъчвания</string>
   <string name="allBroadcastsByMonth">Виж всички излъчвания по месец</string>
+  <string name="communityBroadcast">Излъчване от общността</string>
+  <string name="createdAndManagedBy">Създадено и управлявано от %s.</string>
 </resources>

@@ -31,7 +31,7 @@ final class LightUserApi(repo: UserRepo, cacheApi: CacheApi)(using Executor)
 
   val isBotSync: LightUser.IsBotSync = LightUser.IsBotSync(id => sync(id).exists(_.isBot))
 
-  def preloadUser(user: User): Unit        = cache.set(user.id, user.light.some)
+  def preloadUser(user: User): Unit = cache.set(user.id, user.light.some)
   def preloadUsers(users: Seq[User]): Unit = users.foreach(preloadUser)
 
   private val cache: Syncache[UserId, Option[LightUser]] = cacheApi.sync[UserId, Option[LightUser]](
@@ -66,9 +66,9 @@ final class LightUserApi(repo: UserRepo, cacheApi: CacheApi)(using Executor)
 
   private val projection =
     $doc(
-      F.id                -> false,
-      F.username          -> true,
-      F.title             -> true,
+      F.id -> false,
+      F.username -> true,
+      F.title -> true,
       s"${F.plan}.active" -> true,
-      F.flair             -> true
+      F.flair -> true
     ).some

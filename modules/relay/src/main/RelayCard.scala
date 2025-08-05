@@ -3,8 +3,8 @@ package lila.relay
 case class RelayCard(
     tour: RelayTour,
     display: RelayRound, // which round to show on the tour link
-    link: RelayRound,    // which round to actually link to
-    crowd: Crowd,        // the group crowd sum
+    link: RelayRound, // which round to actually link to
+    crowd: Crowd, // the group crowd sum
     group: Option[RelayGroup.Name],
     alts: List[RelayRound.WithTour] // other notable tours of the group
 ) extends RelayRound.AndTourAndGroup:

@@ -40,23 +40,23 @@ trait PrefApi:
   def isolate(user: User): Funit
 
 object Message:
-  val NEVER  = 1
+  val NEVER = 1
   val FRIEND = 2
   val ALWAYS = 3
 
 object InsightShare:
-  val NOBODY    = 0
-  val FRIENDS   = 1
+  val NOBODY = 0
+  val FRIENDS = 1
   val EVERYBODY = 2
 
 object Challenge:
-  val NEVER      = 1
-  val RATING     = 2
-  val FRIEND     = 3
+  val NEVER = 1
+  val RATING = 2
+  val FRIEND = 3
   val REGISTERED = 4
-  val ALWAYS     = 5
+  val ALWAYS = 5
 
 object StudyInvite:
-  val NEVER  = 1
+  val NEVER = 1
   val FRIEND = 2
   val ALWAYS = 3

@@ -57,4 +57,8 @@
   <string name="invalidMove">Moviment invàlid</string>
   <string name="premoveCancelled">Moviment anticipat cancel·lat</string>
   <string name="premoveRecorded">Moviment anticipat registrat: %s prem enter per cancel·lar</string>
+  <string name="pockets" comment="Crazyhouse pockets">Butxaques</string>
+  <string name="copyToClipboard">Copia %s al porta-retalls</string>
+  <string name="copiedToClipboard">%s copiat al porta-retalls</string>
+  <string name="pgnAndFen">PGN i FEN</string>
 </resources>

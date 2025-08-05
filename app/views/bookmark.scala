@@ -6,13 +6,13 @@ def toggle(g: Game, bookmarked: Boolean)(using ctx: Context) =
   if ctx.isAuth then
     a(
       cls := List(
-        "bookmark"   -> true,
+        "bookmark" -> true,
         "bookmarked" -> bookmarked
       ),
-      href  := routes.Game.bookmark(g.id),
+      href := routes.Game.bookmark(g.id),
       title := trans.site.bookmarkThisGame.txt()
     )(
-      iconTag(Icon.Star)(cls        := "on is3"),
+      iconTag(Icon.Star)(cls := "on is3"),
       iconTag(Icon.StarOutline)(cls := "off is3"),
       span((g.bookmarks > 0).option(g.bookmarks))
     )

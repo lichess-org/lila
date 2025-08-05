@@ -27,7 +27,7 @@ object search:
                 name := "q",
                 autofocus,
                 placeholder := "Search by IP, email, or username (exact match only)",
-                value       := form("q").value
+                value := form("q").value
               )
             ),
             res.map: r =>
@@ -57,7 +57,7 @@ object search:
                   submitButton(
                     cls := List(
                       "button text" -> true,
-                      "active"      -> blocked
+                      "active" -> blocked
                     )
                   )(if blocked then "Banned" else "Ban this print")
                 )
@@ -93,13 +93,13 @@ object search:
               h1("IP address: ", renderIp(address)),
               if isGranted(_.Admin) then
                 postForm(
-                  cls    := "box__top__actions",
+                  cls := "box__top__actions",
                   action := routes.Mod.singleIpBan(!blocked, address.value)
                 )(
                   submitButton(
                     cls := List(
                       "button text" -> true,
-                      "active"      -> blocked
+                      "active" -> blocked
                     )
                   )(if blocked then "Banned" else "Ban this IP")
                 )

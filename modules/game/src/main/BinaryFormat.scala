@@ -52,7 +52,7 @@ object BinaryFormat:
   object moveTime:
 
     private type MT = Int // centiseconds
-    private val size    = 16
+    private val size = 16
     private val buckets =
       List(10, 50, 100, 150, 200, 300, 400, 500, 600, 800, 1000, 1500, 2000, 3000, 4000, 6000)
     private val encodeCutoffs = buckets
@@ -68,8 +68,8 @@ object BinaryFormat:
         .grouped(2)
         .map:
           case Vector(a, b) => (enc(a) << 4) + enc(b)
-          case Vector(a)    => enc(a) << 4
-          case v            => sys.error(s"moveTime.write unexpected $v")
+          case Vector(a) => enc(a) << 4
+          case v => sys.error(s"moveTime.write unexpected $v")
         .map(_.toByte)
         .toArray
 
@@ -106,10 +106,10 @@ object BinaryFormat:
 
         ia match
           case Array(b1, b2, b3, b4, b5, b6, b7, b8, _*) =>
-            val config      = Clock.Config(clock.readClockLimit(b1), Clock.IncrementSeconds(b2))
+            val config = Clock.Config(clock.readClockLimit(b1), Clock.IncrementSeconds(b2))
             val legacyWhite = Centis(readSignedInt24(b3, b4, b5))
             val legacyBlack = Centis(readSignedInt24(b6, b7, b8))
-            val players     = ByColor((whiteBerserk, legacyWhite), (blackBerserk, legacyBlack))
+            val players = ByColor((whiteBerserk, legacyWhite), (blackBerserk, legacyBlack))
               .map: (berserk, legacy) =>
                 ClockPlayer
                   .withConfig(config)
@@ -153,7 +153,7 @@ object BinaryFormat:
     def readConfig(ba: ByteArray): Option[Clock.Config] =
       ba.value match
         case Array(b1, b2, _*) => Clock.Config(readClockLimit(b1), Clock.IncrementSeconds(b2)).some
-        case _                 => None
+        case _ => None
 
     def readClockLimit(i: Int) = Clock.LimitSeconds(if i < 181 then i * 60 else (i - 180) * 15)
 
@@ -163,10 +163,10 @@ object BinaryFormat:
 
       val castleInt = clmt.castles.toSeq.zipWithIndex.foldLeft(0):
         case (acc, (false, _)) => acc
-        case (acc, (true, p))  => acc + (1 << (3 - p))
+        case (acc, (true, p)) => acc + (1 << (3 - p))
 
       def posInt(pos: Square): Int = (pos.file.value << 3) + pos.rank.value
-      val lastMoveInt              = clmt.lastMove.map(_.origDest).fold(0) { (o, d) =>
+      val lastMoveInt = clmt.lastMove.map(_.origDest).fold(0) { (o, d) =>
         (posInt(o) << 6) + posInt(d)
       }
       Array(((castleInt << 4) + (lastMoveInt >> 8)).toByte, lastMoveInt.toByte)
@@ -228,13 +228,13 @@ object BinaryFormat:
         case 5 => Some(Bishop)
         // Legacy from when we used to have an 'Antiking' piece
         case 7 if variant.antichess => Some(King)
-        case _                      => None
+        case _ => None
     private def roleToInt(role: Role): Int =
       role match
-        case Pawn   => 6
-        case King   => 1
-        case Queen  => 2
-        case Rook   => 3
+        case Pawn => 6
+        case King => 1
+        case Queen => 2
+        case Rook => 3
         case Knight => 4
         case Bishop => 5
 
@@ -257,8 +257,8 @@ object BinaryFormat:
 
     private val arrIndexes = 0 to 1
     private val bitIndexes = 0 to 7
-    private val whiteStd   = Set(Square.A1, Square.H1)
-    private val blackStd   = Set(Square.A8, Square.H8)
+    private val whiteStd = Set(Square.A1, Square.H1)
+    private val blackStd = Set(Square.A8, Square.H8)
 
     def read(ba: ByteArray) =
       var set = Set.empty[Square]
@@ -277,7 +277,7 @@ object BinaryFormat:
     val i = if int < (1 << 24) then int else 0
     Array((i >>> 16).toByte, (i >>> 8).toByte, i.toByte)
 
-  private val int23Max           = 1 << 23
+  private val int23Max = 1 << 23
   def writeSignedInt24(int: Int) =
     val i = if int < 0 then int23Max - int else math.min(int, int23Max)
     writeInt24(i)

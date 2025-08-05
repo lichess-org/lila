@@ -24,7 +24,7 @@ private class RelayTeamsTextarea(val text: String):
     .flatMap: line =>
       line.split(';').map(_.trim) match
         case Array(team, player) => Some(team -> (player.toIntOption.fold(player)(FideId(_))))
-        case _                   => none
+        case _ => none
     .groupBy(_._1)
     .view
     .mapValues(_.map(_._2))
@@ -79,7 +79,7 @@ final class RelayTeamTable(
         .dataList(studyId)
         .map: chapters =>
           import json.given
-          val table   = makeTable(chapters)
+          val table = makeTable(chapters)
           val ordered = ensureFirstPlayerHasWhite(table)
           JsonStr(Json.stringify(Json.obj("table" -> ordered)))
 
@@ -87,10 +87,10 @@ final class RelayTeamTable(
       def add(result: Option[Outcome.GamePoints], as: Color) =
         copy(points = points + result.so(_(as).value))
     case class Pair[A](a: A, b: A):
-      def is(p: Pair[A])                 = (a == p.a && b == p.b) || (a == p.b && b == p.a)
-      def map[B](f: A => B)              = Pair(f(a), f(b))
+      def is(p: Pair[A]) = (a == p.a && b == p.b) || (a == p.b && b == p.a)
+      def map[B](f: A => B) = Pair(f(a), f(b))
       def bimap[B](f: A => B, g: A => B) = Pair(f(a), g(b))
-      def reverse                        = Pair(b, a)
+      def reverse = Pair(b, a)
 
     case class TeamGame(id: StudyChapterId, pov: Color):
       def swap = copy(pov = !pov)
@@ -112,9 +112,9 @@ final class RelayTeamTable(
     def makeTable(chapters: List[ChapterPreview]): List[TeamMatch] =
       chapters.reverse.foldLeft(List.empty[TeamMatch]): (table, chap) =>
         (for
-          points  <- chap.points
+          points <- chap.points
           players <- chap.players
-          teams   <- players.traverse(_.team).map(_.toPair).map(Pair.apply)
+          teams <- players.traverse(_.team).map(_.toPair).map(Pair.apply)
           m0 = table.find(_.is(teams)) | TeamMatch(teams.map(TeamWithPoints(_)), Nil)
           m1 = m0.add(chap, Pair(players.white.player -> teams.a, players.black.player -> teams.b), points)
           newTable = m1 :: table.filterNot(_.is(teams))
@@ -130,5 +130,5 @@ final class RelayTeamTable(
       given [A: Writes]: Writes[Pair[A]] = Writes: p =>
         Json.arr(p.a, p.b)
       given Writes[TeamWithPoints] = Json.writes[TeamWithPoints]
-      given Writes[TeamGame]       = Json.writes[TeamGame]
-      given Writes[TeamMatch]      = Json.writes[TeamMatch]
+      given Writes[TeamGame] = Json.writes[TeamGame]
+      given Writes[TeamMatch] = Json.writes[TeamMatch]

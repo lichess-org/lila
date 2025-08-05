@@ -67,9 +67,7 @@
   <string name="officialStandings">Επίσημη κατάταξη</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Περισσότερες επιλογές στη %s</string>
   <string name="webmastersPage">σελίδα για webmasters</string>
-  <string name="pgnSourceHelp" comment="%s is 'streaming API'">Μια δημόσια πηγή PGN πραγματικού χρόνου για αυτόν τον γύρο. Το Lichess προσφέρει επίσης ένα %s για γρηγορότερο και αποτελεσματικότερο συγχρονισμό.</string>
   <string name="embedThisBroadcast">Ενσωμάτωση μετάδοσης στην ιστοσελίδα σας</string>
-  <string name="embedThisRound">Ενσωμάτωση %s στην ιστοσελίδα σας</string>
   <string name="ratingDiff">Διαφορά βαθμολογίας</string>
   <string name="gamesThisTournament">Παρτίδες τουρνουά</string>
   <string name="score">Βαθμοί</string>
@@ -85,4 +83,6 @@
   <string name="backToLiveMove">Επιστροφή στην τρέχουσα κίνηση</string>
   <string name="sinceHideResults">Επειδή επιλέξατε να κρύψετε τα αποτελέσματα, όλες οι σκακιέρες προεπισκόπησης εμφανίζονται κενές ώστε να αποφευχθούν τα spoilers.</string>
   <string name="liveboard">Ζωντανά</string>
+  <string name="communityBroadcast">Μετάδοση της κοινότητας</string>
+  <string name="createdAndManagedBy">Δημιουργήθηκε και διαχειρίζεται από τον %s.</string>
 </resources>

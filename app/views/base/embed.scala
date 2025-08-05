@@ -34,13 +34,13 @@ object embed:
     )
 
   private def bodyModifiers(using ctx: EmbedContext) = List(
-    cls                  := List("simple-board" -> ctx.pref.simpleBoard),
+    cls := List("simple-board" -> ctx.pref.simpleBoard),
     page.ui.dataSoundSet := lila.pref.SoundSet.silent.key,
     page.ui.dataAssetUrl,
     page.ui.dataAssetVersion := assetVersion.value,
-    page.ui.dataTheme        := ctx.bg,
-    page.ui.dataPieceSet     := ctx.pieceSet.name,
-    page.ui.dataBoard        := ctx.boardClass,
+    page.ui.dataTheme := ctx.bg,
+    page.ui.dataPieceSet := ctx.pieceSet.name,
+    page.ui.dataBoard := ctx.boardClass,
     page.ui.dataSocketDomains,
     style := page.boardStyle(zoomable = false)
   )

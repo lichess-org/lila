@@ -29,7 +29,7 @@ final class TournamentStandingApi(
       .mapAsync(16): (player, index) =>
         for
           sheet <- cached.sheet(tour, player.userId)
-          json  <- JsonView.playerJson(
+          json <- JsonView.playerJson(
             lightUserApi,
             sheet.some,
             RankedPlayer(Rank(index.toInt + 1), player),
@@ -81,6 +81,6 @@ final class TournamentStandingApi(
         .map(JsonView.playerJson(lightUserApi, sheets, streakable = tour.streakable, withScores = withScores))
         .parallel
     yield Json.obj(
-      "page"    -> page,
+      "page" -> page,
       "players" -> players
     )

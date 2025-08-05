@@ -18,7 +18,7 @@ export function renderClock(
       isRunning = color === ctrl.times.activeColor;
     els.time = el;
     els.clock = el.parentElement!;
-    el.innerHTML = formatClockTime(millis, ctrl.showTenths(millis), isRunning, ctrl.opts.nvui);
+    el.innerHTML = formatClockTime(millis, ctrl.showTenths(millis), isRunning);
   };
   const timeHook: Hooks = {
     insert: vnode => update(vnode.elm as HTMLElement),
@@ -29,7 +29,7 @@ export function renderClock(
     // would be incorrectly latched to red color: https://github.com/lichess-org/lila/issues/10774
     `div.rclock.rclock-${position}.rclock-${color}`,
     { class: { outoftime: millis <= 0, running: isRunning, emerg: millis < ctrl.emergMs } },
-    ctrl.opts.nvui
+    site.blindMode
       ? [hl('div.time', { attrs: { role: 'timer' }, hook: timeHook })]
       : [
           ctrl.showBar && ctrl.opts.bothPlayersHavePlayed() ? showBar(ctrl, color) : undefined,
@@ -65,9 +65,9 @@ export function formatClockTimeVerbal(time: Millis): string {
   return parts.join(' ');
 }
 
-function formatClockTime(time: Millis, showTenths: boolean, isRunning: boolean, nvui: boolean) {
+function formatClockTime(time: Millis, showTenths: boolean, isRunning: boolean) {
   const date = new Date(time);
-  if (nvui) return formatClockTimeVerbal(time);
+  if (site.blindMode) return formatClockTimeVerbal(time);
   const millis = date.getUTCMilliseconds(),
     sep = isRunning && millis < 500 ? sepLow : sepHigh,
     baseStr = pad2(date.getUTCMinutes()) + sep + pad2(date.getUTCSeconds());
@@ -125,7 +125,7 @@ function showBar(ctrl: ClockCtrl, color: Color) {
 }
 
 export function updateElements(clock: ClockCtrl, els: ClockElements, millis: Millis): void {
-  if (els.time) els.time.innerHTML = formatClockTime(millis, clock.showTenths(millis), true, clock.opts.nvui);
+  if (els.time) els.time.innerHTML = formatClockTime(millis, clock.showTenths(millis), true);
   // 12/02/2025 Brave 1.74.51 android flickers the bar oninline transforms, even though .bar is display: none
   if (els.bar) els.bar.style.transform = 'scale(' + clock.timeRatio(millis) + ',1)';
   if (els.clock) {

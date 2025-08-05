@@ -14,7 +14,7 @@ class RawHtmlTest extends munit.FunSuite:
   def copyLinkConsistency(text: String) =
     // Plain text of linkified text >> linkify to the same result.
     val firstHtml = addLinks(text)
-    val copyText  = htmlTags.replaceAllIn(firstHtml.value, "")
+    val copyText = htmlTags.replaceAllIn(firstHtml.value, "")
     assertEquals(firstHtml, addLinks(copyText))
 
   test("http external"):
@@ -45,28 +45,28 @@ class RawHtmlTest extends munit.FunSuite:
       s"""link to <a rel="nofollow noreferrer" href="$url" target="_blank">$url</a> here"""
     )
   test("detect direct giphy gif URL"):
-    val url    = "https://media.giphy.com/media/s0mE1d/giphy.gif"
+    val url = "https://media.giphy.com/media/s0mE1d/giphy.gif"
     val picUrl = "https://media.giphy.com/media/s0mE1d/giphy.gif"
     assertEquals(
       addLinks(s"""img to $url here"""),
       s"""img to <img class="embed" src="$picUrl" alt="$url"/> here"""
     )
   test("detect indirect without tags giphy gif URL"):
-    val url    = "https://giphy.com/gifs/s0mE1d"
+    val url = "https://giphy.com/gifs/s0mE1d"
     val picUrl = "https://media.giphy.com/media/s0mE1d/giphy.gif"
     assertEquals(
       addLinks(s"""img to $url here"""),
       s"""img to <img class="embed" src="$picUrl" alt="$url"/> here"""
     )
   test("detect indirect with tags giphy gif URL"):
-    val url    = "https://giphy.com/gifs/some-text-1-s0mE1d"
+    val url = "https://giphy.com/gifs/some-text-1-s0mE1d"
     val picUrl = "https://media.giphy.com/media/s0mE1d/giphy.gif"
     assertEquals(
       addLinks(s"""img to $url here"""),
       s"""img to <img class="embed" src="$picUrl" alt="$url"/> here"""
     )
   test("detect imgur image URL"):
-    val url    = "https://imgur.com/NXy19Im"
+    val url = "https://imgur.com/NXy19Im"
     val picUrl = "https://i.imgur.com/NXy19Im.jpg"
     assertEquals(
       addLinks(s"""img to $url here"""),
@@ -137,7 +137,7 @@ class RawHtmlTest extends munit.FunSuite:
     assertEquals(addLinks(noUrl), Html(noUrl))
 
   test("remove tracking tags"):
-    val url   = "example.com?UTM_CAMPAIGN=spy&utm_source=4everEVIL"
+    val url = "example.com?UTM_CAMPAIGN=spy&utm_source=4everEVIL"
     val clean = "example.com/"
     assertEquals(
       addLinks(url),

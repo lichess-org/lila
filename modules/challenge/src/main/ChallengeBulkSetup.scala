@@ -34,9 +34,9 @@ final class ChallengeBulkSetup(setupForm: lila.core.setup.SetupForm):
       setupForm.variant,
       setupForm.clock,
       setupForm.optionalDays,
-      "fen"           -> optional(lila.common.Form.fen.mapping),
-      "rated"         -> boolean.into[Rated],
-      "pairAt"        -> optional(timestampInNearFuture),
+      "fen" -> optional(lila.common.Form.fen.mapping),
+      "rated" -> boolean.into[Rated],
+      "pairAt" -> optional(timestampInNearFuture),
       "startClocksAt" -> optional(timestampInNearFuture),
       setupForm.message,
       setupForm.rules
@@ -106,12 +106,12 @@ final class ChallengeBulkSetupApi(
           .map:
             _.left.map { BadToken(token, _) }
       .runFold[Either[List[BadToken], List[UserId]]](Right(Nil)):
-        case (Left(bads), Left(bad))       => Left(bad :: bads)
-        case (Left(bads), _)               => Left(bads)
-        case (Right(_), Left(bad))         => Left(bad :: Nil)
+        case (Left(bads), Left(bad)) => Left(bad :: bads)
+        case (Left(bads), _) => Left(bads)
+        case (Right(_), Left(bad)) => Left(bad :: Nil)
         case (Right(users), Right(scoped)) => Right(scoped.me.userId :: users)
       .flatMap:
-        case Left(errors)      => fuccess(Left(ScheduleError.BadTokens(errors.reverse)))
+        case Left(errors) => fuccess(Left(ScheduleError.BadTokens(errors.reverse)))
         case Right(allPlayers) =>
           lazy val dups = allPlayers
             .groupBy(identity)
@@ -128,7 +128,7 @@ final class ChallengeBulkSetupApi(
               .collect { case List(w, b) => (w, b) }
               .toList
             val nbGames = pairs.size
-            val cost    = nbGames * (if me.isVerifiedOrChallengeAdmin || me.isApiHog then 1 else 3)
+            val cost = nbGames * (if me.isVerifiedOrChallengeAdmin || me.isApiHog then 1 else 3)
             rateLimit(me.id, fuccess(Left(ScheduleError.RateLimited)), cost = cost):
               lila.mon.api.challenge.bulk.scheduleNb(me.id.value).increment(nbGames)
               idGenerator
@@ -182,12 +182,12 @@ object ChallengeBulkSetup:
       pairedAt: Option[Instant] = None,
       fen: Option[Fen.Full] = None
   ):
-    def userSet                            = Set(games.flatMap(g => List(g.white, g.black)))
+    def userSet = Set(games.flatMap(g => List(g.white, g.black)))
     def collidesWith(other: ScheduledBulk) = {
       pairAt == other.pairAt || startClocksAt.exists(other.startClocksAt.contains)
     } && userSet.exists(other.userSet.contains)
     def nonEmptyRules = rules.nonEmpty.option(rules)
-    def perfType      = lila.rating.PerfType(variant, chess.Speed(clock.left.toOption))
+    def perfType = lila.rating.PerfType(variant, chess.Speed(clock.left.toOption))
 
   enum ScheduleError:
     case BadTokens(tokens: List[BadToken])
@@ -222,23 +222,23 @@ object ChallengeBulkSetup:
     import lila.game.JsonView.given
     Json
       .obj(
-        "id"    -> id,
+        "id" -> id,
         "games" -> games.map: g =>
           Json.obj(
-            "id"    -> g.id,
+            "id" -> g.id,
             "white" -> g.white,
             "black" -> g.black
           ),
-        "variant"       -> variant.key,
-        "rated"         -> rated,
-        "pairAt"        -> pairAt,
+        "variant" -> variant.key,
+        "rated" -> rated,
+        "pairAt" -> pairAt,
         "startClocksAt" -> startClocksAt,
-        "scheduledAt"   -> scheduledAt,
-        "pairedAt"      -> pairedAt
+        "scheduledAt" -> scheduledAt,
+        "pairedAt" -> pairedAt
       )
       .add("clock" -> bulk.clock.left.toOption.map: c =>
         Json.obj(
-          "limit"     -> c.limitSeconds,
+          "limit" -> c.limitSeconds,
           "increment" -> c.incrementSeconds
         ))
       .add("correspondence" -> bulk.clock.toOption.map: days =>

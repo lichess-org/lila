@@ -23,7 +23,10 @@ final class Moretimer(
         none
       case true =>
         if pov.game.clock.exists(_.moretimeable(!pov.color))
-        then give(pov.game, List(!pov.color), duration).some
+        then
+          val progress = give(pov.game, List(!pov.color), duration)
+          tellTheBus(progress.game)
+          progress.some
         else if pov.game.correspondenceClock.exists(_.moretimeable(!pov.color))
         then
           messenger.volatile(pov.game, s"${!pov.color} gets more time")
@@ -42,12 +45,19 @@ final class Moretimer(
         if unchecked < minTime then minTime
         else if unchecked > maxTime then maxTime
         else unchecked
-      val centis   = duration.toCentis
+      val centis = duration.toCentis
       val newClock = colors.foldLeft(clock): (c, color) =>
         c.giveTime(color, centis)
       colors.foreach: c =>
         messenger.volatile(game, s"$c + ${duration.toSeconds} seconds")
       (game.withClock(newClock)) ++ colors.map { Event.ClockInc(_, centis, newClock) }
+
+  private def tellTheBus(game: Game): Unit =
+    if lila.game.Game.isBoardCompatible(game) then
+      lila.common.Bus.publishDyn(
+        lila.game.actorApi.BoardMoretime(game),
+        lila.game.actorApi.BoardMoretime.makeChan(game.id)
+      )
 
   private def isAllowedByPrefs(game: Game, prefs: Preload[ByColor[Pref]]): Fu[Boolean] =
     prefs

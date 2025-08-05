@@ -23,13 +23,13 @@ final class Cached(
   )
 
   val async = LightTeam.Getter(lightCache.async)
-  val sync  = LightTeam.GetterSync(lightCache.sync)
+  val sync = LightTeam.GetterSync(lightCache.sync)
 
   export lightCache.{ preloadSet, preloadMany }
 
   val lightApi = new LightTeam.Api:
     def async = Cached.this.async
-    def sync  = Cached.this.sync
+    def sync = Cached.this.sync
     export lightCache.preloadSet as preload
 
   private val teamIdsCache = cacheApi.sync[UserId, Team.IdsStr](
@@ -42,13 +42,13 @@ final class Cached(
           Match($doc("_id".$startsWith(s"$u@"))) -> List(
             Project($doc("_id" -> $doc("$substr" -> $arr("$_id", u.value.size + 1, -1)))),
             PipelineOperator(
-              $lookup.pipeline(
+              $lookup.simple(
                 from = teamRepo.coll,
                 as = "team",
                 local = "_id",
                 foreign = "_id",
                 pipe = List(
-                  $doc("$match"   -> $doc("enabled" -> true)),
+                  $doc("$match" -> $doc("enabled" -> true)),
                   $doc("$project" -> $id(true))
                 )
               )
@@ -66,16 +66,16 @@ final class Cached(
 
   export teamIdsCache.{ async as teamIds, invalidate as invalidateTeamIds, sync as syncTeamIds }
   def teamIdsList[U: UserIdOf](user: U): Fu[List[TeamId]] = teamIds(user.id).dmap(_.toList)
-  def teamIdsSet(user: UserId): Fu[Set[TeamId]]           = teamIds(user.id).dmap(_.toSet)
+  def teamIdsSet(user: UserId): Fu[Set[TeamId]] = teamIds(user.id).dmap(_.toSet)
 
   val nbRequests = cacheApi[UserId, Int](32_768, "team.nbRequests"):
     _.expireAfterAccess(40.minutes)
       .maximumSize(131_072)
       .buildAsyncFuture[UserId, Int]: userId =>
         for
-          myTeams     <- teamIds(userId)
+          myTeams <- teamIds(userId)
           leaderTeams <- myTeams.nonEmpty.so(memberRepo.teamsWhereIsGrantedRequest(userId))
-          nbReqs      <- requestRepo.countPendingForTeams(leaderTeams)
+          nbReqs <- requestRepo.countPendingForTeams(leaderTeams)
         yield nbReqs
 
   private[team] val forumAccess = cacheApi[TeamId, Access](256, "team.forum.access"):

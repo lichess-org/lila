@@ -27,7 +27,7 @@ final class OpeningApi(
       RequestHeader,
       OpeningAccessControl
   ): Fu[Option[OpeningPage]] =
-    val config   = if crawler.yes then OpeningConfig.default else readConfig
+    val config = if crawler.yes then OpeningConfig.default else readConfig
     def doLookup = lookup(q, config, withWikiRevisions, crawler)
     if crawler.no && config.isDefault && !withWikiRevisions
     then
@@ -52,17 +52,17 @@ final class OpeningApi(
       crawler: Crawler
   )(using accessControl: OpeningAccessControl): Fu[Option[OpeningPage]] =
     for
-      wiki      <- query.closestOpening.soFu(wikiApi(_, withWikiRevisions))
+      wiki <- query.closestOpening.soFu(wikiApi(_, withWikiRevisions))
       loadStats <- accessControl.canLoadExpensiveStats(wiki.exists(_.hasMarkup), crawler)
-      stats     <-
+      stats <-
         if loadStats then explorer.stats(query.uci, query.config, crawler)
         else fuccess(scala.util.Success(none))
       statsOption = stats.toOption.flatten
       allHistory <- allGamesHistory.get(query.config)
-      games      <- gameRepo.gamesFromSecondary(statsOption.so(_.games).map(_.id))
-      withPgn    <- games.traverse: g =>
+      games <- gameRepo.gamesFromSecondary(statsOption.so(_.games).map(_.id))
+      withPgn <- games.traverse: g =>
         pgnDump(g, None, PgnDump.WithFlags(evals = false)).dmap { GameWithPgn(g, _) }
-      history    = statsOption.so(_.popularityHistory)
+      history = statsOption.so(_.popularityHistory)
       relHistory = query.uci.nonEmpty.so(historyPercent(history, allHistory))
     yield makeOpeningPage(query, stats, withPgn, relHistory, wiki).some
 
@@ -75,7 +75,7 @@ final class OpeningApi(
     query
       .zipAll(config, 0L, 0L)
       .map:
-        case (_, 0)     => 0
+        case (_, 0) => 0
         case (cur, all) => ((cur.toDouble / all) * 100).toFloat
 
   private val allGamesHistory =

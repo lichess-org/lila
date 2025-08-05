@@ -15,7 +15,7 @@ import lila.core.pool.IsClockCompatible
 // realtime chess, volatile
 case class Hook(
     id: String,
-    sri: Sri,            // owner socket sri
+    sri: Sri, // owner socket sri
     sid: Option[String], // owner cookie (used to prevent multiple hooks)
     variant: Variant.Id,
     clock: Clock.Config,
@@ -53,26 +53,26 @@ case class Hook(
   lazy val ratingRangeOrDefault: RatingRange =
     nonWideRatingRange.orElse(rating.map(lila.rating.RatingRange.defaultFor)).getOrElse(RatingRange.default)
 
-  def userId   = user.map(_.id)
+  def userId = user.map(_.id)
   def username = user.fold(UserName.anonymous)(_.username)
-  def lame     = user.so(_.lame)
+  def lame = user.so(_.lame)
 
   lazy val perfType: PerfType = lila.rating.PerfType(realVariant, speed)
 
   lazy val perf: Option[LobbyPerf] = user.map(_.perfAt(perfType))
-  def rating: Option[IntRating]    = perf.map(_.rating)
-  def provisional                  = perf.forall(_.provisional.yes)
+  def rating: Option[IntRating] = perf.map(_.rating)
+  def provisional = perf.forall(_.provisional.yes)
 
   import lila.common.Json.given
   def render: JsObject = Json
     .obj(
-      "id"    -> id,
-      "sri"   -> sri,
+      "id" -> id,
+      "sri" -> sri,
       "clock" -> clock.show,
-      "perf"  -> perfType.key,
-      "t"     -> clock.estimateTotalSeconds,
-      "s"     -> speed.id,
-      "i"     -> (if clock.incrementSeconds > 0 then 1 else 0)
+      "perf" -> perfType.key,
+      "t" -> clock.estimateTotalSeconds,
+      "s" -> speed.id,
+      "i" -> (if clock.incrementSeconds > 0 then 1 else 0)
     )
     .add("prov" -> perf.map(_.provisional))
     .add("u" -> user.map(_.username))

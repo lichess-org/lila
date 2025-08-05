@@ -37,7 +37,7 @@ final class Study(
         case None =>
           for
             pag <- env.study.pager.all(Orders.default, page)
-            _   <- preloadMembers(pag)
+            _ <- preloadMembers(pag)
             res <- negotiate(
               Ok.page(views.study.list.all(pag, Orders.default)),
               apiStudies(pag)
@@ -67,7 +67,7 @@ final class Study(
         case order =>
           for
             pag <- env.study.pager.all(order, page)
-            _   <- preloadMembers(pag)
+            _ <- preloadMembers(pag)
             res <- negotiate(
               Ok.page(views.study.list.all(pag, order)),
               apiStudies(pag)
@@ -80,7 +80,7 @@ final class Study(
     Found(meOrFetch(username)): owner =>
       for
         pag <- env.study.pager.byOwner(owner, order, page)
-        _   <- preloadMembers(pag)
+        _ <- preloadMembers(pag)
         res <- negotiate(Ok.page(views.study.list.byOwner(pag, order, owner)), apiStudies(pag))
       yield res
 
@@ -109,8 +109,8 @@ final class Study(
     AuthOrScoped(_.Web.Mobile) { ctx ?=> me ?=>
       for
         pager <- makePager(order, page)
-        _     <- preloadMembers(pager)
-        res   <- negotiate(Ok.async(render(pager, order)), apiStudies(pager))
+        _ <- preloadMembers(pager)
+        res <- negotiate(Ok.async(render(pager, order)), apiStudies(pager))
       yield res
     }
 
@@ -118,7 +118,7 @@ final class Study(
     Found(lila.study.StudyTopic.fromStr(name)): topic =>
       for
         pag <- env.study.pager.byTopic(topic, order, page)
-        _   <- preloadMembers(pag)
+        _ <- preloadMembers(pag)
         res <- negotiate(
           Ok.async:
             ctx.userId
@@ -157,34 +157,37 @@ final class Study(
   private def showQuery(query: Fu[Option[WithChapter]])(using ctx: Context): Fu[Result] =
     Found(query): oldSc =>
       CanView(oldSc.study) {
-        negotiate(
-          html =
-            val noCrawler = HTTPRequest.isCrawler(ctx.req).no
-            for
-              (sc, data) <- getJsonData(oldSc, withChapters = true)
-              chat       <- noCrawler.so(chatOf(sc.study))
-              sVersion   <- noCrawler.so(env.study.version(sc.study.id))
-              streamers  <- noCrawler.so(streamerCache.get(sc.study.id))
-              page       <- renderPage(views.study.show(sc.study, data, chat, sVersion, streamers))
-            yield Ok(page)
-              .withCanonical(routes.Study.chapter(sc.study.id, sc.chapter.id))
-              .enforceCrossSiteIsolation
-          ,
-          json = for
-            (sc, data) <- getJsonData(
-              oldSc,
-              withChapters = getBool("chapters") || HTTPRequest.isLichobile(ctx.req)
-            )
-            loadChat = !HTTPRequest.isXhr(ctx.req)
-            chatOpt <- loadChat.so(chatOf(sc.study))
-            jsChat  <- chatOpt.soFu: c =>
-              lila.chat.JsonView.mobile(c.chat, writeable = ctx.userId.so(sc.study.canChat))
-          yield Ok:
-            Json.obj(
-              "study"    -> data.study.add("chat" -> jsChat),
-              "analysis" -> data.analysis
-            )
-        )
+        if !oldSc.study.notable && HTTPRequest.isCrawler(req).yes
+        then notFound
+        else
+          negotiate(
+            html =
+              val noCrawler = HTTPRequest.isCrawler(ctx.req).no
+              for
+                (sc, data) <- getJsonData(oldSc, withChapters = true)
+                chat <- noCrawler.so(chatOf(sc.study))
+                sVersion <- noCrawler.so(env.study.version(sc.study.id))
+                streamers <- noCrawler.so(streamerCache.get(sc.study.id))
+                page <- renderPage(views.study.show(sc.study, data, chat, sVersion, streamers))
+              yield Ok(page)
+                .withCanonical(routes.Study.chapter(sc.study.id, sc.chapter.id))
+                .enforceCrossSiteIsolation
+            ,
+            json = for
+              (sc, data) <- getJsonData(
+                oldSc,
+                withChapters = getBool("chapters") || HTTPRequest.isLichobile(ctx.req)
+              )
+              loadChat = !HTTPRequest.isXhr(ctx.req)
+              chatOpt <- loadChat.so(chatOf(sc.study))
+              jsChat <- chatOpt.soFu: c =>
+                lila.chat.JsonView.mobile(c.chat, writeable = ctx.userId.so(sc.study.canChat))
+            yield Ok:
+              Json.obj(
+                "study" -> data.study.add("chat" -> jsChat),
+                "analysis" -> data.analysis
+              )
+          )
       }(privateUnauthorizedFu(oldSc.study), privateForbiddenFu(oldSc.study))
     .dmap(_.noCache)
 
@@ -193,9 +196,9 @@ final class Study(
   ): Fu[(WithChapter, JsData)] =
     for
       (study, chapter) <- env.study.api.maybeResetAndGetChapter(sc.study, sc.chapter)
-      previews         <- withChapters.soFu(env.study.preview.jsonList(study.id))
-      _                <- env.user.lightUserApi.preloadMany(study.members.ids.toList)
-      fedNames         <- env.study.preview.federations.get(sc.study.id)
+      previews <- withChapters.soFu(env.study.preview.jsonList(study.id))
+      _ <- env.user.lightUserApi.preloadMany(study.members.ids.toList)
+      fedNames <- env.study.preview.federations.get(sc.study.id)
       pov = userAnalysisC.makePov(chapter.root.fen.some, chapter.setup.variant)
       analysis <- chapter.serverEval
         .exists(_.done)
@@ -257,9 +260,9 @@ final class Study(
       _ => Redirect(routes.Study.byOwnerDefault(me.username)),
       data =>
         for
-          owner   <- env.study.api.recentByOwnerWithChapterCount(me, 50)
+          owner <- env.study.api.recentByOwnerWithChapterCount(me, 50)
           contrib <- env.study.api.recentByContributorWithChapterCount(me, 50)
-          res     <-
+          res <-
             if owner.isEmpty && contrib.isEmpty then createStudy(data)
             else
               val back = HTTPRequest
@@ -287,9 +290,9 @@ final class Study(
     Found(env.study.api.byIdAndOwnerOrAdmin(id, me)): study =>
       for
         round <- env.relay.api.deleteRound(id.into(RelayRoundId))
-        _     <- env.study.api.delete(study)
+        _ <- env.study.api.delete(study)
       yield round match
-        case None       => Redirect(routes.Study.mine(Order.hot))
+        case None => Redirect(routes.Study.mine(Order.hot))
         case Some(tour) => Redirect(routes.RelayTour.show(tour.slug, tour.id))
   }
 
@@ -354,7 +357,7 @@ final class Study(
               .getChapterPgn(finalChapterId)
               .map:
                 case Some(LpvEmbed.PublicPgn(pgn)) => Ok.snip(views.study.embed(study, finalChapterId, pgn))
-                case _                             => notFound
+                case _ => notFound
 
   def cloneStudy(id: StudyId) = Auth { ctx ?=> _ ?=>
     Found(env.study.api.byId(id)): study =>
@@ -436,8 +439,8 @@ final class Study(
       if username.value == "me"
       then ctx.me.fold(UserName("me"))(_.username)
       else username.into(UserName)
-    val userId     = name.id
-    val isMe       = ctx.me.exists(_.is(userId))
+    val userId = name.id
+    val isMe = ctx.me.exists(_.is(userId))
     val makeStream = env.study.studyRepo
       .sourceByOwner(userId, isMe)
       .flatMapConcat(env.study.pgnDump.chaptersOf(_, _ => requestPgnFlags))
@@ -480,7 +483,7 @@ final class Study(
 
   def topicAutocomplete = Anon:
     get("term").filter(_.nonEmpty) match
-      case None       => BadRequest("No search term provided")
+      case None => BadRequest("No search term provided")
       case Some(term) =>
         import lila.common.Json.given
         env.study.topicApi.findLike(term, getUserStr("user").map(_.id)).map { JsonOk(_) }
@@ -513,7 +516,7 @@ final class Study(
     privateUnauthorizedJson
   )
 
-  def privateForbiddenJson                                 = forbiddenJson("This study is now private")
+  def privateForbiddenJson = forbiddenJson("This study is now private")
   def privateForbiddenFu(study: StudyModel)(using Context) = negotiate(
     Forbidden.page(views.study.privateStudy(study)),
     privateForbiddenJson
@@ -526,10 +529,10 @@ final class Study(
       if userSelection.forall(Settings.UserSelection.allows(_, study, me.map(_.userId))) then f
       else forbidden
     me match
-      case _ if !study.isPrivate                        => withUserSelection
-      case None                                         => unauthorized
+      case _ if !study.isPrivate => withUserSelection
+      case None => unauthorized
       case Some(me) if study.members.contains(me.value) => withUserSelection
-      case _                                            => forbidden
+      case _ => forbidden
 
   private val streamerCache =
     env.memo.cacheApi[StudyId, List[UserId]](64, "study.streamers"):

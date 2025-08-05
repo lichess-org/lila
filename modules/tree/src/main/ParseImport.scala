@@ -7,7 +7,7 @@ import chess.{ Game as ChessGame, * }
 
 case class TagResult(status: Status, points: Outcome.GamePoints):
   // duplicated from Game.finish
-  def finished              = status >= Status.Mate
+  def finished = status >= Status.Mate
   def winner: Option[Color] = Outcome.fromPoints(points).flatMap(_.winner)
 
 case class ImportResult(
@@ -45,7 +45,7 @@ object ParseImport:
       Parser
         .mainline(pgn)
         .map: parsed =>
-          val result = Replay.makeReplay(parsed.toGame, parsed.sans.take(maxPlies))
+          val result = Replay.makeReplay(parsed.toGame, parsed.moves.take(maxPlies))
           extractData(result.replay, parsed.tags)
 
   type ImportGameResult = (
@@ -56,10 +56,10 @@ object ParseImport:
   )
 
   def extractData(replay: Replay, tags: Tags): ImportGameResult =
-    val variant    = extractVariant(replay.setup, tags)
+    val variant = extractVariant(replay.setup, tags)
     val initialFen = tags.fen.flatMap(Fen.readWithMoveNumber(variant, _)).map(Fen.write)
-    val game       = replay.state.copy(position = replay.state.position.withVariant(variant))
-    val result     = extractResult(game, tags)
+    val game = replay.state.copy(position = replay.state.position.withVariant(variant))
+    val result = extractResult(game, tags)
     (game, result, initialFen, tags)
 
   def extractVariant(setup: ChessGame, tags: Tags): Variant =
@@ -72,19 +72,19 @@ object ParseImport:
       else Standard
     } match
       case Chess960 if !isChess960StartPosition(setup.position) => FromPosition
-      case FromPosition if tags.fen.isEmpty                     => Standard
-      case Standard if fromPosition                             => FromPosition
-      case v                                                    => v
+      case FromPosition if tags.fen.isEmpty => Standard
+      case Standard if fromPosition => FromPosition
+      case v => v
 
   def extractResult(game: ChessGame, tags: Tags): Option[TagResult] =
     val status = tags(_.Termination).map(_.toLowerCase) match
       case Some("normal") =>
         game.position.status | (if tags.outcome.exists(_.winner.isEmpty) then Status.Draw else Status.Resign)
-      case Some("abandoned")                        => Status.Aborted
-      case Some("time forfeit")                     => Status.Outoftime
-      case Some("rules infraction")                 => Status.Cheat
+      case Some("abandoned") => Status.Aborted
+      case Some("time forfeit") => Status.Outoftime
+      case Some("rules infraction") => Status.Cheat
       case Some(txt) if txt.contains("won on time") => Status.Outoftime
-      case _                                        => Status.UnknownFinish
+      case _ => Status.UnknownFinish
 
     tags.points
       .map(points => TagResult(status, points))
@@ -103,20 +103,20 @@ object ParseImport:
         File.all.forall(file => f(position.board.pieceAt(file, rank)))
       rankMatches {
         case Some(Piece(White, King | Queen | Rook | Knight | Bishop)) => true
-        case _                                                         => false
+        case _ => false
       }(Rank.First) &&
       rankMatches {
         case Some(Piece(White, Pawn)) => true
-        case _                        => false
+        case _ => false
       }(Rank.Second) &&
       List(Rank.Third, Rank.Fourth, Rank.Fifth, Rank.Sixth).forall(rankMatches(_.isEmpty)) &&
       rankMatches {
         case Some(Piece(Black, Pawn)) => true
-        case _                        => false
+        case _ => false
       }(Rank.Seventh) &&
       rankMatches {
         case Some(Piece(Black, King | Queen | Rook | Knight | Bishop)) => true
-        case _                                                         => false
+        case _ => false
       }(Rank.Eighth)
 
     Chess960.valid(position, strict)

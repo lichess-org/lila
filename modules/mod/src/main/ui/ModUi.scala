@@ -28,7 +28,7 @@ final class ModUi(helpers: Helpers):
   def gdprEraseButton(u: User)(using Context) =
     val allowed = u.marks.clean || Granter.opt(_.Admin)
     submitButton(
-      cls   := (!allowed).option("disabled"),
+      cls := (!allowed).option("disabled"),
       title := {
         if allowed
         then "Definitely erase everything about this user"
@@ -37,9 +37,16 @@ final class ModUi(helpers: Helpers):
       (!allowed).option(disabled)
     )("GDPR erasure")
 
-  def logs(logs: List[lila.mod.Modlog], mod: Option[Mod], query: Option[UserStr])(using Context) =
+  def logs(
+      logs: List[lila.mod.Modlog],
+      mod: Option[Mod],
+      whichMod: Option[UserStr],
+      artifactId: Option[String]
+  )(using
+      Context
+  ) =
     Page("Mod logs").css("mod.misc"):
-      main(cls := "page-menu.modMenu")(
+      main(cls := "page-menu modMenu")(
         modMenu("log"),
         div(id := "modlog_table", cls := "page-menu__content box")(
           boxTop(cls := "box__top")(
@@ -50,8 +57,15 @@ final class ModUi(helpers: Helpers):
                 div(cls := "box__top__actions")(
                   st.form(cls := "search", action := routes.Mod.log())(
                     input(
-                      st.name     := "mod",
-                      value       := query,
+                      st.name := "id",
+                      value := artifactId,
+                      placeholder := "filter by id"
+                    )
+                  ),
+                  st.form(cls := "search", action := routes.Mod.log())(
+                    input(
+                      st.name := "mod",
+                      value := whichMod,
                       placeholder := "filter by mod"
                     )
                   )
@@ -70,11 +84,20 @@ final class ModUi(helpers: Helpers):
               logs.map: log =>
                 tr(
                   td(momentFromNow(log.date)),
-                  td(log.user.map { u =>
-                    userIdLink(u.some, params = "?mod")
-                  }),
+                  td(log.user.map { u => userIdLink(u.some, params = "?mod") }),
                   td(log.showAction.capitalize),
-                  td(shorten(~log.details, 100))
+                  td(
+                    shorten(~log.details, 100),
+                    log.context.map { c =>
+                      val shortText = c.text.map(t => frag(" " + shorten(t, 40)))
+                      frag(
+                        c.url
+                          .map(u => a(href := u, target := "_blank")(shortText | frag(" " + u).some))
+                          .orElse(shortText),
+                        c.id.map(id => frag(s" #$id "))
+                      )
+                    }
+                  )
                 )
             )
           )
@@ -101,7 +124,7 @@ final class ModUi(helpers: Helpers):
                     .map: perm =>
                       val id = s"permission-${perm.dbKey}"
                       div(
-                        cls   := Granter.of(perm)(u).option("granted"),
+                        cls := Granter.of(perm)(u).option("granted"),
                         title := Granter
                           .of(perm)(u)
                           .so:
@@ -129,7 +152,7 @@ final class ModUi(helpers: Helpers):
 
   def presets(group: String, form: Form[?])(using Context) =
     Page(s"$group presets").css("mod.misc", "bits.form3"):
-      main(cls := "page-menu.modMenu")(
+      main(cls := "page-menu modMenu")(
         modMenu("presets"),
         div(cls := "page-menu__content box box-pad mod-presets")(
           boxTop(
@@ -163,7 +186,7 @@ final class ModUi(helpers: Helpers):
     Page("Email confirmation")
       .css("mod.misc")
       .js(Esm("mod.emailConfirmation")):
-        main(cls := "page-menu.modMenu")(
+        main(cls := "page-menu modMenu")(
           modMenu("email"),
           div(cls := "mod-confirm page-menu__content box box-pad")(
             h1(cls := "box__top")("Confirm a user email"),
@@ -204,7 +227,7 @@ final class ModUi(helpers: Helpers):
                     td(u.seenAt.map(momentFromNow(_))),
                     td(style := "font-size:2em")(
                       if !u.everLoggedIn then iconTag(Icon.Checkmark)(cls := "is-green")
-                      else iconTag(Icon.X)(cls                            := "is-red")
+                      else iconTag(Icon.X)(cls := "is-red")
                     )
                   )
               )
@@ -215,7 +238,7 @@ final class ModUi(helpers: Helpers):
     Page("Queues stats")
       .css("mod.activity")
       .js(PageModule("mod.activity", Json.obj("op" -> "queues", "data" -> p.json))):
-        main(cls := "page-menu.modMenu")(
+        main(cls := "page-menu modMenu")(
           modMenu("queues"),
           div(cls := "page-menu__content index box mod-queues")(
             boxTop(
@@ -226,7 +249,7 @@ final class ModUi(helpers: Helpers):
                   span(p.period.key),
                   Period.values.toList.map: per =>
                     a(
-                      cls  := (p.period == per).option("current"),
+                      cls := (p.period == per).option("current"),
                       href := routes.Mod.queues(per.key)
                     )(per.toString)
                 )
@@ -242,11 +265,11 @@ final class ModUi(helpers: Helpers):
       span(if p.who == Who.Team then "Team" else "My"),
       List(
         a(
-          cls  := (p.who == Who.Team).option("current"),
+          cls := (p.who == Who.Team).option("current"),
           href := routes.Mod.activityOf("team", p.period.key)
         )("Team"),
         a(
-          cls  := (p.who != Who.Team).option("current"),
+          cls := (p.who != Who.Team).option("current"),
           href := routes.Mod.activityOf("me", p.period.key)
         )("My")
       )
@@ -256,7 +279,7 @@ final class ModUi(helpers: Helpers):
       span(p.period.key),
       Period.values.toList.map { per =>
         a(
-          cls  := (p.period == per).option("current"),
+          cls := (p.period == per).option("current"),
           href := routes.Mod.activityOf(p.who.key, per.key)
         )(per.toString)
       }

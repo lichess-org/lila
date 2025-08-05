@@ -37,9 +37,9 @@ final class SeekApi(
   def forMe(using me: User | UserWithPerfs): Fu[List[Seek]] = for
     user <- me match
       case u: UserWithPerfs => fuccess(u)
-      case u: User          => userApi.withPerfs(u)
+      case u: User => userApi.withPerfs(u)
     blocking <- relationApi.fetchBlocking(user.id)
-    seeks    <- forUser(LobbyUser.make(user, lila.core.pool.Blocking(blocking)))
+    seeks <- forUser(LobbyUser.make(user, lila.core.pool.Blocking(blocking)))
   yield seeks
 
   def forUser(user: LobbyUser): Fu[List[Seek]] =
@@ -53,7 +53,7 @@ final class SeekApi(
     seeks
       .foldLeft(List.empty[Seek] -> Set.empty[String]):
         case ((res, h), seek) if seek.user.id == user.id => (seek :: res, h)
-        case ((res, h), seek)                            =>
+        case ((res, h), seek) =>
           val seekH = List(seek.variant, seek.daysPerTurn, seek.rated.name, seek.user.id).mkString(",")
           if h contains seekH then (res, h)
           else (seek :: res, h + seekH)
@@ -64,9 +64,9 @@ final class SeekApi(
     coll.find($id(id)).one[Seek]
 
   def insert(seek: Seek) = for
-    _     <- coll.insert.one(seek)
+    _ <- coll.insert.one(seek)
     seeks <- findByUser(seek.user.id)
-    _     <-
+    _ <-
       if seeks.sizeIs <= maxPerUser.value then funit
       else seeks.drop(maxPerUser.value).sequentiallyVoid(remove)
   yield cacheClear()
@@ -85,7 +85,7 @@ final class SeekApi(
   def archive(seek: Seek, gameId: GameId) = for
     _ <- coll.delete.one($id(seek.id))
     archiveDoc = bsonWriteObjTry[Seek](seek).get ++ $doc(
-      "gameId"     -> gameId,
+      "gameId" -> gameId,
       "archivedAt" -> nowInstant
     )
     _ <- archiveColl.insert.one(archiveDoc)

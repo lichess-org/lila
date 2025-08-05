@@ -8,13 +8,10 @@ import scalalib.paginator.*
 
 import lila.common.Json.given
 import lila.core.LightUser
-import lila.db.dsl.{ *, given }
 
 final class MsgCompat(
     api: MsgApi,
-    colls: MsgColls,
     security: MsgSecurity,
-    cacheApi: lila.memo.CacheApi,
     isOnline: lila.core.socket.IsOnline,
     lightUserApi: lila.core.user.LightUserApi
 )(using Executor):
@@ -39,39 +36,22 @@ final class MsgCompat(
             .mapResults: t =>
               val user = lightUserApi.syncFallback(t.other(me))
               Json.obj(
-                "id"        -> user.id,
-                "author"    -> user.titleName,
-                "name"      -> t.lastMsg.text,
+                "id" -> user.id,
+                "author" -> user.titleName,
+                "name" -> t.lastMsg.text,
                 "updatedAt" -> t.lastMsg.date,
-                "isUnread"  -> t.lastMsg.unreadBy(me)
+                "isUnread" -> t.lastMsg.unreadBy(me)
               ))
-
-  def unreadCount(me: User): Fu[Int] = unreadCountCache.get(me.id)
-
-  private val unreadCountCache = cacheApi[UserId, Int](256, "message.unreadCount"):
-    _.expireAfterWrite(10.seconds)
-      .buildAsyncFuture[UserId, Int] { userId =>
-        colls.thread
-          .aggregateOne(_.sec): framework =>
-            import framework.*
-            Match($doc("users" -> userId, "del".$ne(userId))) -> List(
-              Sort(Descending("lastMsg.date")),
-              Limit(maxPerPage.value),
-              Match($doc("lastMsg.read" -> false, "lastMsg.user".$ne(userId))),
-              Count("nb")
-            )
-          .map(~_.flatMap(_.getAsOpt[Int]("nb")))
-      }
 
   def thread(c: MsgConvo)(using me: Me): JsObject =
     Json.obj(
-      "id"    -> c.contact.id,
-      "name"  -> c.contact.name,
+      "id" -> c.contact.id,
+      "name" -> c.contact.name,
       "posts" -> c.msgs.reverse.map: msg =>
         Json.obj(
-          "sender"    -> renderUser(if msg.user == c.contact.id then c.contact else me.light),
-          "receiver"  -> renderUser(if msg.user != c.contact.id then c.contact else me.light),
-          "text"      -> msg.text,
+          "sender" -> renderUser(if msg.user == c.contact.id then c.contact else me.light),
+          "receiver" -> renderUser(if msg.user != c.contact.id then c.contact else me.light),
+          "text" -> msg.text,
           "createdAt" -> msg.date
         )
     )
@@ -89,7 +69,7 @@ final class MsgCompat(
                 .await(2.seconds, "pmAccept") // damn you blocking API
           ),
         "subject" -> text(minLength = 3, maxLength = 100),
-        "text"    -> text(minLength = 3, maxLength = 8000)
+        "text" -> text(minLength = 3, maxLength = 8000)
       )(ThreadData.apply)(unapply)
     ).bindFromRequest()
       .fold(
@@ -115,6 +95,6 @@ final class MsgCompat(
 
   private def renderUser(user: LightUser) =
     Json.toJsObject(user) ++ Json.obj(
-      "online"   -> isOnline.exec(user.id),
+      "online" -> isOnline.exec(user.id),
       "username" -> user.name // for mobile app BC
     )

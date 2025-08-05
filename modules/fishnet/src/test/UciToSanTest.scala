@@ -239,7 +239,7 @@ final class UciToSanTest extends munit.FunSuite:
 
     val pgn =
       "d4 d5 f3 e6 f4 g6 g3 Bg7 Nf3 Nf6 e3 O-O Bh3 Nc6 g4 h6 g5 hxg5 Nxg5 Ne4 Bxe6 fxe6 Nxe6 Bxe6 Rg1 Qh4+ Ke2 Qxh2+ Kd3 Nb4#"
-    val andPly    = Position.AndFullMoveNumber(chess.variant.Standard, none)
+    val andPly = Position.AndFullMoveNumber(chess.variant.Standard, none)
     val positions = andPly.playPositions(SanStr.from(pgn.split(' ').toList)).toOption.get
     UciToSan(positions, andPly.ply, uciAnalysis) match
       case (_, errs) => assertEquals(errs, Nil)
@@ -312,8 +312,8 @@ final class UciToSanTest extends munit.FunSuite:
         "Qxg5#"
       )
     )
-    val andPly      = Position.AndFullMoveNumber(chess.variant.KingOfTheHill, none)
-    val positions   = andPly.playPositions(pgn).toOption.get
+    val andPly = Position.AndFullMoveNumber(chess.variant.KingOfTheHill, none)
+    val positions = andPly.playPositions(pgn).toOption.get
     val uciAnalysis = Analysis(Analysis.Id(GameId("g5hX8efz")), Nil, 0, now, None, None)
     UciToSan(positions, andPly.ply, uciAnalysis) match
       case (_, errs) => assertEquals(errs, Nil)

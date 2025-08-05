@@ -85,15 +85,15 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
       replyBlocked: Boolean = false
   )(using ctx: Context) =
     val isDiagnostic = categ.isDiagnostic && (canModCateg || ctx.me.exists(topic.isAuthor))
-    val headerText   = if isDiagnostic then "Diagnostics" else topic.name
-    val backUrl      =
+    val headerText = if isDiagnostic then "Diagnostics" else topic.name
+    val backUrl =
       if isDiagnostic && !canModCateg then routes.ForumCateg.index.url
       else
         topic.ublogId.fold(s"${routes.ForumCateg.show(categ.id)}"): id =>
           routes.Ublog.redirect(id).url
 
     val teamOnly = categ.team.filterNot(isMyTeamSync)
-    val pager    = paginationByQuery(routes.ForumTopic.show(categ.id, topic.slug, 1), posts, showPost = true)
+    val pager = paginationByQuery(routes.ForumTopic.show(categ.id, topic.slug, 1), posts, showPost = true)
     Page(s"${topic.name} • page ${posts.currentPage}/${posts.nbPages} • ${categ.name}")
       .css("bits.forum")
       .csp(_.withInlineIconFont.withTwitter)
@@ -145,7 +145,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
             div(
               unsub.map: uns =>
                 postForm(
-                  cls    := s"unsub ${if uns then "on" else "off"}",
+                  cls := s"unsub ${if uns then "on" else "off"}",
                   action := routes.Timeline.unsub(s"forum:${topic.id}")
                 )(
                   button(cls := "button button-empty text on", dataIcon := Icon.Eye, bits.dataUnsub := "off"):
@@ -174,7 +174,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
           ),
           formWithCaptcha.map: (form, captcha) =>
             postForm(
-              cls    := "form3 reply",
+              cls := "form3 reply",
               action := s"${routes.ForumPost.create(categ.id, topic.slug, posts.currentPage)}#reply",
               novalidate
             )(
@@ -183,8 +183,8 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
                 trans.site.message(),
                 help = a(
                   dataIcon := Icon.InfoCircle,
-                  cls      := "text",
-                  href     := routes.Cms.lonePage(CmsPageKey("forum-etiquette"))
+                  cls := "text",
+                  href := routes.Cms.lonePage(CmsPageKey("forum-etiquette"))
                 )(
                   "Forum etiquette"
                 ).some
@@ -241,7 +241,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
       st.form(method := "post", cls := "form3")(
         st.select(
           name := "reason",
-          cls  := "form-control"
+          cls := "form-control"
         )(
           st.option(value := "")("no message"),
           deletionPresets.map: reason =>
@@ -258,9 +258,9 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
 
   private val relocateTo = List(
     "general-chess-discussion" -> "General Chess Discussion",
-    "lichess-feedback"         -> "Lichess Feedback",
-    "game-analysis"            -> "Game Analysis",
-    "off-topic-discussion"     -> "Off-Topic Discussion"
+    "lichess-feedback" -> "Lichess Feedback",
+    "game-analysis" -> "Game Analysis",
+    "off-topic-discussion" -> "Off-Topic Discussion"
   )
 
   private def relocateModal(from: lila.forum.ForumCateg) =
@@ -269,7 +269,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
       st.form(method := "post", cls := "form3")(
         st.select(
           name := "categ",
-          cls  := "form-control"
+          cls := "form-control"
         )(
           relocateTo.collect:
             case (slug, name) if slug != from.id.value => st.option(value := slug)(name)

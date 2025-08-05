@@ -8,7 +8,7 @@ case class Crosstable(
 ):
   export users.{ fromPov as _, * }
 
-  def nonEmpty                = results.nonEmpty.option(this)
+  def nonEmpty = results.nonEmpty.option(this)
   def fromPov(userId: UserId) = copy(users = users.fromPov(userId))
 
   lazy val size = results.size
@@ -41,7 +41,7 @@ object Crosstable:
       val byTen = user(userId).so(_.score)
       s"${byTen / 10}${(byTen % 10 != 0).so("½")}" match
         case "0½" => "½"
-        case x    => x
+        case x => x
 
     def showOpponentScore(userId: UserId) =
       if userId == user1.id then showScore(user2.id).some
@@ -61,7 +61,7 @@ object Crosstable:
 
   case class Matchup(users: Users): // score is x10
     def fromPov(userId: UserId) = copy(users = users.fromPov(userId))
-    def nonEmpty                = users.nbGames > 0
+    def nonEmpty = users.nbGames > 0
 
   case class WithMatchup(crosstable: Crosstable, matchup: Option[Matchup]):
     def fromPov(userId: UserId) =
@@ -78,10 +78,10 @@ object Crosstable:
   import lila.db.dsl.*
 
   object BSONFields:
-    val id         = "_id"
-    val score1     = "s1"
-    val score2     = "s2"
-    val results    = "r"
+    val id = "_id"
+    val score1 = "s1"
+    val score2 = "s2"
+    val results = "r"
     val lastPlayed = "d"
 
   private[game] given crosstableHandler: BSON[Crosstable] with
@@ -93,24 +93,24 @@ object Crosstable:
             users = Users(User(UserId(u1Id), r.intD(score1)), User(UserId(u2Id), r.intD(score2))),
             results = r.get[List[String]](results).map { r =>
               r.drop(8) match
-                case ""  => Result(GameId(r), Some(UserId(u1Id)))
+                case "" => Result(GameId(r), Some(UserId(u1Id)))
                 case "-" => Result(GameId(r.take(8)), Some(UserId(u2Id)))
                 case "=" => Result(GameId(r.take(8)), none)
-                case _   => sys.error(s"Invalid result string $r")
+                case _ => sys.error(s"Invalid result string $r")
             }
           )
         case x => sys.error(s"Invalid crosstable id $x")
     def writeResult(result: Result, u1: UserId): String =
       val flag = result.winnerId match
         case Some(wid) if wid == u1 => ""
-        case Some(_)                => "-"
-        case None                   => "="
+        case Some(_) => "-"
+        case None => "="
       s"${result.gameId}$flag"
     def writes(w: BSON.Writer, o: Crosstable) =
       BSONDocument(
-        id      -> makeKey(o.user1.id, o.user2.id),
-        score1  -> o.user1.score,
-        score2  -> o.user2.score,
+        id -> makeKey(o.user1.id, o.user2.id),
+        score1 -> o.user1.score,
+        score2 -> o.user2.score,
         results -> o.results.map { writeResult(_, o.user1.id) }
       )
 

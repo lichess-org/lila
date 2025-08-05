@@ -269,8 +269,6 @@ interface I18n {
     editRoundStudy: string;
     /** Embed this broadcast in your website */
     embedThisBroadcast: string;
-    /** Embed %s in your website */
-    embedThisRound: I18nFormat;
     /** Federation */
     federation: string;
     /** FIDE federations */
@@ -323,8 +321,6 @@ interface I18n {
     overview: string;
     /** Past broadcasts */
     pastBroadcasts: string;
-    /** A public, real-time PGN source for this round. We also offer a %s for faster and more efficient synchronisation. */
-    pgnSourceHelp: I18nFormat;
     /** Rating diff */
     ratingDiff: string;
     /** Recent tournaments */
@@ -1773,6 +1769,10 @@ interface I18n {
     blackRook: string;
     /** Command list when the board has focus */
     boardCommandList: string;
+    /** %s copied to clipboard */
+    copiedToClipboard: I18nFormat;
+    /** Copy %s to clipboard */
+    copyToClipboard: I18nFormat;
     /** Featured events */
     featuredEvents: string;
     /** Game info */
@@ -1813,8 +1813,12 @@ interface I18n {
     opponentClock: string;
     /** pawn */
     pawn: string;
+    /** PGN and FEN */
+    pgnAndFen: string;
     /** Pieces */
     pieces: string;
+    /** Pockets */
+    pockets: string;
     /** Premove cancelled */
     premoveCancelled: string;
     /** Premove recorded: %s. Hit enter to cancel */
@@ -3129,6 +3133,8 @@ interface I18n {
     copyMainLinePgn: string;
     /** Copy and paste the above text and send it to %s */
     copyTextToEmail: I18nFormat;
+    /** Copy to clipboard */
+    copyToClipboard: string;
     /** Copy variation PGN */
     copyVariationPgn: string;
     /** Correspondence */
@@ -4147,8 +4153,8 @@ interface I18n {
     standard: string;
     /** Stand by %s, pairing players, get ready! */
     standByX: I18nFormat;
-    /** Standing */
-    standing: string;
+    /** Standings */
+    standings: string;
     /** started streaming */
     startedStreaming: string;
     /** Starting: */

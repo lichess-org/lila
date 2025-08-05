@@ -15,8 +15,8 @@ trait Line:
   def text: String
   def author: String
   def deleted: Boolean
-  def isSystem    = author == UserName.lichess.value
-  def isHuman     = !isSystem
+  def isSystem = author == UserName.lichess.value
+  def isHuman = !isSystem
   def humanAuthor = isHuman.option(author)
   def troll: Boolean
   def flair: Boolean
@@ -39,10 +39,10 @@ enum TimeoutReason(val key: String, val name: String):
   case PublicShaming extends TimeoutReason("shaming", "public shaming; please use lichess.org/report")
   case Insult
       extends TimeoutReason("insult", "disrespecting other players; see lichess.org/page/chat-etiquette")
-  case Spam  extends TimeoutReason("spam", "spamming the chat; see lichess.org/page/chat-etiquette")
+  case Spam extends TimeoutReason("spam", "spamming the chat; see lichess.org/page/chat-etiquette")
   case Other extends TimeoutReason("other", "inappropriate behavior; see lichess.org/page/chat-etiquette")
 object TimeoutReason:
-  val all                = values.toList
+  val all = values.toList
   def apply(key: String) = all.find(_.key == key)
 
 enum TimeoutScope:

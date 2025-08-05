@@ -13,7 +13,15 @@ import lila.common.actorBus.*
 import lila.core.game.{ AbortedBy, FinishGame, WithInitialFen }
 import lila.core.round.{ Tell, RoundBus }
 import lila.core.user.KidMode
-import lila.game.actorApi.{ BoardDrawOffer, BoardGone, BoardTakeback, BoardTakebackOffer, MoveGameEvent }
+import lila.game.actorApi.{
+  BoardDrawOffer,
+  BoardGone,
+  BoardTakeback,
+  BoardTakebackOffer,
+  BoardMoretime,
+  MoveGameEvent
+}
+import lila.bot.OnlineApiUsers.SetOnline
 
 final class GameStateStream(
     onlineApiUsers: OnlineApiUsers,
@@ -54,15 +62,16 @@ final class GameStateStream(
       queue: SourceQueueWithComplete[Option[JsObject]]
   )(using Lang, RequestHeader): Actor = new:
 
-    val id = init.game.id
+    import init.game.id
 
-    @annotation.nowarn
+    @scala.annotation.nowarn
     var gameOver = false
 
     private val classifiers = List(
       MoveGameEvent.makeChan(id),
       BoardDrawOffer.makeChan(id),
       BoardTakeback.makeChan(id),
+      BoardMoretime.makeChan(id),
       BoardGone.makeChan(id),
       uniqChan(init.game.pov(as))
     ) :::
@@ -78,7 +87,7 @@ final class GameStateStream(
         // prepend the full game JSON at the start of the stream
         queue.offer(json.some)
         // close stream if game is over
-        if init.game.finished then onGameOver(none)
+        if init.game.finishedOrAborted then onGameOver(none)
         else self ! SetOnline
       }
       lila.mon.bot.gameStream("start").increment()
@@ -97,23 +106,22 @@ final class GameStateStream(
       lila.mon.bot.gameStream("stop").increment()
 
     def receive =
-      case MoveGameEvent(g, _, _) if g.id == id && !g.finished                            => pushState(g)
+      case MoveGameEvent(g, _, _) if g.id == id && !g.finished => pushState(g)
       case lila.chat.ChatLine(chatId, UserLine(username, _, _, _, text, false, false), _) =>
         pushChatLine(username, text, chatId.value.lengthIs == GameId.size)
-      case FinishGame(g, _) if g.id == id                                 => onGameOver(g.some)
-      case AbortedBy(pov) if pov.gameId == id                             => onGameOver(pov.game.some)
-      case BoardDrawOffer(g) if g.id == id                                => pushState(g)
-      case BoardTakebackOffer(g) if g.id == id                            => pushState(g)
-      case BoardTakeback(g) if g.id == id                                 => pushState(g)
+      case FinishGame(g, _) if g.id == id => onGameOver(g.some)
+      case AbortedBy(pov) if pov.gameId == id => onGameOver(pov.game.some)
+      case BoardDrawOffer(g) if g.id == id => pushState(g)
+      case BoardTakebackOffer(g) if g.id == id => pushState(g)
+      case BoardTakeback(g) if g.id == id => pushState(g)
+      case BoardMoretime(g) if g.id == id => pushState(g)
       case BoardGone(pov, seconds) if pov.gameId == id && pov.color != as => opponentGone(seconds)
-      case SetOnline                                                      =>
+      case SetOnline =>
         onlineApiUsers.setOnline(user.id)
-        context.system.scheduler
-          .scheduleOnce(6.second):
-            // gotta send a message to check if the client has disconnected
-            queue.offer(None)
-            self ! SetOnline
-            Bus.pub(Tell(id, RoundBus.QuietFlag))
+        context.system.scheduler.scheduleOnce(7.second, self, CheckOnline)
+      case CheckOnline =>
+        Bus.pub(Tell(id, RoundBus.QuietFlagCheck))
+        self ! SetOnline
 
     def pushState(g: Game): Funit =
       jsonView.gameState(WithInitialFen(g, init.fen)).dmap(some).flatMap(queue.offer).void
@@ -132,5 +140,5 @@ final class GameStateStream(
 
 private object GameStateStream:
 
-  private case object SetOnline
+  private object CheckOnline
   private case class User(id: UserId, isBot: Boolean, kid: KidMode)

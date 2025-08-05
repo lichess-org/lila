@@ -27,7 +27,7 @@ final class AdminUi(helpers: Helpers, bits: TeamUi):
             adminTop(t.team, trt.teamLeaders()),
             standardFlash.map(div(cls := "box__pad")(_)),
             postForm(
-              cls    := "team-add-leader box__pad complete-parent",
+              cls := "team-add-leader box__pad complete-parent",
               action := routes.Team.addLeader(t.id)
             )(
               errMsg(addLeaderForm),

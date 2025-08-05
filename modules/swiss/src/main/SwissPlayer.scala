@@ -19,17 +19,17 @@ case class SwissPlayer(
     absent: Boolean,
     byes: Set[SwissRoundNumber] // byes granted by the pairing system - the player was here
 ):
-  def is(uid: UserId): Boolean        = uid == userId
-  def is(user: User): Boolean         = is(user.id)
+  def is(uid: UserId): Boolean = uid == userId
+  def is(user: User): Boolean = is(user.id)
   def is(other: SwissPlayer): Boolean = is(other.userId)
-  def present                         = !absent
+  def present = !absent
 
   def recomputeScore =
     copy(
       score = Swiss.makeScore(points, tieBreak, performance | Swiss.Performance(rating.value.toFloat))
     )
 
-  def show              = s"P($userId ${points.value} $tieBreak $byes)"
+  def show = s"P($userId ${points.value} $tieBreak $byes)"
   override def toString = show
 
 object SwissPlayer:
@@ -55,9 +55,9 @@ object SwissPlayer:
     ).recomputeScore
 
   case class WithRank(player: SwissPlayer, rank: Int):
-    def is(other: WithRank)       = player.is(other.player)
+    def is(other: WithRank) = player.is(other.player)
     def withUser(user: LightUser) = WithUserAndRank(player, user, rank)
-    override def toString         = s"$rank. ${player.userId}[${player.rating}]"
+    override def toString = s"$rank. ${player.userId}[${player.rating}]"
 
   case class WithUser(player: SwissPlayer, user: LightUser)
 
@@ -88,15 +88,15 @@ object SwissPlayer:
   type PlayerMap = Map[UserId, SwissPlayer]
 
   object Fields:
-    val id          = "_id"
-    val swissId     = "s"
-    val userId      = "u"
-    val rating      = "r"
+    val id = "_id"
+    val swissId = "s"
+    val userId = "u"
+    val rating = "r"
     val provisional = "pr"
-    val points      = "p"
-    val tieBreak    = "t"
+    val points = "p"
+    val tieBreak = "t"
     val performance = "e"
-    val score       = "c"
-    val absent      = "a"
-    val byes        = "b"
+    val score = "c"
+    val absent = "a"
+    val byes = "b"
   def fields[A](f: Fields.type => A): A = f(Fields)

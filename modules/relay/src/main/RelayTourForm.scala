@@ -10,6 +10,7 @@ import lila.common.Form.{ cleanText, cleanNonEmptyText, formatter, into, typeIn,
 import lila.core.perm.Granter
 import lila.core.fide.FideTC
 import lila.core.study.Visibility
+import chess.tiebreak.Tiebreak
 
 final class RelayTourForm(langList: lila.core.i18n.LangList, groupForm: RelayGroupForm):
 
@@ -20,23 +21,23 @@ final class RelayTourForm(langList: lila.core.i18n.LangList, groupForm: RelayGro
       RelayTour.Spotlight.apply
     )(unapply)
 
-  private given Formatter[FideTC]            = formatter.stringFormatter(_.toString, FideTC.valueOf)
+  private given Formatter[FideTC] = formatter.stringFormatter(_.toString, FideTC.valueOf)
   private val fideTcMapping: Mapping[FideTC] = typeIn(FideTC.values.toSet)
 
   private val infoMapping = mapping(
-    "format"    -> optional(cleanText(maxLength = 80)),
-    "tc"        -> optional(cleanText(maxLength = 80)),
-    "fideTc"    -> optional(fideTcMapping),
-    "location"  -> optional(cleanText(maxLength = 80)),
-    "timeZone"  -> optional(lila.common.Form.timeZone.field),
-    "players"   -> optional(cleanText(maxLength = 120)),
-    "website"   -> optional(url.field),
+    "format" -> optional(cleanText(maxLength = 80)),
+    "tc" -> optional(cleanText(maxLength = 80)),
+    "fideTc" -> optional(fideTcMapping),
+    "location" -> optional(cleanText(maxLength = 80)),
+    "timeZone" -> optional(lila.common.Form.timeZone.field),
+    "players" -> optional(cleanText(maxLength = 120)),
+    "website" -> optional(url.field),
     "standings" -> optional(url.field)
   )(RelayTour.Info.apply)(unapply)
 
   private val pinnedStreamMapping = mapping(
     "name" -> cleanNonEmptyText(maxLength = 100),
-    "url"  -> url.field
+    "url" -> url.field
       .verifying("Invalid stream URL", url => RelayPinnedStream("", url, None).upstream.isDefined),
     "text" -> optional(cleanText(maxLength = 100))
   )(RelayPinnedStream.apply)(unapply)
@@ -46,27 +47,39 @@ final class RelayTourForm(langList: lila.core.i18n.LangList, groupForm: RelayGro
   private given Formatter[RelayTour.Tier] =
     formatter.intOptionFormatter[RelayTour.Tier](_.v, RelayTour.Tier.byV.get)
 
+  private given Formatter[Tiebreak] =
+    formatter.stringOptionFormatter(_.extendedCode, Tiebreak.preset.mapBy(_.extendedCode).get)
+
+  private val tiebreaksMapping: Mapping[List[Tiebreak]] = list(optional(typeIn(Tiebreak.preset.toSet)))
+    .transform[List[Tiebreak]](_.flatten, _.map(some))
+    .verifying("Too many tiebreaks", _.sizeIs <= 5)
+
   val form = Form(
     mapping(
-      "name"            -> cleanText(minLength = 3, maxLength = 80).into[RelayTour.Name],
-      "info"            -> infoMapping,
-      "markdown"        -> optional(cleanText(maxLength = 20_000).into[Markdown]),
-      "visibility"      -> optional(typeIn(Visibility.values.toSet)),
-      "tier"            -> optional(typeIn(RelayTour.Tier.values.toSet)),
-      "showScores"      -> boolean,
+      "name" -> cleanText(minLength = 3, maxLength = 80).into[RelayTour.Name],
+      "info" -> infoMapping,
+      "markdown" -> optional(cleanText(maxLength = 20_000).into[Markdown]),
+      "visibility" -> optional(typeIn(Visibility.values.toSet)),
+      "tier" -> optional(typeIn(RelayTour.Tier.values.toSet)),
+      "showScores" -> boolean,
       "showRatingDiffs" -> boolean,
-      "teamTable"       -> boolean,
-      "players"         -> optional(
+      "tiebreaks" -> optional(tiebreaksMapping),
+      "teamTable" -> boolean,
+      "players" -> optional(
         of(using formatter.stringFormatter[RelayPlayersTextarea](_.sortedText, RelayPlayersTextarea(_)))
       ),
       "teams" -> optional(
         of(using formatter.stringFormatter[RelayTeamsTextarea](_.sortedText, RelayTeamsTextarea(_)))
       ),
-      "spotlight"    -> optional(spotlightMapping),
-      "grouping"     -> groupForm.mapping,
+      "spotlight" -> optional(spotlightMapping),
+      "grouping" -> groupForm.mapping,
       "pinnedStream" -> optional(pinnedStreamMapping),
-      "note"         -> optional(nonEmptyText(maxLength = 20_000))
+      "note" -> optional(nonEmptyText(maxLength = 20_000))
     )(Data.apply)(unapply)
+      .verifying(
+        "Tiebreaks submitted without automatic scoring enabled",
+        tour => tour.tiebreaks.forall(_ => tour.showScores)
+      )
   ).fill(Data.empty)
 
   def create = form
@@ -86,6 +99,7 @@ final class RelayTourForm(langList: lila.core.i18n.LangList, groupForm: RelayGro
       tier = tour.tier,
       showScores = tour.showScores,
       showRatingDiffs = tour.showRatingDiffs,
+      tiebreaks = tour.tiebreaks,
       teamTable = tour.teamTable,
       players = tour.players,
       teams = tour.teams,
@@ -105,6 +119,7 @@ object RelayTourForm:
       tier: Option[RelayTour.Tier] = none,
       showScores: Boolean = true,
       showRatingDiffs: Boolean = true,
+      tiebreaks: Option[List[Tiebreak]] = none,
       teamTable: Boolean = false,
       players: Option[RelayPlayersTextarea] = none,
       teams: Option[RelayTeamsTextarea] = none,
@@ -124,6 +139,7 @@ object RelayTourForm:
           tier = if Granter(_.Relay) then tier else tour.tier,
           showScores = showScores,
           showRatingDiffs = showRatingDiffs,
+          tiebreaks = tiebreaks,
           teamTable = teamTable,
           players = players,
           teams = teams,
@@ -148,6 +164,7 @@ object RelayTourForm:
         syncedAt = none,
         showScores = showScores,
         showRatingDiffs = showRatingDiffs,
+        tiebreaks = tiebreaks,
         teamTable = teamTable,
         players = players,
         teams = teams,

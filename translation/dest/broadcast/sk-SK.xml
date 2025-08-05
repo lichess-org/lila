@@ -71,9 +71,7 @@
   <string name="officialStandings">Oficiálne poradie</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Viac možností nájdete na %s</string>
   <string name="webmastersPage">stránke tvorcu</string>
-  <string name="pgnSourceHelp" comment="%s is 'streaming API'">Verejný zdroj PGN v reálnom čase pre toto kolo. Ponúkame tiež %s na rýchlejšiu a efektívnejšiu synchronizáciu.</string>
   <string name="embedThisBroadcast">Vložiť toto vysielanie na webovú stránku</string>
-  <string name="embedThisRound">Vložiť %s na webovú stránku</string>
   <string name="ratingDiff">Ratingový rozdiel</string>
   <string name="gamesThisTournament">Partie tohto turnaja</string>
   <string name="score">Skóre</string>
@@ -89,4 +87,6 @@
   <string name="backToLiveMove">Späť na aktuálny ťah</string>
   <string name="sinceHideResults">Keďže ste sa rozhodli skryť výsledky, všetky náhľadové šachovnice sú prázdne, aby sme Vám neprezradili priveľa.</string>
   <string name="liveboard">Aktuálna pozícia</string>
+  <string name="communityBroadcast">Vysielanie člena komunity</string>
+  <string name="createdAndManagedBy">Vytvoril a spravuje %s.</string>
 </resources>

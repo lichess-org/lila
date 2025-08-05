@@ -1,5 +1,7 @@
 package lila.forum
 
+import lila.core.id.ForumTopicSlug
+
 case class CategView(
     categ: ForumCateg,
     lastPost: Option[(ForumTopic, ForumPost, Int)],
@@ -7,9 +9,9 @@ case class CategView(
 ):
   export categ.{ id as slug, name, desc }
 
-  def nbTopics       = categ.nbTopics(forUser)
-  def nbPosts        = categ.nbPosts(forUser)
-  def lastPostId     = categ.lastPostId(forUser)
+  def nbTopics = categ.nbTopics(forUser)
+  def nbPosts = categ.nbPosts(forUser)
+  def lastPostId = categ.lastPostId(forUser)
   def lastPostUserId = lastPost.map(_._2).flatMap(_.userId)
 
 case class TopicView(
@@ -19,26 +21,22 @@ case class TopicView(
     lastPage: Int,
     forUser: Option[User]
 ):
+  export topic.{ id, slug, name, createdAt }
 
-  def updatedAt      = topic.updatedAt(forUser)
-  def nbPosts        = topic.nbPosts(forUser)
-  def nbReplies      = topic.nbReplies(forUser)
-  def lastPostId     = topic.lastPostId(forUser)
+  def updatedAt = topic.updatedAt(forUser)
+  def nbPosts = topic.nbPosts(forUser)
+  def nbReplies = topic.nbReplies(forUser)
+  def lastPostId = topic.lastPostId(forUser)
   def lastPostUserId = lastPost.flatMap(_.userId)
 
-  def id        = topic.id
-  def slug      = topic.slug
-  def name      = topic.name
-  def createdAt = topic.createdAt
-
 case class PostView(post: ForumPost, topic: ForumTopic, categ: ForumCateg):
-  def show         = post.showUserIdOrAuthor + " @ " + topic.name + " - " + post.text.take(80)
+  def show = post.showUserIdOrAuthor + " @ " + topic.name + " - " + post.text.take(80)
   def logFormatted = "%s / %s#%s / %s".format(categ.name, topic.name, post.number, post.text)
 
 object PostView:
   case class WithReadPerm(view: PostView, canRead: Boolean)
 
-case class PostUrlData(categ: ForumCategId, topicSlug: String, page: Int, number: Int)
+case class PostUrlData(categ: ForumCategId, topicSlug: ForumTopicSlug, page: Int, number: Int)
 
 enum Filter:
   case Safe

@@ -35,9 +35,9 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
         PageModule(
           "tournament",
           Json.obj(
-            "data"        -> data,
-            "userId"      -> ctx.userId,
-            "chat"        -> chat.map(_._2),
+            "data" -> data,
+            "userId" -> ctx.userId,
+            "chat" -> chat.map(_._2),
             "showRatings" -> ctx.pref.showRatings
           )
         )
@@ -107,7 +107,7 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
                   frag(
                     " ",
                     a(
-                      href  := routes.Tournament.moderation(tour.id, "recentlyCreated"),
+                      href := routes.Tournament.moderation(tour.id, "recentlyCreated"),
                       title := "Moderation"
                     )(iconTag(Icon.Agent))
                   )
@@ -184,8 +184,13 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
     private def teamBattle(tour: Tournament)(battle: TeamBattle)(using ctx: Context) =
       st.section(cls := "team-battle", dataIcon := Icon.Group):
         div(
-          p(trans.team.battleOfNbTeams.pluralSameTxt(battle.teams.size)),
-          trans.team.nbLeadersPerTeam.pluralSameTxt(battle.nbLeaders),
+          p(
+            trans.team.battleOfNbTeams.pluralSame(battle.teams.size),
+            " ",
+            a(href := routes.Cms.lonePage(lila.core.id.CmsPageKey("team-battle-faq"))):
+              iconTag(Icon.InfoCircle)
+          ),
+          trans.team.nbLeadersPerTeam.pluralSame(battle.nbLeaders),
           (ctx.is(tour.createdBy) || Granter.opt(_.ManageTournament)).option(
             frag(
               " ",

@@ -27,7 +27,7 @@ trait RequestContext(using Executor):
   yield BodyContext(req, lang, userCtx, pref)
 
   def oauthContext(scoped: OAuthScope.Scoped)(using req: RequestHeader): Fu[Context] =
-    val lang    = getAndSaveLang(req, scoped.me.some)
+    val lang = getAndSaveLang(req, scoped.me.some)
     val userCtx = LoginContext(scoped.me.some, false, none, scoped.scopes.some)
     env.pref.api
       .get(scoped.me, req)
@@ -35,7 +35,7 @@ trait RequestContext(using Executor):
         Context(req, lang, userCtx, _)
 
   def oauthBodyContext[A](scoped: OAuthScope.Scoped)(using req: Request[A]): Fu[BodyContext[A]] =
-    val lang    = getAndSaveLang(req, scoped.me.some)
+    val lang = getAndSaveLang(req, scoped.me.some)
     val userCtx = LoginContext(scoped.me.some, false, none, scoped.scopes.some)
     env.pref.api
       .get(scoped.me, req)
@@ -89,9 +89,9 @@ trait RequestContext(using Executor):
             _.addRole(lila.core.perm.Permission.Beta.dbKey))
             .some
         case Some(Right(d)) => d.some
-        case _              => none
+        case _ => none
       .flatMap:
-        case None    => fuccess(LoginContext.anon)
+        case None => fuccess(LoginContext.anon)
         case Some(d) =>
           env.mod.impersonate
             .impersonating(d.me.modId)

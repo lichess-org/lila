@@ -35,7 +35,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
             a(cls := active.active("overview"), href := routes.Clas.show(c.id))(trans.clas.overview()),
             a(cls := active.active("wall"), href := routes.Clas.wall(c.id))(trans.clas.news()),
             a(
-              cls  := active.active("progress"),
+              cls := active.active("progress"),
               href := routes.Clas.progress(c.id, PerfKey.blitz, Days(7))
             )(trans.clas.progress()),
             a(cls := active.active("edit"), href := routes.Clas.edit(c.id))(trans.site.edit()),
@@ -61,15 +61,15 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
             div(cls := "clas-wall__actions")(
               a(
                 dataIcon := Icon.Pencil,
-                href     := routes.Clas.wallEdit(c.id),
-                cls      := "button button-clas text"
+                href := routes.Clas.wallEdit(c.id),
+                cls := "button button-clas text"
               )(
                 trans.clas.editNews()
               ),
               a(
                 dataIcon := Icon.Envelope,
-                href     := routes.Clas.notifyStudents(c.id),
-                cls      := "button button-clas text"
+                href := routes.Clas.notifyStudents(c.id),
+                cls := "button button-clas text"
               )(
                 trans.clas.notifyAllStudents()
               )
@@ -113,8 +113,8 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
             div(cls := "clas-show__overview__manage")(
               ui.teachers(c),
               a(
-                href     := routes.Clas.studentForm(c.id),
-                cls      := "button button-clas text",
+                href := routes.Clas.studentForm(c.id),
+                cls := "button button-clas text",
                 dataIcon := Icon.PlusButton
               )(trans.clas.addStudent())
             )
@@ -126,7 +126,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
 
     def students(c: Clas, all: List[Student.WithUserPerfs], invites: List[ClasInvite])(using Context) =
       TeacherPage(c, all.filter(_.student.isActive), "students")():
-        val archived  = all.filter(_.student.isArchived)
+        val archived = all.filter(_.student.isArchived)
         val inviteBox =
           if invites.isEmpty
           then div(cls := "box__pad invites__empty")(h2(trans.clas.nbPendingInvitations(0)))
@@ -269,7 +269,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
               PerfKey.puzzle
             ).map { pk =>
               a(
-                cls  := progress.map(_.perfType.key.value.active(pk.value)),
+                cls := progress.map(_.perfType.key.value.active(pk.value)),
                 href := routes.Clas.progress(c.id, pk, progress.fold(Days(7))(_.days))
               )(pk.perfTrans)
             },
@@ -284,7 +284,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
             div(cls := "progress-choices")(
               daysList.map: days =>
                 a(
-                  cls  := p.days.toString.active(days.toString),
+                  cls := p.days.toString.active(days.toString),
                   href := routes.Clas.progress(c.id, p.perfType.key, days)
                 )(days)
             )
@@ -458,9 +458,9 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
         td(
           a(
             dataIcon := Icon.Swords,
-            cls      := List("button button-empty text" -> true, "disabled" -> !online),
-            title    := trans.challenge.challengeToPlay.txt(),
-            href     := online.option(s"${routes.Lobby.home}?user=${user.username}#friend")
+            cls := List("button button-empty text" -> true, "disabled" -> !online),
+            title := trans.challenge.challengeToPlay.txt(),
+            href := online.option(s"${routes.Lobby.home}?user=${user.username}#friend")
           )(trans.site.play())
         )
 

@@ -21,10 +21,10 @@ final class IrcApi(
 
   def inquiry(user: LightUser, domain: ModDomain, room: String)(using mod: LightUser.Me): Funit =
     val stream = domain match
-      case ModDomain.Comm  => ZulipClient.stream.mod.commsPrivate
+      case ModDomain.Comm => ZulipClient.stream.mod.commsPrivate
       case ModDomain.Cheat => ZulipClient.stream.mod.hunterCheat
       case ModDomain.Boost => ZulipClient.stream.mod.hunterBoost
-      case _               => ZulipClient.stream.mod.adminGeneral
+      case _ => ZulipClient.stream.mod.adminGeneral
     noteApi
       .recentToUserForMod(user.id)
       .flatMap:
@@ -107,6 +107,14 @@ final class IrcApi(
       val link = markdown.lichessLink(s"/@/${user.name}/blog/$slug/$id", title)
       s":note: $link $intro - by ${markdown.userLink(user)}${~automod.map(n => s"\n$n")}"
 
+  def ublogBlog(userId: UserId, mod: UserName, tier: Option[String], note: Option[String]): Funit =
+    lightUser(userId).flatMapz: user =>
+      zulip(_.blog, "Tier and plagiarism checks"):
+        s":note: ${markdown.userLink(user)} ${markdown.lichessLink(s"/@/${user.name}/blog", "blog")}" +
+          tier.fold(" note edit")(t => s" tier set to **${t.toUpperCase()}**") +
+          s" by **${markdown.modLink(mod)}**" +
+          note.so(n => s"\nnote: $n")
+
   def openingEdit(user: LightUser, opening: String, moves: String): Funit =
     zulip(_.content, "/opening edits"):
       s"${markdown.userLink(user)} edited ${markdown.lichessLink(s"/opening/$opening/$moves", opening)}"
@@ -164,9 +172,9 @@ final class IrcApi(
   def stop(): Funit = zulip(_.general, "lila")("Lichess is restarting.")
 
   def publishEvent(event: Event): Funit = event match
-    case Event.Error(msg)   => publishError(msg)
+    case Event.Error(msg) => publishError(msg)
     case Event.Warning(msg) => publishWarning(msg)
-    case Event.Info(msg)    => publishInfo(msg)
+    case Event.Info(msg) => publishInfo(msg)
     case Event.Victory(msg) => publishVictory(msg)
 
   private def publishError(msg: String): Funit =
@@ -184,16 +192,16 @@ final class IrcApi(
   object charge:
     import lila.core.misc.plan.ChargeEvent
     private var buffer: Vector[ChargeEvent] = Vector.empty
-    private given Ordering[ChargeEvent]     = Ordering.by[ChargeEvent, Int](_.cents)
+    private given Ordering[ChargeEvent] = Ordering.by[ChargeEvent, Int](_.cents)
 
     def apply(event: ChargeEvent): Funit =
       buffer = buffer :+ event
       buffer.head.date
         .isBefore(nowInstant.minusHours(24))
         .so:
-          val firsts    = scalalib.HeapSort.topN(buffer, 10).map(_.username).map(userAt).mkString(", ")
+          val firsts = scalalib.HeapSort.topN(buffer, 10).map(_.username).map(userAt).mkString(", ")
           val amountSum = buffer.map(_.cents).sum
-          val patrons   =
+          val patrons =
             if firsts.lengthIs > 10
             then s"$firsts and, like, ${firsts.length - 10} others,"
             else firsts
@@ -217,23 +225,23 @@ object IrcApi:
   private val postRegex = lila.common.String.forumPostPathRegex.pattern
 
   private object markdown:
-    def link(url: String, name: String)             = s"[$name]($url)"
+    def link(url: String, name: String) = s"[$name]($url)"
     def lichessLink[N: Show](path: String, name: N) = show"[$name](https://lichess.org$path)"
-    def userLink(name: UserName): String            = lichessLink(s"/@/$name?mod&notes", name.value)
-    def userLink(user: LightUser): String           = userLink(user.name)
-    def userLinkNoNotes(name: UserName): String     = lichessLink(s"/@/$name?mod", name.value)
-    def userIdLinks(ids: List[UserId]): String      =
+    def userLink(name: UserName): String = lichessLink(s"/@/$name?mod&notes", name.value)
+    def userLink(user: LightUser): String = userLink(user.name)
+    def userLinkNoNotes(name: UserName): String = lichessLink(s"/@/$name?mod", name.value)
+    def userIdLinks(ids: List[UserId]): String =
       UserName.from[List, UserId](ids).map(markdown.userLink).mkString(", ")
-    def modLink(name: UserName): String               = lichessLink(s"/@/$name", name.value)
-    def gameLink(id: String)                          = lichessLink(s"/$id", s"#$id")
-    def printLink(print: String)                      = lichessLink(s"/mod/print/$print", print)
-    def ipLink(ip: String)                            = lichessLink(s"/mod/ip/$ip", ip)
-    def userNotesLink(name: UserName)                 = lichessLink(s"/@/$name?notes", "notes")
+    def modLink(name: UserName): String = lichessLink(s"/@/$name", name.value)
+    def gameLink(id: String) = lichessLink(s"/$id", s"#$id")
+    def printLink(print: String) = lichessLink(s"/mod/print/$print", print)
+    def ipLink(ip: String) = lichessLink(s"/mod/ip/$ip", ip)
+    def userNotesLink(name: UserName) = lichessLink(s"/@/$name?notes", "notes")
     def broadcastLink(id: RelayRoundId, name: String) = lichessLink(s"/broadcast/-/-/$id", name)
     def broadcastGameLink(id: RelayRoundId, gameId: StudyChapterId, name: String) =
       lichessLink(s"/broadcast/-/-/$id/$gameId", name)
     def linkifyUsers(msg: String) = userRegex.matcher(msg).replaceAll(m => userLink(UserName(m.group(1))))
-    val postReplace               = lichessLink("/forum/$1", "$1")
+    val postReplace = lichessLink("/forum/$1", "$1")
     def linkifyPosts(msg: String) = postRegex.matcher(msg).replaceAll(postReplace)
     def linkifyPostsAndUsers(msg: String) = linkifyPosts(linkifyUsers(msg))
-    def fixImageUrl(url: String)          = url.replace("/display?", "/display.jpg?")
+    def fixImageUrl(url: String) = url.replace("/display?", "/display.jpg?")

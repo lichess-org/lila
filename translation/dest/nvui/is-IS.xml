@@ -21,8 +21,11 @@
   <string name="announcePossibleCaptures">Lesa möguleg dráp upphátt með völdum taflmanni.</string>
   <string name="moveWithArrows">Fara á aðliggjandi reit til vinstri, hægri, upp eða niður.</string>
   <string name="moveToPieceByType">Færa sig á reit með því að nota heiti taflmanns. Til dæmis: endurtekið „k\" mun færa sig á hvern þann reit þar sem riddari er. Notaðu hástaf til að snúa röðinni við.</string>
+  <string name="moveToRank">Fara á röð 1 til 8.</string>
+  <string name="moveToFile">Fara á línu a til h.</string>
   <string name="announcePieceLocations">Lesa staðsetningar taflmanna upphátt. Dæmi: „p stór stafur N\" fyrir hvíta riddara, „p lítill stafur k\" fyrir svarta kónginn, „p stór stafur A\" fyrir alla hvíta taflmenn.</string>
   <string name="announcePiecesOnRankOrFile">Lesa upphátt taflmenn á röð eða línu. Dæmi: „s a\", „s 1\".</string>
+  <string name="goToBoard">Farðu á taflborðið. Sjálfgefinn reitur er e-4. Þú getur tilgreint reit: „board a-1“ eða „b a-1“ mun fara með þig á reit a-1.</string>
   <string name="movePiece">Til þess að færa taflmann skal nota staðlaða algebrutáknkerfið.</string>
   <string name="promotion">Til þess að vekja upp annan taflmann en drottningu, notaðu „equals“ (samasem). Til dæmis „a-8-equals-n“ vekur upp riddara (knight).</string>
   <string name="king">kóngur</string>
@@ -54,4 +57,8 @@
   <string name="invalidMove">Ógildur leikur</string>
   <string name="premoveCancelled">Hætt við forleik</string>
   <string name="premoveRecorded">Foreikur skráður: %s. Ýttu á Enter til þess að hætta við</string>
+  <string name="pockets" comment="Pockets in Crazyhouse, which hold captured pieces and let players place them again">Vasar</string>
+  <string name="copyToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">Afrita %s á klippiborð</string>
+  <string name="copiedToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">%s afritað á klippiborð</string>
+  <string name="pgnAndFen" comment="Will be a heading read out over text-to-speech for blind users looking to share a PGN or FEN of a game.">Sniðin PGN og FEN</string>
 </resources>

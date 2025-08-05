@@ -13,28 +13,28 @@ object UserPerfsExt:
   extension (p: UserPerfs)
 
     def perfsList: List[(PerfKey, Perf)] = List(
-      PerfKey.ultraBullet    -> p.ultraBullet,
-      PerfKey.bullet         -> p.bullet,
-      PerfKey.blitz          -> p.blitz,
-      PerfKey.rapid          -> p.rapid,
-      PerfKey.classical      -> p.classical,
+      PerfKey.ultraBullet -> p.ultraBullet,
+      PerfKey.bullet -> p.bullet,
+      PerfKey.blitz -> p.blitz,
+      PerfKey.rapid -> p.rapid,
+      PerfKey.classical -> p.classical,
       PerfKey.correspondence -> p.correspondence,
-      PerfKey.chess960       -> p.chess960,
-      PerfKey.kingOfTheHill  -> p.kingOfTheHill,
-      PerfKey.threeCheck     -> p.threeCheck,
-      PerfKey.antichess      -> p.antichess,
-      PerfKey.atomic         -> p.atomic,
-      PerfKey.horde          -> p.horde,
-      PerfKey.racingKings    -> p.racingKings,
-      PerfKey.crazyhouse     -> p.crazyhouse,
-      PerfKey.puzzle         -> p.puzzle
+      PerfKey.chess960 -> p.chess960,
+      PerfKey.kingOfTheHill -> p.kingOfTheHill,
+      PerfKey.threeCheck -> p.threeCheck,
+      PerfKey.antichess -> p.antichess,
+      PerfKey.atomic -> p.atomic,
+      PerfKey.horde -> p.horde,
+      PerfKey.racingKings -> p.racingKings,
+      PerfKey.crazyhouse -> p.crazyhouse,
+      PerfKey.puzzle -> p.puzzle
     )
 
-    def best8Perfs: List[PerfKey]    = UserPerfs.firstRow ::: bestOf(UserPerfs.secondRow, 4)
-    def best6Perfs: List[PerfKey]    = UserPerfs.firstRow ::: bestOf(UserPerfs.secondRow, 2)
-    def best4Perfs: List[PerfKey]    = UserPerfs.firstRow
+    def best8Perfs: List[PerfKey] = UserPerfs.firstRow ::: bestOf(UserPerfs.secondRow, 4)
+    def best6Perfs: List[PerfKey] = UserPerfs.firstRow ::: bestOf(UserPerfs.secondRow, 2)
+    def best4Perfs: List[PerfKey] = UserPerfs.firstRow
     def bestAny3Perfs: List[PerfKey] = bestOf(UserPerfs.firstRow ::: UserPerfs.secondRow, 3)
-    def bestPerf: Option[PerfKey]    = bestOf(UserPerfs.firstRow ::: UserPerfs.secondRow, 1).headOption
+    def bestPerf: Option[PerfKey] = bestOf(UserPerfs.firstRow ::: UserPerfs.secondRow, 1).headOption
     private def bestOf(keys: List[PerfKey], nb: Int) = keys
       .sortBy: pk =>
         -(p(pk).nb * lila.rating.PerfType.totalTimeRoughEstimation.get(PerfType(pk)).so(_.roundSeconds.value))
@@ -42,7 +42,7 @@ object UserPerfsExt:
     def hasEstablishedRating(pk: PerfKey) = p(pk).established
 
     def bestRatedPerf: Option[KeyedPerf] =
-      val ps    = perfsList.filter(p => p._1 != PerfKey.puzzle && p._1 != PerfKey.standard)
+      val ps = perfsList.filter(p => p._1 != PerfKey.puzzle && p._1 != PerfKey.standard)
       val minNb = math.max(1, ps.foldLeft(0)(_ + _._2.nb) / 10)
       ps
         .foldLeft(none[(PerfKey, Perf)]):
@@ -65,7 +65,7 @@ object UserPerfsExt:
     def bestRatingIn(types: List[PerfKey]): IntRating =
       val ps = types.map(p(_)) match
         case Nil => List(p.standard)
-        case x   => x
+        case x => x
       val minNb = ps.foldLeft(0)(_ + _.nb) / 10
       ps.foldLeft(none[IntRating]):
         case (ro, p) if p.nb >= minNb =>
@@ -80,7 +80,7 @@ object UserPerfsExt:
         .map(p(_))
         .foldLeft(none[Perf]):
           case (ro, p) if ro.forall(_.intRating < p.intRating) => p.some
-          case (ro, _)                                         => ro
+          case (ro, _) => ro
         .getOrElse(lila.rating.Perf.default)
 
     def bestRatingInWithMinGames(types: List[PerfKey], nbGames: Int): Option[IntRating] =
@@ -88,7 +88,7 @@ object UserPerfsExt:
         .map(p(_))
         .foldLeft(none[IntRating]):
           case (ro, p) if p.nb >= nbGames && ro.forall(_ < p.intRating) => p.intRating.some
-          case (ro, _)                                                  => ro
+          case (ro, _) => ro
 
     def bestProgress: IntRatingDiff = bestProgressIn(PerfType.leaderboardable)
 
@@ -105,9 +105,9 @@ object UserPerfsExt:
       p.perfsList
         .flatMap(_._2.latest)
         .foldLeft(none[Instant]):
-          case (None, date)                           => date.some
+          case (None, date) => date.some
           case (Some(acc), date) if date.isAfter(acc) => date.some
-          case (acc, _)                               => acc
+          case (acc, _) => acc
 
     def dubiousPuzzle = UserPerfs.dubiousPuzzle(p)
 
@@ -150,7 +150,7 @@ object UserPerfs:
       puzPerfDefault
     )
   def defaultManaged(id: UserId) =
-    val managed       = lila.rating.Perf.defaultManaged
+    val managed = lila.rating.Perf.defaultManaged
     val managedPuzzle = lila.rating.Perf.defaultManagedPuzzle
     default(id).copy(
       standard = managed,
@@ -176,25 +176,25 @@ object UserPerfs:
 
   def variantLens(variant: chess.variant.Variant): Option[UserPerfs => Perf] =
     variant match
-      case chess.variant.Standard      => Some(_.standard)
-      case chess.variant.Chess960      => Some(_.chess960)
+      case chess.variant.Standard => Some(_.standard)
+      case chess.variant.Chess960 => Some(_.chess960)
       case chess.variant.KingOfTheHill => Some(_.kingOfTheHill)
-      case chess.variant.ThreeCheck    => Some(_.threeCheck)
-      case chess.variant.Antichess     => Some(_.antichess)
-      case chess.variant.Atomic        => Some(_.atomic)
-      case chess.variant.Horde         => Some(_.horde)
-      case chess.variant.RacingKings   => Some(_.racingKings)
-      case chess.variant.Crazyhouse    => Some(_.crazyhouse)
-      case _                           => none
+      case chess.variant.ThreeCheck => Some(_.threeCheck)
+      case chess.variant.Antichess => Some(_.antichess)
+      case chess.variant.Atomic => Some(_.atomic)
+      case chess.variant.Horde => Some(_.horde)
+      case chess.variant.RacingKings => Some(_.racingKings)
+      case chess.variant.Crazyhouse => Some(_.crazyhouse)
+      case _ => none
 
   def speedLens(speed: Speed): UserPerfs => Perf = perfs =>
     speed match
-      case Speed.Bullet         => perfs.bullet
-      case Speed.Blitz          => perfs.blitz
-      case Speed.Rapid          => perfs.rapid
-      case Speed.Classical      => perfs.classical
+      case Speed.Bullet => perfs.bullet
+      case Speed.Blitz => perfs.blitz
+      case Speed.Rapid => perfs.rapid
+      case Speed.Classical => perfs.classical
       case Speed.Correspondence => perfs.correspondence
-      case Speed.UltraBullet    => perfs.ultraBullet
+      case Speed.UltraBullet => perfs.ultraBullet
 
   import lila.db.BSON
   import lila.db.dsl.{ *, given }
@@ -203,7 +203,7 @@ object UserPerfs:
   def idPerfReader(pk: PerfKey) = BSONDocumentReader.option[(UserId, Perf)] { doc =>
     import lila.rating.Perf.given
     for
-      id   <- doc.getAsOpt[UserId]("_id")
+      id <- doc.getAsOpt[UserId]("_id")
       perf <- doc.getAsOpt[Perf](pk.value)
     yield (id, perf)
   }
@@ -241,26 +241,26 @@ object UserPerfs:
 
     def writes(w: BSON.Writer, o: UserPerfs) =
       BSONDocument(
-        "id"             -> o.id,
-        "standard"       -> notNew(o.standard),
-        "chess960"       -> notNew(o.chess960),
-        "kingOfTheHill"  -> notNew(o.kingOfTheHill),
-        "threeCheck"     -> notNew(o.threeCheck),
-        "antichess"      -> notNew(o.antichess),
-        "atomic"         -> notNew(o.atomic),
-        "horde"          -> notNew(o.horde),
-        "racingKings"    -> notNew(o.racingKings),
-        "crazyhouse"     -> notNew(o.crazyhouse),
-        "ultraBullet"    -> notNew(o.ultraBullet),
-        "bullet"         -> notNew(o.bullet),
-        "blitz"          -> notNew(o.blitz),
-        "rapid"          -> notNew(o.rapid),
-        "classical"      -> notNew(o.classical),
+        "id" -> o.id,
+        "standard" -> notNew(o.standard),
+        "chess960" -> notNew(o.chess960),
+        "kingOfTheHill" -> notNew(o.kingOfTheHill),
+        "threeCheck" -> notNew(o.threeCheck),
+        "antichess" -> notNew(o.antichess),
+        "atomic" -> notNew(o.atomic),
+        "horde" -> notNew(o.horde),
+        "racingKings" -> notNew(o.racingKings),
+        "crazyhouse" -> notNew(o.crazyhouse),
+        "ultraBullet" -> notNew(o.ultraBullet),
+        "bullet" -> notNew(o.bullet),
+        "blitz" -> notNew(o.blitz),
+        "rapid" -> notNew(o.rapid),
+        "classical" -> notNew(o.classical),
         "correspondence" -> notNew(o.correspondence),
-        "puzzle"         -> notNew(o.puzzle),
-        "storm"          -> o.storm.nonEmpty.option(o.storm),
-        "racer"          -> o.racer.nonEmpty.option(o.racer),
-        "streak"         -> o.streak.nonEmpty.option(o.streak)
+        "puzzle" -> notNew(o.puzzle),
+        "storm" -> o.storm.nonEmpty.option(o.storm),
+        "racer" -> o.racer.nonEmpty.option(o.racer),
+        "streak" -> o.streak.nonEmpty.option(o.streak)
       )
 
   case class Leaderboards(

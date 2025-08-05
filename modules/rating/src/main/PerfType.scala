@@ -16,7 +16,7 @@ enum PerfType(
 ) derives Eq:
 
   def trans(using translate: Translate): String = nameKey.txt()
-  def desc(using translate: Translate): String  = descKey.txt()
+  def desc(using translate: Translate): String = descKey.txt()
 
   case UltraBullet
       extends PerfType(
@@ -171,15 +171,15 @@ object PerfType:
 
   def gamePerf(pt: PerfType): Option[GamePerf] = pt match
     case gp: GamePerf => Some(gp)
-    case _            => None
+    case _ => None
 
   given Conversion[PerfType, PerfKey] = _.key
-  given Conversion[PerfType, PerfId]  = _.id
+  given Conversion[PerfType, PerfId] = _.id
   given Conversion[PerfKey, PerfType] = apply(_)
 
   val all: List[PerfType] = values.toList
-  val byKey               = all.mapBy(_.key)
-  val byId                = all.mapBy(_.id)
+  val byKey = all.mapBy(_.key)
+  val byId = all.mapBy(_.id)
 
   def apply(key: PerfKey): PerfType =
     byKey.getOrElse(key, sys.error(s"Impossible: $key couldn't have been instantiated"))
@@ -190,9 +190,9 @@ object PerfType:
 
   val standard: List[PerfKey] =
     List(PerfKey.bullet, PerfKey.blitz, PerfKey.rapid, PerfKey.classical, PerfKey.correspondence)
-  val standardSet: Set[PerfKey]        = standard.toSet
+  val standardSet: Set[PerfKey] = standard.toSet
   val standardWithUltra: List[PerfKey] = PerfKey.ultraBullet :: standard
-  val leaderboardable: List[PerfKey]   = List(
+  val leaderboardable: List[PerfKey] = List(
     PerfKey.bullet,
     PerfKey.blitz,
     PerfKey.rapid,
@@ -222,15 +222,15 @@ object PerfType:
     )
 
   def variantOf(pk: PerfKey): variant.Variant = pk match
-    case PerfKey.crazyhouse    => variant.Crazyhouse
-    case PerfKey.chess960      => variant.Chess960
+    case PerfKey.crazyhouse => variant.Crazyhouse
+    case PerfKey.chess960 => variant.Chess960
     case PerfKey.kingOfTheHill => variant.KingOfTheHill
-    case PerfKey.threeCheck    => variant.ThreeCheck
-    case PerfKey.antichess     => variant.Antichess
-    case PerfKey.atomic        => variant.Atomic
-    case PerfKey.horde         => variant.Horde
-    case PerfKey.racingKings   => variant.RacingKings
-    case _                     => variant.Standard
+    case PerfKey.threeCheck => variant.ThreeCheck
+    case PerfKey.antichess => variant.Antichess
+    case PerfKey.atomic => variant.Atomic
+    case PerfKey.horde => variant.Horde
+    case PerfKey.racingKings => variant.RacingKings
+    case _ => variant.Standard
 
   def apply(variant: chess.variant.Variant, speed: Speed): PerfType = PerfType(PerfKey(variant, speed))
 
@@ -239,13 +239,13 @@ object PerfType:
       .map: pt =>
         pt -> Centis:
           pt.match
-            case UltraBullet    => 25 * 100
-            case Bullet         => 90 * 100
-            case Blitz          => 7 * 60 * 100
-            case Rapid          => 12 * 60 * 100
-            case Classical      => 30 * 60 * 100
+            case UltraBullet => 25 * 100
+            case Bullet => 90 * 100
+            case Blitz => 7 * 60 * 100
+            case Rapid => 12 * 60 * 100
+            case Classical => 30 * 60 * 100
             case Correspondence => 60 * 60 * 100
-            case _              => 7 * 60 * 100
+            case _ => 7 * 60 * 100
       .to(Map)
 
   def iconByVariant(variant: chess.variant.Variant): Icon =

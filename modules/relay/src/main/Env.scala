@@ -46,7 +46,7 @@ final class Env(
 
   lazy val roundForm = wire[RelayRoundForm]
   lazy val groupForm = wire[RelayGroupForm]
-  lazy val tourForm  = wire[RelayTourForm]
+  lazy val tourForm = wire[RelayTourForm]
 
   private val colls = wire[RelayColls]
 
@@ -97,9 +97,11 @@ final class Env(
   def top(page: Int): Fu[(List[RelayCard], Paginator[WithLastRound])] =
     (page == 1).so(listing.active).zip(pager.inactive(page))
 
+  val topJson = (page: Int) => (_: JsonView.Config) ?=> top(page).map(jsonView.top)
+
   private lazy val sync = wire[RelaySync]
 
-  private lazy val proxy                 = wire[RelayProxy]
+  private lazy val proxy = wire[RelayProxy]
   private def selectProxy: ProxySelector = proxy.select
 
   private lazy val httpClient = wire[HttpClient]
@@ -177,7 +179,7 @@ final class Env(
 
 private final class RelayColls(mainDb: lila.db.Db, yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb):
   val round = mainDb(CollName("relay"))
-  val tour  = mainDb(CollName("relay_tour"))
+  val tour = mainDb(CollName("relay_tour"))
   val group = mainDb(CollName("relay_group"))
   val delay = yoloDb(CollName("relay_delay"))
   val stats = mainDb(CollName("relay_stats"))

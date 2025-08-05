@@ -104,7 +104,7 @@ final class TournamentApi(
     (tour.isCreated && old.conditions.allowsBots && !tour.conditions.allowsBots).so:
       for
         botIds <- playerRepo.activeBotIds(tour.id)
-        _      <- botIds.toList.sequentiallyVoid(withdraw(tour.id, _, false, false))
+        _ <- botIds.toList.sequentiallyVoid(withdraw(tour.id, _, false, false))
       yield ()
 
   def teamBattleUpdate(
@@ -113,7 +113,7 @@ final class TournamentApi(
       filterExistingTeamIds: Set[TeamId] => Fu[Set[TeamId]]
   ): Funit = for
     formTeamIds <- filterExistingTeamIds(data.potentialTeamIds.filterNot(TeamBattle.blacklist.contains))
-    teamIds     <-
+    teamIds <-
       if !tour.isCreated
       then playerRepo.teamsWithPlayers(tour.id).map(_ ++ formTeamIds).map(_.take(TeamBattle.maxTeams))
       else fuccess(formTeamIds)
@@ -146,7 +146,7 @@ final class TournamentApi(
             .createPairings(tour, users, ranking, smallTourNbActivePlayers)
             .mon(_.tournament.pairing.createPairings)
             .flatMap:
-              case Nil      => funit
+              case Nil => funit
               case pairings =>
                 pairingRepo.insert(pairings.map(_.pairing)) >>
                   pairings
@@ -183,8 +183,8 @@ final class TournamentApi(
             def switch = tournamentRepo.setFeaturedGameId(tour.id, bestCandidate.pairing.gameId)
             curOption.filter(_.pairing.playing) match
               case Some(current) if bestCandidate.bestRank < current.bestRank => switch
-              case Some(_)                                                    => funit
-              case _                                                          => switch
+              case Some(_) => funit
+              case _ => switch
       }
 
   private[tournament] def start(oldTour: Tournament): Funit =
@@ -212,11 +212,11 @@ final class TournamentApi(
           case 0 => destroy(tour)
           case _ =>
             for
-              _      <- tournamentRepo.setStatus(tour.id, Status.finished)
-              _      <- playerRepo.unWithdraw(tour.id)
-              _      <- pairingRepo.removePlaying(tour.id)
+              _ <- tournamentRepo.setStatus(tour.id, Status.finished)
+              _ <- playerRepo.unWithdraw(tour.id)
+              _ <- pairingRepo.removePlaying(tour.id)
               winner <- playerRepo.winner(tour.id)
-              _      <- winner.so(p => tournamentRepo.setWinnerId(tour.id, p.userId))
+              _ <- winner.so(p => tournamentRepo.setWinnerId(tour.id, p.userId))
             yield
               cached.tourCache.clear(tour.id)
               callbacks.clearJsonViewCache(tour)
@@ -285,7 +285,7 @@ final class TournamentApi(
       playerRepo
         .find(tour.id, me)
         .flatMap: prevPlayer =>
-          if prevPlayer.isEmpty && !initialJoin.test(me.userId)
+          if prevPlayer.isEmpty && !initialJoin.test(me.userId, cost = if asLeader then 0 else 1)
           then fuccess(JoinResult.RateLimited)
           else if me.marks.arenaBan then fuccess(JoinResult.ArenaBanned)
           else if me.marks.prizeban && tour.prizeInDescription then fuccess(JoinResult.PrizeBanned)
@@ -304,8 +304,8 @@ final class TournamentApi(
               else
                 def proceedWithTeam(team: Option[TeamId]): Fu[JoinResult] = for
                   user <- userApi.withPerf(me.value, tour.perfType)
-                  _    <- playerRepo.join(tour.id, user, team, prevPlayer)
-                  _    <- updateNbPlayers(tour.id)
+                  _ <- playerRepo.join(tour.id, user, team, prevPlayer)
+                  _ <- updateNbPlayers(tour.id)
                 yield
                   publish()
                   JoinResult.Ok
@@ -342,7 +342,7 @@ final class TournamentApi(
             _.value / 10 + 1
 
   private object updateNbPlayers:
-    private val onceEvery            = scalalib.cache.OnceEvery[TourId](1.second)
+    private val onceEvery = scalalib.cache.OnceEvery[TourId](1.second)
     def apply(tourId: TourId): Funit = onceEvery(tourId).so:
       playerRepo.count(tourId).flatMap { tournamentRepo.setNbPlayers(tourId, _) }
 
@@ -365,7 +365,7 @@ final class TournamentApi(
           publish()
       case tour if tour.isStarted =>
         for
-          _        <- playerRepo.withdraw(tour.id, userId)
+          _ <- playerRepo.withdraw(tour.id, userId)
           pausable <-
             if isPause
             then cached.ranking(tour).map { _.ranking.get(userId).exists(_ < 7) }
@@ -449,7 +449,7 @@ final class TournamentApi(
           yield newPlayer
 
   private def performanceOf(g: Game, userId: UserId): Option[IntRating] = for
-    opponent       <- g.opponentOf(userId)
+    opponent <- g.opponentOf(userId)
     opponentRating <- opponent.rating
     multiplier = g.winnerUserId.so(winner => if winner == userId then 1 else -1)
   yield opponentRating.map(_ + 500 * multiplier)
@@ -498,8 +498,8 @@ final class TournamentApi(
               _ = pairing.foreach: currentPairing =>
                 roundApi.tell(currentPairing.gameId, RoundBus.AbortForce)
               uids <- pairingRepo.opponentsOf(tour.id, userId)
-              _    <- pairingRepo.forfeitByTourAndUserId(tour.id, userId)
-              _    <- uids.toList.sequentiallyVoid(recomputePlayerAndSheet(tour))
+              _ <- pairingRepo.forfeitByTourAndUserId(tour.id, userId)
+              _ <- uids.toList.sequentiallyVoid(recomputePlayerAndSheet(tour))
             yield ()
           _ <- updateNbPlayers(tour.id)
         yield
@@ -549,7 +549,7 @@ final class TournamentApi(
             }
       yield ()
 
-  private val tournamentTopNb    = 20
+  private val tournamentTopNb = 20
   private val tournamentTopCache = cacheApi[TourId, TournamentTop](16, "tournament.top"):
     _.refreshAfterWrite(3.second)
       .expireAfterAccess(5.minutes)

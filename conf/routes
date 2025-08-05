@@ -131,7 +131,7 @@ GET   /ublog/$id<\w{8}>/edit           controllers.Ublog.edit(id: UblogPostId)
 POST  /ublog/$id<\w{8}>/edit           controllers.Ublog.update(id: UblogPostId)
 POST  /ublog/$id<\w{8}>/del            controllers.Ublog.delete(id: UblogPostId)
 POST  /ublog/$id<\w{8}>/like           controllers.Ublog.like(id: UblogPostId, v: Boolean)
-POST  /ublog/:blogId/tier              controllers.Ublog.setTier(blogId: String)
+POST  /ublog/:blogId/tier              controllers.Ublog.modBlog(blogId: String)
 POST  /ublog/$id<\w{8}>/adjust         controllers.Ublog.modPost(id: UblogPostId)
 POST  /ublog/$id<\w{8}>/pull           controllers.Ublog.modPull(id: UblogPostId)
 GET   /ublog/carousel                  controllers.Ublog.modShowCarousel
@@ -593,7 +593,7 @@ POST  /mod/:username/impersonate       controllers.Mod.impersonate(username: Str
 GET   /mod/:username/games             controllers.GameMod.index(username: UserStr)
 POST  /mod/:username/games             controllers.GameMod.post(username: UserStr)
 GET   /mod/table                       controllers.Mod.table
-GET   /mod/log                         controllers.Mod.log(mod: Option[UserStr] ?= None)
+GET   /mod/log                         controllers.Mod.log(mod: Option[UserStr] ?= None, id: Option[String] ?= None)
 POST  /mod/:username/refreshUserAssess controllers.Mod.refreshUserAssess(username: UserStr)
 POST  /mod/:username/email             controllers.Mod.setEmail(username: UserStr)
 POST  /mod/inquiry-to-zulip            controllers.Mod.inquiryToZulip
@@ -638,24 +638,24 @@ GET   /forum/:categId/form             controllers.ForumTopic.form(categId: Foru
 POST  /forum/:categId/new              controllers.ForumTopic.create(categId: ForumCategId)
 GET   /forum/:categId/mod-feed         controllers.ForumCateg.modFeed(categId: ForumCategId, page: Int ?= 1)
 GET   /forum/participants/:topicId     controllers.ForumTopic.participants(topicId: ForumTopicId)
-GET   /forum/:categId/:slug            controllers.ForumTopic.show(categId: ForumCategId, slug, page: Int ?= 1)
-POST  /forum/:categId/:slug/close      controllers.ForumTopic.close(categId: ForumCategId, slug)
-POST  /forum/:categId/:slug/sticky     controllers.ForumTopic.sticky(categId: ForumCategId, slug)
-POST  /forum/:categId/:slug/new        controllers.ForumPost.create(categId: ForumCategId, slug, page: Int ?= 1)
+GET   /forum/:categId/:slug            controllers.ForumTopic.show(categId: ForumCategId, slug: ForumTopicSlug, page: Int ?= 1)
+POST  /forum/:categId/:slug/close      controllers.ForumTopic.close(categId: ForumCategId, slug: ForumTopicSlug)
+POST  /forum/:categId/:slug/sticky     controllers.ForumTopic.sticky(categId: ForumCategId, slug: ForumTopicSlug)
+POST  /forum/:categId/:slug/new        controllers.ForumPost.create(categId: ForumCategId, slug: ForumTopicSlug, page: Int ?= 1)
 POST  /forum/delete/:id                controllers.ForumPost.delete(id: ForumPostId)
 POST  /forum/relocate/:id              controllers.ForumPost.relocate(id: ForumPostId)
 POST  /forum/:categId/react/:id/:reaction/:v controllers.ForumPost.react(categId: ForumCategId, id: ForumPostId, reaction, v: Boolean)
 POST  /forum/post/:id                  controllers.ForumPost.edit(id: ForumPostId)
 GET   /forum/redirect/post/:id         controllers.ForumPost.redirect(id: ForumPostId)
 POST  /diagnostic                      controllers.ForumTopic.diagnostic
-POST  /diagnostic/clear/:slug          controllers.ForumTopic.clearDiagnostic(slug)
+POST  /diagnostic/clear/:slug          controllers.ForumTopic.clearDiagnostic(slug: ForumTopicSlug)
 
 # Msg compat
 POST  /inbox/new                       controllers.Msg.compatCreate
 # Msg
 GET   /inbox                           controllers.Msg.home
 GET   /inbox/search                    controllers.Msg.search(q)
-GET   /inbox/unread-count              controllers.Msg.unreadCountBC
+GET   /inbox/unread-count              controllers.Msg.unreadCount
 GET   /inbox/:username                 controllers.Msg.convo(username: UserStr, before: Option[Long] ?= None)
 DELETE /inbox/:username                controllers.Msg.convoDelete(username: UserStr)
 # Msg API/compat
@@ -680,6 +680,12 @@ GET   /import/master/$id<\w{8}>/:color controllers.Importer.masterGame(id: GameI
 GET   /editor.json                     controllers.Editor.data
 GET   /editor/*urlFen                  controllers.Editor.load(urlFen)
 GET   /editor                          controllers.Editor.index
+
+# Lichess Mobile
+GET   /api/mobile/home                 controllers.Api.mobileHome
+GET   /api/mobile/watch                controllers.Api.mobileHome
+GET   /api/mobile/profile/:username    controllers.Api.mobileProfile(username:  UserStr)
+GET   /api/mobile/my-games             controllers.Api.mobileGames
 
 ->    /team                            team.Routes
 ->    /appeal                          appeal.Routes
@@ -768,9 +774,6 @@ POST  /api/bulk-pairing/:id/start-clocks  controllers.BulkPairing.startClocks(id
 GET   /api/games/user/:username        controllers.Game.apiExportByUser(username: UserStr)
 GET   /api/games/export/imports        controllers.Game.apiExportByUserImportedGames()
 GET   /api/games/export/bookmarks      controllers.Game.apiExportByUserBookmarks()
-
-# Lichess Mobile
-GET   /api/mobile/my-games             controllers.Api.mobileGames
 
 # External engine
 GET   /api/external-engine             controllers.Analyse.externalEngineList

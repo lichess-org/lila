@@ -24,9 +24,9 @@ final private class SandbagWatch(
     userId <- game.userIds
   do
     (records.getIfPresent(userId), outcomeOf(game, loser, userId)) match
-      case (None, Good)         =>
+      case (None, Good) =>
       case (Some(record), Good) => setRecord(userId, record + Good, game)
-      case (record, outcome)    => setRecord(userId, (record | emptyRecord) + outcome, game)
+      case (record, outcome) => setRecord(userId, (record | emptyRecord) + outcome, game)
 
   private def setRecord(userId: UserId, record: Record, game: Game): Funit =
     if record.immaculate then fuccess(records.invalidate(userId))
@@ -38,10 +38,10 @@ final private class SandbagWatch(
       records.put(userId, record)
       for
         nbWarnings <- modLogApi.countRecentRatingManipulationsWarnings(userId)
-        sandbagCount       = record.countSandbagWithLatest
-        boostCount         = record.samePlayerBoostCount
+        sandbagCount = record.countSandbagWithLatest
+        boostCount = record.samePlayerBoostCount
         sandbagSeriousness = sandbagCount + nbWarnings
-        boostSeriousness   = boostCount + nbWarnings
+        boostSeriousness = boostCount + nbWarnings
         _ <-
           if sandbagCount == 3
           then sendMessage(userId, msgPreset.sandbagAuto)
@@ -88,9 +88,9 @@ final private class SandbagWatch(
 
     import chess.variant.*
     val minTurns = game.variant match
-      case Atomic                     => baseMinTurns / 4
+      case Atomic => baseMinTurns / 4
       case KingOfTheHill | ThreeCheck => baseMinTurns / 2
-      case _                          => baseMinTurns
+      case _ => baseMinTurns
 
     game.playedPlies <= minTurns && game.winner.exists(_.ratingDiff.exists(_.positive))
 
@@ -115,11 +115,11 @@ private object SandbagWatch:
 
     def latestIsSandbag = latest.exists:
       case Outcome.Sandbag(_) => true
-      case _                  => false
+      case _ => false
 
     def countSandbagWithLatest: Int = latestIsSandbag.so(outcomes.count:
       case Outcome.Sandbag(_) => true
-      case _                  => false)
+      case _ => false)
 
     def sandbagOpponents = outcomes.collect { case Outcome.Sandbag(opponent) => opponent }.distinct
 
@@ -127,7 +127,7 @@ private object SandbagWatch:
       case Outcome.Boost(opponent) =>
         outcomes.count:
           case Outcome.Boost(o) if o == opponent => true
-          case _                                 => false
+          case _ => false
       case _ => 0
 
   val emptyRecord = Record(Nil)

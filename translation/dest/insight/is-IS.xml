@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="xChessInsights">Skákinnsæi notandans %s</string>
+  <string name="xHasNoChessInsights">%s er ekki með skákinnsæi eins og stendur!</string>
+  <string name="insightsAreProtected">Skákinnsæi notandans %s er falið</string>
+  <string name="cantSeeInsights">Því miður geturðu ekki séð skákinnsæi notandans %s.</string>
+  <string name="generateInsights">Framleiða skákinnsæi fyrir notandann %s.</string>
   <string name="crunchingData">Gagnaúrvinnslan er í fullum gangi, bara fyrir þig!</string>
   <string name="maybeAskThemToChangeTheir" comment="The parameter is the translation for 'insights settings'">Biddu ef til vill viðkomanda um að breyta %s sínum?</string>
-  <string name="insightsSettings" comment="In the context of 'maybe ask them to change their insight settings'">ísæisstillingum</string>
+  <string name="insightsSettings" comment="In the context of 'maybe ask them to change their insight settings'">innsæisstillingum</string>
 </resources>

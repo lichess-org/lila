@@ -100,7 +100,7 @@ object Chart:
     def sortedSeries =
       answer.clusters.headOption.fold(series):
         _.insight match
-          case Insight.Single(_)       => series
+          case Insight.Single(_) => series
           case Insight.Stacked(points) => series.sortLike(points.map(_._1.value), _.name)
 
     def gameUserJson(player: lila.core.game.Player): Fu[JsObject] =
@@ -117,12 +117,12 @@ object Chart:
           user1 <- gameUserJson(pov.player)
           user2 <- gameUserJson(pov.opponent)
         yield Json.obj(
-          "id"       -> pov.gameId,
-          "fen"      -> (chess.format.Fen.writeBoard(pov.game.position)),
-          "color"    -> pov.player.color.name,
+          "id" -> pov.gameId,
+          "fen" -> (chess.format.Fen.writeBoard(pov.game.position)),
+          "color" -> pov.player.color.name,
           "lastMove" -> (pov.game.lastMoveKeys | ""),
-          "user1"    -> user1,
-          "user2"    -> user2
+          "user1" -> user1,
+          "user2" -> user2
         )
       }
       .map { games =>

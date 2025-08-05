@@ -33,22 +33,22 @@ final class HistoryApi(
         .void
 
   def add(user: User, game: Game, perfs: UserPerfs): Funit = withColl: coll =>
-    val isStd   = game.ratingVariant.standard
+    val isStd = game.ratingVariant.standard
     val changes = List(
-      isStd.option("standard"                                               -> perfs.standard),
-      game.ratingVariant.chess960.option("chess960"                         -> perfs.chess960),
-      game.ratingVariant.kingOfTheHill.option("kingOfTheHill"               -> perfs.kingOfTheHill),
-      game.ratingVariant.threeCheck.option("threeCheck"                     -> perfs.threeCheck),
-      game.ratingVariant.antichess.option("antichess"                       -> perfs.antichess),
-      game.ratingVariant.atomic.option("atomic"                             -> perfs.atomic),
-      game.ratingVariant.horde.option("horde"                               -> perfs.horde),
-      game.ratingVariant.racingKings.option("racingKings"                   -> perfs.racingKings),
-      game.ratingVariant.crazyhouse.option("crazyhouse"                     -> perfs.crazyhouse),
-      (isStd && game.speed == Speed.UltraBullet).option("ultraBullet"       -> perfs.ultraBullet),
-      (isStd && game.speed == Speed.Bullet).option("bullet"                 -> perfs.bullet),
-      (isStd && game.speed == Speed.Blitz).option("blitz"                   -> perfs.blitz),
-      (isStd && game.speed == Speed.Rapid).option("rapid"                   -> perfs.rapid),
-      (isStd && game.speed == Speed.Classical).option("classical"           -> perfs.classical),
+      isStd.option("standard" -> perfs.standard),
+      game.ratingVariant.chess960.option("chess960" -> perfs.chess960),
+      game.ratingVariant.kingOfTheHill.option("kingOfTheHill" -> perfs.kingOfTheHill),
+      game.ratingVariant.threeCheck.option("threeCheck" -> perfs.threeCheck),
+      game.ratingVariant.antichess.option("antichess" -> perfs.antichess),
+      game.ratingVariant.atomic.option("atomic" -> perfs.atomic),
+      game.ratingVariant.horde.option("horde" -> perfs.horde),
+      game.ratingVariant.racingKings.option("racingKings" -> perfs.racingKings),
+      game.ratingVariant.crazyhouse.option("crazyhouse" -> perfs.crazyhouse),
+      (isStd && game.speed == Speed.UltraBullet).option("ultraBullet" -> perfs.ultraBullet),
+      (isStd && game.speed == Speed.Bullet).option("bullet" -> perfs.bullet),
+      (isStd && game.speed == Speed.Blitz).option("blitz" -> perfs.blitz),
+      (isStd && game.speed == Speed.Rapid).option("rapid" -> perfs.rapid),
+      (isStd && game.speed == Speed.Classical).option("classical" -> perfs.classical),
       (isStd && game.speed == Speed.Correspondence).option("correspondence" -> perfs.correspondence)
     ).flatten.map: (k, p) =>
       k -> p.intRating
@@ -92,16 +92,16 @@ final class HistoryApi(
       )(_.getAsTry[UserId]("_id").get).map { hists =>
         import History.ratingsReader
         users.zip(hists).map { (user, doc) =>
-          val current      = user.perf.intRating
+          val current = user.perf.intRating
           val previousDate = daysBetween(user.createdAt, nowInstant.minusDays(days.value))
-          val previous     =
+          val previous =
             doc
               .flatMap(_.child(perfKey.value))
               .flatMap(ratingsReader.readOpt)
               .fold(current): hist =>
                 hist.foldLeft(hist.headOption.fold(current)(_._2)):
                   case (_, (d, r)) if d < previousDate => r
-                  case (acc, _)                        => acc
+                  case (acc, _) => acc
           previous -> current
         }
       }
@@ -115,8 +115,8 @@ final class HistoryApi(
         .orFail(s"No such user: $userId")
         .flatMap: (user, currentRating) =>
           val firstDay = daysBetween(user.createdAt, nowInstant.minusWeeks(1))
-          val days     = (firstDay to (firstDay + 6)).toList
-          val project  = $doc:
+          val days = (firstDay to (firstDay + 6)).toList
+          val project = $doc:
             ("_id" -> BSONBoolean(false)) :: days.map: d =>
               s"$perf.$d" -> BSONBoolean(true)
           withColl(_.find($id(user.id), project.some).one[Bdoc].map {
@@ -124,6 +124,6 @@ final class HistoryApi(
               _.child(perf.value).map {
                 _.elements.foldLeft(currentRating):
                   case (max, BSONElement(_, BSONInteger(v))) if max < IntRating(v) => IntRating(v)
-                  case (max, _)                                                    => max
+                  case (max, _) => max
               }
           }).dmap(_ | currentRating)

@@ -25,7 +25,7 @@ final class DisposableEmailAttempt(
     if email.domain.exists(disposableApi.isDisposable)
     if !email.domain.exists(disposableApi.mightBeTypo)
     str <- form("username").value
-    u   <- UserStr.read(str)
+    u <- UserStr.read(str)
   yield
     val attempt = Attempt(u.id, email, ip)
     byIp.underlying.asMap.compute(ip, (_, attempts) => ~Option(attempts) + attempt)

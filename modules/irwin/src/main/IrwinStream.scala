@@ -32,22 +32,22 @@ final class IrwinStream:
 
   private def requestJson(req: IrwinRequest) =
     Json.obj(
-      "t"      -> "request",
+      "t" -> "request",
       "origin" -> req.origin.key,
-      "user"   -> Json.obj(
-        "id"     -> req.suspect.user.id,
+      "user" -> Json.obj(
+        "id" -> req.suspect.user.id,
         "titled" -> req.suspect.user.hasTitle,
         "engine" -> req.suspect.user.marks.engine,
-        "games"  -> req.suspect.user.count.rated
+        "games" -> req.suspect.user.count.rated
       ),
       "games" -> req.games.map: (game, analysis) =>
         val moveTimes = game.clockHistory.isDefined.so(game.moveTimes.map(_.map(_.centis)))
         Json.obj(
-          "id"       -> game.id,
-          "white"    -> game.whitePlayer.userId,
-          "black"    -> game.blackPlayer.userId,
-          "pgn"      -> game.sans.mkString(" "),
-          "emts"     -> moveTimes,
+          "id" -> game.id,
+          "white" -> game.whitePlayer.userId,
+          "black" -> game.blackPlayer.userId,
+          "pgn" -> game.sans.mkString(" "),
+          "emts" -> moveTimes,
           "analysis" -> analysis.map {
             _.infos.map { info =>
               info.cp

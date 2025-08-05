@@ -10,12 +10,12 @@ final class JsonView(lightUserApi: LightUserApi, userJson: lila.core.user.JsonVi
   given teamWrites: OWrites[Team] = OWrites: team =>
     Json
       .obj(
-        "id"          -> team.id,
-        "name"        -> team.name,
+        "id" -> team.id,
+        "name" -> team.name,
         "description" -> team.description,
-        "open"        -> team.open,
-        "leader"      -> lightUserApi.sync(team.createdBy), // for BC
-        "nbMembers"   -> team.nbMembers
+        "open" -> team.open,
+        "leader" -> lightUserApi.sync(team.createdBy), // for BC
+        "nbMembers" -> team.nbMembers
       )
       .add("flair" -> team.flair)
 
@@ -28,10 +28,10 @@ final class JsonView(lightUserApi: LightUserApi, userJson: lila.core.user.JsonVi
   given OWrites[TeamRequest] = OWrites: req =>
     Json
       .obj(
-        "userId"  -> req.user,
-        "teamId"  -> req.team,
+        "userId" -> req.user,
+        "teamId" -> req.team,
         "message" -> req.message,
-        "date"    -> req.date
+        "date" -> req.date
       )
       .add("declined" -> req.declined)
 
@@ -39,5 +39,5 @@ final class JsonView(lightUserApi: LightUserApi, userJson: lila.core.user.JsonVi
     case RequestWithUser(req, user) =>
       Json.obj(
         "request" -> req,
-        "user"    -> userJson.full(user.user, user.perfs.some, withProfile = false)
+        "user" -> userJson.full(user.user, user.perfs.some, withProfile = false)
       )

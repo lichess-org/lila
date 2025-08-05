@@ -11,7 +11,7 @@ import lila.core.shutup.PublicSource
 
 case class Report(
     @Key("_id") id: ReportId, // also the url slug
-    user: UserId,             // the reportee
+    user: UserId, // the reportee
     room: Room,
     atoms: NonEmptyList[Report.Atom], // most recent first
     score: Report.Score,
@@ -24,7 +24,7 @@ case class Report(
 
   inline def slug = id
 
-  def closed  = !open
+  def closed = !open
   def suspect = SuspectId(user)
 
   def is(room: Room.type => Room) = this.room == room(Room)
@@ -48,19 +48,19 @@ case class Report(
   def recomputeScore =
     copy(score = atoms.toList.foldLeft(Score(0))(_ + _.score))
 
-  def recentAtom: Atom                             = atoms.head
-  def oldestAtom: Atom                             = atoms.last
-  def bestAtom: Atom                               = bestAtoms(1).headOption | recentAtom
-  def bestAtoms(nb: Int): List[Atom]               = Atom.best(atoms.toList, nb)
-  def onlyAtom: Option[Atom]                       = atoms.tail.isEmpty.option(atoms.head)
+  def recentAtom: Atom = atoms.head
+  def oldestAtom: Atom = atoms.last
+  def bestAtom: Atom = bestAtoms(1).headOption | recentAtom
+  def bestAtoms(nb: Int): List[Atom] = Atom.best(atoms.toList, nb)
+  def onlyAtom: Option[Atom] = atoms.tail.isEmpty.option(atoms.head)
   def atomBy(reporterId: ReporterId): Option[Atom] = atoms.toList.find(_.by == reporterId)
-  def atomsByAndAbout(userId: UserId): List[Atom]  =
+  def atomsByAndAbout(userId: UserId): List[Atom] =
     if user == userId then atoms.toList else atomBy(userId.into(ReporterId)).toList
   def bestAtomByHuman: Option[Atom] = bestAtoms(10).find(_.byHuman)
 
   def unprocessedCheat = open && is(_.Cheat)
   def unprocessedOther = open && is(_.Other)
-  def unprocessedComm  = open && is(_.Comm)
+  def unprocessedComm = open && is(_.Comm)
 
   def process(by: User) =
     copy(
@@ -70,11 +70,11 @@ case class Report(
 
   def userIds: List[UserId] = user :: atoms.toList.map(_.by.userId)
 
-  def isRecentComm                 = open && room == Room.Comm
+  def isRecentComm = open && room == Room.Comm
   def isRecentCommOf(sus: Suspect) = isRecentComm && user == sus.user.id
-  def isPlay                       = room == Room.Boost || room == Room.Cheat
+  def isPlay = room == Room.Boost || room == Room.Cheat
 
-  def isAppeal                            = room == Room.Other && atoms.head.text == Report.appealText
+  def isAppeal = room == Room.Other && atoms.head.text == Report.appealText
   def isAppealInquiryByMe(using me: MyId) = isAppeal && atoms.head.by.is(me)
 
   def isSpontaneous = room == Room.Other && atoms.head.text == Report.spontaneousText
@@ -88,13 +88,13 @@ object Report:
   object Score extends OpaqueDouble[Score]:
     extension (a: Score)
       def +(s: Score): Score = a + s
-      def color              =
+      def color =
         if a >= 150 then "red"
         else if a >= 100 then "orange"
         else if a >= 50 then "yellow"
         else "green"
       def atLeast(s: Score): Score = math.max(a, s)
-      def withinBounds: Score      = a.atLeast(5).atMost(100)
+      def withinBounds: Score = a.atLeast(5).atMost(100)
 
   case class Atom(
       by: ReporterId,
@@ -109,8 +109,8 @@ object Report:
 
     def byLichess = by.is(ReporterId.lichess)
 
-    def is(reason: Reason.type => Reason)  = this.reason == reason(Reason)
-    def isFlag                             = text.startsWith(Reason.flagText)
+    def is(reason: Reason.type => Reason) = this.reason == reason(Reason)
+    def isFlag = text.startsWith(Reason.flagText)
     def parseFlag: Option[Atom.ParsedFlag] = isFlag.so:
       text
         .split(" ", 3)
@@ -149,17 +149,17 @@ object Report:
       text: String
   ):
     def scored(score: Score) = Candidate.Scored(this, score)
-    def isAutomatic          = reporter.id == ReporterId.lichess
-    def isAutoComm           = isAutomatic && reason.isComm
-    def isAutoBoost          = isAutomatic && reason == Reason.Boost
-    def isCheat              = reason == Reason.Cheat
-    def isIrwinCheat         = reporter.id == ReporterId.irwin && isCheat
-    def isKaladinCheat       = reporter.id == ReporterId.kaladin && isCheat
+    def isAutomatic = reporter.id == ReporterId.lichess
+    def isAutoComm = isAutomatic && reason.isComm
+    def isAutoBoost = isAutomatic && reason == Reason.Boost
+    def isCheat = reason == Reason.Cheat
+    def isIrwinCheat = reporter.id == ReporterId.irwin && isCheat
+    def isKaladinCheat = reporter.id == ReporterId.kaladin && isCheat
 
   object Candidate:
     case class Scored(candidate: Candidate, score: Score):
       def withScore(f: Score => Score) = copy(score = f(score))
-      def atom                         =
+      def atom =
         Atom(
           by = candidate.reporter.id,
           reason = candidate.reason,
@@ -169,7 +169,7 @@ object Report:
         )
 
   private[report] val spontaneousText = "Spontaneous inquiry"
-  private[report] val appealText      = "Appeal"
+  private[report] val appealText = "Appeal"
 
   def make(c: Candidate.Scored, existing: Option[Report]) =
     import c.*

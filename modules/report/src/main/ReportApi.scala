@@ -62,8 +62,8 @@ final class ReportApi(
               "open" -> true
             )
           report = Report.make(scored, prev)
-          _      = lila.mon.mod.report.create(report.room.key, scored.score.value.toInt).increment()
-          _      = if report.isRecentComm &&
+          _ = lila.mon.mod.report.create(report.room.key, scored.score.value.toInt).increment()
+          _ = if report.isRecentComm &&
             report.score.value >= thresholds.discord() &&
             prev.exists(_.score.value < thresholds.discord())
           then ircApi.commReportBurst(c.suspect.user.light)
@@ -101,8 +101,8 @@ final class ReportApi(
     (candidate.isCheat && candidate.suspect.user.marks.engine) ||
       (candidate.isAutomatic && candidate.reason == Reason.Other && candidate.suspect.user.marks.troll)
 
-  def getMyMod(using me: MyId): Fu[Option[Mod]]          = userApi.byId(me).dmap2(Mod.apply)
-  def getMod[U: UserIdOf](u: U): Fu[Option[Mod]]         = userApi.byId(u).dmap2(Mod.apply)
+  def getMyMod(using me: MyId): Fu[Option[Mod]] = userApi.byId(me).dmap2(Mod.apply)
+  def getMod[U: UserIdOf](u: U): Fu[Option[Mod]] = userApi.byId(u).dmap2(Mod.apply)
   def getSuspect[U: UserIdOf](u: U): Fu[Option[Suspect]] = userApi.byId(u).dmap2(Suspect.apply)
 
   def getLichessMod: Fu[Mod] = userApi.byId(UserId.lichess).dmap2(Mod.apply).orFail("User lichess is missing")
@@ -278,9 +278,9 @@ final class ReportApi(
   def byId(id: ReportId) = coll.byId[Report](id)
 
   def process(report: Report)(using Me): Funit = for
-    _             <- accuracy.invalidate($id(report.id))
+    _ <- accuracy.invalidate($id(report.id))
     deletedAppeal <- deleteIfAppealInquiry(report)
-    _             <- (!deletedAppeal).so:
+    _ <- (!deletedAppeal).so:
       doProcessReport($id(report.id), unsetInquiry = true)
   yield onReportClose()
 
@@ -339,7 +339,7 @@ final class ReportApi(
       .void
 
   private val closedSelect: Bdoc = $doc("open" -> false)
-  private val sortLastAtomAt     = $doc("atoms.0.at" -> -1)
+  private val sortLastAtomAt = $doc("atoms.0.at" -> -1)
 
   private def roomSelect(room: Option[Room]): Bdoc =
     room.fold($doc("room".$in(Room.allButXfiles))): r =>
@@ -485,8 +485,8 @@ final class ReportApi(
             .find:
               $doc(
                 "atoms.by" -> reporterId,
-                "room"     -> Room.Cheat.key,
-                "open"     -> false
+                "room" -> Room.Cheat.key,
+                "open" -> false
               )
             .sort(sortLastAtomAt)
             .cursor[Report](ReadPref.sec)
@@ -522,13 +522,13 @@ final class ReportApi(
   private def selectRecent(suspect: SuspectId, reason: Reason): Bdoc =
     $doc(
       "atoms.0.at".$gt(nowInstant.minusDays(7)),
-      "user"         -> suspect.value,
+      "user" -> suspect.value,
       "atoms.reason" -> reason
     )
 
   def deleteAllBy(u: User) = for
     reports <- coll.list[Report]($doc("atoms.by" -> u.id), 500)
-    _       <- reports.traverse: r =>
+    _ <- reports.traverse: r =>
       val newAtoms = r.atoms.map: a =>
         if a.by.is(u)
         then a.copy(by = UserId.ghost.into(ReporterId))
@@ -566,8 +566,8 @@ final class ReportApi(
       coll.primitiveOne[Report.Inquiry](
         $doc(
           "inquiry.mod".$exists(true),
-          "user"         -> suspectId,
-          "room"         -> Room.Other.key,
+          "user" -> suspectId,
+          "room" -> Room.Other.key,
           "atoms.0.text" -> Report.appealText
         ),
         "inquiry"
@@ -593,11 +593,11 @@ final class ReportApi(
       for
         report <- id match
           case Left(reportId) => coll.byId[Report](reportId)
-          case Right(userId)  => findByUser(userId)
-          case anyId: String  => coll.byId[Report](anyId).orElse(findByUser(UserId(anyId)))
+          case Right(userId) => findByUser(userId)
+          case anyId: String => coll.byId[Report](anyId).orElse(findByUser(UserId(anyId)))
         current <- ofModId(mod.userId)
-        _       <- current.ifFalse(onlyOpen).so(cancel)
-        _       <-
+        _ <- current.ifFalse(onlyOpen).so(cancel)
+        _ <-
           report.so: r =>
             r.inquiry.isEmpty.so(
               coll

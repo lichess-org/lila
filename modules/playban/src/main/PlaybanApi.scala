@@ -26,7 +26,7 @@ final class PlaybanApi(
     { case BSONInteger(v) => Outcome(v).toTry(s"No such playban outcome: $v") },
     x => BSONInteger(x.id)
   )
-  private given BSONDocumentHandler[TempBan]    = Macros.handler
+  private given BSONDocumentHandler[TempBan] = Macros.handler
   private given BSONDocumentHandler[UserRecord] = Macros.handler
 
   lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
@@ -96,9 +96,9 @@ final class PlaybanApi(
         .userId
         .ifTrue:
           ~(for
-            movetimes    <- gameApi.computeMoveTimes(game, flaggerColor)
+            movetimes <- gameApi.computeMoveTimes(game, flaggerColor)
             lastMovetime <- movetimes.lastOption
-            limit        <- unreasonableTime
+            limit <- unreasonableTime
           yield lastMovetime.roundSeconds >= limit)
         .map: userId =>
           for
@@ -238,9 +238,9 @@ final class PlaybanApi(
           update = $doc(
             $push("o" -> $doc("$each" -> List(outcome), "$slice" -> -30)) ++ {
               rsUpdate match
-                case RageSit.Update.Reset            => $min("c" -> 0)
+                case RageSit.Update.Reset => $min("c" -> 0)
                 case RageSit.Update.Inc(v) if v != 0 => $inc("c" -> v)
-                case _                               => $empty
+                case _ => $empty
             }
           ),
           fetchNewObject = true,
@@ -251,7 +251,7 @@ final class PlaybanApi(
         if outcome == Outcome.Good then fuccess(withOutcome)
         else
           for
-            age     <- userApi.accountAge(userId)
+            age <- userApi.accountAge(userId)
             withBan <- legiferate(withOutcome, age, source)
           yield withBan
       _ <- registerRageSit(withBan, rsUpdate)
@@ -259,7 +259,7 @@ final class PlaybanApi(
   }.void.logFailure(lila.log("playban"))
 
   private def legiferate(record: UserRecord, age: Days, source: Option[Source]): Fu[UserRecord] = for
-    trust  <- userTrustApi.get(record.userId)
+    trust <- userTrustApi.get(record.userId)
     newRec <- record
       .bannable(age, trust)
       .ifFalse(record.banInEffect)
@@ -272,7 +272,7 @@ final class PlaybanApi(
             selector = $id(record.userId),
             update = $unset("o") ++ $push(
               "b" -> $doc(
-                "$each"  -> List(ban),
+                "$each" -> List(ban),
                 "$slice" -> -30
               )
             ),

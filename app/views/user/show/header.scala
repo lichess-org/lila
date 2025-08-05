@@ -10,7 +10,7 @@ import lila.user.Profile.*
 object header:
 
   private val dataToints = attr("data-toints")
-  private val dataTab    = attr("data-tab")
+  private val dataTab = attr("data-tab")
 
   private def possibleSeoBot(u: User) =
     !u.isVerified && !u.hasTitle && u.count.game < 5 && (
@@ -31,7 +31,7 @@ object header:
         div(
           cls := List(
             "trophies" -> true,
-            "packed"   -> (info.trophies.countTrophiesAndPerfCups > 7)
+            "packed" -> (info.trophies.countTrophiesAndPerfCups > 7)
           )
         )(
           views.user.bits.perfTrophies(u, info.ranks),
@@ -39,7 +39,7 @@ object header:
           u.plan.active.option(
             a(
               href := routes.Plan.index(),
-              cls  := "trophy award patron icon3d",
+              cls := "trophy award patron icon3d",
               ariaTitle(trans.patron.patronSince.txt(showDate(u.plan.sinceDate)))
             )(patronIconChar)
           )
@@ -50,8 +50,8 @@ object header:
         div(cls := "number-menu")(
           u.noBot.option(
             a(
-              href       := routes.UserTournament.path(u.username, "recent"),
-              cls        := "nm-item",
+              href := routes.UserTournament.path(u.username, "recent"),
+              cls := "nm-item",
               dataToints := u.toints
             )(
               splitNumber(trans.site.nbTournamentPoints.pluralSame(u.toints))
@@ -60,7 +60,7 @@ object header:
           (info.nbSimuls > 0).option(
             a(
               href := routes.Simul.byUser(u.username),
-              cls  := "nm-item"
+              cls := "nm-item"
             )(
               splitNumber(trans.site.nbSimuls.pluralSame(info.nbSimuls))
             )
@@ -68,7 +68,7 @@ object header:
           (info.nbRelays > 0).option(
             a(
               href := routes.RelayTour.by(u.username),
-              cls  := "nm-item"
+              cls := "nm-item"
             )(
               splitNumber(trans.broadcast.nbBroadcasts.pluralSame(info.nbRelays))
             )
@@ -78,7 +78,7 @@ object header:
           ),
           ctx.kid.no.option(
             a(
-              cls  := "nm-item",
+              cls := "nm-item",
               href := routes.ForumPost.search("user:" + u.username, 1).url
             )(
               splitNumber(trans.site.nbForumPosts.pluralSame(info.nbForumPosts))
@@ -86,7 +86,7 @@ object header:
           ),
           (ctx.kid.no && (info.ublog.exists(_.nbPosts > 0) || ctx.is(u))).option(
             a(
-              cls  := "nm-item",
+              cls := "nm-item",
               href := routes.Ublog.index(u.username)
             )(
               splitNumber(trans.ublog.blogPosts.pluralSame(info.ublog.so(_.nbPosts)))
@@ -98,10 +98,10 @@ object header:
         div(cls := "user-actions")(
           isGranted(_.UserModView).option(
             a(
-              cls      := "mod-zone-toggle",
-              href     := routes.User.mod(u.username),
+              cls := "mod-zone-toggle",
+              href := routes.User.mod(u.username),
               dataIcon := Icon.Agent,
-              title    := "Mod zone (Hotkey: m)"
+              title := "Mod zone (Hotkey: m)"
             )
           ),
           div(cls := "dropdown")(
@@ -112,20 +112,20 @@ object header:
                 .option(
                   frag(
                     a(
-                      cls      := "text",
-                      href     := routes.Account.profile,
+                      cls := "text",
+                      href := routes.Account.profile,
                       dataIcon := Icon.Gear
                     )(trans.site.editProfile.txt()),
                     a(
-                      cls      := "text",
-                      href     := routes.Relation.blocks(),
+                      cls := "text",
+                      href := routes.Relation.blocks(),
                       dataIcon := Icon.NotAllowed
                     )(trans.site.listBlockedPlayers.txt())
                   )
                 ),
               a(
-                cls      := "text",
-                href     := routes.User.tv(u.username),
+                cls := "text",
+                href := routes.User.tv(u.username),
                 dataIcon := Icon.AnalogTv
               )(trans.site.watchGames.txt()),
               ctx
@@ -139,19 +139,19 @@ object header:
                   )
                 ),
               a(
-                cls      := "text",
-                href     := s"${routes.UserAnalysis.index}#explorer/${u.username}",
+                cls := "text",
+                href := s"${routes.UserAnalysis.index}#explorer/${u.username}",
                 dataIcon := Icon.Book
               )(trans.site.openingExplorer.txt()),
               a(
-                cls      := "text",
-                href     := routes.User.download(u.username),
+                cls := "text",
+                href := routes.User.download(u.username),
                 dataIcon := Icon.Download
               )(trans.site.exportGames.txt()),
               (ctx.isAuth && ctx.kid.no && ctx.isnt(u)).option(
                 a(
-                  cls      := "text",
-                  href     := s"${routes.Report.form}?username=${u.username}",
+                  cls := "text",
+                  href := s"${routes.Report.form}?username=${u.username}",
                   dataIcon := Icon.CautionTriangle
                 )(trans.site.reportXToModerators.txt(u.username))
               ),
@@ -177,8 +177,8 @@ object header:
       standardFlash,
       angle match
         case UserInfo.Angle.Games(Some(searchForm)) => views.gameSearch.user(u, searchForm)
-        case _                                      =>
-          val profile   = u.profileOrDefault
+        case _ =>
+          val profile = u.profileOrDefault
           val hideTroll = u.marks.troll && ctx.isnt(u)
           div(id := "us_profile")(
             if info.ratingChart.isDefined && (!u.lame || ctx.is(u) || isGranted(_.UserModView)) then
@@ -275,24 +275,24 @@ object header:
       div(cls := "angles number-menu number-menu--tabs menu-box-pop")(
         a(
           dataTab := "activity",
-          cls     := List(
+          cls := List(
             "nm-item to-activity" -> true,
-            "active"              -> (angle == UserInfo.Angle.Activity)
+            "active" -> (angle == UserInfo.Angle.Activity)
           ),
           href := routes.User.show(u.username)
         )(trans.activity.activity()),
         a(
           dataTab := "games",
-          cls     := List(
+          cls := List(
             "nm-item to-games" -> true,
-            "active"           -> (angle.key == "games")
+            "active" -> (angle.key == "games")
           ),
           href := routes.User.gamesAll(u.username)
         )(
           trans.site.nbGames.plural(info.user.count.game, info.user.count.game.localize),
           (info.nbs.playing > 0).option(
             span(
-              cls   := "unread",
+              cls := "unread",
               title := trans.site.nbPlaying.pluralTxt(info.nbs.playing, info.nbs.playing.localize)
             )(info.nbs.playing)
           )

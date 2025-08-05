@@ -36,8 +36,8 @@ object TournamentCondition:
     ): Fu[WithVerdicts] =
       listWithBots
         .parallel:
-          case c: MaxRating  => c(perfType).map(c.withVerdict)
-          case c: FlatCond   => fuccess(c.withVerdict(c(perfType)))
+          case c: MaxRating => c(perfType).map(c.withVerdict)
+          case c: FlatCond => fuccess(c.withVerdict(c(perfType)))
           case c: TeamMember => c.apply.map { c.withVerdict(_) }
           case c: AccountAge => c.apply.map { c.withVerdict(_) }
         .dmap(WithVerdicts.apply)
@@ -50,7 +50,7 @@ object TournamentCondition:
       listWithBots
         .parallel:
           case c: TeamMember => c.apply.map { c.withVerdict(_) }
-          case c             => fuccess(WithVerdict(c, Accepted))
+          case c => fuccess(WithVerdict(c, Accepted))
         .dmap(WithVerdicts.apply)
 
     def similar(other: All) = sameRatings(other) && titled == other.titled && teamMember == other.teamMember
@@ -67,7 +67,7 @@ object TournamentCondition:
     def allowsBots = bots.exists(_.allowed)
 
   object All:
-    val empty             = All(none, none, none, none, none, none, none, none)
+    val empty = All(none, none, none, none, none, none, none, none)
     given zero: Zero[All] = Zero(empty)
 
   object form:
@@ -76,20 +76,20 @@ object TournamentCondition:
     def all(leaderTeams: List[LightTeam]) =
       mapping(
         "nbRatedGame" -> nbRatedGame,
-        "maxRating"   -> maxRating,
-        "minRating"   -> minRating,
-        "titled"      -> titled,
-        "teamMember"  -> teamMember(leaderTeams),
-        "accountAge"  -> accountAge,
-        "allowList"   -> allowList,
-        "bots"        -> bots
+        "maxRating" -> maxRating,
+        "minRating" -> minRating,
+        "titled" -> titled,
+        "teamMember" -> teamMember(leaderTeams),
+        "accountAge" -> accountAge,
+        "allowList" -> allowList,
+        "bots" -> bots
       )(All.apply)(unapply).verifying("Invalid ratings", _.validRatings)
 
   final class Verify(historyApi: HistoryApi, userApi: UserApi)(using Executor):
 
     def apply(all: All, perfType: PerfType)(using me: Me)(using GetMyTeamIds, Perf): Fu[WithVerdicts] =
       given GetMaxRating = historyApi.lastWeekTopRating(me.userId, _)
-      given GetAge       = me => userApi.accountAge(me.userId)
+      given GetAge = me => userApi.accountAge(me.userId)
       all.withVerdicts(perfType)
 
     def rejoin(all: All)(using Me)(using GetMyTeamIds): Fu[WithVerdicts] =

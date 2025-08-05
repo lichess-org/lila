@@ -9,11 +9,11 @@ object RoundGame:
   extension (g: Game)
 
     def playableBy(p: Player): Boolean = g.playable && p == g.player
-    def playableBy(c: Color): Boolean  = g.playable && g.turnOf(c)
-    def playableByAi: Boolean          = g.playable && g.player.isAi
+    def playableBy(c: Color): Boolean = g.playable && g.turnOf(c)
+    def playableByAi: Boolean = g.playable && g.player.isAi
 
     def mobilePushable: Boolean = g.isCorrespondence && g.playable && g.nonAi
-    def alarmable: Boolean      = g.hasCorrespondenceClock && g.playable && g.nonAi
+    def alarmable: Boolean = g.hasCorrespondenceClock && g.playable && g.nonAi
 
     def hasChat = !g.isTournament && !g.isSimul && !g.isSwiss && g.nonAi
 
@@ -36,17 +36,17 @@ object RoundGame:
           if g.isTournament then
             g.speed match
               case UltraBullet => 11
-              case Bullet      => 16
-              case Blitz       => 21
-              case Rapid       => 25
-              case _           => 30
+              case Bullet => 16
+              case Blitz => 21
+              case Rapid => 25
+              case _ => 30
           else
             g.speed match
               case UltraBullet => 15
-              case Bullet      => 20
-              case Blitz       => 25
-              case Rapid       => 30
-              case _           => 35
+              case Bullet => 20
+              case Blitz => 25
+              case Rapid => 30
+              case _ => 35
         if g.variant.chess960 then base * 5 / 4
         else base
 

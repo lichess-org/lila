@@ -12,29 +12,29 @@ import lila.tournament.{ MyInfo, Tournament as Tour, TournamentForm }
 
 final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) extends LilaController(env):
 
-  private def repo                   = env.tournament.tournamentRepo
-  private def api                    = env.tournament.api
-  private def jsonView               = env.tournament.jsonView
-  private def forms                  = env.tournament.forms
+  private def repo = env.tournament.tournamentRepo
+  private def api = env.tournament.api
+  private def jsonView = env.tournament.jsonView
+  private def forms = env.tournament.forms
   private def cachedTour(id: TourId) = env.tournament.cached.tourCache.byId(id)
   import env.user.flairApi.given
   private given lila.core.team.LightTeam.Api = env.team.lightTeamApi
 
   private def tournamentNotFound(using Context) = NotFound.page(views.tournament.ui.notFound)
 
-  def home     = Open(serveHome)
+  def home = Open(serveHome)
   def homeLang = LangPage(routes.Tournament.home)(serveHome)
 
   private def serveHome(using ctx: Context) = NoBot:
     for
-      teamIds              <- ctx.userId.so(env.team.cached.teamIdsList)
+      teamIds <- ctx.userId.so(env.team.cached.teamIdsList)
       (scheduled, visible) <- env.tournament.featuring.tourIndex.get(teamIds)
-      scheduleJson         <- env.tournament.apiJsonView(visible)
-      response             <- negotiate(
+      scheduleJson <- env.tournament.apiJsonView(visible)
+      response <- negotiate(
         html = for
           finished <- api.notableFinished
-          winners  <- env.tournament.winners.all
-          page     <- renderPage(views.tournament.list.home(scheduled, finished, winners, scheduleJson))
+          winners <- env.tournament.winners.all
+          page <- renderPage(views.tournament.list.home(scheduled, finished, winners, scheduleJson))
         yield Ok(page).noCache,
         json = Ok(scheduleJson)
       )
@@ -46,8 +46,8 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
   def leaderboard = Open:
     for
       winners <- env.tournament.winners.all
-      _       <- env.user.lightUserApi.preloadMany(winners.userIds)
-      page    <- renderPage(views.tournament.list.leaderboard(winners))
+      _ <- env.user.lightUserApi.preloadMany(winners.userIds)
+      page <- renderPage(views.tournament.list.leaderboard(winners))
     yield Ok(page)
 
   private[controllers] def canHaveChat(tour: Tour, json: Option[JsObject])(using ctx: Context): Boolean =
@@ -72,10 +72,10 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
         html = tourOption
           .fold(tournamentNotFound): tour =>
             for
-              myInfo   <- ctx.me.so { jsonView.fetchMyInfo(tour, _) }
+              myInfo <- ctx.me.so { jsonView.fetchMyInfo(tour, _) }
               verdicts <- api.getVerdicts(tour, myInfo.isDefined)
-              version  <- env.tournament.version(tour.id)
-              json     <- jsonView(
+              version <- env.tournament.version(tour.id)
+              json <- jsonView(
                 tour = tour,
                 page = page,
                 playerInfoExt = none,
@@ -88,9 +88,9 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
                 addReloadEndpoint = env.tournament.lilaHttp.handles.some
               )
               chat <- loadChat(tour, json)
-              _    <- tour.teamBattle.so: b =>
+              _ <- tour.teamBattle.so: b =>
                 env.team.cached.preloadSet(b.teams)
-              streamers   <- streamerCache.get(tour.id)
+              streamers <- streamerCache.get(tour.id)
               shieldOwner <- env.tournament.shieldApi.currentOwner(tour)
               page <- renderPage(views.tournament.show(tour, verdicts, json, chat, streamers, shieldOwner))
             yield
@@ -115,17 +115,18 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
                 addReloadEndpoint = env.tournament.lilaHttp.handles.some
               )
               chatOpt <- partial.not.so(loadChat(tour, json))
-              jsChat  <- chatOpt.soFu: c =>
+              jsChat <- chatOpt.soFu: c =>
                 lila.chat.JsonView.mobile(c.chat)
             yield Ok(json.add("chat" -> jsChat)).noCache
           .monSuccess(_.tournament.apiShowPartial(getBool("partial"), HTTPRequest.clientName(ctx.req)))
       )
 
-  def apiShow(id: TourId) = AnonOrScoped(): _ ?=>
+  def apiShow(id: TourId) = AnonOrScoped(): ctx ?=>
     env.tournament.tournamentRepo
       .byId(id)
       .flatMapz: tour =>
-        val page           = (getInt("page") | 1).atLeast(1).atMost(200)
+        val maxPage = if ctx.isMobileOauth then 5_000 else 200
+        val page = (getInt("page") | 1).atLeast(1).atMost(maxPage)
         given GetMyTeamIds = me => env.team.cached.teamIdsList(me.userId)
         for
           data <- env.tournament.jsonView(
@@ -138,8 +139,8 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
             withDescription = true,
             withAllowList = true
           )
-          chatOpt       <- getBool("chat").so(loadChat(tour, data))
-          jsChat        <- chatOpt.soFu(c => lila.chat.JsonView.mobile(c.chat))
+          chatOpt <- getBool("chat").so(loadChat(tour, data))
+          jsChat <- chatOpt.soFu(c => lila.chat.JsonView.mobile(c.chat))
           socketVersion <- getBool("socketVersion").soFu(env.tournament.version(tour.id))
         yield data
           .add("chat", jsChat)
@@ -185,7 +186,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
           doJoin(id, data)
             .dmap(_.error)
             .map:
-              case None        => jsonOkResult
+              case None => jsonOkResult
               case Some(error) => BadRequest(Json.obj("joined" -> false, "error" -> error))
   }
 
@@ -385,18 +386,15 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
   def featured = Open:
     negotiateJson:
       WithMyPerfs:
-        for
-          teamIds <- ctx.userId.so(env.team.cached.teamIdsList)
-          tours   <- env.tournament.featuring.homepage.get(teamIds)
-          spotlight = lila.tournament.Spotlight.select(tours, 4)
-          json <- env.tournament.apiJsonView.featured(spotlight)
-        yield Ok(json)
+        JsonOk:
+          env.api.mobile.featuredTournaments.map: tours =>
+            Json.obj("featured" -> tours)
 
   def shields = Open:
     for
       history <- env.tournament.shieldApi.history(5.some)
-      _       <- env.user.lightUserApi.preloadMany(history.userIds)
-      page    <- renderPage(views.tournament.list.shields(history))
+      _ <- env.user.lightUserApi.preloadMany(history.userIds)
+      page <- renderPage(views.tournament.list.shields(history))
     yield Ok(page)
 
   def categShields(k: String) = Open:

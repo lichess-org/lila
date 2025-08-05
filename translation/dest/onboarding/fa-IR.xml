@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="logInAsUsername">ورود از طرف %s</string>
   <string name="welcome">خوش آمدید!</string>
   <string name="welcomeToLichess">به lichess.org خوش آمدید!</string>
   <string name="thisIsYourProfilePage">این صفحه رُخ‌نمای‌تان است.</string>
@@ -9,7 +10,7 @@
   <string name="improveWithChessTacticsPuzzles">با معماهای تاکتیکی شطرنج، بازیتان را بهتر کنید.</string>
   <string name="playTheArtificialIntelligence">با هوش مصنوعی بازی کنید.</string>
   <string name="playOpponentsFromAroundTheWorld">با حریف‌هایی از سراسر دنیا بازی کنید.</string>
-  <string name="followYourFriendsOnLichess">دوستان‌تان را در لیچس بدنبالید.</string>
+  <string name="followYourFriendsOnLichess">دوستانتان را در لیچس دنبال کنید.</string>
   <string name="playInTournaments">در مسابقات شرکت کنید.</string>
   <string name="learnFromXAndY">از %1$s و %2$s یادبگیرید.</string>
   <string name="configureLichess">وبگاه Lichess را به میل‌تان همپیکرید.</string>

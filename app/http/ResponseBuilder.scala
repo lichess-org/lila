@@ -48,7 +48,7 @@ trait ResponseBuilder(using Executor)
     def elseNotFound(f: => Fu[Result])(using Context): Fu[Result] =
       fua.flatMap { if _ then f else notFound }
 
-  def rateLimited(using Context): Fu[Result]                                    = rateLimited(rateLimitedMsg)
+  def rateLimited(using Context): Fu[Result] = rateLimited(rateLimitedMsg)
   def rateLimited(msg: String = rateLimitedMsg)(using ctx: Context): Fu[Result] = negotiate(
     html =
       if HTTPRequest.isSynchronousHttp(ctx.req)
@@ -62,7 +62,7 @@ trait ResponseBuilder(using Executor)
       .requestVersion(ctx.req)
       .match
         case Some(v) => api(v).dmap(_.withHeaders(VARY -> "Accept").as(JSON))
-        case None    => negotiate(html, api(ApiVersion.mobile))
+        case None => negotiate(html, api(ApiVersion.mobile))
 
   def negotiate(html: => Fu[Result], json: => Fu[Result])(using ctx: Context): Fu[Result] =
     if HTTPRequest.acceptsJson(ctx.req) || ctx.isOAuth
@@ -75,17 +75,15 @@ trait ResponseBuilder(using Executor)
       result
     )
 
-  def notFound(using ctx: Context): Fu[Result]                      = notFound(none)
+  def notFound(using ctx: Context): Fu[Result] = notFound(none)
   def notFound(msg: Option[String])(using ctx: Context): Fu[Result] =
-    negotiate(
-      html =
-        if HTTPRequest.isSynchronousHttp(ctx.req)
-        then keyPages.notFound(msg)
-        else msg.fold(notFoundText())(notFoundText),
-      json = msg.fold(notFoundJson())(notFoundJson)
-    )
+    if ctx.isOAuth || HTTPRequest.acceptsJson(ctx.req) || HTTPRequest.acceptsNdJson(ctx.req)
+    then msg.fold(notFoundJson())(notFoundJson)
+    else if HTTPRequest.isSynchronousHttp(ctx.req)
+    then keyPages.notFound(msg)
+    else msg.fold(notFoundText())(notFoundText)
 
-  def notFoundEmbed(using EmbedContext): Fu[Result]                      = notFoundEmbed(none)
+  def notFoundEmbed(using EmbedContext): Fu[Result] = notFoundEmbed(none)
   def notFoundEmbed(msg: Option[String])(using EmbedContext): Fu[Result] = keyPages.notFoundEmbed(msg)
 
   def authenticationFailed(using ctx: Context): Fu[Result] =
@@ -96,7 +94,7 @@ trait ResponseBuilder(using Executor)
         else
           HTTPRequest.queryStringGet(ctx.req, "login") match
             case Some(login) => s"${routes.Auth.login.url}?as=$login"
-            case _           => routes.Auth.signup.url
+            case _ => routes.Auth.signup.url
       ).withCookies(env.security.lilaCookie.session(env.security.api.AccessUri, ctx.req.uri)),
       json = env.security.lilaCookie.ensure(ctx.req):
         Unauthorized(jsonError("Login required"))
@@ -109,7 +107,7 @@ trait ResponseBuilder(using Executor)
       fuccess:
         render:
           case Accepts.Json() => forbiddenJson()
-          case _              => forbiddenText()
+          case _ => forbiddenText()
 
   def serverError(msg: String)(using ctx: Context): Fu[Result] =
     negotiate(

@@ -9,8 +9,8 @@ import lila.core.pool.PoolMember
 object MatchMaking:
 
   case class Couple(p1: PoolMember, p2: PoolMember):
-    def members    = Vector(p1, p2)
-    def userIds    = members.map(_.userId)
+    def members = Vector(p1, p2)
+    def userIds = members.map(_.userId)
     def ratingDiff = p1.ratingDiff(p2)
 
   def apply(members: Vector[PoolMember]): Vector[Couple] =
@@ -83,10 +83,10 @@ object MatchMaking:
     // bonus if the two players both have a bad sit counter
     // malus (so negative number as bonus) if neither of those are true, meaning that their sit counters are far away (e.g. 0 and -5)
     private def ragesitBonus(a: PoolMember, b: PoolMember) =
-      if a.rageSitCounter >= -2 && b.rageSitCounter >= -2 then 30        // good players
+      if a.rageSitCounter >= -2 && b.rageSitCounter >= -2 then 30 // good players
       else if a.rageSitCounter <= -12 && b.rageSitCounter <= -12 then 60 // very bad players
-      else if a.rageSitCounter <= -5 && b.rageSitCounter <= -5 then 30   // bad players
-      else (abs(a.rageSitCounter - b.rageSitCounter).atMost(10)) * -20   // match of good and bad player
+      else if a.rageSitCounter <= -5 && b.rageSitCounter <= -5 then 30 // bad players
+      else (abs(a.rageSitCounter - b.rageSitCounter).atMost(10)) * -20 // match of good and bad player
 
     private def provisionalBonus(a: PoolMember, b: PoolMember) =
       if a.provisional && b.provisional then 30 else 0

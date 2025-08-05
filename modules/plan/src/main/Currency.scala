@@ -47,7 +47,7 @@ final class CurrencyApi(
     ratesCache.get {}.map { rates =>
       for
         fromRate <- rates.get(money.currencyCode)
-        toRate   <- rates.get(currency.getCurrencyCode)
+        toRate <- rates.get(currency.getCurrencyCode)
       yield Money(money.amount / fromRate * toRate, currency)
     }
 
@@ -82,7 +82,7 @@ object CurrencyApi:
 
   lazy val stripeCurrencyList: List[Currency] = stripeCurrencies.toList.sortBy(_.getCurrencyCode)
 
-  def currencyOption(code: String)   = anyCurrencyOption(code).filter(acceptableCurrencies.contains)
+  def currencyOption(code: String) = anyCurrencyOption(code).filter(acceptableCurrencies.contains)
   def currencyOption(locale: Locale) =
     Try(Currency.getInstance(locale)).toOption.filter(acceptableCurrencies.contains)
 

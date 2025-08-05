@@ -9,6 +9,7 @@ import lila.core.forum.BusForum.CreatePost
 import lila.core.perm.Granter as MasterGranter
 import lila.core.shutup.{ PublicSource, ShutupApi }
 import lila.core.timeline.{ ForumPost as TimelinePost, Propagate }
+import lila.core.id.ForumTopicSlug
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 
@@ -33,13 +34,13 @@ final private class ForumTopicApi(
   def lastPage(topic: ForumTopic): Int =
     topic.nbPosts / config.postMaxPerPage.value + 1
 
-  def showLastPage(categId: ForumCategId, slug: String)(using NetDomain)(using me: Option[Me]) =
+  def showLastPage(categId: ForumCategId, slug: ForumTopicSlug)(using NetDomain)(using me: Option[Me]) =
     topicRepo
       .byTree(categId, slug)
       .flatMapz: topic =>
         show(categId, slug, topic.lastPage(config.postMaxPerPage))
 
-  def show(categId: ForumCategId, slug: String, page: Int)(using
+  def show(categId: ForumCategId, slug: ForumTopicSlug, page: Int)(using
       NetDomain
   )(using me: Option[Me]): Fu[Option[(ForumCateg, ForumTopic, Paginator[ForumPost.WithFrag])]] =
     for
@@ -103,7 +104,7 @@ final private class ForumTopicApi(
       )
       findDuplicate(topic).flatMap:
         case Some(dup) => fuccess(dup)
-        case None      =>
+        case None =>
           for
             _ <- topicRepo.coll.insert.one(topic.withPost(post))
             _ <- categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post))
@@ -125,7 +126,7 @@ final private class ForumTopicApi(
     }
 
   def makeUblogDiscuss(
-      slug: String,
+      slug: ForumTopicSlug,
       name: String,
       url: String,
       ublogId: UblogPostId,
@@ -159,59 +160,66 @@ final private class ForumTopicApi(
 
   def getSticky(categ: ForumCateg, forUser: Option[User]): Fu[List[TopicView]] = for
     topics <- topicRepo.stickyByCateg(categ.id)
-    views  <- topics.sequentially: topic =>
+    views <- topics.sequentially: topic =>
       postRepo.coll
         .byId[ForumPost](topic.lastPostId(forUser))
         .map: post =>
           TopicView(categ, topic, post, topic.lastPage(config.postMaxPerPage), forUser)
   yield views
 
-  def toggleClose(categ: ForumCateg, topic: ForumTopic)(using me: Me): Funit =
-    topicRepo.close(topic.id, topic.open) >> {
-      (MasterGranter(_.ModerateForum) || topic.isAuthor(me.value)).so:
-        modLog.toggleCloseTopic(categ.id, topic.slug, topic.open)
-    }
+  def toggleClose(categ: ForumCateg, topic: ForumTopic)(using me: Me): Funit = for
+    closedByMod <- closedByMod(topic)
+    isMod = MasterGranter(_.ModerateForum)
+    canToggle = isMod || !closedByMod
+    _ <- canToggle.so(topicRepo.close(topic.id, topic.open, byMod = isMod))
+    _ <- canToggle.so(modLog.toggleCloseTopic(categ.id, topic.slug, topic.open))
+  yield ()
+
+  def closedByMod(topic: ForumTopic)(using Me): Fu[Boolean] =
+    topic.closed.so(topicRepo.closedByMod(topic.id))
 
   def toggleSticky(categ: ForumCateg, topic: ForumTopic)(using Me): Funit =
-    topicRepo.sticky(topic.id, !topic.isSticky) >> {
-      MasterGranter(_.ModerateForum).so(modLog.toggleStickyTopic(categ.id, topic.slug, !topic.isSticky))
-    }
+    topicRepo.sticky(topic.id, !topic.isSticky) >>
+      MasterGranter(_.ModerateForum).so:
+        modLog.toggleStickyTopic(categ.id, topic.slug, !topic.isSticky)
 
-  def denormalize(topic: ForumTopic): Funit = for
-    nbPosts       <- postRepo.countByTopic(topic)
-    lastPost      <- postRepo.lastByTopic(topic)
-    nbPostsTroll  <- postRepo.unsafe.countByTopic(topic)
+  private[forum] def denormalize(topic: ForumTopic): Funit = for
+    nbPosts <- postRepo.countByTopic(topic)
+    lastPost <- postRepo.lastByTopic(topic)
+    nbPostsTroll <- postRepo.unsafe.countByTopic(topic)
     lastPostTroll <- postRepo.unsafe.lastByTopic(topic)
-    _             <-
+    _ <-
       topicRepo.coll.update
         .one(
           $id(topic.id),
-          topic.copy(
-            nbPosts = nbPosts,
-            lastPostId = lastPost.fold(topic.lastPostId)(_.id),
-            updatedAt = lastPost.fold(topic.updatedAt)(_.createdAt),
-            nbPostsTroll = nbPostsTroll,
-            lastPostIdTroll = lastPostTroll.fold(topic.lastPostIdTroll)(_.id),
-            updatedAtTroll = lastPostTroll.fold(topic.updatedAtTroll)(_.createdAt)
-          )
+          $set:
+            ~lila.db.BSON.toBdoc:
+              topic.copy(
+                nbPosts = nbPosts,
+                lastPostId = lastPost.fold(topic.lastPostId)(_.id),
+                updatedAt = lastPost.fold(topic.updatedAt)(_.createdAt),
+                nbPostsTroll = nbPostsTroll,
+                lastPostIdTroll = lastPostTroll.fold(topic.lastPostIdTroll)(_.id),
+                updatedAtTroll = lastPostTroll.fold(topic.updatedAtTroll)(_.createdAt)
+              )
         )
         .void
   yield ()
 
-  def removeTopic(categId: ForumCategId, slug: String): Funit =
+  def removeTopic(categId: ForumCategId, slug: ForumTopicSlug): Funit =
     topicRepo
       .byTree(categId, slug)
       .flatMap:
-        case None        => funit
+        case None => funit
         case Some(topic) =>
           for
-            _        <- postRepo.removeByTopic(topic.id)
-            _        <- topicRepo.remove(topic)
+            _ <- postRepo.removeByTopic(topic.id)
+            _ <- topicRepo.remove(topic)
             categOpt <- categRepo.byId(categId)
           yield categOpt.foreach: cat =>
             for
               topics <- topicRepo.byCateg(cat.id)
-              lastPostId      = topics.maxBy(_.updatedAt).lastPostId
+              lastPostId = topics.maxBy(_.updatedAt).lastPostId
               lastPostIdTroll = topics.maxBy(_.updatedAtTroll).lastPostIdTroll
               _ <- categRepo.coll.update
                 .one($id(cat.id), cat.withoutTopic(topic, lastPostId, lastPostIdTroll))
@@ -219,7 +227,7 @@ final private class ForumTopicApi(
 
   def relocate(fromTopic: ForumTopic, to: ForumCategId): Fu[ForumTopic] =
     val topic = fromTopic.copy(
-      slug = s"${fromTopic.slug}-${scalalib.ThreadLocalRandom.nextString(4)}"
+      slug = fromTopic.slug.map(_ + "-" + scalalib.ThreadLocalRandom.nextString(4))
     )
     for
       _ <- topicRepo.coll.update.one($id(topic.id), $set("categId" -> to, "slug" -> topic.slug))

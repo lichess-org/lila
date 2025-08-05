@@ -13,7 +13,7 @@ import lila.game.Game.BSONFields.*
 
 object GameDiff:
 
-  private type Set   = (String, BSONValue)
+  private type Set = (String, BSONValue)
   private type Unset = (String, BSONValue)
 
   private type ClockHistorySide = (Centis, Vector[Centis], Boolean)
@@ -24,7 +24,7 @@ object GameDiff:
 
   def apply(a: Game, b: Game): Diff =
 
-    val setBuilder   = scala.collection.mutable.ListBuffer[Set]()
+    val setBuilder = scala.collection.mutable.ListBuffer[Set]()
     val unsetBuilder = scala.collection.mutable.ListBuffer[Unset]()
 
     def d[A](name: String, getter: Game => A, toBson: A => BSONValue): Unit =
@@ -39,7 +39,7 @@ object GameDiff:
         if vb == None || vb == null || vb == "" then unsetBuilder += (name -> bTrue)
         else
           toBson(vb) match
-            case None    => unsetBuilder += (name -> bTrue)
+            case None => unsetBuilder += (name -> bTrue)
             case Some(x) => setBuilder += name -> x
 
     def dTry[A](name: String, getter: Game => A, toBson: A => Try[BSONValue]): Unit =
@@ -47,7 +47,7 @@ object GameDiff:
 
     def getClockHistory(color: Color)(g: Game): Option[ClockHistorySide] =
       for
-        clk     <- g.clock
+        clk <- g.clock
         history <- g.clockHistory
         times = history(color)
       yield (clk.limit, times, g.flagged.has(color))
@@ -93,7 +93,7 @@ object GameDiff:
     dTry(drawOffers, _.drawOffers, BSONHandlers.gameDrawOffersHandler.writeTry)
     for i <- 0 to 1 do
       import lila.game.Player.BSONFields.*
-      val name                   = s"p$i."
+      val name = s"p$i."
       val player: Game => Player = if i == 0 then (_.whitePlayer) else (_.blackPlayer)
       dOpt(s"$name$isOfferingDraw", player(_).isOfferingDraw, w.boolO)
       dOpt(s"$name$proposeTakebackAt", player(_).proposeTakebackAt, ply => w.intO(ply.value))
