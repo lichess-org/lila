@@ -267,7 +267,7 @@ trait UserHelper:
     "years3" -> "3 years",
     "years4" -> "4 years",
     "years5" -> "5 years"
-    )
+  )
 
   def patronIcon(tierClass: Option[String] = None)(using Translate): Frag =
     val defaultTitle = trans.patron.lichessPatron.txt()
