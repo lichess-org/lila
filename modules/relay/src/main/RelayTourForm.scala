@@ -76,6 +76,10 @@ final class RelayTourForm(langList: lila.core.i18n.LangList, groupForm: RelayGro
       "pinnedStream" -> optional(pinnedStreamMapping),
       "note" -> optional(nonEmptyText(maxLength = 20_000))
     )(Data.apply)(unapply)
+      .verifying(
+        "Tiebreaks submitted without automatic scoring enabled",
+        tour => tour.tiebreaks.forall(_ => tour.showScores)
+      )
   ).fill(Data.empty)
 
   def create = form
