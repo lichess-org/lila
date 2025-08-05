@@ -1,5 +1,6 @@
 package lila.ui
 
+import scala.annotation.targetName
 import chess.{ PlayerTitle, IntRating }
 import chess.rating.{ IntRatingDiff, RatingProvisional }
 
@@ -7,6 +8,7 @@ import lila.core.LightUser
 import lila.core.perf.{ KeyedPerf, UserPerfs, UserWithPerfs }
 import lila.core.socket.IsOnline
 import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.core.plan.PatronTier
 
 trait UserHelper:
   self: I18nHelper & NumberHelper & AssetHelper =>
@@ -61,7 +63,7 @@ trait UserHelper:
         userIdNameLink(
           userId = user.id,
           username = user.name,
-          isPatron = user.isPatron,
+          patronTier = user.patronTier,
           title = user.title.ifTrue(withTitle),
           flair = if withFlair then user.flair else none,
           cssClass = cssClass,
@@ -83,7 +85,7 @@ trait UserHelper:
     userIdNameLink(
       userId = user.id,
       username = user.name,
-      isPatron = user.isPatron,
+      patronTier = user.patronTier,
       title = user.title.ifTrue(withTitle),
       flair = user.flair,
       cssClass = cssClass,
@@ -102,7 +104,7 @@ trait UserHelper:
       cls := userClass(user.id, cssClass, withOnline),
       dataHref := userUrl(user.name)
     )(
-      withOnline.so(lineIcon(user.isPatron, user.patronTier)),
+      withOnline.so(lineIcon(user.patronTier)),
       titleTag(user.title),
       user.name,
       user.flair.map(userFlair)
@@ -155,7 +157,7 @@ trait UserHelper:
   def userIdNameLink(
       userId: UserId,
       username: UserName,
-      isPatron: Boolean,
+      patronTier: Option[PatronTier],
       cssClass: Option[String],
       withOnline: Boolean,
       truncate: Option[Int],
@@ -170,7 +172,7 @@ trait UserHelper:
       href := userUrl(username, params = params)
     )(
       withOnline.so(
-        if modIcon then moderatorIcon else lineIcon(isPatron, None)
+        if modIcon then moderatorIcon else lineIcon(patronTier)
       ), // replace with actual patronTier
       titleTag(title),
       truncate.fold(username.value)(username.value.take),
@@ -256,31 +258,16 @@ trait UserHelper:
 
   val lineIcon: Frag = i(cls := "line")
 
-  val tierDescriptions: Map[String, String] = Map(
-    "months1" -> "1 month",
-    "months2" -> "2 months",
-    "months3" -> "3 months",
-    "months6" -> "6 months",
-    "months9" -> "9 months",
-    "years1" -> "1 year",
-    "years2" -> "2 years",
-    "years3" -> "3 years",
-    "years4" -> "4 years",
-    "years5" -> "5 years"
-  )
-
-  def patronIcon(tierClass: Option[String] = None)(using Translate): Frag =
-    val defaultTitle = trans.patron.lichessPatron.txt()
-    val readableTier = tierClass.flatMap(tierDescriptions.get)
-    val fullTitle = readableTier.map(t => s"$defaultTitle ($t)").getOrElse(defaultTitle)
-    val classSuffix = tierClass.filter(_.nonEmpty).map(" " + _).getOrElse("")
-    i(cls := s"line patron$classSuffix", title := fullTitle)
+  def patronIcon(tier: PatronTier)(using Translate): Frag =
+    i(cls := s"line patron ${tier.key}", title := s"${trans.patron.lichessPatron.txt()} (${tier.name})")
 
   val moderatorIcon: Frag = i(cls := "line moderator", title := "Lichess Mod")
-  private def lineIcon(patron: Boolean, patronTier: Option[String])(using Translate): Frag =
-    if patron then patronIcon(patronTier) else lineIcon
+  @targetName("lineIconPatron")
+  private def lineIcon(patronTier: Option[PatronTier])(using Translate): Frag =
+    patronTier.fold(lineIcon)(patronIcon)
+  @targetName("lineIconUser")
   private def lineIcon(user: Option[LightUser])(using Translate): Frag =
-    lineIcon(user.exists(_.isPatron), user.flatMap(_.patronTier))
-  def lineIcon(user: LightUser)(using Translate): Frag = lineIcon(user.isPatron, user.patronTier)
-  def lineIcon(user: User)(using Translate): Frag = lineIcon(user.isPatron, user.light.patronTier)
+    lineIcon(user.flatMap(_.patronTier))
+  def lineIcon(user: LightUser)(using Translate): Frag = lineIcon(user.patronTier)
+  def lineIcon(user: User)(using Translate): Frag = lineIcon(user.patronTier)
   def lineIconChar(user: User): Icon = if user.isPatron then patronIconChar else lineIconChar

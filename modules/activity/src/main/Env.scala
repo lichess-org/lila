@@ -57,8 +57,8 @@ final class Env(
     write.simul(start.simul)
   Bus.sub[CorresMoveEvent]:
     case CorresMoveEvent(move, Some(userId), _, _, _) => write.corresMove(move.gameId, userId)
-  Bus.sub[lila.core.misc.plan.MonthInc]:
-    case lila.core.misc.plan.MonthInc(userId, months) => write.plan(userId, months)
+  Bus.sub[lila.core.plan.MonthInc]:
+    case lila.core.plan.MonthInc(userId, months) => write.plan(userId, months)
   Bus.sub[lila.core.relation.Follow]:
     case lila.core.relation.Follow(from, to) => write.follow(from, to)
   Bus.sub[lila.core.study.StartStudy]: start =>
