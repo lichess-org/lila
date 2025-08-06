@@ -39,7 +39,7 @@
   <string name="reportMobileIssue">وەک کێشەیەکی بەرنامەی مۆبایلی لیچێس لە گیتھەب</string>
   <string name="reportBugInDiscord">لە سێرڤەری لیچێس لە دیسکۆرد</string>
   <string name="howToReportBug">تکایە ڕوونی بکەرەوە کە ھەڵەکە چۆنە، دەتەوێت چی ڕووبدا لەجیاتی، و ھەنگاوەکانی دروستبوونی ھەڵەکە.</string>
-  <string name="illegalPawnCapture">بە شێوەیەکی نایاسایی سەربازەکەم خوراوە</string>
+  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">بە شێوەیەکی نایاسایی سەربازەکەم خوراوە</string>
   <string name="calledEnPassant">ئەوە پێی دەڵێن تێپەڕاندن و یەکێکە لە یاساکانی شەتڕەنج.</string>
   <string name="tryEnPassant">ئەم یارییە بچووکە تاقی بکەرەوە بۆ زانینی زیاتر لەسەر تێپەڕاندن.</string>
   <string name="illegalCastling">ماڵکردنی نایاسایی یان مەحاڵ</string>

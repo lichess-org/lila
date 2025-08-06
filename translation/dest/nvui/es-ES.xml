@@ -57,8 +57,8 @@
   <string name="invalidMove">Movimiento no válido</string>
   <string name="premoveCancelled">Movimiento anticipado cancelado</string>
   <string name="premoveRecorded">Movimiento anticipado grabado: %s. Presiona enter para cancelar</string>
-  <string name="pockets" comment="Crazyhouse pockets">Bolsillos</string>
-  <string name="copyToClipboard">Copiar %s al portapapeles</string>
-  <string name="copiedToClipboard">%s copiado al portapapeles</string>
-  <string name="pgnAndFen">PGN y FEN</string>
+  <string name="pockets" comment="Pockets in Crazyhouse, which hold captured pieces and let players place them again">Bolsillos</string>
+  <string name="copyToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">Copiar %s al portapapeles</string>
+  <string name="copiedToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">%s copiado al portapapeles</string>
+  <string name="pgnAndFen" comment="Will be a heading read out over text-to-speech for blind users looking to share a PGN or FEN of a game.">PGN y FEN</string>
 </resources>

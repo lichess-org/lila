@@ -77,6 +77,7 @@
   <string name="expandVariations">Розгорнути варіанти</string>
   <string name="forceVariation">Зробити варіантом</string>
   <string name="copyVariationPgn">Скопіювати PGN варіанту</string>
+  <string name="copyMainLinePgn">Копіювати pgn головної лінії</string>
   <string name="move">Хід</string>
   <string name="variantLoss">Шанс програшу</string>
   <string name="variantWin">Хід, що виграє</string>
@@ -398,7 +399,15 @@
   <string name="openingExplorerAndTablebase">Дослідження дебютів та ендшпілів</string>
   <string name="takeback">Повернення ходу</string>
   <string name="proposeATakeback">Запропонувати повернути хід</string>
+  <string name="whiteProposesTakeback">Білі пропонують повернення ходу</string>
+  <string name="blackProposesTakeback">Чорні пропонують повернення ходу</string>
   <string name="takebackPropositionSent">Пропозицію повернути хід відправлено</string>
+  <string name="whiteDeclinesTakeback">Білі відхилили поверненням ходу</string>
+  <string name="blackDeclinesTakeback">Чорні відхилили повернення ходу</string>
+  <string name="whiteAcceptsTakeback">Білі прийняли повернення ходу</string>
+  <string name="blackAcceptsTakeback">Чорні прийняли повернення ходу</string>
+  <string name="whiteCancelsTakeback">Білі скасовують повернення ходу</string>
+  <string name="blackCancelsTakeback">Чорні скасовують повернення ходу</string>
   <string name="yourOpponentProposesATakeback">Ваш суперник пропонує повернути хід</string>
   <string name="bookmarkThisGame">Додати гру в закладки</string>
   <string name="tournament">Турнір</string>
@@ -542,7 +551,7 @@
   <string name="openTournaments">Відкриті турніри</string>
   <string name="duration">Тривалість</string>
   <string name="winner">Переможець</string>
-  <string name="standing">Турнірна таблиця</string>
+  <string name="standings">Турнірна Таблиця</string>
   <string name="createANewTournament">Створити новий турнір</string>
   <string name="tournamentCalendar">Турнірний календар</string>
   <string name="conditionOfEntry">Умови участі:</string>
@@ -749,6 +758,7 @@
   <string name="really">дійсно</string>
   <string name="contribute">Сприяти розвитку</string>
   <string name="termsOfService">Умови користування</string>
+  <string name="titleVerification">Титульна перевірка</string>
   <string name="sourceCode">Вихідний код</string>
   <string name="simultaneousExhibitions">Сеанси одночасної гри</string>
   <string name="host">Організатор</string>

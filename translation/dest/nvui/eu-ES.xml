@@ -57,8 +57,8 @@
   <string name="invalidMove">Jokaldia ez da zuzena</string>
   <string name="premoveCancelled">Aurrejokaldia bertan behera utzi da</string>
   <string name="premoveRecorded">Aurrejokaldia gorde da: %s. Sakatu enter bertan behera uzteko</string>
-  <string name="pockets" comment="Crazyhouse pockets">Poltsa</string>
-  <string name="copyToClipboard">Kopiatu %s arbelera</string>
-  <string name="copiedToClipboard">%s arbelera kopiatu da</string>
-  <string name="pgnAndFen">PGN eta FEN</string>
+  <string name="pockets" comment="Pockets in Crazyhouse, which hold captured pieces and let players place them again">Poltsa</string>
+  <string name="copyToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">Kopiatu %s arbelera</string>
+  <string name="copiedToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">%s arbelera kopiatu da</string>
+  <string name="pgnAndFen" comment="Will be a heading read out over text-to-speech for blind users looking to share a PGN or FEN of a game.">PGN eta FEN</string>
 </resources>

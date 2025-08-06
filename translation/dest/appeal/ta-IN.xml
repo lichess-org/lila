@@ -6,7 +6,7 @@
   <string name="arenaBanned">உங்கள் கணக்கு அரங்கில் சேர தடை விதிக்கப்பட்டுள்ளது.</string>
   <string name="prizeBanned">.உண்மையான பரிசுகளைக் கொண்ட போட்டிகளில் இருந்து உங்கள் கணக்கு தடைசெய்யப்பட்டுள்ளது.</string>
   <string name="boosterMarked">மதிப்பீடு கையாளுதலுக்காக உங்கள் கணக்கு குறிக்கப்பட்டுள்ளது.</string>
-  <string name="boosterMarkedInfo">வேண்டுமென்றே கேம்களை இழப்பதன் மூலம் அல்லது வேண்டுமென்றே கேம்களை இழக்கும் மற்றொரு கணக்கிற்கு எதிராக விளையாடுவதன் மூலம் மதிப்பீட்டை வேண்டுமென்றே கையாளுதல் என இதை வரையறுக்கிறோம்.</string>
+  <string name="boosterMarkedInfo">வேண்டுமென்றே விளையாட்டுகளை இழப்பதன் மூலம் அல்லது வேண்டுமென்றே விளையாட்டுகளை இழக்கும் மற்றொரு கணக்கிற்கு எதிராக விளையாடுவதன் மூலம் மதிப்பீட்டை வேண்டுமென்றே கையாளுதல் என இதை வரையறுக்கிறோம்.</string>
   <string name="accountMuted">உங்கள் கணக்கு முடக்கப்பட்டுள்ளது.</string>
   <string name="accountMutedInfo">எங்கள் %s ஐப் படிக்கவும். தகவல்தொடர்பு வழிகாட்டுதல்களைப் பின்பற்றத் தவறினால் கணக்குகள் முடக்கப்படும்.</string>
   <string name="excludedFromLeaderboards">உங்கள் கணக்கு லீடர்போர்டுகளில் இருந்து விலக்கப்பட்டுள்ளது.</string>
@@ -15,7 +15,7 @@
   <string name="hiddenBlog">உங்கள் வலைப்பதிவுகள் மதிப்பீட்டாளர்களால் மறைக்கப்பட்டுள்ளன.</string>
   <string name="hiddenBlogInfo">எங்கள் %s ஐ மீண்டும் படிக்க உறுதி செய்யவும்.</string>
   <string name="playTimeout">உங்களுக்கு விளையாட்டு நேரம் முடிந்தது.</string>
-  <string name="communicationGuidelines">தொடர்பு வழிகாட்டுதல்கள்</string>
+  <string name="communicationGuidelines">தொடர்பு விதிகள்</string>
   <string name="blogRules">வலைப்பதிவு விதிகள்</string>
   <string name="fairPlay">நியாயமான விளையாட்டு</string>
 </resources>

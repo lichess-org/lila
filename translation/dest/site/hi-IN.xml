@@ -72,8 +72,10 @@
   <string name="makeMainLine">मुख्य लाइन बनाएं</string>
   <string name="deleteFromHere">यहां से हटाओ</string>
   <string name="collapseVariations">विविधताओं को मिटाये</string>
+  <string name="expandVariations">विविधताओं का विस्तार करें</string>
   <string name="forceVariation">बल भिन्नता</string>
   <string name="copyVariationPgn">प्रतिलिपि भिन्नता पीजीएन</string>
+  <string name="copyMainLinePgn">मेनलाइन PGN की प्रतिलिपि बनाएँ</string>
   <string name="move">चाल</string>
   <string name="variantLoss">प्रकार में हानि</string>
   <string name="variantWin">जीत का प्रकार</string>
@@ -463,7 +465,6 @@
   <string name="openTournaments">खुली प्रतियोगिता</string>
   <string name="duration">अवधि</string>
   <string name="winner">विजयी</string>
-  <string name="standing">पद</string>
   <string name="createANewTournament">नयी प्रतियोगिता आरम्भ करें</string>
   <string name="tournamentCalendar">टूर्नामेंट कैलेंडर</string>
   <string name="conditionOfEntry">प्रवेश की शर्त:</string>

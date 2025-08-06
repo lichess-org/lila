@@ -39,7 +39,7 @@
   <string name="reportMobileIssue">Sebagai masalah aplikasi ponsel Lichess di GitHub</string>
   <string name="reportBugInDiscord">Di server discord Lichess</string>
   <string name="howToReportBug">Tolong jelaskan seperti apa bug itu, apa yang Anda tidak diharapkan terjadi, dan langkah-langkah untuk mereproduksi terjadinya bug.</string>
-  <string name="illegalPawnCapture">Pukulan pion ilegal</string>
+  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">Pukulan pion ilegal</string>
   <string name="calledEnPassant">Ini disebut \"en passant\" dan merupakan salah satu aturan dari permainan catur.</string>
   <string name="tryEnPassant">Cobalah bermain permainan interaktif kecil ini untuk mempelajari lebih lanjut tentang \"en passant\".</string>
   <string name="illegalCastling">Ilegal atau mustahil melakukan rokade</string>

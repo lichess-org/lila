@@ -430,7 +430,6 @@
   <string name="openTournaments">Turnamen terbuka</string>
   <string name="duration">Durasi</string>
   <string name="winner">Pemenang</string>
-  <string name="standing">Klasemen</string>
   <string name="createANewTournament">Buat turnamen baru</string>
   <string name="tournamentCalendar">Jadwal turnamen</string>
   <string name="conditionOfEntry">Persyaratan masuk:</string>

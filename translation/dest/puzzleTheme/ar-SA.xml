@@ -81,11 +81,11 @@
   <string name="mateIn4Description">تحقيق الكش مات قي 4 نقلات.</string>
   <string name="mateIn5">كش مات في 5 حركات أو اكثر</string>
   <string name="mateIn5Description">اكتشف سلسلة من الحركات الممتابعة التي تقود إلى كش مات.</string>
-  <string name="middlegame">مرحلة وسط اللعبة</string>
+  <string name="middlegame">وسط المباراة</string>
   <string name="middlegameDescription">تكتيك خلال وسط المباراة.</string>
   <string name="oneMove">لفز ذو حركة واحدة</string>
   <string name="oneMoveDescription">لغز بحركة واحدة فقط.</string>
-  <string name="opening">افتتاح</string>
+  <string name="opening">إفتتاح</string>
   <string name="openingDescription">تكتيك في مرحلة الافتتاح.</string>
   <string name="pawnEndgame">نهاية اللعبة بالجنود</string>
   <string name="pawnEndgameDescription">نهاية لعبة بجنود فقط.</string>
@@ -102,7 +102,7 @@
   <string name="quietMove">نقلة هادئة</string>
   <string name="quietMoveDescription">حركة لا تكش أو تأخذ أي قطعة و لا تشكل أي تهديد مباشر بالأخذ، لكنها تحضر لحركة خفية لتهديد لا يمكن تجنبه.</string>
   <string name="rookEndgame">نهاية المباراة بالقلعة</string>
-  <string name="rookEndgameDescription">نهاية المباراة بالقلعة و البيادق فقط.</string>
+  <string name="rookEndgameDescription">نهاية المباراة بالقلاع و البيادق فقط.</string>
   <string name="sacrifice">تضحية</string>
   <string name="sacrificeDescription">تكتيك يشمل التضحية ببعض القطع مقابل كسب الأفضلية مرة أخرى بعد عدة حركات إجبارية.</string>
   <string name="short">لغز قصير</string>

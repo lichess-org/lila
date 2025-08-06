@@ -9,8 +9,8 @@
   <string name="forgotPassword">Мен құпиясөзімді ұмыттым</string>
   <string name="forgotUsername">Мен тіркеулі атымды ұмыттым</string>
   <string name="youCanLoginWithEmail">Сіз поштаңыздың мекенжайын жазып, тіркелгіге кіре аласыз</string>
-  <string name="lost2FA">Мен екі-сатылы өкіл-растама құлыпсөздерін жоғалттым</string>
-  <string name="doPasswordReset">Екінші сатыны өшіру үшін құпиясөздің қайта орнатуын аяқтаңыз</string>
+  <string name="lost2FA">Мен екісатылы өкіл-растау құлыпсанын ала алмаймын</string>
+  <string name="doPasswordReset">Екі-сатылы растауды өшіру үшін құпиясөзді қайта орнатыңыз</string>
   <string name="accountSupport">Маған тіркелгі жөнінде көмек керек</string>
   <string name="wantTitle">Личесте менің атауым көрсетілгенін қалаймын</string>
   <string name="visitTitleConfirmation">Сіздің төлқұжатыңызда атақты көрсету үшін, әрі Атақтылар Алаңына қатысу үшін атақты растау парақшасына өтіңіз</string>
@@ -39,7 +39,7 @@
   <string name="reportMobileIssue">GitHub-та Личес мобилді қолданбасының ақаулығы туралы</string>
   <string name="reportBugInDiscord">Личестің Discord серверінде</string>
   <string name="howToReportBug">Ақауды сипаттап беріңізші, ақаудың орнына не күткен едіңіз, осы ақауды қайталау үшін қандай қадамдар жасау керек.</string>
-  <string name="illegalPawnCapture">Сарбазды қате жолмен басу</string>
+  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">Сарбазды қате жолмен басу</string>
   <string name="calledEnPassant">Бұл \"en passant\" деп аталады, шахматтағы ереженің бірі.</string>
   <string name="tryEnPassant">\"en passant\" туралы көбірек білу үшін осы шағын интерактивті ойынды ойнап көріңіз.</string>
   <string name="illegalCastling">Қате жасылынған не мүмкін емес бекіну</string>
@@ -49,7 +49,7 @@
   <string name="castlingImported">Егер сіз ойынды жүктеп салсаңыз не бір күйден бастасаңыз, онда бекіну шартын дұрыс орнатуды ұмытпаңыз.</string>
   <string name="insufficientMaterial">Мат үшін тастар жеткіліксіз</string>
   <string name="fideMate">FIDE Шахмат Заңының §6.9 сәйкес, егер ережеге сай кез-келген жүрістермен матқа жету мүмкінкіндігі бар болса, онда ойын қорытындысы тепе-тең деп саналмайды</string>
-  <string name="knightMate">Егер қарсыласта патшадан басқа тағы тас болса, оған матты жалғыз ат немесе пілмен ғана қоюға болады.</string>
+  <string name="knightMate">Жалғыз ғана ат не пілмен мат қоюға болады. Ол үшін қарсыластың патшадан басқа кемінде бір тасы болуы керек.</string>
   <string name="noRatingPoints">Ешбір рейтинг ұпайы қосылмады</string>
   <string name="ratedGame">Ойын бағалы екенін тексеріңіз. Жай ойындар ойыншының рейтингіне әсер етпейді.</string>
   <string name="botRatingAbuse">Кейде роботқа қарсы бағалы ойындарда ұпай берілмеуі мүмкін. Мысалы, ойыншы өз ұпайларын өсіру мақсатында роботты асыра пайдаланғанда.</string>
@@ -67,7 +67,7 @@
   <string name="collaboration">Ынтымақтастық, заңдылық, сауда-саттық</string>
   <string name="monetizing">Личес-тен табыс табу</string>
   <string name="buyingLichess">Личес-ті сатып алу</string>
-  <string name="authorizationToUse">Личес-ті пайдалану үшін рұқсат-растама</string>
+  <string name="authorizationToUse">Личес-ті пайдалану үшін рұқсат-растау</string>
   <string name="welcomeToUse">Сіз Личес-ті өз қажетіңізге пайдалануға еріктісіз, тіпті ақша табу мақсатында да.</string>
   <string name="videosAndBooks">Оны өз видеоларыңызда көрсетсеңіз де болады, Личес-тің кескінін өз кітабыңызға бастыртып шығарсаңыз да болады.</string>
   <string name="creditAppreciated">Біз туралы мәліметті көрсетсеңіз – жақсы, бірақ міндетті емес.</string>

@@ -23,7 +23,7 @@
   <string name="wantClearHistory">C\'hoant am eus da ziverkañ roll-istor ma c\'hrogadoù</string>
   <string name="cantClearHistory">Ne c\'haller ket diverkañ roll-istor ho krogadoù, pe hini ho poelladennoù pe ho renkadur.</string>
   <string name="reportBugInDiscord">War Lichess Discord server</string>
-  <string name="illegalPawnCapture">Paket eo bet ur pezh gwerin en un doare direizh</string>
+  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">Paket eo bet ur pezh gwerin en un doare direizh</string>
   <string name="calledEnPassant">\"En ur dremen\" a vez graet deus-se hag ur reolenn diazez eus ar c\'hoari an hini eo.</string>
   <string name="noRatingPoints">Poent renkadur ebet zo bet roet</string>
   <string name="ratedGame">Bezit sur ho peus kemeret perzh en ur c\'hrogad renket rak ar c\'hrogadoù a vignoniezh ne cheñchont ket renkadur ar c\'hoarierien.</string>
