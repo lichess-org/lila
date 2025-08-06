@@ -72,7 +72,7 @@ export function boardSetting(): Setting<BoardStyle> {
 export function styleSetting(): Setting<MoveStyle> {
   return makeSetting<MoveStyle>({
     choices: moveStyles.map(s => [s, `${s}: ${renderSan('Nxf3', 'g1f3', s)}`]),
-    default: 'anna', // all the rage in OTB blind chess tournaments
+    default: 'literate',
     storage: storage.make('nvui.moveNotation'),
   });
 }
@@ -80,7 +80,7 @@ export function styleSetting(): Setting<MoveStyle> {
 export function pieceSetting(): Setting<PieceStyle> {
   return makeSetting<PieceStyle>({
     choices: pieceStyles.map(p => [p, `${p}: ${renderPieceStyle('P', p)}`]),
-    default: 'letter',
+    default: 'white uppercase name',
     storage: storage.make('nvui.pieceStyle'),
   });
 }
@@ -88,7 +88,7 @@ export function pieceSetting(): Setting<PieceStyle> {
 export function prefixSetting(): Setting<PrefixStyle> {
   return makeSetting<PrefixStyle>({
     choices: prefixStyles.map(p => [p, `${p}: ${renderPrefixStyle('white', p)}`]),
-    default: 'letter',
+    default: 'name',
     storage: storage.make('nvui.prefixStyle'),
   });
 }

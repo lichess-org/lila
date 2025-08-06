@@ -120,7 +120,14 @@ export function renderBoard(
     h(
       'button',
       {
-        attrs: { rank: rank, file: file, piece: letter.toLowerCase(), color: color, 'trap-bypass': true },
+        attrs: {
+          text: renderPositionStyle(rank, file, text),
+          rank: rank,
+          file: file,
+          piece: letter.toLowerCase(),
+          color: color,
+          'trap-bypass': true,
+        },
       },
       renderPositionStyle(rank, file, text),
     );

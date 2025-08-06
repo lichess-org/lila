@@ -60,23 +60,42 @@
   }
 
   @media screen and (orientation: portrait) {
+    .actions button,
+    .actions div,
     .board-wrapper div button {
       aspect-ratio: 1/1;
       overflow: hidden;
       white-space: nowrap;
     }
+    .actions,
     .board-wrapper {
       max-width: $xx-small;
     }
+    .actions {
+      display: flex;
+    }
     @media (max-width: at-most($xx-small)) {
+      .actions button,
+      .actions div,
       .board-wrapper div button {
-        width: 12.5vw;
+        width: 12vw;
       }
       .board {
         text-align: left;
       }
+      h2,
+      .boardstatus {
+        position: absolute;
+        left: -10000px;
+        top: auto;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+      }
     }
     @media (min-width: at-least($xx-small)) {
+      .actions button,
+      .actions div,
       .board-wrapper div button {
         width: 12.5%;
       }
