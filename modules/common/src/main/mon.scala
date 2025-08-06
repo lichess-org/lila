@@ -14,8 +14,16 @@ object mon:
 
   import kamon.Kamon.{ timer, gauge, counter, histogram }
 
-  // escape " into \"
-  extension (s: String) def escape: String = s.replaceAll(""""""", """\\"""")
+  // https://github.com/kamon-io/Kamon/issues/752
+  extension (s: String)
+    def escape: String =
+      val builder = new java.lang.StringBuilder(s.length)
+      for c <- s.toCharArray do
+        if c == '\"' then builder.append("\\\"")
+        else if c == '\n' then builder.append("\\n")
+        else if c == '\\' then builder.append("\\\\")
+        else builder.append(c)
+      builder.toString
 
   private def tags(elems: (String, Any)*): Map[String, Any] = Map.from(elems)
 
