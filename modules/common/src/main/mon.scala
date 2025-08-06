@@ -17,12 +17,10 @@ object mon:
   // https://github.com/kamon-io/Kamon/issues/752
   extension (s: String)
     def escape: String =
-      val builder = new java.lang.StringBuilder(s.length)
+      val builder = java.lang.StringBuilder(s.length)
       for c <- s.toCharArray do
-        if c == '\"' then builder.append("\\\"")
-        else if c == '\n' then builder.append("\\n")
-        else if c == '\\' then builder.append("\\\\")
-        else builder.append(c)
+        if c != '"' & c != '\n' && c != '\\'
+        then builder.append(c)
       builder.toString
 
   private def tags(elems: (String, Any)*): Map[String, Any] = Map.from(elems)
