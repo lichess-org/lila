@@ -28,10 +28,10 @@
     &.patron::after {
       content: '';
       position: absolute;
-      top: 2px;
-      right: 2px;
-      width: 7px;
-      height: 7px;
+      top: 0.15em;
+      right: 0.15em;
+      width: 0.4em;
+      height: 0.4em;
       background-color: $c-good;
       border-radius: 50%;
     }
