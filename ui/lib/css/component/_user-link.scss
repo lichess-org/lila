@@ -39,7 +39,7 @@
 
   & .line {
     &.patron {
-      text-shadow: 0 0 6px #ffffff;
+      -webkit-text-stroke: 0.5px #ffffff;
 
       &.months1 {
         color: $months1-color;
