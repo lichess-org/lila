@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advancedPawn">Peð sem er langt komið</string>
-  <string name="advancedPawnDescription">Eitt af peðum þínum er komið langt inn á svæði andstæðingsins, jafnvel ógnar að vekja upp hættulegri taflmann.</string>
+  <string name="advancedPawnDescription">Eitt af peðum þínum er komið langt inn á svæði andstæðingsins, jafnvel hótar að vekja upp hættulegri taflmann.</string>
   <string name="advantage">Yfirhönd</string>
   <string name="advantageDescription">Gríptu tækifærið til að taka afgerandi forystu. (200sp ≤ mat ≤ 600sp)</string>
   <string name="anastasiaMate">Anastastíumát</string>
@@ -25,6 +25,7 @@
   <string name="equality">Jafnræði</string>
   <string name="equalityDescription">Rétta úr kútnum eftir viðsjárverða stöðu, og tryggðu þér jafntefli eða jafna stöðu. (mat ≤ 200sp)</string>
   <string name="kingsideAttack">Sókn á kóngsvæng</string>
+  <string name="kingsideAttackDescription">Árás kóngs andstæðingsins eftir að hafa hrókerað á kóngsvæng.</string>
   <string name="clearance">Að valda</string>
   <string name="clearanceDescription">Leikur, yfirleitt með leikvinningi, sem nær stjórn á reit, línu eða skálínu með ráðsnjalla hugmynd í kjölfarið.</string>
   <string name="defensiveMove">Varnarleikur</string>
@@ -39,11 +40,13 @@
   <string name="exposedKing">Óvaldaður kóngur</string>
   <string name="exposedKingDescription">Bragðvísi sem felur í sér kóng með fáa taflmenn sem valda hann, sem oft leiðir til máts.</string>
   <string name="fork">Gaffall</string>
-  <string name="forkDescription">Leikur sem felur í því að manni sem er leikið ógni tveimur mönnum andstæðingsins samtímis.</string>
+  <string name="forkDescription">Leikur sem felur í því að manni sem er leikið hóti tveimur mönnum andstæðingsins samtímis.</string>
   <string name="hangingPiece">Hangandi peð</string>
   <string name="hangingPieceDescription">Bragðvísi sem felur í því að maður andstæðingsins sé óvaldaður eða illa valdaður og er í boði að drepa hann.</string>
   <string name="hookMate">Krókamát</string>
   <string name="hookMateDescription">Mát með hrók, riddara og peði, auk eins peðs andstæðingsins sem takmarkar flóttamöguleika kóngsins.</string>
+  <string name="interference">Truflun</string>
+  <string name="interferenceDescription">Þegar taflmaður er færður á milli tveggja taflmanna andstæðingsins til að gera annan eða báða óvaldaða, eins og riddari á völduðum reit á milli tveggja hróka.</string>
   <string name="intermezzo">Millileikur</string>
   <string name="intermezzoDescription">Í stað þess að leika þann leik sem búist er við skaltu fyrst leika annan sem skapar tafarlausa ógn sem andstæðingurinn verður að svara. Þetta kallast „millileikur\" (e. Zwischenzug).</string>
   <string name="killBoxMate">Frúarmát með hrók og biskup</string>
@@ -89,6 +92,7 @@
   <string name="queensideAttack">Sókn á drottningarvæng</string>
   <string name="queensideAttackDescription">Árás kóngs andstæðingsins eftir að hafa hrókerað á drottningarvæng.</string>
   <string name="quietMove">Dulinn leikur</string>
+  <string name="quietMoveDescription">Leikur sem hvorki skákar né drepur taflmann, og hótar heldur ekki strax að drepa, en undirbýr falda og óhjákvæmilega hótun fyrir síðari leik.</string>
   <string name="rookEndgame">Endatafl með hrókum</string>
   <string name="rookEndgameDescription">Endatafl með einungis hrókum og peðum.</string>
   <string name="sacrifice">Fórn</string>
