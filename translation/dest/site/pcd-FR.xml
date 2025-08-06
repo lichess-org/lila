@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Jouer avec un·e ami·e</string>
+  <string name="playWithAFriend">Inviter à une partie</string>
   <string name="playWithTheMachine">Jouer contre l\'ordinateur</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Pour inviter quelqu\'un à jouer, donnez-lui ce lien</string>
   <string name="gameOver">Partie terminée</string>
@@ -479,7 +479,7 @@
   <string name="openTournaments">Tournois ouverts</string>
   <string name="duration">Durée</string>
   <string name="winner">Vainqueur</string>
-  <string name="standing">Classement</string>
+  <string name="standings">Classement</string>
   <string name="createANewTournament">Créer un nouveau tournoi</string>
   <string name="tournamentCalendar">Calendrier des tournois</string>
   <string name="conditionOfEntry">Condition d\'admission :</string>
@@ -1009,4 +1009,5 @@ Tous les coûts d\'exploitation, le développement et le contenu sont financés 
   <string name="accessibility">Accessibilité</string>
   <string name="enableBlindMode">Activer le mode pour non-voyant</string>
   <string name="disableBlindMode">Désactiver le mode pour non-voyant</string>
+  <string name="copyToClipboard">Copier dans le presse-papier</string>
 </resources>

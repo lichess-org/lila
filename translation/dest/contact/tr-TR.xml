@@ -39,7 +39,7 @@
   <string name="reportMobileIssue">Lichess mobil uygulaması sorunları adı altında GitHub üzerinden</string>
   <string name="reportBugInDiscord">ve Lichess Discord sunucusundan bize iletebilirsiniz</string>
   <string name="howToReportBug">Lütfen yazılım hatasını tarif edin. Hatayı yaşadığınızda ne ile karşılaşmayı bekliyordunuz ve hangi adımları izledikten sonra hata meydan geldi?</string>
-  <string name="illegalPawnCapture">Kural dışı piyon hareketi</string>
+  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">Kural dışı piyon hareketi</string>
   <string name="calledEnPassant">Buna \"geçerken alma\" denir ve bu hareket satrancın kurallarından biridir.</string>
   <string name="tryEnPassant">\"Geçerken alma\" hakkında daha fazla bilgi edinmek için bu etkileşimli oyunu deneyin.</string>
   <string name="illegalCastling">Kural dışı rok atma</string>

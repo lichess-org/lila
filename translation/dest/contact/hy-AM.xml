@@ -30,7 +30,7 @@
   <string name="reportWebsiteIssue">Lichess կայքի խնդիրների էջում GitHub-ում</string>
   <string name="reportMobileIssue">Lichess բջջային հավելվածի խնդիրների էջում GitHub-ում</string>
   <string name="reportBugInDiscord">Lichess-ի սերվերում Discord-ում</string>
-  <string name="illegalPawnCapture">Զինվորի սխալ վերցնում</string>
+  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">Զինվորի սխալ վերցնում</string>
   <string name="calledEnPassant">Սա կոչվում է «կողանցիկ հարված» և շախմատի կանոններից մեկն է։</string>
   <string name="tryEnPassant">Փորձեք այս փոքրիկ ինտերակտիվ խաղը՝ «կողանցիկ հարվածի» մասին ավելի շատ իմանալու համար։</string>
   <string name="illegalCastling">Սխալ կամ անհնարին փոխատեղում</string>

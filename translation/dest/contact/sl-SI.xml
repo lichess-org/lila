@@ -39,7 +39,7 @@
   <string name="reportMobileIssue">Kot problem Lichess mobilne aplikacije na GitHub</string>
   <string name="reportBugInDiscord">Na Lichessovem Discord strežniku</string>
   <string name="howToReportBug">Prosimo, opišite kako hrošč izgleda, kaj ste pričakovali, da se zgodi in koraki za razmnoževanje hrošča.</string>
-  <string name="illegalPawnCapture">Nepravilno jemanje kmeta</string>
+  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">Nepravilno jemanje kmeta</string>
   <string name="calledEnPassant">Imenuje se \"en passant\" in je eno od pravil šaha.</string>
   <string name="tryEnPassant">Poskusite to interaktivno igro, da se naučite več o jemanju \"en passant\".</string>
   <string name="illegalCastling">Nepravilno ali nemogoče rokiranje</string>

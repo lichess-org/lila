@@ -34,7 +34,7 @@ final private class TutorCustomInsight[A: TutorNumber](
             insightColl
               .aggregateList(maxDocs = Int.MaxValue)(_ => aggregatePeer(peerSelect))
               .map(clusterParser)
-              .monSuccess(_.tutor.askPeer(monitoringKey, u.perfType.key.value))
+              .monSuccess(_.tutor.askPeer(monitoringKey, u.perfType.key))
       }.parallel
       peer = TutorBuilder.AnswerPeer(Answer(question, peerDocs.flatten, Nil))
     yield TutorBuilder.Answers(mine, peer)

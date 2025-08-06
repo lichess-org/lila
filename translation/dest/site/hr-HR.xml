@@ -504,7 +504,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="openTournaments">Otvoreni turniri</string>
   <string name="duration">Trajanje</string>
   <string name="winner">Pobjednik</string>
-  <string name="standing">Poredak</string>
+  <string name="standings">Tablica</string>
   <string name="createANewTournament">Kreiraj novi turnir</string>
   <string name="tournamentCalendar">Kalendar turnira</string>
   <string name="conditionOfEntry">Uvjet za sudjelovanje:</string>

@@ -151,12 +151,12 @@ final class UserApi(
                     )
               }.noNull
 
-  def mobile(user: User)(using Option[Me], Lang) = extended(
+  def mobile(user: User)(using me: Option[Me])(using Lang) = extended(
     user,
     withFollows = false,
     withTrophies = false,
-    withCanChallenge = false,
-    withPlayban = true
+    withCanChallenge = me.exists(_.isnt(user)),
+    withPlayban = me.exists(_.is(user))
   )
 
   def getTrophiesAndAwards(u: User) =

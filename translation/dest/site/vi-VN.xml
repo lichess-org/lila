@@ -444,7 +444,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="openTournaments">Các giải đấu mở</string>
   <string name="duration">Thời lượng</string>
   <string name="winner">Người chiến thắng</string>
-  <string name="standing">Thứ hạng</string>
+  <string name="standings">Bảng xếp hạng</string>
   <string name="createANewTournament">Tạo giải đấu mới</string>
   <string name="tournamentCalendar">Lịch giải đấu</string>
   <string name="conditionOfEntry">Điều kiện tham gia:</string>
@@ -964,4 +964,5 @@ Mọi chi phí vận hành, phát triển, và nội dung được tài trợ b�
   <string name="accessibility">Hỗ trợ tiếp cận</string>
   <string name="enableBlindMode">Bật chế độ mù</string>
   <string name="disableBlindMode">Tắt chế độ mù</string>
+  <string name="copyToClipboard">Sao chép vào bảng nhớ tạm</string>
 </resources>

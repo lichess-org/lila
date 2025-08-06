@@ -541,7 +541,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="openTournaments">Atviri turnyrai</string>
   <string name="duration">Trukmė</string>
   <string name="winner">Nugalėtojas</string>
-  <string name="standing">Turmyrinė lentelė</string>
+  <string name="standings">Rezultatai</string>
   <string name="createANewTournament">Sukurti naują turnyrą</string>
   <string name="tournamentCalendar">Turnyrų kalendorius</string>
   <string name="conditionOfEntry">Dalyvavimo sąlyga:</string>

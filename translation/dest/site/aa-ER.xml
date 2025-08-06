@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="playWithAFriend">Playwright</string>
   <string name="strength">ጥንካሬ</string>
   <string name="chat">ውይይት</string>
   <string name="randomColor">ቀለሞች</string>

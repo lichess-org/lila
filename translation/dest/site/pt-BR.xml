@@ -479,7 +479,7 @@
   <string name="openTournaments">Torneios abertos</string>
   <string name="duration">Duração</string>
   <string name="winner">Vencedor</string>
-  <string name="standing">Colocação</string>
+  <string name="standings">Classificação</string>
   <string name="createANewTournament">Criar novo torneio</string>
   <string name="tournamentCalendar">Calendário do torneio</string>
   <string name="conditionOfEntry">Condições de participação:</string>
@@ -1008,4 +1008,5 @@ Deixe em branco para começar as partidas na posição inicial padrão.</string>
   <string name="accessibility">Acessibilidade</string>
   <string name="enableBlindMode">Habilitar modo às cegas</string>
   <string name="disableBlindMode">Desabilitar modo às cegas</string>
+  <string name="copyToClipboard">Copiar para a área de transferência</string>
 </resources>

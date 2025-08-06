@@ -10,6 +10,7 @@
   <string name="actions">Aktione</string>
   <string name="yourClock">Dini Zit</string>
   <string name="opponentClock">Zit vum Gägner</string>
+  <string name="gameStart">Schpiel-Start</string>
   <string name="king">König</string>
   <string name="whiteKing">wisse König</string>
   <string name="blackKing">schwarze König</string>
@@ -39,8 +40,8 @@
   <string name="invalidMove">unmögliche Zug</string>
   <string name="premoveCancelled">Voruszieh deaktiviert</string>
   <string name="premoveRecorded">Regischtrierti Voruszüg: %s. Druck Enter zum Beände</string>
-  <string name="pockets" comment="Crazyhouse pockets">Täsche</string>
-  <string name="copyToClipboard">Kopier %s ufs Clipboard</string>
-  <string name="copiedToClipboard">%s ufs Clipboard kopiert</string>
-  <string name="pgnAndFen">PGN und FEN</string>
+  <string name="pockets" comment="Pockets in Crazyhouse, which hold captured pieces and let players place them again">Täsche</string>
+  <string name="copyToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">Kopier %s ufs Clipboard</string>
+  <string name="copiedToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">%s ufs Clipboard kopiert</string>
+  <string name="pgnAndFen" comment="Will be a heading read out over text-to-speech for blind users looking to share a PGN or FEN of a game.">PGN und FEN</string>
 </resources>
