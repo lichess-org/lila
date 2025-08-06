@@ -24,6 +24,7 @@ import smithy4s.Timestamp
 final class GameApiV2(
     pgnDump: PgnDump,
     gameRepo: lila.game.GameRepo,
+    gameCache: lila.game.Cached,
     gameJsonView: lila.game.JsonView,
     pairingRepo: lila.tournament.PairingRepo,
     playerRepo: lila.tournament.PlayerRepo,
@@ -34,7 +35,8 @@ final class GameApiV2(
     gameProxy: GameProxyRepo,
     division: Divider,
     bookmarkApi: lila.bookmark.BookmarkApi,
-    gameSearch: GameSearchApi
+    gameSearch: GameSearchApi,
+    crosstableApi: lila.game.CrosstableApi
 )(using Executor, akka.actor.ActorSystem):
 
   import GameApiV2.*
@@ -147,6 +149,15 @@ final class GameApiV2(
       toJson(game, fen, analysis, config)
   yield Json.arr(jsons)
 
+  def mobileCurrent(user: User)(using Option[Me]): Fu[Option[JsObject]] =
+    gameCache
+      .lastPlayedPlayingId(user.id)
+      .flatMapz(gameProxy.gameIfPresentOrFetch)
+      .flatMapz: game =>
+        val config = OneConfig(GameApiV2.Format.JSON, false, WithFlags())
+        enrich(config.flags)(game).flatMap: (game, fen, analysis) =>
+          toJson(game, fen, analysis, config).dmap(some)
+
   def exportByIds(config: ByIdsConfig): Source[String, ?] =
     gameRepo
       .sortedCursor(
@@ -240,6 +251,9 @@ final class GameApiV2(
         )
       .documentSource()
       .via(preparationFlow(config))
+
+  def crosstableWith(user: User)(me: Me): Fu[JsObject] =
+    crosstableApi.withMatchup(me.userId, user.id).map(Json.toJsObject)
 
   private val upgradeOngoingGame =
     Flow[Game].mapAsync(4)(gameProxy.upgradeIfPresent)

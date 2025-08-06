@@ -32,7 +32,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
     exportGame(id.gameId)
 
   private[controllers] def exportGame(gameId: GameId)(using Context): Fu[Result] =
-    Found(env.round.proxyRepo.gameIfPresent(gameId).orElse(env.game.gameRepo.game(gameId))): game =>
+    Found(env.round.proxyRepo.gameIfPresentOrFetch(gameId)): game =>
       val config = GameApiV2.OneConfig(
         format = GameApiV2.Format.byRequest,
         imported = getBool("imported"),

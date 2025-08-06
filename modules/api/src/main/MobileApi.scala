@@ -23,7 +23,8 @@ final class MobileApi(
     liveStreamApi: lila.streamer.LiveStreamApi,
     activityRead: lila.activity.ActivityReadApi,
     activityJsonView: lila.activity.JsonView,
-    picfitUrl: lila.core.misc.PicfitUrl
+    picfitUrl: lila.core.misc.PicfitUrl,
+    isOnline: lila.core.socket.IsOnline
 )(using Executor):
 
   private given (using trans: Translate): Lang = trans.lang
@@ -82,10 +83,24 @@ final class MobileApi(
       Json.toJsObject(user) ++
         lila.streamer.Stream.toJson(picfitUrl, stream)
 
-  def profile(user: User)(using Option[Me], Lang): Fu[JsObject] =
+  def profile(user: User)(using me: Option[Me])(using Lang): Fu[JsObject] =
     for
       prof <- userApi.mobile(user)
       activities <- activityRead.recentAndPreload(user)
       activity <- activities.sequentially(activityJsonView(_, user))
       games <- gameApi.mobileRecent(user)
-    yield Json.obj("profile" -> prof, "activity" -> activity, "games" -> games)
+      more = me.forall(_.isnt(user))
+      status <- more.soFu(userStatus(user))
+      crosstable <- me.filter(_.isnt(user)).map(gameApi.crosstableWith(user)).sequence
+    yield Json
+      .obj("profile" -> prof, "activity" -> activity, "games" -> games)
+      .add("status", status)
+      .add("crosstable", crosstable)
+
+  private def userStatus(user: User)(using Option[Me]): Fu[JsObject] =
+    for playing <- gameApi.mobileCurrent(user)
+    yield Json
+      .obj()
+      .add("online", isOnline.exec(user.id))
+      .add("playing", playing)
+      .add("streaming", liveStreamApi.userIds(user.id))

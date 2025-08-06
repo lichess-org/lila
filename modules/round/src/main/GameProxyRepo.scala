@@ -25,6 +25,9 @@ final class GameProxyRepo(
 
   def gameIfPresent(gameId: GameId): Fu[Option[Game]] = roundSocket.gameIfPresent(gameId)
 
+  def gameIfPresentOrFetch(gameId: GameId): Fu[Option[Game]] =
+    gameIfPresent(gameId).orElse(gameRepo.game(gameId))
+
   // get the proxied version of the game
   def upgradeIfPresent(game: Game): Fu[Game] =
     if game.finishedOrAborted then fuccess(game)
