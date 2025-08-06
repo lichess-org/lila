@@ -479,7 +479,7 @@
   <string name="openTournaments">Opin mót</string>
   <string name="duration">Lengd</string>
   <string name="winner">Sigurvegari</string>
-  <string name="standing">Staða</string>
+  <string name="standings">Staða</string>
   <string name="createANewTournament">Búa til nýtt mót</string>
   <string name="tournamentCalendar">Mótadagatal</string>
   <string name="conditionOfEntry">Skilyrði fyrir þátttöku:</string>
@@ -729,7 +729,7 @@
   <string name="playSelectedMove">leika valinn leik</string>
   <string name="newTournament">Nýtt mót</string>
   <string name="tournamentHomeTitle">Skákmót með mismunandi tímaskorðum og afbrigðum</string>
-  <string name="tournamentHomeDescription">Tefldu á hraðfara skákmótum! Skráðu þig í opinbert mót samkvæmt áætlun, eða búðu til þitt eigið. Leifturskák, hraðskák, kappskák, slembiskák (e. Chess960), yfirráðaskák (e. King of the Hill), þrískák (e. Threecheck), og fleiri möguleikar eru í boði fyrir óþrjótandi skákæði.</string>
+  <string name="tournamentHomeDescription">Tefldu á hraðfara skákmótum! Skráðu þig í opinbert mót samkvæmt áætlun, eða búðu til þitt eigið. Leifturskák, hraðskák, hægskák, slembiskák (e. Chess960), yfirráðaskák (e. King of the Hill), þrískák (e. Threecheck), og fleiri möguleikar eru í boði fyrir óþrjótandi skákæði.</string>
   <string name="tournamentNotFound">Mót ekki fundið</string>
   <string name="tournamentDoesNotExist">Þetta mót er ekki til</string>
   <string name="tournamentMayHaveBeenCanceled">Mótinu kann að hafa verið aflýst, ef allir skákmenn yfirgefa áður en það hefst.</string>
@@ -908,7 +908,7 @@
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Leifturskák</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Hraðskák</string>
   <string name="rapid">Atskák</string>
-  <string name="classical">Kappskák</string>
+  <string name="classical">Hægskák</string>
   <string name="ultraBulletDesc">Brjálæðislega fljótar skákir: minna en 30 sekúndur</string>
   <string name="bulletDesc">Mjög hraðar skákir: styttri en 3 mínútur</string>
   <string name="blitzDesc">Hraðar skákir: 3 til 8 mínútur</string>
@@ -1008,4 +1008,5 @@ Allur rekstrarkostnaður, þróun og efniviður er fjármagnaður eingöngu með
   <string name="accessibility">Aðgengi</string>
   <string name="enableBlindMode">Virkja blindingaham</string>
   <string name="disableBlindMode">Afvirkja blindingaham</string>
+  <string name="copyToClipboard">Afrita á klippiborð</string>
 </resources>

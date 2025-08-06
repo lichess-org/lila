@@ -39,7 +39,7 @@
   <string name="reportMobileIssue">As \'n Lichess mobiele toepassingsprobleem op Github</string>
   <string name="reportBugInDiscord">In die Lichess Discord bediener</string>
   <string name="howToReportBug">Beskryf asseblief hoe die probleem hom voordoen, wat jy verwag om te gebeur teenoor wat eintlik gebeur en die stappe wat gevolg moet word om die probleem te veroorsaak.</string>
-  <string name="illegalPawnCapture">Onwettige vat van \'n pion</string>
+  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">Onwettige vat van \'n pion</string>
   <string name="calledEnPassant">Dit word \"en passant\" genoem en is \'n skaakreël.</string>
   <string name="tryEnPassant">Probeer hierdie klein interaktiewe oefening om meer oor \"en passant\" te leer.</string>
   <string name="illegalCastling">Onwettige of ongeldige kastellering</string>

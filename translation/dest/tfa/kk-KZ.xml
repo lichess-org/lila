@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="twoFactorAuth">Екі-сатылы өкіл-растама</string>
-  <string name="twoFactorHelp">Екі-сатылы өкіл-растама тіркелгі қорғанысын қосымша күшейтеді.</string>
+  <string name="twoFactorAuth">Екісатылы өкіл-растау</string>
+  <string name="twoFactorHelp">Екісатылы өкіл-растау тіркелгі қорғанысын қосымша күшейтеді.</string>
+  <string name="twoFactorAppRecommend">Екісатылы өкіл-растайтын қолданбаны жүктеуіңіз керек. Кеңесіміз - келесі қолданбалар:</string>
   <string name="scanTheCode">QR кодты қолданбамен сканерлеңіз.</string>
-  <string name="enterPassword">Орнатуды аяқтау үшін құпиясөзді әрі қолданба шығарған өкіл-растама құлыпсөзін жазыңыз. Тіркелгіге әр кірген сайын бұл құлыпсөз керек болады.</string>
-  <string name="ifYouCannotScanEnterX">Егер құлыпсөзді сканерлеу мүмкін болмай тұрса, қолданбаңызға құпия %s енгізіңіз.</string>
-  <string name="authenticationCode">Өкіл-растама құлыпсөзі</string>
-  <string name="enableTwoFactor">Екі-сатылы өкіл-растаманы қосу</string>
-  <string name="disableTwoFactor">Екі-сатылы өкіл-растаманы өшіру</string>
-  <string name="twoFactorEnabled">Екі-сатылы өкіл-растама қосылған</string>
-  <string name="openTwoFactorApp">Өкіл-растама құлыпсөзін көру әрі тұлғаңызды растау үшін құрылғыңызда екі-сатылы өкіл-растайтын қолданбаны ашыңыз.</string>
-  <string name="setupReminder">https://lichess.org/account/twofactor осы жерде екі-сатылы өкіл-растаманы қосып, тіркелгіңізді қосымша қорғауыңызды сұраймыз.
+  <string name="enterPassword">Орнатуды аяқтау үшін құпиясөзді, әрі қолданба шығарған өкіл-растау құлыпсанын жазыңыз. Тіркелгіге әр кірерде жаңа құлыпсан керек болады.</string>
+  <string name="ifYouCannotScanEnterX">Егер кодты сканерлеу мүмкін болмай тұрса, қолданбаңызға құпия %s енгізіңіз.</string>
+  <string name="authenticationCode">Өкіл-растау құлыпсаны</string>
+  <string name="ifYouLoseAccessTwoFactor" comment="%s is &quot;Password reset&quot;.">Ескертпе: Егер екісатылы өкіл-растау құлыпсанын алу жолдарынан айрылсаңыз, пошта арқылы %s амалы бар.</string>
+  <string name="enableTwoFactor">Екісатылы өкіл-растауды қосу</string>
+  <string name="disableTwoFactor">Екісатылы өкіл-растауды өшіру</string>
+  <string name="twoFactorEnabled">Екісатылы өкіл-растау қосылған</string>
+  <string name="twoFactorToDisable">Екісатылы өкіл-растауды өшіру үшін сізге құпиясөз бен қолданба шығарған өкіл-растау құлыпсаны керек.</string>
+  <string name="openTwoFactorApp">Өкіл-растау құлыпсанын көру әрі тұлғаңызды растау үшін құрылғыңызда екісатылы өкіл-растайтын қолданбаны ашыңыз.</string>
+  <string name="setupReminder">https://lichess.org/account/twofactor осы жерде екі-сатылы өкіл-растауды қосып, тіркелгіңізді қосымша қорғауыңызды сұраймыз.
 Сіз топ жетекшілері, бапкер, ұстаз бен стримерлер қатарындасыз, олардың жауапкершілігі жоғары тұрғандықтан, осындай ескертуді көрсетіп отырмыз.</string>
 </resources>

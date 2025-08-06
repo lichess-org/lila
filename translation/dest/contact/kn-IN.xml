@@ -39,7 +39,7 @@
   <string name="reportMobileIssue">GitHub ನಲ್ಲಿ Lichess ಮೊಬೈಲ್ ಅಪ್ಲಿಕೇಶನ್ ಸಮಸ್ಯೆಯಾಗಿ</string>
   <string name="reportBugInDiscord">ಲಿಚೆಸ್ ಡಿಸ್ಕಾರ್ಡ್ ಸರ್ವರ್‌ನಲ್ಲಿ</string>
   <string name="howToReportBug">ದಯವಿಟ್ಟು ದೋಷವು ಹೇಗೆ ಕಾಣುತ್ತದೆ, ಬದಲಿಗೆ ಏನಾಗಬಹುದು ಎಂದು ನೀವು ನಿರೀಕ್ಷಿಸಿದ್ದೀರಿ ಮತ್ತು ದೋಷವನ್ನು ಪುನರುತ್ಪಾದಿಸುವ ಹಂತಗಳನ್ನು ವಿವರಿಸಿ.</string>
-  <string name="illegalPawnCapture">ಅಕ್ರಮ ಗಿರವಿ ಸೆರೆ</string>
+  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">ಅಕ್ರಮ ಗಿರವಿ ಸೆರೆ</string>
   <string name="calledEnPassant">ಇದನ್ನು \"ಎನ್ ಪ್ಯಾಸೆಂಟ್\" ಎಂದು ಕರೆಯಲಾಗುತ್ತದೆ ಮತ್ತು ಇದು ಚದುರಂಗದ ನಿಯಮಗಳಲ್ಲಿ ಒಂದಾಗಿದೆ.</string>
   <string name="tryEnPassant">\"en passant\" ಕುರಿತು ಇನ್ನಷ್ಟು ತಿಳಿದುಕೊಳ್ಳಲು ಈ ಚಿಕ್ಕ ಸಂವಾದಾತ್ಮಕ ಆಟವನ್ನು ಪ್ರಯತ್ನಿಸಿ.</string>
   <string name="illegalCastling">ಅಕ್ರಮ ಅಥವಾ ಅಸಾಧ್ಯ ಕ್ಯಾಸ್ಲಿಂಗ್</string>

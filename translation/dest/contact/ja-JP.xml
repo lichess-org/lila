@@ -39,7 +39,7 @@
   <string name="reportMobileIssue">GitHub で、Lichess モバイルアプリの話題として</string>
   <string name="reportBugInDiscord">Lichess の discord サーバで</string>
   <string name="howToReportBug">バグの内容、あるべき正しい動作、バグの再現方法をお知らせください。</string>
-  <string name="illegalPawnCapture">ポーンを変な風に取られた</string>
+  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">ポーンを変な風に取られた</string>
   <string name="calledEnPassant">それは「アンパッサン」というルールです。</string>
   <string name="tryEnPassant">こちらのゲームでアンパッサンについて学んでください。</string>
   <string name="illegalCastling">不可能なキャスリングをされた</string>

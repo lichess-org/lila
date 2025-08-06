@@ -14,7 +14,7 @@ A következő játszmákért egészen addig dupla pontot kapsz, ameddig nem vesz
 Vagyis egy győzelem 4 pontot, egy döntetlen 2 pontot, és a vereség továbbra is nulla pontot ér.
 
 Például két győzelem után egy döntetlen, az összesen 6 pont: 2 + 2 + (2 x 1)</string>
-  <string name="berserk">Berserk Aréna</string>
+  <string name="berserk">Aréna Berserk</string>
   <string name="berserkAnswer">Amikor valaki rákattint a Berserk gombra a játszma kezdetekor, elveszti a gondolkodási idejének a felét, de győzelem esetén egy extra pontot kap.
 
 Növekményes gondolkodási időknél a növekmény is eltűnik (az 1+2 kivétel, amiből 1+0 lesz).
@@ -84,4 +84,5 @@ Például ha 3. helyezett lettél egy versenyen 100 játékos közül, az 3%. Ha
   <string name="onlyTitled">Csak címmel rendelkező játékosok</string>
   <string name="onlyTitledHelp">A részvétel feltétele a hivatalos cím megléte</string>
   <string name="tournamentPairingsAreNowClosed">A verseny párosításai lezárultak.</string>
+  <string name="berserkRate">Berserk arány</string>
 </resources>

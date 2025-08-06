@@ -480,7 +480,7 @@
   <string name="openTournaments">Ανοικτά τουρνουά</string>
   <string name="duration">Διάρκεια</string>
   <string name="winner">Νικητής</string>
-  <string name="standing">Κατάταξη</string>
+  <string name="standings">Κατάταξη</string>
   <string name="createANewTournament">Δημιουργήστε νέο τουρνουά</string>
   <string name="tournamentCalendar">Ημερολόγιο τουρνουά</string>
   <string name="conditionOfEntry">Προϋπόθεση εισόδου:</string>

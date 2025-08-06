@@ -53,8 +53,8 @@
   <string name="invalidMove">Virheellinen siirto</string>
   <string name="premoveCancelled">Esisiirto peruutettu</string>
   <string name="premoveRecorded">Esisiirto tallennettu: %s. Peru painamalla Enteriä</string>
-  <string name="pockets" comment="Crazyhouse pockets">Reservi</string>
+  <string name="pockets" comment="Pockets in Crazyhouse, which hold captured pieces and let players place them again">Reservi</string>
   <string name="copyToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">Kopioi %s leikepöydälle</string>
   <string name="copiedToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">%s kopioitu leikepöydälle</string>
-  <string name="pgnAndFen">PGN ja FEN</string>
+  <string name="pgnAndFen" comment="Will be a heading read out over text-to-speech for blind users looking to share a PGN or FEN of a game.">PGN ja FEN</string>
 </resources>

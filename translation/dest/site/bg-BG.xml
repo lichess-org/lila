@@ -477,7 +477,7 @@
   <string name="openTournaments">Отворени турнири</string>
   <string name="duration">Времетраене</string>
   <string name="winner">Победител</string>
-  <string name="standing">Място</string>
+  <string name="standings">Класиране</string>
   <string name="createANewTournament">Създаване на нов турнир</string>
   <string name="tournamentCalendar">Календар с турнирите</string>
   <string name="conditionOfEntry">Условие за участие:</string>

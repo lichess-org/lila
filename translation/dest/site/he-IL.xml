@@ -540,7 +540,7 @@
   <string name="openTournaments">הטורנירים הפתוחים</string>
   <string name="duration">משך</string>
   <string name="winner">מנצח</string>
-  <string name="standing">מקום</string>
+  <string name="standings">תוצאות</string>
   <string name="createANewTournament">יצירת טורניר חדש</string>
   <string name="tournamentCalendar">לו\"ז טורנירים</string>
   <string name="conditionOfEntry">תנאי הכניסה:</string>

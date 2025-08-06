@@ -40,6 +40,6 @@ object RatingRegulator:
     then
       val diff = after.rating - before.rating
       val extra = diff * (factor - 1)
-      lila.mon.rating.regulator.micropoints(key.value).record((extra * 1000 * 1000).toLong)
+      lila.mon.rating.regulator.micropoints(key).record((extra * 1000 * 1000).toLong)
       after.copy(rating = after.rating + extra)
     else after

@@ -443,7 +443,7 @@
   <string name="openTournaments">시작 예정 토너먼트</string>
   <string name="duration">경기 시간</string>
   <string name="winner">승자</string>
-  <string name="standing">순위</string>
+  <string name="standings">순위</string>
   <string name="createANewTournament">새 토너먼트 생성</string>
   <string name="tournamentCalendar">토너먼트 달력</string>
   <string name="conditionOfEntry">참가조건:</string>

@@ -43,6 +43,7 @@
   <string name="leadersChat">ผู้นำของแชท</string>
   <string name="introduction">บทนำ</string>
   <string name="teamIntroductionHelp">คำอธิบายสั้นๆ สามารถดูได้ในรายชื่อทีม สูงสุด 200 ตัวอักษร</string>
+  <string name="teamDescriptionHelp">คำบรรยายแบบเต็มอยู่บนหน้าหลักของทีม</string>
   <string name="closeTeam">ปิดทีม</string>
   <string name="closeTeamDescription">ปิดทีมอย่างถาวร</string>
   <string name="entryCode">หรัสเข้าทีม</string>
