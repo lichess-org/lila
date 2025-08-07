@@ -65,7 +65,7 @@
   <string name="engineFailed">Villa við ræsingu skáktölvu</string>
   <string name="cloudAnalysis">Greining í skýi</string>
   <string name="goDeeper">Fara dýpra</string>
-  <string name="showThreat">Sýna ógn</string>
+  <string name="showThreat">Sýna hótun</string>
   <string name="inLocalBrowser">í vafra</string>
   <string name="toggleLocalEvaluation">Kveikja á greiningu</string>
   <string name="promoteVariation">Upp með afbrigði</string>
