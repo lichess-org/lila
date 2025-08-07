@@ -146,24 +146,9 @@ function renderMenu(container: HTMLElement): void {
 }
 
 function getMenuFromDataAttr(root: HTMLElement): Menu {
-  const data = root.getAttribute('data-menu');
-  if (!data) {
-    return {
-      items: [],
-      moreLabel: '',
-    };
-  }
-
-  try {
-    return JSON.parse(data);
-  } catch {
-    return {
-      items: [],
-      moreLabel: '',
-    };
-  }
+  return $(root).data('menu');
 }
 
 function setMenuToDataAttr(root: HTMLElement, menu: Menu): void {
-  root.setAttribute('data-menu', JSON.stringify(menu));
+  $(root).data('menu', menu);
 }
