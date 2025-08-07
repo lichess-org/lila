@@ -53,7 +53,7 @@ final class RelayListing(
               round <- tour.rounds.find(!_.isFinished)
             yield Selected(tour, round, group.name.some)
             // sorted preserves the original ordering while adding its own
-            all.sorted(using Ordering.by(s => (tierPriority(s.t.tour), !s.round.hasStarted))).take(3).toNel
+            all.sorted(using Ordering.by(s => (!s.round.hasStarted, tierPriority(s.t.tour)))).take(3).toNel
         cards <- selected.traverse(toRelayCard)
         sorted = cards.sortBy: t =>
           val startAt = t.display.startedAt.orElse(t.display.startsAtTime)
