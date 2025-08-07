@@ -10,8 +10,6 @@ final private class RelayTourRepo(val coll: Coll)(using Executor):
   import RelayTourRepo.*
   import RelayTour.TourPreview
 
-  def exists(id: RelayRoundId): Fu[Boolean] = coll.exists($id(id))
-
   def byId(tourId: RelayTourId): Fu[Option[RelayTour]] = coll.byIdProj[RelayTour](tourId, modelProjection)
 
   def setSyncedNow(tour: RelayTour): Funit =

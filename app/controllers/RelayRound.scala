@@ -1,7 +1,7 @@
 package controllers
 
 import chess.format.pgn.{ PgnStr, Tag }
-import play.api.libs.json.{ Json, OWrites }
+import play.api.libs.json.Json
 import play.api.mvc.*
 
 import scala.annotation.nowarn
@@ -215,17 +215,10 @@ final class RelayRound(
     Found(env.relay.api.byIdWithTourAndStudy(id)): rt =>
       if !rt.study.canContribute(me) then forbiddenJson()
       else
+        import lila.relay.JsonView.given
         env.relay
           .push(rt.withTour, PgnStr(ctx.body.body))
-          .map: results =>
-            JsonOk:
-              import lila.relay.JsonView.given
-              Json.obj:
-                "games" -> results.map:
-                  _.fold(
-                    fail => Json.obj("tags" -> fail.tags, "error" -> fail.error),
-                    pass => Json.obj("tags" -> pass.tags, "moves" -> pass.moves)
-                  )
+          .map(JsonOk)
   }
 
   def teamsView(id: RelayRoundId) = Open:
