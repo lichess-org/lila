@@ -3,7 +3,6 @@ package ui
 
 import scalalib.paginator.Paginator
 
-import lila.common.MenuItem
 import lila.core.perf.UserWithPerfs
 import lila.ui.*
 

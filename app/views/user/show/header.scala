@@ -6,7 +6,7 @@ import lila.app.mashup.UserInfo
 import lila.user.Plan.sinceDate
 import lila.user.PlayTime.*
 import lila.user.Profile.*
-import lila.common.{ Menu, MenuItem }
+import lila.ui.{ Menu, MenuItem }
 
 object header:
 
