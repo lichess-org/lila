@@ -6,7 +6,6 @@ import scalalib.Json.given
 import scalalib.paginator.{ AdapterLike, Paginator }
 
 import lila.app.{ *, given }
-import lila.common.MenuItem
 import lila.core.LightUser
 import lila.core.perf.UserWithPerfs
 import lila.rating.UserPerfsExt.bestRatedPerf
@@ -25,7 +24,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
     res <-
       if menu then
         Ok(
-          MenuItem.serialize(
+          lila.ui.MenuItem.serialize(
             views.relation.actionsMenu(user, relation, blocked = blocked, followable = followable)
           )
         )

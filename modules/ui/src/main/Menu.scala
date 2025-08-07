@@ -1,7 +1,6 @@
-package lila.common
+package lila.ui
 
 import play.api.libs.json.{ Json, JsValue, Writes }
-import lila.ui.Icon
 
 case class Menu(val items: List[MenuItem], val moreLabel: String):
   def serialize(): String = Json.stringify(Json.toJson(this))
