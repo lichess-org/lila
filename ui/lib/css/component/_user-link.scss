@@ -18,28 +18,10 @@
       content: $licon-Disc;
     }
 
-    color: $c-good;
-
-    &.patron {
-      opacity: 1;
-      position: relative;
-    }
-
-    &.patron::after {
-      content: '';
-      position: absolute;
-      top: 0.15em;
-      right: 0.15em;
-      width: 0.4em;
-      height: 0.4em;
-      background-color: $c-good;
-      border-radius: 50%;
-    }
-  }
-
-  & .line {
+    color: $c-good;      
     &.patron {
       -webkit-text-stroke: 0.01em #ffffff;
+      opacity: 1;
 
       &.months1 {
         color: $months1-color;
@@ -73,6 +55,7 @@
       }
     }
   }
+
 
   .line {
     @extend %data-icon;
