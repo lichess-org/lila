@@ -11,7 +11,7 @@
   <string name="aiNameLevelAiLevel">%1$s erfiðleikastig %2$s</string>
   <string name="level">Stig</string>
   <string name="strength">Styrkleiki</string>
-  <string name="toggleTheChat">Virkja spjall</string>
+  <string name="toggleTheChat">Víxla spjalli</string>
   <string name="chat">Spjalla</string>
   <string name="resign">Gefast upp</string>
   <string name="checkmate">Skák og mát</string>
@@ -22,7 +22,7 @@
   <string name="asBlack">sem svartur</string>
   <string name="randomColor">Handahófsvalinn litur</string>
   <string name="createAGame">Byrja að tefla</string>
-  <string name="createTheGame">Byrjar að tefla</string>
+  <string name="createTheGame">Byrja að tefla</string>
   <string name="whiteIsVictorious">Hvítur vinnur</string>
   <string name="blackIsVictorious">Svartur vinnur</string>
   <string name="youPlayTheWhitePieces">Þú teflir með hvítu mennina</string>
@@ -46,7 +46,7 @@
   <string name="forceResignation">Krefjast sigurs</string>
   <string name="forceDraw">Þvinga jafntefli</string>
   <string name="talkInChat">Vinsamlegast verið vinaleg í spjalli!</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Fyrsti einstaklingur sem kemur á þessa vefslóð vill spila við þig</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Fyrsti einstaklingur sem kemur á þessa vefslóð teflir við þig.</string>
   <string name="whiteResigned">Hvítur gefst upp</string>
   <string name="blackResigned">Svartur gefst upp</string>
   <string name="whiteLeftTheGame">Hvítur yfirgaf leikinn</string>
@@ -734,10 +734,10 @@
   <string name="tournamentDoesNotExist">Þetta mót er ekki til</string>
   <string name="tournamentMayHaveBeenCanceled">Mótinu kann að hafa verið aflýst, ef allir skákmenn yfirgefa áður en það hefst.</string>
   <string name="returnToTournamentsHomepage">Aftur á heimasvæði móts</string>
-  <string name="weeklyPerfTypeRatingDistribution">Vikuleg %s stigadreyfing</string>
+  <string name="weeklyPerfTypeRatingDistribution">Vikuleg skákstigadreifing í %s</string>
   <plurals name="nbPerfTypePlayersThisWeek">
-    <item quantity="one">%1$s %2$s notandi í þessari viku.</item>
-    <item quantity="other">%1$s %2$s notendur í þessari viku.</item>
+    <item quantity="one">%1$s notandi í %2$s í þessari viku.</item>
+    <item quantity="other">%1$s notendur í %2$s í þessari viku.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">%1$s skor þitt er %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Þú ert betri en %1$s af %2$s skákmönnum.</string>
