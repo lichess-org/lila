@@ -63,41 +63,35 @@ final class RelationUi(helpers: Helpers):
         .filter(user.isnt(_))
         .so: me =>
           List(
-            relation.isEmpty
-              .option(
-                List(
-                  (followable && !blocked).option(
-                    MenuItem(
-                      trans.site.follow.txt(),
-                      Icon.ThumbsUp,
-                      s"${routes.Relation.follow(user.name)}?menu=1",
-                      Some("relation"),
-                      Some("relation-button")
-                    )
-                  ),
-                  Some(
-                    MenuItem(
-                      trans.site.block.txt(),
-                      Icon.NotAllowed,
-                      s"${routes.Relation.block(user.name)}?menu=1",
-                      Some("relation"),
-                      Some("relation-button")
-                    )
+            relation.isEmpty.so:
+              List(
+                (followable && !blocked).option(
+                  MenuItem(
+                    trans.site.follow.txt(),
+                    Icon.ThumbsUp,
+                    s"${routes.Relation.follow(user.name)}?menu=1",
+                    Some("relation"),
+                    Some("relation-button")
                   )
-                ).flatten
-              )
-              .getOrElse(List.empty),
-            relation
-              .filter(_ == Relation.Block)
-              .map(_ =>
+                ),
                 MenuItem(
-                  trans.site.unblock.txt(),
+                  trans.site.block.txt(),
                   Icon.NotAllowed,
-                  s"${routes.Relation.unblock(user.name)}?menu=1",
+                  s"${routes.Relation.block(user.name)}?menu=1",
                   Some("relation"),
                   Some("relation-button")
-                )
-              ),
+                ).some
+              ).flatten
+            ,
+            blocks.option:
+              MenuItem(
+                trans.site.unblock.txt(),
+                Icon.NotAllowed,
+                s"${routes.Relation.unblock(user.name)}?menu=1",
+                Some("relation"),
+                Some("relation-button")
+              )
+            ,
             (!blocked && !blocks && !user.isBot).option(
               MenuItem(
                 trans.site.composeMessage.txt(),
@@ -115,8 +109,8 @@ final class RelationUi(helpers: Helpers):
               )
             ),
             relation
-              .filter(_ == Relation.Follow)
-              .map(_ =>
+              .has(Relation.Follow)
+              .option:
                 MenuItem(
                   trans.site.unfollow.txt(),
                   Icon.ThumbsUp,
@@ -124,7 +118,6 @@ final class RelationUi(helpers: Helpers):
                   Some("relation"),
                   Some("relation-button")
                 )
-              )
           ).flatten
     ).flatten
 

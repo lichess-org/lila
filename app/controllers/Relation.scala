@@ -23,11 +23,8 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
     blocked <- ctx.userId.so(api.fetchBlocks(user.id, _))
     res <-
       if menu then
-        Ok(
-          lila.ui.MenuItem.serialize(
-            views.relation.actionsMenu(user, relation, blocked = blocked, followable = followable)
-          )
-        )
+        JsonOk:
+          views.relation.actionsMenu(user, relation, blocked = blocked, followable = followable)
       else
         Ok.snip:
           if mini

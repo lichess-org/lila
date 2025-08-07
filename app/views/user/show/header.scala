@@ -19,8 +19,8 @@ object header:
         u.profile.flatMap(_.nonEmptyBio).exists(_.contains("https://"))
     )
 
-  private def getUserActionsMenu(u: User, social: UserInfo.Social)(using ctx: Context) =
-    new Menu(
+  private def userActionsMenu(u: User, social: UserInfo.Social)(using ctx: Context) =
+    Menu(
       List(
         isGranted(_.UserModView).option(
           MenuItem(
@@ -90,7 +90,7 @@ object header:
             )
         ).flatten,
       trans.site.more.txt()
-    ).serialize()
+    )
 
   def apply(u: User, info: UserInfo, angle: UserInfo.Angle, social: UserInfo.Social)(using ctx: Context) =
     val showLinks = !possibleSeoBot(u) || isGranted(_.Shadowban)
@@ -171,8 +171,8 @@ object header:
         ),
         div(
           cls := "user-actions dropdown-overflow",
-          attr("data-menu") := getUserActionsMenu(u, social)
-        )()
+          attr("data-menu") := userActionsMenu(u, social).serialize
+        )
       ),
       ctx.isnt(u).option(noteUi.zone(u, social.notes)),
       isGranted(_.UserModView).option(div(cls := "mod-zone mod-zone-full none")),
