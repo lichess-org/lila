@@ -215,16 +215,16 @@ final class RelayRound(
     Found(env.relay.api.byIdWithTourAndStudy(id)): rt =>
       if !rt.study.canContribute(me) then forbiddenJson()
       else
-        given OWrites[List[Tag]] = OWrites(tags => Json.obj(tags.map(t => (t.name.name, t.value))*))
         env.relay
           .push(rt.withTour, PgnStr(ctx.body.body))
           .map: results =>
             JsonOk:
+              import lila.relay.JsonView.given
               Json.obj:
                 "games" -> results.map:
                   _.fold(
-                    fail => Json.obj("tags" -> fail.tags.value, "error" -> fail.error),
-                    pass => Json.obj("tags" -> pass.tags.value, "moves" -> pass.moves)
+                    fail => Json.obj("tags" -> fail.tags, "error" -> fail.error),
+                    pass => Json.obj("tags" -> pass.tags, "moves" -> pass.moves)
                   )
   }
 
