@@ -17,14 +17,23 @@ import { plyStep } from '../util';
 import type { Step } from '../interfaces';
 import { next, prev } from '../keyboard';
 import { opposite } from 'chessops';
-import { isTouchDevice } from 'lib/device';
 
 const selectSound = () => site.sound.play('select');
 const borderSound = () => site.sound.play('outOfBound');
 const errorSound = () => site.sound.play('error');
 
 export function renderNvui(ctx: RoundNvuiContext): VNode {
-  const { ctrl, notify, moveStyle, pieceStyle, prefixStyle, positionStyle, boardStyle, pageStyle } = ctx;
+  const {
+    ctrl,
+    notify,
+    moveStyle,
+    pieceStyle,
+    prefixStyle,
+    positionStyle,
+    boardStyle,
+    pageStyle,
+    deviceType,
+  } = ctx;
   notify.redraw = ctrl.redraw;
   if (!ctrl.chessground) {
     ctrl.setChessground(
@@ -36,7 +45,7 @@ export function renderNvui(ctx: RoundNvuiContext): VNode {
       }),
     );
   }
-  if (isTouchDevice()) {
+  if (deviceType.get() === 'touchscreen') {
     pieceStyle.set('name');
     prefixStyle.set('name');
     boardStyle.set('plain');
@@ -53,6 +62,7 @@ export function renderNvui(ctx: RoundNvuiContext): VNode {
       hl('h2', i18n.site.advancedSettings),
       hl('label', [noTrans('Move notation'), renderSetting(moveStyle, ctrl.redraw)]),
       hl('label', [noTrans('Page layout'), renderSetting(pageStyle, ctrl.redraw)]),
+      hl('label', [noTrans('Device'), renderSetting(deviceType, ctrl.redraw)]),
       hl('label', [noTrans('Show position'), renderSetting(positionStyle, ctrl.redraw)]),
       hl('h2', i18n.keyboardMove.keyboardInputCommands),
       hl('p', [
@@ -77,6 +87,7 @@ export function renderNvui(ctx: RoundNvuiContext): VNode {
       hl('h2', i18n.site.advancedSettings),
       hl('label', [noTrans('Move notation'), renderSetting(moveStyle, ctrl.redraw)]),
       hl('label', [noTrans('Page layout'), renderSetting(pageStyle, ctrl.redraw)]),
+      hl('label', [noTrans('Device'), renderSetting(deviceType, ctrl.redraw)]),
       hl('h3', noTrans('Board settings')),
       hl('label', [noTrans('Piece style'), renderSetting(pieceStyle, ctrl.redraw)]),
       hl('label', [noTrans('Piece prefix style'), renderSetting(prefixStyle, ctrl.redraw)]),
@@ -267,14 +278,14 @@ function flipBoard(ctx: RoundNvuiContext): void {
 }
 
 function boardEventsHook(ctx: RoundNvuiContext, el: HTMLElement): void {
-  const { ctrl, prefixStyle, pieceStyle, moveStyle } = ctx;
+  const { ctrl, prefixStyle, pieceStyle, moveStyle, deviceType } = ctx;
 
   const $board = $(el);
   const $buttons = $board.find('button');
   $buttons.on('blur', nv.leaveSquareHandler($buttons));
   $buttons.on(
     'click',
-    nv.selectionHandler(() => ctrl.data.opponent.color, isTouchDevice()),
+    nv.selectionHandler(() => ctrl.data.opponent.color, deviceType.get() === 'touchscreen'),
   );
   $buttons.on('keydown', (e: KeyboardEvent) => {
     if (e.shiftKey && e.key.match(/^[ad]$/i)) nextOrPrev(ctrl)(e);
