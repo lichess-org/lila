@@ -39,7 +39,7 @@
   <string name="reportMobileIssue">GitHub-da Lichess mobil ilovasi muammosi sifatida</string>
   <string name="reportBugInDiscord">Lichess Discord serverida</string>
   <string name="howToReportBug">Iltimos, xato qanday ko\'rinishini, uning o\'rniga nima sodir bo\'lishini kutganingizni va xatoni takrorlash qadamlarini tasvirlab bering.</string>
-  <string name="illegalPawnCapture">Noqonuniy garovga olish</string>
+  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">Noqonuniy garovga olish</string>
   <string name="calledEnPassant">U \"en passant\" deb ataladi va shaxmat qoidalaridan biridir.</string>
   <string name="tryEnPassant">\"En passant\" haqida ko\'proq bilish uchun ushbu kichik interaktiv o\'yinni sinab ko\'ring.</string>
   <string name="illegalCastling">Noqonuniy yoki imkonsiz kasting</string>

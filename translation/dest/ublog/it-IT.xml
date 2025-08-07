@@ -5,6 +5,7 @@
   <string name="byTopic">Per argomento</string>
   <string name="byLichess">Di Lichess</string>
   <string name="myFriends">I miei amici</string>
+  <string name="myLikes">Il mio lichess</string>
   <string name="myBlog">Il mio blog</string>
   <string name="likedBlogs">Post del blog che ti sono piaciuti</string>
   <plurals name="blogPosts">

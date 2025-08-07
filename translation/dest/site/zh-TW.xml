@@ -30,20 +30,20 @@
   <string name="cheatDetected">偵測到作弊行為</string>
   <string name="kingInTheCenter">王居中</string>
   <string name="threeChecks">三次將軍</string>
-  <string name="raceFinished">王至第八排</string>
+  <string name="raceFinished">競賽結束</string>
   <string name="variantEnding">變體終局</string>
   <string name="newOpponent">換個對手</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">您的對手想和你複賽</string>
-  <string name="joinTheGame">加入這盤棋</string>
+  <string name="joinTheGame">加入棋局</string>
   <string name="whitePlays">白方走棋</string>
   <string name="blackPlays">黑方走棋</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="other">您的對手已經離開了遊戲。您將在 %s 秒後獲勝。</item>
+    <item quantity="other">您的對手已離開對局。您將在 %s 秒後獲勝。</item>
   </plurals>
   <string name="opponentLeftChoices">對方可能已經離開遊戲。您可以選擇：取勝、和棋或等待對方走棋。</string>
   <string name="forceResignation">取勝</string>
   <string name="forceDraw">和棋</string>
-  <string name="talkInChat">請在聊天室裡文明一點</string>
+  <string name="talkInChat">在聊天室中請文明一點！</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">第一個訪問該網址的人將與您下棋。</string>
   <string name="whiteResigned">白方認輸</string>
   <string name="blackResigned">黑方認輸</string>
@@ -58,7 +58,7 @@
   <string name="analysis">分析棋局</string>
   <string name="depthX">深度 %s</string>
   <string name="usingServerAnalysis">正在使用伺服器分析</string>
-  <string name="loadingEngine">正在載入引擎 ...</string>
+  <string name="loadingEngine">正在載入引擎……</string>
   <string name="calculatingMoves">計算著法中...</string>
   <string name="engineFailed">加載引擎出錯</string>
   <string name="cloudAnalysis">雲端分析</string>
@@ -74,10 +74,10 @@
   <string name="forceVariation">移除變化</string>
   <string name="copyVariationPgn">複製變體 PGN</string>
   <string name="move">走棋</string>
-  <string name="variantLoss">您因特殊規則而輸了</string>
-  <string name="variantWin">您因特殊規則而贏了</string>
-  <string name="insufficientMaterial">由於棋子不足而導致平局</string>
-  <string name="pawnMove">小兵移動</string>
+  <string name="variantLoss">變體判負</string>
+  <string name="variantWin">變體判勝</string>
+  <string name="insufficientMaterial">子力不足和局</string>
+  <string name="pawnMove">走兵</string>
   <string name="capture">吃子</string>
   <string name="close">關閉</string>
   <string name="winning">贏棋</string>
@@ -94,28 +94,28 @@
     <item quantity="other">在%s步內將死對手</item>
   </plurals>
   <string name="dtzWithRounding">經過四捨五入的DTZ50\'\'，是基於到下次吃子或兵動的半步數目。</string>
-  <string name="noGameFound">未找到遊戲</string>
+  <string name="noGameFound">未找到棋局</string>
   <string name="maxDepthReached">已達到最大深度！</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">試著從設定中加入更多棋局</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">到偏好設定中加入更多棋局？</string>
   <string name="openings">開局</string>
   <string name="openingExplorer">開局瀏覽器</string>
   <string name="openingEndgameExplorer">開局與終局瀏覽器</string>
   <string name="xOpeningExplorer">%s開局瀏覽器</string>
   <string name="playFirstOpeningEndgameExplorerMove">在開局/殘局瀏覽器走第一步棋</string>
-  <string name="winPreventedBy50MoveRule">在不違反50步和局規則下贏得這局棋</string>
-  <string name="lossSavedBy50MoveRule">藉由50步和局規則來避免輸掉棋局</string>
-  <string name="winOr50MovesByPriorMistake">贏棋或因先前錯誤50步作和</string>
-  <string name="lossOr50MovesByPriorMistake">輸棋或因先前錯誤50步作和</string>
-  <string name="unknownDueToRounding">由上次吃子或兵動開始按殘局庫建議走法走才能保證勝敗的判斷正確。這是因為Syzygy殘局庫的DTZ數值可能經過四捨五入。</string>
+  <string name="winPreventedBy50MoveRule">因五十步規則判勝</string>
+  <string name="lossSavedBy50MoveRule">因 50 步規則判和</string>
+  <string name="winOr50MovesByPriorMistake">因對方失誤導致的勝勢或五十步和棋</string>
+  <string name="lossOr50MovesByPriorMistake">因我方失誤導致的敗勢或五十步和棋</string>
+  <string name="unknownDueToRounding">由於 Syzygy 終局庫中的 DTZ 值可能經過四捨五入，只有在您從上次吃子或進兵之後都完全遵循其推薦的最佳路線，勝負結果才能保證成立。</string>
   <string name="allSet">一切就緒！</string>
   <string name="importPgn">匯入 PGN</string>
   <string name="delete">刪除</string>
   <string name="deleteThisImportedGame">刪除此匯入的棋局？</string>
   <string name="replayMode">重播模式</string>
   <string name="realtimeReplay">實時</string>
-  <string name="byCPL">以厘兵損失</string>
+  <string name="byCPL">依據厘兵損失值 (CPL)</string>
   <string name="enable">啟用</string>
-  <string name="bestMoveArrow">最佳移動的箭頭</string>
+  <string name="bestMoveArrow">最佳著法箭頭</string>
   <string name="showVariationArrows">顯示變體箭頭</string>
   <string name="evaluationGauge">評估條</string>
   <string name="multipleLines">路線分析線</string>
@@ -160,12 +160,12 @@
     <item quantity="other">查看所有%s盤棋</item>
   </plurals>
   <plurals name="ratingXOverYGames">
-    <item quantity="other">%2$s 場對局後的 %1$s 等級分</item>
+    <item quantity="other">積分 %1$s ( %2$s 場對局)</item>
   </plurals>
   <plurals name="nbBookmarks">
-    <item quantity="other">%s個收藏</item>
+    <item quantity="other">%s個書籤</item>
   </plurals>
-  <string name="viewInFullSize">在整個網頁裡觀看棋局</string>
+  <string name="viewInFullSize">以全螢幕觀看棋局</string>
   <string name="logOut">登出</string>
   <string name="signIn">登入</string>
   <string name="rememberMe">保持登入狀態</string>
@@ -174,7 +174,7 @@
   <string name="computersAreNotAllowedToPlay">電腦與電腦輔助棋手不允許參加對弈。對弈時，請勿從國際象棋引擎、資料庫以及其他棋手那裡獲取幫助。另外，強烈建議不要創建多個帳號；過分地使用多個帳號將導致封號。</string>
   <string name="games">棋局</string>
   <string name="forum">論壇</string>
-  <string name="xPostedInForumY">%1$s發帖：%2$s</string>
+  <string name="xPostedInForumY">%1$s在主題%2$s中發表了回覆</string>
   <string name="latestForumPosts">最新論壇貼文</string>
   <string name="players">棋手</string>
   <string name="friends">朋友</string>
@@ -431,7 +431,7 @@
   <string name="openTournaments">公開錦標賽</string>
   <string name="duration">持續時間</string>
   <string name="winner">贏家</string>
-  <string name="standing">名次</string>
+  <string name="standings">排行榜</string>
   <string name="createANewTournament">建立新的錦標賽</string>
   <string name="tournamentCalendar">錦標賽日程</string>
   <string name="conditionOfEntry">加入限制:</string>

@@ -49,3 +49,4 @@ final class OnlineApiUsers(
 
 object OnlineApiUsers:
   case object SetOnline
+  case object CheckOnline

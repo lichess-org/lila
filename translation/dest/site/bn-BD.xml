@@ -467,7 +467,6 @@
   <string name="openTournaments">উন্মুক্ত টুর্নামেন্টগুলো</string>
   <string name="duration">সময়কাল</string>
   <string name="winner">বিজয়ী</string>
-  <string name="standing">অপেক্ষারত</string>
   <string name="createANewTournament">নতুন টুর্নামেন্ট সৃষ্টি করুন</string>
   <string name="tournamentCalendar">টুর্নামেন্ট ক্যালেন্ডার</string>
   <string name="conditionOfEntry">এন্ট্রির শর্তাবলি:</string>

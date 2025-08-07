@@ -39,7 +39,7 @@
   <string name="reportMobileIssue">Lichess mobilapplikáció hibajelentés a GitHub-on</string>
   <string name="reportBugInDiscord">Lichess Discord szerveren</string>
   <string name="howToReportBug">Légyszíves írd meg milyen formában jelentkezik a hiba, mi lenne az elvárt helyes működés és mivel idézhető elő a hiba.</string>
-  <string name="illegalPawnCapture">Szabálytalan gyalogütés</string>
+  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">Szabálytalan gyalogütés</string>
   <string name="calledEnPassant">Úgy hívják \"en passant\" és a hivatalos sakk egyik szabálya.</string>
   <string name="tryEnPassant">Próbáld ki az interaktív oktatót, hogy többet megtudj az \"en passant\"-ról.</string>
   <string name="illegalCastling">Szabálytalan vagy lehetetlen sáncolás</string>

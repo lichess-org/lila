@@ -467,7 +467,7 @@
   <string name="openTournaments">Torneyos ubiertos</string>
   <string name="duration">Duración</string>
   <string name="winner">Ganador</string>
-  <string name="standing">Posición</string>
+  <string name="standings">Clasificación</string>
   <string name="createANewTournament">Crear un nuevo torneyo</string>
   <string name="tournamentCalendar">Calandario de torneyos</string>
   <string name="conditionOfEntry">Requisito de dentrada:</string>

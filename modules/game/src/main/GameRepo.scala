@@ -260,7 +260,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
       .list(2)
       .dmap { _.sortBy(_.movedAt).lastOption.flatMap(Pov(_, userId)) }
 
-  def quickLastPlayedId(userId: UserId): Fu[Option[GameId]] =
+  private[game] def quickLastPlayedId(userId: UserId): Fu[Option[GameId]] =
     coll
       .find(Query.user(userId), $id(true).some)
       .sort($sort.desc(F.createdAt))

@@ -167,15 +167,18 @@
   <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">ஒரு பக்கத்திற்கு %s</string>
   <string name="getTheTour">உதவி தேவையா? வழிகாட்டியைச் சரிபார்க்கவும்!</string>
   <string name="welcomeToLichessStudyTitle">Lichess படிப்புக்கு வருக!</string>
+  <string name="welcomeToLichessStudyText">இது ஒரு பகிரப்பட்ட பகுப்பாய்வு பலகை.&lt;br&gt;&lt;br&gt;விளையாட்டுகளை பகுப்பாய்வு செய்யவும், குறிப்பு எழுதவும்,&lt;br&gt;நண்பர்களுடன் நிலைகளைப் பற்றி விவாதிக்கவும்,&lt;br&gt;மற்றும் நிச்சயமாக சதுரங்கப் பாடங்களுக்கும் இதைப் பயன்படுத்தவும்!&lt;br&gt;&lt;br&gt;இது ஒரு சக்திவாய்ந்த கருவி, இது எவ்வாறு செயல்படுகிறது என்பதைப் பார்க்க சிறிது நேரம் ஒதுக்குவோம்.</string>
   <string name="sharedAndSaveTitle" comment="Appears as the title of a pop-up lightbox in the guided tour of Lichess Studies.&#10;&#10;As in: shared with other members &amp; saved to the database.">பகிரப்பட்டு சேமிக்கப்பட்டது</string>
   <string name="sharedAndSavedText">மற்ற உறுப்பினர்கள் உங்கள் நகர்வுகளை நிகழ்நேரத்தில் பார்க்கலாம்!&lt;br&gt;மேலும், அனைத்தும் என்றென்றும் சேமிக்கப்படும்.</string>
   <string name="studyMembersTitle">கற்கை உறுப்பினர்கள்</string>
+  <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s பார்வையாளர்கள் ஆய்வைப் பார்க்கலாம் மற்றும் அரட்டையில் பேசலாம்.&lt;br&gt;&lt;br&gt;%2$s பங்களிப்பாளர்கள் நகர்வுகளைச் செய்து ஆய்வைப் புதுப்பிக்கலாம்.</string>
   <string name="addMembersText" comment="%s is an icon that will added at runtime">%s பொத்தானைக் அழுத்துங்கள்.&lt;br&gt;பின்னர் யார் பங்களிக்கலாம் அல்லது பங்களிக்கக் கூடாது என்பதை முடிவு செய்யுங்கள்.</string>
   <string name="studyChaptersTitle">கற்கை அத்தியாயங்கள்</string>
   <string name="commentPositionTitle">ஒரு நிலை குறித்து கருத்து தெரிவிக்கவும்</string>
   <string name="annotatePositionTitle">ஒரு நிலையைக் குறிப்பிடவும்</string>
   <string name="conclusionTitle">உங்கள் நேரத்திற்கு நன்றி</string>
   <string name="createChapterTitle">ஒரு படிப்பு அத்தியாயத்தை உருவாக்குவோம்</string>
+  <string name="createChapterText">ஒரு ஆய்வில் பல அத்தியாயங்கள் இருக்கலாம்.&lt;br&gt;ஒவ்வொரு அத்தியாயமும் ஒரு தனித்துவமான நகர்வு மரத்தைக் கொண்டுள்ளது,&lt;br&gt;மேலும் பல்வேறு வழிகளில் உருவாக்கப்படலாம்.</string>
   <string name="fromInitialPositionTitle">தொடக்க நிலையிலிருந்து</string>
   <string name="customPositionTitle">விருப்ப நிலை</string>
   <string name="loadExistingLichessGameTitle">ஏற்கனவே உள்ள ஒரு Lichess விளையாட்டை ஏற்றவும்</string>

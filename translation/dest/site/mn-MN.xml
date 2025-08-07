@@ -418,7 +418,6 @@
   <string name="openTournaments">Бүгдэд нээлттэй тэмцээнүүд</string>
   <string name="duration">Үргэлжлэх хугацаа</string>
   <string name="winner">Ялагч</string>
-  <string name="standing">Оролцогчдын онооны жагсаалт</string>
   <string name="createANewTournament">Шинэ тэмцээн үүсгэх</string>
   <string name="tournamentCalendar">Тэмцээний хуанли</string>
   <string name="conditionOfEntry">Нэвтрэх нөхцөл:</string>

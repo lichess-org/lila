@@ -452,7 +452,7 @@
   <string name="openTournaments">Bukas na mga paligsahan</string>
   <string name="duration">Tagal</string>
   <string name="winner">Nanalo</string>
-  <string name="standing">Katayuan</string>
+  <string name="standings">Mga Standing</string>
   <string name="createANewTournament">Gumawa ng baong torneo</string>
   <string name="tournamentCalendar">Kalendaryo ng mga paligsahan</string>
   <string name="conditionOfEntry">Kondisyon para makapasok:</string>

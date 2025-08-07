@@ -39,7 +39,7 @@
   <string name="reportMobileIssue">Som et Lichess mobilapp-problem på GitHub</string>
   <string name="reportBugInDiscord">I Lichess discord-server</string>
   <string name="howToReportBug">Vær vennlig og beskriv hvordan problemet arter seg, hva du forventet skulle skje og de trinn som skal til for å gjenskape feilen.</string>
-  <string name="illegalPawnCapture">Ulovlig måte å slå bonden på</string>
+  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">Ulovlig måte å slå bonden på</string>
   <string name="calledEnPassant">Det kalles \"en passant\" (norsk: \"i forbifarten\") og er en av sjakkreglene.</string>
   <string name="tryEnPassant">Prøv dette lille interaktive spillet for å lære mer om \"en passant\".</string>
   <string name="illegalCastling">Ulovlig eller umulig rokade</string>

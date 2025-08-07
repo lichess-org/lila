@@ -479,7 +479,7 @@
   <string name="openTournaments">Torneos abiertos</string>
   <string name="duration">Duración</string>
   <string name="winner">Ganador</string>
-  <string name="standing">Posición</string>
+  <string name="standings">Clasificaciones</string>
   <string name="createANewTournament">Crear un nueu tornéu</string>
   <string name="tournamentCalendar">Calendariu de tornéu</string>
   <string name="conditionOfEntry">Requisitos d\'entrada:</string>

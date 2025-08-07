@@ -480,7 +480,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="openTournaments">Tornei aperti</string>
   <string name="duration">Durata</string>
   <string name="winner">Vincitore</string>
-  <string name="standing">Classifica</string>
+  <string name="standings">Classifica</string>
   <string name="createANewTournament">Crea un nuovo torneo</string>
   <string name="tournamentCalendar">Elenco dei Tornei</string>
   <string name="conditionOfEntry">Condizioni di accesso:</string>
@@ -1010,4 +1010,5 @@ Tutti i costi operativi, lo sviluppo e i contenuti sono finanziati esclusivament
   <string name="accessibility">Accessibilità</string>
   <string name="enableBlindMode">Attiva \"modalità non vedenti\"</string>
   <string name="disableBlindMode">Disattiva \"modalità non vedenti\"</string>
+  <string name="copyToClipboard">Copia negli appunti</string>
 </resources>

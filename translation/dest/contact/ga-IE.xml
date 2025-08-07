@@ -39,7 +39,7 @@
   <string name="reportMobileIssue">Mar eagrán aip móibíleacha Lichess ar GitHub</string>
   <string name="reportBugInDiscord">Sa fhreastalaí Discord Lichess</string>
   <string name="howToReportBug">Déan cur síos, le do thoil, ar an gcuma atá ar an bhfabht, ar a raibh súil agat go dtarlódh sé ina ionad, agus ar na céimeanna chun an fabht a atáirgeadh.</string>
-  <string name="illegalPawnCapture">Marú ceithearnach mídhleathach</string>
+  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">Marú ceithearnach mídhleathach</string>
   <string name="calledEnPassant">Tugtar \"en passant\" air agus \'sé ceann de rialacha i bhficheall.</string>
   <string name="tryEnPassant">Bain triail as an gcluiche beag idirghníomhach seo chun níos mó a fhoghlaim faoi \"en passant\".</string>
   <string name="illegalCastling">Caisliú dodhéanta nó mídhleathach</string>

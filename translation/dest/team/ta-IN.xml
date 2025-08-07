@@ -44,6 +44,9 @@
   <string name="teamsIlead">நான் வழிநடத்தும் குழுக்கள்</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">வரவிருக்கும் போட்டிகளில் ஒன்றை இணைக்க வேண்டுமா?</string>
   <string name="leadersChat">தலைவர்கள் அரட்டை</string>
+  <string name="introduction">அறிமுகம்</string>
+  <string name="teamIntroductionHelp">குழு பட்டியல்களில் சுருக்கமான விளக்கம் தெரியும். 200 எழுத்துகள் வரை.</string>
+  <string name="teamDescriptionHelp">முழு விளக்கமும் குழு பக்கத்தில் தெரியும்.</string>
   <string name="closeTeam">குழுவை மூடு</string>
   <string name="closeTeamDescription">குழுவை நிரந்தரமாக மூடுகிறது.</string>
   <string name="entryCode">குழு நுழைவு குறியீடு</string>

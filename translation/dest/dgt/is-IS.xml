@@ -13,8 +13,8 @@
   <string name="configurationSection">Stillingarsvæðinu</string>
   <string name="keepPlayPageOpen">Teflasíðan þarf að vera opin í vafranum þínum. Hún þarf ekki að vera sýnileg, þú getur falið hana eða látið hana liggja samhliða Lichess-vefsíðunni, en ekki loka henni því annars hættir taflborðið að virka.</string>
   <string name="boardWillAutoConnect">Taflborðið mun tengjast sjálfkrafa þeirri skák sem er í gangi eða að hefjast. Möguleikinn á að velja hvaða skák á að tefla er á döfinni.</string>
-  <string name="timeControlsForCasualGames">Tímaskorður fyrir æfingarskákir: Kappskákir, bréfskákir og atskákir eingöngu.</string>
-  <string name="timeControlsForRatedGames">Tímaskorður fyrir stigaskákir: Kappskákir, bréfskákir og sumar atskákir þ. á m. 15+10 og 20+0</string>
+  <string name="timeControlsForCasualGames">Tímaskorður fyrir æfingarskákir: Hægskákir, bréfskákir og atskákir eingöngu.</string>
+  <string name="timeControlsForRatedGames">Tímaskorður fyrir stigaskákir: Hægskákir, bréfskákir og sumar atskákir þ. á m. 15+10 og 20+0</string>
   <string name="whenReadySetupBoard">Þegar þér þykir kominn tími skaltu setja upp taflborðið þitt og smella svo á %s.</string>
   <string name="ifMoveNotDetected">Ef leikur er ekki greindur</string>
   <string name="checkYouHaveMadeOpponentsMove">Gakktu úr skugga um að þú hafir fyrst gert leik andstæðingsins á DGT-taflborðinu. Taktu leik þinn til baka. Tefldu upp á nýtt.</string>

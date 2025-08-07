@@ -2,6 +2,7 @@
 <resources>
   <string name="emailConfirm_subject">உங்கள் lichess.org கணக்கை உறுதிசெய்க, %s</string>
   <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">உங்கள் Lichess கணக்கைச் செயல்படுத்த இந்த இணைப்பைச் சொடுக்கவும்:</string>
+  <string name="emailConfirm_justIgnore" comment="This text is included in the registration email for new users.">நீங்கள் Lichess இல் பதிவு செய்யவில்லை என்றால், இந்த செய்தியை நீங்கள் பாதுகாப்பாக புறக்கணிக்கலாம். உறுதிப்படுத்தப்படாத கணக்கு மற்றும் உங்கள் மின்னஞ்சல் முகவரியின் அனைத்து தடயங்களும் 48 மணி நேரத்திற்குப் பிறகு எங்கள் அமைப்பிலிருந்து நீக்கப்படும்.</string>
   <string name="passwordReset_subject">உங்கள் lichess.org கடவுச்சொல்லை மீட்டமைக்க, %s</string>
   <string name="passwordReset_intro">உங்கள் கணக்கிற்கான கடவுச்சொல்லை மீட்டமைப்பதற்கான கோரிக்கையைப் பெற்றுள்ளோம்.</string>
   <string name="passwordReset_clickOrIgnore">இந்த கோரிக்கையை நீங்கள் செய்திருந்தால், கீழேயுள்ள இணைப்பை சொடுக்கவும். இல்லையெனில், இந்த மின்னஞ்சலை நீங்கள் புறக்கணிக்கலாம்.</string>

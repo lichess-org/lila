@@ -39,7 +39,7 @@
   <string name="reportMobileIssue">Kiel Lichess-poŝtelefona aplikaĵa temo en GitHub</string>
   <string name="reportBugInDiscord">En la Lichess Discord servilo</string>
   <string name="howToReportBug">Bonvolu priskribi kiel aspektas la eraro, kion vi atendis okazi anstataŭe kaj la paŝojn por reprodukti la eraron.</string>
-  <string name="illegalPawnCapture">Kontraŭleĝa kapto de soldato</string>
+  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">Kontraŭleĝa kapto de soldato</string>
   <string name="calledEnPassant">Ĝi estas nomata «preterpasa preno» kaj estas unu el la reguloj de ŝako.</string>
   <string name="tryEnPassant">Provu ĉi tiun interagan ludeton por lerni pli pri «preterpasa preno».</string>
   <string name="illegalCastling">Kontraŭleĝa aŭ neebla aroko</string>

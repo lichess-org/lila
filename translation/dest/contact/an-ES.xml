@@ -39,7 +39,7 @@
   <string name="reportMobileIssue">Como un problema de l\'aplicación móbil de Lichess en GitHub</string>
   <string name="reportBugInDiscord">En o servidor Discord de Lichess</string>
   <string name="howToReportBug">Per favor, describe cómo se veye la error, qué esperabas que pasase, y los pasos pa reproducir la error.</string>
-  <string name="illegalPawnCapture">Captura de peón ilegal</string>
+  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">Captura de peón ilegal</string>
   <string name="calledEnPassant">Se diz captura a lo paso y ye una d\'as reglas d\'os escaques.</string>
   <string name="tryEnPassant">Preba este chicot chuego interactivo pa aprender mas sobre la captura a lo paso.</string>
   <string name="illegalCastling">Enroque ilegal u imposible</string>

@@ -130,7 +130,7 @@ final class ChallengeBulkSetupApi(
             val nbGames = pairs.size
             val cost = nbGames * (if me.isVerifiedOrChallengeAdmin || me.isApiHog then 1 else 3)
             rateLimit(me.id, fuccess(Left(ScheduleError.RateLimited)), cost = cost):
-              lila.mon.api.challenge.bulk.scheduleNb(me.id.value).increment(nbGames)
+              lila.mon.api.challenge.bulk.scheduleNb(me.id).increment(nbGames)
               idGenerator
                 .games(nbGames)
                 .map:

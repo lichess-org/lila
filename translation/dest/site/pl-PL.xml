@@ -551,7 +551,7 @@
   <string name="openTournaments">Dostępne turnieje</string>
   <string name="duration">Czas trwania</string>
   <string name="winner">Zwycięzca</string>
-  <string name="standing">Miejsce</string>
+  <string name="standings">Klasyfikacja</string>
   <string name="createANewTournament">Nowy turniej</string>
   <string name="tournamentCalendar">Kalendarz turniejowy</string>
   <string name="conditionOfEntry">Warunki przystąpienia:</string>
@@ -1099,5 +1099,5 @@ Wszystkie koszty operacyjne, rozwój i treści są finansowane wyłącznie z dar
   <string name="accessibility">Ułatwienia dostępu</string>
   <string name="enableBlindMode">Włącz tryb gry \"na ślepo\"</string>
   <string name="disableBlindMode">Wyłącz tryb gry \"na ślepo\"</string>
-  <string name="copyToClipboard" comment="Clipboard is a concept in computing. The clipboard is where text goes after you copy it. Every time  you paste text, you paste from the clipboard.&#10;&#10;Microsoft has translations to most languages and you are encouraged to use their translation for 'clipboard' - you can look it up here: https://msit.powerbi.com/view?r=eyJrIjoiODJmYjU4Y2YtM2M0ZC00YzYxLWE1YTktNzFjYmYxNTAxNjQ0IiwidCI6IjcyZjk4OGJmLTg2ZjEtNDFhZi05MWFiLTJkN2NkMDExZGI0NyIsImMiOjV9">Kopiuj do schowka</string>
+  <string name="copyToClipboard">Kopiuj do schowka</string>
 </resources>

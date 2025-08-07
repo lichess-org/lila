@@ -550,7 +550,7 @@
   <string name="openTournaments">Otevřené turnaje</string>
   <string name="duration">Trvání</string>
   <string name="winner">Vítěz</string>
-  <string name="standing">Umístění</string>
+  <string name="standings">Pořadí</string>
   <string name="createANewTournament">Vytvořit turnaj</string>
   <string name="tournamentCalendar">Kalendář turnajů</string>
   <string name="conditionOfEntry">Podmínka vstupu:</string>

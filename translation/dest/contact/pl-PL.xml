@@ -39,7 +39,7 @@
   <string name="reportMobileIssue">Jako problem z aplikacją mobilną Lichess na GitHub</string>
   <string name="reportBugInDiscord">Na serwerze discord Lichess</string>
   <string name="howToReportBug">Opisz proszę jak wygląda błąd, czego się spodziewałeś zamiast tego i kroki do odtworzenia błędu.</string>
-  <string name="illegalPawnCapture">Nielegalne bicie piona</string>
+  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">Nielegalne bicie piona</string>
   <string name="calledEnPassant">To „bicie w przelocie” i jest jedną z zasad szachów.</string>
   <string name="tryEnPassant">Wypróbuj tę małą interaktywną grę, aby dowiedzieć się więcej o \"biciu w przelocie\".</string>
   <string name="illegalCastling">Nielegalna lub niemożliwa roszada</string>

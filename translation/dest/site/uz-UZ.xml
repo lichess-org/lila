@@ -479,7 +479,7 @@
   <string name="openTournaments">Ochiq turnir</string>
   <string name="duration">Davomiyligi</string>
   <string name="winner">G\'olib</string>
-  <string name="standing">Musobaqa jadvali</string>
+  <string name="standings">Turnir jadvali</string>
   <string name="createANewTournament">Yangi turnir yaratish</string>
   <string name="tournamentCalendar">Turnir kalendari</string>
   <string name="conditionOfEntry">Kirish sharti:</string>

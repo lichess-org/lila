@@ -479,7 +479,7 @@
   <string name="openTournaments">Open toernooien</string>
   <string name="duration">Tijdsduur</string>
   <string name="winner">Winnaar</string>
-  <string name="standing">Ranglijst</string>
+  <string name="standings">Klassement</string>
   <string name="createANewTournament">Start een nieuw toernooi</string>
   <string name="tournamentCalendar">Toernooikalender</string>
   <string name="conditionOfEntry">Voorwaarde voor deelname:</string>

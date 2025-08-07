@@ -127,8 +127,8 @@ object JsonView:
       "nbGames" -> m.users.nbGames
     )
 
-  def crosstable(ct: Crosstable, matchup: Option[Crosstable.Matchup]) =
-    Json.toJsObject(ct).add("matchup" -> matchup)
+  given OWrites[Crosstable.WithMatchup] = OWrites: c =>
+    Json.toJsObject(c.crosstable).add("matchup" -> c.matchup)
 
   given OWrites[Blurs] = OWrites: blurs =>
     import lila.game.Blurs.binaryString

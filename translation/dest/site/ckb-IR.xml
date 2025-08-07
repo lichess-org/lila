@@ -479,7 +479,7 @@
   <string name="openTournaments">پاڵەوانیەتی کراوە</string>
   <string name="duration">ماوە</string>
   <string name="winner">براوە</string>
-  <string name="standing">ریزبەند</string>
+  <string name="standings">ڕیزبەندییەکان</string>
   <string name="createANewTournament">پاڵەوانیەتیەکی نوێ دروست بکە</string>
   <string name="tournamentCalendar">ساڵنامەی پاڵەوانێتیەکان</string>
   <string name="conditionOfEntry">مەرجی چوونە ژوورەوە:</string>

@@ -39,7 +39,7 @@
   <string name="reportMobileIssue">Sum ein Lichess-fartelefonsapp-trupulleiki á GitHub</string>
   <string name="reportBugInDiscord">Í Lichess-tvídráttaambætaranum</string>
   <string name="howToReportBug">Greið vinaliga frá, hvussu trupulleikin ber seg at, hvat tú hevði væntað ístaðin, og tey stig, ið skulu til fyri at endurskapa trupulleikan.</string>
-  <string name="illegalPawnCapture">Ólógligur háttur at taka finnuna</string>
+  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">Ólógligur háttur at taka finnuna</string>
   <string name="calledEnPassant">Tað eitur at taka í framlopi (\"en passant\"), og er ein av reglunum í talvi.</string>
   <string name="tryEnPassant">Royn hetta lítla samvirkna spælið at læra meir um at taka í framlopi (\"en passant.\")</string>
   <string name="illegalCastling">Ólógligur ella ómøguligur máti at leypa í borg</string>

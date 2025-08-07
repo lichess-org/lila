@@ -57,4 +57,7 @@
   <string name="invalidMove">Nước cờ không hợp lệ</string>
   <string name="premoveCancelled">Đã hủy nước cờ dự đoán</string>
   <string name="premoveRecorded">Nước cờ dự đã được ghi lại: %s. Nhấn Enter để hủy bỏ</string>
+  <string name="pockets" comment="Pockets in Crazyhouse, which hold captured pieces and let players place them again">Túi quân</string>
+  <string name="copyToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">Sao chép %s vào bộ nhớ tạm</string>
+  <string name="copiedToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">%s đã được sao chép vào bộ nhớ tạm</string>
 </resources>

@@ -444,7 +444,7 @@
   <string name="openTournaments">参加募集中のトーナメント</string>
   <string name="duration">対局継続時間</string>
   <string name="winner">勝者</string>
-  <string name="standing">順位</string>
+  <string name="standings">順位</string>
   <string name="createANewTournament">新しいトーナメントを作る</string>
   <string name="tournamentCalendar">トーナメント・カレンダー</string>
   <string name="conditionOfEntry">参加条件:</string>
@@ -965,4 +965,5 @@
   <string name="accessibility">アクセシビリティ</string>
   <string name="enableBlindMode">視覚障害モードをオンに</string>
   <string name="disableBlindMode">視覚障害モードをオフに</string>
+  <string name="copyToClipboard">クリップボードにコピー</string>
 </resources>

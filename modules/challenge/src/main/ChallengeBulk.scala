@@ -123,7 +123,7 @@ final class ChallengeBulkApi(
           .recover(e => logger.error(s"Bulk.sendMsg ${game.id} ${e.getMessage}"))
       .toMat(LilaStream.sinkCount)(Keep.right)
       .run()
-      .addEffect(lila.mon.api.challenge.bulk.createNb(bulk.by.value).increment(_))
+      .addEffect(lila.mon.api.challenge.bulk.createNb(bulk.by).increment(_))
       .logFailure(logger, e => s"Bulk.makePairings ${bulk.id} ${e.getMessage}") >> {
       coll.updateField($id(bulk.id), "pairedAt", nowInstant)
     }.void

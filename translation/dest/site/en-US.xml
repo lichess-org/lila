@@ -479,7 +479,7 @@
   <string name="openTournaments">Open tournaments</string>
   <string name="duration">Duration</string>
   <string name="winner">Winner</string>
-  <string name="standing">Standing</string>
+  <string name="standings">Standings</string>
   <string name="createANewTournament">Create a new tournament</string>
   <string name="tournamentCalendar">Tournament calendar</string>
   <string name="conditionOfEntry">Entry requirements:</string>

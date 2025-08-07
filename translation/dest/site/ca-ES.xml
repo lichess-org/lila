@@ -479,7 +479,7 @@
   <string name="openTournaments">Tornejos oberts</string>
   <string name="duration">Durada</string>
   <string name="winner">Guanyador</string>
-  <string name="standing">Resultats</string>
+  <string name="standings">Classificacions</string>
   <string name="createANewTournament">Crea un nou torneig</string>
   <string name="tournamentCalendar">Calendari de tornejos</string>
   <string name="conditionOfEntry">Requisit d\'entrada:</string>

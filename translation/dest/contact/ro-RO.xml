@@ -39,7 +39,7 @@
   <string name="reportMobileIssue">Ca o problemă a aplicației mobile Lichess pe GitHub</string>
   <string name="reportBugInDiscord">Pe serverul de Discord Lichess</string>
   <string name="howToReportBug">Vă rugăm să descrieți cum arată eroarea, ce v-ați așteptat să se întâmple în schimb, și pașii pentru a reproduce eroarea.</string>
-  <string name="illegalPawnCapture">Capturarea ilegală a pionului</string>
+  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">Capturarea ilegală a pionului</string>
   <string name="calledEnPassant">Se numește „en passant” și este una dintre regulile șahului.</string>
   <string name="tryEnPassant">Încearcă acest mic joc interactiv pentru a afla mai multe despre \"en passant\".</string>
   <string name="illegalCastling">Rocadă ilegală sau imposibilă</string>

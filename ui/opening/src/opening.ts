@@ -1,4 +1,5 @@
 import Lpv from '@lichess-org/pgn-viewer';
+import type { Opts } from '@lichess-org/pgn-viewer/interfaces';
 import { initMiniBoards } from 'lib/view/miniBoard';
 import { requestIdleCallback } from 'lib';
 import type { OpeningPage } from './interfaces';
@@ -40,7 +41,7 @@ function page(data: OpeningPage) {
   });
 }
 
-const cgConfig: CgConfig = {
+const cgConfig: Opts['chessground'] = {
   coordinates: false,
 };
 

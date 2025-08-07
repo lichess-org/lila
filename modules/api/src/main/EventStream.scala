@@ -12,7 +12,7 @@ import lila.common.Json.given
 import lila.core.game.{ FinishGame, StartGame }
 import lila.game.Rematches
 import lila.user.{ LightUserApi, Me, UserRepo }
-import lila.bot.OnlineApiUsers.SetOnline
+import lila.bot.OnlineApiUsers.*
 
 final class EventStream(
     challengeJsonView: lila.challenge.JsonView,
@@ -23,7 +23,7 @@ final class EventStream(
     gameJsonView: lila.game.JsonView,
     rematches: Rematches,
     lightUserApi: LightUserApi
-)(using system: ActorSystem)(using Executor, Scheduler, lila.core.i18n.Translator):
+)(using system: ActorSystem, scheduler: Scheduler)(using Executor, lila.core.i18n.Translator):
 
   private val blueprint =
     Source.queue[Option[JsObject]](32, akka.stream.OverflowStrategy.dropHead)
@@ -83,7 +83,11 @@ final class EventStream(
             userRepo.setSeenAt(me)
             lastSetSeenAt = nowInstant
 
-          context.system.scheduler.scheduleOnce(7.second, self, SetOnline)
+          scheduler.scheduleOnce(7.second, self, CheckOnline)
+
+        case CheckOnline =>
+          queue.offer(None) // prevents the client and intermediate proxies from closing the idle stream
+          self ! SetOnline
 
         case StartGame(game) => queue.offer(gameJson(game, "gameStart"))
 

@@ -39,7 +39,7 @@
   <string name="reportMobileIssue">كمشكلة في تطبيق Lichess المحمول على GitHub</string>
   <string name="reportBugInDiscord">في خادم ديسكورد Lichess</string>
   <string name="howToReportBug">يرجى وصف الخطأ البرمجي بدقة، ماذا كنت تتوقع أن يحدث بدلاً من ذلك، والخطوات التي أدت إلى حدوث الخطأ.</string>
-  <string name="illegalPawnCapture">أخذ غير قانوني للبيدق</string>
+  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">أخذ غير قانوني للبيدق</string>
   <string name="calledEnPassant">هذا يُعرف باسم \"الأخذ بالتجاوز\" وهو أحد قوانين الشطرنج.</string>
   <string name="tryEnPassant">جرب هذه اللعبة التفاعلية الصغيرة لمعرفة المزيد عن \"الأخذ بالتجاوز\".</string>
   <string name="illegalCastling">تبييت غير ممكن أو مستحيل</string>

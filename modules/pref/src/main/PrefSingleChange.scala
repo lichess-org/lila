@@ -54,6 +54,8 @@ object PrefSingleChange:
       _.copy(follow = v == 1),
     changing(_.challenge): v =>
       _.copy(challenge = v),
+    changing(_.message): v =>
+      _.copy(message = v),
     changing(_.board.brightness): v =>
       _.focus(_.board.brightness).replace(v),
     changing(_.board.opacity): v =>

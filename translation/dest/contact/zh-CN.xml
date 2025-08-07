@@ -39,7 +39,7 @@
   <string name="reportMobileIssue">在 GitHub（关于 Lichess 应用）</string>
   <string name="reportBugInDiscord">在 Lichess Discord 服务器</string>
   <string name="howToReportBug">请描述错误的内容，意料的结果，和重复导致错误的步骤。</string>
-  <string name="illegalPawnCapture">兵的异常吃法</string>
+  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">兵的异常吃法</string>
   <string name="calledEnPassant">它被称为“吃过路兵”，是棋规之一。</string>
   <string name="tryEnPassant">玩这个迷你游戏来了解吃过路兵的规则。</string>
   <string name="illegalCastling">异常的王车易位</string>

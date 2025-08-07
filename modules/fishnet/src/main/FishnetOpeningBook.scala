@@ -51,7 +51,7 @@ final private class FishnetOpeningBook(
         }
         .monTry: res =>
           _.fishnet.openingBook(
-            variant = game.variant.key.value,
+            variant = game.variant,
             hit = res.toOption.exists(_.isDefined)
           )
 

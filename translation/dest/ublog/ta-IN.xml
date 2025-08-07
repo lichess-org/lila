@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="community">சமூகம்</string>
+  <string name="byMonth">மாத வாரியாக</string>
+  <string name="byTopic">தலைப்பு வாரியாக</string>
+  <string name="myBlog">எனது வலைப்பதிவு</string>
   <string name="likedBlogs">வலைப்பதிவு இடுகைகளை விரும்பியுள்ளார்</string>
   <plurals name="blogPosts">
     <item quantity="one">%s வலைப்பதிவு இடுகை</item>

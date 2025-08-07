@@ -39,7 +39,7 @@
   <string name="reportMobileIssue">Ako problém s mobilnou aplikáciou Lichess na GitHub</string>
   <string name="reportBugInDiscord">Na Lichess Discord serveri</string>
   <string name="howToReportBug">Prosím opíšte ako bug vyzerá, čo ste očakávali aby sa miesto neho stalo a kroky ako bug zreprodukovať.</string>
-  <string name="illegalPawnCapture">Nedovolené zajatie pešiaka</string>
+  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">Nedovolené zajatie pešiaka</string>
   <string name="calledEnPassant">Volá sa to \"branie mimochodom\" a je to jedno z pravidiel šachu.</string>
   <string name="tryEnPassant">Vyskúšajte túto malú interaktívnu hru a dozviete sa viac o „en passant“.</string>
   <string name="illegalCastling">Nedovolené alebo nemožné hradenie</string>

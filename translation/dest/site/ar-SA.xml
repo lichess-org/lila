@@ -623,7 +623,7 @@
   <string name="openTournaments">المسابقات المفتوحة</string>
   <string name="duration">المدة</string>
   <string name="winner">الفائز</string>
-  <string name="standing">الترتيب</string>
+  <string name="standings">الترتيب</string>
   <string name="createANewTournament">ابدأ مسابقة جديدة</string>
   <string name="tournamentCalendar">جدول البطولات</string>
   <string name="conditionOfEntry">شروط الدخول:</string>

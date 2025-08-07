@@ -495,7 +495,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="openTournaments">Otvoreni turniri</string>
   <string name="duration">Trajanje</string>
   <string name="winner">Pobjednik</string>
-  <string name="standing">Poredak</string>
+  <string name="standings">Rang lista</string>
   <string name="createANewTournament">Kreiraj novi turnir</string>
   <string name="tournamentCalendar">Kalendar turnira</string>
   <string name="conditionOfEntry">Uslov za učestvovanje:</string>

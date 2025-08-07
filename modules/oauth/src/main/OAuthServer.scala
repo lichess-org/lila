@@ -14,7 +14,7 @@ final class OAuthServer(
     tokenApi: AccessTokenApi,
     originBlocklist: SettingStore[lila.core.data.Strings] @@ OriginBlocklist,
     mobileSecrets: List[Secret] @@ MobileSecrets
-)(using Executor):
+)(using mode: play.api.Mode)(using Executor):
 
   import OAuthServer.*
 
@@ -36,10 +36,10 @@ final class OAuthServer(
   ): Fu[AccessResult] =
     getTokenFromSignedBearer(tokenId)
       .orFailWith(NoSuchToken)
-      .flatMap:
-        case at if !accepted.isEmpty && !accepted.compatible(at.scopes) =>
-          fufail(MissingScope(accepted, at.scopes))
-        case at =>
+      .flatMap: at =>
+        if !accepted.isEmpty && !accepted.compatible(at.scopes)
+        then fufail(MissingScope(accepted, at.scopes))
+        else
           userApi
             .me(at.userId)
             .flatMap:
@@ -101,7 +101,7 @@ final class OAuthServer(
       .mapz: token =>
         if token.scopes.has(_.Web.Mobile) && !signed then
           logger.warn(s"Web:Mobile token requested but not signed: $token")
-          none
+          mode.isDev.option(token)
         else token.some
 
   private def monitorAuth(success: Boolean) =

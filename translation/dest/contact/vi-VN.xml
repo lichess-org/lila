@@ -39,7 +39,7 @@
   <string name="reportMobileIssue">Bằng một vấn đề (issue) cho ứng dụng điện thoại của Lichess trên GitHub</string>
   <string name="reportBugInDiscord">Trong máy chủ Discord của Lichess</string>
   <string name="howToReportBug">Vui lòng mô tả lỗi trông như thế nào, thay vào đó bạn mong đợi điều gì sẽ xảy ra và các bước để tái tạo lỗi.</string>
-  <string name="illegalPawnCapture">Nước ăn tốt không hợp lệ</string>
+  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">Nước ăn tốt không hợp lệ</string>
   <string name="calledEnPassant">Đây được gọi là \"Bắt tốt qua đường\" và là một luật chơi của cờ vua.</string>
   <string name="tryEnPassant">Thử trò chơi tương tác nhỏ này để học thêm về \"Bắt tốt qua đường\".</string>
   <string name="illegalCastling">Nước nhập thành không hợp lệ hoặc không khả thi</string>

@@ -16,7 +16,7 @@ final class Env(
     settingStore: lila.memo.SettingStore.Builder,
     appConfig: Configuration,
     db: lila.db.Db
-)(using Executor, akka.stream.Materializer):
+)(using Executor, akka.stream.Materializer, play.api.Mode):
 
   lazy val originBlocklistSetting = settingStore[Strings](
     "oauthOriginBlocklist",

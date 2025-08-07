@@ -54,7 +54,7 @@ Wänn me sofort z\'rugg id Übersicht gaht, chann me meh schpille und so meh Pü
   <string name="customStartDateHelp">I dinere eigene, lokale Zitzone. Das überschribt d\'Ischtellig \"Zit bis s Turnierbeginn\"</string>
   <string name="allowBerserk">Berserk erlaube</string>
   <string name="allowBerserkHelp">Erlaubt em Schpiller sini Bedänkziit z\'halbiere, um so en Zuesatzpunkt z\'günne</string>
-  <string name="allowChatHelp">Loh d\'Schpiller ime Chatruum diskutiere</string>
+  <string name="allowChatHelp">Lass d\'Schpiller ime Chatruum diskutiere</string>
   <string name="arenaStreaks">Arena Sieges Serie</string>
   <string name="arenaStreaksHelp">Nach 2 Sieg in Serie gits 4 Pünkt anstatt 2.</string>
   <string name="noBerserkAllowed">Berserk isch nöd erlaubt</string>

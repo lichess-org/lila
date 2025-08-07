@@ -51,7 +51,11 @@ final class AuthUi(helpers: Helpers):
                 trans.tfa.authenticationCode(),
                 help = Some(span(dataIcon := Icon.PhoneMobile)(trans.tfa.openTwoFactorApp()))
               )(
-                form3.input(_)(autocomplete := "one-time-code", pattern := "[0-9]{6}")
+                form3.input(_)(
+                  attr("inputmode") := "numeric",
+                  autocomplete := "one-time-code",
+                  pattern := "[0-9]{6}"
+                )
               ),
               p(cls := "error none")("Invalid code."),
               form3.submit(trans.site.signIn(), icon = none)

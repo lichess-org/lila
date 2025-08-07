@@ -39,7 +39,7 @@
   <string name="reportMobileIssue">כבעיה (issue) בעמוד של אפליקציית Lichess ב-GitHub</string>
   <string name="reportBugInDiscord">בשרת הDiscord של ליצ\'ס</string>
   <string name="howToReportBug">אנא תארו כיצד נראית התקלה, מה ציפיתם שיקרה במקום זאת ואת הצעדים לשחזור התקלה.</string>
-  <string name="illegalPawnCapture">הכאת (אכילת) חייל לא חוקית</string>
+  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">הכאת (אכילת) חייל לא חוקית</string>
   <string name="calledEnPassant">זה נקרא \"הכאה דרך הילוכו״ וזה מסע חוקי בשחמט.</string>
   <string name="tryEnPassant">נסו את המשחק האינטראקטיבי הקצר הזה כדי ללמוד עוד על ״הכאה דרך הילוכו״.</string>
   <string name="illegalCastling">הצרחה לא חוקית או לא אפשרית</string>

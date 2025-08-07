@@ -467,7 +467,6 @@
   <string name="openTournaments">Բաց մրցաշարեր</string>
   <string name="duration">Տևողություն</string>
   <string name="winner">Հաղթող</string>
-  <string name="standing">Զբաղեցրած դիրք</string>
   <string name="createANewTournament">Ստեղծել նոր մրցաշար</string>
   <string name="tournamentCalendar">Մրցաշարի օրացույց</string>
   <string name="conditionOfEntry">Մուտքի պահանջներ՝</string>

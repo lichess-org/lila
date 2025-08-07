@@ -39,7 +39,7 @@
   <string name="reportMobileIssue">На странице проблем мобильного приложения Lichess на Github</string>
   <string name="reportBugInDiscord">На сервере Lichess в Discord</string>
   <string name="howToReportBug">Пожалуйста, опишите, как выглядит ошибка, что вы ожидаете вместо нее, и шаги по ее воспроизведению.</string>
-  <string name="illegalPawnCapture">Неправильное взятие пешки</string>
+  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">Неправильное взятие пешки</string>
   <string name="calledEnPassant">Это называется \"взятие на проходе\" и является одним из правил шахмат.</string>
   <string name="tryEnPassant">Попробуйте эту маленькую интерактивную игру, чтобы узнать больше о \"взятии на проходе\".</string>
   <string name="illegalCastling">Неправильная или невозможная рокировка</string>

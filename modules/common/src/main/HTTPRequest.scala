@@ -38,6 +38,8 @@ object HTTPRequest:
   def isApi(req: RequestHeader) = req.path.startsWith("/api/")
   def isApiOrApp(req: RequestHeader) = isApi(req) || appOrigin(req).isDefined
 
+  def isPrometheus(req: RequestHeader) = req.path.startsWith("/prometheus-metrics/")
+
   def isAssets(req: RequestHeader) = req.path.startsWith("/assets/")
 
   def userAgent(req: RequestHeader): Option[UserAgent] = UserAgent.from:
@@ -127,7 +129,7 @@ object HTTPRequest:
   def acceptsCsv(req: RequestHeader) = accepts(req) contains "text/csv"
   def isEventSource(req: RequestHeader): Boolean = accepts(req) contains "text/event-stream"
   def isProgrammatic(req: RequestHeader) =
-    !isSynchronousHttp(req) || isFishnet(req) || isApi(req) ||
+    !isSynchronousHttp(req) || isFishnet(req) || isApi(req) || isPrometheus(req) ||
       accepts(req).exists(startsWithLichobileAccepts)
 
   def actionName(req: RequestHeader): String =
