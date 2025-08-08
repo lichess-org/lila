@@ -67,7 +67,6 @@
   <string name="startVerySoon">Prenos v živo se bo začel kmalu.</string>
   <string name="notYetStarted">Prenos v živo se še ni začel.</string>
   <string name="officialWebsite">Uradna spletna stran</string>
-  <string name="standings">Lestvica</string>
   <string name="officialStandings">Uradna lestvica</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Več nastavitev s %s</string>
   <string name="webmastersPage">Stran administratorja turnirja</string>
