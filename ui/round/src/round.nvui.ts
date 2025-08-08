@@ -5,11 +5,13 @@ import { type NvuiContext, makeContext } from 'lib/nvui/chess';
 import { makeSetting, type Setting } from 'lib/nvui/setting';
 import { pubsub } from 'lib/pubsub';
 import { storage } from 'lib/storage';
+import { isTouchDevice } from 'lib/device';
 
 export type RoundNvuiContext = NvuiContext &
   Readonly<{
     ctrl: RoundController;
     pageStyle: Setting<PageStyle>;
+    deviceType: Setting<DeviceType>;
   }>;
 
 export function initModule(ctrl: RoundController): NvuiPlugin {
@@ -22,6 +24,14 @@ export function initModule(ctrl: RoundController): NvuiPlugin {
       ],
       default: 'actions-board',
       storage: storage.make('nvui.pageLayout'),
+    }),
+    deviceType: makeSetting<DeviceType>({
+      choices: [
+        ['desktop', 'Desktop'],
+        ['touchscreen', 'Touch screen'],
+      ],
+      default: isTouchDevice() ? 'touchscreen' : 'desktop',
+      storage: storage.make('nvui.deviceType'),
     }),
   });
 
@@ -43,3 +53,4 @@ export function initModule(ctrl: RoundController): NvuiPlugin {
 }
 
 type PageStyle = 'board-actions' | 'actions-board';
+type DeviceType = 'desktop' | 'touchscreen';
