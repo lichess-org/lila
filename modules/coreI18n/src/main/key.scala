@@ -185,7 +185,6 @@ object I18nKey:
     val `startVerySoon`: I18nKey = "broadcast:startVerySoon"
     val `notYetStarted`: I18nKey = "broadcast:notYetStarted"
     val `officialWebsite`: I18nKey = "broadcast:officialWebsite"
-    val `standings`: I18nKey = "broadcast:standings"
     val `officialStandings`: I18nKey = "broadcast:officialStandings"
     val `iframeHelp`: I18nKey = "broadcast:iframeHelp"
     val `webmastersPage`: I18nKey = "broadcast:webmastersPage"
