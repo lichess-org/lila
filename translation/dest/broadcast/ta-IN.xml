@@ -63,7 +63,6 @@
   <string name="startVerySoon">மிக விரைவில் ஒளிபரப்பு துவங்கும்.</string>
   <string name="notYetStarted">ஒளிபரப்பு இன்னும் துவங்கவில்லை.</string>
   <string name="officialWebsite">அதிகாரப்பூர்வ இணையதளம்</string>
-  <string name="standings">நிலைகள்</string>
   <string name="officialStandings">அதிகாரப்பூர்வ நிலைகள்</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">%s இல் கூடுதல் தேர்வுரிமை</string>
   <string name="webmastersPage">இணையவல்லுநர் பக்கம்</string>
