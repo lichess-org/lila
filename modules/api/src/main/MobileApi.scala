@@ -30,21 +30,14 @@ final class MobileApi(
   private given (using trans: Translate): Lang = trans.lang
 
   def home(using me: Option[Me])(using RequestHeader, Translate): Fu[JsObject] =
-    val tournamentsFu = for
-      perfs <- me.map(me => userApi.withPerfs(me.value)).sequence
-      tours <- featuredTournaments(using perfs)
-    yield tours
-    val accountFu = me.map(u => userApi.mobile(u.value))
-    val recentGamesFu = me.map(u => gameApi.mobileRecent(u.value))
-    val ongoingGamesFu = me.map: u =>
-      gameProxy.urgentGames(u).map(_.take(20).map(lobbyApi.nowPlaying))
-    val inboxFu = me.map(unreadCount.mobile)
     for
-      tournaments <- tournamentsFu
-      account <- accountFu.sequence
-      recentGames <- recentGamesFu.sequence
-      ongoingGames <- ongoingGamesFu.sequence
-      inbox <- inboxFu.sequence
+      perfs <- me.traverse(me => userApi.withPerfs(me.value))
+      tournaments <- featuredTournaments(using perfs)
+      account <- me.traverse(u => userApi.mobile(u.value))
+      recentGames <- me.traverse(u => gameApi.mobileRecent(u.value))
+      ongoingGames <- me.traverse: u =>
+        gameProxy.urgentGames(u).map(_.take(20).map(lobbyApi.nowPlaying))
+      inbox <- me.traverse(unreadCount.mobile)
     yield Json
       .obj("tournaments" -> tournaments)
       .add("account", account)
