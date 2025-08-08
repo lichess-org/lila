@@ -1,5 +1,5 @@
 import * as licon from 'lib/licon';
-import { text as xhrText } from 'lib/xhr';
+import { text as xhrText, json as xhrJson } from 'lib/xhr';
 import topBar from './topBar';
 import { userComplete } from 'lib/view/userComplete';
 import { confirm } from 'lib/view/dialogs';
@@ -28,21 +28,20 @@ export function attachDomHandlers() {
 
   $('body').on('click', '.relation-button', function (this: HTMLAnchorElement) {
     const $a = $(this).addClass('processing').css('opacity', 0.3);
-    xhrText(this.href, { method: 'post' }).then(res => {
-      if ($a.hasClass('aclose')) $a.hide();
-      else {
-        try {
-          const menuItems = JSON.parse(res);
-          const parent = this.closest('.dropdown-overflow');
-          if (parent && parent instanceof HTMLElement) {
-            replaceMenuItems(parent, menuItems);
-          }
-        } catch {
-          if (res.includes('relation-actions')) $a.parent().replaceWith(res);
-          else $a.replaceWith(res);
-        }
-      }
-    });
+    const dropdownOverflowParent = this.closest('.dropdown-overflow');
+    if (dropdownOverflowParent && dropdownOverflowParent instanceof HTMLElement) {
+      xhrJson(this.href, { method: 'post', headers: { 'Content-Type': 'application/json' } }).then(
+        menuItems => {
+          replaceMenuItems(dropdownOverflowParent, menuItems);
+        },
+      );
+    } else {
+      xhrText(this.href, { method: 'post' }).then(html => {
+        if ($a.hasClass('aclose')) $a.hide();
+        else if (html.includes('relation-actions')) $a.parent().replaceWith(html);
+        else $a.replaceWith(html);
+      });
+    }
     return false;
   });
 
