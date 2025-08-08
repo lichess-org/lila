@@ -63,7 +63,6 @@
   <string name="startVerySoon">Yayın az sonra başlayacak.</string>
   <string name="notYetStarted">Yayın henüz başlamadı.</string>
   <string name="officialWebsite">Resmî site</string>
-  <string name="standings">Sıralamalar</string>
   <string name="officialStandings">Resmi Sıralamalar</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">%snda daha fazla seçenek</string>
   <string name="webmastersPage">ağ yöneticileri sayfası</string>
