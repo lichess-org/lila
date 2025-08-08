@@ -1,7 +1,6 @@
 package controllers
 
 import chess.format.pgn.{ PgnStr, Tag }
-import play.api.libs.json.Json
 import play.api.mvc.*
 
 import scala.annotation.nowarn
