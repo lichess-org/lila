@@ -112,9 +112,8 @@ final class RelayGroupCrowdSumCache(
   private def compute(tourId: RelayTourId): Fu[Crowd] = Crowd.from:
     for
       tourIds <- groupRepo.allTourIdsOfGroup(tourId)
-      res <- colls.round
-        .aggregateOne(_.sec): framework =>
-          import framework.*
-          Match($doc("tourId".$in(tourIds), "crowdAt".$gt(nowInstant.minus(1.hours)))) ->
-            List(Group(BSONNull)("sum" -> SumField("crowd")))
+      res <- colls.round.aggregateOne(_.sec): framework =>
+        import framework.*
+        Match($doc("tourId".$in(tourIds), "crowdAt".$gt(nowInstant.minus(1.hours)))) ->
+          List(Group(BSONNull)("sum" -> SumField("crowd")))
     yield res.headOption.flatMap(_.int("sum")).orZero
