@@ -18,7 +18,7 @@
       content: $licon-Disc;
     }
 
-    color: $c-good;      
+    color: $c-good;
     &.patron {
       -webkit-text-stroke: 0.01em #ffffff;
       opacity: 1;
@@ -55,7 +55,6 @@
       }
     }
   }
-
 
   .line {
     @extend %data-icon;
