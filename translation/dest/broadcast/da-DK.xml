@@ -63,7 +63,6 @@
   <string name="startVerySoon">Udsendelsen starter meget snart.</string>
   <string name="notYetStarted">Udsendelsen er endnu ikke startet.</string>
   <string name="officialWebsite">Officielt websted</string>
-  <string name="standings">Stillinger</string>
   <string name="officialStandings">Officiel stilling</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Flere muligheder på %s</string>
   <string name="webmastersPage">webmasters side</string>
