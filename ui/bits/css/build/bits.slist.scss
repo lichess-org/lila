@@ -2,13 +2,13 @@
 @import '../../../lib/css/component/slist';
 
 .lb__trophy { width: 24px; text-align: center; }
-.lb__trophy img { display: block; height: 18px; width: auto; }
 .slist td { vertical-align: middle; }
 
 .slist td .lb__trophy {
     display: inline-block;
     vertical-align: middle;
     margin-right: 6px;
+    margin-left: -4px;
     overflow: visible;
     line-height: 0;
 }
@@ -21,6 +21,3 @@
     transform-origin: left center;
 }
 .slist td .lb__rank-num { display:inline-block; vertical-align:middle; }
-
-/* Force compact trophies only inside .slist leaderboard tables */
-.slist .lb__trophy.trophy--small img { height: 16px; }
