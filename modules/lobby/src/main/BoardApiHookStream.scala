@@ -9,7 +9,7 @@ import lila.core.socket.Sri
 final class BoardApiHookStream(
     lobby: LobbySyncActor,
     userApi: lila.core.user.UserApi
-)(using Executor):
+)(using scheduler: Scheduler)(using Executor):
 
   private val blueprint =
     Source.queue[Option[JsObject]](16, akka.stream.OverflowStrategy.dropHead)
@@ -25,11 +25,15 @@ final class BoardApiHookStream(
 
       Bus.subscribeDyn(busHandler, classifiers*)
 
+      val periodicBlankLine = scheduler.scheduleWithFixedDelay(10.seconds, 10.seconds): () =>
+        queue.offer(None)
+
       queue
         .watchCompletion()
         .addEffectAnyway:
           Bus.unsubscribeDyn(busHandler, classifiers)
           lobby ! CancelHook(hook.sri)
+          periodicBlankLine.cancel()
 
       lobby ! SetupBus.AddHook(hook)
 

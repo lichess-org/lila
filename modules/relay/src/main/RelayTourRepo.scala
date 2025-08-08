@@ -10,8 +10,6 @@ final private class RelayTourRepo(val coll: Coll)(using Executor):
   import RelayTourRepo.*
   import RelayTour.TourPreview
 
-  def exists(id: RelayRoundId): Fu[Boolean] = coll.exists($id(id))
-
   def byId(tourId: RelayTourId): Fu[Option[RelayTour]] = coll.byIdProj[RelayTour](tourId, modelProjection)
 
   def setSyncedNow(tour: RelayTour): Funit =
@@ -154,7 +152,13 @@ private object RelayTourRepo:
     val officialInactive = officialPublic ++ inactive
     def inMonth(at: YearMonth) =
       val date = java.time.LocalDate.of(at.getYear, at.getMonth, 1)
-      $doc("dates.start" -> $doc("$lte" -> date.plusMonths(1)), "dates.end" -> $doc("$gte" -> date))
+      $doc(
+        "dates.start" -> $doc("$lte" -> date.plusMonths(1)),
+        $or( // uses 2 index scans then OR on mongodb 7, or one index scan on mongodb 8. Both are ok with current volume
+          "dates.end".$gte(date),
+          "dates.end".$exists(false)
+        )
+      )
 
   private[relay] val modelProjection = $doc(
     "subscribers" -> false,

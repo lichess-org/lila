@@ -90,7 +90,8 @@ object RelayUpdatePlan:
   // then probably it's the same game but the source changed the order and board numbers
   private[relay] def isSameGameBasedOnTagsAndFirstMoves(game: RelayGame, chapter: Chapter): Boolean =
     allSame(RelayGame.eventTags)(game.tags, chapter.tags) &&
-      game.tags.roundNumber == chapter.tags.roundNumber && {
+      game.tags.roundNumber == chapter.tags.roundNumber &&
+      playerTagsMatch(game.tags, chapter.tags) && {
         val gameMoves = game.root.mainlineNodeList
         val chapterMoves = chapter.root.mainlineNodeList
         sameFirstMoves(gameMoves, chapterMoves)
