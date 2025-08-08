@@ -19,7 +19,7 @@
   <string name="declineRated">Vinsamlegast sendu mér áskorun með stigagjöf í staðinn.</string>
   <string name="declineCasual">Vinsamlegast sendu mér áskorun til æfingar í staðinn.</string>
   <string name="declineStandard">Ég samþykki ekki afbrigðilegar áskoranir í augnablikinu.</string>
-  <string name="declineVariant">Ég er ekki til í að spila þetta afbrigði í augnablikinu.</string>
+  <string name="declineVariant">Ég er ekki til í að tefla þetta afbrigði í augnablikinu.</string>
   <string name="declineNoBot">Ég samþykki ekki áskoranir þjarka.</string>
   <string name="declineOnlyBot">Ég samþykki eingöngu áskoranir þjarka.</string>
   <string name="inviteLichessUser">Eða bjóddu notanda Lichess:</string>
