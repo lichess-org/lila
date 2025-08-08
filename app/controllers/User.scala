@@ -267,10 +267,11 @@ final class User(
       JsonOk(leaderboards)
     }
 
-  def topNb(nb: Int, perfKey: PerfKey) = Open:
-    topNbUsers(nb, perfKey).flatMap: (users, perfType) =>
+  def top(perfKey: PerfKey) = Open:
+    val nb = 200
+    topNbUsers(nb, perfKey).flatMap: (users, perfType, page) =>
       negotiate(
-        (nb == 200).so(Ok.page(views.user.list.top(perfType, users))),
+        Ok.page(views.user.list.top(perfType, users, page = page, perPage = nb)),
         topNbJson(users)
       )
 
@@ -281,13 +282,25 @@ final class User(
         import lila.user.JsonView.leaderboardStandardTopOneWrites
         JsonOk(leaderboards)
       }
-    else topNbUsers(nb, perfKey).flatMap { users => topNbJson(users._1) }
+    else topNbUsers(nb, perfKey).flatMap { case (users, _, _) => topNbJson(users) }
 
-  private def topNbUsers(nb: Int, perfKey: PerfKey): Fu[(List[LightPerf], PerfType)] =
-    env.user.cached.top200Perf
-      .get(perfKey.id)
-      .dmap:
-        _.take(nb.atLeast(1).atMost(200)) -> PerfType(perfKey)
+  private def topNbUsers(nb: Int, perfKey: PerfKey)(using ctx: Context): Fu[(List[LightPerf], PerfType, Int)] =
+    val perPage = nb.atLeast(1).atMost(200)
+    val page = ctx.req.getQueryString("page").flatMap(_.toIntOption).getOrElse(1).atLeast(1)
+    val skip = (page - 1) * perPage
+
+    val fut =
+      if skip == 0 then
+        env.user.cached.top200Perf
+          .get(perfKey.id)
+          .dmap(_.take(perPage))
+      else
+        env.user.cached.topPerfPage
+          .get(perfKey.id -> page)
+
+    fut.dmap: users => 
+      (users, PerfType(perfKey), page)
+
 
   private def topNbJson(users: List[LightPerf]) =
     given OWrites[LightPerf] = OWrites(env.user.jsonView.lightPerfIsOnline)

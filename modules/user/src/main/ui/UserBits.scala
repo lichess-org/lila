@@ -5,6 +5,7 @@ import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
 import lila.core.relation.Relation
+import lila.rating.PerfType
 
 final class UserBits(helpers: Helpers):
   import helpers.*
@@ -71,27 +72,41 @@ final class UserBits(helpers: Helpers):
       case _ => "Excellent connection"
     s"""<signal title="$title" class="q$v">$bars</signal>"""
 
+  private def trophyMeta(perf: PerfType, rank: Int)(using Translate) =
+    rank match
+      case 1              => Some(("trophy perf top1",  s"${perf.trans} Champion!",        "images/trophy/gold-cup-2.png"))
+      case r if r <= 10   => Some(("trophy perf top10", s"${perf.trans} Top 10!",          "images/trophy/silver-cup-2.png"))
+      case r if r <= 50   => Some(("trophy perf top50", s"${perf.trans} Top 50 player!",   "images/trophy/Fancy-Gold.png"))
+      case r if r <= 100  => Some(("trophy perf",       s"${perf.trans} Top 100 player!",  "images/trophy/Gold-Cup.png"))
+      case _              => None
+
   def perfTrophies(u: User, rankMap: lila.rating.UserRankMap)(using Translate) = (!u.lame).so:
     rankMap.toList
       .sortBy(_._2)
       .map: (perf, rank) =>
         lila.rating.PerfType(perf) -> rank
       .collect:
-        case (perf, 1) =>
-          (perf, "trophy perf top1", s"${perf.trans} Champion!", "images/trophy/gold-cup-2.png")
-        case (perf, rank) if rank <= 10 =>
-          (perf, "trophy perf top10", s"${perf.trans} Top 10!", "images/trophy/silver-cup-2.png")
-        case (perf, rank) if rank <= 50 =>
-          (perf, "trophy perf top50", s"${perf.trans} Top 50 player!", "images/trophy/Fancy-Gold.png")
-        case (perf, rank) if rank <= 100 =>
-          (perf, "trophy perf", s"${perf.trans} Top 100 player!", "images/trophy/Gold-Cup.png")
-      .map { (perf, cssClass, trophyTitle, imgPath) =>
-        a(href := routes.User.topNb(200, perf.key))(
-          span(cls := cssClass, title := trophyTitle)(
-            img(src := assetUrl(imgPath))
+        case (perf, rank) if trophyMeta(perf, rank).isDefined =>
+          (perf, trophyMeta(perf, rank).get)
+      .map {
+        case (perf, (cssClass, trophyTitle, imgPath)) =>
+          a(href := routes.User.top(perf.key))(
+            span(cls := cssClass, title := trophyTitle)(
+              img(src := assetUrl(imgPath))
+            )
           )
-        )
       }
+
+  def leaderboardTrophy(perf: PerfType, rank: Int, small: Boolean = true)(using Translate) =
+    trophyMeta(perf, rank).map { (css, titleText, imgPath) =>
+      span(
+        cls := (if small then s"$css lb__trophy trophy--small" else css), 
+        title := titleText)(img(src := assetUrl(imgPath))
+      )
+    }
+
+  // todo - show ?page=1 by default for leaderboard, and move back arrow further away from
+  // the page title (esp now since it feels like going to prev page on leaderboard).
 
   object awards:
     def awardCls(t: Trophy) = cls := s"trophy award ${t.kind._id} ${~t.kind.klass}"

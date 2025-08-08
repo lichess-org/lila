@@ -73,6 +73,29 @@ final class RankingApi(
                   )
               .dmap(_.flatten)
 
+  private[user] def topPerfRange(perfId: PerfId, skip: Int, nb: Int): Fu[List[LightPerf]] =
+    lila.rating
+      .PerfType(perfId)
+      .map(_.key)
+      .filter(k => lila.rating.PerfType.isLeaderboardable(PerfType(k)))
+      .so: perfKey =>
+        coll:
+          _.find($doc("perf" -> perfId, "stable" -> true))
+            .sort($doc("rating" -> -1))
+            .skip(skip)
+            .cursor[Ranking]()
+            .list(nb)
+            .flatMap:
+              _.parallel: r =>
+                lightUser(r.user).map2: light =>
+                  LightPerf(
+                    user = light,
+                    perfKey = perfKey,
+                    rating = r.rating,
+                    progress = ~r.prog
+                  )
+            .dmap(_.flatten)
+
   private[user] def fetchLeaderboard(nb: Int): Fu[lila.rating.UserPerfs.Leaderboards] =
     for
       ultraBullet <- topPerf(PerfType.UltraBullet.id, nb)

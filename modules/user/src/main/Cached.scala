@@ -38,6 +38,19 @@ final class Cached(
       loader:
         rankingApi.topPerf(_, 200)
 
+  val topPerfPage = mongoCache[(PerfId, Int), List[LightPerf]](
+    PerfType.leaderboardable.size * 10,
+    "user:top:perf:page",
+    10.minutes,
+    { case (id, page) => s"$id:$page" }
+  ): loader =>
+    _.refreshAfterWrite(10.minutes).buildAsyncFuture:
+      loader: (perfId, page) =>
+        val perPage = 200
+        val skip = (page - 1).max(0) * perPage
+        rankingApi.topPerfRange(perfId, skip, perPage)
+
+
   private val topWeekCache = mongoCache.unit[List[LightPerf]](
     "user:top:week",
     9.minutes

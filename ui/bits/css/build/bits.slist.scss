@@ -1,2 +1,14 @@
 @import '../../../lib/css/plugin';
 @import '../../../lib/css/component/slist';
+
+
+/* Leaderboard trophy column */
+.lb__trophy { width: 24px; text-align: center; }
+.lb__trophy .trophy img { display: block; height: 18px; width: auto; }
+.slist td { vertical-align: middle; }
+
+
+/* Leaderboard: compact inline trophy before number */
+.slist td .lb__trophy { display:inline-block; vertical-align:middle; margin-right:4px; }
+.slist td .lb__trophy .trophy img { display:inline-block; height:16px; width:auto; vertical-align:middle; }
+.slist td .lb__rank-num { display:inline-block; vertical-align:middle; }

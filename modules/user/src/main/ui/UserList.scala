@@ -69,7 +69,7 @@ final class UserList(helpers: Helpers, bits: UserBits):
   private def userTopPerf(users: List[LightPerf], pk: PerfKey)(using ctx: Context) =
     st.section(cls := "user-top")(
       h2(cls := "text", dataIcon := pk.perfIcon)(
-        a(href := routes.User.topNb(200, pk))(pk.perfTrans)
+        a(href := routes.User.top(pk))(pk.perfTrans)
       ),
       ol(users.map: l =>
         li(
@@ -88,22 +88,48 @@ final class UserList(helpers: Helpers, bits: UserBits):
         ))
     )
 
-  def top(perfType: PerfType, users: List[LightPerf])(using ctx: Context) =
-    val title = s"${perfType.trans} top 200"
+  def top(perfType: PerfType, users: List[LightPerf], page: Int, perPage: Int)(using ctx: Context) =
+    val from = (page - 1) * perPage + 1
+    val to = from + users.size - 1
+    val title = s"${perfType.trans} top $from–$to"
     Page(title)
       .css("bits.slist")
       .graph(
         title = s"Leaderboard of ${perfType.trans}",
-        url = s"$netBaseUrl${routes.User.topNb(200, perfType.key).url}",
-        description = s"The 200 best chess players in ${perfType.trans}, sorted by rating"
+        url = s"$netBaseUrl${routes.User.top(perfType.key).url}?page=$page",
+        description = s"The top rated players in ${perfType.trans}, sorted by rating ($from–$to)"
       ):
         main(cls := "page-small box")(
-          boxTop(h1(a(href := routes.User.list, dataIcon := Icon.LessThan), title)),
+          boxTop(
+          h1(a(href := routes.User.list, dataIcon := Icon.LessThan), title),
+          form(
+            cls := "pager",
+            action := routes.User.top(perfType.key).url,
+            method := "GET"
+          )(
+            label(`for` := "page", cls := "pager__label")("Page:"),
+            input(
+              id := "page",
+              name := "page",
+              tpe := "number",
+              min := 1,
+              value := page,
+              cls := "pager__input",
+              attr("inputmode") := "numeric"
+            ),
+            button(tpe := "submit", cls := "pager__go")("Go")
+          )
+        ),
+
           table(cls := "slist slist-pad")(
             tbody(
               users.mapWithIndex: (u, i) =>
+                val rank = from + i
                 tr(
-                  td(i + 1),
+                  td(
+                    bits.leaderboardTrophy(perfType, rank),
+                    span(cls := "lb__rank-num")(rank)
+                  ),
                   td(lightUserLink(u.user)),
                   ctx.pref.showRatings.option(
                     frag(
