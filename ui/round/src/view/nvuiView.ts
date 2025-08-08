@@ -45,7 +45,7 @@ export function renderNvui(ctx: RoundNvuiContext): VNode {
       }),
     );
   }
-  if (deviceType.get() === 'touchscreen') {
+  if (deviceType.get() === 'touchscreen' && pageStyle.get() === 'board-actions') {
     pieceStyle.set('name');
     prefixStyle.set('name');
     boardStyle.set('plain');
@@ -62,7 +62,6 @@ export function renderNvui(ctx: RoundNvuiContext): VNode {
       hl('h2', i18n.site.advancedSettings),
       hl('label', [noTrans('Move notation'), renderSetting(moveStyle, ctrl.redraw)]),
       hl('label', [noTrans('Page layout'), renderSetting(pageStyle, ctrl.redraw)]),
-      hl('label', [noTrans('Device'), renderSetting(deviceType, ctrl.redraw)]),
       hl('label', [noTrans('Show position'), renderSetting(positionStyle, ctrl.redraw)]),
       hl('h2', i18n.keyboardMove.keyboardInputCommands),
       hl('p', [
@@ -87,7 +86,6 @@ export function renderNvui(ctx: RoundNvuiContext): VNode {
       hl('h2', i18n.site.advancedSettings),
       hl('label', [noTrans('Move notation'), renderSetting(moveStyle, ctrl.redraw)]),
       hl('label', [noTrans('Page layout'), renderSetting(pageStyle, ctrl.redraw)]),
-      hl('label', [noTrans('Device'), renderSetting(deviceType, ctrl.redraw)]),
       hl('h3', noTrans('Board settings')),
       hl('label', [noTrans('Piece style'), renderSetting(pieceStyle, ctrl.redraw)]),
       hl('label', [noTrans('Piece prefix style'), renderSetting(prefixStyle, ctrl.redraw)]),
