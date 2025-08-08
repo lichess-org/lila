@@ -171,9 +171,7 @@ trait UserHelper:
       cls := userClass(userId, cssClass, withOnline, withPowerTip),
       href := userUrl(username, params = params)
     )(
-      withOnline.so(
-        if modIcon then moderatorIcon else lineIcon(patronTier)
-      ), // replace with actual patronTier
+      withOnline.so(if modIcon then moderatorIcon else lineIcon(patronTier)),
       titleTag(title),
       truncate.fold(username.value)(username.value.take),
       flair.map(userFlair)
