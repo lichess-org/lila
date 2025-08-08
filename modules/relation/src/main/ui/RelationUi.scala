@@ -100,14 +100,15 @@ final class RelationUi(helpers: Helpers):
                 Some("relation")
               )
             ),
-            (!blocked && !blocks && !user.isPatron).option(
+            (!blocked && !blocks && !user.isPatron).option:
+              val url = if me.isPatron then routes.Plan.list else routes.Plan.index()
               MenuItem(
                 trans.patron.giftPatronWingsShort.txt(),
                 Icon.Wings,
-                if me.isPatron then routes.Plan.list.url else routes.Plan.index().url,
+                s"$url?dest=gift&giftUsername=${user.name}",
                 Some("relation")
               )
-            ),
+            ,
             relation
               .has(Relation.Follow)
               .option:
