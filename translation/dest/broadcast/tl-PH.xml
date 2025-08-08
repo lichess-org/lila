@@ -54,7 +54,6 @@
   <string name="startsAfter">Magsisimula pagkatapos ng %s</string>
   <string name="notYetStarted">Hindi pa nagsisimula ang brodkast.</string>
   <string name="officialWebsite">Opisyal na website</string>
-  <string name="standings">Mga Standing</string>
   <string name="officialStandings">Opisyal na mga Standing</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Higit pang mga opsyon sa %s</string>
   <string name="webmastersPage">pahina ng mga webmaster</string>
