@@ -190,7 +190,7 @@ final class IrcApi(
     zulip(_.general, "lila")(s":info: ${markdown.linkifyUsers(msg)}")
 
   object charge:
-    import lila.core.misc.plan.ChargeEvent
+    import lila.core.plan.ChargeEvent
     private var buffer: Vector[ChargeEvent] = Vector.empty
     private given Ordering[ChargeEvent] = Ordering.by[ChargeEvent, Int](_.cents)
 

@@ -15,11 +15,13 @@ object Json:
 
   given Writes[lila.core.relation.Relation] = writeAs(_.isFollow)
 
-  given Writes[PerfKey] = pk => JsString(PerfKey.value(pk))
+  given Writes[PerfKey] = writeAs(PerfKey.value)
 
-  given Writes[URL] = url => JsString(url.toString)
+  given Writes[URL] = writeAs(_.toString)
 
-  given Writes[chess.PlayerTitle] = tile => JsString(tile.value)
+  given Writes[chess.PlayerTitle] = writeAs(_.value)
+
+  given Writes[lila.core.plan.PatronTier] = writeAs(_.key)
 
   given [A: Writes]: OWrites[chess.ByColor[A]] = PlayJson.writes
 
@@ -34,5 +36,6 @@ object Json:
       .add("title", u.title)
       .add("flair", u.flair)
       .add("patron", u.isPatron)
+      .add("patronTier", u.patronTier)
 
   trait OpaqueJson[A](using A =:= JsObject) extends TotalWrapper[A, JsObject]
