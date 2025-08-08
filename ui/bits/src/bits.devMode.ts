@@ -34,32 +34,4 @@ export function initModule(): void {
     initMiniBoard(tv.querySelector('#fake-tv')!);
     this.append(tv);
   });
-
-  (() => {
-    // Patron tier style debugging on /patron page
-    const months = [1, 2, 3, 6, 9];
-    const years = Array.from({ length: 5 }, (_, i) => i + 1);
-
-    const userLink = (className: string) =>
-      ['online', 'offline']
-        .map(
-          state =>
-            `<a class="${state} user-link" href="/@/${className}"><i class="line patron ${className}" title="Lichess Patron"></i>${className}-${state}</a>`,
-        )
-        .join('<br>');
-    $('.best_patrons').append(
-      `<hr>
-        <h2>Debug Patron tiers</h2>
-        <div class="list">
-          <div class="paginated">${userLink('current')}</div>
-        </div>
-        <div class="list">
-          ${months.map(m => `<div class="paginated">${userLink(`months${m}`)}</div>`).join(' ')}
-        </div>
-        <div class="list">
-          ${years.map(y => `<div class="paginated">${userLink(`years${y}`)}</div>`).join(' ')}
-        </div>
-      `,
-    );
-  })();
 }
