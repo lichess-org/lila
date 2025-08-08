@@ -345,6 +345,8 @@ interface I18n {
     sourceSingleUrl: string;
     /** URL that Lichess will check to get PGN updates. It must be publicly accessible from the Internet. */
     sourceUrlHelp: string;
+    /** Standings */
+    standings: string;
     /** Optional, if you know when the event starts */
     startDateHelp: string;
     /** Start date in the tournament local timezone: %s */
