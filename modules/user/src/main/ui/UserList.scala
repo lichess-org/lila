@@ -107,13 +107,12 @@ final class UserList(helpers: Helpers, bits: UserBits):
             action := routes.User.top(perfType.key).url,
             method := "GET"
           )(
-            label(`for` := "page", cls := "pager__label")("Page:"),
             input(
               id := "page",
               name := "page",
               tpe := "number",
               min := 1,
-              value := page,
+              placeholder := "Page",
               cls := "pager__input",
               attr("inputmode") := "numeric"
             )
