@@ -488,13 +488,16 @@ final class Study(
         import lila.common.Json.given
         env.study.topicApi.findLike(term, getUserStr("user").map(_.id)).map { JsonOk(_) }
 
-  def topics = Open:
-    env.study.topicApi
-      .popular(50)
-      .zip(ctx.userId.soFu(env.study.topicApi.userTopics))
-      .flatMap: (popular, mine) =>
-        val form = mine.map(StudyForm.topicsForm)
-        Ok.page(views.study.list.topic.index(popular, mine, form))
+  def topics = OpenOrScoped():
+    for
+      popular <- env.study.topicApi.popular(50)
+      ofUser = ctx.userId.ifTrue(ctx.isWebAuth || ctx.oauth.exists(_.has(_.Study.Read)))
+      mine <- ofUser.soFu(env.study.topicApi.userTopics)
+      result <- negotiate(
+        Ok.page(views.study.list.topic.index(popular, mine, mine.map(StudyForm.topicsForm))),
+        Ok(Json.obj("popular" -> popular).add("mine" -> mine))
+      )
+    yield result
 
   def setTopics = AuthBody { ctx ?=> me ?=>
     bindForm(StudyForm.topicsForm)(
