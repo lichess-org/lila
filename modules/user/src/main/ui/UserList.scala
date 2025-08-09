@@ -116,8 +116,7 @@ final class UserList(helpers: Helpers, bits: UserBits):
               value := page,
               cls := "pager__input",
               attr("inputmode") := "numeric"
-            ),
-            button(tpe := "submit", cls := "pager__go")("Go")
+            )
           )
         ),
 
