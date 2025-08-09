@@ -40,7 +40,7 @@ final class Setup(
           doubleJsonFormError,
           config =>
             for
-              origUser <- ctx.user.soFu(env.user.perfsRepo.withPerf(_, config.perfType))
+              origUser <- ctx.user.traverse(env.user.perfsRepo.withPerf(_, config.perfType))
               destUser <- userId.so(env.user.api.enabledWithPerf(_, config.perfType))
               denied <- destUser.so(u => env.challenge.granter.isDenied(u.user, config.perfKey.some))
               result <- denied match
@@ -105,7 +105,7 @@ final class Setup(
             limit.setupPost(req.ipAddress, rateLimited):
               limit.setupAnonHook(req.ipAddress, rateLimited, cost = ctx.isAnon.so(1)):
                 for
-                  me <- ctx.user.soFu(env.user.api.withPerfs)
+                  me <- ctx.user.traverse(env.user.api.withPerfs)
                   given Perf = me.fold(lila.rating.Perf.default)(_.perfs(userConfig.perfType))
                   blocking <- ctx.userId.so(env.relation.api.fetchBlocking)
                   res <- processor.hook(
@@ -123,7 +123,7 @@ final class Setup(
         NoPlaybanOrCurrent:
           Found(env.game.gameRepo.game(gameId)): game =>
             for
-              orig <- ctx.user.soFu(env.user.api.withPerfs)
+              orig <- ctx.user.traverse(env.user.api.withPerfs)
               blocking <- ctx.userId.so(env.relation.api.fetchBlocking)
               hookConfig = lila.setup.HookConfig.default(ctx.isAuth)
               hookConfigWithRating = get("rr")

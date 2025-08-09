@@ -81,8 +81,8 @@ final class MobileApi(
       activities <- activityRead.recentAndPreload(user)
       activity <- activities.sequentially(activityJsonView(_, user))
       games <- gameApi.mobileRecent(user)
-      status <- me.forall(_.isnt(user)).soFu(userStatus(user))
-      crosstable <- me.filter(_.isnt(user)).map(gameApi.crosstableWith(user)).sequence
+      status <- me.forall(_.isnt(user)).optionFu(userStatus(user))
+      crosstable <- me.filter(_.isnt(user)).traverse(gameApi.crosstableWith(user))
     yield Json
       .obj("profile" -> prof, "activity" -> activity, "games" -> games)
       .add("status", status)

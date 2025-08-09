@@ -76,8 +76,8 @@ final private class RelayRoundRepo(val coll: Coll)(using Executor):
       .sort(sort.asc)
       .cursor[RelayRound]()
       .uno
-    nextOrder <- next.soFu(n => orderOf(n.id))
-    curOrder <- next.isDefined.soFu(orderOf(round.id))
+    nextOrder <- next.traverse(n => orderOf(n.id))
+    curOrder <- next.isDefined.optionFu(orderOf(round.id))
   yield for
     n <- next
     no <- nextOrder

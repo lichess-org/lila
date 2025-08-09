@@ -58,7 +58,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
             isGrantedOpt(_.ChatTimeout)) // private tournament that I joined or has ChatTimeout
 
   private def loadChat(tour: Tour, json: JsObject)(using Context): Fu[Option[lila.chat.UserChat.Mine]] =
-    canHaveChat(tour, json.some).soFu:
+    canHaveChat(tour, json.some).optionFu:
       env.chat.api.userChat.cached
         .findMine(tour.id.into(ChatId))
         .map(_.copy(locked = !env.api.chatFreshness.of(tour)))
@@ -101,7 +101,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
           .fold[Fu[Result]](notFoundJson("No such tournament")): tour =>
             for
               playerInfoExt <- getUserStr("playerInfo").map(_.id).so(api.playerInfo(tour, _))
-              socketVersion <- getBool("socketVersion").soFu(env.tournament.version(tour.id))
+              socketVersion <- getBool("socketVersion").optionFu(env.tournament.version(tour.id))
               partial = getBool("partial")
               json <- jsonView(
                 tour = tour,
@@ -115,7 +115,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
                 addReloadEndpoint = env.tournament.lilaHttp.handles.some
               )
               chatOpt <- partial.not.so(loadChat(tour, json))
-              jsChat <- chatOpt.soFu: c =>
+              jsChat <- chatOpt.traverse: c =>
                 lila.chat.JsonView.mobile(c.chat)
             yield Ok(json.add("chat" -> jsChat)).noCache
           .monSuccess(_.tournament.apiShowPartial(getBool("partial"), HTTPRequest.clientName(ctx.req)))
@@ -140,8 +140,8 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
             withAllowList = true
           )
           chatOpt <- getBool("chat").so(loadChat(tour, data))
-          jsChat <- chatOpt.soFu(c => lila.chat.JsonView.mobile(c.chat))
-          socketVersion <- getBool("socketVersion").soFu(env.tournament.version(tour.id))
+          jsChat <- chatOpt.traverse(c => lila.chat.JsonView.mobile(c.chat))
+          socketVersion <- getBool("socketVersion").optionFu(env.tournament.version(tour.id))
         yield data
           .add("chat", jsChat)
           .add("socketVersion" -> socketVersion)

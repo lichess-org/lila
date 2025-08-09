@@ -344,11 +344,11 @@ abstract private[controllers] class LilaController(val env: Env)
           f(using ctx.withLang(lang))
 
   def WithMyPerf[A](pt: lila.rating.PerfType)(f: Perf ?=> Fu[A])(using me: Option[Me]): Fu[A] = me
-    .soFu(env.user.perfsRepo.perfOf(_, pt))
+    .traverse(env.user.perfsRepo.perfOf(_, pt))
     .flatMap: perf =>
       f(using perf | lila.rating.Perf.default)
   def WithMyPerfs[A](f: Option[UserWithPerfs] ?=> Fu[A])(using me: Option[Me]): Fu[A] = me
-    .soFu(me => env.user.api.withPerfs(me.value))
+    .traverse(me => env.user.api.withPerfs(me.value))
     .flatMap:
       f(using _)
 

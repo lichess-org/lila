@@ -47,7 +47,7 @@ final class Swiss(
               isInTeam = isInTeam
             )
             canChat <- canHaveChat(swiss.roundInfo)
-            chat <- canChat.soFu:
+            chat <- canChat.optionFu:
               env.chat.api.userChat.cached
                 .findMine(swiss.id.into(ChatId))
                 .map:
@@ -60,7 +60,7 @@ final class Swiss(
           for
             isInTeam <- isUserInTheTeam(swiss.teamId)
             verdicts <- env.swiss.api.verdicts(swiss)
-            socketVersion <- getBool("socketVersion").soFu(env.swiss.version(swiss.id))
+            socketVersion <- getBool("socketVersion").optionFu(env.swiss.version(swiss.id))
             playerInfo <- getUserStr("playerInfo").so: u =>
               env.swiss.api.playerInfo(swiss, u.id)
             json <- env.swiss.json(

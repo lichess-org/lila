@@ -298,7 +298,7 @@ final class GameApiV2(
   ): Fu[JsObject] = for
     lightUsers <- gameLightUsers(g)
     flags = config.flags
-    pgn <- config.flags.pgnInJson.soFu:
+    pgn <- config.flags.pgnInJson.optionFu:
       pgnDump(g, initialFen, analysisOption, config.flags).map(annotator.toPgnString)
     bookmarked <- config.flags.bookmark.so(bookmarkApi.exists(g, config.by.map(_.userId)))
     accuracy = analysisOption

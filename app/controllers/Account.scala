@@ -68,7 +68,7 @@ final class Account(
         povs <- env.round.proxyRepo.urgentGames(me)
         nbChallenges <- env.challenge.api.countInFor.get(me)
         playban <- env.playban.api.currentBan(me)
-        perfs <- ctx.pref.showRatings.soFu(env.user.perfsRepo.perfsOf(me))
+        perfs <- ctx.pref.showRatings.optionFu(env.user.perfsRepo.perfsOf(me))
       yield Ok:
         env.user.jsonView
           .full(me, perfs, withProfile = false) ++ Json

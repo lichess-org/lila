@@ -126,7 +126,7 @@ final class ChallengeApi(
       requestedColor: Option[Color] = None
   )(using me: Option[Me]): Raise[Fu, String] ?=> Fu[Option[Pov]] =
     acceptQueue:
-      def withPerf = me.map(_.value).soFu(userApi.withPerf(_, c.perfType))
+      def withPerf = me.map(_.value).traverse(userApi.withPerf(_, c.perfType))
       if c.canceled
       then "The challenge has been canceled.".raise
       else if c.declined

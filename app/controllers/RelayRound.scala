@@ -162,8 +162,8 @@ final class RelayRound(
           group <- env.relay.api.withTours.get(rt.tour.id)
           previews <- env.study.preview.jsonList.withoutInitialEmpty(study.id)
           targetRound <- env.relay.api.officialTarget(rt.round)
-          isSubscribed <- ctx.me.soFu(me => env.relay.api.isSubscribed(rt.tour.id, me.userId))
-          sVersion <- HTTPRequest.isLichessMobile(ctx.req).soFu(env.study.version(study.id))
+          isSubscribed <- ctx.userId.traverse(env.relay.api.isSubscribed(rt.tour.id, _))
+          sVersion <- HTTPRequest.isLichessMobile(ctx.req).optionFu(env.study.version(study.id))
         yield JsonOk:
           env.relay.jsonView
             .withUrlAndPreviews(rt.withStudy(study), previews, group, targetRound, isSubscribed, sVersion)
@@ -265,8 +265,7 @@ final class RelayRound(
         (sc, studyData) <- studyC.getJsonData(oldSc, withChapters = true)
         rounds <- env.relay.api.byTourOrdered(rt.tour)
         group <- env.relay.api.withTours.get(rt.tour.id)
-        isSubscribed <- ctx.me.soFu: me =>
-          env.relay.api.isSubscribed(rt.tour.id, me.userId)
+        isSubscribed <- ctx.userId.traverse(env.relay.api.isSubscribed(rt.tour.id, _))
         videoUrls <- embed match
           case VideoEmbed.Stream(userId) =>
             env.streamer.api

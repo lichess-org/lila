@@ -240,7 +240,7 @@ final class Challenge(env: Env) extends LilaController(env):
       if game.hasAi
       then
         getAs[Bearer]("token1")
-          .soFu(env.oAuth.server.auth(_, accepted, req.some))
+          .traverse(env.oAuth.server.auth(_, accepted, req.some))
           .mapz:
             case Left(e) => handleScopedFail(accepted, e).some
             case Right(a) if game.hasUserId(a.scoped.user.id) => startNow.some
@@ -313,7 +313,8 @@ final class Challenge(env: Env) extends LilaController(env):
                                     case None => JsonBadRequest(jsonError("Challenge not created")).toFuccess
                                     case Some(createNow) =>
                                       for
-                                        socket <- ctx.isMobileOauth.soFu(env.challenge.version(challenge.id))
+                                        socket <- ctx.isMobileOauth
+                                          .optionFu(env.challenge.version(challenge.id))
                                         json = env.challenge.jsonView.apiAndMobile(
                                           challenge,
                                           socket,

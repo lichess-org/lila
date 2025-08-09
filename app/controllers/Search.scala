@@ -36,7 +36,7 @@ final class Search(env: Env) extends LilaController(env):
                     ),
                   data =>
                     data.nonEmptyQuery
-                      .soFu: query =>
+                      .traverse: query =>
                         env.gameSearch.api
                           .validateAccounts(query, isGrantedOpt(_.GamesModView))
                           .flatMap:

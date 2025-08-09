@@ -48,7 +48,7 @@ final class Simul(env: Env) extends LilaController(env):
               verdicts <- env.simul.api.getVerdicts(sim)
               version <- env.simul.version(sim.id)
               json <- env.simul.jsonView(sim, verdicts)
-              chat <- canHaveChat(sim).soFu(env.chat.api.userChat.cached.findMine(sim.id.into(ChatId)))
+              chat <- canHaveChat(sim).optionFu(env.chat.api.userChat.cached.findMine(sim.id.into(ChatId)))
               stream <- env.streamer.liveStreamApi.one(sim.hostId)
               page <- renderPage(views.simul.show(sim, version, json, chat, stream, verdicts))
             yield Ok(page).noCache

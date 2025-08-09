@@ -40,7 +40,7 @@ final class ActivityReadApi(
         .mon(_.user.segment("activity.raws"))
     practiceStudies <- activities
       .exists(_.practice.isDefined)
-      .soFu(getPracticeStudies())
+      .optionFu(getPracticeStudies())
     views <- activities.sequentially: a =>
       one(practiceStudies, a).mon(_.user.segment("activity.view"))
     _ <- preloadAll(views)
@@ -53,7 +53,7 @@ final class ActivityReadApi(
 
   private def one(practiceStudies: Option[lila.core.practice.Studies], a: Activity): Fu[ActivityView] =
     for
-      allForumPosts <- a.forumPosts.soFu: p =>
+      allForumPosts <- a.forumPosts.traverse: p =>
         forumPostApi
           .miniViews(p.value)
           .mon(_.user.segment("activity.posts"))
@@ -64,7 +64,7 @@ final class ActivityReadApi(
         _.filterNot(_.topic.possibleTeamId.exists(hiddenForumTeamIds.contains))
       )
       ublogPosts <- a.ublogPosts
-        .soFu: p =>
+        .traverse: p =>
           ublogApi
             .liveLightsByIds(p.value)
             .mon(_.user.segment("activity.ublogs"))
@@ -94,11 +94,11 @@ final class ActivityReadApi(
                 (Score.make(groupedPovs) -> groupedPovs)
               .toMap
       simuls <- a.simuls
-        .soFu: simuls =>
+        .traverse: simuls =>
           simulApi.byIds(simuls.value)
         .dmap(_.filter(_.nonEmpty))
       studies <- a.studies
-        .soFu: studies =>
+        .traverse: studies =>
           studyApi.publicIdNames(studies.value)
         .dmap(_.filter(_.nonEmpty))
       tours <- a.games

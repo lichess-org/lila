@@ -122,9 +122,8 @@ final class Study(
         res <- negotiate(
           Ok.async:
             ctx.userId
-              .soFu(env.study.topicApi.userTopics)
-              .map:
-                views.study.list.topic.show(topic, pag, order, _)
+              .traverse(env.study.topicApi.userTopics)
+              .map(views.study.list.topic.show(topic, pag, order, _))
           ,
           apiStudies(pag)
         )
@@ -180,7 +179,7 @@ final class Study(
               )
               loadChat = !HTTPRequest.isXhr(ctx.req)
               chatOpt <- loadChat.so(chatOf(sc.study))
-              jsChat <- chatOpt.soFu: c =>
+              jsChat <- chatOpt.traverse: c =>
                 lila.chat.JsonView.mobile(c.chat, writeable = ctx.userId.so(sc.study.canChat))
             yield Ok:
               Json.obj(
@@ -196,7 +195,7 @@ final class Study(
   ): Fu[(WithChapter, JsData)] =
     for
       (study, chapter) <- env.study.api.maybeResetAndGetChapter(sc.study, sc.chapter)
-      previews <- withChapters.soFu(env.study.preview.jsonList(study.id))
+      previews <- withChapters.optionFu(env.study.preview.jsonList(study.id))
       _ <- env.user.lightUserApi.preloadMany(study.members.ids.toList)
       fedNames <- env.study.preview.federations.get(sc.study.id)
       pov = userAnalysisC.makePov(chapter.root.fen.some, chapter.setup.variant)
@@ -250,7 +249,7 @@ final class Study(
 
   private[controllers] def chatOf(study: lila.study.Study)(using ctx: Context) = {
     ctx.kid.no && ctx.noBot // no public chats for kids and bots
-  }.soFu:
+  }.optionFu:
     env.chat.api.userChat
       .findMine(study.id.into(ChatId))
       .mon(_.chat.fetch("study"))
@@ -492,7 +491,7 @@ final class Study(
     for
       popular <- env.study.topicApi.popular(50)
       ofUser = ctx.userId.ifTrue(ctx.isWebAuth || ctx.oauth.exists(_.has(_.Study.Read)))
-      mine <- ofUser.soFu(env.study.topicApi.userTopics)
+      mine <- ofUser.traverse(env.study.topicApi.userTopics)
       result <- negotiate(
         Ok.page(views.study.list.topic.index(popular, mine, mine.map(StudyForm.topicsForm))),
         Ok(Json.obj("popular" -> popular).add("mine" -> mine))

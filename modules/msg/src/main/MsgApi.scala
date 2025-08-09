@@ -88,7 +88,7 @@ final class MsgApi(
             msgs <- threadMsgsFor(threadId, me, before)
             relations <- relationApi.fetchRelations(me, userId)
             postable <- security.may.post(me, userId, isNew = msgs.headOption.isEmpty)
-            details <- Granter(_.PublicMod).soFu(fetchContactDetailsForMods(userId))
+            details <- Granter(_.PublicMod).optionFu(fetchContactDetailsForMods(userId))
           yield MsgConvo(contact, msgs, relations, postable, details).some
         }
 

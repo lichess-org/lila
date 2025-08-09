@@ -70,16 +70,16 @@ final class UserApi(
           (
             gameProxyRepo.urgentGames(u).dmap(_.headOption),
             as.filter(u !=).so(me => crosstableApi.nbGames(me.userId, u.id)),
-            withFollows.soFu(relationApi.countFollowing(u.id)),
+            withFollows.optionFu(relationApi.countFollowing(u.id)),
             as.isDefined.so(prefApi.followable(u.id)),
             as.map(_.userId).so(relationApi.fetchRelation(_, u.id)),
             bookmarkApi.countByUser(u.user),
             gameCache.nbPlaying(u.id),
             gameCache.nbImportedBy(u.id),
-            (withTrophies && !u.lame).soFu(getTrophiesAndAwards(u.user)),
+            (withTrophies && !u.lame).optionFu(getTrophiesAndAwards(u.user)),
             streamerApi.listed(u.user),
             withCanChallenge.so(challengeGranter.mayChallenge(u.user).dmap(some)),
-            forWiki.soFu(userRepo.email(u.id)),
+            forWiki.optionFu(userRepo.email(u.id)),
             withPlayban.so(playbanApi.currentBan(u))
           ).mapN:
             (

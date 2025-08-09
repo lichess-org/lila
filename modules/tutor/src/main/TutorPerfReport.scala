@@ -135,8 +135,8 @@ private object TutorPerfReport:
       resourcefulness <- TutorResourcefulness.compute(users)
       conversion <- TutorConversion.compute(users)
       clockUsers = users.filter(_.perfType != PerfType.Correspondence).toNel
-      globalClock <- clockUsers.soFu(answerManyPerfs(globalClockQuestion, _))
-      clockUsage <- clockUsers.soFu(TutorClockUsage.compute)
+      globalClock <- clockUsers.traverse(answerManyPerfs(globalClockQuestion, _))
+      clockUsage <- clockUsers.traverse(TutorClockUsage.compute)
       perfReports <- Future.sequence(users.toList.map { user =>
         for
           openings <- TutorOpening.compute(user)

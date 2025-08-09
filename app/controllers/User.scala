@@ -178,7 +178,7 @@ final class User(
           then
             (
               ctx.userId.so(relationApi.fetchBlocks(user.id, _)),
-              ctx.userId.soFu(env.game.crosstableApi(user.id, _)),
+              ctx.userId.traverse(env.game.crosstableApi(user.id, _)),
               ctx.isAuth.so(env.pref.api.followable(user.id))
             ).flatMapN: (blocked, crosstable, followable) =>
               negotiate(
@@ -550,7 +550,7 @@ final class User(
         ,
         JsonOk:
           getBool("graph")
-            .soFu:
+            .optionFu:
               env.history.ratingChartApi.singlePerf(data.user.user, data.stat.perfType.key)
             .map: graph =>
               env.perfStat.jsonView(data).add("graph", graph)

@@ -71,7 +71,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
   }
 
   private def modData(streamer: StreamerModel)(using ctx: Context) =
-    (isGrantedOpt(_.ModLog) && ctx.isnt(streamer)).soFu:
+    (isGrantedOpt(_.ModLog) && ctx.isnt(streamer)).optionFu:
       logApi
         .userHistory(streamer.userId)
         .zip(env.user.noteApi.toUserForMod(streamer.userId))
