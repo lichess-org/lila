@@ -63,7 +63,6 @@
   <string name="startVerySoon">Útsendingin hefst innan skamms.</string>
   <string name="notYetStarted">Útsendingin er ekki enn hafin.</string>
   <string name="officialWebsite">Opinber vefsíða</string>
-  <string name="standings">Staða</string>
   <string name="officialStandings">Opinberar stöður</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Fleiri valkostir á %s</string>
   <string name="webmastersPage">síðu vefstjóra</string>

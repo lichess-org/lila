@@ -59,7 +59,6 @@
   <string name="startVerySoon">La tresmisión va empezar en pocu tiempu.</string>
   <string name="notYetStarted">La tresmisión entá nun entamó.</string>
   <string name="officialWebsite">Sitiu oficial</string>
-  <string name="standings">Clasificaciones</string>
   <string name="officialStandings">Clasificación oficial</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Más opciones en %s</string>
   <string name="webmastersPage">la páxina del webmaster</string>

@@ -67,7 +67,6 @@
   <string name="startVerySoon">Трансляция начнётся совсем скоро.</string>
   <string name="notYetStarted">Трансляция ещё не началась.</string>
   <string name="officialWebsite">Официальный веб-сайт</string>
-  <string name="standings">Турнирная таблица</string>
   <string name="officialStandings">Официальная турнирная таблица</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Больше опций на %s</string>
   <string name="webmastersPage">странице веб-мастера</string>

@@ -67,7 +67,6 @@
   <string name="startVerySoon">Transliacija prasidės visai netrukus.</string>
   <string name="notYetStarted">Transliacija dar neprasidėjo.</string>
   <string name="officialWebsite">Oficialus tinklapis</string>
-  <string name="standings">Rezultatai</string>
   <string name="officialStandings">Oficialūs rezultatai</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Daugiau parinkčių %s</string>
   <string name="webmastersPage">žiniatinklio valdytojų puslapis</string>

@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="community">Skupnost</string>
+  <string name="byMonth">Po mesecih</string>
+  <string name="byTopic">Po temi</string>
+  <string name="byLichess">Od Lichessa</string>
+  <string name="myFriends">Moji prijatelji</string>
+  <string name="myLikes">Moji všečki</string>
   <string name="myBlog">Moj spletni dnevnik</string>
   <string name="likedBlogs">Všečkane objave v spletnem dnevniku</string>
   <plurals name="blogPosts">

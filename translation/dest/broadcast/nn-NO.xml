@@ -63,7 +63,6 @@
   <string name="startVerySoon">Sending vil starte om ikkje lenge.</string>
   <string name="notYetStarted">Sendinga har førebels ikkje starta.</string>
   <string name="officialWebsite">Offisiell nettside</string>
-  <string name="standings">Resultat</string>
   <string name="officialStandings">Offisiell tabell</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Fleire alternativ på %s</string>
   <string name="webmastersPage">administratoren si side</string>

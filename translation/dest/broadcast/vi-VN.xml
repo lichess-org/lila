@@ -61,7 +61,6 @@
   <string name="startVerySoon">Chương trình phát sóng sẽ sớm bắt đầu.</string>
   <string name="notYetStarted">Chương trình phát sóng vẫn chưa bắt đầu.</string>
   <string name="officialWebsite">Website chính thức</string>
-  <string name="standings">Bảng xếp hạng</string>
   <string name="officialStandings">Bảng xếp hạng Chính thức</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Thêm tùy chọn trên %s</string>
   <string name="webmastersPage">trang nhà phát triển web</string>

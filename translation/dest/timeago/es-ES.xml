@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="justNow">ahora mismo</string>
+  <string name="justNow">hace un momento</string>
   <plurals name="inNbSeconds">
     <item quantity="one">en %s segundo</item>
     <item quantity="other">en %s segundos</item>

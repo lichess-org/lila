@@ -63,7 +63,6 @@
   <string name="startVerySoon">Lähetys alkaa aivan pian.</string>
   <string name="notYetStarted">Lähetys ei ole vielä alkanut.</string>
   <string name="officialWebsite">Virallinen verkkosivu</string>
-  <string name="standings">Tulostaulu</string>
   <string name="officialStandings">Virallinen tulostaulu</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Lisäasetuksia löytyy %s</string>
   <string name="webmastersPage">webmasterin sivulta</string>

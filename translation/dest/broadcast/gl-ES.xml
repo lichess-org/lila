@@ -63,7 +63,6 @@
   <string name="startVerySoon">A emisión comeza decontado.</string>
   <string name="notYetStarted">A emisión aínda non comezou.</string>
   <string name="officialWebsite">Páxina web oficial</string>
-  <string name="standings">Clasificación</string>
   <string name="officialStandings">Clasificación oficial</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Máis opcións na %s</string>
   <string name="webmastersPage">páxina do administrador web</string>

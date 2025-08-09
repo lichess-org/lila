@@ -65,7 +65,6 @@
   <string name="startVerySoon">Transmisiunea va începe foarte curând.</string>
   <string name="notYetStarted">Transmisiunea nu a început încă.</string>
   <string name="officialWebsite">Website-ul oficial</string>
-  <string name="standings">Clasament</string>
   <string name="officialStandings">Clasament oficial</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Mai multe opțiuni pe %s</string>
   <string name="webmastersPage">pagina administratorilor de site</string>

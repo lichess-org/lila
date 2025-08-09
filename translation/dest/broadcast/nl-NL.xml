@@ -63,7 +63,6 @@
   <string name="startVerySoon">De uitzending begint binnenkort.</string>
   <string name="notYetStarted">De uitzending is nog niet begonnen.</string>
   <string name="officialWebsite">Officiële website</string>
-  <string name="standings">Klassement</string>
   <string name="officialStandings">Officiële standen</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Meer opties voor de %s</string>
   <string name="webmastersPage">pagina van de webmaster</string>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="featuredEvents">Öne çıkan etkinlikler</string>
   <string name="moveList">Hamle listesi</string>
   <string name="gameInfo">Oyun bilgisi</string>
   <string name="pieces">Taşlar</string>
@@ -11,7 +12,20 @@
   <string name="opponentClock">Rakibin saati</string>
   <string name="gameStart">Oyun başlangıcı</string>
   <string name="goToInputForm">Komut girdi formuna git.</string>
+  <string name="announceCurrentSquare">Geçerli kareyi duyur.</string>
+  <string name="announceLastMove">Son hamleyi duyur.</string>
+  <string name="announceLastMoveCapture">Son hamlede alınan taşı duyur.</string>
+  <string name="announcePossibleMoves">Seçilen taş için olası hamleleri duyur.</string>
+  <string name="announcePossibleCaptures">Seçilen taş için olası taş almaları duyur.</string>
+  <string name="moveWithArrows">Sol, sağ, yukarı veya aşağı bitişik kareye hareket edin.</string>
+  <string name="moveToPieceByType">Taş isimlerini kullanarak karelere gidin. Örneğin: tekrarlanan a, bir at bulunan her kareye hareket edecektir. Sırayı tersine çevirmek için büyük harf kullanın.</string>
+  <string name="moveToRank">Sırayı 1\'den 8\'e taşı.</string>
+  <string name="moveToFile">Sırayı a\'dan h\'ye taşı.</string>
+  <string name="announcePieceLocations">Taşların yerlerini bildir. Örnek: beyaz atlar için p büyük A, siyah şah için p küçük ş, tüm beyaz taşlar için p büyük T.</string>
+  <string name="announcePiecesOnRankOrFile">Taşları bir sıra veya bir sütun üzerinde duyur. Örnek: s a, s 1.</string>
+  <string name="goToBoard">Tahtaya gidin. Varsayılan kare e-4\'tür. Bir kare belirtebilirsiniz: tahta a-1 veya b a-1 sizi a-1 karesine götürecektir.</string>
   <string name="movePiece">Bir taşı oynatmak için, standart cebirsel notasyon kullanın.</string>
+  <string name="promotion">Vezirden başka bir şeye terfi etmek için eşittir kullanın. Örneğin a-8-eşittir-n bir ata terfi eder.</string>
   <string name="king">şah</string>
   <string name="whiteKing">beyaz şah</string>
   <string name="blackKing">siyah şah</string>
@@ -30,6 +44,7 @@
   <string name="pawn">piyon</string>
   <string name="whitePawn">beyaz piyon</string>
   <string name="blackPawn">siyah piyon</string>
+  <string name="sanSymbols" comment="Keep this order: king queen rook bishop knight takes">Ş V K F A x</string>
   <string name="sanTakes" comment="x in standard notation">alır</string>
   <string name="sanCheck" comment="+ in standard notation">şah</string>
   <string name="sanCheckmate" comment="# in standard notation">şah mat</string>
@@ -38,4 +53,5 @@
   <string name="invalidMove">Geçersiz hamle</string>
   <string name="premoveCancelled">Ön hamle iptal edildi</string>
   <string name="premoveRecorded">Ön hamle kaydedildi: %s. İptal etmek için gir tuşuna bas</string>
+  <string name="pgnAndFen" comment="Will be a heading read out over text-to-speech for blind users looking to share a PGN or FEN of a game.">PGN ve FEN</string>
 </resources>

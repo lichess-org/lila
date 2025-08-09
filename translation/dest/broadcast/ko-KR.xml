@@ -61,7 +61,6 @@
   <string name="startVerySoon">방송이 곧 시작됩니다.</string>
   <string name="notYetStarted">아직 방송이 시작을 하지 않았습니다.</string>
   <string name="officialWebsite">공식 웹사이트</string>
-  <string name="standings">순위</string>
   <string name="officialStandings">공식 순위</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">%s에서 더 많은 정보를 확인하실 수 있습니다</string>
   <string name="webmastersPage">웹마스터 페이지</string>

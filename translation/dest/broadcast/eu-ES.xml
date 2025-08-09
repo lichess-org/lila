@@ -63,7 +63,6 @@
   <string name="startVerySoon">Zuzenekoa berehala hasiko da.</string>
   <string name="notYetStarted">Zuzenekoa ez da oraindik hasi.</string>
   <string name="officialWebsite">Webgune ofiziala</string>
-  <string name="standings">Sailkapena</string>
   <string name="officialStandings">Sailkapen ofiziala</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Aukera gehiago %sean</string>
   <string name="webmastersPage">webmasterraren webgune</string>

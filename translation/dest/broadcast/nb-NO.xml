@@ -63,7 +63,6 @@
   <string name="startVerySoon">Overføringen starter straks.</string>
   <string name="notYetStarted">Overføringen har ikke startet.</string>
   <string name="officialWebsite">Offisiell nettside</string>
-  <string name="standings">Resultatliste</string>
   <string name="officialStandings">Offisiell tabell</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Flere alternativer på %s</string>
   <string name="webmastersPage">administratorens side</string>

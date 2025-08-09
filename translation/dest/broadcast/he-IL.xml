@@ -61,7 +61,6 @@
   <string name="startVerySoon">ההקרנה תחל ממש בקרוב.</string>
   <string name="notYetStarted">ההקרנה טרם החלה.</string>
   <string name="officialWebsite">האתר הרשמי</string>
-  <string name="standings">תוצאות</string>
   <string name="officialStandings">טבלת מובילים רשמית</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">ישנן אפשרויות נוספות ב%s</string>
   <string name="webmastersPage">עמוד המתכנתים</string>
