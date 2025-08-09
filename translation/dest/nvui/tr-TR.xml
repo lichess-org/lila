@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="featuredEvents">Öne çıkan etkinlikler</string>
   <string name="moveList">Hamle listesi</string>
   <string name="gameInfo">Oyun bilgisi</string>
   <string name="pieces">Taşlar</string>
