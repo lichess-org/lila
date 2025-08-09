@@ -545,4 +545,4 @@ final class Study(
     Found(play.api.i18n.Lang.get(lang)): lang =>
       JsonOk:
         lila.study.JsonView.glyphs(using env.translator.to(lang))
-      .withHeaders(CACHE_CONTROL -> "max-age=3600")
+      .headerCacheSeconds(3600)

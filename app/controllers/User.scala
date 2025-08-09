@@ -186,7 +186,7 @@ final class User(
                   pov <- ctx.isnt(user).so(env.round.currentlyPlaying.exec(user.user.id))
                   ping = env.socket.isOnline.exec(user.id).so(env.socket.getLagRating(user.id))
                   snip <- Ok.snip(views.user.mini(user, pov, blocked, followable, relation, ping, crosstable))
-                yield snip.withHeaders(CACHE_CONTROL -> "max-age=5"),
+                yield snip.headerCacheSeconds(5),
                 json =
                   import lila.game.JsonView.given
                   Ok:

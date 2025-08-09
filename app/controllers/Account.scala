@@ -82,7 +82,7 @@ final class Account(
           .add("troll" -> me.marks.troll)
           .add("playban" -> playban)
           .add("announce" -> AnnounceApi.get.map(_.json))
-      .withHeaders(CACHE_CONTROL -> "max-age=15")
+      .headerCacheSeconds(15)
   }
 
   def nowPlaying = Auth { _ ?=> _ ?=>
