@@ -383,12 +383,9 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
       case _ => BadRequest(jsonError("Can't update that tournament."))
   }
 
-  def featured = Open:
+  def featured = OpenOrScoped():
     negotiateJson:
-      WithMyPerfs:
-        JsonOk:
-          env.api.mobile.featuredTournaments.map: tours =>
-            Json.obj("featured" -> tours)
+      JsonOk(env.api.mobile.tournaments)
 
   def shields = Open:
     for
