@@ -147,7 +147,7 @@ final class GameApiV2(
     enriched <- games.sequentially(enrich(config.flags))
     jsons <- enriched.sequentially: (game, fen, analysis) =>
       toJson(game, fen, analysis, config)
-  yield Json.arr(jsons)
+  yield JsArray(jsons)
 
   def mobileCurrent(user: User)(using Option[Me]): Fu[Option[JsObject]] =
     gameCache
