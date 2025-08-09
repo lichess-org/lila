@@ -39,7 +39,7 @@
   <string name="reportMobileIssue">Github (Lichess 모바일 앱 이슈)</string>
   <string name="reportBugInDiscord">Lichess 디스코드 서버</string>
   <string name="howToReportBug">버그가 무엇인지, 어떻게 고쳐져야 하는지 설명해주세요.</string>
-  <string name="illegalPawnCapture">폰을 이상하게 잡았습니다</string>
+  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">폰을 이상하게 잡았습니다</string>
   <string name="calledEnPassant">\'앙파상\' 이라고 불리는 체스의 규칙입니다.</string>
   <string name="tryEnPassant">이 미니 게임으로 앙파상에 대해 배우십시오.</string>
   <string name="illegalCastling">캐슬링이 불가능합니다</string>

@@ -48,13 +48,6 @@ package mailer:
   )
   case class CorrespondenceOpponents(userId: UserId, opponents: List[CorrespondenceOpponent])
 
-package plan:
-  case class ChargeEvent(username: UserName, cents: Int, percent: Int, date: Instant)
-  case class MonthInc(userId: UserId, months: Int)
-  case class PlanStart(userId: UserId)
-  case class PlanGift(from: UserId, to: UserId, lifetime: Boolean)
-  case class PlanExpire(userId: UserId)
-
 package push:
   case class TourSoon(tourId: String, tourName: String, userIds: Iterable[UserId], swiss: Boolean)
 

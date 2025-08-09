@@ -502,7 +502,6 @@
   <string name="openTournaments">Atvērtie turnīri</string>
   <string name="duration">Ilgums</string>
   <string name="winner">Uzvarētājs</string>
-  <string name="standing">Pozīcija</string>
   <string name="createANewTournament">Izveidot jaunu turnīru</string>
   <string name="tournamentCalendar">Turnīru kalendārs</string>
   <string name="conditionOfEntry">Dalības prasības:</string>

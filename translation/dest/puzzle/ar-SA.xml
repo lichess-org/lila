@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">الألغاز</string>
-  <string name="puzzleThemes">خصائص الألغاز</string>
+  <string name="puzzleThemes">أفكار الألغاز</string>
   <string name="recommended">مقترح</string>
   <string name="phases">مراحل</string>
   <string name="motifs">الأفكار الرئيسية</string>
-  <string name="advanced">خيارات أعمق</string>
+  <string name="advanced">الأفكار المتقدمة</string>
   <string name="lengths">الأطوال</string>
-  <string name="mates">الحلفاء</string>
+  <string name="mates">كشّات</string>
   <string name="goals">الغايات</string>
-  <string name="origin">الأصل</string>
+  <string name="origin">المصدر</string>
   <string name="specialMoves">نقلات مميزة</string>
   <string name="didYouLikeThisPuzzle">هل أعجبك هذا اللغز؟</string>
   <string name="voteToLoadNextOne">صوت لتبدأ الغز التالي!</string>
@@ -18,22 +18,22 @@
   <string name="yourPuzzleRatingWillNotChange">تقييم الألغاز الخاص بك لن يتغير. لاحظ أن الألغاز ليست مسابقة. التقييم يساعد على اختيار أفضل الألغاز لمهاراتك الحالية.</string>
   <string name="findTheBestMoveForWhite">جد أفضل نقلة للأبيض.</string>
   <string name="findTheBestMoveForBlack">جد أفضل نقلة للأسود.</string>
-  <string name="toGetPersonalizedPuzzles">للحصول على ألغاز خاصة بك:</string>
+  <string name="toGetPersonalizedPuzzles">للحصول على ألغاز خصيصة لك:</string>
   <string name="puzzleId">لغز %s</string>
   <string name="puzzleOfTheDay">لغز اليوم</string>
   <string name="dailyPuzzle">اللغز اليومي</string>
-  <string name="clickToSolve">انقر للحل</string>
+  <string name="clickToSolve">إضغط للحل</string>
   <string name="goodMove">نقلة جيدة</string>
   <string name="bestMove">أفضل نقلة!</string>
   <string name="keepGoing">استمر…</string>
   <string name="puzzleSuccess">تم بنجاح!</string>
   <string name="puzzleComplete">تم حل اللغز!</string>
-  <string name="byOpenings">من الافتتاحات</string>
-  <string name="puzzlesByOpenings">ألغاز من الافتتاحات</string>
-  <string name="openingsYouPlayedTheMost">الافتتاحات التي استخدمتها في معظم المبارايات المقيمة</string>
+  <string name="byOpenings">من الإفتتاحات</string>
+  <string name="puzzlesByOpenings">ألغاز من الإفتتاحات</string>
+  <string name="openingsYouPlayedTheMost">أكثر الإفتتاحات لعباً من مبارياتك المقيمة</string>
   <string name="useFindInPage">استخدم خاصية \"البحث في الصفحة\" في المتصفح للعثور على افتتاحك المفضل!</string>
   <string name="useCtrlF">أضغط Ctrl و f لتبحث عن افتتاحك المفضل!</string>
-  <string name="notTheMove">هذه ليست الحركة الصحيحة!</string>
+  <string name="notTheMove">هذه ليست النقلة الصحيحة!</string>
   <string name="trySomethingElse">جرب شيئا آخر.</string>
   <string name="ratingX">التقييم: %s</string>
   <string name="hidden">مخفي</string>
@@ -71,14 +71,14 @@
   </plurals>
   <string name="example">مثال</string>
   <string name="addAnotherTheme">إضافة نوع آخر</string>
-  <string name="nextPuzzle">اللغز الموالي</string>
+  <string name="nextPuzzle">اللغز التالي</string>
   <string name="jumpToNextPuzzleImmediately">انتقل للغز التالي مباشرة</string>
   <string name="puzzleDashboard">لوحة التحكم بالألغاز</string>
   <string name="improvementAreas">مناطق بحاجة لتحسين</string>
   <string name="strengths">نقاط القوة</string>
   <string name="history">سجل الألغاز</string>
-  <string name="solved">حلت</string>
-  <string name="failed">فشلت</string>
+  <string name="solved">محلولة</string>
+  <string name="failed">خطأ</string>
   <string name="streakDescription">حل الألغاز بشكل مطرد وبناء سلسلة الفوز. لا توجد ساعة، لذا خذ وقتك. نقلة خاطئة واحدة، وقد انتهت اللعبة! ولكن يمكنك تخطي حركة واحدة في كل دورة.</string>
   <string name="yourStreakX">حل متتالي: %s</string>
   <string name="streakSkipExplanation">تخطى هذه الحركة للحفاظ على سلسلة الانتصارات.</string>
@@ -97,7 +97,7 @@
     <item quantity="many">يوجد %1$s لُغز في مباريات اللاعب %2$s</item>
     <item quantity="other">يوجد %1$s لُغز في مباريات اللاعب %2$s</item>
   </plurals>
-  <string name="puzzleDashboardDescription">تدرب،حلل،تطور</string>
+  <string name="puzzleDashboardDescription">تـدرب، حـلل، تـطور</string>
   <plurals name="nbPlayed">
     <item quantity="zero">%s لعبت</item>
     <item quantity="one">%s لعبت</item>

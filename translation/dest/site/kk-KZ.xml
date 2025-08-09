@@ -470,7 +470,6 @@
   <string name="openTournaments">Ашық жарыстар</string>
   <string name="duration">Ұзақтығы</string>
   <string name="winner">Жеңімпаз</string>
-  <string name="standing">Орны</string>
   <string name="createANewTournament">Жаңа жарыс құру</string>
   <string name="tournamentCalendar">Жарыс күнтізбесі</string>
   <string name="conditionOfEntry">Кіру талаптары:</string>
@@ -578,7 +577,7 @@
   <string name="noNoteYet">Жазба жоқ</string>
   <string name="invalidUsernameOrPassword">Атыңыз не құпиясөз қате</string>
   <string name="incorrectPassword">Құпиясөз қате</string>
-  <string name="invalidAuthenticationCode">Өкіл-растама құлыпсөзі қате</string>
+  <string name="invalidAuthenticationCode">Өкіл-растау құлыпсаны қате</string>
   <string name="emailMeALink">Поштама сілтеме жібер</string>
   <string name="currentPassword">Қазіргі құпиясөз</string>
   <string name="newPassword">Жаңа кұпиясөз</string>
@@ -743,7 +742,7 @@
   <string name="ifYouDoNotGetTheEmail">Егер 5 минутта поштаңызға хат келмесе:</string>
   <string name="checkAllEmailFolders">Спам, себет, басқа да қалталарды қарап шығыңыз</string>
   <string name="verifyYourAddress">%s дұрыс жазылғанын тексеріңіз</string>
-  <string name="weHaveSentYouAnEmailTo">Біз хатты %s-ға жібердік. Құпиясөзді арылту үшін хаттағы сілтемеге басыңыз.</string>
+  <string name="weHaveSentYouAnEmailTo">Біз %s хат жібердік. Құпиясөзді қайта орнату үшін хаттағы сілтемеге басыңыз.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Сіздің тіркелуіңіз – %s-н мойындайтыныңыздың белгісі.</string>
   <string name="readAboutOur">Біздің %s туралы оқыңыз.</string>
   <string name="networkLagBetweenYouAndLichess">Личес пен сіздің араңыздағы кідіріс</string>

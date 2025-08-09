@@ -57,8 +57,8 @@
   <string name="invalidMove">Moviment invàlid</string>
   <string name="premoveCancelled">Moviment anticipat cancel·lat</string>
   <string name="premoveRecorded">Moviment anticipat registrat: %s prem enter per cancel·lar</string>
-  <string name="pockets" comment="Crazyhouse pockets">Butxaques</string>
-  <string name="copyToClipboard">Copia %s al porta-retalls</string>
-  <string name="copiedToClipboard">%s copiat al porta-retalls</string>
-  <string name="pgnAndFen">PGN i FEN</string>
+  <string name="pockets" comment="Pockets in Crazyhouse, which hold captured pieces and let players place them again">Butxaques</string>
+  <string name="copyToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">Copia %s al porta-retalls</string>
+  <string name="copiedToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">%s copiat al porta-retalls</string>
+  <string name="pgnAndFen" comment="Will be a heading read out over text-to-speech for blind users looking to share a PGN or FEN of a game.">PGN i FEN</string>
 </resources>

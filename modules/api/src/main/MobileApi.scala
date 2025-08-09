@@ -23,34 +23,27 @@ final class MobileApi(
     liveStreamApi: lila.streamer.LiveStreamApi,
     activityRead: lila.activity.ActivityReadApi,
     activityJsonView: lila.activity.JsonView,
-    picfitUrl: lila.core.misc.PicfitUrl
+    picfitUrl: lila.core.misc.PicfitUrl,
+    isOnline: lila.core.socket.IsOnline
 )(using Executor):
 
   private given (using trans: Translate): Lang = trans.lang
 
   def home(using me: Option[Me])(using RequestHeader, Translate): Fu[JsObject] =
-    val accountFu = me.map(u => userApi.mobile(u.value))
-    val recentGamesFu = me.map(u => gameApi.mobileRecent(u.value))
-    val ongoingGamesFu = me.map: u =>
-      gameProxy.urgentGames(u).map(_.take(20).map(lobbyApi.nowPlaying))
-    val tournamentsFu = me.map: u =>
-      for
-        perfs <- userApi.withPerfs(u.value)
-        tours <- featuredTournaments(using perfs.some)
-      yield tours
-    val inboxFu = me.map(unreadCount.mobile)
+    val myUser = me.map(_.value)
     for
-      account <- accountFu.sequence
-      recentGames <- recentGamesFu.sequence
-      ongoingGames <- ongoingGamesFu.sequence
-      tournaments <- tournamentsFu.sequence
-      inbox <- inboxFu.sequence
+      perfs <- myUser.traverse(userApi.withPerfs)
+      tournaments <- featuredTournaments(using perfs)
+      account <- myUser.traverse(userApi.mobile)
+      recentGames <- myUser.traverse(gameApi.mobileRecent)
+      ongoingGames <- myUser.traverse: u =>
+        gameProxy.urgentGames(u).map(_.take(20).map(lobbyApi.nowPlaying))
+      inbox <- me.traverse(unreadCount.mobile)
     yield Json
-      .obj()
+      .obj("tournaments" -> tournaments)
       .add("account", account)
       .add("recentGames", recentGames)
       .add("ongoingGames", ongoingGames)
-      .add("tournaments", tournaments)
       .add("inbox", inbox)
 
   def featuredTournaments(using me: Option[UserWithPerfs])(using Translate): Fu[List[JsObject]] =
@@ -82,10 +75,23 @@ final class MobileApi(
       Json.toJsObject(user) ++
         lila.streamer.Stream.toJson(picfitUrl, stream)
 
-  def profile(user: User)(using Option[Me], Lang): Fu[JsObject] =
+  def profile(user: User)(using me: Option[Me])(using Lang): Fu[JsObject] =
     for
       prof <- userApi.mobile(user)
       activities <- activityRead.recentAndPreload(user)
       activity <- activities.sequentially(activityJsonView(_, user))
       games <- gameApi.mobileRecent(user)
-    yield Json.obj("profile" -> prof, "activity" -> activity, "games" -> games)
+      status <- me.forall(_.isnt(user)).soFu(userStatus(user))
+      crosstable <- me.filter(_.isnt(user)).map(gameApi.crosstableWith(user)).sequence
+    yield Json
+      .obj("profile" -> prof, "activity" -> activity, "games" -> games)
+      .add("status", status)
+      .add("crosstable", crosstable)
+
+  private def userStatus(user: User)(using Option[Me]): Fu[JsObject] =
+    for playing <- gameApi.mobileCurrent(user)
+    yield Json
+      .obj()
+      .add("online", isOnline.exec(user.id))
+      .add("playing", playing)
+      .add("streaming", liveStreamApi.userIds(user.id))

@@ -78,6 +78,10 @@
   <string name="fromMyGamesNone">தரவுத்தளத்தில் உங்களுக்குரிய புதிர்கள் ஏதுமில்லை, ஆனாலும் Lichess உங்களை மிகவும் விரும்புகின்றது!
 
 உங்கள் புதிர் சேர்க்கப்படுவதற்கான வாய்ப்புகளை அதிகரிக்க துரிதம் மற்றும் செவ்வியல் ஆட்டங்களை விளையாடுங்கள்!</string>
+  <plurals name="puzzlesFoundInUserGames">
+    <item quantity="one">%2$s இன் விளையாட்டுகளில் ஒரு புதிர் கண்டறியப்பட்டது.</item>
+    <item quantity="other">%2$s இன் விளையாட்டுகளில் %1$s புதிர்கள் கண்டறியப்பட்டன</item>
+  </plurals>
   <string name="puzzleDashboardDescription">பயிற்சி, பகுப்பாய்வு, முன்னேற்றம்</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s விளையாடியது</item>

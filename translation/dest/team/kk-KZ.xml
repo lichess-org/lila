@@ -47,7 +47,7 @@
   <string name="closeTeam">Топты жабу</string>
   <string name="closeTeamDescription">Топты түпкілікті жабады.</string>
   <string name="entryCode">Топқа кіру құпиясөзі</string>
-  <string name="entryCodeDescriptionForLeader">(Міндетті емес) Топқа қосылу үшін жаңа ойыншыға құпиясөз керек.</string>
+  <string name="entryCodeDescriptionForLeader">(Міндетті емес) Топқа қосылмақ жаңа ойыншыдан сұралатын құпиясөз.</string>
   <string name="incorrectEntryCode">Құпиясөз қате.</string>
   <string name="teamAlreadyExists">Осындай топ бұрыннан бар.</string>
   <string name="completedTourns">Аяқталған жарыстар</string>

@@ -429,7 +429,6 @@
   <string name="openTournaments">खुल्ला प्रतियोगिताहरु</string>
   <string name="duration">अवधि</string>
   <string name="winner">विजेता</string>
-  <string name="standing">अग्रतालिक</string>
   <string name="createANewTournament">नयाँ प्रतियोगिता रचना गरौं</string>
   <string name="tournamentCalendar">प्रतियोगिताको पात्रो</string>
   <string name="conditionOfEntry">प्रवेश गर्ने शर्तहरु:</string>

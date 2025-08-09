@@ -14,7 +14,7 @@
 pakala ni li seme?
 pakala ni li weka la ilo li pali ante seme?
 nasin seme la mi ken kama sin e pakala ni?</string>
-  <string name="illegalPawnCapture">ijo musi li ken anpa ike e ijo \"jan utala\"</string>
+  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">ijo musi li ken anpa ike e ijo \"jan utala\"</string>
   <string name="calledEnPassant">anpa ni li \"anpa tawa\" (\"en passant\"). ona li pona tawa nasin musi.</string>
   <string name="tryEnPassant">sina wile kama sona e \"anpa tawa\", o lukin e musi lili ni.</string>
   <string name="illegalCastling">\"tomo awen\" ike li ken</string>

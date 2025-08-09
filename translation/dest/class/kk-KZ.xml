@@ -3,7 +3,7 @@
   <string name="lichessClasses" comment="Lichess Classes are a feature that lets a teacher create virtual classes and check out students' progress.&#10;&#10;This text used to be &quot;Lichess Classes&quot;, which has since been shortened to &quot;Classes&quot;.">Үйірме</string>
   <string name="teachClassesOfChessStudents">Личес Үйірме құралын пайдаланып, шәкірттерге шахматты үйретіңіз.</string>
   <string name="features">Ерекшеліктері</string>
-  <string name="quicklyGenerateSafeUsernames">Шәкірттерге қауіпсіз тіркеулі ат пен құпиясөздерді құрастыру</string>
+  <string name="quicklyGenerateSafeUsernames">Шәкірттерге берік тіркеулі ат пен құпиясөз құрастыру</string>
   <string name="trackStudentProgress">Шәкірттердің ойны мен жұмбақ шешу жетістіктерін қадағалау</string>
   <string name="messageAllStudents">Барлық шәкірттерге жаңа оқу материал туралы хабар жіберу</string>
   <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">Барлығы үшін 100% тегін, мәңгі, жарнамасыз, трекерсіз</string>
@@ -25,7 +25,7 @@
   <string name="teachersOfTheClass">Үйірме ұстаздары</string>
   <string name="addLichessUsernames">Ұстаздарды шақыру үшін олардың тіркеулі аттарын жазыңыз. Әр жолға бір-бірден.</string>
   <string name="resetPassword">Құпиясөзді қайта орнату</string>
-  <string name="makeSureToCopy">Құпиясөзді көшіріп жазып алыңыз. Оны осыдан кейін қарай алмайсыз!</string>
+  <string name="makeSureToCopy">Құпиясөзді көшіріп жазып алыңыз. Оны қайта көру амалыңыз болмайды!</string>
   <string name="passwordX">Құпиясөз: %s</string>
   <string name="generateANewPassword">Шәкіртке жаңа құпиясөз құру</string>
   <string name="invitedToXByY">%1$s-не %2$s шақырған</string>
@@ -43,7 +43,7 @@
   <string name="inviteDesc4">Барша ойыншыларға сұраусыз шақыру жібере бермеңіз.</string>
   <string name="createANewLichessAccount" comment="The person who would see this would always be a teacher.&#10;In this context, it is to create a new account for a student of their class.">Жаңа Личес тіркелгісін құру</string>
   <string name="createDesc1">Егер шәкірттің Личес аккаунты болмаса, оған осы жерде аккаунт құра аласыз.</string>
-  <string name="createDesc2">Поштаның қажеті жоқ. Құпиясөз құрылған соң, оны шәкіртке жіберіңіз, ол тіркелгіге осылай кіретін болды.</string>
+  <string name="createDesc2">Поштаның қажеті жоқ. Құпиясөз құрылған соң, оны шәкіртке жіберіңіз, ол тіркелгіге осылай кіретін болады.</string>
   <string name="createDesc3">Ескерту: шәкірттің тек бір тіркелгісі болуы керек.</string>
   <string name="createDesc4">Егер тіркелгісі бар болса, оның орнына шақыру формасын қолданыңыз.</string>
   <string name="createStudentWarning">Тіркелгілерді тек шын шәкірттерге ғана жасаңыз. Өзіңізге бірнеше тіркелгі жасауға болмайды. Әйтпесе, бұғаулы боласыз.</string>
@@ -64,7 +64,7 @@
   <string name="upgradeFromManaged">Байлаулы күйден тәуелсіз күйге ауыстыру</string>
   <string name="release" comment="This used to be 'release'. It is now called 'graduate', and the term is used here as a verb.&#10;&#10;'Releasing' an account means making it a full Lichess account. It will no longer be tied to the teacher that created it.">Босату</string>
   <string name="releaseTheAccount">Тіркелгіні босатсаңыз, оны шәкірт дара өзі басқаратын болады.</string>
-  <string name="releaseDesc1">Босатылған тіркелгіні қайттан басқару мүмкін емес. Шәкірт Личестің балалық нұсқасын қосуға, құпиясөзді қайта орнатуға қабілетті болады.</string>
+  <string name="releaseDesc1">Босатылған тіркелгіні қайттан басқару мүмкін емес. Шәкірт өз еркімен бала нұсқаны қосып-өшіруге, құпиясөзді қайта орнатуға қабілетті болады.</string>
   <string name="releaseDesc2">Тіркелгі босатылған соң шәкірт үйірмеде қала береді.</string>
   <string name="realUniqueEmail">Шәкірттің шын электронды поштасы. Сонда тіркелгі босатуын растайтын хат жіберетін боламыз.</string>
   <string name="closeStudent">Тіркелгіні жабу</string>

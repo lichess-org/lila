@@ -21,7 +21,7 @@ import lila.game.actorApi.{
   BoardMoretime,
   MoveGameEvent
 }
-import lila.bot.OnlineApiUsers.SetOnline
+import lila.bot.OnlineApiUsers.*
 
 final class GameStateStream(
     onlineApiUsers: OnlineApiUsers,
@@ -120,6 +120,7 @@ final class GameStateStream(
         onlineApiUsers.setOnline(user.id)
         context.system.scheduler.scheduleOnce(7.second, self, CheckOnline)
       case CheckOnline =>
+        queue.offer(None) // prevents the client and intermediate proxies from closing the idle stream
         Bus.pub(Tell(id, RoundBus.QuietFlagCheck))
         self ! SetOnline
 
@@ -140,5 +141,4 @@ final class GameStateStream(
 
 private object GameStateStream:
 
-  private object CheckOnline
   private case class User(id: UserId, isBot: Boolean, kid: KidMode)

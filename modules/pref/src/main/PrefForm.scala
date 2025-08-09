@@ -53,6 +53,7 @@ object PrefForm:
     val flairs = "flairs" -> boolean
     val follow = "follow" -> booleanNumber
     val challenge = "challenge" -> checkedNumber(Pref.Challenge.choices)
+    val message = "message" -> checkedNumber(Pref.Message.choices)
     object board:
       val brightness = "boardBrightness" -> number(0, 150)
       val opacity = "boardOpacity" -> number(0, 100)
@@ -95,7 +96,7 @@ object PrefForm:
       )(ClockData.apply)(unapply),
       fields.follow,
       fields.challenge,
-      "message" -> checkedNumber(Pref.Message.choices),
+      fields.message,
       "studyInvite" -> optional(checkedNumber(Pref.StudyInvite.choices)),
       "insightShare" -> numberIn(Set(0, 1, 2)),
       fields.ratings.map2(optional),

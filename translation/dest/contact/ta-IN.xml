@@ -39,7 +39,7 @@
   <string name="reportMobileIssue">GitHub இல் Lichess மொபைல் ஆப்ஸ் சிக்கலாக</string>
   <string name="reportBugInDiscord">Lichess Discord சேவையகத்தில்</string>
   <string name="howToReportBug">பிழை எப்படி இருக்கும், அதற்கு பதிலாக என்ன நடக்கும் என்று நீங்கள் எதிர்பார்த்தீர்கள் மற்றும் பிழையை மீண்டும் உருவாக்குவதற்கான படிகளை விவரிக்கவும்.</string>
-  <string name="illegalPawnCapture">சட்டவிரோத சிப்பாய் பிடிப்பு</string>
+  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">சட்டவிரோத சிப்பாய் பிடிப்பு</string>
   <string name="calledEnPassant">இது \"en passant\" என்று அழைக்கப்படுகிறது மற்றும் சதுரங்கத்தின் விதிகளில் ஒன்றாகும்.</string>
   <string name="tryEnPassant">\"en passant\" பற்றி மேலும் அறிய இந்த சிறிய ஊடாடும் விளையாட்டை முயற்சிக்கவும்.</string>
   <string name="illegalCastling">சட்டவிரோத அல்லது சாத்தியமற்ற காஸ்ட்லிங்</string>

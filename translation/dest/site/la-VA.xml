@@ -417,7 +417,6 @@
   <string name="openTournaments">Certamina publica</string>
   <string name="duration">Duratio</string>
   <string name="winner">Victor</string>
-  <string name="standing">Status</string>
   <string name="createANewTournament">Facere certamen novum</string>
   <string name="tournamentCalendar">Tabula certaminum</string>
   <string name="conditionOfEntry">Requisita ingressus:</string>

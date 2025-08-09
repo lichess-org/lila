@@ -6,7 +6,7 @@
   <string name="progressX">Framvinda: %s</string>
   <string name="resetMyProgress">Núllstilla framvindu</string>
   <string name="youWillLoseAllYourProgress">Þú munt tapa öllum skráðum árangri!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">spila!</string>
+  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">tefla!</string>
   <string name="chessPieces">Taflmenn</string>
   <string name="theRook">Hrókurinn</string>
   <string name="itMovesInStraightLines">Hann ferðast eftir beinni línu</string>
@@ -80,15 +80,15 @@ Ekki tapa þínum.</string>
 Verstu ógninni!</string>
   <string name="noEscape">Þú getur ekki flúið
 en þú getur varið!</string>
-  <string name="dontLetThemTakeAnyUndefendedPiece">Ekki láta þá taka
-óvarinn taflmann!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Ekki láta andstæðinginn drepa
+óvaldaðan taflmann!</string>
   <string name="combat">Bardagi</string>
-  <string name="captureAndDefendPieces">Að drepa og verja taflmenn</string>
+  <string name="captureAndDefendPieces">Að drepa og valda taflmenn</string>
   <string name="combatIntro">Góður stríðsmaður getur bæði barist og varist!</string>
   <string name="combatComplete">Til hamingju! Nú veistu hvernig maður berst með taflmönnum!</string>
   <string name="checkInOne">Skák í einum</string>
   <string name="attackTheOpponentsKing">Ráðstu á kóng andstæðingsins</string>
-  <string name="checkInOneIntro">Til að skáka skaltu ráðast á kónginn. Andstæðingurinn verður að verja hann!</string>
+  <string name="checkInOneIntro">Til þess að skáka skaltu ráðast á kónginn. Andstæðingurinn verður að verja hann!</string>
   <string name="checkInOneGoal">Miðaðu á kóng andstæðingsins
 í einum leik!</string>
   <string name="checkInOneComplete">Til hamingju! Þú skákaðir andstæðingnum svo nauðsynlegt var að verja kónginn!</string>
@@ -104,10 +104,10 @@ með því að taka árásarmanninn.</string>
 í gegnum varnir þínar!</string>
   <string name="escapeOrBlock">Flýðu með kónginum
 eða verstu árásinni!</string>
-  <string name="outOfCheckComplete">Til hamingju! Þú mátt ekki láta taka kónginn svo þú skalt verja hann frá því að standa í skák!</string>
+  <string name="outOfCheckComplete">Til hamingju! Ekki er hægt að drepa kónginn svo tryggðu að þú getir varið kónginn skák!</string>
   <string name="mateInOne">Mát í einum</string>
   <string name="defeatTheOpponentsKing">Sigraðu kóng andstæðingsins</string>
-  <string name="mateInOneIntro">Þú sigrar þegar andstæðingurinn getur ekki varið gegn skák.</string>
+  <string name="mateInOneIntro">Þú sigrar þegar andstæðingurinn getur ekki varið skák.</string>
   <string name="attackYourOpponentsKing">Gerðu árás á kóng andstæðingsins
 á þann hátt sem ekki er hægt að verja!</string>
   <string name="mateInOneComplete">Til hamingju! Svona vinnurðu í skák!</string>
@@ -135,26 +135,26 @@ Veldu hvaða leik sem er.</string>
   <string name="theSpecialKingMove">Óvenjulega hreyfing kóngsins</string>
   <string name="castlingIntro">Færðu kónginn á öruggan stað og undirbúðu hrókinn fyrir árás!</string>
   <string name="castleKingSide">Færðu kónginn um tvo reiti
-til að hrókera á kóngsvængi!</string>
+til þess að hrókera á kóngsvæng!</string>
   <string name="castleQueenSide">Færðu kónginn um tvo reiti
-til að hrókera á drottningarvængi!</string>
+til þess að hrókera á drottningarvæng!</string>
   <string name="theKnightIsInTheWay">Riddarinn er fyrir!
-Færðu hann, hrókeraðu svo á kóngsvængi.</string>
-  <string name="castleKingSideMovePiecesFirst">Hrókeraðu á kóngsvængi!
+Færðu hann, hrókeraðu svo á kóngsvæng.</string>
+  <string name="castleKingSideMovePiecesFirst">Hrókeraðu á kóngsvæng!
 Fyrst þarftu að koma mönnum út.</string>
-  <string name="castleQueenSideMovePiecesFirst">Hrókeradu á drottningarvængi!
+  <string name="castleQueenSideMovePiecesFirst">Hrókeraðu á drottningarvæng!
 Fyrst þarftu að koma mönnum út.</string>
   <string name="youCannotCastleIfMoved">Þú getur ekki hrókerað
 ef kóngurinn hefur fært sig
 eða hrókurinn hefur fært sig.</string>
   <string name="youCannotCastleIfAttacked">Þú getur ekki hrókerað
-ef ráðist er á kónginn á leiðinni.
+ef ráðist er á kónginn í leiðinni.
 Komdu í veg fyrir skák og hrókeraðu svo!</string>
   <string name="findAWayToCastleKingSide">Finndu leið til að
-hrókera á kóngsvængi!</string>
-  <string name="findAWayToCastleQueenSide">Finndu leið til að hrókera
-á drottningarvængi!</string>
-  <string name="castlingComplete">Til hamingju! Þú ættir næstum alltaf að hrókera er þú teflir.</string>
+hrókera á kóngsvæng!</string>
+  <string name="findAWayToCastleQueenSide">Finndu leið til að
+hrókera á drottningarvæng!</string>
+  <string name="castlingComplete">Til hamingju! Þú ættir næstum alltaf að hrókera í tafli.</string>
   <string name="enPassant">Framhjáhlaup</string>
   <string name="theSpecialPawnMove">Óvenjuleg hreyfing peðsins</string>
   <string name="enPassantIntro">Þegar peð andstæðingsins hefur færst um tvo reiti máttu drepa það líkt og það hefði verið fært um einn reit.</string>

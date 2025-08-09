@@ -458,7 +458,6 @@
   <string name="openTournaments">გახსენით ტურნირი</string>
   <string name="duration">ხანგრძლივობა</string>
   <string name="winner">გამარჯვებული</string>
-  <string name="standing">დგას</string>
   <string name="createANewTournament">შექმენით ახალი ტურნირი</string>
   <string name="tournamentCalendar">ტურნირის კალენდარი</string>
   <string name="conditionOfEntry">შესვლის პირობები:</string>

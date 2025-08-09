@@ -12,7 +12,7 @@
   <string name="cantClearHistory">Hindi posibleng burahin ang iyong kasaysayang sa laro, kasaysayan sa palaisipan, o mga rating.</string>
   <string name="wantReport">Gusto ko mag-report ng manlalaro</string>
   <string name="wantReportBug">Gusto ko mag-report ng bug</string>
-  <string name="illegalPawnCapture">Iligal na pagkain ng pawn</string>
+  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">Iligal na pagkain ng pawn</string>
   <string name="calledEnPassant">Tinatawag itong \"en passant\" at isa ito sa mga patakaran ng chess.</string>
   <string name="tryEnPassant">Sukuban ang maliit na interaktibong larong ito upang matuto pa tungkol sa \"en passant\".</string>
   <string name="illegalCastling">Iligal o imposibleng castling</string>

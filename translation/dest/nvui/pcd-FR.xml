@@ -57,4 +57,8 @@
   <string name="invalidMove">Coup illégal</string>
   <string name="premoveCancelled">Coup anticipé annulé</string>
   <string name="premoveRecorded">Coup anticipé enregistré : %s. Appuyer sur la touche Entrée pour annuler.</string>
+  <string name="pockets" comment="Pockets in Crazyhouse, which hold captured pieces and let players place them again">Réserve de pièces</string>
+  <string name="copyToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">Copier %s dans le presse-papiers</string>
+  <string name="copiedToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">%s copié dans le presse-papiers</string>
+  <string name="pgnAndFen" comment="Will be a heading read out over text-to-speech for blind users looking to share a PGN or FEN of a game.">PGN et FEN</string>
 </resources>
