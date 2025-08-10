@@ -147,8 +147,8 @@ export class SoundCtrl extends PaneCtrl {
     if (site.sound.speech()) {
       this.showVoiceSelection = true;
       site.sound.say('Speech synthesis ready');
-      site.sound.changeSet('standard');
-      this.postSet('standard');
+      site.sound.changeSet('speech');
+      this.postSet('speech');
     } else {
       site.sound.changeSet(k);
       site.sound.play('genericNotify');
