@@ -101,7 +101,7 @@ final class ReplayUi(helpers: Helpers)(analyseUi: AnalyseUi):
       .css(ctx.blind.option("round.nvui"))
       .css(ctx.pref.hasKeyboardMove.option("keyboardMove"))
       .i18n(_.puzzle, _.study)
-      .i18n(_.nvui)   // condition ctx.blind or pref.soundSet.speech
+      .i18n(_.nvui) // condition ctx.blind or pref.soundSet.speech
       .i18nOpt(ctx.blind, _.keyboardMove)
       .js(analyseNvuiTag)
       .js:

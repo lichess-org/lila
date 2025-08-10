@@ -182,7 +182,6 @@ const sanToWords = (san: string): string =>
 const transRole = (role: Role): string =>
   (i18n.nvui[role as keyof typeof i18n.nvui] as string) || (role as string);
 
-
 export function speakable(san?: San): string {
   const text = !san
     ? 'Game start'
