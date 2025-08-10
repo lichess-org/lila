@@ -51,7 +51,7 @@ final class AnalyseUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
             explorerAndCevalConfig
         )
       .i18n(_.puzzle, _.study)
-      .i18n(_.nvui) // condition ctx.blind or pref.soundSet.speech
+      .i18nOpt(ctx.pref.hasSpeech || ctx.blind, _.nvui)
       .i18nOpt(ctx.blind, _.keyboardMove)
       .graph(
         title = "Chess analysis board",
