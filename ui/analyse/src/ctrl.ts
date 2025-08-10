@@ -985,12 +985,20 @@ export default class AnalyseCtrl {
       upgradable: this.evalCache?.upgradable(),
     });
   };
-
   closeTools = () => {
-    if (this.retro) this.retro = undefined;
+    this.retro = undefined;
     if (this.practice) this.togglePractice();
     if (this.explorer.enabled()) this.explorer.toggle();
     this.actionMenu(false);
+  };
+
+  showingTool() {
+    return this.actionMenu() ? 'action-menu' : this.explorer.enabled() ? 'opening-explorer' : '';
+  }
+
+  toggleActionMenu = () => {
+    if (!this.actionMenu() && this.explorer.enabled()) this.explorer.toggle();
+    this.actionMenu.toggle();
   };
 
   toggleRetro = (): void => {
@@ -1003,9 +1011,11 @@ export default class AnalyseCtrl {
   };
 
   toggleExplorer = (): void => {
-    const wasOpen = this.explorer.enabled() && !this.actionMenu();
-    this.closeTools();
-    if (!wasOpen && this.explorer.allowed()) this.explorer.toggle();
+    if (!this.explorer.enabled()) {
+      this.retro = undefined;
+      this.actionMenu(false);
+    }
+    this.explorer.toggle();
   };
 
   togglePractice = () => {
