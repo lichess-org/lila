@@ -307,6 +307,8 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
 
   def isBot(id: UserId): Fu[Boolean] = coll.exists($id(id) ++ botSelect(true))
 
+  def isAlt(id: UserId): Fu[Boolean] = coll.exists($id(id) ++ markSelect(UserMark.alt)(true))
+
   def isCreatedSince(id: UserId, since: Instant): Fu[Boolean] =
     coll.exists($id(id) ++ $doc(F.createdAt.$lt(since)))
 

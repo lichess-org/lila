@@ -95,7 +95,10 @@ final class GarbageCollector(
           for
             _ <- userRepo.setAlt(user.id, true)
             _ <- waitForCollection(user.id, nowInstant.plus(wait))
-          do Bus.pub(lila.core.security.GarbageCollect(user.id))
+            stillAlted <- userRepo.isAlt(user.id)
+          do
+            if stillAlted
+            then Bus.pub(lila.core.security.GarbageCollect(user.id))
 
   private def hasBeenCollectedBefore(user: User): Fu[Boolean] =
     noteApi.toUserForMod(user.id).map(_.exists(_.text.startsWith("Garbage collect")))
