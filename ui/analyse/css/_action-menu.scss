@@ -117,10 +117,17 @@
   }
 
   @include mq-is-col1 {
+    .toggle-grid {
+      * {
+        white-space: nowrap;
+      }
+      display: grid;
+      grid-auto-flow: row dense;
+      grid-template-columns: repeat(auto-fit, minmax(min-content, 1fr));
+      gap: 0.5em;
+    }
     .abset-inline {
       display: none;
     }
-
-    // force inline on mobile
   }
 }

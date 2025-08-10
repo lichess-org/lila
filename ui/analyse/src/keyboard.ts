@@ -6,21 +6,18 @@ import type { VNode } from 'snabbdom';
 import { pubsub } from 'lib/pubsub';
 
 export const bind = (ctrl: AnalyseCtrl) => {
-  let shiftAlone = 0;
-  document.addEventListener('keydown', e => e.key === 'Shift' && (shiftAlone = e.location));
+  let modifierOnly = false;
+  window.addEventListener('mousedown', () => (modifierOnly = false), { capture: true });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Shift' || e.key === 'Control') modifierOnly = true;
+  });
   document.addEventListener('keyup', e => {
-    if (
-      e.key === 'Shift' &&
-      e.location === shiftAlone &&
-      !document.activeElement?.classList.contains('mchat__say')
-    ) {
-      // hilities confound ddugovic when he fails to capitalize a letter in chat
-      if (shiftAlone === 1 && ctrl.fork.prev()) ctrl.setAutoShapes();
-      else if (shiftAlone === 2 && ctrl.fork.next()) ctrl.setAutoShapes();
-      else if (shiftAlone === 0) return;
-      ctrl.redraw();
+    if (modifierOnly && ctrl.disclosureMode()) {
+      if (e.key === 'Shift' && !document.activeElement?.classList.contains('mchat__say')) {
+        if (control.nextLine(ctrl)) ctrl.redraw();
+      } else if (e.key === 'Control' && control.toggleDisclosure(ctrl)) ctrl.redraw();
     }
-    shiftAlone = 0;
+    modifierOnly = false;
   });
   const kbd = window.site.mousetrap;
   kbd
@@ -28,25 +25,17 @@ export const bind = (ctrl: AnalyseCtrl) => {
       control.prev(ctrl);
       ctrl.redraw();
     })
-    .bind(['shift+left', 'shift+k'], () => {
-      control.previousBranch(ctrl);
-      ctrl.redraw();
-    })
-    .bind(['shift+right', 'shift+j'], () => {
-      control.nextBranch(ctrl);
-      ctrl.redraw();
-    })
     .bind(['right', 'j'], () => {
       control.next(ctrl);
       ctrl.redraw();
     })
     .bind(['up', '0', 'home'], e => {
-      if (e.key === 'ArrowUp' && ctrl.fork.prev()) ctrl.setAutoShapes();
+      if (e.key === 'ArrowUp' && !ctrl.disclosureMode() && ctrl.fork.prev()) ctrl.setAutoShapes();
       else control.first(ctrl);
       ctrl.redraw();
     })
     .bind(['down', '$', 'end'], e => {
-      if (e.key === 'ArrowDown' && ctrl.fork.next()) ctrl.setAutoShapes();
+      if (e.key === 'ArrowDown' && !ctrl.disclosureMode() && ctrl.fork.next()) ctrl.setAutoShapes();
       else control.last(ctrl);
       ctrl.redraw();
     })
@@ -56,10 +45,9 @@ export const bind = (ctrl: AnalyseCtrl) => {
       ctrl.redraw();
     })
     .bind('shift+i', () => {
-      ctrl.treeView.toggle();
+      ctrl.treeView.toggleModePreference();
       ctrl.redraw();
     });
-
   kbd.bind('space', () => {
     const gb = ctrl.gamebookPlay();
     if (gb) gb.onSpace();
@@ -89,7 +77,7 @@ export const bind = (ctrl: AnalyseCtrl) => {
       ctrl.redraw();
     })
     .bind('v', () => {
-      ctrl.toggleVariationArrows();
+      ctrl.toggleDisclosureMode();
       ctrl.redraw();
     })
     .bind('x', ctrl.toggleThreatMode)
@@ -148,7 +136,7 @@ export const bind = (ctrl: AnalyseCtrl) => {
 export function view(ctrl: AnalyseCtrl): VNode {
   return snabDialog({
     class: 'help.keyboard-help',
-    htmlUrl: xhr.url('/analysis/help', { study: !!ctrl.study }),
+    htmlUrl: xhr.url('/analysis/help', { study: !!ctrl.study, disclosure: ctrl.disclosureMode() }),
     modal: true,
     onClose() {
       ctrl.keyboardHelp = false;

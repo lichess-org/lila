@@ -24,7 +24,7 @@ final class UserBits(helpers: Helpers):
       a(cls := active.active("shield"), href := routes.Tournament.shields)(
         trans.arena.tournamentShields()
       ),
-      a(href := routes.Fide.index())(
+      a(href := routes.Fide.index(1, None))(
         "FIDE players"
       ),
       div(cls := "sep"),

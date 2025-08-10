@@ -17,15 +17,25 @@
 
   .jumps {
     display: flex;
+    padding: 4px 1em;
 
     .fbt {
-      flex: 1 1 30%;
+      border-radius: 8px;
+      line-height: 1.2;
+      flex: 1;
 
-      &:first-child,
-      &:last-child {
-        flex: 1 1 20%;
+      &[data-act='first'],
+      &[data-act='last'] {
         font-size: 0.7em;
       }
+      &[data-act='line'] {
+        font-size: 0.9em;
+      }
+    }
+  }
+  @media (hover: hover) {
+    .jumps .fbt:hover:not(.disabled) {
+      background-color: $m-primary_bg--mix-30;
     }
   }
 }

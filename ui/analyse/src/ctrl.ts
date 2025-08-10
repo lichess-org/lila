@@ -6,15 +6,14 @@ import { plural } from './view/util';
 import { debounce, throttle } from 'lib/async';
 import type GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
 import type StudyCtrl from './study/studyCtrl';
-import { isTouchDevice } from 'lib/device';
 import type { AnalyseOpts, AnalyseData, ServerEvalData, JustCaptured, NvuiPlugin } from './interfaces';
 import type { Api as ChessgroundApi } from '@lichess-org/chessground/api';
 import { Autoplay, AutoplayDelay } from './autoplay';
-import { build as makeTree, path as treePath, ops as treeOps, type TreeWrapper, build } from 'lib/tree/tree';
+import { build as makeTree, path as treePath, ops as treeOps, type TreeWrapper } from 'lib/tree/tree';
 import { compute as computeAutoShapes } from './autoShape';
 import type { Config as ChessgroundConfig } from '@lichess-org/chessground/config';
 import { CevalCtrl, isEvalBetter, sanIrreversible, type EvalMeta } from 'lib/ceval/ceval';
-import { TreeView, render as renderTreeView } from './treeView/treeView';
+import { TreeView } from './treeView/treeView';
 import { defined, prop, type Prop, toggle, type Toggle, requestIdleCallback, propWithEffect } from 'lib';
 import { pubsub } from 'lib/pubsub';
 import type { DrawShape } from '@lichess-org/chessground/draw';
@@ -39,7 +38,7 @@ import { PromotionCtrl } from 'lib/game/promotion';
 import wikiTheory, { wikiClear, type WikiTheory } from './wiki';
 import ExplorerCtrl from './explorer/explorerCtrl';
 import { uciToMove } from '@lichess-org/chessground/util';
-import Persistence from './persistence';
+import { IdbTree } from './idbTree';
 import pgnImport from './pgnImport';
 import ForecastCtrl from './forecast/forecastCtrl';
 import { type ArrowKey, type KeyboardMove, ctrl as makeKeyboardMove } from 'keyboardMove';
@@ -48,7 +47,7 @@ import type { PgnError } from 'chessops/pgn';
 import { ChatCtrl } from 'lib/chat/chatCtrl';
 import { confirm } from 'lib/view/dialogs';
 import api from './api';
-import { isEquivalent } from 'lib/algo';
+import { isTouchDevice } from 'lib/device';
 
 export default class AnalyseCtrl {
   data: AnalyseData;
@@ -58,7 +57,7 @@ export default class AnalyseCtrl {
   chessground: ChessgroundApi;
   ceval: CevalCtrl;
   evalCache: EvalCache;
-  persistence?: Persistence;
+  idbTree: IdbTree = new IdbTree(this);
   actionMenu: Toggle = toggle(false);
   isEmbed: boolean;
 
@@ -95,14 +94,13 @@ export default class AnalyseCtrl {
   flipped = false;
   showComments = true; // whether to display comments in the move tree
   showAutoShapes = storedBooleanProp('analyse.show-auto-shapes', true);
-  variationArrowsProp = storedBooleanProp('analyse.show-variation-arrows', true);
+  disclosureMode = storedBooleanProp('analyse.disclosure.enabled', isTouchDevice());
   showGauge = storedBooleanProp('analyse.show-gauge', true);
   showComputer = storedBooleanProp('analyse.show-computer', true);
   showMoveAnnotation = storedBooleanProp('analyse.show-move-annotation', true);
   keyboardHelp: boolean = location.hash === '#keyboard';
   threatMode: Prop<boolean> = prop(false);
   treeView: TreeView;
-  treeVersion = 1; // increment to recreate vnode tree
   cgVersion = {
     js: 1, // increment to recreate chessground
     dom: 1,
@@ -135,7 +133,7 @@ export default class AnalyseCtrl {
     this.data = opts.data;
     this.element = opts.element;
     this.isEmbed = !!opts.embed;
-    this.treeView = new TreeView('column');
+    this.treeView = new TreeView(this);
     this.promotion = new PromotionCtrl(
       this.withCg,
       () => this.withCg(g => g.set(this.cgConfig)),
@@ -155,8 +153,6 @@ export default class AnalyseCtrl {
     if (opts.inlinePgn) this.data = this.changePgn(opts.inlinePgn, false) || this.data;
 
     this.initialize(this.data, false);
-
-    this.persistence = opts.study ? undefined : new Persistence(this);
 
     this.initCeval();
 
@@ -216,7 +212,7 @@ export default class AnalyseCtrl {
         redraw();
       }
     });
-    this.persistence?.merge();
+    this.mergeIdbThenShowTreeView();
     (window as any).lichess.analysis = api(this);
   }
 
@@ -224,7 +220,7 @@ export default class AnalyseCtrl {
     this.data = data;
     this.synthetic = data.game.id === 'synthetic';
     this.ongoing = !this.synthetic && playable(data);
-
+    this.treeView.hidden = true;
     const prevTree = merge && this.tree.root;
     this.tree = makeTree(treeReconstruct(this.data.treeParts, this.data.sidelines));
     if (prevTree) this.tree.merge(prevTree);
@@ -247,7 +243,6 @@ export default class AnalyseCtrl {
   private makeInitialPath = (): string => {
     // if correspondence, always use latest actual move to set 'current' style
     if (this.ongoing) return treePath.fromNodeList(treeOps.mainlineNodeList(this.tree.root));
-
     const loc = window.location,
       hashPly = loc.hash === '#last' ? this.tree.lastPly() : parseInt(loc.hash.slice(1)),
       startPly = hashPly >= 0 ? hashPly : this.opts.inlinePgn ? this.tree.lastPly() : undefined;
@@ -270,15 +265,12 @@ export default class AnalyseCtrl {
     this.path = path;
     this.nodeList = this.tree.getNodeList(path);
     this.node = treeOps.last(this.nodeList) as Tree.Node;
-    for (let i = 0; i < this.nodeList.length; i++) {
-      this.nodeList[i].collapsed = false;
-    }
     this.mainline = treeOps.mainlineNodeList(this.tree.root);
     this.onMainline = this.tree.pathIsMainline(path);
     this.fenInput = undefined;
     this.pgnInput = undefined;
     if (this.wiki && this.data.game.variant.key === 'standard') this.wiki(this.nodeList);
-    this.persistence?.save();
+    this.idbTree.revealNode();
   };
 
   flip = () => {
@@ -292,7 +284,6 @@ export default class AnalyseCtrl {
     if (this.practice) this.restartPractice();
     this.explorer.onFlip();
     this.onChange();
-    this.persistence?.save(true);
     this.redraw();
   };
 
@@ -456,8 +447,13 @@ export default class AnalyseCtrl {
 
   canJumpTo = (path: Tree.Path): boolean => !this.study || this.study.canJumpTo(path);
 
-  userJumpIfCan(path: Tree.Path): void {
-    if (this.canJumpTo(path)) this.userJump(path);
+  userJumpIfCan(path: Tree.Path, sideStep = false): void {
+    if (!this.canJumpTo(path)) return;
+    if (sideStep) {
+      this.userJump(path.slice(0, -2));
+      this.chessground?.state.dom.redrawNow(true);
+    }
+    this.userJump(path);
   }
 
   mainlinePlyToPath(ply: Ply): Tree.Path {
@@ -485,6 +481,7 @@ export default class AnalyseCtrl {
     this.initCeval();
     this.instanciateEvalCache();
     this.cgVersion.js++;
+    this.mergeIdbThenShowTreeView();
   }
 
   changePgn(pgn: string, andReload: boolean): AnalyseData | undefined {
@@ -596,7 +593,7 @@ export default class AnalyseCtrl {
   };
 
   addNode(node: Tree.Node, path: Tree.Path) {
-    this.persistence?.onAddNode(node, path);
+    this.idbTree.onAddNode(node, path);
     const newPath = this.tree.addNode(node, path);
     if (!newPath) {
       console.log("Can't addNode", node, path);
@@ -649,35 +646,12 @@ export default class AnalyseCtrl {
     this.tree.promoteAt(path, toMainline);
     this.jump(path);
     if (this.study) this.study.promote(path, toMainline);
-    this.treeVersion++;
-  }
-
-  setCollapsed(path: Tree.Path, collapsed: boolean): void {
-    this.tree.setCollapsedAt(path, collapsed);
-    this.redraw();
-  }
-
-  setCollapsedForCtxMenu(path: Tree.Path, collapsed: boolean): void {
-    this.tree.setCollapsedRecursiveAndAlsoParent(path, collapsed);
-    this.redraw();
-  }
-
-  // whether [collapsing, expanding] the path, would affect the rendered view
-  wouldCollapseAffectView(path: Tree.Path): [boolean, boolean] {
-    if (typeof structuredClone !== 'function') return [true, true];
-    const ctrlWithDiffTree = { ...this, tree: build(structuredClone(this.tree.root)) };
-    const currentView = renderTreeView(this);
-    return [true, false].map(collapsed => {
-      ctrlWithDiffTree.tree.setCollapsedRecursiveAndAlsoParent(path, collapsed);
-      return !isEquivalent(currentView, renderTreeView(ctrlWithDiffTree), ['function']);
-    }) as [boolean, boolean];
   }
 
   forceVariation(path: Tree.Path, force: boolean): void {
     this.tree.forceVariationAt(path, force);
     this.jump(path);
     if (this.study) this.study.forceVariation(path, force);
-    this.treeVersion++;
   }
 
   reset(): void {
@@ -845,21 +819,19 @@ export default class AnalyseCtrl {
   };
 
   private resetAutoShapes() {
-    if (this.showAutoShapes() || this.variationArrowsProp() || this.showMoveAnnotation())
-      this.setAutoShapes();
+    if (this.showAutoShapes() || this.disclosureMode() || this.showMoveAnnotation()) this.setAutoShapes();
     else this.chessground && this.chessground.setAutoShapes([]);
   }
 
-  showVariationArrows() {
+  canCycleLines() {
     const chap = this.study?.data.chapter;
     return (
-      !isTouchDevice() &&
+      this.disclosureMode() &&
       !chap?.practice &&
       chap?.conceal === undefined &&
       !this.study?.gamebookPlay &&
       !this.retro?.isSolving() &&
-      this.variationArrowsProp() &&
-      this.node.children.filter(x => !x.comp || this.showComputer()).length > 1
+      this.tree.parentNode(this.path).children.filter(x => !x.comp || this.showComputer()).length > 1
     );
   }
 
@@ -868,8 +840,8 @@ export default class AnalyseCtrl {
     this.resetAutoShapes();
   };
 
-  toggleVariationArrows = (v?: boolean): void => {
-    this.variationArrowsProp(v ?? !this.variationArrowsProp());
+  toggleDisclosureMode = (v?: boolean): void => {
+    this.disclosureMode(v ?? !this.disclosureMode());
     this.resetAutoShapes();
   };
 
@@ -987,10 +959,19 @@ export default class AnalyseCtrl {
   };
 
   closeTools = () => {
-    if (this.retro) this.retro = undefined;
+    this.retro = undefined;
     if (this.practice) this.togglePractice();
     if (this.explorer.enabled()) this.explorer.toggle();
     this.actionMenu(false);
+  };
+
+  showingTool() {
+    return this.actionMenu() ? 'action-menu' : this.explorer.enabled() ? 'opening-explorer' : '';
+  }
+
+  toggleActionMenu = () => {
+    if (!this.actionMenu() && this.explorer.enabled()) this.explorer.toggle();
+    this.actionMenu.toggle();
   };
 
   toggleRetro = (): void => {
@@ -1003,9 +984,11 @@ export default class AnalyseCtrl {
   };
 
   toggleExplorer = (): void => {
-    const wasOpen = this.explorer.enabled() && !this.actionMenu();
-    this.closeTools();
-    if (!wasOpen && this.explorer.allowed()) this.explorer.toggle();
+    if (!this.explorer.enabled()) {
+      this.retro = undefined;
+      this.actionMenu(false);
+    }
+    this.explorer.toggle();
   };
 
   togglePractice = () => {
@@ -1061,4 +1044,11 @@ export default class AnalyseCtrl {
     if (!fen.startsWith(this.chessground?.getFen())) return;
     this.keyboardMove?.update({ fen, canMove: true });
   };
+
+  private async mergeIdbThenShowTreeView() {
+    await this.idbTree.merge();
+    this.treeView.hidden = false;
+    this.idbTree.revealNode();
+    this.redraw();
+  }
 }

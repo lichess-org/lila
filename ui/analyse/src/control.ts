@@ -15,36 +15,27 @@ export const last = (ctrl: AnalyseCtrl): void => ctrl.userJumpIfCan(treePath.fro
 
 export const first = (ctrl: AnalyseCtrl): void => ctrl.userJump(treePath.root);
 
-export function exitVariation(ctrl: AnalyseCtrl): void {
-  if (ctrl.onMainline) return;
-  let found,
-    path = treePath.root;
-  ctrl.nodeList.slice(1, -1).forEach(function (n: Tree.Node) {
-    path += n.id;
-    if (n.children[1]) found = path;
-  });
-  if (found) ctrl.userJump(found);
+export function nextLine(ctrl: AnalyseCtrl): boolean {
+  const { path } = ctrl;
+  let iterPath = treePath.init(path);
+  let iter = ctrl.tree.nodeAtPath(iterPath);
+  while (iterPath && iter.children.length < 2 && !ctrl.tree.pathIsMainline(iterPath)) {
+    iterPath = treePath.init(iterPath);
+    iter = ctrl.tree.nodeAtPath(iterPath);
+  }
+  const kids = iter?.children ?? [];
+  const nextKid =
+    kids[kids.findIndex(k => k.id === path.slice(iterPath.length, iterPath.length + 2)) + 1] ?? kids[0];
+  if (!nextKid || iterPath + nextKid.id === path) return toggleDisclosure(ctrl);
+  ctrl.userJumpIfCan(iterPath + nextKid.id, true);
+  return true;
 }
 
-export function previousBranch(ctrl: AnalyseCtrl): void {
-  let path = treePath.init(ctrl.path),
-    parent = ctrl.tree.nodeAtPath(path);
-  while (path.length && parent && parent.children.length < 2) {
-    path = treePath.init(path);
-    parent = ctrl.tree.nodeAtPath(path);
-  }
-  ctrl.userJumpIfCan(path);
-}
+export function toggleDisclosure(ctrl: AnalyseCtrl): boolean {
+  const parentPath = treePath.init(ctrl.path);
+  const disclose = ctrl.idbTree.discloseOf(ctrl.tree.nodeAtPath(parentPath));
+  if (!disclose) return false;
 
-export function nextBranch(ctrl: AnalyseCtrl): void {
-  const { selected } = ctrl.fork.state();
-  let child = ctrl.node.children[selected];
-  let path = ctrl.path;
-  while (child && child.children.length < 2) {
-    path += child.id;
-    child = child.children[0];
-  }
-  if (child) ctrl.userJumpIfCan(path + child.id);
-  else if (ctrl.tree.pathIsMainline(ctrl.path)) last(ctrl);
-  else exitVariation(ctrl);
+  ctrl.idbTree.setCollapsed(parentPath, disclose === 'expanded');
+  return true;
 }
