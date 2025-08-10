@@ -48,7 +48,6 @@ object page:
       htmlTag(
         (ctx.impersonatedBy.isEmpty && !ctx.blind)
           .option(cls := ctx.pref.themeColorClass),
-        cls := ctx.pref.themeColorClass,
         topComment,
         head(
           charset,

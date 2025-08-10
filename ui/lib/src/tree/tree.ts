@@ -21,7 +21,6 @@ export interface TreeWrapper {
   deleteCommentAt(id: string, path: Tree.Path): MaybeNode;
   setGlyphsAt(glyphs: Tree.Glyph[], path: Tree.Path): MaybeNode;
   setClockAt(clock: Tree.Clock | undefined, path: Tree.Path): MaybeNode;
-  nodeIsMainline(node: Tree.Node): boolean;
   pathIsMainline(path: Tree.Path): boolean;
   pathIsForcedVariation(path: Tree.Path): boolean;
   lastMainlineNode(path: Tree.Path): Tree.Node;
@@ -75,16 +74,6 @@ export function build(root: Tree.Node): TreeWrapper {
       if (node.ply > ply) nodes.push(node);
     }
     return nodes;
-  }
-
-  function nodeIsMainline(node: Tree.Node): boolean {
-    let iter = root;
-    while (iter && iter.ply < node.ply) {
-      if (iter.forceVariation) return false;
-      iter = iter.children[0];
-    }
-    return iter === node;
-    return node.children.length > 0 && node.children[0].id === node.id && !node.forceVariation;
   }
 
   const pathIsMainline = (path: Tree.Path): boolean => pathIsMainlineFrom(root, path);
@@ -242,7 +231,6 @@ export function build(root: Tree.Node): TreeWrapper {
       updateAt(path, node => {
         node.clock = clock;
       }),
-    nodeIsMainline,
     pathIsMainline,
     pathIsForcedVariation,
     lastMainlineNode: (path: Tree.Path): Tree.Node => lastMainlineNodeFrom(root, path),
