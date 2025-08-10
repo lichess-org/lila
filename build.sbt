@@ -67,7 +67,7 @@ lazy val modules = Seq(
   insight, evaluation, storm,
   // level 7
   // everything else is free from deps; do the big ones first
-  security, tournament, relay, plan, round,
+  relay, security, tournament, plan, round,
   swiss, insight, fishnet, tutor, mod, challenge, web,
   team, forum, streamer, simul, activity, msg, ublog,
   notifyModule, clas, perfStat, opening, timeline,
