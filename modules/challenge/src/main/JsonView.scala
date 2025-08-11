@@ -103,6 +103,11 @@ final class JsonView(
       .add("open" -> c.open)
       .add("rules" -> c.nonEmptyRules)
 
+  def all(challenges: AllChallenges)(using Translate) = Json.obj(
+    "in" -> challenges.in.map(apply(Direction.In.some)),
+    "out" -> challenges.out.map(apply(Direction.Out.some))
+  )
+
   private def iconOf(c: Challenge): Icon =
     if c.variant == chess.variant.FromPosition
     then Icon.Feather

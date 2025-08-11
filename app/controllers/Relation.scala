@@ -10,7 +10,7 @@ import lila.core.LightUser
 import lila.core.perf.UserWithPerfs
 import lila.rating.UserPerfsExt.bestRatedPerf
 import lila.relation.Related
-import lila.relation.RelationStream.*
+import lila.relation.RelationStream.Direction
 
 final class Relation(env: Env, apiC: => Api) extends LilaController(env):
 
