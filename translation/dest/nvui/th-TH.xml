@@ -1,2 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="sanCheckmate" comment="# in standard notation">รุกจน</string>
+  <string name="sanShortCastling" comment="O-O in standard notation">รุก</string>
+  <string name="sanLongCastling" comment="O-O-O in standard notation">เข้าป้อมยาว</string>
+  <string name="sanDroppedOn" comment="crazyhouse @">หมากถูกวางที่</string>
+  <string name="invalidMove">เดินไม่ได้</string>
+  <string name="premoveCancelled">การเดินล่วงหน้าถูกยกเลิก</string>
+  <string name="pockets" comment="Pockets in Crazyhouse, which hold captured pieces and let players place them again">ที่เก็บหมาก</string>
+  <string name="copyToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">คัดลอก %s ไปยังคลิปบอร์ด</string>
+  <string name="copiedToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">%s ถูกคัดลอกไปคลิปบอร์ดแล้ว</string>
+  <string name="pgnAndFen" comment="Will be a heading read out over text-to-speech for blind users looking to share a PGN or FEN of a game.">PGN และ FEN</string>
+</resources>
