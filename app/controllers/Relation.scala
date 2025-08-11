@@ -116,7 +116,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
     case "unfollow" => unfollow(user)
     case "block" => block(user)
     case "unblock" => unblock(user)
-    case _ => notFoundJson()
+    case _ => Auth(_ ?=> _ ?=> notFoundJson())
 
   private def jsonRelatedPaginator(pag: Paginator[Related[UserWithPerfs]]) =
     import lila.common.Json.{ *, given }
