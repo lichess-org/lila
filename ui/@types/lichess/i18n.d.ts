@@ -2206,6 +2206,14 @@ interface I18n {
     /** Winning streak */
     winningStreak: string;
   };
+  practice: {
+    /** makes your chess perfect */
+    makesPerfect: string;
+    /** Practice */
+    practice: string;
+    /** Practice chess */
+    practiceChess: string;
+  };
   preferences: {
     /** Bell notification sound */
     bellNotificationSound: string;

@@ -14,6 +14,7 @@ final class PracticeUi(helpers: Helpers)(
     modMenu: Context ?=> Frag
 ):
   import helpers.{ *, given }
+  import trans.practice as trp
 
   def show(us: UserStudy, data: JsonView.JsData)(using ctx: Context) =
     Page(us.practiceStudy.name.value)
@@ -37,8 +38,9 @@ final class PracticeUi(helpers: Helpers)(
         main(cls := "analyse")
 
   def index(data: lila.practice.UserPractice)(using ctx: Context) =
-    Page("Practice chess positions")
+    Page(s"${trp.practiceChess.txt()} - ${trp.makesPerfect.txt()}")
       .css("bits.practice.index")
+      .i18n(_.practice)
       .graph(
         title = "Practice your chess",
         description = "Learn how to master the most common chess positions",
@@ -92,6 +94,7 @@ final class PracticeUi(helpers: Helpers)(
             }
           )
         )
+      .hrefLangs(lila.ui.LangPath(routes.Practice.index))
 
   def config(structure: lila.practice.PracticeStructure, form: Form[?])(using Context) =
     Page("Practice structure").css("mod.misc"):

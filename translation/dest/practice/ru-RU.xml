@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="practice">Практика</string>
+  <string name="practiceChess">Практика шахмат</string>
+  <string name="makesPerfect">повышает Ваш уровень игры</string>
+</resources>

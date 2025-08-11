@@ -1138,6 +1138,11 @@ object I18nKey:
     val `maxTimePlaying`: I18nKey = "perfStat:maxTimePlaying"
     val `now`: I18nKey = "perfStat:now"
 
+  object practice:
+    val `practice`: I18nKey = "practice:practice"
+    val `practiceChess`: I18nKey = "practice:practiceChess"
+    val `makesPerfect`: I18nKey = "practice:makesPerfect"
+
   object preferences:
     val `preferences`: I18nKey = "preferences:preferences"
     val `display`: I18nKey = "preferences:display"
