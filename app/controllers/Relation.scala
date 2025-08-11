@@ -110,6 +110,14 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
         .map(env.api.userApi.one(_, None))
   }
 
+  // for lichobile, remove at some point
+  def bcAction(action: String, user: UserStr) = action.match
+    case "follow" => follow(user)
+    case "unfollow" => unfollow(user)
+    case "block" => block(user)
+    case "unblock" => unblock(user)
+    case _ => notFoundJson()
+
   private def jsonRelatedPaginator(pag: Paginator[Related[UserWithPerfs]]) =
     import lila.common.Json.{ *, given }
     given Writes[UserWithPerfs] = writeAs(_.user.light)
