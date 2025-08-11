@@ -1142,6 +1142,10 @@ object I18nKey:
     val `practice`: I18nKey = "practice:practice"
     val `practiceChess`: I18nKey = "practice:practiceChess"
     val `makesPerfect`: I18nKey = "practice:makesPerfect"
+    val `resetMyProgress`: I18nKey = "practice:resetMyProgress"
+    val `progressX`: I18nKey = "practice:progressX"
+    val `youWillLoseYourPracticeProgress`: I18nKey = "practice:youWillLoseYourPracticeProgress"
+    var `signUpToSaveYourProgress`: I18nKey = "practice:signUpToSaveYourProgress"
 
   object preferences:
     val `preferences`: I18nKey = "preferences:preferences"

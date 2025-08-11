@@ -2213,6 +2213,14 @@ interface I18n {
     practice: string;
     /** Practice chess */
     practiceChess: string;
+    /** Progress: %s */
+    progressX: I18nFormat;
+    /** Reset my progress */
+    resetMyProgress: string;
+    /** Sign up to save your progress */
+    signUpToSaveYourProgress: string;
+    /** You will lose your practice progress! */
+    youWillLoseYourPracticeProgress: string;
   };
   preferences: {
     /** Bell notification sound */

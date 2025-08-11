@@ -49,10 +49,10 @@ final class PracticeUi(helpers: Helpers)(
         main(cls := "page-menu force-ltr")(
           st.aside(cls := "page-menu__menu practice-side")(
             i(cls := "fat"),
-            h1("Practice"),
-            h2("makes your chess perfect"),
+            h1(trp.practice()),
+            h2(trp.makesPerfect()),
             div(cls := "progress")(
-              div(cls := "text")("Progress: ", data.progressPercent, "%"),
+              div(cls := "text")(trp.progressX(data.progressPercent + '%')),
               div(cls := "bar", style := s"width: ${data.progressPercent}%")
             ),
             postForm(action := routes.Practice.reset)(
@@ -60,10 +60,10 @@ final class PracticeUi(helpers: Helpers)(
                 (data.nbDoneChapters > 0).option(
                   submitButton(
                     cls := "button ok-cancel-confirm",
-                    title := "You will lose your practice progress!"
-                  )("Reset my progress")
+                    title := trp.youWillLoseYourPracticeProgress.txt()
+                  )(trp.resetMyProgress())
                 )
-              else a(href := routes.Auth.signup)("Sign up to save your progress")
+              else a(href := routes.Auth.signup)(trp.signUpToSaveYourProgress())
             )
           ),
           div(cls := "page-menu__content practice-app")(

@@ -3,4 +3,8 @@
   <string name="practice">Практика</string>
   <string name="practiceChess">Практика шахмат</string>
   <string name="makesPerfect">повышает Ваш уровень игры</string>
+  <string name="resetMyProgress">Начать все с начала</string>
+  <string name="progressX">Пройдено: %s</string>
+  <string name="youWillLoseYourPracticeProgress">Все ваши успехи обнулятся!</string>
+  <string name="signUpToSaveYourProgress">Авторизуйтесь для сохранения прогресса</string>
 </resources>
