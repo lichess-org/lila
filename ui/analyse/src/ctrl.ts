@@ -95,6 +95,7 @@ export default class AnalyseCtrl {
   showComments = true; // whether to display comments in the move tree
   showAutoShapes = storedBooleanProp('analyse.show-auto-shapes', true);
   disclosureMode = storedBooleanProp('analyse.disclosure.enabled', isTouchDevice());
+  variationArrows = storedBooleanProp('analyse.show-variation-arrows', true);
   showGauge = storedBooleanProp('analyse.show-gauge', true);
   showComputer = storedBooleanProp('analyse.show-computer', true);
   showMoveAnnotation = storedBooleanProp('analyse.show-move-annotation', true);
@@ -826,12 +827,14 @@ export default class AnalyseCtrl {
   canCycleLines() {
     const chap = this.study?.data.chapter;
     return (
-      this.disclosureMode() &&
+      (this.disclosureMode() || this.variationArrows()) &&
       !chap?.practice &&
       chap?.conceal === undefined &&
       !this.study?.gamebookPlay &&
       !this.retro?.isSolving() &&
-      this.tree.parentNode(this.path).children.filter(x => !x.comp || this.showComputer()).length > 1
+      (this.disclosureMode() ? this.tree.parentNode(this.path) : this.node).children.filter(
+        x => !x.comp || this.showComputer(),
+      ).length > 1
     );
   }
 

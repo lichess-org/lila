@@ -9,14 +9,14 @@ export const bind = (ctrl: AnalyseCtrl) => {
   let modifierOnly = false;
   window.addEventListener('mousedown', () => (modifierOnly = false), { capture: true });
   document.addEventListener('keydown', e => {
-    if (e.key === 'Shift' || e.key === 'Control') modifierOnly = true;
+    if (e.key === 'Shift' || e.key === 'Control') modifierOnly = !modifierOnly;
+    else modifierOnly = false;
   });
   document.addEventListener('keyup', e => {
-    if (modifierOnly && ctrl.disclosureMode()) {
-      if (e.key === 'Shift' && !document.activeElement?.classList.contains('mchat__say')) {
-        if (control.nextLine(ctrl)) ctrl.redraw();
-      } else if (e.key === 'Control' && control.toggleDisclosure(ctrl)) ctrl.redraw();
-    }
+    if (!modifierOnly || !ctrl.disclosureMode() || !ctrl.variationArrows()) return;
+    if (e.key === 'Shift' && !document.activeElement?.classList.contains('mchat__say')) {
+      if (control.nextLine(ctrl)) ctrl.redraw();
+    } else if (ctrl.disclosureMode() && e.key === 'Control' && control.toggleDisclosure(ctrl)) ctrl.redraw();
     modifierOnly = false;
   });
   const kbd = window.site.mousetrap;
@@ -77,7 +77,7 @@ export const bind = (ctrl: AnalyseCtrl) => {
       ctrl.redraw();
     })
     .bind('v', () => {
-      ctrl.toggleDisclosureMode();
+      ctrl.variationArrows(!ctrl.variationArrows());
       ctrl.redraw();
     })
     .bind('x', ctrl.toggleThreatMode)

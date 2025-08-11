@@ -3,6 +3,7 @@ import { onInsert, hl } from 'lib/snabbdom';
 import type AnalyseCtrl from './ctrl';
 import type { ConcealOf } from './interfaces';
 import { renderIndexAndMove } from './view/components';
+import { isTouchDevice } from 'lib/device';
 
 export interface ForkCtrl {
   state(): {
@@ -50,7 +51,7 @@ export function make(ctrl: AnalyseCtrl): ForkCtrl {
     },
     hover(uci: Uci | undefined | null) {
       hovering = ctrl.node.children.findIndex(n => n.uci === uci);
-      if (hovering < 0) hovering = undefined;
+      if (isTouchDevice() || hovering < 0) hovering = undefined;
     },
     selected() {
       return hovering ?? selected;
@@ -101,13 +102,14 @@ export function view(ctrl: AnalyseCtrl, concealOf?: ConcealOf) {
           ctrl.fork.proceed(eventToIndex(e));
           ctrl.redraw();
         });
+        if (isTouchDevice()) return;
         el.addEventListener('mouseover', e => ctrl.fork.highlight(eventToIndex(e)));
         el.addEventListener('mouseout', () => ctrl.fork.highlight());
       }),
     },
     state.node.children.map((node, it) => {
       const classes = {
-        selected: it === state.selected,
+        selected: it === state.selected && !isTouchDevice(),
         correct: ctrl.isGamebook() && it === 0,
         wrong: ctrl.isGamebook() && it > 0,
       };

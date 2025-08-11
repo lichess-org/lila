@@ -186,17 +186,16 @@ export function view(ctrl: AnalyseCtrl): VNode {
 
   const displayConfig = [
     displayColumns() > 1 && hl('h2', 'Display'),
-    !isTouchDevice() &&
-      ctrlToggle(
-        {
-          name: 'Disclosure controls',
-          title: 'Enable variation disclosure mode (Hotkey: v)',
-          id: 'disclosureMode',
-          checked: ctrl.disclosureMode(),
-          change: ctrl.toggleDisclosureMode,
-        },
-        ctrl,
-      ),
+    ctrlToggle(
+      {
+        name: 'Disclosure mode', // TODO help
+        title: 'Enable variation disclosure mode',
+        id: 'disclosureMode',
+        checked: ctrl.disclosureMode(),
+        change: ctrl.toggleDisclosureMode,
+      },
+      ctrl,
+    ),
     ctrlToggle(
       {
         name: i18n.site.inlineNotation,
@@ -210,6 +209,17 @@ export function view(ctrl: AnalyseCtrl): VNode {
       },
       ctrl,
     ),
+    !ctrl.disclosureMode() &&
+      ctrlToggle(
+        {
+          name: i18n.site.showVariationArrows,
+          title: 'Variation navigation arrows (Hotkey: v)',
+          id: 'variationArrows',
+          checked: ctrl.variationArrows(),
+          change: v => (ctrl.variationArrows(v), ctrl.redraw()),
+        },
+        ctrl,
+      ),
     !ctrl.ongoing &&
       ctrlToggle(
         {

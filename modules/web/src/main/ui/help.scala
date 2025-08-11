@@ -91,13 +91,15 @@ object help:
               row(frag(tap, kbd("shift")), "Go to next variation"),
               row(frag(tap, kbd("ctrl")), "Show/hide branch")
             )
-          else row(frag(kbd("↑"), or, kbd("↓")), trans.site.keyCycleSelectedVariation()),
+          else
+            row(frag(tap, kbd("shift"), alt, kbd("↑"), or, kbd("↓")), trans.site.keyCycleSelectedVariation())
+          ,
           header(trans.site.analysisOptions()),
           flip,
           localAnalysis,
           row(kbd("z"), trans.site.toggleAllAnalysis()),
           row(kbd("a"), trans.site.bestMoveArrow()),
-          row(kbd("v"), "Toggle variation disclosure mode"),
+          (!disclosure).option(row(kbd("v"), trans.site.toggleVariationArrows())),
           row(kbd("r"), trans.site.keyRequestComputerAnalysis()),
           row(kbd("enter"), trans.site.keyNextLearnFromYourMistakes()),
           row(kbd("b"), trans.site.keyNextBlunder()),

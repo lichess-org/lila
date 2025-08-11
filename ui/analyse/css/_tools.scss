@@ -146,7 +146,8 @@
       order: 0;
     }
     .ceval,
-    .pv_box {
+    .pv_box,
+    .analyse__fork {
       order: 1;
     }
     .analyse__moves {
@@ -177,5 +178,8 @@
     .analyse__moves {
       border-top: none;
     }
+  }
+  .analyse[data-ceval-mode='ceval-practice'] .analyse__fork {
+    display: none;
   }
 }

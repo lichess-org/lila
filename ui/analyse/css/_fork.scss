@@ -5,10 +5,6 @@ $c-fork: $c-primary;
 
   flex: 0 0 auto;
 
-  @include mq-is-col1 {
-    display: none;
-  }
-
   move {
     @extend %san, %flex-center;
     background: $m-primary_bg--mix-25;
@@ -26,6 +22,12 @@ $c-fork: $c-primary;
     }
     &.wrong {
       background: $m-bad_bg--mix-25;
+    }
+  }
+
+  @include mq-is-col1 {
+    move {
+      height: 3em;
     }
   }
 

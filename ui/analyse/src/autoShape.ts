@@ -76,8 +76,6 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
   ctrl.fork.hover(hovering?.uci);
   if (hovering?.fen === nFen) shapes = shapes.concat(makeShapesFromUci(color, hovering.uci, 'paleBlue'));
 
-  if (ctrl.canCycleLines()) hiliteVariations(ctrl, shapes);
-
   if (ctrl.showAutoShapes() && ctrl.showComputer()) {
     if (nEval.best && !ctrl.canCycleLines())
       shapes = shapes.concat(makeShapesFromUci(rcolor, nEval.best, 'paleGreen'));
@@ -121,19 +119,22 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
     });
   }
   if (ctrl.showMoveAnnotation()) shapes = shapes.concat(annotationShapes(ctrl.node));
+  if (ctrl.canCycleLines()) hiliteVariations(ctrl, shapes);
   return shapes;
 }
 
 function hiliteVariations(ctrl: AnalyseCtrl, autoShapes: DrawShape[]) {
-  const parent = ctrl.tree.parentNode(ctrl.path);
+  const parent = ctrl.disclosureMode() ? ctrl.tree.parentNode(ctrl.path) : (ctrl.node ?? ctrl.tree.root);
   const visible = parent.children.filter(n => ctrl.showComputer || !n.comp);
   if (visible.length < 2) return;
+  const chap = ctrl.study?.data.chapter;
+  const isGamebookEditor = chap?.gamebook && !ctrl.study?.gamebookPlay;
   const currentIndex = visible.findIndex(n => n.id === ctrl.node.id);
   for (const [i, node] of visible.entries()) {
     autoShapes.push({
       orig: node.uci!.slice(0, 2) as Key,
       dest: node.uci?.slice(2, 4) as Key,
-      brush: 'paleWhite',
+      brush: !isGamebookEditor ? 'paleWhite' : i === 0 ? 'paleGreen' : 'paleRed',
       modifiers: { hilite: i === (currentIndex + 1) % visible.length ? '#3291ff' : '#aaa' },
       below: true,
     });
