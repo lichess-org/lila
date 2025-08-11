@@ -853,7 +853,6 @@ export default class AnalyseCtrl {
   showVariationArrows() {
     const chap = this.study?.data.chapter;
     return (
-      !isTouchDevice() &&
       !chap?.practice &&
       chap?.conceal === undefined &&
       !this.study?.gamebookPlay &&
