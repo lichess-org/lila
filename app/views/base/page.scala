@@ -140,15 +140,17 @@ object page:
               frag(cssTag("bits.email-confirm"), views.auth.checkYourEmailBanner(u.username, u.email))
             ),
           zenable.option(zenZone),
-          ui.siteHeader(
-            zenable = zenable,
-            isAppealUser = ctx.isAppealUser,
-            challenges = ctx.nbChallenges,
-            notifications = ctx.nbNotifications.value,
-            error = ctx.data.error,
-            topnav = topnav(
-              hasClas = ctx.hasClas,
-              hasDgt = ctx.pref.hasDgt
+          (!p.flags(PageFlags.noHeader)).option(
+            ui.siteHeader(
+              zenable = zenable,
+              isAppealUser = ctx.isAppealUser,
+              challenges = ctx.nbChallenges,
+              notifications = ctx.nbNotifications.value,
+              error = ctx.data.error,
+              topnav = topnav(
+                hasClas = ctx.hasClas,
+                hasDgt = ctx.pref.hasDgt
+              )
             )
           ),
           div(
