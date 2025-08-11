@@ -294,7 +294,21 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       .list(100)
 
   def userHistory(userId: UserId): Fu[List[Modlog]] =
-    coll.secondary.find($doc("user" -> userId)).sort($sort.desc("date")).cursor[Modlog]().list(60)
+    coll.secondary
+      .find(
+        $doc(
+          "user" -> userId,
+          "action".$nin(
+            List(
+              Modlog.teamKick,
+              Modlog.teamEdit
+            )
+          )
+        )
+      )
+      .sort($sort.desc("date"))
+      .cursor[Modlog]()
+      .list(100)
 
   def countRecentCheatDetected(userId: UserId): Fu[Int] =
     coll.secondary.countSel:
