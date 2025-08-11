@@ -87,7 +87,7 @@ final class PlanApi(
       giftTo <- stripeCharge.giftTo.so(userApi.byId)
       money = stripeCharge.amount.toMoney(stripeCharge.currency)
       usd <- currencyApi.toUsd(money)
-      proxy <- stripeCharge.ip.soFu(ip2proxy.ofIp)
+      proxy <- stripeCharge.ip.traverse(ip2proxy.ofIp)
       charge = Charge
         .make(
           userId = patronOption.map(_.userId),

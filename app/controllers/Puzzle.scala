@@ -33,7 +33,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       langPath: Option[LangPath] = None
   )(using ctx: Context)(using Perf) = for
     json <- jsonView.analysis(puzzle, angle, replay)
-    settings <- ctx.user.soFu(env.puzzle.session.getSettings)
+    settings <- ctx.user.traverse(env.puzzle.session.getSettings)
     prefJson = jsonView.pref(ctx.pref)
     page <- renderPage:
       views.puzzle.ui.show(puzzle, json, prefJson, settings | PuzzleSettings.default(color), langPath)
@@ -98,7 +98,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     val userId = name.flatMap(_.validateId)
     for
       user <- userId.so(env.user.repo.enabledById).orElse(fuccess(ctx.me.map(_.value)))
-      puzzles <- user.soFu(env.puzzle.api.puzzle.of(_, page))
+      puzzles <- user.traverse(env.puzzle.api.puzzle.of(_, page))
       page <- renderPage(views.puzzle.ui.ofPlayer(name.so(_.value), user, puzzles))
     yield Ok(page)
 

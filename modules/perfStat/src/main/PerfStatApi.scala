@@ -42,14 +42,11 @@ final class PerfStatApi(
               (u.enabled.yes && (!u.lame || me.exists(_.is(u.user)))) || me.soUse(Granter(_.UserModView))
             .filter: u =>
               !u.isBot || (perfKey != PerfKey.ultraBullet)
-            .soFu: u =>
+            .traverse: u =>
               for
                 oldPerfStat <- get(u.user.id, pk, computeIfNeeded)
                 perfStat = oldPerfStat.copy(playStreak = oldPerfStat.playStreak.checkCurrent)
-                distribution <- u
-                  .perfs(perfKey)
-                  .established
-                  .soFu(weeklyRatingDistribution(perfKey))
+                distribution <- u.perfs(perfKey).established.optionFu(weeklyRatingDistribution(perfKey))
                 percentile = calcPercentile(distribution, u.perfs(perfKey).intRating)
                 percentileLow = perfStat.lowest.flatMap { r => calcPercentile(distribution, r.int) }
                 percentileHigh = perfStat.highest.flatMap { r => calcPercentile(distribution, r.int) }

@@ -93,24 +93,26 @@ final class Challenge(env: Env) extends LilaController(env):
     challenge.destUserId.forall(dest => me.exists(_.is(dest))) &&
       !challenge.challengerUserId.so(orig => me.exists(_.is(orig)))
 
+  import cats.mtl.Handle.*
+  import cats.mtl.implicits.*
   def accept(id: ChallengeId, color: Option[Color]) = Open:
     Found(api.byId(id)): c =>
       isForMe(c).so(
-        api
-          .accept(c, ctx.req.sid, color)
-          .flatMap:
-            case Right(Some(pov)) =>
-              negotiateApi(
-                html = Redirect(routes.Round.watcher(pov.gameId, color | Color.white)),
-                api = _ => env.api.roundApi.player(pov, scalalib.data.Preload.none, none).map { Ok(_) }
-              ).flatMap(withChallengeAnonCookie(ctx.isAnon, c, owner = false))
-            case invalid =>
-              negotiate(
-                Redirect(routes.Round.watcher(c.gameId, color | Color.white)),
-                notFoundJson(invalid match
-                  case Left(err) => err
-                  case _ => "The challenge has already been accepted")
-              )
+        allow:
+          api
+            .accept(c, ctx.req.sid, color)
+            .flatMap:
+              _.fold("The Challenge has already been accepted".raise): pov =>
+                negotiateApi(
+                  html = Redirect(routes.Round.watcher(pov.gameId, color | Color.white)),
+                  api = _ => env.api.roundApi.player(pov, scalalib.data.Preload.none, none).map { Ok(_) }
+                )
+            .flatMap(withChallengeAnonCookie(ctx.isAnon, c, owner = false))
+        .rescue: err =>
+          negotiate(
+            Redirect(routes.Round.watcher(c.gameId, color | Color.white)),
+            notFoundJson(err)
+          )
       )
 
   def apiAccept(id: ChallengeId) =
@@ -128,10 +130,10 @@ final class Challenge(env: Env) extends LilaController(env):
             case None => tryRematch
             case Some(c) if c.accepted => tryRematch
             case Some(c) =>
-              api
-                .accept(c, none)
-                .map:
-                  _.fold(err => BadRequest(jsonError(err)), _ => jsonOkResult)
+              allow:
+                api.accept(c, none).as(jsonOkResult)
+              .rescue: err =>
+                fuccess(BadRequest(jsonError(err)))
     }
 
   private def withChallengeAnonCookie(cond: Boolean, c: ChallengeModel, owner: Boolean)(
@@ -238,7 +240,7 @@ final class Challenge(env: Env) extends LilaController(env):
       if game.hasAi
       then
         getAs[Bearer]("token1")
-          .soFu(env.oAuth.server.auth(_, accepted, req.some))
+          .traverse(env.oAuth.server.auth(_, accepted, req.some))
           .mapz:
             case Left(e) => handleScopedFail(accepted, e).some
             case Right(a) if game.hasUserId(a.scoped.user.id) => startNow.some
@@ -311,7 +313,8 @@ final class Challenge(env: Env) extends LilaController(env):
                                     case None => JsonBadRequest(jsonError("Challenge not created")).toFuccess
                                     case Some(createNow) =>
                                       for
-                                        socket <- ctx.isMobileOauth.soFu(env.challenge.version(challenge.id))
+                                        socket <- ctx.isMobileOauth
+                                          .optionFu(env.challenge.version(challenge.id))
                                         json = env.challenge.jsonView.apiAndMobile(
                                           challenge,
                                           socket,

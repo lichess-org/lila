@@ -46,7 +46,7 @@ libraryDependencies ++= akka.bundle ++ playWs.bundle ++ macwire.bundle ++ scalal
   play.json, play.logback, compression, hasher,
   reactivemongo.driver, /* reactivemongo.kamon, */ maxmind, scalatags,
   kamon.core, kamon.influxdb, kamon.metrics,
-  scaffeine, caffeine, lettuce, uaparser, nettyTransport, reactivemongo.shaded
+  scaffeine, caffeine, lettuce, uaparser, nettyTransport, reactivemongo.shaded, catsMtl
 ) ++ tests.bundle
 
 // influences the compilation order
@@ -67,7 +67,7 @@ lazy val modules = Seq(
   insight, evaluation, storm,
   // level 7
   // everything else is free from deps; do the big ones first
-  security, tournament, relay, plan, round,
+  relay, security, tournament, plan, round,
   swiss, insight, fishnet, tutor, mod, challenge, web,
   team, forum, streamer, simul, activity, msg, ublog,
   notifyModule, clas, perfStat, opening, timeline,
@@ -346,7 +346,7 @@ lazy val shutup = module("shutup",
 
 lazy val challenge = module("challenge",
   Seq(game, room, oauth),
-  Seq(lettuce) ++ tests.bundle
+  Seq(lettuce, catsMtl) ++ tests.bundle
 )
 
 lazy val fide = module("fide",

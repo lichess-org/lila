@@ -68,7 +68,7 @@ final class Account(
         povs <- env.round.proxyRepo.urgentGames(me)
         nbChallenges <- env.challenge.api.countInFor.get(me)
         playban <- env.playban.api.currentBan(me)
-        perfs <- ctx.pref.showRatings.soFu(env.user.perfsRepo.perfsOf(me))
+        perfs <- ctx.pref.showRatings.optionFu(env.user.perfsRepo.perfsOf(me))
       yield Ok:
         env.user.jsonView
           .full(me, perfs, withProfile = false) ++ Json
@@ -82,7 +82,7 @@ final class Account(
           .add("troll" -> me.marks.troll)
           .add("playban" -> playban)
           .add("announce" -> AnnounceApi.get.map(_.json))
-      .withHeaders(CACHE_CONTROL -> "max-age=15")
+      .headerCacheSeconds(15)
   }
 
   def nowPlaying = Auth { _ ?=> _ ?=>

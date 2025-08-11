@@ -124,7 +124,7 @@ final class TournamentApi(
     socket.reload(tour.id)
 
   def teamBattleTeamInfo(tour: Tournament, teamId: TeamId): Fu[Option[TeamBattle.TeamInfo]] =
-    tour.teamBattle.exists(_.teams(teamId)).soFu(cached.teamInfo.get(tour.id -> teamId))
+    tour.teamBattle.exists(_.teams(teamId)).optionFu(cached.teamInfo.get(tour.id -> teamId))
 
   private val hadPairings = scalalib.cache.ExpireSetMemo[TourId](1.hour)
 
@@ -563,7 +563,7 @@ final class TournamentApi(
   object gameView:
 
     private def OfGame[A](game: Game)(f: => Tournament => Fu[A]): Fu[Option[A]] =
-      game.tournamentId.so(get).flatMap(_.soFu(f))
+      game.tournamentId.so(get).flatMap(_.traverse(f))
 
     def player(pov: Pov): Fu[Option[GameView]] =
       OfGame(pov.game): tour =>
@@ -661,7 +661,7 @@ final class TournamentApi(
       .documentSource(nb)
       .throttle(perSecond.value, 1.second)
       .mapAsync(1): player =>
-        withSheet.soFu(cached.sheet(tour, player.userId)).dmap(player -> _)
+        withSheet.optionFu(cached.sheet(tour, player.userId)).dmap(player -> _)
       .zipWithIndex
       .mapAsync(8) { case ((player, sheet), index) =>
         lightUserApi

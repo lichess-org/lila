@@ -133,7 +133,7 @@ export const showInfo = (i: RelayTourInfo, dates?: RelayTourDates) => {
     ['location', i.location, 'travel-places.globe-showing-europe-africa', 'Location'],
     ['players', i.players, 'activity.sparkles', 'Star players'],
     ['website', i.website, null, null, i18n.broadcast.officialWebsite],
-    ['standings', i.standings, null, null, i18n.broadcast.standings],
+    ['standings', i.standings, null, null, i18n.site.standings],
   ]
     .map(
       ([key, value, icon, textAlternative, linkName]) =>

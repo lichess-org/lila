@@ -4,7 +4,6 @@ import play.api.libs.json.{ Json, JsObject }
 import play.api.i18n.Lang
 import play.api.mvc.RequestHeader
 
-import lila.core.perf.UserWithPerfs
 import lila.core.i18n.Translate
 import lila.common.Json.given
 
@@ -30,37 +29,29 @@ final class MobileApi(
   private given (using trans: Translate): Lang = trans.lang
 
   def home(using me: Option[Me])(using RequestHeader, Translate): Fu[JsObject] =
-    val accountFu = me.map(u => userApi.mobile(u.value))
-    val recentGamesFu = me.map(u => gameApi.mobileRecent(u.value))
-    val ongoingGamesFu = me.map: u =>
-      gameProxy.urgentGames(u).map(_.take(20).map(lobbyApi.nowPlaying))
-    val tournamentsFu = me.map: u =>
-      for
-        perfs <- userApi.withPerfs(u.value)
-        tours <- featuredTournaments(using perfs.some)
-      yield tours
-    val inboxFu = me.map(unreadCount.mobile)
+    val myUser = me.map(_.value)
     for
-      account <- accountFu.sequence
-      recentGames <- recentGamesFu.sequence
-      ongoingGames <- ongoingGamesFu.sequence
-      tournaments <- tournamentsFu.sequence
-      inbox <- inboxFu.sequence
+      tours <- tournaments
+      account <- myUser.traverse(userApi.mobile)
+      recentGames <- myUser.traverse(gameApi.mobileRecent)
+      ongoingGames <- myUser.traverse: u =>
+        gameProxy.urgentGames(u).map(_.take(20).map(lobbyApi.nowPlaying))
+      inbox <- me.traverse(unreadCount.mobile)
     yield Json
-      .obj()
+      .obj("tournaments" -> tours)
       .add("account", account)
       .add("recentGames", recentGames)
       .add("ongoingGames", ongoingGames)
-      .add("tournaments", tournaments)
       .add("inbox", inbox)
 
-  def featuredTournaments(using me: Option[UserWithPerfs])(using Translate): Fu[List[JsObject]] =
+  def tournaments(using me: Option[Me])(using Translate): Fu[JsObject] =
     for
-      teamIds <- me.map(_.user.id).so(teamCached.teamIdsList)
+      perfs <- me.so(userApi.withPerfs)
+      teamIds <- me.so(teamCached.teamIdsList)
       tours <- tourFeaturing.homepage.get(teamIds)
-      spotlight = lila.tournament.Spotlight.select(tours, 4)
+      spotlight = lila.tournament.Spotlight.select(tours, 4)(using perfs)
       json <- spotlight.sequentially(tourApiJson.fullJson)
-    yield json
+    yield Json.obj("featured" -> json)
 
   def watch: Fu[JsObject] =
     for
@@ -89,8 +80,8 @@ final class MobileApi(
       activities <- activityRead.recentAndPreload(user)
       activity <- activities.sequentially(activityJsonView(_, user))
       games <- gameApi.mobileRecent(user)
-      status <- me.forall(_.isnt(user)).soFu(userStatus(user))
-      crosstable <- me.filter(_.isnt(user)).map(gameApi.crosstableWith(user)).sequence
+      status <- me.forall(_.isnt(user)).optionFu(userStatus(user))
+      crosstable <- me.filter(_.isnt(user)).traverse(gameApi.crosstableWith(user))
     yield Json
       .obj("profile" -> prof, "activity" -> activity, "games" -> games)
       .add("status", status)

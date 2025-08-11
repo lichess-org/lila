@@ -74,9 +74,9 @@ final class JsonView(
         ,
         withScores = withScores
       )
-      playerInfoJson <- playerInfoExt.soFu:
+      playerInfoJson <- playerInfoExt.traverse:
         playerInfoExtended(tour, _)
-      verdicts <- full.soFu:
+      verdicts <- full.optionFu:
         (me, myInfo) match
           case (None, _) => fuccess(tour.conditions.accepted)
           case (Some(_), Some(myInfo)) if !myInfo.withdraw => fuccess(tour.conditions.accepted)
@@ -366,11 +366,11 @@ final class JsonView(
   )
 
   def getTeamStanding(tour: Tournament): Fu[Option[JsArray]] =
-    tour.isTeamBattle.soFu(teamStandingJsonCache.get(tour.id))
+    tour.isTeamBattle.optionFu(teamStandingJsonCache.get(tour.id))
 
   def apiTeamStanding(tour: Tournament): Fu[Option[JsObject]] =
     tour.teamBattle
-      .soFu: battle =>
+      .traverse: battle =>
         if battle.hasTooManyTeams
         then bigTeamStandingJsonCache.get(tour.id)
         else teamStandingJsonCache.get(tour.id)
@@ -446,7 +446,7 @@ final class JsonView(
                   )
 
   def teamInfo(tour: Tournament, teamId: TeamId): Fu[Option[JsObject]] =
-    tour.isTeamBattle.soFu(teamInfoCache.get(tour.id -> teamId))
+    tour.isTeamBattle.optionFu(teamInfoCache.get(tour.id -> teamId))
 
   private[tournament] def commonTournamentJson(
       tour: Tournament,

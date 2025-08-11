@@ -20,7 +20,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
 
   private def mobileUserOk(u: UserModel, sessionId: SessionId)(using Context): Fu[Result] = for
     povs <- env.round.proxyRepo.urgentGames(u)
-    perfs <- ctx.pref.showRatings.soFu(env.user.perfsRepo.perfsOf(u))
+    perfs <- ctx.pref.showRatings.optionFu(env.user.perfsRepo.perfsOf(u))
   yield Ok:
     env.user.jsonView.full(u, perfs, withProfile = true) ++ Json.obj(
       "nowPlaying" -> JsArray(povs.take(20).map(env.api.lobbyApi.nowPlaying)),

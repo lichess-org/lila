@@ -17,10 +17,10 @@ final class CrosstableApi(
       _.delete.one($doc("_id".$startsWith(s"${del.id}/"))).void
 
   def apply(game: Game): Fu[Option[Crosstable]] =
-    game.twoUserIds.soFu(apply.tupled)
+    game.twoUserIds.traverse(apply.tupled)
 
   def withMatchup(game: Game): Fu[Option[Crosstable.WithMatchup]] =
-    game.twoUserIds.soFu(withMatchup.tupled)
+    game.twoUserIds.traverse(withMatchup.tupled)
 
   def apply(u1: UserId, u2: UserId): Fu[Crosstable] =
     justFetch(u1, u2).dmap(_ | Crosstable.empty(u1, u2))

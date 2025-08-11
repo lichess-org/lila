@@ -71,7 +71,7 @@ final class Export(env: Env) extends LilaController(env):
   ): Fu[Result] = upstream
     .map: stream =>
       Ok.chunked(stream)
-        .withHeaders(CACHE_CONTROL -> s"max-age=$cacheSeconds")
+        .headerCacheSeconds(cacheSeconds)
         .as(contentType)
         .pipe(noProxyBuffer)
     .recover { case lila.game.GifExport.UpstreamStatus(code) => Status(code) }

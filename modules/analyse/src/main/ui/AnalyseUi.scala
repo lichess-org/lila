@@ -51,7 +51,8 @@ final class AnalyseUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
             explorerAndCevalConfig
         )
       .i18n(_.puzzle, _.study)
-      .i18nOpt(ctx.blind, _.keyboardMove, _.nvui)
+      .i18nOpt(ctx.pref.hasSpeech || ctx.blind, _.nvui)
+      .i18nOpt(ctx.blind, _.keyboardMove)
       .graph(
         title = "Chess analysis board",
         url = s"$netBaseUrl${routes.UserAnalysis.index.url}",

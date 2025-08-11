@@ -72,7 +72,7 @@ final class RoundMobile(
       takebackable <- takebacker.isAllowedIn(game, Preload(prefs))
       moretimeable <- moretimer.isAllowedIn(game, Preload(prefs), force = false)
       chat <- use.chat.so(getPlayerChat(game, myPlayer.exists(_.hasUser)))
-      chatLines <- chat.map(_.chat).soFu(lila.chat.JsonView.asyncLines)
+      chatLines <- chat.map(_.chat).traverse(lila.chat.JsonView.asyncLines)
       bookmarked <- use.bookmark.so(bookmarkExists(game, myPlayer.flatMap(_.userId)))
       forecast <- use.forecast.so(myPlayer).so(p => forecastApi.loadForDisplay(Pov(game, p)))
       tournament <- tourInfo(game)

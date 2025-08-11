@@ -52,7 +52,7 @@ final class OpeningApi(
       crawler: Crawler
   )(using accessControl: OpeningAccessControl): Fu[Option[OpeningPage]] =
     for
-      wiki <- query.closestOpening.soFu(wikiApi(_, withWikiRevisions))
+      wiki <- query.closestOpening.traverse(wikiApi(_, withWikiRevisions))
       loadStats <- accessControl.canLoadExpensiveStats(wiki.exists(_.hasMarkup), crawler)
       stats <-
         if loadStats then explorer.stats(query.uci, query.config, crawler)

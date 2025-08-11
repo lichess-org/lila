@@ -121,7 +121,7 @@ final class Env(
     gameCache.lastPlayedPlayingId(userId).flatMapz(proxyRepo.pov(_, userId))
 
   def lastPlayed(userId: UserId): Fu[Option[Pov]] =
-    gameRepo.lastPlayed(userId).flatMap(_.soFu(proxyRepo.upgradeIfPresent))
+    gameRepo.lastPlayed(userId).flatMap(_.traverse(proxyRepo.upgradeIfPresent))
 
   private lazy val correspondenceEmail = wire[CorrespondenceEmail]
 

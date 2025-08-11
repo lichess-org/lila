@@ -683,7 +683,7 @@ GET   /editor                          controllers.Editor.index
 
 # Lichess Mobile
 GET   /api/mobile/home                 controllers.Api.mobileHome
-GET   /api/mobile/watch                controllers.Api.mobileHome
+GET   /api/mobile/watch                controllers.Api.mobileWatch
 GET   /api/mobile/profile/:username    controllers.Api.mobileProfile(username:  UserStr)
 GET   /api/mobile/my-games             controllers.Api.mobileGames
 

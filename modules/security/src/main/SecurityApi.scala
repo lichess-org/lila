@@ -197,7 +197,7 @@ final class SecurityApi(
     reqSessionId(req).so(store.dedup(userId, _))
 
   def setFingerPrint(req: RequestHeader, fp: FingerPrint): Fu[Option[FingerHash]] =
-    reqSessionId(req).soFu(store.setFingerPrint(_, fp))
+    reqSessionId(req).traverse(store.setFingerPrint(_, fp))
 
   val sessionIdKey = "sessionId"
 

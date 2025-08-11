@@ -68,7 +68,7 @@ final class Round(
             for
               data <- env.api.roundApi.player(pov, Preload(users), tour)
               chat <- getPlayerChat(pov.game, none)
-              jsChat <- chat.flatMap(_.game).map(_.chat).soFu(lila.chat.JsonView.asyncLines)
+              jsChat <- chat.flatMap(_.game).map(_.chat).traverse(lila.chat.JsonView.asyncLines)
             yield Ok(data.add("chat", jsChat)).noCache
       )
     yield res.enforceCrossSiteIsolation
@@ -190,7 +190,7 @@ final class Round(
                   data <- env.api.roundApi.watcher(pov, users, tour, tv = none)
                   analysis <- env.analyse.analyser.get(pov.game)
                   chat <- getWatcherChat(pov.game)
-                  jsChat <- chat.map(_.chat).soFu(lila.chat.JsonView.asyncLines)
+                  jsChat <- chat.map(_.chat).traverse(lila.chat.JsonView.asyncLines)
                 yield Ok:
                   data
                     .add("chat" -> jsChat)
@@ -204,7 +204,7 @@ final class Round(
     (ctx.isAuth || HTTPRequest.isHuman(ctx.req)) && {
       game.finishedOrAborted || !ctx.userId.exists(game.userIds.has)
     }
-  }.soFu:
+  }.optionFu:
     env.chat.api.userChat.findMine(ChatId(s"${game.id}/w"), !game.justCreated)
 
   private[controllers] def getPlayerChat(game: GameModel, tour: Option[Tour])(using

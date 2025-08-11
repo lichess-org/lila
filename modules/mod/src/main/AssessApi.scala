@@ -108,7 +108,7 @@ final class AssessApi(
       userId: UserId,
       nb: Int = 100
   ): Fu[Option[PlayerAggregateAssessment.WithGames]] =
-    getPlayerAggregateAssessment(userId, nb).flatMap(_.soFu(withGames))
+    getPlayerAggregateAssessment(userId, nb).flatMap(_.traverse(withGames))
 
   def refreshAssessOf(user: User): Funit =
     (!user.isBot).so:

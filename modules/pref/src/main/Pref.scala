@@ -103,6 +103,7 @@ case class Pref(
 
   def hasKeyboardMove = keyboardMove == KeyboardMove.YES
   def hasVoice = voice.has(Voice.YES)
+  def hasSpeech = soundSet == SoundSet.speech.toString
 
   def isUsingAltSocket = usingAltSocket.has(true)
 

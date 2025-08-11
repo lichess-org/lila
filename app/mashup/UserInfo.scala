@@ -76,11 +76,11 @@ object UserInfo:
     def apply(u: User, withCrosstable: Boolean)(using me: Option[Me]): Fu[NbGames] =
       given scala.concurrent.ExecutionContext = scala.concurrent.ExecutionContext.parasitic
       (
-        withCrosstable.so(
+        withCrosstable.so:
           me
             .filter(u.isnt(_))
-            .soFu(me => crosstableApi.withMatchup(me.userId, u.id).mon(_.user.segment("crosstable")))
-        ),
+            .traverse(me => crosstableApi.withMatchup(me.userId, u.id).mon(_.user.segment("crosstable")))
+        ,
         gameCached.nbPlaying(u.id).mon(_.user.segment("nbPlaying")),
         gameCached.nbImportedBy(u.id).mon(_.user.segment("nbImported")),
         bookmarkApi.countByUser(u).mon(_.user.segment("nbBookmarks"))
