@@ -155,16 +155,16 @@
 урадиш велику рокаду!</string>
   <string name="castlingComplete">Честитке! Требаш скоро увек урадити рокаду у партији.</string>
   <string name="enPassant">Ан пасан</string>
-  <string name="theSpecialPawnMove">Посебан пешаков потез</string>
-  <string name="enPassantIntro">Када се противнички пешак помери за два поља, можете га однети као да се померио за једно поље.</string>
+  <string name="theSpecialPawnMove">Посебан потез пешака</string>
+  <string name="enPassantIntro">Када се противнички пешак померио за два поља, можеш га узети као да се померио за једно поље.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Црни је управо померио пешака
 за два поља!
-Однесите га ан пасан.</string>
+Узми га ан пасан.</string>
   <string name="enPassantOnlyWorksImmediately">Ан пасан је једино могућ
 одмах након што је противник
 померио пешака.</string>
   <string name="enPassantOnlyWorksOnFifthRank">Ан пасан је једино могућ
-ако вам је пешак на 5. реду.</string>
+ако је твој пешак на 5. реду.</string>
   <string name="takeAllThePawnsEnPassant">Однесите све пешаке ан пасан!</string>
   <string name="enPassantComplete">Честитамо! Сада можете носити ан пасан.</string>
   <string name="stalemate">Пат</string>
