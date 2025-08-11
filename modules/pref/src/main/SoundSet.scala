@@ -10,6 +10,7 @@ object SoundSet:
 
   val default = new SoundSet("standard", "Standard")
   val silent = new SoundSet("silent", "Silent")
+  val speech = new SoundSet("speech", "Speech")
 
   val list = List(
     silent,
@@ -22,7 +23,7 @@ object SoundSet:
     new SoundSet("woodland", "WoodLand"),
     new SoundSet("robot", "Robot"),
     new SoundSet("music", "Pentatonic"),
-    new SoundSet("speech", "Speech")
+    speech
   )
 
   val allByKey = list.mapBy(_.key)
