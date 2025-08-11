@@ -63,7 +63,6 @@
   <string name="startVerySoon">Η μετάδοση θα ξεκινήσει σύντομα.</string>
   <string name="notYetStarted">Η μετάδοση δεν έχει ξεκινήσει ακόμα.</string>
   <string name="officialWebsite">Επίσημη ιστοσελίδα</string>
-  <string name="standings">Κατάταξη</string>
   <string name="officialStandings">Επίσημη κατάταξη</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Περισσότερες επιλογές στη %s</string>
   <string name="webmastersPage">σελίδα για webmasters</string>

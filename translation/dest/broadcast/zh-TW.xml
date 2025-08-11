@@ -58,7 +58,6 @@
   <string name="startVerySoon">直播即將開始。</string>
   <string name="notYetStarted">直播尚未開始。</string>
   <string name="officialWebsite">官網</string>
-  <string name="standings">排行榜</string>
   <string name="officialStandings">官方排名</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">更多選項在%s</string>
   <string name="webmastersPage">網頁管理員頁面</string>

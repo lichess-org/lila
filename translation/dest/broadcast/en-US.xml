@@ -63,7 +63,6 @@
   <string name="startVerySoon">The broadcast will start very soon.</string>
   <string name="notYetStarted">The broadcast has not yet started.</string>
   <string name="officialWebsite">Official website</string>
-  <string name="standings">Standings</string>
   <string name="officialStandings">Official Standings</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">More options on the %s</string>
   <string name="webmastersPage">webmasters page</string>

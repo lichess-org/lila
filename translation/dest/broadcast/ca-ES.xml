@@ -63,7 +63,6 @@
   <string name="startVerySoon">La retransmissió començarà aviat.</string>
   <string name="notYetStarted">La retransmissió encara no ha començat.</string>
   <string name="officialWebsite">Lloc web oficial</string>
-  <string name="standings">Classificació</string>
   <string name="officialStandings">Classificació oficial</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Més opcions a la %s</string>
   <string name="webmastersPage">pàgina d\'administració</string>

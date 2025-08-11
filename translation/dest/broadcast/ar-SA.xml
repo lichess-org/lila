@@ -71,7 +71,6 @@
   <string name="startVerySoon">سيبدأ البث قريبا.</string>
   <string name="notYetStarted">البث لم يبدأ بعد.</string>
   <string name="officialWebsite">الموقع الرسمي</string>
-  <string name="standings">الترتيب</string>
   <string name="officialStandings">الترتيب الرسمي</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">المزيد من الخيارات على %s</string>
   <string name="webmastersPage">صفحة مدير المواقع</string>

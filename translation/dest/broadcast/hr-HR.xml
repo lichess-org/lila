@@ -60,7 +60,6 @@
   <string name="startVerySoon">Prijenos počinje uskoro.</string>
   <string name="notYetStarted">Prijenos još nije počeo.</string>
   <string name="officialWebsite">Službena stranica</string>
-  <string name="standings">Tablica</string>
   <string name="officialStandings">Službena tablica</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Više mogučnosti na %s</string>
   <string name="webmastersPage">portal za vlasnike web stranica</string>
