@@ -6,7 +6,6 @@ import { plural } from './view/util';
 import { debounce, throttle } from 'lib/async';
 import type GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
 import type StudyCtrl from './study/studyCtrl';
-import { isTouchDevice } from 'lib/device';
 import type { AnalyseOpts, AnalyseData, ServerEvalData, JustCaptured, NvuiPlugin } from './interfaces';
 import type { Api as ChessgroundApi } from '@lichess-org/chessground/api';
 import { Autoplay, AutoplayDelay } from './autoplay';
