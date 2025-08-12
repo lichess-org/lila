@@ -2,10 +2,10 @@
 <resources>
   <string name="playWithAFriend">بازی با دوستان</string>
   <string name="playWithTheMachine">بازی با رایانه</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">برای دعوت کسی به بازی، این وب‌نشانی را دهید</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">برای دعوت یک نفر به بازی، این آدرس را به او بدهید</string>
   <string name="gameOver">پایان بازی</string>
   <string name="waitingForOpponent">انتطار برای حریف</string>
-  <string name="orLetYourOpponentScanQrCode">یا اجازه دهید حریف‌تان این کد QR را اسکن کنند</string>
+  <string name="orLetYourOpponentScanQrCode">یا از حریفتان بخواهید این کد QR را اسکن کندl</string>
   <string name="waiting">در حال انتظار</string>
   <string name="yourTurn">نوبت شماست</string>
   <string name="aiNameLevelAiLevel">%1$s سطح %2$s</string>
@@ -23,10 +23,10 @@
   <string name="randomColor">رنگ تصادفی</string>
   <string name="createAGame">ایجاد بازی</string>
   <string name="createTheGame">ایجاد بازی</string>
-  <string name="whiteIsVictorious">سفید برنده است</string>
-  <string name="blackIsVictorious">سیاه برنده است</string>
+  <string name="whiteIsVictorious">سفید برنده شد</string>
+  <string name="blackIsVictorious">سیاه برنده شد</string>
   <string name="youPlayTheWhitePieces">شما با مهره سفید بازی میکنید</string>
-  <string name="youPlayTheBlackPieces">شما با مهره سیاه بازی می کنید</string>
+  <string name="youPlayTheBlackPieces">شما با مهره سیاه بازی می‌کنید</string>
   <string name="itsYourTurn">نوبت شماست!</string>
   <string name="cheatDetected">تقلب تشخیص داده شد</string>
   <string name="kingInTheCenter">شاه روی تپه</string>
@@ -34,7 +34,7 @@
   <string name="raceFinished">پایان تاخت</string>
   <string name="variantEnding">پایان وَرتا</string>
   <string name="newOpponent">حریف جدید</string>
-  <string name="yourOpponentWantsToPlayANewGameWithYou">حریف شما می خواهد که دوباره با شما بازی کند</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">حریفتان می‌خواهد یک بازی جدید با شما انجام دهد</string>
   <string name="joinTheGame">به بازی بپیوندید</string>
   <string name="whitePlays">نوبت سفید</string>
   <string name="blackPlays">نوبت سیاه</string>
@@ -92,7 +92,7 @@
   <string name="averageRatingX">میانگین درجه‌بندی: %s</string>
   <string name="recentGames">بازی‌های اخیر</string>
   <string name="topGames">بازی‌های برتر</string>
-  <string name="masterDbExplanation">دو میلیون بازی حقیقی بازیکنان دارای امتیاز بیشتر از %1$s در درجه‌بندی فیده از %2$s تا %3$s</string>
+  <string name="masterDbExplanation">دو میلیون بازی رسمی بازیکنان با امتیاز %1$s+ فیده از %2$s تا %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">در %s نیم‌حرکت مات می‌شود</item>
     <item quantity="other">در %s نیم‌حرکت مات می‌شود</item>
@@ -114,7 +114,7 @@
   <string name="allSet">همه چیز آماده است!</string>
   <string name="importPgn">PGN را وارد کنید</string>
   <string name="delete">حذف</string>
-  <string name="deleteThisImportedGame">آیا این بازیِ درونبُرده پاک شود؟</string>
+  <string name="deleteThisImportedGame">آیا این بازیِ فراخوانده شده پاک شود؟</string>
   <string name="replayMode">حالت بازپخش</string>
   <string name="realtimeReplay">مشابه بازی</string>
   <string name="byCPL">درنگ هنگام اشتباه</string>
@@ -236,7 +236,7 @@
   <string name="forgotPassword">گذرواژه را فراموش کرده‌اید?</string>
   <string name="error.weakPassword">این گذرواژه بسیار رایج و آسان‌حدس است.</string>
   <string name="error.namePassword">خواهشانه از نام کاربری‌تان برای گذرواژه‌تان استفاده نکنید.</string>
-  <string name="blankedPassword">شما از گذرواژهٔ یکسانی در وبگاه دیگری بهراییده‌اید و آن وبگاه به خطر افتاده است. برای اطمینان از ایمنی حساب Lichessتان، به شما نیاز داریم تا گذرواژهٔ نویی را تعیین کنید. از درک‌تان سپاسگزاریم.</string>
+  <string name="blankedPassword">شما از گذرواژهٔ یکسانی در وبگاه دیگری بهراییده‌اید و آن وبگاه به خطر افتاده است. برای اطمینان از ایمنی حساب لیچس‌تان، به شما نیاز داریم تا گذرواژهٔ نویی را تعیین کنید. از درک‌تان سپاسگزاریم.</string>
   <string name="youAreLeavingLichess">در حال ترک lichess هستید</string>
   <string name="neverTypeYourPassword">هرگز گذرواژهٔ Lichessتان را در وبگاه دیگری ننویسید!</string>
   <string name="proceedToX">بروید به %s</string>
@@ -534,7 +534,7 @@
   <string name="inlineNotation">نشانه‌گذاری خطی</string>
   <string name="makeAStudy">برای نگهداری مطمئن و همرسانی، ساخت یک مطالعه را در نظر بگیرید.</string>
   <string name="clearSavedMoves">حرکت های واضح</string>
-  <string name="previouslyOnLichessTV">بازی پیشین در Lichess</string>
+  <string name="previouslyOnLichessTV">بازی پیشین در لیچس</string>
   <string name="onlinePlayers">بازیکنان بَرخط</string>
   <string name="activePlayers">بازیکنان فعال</string>
   <string name="bewareTheGameIsRatedButHasNoClock">مراقب باشید،این بازی رتبه بندی میشود اما بدون ساعت!</string>
@@ -756,7 +756,7 @@
   <string name="weHaveSentYouAnEmailTo">ما یک رایانامه به %s فرستاده‌ایم. برای بازنشانی گذرواژه‌تان، روی پیوند موجود در رایانامه بزنید.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">با ثبت‌نام، با %s موافقت می‌کنید.</string>
   <string name="readAboutOur">درباره %s ما بخوانید.</string>
-  <string name="networkLagBetweenYouAndLichess">تاخیر شبکه میان شما و Lichess</string>
+  <string name="networkLagBetweenYouAndLichess">تاخیر شبکه میان شما و لیچس</string>
   <string name="timeToProcessAMoveOnLichessServer">زمانِ پردازش یک حرکت در کارسازِ Lichess</string>
   <string name="downloadAnnotated">بارگیری حرکت‌نویسی</string>
   <string name="downloadRaw">بارگیری خام</string>
@@ -775,7 +775,7 @@
   <string name="kidMode">حالت کودک</string>
   <string name="kidModeIsEnabled">حالت کودک فعال است.</string>
   <string name="kidModeExplanation">این دربارهٔ ایمنی است. در حالت کودک، همهٔ ارتباط‌های وبگاه نافعال است. این را برای فرزندان و شطرنج‌آموزان مدرسه خود فعال کنید تا از آنها در برابر دیگر کاربران اینترنت حفاظت کنید.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">در حالت کودک، نماد Lichess نقشک %s را می‌گیرد، بنابراین می‌دانید کودکان‌تان در امانند.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">در حالت کودک، نماد لیچس نقشک %s را می‌گیرد، بنابراین می‌دانید کودکان‌تان در امانند.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">حسابتان مدیریت می‌شود. از آموزگار شطرنج‌تان درباره برداشتن حالت کودک بپرسید.</string>
   <string name="enableKidMode">فعال‌سازی حالت کودک</string>
   <string name="disableKidMode">ازکاراندازی حالت کودک</string>
@@ -902,7 +902,7 @@
   <string name="agreementAssistance">من موافقم که در طول بازی‌هایم هیچگاه کمکی نخواهم گرفت (از یک رایانه شطرنج، کتاب، دادگان یا شخص دیگری).</string>
   <string name="agreementNice">می‌پذیرم که همواره به بازیکنان دیگر احترام گزارم.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">موافقم که چندین حساب نخواهم ساخت (جز به دلیل‌های ذکر شده در %s).</string>
-  <string name="agreementPolicy">با پیروی از همهٔ خط‌مشی‌های Lichess، موافقم.</string>
+  <string name="agreementPolicy">با پیروی از همهٔ خط‌مشی‌های لیچس، موافقم.</string>
   <string name="searchOrStartNewDiscussion">جستجو یا شروع کردن مکالمه جدید</string>
   <string name="edit">ویرایش</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">گلوله‌ای</string>
@@ -997,7 +997,7 @@
   <string name="youCantStartNewGame">تا وقتی که این بازی تمام نشده، نمی‌توانید بازی جدیدی را بیاغازید.</string>
   <string name="since">از وقتی که</string>
   <string name="until">تا وقتی که</string>
-  <string name="lichessDbExplanation">بازی‌های رسمی برگزاریده در Lichess</string>
+  <string name="lichessDbExplanation">بازی‌های رسمی برگزاریده در لیچس</string>
   <string name="switchSides">تعویض سمت</string>
   <string name="closingAccountWithdrawAppeal">با بستن حساب خود درخواست تجدید نظر خود را پس خواهید گرفت</string>
   <string name="ourEventTips">پیشنهادهای ما برای برگزاری رویدادها</string>
