@@ -168,7 +168,7 @@
   <string name="drawByMutualAgreement">تساوی با توافق طرفین</string>
   <string name="fiftyMovesWithoutProgress">قانون ۵۰ حرکت</string>
   <string name="currentGames">بازی‌های جاری</string>
-  <string name="joinedX">عضو شده در %s</string>
+  <string name="joinedX" comment="%s is a date relative to today&#10;&#10;e.g. &quot;Joined 2 months ago&quot;&#10;Note that the 'ago' is already in %s">عضو شده در %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s بازی</item>
     <item quantity="other">%s بازی</item>
@@ -1009,4 +1009,5 @@
   <string name="accessibility">دسترسی</string>
   <string name="enableBlindMode">فعال‌سازی حالت نابینایی</string>
   <string name="disableBlindMode">غیرفعال سازی حالت نابینایی</string>
+  <string name="copyToClipboard">کپی در کلیپ‌بورد</string>
 </resources>
