@@ -64,19 +64,19 @@ final class MarkdownRender(
 
   private val options = MutableDataSet()
     .set(Parser.EXTENSIONS, extensions)
-    .set(HtmlRenderer.ESCAPE_HTML, Boolean.box(true))
+    .set(HtmlRenderer.ESCAPE_HTML, true)
     .set(HtmlRenderer.SOFT_BREAK, "<br>")
     // always disabled
-    .set(Parser.HTML_BLOCK_PARSER, Boolean.box(false))
-    .set(Parser.INDENTED_CODE_BLOCK_PARSER, Boolean.box(false))
-    .set(Parser.FENCED_CODE_BLOCK_PARSER, Boolean.box(code))
+    .set(Parser.HTML_BLOCK_PARSER, false)
+    .set(Parser.INDENTED_CODE_BLOCK_PARSER, false)
+    .set(Parser.FENCED_CODE_BLOCK_PARSER, code)
 
   // configurable
   if table then options.set(TablesExtension.CLASS_NAME, "slist")
-  if header then options.set(AnchorLinkExtension.ANCHORLINKS_WRAP_TEXT, Boolean.box(false))
-  else options.set(Parser.HEADING_PARSER, Boolean.box(false))
-  if !blockQuote then options.set(Parser.BLOCK_QUOTE_PARSER, Boolean.box(false))
-  if !list then options.set(Parser.LIST_BLOCK_PARSER, Boolean.box(false))
+  if header then options.set(AnchorLinkExtension.ANCHORLINKS_WRAP_TEXT, false)
+  else options.set(Parser.HEADING_PARSER, false)
+  if !blockQuote then options.set(Parser.BLOCK_QUOTE_PARSER, false)
+  if !list then options.set(Parser.LIST_BLOCK_PARSER, false)
 
   private val immutableOptions = options.toImmutable
 
