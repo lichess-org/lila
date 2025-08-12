@@ -63,7 +63,6 @@
   <string name="startVerySoon">La diffusion commencera très bientôt.</string>
   <string name="notYetStarted">La diffusion n\'a pas encore commencé.</string>
   <string name="officialWebsite">Site Web officiel</string>
-  <string name="standings">Classement</string>
   <string name="officialStandings">Résultats officiels</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Plus d\'options sur la %s</string>
   <string name="webmastersPage">page des webmestres</string>

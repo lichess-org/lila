@@ -67,7 +67,6 @@
   <string name="startVerySoon">Vysielanie sa začne čoskoro.</string>
   <string name="notYetStarted">Vysielanie sa ešte nezačalo.</string>
   <string name="officialWebsite">Oficiálna webstránka</string>
-  <string name="standings">Poradie</string>
   <string name="officialStandings">Oficiálne poradie</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Viac možností nájdete na %s</string>
   <string name="webmastersPage">stránke tvorcu</string>

@@ -63,7 +63,6 @@
   <string name="startVerySoon">Sändningen kommer att starta mycket snart.</string>
   <string name="notYetStarted">Sändningen har ännu inte startat.</string>
   <string name="officialWebsite">Officiell webbplats</string>
-  <string name="standings">Ställningar</string>
   <string name="officialStandings">Officiella ställningar</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Fler alternativ på %s</string>
   <string name="webmastersPage">webbmasterns sida</string>

@@ -4,5 +4,6 @@
   <string name="closeAccount">Fiók zárolása</string>
   <string name="managedAccountCannotBeClosed">A felhasználói fiókod felügyelet alatt áll, ezért nem zárolható.</string>
   <string name="cantOpenSimilarAccount" comment="Please note this string was simplified in January 2025. Before this, it used to state &quot;You will not be allowed to open a new account with the same name, even if the case is different.&quot; Please update existing translations as required.">Nem fogsz tudni új fiókot nyitni ugyanezzel a névvel, még eltérő kis- és nagybetűkkel sem.</string>
+  <string name="closeAccountAreYouSure">Biztos zárolni akarod a fiókodat?</string>
   <string name="thisAccountIsClosed">Ez a fiók zárolva van.</string>
 </resources>

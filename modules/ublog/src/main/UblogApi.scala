@@ -176,9 +176,21 @@ final class UblogApi(
     val retries = 5 // 30s, 1m, 2m, 4m, 8m
     def attempt(n: Int = 0): Fu[Option[UblogAutomod.Assessment]] =
       automod(post, n * 0.1)
-        .flatMapz: mod =>
-          for _ <- colls.post.updateField($id(post.id), "automod", mod).void
-          yield mod.some
+        .flatMapz: llm =>
+          val result = post.automod match
+            case Some(prev) if prev.lockedBy.isDefined =>
+              prev.copy(
+                flagged = prev.flagged.orElse(llm.flagged),
+                commercial = prev.commercial.orElse(llm.commercial)
+              )
+            case Some(prev) =>
+              llm.copy(
+                quality = Quality.fromOrdinal:
+                  llm.quality.ordinal.atLeast(prev.quality.ordinal)
+              )
+            case _ => llm
+          for _ <- colls.post.updateField($id(post.id), "automod", result).void
+          yield result.some
         .recoverWith: e =>
           if n < 5 then delay((30 * math.pow(2, n).toInt).seconds)(attempt(n + 1))
           else
@@ -252,7 +264,11 @@ final class UblogApi(
     mod.foreach(m => irc.ublogBlog(blogger, m.username, tier.map(Tier.name), note))
     colls.blog.update.one($id(UblogBlog.Id.User(blogger)), $set(setFields) ++ unsets, upsert = true).void
 
-  def modPost(post: UblogPost, d: UblogForm.ModPostData): Fu[Option[UblogAutomod.Assessment]] =
+  def modPost(
+      post: UblogPost,
+      d: UblogForm.ModPostData,
+      mod: UserId
+  ): Fu[Option[UblogAutomod.Assessment]] =
     def maybeCopy(v: Option[String], base: Option[String]) =
       v match
         case Some("") => none // form sends empty string to unset
@@ -265,7 +281,8 @@ final class UblogApi(
         quality = d.quality | base.quality,
         evergreen = d.evergreen.orElse(base.evergreen),
         flagged = maybeCopy(d.flagged, base.flagged),
-        commercial = maybeCopy(d.commercial, base.commercial)
+        commercial = maybeCopy(d.commercial, base.commercial),
+        lockedBy = mod.some
       )
       for _ <- colls.post.updateField($id(post.id), "automod", assessment)
       yield assessment.some
