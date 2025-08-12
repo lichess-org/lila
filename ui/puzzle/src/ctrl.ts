@@ -363,7 +363,7 @@ export default class PuzzleCtrl implements ParentCtrl {
 
     const progress = moveTest(this);
     this.setAutoShapes();
-    if (progress === 'fail') site.sound.say('incorrect');
+    if (progress === 'fail') site.sound.say(i18n.puzzle.failed);
     if (progress) this.applyProgress(progress);
     this.reorderChildren(path);
     this.redraw();
