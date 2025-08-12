@@ -2,9 +2,14 @@
 <resources>
   <string name="practice">Практика</string>
   <string name="practiceChess">Практика шахмат</string>
-  <string name="makesPerfect">повышает Ваш уровень игры</string>
-  <string name="resetMyProgress">Начать все с начала</string>
+  <string name="makesPerfect">способствует повышению уровня игры</string>
+  <string name="resetMyProgress">Начать всё с начала</string>
   <string name="progressX">Пройдено: %s</string>
   <string name="youWillLoseYourPracticeProgress">Все ваши успехи обнулятся!</string>
   <string name="signUpToSaveYourProgress">Авторизуйтесь для сохранения прогресса</string>
+  <string name="secHeadCheckmates">Матование</string>
+  <string name="secHeadBasicTactics">Основы тактики</string>
+  <string name="secHeadIntermediateTactics">Промежуточная Тактика</string>
+  <string name="secHeadPawnEndgames">Пешечные окончания</string>
+  <string name="secHeadRookEndgames">Ладейные окончания</string>
 </resources>

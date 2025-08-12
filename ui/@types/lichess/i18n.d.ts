@@ -2217,10 +2217,20 @@ interface I18n {
     progressX: I18nFormat;
     /** Reset my progress */
     resetMyProgress: string;
-    /** Sign up to save your progress */
-    signUpToSaveYourProgress: string;
     /** You will lose your practice progress! */
     youWillLoseYourPracticeProgress: string;
+    /** Sign up to save your progress */
+    signUpToSaveYourProgress: string;
+    /** Checkmates */
+    secHeadCheckmates: string;
+    /** Basic Tactics */
+    secHeadBasicTactics: string;
+    /** Intermediate Tactics */
+    secHeadIntermediateTactics: string;
+    /** Pawn Endgames */
+    secHeadPawnEndgames: string;
+    /** Rook Endgames */
+    secHeadRookEndgames: string;
   };
   preferences: {
     /** Bell notification sound */

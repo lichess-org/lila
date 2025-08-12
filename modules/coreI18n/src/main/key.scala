@@ -1146,6 +1146,11 @@ object I18nKey:
     val `progressX`: I18nKey = "practice:progressX"
     val `youWillLoseYourPracticeProgress`: I18nKey = "practice:youWillLoseYourPracticeProgress"
     var `signUpToSaveYourProgress`: I18nKey = "practice:signUpToSaveYourProgress"
+    val `secHeadCheckmates`: I18nKey = "practice:secHeadCheckmates"
+    val `secHeadBasicTactics`: I18nKey = "practice:secHeadBasicTactics"
+    val `secHeadIntermediateTactics`: I18nKey = "practice:secHeadIntermediateTactics"
+    val `secHeadPawnEndgames`: I18nKey = "practice:secHeadPawnEndgames"
+    val `secHeadRookEndgames`: I18nKey = "practice:secHeadRookEndgames"
 
   object preferences:
     val `preferences`: I18nKey = "preferences:preferences"
