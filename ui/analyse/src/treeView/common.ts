@@ -51,7 +51,6 @@ function eventPath(e: MouseEvent): Tree.Path | null {
 
 const autoScroll = throttle(200, (moveListEl: HTMLElement) => {
   const moveEl = moveListEl.querySelector<HTMLElement>('.active');
-  console.log('moveEl', moveEl);
   if (!moveEl) return;
   const [move, view] = [moveEl.getBoundingClientRect(), moveListEl.getBoundingClientRect()];
   const visibleHeight = Math.min(view.bottom, window.innerHeight) - Math.max(view.top, 0);
