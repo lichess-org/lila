@@ -10,20 +10,16 @@ export function renderColumnView(ctrl: AnalyseCtrl, concealOf: ConcealOf = () =>
   const commentTags = renderer.commentNodes(node);
   const blackStarts = (node.ply & 1) === 1;
 
-  return hl(
-    'div.tview2.tview2-column',
-    { hook: { insert: v => console.log(v) }, class: { hidden: ctrl.treeView.hidden } },
-    [
-      commentTags.length > 0 && hl('interrupt', commentTags),
-      blackStarts && [renderIndex(node.ply, false), hl('move.empty', '...')],
-      renderer.columnNodes(node.children, {
-        parentPath: '',
-        parentDisclose: ctrl.idbTree.discloseOf(node),
-        parentNode: node,
-        isMainline: true,
-      }),
-    ],
-  );
+  return hl('div.tview2.tview2-column', { class: { hidden: ctrl.treeView.hidden } }, [
+    commentTags.length > 0 && hl('interrupt', commentTags),
+    blackStarts && [renderIndex(node.ply, false), hl('move.empty', '...')],
+    renderer.columnNodes(renderer.filterNodes(node.children), {
+      parentPath: '',
+      parentDisclose: ctrl.idbTree.discloseOf(node),
+      parentNode: node,
+      isMainline: true,
+    }),
+  ]);
 }
 
 class ColumnView extends InlineView {
@@ -61,7 +57,7 @@ class ColumnView extends InlineView {
               ]),
               isWhite && child.children.length > 0 && [renderIndex(child.ply, false), emptyMove()],
             ],
-          this.columnNodes(child.children, {
+          this.columnNodes(this.filterNodes(child.children), {
             parentPath: childPath,
             parentNode: child,
             parentDisclose: this.ctrl.idbTree.discloseOf(child),

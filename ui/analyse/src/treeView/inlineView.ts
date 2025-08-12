@@ -19,7 +19,7 @@ export function renderInlineView(ctrl: AnalyseCtrl): VNode {
     { class: { hidden: ctrl.treeView.hidden, anchor: !!parentDisclose } },
     [
       renderer.commentNodes(parentNode),
-      renderer.inlineNodes(parentNode.children, {
+      renderer.inlineNodes(renderer.filterNodes(parentNode.children), {
         parentPath: '',
         parentNode,
         parentDisclose,
@@ -47,6 +47,10 @@ export class InlineView {
     readonly showGlyphs = (!!ctrl.study && !ctrl.study?.relay) || ctrl.showComputer(),
   ) {}
 
+  filterNodes(nodes: Tree.Node[]): Tree.Node[] {
+    return nodes.filter(node => this.showComputer || !node.comp);
+  }
+
   inlineNodes([child, ...siblings]: Tree.Node[], args: Args): LooseVNodes {
     if (!child) return;
     const { isMainline, parentDisclose, parentPath } = args;
@@ -58,7 +62,7 @@ export class InlineView {
             this.commentNodes(child),
             siblings[0] && hl('interrupt', this.variationNodes(siblings, args)),
           ],
-          this.inlineNodes(child.children, {
+          this.inlineNodes(this.filterNodes(child.children), {
             parentPath: parentPath + child.id,
             parentNode: child,
             parentDisclose: this.ctrl.idbTree.discloseOf(child),
@@ -103,7 +107,7 @@ export class InlineView {
       (!ctrl.synthetic && playable(ctrl.data) && ctrl.initialPath) ||
       ctrl.retro?.current()?.prev.path ||
       ctrl.study?.data.chapter.relayPath;
-    const classes: Record<string, boolean> = {
+    const classes: Classes = {
       mainline: isMainline,
       conceal: conceal === 'conceal',
       hide: conceal === 'hide',
