@@ -213,15 +213,17 @@ export default function () {
       { passive: true },
     );
 
-    // double tap to focus board
-    const mainBoard = document.querySelector<HTMLElement>('.main-board');
-    if (!mainBoard || !isTouchDevice() || site.blindMode) return;
-    const mainBoardTop = document.querySelector<HTMLElement>('header')?.offsetHeight;
-    mainBoard.addEventListener(
+    if (!isTouchDevice() || site.blindMode) return;
+
+    // double tap to align top of board with viewport
+    document.querySelector<HTMLElement>('.main-board')?.addEventListener(
       'dblclick',
       () => {
         lastY = -9999;
-        window.scrollTo({ top: mainBoardTop, behavior: 'instant' });
+        window.scrollTo({
+          top: parseInt(window.getComputedStyle(document.body).getPropertyValue('---site-header-height')),
+          behavior: 'instant',
+        });
       },
       { passive: true },
     );
