@@ -16,7 +16,7 @@ export function mainHook(ctrl: AnalyseCtrl): Hooks {
   return {
     insert: vnode => {
       const el = vnode.elm as HTMLElement;
-      if (ctrl.path !== '') autoScroll(ctrl, el);
+      if (ctrl.path !== '') autoScroll(el);
       const ctxMenuCallback = (e: MouseEvent) => {
         const path = eventPath(e);
         if (path !== null) contextMenu(e, { path, root: ctrl });
@@ -34,9 +34,9 @@ export function mainHook(ctrl: AnalyseCtrl): Hooks {
         ctrl.redraw();
       });
     },
-    postpatch: (_, vnode) => {
+    postpatch: (_, vnode: VNode & { elm: HTMLElement }) => {
       if (ctrl.autoScrollRequested) {
-        autoScroll(ctrl, vnode.elm as HTMLElement);
+        autoScroll(vnode.elm.closest<HTMLElement>('.analyse__moves')!);
         ctrl.autoScrollRequested = false;
       }
     },
@@ -49,16 +49,16 @@ function eventPath(e: MouseEvent): Tree.Path | null {
   );
 }
 
-const autoScroll = throttle(200, (ctrl: AnalyseCtrl, el: HTMLElement) => {
-  const cont = el.parentElement?.parentElement;
-  if (!cont) return;
-  const target = el.querySelector<HTMLElement>('.active');
-  if (!target) {
-    cont.scrollTop = ctrl.path ? 99999 : 0;
-    return;
-  }
-  const targetOffset = target.getBoundingClientRect().y - el.getBoundingClientRect().y;
-  cont.scrollTop = targetOffset - cont.offsetHeight / 2 + target.offsetHeight;
+const autoScroll = throttle(200, (moveListEl: HTMLElement) => {
+  const moveEl = moveListEl.querySelector<HTMLElement>('.active');
+  console.log('moveEl', moveEl);
+  if (!moveEl) return;
+  const [move, view] = [moveEl.getBoundingClientRect(), moveListEl.getBoundingClientRect()];
+  const visibleHeight = Math.min(view.bottom, window.innerHeight) - Math.max(view.top, 0);
+  moveListEl.scrollTo({
+    top: moveListEl.scrollTop + move.top - view.top - (visibleHeight - move.height) / 2,
+    behavior: 'auto',
+  });
 });
 
 export interface NodeClasses {
