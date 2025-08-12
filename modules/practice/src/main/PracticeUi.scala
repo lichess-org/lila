@@ -38,12 +38,12 @@ final class PracticeUi(helpers: Helpers)(
 
   def index(data: lila.practice.UserPractice)(using ctx: Context) =
     def sectionHeader(name: String): RawFrag = name match
-      case "Checkmates"               => trp.secHeadCheckmates()
-      case "Basic Tactics"            => trp.secHeadBasicTactics()
-      case "Intermediate Tactics"     => trp.secHeadIntermediateTactics()
-      case "Pawn Endgames"            => trp.secHeadPawnEndgames()
-      case "Rook Endgames"            => trp.secHeadRookEndgames()
-      case other                      => RawFrag(other)
+      case "Checkmates" => trp.secHeadCheckmates()
+      case "Basic Tactics" => trp.secHeadBasicTactics()
+      case "Intermediate Tactics" => trp.secHeadIntermediateTactics()
+      case "Pawn Endgames" => trp.secHeadPawnEndgames()
+      case "Rook Endgames" => trp.secHeadRookEndgames()
+      case other => RawFrag(other)
 
     Page(s"${trp.practiceChess.txt()} - ${trp.makesPerfect.txt()}")
       .css("bits.practice.index")
