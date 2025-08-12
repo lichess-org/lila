@@ -320,6 +320,10 @@
     .i {
       padding: 0;
 
+      &.recent {
+        color: $c-brag;
+      }
+
       i {
         margin: 0;
 
