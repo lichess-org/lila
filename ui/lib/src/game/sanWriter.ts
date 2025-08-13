@@ -184,7 +184,7 @@ const transRole = (role: Role): string =>
 
 export function speakable(san?: San): string {
   const text = !san
-    ? 'Game start'
+    ? i18n.nvui.gameStart
     : sanToWords(san)
         .replace(/^A /, '"A"') // "A takes" & "A 3" are mispronounced
         .replace(/(\d) E (\d)/, '$1,E $2') // Strings such as 1E5 are treated as scientific notation

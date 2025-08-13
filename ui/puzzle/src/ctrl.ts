@@ -363,7 +363,7 @@ export default class PuzzleCtrl implements ParentCtrl {
 
     const progress = moveTest(this);
     this.setAutoShapes();
-    if (progress === 'fail') site.sound.say('incorrect');
+    if (progress === 'fail') site.sound.say(i18n.puzzle.failed);
     if (progress) this.applyProgress(progress);
     this.reorderChildren(path);
     this.redraw();
@@ -456,7 +456,7 @@ export default class PuzzleCtrl implements ParentCtrl {
       this.round = res.round;
       if (res.round?.ratingDiff) this.session.setRatingDiff(this.data.puzzle.id, res.round.ratingDiff);
     }
-    if (win) site.sound.say('Success!');
+    if (win) site.sound.say(i18n.puzzle.puzzleSuccess);
     if (next) {
       this.next.resolve(this.data.replay && res.replayComplete ? this.data.replay : next);
       if (this.streak && win) this.streak.onComplete(true, res.next);
