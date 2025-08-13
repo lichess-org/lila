@@ -105,9 +105,6 @@ final class UserBits(helpers: Helpers):
       )
     }
 
-  // todo - show ?page=1 by default for leaderboard, and move back arrow further away from
-  // the page title (esp now since it feels like going to prev page on leaderboard).
-
   object awards:
     def awardCls(t: Trophy) = cls := s"trophy award ${t.kind._id} ${~t.kind.klass}"
 
