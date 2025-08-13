@@ -30,7 +30,7 @@ object ParseImport:
         Replay
           .makeReplay(parsed.toGame, parsed.mainline.take(maxPlies))
           .pipe { case Replay.Result(replay @ Replay(setup, _, state), replayError) =>
-            val (game, result, initialFen, _) = extractData(replay, parsed.tags)
+            val (game, result, initialFen, _, _) = extractData(replay, parsed.tags)
             ImportResult(
               game = game,
               result = result,
@@ -48,8 +48,7 @@ object ParseImport:
         .mainlineWithMetas(pgn)
         .map: parsed =>
           val result = Replay.makeReplay(parsed.toGame, parsed.moves.map(_.san).take(maxPlies))
-          val (game, res, initialFen, tags) = extractData(result.replay, parsed.tags)
-          (game, res, initialFen, tags, extractClocks(parsed))
+          extractData(result.replay, parsed.tags, clockHistory(parsed))
 
   type ImportGameResult = (
       setup: ChessGame,
@@ -59,12 +58,12 @@ object ParseImport:
       clockHistory: Option[ClockHistory]
   )
 
-  def extractData(replay: Replay, tags: Tags): (ChessGame, Option[TagResult], Option[Fen.Full], Tags) =
+  def extractData(replay: Replay, tags: Tags, clockHistory: Option[ClockHistory] = none): ImportGameResult =
     val variant = extractVariant(replay.setup, tags)
     val initialFen = tags.fen.flatMap(Fen.readWithMoveNumber(variant, _)).map(Fen.write)
     val game = replay.state.copy(position = replay.state.position.withVariant(variant))
     val result = extractResult(game, tags)
-    (game, result, initialFen, tags)
+    (game, result, initialFen, tags, clockHistory)
 
   def extractVariant(setup: ChessGame, tags: Tags): Variant =
     inline def initBoard = tags.fen.flatMap(Fen.read).map(_.board)
@@ -102,15 +101,13 @@ object ParseImport:
 
   private val clockRegex = """(?s)\[%clk[ \r\n]+([\d:,\.]+)\]""".r.unanchored
 
-  private def extractClocks(parsed: ParsedMainline[SanWithMetas]): Option[ClockHistory] =
+  private def clockHistory(parsed: ParsedMainline[SanWithMetas]): Option[ClockHistory] =
     val clocks = parsed.moves.map: n =>
       n.metas.comments.flatMap(parseClock).lastOption.getOrElse(Centis(0))
     val whiteRemainder = if parsed.toPosition.color == Color.White then 0 else 1
     val (w, b) = clocks.zipWithIndex.partition { case (_, i) => i % 2 == whiteRemainder }
     val (white, black) = (w.map(_._1).toVector, b.map(_._1).toVector)
-    if white.exists(_.value != 0) || black.exists(_.value != 0) then
-      ClockHistory(w.map(_._1).toVector, b.map(_._1).toVector).some
-    else none
+    (white.exists(_.value != 0) || black.exists(_.value != 0)).option(ClockHistory(white, black))
 
   private def parseClock(c: Comment): Option[Centis] =
     clockRegex
