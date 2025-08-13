@@ -68,7 +68,7 @@ export const boardCommands = (): VNode[] => [
       'shift v: announce computer best move',
       'alt shift v: play computer best move',
       `alt+shift+a/d: ${i18n.site.cyclePreviousOrNextVariation}`,
-      ].reduce(addBreaks, []),
+    ].reduce(addBreaks, []),
   ]),
 ];
 
