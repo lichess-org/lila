@@ -1,8 +1,8 @@
 package lila.game
 package importer
 
-import chess.format.pgn.PgnStr
 import chess.{ ByColor, ErrorStr, Rated }
+import chess.format.pgn.PgnStr
 import play.api.data.*
 import play.api.data.Forms.*
 
@@ -44,7 +44,7 @@ val form = Form:
   )(ImportData.apply)(unapply)
 
 val parseImport: (PgnStr, Option[UserId]) => Either[ErrorStr, ImportedGame] = (pgn, user) =>
-  ParseImport.game(pgn).map { case (game, result, initialFen, tags) =>
+  ParseImport.game(pgn).map { case (game, result, initialFen, tags, clks) =>
     val dbGame = lila.core.game
       .newImportedGame(
         chess = game,
@@ -56,7 +56,7 @@ val parseImport: (PgnStr, Option[UserId]) => Either[ErrorStr, ImportedGame] = (p
       )
       .sloppy
       .start
-      .pipe: dbGame =>
-        result.fold(dbGame)(res => dbGame.finish(res.status, res.winner))
-    ImportedGame(dbGame, initialFen)
+    val withClock = dbGame.copy(loadClockHistory = _ => clks)
+    val finished = result.fold(withClock)(res => withClock.finish(res.status, res.winner))
+    ImportedGame(finished, initialFen)
   }
