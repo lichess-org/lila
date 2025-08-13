@@ -101,24 +101,23 @@ final class UserList(helpers: Helpers, bits: UserBits):
       ):
         main(cls := "page-small box")(
           boxTop(
-          h1(a(href := routes.User.list, dataIcon := Icon.LessThan), title),
-          form(
-            cls := "pager",
-            action := routes.User.top(perfType.key).url,
-            method := "GET"
-          )(
-            input(
-              id := "page",
-              name := "page",
-              tpe := "number",
-              min := 1,
-              placeholder := "Page",
-              cls := "pager__input",
-              attr("inputmode") := "numeric"
+            h1(a(href := routes.User.list, dataIcon := Icon.LessThan), title),
+            form(
+              cls := "pager",
+              action := routes.User.top(perfType.key).url,
+              method := "GET"
+            )(
+              input(
+                id := "page",
+                name := "page",
+                tpe := "number",
+                min := 1,
+                placeholder := "Page",
+                cls := "pager__input",
+                attr("inputmode") := "numeric"
+              )
             )
-          )
-        ),
-
+          ),
           table(cls := "slist slist-pad")(
             tbody(
               users.mapWithIndex: (u, i) =>
