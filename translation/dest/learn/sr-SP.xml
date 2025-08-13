@@ -170,13 +170,13 @@
   <string name="stalemate">Пат</string>
   <string name="theGameIsADraw">Партија је нерешена</string>
   <string name="stalemateIntro">Када играч није у шаху и нема ниједан легалан потез, то је пат. Партија је нерешена: нико не побеђује, нико не губи.</string>
-  <string name="stalemateGoal">Да патирате црног:
+  <string name="stalemateGoal">Да патираш црног:
 - Црни не може нигде да се помери
 - Нема шаха.</string>
-  <string name="stalemateComplete">Честитамо! Боље бити патиран него матиран!</string>
+  <string name="stalemateComplete">Честитке! Боље бити патиран него матиран!</string>
   <string name="advanced">Напредно</string>
   <string name="pieceValue">Вредност фигуре</string>
-  <string name="evaluatePieceStrength">Процените снагу фигуре</string>
+  <string name="evaluatePieceStrength">Процени снагу фигуре</string>
   <string name="pieceValueIntro">Фигуре са већом покретљивости имају вишу вредност!
 Дама = 9
 Топ = 5
