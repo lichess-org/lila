@@ -112,7 +112,7 @@ export function selectionHandler(getOpponentColor: () => Color, isTouchDevice = 
         $boardLive.text(keyText(ev.target as HTMLElement) + ' not selectable');
       } else {
         $moveBox.val(pos);
-        clear('selection');
+        clearBoardAttributes('selection');
         $evBtn.addClass('selected');
         $evBtn.text($evBtn.attr('text') + ' selected');
       }
@@ -146,7 +146,7 @@ export function selectionHandler(getOpponentColor: () => Color, isTouchDevice = 
           }
           return;
         }
-        clear('selection');
+        clearBoardAttributes('selection');
         $('#move-form').trigger('submit');
       } else {
         const first = input.substring(0, 2);
@@ -155,12 +155,12 @@ export function selectionHandler(getOpponentColor: () => Color, isTouchDevice = 
           const promoteTo = $evBtn.attr('promoteTo');
           if (promoteTo) {
             if (promoteTo === 'x') {
-              clear('promotion');
+              clearBoardAttributes('promotion');
               $moveBox.val('');
               $boardLive.text('promotion cancelled');
             } else {
               $moveBox.val($moveBox.val() + promoteTo);
-              clear('all');
+              clearBoardAttributes('all');
               $('#move-form').trigger('submit');
             }
           }
@@ -170,11 +170,12 @@ export function selectionHandler(getOpponentColor: () => Color, isTouchDevice = 
   };
 }
 
-function clear(what: 'promotion' | 'selection' | 'all') {
+export function clearBoardAttributes(what: 'promotion' | 'selection' | 'eval' | 'all'): void {
   const $allSquares = $(`.board-wrapper button`);
   $allSquares.each(function (this: HTMLElement) {
     if (what === 'promotion' || what === 'all') this.removeAttribute('promoteTo');
     if (what === 'selection' || what === 'all') this.classList.remove('selected');
+    if (what === 'eval' || what === 'all') this.removeAttribute('eval');
     this.textContent = this.getAttribute('text');
   });
 }

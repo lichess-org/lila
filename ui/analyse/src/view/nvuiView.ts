@@ -24,6 +24,7 @@ import {
   renderPockets,
   pocketsStr,
   leaveSquareHandler,
+  clearBoardAttributes,
 } from 'lib/nvui/chess';
 import { liveText } from 'lib/nvui/notify';
 import { renderSetting } from 'lib/nvui/setting';
@@ -249,6 +250,22 @@ function boardEventsHook(
   $buttons.on('blur', leaveSquareHandler($buttons));
   $buttons.on('click', selectionHandler(opponentColor));
   $buttons.on('keydown', (e: KeyboardEvent) => {
+    const $evBtn = $(e.target as HTMLElement);
+    if (e.key === 'v') {
+      // state machine: speak-eval, speak-best-move, play-best-move
+      if (!$evBtn.attr('eval')) {
+        $evBtn.attr('eval', 'speak-eval');
+        notify.set(renderEvalAndDepth(ctrl));
+      } else if ($evBtn.attr('eval') == 'speak-eval') {
+        $evBtn.attr('eval', 'speak-best-move');
+        notify.set(renderBestMove({ ctrl, moveStyle } as AnalyseNvuiContext));
+      } else {
+        $evBtn.removeAttr('eval');
+        ctrl.playBestMove();
+      }
+    } else {
+      clearBoardAttributes('eval');
+    }
     if (e.shiftKey && e.key.match(/^[ad]$/i)) jumpMoveOrLine(ctrl)(e);
     else if (e.key.match(/^x$/i))
       scanDirectionsHandler(ctrl.bottomColor(), ctrl.chessground.state.pieces, moveStyle.get())(e);
@@ -267,12 +284,6 @@ function boardEventsHook(
     else if (e.key.match(/^[kqrbnp]$/i)) pieceJumpingHandler(selectSound, errorSound)(e);
     else if (e.key.toLowerCase() === 'm')
       possibleMovesHandler(ctrl.turnColor(), ctrl.chessground, ctrl.data.game.variant.key, ctrl.nodeList)(e);
-    else if (e.key.toLowerCase() === 'v') {
-      if (e.shiftKey) {
-        if (e.altKey) ctrl.playBestMove();
-        else notify.set(renderBestMove({ ctrl, moveStyle } as AnalyseNvuiContext));
-      } else notify.set(renderEvalAndDepth(ctrl));
-    }
   });
 }
 
