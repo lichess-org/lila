@@ -284,7 +284,9 @@ final class User(
       }
     else topNbUsers(nb, perfKey).flatMap { case (users, _, _) => topNbJson(users) }
 
-  private def topNbUsers(nb: Int, perfKey: PerfKey)(using ctx: Context): Fu[(List[LightPerf], PerfType, Int)] =
+  private def topNbUsers(nb: Int, perfKey: PerfKey)(using
+      ctx: Context
+  ): Fu[(List[LightPerf], PerfType, Int)] =
     val perPage = nb.atLeast(1).atMost(200)
     val page = ctx.req.getQueryString("page").flatMap(_.toIntOption).getOrElse(1).atLeast(1)
     val skip = (page - 1) * perPage
@@ -298,9 +300,8 @@ final class User(
         env.user.cached.topPerfPage
           .get(perfKey.id -> page)
 
-    fut.dmap: users => 
+    fut.dmap: users =>
       (users, PerfType(perfKey), page)
-
 
   private def topNbJson(users: List[LightPerf]) =
     given OWrites[LightPerf] = OWrites(env.user.jsonView.lightPerfIsOnline)
