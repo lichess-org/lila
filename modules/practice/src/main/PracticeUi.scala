@@ -12,14 +12,14 @@ final class PracticeUi(helpers: Helpers)(
     csp: Update[ContentSecurityPolicy],
     explorerAndCevalConfig: Context ?=> JsObject,
     modMenu: Context ?=> Frag
-):
+) extends practiceFragments(helpers):
   import helpers.{ *, given }
   import trans.practice as trp
 
   def show(us: UserStudy, data: JsonView.JsData)(using ctx: Context) =
     Page(us.practiceStudy.name.value)
       .css("analyse.practice")
-      .i18n(_.practice, _.puzzle, _.study)
+      .i18n(_.puzzle, _.study)
       .i18nOpt(ctx.blind, _.keyboardMove, _.nvui)
       .js(analyseNvuiTag)
       .js(
@@ -37,14 +37,6 @@ final class PracticeUi(helpers: Helpers)(
         main(cls := "analyse")
 
   def index(data: lila.practice.UserPractice)(using ctx: Context) =
-    def sectionHeader(name: String): RawFrag = name match
-      case "Checkmates" => trp.secHeadCheckmates()
-      case "Basic Tactics" => trp.secHeadBasicTactics()
-      case "Intermediate Tactics" => trp.secHeadIntermediateTactics()
-      case "Pawn Endgames" => trp.secHeadPawnEndgames()
-      case "Rook Endgames" => trp.secHeadRookEndgames()
-      case other => RawFrag(other)
-
     Page(s"${trp.practiceChess.txt()} - ${trp.makesPerfect.txt()}")
       .css("bits.practice.index")
       .i18n(_.practice)
@@ -76,13 +68,13 @@ final class PracticeUi(helpers: Helpers)(
           div(cls := "page-menu__content practice-app")(
             data.structure.sections.filter(s => !s.hide || Granter.opt(_.PracticeConfig)).map { section =>
               st.section(
-                h2(sectionHeader(section.name)),
+                h2(sectionHeader(section.name).txt()),
                 div(cls := "studies")(
                   section.studies.filter(s => !s.hide || Granter.opt(_.PracticeConfig)).map { stud =>
                     val prog = data.progressOn(stud.id)
                     a(
                       cls := s"study ${if prog.complete then "done" else "ongoing"}",
-                      href := routes.Practice.show(section.id, stud.slug, stud.id) // TODO: langHref
+                      href := routes.Practice.show(section.id, stud.slug, stud.id)
                     )(
                       ctx.isAuth.option(
                         span(cls := "ribbon-wrapper")(
@@ -91,8 +83,8 @@ final class PracticeUi(helpers: Helpers)(
                       ),
                       i(cls := s"${stud.id}"),
                       span(cls := "text")(
-                        h3(stud.name),
-                        em(stud.desc)
+                        h3(studyName(stud.name.value).txt()),
+                        em(studiesDesc(stud.desc).txt())
                       )
                     )
                   }
