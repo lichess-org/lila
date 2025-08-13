@@ -53,9 +53,9 @@
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Стрілки лише для можливих ходів</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Писати в чат \"Хороша гра, добре зіграно\" після поразки або нічиєї</string>
   <string name="yourPreferencesHaveBeenSaved">Ваші налаштування збережено.</string>
-  <string name="scrollOnTheBoardToReplayMoves">Прокрутіть колесом миші на дошці, для того щоб відтворити ходи</string>
+  <string name="scrollOnTheBoardToReplayMoves">Прокрутити колесом миші на дошці, для відтворення ходів</string>
   <string name="correspondenceEmailNotification">Щоденне сповіщення на електронну пошту зі списком ваших заочних ігор</string>
-  <string name="notifyStreamStart">Стример почав трансляцію</string>
+  <string name="notifyStreamStart">Стрімер почав трансляцію</string>
   <string name="notifyInboxMsg">Нове вхідне повідомлення</string>
   <string name="notifyForumMention">Вас згадали у коментарі на форумі</string>
   <string name="notifyInvitedStudy">Запрошення до студії</string>
