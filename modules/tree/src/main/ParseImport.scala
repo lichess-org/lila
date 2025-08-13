@@ -100,7 +100,7 @@ object ParseImport:
             .map(TagResult(status, _))
       }
 
-  private val clockRegex = """(?s)\[%clk[ \r\n]+([\d:\.]+)\]""".r.unanchored
+  private val clockRegex = """(?s)\[%clk[ \r\n]+([\d:,\.]+)\]""".r.unanchored
 
   private def extractClocks(parsed: ParsedMainline[SanWithMetas]): Option[ClockHistory] =
     val clocks = parsed.moves.map: n =>
