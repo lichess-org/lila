@@ -267,7 +267,14 @@ function boardEventsHook(
     else if (e.key.match(/^[kqrbnp]$/i)) pieceJumpingHandler(selectSound, errorSound)(e);
     else if (e.key.toLowerCase() === 'm')
       possibleMovesHandler(ctrl.turnColor(), ctrl.chessground, ctrl.data.game.variant.key, ctrl.nodeList)(e);
-    else if (e.key.toLowerCase() === 'v') notify.set(renderEvalAndDepth(ctrl));
+    else if (e.key.toLowerCase() === 'v') {
+       if(e.shiftKey) {
+        if(e.altKey) ctrl.playBestMove();
+        else notify.set(renderBestMove({ ctrl, moveStyle } as AnalyseNvuiContext));
+       }
+       else
+       notify.set(renderEvalAndDepth(ctrl));
+    }
   });
 }
 
