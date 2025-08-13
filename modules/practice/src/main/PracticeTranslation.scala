@@ -57,7 +57,7 @@ class practiceFragments(helpers: Helpers):
     "Challenging checkmates" -> trp.stDesChallengingCheckmates,
     "Interactive lesson" -> trp.stDesInteractiveLesson,
     "Pin it to win it" -> trp.stDesPinItToWinIt,
-    "Yum - skewers" -> trp.stDesYumSkewers,
+    "Yum - skewers!" -> trp.stDesYumSkewers,
     "Use the fork, Luke" -> trp.stDesUseTheForkLuke,
     "Including discovered checks" -> trp.stDesIncludingDiscoveredChecks,
     "A very powerful tactic" -> trp.stDesAVeryPowerfulTactic,
