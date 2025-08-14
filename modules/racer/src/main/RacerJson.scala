@@ -38,12 +38,14 @@ final class RacerJson:
     .add("startsIn", race.startsInMillis)
 
   // API race results
-  def apiResults(race: RacerRace) = Json.obj(
-    "id" -> race.id.value,
-    "players" -> race.players,
-    "puzzles" -> race.puzzles,
-    "finished" -> race.finished,
-    "hasStarted" -> race.hasStarted
-  ).add("lobby", race.isLobby)
-   .add("startsIn", race.startsInMillis)
-   .add("finishesAt", race.finishesAt.map(_.toMillis))
+  def apiResults(race: RacerRace) = Json
+    .obj(
+      "id" -> race.id.value,
+      "players" -> race.players,
+      "puzzles" -> race.puzzles,
+      "finished" -> race.finished,
+      "hasStarted" -> race.hasStarted
+    )
+    .add("lobby", race.isLobby)
+    .add("startsIn", race.startsInMillis)
+    .add("finishesAt", race.finishesAt.map(_.toMillis))
