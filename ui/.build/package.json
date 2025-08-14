@@ -6,24 +6,24 @@
   "license": "AGPL-3.0-or-later",
   "type": "module",
   "optionalDependencies": {
-    "sass-embedded-darwin-arm64": "1.85.0",
-    "sass-embedded-darwin-x64": "1.85.0",
-    "sass-embedded-linux-arm64": "1.85.0",
-    "sass-embedded-linux-x64": "1.85.0",
-    "sass-embedded-win32-arm64": "1.85.0",
-    "sass-embedded-win32-x64": "1.85.0"
+    "sass-embedded-darwin-arm64": "1.90.0",
+    "sass-embedded-darwin-x64": "1.90.0",
+    "sass-embedded-linux-arm64": "1.90.0",
+    "sass-embedded-linux-x64": "1.90.0",
+    "sass-embedded-win32-arm64": "1.90.0",
+    "sass-embedded-win32-x64": "1.90.0"
   },
   "dependencies": {
     "@types/micromatch": "4.0.9",
-    "@types/node": "24.0.15",
+    "@types/node": "24.2.1",
     "@types/tinycolor2": "1.4.6",
-    "esbuild": "0.25.7",
+    "esbuild": "0.25.9",
     "fast-glob": "3.3.3",
     "fast-xml-parser": "5.2.5",
     "json-stringify-pretty-compact": "4.0.0",
     "micromatch": "4.0.8",
     "tinycolor2": "1.6.0",
-    "typescript": "5.8.3"
+    "typescript": "5.9.2"
   },
   "scripts": {
     "dev": "node --experimental-strip-types --no-warnings src/main.ts $@"

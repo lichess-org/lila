@@ -362,8 +362,9 @@ POST  /streamer/:username/check        controllers.Streamer.checkOnline(username
 
 # Private Play
 
-GET   /bots                            controllers.JsBot.index
+GET   /bots                           controllers.JsBot.index
 GET   /bots/assets                    controllers.JsBot.assetKeys
+# GET   /bots/test                      controllers.JsBot.test
 GET   /bots/dev                       controllers.JsBot.devIndex
 GET   /bots/dev/history               controllers.JsBot.devBotHistory(id: Option[UserStr])
 POST  /bots/dev/bot                   controllers.JsBot.devPostBot

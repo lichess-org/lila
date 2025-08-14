@@ -36,7 +36,7 @@ class SetupDialog {
   async show() {
     const dlg = await domDialog({
       class: 'game-setup base-view setup-view',
-      css: [{ hashed: 'bot-dev.setup' }],
+      css: [{ hashed: 'botDev.setup' }],
       htmlText: $html`
         <div class="main-content">
           <div class="with-cards snap-pane">

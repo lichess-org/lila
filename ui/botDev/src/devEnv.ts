@@ -1,4 +1,5 @@
 import type { DevBotCtrl } from './devBotCtrl';
+//import type { BotLoader } from 'lib/bot/botLoader';
 import type { DevCtrl } from './devCtrl';
 import type { GameCtrl } from './gameCtrl';
 import type { LocalDb } from './localDb';
@@ -24,20 +25,6 @@ export class DevEnv {
   round: RoundController;
 
   redraw: () => void;
-
-  get user(): string {
-    return myUserId() ?? 'anonymous';
-  }
-
-  get username(): string {
-    return myUsername() ?? 'Anonymous';
-  }
-
-  nameOf(uid?: string): string {
-    return !uid || uid === this.user
-      ? this.username
-      : (uid.startsWith('#') && this.bot.bots.get(uid)?.name) || uid.charAt(0).toUpperCase() + uid.slice(1);
-  }
 
   constructor(cfg: Partial<DevEnv>) {
     Object.assign(this, cfg);
