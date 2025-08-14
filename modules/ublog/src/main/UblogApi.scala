@@ -13,7 +13,6 @@ import lila.core.user.KidMode
 import lila.core.ublog.{ BlogsBy, Quality }
 import lila.core.timeline.{ Propagate, UblogPostLike }
 import lila.common.LilaFuture.delay
-import lila.core.userId.UserStr.couldBeUsername
 
 final class UblogApi(
     colls: UblogColls,
@@ -164,7 +163,10 @@ final class UblogApi(
     val automodNotes = assessment.map: r =>
       ~r.flagged.map("Flagged: " + _ + "\n") +
         ~r.commercial.map("Commercial: " + _ + "\n") +
-        ~(emdashes > 0).option(s"#### $emdashes emdashes found\n")
+        (emdashes match
+          case 0 => ""
+          case 1 => s"#### 1 emdash found\n"
+          case n => s"$n emdashes found\n")
     irc.ublogPost(
       user,
       id = post.id,
