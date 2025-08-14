@@ -12,9 +12,8 @@ object Rewind:
       .map { rewindedGame =>
         val color = game.turnColor
         val newClock = game.clock.map(_.takeback).map { clk =>
-          game.clockHistory.flatMap(_.last(color)).fold(clk) { t =>
-            clk.setRemainingTime(color, t)
-          }
+          clk.updatePlayer(color): clkPlayer =>
+            clkPlayer.setRemaining(game.clockHistory.flatMap(_.last(color)).getOrElse(clkPlayer.limit))
         }
         val newGame = game.copy(
           players = game.players.map(_.removeTakebackProposition),
