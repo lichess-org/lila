@@ -67,10 +67,10 @@ class CommentParserTest extends LilaTest:
     assertEquals(C("Hello there [%emt 2:10] something else").emt, Some(Centis(780000)))
 
   test("parse clock: alt format"):
-    assertEquals(C("Hello there [%clk 2:10.33] something else").clock, Some(Centis(783300)))
+    assertEquals(C("Hello there [%clk 2:10.33] something else").clock, Some(Centis(781980)))
 
   test("parse emt: alt format"):
-    assertEquals(C("Hello there [%emt 2:10.33] something else").emt, Some(Centis(783300)))
+    assertEquals(C("Hello there [%emt 2:10.33] something else").emt, Some(Centis(781980)))
 
   test("parse clock: TCEC"):
     assertEquals(

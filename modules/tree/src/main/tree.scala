@@ -413,7 +413,7 @@ object Node:
 
     private val clockRegex = """(?s)\[%clk[\s\r\n]++([\d:,\.]++)\]""".r.unanchored
     private val emtRegex = """(?s)\[\%emt[\s\r\n]++([\d:,\.]++)\]""".r.unanchored
-    private val tcecClockRegex = """(?s)tl=([\d:,\.]++)""".r.unanchored
+    private val tcecClockRegex = """(?s)tl=([\d:\.]++)""".r.unanchored
     private val metaReg = """\[%[^\]]++\]""".r
 
     opaque type Text = String
@@ -442,12 +442,14 @@ object Node:
         .findFirstMatchIn(text)
         .map(_.group(1))
         .map: time =>
-          val ticks = time.split(":")
-          val (h, m) = ticks.length match
-            case 3 => (ticks(0).toInt, ticks(1).toInt)
-            case 2 => (0, ticks(0).toInt)
-            case _ => (0, 0)
-          Centis((((h * 3600 + m * 60) + ticks.last.replace(',', '.').toDouble) * 100).toInt)
+          val t = time.split(":")
+          val (h, m, s) = t.length match
+            case 3 => (t(0).toInt, t(1).toInt, t(2).toDouble)
+            case 2 =>
+              val whole = t(1).toDouble.toInt
+              (t(0).toInt, whole, (t(1).toDouble - whole) * 60d)
+            case _ => (0, 0, 0d)
+          Centis(((h * 3600 + m * 60) * 100 + math.round(s * 100)).toInt)
 
     def sanitize(text: String) = Text:
       softCleanUp(text)
