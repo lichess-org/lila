@@ -5,6 +5,8 @@ import lila.core.i18n.LangPicker
 import lila.core.challenge.PositiveEvent
 import lila.core.socket.SendTo
 import lila.memo.CacheApi.*
+import cats.mtl.Raise
+import cats.mtl.implicits.*
 
 final class ChallengeApi(
     repo: ChallengeRepo,
@@ -78,7 +80,7 @@ final class ChallengeApi(
           case _ => false
       })
 
-  val countInFor = cacheApi[UserId, Int](131072, "challenge.countInFor"):
+  val countInFor = cacheApi[UserId, Int](131_072, "challenge.countInFor"):
     _.expireAfterAccess(15.minutes).buildAsyncFuture(repo.countCreatedByDestId)
 
   def createdByChallengerId = repo.createdByChallengerId()
@@ -122,17 +124,17 @@ final class ChallengeApi(
       c: Challenge,
       sid: Option[String],
       requestedColor: Option[Color] = None
-  )(using me: Option[Me]): Fu[Either[String, Option[Pov]]] =
+  )(using me: Option[Me]): Raise[Fu, String] ?=> Fu[Option[Pov]] =
     acceptQueue:
-      def withPerf = me.map(_.value).soFu(userApi.withPerf(_, c.perfType))
+      def withPerf = me.map(_.value).traverse(userApi.withPerf(_, c.perfType))
       if c.canceled
-      then fuccess(Left("The challenge has been canceled."))
+      then "The challenge has been canceled.".raise
       else if c.declined
-      then fuccess(Left("The challenge has been declined."))
+      then "The challenge has been declined.".raise
       else if me.exists(_.isBot) && !c.clock.map(_.config).forall(lila.core.game.isBotCompatible)
-      then fuccess(Left("Game incompatible with a BOT account"))
+      then "Game incompatible with a BOT account".raise
       else if c.open.exists(!_.canJoin)
-      then fuccess(Left("The challenge is not for you to accept."))
+      then "The challenge is not for you to accept.".raise
       else
         val openFixedColor = for
           me <- me
@@ -145,9 +147,9 @@ final class ChallengeApi(
           for
             me <- withPerf
             _ <- repo.setChallenger(c.setChallenger(me, sid), color)
-          yield none.asRight
+          yield none
         else if color.map(Challenge.ColorChoice.apply).has(c.colorChoice)
-        then fuccess(Left("This color has already been chosen"))
+        then "This color has already been chosen".raise
         else
           for
             me <- withPerf
@@ -160,8 +162,8 @@ final class ChallengeApi(
                   Bus.pub(PositiveEvent.Accept(c, me.map(_.id)))
                   c.rematchOf.foreach: gameId =>
                     Bus.pub(lila.game.actorApi.NotifyRematch(gameId, pov.game))
-                  Right(pov.some)
-              case Left(err) => fuccess(Left(err))
+                  pov.some
+              case Left(err) => err.raise
           yield result
 
   def offerRematchForGame(game: Game, user: User): Fu[Boolean] =

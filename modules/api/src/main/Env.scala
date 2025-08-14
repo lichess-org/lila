@@ -112,9 +112,8 @@ final class Env(
   Bus.sub[Lpv]:
     case Lpv.AllPgnsFromText(text, max, p) => p.completeWith(textLpvExpand.allPgnsFromText(text, max))
     case Lpv.LinkRenderFromText(text, p) => p.completeWith(textLpvExpand.linkRenderFromText(text))
-  Bus.sub[lila.core.security.GarbageCollect]:
-    case lila.core.security.GarbageCollect(userId) =>
-      accountTermination.garbageCollect(userId)
+  Bus.sub[lila.core.security.GarbageCollect]: gc =>
+    accountTermination.garbageCollect(gc.userId)
   Bus.sub[lila.core.playban.RageSitClose]: close =>
     accountTermination.lichessDisable(close.userId)
 

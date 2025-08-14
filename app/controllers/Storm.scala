@@ -16,7 +16,7 @@ final class Storm(env: Env) extends LilaController(env):
 
   private def dataAndHighScore(pref: Option[lila.pref.Pref])(using me: Option[Me]) = for
     puzzles <- env.storm.selector.apply
-    high <- me.soFu(m => env.storm.highApi.get(m.userId))
+    high <- me.traverse(m => env.storm.highApi.get(m.userId))
   yield env.storm.json(puzzles, me, pref) -> high
 
   def apiGet = AnonOrScoped(_.Puzzle.Read, _.Web.Mobile): ctx ?=>

@@ -328,6 +328,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
    * /api/account/playing
    * /tournament/featured
    * /inbox/unread-count
+   * /api/challenge
    */
   def mobileHome = AnonOrScoped(_.Web.Mobile) { ctx ?=>
     limit.apiMobileHome(ctx.userId | ctx.ip, rateLimited):

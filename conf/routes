@@ -57,6 +57,7 @@ POST  /rel/follow/:user                controllers.Relation.followBc(user: UserS
 GET   /@/:username/following           controllers.Relation.following(username: UserStr, page: Int ?= 1)
 GET   /@/:username/followers           controllers.Relation.followers(username: UserStr, page: Int ?= 1)
 GET   /rel/blocks                      controllers.Relation.blocks(page: Int ?= 1)
+POST  /rel/:action/:user               controllers.Relation.bcAction(action: String, user: UserStr)
 
 # Insight
 POST  /insights/refresh/:username      controllers.Insight.refresh(username: UserStr)
@@ -361,8 +362,9 @@ POST  /streamer/:username/check        controllers.Streamer.checkOnline(username
 
 # Private Play
 
-GET   /bots                            controllers.JsBot.index
+GET   /bots                           controllers.JsBot.index
 GET   /bots/assets                    controllers.JsBot.assetKeys
+# GET   /bots/test                      controllers.JsBot.test
 GET   /bots/dev                       controllers.JsBot.devIndex
 GET   /bots/dev/history               controllers.JsBot.devBotHistory(id: Option[UserStr])
 POST  /bots/dev/bot                   controllers.JsBot.devPostBot

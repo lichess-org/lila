@@ -227,7 +227,7 @@ final class Ublog(env: Env) extends LilaController(env):
         case JsError(errors) => fuccess(BadRequest(errors.flatMap(_._2.map(_.message)).mkString(", ")))
         case JsSuccess(data, _) =>
           for
-            mod <- env.ublog.api.modPost(post, data)
+            mod <- env.ublog.api.modPost(post, data, me.userId)
             featured <- env.ublog.api.setFeatured(post, data)
             carousel <- env.ublog.api.fetchCarouselFromDb()
           yield

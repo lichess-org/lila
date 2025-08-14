@@ -80,7 +80,7 @@ final class PuzzleComplete(
                             none,
                             PuzzleDifficulty.fromReqSession(ctx.req)
                           )
-                          nextJson <- next.soFu:
+                          nextJson <- next.traverse:
                             given Perf = perf
                             jsonView.analysis(_, angle, none, Me.from(newMe.user.some))
                         yield Json.obj(

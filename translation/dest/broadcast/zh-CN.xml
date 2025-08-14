@@ -61,7 +61,6 @@
   <string name="startVerySoon">转播将很快开始。</string>
   <string name="notYetStarted">转播尚未开始。</string>
   <string name="officialWebsite">官网</string>
-  <string name="standings">积分榜</string>
   <string name="officialStandings">官方排名</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">%s 上的更多选项</string>
   <string name="webmastersPage">网页管理员页面</string>

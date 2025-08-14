@@ -7,11 +7,11 @@
     <item quantity="other">%s tagok</item>
   </plurals>
   <string name="allTeams">Összes csapat</string>
-  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Csapatok amiket te vezetsz</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Csapatok, amiket te vezetsz</string>
   <string name="newTeam">Új csapat</string>
   <string name="myTeams">Csapataim</string>
   <string name="noTeamFound">Nem található ilyen csapat</string>
-  <string name="joinTeam">Csapathoz csatlakozás</string>
+  <string name="joinTeam">Csatlakozás a csapathoz</string>
   <string name="onlyLeaderLeavesTeam">Kérjük válassz egy új csapatvezetőt mielőtt kilépsz, vagy szüntesd meg a csapatot.</string>
   <string name="quitTeam">Kilépés a csapatból</string>
   <string name="manuallyReviewAdmissionRequests">Egyénenkénti csatlakozási kérelmek</string>

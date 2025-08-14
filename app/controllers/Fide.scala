@@ -27,7 +27,7 @@ final class Fide(env: Env) extends LilaController(env):
             for
               user <- env.title.api.publicUserOf(player.id)
               tours <- env.relay.playerTour.playerTours(player, page)
-              isFollowing <- ctx.me.soFu(me => env.fide.repo.follower.isFollowing(me.userId, id))
+              isFollowing <- ctx.userId.traverse(env.fide.repo.follower.isFollowing(_, id))
               rendered <- renderPage(views.fide.player.show(player, user, tours, isFollowing))
             yield Ok(rendered)
 

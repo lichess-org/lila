@@ -87,7 +87,7 @@ final class GarbageCollector(
     justOnce(user.id).so:
       hasBeenCollectedBefore(user).not.mapz:
         val armed = isArmed()
-        val wait = if quickly then 3.seconds else (10 + ThreadLocalRandom.nextInt(20)).minutes
+        val wait = if quickly then 3.seconds else (10 + ThreadLocalRandom.nextInt(30)).minutes
         logger.info:
           s"Will dispose of https://lichess.org/${user.username} in $wait. $msg${(!armed).so(" [DRY]")}"
         noteApi.lichessWrite(user, s"Garbage collection in $wait because of $msg")
@@ -95,7 +95,10 @@ final class GarbageCollector(
           for
             _ <- userRepo.setAlt(user.id, true)
             _ <- waitForCollection(user.id, nowInstant.plus(wait))
-          do Bus.pub(lila.core.security.GarbageCollect(user.id))
+            stillAlted <- userRepo.isAlt(user.id)
+          do
+            if stillAlted
+            then Bus.pub(lila.core.security.GarbageCollect(user.id))
 
   private def hasBeenCollectedBefore(user: User): Fu[Boolean] =
     noteApi.toUserForMod(user.id).map(_.exists(_.text.startsWith("Garbage collect")))
@@ -110,5 +113,5 @@ final class GarbageCollector(
         .flatMap: game =>
           if game.exists(_.playedPlies > 25) then funit
           else
-            LilaFuture.delay(if game.isDefined then 10.seconds else 30.seconds):
+            LilaFuture.delay(if game.isDefined then 12.seconds else 40.seconds):
               waitForCollection(userId, max)

@@ -5,6 +5,7 @@ import { alert } from 'lib/view/dialogs';
 import { zip } from 'lib/algo';
 import { env } from './devEnv';
 import { pubsub } from 'lib/pubsub';
+import { myUserId } from 'lib';
 
 // dev asset keys are a 12 digit hex hash of the asset contents (plus the file extension for image/sound)
 // dev asset names are strictly cosmetic and can be renamed at any time
@@ -100,7 +101,7 @@ export class DevAssets {
       return {
         key,
         type,
-        author: env.user,
+        author: myUserId() ?? 'anonymous',
         name: this.idb[type].keyNames.get(key) ?? key,
         blob: this.idb[type].get(key).then(data => data.blob),
       };
@@ -113,7 +114,7 @@ export class DevAssets {
     if (extpos === -1) throw new Error('filename must have extension');
     const [name, ext] = [blobname.slice(0, extpos), blobname.slice(extpos + 1)];
     const key = `${await hashBlob(blob)}.${ext}`;
-    await this.idb[type].put(key, { blob, name, user: env.user });
+    await this.idb[type].put(key, { blob, name, user: myUserId() ?? 'anonymous' });
     if (!this.urls[type].has(key)) this.urls[type].set(key, URL.createObjectURL(blob));
     return key;
   }
@@ -156,8 +157,8 @@ export class DevAssets {
     if (!book.cover) throw new Error(`error parsing ${blobname}`);
     const key = await hashBlob(blob);
     const name = blobname.endsWith('.bin') ? blobname.slice(0, -4) : blobname;
-    const asset = { blob: blob, name, user: env.user };
-    const cover = { blob: book.cover, name, user: env.user };
+    const asset = { blob: blob, name, user: myUserId() ?? 'anonymous' };
+    const cover = { blob: book.cover, name, user: myUserId() ?? 'anonymous' };
     await Promise.all([this.idb.book.put(key, asset), this.idb.bookCover.put(key, cover)]);
     this.urls.bookCover.set(key, URL.createObjectURL(new Blob([book.cover], { type: 'image/png' })));
     return key;
@@ -182,8 +183,8 @@ export class DevAssets {
     }
     const oldKey = [...this.idb.book.keyNames.entries()].find(([, n]) => n === name)?.[0];
     const key = await hashBlob(result.polyglot);
-    const asset = { blob: result.polyglot, name, user: env.user };
-    const cover = { blob: result.cover, name, user: env.user };
+    const asset = { blob: result.polyglot, name, user: myUserId() ?? 'anonymous' };
+    const cover = { blob: result.cover, name, user: myUserId() ?? 'anonymous' };
     await Promise.all([this.idb.book.put(key, asset), this.idb.bookCover.put(key, cover)]);
 
     const promises: Promise<void>[] = [];

@@ -60,7 +60,6 @@
   <string name="startVerySoon">Emitovanje će ubrzo započeti.</string>
   <string name="notYetStarted">Emitovanje još nije počelo.</string>
   <string name="officialWebsite">Oficijelna web-stranica</string>
-  <string name="standings">Rang lista</string>
   <string name="officialStandings">Oficijelna rang lista</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Više opcija na %s</string>
   <string name="webmastersPage">stranica web-mastera</string>

@@ -77,7 +77,7 @@ final class TeamInfoApi(
     requests <- (team.enabled && member.exists(_.hasPerm(_.Request))).so(api.requestsWithUsers(team.team))
     myRequest <- member.isEmpty.so(me.so(m => requestRepo.find(team.id, m.id)))
     subscribed <- member.so(api.isSubscribed(team.team, _))
-    forumPosts <- withForum(member).soFu(forumRecent(team.id))
+    forumPosts <- withForum(member).optionFu(forumRecent(team.id))
     tours <- tournaments(team.team, 5, 5)
     simuls <- simulApi.byTeamLeaders(team.id, team.leaders.toSeq)
   yield TeamInfo(

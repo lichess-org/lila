@@ -3,6 +3,7 @@
   <string name="donate">کمک مالی</string>
   <string name="donateAsX">به عنوان %s اهدا کنید</string>
   <string name="lichessPatron">یاورِ Lichess</string>
+  <string name="patronSince" comment="%s is a date e.g. &quot;21 Jan 2025&quot;,&#10;meaning the final text would be something like &quot;Patron since 21 Jan 2025&quot;.">حامی از %s</string>
   <string name="freeAccount">حساب کاربری رایگان</string>
   <string name="becomePatron">یاور Lichess بشوید</string>
   <string name="xBecamePatron">%s یاور Lichess شد</string>
@@ -43,7 +44,7 @@
 یا شما می‌توانید %s.</string>
   <string name="contactSupport">با پشتیبانیِ Lichess تماس بگیرید</string>
   <string name="otherMethods">روشهای دیگر برای کمک مالی؟</string>
-  <string name="lichessIsRegisteredWith">وبگاه Lichess در %s ثبت شده است.</string>
+  <string name="lichessIsRegisteredWith">وبگاه لیچس در %s ثبت شده است.</string>
   <string name="bankTransfers">ما انتقالهای بانکی را هم قبول می‌کنیم</string>
   <string name="onlyDonationFromAbove">لطفاً توجه داشته باشید که فقط برگه کمک مالی بالا، جایگاه حامی را به ارمغان می‌آورد.</string>
   <string name="patronFeatures">آیا برخی ویژگیها فقط برای پشتیبان‌ها قابل دسترس است؟</string>

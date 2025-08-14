@@ -12,7 +12,7 @@ final private[setup] class Processor(
 )(using Executor, lila.core.game.IdGenerator, lila.core.game.NewPlayer):
 
   def ai(config: AiConfig)(using me: Option[Me]): Fu[Pov] = for
-    me <- me.map(_.value).soFu(userApi.withPerf(_, config.perfType))
+    me <- me.map(_.value).traverse(userApi.withPerf(_, config.perfType))
     pov <- config.pov(me)
     _ <- gameRepo.insertDenormalized(pov.game)
     _ = onStart.exec(pov.gameId)

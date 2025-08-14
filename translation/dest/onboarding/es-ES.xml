@@ -3,16 +3,16 @@
   <string name="logInAsUsername">Iniciar sesión como %s</string>
   <string name="welcome">¡Bienvenido!</string>
   <string name="welcomeToLichess">¡Bienvenido a lichess.org!</string>
-  <string name="thisIsYourProfilePage">Este es tu perfil.</string>
-  <string name="enabledKidModeSuggestion">¿Un menor usará esta cuenta? Tal vez quieras habilitar %s.</string>
-  <string name="whatNowSuggestions">¿Y ahora? Aquí hay algunas sugerencias:</string>
-  <string name="learnChessRules">Aprender las reglas del ajedrez</string>
-  <string name="improveWithChessTacticsPuzzles">Mejorar con ejercicios de tácticas.</string>
-  <string name="playTheArtificialIntelligence">Juega con la Inteligencia Artificial.</string>
-  <string name="playOpponentsFromAroundTheWorld">Juega con oponentes de todo el mundo.</string>
+  <string name="thisIsYourProfilePage">Éste es tu perfil.</string>
+  <string name="enabledKidModeSuggestion">¿La cuenta es para un niño? Tal vez quieras habilitar %s.</string>
+  <string name="whatNowSuggestions">¿Y ahora qué? Aquí tienes algunas sugerencias:</string>
+  <string name="learnChessRules">Aprende las reglas del ajedrez</string>
+  <string name="improveWithChessTacticsPuzzles">Mejora haciendo ejercicios de táctica.</string>
+  <string name="playTheArtificialIntelligence">Juega contra una Inteligencia Artificial.</string>
+  <string name="playOpponentsFromAroundTheWorld">Enfréntate a oponentes de todo el mundo.</string>
   <string name="followYourFriendsOnLichess">Sigue a tus amigos en Lichess.</string>
-  <string name="playInTournaments">Juega en torneos.</string>
-  <string name="learnFromXAndY">Aprende de %1$s y %2$s.</string>
+  <string name="playInTournaments">Participa en torneos.</string>
+  <string name="learnFromXAndY">Aprende de los %1$s y de los %2$s.</string>
   <string name="configureLichess">Configura Lichess a tu gusto.</string>
-  <string name="exploreTheSiteAndHaveFun">Explora el sitio y diviértete :)</string>
+  <string name="exploreTheSiteAndHaveFun">Explora el sitio y diviértete 😀</string>
 </resources>

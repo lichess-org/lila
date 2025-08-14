@@ -15,7 +15,6 @@ import lila.core.id.Flair
 import lila.core.perf.{ KeyedPerf, Perf, PerfKey, UserPerfs, UserWithPerfs }
 import lila.core.userId.*
 import lila.core.misc.AtInstant
-import lila.core.plan.PatronMonths
 
 object user:
 
@@ -58,7 +57,7 @@ object user:
 
     def hasTitle: Boolean = title.exists(PlayerTitle.BOT != _)
 
-    def light = LightUser(id, username, title, flair, patronMonths)
+    def light = LightUser(id, username, title, flair, isPatron = isPatron)
 
     def profileOrDefault = profile | Profile.default
 
@@ -74,8 +73,6 @@ object user:
     def withMarks(f: UserMarks => UserMarks) = copy(marks = f(marks))
 
     def isPatron = plan.active
-    def patronMonths = if isPatron then PatronMonths(plan.months) else PatronMonths.zero
-    def patronTier = patronMonths.tier
 
     def isBot = title.contains(PlayerTitle.BOT)
     def noBot = !isBot

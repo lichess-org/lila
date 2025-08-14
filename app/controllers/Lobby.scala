@@ -24,7 +24,7 @@ final class Lobby(env: Env) extends LilaController(env):
       serveHtmlHome,
       json =
         val expiration = 60 * 60 * 24 * 7 // set to one hour, one week before changing the pool config
-        Ok(lobbyJson).withHeaders(CACHE_CONTROL -> s"max-age=$expiration")
+        Ok(lobbyJson).headerCacheSeconds(expiration)
     )
 
   private def serveHtmlHome(using ctx: Context) =
@@ -44,7 +44,7 @@ final class Lobby(env: Env) extends LilaController(env):
   def seeks = OpenOrScoped():
     negotiateJson:
       ctx.me.fold(env.lobby.seekApi.forAnon)(me => env.lobby.seekApi.forMe(using me)).map { seeks =>
-        Ok(JsArray(seeks.map(_.render))).withHeaders(CACHE_CONTROL -> s"max-age=10")
+        Ok(JsArray(seeks.map(_.render))).headerCacheSeconds(10)
       }
 
   def timeline = Auth { _ ?=> me ?=>
@@ -52,5 +52,5 @@ final class Lobby(env: Env) extends LilaController(env):
       env.timeline.entryApi
         .userEntries(me)
         .map(views.timeline.entries)
-    .map(_.withHeaders(CACHE_CONTROL -> s"max-age=20"))
+    .map(_.headerCacheSeconds(20))
   }

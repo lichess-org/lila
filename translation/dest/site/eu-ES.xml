@@ -168,7 +168,7 @@
   <string name="drawByMutualAgreement">Berdinketa horrela adostu delako</string>
   <string name="fiftyMovesWithoutProgress">50 jokaldi aurrera egin gabe</string>
   <string name="currentGames">Oraingo partidak</string>
-  <string name="joinedX">Noiz sartu zen %s</string>
+  <string name="joinedX" comment="%s is a date relative to today&#10;&#10;e.g. &quot;Joined 2 months ago&quot;&#10;Note that the 'ago' is already in %s">Noiz sartu zen %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s partida</item>
     <item quantity="other">%s partida</item>
@@ -1008,4 +1008,5 @@ Garapen eta mantentze-kostu guztiak erabiltzaileen dohaintzekin ordaintzen dira.
   <string name="accessibility">Irisgarritasuna</string>
   <string name="enableBlindMode">Aktibatu modu-itsua</string>
   <string name="disableBlindMode">Desaktibatu modu-itsua</string>
+  <string name="copyToClipboard">Kopiatu arbelera</string>
 </resources>

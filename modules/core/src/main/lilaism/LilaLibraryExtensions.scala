@@ -39,7 +39,7 @@ trait LilaLibraryExtensions extends CoreExports:
   extension (self: Boolean)
     def not: Boolean = !self
     // move to scalalib? generalize Future away?
-    def soFu[B](f: => Future[B]): Future[Option[B]] =
+    def optionFu[B](f: => Future[B]): Future[Option[B]] =
       if self then f.map(Some(_))(using scala.concurrent.ExecutionContext.parasitic)
       else Future.successful(None)
 

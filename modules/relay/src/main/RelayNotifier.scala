@@ -13,37 +13,26 @@ final private class RelayNotifier(
 
   private object notifyPlayerFollowers:
 
-    private val dedupNotif = OnceEvery[StudyChapterId](1.day)
+    private val dedupNotif = OnceEvery[(StudyChapterId, Color)](1.day)
 
-    def apply(rt: RelayRound.WithTour, chapter: Chapter): Funit =
-
-      def followersOf(color: Color): Fu[Set[UserId]] =
-        chapter.tags.fideIds(color).so(getPlayerFollowers)
-
-      def notify(followers: Set[UserId], color: Color): Funit =
-        val names = chapter.tags.names
-        names(color) match
-          case Some(playerName) =>
-            val opponent = names(!color).map(name => s" against ${name} ").getOrElse(" ")
-            notifyApi.notifyMany(
-              followers,
-              NotificationContent.BroadcastRound(
-                url = rt.path(chapter.id),
-                title = rt.tour.name.value,
-                text = s"${playerName} is playing${opponent}in ${rt.round.name}"
+    def ofColor(rt: RelayRound.WithTour, chapter: Chapter)(color: Color): Funit =
+      chapter.tags
+        .fideIds(color)
+        .zip(chapter.tags.names(color))
+        .so: (fideId, name) =>
+          dedupNotif(chapter.id -> color).so:
+            for
+              followers <- getPlayerFollowers(fideId)
+              opponent = chapter.tags.names(!color).map(name => s" against ${name} ").getOrElse(" ")
+              _ <- notifyApi.notifyMany(
+                followers,
+                NotificationContent.BroadcastRound(
+                  url = rt.path(chapter.id),
+                  title = rt.tour.name.value,
+                  text = s"${name} is playing${opponent}in ${rt.round.name}"
+                )
               )
-            )
-          case None =>
-            fuccess(lila.log("relay").warn(s"Missing $color player name in ${rt.path(chapter.id)}"))
-
-      dedupNotif(chapter.id).so:
-        for
-          whiteFollowers <- followersOf(Color.white)
-          _ <- notify(whiteFollowers, Color.white)
-          blackFollowers <- followersOf(Color.black)
-          newFollowers = blackFollowers -- whiteFollowers
-          _ <- notify(newFollowers, Color.black)
-        yield ()
+            yield ()
 
   private object notifyTournamentSubscribers:
 
@@ -69,10 +58,10 @@ final private class RelayNotifier(
                 )
             yield ()
 
-  def onCreate(rt: RelayRound.WithTour, chapter: Chapter): Funit =
-    notifyTournamentSubscribers(rt)
-      .zip:
-        (rt.tour.isPublic && rt.tour.official).so(notifyPlayerFollowers(rt, chapter))
-      .void
+  def onCreate(rt: RelayRound.WithTour, chapter: Chapter): Funit = for
+    _ <- notifyTournamentSubscribers(rt)
+    _ <- (rt.tour.isPublic && rt.tour.official).so:
+      Color.all.traverse(notifyPlayerFollowers.ofColor(rt, chapter))
+  yield ()
 
   def onUpdate = onCreate
