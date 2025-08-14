@@ -13,6 +13,7 @@ import lila.core.user.KidMode
 import lila.core.ublog.{ BlogsBy, Quality }
 import lila.core.timeline.{ Propagate, UblogPostLike }
 import lila.common.LilaFuture.delay
+import lila.core.userId.UserStr.couldBeUsername
 
 final class UblogApi(
     colls: UblogColls,
@@ -159,9 +160,11 @@ final class UblogApi(
     val source =
       if tier == Tier.UNLISTED then "unlisted tier"
       else assessment.fold(Tier.name(tier).toLowerCase + " tier")(_.quality.name + " quality")
+    val emdashes = post.markdown.value.count(_ == '—')
     val automodNotes = assessment.map: r =>
       ~r.flagged.map("Flagged: " + _ + "\n") +
-        ~r.commercial.map("Commercial: " + _ + "\n")
+        ~r.commercial.map("Commercial: " + _ + "\n") +
+        ~(emdashes > 0).option(s"#### $emdashes emdashes found\n")
     irc.ublogPost(
       user,
       id = post.id,
