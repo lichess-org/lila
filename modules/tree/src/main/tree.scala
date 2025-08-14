@@ -446,8 +446,9 @@ object Node:
           val (h, m, s) = t.length match
             case 3 => (t(0).toInt, t(1).toInt, t(2).toDouble)
             case 2 =>
-              val whole = t(1).toDouble.toInt
-              (t(0).toInt, whole, (t(1).toDouble - whole) * 60d)
+              val rational = t(1).toDouble
+              val floor = rational.toInt
+              (t(0).toInt, floor, (rational - floor) * 60d)
             case _ => (0, 0, 0d)
           Centis(((h * 3600 + m * 60) * 100 + math.round(s * 100)).toInt)
 
