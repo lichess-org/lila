@@ -184,12 +184,12 @@
 Скакач = 3
 Пешак = 1
 Краљ је непроцењив! Изгубити га значи изгубити партију.</string>
-  <string name="queenOverBishop">Однесите фигуру
+  <string name="queenOverBishop">Узми фигуру
 са највишом вредношћу!
 Дама &gt; Ловац</string>
-  <string name="takeThePieceWithTheHighestValue">Однесите фигуру
+  <string name="takeThePieceWithTheHighestValue">Узми фигуру
 са највишом вредношћу!</string>
-  <string name="pieceValueComplete">Честитамо! Знате вредност материјала!
+  <string name="pieceValueComplete">Честитке! Знаш вредност материјала!
 Дама = 9
 Топ = 5
 Ловац = 3
