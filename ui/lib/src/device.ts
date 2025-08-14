@@ -185,7 +185,7 @@ function sharedMemoryTest(): boolean {
   } catch {
     return false;
   }
-  return mem.buffer instanceof SharedArrayBuffer;
+  return true;
 }
 
 export function isVersionCompatible(version: string | undefined | false, vc?: VersionConstraint): boolean {
