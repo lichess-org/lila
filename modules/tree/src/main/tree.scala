@@ -440,17 +440,16 @@ object Node:
     private def parseTime(re: Regex, text: String): Option[Centis] =
       re
         .findFirstMatchIn(text)
-        .map(_.group(1))
-        .map: time =>
-          val t = time.replace(",", ".").split(":")
-          val (h, m, s) = t.length match
-            case 3 => (t(0).toInt, t(1).toInt, t(2).toDouble)
-            case 2 =>
-              val rational = t(1).toDouble
-              val floor = rational.toInt
-              (t(0).toInt, floor, (rational - floor) * 60d)
-            case _ => (0, 0, 0d)
-          Centis(((h * 3600 + m * 60) * 100 + math.round(s * 100)).toInt)
+        .flatMap: m =>
+          m.group(1).replace(",", ".").split(":").filter(_.nonEmpty) match
+            case Array(h, m, s) =>
+              Centis(((h.toInt * 3600 + m.toInt * 60) * 100 + math.round(s.toDouble * 100)).toInt).some
+            case Array(h, m) =>
+              val md = m.toDouble
+              val mi = md.toInt
+              Centis(((h.toInt * 3600 + mi * 60) * 100 + math.round((md - mi) * 60d * 100)).toInt).some
+            case _ =>
+              none
 
     def sanitize(text: String) = Text:
       softCleanUp(text)
