@@ -440,21 +440,21 @@ object Node:
     private def parseTime(re: Regex, text: String): Option[Centis] =
       re
         .findFirstMatchIn(text)
-        .flatMap: m =>
-          m.group(1).replace(",", ".").split(":").filter(_.nonEmpty) match
-            case Array(h, mi, s) =>
+        .flatMap:
+          _.group(1).replace(",", ".").split(":") match
+            case Array(h, m, s) =>
               for
-                hh <- h.toIntOption
-                mm <- mi.toIntOption
-                ss <- s.toDoubleOption
-              yield Centis(((hh * 3600 + mm * 60) * 100 + math.round(ss * 100)).toInt)
+                hi <- h.toIntOption
+                mi <- m.toIntOption
+                sd <- s.toDoubleOption
+              yield Centis(((hi * 3600 + mi * 60) * 100 + math.round(sd * 100)).toInt)
             case Array(h, m) =>
               for
-                hh <- h.toIntOption
+                hi <- h.toIntOption
                 md <- m.toDoubleOption
               yield
                 val mi = md.toInt
-                Centis(((hh * 3600 + mi * 60) * 100 + math.round((md - mi) * 60d * 100)).toInt)
+                Centis(((hi * 3600 + mi * 60) * 100 + math.round((md - mi) * 60 * 100)).toInt)
             case _ => none
 
     def sanitize(text: String) = Text:
