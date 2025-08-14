@@ -99,27 +99,13 @@ object ParseImport:
             .map(TagResult(status, _))
       }
 
-  private val clockRegex = """(?s)\[%clk[ \r\n]+([\d:,\.]+)\]""".r.unanchored
-
   private def clockHistory(parsed: ParsedMainline[SanWithMetas]): Option[ClockHistory] =
     val clocks = parsed.moves.map: n =>
-      n.metas.comments.flatMap(parseClock).lastOption.getOrElse(Centis(0))
+      n.metas.comments.flatMap(c => lila.tree.Node.Comment.clk(c.value)).lastOption.getOrElse(Centis(0))
     val whiteRemainder = if parsed.toPosition.color == Color.White then 0 else 1
     val (w, b) = clocks.zipWithIndex.partition { case (_, i) => i % 2 == whiteRemainder }
     val (white, black) = (w.map(_._1).toVector, b.map(_._1).toVector)
     (white.exists(_.value != 0) || black.exists(_.value != 0)).option(ClockHistory(white, black))
-
-  private def parseClock(c: Comment): Option[Centis] =
-    clockRegex
-      .findFirstMatchIn(c.value)
-      .map(_.group(1))
-      .map: clk =>
-        val ticks = clk.split(":")
-        val (h, m) = ticks.length match
-          case 3 => (ticks(0).toInt, ticks(1).toInt)
-          case 2 => (0, ticks(0).toInt)
-          case _ => (0, 0)
-        Centis((((h * 3600 + m * 60) + ticks.last.replace(',', '.').toFloat) * 100).toInt)
 
   private def isChess960StartPosition(position: Position) =
     import chess.*

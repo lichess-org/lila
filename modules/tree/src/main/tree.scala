@@ -1,5 +1,7 @@
 package lila.tree
 
+import scala.util.matching.Regex
+
 import alleycats.Zero
 import chess.format.pgn.{ Glyph, Glyphs }
 import chess.format.{ Fen, Uci, UciCharPair, UciPath }
@@ -403,16 +405,22 @@ object Node:
 
   case class Comment(id: Comment.Id, text: Comment.Text, by: Comment.Author):
     def removeMeta = text.removeMeta.map(t => copy(text = t))
+
   object Comment:
     opaque type Id = String
     object Id extends OpaqueString[Id]:
       def make = Id(ThreadLocalRandom.nextString(4))
+
+    private val clockRegex = """(?s)\[%clk[\s\r\n]++([\d:,\.]++)\]""".r.unanchored
+    private val emtRegex = """(?s)\[\%emt[\s\r\n]++([\d:,\.]++)\]""".r.unanchored
+    private val tcecClockRegex = """(?s)tl=([\d:,\.]++)""".r.unanchored
     private val metaReg = """\[%[^\]]++\]""".r
+
     opaque type Text = String
     object Text extends OpaqueString[Text]:
       extension (a: Text)
         def removeMeta: Option[Text] =
-          val v = metaReg.replaceAllIn(a.value, "").trim
+          val v = Comment.removeMeta(a.value).trim
           v.nonEmpty.option(Text(v))
     enum Author:
       case User(id: UserId, titleName: String)
@@ -423,6 +431,23 @@ object Node:
       def is(other: Author) = (this, other) match
         case (User(a, _), User(b, _)) => a == b
         case _ => this == other
+
+    val clk = (text: String) => parseTime(clockRegex, text)
+    val emt = (text: String) => parseTime(emtRegex, text)
+    val tcec = (text: String) => parseTime(tcecClockRegex, text)
+    def removeMeta(text: String): String = metaReg.replaceAllIn(text, "")
+
+    private def parseTime(re: Regex, text: String): Option[Centis] =
+      re
+        .findFirstMatchIn(text)
+        .map(_.group(1))
+        .map: time =>
+          val ticks = time.split(":")
+          val (h, m) = ticks.length match
+            case 3 => (ticks(0).toInt, ticks(1).toInt)
+            case 2 => (0, ticks(0).toInt)
+            case _ => (0, 0)
+          Centis((((h * 3600 + m * 60) + ticks.last.replace(',', '.').toDouble) * 100).toInt)
 
     def sanitize(text: String) = Text:
       softCleanUp(text)
