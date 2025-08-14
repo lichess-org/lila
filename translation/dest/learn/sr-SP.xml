@@ -155,28 +155,28 @@
 урадиш велику рокаду!</string>
   <string name="castlingComplete">Честитке! Требаш скоро увек урадити рокаду у партији.</string>
   <string name="enPassant">Ан пасан</string>
-  <string name="theSpecialPawnMove">Посебан пешаков потез</string>
-  <string name="enPassantIntro">Када се противнички пешак помери за два поља, можете га однети као да се померио за једно поље.</string>
+  <string name="theSpecialPawnMove">Посебан потез пешака</string>
+  <string name="enPassantIntro">Када се противнички пешак померио за два поља, можеш га узети као да се померио за једно поље.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Црни је управо померио пешака
 за два поља!
-Однесите га ан пасан.</string>
+Узми га ан пасан.</string>
   <string name="enPassantOnlyWorksImmediately">Ан пасан је једино могућ
 одмах након што је противник
 померио пешака.</string>
   <string name="enPassantOnlyWorksOnFifthRank">Ан пасан је једино могућ
-ако вам је пешак на 5. реду.</string>
-  <string name="takeAllThePawnsEnPassant">Однесите све пешаке ан пасан!</string>
-  <string name="enPassantComplete">Честитамо! Сада можете носити ан пасан.</string>
+ако је твој пешак на 5. реду.</string>
+  <string name="takeAllThePawnsEnPassant">Узми све пешаке ан пасан!</string>
+  <string name="enPassantComplete">Честитке! Сада можеш узимати ан пасан.</string>
   <string name="stalemate">Пат</string>
-  <string name="theGameIsADraw">Партија завршава ремијем</string>
-  <string name="stalemateIntro">Када играч није у шаху и нема ниједан легалан потез, то је пат. Партија је нерешена: нико не добија, нико не губи.</string>
-  <string name="stalemateGoal">Да патирате црног:
+  <string name="theGameIsADraw">Партија је нерешена</string>
+  <string name="stalemateIntro">Када играч није у шаху и нема ниједан легалан потез, то је пат. Партија је нерешена: нико не побеђује, нико не губи.</string>
+  <string name="stalemateGoal">Да патираш црног:
 - Црни не може нигде да се помери
 - Нема шаха.</string>
-  <string name="stalemateComplete">Честитамо! Боље бити патиран него матиран!</string>
+  <string name="stalemateComplete">Честитке! Боље бити патиран него матиран!</string>
   <string name="advanced">Напредно</string>
   <string name="pieceValue">Вредност фигуре</string>
-  <string name="evaluatePieceStrength">Процените снагу фигуре</string>
+  <string name="evaluatePieceStrength">Процени снагу фигуре</string>
   <string name="pieceValueIntro">Фигуре са већом покретљивости имају вишу вредност!
 Дама = 9
 Топ = 5

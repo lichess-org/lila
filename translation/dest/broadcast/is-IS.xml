@@ -46,7 +46,7 @@
   <string name="top10Rating">Meðalskákstig efstu tíu</string>
   <string name="fidePlayers">Skákmenn Alþjóðaskáksambandsins</string>
   <string name="fidePlayerNotFound">Skákmaður Alþjóðaskáksambandsins fannst ekki</string>
-  <string name="fideProfile">Prófill hjá Alþjóðaskáksambandinu</string>
+  <string name="fideProfile">Fide-prófíll</string>
   <string name="federation">Ríkjasamband</string>
   <string name="ageThisYear">Aldur í ár</string>
   <string name="unrated">Skák án stigagjafar</string>
