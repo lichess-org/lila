@@ -268,6 +268,9 @@ function boardEventsHook(
     else if (e.key.toLowerCase() === 'm')
       possibleMovesHandler(ctrl.turnColor(), ctrl.chessground, ctrl.data.game.variant.key, ctrl.nodeList)(e);
     else if (e.key.toLowerCase() === 'v') notify.set(renderEvalAndDepth(ctrl));
+    else if (e.key.toLowerCase() === 'G') ctrl.playBestMove();
+    else if (e.key.toLowerCase() === 'g')
+      notify.set(renderBestMove({ ctrl, moveStyle } as AnalyseNvuiContext));
   });
 }
 
