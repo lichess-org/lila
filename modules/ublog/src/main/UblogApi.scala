@@ -166,7 +166,7 @@ final class UblogApi(
         (emdashes match
           case 0 => ""
           case 1 => s"#### 1 emdash found\n"
-          case n => s"$n emdashes found\n")
+          case n => s"#### $n emdashes found\n")
     irc.ublogPost(
       user,
       id = post.id,
