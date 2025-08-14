@@ -442,7 +442,7 @@ object Node:
         .findFirstMatchIn(text)
         .map(_.group(1))
         .map: time =>
-          val t = time.split(":")
+          val t = time.replace(",", ".").split(":")
           val (h, m, s) = t.length match
             case 3 => (t(0).toInt, t(1).toInt, t(2).toDouble)
             case 2 =>
