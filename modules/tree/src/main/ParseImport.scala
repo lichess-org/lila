@@ -51,7 +51,7 @@ object ParseImport:
           extractData(result.replay, parsed.tags, clockHistory(parsed))
 
   type ImportGameResult = (
-      setup: ChessGame,
+      game: ChessGame,
       result: Option[TagResult],
       initialFen: Option[Fen.Full],
       tags: Tags,
