@@ -30,7 +30,7 @@ object ParseImport:
           .pipe { case Replay.Result(replay @ Replay(setup, _, state), replayError) =>
             val extractedData = extractData(replay, parsed.tags)
             ImportResult(
-              game = extractedData.setup,
+              game = extractedData.game,
               result = extractedData.result,
               replay = replay,
               initialFen = extractedData.initialFen,
@@ -49,7 +49,7 @@ object ParseImport:
           extractData(result.replay, parsed.tags)
 
   type ImportGameResult = (
-      setup: ChessGame,
+      game: ChessGame,
       result: Option[TagResult],
       initialFen: Option[Fen.Full],
       tags: Tags
