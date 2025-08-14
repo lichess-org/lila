@@ -1,12 +1,10 @@
 import type { DevBotCtrl } from './devBotCtrl';
-//import type { BotLoader } from 'lib/bot/botLoader';
 import type { DevCtrl } from './devCtrl';
 import type { GameCtrl } from './gameCtrl';
 import type { LocalDb } from './localDb';
 import type { RoundController } from 'round';
 import type { DevAssets } from './devAssets';
 import type { PushCtrl } from './pushCtrl';
-import { myUserId, myUsername } from 'lib';
 
 export let env: DevEnv;
 
