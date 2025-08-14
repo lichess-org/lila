@@ -86,6 +86,15 @@ class CommentParserTest extends LilaTest:
   test("parse clock: fractional second rounded to centisecond"):
     assertEquals(C("Hello there [%clk 10:40:33.556] something else").clock, Some(Centis(3843356)))
 
+  test("parse clock: garbage 2:.:13"):
+    assertEquals(C("Hello there [%clk 2:.:13] something else").clock, None)
+
+  test("parse clock: garbage 2..:30:0"):
+    assertEquals(C("Hello there [%clk 2..:30:0] something else").clock, None)
+
+  test("parse clock: garbage :30"):
+    assertEquals(C("Hello there [%clk :30] something else").clock, None)
+
   test("parse shapes: empty"):
     assertEquals(C(""), C.ParsedComment(Shapes(Nil), None, None, ""))
 

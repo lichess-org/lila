@@ -442,14 +442,20 @@ object Node:
         .findFirstMatchIn(text)
         .flatMap: m =>
           m.group(1).replace(",", ".").split(":").filter(_.nonEmpty) match
-            case Array(h, m, s) =>
-              Centis(((h.toInt * 3600 + m.toInt * 60) * 100 + math.round(s.toDouble * 100)).toInt).some
+            case Array(h, mi, s) =>
+              for
+                hh <- h.toIntOption
+                mm <- mi.toIntOption
+                ss <- s.toDoubleOption
+              yield Centis(((hh * 3600 + mm * 60) * 100 + math.round(ss * 100)).toInt)
             case Array(h, m) =>
-              val md = m.toDouble
-              val mi = md.toInt
-              Centis(((h.toInt * 3600 + mi * 60) * 100 + math.round((md - mi) * 60d * 100)).toInt).some
-            case _ =>
-              none
+              for
+                hh <- h.toIntOption
+                md <- m.toDoubleOption
+              yield
+                val mi = md.toInt
+                Centis(((hh * 3600 + mi * 60) * 100 + math.round((md - mi) * 60d * 100)).toInt)
+            case _ => none
 
     def sanitize(text: String) = Text:
       softCleanUp(text)
