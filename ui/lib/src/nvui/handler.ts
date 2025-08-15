@@ -28,7 +28,7 @@ export function positionJumpHandler() {
   };
 }
 
-export function pieceJumpingHandler(selectSound: () => void, errorSound: () => void) {
+export function pieceJumpingHandler(selectSound: () => void, errorSound: () => void, isAntichess = false) {
   return (ev: KeyboardEvent): void => {
     const $currBtn = $(ev.target as HTMLElement);
 
@@ -37,8 +37,10 @@ export function pieceJumpingHandler(selectSound: () => void, errorSound: () => v
       const $moveBox = $('input.move');
       const $boardLive = $('.boardstatus');
       const promotionPiece = ev.key.toLowerCase();
-      if (!promotionPiece.match(/^[qnrb]$/)) {
-        $boardLive.text('Invalid promotion piece. q for queen, n for knight, r for rook, b for bishop');
+      const promotionChoice = isAntichess ? /^[kqnrb]$/ : /^[qnrb]$/;
+      if (!promotionPiece.match(promotionChoice)) {
+        const msg = 'Invalid promotion piece. q for queen, n for knight, r for rook, b for bishop';
+        $boardLive.text(msg + (isAntichess ? ', k for king' : ''));
         return;
       }
       $moveBox.val($moveBox.val() + promotionPiece);
@@ -81,7 +83,7 @@ export function arrowKeyHandler(pov: Color, borderSound: () => void) {
   };
 }
 
-export function selectionHandler(getOpponentColor: () => Color, isTouchDevice = false) {
+export function selectionHandler(getOpponentColor: () => Color, isTouchDevice = false, isAntichess = false) {
   return (ev: MouseEvent): void => {
     const opponentColor = getOpponentColor();
     // this depends on the current document structure. This may not be advisable in case the structure wil change.
@@ -125,9 +127,10 @@ export function selectionHandler(getOpponentColor: () => Color, isTouchDevice = 
         // this is coupled to pieceJumpingHandler() noticing that the attribute is set and acting differently.
         if (rank === promotionRank && file && $firstPiece.attr('piece')?.toLowerCase() === 'p') {
           $evBtn.attr('promotion', 'true');
-          if (!isTouchDevice)
-            $boardLive.text('Promote to: q for queen, n for knight, r for rook, b for bishop');
-          else {
+          if (!isTouchDevice) {
+            const msg = 'Promote to: q for queen, n for knight, r for rook, b for bishop';
+            $boardLive.text(msg + (isAntichess ? ', k for king' : ''));
+          } else {
             const queenPromotionKey = $(squareSelector(promotionRank === '8' ? '8' : '1', file));
             const knightPromotionKey = $(squareSelector(promotionRank === '8' ? '7' : '2', file));
             const rookPromotionKey = $(squareSelector(promotionRank === '8' ? '6' : '3', file));

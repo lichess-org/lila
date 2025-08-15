@@ -283,7 +283,11 @@ function boardEventsHook(ctx: RoundNvuiContext, el: HTMLElement): void {
   $buttons.on('blur', nv.leaveSquareHandler($buttons));
   $buttons.on(
     'click',
-    nv.selectionHandler(() => ctrl.data.opponent.color, deviceType.get() === 'touchscreen'),
+    nv.selectionHandler(
+      () => ctrl.data.opponent.color,
+      deviceType.get() === 'touchscreen',
+      ctrl.data.game.variant.key === 'antichess',
+    ),
   );
   $buttons.on('keydown', (e: KeyboardEvent) => {
     if (e.shiftKey && e.key.match(/^[ad]$/i)) nextOrPrev(ctrl)(e);
@@ -308,7 +312,8 @@ function boardEventsHook(ctx: RoundNvuiContext, el: HTMLElement): void {
         prefixStyle.get(),
       )();
     else if (e.code.match(/^Digit([1-8])$/)) nv.positionJumpHandler()(e);
-    else if (e.key.match(/^[kqrbnp]$/i)) nv.pieceJumpingHandler(selectSound, errorSound)(e);
+    else if (e.key.match(/^[kqrbnp]$/i))
+      nv.pieceJumpingHandler(selectSound, errorSound, ctrl.data.game.variant.key === 'antichess')(e);
     else if (e.key.toLowerCase() === 'm')
       nv.possibleMovesHandler(
         ctrl.data.player.color,
