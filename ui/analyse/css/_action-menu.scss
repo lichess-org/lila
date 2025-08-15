@@ -116,11 +116,26 @@
     }
   }
 
+  span {
+    @extend %flex-center;
+    justify-content: start;
+    gap: 0.6em;
+  }
+
+  .disclosure-tour {
+    margin-top: $block-gap;
+    font-size: 1.4em;
+    font-family: 'lichess';
+    color: $c-font-dim;
+    &:hover {
+      color: $c-font-clear;
+    }
+  }
+
   @include mq-is-col1 {
+    .disclosure-tour,
     .abset-inline {
       display: none;
     }
-
-    // force inline on mobile
   }
 }

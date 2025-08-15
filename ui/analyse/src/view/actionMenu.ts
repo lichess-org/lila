@@ -186,16 +186,23 @@ export function view(ctrl: AnalyseCtrl): VNode {
 
   const displayConfig = [
     displayColumns() > 1 && hl('h2', 'Display'),
-    ctrlToggle(
-      {
-        name: 'Disclosure mode', // TODO help
-        title: 'Enable variation disclosure mode',
-        id: 'disclosureMode',
-        checked: ctrl.disclosureMode(),
-        change: ctrl.toggleDisclosureMode,
-      },
-      ctrl,
-    ),
+    hl('span', [
+      ctrlToggle(
+        {
+          name: 'Disclosure mode', // TODO help
+          title: 'Enable variation disclosure mode',
+          id: 'disclosureMode',
+          checked: ctrl.disclosureMode(),
+          change: ctrl.toggleDisclosureMode,
+        },
+        ctrl,
+      ),
+      hl(
+        'a.disclosure-tour',
+        { hook: bind('click', () => site.asset.loadEsm('analyse.disclosure.tour', { init: ctrl })) },
+        licon.InfoCircle,
+      ),
+    ]),
     ctrlToggle(
       {
         name: i18n.site.inlineNotation,
