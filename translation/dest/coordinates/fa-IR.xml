@@ -18,4 +18,5 @@
   <string name="startTraining">آغاز تمرین</string>
   <string name="findSquare">خانه را بیابید</string>
   <string name="nameSquare">خانه را بِنامید</string>
+  <string name="practiceOnlySomeFilesAndRanks" comment="Label for a checkbox, keep it very short">تمرین فقط روی ستون‌ها و ردیف‌های مشخص</string>
 </resources>

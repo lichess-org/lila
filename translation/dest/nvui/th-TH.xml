@@ -1,2 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="featuredEvents">กิจกรรมแนะนำ</string>
+  <string name="moveList">ที่แสดงตาเดิน</string>
+  <string name="gameInfo">ข้อมูลเกม</string>
+  <string name="pieces">หมาก</string>
+  <string name="gameStatus">สถานะเกม</string>
+  <string name="lastMove">ตาเดินสุดท้าย</string>
+  <string name="inputForm">แบบฟอร์มการป้อนข้อมูลคำสั่ง</string>
+  <string name="actions">ดำเนินการ</string>
+  <string name="yourClock">นาฬิกาคุณ</string>
+  <string name="opponentClock">นาฬิกาคู่แข่ง</string>
+  <string name="gameStart">เริ่มเกม</string>
+  <string name="boardCommandList">รายการคำสั่งเมื่อบอร์ดมีโฟกัส</string>
+  <string name="inputFormCommandList">พิมพ์คำสั่งเหล่านี้ในแบบฟอร์มการป้อนคำสั่ง</string>
+  <string name="goToInputForm">ไปที่แบบฟอร์มการป้อนคำสั่ง</string>
+  <string name="announceCurrentSquare">บอกตำแหน่งช่องปัจจุบัน</string>
+  <string name="announceLastMove">บอกตาเดินสุดท้าย</string>
+  <string name="announceLastMoveCapture">บอกชื่อตัวหมากที่ถูกกินตาที่แล้ว</string>
+  <string name="announcePossibleMoves">บอกว่าหมากที่ถูกเลือกสามารถเดินไปช่องใดได้บ้าง</string>
+  <string name="announcePossibleCaptures">บอกว่าหมากที่ถูกเลือกสามารถกินหมากใดได้บ้าง</string>
+  <string name="moveWithArrows">เดินหมากไปช่องข้างๆ ซ้าย, ขวา, บน หรือ ล่าง</string>
+  <string name="moveToPieceByType">ย้ายไปยังช่องโดยใช้ชื่อตัวหมาก ตัวอย่างเช่น: กด k ซ้ำๆ จะย้ายไปยังทุกช่องที่มีม้า สามารถใช้ตัวพิมพ์ใหญ่เพื่อสลับลำดับได้</string>
+  <string name="moveToRank">เดินไปที่ช่อง 1 ถึง 8</string>
+  <string name="moveToFile">เดินไปที่ช่อง a ถึง h</string>
+  <string name="announcePieceLocations">บอกตำแหน่งของตัวหมากเช่น: p N พิมพ์ใหญ่ สำหรับม้าขาว, p k พิมพ์เล็ก สำหรับคิงดำและ p A พิมพ์ใหญ่ สำหรับตัวหมากขาวทั้งหมด</string>
+  <string name="announcePiecesOnRankOrFile">บอกบอกตำแหน่งของตัวหมากบนช่องแนวนอนหรือตั้ง เช่น s a, s 1</string>
+  <string name="goToBoard">ไปที่กระดาน ช่องเริ่มต้นคือ e-4 คุณสามารถระบุช่องได้ เช่น กระดาน a-1 หรือ b a-1 จะนำคุณไปยังช่อง a-1</string>
+  <string name="movePiece">ในการเดินหมาก ให้ใช้สัญลักษณ์การเดินหมากเหมือนปกติ</string>
+  <string name="promotion">เพื่อเลื่อนขั้นเป็นหมากตัวอื่นนอกเหนือจากควีน ให้ใช้เครื่องหมายเท่ากับ เช่น a-8-เท่ากับ-n เพื่อเลื่อนขั้นเป็นม้า</string>
+  <string name="king">คิง</string>
+  <string name="whiteKing">คิงขาว</string>
+  <string name="blackKing">คิงดำ</string>
+  <string name="queen">ควีน</string>
+  <string name="whiteQueen">ควีนขาว</string>
+  <string name="blackQueen">ควีนดำ</string>
+  <string name="rook">เรือ</string>
+  <string name="whiteRook">เรือขาว</string>
+  <string name="blackRook">เรือดำ</string>
+  <string name="bishop">บิชอป</string>
+  <string name="whiteBishop">บิชอปขาว</string>
+  <string name="blackBishop">บิชอปดำ</string>
+  <string name="knight">ม้า</string>
+  <string name="whiteKnight">ม้าขาว</string>
+  <string name="blackKnight">ม้าดำ</string>
+  <string name="pawn">เบี้ย</string>
+  <string name="whitePawn">เบี้ยขาว</string>
+  <string name="blackPawn">เบี้ยดำ</string>
+  <string name="sanSymbols" comment="Keep this order: king queen rook bishop knight takes">K Q R B N กิน</string>
+  <string name="sanTakes" comment="x in standard notation">กิน</string>
+  <string name="sanCheck" comment="+ in standard notation">รุก</string>
+  <string name="sanCheckmate" comment="# in standard notation">รุกจน</string>
+  <string name="sanPromotesTo" comment="= in standard notation">เลื่อนขั้นเป็น</string>
+  <string name="sanShortCastling" comment="O-O in standard notation">รุก</string>
+  <string name="sanLongCastling" comment="O-O-O in standard notation">เข้าป้อมยาว</string>
+  <string name="sanDroppedOn" comment="crazyhouse @">หมากถูกวางที่</string>
+  <string name="invalidMove">เดินไม่ได้</string>
+  <string name="premoveCancelled">การเดินล่วงหน้าถูกยกเลิก</string>
+  <string name="premoveRecorded">บันทึกการเดินล่วงหน้าแล้ว %s กด enter เพื่อยกเลิก</string>
+  <string name="pockets" comment="Pockets in Crazyhouse, which hold captured pieces and let players place them again">ที่เก็บหมาก</string>
+  <string name="copyToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">คัดลอก %s ไปยังคลิปบอร์ด</string>
+  <string name="copiedToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">%s ถูกคัดลอกไปคลิปบอร์ดแล้ว</string>
+  <string name="pgnAndFen" comment="Will be a heading read out over text-to-speech for blind users looking to share a PGN or FEN of a game.">PGN และ FEN</string>
+</resources>
