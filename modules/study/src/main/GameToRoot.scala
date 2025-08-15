@@ -2,6 +2,7 @@ package lila.study
 
 import chess.Outcome
 import chess.format.Fen
+import chess.format.pgn.Comment as CommentStr
 
 import lila.tree.Node.Comment
 import lila.tree.{ ExportOptions, Root, TreeBuilder }
@@ -23,4 +24,4 @@ object GameToRoot:
       val result = Outcome.showResult(Outcome(game.winnerColor).some)
       val status = lila.tree.StatusText(game.status, game.winnerColor, game.variant)
       val text = s"$result $status"
-      Comment(Comment.Id.make, Comment.Text(text), Comment.Author.Lichess)
+      Comment(Comment.Id.make, CommentStr(text), Comment.Author.Lichess)
