@@ -34,10 +34,9 @@ final class Racer(env: Env) extends LilaController(env):
             )
   }
 
-  def apiGet(id: String) = Open { _ ?=>
+  def apiGet(id: String) = Anon:
     Found(env.racer.api.get(RacerRace.Id(id))): race =>
       JsonOk(env.racer.json.apiResults(race))
-  }
 
   def show(id: String) = WithPlayerId { ctx ?=> playerId =>
     env.racer.api.get(RacerRace.Id(id)) match
