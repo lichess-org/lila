@@ -233,7 +233,7 @@ u dva poteza!</string>
   <string name="rightOn">Baš tako!</string>
   <string name="stageXComplete">Nivo %s završen</string>
   <string name="next">Sljedeće</string>
-  <string name="nextX">%s</string>
+  <string name="nextX">Sljedeće: %s</string>
   <string name="backToMenu">Povratak na meni</string>
   <string name="puzzleFailed">Rješenje problema neispravno!</string>
   <string name="retry">Pokušajte ponovno</string>
