@@ -30,7 +30,8 @@ object GameExt:
       // On the other hand, if history.size is more than playedTurns,
       // then the game ended during a players turn by async event, and
       // the last recorded time is in the history for turnColor.
-      val noLastInc = g.finished && (g.playedPlies >= history.size) == (color != g.turnColor)
+      val clocksRecorded = history.mapReduce(_.size)(_ + _)
+      val noLastInc = g.finished && (g.playedPlies >= clocksRecorded) == (color != g.turnColor)
 
       pairs
         .map: (first, second) =>
@@ -50,6 +51,13 @@ object GameExt:
     g.replayable && g.playedPlies > 4 &&
       Game.analysableVariants(g.variant) &&
       !Game.isOldHorde(g)
+
+  extension (clockHistory: ClockHistory)
+
+    def recordNewClock(color: Color, clock: Clock) =
+      clockHistory.update(color, _ :+ clock.remainingTime(color))
+
+    def resetClockHistory(color: Color) = clockHistory.update(color, _ => Vector.empty)
 
   extension (g: Game)
 
@@ -85,7 +93,7 @@ object GameExt:
               loadClockHistory = _ =>
                 g.clockHistory.map: history =>
                   if history(color).isEmpty then history
-                  else history.reset(color).record(color, newClock)
+                  else history.resetClockHistory(color).recordNewClock(color, newClock)
             ).updatePlayer(color, _.copy(berserk = true))
           ) ++
             List(
@@ -119,7 +127,7 @@ object GameExt:
       val newClockHistory = for
         clk <- game.clock
         ch <- g.clockHistory
-      yield ch.record(g.turnColor, clk)
+      yield ch.recordNewClock(g.turnColor, clk)
 
       val updated = g.copy(
         players = g.players.map(copyPlayer),
@@ -177,7 +185,7 @@ object GameExt:
             // for the active color. This ensures the end time in
             // clockHistory always matches the final clock time on
             // the board.
-            if !g.finished then history.record(g.turnColor, clk)
+            if !g.finished then history.recordNewClock(g.turnColor, clk)
             else history
       )
 
@@ -305,5 +313,3 @@ object CastleLastMove:
 
 enum DrawReason:
   case MutualAgreement, FiftyMoves, ThreefoldRepetition, InsufficientMaterial
-
-private val someEmptyClockHistory = Some(ClockHistory())
