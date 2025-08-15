@@ -102,10 +102,11 @@ object ParseImport:
   private def clockHistory(parsed: ParsedMainline[SanWithMetas]): Option[ClockHistory] =
     val clocks = parsed.moves.map: n =>
       n.metas.comments.flatMap(lila.tree.Node.Comment.clk).lastOption.orZero
-    val whiteRemainder = if parsed.toPosition.color == Color.White then 0 else 1
-    val (w, b) = clocks.zipWithIndex.partition { case (_, i) => i % 2 == whiteRemainder }
-    val (white, black) = (w.map(_._1).toVector, b.map(_._1).toVector)
-    (white.exists(_.value != 0) || black.exists(_.value != 0)).option(ByColor(white, black))
+    val whiteRemainder = if parsed.toPosition.color.white then 0 else 1
+    val byColor = ByColor
+      .fromPair(clocks.zipWithIndex.partition { (_, i) => i % 2 == whiteRemainder })
+      .map(_.view.map(_._1).toVector)
+    Option.when(byColor.exists(_.exists(_.value != 0)))(byColor)
 
   private def isChess960StartPosition(position: Position) =
     import chess.*

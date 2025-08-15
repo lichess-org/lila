@@ -431,9 +431,9 @@ object Node:
         case (User(a, _), User(b, _)) => a == b
         case _ => this == other
 
-    val clk = (text: CommentStr) => parseTime(clockRegex, text)
-    val emt = (text: CommentStr) => parseTime(emtRegex, text)
-    val tcec = (text: CommentStr) => parseTime(tcecClockRegex, text)
+    def clk(text: CommentStr) = parseTime(clockRegex, text)
+    def emt(text: CommentStr) = parseTime(emtRegex, text)
+    def tcec(text: CommentStr) = parseTime(tcecClockRegex, text)
     def removeMeta(text: CommentStr): CommentStr = text.map(metaReg.replaceAllIn(_, ""))
 
     private def parseTime(re: Regex, text: CommentStr): Option[Centis] =
