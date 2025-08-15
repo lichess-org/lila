@@ -418,10 +418,9 @@ object Node:
 
     opaque type Text = String
     object Text extends OpaqueString[Text]:
-      extension (a: Text)
+      extension (t: Text)
         def removeMeta: Option[Text] =
-          val v = Comment.removeMeta(a.into(CommentStr)).value.trim
-          v.nonEmpty.option(Text(v))
+          Comment.removeMeta(t.into(CommentStr)).trimNonEmpty.map(_.into(Text))
     enum Author:
       case User(id: UserId, titleName: String)
       case External(name: String)

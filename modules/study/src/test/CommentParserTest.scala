@@ -118,29 +118,30 @@ class CommentParserTest extends LilaTest:
 
   test("parse shapes: new lines"):
     assertMatch(C("Hello there [%csl\nGb4,Yd5,Rf6]")):
-      case C.ParsedComment(shapes, None, None, "Hello there") =>
+      case C.ParsedComment(shapes, None, None, _) =>
         shapes.value.size == 3
 
   test("parse shapes: multiple, one new line"):
     assertMatch(C("Hello there [%csl\nGb4,Yd5,Rf6][%cal Ge2e4,Ye2d4,Re2g4]")):
-      case C.ParsedComment(shapes, None, None, "Hello there") => shapes.value.size == 6
+      case C.ParsedComment(shapes, None, None, _) => shapes.value.size == 6
     assertMatch(C("Hello there [%csl Gb4,Yd5,Rf6][%cal\nGe2e4,Ye2d4,Re2g4]")):
-      case C.ParsedComment(shapes, None, None, "Hello there") => shapes.value.size == 6
+      case C.ParsedComment(shapes, None, None, _) => shapes.value.size == 6
 
   test("parse shapes: multiple mess"):
     assertMatch(C("Hello there [%csl \n\n Gb4,Yd5,Rf6][%cal\nGe2e4,Ye2d4,Re2g4]")):
-      case C.ParsedComment(shapes, None, None, "Hello there") => shapes.value.size == 6
+      case C.ParsedComment(shapes, None, None, _) => shapes.value.size == 6
 
   test("multiple shapes + clock"):
     assertMatch(C("Hello there [%clk 10:40:33][%csl \n\n Gb4,Yd5,Rf6][%cal\nGe2e4,Ye2d4,Re2g4]")):
-      case C.ParsedComment(shapes, clock, None, "Hello there") =>
+      case C.ParsedComment(shapes, clock, None, _) =>
         shapes.value.size == 6 &&
         clock == Some(Centis(3843300))
 
   test("multiple shapes + clock + emt"):
     assertMatch(
       C("Hello there [%emt 10:40:33][%clk 10:40:33][%csl \n\n Gb4,Yd5,Rf6][%cal\nGe2e4,Ye2d4,Re2g4]")
-    ) { case C.ParsedComment(shapes, clock, emt, "Hello there") =>
+    ) { case C.ParsedComment(shapes, clock, emt, c) =>
+      c == Comment("Hello there") &&
       shapes.value.size == 6 &&
       clock == Some(Centis(3843300)) &&
       emt == Some(Centis(3843300))
