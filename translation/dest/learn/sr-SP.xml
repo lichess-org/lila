@@ -200,10 +200,10 @@
   <string name="checkInTwoIntro">Пронађите праву комбинацију два потеза која шахира противниковог краља!</string>
   <string name="checkInTwoGoal">Запретите противничком краљу
 у два потеза!</string>
-  <string name="checkInTwoComplete">Честитамо! Дали сте шах вашем противнику, терајући их да одбране свог краља!</string>
+  <string name="checkInTwoComplete">Честитке! Дао/ла си шах твом противнику, терајући га да одбрани свог краља!</string>
   <string name="whatNext">Шта даље?</string>
-  <string name="youKnowHowToPlayChess">Знате како играти шах, честитамо! Да ли желите постати јачи играч?</string>
-  <string name="register">Региструјте се</string>
+  <string name="youKnowHowToPlayChess">Знаш како да играш шах, честитке! Да ли желиш постати јачи играч?</string>
+  <string name="register">Региструј се</string>
   <string name="getAFreeLichessAccount">Набавите бесплатан Личес налог</string>
   <string name="practice">Вежбајте</string>
   <string name="learnCommonChessPositions">Научите честе шаховске позиције</string>
