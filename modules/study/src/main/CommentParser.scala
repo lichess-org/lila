@@ -24,7 +24,7 @@ private[study] object CommentParser:
       parseShapes(comment),
       clk(comment).orElse(tcec(comment)),
       emt(comment),
-      removeMeta(comment.map(tcecClockRemoveRegex.replaceAllIn(_, "").trim))
+      removeMeta(comment.map(tcecClockRemoveRegex.replaceAllIn(_, ""))).map(_.trim)
     )
 
   private def parseShapes(comment: ChessComment): Shapes =
