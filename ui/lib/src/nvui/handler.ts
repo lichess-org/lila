@@ -141,7 +141,7 @@ export function selectionHandler(getOpponentColor: () => Color, isTouchDevice = 
               { role: 'x', text: 'cancel' },
             ];
 
-            for (let promotionKey of promotionKeys) {
+            for (const promotionKey of promotionKeys) {
               if (promotionKey.role !== 'k' || isAntichess) {
                 const piecePromotionKey = $(squareSelector(rank.toString(), file));
                 piecePromotionKey.attr('promoteTo', promotionKey.role);
