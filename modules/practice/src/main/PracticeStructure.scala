@@ -71,8 +71,8 @@ object PracticeStructure:
       )
     ),
     PracticeSection(
-      name = "Basic Tactics",
-      id = "basic-tactics",
+      name = "Fundamental Tactics",
+      id = "fundamental-tactics",
       studies = List(
         makeStudy("9ogFv8Ac", "The Pin", "Pin it to win it"),
         makeStudy("tuoBxVE5", "The Skewer", "Yum - skewers!"),
@@ -85,8 +85,8 @@ object PracticeStructure:
       )
     ),
     PracticeSection(
-      name = "Intermediate Tactics",
-      id = "intermediate-tactics",
+      name = "Advanced Tactics",
+      id = "advanced-tactics",
       studies = List(
         makeStudy("9cKgYrHb", "Zugzwang", "Being forced to move"),
         makeStudy("g1fxVZu9", "Interference", "Interpose a piece to great effect"),
