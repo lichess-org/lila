@@ -168,7 +168,7 @@
   <string name="drawByMutualAgreement">Remise overeengekomen</string>
   <string name="fiftyMovesWithoutProgress">Vijftig zetten zonder voortgang</string>
   <string name="currentGames">Lopende partijen</string>
-  <string name="joinedX">Lid sinds %s</string>
+  <string name="joinedX" comment="%s is a date relative to today&#10;&#10;e.g. &quot;Joined 2 months ago&quot;&#10;Note that the 'ago' is already in %s">Lid sinds %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s partij</item>
     <item quantity="other">%s partijen</item>
@@ -519,7 +519,7 @@
   <string name="reportXToModerators">Rapporteer %s aan de toezichthouders</string>
   <string name="profileCompletion">Voltooiing profiel: %s</string>
   <string name="xRating">%s-rating</string>
-  <string name="ifNoneLeaveEmpty">Leeg indien n.v.t.</string>
+  <string name="ifNoneLeaveEmpty">Indien geen, leeg laten</string>
   <string name="profile">Profiel</string>
   <string name="editProfile">Pas profiel aan</string>
   <string name="realName">Echte naam</string>
@@ -597,7 +597,7 @@
   <string name="clockInitialTime">Oorspronkelijke kloktijd</string>
   <string name="clockIncrement">Bijtelling</string>
   <string name="privacy">Privacy</string>
-  <string name="privacyPolicy">privacybeleid</string>
+  <string name="privacyPolicy">Acceptatiebeleid</string>
   <string name="letOtherPlayersFollowYou">Andere spelers mogen je volgen</string>
   <string name="letOtherPlayersChallengeYou">Andere spelers mogen je uitdagen</string>
   <string name="letOtherPlayersInviteYouToStudy">Laat andere spelers je uitnodigen voor een Study</string>
