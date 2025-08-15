@@ -27,7 +27,15 @@ $c-fork: $c-primary;
 
   @include mq-is-col1 {
     move {
-      height: 3em;
+      justify-content: center;
+      padding-block: 0.5em;
+      font-size: 1.5em;
+      border: 1px solid $c-bg-box;
+      flex: 1 1 auto;
+      index,
+      eval {
+        display: none;
+      }
     }
   }
 
