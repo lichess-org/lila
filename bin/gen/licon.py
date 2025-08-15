@@ -27,11 +27,11 @@ package lila.ui
 
 opaque type Icon = String
 object Icon:
-  def apply(char: String): Icon            = char
+  def apply(char: String): Icon = char
   extension (icon: Icon) def value: String = icon
-  given scalalib.Iso.StringIso[Icon]       = scalalib.Iso.string(apply, value)
+  given scalalib.Iso.StringIso[Icon] = scalalib.Iso.string(apply, value)
   import play.api.libs.json.{ Writes, JsString }
-  given Writes[Icon]        = JsString(_)
+  given Writes[Icon] = JsString(_)
 """
 
 debug_preamble = """<!--""" + comment_preamble + """-->
@@ -131,7 +131,6 @@ def parse_codes():
 
 def gen_sources(codes):
     with_type = lambda name: f'{name}: Icon'
-    longest = len(max(codes.keys(), key=len)) + 6
 
     with open('../../modules/ui/src/main/Icon.scala', 'w') as scala, \
          open('../../ui/lib/src/licon.ts', 'w') as ts, \
@@ -142,7 +141,7 @@ def gen_sources(codes):
         scss.write(comment_preamble + '\n')
         debug.write(debug_preamble + '\n')
         for name in codes:
-            scala.write(f'  val {with_type(name).ljust(longest)} = "{chr(codes[name])}" // {codes[name]:x}\n')
+            scala.write(f'  val {with_type(name)} = "{chr(codes[name])}" // {codes[name]:x}\n')
             ts.write(f"export const {name} = '{chr(codes[name])}'; // {codes[name]:x}\n")
             scss.write(f"$licon-{name}: '{chr(codes[name])}'; // {codes[name]:x}\n")
             debug.write(f'    <i title="{name}">&#x{codes[name]:x};</i>\n')

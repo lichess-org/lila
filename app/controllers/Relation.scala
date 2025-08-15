@@ -10,7 +10,7 @@ import lila.core.LightUser
 import lila.core.perf.UserWithPerfs
 import lila.rating.UserPerfsExt.bestRatedPerf
 import lila.relation.Related
-import lila.relation.RelationStream.*
+import lila.relation.RelationStream.Direction
 
 final class Relation(env: Env, apiC: => Api) extends LilaController(env):
 
@@ -109,6 +109,14 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
         .mapConcat(identity)
         .map(env.api.userApi.one(_, None))
   }
+
+  // for lichobile, remove at some point
+  def bcAction(action: String, user: UserStr) = action.match
+    case "follow" => follow(user)
+    case "unfollow" => unfollow(user)
+    case "block" => block(user)
+    case "unblock" => unblock(user)
+    case _ => Auth(_ ?=> _ ?=> notFoundJson())
 
   private def jsonRelatedPaginator(pag: Paginator[Related[UserWithPerfs]]) =
     import lila.common.Json.{ *, given }

@@ -20,13 +20,8 @@ final class Challenge(env: Env) extends LilaController(env):
   }
 
   def apiList = ScopedBody(_.Challenge.Read, _.Web.Mobile) { ctx ?=> me ?=>
-    api.allFor(me, 300).map { all =>
-      JsonOk:
-        Json.obj(
-          "in" -> all.in.map(env.challenge.jsonView.apply(lila.challenge.Direction.In.some)),
-          "out" -> all.out.map(env.challenge.jsonView.apply(lila.challenge.Direction.Out.some))
-        )
-    }
+    for all <- api.allFor(me, 300)
+    yield JsonOk(env.challenge.jsonView.all(all))
   }
 
   def show(id: ChallengeId, @annotation.nowarn color: Option[Color]) = Open:

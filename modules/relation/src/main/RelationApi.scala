@@ -166,9 +166,7 @@ final class RelationApi(
           _ <- limitBlock(u1)
           _ <- unfollow(u2, u1)
         yield
-          Bus.pub(
-            lila.core.socket.SendTo(u2, lila.core.socket.makeMessage("blockedBy", u1))
-          )
+          Bus.pub(lila.core.socket.SendTo(u2, lila.core.socket.makeMessage("blockedBy", u1)))
           lila.mon.relation.block.increment()
     })
 
