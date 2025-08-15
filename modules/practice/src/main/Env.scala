@@ -8,16 +8,10 @@ import lila.core.config.*
 final class Env(
     studyApi: lila.study.StudyApi,
     cacheApi: lila.memo.CacheApi,
-    db: lila.db.Db,
-    memoConfig: lila.memo.MemoConfig
+    db: lila.db.Db
 )(using Executor):
 
   private lazy val coll = db(CollName("practice_progress"))
-
-  private lazy val configStoreBuilder = wire[ConfigStore.Builder]
-
-  import PracticeConfig.given
-  private lazy val configStore = configStoreBuilder[PracticeConfig]("practice", logger)
 
   lazy val api: PracticeApi = wire[PracticeApi]
 
