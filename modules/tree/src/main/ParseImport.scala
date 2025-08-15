@@ -105,7 +105,7 @@ object ParseImport:
     val whiteRemainder = if parsed.toPosition.color == Color.White then 0 else 1
     val (w, b) = clocks.zipWithIndex.partition { case (_, i) => i % 2 == whiteRemainder }
     val (white, black) = (w.map(_._1).toVector, b.map(_._1).toVector)
-    (white.exists(_.value != 0) || black.exists(_.value != 0)).option(ClockHistory(white, black))
+    (white.exists(_.value != 0) || black.exists(_.value != 0)).option(ByColor(white, black))
 
   private def isChess960StartPosition(position: Position) =
     import chess.*
