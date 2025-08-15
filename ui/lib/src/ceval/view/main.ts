@@ -165,7 +165,7 @@ export function renderCeval(ctrl: ParentCtrl): VNode[] {
     else if (ceval.state === CevalState.Failed)
       pearl = hl('i.is-red', { attrs: { 'data-icon': licon.CautionCircle } });
     else pearl = hl('i.ddloader');
-    percent = 0;
+    percent = ctrl.outcome() ? 100 : 0;
   }
   if (download) percent = Math.min(100, Math.round((100 * download.bytes) / download.total));
   else if (ceval.search.indeterminate || (percent > 0 && !ceval.isComputing)) percent = 100;
