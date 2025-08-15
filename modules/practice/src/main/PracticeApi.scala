@@ -7,7 +7,6 @@ import lila.study.{ ChapterPreview, Study }
 
 final class PracticeApi(
     coll: Coll,
-    configStore: ConfigStore[PracticeConfig],
     cacheApi: lila.memo.CacheApi,
     studyApi: lila.study.StudyApi
 )(using Executor):
@@ -50,27 +49,17 @@ final class PracticeApi(
     )
     practiceStudy <- up.structure.study(sc.study.id)
     section <- up.structure.findSection(sc.study.id)
-    publishedChapters = chapters.filterNot: c =>
-      PracticeStructure.isChapterNameCommented(c.name)
-    if publishedChapters.exists(_.id == sc.chapter.id)
+    if chapters.exists(_.id == sc.chapter.id)
     previews =
       import ChapterPreview.json.given
       import play.api.libs.json.Json
-      Json.toJson(publishedChapters)
+      Json.toJson(chapters)
   yield UserStudy(up, practiceStudy, previews, sc, section)
-
-  object config:
-    def get = configStore.get.dmap(_ | PracticeConfig.empty)
-    def set = configStore.set
-    def form = configStore.makeForm
 
   object structure:
     private val cache = cacheApi.unit[PracticeStructure]:
       _.expireAfterAccess(3.hours).buildAsyncFuture: _ =>
-        for
-          conf <- config.get
-          chapters <- studyApi.chapterIdNames(conf.studyIds)
-        yield PracticeStructure.make(conf, chapters)
+        studyApi.chapterIdNames(PracticeStructure.studyIds).map(PracticeStructure.withChapters)
     def get = cache.getUnit
     def clear() = cache.invalidateUnit()
 

@@ -335,8 +335,6 @@ GET   /features                        controllers.Plan.features
 # Practice
 GET   /practice                                   controllers.Practice.index
 GET   /practice/load/:studyId/:chapterId          controllers.Practice.chapter(studyId: StudyId, chapterId: StudyChapterId)
-GET   /practice/config                            controllers.Practice.config
-POST  /practice/config                            controllers.Practice.configSave
 POST  /practice/reset                             controllers.Practice.reset
 GET   /practice/:sectionId                        controllers.Practice.showSection(sectionId)
 GET   /practice/:sectionId/:studySlug             controllers.Practice.showStudySlug(sectionId, studySlug)

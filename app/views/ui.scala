@@ -53,8 +53,7 @@ object account:
 
 val practice = lila.practice.ui.PracticeUi(helpers)(
   csp = analyse.ui.bits.cspExternalEngine,
-  views.analyse.ui.explorerAndCevalConfig,
-  modMenu = modMenu("practice")
+  views.analyse.ui.explorerAndCevalConfig
 )
 
 object forum:

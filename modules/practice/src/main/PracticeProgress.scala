@@ -29,10 +29,9 @@ case class PracticeProgress(
   def firstOngoingIn(metas: List[ChapterPreview]): Option[ChapterPreview] =
     metas
       .find: c =>
-        !chapters.contains(c.id) && !PracticeStructure.isChapterNameCommented(c.name)
+        !chapters.contains(c.id)
       .orElse:
-        metas.find: c =>
-          !PracticeStructure.isChapterNameCommented(c.name)
+        metas.headOption
 
 object PracticeProgress:
 
