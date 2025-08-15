@@ -1,10 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="featuredEvents">رویدادهای ویژه</string>
+  <string name="moveList">لیست حرکات</string>
+  <string name="gameInfo">اطلاعات بازی</string>
   <string name="pieces">مهره</string>
+  <string name="gameStatus">وضعیت بازی</string>
   <string name="lastMove">حرکت آخر</string>
+  <string name="inputForm">کادر دستور</string>
+  <string name="actions">دستورها</string>
   <string name="yourClock">ساعت شما</string>
   <string name="opponentClock">ساعت حریف</string>
   <string name="gameStart">شروع بازی</string>
+  <string name="boardCommandList">لیست دستورها وقتی تخته فعال است</string>
+  <string name="inputFormCommandList">این دستورها را در کادر دستور تایپ کنید.</string>
+  <string name="goToInputForm">رفتن به کادر دستور</string>
+  <string name="announceCurrentSquare">اعلام نام خانهٔ فعلی</string>
+  <string name="announceLastMove">اعلام آخرین حرکت</string>
+  <string name="announceLastMoveCapture">اعلام مهرهٔ گرفته‌شده در آخرین حرکت</string>
+  <string name="announcePossibleMoves">اعلام حرکات ممکن برای مهرهٔ انتخابی</string>
+  <string name="announcePossibleCaptures">اعلام زدن‌های ممکن با مهرهٔ انتخابی</string>
+  <string name="moveWithArrows">حرکت به خانهٔ کناری (چپ، راست، بالا یا پایین)</string>
+  <string name="moveToPieceByType">حرکت به خانه‌ها با استفاده از نام مهره. برای مثال: تکرار حرف k شما را به تمام خانه‌هایی که اسب دارند می‌برد. برای معکوس کردن ترتیب، از حرف بزرگ (K) استفاده کنید.</string>
+  <string name="moveToRank">حرکت به ردیف ۱ تا ۸.</string>
+  <string name="moveToFile">حرکت به ستون a تا h.</string>
+  <string name="announcePieceLocations">اعلام مکان مهره‌ها. برای مثال: `pN` برای اسب‌های سفید، `pk` برای شاه سیاه، `pA` برای تمام مهره‌های سفید.</string>
+  <string name="announcePiecesOnRankOrFile">اعلام مهره‌های یک ردیف یا ستون. مثال: `sa` (برای ستون a)، `s1` (برای ردیف ۱).</string>
+  <string name="goToBoard">رفتن به تخته. خانهٔ پیش‌فرض e4 است. می‌توانید یک خانهٔ مشخص را هم انتخاب کنید: دستور `board a-1` یا `b a-1` شما را به خانهٔ a-1 می‌برد.</string>
+  <string name="movePiece">برای حرکت دادن مهره، از علامت‌گذاری جبری استاندارد استفاده کنید.</string>
+  <string name="promotion">برای ترفیع به مهره‌ای به جز وزیر، از علامت مساوی (=) استفاده کنید. برای مثال: `a8=N` پیاده را به اسب تبدیل می‌کند.</string>
   <string name="king">شاه</string>
   <string name="whiteKing">شاه سفید</string>
   <string name="blackKing">شاه سیاه</string>
@@ -23,6 +46,19 @@
   <string name="pawn">پیاده</string>
   <string name="whitePawn">پیاده سفید</string>
   <string name="blackPawn">پیاده سیاه</string>
+  <string name="sanSymbols" comment="Keep this order: king queen rook bishop knight takes">K Q R B N x</string>
+  <string name="sanTakes" comment="x in standard notation">می‌زند</string>
   <string name="sanCheck" comment="+ in standard notation">کیش</string>
   <string name="sanCheckmate" comment="# in standard notation">کیش و مات</string>
+  <string name="sanPromotesTo" comment="= in standard notation">تبدیل می‌شود به</string>
+  <string name="sanShortCastling" comment="O-O in standard notation">قلعهٔ کوچک</string>
+  <string name="sanLongCastling" comment="O-O-O in standard notation">قلعهٔ بزرگ</string>
+  <string name="sanDroppedOn" comment="crazyhouse @">کاشته شد در</string>
+  <string name="invalidMove">حرکت غیرمجاز</string>
+  <string name="premoveCancelled">پیش‌حرکت لغو شد</string>
+  <string name="premoveRecorded">پیش‌حرکت ثبت شد: %s. برای لغو، اینتر را بزنید.</string>
+  <string name="pockets" comment="Pockets in Crazyhouse, which hold captured pieces and let players place them again">مهره‌های ذخیره</string>
+  <string name="copyToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">کپی کردن %s در کلیپ‌بورد</string>
+  <string name="copiedToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">%s در کلیپ‌بورد کپی شد</string>
+  <string name="pgnAndFen" comment="Will be a heading read out over text-to-speech for blind users looking to share a PGN or FEN of a game.">PGN و FEN</string>
 </resources>

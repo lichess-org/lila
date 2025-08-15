@@ -4,26 +4,44 @@
   <string name="lichessAndDgt">Lichess و DGT</string>
   <string name="dgtBoardRequirements">پیش‌نیازهای تخته DGT</string>
   <string name="dgtBoardLimitations">ملزومات تخته DGT</string>
-  <string name="thisPageAllowsConnectingDgtBoard">این صفحه به شما امکان می‌دهد میز DGTتان را به Lichess وصل کنید و از آن برای انجام بازی‌ها بهرایید.</string>
+  <string name="thisPageAllowsConnectingDgtBoard">این صفحه به شما امکان می‌دهد میز DGTتان را به لیچس وصل کنید و از آن برای انجام بازی‌ها بهرایید.</string>
   <string name="toConnectTheDgtBoard" comment="%s is a piece of software e.g. &quot;LiveChess 2.25+&quot;">برای متصل شدن به تخته الکترونیکی DGT لازم است %s را نصب کنید.</string>
   <string name="downloadHere">شما می‌توانید نرم‌افزار را از اینجا بارگیری کنید: %s</string>
   <string name="ifLiveChessRunningOnThisComputer">اگر %1$s در این رایانه در حال اجرا است، می‌توانید با %2$s اتصال خود را با آن بررسی کنید.</string>
   <string name="openingThisLink">باز کردن این پیوند</string>
   <string name="ifLiveChessRunningElsewhere">اگر %1$s روی دستگاه یا پورت دیگری در حال اجرا است، باید آدرس IP و پورت را در اینجا در %2$s تنظیم کنید.</string>
   <string name="configurationSection">بخش پیکربندی</string>
+  <string name="keepPlayPageOpen">صفحهٔ بازی باید در مرورگرتان باز بماند. نیازی نیست آن را ببینید، می‌توانید پنجره را کوچک کنید یا کنار صفحهٔ بازی لیچس قرار دهید، اما آن را نبندید، وگرنه تخته از کار می‌افتد.</string>
+  <string name="boardWillAutoConnect">تخته به‌طور خودکار به هر بازی در حال انجام یا هر بازی جدیدی که شروع شود، متصل خواهد شد. قابلیت انتخاب بازی دلخواه به‌زودی اضافه می‌شود.</string>
   <string name="timeControlsForCasualGames">زمان‌بندی برای بازی‌های نارسمی: تنها در فکری، مکاتبه‌ای و سریع.</string>
   <string name="timeControlsForRatedGames">زمان‌بندی برای بازی‌های رسمی: فکری، مکاتبه‌ای و برخی سریع‌ها از جمله ۱۵+۱۰ و ۲۰+۰</string>
+  <string name="whenReadySetupBoard">هر وقت آماده بودید، تخته را بچینید و بعد روی %s کلیک کنید.</string>
+  <string name="ifMoveNotDetected">وقتی حرکتی تشخیص داده نشد</string>
+  <string name="checkYouHaveMadeOpponentsMove">مطمئن شوید که اول حرکت حریفتان را روی تختهٔ DGT انجام داده‌اید. حرکت خود را به عقب برگردانید و دوباره بازی کنید.</string>
+  <string name="asALastResort" comment="%s is 'Reload this page', a separate translatable string.&#10;&#10;Appears on DGT board pages. A DGT board is a digitally connected real life board which requires the player to set up the real life board to match what it is on the screen. Hence needing it to be set up identically to what is visible on Lichess.">به‌عنوان آخرین راه‌حل، تخته را دقیقاً مثل لیچس بچینید و سپس روی %s کلیک کنید.</string>
   <string name="reloadThisPage">بارگذاری مجدد صفحه</string>
   <string name="dgtConfigure">DGT - پیکربندی</string>
-  <string name="lichessConnectivity">اتصال‏دهندگی Lichess</string>
+  <string name="lichessConnectivity">اتصال‌‏دهندگی لیچس</string>
+  <string name="validDgtOauthToken">یک توکن OAuth مناسب برای بازی با DGT دارید.</string>
   <string name="dgtPlayMenuEntryAdded">دَرآیه %s به نام‌چین پخش‌تان در بالا افزوده شد.</string>
+  <string name="noSuitableOauthToken">هیچ توکن OAuth مناسبی ساخته نشده است.</string>
+  <string name="dgtBoardConnectivity">اتصال تختهٔ DGT</string>
   <string name="clickToGenerateOne">برای تولید یکی، اینجا کلیک کنید</string>
+  <string name="webSocketUrl">آدرس WebSocket %s</string>
   <string name="useWebSocketUrl">از «%1$s» استفاده کنید، مگر اینکه %2$s روی دستگاه یا درگاه دیگری اجرا می‌شود.</string>
   <string name="textToSpeech">متن به گفتار</string>
+  <string name="configureVoiceNarration">گزارش صوتی حرکات را تنظیم کنید تا بتوانید چشمتان را از تخته برندارید.</string>
+  <string name="enableSpeechSynthesis">فعال کردن گزارش صوتی</string>
+  <string name="speechSynthesisVoice">صدای گزارشگر</string>
+  <string name="announceAllMoves">اعلام تمام حرکات</string>
+  <string name="selectAnnouncePreference">با انتخاب «بله»، حرکت‌های شما و حریفتان اعلام می‌شود. با انتخاب «خیر»، فقط حرکت‌های حریفتان اعلام خواهد شد.</string>
+  <string name="announceMoveFormat">فرمت اعلام حرکت</string>
   <string name="moveFormatDescription">SAN استانداردی در Lichess مانند «Nf6» است. UCI در موتورهایی مانند «g8f6» رایج است.</string>
   <string name="keywords">کلیدواژه‌ها</string>
+  <string name="keywordFormatDescription">کلمات کلیدی در فرمت JSON هستند و برای ترجمهٔ حرکات و نتایج به زبان شما به کار می‌روند. زبان پیش‌فرض انگلیسی است، اما می‌توانید به‌راحتی آن را تغییر دهید.</string>
   <string name="debug">اشکال‌یابی</string>
   <string name="verboseLogging">گزارش‌دهی مفصل</string>
+  <string name="toSeeConsoleMessage">برای دیدن پیام کنسول، این کلیدها را فشار دهید: Command + Option + C (در مک) یا Control + Shift + C (در ویندوز، لینوکس و کروم او‌اس).</string>
   <string name="playWithDgtBoard">بازی با صفحه و مهره ی دیجیتالی</string>
   <string name="configure">پیکربندی</string>
 </resources>

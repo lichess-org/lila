@@ -9,7 +9,7 @@
     <item quantity="other">%s учасників</item>
   </plurals>
   <string name="allTeams">Усі команди</string>
-  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Капітан команд</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Команди-лідери</string>
   <string name="newTeam">Нова команда</string>
   <string name="myTeams">Мої команди</string>
   <string name="noTeamFound">Не знайдено команди</string>
@@ -50,6 +50,9 @@
   <string name="teamsIlead">Команди, лідером яких я є</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Можливо, ви захочете приєднати посилання на один з цих турнірів?</string>
   <string name="leadersChat">Чат лідерів</string>
+  <string name="introduction">Вступ</string>
+  <string name="teamIntroductionHelp">Короткий опис, видимий в списку команди. До 200 символів.</string>
+  <string name="teamDescriptionHelp">Повний опис, видимий на сторінці команди.</string>
   <string name="closeTeam">Закрити команду</string>
   <string name="closeTeamDescription">Закриває команду назавжди.</string>
   <string name="entryCode">Вхідний код команди</string>

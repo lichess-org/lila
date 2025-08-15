@@ -63,7 +63,7 @@
   <string name="notifyChallenge">پیشنهاد بازی</string>
   <string name="notifyTournamentSoon">مسابقات به‌زودی می‌آغازد</string>
   <string name="notifyTimeAlarm">هشدار تنگی زمان</string>
-  <string name="notifyBell">اعلان زنگی در Lichess</string>
+  <string name="notifyBell">اعلان زنگی در لیچس</string>
   <string name="notifyPush">اعلان اَفزاره، هنگامی که در Lichess نیستید</string>
   <string name="notifyWeb">مرورگر</string>
   <string name="notifyDevice">اَفزاره</string>

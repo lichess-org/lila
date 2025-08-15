@@ -5,6 +5,6 @@
   <string name="managedAccountCannotBeClosed">Tài khoản của bạn đang bị quản lý, hiện không thể đóng.</string>
   <string name="cantOpenSimilarAccount" comment="Please note this string was simplified in January 2025. Before this, it used to state &quot;You will not be allowed to open a new account with the same name, even if the case is different.&quot; Please update existing translations as required.">Bạn không được phép tạo tài khoản trùng tên, kể cả khác chữ hoa, thường.</string>
   <string name="cancelKeepAccount">Hủy và giữ lại tài khoản của tôi</string>
-  <string name="closeAccountAreYouSure">Bạn chắc chắn là bạn muốn đóng tài khoản của mình?</string>
+  <string name="closeAccountAreYouSure">Bạn chắc chắn là bạn muốn đóng tài khoản của mình không?</string>
   <string name="thisAccountIsClosed">Tài khoản này đã bị đóng</string>
 </resources>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessStreamers">بَرخَط-محتواسازان Lichess</string>
+  <string name="lichessStreamers">استریمر های لیچس</string>
   <string name="lichessStreamer">بَرخَط-محتواساز Lichess</string>
   <string name="live">زنده!</string>
   <string name="offline">بُرون‌خط</string>
@@ -17,13 +17,13 @@
   <string name="rules">قانون‌های جریان‌سازی</string>
   <string name="rule1">کلیدواژهٔ «lichess.org» را در عنوان جریان‌سازی خود بگنجانید و هنگام پخش جریانی در Lichess از رستهٔ «شطرنج» بهرایید.</string>
   <string name="rule2">وقتی چیزهای نا-Lichessی پخش می‌کنید، کلیدواژه را بردارید.</string>
-  <string name="rule3">وبگاه Lichess جریان شما را خودکار شناسایی می‌کند و مزیت‌های زیر را فعال می‌کند:</string>
+  <string name="rule3">وبگاه لیچس جریان شما را خودکار شناسایی می‌کند و مزیت‌های زیر را فعال می‌کند:</string>
   <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">%s ما را بخوانید تا از اجرای منصفانه برای همه در پخش‌تان مطمئن شوید.</string>
   <string name="streamingFairplayFAQ">پرسش‌های پربسامد دادمندی جریان‌سازی</string>
   <string name="perks">سودمندی‌های جریان‌سازی با کلیدواژه</string>
-  <string name="perk1">یک نقشک بَرخَط-محتواساز شعله‌ور در رُخ‌نمای Lichessتان بگیرید.</string>
+  <string name="perk1">یک نماد جریان مستقیم شعله‌ور در نمایه لیچس خود دریافت کنید.</string>
   <string name="perk2">به بالای فهرست بَرخَط-محتواسازان بپرید.</string>
-  <string name="perk3">دنبال‌گران Lichessتان را بیآگاهانید.</string>
+  <string name="perk3">به دنبال‌گران لیچس‌تان اعلان بفرستید.</string>
   <string name="perk4">جریان‌تان را در بازی، مسابقه و مطالعه‌تان بنمایانید.</string>
   <string name="approved">جریان‌تان تایید شده است.</string>
   <string name="pendingReview">ناظران جریان‌تان را بررسی می‌کنند.</string>
@@ -36,7 +36,7 @@
   <string name="twitchOrYouTubeMustBeVerified" comment="For background: The &quot;streamer badge&quot; refers to the microphone icon on the streamer's profile (https://lichess.org/@/Lichess).&#10;The listing is the streamer's page that appears at https://lichess.org/streamer">تغییرات یوتیوب یا توییچ باید تایید شوند.
 نشان استریمر و اسم شما در فهرست در حین فرآیند بررسی معلق خواهد شد. این ممکن است تا 72 ساعت به طول بینجامد.</string>
   <string name="youTubeChannelId">شناسهٔ کانال یوتیوب‌تان</string>
-  <string name="streamerName">نام بَرخَط-محتواسازتان در Lichess</string>
+  <string name="streamerName">نام استریم شما در لیچس</string>
   <plurals name="keepItShort">
     <item quantity="one">کوتاه بنویسید: کمتر از %s حرف</item>
     <item quantity="other">کوتاه بنویسید: کمتر از %s حرف</item>
