@@ -15,24 +15,23 @@ private[study] object CommentParser:
       shapes: Shapes,
       clock: Option[Centis],
       emt: Option[Centis],
-      comment: String
+      comment: ChessComment
   )
 
   def apply(comment: ChessComment): ParsedComment =
     import TreeComment.*
-    val text = comment.value
     ParsedComment(
-      parseShapes(text),
-      clk(text).orElse(tcec(text)),
-      emt(text),
-      removeMeta(tcecClockRemoveRegex.replaceAllIn(text, "")).trim
+      parseShapes(comment),
+      clk(comment).orElse(tcec(comment)),
+      emt(comment),
+      removeMeta(comment.map(tcecClockRemoveRegex.replaceAllIn(_, "").trim))
     )
 
-  private def parseShapes(comment: String): Shapes =
+  private def parseShapes(comment: ChessComment): Shapes =
     parseCircles(comment) ++ parseArrows(comment)
 
-  private def parseCircles(comment: String): Shapes =
-    comment match
+  private def parseCircles(comment: ChessComment): Shapes =
+    comment.value match
       case circlesRegex(str) =>
         val circles = str.split(',').toList.map(_.trim).flatMap { c =>
           for
@@ -43,8 +42,8 @@ private[study] object CommentParser:
         Shapes(circles)
       case _ => Shapes(Nil)
 
-  private def parseArrows(comment: String): Shapes =
-    comment match
+  private def parseArrows(comment: ChessComment): Shapes =
+    comment.value match
       case arrowsRegex(str) =>
         val arrows = str.split(',').toList.flatMap { c =>
           for

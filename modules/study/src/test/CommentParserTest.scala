@@ -13,22 +13,22 @@ class CommentParserTest extends LilaTest:
   val C = CommentParser
 
   test("parse comment: empty"):
-    assertEquals(C("").comment, "")
+    assertEquals(C("").comment, Comment(""))
 
   test("parse comment: without"):
-    assertEquals(C("Hello there").comment, "Hello there")
+    assertEquals(C("Hello there").comment, Comment("Hello there"))
 
   test("parse comment: at start"):
-    assertEquals(C("[%clk 10:40:33] Hello there").comment, "Hello there")
+    assertEquals(C("[%clk 10:40:33] Hello there").comment, Comment("Hello there"))
 
   test("parse comment: at end"):
-    assertEquals(C("Hello there [%clk 10:40:33]").comment, "Hello there")
+    assertEquals(C("Hello there [%clk 10:40:33]").comment, Comment("Hello there"))
 
   test("parse comment: multiple"):
-    assertEquals(C("Hello there [%clk 10:40:33][%clk 10:40:33]").comment, "Hello there")
+    assertEquals(C("Hello there [%clk 10:40:33][%clk 10:40:33]").comment, Comment("Hello there"))
 
   test("parse comment: new lines"):
-    assertEquals(C("Hello there [%clk\n10:40:33]").comment, "Hello there")
+    assertEquals(C("Hello there [%clk\n10:40:33]").comment, Comment("Hello there"))
 
   test("parse clock: empty"):
     assertEquals(C("").clock, None)
@@ -103,17 +103,18 @@ class CommentParserTest extends LilaTest:
 
   test("parse shapes: at start"):
     assertMatch(C("[%csl Gb4,Yd5,Rf6] Hello there")):
-      case C.ParsedComment(shapes, None, None, "Hello there") =>
-        shapes.value.size == 3
+      case C.ParsedComment(shapes, None, None, c) =>
+        c == Comment("Hello there") && shapes.value.size == 3
 
   test("parse shapes: at end"):
     assertMatch(C("Hello there [%csl Gb4,Yd5,Rf6]")):
-      case C.ParsedComment(shapes, None, None, "Hello there") =>
-        shapes.value.size == 3
+      case C.ParsedComment(shapes, None, None, c) =>
+        c == Comment("Hello there") && shapes.value.size == 3
 
   test("parse shapes: multiple"):
     assertMatch(C("Hello there [%csl Gb4,Yd5,Rf6][%cal Ge2e4,Ye2d4,Re2g4]")):
-      case C.ParsedComment(shapes, None, None, "Hello there") => shapes.value.size == 6
+      case C.ParsedComment(shapes, None, None, c) =>
+        c == Comment("Hello there") && shapes.value.size == 6
 
   test("parse shapes: new lines"):
     assertMatch(C("Hello there [%csl\nGb4,Yd5,Rf6]")):

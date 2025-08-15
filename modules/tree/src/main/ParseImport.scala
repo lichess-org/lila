@@ -1,7 +1,7 @@
 package lila.tree
 
 import chess.format.Fen
-import chess.format.pgn.{ ParsedPgn, Parser, PgnStr, Tags, Comment }
+import chess.format.pgn.{ ParsedPgn, Parser, PgnStr, Tags }
 import chess.variant.*
 import chess.{ Game as ChessGame, Centis, * }
 import chess.format.pgn.{ ParsedMainline, SanWithMetas }
@@ -101,7 +101,7 @@ object ParseImport:
 
   private def clockHistory(parsed: ParsedMainline[SanWithMetas]): Option[ClockHistory] =
     val clocks = parsed.moves.map: n =>
-      n.metas.comments.flatMap(c => lila.tree.Node.Comment.clk(c.value)).lastOption.getOrElse(Centis(0))
+      n.metas.comments.flatMap(lila.tree.Node.Comment.clk).lastOption.orZero
     val whiteRemainder = if parsed.toPosition.color == Color.White then 0 else 1
     val (w, b) = clocks.zipWithIndex.partition { case (_, i) => i % 2 == whiteRemainder }
     val (white, black) = (w.map(_._1).toVector, b.map(_._1).toVector)

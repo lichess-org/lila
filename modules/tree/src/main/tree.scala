@@ -3,7 +3,7 @@ package lila.tree
 import scala.util.matching.Regex
 
 import alleycats.Zero
-import chess.format.pgn.{ Glyph, Glyphs }
+import chess.format.pgn.{ Glyph, Glyphs, Comment as CommentStr }
 import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.opening.Opening
 import chess.variant.{ Crazyhouse, Variant }
@@ -420,7 +420,7 @@ object Node:
     object Text extends OpaqueString[Text]:
       extension (a: Text)
         def removeMeta: Option[Text] =
-          val v = Comment.removeMeta(a.value).trim
+          val v = Comment.removeMeta(a.into(CommentStr)).value.trim
           v.nonEmpty.option(Text(v))
     enum Author:
       case User(id: UserId, titleName: String)
@@ -432,14 +432,14 @@ object Node:
         case (User(a, _), User(b, _)) => a == b
         case _ => this == other
 
-    val clk = (text: String) => parseTime(clockRegex, text)
-    val emt = (text: String) => parseTime(emtRegex, text)
-    val tcec = (text: String) => parseTime(tcecClockRegex, text)
-    def removeMeta(text: String): String = metaReg.replaceAllIn(text, "")
+    val clk = (text: CommentStr) => parseTime(clockRegex, text)
+    val emt = (text: CommentStr) => parseTime(emtRegex, text)
+    val tcec = (text: CommentStr) => parseTime(tcecClockRegex, text)
+    def removeMeta(text: CommentStr): CommentStr = text.map(metaReg.replaceAllIn(_, ""))
 
-    private def parseTime(re: Regex, text: String): Option[Centis] =
+    private def parseTime(re: Regex, text: CommentStr): Option[Centis] =
       re
-        .findFirstMatchIn(text)
+        .findFirstMatchIn(text.value)
         .flatMap:
           _.group(1).replace(",", ".").split(":") match
             case Array(h, m, s) =>
