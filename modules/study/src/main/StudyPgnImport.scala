@@ -110,7 +110,7 @@ object StudyPgnImport:
               (shapes ++ s),
               c.orElse(clock),
               e.orElse(emt),
-              str.trim match
+              str.value.trim match
                 case "" => comments
                 case com =>
                   comments + Comment(Comment.Id.make, Comment.Text(com), annotator | Comment.Author.Lichess)

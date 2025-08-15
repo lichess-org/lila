@@ -1,7 +1,9 @@
 package lila.tree
 
+import scala.util.matching.Regex
+
 import alleycats.Zero
-import chess.format.pgn.{ Glyph, Glyphs }
+import chess.format.pgn.{ Glyph, Glyphs, Comment as CommentStr }
 import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.opening.Opening
 import chess.variant.{ Crazyhouse, Variant }
@@ -403,17 +405,22 @@ object Node:
 
   case class Comment(id: Comment.Id, text: Comment.Text, by: Comment.Author):
     def removeMeta = text.removeMeta.map(t => copy(text = t))
+
   object Comment:
     opaque type Id = String
     object Id extends OpaqueString[Id]:
       def make = Id(ThreadLocalRandom.nextString(4))
+
+    private val clockRegex = """(?s)\[%clk[\s\r\n]++([\d:,\.]++)\]""".r.unanchored
+    private val emtRegex = """(?s)\[\%emt[\s\r\n]++([\d:,\.]++)\]""".r.unanchored
+    private val tcecClockRegex = """(?s)tl=([\d:\.]++)""".r.unanchored
     private val metaReg = """\[%[^\]]++\]""".r
+
     opaque type Text = String
     object Text extends OpaqueString[Text]:
-      extension (a: Text)
+      extension (t: Text)
         def removeMeta: Option[Text] =
-          val v = metaReg.replaceAllIn(a.value, "").trim
-          v.nonEmpty.option(Text(v))
+          Comment.removeMeta(t.into(CommentStr)).trimNonEmpty.map(_.into(Text))
     enum Author:
       case User(id: UserId, titleName: String)
       case External(name: String)
@@ -423,6 +430,31 @@ object Node:
       def is(other: Author) = (this, other) match
         case (User(a, _), User(b, _)) => a == b
         case _ => this == other
+
+    def clk(text: CommentStr) = parseTime(clockRegex, text)
+    def emt(text: CommentStr) = parseTime(emtRegex, text)
+    def tcec(text: CommentStr) = parseTime(tcecClockRegex, text)
+    def removeMeta(text: CommentStr): CommentStr = text.map(metaReg.replaceAllIn(_, ""))
+
+    private def parseTime(re: Regex, text: CommentStr): Option[Centis] =
+      re
+        .findFirstMatchIn(text.value)
+        .flatMap:
+          _.group(1).replace(",", ".").split(":") match
+            case Array(h, m, s) =>
+              for
+                hi <- h.toIntOption
+                mi <- m.toIntOption
+                sd <- s.toDoubleOption
+              yield Centis(((hi * 3600 + mi * 60) * 100 + math.round(sd * 100)).toInt)
+            case Array(h, altFormatMinuteAndSeconds) =>
+              for
+                hi <- h.toIntOption
+                minsAndSecs <- altFormatMinuteAndSeconds.toDoubleOption
+              yield
+                val mi = minsAndSecs.toInt
+                Centis(((hi * 3600 + mi * 60) * 100 + math.round((minsAndSecs - mi) * 100 * 100)).toInt)
+            case _ => none
 
     def sanitize(text: String) = Text:
       softCleanUp(text)
