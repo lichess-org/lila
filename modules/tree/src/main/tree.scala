@@ -447,13 +447,13 @@ object Node:
                 mi <- m.toIntOption
                 sd <- s.toDoubleOption
               yield Centis(((hi * 3600 + mi * 60) * 100 + math.round(sd * 100)).toInt)
-            case Array(h, m) =>
+            case Array(h, altFormatMinuteAndSeconds) =>
               for
                 hi <- h.toIntOption
-                md <- m.toDoubleOption
+                minsAndSecs <- altFormatMinuteAndSeconds.toDoubleOption
               yield
-                val mi = md.toInt
-                Centis(((hi * 3600 + mi * 60) * 100 + math.round((md - mi) * 60 * 100)).toInt)
+                val mi = minsAndSecs.toInt
+                Centis(((hi * 3600 + mi * 60) * 100 + math.round((minsAndSecs - mi) * 100 * 100)).toInt)
             case _ => none
 
     def sanitize(text: String) = Text:
