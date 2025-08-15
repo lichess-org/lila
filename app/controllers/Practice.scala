@@ -107,25 +107,3 @@ final class Practice(
   def reset = AuthBody { _ ?=> me ?=>
     api.progress.reset(me).inject(Redirect(routes.Practice.index))
   }
-
-  def config = Secure(_.PracticeConfig) { ctx ?=> _ ?=>
-    for
-      struct <- api.structure.get
-      form <- api.config.form
-      page <- renderPage(views.practice.config(struct, form))
-    yield Ok(page)
-  }
-
-  def configSave = SecureBody(_.PracticeConfig) { ctx ?=> me ?=>
-    api.config.form.flatMap: form =>
-      FormFuResult(form) { err =>
-        renderAsync:
-          api.structure.get.map(views.practice.config(_, err))
-      } { text =>
-        for
-          _ <- ~api.config.set(text).toOption
-          _ <- env.mod.logApi.practiceConfig
-          _ = api.structure.clear()
-        yield Redirect(routes.Practice.config)
-      }
-  }

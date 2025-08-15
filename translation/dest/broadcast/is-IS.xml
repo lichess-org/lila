@@ -46,7 +46,7 @@
   <string name="top10Rating">Meðalskákstig efstu tíu</string>
   <string name="fidePlayers">Skákmenn Alþjóðaskáksambandsins</string>
   <string name="fidePlayerNotFound">Skákmaður Alþjóðaskáksambandsins fannst ekki</string>
-  <string name="fideProfile">Prófill hjá Alþjóðaskáksambandinu</string>
+  <string name="fideProfile">Fide-prófíll</string>
   <string name="federation">Ríkjasamband</string>
   <string name="ageThisYear">Aldur í ár</string>
   <string name="unrated">Skák án stigagjafar</string>
@@ -63,7 +63,6 @@
   <string name="startVerySoon">Útsendingin hefst innan skamms.</string>
   <string name="notYetStarted">Útsendingin er ekki enn hafin.</string>
   <string name="officialWebsite">Opinber vefsíða</string>
-  <string name="standings">Staða</string>
   <string name="officialStandings">Opinberar stöður</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Fleiri valkostir á %s</string>
   <string name="webmastersPage">síðu vefstjóra</string>

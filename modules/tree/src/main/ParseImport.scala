@@ -3,7 +3,9 @@ package lila.tree
 import chess.format.Fen
 import chess.format.pgn.{ ParsedPgn, Parser, PgnStr, Tags }
 import chess.variant.*
-import chess.{ Game as ChessGame, * }
+import chess.{ Game as ChessGame, Centis, * }
+import chess.format.pgn.{ ParsedMainline, SanWithMetas }
+import lila.core.game.ClockHistory
 
 case class TagResult(status: Status, points: Outcome.GamePoints):
   // duplicated from Game.finish
@@ -28,12 +30,12 @@ object ParseImport:
         Replay
           .makeReplay(parsed.toGame, parsed.mainline.take(maxPlies))
           .pipe { case Replay.Result(replay @ Replay(setup, _, state), replayError) =>
-            val extractedData = extractData(replay, parsed.tags)
+            val (game, result, initialFen, _, _) = extractData(replay, parsed.tags)
             ImportResult(
-              game = extractedData.setup,
-              result = extractedData.result,
+              game = game,
+              result = result,
               replay = replay,
-              initialFen = extractedData.initialFen,
+              initialFen = initialFen,
               parsed = parsed,
               replayError = replayError
             )
@@ -43,24 +45,25 @@ object ParseImport:
   def game(pgn: PgnStr): Either[ErrorStr, ImportGameResult] =
     catchOverflow: () =>
       Parser
-        .mainline(pgn)
+        .mainlineWithMetas(pgn)
         .map: parsed =>
-          val result = Replay.makeReplay(parsed.toGame, parsed.moves.take(maxPlies))
-          extractData(result.replay, parsed.tags)
+          val result = Replay.makeReplay(parsed.toGame, parsed.moves.map(_.san).take(maxPlies))
+          extractData(result.replay, parsed.tags, clockHistory(parsed))
 
   type ImportGameResult = (
-      setup: ChessGame,
+      game: ChessGame,
       result: Option[TagResult],
       initialFen: Option[Fen.Full],
-      tags: Tags
+      tags: Tags,
+      clockHistory: Option[ClockHistory]
   )
 
-  def extractData(replay: Replay, tags: Tags): ImportGameResult =
+  def extractData(replay: Replay, tags: Tags, clockHistory: Option[ClockHistory] = none): ImportGameResult =
     val variant = extractVariant(replay.setup, tags)
     val initialFen = tags.fen.flatMap(Fen.readWithMoveNumber(variant, _)).map(Fen.write)
     val game = replay.state.copy(position = replay.state.position.withVariant(variant))
     val result = extractResult(game, tags)
-    (game, result, initialFen, tags)
+    (game, result, initialFen, tags, clockHistory)
 
   def extractVariant(setup: ChessGame, tags: Tags): Variant =
     inline def initBoard = tags.fen.flatMap(Fen.read).map(_.board)
@@ -95,6 +98,15 @@ object ParseImport:
             .guessPointsFromStatusAndPosition(status, game.position.winner)
             .map(TagResult(status, _))
       }
+
+  private def clockHistory(parsed: ParsedMainline[SanWithMetas]): Option[ClockHistory] =
+    val clocks = parsed.moves.map: n =>
+      n.metas.comments.flatMap(lila.tree.Node.Comment.clk).lastOption.orZero
+    val whiteRemainder = if parsed.toPosition.color.white then 0 else 1
+    val byColor = ByColor
+      .fromPair(clocks.zipWithIndex.partition { (_, i) => i % 2 == whiteRemainder })
+      .map(_.view.map(_._1).toVector)
+    Option.when(byColor.exists(_.exists(_.value != 0)))(byColor)
 
   private def isChess960StartPosition(position: Position) =
     import chess.*

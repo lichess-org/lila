@@ -960,7 +960,6 @@ export default class AnalyseCtrl {
       upgradable: this.evalCache?.upgradable(),
     });
   };
-
   closeTools = () => {
     this.retro = undefined;
     if (this.practice) this.togglePractice();

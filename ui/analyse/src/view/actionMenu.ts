@@ -189,8 +189,8 @@ export function view(ctrl: AnalyseCtrl): VNode {
     hl('span', [
       ctrlToggle(
         {
-          name: 'Disclosure mode', // TODO help
-          title: 'Enable variation disclosure mode',
+          name: 'Disclosure mode',
+          title: 'Variation disclosure mode',
           id: 'disclosureMode',
           checked: ctrl.disclosureMode(),
           change: ctrl.toggleDisclosureMode,

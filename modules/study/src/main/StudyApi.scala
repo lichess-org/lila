@@ -2,7 +2,7 @@ package lila.study
 
 import akka.stream.scaladsl.*
 import chess.format.UciPath
-import chess.format.pgn.{ Glyph, Tags }
+import chess.format.pgn.{ Glyph, Tags, Comment as CommentStr }
 import monocle.syntax.all.*
 import alleycats.Zero
 
@@ -462,7 +462,7 @@ final class StudyApi(
               doSetClock(Study.WithChapter(study, c), Position(c, UciPath.root).ref, clock)(who)
       yield sendTo(study.id)(_.setTags(chapter.id, chapter.tags, who))
 
-  def setComment(studyId: StudyId, position: Position.Ref, text: Comment.Text)(who: Who) =
+  def setComment(studyId: StudyId, position: Position.Ref, text: CommentStr)(who: Who) =
     sequenceStudyWithChapter(studyId, position.chapterId):
       case Study.WithChapter(study, chapter) =>
         Contribute(who.u, study):

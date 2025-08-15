@@ -168,7 +168,7 @@
   <string name="drawByMutualAgreement">Remis ved overenskomst</string>
   <string name="fiftyMovesWithoutProgress">Femti trekk uten framgang</string>
   <string name="currentGames">Partier som spilles nå</string>
-  <string name="joinedX">Ble med %s</string>
+  <string name="joinedX" comment="%s is a date relative to today&#10;&#10;e.g. &quot;Joined 2 months ago&quot;&#10;Note that the 'ago' is already in %s">Ble med %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s parti</item>
     <item quantity="other">%s partier</item>
@@ -1009,4 +1009,5 @@ Alle kostnader for drift, utvikling og innhold finansieres utelukkende av bruker
   <string name="accessibility">Tilgjengelighet</string>
   <string name="enableBlindMode">Aktiver blindemodus</string>
   <string name="disableBlindMode">Deaktiver blindemodus</string>
+  <string name="copyToClipboard">Kopier til utklippstavlen</string>
 </resources>

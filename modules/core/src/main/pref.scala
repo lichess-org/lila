@@ -23,6 +23,7 @@ trait Pref:
 
   def hasKeyboardMove: Boolean
   def hasVoice: Boolean
+  def hasSpeech: Boolean
   def hideRatingsInGame: Boolean
   def showRatings: Boolean
   def animationMillis: Int

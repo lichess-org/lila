@@ -77,12 +77,7 @@ const autoScroll = throttle(200, (moveListEl: HTMLElement) => {
   const [move, view] = [moveEl.getBoundingClientRect(), moveListEl.getBoundingClientRect()];
   const visibleHeight = Math.min(view.bottom, window.innerHeight) - Math.max(view.top, 0);
   moveListEl.scrollTo({
-    top:
-      moveListEl.scrollTop +
-      move.top -
-      view.top -
-      visibleHeight / 2 + // center on list
-      move.height / 2, // center on move
+    top: moveListEl.scrollTop + move.top - view.top - (visibleHeight - move.height) / 2,
     behavior: 'auto',
   });
 });

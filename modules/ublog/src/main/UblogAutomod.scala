@@ -25,6 +25,7 @@ object UblogAutomod:
       commercial: Option[String] = none,
       evergreen: Option[Boolean] = none,
       hash: Option[String] = none,
+      lockedBy: Option[UserId] = none,
       version: Int = schemaVersion
   )
 

@@ -98,7 +98,7 @@ object TreeBuilder:
   private[tree] def makeLichessComment(c: Comment) =
     Node.Comment(
       Node.Comment.Id.make,
-      c.into(Node.Comment.Text),
+      c,
       Node.Comment.Author.Lichess
     )
 

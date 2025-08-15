@@ -1,6 +1,6 @@
 package lila.study
 
-import chess.format.pgn.{ Comment as ChessComment, Glyphs, ParsedPgn, PgnNodeData, PgnStr, Tags, Tag }
+import chess.format.pgn.{ Comment as CommentStr, Glyphs, ParsedPgn, PgnNodeData, PgnStr, Tags, Tag }
 import chess.format.{ Fen, Uci, UciCharPair }
 import chess.{ ByColor, Centis, ErrorStr, Node as PgnNode, Outcome, Status, TournamentClock, Ply }
 
@@ -96,10 +96,10 @@ object StudyPgnImport:
   def endComment(end: Ending): Comment =
     import end.*
     val text = s"$resultText $statusText"
-    Comment(Comment.Id.make, Comment.Text(text), Comment.Author.Lichess)
+    Comment(Comment.Id.make, CommentStr(text), Comment.Author.Lichess)
 
   def parseComments(
-      comments: List[ChessComment],
+      comments: List[CommentStr],
       annotator: Option[Comment.Author]
   ): (Shapes, Option[Centis], Option[Centis], Comments) =
     comments.foldLeft((Shapes(Nil), none[Centis], none[Centis], Comments(Nil))):
@@ -110,10 +110,8 @@ object StudyPgnImport:
               (shapes ++ s),
               c.orElse(clock),
               e.orElse(emt),
-              str.trim match
-                case "" => comments
-                case com =>
-                  comments + Comment(Comment.Id.make, Comment.Text(com), annotator | Comment.Author.Lichess)
+              str.trimNonEmpty.fold(comments): com =>
+                comments + Comment(Comment.Id.make, com, annotator | Comment.Author.Lichess)
             )
 
   private def makeBranches(
