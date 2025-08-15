@@ -140,8 +140,6 @@ object bits:
       Granter(_.SetEmail)
         .option(a(cls := itemCls(active, "email"), href := routes.Mod.emailConfirm)("Email confirm")),
       Granter(_.Pages).option(a(cls := itemCls(active, "cms"), href := routes.Cms.index)("Pages")),
-      Granter(_.PracticeConfig)
-        .option(a(cls := itemCls(active, "practice"), href := routes.Practice.config)("Practice")),
       Granter(_.ManageTournament)
         .option(a(cls := itemCls(active, "tour"), href := routes.TournamentCrud.index(1))("Tournaments")),
       Granter(_.ManageEvent)
