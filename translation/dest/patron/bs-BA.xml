@@ -3,6 +3,7 @@
   <string name="donate">Donirajte</string>
   <string name="donateAsX">Donirajte kao %s</string>
   <string name="lichessPatron">Lichess Pokrovitelj</string>
+  <string name="patronSince" comment="%s is a date e.g. &quot;21 Jan 2025&quot;,&#10;meaning the final text would be something like &quot;Patron since 21 Jan 2025&quot;.">Pokrovitelj od %s</string>
   <string name="freeAccount">Besplatni korisnički račun</string>
   <string name="becomePatron">Postanite Lichess Pokrovitelj</string>
   <string name="xBecamePatron">%s je postao/la Lichess Pokrovitelj</string>
@@ -82,4 +83,7 @@ Međutim, pokrovitelji imaju pravo da se hvale sa novom super ikonom na svom pro
   <string name="nowOneMonth">Upravo ste postali Lichess Pokrovitelj na period od mjesec dana!</string>
   <string name="downgradeNextMonth">Nakon isticanja perioda od mjesec dana, naplata se NEĆE ponovo procesirati, a status pokrovitelja će Vam se besplatno ukinuti.</string>
   <string name="changeCurrency">Promijenite valutu</string>
+  <string name="paymentDetails">Detalji plaćanja</string>
+  <string name="updatePaymentMethod">Ažuriraj način plaćanja</string>
+  <string name="stripeManageSub">Upravljajte svojom pretplatom i preuzmite fakture i račune</string>
 </resources>
