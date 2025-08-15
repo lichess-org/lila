@@ -131,21 +131,25 @@ export function selectionHandler(getOpponentColor: () => Color, isTouchDevice = 
             const msg = 'Promote to: q for queen, n for knight, r for rook, b for bishop';
             $boardLive.text(msg + (isAntichess ? ', k for king' : ''));
           } else {
-            const queenPromotionKey = $(squareSelector(promotionRank === '8' ? '8' : '1', file));
-            const knightPromotionKey = $(squareSelector(promotionRank === '8' ? '7' : '2', file));
-            const rookPromotionKey = $(squareSelector(promotionRank === '8' ? '6' : '3', file));
-            const bishopPromotionKey = $(squareSelector(promotionRank === '8' ? '5' : '4', file));
-            const cancelPromotionKey = $(squareSelector(promotionRank === '8' ? '4' : '5', file));
-            queenPromotionKey.attr('promoteTo', 'q');
-            queenPromotionKey.text('promote to queen');
-            knightPromotionKey.attr('promoteTo', 'n');
-            knightPromotionKey.text('promote to knight');
-            rookPromotionKey.attr('promoteTo', 'r');
-            rookPromotionKey.text('promote to rook');
-            bishopPromotionKey.attr('promoteTo', 'b');
-            bishopPromotionKey.text('promote to bishop');
-            cancelPromotionKey.attr('promoteTo', 'x');
-            cancelPromotionKey.text('cancel');
+            let rank = promotionRank === '8' ? 8 : 1;
+            const promotionKeys = [
+              { role: 'q', text: 'promote to queen' },
+              { role: 'n', text: 'promote to knight' },
+              { role: 'r', text: 'promote to rook' },
+              { role: 'b', text: 'promote to bishop' },
+              { role: 'k', text: 'promote to king' },
+              { role: 'x', text: 'cancel' },
+            ];
+
+            for (let promotionKey of promotionKeys) {
+              if (promotionKey.role !== 'k' || isAntichess) {
+                const piecePromotionKey = $(squareSelector(rank.toString(), file));
+                piecePromotionKey.attr('promoteTo', promotionKey.role);
+                piecePromotionKey.text(promotionKey.text);
+              }
+              if (promotionRank === '8') rank--;
+              else rank++;
+            }
           }
           return;
         }
