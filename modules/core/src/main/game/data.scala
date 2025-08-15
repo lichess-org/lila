@@ -57,7 +57,7 @@ case class PgnImport(
 type ClockHistory = ByColor[Vector[Centis]]
 
 object ClockHistory:
-  val someEmpty: Option[ClockHistory] = ByColor.fill(Vector.empty).some
+  val empty: ClockHistory = ByColor.fill(Vector.empty)
 
   extension (clockHistory: ClockHistory)
     // first state is of the color that moved first.

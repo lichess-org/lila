@@ -32,7 +32,7 @@ case class Game(
     id: GameId,
     players: ByColor[Player],
     chess: ChessGame,
-    loadClockHistory: Clock => Option[ClockHistory] = _ => ClockHistory.someEmpty,
+    loadClockHistory: Clock => Option[ClockHistory] = _ => ClockHistory.empty.some,
     status: Status,
     daysPerTurn: Option[Days],
     binaryMoveTimes: Option[Array[Byte]] = None,
