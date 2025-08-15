@@ -12,7 +12,7 @@ final class PracticeUi(helpers: Helpers)(
     csp: Update[ContentSecurityPolicy],
     explorerAndCevalConfig: Context ?=> JsObject,
     modMenu: Context ?=> Frag
-) extends practiceFragments(helpers):
+) extends PracticeFragments(helpers):
   import helpers.{ *, given }
   import trans.practice as trp
 
@@ -68,7 +68,7 @@ final class PracticeUi(helpers: Helpers)(
           div(cls := "page-menu__content practice-app")(
             data.structure.sections.filter(s => !s.hide || Granter.opt(_.PracticeConfig)).map { section =>
               st.section(
-                h2(sectionHeader(section.name).txt()),
+                h2(sectionHeader(section).txt()),
                 div(cls := "studies")(
                   section.studies.filter(s => !s.hide || Granter.opt(_.PracticeConfig)).map { stud =>
                     val prog = data.progressOn(stud.id)
@@ -83,7 +83,7 @@ final class PracticeUi(helpers: Helpers)(
                       ),
                       i(cls := s"${stud.id}"),
                       span(cls := "text")(
-                        h3(studyName(stud.name.value).txt()),
+                        h3(studyName(stud.name).txt()),
                         em(studiesDesc(stud.desc).txt())
                       )
                     )

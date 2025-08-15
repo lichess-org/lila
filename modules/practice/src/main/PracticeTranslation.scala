@@ -1,15 +1,14 @@
 package lila.practice
 package ui
 
-import scala.collection.immutable
-
 import lila.ui.*
 import lila.core.i18n.I18nKey
+import lila.core.study.data.StudyName
 
-class practiceFragments(helpers: Helpers):
+class PracticeFragments(helpers: Helpers):
   import helpers.trans.practice as trp
 
-  val headersMap: immutable.Map[String, I18nKey] = Map(
+  val headersMap: Map[String, I18nKey] = Map(
     "Checkmates" -> trp.secHeadCheckmates,
     "Basic Tactics" -> trp.secHeadBasicTactics,
     "Intermediate Tactics" -> trp.secHeadIntermediateTactics,
@@ -17,41 +16,41 @@ class practiceFragments(helpers: Helpers):
     "Rook Endgames" -> trp.secHeadRookEndgames
   )
 
-  val studiesMap: immutable.Map[String, I18nKey] = Map(
-    "Piece Checkmates I" -> trp.stNamPieceCheckmatesI,
-    "Checkmate Patterns I" -> trp.stNamCheckmatePatternsI,
-    "Checkmate Patterns II" -> trp.stNamCheckmatePatternsII,
-    "Checkmate Patterns III" -> trp.stNamCheckmatePatternsIII,
-    "Checkmate Patterns IV" -> trp.stNamCheckmatePatternsIV,
-    "Piece Checkmates II" -> trp.stNamPieceCheckmatesII,
-    "Knight &amp; Bishop Mate" -> trp.stNamKnightAndBishopMate,
-    "The Pin" -> trp.stNamThePin,
-    "The Skewer" -> trp.stNamTheSkewer,
-    "The Fork" -> trp.stNamTheFork,
-    "Discovered Attacks" -> trp.stNamDiscoveredAttacks,
-    "Double Check" -> trp.stNamDoubleCheck,
-    "Overloaded Pieces" -> trp.stNamOverloadedPieces,
-    "Zwischenzug" -> trp.stNamZwischenzug,
-    "X-Ray" -> trp.stNamXRay,
-    "Zugzwang" -> trp.stNamZugzwang,
-    "Interference" -> trp.stNamInterference,
-    "Greek Gift" -> trp.stNamGreekGift,
-    "Deflection" -> trp.stNamDeflection,
-    "Attraction" -> trp.stNamAttraction,
-    "Underpromotion" -> trp.stNamUnderpromotion,
-    "Desperado" -> trp.stNamDesperado,
-    "Counter Check" -> trp.stNamCounterCheck,
-    "Undermining" -> trp.stNamUndermining,
-    "Clearance" -> trp.stNamClearance,
-    "Key Squares" -> trp.stNamKeySquares,
-    "Opposition" -> trp.stNamOpposition,
-    "7th-Rank Rook Pawn" -> trp.stNam7thRankRookPawn,
-    "Basic Rook Endgames" -> trp.stNamBasicRookEndgames,
-    "Intermediate Rook Endings" -> trp.stNamIntermediateRookEndings,
-    "Practical Rook Endings" -> trp.stNamPracticalRookEndings
+  val studiesMap: Map[StudyName, I18nKey] = Map(
+    StudyName("Piece Checkmates I") -> trp.stNamPieceCheckmatesI,
+    StudyName("Checkmate Patterns I") -> trp.stNamCheckmatePatternsI,
+    StudyName("Checkmate Patterns II") -> trp.stNamCheckmatePatternsII,
+    StudyName("Checkmate Patterns III") -> trp.stNamCheckmatePatternsIII,
+    StudyName("Checkmate Patterns IV") -> trp.stNamCheckmatePatternsIV,
+    StudyName("Piece Checkmates II") -> trp.stNamPieceCheckmatesII,
+    StudyName("Knight &amp; Bishop Mate") -> trp.stNamKnightAndBishopMate,
+    StudyName("The Pin") -> trp.stNamThePin,
+    StudyName("The Skewer") -> trp.stNamTheSkewer,
+    StudyName("The Fork") -> trp.stNamTheFork,
+    StudyName("Discovered Attacks") -> trp.stNamDiscoveredAttacks,
+    StudyName("Double Check") -> trp.stNamDoubleCheck,
+    StudyName("Overloaded Pieces") -> trp.stNamOverloadedPieces,
+    StudyName("Zwischenzug") -> trp.stNamZwischenzug,
+    StudyName("X-Ray") -> trp.stNamXRay,
+    StudyName("Zugzwang") -> trp.stNamZugzwang,
+    StudyName("Interference") -> trp.stNamInterference,
+    StudyName("Greek Gift") -> trp.stNamGreekGift,
+    StudyName("Deflection") -> trp.stNamDeflection,
+    StudyName("Attraction") -> trp.stNamAttraction,
+    StudyName("Underpromotion") -> trp.stNamUnderpromotion,
+    StudyName("Desperado") -> trp.stNamDesperado,
+    StudyName("Counter Check") -> trp.stNamCounterCheck,
+    StudyName("Undermining") -> trp.stNamUndermining,
+    StudyName("Clearance") -> trp.stNamClearance,
+    StudyName("Key Squares") -> trp.stNamKeySquares,
+    StudyName("Opposition") -> trp.stNamOpposition,
+    StudyName("7th-Rank Rook Pawn") -> trp.stNam7thRankRookPawn,
+    StudyName("Basic Rook Endgames") -> trp.stNamBasicRookEndgames,
+    StudyName("Intermediate Rook Endings") -> trp.stNamIntermediateRookEndings,
+    StudyName("Practical Rook Endings") -> trp.stNamPracticalRookEndings
   )
 
-  val studiesDescMap: immutable.Map[String, I18nKey] = Map(
+  val studiesDescMap: Map[String, I18nKey] = Map(
     "Basic checkmates" -> trp.stDesBasicCheckmates,
     "Recognize the patterns" -> trp.stDesRecognizeThePatterns,
     "Challenging checkmates" -> trp.stDesChallengingCheckmates,
@@ -83,9 +82,9 @@ class practiceFragments(helpers: Helpers):
     "Rook endings with several pawns" -> trp.stDesRookEndingsWithSeveralPawns
   )
 
-  private def getFragment(name: String, map: Map[String, I18nKey]): I18nKey =
-    map.getOrElse(name, I18nKey(name))
+  private def getFragment[N](name: N, map: Map[N, I18nKey]): I18nKey =
+    map.getOrElse(name, I18nKey(name.toString))
 
-  def sectionHeader(name: String): I18nKey = getFragment(name, headersMap)
-  def studyName(name: String): I18nKey = getFragment(name, studiesMap)
+  def sectionHeader(s: PracticeSection): I18nKey = getFragment(s.name, headersMap)
+  def studyName(name: StudyName): I18nKey = getFragment(name, studiesMap)
   def studiesDesc(name: String): I18nKey = getFragment(name, studiesDescMap)
