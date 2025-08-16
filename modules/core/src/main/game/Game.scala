@@ -26,12 +26,13 @@ import lila.core.id.{ GameFullId, GameId, GamePlayerId }
 import lila.core.perf.PerfKey
 import lila.core.user.User
 import lila.core.userId.{ UserId, UserIdOf }
+import lila.core.game.ClockHistory.bothClockStates
 
 case class Game(
     id: GameId,
     players: ByColor[Player],
     chess: ChessGame,
-    loadClockHistory: Clock => Option[ClockHistory] = _ => ClockHistory.someEmpty,
+    loadClockHistory: Clock => Option[ClockHistory] = _ => ClockHistory.empty.some,
     status: Status,
     daysPerTurn: Option[Days],
     binaryMoveTimes: Option[Array[Byte]] = None,

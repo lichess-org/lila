@@ -16,7 +16,7 @@ case class UserPractice(
 
   lazy val nbDoneChapters = structure.chapterIds.count(progress.chapters.contains)
 
-  lazy val progressPercent = nbDoneChapters * 100 / structure.nbUnhiddenChapters.atLeast(1)
+  lazy val progressPercent = nbDoneChapters * 100 / structure.nbChapters.atLeast(1)
 
 case class UserStudy(
     practice: UserPractice,

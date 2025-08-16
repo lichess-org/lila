@@ -10,7 +10,7 @@
   <string name="yourTurn">Đến lượt bạn</string>
   <string name="aiNameLevelAiLevel">%1$s cấp độ %2$s</string>
   <string name="level">Cấp độ</string>
-  <string name="strength">Độ mạnh</string>
+  <string name="strength">Sức mạnh</string>
   <string name="toggleTheChat">Bật/Tắt trò chuyện</string>
   <string name="chat">Trò chuyện</string>
   <string name="resign">Chịu thua</string>
@@ -45,7 +45,7 @@
   <string name="forceResignation">Giành chiến thắng</string>
   <string name="forceDraw">Bắt buộc hòa</string>
   <string name="talkInChat">Hãy cư xử thân thiện trong cuộc trò chuyện!</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Người đầu tiên sử dụng URL này sẽ bắt đầu chơi với bạn.</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Người đầu tiên sử dụng đường dẫn này sẽ bắt đầu chơi với bạn.</string>
   <string name="whiteResigned">Bên trắng chịu thua</string>
   <string name="blackResigned">Bên đen chịu thua</string>
   <string name="whiteLeftTheGame">Bên trắng đã rời khỏi ván cờ</string>
@@ -159,7 +159,7 @@
   <string name="drawByMutualAgreement">Hòa theo thỏa thuận hai bên</string>
   <string name="fiftyMovesWithoutProgress">50 nước không có tiến triển</string>
   <string name="currentGames">Các ván cờ đang diễn ra</string>
-  <string name="joinedX">Tham gia hôm %s</string>
+  <string name="joinedX">Đã tham gia %s</string>
   <plurals name="nbGames">
     <item quantity="other">%s ván cờ</item>
   </plurals>

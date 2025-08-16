@@ -20,6 +20,9 @@ case class RacerRace(
 
   def player(id: RacerPlayer.Id) = players.find(_.id == id)
 
+  def ownerName =
+    players.find(_.id == owner).fold(if isLobby then UserName.lichess else UserName.anonymous)(_.name)
+
   def join(player: RacerPlayer): Option[RacerRace] =
     (!hasStarted && !has(player.id) && players.sizeIs < RacerRace.maxPlayers)
       .option(copy(players = players :+ player))
