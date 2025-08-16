@@ -48,7 +48,7 @@ final class Cached(
       loader: (perfId, page) =>
         val perPage = 200
         val skip = (page - 1).max(0) * perPage
-        rankingApi.topPerfRange(perfId, skip, perPage)
+        rankingApi.topPerf(perfId, skip, perPage)
 
   private val topWeekCache = mongoCache.unit[List[LightPerf]](
     "user:top:week",

@@ -51,29 +51,7 @@ final class RankingApi(
   private def makeId(userId: UserId, perfType: PerfType) =
     s"$userId:${perfType.id}"
 
-  private[user] def topPerf(perfId: PerfId, nb: Int): Fu[List[LightPerf]] =
-    lila.rating
-      .PerfType(perfId)
-      .map(_.key)
-      .filter(k => lila.rating.PerfType.isLeaderboardable(PerfType(k)))
-      .so: perfKey =>
-        coll:
-          _.find($doc("perf" -> perfId, "stable" -> true))
-            .sort($doc("rating" -> -1))
-            .cursor[Ranking]()
-            .list(nb)
-            .flatMap:
-              _.parallel: r =>
-                lightUser(r.user).map2: light =>
-                  LightPerf(
-                    user = light,
-                    perfKey = perfKey,
-                    rating = r.rating,
-                    progress = ~r.prog
-                  )
-              .dmap(_.flatten)
-
-  private[user] def topPerfRange(perfId: PerfId, skip: Int, nb: Int): Fu[List[LightPerf]] =
+  private[user] def topPerf(perfId: PerfId, nb: Int, skip: Int = 0): Fu[List[LightPerf]] =
     lila.rating
       .PerfType(perfId)
       .map(_.key)
@@ -94,7 +72,7 @@ final class RankingApi(
                     rating = r.rating,
                     progress = ~r.prog
                   )
-            .dmap(_.flatten)
+              .dmap(_.flatten)
 
   private[user] def fetchLeaderboard(nb: Int): Fu[lila.rating.UserPerfs.Leaderboards] =
     for
