@@ -88,7 +88,7 @@ GET   /player/myself                   controllers.User.myself
 GET   /player/opponents                controllers.User.opponents
 GET   /player/search/:term             controllers.User.search(term: String)
 GET   /player                          controllers.User.list
-GET   /player/top/200/:perfKey         controllers.User.topBcRedirect(perfKey: PerfKey)
+GET   /player/top/:nb/:perfKey         controllers.User.topBcRedirect(nb: Int, perfKey: PerfKey)
 GET   /player/top/:perfKey             controllers.User.top(perfKey: PerfKey, page: Int ?= 1)
 GET   /api/player/top/:nb/:perfKey     controllers.User.topNbApi(nb: Int, perfKey: PerfKey)
 GET   /player/online                   controllers.User.online

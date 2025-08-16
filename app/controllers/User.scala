@@ -270,7 +270,8 @@ final class User(
 
   // redirect /player/top/200/:perfKey to /user/top/:perfKey
   // TODO move to a NotFound general handler?
-  def topBcRedirect(perfKey: PerfKey) = Anon:
+  // to avoid adding (yet another) route
+  def topBcRedirect(@annotation.unused nb: Int, perfKey: PerfKey) = Anon:
     Redirect(routes.User.top(perfKey))
 
   def top(perfKey: PerfKey, page: Int) = Open:
