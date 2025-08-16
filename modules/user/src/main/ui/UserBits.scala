@@ -88,9 +88,8 @@ final class UserBits(helpers: Helpers):
       .sortBy(_._2)
       .map: (perf, rank) =>
         lila.rating.PerfType(perf) -> rank
-      .collect:
-        case (perf, rank) if trophyMeta(perf, rank).isDefined =>
-          (perf, trophyMeta(perf, rank).get)
+      .flatMap: (perf, rank) =>
+        trophyMeta(perf, rank).map(perf -> _)
       .map { case (perf, (cssClass, trophyTitle, imgPath)) =>
         a(href := routes.User.top(perf.key))(
           span(cls := cssClass, title := trophyTitle)(
