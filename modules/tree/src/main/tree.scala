@@ -451,7 +451,7 @@ object Node:
                 val mi = minsAndSecs.toInt
                 Centis(((hi * 3600 + mi * 60) * 100 + math.round((minsAndSecs - mi) * 100 * 100)).toInt)
             case Array(ms) if re == Comment.tcecClockRegex =>
-              ms.toIntOption.map(millis => Centis(math.round(millis / 10f)))
+              ms.toLongOption.map(Centis.ofMillis)
             case _ => none
 
     def sanitize(text: String) = CommentStr:
