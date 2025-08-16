@@ -45,7 +45,7 @@ export const env = new (class {
 
   private status: { [key in Context]?: number | false } = {};
 
-  get manifest(): boolean {
+  manifestOk(): boolean {
     return (
       isEquivalent(this.building, [...this.packages.values()]) &&
       (['tsc', 'esbuild', 'sass', 'i18n'] as const).map(b => this.status[b]).every(x => x === 0)
@@ -105,7 +105,7 @@ export const env = new (class {
       );
     }
     this.status[ctx] = code;
-    if (this.manifest && taskOk()) {
+    if (this.manifestOk() && taskOk()) {
       if (this.startTime) {
         const doneMsg = `Done in ${c.green((Date.now() - this.startTime) / 1000 + '')}s`;
         this.log(

@@ -1,7 +1,7 @@
 import fs from 'node:fs';
+import { relative, join } from 'node:path';
 import { execSync } from 'node:child_process';
 import { chdir } from 'node:process';
-import { join } from 'node:path';
 import { parsePackages } from './parse.ts';
 import { makeTask, stopTask } from './task.ts';
 import { tsc, stopTsc } from './tsc.ts';
@@ -69,12 +69,12 @@ function monitor(pkgs: string[]) {
         if (!env.install) env.exit('Exiting due to package.json change');
         await stopBuild();
         if (env.clean) await clean();
-        else await clean([join(env.buildTempDir, 'noCheck/*')]);
+        else await clean([relative(env.rootDir, join(env.buildTempDir, 'noCheck/*'))]);
         build(pkgs);
       } else if (files.some(x => x.endsWith('.d.ts') || x.endsWith('tsconfig.json'))) {
         stopManifest();
         await Promise.allSettled([stopTsc(), stopEsbuild()]);
-        await clean([join(env.buildTempDir, 'noCheck/*')]);
+        await clean([relative(env.rootDir, join(env.buildTempDir, 'noCheck/*'))]);
         tsc();
         esbuild();
       }

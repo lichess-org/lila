@@ -66,13 +66,13 @@ declare namespace Tree {
     fail?: boolean;
     puzzle?: 'win' | 'fail' | 'good' | 'retry';
     crazy?: NodeCrazy;
+    collapsed?: boolean;
   }
   export interface NodeFromServer extends NodeBase {
     children?: Node[];
   }
   export interface Node extends NodeBase {
     children: Node[];
-    collapsed?: boolean;
   }
 
   export interface NodeCrazy {
@@ -108,5 +108,8 @@ declare namespace Tree {
 
   export type Clock = number;
 
-  export interface Shape {}
+  export interface Shape {
+    orig: Key;
+    dest?: Key;
+  }
 }

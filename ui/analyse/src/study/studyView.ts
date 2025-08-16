@@ -53,7 +53,7 @@ export function studyView(ctrl: AnalyseCtrl, study: StudyCtrl, deps: typeof stud
     crazyView(ctrl, ctrl.topColor(), 'top'),
     gamebookPlayView || renderTools(ctx),
     crazyView(ctrl, ctrl.bottomColor(), 'bottom'),
-    !gamebookPlayView && renderControls(ctrl),
+    !gamebookPlayView && renderControls(ctx),
     renderUnderboard(ctx),
     ctrl.keyboardMove && renderKeyboardMove(ctrl.keyboardMove),
     trainingView(ctrl),

@@ -6,8 +6,8 @@ import type AnalyseCtrl from '../ctrl';
 import { renderNodesHtml } from '../pgnExport';
 import { spinnerVdom as spinner } from 'lib/view/controls';
 import { fixCrazySan } from 'lib/game/chess';
-import { findCurrentPath } from '../treeView/common';
 import type ForecastCtrl from './forecastCtrl';
+import { playable } from 'lib/game/game';
 
 function onMyTurn(fctrl: ForecastCtrl, cNodes: ForecastStep[]): VNode | undefined {
   const firstNode = cNodes[0];
@@ -63,10 +63,10 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
               attrs: dataIcon(licon.PlayTriangle),
               hook: bind(
                 'click',
-                () => {
-                  const path = fctrl.showForecast(findCurrentPath(ctrl) || '', ctrl.tree, nodes);
-                  ctrl.userJump(path);
-                },
+                () =>
+                  ctrl.userJump(
+                    fctrl.showForecast((playable(ctrl.data) && ctrl.initialPath) || '', ctrl.tree, nodes),
+                  ),
                 ctrl.redraw,
               ),
             },

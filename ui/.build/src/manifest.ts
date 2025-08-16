@@ -49,7 +49,7 @@ export function updateManifest(update: ManifestUpdate = {}): void {
 }
 
 async function writeManifest() {
-  if (!(env.manifest && taskOk())) return;
+  if (!(env.manifestOk() && taskOk())) return;
   const commitMessage = cps
     .execSync('git log -1 --pretty=%s', { encoding: 'utf-8' })
     .trim()
@@ -82,9 +82,7 @@ async function writeManifest() {
   const hashable = clientJs.join('\n');
   const hash = crypto.createHash('sha256').update(hashable).digest('hex').slice(0, 8);
 
-  const clientManifest =
-    hashable +
-    `\ns.info.date='${new Date(new Date().toUTCString()).toISOString().split('.')[0] + '+00:00'}';\n`;
+  const clientManifest = hashable + `\ns.info.date='${new Date().toISOString().split('.')[0] + '+00:00'}';\n`;
   const serverManifest = JSON.stringify(
     {
       js: { manifest: { hash }, ...manifest.js, ...manifest.i18n },

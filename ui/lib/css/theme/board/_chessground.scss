@@ -159,8 +159,10 @@ cg-container {
   right: 0;
 }
 
+cg-container .cg-shapes-below,
 cg-container .cg-shapes,
 cg-container .cg-custom-svgs,
+cg-container .cg-custom-below,
 cg-auto-pieces {
   overflow: visible;
   position: absolute;
@@ -174,14 +176,23 @@ cg-auto-pieces {
 cg-container .cg-shapes {
   opacity: 0.6;
   overflow: hidden;
-  z-index: $z-cg__svg_cg-shapes-2;
+  z-index: $z-cg__svg-shapes-2;
+}
+cg-container .cg-shapes-below {
+  overflow: hidden;
+  z-index: $z-cg-below-pieces-1;
 }
 
 cg-container .cg-custom-svgs {
   z-index: $z-cg__svg_cg-custom-svgs-4;
 }
 
-cg-container .cg-custom-svgs svg {
+cg-container .cg-custom-below {
+  z-index: $z-cg-below-pieces-1;
+}
+
+cg-container .cg-custom-svgs svg,
+cg-container .cg-custom-below svg {
   overflow: visible;
 }
 

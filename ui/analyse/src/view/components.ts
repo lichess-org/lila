@@ -1,4 +1,4 @@
-import { view as cevalView } from 'lib/ceval/ceval';
+import { view as cevalView, renderEval as normalizeEval } from 'lib/ceval/ceval';
 import { parseFen } from 'chessops/fen';
 import { defined, repeater } from 'lib';
 import * as licon from 'lib/licon';
@@ -32,7 +32,6 @@ import { spinnerVdom as spinner, stepwiseScroll } from 'lib/view/controls';
 import * as Prefs from 'lib/prefs';
 import statusView from 'lib/game/view/status';
 import { renderNextChapter } from '../study/nextChapter';
-import { render as renderTreeView } from '../treeView/treeView';
 import { dispatchChessgroundResize } from 'lib/chessgroundResize';
 import serverSideUnderboard from '../serverSideUnderboard';
 import type StudyCtrl from '../study/studyCtrl';
@@ -42,6 +41,7 @@ import { renderPgnError } from '../pgnImport';
 import { storage } from 'lib/storage';
 import { backToLiveView } from '../study/relay/relayView';
 import { findTag } from '../study/studyChapters';
+import { fixCrazySan, plyToTurn } from 'lib/game/chess';
 
 export interface ViewContext {
   ctrl: AnalyseCtrl;
@@ -87,10 +87,8 @@ export function viewContext(ctrl: AnalyseCtrl, deps?: typeof studyDeps): ViewCon
   };
 }
 
-export function renderMain(
-  { ctrl, playerBars, gaugeOn, gamebookPlayView, needsInnerCoords, hasRelayTour }: ViewContext,
-  ...kids: LooseVNodes[]
-): VNode {
+export function renderMain(ctx: ViewContext, ...kids: LooseVNodes[]): VNode {
+  const { ctrl, playerBars, gaugeOn, gamebookPlayView, needsInnerCoords, hasRelayTour } = ctx;
   const isRelay = defined(ctrl.study?.relay);
   const attrs: Attrs = {};
   if (ctrl.showingTool()) attrs['data-showing-tool'] = ctrl.showingTool();
@@ -274,8 +272,9 @@ export function renderInputs(ctrl: AnalyseCtrl): VNode | undefined {
   ]);
 }
 
-export function renderControls(ctrl: AnalyseCtrl) {
-  const canJumpPrev = ctrl.path !== '',
+export function renderControls(ctx: ViewContext) {
+  const { ctrl } = ctx,
+    canJumpPrev = ctrl.path !== '',
     canJumpNext = !!ctrl.node.children[0],
     showingTool = ctrl.showingTool(),
     canUseEngine = ctrl.ceval.possible && ctrl.ceval.allowed() && !ctrl.isGamebook() && !ctrl.isEmbed;
@@ -292,6 +291,7 @@ export function renderControls(ctrl: AnalyseCtrl) {
               control[action](ctrl);
               ctrl.redraw();
             }, e);
+          else if (action === 'line') ctrl.userJumpIfCan(ctrl.idbTree.nextLine(), true);
           else if (action === 'first') control.first(ctrl);
           else if (action === 'last') control.last(ctrl);
           else if (action === 'opening-explorer') ctrl.toggleExplorer();
@@ -352,6 +352,7 @@ export function renderControls(ctrl: AnalyseCtrl) {
       hl('div.jumps', [
         jumpButton(licon.JumpFirst, 'first', canJumpPrev),
         jumpButton(licon.JumpPrev, 'prev', canJumpPrev),
+        ctrl.disclosureMode() && jumpButton(licon.NextLine, 'line', ctrl.idbTree.nextLine() !== ctrl.path),
         jumpButton(licon.JumpNext, 'next', canJumpNext),
         jumpButton(licon.JumpLast, 'last', ctrl.node !== ctrl.mainline[ctrl.mainline.length - 1]),
       ]),
@@ -388,9 +389,26 @@ export function renderResult(ctrl: AnalyseCtrl): VNode[] {
   return [];
 }
 
+export const renderIndexAndMove = (node: Tree.Node, withEval: boolean, withGlyphs: boolean): LooseVNodes =>
+  node.san ? [renderIndex(node.ply, true), moveNodes(node, withEval, withGlyphs)] : undefined;
+
+export const renderIndex = (ply: Ply, withDots: boolean): VNode =>
+  hl(`index.sbhint${ply}`, plyToTurn(ply) + (withDots ? (ply % 2 === 1 ? '.' : '...') : ''));
+
+export function moveNodes(node: Tree.Node, withEval: boolean, withGlyphs: boolean): LooseVNodes {
+  const ev = cevalView.getBestEval({ client: node.ceval, server: node.eval });
+  const evalText = ev?.cp !== undefined ? normalizeEval(ev.cp) : ev?.mate !== undefined ? `#${ev.mate}` : '';
+  return [
+    hl('san', fixCrazySan(node.san!)),
+    withGlyphs && node.glyphs?.map(g => hl('glyph', { attrs: { title: g.name } }, g.symbol)),
+    withEval && !!node.shapes?.length && hl('shapes'),
+    withEval && evalText && hl('eval', evalText.replace('-', '−')),
+  ];
+}
+
 const renderMoveList = (ctrl: AnalyseCtrl, deps?: typeof studyDeps, concealOf?: ConcealOf): VNode =>
-  hl('div.analyse__moves.areplay', [
-    hl(`div.areplay__v${ctrl.treeVersion}`, [renderTreeView(ctrl, concealOf), renderResult(ctrl)]),
+  hl('div.analyse__moves.areplay', { hook: ctrl.treeView.hook() }, [
+    hl('div', [ctrl.treeView.render(concealOf), renderResult(ctrl)]),
     !ctrl.practice && !deps?.gbEdit.running(ctrl) && renderNextChapter(ctrl),
   ]);
 
@@ -446,7 +464,10 @@ function forceInnerCoords(ctrl: AnalyseCtrl, v: boolean) {
 }
 
 const jumpButton = (icon: string, effect: string, enabled: boolean): VNode =>
-  hl('button.fbt', { class: { disabled: !enabled }, attrs: { 'data-act': effect, 'data-icon': icon } });
+  hl('button.fbt', {
+    class: { disabled: !enabled },
+    attrs: { 'data-act': effect, 'data-icon': icon },
+  });
 
 const dataAct = (e: Event): string | null => {
   const target = e.target as HTMLElement;
