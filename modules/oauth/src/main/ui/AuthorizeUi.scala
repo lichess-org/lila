@@ -26,6 +26,7 @@ final class AuthorizeUi(helpers: Helpers)(lightUserFallback: UserId => LightUser
     Page("Authorization")
       .css("bits.oauth")
       .js(Esm("bits.oauth"))
+      .flag(_.noHeader)
       .csp(_.withUnsafeInlineScripts):
         main(cls := "oauth box box-pad force-ltr")(
           div(cls := "oauth__top")(
