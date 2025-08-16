@@ -102,7 +102,7 @@ final class UserBits(helpers: Helpers):
   def leaderboardTrophy(perf: PerfType, rank: Int)(using Translate) =
     trophyMeta(perf, rank).map: (css, titleText, imgPath) =>
       span(cls := s"$css lb__trophy trophy--small", title := titleText)(
-        img(src := assetUrl(imgPath))
+        img(src := assetUrl(imgPath), alt := s"Trophy for $title")
       )
 
   object awards:
