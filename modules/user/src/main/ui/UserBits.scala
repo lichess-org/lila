@@ -99,12 +99,11 @@ final class UserBits(helpers: Helpers):
         )
       }
 
-  def leaderboardTrophy(perf: PerfType, rank: Int, small: Boolean = true)(using Translate) =
-    trophyMeta(perf, rank).map { (css, titleText, imgPath) =>
-      span(cls := (if small then s"$css lb__trophy trophy--small" else css), title := titleText)(
+  def leaderboardTrophy(perf: PerfType, rank: Int)(using Translate) =
+    trophyMeta(perf, rank).map: (css, titleText, imgPath) =>
+      span(cls := s"$css lb__trophy trophy--small", title := titleText)(
         img(src := assetUrl(imgPath))
       )
-    }
 
   object awards:
     def awardCls(t: Trophy) = cls := s"trophy award ${t.kind._id} ${~t.kind.klass}"
