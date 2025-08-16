@@ -67,4 +67,15 @@
     <item quantity="few">prije %s godine</item>
     <item quantity="other">prije %s godina</item>
   </plurals>
+  <plurals name="nbMinutesRemaining">
+    <item quantity="one">Preostala je %s minuta</item>
+    <item quantity="few">Preostalo je %s minuta</item>
+    <item quantity="other">Preostalo je %s minuta</item>
+  </plurals>
+  <plurals name="nbHoursRemaining">
+    <item quantity="one">Preostao je %s sat</item>
+    <item quantity="few">Preostalo je %s sata</item>
+    <item quantity="other">Preostalo je %s sati</item>
+  </plurals>
+  <string name="completed">završeno</string>
 </resources>

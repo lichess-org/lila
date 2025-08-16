@@ -159,7 +159,7 @@
   <string name="drawByMutualAgreement">เสมอด้วยการตกลงกัน</string>
   <string name="fiftyMovesWithoutProgress">ห้าสิบตาเดินที่ไร้ความคืบหน้า</string>
   <string name="currentGames">เกมในขณะนี้</string>
-  <string name="joinedX" comment="%s is a date relative to today&#10;&#10;e.g. &quot;Joined 2 months ago&quot;&#10;Note that the 'ago' is already in %s">เข้าร่วม %s</string>
+  <string name="joinedX">เข้าร่วม %s</string>
   <plurals name="nbGames">
     <item quantity="other">%s เกม</item>
   </plurals>

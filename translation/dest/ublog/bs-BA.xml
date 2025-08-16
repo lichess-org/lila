@@ -1,5 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="community">Zajednica</string>
+  <string name="byMonth">Po mjesecu</string>
+  <string name="byTopic">Po temi</string>
+  <string name="byLichess">Po Lichess-u</string>
+  <string name="myFriends">Moji prijatelji</string>
+  <string name="myLikes">Moji lajkovi</string>
+  <string name="myBlog">Moj blog</string>
+  <string name="likedBlogs">Sviđane objave na blogu</string>
+  <plurals name="blogPosts">
+    <item quantity="one">%s objava na blogu</item>
+    <item quantity="few">%s objave na blogu</item>
+    <item quantity="other">%s objava na blogu</item>
+  </plurals>
+  <string name="continueReadingPost">Nastavite čitati ovu objavu</string>
+  <string name="lichessBlogPostsFromXYear">Lichess blog objave u %s</string>
+  <string name="previousBlogPosts">Prethodne objave na blogu</string>
   <string name="xBlog">Blog korisnika %s</string>
   <string name="newPost">Novi članak</string>
   <string name="editYourBlogPost">Uredite svoj blog članak</string>
@@ -13,6 +29,8 @@
   <string name="createBlogDiscussionHelp">Bit će kreirana tema na forumu kako bi ljudi mogli komentirati Vašu objavu</string>
   <string name="publishOnYourBlog">Objavite na svom blogu</string>
   <string name="publishHelp">Ako je označeno, članak će biti navedena na vašem blogu. Ako ne, bit će privatno, u vašim nacrtima objava</string>
+  <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Ljepljiva objava</string>
+  <string name="stickyPostHelp">Ako je označeno, ova objava će biti prva navedena u nedavnim objavama vašeg profila i na vašem blogu.</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">Objavljen članak</item>
     <item quantity="few">Objavljeno %s članka na blogu</item>
@@ -44,4 +62,6 @@
   <string name="safeAndRespectfulContent">Molimo da objavljujete samo siguran i učtiv sadržaj. Ne kopirajte nečiji tuđi.</string>
   <string name="inappropriateContentAccountClosed">Bilo šta neprimjereno može dovesti do zatvaranja Vašeg računa.</string>
   <string name="blogTips">Naše jednostavne napomene za pisanje sjajnih objava na blogu</string>
+  <string name="discussThisBlogPostInTheForum">Raspravite o ovoj blog objavi na forumu</string>
+  <string name="youBlockedByBlogAuthor">Blokirao vas je autor bloga.</string>
 </resources>

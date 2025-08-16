@@ -2,7 +2,7 @@
 <resources>
   <string name="challengesX">Izazovi: %1$s</string>
   <string name="challengeToPlay">Izazov na partiju</string>
-  <string name="challengeDeclined">Izazov odbijen</string>
+  <string name="challengeDeclined">Izazov odbijen.</string>
   <string name="challengeAccepted">Izazov prihvaćen!</string>
   <string name="challengeCanceled">Izazov otkazan.</string>
   <string name="registerToSendChallenges" comment="This used to say &quot;Please register to send challenges.&quot;&#10;We have since added &quot;[...] to this user.&quot; to the end of the string for absolute clarity, given the context this appears in. Please update translations as needed.">Molimo, registrirajte se da biste mogli slati izazove.</string>

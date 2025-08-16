@@ -1007,4 +1007,5 @@ Başlangıç pozisyonundan oynamak için boş bırakınız.</string>
   <string name="accessibility">Erişilebilirlik</string>
   <string name="enableBlindMode">Kör modunu aktifleştir</string>
   <string name="disableBlindMode">Kör modunu devre dışı bırak</string>
+  <string name="copyToClipboard">Panoya kopyala</string>
 </resources>
