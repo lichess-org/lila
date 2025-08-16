@@ -47,18 +47,6 @@ export function zip<T, U>(arr1: T[], arr2: U[]): [T, U][] {
   return result;
 }
 
-export function mapValues<V>(map: Map<unknown, V>): V[] {
-  return Array.from(map.values());
-}
-
-export function findMap<T, U>(arr: T[], fn: (el: T) => U | undefined): U | undefined {
-  for (const el of arr) {
-    const result = fn(el);
-    if (result) return result;
-  }
-  return undefined;
-}
-
 export function definedMap<T, U>(arr: (T | undefined)[], fn: (v: T) => U | undefined): U[] {
   return arr.reduce<U[]>((acc, v) => {
     if (v === undefined) return acc;

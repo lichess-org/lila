@@ -22,7 +22,7 @@ export class DevEnv {
   push: PushCtrl;
   round: RoundController;
 
-  redraw: () => void;
+  redraw: () => void = () => {};
 
   constructor(cfg: Partial<DevEnv>) {
     Object.assign(this, cfg);
