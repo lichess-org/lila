@@ -1,2 +1,33 @@
 @import '../../../lib/css/plugin';
 @import '../../../lib/css/component/slist';
+
+.lb__trophy {
+  width: 24px;
+  text-align: center;
+}
+.slist td {
+  vertical-align: middle;
+}
+.slist td .lb__trophy {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 6px;
+  margin-left: -4px;
+  overflow: visible;
+  line-height: 0;
+}
+.slist .lb__trophy img {
+  display: inline-block;
+  height: 16px;
+  width: auto;
+  vertical-align: middle;
+  transform: scale(1.6) translateY(-2px);
+  transform-origin: left center;
+}
+.slist td .lb__rank-num {
+  display: inline-block;
+  vertical-align: middle;
+}
+.pager__label {
+  margin-right: 6px;
+}
