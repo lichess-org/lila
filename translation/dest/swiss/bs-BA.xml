@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="swiss">Švicarski</string>
   <string name="swissTournaments">Turniri po švicarskom sistemu</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="one">Pogledajte kolo</item>
@@ -44,6 +45,16 @@
   <string name="roundInterval">Interval među kolima</string>
   <string name="forbiddenPairings">Zabranjena uparivanja</string>
   <string name="forbiddenPairingsHelp">Korisnička imena igrača koji ne smiju igrati zajedno (braća i sestre, na primjer). Dva korisnička imena po redu, odvojena razmakom.</string>
+  <string name="manualPairings">Ručno uparivanje u sljedećem kolu</string>
+  <string name="manualPairingsHelp">Ručno odredite sve parove za sljedeću rundu. Jedan par igrača po redu. Primjer:
+IgračA IgračB
+IgračC IgračD
+Da biste igraču dali slobodan dan (1 bod) umjesto para, dodajte red ovako:
+IgračE 1
+Nedostajući igrači će se smatrati odsutnim i dobit će nula bodova.
+Ostavite ovo polje prazno kako biste omogućili lichessu da automatski kreira parove.</string>
+  <string name="mustHavePlayedTheirLastSwissGame">Mora da su odigrali svoju posljednju švicarsku igru</string>
+  <string name="mustHavePlayedTheirLastSwissGameHelp">Dozvolite pridruživanje samo igračima koji su odigrali svoju posljednju švicarsku utakmicu. Ako se nisu pojavili na nedavnom švicarskom događaju, neće moći učestvovati na vašem. Ovo rezultira boljim švicarskim iskustvom za igrače koji se zapravo pojave.</string>
   <string name="newSwiss">Novi švajcarski turnir</string>
   <string name="swissVsArenaQ">Kada se koriste švicarski turniri umjesto arena?</string>
   <string name="swissVsArenaA">Na švicarskom turniru, svi učesnici igraju isti broj partija, a međusobno se mogu igrati samo jednom.
@@ -120,4 +131,7 @@ Najbliže što možete doći do Bergerovog sistema preko mreže je da igrate šv
   <string name="predefinedUsers">Dozvolite pridruživanje samo unaprijed određenim korisnicima</string>
   <string name="forbiddedUsers">Ako ovaj spisak nije prazan, onda će korisnicima kojih nema na njemu biti zabranjeno da se pridruže. Jedno korisničko ime po retku.</string>
   <string name="playYourGames">Igrajte Vaše partije (do kraja)</string>
+  <string name="byes">Slobodni termini</string>
+  <string name="absences">Izostanci</string>
+  <string name="tieBreak">Prekid Izjednaka</string>
 </resources>

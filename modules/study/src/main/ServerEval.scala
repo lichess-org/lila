@@ -112,7 +112,7 @@ object ServerEval:
                     .map: adv =>
                       node.comments + Comment(
                         Comment.Id.make,
-                        adv.makeComment(withEval = false, withBestMove = true).into(Comment.Text),
+                        adv.makeComment(withEval = false, withBestMove = true),
                         Comment.Author.Lichess
                       )
                     .flatMap(bsonWriteOpt),

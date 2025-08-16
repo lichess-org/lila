@@ -7,6 +7,11 @@
     <item quantity="few">%s emitovanja</item>
     <item quantity="other">%s emitovanja</item>
   </plurals>
+  <plurals name="nbViewers">
+    <item quantity="one">%s gledalac</item>
+    <item quantity="few">%s gledalaca</item>
+    <item quantity="other">%s gledalaca</item>
+  </plurals>
   <string name="liveBroadcasts">Prenos turnira uživo</string>
   <string name="broadcastCalendar">Kalendar emitovanja</string>
   <string name="newBroadcast">Novo emitovanje uživo</string>
@@ -76,4 +81,9 @@
   <string name="optionalDetails">Opcionalni detalji</string>
   <string name="pastBroadcasts">Prošla emitovanja</string>
   <string name="allBroadcastsByMonth">Vidi sva moja emitovanja ovaj mjesec</string>
+  <string name="backToLiveMove">Nazad na uživo preseljenje</string>
+  <string name="sinceHideResults">Pošto ste odlučili sakriti rezultate, sve ploče za pregled su prazne kako bi se izbjegli spojleri.</string>
+  <string name="liveboard">Ploča uživo</string>
+  <string name="communityBroadcast">Emisija zajednice</string>
+  <string name="createdAndManagedBy">Kreirano od i njime upravlja %s.</string>
 </resources>

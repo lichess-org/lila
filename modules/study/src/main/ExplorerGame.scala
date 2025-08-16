@@ -1,11 +1,10 @@
 package lila.study
 
-import chess.format.pgn.Parser
 import chess.format.{ Fen, UciPath }
+import chess.format.pgn.{ Parser, Tags, Comment as CommentStr }
 
 import lila.tree.Node.Comment
 import lila.tree.{ Branch, Node, Root }
-import chess.format.pgn.Tags
 
 final private class ExplorerGameApi(
     explorer: lila.core.game.Explorer,
@@ -50,7 +49,7 @@ final private class ExplorerGameApi(
   private def gameComment(game: Game) =
     Comment(
       id = Comment.Id.make,
-      text = Comment.Text(s"${gameTitle(game)}, ${gameUrl(game)}"),
+      text = CommentStr(s"${gameTitle(game)}, ${gameUrl(game)}"),
       by = Comment.Author.Lichess
     )
 

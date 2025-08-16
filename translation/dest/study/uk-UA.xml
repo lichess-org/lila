@@ -90,7 +90,7 @@
   <string name="clearVariations">Очистити анотацію</string>
   <string name="deleteChapter">Видалити розділ</string>
   <string name="deleteThisChapter">Видалити цей розділ? Відновити буде неможливо!</string>
-  <string name="clearAllCommentsInThisChapter">Очистити всі коментарі та позначки з цього розділу?</string>
+  <string name="clearAllCommentsInThisChapter">Очистити всі коментарі та позначки з цього розділу</string>
   <string name="rightUnderTheBoard">Відразу під шахівницею</string>
   <string name="noPinnedComment">Немає</string>
   <string name="normalAnalysis">Звичайний аналіз</string>
@@ -127,8 +127,8 @@
   <string name="members">Учасники</string>
   <string name="everyone">Всі</string>
   <string name="enableSync">Увімкнути синхронізацію</string>
-  <string name="yesKeepEveryoneOnTheSamePosition">Так: однакова позиція для всіх</string>
-  <string name="noLetPeopleBrowseFreely">Ні: дозволити вільний перегляд</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">Так, однакова позиція для всіх</string>
+  <string name="noLetPeopleBrowseFreely">Ні, дозволити вільний перегляд</string>
   <string name="pinnedStudyComment">Закріплений коментар дослідження</string>
   <string name="start">Почати</string>
   <string name="save">Зберегти</string>
@@ -170,7 +170,7 @@
   <string name="manageTopics">Управління темами</string>
   <string name="back">Назад</string>
   <string name="playAgain">Грати знову</string>
-  <string name="whatWouldYouPlay">Що б ви грали в цій позиції?</string>
+  <string name="whatWouldYouPlay">Що б Ви зіграли в цій позиції?</string>
   <string name="youCompletedThisLesson">Вітаємо! Ви завершили цей урок.</string>
   <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">%s на сторінку</string>
   <string name="getTheTour">Потрібна допомога? Пройдіть ознайомчий тур!</string>
@@ -185,11 +185,26 @@
   <string name="studyChaptersText">Дослідження може містити декілька розділів.&lt;br&gt;Кожен розділ має свою початкову позицію та дерево ходів.</string>
   <string name="commentPositionTitle">Коментування позиції</string>
   <string name="commentPositionText" comment="%s is an icon that will added at runtime">Натисніть кнопку %s або клацніть правою кнопкою миші на список ходів справа.&lt;br&gt;Коментарі зберігаються та доступні всім.</string>
-  <string name="annotatePositionTitle">Анотування позиції</string>
+  <string name="annotatePositionTitle">Додати примітку до позиції</string>
   <string name="annotatePositionText">Натисніть кнопку !? або клацніть правою кнопкою миші на список ходів справа.&lt;br&gt;Символьні анотації зберігаються та доступні всім.</string>
   <string name="conclusionTitle">Дякуємо за ваш час</string>
   <string name="conclusionText">Ви можете знайти свої &lt;a href=\'/study/mine/hot\'&gt;попередні дослідження&lt;/a&gt; на сторінці профілю.&lt;br&gt;Також радимо ознайомитися з &lt;a href=\'//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way\'&gt;блогом про дослідження&lt;/a&gt;.&lt;br&gt;Досвідчені користувачі можуть натиснути \"?\", щоб побачити комбінації клавіш.&lt;br&gt;Бажаємо успіхів!</string>
+  <string name="createChapterTitle">Створімо студію</string>
+  <string name="createChapterText">Студія може містити декілька розділів.&lt;br&gt;Кожен розділ містить унікальне розгалуження ходів,&lt;br&gt;і може бути відтворене багатьма способами.</string>
+  <string name="fromInitialPositionTitle">З початкової позиції</string>
+  <string name="fromInitialPositionText">Підготовка дошки до нової партії.&lt;br&gt;Підходить для дослідження дебютів.</string>
+  <string name="customPositionTitle">Довільна позиція</string>
+  <string name="customPositionText">Розставте фігури на дошці, як бажаєте.&lt;br&gt;Підходить для дослідження ендшпілів.</string>
+  <string name="loadExistingLichessGameTitle">Завантажити партію з бази Lichess</string>
+  <string name="loadExistingLichessGameText">Вставте URL партії Lichess&lt;br&gt;(наприклад, lichess.org/7fHIU0XI)&lt;br&gt;для завантаження гри в розділ.</string>
+  <string name="fromFenStringTitle">З рядка FEN</string>
+  <string name="fromFenStringText">Вставте позицію у форматі FEN&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;для початку розділу з цієї позиції.</string>
+  <string name="fromPgnGameTitle">З гри в форматі PGN</string>
+  <string name="fromPgnGameText">Вставте гру в форматі PGN,&lt;br&gt;щоб завантажити до розділу ходи, коментарі та варіації.</string>
+  <string name="variantsAreSupportedTitle">Студії доступні для різних режимів</string>
+  <string name="variantsAreSupportedText">Так, Ви можете вивчати Crazyhouse&lt;br&gt;та усі інші режими Lichess!</string>
+  <string name="chapterConclusionText">Розділі зберігаються назавжди.&lt;br&gt;Насолоджуйтесь організацією власного шахового контенту!</string>
   <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Подвійна поразка</string>
-  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">Поразка чорних, але білі не виграли</string>
-  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">Поразка білих, але чорні не виграли</string>
+  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">Чорні програють, але Білі не можуть виграти</string>
+  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">Білі програють, але Чорні не можуть виграти</string>
 </resources>
