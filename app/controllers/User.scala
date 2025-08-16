@@ -268,13 +268,20 @@ final class User(
       JsonOk(leaderboards)
     }
 
-  def top(perfKey: PerfKey) = Open:
-    val nb = 200
-    topNbUsers(nb, perfKey).flatMap: (users, perfType, page) =>
-      negotiate(
-        Ok.page(views.user.list.top(perfType, users, page = page, perPage = nb)),
-        topNbJson(users)
-      )
+  // redirect /player/top/200/:perfKey to /user/top/:perfKey
+  // TODO move to a NotFound general handler?
+  def topBcRedirect(perfKey: PerfKey) = Anon:
+    Redirect(routes.User.top(perfKey))
+
+  def top(perfKey: PerfKey, page: Int) = Open:
+    Reasonable(page, Max(20)):
+      env.user.cached
+        .topPerfPager(perfKey, page)
+        .flatMap: pager =>
+          negotiate(
+            Ok.page(views.user.list.top(perfKey, pager)),
+            topNbJson(pager.currentPageResults)
+          )
 
   def topNbApi(nb: Int, perfKey: PerfKey) = Anon:
     if nb == 1 && perfKey == PerfKey.standard then
@@ -283,35 +290,11 @@ final class User(
         import lila.user.JsonView.leaderboardStandardTopOneWrites
         JsonOk(leaderboards)
       }
-    else topNbUsers(nb, perfKey).flatMap { case (users, _, _) => topNbJson(users) }
+    else env.user.cached.topPerfFirstPage.get(perfKey).dmap(_.take(nb)).map(topNbJson)
 
-  private def topNbUsers(nb: Int, perfKey: PerfKey)(using
-      ctx: Context
-  ): Fu[(List[LightPerf], PerfType, Int)] =
-    val perPage = nb.atLeast(1).atMost(200)
-    val page = ctx.req.getQueryString("page").flatMap(_.toIntOption).getOrElse(1).atLeast(1)
-    val skip = (page - 1) * perPage
-
-    val fut =
-      if skip == 0 then
-        env.user.cached.top200Perf
-          .get(perfKey.id)
-          .dmap(_.take(perPage))
-      else
-        env.user.cached.topPerfPage
-          .get(perfKey.id -> page)
-
-    fut.dmap: users =>
-      (users, PerfType(perfKey), page)
-
-  private def topNbJson(users: List[LightPerf]) =
+  private def topNbJson(users: Seq[LightPerf]) =
     given OWrites[LightPerf] = OWrites(env.user.jsonView.lightPerfIsOnline)
     Ok(Json.obj("users" -> users))
-
-  def topWeek = Open:
-    negotiateJson:
-      env.user.cached.topWeek.map: users =>
-        Ok(Json.toJson(users.map(env.user.jsonView.lightPerfIsOnline)))
 
   def mod(username: UserStr) = Secure(_.UserModView) { ctx ?=> _ ?=>
     modZoneOrRedirect(username)

@@ -7,6 +7,7 @@ import lila.rating.PerfType
 import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
+import scalalib.paginator.Paginator
 
 final class UserList(helpers: Helpers, bits: UserBits):
   import helpers.{ *, given }
@@ -88,43 +89,27 @@ final class UserList(helpers: Helpers, bits: UserBits):
         ))
     )
 
-  def top(perfType: PerfType, users: List[LightPerf], page: Int, perPage: Int)(using ctx: Context) =
-    val from = (page - 1) * perPage + 1
-    val to = from + users.size - 1
-    val title = s"${perfType.trans} top $from–$to"
+  def top(perf: PerfKey, pager: Paginator[LightPerf])(using ctx: Context) =
+    import PerfType.given
+    val from = (pager.currentPage - 1) * pager.maxPerPage.value + 1
+    val title = s"${perf.trans} top"
     Page(title)
       .css("bits.slist")
+      .js(infiniteScrollEsmInit)
       .graph(
-        title = s"Leaderboard of ${perfType.trans}",
-        url = s"$netBaseUrl${routes.User.top(perfType.key).url}?page=$page",
-        description = s"The top rated players in ${perfType.trans}, sorted by rating ($from–$to)"
+        title = s"Leaderboard of ${perf.trans}",
+        url = s"$netBaseUrl${routes.User.top(perf.key).url}?page=$page",
+        description = s"The top rated players in ${perf.trans}, sorted by rating"
       ):
         main(cls := "page-small box")(
-          boxTop(
-            h1(a(href := routes.User.list, dataIcon := Icon.LessThan), title),
-            form(
-              cls := "pager",
-              action := routes.User.top(perfType.key).url,
-              method := "GET"
-            )(
-              input(
-                id := "page",
-                name := "page",
-                tpe := "number",
-                min := 1,
-                placeholder := "Page",
-                cls := "pager__input",
-                attr("inputmode") := "numeric"
-              )
-            )
-          ),
-          table(cls := "slist slist-pad")(
-            tbody(
-              users.mapWithIndex: (u, i) =>
+          boxTop(h1(a(href := routes.User.list, dataIcon := Icon.LessThan), title)),
+          table(cls := "slist slist-pad slist-invert")(
+            tbody(cls := "infinite-scroll")(
+              pager.currentPageResults.mapWithIndex: (u, i) =>
                 val rank = from + i
                 tr(
                   td(
-                    bits.leaderboardTrophy(perfType, rank),
+                    bits.leaderboardTrophy(perf, rank),
                     span(cls := "lb__rank-num")(rank)
                   ),
                   td(lightUserLink(u.user)),
@@ -135,6 +120,8 @@ final class UserList(helpers: Helpers, bits: UserBits):
                     )
                   )
                 )
+              ,
+              pagerNextTable(pager, np => routes.User.top(perf, np).url)
             )
           )
         )
