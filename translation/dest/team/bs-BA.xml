@@ -47,14 +47,37 @@ Igrači koji ne vole primati Vaše poruke mogli bi napustiti tim.</string>
   <string name="teamsIlead">Timovi koje vodim</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Želite li postaviti link na jedan od nadolazećih turnira?</string>
   <string name="leadersChat">Razgovor vođa</string>
+  <string name="introduction">Uvod</string>
+  <string name="teamIntroductionHelp">Kratak opis vidljiv u popisima timova. Do 200 znakova.</string>
+  <string name="teamDescriptionHelp">Potpuni opis vidljiv je na stranici tima.</string>
   <string name="closeTeam">Raspustite ekipu</string>
   <string name="closeTeamDescription">Raspustite ekipu zauvijek.</string>
   <string name="entryCode">Ulazna koda tima</string>
   <string name="entryCodeDescriptionForLeader">(Izborno) Ulazna koda koju novi članovi moraju znati da bi se pridružili ovom timu.</string>
   <string name="incorrectEntryCode">Netačna ulazna koda.</string>
   <string name="teamAlreadyExists">Ovaj tim već postoji.</string>
+  <string name="upcomingTournaments">Predstojeći turniri</string>
   <string name="completedTourns">Završeni turniri</string>
   <string name="declinedRequests">Odbijeni zahtjevi</string>
   <string name="joinLichessVariantTeam">Pridružite se zvaničnom %s timu za novosti i događaje</string>
   <string name="teamPage">Stranica tima</string>
+  <string name="thisTeamBattleIsOver">Ovaj turnir je završen i timovi se više ne mogu ažurirati.</string>
+  <string name="listTheTeamsThatWillCompete">Navedite timove koji će se takmičiti u ovoj bici.</string>
+  <string name="oneTeamPerLine">Jedan tim po redu. Koristite automatsko dovršavanje.</string>
+  <string name="oneTeamPerLineHelp">Možete kopirati i zalijepiti ovu listu iz jednog turnira u drugi!
+
+Ne možete ukloniti tim ako se igrač već pridružio turniru s njim.</string>
+  <string name="numberOfLeadsPerTeam">Broj vođa po timu. Zbir njihovih rezultata je rezultat tima.</string>
+  <string name="numberOfLeadsPerTeamHelp">Zaista ne biste trebali mijenjati ovu vrijednost nakon što je turnir počeo!</string>
+  <string name="innerTeam">Unutarnji tim</string>
+  <plurals name="battleOfNbTeams">
+    <item quantity="one">Bitka %s tima</item>
+    <item quantity="few">Bitka %s tima</item>
+    <item quantity="other">Bitka %s timova</item>
+  </plurals>
+  <plurals name="nbLeadersPerTeam">
+    <item quantity="one">Jedan vođa po timu</item>
+    <item quantity="few">%s vođe po timu</item>
+    <item quantity="other">%s vođa po timu</item>
+  </plurals>
 </resources>

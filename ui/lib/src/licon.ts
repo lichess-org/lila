@@ -135,3 +135,5 @@ export const AccountCircle = ''; // e079
 export const Logo = ''; // e07a
 export const Switch = ''; // e07b
 export const Blindfold = ''; // e07c
+export const NextLine = ''; // e07d
+export const Stockfish = ''; // e07e

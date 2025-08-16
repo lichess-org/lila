@@ -82,6 +82,9 @@ final class JsBot(env: Env) extends LilaController(env):
           .getOrElse(BadRequest(jsonError("missing file")).as(JSON))
   }
 
+  // def test = Open:
+  //   renderPage(views.jsBot.roundPlay(prefJson)).flatMap(Ok(_).withServiceWorker)
+
   private def prefJson(using ctx: Context) =
     lila.pref.JsonView
       .write(ctx.pref, false)

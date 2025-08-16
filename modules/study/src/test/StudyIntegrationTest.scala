@@ -1,6 +1,6 @@
 package lila.study
 
-import chess.format.pgn.{ Glyph, Tags }
+import chess.format.pgn.{ Glyph, Tags, Comment as CommentStr }
 import chess.variant.*
 import chess.{ Square, White }
 import play.api.libs.json.*
@@ -8,7 +8,6 @@ import play.api.libs.json.*
 import java.time.Instant
 
 import lila.study.StudySocket.Protocol.In.AtPosition
-import lila.tree.Node.Comment.Text
 import lila.tree.Node.{ Comment, Shape, Shapes }
 import lila.tree.Root
 
@@ -66,7 +65,7 @@ enum StudyAction:
   case Move(m: AnaMove)
   case Drop(m: AnaDrop)
   case DeleteNode(p: AtPosition)
-  case SetComment(p: AtPosition, text: Text)
+  case SetComment(p: AtPosition, text: CommentStr)
   // case DeleteComment(id: String) because ids are generated, so we don't have them statically at the beginning
   case SetShapes(p: AtPosition, shapes: List[Shape])
   case Promote(p: AtPosition, toMainline: Boolean)
@@ -131,7 +130,7 @@ object StudyAction:
     chapter.updateRoot: root =>
       root.withChildren(_.deleteNodeAt(position.path))
 
-  def setComment(chapter: Chapter, position: Position.Ref, text: Comment.Text) =
+  def setComment(chapter: Chapter, position: Position.Ref, text: CommentStr) =
     val comment = Comment(
       id = Comment.Id.make,
       text = text,

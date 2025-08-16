@@ -1008,4 +1008,5 @@ Garapen eta mantentze-kostu guztiak erabiltzaileen dohaintzekin ordaintzen dira.
   <string name="accessibility">Irisgarritasuna</string>
   <string name="enableBlindMode">Aktibatu modu-itsua</string>
   <string name="disableBlindMode">Desaktibatu modu-itsua</string>
+  <string name="copyToClipboard">Kopiatu arbelera</string>
 </resources>

@@ -50,6 +50,7 @@
     line-height: 1.9em;
     padding: 0;
     background: $m-secondary_bg--mix-30;
+
     .ddloader {
       padding-inline-start: 7px;
     }
@@ -360,5 +361,16 @@
 
   .message button {
     margin: 0 30px;
+  }
+}
+
+@include mq-is-col1 {
+  .explorer-box .explorer-title {
+    line-height: 3em;
+  }
+  .explorer-box button.toconf {
+    font-size: 1.5em;
+    margin-top: 2px;
+    margin-inline-end: 8px;
   }
 }

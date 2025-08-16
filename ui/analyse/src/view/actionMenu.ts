@@ -1,6 +1,6 @@
 import { isEmpty } from 'lib';
 import * as licon from 'lib/licon';
-import { isTouchDevice } from 'lib/device';
+import { isTouchDevice, displayColumns } from 'lib/device';
 import { domDialog } from 'lib/view/dialog';
 import { type VNode, type LooseVNodes, bind, dataIcon, type MaybeVNodes, hl } from 'lib/snabbdom';
 import type { AutoplayDelay } from '../autoplay';
@@ -149,18 +149,18 @@ export function view(ctrl: AnalyseCtrl): VNode {
 
   const cevalConfig: LooseVNodes = ceval?.possible &&
     ceval.allowed() && [
-      hl('h2', i18n.site.computerAnalysis),
-      ctrlToggle(
-        {
-          name: i18n.site.enable,
-          title: (mandatoryCeval ? 'Required by practice mode' : 'Stockfish') + ' (Hotkey: z)',
-          id: 'all',
-          checked: ctrl.showComputer(),
-          disabled: mandatoryCeval,
-          change: ctrl.toggleComputer,
-        },
-        ctrl,
-      ),
+      displayColumns() > 1 && hl('h2', i18n.site.computerAnalysis),
+      !mandatoryCeval &&
+        ctrlToggle(
+          {
+            name: 'Show server analysis',
+            title: 'Show server analysis (Hotkey: z)',
+            id: 'all',
+            checked: ctrl.showComputer(),
+            change: ctrl.toggleComputer,
+          },
+          ctrl,
+        ),
       ctrl.showComputer() && [
         ctrlToggle(
           {
@@ -185,7 +185,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
     ];
 
   const displayConfig = [
-    hl('h2', 'Display'),
+    displayColumns() > 1 && hl('h2', 'Display'),
     ctrlToggle(
       {
         name: i18n.site.inlineNotation,

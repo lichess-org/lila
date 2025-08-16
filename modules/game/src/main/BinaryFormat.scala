@@ -1,14 +1,13 @@
 package lila.game
 
+import scala.util.Try
+
 import chess.*
 import chess.format.Uci
 import chess.format.pgn.SanStr
 import chess.variant.Variant
 import org.lichess.compression.clock.Encoder as ClockEncoder
 
-import scala.util.Try
-
-import lila.core.game.ClockHistory
 import lila.db.ByteArray
 
 object BinaryFormat:
@@ -38,7 +37,7 @@ object BinaryFormat:
 
     def read(start: Centis, bw: ByteArray, bb: ByteArray, flagged: Option[Color]) =
       Try {
-        ClockHistory(
+        ByColor(
           readSide(start, bw, flagged.has(White)),
           readSide(start, bb, flagged.has(Black))
         )

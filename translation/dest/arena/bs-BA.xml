@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arena">Arena</string>
   <string name="arenaTournaments">Turniri u Areni</string>
   <string name="isItRated">Igra li se za rejting bodove?</string>
   <string name="willBeNotified">Bit ćete obaviješteni kada turnir počne, tako da slobodno možete igrati u drugom prozoru dok čekate.</string>
@@ -62,4 +63,29 @@ Igrajte brzo i vratite se u lobi da igrate više partija i da osvojite što viš
   <string name="averagePerformance">Prosječna izvedba</string>
   <string name="averageScore">Prosječan rezultat</string>
   <string name="myTournaments">Moji turniri</string>
+  <string name="editTournament">Uredi turnir</string>
+  <string name="editTeamBattle">Uredi timsku bitku</string>
+  <string name="defender">Odbrambeni igrač</string>
+  <string name="pickYourTeam">Izaberite svoj tim</string>
+  <string name="whichTeamWillYouRepresentInThisBattle">Koji tim ćeš predstavljati u ovoj bici?</string>
+  <string name="youMustJoinOneOfTheseTeamsToParticipate">Morate se pridružiti jednom od ovih timova da biste učestvovali!</string>
+  <string name="created">Kreirano</string>
+  <string name="recentlyPlayed">Nedavno igrano</string>
+  <string name="bestResults">Najbolji rezultati</string>
+  <string name="tournamentStats">Statistike turnira</string>
+  <string name="rankAvgHelp">Prosječni rang je postotak vašeg ranga. Niži rang je bolji.
+
+Na primjer, biti rangiran na 3. mjestu na turniru sa 100 igrača = 3%. Biti rangiran na 10. mjestu na turniru sa 1000 igrača = 1%.</string>
+  <string name="medians">medijane</string>
+  <string name="allAveragesAreX">Svi prosjeci na ovoj stranici su %s.</string>
+  <string name="total">Ukupno</string>
+  <string name="pointsAvg">Prosječan broj bodova</string>
+  <string name="pointsSum">Zbroj bodova</string>
+  <string name="rankAvg">Prosječni rang</string>
+  <string name="tournamentWinners">Pobjednici turnira</string>
+  <string name="tournamentShields">Turnirski štitovi</string>
+  <string name="onlyTitled">Samo igrači sa titulama</string>
+  <string name="onlyTitledHelp">Za pridruživanje turniru potrebna je službena titula</string>
+  <string name="tournamentPairingsAreNowClosed">Parovi za turnir su sada zatvoreni.</string>
+  <string name="berserkRate">Berserkova stopa</string>
 </resources>
