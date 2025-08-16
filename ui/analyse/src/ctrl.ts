@@ -94,7 +94,7 @@ export default class AnalyseCtrl {
   flipped = false;
   showComments = true; // whether to display comments in the move tree
   showAutoShapes = storedBooleanProp('analyse.show-auto-shapes', true);
-  disclosureMode = storedBooleanProp('analyse.disclosure.enabled', isTouchDevice());
+  disclosureMode = storedBooleanProp('analyse.disclosure.enabled', false);
   variationArrows = storedBooleanProp('analyse.show-variation-arrows', true);
   showGauge = storedBooleanProp('analyse.show-gauge', true);
   showComputer = storedBooleanProp('analyse.show-computer', true);
@@ -449,7 +449,7 @@ export default class AnalyseCtrl {
   canJumpTo = (path: Tree.Path): boolean => !this.study || this.study.canJumpTo(path);
 
   userJumpIfCan(path: Tree.Path, sideStep = false): void {
-    if (!this.canJumpTo(path)) return;
+    if (path === this.path || !this.canJumpTo(path)) return;
     if (sideStep) {
       this.userJump(path.slice(0, -2));
       this.chessground?.state.dom.redrawNow(true);
@@ -824,18 +824,32 @@ export default class AnalyseCtrl {
     else this.chessground && this.chessground.setAutoShapes([]);
   }
 
-  canCycleLines() {
+  showVariationArrows() {
+    if (!this.allowLines()) return false;
+    const kids = this.disclosureMode()
+      ? this.tree.parentNode(this.path).children
+      : this.variationArrows()
+        ? this.node.children
+        : [];
+    return Boolean(kids.filter(x => !x.comp || this.showComputer()).length);
+  }
+
+  allowLines() {
     const chap = this.study?.data.chapter;
     return (
-      (this.disclosureMode() || this.variationArrows()) &&
-      !chap?.practice &&
-      chap?.conceal === undefined &&
-      !this.study?.gamebookPlay &&
-      !this.retro?.isSolving() &&
-      (this.disclosureMode() ? this.tree.parentNode(this.path) : this.node).children.filter(
-        x => !x.comp || this.showComputer(),
-      ).length > 1
+      !chap?.practice && chap?.conceal === undefined && !this.study?.gamebookPlay && !this.retro?.isSolving()
     );
+  }
+
+  canStepLines() {
+    return this.allowLines() && this.disclosureMode() && this.idbTree.nextLine() !== this.path;
+  }
+
+  toggleParentDisclosure() {
+    const parentPath = this.path.slice(0, -2);
+    const disclose = this.idbTree.discloseOf(this.tree.nodeAtPath(parentPath));
+    if (disclose) this.idbTree.setCollapsed(parentPath, disclose === 'expanded');
+    return Boolean(disclose);
   }
 
   toggleAutoShapes = (v: boolean): void => {

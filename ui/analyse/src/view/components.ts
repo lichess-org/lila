@@ -291,7 +291,7 @@ export function renderControls(ctx: ViewContext) {
               control[action](ctrl);
               ctrl.redraw();
             }, e);
-          else if (action === 'line') control.nextLine(ctrl);
+          else if (action === 'line') ctrl.userJumpIfCan(ctrl.idbTree.nextLine(), true);
           else if (action === 'first') control.first(ctrl);
           else if (action === 'last') control.last(ctrl);
           else if (action === 'opening-explorer') ctrl.toggleExplorer();
@@ -352,7 +352,7 @@ export function renderControls(ctx: ViewContext) {
       hl('div.jumps', [
         jumpButton(licon.JumpFirst, 'first', canJumpPrev),
         jumpButton(licon.JumpPrev, 'prev', canJumpPrev),
-        ctrl.disclosureMode() && jumpButton(licon.NextLine, 'line', ctrl.canCycleLines()),
+        ctrl.disclosureMode() && jumpButton(licon.NextLine, 'line', ctrl.idbTree.nextLine() !== ctrl.path),
         jumpButton(licon.JumpNext, 'next', canJumpNext),
         jumpButton(licon.JumpLast, 'last', ctrl.node !== ctrl.mainline[ctrl.mainline.length - 1]),
       ]),

@@ -197,11 +197,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
         },
         ctrl,
       ),
-      hl(
-        'a.disclosure-tour',
-        { hook: bind('click', () => site.asset.loadEsm('analyse.disclosure.tour', { init: ctrl })) },
-        licon.InfoCircle,
-      ),
+      hl('a.disclosure-help-btn', { hook: bind('click', disclosureModeHelp) }, licon.InfoCircle),
     ]),
     ctrlToggle(
       {
@@ -273,4 +269,32 @@ export function view(ctrl: AnalyseCtrl): VNode {
         ),
       ]),
   ]);
+}
+
+function disclosureModeHelp() {
+  domDialog({
+    class: 'help disclosure-help',
+    htmlText: $html`
+      <span>
+        <p>
+          <strong>Disclosure mode:</strong>
+          Use <i>${licon.PlusButton}</i> and <i>${licon.MinusButton}</i> buttons
+          to show and hide comments and variations in the move list.
+          <br><br>Your choices are remembered in browser cache.
+        </p>
+        <img src="${site.asset.url('images/help/disclosure-buttons.webp')}"/>
+      </span>
+      <span>
+        <img src="${site.asset.url('images/help/disclosure-arrows.webp')}"/>
+        <p>
+          Pale white arrows show alternate lines for the current move. Tap
+          <kbd>shift</kbd> or the <i>${licon.NextLine}</i> button to step between them.
+          <br><br><strong>Note:</strong>
+          You can step across lines from deep within a variation.
+        </p>
+      </span>`,
+    actions: [{ result: 'ok' }],
+    noCloseButton: true,
+    show: true,
+  });
 }

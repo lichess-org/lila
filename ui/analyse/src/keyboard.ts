@@ -6,19 +6,7 @@ import type { VNode } from 'snabbdom';
 import { pubsub } from 'lib/pubsub';
 
 export const bind = (ctrl: AnalyseCtrl) => {
-  let modifierOnly = false;
-  window.addEventListener('mousedown', () => (modifierOnly = false), { capture: true });
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Shift' || e.key === 'Control') modifierOnly = !modifierOnly;
-    else modifierOnly = false;
-  });
-  document.addEventListener('keyup', e => {
-    if (!modifierOnly || !ctrl.disclosureMode() || !ctrl.variationArrows()) return;
-    if (e.key === 'Shift' && !document.activeElement?.classList.contains('mchat__say')) {
-      if (control.nextLine(ctrl)) ctrl.redraw();
-    } else if (ctrl.disclosureMode() && e.key === 'Control' && control.toggleDisclosure(ctrl)) ctrl.redraw();
-    modifierOnly = false;
-  });
+  addModifierKeyListeners(ctrl);
   const kbd = window.site.mousetrap;
   kbd
     .bind(['left', 'k'], () => {
@@ -142,5 +130,30 @@ export function view(ctrl: AnalyseCtrl): VNode {
       ctrl.keyboardHelp = false;
       ctrl.redraw();
     },
+  });
+}
+
+function addModifierKeyListeners(ctrl: AnalyseCtrl) {
+  let modifierOnly = false;
+
+  window.addEventListener('mousedown', () => (modifierOnly = false), { capture: true });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Shift' || e.key === 'Control') modifierOnly = !modifierOnly;
+    else modifierOnly = false;
+  });
+
+  document.addEventListener('keyup', e => {
+    if (!modifierOnly) return;
+    modifierOnly = false;
+    const isShift = e.key === 'Shift' && !document.activeElement?.classList.contains('mchat__say');
+
+    if (ctrl.disclosureMode()) {
+      if (isShift) ctrl.userJumpIfCan(ctrl.idbTree.nextLine(), true);
+      else if (e.key === 'Control') ctrl.toggleParentDisclosure();
+    } else {
+      if (isShift && ctrl.fork.next()) ctrl.setAutoShapes();
+    }
+    ctrl.redraw();
   });
 }

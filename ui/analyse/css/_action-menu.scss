@@ -122,7 +122,7 @@
     gap: 0.6em;
   }
 
-  .disclosure-tour {
+  .disclosure-help-btn {
     margin-top: $block-gap;
     font-size: 1.4em;
     font-family: 'lichess';
@@ -131,11 +131,49 @@
       color: $c-font-clear;
     }
   }
-
   @include mq-is-col1 {
-    .disclosure-tour,
     .abset-inline {
       display: none;
     }
+  }
+}
+
+dialog .disclosure-help {
+  @include prevent-select;
+  cursor: default;
+  display: flex;
+  flex-direction: column;
+  font-size: 1.1em;
+  max-width: 500px;
+  padding: 2em;
+  gap: 2em;
+
+  span {
+    align-items: center;
+    text-align: left;
+    display: flex;
+    flex-direction: row;
+    gap: 2em;
+  }
+  kbd {
+    font-size: 0.7em;
+    height: 18px;
+    margin-top: -1px;
+  }
+  img {
+    max-width: 40%;
+    border: 1px solid $c-border;
+    border-radius: 8px;
+    object-fit: contain;
+  }
+  i {
+    font-size: 15px;
+    color: $c-font-dim;
+    vertical-align: -2px;
+    font-family: 'lichess';
+  }
+  @include mq-is-col1 {
+    width: 96vw;
+    font-size: 1em;
   }
 }
