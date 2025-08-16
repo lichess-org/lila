@@ -80,6 +80,14 @@ class CommentParserTest extends LilaTest:
       Some(Centis(100 * 47 + 37 * 60 * 100))
     )
 
+  test("parse clock: TCEC millis"):
+    assertEquals(
+      C(
+        "d=31, sd=101, mt=225513, tl=3380487, s=55170, n=13264996, pv=d5 Nb4, tb=45, h=0.0, ph=0.0, wv=0.83, R50=50, Rd=-9, Rr=-1000, mb=+0+0+0+0+0,"
+      ).clock,
+      Some(Centis(338049))
+    )
+
   test("parse clock: fractional second"):
     assertEquals(C("Hello there [%clk 10:40:33.55] something else").clock, Some(Centis(3843355)))
 
