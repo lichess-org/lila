@@ -84,7 +84,7 @@
   <string name="clearVariations">Verwijder variaties</string>
   <string name="deleteChapter">Verwijder hoofdstuk</string>
   <string name="deleteThisChapter">Wil je dit hoofdstuk verwijderen? Je kan dit niet ongedaan maken!</string>
-  <string name="clearAllCommentsInThisChapter">Verwijder alle aantekeningen, tekens en getekende figuren in dit hoofdstuk?</string>
+  <string name="clearAllCommentsInThisChapter">Wis alle opmerkingen, glyphs en getekende vormen in dit hoofdstuk</string>
   <string name="rightUnderTheBoard">Recht onder het bord</string>
   <string name="noPinnedComment">Geen</string>
   <string name="normalAnalysis">Normale analyse</string>
@@ -101,7 +101,7 @@
   <string name="automatic">Automatisch</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
     <item quantity="one">Plak je PGN tekst hier, tot %s spel mogelijk</item>
-    <item quantity="other">Plak je PGN tekst hier, tot %s spellen mogelijk</item>
+    <item quantity="other">Plak hier spellen als PGN-tekst. Voor elk spel wordt een nieuw hoofdstuk gemaakt. De studie kan maximaal %s hoofdstukken hebben.</item>
   </plurals>
   <string name="urlOfTheGame">URL van de partijen, één per regel</string>
   <string name="loadAGameFromXOrY">Laad partijen van %1$s of %2$s</string>
@@ -180,11 +180,13 @@
   <string name="annotatePositionTitle">Een stelling van commentaar voorzien</string>
   <string name="annotatePositionText">Klik op de !? knop, of klik met de rechtermuisknop op de zerrenlijst aan de rechterkant.&lt;br&gt;Aantekeningen worden gedeeld en opgeslagen.</string>
   <string name="conclusionTitle">Bedankt voor je tijd</string>
+  <string name="conclusionText">Je kunt je &lt;a href=\'/studie/mine/hot\'&gt;vorige studies&lt;/a&gt; vinden op je profielpagina.&lt;br&gt;Er is ook een &lt;a href=\'//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way\'&gt;blogpost over studies&lt;/a&gt;.&lt;br&gt;Power users kunnen op \"?\" drukken om sneltoetsen te zien.&lt;br&gt;Veel plezier!</string>
   <string name="createChapterTitle">Laten we een studiehoofdstuk maken</string>
   <string name="createChapterText">Een studie kan verschillende hoofdstukken bevatten.&lt;br&gt;Elk hoofdstuk heeft een aparte zettenboom,&lt;br&gt;en kan op verschillende manieren worden gemaakt.</string>
   <string name="fromInitialPositionTitle">Vanaf beginstelling</string>
   <string name="fromInitialPositionText">Gewoon een bord voor een nieuwe partij.&lt;br&gt;Geschikt om openingen te verkennen.</string>
   <string name="customPositionTitle">Aangepaste stelling</string>
+  <string name="customPositionText">Richt het bord op jouw manier in &lt;br&gt;Geschikt om eindspellen te verkennen.</string>
   <string name="loadExistingLichessGameTitle">Laad een bestaande lichess-partij</string>
   <string name="loadExistingLichessGameText">Plak een lichess partij link&lt;br&gt;(zoals lichess.org/7fHIU0XI)&lt;br&gt;om de partijzetten in het hoofdstuk te laden.</string>
   <string name="fromFenStringTitle">Van een FEN-tekenreeks</string>
