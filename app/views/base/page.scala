@@ -140,7 +140,7 @@ object page:
               frag(cssTag("bits.email-confirm"), views.auth.checkYourEmailBanner(u.username, u.email))
             ),
           zenable.option(zenZone),
-          (!p.flags(PageFlags.noHeader)).option(
+          Option.unless(p.flags(PageFlags.noHeader)):
             ui.siteHeader(
               zenable = zenable,
               isAppealUser = ctx.isAppealUser,
@@ -152,7 +152,7 @@ object page:
                 hasDgt = ctx.pref.hasDgt
               )
             )
-          ),
+          ,
           div(
             id := "main-wrap",
             cls := List(
