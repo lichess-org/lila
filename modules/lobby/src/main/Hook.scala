@@ -84,7 +84,7 @@ case class Hook(
     rated.yes && realVariant.standard && isClockCompatible.exec(clock) && color == TriColor.Random
 
   def compatibleWithPool(poolClock: chess.Clock.Config)(using IsClockCompatible) =
-    compatibleWithPools && clock == poolClock
+    clock == poolClock && compatibleWithPools
 
   private lazy val speed = Speed(clock)
 
