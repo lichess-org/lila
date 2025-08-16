@@ -111,9 +111,7 @@ final class LobbySocket(
 
       case HookSub(member, false) => hookSubscriberSris -= member.sri.value
       case AllHooksFor(member, hooks) =>
-        send.exec(
-          P.Out.tellSri(member.sri, makeMessage("hooks", hooks.map(_.render)))
-        )
+        send.exec(P.Out.tellSri(member.sri, makeMessage("hooks", hooks.map(_.render))))
         hookSubscriberSris += member.sri.value
 
     Bus.subscribeActor[ReloadTimelines](this)

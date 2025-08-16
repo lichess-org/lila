@@ -5,7 +5,10 @@ import akka.pattern.pipe
 import scalalib.ThreadLocalRandom
 
 import lila.core.pool.{ HookThieve, Joiner, PoolMember }
-import lila.core.socket.Sris
+import lila.core.socket.{ Sri, Sris }
+
+case class SocketMember(sri: Sri, member: PoolMember)
+case class ApiMember(member: PoolMember)
 
 final private class PoolActor(
     config: PoolConfig,
@@ -15,7 +18,8 @@ final private class PoolActor(
 
   import PoolActor.*
 
-  var members = Vector.empty[PoolMember]
+  var members = Vector.empty[SocketMember]
+  var apiMembers = Vector.empty[ApiMember]
 
   private var lastPairedUserIds = Set.empty[UserId]
 
@@ -38,11 +42,11 @@ final private class PoolActor(
     // don't pair someone twice in a row, it's probably a client error
 
     case Join(joiner, rageSit) =>
-      members.find(joiner.is(_)) match
+      members.find(m => joiner.is(m.member)) match
         case None =>
-          members = members :+ lila.pool.PoolMember(joiner, rageSit)
+          members = members :+ lila.pool.PoolMember.fromSocket(joiner, rageSit)
           if members.sizeIs >= config.wave.players.value then self ! FullWave
-        case Some(member) if member.ratingRange != joiner.ratingRange =>
+        case Some(existing) if existing.member.ratingRange != joiner.ratingRange =>
           members = members.map: m =>
             if m == member then m.withRange(joiner.ratingRange) else m
         case _ => // no change

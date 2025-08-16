@@ -25,7 +25,6 @@ object IsClockCompatible extends FunctionWrapper[IsClockCompatible, Clock.Config
 
 case class PoolMember(
     userId: UserId,
-    sri: Sri,
     rating: IntRating,
     provisional: Boolean,
     ratingRange: Option[RatingRange],

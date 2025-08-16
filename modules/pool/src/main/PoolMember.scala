@@ -16,14 +16,16 @@ extension (m: PoolMember)
 
 object PoolMember:
 
-  def apply(joiner: Joiner, rageSit: RageSit): PoolMember =
-    lila.core.pool.PoolMember(
-      userId = joiner.me,
-      sri = joiner.sri,
-      lame = joiner.lame,
-      rating = joiner.rating,
-      provisional = joiner.provisional,
-      ratingRange = joiner.ratingRange,
-      blocking = joiner.blocking,
-      rageSitCounter = rageSit.counterView
+  def fromSocket(joiner: Joiner, rageSit: RageSit): SocketMember =
+    SocketMember(
+      joiner.sri,
+      lila.core.pool.PoolMember(
+        userId = joiner.me,
+        lame = joiner.lame,
+        rating = joiner.rating,
+        provisional = joiner.provisional,
+        ratingRange = joiner.ratingRange,
+        blocking = joiner.blocking,
+        rageSitCounter = rageSit.counterView
+      )
     )
