@@ -72,7 +72,7 @@ final class UserBits(helpers: Helpers):
       case _ => "Excellent connection"
     s"""<signal title="$title" class="q$v">$bars</signal>"""
 
-  private def trophyMeta(perf: PerfType, rank: Int)(using Translate) =
+  def trophyMeta(perf: PerfType, rank: Int)(using Translate) =
     rank match
       case 1 => Some(("trophy perf top1", s"${perf.trans} Champion!", "images/trophy/gold-cup-2.png"))
       case r if r <= 10 =>
@@ -97,12 +97,6 @@ final class UserBits(helpers: Helpers):
           )
         )
       }
-
-  def leaderboardTrophy(perf: PerfType, rank: Int)(using Translate) =
-    trophyMeta(perf, rank).map: (css, titleText, imgPath) =>
-      span(cls := s"$css lb__trophy trophy--small", title := titleText)(
-        img(src := assetUrl(imgPath), alt := s"Trophy for $title")
-      )
 
   object awards:
     def awardCls(t: Trophy) = cls := s"trophy award ${t.kind._id} ${~t.kind.klass}"

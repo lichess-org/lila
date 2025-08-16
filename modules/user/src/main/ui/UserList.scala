@@ -109,7 +109,7 @@ final class UserList(helpers: Helpers, bits: UserBits):
                 val rank = from + i
                 tr(
                   td(
-                    bits.leaderboardTrophy(perf, rank),
+                    leaderboardTrophy(perf, rank),
                     span(cls := "lb__rank-num")(rank)
                   ),
                   td(lightUserLink(u.user)),
@@ -125,6 +125,13 @@ final class UserList(helpers: Helpers, bits: UserBits):
             )
           )
         )
+
+  private def leaderboardTrophy(perf: PerfType, rank: Int)(using Translate) =
+    bits
+      .trophyMeta(perf, rank)
+      .map: (css, titleText, imgPath) =>
+        span(cls := s"$css lb__trophy trophy--small", title := titleText):
+          img(src := assetUrl(imgPath), alt := s"Trophy for $title")
 
   def bots(users: List[UserWithPerfs], bestPerfs: UserPerfs => List[PerfKey])(using Context) =
     val title = s"${users.size} Online bots"
