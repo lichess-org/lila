@@ -47,7 +47,6 @@ import type { PgnError } from 'chessops/pgn';
 import { ChatCtrl } from 'lib/chat/chatCtrl';
 import { confirm } from 'lib/view/dialogs';
 import api from './api';
-import { isTouchDevice } from 'lib/device';
 
 export default class AnalyseCtrl {
   data: AnalyseData;

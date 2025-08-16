@@ -34,9 +34,9 @@ export class IdbTree {
   // }
 
   nextLine(fromPath: Tree.Path = this.ctrl.path): Tree.Path {
-    let [path, node, kids] = this.familyOf(fromPath);
+    let [path, kids] = this.familyOf(fromPath);
     while (path && kids.length < 2 && !this.ctrl.tree.pathIsMainline(path)) {
-      [path, node, kids] = this.familyOf(path);
+      [path, kids] = this.familyOf(path);
     }
     const lineIndex = kids.findIndex(k => fromPath.slice(path.length).startsWith(k.id));
     const nextKid = kids[lineIndex + 1] ?? kids[0];
@@ -159,10 +159,12 @@ export class IdbTree {
     traverse(this.ctrl.tree.root, 0);
   }
 
-  private familyOf(path: Tree.Path): [Tree.Path, Tree.Node, Tree.Node[]] {
+  private familyOf(path: Tree.Path): [Tree.Path, Tree.Node[]] {
     const parentPath = path.slice(0, -2);
-    const parentNode = this.ctrl.tree.nodeAtPath(parentPath);
-    return [parentPath, parentNode, parentNode.children.filter(x => !x.comp || this.ctrl.showComputer())];
+    return [
+      parentPath,
+      this.ctrl.tree.nodeAtPath(parentPath).children.filter(x => !x.comp || this.ctrl.showComputer()),
+    ];
   }
 }
 
