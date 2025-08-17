@@ -131,25 +131,20 @@ export function selectionHandler(getOpponentColor: () => Color, isTouchDevice = 
             const msg = 'Promote to: q for queen, n for knight, r for rook, b for bishop';
             $boardLive.text(msg + (isAntichess ? ', k for king' : ''));
           } else {
-            let rank = promotionRank === '8' ? 8 : 1;
-            const promotionKeys = [
+            const promotions: { role: string; text: string }[] = [
               { role: 'q', text: 'promote to queen' },
               { role: 'n', text: 'promote to knight' },
               { role: 'r', text: 'promote to rook' },
               { role: 'b', text: 'promote to bishop' },
-              { role: 'k', text: 'promote to king' },
-              { role: 'x', text: 'cancel' },
             ];
-
-            for (const promotionKey of promotionKeys) {
-              if (promotionKey.role !== 'k' || isAntichess) {
-                const piecePromotionKey = $(squareSelector(rank.toString(), file));
-                piecePromotionKey.attr('promoteTo', promotionKey.role);
-                piecePromotionKey.text(promotionKey.text);
-              }
-              if (promotionRank === '8') rank--;
-              else rank++;
-            }
+            if (isAntichess) promotions.push({ role: 'k', text: 'promote to king' });
+            promotions.push({ role: 'x', text: 'cancel' });
+            promotions.forEach(({ role, text }, index) => {
+              const rank = promotionRank === '8' ? 8 - index : 1 + index;
+              const piecePromotionEl = $(squareSelector(rank.toString(), file));
+              piecePromotionEl.attr('promoteTo', role);
+              piecePromotionEl.text(text);
+            });
           }
           return;
         }
