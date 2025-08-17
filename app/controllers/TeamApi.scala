@@ -98,7 +98,16 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
         .fold(fuccess(ApiResult.ClientError("incorrect setting key"))): change =>
           bindForm(change.form)(
             form => fuccess(ApiResult.ClientError(form.errors.flatMap(_.messages).mkString("\n"))),
-            v => api.update(change.update(v)(team)).inject(ApiResult.Done)
+            v =>
+              val update = change.update(v)(team)
+              discard {
+                env.report.api.automodComms(
+                  s"${team.name}\n${update.intro.getOrElse("")}\n${update.description}",
+                  me,
+                  routes.Team.show(team.id).url
+                )
+              }
+              api.update(update).inject(ApiResult.Done)
           )
   }
 

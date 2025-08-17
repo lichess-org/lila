@@ -121,7 +121,13 @@ final class Team(env: Env) extends LilaController(env):
     WithOwnedTeamEnabled(id, _.Settings): team =>
       bindForm(forms.edit(team))(
         err => BadRequest.async(renderEdit(team, err)),
-        data => api.update(team, data).inject(Redirect(routes.Team.show(team.id)).flashSuccess)
+        data =>
+          api
+            .update(team, data)
+            .inject:
+              val userText = s"${team.name}\n${data.intro.getOrElse("")}\n${data.description}}"
+              discard { env.report.api.automodComms(userText, me, routes.Team.show(team.id).url) }
+              Redirect(routes.Team.show(team.id)).flashSuccess
       )
   }
 
@@ -261,6 +267,8 @@ final class Team(env: Env) extends LilaController(env):
             err => BadRequest.page(views.team.form.create(err, anyCaptcha)),
             data =>
               api.create(data, me).map { team =>
+                val userText = s"${data.name}\n${data.intro.getOrElse("")}\n${data.description}"
+                discard { env.report.api.automodComms(userText, me, routes.Team.show(team.id).url) }
                 Redirect(routes.Team.show(team.id))
               }
           )

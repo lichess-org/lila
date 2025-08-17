@@ -3,11 +3,13 @@ package lila.report
 import com.softwaremill.macwire.*
 
 import lila.common.Bus
+import lila.core.data.Text
 import lila.core.id.ReportId
 import lila.core.report.SuspectId
 import lila.core.userId.ModId
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
+import lila.memo.SettingStore.Text.given
 import lila.report.Room.Scores
 
 final class ReportApi(
@@ -21,7 +23,9 @@ final class ReportApi(
     isOnline: lila.core.socket.IsOnline,
     cacheApi: lila.memo.CacheApi,
     snoozer: lila.memo.Snoozer[Report.SnoozeKey],
-    thresholds: Thresholds
+    thresholds: Thresholds,
+    automodApi: Automod,
+    settingStore: lila.memo.SettingStore.Builder
 )(using Executor, Scheduler, lila.core.config.NetDomain)
     extends lila.core.report.ReportApi:
 
@@ -31,6 +35,18 @@ final class ReportApi(
   private lazy val accuracyOf = accuracy.apply
 
   private lazy val scorer = wire[ReportScore]
+
+  val promptSetting = settingStore[Text](
+    "commsAutomodPrompt",
+    text = "Comms automod prompt".some,
+    default = Text("")
+  )
+
+  val modelSetting = settingStore[String](
+    "commsAutomodModel",
+    text = "Comms automod model".some,
+    default = "Qwen/Qwen3-235B-A22B-Instruct-2507-tput"
+  )
 
   def create(data: ReportSetup, reporter: Reporter, msgs: List[String]): Funit =
     Reason(data.reason).so: reason =>
@@ -292,6 +308,37 @@ final class ReportApi(
     )
     for _ <- doProcessReport(selector, unsetInquiry = true)
     yield onReportClose()
+
+  def automod(
+      userText: String,
+      systemPrompt: String = promptSetting.get().value,
+      model: String = modelSetting.get(),
+      temperature: Double = 0
+  ): Fu[Option[play.api.libs.json.JsObject]] =
+    automodApi(userText, systemPrompt, model, temperature)
+
+  def automodComms(userText: String, userId: UserId, resource: String) = {
+    for
+      rsp <- automodApi(userText, promptSetting.get().value, modelSetting.get(), 0)
+      suspectOpt <- getSuspect(userId)
+      reporter <- getLichessReporter
+    yield for
+      res <- rsp
+      assessment <- (res \ "assessment").asOpt[String]
+      reason <- Reason(assessment)
+      suspect <- suspectOpt
+      summary = (res \ "reason").asOpt[String].getOrElse("No reason provided")
+    yield create(
+      Candidate(
+        reporter = reporter,
+        suspect = suspect,
+        reason = reason,
+        text = s"${Reason.flagText} $resource ${reason.name}: $summary"
+      )
+    ).recoverWith: e =>
+      logger.warn(s"Comms automod failed for $userId: ${e.getMessage}", e)
+      funit
+  }.flatMap(_.getOrElse(funit))
 
   private def onReportClose() =
     maxScoreCache.invalidateUnit()

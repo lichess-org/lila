@@ -59,6 +59,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
                       CategGrantWrite(categId, tryingToPostAsMod = ~data.modIcon):
                         limit.forumPost(ctx.ip, rateLimited):
                           postApi.makePost(categ, topic, data).map { post =>
+                            discard { maybeAutomod(post) }
                             Redirect(routes.ForumPost.redirect(post.id))
                           }
                   )
@@ -75,6 +76,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
             data =>
               limit.forumPost(ctx.ip, rateLimited):
                 postApi.editPost(postId, data.changes).map { post =>
+                  discard { maybeAutomod(post) }
                   Redirect(routes.ForumPost.redirect(post.id))
                 }
           )
@@ -134,3 +136,15 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
       case lila.forum.PostUrlData(categ, topic, page, number) =>
         val call = routes.ForumTopic.show(categ, topic, page)
         Redirect(s"$call#$number").withCanonical(call)
+
+  private def maybeAutomod(post: lila.forum.ForumPost)(using me: Me) =
+    val automod = () => env.report.api.automodComms(post.text, me, routes.ForumPost.redirect(post.id).url)
+    env.forum.postApi
+      .teamIdOfPostId(post.id)
+      .flatMap:
+        case Some(teamId) =>
+          for
+            access <- env.team.api.forumAccessOf(teamId)
+            _ <- automod() if access == lila.core.team.Access.Everyone
+          yield ()
+        case _ => automod()

@@ -273,6 +273,8 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
               api
                 .createTournament(setup, teams, andJoin = ctx.isWebAuth)
                 .flatMap: tour =>
+                  val userText = s"${setup.name.getOrElse("")}\n${setup.description.getOrElse("")}"
+                  discard { env.report.api.automodComms(userText, me, routes.Tournament.show(tour.id).url) }
                   given GetMyTeamIds = _ => fuccess(teams.map(_.id))
                   negotiate(
                     html = Redirect {
@@ -301,6 +303,8 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
             data =>
               given GetMyTeamIds = _ => fuccess(teams.map(_.id))
               api.apiUpdate(tour, data).flatMap { tour =>
+                val userText = s"${data.name.getOrElse("")}\n${data.description.getOrElse("")}"
+                discard { env.report.api.automodComms(userText, me, routes.Tournament.show(tour.id).url) }
                 jsonView(
                   tour,
                   none,

@@ -197,7 +197,7 @@ final class UblogApi(
           for _ <- colls.post.updateField($id(post.id), "automod", result).void
           yield result.some
         .recoverWith: e =>
-          if n < 5 then delay((30 * math.pow(2, n).toInt).seconds)(attempt(n + 1))
+          if n < retries then delay((30 * math.pow(2, n).toInt).seconds)(attempt(n + 1))
           else
             logger.warn(s"automod ${post.id} failed after $retries retry attempts", e)
             fuccess(none)
