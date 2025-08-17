@@ -200,12 +200,13 @@ final class PlaybanApi(
         Match($inIds(userIds) ++ $doc("b".$exists(true))) -> List(
           Project($doc("bans" -> $doc("$size" -> "$b")))
         )
-      .map:
-        _.flatMap: obj =>
-          obj.getAsOpt[UserId]("_id").flatMap { id =>
-            obj.getAsOpt[Int]("bans").map { id -> _ }
-          }
-        .toMap
+      .map: res =>
+        for
+          obj <- res
+          id <- obj.getAsOpt[UserId]("_id")
+          bans <- obj.getAsOpt[Int]("bans")
+        yield id -> bans
+      .map(_.toMap)
 
   def bans(userId: UserId): Fu[Int] = coll
     .aggregateOne(_.sec): framework =>
@@ -215,7 +216,7 @@ final class PlaybanApi(
       )
     .map { ~_.flatMap { _.getAsOpt[Int]("bans") } }
 
-  val rageSitOf: lila.core.playban.RageSitOf = userId => rageSitCache.get(userId)
+  val rageSitOf: lila.core.playban.RageSitOf = rageSitCache.get
 
   private val rageSitCache = cacheApi[UserId, RageSitCounter](65_536, "playban.ragesit"):
     _.expireAfterAccess(10.minutes)
