@@ -2,6 +2,7 @@ package lila.game
 
 import chess.ErrorStr
 import chess.format.Fen
+import monocle.syntax.all.*
 
 object Rewind:
 
@@ -23,6 +24,7 @@ object Rewind:
             BinaryFormat.moveTime.write(moveTimes.dropRight(1))
           },
           loadClockHistory = _ => game.clockHistory.map(_.update(!color, _.dropRight(1))),
-          movedAt = nowInstant
+          movedAt = nowInstant,
+          metadata = game.metadata.focus(_.drawOffers).modify(_.beforePly(rewindedGame.ply))
         )
         Progress(game, newGame)

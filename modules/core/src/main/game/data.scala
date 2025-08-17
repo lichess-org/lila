@@ -37,6 +37,9 @@ case class GameDrawOffers(white: Set[Ply], black: Set[Ply]):
   def add(color: Color, ply: Ply) =
     color.fold(copy(white = white.incl(ply)), copy(black = black.incl(ply)))
 
+  def beforePly(ply: Ply): GameDrawOffers =
+    copy(white = white.filter(_ < ply), black = black.filter(_ < ply))
+
   // lichess allows to offer draw on either turn,
   // normalize to pretend it was done on the opponent turn.
   def normalize(color: Color): Set[Ply] = color
