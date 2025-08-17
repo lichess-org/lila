@@ -14,10 +14,17 @@ final class AssessmentRepo(val coll: lila.db.dsl.Coll)
 final class HistoryRepo(val coll: lila.db.dsl.Coll)
 final class ModQueueStatsRepo(val coll: lila.db.dsl.Coll)
 
+// log in chrono asc order
 case class UserWithModlog(user: UserWithPerfs, log: List[Modlog.UserEntry]):
   export user.user.*
   def dateOf(action: Modlog.type => String): Option[Instant] =
     log.find(_.action == action(Modlog)).map(_.date)
+  def closed: Option[(byMod: Boolean, at: Instant)] =
+    user.user.enabled.no
+      .so:
+        log.findLast(e => e.action == Modlog.closeAccount || e.action == Modlog.selfCloseAccount)
+      .map: closed =>
+        (closed.action == Modlog.closeAccount, closed.date)
 
 object UserWithModlog:
   given UserIdOf[UserWithModlog] = _.user.id

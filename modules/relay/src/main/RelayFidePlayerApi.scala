@@ -1,6 +1,6 @@
 package lila.relay
 
-import chess.{ ByColor, FideId }
+import chess.{ ByColor, FideId, PlayerTitle }
 import chess.format.pgn.{ Tag, Tags }
 
 import lila.core.fide.{ FideTC, Player }
@@ -18,7 +18,7 @@ final private class RelayFidePlayerApi(guessPlayer: lila.core.fide.GuessPlayer)(
   private def enrichTags(tags: Tags, tc: FideTC): Fu[Tags] =
     (tags.fideIds
       .zip(tags.names)
-      .zip(tags.titles))
+      .zip(filterSourceTitles(tags)))
       .traverse:
         // use FIDE ID = 0 to prevent guessing the player info based on their name
         case ((Some(fideId), _), _) if fideId == FideId(0) => fuccess(none)
@@ -36,3 +36,10 @@ final private class RelayFidePlayerApi(guessPlayer: lila.core.fide.GuessPlayer)(
             fide.title.map { title => Tag(_.titles(color), title.value) },
             fide.ratingOf(tc).map { rating => Tag(_.elos(color), rating.toString) }
           ).flatten
+
+  private def filterSourceTitles(tags: Tags): ByColor[Option[PlayerTitle]] =
+    tags.titles.map(_.filterNot(fideTitles.contains))
+
+  private val fideTitles =
+    import PlayerTitle.*
+    Set(GM, WGM, IM, WIM, FM, WFM, CM, WCM)

@@ -27,7 +27,18 @@ object UblogAutomod:
       hash: Option[String] = none,
       lockedBy: Option[UserId] = none,
       version: Int = schemaVersion
-  )
+  ):
+    def updateByLLM(llm: Assessment): Assessment =
+      if lockedBy.isDefined then
+        copy(
+          flagged = flagged.orElse(llm.flagged),
+          commercial = commercial.orElse(llm.commercial)
+        )
+      else
+        llm.copy(
+          quality = Quality.fromOrdinal:
+            llm.quality.ordinal.atLeast(quality.ordinal)
+        )
 
   private case class FuzzyResult(
       quality: String,

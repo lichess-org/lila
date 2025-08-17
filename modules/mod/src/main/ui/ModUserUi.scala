@@ -24,6 +24,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
   val boosting: Frag = iconTag(Icon.LineGraph)
   val engine: Frag = iconTag(Icon.Cogs)
   val closed: Frag = iconTag(Icon.NotAllowed)
+  val modClosed: Frag = iconTag(Icon.Trash)
   val clean: Frag = iconTag(Icon.User)
   val reportban = iconTag(Icon.CautionTriangle)
   val notesText = iconTag(Icon.Pencil)

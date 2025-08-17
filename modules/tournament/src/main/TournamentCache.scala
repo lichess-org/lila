@@ -14,7 +14,7 @@ final class TournamentCache(
 )(using Executor)(using translator: lila.core.i18n.Translator):
 
   object tourCache:
-    private val cache = cacheApi[TourId, Option[Tournament]](128, "tournament.tournament"):
+    private val cache = cacheApi[TourId, Option[Tournament]](64, "tournament.tournament"):
       _.expireAfterWrite(1.second)
         .maximumSize(256)
         .buildAsyncFuture(tournamentRepo.byId)
