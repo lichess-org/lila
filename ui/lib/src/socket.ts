@@ -139,13 +139,6 @@ class WsSocket {
 
   private connect = (): void => {
     this.destroy();
-    if (!isOnline()) {
-      document.body.classList.remove('online');
-      document.body.classList.add('offline');
-      $('#network-status').text(i18n?.site?.noNetwork ?? 'Offline');
-      this.scheduleConnect(4000);
-      return;
-    }
     this.lastUrl = xhr.url(this.options.protocol + '//' + this.nextBaseUrl() + this.url, {
       ...this.settings.params,
       v: this.version === false ? undefined : this.version,
@@ -223,7 +216,8 @@ class WsSocket {
     this.connectSchedule = setTimeout(() => {
       document.body.classList.add('offline');
       document.body.classList.remove('online');
-      $('#network-status').text(i18n?.site?.reconnecting ?? 'Reconnecting');
+      if (isOnline()) $('#network-status').text(i18n?.site?.reconnecting ?? 'Reconnecting');
+      else $('#network-status').text(i18n?.site?.noNetwork ?? 'Offline');
       this.tryOtherUrl = true;
       this.connect();
     }, delay);

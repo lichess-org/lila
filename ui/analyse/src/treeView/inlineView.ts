@@ -1,155 +1,198 @@
-import { h, type VNode } from 'snabbdom';
-import { fixCrazySan } from 'lib/game/chess';
-import { path as treePath, ops as treeOps } from 'lib/tree/tree';
-import * as moveView from '../view/moveView';
 import type AnalyseCtrl from '../ctrl';
-import * as licon from 'lib/licon';
-import type { MaybeVNodes } from 'lib/snabbdom';
-import { mainHook, nodeClasses, renderInlineCommentsOf, retroLine, Ctx, Opts, renderingCtx } from './common';
+import { type VNode, type LooseVNodes, hl } from 'lib/snabbdom';
+import { type Classes } from 'snabbdom';
+import { ops as treeOps, path as treePath } from 'lib/tree/tree';
+import { isSafari, isTouchDevice } from 'lib/device';
+import { enrichText, innerHTML } from 'lib/richText';
+import { authorText } from '../study/studyComments';
+import { playable } from 'lib/game/game';
+import type { Conceal } from '../interfaces';
+import type { DiscloseState } from '../idbTree';
+import { moveNodes, renderIndex } from '../view/components';
 
-function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | undefined {
-  const cs = node.children.filter(x => ctx.showComputer || !x.comp),
-    main = cs[0];
-  if (!main) return;
-  if (opts.isMainline) {
-    if (!cs[1] && !main.forceVariation)
-      return renderMoveAndChildrenOf(ctx, main, {
-        parentPath: opts.parentPath,
+export function renderInlineView(ctrl: AnalyseCtrl): VNode {
+  const renderer = new InlineView(ctrl);
+  const parentNode = ctrl.tree.root;
+  const parentDisclose = ctrl.idbTree.discloseOf(parentNode);
+  return hl(
+    'div.tview2.tview2-inline',
+    { class: { hidden: ctrl.treeView.hidden, anchor: !!parentDisclose } },
+    [
+      renderer.commentNodes(parentNode),
+      renderer.inlineNodes(renderer.filterNodes(parentNode.children), {
+        parentPath: '',
+        parentNode,
+        parentDisclose,
         isMainline: true,
-        depth: opts.depth,
-        withIndex: opts.withIndex,
-      });
-    return (
-      renderInlined(ctx, cs, opts) || [
-        ...(main.forceVariation
-          ? []
-          : [
-              renderMoveOf(ctx, main, {
-                parentPath: opts.parentPath,
-                isMainline: true,
-                depth: opts.depth,
-                withIndex: opts.withIndex,
-              }),
-              ...renderInlineCommentsOf(ctx, main, opts.parentPath),
-            ]),
-        h(
-          'interrupt',
-          renderLines(ctx, node, main.forceVariation ? cs : cs.slice(1), {
-            parentPath: opts.parentPath,
-            isMainline: true,
-            depth: opts.depth,
+      }),
+    ],
+  );
+}
+
+export interface Args {
+  isMainline: boolean;
+  parentPath: Tree.Path;
+  parentNode: Tree.Node;
+  parentDisclose?: DiscloseState;
+  conceal?: Conceal;
+}
+
+export class InlineView {
+  inline = true;
+  private glyphs = ['good', 'mistake', 'brilliant', 'blunder', 'interesting', 'inaccuracy'];
+
+  constructor(
+    readonly ctrl: AnalyseCtrl,
+    readonly showComputer = ctrl.showComputer() && !ctrl.retro?.isSolving(),
+    readonly showGlyphs = (!!ctrl.study && !ctrl.study?.relay) || ctrl.showComputer(),
+  ) {}
+
+  filterNodes(nodes: Tree.Node[]): Tree.Node[] {
+    return nodes.filter(node => this.showComputer || !node.comp);
+  }
+
+  inlineNodes([child, ...siblings]: Tree.Node[], args: Args): LooseVNodes {
+    if (!child) return;
+    const { isMainline, parentDisclose, parentPath } = args;
+    return child.forceVariation && isMainline
+      ? hl('interrupt', this.variationNodes([child, ...siblings], args))
+      : [
+          this.moveNode(child, args),
+          parentDisclose !== 'collapsed' && [
+            this.commentNodes(child),
+            siblings[0] && hl('interrupt', this.variationNodes(siblings, args)),
+          ],
+          this.inlineNodes(this.filterNodes(child.children), {
+            parentPath: parentPath + child.id,
+            parentNode: child,
+            parentDisclose: this.ctrl.idbTree.discloseOf(child),
+            isMainline,
           }),
-        ),
-        ...(main.forceVariation
-          ? []
-          : renderChildrenOf(ctx, main, {
-              parentPath: opts.parentPath + main.id,
-              isMainline: true,
-              depth: opts.depth,
-              withIndex: true,
-            }) || []),
-      ]
+        ];
+  }
+
+  commentNodes(node: Tree.Node, classes: Classes = {}): LooseVNodes[] {
+    if (!this.ctrl.showComments || !node.comments) return [];
+    return node.comments.map(comment =>
+      this.commentNode(comment, node.comments!, {
+        inaccuracy: comment.text.startsWith('Inaccuracy.'),
+        mistake: comment.text.startsWith('Mistake.'),
+        blunder: comment.text.startsWith('Blunder.'),
+        ...classes,
+      }),
     );
   }
-  if (!cs[1]) return renderMoveAndChildrenOf(ctx, main, opts);
-  return renderInlined(ctx, cs, opts) || [renderLines(ctx, node, cs, opts)];
-}
 
-function renderInlined(ctx: Ctx, nodes: Tree.Node[], opts: Opts): MaybeVNodes | undefined {
-  // only 2 branches
-  if (!nodes[1] || nodes[2] || nodes[0].forceVariation) return;
-  // only if second branch has no sub-branches
-  if (treeOps.hasBranching(nodes[1], 6)) return;
-  return renderMoveAndChildrenOf(ctx, nodes[0], {
-    parentPath: opts.parentPath,
-    isMainline: opts.isMainline,
-    depth: opts.depth,
-    inline: nodes[1],
-  });
-}
+  protected variationNodes(lines: Tree.Node[], args: Args): LooseVNodes {
+    const { parentDisclose, parentPath, parentNode, isMainline } = args;
+    if (!lines.length || parentDisclose === 'collapsed') return;
+    const anchor = parentDisclose === 'expanded' && (this.inline || !isMainline);
+    const lineArgs = { parentPath, parentNode, isMainline: false };
 
-function renderLines(ctx: Ctx, parentNode: Tree.Node, nodes: Tree.Node[], opts: Opts): VNode {
-  const collapsed =
-    parentNode.collapsed === undefined ? opts.depth >= 2 && opts.depth % 2 === 0 : parentNode.collapsed;
-  return h(
-    'lines',
-    { class: { collapsed } },
-    collapsed
-      ? h('line', { class: { expand: true } }, [
-          h('branch'),
-          h('a', {
-            attrs: { 'data-icon': licon.PlusButton, title: i18n.site.expandVariations },
-            on: { click: () => ctx.ctrl.setCollapsed(opts.parentPath, false) },
-          }),
-        ])
-      : nodes.map(n => {
-          return (
-            retroLine(ctx, n) ||
-            h('line', [
-              h('branch'),
-              ...renderMoveAndChildrenOf(ctx, n, {
-                parentPath: opts.parentPath,
-                isMainline: false,
-                depth: opts.depth + 1,
-                withIndex: true,
-                truncate: n.comp && !treePath.contains(ctx.ctrl.path, opts.parentPath + n.id) ? 3 : undefined,
-              }),
-            ])
-          );
-        }),
-  );
-}
+    return (!isMainline || this.inline) && lines.length === 1 && !treeOps.hasBranching(lines[0], 6)
+      ? hl('inline', this.retroLine(lines[0]) || this.inlineNodes(lines, lineArgs))
+      : hl('lines', { class: { anchor } }, [
+          parentDisclose === 'expanded' && this.disclosureConnector(),
+          lines.map(
+            line => this.retroLine(line) || hl('line', [hl('branch'), this.inlineNodes([line], lineArgs)]),
+          ),
+        ]);
+  }
 
-function renderMoveAndChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes {
-  const path = opts.parentPath + node.id,
-    comments = renderInlineCommentsOf(ctx, node, path);
-  if (opts.truncate === 0) return [h('move', { attrs: { p: path } }, '[...]')];
-  return ([renderMoveOf(ctx, node, opts)] as MaybeVNodes)
-    .concat(comments)
-    .concat(opts.inline ? renderInline(ctx, opts.inline, opts) : null)
-    .concat(
-      renderChildrenOf(ctx, node, {
-        parentPath: path,
-        isMainline: opts.isMainline,
-        depth: opts.depth,
-        truncate: !!opts.truncate ? opts.truncate - 1 : undefined,
-        withIndex: !!comments[0],
-      }) || [],
+  protected moveNode(node: Tree.Node, opts: Args): VNode {
+    const { conceal, isMainline, parentPath, parentNode, parentDisclose } = opts;
+    const { ctrl } = this;
+    const p = parentPath + node.id;
+    const currentPath =
+      (!ctrl.synthetic && playable(ctrl.data) && ctrl.initialPath) ||
+      ctrl.retro?.current()?.prev.path ||
+      ctrl.study?.data.chapter.relayPath;
+    const classes: Classes = {
+      mainline: isMainline,
+      conceal: conceal === 'conceal',
+      hide: conceal === 'hide',
+      active: p === ctrl.path,
+      current: p === currentPath,
+      nongame: !currentPath && !!ctrl.gamePath && treePath.contains(p, ctrl.gamePath) && p !== ctrl.gamePath,
+      'context-menu': p === ctrl.contextMenuPath,
+      'pending-deletion': p.startsWith(ctrl.pendingDeletionPath() || ' '),
+      'pending-copy': !!ctrl.pendingCopyPath()?.startsWith(p),
+    };
+    if (this.showGlyphs)
+      node.glyphs
+        ?.map(g => this.glyphs[g.id - 1])
+        .filter(Boolean)
+        .forEach(cls => (classes[cls] = true));
+
+    return hl('move', { attrs: { p }, class: classes }, [
+      parentDisclose && this.disclosureBtn(parentNode, parentPath),
+      (!isMainline || this.inline) &&
+        (node.ply % 2 === 1 || parentNode.children.length > 1) &&
+        renderIndex(node.ply, true),
+      moveNodes(node, ctrl.showComputer() && isMainline && !this.inline, ctrl.showComputer()),
+    ]);
+  }
+
+  protected disclosureConnector(): VNode {
+    const callback = (vnode: VNode) => this.connectToDisclosureBtn(vnode);
+
+    return hl(
+      'div.disclosure-connector',
+      { hook: { insert: callback, update: v => setTimeout(() => callback(v)) } },
+      hl('div.disclosure-connector.riser'),
     );
-}
+  }
 
-function renderInline(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
-  const retro = retroLine(ctx, node);
-  if (retro) return h('interrupt', h('lines', retro));
-  return h(
-    'inline',
-    renderMoveAndChildrenOf(ctx, node, {
-      withIndex: true,
-      parentPath: opts.parentPath,
-      isMainline: false,
-      depth: opts.depth,
-    }),
-  );
-}
+  private disclosureBtn(node: Tree.Node, path: Tree.Path): VNode | undefined {
+    return hl('a.disclosure', {
+      class: { expanded: !node.collapsed },
+      on: { click: () => this.ctrl.idbTree.setCollapsed(path, !node.collapsed) },
+    });
+  }
 
-function renderMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
-  const path = opts.parentPath + node.id,
-    content: MaybeVNodes = [
-      opts.withIndex || node.ply & 1 ? moveView.renderIndex(node.ply, true) : null,
-      fixCrazySan(node.san!),
-    ];
-  if (node.glyphs && ctx.showGlyphs) node.glyphs.forEach(g => content.push(moveView.renderGlyph(g)));
-  return h('move', { attrs: { p: path }, class: nodeClasses(ctx, node, path) }, content);
-}
+  private connectToDisclosureBtn(v: VNode): void {
+    const [el, btn] = [v.elm as HTMLElement, this.findDisclosureBtn(v.elm)];
+    if (!el || !btn || isSafari({ below: '16' })) return;
 
-export default function (ctrl: AnalyseCtrl): VNode {
-  const ctx = renderingCtx(ctrl);
-  return h('div.tview2.tview2-inline', { hook: mainHook(ctrl) }, [
-    ...renderInlineCommentsOf(ctx, ctrl.tree.root, ''),
-    ...(renderChildrenOf(ctx, ctrl.tree.root, {
-      parentPath: '',
-      isMainline: true,
-      depth: 0,
-    }) || []),
-  ]);
+    const btnRect = btn.getBoundingClientRect();
+    const anchorRect = el.closest('.anchor')!.getBoundingClientRect();
+    const isFirstOnRow = btnRect.left < anchorRect.left + 8;
+    const distanceMinusRiser = anchorRect.top - btnRect.bottom + btnRect.height / 2;
+    const baseHeight = Math.max(0, distanceMinusRiser - (isFirstOnRow ? 0 : isTouchDevice() ? 14 : 12));
+    const btnCenter = btnRect.width / 2;
+    const width = isFirstOnRow
+      ? 4
+      : document.documentElement.dir === 'rtl'
+        ? anchorRect.right - btnRect.left - btnCenter
+        : btnRect.right - anchorRect.left - btnCenter;
+
+    el.style.width = `${width}px`;
+    el.style.height = `${baseHeight}px`;
+    el.style.top = `-${baseHeight}px`;
+    (el.firstElementChild as HTMLElement).style.display = isFirstOnRow ? 'none' : 'block';
+  }
+
+  private findDisclosureBtn(el: Node | null | undefined): HTMLElement | undefined {
+    while (el && el.nodeName !== 'A') {
+      if (!el.previousSibling) el = el.parentNode;
+      else {
+        el = el.previousSibling;
+        while (el.lastChild) el = el.lastChild;
+      }
+    }
+    return el as HTMLElement;
+  }
+
+  private commentNode(comment: Tree.Comment, others: Tree.Comment[], classes: Classes) {
+    if (comment.by === 'lichess' && !this.showComputer) return;
+    const by = !others[1] ? '' : `<span class="by">${authorText(comment.by)}</span> `,
+      htmlHook = innerHTML(comment.text, text => by + enrichText(text));
+    return hl('comment', { class: classes, hook: htmlHook });
+  }
+
+  private retroLine(node: Tree.Node): VNode | undefined {
+    return node.comp && this.ctrl.retro && this.ctrl.retro.hideComputerLine(node)
+      ? hl('line', i18n.site.learnFromThisMistake)
+      : undefined;
+  }
 }

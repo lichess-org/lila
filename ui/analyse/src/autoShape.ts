@@ -16,9 +16,6 @@ const pieceDrop = (key: Key, role: Role, color: Color): DrawShape => ({
   brush: 'green',
 });
 
-const findShape = (uci?: Uci, shapes?: Tree.Shape[]) =>
-  ((shapes ?? []) as DrawShape[]).find(s => s.orig === uci?.slice(0, 2) && s.dest === uci?.slice(2, 4));
-
 export function makeShapesFromUci(
   color: Color,
   uci: Uci,
@@ -127,36 +124,22 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
 }
 
 function hiliteVariations(ctrl: AnalyseCtrl, autoShapes: DrawShape[]) {
+  const parent = ctrl.disclosureMode() ? ctrl.tree.parentNode(ctrl.path) : (ctrl.node ?? ctrl.tree.root);
+  const visible = parent.children.filter(n => ctrl.showComputer || !n.comp);
+  if (visible.length < 2) return;
   const chap = ctrl.study?.data.chapter;
   const isGamebookEditor = chap?.gamebook && !ctrl.study?.gamebookPlay;
-
-  for (const [i, node] of ctrl.node.children.entries()) {
-    if (node.comp && !ctrl.showComputer()) continue;
-    const userShape = findShape(node.uci, ctrl.node.shapes);
-
-    if (userShape && i === ctrl.fork.selected()) autoShapes.push({ ...userShape }); // so we can hilite it
-
-    const existing = findShape(node.uci, autoShapes);
-    const brush = isGamebookEditor
-      ? i === 0
-        ? 'paleGreen'
-        : 'paleRed'
-      : existing
-        ? existing.brush
-        : 'white';
-    if (existing) {
-      if (i === ctrl.fork.selected()) {
-        existing.brush = brush;
-        if (!existing.modifiers) existing.modifiers = {};
-        existing.modifiers.hilite = true;
-      }
-    } else if (!userShape) {
-      autoShapes.push({
-        orig: node.uci!.slice(0, 2) as Key,
-        dest: node.uci?.slice(2, 4) as Key,
-        brush,
-        modifiers: { hilite: i === ctrl.fork.selected() },
-      });
-    }
+  const currentIndex = visible.findIndex(n => n.id === ctrl.node.id);
+  for (const [i, node] of visible.entries()) {
+    const blueHilite = ctrl.disclosureMode()
+      ? i === (currentIndex + 1) % visible.length
+      : i === ctrl.fork.selected();
+    autoShapes.push({
+      orig: node.uci!.slice(0, 2) as Key,
+      dest: node.uci?.slice(2, 4) as Key,
+      brush: !isGamebookEditor ? 'paleWhite' : i === 0 ? 'paleGreen' : 'paleRed',
+      modifiers: { hilite: blueHilite ? '#3291ff' : '#aaa' },
+      below: true,
+    });
   }
 }

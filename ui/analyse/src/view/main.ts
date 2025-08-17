@@ -52,7 +52,7 @@ function analyseView(ctrl: AnalyseCtrl, deps?: typeof studyDeps): VNode {
     crazyView(ctrl, ctrl.topColor(), 'top'),
     renderTools(ctx),
     crazyView(ctrl, ctrl.bottomColor(), 'bottom'),
-    renderControls(ctrl),
+    renderControls(ctx),
     renderUnderboard(ctx),
     ctrl.keyboardMove && renderKeyboardMove(ctrl.keyboardMove),
     trainingView(ctrl),

@@ -1,6 +1,6 @@
 import { isEmpty } from 'lib';
 import * as licon from 'lib/licon';
-import { isTouchDevice } from 'lib/device';
+import { displayColumns } from 'lib/device';
 import { domDialog } from 'lib/view/dialog';
 import { type VNode, type LooseVNodes, bind, dataIcon, type MaybeVNodes, hl } from 'lib/snabbdom';
 import type { AutoplayDelay } from '../autoplay';
@@ -64,7 +64,7 @@ function studyButton(ctrl: AnalyseCtrl) {
       attrs: { method: 'post', action: '/study/as' },
       hook: bind('submit', e => {
         const pgnInput = (e.target as HTMLElement).querySelector('input[name=pgn]') as HTMLInputElement;
-        if (pgnInput && (ctrl.synthetic || ctrl.persistence?.isDirty)) {
+        if (pgnInput && (ctrl.synthetic || ctrl.idbTree.isDirty)) {
           pgnInput.value = pgnExport.renderFullTxt(ctrl);
         }
       }),
@@ -132,7 +132,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
           i18n.site.continueFromHere,
         ),
       studyButton(ctrl),
-      ctrl.persistence?.isDirty &&
+      ctrl.idbTree.isDirty &&
         hl(
           'a',
           {
@@ -140,7 +140,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
               title: i18n.site.clearSavedMoves,
               'data-icon': licon.Trash,
             },
-            hook: bind('click', ctrl.persistence.clear),
+            hook: bind('click', ctrl.idbTree.clear),
           },
           i18n.site.clearSavedMoves,
         ),
@@ -149,18 +149,18 @@ export function view(ctrl: AnalyseCtrl): VNode {
 
   const cevalConfig: LooseVNodes = ceval?.possible &&
     ceval.allowed() && [
-      hl('h2', i18n.site.computerAnalysis),
-      ctrlToggle(
-        {
-          name: i18n.site.enable,
-          title: (mandatoryCeval ? 'Required by practice mode' : 'Stockfish') + ' (Hotkey: z)',
-          id: 'all',
-          checked: ctrl.showComputer(),
-          disabled: mandatoryCeval,
-          change: ctrl.toggleComputer,
-        },
-        ctrl,
-      ),
+      displayColumns() > 1 && hl('h2', i18n.site.computerAnalysis),
+      !mandatoryCeval &&
+        ctrlToggle(
+          {
+            name: 'Show server analysis',
+            title: 'Show server analysis (Hotkey: z)',
+            id: 'all',
+            checked: ctrl.showComputer(),
+            change: ctrl.toggleComputer,
+          },
+          ctrl,
+        ),
       ctrl.showComputer() && [
         ctrlToggle(
           {
@@ -185,28 +185,41 @@ export function view(ctrl: AnalyseCtrl): VNode {
     ];
 
   const displayConfig = [
-    hl('h2', 'Display'),
+    displayColumns() > 1 && hl('h2', 'Display'),
+    hl('span', [
+      ctrlToggle(
+        {
+          name: 'Disclosure mode',
+          title: 'Variation disclosure mode',
+          id: 'disclosureMode',
+          checked: ctrl.disclosureMode(),
+          change: ctrl.toggleDisclosureMode,
+        },
+        ctrl,
+      ),
+      hl('a.disclosure-help-btn', { hook: bind('click', disclosureModeHelp) }, licon.InfoCircle),
+    ]),
     ctrlToggle(
       {
         name: i18n.site.inlineNotation,
         title: 'Shift+I',
         id: 'inline',
-        checked: ctrl.treeView.inline(),
+        checked: ctrl.treeView.modePreference() === 'inline',
         change(v) {
-          ctrl.treeView.set(v);
+          ctrl.treeView.modePreference(v ? 'inline' : 'column');
           ctrl.actionMenu.toggle();
         },
       },
       ctrl,
     ),
-    !isTouchDevice() &&
+    !ctrl.disclosureMode() &&
       ctrlToggle(
         {
           name: i18n.site.showVariationArrows,
-          title: 'Variation navigation arrows',
+          title: 'Variation navigation arrows (Hotkey: v)',
           id: 'variationArrows',
-          checked: ctrl.variationArrowsProp(),
-          change: ctrl.toggleVariationArrows,
+          checked: ctrl.variationArrows(),
+          change: v => (ctrl.variationArrows(v), ctrl.redraw()),
         },
         ctrl,
       ),
@@ -256,4 +269,32 @@ export function view(ctrl: AnalyseCtrl): VNode {
         ),
       ]),
   ]);
+}
+
+function disclosureModeHelp() {
+  domDialog({
+    class: 'help disclosure-help',
+    htmlText: $html`
+      <span>
+        <p>
+          <strong>Disclosure mode:</strong>
+          Use <i>${licon.PlusButton}</i> and <i>${licon.MinusButton}</i> buttons
+          to show and hide comments and variations in the move list.
+          <br><br>Your choices are remembered in browser cache.
+        </p>
+        <img src="${site.asset.url('images/help/disclosure-buttons.webp')}"/>
+      </span>
+      <span>
+        <img src="${site.asset.url('images/help/disclosure-arrows.webp')}"/>
+        <p>
+          Pale white arrows show alternate lines for the current move. Tap
+          <kbd>shift</kbd> or the <i>${licon.NextLine}</i> button to step between them.
+          <br><br><strong>Note:</strong>
+          You can step across lines from deep within a variation.
+        </p>
+      </span>`,
+    actions: [{ result: 'ok' }],
+    noCloseButton: true,
+    show: true,
+  });
 }

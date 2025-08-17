@@ -5,10 +5,11 @@ import {
   type VNodeChildren,
   type Hooks,
   type Attrs,
+  type Classes,
   h as snabH,
 } from 'snabbdom';
 
-export type { Attrs, VNode, VNodeChildren };
+export type { Attrs, Hooks, Classes, VNode, VNodeData, VNodeChildElement, VNodeChildren };
 export type MaybeVNode = VNode | string | null | undefined;
 export type MaybeVNodes = MaybeVNode[];
 

@@ -22,7 +22,7 @@ export function numberedArrows(choices: [string, Uci][], timer: number | undefin
       orig: uci.slice(0, 2) as Key,
       dest: uci.slice(2, 4) as Key,
       brush: `v-grey`,
-      modifiers: { hilite: uci === preferred },
+      modifiers: uci === preferred ? { hilite: 'white' } : undefined,
       label: choices.length > 1 ? { text: `${i + 1}` } : undefined,
     });
   });
@@ -43,7 +43,7 @@ export function coloredArrows(choices: [string, Uci][], timer: number | undefine
       orig: uci.slice(0, 2) as Key,
       dest: uci.slice(2, 4) as Key,
       brush: `v-${c}`,
-      modifiers: { hilite: uci === preferred },
+      modifiers: uci === preferred ? { hilite: 'white' } : undefined,
     });
   });
   if (timer) {
