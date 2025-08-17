@@ -73,15 +73,10 @@
       ]
     },
     {
-      "in": "g",
-      "tok": "g",
+      "in": "g je",
+      "tok": "JL",
       "tags": ["file", "move"],
-      "subs": [
-        {
-          "to": "",
-          "cost": 0.5
-        }
-      ]
+      "val": ""
     },
     {
       "in": "ha",
@@ -422,25 +417,25 @@
       "in": "pomyliłem się",
       "val": "takeback",
       "tags": ["command"],
-      "tok": "IJ"
+      "tok": "MO"
     },
     {
       "in": "pomyliłam się",
       "val": "takeback",
       "tags": ["command"],
-      "tok": "LJ"
+      "tok": "SO"
     },
     {
       "in": "proponuję remis",
       "val": "draw",
       "tags": ["command", "round"],
-      "tok": "MO"
+      "tok": "TU"
     },
     {
       "in": "poddaję się",
       "val": "resign",
       "tags": ["command", "round"],
-      "tok": "SJ"
+      "tok": "VO"
     },
     {
       "in": "rezygnuję",
@@ -458,13 +453,13 @@
       "in": "proponuję rewanż",
       "val": "rematch",
       "tags": ["command", "round"],
-      "tok": "MT"
+      "tok": "TW"
     },
     {
       "in": "obróć szachownicę",
       "val": "flip",
       "tags": ["command"],
-      "tok": "UV"
+      "tok": "XY"
     },
     {
       "in": "zegar",
@@ -506,19 +501,19 @@
       "in": "kciuk w górę",
       "val": "upvote",
       "tags": ["command", "puzzle"],
-      "tok": "WXY"
+      "tok": "Z[\\"
     },
     {
       "in": "kciuk w dół",
       "val": "downvote",
       "tags": ["command", "puzzle"],
-      "tok": "WXZ"
+      "tok": "Z[]"
     },
     {
       "in": "pokaż rozwiązanie",
       "val": "solve",
       "tags": ["command", "puzzle"],
-      "tok": "[\\"
+      "tok": "^_"
     },
     {
       "in": "pomocy",
@@ -548,7 +543,7 @@
       "in": "wyłącz mikrofon",
       "val": "mic-off",
       "tags": ["command"],
-      "tok": "]^"
+      "tok": "`i"
     },
     {
       "in": "tak",
@@ -731,16 +726,22 @@
       ]
     },
     {
-      "in": "foks trop",
+      "in": "franek",
       "val": "f",
       "tags": ["file", "move", "phonetic"],
-      "tok": "_`"
+      "tok": "G",
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
     },
     {
       "in": "golf",
       "val": "g",
       "tags": ["file", "move", "phonetic"],
-      "tok": "G",
+      "tok": "H",
       "subs": [
         {
           "to": "",
@@ -752,18 +753,7 @@
       "in": "hotel",
       "val": "h",
       "tags": ["file", "move", "phonetic"],
-      "tok": "H",
-      "subs": [
-        {
-          "to": "",
-          "cost": 0.5
-        }
-      ]
-    },
-    {
-      "in": "pomyliłem",
       "tok": "I",
-      "tags": ["part"],
       "subs": [
         {
           "to": "",
@@ -772,7 +762,7 @@
       ]
     },
     {
-      "in": "się",
+      "in": "g",
       "tok": "J",
       "tags": ["part"],
       "subs": [
@@ -783,7 +773,7 @@
       ]
     },
     {
-      "in": "pomyliłam",
+      "in": "je",
       "tok": "L",
       "tags": ["part"],
       "subs": [
@@ -794,7 +784,7 @@
       ]
     },
     {
-      "in": "proponuję",
+      "in": "pomyliłem",
       "tok": "M",
       "tags": ["part"],
       "subs": [
@@ -805,7 +795,7 @@
       ]
     },
     {
-      "in": "remis",
+      "in": "się",
       "tok": "O",
       "tags": ["part"],
       "subs": [
@@ -816,7 +806,7 @@
       ]
     },
     {
-      "in": "poddaję",
+      "in": "pomyliłam",
       "tok": "S",
       "tags": ["part"],
       "subs": [
@@ -827,7 +817,7 @@
       ]
     },
     {
-      "in": "rewanż",
+      "in": "proponuję",
       "tok": "T",
       "tags": ["part"],
       "subs": [
@@ -838,7 +828,7 @@
       ]
     },
     {
-      "in": "obróć",
+      "in": "remis",
       "tok": "U",
       "tags": ["part"],
       "subs": [
@@ -849,7 +839,7 @@
       ]
     },
     {
-      "in": "szachownicę",
+      "in": "poddaję",
       "tok": "V",
       "tags": ["part"],
       "subs": [
@@ -860,7 +850,7 @@
       ]
     },
     {
-      "in": "kciuk",
+      "in": "rewanż",
       "tok": "W",
       "tags": ["part"],
       "subs": [
@@ -871,7 +861,7 @@
       ]
     },
     {
-      "in": "w",
+      "in": "obróć",
       "tok": "X",
       "tags": ["part"],
       "subs": [
@@ -882,7 +872,7 @@
       ]
     },
     {
-      "in": "górę",
+      "in": "szachownicę",
       "tok": "Y",
       "tags": ["part"],
       "subs": [
@@ -893,7 +883,7 @@
       ]
     },
     {
-      "in": "dół",
+      "in": "kciuk",
       "tok": "Z",
       "tags": ["part"],
       "subs": [
@@ -904,7 +894,7 @@
       ]
     },
     {
-      "in": "pokaż",
+      "in": "w",
       "tok": "[",
       "tags": ["part"],
       "subs": [
@@ -915,7 +905,7 @@
       ]
     },
     {
-      "in": "rozwiązanie",
+      "in": "górę",
       "tok": "\\",
       "tags": ["part"],
       "subs": [
@@ -926,7 +916,7 @@
       ]
     },
     {
-      "in": "wyłącz",
+      "in": "dół",
       "tok": "]",
       "tags": ["part"],
       "subs": [
@@ -937,7 +927,7 @@
       ]
     },
     {
-      "in": "mikrofon",
+      "in": "pokaż",
       "tok": "^",
       "tags": ["part"],
       "subs": [
@@ -948,7 +938,7 @@
       ]
     },
     {
-      "in": "foks",
+      "in": "rozwiązanie",
       "tok": "_",
       "tags": ["part"],
       "subs": [
@@ -959,8 +949,19 @@
       ]
     },
     {
-      "in": "trop",
+      "in": "wyłącz",
       "tok": "`",
+      "tags": ["part"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "mikrofon",
+      "tok": "i",
       "tags": ["part"],
       "subs": [
         {
