@@ -11,7 +11,7 @@
     { "in": "de", "tok": "d", "tags": ["file", "move"] },
     { "in": "e", "tok": "e", "tags": ["file", "move"] },
     { "in": "ef", "tok": "f", "tags": ["file", "move"] },
-    { "in": "g je", "tok": "g", "tags": ["file", "move"] },
+    { "in": "je", "tok": "g", "tags": ["file", "move"] },
     { "in": "ha", "tok": "h", "tags": ["file", "move"] },
     { "in": "jeden", "tok": "1", "tags": ["rank", "move", "choice"] },
     { "in": "dwa", "tok": "2", "tags": ["rank", "move", "choice"] },
@@ -40,7 +40,6 @@
     { "in": "króla", "tok": "K", "tags": ["role", "move"] },
 
     { "in": "roszada", "val": "castle", "tags": ["move"] },
-    { "in": "bije", "val": "x", "tags": ["move"] },
     { "in": "bierze", "val": "x", "tags": ["move"] },
     { "in": "promocja", "val": "=", "tags": ["move"] },
 
