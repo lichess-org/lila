@@ -11,8 +11,7 @@
     { "in": "de", "tok": "d", "tags": ["file", "move"] },
     { "in": "e", "tok": "e", "tags": ["file", "move"] },
     { "in": "ef", "tok": "f", "tags": ["file", "move"] },
-    { "in": "gie", "tok": "g", "tags": ["file", "move"] },
-    { "in": "gje", "tok": "g", "tags": ["file", "move"] },
+    { "in": "g", "tok": "g", "tags": ["file", "move"] },
     { "in": "ha", "tok": "h", "tags": ["file", "move"] },
     { "in": "jeden", "tok": "1", "tags": ["rank", "move", "choice"] },
     { "in": "dwa", "tok": "2", "tags": ["rank", "move", "choice"] },
@@ -61,7 +60,7 @@
     { "in": "pokaż rozwiązanie", "val": "solve", "tags": ["command", "puzzle"] },
     { "in": "pomocy", "val": "help", "tags": ["command"] },
     { "in": "stop", "val": "stop", "tags": ["command"] },
-    { "in": "wyłącz mikrfon", "val": "mic-off", "tags": ["command"] },
+    { "in": "wyłącz mikrofon", "val": "mic-off", "tags": ["command"] },
 
     { "in": "tak", "val": "yes", "tags": ["choice"] },
     { "in": "nie", "val": "no", "tags": ["choice"] },
@@ -77,10 +76,10 @@
 
     { "in": "alfa", "val": "a", "tags": ["file", "move", "phonetic"] },
     { "in": "brawo", "val": "b", "tags": ["file", "move", "phonetic"] },
-    { "in": "czarli", "val": "c", "tags": ["file", "move", "phonetic"] },
+    { "in": "czarek", "val": "c", "tags": ["file", "move", "phonetic"] },
     { "in": "delta", "val": "d", "tags": ["file", "move", "phonetic"] },
     { "in": "echo", "val": "e", "tags": ["file", "move", "phonetic"] },
-    { "in": "foks trot", "val": "f", "tags": ["file", "move", "phonetic"] },
+    { "in": "foks trop", "val": "f", "tags": ["file", "move", "phonetic"] },
     { "in": "golf", "val": "g", "tags": ["file", "move", "phonetic"] },
     { "in": "hotel", "val": "h", "tags": ["file", "move", "phonetic"] }
   ]
