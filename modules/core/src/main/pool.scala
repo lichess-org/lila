@@ -1,17 +1,17 @@
 package lila.core
 package pool
 
-import _root_.chess.{ ByColor, Clock }
+import _root_.chess.{ Clock, ByColor }
 import _root_.chess.IntRating
 import alleycats.Zero
 
 import scalalib.bus.NotBuseable
 
-import lila.core.id.GameFullId
 import lila.core.perf.PerfKey
 import lila.core.rating.RatingRange
 import lila.core.socket.Sri
 import lila.core.userId.*
+import lila.core.id.GameFullId
 
 opaque type Blocking = Set[UserId]
 object Blocking extends TotalWrapper[Blocking, Set[UserId]]:
@@ -25,19 +25,17 @@ object IsClockCompatible extends FunctionWrapper[IsClockCompatible, Clock.Config
 
 case class PoolMember(
     userId: UserId,
+    sri: Option[Sri], // if None, it's a board API pool member
     rating: IntRating,
     provisional: Boolean,
     ratingRange: Option[RatingRange],
     lame: Boolean,
     blocking: Blocking,
-    rageSitCounter: Int,
+    rageSitCounter: Int = 0,
     misses: Int = 0 // how many waves they missed
 )
 
-object PoolMember:
-  given UserIdOf[PoolMember] = _.userId
-
-case class Pairing(players: ByColor[(Sri, GameFullId)])
+case class Pairing(players: ByColor[(Option[Sri], GameFullId)])
 case class Pairings(pairings: List[Pairing])
 
 object HookThieve:
@@ -51,20 +49,8 @@ object HookThieve:
 
   case class PoolHooks(hooks: Vector[PoolHook]) extends NotBuseable
 
-case class Joiner(
-    sri: Sri,
-    rating: IntRating,
-    provisional: Boolean,
-    ratingRange: Option[RatingRange],
-    lame: Boolean,
-    blocking: Blocking
-)(using val me: MyId)
-
-object Joiner:
-  given UserIdOf[Joiner] = _.me.userId
-
 trait PoolApi:
   def setOnlineSris(ids: socket.Sris): Unit
   def poolPerfKeys: Map[PoolConfigId, PerfKey]
-  def join(poolId: PoolConfigId, joiner: Joiner): Unit
+  def join(poolId: PoolConfigId, member: PoolMember): Unit
   def leave(poolId: PoolConfigId, user: UserId): Unit

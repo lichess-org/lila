@@ -202,14 +202,15 @@ final class LobbySocket(
           do
             poolApi.join(
               PoolConfigId(id),
-              lila.core.pool.Joiner(
-                sri = member.sri,
+              lila.core.pool.PoolMember(
+                userId = user.id,
+                sri = member.sri.some,
                 rating = toJoinRating(glicko, trust),
                 provisional = glicko.forall(_.provisional.yes),
                 ratingRange = ratingRange,
                 lame = user.lame,
                 blocking = user.blocking.map(_ ++ blocking)
-              )(using user.id.into(MyId))
+              )
             )
     // leaving a pool
     case ("poolOut", o) =>
@@ -298,9 +299,9 @@ private object LobbySocket:
       def pairings(pairings: List[lila.core.pool.Pairing]) =
         val redirs = for
           pairing <- pairings
-          color <- Color.all
-          sri = pairing.players(color)._1
-          fullId = pairing.players(color)._2
+          player <- pairing.players.toList
+          sri <- player._1
+          fullId = player._2
         yield s"$sri:$fullId"
         s"lobby/pairings ${P.Out.commas(redirs)}"
       def tellLobby(payload: JsObject) = s"tell/lobby ${Json.stringify(payload)}"

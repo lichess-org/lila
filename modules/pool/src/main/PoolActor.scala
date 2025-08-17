@@ -4,11 +4,8 @@ import akka.actor.*
 import akka.pattern.pipe
 import scalalib.ThreadLocalRandom
 
-import lila.core.pool.{ HookThieve, Joiner, PoolMember }
-import lila.core.socket.{ Sri, Sris }
-
-case class SocketMember(sri: Sri, member: PoolMember)
-case class ApiMember(member: PoolMember)
+import lila.core.pool.{ HookThieve, PoolMember }
+import lila.core.socket.Sris
 
 final private class PoolActor(
     config: PoolConfig,
@@ -18,8 +15,7 @@ final private class PoolActor(
 
   import PoolActor.*
 
-  var members = Vector.empty[SocketMember]
-  var apiMembers = Vector.empty[ApiMember]
+  var members = Vector.empty[PoolMember]
 
   private var lastPairedUserIds = Set.empty[UserId]
 
@@ -38,17 +34,17 @@ final private class PoolActor(
 
   def receive =
 
-    case Join(joiner, _) if lastPairedUserIds(joiner.me) =>
+    case Join(joiner) if lastPairedUserIds(joiner.userId) =>
     // don't pair someone twice in a row, it's probably a client error
 
-    case Join(joiner, rageSit) =>
-      members.find(m => joiner.is(m.member)) match
+    case Join(joiner) =>
+      members.find(m => joiner.userId.is(m.userId)) match
         case None =>
-          members = members :+ lila.pool.PoolMember.fromSocket(joiner, rageSit)
+          members = members :+ joiner
           if members.sizeIs >= config.wave.players.value then self ! FullWave
-        case Some(existing) if existing.member.ratingRange != joiner.ratingRange =>
+        case Some(existing) if existing.ratingRange != joiner.ratingRange =>
           members = members.map: m =>
-            if m == member then m.withRange(joiner.ratingRange) else m
+            if m == existing then m.withRange(joiner.ratingRange) else m
         case _ => // no change
     case Leave(userId) =>
       members.find(_.userId == userId).foreach { member =>
@@ -98,15 +94,14 @@ final private class PoolActor(
       scheduleWave()
 
     case Sris(sris) =>
-      members = members.filter: m =>
-        sris contains m.sri
+      members = members.filter(_.sri.forall(sris.contains))
 
   val monitor = lila.mon.lobby.pool.wave
   val monId = config.id.value.replace('+', '_')
 
 private object PoolActor:
 
-  case class Join(joiner: Joiner, rageSit: lila.core.playban.RageSit)
+  case class Join(member: PoolMember) extends AnyVal
   case class Leave(userId: UserId) extends AnyVal
 
   case object ScheduledWave
