@@ -61,6 +61,11 @@
       opacity: 1;
     }
 
+    tr.streak td.result {
+      color: $c-brag;
+      opacity: 1;
+    }
+
     td.berserk {
       color: $c-font-dim;
       font-size: 0.9em;
