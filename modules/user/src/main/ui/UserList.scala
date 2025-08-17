@@ -102,7 +102,7 @@ final class UserList(helpers: Helpers, bits: UserBits):
         description = s"The top rated players in ${perf.trans}, sorted by rating"
       ):
         main(cls := "page-small box")(
-          boxTop(h1(a(href := routes.User.list, dataIcon := Icon.LessThan), title)),
+          boxTop(h1(a(href := routes.User.list, dataIcon := Icon.LessThan, cls := "text"), title)),
           table(cls := "slist slist-pad slist-invert")(
             tbody(cls := "infinite-scroll")(
               pager.currentPageResults.mapWithIndex: (u, i) =>
