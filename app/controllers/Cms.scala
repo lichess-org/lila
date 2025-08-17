@@ -14,7 +14,7 @@ final class Cms(env: Env) extends LilaController(env):
 
   def index = Secure(_.Pages): ctx ?=>
     for
-      pages        <- api.list
+      pages <- api.list
       renderedPage <- renderPage(views.cms.index(pages))
     yield Ok(renderedPage)
 
@@ -56,7 +56,7 @@ final class Cms(env: Env) extends LilaController(env):
   // pages
 
   val help = menuPage(CmsPageKey("help"))
-  val tos  = menuPage(CmsPageKey("tos"))
+  val tos = menuPage(CmsPageKey("tos"))
 
   def page(key: CmsPageKey, active: Option[String])(using Context) =
     FoundPage(env.cms.render(key)): p =>

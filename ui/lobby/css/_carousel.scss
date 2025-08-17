@@ -28,19 +28,9 @@
     button {
       @extend %button-none;
       padding: 0;
-      font-size: 2em;
+      font-size: 3em;
       pointer-events: auto;
       height: 100%;
-      width: 7.5%;
-      @include if-not-light {
-        $gradient-start: rgba($c-bg-page, 0%);
-        $gradient-end: rgba($c-bg-page, 50%);
-        background: linear-gradient(to left, $gradient-start 0%, $gradient-start 30%, $gradient-end 90%);
-
-        &:last-child {
-          background: linear-gradient(to right, $gradient-start 0%, $gradient-start 30%, $gradient-end 90%);
-        }
-      }
       &:hover {
         color: $c-primary;
       }

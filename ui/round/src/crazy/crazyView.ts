@@ -1,4 +1,4 @@
-import type { MouchEvent } from 'chessground/types';
+import type { MouchEvent } from '@lichess-org/chessground/types';
 import { onInsert, type LooseVNode } from 'lib/snabbdom';
 import { h } from 'snabbdom';
 import type RoundController from '../ctrl';

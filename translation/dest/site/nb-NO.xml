@@ -168,6 +168,7 @@
   <string name="drawByMutualAgreement">Remis ved overenskomst</string>
   <string name="fiftyMovesWithoutProgress">Femti trekk uten framgang</string>
   <string name="currentGames">Partier som spilles nå</string>
+  <string name="joinedX">Ble med %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s parti</item>
     <item quantity="other">%s partier</item>
@@ -478,7 +479,7 @@
   <string name="openTournaments">Åpne turneringer</string>
   <string name="duration">Varighet</string>
   <string name="winner">Vinner</string>
-  <string name="standing">Resultatliste</string>
+  <string name="standings">Resultatliste</string>
   <string name="createANewTournament">Opprett en ny turnering</string>
   <string name="tournamentCalendar">Turneringskalender</string>
   <string name="conditionOfEntry">Betingelse for å delta:</string>
@@ -492,7 +493,6 @@
   <string name="points">Poeng</string>
   <string name="wins">Seire</string>
   <string name="losses">Tap</string>
-  <string name="createdBy">Opprettet av</string>
   <string name="startingIn" comment="Displayed above a timer">Starter om</string>
   <string name="standByX">Vent litt %s, kobler sammen spillere, vær klar!</string>
   <string name="pause">Pause</string>
@@ -595,7 +595,7 @@
   <string name="newPasswordsDontMatch">De nye passordene er ikke like</string>
   <string name="newPasswordStrength">Passordstyrke</string>
   <string name="clockInitialTime">Starttid på klokken</string>
-  <string name="clockIncrement">Inkrement</string>
+  <string name="clockIncrement">Klokketillegg</string>
   <string name="privacy">Personvern</string>
   <string name="privacyPolicy">personvernerklæringen</string>
   <string name="letOtherPlayersFollowYou">La andre spillere følge deg</string>
@@ -678,7 +678,7 @@
   <string name="really">virkelig</string>
   <string name="contribute">Bidra</string>
   <string name="termsOfService">Tjenestevilkår</string>
-  <string name="titleVerification" comment="This is a link to a form that lets players verify either a FIDE or national federation title (NM, etc).">Tittelverifisering</string>
+  <string name="titleVerification">Tittelverifisering</string>
   <string name="sourceCode">Kildekode</string>
   <string name="simultaneousExhibitions">Simultanoppvisninger</string>
   <string name="host">Vert</string>
@@ -1009,4 +1009,5 @@ Alle kostnader for drift, utvikling og innhold finansieres utelukkende av bruker
   <string name="accessibility">Tilgjengelighet</string>
   <string name="enableBlindMode">Aktiver blindemodus</string>
   <string name="disableBlindMode">Deaktiver blindemodus</string>
+  <string name="copyToClipboard">Kopier til utklippstavlen</string>
 </resources>

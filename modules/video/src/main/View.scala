@@ -22,10 +22,10 @@ object View:
     )
 
   object BSONFields:
-    val id      = "_id"
+    val id = "_id"
     val videoId = "v"
-    val userId  = "u"
-    val date    = "d"
+    val userId = "u"
+    val date = "d"
 
   import reactivemongo.api.bson.*
   import lila.db.dsl.given
@@ -45,8 +45,8 @@ object View:
 
     def writes(w: BSON.Writer, o: View) =
       BSONDocument(
-        id      -> o.id,
+        id -> o.id,
         videoId -> o.videoId,
-        userId  -> o.userId,
-        date    -> o.date
+        userId -> o.userId,
+        date -> o.date
       )

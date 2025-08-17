@@ -15,9 +15,9 @@ object I18n {
     outputDir.mkdirs()
 
     val files = locales.map { locale =>
-      val file         = new File(outputDir, s"i18n.$locale.ser")
+      val file = new File(outputDir, s"i18n.$locale.ser")
       val translations = makeMap(locale, sourceDir, destDir, dbs.asJava)
-      val out          = new ObjectOutputStream(new FileOutputStream(file))
+      val out = new ObjectOutputStream(new FileOutputStream(file))
       out.writeObject(translations)
       out.close()
       file

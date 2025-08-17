@@ -61,13 +61,10 @@
   <string name="startVerySoon">ההקרנה תחל ממש בקרוב.</string>
   <string name="notYetStarted">ההקרנה טרם החלה.</string>
   <string name="officialWebsite">האתר הרשמי</string>
-  <string name="standings">תוצאות</string>
   <string name="officialStandings">טבלת מובילים רשמית</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">ישנן אפשרויות נוספות ב%s</string>
   <string name="webmastersPage">עמוד המתכנתים</string>
-  <string name="pgnSourceHelp" comment="%s is 'streaming API'">קישור ל־PGN פומבי המתעדכן בשידור חי. אנו מציעים גם %s לסנכרון מיטבי ומהיר.</string>
   <string name="embedThisBroadcast">הטמעת ההקרנה באתר האינטרנט שלך</string>
-  <string name="embedThisRound">הטמעת %s באתר האינטרנט שלך</string>
   <string name="ratingDiff">הפרש הדירוג</string>
   <string name="gamesThisTournament">משחקים בטורניר זה</string>
   <string name="score">ניקוד</string>

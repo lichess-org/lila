@@ -7,7 +7,7 @@ object Statistics:
 
   case class IntAvgSd(avg: Int, sd: Int):
     override def toString = s"$avg ± $sd"
-    def /(div: Int)       = IntAvgSd(avg / div, sd / div)
+    def /(div: Int) = IntAvgSd(avg / div, sd / div)
 
   def intAvgSd(values: List[Int]) = IntAvgSd(
     avg = listAverage(values).toInt,
@@ -31,7 +31,7 @@ object Statistics:
 
   def moveTimeCoefVariation(pov: Pov): Option[Float] =
     for
-      mt   <- moveTimes(pov)
+      mt <- moveTimes(pov)
       coef <- moveTimeCoefVariation(mt)
     yield coef
 

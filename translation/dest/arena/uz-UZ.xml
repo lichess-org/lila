@@ -2,7 +2,7 @@
 <resources>
   <string name="arena">Arena</string>
   <string name="arenaTournaments">Turnirlar maydoni</string>
-  <string name="isItRated">Reytinggami?</string>
+  <string name="isItRated">Reytingga taʼsir qiladimi?</string>
   <string name="willBeNotified">Turnir boshlanganda siz habardaor bo\'lasiz shu tufayli siz qo\'rqmasdan yangi tahlamda boshqa o\'yinni bemalol o\'ynashingiz mumkin.</string>
   <string name="isRated">Bu turnir reytingli va sizni reytingingizga ta\'sir etadi.</string>
   <string name="isNotRated">Bu turnir reytingga tasir *etmaydi* va sizni reytingingizga tasir *etmaydi*.</string>
@@ -23,7 +23,7 @@ Berserk qo\'shimcha bali faqat 7 yurishdan keyingina beriladi.</string>
   <string name="howIsTheWinnerDecidedAnswer">Turnirda belgilangan vaqt davomida eng ko\'p bal to\'plagan o\'yinchilar g\'olib(lar) deb topiladi.
 
 Agar ikkita o\'yinchi bir hil natija qayd etsa turnir natijasi tay-brik (durrang) bo\'ladi.</string>
-  <string name="howDoesPairingWork">Sherik topish qanday amalga oshiriladi?</string>
+  <string name="howDoesPairingWork">Raqib topish qanday amalga oshiriladi?</string>
   <string name="howDoesPairingWorkAnswer">Turnir boshida o\'yinchilar reytingiga mos ravishda sheriklashadi. 
 O\'yin tugagach turnir sahifasiga qayting: siz turnirda to\'plagan reytingingizga mos sherik bilan bellashasiz. Bu sizga minimum vaqt ichida sherik topib beradiyu, ammo siz turnirdagi hamma o\'yinchi bilan ham o\'ynay olmaysiz.
 
@@ -83,4 +83,6 @@ Masalan, 100 nafar o\'yinchidan iborat turnirda 3-o\'rinni egallash = 3%. 1000 n
   <string name="tournamentShields">Turnir qalqonlari</string>
   <string name="onlyTitled">Faqat nomli o\'yinchilar</string>
   <string name="onlyTitledHelp">Turnirga qo\'shilish uchun rasmiy unvon talab qilinadi</string>
+  <string name="tournamentPairingsAreNowClosed">Turnirda raqib topish muddati tugadi.</string>
+  <string name="berserkRate">Berserk qilingan oʻyinlar nisbati</string>
 </resources>

@@ -37,7 +37,7 @@ final class LearnApi(coll: Coll)(using Executor):
                 "$size" -> $doc(
                   "$filter" -> $doc(
                     "input" -> "$stages.v",
-                    "as"    -> "s",
+                    "as" -> "s",
                     "cond" -> $doc(
                       "$ne" -> $arr("$$s", 0)
                     )

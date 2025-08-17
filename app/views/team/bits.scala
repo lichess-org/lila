@@ -7,7 +7,7 @@ import lila.app.UiEnv.{ *, given }
 
 private lazy val bits = lila.team.ui.TeamUi(helpers)(using env.executor)
 export bits.{ list, membersPage }
-lazy val form    = lila.team.ui.FormUi(helpers, bits)(views.captcha.apply)
+lazy val form = lila.team.ui.FormUi(helpers, bits)(views.captcha.apply)
 lazy val request = lila.team.ui.RequestUi(helpers, bits)
 
 object admin:
@@ -33,8 +33,8 @@ object admin:
                 momentFromNow(t.startsAt),
                 " ",
                 a(
-                  dataIcon     := Icon.Forward,
-                  cls          := "text copy-url-button",
+                  dataIcon := Icon.Forward,
+                  cls := "text copy-url-button",
                   data.copyurl := s"${netConfig.domain}${routes.Tournament.show(t.id).url}"
                 )
               )

@@ -21,7 +21,7 @@ final class ExplorerImporter(
           fuccess(game.some)
         case _ =>
           for
-            _   <- gameRepo.remove(id)
+            _ <- gameRepo.remove(id)
             pgn <- fetchPgn(id)
             game <- pgn.so: pgn =>
               gameImporter
@@ -37,4 +37,4 @@ final class ExplorerImporter(
       .get()
       .map:
         case res if res.status == 200 => PgnStr.from(res.body[String].some)
-        case _                        => None
+        case _ => None

@@ -24,9 +24,9 @@ final class UserShowSide(helpers: Helpers):
       val isPuzzle = pk == PerfKey.puzzle
       a(
         dataIcon := pk.perfIcon,
-        title    := pk.perfDesc.txt(),
+        title := pk.perfDesc.txt(),
         cls := List(
-          "empty"  -> perf.isEmpty,
+          "empty" -> perf.isEmpty,
           "active" -> active.contains(pk)
         ),
         href := ctx.pref.showRatings.so:

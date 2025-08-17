@@ -39,14 +39,14 @@ final class User(
           _.fold(fuccess(Redirect(routes.User.show(username)))): pov =>
             ctx.me.filterNot(_ => pov.game.bothPlayersHaveMoved).flatMap { Pov(pov.game, _) } match
               case Some(mine) => Redirect(routes.Round.player(mine.fullId))
-              case _          => roundC.watch(pov, userTv = user.some)
+              case _ => roundC.watch(pov, userTv = user.some)
 
   def tvExport(username: UserStr) = Anon:
     env.game.cached
       .lastPlayedPlayingId(username.id)
       .orElse(env.game.gameRepo.quickLastPlayedId(username.id))
       .flatMap:
-        case None         => NotFound("No ongoing game")
+        case None => NotFound("No ongoing game")
         case Some(gameId) => gameC.exportGame(gameId)
 
   private def apiGames(u: UserModel, filter: String, page: Int)(using BodyContext[?]) =
@@ -66,9 +66,9 @@ final class User(
 
   def search(term: String) = Open: _ ?=>
     UserStr.read(term) match
-      case Some(username)                  => Redirect(routes.User.show(username)).toFuccess
+      case Some(username) => Redirect(routes.User.show(username)).toFuccess
       case _ if isGrantedOpt(_.UserSearch) => Redirect(s"${routes.Mod.search}?q=$term").toFuccess
-      case _                               => notFound
+      case _ => notFound
 
   private def renderShow(u: UserModel, status: Results.Status = Results.Ok)(using Context): Fu[Result] =
     if HTTPRequest.isSynchronousHttp(ctx.req)
@@ -79,10 +79,10 @@ final class User(
         else 2
       userShowHtmlRateLimit(rateLimited, cost = cost):
         for
-          as     <- env.activity.read.recentAndPreload(u)
-          nbs    <- env.userNbGames(u, withCrosstable = false)
-          info   <- env.userInfo(u, nbs)
-          _      <- env.userInfo.preloadTeams(info)
+          as <- env.activity.read.recentAndPreload(u)
+          nbs <- env.userNbGames(u, withCrosstable = false)
+          info <- env.userInfo(u, nbs)
+          _ <- env.userInfo.preloadTeams(info)
           social <- env.socialInfo(u)
           page <- renderPage:
             lila.mon.chronoSync(_.user.segment("renderSync")):
@@ -91,7 +91,7 @@ final class User(
     else
       for
         withPerfs <- env.user.perfsRepo.withPerfs(u)
-        as        <- env.activity.read.recentAndPreload(u)
+        as <- env.activity.read.recentAndPreload(u)
         snip = lila.ui.Snippet(views.activity(withPerfs, as))
       yield status(snip)
 
@@ -133,8 +133,8 @@ final class User(
               res <-
                 if HTTPRequest.isSynchronousHttp(ctx.req) then
                   for
-                    info   <- env.userInfo(u, nbs, withUblog = true)
-                    _      <- env.team.cached.lightCache.preloadMany(info.teamIds)
+                    info <- env.userInfo(u, nbs, withUblog = true)
+                    _ <- env.team.cached.lightCache.preloadMany(info.teamIds)
                     social <- env.socialInfo(u)
                     searchForm = (filters.current == GameFilter.Search).option(
                       lila.app.mashup.GameFilterMenu.searchForm(userGameSearch, filters.current)
@@ -164,11 +164,11 @@ final class User(
           env.api.anySearch
             .redirect(username.value)
             .flatMap:
-              case Some(url)                           => Redirect(url).toFuccess
+              case Some(url) => Redirect(url).toFuccess
               case None if isGrantedOpt(_.UserModView) => ctx.me.soUse(modC.searchTerm(username.value))
-              case None                                => notFound(true)
+              case None => notFound(true)
         case Some(u) if u.enabled.yes || isGrantedOpt(_.UserModView) => f(u)
-        case u                                                       => notFound(u.isEmpty)
+        case u => notFound(u.isEmpty)
 
   def showMini(username: UserStr) = Open:
     Found(env.user.api.withPerfs(username)): user =>
@@ -179,7 +179,7 @@ final class User(
           then
             (
               ctx.userId.so(relationApi.fetchBlocks(user.id, _)),
-              ctx.userId.soFu(env.game.crosstableApi(user.id, _)),
+              ctx.userId.traverse(env.game.crosstableApi(user.id, _)),
               ctx.isAuth.so(env.pref.api.followable(user.id))
             ).flatMapN: (blocked, crosstable, followable) =>
               negotiate(
@@ -187,13 +187,13 @@ final class User(
                   pov <- ctx.isnt(user).so(env.round.currentlyPlaying.exec(user.user.id))
                   ping = env.socket.isOnline.exec(user.id).so(env.socket.getLagRating(user.id))
                   snip <- Ok.snip(views.user.mini(user, pov, blocked, followable, relation, ping, crosstable))
-                yield snip.withHeaders(CACHE_CONTROL -> "max-age=5"),
+                yield snip.headerCacheSeconds(5),
                 json =
                   import lila.game.JsonView.given
                   Ok:
                     Json.obj(
                       "crosstable" -> crosstable,
-                      "perfs"      -> lila.user.JsonView.perfsJson(user.perfs, user.perfs.best8Perfs)
+                      "perfs" -> lila.user.JsonView.perfsJson(user.perfs, user.perfs.best8Perfs)
                     )
               )
           else Ok(views.user.bits.miniClosed(user.user, relation))
@@ -267,10 +267,10 @@ final class User(
     env.user.cached.top10.get {}.flatMap { leaderboards =>
       negotiate(
         html = for
-          nbAllTime      <- env.user.cached.top10NbGame.get {}
+          nbAllTime <- env.user.cached.top10NbGame.get {}
           tourneyWinners <- env.tournament.winners.all.map(_.top)
-          topOnline      <- env.user.cached.getTop50Online
-          _              <- lightUserApi.preloadMany(tourneyWinners.map(_.userId))
+          topOnline <- env.user.cached.getTop50Online
+          _ <- lightUserApi.preloadMany(tourneyWinners.map(_.userId))
           page <- renderPage:
             views.user.list(tourneyWinners, topOnline, leaderboards, nbAllTime)
         yield Ok(page),
@@ -288,12 +288,21 @@ final class User(
       JsonOk(leaderboards)
     }
 
-  def topNb(nb: Int, perfKey: PerfKey) = Open:
-    topNbUsers(nb, perfKey).flatMap: (users, perfType) =>
-      negotiate(
-        (nb == 200).so(Ok.page(views.user.list.top(perfType, users))),
-        topNbJson(users)
-      )
+  // redirect /player/top/200/:perfKey to /user/top/:perfKey
+  // TODO move to a NotFound general handler?
+  // to avoid adding (yet another) route
+  def topBcRedirect(@annotation.unused nb: Int, perfKey: PerfKey) = Anon:
+    Redirect(routes.User.top(perfKey))
+
+  def top(perfKey: PerfKey, page: Int) = Open:
+    Reasonable(page, Max(20)):
+      env.user.cached
+        .topPerfPager(perfKey, page)
+        .flatMap: pager =>
+          negotiate(
+            Ok.page(views.user.list.top(perfKey, pager)),
+            topNbJson(pager.currentPageResults)
+          )
 
   def topNbApi(nb: Int, perfKey: PerfKey) = Anon:
     if nb == 1 && perfKey == PerfKey.standard then
@@ -302,22 +311,11 @@ final class User(
         import lila.user.JsonView.leaderboardStandardTopOneWrites
         JsonOk(leaderboards)
       }
-    else topNbUsers(nb, perfKey).flatMap { users => topNbJson(users._1) }
+    else env.user.cached.topPerfFirstPage.get(perfKey).dmap(_.take(nb)).map(topNbJson)
 
-  private def topNbUsers(nb: Int, perfKey: PerfKey): Fu[(List[LightPerf], PerfType)] =
-    env.user.cached.top200Perf
-      .get(perfKey.id)
-      .dmap:
-        _.take(nb.atLeast(1).atMost(200)) -> PerfType(perfKey)
-
-  private def topNbJson(users: List[LightPerf]) =
+  private def topNbJson(users: Seq[LightPerf]) =
     given OWrites[LightPerf] = OWrites(env.user.jsonView.lightPerfIsOnline)
     Ok(Json.obj("users" -> users))
-
-  def topWeek = Open:
-    negotiateJson:
-      env.user.cached.topWeek.map: users =>
-        Ok(Json.toJson(users.map(env.user.jsonView.lightPerfIsOnline)))
 
   def mod(username: UserStr) = Secure(_.UserModView) { ctx ?=> _ ?=>
     modZoneOrRedirect(username)
@@ -353,7 +351,7 @@ final class User(
           .zip(env.playban.api.bansOf(familyUserIds).logTimeIfGt(s"${user.username} playban.bans", 2.seconds))
           .zip(lila.security.UserLogins.withMeSortedWithEmails(env.user.repo, user, userLogins))
       otherUsers <- env.user.perfsRepo.withPerfs(othersWithEmail.others.map(_.user))
-      otherUsers <- env.mod.logApi.addModlog(otherUsers)
+      otherUsers <- env.mod.logApi.withModlogs(otherUsers)
       others = othersWithEmail.withUsers(otherUsers)
     yield UserLogins.TableData(userLogins, others, notes, bans, max)
 
@@ -389,14 +387,14 @@ final class User(
         val reportLog = isGranted(_.SeeReport).so:
           for
             reports <- env.report.api.by(user, Max(30))
-            _       <- lightUserApi.preloadMany(reports.flatMap(_.userIds))
+            _ <- lightUserApi.preloadMany(reports.flatMap(_.userIds))
           yield ui.reportLog(user, reports)
 
         val prefs = isGranted(_.CheatHunter).so:
           env.pref.api
             .get(user)
             .map: prefs =>
-              ui.prefs(user, prefs.hasKeyboardMove, prefs.botCompatible)
+              ui.prefs(user, prefs.hasKeyboardMove, prefs.hasVoice, prefs.botCompatible)
 
         val appeal = isGranted(_.Appeals).so:
           env.appeal.api.byId(user).mapz(views.appeal.ui.modSection(lila.mod.ui.mzSection("appeal")))
@@ -414,8 +412,8 @@ final class User(
         val userLoginsFu = env.security.userLogins(user, nbOthers)
         val othersAndLogins = for
           userLogins <- userLoginsFu
-          appeals    <- env.appeal.api.byUserIds(user.id :: userLogins.otherUserIds)
-          data       <- loginsTableData(user, userLogins, nbOthers)
+          appeals <- env.appeal.api.byUserIds(user.id :: userLogins.otherUserIds)
+          data <- loginsTableData(user, userLogins, nbOthers)
         yield (views.user.mod.otherUsers(user, data, appeals), data)
 
         val identification = isGranted(_.ViewPrintNoIP).so:
@@ -523,7 +521,7 @@ final class User(
     Found(meOrFetch(username)): user =>
       val isMod = data.mod && isGranted(_.ModNote)
       for
-        _      <- env.user.noteApi.write(user.id, data.text, isMod, dox = isMod && data.dox)
+        _ <- env.user.noteApi.write(user.id, data.text, isMod, dox = isMod && data.dox)
         result <- f(user)
       yield result
 
@@ -544,7 +542,7 @@ final class User(
     Found(user): user =>
       for
         usersAndGames <- env.game.favoriteOpponents(user.id)
-        withPerfs     <- env.user.api.listWithPerfs(usersAndGames.map(_._1))
+        withPerfs <- env.user.api.listWithPerfs(usersAndGames.map(_._1))
         ops = withPerfs.toList.zip(usersAndGames.map(_._2))
         followables <- env.pref.api.followables(ops.map(_._1.id))
         relateds <-
@@ -571,7 +569,7 @@ final class User(
         ,
         JsonOk:
           getBool("graph")
-            .soFu:
+            .optionFu:
               env.history.ratingChartApi.singlePerf(data.user.user, data.stat.perfType.key)
             .map: graph =>
               env.perfStat.jsonView(data).add("graph", graph)

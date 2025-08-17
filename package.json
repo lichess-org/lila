@@ -19,7 +19,7 @@
   "homepage": "https://lichess.org",
   "packageManager": "pnpm@10.4.1+sha512.c753b6c3ad7afa13af388fa6d808035a008e30ea9993f58c6663e2bc5ff21679aa834db094987129aa4d488b86df57f7b634981b2f827cdcacc698cc0cfb88af",
   "engines": {
-    "node": ">=22.6",
+    "node": ">=24",
     "pnpm": "10"
   },
   "pnpm": {
@@ -28,21 +28,22 @@
     ]
   },
   "dependencies": {
+    "@lichess-org/chessground": "9.4.1",
+    "@lichess-org/pgn-viewer": "2.4.7",
     "@types/lichess": "workspace:*",
     "@types/web": "^0.0.216",
-    "@typescript-eslint/eslint-plugin": "^8.29.1",
-    "@typescript-eslint/parser": "^8.29.1",
+    "@typescript-eslint/eslint-plugin": "^8.39.1",
+    "@typescript-eslint/parser": "^8.39.1",
     "ab": "github:lichess-org/ab-stub",
-    "chessground": "9.1.1",
     "chessops": "^0.14.2",
-    "eslint": "^9.24.0",
-    "lichess-pgn-viewer": "2.4.5",
-    "lint-staged": "^15.5.0",
+    "eslint": "^9.33.0",
+    "eslint-plugin-compat": "^6.0.2",
+    "lint-staged": "^15.5.2",
     "onchange": "^7.1.0",
-    "prettier": "^3.5.3",
+    "prettier": "^3.6.2",
     "snabbdom": "3.5.1",
-    "typescript": "^5.8.3",
-    "vitest": "^3.1.3"
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4"
   },
   "//": [
     "snabbdom pinned to 3.5.1 until https://github.com/snabbdom/snabbdom/issues/1114 is resolved",
@@ -60,9 +61,20 @@
     "metals": "tail -F .metals/metals.log | stdbuf -oL cut -c 21- | rg -v '(notification for request|handleCancellation)'",
     "serverlog": "pnpm journal & pnpm metals",
     "piece-css": "pnpx tsx bin/gen/piece-css.ts",
+    "kill-build": "[ -f ui/.build/instance.lock ] && kill \"$(cat ui/.build/instance.lock)\" 2>/dev/null || true",
     "i18n-file-gen": "pnpx tsx bin/i18n-file-gen.ts",
     "test": "vitest run --config=ui/vitest.config.mts",
     "test:watch": "vitest --config=ui/vitest.config.mts",
     "multilog": "pnpm serverlog & ui/build -w"
+  },
+  "browserslist": [
+    "Chrome >= 98",
+    "Firefox >= 128",
+    "Edge >= 98",
+    "Opera >= 84",
+    "Safari >= 15.6"
+  ],
+  "devDependencies": {
+    "jsdom": "^26.1.0"
   }
 }

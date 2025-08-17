@@ -20,7 +20,7 @@
   <string name="keyboardShortcutsExplanation">Algunas páginas de Lichess tienen atajos de teclado que puedes utilizar. Presiona la tecla \'?\' en un estudio, análisis, ejercicio o partida para listar los atajos de teclado disponibles.</string>
   <string name="fairPlay">Juego limpio</string>
   <string name="whenAmIEligibleRatinRefund">¿En qué casos se me devuelven automáticamente los puntos perdidos contra un tramposo?</string>
-  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">Un minuto después de marcar a un jugador como tramposo, se toman sus últimas 40 partidas por puntos de los tres últimos días. Si tú fuiste su oponente en esas partidas, perdiste puntos en ellas (bien porque perdiste, bien porque empataste), y tu puntuación no era provisional, entonces se te devuelven puntos. Este reembolso está limitado por tu puntuación máxima y por cómo haya progresado tu puntuación después de aquella partida.
+  <string name="ratingRefundExplanation">Un minuto después de marcar a un jugador como tramposo, se toman sus últimas 40 partidas por puntos de los tres últimos días. Si tú fuiste su oponente en esas partidas, perdiste puntos en ellas (bien porque perdiste, bien porque empataste), y tu puntuación no era provisional, entonces se te devuelven puntos. Este reembolso está limitado por tu puntuación máxima y por cómo haya progresado tu puntuación después de aquella partida.
 (Por ejemplo, si tu puntuación ha subido mucho después de aquellas partidas, puede que no se te devuelvan los puntos o sólo se te devuelvan algunos). La devolución en ningún caso será de más de 150 puntos.</string>
   <string name="preventLeavingGameWithoutResigning">¿Qué se hace con los jugadores que abandonan las partidas sin rendirse?</string>
   <string name="leavingGameWithoutResigningExplanation">Si tu oponente abandona habitualmente partidas se le marca como \"prohibido jugar\", lo que significa que está temporalmente suspendido para jugar. Esto no se indica públicamente en su perfil. Si persiste en este comportamiento, la duración de la suspensión aumenta y puede conllevar el cierre de su cuenta.</string>
@@ -34,7 +34,7 @@
   <string name="howBulletBlitzEtcDecided">¿Cómo se deciden los controles de tiempo en Bullet, Blitz y otros?</string>
   <string name="basedOnGameDuration">Los controles de tiempo de Lichess se basan en la duración estimada de una partida = %1$s
  Por ejemplo, la duración estimada de una partida de 5+3 es 5 * 60 + 40 * 3 = 420 segundos.</string>
-  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(tiempo inicial del reloj) + 40 × (incremento)</string>
+  <string name="durationFormula">(tiempo inicial del reloj) + 40 × (incremento)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$s s = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s s = %2$s</string>
   <string name="whatVariantsCanIplay">¿Qué variantes puedo jugar en Lichess?</string>
@@ -97,12 +97,11 @@ No solicites el título de LM.</string>
   <string name="usernamesNotOffensive">En general, los nombres de usuario no deben: ser ofensivos, suplantar a alguien o hacer publicidad. Puedes leer más sobre las %1$s.</string>
   <string name="guidelines">pautas</string>
   <string name="canIChangeMyUsername">¿Puedo cambiar mi nombre de usuario?</string>
-  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">No, los nombres de usuario no pueden cambiarse por razones técnicas y prácticas. Los nombres de usuario se materializan en muchos lugares: bases de datos, exportaciones, registros y en la mente de las personas. Puedes ajustar las mayúsculas/minúsculas solo una vez.</string>
+  <string name="usernamesCannotBeChanged">No, los nombres de usuario no pueden cambiarse por razones técnicas y prácticas. Los nombres de usuario se materializan en muchos lugares: bases de datos, exportaciones, registros y en la mente de las personas. Puedes ajustar las mayúsculas/minúsculas solo una vez.</string>
   <string name="uniqueTrophies">Trofeos únicos</string>
   <string name="ownerUniqueTrophies">Ese trofeo es único en la historia de Lichess, nadie más que %1$s lo tendrá jamás.</string>
-  <string name="wayOfBerserkExplanation">Para obtenerlo, hiimgosu se desafió a sí mismo a berserk y ganó todas las partidas de %s.</string>
   <string name="aHourlyBulletTournament">un torneo Bullet por hora</string>
-  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">ZugAddict estaba transmitiendo y durante las dos últimas horas había estado tratando de derrotar a la I.A. nivel 8 en una partida 1+0, sin éxito. Thibault le dijo que si lo lograba durante la transmisión, obtendría un trofeo único. Una hora después, venció a Stockfish y se cumplió la promesa.</string>
+  <string name="goldenZeeExplanation">ZugAddict estaba transmitiendo y durante las dos últimas horas había estado tratando de derrotar a la I.A. nivel 8 en una partida 1+0, sin éxito. Thibault le dijo que si lo lograba durante la transmisión, obtendría un trofeo único. Una hora después, venció a Stockfish y se cumplió la promesa.</string>
   <string name="lichessRatings">Puntuaciones de Lichess</string>
   <string name="whichRatingSystemUsedByLichess">¿Qué sistema de puntuación utiliza Lichess?</string>
   <string name="ratingSystemUsedByLichess">Las puntuaciones se calculan utilizando el método de clasificación Glicko-2 desarrollado por Mark Glickman. Es un método de puntuación muy popular y que utilizan muchas organizaciones de ajedrez (la FIDE es un contraejemplo notable, ya que todavía utilizan el sistema de puntuación Elo).
@@ -149,7 +148,7 @@ Luego selecciona si permitir o bloquear notificaciones de Lichess.</string>
 El icono rojo de silencio aparece cuando tu navegador impide que lichess.org reproduzca un sonido. Por lo general, esta restricción se elimina una vez que haces clic en algo. En algunos navegadores móviles, tocar y arrastrar una pieza no cuenta como un clic. En ese caso debes tocar el tablero para permitir el sonido al inicio de cada juego.
 
 Mostramos el icono rojo para avisarte cuando esto suceda. A menudo, puedes permitir explícitamente que lichess.org reproduzca sonidos. Aquí encontrarás instrucciones para hacerlo en versiones recientes de algunos navegadores populares.</string>
-  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">escritorio</string>
+  <string name="desktop">escritorio</string>
   <string name="enableAutoplayForSoundsFirefox">1. Ve a lichess.org
 2. Pulsa Ctrl-i en Linux/Windows o cmd-i en MacOS
 3. Haz clic en la pestaña Permisos
@@ -167,11 +166,11 @@ Mostramos el icono rojo para avisarte cuando esto suceda. A menudo, puedes permi
 3. Haz clic en Cookies y permisos del sitio
 4. Desplázate hacia abajo y haz clic en Reproducción automática
 5. Añade a lichess.org en Habilitar</string>
-  <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">¿Parar de jugar?</string>
-  <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">condición de salud mental independiente</string>
-  <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">Estilos de usuario de Lichess</string>
-  <string name="fewerLobbyPools" comment="Lobby pools are options to quick pair for games on the home page (e.g. 1+0, 3+0).&#10;In this context, this is mentioned for people who want to limit bullet and blitz.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">menos casillas de emparejamiento</string>
-  <string name="adviceOnMitigatingAddiction" comment="Part of the FAQ answer &quot;How to [...] Stop myself from playing?&quot;&#10;&#10;%1$s, %2$s, and %3$s is software which may change.&#10;&#10;%4$s is &quot;Lichess userstyles&quot; (as in CSS styles)&#10;%5$s is &quot;fewer lobby pools&quot;.&#10;&#10;%6$s is &quot;stand-alone mental health condition&quot;.">Solemos recibir mensajes de gente que nos pide ayuda para no jugar tanto.
+  <string name="stopMyselfFromPlaying">¿Parar de jugar?</string>
+  <string name="mentalHealthCondition">condición de salud mental independiente</string>
+  <string name="lichessUserstyles">Estilos de usuario de Lichess</string>
+  <string name="fewerLobbyPools">menos casillas de emparejamiento</string>
+  <string name="adviceOnMitigatingAddiction">Solemos recibir mensajes de gente que nos pide ayuda para no jugar tanto.
 
 Aunque Lichess no prohibe ni bloquea a los jugadores, excepto si se trata de violaciones de los Terminos de Servicio, recomendamos el uso de herramientas de terceros para limitar el comportamiento de juego excesivo. Algunas sugerencias de bloqueadores de sitios web son %1$s, %2$s, y %3$s. Si lo que deseas es seguir usando el sitio, pero no los controles de tiempo más rápidos, te podría interesar %4$s y %5$s.
 

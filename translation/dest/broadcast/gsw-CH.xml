@@ -63,13 +63,10 @@
   <string name="startVerySoon">Die Überträgig schtartet sehr bald.</string>
   <string name="notYetStarted">Die Überträgig hät nonig agfange.</string>
   <string name="officialWebsite">Offizielli Website</string>
-  <string name="standings">Tabälle</string>
   <string name="officialStandings">Offizielli Ranglischte</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Meh Optionen uf %s</string>
   <string name="webmastersPage">Webmaster Site</string>
-  <string name="pgnSourceHelp" comment="%s is 'streaming API'">Öffentlichi, real-time PGN Quälle, für die Rundi. Mir offeriered au %s für e schnälleri und effiziänteri Synchronisation.</string>
   <string name="embedThisBroadcast">Nimm die Überträgig uf dini Website</string>
-  <string name="embedThisRound">Nimm %s uf dini Website</string>
   <string name="ratingDiff">Wertigs Differänz</string>
   <string name="gamesThisTournament">Schpiel i dem Turnier</string>
   <string name="score">Resultat</string>
@@ -82,7 +79,9 @@
   <string name="optionalDetails">Optionali Details</string>
   <string name="pastBroadcasts">G\'machti Überträgige</string>
   <string name="allBroadcastsByMonth">Zeig alli Überträgige im Monet</string>
-  <string name="backToLiveMove">Zrugg zum \"Live-Zieh\"</string>
+  <string name="backToLiveMove">Zrugg zum \"Live-Zug\"</string>
   <string name="sinceHideResults">Will du entschide häsch, dini Ergäbnis z\'verberge, sind - zum Spoiler verhindere - all Vorschau-Brätter leer.</string>
   <string name="liveboard">Live-Brätt</string>
+  <string name="communityBroadcast">Gmeinschafts-Überträgig</string>
+  <string name="createdAndManagedBy">Kreiert und betreut vu %s.</string>
 </resources>

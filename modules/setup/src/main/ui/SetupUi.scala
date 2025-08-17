@@ -2,7 +2,7 @@ package lila.setup
 package ui
 
 import chess.variant.Variant
-import chess.{ Mode, Speed }
+import chess.{ Rated, Speed }
 import play.api.data.{ Field, Form }
 
 import lila.core.rating.RatingRange
@@ -22,9 +22,9 @@ final class SetupUi(helpers: Helpers):
       div(cls := "checkable")(
         label(title := hint)(
           input(
-            tpe      := "checkbox",
-            cls      := "regular-checkbox",
-            name     := s"${field.name}[$index]",
+            tpe := "checkbox",
+            cls := "regular-checkbox",
+            name := s"${field.name}[$index]",
             st.value := value.toString,
             checks(value.toString).option(checked)
           ),
@@ -76,18 +76,18 @@ final class SetupUi(helpers: Helpers):
                     form3.hidden(field),
                     input(
                       name := s"${field.name}_range_min",
-                      tpe  := "range",
-                      cls  := "range rating-range__min",
-                      min  := RatingRange.min,
-                      max  := RatingRange.max
+                      tpe := "range",
+                      cls := "range rating-range__min",
+                      min := RatingRange.min,
+                      max := RatingRange.max
                     ),
                     "/",
                     input(
                       name := s"${field.name}_range_max",
-                      tpe  := "range",
-                      cls  := "range rating-range__max",
-                      min  := RatingRange.min,
-                      max  := RatingRange.max
+                      tpe := "range",
+                      cls := "range rating-range__max",
+                      min := RatingRange.min,
+                      max := RatingRange.max
                     )
                   )
                 }
@@ -98,8 +98,8 @@ final class SetupUi(helpers: Helpers):
       ),
       div(cls := "actions")(
         button(
-          tpe      := "reset",
-          cls      := "button button-empty button-red text reset",
+          tpe := "reset",
+          cls := "button button-empty button-red text reset",
           dataIcon := Icon.NotAllowed
         )(
           trans.site.reset()
@@ -141,8 +141,8 @@ final class SetupUi(helpers: Helpers):
 
   private def translatedModeChoices(using Translate) =
     List(
-      (Mode.Casual.id.toString, trans.site.casual.txt(), none),
-      (Mode.Rated.id.toString, trans.site.rated.txt(), none)
+      (Rated.No.id.toString, trans.site.casual.txt(), none),
+      (Rated.Yes.id.toString, trans.site.rated.txt(), none)
     )
 
   private def translatedIncrementChoices(using Translate) =

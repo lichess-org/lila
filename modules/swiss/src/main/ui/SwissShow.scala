@@ -27,7 +27,7 @@ final class SwissShow(helpers: Helpers, ui: SwissBitsUi, gathering: GatheringUi)
       chatOption: Option[(JsObject, Frag)],
       streamers: Frag
   )(using ctx: Context): Page =
-    val isDirector       = ctx.is(s.createdBy)
+    val isDirector = ctx.is(s.createdBy)
     val hasScheduleInput = isDirector && s.settings.manualRounds && s.isNotFinished
     Page(fullName(s, team))
       .css("swiss.show")
@@ -39,9 +39,9 @@ final class SwissShow(helpers: Helpers, ui: SwissBitsUi, gathering: GatheringUi)
           "swiss",
           Json
             .obj(
-              "data"        -> data,
-              "userId"      -> ctx.userId,
-              "chat"        -> chatOption.map(_._1),
+              "data" -> data,
+              "userId" -> ctx.userId,
+              "chat" -> chatOption.map(_._1),
               "showRatings" -> ctx.pref.showRatings
             )
             .add("schedule" -> hasScheduleInput)
@@ -106,7 +106,7 @@ final class SwissShow(helpers: Helpers, ui: SwissBitsUi, gathering: GatheringUi)
               separator,
               variantLink(s.variant, s.perfType, shortName = true),
               separator,
-              if s.settings.rated then trans.site.ratedTournament() else trans.site.casualTournament()
+              lila.gathering.ui.translateRated(s.settings.rated)
             ),
             p(
               span(cls := "swiss__meta__round")(

@@ -1,9 +1,9 @@
 import { h, type VNode } from 'snabbdom';
-import type { MouchEvent } from 'chessground/types';
-import { eventPosition, opposite } from 'chessground/util';
+import type { MouchEvent } from '@lichess-org/chessground/types';
+import { eventPosition, opposite } from '@lichess-org/chessground/util';
 import type EditorCtrl from './ctrl';
 import { storage } from 'lib/storage';
-import { Chessground as makeChessground } from 'chessground';
+import { Chessground as makeChessground } from '@lichess-org/chessground';
 import { pubsub } from 'lib/pubsub';
 
 export default function (ctrl: EditorCtrl): VNode {

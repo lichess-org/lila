@@ -11,7 +11,7 @@
   <string name="newTeam">Nieuw team</string>
   <string name="myTeams">Mijn teams</string>
   <string name="noTeamFound">Geen team gevonden</string>
-  <string name="joinTeam" comment="Appears as a button on team pages, and on pages of tournaments that require you to be a member of that team (e.g. Swiss tournaments).&#10;&#10;Please keep as short as possible.">Word lid van het team</string>
+  <string name="joinTeam">Word lid van het team</string>
   <string name="onlyLeaderLeavesTeam">Voeg een nieuwe teamleider toe voordat je weggaat, of sluit het team.</string>
   <string name="quitTeam">Verlaat het team</string>
   <string name="manuallyReviewAdmissionRequests">Handmatig toelatingsverzoeken beoordelen</string>
@@ -44,6 +44,9 @@ Spelers die je berichten niet willen ontvangen kunnen het team verlaten.</string
   <string name="teamsIlead">Teams die ik leid</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Misschien wil je de link van een van deze komende toernooien delen?</string>
   <string name="leadersChat">Teamleiderschat</string>
+  <string name="introduction">Inleiding</string>
+  <string name="teamIntroductionHelp">Korte beschrijving zichtbaar in teamlijsten. Tot 200 tekens.</string>
+  <string name="teamDescriptionHelp">Volledige beschrijving zichtbaar op de teampagina.</string>
   <string name="closeTeam">Team sluiten</string>
   <string name="closeTeamDescription">Sluit het team voor altijd.</string>
   <string name="entryCode">Team toegangscode</string>
@@ -56,7 +59,7 @@ Spelers die je berichten niet willen ontvangen kunnen het team verlaten.</string
   <string name="joinLichessVariantTeam">Word lid van het officiële %s team voor nieuws en evenementen</string>
   <string name="teamPage">Teampagina</string>
   <string name="thisTeamBattleIsOver">Dit toernooi is voorbij en de teams kunnen niet meer worden bijgewerkt.</string>
-  <string name="listTheTeamsThatWillCompete" comment="&quot;List&quot; is used as a verb in this sentence. You can alternatively translate as &quot;Fill out&quot;, as this is presented in the context of a form.">Noteer de teams die meespelen in deze competitie.</string>
+  <string name="listTheTeamsThatWillCompete">Noteer de teams die meespelen in deze competitie.</string>
   <string name="oneTeamPerLine">Eén team per regel. Gebruik auto-aanvulling.</string>
   <string name="oneTeamPerLineHelp">Je kunt deze lijst kopiëren/plakken tussen twee toernooien!
 

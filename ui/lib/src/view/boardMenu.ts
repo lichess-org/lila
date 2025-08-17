@@ -82,7 +82,7 @@ export class BoardMenu {
 
   confirmMove = (toggle: Toggle, enabled = true): VNode =>
     this.cmnToggle({
-      name: 'Confirm move',
+      name: i18n.preferences.moveConfirmation,
       id: 'confirmmove',
       checked: toggle(),
       change: toggle,

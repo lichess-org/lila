@@ -1,6 +1,7 @@
 import { readdirSync, readFileSync, writeFileSync } from 'fs';
 import path from 'path';
 import { XMLParser } from 'fast-xml-parser';
+import { fileURLToPath } from 'url';
 
 interface TranslationXml {
   '?xml': {
@@ -30,7 +31,8 @@ interface KeyList {
   code: string;
 }
 
-const lilaDir = path.resolve(__dirname, '..');
+const __filename = fileURLToPath(import.meta.url);
+const lilaDir = path.resolve(path.dirname(__filename), '..');
 const baseDir = path.resolve(lilaDir, 'translation/source');
 
 const xmls = readdirSync(baseDir)

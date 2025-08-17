@@ -17,8 +17,8 @@ final class SitePages(helpers: Helpers):
       )
 
   def menu(active: String)(using Translate) =
-    val sep                  = div(cls := "sep")
-    val external             = frag(" ", i(dataIcon := Icon.ExternalArrow))
+    val sep = div(cls := "sep")
+    val external = frag(" ", i(dataIcon := Icon.ExternalArrow))
     def activeCls(c: String) = cls := active.activeO(c)
     lila.ui.bits.pageMenuSubnav(
       a(activeCls("about"), href := "/about")(trans.site.aboutX("lichess.org")),
@@ -42,8 +42,17 @@ final class SitePages(helpers: Helpers):
       a(activeCls("ads"), href := "/ads")("Block ads")
     )
 
-  def webmasters(params: Modifier*)(using Context) =
-    val parameters = frag(p("Parameters:"), ul(params, li(strong("bg"), ": light, dark, system")))
+  def webmasters(pieceNames: List[String])(using Context) =
+    def parameters(extra: Modifier*) = frag(
+      p("Parameters:"),
+      ul(
+        // actual supported board theme list from lila-gif/src/assets.rs
+        li(strong("theme"), ": ", List("blue", "brown", "green", "ic", "purple").mkString(", ")),
+        li(strong("pieceSet"), ": ", pieceNames.mkString(", ")),
+        li(strong("bg"), ": light, dark, system"),
+        extra
+      )
+    )
     SitePage(
       title = "Webmasters",
       active = "webmasters",
@@ -69,7 +78,7 @@ final class SitePages(helpers: Helpers):
                 div(cls := "center")(raw(s"""<iframe src="/tv/frame?theme=brown&bg=dark" $args></iframe>""")),
                 p("Add the following HTML to your site:"),
                 copyMeInput(s"""<iframe src="$netBaseUrl/tv/frame?theme=brown&bg=dark" $args></iframe>"""),
-                parameters,
+                parameters(),
                 p(
                   "You can also show the channel for a specific variant or time control by adding the channel key to the URL, corresponding to the channels available at ",
                   a(href := "/tv")("lichess.org/tv"),
@@ -95,7 +104,7 @@ final class SitePages(helpers: Helpers):
                 copyMeInput(
                   s"""<iframe src="$netBaseUrl/training/frame?theme=brown&bg=dark" $args></iframe>"""
                 ),
-                parameters,
+                parameters(),
                 p("The text is automatically translated to your visitor's language."),
                 p(
                   "Alternatively, you can ",
@@ -119,7 +128,7 @@ final class SitePages(helpers: Helpers):
                   a(href := routes.Study.allDefault())("a study"),
                   ", then click the share button to get the HTML code for the current chapter."
                 ),
-                parameters,
+                parameters(),
                 p("The text is automatically translated to your visitor's language.")
               )
             )
@@ -140,7 +149,7 @@ final class SitePages(helpers: Helpers):
                   "\"",
                   em(trans.site.embedInYourWebsite(), "\".")
                 ),
-                parameters,
+                parameters(),
                 p("The text is automatically translated to your visitor's language.")
               )
             )
@@ -158,7 +167,35 @@ final class SitePages(helpers: Helpers):
                 p(
                   "On a broadcast page, select the embed iframe code, then optionally add query parameters to customize the appearance."
                 ),
-                parameters,
+                parameters(),
+                p("The text is automatically translated to your visitor's language.")
+              )
+            )
+          },
+          br,
+          st.section(cls := "box box-pad developers", id := "analysis") {
+            val args = """style="width: 100%; aspect-ratio: 4/3;" frameborder="0""""
+            val iframe =
+              s"""<iframe src="https://lichess.org/embed/analysis" $args></iframe>"""
+            frag(
+              h1(cls := "box__top")("Embed an analysis board"),
+              div(cls := "body")(
+                div(cls := "center")(raw(iframe)),
+                p(
+                  "Embeds the ",
+                  a(href := routes.UserAnalysis.index)("fully-featured Lichess analysis board"),
+                  " with stockfish evaluation, opening explorer and tablebase."
+                ),
+                copyMeInput(iframe),
+                parameters(
+                  li(strong("fen"), ": custom initial position as a FEN with underscores instead of spaces"),
+                  li(strong("color"), ": initial orientation, either black or white")
+                ),
+                div(
+                  "Example using a custom initial position:",
+                  copyMeInput:
+                    s"""<iframe src="https://lichess.org/embed/analysis?fen=r1bqkb1r/pp2pppp/2np1n2/6B1/3NP3/2N5/PPP2PPP/R2QKB1R_b_KQkq_-_1_6&color=black" $args></iframe>"""
+                ),
                 p("The text is automatically translated to your visitor's language.")
               )
             )
@@ -264,10 +301,10 @@ final class SitePages(helpers: Helpers):
               href := "https://slack.com/oauth/v2/authorize?client_id=17688987239.964622027363&scope=commands,incoming-webhook"
             )(
               img(
-                alt     := "Add to Slack",
+                alt := "Add to Slack",
                 heightA := 40,
-                widthA  := 139,
-                src     := assetUrl("images/add-to-slack.png")
+                widthA := 139,
+                src := assetUrl("images/add-to-slack.png")
               )
             ),
             h2("Summary"),
@@ -318,7 +355,7 @@ final class SitePages(helpers: Helpers):
         main:
           iframe(
             src := "https://docs.google.com/forms/d/e/1FAIpQLSeGgDHgWGP0uobQknF92eCMXqebyNBTyzJoJqbeGjRezlbWOw/viewform?embedded=true",
-            style          := "width:100%;height:1400px",
+            style := "width:100%;height:1400px",
             st.frameborder := 0,
             frame.credentialless
           )(spinner)

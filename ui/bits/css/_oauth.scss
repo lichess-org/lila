@@ -14,6 +14,7 @@
   }
 
   strong {
+    @extend %break-word;
     color: $c-brag;
   }
   code {
@@ -26,9 +27,8 @@
   }
 
   &__logo {
-    width: 100px;
-    height: 100px;
-    margin: auto;
+    font-size: 9em;
+    color: $c-brag;
   }
 
   h1 {
@@ -71,9 +71,21 @@
       font-weight: bold;
       color: $c-bad;
     }
+  }
+}
 
-    strong {
-      @extend %break-word;
-    }
+@include mq-is-col1 {
+  #main-wrap {
+    margin-top: 0;
+  }
+  .oauth__top {
+    margin-bottom: 3vh;
+  }
+  .oauth {
+    padding-block: 3vh;
+  }
+  p {
+    overflow-wrap: break-word;
+    word-break: break-word;
   }
 }

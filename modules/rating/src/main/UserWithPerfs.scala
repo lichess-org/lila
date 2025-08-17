@@ -8,7 +8,7 @@ object UserWithPerfs:
 
   extension (p: UserWithPerfs)
     def usernameWithBestRating = s"${p.username} (${p.perfs.bestRating})"
-    def hasVariantRating       = lila.rating.PerfType.variants.exists(p.perfs.apply(_).nonEmpty)
+    def hasVariantRating = lila.rating.PerfType.variants.exists(p.perfs.apply(_).nonEmpty)
     def titleUsernameWithBestRating =
       p.title.fold(p.usernameWithBestRating): t =>
         s"$t ${p.usernameWithBestRating}"

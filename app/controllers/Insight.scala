@@ -32,11 +32,11 @@ final class Insight(env: Env) extends LilaController(env):
       .userStatus(user)
       .flatMap:
         case NoGame => Ok.page(views.site.message.insightNoGames(user))
-        case Empty  => Ok.page(views.insight.empty(user))
+        case Empty => Ok.page(views.insight.empty(user))
         case s =>
           for
             insightUser <- env.insight.api.insightUser(user)
-            prefId      <- env.insight.share.getPrefId(user)
+            prefId <- env.insight.share.getPrefId(user)
             page <- renderPage:
               views.insight.index(
                 u = user,

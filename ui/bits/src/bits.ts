@@ -2,6 +2,7 @@ import { text, formToXhr } from 'lib/xhr';
 import flairPickerLoader from './flairPicker';
 import { spinnerHtml } from 'lib/view/controls';
 import { wireCropDialog } from './crop';
+import { debounce } from 'lib/async';
 
 // avoid node_modules and pay attention to imports here. we don't want to force people
 // to download the entire toastui editor library just to do some light form processing.
@@ -34,6 +35,8 @@ export function initModule(args: { fn: string } & any): void {
       return setAssetInfo();
     case 'streamerSubscribe':
       return streamerSubscribe();
+    case 'fidePlayerFollow':
+      return fidePlayerFollow();
     case 'thanksReport':
       return thanksReport();
     case 'titleRequest':
@@ -126,14 +129,14 @@ function eventCountdown() {
       const distance = target - new Date().getTime();
 
       if (distance > 0) {
-        $el.find('.days').text(Math.floor(distance / day).toString()),
-          $el.find('.hours').text(Math.floor((distance % day) / hour).toString()),
-          $el.find('.minutes').text(Math.floor((distance % hour) / minute).toString()),
-          $el.find('.seconds').text(
-            Math.floor((distance % minute) / second)
-              .toString()
-              .padStart(2, '0'),
-          );
+        $el.find('.days').text(Math.floor(distance / day).toString());
+        $el.find('.hours').text(Math.floor((distance % day) / hour).toString());
+        $el.find('.minutes').text(Math.floor((distance % hour) / minute).toString());
+        $el.find('.seconds').text(
+          Math.floor((distance % minute) / second)
+            .toString()
+            .padStart(2, '0'),
+        );
       } else {
         clearInterval(interval);
         site.reload();
@@ -233,6 +236,19 @@ function streamerSubscribe() {
   });
 }
 
+function fidePlayerFollow() {
+  const el = $('#fide-player-follow');
+  el.on(
+    'change',
+    debounce(
+      () =>
+        text(el.data('action').replace(/follow=[^&]+/, `follow=${el.prop('checked')}`), { method: 'post' }),
+      1000,
+      true,
+    ),
+  );
+}
+
 function titleRequest() {
   $('.title-image-edit').each(function (this: HTMLElement) {
     wireCropDialog({
@@ -247,7 +263,9 @@ function thanksReport() {
   const $button = $('button.report-block');
   $button.one('click', function () {
     $button.find('span').text('Blocking...');
-    fetch($button.attr('action')!, { method: 'post' }).then(() => $button.find('span').text('Blocked!'));
+    fetch($button.data('action')!, { method: 'post' }).then(async res =>
+      $button.find('span').text(res.ok ? 'Blocked!' : 'Block error'),
+    );
   });
 }
 

@@ -38,7 +38,7 @@ object Query:
   val frozen: Bdoc = F.status.$gte(Status.Mate.id)
 
   def imported(u: UserId): Bdoc = s"${F.pgnImport}.user".$eq(u)
-  def importedSort: Bdoc        = $sort.desc(s"${F.pgnImport}.ca")
+  def importedSort: Bdoc = $sort.desc(s"${F.pgnImport}.ca")
 
   val friend: Bdoc = s"${F.source}".$eq(lila.core.game.Source.Friend.id)
 
@@ -46,7 +46,7 @@ object Query:
 
   def clockHistory(c: Boolean): Bdoc = F.whiteClockHistory.$exists(c)
 
-  def user[U: UserIdOf](u: U): Bdoc    = F.playerUids.$eq(u.id)
+  def user[U: UserIdOf](u: U): Bdoc = F.playerUids.$eq(u.id)
   def users(u: Iterable[UserId]): Bdoc = F.playerUids.$in(u)
 
   val noAnon = $doc(
@@ -86,7 +86,7 @@ object Query:
       F.status.$in(Status.finishedWithWinner.map(_.id)),
       F.winnerId -> $doc(
         "$exists" -> true,
-        "$ne"     -> u
+        "$ne" -> u
       )
     )
 
@@ -107,7 +107,7 @@ object Query:
 
   def bothRatingsGreaterThan(v: Int) = $doc("p0.e".$gt(v), "p1.e".$gt(v))
 
-  def turnsGt(nb: Int)    = F.turns.$gt(nb)
+  def turnsGt(nb: Int) = F.turns.$gt(nb)
   def turns(range: Range) = F.turns.$inRange(range)
 
   def checkable = F.checkAt.$lt(nowInstant)
@@ -138,7 +138,7 @@ object Query:
 
   val notSimul = F.simulId.$exists(false)
 
-  val sortCreated: Bdoc           = $sort.desc(F.createdAt)
-  val sortChronological: Bdoc     = $sort.asc(F.createdAt)
+  val sortCreated: Bdoc = $sort.desc(F.createdAt)
+  val sortChronological: Bdoc = $sort.asc(F.createdAt)
   val sortAntiChronological: Bdoc = $sort.desc(F.createdAt)
-  val sortMovedAtNoIndex: Bdoc    = $sort.desc(F.movedAt)
+  val sortMovedAtNoIndex: Bdoc = $sort.desc(F.movedAt)

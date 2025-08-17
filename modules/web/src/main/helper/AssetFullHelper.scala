@@ -32,8 +32,8 @@ trait AssetFullHelper:
   def cssTag(key: String): Frag =
     link(
       dataCssKey := key,
-      href       := staticAssetUrl(s"css/${manifest.css(key)}"),
-      rel        := "stylesheet"
+      href := staticAssetUrl(s"css/${manifest.css(key)}"),
+      rel := "stylesheet"
     )
 
   def jsonScript(json: JsValue | SafeJsonStr) =
@@ -41,11 +41,11 @@ trait AssetFullHelper:
       raw:
         json match
           case json: JsValue => safeJsonValue(json).value
-          case json          => json.toString
+          case json => json.toString
 
   def roundNvuiTag(using ctx: Context) = ctx.blind.option(Esm("round.nvui"))
-  def cashTag: Frag                    = iifeModule("javascripts/vendor/cash.min.js")
-  def chessgroundTag: Frag             = script(tpe := "module", src := assetUrl("npm/chessground.min.js"))
+  def cashTag: Frag = iifeModule("javascripts/vendor/cash.min.js")
+  def chessgroundTag: Frag = script(tpe := "module", src := assetUrl("npm/chessground.min.js"))
 
   def basicCsp(using ctx: Context): ContentSecurityPolicy =
     val sockets = socketDomains.map { x => s"wss://$x${(!ctx.req.secure).so(s" ws://$x")}" }

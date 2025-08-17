@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="justNow">ahora mismo</string>
+  <string name="justNow">hace un momento</string>
   <plurals name="inNbSeconds">
     <item quantity="one">en %s segundo</item>
     <item quantity="other">en %s segundos</item>
@@ -55,11 +55,11 @@
     <item quantity="other">hace %s años</item>
   </plurals>
   <plurals name="nbMinutesRemaining">
-    <item quantity="one">%s minutos restantes</item>
+    <item quantity="one">%s minuto restante</item>
     <item quantity="other">%s minutos restantes</item>
   </plurals>
   <plurals name="nbHoursRemaining">
-    <item quantity="one">%s horas restantes</item>
+    <item quantity="one">%s hora restante</item>
     <item quantity="other">%s horas restantes</item>
   </plurals>
   <string name="completed">completado</string>

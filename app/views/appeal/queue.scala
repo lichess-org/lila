@@ -36,7 +36,7 @@ object queue:
                   .option(
                     span(
                       dataIcon := Icon.CautionTriangle,
-                      cls      := "marked-by-me text"
+                      cls := "marked-by-me text"
                     )("My mark")
                   ),
                 views.mod.user.userMarks(user, None)

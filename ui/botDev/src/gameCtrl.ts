@@ -6,6 +6,7 @@ import type { ClockData } from 'round';
 import type { LocalPlayOpts, LocalSetup, SoundEvent, LocalSpeed } from 'lib/bot/types';
 import { env } from './devEnv';
 import { pubsub } from 'lib/pubsub';
+import { myUserId, myUsername } from 'lib';
 
 export interface GameObserver {
   hurry: boolean;
@@ -74,12 +75,12 @@ export class GameCtrl {
   }
 
   nameOf(color: Color): string {
-    if (!this[color] && this[co.opposite(color)]) return env.username;
+    if (!this[color] && this[co.opposite(color)]) return myUsername() ?? 'Anonymous';
     return this[color] ? (env.bot.info(this[color])?.name ?? this[color]) : i18n.site[color];
   }
 
   idOf(color: Color): string {
-    return this[color] ?? env.user;
+    return this[color] ?? myUserId() ?? 'anonymous';
   }
 
   get isStopped(): boolean {

@@ -38,7 +38,7 @@ final class Env(
 
   private val fishnet = wire[TutorFishnet]
   private val builder = wire[TutorBuilder]
-  val queue           = wire[TutorQueue]
+  val queue = wire[TutorQueue]
 
   val api = wire[TutorApi]
 

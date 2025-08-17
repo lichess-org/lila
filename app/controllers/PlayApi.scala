@@ -5,7 +5,6 @@ import play.api.mvc.*
 
 import lila.app.{ *, given }
 import lila.core.id.GameAnyId
-import lila.core.perf.UserWithPerfs
 
 // both bot & board APIs
 final class PlayApi(env: Env) extends LilaController(env):
@@ -29,12 +28,12 @@ final class PlayApi(env: Env) extends LilaController(env):
           else
             {
               for
-                _       <- env.tournament.api.withdrawAll(me)
+                _ <- env.tournament.api.withdrawAll(me)
                 teamIds <- env.team.cached.teamIdsList(me)
-                _       <- env.swiss.api.withdrawAll(me, teamIds)
-                _       <- env.user.api.setBot(me)
-                _       <- env.pref.api.setBot(me)
-                _       <- env.streamer.api.delete(me)
+                _ <- env.swiss.api.withdrawAll(me, teamIds)
+                _ <- env.user.api.setBot(me)
+                _ <- env.pref.api.setBot(me)
+                _ <- env.streamer.api.delete(me)
               yield env.user.lightUserApi.invalidate(me)
             }.pipe(toResult).recover { case lila.core.lilaism.LilaInvalid(msg) =>
               BadRequest(jsonError(msg))
@@ -96,6 +95,9 @@ final class PlayApi(env: Env) extends LilaController(env):
         case Array("game", id, "claim-victory") =>
           as(GameAnyId(id).gameId): pov =>
             env.bot.player.claimVictory(pov).pipe(toResult)
+        case Array("game", id, "claim-draw") =>
+          as(GameAnyId(id).gameId): pov =>
+            env.bot.player.claimDraw(pov).pipe(toResult)
         case Array("game", id, "berserk") =>
           as(GameAnyId(id).gameId): pov =>
             if !me.isBot && env.bot.player.berserk(pov.game) then jsonOkResult
@@ -105,13 +107,13 @@ final class PlayApi(env: Env) extends LilaController(env):
   def boardCommandGet(cmd: String) = ScopedBody(_.Board.Play) { _ ?=> me ?=>
     cmd.split('/') match
       case Array("game", id, "chat") => WithPovAsBoard(GameAnyId(id).gameId)(getChat)
-      case _                         => notFoundJson("No such command")
+      case _ => notFoundJson("No such command")
   }
 
   def botCommandGet(cmd: String) = ScopedBody(_.Bot.Play) { _ ?=> me ?=>
     cmd.split('/') match
       case Array("game", id, "chat") => WithPovAsBot(GameAnyId(id).gameId)(getChat)
-      case _                         => notFoundJson("No such command")
+      case _ => notFoundJson("No such command")
   }
 
   private def getChat(pov: Pov) =
@@ -139,7 +141,7 @@ final class PlayApi(env: Env) extends LilaController(env):
   private def isReallyBotCompatible(game: lila.core.game.Game): Fu[Boolean] =
     lila.game.Game.isBotCompatible(game) match
       case Some(known) => fuccess(known)
-      case None        => game.tournamentId.so(env.tournament.api.isForBots)
+      case None => game.tournamentId.so(env.tournament.api.isForBots)
 
   private def WithPovAsBoard(id: GameId)(f: Pov => Fu[Result])(using ctx: Context)(using Me) =
     WithPov(id): pov =>
@@ -152,24 +154,15 @@ final class PlayApi(env: Env) extends LilaController(env):
     env.round.proxyRepo
       .game(id)
       .flatMap:
-        case None       => NotFound(jsonError("No such game"))
+        case None => NotFound(jsonError("No such game"))
         case Some(game) => Pov(game, me).fold(NotFound(jsonError("Not your game")).toFuccess)(f)
-
-  private val botsCache = env.memo.cacheApi.unit[List[UserWithPerfs]]:
-    _.expireAfterWrite(10.seconds).buildAsyncFuture: _ =>
-      env.user.api.visibleBotsByIds(env.bot.onlineApiUsers.get)
 
   def botOnline = Open:
     for
-      users <- botsCache.get({})
-      page  <- renderPage(views.user.list.bots(users))
+      users <- env.bot.onlineApiUsers.getUsers
+      page <- renderPage(views.user.list.bots(users))
     yield Ok(page)
 
   def botOnlineApi = Anon:
-    botsCache
-      .get({})
-      .map: users =>
-        val jsons = users
-          .take(getInt("nb") | 200)
-          .map(u => env.user.jsonView.full(u.user, u.perfs.some, withProfile = true))
-        Ok(ndJson.jsToString(jsons)).as(ndJson.contentType)
+    for lines <- env.bot.onlineApiUsers.getNdJson(getInt("nb"))
+    yield Ok(lines).as(ndJson.contentType)

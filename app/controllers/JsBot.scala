@@ -26,9 +26,9 @@ final class JsBot(env: Env) extends LilaController(env):
 
   def devIndex = Secure(_.BotEditor) { _ ?=> _ ?=>
     for
-      bots   <- env.jsBot.repo.getLatestBots()
+      bots <- env.jsBot.repo.getLatestBots()
       assets <- env.jsBot.api.devGetAssets
-      page   <- renderPage(views.jsBot.dev(bots, prefJson, assets))
+      page <- renderPage(views.jsBot.dev(bots, prefJson, assets))
     yield Ok(page).withServiceWorker
   }
 
@@ -67,8 +67,8 @@ final class JsBot(env: Env) extends LilaController(env):
       .read(tpe)
       .so: (tpe: AssetType) =>
         def formValue(field: String) = ctx.body.body.dataParts.get(field).flatMap(_.headOption)
-        val author: Option[UserId]   = formValue("author").flatMap(UserStr.read).map(_.id)
-        val name                     = formValue("name").getOrElse(key)
+        val author: Option[UserId] = formValue("author").flatMap(UserStr.read).map(_.id)
+        val name = formValue("name").getOrElse(key)
         ctx.body.body
           .file("file")
           .map: file =>
@@ -81,6 +81,9 @@ final class JsBot(env: Env) extends LilaController(env):
                   yield JsonOk(Json.obj("key" -> key, "name" -> name))
           .getOrElse(BadRequest(jsonError("missing file")).as(JSON))
   }
+
+  // def test = Open:
+  //   renderPage(views.jsBot.roundPlay(prefJson)).flatMap(Ok(_).withServiceWorker)
 
   private def prefJson(using ctx: Context) =
     lila.pref.JsonView

@@ -467,7 +467,7 @@
   <string name="openTournaments">Torneyos ubiertos</string>
   <string name="duration">Duración</string>
   <string name="winner">Ganador</string>
-  <string name="standing">Posición</string>
+  <string name="standings">Clasificación</string>
   <string name="createANewTournament">Crear un nuevo torneyo</string>
   <string name="tournamentCalendar">Calandario de torneyos</string>
   <string name="conditionOfEntry">Requisito de dentrada:</string>
@@ -481,7 +481,6 @@
   <string name="points">Puntos</string>
   <string name="wins">Victorias</string>
   <string name="losses">Redotas</string>
-  <string name="createdBy">Creau per</string>
   <string name="standByX">Aguarda %s, emparellando chugadors, prepara-te!</string>
   <string name="pause">Pausa</string>
   <string name="resume">Reprener</string>

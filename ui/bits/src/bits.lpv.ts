@@ -1,6 +1,6 @@
-import Lpv from 'lichess-pgn-viewer';
-import type PgnViewer from 'lichess-pgn-viewer/pgnViewer';
-import type { Opts as LpvOpts } from 'lichess-pgn-viewer/interfaces';
+import Lpv from '@lichess-org/pgn-viewer';
+import type PgnViewer from '@lichess-org/pgn-viewer/pgnViewer';
+import type { Opts as LpvOpts } from '@lichess-org/pgn-viewer/interfaces';
 import { text as xhrText } from 'lib/xhr';
 
 export default async function (opts?: { el: HTMLElement; url: string; lpvOpts: LpvOpts }): Promise<void> {

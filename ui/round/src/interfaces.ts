@@ -2,12 +2,11 @@ import type { VNode } from 'lib/snabbdom';
 import type { GameData, Status, RoundStep } from 'lib/game/game';
 import type { ClockData } from 'lib/game/clock/clockCtrl';
 import type { CorresClockData } from './corresClock/corresClockCtrl';
-import type RoundController from './ctrl';
 import type { ChatOpts as BaseChatOpts, ChatCtrl, ChatPlugin } from 'lib/chat/interfaces';
 import * as Prefs from 'lib/prefs';
 import type { EnhanceOpts } from 'lib/richText';
 import type { RoundSocket } from './socket';
-import type { MoveMetadata as CgMoveMetadata } from 'chessground/types';
+import type { MoveMetadata as CgMoveMetadata } from '@lichess-org/chessground/types';
 
 export { type RoundSocket } from './socket';
 export { type CorresClockData } from './corresClock/corresClockCtrl';
@@ -17,9 +16,9 @@ export type { ClockData } from 'lib/game/clock/clockCtrl';
 
 export interface NvuiPlugin {
   submitMove?: (submitStoredPremove?: boolean) => void;
-  playPremove: (ctrl: RoundController) => void;
+  playPremove: () => void;
   premoveInput: string;
-  render(ctrl: RoundController): VNode;
+  render(): VNode;
 }
 
 export interface SocketOpts {

@@ -478,7 +478,7 @@
   <string name="openTournaments">Öppna turneringar</string>
   <string name="duration">Varaktighet</string>
   <string name="winner">Vinnare</string>
-  <string name="standing">Ställning</string>
+  <string name="standings">Ställningar</string>
   <string name="createANewTournament">Skapa en ny turnering</string>
   <string name="tournamentCalendar">Turneringskalender</string>
   <string name="conditionOfEntry">Inträdesvillkor:</string>
@@ -492,7 +492,6 @@
   <string name="points">Poäng</string>
   <string name="wins">Vinster</string>
   <string name="losses">Förluster</string>
-  <string name="createdBy">Skapad av</string>
   <string name="startingIn" comment="Displayed above a timer">Startar om</string>
   <string name="standByX">%s, vänta, parar spelare, var redo!</string>
   <string name="pause">Pausa</string>

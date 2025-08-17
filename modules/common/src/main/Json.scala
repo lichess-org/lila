@@ -15,11 +15,11 @@ object Json:
 
   given Writes[lila.core.relation.Relation] = writeAs(_.isFollow)
 
-  given Writes[PerfKey] = pk => JsString(PerfKey.value(pk))
+  given Writes[PerfKey] = writeAs(PerfKey.value)
 
-  given Writes[URL] = url => JsString(url.toString)
+  given Writes[URL] = writeAs(_.toString)
 
-  given Writes[chess.PlayerTitle] = tile => JsString(tile.value)
+  given Writes[chess.PlayerTitle] = writeAs(_.value)
 
   given [A: Writes]: OWrites[chess.ByColor[A]] = PlayJson.writes
 

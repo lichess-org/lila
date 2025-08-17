@@ -63,13 +63,10 @@
   <string name="startVerySoon">Diese Übertragung wird in Kürze beginnen.</string>
   <string name="notYetStarted">Die Übertragung hat noch nicht begonnen.</string>
   <string name="officialWebsite">Offizielle Webseite</string>
-  <string name="standings">Rangliste</string>
   <string name="officialStandings">Offizielle Rangliste</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Weitere Optionen auf der %s</string>
   <string name="webmastersPage">Webmaster-Seite</string>
-  <string name="pgnSourceHelp" comment="%s is 'streaming API'">Eine öffentliche Echtzeit-PGN-Quelle für diese Runde. Wir bieten auch eine %s für eine schnellere und effizientere Synchronisation.</string>
   <string name="embedThisBroadcast">Bette diese Übertragung in deine Webseite ein</string>
-  <string name="embedThisRound">Bette %s in deine Webseite ein</string>
   <string name="ratingDiff">Wertungsdifferenz</string>
   <string name="gamesThisTournament">Partien in diesem Turnier</string>
   <string name="score">Punktestand</string>
@@ -85,4 +82,6 @@
   <string name="backToLiveMove">Zurück zum aktuellen Zug</string>
   <string name="sinceHideResults">Da du dich entschieden hast, die Ergebnisse nicht anzuzeigen, sind alle Vorschau-Bretter leer, um Spoiler zu vermeiden.</string>
   <string name="liveboard">Live-Brett</string>
+  <string name="communityBroadcast">Gemeinschafts-Übertragung</string>
+  <string name="createdAndManagedBy">Erstellt und verwaltet von %s.</string>
 </resources>

@@ -30,16 +30,16 @@ final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
       .css(ctx.pref.hasKeyboardMove.option("keyboardMove"))
       .css(ctx.pref.hasVoice.option("voice"))
       .css(ctx.blind.option("round.nvui"))
-      .i18n(_.puzzle, _.puzzleTheme, _.storm)
-      .i18nOpt(ctx.blind, _.keyboardMove, _.nvui)
+      .i18n(_.puzzle, _.puzzleTheme, _.storm, _.nvui)
+      // .i18nOpt(ctx.blind, _.keyboardMove, _.nvui)
       .js(ctx.blind.option(Esm("puzzle.nvui")))
       .js(
         PageModule(
           "puzzle",
           Json
             .obj(
-              "data"        -> data,
-              "pref"        -> pref,
+              "data" -> data,
+              "pref" -> pref,
               "showRatings" -> ctx.pref.showRatings,
               "settings" -> Json.obj("difficulty" -> settings.difficulty.key).add("color" -> settings.color),
               "externalEngineEndpoint" -> externalEngineEndpoint
@@ -108,7 +108,7 @@ final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
             if pt.theme == PuzzleTheme.mix then routes.Puzzle.home
             else routes.Puzzle.show(pt.theme.key.value)
           a(
-            cls  := "puzzle-themes__link",
+            cls := "puzzle-themes__link",
             href := (pt.count > 0).option(langHref(url))
           )(
             img(src := assetUrl(s"images/puzzle-themes/${iconFile(pt.theme.key)}.svg")),
@@ -196,7 +196,7 @@ final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
                 dataFen := op.opening.ref.fen,
                 cls := List(
                   "blpt puzzle-openings__link" -> true,
-                  "opening-mine"               -> mine.exists(_.variationKeys(op.opening.key))
+                  "opening-mine" -> mine.exists(_.variationKeys(op.opening.key))
                 ),
                 href := routes.Puzzle.show(op.opening.key.value)
               ):
@@ -204,7 +204,7 @@ final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
         )
 
     private def familyLink(family: LilaOpeningFamily, mine: Option[PuzzleOpening.Mine]): Tag = a(
-      cls     := List("blpt" -> true, "opening-mine" -> mine.exists(_.familyKeys(family.key))),
+      cls := List("blpt" -> true, "opening-mine" -> mine.exists(_.familyKeys(family.key))),
       dataFen := family.full.map(_.fen)
     )(href := routes.Puzzle.show(family.key.value))(family.name)
 
@@ -217,7 +217,11 @@ final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
       )
 
   def ofPlayer(query: String, user: Option[User], puzzles: Option[Paginator[Puzzle]])(using ctx: Context) =
-    Page(user.fold(trans.puzzle.lookupOfPlayer.txt())(u => trans.puzzle.fromXGames.txt(u.username)))
+    val title: String = (user, puzzles).tupled match
+      case Some(u, pager) =>
+        trans.puzzle.puzzlesFoundInUserGames.pluralTxt(pager.nbResults, pager.nbResults.localize, u.username)
+      case _ => trans.puzzle.lookupOfPlayer.txt()
+    Page(title)
       .css("puzzle.page")
       .js(infiniteScrollEsmInit):
         main(cls := "page-menu")(
@@ -226,50 +230,52 @@ final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
             form(
               action := routes.Puzzle.ofPlayer(),
               method := "get",
-              cls    := "form3 puzzle-of-player__form complete-parent"
+              cls := "form3 puzzle-of-player__form complete-parent"
             )(
               st.input(
-                name         := "name",
-                value        := query,
-                cls          := "form-control user-autocomplete",
-                placeholder  := trans.clas.lichessUsername.txt(),
+                name := "name",
+                value := query,
+                cls := "form-control user-autocomplete",
+                placeholder := trans.clas.lichessUsername.txt(),
                 autocomplete := "off",
-                dataTag      := "span",
+                dataTag := "span",
                 autofocus
               ),
               submitButton(cls := "button")(trans.puzzle.searchPuzzles.txt())
             ),
-            div(cls := "puzzle-of-player__results")(
-              (user, puzzles) match
-                case (Some(u), Some(pager)) =>
-                  if pager.nbResults == 0 && ctx.is(u) then p(trans.puzzle.fromMyGamesNone())
-                  else
-                    frag(
-                      p(strong(trans.puzzle.fromXGamesFound((pager.nbResults), userLink(u)))),
-                      div(cls := "puzzle-of-player__pager infinite-scroll")(
-                        pager.currentPageResults.map { puzzle =>
-                          div(cls := "puzzle-of-player__puzzle")(
-                            chessgroundMini(
-                              fen = puzzle.fenAfterInitialMove.board,
-                              color = puzzle.color,
-                              lastMove = puzzle.line.head.some
-                            )(
-                              a(
-                                cls  := s"puzzle-of-player__puzzle__board",
-                                href := routes.Puzzle.show(puzzle.id.value)
-                              )
-                            ),
-                            span(cls := "puzzle-of-player__puzzle__meta")(
-                              span(cls := "puzzle-of-player__puzzle__id", s"#${puzzle.id}"),
-                              span(cls := "puzzle-of-player__puzzle__rating", puzzle.glicko.intRating)
-                            )
-                          )
-                        },
-                        pagerNext(pager, np => s"${routes.Puzzle.ofPlayer(u.username.some, np).url}")
+            div(cls := "puzzle-of-player__results"):
+              (user, puzzles).tupled.map: (u, pager) =>
+                if pager.nbResults == 0 && ctx.is(u) then p(trans.puzzle.fromMyGamesNone())
+                else
+                  frag(
+                    p(
+                      strong(
+                        trans.puzzle.puzzlesFoundInUserGames
+                          .plural(pager.nbResults, pager.nbResults.localize, userLink(u))
                       )
+                    ),
+                    div(cls := "puzzle-of-player__pager infinite-scroll")(
+                      pager.currentPageResults.map { puzzle =>
+                        div(cls := "puzzle-of-player__puzzle")(
+                          chessgroundMini(
+                            fen = puzzle.fenAfterInitialMove.board,
+                            color = puzzle.color,
+                            lastMove = puzzle.line.head.some
+                          )(
+                            a(
+                              cls := s"puzzle-of-player__puzzle__board",
+                              href := routes.Puzzle.show(puzzle.id.value)
+                            )
+                          ),
+                          span(cls := "puzzle-of-player__puzzle__meta")(
+                            span(cls := "puzzle-of-player__puzzle__id", s"#${puzzle.id}"),
+                            span(cls := "puzzle-of-player__puzzle__rating", puzzle.glicko.intRating)
+                          )
+                        )
+                      },
+                      pagerNext(pager, np => s"${routes.Puzzle.ofPlayer(u.username.some, np).url}")
                     )
-                case (_, _) => emptyFrag
-            )
+                  )
           )
         )
 

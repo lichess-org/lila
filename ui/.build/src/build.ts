@@ -3,7 +3,7 @@ import { execSync } from 'node:child_process';
 import { chdir } from 'node:process';
 import { join } from 'node:path';
 import { parsePackages } from './parse.ts';
-import { task, stopTask } from './task.ts';
+import { makeTask, stopTask } from './task.ts';
 import { tsc, stopTsc } from './tsc.ts';
 import { sass, stopSass } from './sass.ts';
 import { esbuild, stopEsbuild } from './esbuild.ts';
@@ -53,7 +53,7 @@ export function stopBuild(): Promise<any> {
 
 function monitor(pkgs: string[]) {
   if (!env.watch) return;
-  return task({
+  return makeTask({
     key: 'monitor',
     includes: [
       { cwd: env.rootDir, path: 'package.json' },

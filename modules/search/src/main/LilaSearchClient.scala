@@ -23,12 +23,13 @@ class LilaSearchClient(client: SearchClient)(using Executor) extends SearchClien
             logger.info(s"Search error: query={$query}, from={$from}, size={$size}", e)
             SearchOutput(Nil)
 
-  private def monitor[A](op: String, index: String)(f: Fu[A]) =
+  private def monitor[A](op: "search" | "count", index: String)(f: Fu[A]) =
     f.monTry(res => _.search.time(op, index, res.isSuccess))
 
   extension (query: Query)
     def index: String = query match
       case _: Query.Forum => "forum"
-      case _: Query.Game  => "game"
+      case _: Query.Ublog => "ublog"
+      case _: Query.Game => "game"
       case _: Query.Study => "study"
-      case _: Query.Team  => "team"
+      case _: Query.Team => "team"

@@ -2,9 +2,10 @@ package lila.tournament
 
 import chess.Clock.Config as ClockConfig
 import chess.format.Fen
-import chess.{ Mode, Speed }
+import chess.{ Rated, Speed }
 import scalalib.ThreadLocalRandom
 import scalalib.model.Seconds
+import alleycats.Zero
 
 import lila.core.i18n.Translate
 import lila.core.tournament.Status
@@ -19,7 +20,7 @@ case class Tournament(
     minutes: Int,
     variant: chess.variant.Variant,
     position: Option[Fen.Standard],
-    mode: Mode,
+    rated: Rated,
     password: Option[String] = None,
     conditions: TournamentCondition.All,
     teamBattle: Option[TeamBattle] = None,
@@ -37,14 +38,14 @@ case class Tournament(
     hasChat: Boolean = true
 ) extends lila.core.tournament.Tournament:
 
-  def isCreated   = status == Status.created
-  def isStarted   = status == Status.started
-  def isFinished  = status == Status.finished
+  def isCreated = status == Status.created
+  def isStarted = status == Status.started
+  def isFinished = status == Status.finished
   def isEnterable = !isFinished
 
   def isPrivate = password.isDefined
 
-  def isTeamBattle  = teamBattle.isDefined
+  def isTeamBattle = teamBattle.isDefined
   def isTeamRelated = isTeamBattle || conditions.teamMember.isDefined
 
   def name(full: Boolean = true)(using Translate): String =
@@ -53,17 +54,15 @@ case class Tournament(
     else if isTeamBattle then name
     else TournamentName(this, full)
 
-  def scheduleFreq: Option[Schedule.Freq]   = schedule.map(_.freq)
+  def scheduleFreq: Option[Schedule.Freq] = schedule.map(_.freq)
   def scheduleSpeed: Option[Schedule.Speed] = schedule.isDefined.option(Schedule.Speed.fromClock(clock))
   def scheduleData: Option[(Schedule.Freq, Schedule.Speed)] = (scheduleFreq, scheduleSpeed).tupled
 
   def isMarathon = scheduleFreq.has(Schedule.Freq.Marathon)
-  def isShield   = scheduleFreq.has(Schedule.Freq.Shield)
-  def isUnique   = scheduleFreq.has(Schedule.Freq.Unique)
+  def isShield = scheduleFreq.has(Schedule.Freq.Shield)
+  def isUnique = scheduleFreq.has(Schedule.Freq.Unique)
 
   def isScheduled = schedule.isDefined
-
-  def isRated = mode == Mode.Rated
 
   def finishesAt = startsAt.plusMinutes(minutes)
 
@@ -77,7 +76,7 @@ case class Tournament(
     if isCreated then 0
     else if isFinished then 100
     else
-      val total     = minutes * 60
+      val total = minutes * 60
       val remaining = secondsToFinish.value
       100 - (remaining * 100 / total)
 
@@ -119,7 +118,7 @@ case class Tournament(
     else s"${minutes / 60}h" + (if minutes % 60 != 0 then s" ${minutes % 60}m" else "")
 
   def berserkable = !noBerserk && clock.berserkable
-  def streakable  = !noStreak
+  def streakable = !noStreak
 
   def clockStatus =
     val s = secondsToFinish.value
@@ -142,7 +141,7 @@ case class Tournament(
   def startingPosition = position.flatMap(Thematic.byFen)
 
   lazy val prizeInDescription = lila.gathering.looksLikePrize(s"$name $description")
-  lazy val looksLikePrize     = !isScheduled && prizeInDescription
+  lazy val looksLikePrize = !isScheduled && prizeInDescription
 
   def estimateNumberOfGamesOneCanPlay: Double =
     // There are 2 players, and they don't always use all their time (0.8)
@@ -163,7 +162,7 @@ object Tournament:
       id = makeId,
       name = setup.name | setup.realPosition.match
         case Some(pos) => Thematic.byFen(pos).fold("Custom position")(_.name.value)
-        case None      => GreatPlayer.randomName
+        case None => GreatPlayer.randomName
       ,
       status = Status.created,
       clock = setup.clockConfig,
@@ -173,7 +172,7 @@ object Tournament:
       nbPlayers = 0,
       variant = setup.realVariant,
       position = setup.realPosition,
-      mode = setup.realMode,
+      rated = setup.realRated,
       password = setup.password,
       conditions = setup.conditions,
       teamBattle = setup.teamBattleByTeam.map(TeamBattle.init),
@@ -198,7 +197,7 @@ object Tournament:
       nbPlayers = 0,
       variant = sched.variant,
       position = sched.position,
-      mode = Mode.Rated,
+      rated = Rated.Yes,
       conditions = sched.conditions,
       schedule = Scheduled(sched.freq, sched.at).some,
       startsAt = startsAt
@@ -212,11 +211,15 @@ object Tournament:
 
   enum JoinResult(val error: Option[String]):
     def ok = error.isEmpty
-    case Ok             extends JoinResult(none)
+    case Ok extends JoinResult(none)
     case WrongEntryCode extends JoinResult("Wrong entry code".some)
-    case Paused         extends JoinResult("Your pause is not over yet".some)
-    case Verdicts       extends JoinResult("Tournament restrictions".some)
-    case MissingTeam    extends JoinResult("Missing team".some)
-    case ArenaBanned    extends JoinResult("You are not allowed to join arenas".some)
-    case PrizeBanned    extends JoinResult("You are not allowed to play in prized tournaments".some)
-    case Nope           extends JoinResult("Couldn't join for some reason?".some)
+    case Paused extends JoinResult("Your pause is not over yet".some)
+    case Verdicts extends JoinResult("Tournament restrictions".some)
+    case MissingTeam extends JoinResult("Missing team".some)
+    case ArenaBanned extends JoinResult("You are not allowed to join arenas".some)
+    case PrizeBanned extends JoinResult("You are not allowed to play in prized tournaments".some)
+    case RateLimited extends JoinResult("You are joining too many tournaments".some)
+    case NotFound extends JoinResult("This tournament no longer exists".some)
+    case Nope extends JoinResult("Couldn't join for some reason?".some)
+  object JoinResult:
+    given Zero[Tournament.JoinResult] = Zero(NotFound)

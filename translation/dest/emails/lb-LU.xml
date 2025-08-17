@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="emailConfirm_subject">Bestäteg däi lichess.org-Kont, %s</string>
-  <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Klick op de Link, fir däi Kont z\'aktivéieren:</string>
-  <string name="passwordReset_subject">Setz däi lichess.org-Passwuert zréck, %s</string>
-  <string name="passwordReset_intro">Mir hunn eng Ufro kritt, fir däi Passwuert zréckzesetzen.</string>
+  <string name="emailConfirm_subject">Bestäteg däi lichess.org-Konto, %s</string>
+  <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Klick op de Link, fir däi Konto z\'aktivéieren:</string>
+  <string name="emailConfirm_justIgnore" comment="This text is included in the registration email for new users.">Wann s du dech net bei Lichess ugemellt hues, kanns de dëse Message roueg ignoréieren. Den net confirméierte Konto an all Trace vun denger E-Mail-Adress ginn no 48 Stonne aus eise Systemer geläscht.</string>
+  <string name="passwordReset_subject">Setz däi lichess.org-Passwuert zeréck, %s</string>
+  <string name="passwordReset_intro">Mir hunn eng Ufro kritt, fir d\'Passwuert vun dengem Konto zeréckzesetzen.</string>
   <string name="passwordReset_clickOrIgnore">Wann s du déi Ufro gemaach hues, dréck op de Link ënnen. Wann net, kanns de dëse Mail ignoréieren.</string>
   <string name="emailChange_subject">Bestäteg déi nei E-Mail-Adress, %s</string>
   <string name="emailChange_intro">Du hues eng Ufro gemaach, fir deng E-Mail-Adress z\'änneren.</string>
@@ -15,7 +16,7 @@ Hei ass deng Profilsäit: %1$s. Du kanns se hei personaliséieren: %2$s.
 
 Vill Spaass an Erfolleg!</string>
   <string name="logInToLichess">Logg dech op lichess.org an, %s</string>
-  <string name="common_orPaste">(Klicke funktionnéiert net? Probéier de Link an däi Browser ze kopéieren!)</string>
+  <string name="common_orPaste">(Klicke funktionnéiert net? Probéier fir de Link an däi Browser ze kopéieren!)</string>
   <string name="common_note">Dëst ass e Service-Mail a Bezuch op däi Kont bei %s.</string>
-  <string name="common_contact">Fir Kontakt mat eis opzehuelen, besich %s.</string>
+  <string name="common_contact">Fir Kontakt mat eis opzehuelen, géi wgl. op %s.</string>
 </resources>

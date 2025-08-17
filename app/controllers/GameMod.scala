@@ -8,12 +8,12 @@ final class GameMod(env: Env)(using akka.stream.Materializer) extends LilaContro
 
   def index(username: UserStr) = SecureBody(_.GamesModView) { ctx ?=> _ ?=>
     Found(meOrFetch(username)): user =>
-      val form   = filterForm.bindFromRequest()
+      val form = filterForm.bindFromRequest()
       val filter = form.fold(_ => emptyFilter, identity)
       for
-        arenas  <- env.tournament.leaderboardApi.recentByUser(user, 1)
+        arenas <- env.tournament.leaderboardApi.recentByUser(user, 1)
         swisses <- env.activity.read.recentSwissRanks(user.id)
-        povs    <- fetchGames(user, filter)
+        povs <- fetchGames(user, filter)
         games <-
           if isGranted(_.UserEvaluate)
           then env.mod.assessApi.makeAndGetFullOrBasicsFor(povs).map(Right.apply)

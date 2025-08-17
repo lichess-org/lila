@@ -9,7 +9,7 @@ final class PoolApi(
     val configs: List[PoolConfig],
     hookThieve: HookThieve,
     gameStarter: GameStarter,
-    HasCurrentPlayban: lila.core.playban.HasCurrentPlayban,
+    hasCurrentPlayban: lila.core.playban.HasCurrentPlayban,
     rageSitOf: lila.core.playban.RageSitOf,
     system: ActorSystem
 )(using Executor)
@@ -31,7 +31,7 @@ final class PoolApi(
     .toMap
 
   def join(poolId: PoolConfigId, joiner: Joiner): Unit =
-    HasCurrentPlayban(joiner.me.id).foreach:
+    hasCurrentPlayban(joiner.me.id).foreach:
       case false =>
         actors.foreach:
           case (id, actor) if id == poolId =>

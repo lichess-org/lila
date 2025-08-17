@@ -68,16 +68,16 @@ final class PersonalDataExport(
           _.map(_.streamer).so: s =>
             List(textTitle("Streamer profile")) :::
               List(
-                "name"  -> s.name,
+                "name" -> s.name,
                 "image" -> s.picture.so(p => picfitUrl.thumbnail(p, Streamer.imageSize, Streamer.imageSize)),
-                "headline"    -> s.headline.so(_.value),
+                "headline" -> s.headline.so(_.value),
                 "description" -> s.description.so(_.value),
-                "twitch"      -> s.twitch.so(_.fullUrl),
-                "youTube"     -> s.youTube.so(_.fullUrl),
-                "createdAt"   -> textDate(s.createdAt),
-                "updatedAt"   -> textDate(s.updatedAt),
-                "seenAt"      -> textDate(s.seenAt),
-                "liveAt"      -> s.liveAt.so(textDate)
+                "twitch" -> s.twitch.so(_.fullUrl),
+                "youTube" -> s.youTube.so(_.fullUrl),
+                "createdAt" -> textDate(s.createdAt),
+                "updatedAt" -> textDate(s.updatedAt),
+                "seenAt" -> textDate(s.seenAt),
+                "liveAt" -> s.liveAt.so(textDate)
               ).map: (k, v) =>
                 s"$k: $v"
         .map(Source.apply)
@@ -90,7 +90,7 @@ final class PersonalDataExport(
             List(textTitle("Coach profile")) :::
               c.profile.textLines :::
               List(
-                "image"     -> c.picture.so(p => picfitUrl.thumbnail(p, Coach.imageSize, Coach.imageSize)),
+                "image" -> c.picture.so(p => picfitUrl.thumbnail(p, Coach.imageSize, Coach.imageSize)),
                 "languages" -> c.languages.mkString(", "),
                 "createdAt" -> textDate(c.createdAt),
                 "updatedAt" -> textDate(c.updatedAt)
@@ -175,11 +175,11 @@ final class PersonalDataExport(
           .documentSource()
           .map: post =>
             List(
-              "date"   -> textDate(post.created.at),
-              "title"  -> post.title,
-              "intro"  -> post.intro,
-              "body"   -> post.markdown,
-              "image"  -> post.image.so(i => lila.ublog.UblogPost.thumbnail(picfitUrl, i.id, _.Size.Large)),
+              "date" -> textDate(post.created.at),
+              "title" -> post.title,
+              "intro" -> post.intro,
+              "body" -> post.markdown,
+              "image" -> post.image.so(i => lila.ublog.UblogPost.thumbnail(picfitUrl, i.id, _.Size.Large)),
               "topics" -> post.topics.mkString(", ")
             ).map: (k, v) =>
               s"$k: $v"

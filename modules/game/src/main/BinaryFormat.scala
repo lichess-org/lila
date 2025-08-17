@@ -1,14 +1,13 @@
 package lila.game
 
+import scala.util.Try
+
 import chess.*
 import chess.format.Uci
 import chess.format.pgn.SanStr
 import chess.variant.Variant
 import org.lichess.compression.clock.Encoder as ClockEncoder
 
-import scala.util.Try
-
-import lila.core.game.ClockHistory
 import lila.db.ByteArray
 
 object BinaryFormat:
@@ -38,7 +37,7 @@ object BinaryFormat:
 
     def read(start: Centis, bw: ByteArray, bb: ByteArray, flagged: Option[Color]) =
       Try {
-        ClockHistory(
+        ByColor(
           readSide(start, bw, flagged.has(White)),
           readSide(start, bb, flagged.has(Black))
         )
@@ -68,8 +67,8 @@ object BinaryFormat:
         .grouped(2)
         .map:
           case Vector(a, b) => (enc(a) << 4) + enc(b)
-          case Vector(a)    => enc(a) << 4
-          case v            => sys.error(s"moveTime.write unexpected $v")
+          case Vector(a) => enc(a) << 4
+          case v => sys.error(s"moveTime.write unexpected $v")
         .map(_.toByte)
         .toArray
 
@@ -106,7 +105,7 @@ object BinaryFormat:
 
         ia match
           case Array(b1, b2, b3, b4, b5, b6, b7, b8, _*) =>
-            val config      = Clock.Config(clock.readClockLimit(b1), Clock.IncrementSeconds(b2))
+            val config = Clock.Config(clock.readClockLimit(b1), Clock.IncrementSeconds(b2))
             val legacyWhite = Centis(readSignedInt24(b3, b4, b5))
             val legacyBlack = Centis(readSignedInt24(b6, b7, b8))
             val players = ByColor((whiteBerserk, legacyWhite), (blackBerserk, legacyBlack))
@@ -153,7 +152,7 @@ object BinaryFormat:
     def readConfig(ba: ByteArray): Option[Clock.Config] =
       ba.value match
         case Array(b1, b2, _*) => Clock.Config(readClockLimit(b1), Clock.IncrementSeconds(b2)).some
-        case _                 => None
+        case _ => None
 
     def readClockLimit(i: Int) = Clock.LimitSeconds(if i < 181 then i * 60 else (i - 180) * 15)
 
@@ -163,7 +162,7 @@ object BinaryFormat:
 
       val castleInt = clmt.castles.toSeq.zipWithIndex.foldLeft(0):
         case (acc, (false, _)) => acc
-        case (acc, (true, p))  => acc + (1 << (3 - p))
+        case (acc, (true, p)) => acc + (1 << (3 - p))
 
       def posInt(pos: Square): Int = (pos.file.value << 3) + pos.rank.value
       val lastMoveInt = clmt.lastMove.map(_.origDest).fold(0) { (o, d) =>
@@ -218,9 +217,6 @@ object BinaryFormat:
           intPiece(int).map(pos -> _)
         .to(Map)
 
-    // cache standard start position
-    val standard = write(Position.init(chess.variant.Standard, White).pieces)
-
     private def intToRole(int: Int, variant: Variant): Option[Role] =
       int match
         case 6 => Some(Pawn)
@@ -231,13 +227,13 @@ object BinaryFormat:
         case 5 => Some(Bishop)
         // Legacy from when we used to have an 'Antiking' piece
         case 7 if variant.antichess => Some(King)
-        case _                      => None
+        case _ => None
     private def roleToInt(role: Role): Int =
       role match
-        case Pawn   => 6
-        case King   => 1
-        case Queen  => 2
-        case Rook   => 3
+        case Pawn => 6
+        case King => 1
+        case Queen => 2
+        case Rook => 3
         case Knight => 4
         case Bishop => 5
 
@@ -260,8 +256,8 @@ object BinaryFormat:
 
     private val arrIndexes = 0 to 1
     private val bitIndexes = 0 to 7
-    private val whiteStd   = Set(Square.A1, Square.H1)
-    private val blackStd   = Set(Square.A8, Square.H8)
+    private val whiteStd = Set(Square.A1, Square.H1)
+    private val blackStd = Set(Square.A8, Square.H8)
 
     def read(ba: ByteArray) =
       var set = Set.empty[Square]

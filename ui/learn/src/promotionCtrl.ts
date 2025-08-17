@@ -1,4 +1,4 @@
-import type { PiecesDiff } from 'chessground/types';
+import type { PiecesDiff } from '@lichess-org/chessground/types';
 import type { PromotionRole } from './util';
 import { type WithGround } from 'lib/game/ground';
 

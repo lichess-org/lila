@@ -1,12 +1,12 @@
 package lila.study
 
-import chess.format.pgn.{ Comment as ChessComment, Glyphs, ParsedPgn, PgnNodeData, PgnStr, Tags, Tag }
+import chess.format.pgn.{ Comment as CommentStr, Glyphs, ParsedPgn, PgnNodeData, PgnStr, Tags, Tag }
 import chess.format.{ Fen, Uci, UciCharPair }
 import chess.{ ByColor, Centis, ErrorStr, Node as PgnNode, Outcome, Status, TournamentClock, Ply }
 
 import lila.core.LightUser
 import lila.tree.Node.{ Comment, Comments, Shapes }
-import lila.tree.{ Branch, Branches, ImportResult, Root, Clock }
+import lila.tree.{ Branch, Branches, ImportResult, ParseImport, Root, Clock }
 
 object StudyPgnImport:
 
@@ -18,14 +18,14 @@ object StudyPgnImport:
   )
 
   def result(pgn: PgnStr, contributors: List[LightUser]): Either[ErrorStr, Result] =
-    lila.tree.parseImport(pgn).map(result(_, contributors))
+    ParseImport.full(pgn).map(result(_, contributors))
 
   def result(importResult: ImportResult, contributors: List[LightUser]): Result =
     import importResult.{ replay, initialFen, parsed }
     val annotator = findAnnotator(parsed, contributors)
 
     val timeControl = parsed.tags.timeControl
-    val clock       = timeControl.map(_.limit).map(Clock(_, trust = true.some))
+    val clock = timeControl.map(_.limit).map(Clock(_, trust = true.some))
     parseComments(parsed.initialPosition.comments, annotator) match
       case (shapes, _, _, comments) =>
         val root = Root(
@@ -96,10 +96,10 @@ object StudyPgnImport:
   def endComment(end: Ending): Comment =
     import end.*
     val text = s"$resultText $statusText"
-    Comment(Comment.Id.make, Comment.Text(text), Comment.Author.Lichess)
+    Comment(Comment.Id.make, CommentStr(text), Comment.Author.Lichess)
 
   def parseComments(
-      comments: List[ChessComment],
+      comments: List[CommentStr],
       annotator: Option[Comment.Author]
   ): (Shapes, Option[Centis], Option[Centis], Comments) =
     comments.foldLeft((Shapes(Nil), none[Centis], none[Centis], Comments(Nil))):
@@ -110,10 +110,8 @@ object StudyPgnImport:
               (shapes ++ s),
               c.orElse(clock),
               e.orElse(emt),
-              str.trim match
-                case "" => comments
-                case com =>
-                  comments + Comment(Comment.Id.make, Comment.Text(com), annotator | Comment.Author.Lichess)
+              str.trimNonEmpty.fold(comments): com =>
+                comments + Comment(Comment.Id.make, com, annotator | Comment.Author.Lichess)
             )
 
   private def makeBranches(
@@ -138,12 +136,12 @@ object StudyPgnImport:
         .fold(
           _ => none, // illegal move; stop here.
           moveOrDrop =>
-            val position                       = moveOrDrop.after
-            val currentPly                     = context.ply.next
-            val uci                            = moveOrDrop.toUci
-            val sanStr                         = moveOrDrop.toSanStr
+            val position = moveOrDrop.after
+            val currentPly = context.ply.next
+            val uci = moveOrDrop.toUci
+            val sanStr = moveOrDrop.toSanStr
             val (shapes, clock, emt, comments) = parseComments(node.value.metas.comments, annotator)
-            val mover                          = !position.color
+            val mover = !position.color
             val computedClock: Option[Clock] = clock
               .map(Clock(_, trust = true.some))
               .orElse:

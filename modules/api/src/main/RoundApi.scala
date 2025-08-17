@@ -45,8 +45,8 @@ final private[api] class RoundApi(
   )(using ctx: Context): Fu[JsObject] = {
     for
       initialFen <- gameRepo.initialFen(pov.game)
-      users      <- users.orLoad(userApi.gamePlayers(pov.game.userIdPair, pov.game.perfKey))
-      prefs      <- prefApi.get(users.map(_.map(_.user)), pov.color, ctx.pref)
+      users <- users.orLoad(userApi.gamePlayers(pov.game.userIdPair, pov.game.perfKey))
+      prefs <- prefApi.get(users.map(_.map(_.user)), pov.color, ctx.pref)
       (json, simul, swiss, note, forecast, bookmarked) <-
         (
           jsonView.playerJson(pov, prefs, users, initialFen, ctxFlags),
@@ -212,7 +212,7 @@ final private[api] class RoundApi(
     json.add(
       "puzzle" -> opening
         .map {
-          case Left(p)  => (p.family.key.toString, p.family.name.value, p.count)
+          case Left(p) => (p.family.key.toString, p.family.name.value, p.count)
           case Right(p) => (p.opening.key.toString, p.opening.name.value, p.count)
         }
         .map { case (key, name, count) =>
@@ -244,8 +244,8 @@ final private[api] class RoundApi(
     json.add("tournament" -> viewO.map { v =>
       Json
         .obj(
-          "id"      -> v.tour.id,
-          "name"    -> v.tour.name(full = false),
+          "id" -> v.tour.id,
+          "name" -> v.tour.name(full = false),
           "running" -> v.tour.isStarted
         )
         .add("secondsToFinish" -> v.tour.isStarted.option(v.tour.secondsToFinish))
@@ -267,7 +267,7 @@ final private[api] class RoundApi(
             .map: id =>
               getLightTeam(id).fold(Json.obj("name" -> id)): team =>
                 Json.obj(
-                  "name"  -> team.name,
+                  "name" -> team.name,
                   "flair" -> team.flair
                 )
         )
@@ -277,7 +277,7 @@ final private[api] class RoundApi(
     json.add("swiss" -> sv.map: s =>
       Json
         .obj(
-          "id"      -> s.swiss.id,
+          "id" -> s.swiss.id,
           "running" -> s.swiss.isStarted
         )
         .add("ranks" -> s.ranks.map: r =>
@@ -291,9 +291,9 @@ final private[api] class RoundApi(
       "simul",
       simulOption.map: simul =>
         Json.obj(
-          "id"        -> simul.id,
-          "hostId"    -> simul.hostId,
-          "name"      -> simul.name,
+          "id" -> simul.id,
+          "hostId" -> simul.hostId,
+          "name" -> simul.name,
           "nbPlaying" -> simul.playingPairings.size
         )
     )

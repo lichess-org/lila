@@ -1,8 +1,8 @@
 import { parseUci, makeSquare } from 'chessops/util';
 import { isDrop } from 'chessops/types';
 import { winningChances } from 'lib/ceval/ceval';
-import { opposite } from 'chessground/util';
-import type { DrawModifiers, DrawShape } from 'chessground/draw';
+import { opposite } from '@lichess-org/chessground/util';
+import type { DrawModifiers, DrawShape } from '@lichess-org/chessground/draw';
 import { annotationShapes } from 'lib/game/glyphs';
 import type AnalyseCtrl from './ctrl';
 

@@ -80,14 +80,14 @@ final class Report(env: Env, userC: => User, modC: => Mod) extends LilaControlle
   )(using ctx: BodyContext[?], me: Me): Fu[Result] =
     val dataOpt = ctx.body.body match
       case AnyContentAsFormUrlEncoded(data) => data.some
-      case _                                => none
+      case _ => none
     def thenGoTo =
       dataOpt
         .flatMap(_.get("then"))
         .flatMap(_.headOption)
         .flatMap:
           case "profile" => modC.userUrl(inquiry.user, mod = true).some
-          case url       => url.some
+          case url => url.some
     def process() = (!processed).so(api.process(inquiry))
     thenGoTo match
       case Some(url) => process().inject(Redirect(url))
@@ -102,7 +102,7 @@ final class Report(env: Env, userC: => User, modC: => Mod) extends LilaControlle
                 .toggleNext(inquiry.room)
                 .map:
                   case Some(next) => onInquiryStart(next)
-                  case _          => Redirect(routes.Report.listWithFilter(inquiry.room.key))
+                  case _ => Redirect(routes.Report.listWithFilter(inquiry.room.key))
           }
         else if processed then userC.modZoneOrRedirect(inquiry.user)
         else onInquiryStart(inquiry)
@@ -192,13 +192,13 @@ final class Report(env: Env, userC: => User, modC: => Mod) extends LilaControlle
         data =>
           for
             msgs <- env.msg.api.msgsToReport(data.user.id, data.msgs.some)
-            _    <- api.create(data, Reporter(me), msgs.map(_.text))
-            _    <- api.isAutoBlock(data).so(env.relation.api.block(me, data.user.id))
+            _ <- api.create(data, Reporter(me), msgs.map(_.text))
+            _ <- api.isAutoBlock(data).so(env.relation.api.block(me, data.user.id))
           yield Redirect(routes.Report.thanks).flashing("reported" -> data.user.name.value)
       )
   }
 
-  def flag = AuthBody { _ ?=> me ?=>
+  def flag = AuthOrScopedBody(_.Web.Mobile) { _ ?=> me ?=>
     bindForm(env.report.forms.flag)(
       _ => BadRequest,
       data =>

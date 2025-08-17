@@ -22,7 +22,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
   import lila.game.Game.BSONFields as F
   import lila.game.Player.{ BSONFields as PF, HoldAlert, given }
 
-  def game(gameId: GameId): Fu[Option[Game]]              = coll.byId[Game](gameId)
+  def game(gameId: GameId): Fu[Option[Game]] = coll.byId[Game](gameId)
   def gameFromSecondary(gameId: GameId): Fu[Option[Game]] = coll.secondary.byId[Game](gameId)
 
   def gamesFromSecondary(gameIds: Seq[GameId]): Fu[List[Game]] = gameIds.nonEmpty.so:
@@ -86,6 +86,13 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
       .find(select)
       .sort(Query.sortCreated)
       .cursor[Game](ReadPref.sec)
+
+  def recentFinishedGamesFromSecondary(user: User, max: Max) =
+    coll
+      .find(Query.user(user.id) ++ Query.finished)
+      .sort(Query.sortCreated)
+      .cursor[Game](ReadPref.sec)
+      .list(max.value)
 
   def ongoingByUserIdsCursor(userIds: Set[UserId]) =
     coll
@@ -221,7 +228,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
           List(0, 1).map: rem =>
             $doc(
               s"${F.playingUids}.$rem" -> userId,
-              F.turns                  -> $doc("$mod" -> $arr(2, rem))
+              F.turns -> $doc("$mod" -> $arr(2, rem))
             )
       )
     )
@@ -335,8 +342,8 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
             p.gameId -> p.color
           }.toMap
           val holds = for
-            doc   <- docs
-            id    <- doc.getAsOpt[GameId]("_id")
+            doc <- docs
+            id <- doc.getAsOpt[GameId]("_id")
             color <- idColors.get(id)
             holds <- holdAlertOf(doc, color)
           yield id -> holds
@@ -354,11 +361,11 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
   private def holdAlertField(color: Color) = s"p${color.fold(0, 1)}.${PF.holdAlert}"
 
   private val finishUnsets = $doc(
-    F.positionHashes               -> true,
-    F.playingUids                  -> true,
-    F.unmovedRooks                 -> true,
-    ("p0." + PF.isOfferingDraw)    -> true,
-    ("p1." + PF.isOfferingDraw)    -> true,
+    F.positionHashes -> true,
+    F.playingUids -> true,
+    F.unmovedRooks -> true,
+    ("p0." + PF.isOfferingDraw) -> true,
+    ("p1." + PF.isOfferingDraw) -> true,
     ("p0." + PF.proposeTakebackAt) -> true,
     ("p1." + PF.proposeTakebackAt) -> true
   )
@@ -370,9 +377,9 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
         nonEmptyMod(
           "$set",
           $doc(
-            F.winnerId    -> winnerId,
+            F.winnerId -> winnerId,
             F.winnerColor -> winnerColor.map(_.white),
-            F.status      -> status
+            F.status -> status
           )
         ) ++ $doc(
           "$unset" -> finishUnsets.++ {
@@ -386,18 +393,16 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
 
   def findRandomStandardCheckmate(distribution: Int): Fu[Option[Game]] =
     coll
-      .find(
-        Query.mate ++ Query.variantStandard
-      )
+      .find(Query.mate ++ Query.variantStandard)
       .sort(Query.sortCreated)
       .skip(ThreadLocalRandom.nextInt(distribution))
       .one[Game]
 
   def insertDenormalized(g: Game, initialFen: Option[Fen.Full] = None): Funit =
     val g2 =
-      if g.rated && (g.userIds.distinct.size != 2 ||
+      if g.rated.yes && (g.userIds.distinct.size != 2 ||
           !lila.core.game.allowRated(g.variant, g.clock.map(_.config)))
-      then g.copy(mode = chess.Mode.Casual)
+      then g.copy(rated = chess.Rated.No)
       else g
     val userIds = g2.userIds.distinct
     val fen: Option[Fen.Full] = initialFen.orElse:
@@ -410,8 +415,8 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
       else if g2.hasClock then 1.some
       else some(24 * 10)
     val bson = (gameHandler.write(g2)) ++ $doc(
-      F.initialFen  -> fen,
-      F.checkAt     -> checkInHours.map(nowInstant.plusHours(_)),
+      F.initialFen -> fen,
+      F.checkAt -> checkInHours.map(nowInstant.plusHours(_)),
       F.playingUids -> (g2.started && userIds.nonEmpty).option(userIds)
     )
     coll.insert
@@ -461,7 +466,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
     if game.sourceIs(_.Import) || !game.variant.standardInitialPosition then
       initialFen(game.id).dmap:
         case None if game.variant == chess.variant.Chess960 => Fen.initial.some
-        case fen                                            => fen
+        case fen => fen
     else fuccess(none)
 
   def gameWithInitialFen(gameId: GameId): Fu[Option[WithInitialFen]] =
@@ -476,7 +481,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
     games.parallel: game =>
       initialFen(game).dmap { game -> _ }
 
-  def count(query: Query.type => Bdoc): Fu[Int]    = coll.countSel(query(Query))
+  def count(query: Query.type => Bdoc): Fu[Int] = coll.countSel(query(Query))
   def countSec(query: Query.type => Bdoc): Fu[Int] = coll.secondary.countSel(query(Query))
 
   private[game] def favoriteOpponents(
@@ -494,7 +499,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
           Project(
             $doc(
               F.playerUids -> true,
-              F.id         -> false
+              F.id -> false
             )
           ),
           UnwindField(F.playerUids),
@@ -558,7 +563,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
       .list(nb)
 
   def deleteAllSinglePlayerOf(id: UserId): Fu[List[GameId]] = for
-    aiIds     <- coll.primitive[GameId](Query.user(id) ++ Query.hasAi, "_id")
+    aiIds <- coll.primitive[GameId](Query.user(id) ++ Query.hasAi, "_id")
     importIds <- coll.primitive[GameId](Query.imported(id), "_id")
     allIds = aiIds ::: importIds
     _ <- coll.delete.one($inIds(allIds))

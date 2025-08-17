@@ -1,6 +1,6 @@
 package lila.setup
 
-import chess.Clock
+import chess.{ Clock, Rated }
 import chess.format.Fen
 import chess.variant.Variant
 import play.api.data.*
@@ -23,14 +23,14 @@ object SetupForm:
 
   lazy val ai = Form:
     mapping(
-      "variant"   -> aiVariants,
-      "timeMode"  -> timeMode,
-      "time"      -> time,
+      "variant" -> aiVariants,
+      "timeMode" -> timeMode,
+      "time" -> time,
       "increment" -> increment,
-      "days"      -> days,
-      "level"     -> level,
-      "color"     -> color,
-      "fen"       -> fenField
+      "days" -> days,
+      "level" -> level,
+      "color" -> color,
+      "fen" -> fenField
     )(AiConfig.from)(_.>>)
       .verifying("invalidFen", _.validFen)
       .verifying("Can't play that time control from a position", _.timeControlFromPosition)
@@ -41,14 +41,14 @@ object SetupForm:
 
   def friend(using me: Option[Me]) = Form:
     mapping(
-      "variant"   -> variantWithFenAndVariants,
-      "timeMode"  -> timeMode,
-      "time"      -> time,
+      "variant" -> variantWithFenAndVariants,
+      "timeMode" -> timeMode,
+      "time" -> time,
       "increment" -> increment,
-      "days"      -> days,
-      "mode"      -> mode(withRated = me.isDefined),
-      "color"     -> color,
-      "fen"       -> fenField
+      "days" -> days,
+      "mode" -> mode(withRated = me.isDefined),
+      "color" -> color,
+      "fen" -> fenField
     )(FriendConfig.from)(_.>>)
       .verifying("Invalid clock", _.validClock)
       .verifying("Invalid speed", _.validSpeed(me.exists(_.isBot)))
@@ -60,27 +60,27 @@ object SetupForm:
 
   def hook(using me: Option[Me]) = Form:
     mapping(
-      "variant"     -> variantWithVariants,
-      "timeMode"    -> timeMode,
-      "time"        -> time,
-      "increment"   -> increment,
-      "days"        -> days,
-      "mode"        -> mode(me.isDefined),
+      "variant" -> variantWithVariants,
+      "timeMode" -> timeMode,
+      "time" -> time,
+      "increment" -> increment,
+      "days" -> days,
+      "mode" -> mode(me.isDefined),
       "ratingRange" -> optional(ratingRange),
-      "color"       -> lila.common.Form.empty
+      "color" -> lila.common.Form.empty
     )(HookConfig.from)(_.>>)
       .verifying("Invalid clock", _.validClock)
       .verifying("Can't create rated unlimited game", !_.isRatedUnlimited)
 
   private lazy val boardApiHookBase: Mapping[HookConfig] =
     mapping(
-      "time"        -> optional(time),
-      "increment"   -> optional(increment),
-      "days"        -> optional(days),
-      "variant"     -> optional(boardApiVariantKeys),
-      "rated"       -> optional(boolean),
+      "time" -> optional(time),
+      "increment" -> optional(increment),
+      "days" -> optional(days),
+      "variant" -> optional(boardApiVariantKeys),
+      "rated" -> optional(boolean.into[Rated]),
       "ratingRange" -> optional(ratingRange),
-      "color"       -> optional(color)
+      "color" -> optional(color)
     )((t, i, d, v, r, g, c) =>
       HookConfig(
         variant = Variant.orDefault(v),
@@ -88,7 +88,7 @@ object SetupForm:
         time = t | 10,
         increment = i | Clock.IncrementSeconds(5),
         days = d | Days(7),
-        mode = chess.Mode(~r),
+        rated = r | Rated.No,
         ratingRange = g.fold(RatingRange.default)(RatingRange.orDefault),
         color = lila.lobby.TriColor.orDefault(c)
       )
@@ -110,7 +110,7 @@ object SetupForm:
 
     lazy val clockMapping =
       mapping(
-        "limit"     -> number.into[Clock.LimitSeconds].verifying(ApiConfig.clockLimitSeconds.contains),
+        "limit" -> number.into[Clock.LimitSeconds].verifying(ApiConfig.clockLimitSeconds.contains),
         "increment" -> increment
       )(Clock.Config.apply)(unapply)
         .verifying("Invalid clock", c => c.estimateTotalTime > chess.Centis(0))
@@ -145,9 +145,9 @@ object SetupForm:
         variant,
         clock,
         optionalDays,
-        "rated" -> boolean,
+        "rated" -> boolean.into[Rated],
         "color" -> optional(color),
-        "fen"   -> fenField,
+        "fen" -> fenField,
         message,
         "keepAliveStream" -> optional(boolean),
         rules,
@@ -163,7 +163,7 @@ object SetupForm:
         clock,
         optionalDays,
         "color" -> optional(color),
-        "fen"   -> fenField
+        "fen" -> fenField
       )(ApiAiConfig.from)(_ => none).verifying("invalidFen", _.validFen)
 
     def open(isAdmin: Boolean) = Form:
@@ -177,8 +177,8 @@ object SetupForm:
       variant,
       clock,
       optionalDays,
-      "rated" -> boolean,
-      "fen"   -> fenField,
+      "rated" -> boolean.into[Rated],
+      "fen" -> fenField,
       "users" -> optional:
         LilaForm.strings
           .separator(",")
@@ -191,4 +191,4 @@ object SetupForm:
           .verifying("Open challenges must expire within 2 weeks", _.isBefore(nowInstant.plusWeeks(2)))
     )(OpenConfig.from)(_ => none)
       .verifying("invalidFen", _.validFen)
-      .verifying("rated without a clock", c => c.clock.isDefined || c.days.isDefined || !c.rated)
+      .verifying("rated without a clock", c => c.clock.isDefined || c.days.isDefined || c.rated.no)

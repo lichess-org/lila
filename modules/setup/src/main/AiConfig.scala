@@ -37,7 +37,7 @@ case class AiConfig(
               if creatorColor == c
               then newPlayer(c, user)
               else newPlayer.anon(c, level.some),
-            mode = chess.Mode.Casual,
+            rated = chess.Rated.No,
             source = if chessGame.position.variant.fromPosition then Source.Position else Source.Ai,
             daysPerTurn = makeDaysPerTurn,
             pgnImport = None
@@ -107,11 +107,11 @@ object AiConfig extends BaseConfig:
 
     def writes(w: BSON.Writer, o: AiConfig) =
       $doc(
-        "v"  -> o.variant.id,
+        "v" -> o.variant.id,
         "tm" -> o.timeMode.id,
-        "t"  -> o.time,
-        "i"  -> o.increment,
-        "d"  -> o.days,
-        "l"  -> o.level,
-        "f"  -> o.fen
+        "t" -> o.time,
+        "i" -> o.increment,
+        "d" -> o.days,
+        "l" -> o.level,
+        "f" -> o.fen
       )

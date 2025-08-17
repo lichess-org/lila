@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="communityBlogs">บล็อกของชุมชน</string>
-  <string name="friendBlogs">บล็อกของเพื่อน</string>
+  <string name="community">ชุมชน</string>
+  <string name="byMonth">ตามเดือน</string>
+  <string name="byTopic">ตามหัวข้อ</string>
+  <string name="byLichess">โดย Lichess</string>
+  <string name="myFriends">เพื่อนของฉัน</string>
+  <string name="myLikes">การกดชอบ</string>
   <string name="likedBlogs">ชอบบล็อกโพสต์</string>
-  <string name="blogTopics">หัวข้อบล็อก</string>
-  <string name="lichessOfficialBlog">บล็อกทางการของ Lichess</string>
   <string name="continueReadingPost">อ่านโพสต์นี้ต่อ</string>
   <string name="lichessBlogPostsFromXYear">บล็อกโพสต์ของ Lichessใน %s</string>
   <string name="previousBlogPosts">บล็อกโพสต์ที่แล้ว</string>

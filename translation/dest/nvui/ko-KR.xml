@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="moveList">수 목록</string>
+  <string name="gameInfo">게임 정보</string>
+  <string name="pieces">기물</string>
+  <string name="gameStatus">게임 상태</string>
+  <string name="lastMove">마지막 수</string>
+  <string name="inputForm">입력 폼</string>
+  <string name="actions">액션들</string>
+  <string name="yourClock">내 시계</string>
+  <string name="opponentClock">상대 시계</string>
+  <string name="gameStart">대국 시작</string>
+  <string name="announceCurrentSquare">현재 칸 발표.</string>
+  <string name="announceLastMove">마지막 수 발표.</string>
+  <string name="announceLastMoveCapture">마지막 수에 잡힌 기물 발표.</string>
+  <string name="announcePossibleMoves">현재 선택된 기물의 가능한 수 발표.</string>
+  <string name="moveWithArrows">좌측, 우측, 위쪽, 또는 아래쪽에 인접한 칸으로 이동.</string>
+  <string name="movePiece">기물을 움직일려면, 기본 대수 기보 표기법을 사용하세요.</string>
+</resources>

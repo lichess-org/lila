@@ -221,7 +221,7 @@ interface I18n {
     viewAllXTeams: I18nPlural;
     /** Which team will you represent in this battle? */
     whichTeamWillYouRepresentInThisBattle: string;
-    /** You will be notified when the tournament starts, so it is safe to play in another tab while waiting. */
+    /** You will be notified when the tournament starts, so feel free to leave this tab idle. */
     willBeNotified: string;
     /** You must join one of these teams to participate! */
     youMustJoinOneOfTheseTeamsToParticipate: string;
@@ -247,6 +247,10 @@ interface I18n {
     broadcastCalendar: string;
     /** Broadcasts */
     broadcasts: string;
+    /** Community broadcast */
+    communityBroadcast: string;
+    /** Created and managed by %s. */
+    createdAndManagedBy: I18nFormat;
     /** Current game URL */
     currentGameUrl: string;
     /** Definitively delete the round and all its games. */
@@ -265,8 +269,6 @@ interface I18n {
     editRoundStudy: string;
     /** Embed this broadcast in your website */
     embedThisBroadcast: string;
-    /** Embed %s in your website */
-    embedThisRound: I18nFormat;
     /** Federation */
     federation: string;
     /** FIDE federations */
@@ -319,8 +321,6 @@ interface I18n {
     overview: string;
     /** Past broadcasts */
     pastBroadcasts: string;
-    /** A public, real-time PGN source for this round. We also offer a %s for faster and more efficient synchronisation. */
-    pgnSourceHelp: I18nFormat;
     /** Rating diff */
     ratingDiff: string;
     /** Recent tournaments */
@@ -345,8 +345,6 @@ interface I18n {
     sourceSingleUrl: string;
     /** URL that Lichess will check to get PGN updates. It must be publicly accessible from the Internet. */
     sourceUrlHelp: string;
-    /** Standings */
-    standings: string;
     /** Optional, if you know when the event starts */
     startDateHelp: string;
     /** Start date in the tournament local timezone: %s */
@@ -1215,8 +1213,6 @@ interface I18n {
     viewSiteInformationPopUp: string;
     /** Watch International Master Eric Rosen checkmate %s. */
     watchIMRosenCheckmate: I18nFormat;
-    /** To get it, hiimgosu challenged himself to berserk and win all games of %s. */
-    wayOfBerserkExplanation: I18nFormat;
     /** Unfortunately, we cannot give back rating points for games lost due to lag or disconnection, regardless of whether the problem was at your end or our end. The latter is very rare though. Also note that when Lichess restarts and you lose on time because of that, we abort the game to prevent an unfair loss. */
     weCannotDoThatEvenIfItIsServerSideButThatsRare: string;
     /** We repeated a position three times. Why was the game not drawn? */
@@ -1741,22 +1737,124 @@ interface I18n {
   nvui: {
     /** Actions */
     actions: string;
+    /** Announce current square. */
+    announceCurrentSquare: string;
+    /** Announce last move. */
+    announceLastMove: string;
+    /** Announce piece captured in last move. */
+    announceLastMoveCapture: string;
+    /** Announce locations of pieces. Example: p capital N for white knights, p lowercase k for black king, p capital A for all white pieces. */
+    announcePieceLocations: string;
+    /** Announce pieces on a rank or a file. Example: s a, s 1. */
+    announcePiecesOnRankOrFile: string;
+    /** Announce possible captures with selected piece. */
+    announcePossibleCaptures: string;
+    /** Announce possible moves for the selected piece. */
+    announcePossibleMoves: string;
+    /** bishop */
+    bishop: string;
+    /** black bishop */
+    blackBishop: string;
+    /** black king */
+    blackKing: string;
+    /** black knight */
+    blackKnight: string;
+    /** black pawn */
+    blackPawn: string;
+    /** black queen */
+    blackQueen: string;
+    /** black rook */
+    blackRook: string;
+    /** Command list when the board has focus */
+    boardCommandList: string;
+    /** %s copied to clipboard */
+    copiedToClipboard: I18nFormat;
+    /** Copy %s to clipboard */
+    copyToClipboard: I18nFormat;
     /** Featured events */
     featuredEvents: string;
     /** Game info */
     gameInfo: string;
+    /** Game start */
+    gameStart: string;
     /** Game status */
     gameStatus: string;
-    /** Input form */
+    /** Go to the board. Default square is e-4. You can specify a square: board a-1 or b a-1 will take you to square a-1. */
+    goToBoard: string;
+    /** Go to the command input form. */
+    goToInputForm: string;
+    /** Command input form */
     inputForm: string;
+    /** Type these commands in the command input form. */
+    inputFormCommandList: string;
+    /** Invalid move */
+    invalidMove: string;
+    /** king */
+    king: string;
+    /** knight */
+    knight: string;
     /** Last move */
     lastMove: string;
     /** Move list */
     moveList: string;
+    /** To move a piece, use standard algebraic notation. */
+    movePiece: string;
+    /** Move to file a to h. */
+    moveToFile: string;
+    /** Move to squares using piece names. For example: repeated k will move to every square where there is a knight. Use uppercase to invert order. */
+    moveToPieceByType: string;
+    /** Move to rank 1 to 8. */
+    moveToRank: string;
+    /** Move to adjacent square left, right, up or down. */
+    moveWithArrows: string;
     /** Opponent clock */
     opponentClock: string;
+    /** pawn */
+    pawn: string;
+    /** PGN and FEN */
+    pgnAndFen: string;
     /** Pieces */
     pieces: string;
+    /** Pockets */
+    pockets: string;
+    /** Premove cancelled */
+    premoveCancelled: string;
+    /** Premove recorded: %s. Hit enter to cancel */
+    premoveRecorded: I18nFormat;
+    /** To promote to anything else than a queen, use equals. For example a-8-equals-n promotes to a knight. */
+    promotion: string;
+    /** queen */
+    queen: string;
+    /** rook */
+    rook: string;
+    /** check */
+    sanCheck: string;
+    /** checkmate */
+    sanCheckmate: string;
+    /** is dropped on */
+    sanDroppedOn: string;
+    /** long castling */
+    sanLongCastling: string;
+    /** promotes to */
+    sanPromotesTo: string;
+    /** short castling */
+    sanShortCastling: string;
+    /** K Q R B N x */
+    sanSymbols: string;
+    /** takes */
+    sanTakes: string;
+    /** white bishop */
+    whiteBishop: string;
+    /** white king */
+    whiteKing: string;
+    /** white knight */
+    whiteKnight: string;
+    /** white pawn */
+    whitePawn: string;
+    /** white queen */
+    whiteQueen: string;
+    /** white rook */
+    whiteRook: string;
     /** Your clock */
     yourClock: string;
   };
@@ -2289,10 +2387,6 @@ interface I18n {
     fromMyGames: string;
     /** You have no puzzles in the database, but Lichess still loves you very much. */
     fromMyGamesNone: string;
-    /** Puzzles from %s' games */
-    fromXGames: I18nFormat;
-    /** %1$s puzzles found in %2$s games */
-    fromXGamesFound: I18nFormat;
     /** Goals */
     goals: string;
     /** Good move */
@@ -2363,6 +2457,8 @@ interface I18n {
     puzzles: string;
     /** Puzzles by openings */
     puzzlesByOpenings: string;
+    /** %1$s puzzles found in games by %2$s */
+    puzzlesFoundInUserGames: I18nPlural;
     /** Success! */
     puzzleSuccess: string;
     /** Puzzle Themes */
@@ -3035,6 +3131,8 @@ interface I18n {
     copyMainLinePgn: string;
     /** Copy and paste the above text and send it to %s */
     copyTextToEmail: I18nFormat;
+    /** Copy to clipboard */
+    copyToClipboard: string;
     /** Copy variation PGN */
     copyVariationPgn: string;
     /** Correspondence */
@@ -3053,8 +3151,6 @@ interface I18n {
     createANewTopic: string;
     /** Create a new tournament */
     createANewTournament: string;
-    /** Created by */
-    createdBy: string;
     /** Newly created simuls */
     createdSimuls: string;
     /** Create the game */
@@ -3211,7 +3307,7 @@ interface I18n {
     'error.minLength': I18nFormat;
     /** Please don't use your username as your password. */
     'error.namePassword': string;
-    /** Please provide at least one link to a cheated game. */
+    /** Please provide at least one link to a game with suspected cheating. */
     'error.provideOneCheatedGameLink': string;
     /** This field is required */
     'error.required': string;
@@ -3389,6 +3485,8 @@ interface I18n {
     itsYourTurn: string;
     /** Join */
     join: string;
+    /** Joined %s */
+    joinedX: I18nFormat;
     /** Join the game */
     joinTheGame: string;
     /** Join the %1$s, to post in this forum */
@@ -4053,8 +4151,8 @@ interface I18n {
     standard: string;
     /** Stand by %s, pairing players, get ready! */
     standByX: I18nFormat;
-    /** Standing */
-    standing: string;
+    /** Standings */
+    standings: string;
     /** started streaming */
     startedStreaming: string;
     /** Starting: */
@@ -5503,10 +5601,14 @@ interface I18n {
     blogPosts: I18nPlural;
     /** Our simple tips to write great blog posts */
     blogTips: string;
-    /** Blog topics */
-    blogTopics: string;
-    /** Community blogs */
-    communityBlogs: string;
+    /** By Lichess */
+    byLichess: string;
+    /** By month */
+    byMonth: string;
+    /** By topic */
+    byTopic: string;
+    /** Community */
+    community: string;
     /** Continue reading this post */
     continueReadingPost: string;
     /** Enable comments */
@@ -5521,8 +5623,6 @@ interface I18n {
     drafts: string;
     /** Edit your blog post */
     editYourBlogPost: string;
-    /** Friends blogs */
-    friendBlogs: string;
     /** Image alternative text */
     imageAlt: string;
     /** Image credit */
@@ -5531,16 +5631,16 @@ interface I18n {
     inappropriateContentAccountClosed: string;
     /** Latest blog posts */
     latestBlogPosts: string;
-    /** Lichess blog */
-    lichessBlog: string;
     /** Lichess blog posts in %s */
     lichessBlogPostsFromXYear: I18nFormat;
-    /** Lichess Official Blog */
-    lichessOfficialBlog: string;
     /** Liked blog posts */
     likedBlogs: string;
     /** My blog */
     myBlog: string;
+    /** My friends */
+    myFriends: string;
+    /** My likes */
+    myLikes: string;
     /** %s views */
     nbViews: I18nPlural;
     /** New post */

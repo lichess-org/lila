@@ -463,7 +463,6 @@
   <string name="openTournaments">खुली क्रीडासत्रे</string>
   <string name="duration">कालावधी</string>
   <string name="winner">विजेता</string>
-  <string name="standing">पद</string>
   <string name="createANewTournament">नवीन क्रीडासत्र तयार करा</string>
   <string name="tournamentCalendar">क्रीडासत्र दिनदर्शिका</string>
   <string name="conditionOfEntry">प्रवेशाच्या आवश्यकता:</string>
@@ -477,7 +476,6 @@
   <string name="points">गुण</string>
   <string name="wins">एकूण  विजय</string>
   <string name="losses">एकूण  पराभव</string>
-  <string name="createdBy">निर्माता</string>
   <string name="standByX">जरा थांबा %s, खेळाडूंच्या जोड्या लागत आहेत, तयार रहा!</string>
   <string name="pause">विराम</string>
   <string name="resume">परत सुरू करा</string>

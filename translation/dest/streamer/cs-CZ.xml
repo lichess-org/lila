@@ -33,7 +33,7 @@
   <string name="streamerLanguageSettings">Stránka lichess pro streamery zaměřuje vaše publikum dle jazyka vybraného na vaši streamovací platformě. Nastavte si proto správný jazyk pro vaše vysílání v aplikaci nebo službě kterou používáte pro vysílání.</string>
   <string name="twitchUsername">Vaše uživatelské jméno na Twitch nebo URL</string>
   <string name="twitchOrYouTubeRequired" comment="A notice when creating/editing your streamer page (https://lichess.org/streamer/edit), denoting that you can only be listed if you stream from a Twitch or YouTube channel.">Je vyžadován Twitch nebo YouTube</string>
-  <string name="twitchOrYouTubeMustBeVerified">Změny Twitch a YouTube musí být ověřeny.
+  <string name="twitchOrYouTubeMustBeVerified" comment="For background: The &quot;streamer badge&quot; refers to the microphone icon on the streamer's profile (https://lichess.org/@/Lichess).&#10;The listing is the streamer's page that appears at https://lichess.org/streamer">Změny Twitch a YouTube musí být ověřeny.
   
   Váš odznak streamera a stránka streamera budou pozastaveny během procesu přezkumu. To může trvat až 72 hodin.</string>
   <string name="youTubeChannelId">ID nebo URL adresa vašeho YouTube kanálu</string>

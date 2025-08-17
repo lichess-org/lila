@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="communityBlogs">مدونات المجتمع</string>
-  <string name="friendBlogs">مدونات الأصدقاء</string>
+  <string name="myBlog">مدونتي</string>
   <string name="likedBlogs">المنشورات التي أحببتها</string>
-  <string name="blogTopics">مواضيع المدونة</string>
-  <string name="lichessOfficialBlog">مدونة Lichess الرسمية</string>
+  <plurals name="blogPosts">
+    <item quantity="zero">%s منشور في المدونة</item>
+    <item quantity="one">%s منشور في المدونة</item>
+    <item quantity="two">%s منشور في المدونة</item>
+    <item quantity="few">%s منشورات في المدونة</item>
+    <item quantity="many">%s منشورات في المدونة</item>
+    <item quantity="other">%s منشورات في المدونة</item>
+  </plurals>
   <string name="continueReadingPost">تابع قراءة هذا المنشور</string>
   <string name="lichessBlogPostsFromXYear">تجد منشورات مدونة ليتشيس %s</string>
   <string name="previousBlogPosts">مشاركات المدونة السابقة</string>
@@ -21,6 +26,8 @@
   <string name="createBlogDiscussionHelp">سيوضع منتدى للأشخاص الذين يريدون التعليق على مشاركتك</string>
   <string name="publishOnYourBlog">المنشور على مدونتك</string>
   <string name="publishHelp">إذا تم تحديد الخيار سيتم نشر المقال على مدونتك، اذا لم يتم تحديد الخيار سيتم حفظها بشكل خاص في مسوداتك</string>
+  <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">منشور مثبت</string>
+  <string name="stickyPostHelp">إذا تم الاختيار، سيتم إدراج هذا المنشور أولاً في منشورات ملفك الشخصية الحديثة وعلى مدونتك.</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="zero">نشر %s منشور مدونة</item>
     <item quantity="one">نشر %s منشور مدونة</item>

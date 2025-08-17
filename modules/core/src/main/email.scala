@@ -15,7 +15,7 @@ object email:
 
       def conceal = e.split('@') match
         case Array(name, domain) => s"${name.take(3)}*****@$domain"
-        case _                   => e
+        case _ => e
 
       def normalize = NormalizedEmailAddress: // changing normalization requires database migration!
         val lower = e.toLowerCase
@@ -31,7 +31,7 @@ object email:
       def domain: Option[Domain] =
         e.split('@') match
           case Array(_, domain) => Domain.from(domain.toLowerCase)
-          case _                => none
+          case _ => none
 
       def nameAndDomain: Option[(String, Domain)] = domain.map: d =>
         e.takeWhile(_ != '@') -> d
@@ -39,8 +39,8 @@ object email:
       def similarTo(other: EmailAddress) =
         e.normalize.eliminateDomainAlias == other.normalize.eliminateDomainAlias
 
-      def isNoReply  = e.startsWith("noreply.") && e.endsWith("@lichess.org")
-      def isBlank    = e.startsWith("noreply.blanked.")
+      def isNoReply = e.startsWith("noreply.") && e.endsWith("@lichess.org")
+      def isBlank = e.startsWith("noreply.blanked.")
       def isSendable = !e.isNoReply && !e.isBlank
 
       def looksLikeFakeEmail =

@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="communityBlogs">Bloguri comunitare</string>
-  <string name="friendBlogs">Bloguri pentru prieteni</string>
-  <string name="lichessBlog">Blogul Lichess</string>
+  <string name="community">Comunitate</string>
+  <string name="byTopic">După subiect</string>
+  <string name="myFriends">Prietenii mei</string>
   <string name="myBlog">Blogul meu</string>
   <string name="likedBlogs">Postări plăcute pe blog</string>
-  <string name="blogTopics">Topicuri de blog</string>
   <plurals name="blogPosts">
     <item quantity="one">O postare blog</item>
     <item quantity="few">%s postări blog</item>
     <item quantity="other">%s postări blog</item>
   </plurals>
-  <string name="lichessOfficialBlog">Blog Oficial Lichess</string>
   <string name="continueReadingPost">Continuă să citești această postare</string>
   <string name="lichessBlogPostsFromXYear">Postări pe blog Lichess în %s</string>
   <string name="previousBlogPosts">Postări anterioare pe blog</string>

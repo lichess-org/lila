@@ -550,7 +550,7 @@
   <string name="openTournaments">Otevřené turnaje</string>
   <string name="duration">Trvání</string>
   <string name="winner">Vítěz</string>
-  <string name="standing">Umístění</string>
+  <string name="standings">Pořadí</string>
   <string name="createANewTournament">Vytvořit turnaj</string>
   <string name="tournamentCalendar">Kalendář turnajů</string>
   <string name="conditionOfEntry">Podmínka vstupu:</string>
@@ -564,7 +564,6 @@
   <string name="points">Body</string>
   <string name="wins">Výhry</string>
   <string name="losses">Prohry</string>
-  <string name="createdBy">Vytvořeno uživatelem</string>
   <string name="startingIn" comment="Displayed above a timer">Začíná za</string>
   <string name="standByX">Vyčkejte %s, vybírám soupeře, připravte se!</string>
   <string name="pause">Pozastavit</string>
@@ -758,7 +757,7 @@
   <string name="really">opravdu</string>
   <string name="contribute">Přispějte</string>
   <string name="termsOfService">Podmínky používání</string>
-  <string name="titleVerification" comment="This is a link to a form that lets players verify either a FIDE or national federation title (NM, etc).">Ověření titulu</string>
+  <string name="titleVerification">Ověření titulu</string>
   <string name="sourceCode">Zdrojový kod</string>
   <string name="simultaneousExhibitions">Simultánky</string>
   <string name="host">Host</string>

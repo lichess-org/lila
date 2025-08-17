@@ -15,7 +15,7 @@ case class RelayPinnedStream(name: String, url: URL, text: Option[String]):
     if List("www.youtube.com", "youtube.com", "youtu.be").contains(url.host.toString) then
       url.pathSegments.asScala.toList match
         case List("live", id) => Some(YouTube(id))
-        case _                => Option(url.queryParameter("v")).map(YouTube.apply)
+        case _ => Option(url.queryParameter("v")).map(YouTube.apply)
     else None
 
   // https://www.twitch.tv/tcec_chess_tv
@@ -25,7 +25,7 @@ case class RelayPinnedStream(name: String, url: URL, text: Option[String]):
       .so:
         url.pathSegments.asScala.toList match
           case List(id) => Twitch(id).some
-          case _        => none
+          case _ => none
 
 object RelayPinnedStream:
   case class Urls(embed: NetDomain => String, redirect: String):

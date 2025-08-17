@@ -114,7 +114,7 @@ final class SimulApi(
                   given Perf = user.perf
                   verify(simul, perfType).flatMap:
                     _.accepted.so:
-                      val player   = SimulPlayer.make(user, variant)
+                      val player = SimulPlayer.make(user, variant)
                       val newSimul = simul.addApplicant(SimulApplicant(player, accepted = false))
                       for _ <- repo.update(newSimul)
                       yield
@@ -191,7 +191,7 @@ final class SimulApi(
         lila.core.socket.makeMessage(
           "simulEnd",
           Json.obj(
-            "id"   -> simul.id,
+            "id" -> simul.id,
             "name" -> simul.name
           )
         )
@@ -243,23 +243,21 @@ final class SimulApi(
   ): Fu[(Game, Color)] = for
     user <- userApi.withPerfs(pairing.player.user).orFail(s"No user with id ${pairing.player.user}")
     hostColor = simul.hostColor | Color.fromWhite(number % 2 == 0)
-    us        = ByColor(host, user)
-    users     = hostColor.fold(us, us.swap)
-    clock     = simul.clock.chessClockOf(hostColor)
-    perfType  = PerfType(pairing.player.variant, chess.Speed(clock.config))
+    us = ByColor(host, user)
+    users = hostColor.fold(us, us.swap)
+    clock = simul.clock.chessClockOf(hostColor)
+    perfType = PerfType(pairing.player.variant, chess.Speed(clock.config))
     game1 = lila.core.game.newGame(
       chess = chess
         .Game(
-          variantOption = Some:
-            if simul.position.isEmpty
-            then pairing.player.variant
-            else chess.variant.FromPosition
-          ,
+          if simul.position.isEmpty
+          then pairing.player.variant
+          else chess.variant.FromPosition,
           fen = simul.position
         )
         .copy(clock = clock.start.some),
       players = users.mapWithColor((c, u) => newPlayer(c, u.only(perfType).some)),
-      mode = chess.Mode.Casual,
+      rated = chess.Rated.No,
       source = lila.core.game.Source.Simul,
       pgnImport = None
     )

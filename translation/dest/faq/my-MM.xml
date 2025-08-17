@@ -7,5 +7,5 @@
   <string name="gameplay">ကစားခြင်း</string>
   <string name="fideHandbookX">FIDE လက်စွဲစာအုပ် %s</string>
   <string name="canIChangeMyUsername">ကျွန်တော့် အသုံးပြုတဲ့ အမည်ကို ပြောင်းခွင့် ရှိပါသလား</string>
-  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">ပြောင်းလဲခွင့် မရှိပါဘူး။ လက်တွေ့ကျတဲ့ အကြောင်းရင်း၊ နည်းပညာပိုင်း အကြောင်းရင်းတွေကြောင့် ဖြစ်ပါတယ်။ အသုံးပြုသူအမည်တွေကို ဒေတာဘေ့စ်တွေ၊ မှတ်တမ်းတွေနဲ့ လူတွေရဲ့ ဦးနှောက်တွေ အပါအဝင် နေရာ အများအပြားမှာ မှတ်ထားပြီးသား ဖြစ်နေလို့ပါ။ အင်္ဂလိပ် စာလုံး အကြီးအသေးကို တစ်ကြိမ် ပြောင်းလဲခွင့် ရှိပါတယ်။</string>
+  <string name="usernamesCannotBeChanged">ပြောင်းလဲခွင့် မရှိပါဘူး။ လက်တွေ့ကျတဲ့ အကြောင်းရင်း၊ နည်းပညာပိုင်း အကြောင်းရင်းတွေကြောင့် ဖြစ်ပါတယ်။ အသုံးပြုသူအမည်တွေကို ဒေတာဘေ့စ်တွေ၊ မှတ်တမ်းတွေနဲ့ လူတွေရဲ့ ဦးနှောက်တွေ အပါအဝင် နေရာ အများအပြားမှာ မှတ်ထားပြီးသား ဖြစ်နေလို့ပါ။ အင်္ဂလိပ် စာလုံး အကြီးအသေးကို တစ်ကြိမ် ပြောင်းလဲခွင့် ရှိပါတယ်။</string>
 </resources>

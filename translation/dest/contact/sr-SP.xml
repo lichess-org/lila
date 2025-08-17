@@ -39,7 +39,7 @@
   <string name="reportMobileIssue">Као проблем Lichess мобилне апликације на GitHub-у</string>
   <string name="reportBugInDiscord">На Lichess Discord серверу</string>
   <string name="howToReportBug">Молимо Вас да опишете како проблем изледа, шта сте очекивали да се деси, и кораке како да се проузрокује.</string>
-  <string name="illegalPawnCapture">Недозвољено једење пешака</string>
+  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">Недозвољено једење пешака</string>
   <string name="calledEnPassant">Назива се \"ан пасан\" и представља једно од правила шаха.</string>
   <string name="tryEnPassant">Испробај ову малу интерактивну игру како би научио више о \"ан пасану\".</string>
   <string name="illegalCastling">Илегална или немогућа рокада</string>

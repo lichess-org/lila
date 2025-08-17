@@ -39,23 +39,23 @@ final private class WebPush(
                 "endpoint" -> sub.endpoint,
                 "keys" -> Json.obj(
                   "p256dh" -> sub.p256dh,
-                  "auth"   -> sub.auth
+                  "auth" -> sub.auth
                 )
               )
             }.toList),
             "payload" -> Json
               .obj(
                 "title" -> data.title,
-                "body"  -> data.body,
-                "tag"   -> data.stacking.key,
+                "body" -> data.body,
+                "tag" -> data.stacking.key,
                 "payload" -> Json
                   .obj("userData" -> data.payload.userData.toMap)
                   .add("userId" -> data.payload.userId)
               )
               .toString,
-            "topic"   -> data.stacking.key,
+            "topic" -> data.stacking.key,
             "urgency" -> data.urgency.key,
-            "ttl"     -> 43200
+            "ttl" -> 43200
           )
         )
         .flatMap:

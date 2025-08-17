@@ -47,7 +47,7 @@ final class FidePlayerApi(repo: FideRepo, cacheApi: lila.memo.CacheApi)(using Ex
         title: Option[PlayerTitle]
     ): Fu[Option[FidePlayer]] = fideId match
       case Some(fideId) => idToPlayerCache.get(fideId)
-      case None         => name.map(TitleName(title, _)).so(cache.get)
+      case None => name.map(TitleName(title, _)).so(cache.get)
 
     private val cache =
       cacheApi[TitleName, Option[FidePlayer]](1024, "player.fidePlayer.byName"):
@@ -60,4 +60,4 @@ final class FidePlayerApi(repo: FideRepo, cacheApi: lila.memo.CacheApi)(using Ex
               .list(2)
               .map:
                 case List(onlyMatch) => onlyMatch.some
-                case _               => none
+                case _ => none

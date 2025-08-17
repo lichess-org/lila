@@ -43,8 +43,8 @@ object PlanBuilder:
           startsAt.minusMinutes(SCHEDULE_DAILY_OVERLAP_MINS).isBefore(si2.endsAt)
         else
           (
-            s1.variant.exotic ||                         // overlapping exotic variant
-              s1.hasMaxRating ||                         // overlapping same rating limit
+            s1.variant.exotic || // overlapping exotic variant
+              s1.hasMaxRating || // overlapping same rating limit
               Schedule.Speed.similar(s1.speed, s2.speed) // overlapping similar
           ) && s1.conditions.similar(s2.conditions) && overlaps(si2)
       )
@@ -60,7 +60,7 @@ object PlanBuilder:
       */
     @throws[IllegalStateException]("if a tourney is incorrectly usurped")
     def conflictsWithFailOnUsurp(scheds: Iterable[ScheduleWithInterval]) =
-      val conflicts   = scheds.filter(conflictsWith).toSeq
+      val conflicts = scheds.filter(conflictsWith).toSeq
       val okConflicts = conflicts.filter(_.schedule.freq >= schedule.freq)
       if conflicts.nonEmpty && okConflicts.isEmpty then
         throw new IllegalStateException(s"Schedule [$schedule] usurped by ${conflicts}")
@@ -133,9 +133,9 @@ object PlanBuilder:
   private def staggerPlan(plan: Plan, existingEvents: SortedSet[Instant], maxStaggerMs: Long): Plan =
     import scala.math.Ordering.Implicits.infixOrderingOps // For comparing Instants.
 
-    val originalStart   = plan.startsAt
+    val originalStart = plan.startsAt
     val originalStartMs = originalStart.toEpochMilli
-    val maxConflictAt   = originalStart.plusMillis(maxStaggerMs)
+    val maxConflictAt = originalStart.plusMillis(maxStaggerMs)
 
     // Find all events that start at a similar time to the plan.
     val offsetsWithSimilarStart = existingEvents
@@ -169,7 +169,7 @@ object PlanBuilder:
   private[tournament] def findMinimalGoodSlot(low: Long, hi: Long, sortedExisting: Iterable[Long]): Long =
     if sortedExisting.isEmpty then low
     else
-      val iter    = sortedExisting.iterator
+      val iter = sortedExisting.iterator
       var prevElt = iter.next
       // nothing is at low element so gap is equiv to 2x size, centered at low
       var maxGapLow = low - (prevElt - low)

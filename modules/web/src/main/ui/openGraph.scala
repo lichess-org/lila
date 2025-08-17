@@ -11,12 +11,12 @@ def openGraph(graph: OpenGraph): List[Frag] =
   def tag(name: String, value: String) =
     meta(
       property := s"og:$name",
-      content  := value
+      content := value
     )
   List(
-    "title"       -> title,
+    "title" -> title,
     "description" -> description,
-    "url"         -> url,
-    "type"        -> `type`,
-    "site_name"   -> siteName
+    "url" -> url,
+    "type" -> `type`,
+    "site_name" -> siteName
   ).map(tag) ::: image.map { tag("image", _) }.toList

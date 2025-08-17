@@ -1,6 +1,7 @@
 package lila.relay
 
 import io.mola.galimatias.URL
+import chess.{ Rated, ByColor }
 import play.api.Mode
 import play.api.data.*
 import play.api.data.Forms.*
@@ -13,7 +14,8 @@ import lila.common.Form.{
   into,
   stringIn,
   LocalDateTimeOrTimestamp,
-  partial
+  partial,
+  byColor
 }
 import lila.core.perm.Granter
 import lila.relay.RelayRound.Sync
@@ -60,24 +62,37 @@ final class RelayRoundForm(using mode: Mode):
   )
 
   def roundMapping(tour: RelayTour)(using Me): Mapping[Data] =
+    import RelayRound.{ CustomPoints, CustomScoring }
+    val customPointMapping: Mapping[CustomPoints] =
+      bigDecimal(5, 2)
+        .transform(
+          bd => CustomPoints(bd.setScale(2, BigDecimal.RoundingMode.HALF_DOWN).toFloat),
+          p => BigDecimal.decimal(p.value.toDouble).setScale(2, BigDecimal.RoundingMode.HALF_DOWN)
+        )
+        .verifying("Must be between 0 and 10", p => p.value >= 0 && p.value <= 10)
+    val customScoringMapping: Mapping[CustomScoring] =
+      mapping("win" -> customPointMapping, "draw" -> customPointMapping)(CustomScoring.apply)(unapply)
     mapping(
-      "name"                -> cleanText(minLength = 3, maxLength = 80).into[RelayRound.Name],
-      "caption"             -> optional(cleanText(minLength = 3, maxLength = 80).into[RelayRound.Caption]),
-      "syncSource"          -> optional(stringIn(sourceTypes.map(_._1).toSet)),
-      "syncUrl"             -> optional(of[Upstream.Url]),
-      "syncUrls"            -> optional(of[Upstream.Urls]),
-      "syncIds"             -> optional(of[Upstream.Ids]),
-      "syncUsers"           -> optional(of[Upstream.Users]),
-      "startsAt"            -> optional(LocalDateTimeOrTimestamp(tour.info.timeZoneOrDefault).mapping),
+      "name" -> cleanText(minLength = 3, maxLength = 80).into[RelayRound.Name],
+      "caption" -> optional(cleanText(minLength = 3, maxLength = 80).into[RelayRound.Caption]),
+      "syncSource" -> optional(stringIn(sourceTypes.map(_._1).toSet)),
+      "syncUrl" -> optional(of[Upstream.Url]),
+      "syncUrls" -> optional(of[Upstream.Urls]),
+      "syncIds" -> optional(of[Upstream.Ids]),
+      "syncUsers" -> optional(of[Upstream.Users]),
+      "startsAt" -> optional(LocalDateTimeOrTimestamp(tour.info.timeZoneOrDefault).mapping),
       "startsAfterPrevious" -> optional(boolean),
       "status" -> optional:
         text.partial[Data.Status](_.toString):
           case ok: Data.Status => ok,
-      "period"    -> optional(number(min = 2, max = 60).into[Seconds]),
-      "delay"     -> optional(number(min = 0, max = RelayDelay.maxSeconds.value).into[Seconds]),
+      "period" -> optional(number(min = 2, max = 60).into[Seconds]),
+      "delay" -> optional(number(min = 0, max = RelayDelay.maxSeconds.value).into[Seconds]),
       "onlyRound" -> optional(cleanNonEmptyText(maxLength = 50)),
       "slices" -> optional:
         nonEmptyText.transform[List[RelayGame.Slice]](RelayGame.Slices.parse, RelayGame.Slices.show)
+      ,
+      "rated" -> optional(boolean.into[Rated]),
+      "customScoring" -> optional(byColor.mappingOf(customScoringMapping))
     )(Data.apply)(unapply)
 
   def create(trs: RelayTour.WithRounds)(using Me) = Form(
@@ -99,27 +114,27 @@ final class RelayRoundForm(using mode: Mode):
 object RelayRoundForm:
 
   val sourceTypes = List(
-    "push"  -> "Broadcaster App",
-    "url"   -> "Single PGN URL",
-    "urls"  -> "Combine several PGN URLs",
-    "ids"   -> "Lichess game IDs",
+    "push" -> "Broadcaster App",
+    "url" -> "Single PGN URL",
+    "urls" -> "Combine several PGN URLs",
+    "ids" -> "Lichess game IDs",
     "users" -> "Lichess usernames"
   )
 
   private val roundNumberRegex = """([^\d]*)(\d{1,2})([^\d]*)""".r
   val roundNumberIn: String => Option[Int] =
     case roundNumberRegex(_, n, _) => n.toIntOption
-    case _                         => none
+    case _ => none
 
   def fillFromPrevRounds(rounds: List[RelayRound]): Data =
     val prevs: Option[(RelayRound, RelayRound)] = rounds.reverse match
       case a :: b :: _ => (a, b).some
-      case _           => none
+      case _ => none
     val prev: Option[RelayRound] = rounds.lastOption
     def replaceRoundNumber(s: String, n: Int): String =
       roundNumberRegex.replaceAllIn(s, m => s"${m.group(1)}${n}${m.group(3)}")
     val prevNumber: Option[Int] = prev.flatMap(p => roundNumberIn(p.name.value))
-    val nextNumber              = (prevNumber | rounds.size) + 1
+    val nextNumber = (prevNumber | rounds.size) + 1
     val guessName = for
       n <- prevNumber
       if prevs
@@ -130,14 +145,14 @@ object RelayRoundForm:
     yield replaceRoundNumber(p.name.value, nextNumber)
     val guessStartsAtTime = for
       (prev, old) <- prevs
-      prevDate    <- prev.startsAtTime
-      oldDate     <- old.startsAtTime
+      prevDate <- prev.startsAtTime
+      oldDate <- old.startsAtTime
       delta = prevDate.toEpochMilli - oldDate.toEpochMilli
     yield prevDate.plusMillis(delta)
     val nextUrl: Option[URL] = for
-      p  <- prev
+      p <- prev
       up <- p.sync.upstream
-      lcc     = up.lcc.filter(lcc => prevNumber.contains(lcc.round))
+      lcc = up.lcc.filter(lcc => prevNumber.contains(lcc.round))
       nextLcc = lcc.map(_.copy(round = nextNumber).pageUrl)
       next <- nextLcc.orElse(up.asUrl)
     yield next
@@ -151,7 +166,9 @@ object RelayRoundForm:
       period = prev.flatMap(_.sync.period),
       delay = prev.flatMap(_.sync.delay),
       onlyRound = prev.flatMap(_.sync.onlyRound).map(_.map(_ + 1)).map(Sync.OnlyRound.toString),
-      slices = prev.flatMap(_.sync.slices)
+      slices = prev.flatMap(_.sync.slices),
+      rated = prev.map(_.rated),
+      customScoring = prev.flatMap(_.customScoring)
     )
 
   case class GameIds(ids: List[GameId])
@@ -180,7 +197,7 @@ object RelayRoundForm:
       else Right(url)
   yield url
 
-  private val validPorts                                           = Set(-1, 80, 443, 8080, 8491)
+  private val validPorts = Set(-1, 80, 443, 8080, 8491)
   private def validSourcePort(url: URL)(using mode: Mode): Boolean = mode.notProd || validPorts(url.port)
 
   private def subdomain(host: String, domain: String) = s".$host".endsWith(s".$domain")
@@ -218,31 +235,35 @@ object RelayRoundForm:
       period: Option[Seconds] = None,
       delay: Option[Seconds] = None,
       onlyRound: Option[String] = None,
-      slices: Option[List[RelayGame.Slice]] = None
+      slices: Option[List[RelayGame.Slice]] = None,
+      rated: Option[Rated] = None,
+      customScoring: Option[ByColor[RelayRound.CustomScoring]] = None
   ):
     def upstream: Option[Upstream] = syncSource.match
-      case None          => syncUrl.orElse(syncUrls).orElse(syncIds).orElse(syncUsers)
-      case Some("url")   => syncUrl
-      case Some("urls")  => syncUrls
-      case Some("ids")   => syncIds
+      case None => syncUrl.orElse(syncUrls).orElse(syncIds).orElse(syncUsers)
+      case Some("url") => syncUrl
+      case Some("urls") => syncUrls
+      case Some("ids") => syncIds
       case Some("users") => syncUsers
-      case _             => None
+      case _ => None
 
     private def relayStartsAt: Option[RelayRound.Starts] = startsAt
       .map(RelayRound.Starts.At(_))
       .orElse((~startsAfterPrevious).option(RelayRound.Starts.AfterPrevious))
 
-    def update(official: Boolean)(relay: RelayRound)(using Me) =
-      val sync = makeSync(relay.sync.some)
-      relay.copy(
+    def update(official: Boolean)(round: RelayRound)(using Me) =
+      val sync = makeSync(round.sync.some)
+      round.copy(
         name = name,
-        caption = if Granter(_.StudyAdmin) then caption else relay.caption,
-        sync = if relay.sync.playing then sync.play(official) else sync,
+        caption = if Granter(_.StudyAdmin) then caption else round.caption,
+        sync = if round.sync.playing then sync.play(official) else sync,
         startsAt = relayStartsAt,
-        startedAt = status.fold(relay.startedAt):
+        startedAt = status.fold(round.startedAt):
           case "new" => none
-          case _     => relay.startedAt.orElse(nowInstant.some),
-        finishedAt = status.has("finished").option(relay.finishedAt.|(nowInstant))
+          case _ => round.startedAt.orElse(nowInstant.some),
+        finishedAt = status.has("finished").option(round.finishedAt.|(nowInstant)),
+        rated = rated | Rated.No,
+        customScoring = customScoring
       )
 
     private def makeSync(prev: Option[RelayRound.Sync])(using Me): Sync =
@@ -268,42 +289,46 @@ object RelayRoundForm:
         crowd = none,
         startsAt = relayStartsAt,
         startedAt = if status.has("new") then none else nowInstant.some,
-        finishedAt = status.has("finished").option(nowInstant)
+        finishedAt = status.has("finished").option(nowInstant),
+        rated = rated | Rated.No,
+        customScoring = customScoring
       )
 
   object Data:
 
     type Status = "new" | "started" | "finished"
 
-    def make(relay: RelayRound) =
+    def make(round: RelayRound) =
       Data(
-        name = relay.name,
-        caption = relay.caption,
-        syncSource = relay.sync.upstream
+        name = round.name,
+        caption = round.caption,
+        syncSource = round.sync.upstream
           .fold("push"):
-            case _: Upstream.Url   => "url"
-            case _: Upstream.Urls  => "urls"
-            case _: Upstream.Ids   => "ids"
+            case _: Upstream.Url => "url"
+            case _: Upstream.Urls => "urls"
+            case _: Upstream.Ids => "ids"
             case _: Upstream.Users => "users"
           .some,
-        syncUrl = relay.sync.upstream.collect:
+        syncUrl = round.sync.upstream.collect:
           case url: Upstream.Url => url,
-        syncUrls = relay.sync.upstream.collect:
-          case url: Upstream.Url   => Upstream.Urls(List(url.url))
+        syncUrls = round.sync.upstream.collect:
+          case url: Upstream.Url => Upstream.Urls(List(url.url))
           case urls: Upstream.Urls => urls,
-        syncIds = relay.sync.upstream.collect:
+        syncIds = round.sync.upstream.collect:
           case ids: Upstream.Ids => ids,
-        syncUsers = relay.sync.upstream.collect:
+        syncUsers = round.sync.upstream.collect:
           case users: Upstream.Users => users,
-        startsAt = relay.startsAtTime,
-        startsAfterPrevious = relay.startsAfterPrevious.option(true),
+        startsAt = round.startsAtTime,
+        startsAfterPrevious = round.startsAfterPrevious.option(true),
         status = some:
-          if relay.isFinished then "finished"
-          else if relay.hasStarted then "started"
+          if round.isFinished then "finished"
+          else if round.hasStarted then "started"
           else "new"
         ,
-        period = relay.sync.period,
-        onlyRound = relay.sync.onlyRound.map(Sync.OnlyRound.toString),
-        slices = relay.sync.slices,
-        delay = relay.sync.delay
+        period = round.sync.period,
+        onlyRound = round.sync.onlyRound.map(Sync.OnlyRound.toString),
+        slices = round.sync.slices,
+        delay = round.sync.delay,
+        rated = round.rated.some,
+        customScoring = round.customScoring
       )

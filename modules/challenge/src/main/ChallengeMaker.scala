@@ -39,7 +39,7 @@ final class ChallengeMaker(
       pov.opponent.userId.so(userApi.byIdWithPerf(_, game.perfKey)).flatMapz { dest =>
         for
           challenger <- userApi.withPerf(challenger, game.perfKey)
-          rematch    <- makeRematch(pov, challenger.some, dest)
+          rematch <- makeRematch(pov, challenger.some, dest)
         yield rematch.some
       }
 
@@ -47,7 +47,7 @@ final class ChallengeMaker(
   private def makeRematch(pov: Pov, challenger: GameUser, dest: WithPerf): Fu[Challenge] =
     for
       nextGameId <- rematches.offer(pov.ref)
-      challenge  <- toChallenge(pov, challenger, dest, nextGameId)
+      challenge <- toChallenge(pov, challenger, dest, nextGameId)
     yield challenge
 
   private def toChallenge(
@@ -61,14 +61,14 @@ final class ChallengeMaker(
       .map: initialFen =>
         val timeControl = (pov.game.clock, pov.game.daysPerTurn) match
           case (Some(clock), _) => TimeControl.Clock(clock.config)
-          case (_, Some(days))  => TimeControl.Correspondence(days)
-          case _                => TimeControl.Unlimited
+          case (_, Some(days)) => TimeControl.Correspondence(days)
+          case _ => TimeControl.Unlimited
         val alternateColor = rematchAlternatesColor(pov.game, List(challenger.map(_.user), dest.user.some))
         Challenge.make(
           variant = pov.game.variant,
           initialFen = initialFen,
           timeControl = timeControl,
-          mode = pov.game.mode,
+          rated = pov.game.rated,
           color = (if alternateColor then !pov.color else pov.color).name,
           // for anon, we don't know the secret, but this challenge is only serialized to json and sent to a listening bot anyway,
           // which doesn't use the secret, so we just use an empty string

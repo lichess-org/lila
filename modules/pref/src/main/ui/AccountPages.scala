@@ -143,8 +143,8 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
             form3.flairPickerGroup(form("flair"), u.flair):
               p(cls := "form-help"):
                 a(
-                  href     := s"${routes.Pref.form("display")}#showFlairs",
-                  cls      := "text",
+                  href := s"${routes.Pref.form("display")}#showFlairs",
+                  cls := "text",
                   dataIcon := Icon.InfoCircle
                 ):
                   trans.site.youCanHideFlair()
@@ -174,39 +174,6 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
         )
       )
 
-  def network(cfRouting: Option[Boolean], isUsingAltSocket: Boolean)(using ctx: Context) =
-    AccountPage("Network", "network"):
-      val usingCloudflare = cfRouting.getOrElse(isUsingAltSocket)
-      div(cls := "box box-pad")(
-        h1(cls := "box__top")("Network"),
-        br,
-        if usingCloudflare then
-          frag(
-            flashMessage("warning")("You are currently using Content Delivery Network (CDN) routing."),
-            p("This feature is experimental but may improve reliability in some regions.")
-          )
-        else
-          p("If you have frequent disconnects, Content Delivery Network (CDN) routing may improve things.")
-        ,
-        br,
-        st.section(a(href := "#routing")(h2(id := "routing")("Network Routing")))(
-          st.group(cls := "radio"):
-            List(("Use direct routing", false), ("Use CDN routing", true)).map: (key, value) =>
-              div(
-                a((value != usingCloudflare).option(href := routes.Account.network(value.some)))(
-                  label((value == usingCloudflare).option(cls := "active-soft"))(key)
-                )
-              )
-        ),
-        br,
-        br,
-        cfRouting.nonEmpty.option(
-          p(cls := "saved text", dataIcon := Icon.Checkmark)(
-            trans.preferences.yourPreferencesHaveBeenSaved()
-          )
-        )
-      )
-
   def kid(u: User, form: Form[?], managed: Boolean, cms: Option[Html])(using Context) =
     AccountPage(s"${u.username} - ${trans.site.kidMode.txt()}", "kid")
       .css("bits.page"):
@@ -225,7 +192,7 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
                   .passwordModified(form("passwd"), trans.site.password())(autofocus, autocomplete := "off"),
                 submitButton(
                   cls := List(
-                    "button"     -> true,
+                    "button" -> true,
                     "button-red" -> u.kid.yes
                   )
                 )(if u.kid.yes then trans.site.disableKidMode.txt() else trans.site.enableKidMode.txt())

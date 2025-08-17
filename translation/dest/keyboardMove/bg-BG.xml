@@ -7,6 +7,7 @@
   <string name="queensideCastle">Голяма рокада</string>
   <string name="promoteC8ToQueen">Произведи c8 в дама</string>
   <string name="offerOrAcceptDraw">Предложете или приемете реми</string>
+  <string name="readOutOpponentName">Прочети името на противника</string>
   <string name="otherCommands">Други команди</string>
   <string name="tips">Съвети</string>
   <string name="bothTheLetterOAndTheDigitZero">Буквата \"o\" и цифрата \"0\" могат да бъдат използвани за рокада</string>

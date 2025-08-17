@@ -20,7 +20,7 @@
   <string name="keyboardShortcutsExplanation">Личестің кейбір парақшаларын пернетіркестер арқылы басқаруға болады. Зертхана, талдау, жұмбақ пен ойын парақшаларында \"?\" бассаңыз, пернетіркестер тізімі шыға келеді.</string>
   <string name="fairPlay">Адал ойын</string>
   <string name="whenAmIEligibleRatinRefund">Қандай жағдайда читер келтірген рейтинг шығынын өтеуге құқығым бар?</string>
-  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">Ойыншы читер деп белгіленген соң, бір минут ішінде оның кейінгі 3 күнде болған 40 ойны алынады. Егер олардың арасында сізбен ойнаған ойны болса, сіздің рейтингіңіз кемісе (жеңіліс не тепе-теңдік салдарынан), сонымен қатар рейтингіңіз болжамалы емес болса, сіз рейтинг шығынын өтеп аласыз. Өтеудің деңгейі сіздің ең жоғары рейтинг пен ойыннан кейінгі рейтинг өзгерісіне қарай анықталады.
+  <string name="ratingRefundExplanation">Ойыншы читер деп белгіленген соң, бір минут ішінде оның кейінгі 3 күнде болған 40 ойны алынады. Егер олардың арасында сізбен ойнаған ойны болса, сіздің рейтингіңіз кемісе (жеңіліс не тепе-теңдік салдарынан), сонымен қатар рейтингіңіз болжамалы емес болса, сіз рейтинг шығынын өтеп аласыз. Өтеудің деңгейі сіздің ең жоғары рейтинг пен ойыннан кейінгі рейтинг өзгерісіне қарай анықталады.
 (Мысалы, сіздің рейтингіңіз осы ойындардан кейін күрт артып кетсе, сіз өтеуді толық емес мөлшерде немесе мүлдем алмауыңыз мүмкін.) Өтеудің мөлшері ешқашан 150 ұпайдан аспайды.</string>
   <string name="preventLeavingGameWithoutResigning">Берілмей ойыннан шығып жүретін ойыншыларға қандай шара қолданасыз?</string>
   <string name="leavingGameWithoutResigningExplanation">Егер қарсыласыңыз ойынды үзіп не шығып кетіп жүрсе, ол \"ойны бұғалған\" белгісін алады. Белгінің мағынасы – ойынға қатысуына уақытша рұқсаты жоқ. Оның төлқұжатында бұл белгі көпшіліктен жасырулы. Егер ойыншының осындай қылығы жалғаса берсе, бұғау мерзімі де ұзара береді. Жаман әдетінен құтылмаса, тіркелгісі мүлдем жабылады.</string>
@@ -34,7 +34,7 @@
   <string name="howBulletBlitzEtcDecided">Буллит, Блиц пен басқа да уақыт қалыптарының айырмашылығы неде?</string>
   <string name="basedOnGameDuration">Личестегі уақыт қалыптары ойынның болжаулы ұзақтығына негізделген = %1$s.
 Мысалы, 5+3 ойынның болжаулы ұзақтығы 5 × 60 + 40 × 3 = 420 секунд.</string>
-  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(бастапқы уақыт) + 40 × (қосылғыш)</string>
+  <string name="durationFormula">(бастапқы уақыт) + 40 × (қосылғыш)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$sс = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s с = %2$s</string>
   <string name="whatVariantsCanIplay">Личесте шахматтың қай түрлерін ойнасам болады?</string>
@@ -95,12 +95,11 @@
   <string name="usernamesNotOffensive">Жалпы, тіркеулі атта қорлау, басқа біреудің аты, жарнама сияқты нәрселер болмау керек. Бұл туралы %1$s - де көбірек жазылған.</string>
   <string name="guidelines">нұсқаулық</string>
   <string name="canIChangeMyUsername">Мен тіркеулі атымды өзгерте аламын ба?</string>
-  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">Жоқ, тіркеулі атыңызды өзгерте алмайсыз. Тіркеулі ат алуан-түрлі нәрсеге байланған: дерекқор, экспорт, журнал, сонымен қатар – адамдардың есі. Дегенмен, бір рет қана әріп үлкендігін өзгерту рұқсат.</string>
+  <string name="usernamesCannotBeChanged">Жоқ, тіркеулі атыңызды өзгерте алмайсыз. Тіркеулі ат алуан-түрлі нәрсеге байланған: дерекқор, экспорт, журнал, сонымен қатар – адамдардың есі. Дегенмен, бір рет қана әріп үлкендігін өзгерту рұқсат.</string>
   <string name="uniqueTrophies">Ерекше олжалар</string>
   <string name="ownerUniqueTrophies">Бұл олжа Личес тарихында ерекше орын алады, %1$s-дан басқа ешкім де оған ие болмады.</string>
-  <string name="wayOfBerserkExplanation">Оған жету үшін, hiimgosu өзін берсеркке шақырып, %s-ның 100%% ойындарын жеңді.</string>
   <string name="aHourlyBulletTournament">әрсағаттық Буллит жарысы</string>
-  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">ZugAddict стрим жүргізе отырып, 2 сағат бойы 1+0 қалыпта 8-нші деңгейдегі Жасанды зият жүйесін жеңе алмай тұрған. Thibault оған стрим кезінде сәтті ойнасаң, ерекше олжа аласың деп уәде берген еді. Бір сағаттан соң, ол Стокфиштің тас талқанын шығарып, уәдеге сай олжасына ие болды.</string>
+  <string name="goldenZeeExplanation">ZugAddict стрим жүргізе отырып, 2 сағат бойы 1+0 қалыпта 8-нші деңгейдегі Жасанды зият жүйесін жеңе алмай тұрған. Thibault оған стрим кезінде сәтті ойнасаң, ерекше олжа аласың деп уәде берген еді. Бір сағаттан соң, ол Стокфиштің тас талқанын шығарып, уәдеге сай олжасына ие болды.</string>
   <string name="lichessRatings">Личес рейтингтері</string>
   <string name="whichRatingSystemUsedByLichess">Личес қандай рейтинг жүйесін қолданады?</string>
   <string name="ratingSystemUsedByLichess">Личес рейтингті Mark Glickman жасаған Glicko-2 тәсілімен есептейді. Бұл өте танымал тәсіл, оны көптеген шахмат ұйымдары қолданады (FIDE көз түсер қарсы мысал, ол әлі де Elo рейтинг жүйесін қолданады).
@@ -145,7 +144,7 @@
   <string name="enableAutoplayForSoundsA">Браузердің дені қолданушыны қорғау үшін жаңа жүктелген парақшада дыбысты тыйым етеді. Өйткені әрбір сайт дыбысқа жол берсе, жарнаманың шуы бітпес еді.
 Браузер Личес-тегі дыбысқа тыйым етсе, қызыл \"үнсіз\" белгісі шығады. Жағдайдың көбінде қандай да бір жерге шертсеңіз бұл тыйым кетеді. Кейбір мобилді браузер тасты тартып жүргеніңізді шерту деп қабылдамайды, сондықтан дыбысқа рұқсат беру үшін әр ойын басында тақтаға бір шертуіңіз керек. Бұл кезде қызыл белгі шығады.
 Браузер Лическе тұрақты түрде дыбыс рұқсатын бере алады. Ол үшін танымал браузерлерді қамтитын келесідей нұсқаулықты қарап шығыңыз.</string>
-  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">компьютер</string>
+  <string name="desktop">компьютер</string>
   <string name="enableAutoplayForSoundsFirefox">1. lichess.org сайтын ашыңыз
 2. Windows пен Linux үшін Cntr + i, MacOS үшін Cmd + i
 3. Рұқсаттар бөліміне өтіңіз
@@ -163,11 +162,11 @@
 3. Куки мен сайт рұқсаттарына кіріңіз
 4. Төмен түсіп, Медиа автоойнату
 5. lichess.org-ты қосып, Рұқсатты басыңыз</string>
-  <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">Мені ойнаудан тоқтатыңдар!</string>
-  <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">дара психикалық ауытқу</string>
-  <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">Жеке Личес стильдері</string>
-  <string name="fewerLobbyPools" comment="Lobby pools are options to quick pair for games on the home page (e.g. 1+0, 3+0).&#10;In this context, this is mentioned for people who want to limit bullet and blitz.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">қалыптары аз</string>
-  <string name="adviceOnMitigatingAddiction" comment="Part of the FAQ answer &quot;How to [...] Stop myself from playing?&quot;&#10;&#10;%1$s, %2$s, and %3$s is software which may change.&#10;&#10;%4$s is &quot;Lichess userstyles&quot; (as in CSS styles)&#10;%5$s is &quot;fewer lobby pools&quot;.&#10;&#10;%6$s is &quot;stand-alone mental health condition&quot;.">Тым көп ойнаудан құтыла алмай, бізден көмек сұрап хабарласып жүрген ойышылар аз емес.
+  <string name="stopMyselfFromPlaying">Мені ойнаудан тоқтатыңдар!</string>
+  <string name="mentalHealthCondition">дара психикалық ауытқу</string>
+  <string name="lichessUserstyles">Жеке Личес стильдері</string>
+  <string name="fewerLobbyPools">қалыптары аз</string>
+  <string name="adviceOnMitigatingAddiction">Тым көп ойнаудан құтыла алмай, бізден көмек сұрап хабарласып жүрген ойышылар аз емес.
 
 Егер ойыншы Қызмет Көрсету Шартын бұзбаса, Личес оны бұғауға салмайды, сондықтан өзін көп ойнаудан шектеу үшін сыртқы құралдарға назар аударыңыз. Сайт бұғаушылар арасында %1$s, %2$s, %3$s құралдары жұртқа танымал. Егерде Личесті бұғауға салмай, қысқа уақыт қалыптарына қызықпау үшін %4$s, әрі %5$s сияқты әдістерді қолданып көріңіз.
 

@@ -35,9 +35,9 @@ final class MsgSearch(
               )
 
   private def forKid(q: String)(using me: Me): Fu[MsgSearch.Result] = for
-    threads  <- searchThreads(q)
-    allMates <- Bus.safeAsk[Set[UserId], ClasBus] { ClasBus.ClasMatesAndTeachers(me, _) }
-    lower   = q.toLowerCase
+    threads <- searchThreads(q)
+    allMates <- Bus.ask[Set[UserId], ClasBus] { ClasBus.ClasMatesAndTeachers(me, _) }
+    lower = q.toLowerCase
     mateIds = allMates.view.filter(_.value.startsWith(lower)).toList.take(15)
     mates <- lightUserApi.asyncMany(mateIds)
   yield MsgSearch.Result(threads, mates.flatten, Nil)
@@ -58,7 +58,7 @@ final class MsgSearch(
       .hint:
         colls.thread.hint(
           $doc(
-            "users"        -> 1,
+            "users" -> 1,
             "lastMsg.date" -> -1
           )
         )

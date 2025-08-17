@@ -5,6 +5,7 @@ import chess.format.{ BoardFen, Uci }
 import play.api.libs.json.Json
 
 import lila.ui.*
+import lila.common.Json.given
 
 import ScalatagsTemplate.{ *, given }
 import scalalib.model.Days
@@ -21,7 +22,7 @@ final class PuzzleBits(helpers: Helpers):
     case (static, dynamic) =>
       Json.obj(
         "dynamic" -> dynamic.sorted(using stringOrdering).mkString(" "),
-        "static"  -> static.mkString(" ")
+        "static" -> static.mkString(" ")
       )
 
   def pageMenu(active: String, user: Option[User], days: Days = Days(30))(using ctx: Context) =
@@ -40,7 +41,7 @@ final class PuzzleBits(helpers: Helpers):
         trans.puzzle.puzzleDashboard()
       ),
       a(
-        cls  := active.active("improvementAreas"),
+        cls := active.active("improvementAreas"),
         href := routes.Puzzle.dashboard(days, "improvementAreas", u)
       )(
         trans.puzzle.improvementAreas()
@@ -57,7 +58,7 @@ final class PuzzleBits(helpers: Helpers):
     )
 
   def dailyLink(daily: DailyPuzzle.WithHtml)(using Translate) = a(
-    href  := routes.Puzzle.daily,
+    href := routes.Puzzle.daily,
     title := trans.puzzle.clickToSolve.txt()
   )(
     span(cls := "text")(trans.puzzle.puzzleOfTheDay()),
@@ -77,9 +78,9 @@ final class PuzzleBits(helpers: Helpers):
       )
 
   object dashboard:
-    val baseClass   = "puzzle-dashboard"
+    val baseClass = "puzzle-dashboard"
     val metricClass = s"${baseClass}__metric"
-    val themeClass  = s"${baseClass}__theme"
+    val themeClass = s"${baseClass}__theme"
 
     def pageModule(dashOpt: Option[PuzzleDashboard])(using Translate) =
       PageModule(
@@ -129,13 +130,13 @@ final class PuzzleBits(helpers: Helpers):
           )
         ),
         div(
-          cls   := s"$metricClass $metricClass--win",
+          cls := s"$metricClass $metricClass--win",
           style := s"---first:${results.firstWinPercent}%;---win:${results.winPercent}%"
         )(
           trans.puzzle.percentSolved(strong(s"${results.winPercent}%"))
         ),
         a(
-          cls  := s"$metricClass $metricClass--fix",
+          cls := s"$metricClass $metricClass--fix",
           href := results.canReplay.option(routes.Puzzle.replay(days, theme.value).url)
         )(
           results.canReplay.option(

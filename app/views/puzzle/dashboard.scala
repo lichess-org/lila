@@ -75,7 +75,7 @@ object dashboard:
               span(trans.site.nbDays.pluralSame(days.value)),
               PuzzleDashboard.dayChoices.map: d =>
                 a(
-                  cls  := (d == days).option("current"),
+                  cls := (d == days).option("current"),
                   href := routes.Puzzle.dashboard(d, path, user.username.some)
                 )(trans.site.nbDays.pluralSame(d.value))
             )

@@ -2,17 +2,57 @@
   @extend %nowrap-hidden;
 
   color: $c-font;
+  $c-months1: #292f56;
+  $c-months2: #1e4572;
+  $c-months3: #005c8b;
+  $c-months6: #007498;
+  $c-months9: #008ba0;
+  $c-years1: #00a3a4;
+  $c-years2: #00bca1;
+  $c-years3: #00d493;
+  $c-years4: #69e882;
+  $c-years5: #d59020;
 
   &.online .line {
     &::before {
       content: $licon-Disc;
     }
-
-    color: $c-good;
     opacity: 0.9;
 
+    color: $c-good;
     &.patron {
       opacity: 1;
+
+      &.months1 {
+        color: $c-months1;
+      }
+      &.months2 {
+        color: $c-months2;
+      }
+      &.months3 {
+        color: $c-months3;
+      }
+      &.months6 {
+        color: $c-months6;
+      }
+      &.months9 {
+        color: $c-months9;
+      }
+      &.years1 {
+        color: $c-years1;
+      }
+      &.years2 {
+        color: $c-years2;
+      }
+      &.years3 {
+        color: $c-years3;
+      }
+      &.years4 {
+        color: $c-years4;
+      }
+      &.years5 {
+        color: $c-years5;
+      }
     }
   }
 

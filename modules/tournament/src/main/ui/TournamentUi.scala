@@ -40,7 +40,7 @@ final class TournamentUi(helpers: Helpers)(getTourName: GetTourName):
             if t.variant.exotic then t.variant.name else t.perfType.trans,
             t.position.isDefined.option(frag(" • ", trans.site.thematic())),
             " • ",
-            if t.mode.rated then trans.site.ratedTournament() else trans.site.casualTournament(),
+            lila.gathering.ui.translateRated(t.rated),
             " • ",
             t.durationString
           )
@@ -73,7 +73,7 @@ final class TournamentUi(helpers: Helpers)(getTourName: GetTourName):
           td(cls := "progress-td")(
             span(cls := "progress")(
               timeTag(cls := "progress__text"),
-              span(cls    := "progress__bar", st.style := s"width:${tour.progressPercent}%")
+              span(cls := "progress__bar", st.style := s"width:${tour.progressPercent}%")
             )
           ),
           td(tour.durationString),
@@ -90,15 +90,15 @@ final class TournamentUi(helpers: Helpers)(getTourName: GetTourName):
   def tournamentLink(tour: Tournament)(using Translate): Tag =
     a(
       dataIcon := Icon.Trophy.value,
-      cls      := (if tour.isScheduled then "text is-gold" else "text"),
-      href     := routes.Tournament.show(tour.id).url
+      cls := (if tour.isScheduled then "text is-gold" else "text"),
+      href := routes.Tournament.show(tour.id).url
     )(tour.name())
 
   def tournamentLink(tourId: TourId)(using Translate): Tag =
     a(
       dataIcon := Icon.Trophy.value,
-      cls      := "text",
-      href     := routes.Tournament.show(tourId).url
+      cls := "text",
+      href := routes.Tournament.show(tourId).url
     )(tournamentIdToName(tourId))
 
   def tournamentIdToName(id: TourId)(using Lang): String =
@@ -109,10 +109,10 @@ final class TournamentUi(helpers: Helpers)(getTourName: GetTourName):
     private val replacements =
       given lila.core.i18n.Translate = transDefault
       List(
-        "Lichess "    -> "",
-        "Marathon"    -> icon(Icon.Globe),
+        "Lichess " -> "",
+        "Marathon" -> icon(Icon.Globe),
         "HyperBullet" -> s"H${icon(PerfType.Bullet.icon)}",
-        "SuperBlitz"  -> s"S${icon(PerfType.Blitz.icon)}"
+        "SuperBlitz" -> s"S${icon(PerfType.Blitz.icon)}"
       ) ::: lila.rating.PerfType.leaderboardable
         .filterNot(lila.rating.PerfType.translated.contains)
         .map(PerfType(_))

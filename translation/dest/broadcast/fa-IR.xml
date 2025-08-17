@@ -6,6 +6,10 @@
     <item quantity="one">%s پخش همگانی</item>
     <item quantity="other">%s پخش همگانی</item>
   </plurals>
+  <plurals name="nbViewers">
+    <item quantity="one">%s تماشاگر</item>
+    <item quantity="other">%s تماشاگرها</item>
+  </plurals>
   <string name="liveBroadcasts">پخش زنده مسابقات</string>
   <string name="broadcastCalendar">تقویم پخش</string>
   <string name="newBroadcast">پخش زنده جدید</string>
@@ -24,7 +28,7 @@
   <string name="fullDescriptionHelp">توضیحات بلند و اختیاری پخش همگانی. %1$s قابل‌استفاده است. طول متن باید کمتر از %2$s نویسه باشد.</string>
   <string name="sourceSingleUrl">وب‌نشانیِ PGN</string>
   <string name="sourceUrlHelp">وب‌نشانی‌ای که Lichess برای دریافت به‌روزرسانی‌های PGN می‌بررسد. آن باید از راه اینترنت در دسترس همگان باشد.</string>
-  <string name="sourceGameIds">تا ۶۴ شناسهٔ بازی Lichess، جداشده با فاصله.</string>
+  <string name="sourceGameIds">تا ۶۴ شناسهٔ بازی لیچس، جداشده با فاصله.</string>
   <string name="startDateTimeZone">تاریخ آغاز در زمان-یانه محلی مسابقات: %s</string>
   <string name="startDateHelp">اختیاری است، اگر می‌دانید چه زمانی رویداد شروع می‌شود</string>
   <string name="currentGameUrl">نشانی بازی کنونی</string>
@@ -59,13 +63,10 @@
   <string name="startVerySoon">پخش زنده به زودی خواهد آغازید.</string>
   <string name="notYetStarted">پخش زنده هنوز نیاغازیده است.</string>
   <string name="officialWebsite">وبگاه رسمی</string>
-  <string name="standings">رده‌بندی</string>
   <string name="officialStandings">رده‌بندی رسمی</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">گزینه‌های بیشتر در %s</string>
   <string name="webmastersPage">صفحهٔ وبداران</string>
-  <string name="pgnSourceHelp" comment="%s is 'streaming API'">یک منبع عمومی و بی‌درنگ PGN برای این دور. ما همچنین %s را برای همگامِش تندتر و کارآمدتر پیشنهاد می‌دهیم.</string>
   <string name="embedThisBroadcast">جاسازی این پخش زنده در وبگاه‌تان</string>
-  <string name="embedThisRound">جاسازی %s در وبگاه‌تان</string>
   <string name="ratingDiff">اختلاف درجه‌بندی</string>
   <string name="gamesThisTournament">بازی‌های این مسابقات</string>
   <string name="score">امتیاز</string>
@@ -78,4 +79,9 @@
   <string name="optionalDetails">جزئیات اختیاری</string>
   <string name="pastBroadcasts">پخش‌های گذشته</string>
   <string name="allBroadcastsByMonth">دیدن پخش‌های هر ماه</string>
+  <string name="backToLiveMove">بازگشت به حرکت زنده</string>
+  <string name="sinceHideResults">چون شما پنهان کردن نتایج را انتخاب کردید، تمام صفحه‌های پیش‌نمایش برای جلوگیری از لو رفتن نتیجه، خالی هستند.</string>
+  <string name="liveboard">صفحه زنده</string>
+  <string name="communityBroadcast">پخش همگانی</string>
+  <string name="createdAndManagedBy">ایجاد و مدیریت‌شده توسط %s.</string>
 </resources>

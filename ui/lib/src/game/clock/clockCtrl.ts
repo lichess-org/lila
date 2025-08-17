@@ -7,7 +7,6 @@ export interface ClockOpts {
   bothPlayersHavePlayed(): boolean;
   hasGoneBerserk(color: Color): boolean;
   soundColor?: Color;
-  nvui: boolean;
 }
 
 export interface ClockConfig {
@@ -93,7 +92,7 @@ export class ClockCtrl {
           ? time => time < 10000
           : time => time < 3600000;
 
-    this.showBar = pref.clockBar && !this.opts.nvui && !reducedMotion();
+    this.showBar = pref.clockBar && !site.blindMode && !reducedMotion();
     this.barTime = 1000 * (Math.max(data.initial, 2) + 5 * data.increment);
     this.timeRatioDivisor = 1 / this.barTime;
 
@@ -143,7 +142,7 @@ export class ClockCtrl {
       this.tick,
       // changing the value of active node confuses the chromevox screen reader
       // so update the clock less often
-      this.opts.nvui ? 1000 : (time % (this.showTenths(time) ? 100 : 500)) + 1 + extraDelay,
+      site.blindMode ? 1000 : (time % (this.showTenths(time) ? 100 : 500)) + 1 + extraDelay,
     );
   };
 

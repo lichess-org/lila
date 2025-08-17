@@ -1,15 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessCoaches">Lichess þjálfarar</string>
+  <string name="lichessCoaches">Þjálfarar Lichess</string>
   <string name="lichessCoach">Lichess Þjálfari</string>
   <string name="areYouCoach">Ertu frábær þjálfari með %s?</string>
   <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">NM eða FIDE titil</string>
+  <string name="confirmTitle">Staðfestu titilinn þinn hér og við munum fara yfir umsóknina þína.</string>
+  <string name="sendApplication" comment="sendApplication&#10;&#10;%s is the lichess email address">Sendu okkur tölvupóst á %s og við munum fara yfir umsókn þína.</string>
   <string name="location">Staðsetning</string>
   <string name="languages">Tungumál</string>
   <string name="rating">Skákstig</string>
+  <string name="hourlyRate">Tímagjald</string>
+  <string name="availability">Fáanleiki</string>
+  <string name="accepting">Tekur við nemendum</string>
+  <string name="notAccepting">Tekur ekki við nemendum eins og er</string>
+  <string name="xCoachesStudents">%s þjálfar nemendur í skák</string>
+  <string name="viewXProfile">Skoða Lichess-prófil %s</string>
   <string name="sendPM">Senda einkaskilaboð</string>
   <string name="aboutMe">Um mig</string>
-  <string name="playingExperience">Spilareynsla</string>
+  <string name="playingExperience">Skákreynsla</string>
+  <string name="teachingExperience">Kennslureynsla</string>
+  <string name="otherExperiences">Önnur reynsla</string>
+  <string name="bestSkills">Besta færni</string>
   <string name="teachingMethod">Kennsluaðferð</string>
-  <string name="youtubeVideos">YouTube myndbönd</string>
+  <string name="publicStudies">Opinberar stúderingar</string>
+  <string name="youtubeVideos">YouTube-myndbönd</string>
+  <string name="allCountries" comment="Appears as a select box option on the Coaches page (https://lichess.org/coach). As such, please keep this string short.&#10;&#10;It is the default option. When selected. it means you are not filtering by country at all. Could alternatively be stated as 'Any country' or 'Show all countries'.&#10;&#10;This string refers to the user's viewing options. A coach cannot state 'any country' on their profile.">Öll lönd</string>
+  <string name="lastLogin" comment="A filter on the coach page, letting users view only coaches who last logged in over a certain period of time.">Siðasta innskráning</string>
+  <string name="lichessRating" comment="An option for coaches (https://lichess.org/coach) to list their Lichess rating. Coaches list their FIDE rating as standard, but have an option to separately list their rating on Lichess">Skákstig á Lichess</string>
 </resources>

@@ -1,6 +1,6 @@
 package lila.gameSearch
 
-import chess.Mode
+import chess.Rated
 import play.api.data.*
 import play.api.data.Forms.*
 import smithy4s.Timestamp
@@ -16,32 +16,32 @@ final private[gameSearch] class GameSearchForm:
   def search(using Translate) = Form(
     mapping(
       "players" -> mapping(
-        "a"      -> optional(username.historicalField),
-        "b"      -> optional(username.historicalField),
+        "a" -> optional(username.historicalField),
+        "b" -> optional(username.historicalField),
         "winner" -> optional(username.historicalField),
-        "loser"  -> optional(username.historicalField),
-        "white"  -> optional(username.historicalField),
-        "black"  -> optional(username.historicalField)
+        "loser" -> optional(username.historicalField),
+        "white" -> optional(username.historicalField),
+        "black" -> optional(username.historicalField)
       )(SearchPlayer.apply)(unapply),
       "winnerColor" -> optional(numberIn(FormHelpers.winnerColors)),
-      "perf"        -> optional(numberIn(perfKeys.map(_.id.value))),
-      "source"      -> optional(numberIn(FormHelpers.sources)),
-      "mode"        -> optional(numberIn(FormHelpers.modes)),
-      "turnsMin"    -> optional(numberIn(FormHelpers.turns)),
-      "turnsMax"    -> optional(numberIn(FormHelpers.turns)),
-      "ratingMin"   -> optional(numberIn(FormHelpers.averageRatings)),
-      "ratingMax"   -> optional(numberIn(FormHelpers.averageRatings)),
-      "hasAi"       -> optional(numberIn(FormHelpers.hasAis)),
-      "aiLevelMin"  -> optional(numberIn(FormHelpers.aiLevels)),
-      "aiLevelMax"  -> optional(numberIn(FormHelpers.aiLevels)),
+      "perf" -> optional(numberIn(perfKeys.map(_.id.value))),
+      "source" -> optional(numberIn(FormHelpers.sources)),
+      "mode" -> optional(numberIn(FormHelpers.modes)),
+      "turnsMin" -> optional(numberIn(FormHelpers.turns)),
+      "turnsMax" -> optional(numberIn(FormHelpers.turns)),
+      "ratingMin" -> optional(numberIn(FormHelpers.averageRatings)),
+      "ratingMax" -> optional(numberIn(FormHelpers.averageRatings)),
+      "hasAi" -> optional(numberIn(FormHelpers.hasAis)),
+      "aiLevelMin" -> optional(numberIn(FormHelpers.aiLevels)),
+      "aiLevelMax" -> optional(numberIn(FormHelpers.aiLevels)),
       "durationMin" -> optional(numberIn(FormHelpers.durations)),
       "durationMax" -> optional(numberIn(FormHelpers.durations)),
-      "clockInit"   -> optional(numberIn(FormHelpers.clockInits)),
-      "clockInc"    -> optional(numberIn(FormHelpers.clockIncs)),
-      "dateMin"     -> GameSearchForm.dateField,
-      "dateMax"     -> GameSearchForm.dateField,
-      "status"      -> optional(numberIn(FormHelpers.statuses)),
-      "analysed"    -> optional(number),
+      "clockInit" -> optional(numberIn(FormHelpers.clockInits)),
+      "clockInc" -> optional(numberIn(FormHelpers.clockIncs)),
+      "dateMin" -> GameSearchForm.dateField,
+      "dateMax" -> GameSearchForm.dateField,
+      "status" -> optional(numberIn(FormHelpers.statuses)),
+      "analysed" -> optional(number),
       "sort" -> optional(
         mapping(
           "field" -> stringIn(Sorting.fields),
@@ -90,7 +90,7 @@ case class SearchData(
       if perf.exists(_ == 5) then List(1, 2, 3, 4, 6)
       else perf.toList, // 1,2,3,4,6 are the perf types for standard games
     source = source,
-    rated = mode.flatMap(Mode.apply).map(_.rated),
+    rated = mode.flatMap(Rated.apply).map(_.yes),
     status = status,
     turns = IntRange(turnsMin, turnsMax),
     averageRating = IntRange(ratingMin, ratingMax),
@@ -122,9 +122,9 @@ case class SearchPlayer(
   lazy val cleanA = a.map(_.id)
   lazy val cleanB = b.map(_.id)
   def cleanWinner = oneOf(winner)
-  def cleanLoser  = oneOf(loser)
-  def cleanWhite  = oneOf(white)
-  def cleanBlack  = oneOf(black)
+  def cleanLoser = oneOf(loser)
+  def cleanWhite = oneOf(white)
+  def cleanBlack = oneOf(black)
 
   private def oneOf(s: Option[UserStr]) = s.map(_.id).filter(List(cleanA, cleanB).flatten.contains)
 

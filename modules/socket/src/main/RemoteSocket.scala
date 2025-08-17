@@ -31,7 +31,7 @@ final class RemoteSocket(
 
   val onlineUserIds: AtomicReference[Set[UserId]] = AtomicReference(initialUserIds)
 
-  def kit         = SocketKit(subscribe, channel => makeSender(channel, 1).send, baseHandler)
+  def kit = SocketKit(subscribe, channel => makeSender(channel, 1).send, baseHandler)
   def parallelKit = ParallelSocketKit(subscribeRoundRobin, makeSender, baseHandler)
 
   val baseHandler: SocketHandler =
@@ -51,7 +51,7 @@ final class RemoteSocket(
     case In.TellUser(userId, typ, msg) =>
       TellUserIn.make(userId, msg, typ).foreach(Bus.pub[TellUserIn](_))
     case In.ReqResponse(reqId, response) => requester.onResponse(reqId, response)
-    case In.Ping(id)                     => send.exec(Out.pong(id))
+    case In.Ping(id) => send.exec(Out.pong(id))
     case In.WsBoot =>
       logger.warn("Remote socket boot")
       onlineUserIds.set(initialUserIds)
@@ -98,8 +98,8 @@ final class RemoteSocket(
       send.exec(Out.setTroll(userId, v))
 
   Bus.sub[lila.core.mod.Impersonate]:
-    case lila.core.mod.Impersonate(userId, modId) =>
-      send.exec(Out.impersonate(userId, modId))
+    case lila.core.mod.Impersonate(modId, userId, v) =>
+      send.exec(Out.impersonate(modId, userId, v))
 
   Bus.sub[ApiUserIsOnline]:
     case ApiUserIsOnline(userId, value) =>
@@ -116,7 +116,7 @@ final class RemoteSocket(
     send.exec(Out.streamersOnline(s.streamers))
 
   final class StoppableSender(val conn: PubSub[String, String], channel: Channel) extends Sender:
-    def apply(msg: String)               = if !stopping then super.sendTo(channel, msg)
+    def apply(msg: String) = if !stopping then super.sendTo(channel, msg)
     def sticky(_id: String, msg: String) = apply(msg)
 
   final class RoundRobinSender(val conn: PubSub[String, String], channel: Channel, parallelism: Int)
@@ -153,7 +153,7 @@ final class RemoteSocket(
               )
               .collect(handler) match
               case Some(_) => // processed
-              case None    => logger.info(s"Unhandled $channel $str")
+              case None => logger.info(s"Unhandled $channel $str")
 
   def subscribeRoundRobin(channel: Channel, reader: In.Reader, parallelism: Int)(
       handler: SocketHandler
@@ -206,8 +206,8 @@ object RemoteSocket:
       import lila.core.socket.protocol.RawMsg
 
       val baseReader: Reader =
-        case RawMsg("connect/user", raw)     => ConnectUser(UserId(raw.args)).some
-        case RawMsg("connect/users", raw)    => ConnectUsers(UserId.from(commas(raw.args))).some
+        case RawMsg("connect/user", raw) => ConnectUser(UserId(raw.args)).some
+        case RawMsg("connect/users", raw) => ConnectUsers(UserId.from(commas(raw.args))).some
         case RawMsg("disconnect/users", raw) => DisconnectUsers(UserId.from(commas(raw.args))).some
         case RawMsg("connect/sris", raw) =>
           ConnectSris {
@@ -216,7 +216,7 @@ object RemoteSocket:
             }
           }.some
         case RawMsg("disconnect/sris", raw) => DisconnectSris(commas(raw.args).map { Sri(_) }).some
-        case RawMsg("notified/batch", raw)  => NotifiedBatch(UserId.from(commas(raw.args))).some
+        case RawMsg("notified/batch", raw) => NotifiedBatch(UserId.from(commas(raw.args))).some
         case RawMsg("lag", raw) =>
           raw.all.pipe { s =>
             Centis.from(s.lift(1).flatMap(_.toIntOption)).map { Lag(UserId(s(0)), _) }
@@ -243,7 +243,7 @@ object RemoteSocket:
             reqId.toIntOption.map { ReqResponse(_, response) }
           }
         case RawMsg("ping", raw) => Ping(raw.args).some
-        case RawMsg("boot", _)   => WsBoot.some
+        case RawMsg("boot", _) => WsBoot.some
 
     object Out:
       export lila.core.socket.protocol.Out.*
@@ -261,15 +261,15 @@ object RemoteSocket:
         s"disconnect/user $userId"
       def setTroll(userId: UserId, v: Boolean) =
         s"mod/troll/set $userId ${boolean(v)}"
-      def impersonate(userId: UserId, by: Option[UserId]) =
-        s"mod/impersonate $userId ${optional(by.map(_.value))}"
-      def follow(u1: UserId, u2: UserId)       = s"rel/follow $u1 $u2"
-      def unfollow(u1: UserId, u2: UserId)     = s"rel/unfollow $u1 $u2"
+      def impersonate(modId: lila.core.userId.ModId, userId: UserId, v: Boolean) =
+        s"mod/impersonate $modId $userId ${boolean(v)}"
+      def follow(u1: UserId, u2: UserId) = s"rel/follow $u1 $u2"
+      def unfollow(u1: UserId, u2: UserId) = s"rel/unfollow $u1 $u2"
       def apiUserOnline(u: UserId, v: Boolean) = s"api/online $u ${boolean(v)}"
-      private given OWrites[StreamInfo]        = Json.writes[StreamInfo]
+      private given OWrites[StreamInfo] = Json.writes[StreamInfo]
       def streamersOnline(streamers: Map[UserId, StreamInfo]) =
         s"streamers/online ${Json.stringify(Json.toJson(streamers.mapKeys(_.value)))}"
       def respond(reqId: Int, payload: JsObject) = s"req/response $reqId ${Json.stringify(payload)}"
-      def stop(reqId: Int)                       = s"lila/stop $reqId"
+      def stop(reqId: Int) = s"lila/stop $reqId"
 
   val initialUserIds = Set(UserId("lichess"))

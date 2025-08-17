@@ -20,8 +20,8 @@ private object RelayPlayerLine:
 
   object tokenize:
     private val nonLetterRegex = """[^a-zA-Z0-9\s]+""".r
-    private val splitRegex     = """\W""".r
-    private val titleRegex     = """(?i)(dr|prof)\.""".r
+    private val splitRegex = """\W""".r
+    private val titleRegex = """(?i)(dr|prof)\.""".r
     def apply(str: String): PlayerToken =
       splitRegex
         .split:
@@ -91,7 +91,7 @@ private case class RelayPlayerLines(players: Map[PlayerName, RelayPlayerLine]):
     val combinations = for
       (fullToken, player) <- tokenizedPlayers.toList
       words = fullToken.split(' ').filter(_.sizeIs > 1).toList
-      size        <- 2 to words.length.atMost(4)
+      size <- 2 to words.length.atMost(4)
       combination <- words.combinations(size)
     yield combination.mkString(" ") -> player
     combinations
@@ -111,7 +111,7 @@ private case class RelayPlayerLines(players: Map[PlayerName, RelayPlayerLine]):
   def update(tags: Tags): (Tags, List[RelayPlayerLine.Ambiguous]) =
     Color.all.foldLeft(tags -> Nil):
       case ((tags, ambiguous), color) =>
-        val name     = tags.names(color)
+        val name = tags.names(color)
         val matching = name.fold(Matching.NotFound)(findMatching)
         val newTags = tags ++ Tags:
           matching.match
@@ -149,7 +149,7 @@ private case class RelayPlayerLines(players: Map[PlayerName, RelayPlayerLine]):
               .get(token)
               .map:
                 case single :: Nil => Matching.Found(single)
-                case multi         => Matching.Ambiguous(multi)
+                case multi => Matching.Ambiguous(multi)
       .getOrElse(Matching.NotFound)
 
 private final class RelayPlayerEnrich(

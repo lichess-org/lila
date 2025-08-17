@@ -48,7 +48,7 @@ final class PlanApi(
           customer.firstSubscription match
             case None => fufail(s"Can't switch non-existent subscription of ${user.id}")
             case Some(sub) if sub.item.price.money == money => fuccess(sub)
-            case Some(sub)                                  => stripeClient.updateSubscription(sub, money)
+            case Some(sub) => stripeClient.updateSubscription(sub, money)
 
   def cancel(user: User): Funit =
     cancelIfAny(user).flatMap:
@@ -57,7 +57,7 @@ final class PlanApi(
   def cancelIfAny(user: User): Fu[Boolean] =
     def onCancel = for
       lifetime <- isLifetime(user)
-      _        <- (!lifetime).so(setDbUserPlan(user.mapPlan(_.disable)))
+      _ <- (!lifetime).so(setDbUserPlan(user.mapPlan(_.disable)))
       _ <- mongo.patron.update
         .one($id(user.id), $unset("stripe", "payPal", "payPalCheckout", "expiresAt"))
         .map: _ =>
@@ -75,7 +75,7 @@ final class PlanApi(
           payPal
             .userSubscription(user)
             .flatMap:
-              case None      => fuccess(false)
+              case None => fuccess(false)
               case Some(sub) => payPalClient.cancelSubscription(sub) >> onCancel
 
   object stripe:
@@ -84,10 +84,10 @@ final class PlanApi(
 
     def onCharge(stripeCharge: StripeCharge): Funit = for
       patronOption <- customerIdPatron(stripeCharge.customer)
-      giftTo       <- stripeCharge.giftTo.so(userApi.byId)
+      giftTo <- stripeCharge.giftTo.so(userApi.byId)
       money = stripeCharge.amount.toMoney(stripeCharge.currency)
-      usd   <- currencyApi.toUsd(money)
-      proxy <- stripeCharge.ip.soFu(ip2proxy(_))
+      usd <- currencyApi.toUsd(money)
+      proxy <- stripeCharge.ip.traverse(ip2proxy.ofIp)
       charge = Charge
         .make(
           userId = patronOption.map(_.userId),
@@ -97,7 +97,7 @@ final class PlanApi(
           usd = usd | Usd(0)
         )
       isLifetime <- pricingApi.isLifetime(money)
-      _          <- addCharge(charge, stripeCharge.country)
+      _ <- addCharge(charge, stripeCharge.country)
       _ <- patronOption match
         case None =>
           logger.info(s"Charged anon customer $charge")
@@ -128,8 +128,8 @@ final class PlanApi(
         else
           for
             user <- userApi.byId(patron.userId).orFail(s"Missing user for $patron")
-            _    <- setDbUserPlan(user.mapPlan(_.disable))
-            _    <- mongo.patron.update.one($id(user.id), patron.removeStripe)
+            _ <- setDbUserPlan(user.mapPlan(_.disable))
+            _ <- mongo.patron.update.one($id(user.id), patron.removeStripe)
           yield
             notifier.onExpire(user)
             logger.info(s"Unsubbed ${user.username} $sub")
@@ -190,7 +190,7 @@ final class PlanApi(
           isLifetime = isLifetime,
           ip = ctx.ip
         )
-        can <- canUse(data.ip, data.checkout.freq)
+        can <- canUse(data.checkout.freq)
         session <-
           if can.yes then
             data.checkout.freq match
@@ -212,36 +212,37 @@ final class PlanApi(
           .void
       }
 
-    def canUse(ip: IpAddress, freq: Freq)(using me: Me): Fu[StripeCanUse] = ip2proxy(ip).flatMap { proxy =>
-      if !proxy.is then fuccess(StripeCanUse.Yes)
-      else
-        val maxPerWeek = {
-          val verifiedBonus  = me.isVerified.so(50)
-          val nbGamesBonus   = math.sqrt(me.count.game / 50)
-          val seniorityBonus = math.sqrt(daysBetween(me.createdAt, nowInstant) / 30d)
-          verifiedBonus + nbGamesBonus + seniorityBonus
-        }.toInt.atLeast(1).atMost(50)
-        freq match
-          case Freq.Monthly => // prevent several subscriptions in a row
-            StripeCanUse.from(
-              mongo.charge
-                .countSel:
-                  $doc(
-                    "userId" -> me.userId,
-                    "date".$gt(nowInstant.minusWeeks(1)),
-                    "stripe".$exists(true),
-                    "giftTo".$exists(false)
-                  )
-                .map(_ < maxPerWeek)
-            )
-          case Freq.Onetime => // prevents mass gifting or one-time donations
-            StripeCanUse.from(
-              mongo.charge
-                .countSel:
-                  $doc("userId" -> me.userId, "date".$gt(nowInstant.minusWeeks(1)), "stripe".$exists(true))
-                .map(_ < maxPerWeek)
-            )
-    }
+    def canUse(freq: Freq)(using me: Me, ctx: Context): Fu[StripeCanUse] =
+      ip2proxy.ofReq(ctx.req).flatMap { proxy =>
+        if !proxy.is then fuccess(StripeCanUse.Yes)
+        else
+          val maxPerWeek = {
+            val verifiedBonus = me.isVerified.so(50)
+            val nbGamesBonus = math.sqrt(me.count.game / 50)
+            val seniorityBonus = math.sqrt(daysBetween(me.createdAt, nowInstant) / 30d)
+            verifiedBonus + nbGamesBonus + seniorityBonus
+          }.toInt.atLeast(1).atMost(50)
+          freq match
+            case Freq.Monthly => // prevent several subscriptions in a row
+              StripeCanUse.from(
+                mongo.charge
+                  .countSel:
+                    $doc(
+                      "userId" -> me.userId,
+                      "date".$gt(nowInstant.minusWeeks(1)),
+                      "stripe".$exists(true),
+                      "giftTo".$exists(false)
+                    )
+                  .map(_ < maxPerWeek)
+              )
+            case Freq.Onetime => // prevents mass gifting or one-time donations
+              StripeCanUse.from(
+                mongo.charge
+                  .countSel:
+                    $doc("userId" -> me.userId, "date".$gt(nowInstant.minusWeeks(1)), "stripe".$exists(true))
+                  .map(_ < maxPerWeek)
+              )
+      }
 
     private def customerIdPatron(id: StripeCustomerId): Fu[Option[Patron]] =
       mongo.patron.one[Patron]($doc("stripe.customerId" -> id))
@@ -252,11 +253,11 @@ final class PlanApi(
     def getEvent = payPalClient.getEvent
 
     def onLegacyCharge(ipn: PlanForm.Ipn, ip: IpAddress, key: String): Funit = for
-      money      <- ipn.money.fold[Fu[Money]](fufail(s"Invalid paypal charge ${ipn.txnId}"))(fuccess)
-      pricing    <- pricingApi.pricingFor(money.currency).orFail(s"Invalid paypal currency $money")
-      usd        <- currencyApi.toUsd(money).orFail(s"Invalid paypal currency $money")
+      money <- ipn.money.fold[Fu[Money]](fufail(s"Invalid paypal charge ${ipn.txnId}"))(fuccess)
+      pricing <- pricingApi.pricingFor(money.currency).orFail(s"Invalid paypal currency $money")
+      usd <- currencyApi.toUsd(money).orFail(s"Invalid paypal currency $money")
       isLifetime <- pricingApi.isLifetime(money)
-      giftTo     <- ipn.giftTo.so(userApi.byId)
+      giftTo <- ipn.giftTo.so(userApi.byId)
       _ <-
         if key != payPalIpnKey.value then
           logger.error(s"Invalid PayPal IPN key $key from $ip ${ipn.userId} $money")
@@ -326,19 +327,19 @@ final class PlanApi(
     def createOrder(checkout: PlanCheckout, user: User, giftTo: Option[User]) =
       for
         isLifetime <- pricingApi.isLifetime(checkout.money)
-        order      <- payPalClient.createOrder(CreatePayPalOrder(checkout, user, giftTo, isLifetime))
+        order <- payPalClient.createOrder(CreatePayPalOrder(checkout, user, giftTo, isLifetime))
       yield order
 
     def createSubscription(checkout: PlanCheckout, user: User) =
       payPalClient.createSubscription(checkout, user)
 
     def captureOrder(orderId: PayPalOrderId, ip: IpAddress) = for
-      order      <- payPalClient.captureOrder(orderId)
-      money      <- order.capturedMoney.fold[Fu[Money]](fufail(s"Invalid paypal capture $order"))(fuccess)
-      pricing    <- pricingApi.pricingFor(money.currency).orFail(s"Invalid paypal currency $money")
-      usd        <- currencyApi.toUsd(money).orFail(s"Invalid paypal currency $money")
+      order <- payPalClient.captureOrder(orderId)
+      money <- order.capturedMoney.fold[Fu[Money]](fufail(s"Invalid paypal capture $order"))(fuccess)
+      pricing <- pricingApi.pricingFor(money.currency).orFail(s"Invalid paypal currency $money")
+      usd <- currencyApi.toUsd(money).orFail(s"Invalid paypal currency $money")
       isLifetime <- pricingApi.isLifetime(money)
-      giftTo     <- order.giftTo.so(userApi.byId)
+      giftTo <- order.giftTo.so(userApi.byId)
       _ <-
         if !pricing.valid(money, giftTo.isDefined) then
           logger.info(s"Ignoring invalid paypal amount from $ip ${order.userId} $money ${orderId}")
@@ -394,10 +395,10 @@ final class PlanApi(
         ip: IpAddress
     ) = for
       order <- payPalClient.getOrder(orderId).orFail(s"Missing paypal order for id $orderId")
-      sub   <- payPalClient.getSubscription(subId).orFail(s"Missing paypal subscription for order $order")
+      sub <- payPalClient.getSubscription(subId).orFail(s"Missing paypal subscription for order $order")
       money = sub.capturedMoney
       pricing <- pricingApi.pricingFor(money.currency).orFail(s"Invalid paypal currency $money")
-      usd     <- currencyApi.toUsd(money).orFail(s"Invalid paypal currency $money")
+      usd <- currencyApi.toUsd(money).orFail(s"Invalid paypal currency $money")
       _ <-
         if !pricing.valid(money, isGift = false) then
           logger.info(s"Ignoring invalid paypal amount from $ip ${order.userId} $money $orderId")
@@ -460,7 +461,7 @@ final class PlanApi(
           mongo.patron.update.one($id(patron.id), p2) >>
             setDbUserPlanOnCharge(user, patron.canLevelUp)
       isLifetime <- pricingApi.isLifetime(charge.money)
-      _          <- isLifetime.so(setLifetime(user))
+      _ <- isLifetime.so(setLifetime(user))
     yield logger.info(s"Charged ${user.username} with paypal checkout: $charge")
 
     private def subscriptionIdPatron(id: PayPalSubscriptionId): Fu[Option[Patron]] =
@@ -529,7 +530,7 @@ final class PlanApi(
       _.exists(_.isLifetime)
 
   def setLifetime(user: User): Funit =
-    if user.plan.isEmpty then Bus.pub(lila.core.misc.plan.MonthInc(user.id, 0))
+    if user.plan.isEmpty then Bus.pub(lila.core.plan.MonthInc(user.id, 0))
     for
       _ <- userApi.setPlan(user, user.plan.enable.some)
       _ <- mongo.patron.update
@@ -537,8 +538,8 @@ final class PlanApi(
           $id(user.id),
           $set(
             "lastLevelUp" -> nowInstant,
-            "lifetime"    -> true,
-            "free"        -> Patron.Free(nowInstant, by = none)
+            "lifetime" -> true,
+            "free" -> Patron.Free(nowInstant, by = none)
           ),
           upsert = true
         )
@@ -550,9 +551,9 @@ final class PlanApi(
           $id(user.id),
           $set(
             "lastLevelUp" -> nowInstant,
-            "lifetime"    -> false,
-            "free"        -> Patron.Free(nowInstant, by = none),
-            "expiresAt"   -> nowInstant.plusMonths(1)
+            "lifetime" -> false,
+            "free" -> Patron.Free(nowInstant, by = none),
+            "expiresAt" -> nowInstant.plusMonths(1)
           ),
           upsert = true
         )
@@ -561,15 +562,15 @@ final class PlanApi(
   def gift(from: User, to: User, money: Money): Funit =
     for
       toPatronOpt <- userPatron(to)
-      isLifetime  <- fuccess(toPatronOpt.exists(_.isLifetime)) >>| (pricingApi.isLifetime(money))
+      isLifetime <- fuccess(toPatronOpt.exists(_.isLifetime)) >>| (pricingApi.isLifetime(money))
       _ <- mongo.patron.update
         .one(
           $id(to.id),
           $set(
             "lastLevelUp" -> nowInstant,
-            "lifetime"    -> isLifetime,
-            "free"        -> Patron.Free(nowInstant, by = from.id.some),
-            "expiresAt"   -> (!isLifetime).option(nowInstant.plusMonths(1))
+            "lifetime" -> isLifetime,
+            "free" -> Patron.Free(nowInstant, by = from.id.some),
+            "expiresAt" -> (!isLifetime).option(nowInstant.plusMonths(1))
           ),
           upsert = true
         )
@@ -684,7 +685,7 @@ final class PlanApi(
       monthlyGoalApi.get
         .map: m =>
           Bus.pub:
-            lila.core.misc.plan.ChargeEvent(
+            lila.core.plan.ChargeEvent(
               username = charge.userId.map(lightUserApi.syncFallback).fold(UserName("Anonymous"))(_.name),
               cents = charge.usd.cents,
               percent = m.percent,

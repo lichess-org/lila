@@ -26,18 +26,19 @@ final class Signup(
     authenticator: Authenticator,
     userRepo: lila.user.UserRepo,
     disposableEmailAttempt: DisposableEmailAttempt,
+    cacheApi: lila.memo.CacheApi,
     netConfig: NetConfig
 )(using Executor, lila.core.config.RateLimit):
 
   private enum MustConfirmEmail(val value: Boolean):
-    case Nope                   extends MustConfirmEmail(false)
-    case YesBecausePrintExists  extends MustConfirmEmail(true)
+    case Nope extends MustConfirmEmail(false)
+    case YesBecausePrintExists extends MustConfirmEmail(true)
     case YesBecausePrintMissing extends MustConfirmEmail(true)
-    case YesBecauseIpExists     extends MustConfirmEmail(true)
-    case YesBecauseIpSusp       extends MustConfirmEmail(true)
-    case YesBecauseMobile       extends MustConfirmEmail(true)
-    case YesBecauseUA           extends MustConfirmEmail(true)
-    case YesBecauseEmailDomain  extends MustConfirmEmail(true)
+    case YesBecauseIpExists extends MustConfirmEmail(true)
+    case YesBecauseIpSusp extends MustConfirmEmail(true)
+    case YesBecauseMobile extends MustConfirmEmail(true)
+    case YesBecauseUA extends MustConfirmEmail(true)
+    case YesBecauseEmailDomain extends MustConfirmEmail(true)
 
   private object MustConfirmEmail:
     def apply(print: Option[FingerPrint], email: EmailAddress, suspIp: Boolean)(using
@@ -62,6 +63,9 @@ final class Signup(
                   else YesBecauseEmailDomain
         }
 
+  private val dedupCache = cacheApi.notLoading[SecurityForm.AnySignupData, Signup.Result](16, "signup.dedup"):
+    _.expireAfterWrite(2.seconds).buildAsync()
+
   def website(
       blind: Boolean
   )(using req: Request[?], lang: Lang, formBinding: FormBinding): Fu[Signup.Result] =
@@ -76,38 +80,43 @@ final class Signup(
               Signup.Result.Bad(err.tap(signupErrLog))
           ,
           data =>
-            for
-              suspIp  <- ipTrust.isSuspicious(ip)
-              ipData  <- ipTrust.data(ip)
-              captcha <- hcaptcha.verify()
-              result <- captcha match
-                case Hcaptcha.Result.Fail => fuccess(Signup.Result.MissingCaptcha)
-                case _ =>
-                  signupRateLimit(
-                    data.username.id,
-                    suspIp = suspIp,
-                    captched = captcha == Hcaptcha.Result.Valid
-                  ):
-                    MustConfirmEmail(data.fingerPrint, data.email, suspIp = suspIp).flatMap { mustConfirm =>
-                      monitor(data, captcha, mustConfirm, ipData, ipSusp = suspIp, api = none)
-                      lila.mon.user.register.mustConfirmEmail(mustConfirm.toString).increment()
-                      val passwordHash = authenticator.passEnc(data.clearPassword)
-                      userRepo
-                        .create(
-                          data.username,
-                          passwordHash,
-                          data.email,
-                          blind,
-                          none,
-                          mustConfirmEmail = mustConfirm.value
-                        )
-                        .orFail(s"No user could be created for ${data.username}")
-                        .addEffect:
-                          logSignup(req, _, data.email, data.fingerPrint, none, captcha, mustConfirm)
-                        .flatMap:
-                          confirmOrAllSet(data.email, mustConfirm, data.fingerPrint, none)
-                    }
-            yield result
+            dedupCache.getFuture(
+              data,
+              _ =>
+                for
+                  suspIp <- ipTrust.isSuspicious(ip)
+                  ipData <- ipTrust.reqData(req)
+                  captcha <- hcaptcha.verify()
+                  result <- captcha match
+                    case Hcaptcha.Result.Fail => fuccess(Signup.Result.MissingCaptcha)
+                    case _ =>
+                      signupRateLimit(
+                        data.username.id,
+                        suspIp = suspIp,
+                        captched = captcha == Hcaptcha.Result.Valid
+                      ):
+                        MustConfirmEmail(data.fingerPrint, data.email, suspIp = suspIp).flatMap {
+                          mustConfirm =>
+                            monitor(data, captcha, mustConfirm, ipData, ipSusp = suspIp, api = none)
+                            lila.mon.user.register.mustConfirmEmail(mustConfirm.toString).increment()
+                            val passwordHash = authenticator.passEnc(data.clearPassword)
+                            userRepo
+                              .create(
+                                data.username,
+                                passwordHash,
+                                data.email,
+                                blind,
+                                none,
+                                mustConfirmEmail = mustConfirm.value
+                              )
+                              .orFail(s"No user could be created for ${data.username}")
+                              .addEffect:
+                                logSignup(req, _, data.email, data.fingerPrint, none, captcha, mustConfirm)
+                              .flatMap:
+                                confirmOrAllSet(data.email, mustConfirm, data.fingerPrint, none)
+                        }
+                yield result
+            )
         )
 
   private def confirmOrAllSet(
@@ -128,7 +137,8 @@ final class Signup(
 
   def mobile(apiVersion: ApiVersion)(using req: Request[?])(using Lang, FormBinding): Fu[Signup.Result] =
     val ip = HTTPRequest.ipAddress(req)
-    ip2proxy(ip)
+    ip2proxy
+      .ofReq(req)
       .flatMap: proxy =>
         if !proxy.name.forall(mobileSignupProxy.get().value.contains)
         then fuccess(Signup.Result.ForbiddenNetwork)
@@ -142,45 +152,50 @@ final class Signup(
                   Signup.Result.Bad(err.tap(signupErrLog))
               ,
               data =>
-                for
-                  suspIp <- ipTrust.isSuspicious(ip)
-                  ipData <- ipTrust.data(ip)
-                  result <- signupRateLimit(data.username.id, suspIp = suspIp, captched = false):
-                    val mustConfirm =
-                      if canSendEmails.get() then MustConfirmEmail.YesBecauseMobile else MustConfirmEmail.Nope
-                    monitor(
-                      data,
-                      captcha = Hcaptcha.Result.Mobile,
-                      mustConfirm,
-                      ipData,
-                      suspIp,
-                      apiVersion.some
-                    )
-                    lila.mon.user.register.mustConfirmEmail(mustConfirm.toString).increment()
-                    val passwordHash = authenticator.passEnc(ClearPassword(data.password))
-                    userRepo
-                      .create(
-                        data.username,
-                        passwordHash,
-                        data.email,
-                        blind = false,
-                        apiVersion.some,
-                        mustConfirmEmail = mustConfirm.value
-                      )
-                      .orFail(s"No user could be created for ${data.username}")
-                      .addEffect:
-                        logSignup(
-                          req,
-                          _,
-                          data.email,
-                          none,
-                          apiVersion.some,
-                          Hcaptcha.Result.Mobile,
-                          mustConfirm
+                dedupCache.getFuture(
+                  data,
+                  _ =>
+                    for
+                      suspIp <- ipTrust.isSuspicious(ip)
+                      ipData <- ipTrust.ipData(ip)
+                      result <- signupRateLimit(data.username.id, suspIp = suspIp, captched = false):
+                        val mustConfirm =
+                          if canSendEmails.get() then MustConfirmEmail.YesBecauseMobile
+                          else MustConfirmEmail.Nope
+                        monitor(
+                          data,
+                          captcha = Hcaptcha.Result.Mobile,
+                          mustConfirm,
+                          ipData,
+                          suspIp,
+                          apiVersion.some
                         )
-                      .flatMap:
-                        confirmOrAllSet(data.email, mustConfirm, none, apiVersion.some)
-                yield result
+                        lila.mon.user.register.mustConfirmEmail(mustConfirm.toString).increment()
+                        val passwordHash = authenticator.passEnc(ClearPassword(data.password))
+                        userRepo
+                          .create(
+                            data.username,
+                            passwordHash,
+                            data.email,
+                            blind = false,
+                            apiVersion.some,
+                            mustConfirmEmail = mustConfirm.value
+                          )
+                          .orFail(s"No user could be created for ${data.username}")
+                          .addEffect:
+                            logSignup(
+                              req,
+                              _,
+                              data.email,
+                              none,
+                              apiVersion.some,
+                              Hcaptcha.Result.Mobile,
+                              mustConfirm
+                            )
+                          .flatMap:
+                            confirmOrAllSet(data.email, mustConfirm, none, apiVersion.some)
+                    yield result
+                )
             )
 
   private def monitor(
@@ -246,7 +261,7 @@ final class Signup(
 
   private def signupErrLog(err: Form[?]) = for
     username <- err("username").value
-    email    <- err("email").value
+    email <- err("email").value
   yield
     if err.errors.exists(_.messages.contains("error.email_acceptable")) &&
       err("email").value.exists(EmailAddress.isValid)

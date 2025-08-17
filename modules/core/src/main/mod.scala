@@ -1,16 +1,16 @@
 package lila.core
 package mod
 
-import lila.core.id.{ ForumCategId, ForumPostId, GameFullId }
-import lila.core.userId.*
 import lila.core.chat.TimeoutReason
+import lila.core.id.{ ForumCategId, ForumPostId, ForumTopicSlug, GameFullId }
+import lila.core.userId.*
 
 trait LogApi:
-  def toggleStickyTopic(categ: ForumCategId, topicSlug: String, sticky: Boolean)(using MyId): Funit
-  def toggleCloseTopic(categ: ForumCategId, topicSlug: String, closed: Boolean)(using MyId): Funit
+  def toggleStickyTopic(categ: ForumCategId, slug: ForumTopicSlug, sticky: Boolean)(using MyId): Funit
+  def toggleCloseTopic(categ: ForumCategId, slug: ForumTopicSlug, closed: Boolean)(using MyId): Funit
   def postOrEditAsAnonMod(
       categ: ForumCategId,
-      topic: String,
+      topic: ForumTopicSlug,
       postId: ForumPostId,
       text: String,
       edit: Boolean
@@ -25,7 +25,7 @@ case class ChatTimeout(mod: UserId, user: UserId, reason: TimeoutReason, text: S
 case class Shadowban(user: UserId, value: Boolean)
 case class KickFromRankings(userId: UserId)
 case class AutoWarning(userId: UserId, subject: String)
-case class Impersonate(userId: UserId, by: Option[UserId])
+case class Impersonate(modId: ModId, userId: UserId, v: Boolean)
 case class SelfReportMark(userId: UserId, name: String, gameId: GameFullId)
 case class BoardApiMark(userId: UserId, name: String)
 case class LoginWithWeakPassword(userId: UserId)

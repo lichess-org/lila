@@ -2,7 +2,7 @@ package lila.study
 
 import chess.ChessTreeArbitraries.*
 import chess.CoreArbitraries.given
-import chess.format.pgn.Glyphs
+import chess.format.pgn.{ Glyphs, Comment as CommentStr }
 import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.{ Centis, FromMove, Move, Ply, Position, Square, WithMove }
 import org.scalacheck.{ Arbitrary, Gen }
@@ -12,20 +12,20 @@ import lila.tree.{ Metas, NewBranch, NewRoot, NewTree, Clock }
 
 object StudyArbitraries:
 
-  given Arbitrary[NewRoot] = Arbitrary(genRoot(Position(chess.variant.Standard)))
+  given Arbitrary[NewRoot] = Arbitrary(genRoot(chess.variant.Standard.initialPosition))
   type RootWithPath = (NewRoot, UciPath)
-  given Arbitrary[RootWithPath]    = Arbitrary(genRootWithPath(Position(chess.variant.Standard)))
-  given Arbitrary[Option[NewTree]] = Arbitrary(genTree(Position(chess.variant.Standard)))
+  given Arbitrary[RootWithPath] = Arbitrary(genRootWithPath(chess.variant.Standard.initialPosition))
+  given Arbitrary[Option[NewTree]] = Arbitrary(genTree(chess.variant.Standard.initialPosition))
 
   given Arbitrary[Clock] = Arbitrary:
     for
       centis <- Arbitrary.arbitrary[Centis]
-      trust  <- Arbitrary.arbitrary[Option[Boolean]]
+      trust <- Arbitrary.arbitrary[Option[Boolean]]
     yield Clock(centis, trust)
 
   def genRoot(seed: Position): Gen[NewRoot] =
     for
-      tree  <- genTree(seed)
+      tree <- genTree(seed)
       metas <- genMetas(seed, Ply.initial)
       pgn = NewRoot(metas, tree)
     yield pgn
@@ -35,7 +35,7 @@ object StudyArbitraries:
       tree <- genNodeWithPath(seed)
       pgnTree = tree._1.map(_.map(_.data))
       metas <- genMetas(seed, Ply.initial)
-      pgn  = NewRoot(metas, pgnTree)
+      pgn = NewRoot(metas, pgnTree)
       path = tree._2.map(_.id)
     yield (pgn, UciPath.fromIds(path))
 
@@ -62,9 +62,9 @@ object StudyArbitraries:
   def genMetas(board: Position, ply: Ply): Gen[Metas] =
     for
       comments <- genComments(5)
-      glyphs   <- Arbitrary.arbitrary[Glyphs]
-      clock    <- Arbitrary.arbitrary[Option[Clock]]
-      shapes   <- Arbitrary.arbitrary[Shapes]
+      glyphs <- Arbitrary.arbitrary[Glyphs]
+      clock <- Arbitrary.arbitrary[Option[Clock]]
+      shapes <- Arbitrary.arbitrary[Shapes]
     yield Metas(
       ply,
       Fen.write(board, ply.fullMoveNumber),
@@ -84,25 +84,25 @@ object StudyArbitraries:
   def genComments(size: Int) =
     for
       commentSize <- Gen.choose(0, size)
-      xs          <- Gen.listOfN(commentSize, Gen.alphaStr)
-      texts    = xs.collect { case s if s.nonEmpty => Comment.Text(s) }
+      xs <- Gen.listOfN(commentSize, Gen.alphaStr)
+      texts = CommentStr.from(xs).trimNonEmpty
       comments = texts.map(Comment(Comment.Id.make, _, Comment.Author.Lichess))
     yield Comments(comments)
 
-  given Arbitrary[Shape]  = Arbitrary(Gen.oneOf(genCircle, genArrow))
+  given Arbitrary[Shape] = Arbitrary(Gen.oneOf(genCircle, genArrow))
   given Arbitrary[Shapes] = Arbitrary(Gen.listOf[Shape](Arbitrary.arbitrary[Shape]).map(Shapes(_)))
 
   def genCircle: Gen[Shape.Circle] =
     for
       brush <- Arbitrary.arbitrary[Shape.Brush]
-      orig  <- Arbitrary.arbitrary[Square]
+      orig <- Arbitrary.arbitrary[Square]
     yield Shape.Circle(brush, orig)
 
   def genArrow: Gen[Shape.Arrow] =
     for
       brush <- Arbitrary.arbitrary[Shape.Brush]
-      orig  <- Arbitrary.arbitrary[Square]
-      dest  <- Arbitrary.arbitrary[Square]
+      orig <- Arbitrary.arbitrary[Square]
+      dest <- Arbitrary.arbitrary[Square]
     yield Shape.Arrow(brush, orig, dest)
 
   given Arbitrary[Shape.Brush] = Arbitrary(Gen.oneOf('G', 'R', 'Y', 'B').map(toBrush))
@@ -111,4 +111,4 @@ object StudyArbitraries:
       case 'G' => "green"
       case 'R' => "red"
       case 'Y' => "yellow"
-      case _   => "blue"
+      case _ => "blue"

@@ -19,7 +19,7 @@ final class GifExport(
       .addHttpHeaders("Content-Type" -> "application/json")
       .withBody(
         Json.obj(
-          "delay"       -> 80,
+          "delay" -> 80,
           "orientation" -> chapter.setup.orientation.name,
           "white" -> List(
             chapter.tags(_.WhiteTitle),
@@ -32,8 +32,8 @@ final class GifExport(
             chapter.tags(_.BlackElo).map(elo => s"($elo)")
           ).flatten.mkString(" "),
           "frames" -> framesRec(chapter.root :: chapter.root.mainline, Json.arr()),
-          "theme"  -> theme.|("brown"),
-          "piece"  -> piece.|("cburnett")
+          "theme" -> theme.|("brown"),
+          "piece" -> piece.|("cburnett")
         )
       )
       .stream()

@@ -9,7 +9,7 @@ object SemVer:
         import scala.util.control.Exception.*
         allCatch.opt(bit.toLong) match
           case Some(long) => (long :: num, extra)
-          case None       => (num, bit :: extra)
+          case None => (num, bit :: extra)
       }
     nums.reverse match
       case x :: y :: z :: Nil =>
@@ -45,14 +45,14 @@ object SemVer:
       case _ =>
         sys.error("Cannot parse version: [%s]".format(version))
 
-  val Snapshot                              = "-SNAPSHOT"
+  val Snapshot = "-SNAPSHOT"
   def isSnapshotVersion(v: String): Boolean = v.trim.endsWith(Snapshot)
 
   def isIntegrationVersion(v: String): Boolean =
     val Rx = """(\d+).(\d+).(\d+).(\d{14})""".r
     v match
       case Rx(_, _, _, _) => true
-      case _              => false
+      case _ => false
 
   def isReleaseVersion(v: String): Boolean = !isSnapshotVersion(v) && !isIntegrationVersion(v)
 
@@ -62,7 +62,7 @@ case class SemVer(major: Long, minor: Long, point: Long, extra: Option[String], 
   override def equals(obj: Any): Boolean =
     obj match
       case version: SemVer => this.compareTo(version) == 0
-      case _               => false
+      case _ => false
 
   def compare(o: SemVer): Int =
     if major != o.major then major.compare(o.major)
@@ -86,9 +86,9 @@ case class SemVer(major: Long, minor: Long, point: Long, extra: Option[String], 
         case (Some(ths), None, Some(tht), None) =>
           ths.compareTo(tht) // No number prefixes: Compare lexicographically
         case (Some(_), _, None, _) => -1 // One has extra, the other doesn't
-        case (None, _, Some(_), _) => 1  // One has extra, the other doesn't
-        case _                     => 0  // Both have no extra: They are the same
+        case (None, _, Some(_), _) => 1 // One has extra, the other doesn't
+        case _ => 0 // Both have no extra: They are the same
 
-  def isSnapshotVersion    = SemVer.isSnapshotVersion(this.original)
+  def isSnapshotVersion = SemVer.isSnapshotVersion(this.original)
   def isIntegrationVersion = SemVer.isIntegrationVersion(this.original)
-  def isReleaseVersion     = SemVer.isReleaseVersion(this.original)
+  def isReleaseVersion = SemVer.isReleaseVersion(this.original)

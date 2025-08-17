@@ -15,7 +15,11 @@ final class Env(db: lila.db.Db, cacheApi: CacheApi, ws: StandaloneWSClient)(usin
 )(using mode: play.api.Mode, scheduler: Scheduler):
 
   val repo =
-    FideRepo(playerColl = db(CollName("fide_player")), federationColl = db(CollName("fide_federation")))
+    FideRepo(
+      playerColl = db(CollName("fide_player")),
+      federationColl = db(CollName("fide_federation")),
+      followerColl = db(CollName("fide_player_follower"))
+    )
 
   lazy val playerApi = wire[FidePlayerApi]
 
@@ -23,11 +27,12 @@ final class Env(db: lila.db.Db, cacheApi: CacheApi, ws: StandaloneWSClient)(usin
 
   lazy val paginator = wire[FidePaginator]
 
-  def federationsOf: hub.Federation.FedsOf      = playerApi.federationsOf
+  def federationsOf: hub.Federation.FedsOf = playerApi.federationsOf
   def federationNamesOf: hub.Federation.NamesOf = playerApi.federationNamesOf
-  def tokenize: hub.Tokenize                    = FidePlayer.tokenize
-  def guessPlayer: hub.GuessPlayer              = playerApi.guessPlayer.apply
-  def getPlayer: hub.GetPlayer                  = playerApi.get
+  def tokenize: hub.Tokenize = FidePlayer.tokenize
+  def guessPlayer: hub.GuessPlayer = playerApi.guessPlayer.apply
+  def getPlayer: hub.GetPlayer = playerApi.get
+  def getPlayerFollowers: hub.GetPlayerFollowers = repo.follower.followers
 
   def search(q: Option[String], page: Int = 1): Fu[Either[FidePlayer, Paginator[FidePlayer]]] =
     val query = q.so(_.trim)
@@ -36,7 +41,7 @@ final class Env(db: lila.db.Db, cacheApi: CacheApi, ws: StandaloneWSClient)(usin
       .so(playerApi.fetch)
       .flatMap:
         case Some(player) => fuccess(Left(player))
-        case None         => paginator.best(page, query).map(Right(_))
+        case None => paginator.best(page, query).map(Right(_))
 
   private lazy val fideSync = wire[FidePlayerSync]
 

@@ -9,11 +9,11 @@
     <item quantity="other">%s учасників</item>
   </plurals>
   <string name="allTeams">Усі команди</string>
-  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Капітан команд</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Команди-лідери</string>
   <string name="newTeam">Нова команда</string>
   <string name="myTeams">Мої команди</string>
   <string name="noTeamFound">Не знайдено команди</string>
-  <string name="joinTeam" comment="Appears as a button on team pages, and on pages of tournaments that require you to be a member of that team (e.g. Swiss tournaments).&#10;&#10;Please keep as short as possible.">Приєднатися до команди</string>
+  <string name="joinTeam">Приєднатися до команди</string>
   <string name="onlyLeaderLeavesTeam">Будь ласка, додайте нового лідера команди перед виходом, або закрийте команду.</string>
   <string name="quitTeam">Залишити команду</string>
   <string name="manuallyReviewAdmissionRequests">Огляд запитів на вступ вручну</string>
@@ -50,6 +50,9 @@
   <string name="teamsIlead">Команди, лідером яких я є</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Можливо, ви захочете приєднати посилання на один з цих турнірів?</string>
   <string name="leadersChat">Чат лідерів</string>
+  <string name="introduction">Вступ</string>
+  <string name="teamIntroductionHelp">Короткий опис, видимий в списку команди. До 200 символів.</string>
+  <string name="teamDescriptionHelp">Повний опис, видимий на сторінці команди.</string>
   <string name="closeTeam">Закрити команду</string>
   <string name="closeTeamDescription">Закриває команду назавжди.</string>
   <string name="entryCode">Вхідний код команди</string>
@@ -62,7 +65,7 @@
   <string name="joinLichessVariantTeam">Приєднатися до офіційної команди %s, щоб отримувати інформацію про новини та події</string>
   <string name="teamPage">Сторінка команди</string>
   <string name="thisTeamBattleIsOver">Цей турнір завершено, а команди більше не можуть бути оновлені.</string>
-  <string name="listTheTeamsThatWillCompete" comment="&quot;List&quot; is used as a verb in this sentence. You can alternatively translate as &quot;Fill out&quot;, as this is presented in the context of a form.">Список команд, які будуть змагатись в цій битві.</string>
+  <string name="listTheTeamsThatWillCompete">Список команд, які будуть змагатись в цій битві.</string>
   <string name="oneTeamPerLine">Одна команда на рядок. Використовуйте автозавершення.</string>
   <string name="oneTeamPerLineHelp">Ви можете скопіювати цей список із цього турніру до інших!
 

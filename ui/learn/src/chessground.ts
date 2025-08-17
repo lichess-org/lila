@@ -1,7 +1,7 @@
 import { h, type VNode } from 'snabbdom';
 import type { RunCtrl } from './run/runCtrl';
 import { Coords } from 'lib/prefs';
-import { Chessground as makeChessground } from 'chessground';
+import { Chessground as makeChessground } from '@lichess-org/chessground';
 
 export interface Shape {
   orig: Key;

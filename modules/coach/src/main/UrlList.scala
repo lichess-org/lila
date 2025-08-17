@@ -21,7 +21,7 @@ object UrlList:
     private def toUrl(line: String): Option[Url] =
       line match
         case UrlRegex(id) => Url(s"https://www.youtube.com/embed/$id").some
-        case _            => none
+        case _ => none
 
   object study:
 
@@ -35,4 +35,4 @@ object UrlList:
     private def toId(line: String): Option[StudyId] =
       line match
         case UrlRegex(id) => StudyId(id).some
-        case _            => none
+        case _ => none

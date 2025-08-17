@@ -13,7 +13,7 @@ import lila.db.dsl.{ *, given }
 import lila.rating.PerfType
 
 final class LeaderboardApi(
-    val repo: LeaderboardRepo,
+    repo: LeaderboardRepo,
     tournamentRepo: TournamentRepo,
     playerRepo: PlayerRepo
 )(using Executor, akka.stream.Materializer)
@@ -30,12 +30,11 @@ final class LeaderboardApi(
 
   def timeRange(userId: UserId, range: TimeInterval): Fu[List[Entry]] =
     repo.coll
-      .find(
+      .find:
         $doc(
           "u" -> userId,
           "d".$gte(range.start).$lt(range.end)
         )
-      )
       .sort($sort.desc("d"))
       .cursor[Entry]()
       .list(100)
@@ -111,7 +110,7 @@ final class LeaderboardApi(
         withPerformance.so:
           List(
             PipelineOperator:
-              $lookup.pipeline(
+              $lookup.simple(
                 from = playerRepo.coll,
                 as = "player",
                 local = "_id",
@@ -127,7 +126,7 @@ final class LeaderboardApi(
       currentPage = page,
       maxPerPage = maxPerPage,
       adapter = new AdapterLike[TourEntry]:
-        private val selector   = $doc("u" -> user.id)
+        private val selector = $doc("u" -> user.id)
         def nbResults: Fu[Int] = repo.coll.countSel(selector)
         def slice(offset: Int, length: Int): Fu[Seq[TourEntry]] =
           repo.coll
@@ -140,7 +139,7 @@ final class LeaderboardApi(
 
   private def readTourEntry(doc: Bdoc): Option[TourEntry] = for
     entry <- doc.asOpt[Entry]
-    tour  <- doc.getAsOpt[Tournament]("tour")
+    tour <- doc.getAsOpt[Tournament]("tour")
     performance = doc.getAsOpt[IntRating]("perf")
   yield TourEntry(tour, entry, performance)
 
@@ -181,14 +180,14 @@ object LeaderboardApi:
   object ChartData:
 
     case class Ints(v: List[Int]):
-      def mean         = Maths.mean(v)
-      def median       = Maths.median(v)
-      def sum          = v.sum
+      def mean = Maths.mean(v)
+      def median = Maths.median(v)
+      def sum = v.sum
       def :::(i: Ints) = Ints(v ::: i.v)
 
     case class PerfResult(nb: Int, points: Ints, rank: Ints):
       private def rankPercent(n: Double) = (n * 100 / rankRatioMultiplier).toInt
-      def rankPercentMean                = rank.mean.map(rankPercent)
-      def rankPercentMedian              = rank.median.map(rankPercent)
+      def rankPercentMean = rank.mean.map(rankPercent)
+      def rankPercentMedian = rank.median.map(rankPercent)
 
     case class AggregationResult(_id: PerfId, nb: Int, points: List[Int], ratios: List[Int])

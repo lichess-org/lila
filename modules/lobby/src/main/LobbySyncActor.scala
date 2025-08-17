@@ -49,7 +49,7 @@ final private class LobbySyncActor(
       lila.mon.lobby.seek.create.increment()
       findCompatible(seek).foreach:
         case Some(s) => this ! BiteSeek(s.id, seek.user)
-        case None    => this ! SaveSeek(msg)
+        case None => this ! SaveSeek(msg)
 
     case SaveSeek(msg) =>
       seekApi.insert(msg.seek)

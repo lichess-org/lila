@@ -75,6 +75,7 @@
   <string name="expandVariations">Vis variantar</string>
   <string name="forceVariation">Tving fram varianten</string>
   <string name="copyVariationPgn">Kopier variant-PGN</string>
+  <string name="copyMainLinePgn">Kopier PGN for hovudvariant</string>
   <string name="move">Trekk</string>
   <string name="variantLoss">Variant tap</string>
   <string name="variantWin">Variant vinn</string>
@@ -167,6 +168,7 @@
   <string name="drawByMutualAgreement">Remis etter semje</string>
   <string name="fiftyMovesWithoutProgress">Femti trekk utan framgang</string>
   <string name="currentGames">Parti som blir spela no</string>
+  <string name="joinedX">Vart med %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s parti</item>
     <item quantity="other">%s parti</item>
@@ -478,7 +480,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="openTournaments">Opne turneringar</string>
   <string name="duration">Tidslengd</string>
   <string name="winner">Vinnar</string>
-  <string name="standing">Stilling</string>
+  <string name="standings">Stilllingar</string>
   <string name="createANewTournament">Lag ei ny turnering</string>
   <string name="tournamentCalendar">Turneringskalender</string>
   <string name="conditionOfEntry">Vilkår for å delta:</string>
@@ -492,7 +494,6 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="points">Poeng</string>
   <string name="wins">Sigrar</string>
   <string name="losses">Tap</string>
-  <string name="createdBy">Oppretta av</string>
   <string name="startingIn" comment="Displayed above a timer">Startar om</string>
   <string name="standByX">Vent litt %s, koplar saman spelarar, hald deg klar!</string>
   <string name="pause">Pause</string>
@@ -1009,4 +1010,5 @@ Alle kostnader for drift, utvikling og innhald vert finansiert eine og åleine a
   <string name="accessibility">Tilgjengelegheit</string>
   <string name="enableBlindMode">Aktiver blindsjakkmodus</string>
   <string name="disableBlindMode">Deaktiver blindsjakkmodus</string>
+  <string name="copyToClipboard">Kopiér til utklippstavla</string>
 </resources>

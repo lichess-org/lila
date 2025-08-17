@@ -1,6 +1,6 @@
 import { drag } from './crazyCtrl';
 import { h } from 'snabbdom';
-import type { MouchEvent } from 'chessground/types';
+import type { MouchEvent } from '@lichess-org/chessground/types';
 import { onInsert } from 'lib/snabbdom';
 import type AnalyseCtrl from '../ctrl';
 

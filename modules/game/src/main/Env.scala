@@ -57,7 +57,7 @@ final class Env(
   )
 
   lazy val gamesByUsersStream = wire[GamesByUsersStream]
-  lazy val gamesByIdsStream   = wire[GamesByIdsStream]
+  lazy val gamesByIdsStream = wire[GamesByIdsStream]
 
   lazy val favoriteOpponents = wire[FavoriteOpponents]
 

@@ -1,6 +1,6 @@
 import type { ClockElements, ClockCtrl } from './clockCtrl';
 import type { Hooks } from 'snabbdom';
-import { looseH as h, type VNode, LooseVNodes } from '@/snabbdom';
+import { hl, type VNode, LooseVNodes } from '@/snabbdom';
 import { TopOrBottom } from '../game';
 import { displayColumns } from '@/device';
 
@@ -18,23 +18,23 @@ export function renderClock(
       isRunning = color === ctrl.times.activeColor;
     els.time = el;
     els.clock = el.parentElement!;
-    el.innerHTML = formatClockTime(millis, ctrl.showTenths(millis), isRunning, ctrl.opts.nvui);
+    el.innerHTML = formatClockTime(millis, ctrl.showTenths(millis), isRunning);
   };
   const timeHook: Hooks = {
     insert: vnode => update(vnode.elm as HTMLElement),
     postpatch: (_, vnode) => update(vnode.elm as HTMLElement),
   };
-  return h(
+  return hl(
     // the player.color class ensures that when the board is flipped, the clock is redrawn. solves bug where clock
     // would be incorrectly latched to red color: https://github.com/lichess-org/lila/issues/10774
     `div.rclock.rclock-${position}.rclock-${color}`,
     { class: { outoftime: millis <= 0, running: isRunning, emerg: millis < ctrl.emergMs } },
-    ctrl.opts.nvui
-      ? [h('div.time', { attrs: { role: 'timer' }, hook: timeHook })]
+    site.blindMode
+      ? [hl('div.time', { attrs: { role: 'timer' }, hook: timeHook })]
       : [
           ctrl.showBar && ctrl.opts.bothPlayersHavePlayed() ? showBar(ctrl, color) : undefined,
-          h('div.time', { class: { hour: millis > 3600 * 1000 }, hook: timeHook }),
-          ...onTheSide(color, position),
+          hl('div.time', { class: { hour: millis > 3600 * 1000 }, hook: timeHook }),
+          onTheSide(color, position),
         ],
   );
 }
@@ -65,9 +65,9 @@ export function formatClockTimeVerbal(time: Millis): string {
   return parts.join(' ');
 }
 
-function formatClockTime(time: Millis, showTenths: boolean, isRunning: boolean, nvui: boolean) {
+function formatClockTime(time: Millis, showTenths: boolean, isRunning: boolean) {
   const date = new Date(time);
-  if (nvui) return formatClockTimeVerbal(time);
+  if (site.blindMode) return formatClockTimeVerbal(time);
   const millis = date.getUTCMilliseconds(),
     sep = isRunning && millis < 500 ? sepLow : sepHigh,
     baseStr = pad2(date.getUTCMinutes()) + sep + pad2(date.getUTCSeconds());
@@ -115,7 +115,7 @@ function showBar(ctrl: ClockCtrl, color: Color) {
   };
   return displayColumns() === 1
     ? undefined
-    : h('div.bar', {
+    : hl('div.bar', {
         class: { berserk: ctrl.opts.hasGoneBerserk(color) },
         hook: {
           insert: vnode => update(vnode.elm as HTMLElement),
@@ -125,7 +125,7 @@ function showBar(ctrl: ClockCtrl, color: Color) {
 }
 
 export function updateElements(clock: ClockCtrl, els: ClockElements, millis: Millis): void {
-  if (els.time) els.time.innerHTML = formatClockTime(millis, clock.showTenths(millis), true, clock.opts.nvui);
+  if (els.time) els.time.innerHTML = formatClockTime(millis, clock.showTenths(millis), true);
   // 12/02/2025 Brave 1.74.51 android flickers the bar oninline transforms, even though .bar is display: none
   if (els.bar) els.bar.style.transform = 'scale(' + clock.timeRatio(millis) + ',1)';
   if (els.clock) {

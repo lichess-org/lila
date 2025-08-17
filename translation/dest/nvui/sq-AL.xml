@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="featuredEvents">Veprimtari të zgjedhura</string>
+  <string name="moveList">Listë lëvizjesh</string>
+  <string name="gameInfo">Hollësi loje</string>
+  <string name="pieces">Gurë</string>
+  <string name="gameStatus">Gjendje loje</string>
+  <string name="lastMove">Lëvizja e fundit</string>
+  <string name="actions">Veprime</string>
+  <string name="yourClock">Sahati juaj</string>
+  <string name="opponentClock">Sahati i kundërshtarit</string>
+  <string name="inputFormCommandList">Shtypini këto urdhra te formulari i dhënies së urdhrave.</string>
+  <string name="goToBoard">Kaloni te fusha. Kuadrati parazgjedhje është e-4. Mund të përcaktoni një kuadrat: “board a-1” ose “b a-1” do t’ju kalojë te kuadrati a-1.</string>
+  <string name="movePiece">Që të lëvizni një gur, përdorni paraqitjen standarde algjebrike.</string>
+  <string name="king">mbret</string>
+  <string name="whiteKing">mbreti i bardhë</string>
+  <string name="blackKing">mbreti i zi</string>
+  <string name="queen">mbretëreshë</string>
+  <string name="whiteQueen">mbretëresha e bardhë</string>
+  <string name="blackQueen">mbretëresha e zezë</string>
+  <string name="rook">torre</string>
+  <string name="whiteRook">torre e bardhë</string>
+  <string name="blackRook">torre e zezë</string>
+  <string name="bishop">oficer</string>
+  <string name="whiteBishop">oficer i bardhë</string>
+  <string name="blackBishop">oficer i zi</string>
+  <string name="knight">kalë</string>
+  <string name="whiteKnight">kalë i bardhë</string>
+  <string name="blackKnight">kalë i zi</string>
+  <string name="pawn">ushtar</string>
+  <string name="whitePawn">ushtar i bardhë</string>
+  <string name="blackPawn">ushtar i zi</string>
+  <string name="invalidMove">Lëvizje e pavlefshme</string>
+</resources>

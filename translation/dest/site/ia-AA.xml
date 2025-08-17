@@ -367,7 +367,6 @@
   <string name="openTournaments">Torneos aperte</string>
   <string name="duration">Duration</string>
   <string name="winner">Vincitor</string>
-  <string name="standing">Position</string>
   <string name="createANewTournament">Crear un nove torneo</string>
   <string name="tournamentCalendar">Calendario del torneo</string>
   <string name="conditionOfEntry">Condition de entrata:</string>
@@ -381,7 +380,6 @@
   <string name="points">Punctos</string>
   <string name="wins">Victorias</string>
   <string name="losses">Perditas</string>
-  <string name="createdBy">Create per</string>
   <string name="standByX">%s, attende un momento. On connecte le jocatores, prepara te!</string>
   <string name="youArePlaying">Tu es jocante!</string>
   <string name="winRate">Percentage de victorias</string>

@@ -19,7 +19,7 @@ case class Student(
   def is(other: Student) = id == other.id
 
   def isArchived = archived.isDefined
-  def isActive   = !isArchived
+  def isActive = !isArchived
 
 object Student:
 
@@ -57,8 +57,8 @@ object Student:
 
   private[clas] object password:
 
-    private val chars      = (('2' to '9') ++ (('a' to 'z').toSet - 'l')).mkString
-    private val nbChars    = chars.length
+    private val chars = (('2' to '9') ++ (('a' to 'z').toSet - 'l')).mkString
+    private val nbChars = chars.length
     private def secureChar = chars(scalalib.SecureRandom.nextInt(nbChars))
 
     def generate = ClearPassword:

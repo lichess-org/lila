@@ -42,7 +42,7 @@ final class CoordinateUi(helpers: Helpers):
       "coordinateTrainer",
       Json.obj(
         "resizePref" -> ctx.pref.resizeHandle,
-        "is3d"       -> ctx.pref.is3d,
+        "is3d" -> ctx.pref.is3d,
         "scores" -> Json.obj(
           "findSquare" -> Json.obj(
             "white" -> (scoreOption.so(_.white): List[Int]),

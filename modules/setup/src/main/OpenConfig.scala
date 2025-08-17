@@ -1,6 +1,6 @@
 package lila.setup
 
-import chess.Clock
+import chess.{ Clock, Rated }
 import chess.format.Fen
 import chess.variant.{ FromPosition, Variant }
 import scalalib.model.Days
@@ -12,7 +12,7 @@ final case class OpenConfig(
     variant: chess.variant.Variant,
     clock: Option[Clock.Config],
     days: Option[Days],
-    rated: Boolean,
+    rated: Rated,
     position: Option[Fen.Full],
     userIds: Option[(UserId, UserId)],
     rules: Set[GameRule] = Set.empty,
@@ -35,7 +35,7 @@ object OpenConfig:
       v: Option[Variant.LilaKey],
       cl: Option[Clock.Config],
       days: Option[Days],
-      rated: Boolean,
+      rated: Rated,
       pos: Option[Fen.Full],
       usernames: Option[List[UserStr]],
       rules: Option[Set[GameRule]],

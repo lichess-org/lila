@@ -1,7 +1,6 @@
 package controllers
 
 import chess.format.pgn.{ PgnStr, Tag }
-import play.api.libs.json.{ Json, OWrites }
 import play.api.mvc.*
 
 import scala.annotation.nowarn
@@ -106,7 +105,7 @@ final class RelayRound(
             .firstId(rt.round.studyId)
             .flatMap:
               // there might be no chapter after a round reset, let a new one be created
-              case None              => env.study.api.byIdWithChapter(rt.round.studyId)
+              case None => env.study.api.byIdWithChapter(rt.round.studyId)
               case Some(firstChapId) => env.study.api.byIdWithChapterOrFallback(rt.round.studyId, firstChapId)
           sc.orNotFound: study =>
             env.relay.videoEmbed.withCookie:
@@ -133,8 +132,8 @@ final class RelayRound(
           studyC.CanView(oldSc.study)(
             for
               (sc, studyData) <- studyC.getJsonData(oldSc, withChapters = true)
-              rounds          <- env.relay.api.byTourOrdered(rt.tour)
-              group           <- env.relay.api.withTours.get(rt.tour.id)
+              rounds <- env.relay.api.byTourOrdered(rt.tour)
+              group <- env.relay.api.withTours.get(rt.tour.id)
               data = env.relay.jsonView.makeData(
                 rt.tour.withRounds(rounds.map(_.round)),
                 rt.round.id,
@@ -146,7 +145,7 @@ final class RelayRound(
                 pinned = none
               )
               sVersion <- NoCrawlers(env.study.version(sc.study.id))
-              embed    <- views.relay.embed(rt.withStudy(sc.study), data, sVersion)
+              embed <- views.relay.embed(rt.withStudy(sc.study), data, sVersion)
             yield Ok(embed).enforceCrossSiteIsolation
           )(
             studyC.privateUnauthorizedFu(oldSc.study),
@@ -160,12 +159,14 @@ final class RelayRound(
     Found(env.study.studyRepo.byId(rt.round.studyId)): study =>
       studyC.CanView(study)(
         for
-          group       <- env.relay.api.withTours.get(rt.tour.id)
-          previews    <- env.study.preview.jsonList.withoutInitialEmpty(study.id)
+          group <- env.relay.api.withTours.get(rt.tour.id)
+          previews <- env.study.preview.jsonList.withoutInitialEmpty(study.id)
           targetRound <- env.relay.api.officialTarget(rt.round)
-          sVersion    <- HTTPRequest.isLichessMobile(ctx.req).soFu(env.study.version(study.id))
+          isSubscribed <- ctx.userId.traverse(env.relay.api.isSubscribed(rt.tour.id, _))
+          sVersion <- HTTPRequest.isLichessMobile(ctx.req).optionFu(env.study.version(study.id))
         yield JsonOk:
-          env.relay.jsonView.withUrlAndPreviews(rt.withStudy(study), previews, group, targetRound, sVersion)
+          env.relay.jsonView
+            .withUrlAndPreviews(rt.withStudy(study), previews, group, targetRound, isSubscribed, sVersion)
       )(studyC.privateUnauthorizedJson, studyC.privateForbiddenJson)
 
   def pgn(ts: String, rs: String, id: RelayRoundId) = Open:
@@ -174,7 +175,7 @@ final class RelayRound(
   def apiPgn(id: RelayRoundId) = AnonOrScoped(_.Study.Read): ctx ?=>
     env.relay.pgnStream.parseExportDate(id) match
       case Some(since) if isGrantedOpt(_.StudyAdmin) => Ok.chunked(env.relay.pgnStream.exportFullMonth(since))
-      case _                                         => pgnWithFlags("-", "-", id)
+      case _ => pgnWithFlags("-", "-", id)
 
   private def pgnWithFlags(ts: String, rs: String, id: RelayRoundId)(using Context): Fu[Result] =
     studyC.pgnWithFlags(
@@ -213,17 +214,10 @@ final class RelayRound(
     Found(env.relay.api.byIdWithTourAndStudy(id)): rt =>
       if !rt.study.canContribute(me) then forbiddenJson()
       else
-        given OWrites[List[Tag]] = OWrites(tags => Json.obj(tags.map(t => (t.name.name, t.value))*))
+        import lila.relay.JsonView.given
         env.relay
           .push(rt.withTour, PgnStr(ctx.body.body))
-          .map: results =>
-            JsonOk:
-              Json.obj:
-                "games" -> results.map:
-                  _.fold(
-                    fail => Json.obj("tags" -> fail.tags.value, "error" -> fail.error),
-                    pass => Json.obj("tags" -> pass.tags.value, "moves" -> pass.moves)
-                  )
+          .map(JsonOk)
   }
 
   def teamsView(id: RelayRoundId) = Open:
@@ -269,10 +263,9 @@ final class RelayRound(
     studyC.CanView(oldSc.study)(
       for
         (sc, studyData) <- studyC.getJsonData(oldSc, withChapters = true)
-        rounds          <- env.relay.api.byTourOrdered(rt.tour)
-        group           <- env.relay.api.withTours.get(rt.tour.id)
-        isSubscribed <- ctx.me.soFu: me =>
-          env.relay.api.isSubscribed(rt.tour.id, me.userId)
+        rounds <- env.relay.api.byTourOrdered(rt.tour)
+        group <- env.relay.api.withTours.get(rt.tour.id)
+        isSubscribed <- ctx.userId.traverse(env.relay.api.isSubscribed(rt.tour.id, _))
         videoUrls <- embed match
           case VideoEmbed.Stream(userId) =>
             env.streamer.api
@@ -299,7 +292,7 @@ final class RelayRound(
           videoUrls,
           rt.tour.pinnedStream
         )
-        chat     <- NoCrawlers(studyC.chatOf(sc.study))
+        chat <- NoCrawlers(studyC.chatOf(sc.study))
         sVersion <- NoCrawlers(env.study.version(sc.study.id))
         page <- renderPage:
           views.relay.show(rt.withStudy(sc.study), data, chat, sVersion, crossSiteIsolation)

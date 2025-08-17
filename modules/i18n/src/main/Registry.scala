@@ -12,9 +12,9 @@ import lila.core.i18n.{ I18nKey, defaultLang }
 
 object Registry:
 
-  private val empty: MessageMap          = java.util.HashMap[MessageKey, Translation]()
+  private val empty: MessageMap = java.util.HashMap[MessageKey, Translation]()
   private var all: Map[Lang, MessageMap] = Map[Lang, MessageMap]()
-  private var default: MessageMap        = empty
+  private var default: MessageMap = empty
 
   def translation(lang: Lang, key: I18nKey): Option[Translation] =
     all.get(lang).flatMap(t => Option(t.get(key))).orElse(Option(default.get(key)))
@@ -43,8 +43,8 @@ object Registry:
     if lang == defaultLang then default = translations
 
   private def loadSerialized(lang: Lang): MessageMap = try
-    val file       = s"i18n.${lang.code}.ser"
-    val istream    = ObjectInputStream(getClass.getClassLoader.getResourceAsStream(file))
+    val file = s"i18n.${lang.code}.ser"
+    val istream = ObjectInputStream(getClass.getClassLoader.getResourceAsStream(file))
     val messageMap = istream.readObject().asInstanceOf[JMap[String, Object]]
     istream.close()
     messageMap.asScala.toMap
@@ -69,7 +69,7 @@ object Registry:
     val sb = java.lang.StringBuilder(s.length + 10)
 
     var dirty = false
-    var i     = 0
+    var i = 0
     while i < s.length do
       s.charAt(i) match
         case '<' =>
@@ -91,7 +91,7 @@ object Registry:
           sb.append("<br>")
           dirty = true
         case '\r' => dirty = true
-        case c    => sb.append(c)
+        case c => sb.append(c)
       i += 1
     if dirty then Escaped(s, sb.toString.replace("\\&quot;", "&quot;"))
     else Simple(s)

@@ -24,10 +24,10 @@ function renderHook(ctrl: LobbyController, hook: Hook) {
       },
     },
     tds([
-      hook.rating
+      ctrl.me
         ? h('span.ulink.ulpt.mobile-powertip', { attrs: { 'data-href': '/@/' + hook.u } }, hook.u)
         : i18n.site.anonymous,
-      hook.rating && ctrl.opts.showRatings ? hook.rating + (hook.prov ? '?' : '') : '',
+      ...(!ctrl.me ? [] : !ctrl.opts.showRatings ? [''] : [hook.rating + (hook.prov ? '?' : '')]),
       hook.clock,
       h('span', { attrs: { 'data-icon': perfIcons[hook.perf] } }, i18n.site[hook.ra ? 'rated' : 'casual']),
     ]),
@@ -74,22 +74,31 @@ export const render = (ctrl: LobbyController, allHooks: Hook[]) => {
       'thead',
       h('tr', [
         h('th'),
-        h(
-          'th',
-          {
-            class: { sortable: true, sort: ctrl.sort === 'rating' },
-            hook: bind('click', _ => ctrl.setSort('rating'), ctrl.redraw),
-          },
-          [h('i.is'), i18n.site.rating],
-        ),
-        h(
-          'th',
-          {
-            class: { sortable: true, sort: ctrl.sort === 'time' },
-            hook: bind('click', _ => ctrl.setSort('time'), ctrl.redraw),
-          },
-          [h('i.is'), i18n.site.time],
-        ),
+        ...[
+          ctrl.me
+            ? h(
+                'th',
+                {
+                  class: { sortable: true, sort: ctrl.sort === 'rating' },
+                  hook: bind('click', _ => ctrl.setSort('rating'), ctrl.redraw),
+                },
+                [h('i.is'), i18n.site.rating],
+              )
+            : null,
+          h(
+            'th',
+            ctrl.me
+              ? {
+                  key: 'time-header-with-rating',
+                  class: { sortable: true, sort: ctrl.sort === 'time' },
+                  hook: bind('click', _ => ctrl.setSort('time'), ctrl.redraw),
+                }
+              : {
+                  key: 'time-header-without-rating',
+                },
+            [h('i.is'), i18n.site.time],
+          ),
+        ],
         h('th', [h('i.is'), i18n.site.mode]),
       ]),
     ),

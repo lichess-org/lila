@@ -1,4 +1,4 @@
-import type { RoundData, RoundOpts, NvuiPlugin } from './interfaces';
+import type { RoundData, RoundOpts } from './interfaces';
 import { attributesModule, classModule, init } from 'snabbdom';
 import menuHover from 'lib/menuHover';
 import RoundController from './ctrl';
@@ -22,9 +22,7 @@ export async function initModule(opts: RoundOpts): Promise<RoundController> {
 }
 
 async function app(opts: RoundOpts): Promise<RoundController> {
-  const nvui = site.blindMode ? await site.asset.loadEsm<NvuiPlugin>('round.nvui') : undefined;
-  const ctrl = new RoundController(opts, redraw, nvui);
-
+  const ctrl = new RoundController(opts, redraw);
   const blueprint = view(ctrl);
   const el = (opts.element ?? document.querySelector('.round__app')) as HTMLElement;
 
@@ -111,7 +109,7 @@ async function boot(
   const chatOpts = opts.chat;
   if (chatOpts) {
     if (data.tournament?.top) {
-      chatOpts.plugin = tourStandingCtrl(data.tournament.top, data.tournament.team, i18n.site.standing);
+      chatOpts.plugin = tourStandingCtrl(data.tournament.top, data.tournament.team, i18n.site.standings);
     } else if (!data.simul && !data.swiss) {
       chatOpts.preset = getPresetGroup(data);
       chatOpts.enhance = { plies: true };

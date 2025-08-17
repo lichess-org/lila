@@ -8,7 +8,6 @@ import play.api.i18n.Lang
 import lila.analyse.{ Analysis, Annotator }
 import lila.game.PgnDump.WithFlags
 import lila.team.GameTeams
-import lila.web.RealPlayers
 
 final class PgnDump(
     val dumper: lila.game.PgnDump,
@@ -25,8 +24,7 @@ final class PgnDump(
       initialFen: Option[Fen.Full],
       analysis: Option[Analysis],
       flags: WithFlags,
-      teams: Option[GameTeams] = None,
-      realPlayers: Option[RealPlayers] = None
+      teams: Option[GameTeams] = None
   ): Fu[Pgn] =
     dumper(game, initialFen, flags, teams)
       .flatMap: pgn =>
@@ -41,18 +39,15 @@ final class PgnDump(
         val evaled = analysis.ifTrue(flags.evals).fold(pgn)(annotator.addEvals(pgn, _))
         if flags.literate then annotator(evaled, game, analysis)
         else evaled
-      .map: pgn =>
-        realPlayers.fold(pgn)(_.update(game.userIdPair, pgn))
 
   def formatter(
       flags: WithFlags
-  ): (Game, Option[Fen.Full], Option[Analysis], Option[ByColor[TeamId]], Option[RealPlayers]) => Fu[
+  ): (Game, Option[Fen.Full], Option[Analysis], Option[ByColor[TeamId]]) => Fu[
     String
   ] =
     (
         game: Game,
         initialFen: Option[Fen.Full],
         analysis: Option[Analysis],
-        teams: Option[GameTeams],
-        realPlayers: Option[RealPlayers]
-    ) => apply(game, initialFen, analysis, flags, teams, realPlayers).map(annotator.toPgnString).dmap(_.value)
+        teams: Option[GameTeams]
+    ) => apply(game, initialFen, analysis, flags, teams).map(annotator.toPgnString).dmap(_.value)

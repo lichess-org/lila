@@ -18,7 +18,7 @@ object ParallelQueue:
 
   case class Entry[A](@Key("_id") id: A, createdAt: Instant, startedAt: Option[Instant])
   object F:
-    val id        = "_id"
+    val id = "_id"
     val createdAt = "createdAt"
     val startedAt = "startedAt"
 

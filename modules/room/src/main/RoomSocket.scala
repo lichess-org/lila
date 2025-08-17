@@ -23,7 +23,7 @@ object RoomSocket:
 
     val process: SyncActor.Receive =
       case GetVersion(promise) => promise.success(version)
-      case SetVersion(v)       => version = v
+      case SetVersion(v) => version = v
       case nv: NotifyVersion[?] =>
         version = version.map(_ + 1)
         send.exec:
@@ -105,8 +105,8 @@ object RoomSocket:
       case class ChatSay(roomId: RoomId, userId: UserId, msg: String) extends P.In
       case class ChatTimeout(roomId: RoomId, mod: MyId, suspect: UserId, reason: String, text: String)
           extends P.In
-      case class KeepAlives(roomIds: Iterable[RoomId])                    extends P.In
-      case class TellRoomSri(roomId: RoomId, tellSri: P.In.TellSri)       extends P.In
+      case class KeepAlives(roomIds: Iterable[RoomId]) extends P.In
+      case class TellRoomSri(roomId: RoomId, tellSri: P.In.TellSri) extends P.In
       case class SetVersions(versions: Iterable[(String, SocketVersion)]) extends P.In
 
       val reader: P.In.Reader =

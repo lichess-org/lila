@@ -66,6 +66,15 @@
   <string name="tournamentStats">ئاماری پاڵەوانیەتیەکە</string>
   <string name="rankAvgHelp">تێکڕای پلە یەک لەسەدی ڕیزبەندییەکەتە. نزمتر باشترە.</string>
   <string name="medians">مامناوەندەکان</string>
+  <string name="allAveragesAreX">ھەموو تێکڕاکانی ئەم پەڕەیە %sن.</string>
+  <string name="total">سەرجەم</string>
+  <string name="pointsAvg">تێکڕای خاڵەکان</string>
+  <string name="pointsSum">سەرجەمی خاڵەکان</string>
+  <string name="rankAvg">تێکڕای پێگە</string>
+  <string name="tournamentWinners">براوەکانی پاڵەوانێتی</string>
+  <string name="tournamentShields">قەڵغانەکانی پاڵەوانێتی</string>
+  <string name="onlyTitled">تەنیا یاریزانە خاوەن نازناوەکان</string>
+  <string name="onlyTitledHelp">داوای نازناوێکی فەرمی بکە بۆ بەشداریکردن لەم پاڵەوانێتییە</string>
   <string name="tournamentPairingsAreNowClosed">بەشداربوون لەپاڵەوانێتییەکە تەواوبوو.</string>
   <string name="berserkRate">رێژەی مەترسی</string>
 </resources>

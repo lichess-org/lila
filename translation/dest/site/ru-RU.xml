@@ -22,7 +22,7 @@
   <string name="asBlack">за чёрных</string>
   <string name="randomColor">Случайный цвет</string>
   <string name="createAGame">Создать игру</string>
-  <string name="createTheGame">Создать новую игру</string>
+  <string name="createTheGame">Создать игру</string>
   <string name="whiteIsVictorious">Победа белых</string>
   <string name="blackIsVictorious">Победа чёрных</string>
   <string name="youPlayTheWhitePieces">Вы играете белыми фигурами</string>
@@ -186,6 +186,7 @@
   <string name="drawByMutualAgreement">Ничья по обоюдному согласию</string>
   <string name="fiftyMovesWithoutProgress">Пятьдесят ходов без прогресса</string>
   <string name="currentGames">Текущие партии</string>
+  <string name="joinedX">Присоединились %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s игра</item>
     <item quantity="few">%s игры</item>
@@ -550,7 +551,7 @@
   <string name="openTournaments">Открытые турниры</string>
   <string name="duration">Длительность</string>
   <string name="winner">Победитель</string>
-  <string name="standing">Турнирная таблица</string>
+  <string name="standings">Турнирная таблица</string>
   <string name="createANewTournament">Создать турнир</string>
   <string name="tournamentCalendar">Турнирный календарь</string>
   <string name="conditionOfEntry">Условия участия:</string>
@@ -564,7 +565,6 @@
   <string name="points">Очки</string>
   <string name="wins">Победы</string>
   <string name="losses">Поражения</string>
-  <string name="createdBy">Создан</string>
   <string name="startingIn" comment="Displayed above a timer">Начинается через</string>
   <string name="standByX">Ожидайте, %s, идёт жеребьёвка. Будьте готовы!</string>
   <string name="pause">Приостановить</string>
@@ -758,7 +758,7 @@
   <string name="really">именно так</string>
   <string name="contribute">Внести вклад в развитие</string>
   <string name="termsOfService">Пользовательское соглашение</string>
-  <string name="titleVerification" comment="This is a link to a form that lets players verify either a FIDE or national federation title (NM, etc).">Подтверждение титула</string>
+  <string name="titleVerification">Подтверждение звания</string>
   <string name="sourceCode">Исходный код</string>
   <string name="simultaneousExhibitions">Сеанс одновременной игры</string>
   <string name="host">Сеансёр</string>
@@ -1099,4 +1099,5 @@
   <string name="accessibility">Специальные возможности</string>
   <string name="enableBlindMode">Включить слепой режим</string>
   <string name="disableBlindMode">Выключить слепой режим</string>
+  <string name="copyToClipboard">Скопировать в буфер обмена</string>
 </resources>

@@ -37,10 +37,10 @@ object AnnounceApi:
     current = str.split(" ").toList match
       case length :: unit :: rest =>
         Try {
-          val msg     = rest.mkString(" ")
-          val date    = nowInstant.plusSeconds(Duration(s"$length $unit").toSeconds.toInt)
+          val msg = rest.mkString(" ")
+          val date = nowInstant.plusSeconds(Duration(s"$length $unit").toSeconds.toInt)
           val isoDate = isoDateTimeFormatter.print(date)
-          val json    = Json.obj("msg" -> msg, "date" -> isoDate)
+          val json = Json.obj("msg" -> msg, "date" -> isoDate)
           Announce(msg, date, json)
         }.toOption
       case _ => none

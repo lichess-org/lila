@@ -67,13 +67,10 @@
   <string name="startVerySoon">Prenos v živo se bo začel kmalu.</string>
   <string name="notYetStarted">Prenos v živo se še ni začel.</string>
   <string name="officialWebsite">Uradna spletna stran</string>
-  <string name="standings">Lestvica</string>
   <string name="officialStandings">Uradna lestvica</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Več nastavitev s %s</string>
   <string name="webmastersPage">Stran administratorja turnirja</string>
-  <string name="pgnSourceHelp" comment="%s is 'streaming API'">Javen, v realnem času dostopen PGN vir tega kola. Ponujamo tudi iskanje s %s za hitrejše iskanje in bolj učinkovito sinhronizacijo.</string>
   <string name="embedThisBroadcast">Vgradite prenos v živo v svojo spletno stran.</string>
-  <string name="embedThisRound">Vgradite %s v svojo spletno stran.</string>
   <string name="ratingDiff">Razlika v ratingu</string>
   <string name="gamesThisTournament">Igre v tem turnirju</string>
   <string name="score">Rezultat</string>
@@ -86,6 +83,9 @@
   <string name="optionalDetails">Neobvezne podrobnosti</string>
   <string name="pastBroadcasts">Pretekle oddaje</string>
   <string name="allBroadcastsByMonth">Oglejte si vse oddaje po mesecih</string>
+  <string name="backToLiveMove">Nazaj na živo potezo</string>
   <string name="sinceHideResults">Ker ste se odločili skriti rezultate, so vse table za predogled prazne, da se izognete ploščam.</string>
   <string name="liveboard">Živa deska</string>
+  <string name="communityBroadcast">Skupnostna oddaja</string>
+  <string name="createdAndManagedBy">Ustvaril in upravlja %s.</string>
 </resources>

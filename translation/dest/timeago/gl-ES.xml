@@ -31,28 +31,28 @@
   </plurals>
   <string name="rightNow">agora</string>
   <plurals name="nbMinutesAgo">
-    <item quantity="one">Hai %s minuto</item>
-    <item quantity="other">Hai %s minutos</item>
+    <item quantity="one">hai %s minuto</item>
+    <item quantity="other">hai %s minutos</item>
   </plurals>
   <plurals name="nbHoursAgo">
-    <item quantity="one">Hai %s hora</item>
-    <item quantity="other">Hai %s horas</item>
+    <item quantity="one">hai %s hora</item>
+    <item quantity="other">hai %s horas</item>
   </plurals>
   <plurals name="nbDaysAgo">
-    <item quantity="one">Hai %s día</item>
-    <item quantity="other">Hai %s días</item>
+    <item quantity="one">hai %s día</item>
+    <item quantity="other">hai %s días</item>
   </plurals>
   <plurals name="nbWeeksAgo">
-    <item quantity="one">Hai %s semana</item>
-    <item quantity="other">Hai %s semanas</item>
+    <item quantity="one">hai %s semana</item>
+    <item quantity="other">hai %s semanas</item>
   </plurals>
   <plurals name="nbMonthsAgo">
-    <item quantity="one">Hai %s mes</item>
-    <item quantity="other">Hai %s meses</item>
+    <item quantity="one">hai %s mes</item>
+    <item quantity="other">hai %s meses</item>
   </plurals>
   <plurals name="nbYearsAgo">
-    <item quantity="one">Hai %s ano</item>
-    <item quantity="other">Hai %s anos</item>
+    <item quantity="one">hai %s ano</item>
+    <item quantity="other">hai %s anos</item>
   </plurals>
   <plurals name="nbMinutesRemaining">
     <item quantity="one">%s minuto restante</item>

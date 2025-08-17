@@ -3,7 +3,7 @@ import { makeCgOpts } from 'lib/puz/run';
 import { makeConfig as makeCgConfig } from 'lib/puz/view/chessground';
 import { h, type VNode } from 'snabbdom';
 import { INITIAL_BOARD_FEN } from 'chessops/fen';
-import { Chessground as makeChessground } from 'chessground';
+import { Chessground as makeChessground } from '@lichess-org/chessground';
 import { pubsub } from 'lib/pubsub';
 
 export const renderBoard = (ctrl: RacerCtrl) => {

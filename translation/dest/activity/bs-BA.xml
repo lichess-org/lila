@@ -42,6 +42,11 @@
     <item quantity="few">Završio/la %s partije dopisnog šaha</item>
     <item quantity="other">Završio/la %s partija dopisnog šaha</item>
   </plurals>
+  <plurals name="completedNbVariantGames">
+    <item quantity="one">Završena dopisna igra (%1$s %2$s)</item>
+    <item quantity="few">Završeno %1$s %2$s dopisnih partija</item>
+    <item quantity="other">Završeno %1$s %2$s dopisnih partija</item>
+  </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">Počeo/la pratiti %s igrača</item>
     <item quantity="few">Počeo/la pratiti %s igrača</item>
@@ -82,7 +87,7 @@
     <item quantity="few">Takmičili se u %s turnirima po švicarskom sistemu</item>
     <item quantity="other">Takmičili se u %s turnirima po švicarskom sistemu</item>
   </plurals>
-  <string name="rankedInSwissTournament">#%1$s u %2$s</string>
+  <string name="rankedInSwissTournament">Rangiran #%1$s u kategoriji %2$s</string>
   <string name="signedUp">Registrovao/la se na lichess</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Pridružio/la se %s timu</item>

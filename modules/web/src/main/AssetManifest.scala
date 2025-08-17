@@ -20,13 +20,13 @@ final class AssetManifest(getFile: GetRelativeFile):
 
   private val logger = lila.log("assetManifest")
 
-  def css(key: String): String             = maps.css.getOrElse(key, key)
+  def css(key: String): String = maps.css.getOrElse(key, key)
   def hashed(path: String): Option[String] = maps.hashed.get(path)
   def jsAndDeps(keys: List[String]): List[String] = keys.flatMap { key =>
     maps.js.get(key).so(_.allModules)
   }.distinct
   def inlineJs(key: String): Option[String] = maps.js.get(key).flatMap(_.inlineJs)
-  def lastUpdate: Instant                   = maps.modified
+  def lastUpdate: Instant = maps.modified
 
   def update(): Unit =
     val pathname = getFile.exec(s"public/compiled/manifest.json").toPath
@@ -45,7 +45,7 @@ final class AssetManifest(getFile: GetRelativeFile):
   ): List[String] =
     val k = path match
       case jsKeyRe(k, _) => k
-      case _             => path
+      case _ => path
     jsMap.get(k) match
       case Some(asset) if !visited.contains(k) =>
         asset.imports.flatMap: importName =>
@@ -65,7 +65,7 @@ final class AssetManifest(getFile: GetRelativeFile):
             .asOpt[String]
             .map(h => s"$k.$h.js")
             .orElse((value \ "path").asOpt[String])
-          val imports  = (value \ "imports").asOpt[List[String]].getOrElse(Nil)
+          val imports = (value \ "imports").asOpt[List[String]].getOrElse(Nil)
           val inlineJs = (value \ "inline").asOpt[String]
           (k, SplitAsset(path, imports, inlineJs))
       .toMap
@@ -85,8 +85,8 @@ final class AssetManifest(getFile: GetRelativeFile):
       .as[JsObject]
       .value
       .map { (k, asset) =>
-        val hash   = (asset \ "hash").as[String]
-        val name   = k.substring(k.lastIndexOf('/') + 1)
+        val hash = (asset \ "hash").as[String]
+        val name = k.substring(k.lastIndexOf('/') + 1)
         val extPos = name.lastIndexOf('.')
         val hashedName =
           if extPos < 0 then s"${name}.$hash"

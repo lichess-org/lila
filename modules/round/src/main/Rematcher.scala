@@ -2,7 +2,7 @@ package lila.round
 
 import chess.format.Fen
 import chess.variant.*
-import chess.{ Position, ByColor, Clock, Color as ChessColor, Game as ChessGame, Ply }
+import chess.{ Rated, Position, ByColor, Clock, Color as ChessColor, Game as ChessGame, Ply }
 import scalalib.cache.ExpireSetMemo
 
 import lila.common.Bus
@@ -95,8 +95,8 @@ final private class Rematcher(
       redirectEvents(nextGame)
 
     rematches.get(pov.gameId) match
-      case None                                    => createGame(none)
-      case Some(Rematches.NextGame.Accepted(id))   => gameRepo.game(id).mapz(redirectEvents)
+      case None => createGame(none)
+      case Some(Rematches.NextGame.Accepted(id)) => gameRepo.game(id).mapz(redirectEvents)
       case Some(Rematches.NextGame.Offered(_, id)) => createGame(id.some)
 
   private def returnGame(pov: Pov, withId: Option[GameId]): Fu[Game] =
@@ -112,7 +112,7 @@ final private class Rematcher(
       sloppy = lila.core.game.newGame(
         chess = newGame,
         players = ByColor(returnPlayer(pov.game, _, users)),
-        mode = if users.exists(_.exists(_.user.lame)) then chess.Mode.Casual else pov.game.mode,
+        rated = if users.exists(_.exists(_.user.lame)) then Rated.No else pov.game.rated,
         source = pov.game.source | lila.core.game.Source.Lobby,
         daysPerTurn = pov.game.daysPerTurn,
         pgnImport = None
@@ -134,7 +134,7 @@ final private class Rematcher(
     val fromColor = if rematchAlternatesColor(game, users.mapList(_.map(_.user))) then !color else color
     game.opponent(color).aiLevel match
       case Some(ai) => lila.game.Player.makeAnon(color, ai.some)
-      case None     => lila.game.Player.make(color, users(fromColor))
+      case None => lila.game.Player.make(color, users(fromColor))
 
   def redirectEvents(game: Game): Events =
     val ownerRedirects = ByColor: color =>
@@ -154,10 +154,10 @@ object Rematcher:
   ): ChessGame =
     val prevPosition = initialFen.flatMap(Fen.readWithMoveNumber(variant, _))
     val newPosition = variant match
-      case Chess960 if shouldRepeatChess960Position => prevPosition.fold(Position(Chess960))(_.position)
-      case Chess960                                 => Position(Chess960)
-      case variant                                  => prevPosition.fold(Position(variant))(_.position)
-    val ply   = prevPosition.fold(Ply.initial)(_.ply)
+      case Chess960 if shouldRepeatChess960Position => prevPosition.fold(Chess960.initialPosition)(_.position)
+      case Chess960 => Chess960.initialPosition
+      case variant => prevPosition.fold(variant.initialPosition)(_.position)
+    val ply = prevPosition.fold(Ply.initial)(_.ply)
     val color = prevPosition.fold[Color](White)(_.position.color)
     ChessGame(
       position = newPosition.withColor(color),

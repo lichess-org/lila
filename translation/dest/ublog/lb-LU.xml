@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="communityBlogs">Blogge vun der Communautéit</string>
-  <string name="friendBlogs">Blogge vun de Kolleegen</string>
-  <string name="lichessBlog">Lichess-Blog</string>
+  <string name="community">Communautéit</string>
+  <string name="byMonth">Nom Mount</string>
+  <string name="byTopic">Nom Theema</string>
+  <string name="byLichess">Vu Lichess</string>
+  <string name="myFriends">Meng Kolleegen</string>
+  <string name="myLikes">Meng Liken</string>
   <string name="myBlog">Mäi Blog</string>
   <string name="likedBlogs">Geliket Blog-Bäiträg</string>
-  <string name="blogTopics">Blog-Theemen</string>
-  <string name="lichessOfficialBlog">Offizielle Lichess-Blog</string>
+  <plurals name="blogPosts">
+    <item quantity="one">%s Blog-Bäitrag</item>
+    <item quantity="other">%s Blog-Bäiträg</item>
+  </plurals>
   <string name="continueReadingPost">Virufuere mam Liese vun dësem Bäitrag</string>
   <string name="lichessBlogPostsFromXYear">Lichess-Blog-Bäiträg vun %s</string>
   <string name="previousBlogPosts">Virege Blog-Bäitrag</string>

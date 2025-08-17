@@ -11,8 +11,8 @@ object data:
 
   case class Strings(value: List[String]) extends AnyVal
   case class UserIds(value: List[UserId]) extends AnyVal
-  case class Ints(value: List[Int])       extends AnyVal
-  case class Text(value: String)          extends AnyVal with StringValue
+  case class Ints(value: List[Int]) extends AnyVal
+  case class Text(value: String) extends AnyVal with StringValue
 
   trait OpaqueInstant[A](using A =:= Instant) extends TotalWrapper[A, Instant]
 

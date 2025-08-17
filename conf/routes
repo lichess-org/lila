@@ -59,6 +59,7 @@ GET   /@/:username/following           controllers.Relation.following(username: 
 GET   /@/:username/following/leaderboard controllers.User.friendsLeaderboard(username: UserStr, page: Int ?= 1)
 GET   /@/:username/followers           controllers.Relation.followers(username: UserStr, page: Int ?= 1)
 GET   /rel/blocks                      controllers.Relation.blocks(page: Int ?= 1)
+POST  /rel/:action/:user               controllers.Relation.bcAction(action: String, user: UserStr)
 
 # Insight
 POST  /insights/refresh/:username      controllers.Insight.refresh(username: UserStr)
@@ -71,23 +72,6 @@ GET   /insights/:username/:metric/:dimension/*filters controllers.Insight.path(u
 GET   /@/:username/tournaments/:path   controllers.UserTournament.path(username: UserStr, path, page: Int ?= 1)
 GET   /@/:username/simuls/hosted       controllers.Simul.byUser(username: UserStr, page: Int ?= 1)
 
-# User blog
-GET   /@/:username/blog                controllers.Ublog.index(username: UserStr, page: Int ?= 1)
-GET   /@/:username/blog/:slug/:id      controllers.Ublog.post(username: UserStr, slug, id: UblogPostId)
-GET   /@/:username/blog/drafts         controllers.Ublog.drafts(username: UserStr, page: Int ?= 1)
-GET   /@/:username/blog/new            controllers.Ublog.form(username: UserStr)
-POST  /@/:username/blog/new            controllers.Ublog.create(username: UserStr)
-GET   /@/:username/blog.atom           controllers.Ublog.userAtom(username: UserStr)
-GET   /ublog/$id<\w{8}>/discuss        controllers.Ublog.discuss(id: UblogPostId)
-GET   /ublog/$id<\w{8}>/redirect       controllers.Ublog.redirect(id: UblogPostId)
-GET   /ublog/$id<\w{8}>/edit           controllers.Ublog.edit(id: UblogPostId)
-POST  /ublog/$id<\w{8}>/edit           controllers.Ublog.update(id: UblogPostId)
-POST  /ublog/$id<\w{8}>/del            controllers.Ublog.delete(id: UblogPostId)
-POST  /ublog/$id<\w{8}>/like           controllers.Ublog.like(id: UblogPostId, v: Boolean)
-POST  /ublog/:blogId/tier              controllers.Ublog.setTier(blogId: String)
-POST  /ublog/$id<\w{8}>/adjust         controllers.Ublog.modAdjust(id: UblogPostId)
-POST  /upload/image/ublog/$id<\w{8}>   controllers.Ublog.image(id: UblogPostId)
-
 # User
 GET   /api/stream/:username/mod        controllers.User.mod(username: UserStr)
 POST  /@/:username/note                controllers.User.writeNote(username: UserStr)
@@ -98,15 +82,17 @@ GET   /@/:username/tv                  controllers.User.tv(username: UserStr)
 GET   /@/:username/perf/:perfKey       controllers.User.perfStat(username: UserStr, perfKey: PerfKey)
 GET   /@/:username/all                 controllers.User.gamesAll(username: UserStr, page: Int ?= 1)
 GET   /@/:username/download            controllers.User.download(username: UserStr)
+GET   /@/:username/blog                controllers.Ublog.index(username: UserStr, page: Int ?= 1)
+GET   /@/:username/blog.atom           controllers.Ublog.userAtom(username: UserStr)
 GET   /@/:username/:filterName         controllers.User.games(username: UserStr, filterName, page: Int ?= 1)
 GET   /@/:username                     controllers.User.show(username: UserStr)
 GET   /player/myself                   controllers.User.myself
 GET   /player/opponents                controllers.User.opponents
 GET   /player/search/:term             controllers.User.search(term: String)
 GET   /player                          controllers.User.list
-GET   /player/top/:nb/:perfKey         controllers.User.topNb(nb: Int, perfKey: PerfKey)
+GET   /player/top/:nb/:perfKey         controllers.User.topBcRedirect(nb: Int, perfKey: PerfKey)
+GET   /player/top/:perfKey             controllers.User.top(perfKey: PerfKey, page: Int ?= 1)
 GET   /api/player/top/:nb/:perfKey     controllers.User.topNbApi(nb: Int, perfKey: PerfKey)
-GET   /player/top/week                 controllers.User.topWeek
 GET   /player/online                   controllers.User.online
 GET   /api/player/autocomplete         controllers.User.autocomplete
 GET   /api/player                      controllers.User.apiList
@@ -116,26 +102,45 @@ GET   /fide                            controllers.Fide.index(page: Int ?= 1, q:
 GET   /fide/federation                 controllers.Fide.federations(page: Int ?= 1)
 GET   /fide/federation/:name           controllers.Fide.federation(name, page: Int ?= 1)
 GET   /fide/:fideId/:name              controllers.Fide.show(fideId: chess.FideId, name, page: Int ?= 1)
+POST  /fide/:fideId/follow             controllers.Fide.follow(fideId: chess.FideId, follow: Boolean)
 GET   /api/fide/player/:id             controllers.Fide.apiShow(id: chess.FideId)
 GET   /api/fide/player                 controllers.Fide.apiSearch(q: String)
 
 GET   /dasher                          controllers.Dasher.get
 
-# Blog
+
+# Blog/Ublog
 GET   /blog                            controllers.Main.movedPermanently(to = "/@/Lichess/blog")
 GET   /blog/topic                      controllers.Ublog.topics
-GET   /blog/topic/:topic               controllers.Ublog.topic(topic, page: Int ?= 1, byDate: Boolean ?= false)
-GET   /blog/best-of                    controllers.Ublog.bestOfYear(page: Int ?= 1)
-GET   /blog/best-of/:year/:month       controllers.Ublog.bestOfMonth(year: Int, month: Int, page: Int ?= 1)
+GET   /blog/topic/:topic               controllers.Ublog.topic(topic, filter: Option[BlogQualityFilter] ?= None, by: BlogsBy ?= BlogsBy.newest, page: Int ?= 1)
+GET   /blog/monthly                    controllers.Ublog.thisMonth(filter: Option[BlogQualityFilter] ?= None, by: BlogsBy ?= BlogsBy.newest, page: Int ?= 1)
+GET   /blog/monthly/:year/:month       controllers.Ublog.byMonth(year: Int, month: Int, filter: Option[BlogQualityFilter] ?= None, by: BlogsBy ?= BlogsBy.newest, page: Int ?= 1)
 GET   /blog.atom                       controllers.Main.movedPermanently(to = "/@/Lichess/blog.atom")
 GET   /blog/friends                    controllers.Ublog.friends(page: Int ?= 1)
 GET   /blog/liked                      controllers.Ublog.liked(page: Int ?= 1)
-GET   /blog/community                  controllers.Ublog.communityAll(page: Int ?= 1)
-GET   /$lang<\w\w\w?>/blog/community   controllers.Ublog.communityLang(lang: Language, page: Int ?= 1)
+GET   /blog/search                     controllers.Ublog.search(text ?= "", by: BlogsBy ?= BlogsBy.score, page: Int ?= 1)
+GET   /blog/community                  controllers.Ublog.communityAll(filter: Option[BlogQualityFilter] ?= None, page: Int ?= 1)
+GET   /$lang<\w\w\w?>/blog/community   controllers.Ublog.communityLang(lang: Language, filter: Option[BlogQualityFilter] ?= None, page: Int ?= 1)
 GET   /blog/community.atom             controllers.Ublog.communityAtom(lang: Language ?= Language("all"))
 GET   /blog/community/$lang<[\w-]{2,6}>.atom controllers.Ublog.communityAtom(lang: Language)
 GET   /blog/:id/:slug                  controllers.Ublog.historicalBlogPost(id, slug)
+GET   /@/:username/blog/:slug/:id      controllers.Ublog.post(username: UserStr, slug, id: UblogPostId)
+GET   /@/:username/blog/drafts         controllers.Ublog.drafts(username: UserStr, page: Int ?= 1)
+GET   /@/:username/blog/new            controllers.Ublog.form(username: UserStr)
+POST  /@/:username/blog/new            controllers.Ublog.create(username: UserStr)
+GET   /ublog/$id<\w{8}>/discuss        controllers.Ublog.discuss(id: UblogPostId)
+GET   /ublog/$id<\w{8}>/redirect       controllers.Ublog.redirect(id: UblogPostId)
+GET   /ublog/$id<\w{8}>/edit           controllers.Ublog.edit(id: UblogPostId)
+POST  /ublog/$id<\w{8}>/edit           controllers.Ublog.update(id: UblogPostId)
+POST  /ublog/$id<\w{8}>/del            controllers.Ublog.delete(id: UblogPostId)
+POST  /ublog/$id<\w{8}>/like           controllers.Ublog.like(id: UblogPostId, v: Boolean)
+POST  /ublog/:blogId/tier              controllers.Ublog.modBlog(blogId: String)
+POST  /ublog/$id<\w{8}>/adjust         controllers.Ublog.modPost(id: UblogPostId)
+POST  /ublog/$id<\w{8}>/pull           controllers.Ublog.modPull(id: UblogPostId)
+GET   /ublog/carousel                  controllers.Ublog.modShowCarousel
+POST  /upload/image/ublog/$id<\w{8}>   controllers.Ublog.image(id: UblogPostId)
 
+# Feed
 GET   /feed                            controllers.Feed.index(page: Int ?= 1)
 GET   /feed/new                        controllers.Feed.createForm
 POST  /feed/new                        controllers.Feed.create
@@ -144,6 +149,7 @@ POST  /feed/:id/edit                   controllers.Feed.update(id)
 POST  /feed/:id/delete                 controllers.Feed.delete(id)
 GET   /feed.atom                       controllers.Feed.atom
 
+# Opening
 GET   /opening                         controllers.Opening.index(q: Option[String] ?= None)
 POST  /opening/config/:key             controllers.Opening.config(key)
 POST  /opening/wiki/:key/:moves        controllers.Opening.wikiWrite(key, moves)
@@ -206,6 +212,7 @@ GET   /$lang<\w\w\w?>/storm             controllers.Storm.homeLang(lang: Languag
 GET   /racer                            controllers.Racer.home
 POST  /racer                            controllers.Racer.create
 POST  /api/racer                        controllers.Racer.apiCreate
+GET   /api/racer/:id                    controllers.Racer.apiGet(id)
 GET   /racer/:id                        controllers.Racer.show(id)
 GET   /racer/:id/rematch                controllers.Racer.rematch(id)
 POST  /racer/lobby                      controllers.Racer.lobby
@@ -216,6 +223,7 @@ GET   /analysis/help                   controllers.UserAnalysis.help
 GET   /analysis/pgn/*pgn               controllers.UserAnalysis.pgn(pgn)
 GET   /analysis/*something             controllers.UserAnalysis.parseArg(something)
 GET   /analysis                        controllers.UserAnalysis.index
+GET   /embed/analysis                  controllers.UserAnalysis.embed
 
 # Study
 GET   /study                           controllers.Study.allDefault(page: Int ?= 1)
@@ -329,8 +337,6 @@ GET   /features                        controllers.Plan.features
 # Practice
 GET   /practice                                   controllers.Practice.index
 GET   /practice/load/:studyId/:chapterId          controllers.Practice.chapter(studyId: StudyId, chapterId: StudyChapterId)
-GET   /practice/config                            controllers.Practice.config
-POST  /practice/config                            controllers.Practice.configSave
 POST  /practice/reset                             controllers.Practice.reset
 GET   /practice/:sectionId                        controllers.Practice.showSection(sectionId)
 GET   /practice/:sectionId/:studySlug             controllers.Practice.showStudySlug(sectionId, studySlug)
@@ -357,8 +363,9 @@ POST  /streamer/:username/check        controllers.Streamer.checkOnline(username
 
 # Private Play
 
-GET   /bots                            controllers.JsBot.index
+GET   /bots                           controllers.JsBot.index
 GET   /bots/assets                    controllers.JsBot.assetKeys
+# GET   /bots/test                      controllers.JsBot.test
 GET   /bots/dev                       controllers.JsBot.devIndex
 GET   /bots/dev/history               controllers.JsBot.devBotHistory(id: Option[UserStr])
 POST  /bots/dev/bot                   controllers.JsBot.devPostBot
@@ -379,7 +386,8 @@ GET   /$gameId<\w{8}>/$color<white|black>/mini   controllers.Round.mini(gameId: 
 GET   /$fullId<\w{12}>/mini                      controllers.Round.miniFullId(fullId: GameFullId)
 GET   /$gameId<\w{8}>/edit                       controllers.Editor.game(gameId: GameId)
 GET   /$gameId<\w{8}>/$color<white|black>/analysis controllers.UserAnalysis.game(gameId: GameId, color: Color)
-POST  /$fullId<\w{12}>/forecasts                  controllers.UserAnalysis.forecasts(fullId: GameFullId)
+GET   /$fullId<\w{12}>/forecasts                 controllers.UserAnalysis.forecastsGet(fullId: GameFullId)
+POST  /$fullId<\w{12}>/forecasts                 controllers.UserAnalysis.forecastsPost(fullId: GameFullId)
 POST  /$fullId<\w{12}>/forecasts/:uci            controllers.UserAnalysis.forecastsOnMyTurn(fullId: GameFullId, uci)
 POST  /$fullId<\w{12}>/resign                    controllers.Round.resign(fullId: GameFullId)
 
@@ -498,6 +506,8 @@ GET   /fishnet/status                         controllers.Fishnet.status
 
 # Pref
 POST  /pref/:name                             controllers.Pref.set(name)
+GET   /account/preferences/network            controllers.Pref.network
+POST  /account/preferences/network            controllers.Pref.networkPost
 GET   /account/preferences/:categ             controllers.Pref.form(categ)
 POST  /account/preferences                    controllers.Pref.formApply
 POST  /account/preferences/notification       controllers.Pref.notifyFormApply
@@ -586,7 +596,7 @@ POST  /mod/:username/impersonate       controllers.Mod.impersonate(username: Str
 GET   /mod/:username/games             controllers.GameMod.index(username: UserStr)
 POST  /mod/:username/games             controllers.GameMod.post(username: UserStr)
 GET   /mod/table                       controllers.Mod.table
-GET   /mod/log                         controllers.Mod.log(mod: Option[UserStr] ?= None)
+GET   /mod/log                         controllers.Mod.log(mod: Option[UserStr] ?= None, id: Option[String] ?= None)
 POST  /mod/:username/refreshUserAssess controllers.Mod.refreshUserAssess(username: UserStr)
 POST  /mod/:username/email             controllers.Mod.setEmail(username: UserStr)
 POST  /mod/inquiry-to-zulip            controllers.Mod.inquiryToZulip
@@ -631,17 +641,17 @@ GET   /forum/:categId/form             controllers.ForumTopic.form(categId: Foru
 POST  /forum/:categId/new              controllers.ForumTopic.create(categId: ForumCategId)
 GET   /forum/:categId/mod-feed         controllers.ForumCateg.modFeed(categId: ForumCategId, page: Int ?= 1)
 GET   /forum/participants/:topicId     controllers.ForumTopic.participants(topicId: ForumTopicId)
-GET   /forum/:categId/:slug            controllers.ForumTopic.show(categId: ForumCategId, slug, page: Int ?= 1)
-POST  /forum/:categId/:slug/close      controllers.ForumTopic.close(categId: ForumCategId, slug)
-POST  /forum/:categId/:slug/sticky     controllers.ForumTopic.sticky(categId: ForumCategId, slug)
-POST  /forum/:categId/:slug/new        controllers.ForumPost.create(categId: ForumCategId, slug, page: Int ?= 1)
+GET   /forum/:categId/:slug            controllers.ForumTopic.show(categId: ForumCategId, slug: ForumTopicSlug, page: Int ?= 1)
+POST  /forum/:categId/:slug/close      controllers.ForumTopic.close(categId: ForumCategId, slug: ForumTopicSlug)
+POST  /forum/:categId/:slug/sticky     controllers.ForumTopic.sticky(categId: ForumCategId, slug: ForumTopicSlug)
+POST  /forum/:categId/:slug/new        controllers.ForumPost.create(categId: ForumCategId, slug: ForumTopicSlug, page: Int ?= 1)
 POST  /forum/delete/:id                controllers.ForumPost.delete(id: ForumPostId)
 POST  /forum/relocate/:id              controllers.ForumPost.relocate(id: ForumPostId)
 POST  /forum/:categId/react/:id/:reaction/:v controllers.ForumPost.react(categId: ForumCategId, id: ForumPostId, reaction, v: Boolean)
 POST  /forum/post/:id                  controllers.ForumPost.edit(id: ForumPostId)
 GET   /forum/redirect/post/:id         controllers.ForumPost.redirect(id: ForumPostId)
 POST  /diagnostic                      controllers.ForumTopic.diagnostic
-POST  /diagnostic/clear/:slug          controllers.ForumTopic.clearDiagnostic(slug)
+POST  /diagnostic/clear/:slug          controllers.ForumTopic.clearDiagnostic(slug: ForumTopicSlug)
 
 # Msg compat
 POST  /inbox/new                       controllers.Msg.compatCreate
@@ -661,7 +671,7 @@ GET   /coach/edit                      controllers.Coach.edit
 POST  /coach/edit                      controllers.Coach.editApply
 POST  /upload/image/coach              controllers.Coach.pictureApply
 GET   /coach/:username                 controllers.Coach.show(username: UserStr)
-GET   /coach/:lang/:country/:order     controllers.Coach.search(lang: String, order, country, page: Int ?= 1)
+GET   /coach/:lang/:country/:order     controllers.Coach.search(lang: String, order, country: FlagCode, page: Int ?= 1)
 GET   /$lang<\w\w\w?>/coach            controllers.Coach.homeLang(lang: Language)
 
 # Paste
@@ -673,6 +683,12 @@ GET   /import/master/$id<\w{8}>/:color controllers.Importer.masterGame(id: GameI
 GET   /editor.json                     controllers.Editor.data
 GET   /editor/*urlFen                  controllers.Editor.load(urlFen)
 GET   /editor                          controllers.Editor.index
+
+# Lichess Mobile
+GET   /api/mobile/home                 controllers.Api.mobileHome
+GET   /api/mobile/watch                controllers.Api.mobileWatch
+GET   /api/mobile/profile/:username    controllers.Api.mobileProfile(username:  UserStr)
+GET   /api/mobile/my-games             controllers.Api.mobileGames
 
 ->    /team                            team.Routes
 ->    /appeal                          appeal.Routes
@@ -762,9 +778,6 @@ GET   /api/games/user/:username        controllers.Game.apiExportByUser(username
 GET   /api/games/export/imports        controllers.Game.apiExportByUserImportedGames()
 GET   /api/games/export/bookmarks      controllers.Game.apiExportByUserBookmarks()
 
-# Lichess Mobile
-GET   /api/mobile/my-games             controllers.Api.mobileGames
-
 # External engine
 GET   /api/external-engine             controllers.Analyse.externalEngineList
 POST  /api/external-engine             controllers.Analyse.externalEngineCreate
@@ -814,7 +827,6 @@ POST  /account/reopen/send             controllers.Account.reopenApply
 GET   /account/reopen/sent             controllers.Account.reopenSent
 GET   /account/reopen/login/:token     controllers.Account.reopenLogin(token)
 GET   /account/personal-data           controllers.Account.data
-GET   /account/network                 controllers.Account.network(usingAltSocket: Option[Boolean] ?= None)
 
 # App BC
 GET   /account/security                controllers.Account.security

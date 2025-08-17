@@ -74,7 +74,7 @@ final class ClasForm(
     def edit(s: Student) = Form(
       mapping(
         "realName" -> cleanNonEmptyText,
-        "notes"    -> text(maxLength = 20000)
+        "notes" -> text(maxLength = 20000)
       )(StudentData.apply)(unapply)
     ).fill(StudentData(s.realName, s.notes))
 

@@ -81,4 +81,6 @@
   <string name="tournamentShields">錦標賽徽章</string>
   <string name="onlyTitled">僅限頭銜玩家</string>
   <string name="onlyTitledHelp">需要官方頭銜才能加入比賽</string>
+  <string name="tournamentPairingsAreNowClosed">此錦標賽的對手配對已結束。</string>
+  <string name="berserkRate">快棋率</string>
 </resources>

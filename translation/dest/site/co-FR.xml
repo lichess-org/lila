@@ -419,7 +419,6 @@
   <string name="openTournaments">Ghjustre aperte</string>
   <string name="duration">Durata</string>
   <string name="winner">Vincidore</string>
-  <string name="standing">Classifica</string>
   <string name="createANewTournament">Creà un turneu novu</string>
   <string name="tournamentCalendar">Almanancu di i turnei</string>
   <string name="conditionOfEntry">Cundizioni pè ghjunghje:</string>
@@ -433,7 +432,6 @@
   <string name="points">Punti</string>
   <string name="wins">Vittorie</string>
   <string name="losses">Scunfitte</string>
-  <string name="createdBy">Criatu da</string>
   <string name="standByX">%s, avete da esse appaghjatu, siate prontu à ghjucà!</string>
   <string name="pause">Pausa</string>
   <string name="resume">Ripiglià</string>

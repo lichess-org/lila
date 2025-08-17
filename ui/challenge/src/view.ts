@@ -4,7 +4,7 @@ import * as licon from 'lib/licon';
 import { spinnerVdom as spinner } from 'lib/view/controls';
 import { userLink } from 'lib/view/userLink';
 import { initMiniBoard } from 'lib/view/miniBoard';
-import { opposite } from 'chessground/util';
+import { opposite } from '@lichess-org/chessground/util';
 import type ChallengeCtrl from './ctrl';
 
 export const loaded = (ctrl: ChallengeCtrl): VNode =>

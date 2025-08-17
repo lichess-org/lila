@@ -54,7 +54,7 @@ final class TvUi(helpers: lila.ui.Helpers)(
       .css("bits.tv.games")
       .js(Esm("bits.tvGames")):
         main(
-          cls     := "page-menu tv-games",
+          cls := "page-menu tv-games",
           dataRel := s"$netBaseUrl${routes.Tv.gameChannelReplacement(channel.key, GameId("gameId"), Nil)}"
         )(
           st.aside(cls := "page-menu__menu"):
@@ -77,7 +77,7 @@ final class TvUi(helpers: lila.ui.Helpers)(
               div(cls := "setup")(
                 gameUi.widgets.showClock(game),
                 separator,
-                (if game.rated then trans.site.rated else trans.site.casual).txt(),
+                ratedName(game.rated),
                 separator,
                 variantLink(game.variant, game.perfKey, shortName = true)
               )
@@ -100,8 +100,8 @@ final class TvUi(helpers: lila.ui.Helpers)(
             href := s"$baseUrl/${c.key}",
             cls := List(
               "tv-channel" -> true,
-              c.key        -> true,
-              "active"     -> (c == channel)
+              c.key -> true,
+              "active" -> (c == channel)
             )
           ):
             span(dataIcon := c.icon):

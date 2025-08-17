@@ -62,9 +62,9 @@ final class AppealApi(
         )
       .map: docs =>
         for
-          doc    <- docs
+          doc <- docs
           userId <- doc.getAsOpt[UserId]("_id")
-          msg    <- doc.getAsOpt[AppealMsg]("msgs")
+          msg <- doc.getAsOpt[AppealMsg]("msgs")
         yield userId -> msg
 
   def myQueue(filter: Option[Filter])(using me: Me) =
@@ -102,31 +102,31 @@ final class AppealApi(
         Match(selector) -> List(
           Sort((if ascending then Ascending.apply else Descending.apply) ("firstUnrepliedAt")),
           Limit(nb * 20),
-          PipelineOperator(
-            $lookup.pipeline(
+          PipelineOperator:
+            $lookup.simple(
               from = userRepo.coll,
               as = "user",
               local = "_id",
               foreign = "_id",
               pipe = filter.so(f => List($doc("$match" -> filterSelector(f))))
             )
-          ),
+          ,
           Limit(nb),
           UnwindField("user")
         )
       .map: docs =>
         import userRepo.userHandler
         for
-          doc    <- docs
+          doc <- docs
           appeal <- doc.asOpt[Appeal]
-          user   <- doc.getAsOpt[User]("user")
+          user <- doc.getAsOpt[User]("user")
         yield Appeal.WithUser(appeal, user)
 
   def filterSelector(filter: Filter) =
     import lila.core.user.BSONFields as F
     filter.value match
       case Some(mark) => $doc(F.marks.$in(List(mark.key)))
-      case None       => $doc(F.marks.$nin(UserMark.bannable))
+      case None => $doc(F.marks.$nin(UserMark.bannable))
 
   def setRead(appeal: Appeal) =
     coll.update.one($id(appeal.id), appeal.read).void

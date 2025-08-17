@@ -40,7 +40,7 @@ object navTree:
   private def goBack(parent: Node, forceLtr: Boolean): Frag =
     a(
       makeLink(parent.id),
-      cls      := List("back" -> true, "no-mirror" -> forceLtr),
+      cls := List("back" -> true, "no-mirror" -> forceLtr),
       dataIcon := Icon.LessThan,
-      title    := "Go back"
+      title := "Go back"
     )

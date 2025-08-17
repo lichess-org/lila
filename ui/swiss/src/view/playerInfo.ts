@@ -1,7 +1,7 @@
 import type { VNode } from 'snabbdom';
 import * as licon from 'lib/licon';
 import { spinnerVdom as spinner } from 'lib/view/controls';
-import { bind, dataIcon, looseH as h } from 'lib/snabbdom';
+import { bind, dataIcon, hl } from 'lib/snabbdom';
 import { player as renderPlayer, numberRow } from './util';
 import type { Pairing } from '../interfaces';
 import { isOutcome } from '../util';
@@ -13,35 +13,33 @@ export default function (ctrl: SwissCtrl): VNode | undefined {
   const data = ctrl.data.playerInfo;
   const tag = 'div.swiss__player-info.swiss__table';
   if (data?.user.id !== ctrl.playerInfoId)
-    return h(tag, [h('div.stats', [h('h2', ctrl.playerInfoId), spinner()])]);
+    return hl(tag, [hl('div.stats', [hl('h2', ctrl.playerInfoId), spinner()])]);
   const games = data.sheet.filter(p => !isOutcome(p) && p.g).length;
   const wins = data.sheet.filter(p => !isOutcome(p) && p.w).length;
   const avgOp: number | undefined = games
     ? Math.round(data.sheet.reduce((r, p) => r + (!isOutcome(p) ? p.rating : 1), 0) / games)
     : undefined;
-  return h(tag, { hook: { insert: setup, postpatch: (_, vnode) => setup(vnode) } }, [
-    h('a.close', {
+  return hl(tag, { hook: { insert: setup, postpatch: (_, vnode) => setup(vnode) } }, [
+    hl('a.close', {
       attrs: dataIcon(licon.X),
       hook: bind('click', () => ctrl.showPlayerInfo(data), ctrl.redraw),
     }),
-    h('div.stats', [
-      h('h2', [h('span.rank', data.rank + '. '), renderPlayer(data, true, false)]),
-      h('table', [
+    hl('div.stats', [
+      hl('h2', [hl('span.rank', data.rank + '. '), renderPlayer(data, true, false)]),
+      hl('table', [
         numberRow(i18n.site.points, data.points, 'raw'),
         numberRow(i18n.swiss.tieBreak, data.tieBreak, 'raw'),
-        ...(games
-          ? [
-              data.performance &&
-                ctrl.opts.showRatings &&
-                numberRow(i18n.site.performance, data.performance + (games < 3 ? '?' : ''), 'raw'),
-              numberRow(i18n.site.winRate, [wins, games], 'percent'),
-              ctrl.opts.showRatings && numberRow(i18n.site.averageOpponent, avgOp, 'raw'),
-            ]
-          : []),
+        games !== 0 && [
+          !!data.performance &&
+            ctrl.opts.showRatings &&
+            numberRow(i18n.site.performance, data.performance + (games < 3 ? '?' : ''), 'raw'),
+          numberRow(i18n.site.winRate, [wins, games], 'percent'),
+          ctrl.opts.showRatings && numberRow(i18n.site.averageOpponent, avgOp, 'raw'),
+        ],
       ]),
     ]),
-    h('div', [
-      h(
+    hl('div', [
+      hl(
         'table.pairings.sublist',
         {
           hook: bind('click', e => {
@@ -52,13 +50,13 @@ export default function (ctrl: SwissCtrl): VNode | undefined {
         data.sheet.map((p, i) => {
           const round = ctrl.data.round - i;
           if (isOutcome(p))
-            return h('tr.' + p, { key: round }, [
-              h('th', '' + round),
-              h('td.outcome', { attrs: { colspan: 3 } }, p),
-              h('td', p === 'absent' ? '-' : p === 'bye' ? '1' : '½'),
+            return hl('tr.' + p, { key: round }, [
+              hl('th', '' + round),
+              hl('td.outcome', { attrs: { colspan: 3 } }, p),
+              hl('td', p === 'absent' ? '-' : p === 'bye' ? '1' : '½'),
             ]);
           const res = result(p);
-          return h(
+          return hl(
             'tr.glpt.' + (res === '1' ? '.win' : res === '0' ? '.loss' : ''),
             {
               key: round,
@@ -66,11 +64,11 @@ export default function (ctrl: SwissCtrl): VNode | undefined {
               hook: { destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement) },
             },
             [
-              h('th', '' + round),
-              h('td', fullName(p.user)),
-              ctrl.opts.showRatings && h('td', '' + p.rating),
-              h('td.is.color-icon.' + (p.c ? 'white' : 'black')),
-              h('td.result', res),
+              hl('th', '' + round),
+              hl('td', fullName(p.user)),
+              ctrl.opts.showRatings && hl('td', '' + p.rating),
+              hl('td.is.color-icon.' + (p.c ? 'white' : 'black')),
+              hl('td.result', res),
             ],
           );
         }),

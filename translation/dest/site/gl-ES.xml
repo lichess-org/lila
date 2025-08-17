@@ -4,7 +4,7 @@
   <string name="playWithTheMachine">Xogar coa a máquina</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Para invitar a alguén a xogar, dálle este URL</string>
   <string name="gameOver">Partida rematada</string>
-  <string name="waitingForOpponent">Agardando un rival</string>
+  <string name="waitingForOpponent">Agardando polo rival</string>
   <string name="orLetYourOpponentScanQrCode">Ou deixa que o teu rival escanee este código QR</string>
   <string name="waiting">Agardando</string>
   <string name="yourTurn">A túa quenda</string>
@@ -105,7 +105,7 @@
   <string name="openingExplorer">Abrir o explorador</string>
   <string name="openingEndgameExplorer">Explorador de aperturas/finais</string>
   <string name="xOpeningExplorer">Explorador de aperturas %s</string>
-  <string name="playFirstOpeningEndgameExplorerMove">Xoga o primeiro movemento do explorador de aperturas/finais</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Xogar o primeiro movemento do explorador de aperturas/finais</string>
   <string name="winPreventedBy50MoveRule">Vitoria impedida pola regra das 50 xogadas</string>
   <string name="lossSavedBy50MoveRule">Derrota impedida pola regra das 50 xogadas</string>
   <string name="winOr50MovesByPriorMistake">Vitoria ou 50 movementos a causa dun erro anterior</string>
@@ -168,6 +168,7 @@
   <string name="drawByMutualAgreement">Táboas de mutuo acordo</string>
   <string name="fiftyMovesWithoutProgress">Cincuenta movementos sen progreso</string>
   <string name="currentGames">Partidas en curso</string>
+  <string name="joinedX">Uniuse %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s partida</item>
     <item quantity="other">%s partidas</item>
@@ -478,7 +479,7 @@
   <string name="openTournaments">Torneos abertos</string>
   <string name="duration">Duración</string>
   <string name="winner">Gañador</string>
-  <string name="standing">Posición</string>
+  <string name="standings">Clasificación</string>
   <string name="createANewTournament">Crear un novo torneo</string>
   <string name="tournamentCalendar">Calendario de torneos</string>
   <string name="conditionOfEntry">Condicións de participación:</string>
@@ -492,7 +493,6 @@
   <string name="points">Puntos</string>
   <string name="wins">Vitorias</string>
   <string name="losses">Derrotas</string>
-  <string name="createdBy">Creado por</string>
   <string name="startingIn" comment="Displayed above a timer">Comeza en</string>
   <string name="standByX">Agarda %s, emparellando xogadores, prepárate!</string>
   <string name="pause">Pausa</string>
@@ -530,7 +530,7 @@
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">País ou rexión</string>
   <string name="thankYou">Grazas!</string>
   <string name="socialMediaLinks">Ligazóns ás redes sociais</string>
-  <string name="oneUrlPerLine">Unha URL por liña.</string>
+  <string name="oneUrlPerLine">Un URL por liña.</string>
   <string name="inlineNotation">Notación compacta</string>
   <string name="makeAStudy">Para gardar e partillar, conviña crear un estudo.</string>
   <string name="clearSavedMoves">Eliminar movementos</string>
@@ -576,7 +576,7 @@
   <string name="reportCheatBoostHelp">Pega a ligazón á(s) partida(s) e explica que ten de malo o comportamento deste usuario. Non digas soamente \"fai trampas\", mais cóntanos como chegaches a esta conclusión.</string>
   <string name="reportUsernameHelp">Explica que ten de ofensivo este nome de usuario. Non digas soamente \"é ofensivo/inadecuado\". Cóntanos como chegaches a esta conclusión, especialmente se o insulto está camuflado, non está en inglés, é xerga ou é unha referencia histórica ou cultural.</string>
   <string name="reportProcessedFasterInEnglish">A túa denuncia será procesada máis rápido se está escrita en Inglés.</string>
-  <string name="error.provideOneCheatedGameLink">Por favor, incorpora cando menos unha ligazón a unha partida na que se fixeron trampas.</string>
+  <string name="error.provideOneCheatedGameLink">Por favor, proporciona cando menos unha ligazón a unha partida na que sospeites que se fixeron trampas.</string>
   <string name="by">por %s</string>
   <string name="importedByX">Importado por %s</string>
   <string name="thisTopicIsNowClosed">Este tema xa está pechado.</string>
@@ -714,7 +714,7 @@
   <string name="keyCycleSelectedVariation">Cambia a variante seleccionada</string>
   <string name="keyShowOrHideComments">mostrar/ocultar comentarios</string>
   <string name="keyEnterOrExitVariation">Entrar/saír da variante</string>
-  <string name="keyRequestComputerAnalysis">Solicita unha análise por computador, Aprende dos teus erros</string>
+  <string name="keyRequestComputerAnalysis">Solicitar unha análise por computador, Aprende dos teus erros</string>
   <string name="keyNextLearnFromYourMistakes">Seguinte (Aprende dos teus erros)</string>
   <string name="keyNextBlunder">Seguinte metida de zoca</string>
   <string name="keyNextMistake">Seguinte erro</string>
@@ -857,7 +857,7 @@
   <string name="tryAnotherMoveForWhite">Tenta outro movemento para as brancas</string>
   <string name="tryAnotherMoveForBlack">Tenta outro movemento para as negras</string>
   <string name="solution">Solución</string>
-  <string name="waitingForAnalysis">Agardando análise</string>
+  <string name="waitingForAnalysis">Agardando pola análise</string>
   <string name="noMistakesFoundForWhite">Non hai erros das brancas</string>
   <string name="noMistakesFoundForBlack">Non hai erros das negras</string>
   <string name="doneReviewingWhiteMistakes">Terminada a revisión de erros das brancas</string>
@@ -969,7 +969,7 @@ Deixa en branco para comezar as partidas dende a posición inicial normal.</stri
   <string name="simulDescription">Descrición das simultáneas</string>
   <string name="simulDescriptionHelp">Queres dicirlle algo ós participantes?</string>
   <string name="markdownAvailable">%s está dispoñíbel para unha sintaxe máis avanzada.</string>
-  <string name="embedsAvailable">Pega unha ligazón dunha partida ou dun capítulo dun estudo para incrustala.</string>
+  <string name="embedsAvailable">Pega a ligazón dunha partida ou dun capítulo dun estudo para incrustala.</string>
   <string name="inYourLocalTimezone">Na túa zona horaria</string>
   <string name="tournChat">Sala de conversa do torneo</string>
   <string name="noChat">Sen sala de conversa</string>
@@ -982,7 +982,7 @@ Deixa en branco para comezar as partidas dende a posición inicial normal.</stri
   <string name="playComputerMove">Xogar o mellor movemento da computadora</string>
   <string name="analysisOptions">Opcións de análise</string>
   <string name="focusChat">Poñer o cursor na sala de conversa</string>
-  <string name="showHelpDialog">Amosa este diálogo de axuda</string>
+  <string name="showHelpDialog">Amosar este diálogo de axuda</string>
   <string name="reopenYourAccount">Abre de novo a túa conta</string>
   <string name="reopenYourAccountDescription">Se pechaches a túa conta pero mudaches de idea, tes a posibilidade de recuperala.</string>
   <string name="emailAssociatedToaccount">Enderezo de correo electrónico asociado á conta</string>
@@ -1008,4 +1008,5 @@ Todos os custos de funcionamento, desenvolvemento e contidos fináncianse unicam
   <string name="accessibility">Accesibilidade</string>
   <string name="enableBlindMode">Activar o modo de accesibilidade web</string>
   <string name="disableBlindMode">Desactivar o modo de accesibilidade web</string>
+  <string name="copyToClipboard">Copiar ao portapapeis</string>
 </resources>

@@ -459,7 +459,6 @@
   <string name="openTournaments">ಮುಕ್ತ ಪಂದ್ಯಾವಳಿಗಳು</string>
   <string name="duration">ಕಾಲಾವಧಿ</string>
   <string name="winner">ಜಯಶಾಲಿ</string>
-  <string name="standing">ಸ್ಥಾನ</string>
   <string name="createANewTournament">ಹೊಸ ಪಂದ್ಯಾವಳಿ ರಚಿಸಿ</string>
   <string name="tournamentCalendar">ಪಂದ್ಯಾವಳಿಯ ವೇಳಾಪಟ್ಟಿ</string>
   <string name="conditionOfEntry">ಪ್ರವೇಶಾರ್ಹತೆ:</string>
@@ -473,7 +472,6 @@
   <string name="points">ಅಂಕಗಳು</string>
   <string name="wins">ಗೆಲುವುಗಳು</string>
   <string name="losses">ಸೋಲುಗಳು</string>
-  <string name="createdBy">ರಚಿಸಿದವರು</string>
   <string name="standByX">ನಿರೀಕ್ಷಿಸುತ್ತಿರಿ %s, ಎದುರಾಳಿಗಳನ್ನು ಹೊಂದಿಸಲಾಗುತ್ತಿದೆ, ಸಿದ್ಧವಾಗಿರಿ!</string>
   <string name="pause">ತಡೆ</string>
   <string name="resume">ಮುಂದುವರಿಸಿ</string>

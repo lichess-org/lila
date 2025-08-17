@@ -14,7 +14,7 @@ final class DisposableEmailDomain(
 
   import DisposableEmailDomain.*
 
-  private val staticRegex = toRegexStr(DisposableEmailDomain.staticBlacklist.iterator)
+  private val staticRegex = toRegexStr(staticBlacklist.iterator)
 
   private var regex = finalizeRegex(staticRegex)
 
@@ -26,7 +26,7 @@ final class DisposableEmailDomain(
       }
       checked <- verifyMailBlocked()
     do
-      val regexStr  = s"${toRegexStr(blacklist)}|${toRegexStr(checked.iterator)}"
+      val regexStr = s"${toRegexStr(blacklist)}|${toRegexStr(checked.iterator)}"
       val nbDomains = regexStr.count('|' ==)
       lila.mon.email.disposableDomain.update(nbDomains)
       regex = finalizeRegex(s"$staticRegex|$regexStr")
@@ -35,11 +35,13 @@ final class DisposableEmailDomain(
 
   private def finalizeRegex(regexStr: String) = s"(^|\\.)($regexStr)$$".r
 
-  def apply(domain: Domain): Boolean =
-    !DisposableEmailDomain.whitelisted(domain) && regex.find(domain.lower.value)
+  def isDisposable(domain: Domain): Boolean =
+    !DisposableEmailDomain.whitelisted(domain) && (
+      regex.find(domain.lower.value) || domainFragmentRegex.find(domain.lower.value)
+    )
 
   def asMxRecord(domain: Domain): Boolean =
-    apply(domain) && !mxRecordPasslist(domain.withoutSubdomain)
+    isDisposable(domain) && !mxRecordPasslist(domain.withoutSubdomain)
 
   def mightBeTypo(domain: Domain): Boolean =
     // gmail.com is very often misspelled
@@ -53,12 +55,12 @@ private object DisposableEmailDomain:
     def withoutSubdomainOpt: Option[Domain] =
       a.value.split('.').toList.reverse match
         case tld :: sld :: tail :: _ if sld.lengthIs <= 3 => Domain.from(s"$tail.$sld.$tld")
-        case tld :: sld :: _                              => Domain.from(s"$sld.$tld")
-        case _                                            => none
+        case tld :: sld :: _ => Domain.from(s"$sld.$tld")
+        case _ => none
     def withoutSubdomain: Domain = withoutSubdomainOpt | a
 
   def whitelisted(domain: Domain) = whitelist.contains(domain.withoutSubdomain.lower)
-  def isOutlook(domain: Domain)   = outlookDomains.contains(domain.withoutSubdomain.lower)
+  def isOutlook(domain: Domain) = outlookDomains.contains(domain.withoutSubdomain.lower)
 
   private val mxRecordPasslist =
     Set(Domain("simplelogin.co"), Domain("simplelogin.com"), Domain("anonaddy.me"), Domain("iljmail.com"))
@@ -74,6 +76,16 @@ private object DisposableEmailDomain:
     "gnail.com",
     "hotamil.com"
   )
+
+  private val domainFragmentRegex = List(
+    "te?mp-?e?mail",
+    "e?mail-?te?mp",
+    "minutes?-?mail",
+    "temporary",
+    "throwaway",
+    "dispos(e|able)",
+    "spam"
+  ).mkString("|").r.unanchored
 
   private val outlookDomains: Set[Domain.Lower] = Domain.Lower.from:
     Set(

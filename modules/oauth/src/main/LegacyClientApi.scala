@@ -10,7 +10,7 @@ final class LegacyClientApi(val coll: Coll)(using Executor):
   def apply(clientId: Protocol.ClientId, redirectUri: Protocol.RedirectUri): Fu[Option[HashedClientSecret]] =
     coll
       .findAndUpdate(
-        $doc(F.id     -> clientId.value, F.redirectUri -> redirectUri.value.toString),
+        $doc(F.id -> clientId.value, F.redirectUri -> redirectUri.value.toString),
         $set(F.usedAt -> nowInstant)
       )
       .map:
@@ -18,16 +18,16 @@ final class LegacyClientApi(val coll: Coll)(using Executor):
 
 object LegacyClientApi:
   object BSONFields:
-    val id           = "_id"
-    val redirectUri  = "redirectUri"
+    val id = "_id"
+    val redirectUri = "redirectUri"
     val hashedSecret = "secret"
-    val usedAt       = "used"
+    val usedAt = "used"
 
   case class HashedClientSecret(value: String) extends AnyVal
 
   case class ClientSecret(secret: String) extends AnyVal:
     def matches(hash: HashedClientSecret) = Algo.sha256(secret).hex == hash.value
-    override def toString                 = "ClientSecret(***)"
+    override def toString = "ClientSecret(***)"
 
   case object MismatchingClientSecret
       extends Protocol.Error.InvalidGrant(

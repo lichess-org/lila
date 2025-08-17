@@ -2,31 +2,34 @@ package lila.ublog
 
 import play.api.data.*
 import play.api.data.Forms.*
+import play.api.libs.json.*
+import play.api.libs.functional.syntax.toFunctionalBuilderOps
 import scalalib.model.Language
 
-import lila.common.Form.{ cleanNonEmptyText, into, stringIn, given }
+import lila.common.Form.{ cleanNonEmptyText, cleanText, into, given }
 import lila.core.captcha.{ CaptchaApi, WithCaptcha }
 import lila.core.i18n.{ LangList, toLanguage, defaultLanguage }
+import lila.core.ublog.Quality
 
 final class UblogForm(val captcher: CaptchaApi, langList: LangList):
 
-  import UblogForm.*
+  import UblogForm.UblogPostData
 
   private val base =
     mapping(
-      "title"       -> cleanNonEmptyText(minLength = 3, maxLength = 80),
-      "intro"       -> cleanNonEmptyText(minLength = 0, maxLength = 1_000),
-      "markdown"    -> cleanNonEmptyText(minLength = 0, maxLength = 100_000).into[Markdown],
-      "imageAlt"    -> optional(cleanNonEmptyText(minLength = 3, maxLength = 200)),
+      "title" -> cleanNonEmptyText(minLength = 3, maxLength = 80),
+      "intro" -> cleanNonEmptyText(minLength = 0, maxLength = 1_000),
+      "markdown" -> cleanNonEmptyText(minLength = 0, maxLength = 100_000).into[Markdown],
+      "imageAlt" -> optional(cleanNonEmptyText(minLength = 3, maxLength = 200)),
       "imageCredit" -> optional(cleanNonEmptyText(minLength = 3, maxLength = 200)),
-      "language"    -> optional(langList.popularLanguagesForm.mapping),
-      "topics"      -> optional(text),
-      "live"        -> boolean,
-      "discuss"     -> boolean,
-      "sticky"      -> boolean,
-      "ads"         -> boolean,
-      "gameId"      -> of[GameId],
-      "move"        -> text
+      "language" -> optional(langList.popularLanguagesForm.mapping),
+      "topics" -> optional(text),
+      "live" -> boolean,
+      "discuss" -> boolean,
+      "sticky" -> boolean,
+      "ads" -> boolean,
+      "gameId" -> of[GameId],
+      "move" -> text
     )(UblogPostData.apply)(unapply)
 
   val create = Form:
@@ -84,11 +87,10 @@ object UblogForm:
         created = UblogPost.Recorded(user.id, nowInstant),
         updated = none,
         lived = none,
+        featured = none,
         likes = UblogPost.Likes(1),
         views = UblogPost.Views(0),
         similar = none,
-        rankAdjustDays = none,
-        pinned = none,
         automod = none
       )
 
@@ -109,18 +111,69 @@ object UblogForm:
         lived = prev.lived.orElse(live.option(UblogPost.Recorded(user.id, nowInstant)))
       )
 
-  private val tierMapping =
-    "tier" -> number(min = UblogRank.Tier.HIDDEN.value, max = UblogRank.Tier.BEST.value)
-      .into[UblogRank.Tier]
-
-  val tier = Form:
-    single:
-      tierMapping
-
-  val adjust = Form:
+  lazy val modBlogForm = Form(
     tuple(
-      "pinned" -> boolean,
-      tierMapping,
-      "days"       -> optional(number(min = -180, max = 180)),
-      "assessment" -> optional(stringIn(UblogAutomod.classifications.toSet))
+      "tier" -> number(min = UblogBlog.Tier.HIDDEN.value, max = UblogBlog.Tier.BEST.value)
+        .into[UblogBlog.Tier],
+      "note" -> cleanText(0, 800)
     )
+  )
+
+  case class ModPostData(
+      quality: Option[Quality] = none,
+      evergreen: Option[Boolean] = none,
+      flagged: Option[String] = none,
+      commercial: Option[String] = none,
+      featured: Option[Boolean] = none,
+      featuredUntil: Option[Int] = none
+  ):
+
+    def hasUpdates: Boolean =
+      List(quality, evergreen, flagged, commercial, featured, featuredUntil).exists(_.isDefined)
+
+    def text = List(
+      quality.so(q => s"quality = $q"),
+      evergreen.so(e => s"evergreen = $e"),
+      flagged.so(f => "flagged = " + (if f == "" then "none" else s"\"$f\"")),
+      commercial.so(c => "commercial = " + (if c == "" then "none" else s"\"$c\"")),
+      featured.so(f => s"featured = $f"),
+      featuredUntil.so(d => s"featured days = $d")
+    ).flatten.mkString(", ")
+
+    def diff(post: UblogPost): String =
+
+      def diffString(label: String, optFrom: Option[String], to: String) =
+        optFrom match
+          case None => s"$label = \"$to\"".some
+          case Some(from) if from == to => none
+          case Some(from) => s"$label \"$from\" -> \"$to\"".some
+
+      post.automod.fold(text): p =>
+        List(
+          evergreen.filter(_ != ~p.evergreen).map(e => s"evergreen = $e"),
+          quality.flatMap(q => diffString("quality", p.quality.name.some, q.name)),
+          flagged.flatMap(f => diffString("flagged", p.flagged, f)),
+          commercial.flatMap(c => diffString("commercial", p.commercial, c)),
+          featured.map: isFeatured =>
+            if isFeatured then s"add to carousel" + featuredUntil.so(days => s" $days days")
+            else "pull from carousel"
+        ).flatten.mkString(", ")
+
+  object ModPostData:
+    given Reads[Quality] = Reads
+      .of[Int]
+      .map(Quality.fromOrdinal)
+    def reads: Reads[ModPostData] =
+      (
+        (JsPath \ "quality")
+          .readNullable[Quality]
+          .and((JsPath \ "evergreen").readNullable[Boolean])
+          .and((JsPath \ "flagged").readNullable[String].map(_.map(_.take(200))))
+          .and((JsPath \ "commercial").readNullable[String].map(_.map(_.take(200))))
+          .and((JsPath \ "featured").readNullable[Boolean])
+          .and(
+            (JsPath \ "featuredUntil")
+              .readNullable[Int]
+              .filter(JsonValidationError(s"bad featuredUntil"))(_.forall(d => d > 0 && d <= 31))
+          )
+      )(ModPostData.apply)

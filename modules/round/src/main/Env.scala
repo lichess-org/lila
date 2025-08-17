@@ -84,7 +84,7 @@ final class Env(
         roundApi.tell(game.id, lila.core.round.NoStart)
 
   private val simulApi = lila.core.data.CircularDep(() => simulApiCircularDep)
-  private val tourApi  = lila.core.data.CircularDep(() => tourApiCircularDep)
+  private val tourApi = lila.core.data.CircularDep(() => tourApiCircularDep)
 
   private lazy val proxyDependencies = wire[GameProxy.Dependencies]
   private lazy val roundDependencies = wire[RoundAsyncActor.Dependencies]
@@ -121,7 +121,7 @@ final class Env(
     gameCache.lastPlayedPlayingId(userId).flatMapz(proxyRepo.pov(_, userId))
 
   def lastPlayed(userId: UserId): Fu[Option[Pov]] =
-    gameRepo.lastPlayed(userId).flatMap(_.soFu(proxyRepo.upgradeIfPresent))
+    gameRepo.lastPlayed(userId).flatMap(_.traverse(proxyRepo.upgradeIfPresent))
 
   private lazy val correspondenceEmail = wire[CorrespondenceEmail]
 

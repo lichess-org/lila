@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="featuredEvents">Fremhevede arrangementer</string>
+  <string name="moveList">Trekkliste</string>
+  <string name="gameInfo">Partiinfo</string>
+  <string name="pieces">Brikker</string>
+  <string name="gameStatus">Partistatus</string>
+  <string name="lastMove">Siste trekk</string>
+  <string name="inputForm">Innskjema</string>
+  <string name="actions">Handlinger</string>
+  <string name="yourClock">Ditt ur</string>
+  <string name="opponentClock">Motstanders ur</string>
+  <string name="king">konge</string>
+  <string name="whiteKing">hvit konge</string>
+  <string name="blackKing">svart konge</string>
+  <string name="queen">dronning</string>
+  <string name="whiteQueen">hvit dronning</string>
+  <string name="blackQueen">svart dronning</string>
+  <string name="rook">tårn</string>
+  <string name="whiteRook">hvitt tårn</string>
+  <string name="blackRook">svart tårn</string>
+  <string name="bishop">løper</string>
+  <string name="whiteBishop">hvit løper</string>
+  <string name="blackBishop">svart løper</string>
+  <string name="knight">springer</string>
+  <string name="whiteKnight">hvit springer</string>
+  <string name="blackKnight">svart springer</string>
+  <string name="pawn">bonde</string>
+  <string name="whitePawn">hvit bonde</string>
+  <string name="blackPawn">svart bonde</string>
+  <string name="sanSymbols" comment="Keep this order: king queen rook bishop knight takes">K D T L S x</string>
+  <string name="sanTakes" comment="x in standard notation">slår</string>
+  <string name="sanCheck" comment="+ in standard notation">sjakk</string>
+  <string name="sanCheckmate" comment="# in standard notation">matt</string>
+  <string name="sanPromotesTo" comment="= in standard notation">forvandler til</string>
+  <string name="sanShortCastling" comment="O-O in standard notation">kort rokade</string>
+  <string name="sanLongCastling" comment="O-O-O in standard notation">lang rokade</string>
+  <string name="invalidMove">Ulovlig trekk</string>
+  <string name="premoveCancelled">Forhåndstrekk avbrutt</string>
+  <string name="premoveRecorded">Forhåndstrekk registrert: %s. Trykk enter-tasten for å avbryte</string>
+  <string name="pockets" comment="Pockets in Crazyhouse, which hold captured pieces and let players place them again">Lommer</string>
+  <string name="copyToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">Kopier %s til utklippstavlen</string>
+  <string name="copiedToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">%s kopiert til utklippstavlen</string>
+  <string name="pgnAndFen" comment="Will be a heading read out over text-to-speech for blind users looking to share a PGN or FEN of a game.">PGN og FEN</string>
+</resources>

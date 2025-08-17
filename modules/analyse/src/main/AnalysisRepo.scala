@@ -28,5 +28,5 @@ final class AnalysisRepo(val coll: Coll)(using Executor):
 
   def remove(ids: List[GameId]) = coll.delete.one($inIds(ids.map(Analysis.Id(_))))
 
-  def exists(id: GameId)                = coll.exists($id(Analysis.Id(id)))
+  def exists(id: GameId) = coll.exists($id(Analysis.Id(id)))
   def chapterExists(id: StudyChapterId) = coll.exists($id(id.value))

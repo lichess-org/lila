@@ -55,10 +55,12 @@ type RedirectTo = string | { url: string; cookie: Cookie };
 
 interface LichessMousetrap {
   // file://./../../site/src/mousetrap.ts
+  unbind(key: string): void;
   bind(
     keys: string | string[],
     callback: (e: KeyboardEvent) => void,
     action?: 'keypress' | 'keydown' | 'keyup',
+    multiple?: boolean, // = true
   ): LichessMousetrap;
 }
 
@@ -107,8 +109,12 @@ interface SoundI {
   countdown(count: number, intervalMs?: number): Promise<void>;
   getVolume(): number;
   setVolume(v: number): void;
+  getVoice(): SpeechSynthesisVoice | undefined;
+  getVoiceMap(): Map<string, SpeechSynthesisVoice>;
+  setVoice(v: { name: string; lang: string }): void;
   speech(v?: boolean): boolean;
   changeSet(s: string): void;
+  sayLazy(text: () => string, cut?: boolean, force?: boolean, translated?: boolean): boolean;
   say(text: string, cut?: boolean, force?: boolean, translated?: boolean): boolean;
   saySan(san?: San, cut?: boolean, force?: boolean): void;
   sayOrPlay(name: string, text: string): void;

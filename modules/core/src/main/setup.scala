@@ -2,7 +2,7 @@ package lila.core
 package setup
 
 import _root_.chess.variant.Variant
-import _root_.chess.{ Clock, format }
+import _root_.chess.{ Rated, Clock, format }
 import scalalib.model.Days
 
 import lila.core.game.GameRule
@@ -13,7 +13,7 @@ trait OpenConfig:
   val variant: Variant
   val clock: Option[Clock.Config]
   val days: Option[Days]
-  val rated: Boolean
+  val rated: Rated
   val position: Option[format.Fen.Full]
   val userIds: Option[PairOf[UserId]]
   val rules: Set[game.GameRule]

@@ -15,7 +15,7 @@ final class RequesterApi(coll: Coll)(using Executor):
       .one(
         $id(requester),
         $inc(
-          "total"                     -> 1,
+          "total" -> 1,
           formatter.print(nowInstant) -> (if ownGame then 1 else 2)
         ),
         upsert = true
@@ -35,7 +35,7 @@ final class RequesterApi(coll: Coll)(using Executor):
         val weekly = doc.so:
           _.values.foldLeft(0):
             case (acc, BSONInteger(v)) => acc + v
-            case (acc, _)              => acc
+            case (acc, _) => acc
         (~daily, weekly)
 
   lila.common.Bus.sub[lila.core.user.UserDelete]: del =>

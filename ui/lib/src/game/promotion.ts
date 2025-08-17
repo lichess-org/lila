@@ -1,9 +1,9 @@
 import { h } from 'snabbdom';
 import { AutoQueen } from '../prefs';
 import { type MaybeVNode, bind, onInsert } from '../snabbdom';
-import type { DrawShape } from 'chessground/draw';
-import { opposite, key2pos } from 'chessground/util';
-import type { MoveMetadata } from 'chessground/types';
+import type { DrawShape } from '@lichess-org/chessground/draw';
+import { opposite, key2pos } from '@lichess-org/chessground/util';
+import type { MoveMetadata } from '@lichess-org/chessground/types';
 import type { WithGround } from './ground';
 
 export type Hooks = {

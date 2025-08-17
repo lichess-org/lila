@@ -49,7 +49,7 @@ final private class TutorQueue(
 
   def next: Fu[List[Next]] =
     colls.queue.find($empty).sort($sort.asc(F.requestedAt)).cursor[Next]().list(parallelism.get())
-  def start(userId: UserId): Funit  = colls.queue.updateField($id(userId), F.startedAt, nowInstant).void
+  def start(userId: UserId): Funit = colls.queue.updateField($id(userId), F.startedAt, nowInstant).void
   def remove(userId: UserId): Funit = colls.queue.delete.one($id(userId)).void
 
   def waitingGames(user: User): Fu[List[(Pov, PgnStr)]] = for
@@ -58,9 +58,9 @@ final private class TutorQueue(
       60,
       $doc(lila.core.game.BSONFields.turns.$gt(10))
     )
-    (rated, casual) = all.partition(_.game.rated)
-    many            = rated ::: casual.take(30 - rated.size)
-    povs            = scalalib.ThreadLocalRandom.shuffle(many).take(30)
+    (rated, casual) = all.partition(_.game.rated.yes)
+    many = rated ::: casual.take(30 - rated.size)
+    povs = scalalib.ThreadLocalRandom.shuffle(many).take(30)
     _ <- lightUserApi.preloadMany(povs.flatMap(_.game.userIds))
   yield povs.map { pov =>
     import chess.format.pgn.*
@@ -76,7 +76,7 @@ final private class TutorQueue(
       .flatMap:
         _.fold(fuccess(NotInQueue)) { at =>
           for
-            position    <- colls.queue.countSel($doc(F.requestedAt.$lte(at)))
+            position <- colls.queue.countSel($doc(F.requestedAt.$lte(at)))
             avgDuration <- durationCache.get({})
           yield InQueue(position, avgDuration)
         }
@@ -94,6 +94,6 @@ object TutorQueue:
     given BSONDocumentReader[Next] = Macros.reader
 
   object F:
-    val id          = "_id"
+    val id = "_id"
     val requestedAt = "requestedAt"
-    val startedAt   = "startedAt"
+    val startedAt = "startedAt"

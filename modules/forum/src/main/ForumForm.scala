@@ -15,9 +15,9 @@ final private[forum] class ForumForm(
 
   def postMapping(inOwnTeam: Boolean)(using Me) =
     mapping(
-      "text"    -> userTextMapping(inOwnTeam),
-      "gameId"  -> of[GameId],
-      "move"    -> text,
+      "text" -> userTextMapping(inOwnTeam),
+      "gameId" -> of[GameId],
+      "move" -> text,
       "modIcon" -> optional(boolean)
     )(PostData.apply)(unapply)
       .verifying(lila.core.captcha.failMessage, captcha.validateSync)

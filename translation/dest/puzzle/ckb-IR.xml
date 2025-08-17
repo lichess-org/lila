@@ -6,20 +6,20 @@
   <string name="phases">قۆناغەکان</string>
   <string name="motifs">بیرۆکەکان</string>
   <string name="advanced">پێشکەوتوو</string>
-  <string name="lengths">درێژیەکان</string>
-  <string name="mates">هاوڕێیان</string>
+  <string name="lengths">درێژییەکان</string>
+  <string name="mates">ماتەکان</string>
   <string name="goals">ئامانجەکان</string>
   <string name="origin">سەرچاوە</string>
-  <string name="specialMoves">جوڵە تایبەتەکان</string>
+  <string name="specialMoves">جووڵە تایبەتەکان</string>
   <string name="didYouLikeThisPuzzle">ئەم مەتەڵەت بەدڵبوو؟</string>
-  <string name="voteToLoadNextOne">دەنگبدە بۆ بارکردنی دانەی داهاتوو!</string>
-  <string name="upVote">ئەو مەتەڵە بەدڵمە</string>
-  <string name="downVote">ئەو مەتەڵە بەدڵمنییە</string>
+  <string name="voteToLoadNextOne">دەنگ بدە بۆ بارکردنی دانەی داھاتوو!</string>
+  <string name="upVote">مەتەڵەکەم بەدڵە</string>
+  <string name="downVote">مەتەڵەکەم بەدڵ نییە</string>
   <string name="yourPuzzleRatingWillNotChange">ڕیزبەندیەکەت گۆڕانکاری بەسەردا نایەت، ئەوەک تێبینییەک، مەتڵەکان پێشبرکێی تێدانییە، ئەو ڕیزبەندییەی کە هەیە تەنها هاوکاری دیاریکردنی باشترین مەتەڵ دەکا کە لەگەڵ ئاستی تۆ گونجاوبێت.</string>
   <string name="findTheBestMoveForWhite">دۆزینەوەی باشترین جوڵە بۆ سپی.</string>
   <string name="findTheBestMoveForBlack">دۆزینەوەی باشترین جوڵە بۆ ڕەش.</string>
   <string name="toGetPersonalizedPuzzles">بۆ بەدەستهێنانی مەتەڵی تایبەتی:</string>
-  <string name="puzzleId">مەتەڵ %s</string>
+  <string name="puzzleId">مەتەڵی %s</string>
   <string name="puzzleOfTheDay">مەتەڵی ڕۆژ</string>
   <string name="dailyPuzzle">مەتەڵی ڕۆژانە</string>
   <string name="clickToSolve">کلیک بکە بۆ شیکارکردن</string>
@@ -31,8 +31,8 @@
   <string name="byOpenings">بەپێی دەستپێکەکان</string>
   <string name="puzzlesByOpenings">مەتەڵەکان بەپێی دەستپێک</string>
   <string name="openingsYouPlayedTheMost">ئەو کردنەوانەی زۆرترین یاریت پێکردوون لە یاریە ڕەیتیدەکان</string>
-  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings for mobile and tablet users&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">\"دۆزینەوە لە پەڕە\" دا بەکاربهێنە لە گەڕان بۆ دۆزینەوەی کردنەوەی دڵخوازت!</string>
-  <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Ctrl+f بەکاربهێنە بۆ دۆزینەوەی ئۆپنینگی دڵخوازت!</string>
+  <string name="useFindInPage">\"دۆزینەوە لە پەڕە\" دا بەکاربهێنە لە گەڕان بۆ دۆزینەوەی کردنەوەی دڵخوازت!</string>
+  <string name="useCtrlF">Ctrl+f بەکاربهێنە بۆ دۆزینەوەی ئۆپنینگی دڵخوازت!</string>
   <string name="notTheMove">ئەوە جوڵەکە نییە!</string>
   <string name="trySomethingElse">شتێکی دیقە تاقی بکەرەوە.</string>
   <string name="ratingX">ئاست: %s</string>
@@ -66,7 +66,7 @@
   <string name="strengths">هێزەکان</string>
   <string name="history">مێژووی مەتەڵ</string>
   <string name="solved">شیکارکراو</string>
-  <string name="failed" comment="In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.&#10;&#10;The text will be automatically capitalised. If you have different ways to translate it, we suggest keeping it short.&#10;&#10;NOTE: This string previously said 'failed', but was changed to 'incorrect' to be more encouraging (https://github.com/lichess-org/lila/issues/11068)">شکست</string>
+  <string name="failed">شکست</string>
   <string name="streakDescription">مەتەڵی قوڕستر شیکاربکە و زنجیرەیەک بردنەوە تۆماربکە. کات بوونی نییە، بۆیە کاتی خۆت وەرگرە و پەلەمەکە. یەک جوڵەی هەڵە دەبێتە کۆتایی یاریەکە! لەگەڵ ئەوەشدا دەتوانی جوڵەیەک تێبپەڕێنی لە زنجیرەیەکدا.</string>
   <string name="yourStreakX">نمرەکەت: %s</string>
   <string name="streakSkipExplanation">جوڵەکە بپەڕێنە بۆ پاراستنی نمرەکەت! تەنیا یەک جار بەکاردێت لە خولێکدا.</string>
@@ -74,11 +74,13 @@
   <string name="newStreak">نمرەی نوێ</string>
   <string name="fromMyGames">لە یاریەکانمەوە</string>
   <string name="lookupOfPlayer">گەڕان بۆ مەتەڵ لە یاری یاریزانانی ترەوە</string>
-  <string name="fromXGames">مەتەڵێک لە یاری %s</string>
   <string name="searchPuzzles">گەڕان بۆ مەتەڵ</string>
   <string name="fromMyGamesNone">هیچ مەتەڵێکت نییە لە داتابەیس، بەڵام لیچێس هێشتا خۆشەویستی زۆری بۆت هەیە.
 یاری ڕاپید یان کلاسیک بکە بۆ بەرزکردنەوەی چانسی دەستکەوتنی مەتەڵی یاریەکانی خۆت!</string>
-  <string name="fromXGamesFound">%1$s مەتەڵ دۆزرایەوە لە %2$s یاریەدا</string>
+  <plurals name="puzzlesFoundInUserGames">
+    <item quantity="one">مەتەڵێک لە یارییەکانی %2$sدا دۆزرایەوە</item>
+    <item quantity="other">%1$s مەتەڵ لە یارییەکانی %2$sدا دۆزرایەوە</item>
+  </plurals>
   <string name="puzzleDashboardDescription">ڕاهێنان ، شیکردنەوە، بەرەوپێشچوون</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s یاری کرد</item>

@@ -42,6 +42,8 @@ final class GamesByIdsStream(gameRepo: lila.game.GameRepo)(using akka.stream.Mat
   def addGameIds(streamId: String, gameIds: Set[GameId]) =
     Bus.publishDyn(WatchGames(gameIds), streamChan(streamId))
 
+  def exists(streamId: String): Boolean = Bus.exists(streamChan(streamId))
+
   private case class WatchGames(ids: Set[GameId])
   private def streamChan(streamId: String) = s"gamesByIdsStream:$streamId"
 

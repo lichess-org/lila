@@ -72,7 +72,9 @@ export function copyMeInput(content: string, inputAttrs: Attrs = {}): VNode {
     h('input.copy-me__target', {
       attrs: { readonly: true, spellcheck: false, value: content, ...inputAttrs },
     }),
-    h('button.copy-me__button.button.button-metal', { attrs: { 'data-icon': licon.Clipboard } }),
+    h('button.copy-me__button.button.button-metal', {
+      attrs: { 'data-icon': licon.Clipboard, title: i18n.site.copyToClipboard },
+    }),
   ]);
 }
 

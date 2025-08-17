@@ -16,12 +16,12 @@ trait LilaLibraryExtensions extends CoreExports:
   given [A]: Zero[Update[A]] with
     def zero = identity[A]
 
-  def fuccess[A](a: A): Fu[A]        = Future.successful(a)
+  def fuccess[A](a: A): Fu[A] = Future.successful(a)
   def fufail[X](t: Throwable): Fu[X] = Future.failed(t)
-  def fufail[X](s: String): Fu[X]    = fufail(LilaException(s))
-  val funit                          = Future.unit
-  val fuTrue                         = fuccess(true)
-  val fuFalse                        = fuccess(false)
+  def fufail[X](s: String): Fu[X] = fufail(LilaException(s))
+  val funit = Future.unit
+  val fuTrue = fuccess(true)
+  val fuFalse = fuccess(false)
 
   /* library-agnostic way to run a future after a delay */
   given (using sched: Scheduler, ec: Executor): FutureAfter =
@@ -39,13 +39,13 @@ trait LilaLibraryExtensions extends CoreExports:
   extension (self: Boolean)
     def not: Boolean = !self
     // move to scalalib? generalize Future away?
-    def soFu[B](f: => Future[B]): Future[Option[B]] =
+    def optionFu[B](f: => Future[B]): Future[Option[B]] =
       if self then f.map(Some(_))(using scala.concurrent.ExecutionContext.parasitic)
       else Future.successful(None)
 
   extension (config: Config)
-    def millis(name: String): Int              = config.getDuration(name, TimeUnit.MILLISECONDS).toInt
-    def seconds(name: String): Int             = config.getDuration(name, TimeUnit.SECONDS).toInt
+    def millis(name: String): Int = config.getDuration(name, TimeUnit.MILLISECONDS).toInt
+    def seconds(name: String): Int = config.getDuration(name, TimeUnit.SECONDS).toInt
     def duration(name: String): FiniteDuration = millis(name).millis
 
   extension [A, B](v: Either[A, B])
@@ -54,25 +54,28 @@ trait LilaLibraryExtensions extends CoreExports:
       case Left(err) =>
         err match
           case e: Exception => Future.failed(e)
-          case _            => fufail(err.toString)
+          case _ => fufail(err.toString)
 
   extension [A, B](v: (A, B)) def map2[C](f: B => C): (A, C) = (v._1, f(v._2))
 
   extension (d: FiniteDuration)
     def toCentis = chess.Centis(d)
-    def abs      = if d.length < 0 then -d else d
+    def abs = if d.length < 0 then -d else d
 
   extension [A](list: List[A])
     def sortLike[B](other: Seq[B], f: A => B): List[A] =
       list.sortWith: (x, y) =>
         other.indexOf(f(x)) < other.indexOf(f(y))
     def tailOption: Option[List[A]] = list match
-      case Nil       => None
+      case Nil => None
       case _ :: rest => Some(rest)
-    def tailSafe: List[A]         = tailOption.getOrElse(Nil)
-    def indexOption(a: A)         = Option(list.indexOf(a)).filter(0 <= _)
+    def tailSafe: List[A] = tailOption.getOrElse(Nil)
+    def indexOption(a: A) = Option(list.indexOf(a)).filter(0 <= _)
     def previous(a: A): Option[A] = indexOption(a).flatMap(i => list.lift(i - 1))
-    def next(a: A): Option[A]     = indexOption(a).flatMap(i => list.lift(i + 1))
+    def next(a: A): Option[A] = indexOption(a).flatMap(i => list.lift(i + 1))
+    def sortedReverse(using ord: Ordering[A]): List[A] = list.sorted(using ord.reverse)
+    def sortByReverse[B](f: A => B)(using ord: Ordering[B]): List[A] =
+      list.sortBy(f)(using ord.reverse)
 
     def sequentially[B](f: A => Fu[B])(using Executor): Fu[List[B]] =
       list

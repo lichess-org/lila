@@ -3,7 +3,7 @@ import { prop } from 'lib';
 import { snabDialog } from 'lib/view/dialog';
 import { confirm, prompt } from 'lib/view/dialogs';
 import flairPickerLoader from 'bits/flairPicker';
-import { type VNode, bindSubmit, bindNonPassive, onInsert, looseH as h } from 'lib/snabbdom';
+import { type VNode, bindSubmit, bindNonPassive, onInsert, hl } from 'lib/snabbdom';
 import { emptyRedButton } from '../view/util';
 import type { StudyData } from './interfaces';
 import type RelayCtrl from './relay/relayCtrl';
@@ -56,11 +56,11 @@ export class StudyForm {
 }
 
 const select = (s: Select): VNode =>
-  h('div.form-group.form-half' + (s.visible ? '' : '.none'), [
-    h('label.form-label', { attrs: { for: 'study-' + s.key } }, s.name),
-    h(
+  hl('div.form-group.form-half' + (s.visible ? '' : '.none'), [
+    hl('label.form-label', { attrs: { for: 'study-' + s.key } }, s.name),
+    hl(
       `select#study-${s.key}.form-control`,
-      s.choices.map(o => h('option', { attrs: { value: o[0], selected: s.selected === o[0] } }, o[1])),
+      s.choices.map(o => hl('option', { attrs: { value: o[0], selected: s.selected === o[0] } }, o[1])),
     ),
   ]);
 
@@ -84,34 +84,34 @@ export function view(ctrl: StudyForm): VNode {
     ['everyone', i18n.study.everyone],
   ];
   const formFields = [
-    h('div.form-split.flair-and-name' + (ctrl.relay ? '.none' : ''), [
-      h('div.form-group', [
-        h('label.form-label', 'Flair'),
-        h(
+    hl('div.form-split.flair-and-name' + (ctrl.relay ? '.none' : ''), [
+      hl('div.form-group', [
+        hl('label.form-label', 'Flair'),
+        hl(
           'div.form-control.emoji-details',
           {
             hook: onInsert(el => flairPickerLoader(el)),
           },
           [
-            h('div.emoji-popup-button', [
-              h(
+            hl('div.emoji-popup-button', [
+              hl(
                 'select#study-flair.form-control',
                 { attrs: { name: 'flair' } },
-                data.flair && h('option', { attrs: { value: data.flair, selected: true } }),
+                data.flair && hl('option', { attrs: { value: data.flair, selected: true } }),
               ),
-              h('img', { attrs: { src: data.flair ? site.asset.flairSrc(data.flair) : '' } }),
+              hl('img', { attrs: { src: data.flair ? site.asset.flairSrc(data.flair) : '' } }),
             ]),
-            h(
+            hl(
               'div.flair-picker.none',
               data.admin || { attrs: { 'data-except-emojis': 'activity.lichess' } },
-              h('button.button.button-metal.emoji-remove', { attrs: { type: 'button' } }, 'clear'),
+              hl('button.button.button-metal.emoji-remove', { attrs: { type: 'button' } }, 'clear'),
             ),
           ],
         ),
       ]),
-      h('div.form-group', [
-        h('label.form-label', { attrs: { for: 'study-name' } }, i18n.site.name),
-        h('input#study-name.form-control', {
+      hl('div.form-group', [
+        hl('label.form-label', { attrs: { for: 'study-name' } }, i18n.site.name),
+        hl('input#study-name.form-control', {
           attrs: { minlength: 3, maxlength: 100 },
           hook: {
             insert: vnode => {
@@ -126,7 +126,7 @@ export function view(ctrl: StudyForm): VNode {
         }),
       ]),
     ]),
-    h('div.form-split', [
+    hl('div.form-split', [
       select({
         key: 'visibility',
         name: i18n.study.visibility,
@@ -146,7 +146,7 @@ export function view(ctrl: StudyForm): VNode {
         visible: isEditable,
       }),
     ]),
-    h('div.form-split', [
+    hl('div.form-split', [
       select({
         key: 'computer',
         name: i18n.site.computerAnalysis,
@@ -162,7 +162,7 @@ export function view(ctrl: StudyForm): VNode {
         visible: isEditable,
       }),
     ]),
-    h('div.form-split', [
+    hl('div.form-split', [
       select({
         key: 'cloneable',
         name: i18n.study.allowCloning,
@@ -178,7 +178,7 @@ export function view(ctrl: StudyForm): VNode {
         visible: isEditable,
       }),
     ]),
-    h('div.form-split', [
+    hl('div.form-split', [
       select({
         key: 'sticky',
         name: i18n.study.enableSync,
@@ -203,8 +203,8 @@ export function view(ctrl: StudyForm): VNode {
   ];
   const relayLinks =
     ctrl.relay &&
-    h('div.form-actions-secondary', [
-      h(
+    hl('div.form-actions-secondary', [
+      hl(
         'a.text',
         {
           attrs: {
@@ -214,14 +214,14 @@ export function view(ctrl: StudyForm): VNode {
         },
         'Tournament settings',
       ),
-      h(
+      hl(
         'a.text',
         { attrs: { 'data-icon': licon.RadioTower, href: `/broadcast/round/${data.id}/edit` } },
         'Round settings',
       ),
     ]);
-  const deleteForms = h('div', { attrs: { style: 'display: flex' } }, [
-    h(
+  const deleteForms = hl('div', { attrs: { style: 'display: flex' } }, [
+    hl(
       'form',
       {
         attrs: { action: '/study/' + data.id + '/delete', method: 'post' },
@@ -234,10 +234,10 @@ export function view(ctrl: StudyForm): VNode {
           });
         }),
       },
-      [h(emptyRedButton, isNew ? i18n.site.cancel : i18n.study.deleteStudy)],
+      [hl(emptyRedButton, isNew ? i18n.site.cancel : i18n.study.deleteStudy)],
     ),
     !isNew &&
-      h(
+      hl(
         'form',
         {
           attrs: { action: '/study/' + data.id + '/clear-chat', method: 'post' },
@@ -248,7 +248,7 @@ export function view(ctrl: StudyForm): VNode {
             });
           }),
         },
-        [h(emptyRedButton, i18n.study.clearChat)],
+        [hl(emptyRedButton, i18n.study.clearChat)],
       ),
   ]);
   return snabDialog({
@@ -260,11 +260,11 @@ export function view(ctrl: StudyForm): VNode {
     modal: true,
     noClickAway: true,
     vnodes: [
-      h(
+      hl(
         'h2',
         ctrl.relay ? i18n.broadcast.editRoundStudy : isNew ? i18n.study.createStudy : i18n.study.editStudy,
       ),
-      h(
+      hl(
         'form.form3',
         {
           hook: bindSubmit(e => {
@@ -291,11 +291,11 @@ export function view(ctrl: StudyForm): VNode {
           }, ctrl.redraw),
         },
         [
-          ...formFields,
+          formFields,
           relayLinks,
-          h('div.form-actions', [
+          hl('div.form-actions', [
             deleteForms,
-            h('button.button', { attrs: { type: 'submit' } }, isNew ? i18n.study.start : i18n.study.save),
+            hl('button.button', { attrs: { type: 'submit' } }, isNew ? i18n.study.start : i18n.study.save),
           ]),
         ],
       ),

@@ -168,6 +168,7 @@
   <string name="drawByMutualAgreement">Patta per comune accordo</string>
   <string name="fiftyMovesWithoutProgress">Cinquanta mosse senza progresso</string>
   <string name="currentGames">Partite in corso</string>
+  <string name="joinedX">Iscritto %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s partita</item>
     <item quantity="other">%s partite</item>
@@ -350,7 +351,15 @@
   <string name="openingExplorerAndTablebase">Explorer delle aperture &amp; tablebase</string>
   <string name="takeback">Ritira la mossa</string>
   <string name="proposeATakeback">Chiedi di ritirare la mossa</string>
+  <string name="whiteProposesTakeback">Il Bianco chiede di cambiare mossa</string>
+  <string name="blackProposesTakeback">Il Nero chiede di cambiare mossa</string>
   <string name="takebackPropositionSent">Richiesta di ritiro mossa inviata</string>
+  <string name="whiteDeclinesTakeback">Il Bianco declina la ripetizione della mossa</string>
+  <string name="blackDeclinesTakeback">Il Nero declina la ripetizione della mossa</string>
+  <string name="whiteAcceptsTakeback">Il Bianco accetta la ripetizione della mossa</string>
+  <string name="blackAcceptsTakeback">Il Nero accetta la ripetizione della mossa</string>
+  <string name="whiteCancelsTakeback">Il bianco rifiuta la ripetizione della mossa</string>
+  <string name="blackCancelsTakeback">Il nero rifiuta la ripetizione della mossa</string>
   <string name="yourOpponentProposesATakeback">Il tuo avversario chiede di ritirare la mossa</string>
   <string name="bookmarkThisGame">Aggiungi questa partita ai preferiti</string>
   <string name="tournament">Torneo</string>
@@ -471,7 +480,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="openTournaments">Tornei aperti</string>
   <string name="duration">Durata</string>
   <string name="winner">Vincitore</string>
-  <string name="standing">Classifica</string>
+  <string name="standings">Classifica</string>
   <string name="createANewTournament">Crea un nuovo torneo</string>
   <string name="tournamentCalendar">Elenco dei Tornei</string>
   <string name="conditionOfEntry">Condizioni di accesso:</string>
@@ -485,7 +494,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="points">Punti</string>
   <string name="wins">Vittorie</string>
   <string name="losses">Sconfitte</string>
-  <string name="createdBy">Creato da</string>
   <string name="startingIn" comment="Displayed above a timer">Inizio tra</string>
   <string name="standByX">Resta in attesa %s, accoppiamento giocatori, preparati!</string>
   <string name="pause">Pausa</string>
@@ -671,6 +679,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="really">completamente gratuito</string>
   <string name="contribute">Contribuisci</string>
   <string name="termsOfService">Termini di servizio</string>
+  <string name="titleVerification">Verifica del titolo</string>
   <string name="sourceCode">Codice sorgente</string>
   <string name="simultaneousExhibitions">Esibizioni simultanee</string>
   <string name="host">Simultaneista</string>
@@ -1001,4 +1010,5 @@ Tutti i costi operativi, lo sviluppo e i contenuti sono finanziati esclusivament
   <string name="accessibility">Accessibilità</string>
   <string name="enableBlindMode">Attiva \"modalità non vedenti\"</string>
   <string name="disableBlindMode">Disattiva \"modalità non vedenti\"</string>
+  <string name="copyToClipboard">Copia negli appunti</string>
 </resources>

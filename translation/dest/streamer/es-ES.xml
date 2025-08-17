@@ -33,7 +33,7 @@
   <string name="streamerLanguageSettings">La página de presentador de Lichess se dirige a tu audiencia con el idioma proporcionado por tu plataforma de transmisión. Establece el idioma predeterminado correcto para tus transmisiones de ajedrez en la aplicación o el servicio que uses para transmitir.</string>
   <string name="twitchUsername">Tu nombre de usuario o URL de Twitch</string>
   <string name="twitchOrYouTubeRequired" comment="A notice when creating/editing your streamer page (https://lichess.org/streamer/edit), denoting that you can only be listed if you stream from a Twitch or YouTube channel.">Se requiere Twitch o YouTube</string>
-  <string name="twitchOrYouTubeMustBeVerified">Los cambios en Twitch o Youtube deben ser verificados.
+  <string name="twitchOrYouTubeMustBeVerified" comment="For background: The &quot;streamer badge&quot; refers to the microphone icon on the streamer's profile (https://lichess.org/@/Lichess).&#10;The listing is the streamer's page that appears at https://lichess.org/streamer">Los cambios en Twitch o Youtube deben ser verificados.
  
  Tu insignia y listado de presentador se suspenderán mientras la revisión esté en proceso. Esto puede tardar hasta 72 horas.</string>
   <string name="youTubeChannelId">El ID de tu canal de YouTube</string>

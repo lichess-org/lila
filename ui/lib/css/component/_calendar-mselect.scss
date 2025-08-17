@@ -16,5 +16,8 @@
   }
   > a {
     font-size: 2em;
+    &.disabled {
+      opacity: 0.3;
+    }
   }
 }

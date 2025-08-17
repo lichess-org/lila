@@ -6,15 +6,15 @@ case class TeamBattle(
     teams: Set[TeamId],
     nbLeaders: Int
 ):
-  def hasEnoughTeams             = teams.sizeIs > 1
+  def hasEnoughTeams = teams.sizeIs > 1
   private given Ordering[TeamId] = stringOrdering
-  lazy val sortedTeamIds         = teams.toList.sorted
+  lazy val sortedTeamIds = teams.toList.sorted
 
   def hasTooManyTeams = teams.sizeIs > TeamBattle.displayTeams
 
 object TeamBattle:
 
-  val maxTeams     = 200
+  val maxTeams = 200
   val displayTeams = 10
 
   val blacklist: Set[TeamId] =
@@ -55,7 +55,7 @@ object TeamBattle:
     import play.api.data.Forms.*
 
     val fields = mapping(
-      "teams"     -> nonEmptyText,
+      "teams" -> nonEmptyText,
       "nbLeaders" -> number(min = 1, max = 20)
     )(Setup.apply)(lila.common.unapply)
       .verifying("We need at least 2 teams", s => s.potentialTeamIds.sizeIs > 1)

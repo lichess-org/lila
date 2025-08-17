@@ -47,18 +47,6 @@ export function zip<T, U>(arr1: T[], arr2: U[]): [T, U][] {
   return result;
 }
 
-export function mapValues<V>(map: Map<unknown, V>): V[] {
-  return Array.from(map.values());
-}
-
-export function findMap<T, U>(arr: T[], fn: (el: T) => U | undefined): U | undefined {
-  for (const el of arr) {
-    const result = fn(el);
-    if (result) return result;
-  }
-  return undefined;
-}
-
 export function definedMap<T, U>(arr: (T | undefined)[], fn: (v: T) => U | undefined): U[] {
   return arr.reduce<U[]>((acc, v) => {
     if (v === undefined) return acc;
@@ -72,16 +60,25 @@ export function definedUnique<T>(items: (T | undefined)[]): T[] {
   return [...new Set(items.filter((item): item is T => item !== undefined))];
 }
 
-// comparison of enumerable primitives. complex properties get reference equality only
-export function isEquivalent(a: any, b: any): boolean {
+/**
+ * Comparison of enumerable primitives.
+ * Complex properties get reference equality only.
+ * If two vars have the same type and this type is in `excludedComparisonTypes`, then `true` is returned.
+ */
+export function isEquivalent(a: any, b: any, excludedComparisonTypes: string[] = []): boolean {
   if (a === b) return true;
   if (typeof a !== typeof b) return false;
+  if (excludedComparisonTypes.some(t => typeof a === t)) return true;
   if (Array.isArray(a))
-    return Array.isArray(b) && a.length === b.length && a.every((x, i) => isEquivalent(x, b[i]));
+    return (
+      Array.isArray(b) &&
+      a.length === b.length &&
+      a.every((x, i) => isEquivalent(x, b[i], excludedComparisonTypes))
+    );
   if (typeof a !== 'object') return false;
   const [aKeys, bKeys] = [Object.keys(a), Object.keys(b)];
   if (aKeys.length !== bKeys.length) return false;
-  return aKeys.every(key => bKeys.includes(key) && isEquivalent(a[key], b[key]));
+  return aKeys.every(key => bKeys.includes(key) && isEquivalent(a[key], b[key], excludedComparisonTypes));
 }
 
 // true if a merge of sub into o would result in no change to o (structural containment)

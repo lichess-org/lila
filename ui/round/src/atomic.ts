@@ -1,5 +1,5 @@
-import { key2pos, pos2key } from 'chessground/util';
-import type { PiecesDiff } from 'chessground/types';
+import { key2pos, pos2key } from '@lichess-org/chessground/util';
+import type { PiecesDiff } from '@lichess-org/chessground/types';
 import type RoundController from './ctrl';
 
 export function capture(ctrl: RoundController, key: Key): void {

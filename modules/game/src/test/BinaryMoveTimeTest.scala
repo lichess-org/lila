@@ -8,7 +8,7 @@ import lila.db.ByteArray
 
 class BinaryMoveTimeTest extends munit.FunSuite:
 
-  private given Conversion[Int, Ply]               = Ply(_)
+  private given Conversion[Int, Ply] = Ply(_)
   private given Conversion[Array[Byte], ByteArray] = ByteArray(_)
   private given Conversion[ByteArray, Array[Byte]] = _.value
 
@@ -38,15 +38,15 @@ class BinaryMoveTimeTest extends munit.FunSuite:
     val again = BinaryFormat.moveTime.read(BinaryFormat.moveTime.write(rounded), times.size)
     assertEquals(again, rounded)
   test("buckets - short game"):
-    val times    = Centis.from(Vector(0, 30, 60, 90))
-    val rounded  = BinaryFormat.moveTime.read(BinaryFormat.moveTime.write(times), 4)
+    val times = Centis.from(Vector(0, 30, 60, 90))
+    val rounded = BinaryFormat.moveTime.read(BinaryFormat.moveTime.write(times), 4)
     val expected = Centis.from(Vector(10, 10, 50, 100))
     assertEquals(rounded, expected)
     val again = BinaryFormat.moveTime.read(BinaryFormat.moveTime.write(rounded), 4)
     assertEquals(again, rounded)
   test("buckets - short game - odd number of moves"):
-    val times    = Centis.from(Vector(0, 30, 60))
-    val rounded  = BinaryFormat.moveTime.read(BinaryFormat.moveTime.write(times), 3)
+    val times = Centis.from(Vector(0, 30, 60))
+    val rounded = BinaryFormat.moveTime.read(BinaryFormat.moveTime.write(times), 3)
     val expected = Centis.from(Vector(10, 10, 50))
     assertEquals(rounded, expected)
     val again = BinaryFormat.moveTime.read(BinaryFormat.moveTime.write(rounded), 3)

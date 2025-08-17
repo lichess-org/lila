@@ -69,7 +69,7 @@ final private class InsightStorage(val coll: AsyncColl)(using Executor):
         _.flatMap { doc =>
           for
             perfType <- doc.getAsOpt[PerfType]("_id")
-            nb       <- doc.int("nb")
+            nb <- doc.int("nb")
           yield perfType -> nb
         }.toMap
 
@@ -77,11 +77,11 @@ object InsightStorage:
 
   import InsightEntry.BSONFields as F
 
-  def selectId(id: String)               = $doc(F.id -> id)
-  def selectUserId(id: UserId)           = $doc(F.userId -> id)
+  def selectId(id: String) = $doc(F.id -> id)
+  def selectUserId(id: UserId) = $doc(F.userId -> id)
   def selectPeers(peers: Question.Peers) = $doc(F.rating.$inRange(peers.ratingRange))
-  val sortChronological                  = $sort.asc(F.date)
-  val sortAntiChronological              = $sort.desc(F.date)
+  val sortChronological = $sort.asc(F.date)
+  val sortAntiChronological = $sort.desc(F.date)
 
   def combineDocs(docs: List[BSONDocument]) =
     docs.foldLeft(BSONDocument()) { case (acc, doc) =>

@@ -19,8 +19,8 @@ object RatingRange:
 
   def defaultFor(rating: IntRating) =
     val (rangeMinD, rangeMaxD) = distribution.range(rating.value.toDouble, 0.2)
-    val rangeMin: IntRating    = IntRating(rangeMinD.toInt)
-    val rangeMax: IntRating    = IntRating(rangeMaxD.toInt)
+    val rangeMin: IntRating = IntRating(rangeMinD.toInt)
+    val rangeMax: IntRating = IntRating(rangeMaxD.toInt)
     hub.RatingRange(rangeMin.atLeast(min), rangeMax.atMost(max))
 
   def apply(rating: IntRating, deltaMin: Option[String], deltaMax: Option[String]): Option[hub.RatingRange] =

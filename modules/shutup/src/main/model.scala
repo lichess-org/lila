@@ -48,22 +48,22 @@ case class TextAnalysis(text: String, badWords: List[String]) extends lila.core.
 
 enum TextType(val key: String, val rotation: Int, val name: String):
   case PublicForumMessage extends TextType("puf", 20, "Public forum message")
-  case TeamForumMessage   extends TextType("tef", 20, "Team forum message")
-  case PrivateMessage     extends TextType("prm", 20, "Private message")
-  case UblogPost          extends TextType("ubp", 20, "User blog post")
-  case PrivateChat        extends TextType("prc", 40, "Private chat")
-  case PublicChat         extends TextType("puc", 60, "Public chat")
+  case TeamForumMessage extends TextType("tef", 20, "Team forum message")
+  case PrivateMessage extends TextType("prm", 20, "Private message")
+  case UblogPost extends TextType("ubp", 20, "User blog post")
+  case PrivateChat extends TextType("prc", 40, "Private chat")
+  case PublicChat extends TextType("puc", 60, "Public chat")
 
 object TextType:
   def of: PublicSource => TextType =
     case PublicSource.Forum(_) => TextType.PublicForumMessage
     case PublicSource.Ublog(_) => TextType.UblogPost
-    case _                     => TextType.PublicChat
+    case _ => TextType.PublicChat
 
 case class TextReport(textType: TextType, ratios: List[Double]):
 
-  def minRatios   = textType.rotation / 15
-  def nbBad       = ratios.count(_ > TextReport.unacceptableRatio)
+  def minRatios = textType.rotation / 15
+  def nbBad = ratios.count(_ > TextReport.unacceptableRatio)
   def tolerableNb = (ratios.size / 10).atLeast(3)
 
   def unacceptable = (ratios.sizeIs >= minRatios) && (nbBad > tolerableNb)

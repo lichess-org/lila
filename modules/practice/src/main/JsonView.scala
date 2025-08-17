@@ -11,26 +11,26 @@ object JsonView:
   given Writes[PracticeProgress.NbMoves] = writeAs(_.value)
   given Writes[PracticeStudy] = OWrites: ps =>
     Json.obj(
-      "id"   -> ps.id,
+      "id" -> ps.id,
       "name" -> ps.name,
       "desc" -> ps.desc
     )
   import PracticeGoal.*
   given Writes[PracticeGoal] = OWrites:
-    case Mate              => Json.obj("result" -> "mate")
-    case MateIn(moves)     => Json.obj("result" -> "mateIn", "moves" -> moves)
-    case DrawIn(moves)     => Json.obj("result" -> "drawIn", "moves" -> moves)
-    case EqualIn(moves)    => Json.obj("result" -> "equalIn", "moves" -> moves)
+    case Mate => Json.obj("result" -> "mate")
+    case MateIn(moves) => Json.obj("result" -> "mateIn", "moves" -> moves)
+    case DrawIn(moves) => Json.obj("result" -> "drawIn", "moves" -> moves)
+    case EqualIn(moves) => Json.obj("result" -> "equalIn", "moves" -> moves)
     case EvalIn(cp, moves) => Json.obj("result" -> "evalIn", "cp" -> cp, "moves" -> moves)
-    case Promotion(cp)     => Json.obj("result" -> "promotion", "cp" -> cp)
+    case Promotion(cp) => Json.obj("result" -> "promotion", "cp" -> cp)
 
   private given Writes[PracticeSection] = OWrites: sec =>
     Json.obj(
-      "id"   -> sec.id,
+      "id" -> sec.id,
       "name" -> sec.name,
       "studies" -> sec.studies.map: stu =>
         Json.obj(
-          "id"   -> stu.id,
+          "id" -> stu.id,
           "slug" -> stu.slug,
           "name" -> stu.name
         )
@@ -39,7 +39,7 @@ object JsonView:
   def apply(us: UserStudy) =
     Json.obj(
       "study" -> us.practiceStudy,
-      "url"   -> us.url,
+      "url" -> us.url,
       "completion" -> JsObject:
         us.practiceStudy.chapters.flatMap: c =>
           us.practice.progress.chapters.collectFirst:

@@ -52,7 +52,12 @@ final class TwoFactorUi(helpers: Helpers, ui: AccountUi)(
               autocomplete := "current-password"
             ),
             form3.group(form("token"), trt.authenticationCode())(
-              form3.input(_)(pattern := "[0-9]{6}", autocomplete := "one-time-code", required)
+              form3.input(_)(
+                attr("inputmode") := "numeric",
+                pattern := "[0-9]{6}",
+                autocomplete := "one-time-code",
+                required
+              )
             ),
             form3.globalError(form),
             div(cls := "form-group")(

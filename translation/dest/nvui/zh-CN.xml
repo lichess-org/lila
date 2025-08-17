@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="featuredEvents">精选比赛</string>
+  <string name="moveList">着法列表</string>
+  <string name="gameInfo">对局信息</string>
+  <string name="pieces">棋子</string>
+  <string name="gameStatus">对局状态</string>
+  <string name="lastMove">上一回合</string>
+  <string name="inputForm">命令输入框</string>
+  <string name="actions">动作</string>
+  <string name="yourClock">你的时间</string>
+  <string name="opponentClock">对手的时间</string>
+  <string name="gameStart">游戏开始</string>
+  <string name="boardCommandList">当聚焦到棋盘上时的命令列表</string>
+  <string name="inputFormCommandList">将这些命令输入到命令输入框。</string>
+  <string name="goToInputForm">跳转到输入框。</string>
+  <string name="announceCurrentSquare">播报当前的棋格。</string>
+  <string name="announceLastMove">播报上一个着法。</string>
+  <string name="announceLastMoveCapture">播报在上一个着法中被吃的棋子。</string>
+  <string name="announcePossibleMoves">播报选中棋子的可能着法。</string>
+  <string name="announcePossibleCaptures">播报选中棋子的可能吃法。</string>
+  <string name="moveWithArrows">移动到相邻的上下左右棋格。</string>
+  <string name="moveToPieceByType">使用棋子名移动到格子。例如：重复k将会移动到每一个有马的格子。用大写来反转顺序。</string>
+  <string name="moveToRank">移动到1至8列。</string>
+  <string name="moveToFile">移动到a至h行。</string>
+  <string name="announcePieceLocations">播报棋子的位置。例如：p大写的N代表白方的马，p小写的k代表黑方的王。</string>
+  <string name="announcePiecesOnRankOrFile">播报棋子所在的行列。例如：s a, s 1。</string>
+  <string name="goToBoard">跳转到棋盘。默认格子是e-4。你可以指定一个格子：board a-1或者b a-1将会把你带到a-1格。</string>
+  <string name="movePiece">使用标准代数制记录法移动棋子。</string>
+  <string name="promotion">使用equals升变为皇后以外的棋子。 例如a-8-equals-n升变为马。</string>
+  <string name="king">王</string>
+  <string name="whiteKing">白王</string>
+  <string name="blackKing">黑王</string>
+  <string name="queen">后</string>
+  <string name="whiteQueen">白后</string>
+  <string name="blackQueen">黑后</string>
+  <string name="rook">车</string>
+  <string name="whiteRook">白车</string>
+  <string name="blackRook">黑车</string>
+  <string name="bishop">象</string>
+  <string name="whiteBishop">白象</string>
+  <string name="blackBishop">黑象</string>
+  <string name="knight">马</string>
+  <string name="whiteKnight">白马</string>
+  <string name="blackKnight">黑马</string>
+  <string name="pawn">兵</string>
+  <string name="whitePawn">白兵</string>
+  <string name="blackPawn">黑兵</string>
+  <string name="sanSymbols" comment="Keep this order: king queen rook bishop knight takes">K Q R B N x</string>
+  <string name="sanTakes" comment="x in standard notation">移动</string>
+  <string name="sanCheck" comment="+ in standard notation">将军</string>
+  <string name="sanCheckmate" comment="# in standard notation">将死</string>
+  <string name="sanPromotesTo" comment="= in standard notation">升变成</string>
+  <string name="sanShortCastling" comment="O-O in standard notation">短易位</string>
+  <string name="sanLongCastling" comment="O-O-O in standard notation">长易位</string>
+  <string name="sanDroppedOn" comment="crazyhouse @">丢弃</string>
+  <string name="invalidMove">违规着法</string>
+  <string name="premoveCancelled">预先走棋已取消</string>
+  <string name="premoveRecorded">预先走棋已记录：%s。按回车键以取消</string>
+  <string name="pockets" comment="Pockets in Crazyhouse, which hold captured pieces and let players place them again">建议</string>
+  <string name="copyToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">复制 %s 到剪贴板</string>
+  <string name="copiedToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">%s 已复制到剪贴板</string>
+  <string name="pgnAndFen" comment="Will be a heading read out over text-to-speech for blind users looking to share a PGN or FEN of a game.">PGN和FEN</string>
+</resources>

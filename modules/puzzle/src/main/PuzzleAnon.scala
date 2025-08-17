@@ -67,10 +67,10 @@ final class PuzzleAnon(
                 PipelineOperator:
                   $doc(
                     "$lookup" -> $doc(
-                      "from"         -> colls.puzzle.name.value,
-                      "localField"   -> "puzzleId",
+                      "from" -> colls.puzzle.name.value,
+                      "localField" -> "puzzleId",
                       "foreignField" -> "_id",
-                      "as"           -> "puzzle"
+                      "as" -> "puzzle"
                     )
                   )
                 ,

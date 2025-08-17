@@ -32,7 +32,7 @@ final class UciMemo(gameRepo: GameRepo)(using Executor) extends lila.core.game.U
       .filter(_.size.atMost(max) == game.sans.size.atMost(max))
       .match
         case Some(moves) => fuccess(moves)
-        case _           => compute(game, max).addEffect(set(game, _))
+        case _ => compute(game, max).addEffect(set(game, _))
 
   def drop(game: Game, nb: Int) =
     val current = ~cache.getIfPresent(game.id)
@@ -44,6 +44,6 @@ final class UciMemo(gameRepo: GameRepo)(using Executor) extends lila.core.game.U
 
   private def compute(game: Game, max: Int): Fu[UciVector] =
     for
-      fen      <- gameRepo.initialFen(game)
+      fen <- gameRepo.initialFen(game)
       uciMoves <- UciDump(game.sans.take(max), fen, game.variant, force960Notation = true).toFuture
     yield uciMoves.toVector

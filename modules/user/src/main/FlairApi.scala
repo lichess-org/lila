@@ -10,17 +10,17 @@ object FlairApi:
 
   def find(name: String): Option[Flair] = Flair(name).some.filter(exists)
 
-  def formField(anyFlair: Boolean, asAdmin: Boolean): play.api.data.Mapping[Option[Flair]] =
+  def formField(anyFlair: Boolean, asMod: Boolean): play.api.data.Mapping[Option[Flair]] =
     import play.api.data.Forms.*
     import lila.common.Form.into
     optional:
       text
         .into[Flair]
         .verifying(exists)
-        .verifying(f => anyFlair || !adminFlairs(f) || asAdmin)
+        .verifying(f => anyFlair || !adminFlairs(f) || asMod)
 
-  def formPair(anyFlair: Boolean = false, asAdmin: Boolean = false) =
-    "flair" -> formField(anyFlair, asAdmin)
+  def formPair(asMod: Boolean) =
+    "flair" -> formField(anyFlair = false, asMod = asMod)
 
   val adminFlairs: Set[Flair] = Set(Flair("activity.lichess"))
 
@@ -38,8 +38,8 @@ final class FlairApi(lightUserApi: LightUserApi, getFile: lila.common.config.Get
       .asyncMany(ids.distinct)
       .map: users =>
         val pairs = for
-          uOpt  <- users
-          user  <- uOpt
+          uOpt <- users
+          user <- uOpt
           flair <- user.flair
         yield user.id -> flair
         pairs.toMap

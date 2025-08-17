@@ -20,9 +20,9 @@ final class Github(env: Env) extends LilaController(env):
 
   private val checkSignature: BodyParser[JsValue] = parse.using: req =>
     parse.raw.validateM: raw =>
-      val body       = raw.asBytes().map(_.utf8String)
+      val body = raw.asBytes().map(_.utf8String)
       val identifier = req.headers.get("Github-Public-Key-Identifier")
-      val signature  = req.headers.get("Github-Public-Key-Signature")
+      val signature = req.headers.get("Github-Public-Key-Signature")
 
       (body, identifier, signature)
         .mapN: (b, i, s) =>

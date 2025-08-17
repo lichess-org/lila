@@ -54,7 +54,7 @@ object TutorFullReport:
   export Availability.*
 
   object F:
-    val user   = "user"
-    val at     = "at"
+    val user = "user"
+    val at = "at"
     val millis = "millis"
-    val perfs  = "perfs"
+    val perfs = "perfs"

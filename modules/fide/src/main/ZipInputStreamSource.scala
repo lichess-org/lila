@@ -25,7 +25,7 @@ import scala.util.control.NonFatal
   */
 object ZipInputStreamSource:
 
-  final val DefaultChunkSize            = 8192
+  final val DefaultChunkSize = 8192
   final val DefaultAllowedZipExtensions = immutable.Seq(".zip")
 
   /** Data type for zip entries.
@@ -108,12 +108,12 @@ final class ZipInputStreamSource private (
     val logic = new GraphStageLogic(shape):
       import shape.*
 
-      private var is: ZipInputStream                         = null
-      private var readBytesTotal: Long                       = 0L
+      private var is: ZipInputStream = null
+      private var readBytesTotal: Long = 0L
       private var buffer: Vector[(ZipEntryData, ByteString)] = Vector.empty
-      private var eof: Boolean                               = false
-      private var currentEntry: Option[ZipEntry]             = None
-      private var currentStreams: Seq[ZipInputStream]        = Seq()
+      private var eof: Boolean = false
+      private var currentEntry: Option[ZipEntry] = None
+      private var currentStreams: Seq[ZipInputStream] = Seq()
 
       override def preStart(): Unit =
         super.preStart()

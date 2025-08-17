@@ -39,7 +39,7 @@
   <string name="reportMobileIssue">مشکلِ گوشی‌افزار Lichess در GitHub</string>
   <string name="reportBugInDiscord">در کارسازِ دیسکوردِ Lichess</string>
   <string name="howToReportBug">لطفاً توصیف کنید که نقصان فنی چگونه است، شما انتظار داشتید به جای آن چه اتفاقی رخ می‌داد، و گامهایی که نقصان را مجدداً ایجاد می‌کند را شرح دهید.</string>
-  <string name="illegalPawnCapture">زدنِ غیرقانونیِ سرباز</string>
+  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">زدنِ غیرقانونیِ سرباز</string>
   <string name="calledEnPassant">این حرکت \"en passant\" نامیده می‌شود و یکی از قوانین شطرنج است.</string>
   <string name="tryEnPassant">برای یادگیری بیشتر «گرفتن هنگام عبور»، این بازی میان‌کنشی کوچک را بیازمایید.</string>
   <string name="illegalCastling">قلعه‌روی نامجاز یا ناممکن</string>
@@ -55,7 +55,7 @@
   <string name="botRatingAbuse">در مواقع مشخص و در بازی مقابل یک حساب کاربری ربات، اگر مشخص شود که بازیکن در حال سوءِ استفاده از ربات برای دریافت امتیاز است ممکن است به بازی امتیازی تعلق نگیرد.</string>
   <string name="errorPage">صفحه خطا</string>
   <string name="reportErrorPage">اگر با صفحه خطا مواجه شدید، می‌توانید آن را گزارش کنید:</string>
-  <string name="learnHowToMakeBroadcasts">یادگیری چگونگی انجام پخش‌زندهٔ خودتان در Lichess</string>
+  <string name="learnHowToMakeBroadcasts">یادگیری چگونگی انجام پخش‌زندهٔ خودتان در لیچس</string>
   <string name="banAppeal">درخواست بازنگری برای یک ممنوعیت یا محدودیتِ IP</string>
   <string name="engineAppeal">علامتِ موتور یا تقلب</string>
   <string name="sendAppealTo">شما می‌توانید یک درخواست بررسی مجدد به %s ارسال کنید.</string>

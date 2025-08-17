@@ -27,11 +27,11 @@ final class Mod(
   private given Conversion[Me, AsMod] = me => AsMod(me)
 
   def alt(username: UserStr, v: Boolean) = OAuthModBody(_.CloseAccount) { me ?=>
-    withSuspect(username): sus =>
+    withSuspect(username): prev =>
       for
-        _ <- api.setAlt(sus, v)
-        _ <- (v && sus.user.enabled.yes).so(env.api.accountTermination.disable(sus.user, forever = false))
-        _ <- (!v && sus.user.enabled.no).so(api.reopenAccount(sus.user.id))
+        sus <- api.setAlt(prev, v)
+        _ <- (v && prev.user.enabled.yes).so(env.api.accountTermination.disable(sus.user, forever = false))
+        _ <- (!v && prev.user.enabled.no).so(api.reopenAccount(sus.user.id))
       yield sus.some
   }(reportC.onModAction)
 
@@ -39,10 +39,11 @@ final class Mod(
     import akka.stream.scaladsl.*
     Source(ctx.body.body.split(' ').toList.flatMap(UserStr.read))
       .mapAsync(1): username =>
-        withSuspect(username): sus =>
-          api.setAlt(sus, true) >> (sus.user.enabled.yes.so(
-            env.api.accountTermination.disable(sus.user, forever = false)
-          ))
+        withSuspect(username): prev =>
+          for
+            sus <- api.setAlt(prev, true)
+            _ <- prev.user.enabled.yes.so(env.api.accountTermination.disable(sus.user, forever = false))
+          yield ()
       .runWith(Sink.ignore)
       .void
       .inject(NoContent)
@@ -81,7 +82,7 @@ final class Mod(
     withSuspect(username): prev =>
       for
         suspect <- api.setIsolate(prev, v)
-        _       <- env.relation.api.removeAllFollowers(suspect.user.id)
+        _ <- env.relation.api.removeAllFollowers(suspect.user.id)
       yield suspect.some
   }(reportC.onModAction)
 
@@ -143,19 +144,20 @@ final class Mod(
       api.setPrizeban(sus, v).dmap(some)
   }(actionResult(username))
 
-  def impersonate(username: String) = Auth { _ ?=> me ?=>
-    if env.mod.impersonate.isImpersonated(me) then
-      env.mod.impersonate.stop(me)
-      Redirect(routes.User.show(me.username))
-    else
-      UserStr
-        .read(username)
-        .so: username =>
-          if isGranted(_.Impersonate) || (isGranted(_.Admin) && username.is(UserId.lichess)) then
-            Found(env.user.repo.byId(username)): user =>
-              env.mod.impersonate.start(me, user)
-              Redirect(routes.User.show(user.username))
-          else notFound
+  def impersonate(username: String) = Auth { ctx ?=> me ?=>
+    ctx.impersonatedBy match
+      case Some(modId) =>
+        env.mod.impersonate.stop(modId)
+        Redirect(routes.User.show(me.username))
+      case None =>
+        UserStr
+          .read(username)
+          .so: username =>
+            if lila.mod.canImpersonate(username.id) then
+              Found(env.user.repo.byId(username)): user =>
+                env.mod.impersonate.start(me.modId, user)
+                Redirect(routes.User.show(user.username))
+            else notFound
   }
 
   def setTitle(username: UserStr) = SecureBody(_.SetTitle) { ctx ?=> me ?=>
@@ -184,28 +186,14 @@ final class Mod(
     env.report.api.inquiries
       .ofModId(me.id)
       .flatMap:
-        case None => Redirect(routes.Report.list)
-        case Some(report) =>
+        _.fold(Redirect(routes.Report.list).toFuccess): report =>
           Found(env.user.repo.byId(report.user)): user =>
-            import lila.report.Room
-            import lila.core.irc.ModDomain
-            env.irc.api
-              .inquiry(
+            for _ <- env.irc.api.inquiry(
                 user = user.light,
-                domain = report.room match
-                  case Room.Cheat => ModDomain.Cheat
-                  case Room.Boost => ModDomain.Boost
-                  case Room.Comm  => ModDomain.Comm
-                  // spontaneous inquiry
-                  case _ if isGranted(_.Admin)       => ModDomain.Admin
-                  case _ if isGranted(_.CheatHunter) => ModDomain.Cheat // heuristic
-                  case _ if isGranted(_.Shusher)     => ModDomain.Comm
-                  case _ if isGranted(_.BoostHunter) => ModDomain.Boost
-                  case _                             => ModDomain.Admin
-                ,
+                domain = lila.report.Room.ircDomain(report.room),
                 room = if report.isSpontaneous then "Spontaneous inquiry" else report.room.name
               )
-              .inject(NoContent)
+            yield NoContent
   }
 
   def createNameCloseVote(username: UserStr) = Secure(_.SendToZulip) { _ ?=> me ?=>
@@ -227,7 +215,7 @@ final class Mod(
       api.allMods.map(views.mod.userTable.mods(_))
   }
 
-  def log(modReq: Option[UserStr]) = Secure(_.GamifyView) { ctx ?=> me ?=>
+  def log(modReq: Option[UserStr], id: Option[String]) = Secure(_.GamifyView) { ctx ?=> me ?=>
     val whichMod: Option[UserStr] =
       if isGranted(_.Admin) then modReq
       else me.userId.into(UserStr).some
@@ -237,19 +225,19 @@ final class Mod(
           // strictly speaking redundant because it should never be
           // empty for non-admins, but feels safer to keep
           isGranted(_.Admin)
-            .so(env.mod.logApi.recentHuman)
-            .map(views.mod.ui.logs(_, none, whichMod))
+            .so(env.mod.logApi.recentOf(id))
+            .map(views.mod.ui.logs(_, none, whichMod, id))
         case Some(mod) =>
           for
             modOpt <- env.report.api.getMod(mod)
-            logs   <- modOpt.so(logsOf)
-          yield views.mod.ui.logs(logs, modOpt, whichMod)
+            logs <- modOpt.so(logsOf)
+          yield views.mod.ui.logs(logs, modOpt, whichMod, id)
   }
 
   private def logsOf(mod: AsMod)(using me: Me): Fu[List[Modlog]] =
     (isGranted(_.Admin) || mod.user.is(me)).so:
       for
-        log     <- env.mod.logApi.recentBy(mod)
+        log <- env.mod.logApi.recentBy(mod)
         appeals <- env.appeal.api.logsOf(log.lastOption.map(_.date).|(nowInstant.minusMonths(1)), mod.id)
         appealsLog = appeals.map: (user, msg) =>
           Modlog(user.some, "appeal", msg.text.some)(using mod.user.id.into(MyId)).copy(date = msg.at)
@@ -312,7 +300,7 @@ final class Mod(
             }
     }
 
-  def communicationPublic(username: UserStr)  = communications(username, priv = false)
+  def communicationPublic(username: UserStr) = communications(username, priv = false)
   def communicationPrivate(username: UserStr) = communications(username, priv = true)
 
   def fullCommsExport(username: UserStr) =
@@ -366,8 +354,8 @@ final class Mod(
   def gamify = Secure(_.GamifyView) { ctx ?=> _ ?=>
     for
       leaderboards <- env.mod.gamify.leaderboards
-      history      <- env.mod.gamify.history(orCompute = true)
-      page         <- renderPage(views.mod.gamify.index(leaderboards, history))
+      history <- env.mod.gamify.history(orCompute = true)
+      page <- renderPage(views.mod.gamify.index(leaderboards, history))
     yield Ok(page)
   }
 
@@ -410,17 +398,17 @@ final class Mod(
       case Some(ip) => Redirect(routes.Mod.singleIp(ip.value)).toFuccess
       case None =>
         for
-          res  <- env.mod.search(query)
+          res <- env.mod.search(query)
           page <- renderPage(views.mod.search(ModUserSearch.form.fill(query), res.some))
         yield Ok(page)
 
   def print(fh: String) = SecureBody(_.ViewPrintNoIP) { ctx ?=> me ?=>
     val hash = FingerHash(fh)
     for
-      uids       <- env.security.api.recentUserIdsByFingerHash(hash)
-      users      <- env.user.repo.usersFromSecondary(uids.reverse)
+      uids <- env.security.api.recentUserIdsByFingerHash(hash)
+      users <- env.user.repo.usersFromSecondary(uids.reverse)
       withEmails <- env.user.api.withPerfsAndEmails(users)
-      uas        <- env.security.api.printUas(hash)
+      uas <- env.security.api.printUas(hash)
       page <- renderPage(views.mod.search.print(hash, withEmails, uas, env.security.printBan.blocks(hash)))
     yield Ok(page)
   }
@@ -434,10 +422,10 @@ final class Mod(
     given lila.mod.IpRender.RenderIp = env.mod.ipRender.apply
     env.mod.ipRender.decrypt(ip).so { address =>
       for
-        uids       <- env.security.api.recentUserIdsByIp(address)
-        users      <- env.user.repo.usersFromSecondary(uids.reverse)
+        uids <- env.security.api.recentUserIdsByIp(address)
+        users <- env.user.repo.usersFromSecondary(uids.reverse)
         withEmails <- env.user.api.withPerfsAndEmails(users)
-        data       <- env.security.ipTrust.data(address)
+        data <- env.security.ipTrust.ipData(address)
         blocked = env.security.firewall.blocksIp(address)
         page <- renderPage(views.mod.search.ip(address, withEmails, data, blocked))
       yield Ok(page)
@@ -466,6 +454,7 @@ final class Mod(
       for
         _ <- env.plan.api.freeMonth(dest)
         _ <- env.mod.logApi.giftPatronMonth(me.modId, dest.id)
+        _ = env.mailer.automaticEmail.onPatronFree(dest)
       yield Redirect(routes.User.show(username)).flashSuccess("Free patron month granted")
   }
 
@@ -506,8 +495,8 @@ final class Mod(
     get("q") match
       case None => Ok.page(views.mod.ui.emailConfirm("", none, none))
       case Some(rawQuery) =>
-        val query    = rawQuery.trim.split(' ').toList
-        val email    = query.headOption.flatMap(EmailAddress.from)
+        val query = rawQuery.trim.split(' ').toList
+        val email = query.headOption.flatMap(EmailAddress.from)
         val username = query.lift(1)
         def tryWith(setEmail: EmailAddress, q: String): Fu[Option[Result]] =
           env.mod
@@ -520,7 +509,7 @@ final class Mod(
                     lila.mon.user.register.modConfirmEmail.increment()
                     api.setEmail(user.id, setEmail.some)
                   email <- env.user.repo.email(user.id)
-                  page  <- renderPage(views.mod.ui.emailConfirm("", user.some, email))
+                  page <- renderPage(views.mod.ui.emailConfirm("", user.some, email))
                 yield Ok(page).some
               case _ => fuccess(none)
         email
@@ -559,8 +548,8 @@ final class Mod(
     import lila.common.Json.given
     Found(env.user.repo.byId(username)): user =>
       for
-        logs      <- env.mod.logApi.userHistory(user.id)
-        notes     <- env.user.noteApi.getForMyPermissions(user)
+        logs <- env.mod.logApi.userHistory(user.id)
+        notes <- env.user.noteApi.getForMyPermissions(user)
         notesJson <- lila.user.JsonView.notes(notes)(using env.user.lightUserApi)
       yield JsonOk(
         Json.obj(

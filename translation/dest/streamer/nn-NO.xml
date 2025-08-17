@@ -33,7 +33,7 @@
   <string name="streamerLanguageSettings">Strøymingssida til Lichess rettar seg mot det publikumet med same språket som strøymingsplatformen tilbyr. Oppgje det riktige standardspråket for sjakkstrøymingane dine i appen eller tenesta du brukar for å kringkaste.</string>
   <string name="twitchUsername">Brukarnamnet ditt eller URLen din på Twitch</string>
   <string name="twitchOrYouTubeRequired" comment="A notice when creating/editing your streamer page (https://lichess.org/streamer/edit), denoting that you can only be listed if you stream from a Twitch or YouTube channel.">Twitch eller YouTube er nødvendig</string>
-  <string name="twitchOrYouTubeMustBeVerified">Twitch og YouTube-endringer må verifiseres.
+  <string name="twitchOrYouTubeMustBeVerified" comment="For background: The &quot;streamer badge&quot; refers to the microphone icon on the streamer's profile (https://lichess.org/@/Lichess).&#10;The listing is the streamer's page that appears at https://lichess.org/streamer">Twitch og YouTube-endringer må verifiseres.
   
   Strøymingsinsigniumet ditt og oppføring di vert suspendert så lenge gjennomsynet er i gang. Det kan ta opp mot 72 timar.</string>
   <string name="youTubeChannelId">ID til YouTube-kanalen din</string>

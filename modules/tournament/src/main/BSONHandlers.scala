@@ -1,6 +1,6 @@
 package lila.tournament
 
-import chess.Mode
+import chess.Rated
 import chess.format.Fen
 import chess.variant.Variant
 import chess.IntRating
@@ -27,7 +27,7 @@ object BSONHandlers:
 
   private given BSONHandler[chess.Clock.Config] = clockConfigHandler
 
-  given BSONHandler[lila.ui.Icon]              = isoHandler[lila.ui.Icon, String]
+  given BSONHandler[lila.ui.Icon] = isoHandler[lila.ui.Icon, String]
   private given BSONDocumentHandler[Spotlight] = Macros.handler
 
   given BSONDocumentHandler[TeamBattle] = Macros.handler
@@ -47,7 +47,7 @@ object BSONHandlers:
           .map(_.opening: Fen.Standard)
           .filter(_ != Fen.Standard.initial)
           .orElse(r.getO[chess.opening.Eco]("eco").flatMap(Thematic.byEco).map(_.fen)) // for BC
-      val startsAt   = r.date("startsAt")
+      val startsAt = r.date("startsAt")
       val conditions = r.getD[TournamentCondition.All]("conditions")
       Tournament(
         id = r.get[TourId]("_id"),
@@ -57,14 +57,14 @@ object BSONHandlers:
         minutes = r.int("minutes"),
         variant = variant,
         position = position,
-        mode = r.intO("mode").flatMap(Mode.apply).getOrElse(Mode.Rated),
+        rated = r.intO("mode").flatMap(Rated.apply).getOrElse(Rated.Yes),
         password = r.strO("password"),
         conditions = conditions,
         teamBattle = r.getO[TeamBattle]("teamBattle"),
         noBerserk = r.boolD("noBerserk"),
         noStreak = r.boolD("noStreak"),
         schedule = for
-          doc  <- r.getO[Bdoc]("schedule")
+          doc <- r.getO[Bdoc]("schedule")
           freq <- doc.getAsOpt[Schedule.Freq]("freq")
           at = doc.getAsOpt[LocalDateTime]("at") | startsAt.dateTime
         yield Scheduled(freq, at),
@@ -80,29 +80,29 @@ object BSONHandlers:
       )
     def writes(w: BSON.Writer, o: Tournament) =
       $doc(
-        "_id"         -> o.id,
-        "name"        -> o.name,
-        "status"      -> o.status,
-        "clock"       -> o.clock,
-        "minutes"     -> o.minutes,
-        "variant"     -> o.variant.some.filterNot(_.standard).map(_.id),
-        "fen"         -> o.position,
-        "mode"        -> o.mode.some.filterNot(_.rated).map(_.id),
-        "password"    -> o.password,
-        "conditions"  -> o.conditions.nonEmpty.option(o.conditions),
-        "teamBattle"  -> o.teamBattle,
-        "noBerserk"   -> w.boolO(o.noBerserk),
-        "noStreak"    -> w.boolO(o.noStreak),
-        "schedule"    -> o.schedule,
-        "nbPlayers"   -> o.nbPlayers,
-        "createdAt"   -> w.date(o.createdAt),
-        "createdBy"   -> o.nonLichessCreatedBy,
-        "startsAt"    -> w.date(o.startsAt),
-        "winner"      -> o.winnerId,
-        "featured"    -> o.featuredId,
-        "spotlight"   -> o.spotlight,
+        "_id" -> o.id,
+        "name" -> o.name,
+        "status" -> o.status,
+        "clock" -> o.clock,
+        "minutes" -> o.minutes,
+        "variant" -> o.variant.some.filterNot(_.standard).map(_.id),
+        "fen" -> o.position,
+        "mode" -> o.rated.some.filter(_.no).map(_.id),
+        "password" -> o.password,
+        "conditions" -> o.conditions.nonEmpty.option(o.conditions),
+        "teamBattle" -> o.teamBattle,
+        "noBerserk" -> w.boolO(o.noBerserk),
+        "noStreak" -> w.boolO(o.noStreak),
+        "schedule" -> o.schedule,
+        "nbPlayers" -> o.nbPlayers,
+        "createdAt" -> w.date(o.createdAt),
+        "createdBy" -> o.nonLichessCreatedBy,
+        "startsAt" -> w.date(o.startsAt),
+        "winner" -> o.winnerId,
+        "featured" -> o.featuredId,
+        "spotlight" -> o.spotlight,
         "description" -> o.description,
-        "chat"        -> (!o.hasChat).option(false)
+        "chat" -> (!o.hasChat).option(false)
       )
 
   given BSON[Player] with
@@ -125,14 +125,14 @@ object BSONHandlers:
         "_id" -> o._id,
         "tid" -> o.tourId,
         "uid" -> o.userId,
-        "r"   -> o.rating,
-        "pr"  -> w.yesnoO(o.provisional),
-        "w"   -> w.boolO(o.withdraw),
-        "s"   -> w.intO(o.score),
-        "m"   -> o.magicScore,
-        "f"   -> w.boolO(o.fire),
-        "e"   -> o.performance,
-        "t"   -> o.team,
+        "r" -> o.rating,
+        "pr" -> w.yesnoO(o.provisional),
+        "w" -> w.boolO(o.withdraw),
+        "s" -> w.intO(o.score),
+        "m" -> o.magicScore,
+        "f" -> w.boolO(o.fire),
+        "e" -> o.performance,
+        "t" -> o.team,
         "bot" -> w.boolO(o.bot)
       )
 
@@ -159,12 +159,12 @@ object BSONHandlers:
       $doc(
         "_id" -> o.id,
         "tid" -> o.tourId,
-        "s"   -> o.status.id,
-        "u"   -> BSONArray(o.user1, o.user2),
-        "w"   -> o.winner.map(o.user1 ==),
-        "t"   -> o.turns,
-        "b1"  -> w.boolO(o.berserk1),
-        "b2"  -> w.boolO(o.berserk2)
+        "s" -> o.status.id,
+        "u" -> BSONArray(o.user1, o.user2),
+        "w" -> o.winner.map(o.user1 ==),
+        "t" -> o.turns,
+        "b1" -> w.boolO(o.berserk1),
+        "b2" -> w.boolO(o.berserk2)
       )
 
   given BSON[LeaderboardApi.Entry] with
@@ -185,15 +185,15 @@ object BSONHandlers:
     def writes(w: BSON.Writer, o: LeaderboardApi.Entry) =
       $doc(
         "_id" -> o.id,
-        "u"   -> o.userId,
-        "t"   -> o.tourId,
-        "g"   -> o.nbGames,
-        "s"   -> o.score,
-        "r"   -> o.rank,
-        "w"   -> o.rankRatio,
-        "f"   -> o.freq.map(_.id),
-        "v"   -> o.perf.id,
-        "d"   -> w.date(o.date)
+        "u" -> o.userId,
+        "t" -> o.tourId,
+        "g" -> o.nbGames,
+        "s" -> o.score,
+        "r" -> o.rank,
+        "w" -> o.rankRatio,
+        "f" -> o.freq.map(_.id),
+        "v" -> o.perf.id,
+        "d" -> w.date(o.date)
       )
 
   given leaderboardAggResult: BSONDocumentHandler[LeaderboardApi.ChartData.AggregationResult] = Macros.handler

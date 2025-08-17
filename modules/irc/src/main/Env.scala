@@ -6,7 +6,7 @@ import play.api.{ Configuration, Mode }
 
 import lila.common.Lilakka
 import lila.core.irc.Event
-import lila.core.misc.plan.ChargeEvent
+import lila.core.plan.ChargeEvent
 
 @Module
 final class Env(
@@ -19,7 +19,7 @@ final class Env(
 )(using Executor):
 
   import ZulipClient.given
-  private val zulipConfig      = appConfig.get[ZulipClient.Config]("zulip")
+  private val zulipConfig = appConfig.get[ZulipClient.Config]("zulip")
   private lazy val zulipClient = wire[ZulipClient]
 
   lazy val api: IrcApi = wire[IrcApi]

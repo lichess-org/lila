@@ -65,7 +65,7 @@ final class KaladinApi(
       _.fold(KaladinUser.make(sus, requester).some)(_.queueAgain(requester))
         .so: req =>
           for
-            user        <- userApi.withPerfs(sus.user)
+            user <- userApi.withPerfs(sus.user)
             enoughMoves <- hasEnoughRecentMoves(user)
             _ <-
               if enoughMoves then
@@ -157,9 +157,9 @@ final class KaladinApi(
         Match($doc("response.at".$exists(false))) -> List(GroupField("priority")("nb" -> SumAll))
       .map: res =>
         for
-          obj      <- res
+          obj <- res
           priority <- obj.int("_id")
-          nb       <- obj.int("nb")
+          nb <- obj.int("nb")
         yield (priority, nb)
     }.map:
       _.foreach: (priority, nb) =>
@@ -188,7 +188,7 @@ final class KaladinApi(
             .foldWhile(Counter(0, 0)):
               case (counter, doc) =>
                 val next = (for
-                  clockBin    <- doc.getAsOpt[BSONBinary](F.clock)
+                  clockBin <- doc.getAsOpt[BSONBinary](F.clock)
                   clockConfig <- BinaryFormat.clock.readConfig(clockBin.byteArray)
                   speed = Speed(clockConfig)
                   if speed == Speed.Blitz || speed == Speed.Rapid

@@ -43,7 +43,7 @@ object tournaments:
         tr(
           cls := List(
             "enterable" -> any.isEnterable,
-            "soon"      -> any.isNowOrSoon
+            "soon" -> any.isNowOrSoon
           )
         )(
           td(cls := "icon")(
@@ -60,7 +60,7 @@ object tournaments:
                     if t.variant.exotic then t.variant.name else t.perfType.trans,
                     t.position.isDefined.option(frag(" • ", trans.site.thematic())),
                     " • ",
-                    if t.mode.rated then trans.site.ratedTournament() else trans.site.casualTournament(),
+                    lila.gathering.ui.translateRated(t.rated),
                     " • ",
                     t.durationString
                   )
@@ -73,7 +73,7 @@ object tournaments:
                     " • ",
                     if s.variant.exotic then s.variant.name else s.perfType.trans,
                     " • ",
-                    (if s.settings.rated then trans.site.ratedTournament else trans.site.casualTournament) ()
+                    lila.gathering.ui.translateRated(s.settings.rated)
                   )
                 )
             )

@@ -5,7 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">इस खेल में किसी को आमंत्रित करने के लिए उन्हें ये पता दें</string>
   <string name="gameOver">खेल समाप्त</string>
   <string name="waitingForOpponent">आप प्रतिद्वंदी की प्रतीक्षा कर रहे हैं</string>
-  <string name="orLetYourOpponentScanQrCode">या अपने प्रतिद्वंद्वी को इस क्यूआर कोड को स्कैन करने दें</string>
+  <string name="orLetYourOpponentScanQrCode">या अपने प्रतिद्वंद्वी को इस QR कोड को स्कैन करने दें</string>
   <string name="waiting">प्रतिद्वंदी के चुनौती स्वीकार करने की प्रतीक्षा कर रहे हैं</string>
   <string name="yourTurn">आपकी चाल</string>
   <string name="aiNameLevelAiLevel">%1$s स्तर %2$s वाला</string>
@@ -22,6 +22,7 @@
   <string name="asBlack">काले से</string>
   <string name="randomColor">कोई भी रंग</string>
   <string name="createAGame">नया खेल</string>
+  <string name="createTheGame">नया खेल</string>
   <string name="whiteIsVictorious">सफेद विजयी हुआ</string>
   <string name="blackIsVictorious">काला विजयी हुआ</string>
   <string name="youPlayTheWhitePieces">आप सफेद मोहरों से खेलेंगे</string>
@@ -71,8 +72,10 @@
   <string name="makeMainLine">मुख्य लाइन बनाएं</string>
   <string name="deleteFromHere">यहां से हटाओ</string>
   <string name="collapseVariations">विविधताओं को मिटाये</string>
+  <string name="expandVariations">विविधताओं का विस्तार करें</string>
   <string name="forceVariation">बल भिन्नता</string>
   <string name="copyVariationPgn">प्रतिलिपि भिन्नता पीजीएन</string>
+  <string name="copyMainLinePgn">मेनलाइन PGN की प्रतिलिपि बनाएँ</string>
   <string name="move">चाल</string>
   <string name="variantLoss">प्रकार में हानि</string>
   <string name="variantWin">जीत का प्रकार</string>
@@ -462,7 +465,6 @@
   <string name="openTournaments">खुली प्रतियोगिता</string>
   <string name="duration">अवधि</string>
   <string name="winner">विजयी</string>
-  <string name="standing">पद</string>
   <string name="createANewTournament">नयी प्रतियोगिता आरम्भ करें</string>
   <string name="tournamentCalendar">टूर्नामेंट कैलेंडर</string>
   <string name="conditionOfEntry">प्रवेश की शर्त:</string>
@@ -476,7 +478,6 @@
   <string name="points">अंक</string>
   <string name="wins">जीतें</string>
   <string name="losses">हारें</string>
-  <string name="createdBy">द्वारा रचित</string>
   <string name="standByX">%s, खिलाड़ियों, बाँधना द्वारा खड़े हो जाओ तैयार हो जाओ!</string>
   <string name="pause">ठहराव</string>
   <string name="resume">फिर से शुरू करें</string>

@@ -24,7 +24,7 @@ object TutorConversion:
       $doc(F.analysed -> true, F.moves -> $doc("$elemMatch" -> $doc("w".$gt(WinPercent(66.6)), "i".$gt(1))))
     val compute = TutorCustomInsight(users, question, "conversion", _.conversion) { docs =>
       for
-        doc  <- docs
+        doc <- docs
         perf <- doc.getAsOpt[PerfType]("_id")
         wins <- doc.getAsOpt[Int]("win")
         size <- doc.int("nb")

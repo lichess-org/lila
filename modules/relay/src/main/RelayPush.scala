@@ -4,7 +4,7 @@ import play.api.mvc.RequestHeader
 import chess.format.pgn.{ PgnStr, San, Std, Tags }
 import chess.{ ErrorStr, Replay, Square, TournamentClock }
 import scalalib.actor.AsyncActorSequencers
-import lila.tree.ImportResult
+import lila.tree.{ ImportResult, ParseImport }
 
 import lila.study.{ ChapterPreviewApi, MultiPgn, StudyPgnImport }
 import lila.common.HTTPRequest
@@ -35,7 +35,7 @@ final class RelayPush(
       case Some(failure) => fuccess(List(Left(failure)))
       case None =>
         val parsed = pgnToGames(pgn, rt.tour.info.clock)
-        val games  = parsed.collect { case Right(g) => g }.toVector
+        val games = parsed.collect { case Right(g) => g }.toVector
         val response: List[Either[Failure, Success]] =
           parsed.map(_.map(g => Success(g.tags, g.root.mainline.size)))
 
@@ -64,10 +64,10 @@ final class RelayPush(
   private def push(prev: RelayRound.WithTour, rawGames: Vector[RelayGame]) =
     workQueue(prev.round.id):
       for
-        rt          <- api.byIdWithTour(prev.round.id).orFail(s"Relay $prev no longer available")
-        _           <- cantHaveUpstream(rt.round).so(fail => fufail[Unit](fail.error))
+        rt <- api.byIdWithTour(prev.round.id).orFail(s"Relay $prev no longer available")
+        _ <- cantHaveUpstream(rt.round).so(fail => fufail[Unit](fail.error))
         withPlayers <- playerEnrich.enrichAndReportAmbiguous(rt)(rawGames)
-        withFide    <- fidePlayers.enrichGames(rt.tour)(withPlayers)
+        withFide <- fidePlayers.enrichGames(rt.tour)(withPlayers)
         games = rt.tour.teams.fold(withFide)(_.update(withFide))
         event <- sync
           .updateStudyChapters(rt, games)
@@ -80,8 +80,8 @@ final class RelayPush(
         allGamesFinished <- (games.nonEmpty && games.forall(_.points.isDefined)).so:
           chapterPreview.dataList(rt.round.studyId).map(_.forall(_.finished))
         round <- api.update(rt.round): r1 =>
-          val r2         = r1.withSync(_.addLog(event))
-          val r3         = if event.hasMoves then r2.ensureStarted.resume(rt.tour.official) else r2
+          val r2 = r1.withSync(_.addLog(event))
+          val r3 = if event.hasMoves then r2.ensureStarted.resume(rt.tour.official) else r2
           val finishedAt = allGamesFinished.option(r3.finishedAt.|(nowInstant))
           r3.copy(finishedAt = finishedAt)
         _ <- games.nonEmpty.so(api.syncTargetsOfSource(round))
@@ -107,8 +107,8 @@ object RelayPush:
 
   // silently consume DGT board king-check move to center at game end
   private[relay] def validate(pgnBody: PgnStr): Either[Failure, ImportResult] =
-    lila.tree
-      .parseImport(pgnBody)
+    ParseImport
+      .full(pgnBody)
       .fold(
         err => Failure(Tags.empty, err.value).asLeft,
         result =>

@@ -467,7 +467,6 @@
   <string name="openTournaments">Enireblaj turniroj</string>
   <string name="duration">Daŭro</string>
   <string name="winner">Venkinto</string>
-  <string name="standing">Pozicio</string>
   <string name="createANewTournament">Krei novan turniron</string>
   <string name="tournamentCalendar">Turnira kalendaro</string>
   <string name="conditionOfEntry">Kondiĉo de eniro:</string>
@@ -481,7 +480,6 @@
   <string name="points">Poentoj</string>
   <string name="wins">Venkoj</string>
   <string name="losses">Malvenkoj</string>
-  <string name="createdBy">Kreita de</string>
   <string name="standByX">Atentu %s, parigante ludantojn, pretiĝu!</string>
   <string name="pause">Paŭzu</string>
   <string name="resume">Daŭrigu</string>

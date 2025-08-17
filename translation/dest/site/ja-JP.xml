@@ -159,6 +159,7 @@
   <string name="drawByMutualAgreement">合意によるドロー</string>
   <string name="fiftyMovesWithoutProgress">50 手中駒取りもポーンの手もなし</string>
   <string name="currentGames">現在対局中</string>
+  <string name="joinedX">参加日：%s</string>
   <plurals name="nbGames">
     <item quantity="other">%s 局</item>
   </plurals>
@@ -443,7 +444,7 @@
   <string name="openTournaments">参加募集中のトーナメント</string>
   <string name="duration">対局継続時間</string>
   <string name="winner">勝者</string>
-  <string name="standing">順位</string>
+  <string name="standings">順位</string>
   <string name="createANewTournament">新しいトーナメントを作る</string>
   <string name="tournamentCalendar">トーナメント・カレンダー</string>
   <string name="conditionOfEntry">参加条件:</string>
@@ -457,7 +458,6 @@
   <string name="points">ポイント</string>
   <string name="wins">勝</string>
   <string name="losses">敗</string>
-  <string name="createdBy">トーナメント作成者</string>
   <string name="startingIn" comment="Displayed above a timer">開始まで</string>
   <string name="standByX">%s さん、現在ペアリング中です。用意して！</string>
   <string name="pause">休む</string>
@@ -639,7 +639,7 @@
   <string name="really">本当に</string>
   <string name="contribute">力を貸す</string>
   <string name="termsOfService">利用規約（英文）</string>
-  <string name="titleVerification" comment="This is a link to a form that lets players verify either a FIDE or national federation title (NM, etc).">実戦タイトルの検証</string>
+  <string name="titleVerification">実戦タイトルの検証</string>
   <string name="sourceCode">ソースコード</string>
   <string name="simultaneousExhibitions">同時対局</string>
   <string name="host">ホスト</string>
@@ -965,4 +965,5 @@
   <string name="accessibility">アクセシビリティ</string>
   <string name="enableBlindMode">視覚障害モードをオンに</string>
   <string name="disableBlindMode">視覚障害モードをオフに</string>
+  <string name="copyToClipboard">クリップボードにコピー</string>
 </resources>

@@ -12,7 +12,10 @@ final class Env(
     rematches: lila.game.Rematches,
     spam: lila.core.security.SpamApi,
     isOnline: IsOnline,
-    settingStore: lila.memo.SettingStore.Builder
+    settingStore: lila.memo.SettingStore.Builder,
+    cacheApi: lila.memo.CacheApi,
+    userApi: lila.core.user.UserApi,
+    userJsonView: lila.core.user.JsonView
 )(using Executor, akka.actor.ActorSystem, Scheduler, lila.core.i18n.Translator):
 
   lazy val jsonView = wire[BotJsonView]

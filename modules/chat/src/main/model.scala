@@ -24,6 +24,6 @@ private case class Speaker(
     plan: Option[lila.core.user.Plan],
     marks: Option[lila.core.user.UserMarks]
 ):
-  def isBot    = title.contains(chess.PlayerTitle.BOT)
-  def isTroll  = marks.exists(_.troll)
+  def isBot = title.contains(chess.PlayerTitle.BOT)
+  def isTroll = marks.exists(_.troll)
   def isPatron = plan.exists(_.active)

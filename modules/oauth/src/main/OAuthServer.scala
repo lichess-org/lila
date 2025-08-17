@@ -13,8 +13,8 @@ final class OAuthServer(
     userApi: lila.core.user.UserApi,
     tokenApi: AccessTokenApi,
     originBlocklist: SettingStore[lila.core.data.Strings] @@ OriginBlocklist,
-    mobileSecret: Secret @@ MobileSecret
-)(using Executor):
+    mobileSecrets: List[Secret] @@ MobileSecrets
+)(using mode: play.api.Mode)(using Executor):
 
   import OAuthServer.*
 
@@ -36,10 +36,10 @@ final class OAuthServer(
   ): Fu[AccessResult] =
     getTokenFromSignedBearer(tokenId)
       .orFailWith(NoSuchToken)
-      .flatMap:
-        case at if !accepted.isEmpty && !accepted.compatible(at.scopes) =>
-          fufail(MissingScope(accepted, at.scopes))
-        case at =>
+      .flatMap: at =>
+        if !accepted.isEmpty && !accepted.compatible(at.scopes)
+        then fufail(MissingScope(accepted, at.scopes))
+        else
           userApi
             .me(at.userId)
             .flatMap:
@@ -53,8 +53,11 @@ final class OAuthServer(
                       u.isnt(UserId.explorer) && !HTTPRequest.looksLikeLichessBot(req)
                     }
                   .foreach: req =>
-                    logger.debug:
+                    def logMsg =
                       s"${if blocked then "block" else "auth"} ${at.clientOrigin | "-"} as ${u.username} ${HTTPRequest.print(req).take(200)}"
+                    if blocked
+                    then logger.info(logMsg)
+                    else logger.debug(logMsg)
                 if blocked then fufail(OriginBlocked)
                 else fuccess(OAuthScope.Access(OAuthScope.Scoped(u, at.scopes), at.tokenId))
       .dmap(Right(_))
@@ -81,19 +84,24 @@ final class OAuthServer(
     access.flatMap: a =>
       HTTPRequest.userAgent(req).map(_.value) match
         case Some(UaUserRegex(u)) if a.me.isnt(UserStr(u)) => Left(UserAgentMismatch)
-        case _                                             => Right(a)
+        case _ => Right(a)
 
-  private val bearerSigner = Algo.hmac(mobileSecret.value)
+  private val bearerSigners = mobileSecrets.map(s => Algo.hmac(s.value))
+
+  private def checkSignedBearer(bearer: String, signed: String): Boolean =
+    bearerSigners.exists: signer =>
+      signer.sha1(bearer).hash_=(signed)
+
   private def getTokenFromSignedBearer(full: Bearer): Fu[Option[AccessToken.ForAuth]] =
     val (bearer, signed) = full.value.split(':') match
-      case Array(bearer, signed) if bearerSigner.sha1(bearer).hash_=(signed) => (Bearer(bearer), true)
-      case _                                                                 => (full, false)
+      case Array(bearer, signed) if checkSignedBearer(bearer, signed) => (Bearer(bearer), true)
+      case _ => (full, false)
     tokenApi
       .get(bearer)
       .mapz: token =>
         if token.scopes.has(_.Web.Mobile) && !signed then
           logger.warn(s"Web:Mobile token requested but not signed: $token")
-          none
+          mode.isDev.option(token)
         else token.some
 
   private def monitorAuth(success: Boolean) =
@@ -102,20 +110,20 @@ final class OAuthServer(
 object OAuthServer:
 
   type AccessResult = Either[AuthError, OAuthScope.Access]
-  type AuthResult   = Either[AuthError, OAuthScope.Scoped]
+  type AuthResult = Either[AuthError, OAuthScope.Scoped]
 
   sealed abstract class AuthError(val message: String) extends lila.core.lilaism.LilaException
-  case object MissingAuthorizationHeader               extends AuthError("Missing authorization header")
-  case object NoSuchToken                              extends AuthError("No such token")
+  case object MissingAuthorizationHeader extends AuthError("Missing authorization header")
+  case object NoSuchToken extends AuthError("No such token")
   case class MissingScope(accepted: EndpointScopes, available: TokenScopes)
       extends AuthError(s"Missing scope: ${accepted.show}")
-  case object NoSuchUser           extends AuthError("No such user")
+  case object NoSuchUser extends AuthError("No such user")
   case object OneUserWithTwoTokens extends AuthError("Both tokens belong to the same user")
-  case object OriginBlocked        extends AuthError("Origin blocked")
+  case object OriginBlocked extends AuthError("Origin blocked")
   case object UserAgentMismatch extends AuthError("The user in the user-agent doesn't match the token bearer")
 
   def responseHeaders(accepted: EndpointScopes, tokenScopes: TokenScopes)(res: Result): Result =
     res.withHeaders(
-      "X-OAuth-Scopes"          -> tokenScopes.into(OAuthScopes).keyList,
+      "X-OAuth-Scopes" -> tokenScopes.into(OAuthScopes).keyList,
       "X-Accepted-OAuth-Scopes" -> accepted.into(OAuthScopes).keyList
     )

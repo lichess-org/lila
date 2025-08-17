@@ -81,6 +81,6 @@ final class TournamentStandingApi(
         .map(JsonView.playerJson(lightUserApi, sheets, streakable = tour.streakable, withScores = withScores))
         .parallel
     yield Json.obj(
-      "page"    -> page,
+      "page" -> page,
       "players" -> players
     )

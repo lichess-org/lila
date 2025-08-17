@@ -63,13 +63,10 @@
   <string name="startVerySoon">La diffusion commencera très bientôt.</string>
   <string name="notYetStarted">La diffusion n\'a pas encore commencé.</string>
   <string name="officialWebsite">Site Web officiel</string>
-  <string name="standings">Classement</string>
   <string name="officialStandings">Résultats officiels</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Plus d\'options sur la %s</string>
   <string name="webmastersPage">page des webmestres</string>
-  <string name="pgnSourceHelp" comment="%s is 'streaming API'">Source PGN publique en temps réel pour cette ronde. Nous offrons également un %s pour permettre une synchronisation rapide et efficace.</string>
   <string name="embedThisBroadcast">Intégrer cette diffusion dans votre site Web</string>
-  <string name="embedThisRound">Intégrer la %s dans votre site Web</string>
   <string name="ratingDiff">Différence de cote</string>
   <string name="gamesThisTournament">Partie de ce tournoi</string>
   <string name="score">Résultat</string>
@@ -85,4 +82,6 @@
   <string name="backToLiveMove">Retour au coup en direct</string>
   <string name="sinceHideResults">Vous avez choisi de masquer les résultats. Les échiquiers de prévisualisation sont donc vides pour ne rien révéler.</string>
   <string name="liveboard">Échiquier en direct</string>
+  <string name="communityBroadcast">Diffusion communautaire</string>
+  <string name="createdAndManagedBy">Créée et gérée par %s.</string>
 </resources>

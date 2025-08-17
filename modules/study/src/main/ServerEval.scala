@@ -112,7 +112,7 @@ object ServerEval:
                     .map: adv =>
                       node.comments + Comment(
                         Comment.Id.make,
-                        adv.makeComment(withEval = false, withBestMove = true).into(Comment.Text),
+                        adv.makeComment(withEval = false, withBestMove = true),
                         Comment.Author.Lichess
                       )
                     .flatMap(bsonWriteOpt),
@@ -129,26 +129,25 @@ object ServerEval:
     end saveAnalysis
 
     private def analysisLine(root: Node, variant: chess.variant.Variant, info: Info): Option[Branch] =
-      val (_, reversedGames, error) =
-        chess.Replay.gameMoveWhileValidReverse(info.variation.take(20), root.fen, variant)
+      val setup = chess.Position.AndFullMoveNumber(variant, root.fen)
+      val (result, error) = setup.position
+        .foldRight(info.variation.take(20), setup.ply)(
+          none[Branch],
+          (step, acc) =>
+            inline def branch = makeBranch(step.move, step.ply)
+            acc.fold(branch)(acc => branch.addChild(acc)).some
+        )
       error.foreach(e => logger.info(e.value))
-      reversedGames match
-        case Nil => none
-        case (g, m) :: rest =>
-          rest
-            .foldLeft(makeBranch(g, m)):
-              case (node, (g, m)) =>
-                makeBranch(g, m).addChild(node)
-            .some
+      result
 
-    private def makeBranch(g: chess.Game, m: Uci.WithSan) =
+    private def makeBranch(m: chess.MoveOrDrop, ply: chess.Ply): Branch =
       Branch(
-        id = UciCharPair(m.uci),
-        ply = g.ply,
-        move = m,
-        fen = Fen.write(g),
-        check = g.position.check,
-        crazyData = g.position.crazyData,
+        id = UciCharPair(m.toUci),
+        ply = ply,
+        move = Uci.WithSan(m.toUci, m.toSanStr),
+        fen = Fen.write(m.after, ply.fullMoveNumber),
+        check = m.after.position.check,
+        crazyData = m.after.position.crazyData,
         clock = none,
         forceVariation = false
       )
@@ -178,7 +177,7 @@ object ServerEval:
       then fuTrue
       else
         lila.common.Bus
-          .safeAsk[Int, GetRelayCrowd](GetRelayCrowd(studyId, _))
+          .ask[Int, GetRelayCrowd](GetRelayCrowd(studyId, _))
           .map(_ < 5000)
 
     def divisionOf(chapter: Chapter) =

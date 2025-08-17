@@ -1,4 +1,4 @@
-import Lpv from 'lichess-pgn-viewer';
+import Lpv from '@lichess-org/pgn-viewer';
 import { Opening } from './interfaces';
 import { set } from 'lib/data';
 

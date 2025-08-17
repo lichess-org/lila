@@ -61,13 +61,10 @@
   <string name="startVerySoon">中継はまもなく始まります。</string>
   <string name="notYetStarted">中継はまだ始まっていません。</string>
   <string name="officialWebsite">公式サイト</string>
-  <string name="standings">順位</string>
   <string name="officialStandings">公式順位</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">他のオプションは %s にあります</string>
   <string name="webmastersPage">ウェブ管理者のページ</string>
-  <string name="pgnSourceHelp" comment="%s is 'streaming API'">このラウンドについて公表されたリアルタイムの PGN です。%s も利用でき、高速かつ高効率の同期が行なえます。</string>
   <string name="embedThisBroadcast">この中継をウェブサイトに埋め込む</string>
-  <string name="embedThisRound">%s をウェブサイトに埋め込む</string>
   <string name="ratingDiff">レーティングの差</string>
   <string name="gamesThisTournament">このトーナメントの対局</string>
   <string name="score">スコア</string>
@@ -82,5 +79,7 @@
   <string name="allBroadcastsByMonth">すべての中継を月別に表示</string>
   <string name="backToLiveMove">実際の手に戻る</string>
   <string name="sinceHideResults">結果を非表示にするよう選択したため、結果が見えないようプレビューボードはすべて空白です。</string>
-  <string name="liveboard" comment="Describes a pane in live broadcasts which lets you see what the current move is.&#10;&#10;This is useful when you are seeing previous moves in a live game, but still want to see the live/current position.">現局面</string>
+  <string name="liveboard">現局面</string>
+  <string name="communityBroadcast">コミュニティ配信</string>
+  <string name="createdAndManagedBy">作成・管理者は %s です。</string>
 </resources>

@@ -26,13 +26,13 @@ final class LobbyApi(
           .inject(
             Json
               .obj(
-                "seeks"        -> seeks.map(_.render),
-                "nowPlaying"   -> displayedPovs.map(nowPlaying),
+                "seeks" -> seeks.map(_.render),
+                "nowPlaying" -> displayedPovs.map(nowPlaying),
                 "nbNowPlaying" -> povs.size,
-                "nbMyTurn"     -> povs.count(_.isMyTurn),
+                "nbMyTurn" -> povs.count(_.isMyTurn),
                 "counters" -> Json.obj(
                   "members" -> lobbySocket.counters.members,
-                  "rounds"  -> lobbySocket.counters.rounds
+                  "rounds" -> lobbySocket.counters.rounds
                 )
               )
               .add("ratingMap", me.map(_.perfs).map(ratingMap))
@@ -44,7 +44,7 @@ final class LobbyApi(
           )
       }
 
-  def nowPlaying(pov: Pov) = gameJson.ownerPreview(pov)(using lightUserApi.sync)
+  def nowPlaying(pov: Pov): JsObject = gameJson.ownerPreview(pov)(using lightUserApi.sync)
 
   private def ratingMap(perfs: UserPerfs): JsObject =
     Writes

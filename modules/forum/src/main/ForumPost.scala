@@ -70,7 +70,7 @@ case class ForumPost(
   def displayModIcon = ~modIcon
 
   def visibleBy(u: Option[User]): Boolean = !troll || u.exists(visibleBy)
-  def visibleBy(u: User): Boolean         = !troll || userId.exists(_ == u.id && u.marks.troll)
+  def visibleBy(u: User): Boolean = !troll || userId.exists(_ == u.id && u.marks.troll)
 
   def erased = erasedAt.isDefined
 
@@ -94,22 +94,22 @@ object ForumPost:
 
   type Reactions = Map[Reaction, Set[UserId]]
 
-  val idSize                  = 8
-  private val permitEditsFor  = 4.hours
+  val idSize = 8
+  private val permitEditsFor = 4.hours
   private val showEditFormFor = 3.hours
 
   enum Reaction(val key: String):
-    case PlusOne  extends Reaction("+1")
+    case PlusOne extends Reaction("+1")
     case MinusOne extends Reaction("-1")
-    case Laugh    extends Reaction("laugh")
+    case Laugh extends Reaction("laugh")
     case Thinking extends Reaction("thinking")
-    case Heart    extends Reaction("heart")
-    case Horsey   extends Reaction("horsey")
+    case Heart extends Reaction("heart")
+    case Horsey extends Reaction("horsey")
     override def toString = key
   object Reaction:
-    val list               = values.toList
-    val set                = values.toSet
-    val positive           = Set(PlusOne, Laugh, Heart, Horsey)
+    val list = values.toList
+    val set = values.toSet
+    val positive = Set(PlusOne, Laugh, Heart, Horsey)
     def apply(key: String) = list.find(_.key == key)
     def of(reactions: Reactions, me: User): Set[Reaction] =
       reactions.view

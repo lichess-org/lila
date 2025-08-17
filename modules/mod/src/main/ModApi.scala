@@ -26,12 +26,13 @@ final class ModApi(
       if v then sel(UserMark) :: a.value
       else a.value.filter(sel(UserMark) !=)
 
-  def setAlt(prev: Suspect, v: Boolean)(using me: MyId): Funit =
+  def setAlt(prev: Suspect, v: Boolean)(using me: MyId): Fu[Suspect] =
     for
       _ <- userRepo.setAlt(prev.user.id, v)
       sus = prev.set(_.withMarks(_.set(_.alt, v)))
       _ <- logApi.alt(sus, v)
-    yield if v then notifier.reporters(me.modId, sus)
+      _ = if v then notifier.reporters(me.modId, sus)
+    yield sus
 
   def setEngine(prev: Suspect, v: Boolean)(using me: MyId): Funit =
     (prev.user.marks.engine != v).so:
@@ -47,7 +48,7 @@ final class ModApi(
 
   def autoMark(suspectId: SuspectId, note: String)(using MyId): Funit =
     for
-      sus       <- reportApi.getSuspect(suspectId.value).orFail(s"No such suspect $suspectId")
+      sus <- reportApi.getSuspect(suspectId.value).orFail(s"No such suspect $suspectId")
       unengined <- logApi.wasUnengined(sus)
       _ <- (!sus.user.isBot && !sus.user.marks.engine && !unengined).so:
         lila.mon.cheat.autoMark.increment()
@@ -74,7 +75,7 @@ final class ModApi(
     then setIsolate(prev, value).flatMap(setTroll(_, value))
     else
       val changed = value != prev.user.marks.troll
-      val sus     = prev.set(_.withMarks(_.set(_.troll, value)))
+      val sus = prev.set(_.withMarks(_.set(_.troll, value)))
       for
         _ <- changed.so:
           for _ <- userRepo.updateTroll(sus.user)
@@ -95,7 +96,7 @@ final class ModApi(
     then setTroll(prev, value).flatMap(setIsolate(_, value))
     else
       val changed = value != prev.user.marks.isolate
-      val sus     = prev.set(_.withMarks(_.set(_.isolate, value)))
+      val sus = prev.set(_.withMarks(_.set(_.isolate, value)))
       for
         _ <- changed.so:
           for
@@ -109,8 +110,8 @@ final class ModApi(
     given MyId = UserId.lichessAsMe
     for
       sus <- reportApi.getSuspect(userId).orFail(s"No such suspect $userId")
-      _   <- setAlt(sus, v = true)
-      _   <- logApi.garbageCollect(sus)
+      _ <- setAlt(sus, v = true)
+      _ <- logApi.garbageCollect(sus)
     yield ()
 
   def disableTwoFactor(mod: ModId, username: UserStr): Funit =
@@ -129,7 +130,7 @@ final class ModApi(
     withUser(username): user =>
       for
         prev <- userRepo.isKid(user.id)
-        _    <- (v != prev).so(userRepo.setKid(user, v))
+        _ <- (v != prev).so(userRepo.setKid(user, v))
       yield if v != prev then logApi.setKidMode(mod, user.id, v)
 
   def setTitle(username: UserStr, title: Option[PlayerTitle])(using Me): Funit =
@@ -175,7 +176,7 @@ final class ModApi(
         // only add permissions the mod can actually grant
         permissions.filter(canGrant)
       userRepo.setRoles(user.id, finalPermissions.map(_.dbKey).toList) >>
-        logApi.setPermissions(user.id, permDiff(Permission(user), finalPermissions))
+        logApi.setPermissions(user.light, permDiff(Permission(user), finalPermissions))
 
   private def permDiff(orig: Set[Permission], dest: Set[Permission]): Map[Permission, Boolean] = {
     orig.diff(dest).map(_ -> false) ++ dest.diff(orig).map(_ -> true)

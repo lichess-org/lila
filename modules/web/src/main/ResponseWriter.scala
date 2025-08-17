@@ -11,13 +11,13 @@ trait ResponseWriter extends ContentTypes:
 
   private val textContentType = ContentTypeOf(Some(ContentTypes.TEXT))
 
-  given ContentTypeOf[Unit]                   = textContentType
+  given ContentTypeOf[Unit] = textContentType
   given (using codec: Codec): Writeable[Unit] = Writeable(_ => codec.encode("ok"))
 
-  given ContentTypeOf[Long]                   = textContentType
+  given ContentTypeOf[Long] = textContentType
   given (using codec: Codec): Writeable[Long] = Writeable(a => codec.encode(a.toString))
 
-  given ContentTypeOf[Int]                   = textContentType
+  given ContentTypeOf[Int] = textContentType
   given (using codec: Codec): Writeable[Int] = Writeable(i => codec.encode(i.toString))
 
   val pgnContentType = "application/x-chess-pgn"
@@ -34,11 +34,11 @@ trait ResponseWriter extends ContentTypes:
   given intRuntimeWriteable[A](using codec: Codec, sr: IntRuntime[A]): Writeable[A] =
     Writeable(a => codec.encode(sr(a).toString))
 
-  given (using codec: Codec): ContentTypeOf[Page]         = ContentTypeOf(Some(ContentTypes.HTML))
-  given (using codec: Codec): ContentTypeOf[Snippet]      = ContentTypeOf(Some(ContentTypes.HTML))
-  given (using codec: Codec): Writeable[Snippet]          = Writeable(snip => codec.encode(snip.frag.render))
+  given (using codec: Codec): ContentTypeOf[Page] = ContentTypeOf(Some(ContentTypes.HTML))
+  given (using codec: Codec): ContentTypeOf[Snippet] = ContentTypeOf(Some(ContentTypes.HTML))
+  given (using codec: Codec): Writeable[Snippet] = Writeable(snip => codec.encode(snip.frag.render))
   given (using codec: Codec): ContentTypeOf[RenderedPage] = ContentTypeOf(Some(ContentTypes.HTML))
-  given (using codec: Codec): Writeable[RenderedPage]     = Writeable(page => codec.encode(page.html))
+  given (using codec: Codec): Writeable[RenderedPage] = Writeable(page => codec.encode(page.html))
 
   val csvContentType = "text/csv"
 

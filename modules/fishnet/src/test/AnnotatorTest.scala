@@ -27,40 +27,39 @@ object AnnotatorTest:
   case class TestCase(sans: List[SanStr], pgn: PgnStr, fishnetInput: String, expected: PgnStr):
 
     given Executor = scala.concurrent.ExecutionContextOpportunistic
-    val annotator  = Annotator(NetDomain("l.org"))
-    val builder    = AnalysisBuilder(FishnetEvalCache.mock)
+    val annotator = Annotator(NetDomain("l.org"))
+    val builder = AnalysisBuilder(FishnetEvalCache.mock)
 
     lazy val parsedPgn = Parser.full(pgn).toOption.get
-    lazy val dumped    = parsedPgn.toPgn
+    lazy val dumped = parsedPgn.toPgn
 
     val variant = parsedPgn.tags.variant.getOrElse(Standard)
-    val fen     = parsedPgn.tags.fen.getOrElse(variant.initialFen)
+    val fen = parsedPgn.tags.fen.getOrElse(variant.initialFen)
 
     def makeGame(g: chess.Game) =
       lila.core.game
         .newGame(
           g,
           ByColor(Player(GamePlayerId("abcd"), _, none)),
-          mode = chess.Mode.Casual,
+          rated = chess.Rated.No,
           source = lila.core.game.Source.Api,
           pgnImport = none
         )
         .sloppy
 
     def test =
-      val ply           = chess.Game(variant.some, fen.some).ply
+      val ply = chess.Game(variant.some, fen.some).ply
       val (game, moves) = AnnotatorTest.gameWithMoves(sans, fen, variant)
-      val analysis      = AnnotatorTest.parse(builder, fishnetInput, fen.some, variant, moves, ply)
-      val p1            = annotator.addEvals(dumped, analysis)
-      val p2            = annotator(p1, makeGame(game), analysis.some).copy(tags = Tags.empty)
-      val output        = annotator.toPgnString(p2)
+      val analysis = AnnotatorTest.parse(builder, fishnetInput, fen.some, variant, moves, ply)
+      val p1 = annotator.addEvals(dumped, analysis)
+      val p2 = annotator(p1, makeGame(game), analysis.some).copy(tags = Tags.empty)
+      val output = annotator.toPgnString(p2)
       (output, expected)
 
   def gameWithMoves(sans: List[SanStr], fen: FullFen, variant: Variant): (chess.Game, String) =
-    val (_, xs, _) = chess.Replay.gameMoveWhileValid(sans, fen, variant)
-    val game       = xs.last._1
-    val moves      = xs.map(_._2.uci.uci).mkString(" ")
-    game -> moves
+    val (state = game, moves = moves) =
+      chess.Game(variant, fen.some).playWhileValid(sans, Ply.initial)(_.move.toUci.uci).toOption.get
+    game -> moves.mkString(" ")
 
   def parse(
       builder: AnalysisBuilder,

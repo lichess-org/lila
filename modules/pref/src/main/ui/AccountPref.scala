@@ -241,13 +241,13 @@ final class AccountPref(helpers: Helpers, helper: PrefHelper, bits: AccountUi):
                 tbody(
                   List(
                     a(href := routes.Streamer.index())(trp.notifyStreamStart()) -> "streamStart",
-                    trp.notifyForumMention()                                    -> "mention",
-                    trp.notifyInvitedStudy()                                    -> "invitedStudy",
-                    trp.notifyInboxMsg()                                        -> "privateMessage",
-                    trp.notifyChallenge()                                       -> "challenge",
-                    trp.notifyTournamentSoon()                                  -> "tournamentSoon",
-                    frag("Broadcasts")                                          -> "broadcastRound",
-                    trp.notifyGameEvent()                                       -> "gameEvent"
+                    trp.notifyForumMention() -> "mention",
+                    trp.notifyInvitedStudy() -> "invitedStudy",
+                    trp.notifyInboxMsg() -> "privateMessage",
+                    trp.notifyChallenge() -> "challenge",
+                    trp.notifyTournamentSoon() -> "tournamentSoon",
+                    frag("Broadcasts") -> "broadcastRound",
+                    trp.notifyGameEvent() -> "gameEvent"
                   ).map(makeRow(form))
                 )
               ),
@@ -272,7 +272,7 @@ final class AccountPref(helpers: Helpers, helper: PrefHelper, bits: AccountUi):
       tr(
         td(transFrag),
         Seq("bell", "push").map: allow =>
-          val name    = s"$filterName.$allow"
+          val name = s"$filterName.$allow"
           val checked = form.data(name).contains("true")
           td(
             if !hiddenFields(s"$filterName.$allow") then
@@ -283,9 +283,9 @@ final class AccountPref(helpers: Helpers, helper: PrefHelper, bits: AccountUi):
                 cls := "always-on",
                 form3.hidden(name, "true"),
                 filterName match
-                  case "challenge"      => iconTag(Icon.Swords)
+                  case "challenge" => iconTag(Icon.Swords)
                   case "privateMessage" => iconTag(Icon.BellOutline)
-                  case _                => emptyFrag
+                  case _ => emptyFrag
               )
           )
       )
@@ -296,3 +296,26 @@ final class AccountPref(helpers: Helpers, helper: PrefHelper, bits: AccountUi):
       "gameEvent.bell",
       "challenge.bell"
     )
+
+  def network(cfRouting: Boolean)(using ctx: Context) =
+    AccountPage("Network", "network"):
+      div(cls := "box box-pad")(
+        standardFlash,
+        h1(cls := "box__top")("Network"),
+        flashMessage("quiet")(
+          "You are currently using ",
+          if cfRouting then "Content Delivery Network (CDN) routing."
+          else "direct routing.",
+          br,
+          if cfRouting
+          then "This feature is experimental but may improve reliability in some regions."
+          else "If you have frequent disconnects, Content Delivery Network (CDN) routing may improve things."
+        ),
+        br,
+        postForm(action := routes.Pref.networkPost):
+          button(
+            name := "cfRouting",
+            value := !cfRouting,
+            cls := "button"
+          )(if cfRouting then "Use direct routing" else "Use CDN routing")
+      )

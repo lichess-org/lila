@@ -14,7 +14,7 @@
     <item quantity="many">%s глядачів</item>
     <item quantity="other">%s глядачів</item>
   </plurals>
-  <string name="liveBroadcasts">Онлайн трансляції турнірів</string>
+  <string name="liveBroadcasts">Прямі трансляції турнірів</string>
   <string name="broadcastCalendar">Календар трансляцій</string>
   <string name="newBroadcast">Нова трансляція</string>
   <string name="subscribedBroadcasts">Обрані трансляції</string>
@@ -23,13 +23,13 @@
   <string name="theNewRoundHelp">У новому раунді будуть ті самі учасники та редактори, що й у попередньому.</string>
   <string name="addRound">Додати раунд</string>
   <string name="ongoing">Поточні</string>
-  <string name="upcoming">Майбутні</string>
+  <string name="upcoming">Найближчі</string>
   <string name="roundName">Назва раунду</string>
   <string name="roundNumber">Номер раунду</string>
   <string name="tournamentName">Назва турніру</string>
   <string name="tournamentDescription">Короткий опис турніру</string>
-  <string name="fullDescription">Повний опис події</string>
-  <string name="fullDescriptionHelp">Необов\'язковий довгий опис трансляції. Наявна розмітка %1$s. Довжина має бути менша ніж %2$s символів.</string>
+  <string name="fullDescription">Повний опис турніру</string>
+  <string name="fullDescriptionHelp">Необов\'язковий довгий опис трансляції. %1$s доступний. Довжина має бути менша ніж %2$s символів.</string>
   <string name="sourceSingleUrl">Адреса джерела PGN</string>
   <string name="sourceUrlHelp">Посилання, яке Lichess перевірятиме, щоб отримати оновлення PGN. Воно має бути загальнодоступним в Інтернеті.</string>
   <string name="sourceGameIds">До 64 ігрових ID Lichess, відокремлені пробілами.</string>
@@ -67,12 +67,10 @@
   <string name="startVerySoon">Трансляція розпочнеться дуже скоро.</string>
   <string name="notYetStarted">Трансляція ще не розпочалася.</string>
   <string name="officialWebsite">Офіційний вебсайт</string>
-  <string name="standings">Турнірна таблиця</string>
   <string name="officialStandings">Офіційна турнірна таблиця</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Більше опцій на %s</string>
-  <string name="pgnSourceHelp" comment="%s is 'streaming API'">Публічне джерело PGN у реальному часі для цього раунду. Ми також пропонуємо %s для швидшої й ефективнішої синхронізації.</string>
+  <string name="webmastersPage">сторінка webmasters</string>
   <string name="embedThisBroadcast">Вбудувати цю трансляцію на своєму сайті</string>
-  <string name="embedThisRound">Вбудувати %s на своєму сайті</string>
   <string name="ratingDiff">Різниця у рейтингу</string>
   <string name="gamesThisTournament">Ігри в цьому турнірі</string>
   <string name="score">Очки</string>
@@ -88,4 +86,6 @@
   <string name="backToLiveMove">Повернутися до поточного ходу</string>
   <string name="sinceHideResults">Оскільки ви вибрали приховати результати, огляд дощок порожній, щоб не розкривати подробиць.</string>
   <string name="liveboard">Наживо</string>
+  <string name="communityBroadcast">Трансляція спільноти</string>
+  <string name="createdAndManagedBy">Створено та адмініструється %s.</string>
 </resources>

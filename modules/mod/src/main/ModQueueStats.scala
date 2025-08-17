@@ -22,9 +22,9 @@ final class ModQueueStats(
     _.expireAfter[Period, Result](
       create = (key, _) =>
         key match
-          case Period.Week  => 15.seconds
+          case Period.Week => 15.seconds
           case Period.Month => 5.minutes
-          case Period.Year  => 1.day
+          case Period.Year => 1.day
       ,
       update = (_, _, current) => current,
       read = (_, _, current) => current
@@ -37,7 +37,7 @@ final class ModQueueStats(
       .listAll()
       .map: docs =>
         for
-          doc     <- docs
+          doc <- docs
           dateStr <- doc.string("_id")
           date <- Try(java.time.LocalDate.parse(dateStr, dateFormat)).toOption
             .map(_.atStartOfDay.instant)
@@ -45,8 +45,8 @@ final class ModQueueStats(
         yield date -> {
           for
             entry <- data
-            nb    <- entry.int("nb")
-            room  <- entry.string("room")
+            nb <- entry.int("nb")
+            room <- entry.string("room")
             score <- entry.int("score")
           yield (room, score, nb)
         }
@@ -61,7 +61,7 @@ final class ModQueueStats(
               .map(room => room.key -> room.name)
               .appendedAll:
                 List(
-                  "appeal"   -> "Appeal",
+                  "appeal" -> "Appeal",
                   "streamer" -> "Streamer"
                 )
               .map: (roomKey, roomName) =>
@@ -81,7 +81,7 @@ final class ModQueueStats(
 object ModQueueStats:
 
   type Score = Int
-  type Nb    = Int
+  type Nb = Int
 
   val scores = List[Score](20, 40, 60, 80)
 

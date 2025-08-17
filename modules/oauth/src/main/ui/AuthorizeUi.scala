@@ -9,12 +9,6 @@ import ScalatagsTemplate.{ *, given }
 final class AuthorizeUi(helpers: Helpers)(lightUserFallback: UserId => LightUser):
   import helpers.{ *, given }
 
-  private def ringsImage = img(
-    cls := "oauth__logo",
-    alt := "linked rings icon",
-    src := assetUrl("images/icons/linked-rings.png")
-  )
-
   private def buttonClass(prompt: AuthorizationRequest.Prompt) =
     s"button${prompt.isDanger.so(" button-red ok-cancel-confirm text")} disabled"
 
@@ -26,10 +20,11 @@ final class AuthorizeUi(helpers: Helpers)(lightUserFallback: UserId => LightUser
     Page("Authorization")
       .css("bits.oauth")
       .js(Esm("bits.oauth"))
+      .flag(_.noHeader)
       .csp(_.withUnsafeInlineScripts):
         main(cls := "oauth box box-pad force-ltr")(
           div(cls := "oauth__top")(
-            ringsImage,
+            iconTag(Icon.Logo)(cls := "oauth__logo", alt := "lichess logo"),
             h1("Authorize"),
             if mobile
             then h2("Lichess Mobile")
@@ -59,10 +54,10 @@ final class AuthorizeUi(helpers: Helpers)(lightUserFallback: UserId => LightUser
                   )
                 case None =>
                   submitButton(
-                    cls      := buttonClass(prompt),
+                    cls := buttonClass(prompt),
                     dataIcon := isDanger.option(Icon.CautionTriangle),
                     disabled := true,
-                    id       := "oauth-authorize",
+                    id := "oauth-authorize",
                     title := s"The website ${prompt.redirectUri.host | prompt.redirectUri.withoutQuery} will get access to your Lichess account. Continue?"
                   )("Authorize")
             ),

@@ -57,7 +57,7 @@
   <string name="strengths">Предности</string>
   <string name="history">Историја на загатки</string>
   <string name="solved">решено</string>
-  <string name="failed" comment="In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.&#10;&#10;The text will be automatically capitalised. If you have different ways to translate it, we suggest keeping it short.&#10;&#10;NOTE: This string previously said 'failed', but was changed to 'incorrect' to be more encouraging (https://github.com/lichess-org/lila/issues/11068)">неуспешно</string>
+  <string name="failed">неуспешно</string>
   <string name="streakDescription">Решавајте прогресивно потешки загатки и изградете победничка серија. Нема часовник, па не брзајте. Еден погрешен потег и играта е завршена! Но, можете да прескокнете еден потег по сесија.</string>
   <string name="yourStreakX">Вашата серија: %s</string>
   <string name="streakSkipExplanation">Прескокнете го овој потег за да ја зачувате вашата победничка серија! Дозволено само еднаш во сесија.</string>
@@ -65,12 +65,10 @@
   <string name="newStreak">Нова серија</string>
   <string name="fromMyGames">Од моите игри</string>
   <string name="lookupOfPlayer">Пребарувај загатки од игрите на други играчи</string>
-  <string name="fromXGames">Загатки од игрите на %s\'</string>
   <string name="searchPuzzles">Пребарувај загатки</string>
   <string name="fromMyGamesNone">Немате загатки во базата на податоци, но Lichess сè уште многу ве сака.
 
 Играјте брзи и класични игри за да ги зголемите шансите ваша загатка да биде додадена!</string>
-  <string name="fromXGamesFound">%1$s загатки пронајдени во %2$s игри</string>
   <string name="puzzleDashboardDescription">Вежбај, анализирај, подобри се</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s одиграна</item>

@@ -35,7 +35,7 @@ final class Main(
   def lag = Open:
     Ok.page(views.site.ui.lag)
 
-  def mobile     = Open(serveMobile)
+  def mobile = Open(serveMobile)
   def mobileLang = LangPage(routes.Main.mobile)(serveMobile)
 
   def redirectToAppStore = Anon:
@@ -95,9 +95,9 @@ final class Main(
   def helpPath(path: String) = Open:
     path match
       case "keyboard-move" => Ok.snip(lila.web.ui.help.keyboardMove)
-      case "voice/move"    => Ok.snip(lila.web.ui.help.voiceMove)
-      case "master"        => Redirect(routes.TitleVerify.index.url)
-      case _               => notFound
+      case "voice/move" => Ok.snip(lila.web.ui.help.voiceMove)
+      case "master" => Redirect(routes.TitleVerify.index.url)
+      case _ => notFound
 
   def movedPermanently(to: String) = Anon:
     MovedPermanently(to)

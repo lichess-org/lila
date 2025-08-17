@@ -204,9 +204,9 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
     )
 
   private def arenaBanMenu(using Context): Branch =
-    val noPlay  = "I have joined many arenas without playing in them"
+    val noPlay = "I have joined many arenas without playing in them"
     val noStart = "I did not move in many arenas games"
-    val deny    = "I have followed fair-play and arenas rules"
+    val deny = "I have followed fair-play and arenas rules"
     Branch(
       "root",
       tap.arenaBanned(),
@@ -269,7 +269,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
 
   private def prizebanMenu(using Context): Branch =
     val prizebanExpired = "My ban duration has expired, as I was informed by moderators."
-    val deny            = "I reject any allegation of wrongdoing that may have prompted a prizeban."
+    val deny = "I reject any allegation of wrongdoing that may have prompted a prizeban."
     Branch(
       "root",
       tap.prizeBanned(),

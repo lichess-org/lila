@@ -18,7 +18,7 @@ import lila.core.security.{ ClearPassword, HashedPassword }
   */
 final private class Aes(secret: Secret):
   private val sKey =
-    val sk    = Base64.getDecoder.decode(secret.value)
+    val sk = Base64.getDecoder.decode(secret.value)
     val kBits = sk.length * 8
     if kBits != 128 then
       if !(kBits == 192 || kBits == 256) then throw new IllegalArgumentException

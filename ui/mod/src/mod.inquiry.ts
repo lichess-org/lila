@@ -112,7 +112,7 @@ site.load.then(() => {
     addToNote(`${username}: "${$(this).text()}"`);
   });
 
-  $('.user-show').on('click', '.mz-section--others .add-to-note', function (this: HTMLElement) {
+  $('.user-show, .appeal').on('click', '.mz-section--others .add-to-note', function (this: HTMLElement) {
     const username = $(this).parents('tr').find('td:first-child .user-link').text().split(' ')[0];
     addToNote(`Alt: @${username}`);
   });

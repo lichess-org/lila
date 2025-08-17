@@ -5,7 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Para convidar alguém para jogar, envie este URL</string>
   <string name="gameOver">Fim da partida</string>
   <string name="waitingForOpponent">Aguardando oponente</string>
-  <string name="orLetYourOpponentScanQrCode">Ou deixe seu oponente ler este código QR</string>
+  <string name="orLetYourOpponentScanQrCode">Ou deixe seu oponente ler este QR code</string>
   <string name="waiting">Aguardando</string>
   <string name="yourTurn">Sua vez</string>
   <string name="aiNameLevelAiLevel">%1$s nível %2$s</string>
@@ -39,7 +39,7 @@
   <string name="whitePlays">Brancas jogam</string>
   <string name="blackPlays">Pretas jogam</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">O seu adversário deixou a partida. Você pode reivindicar vitória em %s segundo.</item>
+    <item quantity="one">O seu adversário deixou a partida. Você pode reivindicar vitória em %s segundos.</item>
     <item quantity="other">O seu adversário deixou a partida. Você pode reivindicar vitória em %s segundos.</item>
   </plurals>
   <string name="opponentLeftChoices">O seu oponente deixou a partida. Você pode reivindicar vitória, declarar empate ou aguardar.</string>
@@ -168,6 +168,7 @@
   <string name="drawByMutualAgreement">Empate por acordo mútuo</string>
   <string name="fiftyMovesWithoutProgress">Cinquenta jogadas sem progresso</string>
   <string name="currentGames">Partidas atuais</string>
+  <string name="joinedX">Registrou-se %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s partida</item>
     <item quantity="other">%s partidas</item>
@@ -478,7 +479,7 @@
   <string name="openTournaments">Torneios abertos</string>
   <string name="duration">Duração</string>
   <string name="winner">Vencedor</string>
-  <string name="standing">Colocação</string>
+  <string name="standings">Classificação</string>
   <string name="createANewTournament">Criar novo torneio</string>
   <string name="tournamentCalendar">Calendário do torneio</string>
   <string name="conditionOfEntry">Condições de participação:</string>
@@ -492,7 +493,6 @@
   <string name="points">Pontos</string>
   <string name="wins">Vitórias</string>
   <string name="losses">Derrotas</string>
-  <string name="createdBy">Criado por</string>
   <string name="startingIn" comment="Displayed above a timer">Começando em</string>
   <string name="standByX">%s, aguarde: o pareamento está em andamento, prepare-se!</string>
   <string name="pause">Pausar</string>
@@ -678,7 +678,7 @@
   <string name="really">realmente</string>
   <string name="contribute">Contribuir</string>
   <string name="termsOfService">Termos de serviço</string>
-  <string name="titleVerification" comment="This is a link to a form that lets players verify either a FIDE or national federation title (NM, etc).">Verificação de título</string>
+  <string name="titleVerification">Verificação de título</string>
   <string name="sourceCode">Código-fonte</string>
   <string name="simultaneousExhibitions">Exibição simultânea</string>
   <string name="host">Simultanista</string>
@@ -1008,4 +1008,5 @@ Deixe em branco para começar as partidas na posição inicial padrão.</string>
   <string name="accessibility">Acessibilidade</string>
   <string name="enableBlindMode">Habilitar modo às cegas</string>
   <string name="disableBlindMode">Desabilitar modo às cegas</string>
+  <string name="copyToClipboard">Copiar para a área de transferência</string>
 </resources>

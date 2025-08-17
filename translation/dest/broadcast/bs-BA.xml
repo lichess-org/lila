@@ -7,6 +7,11 @@
     <item quantity="few">%s emitovanja</item>
     <item quantity="other">%s emitovanja</item>
   </plurals>
+  <plurals name="nbViewers">
+    <item quantity="one">%s gledalac</item>
+    <item quantity="few">%s gledalaca</item>
+    <item quantity="other">%s gledalaca</item>
+  </plurals>
   <string name="liveBroadcasts">Prenos turnira uživo</string>
   <string name="broadcastCalendar">Kalendar emitovanja</string>
   <string name="newBroadcast">Novo emitovanje uživo</string>
@@ -60,13 +65,10 @@
   <string name="startVerySoon">Emitovanje će ubrzo započeti.</string>
   <string name="notYetStarted">Emitovanje još nije počelo.</string>
   <string name="officialWebsite">Oficijelna web-stranica</string>
-  <string name="standings">Rang lista</string>
   <string name="officialStandings">Oficijelna rang lista</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Više opcija na %s</string>
   <string name="webmastersPage">stranica web-mastera</string>
-  <string name="pgnSourceHelp" comment="%s is 'streaming API'">Javni, u stvarnom vremenu PGN izvor za ovu rundu. Nudimo također %s za bržu i efikasniju sinkronizaciju.</string>
   <string name="embedThisBroadcast">Uvežite ovo emitovanje u vašu web stranicu</string>
-  <string name="embedThisRound">Uvežite %s u vašu web-stranicu</string>
   <string name="ratingDiff">Razlika u rejtingu</string>
   <string name="gamesThisTournament">Mečevi u ovom turniru</string>
   <string name="score">Bodovi</string>
@@ -79,4 +81,9 @@
   <string name="optionalDetails">Opcionalni detalji</string>
   <string name="pastBroadcasts">Prošla emitovanja</string>
   <string name="allBroadcastsByMonth">Vidi sva moja emitovanja ovaj mjesec</string>
+  <string name="backToLiveMove">Nazad na uživo preseljenje</string>
+  <string name="sinceHideResults">Pošto ste odlučili sakriti rezultate, sve ploče za pregled su prazne kako bi se izbjegli spojleri.</string>
+  <string name="liveboard">Ploča uživo</string>
+  <string name="communityBroadcast">Emisija zajednice</string>
+  <string name="createdAndManagedBy">Kreirano od i njime upravlja %s.</string>
 </resources>

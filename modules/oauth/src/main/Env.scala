@@ -16,7 +16,7 @@ final class Env(
     settingStore: lila.memo.SettingStore.Builder,
     appConfig: Configuration,
     db: lila.db.Db
-)(using Executor, akka.stream.Materializer):
+)(using Executor, akka.stream.Materializer, play.api.Mode):
 
   lazy val originBlocklistSetting = settingStore[Strings](
     "oauthOriginBlocklist",
@@ -30,8 +30,13 @@ final class Env(
 
   lazy val tokenApi = AccessTokenApi(db(CollName("oauth2_access_token")), cacheApi, userApi)
 
-  private val mobileSecret = appConfig.get[Secret]("oauth.mobile.secret").taggedWith[MobileSecret]
-  lazy val server          = wire[OAuthServer]
+  private val mobileSecrets =
+    appConfig
+      .get[List[String]]("oauth.mobile.secrets")
+      .map(Secret(_))
+      .taggedWith[MobileSecrets]
+
+  lazy val server = wire[OAuthServer]
 
 trait OriginBlocklist
-trait MobileSecret
+trait MobileSecrets

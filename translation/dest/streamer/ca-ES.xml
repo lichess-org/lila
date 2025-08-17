@@ -33,7 +33,7 @@
   <string name="streamerLanguageSettings">La pàgina de comunicadors de Lichess es dirigeix al públic amb el mateix idioma que el que dona la vostra plataforma de vídeo en temps real. Establiu l\'idioma correcte de les vostres directes d\'escacs a l\'aplicació o servei que utilitzeu per comunicar.</string>
   <string name="twitchUsername">El teu nom d\'usuari o URL de Twitch</string>
   <string name="twitchOrYouTubeRequired" comment="A notice when creating/editing your streamer page (https://lichess.org/streamer/edit), denoting that you can only be listed if you stream from a Twitch or YouTube channel.">Es requereix Twitch o Youtube</string>
-  <string name="twitchOrYouTubeMustBeVerified">Els canvis de Twitch i YouTube han de ser verificats.
+  <string name="twitchOrYouTubeMustBeVerified" comment="For background: The &quot;streamer badge&quot; refers to the microphone icon on the streamer's profile (https://lichess.org/@/Lichess).&#10;The listing is the streamer's page that appears at https://lichess.org/streamer">Els canvis de Twitch i YouTube han de ser verificats.
 
 La teva insígnia de comunicador es suspendrà mentre la revisió estigui en curs. Això pot trigar fins a 72 hores.</string>
   <string name="youTubeChannelId">L\'ID del vostre canal de YouTube</string>

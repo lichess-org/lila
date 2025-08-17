@@ -2,10 +2,18 @@
 <resources>
   <string name="voiceCommands">Sproochbefeeler</string>
   <string name="watchTheVideoTutorial">Video-Tutorial kucken</string>
+  <string name="instructions2">Mir weise Feiler fir verschidden Zich, wa mir eis net sécher sinn. Nennt d\'Faarf oder d\'Zuel vun engem Zuchfeil fir en auszewielen.</string>
+  <string name="instructions3">Wann ee Feil e Radarkrees huet, gëtt den Zuch gespillt, soubal de Krees komplett ass. Wärend där Zäit kanns de just %1$s soe fir den Zuch direkt ze maachen, %2$s fir ofzebriechen oder d\'Faarf/Zuel vun engem anere Feil nennen. Dësen Timer kann an den Astellungen ugepasst oder ausgemaach ginn.</string>
+  <string name="instructions4">Aktivéier %s op Plaze mat Hannergrondkaméidi. Hal beim Schwätze vu Befeeler d\'Shift-Tast gedréckt, wann dës Funktioun aktiv ass.</string>
+  <string name="instructions5">Benotz d\'phoneetescht Alphabeet fir d\'Erkenne vun de Linne vum Schachbriet ze verbesseren. </string>
   <string name="thisBlogPost">Dëse Blog-Bäitrag</string>
+  <string name="moveToE4OrSelectE4Piece">Op e4 réckelen oder d\'Figur op e4 auswielen</string>
   <string name="selectOrCaptureABishop">Wiel oder huel ee Leefer</string>
   <string name="takeRookWithQueen">Den Tuerm mat der Damm huelen</string>
   <string name="castle" comment="Castle is used as a verb here, referring to castling.">Rochéieren (egal wat fir eng Säit)</string>
+  <string name="phoneticAlphabetIsBest">D\'phoneetescht Alphabet ass am beschten</string>
+  <string name="playPreferredMoveOrConfirmSomething">De preferéierten Zuch spillen oder eppes bestätegen</string>
+  <string name="sleep">Schlofen (wann d\'Wuert fir z\'erwächen aktivéiert ass)</string>
   <string name="turnOffVoiceRecognition">Sproocherkennung desaktivéieren</string>
   <string name="showPuzzleSolution">Léisung vun der Aufgab weisen</string>
 </resources>

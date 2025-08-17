@@ -15,7 +15,7 @@
   <string name="newTeam">فريق جديد</string>
   <string name="myTeams">فرقي</string>
   <string name="noTeamFound">لايوجد فريق</string>
-  <string name="joinTeam" comment="Appears as a button on team pages, and on pages of tournaments that require you to be a member of that team (e.g. Swiss tournaments).&#10;&#10;Please keep as short as possible.">انضم للفريق</string>
+  <string name="joinTeam">انضم للفريق</string>
   <string name="onlyLeaderLeavesTeam">الرجاء إضافة قائد فريق جديد قبل المغادرة، أو إغلاق الفريق.</string>
   <string name="quitTeam">انسحب من الفريق</string>
   <string name="manuallyReviewAdmissionRequests">مراجعة طلبات القبول يدويًا</string>
@@ -56,6 +56,9 @@
   <string name="teamsIlead">الفرق التي أقودها</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">قد ترغب في ربط إحدى هذه البطولات القادمة؟</string>
   <string name="leadersChat">محادثة القادة</string>
+  <string name="introduction">مقدمة</string>
+  <string name="teamIntroductionHelp">وصف موجز يمكن رؤيته في قوائم الفرق. يصل إلى 200 حرف.</string>
+  <string name="teamDescriptionHelp">وصف كامل يمكن رؤيته في صفحة الفريق.</string>
   <string name="closeTeam">إغلاق الفريق</string>
   <string name="closeTeamDescription">يغلق الفريق إلى الأبد.</string>
   <string name="entryCode">رمز دخول الفريق</string>
@@ -68,7 +71,7 @@
   <string name="joinLichessVariantTeam">انضم إلى فريق %s الرسمي للأخبار والأحداث</string>
   <string name="teamPage">صفحة الفريق</string>
   <string name="thisTeamBattleIsOver">انتهت هذه البطولة، ولم يعد من الممكن تحديث الفريق.</string>
-  <string name="listTheTeamsThatWillCompete" comment="&quot;List&quot; is used as a verb in this sentence. You can alternatively translate as &quot;Fill out&quot;, as this is presented in the context of a form.">قائمة الفرق التي ستتنافس في هذه المعركة.</string>
+  <string name="listTheTeamsThatWillCompete">قائمة الفرق التي ستتنافس في هذه المعركة.</string>
   <string name="oneTeamPerLine">فريق واحد لكل سطر. استخدم الإكمال التلقائي.</string>
   <string name="oneTeamPerLineHelp">يمكنك نسخ ولصق هذه القائمة من بطولة إلى أخرى!
 

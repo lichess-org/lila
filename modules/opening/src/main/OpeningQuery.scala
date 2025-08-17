@@ -1,21 +1,21 @@
 package lila.opening
 
 import chess.Replay
-import chess.format.pgn.{ PgnMovesStr, PgnStr, SanStr, Reader }
+import chess.format.pgn.{ PgnMovesStr, PgnStr, SanStr }
 import chess.format.{ Fen, Uci }
 import chess.opening.{ Opening, OpeningDb, OpeningKey, OpeningName }
 
 case class OpeningQuery(replay: Replay, config: OpeningConfig):
   export replay.state.sans
   val uci: Vector[Uci] = replay.moves.view.map(_.toUci).reverse.toVector
-  def position         = replay.state.position
-  def variant          = chess.variant.Standard
-  val fen              = Fen.writeOpening(replay.state.position)
-  val exactOpening     = OpeningDb.findByStandardFen(fen)
-  val family           = exactOpening.map(_.family)
-  def pgnString        = PgnMovesStr(sans.mkString(" "))
-  def pgnUnderscored   = sans.mkString("_")
-  def initial          = sans.isEmpty
+  def position = replay.state.position
+  def variant = chess.variant.Standard
+  val fen = Fen.writeOpening(replay.state.position)
+  val exactOpening = OpeningDb.findByStandardFen(fen)
+  val family = exactOpening.map(_.family)
+  def pgnString = PgnMovesStr(sans.mkString(" "))
+  def pgnUnderscored = sans.mkString("_")
+  def initial = sans.isEmpty
   def query = openingAndExtraMoves match
     case (op, _) => OpeningQuery.Query(op.fold("-")(_.key.value), pgnString.some)
   def prev = (sans.sizeIs > 1).so(
@@ -28,7 +28,7 @@ case class OpeningQuery(replay: Replay, config: OpeningConfig):
   val openingAndExtraMoves: (Option[Opening], List[SanStr]) =
     exactOpening
       .map(_.some -> Nil)
-      .orElse(OpeningDb.search(replay).map { case Opening.AtPly(op, ply) =>
+      .orElse(OpeningDb.search(replay.chronoMoves).map { case Opening.AtPly(op, ply) =>
         op.some -> sans.drop(ply.value + 1).toList
       })
       .getOrElse(none, sans.toList)
@@ -36,9 +36,9 @@ case class OpeningQuery(replay: Replay, config: OpeningConfig):
   def closestOpening: Option[Opening] = openingAndExtraMoves._1
 
   val name: String = openingAndExtraMoves match
-    case (Some(op), Nil)   => op.name.value
+    case (Some(op), Nil) => op.name.value
     case (Some(op), moves) => s"${op.name}, ${moves.mkString(" ")}"
-    case (_, moves)        => moves.mkString(" ")
+    case (_, moves) => moves.mkString(" ")
 
   override def toString = s"$query $config"
 
@@ -69,9 +69,9 @@ object OpeningQuery:
 
   private def fromPgn(pgn: PgnMovesStr, config: OpeningConfig): Option[OpeningQuery] =
     for
-      parsed <- Reader.mainline(pgn.into(PgnStr)).toOption
+      parsed <- Replay.mainline(pgn.into(PgnStr)).toOption
       replay <- parsed.valid.toOption
     yield OpeningQuery(replay, config)
 
-  val firstYear  = 2017
+  val firstYear = 2017
   val firstMonth = s"$firstYear-01"

@@ -16,7 +16,7 @@ final class Recap(env: Env) extends LilaController(env):
       html = Ok.page(views.recap.home(data, user)),
       json = data match
         case Availability.Available(data) => Ok(data).toFuccess
-        case Availability.Queued(_)       => env.recap.api.awaiter(user).map(Ok(_))
+        case Availability.Queued(_) => env.recap.api.awaiter(user).map(Ok(_))
     )
   }
 
@@ -25,7 +25,7 @@ final class Recap(env: Env) extends LilaController(env):
   )(f: Context ?=> UserModel => Availability => Fu[Result]): EssentialAction =
     Auth { ctx ?=> me ?=>
       def proceed(user: lila.core.user.User) = for
-        av  <- env.recap.api.availability(user)
+        av <- env.recap.api.availability(user)
         res <- f(using ctx.updatePref(_.forceDarkBg))(user)(av)
       yield res
       if me.is(username) then proceed(me)

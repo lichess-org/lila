@@ -36,7 +36,7 @@ export function insufficientMaterial(variant: VariantKey, fullFen: FEN): boolean
   if (/^[KkNn]{3}$/.test(pieces)) return true;
   if (/b/i.test(pieces)) {
     const expandedFen = expandFen(fullFen);
-    return (!bishopOnColor(expandedFen, 0) || !bishopOnColor(expandedFen, 1)) && !/[pPnN]/.test(pieces);
+    return (!bishopOnColor(expandedFen, 0) || !bishopOnColor(expandedFen, 1)) && !/[nN]/.test(pieces);
   }
   return false;
 }
@@ -99,6 +99,8 @@ export function statusOf(d: StatusData): string {
       if (d.drawOffers?.some(turn => turn >= d.ply)) return i18n.site.drawByMutualAgreement;
       return i18n.site.draw;
     }
+    case 'insufficientMaterialClaim':
+      return `${i18n.site.drawClaimed} • ${i18n.site.insufficientMaterial}`;
     case 'outoftime':
       return `${d.ply % 2 === 0 ? i18n.site.whiteTimeOut : i18n.site.blackTimeOut}${
         winnerSuffix || ` • ${i18n.site.draw}`

@@ -15,7 +15,7 @@ final class FishnetRedis(
     shutdown: CoordinatedShutdown
 )(using Executor):
 
-  val connIn  = client.connectPubSub()
+  val connIn = client.connectPubSub()
   val connOut = client.connectPubSub()
 
   private var stopping = false

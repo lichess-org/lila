@@ -16,14 +16,14 @@ final private class PuzzleCountApi(
     countsByTheme.dmap { _.getOrElse(theme, 0) }
 
   def byAngle(angle: PuzzleAngle): Fu[Int] = angle match
-    case PuzzleAngle.Theme(theme)    => byTheme(theme)
+    case PuzzleAngle.Theme(theme) => byTheme(theme)
     case PuzzleAngle.Opening(either) => openingApi.count(either)
 
   private val byThemeCache = cacheApi.unit[Map[PuzzleTheme.Key, Int]]:
     _.refreshAfterWrite(1.day).buildAsyncFuture: _ =>
       import Puzzle.BSONFields.*
       colls.puzzle:
-        _.aggregateList(Int.MaxValue): framework =>
+        _.aggregateList(Int.MaxValue, _.sec): framework =>
           import framework.*
           Project($doc(themes -> true)) -> List(
             Unwind(themes),
@@ -31,8 +31,8 @@ final private class PuzzleCountApi(
           )
         .map: objs =>
           for
-            obj   <- objs
-            key   <- obj.string("_id")
+            obj <- objs
+            key <- obj.string("_id")
             count <- obj.int("nb")
           yield PuzzleTheme.Key(key) -> count
         .flatMap: themed =>

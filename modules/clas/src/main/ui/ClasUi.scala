@@ -71,7 +71,7 @@ final class ClasUi(helpers: lila.ui.Helpers)(
           a(cls := "active", href := routes.Clas.show(clas.clas.id))(clas.clas.name),
           clas.students.map { s =>
             a(
-              cls  := List("student" -> true, "active" -> student.exists(s.is)),
+              cls := List("student" -> true, "active" -> student.exists(s.is)),
               href := routes.Clas.studentShow(clas.clas.id, s.userId)
             )(
               titleNameOrId(s.userId),
@@ -148,8 +148,8 @@ final class ClasUi(helpers: lila.ui.Helpers)(
     private def teacherLink(userId: UserId)(using Context) =
       lightUserSync(userId).map: user =>
         a(
-          href     := routes.Clas.teacher(user.name),
-          cls      := userClass(user.id, none, withOnline = true),
+          href := routes.Clas.teacher(user.name),
+          cls := userClass(user.id, none, withOnline = true),
           dataHref := routes.User.show(user.name)
         )(
           lineIcon(user),

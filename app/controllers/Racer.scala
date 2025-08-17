@@ -8,7 +8,7 @@ import lila.racer.{ RacerPlayer, RacerRace }
 
 final class Racer(env: Env) extends LilaController(env):
 
-  def home     = Open(serveHome)
+  def home = Open(serveHome)
   def homeLang = LangPage(routes.Racer.home)(serveHome)
 
   private def serveHome(using Context) = NoBot:
@@ -29,16 +29,20 @@ final class Racer(env: Env) extends LilaController(env):
         .map: raceId =>
           JsonOk:
             Json.obj(
-              "id"  -> raceId.value,
+              "id" -> raceId.value,
               "url" -> s"${env.net.baseUrl}${routes.Racer.show(raceId.value)}"
             )
   }
+
+  def apiGet(id: String) = Anon:
+    Found(env.racer.api.get(RacerRace.Id(id))): race =>
+      JsonOk(env.racer.json.apiResults(race))
 
   def show(id: String) = WithPlayerId { ctx ?=> playerId =>
     env.racer.api.get(RacerRace.Id(id)) match
       case None => Redirect(routes.Racer.home)
       case Some(r) =>
-        val race   = r.isLobby.so(env.racer.api.join(r.id, playerId)) | r
+        val race = r.isLobby.so(env.racer.api.join(r.id, playerId)) | r
         val player = race.player(playerId) | env.racer.api.makePlayer(playerId)
         Ok.page(views.racer.show(env.racer.json.data(race, player, ctx.pref))).map(_.noCache)
   }
@@ -64,8 +68,5 @@ final class Racer(env: Env) extends LilaController(env):
 
   private def WithPlayerId(f: Context ?=> RacerPlayer.Id => Fu[Result]) = Open:
     NoBot:
-      ctx.req.sid.map { env.racer.api.playerId(_, ctx.me) } match
-        case Some(id) => f(id)
-        case None =>
-          env.security.lilaCookie.ensureAndGet(ctx.req): sid =>
-            f(env.racer.api.playerId(sid, none))
+      env.security.lilaCookie.ensureAndGet(ctx.req): sid =>
+        f(env.racer.api.playerId(sid, ctx.me))

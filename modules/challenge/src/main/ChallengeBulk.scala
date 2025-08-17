@@ -22,11 +22,11 @@ final class ChallengeBulkApi(
 )(using Executor, akka.stream.Materializer, Scheduler):
 
   import lila.game.BSONHandlers.given
-  private given BSONDocumentHandler[ScheduledGame]      = Macros.handler
-  private given BSONHandler[chess.variant.Variant]      = variantByKeyHandler
-  private given BSONHandler[Clock.Config]               = clockConfigHandler
+  private given BSONDocumentHandler[ScheduledGame] = Macros.handler
+  private given BSONHandler[chess.variant.Variant] = variantByKeyHandler
+  private given BSONHandler[Clock.Config] = clockConfigHandler
   private given BSONHandler[Either[Clock.Config, Days]] = eitherHandler[Clock.Config, Days]
-  private given BSONDocumentHandler[ScheduledBulk]      = Macros.handler
+  private given BSONDocumentHandler[ScheduledBulk] = Macros.handler
 
   private val coll = colls.bulk
 
@@ -100,7 +100,7 @@ final class ChallengeBulkApi(
           .newGame(
             chess = chessGame,
             players = users.map(some).mapWithColor(lila.game.Player.make),
-            mode = bulk.mode,
+            rated = bulk.rated,
             source = lila.core.game.Source.Api,
             daysPerTurn = bulk.clock.toOption,
             pgnImport = None,
@@ -123,7 +123,7 @@ final class ChallengeBulkApi(
           .recover(e => logger.error(s"Bulk.sendMsg ${game.id} ${e.getMessage}"))
       .toMat(LilaStream.sinkCount)(Keep.right)
       .run()
-      .addEffect(lila.mon.api.challenge.bulk.createNb(bulk.by.value).increment(_))
+      .addEffect(lila.mon.api.challenge.bulk.createNb(bulk.by).increment(_))
       .logFailure(logger, e => s"Bulk.makePairings ${bulk.id} ${e.getMessage}") >> {
       coll.updateField($id(bulk.id), "pairedAt", nowInstant)
     }.void

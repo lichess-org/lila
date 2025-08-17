@@ -13,7 +13,7 @@
   <string name="hot">Felkapott</string>
   <string name="dateAddedNewest">Újabbak elöl</string>
   <string name="dateAddedOldest">Hozzáadva (legrégebbi)</string>
-  <string name="recentlyUpdated">Nemrégiben frissítve</string>
+  <string name="recentlyUpdated">Legutóbb frissítve</string>
   <string name="mostPopular">Legnépszerűbb</string>
   <string name="alphabetical">Betűrendben</string>
   <string name="addNewChapter">Új fejezet hozzáadása</string>
@@ -40,7 +40,7 @@
   <string name="youAreNowAContributor">Szerkesztő lettél</string>
   <string name="youAreNowASpectator">Néző lettél</string>
   <string name="pgnTags">PGN címkék</string>
-  <string name="like">Kedvel</string>
+  <string name="like">Tetszik</string>
   <string name="unlike">Mégse tetszik</string>
   <string name="newTag">Új címke</string>
   <string name="commentThisPosition">Megjegyzés ehhez az álláshoz</string>

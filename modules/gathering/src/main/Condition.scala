@@ -1,6 +1,5 @@
 package lila.gathering
 
-import scala.annotation.nowarn
 import scalalib.model.Days
 import chess.IntRating
 
@@ -22,26 +21,26 @@ object Condition:
 
   type GetMaxRating = PerfType => Fu[IntRating]
   type GetMyTeamIds = Me => Fu[List[TeamId]]
-  type GetAge       = Me => Fu[Days]
+  type GetAge = Me => Fu[Days]
 
   enum Verdict(val accepted: Boolean, val reason: Option[Translate => String]):
-    case Accepted                              extends Verdict(true, none)
+    case Accepted extends Verdict(true, none)
     case Refused(because: Translate => String) extends Verdict(false, because.some)
-    case RefusedUntil(until: Instant)          extends Verdict(false, none)
+    case RefusedUntil(until: Instant) extends Verdict(false, none)
   export Verdict.*
 
   case class WithVerdict(condition: Condition, verdict: Verdict)
 
   case object Titled extends Condition with FlatCond:
     def name(pt: PerfType)(using Translate) = trans.arena.onlyTitled.txt()
-    def apply(pt: PerfType)(using me: Me, @nowarn perf: Perf) =
+    def apply(pt: PerfType)(using me: Me, perf: Perf) =
       if me.title.exists(_.isFederation) then Accepted else Refused(name(pt)(using _))
 
   case class Bots(allowed: Boolean) extends Condition with FlatCond:
-    @nowarn def name(pt: PerfType)(using Translate) =
+    def name(pt: PerfType)(using Translate) =
       if allowed then "Bot players are allowed"
       else "Bot players are not allowed"
-    def apply(pt: PerfType)(using me: Me, @nowarn perf: Perf) =
+    def apply(pt: PerfType)(using me: Me, perf: Perf) =
       if me.isBot && !allowed then Refused(name(pt)(using _)) else Accepted
 
   case class NbRatedGame(nb: Int) extends Condition with FlatCond:
@@ -51,13 +50,13 @@ object Condition:
       else
         Refused: t =>
           given Translate = t
-          val missing     = nb - perf.nb
+          val missing = nb - perf.nb
           trans.site.needNbMorePerfGames.pluralTxt(missing, missing, pt.trans)
     def name(pt: PerfType)(using Translate) =
       trans.site.moreThanNbPerfRatedGames.pluralTxt(nb, nb, pt.trans)
 
   case class AccountAge(days: Days) extends Condition:
-    @nowarn def name(perf: PerfType)(using Translate): String =
+    def name(perf: PerfType)(using Translate): String =
       if days < 30 then s"${days.value} days old account"
       else if days < 365 then s"${days.value / 30} months old account"
       else s"${days.value / 365} years old account"
@@ -101,7 +100,7 @@ object Condition:
 
   case class MinRating(rating: IntRating) extends Condition with RatingCondition with FlatCond:
 
-    def apply(pt: PerfType)(using @nowarn me: Me, perf: Perf) =
+    def apply(pt: PerfType)(using me: Me, perf: Perf) =
       if perf.provisional.yes then
         Refused: t =>
           given Translate = t
@@ -126,13 +125,13 @@ object Condition:
 
   case class AllowList(value: String) extends Condition with FlatCond:
     private lazy val segments: Set[String] = value.linesIterator.map(_.trim.toLowerCase).toSet
-    private val titled                     = "%titled"
-    private def allowAnyTitledUser         = segments contains titled
-    def apply(pt: PerfType)(using me: Me, @nowarn perf: Perf): Condition.Verdict =
+    private val titled = "%titled"
+    private def allowAnyTitledUser = segments contains titled
+    def apply(pt: PerfType)(using me: Me, perf: Perf): Condition.Verdict =
       if segments.contains(me.userId.value) then Accepted
       else if allowAnyTitledUser && me.title.isDefined then Accepted
       else Refused { _ => "Your name is not in the tournament line-up." }
-    def userIds: Set[UserId]                = UserId.from(segments - titled)
+    def userIds: Set[UserId] = UserId.from(segments - titled)
     def name(pt: PerfType)(using Translate) = "Fixed line-up"
 
   case class WithVerdicts(list: List[WithVerdict]):

@@ -17,7 +17,7 @@ object AuthorizationRequest:
     // redirect_uri is absolutely required. Ignore all other errors for now.
     def prompt: Either[Error, Prompt] = for
       redirectUri <- redirectUri.toRight(Error.RedirectUriRequired).flatMap(RedirectUri.from)
-      clientId    <- clientId.toRight(Error.ClientIdRequired)
+      clientId <- clientId.toRight(Error.ClientIdRequired)
     yield Prompt(
       redirectUri,
       state,
@@ -66,7 +66,7 @@ object AuthorizationRequest:
       scope.has(OAuthScope.Web.Mobile.key)
     )
     lazy val looksLikeLichessMobile = lichessMobileAttributes.forall(identity)
-    lazy val mimicsLichessMobile    = !looksLikeLichessMobile && lichessMobileAttributes.exists(identity)
+    lazy val mimicsLichessMobile = !looksLikeLichessMobile && lichessMobileAttributes.exists(identity)
     lazy val isDanger = scopes.intersects(OAuthScope.dangerList) && !trusted && !looksLikeLichessMobile
 
     def authorize(
@@ -88,8 +88,8 @@ object AuthorizationRequest:
         .dmap: challenge =>
           for
             challenge <- challenge
-            scopes    <- validScopes
-            _         <- responseType.toRight(Error.ResponseTypeRequired).flatMap(ResponseType.from)
+            scopes <- validScopes
+            _ <- responseType.toRight(Error.ResponseTypeRequired).flatMap(ResponseType.from)
           yield Authorized(clientId, redirectUri, state, user, scopes, challenge)
 
   case class Authorized(

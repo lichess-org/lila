@@ -37,8 +37,8 @@ final class GitHub(cacheApi: lila.memo.CacheApi, ws: StandaloneWSClient)(using E
       .replace("-----BEGIN PUBLIC KEY-----", "")
       .replace("-----END PUBLIC KEY-----", "")
       .replaceAll("\\s", "")
-    val encoded    = Base64.getDecoder.decode(publicKeyPEM)
-    val keySpec    = new X509EncodedKeySpec(encoded)
+    val encoded = Base64.getDecoder.decode(publicKeyPEM)
+    val keySpec = new X509EncodedKeySpec(encoded)
     val keyFactory = KeyFactory.getInstance("EC")
     keyFactory.generatePublic(keySpec)
 

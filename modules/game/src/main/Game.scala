@@ -30,7 +30,8 @@ object GameExt:
       // On the other hand, if history.size is more than playedTurns,
       // then the game ended during a players turn by async event, and
       // the last recorded time is in the history for turnColor.
-      val noLastInc = g.finished && (g.playedTurns >= history.size) == (color != g.turnColor)
+      val clocksRecorded = history.mapReduce(_.size)(_ + _)
+      val noLastInc = g.finished && (g.playedPlies >= clocksRecorded) == (color != g.turnColor)
 
       pairs
         .map: (first, second) =>
@@ -42,14 +43,21 @@ object GameExt:
     }
   }.orElse(g.binaryMoveTimes.map: binary =>
     // TODO: make movetime.read return List after writes are disabled.
-    val base = BinaryFormat.moveTime.read(binary, g.playedTurns)
-    val mts  = if color == g.startColor then base else base.drop(1)
+    val base = BinaryFormat.moveTime.read(binary, g.playedPlies)
+    val mts = if color == g.startColor then base else base.drop(1)
     everyOther(mts.toList))
 
   def analysable(g: Game) =
-    g.replayable && g.playedTurns > 4 &&
+    g.replayable && g.playedPlies > 4 &&
       Game.analysableVariants(g.variant) &&
       !Game.isOldHorde(g)
+
+  extension (clockHistory: ClockHistory)
+
+    def recordNewClock(color: Color, clock: Clock) =
+      clockHistory.update(color, _ :+ clock.remainingTime(color))
+
+    def resetClockHistory(color: Color) = clockHistory.update(color, _ => Vector.empty)
 
   extension (g: Game)
 
@@ -85,7 +93,7 @@ object GameExt:
               loadClockHistory = _ =>
                 g.clockHistory.map: history =>
                   if history(color).isEmpty then history
-                  else history.reset(color).record(color, newClock)
+                  else history.resetClockHistory(color).recordNewClock(color, newClock)
             ).updatePlayer(color, _.copy(berserk = true))
           ) ++
             List(
@@ -118,8 +126,8 @@ object GameExt:
       // because it depends on the current time
       val newClockHistory = for
         clk <- game.clock
-        ch  <- g.clockHistory
-      yield ch.record(g.turnColor, clk)
+        ch <- g.clockHistory
+      yield ch.recordNewClock(g.turnColor, clk)
 
       val updated = g.copy(
         players = g.players.map(copyPlayer),
@@ -127,7 +135,7 @@ object GameExt:
         binaryMoveTimes = (!g.sourceIs(_.Import) && g.chess.clock.isEmpty).option {
           BinaryFormat.moveTime.write {
             g.binaryMoveTimes.so { t =>
-              BinaryFormat.moveTime.read(t, g.playedTurns)
+              BinaryFormat.moveTime.read(t, g.playedPlies)
             } :+ Centis.ofLong(nowCentis - g.movedAt.toCentis).nonNeg
           }
         },
@@ -177,14 +185,14 @@ object GameExt:
             // for the active color. This ensures the end time in
             // clockHistory always matches the final clock time on
             // the board.
-            if !g.finished then history.record(g.turnColor, clk)
+            if !g.finished then history.recordNewClock(g.turnColor, clk)
             else history
       )
 
     def abandoned = (g.status <= Status.Started) && (g.movedAt.isBefore(Game.abandonedDate))
 
     def playerBlurPercent(color: Color): Int =
-      if g.playedTurns > 5
+      if g.playedPlies > 5
       then (g.player(color).blurs.nb * 100) / g.playerMoves(color)
       else 0
 
@@ -202,7 +210,7 @@ object GameExt:
   private def everyOther[A](l: List[A]): List[A] =
     l match
       case a :: _ :: tail => a :: everyOther(tail)
-      case _              => l
+      case _ => l
 
 end GameExt
 
@@ -254,37 +262,37 @@ object Game:
 
   object BSONFields:
     export lila.core.game.BSONFields.*
-    val whitePlayer       = "p0"
-    val blackPlayer       = "p1"
-    val playerIds         = "is"
-    val binaryPieces      = "ps"
-    val oldPgn            = "pg"
-    val huffmanPgn        = "hp"
-    val status            = "s"
-    val startedAtTurn     = "st"
-    val clock             = "c"
-    val positionHashes    = "ph"
-    val checkCount        = "cc"
-    val castleLastMove    = "cl"
-    val unmovedRooks      = "ur"
-    val daysPerTurn       = "cd"
-    val moveTimes         = "mt"
+    val whitePlayer = "p0"
+    val blackPlayer = "p1"
+    val playerIds = "is"
+    val binaryPieces = "ps"
+    val oldPgn = "pg"
+    val huffmanPgn = "hp"
+    val status = "s"
+    val startedAtTurn = "st"
+    val clock = "c"
+    val positionHashes = "ph"
+    val checkCount = "cc"
+    val castleLastMove = "cl"
+    val unmovedRooks = "ur"
+    val daysPerTurn = "cd"
+    val moveTimes = "mt"
     val whiteClockHistory = "cw"
     val blackClockHistory = "cb"
-    val rated             = "ra"
-    val variant           = "v"
-    val crazyData         = "chd"
-    val bookmarks         = "bm"
-    val source            = "so"
-    val tournamentId      = "tid"
-    val swissId           = "iid"
-    val simulId           = "sid"
-    val tvAt              = "tv"
-    val winnerColor       = "w"
-    val initialFen        = "if"
-    val checkAt           = "ck"
-    val drawOffers        = "do"
-    val rules             = "rules"
+    val rated = "ra"
+    val variant = "v"
+    val crazyData = "chd"
+    val bookmarks = "bm"
+    val source = "so"
+    val tournamentId = "tid"
+    val swissId = "iid"
+    val simulId = "sid"
+    val tvAt = "tv"
+    val winnerColor = "w"
+    val initialFen = "if"
+    val checkAt = "ck"
+    val drawOffers = "do"
+    val rules = "rules"
 
 case class CastleLastMove(castles: Castles, lastMove: Option[Uci])
 
@@ -305,5 +313,3 @@ object CastleLastMove:
 
 enum DrawReason:
   case MutualAgreement, FiftyMoves, ThreefoldRepetition, InsufficientMaterial
-
-private val someEmptyClockHistory = Some(ClockHistory())

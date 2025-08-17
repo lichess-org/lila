@@ -38,7 +38,7 @@ final class Analyse(
     else
       for
         initialFen <- env.game.gameRepo.initialFen(pov.gameId)
-        users      <- env.user.api.gamePlayers(pov.game.players.map(_.userId), pov.game.perfKey)
+        users <- env.user.api.gamePlayers(pov.game.players.map(_.userId), pov.game.perfKey)
         _ = gameC.preloadUsers(users)
         res <- RedirectAtFen(pov, initialFen):
           (
@@ -114,7 +114,7 @@ final class Analyse(
           case _ =>
             render:
               case AcceptsPgn() => NotFound("*")
-              case _            => NotFound.snip(views.analyse.embed.notFound)
+              case _ => NotFound.snip(views.analyse.embed.notFound)
 
   private def RedirectAtFen(pov: Pov, initialFen: Option[Fen.Full])(or: => Fu[Result])(using
       Context
@@ -133,10 +133,10 @@ final class Analyse(
 
   private def replayForCrawler(pov: Pov)(using Context) = for
     initialFen <- env.game.gameRepo.initialFen(pov.gameId)
-    analysis   <- env.analyse.analyser.get(pov.game)
-    simul      <- pov.game.simulId.so(env.simul.repo.find)
+    analysis <- env.analyse.analyser.get(pov.game)
+    simul <- pov.game.simulId.so(env.simul.repo.find)
     crosstable <- env.game.crosstableApi.withMatchup(pov.game)
-    pgn        <- env.api.pgnDump(pov.game, initialFen, analysis, PgnDump.WithFlags(clocks = false))
+    pgn <- env.api.pgnDump(pov.game, initialFen, analysis, PgnDump.WithFlags(clocks = false))
     page <- renderPage:
       views.analyse.replay.forCrawler(
         pov,
@@ -160,11 +160,11 @@ final class Analyse(
 
   def externalEngineCreate = ScopedBody(_.Engine.Write) { ctx ?=> me ?=>
     HTTPRequest.bearer(ctx.req).so { bearer =>
-      val tokenId = AccessToken.Id.from(bearer)
+      val tokenId = AccessToken.idFrom(bearer)
       bindForm(lila.analyse.ExternalEngine.form)(
         jsonFormError,
         data =>
-          env.analyse.externalEngine.create(me, data, tokenId.value).map { engine =>
+          env.analyse.externalEngine.create(me, data, tokenId).map { engine =>
             Created(lila.analyse.ExternalEngine.jsonWrites.writes(engine))
           }
       )

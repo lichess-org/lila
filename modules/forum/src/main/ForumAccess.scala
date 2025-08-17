@@ -19,11 +19,11 @@ final class ForumAccess(
         teamApi
           .forumAccessOf(teamId)
           .flatMap:
-            case Access.None     => fuFalse
+            case Access.None => fuFalse
             case Access.Everyone =>
               // when the team forum is open to everyone, you still need to belong to the team in order to post
               op match
-                case Operation.Read  => fuTrue
+                case Operation.Read => fuTrue
                 case Operation.Write => me.so(teamApi.belongsTo(teamId, _))
             case Access.Members => me.so(teamApi.belongsTo(teamId, _))
             case Access.Leaders => me.so(teamApi.isLeader(teamId, _))

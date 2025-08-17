@@ -25,4 +25,4 @@ private object BSONHandlers:
 
   given BSONDocumentHandler[Follower] = Macros.handler
   given BSONDocumentHandler[Followed] = Macros.handler
-  given BSONDocumentHandler[Blocked]  = Macros.handler
+  given BSONDocumentHandler[Blocked] = Macros.handler

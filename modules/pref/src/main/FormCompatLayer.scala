@@ -15,9 +15,9 @@ object FormCompatLayer:
           "clock",
           List(
             "clockTenths" -> "tenths",
-            "clockBar"    -> "bar",
-            "clockSound"  -> "sound",
-            "moretime"    -> "moretime"
+            "clockBar" -> "bar",
+            "clockSound" -> "sound",
+            "moretime" -> "moretime"
           )
         )
       )

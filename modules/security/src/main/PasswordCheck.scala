@@ -13,10 +13,9 @@ object PasswordCheck:
   def isWeak(p: ClearPassword, login: String) =
     login == p.value || commonPasswords(p.value)
 
-  def newConstraint(using mode: Mode) = Constraint[String] { (pass: String) =>
-    if mode.isProd && commonPasswords(pass) then Invalid(ValidationError(errorWeak))
+  def newConstraint(using mode: Mode) = Constraint[String]: pass =>
+    if commonPasswords(pass) then Invalid(ValidationError(errorWeak))
     else Valid
-  }
 
   def sameConstraint(user: UserStr)(using mode: Mode) = Constraint[String]: pass =>
     if mode.isProd && pass == user.value then Invalid(ValidationError(errorSame))

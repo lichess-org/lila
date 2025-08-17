@@ -15,7 +15,7 @@ def embed(daily: DailyPuzzle.WithHtml)(using config: EmbedContext) =
   )(
     bits.dailyLink(daily)(using config.translate)(
       targetBlank,
-      id  := "daily-puzzle",
+      id := "daily-puzzle",
       cls := "embedded"
     ),
     chessgroundTag

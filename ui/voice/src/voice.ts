@@ -62,7 +62,7 @@ export function makeVoice(opts: {
   document.addEventListener('keydown', (e: KeyboardEvent) => {
     if (e.key !== 'Shift' || shiftDown) return;
     shiftDown = true;
-    window.speechSynthesis.cancel();
+    window.speechSynthesis?.cancel();
     if (pushTalk()) mic.start();
     clearTimeout(keyupTimeout);
   });

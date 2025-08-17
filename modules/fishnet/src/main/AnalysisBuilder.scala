@@ -1,6 +1,6 @@
 package lila.fishnet
 
-import chess.Ply
+import chess.{ Position, Ply }
 import chess.format.Uci
 import chess.format.pgn.SanStr
 
@@ -26,14 +26,17 @@ final private class AnalysisBuilder(evalCache: IFishnetEvalCache)(using Executor
        * https://github.com/lichess-org/lichobile/issues/722
        */
       val cached = if isPartial then cachedFull - 0 else cachedFull
-      def debug  = s"${work.game.variant.key} analysis for ${work.game.id} by ${client.fullId}"
-      chess
-        .Replay(work.game.uciList, work.game.initialFen, work.game.variant)
+      def debug = s"${work.game.variant.key} analysis for ${work.game.id} by ${client.fullId}"
+
+      val setup = Position.AndFullMoveNumber(work.game.variant, work.game.initialFen)
+      setup
+        .playPositions(work.game.uciList)
         .fold(
           err => fufail(err.value),
-          replay =>
+          positions =>
             val (analysis, errors) = UciToSan(
-              replay,
+              positions,
+              setup.ply,
               Analysis(
                 id = Analysis.Id(work.game.studyId, work.game.id),
                 infos = makeInfos(mergeEvalsAndCached(work, evals, cached), work.game.uciList, work.startPly),
@@ -59,7 +62,7 @@ final private class AnalysisBuilder(evalCache: IFishnetEvalCache)(using Executor
       cached: Map[Int, Evaluation]
   ): List[Option[Evaluation]] =
     evals.mapWithIndex:
-      case (None, i)                             => cached.get(i)
+      case (None, i) => cached.get(i)
       case (Some(EvalOrSkip.Evaluated(eval)), i) => cached.getOrElse(i, eval).some
       case (_, i) =>
         cached
@@ -82,7 +85,7 @@ final private class AnalysisBuilder(evalCache: IFishnetEvalCache)(using Executor
         case ((List(Some(before), Some(after)), move), index) =>
           val variation = before.cappedPv match
             case first :: rest if first != move => first :: rest
-            case _                              => Nil
+            case _ => Nil
           val best = variation.headOption
           val info = Info(
             ply = startedAtPly + index + 1,

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="perfStats">%sئامارەکان </string>
-  <string name="viewTheGames">بینینی یارییەکان</string>
-  <string name="provisional">کاتیی</string>
+  <string name="perfStats">ئامارەکانی %s</string>
+  <string name="viewTheGames">یارییەکان ببینە</string>
+  <string name="provisional">کاتی</string>
   <string name="notEnoughRatedGames">یاریی پلەبەندی پێویست ئەنجام نەدراوە بۆ جێگیرکردنی پلەبەندیەکی جێی متمانە.</string>
   <string name="progressOverLastXGames">پێشکەوتن لە کۆتا %s یارییەکان:</string>
   <string name="ratingDeviation">لادان لە پلەبەندی:%s.</string>

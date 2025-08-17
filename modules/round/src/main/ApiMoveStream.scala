@@ -2,7 +2,7 @@ package lila.round
 
 import akka.stream.scaladsl.*
 import chess.format.Fen
-import chess.{ ByColor, Centis, Ply, Replay }
+import chess.{ ByColor, Centis, Ply, Position }
 import play.api.libs.json.*
 
 import lila.common.Bus
@@ -36,28 +36,30 @@ final class ApiMoveStream(
             .mapMaterializedValue: queue =>
               val clocks =
                 for
-                  clk        <- game.clock
+                  clk <- game.clock
                   clkHistory <- game.clockHistory
                 yield ByColor(
                   Vector(clk.config.initTime) ++ clkHistory.white,
                   Vector(clk.config.initTime) ++ clkHistory.black
                 )
               val clockOffset = game.startColor.fold(0, 1)
-              Replay.boards(game.sans, initialFen, game.variant).foreach {
-                _.zipWithIndex.foreach: (s, index) =>
-                  val clk = for
-                    c     <- clocks
-                    white <- c.white.lift((index + 1 - clockOffset) >> 1)
-                    black <- c.black.lift((index + clockOffset) >> 1)
-                  yield ByColor(white, black)
-                  queue.offer(
-                    toJson(
-                      Fen.write(s, (game.startedAtPly + index).fullMoveNumber),
-                      s.history.lastMove.map(_.uci),
-                      clk
+              Position(game.variant, initialFen)
+                .playPositions(game.sans)
+                .foreach {
+                  _.zipWithIndex.foreach: (s, index) =>
+                    val clk = for
+                      c <- clocks
+                      white <- c.white.lift((index + 1 - clockOffset) >> 1)
+                      black <- c.black.lift((index + clockOffset) >> 1)
+                    yield ByColor(white, black)
+                    queue.offer(
+                      toJson(
+                        Fen.write(s, (game.startedAtPly + index).fullMoveNumber),
+                        s.history.lastMove.map(_.uci),
+                        clk
+                      )
                     )
-                  )
-              }
+                }
               if game.finished then
                 queue.offer(makeGameJson(game))
                 queue.complete()

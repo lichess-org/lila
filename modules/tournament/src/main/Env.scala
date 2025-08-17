@@ -33,15 +33,16 @@ final class Env(
     ActorSystem,
     akka.stream.Materializer,
     lila.core.game.IdGenerator,
-    lila.core.i18n.Translator
+    lila.core.i18n.Translator,
+    lila.core.config.RateLimit
 ):
 
   lazy val forms = wire[TournamentForm]
 
-  private val playerColl           = CollName("tournament_player")
-  lazy val tournamentRepo          = TournamentRepo(db(CollName("tournament2")), playerColl)
-  lazy val pairingRepo             = PairingRepo(db(CollName("tournament_pairing")))
-  lazy val playerRepo              = PlayerRepo(db(playerColl))
+  private val playerColl = CollName("tournament_player")
+  lazy val tournamentRepo = TournamentRepo(db(CollName("tournament2")), playerColl)
+  lazy val pairingRepo = PairingRepo(db(CollName("tournament_pairing")))
+  lazy val playerRepo = PlayerRepo(db(playerColl))
   private lazy val leaderboardRepo = LeaderboardRepo(db(CollName("tournament_leaderboard")))
 
   lazy val cached: TournamentCache = wire[TournamentCache]
@@ -71,11 +72,9 @@ final class Env(
   private lazy val apiCallbacks = TournamentApi.Callbacks(
     clearJsonViewCache = jsonView.clearCache,
     clearWinnersCache = winners.clearCache,
-    clearTrophyCache = (
-        tour =>
-          if tour.isShield then scheduler.scheduleOnce(10.seconds) { shieldApi.clear() }
-          else if Revolution.is(tour) then scheduler.scheduleOnce(10.seconds) { revolutionApi.clear() }
-    ),
+    clearTrophyCache = tour =>
+      if tour.isShield then scheduler.scheduleOnce(10.seconds) { shieldApi.clear() }
+      else if Revolution.is(tour) then scheduler.scheduleOnce(10.seconds) { revolutionApi.clear() },
     indexLeaderboard = leaderboardIndexer.indexOne
   )
 
@@ -128,7 +127,7 @@ final class Env(
     tournamentRepo.countCreated.foreach { lila.mon.tournament.created.update(_) }
 
   private val redisClient = RedisClient.create(RedisURI.create(appConfig.get[String]("socket.redis.uri")))
-  val lilaHttp            = wire[TournamentLilaHttp]
+  val lilaHttp = wire[TournamentLilaHttp]
 
   def version(tourId: TourId): Fu[SocketVersion] =
     socket.rooms.ask[SocketVersion](tourId.into(RoomId))(GetVersion.apply)

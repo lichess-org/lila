@@ -8,7 +8,7 @@ import { ExplorerDb, ExplorerSpeed, ExplorerMode } from './interfaces';
 import AnalyseCtrl from '../ctrl';
 import perfIcons from 'lib/game/perfIcons';
 import { ucfirst } from './explorerUtil';
-import { opposite } from 'chessground/util';
+import { opposite } from '@lichess-org/chessground/util';
 import { userComplete } from 'lib/view/userComplete';
 
 const allSpeeds: ExplorerSpeed[] = ['ultraBullet', 'bullet', 'blitz', 'rapid', 'classical', 'correspondence'];

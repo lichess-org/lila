@@ -16,7 +16,7 @@ final class RecapApi(
     import Recap.Availability.*
     get(user.id).flatMap:
       case Some(recap) => recapJson(recap, user).map(Available(_))
-      case None        => for _ <- queue.enqueue(user.id) yield Queued(recapJson(user))
+      case None => for _ <- queue.enqueue(user.id) yield Queued(recapJson(user))
 
   // waits until the recap is computed
   def awaiter(user: User, counter: Int = 0): Fu[JsObject] =

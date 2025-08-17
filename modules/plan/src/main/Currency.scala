@@ -47,7 +47,7 @@ final class CurrencyApi(
     ratesCache.get {}.map { rates =>
       for
         fromRate <- rates.get(money.currencyCode)
-        toRate   <- rates.get(currency.getCurrencyCode)
+        toRate <- rates.get(currency.getCurrencyCode)
       yield Money(money.amount / fromRate * toRate, currency)
     }
 

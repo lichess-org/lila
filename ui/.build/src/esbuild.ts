@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import { join, basename } from 'node:path';
 import { env, errorMark, warnMark, c } from './env.ts';
 import { type Manifest, updateManifest } from './manifest.ts';
-import { task, stopTask } from './task.ts';
+import { makeTask, stopTask } from './task.ts';
 import { definedMap } from './algo.ts';
 
 let esbuildCtx: es.BuildContext | undefined;
@@ -31,7 +31,7 @@ export async function esbuild(): Promise<any> {
   await fs.promises.mkdir(env.jsOutDir).catch(() => {});
   return Promise.all([
     inlineTask(),
-    task({
+    makeTask({
       key: 'bundle',
       ctx: 'esbuild',
       debounce: 300,
@@ -71,7 +71,7 @@ function inlineTask() {
       inlineToModule[join(pkg.root, bundle.inline)] = bundle.module
         ? basename(bundle.module, '.ts')
         : basename(bundle.inline, '.inline.ts');
-  return task({
+  return makeTask({
     key: 'inline',
     debounce: 300,
     includes: env.building.flatMap(pkg =>

@@ -8,10 +8,10 @@ object FideJson:
   given OWrites[FidePlayer] = OWrites: p =>
     Json
       .obj(
-        "id"         -> p.id,
-        "name"       -> p.name,
+        "id" -> p.id,
+        "name" -> p.name,
         "federation" -> p.fed,
-        "year"       -> p.year
+        "year" -> p.year
       )
       .add("title" -> p.title)
       .add("inactive" -> p.inactive)

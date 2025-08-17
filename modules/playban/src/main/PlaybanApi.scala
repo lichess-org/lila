@@ -26,7 +26,7 @@ final class PlaybanApi(
     { case BSONInteger(v) => Outcome(v).toTry(s"No such playban outcome: $v") },
     x => BSONInteger(x.id)
   )
-  private given BSONDocumentHandler[TempBan]    = Macros.handler
+  private given BSONDocumentHandler[TempBan] = Macros.handler
   private given BSONDocumentHandler[UserRecord] = Macros.handler
 
   lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
@@ -37,7 +37,7 @@ final class PlaybanApi(
 
   private def blameable(game: Game): Fu[Boolean] =
     (blameableSource(game) && game.hasClock).so:
-      if game.rated then fuTrue
+      if game.rated.no then fuTrue
       else userApi.containsEngine(game.userIds).not
 
   private def IfBlameable[A: alleycats.Zero](game: Game)(f: => Fu[A]): Fu[A] =
@@ -96,9 +96,9 @@ final class PlaybanApi(
         .userId
         .ifTrue:
           ~(for
-            movetimes    <- gameApi.computeMoveTimes(game, flaggerColor)
+            movetimes <- gameApi.computeMoveTimes(game, flaggerColor)
             lastMovetime <- movetimes.lastOption
-            limit        <- unreasonableTime
+            limit <- unreasonableTime
           yield lastMovetime.roundSeconds >= limit)
         .map: userId =>
           for
@@ -117,7 +117,7 @@ final class PlaybanApi(
       }
 
   def other(game: Game, status: Status, winner: Option[Color]): Funit =
-    if game.casual && blameableSource(game) && isQuickResign(game, status)
+    if game.rated.no && blameableSource(game) && isQuickResign(game, status)
     then winner.map(game.opponent).flatMap(_.userId).so(handleQuickResign(game, _))
     else
       IfBlameable(game):
@@ -238,9 +238,9 @@ final class PlaybanApi(
           update = $doc(
             $push("o" -> $doc("$each" -> List(outcome), "$slice" -> -30)) ++ {
               rsUpdate match
-                case RageSit.Update.Reset            => $min("c" -> 0)
+                case RageSit.Update.Reset => $min("c" -> 0)
                 case RageSit.Update.Inc(v) if v != 0 => $inc("c" -> v)
-                case _                               => $empty
+                case _ => $empty
             }
           ),
           fetchNewObject = true,
@@ -251,7 +251,7 @@ final class PlaybanApi(
         if outcome == Outcome.Good then fuccess(withOutcome)
         else
           for
-            age     <- userApi.accountAge(userId)
+            age <- userApi.accountAge(userId)
             withBan <- legiferate(withOutcome, age, source)
           yield withBan
       _ <- registerRageSit(withBan, rsUpdate)
@@ -272,7 +272,7 @@ final class PlaybanApi(
             selector = $id(record.userId),
             update = $unset("o") ++ $push(
               "b" -> $doc(
-                "$each"  -> List(ban),
+                "$each" -> List(ban),
                 "$slice" -> -30
               )
             ),

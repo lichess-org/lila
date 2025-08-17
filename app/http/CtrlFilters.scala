@@ -38,7 +38,7 @@ trait CtrlFilters(using Executor) extends ControllerHelpers with ResponseBuilder
 
   def NoTor(res: => Fu[Result])(using ctx: Context): Fu[Result] =
     env.security.ipTrust
-      .isPubOrTor(ctx.ip)
+      .isPubOrTor(ctx.req)
       .flatMap:
         if _ then Unauthorized.page(views.auth.pubOrTor)
         else res
@@ -81,8 +81,8 @@ trait CtrlFilters(using Executor) extends ControllerHelpers with ResponseBuilder
   def AuthOrTrustedIp(f: => Fu[Result])(using ctx: Context): Fu[Result] =
     if ctx.isAuth then f
     else
-      env.security
-        .ip2proxy(ctx.ip)
+      env.security.ip2proxy
+        .ofReq(ctx.req)
         .flatMap: ip =>
           if ip.isSafeish then f
           else Redirect(routes.Auth.login)

@@ -6,15 +6,3 @@ db.trophy.insert({
   user: 'zugaddict',
   date: new Date(),
 });
-db.trophy.insert({
-  _id: 'wayOfBerserk',
-  kind: 'wayOfBerserk',
-  user: 'hiimgosu',
-  date: new Date(),
-});
-// db.trophy.insert({
-//   _id: 'marathon1',
-//   kind: 'marathonWinner',
-//   user: 'hiimgosu',
-//   date: new Date()
-// });

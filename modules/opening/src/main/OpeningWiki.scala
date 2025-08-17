@@ -21,7 +21,7 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
 
   import OpeningWiki.Revision
 
-  given BSONDocumentHandler[Revision]    = Macros.handler
+  given BSONDocumentHandler[Revision] = Macros.handler
   given BSONDocumentHandler[OpeningWiki] = Macros.handler
 
   def apply(op: Opening, withRevisions: Boolean): Fu[OpeningWiki] = for
@@ -37,9 +37,9 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
           $doc(
             "$push" -> $doc(
               "revisions" -> $doc(
-                "$each"     -> List(Revision(Markdown(text), by.id, nowInstant)),
+                "$each" -> List(Revision(Markdown(text), by.id, nowInstant)),
                 "$position" -> 0,
-                "$slice"    -> 30
+                "$slice" -> 30
               )
             )
           ),
@@ -60,8 +60,8 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
       .map: docs =>
         for
           doc <- docs
-          id  <- doc.getAsOpt[OpeningKey]("_id")
-          op  <- OpeningDb.shortestLines.get(id)
+          id <- doc.getAsOpt[OpeningKey]("_id")
+          op <- OpeningDb.shortestLines.get(id)
         yield op
 
   private object markdown:
@@ -87,7 +87,7 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
       F.Match($id(key)) -> List(F.Project($doc("lastRev" -> $doc("$first" -> "$revisions"))))
     popularity <- updatePopularity(key)
     lastRev = docOpt.flatMap(_.getAsOpt[Revision]("lastRev"))
-    text    = lastRev.map(_.text)
+    text = lastRev.map(_.text)
   yield OpeningWiki(text.map(markdown.render(key)), Nil, popularity)
 
   private def updatePopularity(key: OpeningKey): Fu[Long] =
@@ -100,7 +100,7 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
               .one(
                 $id(key),
                 $set(
-                  "popularity"   -> popularity,
+                  "popularity" -> popularity,
                   "popularityAt" -> nowInstant
                 ),
                 upsert = true

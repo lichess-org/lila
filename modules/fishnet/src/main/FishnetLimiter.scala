@@ -31,7 +31,7 @@ final private class FishnetLimiter(
         analysisColl
           .exists(
             $or(
-              $doc("sender.ip"     -> ip),
+              $doc("sender.ip" -> ip),
               $doc("sender.userId" -> userId)
             )
           )
@@ -52,5 +52,5 @@ final private class FishnetLimiter(
           RequestLimitPerIP(ipAddress, fuccess(Analyser.Result.DailyIpLimit))(perUser)
 
 object FishnetLimiter:
-  val maxPerDay  = 40
+  val maxPerDay = 40
   val maxPerWeek = 200

@@ -4,6 +4,19 @@
   <string name="coordinateTraining">Hnitaþjálfun</string>
   <string name="averageScoreAsWhiteX">Meðalskor sem hvítur: %s</string>
   <string name="averageScoreAsBlackX">Meðalskor sem svartur: %s</string>
-  <string name="knowingTheChessBoard">Að þekkja hnit borðsins er mikilvægur hæfileiki í skák:</string>
-  <string name="mostChessCourses">Flest skáknámskeið og æfingar gjörnýta sama ritháttinn.</string>
+  <string name="knowingTheChessBoard">Að þekkja hnit borðsins er mikilvægur hæfileiki í skák af nokkrum ástæðum:</string>
+  <string name="mostChessCourses">Flest skáknámskeið og æfingar gernýta algebrutáknkerfið.</string>
+  <string name="talkToYourChessFriends">Auðveldar þér að tala við skákvini þína, þar sem þið skiljið báðir „tungumál skákarinnar“.</string>
+  <string name="youCanAnalyseAGameMoreEffectively">Þú getur greint skák á skilvirkari hátt ef þú getur greint hnit í hasti.</string>
+  <string name="aCoordinateAppears">Hnit birtist á borðinu og þú verður að smella á samsvarandi reit.</string>
+  <string name="aSquareIsHighlightedExplanation">Reitur er uppljómaður á borðinu og þú verður að slá inn hnit hans (t.d. „e4“).</string>
+  <string name="youHaveThirtySeconds">Þú hefur 30 sekúndur til að kortleggja eins marga reiti og mögulegt er!</string>
+  <string name="goAsLongAsYouWant">Haltu áfram eins lengi og þér sýnist, það eru engin tímamörk!</string>
+  <string name="showCoordinates">Sýna hnit</string>
+  <string name="showCoordsOnAllSquares">Hnit á hverjum reit</string>
+  <string name="showPieces">Sýna taflmenn</string>
+  <string name="startTraining">Byrja að æfa</string>
+  <string name="findSquare">Finna reit</string>
+  <string name="nameSquare">Nefna reit</string>
+  <string name="practiceOnlySomeFilesAndRanks" comment="Label for a checkbox, keep it very short">Æfðu aðeins sumar línur &amp; raðir</string>
 </resources>

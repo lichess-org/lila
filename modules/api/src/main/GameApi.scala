@@ -140,20 +140,20 @@ final private[api] class GameApi(
   ) =
     Json
       .obj(
-        "id"         -> g.id,
+        "id" -> g.id,
         "initialFen" -> initialFen,
-        "rated"      -> g.rated,
-        "variant"    -> g.variant.key,
-        "speed"      -> g.speed.key,
-        "perf"       -> g.perfKey,
-        "createdAt"  -> g.createdAt,
+        "rated" -> g.rated,
+        "variant" -> g.variant.key,
+        "speed" -> g.speed.key,
+        "perf" -> g.perfKey,
+        "createdAt" -> g.createdAt,
         "lastMoveAt" -> g.movedAt,
-        "turns"      -> g.ply,
-        "color"      -> g.turnColor.name,
-        "status"     -> g.status.name,
+        "turns" -> g.ply,
+        "color" -> g.turnColor.name,
+        "status" -> g.status.name,
         "clock" -> g.clock.map { clock =>
           Json.obj(
-            "initial"   -> clock.limitSeconds,
+            "initial" -> clock.limitSeconds,
             "increment" -> clock.incrementSeconds,
             "totalTime" -> clock.estimateTotalSeconds
           )
@@ -162,8 +162,8 @@ final private[api] class GameApi(
         "players" -> JsObject(g.players.mapList { p =>
           p.color.name -> Json
             .obj(
-              "userId"     -> p.userId,
-              "rating"     -> p.rating,
+              "userId" -> p.userId,
+              "rating" -> p.rating,
               "ratingDiff" -> p.ratingDiff
             )
             .add("name", p.name)
@@ -177,16 +177,17 @@ final private[api] class GameApi(
             )
         }),
         "analysis" -> analysisOption.ifTrue(withFlags.analysis).map(analysisJson.moves(_)),
-        "moves"    -> withFlags.moves.option(g.sans.mkString(" ")),
-        "opening"  -> (withFlags.opening.so(g.opening): Option[chess.opening.Opening.AtPly]),
+        "moves" -> withFlags.moves.option(g.sans.mkString(" ")),
+        "opening" -> (withFlags.opening.so(g.opening): Option[chess.opening.Opening.AtPly]),
         "fens" -> ((withFlags.fens && g.finished).so {
-          chess.Replay
-            .boards(sans = g.sans, initialFen = initialFen, variant = g.variant)
+          chess
+            .Position(g.variant, initialFen)
+            .playPositions(g.sans)
             .toOption
             .map(boards => JsArray(boards.map(chess.format.Fen.writeBoard).map(Json.toJson)))
         }: Option[JsArray]),
         "winner" -> g.winnerColor.map(_.name),
-        "url"    -> makeUrl(g)
+        "url" -> makeUrl(g)
       )
       .noNull
 

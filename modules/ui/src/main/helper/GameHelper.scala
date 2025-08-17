@@ -1,6 +1,6 @@
 package lila.ui
 
-import chess.{ Clock, Color, Mode, Outcome }
+import chess.{ Clock, Color, Rated, Outcome }
 
 import lila.core.LightUser
 import lila.core.config.BaseUrl
@@ -14,7 +14,7 @@ trait GameHelper:
   def netBaseUrl: BaseUrl
 
   def titleGame(g: Game) =
-    val speed   = chess.Speed(g.clock.map(_.config)).name
+    val speed = chess.Speed(g.clock.map(_.config)).name
     val variant = g.variant.exotic.so(s" ${g.variant.name}")
     s"$speed$variant Chess • ${playerText(g.whitePlayer)} vs ${playerText(g.blackPlayer)}"
 
@@ -29,10 +29,10 @@ trait GameHelper:
       .orElse(game.clock.map(_.config).map(shortClockName))
       .getOrElse(trans.site.unlimited())
 
-  def modeName(mode: Mode)(using Translate): String =
-    mode match
-      case Mode.Casual => trans.site.casual.txt()
-      case Mode.Rated  => trans.site.rated.txt()
+  def ratedName(rated: Rated)(using Translate): String =
+    if rated.yes
+    then trans.site.rated.txt()
+    else trans.site.casual.txt()
 
   def playerUsername(
       player: LightPlayer,
@@ -87,8 +87,8 @@ trait GameHelper:
         span(cls := s"user-link$klass")(
           (player.aiLevel, player.name) match
             case (Some(level), _) => aiNameFrag(level)
-            case (_, Some(name))  => name
-            case _                => trans.site.anonymous()
+            case (_, Some(name)) => name
+            case _ => trans.site.anonymous()
           ,
           player.rating.ifTrue(withRating && ctx.pref.showRatings).map { rating => s" ($rating)" },
           statusIcon
@@ -190,7 +190,7 @@ trait GameHelper:
   )(using Translate): Frag =
 
     def link(href: String, title: String, name: String) = a(
-      cls     := "variant-link",
+      cls := "variant-link",
       st.href := href,
       targetBlank,
       st.title := title

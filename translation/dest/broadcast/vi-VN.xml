@@ -61,13 +61,10 @@
   <string name="startVerySoon">Chương trình phát sóng sẽ sớm bắt đầu.</string>
   <string name="notYetStarted">Chương trình phát sóng vẫn chưa bắt đầu.</string>
   <string name="officialWebsite">Website chính thức</string>
-  <string name="standings">Bảng xếp hạng</string>
   <string name="officialStandings">Bảng xếp hạng Chính thức</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Thêm tùy chọn trên %s</string>
   <string name="webmastersPage">trang nhà phát triển web</string>
-  <string name="pgnSourceHelp" comment="%s is 'streaming API'">Nguồn PGN công khai, thời gian thực cho vòng này. Chúng tôi cũng cung cấp %s để đồng bộ hóa nhanh hơn và hiệu quả hơn.</string>
   <string name="embedThisBroadcast">Nhúng chương trình phát sóng này vào trang web của bạn</string>
-  <string name="embedThisRound">Nhúng %s vào trang web của bạn</string>
   <string name="ratingDiff">Độ thay đổi hệ số</string>
   <string name="gamesThisTournament">Các ván đấu trong giải này</string>
   <string name="score">Điểm số</string>
@@ -83,4 +80,6 @@
   <string name="backToLiveMove">Trở lại nước đi thực tế</string>
   <string name="sinceHideResults">Bởi vì bạn đã chọn ẩn kết quả, tất cả các bàn đấu xem trước sẽ trống để tránh lộ thông tin.</string>
   <string name="liveboard">Bàn cờ trực tiếp</string>
+  <string name="communityBroadcast">Phát sóng cộng đồng</string>
+  <string name="createdAndManagedBy">Được tạo và quản lý bởi %s.</string>
 </resources>

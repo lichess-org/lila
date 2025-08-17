@@ -1,17 +1,15 @@
 package lila.game
 package importer
 
+import chess.{ ByColor, ErrorStr, Rated }
 import chess.format.pgn.PgnStr
-import chess.{ ByColor, ErrorStr, Mode }
 import play.api.data.*
 import play.api.data.Forms.*
 
 import lila.common.Form.into
 import lila.core.game.{ Game, ImportedGame }
 import lila.game.GameExt.finish
-import lila.tree.ImportResult
-
-private val maxPlies = 600
+import lila.tree.ParseImport
 
 final class Importer(gameRepo: lila.core.game.GameRepo)(using Executor):
 
@@ -41,24 +39,24 @@ case class ImportData(pgn: PgnStr, analyse: Option[String])
 
 val form = Form:
   mapping(
-    "pgn"     -> nonEmptyText.into[PgnStr].verifying("invalidPgn", p => parseImport(p, none).isRight),
+    "pgn" -> nonEmptyText.into[PgnStr].verifying("invalidPgn", p => parseImport(p, none).isRight),
     "analyse" -> optional(nonEmptyText)
   )(ImportData.apply)(unapply)
 
 val parseImport: (PgnStr, Option[UserId]) => Either[ErrorStr, ImportedGame] = (pgn, user) =>
-  lila.tree.parseImport(pgn).map { case ImportResult(game, result, replay, initialFen, parsed, _) =>
+  ParseImport.game(pgn).map { case (game, result, initialFen, tags, clks) =>
     val dbGame = lila.core.game
       .newImportedGame(
         chess = game,
         players = ByColor: c =>
-          lila.game.Player.makeImported(c, parsed.tags.names(c), parsed.tags.ratings(c)),
-        mode = Mode.Casual,
+          lila.game.Player.makeImported(c, tags.names(c), tags.ratings(c)),
+        rated = Rated.No,
         source = lila.core.game.Source.Import,
-        pgnImport = PgnImport.make(user = user, date = parsed.tags.anyDate, pgn = pgn).some
+        pgnImport = PgnImport.make(user = user, date = tags.anyDate, pgn = pgn).some
       )
       .sloppy
       .start
-      .pipe: dbGame =>
-        result.fold(dbGame)(res => dbGame.finish(res.status, res.winner))
-    ImportedGame(dbGame, initialFen)
+    val withClock = dbGame.copy(loadClockHistory = _ => clks)
+    val finished = result.fold(withClock)(res => withClock.finish(res.status, res.winner))
+    ImportedGame(finished, initialFen)
   }

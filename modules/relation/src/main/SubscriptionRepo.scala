@@ -17,13 +17,13 @@ final class SubscriptionRepo(colls: Colls, userRepo: lila.core.user.UserRepo)(us
         import framework.*
         Match($doc("s" -> streamerId)) -> List(
           PipelineOperator(
-            $lookup.pipeline(
+            $lookup.simple(
               from = userRepo.coll,
               as = "user",
               local = "u",
               foreign = "_id",
               pipe = List(
-                $doc("$match"   -> $expr($doc("$gt" -> $arr("$seenAt", nowInstant.minusDays(daysAgo))))),
+                $doc("$match" -> $expr($doc("$gt" -> $arr("$seenAt", nowInstant.minusDays(daysAgo))))),
                 $doc("$project" -> $id(true))
               )
             )

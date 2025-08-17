@@ -22,8 +22,8 @@ final case class ApiAiConfig(
 
   val strictFen = false
 
-  val days      = daysO | Days(2)
-  val time      = clock.so(_.limitInMinutes)
+  val days = daysO | Days(2)
+  val time = clock.so(_.limitInMinutes)
   val increment = clock.fold(Clock.IncrementSeconds(0))(_.incrementSeconds)
   val timeMode =
     if clock.isDefined then TimeMode.RealTime
@@ -41,7 +41,7 @@ final case class ApiAiConfig(
               if creatorColor == c
               then newPlayer(c, user)
               else newPlayer.anon(c, level.some),
-            mode = chess.Mode.Casual,
+            rated = chess.Rated.No,
             source = if chessGame.position.variant.fromPosition then Source.Position else Source.Ai,
             daysPerTurn = makeDaysPerTurn,
             pgnImport = None

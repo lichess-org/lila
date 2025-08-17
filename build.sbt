@@ -12,13 +12,13 @@ lazy val root = Project("lila", file("."))
   .aggregate(api)
   .settings(buildSettings)
 
-organization         := "org.lichess"
+organization := "org.lichess"
 Compile / run / fork := true
 javaOptions ++= Seq("-Xms64m", "-Xmx512m", "-Dlogger.file=conf/logger.dev.xml")
 ThisBuild / scalacOptions ++= Seq("-unchecked", "-deprecation")
 ThisBuild / usePipelining := false
 // shorter prod classpath
-scriptClasspath             := Seq("*")
+scriptClasspath := Seq("*")
 Compile / resourceDirectory := baseDirectory.value / "conf"
 // the following settings come from the PlayScala plugin, which I removed
 shellPrompt := PlayCommands.playPrompt
@@ -26,7 +26,7 @@ shellPrompt := PlayCommands.playPrompt
 playDependencyClasspath := (Runtime / externalDependencyClasspath).value
 // playCommonClassloader   := PlayCommands.playCommonClassloaderTask.value
 // playCompileEverything := PlayCommands.playCompileEverythingTask.value.asInstanceOf[Seq[Analysis]]
-ivyLoggingLevel     := UpdateLogging.DownloadOnly
+ivyLoggingLevel := UpdateLogging.DownloadOnly
 Compile / mainClass := Some("lila.app.Lila")
 // Adds the Play application directory to the command line args passed to Play
 bashScriptExtraDefines += "addJava \"-Duser.dir=$(realpath \"$(cd \"${app_home}/..\"; pwd -P)\"  $(is_cygwin && echo \"fix\"))\"\n"
@@ -36,17 +36,17 @@ Compile / RoutesKeys.routes / sources ++= {
 }
 Compile / RoutesKeys.generateReverseRouter := false
 Compile / RoutesKeys.generateForwardRouter := true
-target                                     := baseDirectory.value / "target"
-Compile / sourceDirectory                  := baseDirectory.value / "app"
-Compile / scalaSource                      := baseDirectory.value / "app"
-Universal / sourceDirectory                := baseDirectory.value / "dist"
+target := baseDirectory.value / "target"
+Compile / sourceDirectory := baseDirectory.value / "app"
+Compile / scalaSource := baseDirectory.value / "app"
+Universal / sourceDirectory := baseDirectory.value / "dist"
 
 // format: off
 libraryDependencies ++= akka.bundle ++ playWs.bundle ++ macwire.bundle ++ scalalib.bundle ++ chess.bundle ++ Seq(
   play.json, play.logback, compression, hasher,
   reactivemongo.driver, /* reactivemongo.kamon, */ maxmind, scalatags,
   kamon.core, kamon.influxdb, kamon.metrics,
-  scaffeine, caffeine, lettuce, uaparser, nettyTransport, reactivemongo.shaded
+  scaffeine, caffeine, lettuce, uaparser, nettyTransport, reactivemongo.shaded, catsMtl
 ) ++ tests.bundle
 
 // influences the compilation order
@@ -67,7 +67,7 @@ lazy val modules = Seq(
   insight, evaluation, storm,
   // level 7
   // everything else is free from deps; do the big ones first
-  security, tournament, relay, plan, round,
+  relay, security, tournament, plan, round,
   swiss, insight, fishnet, tutor, mod, challenge, web,
   team, forum, streamer, simul, activity, msg, ublog,
   notifyModule, clas, perfStat, opening, timeline,
@@ -179,7 +179,7 @@ lazy val feed = module("feed",
 )
 
 lazy val ublog = module("ublog",
-  Seq(memo, ui),
+  Seq(memo, ui, search),
   Seq(bloomFilter)
 )
 
@@ -346,7 +346,7 @@ lazy val shutup = module("shutup",
 
 lazy val challenge = module("challenge",
   Seq(game, room, oauth),
-  Seq(lettuce) ++ tests.bundle
+  Seq(lettuce, catsMtl) ++ tests.bundle
 )
 
 lazy val fide = module("fide",
@@ -366,7 +366,7 @@ lazy val study = module("study",
 
 lazy val relay = module("relay",
   Seq(study, game),
-  tests.bundle
+  Seq(chess.tiebreak) ++ tests.bundle
 )
 
 lazy val studySearch = module("studySearch",

@@ -29,9 +29,6 @@ object config:
   opaque type AssetBaseUrl = String
   object AssetBaseUrl extends OpaqueString[AssetBaseUrl]
 
-  opaque type AssetBaseUrlInternal = String
-  object AssetBaseUrlInternal extends OpaqueString[AssetBaseUrlInternal]
-
   opaque type RateLimit = Boolean
   object RateLimit extends YesNo[RateLimit]
 
@@ -40,14 +37,14 @@ object config:
   object Credentials:
     def read(str: String): Option[Credentials] = str.split(":") match
       case Array(user, password) => Credentials(user, Secret(password)).some
-      case _                     => none
+      case _ => none
 
   case class HostPort(host: String, port: Int):
     def show = s"$host:$port"
   object HostPort:
     def read(str: String): Option[HostPort] = str.split(":") match
       case Array(host, port) => port.toIntOption.map(HostPort(host, _))
-      case _                 => none
+      case _ => none
 
   case class NetConfig(
       domain: NetDomain,
@@ -55,7 +52,6 @@ object config:
       baseUrl: BaseUrl,
       assetDomain: AssetDomain,
       assetBaseUrl: AssetBaseUrl,
-      assetBaseUrlInternal: AssetBaseUrlInternal,
       stageBanner: Boolean,
       siteName: String,
       socketDomains: List[String],

@@ -33,7 +33,7 @@
   <string name="streamerLanguageSettings">Lichess transliuotojo puslapius nukreipia jūsų auditoriją su kalba nurodyta jūsų transliacijos platformoje. Nustatykite tinkamą numatytąją kalbą savo šachmatų transliacijoms programėlėje ar platformoje iš kurios transliuojate.</string>
   <string name="twitchUsername">Jūsų Twitch vartotojo vardas ar adresas</string>
   <string name="twitchOrYouTubeRequired" comment="A notice when creating/editing your streamer page (https://lichess.org/streamer/edit), denoting that you can only be listed if you stream from a Twitch or YouTube channel.">Privaloma naudoti Twitch arba YouTube</string>
-  <string name="twitchOrYouTubeMustBeVerified">Twitch ir YouTube pakeitimai privalo būti patikrinti.
+  <string name="twitchOrYouTubeMustBeVerified" comment="For background: The &quot;streamer badge&quot; refers to the microphone icon on the streamer's profile (https://lichess.org/@/Lichess).&#10;The listing is the streamer's page that appears at https://lichess.org/streamer">Twitch ir YouTube pakeitimai privalo būti patikrinti.
   
   Jūsų transliuotojo ženkliukas vieta sąraše taps neaktyvūs, kol vyks peržiūra. Tai gali užtrukti iki 72 valandų.</string>
   <string name="youTubeChannelId">Jūsų YouTube kanalo ID (channel ID)</string>

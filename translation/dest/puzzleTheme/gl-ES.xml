@@ -92,7 +92,7 @@
   <string name="pin">Cravada</string>
   <string name="pinDescription">Unha táctica que involucra cravadas, onde unha peza non se pode mover sen expoñer ó ataque unha peza de maior valor.</string>
   <string name="promotion">Promoción</string>
-  <string name="promotionDescription">Coroa un dos teus peóns para convertelo en raíña ou outra peza menor.</string>
+  <string name="promotionDescription">Coroa un peón para convertelo en dama ou unha peza menor.</string>
   <string name="queenEndgame">Final de damas</string>
   <string name="queenEndgameDescription">Un final no que só hai damas e peóns.</string>
   <string name="queenRookEndgame">Final de dama e torre</string>

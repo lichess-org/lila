@@ -42,18 +42,15 @@ final class PerfStatApi(
               (u.enabled.yes && (!u.lame || me.exists(_.is(u.user)))) || me.soUse(Granter(_.UserModView))
             .filter: u =>
               !u.isBot || (perfKey != PerfKey.ultraBullet)
-            .soFu: u =>
+            .traverse: u =>
               for
                 oldPerfStat <- get(u.user.id, pk, computeIfNeeded)
                 perfStat = oldPerfStat.copy(playStreak = oldPerfStat.playStreak.checkCurrent)
-                distribution <- u
-                  .perfs(perfKey)
-                  .established
-                  .soFu(weeklyRatingDistribution(perfKey))
-                percentile     = calcPercentile(distribution, u.perfs(perfKey).intRating)
-                percentileLow  = perfStat.lowest.flatMap { r => calcPercentile(distribution, r.int) }
+                distribution <- u.perfs(perfKey).established.optionFu(weeklyRatingDistribution(perfKey))
+                percentile = calcPercentile(distribution, u.perfs(perfKey).intRating)
+                percentileLow = perfStat.lowest.flatMap { r => calcPercentile(distribution, r.int) }
                 percentileHigh = perfStat.highest.flatMap { r => calcPercentile(distribution, r.int) }
-                _              = lightUserApi.preloadUser(u.user)
+                _ = lightUserApi.preloadUser(u.user)
                 _ <- lightUserApi.preloadMany(perfStat.userIds)
               yield PerfStatData(u, perfStat, rankingsOf(u.id), percentile, percentileLow, percentileHigh)
       case _ => fuccess(none)
@@ -120,7 +117,7 @@ final class PerfStatApi(
                     .flatMap: obj =>
                       for
                         rating <- obj.int("_id")
-                        nb     <- obj.getAsOpt[NbUsers]("nb")
+                        nb <- obj.getAsOpt[NbUsers]("nb")
                       yield rating -> nb
                     .to(Map)
                   (minRating.value to 2800 by percentileOf.group)
@@ -146,6 +143,6 @@ final class PerfStatApi(
         .foldLeft(0) { case (prev, (rating, nbUsers)) =>
           val acc = prev + nbUsers
           PerfType(perfId).foreach: pt =>
-            lila.mon.rating.distribution(pt.key.value, rating).update(prev.toDouble / total)
+            lila.mon.rating.distribution(pt.key, rating).update(prev.toDouble / total)
           acc
         }

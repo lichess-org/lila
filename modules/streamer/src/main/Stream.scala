@@ -17,9 +17,9 @@ trait Stream:
   def urls: Stream.Urls
 
   def is[U: UserIdOf](u: U): Boolean = streamer.is(u)
-  def twitch                         = serviceName == "twitch"
-  def youTube                        = serviceName == "youTube"
-  def language                       = toLanguage(lang)
+  def twitch = serviceName == "twitch"
+  def youTube = serviceName == "youTube"
+  def language = toLanguage(lang)
 
   lazy val cleanStatus = status.map(s => removeMultibyteSymbols(s).trim)
 
@@ -33,7 +33,7 @@ object Stream:
 
   object Twitch:
     case class TwitchStream(user_name: String, title: Html, `type`: String, language: String):
-      def name   = user_name
+      def name = user_name
       def isLive = `type` == "live"
     case class Pagination(cursor: Option[String])
     case class Result(data: Option[List[TwitchStream]], pagination: Option[Pagination]):
@@ -46,8 +46,8 @@ object Stream:
         redirect = s"https://www.twitch.tv/${userId}"
       )
     private given Reads[TwitchStream] = Json.reads
-    private given Reads[Pagination]   = Json.reads
-    given Reads[Result]               = Json.reads
+    private given Reads[Pagination] = Json.reads
+    given Reads[Result] = Json.reads
 
   object YouTube:
     case class Snippet(
@@ -88,14 +88,14 @@ object Stream:
       )
 
     private given Reads[Snippet] = Json.reads
-    private given Reads[Item]    = Json.reads
-    given Reads[Result]          = Json.reads
+    private given Reads[Item] = Json.reads
+    given Reads[Result] = Json.reads
 
-  def toJson(picfit: lila.memo.PicfitUrl, stream: Stream) = Json.obj(
+  def toJson(picfit: lila.core.misc.PicfitUrl, stream: Stream) = Json.obj(
     "stream" -> Json.obj(
       "service" -> stream.serviceName,
-      "status"  -> stream.status,
-      "lang"    -> stream.lang
+      "status" -> stream.status,
+      "lang" -> stream.lang
     ),
     "streamer" -> Json
       .obj("name" -> stream.streamer.name.value)
@@ -103,7 +103,6 @@ object Stream:
       .add("description" -> stream.streamer.description)
       .add("twitch" -> stream.streamer.twitch.map(_.fullUrl))
       .add("youTube" -> stream.streamer.youTube.map(_.fullUrl))
-      .add("image" -> stream.streamer.picture.map { pic =>
-        picfit.thumbnail(pic, Streamer.imageSize, Streamer.imageSize)
-      })
+      .add("image" -> stream.streamer.picture.map: pic =>
+        picfit.thumbnail(pic, Streamer.imageSize, Streamer.imageSize))
   )

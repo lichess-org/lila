@@ -37,7 +37,7 @@ trait AssetHelper:
     Esm(key, embedJsUnsafeLoadThen(s"site.asset.loadEsmPage('$key')"))
 
   val infiniteScrollEsmInit: Esm = esmInit("bits.infiniteScroll")
-  val captchaEsm: Esm            = Esm("bits.captcha")
+  val captchaEsm: Esm = Esm("bits.captcha")
 
   // load iife scripts in <head> and defer
   def iifeModule(path: String): Frag = script(deferAttr, src := assetUrl(path))
@@ -58,7 +58,7 @@ trait AssetHelper:
 
   def flairSrc(flair: Flair): String = staticAssetUrl(s"$flairVersion/flair/img/$flair.webp")
 
-  def iconFlair(flair: Flair): Tag = img(cls := "icon-flair", src := flairSrc(flair))
+  def iconFlair(flair: Flair): Tag = decorativeImg(cls := "icon-flair", src := flairSrc(flair))
 
   def fingerprintTag: EsmList = Esm("bits.fipr")
 

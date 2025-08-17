@@ -168,6 +168,7 @@
   <string name="drawByMutualAgreement">Taules per acord</string>
   <string name="fiftyMovesWithoutProgress">Cinquanta moviments sense captures ni moviments de peó</string>
   <string name="currentGames">Partides en joc</string>
+  <string name="joinedX">Ha entrat a %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s partida</item>
     <item quantity="other">%s partides</item>
@@ -478,7 +479,7 @@
   <string name="openTournaments">Tornejos oberts</string>
   <string name="duration">Durada</string>
   <string name="winner">Guanyador</string>
-  <string name="standing">Resultats</string>
+  <string name="standings">Classificacions</string>
   <string name="createANewTournament">Crea un nou torneig</string>
   <string name="tournamentCalendar">Calendari de tornejos</string>
   <string name="conditionOfEntry">Requisit d\'entrada:</string>
@@ -492,7 +493,6 @@
   <string name="points">Punts</string>
   <string name="wins">Victòries</string>
   <string name="losses">Derrotes</string>
-  <string name="createdBy">Creat per</string>
   <string name="startingIn" comment="Displayed above a timer">Començant en</string>
   <string name="standByX">Estigues a punt %s, emparellant jugadors, prepara\'t!</string>
   <string name="pause">Pausar</string>
@@ -678,7 +678,7 @@
   <string name="really">realment</string>
   <string name="contribute">Contribuïu-hi</string>
   <string name="termsOfService">Condicions del servei</string>
-  <string name="titleVerification" comment="This is a link to a form that lets players verify either a FIDE or national federation title (NM, etc).">Verificació del títol</string>
+  <string name="titleVerification">Verificació del títol</string>
   <string name="sourceCode">Codi font</string>
   <string name="simultaneousExhibitions">Exhibicions de simultànies</string>
   <string name="host">Amfitrió</string>
@@ -1009,4 +1009,5 @@ Les despeses de funcionament, desenvolupament i continguts es financen exclusiva
   <string name="accessibility">Accessibilitat</string>
   <string name="enableBlindMode">Activar el mode cec</string>
   <string name="disableBlindMode">Desactivar el mode cec</string>
+  <string name="copyToClipboard">Copia al porta-retalls</string>
 </resources>

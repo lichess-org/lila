@@ -1,6 +1,6 @@
-import { Api } from '../../../node_modules/chessground/dist/api';
-import { Config } from '../../../node_modules/chessground/dist/config';
-import * as cg from '../../../node_modules/chessground/dist/types';
+import { Api } from '../../../node_modules/@lichess-org/chessground/dist/api';
+import { Config } from '../../../node_modules/@lichess-org/chessground/dist/config';
+import * as cg from '../../../node_modules/@lichess-org/chessground/dist/types';
 
 declare global {
   type CgApi = Api;

@@ -391,7 +391,6 @@
   <string name="openTournaments">Гом турниртæ</string>
   <string name="duration">Даргъад</string>
   <string name="winner">Уæлахиздзау</string>
-  <string name="standing">Бынат</string>
   <string name="createANewTournament">Саразын турнир</string>
   <string name="tournamentCalendar">Турнирон къæлиндар</string>
   <string name="conditionOfEntry">Хайады домæнтæ:</string>
@@ -405,7 +404,6 @@
   <string name="points">Очкотæ</string>
   <string name="wins">Уæлахизтæ</string>
   <string name="losses">Дæрæнтæ</string>
-  <string name="createdBy">Сфæлдисæг</string>
   <string name="standByX">Æнхъæлмæ кæс, %s, халæппарæм. Цæттæ у!</string>
   <string name="youArePlaying">Ды хъазыс!</string>
   <string name="winRate">Уæлахизты арæхдзинад</string>

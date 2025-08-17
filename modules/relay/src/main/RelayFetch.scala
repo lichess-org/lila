@@ -85,13 +85,13 @@ final private class RelayFetch(
         allGamesInSourceNoLimit <- fetchGames(rt).mon:
           _.relay.fetchTime(rt.tour.official, rt.tour.id, rt.tour.slug)
         allGamesInSource = allGamesInSourceNoLimit.take(maxGamesToRead(rt.tour.official).value)
-        filtered         = RelayGame.filter(rt.round.sync.onlyRound)(allGamesInSource)
-        sliced           = RelayGame.Slices.filterAndOrder(~rt.round.sync.slices)(filtered)
-        limited          = sliced.take(RelayFetch.maxChaptersToShow.value)
+        filtered = RelayGame.filter(rt.round.sync.onlyRound)(allGamesInSource)
+        sliced = RelayGame.Slices.filterAndOrder(~rt.round.sync.slices)(filtered)
+        limited = sliced.take(RelayFetch.maxChaptersToShow.value)
         _ <- (sliced.sizeCompare(limited) != 0 && rt.tour.official)
           .so(notifyAdmin.tooManyGames(rt, sliced.size, RelayFetch.maxChaptersToShow))
         withPlayers <- playerEnrich.enrichAndReportAmbiguous(rt)(limited)
-        withFide    <- fidePlayers.enrichGames(rt.tour)(withPlayers)
+        withFide <- fidePlayers.enrichGames(rt.tour)(withPlayers)
         withTeams = rt.tour.teams.fold(withFide)(_.update(withFide))
         res <- sync
           .updateStudyChapters(rt, withTeams)
@@ -99,13 +99,13 @@ final private class RelayFetch(
           .mon(_.relay.syncTime(rt.tour.official, rt.tour.id, rt.tour.slug))
         games = res.plan.input.games
         _ <- notifyAdmin.orphanBoards.inspectPlan(rt, res.plan)
-        nbGamesFinished  = games.count(_.points.isDefined)
+        nbGamesFinished = games.count(_.points.isDefined)
         nbGamesUnstarted = games.count(!_.hasMoves)
         allGamesFinishedOrUnstarted = games.nonEmpty &&
           nbGamesFinished + nbGamesUnstarted >= games.size &&
           nbGamesFinished > nbGamesUnstarted
         noMoreGamesSelected = games.isEmpty && allGamesInSource.nonEmpty
-        autoFinishNow       = rt.round.hasStarted && (allGamesFinishedOrUnstarted || noMoreGamesSelected)
+        autoFinishNow = rt.round.hasStarted && (allGamesFinishedOrUnstarted || noMoreGamesSelected)
         roundUpdate = updating: r =>
           r.withSync(_.addLog(SyncLog.event(res.nbMoves, none)))
             .copy(finishedAt = r.finishedAt.orElse(autoFinishNow.option(nowInstant)))
@@ -155,7 +155,7 @@ final private class RelayFetch(
           Seconds(tour.tier.fold(60):
             case RelayTour.Tier.best => 10
             case RelayTour.Tier.high => 20
-            case _                   => 40)
+            case _ => 40)
         else round.sync.period | dynamicPeriod(tour, round, upstream)
       updating:
         _.withSync:
@@ -176,20 +176,17 @@ final private class RelayFetch(
         .foreach { irc.broadcastError(r.round.id, r.fullName, _) }
 
   private def dynamicPeriod(tour: RelayTour, round: RelayRound, upstream: Sync.Upstream) = Seconds:
-    val highPriorityTier = tour.tier.exists:
-      case RelayTour.Tier.best | RelayTour.Tier.`private` => true
-      case _                                              => false
     val base =
       if upstream.isInternal then 1
       else if upstream.hasLcc then 4
       else if upstream.isRound then 10 // uses push so no need to pull often
       else 2
     base * {
-      if highPriorityTier then 1
+      if tour.tierIs(_.best) then 1
       else if tour.official then 2
       else 3
     } * {
-      if upstream.hasLcc && !highPriorityTier && round.crowd.exists(_ < Crowd(10)) then 2 else 1
+      if upstream.hasLcc && !tour.tierIs(_.best) && round.crowd.exists(_ < Crowd(10)) then 2 else 1
     } * {
       if round.hasStarted then 1
       else if round.startsAtTime.exists(_.isBefore(nowInstant.plusMinutes(20))) then 2
@@ -210,9 +207,9 @@ final private class RelayFetch(
   private def fetchGames(rt: RelayRound.WithTour): Fu[RelayGames] =
     given CanProxy = CanProxy(rt.tour.official)
     rt.round.sync.upstream.so:
-      case Sync.Upstream.Ids(ids)     => delayer.internalSource(rt.round, fetchFromGameIds(rt.tour, ids))
+      case Sync.Upstream.Ids(ids) => delayer.internalSource(rt.round, fetchFromGameIds(rt.tour, ids))
       case Sync.Upstream.Users(users) => delayer.internalSource(rt.round, fetchFromUsers(rt.tour, users))
-      case Sync.Upstream.Url(url)     => delayer.urlSource(url, rt.round, fetchFromUpstream(rt))
+      case Sync.Upstream.Url(url) => delayer.urlSource(url, rt.round, fetchFromUpstream(rt))
       case Sync.Upstream.Urls(urls) =>
         urls.toVector
           .parallel: url =>
@@ -239,20 +236,20 @@ final private class RelayFetch(
     (ids.sizeIs > 1).so:
       for
         ongoingGames <- gameRepo.ongoingByUserIdsCursor(ids).collect[List](ids.size)
-        ongoingIds          = ongoingGames.map(_.id).toSet
-        prevGameIds         = ~ongoingUserGameIdsCache.getIfPresent(tour.id)
+        ongoingIds = ongoingGames.map(_.id).toSet
+        prevGameIds = ~ongoingUserGameIdsCache.getIfPresent(tour.id)
         recentlyFinishedIds = prevGameIds.diff(ongoingIds)
         recentlyFinished <- gameRepo.gamesFromSecondary(recentlyFinishedIds.toSeq)
         allGames = recentlyFinished ++ ongoingGames
-        _        = ongoingUserGameIdsCache.put(tour.id, ongoingIds)
+        _ = ongoingUserGameIdsCache.put(tour.id, ongoingIds)
         games <- fromLichessGames(tour)(allGames)
       yield games
 
   private def fromLichessGames(tour: RelayTour)(dbGames: List[lila.core.game.Game]): Fu[RelayGames] = for
     upgraded <- gameProxy.upgradeIfPresent(dbGames)
-    withFen  <- gameRepo.withInitialFens(upgraded)
+    withFen <- gameRepo.withInitialFens(upgraded)
     pgnFlags = gameIdsUpstreamPgnFlags.copy(delayMoves = !tour.official)
-    pgn   <- withFen.sequentially((game, fen) => pgnDump(game, fen, pgnFlags).map(_.render))
+    pgn <- withFen.sequentially((game, fen) => pgnDump(game, fen, pgnFlags).map(_.render))
     games <- multiPgnToGames.future(MultiPgn(pgn))
   yield games
 
@@ -374,9 +371,9 @@ final private class RelayFetch(
 
 private object RelayFetch:
 
-  val maxChaptersToShow: Max                 = Max(100)
-  private val maxGamesToRead: Max            = Max(256)
-  private val maxGamesToReadOfficial: Max    = maxGamesToRead.map(_ * 3)
+  val maxChaptersToShow: Max = Max(100)
+  private val maxGamesToRead: Max = Max(256)
+  private val maxGamesToReadOfficial: Max = maxGamesToRead.map(_ * 3)
   def maxGamesToRead(official: Boolean): Max = if official then maxGamesToReadOfficial else maxGamesToRead
 
   object injectTimeControl:

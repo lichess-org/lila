@@ -44,7 +44,7 @@ object Mobile:
 
   object LichessMobileUaTrim:
     def is(ua: UserAgent): Boolean = ua.value.startsWith("LM/")
-    private val Regex              = """LM/(\S+) (Android|iOS)/(\S+) (.*)""".r
+    private val Regex = """LM/(\S+) (Android|iOS)/(\S+) (.*)""".r
     def parse(ua: UserAgent): Option[LichessMobileUaTrim] = is(ua).so:
       ua.value match
         case Regex(version, osName, osVersion, device) =>

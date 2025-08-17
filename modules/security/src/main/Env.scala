@@ -11,6 +11,7 @@ import lila.core.data.Strings
 import lila.memo.SettingStore
 import lila.memo.SettingStore.Strings.given
 import lila.oauth.OAuthServer
+import lila.common.Bus
 
 @Module
 final class Env(
@@ -61,7 +62,7 @@ final class Env(
     if config.hcaptcha.enabled then wire[HcaptchaReal]
     else wire[HcaptchaSkip]
 
-  lazy val forms                                = wire[SecurityForm]
+  lazy val forms = wire[SecurityForm]
   def signupForm: lila.core.security.SignupForm = forms.signup
 
   lazy val geoIP: GeoIP = wire[GeoIP]
@@ -166,6 +167,12 @@ final class Env(
     text = "Types of proxy that can signup using the legacy mobile API".some
   ).taggedWith[MobileSignupProxy]
 
+  val alwaysCaptcha = settingStore[Boolean](
+    "alwaysCaptcha",
+    default = false,
+    text = "Always serve captchas, don't skip once per IP and per 24h".some
+  ).taggedWith[AlwaysCaptcha]
+
   lazy val api = wire[SecurityApi]
 
   lazy val csrfRequestHandler = wire[CSRFRequestHandler]
@@ -176,5 +183,9 @@ final class Env(
     export api.shareAnIpOrFp
     export userLogins.getUserIdsWithSameIpAndPrint
 
+  Bus.sub[lila.core.security.AskAreRelated]: ask =>
+    ask.promise.completeWith(api.shareAnIpOrFp.tupled(ask.users))
+
 private trait Proxy2faSetting
 private trait MobileSignupProxy
+private trait AlwaysCaptcha

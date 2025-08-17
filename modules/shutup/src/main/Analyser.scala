@@ -26,7 +26,7 @@ object Analyser extends lila.core.shutup.TextAnalyser:
     val words = apply(text).badWords
     if words.isEmpty then frag(text)
     else
-      val regex             = { """(?iu)""" + bounds.wrap(words.mkString("(", "|", ")")) }.r
+      val regex = { """(?iu)""" + bounds.wrap(words.mkString("(", "|", ")")) }.r
       def tag(word: String) = s"<bad>$word</bad>"
       raw(regex.replaceAllIn(escapeHtmlRaw(text), m => tag(m.toString)))
 
@@ -42,7 +42,7 @@ object Analyser extends lila.core.shutup.TextAnalyser:
       case 'к' => 'k'
       case 'Н' => 'h'
       case 'о' => 'o'
-      case c   => c
+      case c => c
 
   private def latinWordsRegexes =
     Dictionary.en.map { word =>
@@ -71,8 +71,8 @@ object Analyser extends lila.core.shutup.TextAnalyser:
   // unicode compatible bounds
   // https://shiba1014.medium.com/regex-word-boundaries-with-unicode-207794f6e7ed
   object bounds:
-    val pre                 = """(?<=[\s,.:;"'\?!]|^)"""
-    val post                = """(?=[\s,.:;"'\?!]|$)"""
+    val pre = """(?<=[\s,.:;"'\?!]|^)"""
+    val post = """(?=[\s,.:;"'\?!]|$)"""
     def wrap(regex: String) = pre + regex + post
 
   private val ruBigRegex = {

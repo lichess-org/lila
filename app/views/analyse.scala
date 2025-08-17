@@ -51,7 +51,7 @@ object replay:
         withNoteAge = ctx.isAuth.option(pov.game.secondsSinceCreation),
         public = true,
         resourceId = lila.chat.Chat.ResourceId(s"game/${c.chat.id}"),
-        palantir = ctx.canPalantir
+        voiceChat = ctx.canVoiceChat
       ) -> views.chat.frag
 
     val side = views.game.side(pov, initialFen, none, simul = simul, userTv = userTv, bookmarked = bookmarked)
@@ -71,17 +71,31 @@ object replay:
 
 object embed:
 
+  def userAnalysis(data: JsObject)(using ctx: EmbedContext) =
+    views.base.embed.site(
+      title = trans.site.analysis.txt(),
+      cssKeys = List("analyse.free.embed"),
+      pageModule = ui.bits
+        .analyseModule("userAnalysis", Json.obj("data" -> data, "embed" -> true) ++ ui.explorerAndCevalConfig)
+        .some,
+      csp = _.withExternalAnalysisApis.withWebAssembly,
+      i18nModules = List(_.site, _.timeago, _.study)
+    )(
+      ui.bits.embedUserAnalysisBody,
+      views.base.page.ui.inlineJs(ctx.nonce, Nil)
+    )
+
   def lpv(pgn: PgnStr, getPgn: Boolean, title: String, args: JsObject)(using
       ctx: EmbedContext
   ) =
     val opts = Json.obj(
       "menu" -> Json.obj("getPgn" -> Json.obj("enabled" -> getPgn)),
       "i18n" -> Json.obj(
-        "flipTheBoard"         -> trans.site.flipBoard.txt(),
-        "analysisBoard"        -> trans.site.analysis.txt(),
+        "flipTheBoard" -> trans.site.flipBoard.txt(),
+        "analysisBoard" -> trans.site.analysis.txt(),
         "practiceWithComputer" -> trans.site.practiceWithComputer.txt(),
-        "getPgn"               -> trans.study.copyChapterPgn.txt(),
-        "download"             -> trans.site.download.txt()
+        "getPgn" -> trans.study.copyChapterPgn.txt(),
+        "download" -> trans.site.download.txt()
       )
     ) ++ args
     views.base.embed.minimal(

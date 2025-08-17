@@ -108,9 +108,9 @@ final class ReplayUi(helpers: Helpers)(analyseUi: AnalyseUi):
           "replay",
           Json
             .obj(
-              "data"   -> data,
+              "data" -> data,
               "userId" -> ctx.userId,
-              "chat"   -> chatOption.map(_._1)
+              "chat" -> chatOption.map(_._1)
             )
             .add("hunter" -> Granter.opt(_.ViewBlurs)) ++
             analyseUi.explorerAndCevalConfig
@@ -129,8 +129,8 @@ final class ReplayUi(helpers: Helpers)(analyseUi: AnalyseUi):
                   div(role := "tablist", cls := "analyse__underboard__menu")(
                     analysable.option(
                       span(
-                        role      := "tab",
-                        cls       := "computer-analysis",
+                        role := "tab",
+                        cls := "computer-analysis",
                         dataPanel := "computer-analysis",
                         textAndTitle(trans.site.computerAnalysis)
                       )
@@ -152,7 +152,7 @@ final class ReplayUi(helpers: Helpers)(analyseUi: AnalyseUi):
                         if hasAnalysis then div(id := "acpl-chart-container")(canvas(id := "acpl-chart"))
                         else
                           postForm(
-                            cls    := s"future-game-analysis${ctx.isAuth.not.so(" must-login")}",
+                            cls := s"future-game-analysis${ctx.isAuth.not.so(" must-login")}",
                             action := routes.Analyse.requestAnalysis(gameId)
                           ):
                             submitButton(cls := "button text"):
@@ -192,12 +192,12 @@ final class ReplayUi(helpers: Helpers)(analyseUi: AnalyseUi):
           ),
           ctx.blind.option:
             div(cls := "blind-content none")(
-              h2("PGN and FEN downloads"),
+              h2(trans.nvui.pgnAndFen()),
               button(cls := "copy-pgn", attr("data-pgn") := pgn):
-                "Copy PGN to clipboard"
+                trans.nvui.copyToClipboard("PGN")
               ,
               button(cls := "copy-fen"):
-                "Copy FEN to clipboard"
+                trans.nvui.copyToClipboard("FEN")
               ,
               pgnLinks,
               div(

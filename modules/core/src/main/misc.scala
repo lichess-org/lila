@@ -5,6 +5,12 @@ import lila.core.id.GameId
 import lila.core.userId.*
 import lila.core.user.Me
 
+trait AtInstant[A]:
+  def apply(a: A): Instant
+  extension (a: A) inline def atInstant: Instant = apply(a)
+object AtInstant:
+  given atInstantOrdering: [A: AtInstant] => Ordering[A] = Ordering.by[A, Instant](_.atInstant)
+
 package streamer:
   case class StreamStart(userId: UserId, streamerName: String)
 
@@ -42,18 +48,14 @@ package mailer:
   )
   case class CorrespondenceOpponents(userId: UserId, opponents: List[CorrespondenceOpponent])
 
-package plan:
-  case class ChargeEvent(username: UserName, cents: Int, percent: Int, date: Instant)
-  case class MonthInc(userId: UserId, months: Int)
-  case class PlanStart(userId: UserId)
-  case class PlanGift(from: UserId, to: UserId, lifetime: Boolean)
-  case class PlanExpire(userId: UserId)
-
 package push:
   case class TourSoon(tourId: String, tourName: String, userIds: Iterable[UserId], swiss: Boolean)
 
 package oauth:
-  case class TokenRevoke(id: String)
+  opaque type AccessTokenId = String
+  object AccessTokenId extends OpaqueString[AccessTokenId]
+
+  case class TokenRevoke(id: AccessTokenId)
 
 package analysis:
   final class MyEnginesAsJson(val get: Option[Me] => Fu[play.api.libs.json.JsObject])

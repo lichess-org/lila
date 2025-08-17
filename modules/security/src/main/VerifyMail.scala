@@ -99,7 +99,7 @@ final private class VerifyMail(
           if res.status == 200
           block <- js.boolean("block")
           disposable = ~js.boolean("disposable")
-          privacy    = ~js.boolean("privacy")
+          privacy = ~js.boolean("privacy")
         yield
           val ok = !disposable
           logger.info:

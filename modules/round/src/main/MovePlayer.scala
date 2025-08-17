@@ -44,8 +44,8 @@ final private class MovePlayer(
                   }
                   proxy.save(progress) >>
                     postHumanOrBotPlay(round, pov, progress, moveOrDrop)
-          case Pov(game, _) if game.finished           => fufail(GameIsFinishedError(game.id))
-          case Pov(game, _) if game.aborted            => fufail(ClientError(s"$pov game is aborted"))
+          case Pov(game, _) if game.finished => fufail(GameIsFinishedError(game.id))
+          case Pov(game, _) if game.aborted => fufail(ClientError(s"$pov game is aborted"))
           case Pov(game, color) if !game.turnOf(color) => fufail(ClientError(s"$pov not your turn"))
           case _ => fufail(ClientError(s"$pov move refused for some reason"))
 
@@ -61,8 +61,8 @@ final private class MovePlayer(
             case Flagged => finisher.outOfTime(game)
             case MoveApplied(progress, moveOrDrop, _) =>
               proxy.save(progress) >> postHumanOrBotPlay(round, pov, progress, moveOrDrop)
-      case Pov(game, _) if game.finished           => fufail(GameIsFinishedError(game.id))
-      case Pov(game, _) if game.aborted            => fufail(ClientError(s"$pov game is aborted"))
+      case Pov(game, _) if game.finished => fufail(GameIsFinishedError(game.id))
+      case Pov(game, _) if game.aborted => fufail(ClientError(s"$pov game is aborted"))
       case Pov(game, color) if !game.turnOf(color) => fufail(ClientError(s"$pov not your turn"))
       case _ => fufail(ClientError(s"$pov move refused for some reason"))
 
@@ -123,7 +123,7 @@ final private class MovePlayer(
       else round ! ResignAi
 
   private val fishnetLag = MoveMetrics(clientLag = Centis(5).some)
-  private val botLag     = MoveMetrics(clientLag = Centis(0).some)
+  private val botLag = MoveMetrics(clientLag = Centis(0).some)
 
   private def applyUci(
       game: Game,
@@ -173,14 +173,14 @@ final private class MovePlayer(
 
     // publish simul moves
     for
-      simulId        <- game.simulId
+      simulId <- game.simulId
       opponentUserId <- game.player(!color).userId
       event = SimulMoveEvent(move = moveEvent, simulId = simulId, opponentUserId = opponentUserId)
     yield Bus.pub(event)
 
   private def moveFinish(game: Game)(using GameProxy): Fu[Events] =
     game.status match
-      case Status.Mate       => finisher.other(game, _.Mate, game.position.winner)
+      case Status.Mate => finisher.other(game, _.Mate, game.position.winner)
       case Status.VariantEnd => finisher.other(game, _.VariantEnd, game.position.winner)
       case status @ (Status.Stalemate | Status.Draw) => finisher.other(game, _ => status, None)
-      case _                                         => fuccess(Nil)
+      case _ => fuccess(Nil)

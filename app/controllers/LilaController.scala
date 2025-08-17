@@ -27,22 +27,22 @@ abstract private[controllers] class LilaController(val env: Env)
     with http.RequestContext(using env.executor)
     with lila.web.CtrlErrors:
 
-  def controllerComponents                           = env.controllerComponents
-  given Executor                                     = env.executor
-  given Scheduler                                    = env.scheduler
-  given FormBinding                                  = parse.formBinding(parse.DefaultMaxTextLength)
-  given lila.core.i18n.Translator                    = env.translator
+  def controllerComponents = env.controllerComponents
+  given Executor = env.executor
+  given Scheduler = env.scheduler
+  given FormBinding = parse.formBinding(parse.DefaultMaxTextLength)
+  given lila.core.i18n.Translator = env.translator
   given reqBody(using r: BodyContext[?]): Request[?] = r.body
 
   given (using codec: Codec, pc: PageContext): Writeable[Page] =
     Writeable(page => codec.encode(views.base.page(page).html))
 
-  given Conversion[Page, Fu[Page]]       = fuccess(_)
+  given Conversion[Page, Fu[Page]] = fuccess(_)
   given Conversion[Snippet, Fu[Snippet]] = fuccess(_)
 
   given netDomain: lila.core.config.NetDomain = env.net.domain
 
-  inline def ctx(using it: Context)       = it // `ctx` is shorter and nicer than `summon[Context]`
+  inline def ctx(using it: Context) = it // `ctx` is shorter and nicer than `summon[Context]`
   inline def req(using it: RequestHeader) = it // `req` is shorter and nicer than `summon[RequestHeader]`
 
   val limit = lila.web.Limiters(using env.executor, env.net.rateLimit)
@@ -133,7 +133,12 @@ abstract private[controllers] class LilaController(val env: Env)
   def AuthOrScopedBody(selectors: OAuthScope.Selector*)(
       f: BodyContext[?] ?=> Me ?=> Fu[Result]
   ): EssentialAction =
-    action(parse.anyContent): req ?=>
+    AuthOrScopedBodyWithParser(parse.anyContent)(selectors*)(f)
+
+  def AuthOrScopedBodyWithParser[A](parser: BodyParser[A])(
+      selectors: OAuthScope.Selector*
+  )(f: BodyContext[A] ?=> Me ?=> Fu[Result]): EssentialAction =
+    action(parser): req ?=>
       if HTTPRequest.isOAuth(req)
       then handleScopedBody(selectors)(f)
       else handleAuthBody(f)
@@ -251,7 +256,7 @@ abstract private[controllers] class LilaController(val env: Env)
     env.security.api
       .oauthScoped(req, accepted)
       .flatMap:
-        case Left(e)       => handleScopedFail(accepted, e)
+        case Left(e) => handleScopedFail(accepted, e)
         case Right(scoped) => f(scoped).map(OAuthServer.responseHeaders(accepted, scoped.scopes))
 
   def handleScopedFail(accepted: EndpointScopes, e: OAuthServer.AuthError) = e match
@@ -339,11 +344,11 @@ abstract private[controllers] class LilaController(val env: Env)
           f(using ctx.withLang(lang))
 
   def WithMyPerf[A](pt: lila.rating.PerfType)(f: Perf ?=> Fu[A])(using me: Option[Me]): Fu[A] = me
-    .soFu(env.user.perfsRepo.perfOf(_, pt))
+    .traverse(env.user.perfsRepo.perfOf(_, pt))
     .flatMap: perf =>
       f(using perf | lila.rating.Perf.default)
   def WithMyPerfs[A](f: Option[UserWithPerfs] ?=> Fu[A])(using me: Option[Me]): Fu[A] = me
-    .soFu(me => env.user.api.withPerfs(me.value))
+    .traverse(me => env.user.api.withPerfs(me.value))
     .flatMap:
       f(using _)
 

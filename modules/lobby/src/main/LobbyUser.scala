@@ -48,6 +48,6 @@ private object LobbyPerf extends OpaqueInt[LobbyPerf]:
   def apply(rating: IntRating, provisional: RatingProvisional): LobbyPerf =
     LobbyPerf(rating.value * (if provisional.yes then -1 else 1))
   extension (lp: LobbyPerf)
-    def rating: IntRating              = IntRating(math.abs(lp))
+    def rating: IntRating = IntRating(math.abs(lp))
     def provisional: RatingProvisional = RatingProvisional(lp < 0)
   val default = LobbyPerf(-Glicko.default.intRating.value)

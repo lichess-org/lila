@@ -8,7 +8,7 @@ case class PlanPricing(suggestions: List[Money], min: Money, max: Money, lifetim
 
   val default = suggestions.lift(1).orElse(suggestions.headOption).getOrElse(min)
 
-  def currency     = min.currency
+  def currency = min.currency
   def currencyCode = currency.getCurrencyCode
 
   def payPalSupportsCurrency = CurrencyApi.payPalCurrencies.contains(currency)
@@ -45,10 +45,10 @@ final class PlanPricingApi(currencyApi: CurrencyApi, cacheApi: CacheApi)(using E
     else
       for
         allSuggestions <- usdPricing.suggestions.parallel(convertAndRound(_, currency))
-        min            <- convertAndRound(usdPricing.min, currency)
-        max            <- convertAndRound(usdPricing.max, currency)
-        lifetime       <- convertAndRound(usdPricing.lifetime, currency)
-        giftMin        <- convertAndRound(usdPricing.giftMin, currency)
+        min <- convertAndRound(usdPricing.min, currency)
+        max <- convertAndRound(usdPricing.max, currency)
+        lifetime <- convertAndRound(usdPricing.lifetime, currency)
+        giftMin <- convertAndRound(usdPricing.giftMin, currency)
       yield (allSuggestions.sequence, min, max, lifetime, giftMin).mapN(PlanPricing.apply)
 
   def pricingOrDefault(currency: Currency): Fu[PlanPricing] = pricingFor(currency).dmap(_ | usdPricing)
@@ -66,7 +66,7 @@ final class PlanPricingApi(currencyApi: CurrencyApi, cacheApi: CacheApi)(using E
           .sequentially(pricingFor)
           .map(list =>
             Json.obj(
-              "stripe"     -> list.flatten,
+              "stripe" -> list.flatten,
               "myCurrency" -> placeholder
             )
           )
@@ -83,20 +83,20 @@ final class PlanPricingApi(currencyApi: CurrencyApi, cacheApi: CacheApi)(using E
 object PlanPricingApi:
 
   def nicelyRound(amount: BigDecimal): BigDecimal = {
-    val double   = amount.toDouble
-    val scale    = math.floor(math.log10(double))
+    val double = amount.toDouble
+    val scale = math.floor(math.log10(double))
     val fraction = if scale > 1 then 2d else 1d
-    val nice     = math.round(double * fraction * math.pow(10, -scale)) / fraction / math.pow(10, -scale)
+    val nice = math.round(double * fraction * math.pow(10, -scale)) / fraction / math.pow(10, -scale)
     math.round(nice * 10_000) / 10_000
   }.atLeast(1)
 
   given pricingWrites: OWrites[PlanPricing] = OWrites: p =>
     Json.obj(
-      "currency"    -> p.currencyCode,
-      "min"         -> p.min.amount,
-      "max"         -> p.max.amount,
-      "lifetime"    -> p.lifetime.amount,
-      "giftMin"     -> p.giftMin.amount,
-      "default"     -> p.default.amount,
+      "currency" -> p.currencyCode,
+      "min" -> p.min.amount,
+      "max" -> p.max.amount,
+      "lifetime" -> p.lifetime.amount,
+      "giftMin" -> p.giftMin.amount,
+      "default" -> p.default.amount,
       "suggestions" -> p.suggestions.map(_.amount)
     )

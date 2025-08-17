@@ -14,7 +14,7 @@ final class Share(
     else if insighted.enabled.yes
     then
       getPrefId(insighted).flatMap:
-        case _ if to.contains(insighted)           => fuTrue
+        case _ if to.contains(insighted) => fuTrue
         case lila.core.pref.InsightShare.EVERYBODY => fuTrue
         case lila.core.pref.InsightShare.FRIENDS =>
           to.so: t =>

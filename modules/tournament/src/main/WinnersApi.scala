@@ -64,10 +64,10 @@ final class WinnersApi(
 
   import BSONHandlers.given
   import reactivemongo.api.bson.*
-  private given BSONDocumentHandler[Winner]                    = Macros.handler
-  private given BSONDocumentHandler[FreqWinners]               = Macros.handler
+  private given BSONDocumentHandler[Winner] = Macros.handler
+  private given BSONDocumentHandler[FreqWinners] = Macros.handler
   private given BSONHandler[Map[Variant.LilaKey, FreqWinners]] = typedMapHandler[Variant.LilaKey, FreqWinners]
-  private given BSONDocumentHandler[AllWinners]                = Macros.handler
+  private given BSONDocumentHandler[AllWinners] = Macros.handler
 
   private def fetchLastFreq(freq: Freq, since: Instant): Fu[List[Tournament]] =
     tournamentRepo.coll
@@ -92,11 +92,11 @@ final class WinnersApi(
 
   private def fetchAll: Fu[AllWinners] =
     for
-      yearlies  <- fetchLastFreq(Freq.Yearly, nowInstant.minusYears(1))
+      yearlies <- fetchLastFreq(Freq.Yearly, nowInstant.minusYears(1))
       monthlies <- fetchLastFreq(Freq.Monthly, nowInstant.minusMonths(2))
-      weeklies  <- fetchLastFreq(Freq.Weekly, nowInstant.minusWeeks(2))
-      dailies   <- fetchLastFreq(Freq.Daily, nowInstant.minusDays(2))
-      elites    <- fetchLastFreq(Freq.Weekend, nowInstant.minusWeeks(3))
+      weeklies <- fetchLastFreq(Freq.Weekly, nowInstant.minusWeeks(2))
+      dailies <- fetchLastFreq(Freq.Daily, nowInstant.minusDays(2))
+      elites <- fetchLastFreq(Freq.Weekend, nowInstant.minusWeeks(3))
       marathons <- fetchLastFreq(Freq.Marathon, nowInstant.minusMonths(13))
     yield
       def standardFreqWinners(speed: Speed): FreqWinners =
@@ -144,4 +144,4 @@ object WinnersApi:
 
   val variants = Variant.list.all.filter:
     case Standard | FromPosition => false
-    case _                       => true
+    case _ => true

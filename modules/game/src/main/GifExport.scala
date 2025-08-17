@@ -3,7 +3,7 @@ package lila.game
 import akka.stream.scaladsl.*
 import akka.util.ByteString
 import chess.format.{ Fen, Uci }
-import chess.{ Position, Centis, Color, Game as ChessGame, Replay }
+import chess.{ Position, Centis, Color }
 import play.api.libs.json.*
 import play.api.libs.ws.JsonBodyWritables.*
 import play.api.libs.ws.{ StandaloneWSClient, StandaloneWSResponse }
@@ -25,7 +25,7 @@ final class GifExport(
     url: String
 )(using Executor):
   private val targetMedianTime = Centis(80)
-  private val targetMaxTime    = Centis(200)
+  private val targetMaxTime = Centis(200)
 
   def fromPov(
       pov: Pov,
@@ -47,10 +47,10 @@ final class GifExport(
             ),
             "comment" -> s"${baseUrl.value}/${pov.game.id} rendered with https://github.com/lichess-org/lila-gif",
             "orientation" -> pov.color.name,
-            "delay"       -> targetMedianTime.centis, // default delay for frames
-            "frames"      -> frames(pov.game, initialFen),
-            "theme"       -> theme,
-            "piece"       -> piece
+            "delay" -> targetMedianTime.centis, // default delay for frames
+            "frames" -> frames(pov.game, initialFen),
+            "theme" -> theme,
+            "piece" -> piece
           )
         )
         .stream()).pipe(upstreamResponse(s"pov ${pov.game.id}"))
@@ -82,10 +82,10 @@ final class GifExport(
       .withMethod("GET")
       .withQueryStringParameters(
         List(
-          "fen"         -> Fen.write(position).value,
+          "fen" -> Fen.write(position).value,
           "orientation" -> orientation.name,
-          "theme"       -> theme,
-          "piece"       -> piece
+          "theme" -> theme,
+          "piece" -> piece
         ) ::: List(
           white.map { "white" -> _ },
           black.map { "black" -> _ },
@@ -118,35 +118,27 @@ final class GifExport(
         }
       case None => moveTimes.map(_.atMost(targetMaxTime))
 
-  private def frames(game: Game, initialFen: Option[Fen.Full]) =
-    Replay.gameMoveWhileValid(
-      game.sans,
-      initialFen | game.variant.initialFen,
-      game.variant
-    ) match
-      case (init, games, _) =>
-        val steps = (init, None) :: (games.map { case (g, Uci.WithSan(uci, _)) =>
-          (g, uci.some)
-        })
-        framesRec(
-          steps.zip(scaleMoveTimes(~game.moveTimes).map(some).padTo(steps.length, None)),
-          Json.arr()
-        )
+  private def frames(game: Game, initialFen: Option[Fen.Full]): JsArray =
+    val positions = Position(game.variant, initialFen).playPositions(game.sans).getOrElse(List(game.position))
+    framesRec(
+      positions.zip(scaleMoveTimes(~game.moveTimes).map(some).padTo(positions.length, None)),
+      Json.arr()
+    )
 
   @annotation.tailrec
-  private def framesRec(games: List[((ChessGame, Option[Uci]), Option[Centis])], arr: JsArray): JsArray =
+  private def framesRec(games: List[(Position, Option[Centis])], arr: JsArray): JsArray =
     games match
       case Nil =>
         arr
-      case ((game, uci), scaledMoveTime) :: tail =>
+      case (position, scaledMoveTime) :: tail =>
         // longer delay for last frame
         val delay = if tail.isEmpty then Centis(500).some else scaledMoveTime
-        framesRec(tail, arr :+ frame(game.position, uci, delay))
+        framesRec(tail, arr :+ frame(position, position.history.lastMove, delay))
 
   private def frame(position: Position, uci: Option[Uci], delay: Option[Centis]) =
     Json
       .obj(
-        "fen"      -> (Fen.write(position)),
+        "fen" -> (Fen.write(position)),
         "lastMove" -> uci.map(_.uci)
       )
       .add("check", position.checkSquare.map(_.key))

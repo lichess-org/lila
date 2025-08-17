@@ -21,7 +21,6 @@ final class Env(
     socketKit: lila.core.socket.SocketKit
 )(using
     Executor,
-    akka.actor.ActorSystem,
     Scheduler,
     lila.core.game.IdGenerator,
     IsClockCompatible,

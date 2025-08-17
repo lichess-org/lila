@@ -27,7 +27,7 @@ The Lichess team"""
     mailer.canSend.so:
       lila.mon.email.send.welcome.increment()
       val profileUrl = s"$baseUrl/@/${user.username}"
-      val editUrl    = s"$baseUrl/account/profile"
+      val editUrl = s"$baseUrl/account/profile"
       mailer.sendOrSkip:
         Mailer.Message(
           to = email,
@@ -46,7 +46,7 @@ The Lichess team"""
 
   def onTitleSet(username: UserStr, title: chess.PlayerTitle): Funit = {
     for
-      user        <- userApi.byId(username).orFail(s"No such user $username")
+      user <- userApi.byId(username).orFail(s"No such user $username")
       emailOption <- userApi.email(user.id)
       body = alsoSendAsPrivateMessage(user): _ =>
         s"""Hello,
@@ -172,6 +172,13 @@ To make a new donation, head to $baseUrl/patron"""
             s"""You gifted @${to.username} $wings. Thank you so much!"""
           alsoSendAsPrivateMessage(to): _ =>
             s"""@${from.username} gifted you $wings!"""
+
+  def onPatronFree(dest: User): Unit =
+    alsoSendAsPrivateMessage(dest)(
+      body = _ => s"""Thank you for being an active member of our community!
+As a token of our appreciation, you have been gifted Patron Wings for a month.
+$baseUrl/patron"""
+    )
 
   private[mailer] def dailyCorrespondenceNotice(
       userId: UserId,

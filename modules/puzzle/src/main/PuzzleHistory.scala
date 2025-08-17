@@ -37,7 +37,7 @@ object PuzzleHistory:
             )
         .map: r =>
           for
-            doc   <- r
+            doc <- r
             round <- doc.asOpt[PuzzleRound]
             theme = doc.getAsOpt[PuzzleTheme.Key](PuzzleRound.BSONFields.theme) | PuzzleTheme.mix.key
             puzzle <- doc.getAsOpt[Puzzle]("puzzle")

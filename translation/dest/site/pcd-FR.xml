@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Jouer avec un⋅e ami⋅e</string>
+  <string name="playWithAFriend">Inviter à une partie</string>
   <string name="playWithTheMachine">Jouer contre l\'ordinateur</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Pour inviter quelqu\'un à jouer, donnez-lui ce lien</string>
   <string name="gameOver">Partie terminée</string>
@@ -168,6 +168,7 @@
   <string name="drawByMutualAgreement">Partie nulle par accord mutuel</string>
   <string name="fiftyMovesWithoutProgress">Cinquante coups joués sans progrès</string>
   <string name="currentGames">Parties en cours</string>
+  <string name="joinedX">Inscription : %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s partie</item>
     <item quantity="other">%s parties</item>
@@ -350,7 +351,15 @@
   <string name="openingExplorerAndTablebase">Arbre d\'ouvertures &amp; tables de finales</string>
   <string name="takeback">Annuler le coup</string>
   <string name="proposeATakeback">Proposer l\'annulation du coup</string>
+  <string name="whiteProposesTakeback">Les Blancs offrent de reprendre le coup.</string>
+  <string name="blackProposesTakeback">Les Noirs offrent de reprendre le coup.</string>
   <string name="takebackPropositionSent">Annulation du coup proposée</string>
+  <string name="whiteDeclinesTakeback">Les Blancs refusent de reprendre le coup.</string>
+  <string name="blackDeclinesTakeback">Les Noirs refusent de reprendre le coup.</string>
+  <string name="whiteAcceptsTakeback">Les Blancs acceptent de reprendre le coup.</string>
+  <string name="blackAcceptsTakeback">Les Noirs acceptent de reprendre le coup.</string>
+  <string name="whiteCancelsTakeback">Les Blancs retirent l\'offre de reprendre le coup.</string>
+  <string name="blackCancelsTakeback">Les Noirs retirent l\'offre de reprendre le coup.</string>
   <string name="yourOpponentProposesATakeback">Votre adversaire propose l\'annulation du coup</string>
   <string name="bookmarkThisGame">Ajouter cette partie aux favorites</string>
   <string name="tournament">Tournoi</string>
@@ -470,7 +479,7 @@
   <string name="openTournaments">Tournois ouverts</string>
   <string name="duration">Durée</string>
   <string name="winner">Vainqueur</string>
-  <string name="standing">Classement</string>
+  <string name="standings">Classement</string>
   <string name="createANewTournament">Créer un nouveau tournoi</string>
   <string name="tournamentCalendar">Calendrier des tournois</string>
   <string name="conditionOfEntry">Condition d\'admission :</string>
@@ -484,7 +493,6 @@
   <string name="points">Points</string>
   <string name="wins">Victoires</string>
   <string name="losses">Défaites</string>
-  <string name="createdBy">Créé par</string>
   <string name="startingIn" comment="Displayed above a timer">Début dans</string>
   <string name="standByX">Appariements des joueurs, tenez-vous prêt %s !</string>
   <string name="pause">Pause</string>
@@ -670,6 +678,7 @@
   <string name="really">pour de vrai</string>
   <string name="contribute">Contribuer</string>
   <string name="termsOfService">Conditions d\'utilisation</string>
+  <string name="titleVerification">Vérification du titre</string>
   <string name="sourceCode">Code source</string>
   <string name="simultaneousExhibitions">Parties simultanées</string>
   <string name="host">Hôte</string>
@@ -1000,4 +1009,5 @@ Tous les coûts d\'exploitation, le développement et le contenu sont financés 
   <string name="accessibility">Accessibilité</string>
   <string name="enableBlindMode">Activer le mode pour non-voyant</string>
   <string name="disableBlindMode">Désactiver le mode pour non-voyant</string>
+  <string name="copyToClipboard">Copier dans le presse-papier</string>
 </resources>

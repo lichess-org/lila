@@ -57,23 +57,12 @@ export const currentTheme = (): 'light' | 'dark' => {
   else return 'dark';
 };
 
-let colCache: 'init' | 'rec' | number = 'init';
+let colCache: number | undefined;
+window.addEventListener('resize', () => (colCache = undefined));
 
 export function displayColumns(): number {
-  if (typeof colCache === 'string') {
-    if (colCache === 'init') {
-      // only once
-      window.addEventListener('resize', () => {
-        colCache = 'rec';
-      }); // recompute on resize
-      if (navigator.userAgent.indexOf('Edge/') > -1)
-        // edge gets false positive on page load, fix later
-        requestAnimationFrame(() => {
-          colCache = 'rec';
-        });
-    }
+  if (colCache === undefined)
     colCache = Number(window.getComputedStyle(document.body).getPropertyValue('---display-columns'));
-  }
   return colCache;
 }
 
@@ -108,8 +97,10 @@ export const isWebkit = (constraint?: VersionConstraint): boolean =>
 export const isIosChrome = (constraint?: VersionConstraint): boolean =>
   lowerAgent.includes('crios/') && isVersionCompatible(webkitVersion(), constraint);
 
-export const isApple: () => boolean = memoize<boolean>(
-  () => /macintosh|iphone|ipad|ipod/.test(lowerAgent), // macOS or iOS
+export const isApple: () => boolean = memoize<boolean>(() => /macintosh|iphone|ipad|ipod/.test(lowerAgent));
+
+export const isMac: () => boolean = memoize<boolean>(
+  () => lowerAgent.includes('macintosh') && !('ontouchstart' in window),
 );
 
 const webkitVersion = memoize<string | false>(
@@ -183,7 +174,7 @@ function sharedMemoryTest(): boolean {
   } catch {
     return false;
   }
-  return mem.buffer instanceof SharedArrayBuffer;
+  return true;
 }
 
 export function isVersionCompatible(version: string | undefined | false, vc?: VersionConstraint): boolean {

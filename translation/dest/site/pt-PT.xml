@@ -168,6 +168,7 @@
   <string name="drawByMutualAgreement">Empate por acordo mútuo</string>
   <string name="fiftyMovesWithoutProgress">Cinquenta jogadas sem progresso</string>
   <string name="currentGames">Partidas a decorrer</string>
+  <string name="joinedX">Registou-se %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s jogo</item>
     <item quantity="other">%s jogos</item>
@@ -479,7 +480,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="openTournaments">Torneios abertos</string>
   <string name="duration">Duração</string>
   <string name="winner">Vencedor</string>
-  <string name="standing">Classificação</string>
+  <string name="standings">Classificações</string>
   <string name="createANewTournament">Criar um torneio</string>
   <string name="tournamentCalendar">Calendário de torneios</string>
   <string name="conditionOfEntry">Condições de participação:</string>
@@ -493,7 +494,6 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="points">Pontos</string>
   <string name="wins">Vitórias</string>
   <string name="losses">Derrotas</string>
-  <string name="createdBy">Criado por</string>
   <string name="startingIn" comment="Displayed above a timer">Começa em</string>
   <string name="standByX">Aguarda %s, estamos a emparelhar jogadores, prepara-te!</string>
   <string name="pause">Pausa</string>
@@ -679,7 +679,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="really">a sério</string>
   <string name="contribute">Contribuir</string>
   <string name="termsOfService">Termos de serviço</string>
-  <string name="titleVerification" comment="This is a link to a form that lets players verify either a FIDE or national federation title (NM, etc).">Verificação de título</string>
+  <string name="titleVerification">Verificação de título</string>
   <string name="sourceCode">Código fonte</string>
   <string name="simultaneousExhibitions">Exibições simultâneas</string>
   <string name="host">Anfitrião</string>

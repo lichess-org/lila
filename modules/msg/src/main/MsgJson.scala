@@ -11,8 +11,8 @@ final class MsgJson(
     isOnline: lila.core.socket.IsOnline
 )(using Executor):
 
-  private given lastMsgWrites: OWrites[Msg.Last]                 = Json.writes
-  private given relationsWrites: OWrites[Relations]              = Json.writes
+  private given lastMsgWrites: OWrites[Msg.Last] = Json.writes
+  private given relationsWrites: OWrites[Relations] = Json.writes
   private given modDetailsWrites: OWrites[ContactDetailsForMods] = Json.writes
 
   def threads(threads: List[MsgThread])(using me: Me): Fu[JsArray] =
@@ -23,10 +23,10 @@ final class MsgJson(
   def convo(c: MsgConvo): JsObject =
     Json
       .obj(
-        "user"      -> renderContact(c.contact),
-        "msgs"      -> c.msgs.map(renderMsg),
+        "user" -> renderContact(c.contact),
+        "msgs" -> c.msgs.map(renderMsg),
         "relations" -> c.relations,
-        "postable"  -> c.postable
+        "postable" -> c.postable
       )
       .add("modDetails" -> c.contactDetailsForMods)
 
@@ -41,8 +41,8 @@ final class MsgJson(
     withContacts(res.threads).map: threads =>
       Json.obj(
         "contacts" -> threads.map(renderThread),
-        "friends"  -> res.friends,
-        "users"    -> res.users
+        "friends" -> res.friends,
+        "users" -> res.users
       )
 
   private def withContacts(threads: List[MsgThread])(using me: Me): Fu[List[MsgThread.WithContact]] =

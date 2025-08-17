@@ -5,7 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Para invitar a alguien a jugar, comparte este enlace</string>
   <string name="gameOver">Fin de la partida</string>
   <string name="waitingForOpponent">Esperando al oponente</string>
-  <string name="orLetYourOpponentScanQrCode">O deja que tu oponente escanee este código QR</string>
+  <string name="orLetYourOpponentScanQrCode">O dile a tu oponente que escanee este código QR</string>
   <string name="waiting">Esperando</string>
   <string name="yourTurn">Tu turno</string>
   <string name="aiNameLevelAiLevel">%1$s nivel %2$s</string>
@@ -22,7 +22,7 @@
   <string name="asBlack">con negras</string>
   <string name="randomColor">Color aleatorio</string>
   <string name="createAGame">Crear una partida</string>
-  <string name="createTheGame">Crea una partida</string>
+  <string name="createTheGame">Crea la partida</string>
   <string name="whiteIsVictorious">Las blancas ganan</string>
   <string name="blackIsVictorious">Las negras ganan</string>
   <string name="youPlayTheWhitePieces">Juegas con blancas</string>
@@ -51,12 +51,12 @@
   <string name="blackResigned">Las negras abandonaron</string>
   <string name="whiteLeftTheGame">Las blancas han dejado la partida</string>
   <string name="blackLeftTheGame">Las negras han dejado la partida</string>
-  <string name="whiteDidntMove">Las blancas no han jugado</string>
-  <string name="blackDidntMove">Las negras no han jugado</string>
+  <string name="whiteDidntMove">Las blancas no han movido</string>
+  <string name="blackDidntMove">Las negras no han movido</string>
   <string name="requestAComputerAnalysis">Solicitar un análisis del ordenador</string>
   <string name="computerAnalysis">Análisis del ordenador</string>
   <string name="computerAnalysisAvailable">Análisis del ordenador disponible</string>
-  <string name="computerAnalysisDisabled">Análisis por ordenador deshabilitado</string>
+  <string name="computerAnalysisDisabled">Análisis por ordenador desactivado</string>
   <string name="analysis">Tablero de análisis</string>
   <string name="depthX">Profundidad: %s</string>
   <string name="usingServerAnalysis">Usando análisis del servidor</string>
@@ -75,7 +75,7 @@
   <string name="expandVariations">Abrir variantes</string>
   <string name="forceVariation">Convertir en variante</string>
   <string name="copyVariationPgn">Copiar PGN de la variante</string>
-  <string name="copyMainLinePgn">Copiar PGN de la variante principal</string>
+  <string name="copyMainLinePgn">Copiar PGN de la línea principal</string>
   <string name="move">Movimiento</string>
   <string name="variantLoss">Variante perdedora</string>
   <string name="variantWin">Variante ganadora</string>
@@ -99,7 +99,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' con redondeo, basado en el número de movimientos intermedios hasta la próxima captura o movimiento de peón</string>
   <string name="noGameFound">No se ha encontrado ninguna partida</string>
-  <string name="maxDepthReached">¡Profundidad máxima alcanzada!</string>
+  <string name="maxDepthReached">¡Se ha alcanzado la profundidad máxima!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Prueba incluyendo más partidas desde el menú de preferencias</string>
   <string name="openings">Aperturas</string>
   <string name="openingExplorer">Explorador de aperturas</string>
@@ -168,12 +168,13 @@
   <string name="drawByMutualAgreement">Tablas de mutuo acuerdo</string>
   <string name="fiftyMovesWithoutProgress">Cincuenta movimientos sin ningún progreso</string>
   <string name="currentGames">Partidas en juego</string>
+  <string name="joinedX">Se unió %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s Partida</item>
     <item quantity="other">%s Partidas</item>
   </plurals>
   <plurals name="ratingXOverYGames">
-    <item quantity="one">Puntuación %1$s en %2$s partida</item>
+    <item quantity="one">Puntuación de %1$s en %2$s partida</item>
     <item quantity="other">Puntuación de %1$s en %2$s partidas</item>
   </plurals>
   <plurals name="nbBookmarks">
@@ -183,7 +184,7 @@
   <string name="viewInFullSize">Ver en tamaño completo</string>
   <string name="logOut">Cerrar sesión</string>
   <string name="signIn">Iniciar sesión</string>
-  <string name="rememberMe">No cerrar sesión</string>
+  <string name="rememberMe">Recordarme</string>
   <string name="youNeedAnAccountToDoThat">Necesitas crear una cuenta para hacer eso</string>
   <string name="signUp">Registrarse</string>
   <string name="computersAreNotAllowedToPlay">No está permitido jugar a ordenadores ni a jugadores ayudados por un ordenador o por otras personas. Por favor, no te ayudes de motores de ajedrez, bases de datos o de otros jugadores durante la partida. Además, ten en cuenta que no se aconseja la utilización de varias cuentas de usuario y que el uso de un excesivo número de cuentas resultará en la cancelación de las mismas.</string>
@@ -226,35 +227,35 @@
   <string name="changeUsernameNotSame">Sólo es posible cambiar mayúsculas por minúsculas y viceversa. Por ejemplo, de \"juanperez\" a \"JuanPerez\".</string>
   <string name="changeUsernameDescription">Cambiar tu nombre de usuario. Esto sólo puede hacerse una vez, y sólo se puede cambiar mayúsculas por minúsculas y viceversa.</string>
   <string name="signupUsernameHint">Asegúrate de elegir un nombre de usuario apto para todos los públicos. ¡No podrás cambiarlo más tarde y se cerrará cualquier cuenta con un nombre de usuario inapropiado!</string>
-  <string name="signupEmailHint">Solo lo usaremos para restablecer la contraseña.</string>
+  <string name="signupEmailHint">Sólo lo usaremos para restablecer tu contraseña.</string>
   <string name="password">Contraseña</string>
   <string name="changePassword">Cambiar contraseña</string>
   <string name="changeEmail">Cambiar correo</string>
   <string name="email">Correo</string>
   <string name="passwordReset">Cambiar contraseña</string>
   <string name="forgotPassword">¿Olvidaste tu contraseña?</string>
-  <string name="error.weakPassword">Esta contraseña es extremadamente común y muy fácil de adivinar.</string>
+  <string name="error.weakPassword">Esta contraseña es muy común y fácil de adivinar.</string>
   <string name="error.namePassword">Por favor, no uses tu nombre de usuario como contraseña.</string>
-  <string name="blankedPassword">Has utilizado la misma contraseña en otro sitio y ese sitio ha sido comprometido. Para garantizar la seguridad de tu cuenta en Lichess, necesitamos que establezcas una nueva contraseña. Gracias por su comprensión.</string>
-  <string name="youAreLeavingLichess">Estás saliendo de Lichess</string>
-  <string name="neverTypeYourPassword">¡Nunca escribas tu contraseña de Lichess en otro sitio!</string>
+  <string name="blankedPassword">Has utilizado la misma contraseña en alguna otra página que fue objeto de un ataque (y expuso tu contraseña). Para garantizar la seguridad de tu cuenta en Lichess, necesitamos que elijas una contraseña diferente. Gracias por tu comprensión.</string>
+  <string name="youAreLeavingLichess">Vas a salir de Lichess</string>
+  <string name="neverTypeYourPassword">¡Nunca escribas tu contraseña de Lichess en otras páginas!</string>
   <string name="proceedToX">Ir a %s</string>
-  <string name="passwordSuggestion">No establezcas una contraseña sugerida por otra persona. La usarán para robar tu cuenta.</string>
-  <string name="emailSuggestion">No establezcas una dirección de correo electrónico sugerida por otra persona. La usarán para robar tu cuenta.</string>
+  <string name="passwordSuggestion">No uses una contraseña que te haya sugerido otra persona. Podrían usarla para robar tu cuenta.</string>
+  <string name="emailSuggestion">No uses una dirección de correo electrónico que te haya sugerido otra persona. Podrían usarla para robar tu cuenta.</string>
   <string name="emailConfirmHelp">Ayuda con la confirmación del correo</string>
   <string name="emailConfirmNotReceived">¿No recibiste un correo de confirmación después de registrarte?</string>
   <string name="whatSignupUsername">¿Qué nombre de usuario utilizaste para registrarte?</string>
-  <string name="usernameNotFound">No pudimos encontrar ningún usuario con este nombre: %s.</string>
+  <string name="usernameNotFound">No encontramos ningún usuario con este nombre: %s.</string>
   <string name="usernameCanBeUsedForNewAccount">Puedes usar este nombre de usuario para crear una nueva cuenta</string>
   <string name="emailSent">Hemos enviado un correo a %s.</string>
-  <string name="emailCanTakeSomeTime">Puede tardar un poco en llegar.</string>
+  <string name="emailCanTakeSomeTime">Puede que tome algo de tiempo en llegar.</string>
   <string name="refreshInboxAfterFiveMinutes">Espera 5 minutos y actualiza tu bandeja de entrada.</string>
-  <string name="checkSpamFolder">Comprueba tu carpeta de spam, puede que haya terminado ahí. Si es así, márcalo como no spam.</string>
-  <string name="emailForSignupHelp">Si todo lo demás falla, envíanos este correo:</string>
+  <string name="checkSpamFolder">También comprueba tu carpeta de spam, por si ha ido ahí. En ese caso, márcalo como no spam.</string>
+  <string name="emailForSignupHelp">Si nada de lo anterior funciona, envíanos este texto por correo:</string>
   <string name="copyTextToEmail">Copia y pega el texto anterior y envíalo a %s</string>
   <string name="waitForSignupHelp">Nos pondremos en contacto contigo dentro de poco para ayudarte a completar el registro.</string>
-  <string name="accountConfirmed">El usuario %s fue confirmado con éxito.</string>
-  <string name="accountCanLogin">Puedes iniciar sesión ahora como %s.</string>
+  <string name="accountConfirmed">Se ha completado la verificación del usuario %s sin problemas.</string>
+  <string name="accountCanLogin">Ya puedes iniciar sesión como %s.</string>
   <string name="accountConfirmationEmailNotNeeded">No necesitas un correo de confirmación.</string>
   <string name="accountClosed">La cuenta %s está cerrada.</string>
   <string name="accountRegisteredWithoutEmail">La cuenta %s fue registrada sin un correo.</string>
@@ -378,7 +379,7 @@
   </plurals>
   <string name="viewTournament">Ver torneo</string>
   <string name="backToTournament">Volver al torneo</string>
-  <string name="noDrawBeforeSwissLimit">No puedes hacer tablas antes de que se jueguen 30 movimientos en un torneo suizo.</string>
+  <string name="noDrawBeforeSwissLimit">No puedes hacer tablas antes de 30 movimientos en un torneo suizo.</string>
   <string name="thematic">Temático</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s partida por puntos</item>
@@ -408,7 +409,7 @@
   <string name="siteDescription">Servidor de ajedrez en línea gratuito. Juega al ajedrez en una interfaz simple. Sin registro, sin publicidad, sin necesidad de complementos. Juega contra el ordenador, amigos u oponentes desconocidos.</string>
   <string name="xJoinedTeamY">%1$s se unió al equipo %2$s</string>
   <string name="xCreatedTeamY">%1$s creó el equipo %2$s</string>
-  <string name="startedStreaming">comenzó a transmitir</string>
+  <string name="startedStreaming">comenzó a retransmitir</string>
   <string name="xStartedStreaming">%s comenzó a emitir</string>
   <string name="averageElo">Puntuación promedio</string>
   <string name="location">Ubicación</string>
@@ -441,7 +442,7 @@
   <string name="blackCheckmatesInOneMove">Juegan negras y dan mate en una</string>
   <string name="retry">Reintentar</string>
   <string name="reconnecting">Reconectando</string>
-  <string name="noNetwork">Sin conexión</string>
+  <string name="noNetwork">Desconectado</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s amigo conectado</item>
     <item quantity="other">%s amigos conectados</item>
@@ -478,7 +479,7 @@
   <string name="openTournaments">Torneos abiertos</string>
   <string name="duration">Duración</string>
   <string name="winner">Ganador</string>
-  <string name="standing">Posición</string>
+  <string name="standings">Clasificaciones</string>
   <string name="createANewTournament">Crear un nuevo torneo</string>
   <string name="tournamentCalendar">Calendario de torneos</string>
   <string name="conditionOfEntry">Requisito de entrada:</string>
@@ -492,10 +493,9 @@
   <string name="points">Puntos</string>
   <string name="wins">Victorias</string>
   <string name="losses">Derrotas</string>
-  <string name="createdBy">Creado por</string>
   <string name="startingIn" comment="Displayed above a timer">Comienza en</string>
   <string name="standByX">Espera %s, emparejando jugadores, ¡prepárate!</string>
-  <string name="pause">Pausa</string>
+  <string name="pause">Pausar</string>
   <string name="resume">Reanudar</string>
   <string name="youArePlaying">¡Te toca jugar!</string>
   <string name="winRate">Tasa de victorias</string>
@@ -511,7 +511,7 @@
   <string name="setTheBoard">Configurar tablero</string>
   <string name="popularOpenings">Aperturas populares</string>
   <string name="endgamePositions">Posiciones de finales</string>
-  <string name="chess960StartPosition">Posición inicial de Chess960: %s</string>
+  <string name="chess960StartPosition">Posición inicial de Ajedrez 960: %s</string>
   <string name="startPosition">Posición inicial</string>
   <string name="clearBoard">Limpiar el tablero</string>
   <string name="loadPosition">Cargar posicion</string>
@@ -523,16 +523,16 @@
   <string name="profile">Perfil</string>
   <string name="editProfile">Editar perfil</string>
   <string name="realName">Nombre real</string>
-  <string name="setFlair">Configura tu estilo</string>
-  <string name="flair">Estilo</string>
-  <string name="youCanHideFlair">Existe una opción para ocultar el estilo del usuario en todo el sitio.</string>
+  <string name="setFlair">Configura tu insignia</string>
+  <string name="flair">Insignia</string>
+  <string name="youCanHideFlair">Existe una opción para ocultar las insignias de todos los usuarios de la página.</string>
   <string name="biography">Biografía</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">País o región</string>
   <string name="thankYou">¡Gracias!</string>
   <string name="socialMediaLinks">Enlaces a redes sociales</string>
   <string name="oneUrlPerLine">Un enlace por línea.</string>
   <string name="inlineNotation">Notación compacta</string>
-  <string name="makeAStudy">Para guardar y compartir, considera hacer un estudio.</string>
+  <string name="makeAStudy">Si quieres guardarlas y compartirlas, mejor haz un estudio.</string>
   <string name="clearSavedMoves">Borrar movimientos</string>
   <string name="previouslyOnLichessTV">Anteriormente en Lichess TV</string>
   <string name="onlinePlayers">Jugadores conectados</string>
@@ -574,8 +574,8 @@
   <string name="troll">Acoso</string>
   <string name="other">Otro</string>
   <string name="reportCheatBoostHelp">Pega el enlace a la(s) partida(s) y explícanos qué hay de malo en el comportamiento de este usuario. No digas simplemente \"hace trampa\", sino cómo has llegado a esta conclusión.</string>
-  <string name="reportUsernameHelp">Explica qué es lo que te resulta ofensivo de este nombre de usuario. No digas solo \"es ofensivo\" o \"inapropiado\", sino cómo llegaste a esta conclusión, sobre todo si el insulto no es tan obvio, no está en inglés, es jerga o una referencia histórica o cultural.</string>
-  <string name="reportProcessedFasterInEnglish">Tu informe será procesado más rápido si está escrito en inglés.</string>
+  <string name="reportUsernameHelp">Explica por qué es ofensivo este nombre de usuario. No te limites a decir \"es ofensivo\" o \"inapropiado\" y argumenta tu conclusión, sobre todo si el insulto no es tan obvio, no está en inglés, es jerga o una referencia histórica o cultural.</string>
+  <string name="reportProcessedFasterInEnglish">Tu denuncia se procesará más rápido si la escribes en inglés.</string>
   <string name="error.provideOneCheatedGameLink">Por favor, proporciona al menos un enlace a una partida en la que se hicieron trampas.</string>
   <string name="by">por %s</string>
   <string name="importedByX">Importado por %s</string>
@@ -608,7 +608,7 @@
   <string name="slow">Lento</string>
   <string name="insideTheBoard">Dentro del tablero</string>
   <string name="outsideTheBoard">Fuera del tablero</string>
-  <string name="allSquaresOfTheBoard">Todas las casillas del tablero</string>
+  <string name="allSquaresOfTheBoard">En cada casilla</string>
   <string name="onSlowGames">En partidas lentas</string>
   <string name="always">Siempre</string>
   <string name="never">Nunca</string>
@@ -642,18 +642,18 @@
   <string name="community">Comunidad</string>
   <string name="tools">Herramientas</string>
   <string name="increment">Incremento</string>
-  <string name="error.unknown">Valor inválido</string>
+  <string name="error.unknown">Valor no válido</string>
   <string name="error.required">Este campo es obligatorio</string>
   <string name="error.email">Esta dirección de correo electrónico no es válida</string>
   <string name="error.email_acceptable">Esta dirección de correo electrónico no es aceptable. Por favor, compruébala e intenta de nuevo.</string>
-  <string name="error.email_unique">Dirección de correo no válida o en uso</string>
-  <string name="error.email_different">Esta ya es tu dirección de correo electrónico</string>
+  <string name="error.email_unique">Dirección de correo no válida o ya en uso</string>
+  <string name="error.email_different">Esta era ya tu dirección de correo electrónico</string>
   <string name="error.minLength">Debe tener %s caracteres como mínimo</string>
   <string name="error.maxLength">Debe tener %s caracteres como máximo</string>
   <string name="error.min">Debe ser mayor o igual a %s</string>
   <string name="error.max">Debe ser como máximo %s</string>
   <string name="ifRatingIsPlusMinusX">Si la puntuación es ± %s</string>
-  <string name="ifRegistered">Si está registrado</string>
+  <string name="ifRegistered">Si están registrados</string>
   <string name="onlyExistingConversations">Solo conversaciones existentes</string>
   <string name="onlyFriends">Sólo amigos</string>
   <string name="menu">Menú</string>
@@ -678,7 +678,7 @@
   <string name="really">realmente</string>
   <string name="contribute">Contribuir</string>
   <string name="termsOfService">Condiciones del servicio</string>
-  <string name="titleVerification" comment="This is a link to a form that lets players verify either a FIDE or national federation title (NM, etc).">Verificación de título</string>
+  <string name="titleVerification">Verificación de título</string>
   <string name="sourceCode">Código fuente</string>
   <string name="simultaneousExhibitions">Partidas simultáneas</string>
   <string name="host">Anfitrión</string>
@@ -686,7 +686,7 @@
   <string name="yourPendingSimuls">Tus simultáneas pendientes</string>
   <string name="createdSimuls">Simultáneas nuevas</string>
   <string name="hostANewSimul">Crear una nueva simultánea</string>
-  <string name="signUpToHostOrJoinASimul">Regístrate para crear o unirte a una simultánea</string>
+  <string name="signUpToHostOrJoinASimul">Regístrate para crear una simultánea o unirte a ella</string>
   <string name="noSimulFound">Simultánea no encontrada</string>
   <string name="noSimulExplanation">Esta exhibición simultánea no existe.</string>
   <string name="returnToSimulHomepage">Volver a la página de simultáneas</string>
@@ -701,8 +701,8 @@
   <string name="simulClockHint">Configuración de reloj Fischer. Cuantos más oponentes, más tiempo se necesita.</string>
   <string name="simulAddExtraTime">Puedes añadir tiempo adicional a tu reloj para ayudarte en la simultánea.</string>
   <string name="simulHostExtraTime">Tiempo extra del anfitrión</string>
-  <string name="simulAddExtraTimePerPlayer">Añadir tiempo inicial a tu reloj por cada jugador que se una a la simultánea.</string>
-  <string name="simulHostExtraTimePerPlayer">Tiempo extra del anfitrión por cada jugador</string>
+  <string name="simulAddExtraTimePerPlayer">Tiempo inicial que se añade a tu reloj por cada oponente que se una a la simultánea.</string>
+  <string name="simulHostExtraTimePerPlayer">Tiempo extra del anfitrión por cada oponente</string>
   <string name="lichessTournaments">Torneos de Lichess</string>
   <string name="tournamentFAQ">Preguntas frecuentes de los torneos</string>
   <string name="timeBeforeTournamentStarts">Tiempo antes de que comience el torneo</string>
@@ -798,7 +798,7 @@
   <string name="anonymous">Anónimo</string>
   <string name="yourScore">Tu puntuación: %s</string>
   <string name="language">Idioma</string>
-  <string name="allLanguages">Todos los idiomas</string>
+  <string name="allLanguages">Cualquier idioma</string>
   <string name="background">Fondo</string>
   <string name="light">Claro</string>
   <string name="dark">Oscuro</string>
@@ -810,7 +810,7 @@
   <string name="opacity">Opacidad</string>
   <string name="brightness">Brillo</string>
   <string name="hue">Tono</string>
-  <string name="boardReset">Restablecer colores predeterminados</string>
+  <string name="boardReset">Restablecer los colores predeterminados</string>
   <string name="pieceSet">Estilo de piezas</string>
   <string name="embedInYourWebsite">Añadir a mi sitio</string>
   <string name="usernameAlreadyUsed">Este nombre de usuario ya existe. Pruebe con otro, por favor.</string>
@@ -836,7 +836,7 @@
   <string name="bestWasX">El mejor era %s</string>
   <string name="youBrowsedAway">Has salido de la revisión</string>
   <string name="resumePractice">Volver a la revisión de errores</string>
-  <string name="drawByFiftyMoves">La partida ha finalizado en tablas por la regla de los cincuenta movimientos.</string>
+  <string name="drawByFiftyMoves">La partida ha acabado en tablas por la regla de los cincuenta movimientos.</string>
   <string name="theGameIsADraw">La partida es tablas.</string>
   <string name="computerThinking">El ordenador está calculando...</string>
   <string name="seeBestMove">Ver el mejor movimiento</string>
@@ -901,7 +901,7 @@
   <string name="currentMatchScore">Resultados de este enfrentamiento</string>
   <string name="agreementAssistance">Me comprometo a no recibir ayuda externa durante mis partidas (de un ordenador, un libro, una base de datos u otra persona).</string>
   <string name="agreementNice">Me comprometo a respetar siempre a otros jugadores.</string>
-  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Estoy de acuerdo en no crear varias cuentas (excepto por las razones indicadas en las %s).</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Me comprometo a no crear varias cuentas (excepto por las razones indicadas en las %s).</string>
   <string name="agreementPolicy">Me comprometo a seguir las normas de Lichess.</string>
   <string name="searchOrStartNewDiscussion">Buscar o empezar una nueva conversación</string>
   <string name="edit">Editar</string>
@@ -1009,4 +1009,5 @@ Todos los gastos de funcionamiento, desarrollo y contenidos se financian exclusi
   <string name="accessibility">Accesibilidad</string>
   <string name="enableBlindMode">Activar modo para no videntes</string>
   <string name="disableBlindMode">Desactivar modo para no videntes</string>
+  <string name="copyToClipboard">Copiar al portapapeles</string>
 </resources>

@@ -26,14 +26,14 @@ case class FidePlayer(
 
   def ratingOf(tc: FideTC): Option[Elo] = tc match
     case FideTC.standard => standard
-    case FideTC.rapid    => rapid
-    case FideTC.blitz    => blitz
+    case FideTC.rapid => rapid
+    case FideTC.blitz => blitz
 
   def kFactorOf(tc: FideTC): KFactor = tc
     .match
       case FideTC.standard => standardK
-      case FideTC.rapid    => rapidK
-      case FideTC.blitz    => blitzK
+      case FideTC.rapid => rapidK
+      case FideTC.blitz => blitzK
     .|(KFactor.default)
 
   def slug: String = FidePlayer.slugify(name)
@@ -50,8 +50,8 @@ case class FidePlayer(
 
   def ratingsStr = List(
     "Standard" -> standard,
-    "Rapid"    -> rapid,
-    "Blitz"    -> blitz
+    "Rapid" -> rapid,
+    "Blitz" -> blitz
   ).map: (name, rating) =>
     s"$name: ${rating.fold("—")(_.toString)}"
   .mkString(", ")
@@ -60,7 +60,7 @@ object FidePlayer:
 
   private[fide] val tokenize: Tokenize =
     val nonLetterRegex = """[^a-zA-Z0-9\s]+""".r
-    val splitRegex     = """\W""".r
+    val splitRegex = """\W""".r
     str =>
       splitRegex
         .split:
@@ -78,12 +78,12 @@ object FidePlayer:
 
   private def trimTitle(name: List[String]): List[String] = name match
     case title :: rest if PlayerTitle.get(title).isDefined => rest
-    case _                                                 => name
+    case _ => name
 
   private[fide] val slugify: PlayerName => String =
     val splitAccentRegex = "[\u0300-\u036f]".r
-    val multiSpaceRegex  = """\s+""".r
-    val badChars         = """[^\w\-]+""".r
+    val multiSpaceRegex = """\s+""".r
+    val badChars = """[^\w\-]+""".r
     name =>
       badChars.replaceAllIn(
         multiSpaceRegex.replaceAllIn(

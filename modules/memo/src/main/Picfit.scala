@@ -35,34 +35,38 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
   import PicfitApi.*
   private val uploadMaxBytes = uploadMaxMb * 1024 * 1024
 
+  val idSep = ':'
+
   def uploadFile(rel: String, uploaded: FilePart, userId: UserId): Fu[PicfitImage] =
     val ref: ByteSource = FileIO.fromPath(uploaded.ref.path)
-    val source          = uploaded.copy[ByteSource](ref = ref, refToBytes = _ => None)
+    val source = uploaded.copy[ByteSource](ref = ref, refToBytes = _ => None)
     uploadSource(rel, source, userId)
 
-  def uploadSource(rel: String, part: SourcePart, userId: UserId): Fu[PicfitImage] =
+  private def uploadSource(rel: String, part: SourcePart, userId: UserId): Fu[PicfitImage] =
     if part.fileSize > uploadMaxBytes
     then fufail(s"File size must not exceed ${uploadMaxMb}MB.")
     else
       part.contentType
         .collect:
           case "image/webp" => "webp"
-          case "image/png"  => "png"
+          case "image/png" => "png"
           case "image/jpeg" => "jpg"
         .match
           case None => fufail(s"Invalid file type: ${part.contentType | "unknown"}")
           case Some(extension) =>
             val image = PicfitImage(
-              id = ImageId(s"$rel:${ThreadLocalRandom.nextString(8)}.$extension"),
+              id = ImageId(s"$rel$idSep${ThreadLocalRandom.nextString(8)}.$extension"),
               user = userId,
               rel = rel,
               name = part.filename,
               size = part.fileSize.toInt,
               createdAt = nowInstant
             )
-            picfitServer.store(image, part) >>
-              deleteByRel(image.rel) >>
-              coll.insert.one(image).inject(image)
+            for
+              _ <- picfitServer.store(image, part)
+              _ <- deleteByRel(image.rel)
+              _ <- coll.insert.one(image)
+            yield image
 
   def deleteByIdsAndUser(ids: Seq[ImageId], user: UserId): Funit =
     ids.toList.sequentiallyVoid: id =>
@@ -79,8 +83,10 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
   object bodyImage:
     val sizePx = Left(800)
     def upload(rel: String, image: FilePart)(using me: Me): Fu[Option[String]] =
-      uploadFile(s"$rel:${scalalib.ThreadLocalRandom.nextString(12)}", image, me)
-        .map(pic => url.resize(pic.id, sizePx).some)
+      rel.contains(idSep).not.so {
+        uploadFile(s"$rel$idSep${scalalib.ThreadLocalRandom.nextString(12)}", image, me)
+          .map(pic => url.resize(pic.id, sizePx).some)
+      }
 
   private object picfitServer:
 
@@ -93,10 +99,10 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
         .flatMap:
           case res if res.status != 200 => fufail(s"${res.statusText} ${res.body[String].take(200)}")
           case _ =>
-            if image.size > 0 then lila.mon.picfit.uploadSize(image.user.value).record(image.size)
+            if image.size > 0 then lila.mon.picfit.uploadSize(image.user).record(image.size)
             // else logger.warn(s"Unknown image size: ${image.id} by ${image.user}")
             funit
-        .monSuccess(_.picfit.uploadTime(image.user.value))
+        .monSuccess(_.picfit.uploadTime(image.user))
 
     def delete(image: PicfitImage): Funit =
       ws.url(s"${config.endpointPost}/${image.id}")
@@ -112,14 +118,14 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
     lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
       for
         ids <- coll.primitive[ImageId]($doc("user" -> del.id), "_id")
-        _   <- deleteByIdsAndUser(ids, del.id)
+        _ <- deleteByIdsAndUser(ids, del.id)
       yield ()
 
 object PicfitApi:
 
   val uploadMaxMb = 6
 
-  type FilePart           = MultipartFormData.FilePart[play.api.libs.Files.TemporaryFile]
+  type FilePart = MultipartFormData.FilePart[play.api.libs.Files.TemporaryFile]
   private type ByteSource = Source[ByteString, ?]
   private type SourcePart = MultipartFormData.FilePart[ByteSource]
 
@@ -129,7 +135,7 @@ object PicfitApi:
     import play.api.libs.ws.SourceBody
     import play.core.formatters.Multipart
     given bodyWritable: BodyWritable[Source[MultipartFormData.Part[Source[ByteString, ?]], ?]] =
-      val boundary    = Multipart.randomBoundary()
+      val boundary = Multipart.randomBoundary()
       val contentType = s"multipart/form-data; boundary=$boundary"
       BodyWritable(b => SourceBody(Multipart.transform(b, boundary)), contentType)
 

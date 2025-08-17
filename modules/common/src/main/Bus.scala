@@ -1,6 +1,5 @@
 package lila.common
 
-import scala.annotation.nowarn
 import scala.util.NotGiven
 
 import akka.actor.ActorRef
@@ -17,13 +16,13 @@ object actorBus:
 
     // LOGIC : It is up to the caller to make sure `T`'s channel is relevant to the `tellable`
     inline def subscribeActorRef[T <: scalalib.bus.Bus.Payload](ref: ActorRef)(using
-        @nowarn ng: NotGiven[T <:< NotBuseable]
+        NotGiven[T <:< NotBuseable]
     ) =
       b.subTellable[T](ActorTellable(ref))
 
     // LOGIC : It is up to the caller to make sure `T`'s channel is relevant to the `tellable`
     inline def unsubscribeActorRef[T <: scalalib.bus.Bus.Payload](ref: ActorRef)(using
-        @nowarn ng: NotGiven[T <:< NotBuseable]
+        NotGiven[T <:< NotBuseable]
     ) =
       b.unsubUnchecked[T](ActorTellable(ref))
 

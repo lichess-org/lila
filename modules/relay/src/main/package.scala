@@ -2,9 +2,11 @@ package lila.relay
 
 export lila.core.lilaism.Lilaism.{ *, given }
 export lila.common.extensions.*
-export lila.core.id.{ RelayRoundId, RelayTourId }
+export lila.core.id.{ RelayRoundId, RelayTourId, RelayGroupId }
 
 val broadcasterUrl = "https://lichess.org/broadcast/app"
+
+val monthOfFirstRelay = java.time.YearMonth.of(2020, 1)
 
 private val logger = lila.log("relay")
 private type RelayGames = Vector[RelayGame]

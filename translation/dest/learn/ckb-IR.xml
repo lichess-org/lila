@@ -1,44 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="learnChess">فێرکاری شەترەنج</string>
-  <string name="byPlaying">لە ڕێگەی یاریکردن!</string>
+  <string name="learnChess">شەتڕەنج فێر ببە</string>
+  <string name="byPlaying">بە یاریکردن!</string>
   <string name="menu">پێڕست</string>
   <string name="progressX">پێشکەوتن: %s</string>
   <string name="resetMyProgress">پێشکەوتنەکانم رێکبخەوە</string>
-  <string name="youWillLoseAllYourProgress">هەموو پێشکەوتنەکانت لەدەست دەدەیت!</string>
+  <string name="youWillLoseAllYourProgress">ھەموو پێشکەوتنەکانت لەدەست دەدەیت!</string>
   <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">یاری بکە!</string>
-  <string name="chessPieces">داشەکانی شەترەنج</string>
+  <string name="chessPieces">داشەکانی شەتڕەنج</string>
   <string name="theRook">قەڵا</string>
-  <string name="itMovesInStraightLines">بەسەر هێڵە راستەکاندا دەجوڵێت</string>
-  <string name="rookIntro">قەڵا داشێکی بەهێزە. ئایا ئامادەی تا فەرمانی پێبکەیت?</string>
-  <string name="rookGoal">کلیک لەسەر قەڵاکە بکە و بیهێنە سەر ئەستێرەکە!</string>
-  <string name="grabAllTheStars">هەموو ئەستێرەکان کۆبکەوە!</string>
-  <string name="theFewerMoves">تا کەمتر جوڵە بکەیت،
-زیاتر خاڵ دەیتەوە!</string>
-  <string name="useTwoRooks">دوو قەڵا بەکاربهێنە
- بۆ خێراکردنی فەرمانەکانت!</string>
-  <string name="rookComplete">پیرۆزە! تۆ بە سەرکەوتوویی شارەزاییت لە قەڵا دروستکرد.</string>
+  <string name="itMovesInStraightLines">لەسەر ھێڵێکی ڕاست دەجووڵێت</string>
+  <string name="rookIntro">قەڵا داشێکی بەھێزە. ئامادەیت بیجووڵێنیت؟</string>
+  <string name="rookGoal">کلیک لەسەر قەڵاکە بکە
+تاکوو بیھێنیتە سەر ئەستێرەکە!</string>
+  <string name="grabAllTheStars">ھەموو ئەستێرەکان کۆبکەوە!</string>
+  <string name="theFewerMoves">تا کەمترین جووڵە بکەیت،
+زۆرترین خاڵ کۆدەکەیتەوە!</string>
+  <string name="useTwoRooks">دوو قەڵا بەکاربھێنە
+ بۆ خێراکردن!</string>
+  <string name="rookComplete">پیرۆزە! ئێستا تۆ شارەزای قەڵایت.</string>
   <string name="theBishop">فیل</string>
-  <string name="itMovesDiagonally">بە لاری دەجولێت</string>
-  <string name="bishopIntro">دواتر، فێردەبیت چۆن فیل لە مانۆڕەکانت بەکاربێنیت!</string>
-  <string name="youNeedBothBishops">یەک فیل لە چوارگۆشەی کاڵ،
- یەک فیل چوارگۆشەی تۆخ.
- پێویستت بە هەردووکی هەیە!</string>
-  <string name="bishopComplete">پیرۆزە، ئێستا دەتوانی فەرمان بە فیل بکەیت.</string>
+  <string name="itMovesDiagonally">بە لاری دەجوولێت</string>
+  <string name="bishopIntro">دواتر فێری جووڵاندنی فیل دەبین!</string>
+  <string name="youNeedBothBishops">یەک داشی فیل لە خانەی سپی،
+ یەک داشی فیل لە خانەی ڕەش.
+ پێویستت بە ھەردووکیان ھەیە!</string>
+  <string name="bishopComplete">پیرۆزە! ئێستا دەتوانیت فیل بجووڵێنت.</string>
   <string name="theQueen">شاژن</string>
   <string name="queenCombinesRookAndBishop">شاژن = قەڵا + فیل</string>
-  <string name="queenIntro">بەهێزترین داشی شەترەنجە، شکۆمەندی بۆ شاژن!</string>
-  <string name="queenComplete">پیرۆزە! شاژنەکان هیچ نهێنیەکیان بۆ تۆ نییە.</string>
+  <string name="queenIntro">بەھێزترین داشی شەتڕەنج. شاژنی خاوەنشکۆ!</string>
+  <string name="queenComplete">پیرۆزە! شاژنەکان ھیچ نھێنییەکیان نییە لێت بشارنەوە.</string>
   <string name="theKing">پاشا</string>
-  <string name="theMostImportantPiece">گرنگترین داشی شەترەنجە</string>
-  <string name="kingIntro">تۆ پاشایت. بەڵام ئەگەر لە شەڕدا کەوتیت، ئەوە بە دۆڕاو هەژمار دەکرێیت.</string>
+  <string name="theMostImportantPiece">گرینگترین داشی شەتڕەنجە</string>
+  <string name="kingIntro">تۆ پاشایت. ئەگەر ببەزێندرێیت، یارییەکە دەدۆڕێنیت.</string>
   <string name="theKingIsSlow">پاشا لەسەرخۆیە.</string>
-  <string name="lastOne">دوواین دانە!</string>
+  <string name="lastOne">دوایین دانە!</string>
   <string name="kingComplete">ئێستا دەتوانیت فەرماندەیی فەرماندە بکەیت!</string>
   <string name="theKnight">ئەسپ</string>
-  <string name="itMovesInAnLShape">لەسەر شێوەی پیتی L ـی ئینگلیزی جوڵە دەکات</string>
-  <string name="knightIntro">لێرەوە ئەوە بزانە. ئەسپ... پارچەیەکی تەڵەکەبازە.</string>
-  <string name="knightsHaveAFancyWay">ئەسپەکان ڕێگەیەکی فەنتازییان هەیە
+  <string name="itMovesInAnLShape">لەسەر شێوەی پیتی Lی ئینگلیزی دەجووڵێت</string>
+  <string name="knightIntro">ئەمەیان کەمێک قورسە. ئەسپ... پارچەیەکی تەڵەکەبازە.</string>
+  <string name="knightsHaveAFancyWay">ئەسپەکان ڕێگەیەکی سەیروسەمەرەیان ھەیە
  لە بازدان بەدەوری خۆیاندا!</string>
   <string name="knightsCanJumpOverObstacles">ئەسپەکان دەتوانن بەسەر بەربەستەکاندا باز بدەن!
  هەڵهاتن و سەرکەوتن بەسەر ئەستێرەکاندا!</string>

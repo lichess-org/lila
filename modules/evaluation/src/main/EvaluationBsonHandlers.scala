@@ -21,14 +21,14 @@ object EvaluationBsonHandlers:
       )
     def writes(w: BSON.Writer, o: PlayerFlags) =
       $doc(
-        "ser"  -> w.boolO(o.suspiciousErrorRate),
-        "aha"  -> w.boolO(o.alwaysHasAdvantage),
-        "hbr"  -> w.boolO(o.highBlurRate),
-        "mbr"  -> w.boolO(o.moderateBlurRate),
+        "ser" -> w.boolO(o.suspiciousErrorRate),
+        "aha" -> w.boolO(o.alwaysHasAdvantage),
+        "hbr" -> w.boolO(o.highBlurRate),
+        "mbr" -> w.boolO(o.moderateBlurRate),
         "hcmt" -> w.boolO(o.highlyConsistentMoveTimes),
-        "cmt"  -> w.boolO(o.moderatelyConsistentMoveTimes),
-        "nfm"  -> w.boolO(o.noFastMoves),
-        "sha"  -> w.boolO(o.suspiciousHoldAlert)
+        "cmt" -> w.boolO(o.moderatelyConsistentMoveTimes),
+        "nfm" -> w.boolO(o.noFastMoves),
+        "sha" -> w.boolO(o.suspiciousHoldAlert)
       )
 
   given BSONHandler[GameAssessment] = BSONIntegerHandler.as[GameAssessment](GameAssessment.orDefault, _.id)
@@ -60,20 +60,20 @@ object EvaluationBsonHandlers:
     )
     def writes(w: BSON.Writer, o: PlayerAssessment) =
       $doc(
-        "_id"        -> o._id,
-        "gameId"     -> o.gameId,
-        "userId"     -> o.userId,
-        "white"      -> o.color.white,
+        "_id" -> o._id,
+        "gameId" -> o.gameId,
+        "userId" -> o.userId,
+        "white" -> o.color.white,
         "assessment" -> o.assessment,
-        "date"       -> o.date,
-        "flags"      -> o.flags,
-        "sfAvg"      -> o.analysis.avg,
-        "sfSd"       -> o.analysis.sd,
-        "mtAvg"      -> o.basics.moveTimes.avg,
-        "mtSd"       -> o.basics.moveTimes.sd,
-        "blurs"      -> o.basics.blurs,
-        "hold"       -> o.basics.hold,
+        "date" -> o.date,
+        "flags" -> o.flags,
+        "sfAvg" -> o.analysis.avg,
+        "sfSd" -> o.analysis.sd,
+        "mtAvg" -> o.basics.moveTimes.avg,
+        "mtSd" -> o.basics.moveTimes.sd,
+        "blurs" -> o.basics.blurs,
+        "hold" -> o.basics.hold,
         "blurStreak" -> o.basics.blurStreak,
-        "mtStreak"   -> w.boolO(o.basics.mtStreak),
-        "tcFactor"   -> o.tcFactor
+        "mtStreak" -> w.boolO(o.basics.mtStreak),
+        "tcFactor" -> o.tcFactor
       )

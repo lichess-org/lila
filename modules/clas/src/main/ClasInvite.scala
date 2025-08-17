@@ -34,7 +34,7 @@ object ClasInvite:
     case CantMsgKid(url: String)
 
     def flash(u: UserName)(using Translate): (String, String) = this match
-      case Already         => "success" -> trans.xisNowAStudentOfTheClass.txt(u)
-      case Invited         => "success" -> trans.anInvitationHasBeenSentToX.txt(u)
-      case Found           => "warning" -> trans.xAlreadyHasAPendingInvitation.txt(u)
+      case Already => "success" -> trans.xisNowAStudentOfTheClass.txt(u)
+      case Invited => "success" -> trans.anInvitationHasBeenSentToX.txt(u)
+      case Found => "warning" -> trans.xAlreadyHasAPendingInvitation.txt(u)
       case CantMsgKid(url) => "warning" -> trans.xIsAKidAccountWarning.txt(u, url)

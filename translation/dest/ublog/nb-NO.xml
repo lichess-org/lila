@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="communityBlogs">Blogger fra fellesskapet</string>
-  <string name="friendBlogs">Venners blogger</string>
-  <string name="lichessBlog">Bloggen til Lichess</string>
+  <string name="community">Fellesskap</string>
+  <string name="byMonth">Etter måned</string>
+  <string name="byTopic">Etter emne</string>
+  <string name="byLichess">Av Lichess</string>
+  <string name="myFriends">Mine venner</string>
+  <string name="myLikes">Innlegg jeg liker</string>
   <string name="myBlog">Bloggen min</string>
   <string name="likedBlogs">Likte blogginnlegg</string>
-  <string name="blogTopics">Bloggemner</string>
   <plurals name="blogPosts">
     <item quantity="one">%s blogginnlegg</item>
     <item quantity="other">%s blogginnlegg</item>
   </plurals>
-  <string name="lichessOfficialBlog">Offisiell blogg for Lichess</string>
   <string name="continueReadingPost">Fortsett å lese dette innlegget</string>
   <string name="lichessBlogPostsFromXYear">Blogginnlegg fra Lichess i %s</string>
   <string name="previousBlogPosts">Tidligere blogginnlegg</string>

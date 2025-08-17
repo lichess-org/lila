@@ -59,13 +59,10 @@
   <string name="startVerySoon">La tresmisión va empezar en pocu tiempu.</string>
   <string name="notYetStarted">La tresmisión entá nun entamó.</string>
   <string name="officialWebsite">Sitiu oficial</string>
-  <string name="standings">Clasificaciones</string>
   <string name="officialStandings">Clasificación oficial</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Más opciones en %s</string>
   <string name="webmastersPage">la páxina del webmaster</string>
-  <string name="pgnSourceHelp" comment="%s is 'streaming API'">Una fonte PGN pública en tiempu real pa esta ronda. Tamién ufiertamos %s pa una sincronización más rápida y eficiente.</string>
   <string name="embedThisBroadcast">Enserta esta tresmisión nel to sitiu web</string>
-  <string name="embedThisRound">Enserta la %s nel to sitiu web</string>
   <string name="ratingDiff">Diferencia de puntuación</string>
   <string name="gamesThisTournament">Partíes nesti tornéu</string>
   <string name="score">Resultaú</string>

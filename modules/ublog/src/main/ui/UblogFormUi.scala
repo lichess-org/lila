@@ -45,13 +45,13 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
           ),
           inner(f, Right(post), none),
           postForm(
-            cls     := "ublog-post-form__delete",
-            action  := routes.Ublog.delete(post.id),
+            cls := "ublog-post-form__delete",
+            action := routes.Ublog.delete(post.id),
             enctype := "multipart/form-data"
           ):
             form3.action:
               submitButton(
-                cls   := "button button-red button-empty yes-no-confirm",
+                cls := "button button-red button-empty yes-no-confirm",
                 title := trans.ublog.deleteBlog.txt()
               )(trans.site.delete())
         )
@@ -63,7 +63,7 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
       captcha: Option[Captcha]
   )(using Context) =
     postForm(
-      cls    := "form3 ublog-post-form__main",
+      cls := "form3 ublog-post-form__main",
       action := post.fold(u => routes.Ublog.create(u.username), p => routes.Ublog.update(p.id))
     )(
       form3.globalError(form),
@@ -141,7 +141,7 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
     form3.fieldset("Image", toggle = true.some)(
       div(cls := "form-group ublog-image-edit", data("post-url") := routes.Ublog.image(post.id))(
         ui.thumbnail(post, _.Size.Small)(
-          cls               := "drop-target " + post.image.isDefined.so("user-image"),
+          cls := "drop-target " + post.image.isDefined.so("user-image"),
           attr("draggable") := "true"
         ),
         div(
@@ -154,12 +154,12 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
                   trans.ublog.safeToUseImages(),
                   fragList(
                     List(
-                      "unsplash.com"          -> "https://unsplash.com",
+                      "unsplash.com" -> "https://unsplash.com",
                       "commons.wikimedia.org" -> "https://commons.wikimedia.org",
-                      "pixabay.com"           -> "https://pixabay.com",
-                      "pexels.com"            -> "https://pexels.com",
-                      "piqsels.com"           -> "https://piqsels.com",
-                      "freeimages.com"        -> "https://freeimages.com"
+                      "pixabay.com" -> "https://pixabay.com",
+                      "pexels.com" -> "https://pexels.com",
+                      "piqsels.com" -> "https://piqsels.com",
+                      "freeimages.com" -> "https://freeimages.com"
                     ).map: (name, url) =>
                       a(href := url, targetBlank)(name)
                   )
@@ -186,8 +186,8 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
       p(
         a(
           dataIcon := Icon.InfoCircle,
-          href     := routes.Cms.lonePage(CmsPageKey("blog-etiquette")),
-          cls      := "text",
+          href := routes.Cms.lonePage(CmsPageKey("blog-etiquette")),
+          cls := "text",
           targetBlank
         )("Ranking your blog")
       ),
@@ -196,14 +196,14 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
 
   def tips(using Translate) = a(
     dataIcon := Icon.InfoCircle,
-    href     := routes.Cms.lonePage(CmsPageKey("blog-tips")),
-    cls      := "text",
+    href := routes.Cms.lonePage(CmsPageKey("blog-tips")),
+    cls := "text",
     targetBlank
   )(trans.ublog.blogTips())
 
   val ads = a(
     dataIcon := Icon.InfoCircle,
-    href     := routes.Cms.lonePage(CmsPageKey("blog-etiquette")),
-    cls      := "text",
+    href := routes.Cms.lonePage(CmsPageKey("blog-etiquette")),
+    cls := "text",
     targetBlank
   )("Mandatory for sponsored content, affiliate links or commercial advertisement")

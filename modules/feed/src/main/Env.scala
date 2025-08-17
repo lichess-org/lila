@@ -11,7 +11,7 @@ final class Env(cacheApi: lila.memo.CacheApi, db: lila.db.Db, flairApi: lila.cor
 ):
 
   private val feedColl = db(CollName("daily_feed"))
-  val api              = wire[FeedApi]
-  val paginator        = wire[FeedPaginatorBuilder]
+  val api = wire[FeedApi]
+  val paginator = wire[FeedPaginatorBuilder]
 
   export api.lastUpdate

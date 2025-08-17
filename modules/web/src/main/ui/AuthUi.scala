@@ -21,7 +21,7 @@ final class AuthUi(helpers: Helpers):
         main(cls := "auth auth-login box box-pad")(
           h1(cls := "box__top")(trans.site.signIn()),
           postForm(
-            cls    := "form3",
+            cls := "form3",
             action := addReferrer(routes.Auth.authenticate.url)
           )(
             div(cls := "one-factor")(
@@ -37,9 +37,9 @@ final class AuthUi(helpers: Helpers):
               form3.submit(trans.site.signIn(), icon = none),
               label(cls := "login-remember")(
                 input(
-                  name  := "remember",
+                  name := "remember",
                   value := "true",
-                  tpe   := "checkbox",
+                  tpe := "checkbox",
                   isRememberMe.option(checked)
                 ),
                 trans.site.rememberMe()
@@ -51,7 +51,11 @@ final class AuthUi(helpers: Helpers):
                 trans.tfa.authenticationCode(),
                 help = Some(span(dataIcon := Icon.PhoneMobile)(trans.tfa.openTwoFactorApp()))
               )(
-                form3.input(_)(autocomplete := "one-time-code", pattern := "[0-9]{6}")
+                form3.input(_)(
+                  attr("inputmode") := "numeric",
+                  autocomplete := "one-time-code",
+                  pattern := "[0-9]{6}"
+                )
               ),
               p(cls := "error none")("Invalid code."),
               form3.submit(trans.site.signIn(), icon = none)
@@ -77,7 +81,7 @@ final class AuthUi(helpers: Helpers):
           postForm(
             id := "signup-form",
             cls := List(
-              "form3"             -> true,
+              "form3" -> true,
               "h-captcha-enabled" -> form.enabled
             ),
             action := HTTPRequest.queryStringGet(ctx.req, "referrer").foldLeft(routes.Auth.signupPost.url) {
@@ -133,11 +137,11 @@ final class AuthUi(helpers: Helpers):
                 br,
                 postForm(action := routes.Auth.fixEmail)(
                   input(
-                    id  := "new-email",
+                    id := "new-email",
                     tpe := "email",
                     required,
-                    name    := "email",
-                    value   := form.flatMap(_("email").value).getOrElse(email.value),
+                    name := "email",
+                    value := form.flatMap(_("email").value).getOrElse(email.value),
                     pattern := s"^((?!^${email.value}$$).)*$$"
                   ),
                   submitButton(cls := "button")("Change it"),
@@ -219,9 +223,9 @@ final class AuthUi(helpers: Helpers):
         main(cls := "page-small box box-pad")(
           boxTop(
             (ok match
-              case Some(true)  => h1(cls := "is-green text", dataIcon := Icon.Checkmark)
+              case Some(true) => h1(cls := "is-green text", dataIcon := Icon.Checkmark)
               case Some(false) => h1(cls := "is-red text", dataIcon := Icon.X)
-              case _           => h1
+              case _ => h1
             )(
               userLink(me, withOnline = false),
               " - ",
@@ -319,9 +323,9 @@ final class AuthUi(helpers: Helpers):
 
   private def agreements(using Context) = List(
     "assistance" -> trans.site.agreementAssistance(),
-    "nice"       -> trans.site.agreementNice(),
+    "nice" -> trans.site.agreementNice(),
     "account" -> trans.site.agreementMultipleAccounts(a(href := routes.Cms.tos)(trans.site.termsOfService())),
-    "policy"  -> trans.site.agreementPolicy()
+    "policy" -> trans.site.agreementPolicy()
   )
 
   private def formFields(username: Field, password: Field, email: Option[Field], register: Boolean)(using

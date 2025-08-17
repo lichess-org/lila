@@ -43,8 +43,8 @@ final class RelationApi(
 
   def accountTermination(user: User): Fu[Set[UserId]] = for
     followedIds <- fetchFollowing(user.id)
-    _           <- repo.removeAllRelationsFrom(user.id)
-    _           <- removeAllFollowers(user.id)
+    _ <- repo.removeAllRelationsFrom(user.id)
+    _ <- removeAllFollowers(user.id)
   yield followedIds
 
   def fetchFriends(userId: UserId): Fu[Set[UserId]] =
@@ -55,7 +55,7 @@ final class RelationApi(
           Match(
             $doc(
               "$or" -> $arr($doc("u1" -> userId), $doc("u2" -> userId)),
-              "r"   -> Follow
+              "r" -> Follow
             )
           ),
           Group(BSONNull)(
@@ -89,7 +89,7 @@ final class RelationApi(
     unfollowInactiveAccountsOnceEvery(userId).so:
       for
         following <- fetchFollowing(userId)
-        inactive  <- userApi.filterClosedOrInactiveIds(since)(following)
+        inactive <- userApi.filterClosedOrInactiveIds(since)(following)
         _ <- inactive.nonEmpty.so:
           countFollowingCache.update(userId, _ - inactive.size)
           repo.unfollowMany(userId, inactive)
@@ -126,21 +126,22 @@ final class RelationApi(
       sort = $empty
     ).map(_.userId)
 
-  def follow(u1: UserId, u2: UserId): Funit =
+  def follow(u1: User, u2: UserId): Funit =
     (u1 != u2).so(prefApi.followable(u2).flatMapz {
       userApi.isEnabled(u2).flatMapz {
         fetchRelation(u1, u2).zip(fetchRelation(u2, u1)).flatMap {
           case (Some(Follow), _) => funit
-          case (_, Some(Block))  => funit
+          case (_, Some(Block)) => funit
           case _ =>
             for
-              _ <- repo.follow(u1, u2)
-              _ <- limitFollow(u1)
+              _ <- repo.follow(u1.id, u2)
+              _ <- limitFollow(u1.id)
             yield
-              countFollowingCache.update(u1, prev => (prev + 1).atMost(config.maxFollow.value))
-              lila.common.Bus.pub(Propagate(FollowUser(u1, u2)).toFriendsOf(u1))
-              Bus.pub(lila.core.relation.Follow(u1, u2))
+              countFollowingCache.update(u1.id, prev => (prev + 1).atMost(config.maxFollow.value))
               lila.mon.relation.follow.increment()
+              if !u1.marks.alt then
+                lila.common.Bus.pub(Propagate(FollowUser(u1.id, u2)).toFriendsOf(u1.id))
+                Bus.pub(lila.core.relation.Follow(u1.id, u2))
         }
       }
     })
@@ -165,9 +166,7 @@ final class RelationApi(
           _ <- limitBlock(u1)
           _ <- unfollow(u2, u1)
         yield
-          Bus.pub(
-            lila.core.socket.SendTo(u2, lila.core.socket.makeMessage("blockedBy", u1))
-          )
+          Bus.pub(lila.core.socket.SendTo(u2, lila.core.socket.makeMessage("blockedBy", u1)))
           lila.mon.relation.block.increment()
     })
 

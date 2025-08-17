@@ -23,7 +23,7 @@ import scalalib.model.Days
 
 final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
 
-  import env.puzzle.jsonView
+  import env.puzzle.{ jsonView, selector }
 
   private def renderShow(
       puzzle: Puz,
@@ -32,8 +32,8 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       replay: Option[lila.puzzle.PuzzleReplay] = None,
       langPath: Option[LangPath] = None
   )(using ctx: Context)(using Perf) = for
-    json     <- jsonView.analysis(puzzle, angle, replay)
-    settings <- ctx.user.soFu(env.puzzle.session.getSettings)
+    json <- jsonView.analysis(puzzle, angle, replay)
+    settings <- ctx.user.traverse(env.puzzle.session.getSettings)
     prefJson = jsonView.pref(ctx.pref)
     page <- renderPage:
       views.puzzle.ui.show(puzzle, json, prefJson, settings | PuzzleSettings.default(color), langPath)
@@ -65,25 +65,11 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   private def serveHome(using Context) = NoBot:
     val angle = PuzzleAngle.mix
     WithPuzzlePerf:
-      nextPuzzleForMe(angle, none).flatMap:
-        _.fold(redirectNoPuzzle):
-          renderShow(_, angle, langPath = LangPath(routes.Puzzle.home).some)
-
-  private def nextPuzzleForMe(
-      angle: PuzzleAngle,
-      color: Option[Option[Color]],
-      difficulty: PuzzleDifficulty = PuzzleDifficulty.Normal
-  )(using ctx: Context)(using Perf): Fu[Option[Puz]] =
-    ctx.me match
-      case Some(me) =>
-        given Me = me
-        val diff = ctx.req.session.get(difficultyCookie).flatMap(PuzzleDifficulty.find)
-        for
-          _   <- diff.so(env.puzzle.session.setDifficulty)
-          _   <- color.so(env.puzzle.session.setAngleAndColor(angle, _))
-          puz <- env.puzzle.selector.nextPuzzleFor(angle)
-        yield puz
-      case None => env.puzzle.anon.getOneFor(angle, difficulty, ~color)
+      selector
+        .nextPuzzleFor(angle, none, PuzzleDifficulty.fromReqSession(req))
+        .flatMap:
+          _.fold(redirectNoPuzzle):
+            renderShow(_, angle, langPath = LangPath(routes.Puzzle.home).some)
 
   private def redirectNoPuzzle: Fu[Result] =
     Redirect(routes.Puzzle.themes).flashFailure("No more puzzles available! Try another theme.")
@@ -111,12 +97,12 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   def ofPlayer(name: Option[UserStr], page: Int) = Open:
     val userId = name.flatMap(_.validateId)
     for
-      user    <- userId.so(env.user.repo.enabledById).orElse(fuccess(ctx.me.map(_.value)))
-      puzzles <- user.soFu(env.puzzle.api.puzzle.of(_, page))
-      page    <- renderPage(views.puzzle.ui.ofPlayer(name.so(_.value), user, puzzles))
+      user <- userId.so(env.user.repo.enabledById).orElse(fuccess(ctx.me.map(_.value)))
+      puzzles <- user.traverse(env.puzzle.api.puzzle.of(_, page))
+      page <- renderPage(views.puzzle.ui.ofPlayer(name.so(_.value), user, puzzles))
     yield Ok(page)
 
-  def streak     = Open(serveStreak)
+  def streak = Open(serveStreak)
   def streakLang = LangPage(routes.Puzzle.streak)(serveStreak)
 
   private def serveStreak(using ctx: Context) = NoBot:
@@ -192,7 +178,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       )
   }
 
-  def themes     = Open(serveThemes)
+  def themes = Open(serveThemes)
   def themesLang = LangPage(routes.Puzzle.themes)(serveThemes)
 
   private def serveThemes(using Context) =
@@ -205,17 +191,12 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   def openings(order: String) = Open:
     env.puzzle.opening.collection.flatMap: collection =>
       negotiate(
-        html = ctx.me.so: me =>
-          env.insight.api
-            .insightUser(me)
-            .map:
-              _.some.filterNot(_.isEmpty).so { insightUser =>
-                collection.makeMine(insightUser.families, insightUser.openings).some
-              }
-            .flatMap: mine =>
-              Ok.page:
-                views.puzzle.ui.opening.all(collection, mine, lila.puzzle.PuzzleOpening.Order(order))
-        ,
+        html = for
+          insights <- ctx.me.so(env.insight.api.insightUser(_).dmap(_.some.filterNot(_.isEmpty)))
+          myOpenings = insights.map(u => collection.makeMine(u.families, u.openings))
+          page = views.puzzle.ui.opening.all(collection, myOpenings, lila.puzzle.PuzzleOpening.Order(order))
+          result <- Ok.page(page)
+        yield result,
         json = Ok(lila.puzzle.JsonView.openings(collection))
       )
 
@@ -228,8 +209,10 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     WithPuzzlePerf:
       PuzzleAngle.find(angleOrId) match
         case Some(angle) =>
-          nextPuzzleForMe(angle, none).flatMap:
-            _.fold(redirectNoPuzzle) { renderShow(_, angle, langPath = langPath) }
+          selector
+            .nextPuzzleFor(angle, none, PuzzleDifficulty.fromReqSession(req))
+            .flatMap:
+              _.fold(redirectNoPuzzle) { renderShow(_, angle, langPath = langPath) }
         case _ =>
           lila.puzzle.Puzzle.toId(angleOrId) match
             case Some(id) =>
@@ -241,7 +224,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
                 .flatMap(Puz.numericalId.apply)
                 .so(env.puzzle.api.puzzle.find)
                 .map:
-                  case None      => Redirect(routes.Puzzle.home)
+                  case None => Redirect(routes.Puzzle.home)
                   case Some(puz) => Redirect(routes.Puzzle.show(puz.id.value))
 
   def showWithAngle(angleKey: String, id: PuzzleId) = Open:
@@ -253,7 +236,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
         else
           WithPuzzlePerf:
             for
-              _   <- ctx.me.so(env.puzzle.api.casual.setCasualIfNotYetPlayed(_, puzzle))
+              _ <- ctx.me.so(env.puzzle.api.casual.setCasualIfNotYetPlayed(_, puzzle))
               res <- renderShow(puzzle, angle)
             yield res
 
@@ -264,20 +247,23 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
         .fold(Redirect(routes.Puzzle.openings()).toFuccess): angle =>
           val color = Color.fromName(colorKey)
           WithPuzzlePerf:
-            nextPuzzleForMe(angle, color.some).flatMap:
-              _.fold(redirectNoPuzzle) { renderShow(_, angle, color = color) }
+            selector
+              .nextPuzzleFor(angle, color.some, PuzzleDifficulty.fromReqSession(req))
+              .flatMap:
+                _.fold(redirectNoPuzzle) { renderShow(_, angle, color = color) }
 
   def apiNext = AnonOrScoped(_.Puzzle.Read):
     WithPuzzlePerf:
-      validateParam("angle", PuzzleAngle.find, PuzzleAngle.mix): angle =>
-        validateParam("difficulty", PuzzleDifficulty.find, PuzzleDifficulty.Normal): difficulty =>
-          FoundOk(nextPuzzleForMe(angle, none, difficulty))(env.puzzle.jsonView(_, none, none))
+      validateParam("angle", PuzzleAngle.find): angle =>
+        validateParam("difficulty", PuzzleDifficulty.find): difficulty =>
+          FoundOk(selector.nextPuzzleFor(angle | PuzzleAngle.mix, none, difficulty)):
+            env.puzzle.jsonView(_, none, none)
 
-  private def validateParam[A](name: String, read: String => Option[A], default: A)(
-      f: A => Fu[Result]
+  private def validateParam[A](name: String, read: String => Option[A])(
+      f: Option[A] => Fu[Result]
   )(using Context): Fu[Result] =
-    get(name).fold(f(default)): param =>
-      read(param).fold(BadRequest(s"Invalid $name=$param").toFuccess)(f)
+    get(name).fold(f(none)): param =>
+      read(param).fold(BadRequest(s"Invalid $name=$param").toFuccess)(p => f(p.some))
 
   def frame = Anon:
     InEmbedContext:
@@ -315,7 +301,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
 
   def replay(days: Days, themeKey: String) = Auth { ctx ?=> me ?=>
     replayOf(days, themeKey).flatMap:
-      case None                          => Redirect(routes.Puzzle.dashboard(days, "home", none))
+      case None => Redirect(routes.Puzzle.dashboard(days, "home", none))
       case Some((puzzle, replay), angle) => WithPuzzlePerf(renderShow(puzzle, angle, replay = replay.some))
   }
 
@@ -328,7 +314,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   }
 
   private def replayOf(days: Days, themeKey: String)(using Me) =
-    val theme         = PuzzleTheme.findOrMix(themeKey)
+    val theme = PuzzleTheme.findOrMix(themeKey)
     val checkedDayOpt = lila.puzzle.PuzzleDashboard.getClosestDay(days)
     env.puzzle.replay(checkedDayOpt, theme.key).map2(_ -> PuzzleAngle(theme))
 
@@ -390,7 +376,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
         api = v =>
           val angle = PuzzleAngle.mix
           WithPuzzlePerf:
-            Found(nextPuzzleForMe(angle, none)): p =>
+            Found(selector.nextPuzzleFor(angle, none, PuzzleDifficulty.fromReqSession(req))): p =>
               JsonOk(jsonView.analysis(p, angle, apiVersion = v.some))
       )
 
@@ -410,7 +396,6 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   def mobileBcBatchSolve = AuthBody(parse.json) { ctx ?=> me ?=>
     negotiateJson:
       import PuzzleForm.bc.*
-      import lila.puzzle.PuzzleWin
       ctx.body.body
         .validate[SolveDataBc]
         .fold(
@@ -419,11 +404,9 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
             WithPuzzlePerf: perf ?=>
               data.solutions.lastOption
                 .flatMap: solution =>
-                  Puz
-                    .numericalId(solution.id)
-                    .map(_ -> PuzzleWin(solution.win))
+                  Puz.numericalId(solution.id).map(_ -> solution.win)
                 .so: (id, solution) =>
-                  env.puzzle.finisher(id, PuzzleAngle.mix, solution, chess.Mode.Rated)
+                  env.puzzle.finisher(id, PuzzleAngle.mix, solution, chess.Rated.Yes)
                 .map:
                   case None =>
                     Ok(env.puzzle.jsonView.bc.userJson(perf.intRating))
@@ -456,8 +439,8 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
             _.option(user)
         .flatMap:
           case Some(user) => f(user)
-          case None       => Redirect(routes.Puzzle.dashboard(Days(30), "home", none))
+          case None => Redirect(routes.Puzzle.dashboard(Days(30), "home", none))
     }
 
-  def WithPuzzlePerf[A](f: Perf ?=> Fu[A])(using Option[Me]): Fu[A] =
+  private def WithPuzzlePerf[A](f: Perf ?=> Fu[A])(using Option[Me]): Fu[A] =
     WithMyPerf(PerfType.Puzzle)(f)

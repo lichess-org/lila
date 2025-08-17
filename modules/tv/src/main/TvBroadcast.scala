@@ -51,7 +51,7 @@ final private class TvBroadcast(
               client.queue.offer(makeMessage("featured", f.dataWithFen))
         }
 
-    case Add(client)    => clients = clients + client
+    case Add(client) => clients = clients + client
     case Remove(client) => clients = clients - client
 
     case TvSelect(gameId, speed, chanKey, data) if chanKey == channel.key =>
@@ -62,7 +62,7 @@ final private class TvBroadcast(
         val feat = Featured(
           gameId,
           Json.obj(
-            "id"          -> gameId,
+            "id" -> gameId,
             "orientation" -> pov.color.name,
             "players" -> game.players.mapList: p =>
               val user = p.userId.flatMap(lightUserSync)
@@ -88,7 +88,7 @@ final private class TvBroadcast(
         Json
           .obj(
             "fen" -> fen,
-            "lm"  -> move
+            "lm" -> move
           )
           .add("wc" -> game.clock.map(_.remainingTime(chess.White).roundSeconds))
           .add("bc" -> game.clock.map(_.remainingTime(chess.Black).roundSeconds))
@@ -106,11 +106,11 @@ final private class TvBroadcast(
 object TvBroadcast:
 
   type SourceType = Source[JsValue, ?]
-  type Queue      = SourceQueueWithComplete[JsValue]
+  type Queue = SourceQueueWithComplete[JsValue]
 
   case class Featured(id: GameId, data: JsObject, fen: Fen.Full):
     def dataWithFen = data ++ Json.obj("fen" -> fen)
-    def socketMsg   = makeMessage("featured", dataWithFen)
+    def socketMsg = makeMessage("featured", dataWithFen)
 
   case class Connect(bc: Boolean)
   case class Client(queue: Queue, fromLichess: Boolean)

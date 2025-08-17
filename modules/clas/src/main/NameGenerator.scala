@@ -13,5 +13,5 @@ final class NameGenerator(userRepo: lila.user.UserRepo)(using Executor):
           .exists(name)
           .flatMap:
             case true if triesLeft > 0 => apply(maxSize, triesLeft - 1)
-            case true                  => fuccess(none)
-            case _                     => fuccess(name.some)
+            case true => fuccess(none)
+            case _ => fuccess(name.some)

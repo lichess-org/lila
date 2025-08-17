@@ -18,13 +18,13 @@ final class PerfsUpdater(
 )(using Executor):
 
   def save(game: Game, users: ByColor[UserWithPerfs]): Fu[Option[ByColor[IntRatingDiff]]] =
-    (game.rated && game.finished && (game.playedTurns >= 2 || game.isTournament)).so:
+    (game.rated.yes && game.finished && (game.playedPlies >= 2 || game.isTournament)).so:
       for
         isBotFarming <- farming.botFarming(game)
-        result <-
-          isBotFarming.not.so:
-            (!farming.newAccountBoosting(game, users)).so:
-              calculateRatingAndPerfs(game, users).so(saveRatings(game.id, users))
+        isBoosting <- farming.newAccountBoosting(game, users)
+        result <- (!isBotFarming && !isBoosting).so:
+          calculateRatingAndPerfs(game, users).so:
+            saveRatings(game.id, users)
       yield result
 
   private def calculateRatingAndPerfs(game: Game, users: ByColor[UserWithPerfs]): Option[
@@ -36,7 +36,7 @@ final class PerfsUpdater(
       then game.isTournament.option(PerfKey(game.ratingVariant, game.speed))
       else game.perfKey.some
     if !users.exists(_.user.lame)
-    prevPerfs   = users.map(_.perfs)
+    prevPerfs = users.map(_.perfs)
     prevPlayers = prevPerfs.map(_(perfKey).toGlickoPlayer)
     computedPlayers <- computeGlicko(game.id, prevPlayers, outcome)
   yield

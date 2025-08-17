@@ -12,7 +12,7 @@ final class UserShow(helpers: Helpers, bits: UserBits):
 
   def userDom(u: User)(using ctx: Context) =
     span(
-      cls      := userClass(u.id, none, withOnline = !u.isPatron, withPowerTip = false),
+      cls := userClass(u.id, none, withOnline = !u.isPatron, withPowerTip = false),
       dataHref := userUrl(u.username)
     )(
       (!u.isPatron).so(lineIcon(u)),
@@ -39,10 +39,10 @@ final class UserShow(helpers: Helpers, bits: UserBits):
         div(cls := "upt__info__top")(
           userLink(u, withPowerTip = false),
           flag.map: c =>
-            val titleNameSize      = u.title.fold(0)(_.value.length + 1) + u.username.value.length
+            val titleNameSize = u.title.fold(0)(_.value.length + 1) + u.username.value.length
             val hasRoomForNameText = titleNameSize + c.shortName.length < 21
             span(
-              cls   := "upt__info__top__flag",
+              cls := "upt__info__top__flag",
               title := (!hasRoomForNameText).option(c.name)
             )(
               img(cls := "flag", src := assetUrl(s"images/flags/${c.code}.png")),
@@ -63,23 +63,23 @@ final class UserShow(helpers: Helpers, bits: UserBits):
             div(cls := "upt__actions btn-rack")(
               a(
                 dataIcon := Icon.AnalogTv,
-                cls      := "btn-rack__btn",
-                title    := trans.site.watchGames.txt(),
-                href     := routes.User.tv(u.username)
+                cls := "btn-rack__btn",
+                title := trans.site.watchGames.txt(),
+                href := routes.User.tv(u.username)
               ),
               (!blocked).option(
                 frag(
                   a(
                     dataIcon := Icon.BubbleSpeech,
-                    cls      := "btn-rack__btn",
-                    title    := trans.site.chat.txt(),
-                    href     := routes.Msg.convo(u.username)
+                    cls := "btn-rack__btn",
+                    title := trans.site.chat.txt(),
+                    href := routes.Msg.convo(u.username)
                   ),
                   a(
                     dataIcon := Icon.Swords,
-                    cls      := "btn-rack__btn",
-                    title    := trans.challenge.challengeToPlay.txt(),
-                    href     := s"${routes.Lobby.home}?user=${u.username}#friend"
+                    cls := "btn-rack__btn",
+                    title := trans.challenge.challengeToPlay.txt(),
+                    href := s"${routes.Lobby.home}?user=${u.username}#friend"
                   )
                 )
               ),
@@ -90,7 +90,7 @@ final class UserShow(helpers: Helpers, bits: UserBits):
         ),
       div(cls := "upt__details")(
         span(trans.site.nbGames.plural(u.count.game, u.count.game.localize)),
-        span("joined ", momentFromNowServerText(u.createdAt)),
+        span(trans.site.joinedX(momentFromNow(u.createdAt))),
         (Granter.opt(_.UserModView) && (u.lameOrTroll || u.enabled.no || u.marks.rankban))
           .option(span(cls := "upt__details__marks")(userMarks))
       ),
@@ -132,8 +132,8 @@ final class UserShow(helpers: Helpers, bits: UserBits):
 
   def describeUser(user: lila.core.perf.UserWithPerfs)(using Translate) =
     import lila.rating.UserPerfsExt.bestRatedPerf
-    val name      = user.titleUsername
-    val nbGames   = user.count.game
+    val name = user.titleUsername
+    val nbGames = user.count.game
     val createdAt = showEnglishDate(user.createdAt)
     val currentRating = user.perfs.bestRatedPerf.so: p =>
       s" Current ${p.key.perfTrans} rating: ${p.perf.intRating}."

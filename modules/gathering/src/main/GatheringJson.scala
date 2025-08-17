@@ -11,14 +11,14 @@ object GatheringJson:
       case Some(pos) =>
         Json
           .obj(
-            "eco"  -> pos.eco,
+            "eco" -> pos.eco,
             "name" -> pos.name,
-            "fen"  -> pos.fen,
-            "url"  -> pos.url
+            "fen" -> pos.fen,
+            "url" -> pos.url
           )
       case None =>
         Json
           .obj(
             "name" -> "Custom position",
-            "fen"  -> fen
+            "fen" -> fen
           )

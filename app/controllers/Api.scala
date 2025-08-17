@@ -21,11 +21,11 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
   private lazy val apiStatusJson = Json.obj:
     "api" -> Json.obj(
       "current" -> Mobile.Api.currentVersion.value,
-      "olds"    -> Json.arr()
+      "olds" -> Json.arr()
     )
 
   val status = Anon:
-    val appVersion  = get("v")
+    val appVersion = get("v")
     val mustUpgrade = appVersion.exists(Mobile.AppVersion.mustUpgrade)
     JsonOk(apiStatusJson.add("mustUpgrade", mustUpgrade))
 
@@ -52,7 +52,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
 
   def usersByIds = AnonBodyOf(parse.tolerantText): body =>
     val usernames = body.replace("\n", "").split(',').take(300).flatMap(UserStr.read).toList
-    val cost      = usernames.size / 4
+    val cost = usernames.size / 4
     limit.apiUsers(req.ipAddress, rateLimited, cost = cost):
       lila.mon.api.users.increment(cost.toLong)
       env.user.api
@@ -129,14 +129,13 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
   def crosstable(name1: UserStr, name2: UserStr) = ApiRequest:
     limit.crosstable(req.ipAddress, fuccess(ApiResult.Limited), cost = 1):
       val (u1, u2) = (name1.id, name2.id)
-      env.game.crosstableApi(u1, u2).flatMap { ct =>
-        (ct.results.nonEmpty && getBool("matchup"))
-          .so:
-            env.game.crosstableApi.getMatchup(u1, u2)
-          .map: matchup =>
-            toApiResult:
-              lila.game.JsonView.crosstable(ct, matchup).some
-      }
+      import lila.game.JsonView.given
+      for
+        ct <- env.game.crosstableApi(u1, u2)
+        matchup <- (ct.results.nonEmpty && getBool("matchup"))
+          .so(env.game.crosstableApi.getMatchup(u1, u2))
+        both = lila.game.Crosstable.WithMatchup(ct, matchup)
+      yield toApiResult(Json.toJsObject(both).some)
 
   def currentTournaments = ApiRequest:
     env.tournament.api.fetchVisibleTournaments
@@ -238,8 +237,10 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
 
   def gamesByIdsStreamAddIds(streamId: String) = AnonOrScopedBody(parse.tolerantText)(): ctx ?=>
     withIdsFromReqBody[GameId](ctx.body, gamesByIdsMax, GameId.from): ids =>
-      env.game.gamesByIdsStream.addGameIds(streamId, ids)
-      jsonOkResult
+      if env.game.gamesByIdsStream.exists(streamId) then
+        env.game.gamesByIdsStream.addGameIds(streamId, ids)
+        jsonOkResult
+      else notFoundJson()
 
   private def gamesByIdsMax(using ctx: Context) =
     ctx.me.fold(500): u =>
@@ -321,6 +322,41 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
       env.round.roundSocket.getMany(ids).flatMap(env.round.mobile.online).map(JsonOk)
   }
 
+  /* aggregates, for the new mobile app:
+   * /api/games/user/:user
+   * /api/account?playban=1
+   * /api/account/playing
+   * /tournament/featured
+   * /inbox/unread-count
+   * /api/challenge
+   */
+  def mobileHome = AnonOrScoped(_.Web.Mobile) { ctx ?=>
+    limit.apiMobileHome(ctx.userId | ctx.ip, rateLimited):
+      JsonOk(env.api.mobile.home)
+  }
+
+  /* aggregates, for the new mobile app:
+   * /api/broadcast/top?page=1
+   * /api/tv/channels
+   * /api/streamer/live
+   */
+  def mobileWatch = Anon { _ ?=>
+    JsonOk(env.api.mobile.watch)
+  }
+
+  /* aggregates, for the new mobile app:
+   * /api/account?playban=1 or /api/user/:username?challenge=1
+   * /api/user/status?ids=:username
+   * /api/user/$id/activity
+   * /api/games/user/:user
+   * /api/user/:id/current-game
+   * /api/crosstable/:id1/:id2
+   */
+  def mobileProfile(username: UserStr) = AnonOrScoped(_.Web.Mobile) { _ ?=>
+    Found(meOrFetch(username)): user =>
+      JsonOk(env.api.mobile.profile(user))
+  }
+
   def ApiRequest(js: Context ?=> Fu[ApiResult]) = Anon:
     js.map(toHttp)
 
@@ -329,12 +365,12 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
   def toApiResult(json: Seq[JsValue]): ApiResult = ApiResult.Data(JsArray(json))
 
   val toHttp: ApiResult => Result =
-    case ApiResult.Limited          => rateLimitedJson
+    case ApiResult.Limited => rateLimitedJson
     case ApiResult.ClientError(msg) => BadRequest(jsonError(msg))
-    case ApiResult.NoData           => notFoundJson()
-    case ApiResult.Custom(result)   => result
-    case ApiResult.Done             => jsonOkResult
-    case ApiResult.Data(json)       => JsonOk(json)
+    case ApiResult.NoData => notFoundJson()
+    case ApiResult.Custom(result) => result
+    case ApiResult.Done => jsonOkResult
+    case ApiResult.Data(json) => JsonOk(json)
 
   def jsonDownload(makeSource: => Source[JsValue, ?])(using req: RequestHeader): Result =
     GlobalConcurrencyLimitPerIP.download(req.ipAddress)(makeSource)(jsToNdJson)

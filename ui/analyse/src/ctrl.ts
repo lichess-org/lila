@@ -6,18 +6,17 @@ import { plural } from './view/util';
 import { debounce, throttle } from 'lib/async';
 import type GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
 import type StudyCtrl from './study/studyCtrl';
-import { isTouchDevice } from 'lib/device';
 import type { AnalyseOpts, AnalyseData, ServerEvalData, JustCaptured, NvuiPlugin } from './interfaces';
-import type { Api as ChessgroundApi } from 'chessground/api';
+import type { Api as ChessgroundApi } from '@lichess-org/chessground/api';
 import { Autoplay, AutoplayDelay } from './autoplay';
-import { build as makeTree, path as treePath, ops as treeOps, type TreeWrapper } from 'lib/tree/tree';
+import { build as makeTree, path as treePath, ops as treeOps, type TreeWrapper, build } from 'lib/tree/tree';
 import { compute as computeAutoShapes } from './autoShape';
-import type { Config as ChessgroundConfig } from 'chessground/config';
+import type { Config as ChessgroundConfig } from '@lichess-org/chessground/config';
 import { CevalCtrl, isEvalBetter, sanIrreversible, type EvalMeta } from 'lib/ceval/ceval';
-import { TreeView } from './treeView/treeView';
+import { TreeView, render as renderTreeView } from './treeView/treeView';
 import { defined, prop, type Prop, toggle, type Toggle, requestIdleCallback, propWithEffect } from 'lib';
 import { pubsub } from 'lib/pubsub';
-import type { DrawShape } from 'chessground/draw';
+import type { DrawShape } from '@lichess-org/chessground/draw';
 import { lichessRules } from 'chessops/compat';
 import EvalCache from './evalCache';
 import { make as makeFork, type ForkCtrl } from './fork';
@@ -38,7 +37,7 @@ import { valid as crazyValid } from './crazy/crazyCtrl';
 import { PromotionCtrl } from 'lib/game/promotion';
 import wikiTheory, { wikiClear, type WikiTheory } from './wiki';
 import ExplorerCtrl from './explorer/explorerCtrl';
-import { uciToMove } from 'chessground/util';
+import { uciToMove } from '@lichess-org/chessground/util';
 import Persistence from './persistence';
 import pgnImport from './pgnImport';
 import ForecastCtrl from './forecast/forecastCtrl';
@@ -48,6 +47,7 @@ import type { PgnError } from 'chessops/pgn';
 import { ChatCtrl } from 'lib/chat/chatCtrl';
 import { confirm } from 'lib/view/dialogs';
 import api from './api';
+import { isEquivalent } from 'lib/algo';
 
 export default class AnalyseCtrl {
   data: AnalyseData;
@@ -330,7 +330,7 @@ export default class AnalyseCtrl {
     this.withCg(cg => {
       cg.set(this.makeCgOpts());
       this.setAutoShapes();
-      if (this.node.shapes) cg.setShapes(this.node.shapes as DrawShape[]);
+      if (this.node.shapes) cg.setShapes(this.node.shapes.slice() as DrawShape[]);
     });
   }
 
@@ -395,7 +395,7 @@ export default class AnalyseCtrl {
     }
 
     this.setAutoShapes();
-    if (this.node.shapes) this.chessground.setShapes(this.node.shapes as DrawShape[]);
+    if (this.node.shapes) this.chessground.setShapes(this.node.shapes.slice() as DrawShape[]);
     this.cgVersion.dom = this.cgVersion.js;
   };
 
@@ -656,12 +656,20 @@ export default class AnalyseCtrl {
     this.redraw();
   }
 
-  setAllCollapsed(path: Tree.Path, collapsed: boolean): void {
-    // Also update parent
-    const parentPath = treePath.init(path);
-    this.tree.setCollapsedAt(parentPath, collapsed);
-    this.tree.setCollapsedRecursive(path, collapsed);
+  setCollapsedForCtxMenu(path: Tree.Path, collapsed: boolean): void {
+    this.tree.setCollapsedRecursiveAndAlsoParent(path, collapsed);
     this.redraw();
+  }
+
+  // whether [collapsing, expanding] the path, would affect the rendered view
+  wouldCollapseAffectView(path: Tree.Path): [boolean, boolean] {
+    if (typeof structuredClone !== 'function') return [true, true];
+    const ctrlWithDiffTree = { ...this, tree: build(structuredClone(this.tree.root)) };
+    const currentView = renderTreeView(this);
+    return [true, false].map(collapsed => {
+      ctrlWithDiffTree.tree.setCollapsedRecursiveAndAlsoParent(path, collapsed);
+      return !isEquivalent(currentView, renderTreeView(ctrlWithDiffTree), ['function']);
+    }) as [boolean, boolean];
   }
 
   forceVariation(path: Tree.Path, force: boolean): void {
@@ -692,7 +700,7 @@ export default class AnalyseCtrl {
   }
 
   setAutoShapes = (): void => {
-    this.chessground?.setAutoShapes(computeAutoShapes(this));
+    if (!site.blindMode) this.chessground?.setAutoShapes(computeAutoShapes(this));
   };
 
   private onNewCeval = (ev: Tree.ClientEval, path: Tree.Path, isThreat?: boolean): void => {
@@ -717,7 +725,7 @@ export default class AnalyseCtrl {
           this.study?.multiCloudEval?.onLocalCeval(node, ev);
           this.evalCache.onLocalCeval();
         }
-        this.redraw();
+        if (!(site.blindMode && this.retro)) this.redraw();
       }
     });
   };
@@ -844,7 +852,6 @@ export default class AnalyseCtrl {
   showVariationArrows() {
     const chap = this.study?.data.chapter;
     return (
-      !isTouchDevice() &&
       !chap?.practice &&
       chap?.conceal === undefined &&
       !this.study?.gamebookPlay &&
@@ -976,12 +983,20 @@ export default class AnalyseCtrl {
       upgradable: this.evalCache?.upgradable(),
     });
   };
-
   closeTools = () => {
-    if (this.retro) this.retro = undefined;
+    this.retro = undefined;
     if (this.practice) this.togglePractice();
     if (this.explorer.enabled()) this.explorer.toggle();
     this.actionMenu(false);
+  };
+
+  showingTool() {
+    return this.actionMenu() ? 'action-menu' : this.explorer.enabled() ? 'opening-explorer' : '';
+  }
+
+  toggleActionMenu = () => {
+    if (!this.actionMenu() && this.explorer.enabled()) this.explorer.toggle();
+    this.actionMenu.toggle();
   };
 
   toggleRetro = (): void => {
@@ -994,9 +1009,11 @@ export default class AnalyseCtrl {
   };
 
   toggleExplorer = (): void => {
-    const wasOpen = this.explorer.enabled() && !this.actionMenu();
-    this.closeTools();
-    if (!wasOpen && this.explorer.allowed()) this.explorer.toggle();
+    if (!this.explorer.enabled()) {
+      this.retro = undefined;
+      this.actionMenu(false);
+    }
+    this.explorer.toggle();
   };
 
   togglePractice = () => {

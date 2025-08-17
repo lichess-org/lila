@@ -168,6 +168,7 @@
   <string name="drawByMutualAgreement">Draw by mutual agreement</string>
   <string name="fiftyMovesWithoutProgress">Fifty moves without progress</string>
   <string name="currentGames">Current games</string>
+  <string name="joinedX">Joined %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s game</item>
     <item quantity="other">%s games</item>
@@ -351,6 +352,7 @@
   <string name="takeback">Takeback</string>
   <string name="proposeATakeback">Propose a takeback</string>
   <string name="whiteProposesTakeback">White proposes takeback</string>
+  <string name="blackProposesTakeback">Black proposes takeback</string>
   <string name="takebackPropositionSent">Takeback sent</string>
   <string name="whiteDeclinesTakeback">White declines takeback</string>
   <string name="blackDeclinesTakeback">Black declines takeback</string>
@@ -477,7 +479,7 @@
   <string name="openTournaments">Open tournaments</string>
   <string name="duration">Duration</string>
   <string name="winner">Winner</string>
-  <string name="standing">Standing</string>
+  <string name="standings">Standings</string>
   <string name="createANewTournament">Create a new tournament</string>
   <string name="tournamentCalendar">Tournament calendar</string>
   <string name="conditionOfEntry">Entry requirements:</string>
@@ -491,7 +493,6 @@
   <string name="points">Points</string>
   <string name="wins">Wins</string>
   <string name="losses">Losses</string>
-  <string name="createdBy">Created by</string>
   <string name="startingIn" comment="Displayed above a timer">Starting in</string>
   <string name="standByX">Stand by %s, pairing players, get ready!</string>
   <string name="pause">Pause</string>
@@ -575,7 +576,7 @@
   <string name="reportCheatBoostHelp">Paste a link to the game(s) and explain what is wrong with this user\'s behavior. Don\'t just say \"they cheat,\" but tell us how you came to this conclusion.</string>
   <string name="reportUsernameHelp">Explain why this username is offensive. Don\'t just say \"it\'s offensive/inappropriate,\" but tell us how you came to this conclusion, especially if the offense is obscure, not in English, in slang, or a historical/cultural reference.</string>
   <string name="reportProcessedFasterInEnglish">Your report will be processed faster if written in English.</string>
-  <string name="error.provideOneCheatedGameLink">Please provide at least one link to a cheated game.</string>
+  <string name="error.provideOneCheatedGameLink">Please provide at least one link to a game with suspected cheating.</string>
   <string name="by">by %s</string>
   <string name="importedByX">Imported by %s</string>
   <string name="thisTopicIsNowClosed">This topic is now closed.</string>
@@ -677,7 +678,7 @@
   <string name="really">really</string>
   <string name="contribute">Contribute</string>
   <string name="termsOfService">Terms of Service</string>
-  <string name="titleVerification" comment="This is a link to a form that lets players verify either a FIDE or national federation title (NM, etc).">Title verification</string>
+  <string name="titleVerification">Title verification</string>
   <string name="sourceCode">Source Code</string>
   <string name="simultaneousExhibitions">Simultaneous exhibitions</string>
   <string name="host">Host</string>
@@ -1007,4 +1008,5 @@ All operating costs, development, and content are funded solely by user donation
   <string name="accessibility">Accessibility</string>
   <string name="enableBlindMode">Enable blind mode</string>
   <string name="disableBlindMode">Disable blind mode</string>
+  <string name="copyToClipboard">Copy to clipboard</string>
 </resources>

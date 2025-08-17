@@ -5,6 +5,9 @@
   <plurals name="nbBroadcasts">
     <item quantity="other">%s 방송</item>
   </plurals>
+  <plurals name="nbViewers">
+    <item quantity="other">시청자 %s명</item>
+  </plurals>
   <string name="liveBroadcasts">실시간 대회 방송</string>
   <string name="broadcastCalendar">방송 달력</string>
   <string name="newBroadcast">새 실시간 방송</string>
@@ -58,13 +61,10 @@
   <string name="startVerySoon">방송이 곧 시작됩니다.</string>
   <string name="notYetStarted">아직 방송이 시작을 하지 않았습니다.</string>
   <string name="officialWebsite">공식 웹사이트</string>
-  <string name="standings">순위</string>
   <string name="officialStandings">공식 순위</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">%s에서 더 많은 정보를 확인하실 수 있습니다</string>
   <string name="webmastersPage">웹마스터 페이지</string>
-  <string name="pgnSourceHelp" comment="%s is 'streaming API'">이 라운드의 공개된, 실시간 PGN 소스 입니다. 보다 더 빠르고 효율적인 동기화를 위해 %s도 제공됩니다.</string>
   <string name="embedThisBroadcast">이 방송을 웹사이트에 삽입하세요</string>
-  <string name="embedThisRound">%s을(를) 웹사이트에 삽입하세요</string>
   <string name="ratingDiff">레이팅 차이</string>
   <string name="gamesThisTournament">이 토너먼트의 게임들</string>
   <string name="score">점수</string>
@@ -78,4 +78,6 @@
   <string name="pastBroadcasts">과거 방송들</string>
   <string name="allBroadcastsByMonth">월별 방송들 모두 보기</string>
   <string name="backToLiveMove">실시간 수로 돌아가기</string>
+  <string name="sinceHideResults">결과를 숨기도록 설정하였기에, 스포일러 방지 차원에서 모든 보드 미리보기가 비어 있습니다.</string>
+  <string name="liveboard">실시간 체스판</string>
 </resources>

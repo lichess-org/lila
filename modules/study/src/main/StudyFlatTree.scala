@@ -51,7 +51,7 @@ private object StudyFlatTree:
               roots
                 .removed(flat.path)
                 .updatedWith(flat.path.parent):
-                  case None           => Branches(List(node)).some
+                  case None => Branches(List(node)).some
                   case Some(siblings) => siblings.addNode(node).some
         }
         .get(UciPath.root) | Branches.empty
@@ -66,7 +66,7 @@ private object StudyFlatTree:
               roots
                 .removed(flat.path)
                 .updatedWith(flat.path.parent):
-                  case None           => node.some
+                  case None => node.some
                   case Some(siblings) => siblings.addVariation(node.toVariation).some
         }.get(UciPath.root)
       )

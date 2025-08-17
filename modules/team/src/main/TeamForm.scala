@@ -83,7 +83,7 @@ final private[team] class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi, flai
   val processRequest = Form:
     tuple(
       "process" -> nonEmptyText,
-      "url"     -> nonEmptyText
+      "url" -> nonEmptyText
     )
 
   val selectMember = Form:
@@ -171,13 +171,13 @@ object TeamForm:
       "description" -> cleanText(minLength = 30, maxLength = 4000).into[Markdown]
     val descPrivate =
       "descPrivate" -> optional(cleanNonEmptyText(maxLength = 4000).into[Markdown])
-    val request                            = "request"     -> boolean
-    val gameId                             = "gameId"      -> of[GameId]
-    val move                               = "move"        -> text
+    val request = "request" -> boolean
+    val gameId = "gameId" -> of[GameId]
+    val move = "move" -> text
     private def inAccess(cs: List[Access]) = numberIn(cs.map(_.id)).transform[Access](Access.byId, _.id)
-    val chat                               = "chat"        -> inAccess(Access.allInTeam)
-    val forum                              = "forum"       -> inAccess(Access.all)
-    val hideMembers                        = "hideMembers" -> boolean
+    val chat = "chat" -> inAccess(Access.allInTeam)
+    val forum = "forum" -> inAccess(Access.all)
+    val hideMembers = "hideMembers" -> boolean
 
 object TeamSingleChange:
 

@@ -34,7 +34,7 @@ final private class InsightIndexer(
   def update(game: Game, userId: UserId, previous: InsightEntry): Funit =
     povToEntry(game, userId, previous.provisional).flatMap:
       case Right(e) => storage.update(e)
-      case _        => funit
+      case _ => funit
 
   private def fromScratch(user: User): Funit =
     fetchFirstGame(user).flatMapz: g =>

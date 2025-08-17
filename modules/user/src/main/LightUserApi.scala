@@ -31,7 +31,7 @@ final class LightUserApi(repo: UserRepo, cacheApi: CacheApi)(using Executor)
 
   val isBotSync: LightUser.IsBotSync = LightUser.IsBotSync(id => sync(id).exists(_.isBot))
 
-  def preloadUser(user: User): Unit        = cache.set(user.id, user.light.some)
+  def preloadUser(user: User): Unit = cache.set(user.id, user.light.some)
   def preloadUsers(users: Seq[User]): Unit = users.foreach(preloadUser)
 
   private val cache: Syncache[UserId, Option[LightUser]] = cacheApi.sync[UserId, Option[LightUser]](
@@ -46,7 +46,7 @@ final class LightUserApi(repo: UserRepo, cacheApi: CacheApi)(using Executor)
           .recover:
             case _: reactivemongo.api.bson.exceptions.BSONValueNotFoundException => LightUser.ghost.some
     ,
-    default = id => LightUser(id, id.into(UserName), None, None, isPatron = false).some,
+    default = id => LightUser(id, id.into(UserName), None, None, false).some,
     strategy = Syncache.Strategy.WaitAfterUptime(10.millis),
     expireAfter = Syncache.ExpireAfter.Write(20.minutes)
   )
@@ -56,19 +56,23 @@ final class LightUserApi(repo: UserRepo, cacheApi: CacheApi)(using Executor)
       doc
         .getAsTry[UserName](F.username)
         .map: name =>
+          val patronMonths = for
+            plan <- doc.child(F.plan)
+            if ~plan.getAsOpt[Boolean]("active")
+          yield true
           LightUser(
             id = name.id,
             name = name,
             title = doc.getAsOpt[chess.PlayerTitle](F.title),
             flair = doc.getAsOpt[Flair](F.flair).filter(FlairApi.exists),
-            isPatron = ~doc.child(F.plan).flatMap(_.getAsOpt[Boolean]("active"))
+            isPatron = ~patronMonths
           )
 
   private val projection =
     $doc(
-      F.id                -> false,
-      F.username          -> true,
-      F.title             -> true,
-      s"${F.plan}.active" -> true,
-      F.flair             -> true
+      F.id -> false,
+      F.username -> true,
+      F.title -> true,
+      F.plan -> true,
+      F.flair -> true
     ).some

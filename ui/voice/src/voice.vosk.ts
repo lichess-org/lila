@@ -1,5 +1,10 @@
-import { type KaldiRecognizer, type Model, createModel } from 'vosk-browser';
-import type { ServerMessageResult, ServerMessagePartialResult } from 'vosk-browser/dist/interfaces';
+import {
+  type KaldiRecognizer,
+  type VoskClient,
+  type ServerMessageResult,
+  type ServerMessagePartialResult,
+  createVoskClient,
+} from '@lichess-org/vosk-browser';
 import type { RecognizerOpts, VoskModule } from './interfaces';
 import { type Selectable, Switch } from './switch';
 
@@ -7,7 +12,7 @@ const LOG_LEVEL = -1; // -1 errors only. 0 includes warnings, 3 is just insane
 
 export function initModule(): VoskModule {
   const recs = new Switch<string, KaldiRec>();
-  let voiceModel: Model;
+  let voskClient: VoskClient;
   let lang: string;
 
   return {
@@ -18,18 +23,23 @@ export function initModule(): VoskModule {
   };
 
   async function initModel(url: string, language: string): Promise<void> {
-    voiceModel?.terminate();
+    voskClient?.terminate();
     recs.remove();
-    voiceModel = await createModel(url, LOG_LEVEL);
+    voskClient = await createVoskClient({
+      modelUrl: url,
+      workerUrl: site.asset.url('npm/vosk/vosk.worker.js', { documentOrigin: true }),
+      wasmUrl: site.asset.url('npm/vosk/vosk.wasm'),
+      logLevel: LOG_LEVEL,
+    });
     lang = language;
   }
 
   function initRecognizer(opts: RecognizerOpts): AudioNode | undefined {
-    if (!opts.words?.length || !voiceModel) {
+    if (!opts.words?.length || !voskClient) {
       recs.remove(opts.recId);
       return;
     }
-    const kaldi = new voiceModel.KaldiRecognizer(opts.audioCtx.sampleRate, JSON.stringify(opts.words));
+    const kaldi = new voskClient.KaldiRecognizer(opts.audioCtx.sampleRate, JSON.stringify(opts.words));
 
     // buffer size under 100ms for timely partial results, 200ms for full results
     const bufSize = 2 ** Math.ceil(Math.log2(opts.audioCtx.sampleRate / (opts.partial ? 16 : 8)));
@@ -58,7 +68,7 @@ export function initModule(): VoskModule {
   }
 
   function isLoaded(language?: string): boolean {
-    return voiceModel !== undefined && (!language || language === lang);
+    return voskClient !== undefined && (!language || language === lang);
   }
 
   function select(recId: string | false): void {

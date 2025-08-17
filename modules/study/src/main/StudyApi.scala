@@ -2,8 +2,9 @@ package lila.study
 
 import akka.stream.scaladsl.*
 import chess.format.UciPath
-import chess.format.pgn.{ Glyph, Tags }
+import chess.format.pgn.{ Glyph, Tags, Comment as CommentStr }
 import monocle.syntax.all.*
+import alleycats.Zero
 
 import lila.common.Bus
 import lila.core.perm.Granter
@@ -108,7 +109,7 @@ final class StudyApi(
             yield preview.invalidate(study.id)
     } >> byIdWithFirstChapter(study.id)
 
-  def recentByOwnerWithChapterCount       = studyRepo.recentByOwnerWithChapterCount(chapterRepo.coll)
+  def recentByOwnerWithChapterCount = studyRepo.recentByOwnerWithChapterCount(chapterRepo.coll)
   def recentByContributorWithChapterCount = studyRepo.recentByContributorWithChapterCount(chapterRepo.coll)
 
   export chapterRepo.studyIdOf
@@ -151,7 +152,7 @@ final class StudyApi(
 
   def cloneWithChat(me: User, prev: Study, update: Study => Study = identity): Fu[Option[Study]] = for
     study <- justCloneNoChecks(me, prev, update)
-    _     <- chatApi.system(study.id.into(ChatId), s"Cloned from lichess.org/study/${prev.id}", _.study)
+    _ <- chatApi.system(study.id.into(ChatId), s"Cloned from lichess.org/study/${prev.id}", _.study)
   yield study.some
 
   def justCloneNoChecks(
@@ -186,7 +187,6 @@ final class StudyApi(
               val newStudy = study.rewindTo(first.id)
               if newStudy == study then fuccess(defaultResult)
               else
-                logger.info(s"Reset study ${study.id} to chapter ${first.id}")
                 studyRepo
                   .updateSomeFields(newStudy)
                   .zip(chapterRepo.byId(first.id))
@@ -236,7 +236,7 @@ final class StudyApi(
       position: Position
   ): Fu[Option[() => Funit]] =
     import args.{ *, given }
-    val singleNode   = args.node.withoutChildren
+    val singleNode = args.node.withoutChildren
     def failReload() = reloadSriBecauseOf(study, who.sri, position.chapter.id)
     if position.chapter.isOverweight then
       logger.info(s"Overweight chapter ${study.id}/${position.chapter.id}")
@@ -259,7 +259,7 @@ final class StudyApi(
                   else studyRepo.updateNow(study)
                 _ = sendTo(study.id):
                   _.addNode(position.ref, node, chapter.setup.variant, sticky = opts.sticky, relay, who)
-                isMainline        = newPosition.path.isMainline(chapter.root)
+                isMainline = newPosition.path.isMainline(chapter.root)
                 promoteToMainline = opts.promoteToMainline && !isMainline
               yield promoteToMainline.option: () =>
                 promote(study.id, position.ref + node, toMainline = true)
@@ -356,7 +356,7 @@ final class StudyApi(
   def setRole(studyId: StudyId, userId: UserId, roleStr: String)(who: Who) =
     sequenceStudy(studyId): study =>
       canActAsOwner(study, who.u).flatMapz:
-        val role    = StudyMember.Role.byId.getOrElse(roleStr, StudyMember.Role.Read)
+        val role = StudyMember.Role.byId.getOrElse(roleStr, StudyMember.Role.Read)
         val members = study.members.update(userId, _.copy(role = role))
         for _ <- studyRepo.setRole(study, userId, role) yield onMembersChange(study, members, members.ids)
 
@@ -433,7 +433,8 @@ final class StudyApi(
     sequenceStudyWithChapter(studyId, setTag.chapterId):
       case Study.WithChapter(study, chapter) =>
         Contribute(who.u, study):
-          doSetTags(study, chapter, PgnTags(chapter.tags + setTag.tag), who)
+          for _ <- doSetTags(study, chapter, PgnTags(chapter.tags + setTag.tag), who)
+          yield if study.isRelay then Bus.pub(AfterSetTagOnRelayChapter(setTag.chapterId, setTag.tag))
 
   def setTagsAndRename(
       studyId: StudyId,
@@ -461,7 +462,7 @@ final class StudyApi(
               doSetClock(Study.WithChapter(study, c), Position(c, UciPath.root).ref, clock)(who)
       yield sendTo(study.id)(_.setTags(chapter.id, chapter.tags, who))
 
-  def setComment(studyId: StudyId, position: Position.Ref, text: Comment.Text)(who: Who) =
+  def setComment(studyId: StudyId, position: Position.Ref, text: CommentStr)(who: Who) =
     sequenceStudyWithChapter(studyId, position.chapterId):
       case Study.WithChapter(study, chapter) =>
         Contribute(who.u, study):
@@ -576,9 +577,9 @@ final class StudyApi(
                         .firstByStudy(study.id)
                         .flatMap:
                           _.filter(_.isEmptyInitial).so(chapterRepo.delete)
-                    order   <- chapterRepo.nextOrderByStudy(study.id)
+                    order <- chapterRepo.nextOrderByStudy(study.id)
                     chapter <- chapterMaker(study, data, order, who.u, withRatings)
-                    _       <- doAddChapter(study, chapter, sticky, who)
+                    _ <- doAddChapter(study, chapter, sticky, who)
                   yield List(chapter)
               .recover:
                 case ChapterMaker.ValidationException(error) =>
@@ -628,14 +629,14 @@ final class StudyApi(
             practice = data.isPractice.option(true),
             gamebook = data.isGamebook.option(true),
             conceal = (chapter.conceal, data.isConceal) match
-              case (None, true)     => chapter.root.ply.some
+              case (None, true) => chapter.root.ply.some
               case (Some(_), false) => None
-              case _                => chapter.conceal
+              case _ => chapter.conceal
             ,
             setup = chapter.setup.copy(
               orientation = data.orientation match
                 case ChapterMaker.Orientation.Fixed(color) => color
-                case _                                     => chapter.setup.orientation
+                case _ => chapter.setup.orientation
             ),
             description = data.hasDescription.option {
               chapter.description | "-"
@@ -720,8 +721,8 @@ final class StudyApi(
   def setTopics(studyId: StudyId, topicStrs: List[String])(who: Who) =
     sequenceStudy(studyId): study =>
       Contribute(who.u, study):
-        val topics    = StudyTopics.fromStrs(topicStrs, StudyTopics.studyMax)
-        val newStudy  = study.copy(topics = topics.some)
+        val topics = StudyTopics.fromStrs(topicStrs, StudyTopics.studyMax)
+        val newStudy = study.copy(topics = topics.some)
         val newTopics = study.topics.fold(topics)(topics.diff)
         (study != newStudy).so:
           for
@@ -752,7 +753,7 @@ final class StudyApi(
                 name = Study.toName(data.name),
                 flair = data.flair.flatMap(flairApi.find),
                 settings = settings,
-                visibility = data.vis,
+                visibility = data.visibility,
                 description = settings.description.option:
                   study.description.filter(_.nonEmpty) | "-"
               )
@@ -825,11 +826,11 @@ final class StudyApi(
   private def canActAsOwner(study: Study, userId: UserId): Fu[Boolean] =
     fuccess(study.isOwner(userId)) >>| studyRepo.isAdminMember(study, userId)
 
-  private def Contribute[A](userId: UserId, study: Study)(f: => A)(using alleycats.Zero[A]): A =
+  private def Contribute[A: Zero](userId: UserId, study: Study)(f: => A): A =
     study.canContribute(userId).so(f)
 
   // work around circular dependency
-  private var socket: Option[StudySocket]           = None
+  private var socket: Option[StudySocket] = None
   private[study] def registerSocket(s: StudySocket) = socket = s.some
   private def sendTo(studyId: StudyId)(f: StudySocket => StudyId => Unit): Unit =
     socket.foreach: s =>

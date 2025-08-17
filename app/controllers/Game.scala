@@ -32,22 +32,21 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
     exportGame(id.gameId)
 
   private[controllers] def exportGame(gameId: GameId)(using Context): Fu[Result] =
-    Found(env.round.proxyRepo.gameIfPresent(gameId).orElse(env.game.gameRepo.game(gameId))): game =>
+    Found(env.round.proxyRepo.gameIfPresentOrFetch(gameId)): game =>
       val config = GameApiV2.OneConfig(
         format = GameApiV2.Format.byRequest,
         imported = getBool("imported"),
-        flags = requestPgnFlags(extended = true),
-        playerFile = get("players")
+        flags = requestPgnFlags(extended = true)
       )
       for
-        content  <- env.api.gameApiV2.exportOne(game, config)
+        content <- env.api.gameApiV2.exportOne(game, config)
         filename <- env.api.gameApiV2.filename(game, config.format)
       yield Ok(content)
         .asAttachment(filename)
         .withHeaders(headersForApiOrApp*)
         .as(gameContentType(config))
 
-  def exportByUser(username: UserStr)    = OpenOrScoped()(handleExport(username))
+  def exportByUser(username: UserStr) = OpenOrScoped()(handleExport(username))
   def apiExportByUser(username: UserStr) = AnonOrScoped()(handleExport(username))
 
   private def handleExport(username: UserStr)(using ctx: Context) =
@@ -79,7 +78,6 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
                   if get("sort").has("dateAsc") then GameApiV2.GameSort.DateAsc
                   else GameApiV2.GameSort.DateDesc,
                 perSecond = perSecond,
-                playerFile = get("players"),
                 ongoing = getBool("ongoing") || !finished,
                 finished = finished
               )
@@ -174,7 +172,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
       case GameApiV2.Format.JSON =>
         config match
           case _: GameApiV2.OneConfig => JSON
-          case _                      => ndJson.contentType
+          case _ => ndJson.contentType
 
   private[controllers] def preloadUsers(game: lila.core.game.Game): Funit =
     env.user.lightUserApi.preloadMany(game.userIds)

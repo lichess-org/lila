@@ -68,7 +68,7 @@ export default class LobbyController {
     }
     this.tab = this.me?.isBot ? 'now_playing' : this.stores.tab.get();
     this.mode = this.stores.mode.get();
-    this.sort = this.stores.sort.get();
+    this.sort = this.me ? this.stores.sort.get() : 'time';
 
     const locationHash = location.hash.replace('#', '');
     if (['ai', 'friend', 'hook'].includes(locationHash)) {

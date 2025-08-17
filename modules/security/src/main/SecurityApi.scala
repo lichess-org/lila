@@ -10,12 +10,14 @@ import scalalib.SecureRandom
 
 import lila.common.Form.into
 import lila.common.HTTPRequest
+import lila.core.id.SessionId
 import lila.core.mod.{ LoginWithBlankedPassword, LoginWithWeakPassword }
 import lila.core.email.UserStrOrEmail
 import lila.core.net.{ ApiVersion, IpAddress }
+import lila.core.misc.oauth.AccessTokenId
 import lila.core.security.{ ClearPassword, FingerHash, Ip2ProxyApi, IsProxy }
 import lila.db.dsl.{ *, given }
-import lila.oauth.{ AccessToken, OAuthScope, OAuthServer }
+import lila.oauth.{ OAuthScope, OAuthServer }
 import lila.security.LoginCandidate.Result
 import lila.core.user.RoleDbKey
 
@@ -52,10 +54,10 @@ final class SecurityApi(
       mapping(
         "username" -> usernameOrEmailMapping, // can also be an email
         "password" -> loginPasswordMapping,
-        "token"    -> optional(nonEmptyText)
+        "token" -> optional(nonEmptyText)
       )(authenticateCandidate(candidate)) {
         case Success(user) => (user.username.into(UserStrOrEmail), ClearPassword(""), none).some
-        case _             => none
+        case _ => none
       }.verifying(Constraint { (t: LoginCandidate.Result) =>
         t match
           case Success(_) => FormValid
@@ -74,15 +76,17 @@ final class SecurityApi(
     )
 
   private def must2fa(req: RequestHeader): Fu[Option[IsProxy]] =
-    ip2proxy(HTTPRequest.ipAddress(req)).map: p =>
-      p.name.exists(proxy2faSetting.get().value.has(_)).option(p)
+    ip2proxy
+      .ofReq(req)
+      .map: p =>
+        p.name.exists(proxy2faSetting.get().value.has(_)).option(p)
 
   def loadLoginForm(str: UserStrOrEmail)(using req: RequestHeader): Fu[Form[LoginCandidate.Result]] =
     EmailAddress
       .from(str.value)
       .match
         case Some(email) => authenticator.loginCandidateByEmail(email.normalize)
-        case None        => str.into(UserStr).validateId.so(authenticator.loginCandidateById)
+        case None => str.into(UserStr).validateId.so(authenticator.loginCandidateById)
       .map(_.filter(_.user.isnt(UserId.lichess)))
       .flatMap:
         _.so: candidate =>
@@ -110,25 +114,27 @@ final class SecurityApi(
 
   def saveAuthentication(userId: UserId, apiVersion: Option[ApiVersion])(using
       req: RequestHeader
-  ): Fu[String] =
+  ): Fu[SessionId] =
     userRepo
       .mustConfirmEmail(userId)
       .flatMap:
         if _ then fufail(SecurityApi.MustConfirmEmail(userId))
         else
           for
-            proxy <- ip2proxy(HTTPRequest.ipAddress(req))
+            proxy <- ip2proxy.ofReq(req)
             _ = proxy.name.foreach(p => logger.info(s"Proxy login $p $userId ${HTTPRequest.print(req)}"))
-            sessionId = SecureRandom.nextString(22)
+            sessionId = SessionId(SecureRandom.nextString(22))
             _ <- store.save(sessionId, userId, req, apiVersion, up = true, fp = none, proxy = proxy)
           yield sessionId
 
   def saveSignup(userId: UserId, apiVersion: Option[ApiVersion], fp: Option[FingerPrint])(using
       req: RequestHeader
   ): Funit =
-    val sessionId = SecureRandom.nextString(22)
-    ip2proxy(HTTPRequest.ipAddress(req)).flatMap: proxy =>
-      store.save(s"SIG-$sessionId", userId, req, apiVersion, up = false, fp = fp, proxy = proxy)
+    for
+      proxy <- ip2proxy.ofReq(req)
+      sessionId = SessionId(s"SIG-${SecureRandom.nextString(22)}")
+      _ <- store.save(sessionId, userId, req, apiVersion, up = false, fp = fp, proxy = proxy)
+    yield ()
 
   private type AppealOrUser = Either[AppealUser, FingerPrintedUser]
   def restoreUser(req: RequestHeader): Fu[Option[AppealOrUser]] =
@@ -155,11 +161,11 @@ final class SecurityApi(
       .auth(req, required)
       .addEffect:
         case Right(access) => upsertOauth(access, req)
-        case _             => ()
+        case _ => ()
       .map(_.map(access => stripRolesOfOAuthUser(access.scoped)))
 
   private object upsertOauth:
-    private val sometimes = scalalib.cache.OnceEvery.hashCode[AccessToken.Id](1.hour)
+    private val sometimes = scalalib.cache.OnceEvery.hashCode[AccessTokenId](1.hour)
     def apply(access: OAuthScope.Access, req: RequestHeader): Unit =
       if access.scoped.scopes.intersects(OAuthScope.relevantToMods) && sometimes(access.tokenId) then
         val mobile = Mobile.LichessMobileUa.parse(req)
@@ -191,14 +197,15 @@ final class SecurityApi(
     reqSessionId(req).so(store.dedup(userId, _))
 
   def setFingerPrint(req: RequestHeader, fp: FingerPrint): Fu[Option[FingerHash]] =
-    reqSessionId(req).soFu(store.setFingerPrint(_, fp))
+    reqSessionId(req).traverse(store.setFingerPrint(_, fp))
 
   val sessionIdKey = "sessionId"
 
-  def reqSessionId(req: RequestHeader): Option[String] =
+  def reqSessionId(req: RequestHeader): Option[SessionId] =
     import play.api.mvc.request.{ Cell, RequestAttrKey }
     req.attrs.get[Cell[Session]](RequestAttrKey.Session) match
-      case Some(session) => session.value.get(sessionIdKey).orElse(req.headers.get(sessionIdKey))
+      case Some(session) =>
+        session.value.get(sessionIdKey).orElse(req.headers.get(sessionIdKey)).map(SessionId.apply)
       case None =>
         logger.warn(s"No session in request attrs: ${HTTPRequest.print(req)}")
         none
@@ -228,18 +235,16 @@ final class SecurityApi(
   // special temporary auth for marked closed accounts so they can use appeal endpoints
   object appeal:
 
-    private type SessionId = String
-
     private val prefix = "appeal:"
 
     private val store = cacheApi.notLoadingSync[SessionId, UserId](256, "security.session.appeal"):
       _.expireAfterAccess(2.days).build()
 
     def authenticate(sessionId: SessionId): Option[UserId] =
-      sessionId.startsWith(prefix).so(store.getIfPresent(sessionId))
+      sessionId.value.startsWith(prefix).so(store.getIfPresent(sessionId))
 
     def saveAuthentication(userId: UserId): Fu[SessionId] =
-      val sessionId = s"$prefix${SecureRandom.nextString(22)}"
+      val sessionId = SessionId(s"$prefix${SecureRandom.nextString(22)}")
       store.put(sessionId, userId)
       logger.info(s"Appeal login by $userId")
       fuccess(sessionId)

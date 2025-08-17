@@ -15,10 +15,10 @@ final private[simul] class SimulRepo(val coll: Coll, gameRepo: GameRepo)(using E
     { case BSONInteger(v) => SimulStatus(v).toTry(s"No such simul status: $v") },
     x => BSONInteger(x.id)
   )
-  private given BSONHandler[Variant]                = variantByIdHandler
-  private given BSONDocumentHandler[Clock.Config]   = Macros.handler
-  private given BSONDocumentHandler[SimulClock]     = Macros.handler
-  private given BSONDocumentHandler[SimulPlayer]    = Macros.handler
+  private given BSONHandler[Variant] = variantByIdHandler
+  private given BSONDocumentHandler[Clock.Config] = Macros.handler
+  private given BSONDocumentHandler[SimulClock] = Macros.handler
+  private given BSONDocumentHandler[SimulPlayer] = Macros.handler
   private given BSONDocumentHandler[SimulApplicant] = Macros.handler
   private given BSON[SimulPairing] with
     def reads(r: BSON.Reader) =
@@ -31,10 +31,10 @@ final private[simul] class SimulRepo(val coll: Coll, gameRepo: GameRepo)(using E
       )
     def writes(w: BSON.Writer, o: SimulPairing) =
       $doc(
-        "player"    -> o.player,
-        "gameId"    -> o.gameId,
-        "status"    -> o.status,
-        "wins"      -> o.wins,
+        "player" -> o.player,
+        "gameId" -> o.gameId,
+        "status" -> o.status,
+        "wins" -> o.wins,
         "hostColor" -> o.hostColor.name
       )
 
@@ -42,10 +42,10 @@ final private[simul] class SimulRepo(val coll: Coll, gameRepo: GameRepo)(using E
 
   private given BSONDocumentHandler[Simul] = Macros.handler
 
-  private val createdSelect  = $doc("status" -> SimulStatus.Created.id)
-  private val startedSelect  = $doc("status" -> SimulStatus.Started.id)
+  private val createdSelect = $doc("status" -> SimulStatus.Created.id)
+  private val startedSelect = $doc("status" -> SimulStatus.Started.id)
   private val finishedSelect = $doc("status" -> SimulStatus.Finished.id)
-  private val createdSort    = $sort.desc("createdAt")
+  private val createdSort = $sort.desc("createdAt")
 
   def find(id: SimulId): Fu[Option[Simul]] =
     coll.byId[Simul](id)
@@ -104,7 +104,7 @@ final private[simul] class SimulRepo(val coll: Coll, gameRepo: GameRepo)(using E
       .map:
         _.foldLeft(List.empty[Simul]) {
           case (acc, sim) if acc.exists(_.hostId == sim.hostId) => acc
-          case (acc, sim)                                       => sim :: acc
+          case (acc, sim) => sim :: acc
         }.reverse
 
   def allStarted: Fu[List[Simul]] =
@@ -175,7 +175,7 @@ final private[simul] class SimulRepo(val coll: Coll, gameRepo: GameRepo)(using E
 
   private[simul] def anonymizePlayers(id: UserId) =
     coll.update.one(
-      $doc("pairings.player.user"   -> id),
+      $doc("pairings.player.user" -> id),
       $set("pairings.$.player.user" -> UserId.ghost),
       multi = true
     )

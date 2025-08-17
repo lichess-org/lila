@@ -6,6 +6,10 @@
     <item quantity="one">%s sending</item>
     <item quantity="other">%s sendingar</item>
   </plurals>
+  <plurals name="nbViewers">
+    <item quantity="one">%s sjåar</item>
+    <item quantity="other">%s sjåarar</item>
+  </plurals>
   <string name="liveBroadcasts">Direktesende turneringar</string>
   <string name="broadcastCalendar">Kaldender for sendingar</string>
   <string name="newBroadcast">Ny direktesending</string>
@@ -59,13 +63,10 @@
   <string name="startVerySoon">Sending vil starte om ikkje lenge.</string>
   <string name="notYetStarted">Sendinga har førebels ikkje starta.</string>
   <string name="officialWebsite">Offisiell nettside</string>
-  <string name="standings">Resultat</string>
   <string name="officialStandings">Offisiell tabell</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Fleire alternativ på %s</string>
   <string name="webmastersPage">administratoren si side</string>
-  <string name="pgnSourceHelp" comment="%s is 'streaming API'">Ei offentleg PGN-kjelde i sanntid for denne runden. Vi tilbyr og ei %s for raskare og meir effektiv synkronisering.</string>
   <string name="embedThisBroadcast">Bygg inn denne sendinga på nettstaden din</string>
-  <string name="embedThisRound">Bygg inn %s på nettstaden din</string>
   <string name="ratingDiff">Rangeringsdiff</string>
   <string name="gamesThisTournament">Spel i denne turneringa</string>
   <string name="score">Poengskår</string>
@@ -81,4 +82,6 @@
   <string name="backToLiveMove">Attende til gjeldande trekk</string>
   <string name="sinceHideResults">Du valde skjula resultatane, så alle forhåndsvisningane av bretta er tome for å unngå å røpa noko.</string>
   <string name="liveboard">Brett i sanntid</string>
+  <string name="communityBroadcast">Fellesskapskringkasting</string>
+  <string name="createdAndManagedBy">Oppretta og administrert av %s.</string>
 </resources>

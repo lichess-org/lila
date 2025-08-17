@@ -67,13 +67,10 @@
   <string name="startVerySoon">Transliacija prasidės visai netrukus.</string>
   <string name="notYetStarted">Transliacija dar neprasidėjo.</string>
   <string name="officialWebsite">Oficialus tinklapis</string>
-  <string name="standings">Rezultatai</string>
   <string name="officialStandings">Oficialūs rezultatai</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Daugiau parinkčių %s</string>
   <string name="webmastersPage">žiniatinklio valdytojų puslapis</string>
-  <string name="pgnSourceHelp" comment="%s is 'streaming API'">Viešas realaus laiko PGN šaltinis šiam turui. Taip pat siūlome %s greitesniam ir efektyvesniam sinchronizavimui.</string>
   <string name="embedThisBroadcast">Įterpkite šią transliaciją į savo svetainę</string>
-  <string name="embedThisRound">Įterpkite %s į savo svetainę</string>
   <string name="ratingDiff">Reitingo skirtumas</string>
   <string name="gamesThisTournament">Partijos šiame turnyre</string>
   <string name="score">Taškų skaičius</string>

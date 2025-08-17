@@ -8,7 +8,7 @@ object RatingProg:
   def add(rp1O: Option[RatingProg], rp2O: Option[RatingProg]): Option[lila.core.rating.RatingProg] =
     (rp1O, rp2O) match
       case (Some(rp1), Some(rp2)) => Some(rp1.copy(after = rp2.after))
-      case _                      => rp2O.orElse(rp1O)
+      case _ => rp2O.orElse(rp1O)
   def make(player: lila.core.game.LightPlayer) =
     player.rating.map: rating =>
       val newRating = player.ratingDiff.fold(rating)(diff => rating.map(_ + diff.value))
@@ -41,5 +41,5 @@ object Score:
           )
         )
       case (score, _) => score
-  val empty         = lila.core.rating.Score(0, 0, 0, none)
+  val empty = lila.core.rating.Score(0, 0, 0, none)
   given Zero[Score] = Zero(empty)

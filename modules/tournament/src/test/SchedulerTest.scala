@@ -15,7 +15,7 @@ class SchedulerTest extends munit.FunSuite:
     import lila.tournament.Schedule.Speed.*
     import lila.tournament.Schedule.Freq.*
 
-    val start      = LocalDateTime.of(2024, 9, 1, 0, 0)
+    val start = LocalDateTime.of(2024, 9, 1, 0, 0)
     val wholeMonth = TimeInterval(start.instant, start.plusMonths(1).instant)
     val daysInSept = 30
     val allSeptTourneys = ExperimentalPruner

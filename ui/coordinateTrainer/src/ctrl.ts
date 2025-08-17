@@ -4,7 +4,7 @@ import { throttlePromiseDelay } from 'lib/async';
 import { myUserId, withEffect } from 'lib';
 import { makeVoice, type VoiceCtrl } from 'voice';
 import { storedBooleanProp, storedProp } from 'lib/storage';
-import type { Api as CgApi } from 'chessground/api';
+import type { Api as CgApi } from '@lichess-org/chessground/api';
 import type {
   ColorChoice,
   TimeControl,

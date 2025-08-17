@@ -9,7 +9,8 @@ final class SoundSet private (val key: String, val name: String):
 object SoundSet:
 
   val default = new SoundSet("standard", "Standard")
-  val silent  = new SoundSet("silent", "Silent")
+  val silent = new SoundSet("silent", "Silent")
+  val speech = new SoundSet("speech", "Speech")
 
   val list = List(
     silent,
@@ -22,10 +23,10 @@ object SoundSet:
     new SoundSet("woodland", "WoodLand"),
     new SoundSet("robot", "Robot"),
     new SoundSet("music", "Pentatonic"),
-    new SoundSet("speech", "Speech")
+    speech
   )
 
-  val allByKey  = list.mapBy(_.key)
+  val allByKey = list.mapBy(_.key)
   val allByName = list.mapBy(_.name)
 
   def apply(key: String) = allByKey.getOrElse(key.toLowerCase, default)

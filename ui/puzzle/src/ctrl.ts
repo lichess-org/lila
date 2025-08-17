@@ -11,7 +11,6 @@ import type {
   MoveTest,
   ThemeKey,
   ReplayEnd,
-  NvuiPlugin,
   PuzzleRound,
   RoundThemes,
 } from './interfaces';
@@ -32,7 +31,7 @@ import { type StoredProp, storedBooleanProp, storedBooleanPropWithEffect, storag
 import { fromNodeList } from 'lib/tree/path';
 import Report from './report';
 import { last } from 'lib/tree/ops';
-import { uciToMove } from 'chessground/util';
+import { uciToMove } from '@lichess-org/chessground/util';
 import type { ParentCtrl } from 'lib/ceval/types';
 import { pubsub } from 'lib/pubsub';
 import { alert } from 'lib/view/dialogs';
@@ -77,12 +76,12 @@ export default class PuzzleCtrl implements ParentCtrl {
   voteDisabled?: boolean;
   isDaily: boolean;
   blindfolded: StoredProp<boolean>;
+  cgVersion = 1;
   private report: Report;
 
   constructor(
     readonly opts: PuzzleOpts,
     readonly redraw: Redraw,
-    readonly nvui?: NvuiPlugin,
   ) {
     this.rated = storedBooleanPropWithEffect('puzzle.rated', true, this.redraw);
     this.autoNext = storedBooleanProp(
@@ -364,7 +363,7 @@ export default class PuzzleCtrl implements ParentCtrl {
 
     const progress = moveTest(this);
     this.setAutoShapes();
-    if (progress === 'fail') site.sound.say('incorrect');
+    if (progress === 'fail') site.sound.say(i18n.puzzle.failed);
     if (progress) this.applyProgress(progress);
     this.reorderChildren(path);
     this.redraw();
@@ -457,7 +456,7 @@ export default class PuzzleCtrl implements ParentCtrl {
       this.round = res.round;
       if (res.round?.ratingDiff) this.session.setRatingDiff(this.data.puzzle.id, res.round.ratingDiff);
     }
-    if (win) site.sound.say('Success!');
+    if (win) site.sound.say(i18n.puzzle.puzzleSuccess);
     if (next) {
       this.next.resolve(this.data.replay && res.replayComplete ? this.data.replay : next);
       if (this.streak && win) this.streak.onComplete(true, res.next);
@@ -638,6 +637,7 @@ export default class PuzzleCtrl implements ParentCtrl {
 
   flip = () => {
     this.flipped.toggle();
+    this.cgVersion++;
     this.withGround(g => g.toggleOrientation());
     this.redraw();
   };

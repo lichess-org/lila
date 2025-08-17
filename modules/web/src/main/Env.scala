@@ -22,8 +22,6 @@ final class Env(
 
   val manifest = wire[AssetManifest]
 
-  val realPlayers = wire[RealPlayerApi]
-
   val referrerRedirect = wire[ReferrerRedirect]
 
   val github = wire[GitHub]

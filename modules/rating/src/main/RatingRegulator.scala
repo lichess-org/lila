@@ -6,13 +6,13 @@ import chess.rating.glicko.Glicko
 object RatingRegulator:
 
   private val factors = Map(
-    PerfKey.rapid       -> 1.015,
-    PerfKey.classical   -> 1.015,
-    PerfKey.blitz       -> 1.005,
-    PerfKey.bullet      -> 1.015,
+    PerfKey.rapid -> 1.015,
+    PerfKey.classical -> 1.015,
+    PerfKey.blitz -> 1.005,
+    PerfKey.bullet -> 1.015,
     PerfKey.ultraBullet -> 1.013,
-    PerfKey.atomic      -> 1.02,
-    PerfKey.antichess   -> 1.02
+    PerfKey.atomic -> 1.02,
+    PerfKey.antichess -> 1.02
   )
 
   def apply(
@@ -38,8 +38,8 @@ object RatingRegulator:
   private def regulate(factor: Double, key: PerfKey, before: Glicko, after: Glicko): Glicko =
     if after.rating > before.rating
     then
-      val diff  = after.rating - before.rating
+      val diff = after.rating - before.rating
       val extra = diff * (factor - 1)
-      lila.mon.rating.regulator.micropoints(key.value).record((extra * 1000 * 1000).toLong)
+      lila.mon.rating.regulator.micropoints(key).record((extra * 1000 * 1000).toLong)
       after.copy(rating = after.rating + extra)
     else after

@@ -15,6 +15,8 @@
  * limitations under the License.
  */
 
+import { isEquivalent } from 'lib/algo';
+
 type Action = 'keypress' | 'keydown' | 'keyup';
 
 type Callback = (e: KeyboardEvent) => void;
@@ -168,22 +170,29 @@ export default class Mousetrap {
    *
    * When adding modifiers, list the actual key last.
    */
-  bind = (combinations: string | string[], callback: Callback, action?: Action): Mousetrap => {
-    this.bindMultiple(combinations instanceof Array ? combinations : [combinations], callback, action);
+  bind = (
+    combinations: string | string[],
+    callback: Callback,
+    action?: Action,
+    multiple = true,
+  ): Mousetrap => {
+    for (const combo of Array.isArray(combinations) ? combinations : [combinations]) {
+      const info = getKeyInfo(combo, action);
+      this.bindings[info.key] ??= [];
+      if (multiple || !this.bindings[info.key].some(b => isEquivalent(b.modifiers, info.modifiers)))
+        this.bindings[info.key].push({
+          combination: combo,
+          callback,
+          modifiers: info.modifiers,
+          action: info.action,
+        });
+    }
     return this;
   };
 
-  private bindMultiple = (combinations: string[], callback: Callback, action?: Action) => {
-    for (const combination of combinations) this.bindSingle(combination, callback, action);
-  };
-
-  private bindSingle = (combination: string, callback: Callback, action?: Action) => {
-    const info = getKeyInfo(combination, action);
-    (this.bindings[info.key] = this.bindings[info.key] || []).push({
-      combination,
-      callback,
-      modifiers: info.modifiers,
-      action: info.action,
+  unbind = (key: string): void => {
+    this.bindings[key]?.forEach((b, i) => {
+      if (b.modifiers.length === 0) this.bindings[key].splice(i, 1);
     });
   };
 

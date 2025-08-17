@@ -211,9 +211,9 @@ object InsightMetric:
 
   val byKey = values.mapBy(_.key)
 
-  val requiresAnalysis     = Set(MeanCpl, CplBucket, MeanAccuracy, Awareness)
+  val requiresAnalysis = Set(MeanCpl, CplBucket, MeanAccuracy, Awareness)
   val requiresStableRating = Set(Performance, RatingDiff, OpponentRating)
-  val isStacked            = Set(Result, Termination, PieceRole, CplBucket)
+  val isStacked = Set(Result, Termination, PieceRole, CplBucket)
 
   def valuesOf(metric: InsightMetric): Seq[MetricValue] = metric match
     case Result =>

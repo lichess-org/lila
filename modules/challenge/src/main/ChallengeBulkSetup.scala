@@ -3,7 +3,7 @@ package lila.challenge
 import akka.stream.scaladsl.*
 import chess.format.Fen
 import chess.variant.{ FromPosition, Variant }
-import chess.{ ByColor, Clock, Mode }
+import chess.{ ByColor, Clock, Rated }
 import play.api.data.*
 import play.api.data.Forms.*
 import play.api.libs.json.Json
@@ -15,6 +15,7 @@ import lila.core.game.GameRule
 import lila.core.net.Bearer
 import lila.game.IdGenerator
 import lila.oauth.{ EndpointScopes, OAuthScope, OAuthServer }
+import lila.common.Form.into
 
 final class ChallengeBulkSetup(setupForm: lila.core.setup.SetupForm):
 
@@ -33,9 +34,9 @@ final class ChallengeBulkSetup(setupForm: lila.core.setup.SetupForm):
       setupForm.variant,
       setupForm.clock,
       setupForm.optionalDays,
-      "fen"           -> optional(lila.common.Form.fen.mapping),
-      "rated"         -> boolean,
-      "pairAt"        -> optional(timestampInNearFuture),
+      "fen" -> optional(lila.common.Form.fen.mapping),
+      "rated" -> boolean.into[Rated],
+      "pairAt" -> optional(timestampInNearFuture),
       "startClocksAt" -> optional(timestampInNearFuture),
       setupForm.message,
       setupForm.rules
@@ -46,7 +47,7 @@ final class ChallengeBulkSetup(setupForm: lila.core.setup.SetupForm):
           clock: Option[Clock.Config],
           days: Option[Days],
           fen: Option[Fen.Full],
-          rated: Boolean,
+          rated: Rated,
           pairTs: Option[Long],
           clockTs: Option[Long],
           message: Option[String],
@@ -105,9 +106,9 @@ final class ChallengeBulkSetupApi(
           .map:
             _.left.map { BadToken(token, _) }
       .runFold[Either[List[BadToken], List[UserId]]](Right(Nil)):
-        case (Left(bads), Left(bad))       => Left(bad :: bads)
-        case (Left(bads), _)               => Left(bads)
-        case (Right(_), Left(bad))         => Left(bad :: Nil)
+        case (Left(bads), Left(bad)) => Left(bad :: bads)
+        case (Left(bads), _) => Left(bads)
+        case (Right(_), Left(bad)) => Left(bad :: Nil)
         case (Right(users), Right(scoped)) => Right(scoped.me.userId :: users)
       .flatMap:
         case Left(errors) => fuccess(Left(ScheduleError.BadTokens(errors.reverse)))
@@ -127,9 +128,9 @@ final class ChallengeBulkSetupApi(
               .collect { case List(w, b) => (w, b) }
               .toList
             val nbGames = pairs.size
-            val cost    = nbGames * (if me.isVerifiedOrChallengeAdmin || me.isApiHog then 1 else 3)
+            val cost = nbGames * (if me.isVerifiedOrChallengeAdmin || me.isApiHog then 1 else 3)
             rateLimit(me.id, fuccess(Left(ScheduleError.RateLimited)), cost = cost):
-              lila.mon.api.challenge.bulk.scheduleNb(me.id.value).increment(nbGames)
+              lila.mon.api.challenge.bulk.scheduleNb(me.id).increment(nbGames)
               idGenerator
                 .games(nbGames)
                 .map:
@@ -144,7 +145,7 @@ final class ChallengeBulkSetupApi(
                     _,
                     data.variant,
                     data.clockOrDays,
-                    Mode(data.rated),
+                    data.rated,
                     pairAt = data.pairAt | nowInstant,
                     startClocksAt = data.startClocksAt,
                     message = data.message,
@@ -172,7 +173,7 @@ object ChallengeBulkSetup:
       games: List[ScheduledGame],
       variant: Variant,
       clock: Either[Clock.Config, Days],
-      mode: Mode,
+      rated: Rated,
       pairAt: Instant,
       startClocksAt: Option[Instant],
       scheduledAt: Instant,
@@ -186,7 +187,7 @@ object ChallengeBulkSetup:
       pairAt == other.pairAt || startClocksAt.exists(other.startClocksAt.contains)
     } && userSet.exists(other.userSet.contains)
     def nonEmptyRules = rules.nonEmpty.option(rules)
-    def perfType      = lila.rating.PerfType(variant, chess.Speed(clock.left.toOption))
+    def perfType = lila.rating.PerfType(variant, chess.Speed(clock.left.toOption))
 
   enum ScheduleError:
     case BadTokens(tokens: List[BadToken])
@@ -198,7 +199,7 @@ object ChallengeBulkSetup:
       variant: Variant,
       clock: Option[Clock.Config],
       days: Option[Days],
-      rated: Boolean,
+      rated: Rated,
       pairAt: Option[Instant],
       startClocksAt: Option[Instant],
       message: Option[Template],
@@ -224,20 +225,20 @@ object ChallengeBulkSetup:
         "id" -> id,
         "games" -> games.map: g =>
           Json.obj(
-            "id"    -> g.id,
+            "id" -> g.id,
             "white" -> g.white,
             "black" -> g.black
           ),
-        "variant"       -> variant.key,
-        "rated"         -> mode.rated,
-        "pairAt"        -> pairAt,
+        "variant" -> variant.key,
+        "rated" -> rated,
+        "pairAt" -> pairAt,
         "startClocksAt" -> startClocksAt,
-        "scheduledAt"   -> scheduledAt,
-        "pairedAt"      -> pairedAt
+        "scheduledAt" -> scheduledAt,
+        "pairedAt" -> pairedAt
       )
       .add("clock" -> bulk.clock.left.toOption.map: c =>
         Json.obj(
-          "limit"     -> c.limitSeconds,
+          "limit" -> c.limitSeconds,
           "increment" -> c.incrementSeconds
         ))
       .add("correspondence" -> bulk.clock.toOption.map: days =>

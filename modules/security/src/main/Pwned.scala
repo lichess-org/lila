@@ -9,7 +9,7 @@ final class Pwned(ws: StandaloneWSClient, rangeUrl: String)(using Executor):
   def apply(pass: lila.core.security.ClearPassword): Fu[Boolean] =
     rangeUrl.nonEmpty.so:
       val (prefix, suffix) = pass.value.sha1.hex.toUpperCase.splitAt(5)
-      val url              = s"${rangeUrl}${prefix}"
+      val url = s"${rangeUrl}${prefix}"
       ws.url(url)
         .addHttpHeaders("Add-Padding" -> "true")
         .withRequestTimeout(1.second)

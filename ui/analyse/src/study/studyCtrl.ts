@@ -1,4 +1,4 @@
-import type { DrawShape } from 'chessground/draw';
+import type { DrawShape } from '@lichess-org/chessground/draw';
 import { prop, defined } from 'lib';
 import { debounce, throttle, throttlePromiseDelay } from 'lib/async';
 import type AnalyseCtrl from '../ctrl';
@@ -51,6 +51,7 @@ import type { EvalHitMulti, EvalHitMultiArray } from '../interfaces';
 import { MultiCloudEval } from './multiCloudEval';
 import { pubsub } from 'lib/pubsub';
 import { alert } from 'lib/view/dialogs';
+import { displayColumns } from 'lib/device';
 
 interface Handlers {
   path(d: WithWhoAndPos): void;
@@ -86,6 +87,7 @@ export default class StudyCtrl {
   relayRecProp = prop(false);
   nonRelayRecMapProp = storedMap<boolean>('study.rec', 100, () => true);
   chapterFlipMapProp = storedMap<boolean>('chapter.flip', 400, () => false);
+  arrowHistory: Tree.Shape[][] = [];
   data: StudyData;
   vm: StudyVm;
   notif: NotifCtrl;
@@ -271,6 +273,25 @@ export default class StudyCtrl {
 
   isWriting = (): boolean => this.vm.mode.write && !this.isGamebookPlay();
 
+  private updateShapes = (shapes: Tree.Shape[]) => {
+    this.ctrl.tree.setShapes(shapes, this.ctrl.path);
+    this.makeChange(
+      'shapes',
+      this.addChapterId({
+        path: this.ctrl.path,
+        shapes: shapes,
+      }),
+    );
+  };
+
+  undoShapeChange = () => {
+    if (!this.vm.mode.write) return;
+    const last = this.arrowHistory.pop();
+    if (!last) return;
+    this.updateShapes(last);
+    this.ctrl.withCg(cg => cg.setShapes(last.slice() as DrawShape[]));
+  };
+
   makeChange = (...args: StudySocketSendParams): boolean => {
     if (this.isWriting()) {
       this.send(...args);
@@ -296,7 +317,7 @@ export default class StudyCtrl {
     pubsub.emit('chat.writeable', this.data.features.chat);
     // official broadcasts cannot have local mods
     pubsub.emit('chat.permissions', { local: canContribute && !this.relay?.isOfficial() });
-    pubsub.emit('palantir.toggle', this.data.features.chat && !!this.members.myMember());
+    pubsub.emit('voiceChat.toggle', this.data.features.chat && !!this.members.myMember());
     const computer: boolean =
       !this.isGamebookPlay() && !!(this.data.chapter.features.computer || this.data.chapter.practice);
     if (!computer) this.ctrl.getCeval().enabled(false);
@@ -413,14 +434,8 @@ export default class StudyCtrl {
   mutateCgConfig = (config: Required<Pick<CgConfig, 'drawable'>>) => {
     config.drawable.onChange = (shapes: Tree.Shape[]) => {
       if (this.vm.mode.write) {
-        this.ctrl.tree.setShapes(shapes, this.ctrl.path);
-        this.makeChange(
-          'shapes',
-          this.addChapterId({
-            path: this.ctrl.path,
-            shapes,
-          }),
-        );
+        this.arrowHistory.push(this.ctrl.node.shapes?.slice() ?? []);
+        this.updateShapes(shapes);
       }
       this.gamebookPlay?.onShapeChange(shapes);
     };
@@ -483,7 +498,7 @@ export default class StudyCtrl {
       await this.xhrReload();
       componentCallbacks(id);
     }
-    window.scrollTo(0, 0);
+    if (displayColumns() > 2) window.scrollTo(0, 0);
     return true;
   };
 
@@ -543,6 +558,7 @@ export default class StudyCtrl {
     this.isRelayAwayFromLive() && !treePath.contains(this.data.chapter.relayPath!, this.ctrl.path);
 
   setPath = (path: Tree.Path, node: Tree.Node) => {
+    this.arrowHistory = [];
     this.onSetPath(path);
     this.commentForm.onSetPath(this.vm.chapterId, path, node);
   };
@@ -766,8 +782,11 @@ export default class StudyCtrl {
       this.setMemberActive(who);
       if (d.p.chapterId !== this.vm.chapterId) return;
       if (who && who.s === site.sri) return this.redraw(); // update shape indicator in column move view
-      this.ctrl.tree.setShapes(d.s, this.ctrl.path);
-      if (this.ctrl.path === position.path) this.ctrl.withCg(cg => cg.setShapes(d.s));
+      if (this.ctrl.path === position.path) {
+        this.arrowHistory.push(this.ctrl.node.shapes?.slice() ?? []);
+        this.ctrl.withCg(cg => cg.setShapes(d.s));
+      }
+      this.ctrl.tree.setShapes(d.s, position.path);
       this.redraw();
     },
     validationError: d => {

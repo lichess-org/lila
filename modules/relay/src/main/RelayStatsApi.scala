@@ -4,8 +4,8 @@ import lila.db.dsl.{ *, given }
 
 private object RelayStats:
   type Minute = Int
-  type Crowd  = Int
-  type Graph  = List[(Minute, Crowd)]
+  type Crowd = Int
+  type Graph = List[(Minute, Crowd)]
   case class RoundStats(viewers: Graph)
 
 private final class RelayStatsApi(colls: RelayColls)(using scheduler: Scheduler)(using
@@ -37,12 +37,12 @@ private final class RelayStatsApi(colls: RelayColls)(using scheduler: Scheduler)
         Project($doc("last" -> $doc("$arrayElemAt" -> $arr("$d", -1))))
       )
     lastValues = for
-      doc  <- lastValuesDocs
+      doc <- lastValuesDocs
       last <- doc.getAsOpt[Crowd]("last")
-      id   <- doc.getAsOpt[RelayRoundId]("_id")
+      id <- doc.getAsOpt[RelayRoundId]("_id")
     yield (id, last)
     lastValuesMap = lastValues.toMap
-    update        = colls.stats.update(ordered = false)
+    update = colls.stats.update(ordered = false)
     elementOpts <- crowds.sequentially: (roundId, crowd) =>
       val lastValue = ~lastValuesMap.get(roundId)
       (lastValue != crowd).so:
@@ -71,7 +71,7 @@ private final class RelayStatsApi(colls: RelayColls)(using scheduler: Scheduler)
         if docs.size == max
         then logger.warn(s"RelayStats.fetchRoundCrowds: $max docs fetched")
         for
-          doc   <- docs
-          id    <- doc.getAsOpt[RelayRoundId]("_id")
+          doc <- docs
+          id <- doc.getAsOpt[RelayRoundId]("_id")
           crowd <- doc.getAsOpt[Crowd]("crowd")
         yield (id, crowd)

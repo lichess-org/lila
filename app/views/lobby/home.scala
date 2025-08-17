@@ -17,8 +17,8 @@ object home:
           "lobby",
           Json
             .obj(
-              "data"                    -> data,
-              "showRatings"             -> ctx.pref.showRatings,
+              "data" -> data,
+              "showRatings" -> ctx.pref.showRatings,
               "hasUnreadLichessMessage" -> hasUnreadLichessMessage
             )
             .add("bots", /* Granter.opt(_.Beta) || */ Granter.opt(_.BotEditor))
@@ -43,7 +43,7 @@ object home:
         given Option[UserWithPerfs] = homepage.me
         main(
           cls := List(
-            "lobby"      -> true,
+            "lobby" -> true,
             "lobby-nope" -> (playban.isDefined || currentGame.isDefined || homepage.hasUnreadLichessMessage)
           )
         )(
@@ -130,7 +130,8 @@ object home:
               .filter(_.isLichess || ctx.kid.no)
               .take(9)
               .map:
-                views.ublog.ui.card(_, showAuthor = views.ublog.ui.ShowAt.bottom, showIntro = false)
+                views.ublog.ui
+                  .card(_, showAuthor = views.ublog.ui.ShowAt.bottom, showIntro = false, strictDate = false)
           ),
           ctx.noBot.option(bits.underboards(tours, simuls)),
           div(cls := "lobby__feed"):

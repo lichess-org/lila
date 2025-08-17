@@ -2,11 +2,12 @@ package lila.forum
 
 import reactivemongo.api.bson.Macros.Annotations.Key
 import scalalib.ThreadLocalRandom
+import lila.core.id.ForumTopicSlug
 
 case class ForumTopic(
     @Key("_id") id: ForumTopicId,
     categId: ForumCategId,
-    slug: String,
+    slug: ForumTopicSlug,
     name: String,
     createdAt: Instant,
     updatedAt: Instant,
@@ -23,7 +24,7 @@ case class ForumTopic(
 ):
   def updatedAt(forUser: Option[User]): Instant =
     if forUser.exists(_.marks.troll) then updatedAtTroll else updatedAt
-  def nbPosts(forUser: Option[User]): Int   = if forUser.exists(_.marks.troll) then nbPostsTroll else nbPosts
+  def nbPosts(forUser: Option[User]): Int = if forUser.exists(_.marks.troll) then nbPostsTroll else nbPosts
   def nbReplies(forUser: Option[User]): Int = nbPosts(forUser) - 1
   def lastPostId(forUser: Option[User]): ForumPostId =
     if forUser.exists(_.marks.troll) then lastPostIdTroll else lastPostId
@@ -35,9 +36,9 @@ case class ForumTopic(
   def isSticky = ~sticky
 
   def isAuthor(user: User): Boolean = userId contains user.id
-  def isUblog                       = ublogId.isDefined
-  def isUblogAuthor(user: User)     = isUblog && isAuthor(user)
-  def isTeam                        = ForumCateg.isTeamSlug(categId)
+  def isUblog = ublogId.isDefined
+  def isUblogAuthor(user: User) = isUblog && isAuthor(user)
+  def isTeam = ForumCateg.isTeamSlug(categId)
 
   def withPost(post: ForumPost): ForumTopic =
     copy(
@@ -66,11 +67,13 @@ object ForumTopic:
     // if most chars are not latin, go for random slug
     if slug.lengthIs > (name.lengthIs / 2) then slug else ThreadLocalRandom.nextString(8)
 
+  def problemReportSlug(userId: UserId) = ForumTopicSlug(s"$userId-problem-report")
+
   val idSize = 8
 
   def make(
       categId: ForumCategId,
-      slug: String,
+      slug: ForumTopicSlug,
       name: String,
       userId: UserId,
       troll: Boolean = false,

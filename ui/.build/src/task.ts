@@ -45,7 +45,7 @@ type TaskOpts = {
   always?: boolean; // default false - always call <myTask>.execute(...), even when modified is []
 };
 
-export async function task(o: TaskOpts): Promise<TaskKey> {
+export async function makeTask(o: TaskOpts): Promise<TaskKey> {
   const { monitorOnly, debounce, key: inKey } = o;
   const includes = Array.isArray(o.includes) ? o.includes : [o.includes];
   const excludes = o.excludes ? (Array.isArray(o.excludes) ? o.excludes : [o.excludes]) : [];
@@ -77,6 +77,13 @@ export function stopTask(keys?: TaskKey | TaskKey[]) {
       }
     }
   }
+}
+
+export async function runTask(key: TaskKey): Promise<any> {
+  const t = tasks.get(key);
+  if (!t || !t.status) return;
+  clearTimeout(t.debounce.timer);
+  return execute(t, true);
 }
 
 export function taskOk(ctx?: Context): boolean {
@@ -130,8 +137,7 @@ async function execute(t: Task, firstRun = false): Promise<void> {
     t.status = 'error';
     const message = e instanceof Error ? (e.stack ?? e.message) : String(e);
     if (!env.watch) env.exit(`${errorMark} ${message}`, t.ctx);
-    else if (e)
-      env.log(`${errorMark} ${t.pkg?.name ? `[${c.grey(t.pkg.name)}] ` : ''}- ${c.grey(message)}`, t.ctx);
+    else if (e) env.log(`${errorMark} ${t.pkg?.name ? `[${c.grey(t.pkg.name)}] ` : ''}- ${message}`, t.ctx);
     if (t.ctx && !t.noEnvStatus) env.done(t.ctx, -1);
   } finally {
     activeTaskCount--;

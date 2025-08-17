@@ -12,15 +12,15 @@ object PlanForm:
 
   val ipn = Form(
     mapping(
-      "txn_id"            -> optional(nonEmptyText),
-      "subscr_id"         -> optional(nonEmptyText.into[Patron.PayPalLegacy.SubId]),
-      "txn_type"          -> text.verifying("Invalid txn type", txnTypes contains _),
-      "mc_currency"       -> nonEmptyText,
-      "mc_gross"          -> bigDecimal,
-      "custom"            -> optional(text),
-      "payer_email"       -> optional(nonEmptyText.into[Patron.PayPalLegacy.Email]),
-      "first_name"        -> optional(text),
-      "last_name"         -> optional(text),
+      "txn_id" -> optional(nonEmptyText),
+      "subscr_id" -> optional(nonEmptyText.into[Patron.PayPalLegacy.SubId]),
+      "txn_type" -> text.verifying("Invalid txn type", txnTypes contains _),
+      "mc_currency" -> nonEmptyText,
+      "mc_gross" -> bigDecimal,
+      "custom" -> optional(text),
+      "payer_email" -> optional(nonEmptyText.into[Patron.PayPalLegacy.Email]),
+      "first_name" -> optional(text),
+      "last_name" -> optional(text),
       "residence_country" -> optional(text)
     )(Ipn.apply)(unapply)
   )
@@ -49,5 +49,5 @@ object PlanForm:
 
     val (userId, giftTo) = custom.so(_.trim) match
       case s"$userId $giftTo" => (UserId(userId).some, UserId(giftTo).some)
-      case s"$userId"         => (UserId(userId).some, none)
-      case _                  => (none, none)
+      case s"$userId" => (UserId(userId).some, none)
+      case _ => (none, none)

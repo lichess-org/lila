@@ -60,13 +60,10 @@
   <string name="startVerySoon">Prijenos počinje uskoro.</string>
   <string name="notYetStarted">Prijenos još nije počeo.</string>
   <string name="officialWebsite">Službena stranica</string>
-  <string name="standings">Tablica</string>
   <string name="officialStandings">Službena tablica</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Više mogučnosti na %s</string>
   <string name="webmastersPage">portal za vlasnike web stranica</string>
-  <string name="pgnSourceHelp" comment="%s is 'streaming API'">Javan izvorni PGN za ovu rundu u stvarnom vremenu. Također nudimo %s za bržu i efikasniju sinkronizaciju.</string>
   <string name="embedThisBroadcast">Ugradite ovaj prijenos na svoju web stranicu</string>
-  <string name="embedThisRound">Ugradi %s u svoju web stranicu</string>
   <string name="ratingDiff">Razlika rejtinga</string>
   <string name="gamesThisTournament">Partije u ovom turniru</string>
   <string name="score">Rezultat</string>

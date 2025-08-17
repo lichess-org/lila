@@ -462,7 +462,6 @@
   <string name="openTournaments">Mövcud turnirlər</string>
   <string name="duration">Vaxt</string>
   <string name="winner">Qalib</string>
-  <string name="standing">Sıralama</string>
   <string name="createANewTournament">Yeni turnir yaradın</string>
   <string name="tournamentCalendar">Turnir təqvimi</string>
   <string name="conditionOfEntry">Qatılma şərtləri:</string>
@@ -476,7 +475,6 @@
   <string name="points">Xallar</string>
   <string name="wins">Qələbələr</string>
   <string name="losses">Məğlubiyyətlər</string>
-  <string name="createdBy">tərəfindən yaradılıb.</string>
   <string name="standByX">Hazır ol %s, oyunçular qoşulur!</string>
   <string name="pause">Fasilə ver</string>
   <string name="resume">Davam et</string>

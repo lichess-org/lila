@@ -31,6 +31,7 @@ final class Env(
     gameProxy: lila.core.game.GameProxy,
     guessPlayer: lila.core.fide.GuessPlayer,
     getPlayer: lila.core.fide.GetPlayer,
+    getPlayerFollowers: lila.core.fide.GetPlayerFollowers,
     cacheApi: lila.memo.CacheApi,
     settingStore: SettingStore.Builder,
     irc: lila.core.irc.IrcApi,
@@ -38,12 +39,13 @@ final class Env(
     notifyApi: lila.core.notify.NotifyApi,
     picfitApi: lila.memo.PicfitApi,
     picfitUrl: lila.memo.PicfitUrl,
+    lightUserSync: lila.core.LightUser.GetterSync,
     langList: lila.core.i18n.LangList,
     baker: lila.core.security.LilaCookie
 )(using Executor, akka.stream.Materializer, play.api.Mode)(using scheduler: Scheduler):
 
   lazy val roundForm = wire[RelayRoundForm]
-
+  lazy val groupForm = wire[RelayGroupForm]
   lazy val tourForm = wire[RelayTourForm]
 
   private val colls = wire[RelayColls]
@@ -63,6 +65,8 @@ final class Env(
   private lazy val notifier = wire[RelayNotifier]
 
   private lazy val studyPropagation = wire[RelayStudyPropagation]
+
+  private lazy val tagManualOverride = wire[RelayTagManualOverride]
 
   lazy val jsonView = wire[JsonView]
 
@@ -93,9 +97,11 @@ final class Env(
   def top(page: Int): Fu[(List[RelayCard], Paginator[WithLastRound])] =
     (page == 1).so(listing.active).zip(pager.inactive(page))
 
+  val topJson = (page: Int) => (_: JsonView.Config) ?=> top(page).map(jsonView.top)
+
   private lazy val sync = wire[RelaySync]
 
-  private lazy val proxy                 = wire[RelayProxy]
+  private lazy val proxy = wire[RelayProxy]
   private def selectProxy: ProxySelector = proxy.select
 
   private lazy val httpClient = wire[HttpClient]
@@ -173,7 +179,7 @@ final class Env(
 
 private final class RelayColls(mainDb: lila.db.Db, yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb):
   val round = mainDb(CollName("relay"))
-  val tour  = mainDb(CollName("relay_tour"))
+  val tour = mainDb(CollName("relay_tour"))
   val group = mainDb(CollName("relay_group"))
   val delay = yoloDb(CollName("relay_delay"))
   val stats = mainDb(CollName("relay_stats"))
