@@ -5,6 +5,7 @@ import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
 import lila.core.relation.Relation
+import lila.rating.PerfType
 
 final class UserBits(helpers: Helpers):
   import helpers.*
@@ -71,22 +72,26 @@ final class UserBits(helpers: Helpers):
       case _ => "Excellent connection"
     s"""<signal title="$title" class="q$v">$bars</signal>"""
 
+  def trophyMeta(perf: PerfType, rank: Int)(using Translate) =
+    rank match
+      case 1 => Some(("trophy perf top1", s"${perf.trans} Champion!", "images/trophy/gold-cup-2.png"))
+      case r if r <= 10 =>
+        Some(("trophy perf top10", s"${perf.trans} Top 10!", "images/trophy/silver-cup-2.png"))
+      case r if r <= 50 =>
+        Some(("trophy perf top50", s"${perf.trans} Top 50 player!", "images/trophy/Fancy-Gold.png"))
+      case r if r <= 100 =>
+        Some(("trophy perf", s"${perf.trans} Top 100 player!", "images/trophy/Gold-Cup.png"))
+      case _ => None
+
   def perfTrophies(u: User, rankMap: lila.rating.UserRankMap)(using Translate) = (!u.lame).so:
     rankMap.toList
       .sortBy(_._2)
       .map: (perf, rank) =>
         lila.rating.PerfType(perf) -> rank
-      .collect:
-        case (perf, 1) =>
-          (perf, "trophy perf top1", s"${perf.trans} Champion!", "images/trophy/gold-cup-2.png")
-        case (perf, rank) if rank <= 10 =>
-          (perf, "trophy perf top10", s"${perf.trans} Top 10!", "images/trophy/silver-cup-2.png")
-        case (perf, rank) if rank <= 50 =>
-          (perf, "trophy perf top50", s"${perf.trans} Top 50 player!", "images/trophy/Fancy-Gold.png")
-        case (perf, rank) if rank <= 100 =>
-          (perf, "trophy perf", s"${perf.trans} Top 100 player!", "images/trophy/Gold-Cup.png")
-      .map { (perf, cssClass, trophyTitle, imgPath) =>
-        a(href := routes.User.topNb(200, perf.key))(
+      .flatMap: (perf, rank) =>
+        trophyMeta(perf, rank).map(perf -> _)
+      .map { case (perf, (cssClass, trophyTitle, imgPath)) =>
+        a(href := routes.User.top(perf.key))(
           span(cls := cssClass, title := trophyTitle)(
             img(src := assetUrl(imgPath))
           )

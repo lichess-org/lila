@@ -57,7 +57,7 @@ object user:
 
     def hasTitle: Boolean = title.exists(PlayerTitle.BOT != _)
 
-    def light = LightUser(id, username, title, flair, false)
+    def light = LightUser(id, username, title, flair, isPatron = isPatron)
 
     def profileOrDefault = profile | Profile.default
 

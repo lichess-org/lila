@@ -14,6 +14,7 @@ case class RatingRange(min: IntRating, max: IntRating):
   def contains(rating: IntRating) =
     (min <= RatingRange.min || rating >= min) &&
       (max >= RatingRange.max || rating <= max)
+  def ifNotDefault: Option[RatingRange] = (this != RatingRange.default).option(this)
   override def toString = s"$min-$max"
 
 object RatingRange:
@@ -23,10 +24,6 @@ object RatingRange:
 
   val broad = RatingRange(min, max)
   val default = broad
-
-  def noneIfDefault(from: String): Option[RatingRange] =
-    if from == default.toString then none
-    else parse(from).filter(_ != default)
 
   private def readRating(str: String) = IntRating.from(str.toIntOption)
 

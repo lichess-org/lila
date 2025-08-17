@@ -22,6 +22,7 @@
   <string name="asBlack">ເປັນສີດໍາ</string>
   <string name="randomColor">ແລ່ນສີ</string>
   <string name="createAGame">ສະມັກເກມ</string>
+  <string name="createTheGame">ສ້າງເກມ</string>
   <string name="cancel">ຍົກເລີກການ</string>
   <string name="language">ພາສາ</string>
 </resources>

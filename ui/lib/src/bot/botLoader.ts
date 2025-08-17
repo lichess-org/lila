@@ -5,6 +5,7 @@ import type { BotInfo, MoveSource, LocalSpeed, AssetType } from './types';
 import * as xhr from '../xhr';
 import { definedMap } from '../algo';
 import { makeLichessBook } from './lichessBook';
+import { myUserId, myUsername } from '../common';
 
 export class BotLoader {
   zerofish: Zerofish;
@@ -108,6 +109,12 @@ export class BotLoader {
 
   getSoundUrl(key: string): string {
     return botAssetUrl('sound', key);
+  }
+
+  nameOf(uid?: string): string {
+    return !uid || uid === myUserId()
+      ? (myUsername() ?? 'Anonymous')
+      : (uid.startsWith('#') && this.bots.get(uid)?.name) || uid.charAt(0).toUpperCase() + uid.slice(1);
   }
 
   protected storedBots(): Promise<BotInfo[]> {

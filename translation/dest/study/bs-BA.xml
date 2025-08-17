@@ -56,6 +56,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Svi sinhronizovani članovi ostaju na istoj poziciji</string>
   <string name="shareChanges">Podijelite promjene sa posmatračima i sačuvajte ih na server</string>
   <string name="playing">U toku</string>
+  <string name="showResults">Rezultati</string>
   <string name="showEvalBar">Evaluacijske trake</string>
   <string name="next">Sljedeća strana</string>
   <string name="shareAndExport">Podijelite i izvezite</string>
@@ -167,4 +168,39 @@
   <string name="playAgain">Igrajte ponovo</string>
   <string name="whatWouldYouPlay">Šta biste odigrali u ovoj poziciji?</string>
   <string name="youCompletedThisLesson">Čestitamo! Kompletirali ste ovu lekciju.</string>
+  <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">%s po stranici</string>
+  <string name="getTheTour">Trebate pomoć? Zakažite obilazak!</string>
+  <string name="welcomeToLichessStudyTitle">Dobrodošli u Lichess studiju!</string>
+  <string name="welcomeToLichessStudyText">Ovo je dijeljena analitička ploča.&lt;br&gt;&lt;br&gt;Koristite je za analizu i komentiranje partija,&lt;br&gt;diskusiju o pozicijama s prijateljima&lt;br&gt;i naravno za časove šaha!&lt;br&gt;&lt;br&gt;To je moćan alat, hajde da odvojimo malo vremena da vidimo kako funkcioniše.</string>
+  <string name="sharedAndSaveTitle" comment="Appears as the title of a pop-up lightbox in the guided tour of Lichess Studies.&#10;&#10;As in: shared with other members &amp; saved to the database.">Podijeljeno i sačuvano</string>
+  <string name="sharedAndSavedText">Drugi članovi mogu vidjeti vaše poteze u stvarnom vremenu!&lt;br&gt;Osim toga, sve je zauvijek spremljeno.</string>
+  <string name="studyMembersTitle">Članovi studije</string>
+  <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s Posmatrači mogu pregledati studiju i razgovarati u četu.&lt;br&gt;&lt;br&gt;%2$s Saradnici mogu mijenjati i ažurirati studiju.</string>
+  <string name="addMembersText" comment="%s is an icon that will added at runtime">Kliknite na dugme %s.&lt;br&gt;Zatim odlučite ko može doprinijeti, a ko ne.</string>
+  <string name="studyChaptersTitle">Poglavlja proučavanja</string>
+  <string name="studyChaptersText">Studija može sadržavati nekoliko poglavlja.&lt;br&gt;Svako poglavlje ima zasebnu početnu poziciju i stablo kretanja.</string>
+  <string name="commentPositionTitle">Komentar na poziciju</string>
+  <string name="commentPositionText" comment="%s is an icon that will added at runtime">Kliknite na dugme %s ili kliknite desnim tasterom miša na listu za premeštanje sa desne strane.&lt;br&gt;Komentari se dele i čuvaju.</string>
+  <string name="annotatePositionTitle">Označi poziciju</string>
+  <string name="annotatePositionText">Kliknite na dugme !? ili kliknite desnim tasterom miša na listu za premeštanje sa desne strane.&lt;br&gt;Glifovi anotacija se dele i čuvaju.</string>
+  <string name="conclusionTitle">Hvala na vašem vremenu</string>
+  <string name="conclusionText">Svoje &lt;a href=\'/study/mine/hot\'&gt;prethodne studije&lt;/a&gt; možete pronaći na stranici svog profila.&lt;br&gt;Postoji i &lt;a href=\'//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way\'&gt;blog objava na blogu o studijama&lt;/a&gt;.&lt;br&gt;Napredni korisnici možda žele pritisnuti \"?\" da bi vidjeli prečice na tastaturi.&lt;br&gt;Zabavite se!</string>
+  <string name="createChapterTitle">Hajde da kreiramo poglavlje za učenje</string>
+  <string name="createChapterText">Studija može imati nekoliko poglavlja.&lt;br&gt;Svako poglavlje ima zasebno stablo premještanja,&lt;br&gt;i može se kreirati na različite načine.</string>
+  <string name="fromInitialPositionTitle">Iz početne pozicije</string>
+  <string name="fromInitialPositionText">Samo postavka ploče za novu igru.&lt;br&gt;Pogodno za istraživanje otvaranja.</string>
+  <string name="customPositionTitle">Prilagođena pozicija</string>
+  <string name="customPositionText">Postavite ploču na svoj način.&lt;br&gt;Pogodno za istraživanje završnica.</string>
+  <string name="loadExistingLichessGameTitle">Učitaj postojeću lichess igru</string>
+  <string name="loadExistingLichessGameText">Zalijepite URL lichess igre&lt;br&gt;(kao što je lichess.org/7fHIU0XI)&lt;br&gt;da biste učitali poteze igre u poglavlju.</string>
+  <string name="fromFenStringTitle">Iz FEN niza</string>
+  <string name="fromFenStringText">Zalijepite poziciju u FEN formatu&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;da biste započeli poglavlje od određene pozicije.</string>
+  <string name="fromPgnGameTitle">Iz PGN igre</string>
+  <string name="fromPgnGameText">Zalijepite igru u PGN formatu.&lt;br&gt;da biste učitali poteze, komentare i varijacije u poglavlju.</string>
+  <string name="variantsAreSupportedTitle">Studije podržavaju varijante</string>
+  <string name="variantsAreSupportedText">Da, možeš proučavati ludokuću&lt;br&gt;i sve varijante lichess-a!</string>
+  <string name="chapterConclusionText">Poglavlja se čuvaju zauvijek.&lt;br&gt;Zabavite se organizirajući svoj šahovski sadržaj!</string>
+  <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Dvostruki poraz</string>
+  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">Crni pobjeđuju, ali bijeli ne mogu pobijediti</string>
+  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">Bijeli pobjeđuju, ali Crni ne mogu pobijediti</string>
 </resources>

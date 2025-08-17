@@ -9,7 +9,7 @@ trait PaginatorHelper:
   def paginationByQuery(route: Call, pager: Paginator[?], showPost: Boolean): Option[Frag] =
     pagination(page => s"$route?page=$page", pager, showPost)
 
-  def pagination(url: Int => String, pager: Paginator[?], showPost: Boolean): Option[Frag] =
+  private def pagination(url: Int => String, pager: Paginator[?], showPost: Boolean): Option[Frag] =
     pager.hasToPaginate.option(pagination(url, pager.currentPage, pager.nbPages, showPost))
 
   def pagination(url: Int => String, page: Int, nbPages: Int, showPost: Boolean): Tag =

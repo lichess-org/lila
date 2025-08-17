@@ -167,8 +167,36 @@
   <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">%s میز</string>
   <string name="getTheTour">کمک لازم داری؟ یه دور بزن!</string>
   <string name="welcomeToLichessStudyTitle">به بخش مطالعه لیچس خوش‌آمدید!</string>
+  <string name="welcomeToLichessStudyText">این یک تختهٔ تحلیل اشتراکی است. از آن برای تحلیل و یادداشت‌گذاری بازی‌ها، گفتگو دربارهٔ وضعیت‌ها با دوستان و البته برای درس‌های شطرنج استفاده کنید! این یک ابزار قدرتمند است؛ بیایید با نحوهٔ کار آن آشنا شویم.</string>
+  <string name="sharedAndSaveTitle" comment="Appears as the title of a pop-up lightbox in the guided tour of Lichess Studies.&#10;&#10;As in: shared with other members &amp; saved to the database.">اشتراک‌گذاری و ذخیره‌سازی</string>
+  <string name="sharedAndSavedText">سایر اعضا می‌توانند حرکات شما را به‌صورت زنده ببینند! به‌علاوه، همه‌چیز برای همیشه ذخیره می‌شود.</string>
+  <string name="studyMembersTitle">اعضای مطالعه</string>
+  <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s تماشاگر می‌توانند مطالعه را مشاهده کرده و در گفتگو شرکت کنند. %2$s مشارکت‌کننده می‌توانند حرکت انجام دهند و مطالعه را به‌روزرسانی کنند.</string>
+  <string name="addMembersText" comment="%s is an icon that will added at runtime">روی دکمهٔ %s کلیک کنید. سپس تصمیم بگیرید چه کسانی می‌توانند مشارکت کنند.</string>
   <string name="studyChaptersTitle">فصل های قابل مطالعه</string>
+  <string name="studyChaptersText">یک مطالعه می‌تواند شامل چندین فصل باشد. هر فصل یک وضعیت اولیه و درخت حرکات مشخص دارد.</string>
+  <string name="commentPositionTitle">نظر دادن روی یک وضعیت</string>
+  <string name="commentPositionText" comment="%s is an icon that will added at runtime">روی دکمهٔ %s کلیک کنید، یا روی لیست حرکات در سمت راست، راست-کلیک کنید. نظرات به اشتراک گذاشته و ذخیره می‌شوند.</string>
+  <string name="annotatePositionTitle">یادداشت‌گذاری روی یک وضعیت</string>
+  <string name="annotatePositionText">روی دکمهٔ !؟ کلیک کنید، یا روی لیست حرکات در سمت راست، راست-کلیک کنید. علائم یادداشت‌گذاری به اشتراک گذاشته و ذخیره می‌شوند.</string>
   <string name="conclusionTitle">ممنون از وقتی که گذاشتید</string>
+  <string name="conclusionText">شما می‌توانید مطالعه‌های قبلی خود را از صفحهٔ پروفایلتان پیدا کنید، همچنین یک پست وبلاگ دربارهٔ مطالعه‌ها وجود دارد. کاربران حرفه‌ای می‌توانند کلید «؟» را برای دیدن میان‌برهای صفحه‌کلید فشار دهند. خوش بگذره!</string>
+  <string name="createChapterTitle">بیایید یک فصل مطالعه بسازیم</string>
+  <string name="createChapterText">یک مطالعه می‌تواند چندین فصل داشته باشد. هر فصل درخت حرکات متمایزی دارد و می‌تواند به روش‌های مختلفی ایجاد شود.</string>
+  <string name="fromInitialPositionTitle">از وضعیت اولیه</string>
+  <string name="fromInitialPositionText">فقط چیدمان مهره‌ها برای یک بازی جدید. مناسب برای بررسی شروع بازی‌ها.</string>
+  <string name="customPositionTitle">وضعیت سفارشی</string>
+  <string name="customPositionText">صفحه را به روش خود بچینید. مناسب برای بررسی آخر بازی‌ها.</string>
   <string name="loadExistingLichessGameTitle">بازی قبلی در لیچس را بارگذاری کن</string>
+  <string name="loadExistingLichessGameText">یک آدرس بازی از لیچس (مانند lichess.org/7fHIU0XI) جای‌گذاری کنید تا حرکات بازی در این فصل بارگذاری شود.</string>
+  <string name="fromFenStringTitle">از یک رشتهٔ FEN</string>
+  <string name="fromFenStringText">یک وضعیت با فرمت FEN مانند r1b2rk1/pp3ppp/1qnbpn2/3p4/3P1B2/2PB1N2/PP1N1PPP/R2Q1RK1 w - - 1 10 جای‌گذاری کنید تا فصل از آن وضعیت شروع شود.</string>
   <string name="fromPgnGameTitle">از بازی یک فایل PGN</string>
+  <string name="fromPgnGameText">یک بازی با فرمت PGN جای‌گذاری کنید تا حرکات، نظرات و شاخه‌ها در این فصل بارگذاری شوند.</string>
+  <string name="variantsAreSupportedTitle">مطالعه‌ها از واریانت‌ها پشتیبانی می‌کنند</string>
+  <string name="variantsAreSupportedText">بله، شما می‌توانید شطرنج دیوانه‌وار (Crazyhouse) و تمام واریانت‌های لیچس را مطالعه کنید!</string>
+  <string name="chapterConclusionText">فصل‌ها برای همیشه ذخیره می‌شوند. از سازماندهی محتوای شطرنجی خود لذت ببرید!</string>
+  <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">باخت دوطرفه</string>
+  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">سیاه باخت، اما سفید نمی‌تواند ببرد</string>
+  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">سفید باخت، اما سیاه نمی‌تواند ببرد</string>
 </resources>

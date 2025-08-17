@@ -22,7 +22,7 @@ case class Hook(
     rated: Rated,
     color: TriColor,
     user: Option[LobbyUser],
-    ratingRange: String,
+    ratingRange: RatingRange,
     createdAt: Instant,
     boardApi: Boolean
 ):
@@ -43,7 +43,7 @@ case class Hook(
   private def ratingRangeCompatibleWith(h: Hook) =
     !isAuth || h.rating.so(ratingRangeOrDefault.contains)
 
-  lazy val manualRatingRange = isAuth.so(RatingRange.noneIfDefault(ratingRange))
+  lazy val manualRatingRange = isAuth.so(ratingRange.ifNotDefault)
 
   private def nonWideRatingRange =
     val r = rating | lila.rating.Glicko.default.intRating
@@ -84,7 +84,7 @@ case class Hook(
     rated.yes && realVariant.standard && isClockCompatible.exec(clock) && color == TriColor.Random
 
   def compatibleWithPool(poolClock: chess.Clock.Config)(using IsClockCompatible) =
-    compatibleWithPools && clock == poolClock
+    clock == poolClock && compatibleWithPools
 
   private lazy val speed = Speed(clock)
 
@@ -113,7 +113,7 @@ object Hook:
       color = color,
       user = user.map(LobbyUser.make(_, blocking)),
       sid = sid,
-      ratingRange = ratingRange.toString,
+      ratingRange = ratingRange,
       createdAt = nowInstant,
       boardApi = boardApi
     )

@@ -1,7 +1,9 @@
 package lila.tree
 
+import scala.util.matching.Regex
+
 import alleycats.Zero
-import chess.format.pgn.{ Glyph, Glyphs }
+import chess.format.pgn.{ Glyph, Glyphs, Comment as CommentStr }
 import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.opening.Opening
 import chess.variant.{ Crazyhouse, Variant }
@@ -401,19 +403,21 @@ object Node:
     extension (a: Shapes) def ++(shapes: Shapes): Shapes = (a.value ::: shapes.value).distinct
     val empty: Shapes = Nil
 
-  case class Comment(id: Comment.Id, text: Comment.Text, by: Comment.Author):
-    def removeMeta = text.removeMeta.map(t => copy(text = t))
+  case class Comment(id: Comment.Id, text: CommentStr, by: Comment.Author):
+    def removeMeta = Comment.removeMeta(text).trimNonEmpty.map(t => copy(text = t))
+
   object Comment:
     opaque type Id = String
     object Id extends OpaqueString[Id]:
       def make = Id(ThreadLocalRandom.nextString(4))
+
+    def removeMeta(c: CommentStr): CommentStr = c.map(metaReg.replaceAllIn(_, ""))
+
+    private val clockRegex = """(?s)\[%clk[\s\r\n]++([\d:,\.]++)\]""".r.unanchored
+    private val emtRegex = """(?s)\[\%emt[\s\r\n]++([\d:,\.]++)\]""".r.unanchored
+    private val tcecClockRegex = """(?s)tl=([\d:\.]++)""".r.unanchored
     private val metaReg = """\[%[^\]]++\]""".r
-    opaque type Text = String
-    object Text extends OpaqueString[Text]:
-      extension (a: Text)
-        def removeMeta: Option[Text] =
-          val v = metaReg.replaceAllIn(a.value, "").trim
-          v.nonEmpty.option(Text(v))
+
     enum Author:
       case User(id: UserId, titleName: String)
       case External(name: String)
@@ -424,7 +428,33 @@ object Node:
         case (User(a, _), User(b, _)) => a == b
         case _ => this == other
 
-    def sanitize(text: String) = Text:
+    def clk(text: CommentStr) = parseTime(clockRegex, text)
+    def emt(text: CommentStr) = parseTime(emtRegex, text)
+    def tcec(text: CommentStr) = parseTime(tcecClockRegex, text)
+
+    private def parseTime(re: Regex, text: CommentStr): Option[Centis] =
+      re
+        .findFirstMatchIn(text.value)
+        .flatMap:
+          _.group(1).replace(",", ".").split(":") match
+            case Array(h, m, s) =>
+              for
+                hi <- h.toIntOption
+                mi <- m.toIntOption
+                sd <- s.toDoubleOption
+              yield Centis(((hi * 3600 + mi * 60) * 100 + math.round(sd * 100)).toInt)
+            case Array(h, altFormatMinuteAndSeconds) =>
+              for
+                hi <- h.toIntOption
+                minsAndSecs <- altFormatMinuteAndSeconds.toDoubleOption
+              yield
+                val mi = minsAndSecs.toInt
+                Centis(((hi * 3600 + mi * 60) * 100 + math.round((minsAndSecs - mi) * 100 * 100)).toInt)
+            case Array(ms) if re == Comment.tcecClockRegex =>
+              ms.toLongOption.map(Centis.ofMillis)
+            case _ => none
+
+    def sanitize(text: String) = CommentStr:
       softCleanUp(text)
         .take(4000)
         .replaceAll("""\r\n""", "\n") // these 3 lines dedup white spaces and new lines
@@ -468,12 +498,6 @@ object Node:
     JsArray(s.value.map(shapeWrites.writes))
   }
 
-  given Writes[Comment.Id] = Writes { id =>
-    JsString(id.value)
-  }
-  given Writes[Comment.Text] = Writes { text =>
-    JsString(text.value)
-  }
   given Writes[Comment.Author] = Writes[Comment.Author]:
     case Comment.Author.User(id, name) => Json.obj("id" -> id.value, "name" -> name)
     case Comment.Author.External(name) => JsString(s"${name.trim}")

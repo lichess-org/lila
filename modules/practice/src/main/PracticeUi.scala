@@ -1,17 +1,14 @@
 package lila.practice
 package ui
 
-import play.api.data.Form
 import play.api.libs.json.*
 
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class PracticeUi(helpers: Helpers)(
     csp: Update[ContentSecurityPolicy],
-    explorerAndCevalConfig: Context ?=> JsObject,
-    modMenu: Context ?=> Frag
+    explorerAndCevalConfig: Context ?=> JsObject
 ):
   import helpers.{ *, given }
 
@@ -19,8 +16,7 @@ final class PracticeUi(helpers: Helpers)(
     Page(us.practiceStudy.name.value)
       .css("analyse.practice")
       .i18n(_.puzzle, _.study)
-      .i18nOpt(ctx.pref.hasSpeech || ctx.blind, _.nvui)
-      .i18nOpt(ctx.blind, _.keyboardMove)
+      .i18nOpt(ctx.blind, _.keyboardMove, _.nvui)
       .js(analyseNvuiTag)
       .js(
         PageModule(
@@ -65,11 +61,11 @@ final class PracticeUi(helpers: Helpers)(
             )
           ),
           div(cls := "page-menu__content practice-app")(
-            data.structure.sections.filter(s => !s.hide || Granter.opt(_.PracticeConfig)).map { section =>
+            data.structure.sections.map: section =>
               st.section(
                 h2(section.name),
                 div(cls := "studies")(
-                  section.studies.filter(s => !s.hide || Granter.opt(_.PracticeConfig)).map { stud =>
+                  section.studies.map: stud =>
                     val prog = data.progressOn(stud.id)
                     a(
                       cls := s"study ${if prog.complete then "done" else "ongoing"}",
@@ -86,50 +82,7 @@ final class PracticeUi(helpers: Helpers)(
                         em(stud.desc)
                       )
                     )
-                  }
                 )
               )
-            }
           )
         )
-
-  def config(structure: lila.practice.PracticeStructure, form: Form[?])(using Context) =
-    Page("Practice structure").css("mod.misc"):
-      main(cls := "page-menu")(
-        modMenu,
-        div(cls := "practice_config page-menu__content box box-pad")(
-          h1(cls := "box__top")("Practice config"),
-          div(cls := "both")(
-            postForm(action := routes.Practice.configSave)(
-              textarea(cls := "practice_text", name := "text")(form("text").value),
-              errMsg(form("text")),
-              submitButton(cls := "button button-fat text", dataIcon := Icon.Checkmark)("Save")
-            ),
-            div(cls := "preview"):
-              ol:
-                structure.sections.map: section =>
-                  li(
-                    h2(section.name, "#", section.id, section.hide.so(" [hidden]")),
-                    ol(
-                      section.studies.map: stud =>
-                        li(
-                          i(cls := s"practice icon ${stud.id}")(
-                            h3(
-                              a(href := routes.Study.show(stud.id))(
-                                stud.name,
-                                "#",
-                                stud.id,
-                                stud.hide.so(" [hidden]")
-                              )
-                            ),
-                            em(stud.desc),
-                            ol:
-                              stud.chapters.map: cha =>
-                                li(a(href := routes.Study.chapter(stud.id, cha.id))(cha.name))
-                          )
-                        )
-                    )
-                  )
-          )
-        )
-      )
