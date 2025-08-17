@@ -41,6 +41,7 @@ final private class PoolActor(
       members.find(m => joiner.userId.is(m.userId)) match
         case None =>
           members = members :+ joiner
+          // #TODO #FIXME race condition. several full waves can be sent here.
           if members.sizeIs >= config.wave.players.value then self ! FullWave
         case Some(existing) if existing.ratingRange != joiner.ratingRange =>
           members = members.map: m =>
@@ -61,6 +62,7 @@ final private class PoolActor(
 
     case RunWave =>
       nextWave.cancel()
+      // #TODO #FIXME race condition.
       hookThieve.candidates(config.clock).pipeTo(self)
       ()
 
