@@ -491,22 +491,10 @@
       ]
     },
     {
-      "in": "kciuk w górę",
-      "val": "upvote",
-      "tags": ["command", "puzzle"],
-      "tok": "WXY"
-    },
-    {
-      "in": "kciuk w dół",
-      "val": "downvote",
-      "tags": ["command", "puzzle"],
-      "tok": "WXZ"
-    },
-    {
       "in": "pokaż rozwiązanie",
       "val": "solve",
       "tags": ["command", "puzzle"],
-      "tok": "[\\"
+      "tok": "WX"
     },
     {
       "in": "pomocy",
@@ -536,7 +524,7 @@
       "in": "wyłącz mikrofon",
       "val": "mic-off",
       "tags": ["command"],
-      "tok": "]^"
+      "tok": "YZ"
     },
     {
       "in": "tak",
@@ -854,7 +842,7 @@
       ]
     },
     {
-      "in": "kciuk",
+      "in": "pokaż",
       "tok": "W",
       "tags": ["part"],
       "subs": [
@@ -865,7 +853,7 @@
       ]
     },
     {
-      "in": "w",
+      "in": "rozwiązanie",
       "tok": "X",
       "tags": ["part"],
       "subs": [
@@ -876,7 +864,7 @@
       ]
     },
     {
-      "in": "górę",
+      "in": "wyłącz",
       "tok": "Y",
       "tags": ["part"],
       "subs": [
@@ -887,52 +875,8 @@
       ]
     },
     {
-      "in": "dół",
-      "tok": "Z",
-      "tags": ["part"],
-      "subs": [
-        {
-          "to": "",
-          "cost": 0.5
-        }
-      ]
-    },
-    {
-      "in": "pokaż",
-      "tok": "[",
-      "tags": ["part"],
-      "subs": [
-        {
-          "to": "",
-          "cost": 0.5
-        }
-      ]
-    },
-    {
-      "in": "rozwiązanie",
-      "tok": "\\",
-      "tags": ["part"],
-      "subs": [
-        {
-          "to": "",
-          "cost": 0.5
-        }
-      ]
-    },
-    {
-      "in": "wyłącz",
-      "tok": "]",
-      "tags": ["part"],
-      "subs": [
-        {
-          "to": "",
-          "cost": 0.5
-        }
-      ]
-    },
-    {
       "in": "mikrofon",
-      "tok": "^",
+      "tok": "Z",
       "tags": ["part"],
       "subs": [
         {

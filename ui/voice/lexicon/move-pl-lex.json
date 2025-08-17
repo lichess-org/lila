@@ -54,8 +54,6 @@
     { "in": "zegar", "val": "clock", "tags": ["command", "round"] },
     { "in": "przeciwnik", "val": "who", "tags": ["command", "round"] },
     { "in": "następne", "val": "next", "tags": ["command", "puzzle"] },
-    { "in": "kciuk w górę", "val": "upvote", "tags": ["command", "puzzle"] },
-    { "in": "kciuk w dół", "val": "downvote", "tags": ["command", "puzzle"] },
     { "in": "pokaż rozwiązanie", "val": "solve", "tags": ["command", "puzzle"] },
     { "in": "pomocy", "val": "help", "tags": ["command"] },
     { "in": "stop", "val": "stop", "tags": ["command"] },
