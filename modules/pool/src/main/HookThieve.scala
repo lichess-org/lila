@@ -2,7 +2,7 @@ package lila.pool
 
 import lila.common.Bus
 
-final private class HookThieve()(using Executor, Scheduler):
+final private class HookThieve(using Executor, Scheduler):
 
   import lila.core.pool.HookThieve.*
 
