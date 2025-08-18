@@ -8,7 +8,7 @@ import * as licon from 'lib/licon';
 import { stepwiseScroll } from 'lib/view/controls';
 import { type VNode, h } from 'snabbdom';
 import { onInsert, bindNonPassive, hl } from 'lib/snabbdom';
-import { bindMobileMousedown } from 'lib/device';
+import { addPointerListeners } from 'lib/device';
 import { render as treeView } from './tree';
 import { view as cevalView } from 'lib/ceval/ceval';
 import { renderVoiceBar } from 'voice';
@@ -39,14 +39,15 @@ function controls(ctrl: PuzzleCtrl): VNode {
     hl(
       'div.jumps',
       {
-        hook: onInsert(
-          bindMobileMousedown(e => {
+        hook: onInsert(el =>
+          addPointerListeners(el, e => {
             const action = dataAct(e);
             if (action === 'prev') control.prev(ctrl);
             else if (action === 'next') control.next(ctrl);
             else if (action === 'first') control.first(ctrl);
             else if (action === 'last') control.last(ctrl);
-          }, ctrl.redraw),
+            ctrl.redraw();
+          }),
         ),
       },
       [

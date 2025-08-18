@@ -132,7 +132,7 @@
     color: $c-over;
   }
 
-  .latent {
+  .fbt.latent {
     background-color: $m-secondary--fade-50;
   }
 }
@@ -147,7 +147,8 @@
     }
     .ceval,
     .pv_box,
-    .analyse__fork {
+    .analyse__fork,
+    .gamebook-edit {
       order: 1;
     }
     .analyse__moves {
@@ -155,11 +156,20 @@
     }
   }
   .analyse__controls {
-    margin-top: 4px;
+    margin-top: 8px;
     height: 3em;
+
     .fbt {
-      border-radius: 6px 6px 0 0;
       flex: 0 0 3.5rem;
+      margin: 2px 2px 0;
+      border: 1px solid $m-clearer--fade-95;
+      border-radius: 6px 6px 0 0;
+      border-bottom: none;
+      background: $m-bg_bg-page--mix-50;
+    }
+    .jumps .fbt {
+      margin: 2px;
+      border: 1px solid $m-clearer--fade-95;
     }
   }
   .analyse[data-showing-tool] .analyse__tools,
