@@ -8,7 +8,7 @@ import chess.IntRating
 import lila.common.Json.given
 import lila.common.Bus
 import lila.core.game.ChangeFeatured
-import lila.core.pool.PoolConfigId
+import lila.core.pool.{ PoolConfigId, PoolMember, PoolFrom }
 import lila.core.security.{ UserTrust, UserTrustApi }
 import lila.core.socket.{ protocol as P, * }
 import lila.core.timeline.*
@@ -155,7 +155,7 @@ final class LobbySocket(
   private def HookPoolLimit(member: Member, cost: Int, msg: => String) =
     poolLimitPerSri.zero[Unit](k = member.sri.value, cost = cost, msg = msg)
 
-  def controller(member: Member): SocketController =
+  private[lobby] def controller(member: Member): SocketController =
     case ("join", o) if !member.bot =>
       HookPoolLimit(
         member,
@@ -190,21 +190,22 @@ final class LobbySocket(
           user <- member.user
           d <- o.obj("d")
           id <- d.str("id")
-          perfType <- poolApi.poolPerfKeys.get(PoolConfigId(id))
+          perf <- poolApi.poolPerfKeys.get(PoolConfigId(id))
           ratingRange = d.str("range").flatMap(RatingRange.parse)
           blocking = d.get[UserId]("blocking")
         yield
           lobby ! CancelHook(member.sri) // in case there's one...
           for
-            glicko <- userApi.glicko(user.id, perfType)
+            glicko <- userApi.glicko(user.id, perf)
             trust <-
               if glicko.exists(_.established) then fuccess(UserTrust.Yes) else userTrustApi.get(user.id)
           do
             poolApi.join(
               PoolConfigId(id),
-              lila.core.pool.PoolMember(
+              PoolMember(
                 userId = user.id,
-                sri = member.sri.some,
+                sri = member.sri,
+                from = PoolFrom.Socket,
                 rating = toJoinRating(glicko, trust),
                 provisional = glicko.forall(_.provisional.yes),
                 ratingRange = ratingRange,
@@ -299,9 +300,7 @@ private object LobbySocket:
       def pairings(pairings: List[lila.core.pool.Pairing]) =
         val redirs = for
           pairing <- pairings
-          player <- pairing.players.toList
-          sri <- player._1
-          fullId = player._2
+          (sri, fullId) <- pairing.players.toList
         yield s"$sri:$fullId"
         s"lobby/pairings ${P.Out.commas(redirs)}"
       def tellLobby(payload: JsObject) = s"tell/lobby ${Json.stringify(payload)}"

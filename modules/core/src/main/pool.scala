@@ -23,9 +23,13 @@ object PoolConfigId extends OpaqueString[PoolConfigId]
 opaque type IsClockCompatible = Clock.Config => Boolean
 object IsClockCompatible extends FunctionWrapper[IsClockCompatible, Clock.Config => Boolean]
 
+enum PoolFrom:
+  case Socket, Api, Hook
+
 case class PoolMember(
     userId: UserId,
-    sri: Option[Sri], // if None, it's a board API pool member
+    sri: Sri,
+    from: PoolFrom,
     rating: IntRating,
     provisional: Boolean,
     ratingRange: Option[RatingRange],
@@ -35,7 +39,7 @@ case class PoolMember(
     misses: Int = 0 // how many waves they missed
 )
 
-case class Pairing(players: ByColor[(Option[Sri], GameFullId)])
+case class Pairing(players: ByColor[(Sri, GameFullId)])
 case class Pairings(pairings: List[Pairing])
 
 object HookThieve:
@@ -54,3 +58,4 @@ trait PoolApi:
   def poolPerfKeys: Map[PoolConfigId, PerfKey]
   def join(poolId: PoolConfigId, member: PoolMember): Unit
   def leave(poolId: PoolConfigId, user: UserId): Unit
+  def poolOf(clock: Clock.Config): Option[PoolConfigId]

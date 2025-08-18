@@ -4,7 +4,7 @@ import akka.actor.*
 import akka.pattern.pipe
 import scalalib.ThreadLocalRandom
 
-import lila.core.pool.{ HookThieve, PoolMember }
+import lila.core.pool.{ HookThieve, PoolMember, PoolFrom }
 import lila.core.socket.Sris
 
 final private class PoolActor(
@@ -38,6 +38,7 @@ final private class PoolActor(
     // don't pair someone twice in a row, it's probably a client error
 
     case Join(joiner) =>
+      println(joiner)
       members.find(m => joiner.userId.is(m.userId)) match
         case None =>
           members = members :+ joiner
@@ -47,10 +48,15 @@ final private class PoolActor(
           members = members.map: m =>
             if m == existing then m.withRange(joiner.ratingRange) else m
         case _ => // no change
+      members.pp("join")
+
     case Leave(userId) =>
-      members.find(_.userId == userId).foreach { member =>
-        members = members.filter(member !=)
-      }
+      members
+        .find(_.userId == userId)
+        .foreach: member =>
+          members = members.filterNot(_ == member)
+          println(s"leave $userId")
+          members.pp("leave")
 
     case ScheduledWave =>
       monitor.scheduled(monId).increment()
@@ -64,10 +70,11 @@ final private class PoolActor(
       nextWave.cancel()
       // #TODO #FIXME race condition.
       hookThieve.candidates(config.clock).pipeTo(self)
-      ()
 
     case HookThieve.PoolHooks(hooks) =>
       monitor.withRange(monId).record(members.count(_.hasRange))
+
+      if config.id.value == "10+0" then members.pp("wave")
 
       val candidates = members ++ hooks.map(_.member)
 
@@ -96,7 +103,8 @@ final private class PoolActor(
       scheduleWave()
 
     case Sris(sris) =>
-      members = members.filter(_.sri.forall(sris.contains))
+      members = members.filter: member =>
+        member.from != PoolFrom.Socket || sris.contains(member.sri)
 
   val monitor = lila.mon.lobby.pool.wave
   val monId = config.id.value.replace('+', '_')

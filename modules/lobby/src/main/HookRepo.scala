@@ -68,19 +68,4 @@ final private class HookRepo:
   def poolCandidates(clock: chess.Clock.Config)(using
       IsClockCompatible
   ): Vector[lila.core.pool.HookThieve.PoolHook] =
-    hooks.values.withFilter(_.compatibleWithPool(clock)).flatMap(toPool).toVector
-
-  private def toPool(h: Hook) = h.user.map: u =>
-    lila.core.pool.HookThieve.PoolHook(
-      hookId = h.id,
-      member = lila.core.pool.PoolMember(
-        userId = u.id,
-        sri = h.sri.some,
-        rating = h.rating | lila.rating.Glicko.default.intRating,
-        provisional = h.provisional,
-        ratingRange = h.manualRatingRange,
-        lame = h.user.so(_.lame),
-        blocking = h.user.so(_.blocking),
-        rageSitCounter = 0
-      )
-    )
+    hooks.values.withFilter(_.compatibleWithPool(clock)).flatMap(Hook.asPoolHook).toVector

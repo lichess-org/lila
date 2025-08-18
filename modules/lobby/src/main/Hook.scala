@@ -117,3 +117,21 @@ object Hook:
       createdAt = nowInstant,
       boardApi = boardApi
     )
+
+  import lila.core.pool.{ PoolFrom, PoolMember }
+  def asPoolMember(h: Hook, from: PoolFrom) = h.user.map: u =>
+    PoolMember(
+      userId = u.id,
+      sri = h.sri,
+      from = from,
+      rating = h.rating | lila.rating.Glicko.default.intRating,
+      provisional = h.provisional,
+      ratingRange = h.manualRatingRange,
+      lame = h.user.so(_.lame),
+      blocking = h.user.so(_.blocking),
+      rageSitCounter = 0
+    )
+
+  def asPoolHook(h: Hook) =
+    asPoolMember(h, PoolFrom.Hook).map:
+      lila.core.pool.HookThieve.PoolHook(h.id, _)
