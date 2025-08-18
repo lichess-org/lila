@@ -72,9 +72,9 @@ final class UblogAutomod(
 
   private def assess(userText: String, temperature: Double): Fu[Option[Assessment]] =
     reportApi
-      .automod(
+      .automodRequest(
         userText = userText,
-        systemPrompt = promptSetting.get().value,
+        systemPrompt = promptSetting.get(),
         model = modelSetting.get(),
         temperature = temperature
       )

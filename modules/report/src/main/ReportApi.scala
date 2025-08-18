@@ -309,17 +309,17 @@ final class ReportApi(
     for _ <- doProcessReport(selector, unsetInquiry = true)
     yield onReportClose()
 
-  def automod(
+  def automodRequest(
       userText: String,
-      systemPrompt: String = promptSetting.get().value,
+      systemPrompt: Text = promptSetting.get(),
       model: String = modelSetting.get(),
       temperature: Double = 0
   ): Fu[Option[play.api.libs.json.JsObject]] =
-    automodApi(userText, systemPrompt, model, temperature)
+    automodApi.request(userText, systemPrompt, model, temperature)
 
   def automodComms(userText: String, userId: UserId, resource: String) = {
     for
-      rsp <- automodApi(userText, promptSetting.get().value, modelSetting.get(), 0)
+      rsp <- automodRequest(userText)
       suspectOpt <- getSuspect(userId)
       reporter <- getLichessReporter
     yield for
