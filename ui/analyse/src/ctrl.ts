@@ -1017,7 +1017,7 @@ export default class AnalyseCtrl {
   };
 
   togglePractice = () => {
-    if (this.practice || !this.ceval.possible) {
+    if (this.practice || !this.ceval.allowed()) {
       this.practice = undefined;
       this.ceval.setOpts({ search: undefined }); // TODO, improve ceval integration in this file
       if (this.ceval.enabled()) this.clearCeval();

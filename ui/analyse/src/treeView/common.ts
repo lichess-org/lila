@@ -3,7 +3,7 @@ import contextMenu from './contextMenu';
 import { throttle } from 'lib/async';
 import { enrichText, innerHTML } from 'lib/richText';
 import { authorText as commentAuthorText } from '../study/studyComments';
-import { bindMobileTapHold } from 'lib/device';
+import { addPointerListeners, isTouchDevice } from 'lib/device';
 import { h, type Hooks, type VNode } from 'snabbdom';
 import { isEmpty, defined } from 'lib';
 import { type MaybeVNodes } from 'lib/snabbdom';
@@ -25,7 +25,7 @@ export function mainHook(ctrl: AnalyseCtrl): Hooks {
       };
 
       el.oncontextmenu = ctxMenuCallback;
-      bindMobileTapHold(el, ctxMenuCallback, ctrl.redraw);
+      if (isTouchDevice()) addPointerListeners(el, undefined, ctxMenuCallback);
 
       el.addEventListener('mousedown', (e: MouseEvent) => {
         if (defined(e.button) && e.button !== 0) return; // only touch or left click
