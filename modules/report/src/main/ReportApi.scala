@@ -317,7 +317,7 @@ final class ReportApi(
   ): Fu[Option[play.api.libs.json.JsObject]] =
     automodApi.request(userText, systemPrompt, model, temperature)
 
-  def automodComms(userText: String, userId: UserId, resource: String) = {
+  def automodComms(userText: String, userId: UserId, resource: String): Funit =
     for
       rsp <- automodRequest(userText)
       suspectOpt <- getSuspect(userId)
@@ -338,7 +338,6 @@ final class ReportApi(
     ).recoverWith: e =>
       logger.warn(s"Comms automod failed for $userId: ${e.getMessage}", e)
       funit
-  }.flatMap(_.getOrElse(funit))
 
   private def onReportClose() =
     maxScoreCache.invalidateUnit()

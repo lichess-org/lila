@@ -137,14 +137,10 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
         val call = routes.ForumTopic.show(categ, topic, page)
         Redirect(s"$call#$number").withCanonical(call)
 
-  private def maybeAutomod(post: lila.forum.ForumPost)(using me: Me) =
-    val automod = () => env.report.api.automodComms(post.text, me, routes.ForumPost.redirect(post.id).url)
-    env.forum.postApi
-      .teamIdOfPostId(post.id)
-      .flatMap:
-        case Some(teamId) =>
-          for
-            access <- env.team.api.forumAccessOf(teamId)
-            _ <- automod() if access == lila.core.team.Access.Everyone
-          yield ()
-        case _ => automod()
+  private def maybeAutomod(post: lila.forum.ForumPost)(using me: Me) = for
+    teamId <- env.forum.postApi.teamIdOfPostId(post.id)
+    shouldAutomod <- teamId.fold(fuccess(true)): teamId =>
+      env.team.api.forumAccessOf(teamId).map(_ == lila.core.team.Access.Everyone)
+    _ <- shouldAutomod.so:
+      env.report.api.automodComms(post.text, me, routes.ForumPost.redirect(post.id).url)
+  yield ()
