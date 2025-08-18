@@ -133,6 +133,5 @@ export function repeater(f: () => void, e: Event, additionalStopCond?: () => boo
     if (additionalStopCond?.()) clearTimeout(timeout);
   };
   repeat();
-  const eventName = e.type === 'touchstart' ? 'touchend' : 'mouseup';
-  document.addEventListener(eventName, () => clearTimeout(timeout), { once: true });
+  document.addEventListener('pointerup', () => clearTimeout(timeout), { once: true });
 }
