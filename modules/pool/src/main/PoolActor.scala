@@ -48,15 +48,13 @@ final private class PoolActor(
           members = members.map: m =>
             if m == existing then m.withRange(joiner.ratingRange) else m
         case _ => // no change
-      members.pp("join")
+      members
 
     case Leave(userId) =>
       members
         .find(_.userId == userId)
         .foreach: member =>
           members = members.filterNot(_ == member)
-          println(s"leave $userId")
-          members.pp("leave")
 
     case ScheduledWave =>
       monitor.scheduled(monId).increment()
@@ -73,8 +71,6 @@ final private class PoolActor(
 
     case HookThieve.PoolHooks(hooks) =>
       monitor.withRange(monId).record(members.count(_.hasRange))
-
-      if config.id.value == "10+0" then members.pp("wave")
 
       val candidates = members ++ hooks.map(_.member)
 

@@ -35,9 +35,9 @@ final class BoardApiHookStream(
       queue
         .watchCompletion()
         .addEffectAnyway:
+          keepAlive.cancel()
           Bus.unsubscribeDyn(busHandler, channels)
           lobby ! CancelHook(hook.sri)
-          keepAlive.cancel()
 
       lobby ! SetupBus.AddHook(hook)
 
@@ -61,9 +61,9 @@ final class BoardApiHookStream(
       queue
         .watchCompletion()
         .addEffectAnyway:
+          keepAlive.cancel()
           Bus.unsubscribeDyn(busHandler, List(channel))
           poolApi.leave(poolId, member.userId)
-          keepAlive.cancel()
 
       poolApi.join(poolId, member)
 
