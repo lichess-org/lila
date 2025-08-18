@@ -311,15 +311,16 @@ final class ReportApi(
 
   def automodRequest(
       userText: String,
-      systemPrompt: Text = promptSetting.get(),
-      model: String = modelSetting.get(),
+      systemPrompt: Text,
+      model: String,
       temperature: Double = 0
   ): Fu[Option[play.api.libs.json.JsObject]] =
     automodApi.request(userText, systemPrompt, model, temperature)
 
   def automodComms(userText: String, resource: String)(using me: Me): Funit =
     for
-      rsp <- automodRequest(userText).monSuccess(_.mod.report.automod.request)
+      rsp <- automodRequest(userText, systemPrompt = promptSetting.get(), model = modelSetting.get())
+        .monSuccess(_.mod.report.automod.request)
       suspectOpt <- getSuspect(me)
       reporter <- getLichessReporter
     yield for
