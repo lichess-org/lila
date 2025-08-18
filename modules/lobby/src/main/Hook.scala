@@ -80,11 +80,13 @@ case class Hook(
     .add("variant" -> realVariant.exotic.option(realVariant.key))
     .add("ra" -> rated.yes.option(1))
 
-  def compatibleWithPools(using isClockCompatible: IsClockCompatible) =
-    rated.yes && realVariant.standard && isClockCompatible.exec(clock) && color == TriColor.Random
+  def seemsCompatibleWithPools = rated.yes && realVariant.standard && color == TriColor.Random
 
-  def compatibleWithPool(poolClock: chess.Clock.Config)(using IsClockCompatible) =
-    clock == poolClock && compatibleWithPools
+  def compatibleWithPools(using isClockCompatible: IsClockCompatible) =
+    seemsCompatibleWithPools && isClockCompatible.exec(clock)
+
+  def compatibleWithPool(poolClock: chess.Clock.Config) =
+    clock == poolClock && seemsCompatibleWithPools
 
   private lazy val speed = Speed(clock)
 
@@ -117,3 +119,21 @@ object Hook:
       createdAt = nowInstant,
       boardApi = boardApi
     )
+
+  import lila.core.pool.{ PoolFrom, PoolMember }
+  def asPoolMember(h: Hook, from: PoolFrom) = h.user.map: u =>
+    PoolMember(
+      userId = u.id,
+      sri = h.sri,
+      from = from,
+      rating = h.rating | lila.rating.Glicko.default.intRating,
+      provisional = h.provisional,
+      ratingRange = h.manualRatingRange,
+      lame = h.user.so(_.lame),
+      blocking = h.user.so(_.blocking),
+      rageSitCounter = 0
+    )
+
+  def asPoolHook(h: Hook) =
+    asPoolMember(h, PoolFrom.Hook).map:
+      lila.core.pool.HookThieve.PoolHook(h.id, _)

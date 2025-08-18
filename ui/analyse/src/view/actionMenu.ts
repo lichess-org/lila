@@ -1,6 +1,6 @@
 import { isEmpty } from 'lib';
 import * as licon from 'lib/licon';
-import { isTouchDevice, displayColumns } from 'lib/device';
+import { displayColumns } from 'lib/device';
 import { domDialog } from 'lib/view/dialog';
 import { type VNode, type LooseVNodes, bind, dataIcon, type MaybeVNodes, hl } from 'lib/snabbdom';
 import type { AutoplayDelay } from '../autoplay';
@@ -199,17 +199,16 @@ export function view(ctrl: AnalyseCtrl): VNode {
       },
       ctrl,
     ),
-    !isTouchDevice() &&
-      ctrlToggle(
-        {
-          name: i18n.site.showVariationArrows,
-          title: 'Variation navigation arrows',
-          id: 'variationArrows',
-          checked: ctrl.variationArrowsProp(),
-          change: ctrl.toggleVariationArrows,
-        },
-        ctrl,
-      ),
+    ctrlToggle(
+      {
+        name: i18n.site.showVariationArrows,
+        title: 'Variation navigation arrows',
+        id: 'variationArrows',
+        checked: ctrl.variationArrowsProp(),
+        change: ctrl.toggleVariationArrows,
+      },
+      ctrl,
+    ),
     !ctrl.ongoing &&
       ctrlToggle(
         {
