@@ -2,7 +2,7 @@ package lila.report
 
 import play.api.{ ConfigLoader, Configuration }
 import play.api.libs.json.*
-import play.api.libs.ws.*
+import play.api.libs.ws.StandaloneWSClient
 import play.api.libs.ws.JsonBodyWritables.*
 import play.api.libs.ws.JsonBodyReadables.*
 

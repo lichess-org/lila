@@ -319,12 +319,14 @@ final class ReportApi(
 
   def automodComms(userText: String, resource: String)(using me: Me): Funit =
     for
-      rsp <- automodRequest(userText)
+      rsp <- automodRequest(userText).monSuccess(_.mod.report.automod.request)
       suspectOpt <- getSuspect(me)
       reporter <- getLichessReporter
     yield for
       res <- rsp
-      assessment <- (res \ "assessment").asOpt[String]
+      assessmentOpt = (res \ "assessment").asOpt[String]
+      _ = lila.mon.mod.report.automod.assessment(assessmentOpt | "ok")
+      assessment <- assessmentOpt
       reason <- Reason(assessment)
       suspect <- suspectOpt
       summary = (res \ "reason").asOpt[String].getOrElse("No reason provided")
