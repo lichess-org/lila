@@ -22,14 +22,13 @@ export function addPointerListeners(
   el.addEventListener(
     'pointerdown',
     e => {
-      x = e.clientX;
-      y = e.clientY;
-      if (hold)
-        timer = window.setTimeout(() => {
-          if (hold === 'click') click?.(e);
-          else hold(e);
-          reset();
-        }, longPressDuration);
+      [x, y] = [e.clientX, e.clientY];
+      timer = window.setTimeout(() => {
+        if (!hold) return;
+        if (hold === 'click') click?.(e);
+        else hold(e);
+        reset();
+      }, longPressDuration);
     },
     { passive: true },
   );
