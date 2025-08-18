@@ -80,11 +80,13 @@ case class Hook(
     .add("variant" -> realVariant.exotic.option(realVariant.key))
     .add("ra" -> rated.yes.option(1))
 
-  def compatibleWithPools(using isClockCompatible: IsClockCompatible) =
-    rated.yes && realVariant.standard && isClockCompatible.exec(clock) && color == TriColor.Random
+  def seemsCompatibleWithPools = rated.yes && realVariant.standard && color == TriColor.Random
 
-  def compatibleWithPool(poolClock: chess.Clock.Config)(using IsClockCompatible) =
-    clock == poolClock && compatibleWithPools
+  def compatibleWithPools(using isClockCompatible: IsClockCompatible) =
+    seemsCompatibleWithPools && isClockCompatible.exec(clock)
+
+  def compatibleWithPool(poolClock: chess.Clock.Config) =
+    clock == poolClock && seemsCompatibleWithPools
 
   private lazy val speed = Speed(clock)
 

@@ -1,10 +1,7 @@
 package lila.lobby
 
-import scalalib.HeapSort
-
 import scala.collection.View
-
-import lila.core.pool.IsClockCompatible
+import scalalib.HeapSort
 import lila.core.socket.Sri
 
 // NOT thread safe.
@@ -65,7 +62,5 @@ final private class HookRepo:
 
   // O(n)
   // invoked regularly when stealing hooks for pools
-  def poolCandidates(clock: chess.Clock.Config)(using
-      IsClockCompatible
-  ): Vector[lila.core.pool.HookThieve.PoolHook] =
+  def poolCandidates(clock: chess.Clock.Config): Vector[lila.core.pool.HookThieve.PoolHook] =
     hooks.values.withFilter(_.compatibleWithPool(clock)).flatMap(Hook.asPoolHook).toVector

@@ -80,7 +80,7 @@ final private class PoolActor(
 
       hookThieve.stolen(
         hooks.filter: h =>
-          pairedMembers.exists(h.is(_)),
+          pairedMembers.exists(m => h.member.userId.is(m.userId)),
         monId
       )
 

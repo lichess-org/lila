@@ -48,8 +48,7 @@ object HookThieve:
     case GetCandidates(clock: Clock.Config, promise: Promise[PoolHooks])
     case StolenHookIds(ids: Vector[String])
 
-  case class PoolHook(hookId: String, member: PoolMember) extends NotBuseable:
-    def is(m: PoolMember) = member.userId == m.userId
+  case class PoolHook(hookId: String, member: PoolMember) extends NotBuseable
 
   case class PoolHooks(hooks: Vector[PoolHook]) extends NotBuseable
 

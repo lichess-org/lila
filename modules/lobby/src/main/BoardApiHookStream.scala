@@ -43,6 +43,7 @@ final class BoardApiHookStream(
 
   private def asPool(hook: Hook): Option[Source[Option[JsObject], ?]] = for
     poolId <- poolApi.poolOf(hook.clock)
+    if hook.seemsCompatibleWithPools
     member <- Hook.asPoolMember(hook, PoolFrom.Api)
   yield
     val channel = s"hookRemove:${member.sri}"
