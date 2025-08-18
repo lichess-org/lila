@@ -278,7 +278,7 @@ export function renderControls(ctrl: AnalyseCtrl) {
   const canJumpPrev = ctrl.path !== '',
     canJumpNext = !!ctrl.node.children[0],
     showingTool = ctrl.showingTool(),
-    canUseEngine = ctrl.ceval.possible && ctrl.ceval.allowed() && !ctrl.isGamebook() && !ctrl.isEmbed;
+    canUseEngine = ctrl.ceval.possible && ctrl.ceval.allowed() && !ctrl.isGamebook();
 
   return hl(
     'div.analyse__controls.analyse-controls',
