@@ -276,7 +276,6 @@ export function renderInputs(ctrl: AnalyseCtrl): VNode | undefined {
 
 function hold(ctrl: AnalyseCtrl, e: PointerEvent) {
   if (!(e.target instanceof HTMLElement)) return;
-  console.log('oh boodles');
   const action = e.target.closest<HTMLElement>('[data-act]')?.dataset.act;
   if (action === 'prev' || action === 'next') {
     repeater(() => {

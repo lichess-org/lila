@@ -24,7 +24,8 @@ export function addPointerListeners(
     y = e.clientY;
     timer = window.setTimeout(() => {
       if (!hold) return;
-      hold === 'click' ? click?.(e) : hold(e);
+      else if (hold === 'click') click?.(e);
+      else hold(e);
       reset();
     }, longPressDuration);
   });
@@ -35,7 +36,7 @@ export function addPointerListeners(
         click?.(e);
         e.preventDefault();
       }
-      return reset();
+      reset();
     },
     { passive: false },
   );
