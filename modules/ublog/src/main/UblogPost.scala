@@ -5,6 +5,7 @@ import reactivemongo.api.bson.Macros.Annotations.Key
 import scalalib.ThreadLocalRandom.shuffle
 import scalalib.model.Language
 import lila.core.id.ImageId
+import lila.core.ublog.Quality
 
 case class UblogPost(
     @Key("_id") id: UblogPostId,
@@ -34,6 +35,7 @@ case class UblogPost(
   def isUserBlog[U: UserIdOf](u: U) = blog == UblogBlog.Id.User(u.id)
 
   def indexable = live && topics.exists(UblogTopic.chessExists)
+  def visibleByCrawlers = indexable && automod.exists(_.quality != Quality.spam)
   def allText = s"$title $intro $markdown"
 
   def allows = UblogBlog.Allows(created.by)
