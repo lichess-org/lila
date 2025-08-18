@@ -19,16 +19,20 @@ export function addPointerListeners(
     clearTimeout(timer);
     x = y = timer = 0;
   };
-  el.addEventListener('pointerdown', e => {
-    x = e.clientX;
-    y = e.clientY;
-    if (hold)
-      timer = window.setTimeout(() => {
-        if (hold === 'click') click?.(e);
-        else hold(e);
-        reset();
-      }, longPressDuration);
-  });
+  el.addEventListener(
+    'pointerdown',
+    e => {
+      x = e.clientX;
+      y = e.clientY;
+      if (hold)
+        timer = window.setTimeout(() => {
+          if (hold === 'click') click?.(e);
+          else hold(e);
+          reset();
+        }, longPressDuration);
+    },
+    { passive: true },
+  );
   el.addEventListener(
     'pointerup',
     e => {
@@ -40,11 +44,17 @@ export function addPointerListeners(
     },
     { passive: false },
   );
-  el.addEventListener('pointermove', e => {
-    if (timer && Math.hypot(e.clientX - x, e.clientY - y) > scrollThreshold) reset();
-  });
-  el.addEventListener('pointercancel', reset);
-  if (isTouchDevice() && hold) el.addEventListener('contextmenu', e => e.preventDefault());
+  el.addEventListener(
+    'pointermove',
+    e => {
+      if (timer && Math.hypot(e.clientX - x, e.clientY - y) > scrollThreshold) reset();
+    },
+    { passive: true },
+  );
+  el.addEventListener('pointercancel', reset, { passive: true });
+  if (isTouchDevice() && hold) {
+    el.addEventListener('contextmenu', e => e.preventDefault(), { passive: false });
+  }
 }
 
 export function isBrowserSupported(): boolean {
