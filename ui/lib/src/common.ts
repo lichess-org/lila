@@ -121,7 +121,7 @@ export function myUsername(): string | undefined {
   return document.body.dataset.username;
 }
 
-export function repeater(f: () => void, e: Event, additionalStopCond?: () => boolean): void {
+export function repeater(f: () => void, additionalStopCond?: () => boolean): void {
   let timeout: number | undefined = undefined;
   const delay = (function* () {
     yield 500;

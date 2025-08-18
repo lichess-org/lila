@@ -282,7 +282,7 @@ function hold(ctrl: AnalyseCtrl, e: PointerEvent) {
     repeater(() => {
       control[action](ctrl);
       ctrl.redraw();
-    }, e);
+    });
   } else click(ctrl, e);
 }
 

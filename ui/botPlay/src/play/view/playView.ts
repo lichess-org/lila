@@ -152,7 +152,6 @@ const goThroughMoves = (ctrl: PlayCtrl, e: Event) => {
       const ply = targetPly();
       if (!isNaN(ply)) ctrl.goTo(ply);
     },
-    e,
     () => isNaN(targetPly()),
   );
 };

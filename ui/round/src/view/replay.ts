@@ -140,7 +140,6 @@ const goThroughMoves = (ctrl: RoundController, e: Event) => {
       if (!isNaN(ply)) ctrl.userJump(ply);
       ctrl.redraw();
     },
-    e,
     () => isNaN(targetPly()),
   );
 };
