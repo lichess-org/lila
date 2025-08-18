@@ -74,6 +74,8 @@
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Déi zweet Bedingung ass dofir do, datt Spiller, déi hire Kont net méi benotzen, net d\'Ratinglëschten zousetzen.</string>
   <string name="whyAreRatingHigher">Firwat sin Wäertungen méi héich wéi op aneren Plazen wéi FIDE, USCF oder ICC?</string>
   <string name="howToHideRatingWhilePlaying">Wéi kann ech Wäertungen wärend dem Spillen verstoppen?</string>
+  <string name="enableZenMode">Aktivéier de Zen-Modus an den %1$s oder duerch d\'Drécke vun „%2$s“ wärend enger Partie.</string>
+  <string name="displayPreferences">Astellunge vum Affichage</string>
   <string name="connexionLostCanIGetMyRatingBack">Ech hunn eng Partie wéinst Lag/Verbindungsverloscht verluer. Kann ech meng Wäertungspunkten zeréckkréien?</string>
   <string name="howToThreeDots">Wéi...</string>
   <string name="enableDisableNotificationPopUps">Notifikatiouns-Popups aktivéieren an desaktivéieren?</string>
