@@ -317,10 +317,10 @@ final class ReportApi(
   ): Fu[Option[play.api.libs.json.JsObject]] =
     automodApi.request(userText, systemPrompt, model, temperature)
 
-  def automodComms(userText: String, userId: UserId, resource: String): Funit =
+  def automodComms(userText: String, resource: String)(using me: Me): Funit =
     for
       rsp <- automodRequest(userText)
-      suspectOpt <- getSuspect(userId)
+      suspectOpt <- getSuspect(me)
       reporter <- getLichessReporter
     yield for
       res <- rsp
@@ -336,7 +336,7 @@ final class ReportApi(
         text = s"${Reason.flagText} $resource ${reason.name}: $summary"
       )
     ).recoverWith: e =>
-      logger.warn(s"Comms automod failed for $userId: ${e.getMessage}", e)
+      logger.warn(s"Comms automod failed for ${me.username}: ${e.getMessage}", e)
       funit
 
   private def onReportClose() =

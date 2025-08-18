@@ -273,13 +273,13 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
               api
                 .createTournament(setup, teams, andJoin = ctx.isWebAuth)
                 .flatMap: tour =>
-                  val userText = s"${setup.name.getOrElse("")}\n${setup.description.getOrElse("")}"
-                  discard { env.report.api.automodComms(userText, me, routes.Tournament.show(tour.id).url) }
+                  val tourUrl = routes.Tournament.show(tour.id)
+                  discard { env.report.api.automodComms(setup.automodText, tourUrl.url) }
                   given GetMyTeamIds = _ => fuccess(teams.map(_.id))
                   negotiate(
                     html = Redirect {
                       if tour.isTeamBattle then routes.Tournament.teamBattleEdit(tour.id)
-                      else routes.Tournament.show(tour.id)
+                      else tourUrl
                     }.flashSuccess,
                     json = jsonView(
                       tour,
@@ -302,10 +302,9 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
             jsonFormError,
             data =>
               given GetMyTeamIds = _ => fuccess(teams.map(_.id))
-              api.apiUpdate(tour, data).flatMap { tour =>
-                val userText = s"${data.name.getOrElse("")}\n${data.description.getOrElse("")}"
-                discard { env.report.api.automodComms(userText, me, routes.Tournament.show(tour.id).url) }
-                jsonView(
+              for
+                tour <- api.apiUpdate(tour, data)
+                json <- jsonView(
                   tour,
                   none,
                   none,
@@ -314,8 +313,10 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
                   withScores = true,
                   withAllowList = true,
                   withDescription = true
-                ).map { Ok(_) }
-              }
+                )
+              yield
+                discard { env.report.api.automodComms(data.automodText, routes.Tournament.show(tour.id).url) }
+                Ok(json)
           )
         }
       }

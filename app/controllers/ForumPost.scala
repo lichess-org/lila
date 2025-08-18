@@ -142,5 +142,5 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
     shouldAutomod <- teamId.fold(fuccess(true)): teamId =>
       env.team.api.forumAccessOf(teamId).map(_ == lila.core.team.Access.Everyone)
     _ <- shouldAutomod.so:
-      env.report.api.automodComms(post.text, me, routes.ForumPost.redirect(post.id).url)
+      env.report.api.automodComms(post.text, routes.ForumPost.redirect(post.id).url)
   yield ()

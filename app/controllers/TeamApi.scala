@@ -99,15 +99,11 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
           bindForm(change.form)(
             form => fuccess(ApiResult.ClientError(form.errors.flatMap(_.messages).mkString("\n"))),
             v =>
-              val update = change.update(v)(team)
-              discard {
-                env.report.api.automodComms(
-                  s"${team.name}\n${update.intro.getOrElse("")}\n${update.description}",
-                  me,
-                  routes.Team.show(team.id).url
-                )
-              }
-              api.update(update).inject(ApiResult.Done)
+              for automodText <- api.update(change.update(v)(team))
+              yield
+                discard:
+                  env.report.api.automodComms(automodText, routes.Team.show(team.id).url)
+                ApiResult.Done
           )
   }
 

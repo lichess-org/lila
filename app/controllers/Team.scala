@@ -122,12 +122,11 @@ final class Team(env: Env) extends LilaController(env):
       bindForm(forms.edit(team))(
         err => BadRequest.async(renderEdit(team, err)),
         data =>
-          api
-            .update(team, data)
-            .inject:
-              val userText = s"${team.name}\n${data.intro.getOrElse("")}\n${data.description}}"
-              discard { env.report.api.automodComms(userText, me, routes.Team.show(team.id).url) }
-              Redirect(routes.Team.show(team.id)).flashSuccess
+          for automodText <- api.update(team, data)
+          yield
+            val url = routes.Team.show(team.id)
+            discard { env.report.api.automodComms(automodText, url.url) }
+            Redirect(url).flashSuccess
       )
   }
 
@@ -266,11 +265,11 @@ final class Team(env: Env) extends LilaController(env):
           bindForm(forms.create)(
             err => BadRequest.page(views.team.form.create(err, anyCaptcha)),
             data =>
-              api.create(data, me).map { team =>
-                val userText = s"${data.name}\n${data.intro.getOrElse("")}\n${data.description}"
-                discard { env.report.api.automodComms(userText, me, routes.Team.show(team.id).url) }
-                Redirect(routes.Team.show(team.id))
-              }
+              for team <- api.create(data, me)
+              yield
+                val url = routes.Team.show(team.id)
+                discard { env.report.api.automodComms(team.automodText, url.url) }
+                Redirect(url)
           )
   }
 
