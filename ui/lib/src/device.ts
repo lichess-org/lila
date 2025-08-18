@@ -19,16 +19,20 @@ export function addPointerListeners(
     clearTimeout(timer);
     x = y = timer = 0;
   };
-  el.addEventListener('pointerdown', e => {
-    x = e.clientX;
-    y = e.clientY;
-    timer = window.setTimeout(() => {
-      if (!hold) return;
-      else if (hold === 'click') click?.(e);
-      else hold(e);
-      reset();
-    }, longPressDuration);
-  });
+  el.addEventListener(
+    'pointerdown',
+    e => {
+      x = e.clientX;
+      y = e.clientY;
+      timer = window.setTimeout(() => {
+        if (!hold) return;
+        else if (hold === 'click') click?.(e);
+        else hold(e);
+        reset();
+      }, longPressDuration);
+    },
+    { passive: true },
+  );
   el.addEventListener(
     'pointerup',
     (e: PointerEvent) => {
@@ -40,10 +44,14 @@ export function addPointerListeners(
     },
     { passive: false },
   );
-  el.addEventListener('pointermove', e => {
-    if (timer && Math.hypot(e.clientX - x, e.clientY - y) > scrollThreshold) reset();
-  });
-  el.addEventListener('pointercancel', reset);
+  el.addEventListener(
+    'pointermove',
+    e => {
+      if (timer && Math.hypot(e.clientX - x, e.clientY - y) > scrollThreshold) reset();
+    },
+    { passive: true },
+  );
+  el.addEventListener('pointercancel', reset, { passive: true });
 }
 
 export function isBrowserSupported(): boolean {
