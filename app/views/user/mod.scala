@@ -109,6 +109,7 @@ object mod:
             val userNotes = notes.filter: n =>
               n.to.is(o.id) && (ctx.me.exists(n.isFrom) || Granter.opt(_.Admin))
             val userAppeal = appeals.find(_.isAbout(o.id))
+            val closedInfo = log.closed
             tr(
               dataTags := List(
                 other.ips.map(renderIp),
@@ -137,7 +138,12 @@ object mod:
               markTd(o.marks.troll.so(1), shadowban, log.dateOf(_.troll)),
               markTd(o.marks.boost.so(1), boosting, log.dateOf(_.booster)),
               markTd(o.marks.engine.so(1), engine, log.dateOf(_.engine)),
-              markTd(o.enabled.no.so(1), closed, log.dateOf(_.closeAccount)),
+              closedInfo.fold(markTd(0, closed)): c =>
+                markTd(
+                  1,
+                  if c.byMod then modClosed else closed,
+                  c.at.some
+                )(title := (if c.byMod then "Closed by mod" else "Self closed")),
               markTd(o.marks.reportban.so(1), reportban, log.dateOf(_.reportban)),
               userNotes.nonEmpty
                 .option:

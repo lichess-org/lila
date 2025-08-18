@@ -422,6 +422,9 @@ $hover-bg: $m-primary_bg--mix-30;
     &__name {
       @extend %tour-margin-horiz;
       font-size: 1.7em;
+      &::before {
+        font-size: 1.8em;
+      }
     }
     &__team {
       @extend %tour-margin-horiz;

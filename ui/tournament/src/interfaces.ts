@@ -175,9 +175,10 @@ export interface Pairing {
     title?: string;
     berserk?: boolean;
   };
-  win: boolean;
+  win: boolean | null;
   status: number;
   berserk: boolean;
+  score: number;
 }
 
 export interface PlayerInfo {
