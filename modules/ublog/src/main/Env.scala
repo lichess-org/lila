@@ -6,16 +6,13 @@ import play.api.{ ConfigLoader, Configuration }
 import lila.core.config.*
 import lila.db.dsl.Coll
 import lila.common.autoconfig.{ *, given }
-import lila.common.config.given
 import lila.common.Bus
 
 @Module
 final private class UblogConfig(
     val searchPageSize: MaxPerPage,
-    val carouselSize: Int,
-    val automod: AutomodConfig
+    val carouselSize: Int
 )
-final private class AutomodConfig(val url: String, val apiKey: Secret)
 
 @Module
 final class Env(
@@ -32,13 +29,12 @@ final class Env(
     net: NetConfig,
     appConfig: Configuration,
     settingStore: lila.memo.SettingStore.Builder,
-    ws: play.api.libs.ws.StandaloneWSClient,
-    client: lila.search.client.SearchClient
+    client: lila.search.client.SearchClient,
+    reportApi: lila.report.ReportApi
 )(using Executor, Scheduler, play.api.Mode):
 
   export net.{ assetBaseUrl, baseUrl, domain, assetDomain }
 
-  private given ConfigLoader[AutomodConfig] = AutoConfig.loader[AutomodConfig]
   private val config = appConfig.get[UblogConfig]("ublog")(using AutoConfig.loader)
   private val colls = UblogColls(db(CollName("ublog_blog")), db(CollName("ublog_post")))
 

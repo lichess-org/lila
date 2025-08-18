@@ -59,6 +59,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
                       CategGrantWrite(categId, tryingToPostAsMod = ~data.modIcon):
                         limit.forumPost(ctx.ip, rateLimited):
                           postApi.makePost(categ, topic, data).map { post =>
+                            discard { maybeAutomod(post) }
                             Redirect(routes.ForumPost.redirect(post.id))
                           }
                   )
@@ -67,19 +68,20 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
   }
 
   def edit(postId: ForumPostId) = AuthBody { ctx ?=> me ?=>
-    env.forum.postApi.teamIdOfPostId(postId).flatMap { teamId =>
-      teamId.so(env.team.api.isLeader(_, me)).flatMap { inOwnTeam =>
-        Found(postApi.getPost(postId)): post =>
-          bindForm(forms.postEdit(inOwnTeam, post.text))(
-            _ => Redirect(routes.ForumPost.redirect(postId)),
-            data =>
-              limit.forumPost(ctx.ip, rateLimited):
-                postApi.editPost(postId, data.changes).map { post =>
-                  Redirect(routes.ForumPost.redirect(post.id))
-                }
-          )
-      }
-    }
+    Found(postApi.getPost(postId)): post =>
+      for
+        teamId <- env.forum.postApi.teamIdOfPost(post)
+        inOwnTeam <- teamId.so(env.team.api.isLeader(_, me))
+        res <- bindForm(forms.postEdit(inOwnTeam, post.text))(
+          _ => Redirect(routes.ForumPost.redirect(postId)).toFuccess,
+          data =>
+            limit.forumPost(ctx.ip, rateLimited):
+              postApi.editPost(postId, data.changes).map { post =>
+                discard { maybeAutomod(post) }
+                Redirect(routes.ForumPost.redirect(post.id))
+              }
+        )
+      yield res
   }
 
   def delete(id: ForumPostId) = AuthBody { ctx ?=> me ?=>
@@ -134,3 +136,11 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
       case lila.forum.PostUrlData(categ, topic, page, number) =>
         val call = routes.ForumTopic.show(categ, topic, page)
         Redirect(s"$call#$number").withCanonical(call)
+
+  private def maybeAutomod(post: lila.forum.ForumPost)(using me: Me) = for
+    teamId <- env.forum.postApi.teamIdOfPost(post)
+    shouldAutomod <- teamId.fold(fuccess(true)): teamId =>
+      env.team.api.forumAccessOf(teamId).map(_ == lila.core.team.Access.Everyone)
+    _ <- shouldAutomod.so:
+      env.report.api.automodComms(post.text, routes.ForumPost.redirect(post.id).url)
+  yield ()

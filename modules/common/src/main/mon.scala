@@ -265,6 +265,9 @@ object mon:
       def create(reason: String, score: Int) =
         counter("mod.report.create").withTags:
           tags("reason" -> reason, "score" -> score)
+      object automod:
+        val request = future("mod.report.automod.request")
+        def assessment(a: String) = counter("mod.report.automod.assessment").withTag("assessment", a)
     object log:
       val create = counter("mod.log.create").withoutTags()
     object irwin:
