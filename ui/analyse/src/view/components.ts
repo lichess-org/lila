@@ -1,4 +1,4 @@
-import { view as cevalView } from 'lib/ceval/ceval';
+import { view as cevalView, renderEval } from 'lib/ceval/ceval';
 import { parseFen } from 'chessops/fen';
 import { defined, repeater } from 'lib';
 import * as licon from 'lib/licon';
@@ -308,7 +308,10 @@ function click(ctrl: AnalyseCtrl, e: PointerEvent) {
 export function renderControls(ctrl: AnalyseCtrl) {
   const canJumpPrev = ctrl.path !== '',
     canJumpNext = !!ctrl.node.children[0],
-    showingTool = ctrl.showingTool();
+    showingTool = ctrl.showingTool(),
+    cevalMode = ctrl.ceval.enabled() && !ctrl.practice,
+    ev = ctrl.node.ceval || ctrl.node.eval,
+    evalstr = ev?.cp ? renderEval(ev.cp) : ev?.mate ? '#' + ev.mate : '';
 
   return hl(
     'div.analyse__controls.analyse-controls',
@@ -342,13 +345,17 @@ export function renderControls(ctrl: AnalyseCtrl) {
             }),
             ctrl.ceval.allowed() && [
               displayColumns() === 1 &&
-                hl('button.fbt', {
-                  attrs: { 'data-act': 'ceval', 'data-icon': licon.Stockfish },
-                  class: {
-                    active: ctrl.ceval.enabled() && !ctrl.practice && !showingTool,
-                    latent: ctrl.ceval.enabled() && !ctrl.practice && !!showingTool,
+                hl(
+                  'button.fbt',
+                  {
+                    attrs: { 'data-act': 'ceval', 'data-icon': licon.Stockfish },
+                    class: {
+                      active: cevalMode && !showingTool,
+                      latent: cevalMode && !!showingTool,
+                    },
                   },
-                }),
+                  evalstr && !(cevalMode && !showingTool) && hl('eval', evalstr),
+                ),
               !(ctrl.isEmbed || ctrl.isGamebook()) &&
                 hl('button.fbt', {
                   attrs: {

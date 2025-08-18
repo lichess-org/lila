@@ -171,6 +171,9 @@
       margin: 2px;
       border: 1px solid $m-clearer--fade-95;
     }
+    .fbt[data-act='ceval']:has(eval)::before {
+      display: none;
+    }
   }
   .analyse[data-showing-tool] .analyse__tools,
   .analyse[data-ceval-mode] .analyse__tools {
