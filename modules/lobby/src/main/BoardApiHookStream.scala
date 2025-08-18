@@ -52,6 +52,7 @@ final class BoardApiHookStream(
       val busHandler = scalalib.bus.Tellable:
         // lets the mobile withdraw from pool with `DELETE /api/board/seek
         case RemoveHook(_) => queue.complete()
+        case _: lila.core.pool.Pairing => queue.complete()
 
       Bus.subscribeDyn(busHandler, channel)
 

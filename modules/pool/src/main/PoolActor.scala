@@ -90,7 +90,7 @@ final private class PoolActor(
 
       members = members.diff(pairedMembers).map(_.incMisses)
 
-      if pairings.nonEmpty then gameStarter(config, pairings)
+      gameStarter(config, pairings)
 
       monitor.candidates(monId).record(candidates.size)
       monitor.paired(monId).record(pairedMembers.size)
