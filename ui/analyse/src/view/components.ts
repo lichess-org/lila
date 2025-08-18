@@ -309,7 +309,7 @@ export function renderControls(ctrl: AnalyseCtrl) {
   const canJumpPrev = ctrl.path !== '',
     canJumpNext = !!ctrl.node.children[0],
     showingTool = ctrl.showingTool(),
-    canUseEngine = ctrl.ceval.possible && ctrl.ceval.allowed() && !ctrl.isGamebook();
+    canUseEngine = ctrl.ceval.possible && ctrl.ceval.allowed();
 
   return hl(
     'div.analyse__controls.analyse-controls',
@@ -350,7 +350,7 @@ export function renderControls(ctrl: AnalyseCtrl) {
                     latent: ctrl.ceval.enabled() && !ctrl.practice && !!showingTool,
                   },
                 }),
-              !ctrl.isEmbed &&
+              !(ctrl.isEmbed || ctrl.isGamebook()) &&
                 hl('button.fbt', {
                   attrs: {
                     title: i18n.site.practiceWithComputer,
