@@ -38,7 +38,6 @@ final private class PoolActor(
     // don't pair someone twice in a row, it's probably a client error
 
     case Join(joiner) =>
-      println(joiner)
       members.find(m => joiner.userId.is(m.userId)) match
         case None =>
           members = members :+ joiner
