@@ -97,6 +97,8 @@ final private class PoolActor(
 
       scheduleWave()
 
+    // lila-ws sends us the list of sris currently connected through WS
+    // so we can cleanup members that are not connected anymore
     case Sris(sris) =>
       members = members.filter: member =>
         member.from != PoolFrom.Socket || sris.contains(member.sri)
