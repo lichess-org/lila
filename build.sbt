@@ -179,7 +179,7 @@ lazy val feed = module("feed",
 )
 
 lazy val ublog = module("ublog",
-  Seq(memo, ui, search, report),
+  Seq(search, report),
   Seq(bloomFilter)
 )
 
