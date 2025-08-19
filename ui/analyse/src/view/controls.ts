@@ -91,8 +91,8 @@ function renderMobileCevalTab(ctrl: AnalyseCtrl): LooseVNode {
     showingTool = ctrl.showingTool(),
     ev = ctrl.node.ceval || ctrl.node.eval,
     evalstr = ev?.cp ? renderEval(ev.cp) : ev?.mate ? '#' + ev.mate : '',
-    active = cevalMode && !showingTool && !ctrl.ceval.minimized(),
-    latent = cevalMode && (!!showingTool || ctrl.ceval.minimized());
+    active = cevalMode && !showingTool,
+    latent = cevalMode && !!showingTool;
   return hl(
     'button.fbt',
     {

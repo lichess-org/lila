@@ -40,7 +40,6 @@ export default class CevalCtrl {
   storedMovetime: Prop<number> = storedIntProp('ceval.search-ms', 8000); // may be 'Infinity'
   allowed: Toggle;
   enabled: Toggle;
-  minimized: Toggle = toggle(false);
   download?: { bytes: number; total: number };
   hovering: Prop<Hovering | null> = prop<Hovering | null>(null);
   pvBoard: Prop<PvBoard | null> = prop<PvBoard | null>(null);
@@ -70,9 +69,7 @@ export default class CevalCtrl {
       ? parseFen(this.opts.initialFen).chain(setup => setupPosition(this.rules, setup))
       : Result.ok(defaultPosition(this.rules));
     this.analysable = pos.isOk;
-    this.enabled = toggle(this.allowed() && this.analysable && enabledAfterDisable(), () => {
-      this.minimized(false);
-    });
+    this.enabled = toggle(this.allowed() && this.analysable && enabledAfterDisable());
     this.customSearch = opts.search;
     if (this.worker?.getInfo().id !== this.engines?.activate()?.id) {
       this.worker?.destroy();

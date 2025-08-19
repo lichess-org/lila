@@ -1045,10 +1045,7 @@ export default class AnalyseCtrl {
       if (clicked === 'ceval') this.toggleCeval(true);
     } else {
       if (clicked === 'ceval-practice' || this.practice) this.togglePractice();
-      else {
-        this.toggleCeval();
-        this.ceval.minimized(false);
-      }
+      else this.toggleCeval();
     }
   }
 
