@@ -326,7 +326,7 @@ final class ReportApi(
     yield for
       res <- rsp
       assessmentOpt = (res \ "assessment").asOpt[String]
-      _ = lila.mon.mod.report.automod.assessment(assessmentOpt | "ok")
+      _ = lila.mon.mod.report.automod.assessment(assessmentOpt | "ok").increment()
       assessment <- assessmentOpt
       reason <- Reason(assessment)
       suspect <- suspectOpt
