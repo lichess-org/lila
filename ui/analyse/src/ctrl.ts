@@ -795,7 +795,7 @@ export default class AnalyseCtrl {
     this.startCeval();
     if (!this.ceval.enabled()) {
       this.threatMode(false);
-      if (this.practice) this.togglePractice();
+      this.togglePractice(false);
     }
     this.redraw();
   };
@@ -983,6 +983,7 @@ export default class AnalyseCtrl {
       upgradable: this.evalCache?.upgradable(),
     });
   };
+
   closeTools = () => {
     this.retro = undefined;
     if (this.practice) this.togglePractice();
@@ -1016,8 +1017,9 @@ export default class AnalyseCtrl {
     this.explorer.toggle();
   };
 
-  togglePractice = () => {
-    if (this.practice || !this.ceval.allowed()) {
+  togglePractice = (enable = !this.practice) => {
+    if (enable === !!this.practice && (this.ceval.allowed() || !enable)) return;
+    if (!enable || !this.ceval.allowed()) {
       this.practice = undefined;
       this.ceval.setOpts({ search: undefined }); // TODO, improve ceval integration in this file
       if (this.ceval.enabled()) this.clearCeval();
@@ -1033,6 +1035,21 @@ export default class AnalyseCtrl {
     }
     this.ceval.customSearch = this.practice?.search;
   };
+
+  clickMobileCevalTab(clicked: 'ceval' | 'ceval-practice') {
+    if (this.showingTool()) {
+      this.retro = undefined;
+      if (this.explorer.enabled()) this.explorer.toggle();
+      this.actionMenu(false);
+      this.togglePractice(clicked === 'ceval-practice');
+      if (clicked === 'ceval') this.ceval.toggle(true);
+    } else {
+      if (clicked === 'ceval-practice' || this.practice) this.togglePractice();
+      else if (this.ceval.minimized()) this.ceval.toggle(false);
+      else if (this.ceval.enabled()) this.ceval.minimized(true);
+      else this.ceval.toggle(true);
+    }
+  }
 
   restartPractice() {
     this.practice = undefined;

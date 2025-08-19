@@ -32,14 +32,8 @@ import { watchers } from 'lib/view/watchers';
 import type StudyCtrl from './studyCtrl';
 import { verticalResize } from 'lib/view/verticalResize';
 import { isTouchDevice, displayColumns, shareIcon } from 'lib/device';
-import {
-  viewContext,
-  renderBoard,
-  renderMain,
-  renderControls,
-  renderTools,
-  renderUnderboard,
-} from '../view/components';
+import { viewContext, renderBoard, renderMain, renderTools, renderUnderboard } from '../view/components';
+import { renderControls } from '../view/controls';
 
 export function studyView(ctrl: AnalyseCtrl, study: StudyCtrl, deps: typeof studyDeps): VNode {
   const ctx = viewContext(ctrl, deps);

@@ -1,6 +1,6 @@
-import { view as cevalView, renderEval } from 'lib/ceval/ceval';
+import { view as cevalView } from 'lib/ceval/ceval';
 import { parseFen } from 'chessops/fen';
-import { defined, repeater } from 'lib';
+import { defined } from 'lib';
 import * as licon from 'lib/licon';
 import {
   type VNode,
@@ -14,7 +14,7 @@ import {
   hl,
 } from 'lib/snabbdom';
 import { playable } from 'lib/game/game';
-import { addPointerListeners, isMobile, displayColumns } from 'lib/device';
+import { isMobile } from 'lib/device';
 import * as materialView from 'lib/game/view/material';
 import { path as treePath } from 'lib/tree/tree';
 import { view as actionMenu } from './actionMenu';
@@ -274,119 +274,6 @@ export function renderInputs(ctrl: AnalyseCtrl): VNode | undefined {
   ]);
 }
 
-function hold(ctrl: AnalyseCtrl, e: PointerEvent) {
-  if (!(e.target instanceof HTMLElement)) return;
-  const action = e.target.closest<HTMLElement>('[data-act]')?.dataset.act;
-  if (action === 'prev' || action === 'next') {
-    repeater(() => {
-      control[action](ctrl);
-      ctrl.redraw();
-    });
-  } else click(ctrl, e);
-}
-
-function click(ctrl: AnalyseCtrl, e: PointerEvent) {
-  if (!(e.target instanceof HTMLElement)) return;
-  const action = e.target.closest<HTMLElement>('[data-act]')?.dataset.act;
-  if (action === 'prev') control.prev(ctrl);
-  else if (action === 'next') control.next(ctrl);
-  else if (action === 'first') control.first(ctrl);
-  else if (action === 'last') control.last(ctrl);
-  else if (action === 'opening-explorer') ctrl.toggleExplorer();
-  else if (action === 'menu') ctrl.toggleActionMenu();
-  else if (action === 'analysis' && ctrl.studyPractice)
-    window.open(ctrl.studyPractice.analysisUrl(), '_blank');
-  else if (action?.startsWith('ceval')) {
-    if (ctrl.showingTool()) ctrl.closeTools();
-    if (e.target.classList.contains('latent')) return ctrl.redraw();
-    if (ctrl.practice || action === 'ceval-practice') ctrl.togglePractice();
-    else ctrl.toggleCeval();
-  }
-  ctrl.redraw();
-}
-
-export function renderControls(ctrl: AnalyseCtrl) {
-  const canJumpPrev = ctrl.path !== '',
-    canJumpNext = !!ctrl.node.children[0],
-    showingTool = ctrl.showingTool(),
-    cevalMode = ctrl.ceval.enabled() && !ctrl.practice,
-    ev = ctrl.node.ceval || ctrl.node.eval,
-    evalstr = ev?.cp ? renderEval(ev.cp) : ev?.mate ? '#' + ev.mate : '';
-
-  return hl(
-    'div.analyse__controls.analyse-controls',
-    {
-      hook: onInsert(el =>
-        addPointerListeners(
-          el,
-          e => click(ctrl, e),
-          e => hold(ctrl, e),
-        ),
-      ),
-    },
-    [
-      ctrl.studyPractice
-        ? [
-            hl('button.fbt', {
-              attrs: { title: i18n.site.analysis, 'data-act': 'analysis', 'data-icon': licon.Microscope },
-            }),
-          ]
-        : [
-            hl('button.fbt', {
-              attrs: {
-                title: i18n.site.openingExplorerAndTablebase,
-                'data-act': 'opening-explorer',
-                'data-icon': licon.Book,
-              },
-              class: {
-                hidden: !ctrl.explorer.allowed() || !!ctrl.retro,
-                active: showingTool === 'opening-explorer',
-              },
-            }),
-            ctrl.ceval.allowed() && [
-              displayColumns() === 1 &&
-                hl(
-                  'button.fbt',
-                  {
-                    attrs: { 'data-act': 'ceval', 'data-icon': licon.Stockfish },
-                    class: {
-                      active: cevalMode && !showingTool,
-                      latent: cevalMode && !!showingTool,
-                    },
-                  },
-                  evalstr && !(cevalMode && !showingTool) && hl('eval', evalstr),
-                ),
-              !(ctrl.isEmbed || ctrl.isGamebook()) &&
-                hl('button.fbt', {
-                  attrs: {
-                    title: i18n.site.practiceWithComputer,
-                    'data-act': 'ceval-practice',
-                    'data-icon': licon.Bullseye,
-                  },
-                  class: {
-                    hidden: !!ctrl.retro,
-                    active: !!ctrl.practice && !showingTool,
-                    latent: !!ctrl.practice && !!showingTool,
-                  },
-                }),
-            ],
-          ],
-      hl('div.jumps', [
-        jumpButton(licon.JumpFirst, 'first', canJumpPrev),
-        jumpButton(licon.JumpPrev, 'prev', canJumpPrev),
-        jumpButton(licon.JumpNext, 'next', canJumpNext),
-        jumpButton(licon.JumpLast, 'last', ctrl.node !== ctrl.mainline[ctrl.mainline.length - 1]),
-      ]),
-      ctrl.studyPractice
-        ? hl('div.noop')
-        : hl('button.fbt', {
-            class: { active: showingTool === 'action-menu' },
-            attrs: { title: i18n.site.menu, 'data-act': 'menu', 'data-icon': licon.Hamburger },
-          }),
-    ],
-  );
-}
-
 export function renderResult(ctrl: AnalyseCtrl): VNode[] {
   const termination = () => ctrl.study && findTag(ctrl.study.data.chapter.tags, 'termination');
   const render = (result: string, status: string) => [
@@ -466,9 +353,6 @@ function forceInnerCoords(ctrl: AnalyseCtrl, v: boolean) {
     }
   }
 }
-
-const jumpButton = (icon: string, effect: string, enabled: boolean): VNode =>
-  hl('button.fbt.move', { class: { disabled: !enabled }, attrs: { 'data-act': effect, 'data-icon': icon } });
 
 function renderPlayerStrips(ctrl: AnalyseCtrl): [VNode, VNode] | undefined {
   const renderPlayerStrip = (cls: string, materialDiff: VNode, clock?: VNode): VNode =>

@@ -18,13 +18,17 @@
 
   .jumps {
     display: flex;
-    padding: 4px 5px;
+    padding: 4px;
 
     .fbt {
       border-radius: 8px;
-      line-height: 1.2;
       flex: 1;
 
+      &[data-act='prev'],
+      &[data-act='next'] {
+        padding-inline: 6px;
+        font-size: 1.2em;
+      }
       &[data-act='first'],
       &[data-act='last'] {
         font-size: 0.7em;

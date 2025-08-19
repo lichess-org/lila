@@ -40,6 +40,7 @@ export default class CevalCtrl {
   storedMovetime: Prop<number> = storedIntProp('ceval.search-ms', 8000); // may be 'Infinity'
   allowed: Toggle;
   enabled: Toggle;
+  minimized: Toggle = toggle(false);
   download?: { bytes: number; total: number };
   hovering: Prop<Hovering | null> = prop<Hovering | null>(null);
   pvBoard: Prop<PvBoard | null> = prop<PvBoard | null>(null);
@@ -69,7 +70,9 @@ export default class CevalCtrl {
       ? parseFen(this.opts.initialFen).chain(setup => setupPosition(this.rules, setup))
       : Result.ok(defaultPosition(this.rules));
     this.analysable = pos.isOk;
-    this.enabled = toggle(this.allowed() && this.analysable && enabledAfterDisable());
+    this.enabled = toggle(this.allowed() && this.analysable && enabledAfterDisable(), () => {
+      this.minimized(false);
+    });
     this.customSearch = opts.search;
     if (this.worker?.getInfo().id !== this.engines?.activate()?.id) {
       this.worker?.destroy();
@@ -274,10 +277,10 @@ export default class CevalCtrl {
     this.opts.redraw();
   };
 
-  toggle = (): void => {
-    if (!this.allowed()) return;
+  toggle = (enable: boolean = !this.enabled()): void => {
+    if (!this.allowed() || enable === this.enabled()) return;
     this.stop();
-    if (!this.enabled() && !document.hidden) {
+    if (enable && !document.hidden) {
       const disable = storage.get('ceval.disable') || cevalDisabledSentinel;
       if (disable) tempStorage.set('ceval.enabled-after', disable);
       this.enabled(true);
