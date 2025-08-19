@@ -43,6 +43,7 @@ const spamRegex = new RegExp(
     't.ly/',
     'shorturl.at/',
     'lichess77',
+    '77Casino.cfd',
   ]
     .map(url => url.replace(/\./g, '\\.').replace(/\//g, '\\/'))
     .join('|'),
