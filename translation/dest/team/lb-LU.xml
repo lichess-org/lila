@@ -20,11 +20,20 @@
     <item quantity="one">%s Bäitrëttsufro</item>
     <item quantity="other">%s Bäitrëttsufroen</item>
   </plurals>
-  <string name="teamBattle">Ekippenkampf</string>
+  <string name="subToTeamMessages">Ekippe-Messagen abonéieren</string>
+  <string name="teamBattle">Ekippekampf</string>
   <string name="teamTournament">Ekippenturnéier</string>
   <string name="messageAllMembers">All d\'Memberen kontaktéieren</string>
+  <string name="messageAllMembersOverview">E private Message un all Member vun der Ekipp schécken</string>
+  <string name="messageAllMembersLongDescription">Schéck e private Message un ALL d\'Membere vun der Ekipp.
+Du kanns dat maache fir d\'Spiller opzeruffe fir bei engem Turnéier oder engem Ekippekampf matzemaachen.
+Spiller, déi deng Messagen net kréie wëllen, kéinten d\'Ekipp verloossen.</string>
+  <string name="introduction">Aféierung</string>
+  <string name="teamIntroductionHelp">Kuerz Beschreiwung, déi op Ekippelëschten ze gesinn ass. Maximal 200 Zeechen.</string>
+  <string name="teamDescriptionHelp">Vollstänneg Beschreiwung, déi op der Ekippesäit ze gesinn ass.</string>
   <string name="closeTeam">Ekipp opléisen</string>
   <string name="closeTeamDescription">Léist d\'Ekipp fir ëmmer op.</string>
+  <string name="entryCode">Bäitrëttscode vun der Ekipp</string>
   <string name="incorrectEntryCode">Falsche Bäitrëttscode.</string>
   <string name="teamAlreadyExists">Dës Ekipp gëtt et schonn.</string>
   <string name="upcomingTournaments">Nächst Turnéieren</string>
@@ -32,5 +41,11 @@
   <string name="declinedRequests">Ofgeleenten Ufroen</string>
   <string name="teamPage">Ekippensäit</string>
   <string name="thisTeamBattleIsOver">Dëst Turnéier ass eriwwer an d\'Ekippe kënnen net méi aktualiséiert ginn.</string>
+  <string name="listTheTeamsThatWillCompete">Lëscht d\'Ekippen op, déi bei dësem Kampf matmaachen.</string>
+  <string name="oneTeamPerLine">Eng Ekipp pro Zeil. Benotz d\'automatesch Vervollstännegung.</string>
   <string name="numberOfLeadsPerTeamHelp">Du sollts dëse Wäert wierklech net änneren, nodeems d\'Turnéier ugefaangen huet!</string>
+  <plurals name="battleOfNbTeams">
+    <item quantity="one">Kampf vun %s Ekipp</item>
+    <item quantity="other">Kampf vu(n) %s Ekippen</item>
+  </plurals>
 </resources>
