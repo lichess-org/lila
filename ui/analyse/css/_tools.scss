@@ -187,17 +187,19 @@
   .analyse[data-ceval-mode='ceval-practice'] .analyse__tools {
     border-top: 3px solid $c-secondary;
   }
-  .analyse:not(:has(.fbt[data-act='ceval'].active)) .ceval {
-    display: none;
-  }
-
-  .analyse:not([data-ceval-mode='ceval']) {
-    .ceval,
-    .pv_box {
+  body:not(.blind-mode) {
+    .analyse:not(:has(.fbt[data-act='ceval'].active)) .ceval {
       display: none;
     }
-    .analyse__moves {
-      border-top: none;
+
+    .analyse:not([data-ceval-mode='ceval']) {
+      .ceval,
+      .pv_box {
+        display: none;
+      }
+      .analyse__moves {
+        border-top: none;
+      }
     }
   }
   .analyse[data-ceval-mode='ceval-practice'] .analyse__fork {

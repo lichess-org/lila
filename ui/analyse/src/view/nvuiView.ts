@@ -78,7 +78,7 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
     drawable: { enabled: false },
     coordinates: false,
   });
-  return hl('main.analyse', { attrs: { 'data-ceval-mode': 'ceval' } }, [
+  return hl('main.analyse', [
     hl('div.nvui', [
       studyDetails(ctrl),
       hl('h2', i18n.nvui.gameInfo),
