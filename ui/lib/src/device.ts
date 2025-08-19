@@ -22,11 +22,10 @@ export function addPointerListeners(
   el.addEventListener(
     'pointerdown',
     e => {
-      x = e.clientX;
-      y = e.clientY;
+      [x, y] = [e.clientX, e.clientY];
       timer = window.setTimeout(() => {
         if (!hold) return;
-        else if (hold === 'click') click?.(e);
+        if (hold === 'click') click?.(e);
         else hold(e);
         reset();
       }, longPressDuration);
@@ -35,7 +34,7 @@ export function addPointerListeners(
   );
   el.addEventListener(
     'pointerup',
-    (e: PointerEvent) => {
+    e => {
       if (timer) {
         click?.(e);
         e.preventDefault();
@@ -52,6 +51,9 @@ export function addPointerListeners(
     { passive: true },
   );
   el.addEventListener('pointercancel', reset, { passive: true });
+  if (isTouchDevice() && hold) {
+    el.addEventListener('contextmenu', e => e.preventDefault(), { passive: false });
+  }
 }
 
 export function isBrowserSupported(): boolean {

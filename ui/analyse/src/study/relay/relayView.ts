@@ -11,12 +11,12 @@ import {
   viewContext,
   renderBoard,
   renderMain,
-  renderControls,
   renderTools,
   renderUnderboard,
 } from '../../view/components';
 import { displayColumns, isTouchDevice } from 'lib/device';
 import type RelayCtrl from './relayCtrl';
+import { renderControls } from '../../view/controls';
 
 export function relayView(
   ctrl: AnalyseCtrl,

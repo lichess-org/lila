@@ -135,7 +135,7 @@ export function renderGauge(ctrl: ParentCtrl): VNode | undefined {
 
 export function renderCeval(ctrl: ParentCtrl): VNode[] {
   const ceval = ctrl.getCeval();
-  if (!ceval.allowed() || !ceval.possible) return [];
+  if (!ceval.allowed()) return [];
   if (!ctrl.showComputer()) return [analysisDisabled(ctrl)];
   const enabled = ceval.enabled(),
     evs = ctrl.currentEvals(),
@@ -299,7 +299,7 @@ function checkHover(el: HTMLElement, ceval: CevalCtrl): void {
 
 export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
   const ceval = ctrl.getCeval();
-  if (!ceval.allowed() || !ceval.possible || !ceval.enabled()) return;
+  if (!ceval.allowed() || !ceval.enabled()) return;
   const multiPv = ceval.search.multiPv,
     node = ctrl.getNode(),
     setup = parseFen(node.fen).unwrap();

@@ -292,13 +292,7 @@ const depthInfo = (clientEv: Tree.ClientEval | undefined, isCloud: boolean): str
   clientEv ? `${i18n.site.depthX(clientEv.depth || 0)} ${isCloud ? 'Cloud' : ''}` : '';
 
 const noEvalStr = (ctrl: CevalCtrl) =>
-  !ctrl.allowed()
-    ? 'local evaluation not allowed'
-    : !ctrl.possible
-      ? 'local evaluation not possible'
-      : !ctrl.enabled()
-        ? 'local evaluation not enabled'
-        : '';
+  !ctrl.allowed() ? 'local evaluation not allowed' : !ctrl.enabled() ? 'local evaluation not enabled' : '';
 
 function renderBestMove({ ctrl, moveStyle }: AnalyseNvuiContext): string {
   const noEvalMsg = noEvalStr(ctrl.ceval);

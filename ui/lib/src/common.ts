@@ -51,8 +51,17 @@ export interface Toggle extends PropWithEffect<boolean> {
 export const toggle = (initialValue: boolean, effect: (value: boolean) => void = () => {}): Toggle => {
   const prop = propWithEffect<boolean>(initialValue, effect) as Toggle;
   prop.toggle = () => prop(!prop());
-  prop.effect = effect;
   return prop;
+};
+
+export const toggleWithConstraint = (value: boolean, constraint: () => boolean): Toggle => {
+  return Object.assign(
+    (v?: boolean): boolean => {
+      if (defined(v)) value = v && constraint();
+      return value;
+    },
+    { toggle: () => (value = !value && constraint()), effect: () => {} },
+  );
 };
 
 // Only computes a value once. The computed value must not be undefined.
