@@ -788,8 +788,8 @@ export default class AnalyseCtrl {
     if (this.threatMode()) this.toggleThreatMode();
   };
 
-  toggleCeval = () => {
-    if (!this.showComputer()) return;
+  toggleCeval = (enable = !this.ceval.enabled()) => {
+    if (!this.showComputer() || enable === this.ceval.enabled()) return;
     this.ceval.toggle();
     this.setAutoShapes();
     this.startCeval();
@@ -1042,12 +1042,12 @@ export default class AnalyseCtrl {
       if (this.explorer.enabled()) this.explorer.toggle();
       this.actionMenu(false);
       this.togglePractice(clicked === 'ceval-practice');
-      if (clicked === 'ceval') this.ceval.toggle(true);
+      if (clicked === 'ceval') this.toggleCeval(true);
     } else {
       if (clicked === 'ceval-practice' || this.practice) this.togglePractice();
-      else if (this.ceval.minimized()) this.ceval.toggle(false);
+      else if (this.ceval.minimized()) this.toggleCeval(false);
       else if (this.ceval.enabled()) this.ceval.minimized(true);
-      else this.ceval.toggle(true);
+      else this.toggleCeval(true);
     }
   }
 

@@ -277,10 +277,10 @@ export default class CevalCtrl {
     this.opts.redraw();
   };
 
-  toggle = (enable: boolean = !this.enabled()): void => {
-    if (!this.allowed() || enable === this.enabled()) return;
+  toggle = (): void => {
+    if (!this.allowed()) return;
     this.stop();
-    if (enable && !document.hidden) {
+    if (!this.enabled() && !document.hidden) {
       const disable = storage.get('ceval.disable') || cevalDisabledSentinel;
       if (disable) tempStorage.set('ceval.enabled-after', disable);
       this.enabled(true);
