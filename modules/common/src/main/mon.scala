@@ -685,7 +685,7 @@ object mon:
     val time = timer("markdown.time").withoutTags()
   object ublog:
     def create(user: UserId) = counter("ublog.create").withTag("user", user)
-    def view(user: UserId) = counter("ublog.view").withTag("user", user)
+    def view = counter("ublog.view").withoutTags()
     object automod:
       val request = future("ublog.automod.request")
       def quality(q: String) = counter("ublog.automod.quality").withTag("quality", q)
