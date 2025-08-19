@@ -42,7 +42,8 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
       Found(topicApi.show(categId, slug, page)): (categ, topic, posts) =>
         if categId == diagnosticId &&
           !ctx.userId.exists(me => slug.value.startsWith(me.value)) &&
-          !isGrantedOpt(_.ModerateForum)
+          !isGrantedOpt(_.ModerateForum) &&
+          !isGrantedOpt(_.Developer)
         then notFound
         else
           for
