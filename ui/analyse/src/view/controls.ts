@@ -86,27 +86,25 @@ export function renderControls(ctrl: AnalyseCtrl) {
 }
 
 function renderMobileCevalTab(ctrl: AnalyseCtrl): LooseVNode {
+  if (displayColumns() !== 1) return undefined;
   const cevalMode = ctrl.ceval.enabled() && !ctrl.practice,
     showingTool = ctrl.showingTool(),
     ev = ctrl.node.ceval || ctrl.node.eval,
     evalstr = ev?.cp ? renderEval(ev.cp) : ev?.mate ? '#' + ev.mate : '',
     active = cevalMode && !showingTool && !ctrl.ceval.minimized(),
     latent = cevalMode && (!!showingTool || ctrl.ceval.minimized());
-  return (
-    displayColumns() === 1 &&
-    hl(
-      'button.fbt',
-      {
-        attrs: { 'data-act': 'ceval', 'data-icon': licon.Stockfish },
-        class: { active, latent },
-      },
-      evalstr &&
-        (!cevalMode || latent) &&
-        !ctrl.practice &&
-        !ctrl.isGamebook() &&
-        !ctrl.retro &&
-        hl('eval', evalstr),
-    )
+  return hl(
+    'button.fbt',
+    {
+      attrs: { 'data-act': 'ceval', 'data-icon': licon.Stockfish },
+      class: { active, latent },
+    },
+    evalstr &&
+      (!cevalMode || latent) &&
+      !ctrl.practice &&
+      !ctrl.isGamebook() &&
+      !ctrl.retro &&
+      hl('eval', evalstr),
   );
 }
 
