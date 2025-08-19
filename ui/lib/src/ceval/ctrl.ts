@@ -69,7 +69,9 @@ export default class CevalCtrl {
       ? parseFen(this.opts.initialFen).chain(setup => setupPosition(this.rules, setup))
       : Result.ok(defaultPosition(this.rules));
     this.analysable = pos.isOk;
-    this.enabled = toggle(this.allowed() && this.analysable && enabledAfterDisable());
+    this.enabled = toggle(this.allowed() && this.analysable && enabledAfterDisable(), () => {
+      this.showEnginePrefs(false);
+    });
     this.customSearch = opts.search;
     if (this.worker?.getInfo().id !== this.engines?.activate()?.id) {
       this.worker?.destroy();
