@@ -20,6 +20,7 @@ object userId:
     val broadcaster: UserId = "broadcaster"
     val irwin: UserId = "irwin"
     val kaladin: UserId = "kaladin"
+    val ai: UserId = "ai"
     val lichess4545: UserId = "lichess4545"
     val challengermode: UserId = "challengermode"
     val watcherbot: UserId = "watcherbot"

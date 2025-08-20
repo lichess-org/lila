@@ -1,10 +1,10 @@
 import { formToXhr } from 'lib/xhr';
 
-import { expandMentions } from 'lib/richText';
 import { storage } from 'lib/storage';
 import { alert } from 'lib/view/dialogs';
 import { highlightSearchTerm } from 'lib/highlight';
 import { pubsub } from 'lib/pubsub';
+import { autolinkAtoms } from './mod.autolink';
 
 site.load.then(() => {
   const noteStore = storage.make('inquiry-note');
@@ -15,7 +15,6 @@ site.load.then(() => {
   const noteTextArea = $('#inquiry .notes').find('textarea')[0] as HTMLTextAreaElement;
   const syncNoteValue = () => (noteTextArea.value = noteStore.get() || '');
   let hasSeenNonEmptyNoteWarning = false;
-
   $('#inquiry .notes').on('mouseenter', () => {
     syncNoteValue();
     noteTextArea.focus();
@@ -87,19 +86,7 @@ site.load.then(() => {
   site.mousetrap.bind('d', () =>
     $('#inquiry .actions.close form.process button[type="submit"]').trigger('click'),
   );
-
-  $('#inquiry .atom p').each(function (this: HTMLParagraphElement) {
-    $(this).html(
-      expandMentions(
-        $(this)
-          .html()
-          .replace(
-            /(?:https:\/\/)?lichess\.org\/((?:[\w\/:(&;)=@-]|[?.]\w)+)/gi,
-            '<a href="/$1">lichess.org/$1</a>',
-          ),
-      ),
-    );
-  });
+  autolinkAtoms();
 
   $('#communication').on('click', '.line.author, .post.author', function (this: HTMLElement) {
     // Need to take username from the communication page so that when being in inquiry for user A and checking communication of user B
