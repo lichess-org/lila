@@ -61,6 +61,7 @@
   <string name="usingServerAnalysis">Сервер анализын куллану</string>
   <string name="loadingEngine">Движок йөкләнә...</string>
   <string name="calculatingMoves">Хәрәкәтләр хисаплана...</string>
+  <string name="engineFailed">Йөрткеч йөкләгәндә хата килеп чыкты</string>
   <string name="cloudAnalysis">Болыт анализы</string>
   <string name="goDeeper">Тирәңрәк</string>
   <string name="showThreat">Янауны күрсәтү</string>
