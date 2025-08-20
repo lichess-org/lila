@@ -19,11 +19,6 @@
       @extend %nowrap-ellipsis;
     }
 
-    &[data-uci]:hover {
-      background: $m-secondary_bg--mix-20;
-      cursor: pointer;
-    }
-
     strong {
       display: inline-block;
       width: 34px;
@@ -36,10 +31,6 @@
       margin-inline-start: 4px;
     }
 
-    &[data-uci] .pv-san:hover {
-      color: $c-primary;
-    }
-
     .pv-wrap-toggle {
       position: absolute;
       top: 0;
@@ -48,10 +39,6 @@
       margin: 0;
       cursor: pointer;
 
-      &:hover {
-        background: $c-secondary;
-        color: $c-over;
-      }
       &::before {
         content: '▲';
       }
@@ -79,5 +66,36 @@
         @extend %popup-shadow;
       }
     }
+  }
+}
+
+@include mq-has-hover {
+  .pv_box .pv[data-uci]:hover {
+    background: $m-secondary_bg--mix-20;
+    cursor: pointer;
+  }
+  .pv_box .pv[data-uci] .pv-san:hover {
+    color: $c-primary;
+  }
+  .pv_box .pv .pv-wrap-toggle:hover {
+    background: $c-secondary;
+    color: $c-over;
+  }
+}
+
+@include mq-is-col1 {
+  .pv_box {
+    background: $m-secondary_bg--mix-20;
+    padding-inline: 8px;
+  }
+  .pv_box .pv {
+    font-size: 1.2em;
+    padding-inline-end: 20px;
+  }
+  .pv_box .pv strong {
+    padding-inline-end: 8px;
+  }
+  .pv_box .pv .pv-wrap-toggle {
+    padding: 0;
   }
 }

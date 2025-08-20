@@ -15,7 +15,7 @@ import { uciToMove } from '@lichess-org/chessground/util';
 import { renderCevalSettings } from './settings';
 import type CevalCtrl from '../ctrl';
 import { Chessground as makeChessground } from '@lichess-org/chessground';
-import { displayColumns } from '../../device';
+import { displayColumns, isTouchDevice } from '../../device';
 
 type EvalInfo = { knps: number; npsText: string; depthText: string };
 
@@ -326,6 +326,14 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
       hook: {
         insert: vnode => {
           const el = vnode.elm as HTMLElement;
+          el.addEventListener('pointerdown', (e: PointerEvent) => {
+            const uciList = getElUciList(e);
+            if (uciList.length > (pvIndex ?? 0) && !ctrl.threatMode()) {
+              ctrl.playUciList(uciList.slice(0, (pvIndex ?? 0) + 1));
+              e.preventDefault();
+            }
+          });
+          if (isTouchDevice()) return;
           el.addEventListener('mouseover', (e: MouseEvent) => {
             const ceval = ctrl.getCeval();
             ceval.setHovering(getElFen(el), getElUci(e));
@@ -353,22 +361,13 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
             }),
           );
           el.addEventListener('mouseout', () => ctrl.getCeval().setHovering(getElFen(el)));
-          for (const event of ['touchstart', 'mousedown']) {
-            el.addEventListener(event, (e: TouchEvent | MouseEvent) => {
-              const uciList = getElUciList(e);
-              if (uciList.length > (pvIndex ?? 0) && !ctrl.threatMode()) {
-                ctrl.playUciList(uciList.slice(0, (pvIndex ?? 0) + 1));
-                e.preventDefault();
-              }
-            });
-          }
           el.addEventListener('mouseleave', () => {
             ctrl.getCeval().setPvBoard(null);
             pvIndex = null;
           });
           checkHover(el, ceval);
         },
-        postpatch: (_, vnode) => checkHover(vnode.elm as HTMLElement, ceval),
+        postpatch: (_, vnode) => isTouchDevice() && checkHover(vnode.elm as HTMLElement, ceval),
       },
     },
     [
