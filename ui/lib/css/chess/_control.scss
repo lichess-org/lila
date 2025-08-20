@@ -24,11 +24,6 @@
       border-radius: 8px;
       flex: 1;
 
-      &[data-act='prev'],
-      &[data-act='next'] {
-        padding-inline: 6px;
-        font-size: 1.2em;
-      }
       &[data-act='first'],
       &[data-act='last'] {
         font-size: 0.7em;
@@ -36,6 +31,13 @@
       &[data-act='line'] {
         font-size: 0.9em;
       }
+    }
+  }
+  @include mq-is-col1 {
+    .jumps .fbt[data-act='prev'],
+    .jumps .fbt[data-act='next'] {
+      padding-inline: 6px;
+      font-size: 1.2em;
     }
   }
   @media (hover: hover) {
