@@ -676,7 +676,7 @@ export default class PuzzleCtrl implements ParentCtrl {
   };
   autoNexting = () => this.lastFeedback === 'win' && this.autoNext();
   currentEvals = () => ({ client: this.node.ceval });
-  showEvalGauge = () => this.showComputer() && this.ceval.enabled() && !this.outcome();
+  showEvalGauge = () => this.showAnalysis() && this.ceval.enabled() && !this.outcome();
   getOrientation = () => this.withGround(g => g.state.orientation)!;
   allThemes = this.opts.themes && {
     dynamic: this.opts.themes.dynamic.split(' '),
@@ -686,7 +686,7 @@ export default class PuzzleCtrl implements ParentCtrl {
   getCeval = () => this.ceval;
   ongoing = false;
   getNode = () => this.node;
-  showComputer = () => this.mode === 'view';
+  showAnalysis = () => this.mode === 'view';
   routerWithLang = (path: string): string => {
     if (document.body.hasAttribute('data-user')) return path;
     const language = document.documentElement.lang.slice(0, 2);

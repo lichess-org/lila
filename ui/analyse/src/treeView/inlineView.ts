@@ -43,12 +43,12 @@ export class InlineView {
 
   constructor(
     readonly ctrl: AnalyseCtrl,
-    readonly showComputer = ctrl.showComputer() && !ctrl.retro?.isSolving(),
-    readonly showGlyphs = (!!ctrl.study && !ctrl.study?.relay) || ctrl.showComputer(),
+    readonly showAnalysis = ctrl.showFishnetAnalysis() && !ctrl.retro?.isSolving(),
+    readonly showGlyphs = (!!ctrl.study && !ctrl.study?.relay) || ctrl.showFishnetAnalysis(),
   ) {}
 
   filterNodes(nodes: Tree.Node[]): Tree.Node[] {
-    return nodes.filter(node => this.showComputer || !node.comp);
+    return nodes.filter(node => this.showAnalysis || !node.comp);
   }
 
   inlineNodes([child, ...siblings]: Tree.Node[], args: Args): LooseVNodes {
@@ -73,14 +73,16 @@ export class InlineView {
 
   commentNodes(node: Tree.Node, classes: Classes = {}): LooseVNodes[] {
     if (!this.ctrl.showComments || !node.comments) return [];
-    return node.comments.map(comment =>
-      this.commentNode(comment, node.comments!, {
-        inaccuracy: comment.text.startsWith('Inaccuracy.'),
-        mistake: comment.text.startsWith('Mistake.'),
-        blunder: comment.text.startsWith('Blunder.'),
-        ...classes,
-      }),
-    );
+    return node.comments
+      .map(comment =>
+        this.commentNode(comment, node.comments!, {
+          inaccuracy: comment.text.startsWith('Inaccuracy.'),
+          mistake: comment.text.startsWith('Mistake.'),
+          blunder: comment.text.startsWith('Blunder.'),
+          ...classes,
+        }),
+      )
+      .filter(Boolean);
   }
 
   protected variationNodes(lines: Tree.Node[], args: Args): LooseVNodes {
@@ -129,7 +131,7 @@ export class InlineView {
       (!isMainline || this.inline) &&
         (node.ply % 2 === 1 || parentNode.children.length > 1) &&
         renderIndex(node.ply, true),
-      moveNodes(node, ctrl.showComputer() && isMainline && !this.inline, ctrl.showComputer()),
+      moveNodes(node, ctrl.showFishnetAnalysis() && isMainline && !this.inline, ctrl.showFishnetAnalysis()),
     ]);
   }
 
@@ -184,7 +186,7 @@ export class InlineView {
   }
 
   private commentNode(comment: Tree.Comment, others: Tree.Comment[], classes: Classes) {
-    if (comment.by === 'lichess' && !this.showComputer) return;
+    if (comment.by === 'lichess' && !this.showAnalysis) return;
     const by = !others[1] ? '' : `<span class="by">${authorText(comment.by)}</span> `,
       htmlHook = innerHTML(comment.text, text => by + enrichText(text));
     return hl('comment', { class: classes, hook: htmlHook });

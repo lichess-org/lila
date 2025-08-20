@@ -91,7 +91,7 @@ function renderMobileCevalTab(ctrl: AnalyseCtrl): LooseVNode {
   if (displayColumns() !== 1) return undefined;
   const cevalMode = ctrl.ceval.enabled() && !ctrl.practice,
     showingTool = ctrl.showingTool(),
-    ev = ctrl.node.ceval || ctrl.node.eval,
+    ev = ctrl.node.ceval ?? ctrl.node.eval,
     evalstr = ev?.cp ? renderEval(ev.cp) : ev?.mate ? '#' + ev.mate : '',
     active = cevalMode && !showingTool,
     latent = cevalMode && !!showingTool;
@@ -102,6 +102,7 @@ function renderMobileCevalTab(ctrl: AnalyseCtrl): LooseVNode {
       class: { active, latent },
     },
     evalstr &&
+      ctrl.showAnalysis() &&
       (!cevalMode || latent) &&
       !ctrl.practice &&
       !ctrl.isGamebook() &&

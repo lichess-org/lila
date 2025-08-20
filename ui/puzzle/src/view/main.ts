@@ -65,7 +65,7 @@ function controls(ctrl: PuzzleCtrl): VNode {
 let cevalShown = false;
 
 export default function (ctrl: PuzzleCtrl): VNode {
-  const showCeval = ctrl.showComputer(),
+  const showCeval = ctrl.showAnalysis(),
     gaugeOn = ctrl.showEvalGauge();
   if (cevalShown !== showCeval) {
     if (!cevalShown) ctrl.autoScrollNow = true;

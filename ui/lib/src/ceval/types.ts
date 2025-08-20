@@ -122,7 +122,7 @@ export interface Started {
 }
 
 export interface ParentCtrl {
-  getCeval(): CevalCtrl;
+  ceval: CevalCtrl;
   nextNodeBest(): string | undefined;
   disableThreatMode?: Prop<boolean>;
   toggleThreatMode(): void;
@@ -137,12 +137,12 @@ export interface ParentCtrl {
   getOrientation(): Color;
   threatMode(): boolean;
   getNode(): Tree.Node;
-  showComputer(): boolean;
-  toggleComputer?: () => void;
+  showAnalysis(): boolean;
   clearCeval: () => void;
   restartCeval: () => void;
   redraw?: () => void;
   externalEngines?: () => ExternalEngineInfo[] | undefined;
+  showFishnetAnalysis?: () => boolean;
 }
 
 export interface NodeEvals {

@@ -112,7 +112,7 @@ export function renderMain(ctx: ViewContext, ...kids: LooseVNodes[]): VNode {
         },
       },
       class: {
-        'comp-off': !ctrl.showComputer(),
+        'comp-off': !ctrl.showFishnetAnalysis(),
         'gauge-on': gaugeOn,
         'has-players': !!playerBars,
         'gamebook-play': !!gamebookPlayView,
@@ -302,7 +302,7 @@ export const renderIndex = (ply: Ply, withDots: boolean): VNode =>
   hl(`index.sbhint${ply}`, plyToTurn(ply) + (withDots ? (ply % 2 === 1 ? '.' : '...') : ''));
 
 export function moveNodes(node: Tree.Node, withEval: boolean, withGlyphs: boolean): LooseVNodes {
-  const ev = cevalView.getBestEval({ client: node.ceval, server: node.eval });
+  const ev = node.ceval ?? node.eval;
   const evalText = ev?.cp !== undefined ? normalizeEval(ev.cp) : ev?.mate !== undefined ? `#${ev.mate}` : '';
   return [
     hl('san', fixCrazySan(node.san!)),

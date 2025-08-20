@@ -57,7 +57,7 @@ export const bind = (ctrl: AnalyseCtrl) => {
       if (ctrl.ceval.analysable) ctrl.toggleCeval();
     })
     .bind('z', () => {
-      ctrl.toggleComputer();
+      ctrl.toggleFishnetAnalysis();
       ctrl.redraw();
     })
     .bind('a', () => {
@@ -150,7 +150,7 @@ function addModifierKeyListeners(ctrl: AnalyseCtrl) {
 
     if (ctrl.disclosureMode()) {
       if (isShift) ctrl.userJumpIfCan(ctrl.idbTree.nextLine(), true);
-      else if (e.key === 'Control') ctrl.toggleParentDisclosure();
+      else if (e.key === 'Control') ctrl.toggleDiscloseOf();
     } else {
       if (isShift && ctrl.fork.next()) ctrl.setAutoShapes();
     }

@@ -51,7 +51,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
     }
     return [];
   }
-  const instance = ctrl.getCeval();
+  const instance = ctrl.ceval;
   const {
     eval: nEval = {} as Partial<Tree.ServerEval>,
     fen: nFen,
@@ -76,7 +76,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
   ctrl.fork.hover(hovering?.uci);
   if (hovering?.fen === nFen) shapes = shapes.concat(makeShapesFromUci(color, hovering.uci, 'paleBlue'));
 
-  if (ctrl.showAutoShapes() && ctrl.showComputer()) {
+  if (ctrl.showAutoShapes() && ctrl.showAnalysis()) {
     if (nEval.best && !ctrl.showVariationArrows())
       shapes = shapes.concat(makeShapesFromUci(rcolor, nEval.best, 'paleGreen'));
     if (!hovering && instance.search.multiPv) {
@@ -125,7 +125,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
 
 function hiliteVariations(ctrl: AnalyseCtrl, autoShapes: DrawShape[]) {
   const parent = ctrl.disclosureMode() ? ctrl.tree.parentNode(ctrl.path) : (ctrl.node ?? ctrl.tree.root);
-  const visible = parent.children.filter(n => ctrl.showComputer || !n.comp);
+  const visible = parent.children.filter(n => ctrl.showFishnetAnalysis || !n.comp);
   if (visible.length < 2) return;
   const chap = ctrl.study?.data.chapter;
   const isGamebookEditor = chap?.gamebook && !ctrl.study?.gamebookPlay;

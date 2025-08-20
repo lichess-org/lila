@@ -78,7 +78,7 @@ export class IdbTree {
 
   discloseOf(node: Tree.Node | undefined): DiscloseState {
     if (!this.ctrl.disclosureMode() || !node) return undefined;
-    return node.collapsed ? 'collapsed' : this.isCollapsible(node) ? 'expanded' : undefined;
+    return this.isCollapsible(node) ? (node.collapsed ? 'collapsed' : 'expanded') : undefined;
   }
 
   onAddNode(node: Tree.Node, path: Tree.Path): void {
@@ -133,8 +133,10 @@ export class IdbTree {
 
   private isCollapsible(node: Tree.Node): boolean {
     if (!this.ctrl.disclosureMode() || !node) return false;
-    const [first, second] = node.children;
-    return Boolean(second || first?.comments?.length || first?.forceVariation);
+    const [first, second] = node.children.filter(n => this.ctrl.showFishnetAnalysis() || !n.comp);
+    return Boolean(
+      second || first?.comments?.filter(c => c.by !== 'lichess').length || first?.forceVariation,
+    );
   }
 
   private getCollapsed(): Tree.Path[] {
@@ -163,7 +165,7 @@ export class IdbTree {
     const parentPath = path.slice(0, -2);
     return [
       parentPath,
-      this.ctrl.tree.nodeAtPath(parentPath).children.filter(x => !x.comp || this.ctrl.showComputer()),
+      this.ctrl.tree.nodeAtPath(parentPath).children.filter(x => !x.comp || this.ctrl.showFishnetAnalysis()),
     ];
   }
 }

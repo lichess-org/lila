@@ -276,7 +276,7 @@ function boardEventsHook(
 function renderEvalAndDepth(ctrl: AnalyseCtrl): string {
   if (ctrl.threatMode()) return `${evalInfo(ctrl.node.threat)} ${depthInfo(ctrl.node.threat, false)}`;
   const evs = ctrl.currentEvals(),
-    bestEv = cevalView.getBestEval(evs);
+    bestEv = cevalView.getBestEval(ctrl);
   const evalStr = evalInfo(bestEv);
   return !evalStr ? noEvalStr(ctrl.ceval) : `${evalStr} ${depthInfo(evs.client, !!evs.client?.cloud)}`;
 }

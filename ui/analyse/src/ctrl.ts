@@ -96,7 +96,7 @@ export default class AnalyseCtrl {
   disclosureMode = storedBooleanProp('analyse.disclosure.enabled', false);
   variationArrows = storedBooleanProp('analyse.show-variation-arrows', true);
   showGauge = storedBooleanProp('analyse.show-gauge', true);
-  showComputer = storedBooleanProp('analyse.show-computer', true);
+  showFishnetAnalysis = storedBooleanProp('analyse.show-computer', true);
   showMoveAnnotation = storedBooleanProp('analyse.show-move-annotation', true);
   keyboardHelp: boolean = location.hash === '#keyboard';
   threatMode: Prop<boolean> = prop(false);
@@ -163,7 +163,7 @@ export default class AnalyseCtrl {
     this.setPath(this.initialPath);
 
     this.showGround();
-    this.onToggleComputer();
+    this.resetAutoShapes();
     this.explorer.setNode();
     this.study =
       opts.study && makeStudy
@@ -730,8 +730,6 @@ export default class AnalyseCtrl {
     else this.ceval = new CevalCtrl(opts);
   }
 
-  getCeval = () => this.ceval;
-
   outcome(node?: Tree.Node): Outcome | undefined {
     return this.position(node || this.node).unwrap(
       pos => pos.outcome(),
@@ -758,13 +756,12 @@ export default class AnalyseCtrl {
   });
 
   ensureCevalRunning = () => {
-    if (!this.showComputer()) this.toggleComputer();
     if (!this.ceval.enabled()) this.toggleCeval();
     if (this.threatMode()) this.toggleThreatMode();
   };
 
   toggleCeval = (enable = !this.ceval.enabled()) => {
-    if (!this.showComputer() || enable === this.ceval.enabled()) return;
+    if (enable === this.ceval.enabled()) return;
     this.ceval.toggle();
     this.setAutoShapes();
     this.startCeval();
@@ -776,7 +773,7 @@ export default class AnalyseCtrl {
   };
 
   toggleThreatMode = () => {
-    if (this.node.check || !this.showComputer()) return;
+    if (this.node.check || !this.showAnalysis()) return;
     if (!this.ceval.enabled()) this.ceval.toggle();
     if (!this.ceval.enabled()) return;
     this.threatMode(!this.threatMode());
@@ -806,12 +803,12 @@ export default class AnalyseCtrl {
     this.restartCeval();
   }
 
-  showEvalGauge(): boolean {
-    return this.hasAnyComputerAnalysis() && this.showGauge() && !this.outcome() && this.showComputer();
+  showAnalysis() {
+    return this.showFishnetAnalysis() || this.ceval.enabled();
   }
 
-  hasAnyComputerAnalysis(): boolean {
-    return this.data.analysis ? true : this.ceval.enabled();
+  showEvalGauge(): boolean {
+    return this.showAnalysis() && this.showGauge() && !this.outcome();
   }
 
   hasFullComputerAnalysis = (): boolean => {
@@ -830,7 +827,7 @@ export default class AnalyseCtrl {
       : this.variationArrows()
         ? this.node.children
         : [];
-    return Boolean(kids.filter(x => !x.comp || this.showComputer()).length);
+    return Boolean(kids.filter(x => !x.comp || this.showFishnetAnalysis()).length);
   }
 
   allowLines() {
@@ -844,7 +841,7 @@ export default class AnalyseCtrl {
     return this.allowLines() && this.disclosureMode() && this.idbTree.nextLine() !== this.path;
   }
 
-  toggleParentDisclosure() {
+  toggleDiscloseOf() {
     const parentPath = this.path.slice(0, -2);
     const disclose = this.idbTree.discloseOf(this.tree.nodeAtPath(parentPath));
     if (disclose) this.idbTree.setCollapsed(parentPath, disclose === 'expanded');
@@ -870,20 +867,10 @@ export default class AnalyseCtrl {
     this.resetAutoShapes();
   };
 
-  private onToggleComputer() {
-    if (!this.showComputer()) {
-      if (this.ceval.enabled()) this.toggleCeval();
-    }
+  toggleFishnetAnalysis = () => {
+    this.showFishnetAnalysis(!this.showFishnetAnalysis());
     this.resetAutoShapes();
-  }
-
-  toggleComputer = () => {
-    if (this.ceval.enabled()) this.toggleCeval();
-    const value = !this.showComputer();
-    this.showComputer(value);
-    if (!value && this.practice) this.togglePractice();
-    this.onToggleComputer();
-    pubsub.emit('analysis.comp.toggle', value);
+    pubsub.emit('analysis.comp.toggle', this.showFishnetAnalysis());
   };
 
   mergeAnalysisData(data: ServerEvalData) {

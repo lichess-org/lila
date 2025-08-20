@@ -83,7 +83,7 @@ function studyButton(ctrl: AnalyseCtrl) {
 export function view(ctrl: AnalyseCtrl): VNode {
   const d = ctrl.data,
     canContinue = !ctrl.ongoing && d.game.variant.key === 'standard',
-    ceval = ctrl.getCeval(),
+    ceval = ctrl.ceval,
     mandatoryCeval = ctrl.mandatoryCeval(),
     linkAttrs = { rel: ctrl.isEmbed ? '' : 'nofollow', target: ctrl.isEmbed ? '_blank' : '' };
 
@@ -152,15 +152,15 @@ export function view(ctrl: AnalyseCtrl): VNode {
     !mandatoryCeval &&
       ctrlToggle(
         {
-          name: 'Show server analysis',
-          title: 'Show server analysis (Hotkey: z)',
+          name: 'Show fishnet analysis',
+          title: 'Show fishnet analysis (Hotkey: z)',
           id: 'all',
-          checked: ctrl.showComputer(),
-          change: ctrl.toggleComputer,
+          checked: ctrl.showFishnetAnalysis(),
+          change: ctrl.toggleFishnetAnalysis,
         },
         ctrl,
       ),
-    ctrl.showComputer() && [
+    /*ctrl.showFishnetAnalysis() &&*/ [
       ctrlToggle(
         {
           name: i18n.site.bestMoveArrow,

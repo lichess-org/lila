@@ -320,8 +320,8 @@ export default class StudyCtrl {
     pubsub.emit('voiceChat.toggle', this.data.features.chat && !!this.members.myMember());
     const computer: boolean =
       !this.isGamebookPlay() && !!(this.data.chapter.features.computer || this.data.chapter.practice);
-    if (!computer) this.ctrl.getCeval().enabled(false);
-    this.ctrl.getCeval().allowed(computer);
+    if (!computer) this.ctrl.ceval.enabled(false);
+    this.ctrl.ceval.allowed(computer);
     if (!this.data.chapter.features.explorer) this.ctrl.explorer.disable();
     this.ctrl.explorer.allowed(this.data.chapter.features.explorer);
   };
