@@ -25,7 +25,7 @@ object Dependencies {
   val googleOAuth = "com.google.auth" % "google-auth-library-oauth2-http" % "1.37.1"
   val galimatias = "io.mola.galimatias" % "galimatias" % "0.2.2-NF"
   val scalatags = "com.lihaoyi" %% "scalatags" % "0.13.1"
-  val lettuce = "io.lettuce" % "lettuce-core" % "6.7.1.RELEASE"
+  val lettuce = "io.lettuce" % "lettuce-core" % "6.8.0.RELEASE"
   val nettyTransport =
     ("io.netty" % s"netty-transport-native-$notifier" % "4.2.4.Final").classifier(s"$os-$arch")
   val lilaSearch = "com.github.lichess-org.lila-search" %% "client" % "3.2.0"
@@ -83,7 +83,7 @@ object Dependencies {
   object reactivemongo {
     val driver = ("org.reactivemongo" %% "reactivemongo" % "1.1.0-RC13")
       .exclude("org.scala-lang.modules", "scala-java8-compat_2.13")
-    val stream = "org.reactivemongo" %% "reactivemongo-akkastream" % "1.1.0-RC15"
+    val stream = "org.reactivemongo" %% "reactivemongo-akkastream" % "1.1.0-RC16"
     val shaded = "org.reactivemongo" % s"reactivemongo-shaded-native-$os-$dashArch" % "1.1.0-RC15"
     // val kamon  = "org.reactivemongo" %% "reactivemongo-kamon"         % "1.0.8"
     def bundle = Seq(driver, stream)

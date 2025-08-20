@@ -11,12 +11,12 @@ import {
   viewContext,
   renderBoard,
   renderMain,
-  renderControls,
   renderTools,
   renderUnderboard,
 } from '../../view/components';
 import { displayColumns, isTouchDevice } from 'lib/device';
 import type RelayCtrl from './relayCtrl';
+import { renderControls } from '../../view/controls';
 
 export function relayView(
   ctrl: AnalyseCtrl,
@@ -102,7 +102,7 @@ function renderBoardView(ctx: RelayViewContext) {
     renderBoard(ctx),
     gaugeOn && cevalView.renderGauge(ctrl),
     renderTools(ctx, relay.noEmbed() ? undefined : relay.videoPlayer?.render()),
-    renderControls(ctx),
+    renderControls(ctrl),
     !ctrl.isEmbed && renderUnderboard(ctx),
     tourSide(ctx, resizable && deps.relayManager(relay, study)),
     !resizable && deps.relayManager(relay, study),

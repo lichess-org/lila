@@ -29,7 +29,9 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
               data =>
                 limit.forumTopic(ctx.ip, rateLimited):
                   topicApi.makeTopic(categ, data).map { topic =>
-                    Redirect(routes.ForumTopic.show(categ.id, topic.slug, 1))
+                    val url = routes.ForumTopic.show(categ.id, topic.slug, 1).url
+                    discard { env.report.api.automodComms(data.automodText, url) }
+                    Redirect(url)
                   }
             )
           }

@@ -19,7 +19,7 @@ final class UblogViewCounter(colls: UblogColls)(using Executor):
         if bloomFilter.mightContain(key) then post.views
         else
           bloomFilter.add(key)
-          lila.mon.ublog.view(post.created.by).increment()
+          lila.mon.ublog.view.increment()
           colls.post.incFieldUnchecked($id(post.id), "views")
           post.views + 1)
     else post

@@ -158,7 +158,7 @@ export default class StudyCtrl {
       () => this.data.federations,
       this.ctrl,
     );
-    this.multiCloudEval = ctrl.ceval.possible
+    this.multiCloudEval = ctrl.ceval.allowed()
       ? new MultiCloudEval(this.redraw, this.chapters.list, this.send)
       : undefined;
     if (relayData) this.relay = new RelayCtrl(this, relayData);

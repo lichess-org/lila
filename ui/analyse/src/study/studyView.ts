@@ -32,14 +32,8 @@ import { watchers } from 'lib/view/watchers';
 import type StudyCtrl from './studyCtrl';
 import { verticalResize } from 'lib/view/verticalResize';
 import { isTouchDevice, displayColumns, shareIcon } from 'lib/device';
-import {
-  viewContext,
-  renderBoard,
-  renderMain,
-  renderControls,
-  renderTools,
-  renderUnderboard,
-} from '../view/components';
+import { viewContext, renderBoard, renderMain, renderTools, renderUnderboard } from '../view/components';
+import { renderControls } from '../view/controls';
 
 export function studyView(ctrl: AnalyseCtrl, study: StudyCtrl, deps: typeof studyDeps): VNode {
   const ctx = viewContext(ctrl, deps);
@@ -53,7 +47,7 @@ export function studyView(ctrl: AnalyseCtrl, study: StudyCtrl, deps: typeof stud
     crazyView(ctrl, ctrl.topColor(), 'top'),
     gamebookPlayView || renderTools(ctx),
     crazyView(ctrl, ctrl.bottomColor(), 'bottom'),
-    !gamebookPlayView && renderControls(ctx),
+    !gamebookPlayView && renderControls(ctrl),
     renderUnderboard(ctx),
     ctrl.keyboardMove && renderKeyboardMove(ctrl.keyboardMove),
     trainingView(ctrl),

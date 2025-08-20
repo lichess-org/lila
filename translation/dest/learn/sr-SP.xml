@@ -184,12 +184,12 @@
 Скакач = 3
 Пешак = 1
 Краљ је непроцењив! Изгубити га значи изгубити партију.</string>
-  <string name="queenOverBishop">Однесите фигуру
+  <string name="queenOverBishop">Узми фигуру
 са највишом вредношћу!
 Дама &gt; Ловац</string>
-  <string name="takeThePieceWithTheHighestValue">Однесите фигуру
+  <string name="takeThePieceWithTheHighestValue">Узми фигуру
 са највишом вредношћу!</string>
-  <string name="pieceValueComplete">Честитамо! Знате вредност материјала!
+  <string name="pieceValueComplete">Честитке! Знаш вредност материјала!
 Дама = 9
 Топ = 5
 Ловац = 3
@@ -200,26 +200,26 @@
   <string name="checkInTwoIntro">Пронађите праву комбинацију два потеза која шахира противниковог краља!</string>
   <string name="checkInTwoGoal">Запретите противничком краљу
 у два потеза!</string>
-  <string name="checkInTwoComplete">Честитамо! Дали сте шах вашем противнику, терајући их да одбране свог краља!</string>
+  <string name="checkInTwoComplete">Честитке! Дао/ла си шах твом противнику, терајући га да одбрани свог краља!</string>
   <string name="whatNext">Шта даље?</string>
-  <string name="youKnowHowToPlayChess">Знате како играти шах, честитамо! Да ли желите постати јачи играч?</string>
-  <string name="register">Региструјте се</string>
-  <string name="getAFreeLichessAccount">Набавите бесплатан Личес налог</string>
-  <string name="practice">Вежбајте</string>
+  <string name="youKnowHowToPlayChess">Знаш како да играш шах, честитке! Да ли желиш постати јачи играч?</string>
+  <string name="register">Региструј се</string>
+  <string name="getAFreeLichessAccount">Набави бесплатан Lichess налог</string>
+  <string name="practice">Вежбај</string>
   <string name="learnCommonChessPositions">Научите честе шаховске позиције</string>
   <string name="puzzles">Проблеми</string>
   <string name="exerciseYourTacticalSkills">Вежбајте Ваше тактичке вештине</string>
   <string name="videos">Видео снимци</string>
-  <string name="watchInstructiveChessVideos">Гледајте поучне шаховске видео снимке</string>
-  <string name="playPeople">Играјте против људи</string>
+  <string name="watchInstructiveChessVideos">Гледај поучне шаховске видео снимке</string>
+  <string name="playPeople">Играј против људи</string>
   <string name="opponentsFromAroundTheWorld">Противници из целог света</string>
-  <string name="playMachine">Играјте против рачунара</string>
-  <string name="testYourSkillsWithTheComputer">Тестирајте Ваше вештине са рачунаром</string>
-  <string name="letsGo">Кренимо!</string>
+  <string name="playMachine">Играј против машине</string>
+  <string name="testYourSkillsWithTheComputer">Тестирај своје вештине против рачунара</string>
+  <string name="letsGo">Крени!</string>
   <string name="stageX">Ниво %s</string>
-  <string name="awesome">Сјајно!</string>
+  <string name="awesome">Феноменално!</string>
   <string name="excellent">Одлично!</string>
-  <string name="greatJob">Одличан посао!</string>
+  <string name="greatJob">Одлично одрађено!</string>
   <string name="perfect">Савршено!</string>
   <string name="outstanding">Изванредно!</string>
   <string name="wayToGo">Свака част!</string>

@@ -1,6 +1,6 @@
 import { view as cevalView, renderEval as normalizeEval } from 'lib/ceval/ceval';
 import { parseFen } from 'chessops/fen';
-import { defined, repeater } from 'lib';
+import { defined } from 'lib';
 import * as licon from 'lib/licon';
 import {
   type VNode,
@@ -14,7 +14,7 @@ import {
   hl,
 } from 'lib/snabbdom';
 import { playable } from 'lib/game/game';
-import { bindMobileMousedown, isMobile, displayColumns } from 'lib/device';
+import { isMobile } from 'lib/device';
 import * as materialView from 'lib/game/view/material';
 import { path as treePath } from 'lib/tree/tree';
 import { view as actionMenu } from './actionMenu';
@@ -272,100 +272,6 @@ export function renderInputs(ctrl: AnalyseCtrl): VNode | undefined {
   ]);
 }
 
-export function renderControls(ctx: ViewContext) {
-  const { ctrl } = ctx,
-    canJumpPrev = ctrl.path !== '',
-    canJumpNext = !!ctrl.node.children[0],
-    showingTool = ctrl.showingTool(),
-    canUseEngine = ctrl.ceval.possible && ctrl.ceval.allowed() && !ctrl.isGamebook() && !ctrl.isEmbed;
-
-  return hl(
-    'div.analyse__controls.analyse-controls',
-    {
-      hook: onInsert(
-        bindMobileMousedown(e => {
-          if (!(e.target instanceof HTMLElement)) return;
-          const action = dataAct(e);
-          if (action === 'prev' || action === 'next')
-            repeater(() => {
-              control[action](ctrl);
-              ctrl.redraw();
-            }, e);
-          else if (action === 'line') ctrl.userJumpIfCan(ctrl.idbTree.nextLine(), true);
-          else if (action === 'first') control.first(ctrl);
-          else if (action === 'last') control.last(ctrl);
-          else if (action === 'opening-explorer') ctrl.toggleExplorer();
-          else if (action === 'menu') ctrl.toggleActionMenu();
-          else if (action === 'analysis' && ctrl.studyPractice)
-            window.open(ctrl.studyPractice.analysisUrl(), '_blank');
-          else if (action?.startsWith('ceval')) {
-            if (ctrl.showingTool()) ctrl.closeTools();
-            if (e.target.classList.contains('latent')) return;
-            if (ctrl.practice || action === 'ceval-practice') ctrl.togglePractice();
-            else ctrl.toggleCeval();
-          }
-        }, ctrl.redraw),
-      ),
-    },
-    [
-      ctrl.studyPractice
-        ? [
-            hl('button.fbt', {
-              attrs: { title: i18n.site.analysis, 'data-act': 'analysis', 'data-icon': licon.Microscope },
-            }),
-          ]
-        : [
-            hl('button.fbt', {
-              attrs: {
-                title: i18n.site.openingExplorerAndTablebase,
-                'data-act': 'opening-explorer',
-                'data-icon': licon.Book,
-              },
-              class: {
-                hidden: !ctrl.explorer.allowed() || !!ctrl.retro,
-                active: showingTool === 'opening-explorer',
-              },
-            }),
-            canUseEngine && [
-              displayColumns() === 1 &&
-                hl('button.fbt', {
-                  attrs: { 'data-act': 'ceval', 'data-icon': licon.Stockfish },
-                  class: {
-                    active: ctrl.ceval.enabled() && !ctrl.practice && !showingTool,
-                    latent: ctrl.ceval.enabled() && !ctrl.practice && !!showingTool,
-                  },
-                }),
-              hl('button.fbt', {
-                attrs: {
-                  title: i18n.site.practiceWithComputer,
-                  'data-act': 'ceval-practice',
-                  'data-icon': licon.Bullseye,
-                },
-                class: {
-                  hidden: !!ctrl.retro,
-                  active: !!ctrl.practice && !showingTool,
-                  latent: !!ctrl.practice && !!showingTool,
-                },
-              }),
-            ],
-          ],
-      hl('div.jumps', [
-        jumpButton(licon.JumpFirst, 'first', canJumpPrev),
-        jumpButton(licon.JumpPrev, 'prev', canJumpPrev),
-        ctrl.disclosureMode() && jumpButton(licon.NextLine, 'line', ctrl.idbTree.nextLine() !== ctrl.path),
-        jumpButton(licon.JumpNext, 'next', canJumpNext),
-        jumpButton(licon.JumpLast, 'last', ctrl.node !== ctrl.mainline[ctrl.mainline.length - 1]),
-      ]),
-      ctrl.studyPractice
-        ? hl('div.noop')
-        : hl('button.fbt', {
-            class: { active: showingTool === 'action-menu' },
-            attrs: { title: i18n.site.menu, 'data-act': 'menu', 'data-icon': licon.Hamburger },
-          }),
-    ],
-  );
-}
-
 export function renderResult(ctrl: AnalyseCtrl): VNode[] {
   const termination = () => ctrl.study && findTag(ctrl.study.data.chapter.tags, 'termination');
   const render = (result: string, status: string) => [
@@ -462,17 +368,6 @@ function forceInnerCoords(ctrl: AnalyseCtrl, v: boolean) {
     }
   }
 }
-
-const jumpButton = (icon: string, effect: string, enabled: boolean): VNode =>
-  hl('button.fbt', {
-    class: { disabled: !enabled },
-    attrs: { 'data-act': effect, 'data-icon': icon },
-  });
-
-const dataAct = (e: Event): string | null => {
-  const target = e.target as HTMLElement;
-  return target.getAttribute('data-act') || (target.parentNode as HTMLElement).getAttribute('data-act');
-};
 
 function renderPlayerStrips(ctrl: AnalyseCtrl): [VNode, VNode] | undefined {
   const renderPlayerStrip = (cls: string, materialDiff: VNode, clock?: VNode): VNode =>

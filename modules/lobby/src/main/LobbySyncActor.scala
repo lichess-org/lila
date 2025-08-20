@@ -112,7 +112,7 @@ final private class LobbySyncActor(
           hookRepo
             .notInSris(sris)
             .filter: h =>
-              !h.boardApi && (h.createdAt.isBefore(fewSecondsAgo))
+              !h.boardApi && h.createdAt.isBefore(fewSecondsAgo)
             .toSet ++ hookRepo.cleanupOld
 
       lila.mon.lobby.socket.member.update(sris.size)

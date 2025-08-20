@@ -2,7 +2,7 @@ import type AnalyseCtrl from '../ctrl';
 import type { VNode, Hooks } from 'snabbdom';
 import { defined } from 'lib';
 import { throttle } from 'lib/async';
-import { bindMobileTapHold, isTouchDevice, displayColumns } from 'lib/device';
+import { addPointerListeners, isTouchDevice, displayColumns } from 'lib/device';
 import { storedProp } from 'lib/storage';
 import type { ConcealOf } from '../interfaces';
 import { renderContextMenu } from './contextMenu';
@@ -43,9 +43,10 @@ export class TreeView {
           return false;
         };
         el.oncontextmenu = ctxMenuCallback;
-        if (isTouchDevice()) el.ondblclick = ctxMenuCallback; // long press horribad
-        bindMobileTapHold(el, ctxMenuCallback, ctrl.redraw);
-
+        if (isTouchDevice()) {
+          el.ondblclick = ctxMenuCallback;
+          addPointerListeners(el, undefined, ctxMenuCallback);
+        }
         el.addEventListener('mousedown', (e: MouseEvent) => {
           if (!(e.target instanceof HTMLElement)) return;
           if (e.target.classList.contains('disclosure') || (defined(e.button) && e.button !== 0)) return;

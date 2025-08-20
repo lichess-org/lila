@@ -2,8 +2,7 @@ package lila.pool
 
 import chess.rating.IntRatingDiff
 
-import lila.core.playban.RageSit
-import lila.core.pool.{ Joiner, PoolMember }
+import lila.core.pool.PoolMember
 import lila.core.rating.RatingRange
 
 extension (m: PoolMember)
@@ -13,17 +12,3 @@ extension (m: PoolMember)
     if r == m.ratingRange then m
     else m.copy(ratingRange = r, misses = 0)
   def hasRange = m.ratingRange.isDefined
-
-object PoolMember:
-
-  def apply(joiner: Joiner, rageSit: RageSit): PoolMember =
-    lila.core.pool.PoolMember(
-      userId = joiner.me,
-      sri = joiner.sri,
-      lame = joiner.lame,
-      rating = joiner.rating,
-      provisional = joiner.provisional,
-      ratingRange = joiner.ratingRange,
-      blocking = joiner.blocking,
-      rageSitCounter = rageSit.counterView
-    )

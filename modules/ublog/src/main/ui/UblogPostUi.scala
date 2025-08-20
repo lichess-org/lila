@@ -212,8 +212,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
               button(cls := "button button-metal carousel-pin-btn")("pin")
             )
         ),
-        post.automod.map(_.lockedBy.map: lockedBy =>
-          span(cls := "")(s"* Edited by $lockedBy"))
+        post.automod.flatMap(_.lockedBy).map(u => span(s"* Edited by $u"))
       ),
       fieldset(cls := "submit-fields")(
         legend("Tags", button(cls := "button button-empty none submit")("Submit")),

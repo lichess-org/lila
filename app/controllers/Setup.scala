@@ -150,7 +150,7 @@ final class Setup(
           for
             me <- ctx.me.so(env.user.api.withPerfs)
             blocking <- ctx.me.so(env.relation.api.fetchBlocking(_))
-            uniqId = author.fold(_.value, u => s"sri:${u.id}")
+            sri = orUserSri(author)
             ua = HTTPRequest.userAgent(req).fold("?")(_.value)
             _ = lila.mon.lobby.hook
               .apiCreate(ua = ua.split(' ').take(2).mkString(" "), color = config.color.name)
@@ -160,7 +160,7 @@ final class Setup(
               case Some(forced) => fuccess(JsonBadRequest(s"You must also play some games as $forced"))
               case None =>
                 config
-                  .hook(reqSri | Sri(uniqId), me, sid = uniqId.some, lila.core.pool.Blocking(blocking))
+                  .hook(reqSri | sri, me, sid = sri.value.some, lila.core.pool.Blocking(blocking))
                   .match
                     case Left(hook) =>
                       limit.setupPost(req.ipAddress, rateLimited):
@@ -182,11 +182,13 @@ final class Setup(
       )
   }
 
-  def boardApiHookCancel = WithBoardApiHookAuthor { (_, reqSri) => _ ?=>
-    reqSri.so: sri =>
-      env.lobby.boardApiHookStream.cancel(sri)
-      NoContent
+  def boardApiHookCancel = WithBoardApiHookAuthor { (author, _) => _ ?=>
+    env.lobby.boardApiHookStream.cancel(orUserSri(author))
+    NoContent
   }
+
+  private def orUserSri(author: Either[Sri, lila.user.User]): Sri =
+    author.fold(identity, u => Sri(s"user:${u.id}"))
 
   private def WithBoardApiHookAuthor(
       f: (Either[Sri, lila.user.User], Option[Sri]) => BodyContext[?] ?=> Fu[Result]

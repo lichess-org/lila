@@ -7,7 +7,8 @@
 
   .fbt {
     @extend %box-radius-bottom;
-
+    @include prevent-select;
+    -webkit-touch-callout: none;
     text-align: center;
   }
 
@@ -17,13 +18,17 @@
 
   .jumps {
     display: flex;
-    padding: 4px 1em;
+    padding: 4px;
 
     .fbt {
       border-radius: 8px;
-      line-height: 1.2;
       flex: 1;
 
+      &[data-act='prev'],
+      &[data-act='next'] {
+        padding-inline: 6px;
+        font-size: 1.2em;
+      }
       &[data-act='first'],
       &[data-act='last'] {
         font-size: 0.7em;

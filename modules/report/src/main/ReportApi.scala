@@ -3,11 +3,13 @@ package lila.report
 import com.softwaremill.macwire.*
 
 import lila.common.Bus
+import lila.core.data.Text
 import lila.core.id.ReportId
 import lila.core.report.SuspectId
 import lila.core.userId.ModId
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
+import lila.memo.SettingStore.Text.given
 import lila.report.Room.Scores
 
 final class ReportApi(
@@ -21,7 +23,9 @@ final class ReportApi(
     isOnline: lila.core.socket.IsOnline,
     cacheApi: lila.memo.CacheApi,
     snoozer: lila.memo.Snoozer[Report.SnoozeKey],
-    thresholds: Thresholds
+    thresholds: Thresholds,
+    automodApi: Automod,
+    settingStore: lila.memo.SettingStore.Builder
 )(using Executor, Scheduler, lila.core.config.NetDomain)
     extends lila.core.report.ReportApi:
 
@@ -31,6 +35,18 @@ final class ReportApi(
   private lazy val accuracyOf = accuracy.apply
 
   private lazy val scorer = wire[ReportScore]
+
+  val promptSetting = settingStore[Text](
+    "commsAutomodPrompt",
+    text = "Comms automod prompt".some,
+    default = Text("")
+  )
+
+  val modelSetting = settingStore[String](
+    "commsAutomodModel",
+    text = "Comms automod model".some,
+    default = "Qwen/Qwen3-235B-A22B-Instruct-2507-tput"
+  )
 
   def create(data: ReportSetup, reporter: Reporter, msgs: List[String]): Funit =
     Reason(data.reason).so: reason =>
@@ -292,6 +308,39 @@ final class ReportApi(
     )
     for _ <- doProcessReport(selector, unsetInquiry = true)
     yield onReportClose()
+
+  def automodRequest(
+      userText: String,
+      systemPrompt: Text,
+      model: String,
+      temperature: Double = 0
+  ): Fu[Option[play.api.libs.json.JsObject]] =
+    automodApi.request(userText, systemPrompt, model, temperature)
+
+  def automodComms(userText: String, resource: String)(using me: Me): Funit =
+    for
+      rsp <- automodRequest(userText, systemPrompt = promptSetting.get(), model = modelSetting.get())
+        .monSuccess(_.mod.report.automod.request)
+      suspectOpt <- getSuspect(me)
+      reporter <- getLichessReporter
+    yield for
+      res <- rsp
+      assessmentOpt = (res \ "assessment").asOpt[String]
+      _ = lila.mon.mod.report.automod.assessment(assessmentOpt | "ok").increment()
+      assessment <- assessmentOpt
+      reason <- Reason(assessment)
+      suspect <- suspectOpt
+      summary = (res \ "reason").asOpt[String].getOrElse("No reason provided")
+    yield create(
+      Candidate(
+        reporter = reporter,
+        suspect = suspect,
+        reason = reason,
+        text = s"${Reason.flagText} $resource ${reason.name}: $summary"
+      )
+    ).recoverWith: e =>
+      logger.warn(s"Comms automod failed for ${me.username}: ${e.getMessage}", e)
+      funit
 
   private def onReportClose() =
     maxScoreCache.invalidateUnit()

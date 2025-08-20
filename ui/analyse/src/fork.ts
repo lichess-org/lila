@@ -3,7 +3,7 @@ import { onInsert, hl } from 'lib/snabbdom';
 import type AnalyseCtrl from './ctrl';
 import type { ConcealOf } from './interfaces';
 import { renderIndexAndMove } from './view/components';
-import { isTouchDevice } from 'lib/device';
+import { isTouchDevice, addPointerListeners } from 'lib/device';
 
 export interface ForkCtrl {
   state(): {
@@ -98,7 +98,7 @@ export function view(ctrl: AnalyseCtrl, concealOf?: ConcealOf) {
     'div.analyse__fork',
     {
       hook: onInsert(el => {
-        el.addEventListener('click', e => {
+        addPointerListeners(el, e => {
           ctrl.fork.proceed(eventToIndex(e));
           ctrl.redraw();
         });

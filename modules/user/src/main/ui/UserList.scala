@@ -7,6 +7,7 @@ import lila.rating.PerfType
 import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
+import scalalib.paginator.Paginator
 
 final class UserList(helpers: Helpers, bits: UserBits):
   import helpers.{ *, given }
@@ -69,7 +70,7 @@ final class UserList(helpers: Helpers, bits: UserBits):
   private def userTopPerf(users: List[LightPerf], pk: PerfKey)(using ctx: Context) =
     st.section(cls := "user-top")(
       h2(cls := "text", dataIcon := pk.perfIcon)(
-        a(href := routes.User.topNb(200, pk))(pk.perfTrans)
+        a(href := routes.User.top(pk))(pk.perfTrans)
       ),
       ol(users.map: l =>
         li(
@@ -88,22 +89,29 @@ final class UserList(helpers: Helpers, bits: UserBits):
         ))
     )
 
-  def top(perfType: PerfType, users: List[LightPerf])(using ctx: Context) =
-    val title = s"${perfType.trans} top 200"
+  def top(perf: PerfKey, pager: Paginator[LightPerf])(using ctx: Context) =
+    import PerfType.given
+    val from = (pager.currentPage - 1) * pager.maxPerPage.value + 1
+    val title = s"${perf.trans} top"
     Page(title)
       .css("bits.slist")
+      .js(infiniteScrollEsmInit)
       .graph(
-        title = s"Leaderboard of ${perfType.trans}",
-        url = s"$netBaseUrl${routes.User.topNb(200, perfType.key).url}",
-        description = s"The 200 best chess players in ${perfType.trans}, sorted by rating"
+        title = s"Leaderboard of ${perf.trans}",
+        url = s"$netBaseUrl${routes.User.top(perf.key).url}?page=$page",
+        description = s"The top rated players in ${perf.trans}, sorted by rating"
       ):
         main(cls := "page-small box")(
-          boxTop(h1(a(href := routes.User.list, dataIcon := Icon.LessThan), title)),
-          table(cls := "slist slist-pad")(
-            tbody(
-              users.mapWithIndex: (u, i) =>
+          boxTop(h1(a(href := routes.User.list, dataIcon := Icon.LessThan, cls := "text"), title)),
+          table(cls := "slist slist-pad slist-invert")(
+            tbody(cls := "infinite-scroll")(
+              pager.currentPageResults.mapWithIndex: (u, i) =>
+                val rank = from + i
                 tr(
-                  td(i + 1),
+                  td(
+                    leaderboardTrophy(perf, rank),
+                    span(cls := "lb__rank-num")(rank)
+                  ),
                   td(lightUserLink(u.user)),
                   ctx.pref.showRatings.option(
                     frag(
@@ -112,9 +120,18 @@ final class UserList(helpers: Helpers, bits: UserBits):
                     )
                   )
                 )
+              ,
+              pagerNextTable(pager, np => routes.User.top(perf, np).url)
             )
           )
         )
+
+  private def leaderboardTrophy(perf: PerfType, rank: Int)(using Translate) =
+    bits
+      .trophyMeta(perf, rank)
+      .map: (css, titleText, imgPath) =>
+        span(cls := s"$css lb__trophy trophy--small", title := titleText):
+          img(src := assetUrl(imgPath), alt := s"Trophy for $title")
 
   def bots(users: List[UserWithPerfs], bestPerfs: UserPerfs => List[PerfKey])(using Context) =
     val title = s"${users.size} Online bots"

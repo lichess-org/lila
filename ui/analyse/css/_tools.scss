@@ -132,7 +132,7 @@
     color: $c-over;
   }
 
-  .latent {
+  .fbt.latent {
     background-color: $m-secondary--fade-50;
   }
 }
@@ -147,7 +147,8 @@
     }
     .ceval,
     .pv_box,
-    .analyse__fork {
+    .analyse__fork,
+    .gamebook-edit {
       order: 1;
     }
     .analyse__moves {
@@ -155,11 +156,27 @@
     }
   }
   .analyse__controls {
-    margin-top: 4px;
-    height: 3em;
+    padding-top: 6px;
+    height: 5rem;
+
     .fbt {
+      flex: 0 0 3.3rem;
+      margin: 3px 2px 0;
+      border: 1px solid $m-clearer--fade-95;
+      border-bottom: none;
       border-radius: 6px 6px 0 0;
-      flex: 0 0 3.5rem;
+      background: $m-bg_bg-page--mix-50;
+    }
+    .fbt.active {
+      border-bottom: none;
+    }
+    .jumps .fbt {
+      margin: 5px 3px;
+      background: $m-bg_bg-page--mix-50;
+      border: 1px solid $m-clearer--fade-95;
+    }
+    .fbt[data-act='ceval']:has(eval)::before {
+      display: none;
     }
   }
   .analyse[data-showing-tool] .analyse__tools,
@@ -170,13 +187,19 @@
   .analyse[data-ceval-mode='ceval-practice'] .analyse__tools {
     border-top: 3px solid $c-secondary;
   }
-  .analyse:not([data-ceval-mode='ceval']) {
-    .ceval,
-    .pv_box {
+  body:not(.blind-mode) {
+    .analyse:not(:has(.fbt[data-act='ceval'].active)) .ceval {
       display: none;
     }
-    .analyse__moves {
-      border-top: none;
+
+    .analyse:not([data-ceval-mode='ceval']) {
+      .ceval,
+      .pv_box {
+        display: none;
+      }
+      .analyse__moves {
+        border-top: none;
+      }
     }
   }
   .analyse[data-ceval-mode='ceval-practice'] .analyse__fork {

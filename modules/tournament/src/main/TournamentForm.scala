@@ -163,7 +163,6 @@ private[tournament] case class TournamentSetup(
     description: Option[String],
     hasChat: Option[Boolean]
 ):
-
   def validClock = (clockTime + clockIncrement.value) > 0
 
   def validClockForBots = !conditions.allowsBots || lila.core.game.isBotCompatible(clockConfig)
@@ -243,6 +242,8 @@ private[tournament] case class TournamentSetup(
         description = description.fold(old.description)(_.some.filter(_.nonEmpty)),
         hasChat = hasChat | old.hasChat
       )
+
+  def automodText = List(name, description).flatten.mkString("\n")
 
   private def estimateNumberOfGamesOneCanPlay: Double = (minutes.atMost(720) * 60) / estimatedGameSeconds
 

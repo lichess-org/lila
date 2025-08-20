@@ -996,4 +996,5 @@ All Betriebskäschten, Entwécklung an Inhalter ginn ausschließlech vun Benotze
   <string name="stats">Statistiken</string>
   <string name="enableBlindMode">Blannemodus aktivéieren</string>
   <string name="disableBlindMode">Blannemodus desaktivéieren</string>
+  <string name="copyToClipboard">An den Tëschespäicher kopéieren</string>
 </resources>

@@ -265,6 +265,9 @@ object mon:
       def create(reason: String, score: Int) =
         counter("mod.report.create").withTags:
           tags("reason" -> reason, "score" -> score)
+      object automod:
+        val request = future("mod.report.automod.request")
+        def assessment(a: String) = counter("mod.report.automod.assessment").withTag("assessment", a)
     object log:
       val create = counter("mod.log.create").withoutTags()
     object irwin:
@@ -682,7 +685,7 @@ object mon:
     val time = timer("markdown.time").withoutTags()
   object ublog:
     def create(user: UserId) = counter("ublog.create").withTag("user", user)
-    def view(user: UserId) = counter("ublog.view").withTag("user", user)
+    def view = counter("ublog.view").withoutTags()
     object automod:
       val request = future("ublog.automod.request")
       def quality(q: String) = counter("ublog.automod.quality").withTag("quality", q)

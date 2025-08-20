@@ -68,22 +68,20 @@ final class TeamApi(
       lila.common.Bus.pub(tl.Propagate(tl.TeamCreate(me.id, team.id)).toFollowersOf(me.id))
       team
 
-  def update(old: Team, edit: TeamEdit)(using me: Me): Funit =
-    val team = old
-      .copy(
-        password = edit.password,
-        intro = edit.intro,
-        description = edit.description,
-        descPrivate = edit.descPrivate,
-        open = edit.isOpen,
-        chat = edit.chat,
-        forum = edit.forum,
-        hideMembers = Some(edit.hideMembers),
-        flair = edit.flair
-      )
-    update(team)
+  def update(old: Team, edit: TeamEdit)(using me: Me): Fu[String] = update:
+    old.copy(
+      password = edit.password,
+      intro = edit.intro,
+      description = edit.description,
+      descPrivate = edit.descPrivate,
+      open = edit.isOpen,
+      chat = edit.chat,
+      forum = edit.forum,
+      hideMembers = Some(edit.hideMembers),
+      flair = edit.flair
+    )
 
-  def update(team: Team)(using me: Me): Funit =
+  def update(team: Team)(using me: Me): Fu[String] =
     import reactivemongo.api.bson.*
     for
       blocklist <- blocklist.get(team)
@@ -93,6 +91,7 @@ final class TeamApi(
       cached.forumAccess.invalidate(team.id)
       cached.lightCache.invalidate(team.id)
       Bus.pub(TeamUpdate(team.data, byMod = !isLeader))
+      team.automodText
 
   def mine(using me: Me): Fu[List[Team.WithMyLeadership]] =
     cached.teamIdsList(me).flatMap(teamRepo.byIdsSortPopular).flatMap(memberRepo.addMyLeadership)
