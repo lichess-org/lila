@@ -328,7 +328,7 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
       hook: {
         insert: vnode => {
           const el = vnode.elm as HTMLElement;
-          el.addEventListener('pointerdown', (e: TouchEvent | MouseEvent) => {
+          el.addEventListener('pointerdown', (e: PointerEvent) => {
             const uciList = getElUciList(e);
             if (uciList.length > (pvIndex ?? 0) && !ctrl.threatMode()) {
               ctrl.playUciList(uciList.slice(0, (pvIndex ?? 0) + 1));
@@ -336,7 +336,6 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
             }
           });
           if (isTouchDevice()) return;
-
           el.addEventListener('mouseover', (e: MouseEvent) => {
             const ceval = ctrl.ceval;
             ceval.setHovering(getElFen(el), getElUci(e));

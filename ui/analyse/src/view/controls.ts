@@ -91,8 +91,8 @@ function renderMobileCevalTab(ctrl: AnalyseCtrl): LooseVNode {
   if (displayColumns() !== 1) return undefined;
   const cevalMode = ctrl.ceval.enabled() && !ctrl.practice,
     showingTool = ctrl.showingTool(),
-    ev = ctrl.node.ceval ?? ctrl.node.eval,
-    evalstr = ev?.cp ? renderEval(ev.cp) : ev?.mate ? '#' + ev.mate : '',
+    ev = ctrl.node.ceval ?? (ctrl.showFishnetAnalysis() ? ctrl.node.eval : undefined),
+    evalstr = ev?.cp !== undefined ? renderEval(ev.cp) : ev?.mate ? '#' + ev.mate : '',
     active = cevalMode && !showingTool,
     latent = cevalMode && !!showingTool;
   return hl(
