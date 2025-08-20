@@ -90,7 +90,7 @@ function renderMobileCevalTab(ctrl: AnalyseCtrl): LooseVNode {
   const cevalMode = ctrl.ceval.enabled() && !ctrl.practice,
     showingTool = ctrl.showingTool(),
     ev = ctrl.node.ceval ?? (ctrl.showComputer() ? ctrl.node.eval : undefined),
-    evalstr = ev?.cp ? renderEval(ev.cp) : ev?.mate ? '#' + ev.mate : '',
+    evalstr = ev?.cp !== undefined ? renderEval(ev.cp) : ev?.mate ? '#' + ev.mate : '',
     active = cevalMode && !showingTool,
     latent = cevalMode && !!showingTool;
   return hl(
