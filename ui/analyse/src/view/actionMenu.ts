@@ -152,8 +152,8 @@ export function view(ctrl: AnalyseCtrl): VNode {
     !mandatoryCeval &&
       ctrlToggle(
         {
-          name: 'Show server analysis',
-          title: 'Show server analysis (Hotkey: z)',
+          name: displayColumns() === 1 ? i18n.site.computerAnalysis : i18n.site.enable,
+          title: 'Stockfish (Hotkey: z)',
           id: 'all',
           checked: ctrl.showComputer(),
           change: ctrl.toggleComputer,

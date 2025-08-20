@@ -1042,10 +1042,11 @@ export default class AnalyseCtrl {
       if (this.explorer.enabled()) this.explorer.toggle();
       this.actionMenu(false);
       this.togglePractice(clicked === 'ceval-practice');
-      if (clicked === 'ceval') this.toggleCeval(true);
+      if (clicked === 'ceval') this.ensureCevalRunning();
     } else {
       if (clicked === 'ceval-practice' || this.practice) this.togglePractice();
-      else this.toggleCeval();
+      else if (this.ceval.enabled()) this.toggleCeval();
+      else this.ensureCevalRunning();
     }
   }
 
