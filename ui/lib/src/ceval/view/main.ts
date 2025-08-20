@@ -367,7 +367,7 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
           });
           checkHover(el, ceval);
         },
-        postpatch: (_, vnode) => isTouchDevice() && checkHover(vnode.elm as HTMLElement, ceval),
+        postpatch: (_, vnode) => !isTouchDevice() && checkHover(vnode.elm as HTMLElement, ceval),
       },
     },
     [
