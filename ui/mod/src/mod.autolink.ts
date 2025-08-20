@@ -17,7 +17,7 @@ let once: HTMLElement;
 const greedyAutoLinks = ['inbox', 'forum', 'study', 'broadcast', 'team', 'tournament', '@'];
 
 const pathMatchRe = new RegExp(
-  `(?:(?:^| )https://)?(?:${location.hostname.replace('.', '\\.')})?` +
+  `(?:(?:^|\\s)https://)?(?:${location.hostname.replace('.', '\\.')})?` +
     `(/(?:${greedyAutoLinks.join('|')})[\\w/:(&;)=@-]+)`,
   'gi',
 );

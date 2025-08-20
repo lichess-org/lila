@@ -105,7 +105,7 @@ object Report:
   ):
     def textWithoutAutoReports = text.linesIterator.filterNot(_.startsWith("[AUTOREPORT]")).mkString("\n")
 
-    def byHuman = !byLichess && by.isnt(ReporterId.irwin)
+    def byHuman = !byLichess && by.isnt(ReporterId.irwin) && by.isnt(ReporterId.ai)
 
     def byLichess = by.is(ReporterId.lichess)
 
