@@ -21,14 +21,14 @@
   <string name="rookComplete">Честитке! Успешно си савладао/ла топа.</string>
   <string name="theBishop">Ловац</string>
   <string name="itMovesDiagonally">Креће се дијагонално</string>
-  <string name="bishopIntro">Сада ћемо научити како да маневришемо ловцем!</string>
+  <string name="bishopIntro">Следеће учимо како маневрисати ловца!</string>
   <string name="youNeedBothBishops">Један ловац на белом пољу,
 један ловац на црном пољу.
 Требају ти оба!</string>
   <string name="bishopComplete">Честитке! Можеш командовати ловца.</string>
   <string name="theQueen">Дама</string>
   <string name="queenCombinesRookAndBishop">Дама = топ + ловац</string>
-  <string name="queenIntro">Улази најснажнија шаховска фигура. Њено величанство, дама!</string>
+  <string name="queenIntro">Најмоћнија шаховска фигура улази. Њено величанство, дама!</string>
   <string name="queenComplete">Честитке! Даме немају тајне за тебе.</string>
   <string name="theKing">Краљ</string>
   <string name="theMostImportantPiece">Најважнија фигура</string>
@@ -100,13 +100,14 @@
 али можеш блокирати напад!</string>
   <string name="youCanGetOutOfCheckByTaking">Можеш изаћи из шаха
 узимајући нападачку фигуру.</string>
-  <string name="thisKnightIsCheckingThroughYourDefenses">Скакач даје шах кроз вашу одбрану!</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">Овај скакач даје шах
+кроз твоје одбране!</string>
   <string name="escapeOrBlock">Побегни са краљем
 или блокирај напад!</string>
-  <string name="outOfCheckComplete">Честитамо! Ваш краљ никад неможе бити узет, побрините се да се можете бранити против шаха!</string>
+  <string name="outOfCheckComplete">Честитке! Твој краљ никад не сме бити узет, побрини се да се можеш одбранити против шаха!</string>
   <string name="mateInOne">Мат у један</string>
   <string name="defeatTheOpponentsKing">Порази противничког краља</string>
-  <string name="mateInOneIntro">Ви добијате када ваш противник не може да се одбрани од шаха.</string>
+  <string name="mateInOneIntro">Побеђујеш када твој противник не може да се одбрани од шаха.</string>
   <string name="attackYourOpponentsKing">Нападни противничког краља
 на начин који се не може одбранити!</string>
   <string name="mateInOneComplete">Честитке! Овако се побеђују шаховске партије!</string>
