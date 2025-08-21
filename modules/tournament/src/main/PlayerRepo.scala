@@ -205,7 +205,7 @@ final class PlayerRepo(private[tournament] val coll: Coll)(using Executor):
 
   def update(player: Player): Funit = coll.update.one($id(player._id), player).void
 
-  def join(
+  private[tournament] def join(
       tourId: TourId,
       user: WithPerf,
       team: Option[TeamId],
