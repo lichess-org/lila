@@ -40,7 +40,11 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
       cls := s"ublog-post-card ublog-post-card--link ublog-post-card--by-${post.created.by}",
       href := makeUrl(post)
     )(
-      span(cls := "ublog-post-card__top")(
+      span(
+        cls := s"ublog-post-card__top" + post.image.isEmpty.so(
+          s" ublog-generic-bg${1 + Math.floorMod(post.created.at.hashCode, 28)}"
+        )
+      )(
         thumbnail(post, _.Size.Small)(cls := "ublog-post-card__image"),
         post.lived.map { live =>
           if strictDate || DAYS.between(live.at, nowInstant) < 30 then
