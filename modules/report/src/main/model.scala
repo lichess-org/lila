@@ -24,6 +24,7 @@ object ReporterId extends OpaqueUserId[ReporterId]:
   def lichess = UserId.lichess.into(ReporterId)
   def irwin = UserId.irwin.into(ReporterId)
   def kaladin = UserId.kaladin.into(ReporterId)
+  def ai = UserId.ai.into(ReporterId)
 
 opaque type Accuracy = Int
 object Accuracy extends OpaqueInt[Accuracy]
