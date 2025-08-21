@@ -43,7 +43,7 @@ final class RelationUi(helpers: Helpers):
         )(trans.site.blocked())
       case _ => emptyFrag
 
-  def actionsMenu(
+  def actions(
       user: lila.core.LightUser,
       relation: Option[Relation],
       followable: Boolean,
@@ -69,7 +69,7 @@ final class RelationUi(helpers: Helpers):
                   MenuItem(
                     trans.site.follow.txt(),
                     Icon.ThumbsUp,
-                    s"${routes.Relation.follow(user.name)}?menu=1",
+                    routes.Relation.follow(user.name).url,
                     Some("relation"),
                     Some("relation-button")
                   )
@@ -77,7 +77,7 @@ final class RelationUi(helpers: Helpers):
                 MenuItem(
                   trans.site.block.txt(),
                   Icon.NotAllowed,
-                  s"${routes.Relation.block(user.name)}?menu=1",
+                  routes.Relation.block(user.name).url,
                   Some("relation"),
                   Some("relation-button")
                 ).some
@@ -87,7 +87,7 @@ final class RelationUi(helpers: Helpers):
               MenuItem(
                 trans.site.unblock.txt(),
                 Icon.NotAllowed,
-                s"${routes.Relation.unblock(user.name)}?menu=1",
+                routes.Relation.unblock(user.name).url,
                 Some("relation"),
                 Some("relation-button")
               )
@@ -115,77 +115,12 @@ final class RelationUi(helpers: Helpers):
                 MenuItem(
                   trans.site.unfollow.txt(),
                   Icon.ThumbsUp,
-                  s"${routes.Relation.unfollow(user.name)}?menu=1",
+                  routes.Relation.unfollow(user.name).url,
                   Some("relation"),
                   Some("relation-button")
                 )
           ).flatten
     ).flatten
-
-  def actions(
-      user: lila.core.LightUser,
-      relation: Option[Relation],
-      followable: Boolean,
-      blocked: Boolean
-  )(using ctx: Context) =
-    val blocks = relation.contains(Relation.Block)
-    div(cls := "relation-actions")(
-      (ctx.isnt(user) && !blocked && !blocks).option(
-        a(
-          cls := "text",
-          href := s"${routes.Lobby.home}?user=${user.name}#friend",
-          dataIcon := Icon.Swords
-        )(trans.challenge.challengeToPlay.txt())
-      ),
-      ctx.me
-        .filter(user.isnt(_))
-        .so: me =>
-          frag(
-            (!blocked && !blocks && !user.isBot).option(
-              a(
-                cls := "text",
-                href := routes.Msg.convo(user.name),
-                dataIcon := Icon.BubbleSpeech
-              )(trans.site.composeMessage.txt())
-            ),
-            (!blocked && !blocks && !user.isPatron).option:
-              val url = if me.isPatron then routes.Plan.list else routes.Plan.index()
-              a(
-                cls := "text",
-                href := s"$url?dest=gift&giftUsername=${user.name}",
-                dataIcon := Icon.Wings
-              )(trans.patron.giftPatronWingsShort.txt())
-            ,
-            relation match
-              case None =>
-                frag(
-                  (followable && !blocked).option(
-                    a(
-                      cls := "text relation-button",
-                      href := routes.Relation.follow(user.name),
-                      dataIcon := Icon.ThumbsUp
-                    )(trans.site.follow.txt())
-                  ),
-                  a(
-                    cls := "text relation-button",
-                    href := routes.Relation.block(user.name),
-                    dataIcon := Icon.NotAllowed
-                  )(trans.site.block.txt())
-                )
-              case Some(Relation.Follow) =>
-                a(
-                  cls := "text relation-button",
-                  href := routes.Relation.unfollow(user.name),
-                  dataIcon := Icon.ThumbsUp
-                )(trans.site.unfollow.txt())
-              case Some(Relation.Block) =>
-                a(
-                  cls := "text relation-button",
-                  href := routes.Relation.unblock(user.name),
-                  dataIcon := Icon.NotAllowed
-                )(trans.site.unblock.txt())
-          )
-    )
 
   def friends(u: User, pag: Paginator[Related[UserWithPerfs]])(using Context) =
     page(s"${u.username} • ${trans.site.friends.txt()}"):

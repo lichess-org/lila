@@ -183,7 +183,11 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
         ("yes", trans.site.unfollowX, routes.Relation.unfollow, Icon.Checkmark),
         ("no", trans.site.followX, routes.Relation.follow, Icon.ThumbsUp)
       ).map: (role, text, route, icon) =>
-        button(cls := s"ublog-post__follow__$role button", dataIcon := icon, dataRel := route(user.id))(
+        button(
+          cls := s"ublog-post__follow__$role button",
+          dataIcon := icon,
+          dataRel := s"${route(user.id)}?mini=1"
+        )(
           span(cls := "button-label")(text(user.titleUsername))
         )
 
