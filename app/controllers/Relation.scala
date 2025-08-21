@@ -16,20 +16,18 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
 
   val api = env.relation.api
 
-  private def renderActions(username: UserName, mini: Boolean, menu: Boolean)(using ctx: Context) = for
+  private def renderActions(username: UserName, mini: Boolean)(using ctx: Context) = for
     user <- env.user.lightUserApi.asyncFallbackName(username)
     relation <- ctx.userId.so(api.fetchRelation(_, user.id))
     followable <- ctx.isAuth.so(env.pref.api.followable(user.id))
     blocked <- ctx.userId.so(api.fetchBlocks(user.id, _))
     res <-
-      if menu then
-        JsonOk:
-          views.relation.actionsMenu(user, relation, blocked = blocked, followable = followable)
-      else
+      if mini then
         Ok.snip:
-          if mini
-          then views.relation.mini(user.id, blocked = blocked, followable = followable, relation)
-          else views.relation.actions(user, relation, blocked = blocked, followable = followable)
+          views.relation.mini(user.id, blocked = blocked, followable = followable, relation)
+      else
+        JsonOk:
+          views.relation.actions(user, relation, blocked = blocked, followable = followable)
   yield res
 
   private def RatelimitWith(
@@ -53,7 +51,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
           else
             for
               _ <- api.follow(me, user.id).recoverDefault
-              res <- negotiate(renderActions(user.name, getBool("mini"), getBool("menu")), jsonOkResult)
+              res <- negotiate(renderActions(user.name, getBool("mini")), jsonOkResult)
             yield res
       yield res
   }
@@ -63,7 +61,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
   def unfollow(username: UserStr) = AuthOrScoped(_.Follow.Write, _.Web.Mobile) { ctx ?=> me ?=>
     RatelimitWith(username): user =>
       api.unfollow(me, user.id).recoverDefault >> negotiate(
-        renderActions(user.name, getBool("mini"), getBool("menu")),
+        renderActions(user.name, getBool("mini")),
         jsonOkResult
       )
   }
@@ -72,7 +70,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
   def block(username: UserStr) = AuthOrScoped(_.Follow.Write, _.Web.Mobile) { ctx ?=> me ?=>
     RatelimitWith(username): user =>
       api.block(me, user.id).recoverDefault >> negotiate(
-        renderActions(user.name, getBool("mini"), getBool("menu")),
+        renderActions(user.name, getBool("mini")),
         jsonOkResult
       )
   }
@@ -80,7 +78,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
   def unblock(username: UserStr) = AuthOrScoped(_.Follow.Write, _.Web.Mobile) { ctx ?=> me ?=>
     RatelimitWith(username): user =>
       api.unblock(me, user.id).recoverDefault >> negotiate(
-        renderActions(user.name, getBool("mini"), getBool("menu")),
+        renderActions(user.name, getBool("mini")),
         jsonOkResult
       )
   }

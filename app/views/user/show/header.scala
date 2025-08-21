@@ -42,7 +42,7 @@ object header:
         ctx
           .isnt(u)
           .option(
-            views.relation.actionsMenu(
+            views.relation.actions(
               u.light,
               relation = social.relation,
               followable = social.followable,
