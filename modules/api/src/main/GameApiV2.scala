@@ -142,7 +142,7 @@ final class GameApiV2(
       .via(preparationFlow(config))
 
   def mobileRecent(user: User)(using Option[Me]): Fu[JsArray] = for
-    games <- gameRepo.recentFinishedGamesFromSecondary(user, Max(12))
+    games <- gameRepo.recentFinishedGamesFromSecondary(user, Max(10))
     config = MobileRecentConfig(user)
     enriched <- games.sequentially(enrich(config.flags))
     jsons <- enriched.sequentially: (game, fen, analysis) =>
