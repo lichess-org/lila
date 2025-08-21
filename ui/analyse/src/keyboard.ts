@@ -18,12 +18,12 @@ export const bind = (ctrl: AnalyseCtrl) => {
       ctrl.redraw();
     })
     .bind(['up', '0', 'home'], e => {
-      if (e.key === 'ArrowUp' && !ctrl.disclosureMode() && ctrl.fork.prev()) ctrl.setAutoShapes();
+      if (e.key === 'ArrowUp' && !ctrl.ballerMode() && ctrl.fork.prev()) ctrl.setAutoShapes();
       else control.first(ctrl);
       ctrl.redraw();
     })
     .bind(['down', '$', 'end'], e => {
-      if (e.key === 'ArrowDown' && !ctrl.disclosureMode() && ctrl.fork.next()) ctrl.setAutoShapes();
+      if (e.key === 'ArrowDown' && !ctrl.ballerMode() && ctrl.fork.next()) ctrl.setAutoShapes();
       else control.last(ctrl);
       ctrl.redraw();
     })
@@ -124,7 +124,7 @@ export const bind = (ctrl: AnalyseCtrl) => {
 export function view(ctrl: AnalyseCtrl): VNode {
   return snabDialog({
     class: 'help.keyboard-help',
-    htmlUrl: xhr.url('/analysis/help', { study: !!ctrl.study, disclosure: ctrl.disclosureMode() }),
+    htmlUrl: xhr.url('/analysis/help', { study: !!ctrl.study, disclosure: ctrl.ballerMode() }),
     modal: true,
     onClose() {
       ctrl.keyboardHelp = false;
@@ -148,7 +148,7 @@ function addModifierKeyListeners(ctrl: AnalyseCtrl) {
     modifierOnly = false;
     const isShift = e.key === 'Shift' && !document.activeElement?.classList.contains('mchat__say');
 
-    if (ctrl.disclosureMode()) {
+    if (ctrl.ballerMode()) {
       if (isShift) ctrl.userJumpIfCan(ctrl.idbTree.nextLine(), true);
       else if (e.key === 'Control') ctrl.toggleDiscloseOf();
     } else {

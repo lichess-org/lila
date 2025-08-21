@@ -2,12 +2,13 @@ import type AnalyseCtrl from '../ctrl';
 import type { VNode, Hooks } from 'snabbdom';
 import { defined } from 'lib';
 import { throttle } from 'lib/async';
-import { addPointerListeners, isTouchDevice, displayColumns } from 'lib/device';
+import { isTouchDevice, displayColumns } from 'lib/device';
 import { storedProp } from 'lib/storage';
 import type { ConcealOf } from '../interfaces';
 import { renderContextMenu } from './contextMenu';
 import { renderColumnView } from './columnView';
 import { renderInlineView } from './inlineView';
+import { addPointerListeners } from 'lib/pointer';
 
 export class TreeView {
   constructor(readonly ctrl: AnalyseCtrl) {}
@@ -42,10 +43,10 @@ export class TreeView {
           ctrl.redraw();
           return false;
         };
-        el.oncontextmenu = ctxMenuCallback;
+        //el.oncontextmenu = ctxMenuCallback;
         if (isTouchDevice()) {
           el.ondblclick = ctxMenuCallback;
-          addPointerListeners(el, undefined, ctxMenuCallback);
+          addPointerListeners(el, { hold: ctxMenuCallback });
         }
         el.addEventListener('mousedown', (e: MouseEvent) => {
           if (!(e.target instanceof HTMLElement)) return;

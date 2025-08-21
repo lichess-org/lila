@@ -93,7 +93,7 @@ export default class AnalyseCtrl {
   flipped = false;
   showComments = true; // whether to display comments in the move tree
   showAutoShapes = storedBooleanProp('analyse.show-auto-shapes', true);
-  disclosureMode = storedBooleanProp('analyse.disclosure.enabled', false);
+  ballerMode = storedBooleanProp('analyse.disclosure.enabled', false);
   variationArrows = storedBooleanProp('analyse.show-variation-arrows', true);
   showGauge = storedBooleanProp('analyse.show-gauge', true);
   showFishnetAnalysis = storedBooleanProp('analyse.show-computer', true);
@@ -816,13 +816,13 @@ export default class AnalyseCtrl {
   };
 
   private resetAutoShapes() {
-    if (this.showAutoShapes() || this.disclosureMode() || this.showMoveAnnotation()) this.setAutoShapes();
+    if (this.showAutoShapes() || this.ballerMode() || this.showMoveAnnotation()) this.setAutoShapes();
     else this.chessground && this.chessground.setAutoShapes([]);
   }
 
   showVariationArrows() {
     if (!this.allowLines()) return false;
-    const kids = this.disclosureMode()
+    const kids = this.ballerMode()
       ? this.tree.parentNode(this.path).children
       : this.variationArrows()
         ? this.node.children
@@ -838,13 +838,13 @@ export default class AnalyseCtrl {
   }
 
   canStepLines() {
-    return this.allowLines() && this.disclosureMode() && this.idbTree.nextLine() !== this.path;
+    return this.allowLines() && this.ballerMode() && this.idbTree.nextLine() !== this.path;
   }
 
-  toggleDiscloseOf() {
-    const parentPath = this.path.slice(0, -2);
-    const disclose = this.idbTree.discloseOf(this.tree.nodeAtPath(parentPath));
-    if (disclose) this.idbTree.setCollapsed(parentPath, disclose === 'expanded');
+  toggleDiscloseOf(path = this.path.slice(0, -2)) {
+    if (!this.ballerMode()) return false;
+    const disclose = this.idbTree.discloseOf(this.tree.nodeAtPath(path));
+    if (disclose) this.idbTree.setCollapsed(path, disclose === 'expanded');
     return Boolean(disclose);
   }
 
@@ -853,8 +853,8 @@ export default class AnalyseCtrl {
     this.resetAutoShapes();
   };
 
-  toggleDisclosureMode = (v?: boolean): void => {
-    this.disclosureMode(v ?? !this.disclosureMode());
+  toggleBallerMode = (v?: boolean): void => {
+    this.ballerMode(v ?? !this.ballerMode());
     this.resetAutoShapes();
   };
 
@@ -1019,11 +1019,10 @@ export default class AnalyseCtrl {
       if (this.explorer.enabled()) this.explorer.toggle();
       this.actionMenu(false);
       this.togglePractice(clicked === 'ceval-practice');
-      if (clicked === 'ceval') this.ensureCevalRunning();
+      if (clicked === 'ceval') this.toggleCeval();
     } else {
       if (clicked === 'ceval-practice' || this.practice) this.togglePractice();
-      else if (this.ceval.enabled()) this.toggleCeval();
-      else this.ensureCevalRunning();
+      else this.toggleCeval();
     }
   }
 

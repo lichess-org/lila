@@ -2,7 +2,7 @@ import type AnalyseCtrl from '../ctrl';
 import { type VNode, type LooseVNodes, hl } from 'lib/snabbdom';
 import { type Classes } from 'snabbdom';
 import { ops as treeOps, path as treePath } from 'lib/tree/tree';
-import { isSafari, isTouchDevice } from 'lib/device';
+import { isSafari } from 'lib/device';
 import { enrichText, innerHTML } from 'lib/richText';
 import { authorText } from '../study/studyComments';
 import { playable } from 'lib/game/game';
@@ -38,17 +38,15 @@ export interface Args {
 }
 
 export class InlineView {
-  inline = true;
+  readonly inline: boolean = true;
   private glyphs = ['good', 'mistake', 'brilliant', 'blunder', 'interesting', 'inaccuracy'];
 
-  constructor(
-    readonly ctrl: AnalyseCtrl,
-    readonly showAnalysis = ctrl.showFishnetAnalysis() && !ctrl.retro?.isSolving(),
-    readonly showGlyphs = (!!ctrl.study && !ctrl.study?.relay) || ctrl.showFishnetAnalysis(),
-  ) {}
+  constructor(readonly ctrl: AnalyseCtrl) {}
 
   filterNodes(nodes: Tree.Node[]): Tree.Node[] {
-    return nodes.filter(node => this.showAnalysis || !node.comp);
+    return nodes.filter(
+      node => !node.comp || (this.ctrl.showFishnetAnalysis() && !this.ctrl.retro?.isSolving()),
+    );
   }
 
   inlineNodes([child, ...siblings]: Tree.Node[], args: Args): LooseVNodes {
@@ -120,7 +118,7 @@ export class InlineView {
       'pending-deletion': p.startsWith(ctrl.pendingDeletionPath() || ' '),
       'pending-copy': !!ctrl.pendingCopyPath()?.startsWith(p),
     };
-    if (this.showGlyphs)
+    if ((!!ctrl.study && !ctrl.study?.relay) || ctrl.showFishnetAnalysis())
       node.glyphs
         ?.map(g => this.glyphs[g.id - 1])
         .filter(Boolean)
@@ -160,10 +158,10 @@ export class InlineView {
     const anchorRect = el.closest('.anchor')!.getBoundingClientRect();
     const isFirstOnRow = btnRect.left < anchorRect.left + 8;
     const distanceMinusRiser = anchorRect.top - btnRect.bottom + btnRect.height / 2;
-    const baseHeight = Math.max(0, distanceMinusRiser - (isFirstOnRow ? 0 : isTouchDevice() ? 14 : 12));
+    const baseHeight = Math.max(0, distanceMinusRiser - (isFirstOnRow ? 0 : 12));
     const btnCenter = btnRect.width / 2;
     const width = isFirstOnRow
-      ? 4
+      ? 3
       : document.documentElement.dir === 'rtl'
         ? anchorRect.right - btnRect.left - btnCenter
         : btnRect.right - anchorRect.left - btnCenter;
@@ -186,7 +184,7 @@ export class InlineView {
   }
 
   private commentNode(comment: Tree.Comment, others: Tree.Comment[], classes: Classes) {
-    if (comment.by === 'lichess' && !this.showAnalysis) return;
+    if (comment.by === 'lichess' && !this.ctrl.showFishnetAnalysis()) return;
     const by = !others[1] ? '' : `<span class="by">${authorText(comment.by)}</span> `,
       htmlHook = innerHTML(comment.text, text => by + enrichText(text));
     return hl('comment', { class: classes, hook: htmlHook });

@@ -2,7 +2,8 @@ import { renderEval } from 'lib/ceval/ceval';
 import { repeater } from 'lib';
 import * as licon from 'lib/licon';
 import { type VNode, type LooseVNode, onInsert, hl } from 'lib/snabbdom';
-import { addPointerListeners, displayColumns } from 'lib/device';
+import { displayColumns } from 'lib/device';
+import { type PointerListeners, addPointerListeners } from 'lib/pointer';
 import * as control from '../control';
 import type AnalyseCtrl from '../ctrl';
 
@@ -22,17 +23,12 @@ export function renderControls(ctrl: AnalyseCtrl) {
   const canJumpPrev = ctrl.path !== '',
     canJumpNext = !!ctrl.node.children[0],
     showingTool = ctrl.showingTool();
-
+  const listeners: PointerListeners = { click: e => clickControl(ctrl, e), hold: e => holdControl(ctrl, e) };
+  if (displayColumns() === 1 && ctrl.ballerMode()) listeners.hscrub = dx => scrubControl(ctrl, dx);
   return hl(
     'div.analyse__controls.analyse-controls',
     {
-      hook: onInsert(el =>
-        addPointerListeners(
-          el,
-          e => clickControl(ctrl, e),
-          e => holdControl(ctrl, e),
-        ),
-      ),
+      hook: onInsert(el => addPointerListeners(el, listeners)),
     },
     [
       ctrl.studyPractice
@@ -53,36 +49,38 @@ export function renderControls(ctrl: AnalyseCtrl) {
                 active: showingTool === 'opening-explorer',
               },
             }),
-            ctrl.ceval.allowed() && [
-              !(ctrl.isEmbed || ctrl.isGamebook()) &&
-                hl('button.fbt', {
-                  attrs: {
-                    title: i18n.site.practiceWithComputer,
-                    'data-act': 'ceval-practice',
-                    'data-icon': licon.Bullseye,
-                  },
-                  class: {
-                    hidden: !!ctrl.retro,
-                    active: !!ctrl.practice && !showingTool,
-                    latent: !!ctrl.practice && !!showingTool,
-                  },
-                }),
-              renderMobileCevalTab(ctrl),
-            ],
+            renderMobileCevalTab(ctrl),
           ],
       hl('div.jumps', [
-        jumpButton(licon.JumpFirst, 'first', canJumpPrev),
+        (!ctrl.ballerMode() || displayColumns() > 1) && jumpButton(licon.JumpFirst, 'first', canJumpPrev),
         jumpButton(licon.JumpPrev, 'prev', canJumpPrev),
-        ctrl.disclosureMode() && jumpButton(licon.NextLine, 'line', ctrl.idbTree.nextLine() !== ctrl.path),
+        ctrl.ballerMode() && jumpButton(licon.NextLine, 'line', ctrl.idbTree.nextLine() !== ctrl.path),
         jumpButton(licon.JumpNext, 'next', canJumpNext),
-        jumpButton(licon.JumpLast, 'last', ctrl.node !== ctrl.mainline[ctrl.mainline.length - 1]),
+        (!ctrl.ballerMode() || displayColumns() > 1) &&
+          jumpButton(licon.JumpLast, 'last', ctrl.node !== ctrl.mainline[ctrl.mainline.length - 1]),
       ]),
-      ctrl.studyPractice
-        ? hl('div.noop')
-        : hl('button.fbt', {
-            class: { active: showingTool === 'action-menu' },
-            attrs: { title: i18n.site.menu, 'data-act': 'menu', 'data-icon': licon.Hamburger },
+      [
+        ctrl.ceval.allowed() &&
+          !(ctrl.isEmbed || ctrl.isGamebook()) &&
+          hl('button.fbt', {
+            attrs: {
+              title: i18n.site.practiceWithComputer,
+              'data-act': 'ceval-practice',
+              'data-icon': licon.Bullseye,
+            },
+            class: {
+              hidden: !!ctrl.retro,
+              active: !!ctrl.practice && !showingTool,
+              latent: !!ctrl.practice && !!showingTool,
+            },
           }),
+        ctrl.studyPractice
+          ? hl('div.noop')
+          : hl('button.fbt', {
+              class: { active: showingTool === 'action-menu' },
+              attrs: { title: i18n.site.menu, 'data-act': 'menu', 'data-icon': licon.Hamburger },
+            }),
+      ],
     ],
   );
 }
@@ -93,13 +91,12 @@ function renderMobileCevalTab(ctrl: AnalyseCtrl): LooseVNode {
     showingTool = ctrl.showingTool(),
     ev = ctrl.node.ceval ?? (ctrl.showFishnetAnalysis() ? ctrl.node.eval : undefined),
     evalstr = ev?.cp !== undefined ? renderEval(ev.cp) : ev?.mate ? '#' + ev.mate : '',
-    active = cevalMode && !showingTool,
     latent = cevalMode && !!showingTool;
   return hl(
     'button.fbt',
     {
       attrs: { 'data-act': 'ceval', 'data-icon': licon.Stockfish },
-      class: { active, latent },
+      class: { latent, active: cevalMode && !showingTool },
     },
     evalstr &&
       ctrl.showAnalysis() &&
@@ -136,6 +133,23 @@ function clickControl(ctrl: AnalyseCtrl, e: PointerEvent) {
   else if (action === 'analysis') {
     if (ctrl.studyPractice) window.open(ctrl.studyPractice.analysisUrl(), '_blank');
   } else ctrl.clickMobileCevalTab(action);
+  ctrl.redraw();
+}
+
+let last: number[] = [];
+
+function scrubControl(ctrl: AnalyseCtrl, dx: number | undefined) {
+  if (dx === undefined) {
+    // pointerup
+    const v = last.slice(-3).reduce((a, b) => a + b, 0) / Math.min(last.length, 3);
+    if (v > 16) control.last(ctrl);
+    else if (v < -16) control.first(ctrl);
+    last = [];
+  } else {
+    if (dx > 0) control.next(ctrl);
+    else control.prev(ctrl);
+    last.push(dx);
+  }
   ctrl.redraw();
 }
 

@@ -11,7 +11,7 @@ export class IdbTree {
   constructor(private ctrl: AnalyseCtrl) {}
 
   someCollapsedOf(collapsed: boolean, path = ''): boolean {
-    if (!this.ctrl.disclosureMode()) return false;
+    if (!this.ctrl.ballerMode()) return false;
     return this.ctrl.tree.walkUntilTrue(
       n => this.isCollapsible(n) && collapsed === Boolean(n.collapsed),
       path,
@@ -77,7 +77,7 @@ export class IdbTree {
   }
 
   discloseOf(node: Tree.Node | undefined): DiscloseState {
-    if (!this.ctrl.disclosureMode() || !node) return undefined;
+    if (!node) return undefined;
     return this.isCollapsible(node) ? (node.collapsed ? 'collapsed' : 'expanded') : undefined;
   }
 
@@ -132,7 +132,7 @@ export class IdbTree {
   }
 
   private isCollapsible(node: Tree.Node): boolean {
-    if (!this.ctrl.disclosureMode() || !node) return false;
+    if (!node) return false;
     const [first, second] = node.children.filter(n => this.ctrl.showFishnetAnalysis() || !n.comp);
     return Boolean(
       second || first?.comments?.filter(c => c.by !== 'lichess').length || first?.forceVariation,

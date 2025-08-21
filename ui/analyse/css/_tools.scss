@@ -160,7 +160,7 @@
     height: 5rem;
 
     .fbt {
-      flex: 0 0 3.3rem;
+      flex: 0 0 4rem;
       margin: 3px 2px 0;
       border: 1px solid $m-clearer--fade-95;
       border-bottom: none;
@@ -171,9 +171,13 @@
       border-bottom: none;
     }
     .jumps .fbt {
+      flex: 4;
       margin: 5px 3px;
       background: $m-bg_bg-page--mix-50;
       border: 1px solid $m-clearer--fade-95;
+    }
+    .fbt[data-act='line'] {
+      flex: 3;
     }
     .fbt[data-act='ceval']:has(eval)::before {
       display: none;

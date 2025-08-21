@@ -26,16 +26,16 @@ $disclosure-btn-size: calc(15px + var(---touch-grow, 0px));
   .interesting {
     --c-base: var(--c-interesting);
   }
-  .hidden {
-    visibility: hidden;
-  }
   .anchor {
     position: relative;
   }
-
   * {
     overflow: visible;
   }
+}
+
+.tview2.hidden {
+  visibility: hidden;
 }
 
 .tview2 move {
@@ -264,26 +264,21 @@ $disclosure-btn-size: calc(15px + var(---touch-grow, 0px));
   inset-inline-start: 0;
   border-inline-start: 2px solid $c-transp-border;
   border-top: 2px solid $c-transp-border;
+}
 
-  &.riser {
-    inset-inline: unset;
-    inset-inline-end: 0;
-    top: calc($disclosure-btn-size * -0.4);
-    height: calc($disclosure-btn-size * 0.4 - 2px);
-    background-color: $c-transp-border;
-    width: 2px;
-    border: none;
-  }
+$riser-height: calc((10px - var(---touch-grow, 0px)) / 2);
+
+.tview2 .disclosure-connector.riser {
+  inset-inline: unset;
+  inset-inline-end: 0;
+  top: calc(-2px - $riser-height);
+  height: $riser-height;
+  width: 2px;
 }
 
 .tview2-column lines lines > .disclosure-connector + line > branch {
   margin-top: 0;
   height: calc(100%);
-}
-
-.tview2-column > interrupt > lines > .disclosure-connector > .riser {
-  top: calc($disclosure-btn-size / -2);
-  height: calc($disclosure-btn-size / 2 - 2px);
 }
 
 .tview2-column {
@@ -401,7 +396,7 @@ $disclosure-btn-size: calc(15px + var(---touch-grow, 0px));
 
 @media (pointer: coarse) {
   .tview2 {
-    ---touch-grow: 2px;
+    ---touch-grow: 4px;
   }
 }
 

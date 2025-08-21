@@ -124,14 +124,14 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
 }
 
 function hiliteVariations(ctrl: AnalyseCtrl, autoShapes: DrawShape[]) {
-  const parent = ctrl.disclosureMode() ? ctrl.tree.parentNode(ctrl.path) : (ctrl.node ?? ctrl.tree.root);
+  const parent = ctrl.ballerMode() ? ctrl.tree.parentNode(ctrl.path) : (ctrl.node ?? ctrl.tree.root);
   const visible = parent.children.filter(n => ctrl.showFishnetAnalysis || !n.comp);
   if (visible.length < 2) return;
   const chap = ctrl.study?.data.chapter;
   const isGamebookEditor = chap?.gamebook && !ctrl.study?.gamebookPlay;
   const currentIndex = visible.findIndex(n => n.id === ctrl.node.id);
   for (const [i, node] of visible.entries()) {
-    const blueHilite = ctrl.disclosureMode()
+    const blueHilite = ctrl.ballerMode()
       ? i === (currentIndex + 1) % visible.length
       : i === ctrl.fork.selected();
     autoShapes.push({

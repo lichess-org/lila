@@ -23,12 +23,12 @@ export function renderColumnView(ctrl: AnalyseCtrl, concealOf: ConcealOf = () =>
 }
 
 class ColumnView extends InlineView {
+  override readonly inline: boolean = false;
   constructor(
     ctrl: AnalyseCtrl,
     readonly concealOf: ConcealOf,
   ) {
     super(ctrl);
-    this.inline = false;
   }
 
   columnNodes([child, ...siblings]: Tree.Node[], opts: Args): LooseVNodes {

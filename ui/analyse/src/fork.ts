@@ -3,7 +3,8 @@ import { onInsert, hl } from 'lib/snabbdom';
 import type AnalyseCtrl from './ctrl';
 import type { ConcealOf } from './interfaces';
 import { renderIndexAndMove } from './view/components';
-import { isTouchDevice, addPointerListeners } from 'lib/device';
+import { isTouchDevice } from 'lib/device';
+import { addPointerListeners } from 'lib/pointer';
 
 export interface ForkCtrl {
   state(): {
@@ -26,7 +27,7 @@ export function make(ctrl: AnalyseCtrl): ForkCtrl {
   const selections = new Map<Tree.Path, number>();
 
   function displayed() {
-    return !ctrl.disclosureMode() && ctrl.node.children.length > 1;
+    return !ctrl.ballerMode() && ctrl.node.children.length > 1;
   }
   return {
     state() {
@@ -98,9 +99,11 @@ export function view(ctrl: AnalyseCtrl, concealOf?: ConcealOf) {
     'div.analyse__fork',
     {
       hook: onInsert(el => {
-        addPointerListeners(el, e => {
-          ctrl.fork.proceed(eventToIndex(e));
-          ctrl.redraw();
+        addPointerListeners(el, {
+          click: e => {
+            ctrl.fork.proceed(eventToIndex(e));
+            ctrl.redraw();
+          },
         });
         if (isTouchDevice()) return;
         el.addEventListener('mouseover', e => ctrl.fork.highlight(eventToIndex(e)));

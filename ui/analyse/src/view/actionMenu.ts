@@ -188,15 +188,15 @@ export function view(ctrl: AnalyseCtrl): VNode {
     hl('span', [
       ctrlToggle(
         {
-          name: 'Disclosure mode',
+          name: 'Baller mode',
           title: 'Variation disclosure mode',
-          id: 'disclosureMode',
-          checked: ctrl.disclosureMode(),
-          change: ctrl.toggleDisclosureMode,
+          id: 'ballerMode',
+          checked: ctrl.ballerMode(),
+          change: ctrl.toggleBallerMode,
         },
         ctrl,
       ),
-      hl('a.disclosure-help-btn', { hook: bind('click', disclosureModeHelp) }, licon.InfoCircle),
+      hl('a.disclosure-help-btn', { hook: bind('click', ballerModeHelp) }, licon.InfoCircle),
     ]),
     ctrlToggle(
       {
@@ -211,7 +211,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
       },
       ctrl,
     ),
-    !ctrl.disclosureMode() &&
+    !ctrl.ballerMode() &&
       ctrlToggle(
         {
           name: i18n.site.showVariationArrows,
@@ -270,13 +270,13 @@ export function view(ctrl: AnalyseCtrl): VNode {
   ]);
 }
 
-function disclosureModeHelp() {
+function ballerModeHelp() {
   domDialog({
     class: 'help disclosure-help',
     htmlText: $html`
       <span>
         <p>
-          <strong>Disclosure mode:</strong>
+          <strong>Baller mode:</strong>
           Use <i>${licon.PlusButton}</i> and <i>${licon.MinusButton}</i> buttons
           to show and hide comments and variations in the move list.
           <br><br>Your choices are remembered in browser cache.
