@@ -7,6 +7,7 @@ import { spinnerHtml } from 'lib/view/controls';
 import { confirm } from 'lib/view/dialogs';
 import { pubsub } from 'lib/pubsub';
 import { commonDateFormat, toDate } from 'lib/i18n';
+import { autolinkAtoms } from './mod.autolink';
 
 site.load.then(() => {
   const $toggle = $('.mod-zone-toggle'),
@@ -197,6 +198,7 @@ site.load.then(() => {
           reloadZone();
         });
     });
+    autolinkAtoms($inZone[0]);
   }
 
   const onScroll = () =>
