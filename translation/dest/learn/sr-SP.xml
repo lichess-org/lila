@@ -130,14 +130,14 @@
 Одмах поред његове даме.</string>
   <string name="pawnsFormTheFrontLine">Пешаци формирају линију фронта.
 Направи било који потез да наставиш.</string>
-  <string name="boardSetupComplete">Честитамо! Знате да поставите шаховску таблу.</string>
+  <string name="boardSetupComplete">Честитке! Знаш како да поставиш шаховску таблу.</string>
   <string name="castling">Рокадирање</string>
   <string name="theSpecialKingMove">Посебан потез краља</string>
   <string name="castlingIntro">Доведи свог краља на сигурно и развиј свог топа за напад!</string>
-  <string name="castleKingSide">Померите свог краља за два поља
-да направите малу рокаду!</string>
-  <string name="castleQueenSide">Померите свог краља за два поља
-да направите велику рокаду!</string>
+  <string name="castleKingSide">Помери свог краља два поља
+да урадиш малу рокаду!</string>
+  <string name="castleQueenSide">Помери свог краља два поља
+да урадиш велику рокаду!</string>
   <string name="theKnightIsInTheWay">Скакач је на сред пута!
 Помери га па уради малу рокаду.</string>
   <string name="castleKingSideMovePiecesFirst">Уради малу рокаду!
@@ -198,7 +198,7 @@
 Пешак = 1</string>
   <string name="checkInTwo">Шах у два</string>
   <string name="twoMovesToGiveCheck">Два потеза да се да шах</string>
-  <string name="checkInTwoIntro">Пронађите праву комбинацију два потеза која шахира противниковог краља!</string>
+  <string name="checkInTwoIntro">Пронађи праву комбинацију од два потеза која даје шах противничком краљу!</string>
   <string name="checkInTwoGoal">Запретите противничком краљу
 у два потеза!</string>
   <string name="checkInTwoComplete">Честитке! Дао/ла си шах твом противнику, терајући га да одбрани свог краља!</string>
