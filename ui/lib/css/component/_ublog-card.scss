@@ -24,6 +24,7 @@
     display: block;
     position: relative;
     line-height: 0;
+    background-size: cover;
   }
 
   &__over-image {
@@ -96,5 +97,11 @@
       color: $c-brag;
       font-weight: bold;
     }
+  }
+}
+
+@for $i from 1 through 28 {
+  .ublog-generic-bg#{$i} {
+    background-image: url(../lifat/background/gallery/bg#{if($i < 10, "0#{$i}", $i)}-thumb.webp);
   }
 }
