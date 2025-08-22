@@ -12,7 +12,12 @@ $td-inner-relative-percent: $td-inner-height-ratio / $td-outer-height-ratio * 10
   }
 }
 
+#top {
+  z-index: 1;
+}
+
 .main-board {
+  z-index: 2;
   padding-bottom: $td-outer-height-percent;
 
   .cg-wrap {
