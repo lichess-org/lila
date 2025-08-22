@@ -74,10 +74,8 @@ object RelayUpdatePlan:
     )
 
   private[relay] def isSameGame(game: RelayGame, chapter: Chapter): Boolean =
-    isSameGameBasedOnTags(game.tags, chapter.tags) || isSameGameBasedOnTagsAndFirstMoves(game, chapter)
+    isSameGameBasedOnTags(game.tags, chapter.tags) || isSameGameBasedOnSomeTagsAndFirstMoves(game, chapter)
 
-  // We don't use tags.boardNumber.
-  // Organizers change it at any time while reordering the boards.
   private[relay] def isSameGameBasedOnTags(gameTags: Tags, chapterTags: Tags): Boolean =
     ~(gameTags(_.GameId), chapterTags(_.GameId)).mapN(_ == _) || {
       allSame(RelayGame.eventTags)(gameTags, chapterTags) &&
@@ -86,11 +84,10 @@ object RelayUpdatePlan:
       playerTagsMatch(gameTags, chapterTags)
     }
 
-  // if the board number has changed, but most moves look similar,
+  // if the board number or event has changed, but most moves look similar,
   // then probably it's the same game but the source changed the order and board numbers
-  private[relay] def isSameGameBasedOnTagsAndFirstMoves(game: RelayGame, chapter: Chapter): Boolean =
-    allSame(RelayGame.eventTags)(game.tags, chapter.tags) &&
-      game.tags.roundNumber == chapter.tags.roundNumber &&
+  private[relay] def isSameGameBasedOnSomeTagsAndFirstMoves(game: RelayGame, chapter: Chapter): Boolean =
+    game.tags.roundNumber == chapter.tags.roundNumber &&
       playerTagsMatch(game.tags, chapter.tags) && {
         val gameMoves = game.root.mainlineNodeList
         val chapterMoves = chapter.root.mainlineNodeList
