@@ -329,10 +329,9 @@ final class ReportApi(
       reporter <- automodReporter
     yield for
       res <- rsp
-      assessmentOpt = (res \ "assessment").asOpt[String]
-      _ = lila.mon.mod.report.automod.assessment(assessmentOpt | "ok").increment()
-      assessment <- assessmentOpt
-      reason <- Reason(assessment)
+      fromLlm <- (res \ "assessment").asOpt[String]
+      _ = lila.mon.mod.report.automod.assessment(if fromLlm == "pass" then "ok" else fromLlm).increment()
+      reason <- Reason(if fromLlm == "other" then "comm" else fromLlm) // to avoid explaining "comm" in prompt
       suspect <- suspectOpt
       summary = ~(res \ "reason").asOpt[String]
     yield create(
