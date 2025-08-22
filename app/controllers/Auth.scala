@@ -98,47 +98,51 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
             ),
           (login, pass) =>
             LoginRateLimit(login.normalize, ctx.req): chargeLimiters =>
-              env.security.pwned(pass).foreach { _.so(chargeLimiters()) }
-              val isEmail = EmailAddress.isValid(login.value)
-              val stuffing = ctx.req.headers.get("X-Stuffing") | "no" // from nginx
-              api.loadLoginForm(login).flatMap {
-                _.bindFromRequest()
-                  .fold(
-                    err =>
-                      chargeLimiters()
-                      lila.mon.security.login
-                        .attempt(isEmail, stuffing = stuffing, result = false)
-                        .increment()
-                      negotiate(
-                        err.errors match
-                          case List(FormError("", Seq(err), _)) if is2fa(err) => Ok(err)
-                          case _ => Unauthorized.page(views.auth.login(err, referrer, isRemember))
-                        ,
-                        Unauthorized(doubleJsonFormErrorBody(err))
-                      )
-                    ,
-                    result =>
-                      result.toOption match
-                        case None => InternalServerError("Authentication error")
-                        case Some(u) if u.enabled.no =>
+              env.security
+                .pwned(pass)
+                .flatMap: pwned =>
+                  if pwned.yes then chargeLimiters()
+                  val isEmail = EmailAddress.isValid(login.value)
+                  val stuffing = ctx.req.headers.get("X-Stuffing") | "no" // from nginx
+                  api.loadLoginForm(login, pwned).flatMap {
+                    _.bindFromRequest()
+                      .fold(
+                        err =>
+                          chargeLimiters()
+                          lila.mon.security.login
+                            .attempt(isEmail, stuffing = stuffing, result = false)
+                            .increment()
                           negotiate(
-                            env.mod.logApi.closedByTeacher(u).flatMap {
-                              if _ then
-                                authenticateAppealUser(u, redirectTo, routes.Appeal.closedByTeacher.url)
-                              else
-                                env.mod.logApi.closedByMod(u).flatMap {
-                                  if _ then authenticateAppealUser(u, redirectTo, routes.Appeal.landing.url)
-                                  else redirectTo(routes.Account.reopen.url)
-                                }
-                            },
-                            Unauthorized(jsonError("This account is closed."))
+                            err.errors match
+                              case List(FormError("", Seq(err), _)) if is2fa(err) => Ok(err)
+                              case _ => Unauthorized.page(views.auth.login(err, referrer, isRemember))
+                            ,
+                            Unauthorized(doubleJsonFormErrorBody(err))
                           )
-                        case Some(u) =>
-                          lila.mon.security.login.attempt(isEmail, stuffing = stuffing, result = true)
-                          env.user.repo.email(u.id).foreach(_.foreach(garbageCollect(u)))
-                          authenticateUser(u, isRemember, Some(redirectTo))
-                  )
-              }
+                        ,
+                        result =>
+                          result.toOption match
+                            case None => InternalServerError("Authentication error")
+                            case Some(u) if u.enabled.no =>
+                              negotiate(
+                                env.mod.logApi.closedByTeacher(u).flatMap {
+                                  if _ then
+                                    authenticateAppealUser(u, redirectTo, routes.Appeal.closedByTeacher.url)
+                                  else
+                                    env.mod.logApi.closedByMod(u).flatMap {
+                                      if _ then
+                                        authenticateAppealUser(u, redirectTo, routes.Appeal.landing.url)
+                                      else redirectTo(routes.Account.reopen.url)
+                                    }
+                                },
+                                Unauthorized(jsonError("This account is closed."))
+                              )
+                            case Some(u) =>
+                              lila.mon.security.login.attempt(isEmail, stuffing = stuffing, result = true)
+                              env.user.repo.email(u.id).foreach(_.foreach(garbageCollect(u)))
+                              authenticateUser(u, isRemember, Some(redirectTo))
+                      )
+                  }
         )
 
   def logout = Open:

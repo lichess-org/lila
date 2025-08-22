@@ -75,13 +75,18 @@ final class SecurityApi(
       })
     )
 
-  private def must2fa(req: RequestHeader): Fu[Option[IsProxy]] =
+  private def must2fa(req: RequestHeader, pwned: IsPwned): Fu[Option[IsProxy]] =
     ip2proxy
       .ofReq(req)
       .map: p =>
-        p.name.exists(proxy2faSetting.get().value.has(_)).option(p)
+        if p == IsProxy.public || p == IsProxy.tor then p.some
+        else
+          pwned.yes.so:
+            p.name.exists(proxy2faSetting.get().value.has(_)).option(p)
 
-  def loadLoginForm(str: UserStrOrEmail)(using req: RequestHeader): Fu[Form[LoginCandidate.Result]] =
+  def loadLoginForm(str: UserStrOrEmail, pwned: IsPwned)(using
+      req: RequestHeader
+  ): Fu[Form[LoginCandidate.Result]] =
     EmailAddress
       .from(str.value)
       .match
@@ -90,7 +95,7 @@ final class SecurityApi(
       .map(_.filter(_.user.isnt(UserId.lichess)))
       .flatMap:
         _.so: candidate =>
-          must2fa(req).map:
+          must2fa(req, pwned).map:
             _.fold(candidate.some): p =>
               lila.mon.security.login.proxy(p.value).increment()
               candidate.copy(must2fa = true).some
