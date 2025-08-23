@@ -43,4 +43,8 @@
   <string name="invalidMove">Ongültegen Zuch</string>
   <string name="premoveCancelled">Virauszuch ofgebrach</string>
   <string name="premoveRecorded">Virauszuch enregistréiert: %s. Dréckt Enter fir ofzebriechen</string>
+  <string name="pockets" comment="Pockets in Crazyhouse, which hold captured pieces and let players place them again">Täschen</string>
+  <string name="copyToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">%s an den Tëschespäicher kopéieren</string>
+  <string name="copiedToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">%s an den Tëschespäicher kopéiert</string>
+  <string name="pgnAndFen" comment="Will be a heading read out over text-to-speech for blind users looking to share a PGN or FEN of a game.">PGN an FEN</string>
 </resources>
