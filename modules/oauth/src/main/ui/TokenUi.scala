@@ -72,7 +72,7 @@ final class TokenUi(helpers: Helpers)(
                 mode.isDev.option(frag(br, em("Visible in DEV mode: "), code(t.plain.value)))
               ),
               td(cls := "date")(
-                t.createdAt.map: created =>
+                t.created.map: created =>
                   frag(ot.created(momentFromNow(created)), br),
                 t.usedAt.map: used =>
                   frag(ot.lastUsed(momentFromNow(used)))
