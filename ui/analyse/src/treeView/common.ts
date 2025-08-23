@@ -16,7 +16,7 @@ export function mainHook(ctrl: AnalyseCtrl): Hooks {
   return {
     insert: vnode => {
       const el = vnode.elm as HTMLElement;
-      if (ctrl.path !== '') autoScroll(el);
+      if (ctrl.path !== '') autoScroll();
       const ctxMenuCallback = (e: MouseEvent) => {
         const path = eventPath(e);
         if (path !== null) contextMenu(e, { path, root: ctrl });
@@ -34,9 +34,9 @@ export function mainHook(ctrl: AnalyseCtrl): Hooks {
         ctrl.redraw();
       });
     },
-    postpatch: (_, vnode: VNode & { elm: HTMLElement }) => {
+    postpatch: () => {
       if (ctrl.autoScrollRequested) {
-        autoScroll(vnode.elm.closest<HTMLElement>('.analyse__moves')!);
+        autoScroll();
         ctrl.autoScrollRequested = false;
       }
     },
@@ -49,13 +49,16 @@ function eventPath(e: MouseEvent): Tree.Path | null {
   );
 }
 
-const autoScroll = throttle(200, (moveListEl: HTMLElement) => {
-  const moveEl = moveListEl.querySelector<HTMLElement>('.active');
-  if (!moveEl) return moveListEl.scrollTo({ top: 0, behavior: 'auto' });
-  const [move, view] = [moveEl.getBoundingClientRect(), moveListEl.getBoundingClientRect()];
+const autoScroll = throttle(200, () => {
+  const scrollView = document.querySelector<HTMLElement>('.analyse__moves')!;
+  const moveEl = scrollView.querySelector<HTMLElement>('.active');
+  if (!moveEl) return scrollView.scrollTo({ top: 0, behavior: 'auto' });
+
+  const [move, view] = [moveEl.getBoundingClientRect(), scrollView.getBoundingClientRect()];
   const visibleHeight = Math.min(view.bottom, window.innerHeight) - Math.max(view.top, 0);
-  moveListEl.scrollTo({
-    top: moveListEl.scrollTop + move.top - view.top - (visibleHeight - move.height) / 2,
+
+  scrollView.scrollTo({
+    top: scrollView.scrollTop + move.top - view.top - (visibleHeight - move.height) / 2,
     behavior: 'auto',
   });
 });
