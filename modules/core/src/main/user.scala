@@ -296,6 +296,7 @@ object user:
     val plan = "plan"
     val kid = "kid"
     val createdAt = "createdAt"
+    val seenAt = "seenAt"
 
   trait Note:
     val text: String
