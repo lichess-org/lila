@@ -84,7 +84,7 @@
 ниједну небрањену фигуру!</string>
   <string name="combat">Борба</string>
   <string name="captureAndDefendPieces">Узми и одбрани фигуре</string>
-  <string name="combatIntro">Добар ратник зна и да напада и да се брани!</string>
+  <string name="combatIntro">Добар ратник зна и напад и одбрану!</string>
   <string name="combatComplete">Честитке! Знаш како да се бориш са шаховским фигурама!</string>
   <string name="checkInOne">Шах у један</string>
   <string name="attackTheOpponentsKing">Нападни противничког краља</string>
@@ -124,7 +124,7 @@
 Они иду поред топова.</string>
   <string name="placeTheBishops">Стави ловце!
 Они иду поред скакача.</string>
-  <string name="placeTheQueen">Поставите даму!
+  <string name="placeTheQueen">Постави даму!
 Она иде на своју боју.</string>
   <string name="placeTheKing">Стави краља!
 Одмах поред његове даме.</string>
@@ -199,7 +199,7 @@
   <string name="checkInTwo">Шах у два</string>
   <string name="twoMovesToGiveCheck">Два потеза да се да шах</string>
   <string name="checkInTwoIntro">Пронађи праву комбинацију од два потеза која даје шах противничком краљу!</string>
-  <string name="checkInTwoGoal">Запретите противничком краљу
+  <string name="checkInTwoGoal">Запрети противничком краљу
 у два потеза!</string>
   <string name="checkInTwoComplete">Честитке! Дао/ла си шах твом противнику, терајући га да одбрани свог краља!</string>
   <string name="whatNext">Шта даље?</string>
@@ -207,9 +207,9 @@
   <string name="register">Региструј се</string>
   <string name="getAFreeLichessAccount">Набави бесплатан Lichess налог</string>
   <string name="practice">Вежбај</string>
-  <string name="learnCommonChessPositions">Научите честе шаховске позиције</string>
+  <string name="learnCommonChessPositions">Научи честе шаховске позиције</string>
   <string name="puzzles">Проблеми</string>
-  <string name="exerciseYourTacticalSkills">Вежбајте Ваше тактичке вештине</string>
+  <string name="exerciseYourTacticalSkills">Вежбај своје тактичке вештине</string>
   <string name="videos">Видео снимци</string>
   <string name="watchInstructiveChessVideos">Гледај поучне шаховске видео снимке</string>
   <string name="playPeople">Играј против људи</string>
