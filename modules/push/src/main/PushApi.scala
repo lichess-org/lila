@@ -256,7 +256,7 @@ final private class PushApi(
                     "type" -> "challengeCreate",
                     "challengeId" -> c.id.value
                   ),
-                  mobileCompatible = None
+                  mobileCompatible = LichessMobileVersion(0, 18).some
                 )
             )
 
@@ -277,7 +277,7 @@ final private class PushApi(
                   body = describeChallenge(c),
                   stacking = Stacking.ChallengeAccept,
                   urgency = Urgency.Normal,
-                  mobileCompatible = None,
+                  mobileCompatible = LichessMobileVersion(0, 18).some,
                   payload = payload(challenger.id)(
                     "type" -> "challengeAccept",
                     "challengeId" -> c.id.value
