@@ -108,7 +108,7 @@ function prependChatInput(chatInput: HTMLInputElement, prefix: string): void {
 let mouchListener: EventListener;
 
 const setupHooks = (ctrl: ChatCtrl, chatEl: HTMLInputElement) => {
-  const storage = tempStorage.make('chat.input');
+  const storage = tempStorage.make(`chat.input.${ctrl.opts.data.opponentId}`);
   const previousText = storage.get();
   if (previousText) {
     chatEl.value = previousText;
