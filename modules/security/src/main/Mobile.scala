@@ -15,7 +15,7 @@ object Mobile:
 
     val currentVersion = ApiVersion.lichobile
 
-    val acceptedVersions: Set[ApiVersion] = Set(1, 2, 3, 4, 5, 6).map { ApiVersion(_) }
+    val acceptedVersions: Set[ApiVersion] = ApiVersion.from(Set(1, 2, 3, 4, 5, 6))
 
     def requestVersion(req: RequestHeader): Option[ApiVersion] =
       HTTPRequest.apiVersion(req).filter(acceptedVersions.contains)

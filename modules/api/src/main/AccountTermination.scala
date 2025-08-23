@@ -80,7 +80,7 @@ final class AccountTermination(
     _ <- planApi.cancelIfAny(u).recoverDefault
     _ <- seekApi.removeByUser(u)
     _ <- securityStore.closeAllSessionsOf(u.id)
-    _ <- selfClose.so(tokenApi.revokeAllByUser(u))
+    _ <- selfClose.so(tokenApi.revokeAllByUser(u.id))
     _ <- pushEnv.webSubscriptionApi.unsubscribeByUser(u)
     _ <- pushEnv.unregisterDevices(u)
     _ <- streamerApi.demote(u.id)
@@ -133,7 +133,7 @@ final class AccountTermination(
     _ <- swissIds.nonEmpty.so(swissApi.onUserDelete(u.id, swissIds))
     _ <- teamApi.onUserDelete(u.id)
     _ <- ublogApi.onAccountDelete(u)
-    _ <- tokenApi.revokeAllByUser(u)
+    _ <- tokenApi.revokeAllByUser(u.id)
     _ <- u.marks.clean.so:
       securityStore.deleteAllSessionsOf(u.id)
   yield

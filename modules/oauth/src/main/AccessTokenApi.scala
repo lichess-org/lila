@@ -167,12 +167,12 @@ final class AccessTokenApi(
     for _ <- coll.delete.one($doc(F.id -> id, F.userId -> me))
     yield onRevoke(id)
 
-  def revokeAllByUser(user: User): Funit =
+  def revokeAllByUser(userId: UserId): Funit =
     coll
-      .find($doc(F.userId -> user.id))
+      .find($doc(F.userId -> userId))
       .cursor[AccessToken]()
       .documentSource()
-      .mapAsyncUnordered(4)(token => revokeById(token.id)(using Me(user)))
+      .mapAsyncUnordered(4)(token => revokeById(token.id)(using userId.into(MyId)))
       .runWith(Sink.ignore)
       .void
 

@@ -7,7 +7,6 @@ import lila.analyse.{ Analysis, AnalysisRepo }
 import lila.core.config.NetDomain
 import lila.core.misc.lpv.*
 import lila.memo.CacheApi
-import lila.study.Study
 
 final class TextLpvExpand(
     gameRepo: lila.core.game.GameRepo,

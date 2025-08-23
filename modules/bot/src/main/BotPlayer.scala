@@ -91,22 +91,24 @@ final class BotPlayer(
       tellRound(pov.gameId, RoundBus.Takeback(pov.playerId, v))
 
   def claimVictory(pov: Pov): Funit =
-    pov.mightClaimWin.so:
+    if !pov.mightClaimWin then clientError("This is not the time to claim victory")
+    else
       finishRoundThenFetchGame(pov, RoundBus.ResignForce(pov.playerId))
         .map:
           _.exists(_.winner.map(_.id).has(pov.playerId))
         .flatMap:
           if _ then funit
-          else clientError("You cannot claim the win on this game")
+          else clientError("You cannot claim victory in this game")
 
   def claimDraw(pov: Pov): Funit =
-    pov.game.drawable.so:
+    if !pov.game.drawable then clientError("This is not the time to claim draw")
+    else
       finishRoundThenFetchGame(pov, RoundBus.DrawForce(pov.playerId))
         .map:
           _.exists(_.drawn)
         .flatMap:
           if _ then funit
-          else clientError("You cannot claim draw on this game")
+          else clientError("You cannot claim draw in this game")
 
   private def finishRoundThenFetchGame(pov: Pov, event: RoundBus): Fu[Option[Game]] =
     tellRound(pov.gameId, event)
