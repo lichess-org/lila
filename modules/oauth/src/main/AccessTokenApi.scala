@@ -53,7 +53,7 @@ final class AccessTokenApi(
         clientOrigin = None,
         userAgent = ua.some,
         expires = None
-      ).pp
+      )
       res <- createAndRotate(token)
     yield res
 
