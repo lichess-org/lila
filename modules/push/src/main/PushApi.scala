@@ -256,7 +256,7 @@ final private class PushApi(
                     "type" -> "challengeCreate",
                     "challengeId" -> c.id.value
                   ),
-                  mobileCompatible = LichessMobileVersion(0, 18).some,
+                  mobileCompatible = LichessMobileVersion(0, 18).some
                 )
             )
 
