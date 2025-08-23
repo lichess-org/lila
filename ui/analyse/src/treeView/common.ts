@@ -16,7 +16,7 @@ export function mainHook(ctrl: AnalyseCtrl): Hooks {
   return {
     insert: vnode => {
       const el = vnode.elm as HTMLElement;
-      if (ctrl.path !== '') autoScroll(el);
+      if (ctrl.path !== '') legacyAutoScroll(ctrl, el);
       const ctxMenuCallback = (e: MouseEvent) => {
         const path = eventPath(e);
         if (path !== null) contextMenu(e, { path, root: ctrl });
@@ -48,6 +48,19 @@ function eventPath(e: MouseEvent): Tree.Path | null {
     (e.target as HTMLElement).getAttribute('p') || (e.target as HTMLElement).parentElement!.getAttribute('p')
   );
 }
+
+// window.innerHeight is wrong when autoScroll is called in insert hook
+const legacyAutoScroll = throttle(200, (ctrl: AnalyseCtrl, el: HTMLElement) => {
+  const cont = el.parentElement?.parentElement;
+  if (!cont) return;
+  const target = el.querySelector<HTMLElement>('.active');
+  if (!target) {
+    cont.scrollTop = ctrl.path ? 99999 : 0;
+    return;
+  }
+  const targetOffset = target.getBoundingClientRect().y - el.getBoundingClientRect().y;
+  cont.scrollTop = targetOffset - cont.offsetHeight / 2 + target.offsetHeight;
+});
 
 const autoScroll = throttle(200, (moveListEl: HTMLElement) => {
   const moveEl = moveListEl.querySelector<HTMLElement>('.active');
