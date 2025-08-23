@@ -25,12 +25,8 @@ object Spotlight:
   // If the user is logged in, we filter the tournaments based on their preferences
   // and spotlight them if they are relevant.
   def select(tours: List[Tournament], max: Int)(using me: Option[UserWithPerfs]): List[Tournament] =
-    me.match
-      case None => select(tours)
-      case Some(me) =>
-        given UserWithPerfs = me
-        val personalized = tours.filter(selectForMe).distinct
-        if personalized.isEmpty then select(tours) else personalized
+    me.foldUse(select(tours)): _ ?=>
+      tours.filter(selectForMe).distinct
     .topN(max)
 
   private def select(tours: List[Tournament]): List[Tournament] =

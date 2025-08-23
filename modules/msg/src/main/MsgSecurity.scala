@@ -192,7 +192,7 @@ private object MsgSecurity:
   sealed trait Verdict
   sealed trait Reject extends Verdict
   sealed abstract class Send(val mute: Boolean) extends Verdict
-  sealed abstract class Mute extends Send(true)
+  sealed abstract class Mute extends Send(mute = true)
 
   case object Ok extends Send(mute = false)
   case object TrollFriend extends Send(mute = false)
