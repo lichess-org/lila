@@ -12,7 +12,7 @@ import lila.core.net.IpAddress
 import lila.core.security.ClearPassword
 import lila.memo.RateLimit
 import lila.security.SecurityForm.{ MagicLink, PasswordReset }
-import lila.security.{ FingerPrint, Signup, EmailConfirm }
+import lila.security.{ FingerPrint, Signup, EmailConfirm, IsPwned }
 
 final class Auth(env: Env, accountC: => Account) extends LilaController(env):
 
@@ -32,11 +32,14 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
 
   private def getReferrer(using Context): String = getReferrerOption | routes.Lobby.home.url
 
-  def authenticateUser(u: UserModel, remember: Boolean, result: Option[String => Result] = None)(using
-      ctx: Context
-  ): Fu[Result] =
+  def authenticateUser(
+      u: UserModel,
+      pwned: IsPwned,
+      remember: Boolean,
+      result: Option[String => Result] = None
+  )(using ctx: Context): Fu[Result] =
     api
-      .saveAuthentication(u.id, ctx.mobileApiVersion)
+      .saveAuthentication(u.id, ctx.mobileApiVersion, pwned)
       .flatMap: sessionId =>
         negotiate(
           result.fold(Redirect(getReferrer))(_(getReferrer)),
@@ -98,8 +101,8 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
             ),
           (login, pass) =>
             LoginRateLimit(login.normalize, ctx.req): chargeLimiters =>
-              env.security
-                .pwned(pass)
+              env.security.pwned
+                .isPwned(pass)
                 .flatMap: pwned =>
                   if pwned.yes then chargeLimiters()
                   val isEmail = EmailAddress.isValid(login.value)
@@ -110,7 +113,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
                         err =>
                           chargeLimiters()
                           lila.mon.security.login
-                            .attempt(isEmail, stuffing = stuffing, result = false)
+                            .attempt(isEmail, stuffing = stuffing, pwned = pwned.yes, result = false)
                             .increment()
                           negotiate(
                             err.errors match
@@ -138,9 +141,10 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
                                 Unauthorized(jsonError("This account is closed."))
                               )
                             case Some(u) =>
-                              lila.mon.security.login.attempt(isEmail, stuffing = stuffing, result = true)
+                              lila.mon.security.login
+                                .attempt(isEmail, stuffing = stuffing, pwned = pwned.yes, result = true)
                               env.user.repo.email(u.id).foreach(_.foreach(garbageCollect(u)))
-                              authenticateUser(u, isRemember, Some(redirectTo))
+                              authenticateUser(u, pwned, isRemember, Some(redirectTo))
                       )
                   }
         )
@@ -210,7 +214,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
                 case Signup.Result.ConfirmEmail(_, _) => Ok(Json.obj("email_confirm" -> true))
                 case Signup.Result.AllSet(user, email) =>
                   welcome(user, email, sendWelcomeEmail = true) >>
-                    authenticateUser(user, remember = true)
+                    authenticateUser(user, remember = true, pwned = IsPwned.No)
         )
 
   private def welcome(user: UserModel, email: EmailAddress, sendWelcomeEmail: Boolean)(using
@@ -290,7 +294,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
 
   private def redirectNewUser(user: UserModel)(using Context) =
     api
-      .saveAuthentication(user.id, ctx.mobileApiVersion)
+      .saveAuthentication(user.id, ctx.mobileApiVersion, pwned = IsPwned.No)
       .flatMap: sessionId =>
         negotiate(
           Redirect(getReferrerOption | routes.User.show(user.username).url)
@@ -394,7 +398,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
                 _ <- env.security.store.closeAllSessionsOf(user.id)
                 _ <- env.push.webSubscriptionApi.unsubscribeByUser(user)
                 _ <- env.push.unregisterDevices(user)
-                res <- authenticateUser(user, remember = true)
+                res <- authenticateUser(user, remember = true, pwned = IsPwned.No)
               yield
                 lila.mon.user.auth.passwordResetConfirm("success").increment()
                 res
@@ -463,7 +467,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
       then Redirect(getReferrer)
       else
         Firewall:
-          consumingToken(token) { authenticateUser(_, remember = true) }
+          consumingToken(token) { authenticateUser(_, remember = true, pwned = IsPwned.No) }
 
   private def consumingToken(token: String)(f: UserModel => Fu[Result])(using Context) =
     env.security.loginToken

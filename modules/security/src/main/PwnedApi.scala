@@ -7,9 +7,9 @@ import play.api.libs.ws.StandaloneWSClient
 opaque type IsPwned = Boolean
 object IsPwned extends YesNo[IsPwned]
 
-final class Pwned(ws: StandaloneWSClient, rangeUrl: String)(using Executor):
+final class PwnedApi(ws: StandaloneWSClient, rangeUrl: String)(using Executor):
 
-  def apply(pass: lila.core.security.ClearPassword): Fu[IsPwned] =
+  def isPwned(pass: lila.core.security.ClearPassword): Fu[IsPwned] =
     rangeUrl.nonEmpty.so:
       val (prefix, suffix) = pass.value.sha1.hex.toUpperCase.splitAt(5)
       val url = s"${rangeUrl}${prefix}"
