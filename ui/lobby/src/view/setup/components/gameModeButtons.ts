@@ -22,7 +22,7 @@ export const gameModeButtons = (ctrl: LobbyController): MaybeVNode => {
               },
             },
             gameModes.map(({ key, name }) =>
-              option({ key: key, name: name }, setupCtrl.gameMode().toString()),
+              option({ key: key, name: name }, setupCtrl.gameMode()),
             ),
           ),
         ]
