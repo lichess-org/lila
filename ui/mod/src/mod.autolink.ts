@@ -22,11 +22,12 @@ const greedyAutoLinks = [
   'team',
   'tournament',
   '@',
-  '(?:[A-Za-z0-9]{8})(?:[a-zA-Z0-9]{4})?$',
+  'insights',
+  '(?:[A-Za-z0-9]{8})(?:[a-zA-Z0-9]{4})?', // game ids
 ];
 
 const pathMatchRe = new RegExp(
   `(?:(?:^|\\s)https://)?(?:${location.hostname.replace('.', '\\.')})?` +
-    `(/(?:${greedyAutoLinks.join('|')})[\\w/:(&;)=@-]+)`,
+    `(/(?:${greedyAutoLinks.join('|')})(?:/|\\?|#|$)[\\w/:(&;)=#@-]*)`,
   'gi',
 );
