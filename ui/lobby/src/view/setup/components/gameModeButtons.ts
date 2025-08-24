@@ -21,9 +21,7 @@ export const gameModeButtons = (ctrl: LobbyController): MaybeVNode => {
                 change: (e: Event) => setupCtrl.gameMode((e.target as HTMLSelectElement).value as GameMode),
               },
             },
-            gameModes.map(({ key, name }) =>
-              option({ key: key, name: name }, setupCtrl.gameMode()),
-            ),
+            gameModes.map(({ key, name }) => option({ key: key, name: name }, setupCtrl.gameMode())),
           ),
         ]
       : h(
