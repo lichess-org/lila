@@ -18,14 +18,14 @@
     <item quantity="other">Решили %s тактичких проблема</item>
   </plurals>
   <plurals name="playedNbGames">
-    <item quantity="one">Одиграли %1$s %2$s партију</item>
-    <item quantity="few">Одиграли %1$s %2$s партије</item>
-    <item quantity="other">Одиграли %1$s %2$s партија</item>
+    <item quantity="one">Одиграо/ла %1$s %2$s партију</item>
+    <item quantity="few">Одиграо/ла %1$s %2$s партије</item>
+    <item quantity="other">Одиграо/ла %1$s %2$s партија</item>
   </plurals>
   <plurals name="postedNbMessages">
-    <item quantity="one">Поставили %1$s поруку у %2$s</item>
-    <item quantity="few">Поставили %1$s поруке у %2$s</item>
-    <item quantity="other">Поставили %1$s порука у %2$s</item>
+    <item quantity="one">Поставио/ла %1$s поруку у %2$s</item>
+    <item quantity="few">Поставио/ла %1$s поруке у %2$s</item>
+    <item quantity="other">Поставио/ла %1$s порука у %2$s</item>
   </plurals>
   <plurals name="playedNbMoves">
     <item quantity="one">Одиграли %1$s потез</item>
@@ -38,9 +38,9 @@
     <item quantity="other">у %1$s дописних партија</item>
   </plurals>
   <plurals name="completedNbGames">
-    <item quantity="one">Завршили %s дописну партију</item>
-    <item quantity="few">Завршили %s дописне партије</item>
-    <item quantity="other">Завршили %s дописних партија</item>
+    <item quantity="one">Завршио/ла %s дописну партију</item>
+    <item quantity="few">Завршио/ла %s дописне партије</item>
+    <item quantity="other">Завршио/ла %s дописних партија</item>
   </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">Почели пратити %s играча</item>
@@ -48,9 +48,9 @@
     <item quantity="other">Почели пратити %s играча</item>
   </plurals>
   <plurals name="gainedNbFollowers">
-    <item quantity="one">Стекли %s новог пратиоца</item>
-    <item quantity="few">Стекли %s нова пратилаца</item>
-    <item quantity="other">Стекли %s нових пратилаца</item>
+    <item quantity="one">Стекао/ла %s новог пратиоца</item>
+    <item quantity="few">Стекао/ла %s нова пратилаца</item>
+    <item quantity="other">Стекао/ла %s нових пратилаца</item>
   </plurals>
   <plurals name="hostedNbSimuls">
     <item quantity="one">Одржали %s симултанку</item>
