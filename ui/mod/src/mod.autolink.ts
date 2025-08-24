@@ -14,7 +14,16 @@ export function autolinkAtoms(el: HTMLElement = document.body): void {
 
 let once: HTMLElement;
 
-const greedyAutoLinks = ['inbox', 'forum', 'study', 'broadcast', 'team', 'tournament', '@'];
+const greedyAutoLinks = [
+  'inbox',
+  'forum',
+  'study',
+  'broadcast',
+  'team',
+  'tournament',
+  '@',
+  '(?:[A-Za-z0-9]{8})(?:[a-zA-Z0-9]{4})?$',
+];
 
 const pathMatchRe = new RegExp(
   `(?:(?:^|\\s)https://)?(?:${location.hostname.replace('.', '\\.')})?` +
