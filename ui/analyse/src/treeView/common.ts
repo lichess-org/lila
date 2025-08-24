@@ -27,7 +27,7 @@ export function mainHook(ctrl: AnalyseCtrl): Hooks {
       el.oncontextmenu = ctxMenuCallback;
       if (isTouchDevice()) addPointerListeners(el, undefined, ctxMenuCallback);
 
-      el.addEventListener('mousedown', (e: MouseEvent) => {
+      el.addEventListener('pointerdown', (e: PointerEvent) => {
         if (defined(e.button) && e.button !== 0) return; // only touch or left click
         const path = eventPath(e);
         if (path) ctrl.userJump(path);
