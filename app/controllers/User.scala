@@ -185,8 +185,11 @@ final class User(
               negotiate(
                 html = for
                   pov <- ctx.isnt(user).so(env.round.currentlyPlaying.exec(user.user.id))
+                  ua <- userAgentTuple(user.id)
                   ping = env.socket.isOnline.exec(user.id).so(env.socket.getLagRating(user.id))
-                  snip <- Ok.snip(views.user.mini(user, pov, blocked, followable, relation, ping, crosstable))
+                  snip <- Ok.snip(
+                    views.user.mini(user, pov, blocked, followable, relation, ping, crosstable, ua)
+                  )
                 yield snip.headerCacheSeconds(5),
                 json =
                   import lila.game.JsonView.given
@@ -628,3 +631,16 @@ final class User(
     meOrFetch(username).map:
       _.filter(_.enabled.yes || isGrantedOpt(_.SeeReport)).map: user =>
         Redirect(routes.User.show(user.username))
+
+  private def userAgentTuple(userId: UserId)(using Context) =
+    isGrantedOpt(_.Developer).so:
+      env.security.store.mostRecentUserAgent(userId).map {
+        _.map: full =>
+          val client = lila.security.UserAgentParser.parse(lila.core.net.UserAgent(full))
+          val (os, dev, u) = (client.os, client.device, client.userAgent)
+          (
+            (s"${os.family} ${List(os.major, os.minor, os.patch).flatten.mkString(".")} ${dev.family} " +
+              s"${u.family} v${List(u.major, u.minor, u.patch).flatten.mkString(".")}").replace("  ", " "),
+            full
+          )
+      }

@@ -32,7 +32,8 @@ final class UserShow(helpers: Helpers, bits: UserBits):
       crosstable: UserId => Option[Frag],
       flag: Option[Flag],
       best8Perfs: List[PerfKey],
-      userMarks: => Frag
+      userMarks: => Frag,
+      userAgent: Option[(String, String)]
   )(using ctx: Context) =
     frag(
       div(cls := "upt__info")(
@@ -92,7 +93,8 @@ final class UserShow(helpers: Helpers, bits: UserBits):
         span(trans.site.nbGames.plural(u.count.game, u.count.game.localize)),
         span(trans.site.joinedX(momentFromNow(u.createdAt))),
         (Granter.opt(_.UserModView) && (u.lameOrTroll || u.enabled.no || u.marks.rankban))
-          .option(span(cls := "upt__details__marks")(userMarks))
+          .option(span(cls := "upt__details__marks")(userMarks)),
+        Granter.opt(_.Developer).option(userAgent.collect(ua => span(title := ua._2, ua._1)))
       ),
       playing
     )

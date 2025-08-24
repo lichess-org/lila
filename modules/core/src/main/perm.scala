@@ -220,7 +220,8 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
           StudyAdmin,
           BroadcastTimeout,
           ApiChallengeAdmin,
-          Feed
+          Feed,
+          Developer
         ),
         "Admin"
       )
