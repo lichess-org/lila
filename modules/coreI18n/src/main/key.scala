@@ -2897,6 +2897,26 @@ object I18nKey:
     val `nbViews`: I18nKey = "ublog:nbViews"
     val `viewAllNbPosts`: I18nKey = "ublog:viewAllNbPosts"
 
+  object video:
+    val `chessVideos`: I18nKey = "video:chessVideos"
+    val `allVideosAreFree`: I18nKey = "video:allVideosAreFree"
+    val `clickOneOrMany`: I18nKey = "video:clickOneOrMany"
+    val `weHaveCarefullySelected`: I18nKey = "video:weHaveCarefullySelected"
+    val `freeChessVideos`: I18nKey = "video:freeChessVideos"
+    val `freeCarefullyCurated`: I18nKey = "video:freeCarefullyCurated"
+    val `curatedChessVideos`: I18nKey = "video:curatedChessVideos"
+    val `matchingTheTags`: I18nKey = "video:matchingTheTags"
+    val `freeForAll`: I18nKey = "video:freeForAll"
+    val `found`: I18nKey = "video:found"
+    val `noVideosForTheseTags`: I18nKey = "video:noVideosForTheseTags"
+    val `thatsAllWeGotForTheseTags`: I18nKey = "video:thatsAllWeGotForTheseTags"
+    val `clearSearch`: I18nKey = "video:clearSearch"
+    val `thatsAllWeGotForThisSearch`: I18nKey = "video:thatsAllWeGotForThisSearch"
+    val `noVideosForThisSearch`: I18nKey = "video:noVideosForThisSearch"
+    val `viewMoreTags`: I18nKey = "video:viewMoreTags"
+    val `videoNotFound`: I18nKey = "video:videoNotFound"
+    val `by`: I18nKey = "video:by"
+
   object voiceCommands:
     val `voiceCommands`: I18nKey = "voiceCommands:voiceCommands"
     val `watchTheVideoTutorial`: I18nKey = "voiceCommands:watchTheVideoTutorial"
