@@ -62,7 +62,8 @@ final class Video(env: Env) extends LilaController(env):
               }
 
   def author(author: String) = Open(serveAuthor(author))
-  def authorLang(lang: Language, author: String) = LangPage(routes.Video.author(author))(serveAuthor(author))(lang)
+  def authorLang(lang: Language, author: String) =
+    LangPage(routes.Video.author(author))(serveAuthor(author))(lang)
   private def serveAuthor(author: String)(using ctx: Context) =
     WithUserControl: control =>
       Ok.async:
