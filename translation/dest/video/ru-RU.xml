@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="chessVideos">Шахматные видео</string>
+  <string name="allVideosAreFree">Все видео бесплатно доступны всем желающим.</string>
+  <string name="clickOneOrMany">Выберите один или несколько тегов слева, чтобы применить фильтр.</string>
+  <string name="weHaveCarefullySelected">Мы тщательно выбрали %s видео!</string>
+  <string name="freeChessVideos">Бесплатные Шахматные Видео</string>
+  <string name="freeCarefullyCurated">бесплатно, тщательно выбранные шахматные видео</string>
+  <string name="curatedChessVideos">шахматные видео от кураторов</string>
+  <string name="matchingTheTags">подходят по тегам</string>
+  <string name="freeForAll">бесплатно для всех желающих</string>
+  <string name="found">найдено</string>
+  <string name="noVideosForTheseTags">По следующим тегам видео не найдены:</string>
+  <string name="thatsAllWeGotForTheseTags">Вот что мы нашли по следующим тегам:</string>
+  <string name="clearSearch">Очистить поиск</string>
+  <string name="thatsAllWeGotForThisSearch">Это все, что мы нашли по этому поисковому запросу</string>
+  <string name="noVideosForThisSearch">По этому запросу не нашлось видео:</string>
+  <string name="viewMoreTags">Посмотреть больше тегов</string>
+  <string name="videoNotFound">Видео не найдено</string>
+  <string name="by">за авторством</string>
+</resources>

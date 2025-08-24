@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+  <string name="chessVideos">Chess videos</string>
+  <string name="allVideosAreFree">All videos are free for everyone.</string>
+  <string name="clickOneOrMany">Click one or many tags on the left to filter.</string>
+  <string name="weHaveCarefullySelected">We have carefully selected %s videos so far!</string>
+  <string name="freeChessVideos">Free Chess Videos</string>
+  <string name="freeCarefullyCurated">free, carefully curated chess videos</string>
+  <string name="curatedChessVideos">curated chess videos</string>
+  <string name="matchingTheTags">matching the tags</string>
+  <string name="freeForAll">free for all</string>
+  <string name="found">found</string>
+  <string name="noVideosForTheseTags">No videos for these tags:</string>
+  <string name="thatsAllWeGotForTheseTags">That's all we got for these tags:</string>
+  <string name="clearSearch">Clear search</string>
+  <string name="thatsAllWeGotForThisSearch">That's all we got for this search</string>
+  <string name="noVideosForThisSearch">No videos for this search:</string>
+  <string name="viewMoreTags">View more tags</string>
+  <string name="videoNotFound">Video not found</string>
+  <string name="by">by</string>
+</resources>

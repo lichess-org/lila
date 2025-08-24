@@ -74,7 +74,7 @@ final class TopNav(helpers: Helpers):
             a(href := langHref(routes.Tv.index))("Lichess TV"),
             a(href := routes.Tv.games)(trans.site.currentGames()),
             (ctx.kid.no && ctx.noBot).option(a(href := routes.Streamer.index())(trans.site.streamersMenu())),
-            ctx.noBot.option(a(href := routes.Video.index)(trans.site.videoLibrary()))
+            ctx.noBot.option(a(href := langHref(routes.Video.index))(trans.site.videoLibrary()))
           )
         )
       ,
