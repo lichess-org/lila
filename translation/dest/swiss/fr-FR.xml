@@ -47,7 +47,7 @@ JoueurE 1
 Les joueurs manquants seront considérés comme absents et recevront zéro point.
 Laissez ce champ vide pour autoriser Lichess à générer des appariements automatiquement.</string>
   <string name="mustHavePlayedTheirLastSwissGame">Doivent avoir joué leur dernière partie dans un tournoi au format suisse</string>
-  <string name="mustHavePlayedTheirLastSwissGameHelp">N\'autorisez les joueurs à participer que s\'ils ont joué leur dernière partie dans un tournoi au format suisse. S\'ils ne se sont pas présentés lors d’un tournoi récent, ils ne pourront pas participer au vôtre. Cela permet d’améliorer l\'expérience des joueurs qui sont effectivement présents.</string>
+  <string name="mustHavePlayedTheirLastSwissGameHelp">N\'autorisez les joueurs à participer que s\'ils n\'ont pas déclaré forfait lors de leur dernière partie en système suisse. S\'ils ne se sont pas présentés lors d’un tournoi récent, ils ne pourront pas participer au vôtre. Cela permet d’améliorer l\'expérience des joueurs qui sont effectivement présents.</string>
   <string name="newSwiss">Nouveau tournoi suisse</string>
   <string name="swissVsArenaQ">Quand utiliser un tournoi suisse plutôt qu\'un tournoi arène ?</string>
   <string name="swissVsArenaA">Dans un tournoi suisse, les participants jouent le même nombre de parties et n\'affrontent jamais deux fois un même adversaire.
