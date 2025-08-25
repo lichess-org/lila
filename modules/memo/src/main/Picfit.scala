@@ -24,15 +24,11 @@ case class PicfitImage(
     createdAt: Instant
 )
 
-object PicfitImage:
-
-  given BSONDocumentHandler[PicfitImage] = Macros.handler
-
 final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, config: PicfitConfig)(using
     Executor
 ):
 
-  import PicfitApi.*
+  import PicfitApi.{ *, given }
   private val uploadMaxBytes = uploadMaxMb * 1024 * 1024
 
   val idSep = ':'
@@ -93,9 +89,7 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
     def store(image: PicfitImage, part: SourcePart): Funit =
       ws
         .url(s"${config.endpointPost}/upload")
-        .post(Source(part.copy[ByteSource](filename = image.id.value, key = "data") :: Nil))(using
-          WSBodyWritables.bodyWritable
-        )
+        .post(Source(part.copy[ByteSource](filename = image.id.value, key = "data") :: Nil))
         .flatMap:
           case res if res.status != 200 => fufail(s"${res.statusText} ${res.body[String].take(200)}")
           case _ =>
@@ -129,15 +123,16 @@ object PicfitApi:
   private type ByteSource = Source[ByteString, ?]
   private type SourcePart = MultipartFormData.FilePart[ByteSource]
 
+  private given BSONDocumentHandler[PicfitImage] = Macros.handler
+
 // from playframework/transport/client/play-ws/src/main/scala/play/api/libs/ws/WSBodyWritables.scala
-  object WSBodyWritables:
-    import play.api.libs.ws.BodyWritable
+  import play.api.libs.ws.BodyWritable
+  private given bodyWritable: BodyWritable[Source[MultipartFormData.Part[ByteSource], ?]] =
     import play.api.libs.ws.SourceBody
     import play.core.formatters.Multipart
-    given bodyWritable: BodyWritable[Source[MultipartFormData.Part[Source[ByteString, ?]], ?]] =
-      val boundary = Multipart.randomBoundary()
-      val contentType = s"multipart/form-data; boundary=$boundary"
-      BodyWritable(b => SourceBody(Multipart.transform(b, boundary)), contentType)
+    val boundary = Multipart.randomBoundary()
+    val contentType = s"multipart/form-data; boundary=$boundary"
+    BodyWritable(b => SourceBody(Multipart.transform(b, boundary)), contentType)
 
   def findInMarkdown(md: Markdown): Set[ImageId] =
     // path=some_username:ublogBody:mdTLUTfzboGg:wVo9Pqru.jpg
