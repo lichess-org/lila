@@ -30,7 +30,7 @@ import { renderSetting } from 'lib/nvui/setting';
 import { commands, boardCommands, addBreaks } from 'lib/nvui/command';
 import explorerView from '../explorer/explorerView';
 import { ops, path as treePath } from 'lib/tree/tree';
-import { view as cevalView, renderEval, type CevalCtrl } from 'lib/ceval/ceval';
+import { view as cevalView, renderEval } from 'lib/ceval/ceval';
 import { next, prev } from '../control';
 import { lichessRules } from 'chessops/compat';
 import { makeSan } from 'chessops/san';

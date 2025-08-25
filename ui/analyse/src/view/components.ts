@@ -6,7 +6,6 @@ import {
   type VNode,
   type LooseVNode,
   type LooseVNodes,
-  type Attrs,
   bind,
   bindNonPassive,
   onInsert,
