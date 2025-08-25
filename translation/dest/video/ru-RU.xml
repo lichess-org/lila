@@ -18,4 +18,7 @@
   <string name="viewMoreTags">Посмотреть больше тегов</string>
   <string name="videoNotFound">Видео не найдено</string>
   <string name="by">за авторством</string>
+  <string name="allVideoTags">Все %s теги для видео</string>
+  <string name="search">Поиск</string>
+  <string name="tags">Теги</string>
 </resources>

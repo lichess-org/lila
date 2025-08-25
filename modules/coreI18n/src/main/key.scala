@@ -2916,6 +2916,9 @@ object I18nKey:
     val `viewMoreTags`: I18nKey = "video:viewMoreTags"
     val `videoNotFound`: I18nKey = "video:videoNotFound"
     val `by`: I18nKey = "video:by"
+    val `allVideoTags`: I18nKey = "video:allVideoTags"
+    val `search`: I18nKey = "video:search"
+    val `tags`: I18nKey = "video:tags"
 
   object voiceCommands:
     val `voiceCommands`: I18nKey = "voiceCommands:voiceCommands"

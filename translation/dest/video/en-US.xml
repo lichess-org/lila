@@ -18,4 +18,7 @@
   <string name="viewMoreTags">View more tags</string>
   <string name="videoNotFound">Video not found</string>
   <string name="by">by</string>
+  <string name="allVideoTags">All %s video tags</string>
+  <string name="search">Search</string>
+  <string name="tags">Tags</string>
 </resources>
