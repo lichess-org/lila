@@ -9,8 +9,9 @@ import lila.ui.ScalatagsTemplate.{ *, given }
 final class PracticeUi(helpers: Helpers)(
     csp: Update[ContentSecurityPolicy],
     explorerAndCevalConfig: Context ?=> JsObject
-):
+) extends PracticeFragments(helpers):
   import helpers.{ *, given }
+  import trans.practice as trp
 
   def show(us: UserStudy, data: JsonView.JsData)(using ctx: Context) =
     Page(us.practiceStudy.name.value)
@@ -33,8 +34,9 @@ final class PracticeUi(helpers: Helpers)(
         main(cls := "analyse")
 
   def index(data: lila.practice.UserPractice)(using ctx: Context) =
-    Page("Practice chess positions")
+    Page(s"${trp.practiceChess.txt()} - ${trp.makesPerfect.txt()}")
       .css("bits.practice.index")
+      .i18n(_.practice)
       .graph(
         title = "Practice your chess",
         description = "Learn how to master the most common chess positions",
@@ -43,10 +45,10 @@ final class PracticeUi(helpers: Helpers)(
         main(cls := "page-menu force-ltr")(
           st.aside(cls := "page-menu__menu practice-side")(
             i(cls := "fat"),
-            h1("Practice"),
-            h2("makes your chess perfect"),
+            h1(trp.practice()),
+            h2(trp.makesPerfect()),
             div(cls := "progress")(
-              div(cls := "text")("Progress: ", data.progressPercent, "%"),
+              div(cls := "text")(trp.progressX(data.progressPercent.toString() + "%")),
               div(cls := "bar", style := s"width: ${data.progressPercent}%")
             ),
             postForm(action := routes.Practice.reset)(
@@ -54,16 +56,16 @@ final class PracticeUi(helpers: Helpers)(
                 (data.nbDoneChapters > 0).option(
                   submitButton(
                     cls := "button ok-cancel-confirm",
-                    title := "You will lose your practice progress!"
-                  )("Reset my progress")
+                    title := trp.youWillLoseYourPracticeProgress.txt()
+                  )(trp.resetMyProgress())
                 )
-              else a(href := routes.Auth.signup)("Sign up to save your progress")
+              else a(href := routes.Auth.signup)(trp.signUpToSaveYourProgress())
             )
           ),
           div(cls := "page-menu__content practice-app")(
             data.structure.sections.map: section =>
               st.section(
-                h2(section.name),
+                h2(sectionHeader(section).txt()),
                 div(cls := "studies")(
                   section.studies.map: stud =>
                     val prog = data.progressOn(stud.id)
@@ -78,11 +80,12 @@ final class PracticeUi(helpers: Helpers)(
                       ),
                       i(cls := s"${stud.id}"),
                       span(cls := "text")(
-                        h3(stud.name),
-                        em(stud.desc)
+                        h3(studyName(stud.name).txt()),
+                        em(studiesDesc(stud.desc).txt())
                       )
                     )
                 )
               )
           )
         )
+      .hrefLangs(lila.ui.LangPath(routes.Practice.index))
