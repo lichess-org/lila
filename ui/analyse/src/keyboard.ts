@@ -6,34 +6,11 @@ import type { VNode } from 'snabbdom';
 import { pubsub } from 'lib/pubsub';
 
 export const bind = (ctrl: AnalyseCtrl) => {
-  let shiftAlone = 0;
-  document.addEventListener('keydown', e => e.key === 'Shift' && (shiftAlone = e.location));
-  document.addEventListener('keyup', e => {
-    if (
-      e.key === 'Shift' &&
-      e.location === shiftAlone &&
-      !document.activeElement?.classList.contains('mchat__say')
-    ) {
-      // hilities confound ddugovic when he fails to capitalize a letter in chat
-      if (shiftAlone === 1 && ctrl.fork.prev()) ctrl.setAutoShapes();
-      else if (shiftAlone === 2 && ctrl.fork.next()) ctrl.setAutoShapes();
-      else if (shiftAlone === 0) return;
-      ctrl.redraw();
-    }
-    shiftAlone = 0;
-  });
+  addModifierKeyListeners(ctrl);
   const kbd = window.site.mousetrap;
   kbd
     .bind(['left', 'k'], () => {
       control.prev(ctrl);
-      ctrl.redraw();
-    })
-    .bind(['shift+left', 'shift+k'], () => {
-      control.previousBranch(ctrl);
-      ctrl.redraw();
-    })
-    .bind(['shift+right', 'shift+j'], () => {
-      control.nextBranch(ctrl);
       ctrl.redraw();
     })
     .bind(['right', 'j'], () => {
@@ -41,31 +18,30 @@ export const bind = (ctrl: AnalyseCtrl) => {
       ctrl.redraw();
     })
     .bind(['up', '0', 'home'], e => {
-      if (e.key === 'ArrowUp' && ctrl.fork.prev()) ctrl.setAutoShapes();
+      if (e.key === 'ArrowUp' && !ctrl.ballerMode() && ctrl.fork.prev()) ctrl.setAutoShapes();
       else control.first(ctrl);
       ctrl.redraw();
     })
     .bind(['down', '$', 'end'], e => {
-      if (e.key === 'ArrowDown' && ctrl.fork.next()) ctrl.setAutoShapes();
+      if (e.key === 'ArrowDown' && !ctrl.ballerMode() && ctrl.fork.next()) ctrl.setAutoShapes();
       else control.last(ctrl);
       ctrl.redraw();
     })
     .bind('shift+c', () => {
       ctrl.showComments = !ctrl.showComments;
-      ctrl.autoScroll();
+      ctrl.autoScrollRequested = 'smooth';
       ctrl.redraw();
     })
     .bind('shift+i', () => {
-      ctrl.treeView.toggle();
+      ctrl.treeView.toggleModePreference();
       ctrl.redraw();
     });
-
   kbd.bind('space', () => {
     const gb = ctrl.gamebookPlay();
     if (gb) gb.onSpace();
     else if (ctrl.practice || ctrl.studyPractice) return;
-    else if (ctrl.ceval.enabled()) ctrl.playBestMove();
-    else ctrl.toggleCeval();
+    else if (ctrl.cevalEnabled()) ctrl.playBestMove();
+    else if (ctrl.ceval.analysable) ctrl.cevalEnabled(!ctrl.cevalEnabled());
   });
 
   if (ctrl.studyPractice) return;
@@ -78,21 +54,21 @@ export const bind = (ctrl: AnalyseCtrl) => {
       ctrl.redraw();
     })
     .bind('l', () => {
-      if (ctrl.ceval.analysable) ctrl.toggleCeval();
+      if (ctrl.ceval.analysable) ctrl.cevalEnabled(!ctrl.cevalEnabled());
     })
     .bind('z', () => {
-      ctrl.toggleComputer();
+      ctrl.toggleFishnetAnalysis();
       ctrl.redraw();
     })
     .bind('a', () => {
-      ctrl.toggleAutoShapes(!ctrl.showAutoShapes());
+      ctrl.showAutoShapes(!ctrl.showAutoShapes());
       ctrl.redraw();
     })
     .bind('v', () => {
-      ctrl.toggleVariationArrows();
+      ctrl.variationArrows(!ctrl.variationArrows());
       ctrl.redraw();
     })
-    .bind('x', ctrl.toggleThreatMode)
+    .bind('x', () => ctrl.toggleThreatMode())
     .bind('e', () => {
       ctrl.toggleExplorer();
       ctrl.redraw();
@@ -148,11 +124,36 @@ export const bind = (ctrl: AnalyseCtrl) => {
 export function view(ctrl: AnalyseCtrl): VNode {
   return snabDialog({
     class: 'help.keyboard-help',
-    htmlUrl: xhr.url('/analysis/help', { study: !!ctrl.study }),
+    htmlUrl: xhr.url('/analysis/help', { study: !!ctrl.study, disclosure: ctrl.ballerMode() }),
     modal: true,
     onClose() {
       ctrl.keyboardHelp = false;
       ctrl.redraw();
     },
+  });
+}
+
+function addModifierKeyListeners(ctrl: AnalyseCtrl) {
+  let modifierOnly = false;
+
+  window.addEventListener('mousedown', () => (modifierOnly = false), { capture: true });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Shift' || e.key === 'Control') modifierOnly = !modifierOnly;
+    else modifierOnly = false;
+  });
+
+  document.addEventListener('keyup', e => {
+    if (!modifierOnly) return;
+    modifierOnly = false;
+    const isShift = e.key === 'Shift' && !document.activeElement?.classList.contains('mchat__say');
+
+    if (ctrl.ballerMode()) {
+      if (isShift) ctrl.userJumpIfCan(ctrl.idbTree.nextLine(), true);
+      else if (e.key === 'Control') ctrl.toggleDiscloseOf();
+    } else {
+      if (isShift && ctrl.fork.next()) ctrl.setAutoShapes();
+    }
+    ctrl.redraw();
   });
 }

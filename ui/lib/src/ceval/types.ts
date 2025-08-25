@@ -93,15 +93,14 @@ export type Redraw = () => void;
 export type Progress = (p?: { bytes: number; total: number }) => void;
 
 export interface CevalOpts {
-  possible: boolean;
   variant: Variant;
   initialFen: string | undefined;
   emit: (ev: Tree.LocalEval, meta: EvalMeta) => void;
-  setAutoShapes: () => void;
+  onUciHover: (hovering: Hovering | null) => void;
   redraw: Redraw;
   search?: Search;
-  onSelectEngine?: () => void;
   externalEngines?: ExternalEngineInfoFromServer[];
+  onSelectEngine?: () => void;
 }
 
 export interface Hovering {
@@ -121,28 +120,29 @@ export interface Started {
   threatMode: boolean;
 }
 
-export interface ParentCtrl {
-  getCeval(): CevalCtrl;
+export interface CevalHandler {
+  ceval: CevalCtrl;
   nextNodeBest(): string | undefined;
   disableThreatMode?: Prop<boolean>;
   toggleThreatMode(): void;
-  toggleCeval(): void;
   outcome(): Outcome | undefined;
-  mandatoryCeval?: Prop<boolean>;
   showEvalGauge: Prop<boolean>;
-  currentEvals(): NodeEvals;
+  //currentEvals(): NodeEvals;
   ongoing: boolean;
   playUci(uci: string): void;
   playUciList(uciList: string[]): void;
   getOrientation(): Color;
   threatMode(): boolean;
   getNode(): Tree.Node;
-  showComputer(): boolean;
-  toggleComputer?: () => void;
+  showAnalysis(): boolean;
   clearCeval: () => void;
   restartCeval: () => void;
-  redraw?: () => void;
+  cevalEnabled: (enable?: boolean) => boolean | 'force';
+  showCeval?: () => boolean;
+  isCevalAllowed?: () => boolean;
   externalEngines?: () => ExternalEngineInfo[] | undefined;
+  showFishnetAnalysis?: () => boolean;
+  redraw?: () => void;
 }
 
 export interface NodeEvals {

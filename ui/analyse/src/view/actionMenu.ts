@@ -1,6 +1,6 @@
 import { isEmpty } from 'lib';
 import * as licon from 'lib/licon';
-import { displayColumns } from 'lib/device';
+import { displayColumns, isTouchDevice } from 'lib/device';
 import { domDialog } from 'lib/view/dialog';
 import { type VNode, type LooseVNodes, bind, dataIcon, type MaybeVNodes, hl } from 'lib/snabbdom';
 import type { AutoplayDelay } from '../autoplay';
@@ -64,7 +64,7 @@ function studyButton(ctrl: AnalyseCtrl) {
       attrs: { method: 'post', action: '/study/as' },
       hook: bind('submit', e => {
         const pgnInput = (e.target as HTMLElement).querySelector('input[name=pgn]') as HTMLInputElement;
-        if (pgnInput && (ctrl.synthetic || ctrl.persistence?.isDirty)) {
+        if (pgnInput && (ctrl.synthetic || ctrl.idbTree.isDirty)) {
           pgnInput.value = pgnExport.renderFullTxt(ctrl);
         }
       }),
@@ -83,8 +83,8 @@ function studyButton(ctrl: AnalyseCtrl) {
 export function view(ctrl: AnalyseCtrl): VNode {
   const d = ctrl.data,
     canContinue = !ctrl.ongoing && d.game.variant.key === 'standard',
-    ceval = ctrl.getCeval(),
-    mandatoryCeval = ctrl.mandatoryCeval(),
+    canPractice = ctrl.isCevalAllowed() && !ctrl.isEmbed && !ctrl.isGamebook() && !ctrl.practice,
+    canRetro = ctrl.hasFullComputerAnalysis() && !ctrl.isEmbed && !ctrl.retro,
     linkAttrs = { rel: ctrl.isEmbed ? '' : 'nofollow', target: ctrl.isEmbed ? '_blank' : '' };
 
   const tools: MaybeVNodes = [
@@ -120,6 +120,20 @@ export function view(ctrl: AnalyseCtrl): VNode {
           },
           i18n.site.boardEditor,
         ),
+      displayColumns() === 1 && [
+        canPractice &&
+          hl(
+            'a',
+            { hook: bind('click', () => ctrl.togglePractice()), attrs: dataIcon(licon.Bullseye) },
+            'Practice with computer',
+          ),
+        canRetro &&
+          hl(
+            'a',
+            { hook: bind('click', ctrl.toggleRetro, ctrl.redraw), attrs: dataIcon(licon.GraduateCap) },
+            'Learn from your mistakes',
+          ),
+      ],
       canContinue &&
         hl(
           'a',
@@ -132,7 +146,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
           i18n.site.continueFromHere,
         ),
       studyButton(ctrl),
-      ctrl.persistence?.isDirty &&
+      ctrl.idbTree.isDirty &&
         hl(
           'a',
           {
@@ -140,74 +154,86 @@ export function view(ctrl: AnalyseCtrl): VNode {
               title: i18n.site.clearSavedMoves,
               'data-icon': licon.Trash,
             },
-            hook: bind('click', ctrl.persistence.clear),
+            hook: bind('click', ctrl.idbTree.clear),
           },
           i18n.site.clearSavedMoves,
         ),
     ]),
   ];
 
-  const cevalConfig: LooseVNodes = ceval?.allowed() && [
+  const cevalConfig: LooseVNodes = ctrl.study?.isCevalAllowed() !== false && [
     displayColumns() > 1 && hl('h2', i18n.site.computerAnalysis),
-    !mandatoryCeval &&
-      ctrlToggle(
-        {
-          name: displayColumns() === 1 ? i18n.site.computerAnalysis : i18n.site.enable,
-          title: 'Stockfish (Hotkey: z)',
-          id: 'all',
-          checked: ctrl.showComputer(),
-          change: ctrl.toggleComputer,
-        },
-        ctrl,
-      ),
-    ctrl.showComputer() && [
-      ctrlToggle(
-        {
-          name: i18n.site.bestMoveArrow,
-          title: 'Hotkey: a',
-          id: 'shapes',
-          checked: ctrl.showAutoShapes(),
-          change: ctrl.toggleAutoShapes,
-        },
-        ctrl,
-      ),
+    ctrlToggle(
+      {
+        name: 'Show fishnet analysis',
+        title: 'Show fishnet analysis (Hotkey: z)',
+        id: 'all',
+        checked: ctrl.showFishnetAnalysis(),
+        change: ctrl.toggleFishnetAnalysis,
+      },
+      ctrl,
+    ),
+    ctrlToggle(
+      {
+        name: i18n.site.bestMoveArrow,
+        title: 'Hotkey: a',
+        id: 'shapes',
+        checked: ctrl.showAutoShapes(),
+        change: ctrl.showAutoShapes,
+      },
+      ctrl,
+    ),
+    displayColumns() > 1 &&
       ctrlToggle(
         {
           name: i18n.site.evaluationGauge,
           id: 'gauge',
           checked: ctrl.showGauge(),
-          change: ctrl.toggleGauge,
+          change: ctrl.showGauge,
         },
         ctrl,
       ),
-    ],
   ];
 
   const displayConfig = [
     displayColumns() > 1 && hl('h2', 'Display'),
+    hl('span', [
+      ctrlToggle(
+        {
+          name: 'Baller mode',
+          title: 'Variation disclosure mode',
+          id: 'ballerMode',
+          checked: ctrl.ballerMode(),
+          change: ctrl.toggleBallerMode,
+        },
+        ctrl,
+      ),
+      hl('a.disclosure-help-btn', { hook: bind('click', ballerModeHelp) }, licon.InfoCircle),
+    ]),
     ctrlToggle(
       {
         name: i18n.site.inlineNotation,
         title: 'Shift+I',
         id: 'inline',
-        checked: ctrl.treeView.inline(),
+        checked: ctrl.treeView.modePreference() === 'inline',
         change(v) {
-          ctrl.treeView.set(v);
+          ctrl.treeView.modePreference(v ? 'inline' : 'column');
           ctrl.actionMenu.toggle();
         },
       },
       ctrl,
     ),
-    ctrlToggle(
-      {
-        name: i18n.site.showVariationArrows,
-        title: 'Variation navigation arrows',
-        id: 'variationArrows',
-        checked: ctrl.variationArrowsProp(),
-        change: ctrl.toggleVariationArrows,
-      },
-      ctrl,
-    ),
+    !ctrl.ballerMode() &&
+      ctrlToggle(
+        {
+          name: i18n.site.showVariationArrows,
+          title: 'Variation navigation arrows (Hotkey: v)',
+          id: 'variationArrows',
+          checked: ctrl.variationArrows(),
+          change: v => (ctrl.variationArrows(v), ctrl.redraw()),
+        },
+        ctrl,
+      ),
     !ctrl.ongoing &&
       ctrlToggle(
         {
@@ -254,4 +280,46 @@ export function view(ctrl: AnalyseCtrl): VNode {
         ),
       ]),
   ]);
+}
+
+function ballerModeHelp() {
+  domDialog({
+    class: 'help disclosure-help',
+    htmlText:
+      $html`
+        <span>
+          <p>
+            <strong>Baller mode:</strong>
+            Use <i>${licon.PlusButton}</i> and <i>${licon.MinusButton}</i> buttons
+            to show and hide comments and variations in the move list. The keyboard
+            shortcut is <kbd>ctrl</kbd>.
+            <br><br>Your choices are remembered in browser cache.
+          </p>
+          <img src="${site.asset.url('images/help/disclosure-buttons.webp')}"/>
+        </span>` +
+      (isTouchDevice()
+        ? $html`
+          <span>
+            <p>
+              <strong>Touch devices:</strong>
+              Swipe left or right across the move buttons to
+              jump to the start or end of game.
+              Swipe slowly to fast forward or rewind.
+            </p>
+          </span>`
+        : '') +
+      $html`
+        <span>
+          <img src="${site.asset.url('images/help/disclosure-arrows.webp')}"/>
+          <p>
+            Pale white arrows show alternate lines for the current move. Tap
+            <kbd>shift</kbd> or the <i>${licon.NextLine}</i> button to step between them.
+            <br><br><strong>Note:</strong>
+            You can step across lines from deep within a variation.
+          </p>
+        </span>`,
+    actions: [{ result: 'ok' }],
+    noCloseButton: true,
+    show: true,
+  });
 }

@@ -1,8 +1,9 @@
-import { renderEval } from 'lib/ceval/ceval';
+import { renderEval, view as cevalView } from 'lib/ceval/ceval';
 import { repeater } from 'lib';
 import * as licon from 'lib/licon';
 import { type VNode, type LooseVNode, onInsert, hl } from 'lib/snabbdom';
-import { addPointerListeners, displayColumns } from 'lib/device';
+import { displayColumns, isTouchDevice } from 'lib/device';
+import { addPointerListeners } from 'lib/pointer';
 import * as control from '../control';
 import type AnalyseCtrl from '../ctrl';
 
@@ -11,26 +12,28 @@ type Action =
   | 'prev'
   | 'next'
   | 'last'
+  | 'line'
   | 'opening-explorer'
   | 'menu'
   | 'analysis'
-  | 'ceval-practice'
-  | 'ceval';
+  | 'mobile-mode';
+
+type MobileMode = 'ceval' | 'practice' | 'retro';
 
 export function renderControls(ctrl: AnalyseCtrl) {
   const canJumpPrev = ctrl.path !== '',
     canJumpNext = !!ctrl.node.children[0],
-    showingTool = ctrl.showingTool();
+    withScrub = isTouchDevice() && ctrl.ballerMode();
 
   return hl(
     'div.analyse__controls.analyse-controls',
     {
       hook: onInsert(el =>
-        addPointerListeners(
-          el,
-          e => clickControl(ctrl, e),
-          e => holdControl(ctrl, e),
-        ),
+        addPointerListeners(el, {
+          click: e => clickControl(ctrl, e),
+          hscrub: withScrub ? dx => scrubControl(ctrl, dx) : undefined,
+          hold: withScrub ? undefined : e => holdControl(ctrl, e),
+        }),
       ),
     },
     [
@@ -41,6 +44,7 @@ export function renderControls(ctrl: AnalyseCtrl) {
             }),
           ]
         : [
+            renderMobileCevalTab(ctrl),
             hl('button.fbt', {
               attrs: {
                 title: i18n.site.openingExplorerAndTablebase,
@@ -48,63 +52,73 @@ export function renderControls(ctrl: AnalyseCtrl) {
                 'data-icon': licon.Book,
               },
               class: {
-                hidden: !ctrl.explorer.allowed() || !!ctrl.retro,
-                active: showingTool === 'opening-explorer',
+                hidden: !ctrl.explorer.allowed() || (!!ctrl.retro && displayColumns() > 1),
+                active: ctrl.activeTool() === 'opening-explorer',
               },
             }),
-            ctrl.ceval.allowed() && [
-              !(ctrl.isEmbed || ctrl.isGamebook()) &&
-                hl('button.fbt', {
-                  attrs: {
-                    title: i18n.site.practiceWithComputer,
-                    'data-act': 'ceval-practice',
-                    'data-icon': licon.Bullseye,
-                  },
-                  class: {
-                    hidden: !!ctrl.retro,
-                    active: !!ctrl.practice && !showingTool,
-                    latent: !!ctrl.practice && !!showingTool,
-                  },
-                }),
-              renderMobileCevalTab(ctrl),
-            ],
+            displayColumns() > 1 && renderPracticeTab(ctrl),
           ],
       hl('div.jumps', [
-        jumpButton(licon.JumpFirst, 'first', canJumpPrev),
-        jumpButton(licon.JumpPrev, 'prev', canJumpPrev),
-        jumpButton(licon.JumpNext, 'next', canJumpNext),
-        jumpButton(licon.JumpLast, 'last', ctrl.node !== ctrl.mainline[ctrl.mainline.length - 1]),
+        (!ctrl.ballerMode() || displayColumns() > 1) && jumpButton(licon.JumpFirst, 'first', canJumpPrev),
+        jumpButton(ctrl.ballerMode() ? licon.LessThan : licon.JumpPrev, 'prev', canJumpPrev),
+        ctrl.ballerMode() && jumpButton(licon.NextLine, 'line', ctrl.idbTree.nextLine() !== ctrl.path),
+        jumpButton(ctrl.ballerMode() ? licon.GreaterThan : licon.JumpNext, 'next', canJumpNext),
+        (!ctrl.ballerMode() || displayColumns() > 1) &&
+          jumpButton(licon.JumpLast, 'last', ctrl.node !== ctrl.mainline[ctrl.mainline.length - 1]),
       ]),
-      ctrl.studyPractice
-        ? hl('div.noop')
-        : hl('button.fbt', {
-            class: { active: showingTool === 'action-menu' },
-            attrs: { title: i18n.site.menu, 'data-act': 'menu', 'data-icon': licon.Hamburger },
-          }),
+      [
+        ctrl.studyPractice
+          ? hl('div.noop')
+          : hl('button.fbt', {
+              class: { active: ctrl.activeTool() === 'action-menu' },
+              attrs: { title: i18n.site.menu, 'data-act': 'menu', 'data-icon': licon.Hamburger },
+            }),
+      ],
     ],
   );
 }
 
+function renderPracticeTab(ctrl: AnalyseCtrl): LooseVNode {
+  return (
+    !ctrl.retro &&
+    hl('button.fbt', {
+      attrs: {
+        title: i18n.site.practiceWithComputer,
+        'data-act': 'mobile-mode',
+        'data-mode': 'practice',
+        'data-icon': licon.Bullseye,
+      },
+      class: {
+        active: !!ctrl.practice && !ctrl.activeTool(),
+        latent: !!ctrl.practice && !!ctrl.activeTool(),
+      },
+    })
+  );
+}
+
 function renderMobileCevalTab(ctrl: AnalyseCtrl): LooseVNode {
-  if (displayColumns() !== 1) return undefined;
-  const cevalMode = ctrl.ceval.enabled() && !ctrl.practice,
-    showingTool = ctrl.showingTool(),
-    ev = ctrl.node.ceval ?? (ctrl.showComputer() ? ctrl.node.eval : undefined),
+  if (displayColumns() > 1) return undefined;
+  const mobileMode = !!ctrl.practice ? 'practice' : !!ctrl.retro ? 'retro' : 'ceval',
+    ev = ctrl.node.ceval ?? (ctrl.showFishnetAnalysis() ? ctrl.node.eval : undefined),
     evalstr = ev?.cp !== undefined ? renderEval(ev.cp) : ev?.mate ? '#' + ev.mate : '',
-    active = cevalMode && !showingTool,
-    latent = cevalMode && !!showingTool;
+    active = ctrl.activeMobileMode() && !ctrl.activeTool(),
+    latent = ctrl.activeMobileMode() && !!ctrl.activeTool();
+
   return hl(
     'button.fbt',
     {
-      attrs: { 'data-act': 'ceval', 'data-icon': licon.Stockfish },
-      class: { active, latent },
+      key: 'mobile-mode',
+      attrs: { 'data-act': 'mobile-mode', 'data-mode': mobileMode },
+      class: { active, latent, computing: ctrl.ceval.isComputing },
     },
-    evalstr &&
-      (!cevalMode || latent) &&
-      !ctrl.practice &&
-      !ctrl.isGamebook() &&
-      !ctrl.retro &&
-      hl('eval', evalstr),
+    [
+      mobileMode === 'ceval' && [
+        cevalView.renderCevalSwitch(ctrl),
+        evalstr && ctrl.showAnalysis() && !ctrl.isGamebook() && hl('eval', evalstr),
+      ],
+      hl('div.bar'),
+      mobileMode === 'retro' && ctrl.retro?.completion().join('/'),
+    ],
   );
 }
 
@@ -124,14 +138,41 @@ function clickControl(ctrl: AnalyseCtrl, e: PointerEvent) {
   const action = e.target.closest<HTMLElement>('[data-act]')?.dataset.act as Action;
   if (!action) return;
   if (action === 'prev') control.prev(ctrl);
+  else if (action === 'line') ctrl.userJumpIfCan(ctrl.idbTree.nextLine(), true);
   else if (action === 'next') control.next(ctrl);
   else if (action === 'first') control.first(ctrl);
   else if (action === 'last') control.last(ctrl);
   else if (action === 'opening-explorer') ctrl.toggleExplorer();
   else if (action === 'menu') ctrl.toggleActionMenu();
-  else if (action === 'analysis') {
-    if (ctrl.studyPractice) window.open(ctrl.studyPractice.analysisUrl(), '_blank');
-  } else ctrl.clickMobileCevalTab(action);
+  else if (action === 'analysis') window.open(ctrl.studyPractice!.analysisUrl(), '_blank');
+  else if (action === 'mobile-mode' && !e.target.closest<HTMLElement>('.switch')) {
+    const mode = e.target.dataset.mode as MobileMode;
+    if (ctrl.activeTool()) {
+      ctrl.explorer.enabled(false);
+      ctrl.actionMenu(false);
+      if (ctrl.showCeval() || mode !== 'ceval') return ctrl.redraw();
+    }
+    if (mode === 'practice') ctrl.togglePractice();
+    else if (mode === 'retro') ctrl.toggleRetro();
+    else if (!ctrl.showCeval()) ctrl.cevalEnabled(true);
+    else ctrl.showCevalProp(false);
+  }
+  ctrl.redraw();
+}
+
+let last: number[] = [];
+
+function scrubControl(ctrl: AnalyseCtrl, dx: number | 'pointerup') {
+  if (dx === 'pointerup') {
+    const v = last.slice(-3).reduce((a, b) => a + b, 0) / Math.min(last.length, 3);
+    if (v > 16) control.last(ctrl);
+    else if (v < -16) control.first(ctrl);
+    last = [];
+  } else {
+    if (dx > 0) control.next(ctrl);
+    else control.prev(ctrl);
+    last.push(dx);
+  }
   ctrl.redraw();
 }
 

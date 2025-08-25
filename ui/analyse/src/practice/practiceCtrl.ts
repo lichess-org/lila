@@ -148,7 +148,8 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
       return root.redraw();
     }
     if (tablebaseGuaranteed(variant, node.fen) && !defined(node.tbhit)) return;
-    root.ensureCevalRunning();
+    root.cevalEnabled(true);
+    root.toggleThreatMode(false);
     if (isMyTurn()) {
       const h = hinting();
       if (h) {

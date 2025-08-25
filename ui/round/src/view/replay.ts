@@ -1,7 +1,7 @@
 import * as licon from 'lib/licon';
 import { finished, aborted, userAnalysable, playable } from 'lib/game/game';
 import * as util from '../util';
-import { addPointerListeners, displayColumns } from 'lib/device';
+import { displayColumns } from 'lib/device';
 import type RoundController from '../ctrl';
 import { throttle } from 'lib/async';
 import viewStatus from 'lib/game/view/status';
@@ -11,6 +11,7 @@ import { toggleButton as boardMenuToggleButton } from 'lib/view/boardMenu';
 import { type VNode, type LooseVNodes, type LooseVNode, hl, onInsert } from 'lib/snabbdom';
 import boardMenu from './boardMenu';
 import { repeater } from 'lib';
+import { addPointerListeners } from 'lib/pointer';
 
 const scrollMax = 99999,
   moveTag = 'kwdb',
@@ -159,7 +160,7 @@ function renderButtons(ctrl: RoundController) {
       return hl('button.fbt.repeatable', {
         class: { glowing: i === 3 && ctrl.isLate() },
         attrs: { disabled: !enabled, 'data-icon': b[0], 'data-ply': enabled ? b[1] : '-' },
-        hook: onInsert(el => addPointerListeners(el, e => goThroughMoves(ctrl, e), 'click')),
+        hook: onInsert(el => addPointerListeners(el, { click: e => goThroughMoves(ctrl, e), hold: 'click' })),
       });
     }),
     boardMenuToggleButton(ctrl.menu, i18n.site.menu),
@@ -185,7 +186,7 @@ function initMessage(ctrl: RoundController) {
 const col1Button = (ctrl: RoundController, dir: number, icon: string, disabled: boolean) =>
   hl('button.fbt', {
     attrs: { disabled: disabled, 'data-icon': icon, 'data-ply': ctrl.ply + dir },
-    hook: onInsert(el => addPointerListeners(el, e => goThroughMoves(ctrl, e), 'click')),
+    hook: onInsert(el => addPointerListeners(el, { click: e => goThroughMoves(ctrl, e), hold: 'click' })),
   });
 
 export function render(ctrl: RoundController): LooseVNode {
