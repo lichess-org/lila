@@ -57,6 +57,7 @@ private object PrefHandlers:
         board = r.getD("board", Pref.default.board),
         blogFilter = r.strO("blogFilter").flatMap(BlogQualityFilter.fromName) | Pref.default.blogFilter,
         usingAltSocket = r.getO("usingAltSocket"),
+        sayGG = r.getD("sayGG", Pref.default.sayGG),
         tags = r.getD("tags", Pref.default.tags)
       )
 
@@ -105,5 +106,6 @@ private object PrefHandlers:
         "usingAltSocket" -> o.usingAltSocket,
         "board" -> o.board,
         "blogFilter" -> o.blogFilter.ordinal,
+        "sayGG" -> o.sayGG,
         "tags" -> o.tags
       )

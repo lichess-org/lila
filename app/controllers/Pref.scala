@@ -17,7 +17,7 @@ final class Pref(env: Env) extends LilaController(env):
     env.pref.api.get(me).map { prefs =>
       JsonOk:
         Json
-          .obj("prefs" -> lila.pref.JsonView.write(prefs, lichobileCompat = false))
+          .obj("prefs" -> lila.pref.toJson(prefs, lichobileCompat = false))
           .add("language" -> me.lang)
     }
   }
