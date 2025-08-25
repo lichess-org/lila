@@ -29,7 +29,8 @@ def player(
           withNoteAge = ctx.isAuth.option(pov.game.secondsSinceCreation),
           public = false,
           resourceId = lila.chat.Chat.ResourceId(s"game/${c.chat.id}"),
-          voiceChat = ctx.canVoiceChat
+          voiceChat = ctx.canVoiceChat,
+          opponentId = pov.opponent.userId
         )
       case Right((c, res)) =>
         views.chat.json(
@@ -38,7 +39,8 @@ def player(
           name = trans.site.chatRoom.txt(),
           timeout = c.timeout,
           public = true,
-          resourceId = res
+          resourceId = res,
+          opponentId = pov.opponent.userId
         )
 
   val opponentNameOrZen = if ctx.pref.isZen || ctx.pref.isZenAuto then "ZEN" else playerText(pov.opponent)
