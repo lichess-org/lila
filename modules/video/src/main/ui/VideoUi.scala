@@ -12,7 +12,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
   import helpers.{ *, given }
   import trans.video as trv
 
-  private def page(title: String, control: UserControl) =
+  private def page(title: String, control: UserControl)(using ctx: Context) =
     Page(title)
       .css("bits.video")
       .i18n(_.video)
@@ -25,10 +25,10 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
         )
 
   def show(video: Video, similar: Seq[VideoView], control: UserControl)(using ctx: Context) =
-    page(s"${video.title} • ${trv.freeChessVideos()}", control)
+    page(s"${video.title} • ${trv.freeChessVideos.txt()}", control)
       .graph(
         OpenGraph(
-          title = s"${video.title} ${trv.by()} ${video.author}",
+          title = s"${video.title} ${trv.by.txt()} ${video.author}",
           description = shorten(~video.metadata.description, 152),
           url = s"$netBaseUrl${lila.ui.LangPath(routes.Video.show(video.id))}",
           `type` = "video"
@@ -74,20 +74,20 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
 
   def index(videos: Paginator[VideoView], count: Long, control: UserControl)(using ctx: Context) =
     val tagString = control.filter.tags.some.filter(_.nonEmpty).so(_.mkString(" + ") + " • ")
-    page(s"${tagString}${trv.freeChessVideos()}", control)
+    page(s"${tagString}${trv.freeChessVideos.txt()}", control)
       .graph(
         title = s"${tagString}${trv.freeCarefullyCurated()}",
-        description = s"${videos.nbResults} ${trv.curatedChessVideos()}${
-            if tagString.nonEmpty then s" ${trv.matchingTheTags()} " + tagString
+        description = s"${videos.nbResults} ${trv.curatedChessVideos.txt()}${
+            if tagString.nonEmpty then s" ${trv.matchingTheTags.txt()} " + tagString
             else " • "
-          }${trv.freeForAll()}",
+          }${trv.freeForAll.txt()}",
         url = s"$netBaseUrl${lila.ui.LangPath(routes.Video.index)}?${control.queryString}"
       ):
         frag(
           boxTop(
             h1(
               if control.filter.tags.nonEmpty then
-                frag(pluralize("video", videos.nbResults), s" ${trv.found()}")
+                frag(pluralize("video", videos.nbResults), s" ${trv.found.txt()}")
               else trv.chessVideos()
             ),
             searchForm(control.query)
@@ -128,7 +128,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
           )
         )
 
-  private def menu(control: UserControl) /*(using ctx: Context)*/ =
+  private def menu(control: UserControl)(using ctx: Context) =
     st.aside(cls := "page-menu__menu")(
       lila.ui.bits.subnav(
         control.tags.map: t =>
@@ -148,8 +148,8 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
       ),
       div(cls := "under-tags")(
         if control.filter.tags.nonEmpty then
-          a(cls := "button button-empty", href := lila.ui.LangPath(routes.Video.index))(trv.clearSearch)
-        else a(dataIcon := Icon.Tag, href := lila.ui.LangPath(routes.Video.tags))(trv.viewMoreTags)
+          a(cls := "button button-empty", href := lila.ui.LangPath(routes.Video.index))(trv.clearSearch.txt())
+        else a(dataIcon := Icon.Tag, href := lila.ui.LangPath(routes.Video.tags))(trv.viewMoreTags.txt())
       )
     )
 
@@ -172,7 +172,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
     )
 
   def author(name: String, videos: Paginator[VideoView], control: UserControl)(using ctx: Context) =
-    page(s"$name • ${trv.freeChessVideos()}", control):
+    page(s"$name • ${trv.freeChessVideos.txt()}", control):
       frag(
         boxTop(
           h1(
@@ -215,7 +215,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
       input(placeholder := trans.search.search.txt(), tpe := "text", name := "q", value := query)
 
   def tags(ts: List[TagNb], control: UserControl)(using ctx: Context) =
-    page(s"${trv.tags()} • ${trv.freeChessVideos()}", control):
+    page(s"${trv.tags()} • ${trv.freeChessVideos.txt()}", control):
       frag(
         boxTop(
           h1(
@@ -239,7 +239,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
       )
 
   def search(videos: Paginator[VideoView], control: UserControl)(using Context) =
-    page(s"${control.query.getOrElse(trv.search())} • ${trv.freeChessVideos()}", control):
+    page(s"${control.query.getOrElse(trv.search())} • ${trv.freeChessVideos.txt()}", control):
       frag(
         boxTop(
           h1(pluralize("video", videos.nbResults), " found"),
