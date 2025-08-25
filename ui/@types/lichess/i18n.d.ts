@@ -5697,6 +5697,8 @@ interface I18n {
   video: {
     /** All videos are free for everyone. */
     allVideosAreFree: string;
+    /** All %s video tags */
+    allVideoTags: I18nFormat;
     /** by */
     by: string;
     /** Chess videos */
@@ -5707,10 +5709,8 @@ interface I18n {
     clickOneOrMany: string;
     /** curated chess videos */
     curatedChessVideos: string;
-    /** found */
-    found: string;
     /** free, carefully curated chess videos */
-    freeCarefullyCurated: string;
+    freeCarefullyCurated: I18nFormat;
     /** Free Chess Videos */
     freeChessVideos: string;
     /** free for all */
@@ -5731,6 +5731,8 @@ interface I18n {
     viewMoreTags: string;
     /** We have carefully selected %s videos so far! */
     weHaveCarefullySelected: I18nFormat;
+    /** %s video found */
+    videosFound: I18nPlural;
   };
   voiceCommands: {
     /** Cancel timer or deny a request */
