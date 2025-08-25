@@ -41,7 +41,7 @@ final class GeoIP(config: GeoIP.Config, scheduler: Scheduler)(using Executor):
     res <- Try(r.city(inet)).toOption
   yield Location(res)
 
-  def apply(ip: IpAddress): Option[Location] = cache.get(ip)
+  def apply(ip: IpAddress): Option[Location] = reader.isDefined.so(cache.get(ip))
 
   def orUnknown(ip: IpAddress): Location = apply(ip) | Location.unknown
 
