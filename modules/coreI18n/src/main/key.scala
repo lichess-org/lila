@@ -2905,7 +2905,7 @@ object I18nKey:
     val `freeChessVideos`: I18nKey = "video:freeChessVideos"
     val `freeCarefullyCurated`: I18nKey = "video:freeCarefullyCurated"
     val `curatedChessVideos`: I18nKey = "video:curatedChessVideos"
-    val `matchingTheTags`: I18nKey = "video:matchingTheTags"
+    val `withTags`: I18nKey = "video:withTags"
     val `freeForAll`: I18nKey = "video:freeForAll"
     val `found`: I18nKey = "video:found"
     val `noVideosForTheseTags`: I18nKey = "video:noVideosForTheseTags"

@@ -28,7 +28,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
     page(s"${video.title} • ${trv.freeChessVideos.txt()}", control)
       .graph(
         OpenGraph(
-          title = s"${video.title} ${trv.by.txt()} ${video.author}",
+          title = trv.by.txt(video.title, video.author),
           description = shorten(~video.metadata.description, 152),
           url = s"$netBaseUrl${lila.ui.LangPath(routes.Video.show(video.id))}",
           `type` = "video"
@@ -76,9 +76,9 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
     val tagString = control.filter.tags.some.filter(_.nonEmpty).so(_.mkString(" + ") + " • ")
     page(s"${tagString}${trv.freeChessVideos.txt()}", control)
       .graph(
-        title = s"${tagString}${trv.freeCarefullyCurated()}",
-        description = s"${videos.nbResults} ${trv.curatedChessVideos.txt()}${
-            if tagString.nonEmpty then s" ${trv.matchingTheTags.txt()} " + tagString
+        title = trv.freeCarefullyCurated.txt(tagString),
+        description = s"${trv.curatedChessVideos.txt(videos.nbResults)}${
+            if tagString.nonEmpty then trv.withTags.txt(" ", tagString)
             else " • "
           }${trv.freeForAll.txt()}",
         url = s"$netBaseUrl${lila.ui.LangPath(routes.Video.index)}?${control.queryString}"
@@ -224,7 +224,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
               dataIcon := Icon.Back,
               href := s"${lila.ui.LangPath(routes.Video.index)}?${control.queryString}"
             )(
-              s"${trv.allVideoTags(ts.size.toString())}"
+              trv.allVideoTags(ts.size.toString())
             )
           )
         ),
