@@ -63,7 +63,7 @@ object PrefSingleChange:
     changing(_.board.hue): v =>
       _.focus(_.board.hue).replace(v),
     changing(_.sayGG): v =>
-      _.copy(sayGG = v == 1)
+      _.copy(sayGG = v)
   ).map: change =>
     change.field -> change
   .toMap

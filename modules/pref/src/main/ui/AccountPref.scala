@@ -179,7 +179,7 @@ final class AccountPref(helpers: Helpers, helper: PrefHelper, bits: AccountUi):
             )(cls := "arrow-snap"),
             setting(
               trp.sayGgWpAfterLosingOrDrawing(),
-              radios(form("behavior.sayGG"), booleanChoices),
+              radios(form("behavior.sayGG"), translatedSayGGChoices),
               "sayGG"
             ),
             setting(

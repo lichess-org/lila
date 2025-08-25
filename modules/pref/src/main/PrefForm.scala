@@ -58,7 +58,7 @@ object PrefForm:
       val brightness = "boardBrightness" -> number(0, 150)
       val opacity = "boardOpacity" -> number(0, 100)
       val hue = "boardHue" -> number(0, 100)
-    val sayGG = "sayGG" -> booleanNumber
+    val sayGG = "sayGG" -> checkedNumber(Pref.SayGG.choices)
 
   def pref(lichobile: Boolean) = Form(
     mapping(
@@ -211,7 +211,7 @@ object PrefForm:
           keyboardMove = pref.keyboardMove.some,
           voice = pref.voice.getOrElse(0).some,
           rookCastle = pref.rookCastle.some,
-          sayGg = Some(if pref.sayGG then 1 else 0)
+          sayGg = pref.sayGG.some
         ),
         clock = ClockData(
           tenths = pref.clockTenths,
