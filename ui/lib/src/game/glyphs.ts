@@ -1,30 +1,39 @@
 import { parseUci, makeSquare, squareRank } from 'chessops/util';
 import type { DrawShape } from '@lichess-org/chessground/draw';
 
+// maximum number of glyphs to show for a given move
+const maxGlyphs = 4;
+
 export function annotationShapes(node: Tree.Node): DrawShape[] {
   const { uci, glyphs, san } = node;
-  if (uci && san && glyphs?.[0]) {
-    const move = parseUci(uci)!;
-    const destSquare = san.startsWith('O-O') // castle, short or long
-      ? squareRank(move.to) === 0 // white castle
-        ? san.startsWith('O-O-O')
-          ? 'c1'
-          : 'g1'
-        : san.startsWith('O-O-O')
-          ? 'c8'
-          : 'g8'
-      : makeSquare(move.to);
-    const symbol = glyphs[0].symbol;
-    const prerendered = glyphToSvg[symbol];
-    return [
-      {
-        orig: destSquare,
-        brush: prerendered ? '' : undefined,
-        customSvg: prerendered ? { html: prerendered } : undefined,
-        label: prerendered ? undefined : { text: symbol, fill: 'purple' },
-        // keep some purple just to keep feedback forum on their toes
-      },
-    ];
+  if (uci && san && glyphs) {
+    return (
+      glyphs
+        .slice(0, maxGlyphs)
+        .map((glyph: Tree.Glyph, idx: number) => {
+          const move = parseUci(uci)!;
+          const destSquare = san.startsWith('O-O') // castle, short or long
+            ? squareRank(move.to) === 0 // white castle
+              ? san.startsWith('O-O-O')
+                ? 'c1'
+                : 'g1'
+              : san.startsWith('O-O-O')
+                ? 'c8'
+                : 'g8'
+            : makeSquare(move.to);
+          const symbol = glyph.symbol;
+          const prerendered = glyphToSvg[symbol] ? glyphToSvg[symbol](idx) : undefined;
+          return {
+            orig: destSquare,
+            brush: prerendered ? '' : undefined,
+            customSvg: prerendered ? { html: prerendered } : undefined,
+            label: prerendered ? undefined : { text: symbol, fill: 'purple' },
+            // keep some purple just to keep feedback forum on their toes
+          };
+        })
+        // needed so that the right-most (and first) glyph is at the top of the stack
+        .reverse()
+    );
   } else return [];
 }
 
@@ -37,8 +46,17 @@ export function annotationShapes(node: Tree.Node): DrawShape[] {
 //
 //   Inkscape's output includes unnecessary attributes which can be cleaned up with https://lean-svg.netlify.app.
 //   Small tweak (e.g. changing color, scaling size, etc...) can be done by directly modifying svg below.
-const composeGlyph = (fill: string, path: string) =>
-  `<defs><filter id="a"><feDropShadow dx="4" dy="7" flood-opacity=".5" stdDeviation="5"/></filter></defs><g transform="matrix(.4 0 0 .4 71 -12)"><circle cx="50" cy="50" r="50" fill="${fill}" filter="url(#a)"/>${path}</g>`;
+const composeGlyph = (fill: string, path: string) => (stackedNumber: number) =>
+  `<defs><filter id="a"><feDropShadow dx="4" dy="7" flood-opacity=".5" stdDeviation="5"/></filter></defs><g transform="matrix(.4 0 0 .4 ${glyphStacktoPx(stackedNumber).x} ${glyphStacktoPx(stackedNumber).y})"><circle cx="50" cy="50" r="50" fill="${fill}" filter="url(#a)"/>${path}</g>`;
+
+// the glyphs are laid-down from right to left
+// with the first glyph being at the top right, then progressively to the left, until the top left
+const glyphStacktoPx = (stack: number) => {
+  return {
+    x: 71 - (stack % maxGlyphs) * 28,
+    y: -12,
+  };
+};
 
 const whiteIsWinning = composeGlyph(
   '#bbb',
@@ -50,7 +68,7 @@ const blackIsWinning = composeGlyph(
   '<path fill="none" stroke="#fff" stroke-width="8" d="M71 27v46m23-23H48m-8 0H4"/>',
 );
 
-const glyphToSvg: Dictionary<string> = {
+const glyphToSvg: Dictionary<(stackedNumber: number) => string> = {
   // Inaccuracy
   '?!': composeGlyph(
     '#56b4e9',
