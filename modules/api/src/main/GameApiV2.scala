@@ -142,7 +142,7 @@ final class GameApiV2(
       .via(preparationFlow(config))
 
   def mobileRecent(user: User)(using Option[Me]): Fu[JsArray] = for
-    games <- gameRepo.recentFinishedGamesFromSecondary(user, Max(12))
+    games <- gameRepo.recentFinishedGamesFromSecondary(user, Max(10))
     config = MobileRecentConfig(user)
     enriched <- games.sequentially(enrich(config.flags))
     jsons <- enriched.sequentially: (game, fen, analysis) =>
@@ -467,5 +467,6 @@ object GameApiV2:
 
   case class MobileRecentConfig(user: User)(using val by: Option[Me]) extends Config:
     val format = GameApiV2.Format.JSON
-    val flags = WithFlags(clocks = false, moves = false, evals = false, opening = false)
+    val flags =
+      WithFlags(clocks = false, moves = false, evals = false, opening = true, lastFen = true, accuracy = true)
     val perSecond = MaxPerSecond(20) // unused

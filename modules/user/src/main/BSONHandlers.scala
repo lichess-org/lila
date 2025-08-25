@@ -26,7 +26,6 @@ object BSONFields:
   val toints = "toints"
   val playTime = "time"
   val playTimeTotal = "time.total"
-  val seenAt = "seenAt"
   val createdWithApiVersion = "createdWithApiVersion"
   val lang = "lang"
   val email = "email"

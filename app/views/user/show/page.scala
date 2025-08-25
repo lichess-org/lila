@@ -34,6 +34,7 @@ object page:
       )
       .js(pageModule(info))
       .js(esModules())
+      .js(isGranted(_.UserModView).option(esmInit("mod.autolink")))
       .css("user.show")
       .css(isGranted(_.UserModView).option("mod.user"))
       .flag(_.noRobots, !indexable(u)):

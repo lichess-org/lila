@@ -79,7 +79,7 @@ final class ApiMoveStream(
                     Bus.unsubscribeDyn(subEvent, List(chan))
                     Bus.unsub[FinishGame](subFinish)
             .pipe: source =>
-              if delayMoves
+              if delayMoves && game.playable
               then source.delay(delayMovesBy(game), akka.stream.DelayOverflowStrategy.emitEarly)
               else source
         )

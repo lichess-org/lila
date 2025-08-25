@@ -105,7 +105,7 @@ object Report:
   ):
     def textWithoutAutoReports = text.linesIterator.filterNot(_.startsWith("[AUTOREPORT]")).mkString("\n")
 
-    def byHuman = !byLichess && by.isnt(ReporterId.irwin)
+    def byHuman = !byLichess && by.isnt(ReporterId.irwin) && by.isnt(ReporterId.ai)
 
     def byLichess = by.is(ReporterId.lichess)
 
@@ -149,7 +149,7 @@ object Report:
       text: String
   ):
     def scored(score: Score) = Candidate.Scored(this, score)
-    def isAutomatic = reporter.id == ReporterId.lichess
+    def isAutomatic = reporter.id == ReporterId.lichess || reporter.id == ReporterId.ai
     def isAutoComm = isAutomatic && reason.isComm
     def isAutoBoost = isAutomatic && reason == Reason.Boost
     def isCheat = reason == Reason.Cheat

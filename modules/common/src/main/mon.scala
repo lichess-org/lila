@@ -365,9 +365,14 @@ object mon:
     object pwned:
       def get(res: Boolean) = timer("security.pwned.result").withTag("res", res)
     object login:
-      def attempt(byEmail: Boolean, stuffing: String, result: Boolean) =
+      def attempt(byEmail: Boolean, stuffing: String, pwned: Boolean, result: Boolean) =
         counter("security.login.attempt").withTags:
-          tags("by" -> (if byEmail then "email" else "name"), "stuffing" -> stuffing, "result" -> result)
+          tags(
+            "by" -> (if byEmail then "email" else "name"),
+            "stuffing" -> stuffing,
+            "pwned" -> pwned,
+            "result" -> result
+          )
       def proxy(tpe: String) = counter("security.login.proxy").withTag("proxy", tpe)
     def secretScanning(tokenType: String, source: String, hit: Boolean) =
       counter("security.githubSecretScanning.hit").withTags(

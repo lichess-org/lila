@@ -26,6 +26,7 @@ final class Signup(
     authenticator: Authenticator,
     userRepo: lila.user.UserRepo,
     disposableEmailAttempt: DisposableEmailAttempt,
+    pwnedApi: PwnedApi,
     cacheApi: lila.memo.CacheApi,
     netConfig: NetConfig
 )(using Executor, lila.core.config.RateLimit):
@@ -86,6 +87,7 @@ final class Signup(
                 for
                   suspIp <- ipTrust.isSuspicious(ip)
                   ipData <- ipTrust.reqData(req)
+                  pwned <- pwnedApi.isPwned(data.clearPassword)
                   captcha <- hcaptcha.verify()
                   result <- captcha match
                     case Hcaptcha.Result.Fail => fuccess(Signup.Result.MissingCaptcha)
@@ -111,9 +113,18 @@ final class Signup(
                               )
                               .orFail(s"No user could be created for ${data.username}")
                               .addEffect:
-                                logSignup(req, _, data.email, data.fingerPrint, none, captcha, mustConfirm)
+                                logSignup(
+                                  req,
+                                  _,
+                                  data.email,
+                                  data.fingerPrint,
+                                  none,
+                                  captcha,
+                                  mustConfirm,
+                                  pwned
+                                )
                               .flatMap:
-                                confirmOrAllSet(data.email, mustConfirm, data.fingerPrint, none)
+                                confirmOrAllSet(data.email, mustConfirm, data.fingerPrint, none, pwned)
                         }
                 yield result
             )
@@ -123,13 +134,15 @@ final class Signup(
       email: EmailAddress,
       mustConfirm: MustConfirmEmail,
       fingerPrint: Option[FingerPrint],
-      apiVersion: Option[ApiVersion]
+      apiVersion: Option[ApiVersion],
+      pwned: IsPwned
   )(user: User)(using RequestHeader, Lang): Fu[Signup.Result] =
     store.deletePreviousSessions(user) >> {
       if mustConfirm.value then
         emailConfirm.send(user, email) >> {
           if emailConfirm.effective then
-            api.saveSignup(user.id, apiVersion, fingerPrint).inject(Signup.Result.ConfirmEmail(user, email))
+            for _ <- api.saveSignup(user.id, apiVersion, fingerPrint, pwned)
+            yield Signup.Result.ConfirmEmail(user, email)
           else fuccess(Signup.Result.AllSet(user, email))
         }
       else fuccess(Signup.Result.AllSet(user, email))
@@ -158,6 +171,7 @@ final class Signup(
                     for
                       suspIp <- ipTrust.isSuspicious(ip)
                       ipData <- ipTrust.ipData(ip)
+                      pwned <- pwnedApi.isPwned(ClearPassword(data.password))
                       result <- signupRateLimit(data.username.id, suspIp = suspIp, captched = false):
                         val mustConfirm =
                           if canSendEmails.get() then MustConfirmEmail.YesBecauseMobile
@@ -190,10 +204,11 @@ final class Signup(
                               none,
                               apiVersion.some,
                               Hcaptcha.Result.Mobile,
-                              mustConfirm
+                              mustConfirm,
+                              pwned
                             )
                           .flatMap:
-                            confirmOrAllSet(data.email, mustConfirm, none, apiVersion.some)
+                            confirmOrAllSet(data.email, mustConfirm, none, apiVersion.some, pwned)
                     yield result
                 )
             )
@@ -249,14 +264,15 @@ final class Signup(
       fingerPrint: Option[FingerPrint],
       apiVersion: Option[ApiVersion],
       captcha: Hcaptcha.Result,
-      mustConfirm: MustConfirmEmail
+      mustConfirm: MustConfirmEmail,
+      pwned: IsPwned
   ) =
     disposableEmailAttempt.onSuccess(user, email, HTTPRequest.ipAddress(req))
     authLog(
       user.username.into(UserStr),
       email.value,
       s"fp: $fingerPrint mustConfirm: $mustConfirm captcha: $captcha fp: ${fingerPrint
-          .so(_.value)} ip: ${HTTPRequest.ipAddress(req)} api: $apiVersion"
+          .so(_.value)} ip: ${HTTPRequest.ipAddress(req)} api: $apiVersion pwned: $pwned"
     )
 
   private def signupErrLog(err: Form[?]) = for

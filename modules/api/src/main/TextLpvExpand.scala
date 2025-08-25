@@ -14,6 +14,7 @@ final class TextLpvExpand(
     studyApi: lila.study.StudyApi,
     pgnDump: PgnDump,
     studyPgnDump: lila.study.PgnDump,
+    relayPgnDump: lila.relay.RelayPgnStream,
     cacheApi: CacheApi,
     net: lila.core.config.NetConfig
 )(using Executor):
@@ -100,20 +101,22 @@ final class TextLpvExpand(
               LpvEmbed.PublicPgn(pgn.render).some
 
   private def studyChapterIdToPgn(id: StudyChapterId): Fu[Option[LpvEmbed]] =
-    val flags = lila.study.PgnDump.fullFlags
+    import lila.study.PgnDump.fullFlags
     studyApi
       .byChapterId(id)
       .flatMapz: sc =>
         if sc.study.isPrivate then fuccess(LpvEmbed.PrivateStudy.some)
-        else studyPgnDump.ofChapter(sc.study, flags)(sc.chapter).map(LpvEmbed.PublicPgn.apply).map(_.some)
+        else if sc.study.isRelay then relayPgnDump.ofChapter(sc).map2(LpvEmbed.PublicPgn.apply)
+        else studyPgnDump.ofChapter(sc.study, fullFlags)(sc.chapter).map(LpvEmbed.PublicPgn.apply).map(_.some)
 
   private def studyIdToPgn(id: StudyId): Fu[Option[LpvEmbed]] =
-    val flags = lila.study.PgnDump.fullFlags
+    import lila.study.PgnDump.fullFlags
     studyApi
       .byId(id)
       .flatMapz: s =>
         if s.isPrivate then fuccess(LpvEmbed.PrivateStudy.some)
-        else studyPgnDump.ofFirstChapter(s, flags).map2(LpvEmbed.PublicPgn.apply)
+        else if s.isRelay then relayPgnDump.ofFirstChapter(s).map2(LpvEmbed.PublicPgn.apply)
+        else studyPgnDump.ofFirstChapter(s, fullFlags).map2(LpvEmbed.PublicPgn.apply)
 
 final class LpvGameRegex(domain: NetDomain):
 

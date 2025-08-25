@@ -44,6 +44,7 @@ const spamRegex = new RegExp(
     'shorturl.at/',
     'lichess77',
     '77Casino.cfd',
+    'Betspin.life',
   ]
     .map(url => url.replace(/\./g, '\\.').replace(/\//g, '\\/'))
     .join('|'),

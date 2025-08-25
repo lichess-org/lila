@@ -12,7 +12,8 @@ private case class Contact(
     kid: Option[Boolean],
     marks: Option[UserMarks],
     roles: Option[List[RoleDbKey]],
-    createdAt: Instant
+    createdAt: Instant,
+    seenAt: Option[Instant]
 ):
   def isKid = ~kid
   def isTroll = marks.exists(_.troll)
@@ -23,6 +24,7 @@ private case class Contact(
   def isHoursOld(hours: Int) = createdAt.isBefore(nowInstant.minusHours(hours))
   def isLichess = id.is(UserId.lichess)
   def isGranted(perm: Permission.Selector) = Granter.ofDbKeys(perm, ~roles)
+  def seenRecently = seenAt.exists(_.isAfter(nowInstant.minusHours(1)))
 
 private case class Contacts(orig: Contact, dest: Contact):
   def hasKid = orig.isKid || dest.isKid
@@ -38,7 +40,7 @@ private final class ContactApi(userColl: Coll)(using Executor):
     userColl
       .byOrderedIds[Contact, UserId](
         List(orig, dest),
-        $doc(F.kid -> true, F.marks -> true, F.roles -> true, F.createdAt -> true).some
+        $doc(F.kid -> true, F.marks -> true, F.roles -> true, F.createdAt -> true, F.seenAt -> true).some
       )(_.id)
       .map:
         case List(o, d) => Contacts(o, d).some

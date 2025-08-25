@@ -1,4 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="voiceCommands">ध्वनि आदेश</string>
   <string name="watchTheVideoTutorial">वीडियो ट्यूटोरियल देखें</string>
+  <string name="instructions1">ध्वनि पहचान को टॉगल करने के लिए %1$s बटन का उपयोग करें, इस सहायता संवाद को खोलने के लिए %2$s बटन का उपयोग करें, तथा वाक् सेटिंग बदलने के लिए %3$s मेनू का उपयोग करें।</string>
+  <string name="instructions2">जब हम निश्चित नहीं होते, तो हम कई चालों के लिए तीर दिखाते हैं। किसी चाल के तीर का रंग या संख्या बोलकर उसे चुनें।</string>
+  <string name="instructions3">यदि कोई तीर व्यापक राडार को दर्शाता है, तो वह चाल चक्र पूरा होने पर खेली जाएगी। इस दौरान, आप चाल को तुरंत चलाने के लिए केवल %1$s, रद्द करने के लिए %2$s, या किसी अलग तीर का रंग/संख्या बोल सकते हैं। इस टाइमर को सेटिंग्स में समायोजित या बंद किया जा सकता है।</string>
+  <string name="instructions4">शोरगुल वाले माहौल में %s सक्षम करें। जब यह चालू हो, तो कमांड बोलते समय Shift कुंजी दबाए रखें।</string>
+  <string name="instructions5">शतरंज की फाइलों की पहचान में सुधार करने के लिए ध्वन्यात्मक वर्णमाला का उपयोग करें। </string>
+  <string name="instructions6">%s वॉयस मूव सेटिंग्स को विस्तार से समझाता है।</string>
+  <string name="thisBlogPost">यह ब्लॉग पोस्ट</string>
+  <string name="moveToE4OrSelectE4Piece">e4 पर जाएँ या e4 का मोहरा चुनें</string>
+  <string name="selectOrCaptureABishop">एक बिशप का चयन करें या उसे पकड़ें</string>
 </resources>

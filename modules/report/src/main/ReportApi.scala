@@ -125,7 +125,11 @@ final class ReportApi(
   def getLichessReporter: Fu[Reporter] =
     getLichessMod.map: l =>
       Reporter(l.user)
-
+  lazy val automodReporter: Fu[Reporter] =
+    userApi
+      .byId(UserId.ai.into(ReporterId))
+      .dmap2(Reporter.apply)
+      .orFail("User ai is missing")
   def autoAltPrintReport(userId: UserId): Funit =
     coll
       .exists(
@@ -317,26 +321,25 @@ final class ReportApi(
   ): Fu[Option[play.api.libs.json.JsObject]] =
     automodApi.request(userText, systemPrompt, model, temperature)
 
-  def automodComms(userText: String, resource: String)(using me: Me): Funit =
+  def automodComms(userText: String, url: String)(using me: Me): Funit =
     for
       rsp <- automodRequest(userText, systemPrompt = promptSetting.get(), model = modelSetting.get())
         .monSuccess(_.mod.report.automod.request)
       suspectOpt <- getSuspect(me)
-      reporter <- getLichessReporter
+      reporter <- automodReporter
     yield for
       res <- rsp
-      assessmentOpt = (res \ "assessment").asOpt[String]
-      _ = lila.mon.mod.report.automod.assessment(assessmentOpt | "ok").increment()
-      assessment <- assessmentOpt
-      reason <- Reason(assessment)
+      fromLlm <- (res \ "assessment").asOpt[String]
+      _ = lila.mon.mod.report.automod.assessment(if fromLlm == "pass" then "ok" else fromLlm).increment()
+      reason <- Reason(if fromLlm == "other" then "comm" else fromLlm) // to avoid explaining "comm" in prompt
       suspect <- suspectOpt
-      summary = (res \ "reason").asOpt[String].getOrElse("No reason provided")
+      summary = ~(res \ "reason").asOpt[String]
     yield create(
       Candidate(
         reporter = reporter,
         suspect = suspect,
         reason = reason,
-        text = s"${Reason.flagText} $resource ${reason.name}: $summary"
+        text = s"AUTOMOD: $summary $url"
       )
     ).recoverWith: e =>
       logger.warn(s"Comms automod failed for ${me.username}: ${e.getMessage}", e)
