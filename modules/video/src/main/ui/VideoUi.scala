@@ -94,11 +94,11 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
           ),
           control.filter.tags.isEmpty.option(
             p(cls := "explain box__pad")(
-              s"${trv.allVideosAreFree}",
+              trv.allVideosAreFree(),
               br,
-              s"${trv.clickOneOrMany}",
+              trv.clickOneOrMany(),
               br,
-              s"${trv.weHaveCarefullySelected(count.toString())}",
+              trv.weHaveCarefullySelected(count.toString()),
             )
           ),
           div(cls := "list box__pad infinite-scroll")(
