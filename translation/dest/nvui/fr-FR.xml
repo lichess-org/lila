@@ -27,7 +27,7 @@
   <string name="announcePiecesOnRankOrFile" comment="This is an instruction for how blind users can use the command form.&#10;&#10;Here, they must type in &quot;s&quot; to announce pieces on the rank or file. So &quot;s a&quot; would announce all pieces on file a, while &quot;s 1&quot; would announce all pieces on file 1.&#10;&#10;Please keep the space. Screen readers may not read the text out correctly without a space present.">Annonce les pièces sur une rangée ou une colonne. Exemple : s a, s 1.</string>
   <string name="goToBoard" comment="Please keep the hyphen in or use a space for moves (e.g. &quot;a 1&quot;). Screen readers may not read the text out correctly without a hyphen or space present.">Allez à l\'échiquier. la case par défaut est e-4. Vous pouvez préciser une case : case a-1 ou c a-1 vous placera à la case a-1.</string>
   <string name="movePiece">Pour déplacer une pièce, utilisez la notation algébrique standard.</string>
-  <string name="promotion" comment="This is meant to be read verbally by a screen reader. Please do NOT use the symbol &quot;=&quot; when translating &quot;equals&quot;. Write it as a full word.">Pour promouvoir un pion à une autre pièce qu\'une dame, utilisez égal. Par exemple, a-8-égal-n promeut le pion à un cavalier.</string>
+  <string name="promotion" comment="This is meant to be read verbally by a screen reader. Please do NOT use the symbol &quot;=&quot; when translating &quot;equals&quot;. Write it as a full word.">Pour promouvoir un pion à une autre pièce qu\'une dame, utilisez \"equal\". Par exemple, a-8-equal-n promeut le pion à un cavalier.</string>
   <string name="king">roi</string>
   <string name="whiteKing">roi blanc</string>
   <string name="blackKing">roi noir</string>
