@@ -87,7 +87,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
           boxTop(
             h1(
               if control.filter.tags.nonEmpty then
-                frag(pluralize("video", videos.nbResults), s" ${trv.found.txt()}")
+                frag(trv.videosFound.plural(videos.nbResults, videos.nbResults.localize))
               else trv.chessVideos()
             ),
             searchForm(control.query)
@@ -183,10 +183,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
             ),
             name
           ),
-          span(
-            pluralize("video", videos.nbResults),
-            s" ${trv.found()}"
-          )
+          span(trv.videosFound.plural(videos.nbResults, videos.nbResults.localize))
         ),
         div(cls := "list infinite-scroll box__pad")(
           videos.currentPageResults.map { card(_, control) },
@@ -242,7 +239,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
     page(s"${control.query.getOrElse(trv.search())} • ${trv.freeChessVideos.txt()}", control):
       frag(
         boxTop(
-          h1(pluralize("video", videos.nbResults), " found"),
+          h1(trv.videosFound.plural(videos.nbResults, videos.nbResults.localize)),
           searchForm(control.query)
         ),
         div(cls := "list infinitescroll box__pad")(

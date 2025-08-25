@@ -9,7 +9,10 @@
   <string name="curatedChessVideos">%s curated chess videos</string>
   <string name="withTags">%1$s with tags %2$s</string>
   <string name="freeForAll">free for all</string>
-  <string name="found">found</string>
+  <plurals name="videosFound">
+    <item quantity="one">%s video found</item>
+    <item quantity="other">%s videos found</item>
+  </plurals>
   <string name="noVideosForTheseTags">No videos for these tags:</string>
   <string name="thatsAllWeGotForTheseTags">That's all we got for these tags:</string>
   <string name="clearSearch">Clear search</string>

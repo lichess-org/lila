@@ -9,7 +9,9 @@
   <string name="curatedChessVideos">%s шахматных видео от кураторов</string>
   <string name="withTags">%1$s подходят по тегам %2$s</string>
   <string name="freeForAll">бесплатно для всех желающих</string>
-  <string name="found">найдено</string>
+  <plurals name="videosFound">
+    <item quantity="other">%s видео найдено</item>
+  </plurals>
   <string name="noVideosForTheseTags">По следующим тегам видео не найдены:</string>
   <string name="thatsAllWeGotForTheseTags">Вот что мы нашли по следующим тегам:</string>
   <string name="clearSearch">Очистить поиск</string>
