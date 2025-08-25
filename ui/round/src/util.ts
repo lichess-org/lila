@@ -16,6 +16,29 @@ export function parsePossibleMoves(dests?: EncodedDests): Dests {
   return dec;
 }
 
+export function findKingSquare(fen: string, color: Color): string | null {
+  const rows = fen.split(' ')[0].split('/');
+  const kingChar = color === 'white' ? 'K' : 'k';
+
+  let rank = 8;
+  for (const row of rows) {
+    let fileIndex = 0;
+    for (const ch of row) {
+      if (/\d/.test(ch)) {
+        fileIndex += parseInt(ch, 10);
+      } else {
+        const file = 'abcdefgh'[fileIndex];
+        if (ch === kingChar) {
+          return `${file}${rank}`;
+        }
+        fileIndex++;
+      }
+    }
+    rank--;
+  }
+  return null;
+}
+
 export const firstPly = (d: RoundData): number => d.steps[0].ply;
 
 export const lastPly = (d: RoundData): number => lastStep(d).ply;
