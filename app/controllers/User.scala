@@ -636,7 +636,7 @@ final class User(
     isGrantedOpt(_.Diagnostics).so:
       env.security.store.mostRecentUserAgent(userId).map {
         _.map: full =>
-          val client = lila.security.UserAgentParser.parse(lila.core.net.UserAgent(full))
+          val client = lila.security.UserAgentParser.parse(full)
           val (os, dev, u) = (client.os, client.device, client.userAgent)
           (
             (s"${os.family} ${List(os.major, os.minor, os.patch).flatten.mkString(".")} ${dev.family} " +

@@ -3,6 +3,7 @@ package ui
 
 import lila.core.perf.UserWithPerfs
 import lila.core.user.Flag
+import lila.core.net.UserAgent
 import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
@@ -33,7 +34,7 @@ final class UserShow(helpers: Helpers, bits: UserBits):
       flag: Option[Flag],
       best8Perfs: List[PerfKey],
       userMarks: => Frag,
-      userAgent: Option[(String, String)]
+      userAgent: Option[(String, UserAgent)]
   )(using ctx: Context) =
     frag(
       div(cls := "upt__info")(

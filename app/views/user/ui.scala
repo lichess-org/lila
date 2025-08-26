@@ -3,6 +3,7 @@ package views.user
 import lila.app.UiEnv.{ *, given }
 import lila.core.data.SafeJsonStr
 import lila.core.perf.UserWithPerfs
+import lila.core.net.UserAgent
 import lila.perfStat.PerfStatData
 import lila.rating.UserPerfsExt.best8Perfs
 import lila.user.Profile.flagInfo
@@ -19,7 +20,7 @@ def mini(
     relation: Option[lila.relation.Relation],
     ping: Option[Int],
     ct: Option[lila.game.Crosstable],
-    userAgent: Option[(String, String)]
+    userAgent: Option[(String, UserAgent)]
 )(using ctx: Context) =
   val rel = views.relation.mini(u.id, blocked, followable, relation)
   def crosstable(myId: UserId) = ct
