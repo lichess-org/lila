@@ -243,6 +243,20 @@ final class Ublog(env: Env) extends LilaController(env):
             )
   }
 
+  def modAssess(postId: UblogPostId) = Secure(_.ModerateBlog) { ctx ?=> me ?=>
+    Found(env.ublog.api.getPost(postId)): post =>
+      for
+        mod <- env.ublog.api.triggerAutomod(post.copy(automod = none, featured = none))
+        _ <- env.ublog.api.setFeatured(post, ModPostData(featured = false.some))
+        _ <- logModAction(post, "reassess")
+      yield Ok.snip(
+        views.ublog.post.modTools(
+          post.copy(automod = mod.orElse(post.automod), featured = none),
+          isInCarousel = false
+        )
+      )
+  }
+
   def image(id: UblogPostId) = AuthBody(parse.multipartFormData) { ctx ?=> me ?=>
     Found(env.ublog.api.findEditableByMe(id)): post =>
       ctx.body.body

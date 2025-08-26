@@ -185,8 +185,11 @@ final class User(
               negotiate(
                 html = for
                   pov <- ctx.isnt(user).so(env.round.currentlyPlaying.exec(user.user.id))
+                  ua <- userAgentTuple(user.id)
                   ping = env.socket.isOnline.exec(user.id).so(env.socket.getLagRating(user.id))
-                  snip <- Ok.snip(views.user.mini(user, pov, blocked, followable, relation, ping, crosstable))
+                  snip <- Ok.snip(
+                    views.user.mini(user, pov, blocked, followable, relation, ping, crosstable, ua)
+                  )
                 yield snip.headerCacheSeconds(5),
                 json =
                   import lila.game.JsonView.given
@@ -628,3 +631,10 @@ final class User(
     meOrFetch(username).map:
       _.filter(_.enabled.yes || isGrantedOpt(_.SeeReport)).map: user =>
         Redirect(routes.User.show(user.username))
+
+  private def userAgentTuple(userId: UserId)(using Context) =
+    isGrantedOpt(_.Diagnostics).so:
+      env.security.store
+        .mostRecentUserAgent(userId)
+        .map2: ua =>
+          lila.security.UserAgentParser.reformat(ua) -> ua
