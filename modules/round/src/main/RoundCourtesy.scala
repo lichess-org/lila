@@ -2,6 +2,7 @@ package lila.round
 
 import lila.pref.{ PrefApi, Pref }
 import lila.core.game.FinishGame
+import lila.round.RoundGame.hasChat
 
 private final class RoundCourtesy(messenger: Messenger, prefApi: PrefApi)(using Executor):
 
@@ -12,8 +13,7 @@ private final class RoundCourtesy(messenger: Messenger, prefApi: PrefApi)(using 
           _.map(_.user).mapWithColor: (color, user) =>
             maybeSayGG(Pov(game, color), user)
 
-  private def gameFilter(game: Game): Boolean =
-    game.playedPlies > 6 && !game.isTournament && !game.isSwiss
+  private def gameFilter(game: Game): Boolean = game.hasChat && game.playedPlies > 6
 
   private def maybeSayGG(pov: Pov, user: lila.core.user.User): Funit =
     val (drawn, lost) = (pov.game.drawn, pov.game.loser.exists(_.color == pov.color))

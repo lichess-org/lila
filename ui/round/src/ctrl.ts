@@ -936,7 +936,7 @@ export default class RoundController implements MoveRootCtrl {
 
         // temporary: migrate local `courtesy` to server `sayGG`
         if (storage.boolean('courtesy').get()) {
-          xhr.setPreference('sayGG', '1');
+          xhr.setPreference('sayGG', '2');
           storage.remove('courtesy');
         }
 

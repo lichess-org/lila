@@ -129,7 +129,7 @@ object PrefForm:
       keyboardMove: Option[Int],
       voice: Option[Int],
       rookCastle: Option[Int],
-      sayGg: Option[Int]
+      sayGG: Option[Int]
   )
 
   case class ClockData(
@@ -182,6 +182,7 @@ object PrefForm:
         flairs = flairs | pref.flairs,
         resizeHandle = display.resizeHandle | pref.resizeHandle,
         rookCastle = behavior.rookCastle | pref.rookCastle,
+        sayGG = behavior.sayGG | pref.sayGG,
         pieceNotation = display.pieceNotation | pref.pieceNotation,
         moveEvent = behavior.moveEvent | pref.moveEvent
       )
@@ -211,7 +212,7 @@ object PrefForm:
           keyboardMove = pref.keyboardMove.some,
           voice = pref.voice.getOrElse(0).some,
           rookCastle = pref.rookCastle.some,
-          sayGg = pref.sayGG.some
+          sayGG = pref.sayGG.some
         ),
         clock = ClockData(
           tenths = pref.clockTenths,
