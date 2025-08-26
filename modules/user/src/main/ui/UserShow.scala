@@ -95,7 +95,7 @@ final class UserShow(helpers: Helpers, bits: UserBits):
         span(trans.site.joinedX(momentFromNow(u.createdAt))),
         (Granter.opt(_.UserModView) && (u.lameOrTroll || u.enabled.no || u.marks.rankban))
           .option(span(cls := "upt__details__marks")(userMarks)),
-        Granter.opt(_.Diagnostics).option(userAgent.collect(ua => span(title := ua._2, ua._1)))
+        userAgent.collect(ua => span(title := ua._2, ua._1))
       ),
       playing
     )
