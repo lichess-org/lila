@@ -30,6 +30,7 @@ object Permission:
     ),
     "Account mod" -> List(
       UserModView,
+      AccountInfo,
       IpBan,
       PrintBan,
       DisableTwoFactor,

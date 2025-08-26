@@ -185,11 +185,8 @@ final class User(
               negotiate(
                 html = for
                   pov <- ctx.isnt(user).so(env.round.currentlyPlaying.exec(user.user.id))
-                  ua <- userAgentTuple(user.id)
                   ping = env.socket.isOnline.exec(user.id).so(env.socket.getLagRating(user.id))
-                  snip <- Ok.snip(
-                    views.user.mini(user, pov, blocked, followable, relation, ping, crosstable, ua)
-                  )
+                  snip <- Ok.snip(views.user.mini(user, pov, blocked, followable, relation, ping, crosstable))
                 yield snip.headerCacheSeconds(5),
                 json =
                   import lila.game.JsonView.given
@@ -349,13 +346,14 @@ final class User(
 
         val nbOthers = getInt("nbOthers") | 100
 
-        val timeline = env.api.modTimeline
-          .load(user, withPlayBans = true)
-          .map: tl =>
-            if inquiry.exists(_.isPlay)
-            then views.mod.timeline.renderPlay(tl)
-            else views.mod.timeline.renderGeneral(tl)
-          .map(lila.mod.ui.mzSection("timeline")(_))
+        val timeline = isGranted(_.AccountInfo).so[Fu[Frag]]:
+          env.api.modTimeline
+            .load(user, withPlayBans = true)
+            .map: tl =>
+              if inquiry.exists(_.isPlay)
+              then views.mod.timeline.renderPlay(tl)
+              else views.mod.timeline.renderGeneral(tl)
+            .map(lila.mod.ui.mzSection("timeline")(_))
 
         val plan =
           isGranted(_.Admin).so(
@@ -365,7 +363,8 @@ final class User(
               .dmap(_ | emptyFrag)
           ): Fu[Frag]
 
-        val student = env.clas.api.student.findManaged(user).map2(views.user.mod.student).dmap(~_)
+        val student = isGranted(_.AccountInfo).so:
+          env.clas.api.student.findManaged(user).map2(views.user.mod.student).dmap(~_)
 
         val reportLog = isGranted(_.SeeReport).so:
           for
@@ -397,20 +396,24 @@ final class User(
           userLogins <- userLoginsFu
           appeals <- env.appeal.api.byUserIds(user.id :: userLogins.otherUserIds)
           data <- loginsTableData(user, userLogins, nbOthers)
-        yield (views.user.mod.otherUsers(user, data, appeals), data)
+          render = () => views.user.mod.otherUsers(user, data, appeals)
+        yield (render, data)
 
-        val identification = isGranted(_.ViewPrintNoIP).so:
+        val otherUsers = isGranted(_.AccountInfo).so[Fu[Frag]]:
+          othersAndLogins.map(_._1())
+
+        val identification = (isGranted(_.Diagnostics) || isGranted(_.ViewPrintNoIP)).so:
           for
             logins <- userLoginsFu
             others <- othersAndLogins
           yield views.user.mod.identification(logins, others._2.othersPartiallyLoaded)
 
-        val kaladin = isGranted(_.MarkEngine).so(env.irwin.kaladinApi.get(user).map {
-          _.flatMap(_.response).so(views.irwin.kaladin.report)
-        })
+        val kaladin = isGranted(_.MarkEngine).so:
+          env.irwin.kaladinApi.get(user).map(_.flatMap(_.response).so(views.irwin.kaladin.report))
 
-        val irwin =
-          isGranted(_.MarkEngine).so(env.irwin.irwinApi.reports.withPovs(user).mapz(views.irwin.report))
+        val irwin = isGranted(_.MarkEngine).so:
+          env.irwin.irwinApi.reports.withPovs(user).mapz(views.irwin.report)
+
         val assess = isGranted(_.MarkEngine)
           .so(env.mod.assessApi.getPlayerAggregateAssessmentWithGames(user.id))
           .flatMapz: as =>
@@ -420,7 +423,8 @@ final class User(
 
         val boardTokens = env.oAuth.tokenApi.usedBoardApi(user.id).map(views.user.mod.boardTokens)
 
-        val teacher = env.clas.api.clas.countOf(user).map(ui.teacher(user))
+        val teacher = isGranted(_.AccountInfo).so:
+          env.clas.api.clas.countOf(user).map(ui.teacher(user))
 
         given EventSource.EventDataExtractor[Frag] = EventSource.EventDataExtractor[Frag](_.render)
         Ok.chunked:
@@ -435,7 +439,7 @@ final class User(
             .merge(modZoneSegment(prefs, "prefs", user))
             .merge(modZoneSegment(appeal, "appeal", user))
             .merge(modZoneSegment(rageSit, "rageSit", user))
-            .merge(modZoneSegment(othersAndLogins.map(_._1), "others", user))
+            .merge(modZoneSegment(otherUsers, "others", user))
             .merge(modZoneSegment(identification, "identification", user))
             .merge(modZoneSegment(kaladin, "kaladin", user))
             .merge(modZoneSegment(irwin, "irwin", user))
@@ -631,10 +635,3 @@ final class User(
     meOrFetch(username).map:
       _.filter(_.enabled.yes || isGrantedOpt(_.SeeReport)).map: user =>
         Redirect(routes.User.show(user.username))
-
-  private def userAgentTuple(userId: UserId)(using Context) =
-    isGrantedOpt(_.Diagnostics).so:
-      env.security.store
-        .mostRecentUserAgent(userId)
-        .map2: ua =>
-          lila.security.UserAgentParser.reformat(ua) -> ua

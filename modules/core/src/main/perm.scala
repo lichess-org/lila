@@ -41,6 +41,7 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
   case PublicChatView extends Permission("VIEW_PUBLIC_CHAT", "See public chat page")
   case GamifyView extends Permission("GAMIFY_VIEW", "See mod leaderboard")
   case UserModView extends Permission("USER_SPY", "User profile mod view")
+  case AccountInfo extends Permission("ACCOUNT_INFO", "View innocuous account info")
   case UserEvaluate extends Permission("USER_EVALUATE", "Request evaluation")
   case GamesModView extends Permission("GAMES_MOD_VIEW", "User games mod view")
   case SendToZulip extends Permission("NOTIFY_SLACK", List(UserModView), "Send to Zulip")
@@ -109,7 +110,7 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
   case DeveloperTeam
       extends Permission(
         "DEVELOPER_TEAM",
-        List(LichessTeam, Diagnostics, BotEditor, ApiHog, StickyPosts),
+        List(LichessTeam, Diagnostics, UserModView, BotEditor, ApiHog, StickyPosts),
         "Developer Team"
       )
   case TimeoutMod
@@ -126,6 +127,7 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
           MarkBooster,
           ArenaBan,
           UserModView,
+          AccountInfo,
           GamesModView,
           GamifyView,
           SeeReport,
@@ -146,6 +148,7 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
           ViewBlurs,
           MarkEngine,
           UserModView,
+          AccountInfo,
           GamesModView,
           GamifyView,
           UserEvaluate,
@@ -164,6 +167,7 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
         "SHUSHER",
         List(
           LichessTeam,
+          AccountInfo,
           TimeoutMod,
           ViewPrivateComms,
           Shadowban,
@@ -186,6 +190,7 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
         List(
           LichessTeam,
           UserSearch,
+          AccountInfo,
           CloseAccount,
           GdprErase,
           SetEmail,
@@ -199,6 +204,7 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
         List(
           LichessTeam,
           DeveloperTeam,
+          AccountInfo,
           UserSearch,
           PrizeBan,
           RemoveRanking,

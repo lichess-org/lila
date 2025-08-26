@@ -3,7 +3,6 @@ package views.user
 import lila.app.UiEnv.{ *, given }
 import lila.core.data.SafeJsonStr
 import lila.core.perf.UserWithPerfs
-import lila.core.net.UserAgent
 import lila.perfStat.PerfStatData
 import lila.rating.UserPerfsExt.best8Perfs
 import lila.user.Profile.flagInfo
@@ -19,8 +18,7 @@ def mini(
     followable: Boolean,
     relation: Option[lila.relation.Relation],
     ping: Option[Int],
-    ct: Option[lila.game.Crosstable],
-    userAgent: Option[(String, UserAgent)]
+    ct: Option[lila.game.Crosstable]
 )(using ctx: Context) =
   val rel = views.relation.mini(u.id, blocked, followable, relation)
   def crosstable(myId: UserId) = ct
@@ -38,7 +36,7 @@ def mini(
   def userMarks = views.mod.user.userMarks(u.user, None)
   val flag = u.profileOrDefault.flagInfo
   val perfs = u.perfs.best8Perfs
-  show.ui.mini(u, playing, blocked, ping, rel, crosstable, flag, perfs, userMarks, userAgent)
+  show.ui.mini(u, playing, blocked, ping, rel, crosstable, flag, perfs, userMarks)
 
 val perfStat = lila.perfStat.PerfStatUi(helpers)(views.user.bits.communityMenu("ratings"))
 def perfStatPage(data: PerfStatData, ratingChart: Option[SafeJsonStr])(using

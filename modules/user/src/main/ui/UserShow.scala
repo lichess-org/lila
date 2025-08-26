@@ -3,7 +3,6 @@ package ui
 
 import lila.core.perf.UserWithPerfs
 import lila.core.user.Flag
-import lila.core.net.UserAgent
 import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
@@ -33,8 +32,7 @@ final class UserShow(helpers: Helpers, bits: UserBits):
       crosstable: UserId => Option[Frag],
       flag: Option[Flag],
       best8Perfs: List[PerfKey],
-      userMarks: => Frag,
-      userAgent: Option[(String, UserAgent)]
+      userMarks: => Frag
   )(using ctx: Context) =
     frag(
       div(cls := "upt__info")(
@@ -94,8 +92,7 @@ final class UserShow(helpers: Helpers, bits: UserBits):
         span(trans.site.nbGames.plural(u.count.game, u.count.game.localize)),
         span(trans.site.joinedX(momentFromNow(u.createdAt))),
         (Granter.opt(_.UserModView) && (u.lameOrTroll || u.enabled.no || u.marks.rankban))
-          .option(span(cls := "upt__details__marks")(userMarks)),
-        userAgent.collect(ua => span(title := ua._2, ua._1))
+          .option(span(cls := "upt__details__marks")(userMarks))
       ),
       playing
     )
