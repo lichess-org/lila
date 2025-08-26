@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="justNow">agora mesmo</string>
+  <string name="justNow" comment="This string refers to an event which has not started yet, but will begin in the next few seconds-to-milliseconds, depending on when your browser refreshes. Used in areas with live-refreshing text like this, such as the list of Open Tournaments on the homepage.&#10;&#10;There is a separate string for right after events that have begun, which reads &quot;right now&quot;.">axiña</string>
   <plurals name="inNbSeconds">
     <item quantity="one">en %s segundo</item>
     <item quantity="other">en %s segundos</item>
@@ -29,7 +29,7 @@
     <item quantity="one">en %s ano</item>
     <item quantity="other">en %s anos</item>
   </plurals>
-  <string name="rightNow">agora</string>
+  <string name="rightNow" comment="This string refers to an event that has started in the last few milliseconds-to-seconds, depending on when your browser refreshes. Used in areas with live-refreshing text like this, such as the list of Open Tournaments on the homepage.&#10;&#10;There is a separate string for just before events that have begun, which reads &quot;just now&quot;.">arestora</string>
   <plurals name="nbMinutesAgo">
     <item quantity="one">hai %s minuto</item>
     <item quantity="other">hai %s minutos</item>

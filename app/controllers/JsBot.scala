@@ -86,8 +86,8 @@ final class JsBot(env: Env) extends LilaController(env):
   //   renderPage(views.jsBot.roundPlay(prefJson)).flatMap(Ok(_).withServiceWorker)
 
   private def prefJson(using ctx: Context) =
-    lila.pref.JsonView
-      .write(ctx.pref, false)
+    lila.pref
+      .toJson(ctx.pref, false)
       .add("animationDuration", ctx.pref.animationMillis.some)
       .add("enablePremove", ctx.pref.premove.some)
       .add("showCaptured", ctx.pref.captured.some)

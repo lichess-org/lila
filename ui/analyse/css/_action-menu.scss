@@ -131,11 +131,6 @@
       color: $c-font-clear;
     }
   }
-  @include mq-is-col1 {
-    .abset-inline {
-      display: none;
-    }
-  }
 }
 
 dialog .disclosure-help {

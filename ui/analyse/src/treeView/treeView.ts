@@ -27,7 +27,7 @@ export class TreeView {
   }
 
   render(concealOf?: ConcealOf): VNode {
-    return (this.modePreference() === 'column' && displayColumns() > 1) || concealOf
+    return this.modePreference() === 'column' || concealOf
       ? renderColumnView(this.ctrl, concealOf)
       : renderInlineView(this.ctrl);
   }
