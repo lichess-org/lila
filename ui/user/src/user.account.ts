@@ -14,7 +14,6 @@ site.load.then(() => {
 
   const localPrefs: [string, string, string, boolean][] = [
     ['behavior', 'arrowSnap', 'arrow.snap', true],
-    ['behavior', 'courtesy', 'courtesy', false],
     ['behavior', 'scrollMoves', 'scrollMoves', true],
     ['notification', 'playBellSound', 'playBellSound', true],
   ];

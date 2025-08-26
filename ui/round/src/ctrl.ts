@@ -575,14 +575,6 @@ export default class RoundController implements MoveRootCtrl {
       // Delay 'victory' & 'defeat' sounds to avoid overlapping with 'checkmate' sound
       if (o.status.name === 'mate') site.sound.playAndDelayMateResultIfNecessary(key);
       else site.sound.play(key);
-      if (
-        key != 'victory' &&
-        d.game.turns > 6 &&
-        !d.tournament &&
-        !d.swiss &&
-        storage.boolean('courtesy').get()
-      )
-        this.opts.chat?.instance?.post('Good game, well played');
     }
     endGameView();
     if (d.crazyhouse) crazyEndHook();
@@ -941,6 +933,12 @@ export default class RoundController implements MoveRootCtrl {
           this.blindfold(this.blindfoldStorage.get());
         }
         if (!d.local && d.game.speed !== 'correspondence') wakeLock.request();
+
+        // temporary: migrate local `courtesy` to server `sayGG`
+        if (storage.boolean('courtesy').get()) {
+          xhr.setPreference('sayGG', '2');
+          storage.remove('courtesy');
+        }
 
         setTimeout(() => {
           if ($('#KeyboardO,#show_btn,#shadowHostId').length) {

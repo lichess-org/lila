@@ -45,6 +45,11 @@ final class Messenger(api: ChatApi):
       .so: r =>
         api.userChat.timeout(chatId, suspect, r, ChatTimeout.Scope.Global, text, _.round)
 
+  private val ggwp = "Good game, well played"
+
+  private[round] def sayGG(pov: Pov, userId: UserId): Funit =
+    api.userChat.write(pov.gameId.into(ChatId), userId, ggwp, none, _.round)
+
   private val presets = Set(
     "Hello",
     "Good luck",

@@ -75,7 +75,7 @@ final class Account(
         env.user.jsonView
           .full(me, perfs, withProfile = false) ++ Json
           .obj(
-            "prefs" -> lila.pref.JsonView.write(ctx.pref, lichobileCompat = HTTPRequest.isLichobile(req)),
+            "prefs" -> lila.pref.toJson(ctx.pref, lichobileCompat = HTTPRequest.isLichobile(req)),
             "nowPlaying" -> JsArray(povs.take(50).map(env.api.lobbyApi.nowPlaying)),
             "nbChallenges" -> nbChallenges,
             "online" -> true
@@ -130,7 +130,7 @@ final class Account(
           Ok:
             lila.common.Json.lightUser.write(me.light) ++ Json.obj(
               "coach" -> isGranted(_.Coach),
-              "prefs" -> lila.pref.JsonView.write(prefs, lichobileCompat = false)
+              "prefs" -> lila.pref.toJson(prefs, lichobileCompat = false)
             )
   }
 
