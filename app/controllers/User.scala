@@ -634,13 +634,7 @@ final class User(
 
   private def userAgentTuple(userId: UserId)(using Context) =
     isGrantedOpt(_.Diagnostics).so:
-      env.security.store.mostRecentUserAgent(userId).map {
-        _.map: full =>
-          val client = lila.security.UserAgentParser.parse(full)
-          val (os, dev, u) = (client.os, client.device, client.userAgent)
-          (
-            (s"${os.family} ${List(os.major, os.minor, os.patch).flatten.mkString(".")} ${dev.family} " +
-              s"${u.family} v${List(u.major, u.minor, u.patch).flatten.mkString(".")}").replace("  ", " "),
-            full
-          )
-      }
+      env.security.store
+        .mostRecentUserAgent(userId)
+        .map2: ua =>
+          lila.security.UserAgentParser.reformat(ua) -> ua
