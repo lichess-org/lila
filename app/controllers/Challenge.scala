@@ -110,7 +110,7 @@ final class Challenge(env: Env) extends LilaController(env):
           )
       )
 
-  def apiAccept(id: ChallengeId) =
+  def apiAccept(id: ChallengeId, color: Option[Color]) =
     Scoped(_.Challenge.Write, _.Bot.Play, _.Board.Play, _.Web.Mobile) { _ ?=> me ?=>
       def tryRematch =
         env.bot.player
@@ -126,7 +126,7 @@ final class Challenge(env: Env) extends LilaController(env):
             case Some(c) if c.accepted => tryRematch
             case Some(c) =>
               allow:
-                api.accept(c, none).as(jsonOkResult)
+                api.accept(c, none, color).as(jsonOkResult)
               .rescue: err =>
                 fuccess(BadRequest(jsonError(err)))
     }
