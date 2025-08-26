@@ -94,7 +94,7 @@ export function renderNvui({
       ),
       notify.render(),
       h('h2', 'Actions'),
-      ctrl.mode === 'view' ? afterActions(ctrl) : playActions(ctrl),
+      ctrl.mode === 'view' ? afterActions(ctrl) : playActions({ ctrl, notify } as PuzzleNvuiContext),
       h('h2', 'Board'),
       h(
         'div.board',
@@ -298,10 +298,18 @@ function renderReplay(ctrl: PuzzleCtrl): string {
   return `Replaying ${text} puzzles: ${i} of ${replay.of}`;
 }
 
-const playActions = (ctrl: PuzzleCtrl): VNode =>
-  ctrl.streak
+const playActions = (ctx: PuzzleNvuiContext): VNode => {
+  const { ctrl, notify } = ctx;
+  return ctrl.streak
     ? button(i18n.storm.skip, ctrl.skip, i18n.puzzle.streakSkipExplanation, !ctrl.streak.data.skip)
-    : h('div.actions_play', button(i18n.site.viewTheSolution, ctrl.viewSolution));
+    : h('div.actions_play', [
+        button(i18n.site.getAHint, () => {
+          const hint = ctrl.getHint();
+          if (hint) notify.set(hint);
+        }),
+        button(i18n.site.viewTheSolution, ctrl.viewSolution),
+      ]);
+};
 
 const afterActions = (ctrl: PuzzleCtrl): VNode =>
   h(

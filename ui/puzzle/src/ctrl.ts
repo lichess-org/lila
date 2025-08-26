@@ -26,7 +26,7 @@ import { parseFen, makeFen } from 'chessops/fen';
 import { parseSquare, parseUci, makeSquare, makeUci, opposite } from 'chessops/util';
 import { pgnToTree, mergeSolution, nextCorrectMove } from './moveTree';
 import { PromotionCtrl } from 'lib/game/promotion';
-import type { Role, Move, Outcome } from 'chessops/types';
+import type { Role, Move, Outcome, SquareName } from 'chessops/types';
 import { type StoredProp, storedBooleanProp, storedBooleanPropWithEffect, storage } from 'lib/storage';
 import { fromNodeList } from 'lib/tree/path';
 import Report from './report';
@@ -506,7 +506,7 @@ export default class PuzzleCtrl implements ParentCtrl {
       ),
     );
 
-  private hintSquare = () => {
+  hintSquare = () => {
     const hint = this.showHint() ? nextCorrectMove(this) : undefined;
     return hint?.from;
   };
@@ -587,6 +587,15 @@ export default class PuzzleCtrl implements ParentCtrl {
     if (last(this.mainline)?.puzzle === 'fail' && this.mode != 'view') maxValidPly -= 1;
     const newPly = Math.min(Math.max(this.node.ply + plyDelta, 0), maxValidPly);
     this.userJump(fromNodeList(this.mainline.slice(0, newPly + 1)));
+  };
+
+  getHint = (): SquareName | undefined => {
+    this.userJump(treePath.fromNodeList(this.mainline.filter(node => node.puzzle != 'fail')));
+    this.showHint.toggle();
+    const hint = this.hintSquare();
+    const ret = hint ? makeSquare(hint) : undefined;
+    this.showHint.toggle();
+    return ret;
   };
 
   toggleHint = (): void => {
