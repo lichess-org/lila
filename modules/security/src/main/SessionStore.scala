@@ -216,6 +216,13 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
         Limit(1)
       )
 
+  def mostRecentUserAgent(userId: UserId): Fu[Option[UserAgent]] =
+    coll
+      .find($doc("user" -> userId, "up" -> true))
+      .sort($doc("date" -> -1))
+      .one[Bdoc]
+      .map(_.flatMap(_.getAsOpt[UserAgent]("ua")))
+
   def ips(user: User): Fu[Set[IpAddress]] =
     coll.distinctEasy[IpAddress, Set]("ip", $doc("user" -> user.id))
 

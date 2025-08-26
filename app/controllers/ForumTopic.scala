@@ -42,7 +42,8 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
       Found(topicApi.show(categId, slug, page)): (categ, topic, posts) =>
         if categId == diagnosticId &&
           !ctx.userId.exists(me => slug.value.startsWith(me.value)) &&
-          !isGrantedOpt(_.ModerateForum)
+          !isGrantedOpt(_.ModerateForum) &&
+          !isGrantedOpt(_.Diagnostics)
         then notFound
         else
           for
@@ -73,7 +74,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
   }
 
   def sticky(categId: ForumCategId, slug: ForumTopicSlug) = Auth { _ ?=> me ?=>
-    CategGrantMod(categId):
+    isGrantedOpt(_.StickyPosts).so:
       Found(topicApi.show(categId, slug, 1)): (categ, topic, pag) =>
         topicApi
           .toggleSticky(categ, topic)

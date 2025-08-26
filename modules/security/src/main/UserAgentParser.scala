@@ -13,6 +13,12 @@ object UserAgentParser:
   def parse(agent: UA): Client =
     lichessBot(agent.value).orElse(lichessMobile(agent)).getOrElse(generic.parse(agent.value))
 
+  def reformat(agent: UA): String =
+    val client = parse(agent)
+    val (os, dev, u) = (client.os, client.device, client.userAgent)
+    (s"${os.family} ${List(os.major, os.minor, os.patch).flatten.mkString(".")} ${dev.family} " +
+      s"${u.family} v${List(u.major, u.minor, u.patch).flatten.mkString(".")}").replace("  ", " ")
+
   private def lichessBot(agent: String): Option[Client] =
     agent
       .startsWith("lichess-bot/")

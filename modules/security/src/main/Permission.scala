@@ -17,7 +17,8 @@ object Permission:
       ModerateForum,
       ModerateBlog,
       ReportBan,
-      ModMessage
+      ModMessage,
+      StickyPosts
     ),
     "Play mod" -> List(
       SeeInsight,
@@ -62,7 +63,6 @@ object Permission:
       ManageTournament,
       ManageSimul,
       StudyAdmin,
-      PracticeConfig,
       PuzzleCurator,
       OpeningWiki,
       Presets,
@@ -70,6 +70,7 @@ object Permission:
       BotEditor
     ),
     "Dev" -> List(
+      Diagnostics,
       Cli,
       Settings,
       Impersonate,
@@ -92,6 +93,7 @@ object Permission:
     ),
     "Package" -> List(
       LichessTeam,
+      DeveloperTeam,
       TimeoutMod,
       BoostHunter,
       CheatHunter,

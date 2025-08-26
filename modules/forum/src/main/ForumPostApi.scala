@@ -187,7 +187,7 @@ final class ForumPostApi(
   def categsForUser(teams: Iterable[TeamId], forUser: Option[User]): Fu[List[CategView]] =
     val isMod = forUser.fold(false)(MasterGranter.of(_.ModerateForum))
     for
-      categs <- categRepo.visibleWithTeams(teams, isMod)
+      categs <- categRepo.visibleWithTeams(teams, forUser)
       diagnostic <- if isMod then fuccess(none) else forUser.so(diagnosticForUser)
       views <- categs
         .parallel: categ =>
