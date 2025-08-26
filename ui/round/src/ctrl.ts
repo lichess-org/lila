@@ -604,6 +604,7 @@ export default class RoundController implements MoveRootCtrl {
     ) {
       notify(viewStatus(this.data));
     }
+    if (!this.replaying()) groundReload(this);
   };
 
   challengeRematch = async (): Promise<void> => {
