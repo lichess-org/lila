@@ -19,7 +19,7 @@ final class ForumCateg(env: Env) extends LilaController(env) with ForumControlle
 
   def show(id: ForumCategId, page: Int) = Open:
     if id == ublogId && !isGrantedOpt(_.ModerateForum) then Redirect(routes.Ublog.communityAll())
-    else if id == diagnosticId && !isGrantedOpt(_.ModerateForum) && !isGrantedOpt(_.Developer) then notFound
+    else if id == diagnosticId && !isGrantedOpt(_.ModerateForum) && !isGrantedOpt(_.Diagnostics) then notFound
     else
       NotForKids:
         Reasonable(page, Max(50), notFound):

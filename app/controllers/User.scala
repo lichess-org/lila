@@ -633,7 +633,7 @@ final class User(
         Redirect(routes.User.show(user.username))
 
   private def userAgentTuple(userId: UserId)(using Context) =
-    isGrantedOpt(_.Developer).so:
+    isGrantedOpt(_.Diagnostics).so:
       env.security.store.mostRecentUserAgent(userId).map {
         _.map: full =>
           val client = lila.security.UserAgentParser.parse(lila.core.net.UserAgent(full))

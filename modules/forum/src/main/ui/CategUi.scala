@@ -138,7 +138,7 @@ final class CategUi(helpers: Helpers, bits: ForumBits):
             case Some((topic, post, page)) =>
               val canBrowse = !view.categ.hidden
                 || Granter.opt(_.ModerateForum)
-                || (view.categ.isDiagnostic && Granter.opt(_.Developer))
+                || (view.categ.isDiagnostic && Granter.opt(_.Diagnostics))
               val postUrl = s"${routes.ForumTopic.show(view.slug, topic.slug, page)}#${post.number}"
               val categUrl =
                 if canBrowse then routes.ForumCateg.show(view.slug)

@@ -11,7 +11,7 @@ final private class ForumCategRepo(val coll: Coll)(using Executor):
 
   def visibleWithTeams(teams: Iterable[TeamId], forUser: Option[User]): Fu[List[ForumCateg]] =
     val (isMod, isDev) =
-      forUser.fold((false, false))(u => (Granter.of(_.ModerateForum)(u), Granter.of(_.Developer)(u)))
+      forUser.fold((false, false))(u => (Granter.of(_.ModerateForum)(u), Granter.of(_.Diagnostics)(u)))
     coll
       .find(
         $or(

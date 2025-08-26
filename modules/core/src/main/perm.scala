@@ -33,7 +33,8 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
   final def grants(p: Permission): Boolean = this == p || alsoGrants.exists(_.grants(p))
 
   case ViewBlurs extends Permission("VIEW_BLURS", "View blurs")
-  case ModerateForum extends Permission("MODERATE_FORUM", "Moderate forum")
+  case StickyPosts extends Permission("STICKY_POSTS", "Sticky forum posts")
+  case ModerateForum extends Permission("MODERATE_FORUM", List(StickyPosts), "Moderate forum")
   case ModerateBlog extends Permission("MODERATE_BLOG", "Moderate blog")
   case ChatTimeout extends Permission("CHAT_TIMEOUT", "Chat timeout")
   case BroadcastTimeout extends Permission("BROADCAST_TIMEOUT", "Broadcast timeout")
@@ -64,7 +65,6 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
   case ModLog extends Permission("MOD_LOG", "See mod log")
   case SeeInsight extends Permission("SEE_INSIGHT", "View player insights")
   case FreePatron extends Permission("FREE_PATRON", List(UserModView), "Give free patron")
-  case PracticeConfig extends Permission("PRACTICE_CONFIG", "Configure practice")
   case PuzzleCurator extends Permission("PUZZLE_CURATOR", "Classify puzzles")
   case OpeningWiki extends Permission("OPENING_WIKI", "Opening wiki")
   case Beta extends Permission("BETA", "Beta features")
@@ -105,6 +105,13 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
   case ApiChallengeAdmin extends Permission("API_CHALLENGE_ADMIN", "API Challenge admin")
   case LichessTeam extends Permission("LICHESS_TEAM", List(Beta), "Lichess team")
   case BotEditor extends Permission("BOT_EDITOR", "Bot editor")
+  case Diagnostics extends Permission("DIAGNOSTICS", "Diagnostics")
+  case DeveloperTeam
+      extends Permission(
+        "DEVELOPER_TEAM",
+        List(LichessTeam, Diagnostics, BotEditor, ApiHog, StickyPosts),
+        "Developer Team"
+      )
   case TimeoutMod
       extends Permission(
         "TIMEOUT_MOD",
@@ -190,8 +197,8 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
       extends Permission(
         "ADMIN",
         List(
-          BotEditor,
           LichessTeam,
+          DeveloperTeam,
           UserSearch,
           PrizeBan,
           RemoveRanking,
@@ -209,7 +216,6 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
           ManageTournament,
           ManageSimul,
           ManageEvent,
-          PracticeConfig,
           PuzzleCurator,
           OpeningWiki,
           Presets,
