@@ -2,7 +2,7 @@ import type AnalyseCtrl from '../ctrl';
 import type { VNode, Hooks } from 'snabbdom';
 import { defined } from 'lib';
 import { throttle } from 'lib/async';
-import { isTouchDevice, displayColumns } from 'lib/device';
+import { isTouchDevice } from 'lib/device';
 import { storedProp } from 'lib/storage';
 import type { ConcealOf } from '../interfaces';
 import { renderContextMenu } from './contextMenu';

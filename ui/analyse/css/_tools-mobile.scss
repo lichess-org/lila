@@ -21,6 +21,16 @@
     height: 5rem;
     touch-action: pan-y;
 
+    .jumps {
+      order: 1;
+    }
+    [data-act='opening-explorer'] {
+      order: 2;
+    }
+    [data-act='menu'] {
+      order: 3;
+    }
+
     .fbt {
       flex: 3;
       margin: 3px 2px 0;
@@ -31,48 +41,48 @@
     }
     .jumps {
       flex: 40%;
-      order: 1;
     }
-    .fbt[data-act='opening-explorer'] {
-      order: 2;
+    .jumps:has([data-act='first']) {
+      padding-inline: 8px;
+      flex: 50%;
     }
-    .fbt[data-act='menu'] {
-      order: 3;
+    .jumps .fbt {
+      margin: 5px 2px;
+      background: $m-bg_bg-page--mix-50;
+      border: 1px solid $m-clearer--fade-95;
+    }
+    .jumps .fbt[data-act='first'],
+    .jumps .fbt[data-act='last'] {
+      flex: 1.6;
     }
     .fbt.active {
       padding-top: 0;
       border-bottom: none;
     }
-    .jumps .fbt {
-      margin: 5px 3px;
-      background: $m-bg_bg-page--mix-50;
-      border: 1px solid $m-clearer--fade-95;
-    }
-    .fbt[data-mode] {
+    [data-mode] {
       position: relative;
       overflow-x: hidden;
       min-width: 24vw;
       max-width: 24vw;
       display: flex;
-      justify-content: space-between;
+      padding-inline-start: 10px;
       align-items: center;
-      padding-inline: 13px;
       text-shadow: none;
     }
-    .fbt[data-mode]::before,
-    .fbt[data-mode]::after {
+    [data-mode]::before,
+    [data-mode]::after {
       font-size: 1.3em;
       font-family: 'lichess';
     }
-    .fbt[data-mode='practice']::before {
+    [data-mode='practice']::before {
       content: $licon-Bullseye;
     }
-    .fbt[data-mode='retro']::before {
+    [data-mode='retro']::before {
       font-size: 1.5em;
       content: $licon-GraduateCap;
     }
-    .fbt[data-mode='practice'].active::after,
-    .fbt[data-mode='retro'].active::after {
+    [data-mode='practice'].active::after,
+    [data-mode='retro'].active::after {
       position: absolute;
       top: -2px;
       right: 1px;
@@ -80,14 +90,19 @@
       color: $c-bg;
       content: $licon-X;
     }
-    .fbt[data-mode='ceval']::after {
+    [data-mode='ceval']::after {
       content: $licon-Stockfish;
+      padding-inline-end: 10px;
     }
-    .fbt[data-mode='ceval']:has(eval)::after {
+    [data-mode='ceval']:has(eval)::after {
       content: '';
     }
-    .fbt[data-mode]:not(.active, .latent) .bar {
+    [data-mode] .bar {
+      display: none;
+    }
+    [data-mode]:not(.active, .latent) .bar {
       position: absolute;
+      display: block;
       left: 0;
       right: 0;
       top: 0;
@@ -100,7 +115,7 @@
           no-repeat,
         linear-gradient(45deg, transparent, $m-good--fade-30, transparent) -100% 0 / 200% 100% no-repeat;
     }
-    .fbt[data-mode].computing:not([data-mode='ceval'].active) .bar {
+    [data-mode].computing:not([data-mode='ceval'].active) .bar {
       opacity: 1;
       animation-play-state: running;
     }
@@ -121,11 +136,6 @@
   .analyse[data-active-mode='retro'] .analyse__tools {
     border-top: 3px solid $c-secondary;
   }
-  // .analyse:not([data-mode='ceval']) {
-  //   .analyse__moves {
-  //     border-top: none;
-  //   }
-  // }
   .analyse[data-active-mode='practice'] .analyse__fork,
   .analyse[data-active-mode='retro'] .analyse__fork {
     display: none;
@@ -143,7 +153,6 @@
     top: 0;
     margin-top: 9px;
   }
-
   #analyse-toggle-ceval:checked + label::before,
   #analyse-toggle-ceval:checked + label::after {
     margin: 0;

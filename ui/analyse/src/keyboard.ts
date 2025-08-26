@@ -73,6 +73,16 @@ export const bind = (ctrl: AnalyseCtrl) => {
       ctrl.toggleExplorer();
       ctrl.redraw();
     });
+  //if (!ctrl.ballerMode())
+  kbd
+    .bind(['shift+left', 'shift+k'], () => {
+      control.previousBranch(ctrl);
+      ctrl.redraw();
+    })
+    .bind(['shift+right', 'shift+j'], () => {
+      control.nextBranch(ctrl);
+      ctrl.redraw();
+    });
 
   const keyToMouseEvent = (key: string, eventName: string, selector: string) =>
     kbd.bind(key, () =>

@@ -86,6 +86,10 @@ object help:
             frag(kbd("←"), or, kbd("→"), alt, kbd("k"), or, kbd("j")),
             trans.site.keyMoveBackwardOrForward()
           ),
+          row(
+            frag(kbd("shift"), kbd("←"), or, kbd("k"), alt, kbd("shift"), kbd("→"), or, kbd("j")),
+            "Jump to previous/next branch"
+          ),
           if disclosure then
             frag(
               row(frag(tap, kbd("shift")), "Go to next variation"),
