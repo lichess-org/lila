@@ -142,17 +142,15 @@ object HTTPRequest:
       case LichobileVersionHeaderPattern(v) => ApiVersion.from(v.toIntOption)
       case _ => none
 
-  private def isDataDump(req: RequestHeader) = req.path == "/account/personal-data"
   private def isAppeal(req: RequestHeader) = req.path.startsWith("/appeal")
   private def isGameExport(req: RequestHeader) =
     "^/@/[\\w-]{2,30}/download$".r.matches(req.path) ||
       "^/(api/games/user|games/export)/[\\w-]{2,30}($|/.+)".r.matches(req.path)
   private def isStudyExport(req: RequestHeader) = "^/study/by/[\\w-]{2,30}/export.pgn$".r.matches(req.path)
-  private def isAccountClose(req: RequestHeader) =
-    req.path == "/account/close" || req.path == "/account/delete"
+  private def isAccount(req: RequestHeader) = req.path.startsWith("/account")
 
   def isClosedLoginPath(req: RequestHeader) =
-    isDataDump(req) || isAppeal(req) || isStudyExport(req) || isGameExport(req) || isAccountClose(req)
+    isAppeal(req) || isStudyExport(req) || isGameExport(req) || isAccount(req)
 
   def clientName(req: RequestHeader) =
     // lichobile sends XHR headers
