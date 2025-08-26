@@ -1,7 +1,6 @@
 import type AnalyseCtrl from '../ctrl';
 import column from './columnView';
 import inline from './inlineView';
-import { displayColumns } from 'lib/device';
 import type { VNode } from 'snabbdom';
 import type { ConcealOf } from '../interfaces';
 import { storedProp, type StoredProp } from 'lib/storage';
