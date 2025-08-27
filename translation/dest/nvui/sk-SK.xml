@@ -13,6 +13,12 @@
   <string name="gameStart">Začiatok partie</string>
   <string name="boardCommandList">Zoznam príkazov pri aktívnej šachovnici</string>
   <string name="inputFormCommandList">Zadajte tieto príkazy do vstupného formulára príkazov.</string>
+  <string name="goToInputForm">Prejsť na formulár pre zadávanie príkazov.</string>
+  <string name="announceCurrentSquare">Oznámiť aktuálne políčko.</string>
+  <string name="announceLastMove">Oznámiť posledný ťah.</string>
+  <string name="announceLastMoveCapture">Oznámiť aká figúrka bola vzatá v poslednom ťahu.</string>
+  <string name="announcePossibleMoves">Oznámiť možné ťahy pre zvolenú figúrku.</string>
+  <string name="announcePossibleCaptures">Oznámiť možnosti brania pre zvolenú figúrku.</string>
   <string name="king">kráľ</string>
   <string name="whiteKing">biely kráľ</string>
   <string name="blackKing">čierny kráľ</string>
