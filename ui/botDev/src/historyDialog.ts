@@ -1,5 +1,5 @@
 import { domDialog, type Dialog } from 'lib/view/dialog';
-import { frag, escapeHtml } from 'lib';
+import { frag, escapeHtml, myUserId } from 'lib';
 import * as licon from 'lib/licon';
 import type { EditDialog } from './editDialog';
 import { env } from './devEnv';
@@ -63,7 +63,11 @@ class HistoryDialog {
     const history = await (await fetch('/bots/dev/history?id=' + encodeURIComponent(this.uid))).json();
     this.versions = history.bots.reverse();
     if (env.bot.localBots[this.uid])
-      this.versions.push({ ...env.bot.localBots[this.uid], version: 'local', author: env.user });
+      this.versions.push({
+        ...env.bot.localBots[this.uid],
+        version: 'local',
+        author: myUserId() ?? 'anonymous',
+      });
     const versionsEl = this.view.querySelector('.versions') as HTMLElement;
     versionsEl.innerHTML = '';
     for (const bot of this.versions) {

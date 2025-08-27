@@ -395,7 +395,12 @@ final class Study(
           )
 
   private def doPgn(study: StudyModel, flags: Update[WithFlags])(using RequestHeader) =
-    Ok.chunked(env.study.pgnDump.chaptersOf(study, _ => flags(requestPgnFlags)).throttle(20, 1.second))
+    def makeStudySource = env.study.pgnDump.chaptersOf(study, _ => flags(requestPgnFlags))
+    val pgnSource = akka.stream.scaladsl.Source.futureSource:
+      if study.isRelay
+      then env.relay.pgnStream.ofStudy(study).map(_ | makeStudySource)
+      else fuccess(makeStudySource)
+    Ok.chunked(pgnSource.throttle(20, 1.second))
       .asAttachmentStream(s"${env.study.pgnDump.filename(study)}.pgn")
       .as(pgnContentType)
       .withDateHeaders(lastModified(study.updatedAt))
@@ -423,13 +428,17 @@ final class Study(
     env.study.api
       .byIdWithChapter(id, chapterId)
       .flatMap:
-        _.fold(studyNotFound) { case WithChapter(study, chapter) =>
+        _.fold(studyNotFound) { case sc @ WithChapter(study, chapter) =>
           CanView(study) {
-            env.study.pgnDump.ofChapter(study, requestPgnFlags)(chapter).map { pgn =>
+            def makeChapterPgn = env.study.pgnDump.ofChapter(study, requestPgnFlags)(chapter)
+            val pgnFu =
+              if study.isRelay
+              then env.relay.pgnStream.ofChapter(sc).getOrElse(makeChapterPgn)
+              else makeChapterPgn
+            pgnFu.map: pgn =>
               Ok(pgn.toString)
                 .asAttachment(s"${env.study.pgnDump.filename(study, chapter)}.pgn")
                 .as(pgnContentType)
-            }
           }(studyUnauthorized(study), studyForbidden(study))
         }
 

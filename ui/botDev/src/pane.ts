@@ -1,5 +1,4 @@
 import { removeObjectProperty, setObjectProperty, maxChars } from './devUtil';
-import { findMap } from 'lib/algo';
 import { frag } from 'lib';
 import { getSchemaDefault, requiresOpRe } from './schema';
 import type { EditDialog } from './editDialog';
@@ -359,4 +358,12 @@ function getRequirementIds(r: Requirement | undefined): string[] {
     if ('some' in r) return r.some.flatMap(getRequirementIds);
   }
   return [];
+}
+
+function findMap<T, U>(arr: T[], fn: (v: T) => U | undefined): U | undefined {
+  for (const v of arr) {
+    const result = fn(v);
+    if (result !== undefined) return result;
+  }
+  return undefined;
 }

@@ -1,6 +1,6 @@
 import { isEmpty } from 'lib';
 import * as licon from 'lib/licon';
-import { isTouchDevice } from 'lib/device';
+import { displayColumns } from 'lib/device';
 import { domDialog } from 'lib/view/dialog';
 import { type VNode, type LooseVNodes, bind, dataIcon, type MaybeVNodes, hl } from 'lib/snabbdom';
 import type { AutoplayDelay } from '../autoplay';
@@ -147,45 +147,44 @@ export function view(ctrl: AnalyseCtrl): VNode {
     ]),
   ];
 
-  const cevalConfig: LooseVNodes = ceval?.possible &&
-    ceval.allowed() && [
-      hl('h2', i18n.site.computerAnalysis),
+  const cevalConfig: LooseVNodes = ceval?.allowed() && [
+    displayColumns() > 1 && hl('h2', i18n.site.computerAnalysis),
+    !mandatoryCeval &&
       ctrlToggle(
         {
-          name: i18n.site.enable,
-          title: (mandatoryCeval ? 'Required by practice mode' : 'Stockfish') + ' (Hotkey: z)',
+          name: displayColumns() === 1 ? i18n.site.computerAnalysis : i18n.site.enable,
+          title: 'Stockfish (Hotkey: z)',
           id: 'all',
           checked: ctrl.showComputer(),
-          disabled: mandatoryCeval,
           change: ctrl.toggleComputer,
         },
         ctrl,
       ),
-      ctrl.showComputer() && [
-        ctrlToggle(
-          {
-            name: i18n.site.bestMoveArrow,
-            title: 'Hotkey: a',
-            id: 'shapes',
-            checked: ctrl.showAutoShapes(),
-            change: ctrl.toggleAutoShapes,
-          },
-          ctrl,
-        ),
-        ctrlToggle(
-          {
-            name: i18n.site.evaluationGauge,
-            id: 'gauge',
-            checked: ctrl.showGauge(),
-            change: ctrl.toggleGauge,
-          },
-          ctrl,
-        ),
-      ],
-    ];
+    ctrl.showComputer() && [
+      ctrlToggle(
+        {
+          name: i18n.site.bestMoveArrow,
+          title: 'Hotkey: a',
+          id: 'shapes',
+          checked: ctrl.showAutoShapes(),
+          change: ctrl.toggleAutoShapes,
+        },
+        ctrl,
+      ),
+      ctrlToggle(
+        {
+          name: i18n.site.evaluationGauge,
+          id: 'gauge',
+          checked: ctrl.showGauge(),
+          change: ctrl.toggleGauge,
+        },
+        ctrl,
+      ),
+    ],
+  ];
 
   const displayConfig = [
-    hl('h2', 'Display'),
+    displayColumns() > 1 && hl('h2', 'Display'),
     ctrlToggle(
       {
         name: i18n.site.inlineNotation,
@@ -199,17 +198,16 @@ export function view(ctrl: AnalyseCtrl): VNode {
       },
       ctrl,
     ),
-    !isTouchDevice() &&
-      ctrlToggle(
-        {
-          name: i18n.site.showVariationArrows,
-          title: 'Variation navigation arrows',
-          id: 'variationArrows',
-          checked: ctrl.variationArrowsProp(),
-          change: ctrl.toggleVariationArrows,
-        },
-        ctrl,
-      ),
+    ctrlToggle(
+      {
+        name: i18n.site.showVariationArrows,
+        title: 'Variation navigation arrows',
+        id: 'variationArrows',
+        checked: ctrl.variationArrowsProp(),
+        change: ctrl.toggleVariationArrows,
+      },
+      ctrl,
+    ),
     !ctrl.ongoing &&
       ctrlToggle(
         {

@@ -7,7 +7,8 @@
 
   .fbt {
     @extend %box-radius-bottom;
-
+    @include prevent-select;
+    -webkit-touch-callout: none;
     text-align: center;
   }
 
@@ -17,15 +18,31 @@
 
   .jumps {
     display: flex;
+    padding: 4px;
 
     .fbt {
-      flex: 1 1 30%;
+      border-radius: 8px;
+      flex: 1;
 
-      &:first-child,
-      &:last-child {
-        flex: 1 1 20%;
+      &[data-act='first'],
+      &[data-act='last'] {
         font-size: 0.7em;
       }
+      &[data-act='line'] {
+        font-size: 0.9em;
+      }
+    }
+  }
+  @include mq-is-col1 {
+    .jumps .fbt[data-act='prev'],
+    .jumps .fbt[data-act='next'] {
+      padding-inline: 6px;
+      font-size: 1.2em;
+    }
+  }
+  @media (hover: hover) {
+    .jumps .fbt:hover:not(.disabled) {
+      background-color: $m-primary_bg--mix-30;
     }
   }
 }

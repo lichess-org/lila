@@ -2,7 +2,7 @@ package controllers
 
 import lila.app.{ *, given }
 import lila.core.misc.oauth.AccessTokenId
-import lila.oauth.{ AccessToken, OAuthTokenForm }
+import lila.oauth.OAuthTokenForm
 
 final class OAuthToken(env: Env) extends LilaController(env):
 
@@ -29,9 +29,9 @@ final class OAuthToken(env: Env) extends LilaController(env):
     bindForm(OAuthTokenForm.create)(
       err => BadRequest.page(views.oAuth.token.create(err, me)),
       setup =>
-        tokenApi
-          .create(setup, env.clas.studentCache.isStudent(me))
-          .inject(Redirect(routes.OAuthToken.index).flashSuccess)
+        WithUserAgent:
+          for _ <- tokenApi.create(setup, env.clas.studentCache.isStudent(me))
+          yield Redirect(routes.OAuthToken.index).flashSuccess
     )
   }
 

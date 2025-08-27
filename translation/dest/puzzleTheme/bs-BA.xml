@@ -57,6 +57,10 @@
   <string name="interferenceDescription">Premještanje figura između dvije protivničke figure da jedna ili obje protivničke figure ostanu nebranjene, kao što je vitez na branjenom polju između dva topa.</string>
   <string name="intermezzo">Intermezzo</string>
   <string name="intermezzoDescription">Umjesto igranja očekivanog poteza, prvo ubacite drugi potez koji predstavlja neposrednu prijetnju na koju protivnik mora odgovoriti. Poznat i kao \"Zwischenzug\" ili \"Između\".</string>
+  <string name="killBoxMate">Mat ubistvene kutije</string>
+  <string name="killBoxMateDescription">Top se nalazi pored neprijateljskog kralja i podržava ga kraljica koja također blokira kraljeva polja za bijeg. Top i kraljica hvataju neprijateljskog kralja u \"ubistvenoj kutiji\" dimenzija 3 od 3.</string>
+  <string name="vukovicMate">Vukovićev mat</string>
+  <string name="vukovicMateDescription">Top i skakač se udružuju kako bi matirali kralja. Top daje mat uz podršku treće figure, a skakač se koristi za blokiranje kraljevih polja za bijeg.</string>
   <string name="knightEndgame">Vitezova krajnica</string>
   <string name="knightEndgameDescription">Završno kolo sa samo vitezovima i pijunima.</string>
   <string name="long">Duga slagalica</string>

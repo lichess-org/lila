@@ -2,7 +2,7 @@ package lila.core
 package game
 
 import _root_.chess.format.pgn.PgnStr
-import _root_.chess.{ Centis, Clock, Color, Ply }
+import _root_.chess.{ ByColor, Centis, Color, Ply }
 
 import lila.core.id.{ SimulId, SwissId, TourId }
 import lila.core.userId.UserId
@@ -37,6 +37,9 @@ case class GameDrawOffers(white: Set[Ply], black: Set[Ply]):
   def add(color: Color, ply: Ply) =
     color.fold(copy(white = white.incl(ply)), copy(black = black.incl(ply)))
 
+  def beforePly(ply: Ply): GameDrawOffers =
+    copy(white = white.filter(_ < ply), black = black.filter(_ < ply))
+
   // lichess allows to offer draw on either turn,
   // normalize to pretend it was done on the opponent turn.
   def normalize(color: Color): Set[Ply] = color
@@ -54,31 +57,12 @@ case class PgnImport(
     h: Option[Array[Byte]]
 )
 
-case class ClockHistory(
-    white: Vector[Centis] = Vector.empty,
-    black: Vector[Centis] = Vector.empty
-):
-
-  def update(color: Color, f: Vector[Centis] => Vector[Centis]): ClockHistory =
-    color.fold(copy(white = f(white)), copy(black = f(black)))
-
-  def record(color: Color, clock: Clock): ClockHistory =
-    update(color, _ :+ clock.remainingTime(color))
-
-  def reset(color: Color) = update(color, _ => Vector.empty)
-
-  def apply(color: Color): Vector[Centis] = color.fold(white, black)
-
-  def last(color: Color) = apply(color).lastOption
-
-  def size = white.size + black.size
-
-  // first state is of the color that moved first.
-  def bothClockStates(firstMoveBy: Color): Vector[Centis] =
-    interleave(
-      firstMoveBy.fold(white, black),
-      firstMoveBy.fold(black, white)
-    )
+type ClockHistory = ByColor[Vector[Centis]]
 
 object ClockHistory:
-  val someEmpty = Some(ClockHistory())
+  val empty: ClockHistory = ByColor.fill(Vector.empty)
+
+  extension (clockHistory: ClockHistory)
+    // first state is of the color that moved first.
+    def bothClockStates(firstMoveBy: Color): Vector[Centis] =
+      interleave(clockHistory(firstMoveBy), clockHistory(!firstMoveBy))

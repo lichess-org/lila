@@ -27,7 +27,7 @@
   <string name="announcePiecesOnRankOrFile">Naznanite figure po vrsti ali stolpcu. Primer: s a, s 1.</string>
   <string name="goToBoard">Pojdi na igralno ploščo. Privzeto polje je e-4. Lahko določiš polje: igralna plošča a-1 ali b a-1 te bo pripeljala do polja a-1.</string>
   <string name="movePiece">Za premikanje figure uporabite standardno algebrsko notacijo.</string>
-  <string name="promotion">Za napredovanje v karkoli drugega kot damo uporabite enačaj. Na primer a-8-=-n napreduje v viteza.</string>
+  <string name="promotion">Za promocijo v karkoli drugega kot damo, uporabite enačaj. Na primer, a-8-=-n promovira v skakača.</string>
   <string name="king">kralj</string>
   <string name="whiteKing">beli kralj</string>
   <string name="blackKing">črni kralj</string>
@@ -57,4 +57,6 @@
   <string name="invalidMove">Neveljavna poteza</string>
   <string name="premoveCancelled">Predpoteza preklicana</string>
   <string name="premoveRecorded">Predpoteza posneta: %s. Pritisnite Enter za preklic</string>
+  <string name="copyToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">Kopiraj %s v odložišče</string>
+  <string name="copiedToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">%s kopirano v odložišče</string>
 </resources>

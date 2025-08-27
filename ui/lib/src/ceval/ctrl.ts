@@ -16,7 +16,7 @@ import { defaultPosition, setupPosition } from 'chessops/variant';
 import { parseFen } from 'chessops/fen';
 import { lichessRules } from 'chessops/compat';
 import { povChances } from './winningChances';
-import { prop, Prop, Toggle, toggle } from '../common';
+import { prop, Prop, Toggle, toggle, toggleWithConstraint } from '../common';
 import { clamp } from '../algo';
 import { Result } from '@badrap/result';
 import { storedIntProp, storage, tempStorage } from '../storage';
@@ -34,12 +34,11 @@ export default class CevalCtrl {
   opts: CevalOpts;
   rules: Rules;
   analysable: boolean;
-  possible: boolean;
 
   engines: Engines;
   storedPv: Prop<number> = storedIntProp('ceval.multipv', 1);
   storedMovetime: Prop<number> = storedIntProp('ceval.search-ms', 8000); // may be 'Infinity'
-  allowed: Toggle = toggle(true);
+  allowed: Toggle;
   enabled: Toggle;
   download?: { bytes: number; total: number };
   hovering: Prop<Hovering | null> = prop<Hovering | null>(null);
@@ -64,13 +63,15 @@ export default class CevalCtrl {
 
   init(opts: CevalOpts): void {
     this.opts = opts;
-    this.possible = this.opts.possible;
+    this.allowed = toggleWithConstraint(this.opts.possible, () => this.opts.possible);
     this.rules = lichessRules(this.opts.variant.key);
     const pos = this.opts.initialFen
       ? parseFen(this.opts.initialFen).chain(setup => setupPosition(this.rules, setup))
       : Result.ok(defaultPosition(this.rules));
     this.analysable = pos.isOk;
-    this.enabled = toggle(this.possible && this.analysable && this.allowed() && enabledAfterDisable());
+    this.enabled = toggle(this.allowed() && this.analysable && enabledAfterDisable(), () => {
+      this.showEnginePrefs(false);
+    });
     this.customSearch = opts.search;
     if (this.worker?.getInfo().id !== this.engines?.activate()?.id) {
       this.worker?.destroy();
@@ -100,7 +101,7 @@ export default class CevalCtrl {
   });
 
   private doStart = (path: Tree.Path, steps: Step[], gameId: string | undefined, threatMode: boolean) => {
-    if (!this.enabled() || !this.possible || !enabledAfterDisable()) return;
+    if (!this.enabled() || !this.allowed() || !enabledAfterDisable()) return;
     const step = steps[steps.length - 1];
     if (
       !this.isDeeper() &&
@@ -276,7 +277,7 @@ export default class CevalCtrl {
   };
 
   toggle = (): void => {
-    if (!this.possible || !this.allowed()) return;
+    if (!this.allowed()) return;
     this.stop();
     if (!this.enabled() && !document.hidden) {
       const disable = storage.get('ceval.disable') || cevalDisabledSentinel;

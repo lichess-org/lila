@@ -3,7 +3,7 @@ import contextMenu from './contextMenu';
 import { throttle } from 'lib/async';
 import { enrichText, innerHTML } from 'lib/richText';
 import { authorText as commentAuthorText } from '../study/studyComments';
-import { bindMobileTapHold } from 'lib/device';
+import { addPointerListeners, isTouchDevice } from 'lib/device';
 import { h, type Hooks, type VNode } from 'snabbdom';
 import { isEmpty, defined } from 'lib';
 import { type MaybeVNodes } from 'lib/snabbdom';
@@ -16,7 +16,7 @@ export function mainHook(ctrl: AnalyseCtrl): Hooks {
   return {
     insert: vnode => {
       const el = vnode.elm as HTMLElement;
-      if (ctrl.path !== '') autoScroll(ctrl, el);
+      if (ctrl.path !== '') autoScroll();
       const ctxMenuCallback = (e: MouseEvent) => {
         const path = eventPath(e);
         if (path !== null) contextMenu(e, { path, root: ctrl });
@@ -25,18 +25,18 @@ export function mainHook(ctrl: AnalyseCtrl): Hooks {
       };
 
       el.oncontextmenu = ctxMenuCallback;
-      bindMobileTapHold(el, ctxMenuCallback, ctrl.redraw);
+      if (isTouchDevice()) addPointerListeners(el, undefined, ctxMenuCallback);
 
-      el.addEventListener('mousedown', (e: MouseEvent) => {
+      el.addEventListener('pointerdown', (e: PointerEvent) => {
         if (defined(e.button) && e.button !== 0) return; // only touch or left click
         const path = eventPath(e);
         if (path) ctrl.userJump(path);
         ctrl.redraw();
       });
     },
-    postpatch: (_, vnode) => {
+    postpatch: () => {
       if (ctrl.autoScrollRequested) {
-        autoScroll(ctrl, vnode.elm as HTMLElement);
+        autoScroll();
         ctrl.autoScrollRequested = false;
       }
     },
@@ -49,16 +49,18 @@ function eventPath(e: MouseEvent): Tree.Path | null {
   );
 }
 
-const autoScroll = throttle(200, (ctrl: AnalyseCtrl, el: HTMLElement) => {
-  const cont = el.parentElement?.parentElement;
-  if (!cont) return;
-  const target = el.querySelector<HTMLElement>('.active');
-  if (!target) {
-    cont.scrollTop = ctrl.path ? 99999 : 0;
-    return;
-  }
-  const targetOffset = target.getBoundingClientRect().y - el.getBoundingClientRect().y;
-  cont.scrollTop = targetOffset - cont.offsetHeight / 2 + target.offsetHeight;
+const autoScroll = throttle(200, () => {
+  const scrollView = document.querySelector<HTMLElement>('.analyse__moves')!;
+  const moveEl = scrollView.querySelector<HTMLElement>('.active');
+  if (!moveEl) return scrollView.scrollTo({ top: 0, behavior: 'auto' });
+
+  const [move, view] = [moveEl.getBoundingClientRect(), scrollView.getBoundingClientRect()];
+  const visibleHeight = Math.min(view.bottom, window.innerHeight) - Math.max(view.top, 0);
+
+  scrollView.scrollTo({
+    top: scrollView.scrollTop + move.top - view.top - (visibleHeight - move.height) / 2,
+    behavior: 'auto',
+  });
 });
 
 export interface NodeClasses {

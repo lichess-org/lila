@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="community">Спільнота</string>
+  <string name="byMonth">За місяцем</string>
   <string name="byTopic">За темою</string>
   <string name="byLichess">Від Lichess</string>
   <string name="myFriends">Мої друзі</string>

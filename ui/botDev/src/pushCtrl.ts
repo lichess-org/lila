@@ -1,5 +1,5 @@
 import type { BotInfo } from 'lib/bot/types';
-import { defined } from 'lib';
+import { defined, myUserId } from 'lib';
 import type { AssetBlob, AssetType } from './devAssets';
 import { env } from './devEnv';
 
@@ -90,7 +90,7 @@ export class PushCtrl {
         .then(file => {
           const formData = new FormData();
           formData.append('file', file);
-          formData.append('author', env.user);
+          formData.append('author', myUserId() ?? 'anonymous');
           formData.append('name', name);
           const url = new URL(`/bots/dev/asset/${type}/${key}`, window.location.origin);
           const xhr = new XMLHttpRequest();

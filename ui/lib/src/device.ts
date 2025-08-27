@@ -4,22 +4,56 @@ import { bind } from './snabbdom';
 import * as licon from './licon';
 
 const longPressDuration = 610;
+const scrollThreshold = 6;
 
-export function bindMobileTapHold(el: HTMLElement, f: (e: Event) => unknown, redraw?: () => void): void {
-  let longPressCountdown: Timeout;
+export function addPointerListeners(
+  el: HTMLElement,
+  click?: (e: PointerEvent) => void,
+  hold?: 'click' | ((e: PointerEvent) => void),
+): void {
+  let timer: number;
+  let x = 0;
+  let y = 0;
 
-  el.addEventListener('touchstart', e => {
-    longPressCountdown = setTimeout(() => {
-      f(e);
-      if (redraw) redraw();
-    }, longPressDuration);
-  });
-
-  el.addEventListener('touchmove', () => clearTimeout(longPressCountdown));
-
-  el.addEventListener('touchcancel', () => clearTimeout(longPressCountdown));
-
-  el.addEventListener('touchend', () => clearTimeout(longPressCountdown));
+  const reset = () => {
+    clearTimeout(timer);
+    x = y = timer = 0;
+  };
+  el.addEventListener(
+    'pointerdown',
+    e => {
+      [x, y] = [e.clientX, e.clientY];
+      timer = window.setTimeout(() => {
+        if (!hold) return;
+        if (hold === 'click') click?.(e);
+        else hold(e);
+        reset();
+      }, longPressDuration);
+    },
+    { passive: true },
+  );
+  el.addEventListener(
+    'pointerup',
+    e => {
+      if (timer) {
+        click?.(e);
+        e.preventDefault();
+      }
+      reset();
+    },
+    { passive: false },
+  );
+  el.addEventListener(
+    'pointermove',
+    e => {
+      if (timer && Math.hypot(e.clientX - x, e.clientY - y) > scrollThreshold) reset();
+    },
+    { passive: true },
+  );
+  el.addEventListener('pointercancel', reset, { passive: true });
+  if (isTouchDevice() && hold) {
+    el.addEventListener('contextmenu', e => e.preventDefault(), { passive: false });
+  }
 }
 
 export function isBrowserSupported(): boolean {
@@ -27,22 +61,6 @@ export function isBrowserSupported(): boolean {
   if (isSafari({ below: '15.4' })) return false;
   return true; // TODO add unsupported browsers
 }
-
-export const bindMobileMousedown =
-  (f: (e: Event) => unknown, redraw?: () => void) =>
-  (el: HTMLElement): void => {
-    for (const mousedownEvent of ['touchstart', 'mousedown']) {
-      el.addEventListener(
-        mousedownEvent,
-        e => {
-          f(e);
-          e.preventDefault();
-          if (redraw) redraw();
-        },
-        { passive: false },
-      );
-    }
-  };
 
 export const hookMobileMousedown = (f: (e: Event) => any): Hooks =>
   bind('ontouchstart' in window ? 'click' : 'mousedown', f);
@@ -57,23 +75,12 @@ export const currentTheme = (): 'light' | 'dark' => {
   else return 'dark';
 };
 
-let colCache: 'init' | 'rec' | number = 'init';
+let colCache: number | undefined;
+window.addEventListener('resize', () => (colCache = undefined));
 
 export function displayColumns(): number {
-  if (typeof colCache === 'string') {
-    if (colCache === 'init') {
-      // only once
-      window.addEventListener('resize', () => {
-        colCache = 'rec';
-      }); // recompute on resize
-      if (navigator.userAgent.indexOf('Edge/') > -1)
-        // edge gets false positive on page load, fix later
-        requestAnimationFrame(() => {
-          colCache = 'rec';
-        });
-    }
+  if (colCache === undefined)
     colCache = Number(window.getComputedStyle(document.body).getPropertyValue('---display-columns'));
-  }
   return colCache;
 }
 
@@ -185,7 +192,7 @@ function sharedMemoryTest(): boolean {
   } catch {
     return false;
   }
-  return mem.buffer instanceof SharedArrayBuffer;
+  return true;
 }
 
 export function isVersionCompatible(version: string | undefined | false, vc?: VersionConstraint): boolean {

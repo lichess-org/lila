@@ -198,7 +198,7 @@ final class Report(env: Env, userC: => User, modC: => Mod) extends LilaControlle
       )
   }
 
-  def flag = AuthBody { _ ?=> me ?=>
+  def flag = AuthOrScopedBody(_.Web.Mobile) { _ ?=> me ?=>
     bindForm(env.report.forms.flag)(
       _ => BadRequest,
       data =>

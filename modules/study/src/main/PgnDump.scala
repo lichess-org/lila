@@ -69,29 +69,26 @@ final class PgnDump(
           Tag(_.ECO, opening.fold("?")(_.eco)),
           Tag(_.Opening, opening.fold("?")(_.name)),
           Tag(_.Result, "*") // required for SCID to import
-        ) ::: List(
-          Tag("StudyName", study.name),
-          Tag("ChapterName", chapter.name)
-        ) ::: chapter.root.fen.isInitial.not.so(
+        ) ::: study.isRelay.not.so:
           List(
-            Tag(_.FEN, chapter.root.fen.value),
-            Tag("SetUp", "1")
-          )
-        ) ::: (!chapter.tags.exists(_.Date)).so(
-          List(
-            Tag(_.UTCDate, Tag.UTCDate.format.print(chapter.createdAt)),
-            Tag(_.UTCTime, Tag.UTCTime.format.print(chapter.createdAt))
-          )
-        ) ::: List(
-          study.isRelay.not.option:
+            Tag("StudyName", study.name),
+            Tag("ChapterName", chapter.name),
+            Tag("ChapterURL", s"${net.baseUrl}/study/${study.id}/${chapter.id}"),
             Tag(_.Annotator, s"${net.baseUrl}/@/${ownerName(study)}")
-          ,
-          study.isRelay.not.option:
-            Tag("ChapterURL", s"${net.baseUrl}/study/${study.id}/${chapter.id}")
-          ,
-          flags.orientation.option(Tag("Orientation", chapter.setup.orientation.name)),
-          chapter.isGamebook.option(Tag("ChapterMode", "gamebook"))
-        ).flatten
+          ) ::: chapter.root.fen.isInitial.not.so(
+            List(
+              Tag(_.FEN, chapter.root.fen.value),
+              Tag("SetUp", "1")
+            )
+          ) ::: (!chapter.tags.exists(_.Date)).so(
+            List(
+              Tag(_.UTCDate, Tag.UTCDate.format.print(chapter.createdAt)),
+              Tag(_.UTCTime, Tag.UTCTime.format.print(chapter.createdAt))
+            )
+          ) ::: List(
+            flags.orientation.option(Tag("Orientation", chapter.setup.orientation.name)),
+            chapter.isGamebook.option(Tag("ChapterMode", "gamebook"))
+          ).flatten
         genTags
           .foldLeft(chapter.tagsExport.value.reverse): (tags, tag) =>
             if tags.exists(t => tag.name == t.name)

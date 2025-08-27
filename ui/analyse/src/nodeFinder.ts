@@ -36,16 +36,10 @@ export function detectThreefold(nodeList: Tree.Node[], node: Tree.Node): void {
 
 // can be 3fold or 5fold
 export function add3or5FoldGlyphs(mainlineNodes: Tree.Node[]): boolean {
-  const threefoldMap = new Map<string, Tree.Node[]>();
-  for (const node of mainlineNodes) {
-    const previousOccurences = threefoldMap.get(fenToEpd(node.fen)) || [];
-    previousOccurences.push(node);
-    threefoldMap.set(fenToEpd(node.fen), previousOccurences);
-  }
   // only the last positition can be source of three/five-fold
   const lastEpd = fenToEpd(mainlineNodes[mainlineNodes.length - 1].fen);
-  const repetitions = threefoldMap.get(lastEpd);
-  if (repetitions && repetitions.length > 2) {
+  const repetitions = mainlineNodes.filter(n => fenToEpd(n.fen) === lastEpd);
+  if (repetitions.length > 2) {
     const unicodeList = ['①', '②', '③', '④', '⑤'];
     for (const [i, [node, unicode]] of zip(repetitions, unicodeList).entries()) {
       const glyph = { symbol: unicode, name: `repetition number ${i + 1}`, id: 9 };

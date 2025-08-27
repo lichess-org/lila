@@ -5,11 +5,8 @@ $c-fork: $c-primary;
 
   flex: 0 0 auto;
 
-  @include mq-is-col1 {
-    display: none;
-  }
-
   move {
+    @include prevent-select;
     @extend %san, %flex-center;
     background: $m-primary_bg--mix-25;
     color: $c-font-clear;
@@ -17,6 +14,7 @@ $c-fork: $c-primary;
     cursor: pointer;
     padding: 0.2em 1em;
     border-bottom: 1px solid $c-bg-box;
+    -webkit-touch-callout: none;
 
     &:nth-child(odd) {
       border-inline-end: 1px solid $c-bg-box;
@@ -29,15 +27,17 @@ $c-fork: $c-primary;
     }
   }
 
-  move:hover,
-  &:not(:hover) move.selected {
-    background: $c-fork;
-    color: #fff;
-    &.correct {
-      background: $c-secondary;
-    }
-    &.wrong {
-      background: $c-bad;
+  @include mq-is-col1 {
+    move {
+      justify-content: center;
+      padding-block: 0.5em;
+      font-size: 1.5em;
+      border: 1px solid $c-bg-box;
+      flex: 1 1 auto;
+      index,
+      eval {
+        display: none;
+      }
     }
   }
 
@@ -53,5 +53,19 @@ $c-fork: $c-primary;
     flex: 3 0 auto;
     text-align: right;
     font-size: 0.9em;
+  }
+
+  @media (hover: hover) {
+    move:hover,
+    &:not(:hover) move.selected {
+      background: $c-fork;
+      color: #fff;
+      &.correct {
+        background: $c-secondary;
+      }
+      &.wrong {
+        background: $c-bad;
+      }
+    }
   }
 }

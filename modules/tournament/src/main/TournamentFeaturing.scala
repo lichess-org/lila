@@ -31,23 +31,17 @@ final class TournamentFeaturing(
     yield teamTours ::: base
 
     private val sameForEveryone: AsyncLoadingCache[Unit, List[Tournament]] = cacheApi.unit[List[Tournament]]:
-      _.refreshAfterWrite(2.seconds)
-        .buildAsyncFuture: _ =>
-          repo.scheduledStillWorthEntering
-            .zip(
-              repo.scheduledCreated(
-                crud.CrudForm.maxHomepageHours * 60
-              )
-            )
-            .map { (started, created) =>
-              (started ::: created)
-                .sortBy(_.startsAt.toSeconds)
-                .foldLeft(List.empty[Tournament]): (acc, tour) =>
-                  if !canShowOnHomepage(tour) then acc
-                  else if acc.exists(_.similarSchedule(tour)) then acc
-                  else tour :: acc
-                .reverse
-            }
+      _.refreshAfterWrite(2.seconds).buildAsyncFuture: _ =>
+        for
+          started <- repo.scheduledStillWorthEntering
+          created <- repo.scheduledCreated(crud.CrudForm.maxHomepageHours * 60)
+        yield (started ::: created)
+          .sortBy(_.startsAt.toSeconds)
+          .foldLeft(List.empty[Tournament]): (acc, tour) =>
+            if !canShowOnHomepage(tour) then acc
+            else if acc.exists(_.similarSchedule(tour)) then acc
+            else tour :: acc
+          .reverse
 
     private def canShowOnHomepage(tour: Tournament): Boolean =
       tour.scheduleFreq.exists: freq =>

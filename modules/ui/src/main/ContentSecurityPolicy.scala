@@ -18,6 +18,8 @@ case class ContentSecurityPolicy(
 
   def withUnsafeInlineScripts = copy(scriptSrc = "'wasm-unsafe-inline'" :: scriptSrc)
 
+  def withLegacyUnsafeInlineScripts = copy(scriptSrc = "'unsafe-inline'" :: scriptSrc)
+
   def withExternalEngine(url: String) = copy(connectSrc = url :: connectSrc)
 
   def withTwitter =

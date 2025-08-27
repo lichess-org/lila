@@ -5,7 +5,6 @@ import type { LocalDb } from './localDb';
 import type { RoundController } from 'round';
 import type { DevAssets } from './devAssets';
 import type { PushCtrl } from './pushCtrl';
-import { myUserId, myUsername } from 'lib';
 
 export let env: DevEnv;
 
@@ -23,21 +22,7 @@ export class DevEnv {
   push: PushCtrl;
   round: RoundController;
 
-  redraw: () => void;
-
-  get user(): string {
-    return myUserId() ?? 'anonymous';
-  }
-
-  get username(): string {
-    return myUsername() ?? 'Anonymous';
-  }
-
-  nameOf(uid?: string): string {
-    return !uid || uid === this.user
-      ? this.username
-      : (uid.startsWith('#') && this.bot.bots.get(uid)?.name) || uid.charAt(0).toUpperCase() + uid.slice(1);
-  }
+  redraw: () => void = () => {};
 
   constructor(cfg: Partial<DevEnv>) {
     Object.assign(this, cfg);

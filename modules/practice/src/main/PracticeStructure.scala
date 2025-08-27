@@ -1,6 +1,6 @@
 package lila.practice
 
-import lila.core.study.data.{ StudyChapterName, StudyName }
+import lila.core.study.data.StudyName
 import lila.study.Chapter
 
 case class PracticeStructure(sections: List[PracticeSection]):
@@ -22,14 +22,12 @@ case class PracticeStructure(sections: List[PracticeSection]):
 
   lazy val chapterIds: List[StudyChapterId] = sections.flatMap(_.studies).flatMap(_.chapterIds)
 
-  lazy val nbUnhiddenChapters =
-    sections.filterNot(_.hide).flatMap(_.studies).filterNot(_.hide).map(_.chapterIds.size).sum
+  lazy val nbChapters = sections.flatMap(_.studies).map(_.chapterIds.size).sum
 
   def findSection(id: StudyId): Option[PracticeSection] = sectionsByStudyIds.get(id)
 
 case class PracticeSection(
     id: String,
-    hide: Boolean,
     name: String,
     studies: List[PracticeStudy]
 ):
@@ -39,41 +37,22 @@ case class PracticeSection(
 
 case class PracticeStudy(
     id: StudyId,
-    hide: Boolean,
     name: StudyName,
     desc: String,
     chapters: List[Chapter.IdName]
 ) extends lila.core.practice.Study:
   val slug = scalalib.StringOps.slug(name.value)
-  def chapterIds = chapters.map(_.id)
+  val chapterIds = chapters.map(_.id)
 
 object PracticeStructure:
 
-  val totalChapters = 233
+  private[practice] val totalChapters = 233
 
-  def isChapterNameCommented(name: StudyChapterName) = name.value.startsWith("//")
+  private[practice] def studyIds: List[StudyId] = PracticeSections.list.flatMap(_.studies.map(_.id))
 
-  def make(conf: PracticeConfig, chapters: Map[StudyId, Vector[Chapter.IdName]]) =
-    PracticeStructure(
-      sections = conf.sections.map { sec =>
-        PracticeSection(
-          id = sec.id,
-          hide = ~sec.hide,
-          name = sec.name,
-          studies = sec.studies.map { stu =>
-            val id = StudyId(stu.id)
-            PracticeStudy(
-              id = id,
-              hide = ~stu.hide,
-              name = stu.name,
-              desc = stu.desc,
-              chapters = chapters
-                .get(id)
-                .so(_.filterNot { c =>
-                  isChapterNameCommented(c.name)
-                }.toList)
-            )
-          }
-        )
-      }
-    )
+  def withChapters(chapters: Map[StudyId, Vector[Chapter.IdName]]) = PracticeStructure:
+    PracticeSections.list.map: sec =>
+      sec.copy(
+        studies = sec.studies.map: stu =>
+          stu.copy(chapters = chapters.get(stu.id).so(_.toList))
+      )

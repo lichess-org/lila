@@ -2,6 +2,7 @@ package lila.game
 
 import chess.ErrorStr
 import chess.format.Fen
+import monocle.syntax.all.*
 
 object Rewind:
 
@@ -9,12 +10,11 @@ object Rewind:
     chess
       .Game(game.variant, initialFen)
       .forward(game.sans.dropRight(1))
-      .map { rewindedGame =>
+      .map: rewindedGame =>
         val color = game.turnColor
         val newClock = game.clock.map(_.takeback).map { clk =>
-          game.clockHistory.flatMap(_.last(color)).fold(clk) { t =>
-            clk.setRemainingTime(color, t)
-          }
+          clk.updatePlayer(color): clkPlayer =>
+            clkPlayer.setRemaining(game.clockHistory.flatMap(_(color).lastOption) | clkPlayer.limit)
         }
         val newGame = game.copy(
           players = game.players.map(_.removeTakebackProposition),
@@ -24,7 +24,7 @@ object Rewind:
             BinaryFormat.moveTime.write(moveTimes.dropRight(1))
           },
           loadClockHistory = _ => game.clockHistory.map(_.update(!color, _.dropRight(1))),
-          movedAt = nowInstant
+          movedAt = nowInstant,
+          metadata = game.metadata.focus(_.drawOffers).modify(_.beforePly(rewindedGame.ply))
         )
         Progress(game, newGame)
-      }

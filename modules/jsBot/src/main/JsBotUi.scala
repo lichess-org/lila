@@ -24,6 +24,18 @@ final class JsBotUi(helpers: Helpers):
       .flag(_.zoom):
         main(cls := "bot-play")
 
+  // def testPlay(prefJson: JsObject)(using ctx: Context): Page =
+  //   Page("Lichess bots")
+  //     .css("botDev")
+  //     .css("round")
+  //     .css(ctx.pref.hasKeyboardMove.option("keyboardMove"))
+  //     .css(ctx.pref.hasVoice.option("voice"))
+  //     .js(lila.ui.PageModule("botDev.user", Json.obj("pref" -> prefJson)))
+  //     .js(lila.ui.Esm("round"))
+  //     .flag(_.playing)
+  //     .csp(_.withWebAssembly)
+  //     .flag(_.zoom)(main)
+
   def dev(
       bots: List[BotJson],
       prefs: JsObject,
@@ -34,7 +46,7 @@ final class JsBotUi(helpers: Helpers):
       .add("canPost", Granter.opt(_.BotEditor))
     val moduleName = "botDev"
     Page("Lichess bots")
-      .css(moduleName)
+      .css("botDev")
       .css("round")
       .css(ctx.pref.hasKeyboardMove.option("keyboardMove"))
       .css(ctx.pref.hasVoice.option("voice"))

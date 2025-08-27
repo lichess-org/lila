@@ -26,8 +26,8 @@ object AnnounceApi:
             "Invalid announce. Format: `announce <length> <unit> <words...>` or just `announce cancel` to cancel it"
 
   def get: Option[Announce] =
-    current.foreach: c =>
-      if c.date.isBeforeNow then current = none
+    if current.exists(_.date.isBeforeNow)
+    then current = none
     current
 
   // examples:

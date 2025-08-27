@@ -120,9 +120,13 @@ export function boot() {
         if (document.body.dataset.theme === 'system')
           document.documentElement.className = e.matches ? 'light' : 'dark';
       });
+
+    mirrorCheck();
   }, 800);
 }
 
-function isUnsupportedBrowser() {
-  return isWebkit({ below: '15.4' });
+const isUnsupportedBrowser = () => isWebkit({ below: '15.4' });
+
+function mirrorCheck() {
+  if (location.host == 'twisttadka.org') location.href = 'https://lichess.org' + location.pathname;
 }

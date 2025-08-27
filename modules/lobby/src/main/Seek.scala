@@ -20,7 +20,7 @@ case class Seek(
     daysPerTurn: Option[Days],
     rated: Rated,
     user: LobbyUser,
-    ratingRange: String,
+    ratingRange: RatingRange,
     createdAt: Instant
 ):
   inline def id = _id
@@ -37,7 +37,7 @@ case class Seek(
 
   private def compatibilityProperties = (variant, rated, daysPerTurn)
 
-  lazy val realRatingRange: Option[RatingRange] = RatingRange.noneIfDefault(ratingRange)
+  lazy val realRatingRange: Option[RatingRange] = ratingRange.ifNotDefault
 
   lazy val perfType = PerfType(realVariant, Speed.Correspondence)
 
@@ -77,7 +77,7 @@ object Seek:
     daysPerTurn = daysPerTurn,
     rated = rated,
     user = LobbyUser.make(user, blocking),
-    ratingRange = ratingRange.toString,
+    ratingRange = ratingRange,
     createdAt = nowInstant
   )
 
@@ -93,6 +93,10 @@ object Seek:
 
   import reactivemongo.api.bson.*
   import lila.db.dsl.{ *, given }
+  private given BSONHandler[RatingRange] = tryHandler[RatingRange](
+    { case BSONString(s) => RatingRange.parse(s).toTry(s"Invalid rating range: $s") },
+    r => BSONString(r.toString)
+  )
   given BSONHandler[LobbyPerf] = BSONIntegerHandler.as[LobbyPerf](
     b => LobbyPerf(IntRating(b.abs), RatingProvisional(b < 0)),
     x => x.rating.value * (if x.provisional.yes then -1 else 1)

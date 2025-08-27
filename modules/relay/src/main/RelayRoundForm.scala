@@ -121,8 +121,8 @@ object RelayRoundForm:
     "users" -> "Lichess usernames"
   )
 
-  private val roundNumberRegex = """([^\d]*)(\d{1,2})([^\d]*)""".r
-  val roundNumberIn: String => Option[Int] =
+  private val roundNumberRegex = """(.*[^\d])(\d{1,2})([^\d]*)""".r
+  private val roundNumberIn: String => Option[Int] =
     case roundNumberRegex(_, n, _) => n.toIntOption
     case _ => none
 

@@ -78,6 +78,10 @@
   <string name="fromMyGamesNone">شما هیچ معمایی در دادگان ندارید، اما Lichess همچنان شما را بسیار دوست دارد.
 
 بازی‌های سریع و فکری را انجام دهید تا بخت‌تان را برای افزودن معمایی از خودتان بیفزایید!</string>
+  <plurals name="puzzlesFoundInUserGames">
+    <item quantity="one">یک معما در بازی‌های %2$s پیدا شد</item>
+    <item quantity="other">%1$s معما در بازی‌های %2$s پیدا شد</item>
+  </plurals>
   <string name="puzzleDashboardDescription">آموزش، واکاوی، بهبود</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s بررسی شده</item>

@@ -110,7 +110,7 @@ final class Challenge(env: Env) extends LilaController(env):
           )
       )
 
-  def apiAccept(id: ChallengeId) =
+  def apiAccept(id: ChallengeId, color: Option[Color]) =
     Scoped(_.Challenge.Write, _.Bot.Play, _.Board.Play, _.Web.Mobile) { _ ?=> me ?=>
       def tryRematch =
         env.bot.player
@@ -126,7 +126,7 @@ final class Challenge(env: Env) extends LilaController(env):
             case Some(c) if c.accepted => tryRematch
             case Some(c) =>
               allow:
-                api.accept(c, none).as(jsonOkResult)
+                api.accept(c, none, color).as(jsonOkResult)
               .rescue: err =>
                 fuccess(BadRequest(jsonError(err)))
     }
@@ -288,9 +288,7 @@ final class Challenge(env: Env) extends LilaController(env):
                     .fetchFollows(destUser.id, me.userId)
                     .flatMap: isFriend =>
                       if config.onlyIfOpponentFollowsMe && !isFriend
-                      then
-                        fuccess:
-                          JsonBadRequest(jsonError(s"$username does not follow you"))
+                      then JsonBadRequest(jsonError(s"$username does not follow you"))
                       else
                         val cost = if isFriend || me.isApiHog then 0 else if destUser.isBot then 1 else 5
                         limit.challengeBot(req.ipAddress, rateLimited, cost = if me.isBot then 1 else 0):

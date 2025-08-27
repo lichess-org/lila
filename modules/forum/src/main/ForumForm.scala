@@ -65,6 +65,7 @@ object ForumForm:
   case class TopicData(
       name: String,
       post: PostData
-  )
+  ):
+    def automodText = s"$name\n${post.text}"
 
   case class PostEdit(changes: String)

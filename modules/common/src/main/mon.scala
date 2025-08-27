@@ -265,6 +265,9 @@ object mon:
       def create(reason: String, score: Int) =
         counter("mod.report.create").withTags:
           tags("reason" -> reason, "score" -> score)
+      object automod:
+        val request = future("mod.report.automod.request")
+        def assessment(a: String) = counter("mod.report.automod.assessment").withTag("assessment", a)
     object log:
       val create = counter("mod.log.create").withoutTags()
     object irwin:
@@ -362,9 +365,14 @@ object mon:
     object pwned:
       def get(res: Boolean) = timer("security.pwned.result").withTag("res", res)
     object login:
-      def attempt(byEmail: Boolean, stuffing: String, result: Boolean) =
+      def attempt(byEmail: Boolean, stuffing: String, pwned: Boolean, result: Boolean) =
         counter("security.login.attempt").withTags:
-          tags("by" -> (if byEmail then "email" else "name"), "stuffing" -> stuffing, "result" -> result)
+          tags(
+            "by" -> (if byEmail then "email" else "name"),
+            "stuffing" -> stuffing,
+            "pwned" -> pwned,
+            "result" -> result
+          )
       def proxy(tpe: String) = counter("security.login.proxy").withTag("proxy", tpe)
     def secretScanning(tokenType: String, source: String, hit: Boolean) =
       counter("security.githubSecretScanning.hit").withTags(
@@ -682,7 +690,7 @@ object mon:
     val time = timer("markdown.time").withoutTags()
   object ublog:
     def create(user: UserId) = counter("ublog.create").withTag("user", user)
-    def view(user: UserId) = counter("ublog.view").withTag("user", user)
+    def view = counter("ublog.view").withoutTags()
     object automod:
       val request = future("ublog.automod.request")
       def quality(q: String) = counter("ublog.automod.quality").withTag("quality", q)

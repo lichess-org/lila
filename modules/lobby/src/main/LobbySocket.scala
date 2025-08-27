@@ -8,7 +8,7 @@ import chess.IntRating
 import lila.common.Json.given
 import lila.common.Bus
 import lila.core.game.ChangeFeatured
-import lila.core.pool.PoolConfigId
+import lila.core.pool.{ PoolConfigId, PoolMember, PoolFrom }
 import lila.core.security.{ UserTrust, UserTrustApi }
 import lila.core.socket.{ protocol as P, * }
 import lila.core.timeline.*
@@ -111,9 +111,7 @@ final class LobbySocket(
 
       case HookSub(member, false) => hookSubscriberSris -= member.sri.value
       case AllHooksFor(member, hooks) =>
-        send.exec(
-          P.Out.tellSri(member.sri, makeMessage("hooks", hooks.map(_.render)))
-        )
+        send.exec(P.Out.tellSri(member.sri, makeMessage("hooks", hooks.map(_.render))))
         hookSubscriberSris += member.sri.value
 
     Bus.subscribeActor[ReloadTimelines](this)
@@ -157,7 +155,7 @@ final class LobbySocket(
   private def HookPoolLimit(member: Member, cost: Int, msg: => String) =
     poolLimitPerSri.zero[Unit](k = member.sri.value, cost = cost, msg = msg)
 
-  def controller(member: Member): SocketController =
+  private[lobby] def controller(member: Member): SocketController =
     case ("join", o) if !member.bot =>
       HookPoolLimit(
         member,
@@ -192,26 +190,28 @@ final class LobbySocket(
           user <- member.user
           d <- o.obj("d")
           id <- d.str("id")
-          perfType <- poolApi.poolPerfKeys.get(PoolConfigId(id))
+          perf <- poolApi.poolPerfKeys.get(PoolConfigId(id))
           ratingRange = d.str("range").flatMap(RatingRange.parse)
           blocking = d.get[UserId]("blocking")
         yield
           lobby ! CancelHook(member.sri) // in case there's one...
           for
-            glicko <- userApi.glicko(user.id, perfType)
+            glicko <- userApi.glicko(user.id, perf)
             trust <-
               if glicko.exists(_.established) then fuccess(UserTrust.Yes) else userTrustApi.get(user.id)
           do
             poolApi.join(
               PoolConfigId(id),
-              lila.core.pool.Joiner(
+              PoolMember(
+                userId = user.id,
                 sri = member.sri,
+                from = PoolFrom.Socket,
                 rating = toJoinRating(glicko, trust),
                 provisional = glicko.forall(_.provisional.yes),
                 ratingRange = ratingRange,
                 lame = user.lame,
                 blocking = user.blocking.map(_ ++ blocking)
-              )(using user.id.into(MyId))
+              )
             )
     // leaving a pool
     case ("poolOut", o) =>
@@ -300,9 +300,7 @@ private object LobbySocket:
       def pairings(pairings: List[lila.core.pool.Pairing]) =
         val redirs = for
           pairing <- pairings
-          color <- Color.all
-          sri = pairing.players(color)._1
-          fullId = pairing.players(color)._2
+          (sri, fullId) <- pairing.players.toList
         yield s"$sri:$fullId"
         s"lobby/pairings ${P.Out.commas(redirs)}"
       def tellLobby(payload: JsObject) = s"tell/lobby ${Json.stringify(payload)}"

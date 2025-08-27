@@ -52,6 +52,12 @@ export const tourSide = (ctx: RelayViewContext, kid: LooseVNode) => {
     {
       hook: {
         insert: gameLinksListener(study.chapterSelect),
+        update: v => {
+          if (resizeId) return;
+          (v.elm as HTMLElement).querySelectorAll<HTMLElement>('.relay-games, .mchat').forEach(el => {
+            el.style.height = el.style.flex = '';
+          });
+        },
       },
     },
     [

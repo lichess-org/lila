@@ -1,151 +1,208 @@
-.analyse {
-  &__tools {
-    @extend %box-neat-force, %flex-column;
+.analyse__tools {
+  @extend %box-neat-force, %flex-column;
 
-    background: $c-bg-box;
+  background: $c-bg-box;
 
-    .ceval {
-      flex: 0 0 44px;
-    }
+  .ceval {
+    flex: 0 0 44px;
+  }
 
-    .sub-box {
-      @extend %border-bottom-active;
-      @include prevent-select;
+  .sub-box {
+    @extend %border-bottom-active;
+    @include prevent-select;
 
-      .title {
-        font-size: 0.9rem;
-        line-height: 1.9em;
-        background: $m-secondary_bg--mix-40;
-        padding: 0 7px;
-        a {
-          font-weight: bold;
-        }
-      }
-    }
-
-    .comp-off__hint {
-      @extend %metal-bg;
-
-      opacity: 0.8;
-      padding: 0.3em 1em;
-      text-align: center;
-
-      button {
-        @extend %button-none;
-
-        margin-inline-start: 1em;
-        color: $c-link;
-
-        &:hover {
-          color: $c-link-hover;
-        }
+    .title {
+      font-size: 0.9rem;
+      line-height: 1.9em;
+      background: $m-secondary_bg--mix-40;
+      padding: 0 7px;
+      a {
+        font-weight: bold;
       }
     }
   }
 
-  &__moves {
-    @include prevent-select;
-    flex: 2 1 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  .comp-off__hint {
+    @extend %metal-bg;
 
-    // 0 size forces vertical scrollbar
-    overflow-y: auto;
-    overflow-x: hidden;
+    opacity: 0.8;
+    padding: 0.3em 1em;
+    text-align: center;
 
-    // else a scrollbar appears sometimes
-    border-top: $border;
-    position: relative;
+    button {
+      @extend %button-none;
 
-    /* required so line::before scrolls along the moves! */
-    .result,
-    .status {
-      background: $c-bg-zebra;
-      text-align: center;
-    }
-
-    .result {
-      border-top: $border;
-      font-weight: bold;
-      font-size: 1.2em;
-      padding: 5px 0 3px 0;
-    }
-
-    .status {
-      font-size: 1em;
-      font-style: italic;
-      padding-bottom: 7px;
-    }
-
-    button.next {
-      border: 0;
-      background: $c-bg-box;
+      margin-inline-start: 1em;
       color: $c-link;
-      padding: 0.5em;
-      width: 100%;
-
-      @include transition;
 
       &:hover {
         color: $c-link-hover;
       }
+    }
+  }
+}
 
-      &::before {
-        margin-inline-end: 0.3em;
-      }
+.analyse__moves {
+  @include prevent-select;
+  flex: 2 1 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
-      &.highlighted {
-        background: $m-primary_bg--mix-80;
-        color: $c-over;
+  // 0 size forces vertical scrollbar
+  overflow-y: auto;
+  overflow-x: hidden;
 
-        &:hover {
-          background: $c-primary;
-        }
+  // else a scrollbar appears sometimes
+  border-top: $border;
+  position: relative;
+
+  /* required so line::before scrolls along the moves! */
+  .result,
+  .status {
+    background: $c-bg-zebra;
+    text-align: center;
+  }
+
+  .result {
+    border-top: $border;
+    font-weight: bold;
+    font-size: 1.2em;
+    padding: 5px 0 3px 0;
+  }
+
+  .status {
+    font-size: 1em;
+    font-style: italic;
+    padding-bottom: 7px;
+  }
+
+  button.next {
+    border: 0;
+    background: $c-bg-box;
+    color: $c-link;
+    padding: 0.5em;
+    width: 100%;
+
+    @include transition;
+
+    &:hover {
+      color: $c-link-hover;
+    }
+
+    &::before {
+      margin-inline-end: 0.3em;
+    }
+
+    &.highlighted {
+      background: $m-primary_bg--mix-80;
+      color: $c-over;
+
+      &:hover {
+        background: $c-primary;
       }
     }
   }
+}
 
-  &__controls {
-    height: $col3-uniboard-controls;
+.analyse__controls {
+  height: $col3-uniboard-controls;
+  align-items: stretch;
+
+  div {
+    display: flex;
+    flex: 1 1 auto;
     align-items: stretch;
+  }
 
-    div {
-      display: flex;
-      flex: 1 1 auto;
-      align-items: stretch;
-    }
+  .jumps {
+    flex: 3 1 auto;
+  }
 
-    .jumps {
-      flex: 3 1 auto;
+  .fbt {
+    @extend %page-text;
+
+    flex: 0 0 2.5rem;
+    transition: visibility 0s;
+  }
+
+  .active {
+    margin-top: -3px;
+    padding-top: 3px;
+    color: $c-over;
+  }
+
+  .fbt.latent {
+    background-color: $m-secondary--fade-50;
+  }
+}
+
+@include mq-is-col1 {
+  .analyse__tools {
+    .ceval .switch {
+      display: none;
     }
+    .sub-box {
+      order: 0;
+    }
+    .ceval,
+    .pv_box,
+    .analyse__fork,
+    .gamebook-edit {
+      order: 1;
+    }
+    .analyse__moves {
+      order: 2;
+    }
+  }
+  .analyse__controls {
+    padding-top: 6px;
+    height: 5rem;
 
     .fbt {
-      @extend %page-text;
-
-      flex: 0 0 2.5rem;
-      transition: visibility 0s;
+      flex: 0 0 3.3rem;
+      margin: 3px 2px 0;
+      border: 1px solid $m-clearer--fade-95;
+      border-bottom: none;
+      border-radius: 6px 6px 0 0;
+      background: $m-bg_bg-page--mix-50;
+    }
+    .fbt.active {
+      border-bottom: none;
+    }
+    .jumps .fbt {
+      margin: 5px 3px;
+      background: $m-bg_bg-page--mix-50;
+      border: 1px solid $m-clearer--fade-95;
+    }
+    .fbt[data-act='ceval']:has(eval)::before {
+      display: none;
+    }
+  }
+  .analyse[data-showing-tool] .analyse__tools,
+  .analyse[data-ceval-mode] .analyse__tools {
+    border-radius: 0 0 $box-radius-size $box-radius-size;
+  }
+  .analyse[data-showing-tool] .analyse__tools,
+  .analyse[data-ceval-mode='ceval-practice'] .analyse__tools {
+    border-top: 3px solid $c-secondary;
+  }
+  body:not(.blind-mode) {
+    .analyse:not(:has(.fbt[data-act='ceval'].active)) .ceval {
+      display: none;
     }
 
-    .persistence {
-      color: $c-good;
-      @media (max-width: at-most($xx-small)) {
+    .analyse:not([data-ceval-mode='ceval']) {
+      .ceval,
+      .pv_box {
         display: none;
       }
-    }
-
-    .active {
-      margin-top: -3px;
-      padding-top: 3px;
-      color: $c-over;
-    }
-
-    @include mq-is-col1 {
-      height: $col1-uniboard-controls;
-
-      .fbt {
-        flex: 0 0 3.5rem;
+      .analyse__moves {
+        border-top: none;
       }
     }
+  }
+  .analyse[data-ceval-mode='ceval-practice'] .analyse__fork {
+    display: none;
   }
 }

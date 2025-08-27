@@ -17,7 +17,9 @@ final class Env(
     playbansOf: => lila.core.playban.BansOf,
     ircApi: lila.core.irc.IrcApi,
     settingStore: lila.memo.SettingStore.Builder,
-    cacheApi: lila.memo.CacheApi
+    cacheApi: lila.memo.CacheApi,
+    appConfig: play.api.Configuration,
+    ws: play.api.libs.ws.StandaloneWSClient
 )(using Executor, NetDomain)(using scheduler: Scheduler):
 
   private def lazyPlaybansOf = () => playbansOf
@@ -40,6 +42,7 @@ final class Env(
   private given UserIdOf[Report.SnoozeKey] = _.snoozerId
   private lazy val snoozer = new lila.memo.Snoozer[Report.SnoozeKey](cacheApi)
 
+  private val automod = Automod(ws, appConfig)
   lazy val api = wire[ReportApi]
 
   lazy val modFilters = new ModReportFilter

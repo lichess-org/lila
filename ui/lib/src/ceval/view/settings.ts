@@ -195,7 +195,7 @@ function engineSelection(ctrl: ParentCtrl) {
     active = ceval.engines.active,
     engines = ceval.engines.supporting(ceval.opts.variant.key),
     external = ceval.engines.external;
-  if (!engines?.length || !ceval.possible || !ceval.allowed()) return [];
+  if (!engines?.length || !ceval.allowed()) return [];
   return [
     hl('div.setting', [
       'Engine:',

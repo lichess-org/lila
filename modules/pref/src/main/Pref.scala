@@ -47,6 +47,7 @@ case class Pref(
     blogFilter: QualityFilter,
     usingAltSocket: Option[Boolean],
     board: Pref.BoardPref,
+    sayGG: Int,
     tags: Map[String, String] = Map.empty
 ) extends lila.core.pref.Pref:
 
@@ -442,6 +443,17 @@ object Pref:
       EXCEPT_GAME -> "Except in-game"
     )
 
+  object SayGG:
+    val NO = 0
+    val DEFEAT = 1
+    val DRAW = 2
+
+    val choices = Seq(
+      NO -> "No",
+      DEFEAT -> "When losing",
+      DRAW -> "When losing or drawing"
+    )
+
   val darkByDefaultSince = instantOf(2021, 11, 7, 8, 0)
   val systemByDefaultSince = instantOf(2022, 12, 23, 8, 0)
 
@@ -500,6 +512,7 @@ object Pref:
     usingAltSocket = none,
     board = BoardPref(brightness = 100, opacity = 100, hue = 0),
     blogFilter = QualityFilter.best,
+    sayGG = SayGG.NO,
     tags = Map.empty
   )
 

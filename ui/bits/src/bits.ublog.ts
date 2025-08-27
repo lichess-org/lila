@@ -3,6 +3,7 @@ import { alert, prompt } from 'lib/view/dialogs';
 import { throttlePromiseDelay } from 'lib/async';
 import { domDialog } from 'lib/view/dialog';
 import { escapeHtml } from 'lib';
+import { spinnerHtml } from 'lib/view/controls';
 
 site.load.then(() => {
   $('.flash').addClass('fade');
@@ -101,6 +102,7 @@ function rewireModPost() {
   if (!modToolsContainer?.firstElementChild) return;
   const modTools = modToolsContainer.firstElementChild as HTMLElement;
   const submitBtn = modTools.querySelector<HTMLButtonElement>('.submit')!;
+  const assessBtn = modTools.querySelector<HTMLButtonElement>('.assess-btn')!;
   const submit = async (o: SubmitForm) => {
     const rsp = await xhr.textRaw(modTools.dataset.url!, {
       headers: { 'Content-Type': 'application/json' },
@@ -140,5 +142,14 @@ function rewireModPost() {
   modTools.querySelector<HTMLElement>('.carousel-pin-btn')?.addEventListener('click', async () => {
     const days = await prompt('How many days?', '7', (n: string) => Number(n) > 0 && Number(n) < 31);
     if (days) submit({ featured: true, featuredUntil: Number(days) });
+  });
+  assessBtn.addEventListener('click', async () => {
+    assessBtn.insertAdjacentHTML('afterend', spinnerHtml);
+    assessBtn.disabled = true;
+    assessBtn.classList.add('disabled');
+    const rsp = await xhr.textRaw(assessBtn.dataset.url!, { method: 'POST' });
+    if (!rsp.ok) return alert(`Error ${rsp.status}: ${rsp.statusText}`);
+    modToolsContainer.innerHTML = await rsp.text();
+    rewireModPost();
   });
 }

@@ -80,6 +80,11 @@
   <string name="searchPuzzles">Pretražite probleme</string>
   <string name="fromMyGamesNone">Nemate probleme u bazi podataka, ali Vas Lichess i dalje mnogo voli.
 Igrajte ubrzani i klasični šah kako biste povećali šanse da bude dodan Vaš problem!</string>
+  <plurals name="puzzlesFoundInUserGames">
+    <item quantity="one">Jedna zagonetka pronađena u igrama od strane korisnika %2$s</item>
+    <item quantity="few">%1$s zagonetki pronađenih u igrama od strane korisnika %2$s</item>
+    <item quantity="other">%1$s zagonetki pronađenih u igrama od strane korisnika %2$s</item>
+  </plurals>
   <string name="puzzleDashboardDescription">Trenirajte, analizirajte, usavršavajte se</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s igrana</item>
