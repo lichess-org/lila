@@ -19,6 +19,9 @@
   <string name="announceLastMoveCapture">Oznámiť aká figúrka bola vzatá v poslednom ťahu.</string>
   <string name="announcePossibleMoves">Oznámiť možné ťahy pre zvolenú figúrku.</string>
   <string name="announcePossibleCaptures">Oznámiť možnosti brania pre zvolenú figúrku.</string>
+  <string name="moveToRank">Potiahnuť na rad 1 až 8.</string>
+  <string name="moveToFile">Potiahnuť na stĺpec a až h.</string>
+  <string name="announcePiecesOnRankOrFile" comment="This is an instruction for how blind users can use the command form.&#10;&#10;Here, they must type in &quot;s&quot; to announce pieces on the rank or file. So &quot;s a&quot; would announce all pieces on file a, while &quot;s 1&quot; would announce all pieces on file 1.&#10;&#10;Please keep the space. Screen readers may not read the text out correctly without a space present.">Oznámiť figúrky na rade alebo stĺpci. Príklad: s a, s 1.</string>
   <string name="king">kráľ</string>
   <string name="whiteKing">biely kráľ</string>
   <string name="blackKing">čierny kráľ</string>
@@ -48,4 +51,7 @@
   <string name="invalidMove">Nemožný ťah</string>
   <string name="premoveCancelled">Predťah zrušený</string>
   <string name="premoveRecorded">Predťah zaznamenaný: %s. Stlačte enter pre jeho zrušenie</string>
+  <string name="copyToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">Kopírovať %s do schránky</string>
+  <string name="copiedToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">%s skopírované do schránky</string>
+  <string name="pgnAndFen" comment="Will be a heading read out over text-to-speech for blind users looking to share a PGN or FEN of a game.">PGN a FEN</string>
 </resources>
