@@ -44,7 +44,7 @@ export default class ServerEval {
 export function view(ctrl: ServerEval): VNode {
   const analysis = ctrl.root.data.analysis;
 
-  if (!ctrl.root.showComputer()) return disabled();
+  if (!ctrl.root.showFishnetAnalysis()) return disabled();
   if (!analysis) return ctrl.requested ? requested() : requestButton(ctrl);
   const mainline = ctrl.requested ? ctrl.root.data.treeParts : ctrl.analysedMainline();
   const chart = h('canvas.study__server-eval.ready.' + analysis.id, {

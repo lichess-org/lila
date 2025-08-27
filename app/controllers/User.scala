@@ -567,7 +567,7 @@ final class User(
       get("term").flatMap(UserSearch.read) match
         case None => BadRequest("No search term provided")
         case Some(term) if getBool("exists") =>
-          term.into(UserStr).validateId.so(env.user.repo.existsSec).map(JsonOk)
+          term.into(UserStr).validateId.so(env.user.repo.exists).map(JsonOk)
         case Some(term) =>
           {
             (get("tour"), get("swiss"), get("team")) match

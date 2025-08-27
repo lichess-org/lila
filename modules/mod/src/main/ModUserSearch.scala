@@ -19,7 +19,7 @@ final class ModUserSearch(userRepo: UserRepo, userApi: UserApi)(using Executor):
     withPerfs <- userApi.withPerfsAndEmails(users)
     userStr = UserStr.read(query)
     userName = userStr.map(_.into(UserName))
-    exists <- userStr.so(userRepo.existsSec)
+    exists <- userStr.so(userRepo.exists)
   yield ModUserSearchResult(
     users = withPerfs,
     regexMatch = lila.user.nameRules.newUsernameRegex.matches(query),

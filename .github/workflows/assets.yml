@@ -36,8 +36,6 @@ jobs:
         with:
           node-version-file: .node-version
           cache: 'pnpm'
-      - name: Corepack (remove this step once https://github.com/pnpm/pnpm/issues/9029 is resolved)
-        run: pnpm install -g corepack@latest
       - name: Install pnpm dependencies
         run: pnpm install
       - name: Checkout ab (optional)

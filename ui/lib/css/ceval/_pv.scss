@@ -69,7 +69,7 @@
   }
 }
 
-@include mq-has-hover {
+@media (hover: hover) and (pointer: fine) {
   .pv_box .pv[data-uci]:hover {
     background: $m-secondary_bg--mix-20;
     cursor: pointer;

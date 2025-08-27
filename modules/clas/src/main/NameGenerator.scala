@@ -10,7 +10,7 @@ final class NameGenerator(userRepo: lila.user.UserRepo)(using Executor):
       .map(UserName(_))
       .so: name =>
         userRepo
-          .existsSec(name)
+          .exists(name)
           .flatMap:
             case true if triesLeft > 0 => apply(maxSize, triesLeft - 1)
             case true => fuccess(none)
