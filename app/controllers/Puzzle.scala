@@ -136,7 +136,9 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     NoBot:
       bindForm(env.puzzle.forms.vote)(
         doubleJsonFormError,
-        vote => env.puzzle.api.vote.update(id, me, vote).inject(jsonOkResult)
+        vote =>
+          for _ <- env.puzzle.api.vote.update(id, me, vote)
+          yield jsonOkResult
       )
   }
 
