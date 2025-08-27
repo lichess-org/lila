@@ -77,7 +77,7 @@ body.no-inquiry {
   &,
   a,
   a.user-link .line {
-    color: $c-font;
+    color: $c-link;
   }
 
   .meat {
@@ -222,14 +222,15 @@ body.no-inquiry {
 
   .fbt {
     height: 100%;
-    color: $c-font !important;
+    color: $c-link !important;
     background: transparent;
     padding: 0 1em;
     transition: none;
   }
 
   .fbt:hover {
-    background: rgba(56, 147, 232, 0.8);
+    color: $c-link-hover;
+    background: $m-primary_bg--mix-50;
   }
 
   .fbt.icon::before,
@@ -253,7 +254,7 @@ body.no-inquiry {
 
   .links a:hover,
   .report a:hover {
-    color: $c-link;
+    color: $c-link-hover;
   }
 
   .process button {
