@@ -345,7 +345,7 @@ final class Challenge(env: Env) extends LilaController(env):
           rules = config.rules
         )
 
-  def openCreate = AnonOrScopedBody(parse.anyContent)(_.Challenge.Write): ctx ?=>
+  def openCreate = AnonOrScopedBody(parse.anyContent)(_.Challenge.Write, _.Web.Mobile): ctx ?=>
     bindForm(
       env.setup.forms.api.open(isAdmin = isGrantedOpt(_.ApiChallengeAdmin) || ctx.me.exists(_.isVerified))
     )(
