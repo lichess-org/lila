@@ -302,7 +302,7 @@ def deploy_script(profile, session, run, url):
         commands += [
             f"rsync -a {artifact_unzipped}/d/bin/ {deploy_dir}/bin/",
             f"rm -rf {deploy_dir}/lib~",
-            f"mv {deploy_dir}/lib {deploy_dir}/lib~",
+            f"mv {deploy_dir}/lib {deploy_dir}/lib~ || true",
             f"mv {artifact_unzipped}/d/lib {deploy_dir}/",
             f"chmod -f +x {deploy_dir}/bin/lila || true",
         ]
