@@ -11,9 +11,10 @@ import { bind, onInsert } from 'lib/snabbdom';
 import { throttle } from 'lib/async';
 import type PuzzleCtrl from '../ctrl';
 import { Chessground as makeChessground } from '@lichess-org/chessground';
-import { opposite } from 'chessops';
+import { makeSquare, opposite } from 'chessops';
 import { scanDirectionsHandler } from 'lib/nvui/directionScan';
 import { Api } from '@lichess-org/chessground/api';
+import { nextCorrectMove } from '@/moveTree';
 
 const throttled = (sound: string) => throttle(100, () => site.sound.play(sound));
 const selectSound = throttled('select');
@@ -304,8 +305,10 @@ const playActions = (ctx: PuzzleNvuiContext): VNode => {
     ? button(i18n.storm.skip, ctrl.skip, i18n.puzzle.streakSkipExplanation, !ctrl.streak.data.skip)
     : h('div.actions_play', [
         button(i18n.site.getAHint, () => {
-          const hint = ctrl.getHint();
-          if (hint) notify.set(hint);
+          const hint = nextCorrectMove(ctrl);
+          if (hint) {
+            notify.set(makeSquare(hint.from));
+          }
         }),
         button(i18n.site.viewTheSolution, ctrl.viewSolution),
       ]);
