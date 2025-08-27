@@ -49,7 +49,7 @@ final class TrophyApi(
           )
       ,
       Granter
-        .ofUser(_.Developer)(user)
+        .ofUser(_.Tech)(user)
         .option:
           Trophy(
             _id = "",

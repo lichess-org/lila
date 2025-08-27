@@ -483,7 +483,7 @@ final class Mod(
             Permission
               .ofDbKeys(permissions)
               .exists(p =>
-                p.grants(Permission.SeeReport) || p.grants(Permission.Developer) || p.grants(
+                p.grants(Permission.SeeReport) || p.grants(Permission.DeveloperTeam) || p.grants(
                   Permission.ContentTeam
                 ) || p.grants(Permission.BroadcastTeam)
               )

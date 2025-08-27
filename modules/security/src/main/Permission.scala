@@ -86,7 +86,7 @@ object Permission:
       ApiChallengeAdmin
     ),
     "Badge" -> List(
-      Developer,
+      Tech,
       PublicMod,
       Verified,
       ContentTeam,
