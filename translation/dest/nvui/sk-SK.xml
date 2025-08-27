@@ -10,6 +10,7 @@
   <string name="actions">Úkony</string>
   <string name="yourClock">Vaše hodiny</string>
   <string name="opponentClock">Súperove hodiny</string>
+  <string name="gameStart">Začiatok partie</string>
   <string name="inputFormCommandList">Zadajte tieto príkazy do vstupného formulára príkazov.</string>
   <string name="king">kráľ</string>
   <string name="whiteKing">biely kráľ</string>
