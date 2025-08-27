@@ -111,7 +111,7 @@ final class Challenge(env: Env) extends LilaController(env):
       )
 
   def apiAccept(id: ChallengeId, color: Option[Color]) =
-    Scoped(_.Challenge.Write, _.Bot.Play, _.Board.Play, _.Web.Mobile) { _ ?=> me ?=>
+    Scoped(_.Challenge.Write, _.Bot.Play, _.Board.Play, _.Web.Mobile) { _ ?=>
       def tryRematch =
         env.bot.player
           .rematchAccept(id.into(GameId))
