@@ -111,8 +111,8 @@ final class Challenge(env: Env) extends LilaController(env):
       )
 
   def apiAccept(id: ChallengeId, color: Option[Color]) =
-    Scoped(_.Challenge.Write, _.Bot.Play, _.Board.Play, _.Web.Mobile) { _ ?=>
-      def tryRematch =
+    AnonOrScoped(_.Challenge.Write, _.Bot.Play, _.Board.Play, _.Web.Mobile) { ctx ?=>
+      def tryRematch = ctx.me.soUse:
         env.bot.player
           .rematchAccept(id.into(GameId))
           .flatMap:
