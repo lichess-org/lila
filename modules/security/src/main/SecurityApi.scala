@@ -75,13 +75,18 @@ final class SecurityApi(
       })
     )
 
-  private def must2fa(req: RequestHeader): Fu[Option[IsProxy]] =
+  private def must2fa(req: RequestHeader, pwned: IsPwned): Fu[Option[IsProxy]] =
     ip2proxy
       .ofReq(req)
       .map: p =>
-        p.name.exists(proxy2faSetting.get().value.has(_)).option(p)
+        if p == IsProxy.public || p == IsProxy.tor then p.some
+        else
+          pwned.yes.so:
+            p.name.exists(proxy2faSetting.get().value.has(_)).option(p)
 
-  def loadLoginForm(str: UserStrOrEmail)(using req: RequestHeader): Fu[Form[LoginCandidate.Result]] =
+  def loadLoginForm(str: UserStrOrEmail, pwned: IsPwned)(using
+      req: RequestHeader
+  ): Fu[Form[LoginCandidate.Result]] =
     EmailAddress
       .from(str.value)
       .match
@@ -90,7 +95,7 @@ final class SecurityApi(
       .map(_.filter(_.user.isnt(UserId.lichess)))
       .flatMap:
         _.so: candidate =>
-          must2fa(req).map:
+          must2fa(req, pwned).map:
             _.fold(candidate.some): p =>
               lila.mon.security.login.proxy(p.value).increment()
               candidate.copy(must2fa = true).some
@@ -112,7 +117,7 @@ final class SecurityApi(
         WeakPassword
       else result
 
-  def saveAuthentication(userId: UserId, apiVersion: Option[ApiVersion])(using
+  def saveAuthentication(userId: UserId, apiVersion: Option[ApiVersion], pwned: IsPwned)(using
       req: RequestHeader
   ): Fu[SessionId] =
     userRepo
@@ -120,20 +125,22 @@ final class SecurityApi(
       .flatMap:
         if _ then fufail(SecurityApi.MustConfirmEmail(userId))
         else
+          if pwned.yes then logger.info(s"Pwned login $userId ${HTTPRequest.print(req)}")
           for
             proxy <- ip2proxy.ofReq(req)
-            _ = proxy.name.foreach(p => logger.info(s"Proxy login $p $userId ${HTTPRequest.print(req)}"))
+            _ = proxy.name.foreach: p =>
+              logger.info(s"Proxy login $p $userId ${HTTPRequest.print(req)}")
             sessionId = SessionId(SecureRandom.nextString(22))
-            _ <- store.save(sessionId, userId, req, apiVersion, up = true, fp = none, proxy = proxy)
+            _ <- store.save(sessionId, userId, req, apiVersion, up = true, fp = none, proxy, pwned)
           yield sessionId
 
-  def saveSignup(userId: UserId, apiVersion: Option[ApiVersion], fp: Option[FingerPrint])(using
-      req: RequestHeader
+  def saveSignup(userId: UserId, apiVersion: Option[ApiVersion], fp: Option[FingerPrint], pwned: IsPwned)(
+      using req: RequestHeader
   ): Funit =
     for
       proxy <- ip2proxy.ofReq(req)
       sessionId = SessionId(s"SIG-${SecureRandom.nextString(22)}")
-      _ <- store.save(sessionId, userId, req, apiVersion, up = false, fp = fp, proxy = proxy)
+      _ <- store.save(sessionId, userId, req, apiVersion, up = false, fp = fp, proxy, pwned)
     yield ()
 
   private type AppealOrUser = Either[AppealUser, FingerPrintedUser]

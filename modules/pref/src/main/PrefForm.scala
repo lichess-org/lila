@@ -58,6 +58,7 @@ object PrefForm:
       val brightness = "boardBrightness" -> number(0, 150)
       val opacity = "boardOpacity" -> number(0, 100)
       val hue = "boardHue" -> number(0, 100)
+    val sayGG = "sayGG" -> checkedNumber(Pref.SayGG.choices)
 
   def pref(lichobile: Boolean) = Form(
     mapping(
@@ -86,7 +87,8 @@ object PrefForm:
         fields.confirmResign,
         fields.keyboardMove.map2(optional),
         fields.voice.map2(optional),
-        "rookCastle" -> optional(booleanNumber)
+        "rookCastle" -> optional(booleanNumber),
+        fields.sayGG.map2(optional)
       )(BehaviorData.apply)(unapply),
       "clock" -> mapping(
         "tenths" -> checkedNumber(Pref.ClockTenths.choices),
@@ -126,7 +128,8 @@ object PrefForm:
       confirmResign: Int,
       keyboardMove: Option[Int],
       voice: Option[Int],
-      rookCastle: Option[Int]
+      rookCastle: Option[Int],
+      sayGG: Option[Int]
   )
 
   case class ClockData(
@@ -179,6 +182,7 @@ object PrefForm:
         flairs = flairs | pref.flairs,
         resizeHandle = display.resizeHandle | pref.resizeHandle,
         rookCastle = behavior.rookCastle | pref.rookCastle,
+        sayGG = behavior.sayGG | pref.sayGG,
         pieceNotation = display.pieceNotation | pref.pieceNotation,
         moveEvent = behavior.moveEvent | pref.moveEvent
       )
@@ -207,7 +211,8 @@ object PrefForm:
           confirmResign = pref.confirmResign,
           keyboardMove = pref.keyboardMove.some,
           voice = pref.voice.getOrElse(0).some,
-          rookCastle = pref.rookCastle.some
+          rookCastle = pref.rookCastle.some,
+          sayGG = pref.sayGG.some
         ),
         clock = ClockData(
           tenths = pref.clockTenths,

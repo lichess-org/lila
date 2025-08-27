@@ -84,4 +84,6 @@
   <string name="tournamentShields">مسابقات سپرها</string>
   <string name="onlyTitled">تنها بازیکنان عنوان دار</string>
   <string name="onlyTitledHelp">نیاز به یک عنوان رسمی برای پیوستن به مسابقه است</string>
+  <string name="tournamentPairingsAreNowClosed">تعیین حریف به اتمام رسیده است.</string>
+  <string name="berserkRate">امتیاز برسرک</string>
 </resources>

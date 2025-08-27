@@ -80,7 +80,7 @@ final class ChallengeApi(
           case _ => false
       })
 
-  val countInFor = cacheApi[UserId, Int](131072, "challenge.countInFor"):
+  val countInFor = cacheApi[UserId, Int](131_072, "challenge.countInFor"):
     _.expireAfterAccess(15.minutes).buildAsyncFuture(repo.countCreatedByDestId)
 
   def createdByChallengerId = repo.createdByChallengerId()

@@ -59,6 +59,8 @@
   <string name="intermezzoDescription">به جای انجام حرکت موردانتظار، نخست حرکت دیگری را روید که تهدیدی فوری‌ست و حریف باید به آن پاسخ دهد. همچنین به آن «قطار میانی - Zwischenzug» یا «در میانه» می‌گویند.</string>
   <string name="killBoxMate">مات جعبه مرگ</string>
   <string name="killBoxMateDescription">رُخ در کنار شاه دشمن قرار دارد و توسط یک وزیر حمایت می‌شود که همچنین مسیرهای فرار شاه را مسدود کرده است. رُخ و وزیر شاه دشمن را در یک \"جعبه مرگ\" ۳ در ۳ گیر انداخته‌اند.</string>
+  <string name="vukovicMate">مات ووکویچ</string>
+  <string name="vukovicMateDescription">یک رخ و یک اسب برای مات کردن شاه همکاری می‌کنند. رخ در حالی که توسط مهرهٔ سومی پشتیبانی می‌شود، مات می‌کند و اسب برای مسدود کردن خانه‌های فرار شاه استفاده می‌شود.</string>
   <string name="knightEndgame">آخربازی اسب</string>
   <string name="knightEndgameDescription">آخربازی، تنها با اسب‌ها و پیاده‌ها.</string>
   <string name="long">معمای طولانی</string>

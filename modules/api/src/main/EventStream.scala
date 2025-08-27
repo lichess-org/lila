@@ -13,6 +13,7 @@ import lila.core.game.{ FinishGame, StartGame }
 import lila.game.Rematches
 import lila.user.{ LightUserApi, Me, UserRepo }
 import lila.bot.OnlineApiUsers.*
+import lila.core.net.Bearer
 
 final class EventStream(
     challengeJsonView: lila.challenge.JsonView,
@@ -30,30 +31,34 @@ final class EventStream(
 
   def apply(
       gamesInProgress: List[Game],
-      challenges: List[Challenge]
+      challenges: List[Challenge],
+      bearer: Bearer
   )(using me: Me): Source[Option[JsObject], ?] =
 
     given Lang = me.realLang | lila.core.i18n.defaultLang
 
     // kill previous one if any
-    Bus.publishDyn(PoisonPill, s"eventStreamFor:${me.userId}")
+    val killChannel = s"eventStreamForBearer:$bearer"
+    Bus.publishDyn(PoisonPill, killChannel)
 
     blueprint.mapMaterializedValue: queue =>
       gamesInProgress.map { gameJson(_, "gameStart") }.foreach(queue.offer)
       challenges.map(challengeJson("challenge")).map(some).foreach(queue.offer)
 
-      val actor = system.actorOf(Props(mkActor(queue)))
+      val actor = system.actorOf(Props(mkActor(queue, killChannel)))
 
       queue.watchCompletion().addEffectAnyway { actor ! PoisonPill }
 
-  private def mkActor(queue: SourceQueueWithComplete[Option[JsObject]])(using me: Me)(using Lang): Actor =
+  private def mkActor(queue: SourceQueueWithComplete[Option[JsObject]], killChannel: String)(using
+      me: Me
+  )(using Lang): Actor =
     new:
 
-      val classifiers = List(
+      val channels = List(
         s"userStartGame:${me.userId}",
         s"userFinishGame:${me.userId}",
         s"rematchFor:${me.userId}",
-        s"eventStreamFor:${me.userId}"
+        killChannel
       )
 
       @scala.annotation.nowarn
@@ -61,13 +66,13 @@ final class EventStream(
 
       override def preStart(): Unit =
         super.preStart()
-        Bus.subscribeActorRefDyn(self, classifiers)
+        Bus.subscribeActorRefDyn(self, channels)
         Bus.subscribeActorRef[lila.core.challenge.PositiveEvent](self)
         Bus.subscribeActorRef[NegativeEvent](self)
 
       override def postStop() =
         super.postStop()
-        classifiers.foreach(Bus.unsubscribeActorRefDyn(self, _))
+        channels.foreach(Bus.unsubscribeActorRefDyn(self, _))
         Bus.subscribeActorRef[lila.core.challenge.PositiveEvent](self)
         Bus.subscribeActorRef[NegativeEvent](self)
         queue.complete()

@@ -58,6 +58,8 @@ Evo linka za pristup času.</string>
     <item quantity="few">%s pozivnice / pozivnica na čekanju</item>
     <item quantity="other">%s pozivnice / pozivnica na čekanju</item>
   </plurals>
+  <string name="pending" comment="Appears in a table of students. Refers to invitation by a teacher to join a class, which the student has not yet responded to.">Na čekanju</string>
+  <string name="declined" comment="Appears in a table of students. Refers to invitation by a teacher to join a class, which the student declined.">Odbijeno</string>
   <string name="onlyVisibleToTeachers">Vidljivo samo instruktorima časa</string>
   <string name="lastActiveDate">Zadnja aktivnost</string>
   <string name="managed">Pod nadzorom</string>
@@ -116,4 +118,6 @@ Evo linka za pristup času.</string>
   <string name="anInvitationHasBeenSentToX" comment="%s is the username of a player already registered on Lichess.">Pozivnica je poslana %s</string>
   <string name="xAlreadyHasAPendingInvitation" comment="An error message. %s is the username of a player already registered on Lichess.">%s već ima pozivnicu na čekanju</string>
   <string name="xIsAKidAccountWarning" comment="%1$s is the username&#10;%2$s is a link.">%1$s je dječiji račun i ne može primati vaše poruke. Morate im ručno poslati vezu: %2$s</string>
+  <string name="moveToClass" comment="%s is the name of the class. The name of the class is set by the teacher.&#10;&#10;Appears on a confirmation prompt when a teacher looks to move a student to one of the other classes they run.">Premjesti u %s</string>
+  <string name="moveToAnotherClass" comment="Appears as a heading on a page which lets a teacher move one of their students to one of the other classes they run.">Premjesti se u drugi razred</string>
 </resources>

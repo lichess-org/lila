@@ -22,8 +22,12 @@ object Spotlight:
       case Some(freq) => (freq.importance, -tour.secondsToStart.value)
       case None => (tour.isTeamRelated.so(Schedule.Freq.Weekly.importance), -tour.secondsToStart.value)
 
+  // If the user is logged in, we filter the tournaments based on their preferences
+  // and spotlight them if they are relevant.
   def select(tours: List[Tournament], max: Int)(using me: Option[UserWithPerfs]): List[Tournament] =
-    me.foldUse(select(tours))(tours.filter(selectForMe).distinct).topN(max)
+    me.foldUse(select(tours)): _ ?=>
+      tours.filter(selectForMe).distinct
+    .topN(max)
 
   private def select(tours: List[Tournament]): List[Tournament] =
     tours.filter: tour =>

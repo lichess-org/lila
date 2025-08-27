@@ -4,7 +4,7 @@ import akka.actor.*
 import akka.pattern.pipe
 import scalalib.ThreadLocalRandom
 
-import lila.core.pool.{ HookThieve, Joiner, PoolMember }
+import lila.core.pool.{ HookThieve, PoolMember, PoolFrom }
 import lila.core.socket.Sris
 
 final private class PoolActor(
@@ -34,22 +34,26 @@ final private class PoolActor(
 
   def receive =
 
-    case Join(joiner, _) if lastPairedUserIds(joiner.me) =>
+    case Join(joiner) if lastPairedUserIds(joiner.userId) =>
     // don't pair someone twice in a row, it's probably a client error
 
-    case Join(joiner, rageSit) =>
-      members.find(joiner.is(_)) match
+    case Join(joiner) =>
+      members.find(m => joiner.userId.is(m.userId)) match
         case None =>
-          members = members :+ lila.pool.PoolMember(joiner, rageSit)
+          members = members :+ joiner
+          // #TODO #FIXME race condition. several full waves can be sent here.
           if members.sizeIs >= config.wave.players.value then self ! FullWave
-        case Some(member) if member.ratingRange != joiner.ratingRange =>
+        case Some(existing) if existing.ratingRange != joiner.ratingRange =>
           members = members.map: m =>
-            if m == member then m.withRange(joiner.ratingRange) else m
+            if m == existing then m.withRange(joiner.ratingRange) else m
         case _ => // no change
+      members
+
     case Leave(userId) =>
-      members.find(_.userId == userId).foreach { member =>
-        members = members.filter(member !=)
-      }
+      members
+        .find(_.userId == userId)
+        .foreach: member =>
+          members = members.filterNot(_ == member)
 
     case ScheduledWave =>
       monitor.scheduled(monId).increment()
@@ -61,8 +65,8 @@ final private class PoolActor(
 
     case RunWave =>
       nextWave.cancel()
+      // #TODO #FIXME race condition.
       hookThieve.candidates(config.clock).pipeTo(self)
-      ()
 
     case HookThieve.PoolHooks(hooks) =>
       monitor.withRange(monId).record(members.count(_.hasRange))
@@ -75,13 +79,13 @@ final private class PoolActor(
 
       hookThieve.stolen(
         hooks.filter: h =>
-          pairedMembers.exists(h.is(_)),
+          pairedMembers.exists(m => h.member.userId.is(m.userId)),
         monId
       )
 
       members = members.diff(pairedMembers).map(_.incMisses)
 
-      if pairings.nonEmpty then gameStarter(config, pairings)
+      gameStarter(config, pairings)
 
       monitor.candidates(monId).record(candidates.size)
       monitor.paired(monId).record(pairedMembers.size)
@@ -93,16 +97,18 @@ final private class PoolActor(
 
       scheduleWave()
 
+    // lila-ws sends us the list of sris currently connected through WS
+    // so we can cleanup members that are not connected anymore
     case Sris(sris) =>
-      members = members.filter: m =>
-        sris contains m.sri
+      members = members.filter: member =>
+        member.from != PoolFrom.Socket || sris.contains(member.sri)
 
   val monitor = lila.mon.lobby.pool.wave
   val monId = config.id.value.replace('+', '_')
 
 private object PoolActor:
 
-  case class Join(joiner: Joiner, rageSit: lila.core.playban.RageSit)
+  case class Join(member: PoolMember) extends AnyVal
   case class Leave(userId: UserId) extends AnyVal
 
   case object ScheduledWave

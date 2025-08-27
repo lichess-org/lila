@@ -4,6 +4,7 @@ import { spinnerHtml } from 'lib/view/controls';
 import { clamp } from 'lib/algo';
 import { pubsub } from 'lib/pubsub';
 import { wsSend } from 'lib/socket';
+import { isTouchDevice } from 'lib/device';
 
 export default function () {
   const top = document.getElementById('top')!;
@@ -208,6 +209,22 @@ export default function () {
         else return;
 
         lastY = Math.max(0, y);
+      },
+      { passive: true },
+    );
+
+    if (!isTouchDevice() || site.blindMode || !document.querySelector('.analyse')) return;
+
+    // double tap to align top of board with viewport
+    document.querySelector<HTMLElement>('.main-board')?.addEventListener(
+      'dblclick',
+      e => {
+        lastY = -9999;
+        window.scrollTo({
+          top: parseInt(window.getComputedStyle(document.body).getPropertyValue('---site-header-height')),
+          behavior: 'instant',
+        });
+        e.preventDefault();
       },
       { passive: true },
     );

@@ -1,7 +1,7 @@
 import * as licon from 'lib/licon';
 import { finished, aborted, userAnalysable, playable } from 'lib/game/game';
 import * as util from '../util';
-import { bindMobileMousedown, displayColumns } from 'lib/device';
+import { addPointerListeners, displayColumns } from 'lib/device';
 import type RoundController from '../ctrl';
 import { throttle } from 'lib/async';
 import viewStatus from 'lib/game/view/status';
@@ -140,7 +140,6 @@ const goThroughMoves = (ctrl: RoundController, e: Event) => {
       if (!isNaN(ply)) ctrl.userJump(ply);
       ctrl.redraw();
     },
-    e,
     () => isNaN(targetPly()),
   );
 };
@@ -160,7 +159,7 @@ function renderButtons(ctrl: RoundController) {
       return hl('button.fbt.repeatable', {
         class: { glowing: i === 3 && ctrl.isLate() },
         attrs: { disabled: !enabled, 'data-icon': b[0], 'data-ply': enabled ? b[1] : '-' },
-        hook: onInsert(bindMobileMousedown(e => goThroughMoves(ctrl, e))),
+        hook: onInsert(el => addPointerListeners(el, e => goThroughMoves(ctrl, e), 'click')),
       });
     }),
     boardMenuToggleButton(ctrl.menu, i18n.site.menu),
@@ -186,7 +185,7 @@ function initMessage(ctrl: RoundController) {
 const col1Button = (ctrl: RoundController, dir: number, icon: string, disabled: boolean) =>
   hl('button.fbt', {
     attrs: { disabled: disabled, 'data-icon': icon, 'data-ply': ctrl.ply + dir },
-    hook: onInsert(bindMobileMousedown(e => goThroughMoves(ctrl, e))),
+    hook: onInsert(el => addPointerListeners(el, e => goThroughMoves(ctrl, e), 'click')),
   });
 
 export function render(ctrl: RoundController): LooseVNode {

@@ -2,7 +2,7 @@ package lila.study
 
 import chess.ChessTreeArbitraries.*
 import chess.CoreArbitraries.given
-import chess.format.pgn.Glyphs
+import chess.format.pgn.{ Glyphs, Comment as CommentStr }
 import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.{ Centis, FromMove, Move, Ply, Position, Square, WithMove }
 import org.scalacheck.{ Arbitrary, Gen }
@@ -85,7 +85,7 @@ object StudyArbitraries:
     for
       commentSize <- Gen.choose(0, size)
       xs <- Gen.listOfN(commentSize, Gen.alphaStr)
-      texts = xs.collect { case s if s.nonEmpty => Comment.Text(s) }
+      texts = CommentStr.from(xs).trimNonEmpty
       comments = texts.map(Comment(Comment.Id.make, _, Comment.Author.Lichess))
     yield Comments(comments)
 

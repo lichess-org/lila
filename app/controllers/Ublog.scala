@@ -13,6 +13,7 @@ import lila.ublog.{ UblogBlog, UblogPost, UblogByMonth }
 import lila.core.ublog.{ BlogsBy, Quality, QualityFilter }
 import lila.core.i18n.toLanguage
 import lila.ublog.UblogForm.ModPostData
+import lila.common.HTTPRequest
 
 final class Ublog(env: Env) extends LilaController(env):
 
@@ -38,7 +39,9 @@ final class Ublog(env: Env) extends LilaController(env):
 
   def post(username: UserStr, slug: String, id: UblogPostId) = Open: ctx ?=>
     Found(env.ublog.api.getPost(id)): post =>
-      if slug == post.slug && post.isUserBlog(username) then handlePost(post)
+      if !post.visibleByCrawlers && HTTPRequest.isCrawler(req).yes
+      then notFound
+      else if slug == post.slug && post.isUserBlog(username) then handlePost(post)
       else if urlOfPost(post).url != ctx.req.path then Redirect(urlOfPost(post))
       else handlePost(post)
 
@@ -238,6 +241,20 @@ final class Ublog(env: Env) extends LilaController(env):
                 carousel.has(post.id)
               )
             )
+  }
+
+  def modAssess(postId: UblogPostId) = Secure(_.ModerateBlog) { ctx ?=> me ?=>
+    Found(env.ublog.api.getPost(postId)): post =>
+      for
+        mod <- env.ublog.api.triggerAutomod(post.copy(automod = none, featured = none))
+        _ <- env.ublog.api.setFeatured(post, ModPostData(featured = false.some))
+        _ <- logModAction(post, "reassess")
+      yield Ok.snip(
+        views.ublog.post.modTools(
+          post.copy(automod = mod.orElse(post.automod), featured = none),
+          isInCarousel = false
+        )
+      )
   }
 
   def image(id: UblogPostId) = AuthBody(parse.multipartFormData) { ctx ?=> me ?=>

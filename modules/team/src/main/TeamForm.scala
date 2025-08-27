@@ -140,7 +140,6 @@ private[team] case class TeamEdit(
     hideMembers: Boolean,
     flair: Option[Flair]
 ):
-
   def isOpen = !request
 
   def trim =

@@ -8,17 +8,6 @@ import { status } from 'lib/game/game';
 import type TournamentController from '../ctrl';
 import type { Player } from '../interfaces';
 
-function result(win: boolean, stat: number): string {
-  switch (win) {
-    case true:
-      return '1';
-    case false:
-      return '0';
-    default:
-      return stat >= status.mate ? '½' : '*';
-  }
-}
-
 const playerTitle = (player: Player) =>
   hl('h2', [
     player.rank ? hl('span.rank', `${player.rank}. `) : '',
@@ -74,10 +63,12 @@ export default function (ctrl: TournamentController): VNode {
             if (href) window.open(href, '_blank', 'noopener');
           }),
         },
-        data.pairings.map(function (p, i) {
-          const res = result(p.win, p.status);
+        data.pairings.map((p, i) => {
+          const score = p.status < status.mate ? '*' : p.score;
+          const streak = p.win == null ? p.score == 2 : p.win ? p.score > 3 : false;
+          const cls = p.win == null ? '' : streak ? 'streak' : p.win == false ? 'loss' : 'win';
           return hl(
-            'tr.glpt.' + (res === '1' ? ' win' : res === '0' ? ' loss' : ''),
+            'tr.glpt.' + cls,
             {
               key: p.id,
               attrs: { 'data-href': '/' + p.id + '/' + p.color },
@@ -89,7 +80,7 @@ export default function (ctrl: TournamentController): VNode {
               ctrl.opts.showRatings ? hl('td', `${p.op.rating}`) : null,
               berserkTd(!!p.op.berserk),
               hl('td.is.color-icon.' + p.color),
-              hl('td.result', res),
+              hl('td.result', score),
               berserkTd(p.berserk),
             ],
           );

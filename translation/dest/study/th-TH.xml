@@ -161,5 +161,13 @@
   <string name="whatWouldYouPlay">คุณจะเดินอะไรในตำแหน่งนี้</string>
   <string name="youCompletedThisLesson">ยินดีด้วย! คุณจบบทเรียนนี้แล้ว</string>
   <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">%s ต่อหน้า</string>
+  <string name="getTheTour">ต้องการให้ช่วยเหลือไหม ไปทัวร์กัน</string>
   <string name="welcomeToLichessStudyTitle">ยินดีต้อนรับสู่กรณีศึกษาบน Lichess</string>
+  <string name="welcomeToLichessStudyText">นี่คือกระดานวิเคราะห์แบบใช้ร่วมกัน&lt;br&gt;&lt;br&gt;ใช้ในการวิเคราะห์และใส่คำอธิบายประกอบเกม&lt;br&gt;พูดคุยเกี่ยวกับตำแหน่งต่างๆ กับเพื่อน&lt;br&gt;และแน่นอนสำหรับบทเรียนหมากรุก!&lt;br&gt;&lt;br&gt;นี่เป็นเครื่องมือที่มีประสิทธิภาพ ลองใช้เวลาสักครู่เพื่อดูว่ามันทำงานอย่างไร</string>
+  <string name="sharedAndSaveTitle" comment="Appears as the title of a pop-up lightbox in the guided tour of Lichess Studies.&#10;&#10;As in: shared with other members &amp; saved to the database.">แชร์และบันทึกแล้ว</string>
+  <string name="sharedAndSavedText">สมาชิกคนอื่นๆ สามารถดูตาเดินของคุณได้แบบตามเวลาจริง&lt;br&gt;นอกจากนี้ ทุกอย่างยังถูกบันทึกไว้ตลอดไปอีกด้วย</string>
+  <string name="studyMembersTitle">ศึกษาสมาชิก</string>
+  <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s ผู้ชมสามารถดูการศึกษาและพูดคุยในแชท&lt;br&gt;&lt;br&gt;%2$s ผู้สนับสนุนสามารถดำเนินการและอัปเดตการศึกษาได้</string>
+  <string name="addMembersText" comment="%s is an icon that will added at runtime">คลิกปุ่ม %s&lt;br&gt; จากนั้นตัดสินใจว่าใครสามารถมีส่วนสนับสนุนหรือไม่</string>
+  <string name="studyChaptersTitle">ศึกษาบทต่างๆ</string>
 </resources>

@@ -1099,4 +1099,5 @@
   <string name="accessibility">Специальные возможности</string>
   <string name="enableBlindMode">Включить слепой режим</string>
   <string name="disableBlindMode">Выключить слепой режим</string>
+  <string name="copyToClipboard">Скопировать в буфер обмена</string>
 </resources>

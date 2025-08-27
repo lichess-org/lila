@@ -29,7 +29,9 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
               data =>
                 limit.forumTopic(ctx.ip, rateLimited):
                   topicApi.makeTopic(categ, data).map { topic =>
-                    Redirect(routes.ForumTopic.show(categ.id, topic.slug, 1))
+                    val url = routes.ForumTopic.show(categ.id, topic.slug, 1).url
+                    discard { env.report.api.automodComms(data.automodText, url) }
+                    Redirect(url)
                   }
             )
           }
@@ -40,7 +42,8 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
       Found(topicApi.show(categId, slug, page)): (categ, topic, posts) =>
         if categId == diagnosticId &&
           !ctx.userId.exists(me => slug.value.startsWith(me.value)) &&
-          !isGrantedOpt(_.ModerateForum)
+          !isGrantedOpt(_.ModerateForum) &&
+          !isGrantedOpt(_.Diagnostics)
         then notFound
         else
           for
@@ -71,7 +74,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
   }
 
   def sticky(categId: ForumCategId, slug: ForumTopicSlug) = Auth { _ ?=> me ?=>
-    CategGrantMod(categId):
+    isGrantedOpt(_.StickyPosts).so:
       Found(topicApi.show(categId, slug, 1)): (categ, topic, pag) =>
         topicApi
           .toggleSticky(categ, topic)

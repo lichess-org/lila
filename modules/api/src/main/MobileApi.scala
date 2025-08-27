@@ -6,6 +6,7 @@ import play.api.mvc.RequestHeader
 
 import lila.core.i18n.Translate
 import lila.common.Json.given
+import lila.web.AnnounceApi
 
 final class MobileApi(
     userApi: UserApi,
@@ -22,6 +23,8 @@ final class MobileApi(
     liveStreamApi: lila.streamer.LiveStreamApi,
     activityRead: lila.activity.ActivityReadApi,
     activityJsonView: lila.activity.JsonView,
+    challengeApi: lila.challenge.ChallengeApi,
+    challengeJson: lila.challenge.JsonView,
     picfitUrl: lila.core.misc.PicfitUrl,
     isOnline: lila.core.socket.IsOnline
 )(using Executor):
@@ -37,12 +40,15 @@ final class MobileApi(
       ongoingGames <- myUser.traverse: u =>
         gameProxy.urgentGames(u).map(_.take(20).map(lobbyApi.nowPlaying))
       inbox <- me.traverse(unreadCount.mobile)
+      challenges <- me.traverse(challengeApi.allFor(_))
     yield Json
       .obj("tournaments" -> tours)
       .add("account", account)
       .add("recentGames", recentGames)
       .add("ongoingGames", ongoingGames)
       .add("inbox", inbox)
+      .add("challenges", challenges.map(challengeJson.all))
+      .add("announce", AnnounceApi.get.map(_.json))
 
   def tournaments(using me: Option[Me])(using Translate): Fu[JsObject] =
     for

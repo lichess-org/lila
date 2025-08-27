@@ -185,6 +185,8 @@ final class Env(
 
   val apiMoveStream = wire[ApiMoveStream]
 
+  wire[RoundCourtesy]
+
   // core APIs
   @annotation.nowarn
   val gameProxy: lila.core.game.GameProxy = new:

@@ -27,7 +27,9 @@ trait ResponseHeaders extends HeaderNames:
         "Access-Control-Allow-Credentials" -> "true"
       )
     )
-  val allowMethods = List("OPTIONS", "GET", "POST", "PUT", "DELETE").mkString(", ")
+
+  private val allowMethods = List("OPTIONS", "GET", "POST", "PUT", "DELETE").mkString(", ")
+
   val optionsHeaders = List(
     "Allow" -> allowMethods,
     "Access-Control-Max-Age" -> "86400"

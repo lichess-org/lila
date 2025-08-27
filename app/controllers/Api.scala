@@ -274,14 +274,13 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
     Scoped(_.Bot.Play, _.Board.Play, _.Challenge.Read) { _ ?=> me ?=>
       def limited = rateLimited:
         "Please don't poll this endpoint, it is intended to be streamed. See https://lichess.org/api#tag/Board/operation/apiStreamEvent."
-      limit.eventStream(me, limited):
-        env.round.proxyRepo
-          .urgentGames(me)
-          .flatMap: povs =>
-            env.challenge.api
-              .createdByDestId(me)
-              .map: challenges =>
-                jsOptToNdJson(env.api.eventStream(povs.map(_.game), challenges))
+      HTTPRequest.bearer(ctx.req).so { bearer =>
+        limit.eventStream(bearer, limited, msg = s"${me.username} ${HTTPRequest.printClient(req)}"):
+          for
+            povs <- env.round.proxyRepo.urgentGames(me)
+            challenges <- env.challenge.api.createdByDestId(me)
+          yield jsOptToNdJson(env.api.eventStream(povs.map(_.game), challenges, bearer))
+      }
     }
 
   def activity(name: UserStr) = ApiRequest:
@@ -328,6 +327,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
    * /api/account/playing
    * /tournament/featured
    * /inbox/unread-count
+   * /api/challenge
    */
   def mobileHome = AnonOrScoped(_.Web.Mobile) { ctx ?=>
     limit.apiMobileHome(ctx.userId | ctx.ip, rateLimited):

@@ -17,14 +17,14 @@ case class OpenGraph(
 )
 
 enum PageFlags:
-  case noRobots, playing, zoom, zen, fullScreen
+  case noRobots, playing, zoom, zen, fullScreen, noHeader
 
 case class Page(
     title: String,
     body: Option[Frag] = None,
     fullTitle: Option[String] = None,
     cssKeys: List[String] = Nil,
-    i18nModules: List[I18nModule.Selector] = List(_.site, _.timeago, _.preferences),
+    i18nModules: List[I18nModule.Selector] = List(_.site, _.timeago, _.preferences, _.nvui), // nvui temporary
     modules: EsmList = Nil,
     jsFrag: Option[WithNonce[Frag]] = None,
     pageModule: Option[PageModule] = None,

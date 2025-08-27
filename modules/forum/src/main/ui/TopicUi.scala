@@ -161,13 +161,15 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
                   )
                 )
               ),
-              canModCateg.option(
-                postForm(action := routes.ForumTopic.sticky(categ.id, topic.slug))(
-                  button(cls := "button button-empty button-brag")(
-                    if topic.isSticky then "Unsticky" else "Sticky"
+              Granter
+                .opt(_.StickyPosts)
+                .option(
+                  postForm(action := routes.ForumTopic.sticky(categ.id, topic.slug))(
+                    button(cls := "button button-empty button-brag")(
+                      if topic.isSticky then "Unsticky" else "Sticky"
+                    )
                   )
-                )
-              ),
+                ),
               (canModCateg || ctx.me.exists(topic.isAuthor)).option(deleteModal),
               canModCateg.option(relocateModal(categ))
             )

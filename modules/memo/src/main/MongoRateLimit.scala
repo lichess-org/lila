@@ -21,10 +21,10 @@ final class MongoRateLimit[K](
 
   private def makeClearAt = nowInstant.plus(duration)
 
-  private lazy val logger = lila.log("ratelimit").branch("mongo").branch(name)
-  private lazy val monitor = lila.mon.security.rateLimit(s"mongo.$name")
+  private val logger = RateLimit.logger.branch("mongo").branch(name)
+  private val monitor = lila.mon.security.rateLimit(s"mongo.$name")
 
-  private lazy val sequencer = AsyncActorSequencers[K](
+  private val sequencer = AsyncActorSequencers[K](
     maxSize = Max(credits),
     expiration = 1.minute,
     timeout = 10.seconds,

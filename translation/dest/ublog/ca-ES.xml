@@ -8,6 +8,10 @@
   <string name="myLikes">Els que m\'agraden</string>
   <string name="myBlog">El meu blog</string>
   <string name="likedBlogs">Entrades del blog que t\'han agradat</string>
+  <plurals name="blogPosts">
+    <item quantity="one">%s entrada del blog</item>
+    <item quantity="other"> %s entrades del blog</item>
+  </plurals>
   <string name="continueReadingPost">Continua llegint aquesta entrada</string>
   <string name="lichessBlogPostsFromXYear">Entrades del blog de lichess de %s</string>
   <string name="previousBlogPosts">Entrades del blog anteriors</string>

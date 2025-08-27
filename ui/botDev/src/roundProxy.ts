@@ -5,6 +5,7 @@ import { type Player, clockToSpeed } from 'lib/game/game';
 import type { RoundProxy as RoundProxyType, RoundData, RoundOpts } from 'round';
 import { analyse } from './analyse';
 import { env } from './devEnv';
+import { myUserId } from 'lib';
 
 export class RoundProxy implements RoundProxyType {
   readonly data: RoundData;
@@ -96,7 +97,7 @@ export class RoundProxy implements RoundProxyType {
   get roundOpts(): RoundOpts {
     return {
       data: this.data,
-      userId: env.user,
+      userId: myUserId(),
       noab: false,
       onChange: () => {
         if (env.round.ply === 0)

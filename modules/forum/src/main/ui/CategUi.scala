@@ -123,7 +123,6 @@ final class CategUi(helpers: Helpers, bits: ForumBits):
         )
       ),
       tbody:
-        val isMod = Granter.opt(_.ModerateForum)
         categs.map: view =>
           view.lastPost match
             case None =>
@@ -137,7 +136,9 @@ final class CategUi(helpers: Helpers, bits: ForumBits):
                 td
               )
             case Some((topic, post, page)) =>
-              val canBrowse = isMod || !view.categ.hidden
+              val canBrowse = !view.categ.hidden
+                || Granter.opt(_.ModerateForum)
+                || (view.categ.isDiagnostic && Granter.opt(_.Diagnostics))
               val postUrl = s"${routes.ForumTopic.show(view.slug, topic.slug, page)}#${post.number}"
               val categUrl =
                 if canBrowse then routes.ForumCateg.show(view.slug)

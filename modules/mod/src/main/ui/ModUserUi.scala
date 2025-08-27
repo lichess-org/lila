@@ -24,6 +24,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
   val boosting: Frag = iconTag(Icon.LineGraph)
   val engine: Frag = iconTag(Icon.Cogs)
   val closed: Frag = iconTag(Icon.NotAllowed)
+  val modClosed: Frag = iconTag(Icon.Trash)
   val clean: Frag = iconTag(Icon.User)
   val reportban = iconTag(Icon.CautionTriangle)
   val notesText = iconTag(Icon.Pencil)
@@ -476,7 +477,16 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
       )
     )
   def markTd(nb: Int, content: => Frag, date: Option[Instant] = None)(using ctx: Context) =
-    if nb > 0 then td(cls := "i", dataSort := nb, title := date.map(showInstant))(content)
+    if nb > 0
+    then
+      td(
+        cls := List(
+          "i" -> true,
+          "recent" -> date.exists(_.isAfter(nowInstant.minusMonths(6)))
+        ),
+        dataSort := nb,
+        title := date.map(showInstant)
+      )(content)
     else td
 
   def apply(

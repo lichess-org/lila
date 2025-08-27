@@ -10,16 +10,16 @@
   &-inline {
     @include padding-direction(7px, 3px, 7px, 7px);
   }
-
-  move:not(.empty):hover {
-    &,
-    index,
-    eval {
-      background: $c-primary;
-      color: $c-over;
+  @media (hover: hover) and (pointer: fine) {
+    move:not(.empty):hover {
+      &,
+      index,
+      eval {
+        background: $c-primary;
+        color: $c-over;
+      }
     }
   }
-
   move {
     @extend %move;
 

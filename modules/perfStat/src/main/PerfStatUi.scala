@@ -57,7 +57,7 @@ final class PerfStatUi(helpers: Helpers)(communityMenu: Context ?=> Frag):
     if ctx.is(u) then
       trans.site.youAreBetterThanPercentOfPerfTypePlayers(
         a(href := routes.User.ratingDistribution(pk))(strong(percentile, "%")),
-        a(href := routes.User.topNb(200, pk))(pk.perfName.txt())
+        a(href := routes.User.top(pk))(pk.perfName.txt())
       )
     else
       trans.site.userIsBetterThanPercentOfPerfTypePlayers(
@@ -65,7 +65,7 @@ final class PerfStatUi(helpers: Helpers)(communityMenu: Context ?=> Frag):
         a(href := routes.User.ratingDistribution(pk, u.username.some))(
           strong(percentile, "%")
         ),
-        a(href := routes.User.topNb(200, pk))(pk.perfName.txt())
+        a(href := routes.User.top(pk))(pk.perfName.txt())
       )
 
   def ratingHistoryContainer = div(cls := "rating-history-container")(

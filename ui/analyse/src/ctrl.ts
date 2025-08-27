@@ -6,7 +6,6 @@ import { plural } from './view/util';
 import { debounce, throttle } from 'lib/async';
 import type GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
 import type StudyCtrl from './study/studyCtrl';
-import { isTouchDevice } from 'lib/device';
 import type { AnalyseOpts, AnalyseData, ServerEvalData, JustCaptured, NvuiPlugin } from './interfaces';
 import type { Api as ChessgroundApi } from '@lichess-org/chessground/api';
 import { Autoplay, AutoplayDelay } from './autoplay';
@@ -789,14 +788,14 @@ export default class AnalyseCtrl {
     if (this.threatMode()) this.toggleThreatMode();
   };
 
-  toggleCeval = () => {
-    if (!this.showComputer()) return;
+  toggleCeval = (enable = !this.ceval.enabled()) => {
+    if (!this.showComputer() || enable === this.ceval.enabled()) return;
     this.ceval.toggle();
     this.setAutoShapes();
     this.startCeval();
     if (!this.ceval.enabled()) {
       this.threatMode(false);
-      if (this.practice) this.togglePractice();
+      this.togglePractice(false);
     }
     this.redraw();
   };
@@ -853,7 +852,6 @@ export default class AnalyseCtrl {
   showVariationArrows() {
     const chap = this.study?.data.chapter;
     return (
-      !isTouchDevice() &&
       !chap?.practice &&
       chap?.conceal === undefined &&
       !this.study?.gamebookPlay &&
@@ -987,10 +985,19 @@ export default class AnalyseCtrl {
   };
 
   closeTools = () => {
-    if (this.retro) this.retro = undefined;
+    this.retro = undefined;
     if (this.practice) this.togglePractice();
     if (this.explorer.enabled()) this.explorer.toggle();
     this.actionMenu(false);
+  };
+
+  showingTool() {
+    return this.actionMenu() ? 'action-menu' : this.explorer.enabled() ? 'opening-explorer' : '';
+  }
+
+  toggleActionMenu = () => {
+    if (!this.actionMenu() && this.explorer.enabled()) this.explorer.toggle();
+    this.actionMenu.toggle();
   };
 
   toggleRetro = (): void => {
@@ -1003,13 +1010,16 @@ export default class AnalyseCtrl {
   };
 
   toggleExplorer = (): void => {
-    const wasOpen = this.explorer.enabled() && !this.actionMenu();
-    this.closeTools();
-    if (!wasOpen && this.explorer.allowed()) this.explorer.toggle();
+    if (!this.explorer.enabled()) {
+      this.retro = undefined;
+      this.actionMenu(false);
+    }
+    this.explorer.toggle();
   };
 
-  togglePractice = () => {
-    if (this.practice || !this.ceval.possible) {
+  togglePractice = (enable = !this.practice) => {
+    if (enable === !!this.practice && (this.ceval.allowed() || !enable)) return;
+    if (!enable || !this.ceval.allowed()) {
       this.practice = undefined;
       this.ceval.setOpts({ search: undefined }); // TODO, improve ceval integration in this file
       if (this.ceval.enabled()) this.clearCeval();
@@ -1025,6 +1035,20 @@ export default class AnalyseCtrl {
     }
     this.ceval.customSearch = this.practice?.search;
   };
+
+  clickMobileCevalTab(clicked: 'ceval' | 'ceval-practice') {
+    if (this.showingTool()) {
+      this.retro = undefined;
+      if (this.explorer.enabled()) this.explorer.toggle();
+      this.actionMenu(false);
+      this.togglePractice(clicked === 'ceval-practice');
+      if (clicked === 'ceval') this.ensureCevalRunning();
+    } else {
+      if (clicked === 'ceval-practice' || this.practice) this.togglePractice();
+      else if (this.ceval.enabled()) this.toggleCeval();
+      else this.ensureCevalRunning();
+    }
+  }
 
   restartPractice() {
     this.practice = undefined;

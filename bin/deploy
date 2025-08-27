@@ -111,6 +111,8 @@ PROFILES = {
     "testy-server": server_profile("root@snafu.lichess.ovh", deploy_dir="/home/testy/deploy", post="systemctl restart testy", stage=True, user="testy"),
     "manta-server": server_profile("root@manta.lichess.ovh", post="systemctl restart lichess"),
     "manta-assets": asset_profile("root@manta.lichess.ovh"),
+    "starr-server": server_profile("root@starr.lichess.ovh", post="systemctl restart lichess"),
+    "starr-assets": asset_profile("root@starr.lichess.ovh"),
 }
 
 

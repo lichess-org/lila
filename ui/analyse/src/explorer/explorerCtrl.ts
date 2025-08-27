@@ -147,7 +147,7 @@ export default class ExplorerCtrl {
   };
 
   private tablebaseRelevant = (variant: VariantKey, fen: FEN) =>
-    pieceCount(fen) - 1 <= tablebasePieces(variant) && this.root.ceval.possible;
+    pieceCount(fen) - 1 <= tablebasePieces(variant) && this.root.ceval.allowed();
 
   setNode = () => {
     if (!this.enabled()) return;

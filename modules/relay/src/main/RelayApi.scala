@@ -44,25 +44,7 @@ final class RelayApi(
 
   export groupRepo.byId as groupById
   export tourRepo.byIds as toursByIds
-
-  def byId(id: RelayRoundId) = roundRepo.coll.byId[RelayRound](id)
-
-  def byIdWithTour(id: RelayRoundId): Fu[Option[WithTour]] =
-    roundRepo.coll
-      .aggregateOne(): framework =>
-        import framework.*
-        Match($id(id)) -> List(
-          PipelineOperator(tourRepo.lookup("tourId")),
-          UnwindField("tour")
-        )
-      .map(_.flatMap(readRoundWithTour))
-
-  def byIdAndContributor(id: RelayRoundId)(using me: Me): Fu[Option[WithTour]] =
-    byIdWithTourAndStudy(id).map:
-      _.collect:
-        case RelayRound.WithTourAndStudy(relay, tour, study)
-            if study.canContribute(me) || Granter(_.StudyAdmin) =>
-          relay.withTour(tour)
+  export roundRepo.{ byId, byIdWithTour }
 
   def formNavigation(id: RelayRoundId): Fu[Option[(RelayRound, ui.FormNavigation)]] =
     byIdWithTour(id).flatMapz(rt => formNavigation(rt).dmap(some))
@@ -81,6 +63,13 @@ final class RelayApi(
     group <- withTours.get(tour.id)
     rounds <- roundRepo.byTourOrdered(tour.id)
   yield ui.FormNavigation(group, tour, rounds, none)
+
+  def byIdAndContributor(id: RelayRoundId)(using me: Me): Fu[Option[WithTour]] =
+    byIdWithTourAndStudy(id).map:
+      _.collect:
+        case RelayRound.WithTourAndStudy(relay, tour, study)
+            if study.canContribute(me) || Granter(_.StudyAdmin) =>
+          relay.withTour(tour)
 
   def byIdWithTourAndStudy(id: RelayRoundId): Fu[Option[RelayRound.WithTourAndStudy]] =
     byIdWithTour(id).flatMapz { case WithTour(relay, tour) =>

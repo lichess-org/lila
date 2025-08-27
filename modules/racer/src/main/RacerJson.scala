@@ -36,3 +36,14 @@ final class RacerJson:
   def state(race: RacerRace) = Json
     .obj("players" -> race.players)
     .add("startsIn", race.startsInMillis)
+
+  def apiResults(race: RacerRace) = Json
+    .obj(
+      "id" -> race.id,
+      "owner" -> race.ownerName,
+      "players" -> race.players,
+      "puzzles" -> race.puzzles
+    )
+    .add("startsAt", race.startsAt)
+    .add("finishesAt", race.finishesAt)
+    .add("rematch", race.rematch)

@@ -25,5 +25,3 @@ final class HttpRequestHandler(
       if lila.common.HTTPRequest.isApiOrApp(req)
       then Results.NoContent.withHeaders(optionsHeaders*)
       else Results.NotFound
-
-  List("OPTIONS", "GET", "POST", "PUT", "DELETE").mkString(", ")

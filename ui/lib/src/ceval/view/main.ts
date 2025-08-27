@@ -15,6 +15,7 @@ import { uciToMove } from '@lichess-org/chessground/util';
 import { renderCevalSettings } from './settings';
 import type CevalCtrl from '../ctrl';
 import { Chessground as makeChessground } from '@lichess-org/chessground';
+import { displayColumns, isTouchDevice } from '../../device';
 
 type EvalInfo = { knps: number; npsText: string; depthText: string };
 
@@ -135,8 +136,8 @@ export function renderGauge(ctrl: ParentCtrl): VNode | undefined {
 
 export function renderCeval(ctrl: ParentCtrl): VNode[] {
   const ceval = ctrl.getCeval();
-  if (!ceval.allowed() || !ceval.possible) return [];
-  if (!ctrl.showComputer()) return [analysisDisabled(ctrl)];
+  if (!ceval.allowed()) return [];
+  if (!ctrl.showComputer() && displayColumns() > 1) return [analysisDisabled(ctrl)];
   const enabled = ceval.enabled(),
     evs = ctrl.currentEvals(),
     threatMode = ctrl.threatMode(),
@@ -165,7 +166,7 @@ export function renderCeval(ctrl: ParentCtrl): VNode[] {
     else if (ceval.state === CevalState.Failed)
       pearl = hl('i.is-red', { attrs: { 'data-icon': licon.CautionCircle } });
     else pearl = hl('i.ddloader');
-    percent = 0;
+    percent = ctrl.outcome() ? 100 : 0;
   }
   if (download) percent = Math.min(100, Math.round((100 * download.bytes) / download.total));
   else if (ceval.search.indeterminate || (percent > 0 && !ceval.isComputing)) percent = 100;
@@ -299,7 +300,7 @@ function checkHover(el: HTMLElement, ceval: CevalCtrl): void {
 
 export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
   const ceval = ctrl.getCeval();
-  if (!ceval.allowed() || !ceval.possible || !ceval.enabled()) return;
+  if (!ceval.allowed() || !ceval.enabled()) return;
   const multiPv = ceval.search.multiPv,
     node = ctrl.getNode(),
     setup = parseFen(node.fen).unwrap();
@@ -325,6 +326,15 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
       hook: {
         insert: vnode => {
           const el = vnode.elm as HTMLElement;
+          el.addEventListener('pointerdown', (e: PointerEvent) => {
+            const uciList = getElUciList(e);
+            if ((e.target as HTMLElement).closest('.pv-wrap-toggle')) return;
+            if (uciList.length > (pvIndex ?? 0) && !ctrl.threatMode()) {
+              ctrl.playUciList(uciList.slice(0, (pvIndex ?? 0) + 1));
+              e.preventDefault();
+            }
+          });
+          if (isTouchDevice()) return;
           el.addEventListener('mouseover', (e: MouseEvent) => {
             const ceval = ctrl.getCeval();
             ceval.setHovering(getElFen(el), getElUci(e));
@@ -352,22 +362,13 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
             }),
           );
           el.addEventListener('mouseout', () => ctrl.getCeval().setHovering(getElFen(el)));
-          for (const event of ['touchstart', 'mousedown']) {
-            el.addEventListener(event, (e: TouchEvent | MouseEvent) => {
-              const uciList = getElUciList(e);
-              if (uciList.length > (pvIndex ?? 0) && !ctrl.threatMode()) {
-                ctrl.playUciList(uciList.slice(0, (pvIndex ?? 0) + 1));
-                e.preventDefault();
-              }
-            });
-          }
           el.addEventListener('mouseleave', () => {
             ctrl.getCeval().setPvBoard(null);
             pvIndex = null;
           });
           checkHover(el, ceval);
         },
-        postpatch: (_, vnode) => checkHover(vnode.elm as HTMLElement, ceval),
+        postpatch: (_, vnode) => !isTouchDevice() && checkHover(vnode.elm as HTMLElement, ceval),
       },
     },
     [

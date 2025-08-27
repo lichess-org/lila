@@ -63,7 +63,6 @@
   <string name="startVerySoon">Diese Übertragung wird in Kürze beginnen.</string>
   <string name="notYetStarted">Die Übertragung hat noch nicht begonnen.</string>
   <string name="officialWebsite">Offizielle Webseite</string>
-  <string name="standings">Rangliste</string>
   <string name="officialStandings">Offizielle Rangliste</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Weitere Optionen auf der %s</string>
   <string name="webmastersPage">Webmaster-Seite</string>

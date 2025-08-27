@@ -15,18 +15,19 @@ final class DgtCtrl(env: Env) extends LilaController(env):
   }
 
   def generateToken = Auth { _ ?=> me ?=>
-    findToken.flatMap: t =>
-      t.isEmpty
-        .so:
-          env.oAuth.tokenApi.create(
-            lila.oauth.OAuthTokenForm.Data(
-              description = "DGT board automatic token",
-              scopes = dgtScopes.value.map(_.key)
-            ),
-            isStudent = false
-          ) >>
-            env.pref.api.saveTag(me, _.dgt, true)
-        .inject(Redirect(routes.DgtCtrl.config))
+    WithUserAgent:
+      findToken.flatMap: t =>
+        t.isEmpty
+          .so:
+            env.oAuth.tokenApi.create(
+              lila.oauth.OAuthTokenForm.Data(
+                description = "DGT board automatic token",
+                scopes = dgtScopes.value.map(_.key)
+              ),
+              isStudent = false
+            ) >>
+              env.pref.api.saveTag(me, _.dgt, true)
+          .inject(Redirect(routes.DgtCtrl.config))
   }
 
   def play = Auth { _ ?=> me ?=>

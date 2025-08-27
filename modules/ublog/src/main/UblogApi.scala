@@ -159,9 +159,14 @@ final class UblogApi(
     val source =
       if tier == Tier.UNLISTED then "unlisted tier"
       else assessment.fold(Tier.name(tier).toLowerCase + " tier")(_.quality.name + " quality")
+    val emdashes = post.markdown.value.count(_ == '—')
     val automodNotes = assessment.map: r =>
       ~r.flagged.map("Flagged: " + _ + "\n") +
-        ~r.commercial.map("Commercial: " + _ + "\n")
+        ~r.commercial.map("Commercial: " + _ + "\n") +
+        (emdashes match
+          case 0 => ""
+          case 1 => s"#### 1 emdash found\n"
+          case n => s"#### $n emdashes found\n")
     irc.ublogPost(
       user,
       id = post.id,
@@ -172,19 +177,20 @@ final class UblogApi(
       automodNotes
     )
 
-  private def triggerAutomod(post: UblogPost): Fu[Option[UblogAutomod.Assessment]] =
+  def triggerAutomod(post: UblogPost): Fu[Option[UblogAutomod.Assessment]] =
     val retries = 5 // 30s, 1m, 2m, 4m, 8m
-    def attempt(n: Int = 0): Fu[Option[UblogAutomod.Assessment]] =
+    def attempt(n: Int): Fu[Option[UblogAutomod.Assessment]] =
       automod(post, n * 0.1)
-        .flatMapz: mod =>
-          for _ <- colls.post.updateField($id(post.id), "automod", mod).void
-          yield mod.some
+        .flatMapz: llm =>
+          val result = post.automod.foldLeft(llm)(_.updateByLLM(_))
+          for _ <- colls.post.updateField($id(post.id), "automod", result)
+          yield result.some
         .recoverWith: e =>
-          if n < 5 then delay((30 * math.pow(2, n).toInt).seconds)(attempt(n + 1))
+          if n < retries then delay((30 * math.pow(2, n).toInt).seconds)(attempt(n + 1))
           else
             logger.warn(s"automod ${post.id} failed after $retries retry attempts", e)
             fuccess(none)
-    attempt()
+    attempt(0)
 
   def liveLightsByIds(ids: List[UblogPostId]): Fu[List[UblogPost.LightPost]] =
     colls.post
@@ -252,7 +258,10 @@ final class UblogApi(
     mod.foreach(m => irc.ublogBlog(blogger, m.username, tier.map(Tier.name), note))
     colls.blog.update.one($id(UblogBlog.Id.User(blogger)), $set(setFields) ++ unsets, upsert = true).void
 
-  def modPost(post: UblogPost, d: UblogForm.ModPostData): Fu[Option[UblogAutomod.Assessment]] =
+  def modPost(
+      post: UblogPost,
+      d: UblogForm.ModPostData
+  )(using mod: Me): Fu[Option[UblogAutomod.Assessment]] =
     def maybeCopy(v: Option[String], base: Option[String]) =
       v match
         case Some("") => none // form sends empty string to unset
@@ -265,7 +274,8 @@ final class UblogApi(
         quality = d.quality | base.quality,
         evergreen = d.evergreen.orElse(base.evergreen),
         flagged = maybeCopy(d.flagged, base.flagged),
-        commercial = maybeCopy(d.commercial, base.commercial)
+        commercial = maybeCopy(d.commercial, base.commercial),
+        lockedBy = mod.some
       )
       for _ <- colls.post.updateField($id(post.id), "automod", assessment)
       yield assessment.some

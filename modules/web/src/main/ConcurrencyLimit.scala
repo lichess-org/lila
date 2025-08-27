@@ -16,7 +16,7 @@ final class ConcurrencyLimit[K](
 )(using Executor):
 
   private val storage = ConcurrencyLimit.Storage(ttl, maxConcurrency, toString)
-  private val logger = lila.log("concurrencylimit").branch(name)
+  private val logger = lila.memo.RateLimit.logger.branch(name)
   private val monitor = lila.mon.security.concurrencyLimit(key)
 
   def compose[T](k: K, msg: => String = ""): Option[Source[T, ?] => Source[T, ?]] =

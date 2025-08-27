@@ -61,7 +61,6 @@
   <string name="startVerySoon">中継はまもなく始まります。</string>
   <string name="notYetStarted">中継はまだ始まっていません。</string>
   <string name="officialWebsite">公式サイト</string>
-  <string name="standings">順位</string>
   <string name="officialStandings">公式順位</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">他のオプションは %s にあります</string>
   <string name="webmastersPage">ウェブ管理者のページ</string>

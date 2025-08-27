@@ -11,14 +11,24 @@ import lila.common.autoconfig.*
 import lila.core.net.IpAddress
 import lila.core.security.IsProxy
 
-final class GeoIP(config: GeoIP.Config)(using Executor):
+final class GeoIP(config: GeoIP.Config, scheduler: Scheduler)(using Executor):
 
-  private val reader: Option[DatabaseReader] =
-    try config.file.nonEmpty.option(DatabaseReader.Builder(java.io.File(config.file)).build)
-    catch
-      case e: Exception =>
-        logger.error("MaxMindIpGeo couldn't load", e)
-        none
+  private var reader: Option[DatabaseReader] = None
+
+  private def loadFromFile(): Unit =
+    if config.file.nonEmpty then
+      try
+        val time = lila.common.Chronometer.sync:
+          reader = DatabaseReader.Builder(java.io.File(config.file)).build.some
+        logger.info(s"MaxMindIpGeo loaded from ${config.file} in ${time.showDuration}")
+        cache.invalidateAll()
+      catch
+        case e: Exception =>
+          logger.error("MaxMindIpGeo couldn't load", e)
+          scheduler.scheduleOnce(5.minutes)(loadFromFile())
+          none
+
+  scheduler.scheduleOnce(23.seconds)(loadFromFile())
 
   private val cache: LoadingCache[IpAddress, Option[Location]] =
     lila.memo.CacheApi.scaffeineNoScheduler
@@ -31,7 +41,7 @@ final class GeoIP(config: GeoIP.Config)(using Executor):
     res <- Try(r.city(inet)).toOption
   yield Location(res)
 
-  def apply(ip: IpAddress): Option[Location] = cache.get(ip)
+  def apply(ip: IpAddress): Option[Location] = reader.isDefined.so(cache.get(ip))
 
   def orUnknown(ip: IpAddress): Location = apply(ip) | Location.unknown
 

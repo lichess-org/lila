@@ -12,18 +12,12 @@ import { render as renderKeyboardMove } from 'keyboardMove';
 import type * as studyDeps from '../study/studyDeps';
 import { relayView } from '../study/relay/relayView';
 import { studyView } from '../study/studyView';
-import {
-  viewContext,
-  renderBoard,
-  renderMain,
-  renderControls,
-  renderTools,
-  renderUnderboard,
-} from './components';
+import { viewContext, renderBoard, renderMain, renderTools, renderUnderboard } from './components';
 import { wikiToggleBox } from '../wiki';
 import { watchers } from 'lib/view/watchers';
 import { renderChat } from 'lib/chat/renderChat';
 import { displayColumns } from 'lib/device';
+import { renderControls } from './controls';
 
 let resizeCache: {
   columns: number;

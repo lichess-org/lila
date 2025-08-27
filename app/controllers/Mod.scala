@@ -442,10 +442,11 @@ final class Mod(
       else Redirect(routes.Mod.singleIp(ip))
   }
 
-  def blankPassword(username: UserStr) = Secure(_.SetEmail) { _ ?=> _ ?=>
+  def blankPassword(username: UserStr) = SecureOrScoped(_.SetEmail) { _ ?=> _ ?=>
     for
       _ <- env.mod.api.blankPassword(username)
       _ <- env.security.store.closeAllSessionsOf(username.id)
+      _ <- env.oAuth.tokenApi.revokeAllByUser(username.id)
     yield Redirect(routes.User.show(username)).flashSuccess("Password blanked")
   }
 

@@ -211,6 +211,12 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
               "or",
               button(cls := "button button-metal carousel-pin-btn")("pin")
             )
+        ),
+        span(cls := "ublog-mod-assess-footer")(
+          button(cls := "button button-metal assess-btn", data("url") := routes.Ublog.modAssess(post.id))(
+            if am.isDefined then "reassess" else "assess"
+          ),
+          am.flatMap(_.lockedBy).map(u => span(s"* $u"))
         )
       ),
       fieldset(cls := "submit-fields")(
