@@ -30,13 +30,13 @@
   <string name="whitePawn">biely pešiak</string>
   <string name="blackPawn">čierny pešiak</string>
   <string name="sanSymbols" comment="Keep this order: king queen rook bishop knight takes">K D V S J x</string>
-  <string name="sanTakes" comment="x in standard notation">berie</string>
+  <string name="sanTakes" comment="Indicates a piece captured another piece as part of a longer sentence.&#10;Examples:&#10;&quot;knight takes f 3&quot;&#10;&quot;e takes f 3&quot;&#10;The exact format can vary depending on the user's preferences. See the screenshot for the options as of 2025-08-23.&#10;&#10;Used only in blind mode when the screen reader verbally announces a move.&#10;&#10;'Takes' corresponds to &quot;x&quot; in Standard Algebraic Notation, for pieces being captured.">berie</string>
   <string name="sanCheck" comment="+ in standard notation">šach</string>
   <string name="sanCheckmate" comment="# in standard notation">mat</string>
-  <string name="sanPromotesTo" comment="= in standard notation">stavia</string>
-  <string name="sanShortCastling" comment="O-O in standard notation">malá rošáda</string>
-  <string name="sanLongCastling" comment="O-O-O in standard notation">veľká rošáda</string>
-  <string name="sanDroppedOn" comment="crazyhouse @">položený na</string>
+  <string name="sanPromotesTo" comment="Indicates a piece is promoted, as part of a longer sentence.&#10;Examples:&#10;&quot;e promotes to queen&quot;&#10;&#10;Used only in blind mode when the screen reader verbally announces a move.&#10;&#10;'Takes' corresponds to &quot;=&quot; in Standard Algebraic Notation, for pieces being promoted.">sa premení na</string>
+  <string name="sanShortCastling" comment="O-O in standard notation; also known as kingside castling">malá rošáda</string>
+  <string name="sanLongCastling" comment="O-O-O in standard notation; also known as queenside castling.">veľká rošáda</string>
+  <string name="sanDroppedOn" comment="Indicates a piece is dropped on a square in the Crazyhouse variant, as part of a longer sentence.&#10;&#10;In Crazyhouse, any pieces you capture are placed in your pocket. You can then drop those pieces onto any square on the board.&#10;&#10;Examples:&#10;&quot;bishop is dropped on c 4 check&quot; (B@c4+)&#10;&quot;pawn is dropped on f 7&quot; (@f7)&#10;&#10;Used only in blind mode when the screen reader verbally announces a move.&#10;&#10;'dropped on' corresponds to &quot;@&quot; in Crazyhouse's form of algebraic notation.">položený na</string>
   <string name="invalidMove">Nemožný ťah</string>
   <string name="premoveCancelled">Predťah zrušený</string>
   <string name="premoveRecorded">Predťah zaznamenaný: %s. Stlačte enter pre jeho zrušenie</string>
