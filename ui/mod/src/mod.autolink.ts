@@ -31,7 +31,7 @@ const greedyAutoLinks = [
 const pathMatchRe = new RegExp(
   `(?:^|(?<![/="'\\w])|(?<=[,;(]))(?:https://)?` +
     `(?:${location.hostname.replace('.', '\\.')})?` +
-    `(/(?:${greedyAutoLinks.join('|')})(?:/|\\?|#|\\b|$)(?:[^\\s,."';)]+)?)`,
+    `(/(?:${greedyAutoLinks.join('|')})(?:/|\\?|#|\\b|$)(?:[^\\s,."';:)]+)?)`,
   'gi',
 );
 // note that this path match regex is wrong in a few ways - most notably excluding
