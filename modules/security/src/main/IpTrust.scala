@@ -41,11 +41,9 @@ final class IpTrust(proxyApi: Ip2ProxyApi, geoApi: GeoIP, firewallApi: Firewall)
     import lila.memo.RateLimit as RL
     private val limiter = RL[IpAddress](credits, duration, key)
 
-    def apply[A](default: => Fu[A], cost: RL.Cost = 1, msg: => String = "")(using
-        req: RequestHeader
-    )(
+    def apply[A](default: => Fu[A], cost: RL.Cost = 1, msg: => String = "")(
         op: => Fu[A]
-    )(using Executor): Fu[A] =
+    )(using req: RequestHeader)(using Executor): Fu[A] =
       val ip = HTTPRequest.ipAddress(req)
       for
         proxy <- proxyApi.ofReq(req)
