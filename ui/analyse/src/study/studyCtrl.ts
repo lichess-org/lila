@@ -247,6 +247,8 @@ export default class StudyCtrl {
 
     this.instantiateGamebookPlay();
 
+    pubsub.on('socket.idle.resume', site.reload); // or this.xhrReload(true) ??
+
     window.addEventListener('popstate', () => window.location.reload());
   }
 

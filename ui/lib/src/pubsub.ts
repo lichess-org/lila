@@ -20,6 +20,7 @@ export type PubsubEvent =
   | 'ply.trigger'
   | 'round.suggestion'
   | 'socket.close'
+  | 'socket.idle.resume'
   | 'socket.in.blockedBy'
   | 'socket.in.challenges'
   | 'socket.in.chat_reinstate'

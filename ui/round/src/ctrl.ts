@@ -152,6 +152,8 @@ export default class RoundController implements MoveRootCtrl {
       }
     });
 
+    pubsub.on('socket.idle.resume', site.reload);
+
     if (!this.opts.noab && this.isPlaying()) ab.init(this);
   }
 

@@ -357,7 +357,7 @@ class WsSocket {
       () => {
         this.options.idle = false;
         if (this.ws) clearTimeout(disconnectTimeout);
-        else location.reload();
+        else pubsub.emit('socket.idle.resume');
       },
     );
   };
