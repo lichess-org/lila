@@ -11,6 +11,7 @@ const start = makeStart(patch, studyDeps);
 
 export function initModule(cfg: AnalyseOpts) {
   cfg.socketSend = wsConnect(cfg.socketUrl || '/analysis/socket/v5', cfg.socketVersion ?? false, {
+    options: { reloadOnResume: true },
     receive: (t: string, d: any) => analyse.socketReceive(t, d),
     ...(cfg.embed ? { params: { flag: 'embed' } } : {}),
   }).send as AnalyseSocketSend;
