@@ -742,6 +742,7 @@ export default class AnalyseCtrl implements CevalHandler {
   cevalEnabled = (enable?: boolean): boolean | 'force' => {
     const force = !!this.practice || !!this.retro;
     if (enable === undefined) return force ? 'force' : this.ceval.available() && this.cevalEnabledProp();
+    this.ceval.showEnginePrefs(false);
     if (!force) this.showCevalProp(enable);
     if (enable === this.cevalEnabledProp()) return enable;
     if (!force) this.cevalEnabledProp(enable);
