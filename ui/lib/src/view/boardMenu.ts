@@ -1,6 +1,6 @@
 import { h, type VNode } from 'snabbdom';
 import { type Toggle, myUserId, onClickAway } from '@/common';
-import { addPointerListeners } from '@/device';
+import { addPointerListeners } from '@/pointer';
 import * as licon from '@/licon';
 import { type MaybeVNode, type MaybeVNodes, dataIcon, onInsert } from '@/snabbdom';
 import { type ToggleSettings, toggle } from '@/view/controls';
@@ -10,7 +10,7 @@ export const toggleButton = (toggle: Toggle, title: string): VNode =>
   h('button.fbt.board-menu-toggle', {
     class: { active: toggle() },
     attrs: { title, 'data-icon': licon.Hamburger },
-    hook: onInsert(el => addPointerListeners(el, toggle.toggle)),
+    hook: onInsert(el => addPointerListeners(el, { click: toggle.toggle })),
   });
 
 export const boardMenu = (
@@ -37,7 +37,7 @@ export class BoardMenu {
       {
         class: { active },
         attrs: { title: 'Hotkey: f', ...dataIcon(licon.ChasingArrows) },
-        hook: onInsert(el => addPointerListeners(el, onChange)),
+        hook: onInsert(el => addPointerListeners(el, { click: onChange })),
       },
       name,
     );

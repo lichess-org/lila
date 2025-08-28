@@ -8,7 +8,7 @@ import * as licon from 'lib/licon';
 import { stepwiseScroll } from 'lib/view/controls';
 import { type VNode, h } from 'snabbdom';
 import { onInsert, bindNonPassive, hl } from 'lib/snabbdom';
-import { addPointerListeners } from 'lib/device';
+import { addPointerListeners } from 'lib/pointer';
 import { render as treeView } from './tree';
 import { view as cevalView } from 'lib/ceval/ceval';
 import { renderVoiceBar } from 'voice';
@@ -40,13 +40,15 @@ function controls(ctrl: PuzzleCtrl): VNode {
       'div.jumps',
       {
         hook: onInsert(el =>
-          addPointerListeners(el, e => {
-            const action = dataAct(e);
-            if (action === 'prev') control.prev(ctrl);
-            else if (action === 'next') control.next(ctrl);
-            else if (action === 'first') control.first(ctrl);
-            else if (action === 'last') control.last(ctrl);
-            ctrl.redraw();
+          addPointerListeners(el, {
+            click: e => {
+              const action = dataAct(e);
+              if (action === 'prev') control.prev(ctrl);
+              else if (action === 'next') control.next(ctrl);
+              else if (action === 'first') control.first(ctrl);
+              else if (action === 'last') control.last(ctrl);
+              ctrl.redraw();
+            },
           }),
         ),
       },
@@ -65,7 +67,7 @@ function controls(ctrl: PuzzleCtrl): VNode {
 let cevalShown = false;
 
 export default function (ctrl: PuzzleCtrl): VNode {
-  const showCeval = ctrl.showComputer(),
+  const showCeval = ctrl.showAnalysis(),
     gaugeOn = ctrl.showEvalGauge();
   if (cevalShown !== showCeval) {
     if (!cevalShown) ctrl.autoScrollNow = true;

@@ -8,6 +8,7 @@ import { toggle, type ToggleSettings } from 'lib/view/controls';
 import type AnalyseCtrl from '../ctrl';
 import { cont as contRoute } from 'lib/game/router';
 import * as pgnExport from '../pgnExport';
+import { clamp } from 'lib/algo';
 
 interface AutoplaySpeed {
   name: keyof I18n['site'];
@@ -64,7 +65,7 @@ function studyButton(ctrl: AnalyseCtrl) {
       attrs: { method: 'post', action: '/study/as' },
       hook: bind('submit', e => {
         const pgnInput = (e.target as HTMLElement).querySelector('input[name=pgn]') as HTMLInputElement;
-        if (pgnInput && (ctrl.synthetic || ctrl.persistence?.isDirty)) {
+        if (pgnInput && (ctrl.synthetic || ctrl.idbTree.isDirty)) {
           pgnInput.value = pgnExport.renderFullTxt(ctrl);
         }
       }),
@@ -83,8 +84,8 @@ function studyButton(ctrl: AnalyseCtrl) {
 export function view(ctrl: AnalyseCtrl): VNode {
   const d = ctrl.data,
     canContinue = !ctrl.ongoing && d.game.variant.key === 'standard',
-    ceval = ctrl.getCeval(),
-    mandatoryCeval = ctrl.mandatoryCeval(),
+    canPractice = ctrl.isCevalAllowed() && !ctrl.isEmbed && !ctrl.isGamebook() && !ctrl.practice,
+    canRetro = ctrl.hasFullComputerAnalysis() && !ctrl.isEmbed && !ctrl.retro,
     linkAttrs = { rel: ctrl.isEmbed ? '' : 'nofollow', target: ctrl.isEmbed ? '_blank' : '' };
 
   const tools: MaybeVNodes = [
@@ -120,6 +121,20 @@ export function view(ctrl: AnalyseCtrl): VNode {
           },
           i18n.site.boardEditor,
         ),
+      displayColumns() === 1 && [
+        canPractice &&
+          hl(
+            'a',
+            { hook: bind('click', () => ctrl.togglePractice()), attrs: dataIcon(licon.Bullseye) },
+            'Practice with computer',
+          ),
+        canRetro &&
+          hl(
+            'a',
+            { hook: bind('click', ctrl.toggleRetro, ctrl.redraw), attrs: dataIcon(licon.GraduateCap) },
+            'Learn from your mistakes',
+          ),
+      ],
       canContinue &&
         hl(
           'a',
@@ -132,7 +147,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
           i18n.site.continueFromHere,
         ),
       studyButton(ctrl),
-      ctrl.persistence?.isDirty &&
+      ctrl.idbTree.isDirty &&
         hl(
           'a',
           {
@@ -140,47 +155,45 @@ export function view(ctrl: AnalyseCtrl): VNode {
               title: i18n.site.clearSavedMoves,
               'data-icon': licon.Trash,
             },
-            hook: bind('click', ctrl.persistence.clear),
+            hook: bind('click', ctrl.idbTree.clear),
           },
           i18n.site.clearSavedMoves,
         ),
     ]),
   ];
 
-  const cevalConfig: LooseVNodes = ceval?.allowed() && [
+  const cevalConfig: LooseVNodes = ctrl.study?.isCevalAllowed() !== false && [
     displayColumns() > 1 && hl('h2', i18n.site.computerAnalysis),
-    !mandatoryCeval &&
-      ctrlToggle(
-        {
-          name: displayColumns() === 1 ? i18n.site.computerAnalysis : i18n.site.enable,
-          title: 'Stockfish (Hotkey: z)',
-          id: 'all',
-          checked: ctrl.showComputer(),
-          change: ctrl.toggleComputer,
-        },
-        ctrl,
-      ),
-    ctrl.showComputer() && [
-      ctrlToggle(
-        {
-          name: i18n.site.bestMoveArrow,
-          title: 'Hotkey: a',
-          id: 'shapes',
-          checked: ctrl.showAutoShapes(),
-          change: ctrl.toggleAutoShapes,
-        },
-        ctrl,
-      ),
+    ctrlToggle(
+      {
+        name: 'Show fishnet analysis',
+        title: 'Show fishnet analysis (Hotkey: z)',
+        id: 'all',
+        checked: ctrl.showFishnetAnalysis(),
+        change: ctrl.toggleFishnetAnalysis,
+      },
+      ctrl,
+    ),
+    ctrlToggle(
+      {
+        name: i18n.site.bestMoveArrow,
+        title: 'Hotkey: a',
+        id: 'shapes',
+        checked: ctrl.showAutoShapes(),
+        change: ctrl.showAutoShapes,
+      },
+      ctrl,
+    ),
+    displayColumns() > 1 &&
       ctrlToggle(
         {
           name: i18n.site.evaluationGauge,
           id: 'gauge',
           checked: ctrl.showGauge(),
-          change: ctrl.toggleGauge,
+          change: ctrl.showGauge,
         },
         ctrl,
       ),
-    ],
   ];
 
   const displayConfig = [
@@ -190,21 +203,11 @@ export function view(ctrl: AnalyseCtrl): VNode {
         name: i18n.site.inlineNotation,
         title: 'Shift+I',
         id: 'inline',
-        checked: ctrl.treeView.inline(),
+        checked: ctrl.treeView.modePreference() === 'inline',
         change(v) {
-          ctrl.treeView.set(v);
+          ctrl.treeView.modePreference(v ? 'inline' : 'column');
           ctrl.actionMenu.toggle();
         },
-      },
-      ctrl,
-    ),
-    ctrlToggle(
-      {
-        name: i18n.site.showVariationArrows,
-        title: 'Variation navigation arrows',
-        id: 'variationArrows',
-        checked: ctrl.variationArrowsProp(),
-        change: ctrl.toggleVariationArrows,
       },
       ctrl,
     ),
@@ -224,7 +227,9 @@ export function view(ctrl: AnalyseCtrl): VNode {
   return hl('div.action-menu', [
     tools,
     displayConfig,
+    displayColumns() > 1 && renderVariationOpacitySlider(ctrl),
     cevalConfig,
+    displayColumns() === 1 && renderVariationOpacitySlider(ctrl),
     ctrl.mainline.length > 4 && [hl('h2', i18n.site.replayMode), autoplayButtons(ctrl)],
     canContinue &&
       hl('div.continue-with.none.g_' + d.game.id, [
@@ -253,5 +258,33 @@ export function view(ctrl: AnalyseCtrl): VNode {
           i18n.site.playWithAFriend,
         ),
       ]),
+  ]);
+}
+
+function renderVariationOpacitySlider(ctrl: AnalyseCtrl) {
+  return hl('span.setting', [
+    hl('label', 'Variation opacity'),
+    hl('input.range', {
+      key: 'variation-arrows',
+      attrs: { min: 0, max: 1, step: 0.1, type: 'range', value: ctrl.variationArrowOpacity() || 0 },
+      props: { value: ctrl.variationArrowOpacity() || 0 },
+      hook: {
+        insert: (vnode: VNode) => {
+          const input = vnode.elm as HTMLInputElement;
+          input.addEventListener('input', () => {
+            ctrl.variationArrowOpacity(parseFloat(input.value));
+          });
+          input.addEventListener('wheel', e => {
+            e.preventDefault();
+            ctrl.variationArrowOpacity(
+              clamp((ctrl.variationArrowOpacity() || 0) + (e.deltaY > 0 ? -0.1 : 0.1), {
+                min: 0,
+                max: 1,
+              }),
+            );
+          });
+        },
+      },
+    }),
   ]);
 }
