@@ -13,9 +13,9 @@
     <item quantity="other">Вежбаo/ла %1$s позиција на %2$s</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
-    <item quantity="one">Решили %s тактички проблем</item>
-    <item quantity="few">Решили %s тактичка проблема</item>
-    <item quantity="other">Решили %s тактичких проблема</item>
+    <item quantity="one">Решио/ла %s тренинг проблем</item>
+    <item quantity="few">Решио/ла %s тренинг проблема</item>
+    <item quantity="other">Решио/ла %s тренинг проблема</item>
   </plurals>
   <plurals name="playedNbGames">
     <item quantity="one">Одиграо/ла %1$s %2$s партију</item>
@@ -68,9 +68,9 @@
     <item quantity="other">Направио/ла %s нових студија</item>
   </plurals>
   <plurals name="competedInNbTournaments">
-    <item quantity="one">Учествовали у %s турниру</item>
-    <item quantity="few">Учествовали у %s турнира</item>
-    <item quantity="other">Учествовали у %s турнира</item>
+    <item quantity="one">Такмичио/ла се у %s Арена турниру</item>
+    <item quantity="few">Такмичио/ла се у %s Арена турнира</item>
+    <item quantity="other">Такмичио/ла се у %s Арена турнира</item>
   </plurals>
   <plurals name="rankedInTournament">
     <item quantity="one">Рангиран #%1$s (првих %2$s%%) са %3$s партијом у %4$s</item>
@@ -78,7 +78,7 @@
     <item quantity="other">Рангиран #%1$s (првих %2$s%%) са %3$s партија у %4$s</item>
   </plurals>
   <string name="rankedInSwissTournament">Рангиран #%1$s у %2$s</string>
-  <string name="signedUp">Пријавили се на lichess.org</string>
+  <string name="signedUp">Пријавио/ла се за lichess.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Ушли у %s тим</item>
     <item quantity="few">Ушли у %s тима</item>
