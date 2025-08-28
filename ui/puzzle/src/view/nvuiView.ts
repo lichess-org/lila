@@ -48,7 +48,7 @@ export function renderNvui({
       h('h2', 'Puzzle info'),
       puzzleBox(ctrl),
       theme(ctrl),
-      !ctrl.streak && userBox(ctrl),
+      ctrl.streak ? undefined : userBox(ctrl),
       h('h2', 'Moves'),
       h(
         'p.moves',
