@@ -39,13 +39,13 @@ export function addPointerListeners(el: HTMLElement, listeners: PointerListeners
     const [dx, dy] = [e.clientX - g.x, e.clientY - g.y];
 
     if (!g.lastMove && Math.abs(dy) > 6) return reset(e);
-    if (!hscrub) return;
+    if (!hscrub || Math.abs(dx) < 5) return;
     clearTimeout(g.timer);
     g.timer = 0;
 
     if (dx && performance.now() - g.lastMove > scrubInterval) {
       if (!el.hasPointerCapture(e.pointerId)) el.setPointerCapture(e.pointerId);
-      e.preventDefault(); // only preventDefault with capture, no need for passive: false
+      e.preventDefault(); // only preventDefault when we hve capture, no need for passive: false
       g.lastMove = performance.now();
       if (hscrub(dx, e)) reset(e);
       else [g.x, g.y] = [e.clientX, e.clientY];
