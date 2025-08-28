@@ -32,8 +32,7 @@ object ChatUi:
       withNoteAge: Option[Int] = None,
       writeable: Boolean = true,
       localMod: Boolean = false,
-      voiceChat: Boolean = false,
-      opponentId: Option[UserId] = None
+      voiceChat: Boolean = false
   )(using Context): JsObject =
     json(
       chat.chat,
@@ -46,8 +45,7 @@ object ChatUi:
       resourceId = resourceId,
       restricted = chat.restricted,
       localMod = localMod,
-      voiceChat = voiceChat,
-      opponentId = opponentId
+      voiceChat = voiceChat
     )
 
   def json(
@@ -63,8 +61,7 @@ object ChatUi:
       localMod: Boolean = false,
       broadcastMod: Boolean = false,
       voiceChat: Boolean = false,
-      hostIds: List[UserId] = Nil,
-      opponentId: Option[UserId] = None
+      hostIds: List[UserId] = Nil
   )(using ctx: Context): JsObject =
     val noteId = (withNoteAge.isDefined && ctx.noBlind).option(chat.id.value.take(8))
     if ctx.kid.yes then
@@ -86,10 +83,7 @@ object ChatUi:
             .add("userId" -> ctx.userId)
             .add("loginRequired" -> chat.loginRequired)
             .add("restricted" -> restricted)
-            .add("voiceChat" -> (voiceChat && ctx.isAuth))
-            .add(
-              "opponent" -> opponentId.map(id => Json.obj("user" -> Json.obj("id" -> id.value)))
-            ),
+            .add("voiceChat" -> (voiceChat && ctx.isAuth)),
           "writeable" -> writeable,
           "public" -> public,
           "permissions" -> Json
