@@ -339,8 +339,8 @@
   </plurals>
   <plurals name="nbPlaying">
     <item quantity="one">%s игра</item>
-    <item quantity="few">%s играју</item>
-    <item quantity="other">%s играју</item>
+    <item quantity="few">%s игра</item>
+    <item quantity="other">%s игра</item>
   </plurals>
   <string name="exportGames">Извези партије</string>
   <string name="ratingRange">Распон рејтинга</string>
