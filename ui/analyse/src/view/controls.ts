@@ -205,4 +205,5 @@ function scrubHelpAcknowledged(ack?: boolean) {
   const key = `analyse.help.scrub-acknowledged.${myUserId() ?? 'anon'}`;
   if (ack === undefined) return !!localStorage.getItem(key);
   if (ack) localStorage.setItem(key, '1');
+  return ack;
 }
