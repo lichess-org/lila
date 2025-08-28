@@ -1023,6 +1023,9 @@ export default class AnalyseCtrl implements CevalHandler {
       if (v === undefined || isNaN(v)) return value > 0 ? value : false;
       value = Math.min(1, Math.max(-1, v));
       localStorage.setItem('analyse.variation-arrow-opacity', value.toString());
+      this.setAutoShapes();
+      this.chessground.redrawAll();
+      this.redraw();
       return value;
     };
   }
