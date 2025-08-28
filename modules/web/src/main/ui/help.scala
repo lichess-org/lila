@@ -73,7 +73,7 @@ object help:
         )
       )
     )
-  def analyse(isStudy: Boolean, disclosure: Boolean)(using Translate) =
+  def analyse(isStudy: Boolean)(using Translate) =
     frag(
       h2(trans.site.keyboardShortcuts()),
       table(
@@ -86,24 +86,19 @@ object help:
             frag(kbd("←"), or, kbd("→"), alt, kbd("k"), or, kbd("j")),
             trans.site.keyMoveBackwardOrForward()
           ),
+          row(frag(kbd("↑"), or, kbd("↓")), trans.site.keyCycleSelectedVariation()),
           row(
             frag(kbd("shift"), kbd("←"), or, kbd("k"), alt, kbd("shift"), kbd("→"), or, kbd("j")),
             "Go to previous/next branch"
           ),
           row(frag(tap, kbd("shift")), "Step to next line"),
-          if disclosure then
-            frag(
-              row(frag(tap, kbd("ctrl")), "Show/hide branch")
-            )
-          else
-            row(frag(tap, kbd("shift"), alt, kbd("↑"), or, kbd("↓")), trans.site.keyCycleSelectedVariation())
-          ,
+          row(frag(tap, kbd("ctrl")), "Show/hide current variation"),
           header(trans.site.analysisOptions()),
           flip,
           localAnalysis,
           row(kbd("z"), trans.site.toggleAllAnalysis()),
           row(kbd("a"), trans.site.bestMoveArrow()),
-          (!disclosure).option(row(kbd("v"), trans.site.toggleVariationArrows())),
+          row(kbd("v"), trans.site.toggleVariationArrows()),
           row(kbd("r"), trans.site.keyRequestComputerAnalysis()),
           row(kbd("enter"), trans.site.keyNextLearnFromYourMistakes()),
           row(kbd("b"), trans.site.keyNextBlunder()),

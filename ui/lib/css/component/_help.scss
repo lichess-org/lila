@@ -61,12 +61,4 @@ dialog .help {
   .desc:first-letter {
     text-transform: uppercase;
   }
-
-  .split {
-    display: flex;
-
-    > * {
-      flex: 1;
-    }
-  }
 }

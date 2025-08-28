@@ -54,6 +54,7 @@ async function boot(
     ? `/watch/${data.game.id}/${data.player.color}/v6`
     : `/play/${data.game.id}${data.player.id}/v6`;
   opts.socketSend = wsConnect(socketUrl, data.player.version, {
+    options: { reloadOnResume: true },
     params: { userTv: data.userTv && data.userTv.id },
     receive(t: string, d: any) {
       round.socketReceive(t, d);

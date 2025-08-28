@@ -15,6 +15,17 @@ export const last = (ctrl: AnalyseCtrl): void => ctrl.userJumpIfCan(treePath.fro
 
 export const first = (ctrl: AnalyseCtrl): void => ctrl.userJump(treePath.root);
 
+function exitVariation(ctrl: AnalyseCtrl): void {
+  if (ctrl.onMainline) return;
+  let found,
+    path = treePath.root;
+  ctrl.nodeList.slice(1, -1).forEach(function (n: Tree.Node) {
+    path += n.id;
+    if (n.children[1]) found = path;
+  });
+  if (found) ctrl.userJump(found);
+}
+
 export function previousBranch(ctrl: AnalyseCtrl): void {
   let path = treePath.init(ctrl.path),
     parent = ctrl.tree.nodeAtPath(path);
@@ -36,15 +47,4 @@ export function nextBranch(ctrl: AnalyseCtrl): void {
   if (child) ctrl.userJumpIfCan(path + child.id);
   else if (ctrl.tree.pathIsMainline(ctrl.path)) last(ctrl);
   else exitVariation(ctrl);
-}
-
-function exitVariation(ctrl: AnalyseCtrl): void {
-  if (ctrl.onMainline) return;
-  let found,
-    path = treePath.root;
-  ctrl.nodeList.slice(1, -1).forEach(function (n: Tree.Node) {
-    path += n.id;
-    if (n.children[1]) found = path;
-  });
-  if (found) ctrl.userJump(found);
 }

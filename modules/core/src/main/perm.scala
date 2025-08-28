@@ -76,7 +76,7 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
   case ManageSimul extends Permission("MANAGE_SIMUL", "Manage simuls")
   case ChangePermission extends Permission("CHANGE_PERMISSION", "Change permissions")
   case PublicMod extends Permission("PUBLIC_MOD", "Mod badge")
-  case Developer extends Permission("DEVELOPER", "Developer badge")
+  case Tech extends Permission("DEVELOPER", "Tech badge")
   case ContentTeam extends Permission("CONTENT_TEAM", "Content Team badge")
   case BroadcastTeam extends Permission("BROADCAST_TEAM", "Broadcast Team badge")
   case Coach extends Permission("COACH", "Is a coach")
@@ -259,7 +259,7 @@ object Permission:
   val all: Set[Permission] = values.toSet
 
   val nonModPermissions: Set[Permission] =
-    Set(Beta, LichessTeam, Coach, Teacher, Developer, Verified, ContentTeam, BroadcastTeam, ApiHog, BotEditor)
+    Set(Beta, LichessTeam, Coach, Teacher, Tech, Verified, ContentTeam, BroadcastTeam, ApiHog, BotEditor)
 
   val modPermissions: Set[Permission] = all.diff(nonModPermissions)
 

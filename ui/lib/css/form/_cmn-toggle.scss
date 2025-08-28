@@ -120,10 +120,6 @@
       }
 
       &::after {
-        // @extend %metal;
-        // @include if-transp {
-        //   background: linear-gradient(to bottom, hsl($site-hue, 7%, 22), hsl($site-hue, 5%, 19) 100%);
-        // }
         transition: margin $transition-duration;
       }
     }

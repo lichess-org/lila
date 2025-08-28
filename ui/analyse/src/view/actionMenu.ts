@@ -271,7 +271,9 @@ function renderVariationOpacitySlider(ctrl: AnalyseCtrl) {
       hook: {
         insert: (vnode: VNode) => {
           const input = vnode.elm as HTMLInputElement;
-          input.addEventListener('input', () => ctrl.variationArrowOpacity(parseFloat(input.value)));
+          input.addEventListener('input', () => {
+            ctrl.variationArrowOpacity(parseFloat(input.value));
+          });
           input.addEventListener('wheel', e => {
             e.preventDefault();
             ctrl.variationArrowOpacity(

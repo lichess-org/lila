@@ -99,8 +99,8 @@ export interface CevalOpts {
   onUciHover: (hovering: Hovering | null) => void;
   redraw: Redraw;
   search?: Search;
-  externalEngines?: ExternalEngineInfoFromServer[];
   onSelectEngine?: () => void;
+  externalEngines?: ExternalEngineInfoFromServer[];
 }
 
 export interface Hovering {
@@ -127,7 +127,6 @@ export interface CevalHandler {
   toggleThreatMode(): void;
   outcome(): Outcome | undefined;
   showEvalGauge: Prop<boolean>;
-  //currentEvals(): NodeEvals;
   ongoing: boolean;
   playUci(uci: string): void;
   playUciList(uciList: string[]): void;

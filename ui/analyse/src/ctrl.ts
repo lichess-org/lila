@@ -742,7 +742,6 @@ export default class AnalyseCtrl implements CevalHandler {
   cevalEnabled = (enable?: boolean): boolean | 'force' => {
     const force = !!this.practice || !!this.retro;
     if (enable === undefined) return force ? 'force' : this.ceval.available() && this.cevalEnabledProp();
-    this.ceval.showEnginePrefs(false);
     if (!force) this.showCevalProp(enable);
     if (enable === this.cevalEnabledProp()) return enable;
     if (!force) this.cevalEnabledProp(enable);
@@ -1024,9 +1023,11 @@ export default class AnalyseCtrl implements CevalHandler {
       if (v === undefined || isNaN(v)) return value > 0 ? value : false;
       value = Math.min(1, Math.max(-1, v));
       localStorage.setItem('analyse.variation-arrow-opacity', value.toString());
-      this.setAutoShapes();
-      this.chessground.redrawAll();
-      this.redraw();
+      if (this.showVariationArrows()) {
+        this.setAutoShapes();
+        this.chessground.redrawAll();
+        this.redraw();
+      }
       return value;
     };
   }
