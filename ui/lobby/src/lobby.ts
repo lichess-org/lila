@@ -23,6 +23,7 @@ export function initModule(opts: LobbyOpts) {
   ];
 
   opts.socketSend = wsConnect('/lobby/socket/v5', false, {
+    options: { reloadOnResume: true },
     receive: (t: string, d: any) => lobbyCtrl.socket.receive(t, d),
     events: {
       n(_: string, msg: any) {

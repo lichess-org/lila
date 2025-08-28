@@ -1,4 +1,4 @@
-import { promises as fs } from 'fs';
+import { promises as fs } from 'node:fs';
 import fg from 'fast-glob';
 import { env, c } from './env.ts';
 
@@ -27,8 +27,8 @@ export async function clean(globs?: string[] | 'force'): Promise<void> {
   for (const glob of Array.isArray(globs) ? globs : allGlobs) {
     env.log(`Cleaning '${c.cyan(glob)}'...`);
     for await (const f of fg.stream(glob, { cwd: env.rootDir, ...globOpts })) {
-      if (f.includes('ui/.build') && !f.includes('/build')) continue;
-      if (f[f.length - 1] === '/') await fs.rm(f, { recursive: true });
+      if (f.includes('ui/.build') && !f.includes('/build')) continue; // skip .build/node_modules
+      if (f.slice(-1) === '/') await fs.rm(f, { recursive: true });
       else await fs.unlink(f);
     }
   }

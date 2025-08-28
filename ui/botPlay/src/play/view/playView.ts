@@ -8,7 +8,7 @@ import { botAssetUrl } from 'lib/bot/botLoader';
 import { type BotInfo, Bot } from 'lib/bot/bot';
 import { autoScroll } from './autoScroll';
 import { repeater } from 'lib';
-import { addPointerListeners } from 'lib/device';
+import { addPointerListeners } from 'lib/pointer';
 import { type StatusData, statusOf as viewStatus } from 'lib/game/view/status';
 import { toggleButton as boardMenuToggleButton } from 'lib/view/boardMenu';
 import boardMenu from './boardMenu';
@@ -138,7 +138,7 @@ const viewNavigation = (ctrl: PlayCtrl) => {
       return hl('button.fbt.repeatable', {
         class: { glowing: i === 3 && !ctrl.isOnLastPly() },
         attrs: { disabled: !enabled, 'data-icon': b[0], 'data-ply': enabled ? b[1] : '-' },
-        hook: onInsert(el => addPointerListeners(el, e => goThroughMoves(ctrl, e), 'click')),
+        hook: onInsert(el => addPointerListeners(el, { click: e => goThroughMoves(ctrl, e), hold: 'click' })),
       });
     }),
     boardMenuToggleButton(ctrl.menu, i18n.site.menu),

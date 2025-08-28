@@ -1,4 +1,4 @@
-import type { ParentCtrl } from '../types';
+import type { CevalHandler } from '../types';
 import type CevalCtrl from '../ctrl';
 import { fewerCores } from '../util';
 import { rangeConfig } from '../../view/controls';
@@ -13,11 +13,11 @@ const allSearchTicks = [4, 6, 8, 10, 12, 15, 20, 30, Number.POSITIVE_INFINITY];
 
 const formatHashSize = (v: number): string => (v < 1000 ? v + 'MB' : Math.round(v / 1024) + 'GB');
 
-export function renderCevalSettings(ctrl: ParentCtrl): VNode | null {
-  const ceval = ctrl.getCeval(),
+export function renderCevalSettings(ctrl: CevalHandler): VNode | null {
+  const ceval = ctrl.ceval,
     minThreads = ceval.engines.active?.minThreads ?? 1,
     maxThreads = ceval.maxThreads,
-    engCtrl = ctrl.getCeval().engines,
+    engCtrl = ctrl.ceval.engines,
     searchTicks = allSearchTicks.filter(x => x * 1000 <= ceval.engines.maxMovetime);
 
   let observer: ResizeObserver;
@@ -190,12 +190,11 @@ function setupTick(v: VNode, ceval: CevalCtrl) {
   $(tick).toggleClass('recommended', ceval.threads === ceval.recommendedThreads);
 }
 
-function engineSelection(ctrl: ParentCtrl) {
-  const ceval = ctrl.getCeval(),
+function engineSelection(ctrl: CevalHandler) {
+  const ceval = ctrl.ceval,
     active = ceval.engines.active,
     engines = ceval.engines.supporting(ceval.opts.variant.key),
     external = ceval.engines.external;
-  if (!engines?.length || !ceval.allowed()) return [];
   return [
     hl('div.setting', [
       'Engine:',
