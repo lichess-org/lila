@@ -14,7 +14,7 @@ type Action =
   | 'prev'
   | 'next'
   | 'last'
-  | 'scrub'
+  | 'scrub-help'
   | 'opening-explorer'
   | 'menu'
   | 'analysis'
@@ -64,7 +64,7 @@ export function renderControls(ctrl: AnalyseCtrl) {
         jumpButton(licon.LessThan, 'prev', canJumpPrev),
         displayColumns() === 1 &&
           !scrubHelpAcknowledged() &&
-          hl('i.scrub', { attrs: { 'data-act': 'scrub' } }, licon.InfoCircle),
+          hl('i.scrub', { attrs: { 'data-act': 'scrub-help' } }, licon.InfoCircle),
         jumpButton(licon.GreaterThan, 'next', canJumpNext),
         displayColumns() > 1 &&
           jumpButton(licon.JumpLast, 'last', ctrl.node !== ctrl.mainline[ctrl.mainline.length - 1]),
@@ -145,7 +145,7 @@ function clickControl(ctrl: AnalyseCtrl, e: PointerEvent) {
   else if (action === 'next') control.next(ctrl);
   else if (action === 'first') control.first(ctrl);
   else if (action === 'last') control.last(ctrl);
-  else if (action === 'scrub') helpScrub(ctrl);
+  else if (action === 'scrub-help') scrubHelp(ctrl);
   else if (action === 'opening-explorer') ctrl.toggleExplorer();
   else if (action === 'menu') ctrl.toggleActionMenu();
   else if (action === 'analysis') window.open(ctrl.studyPractice!.analysisUrl(), '_blank');
@@ -183,7 +183,7 @@ function scrubControl(ctrl: AnalyseCtrl, dx: number | 'pointerup') {
 const jumpButton = (icon: string, effect: string, enabled: boolean): VNode =>
   hl('button.fbt.move', { class: { disabled: !enabled }, attrs: { 'data-act': effect, 'data-icon': icon } });
 
-function helpScrub(ctrl: AnalyseCtrl) {
+function scrubHelp(ctrl: AnalyseCtrl) {
   domDialog({
     htmlText: $html`
       <p>
