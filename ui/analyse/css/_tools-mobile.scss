@@ -1,8 +1,5 @@
 @include mq-is-col1 {
   .analyse__tools {
-    .ceval .switch {
-      display: none;
-    }
     .sub-box {
       order: 0;
     }
@@ -14,6 +11,13 @@
     }
     .analyse__moves {
       order: 2;
+    }
+    .ceval .engine {
+      margin-inline-start: 12px;
+    }
+    .ceval .switch,
+    .ceval pearl {
+      display: none;
     }
   }
   .analyse__controls {
@@ -110,7 +114,7 @@
     [data-mode] .bar {
       display: none;
     }
-    [data-mode]:not(.active, .latent) .bar {
+    [data-mode]:not(.active) .bar {
       position: absolute;
       display: block;
       left: 0;
