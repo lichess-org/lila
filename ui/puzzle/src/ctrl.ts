@@ -514,7 +514,7 @@ export default class PuzzleCtrl implements CevalHandler {
   isCevalAllowed = (): boolean => this.mode === 'view' && !this.outcome();
 
   startCeval = (): void => {
-    if (this.ceval.available() && this.isCevalAllowed()) this.doStartCeval();
+    if (this.cevalEnabled()) this.doStartCeval();
   };
 
   private doStartCeval = throttle(800, () =>
@@ -523,17 +523,21 @@ export default class PuzzleCtrl implements CevalHandler {
 
   nextNodeBest = () => treeOps.withMainlineChild(this.node, n => n.eval?.best);
 
-  cevalEnabled = storedBooleanPropWithEffect('engine.enabled', false, v => {
-    if (!v) {
+  cevalEnabledProp = storedBooleanProp('engine.enabled', false);
+  cevalEnabled = (enable?: boolean) => {
+    if (enable === undefined) return this.cevalEnabledProp() && this.isCevalAllowed();
+    this.cevalEnabledProp(enable);
+    if (enable && this.isCevalAllowed()) this.startCeval();
+    else {
       this.threatMode(false);
       this.ceval.stop();
     }
-    this.setAutoShapes();
-    this.startCeval();
     this.autoScrollRequested = true;
+    this.setAutoShapes();
     this.ceval.showEnginePrefs(false);
     this.redraw();
-  });
+    return enable;
+  };
 
   restartCeval = (): void => {
     this.ceval.stop();
