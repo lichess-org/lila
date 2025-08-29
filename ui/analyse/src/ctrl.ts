@@ -784,6 +784,7 @@ export default class AnalyseCtrl implements CevalHandler {
 
   showCeval = (show?: boolean) => {
     if (show === undefined) return displayColumns() > 1 || this.activeControlBarMode() === 'ceval';
+    this.ceval.showEnginePrefs(false);
     this.showCevalProp(show);
     if (show) this.cevalEnabled(true);
     return show;
