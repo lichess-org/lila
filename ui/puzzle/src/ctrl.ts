@@ -539,14 +539,11 @@ export default class PuzzleCtrl implements CevalHandler {
     return enable;
   };
 
-  restartCeval = (): void => {
+  clearCeval(): void {
+    this.tree.removeCeval();
     this.ceval.stop();
     this.startCeval();
     this.redraw();
-  };
-  clearCeval(): void {
-    this.tree.removeCeval();
-    this.restartCeval();
   }
 
   toggleThreatMode = (): void => {
