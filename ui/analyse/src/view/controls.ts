@@ -45,7 +45,7 @@ export function renderControls(ctrl: AnalyseCtrl) {
             }),
           ]
         : [
-            renderMobileCevalTab(ctrl),
+            isMobileUi() && ctrl.isCevalAllowed() && renderMobileCevalTab(ctrl),
             hl('button.fbt', {
               attrs: {
                 title: i18n.site.openingExplorerAndTablebase,
@@ -53,11 +53,11 @@ export function renderControls(ctrl: AnalyseCtrl) {
                 'data-icon': licon.Book,
               },
               class: {
-                hidden: !ctrl.explorer.allowed() || (!!ctrl.retro && displayColumns() > 1),
+                hidden: !ctrl.explorer.allowed() || (!!ctrl.retro && !isMobileUi()),
                 active: ctrl.activeControlBarTool() === 'opening-explorer',
               },
             }),
-            !isMobileUi() && renderPracticeTab(ctrl),
+            !isMobileUi() && !ctrl.retro && !ctrl.ongoing && renderPracticeTab(ctrl),
           ],
       hl('div.jumps', [
         !isMobileUi() && jumpButton(licon.JumpFirst, 'first', canJumpPrev),
@@ -82,25 +82,21 @@ export function renderControls(ctrl: AnalyseCtrl) {
 }
 
 function renderPracticeTab(ctrl: AnalyseCtrl): LooseVNode {
-  return (
-    !ctrl.retro &&
-    hl('button.fbt', {
-      attrs: {
-        title: i18n.site.practiceWithComputer,
-        'data-act': 'engine-mode',
-        'data-mode': 'practice',
-        'data-icon': licon.Bullseye,
-      },
-      class: {
-        active: !!ctrl.practice && !ctrl.activeControlBarTool(),
-        latent: !!ctrl.practice && !!ctrl.activeControlBarTool(),
-      },
-    })
-  );
+  return hl('button.fbt', {
+    attrs: {
+      title: i18n.site.practiceWithComputer,
+      'data-act': 'engine-mode',
+      'data-mode': 'practice',
+      'data-icon': licon.Bullseye,
+    },
+    class: {
+      active: !!ctrl.practice && !ctrl.activeControlBarTool(),
+      latent: !!ctrl.practice && !!ctrl.activeControlBarTool(),
+    },
+  });
 }
 
 function renderMobileCevalTab(ctrl: AnalyseCtrl): LooseVNode {
-  if (displayColumns() > 1) return undefined;
   const engineMode = !!ctrl.practice ? 'practice' : !!ctrl.retro ? 'retro' : 'ceval',
     ev = ctrl.node.ceval ?? (ctrl.showFishnetAnalysis() ? ctrl.node.eval : undefined),
     evalstr = ev?.cp !== undefined ? renderEval(ev.cp) : ev?.mate ? '#' + ev.mate : '',
