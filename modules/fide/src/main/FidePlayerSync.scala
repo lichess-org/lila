@@ -113,7 +113,7 @@ final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
                 .drop(1) // first line is a header
                 .map(parseLine)
                 .mapConcat(_.toList)
-                .grouped(100) // only read 100 docs from mongodb sec
+                .grouped(200)
                 .mapAsync(1)(saveIfChanged)
                 .runWith(lila.common.LilaStream.sinkSum)
                 .monSuccess(_.fideSync.time)
