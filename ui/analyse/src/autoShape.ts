@@ -72,12 +72,11 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
       lineWidth: 8,
     });
   }
-  ctrl.fork.hover(hovering?.uci);
   if (hovering?.fen === nFen) shapes = shapes.concat(makeShapesFromUci(color, hovering.uci, 'paleBlue'));
+  ctrl.fork.hover(hovering?.uci);
 
-  if (ctrl.showAutoShapes() && ctrl.showAnalysis()) {
-    if (nEval.best && !ctrl.showVariationArrows())
-      shapes = shapes.concat(makeShapesFromUci(rcolor, nEval.best, 'paleGreen'));
+  if (ctrl.showBestMoveArrows() && ctrl.showAnalysis()) {
+    if (nEval.best) shapes = shapes.concat(makeShapesFromUci(rcolor, nEval.best, 'paleGreen'));
     if (!hovering && ctrl.ceval.search.multiPv) {
       const nextBest = ctrl.isCevalAllowed() && nCeval ? nCeval.pvs[0].moves[0] : ctrl.nextNodeBest();
       if (nextBest) shapes = shapes.concat(makeShapesFromUci(color, nextBest, 'paleBlue'));
@@ -122,31 +121,28 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
   return shapes;
 }
 
-let lastOpacity: number;
-
 function hiliteVariations(ctrl: AnalyseCtrl, autoShapes: DrawShape[]) {
   const parent = ctrl.node ?? ctrl.tree.root;
   const visible = parent.children.filter(n => ctrl.showFishnetAnalysis || !n.comp);
   if (visible.length < 2) return;
   ctrl.chessground.state.drawable.brushes['variation'] = {
     key: 'variation',
-    color: '#fff',
+    color: 'white',
     opacity: ctrl.variationArrowOpacity() || 0,
     lineWidth: 12,
   };
-  if (lastOpacity !== (ctrl.variationArrowOpacity() || 0)) {
-    lastOpacity = ctrl.variationArrowOpacity() || 0;
-    ctrl.chessground.setShapes([]);
-  }
   const chap = ctrl.study?.data.chapter;
   const isGamebookEditor = chap?.gamebook && !ctrl.study?.gamebookPlay;
   for (const [i, node] of visible.entries()) {
-    autoShapes.push({
-      orig: node.uci!.slice(0, 2) as Key,
-      dest: node.uci?.slice(2, 4) as Key,
-      brush: !isGamebookEditor ? 'variation' : i === 0 ? 'paleGreen' : 'paleRed',
-      modifiers: { hilite: i === ctrl.fork.selected() ? '#3291ff' : '#aaa' },
-      below: true,
-    });
+    const existing = autoShapes.find(s => s.orig + s.dest === node.uci);
+    if (existing) existing.modifiers = { hilite: i === ctrl.fork.selected() ? 'white' : undefined };
+    else
+      autoShapes.push({
+        orig: node.uci!.slice(0, 2) as Key,
+        dest: node.uci?.slice(2, 4) as Key,
+        brush: !isGamebookEditor ? 'variation' : i === 0 ? 'paleGreen' : 'paleRed',
+        modifiers: { hilite: i === ctrl.fork.selected() ? '#3291ff' : '#aaa' },
+        below: true,
+      });
   }
 }
