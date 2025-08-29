@@ -74,9 +74,12 @@ body.no-inquiry {
     }
   }
 
-  a,
-  a.user-link .line {
+  a {
     color: $c-link;
+  }
+
+  a.user-link {
+    color: $c-font-clear;
   }
 
   .meat {
@@ -251,6 +254,7 @@ body.no-inquiry {
     padding: 0 13px;
   }
 
+  a.user-link:hover,
   .report a:hover {
     color: $c-link-hover;
   }
