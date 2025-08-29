@@ -354,7 +354,8 @@ abstract private[controllers] class LilaController(val env: Env)
       f(using _)
 
   protected def WithUserAgent(f: UserAgent ?=> Fu[Result])(using req: RequestHeader): Fu[Result] =
-    HTTPRequest.userAgent(req).fold(BadRequest("Missing User-Agent").toFuccess)(ua => f(using ua))
+    val ua = HTTPRequest.userAgent(req) | UserAgent("-")
+    f(using ua)
 
   def meOrFetch[U: UserIdOf](id: U)(using ctx: Context): Fu[Option[lila.user.User]] =
     if id.is(UserId("me")) then fuccess(ctx.user)
