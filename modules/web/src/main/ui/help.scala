@@ -86,12 +86,15 @@ object help:
             frag(kbd("←"), or, kbd("→"), alt, kbd("k"), or, kbd("j")),
             trans.site.keyMoveBackwardOrForward()
           ),
-          row(frag(kbd("↑"), or, kbd("↓")), trans.site.keyCycleSelectedVariation()),
+          row(frag(tap, kbd("shift"), alt, kbd("↑"), or, kbd("↓")), trans.site.keyCycleSelectedVariation()),
           row(
             frag(kbd("shift"), kbd("←"), or, kbd("k"), alt, kbd("shift"), kbd("→"), or, kbd("j")),
             "Go to previous/next branch"
           ),
-          row(frag(tap, kbd("shift")), "Step to next line"),
+          row(
+            frag(kbd("shift"), kbd("↑"), alt, kbd("shift"), kbd("↓")),
+            "Step to previous/next line"
+          ),
           row(frag(tap, kbd("ctrl")), "Show/hide current variation"),
           header(trans.site.analysisOptions()),
           flip,
