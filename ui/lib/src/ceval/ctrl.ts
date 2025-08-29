@@ -118,7 +118,7 @@ export default class CevalCtrl {
       search: this.search.by,
       multiPv: this.search.multiPv,
       threatMode,
-      emit: (ev: Tree.LocalEval) => this.available() && this.onEmit(ev, work),
+      emit: (ev: Tree.LocalEval) => this.onEmit(ev, work),
     };
 
     if (threatMode) {

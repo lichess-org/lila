@@ -59,8 +59,9 @@ export class Protocol {
     } else if (parts[0] === 'readyok') this.swapWork();
     else if (parts[0] === 'id' && parts[1] === 'name') this.engineName = parts.slice(2).join(' ');
     else if (parts[0] === 'bestmove') {
-      if (this.work && this.currentEval) this.work.emit(this.currentEval);
+      const work = this.work;
       this.work = undefined;
+      if (work && this.currentEval) work.emit(this.currentEval);
       this.swapWork();
       return;
     } else if (this.work && !this.work.stopRequested && parts[0] === 'info') {
