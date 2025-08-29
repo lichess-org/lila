@@ -61,7 +61,7 @@ export const bind = (ctrl: AnalyseCtrl) => {
       ctrl.redraw();
     })
     .bind('a', () => {
-      ctrl.showAutoShapes(!ctrl.showAutoShapes());
+      ctrl.showBestMoveArrows(!ctrl.showBestMoveArrows());
       ctrl.redraw();
     })
     .bind('v', () => {
@@ -83,8 +83,14 @@ export const bind = (ctrl: AnalyseCtrl) => {
       control.nextBranch(ctrl);
       ctrl.redraw();
     })
-    .bind('shift-down', () => ctrl.userJumpIfCan(ctrl.idbTree.stepLine(ctrl.path, 'next'), true))
-    .bind('shift-up', () => ctrl.userJumpIfCan(ctrl.idbTree.stepLine(ctrl.path, 'prev'), true));
+    .bind('shift+down', () => {
+      ctrl.userJumpIfCan(ctrl.idbTree.stepLine(ctrl.path, 'next'), true);
+      ctrl.redraw();
+    })
+    .bind('shift+up', () => {
+      ctrl.userJumpIfCan(ctrl.idbTree.stepLine(ctrl.path, 'prev'), true);
+      ctrl.redraw();
+    });
 
   const keyToMouseEvent = (key: string, eventName: string, selector: string) =>
     kbd.bind(key, () =>
