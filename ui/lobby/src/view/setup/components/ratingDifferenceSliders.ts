@@ -2,7 +2,7 @@ import { h } from 'snabbdom';
 import type LobbyController from '../../../ctrl';
 
 export const ratingDifferenceSliders = (ctrl: LobbyController) => {
-  if (!ctrl.me || site.blindMode || !ctrl.data.ratingMap) return null;
+  if (!ctrl.me || !ctrl.data.ratingMap) return null;
 
   const { setupCtrl } = ctrl;
   const selectedPerf = ctrl.setupCtrl.selectedPerf();
@@ -26,6 +26,7 @@ export const ratingDifferenceSliders = (ctrl: LobbyController) => {
         h('input.range.rating-range__min', {
           attrs: {
             type: 'range',
+            'aria-label': i18n.site.ratingRange,
             min: '-500',
             max: '0',
             step: '50',
@@ -46,6 +47,7 @@ export const ratingDifferenceSliders = (ctrl: LobbyController) => {
         h('input.range.rating-range__max', {
           attrs: {
             type: 'range',
+            'aria-label': i18n.site.ratingRange,
             min: '0',
             max: '500',
             step: '50',
