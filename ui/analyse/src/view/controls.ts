@@ -6,25 +6,25 @@ import { displayColumns, isTouchDevice } from 'lib/device';
 import { addPointerListeners } from 'lib/pointer';
 import * as control from '../control';
 import type AnalyseCtrl from '../ctrl';
-import { info } from 'lib/view/dialogs';
+import { domDialog } from 'lib/view/dialog';
+import { myUserId } from 'lib/common';
 
 type Action =
   | 'first'
   | 'prev'
   | 'next'
   | 'last'
-  | 'scrub'
+  | 'scrub-help'
   | 'opening-explorer'
   | 'menu'
   | 'analysis'
-  | 'mobile-mode';
+  | 'engine-mode';
 
-type MobileMode = 'ceval' | 'practice' | 'retro';
+type EngineMode = 'ceval' | 'practice' | 'retro';
 
 export function renderControls(ctrl: AnalyseCtrl) {
   const canJumpPrev = ctrl.path !== '',
-    canJumpNext = !!ctrl.node.children[0],
-    withScrub = isTouchDevice();
+    canJumpNext = !!ctrl.node.children[0];
 
   return hl(
     'div.analyse__controls.analyse-controls',
@@ -32,8 +32,8 @@ export function renderControls(ctrl: AnalyseCtrl) {
       hook: onInsert(el =>
         addPointerListeners(el, {
           click: e => clickControl(ctrl, e),
-          hscrub: withScrub ? dx => scrubControl(ctrl, dx) : undefined,
-          hold: withScrub ? undefined : e => holdControl(ctrl, e),
+          hscrub: isTouchDevice() ? dx => scrubControl(ctrl, dx) : undefined,
+          hold: e => holdControl(ctrl, e),
         }),
       ),
     },
@@ -54,24 +54,26 @@ export function renderControls(ctrl: AnalyseCtrl) {
               },
               class: {
                 hidden: !ctrl.explorer.allowed() || (!!ctrl.retro && displayColumns() > 1),
-                active: ctrl.activeTool() === 'opening-explorer',
+                active: ctrl.activeControlBarTool() === 'opening-explorer',
               },
             }),
-            displayColumns() > 1 && renderPracticeTab(ctrl),
+            !isMobileUi() && renderPracticeTab(ctrl),
           ],
       hl('div.jumps', [
-        displayColumns() > 1 && jumpButton(licon.JumpFirst, 'first', canJumpPrev),
+        !isMobileUi() && jumpButton(licon.JumpFirst, 'first', canJumpPrev),
         jumpButton(licon.LessThan, 'prev', canJumpPrev),
-        displayColumns() === 1 && hl('i.scrub', { attrs: { 'data-act': 'scrub' } }, licon.InfoCircle),
+        isMobileUi() &&
+          !scrubHelpAcknowledged() &&
+          hl('i.scrub-help', { attrs: { 'data-act': 'scrub-help' } }, licon.InfoCircle),
         jumpButton(licon.GreaterThan, 'next', canJumpNext),
-        displayColumns() > 1 &&
+        !isMobileUi() &&
           jumpButton(licon.JumpLast, 'last', ctrl.node !== ctrl.mainline[ctrl.mainline.length - 1]),
       ]),
       [
         ctrl.studyPractice
           ? hl('div.noop')
           : hl('button.fbt', {
-              class: { active: ctrl.activeTool() === 'action-menu' },
+              class: { active: ctrl.activeControlBarTool() === 'action-menu' },
               attrs: { title: i18n.site.menu, 'data-act': 'menu', 'data-icon': licon.Hamburger },
             }),
       ],
@@ -85,13 +87,13 @@ function renderPracticeTab(ctrl: AnalyseCtrl): LooseVNode {
     hl('button.fbt', {
       attrs: {
         title: i18n.site.practiceWithComputer,
-        'data-act': 'mobile-mode',
+        'data-act': 'engine-mode',
         'data-mode': 'practice',
         'data-icon': licon.Bullseye,
       },
       class: {
-        active: !!ctrl.practice && !ctrl.activeTool(),
-        latent: !!ctrl.practice && !!ctrl.activeTool(),
+        active: !!ctrl.practice && !ctrl.activeControlBarTool(),
+        latent: !!ctrl.practice && !!ctrl.activeControlBarTool(),
       },
     })
   );
@@ -99,26 +101,26 @@ function renderPracticeTab(ctrl: AnalyseCtrl): LooseVNode {
 
 function renderMobileCevalTab(ctrl: AnalyseCtrl): LooseVNode {
   if (displayColumns() > 1) return undefined;
-  const mobileMode = !!ctrl.practice ? 'practice' : !!ctrl.retro ? 'retro' : 'ceval',
+  const engineMode = !!ctrl.practice ? 'practice' : !!ctrl.retro ? 'retro' : 'ceval',
     ev = ctrl.node.ceval ?? (ctrl.showFishnetAnalysis() ? ctrl.node.eval : undefined),
     evalstr = ev?.cp !== undefined ? renderEval(ev.cp) : ev?.mate ? '#' + ev.mate : '',
-    active = ctrl.activeMobileMode() && !ctrl.activeTool(),
-    latent = ctrl.activeMobileMode() && !!ctrl.activeTool();
+    active = ctrl.activeControlBarMode() && !ctrl.activeControlBarTool(),
+    latent = ctrl.activeControlBarMode() && !!ctrl.activeControlBarTool();
 
   return hl(
     'button.fbt',
     {
-      key: 'mobile-mode',
-      attrs: { 'data-act': 'mobile-mode', 'data-mode': mobileMode },
+      key: 'engine-mode',
+      attrs: { 'data-act': 'engine-mode', 'data-mode': engineMode },
       class: { active, latent, computing: ctrl.ceval.isComputing },
     },
     [
-      mobileMode === 'ceval' && [
+      engineMode === 'ceval' && [
+        hl('div.bar'),
         cevalView.renderCevalSwitch(ctrl),
         evalstr && ctrl.showAnalysis() && !ctrl.isGamebook() && hl('eval', evalstr),
       ],
-      hl('div.bar'),
-      mobileMode === 'retro' && ctrl.retro?.completion().join('/'),
+      engineMode === 'retro' && ctrl.retro?.completion().join('/'),
     ],
   );
 }
@@ -139,25 +141,23 @@ function clickControl(ctrl: AnalyseCtrl, e: PointerEvent) {
   const action = e.target.closest<HTMLElement>('[data-act]')?.dataset.act as Action;
   if (!action) return;
   if (action === 'prev') control.prev(ctrl);
-  //else if (action === 'line') ctrl.userJumpIfCan(ctrl.idbTree.nextLine(), true);
   else if (action === 'next') control.next(ctrl);
   else if (action === 'first') control.first(ctrl);
   else if (action === 'last') control.last(ctrl);
-  else if (action === 'scrub') helpScrub();
+  else if (action === 'scrub-help') scrubHelp(ctrl);
   else if (action === 'opening-explorer') ctrl.toggleExplorer();
   else if (action === 'menu') ctrl.toggleActionMenu();
   else if (action === 'analysis') window.open(ctrl.studyPractice!.analysisUrl(), '_blank');
-  else if (action === 'mobile-mode' && !e.target.closest<HTMLElement>('.switch')) {
-    const mode = e.target.dataset.mode as MobileMode;
-    if (ctrl.activeTool()) {
+  else if (action === 'engine-mode' && !e.target.closest<HTMLElement>('.switch')) {
+    const mode = e.target.dataset.mode as EngineMode;
+    if (ctrl.activeControlBarTool()) {
       ctrl.explorer.enabled(false);
       ctrl.actionMenu(false);
       if (ctrl.showCeval() || mode !== 'ceval') return ctrl.redraw();
     }
     if (mode === 'practice') ctrl.togglePractice();
     else if (mode === 'retro') ctrl.toggleRetro();
-    else if (!ctrl.showCeval()) ctrl.cevalEnabled(true);
-    else ctrl.showCevalProp(false);
+    else ctrl.showCeval(!ctrl.showCeval());
   }
   ctrl.redraw();
 }
@@ -181,9 +181,32 @@ function scrubControl(ctrl: AnalyseCtrl, dx: number | 'pointerup') {
 const jumpButton = (icon: string, effect: string, enabled: boolean): VNode =>
   hl('button.fbt.move', { class: { disabled: !enabled }, attrs: { 'data-act': effect, 'data-icon': icon } });
 
-function helpScrub() {
-  info(
-    'Swipe left or right across the button bar to go to game start or end. ' +
-      'Move your finger slowly to scrub through moves one by one.',
-  );
+function isMobileUi() {
+  return displayColumns() === 1 && isTouchDevice();
+}
+
+function scrubHelp(ctrl: AnalyseCtrl) {
+  domDialog({
+    htmlText: $html`
+      <p>
+        Swipe left or right on the button bar below the board to go to game start or end.
+      </p>
+      <p>
+        Move your finger slowly to scrub through moves one by one.
+      </p>
+      <button class="button">${i18n.site.ok}</button>`,
+    actions: [{ selector: 'button', result: 'ok' }],
+    noCloseButton: true,
+    show: true,
+  }).then(dlg => {
+    scrubHelpAcknowledged(dlg.returnValue === 'ok');
+    ctrl.redraw();
+  });
+}
+
+function scrubHelpAcknowledged(ack?: boolean) {
+  const key = `analyse.help.scrub-acknowledged.${myUserId() ?? 'anon'}`;
+  if (ack === undefined) return !!localStorage.getItem(key);
+  if (ack) localStorage.setItem(key, '1');
+  return ack;
 }
