@@ -135,13 +135,12 @@ export interface CevalHandler {
   getNode(): Tree.Node;
   showAnalysis(): boolean;
   clearCeval: () => void;
-  restartCeval: () => void;
+  startCeval: () => void;
   cevalEnabled: (enable?: boolean) => boolean | 'force';
   showCeval?: (show?: boolean) => boolean;
   isCevalAllowed?: () => boolean;
   externalEngines?: () => ExternalEngineInfo[] | undefined;
   showFishnetAnalysis?: () => boolean;
-  redraw?: () => void;
 }
 
 export interface NodeEvals {

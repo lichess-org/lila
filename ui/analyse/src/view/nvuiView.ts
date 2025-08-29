@@ -89,7 +89,7 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
       d.clock ? hl('p', `Clock: ${d.clock.initial / 60} + ${d.clock.increment}`) : null,
       hl('h2', i18n.nvui.moveList),
       hl('p.moves', { attrs: { role: 'log', 'aria-live': 'off' } }, renderCurrentLine(ctx)),
-      !ctrl.studyPractice && [
+      !ctrl.study?.practice && [
         hl(
           'button',
           {

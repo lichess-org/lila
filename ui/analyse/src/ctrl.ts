@@ -32,7 +32,6 @@ import type { Result } from '@badrap/result';
 import { setupPosition } from 'chessops/variant';
 import { storedBooleanProp, storedBooleanPropWithEffect } from 'lib/storage';
 import type { AnaMove } from './study/interfaces';
-import type StudyPracticeCtrl from './study/practice/studyPracticeCtrl';
 import { valid as crazyValid } from './crazy/crazyCtrl';
 import { PromotionCtrl } from 'lib/game/promotion';
 import wikiTheory, { wikiClear, type WikiTheory } from './wiki';
@@ -76,7 +75,6 @@ export default class AnalyseCtrl implements CevalHandler {
   fork: ForkCtrl;
   practice?: PracticeCtrl;
   study?: StudyCtrl;
-  studyPractice?: StudyPracticeCtrl;
   promotion: PromotionCtrl;
   chatCtrl?: ChatCtrl;
   wiki?: WikiTheory;
@@ -171,7 +169,6 @@ export default class AnalyseCtrl implements CevalHandler {
       opts.study && makeStudy
         ? new makeStudy(opts.study, this, (opts.tagTypes || '').split(','), opts.practice, opts.relay)
         : undefined;
-    this.studyPractice = this.study ? this.study.practice : undefined;
 
     if (location.hash === '#practice' || (this.study && this.study.data.chapter.practice))
       this.togglePractice();
@@ -703,7 +700,7 @@ export default class AnalyseCtrl implements CevalHandler {
         if (!isThreat) {
           this.retro?.onCeval();
           this.practice?.onCeval();
-          this.studyPractice?.onCeval();
+          this.study?.practice?.onCeval();
           this.study?.multiCloudEval?.onLocalCeval(node, ev);
           this.evalCache.onLocalCeval();
         }
@@ -738,8 +735,7 @@ export default class AnalyseCtrl implements CevalHandler {
     !this.ongoing &&
     this.study?.isCevalAllowed() !== false &&
     (this.synthetic || !playable(this.data)) &&
-    !location.search.includes('evals=0') &&
-    !this.studyPractice;
+    !location.search.includes('evals=0');
 
   cevalEnabled = (enable?: boolean): boolean | 'force' => {
     const force = !!this.practice || !!this.retro;
@@ -759,22 +755,17 @@ export default class AnalyseCtrl implements CevalHandler {
     return force ? 'force' : enable;
   };
 
-  startCeval = throttle(800, () => {
+  startCeval = () => {
+    this.ceval.stop();
     if (this.node.threefold || this.outcome() || !this.cevalEnabled()) return;
     this.ceval.start(this.path, this.nodeList, undefined, this.threatMode());
     this.evalCache.fetch(this.path, this.ceval.search.multiPv);
-  });
-
-  restartCeval(): void {
-    this.ceval.stop();
-    this.startCeval();
-    this.redraw();
-  }
+  };
 
   clearCeval(): void {
     this.tree.removeCeval();
     this.evalCache.clear();
-    this.restartCeval();
+    this.startCeval();
   }
 
   showVariationArrows() {
@@ -881,7 +872,7 @@ export default class AnalyseCtrl implements CevalHandler {
       this.practice = makePractice(this, () => {
         // push to 20 to store AI moves in the cloud
         // lower to 18 after task completion (or failure)
-        return this.studyPractice && this.studyPractice.success() === null ? 20 : 18;
+        return this.study?.practice && this.study.practice.success() === null ? 20 : 18;
       });
       this.ceval.customSearch = this.practice.search;
       this.setAutoShapes();

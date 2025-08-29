@@ -119,7 +119,7 @@ export function puzzleLink(ctrl: AnalyseCtrl): VNode | undefined {
 }
 
 export function render(ctrl: AnalyseCtrl): VNode | undefined {
-  if (ctrl.studyPractice) return;
+  if (ctrl.study?.practice) return;
 
   if (
     !ctrl.data.analysis ||

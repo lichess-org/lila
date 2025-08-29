@@ -39,12 +39,12 @@ export const bind = (ctrl: AnalyseCtrl) => {
   kbd.bind('space', () => {
     const gb = ctrl.gamebookPlay();
     if (gb) gb.onSpace();
-    else if (ctrl.practice || ctrl.studyPractice) return;
+    else if (ctrl.practice || ctrl.study?.practice) return;
     else if (ctrl.cevalEnabled()) ctrl.playBestMove();
     else if (ctrl.ceval.analysable) ctrl.cevalEnabled(!ctrl.cevalEnabled());
   });
 
-  if (ctrl.studyPractice) return;
+  if (ctrl.study?.practice) return;
 
   kbd
     .bind('f', ctrl.flip)

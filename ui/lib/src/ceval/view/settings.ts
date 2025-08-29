@@ -24,7 +24,7 @@ export function renderCevalSettings(ctrl: CevalHandler): VNode | null {
 
   function clickThreads(x = ceval.recommendedThreads) {
     ceval.setThreads(x);
-    ctrl.restartCeval?.();
+    ctrl.startCeval();
     ceval.opts.redraw();
   }
 
@@ -70,7 +70,8 @@ export function renderCevalSettings(ctrl: CevalHandler): VNode | null {
                     },
                     hook: rangeConfig(searchTick, n => {
                       ceval.storedMovetime(searchTicks[n] * 1000);
-                      ctrl.restartCeval?.();
+                      ctrl.startCeval();
+                      ceval.opts.redraw();
                     }),
                   }),
                   hl(
@@ -165,7 +166,8 @@ export function renderCevalSettings(ctrl: CevalHandler): VNode | null {
                     () => Math.floor(Math.log2(ceval.hashSize)),
                     v => {
                       ceval.setHashSize(Math.pow(2, v));
-                      ctrl.restartCeval?.();
+                      ctrl.startCeval();
+                      ceval.opts.redraw();
                     },
                   ),
                 }),
@@ -203,7 +205,7 @@ function engineSelection(ctrl: CevalHandler) {
         {
           hook: bind('change', e => {
             ceval.selectEngine((e.target as HTMLSelectElement).value);
-            ctrl.redraw?.();
+            ceval.opts.redraw();
           }),
         },
         engines.map(engine =>
@@ -216,7 +218,7 @@ function engineSelection(ctrl: CevalHandler) {
           hook: bind('click', async e => {
             (e.currentTarget as HTMLElement).blur();
             if (await confirm('Remove external engine?'))
-              ceval.engines.deleteExternal(external.id).then(ok => ok && ctrl.redraw?.());
+              ceval.engines.deleteExternal(external.id).then(ok => ok && ceval.opts.redraw());
           }),
         }),
     ]),

@@ -38,7 +38,7 @@ export function renderControls(ctrl: AnalyseCtrl) {
       ),
     },
     [
-      ctrl.studyPractice
+      ctrl.study?.practice
         ? [
             hl('button.fbt', {
               attrs: { title: i18n.site.analysis, 'data-act': 'analysis', 'data-icon': licon.Microscope },
@@ -60,17 +60,18 @@ export function renderControls(ctrl: AnalyseCtrl) {
             !isMobileUi() && !ctrl.retro && !ctrl.ongoing && renderPracticeTab(ctrl),
           ],
       hl('div.jumps', [
-        !isMobileUi() && jumpButton(licon.JumpFirst, 'first', canJumpPrev),
+        (!isMobileUi() || ctrl.study?.practice) && jumpButton(licon.JumpFirst, 'first', canJumpPrev),
         jumpButton(licon.LessThan, 'prev', canJumpPrev),
         isMobileUi() &&
           !scrubHelpAcknowledged() &&
+          !ctrl.study?.practice &&
           hl('i.scrub-help', { attrs: { 'data-act': 'scrub-help' } }, licon.InfoCircle),
         jumpButton(licon.GreaterThan, 'next', canJumpNext),
-        !isMobileUi() &&
+        (!isMobileUi() || ctrl.study?.practice) &&
           jumpButton(licon.JumpLast, 'last', ctrl.node !== ctrl.mainline[ctrl.mainline.length - 1]),
       ]),
       [
-        ctrl.studyPractice
+        ctrl.study?.practice
           ? hl('div.noop')
           : hl('button.fbt', {
               class: { active: ctrl.activeControlBarTool() === 'action-menu' },
@@ -143,7 +144,7 @@ function clickControl(ctrl: AnalyseCtrl, e: PointerEvent) {
   else if (action === 'scrub-help') scrubHelp(ctrl);
   else if (action === 'opening-explorer') ctrl.toggleExplorer();
   else if (action === 'menu') ctrl.toggleActionMenu();
-  else if (action === 'analysis') window.open(ctrl.studyPractice!.analysisUrl(), '_blank');
+  else if (action === 'analysis') window.open(ctrl.study?.practice?.analysisUrl(), '_blank');
   else if (action === 'engine-mode' && !e.target.closest<HTMLElement>('.switch')) {
     const mode = e.target.dataset.mode as EngineMode;
     if (ctrl.activeControlBarTool()) {
