@@ -274,6 +274,7 @@ export default class AnalyseCtrl implements CevalHandler {
     this.fenInput = undefined;
     this.pgnInput = undefined;
     if (this.wiki && this.data.game.variant.key === 'standard') this.wiki(this.nodeList);
+    this.idbTree.saveMoves();
     this.idbTree.revealNode();
   };
 
