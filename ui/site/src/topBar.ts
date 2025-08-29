@@ -213,7 +213,7 @@ export default function () {
       { passive: true },
     );
 
-    if (!isTouchDevice() || site.blindMode || !document.querySelector('.analyse')) return;
+    if (!isTouchDevice() || site.blindMode || !document.querySelector('main.analyse')) return;
 
     // double tap to align top of board with viewport
     document.querySelector<HTMLElement>('.main-board')?.addEventListener(
