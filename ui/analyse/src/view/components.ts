@@ -92,7 +92,10 @@ export function renderMain(ctx: ViewContext, ...kids: LooseVNodes[]): VNode {
   return hl(
     'main.analyse.variant-' + ctrl.data.game.variant.key,
     {
-      attrs: { 'data-active-tool': ctrl.activeTool(), 'data-active-mode': ctrl.activeMobileMode() },
+      attrs: {
+        'data-active-tool': ctrl.activeControlBarTool(),
+        'data-active-mode': ctrl.activeControlBarMode(),
+      },
       hook: {
         insert: () => {
           forceInnerCoords(ctrl, needsInnerCoords);

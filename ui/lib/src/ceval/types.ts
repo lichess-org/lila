@@ -137,7 +137,7 @@ export interface CevalHandler {
   clearCeval: () => void;
   restartCeval: () => void;
   cevalEnabled: (enable?: boolean) => boolean | 'force';
-  showCeval?: () => boolean;
+  showCeval?: (show?: boolean) => boolean;
   isCevalAllowed?: () => boolean;
   externalEngines?: () => ExternalEngineInfo[] | undefined;
   showFishnetAnalysis?: () => boolean;
