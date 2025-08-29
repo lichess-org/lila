@@ -74,7 +74,6 @@ body.no-inquiry {
     }
   }
 
-  &,
   a,
   a.user-link .line {
     color: $c-link;
@@ -222,14 +221,13 @@ body.no-inquiry {
 
   .fbt {
     height: 100%;
-    color: $c-link !important;
+    color: $c-font !important;
     background: transparent;
     padding: 0 1em;
     transition: none;
   }
 
   .fbt:hover {
-    color: $c-link-hover;
     background: $m-primary_bg--mix-50;
   }
 
@@ -249,10 +247,10 @@ body.no-inquiry {
   }
 
   .links a {
+    color: $c-font;
     padding: 0 13px;
   }
 
-  .links a:hover,
   .report a:hover {
     color: $c-link-hover;
   }
