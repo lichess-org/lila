@@ -168,6 +168,7 @@ export default class CevalCtrl {
   };
 
   start = (path: string, steps: Step[], gameId: string | undefined, threatMode?: boolean): void => {
+    if (!this.available()) return;
     this.isDeeper(false);
     this.doStart(path, steps, gameId, !!threatMode);
   };

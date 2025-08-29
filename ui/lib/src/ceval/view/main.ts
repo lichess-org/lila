@@ -253,7 +253,7 @@ export function renderCevalSwitch(ctrl: CevalHandler): VNode | false {
     ctrl.cevalEnabled() !== 'force' &&
     hl('div.switch', { attrs: { role: 'button', title: i18n.site.toggleLocalEvaluation + ' (L)' } }, [
       hl('input#analyse-toggle-ceval.cmn-toggle.cmn-toggle--subtle', {
-        attrs: { type: 'checkbox', disabled: !ctrl.ceval.analysable },
+        attrs: { type: 'checkbox', disabled: !ctrl.ceval.analysable, checked: ctrl.cevalEnabled() },
         props: { checked: !ctrl.ceval.isPaused && ctrl.cevalEnabled() },
         hook: onInsert((el: HTMLInputElement) => {
           el.addEventListener('change', () => ctrl.cevalEnabled(el.checked));
