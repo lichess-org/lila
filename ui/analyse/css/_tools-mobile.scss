@@ -39,7 +39,7 @@
       border-radius: 6px 6px 0 0;
       background: $m-bg_bg-page--mix-50;
     }
-    .scrub {
+    .scrub-help {
       margin-inline: 3px;
       align-self: center;
       font-family: 'lichess';
@@ -65,6 +65,9 @@
     .fbt.active {
       padding-top: 0;
       border-bottom: none;
+    }
+    eval {
+      font-size: 1.2em;
     }
     [data-mode] {
       position: relative;

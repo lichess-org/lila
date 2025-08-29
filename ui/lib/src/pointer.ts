@@ -32,20 +32,20 @@ export function addPointerListeners(el: HTMLElement, listeners: PointerListeners
       else hold(e);
       reset(e);
     }, holdDuration);
-    el.addEventListener('pointermove', pointermove, { passive: true });
+    el.addEventListener('pointermove', pointermove, { passive: false });
   };
 
   const pointermove = (e: PointerEvent) => {
     const [dx, dy] = [e.clientX - g.x, e.clientY - g.y];
 
     if (!g.lastMove && Math.abs(dy) > 6) return reset(e);
-    if (!hscrub) return;
+    if (!hscrub || Math.abs(dx) < 5) return;
     clearTimeout(g.timer);
     g.timer = 0;
 
     if (dx && performance.now() - g.lastMove > scrubInterval) {
       if (!el.hasPointerCapture(e.pointerId)) el.setPointerCapture(e.pointerId);
-      e.preventDefault(); // only preventDefault with capture, no need for passive: false
+      e.preventDefault();
       g.lastMove = performance.now();
       if (hscrub(dx, e)) reset(e);
       else [g.x, g.y] = [e.clientX, e.clientY];

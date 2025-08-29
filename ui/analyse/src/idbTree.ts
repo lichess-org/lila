@@ -37,11 +37,9 @@ export class IdbTree {
     while (path && kids.length < 2 && !this.ctrl.tree.pathIsMainline(path)) {
       [path, kids] = this.familyOf(path);
     }
-    const lineIndex = kids.findIndex(k => fromPath.slice(path.length).startsWith(k.id));
-    const nextKid =
-      which === 'next' ? (kids[lineIndex + 1] ?? kids[0]) : (kids[lineIndex - 1] ?? kids[kids.length - 1]);
-    if (!nextKid || path + nextKid.id === fromPath) return fromPath;
-    return path + nextKid.id;
+    const i = kids.findIndex(k => fromPath.slice(path.length).startsWith(k.id));
+    const stepTo = which === 'next' ? (kids[i + 1] ?? kids[0]) : (kids[i - 1] ?? kids[kids.length - 1]);
+    return !stepTo ? fromPath : path + stepTo.id;
   }
 
   setCollapsed(path: Tree.Path, collapsed: boolean): void {
