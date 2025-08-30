@@ -9,12 +9,12 @@
   <string name="emailChange_subject">Потврди нову имејл адресу, %s</string>
   <string name="emailChange_intro">Затражио/ла си промену своје имејл адресе.</string>
   <string name="emailChange_click">Како би потврдио/ла да имаш приступ овом имејлу, молимо те да кликнеш линк испод:</string>
-  <string name="welcome_subject">Добродошли у lichess.org, %s</string>
-  <string name="welcome_text">Успешно сте направили ваш налог на https://lichess.org.
+  <string name="welcome_subject">Добродошао/ла на lichess.org, %s</string>
+  <string name="welcome_text">Успешно си направио/ла свој налог на https://lichess.org.
 
-Ово је ваш профил: %1$s. Можете га персонализовати овде: %2$s.
+Ово ти је профилна страница: %1$s. Можеш га персонализовати на: %2$s.
 
-Забавите се, и нека ваше фигуре увек нађу пут ка противничком краљу!</string>
+Забави се и нека твоје фигуре увек нађу њихов пут ка противничком краљу!</string>
   <string name="logInToLichess">Улогуј се на lichess.org, %s</string>
   <string name="common_orPaste">(Кликање не ради? Пробај га налепити у свој претражовач!)</string>
   <string name="common_note">Ово је сервисни имејл везан за твоје коришћење %s.</string>
