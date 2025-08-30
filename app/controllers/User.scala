@@ -402,7 +402,7 @@ final class User(
         val otherUsers = isGranted(_.AccountInfo).so[Fu[Frag]]:
           othersAndLogins.map(_._1())
 
-        val identification = (isGranted(_.Diagnostics) || isGranted(_.ViewPrintNoIP)).so:
+        val identification = (isGranted(_.AccountInfo) || isGranted(_.ViewPrintNoIP)).so:
           for
             logins <- userLoginsFu
             others <- othersAndLogins
