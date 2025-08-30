@@ -53,7 +53,7 @@ final class GameStateStream(
           actor ! PoisonPill
 
   private def uniqChan(pov: Pov)(using req: RequestHeader) =
-    s"gameStreamFor:${pov.fullId}:${HTTPRequest.userAgent(req) | "?"}"
+    s"gameStreamFor:${pov.fullId}:${HTTPRequest.userAgent(req)}"
 
   private def mkActor(
       init: WithInitialFen,

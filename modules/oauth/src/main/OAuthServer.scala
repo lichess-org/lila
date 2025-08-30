@@ -82,8 +82,8 @@ final class OAuthServer(
   val UaUserRegex = """(?:user|as):\s?([\w\-]{3,31})""".r
   private def checkOauthUaUser(req: RequestHeader)(access: AccessResult): AccessResult =
     access.flatMap: a =>
-      HTTPRequest.userAgent(req).map(_.value) match
-        case Some(UaUserRegex(u)) if a.me.isnt(UserStr(u)) => Left(UserAgentMismatch)
+      HTTPRequest.userAgent(req).value match
+        case UaUserRegex(u) if a.me.isnt(UserStr(u)) => Left(UserAgentMismatch)
         case _ => Right(a)
 
   private val bearerSigners = mobileSecrets.map(s => Algo.hmac(s.value))

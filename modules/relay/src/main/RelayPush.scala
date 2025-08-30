@@ -51,11 +51,11 @@ final class RelayPush(
 
   private def monitor(rt: RelayRound.WithTour)(results: Results)(using me: Me, req: RequestHeader): Unit =
     val ua = HTTPRequest.userAgent(req)
-    val client = ua
-      .filter(_.value.startsWith("Lichess Broadcaster"))
-      .flatMap(_.value.split("as:").headOption)
-      .orElse(ua.map(_.value))
-      .fold("unknown")(_.trim)
+    val client = ua.value.some
+      .filter(_.startsWith("Lichess Broadcaster"))
+      .flatMap(_.split("as:").headOption)
+      .getOrElse(ua.value)
+      .trim
     lila.mon.relay.push(name = rt.fullName, user = me.username, client = client)(
       moves = results.collect { case Right(a) => a.moves }.sum,
       errors = results.count(_.isLeft)
