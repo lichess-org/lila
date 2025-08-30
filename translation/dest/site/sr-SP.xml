@@ -260,9 +260,9 @@
     <item quantity="other">Ранг се ажурира сваких %s минута</item>
   </plurals>
   <plurals name="nbPuzzles">
-    <item quantity="one">%s тактика</item>
-    <item quantity="few">%s тактике</item>
-    <item quantity="other">%s тактика</item>
+    <item quantity="one">%s проблем</item>
+    <item quantity="few">%s проблема</item>
+    <item quantity="other">%s проблема</item>
   </plurals>
   <string name="gamesPlayed">Одиграних партија</string>
   <plurals name="nbGamesWithYou">
