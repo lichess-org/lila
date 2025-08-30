@@ -116,10 +116,18 @@ export function renderBoard(
     letter: string,
     color: Color | 'none',
     text: string,
-  ): VNode =>
-    h(
+    isLightSquare: boolean,
+  ): VNode => {
+    const pieceClass = {
+      [color]: letter !== '-' && letter !== '+',
+      [charToRole(letter.toLowerCase()) as string]: letter !== '-' && letter !== '+',
+      dark: !isLightSquare,
+      light: isLightSquare,
+    };
+    return h(
       'button',
       {
+        class: pieceClass,
         attrs: {
           text: renderPositionStyle(rank, file, text),
           rank: rank,
@@ -131,21 +139,22 @@ export function renderBoard(
       },
       renderPositionStyle(rank, file, text),
     );
+  };
 
   const doPiece = (rank: Ranks, file: Files): VNode => {
     const key: Key = `${file}${rank}`;
     const piece = pieces.get(key);
     const pieceWrapper = boardStyle === 'table' ? 'td' : 'span';
+    const plusOrMinus = (key.charCodeAt(0) + key.charCodeAt(1)) % 2 ? '-' : '+';
     if (piece) {
       const roleCh = roleToChar(piece.role);
       const pieceText =
         pieceStyle === 'name' || pieceStyle === 'white uppercase name'
           ? transPieceStr(piece.role, piece.color, i18n)
           : renderPieceStr(roleCh, pieceStyle, piece.color, prefixStyle);
-      return h(pieceWrapper, doPieceButton(rank, file, roleCh, piece.color, pieceText));
+      return h(pieceWrapper, doPieceButton(rank, file, roleCh, piece.color, pieceText, plusOrMinus == '-'));
     } else {
-      const plusOrMinus = (key.charCodeAt(0) + key.charCodeAt(1)) % 2 ? '-' : '+';
-      return h(pieceWrapper, doPieceButton(rank, file, plusOrMinus, 'none', plusOrMinus));
+      return h(pieceWrapper, doPieceButton(rank, file, plusOrMinus, 'none', plusOrMinus, plusOrMinus == '-'));
     }
   };
 

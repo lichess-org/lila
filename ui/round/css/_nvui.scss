@@ -59,13 +59,27 @@
     margin-inline-end: 1em;
   }
 
-  @media screen and (orientation: portrait) {
+  @media screen {
     .actions button,
     .actions div,
     .board-wrapper div button {
+      background-repeat: no-repeat;
+      background-size: auto;
+      color: transparent;
       aspect-ratio: 1/1;
       overflow: hidden;
       white-space: nowrap;
+    }
+    .board-wrapper div button.light {
+      background-color: #cecece;
+    }
+    .board-wrapper div button.dark {
+      background-color: #535353;
+    }
+    .board-wrapper div button.selected {
+      border-color: #303030;
+      border-width: thick;
+      border-style: groove;
     }
     .actions,
     .board-wrapper {
