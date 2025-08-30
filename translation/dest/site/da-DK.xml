@@ -497,7 +497,7 @@
   <string name="standByX">Et øjeblik %s, parrer spillere – gør dig klar!</string>
   <string name="pause">Sæt på pause</string>
   <string name="resume">Genoptag</string>
-  <string name="youArePlaying">Du spiller nu!</string>
+  <string name="youArePlaying">Du spiller!</string>
   <string name="winRate">Sejrsrate</string>
   <string name="performance">Præstation</string>
   <string name="tournamentComplete">Turnering afsluttet</string>
