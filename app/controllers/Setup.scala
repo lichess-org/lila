@@ -151,7 +151,7 @@ final class Setup(
             me <- ctx.me.so(env.user.api.withPerfs)
             blocking <- ctx.me.so(env.relation.api.fetchBlocking(_))
             sri = orUserSri(author)
-            ua = HTTPRequest.userAgent(req).value
+            ua = req.userAgent.value
             _ = lila.mon.lobby.hook
               .apiCreate(ua = ua.split(' ').take(2).mkString(" "), color = config.color.name)
               .increment()

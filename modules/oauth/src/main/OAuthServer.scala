@@ -6,7 +6,7 @@ import play.api.mvc.{ RequestHeader, Result }
 
 import lila.common.HTTPRequest
 import lila.core.config.Secret
-import lila.core.net.Bearer
+import lila.core.net.{ Bearer, UserAgent }
 import lila.memo.SettingStore
 
 final class OAuthServer(
@@ -23,7 +23,7 @@ final class OAuthServer(
       .bearer(req)
       .fold(fufail(MissingAuthorizationHeader)):
         auth(_, accepted, req.some)
-      .map(checkOauthUaUser(req))
+      .map(checkOauthUaUser(HTTPRequest.userAgent(req)))
       .recover:
         case e: AuthError => Left(e)
       .addEffect: res =>
@@ -80,9 +80,9 @@ final class OAuthServer(
   yield result
 
   val UaUserRegex = """(?:user|as):\s?([\w\-]{3,31})""".r
-  private def checkOauthUaUser(req: RequestHeader)(access: AccessResult): AccessResult =
+  private def checkOauthUaUser(ua: UserAgent)(access: AccessResult): AccessResult =
     access.flatMap: a =>
-      HTTPRequest.userAgent(req).value match
+      ua.value match
         case UaUserRegex(u) if a.me.isnt(UserStr(u)) => Left(UserAgentMismatch)
         case _ => Right(a)
 
