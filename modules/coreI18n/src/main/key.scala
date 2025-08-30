@@ -1729,6 +1729,7 @@ object I18nKey:
     val `noDrawBeforeSwissLimit`: I18nKey = "noDrawBeforeSwissLimit"
     val `thematic`: I18nKey = "thematic"
     val `yourPerfRatingIsProvisional`: I18nKey = "yourPerfRatingIsProvisional"
+    val `ratingRangeIsDisabledBecauseYourRatingIsProvisional`: I18nKey = "ratingRangeIsDisabledBecauseYourRatingIsProvisional"
     val `yourPerfRatingIsTooHigh`: I18nKey = "yourPerfRatingIsTooHigh"
     val `yourTopWeeklyPerfRatingIsTooHigh`: I18nKey = "yourTopWeeklyPerfRatingIsTooHigh"
     val `yourPerfRatingIsTooLow`: I18nKey = "yourPerfRatingIsTooLow"

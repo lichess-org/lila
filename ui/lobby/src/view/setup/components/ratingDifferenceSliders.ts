@@ -27,14 +27,14 @@ export const ratingDifferenceSliders = (ctrl: LobbyController) => {
     return h(
       'div',
       { attrs: { tabindex: 0 } },
-      'Your rating is still provisional, play some rated games to use the rating range.',
+      i18n.site.ratingRangeIsDisabledBecauseYourRatingIsProvisional,
     );
   else
     return h(
       `div.rating-range-config.optional-config${disabled}`,
       {
         attrs: isProvisional
-          ? { title: 'Your rating is still provisional, play some rated games to use the rating range.' }
+          ? { title: i18n.site.ratingRangeIsDisabledBecauseYourRatingIsProvisional }
           : undefined,
       },
       [

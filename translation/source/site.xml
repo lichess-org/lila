@@ -398,6 +398,7 @@
     <item quantity="other">You need to play %s more rated games</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Your %s rating is provisional</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional">You cannot modify the rating range because your rating is still provisional.</string>
   <string name="yourPerfRatingIsTooHigh">Your %1$s rating (%2$s) is too high</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Your top weekly %1$s rating (%2$s) is too high</string>
   <string name="yourPerfRatingIsTooLow">Your %1$s rating (%2$s) is too low</string>

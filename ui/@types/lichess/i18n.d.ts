@@ -3955,6 +3955,8 @@ interface I18n {
     rating: string;
     /** Rating range */
     ratingRange: string;
+    /** You cannot modify the rating range because your rating is still provisional. */
+    ratingRangeIsDisabledBecauseYourRatingIsProvisional: string;
     /** Rating stats */
     ratingStats: string;
     /** %1$s rating over %2$s games */
