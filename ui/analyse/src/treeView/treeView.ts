@@ -47,7 +47,7 @@ export class TreeView {
           el.ondblclick = ctxMenuCallback;
           addPointerListeners(el, { hold: ctxMenuCallback });
         }
-        el.addEventListener('mousedown', (e: MouseEvent) => {
+        el.addEventListener('pointerdown', (e: PointerEvent) => {
           if (!(e.target instanceof HTMLElement)) return;
           if (e.target.classList.contains('disclosure') || (defined(e.button) && e.button !== 0)) return;
           const path = eventPath(e);

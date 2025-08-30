@@ -129,7 +129,11 @@ export class InlineView {
       (!isMainline || this.inline) &&
         (node.ply % 2 === 1 || parentNode.children.length > 1) &&
         renderIndex(node.ply, true),
-      moveNodes(node, ctrl.showFishnetAnalysis() && isMainline && !this.inline, ctrl.showFishnetAnalysis()),
+      moveNodes(
+        node,
+        ctrl.showFishnetAnalysis() && isMainline && !this.inline,
+        (!!ctrl.study && !ctrl.study.relay) || ctrl.showFishnetAnalysis(),
+      ),
     ]);
   }
 

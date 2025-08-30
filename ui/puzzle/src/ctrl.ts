@@ -511,7 +511,7 @@ export default class PuzzleCtrl implements CevalHandler {
     return hint?.from;
   };
 
-  isCevalAllowed = (): boolean => this.mode === 'view' && !this.outcome();
+  isCevalAllowed = (): boolean => this.mode === 'view';
 
   startCeval = (): void => {
     if (this.cevalEnabled()) this.doStartCeval();
