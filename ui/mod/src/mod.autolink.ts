@@ -6,6 +6,7 @@ export function initModule(): void {
 
 export function autolinkAtoms(el: HTMLElement = document.body): void {
   if (!el || el === once) return;
+  return;
   once = el;
   for (const atom of el.querySelectorAll<HTMLElement>('.atom p, .mod-timeline__text')) {
     atom.innerHTML = autolink(atom.innerHTML);
@@ -29,9 +30,9 @@ const greedyAutoLinks = [
 ];
 
 const pathMatchRe = new RegExp(
-  `(?:^|(?<![/="'\\w@])|(?<=[,;(]))(?:https://)?` +
+  `(?:^|(?<![/="'\\w@>])|(?<=[,;(]))(?:https://)?` +
     `(?:${location.hostname.replace('.', '\\.')})?` +
-    `(/(?:${greedyAutoLinks.join('|')})(?:/|\\?|#|\\b|$)(?:[^\\s,."';:)]+)?)`,
+    `(/(?:${greedyAutoLinks.join('|')})(?:/|\\?|#|\\b|$)(?:[^\\s,."';)]+)?)`,
   'gi',
 );
 // note that this path match regex is wrong in a few ways - most notably excluding
