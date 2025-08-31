@@ -7,7 +7,6 @@ export interface ClockOpts {
   bothPlayersHavePlayed(): boolean;
   hasGoneBerserk(color: Color): boolean;
   alarmColor?: Color;
-  alarms?: Map<Millis, () => void>;
 }
 
 export interface ClockConfig {
@@ -75,6 +74,7 @@ export class ClockCtrl {
   barTime: number;
   timeRatioDivisor: number;
   emergMs: Millis;
+  alarmAction?: { seconds: Seconds; fire: () => void };
 
   elements: ByColor<ClockElements> = { white: {}, black: {} };
 
@@ -162,10 +162,9 @@ export class ClockCtrl {
     else updateElements(this, this.elements[color], millis);
 
     if (this.opts.alarmColor === color) {
-      for (const [t, fn] of this.opts.alarms ?? []) {
-        if (millis > t) continue;
-        fn();
-        this.opts.alarms?.delete(t);
+      if (this.alarmAction && millis < this.alarmAction.seconds * 1000) {
+        this.alarmAction.fire();
+        this.alarmAction = undefined;
       }
       if (this.emergSound.playable[color]) {
         if (millis < this.emergMs && !(now < this.emergSound.next!)) {
