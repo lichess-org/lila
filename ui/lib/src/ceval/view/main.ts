@@ -15,7 +15,7 @@ import { uciToMove } from '@lichess-org/chessground/util';
 import { renderCevalSettings } from './settings';
 import type CevalCtrl from '../ctrl';
 import { Chessground as makeChessground } from '@lichess-org/chessground';
-import { isTouchDevice, displayColumns } from '../../device';
+import { isTouchDevice } from '../../device';
 
 type EvalInfo = { knps: number; npsText: string; depthText: string };
 
@@ -238,7 +238,7 @@ export function renderCeval(ctrl: CevalHandler): VNode[] {
 
   return [
     hl('div.ceval' + (enabled ? '.enabled' : ''), { class: { computing: ceval.isComputing } }, [
-      (displayColumns() > 1 || site.blindMode) && renderCevalSwitch(ctrl),
+      renderCevalSwitch(ctrl),
       body,
       threatButton(ctrl),
       settingsGear,
