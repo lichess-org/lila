@@ -1,0 +1,889 @@
+{
+  "//": "This file is generated from sources in ../lexicon. Do not edit.",
+  "partials": {
+    "commands": ["yes", "no"],
+    "colors": ["green", "blue", "purple", "pink", "yellow", "orange", "red", "brown"],
+    "numbers": ["1", "2", "3", "4", "5", "6", "7", "8"]
+  },
+  "entries": [
+    {
+      "in": "a",
+      "tok": "a",
+      "tags": ["file", "move"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "be",
+      "tok": "b",
+      "tags": ["file", "move"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "ce",
+      "tok": "c",
+      "tags": ["file", "move"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "de",
+      "tok": "d",
+      "tags": ["file", "move"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "e",
+      "tok": "e",
+      "tags": ["file", "move"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "ef",
+      "tok": "f",
+      "tags": ["file", "move"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "je",
+      "tok": "g",
+      "tags": ["file", "move"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "ha",
+      "tok": "h",
+      "tags": ["file", "move"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "jeden",
+      "tok": "1",
+      "tags": ["rank", "move", "choice"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "dwa",
+      "tok": "2",
+      "tags": ["rank", "move", "choice"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "trzy",
+      "tok": "3",
+      "tags": ["rank", "move", "choice"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "cztery",
+      "tok": "4",
+      "tags": ["rank", "move", "choice"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "pięć",
+      "tok": "5",
+      "tags": ["rank", "move", "choice"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "sześć",
+      "tok": "6",
+      "tags": ["rank", "move", "choice"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "siedem",
+      "tok": "7",
+      "tags": ["rank", "move", "choice"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "osiem",
+      "tok": "8",
+      "tags": ["rank", "move", "choice"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "pion",
+      "tok": "P",
+      "tags": ["role", "move"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "pionek",
+      "tok": "P",
+      "tags": ["role", "move"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "skoczek",
+      "tok": "N",
+      "tags": ["role", "move"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "skoczka",
+      "tok": "N",
+      "tags": ["role", "move"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "goniec",
+      "tok": "B",
+      "tags": ["role", "move"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "gońca",
+      "tok": "B",
+      "tags": ["role", "move"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "wieża",
+      "tok": "R",
+      "tags": ["role", "move"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "wieżę",
+      "tok": "R",
+      "tags": ["role", "move"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "dama",
+      "tok": "Q",
+      "tags": ["role", "move"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "damę",
+      "tok": "Q",
+      "tags": ["role", "move"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "królowa",
+      "tok": "Q",
+      "tags": ["role", "move"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "królową",
+      "tok": "Q",
+      "tags": ["role", "move"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "hetman",
+      "tok": "Q",
+      "tags": ["role", "move"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "hetmana",
+      "tok": "Q",
+      "tags": ["role", "move"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "król",
+      "tok": "K",
+      "tags": ["role", "move"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "króla",
+      "tok": "K",
+      "tags": ["role", "move"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "roszada",
+      "val": "castle",
+      "tags": ["move"],
+      "tok": "!",
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "bierze",
+      "val": "x",
+      "tags": ["move"],
+      "tok": "#",
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "promocja",
+      "val": "=",
+      "tags": ["move"],
+      "tok": "$",
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "pomyłka",
+      "val": "takeback",
+      "tags": ["command"],
+      "tok": "%",
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "pomyliłem się",
+      "val": "takeback",
+      "tags": ["command"],
+      "tok": "IJ"
+    },
+    {
+      "in": "pomyliłam się",
+      "val": "takeback",
+      "tags": ["command"],
+      "tok": "LJ"
+    },
+    {
+      "in": "proponuję remis",
+      "val": "draw",
+      "tags": ["command", "round"],
+      "tok": "MO"
+    },
+    {
+      "in": "poddaję się",
+      "val": "resign",
+      "tags": ["command", "round"],
+      "tok": "SJ"
+    },
+    {
+      "in": "rezygnuję",
+      "val": "resign",
+      "tags": ["command", "round"],
+      "tok": "&",
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "proponuję rewanż",
+      "val": "rematch",
+      "tags": ["command", "round"],
+      "tok": "MT"
+    },
+    {
+      "in": "obróć szachownicę",
+      "val": "flip",
+      "tags": ["command"],
+      "tok": "UV"
+    },
+    {
+      "in": "zegar",
+      "val": "clock",
+      "tags": ["command", "round"],
+      "tok": "(",
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "przeciwnik",
+      "val": "who",
+      "tags": ["command", "round"],
+      "tok": ")",
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "następne",
+      "val": "next",
+      "tags": ["command", "puzzle"],
+      "tok": "*",
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "pokaż rozwiązanie",
+      "val": "solve",
+      "tags": ["command", "puzzle"],
+      "tok": "WX"
+    },
+    {
+      "in": "pomocy",
+      "val": "help",
+      "tags": ["command"],
+      "tok": "+",
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "stop",
+      "val": "stop",
+      "tags": ["command"],
+      "tok": "-",
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "wyłącz mikrofon",
+      "val": "mic-off",
+      "tags": ["command"],
+      "tok": "YZ"
+    },
+    {
+      "in": "tak",
+      "val": "yes",
+      "tags": ["choice"],
+      "tok": ".",
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "nie",
+      "val": "no",
+      "tags": ["choice"],
+      "tok": "/",
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "niebieski",
+      "val": "blue",
+      "tags": ["color", "choice"],
+      "tok": "0",
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "zielony",
+      "val": "green",
+      "tags": ["color", "choice"],
+      "tok": "9",
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "żółty",
+      "val": "yellow",
+      "tags": ["color", "choice"],
+      "tok": ":",
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "czerwony",
+      "val": "red",
+      "tags": ["color", "choice"],
+      "tok": ";",
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "różowy",
+      "val": "pink",
+      "tags": ["color", "choice"],
+      "tok": "<",
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "fioletowy",
+      "val": "purple",
+      "tags": ["color", "choice"],
+      "tok": "=",
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "pomarańczowy",
+      "val": "orange",
+      "tags": ["color", "choice"],
+      "tok": ">",
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "brązowy",
+      "val": "brown",
+      "tags": ["color", "choice"],
+      "tok": "?",
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "alfa",
+      "val": "a",
+      "tags": ["file", "move", "phonetic"],
+      "tok": "@",
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "brawo",
+      "val": "b",
+      "tags": ["file", "move", "phonetic"],
+      "tok": "A",
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "czarek",
+      "val": "c",
+      "tags": ["file", "move", "phonetic"],
+      "tok": "C",
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "delta",
+      "val": "d",
+      "tags": ["file", "move", "phonetic"],
+      "tok": "D",
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "echo",
+      "val": "e",
+      "tags": ["file", "move", "phonetic"],
+      "tok": "E",
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "franek",
+      "val": "f",
+      "tags": ["file", "move", "phonetic"],
+      "tok": "F",
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "golf",
+      "val": "g",
+      "tags": ["file", "move", "phonetic"],
+      "tok": "G",
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "hotel",
+      "val": "h",
+      "tags": ["file", "move", "phonetic"],
+      "tok": "H",
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "pomyliłem",
+      "tok": "I",
+      "tags": ["part"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "się",
+      "tok": "J",
+      "tags": ["part"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "pomyliłam",
+      "tok": "L",
+      "tags": ["part"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "proponuję",
+      "tok": "M",
+      "tags": ["part"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "remis",
+      "tok": "O",
+      "tags": ["part"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "poddaję",
+      "tok": "S",
+      "tags": ["part"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "rewanż",
+      "tok": "T",
+      "tags": ["part"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "obróć",
+      "tok": "U",
+      "tags": ["part"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "szachownicę",
+      "tok": "V",
+      "tags": ["part"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "pokaż",
+      "tok": "W",
+      "tags": ["part"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "rozwiązanie",
+      "tok": "X",
+      "tags": ["part"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "wyłącz",
+      "tok": "Y",
+      "tags": ["part"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "mikrofon",
+      "tok": "Z",
+      "tags": ["part"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    }
+  ]
+}
