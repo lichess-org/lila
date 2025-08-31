@@ -164,9 +164,7 @@ export default class AnalyseCtrl implements CevalHandler {
     this.showGround();
 
     this.variationArrowOpacity = this.makeVariationOpacityProp();
-    this.showBestMoveArrows = storedBooleanPropWithEffect('analyse.auto-shapes', true, () =>
-      this.resetAutoShapes(),
-    );
+    this.showBestMoveArrows = storedBooleanPropWithEffect('analyse.auto-shapes', true, this.resetAutoShapes);
     this.resetAutoShapes();
     this.explorer.setNode();
     this.study =
@@ -1043,7 +1041,7 @@ export default class AnalyseCtrl implements CevalHandler {
   private resetAutoShapes = () => {
     if (this.showBestMoveArrows() || this.showMoveAnnotation() || this.variationArrowOpacity())
       this.setAutoShapes();
-    else this.chessground && this.chessground.setAutoShapes([]);
+    else this.chessground?.setAutoShapes([]);
   };
 
   private async mergeIdbThenShowTreeView() {
