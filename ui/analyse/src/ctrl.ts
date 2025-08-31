@@ -162,7 +162,11 @@ export default class AnalyseCtrl implements CevalHandler {
     this.setPath(this.initialPath);
 
     this.showGround();
-    this.showBestMoveArrows = storedBooleanPropWithEffect('analyse.auto-shapes', true, this.resetAutoShapes);
+
+    this.variationArrowOpacity = this.makeVariationOpacityProp();
+    this.showBestMoveArrows = storedBooleanPropWithEffect('analyse.auto-shapes', true, () =>
+      this.resetAutoShapes(),
+    );
     this.resetAutoShapes();
     this.explorer.setNode();
     this.study =
@@ -213,7 +217,6 @@ export default class AnalyseCtrl implements CevalHandler {
       }
     });
     this.mergeIdbThenShowTreeView();
-    this.variationArrowOpacity = this.makeVariationOpacityProp();
     (window as any).lichess.analysis = api(this);
   }
 
