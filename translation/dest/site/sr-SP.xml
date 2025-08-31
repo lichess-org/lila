@@ -693,7 +693,7 @@
   <string name="sourceCode">Изворни Код</string>
   <string name="simultaneousExhibitions">Симултанке</string>
   <string name="host">Домаћин</string>
-  <string name="hostColorX">Боја приређивача: %s</string>
+  <string name="hostColorX">Боја домаћина: %s</string>
   <string name="yourPendingSimuls">Незавршене симултанке</string>
   <string name="createdSimuls">Новостворене симултанке</string>
   <string name="hostANewSimul">Организуј нову симултанку</string>
@@ -814,9 +814,9 @@
   <string name="background">Позадина</string>
   <string name="light">Светла</string>
   <string name="dark">Тамна</string>
-  <string name="transparent">Прозирна</string>
+  <string name="transparent">Провидна</string>
   <string name="deviceTheme">Тема уређаја</string>
-  <string name="backgroundImageUrl">УРЛ слике позадине:</string>
+  <string name="backgroundImageUrl">Линк позадиснке слике:</string>
   <string name="board">Табла</string>
   <string name="size">Величина</string>
   <string name="brightness">Осветљеност</string>
