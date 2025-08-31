@@ -95,6 +95,7 @@ export function renderCevalSettings(ctrl: CevalHandler): VNode | null {
                         (pvs: number) => {
                           ceval.storedPv(pvs);
                           ctrl.clearCeval?.();
+                          ceval.opts.redraw();
                         },
                       ),
                     }),

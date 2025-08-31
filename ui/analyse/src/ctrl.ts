@@ -1041,7 +1041,8 @@ export default class AnalyseCtrl implements CevalHandler {
   };
 
   private resetAutoShapes = () => {
-    if (this.showBestMoveArrows() || this.showMoveAnnotation()) this.setAutoShapes();
+    if (this.showBestMoveArrows() || this.showMoveAnnotation() || this.variationArrowOpacity())
+      this.setAutoShapes();
     else this.chessground && this.chessground.setAutoShapes([]);
   };
 

@@ -6,7 +6,8 @@ export interface ClockOpts {
   onFlag(): void;
   bothPlayersHavePlayed(): boolean;
   hasGoneBerserk(color: Color): boolean;
-  soundColor?: Color;
+  alarmColor?: Color;
+  alarms?: Map<Millis, () => void>;
 }
 
 export interface ClockConfig {
@@ -160,7 +161,12 @@ export class ClockCtrl {
     if (millis === 0) this.opts.onFlag();
     else updateElements(this, this.elements[color], millis);
 
-    if (this.opts.soundColor === color) {
+    if (this.opts.alarmColor === color) {
+      for (const [t, fn] of this.opts.alarms ?? []) {
+        if (millis > t) continue;
+        fn();
+        this.opts.alarms?.delete(t);
+      }
       if (this.emergSound.playable[color]) {
         if (millis < this.emergMs && !(now < this.emergSound.next!)) {
           this.emergSound.play();

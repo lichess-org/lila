@@ -634,14 +634,13 @@ export default class RoundController implements MoveRootCtrl {
 
   private makeClockOpts: () => ClockOpts = () => ({
     onFlag: this.socket.outoftime,
-    playable: () => game.playable(this.data),
     bothPlayersHavePlayed: () => game.bothPlayersHavePlayed(this.data),
     hasGoneBerserk: this.hasGoneBerserk,
-    soundColor:
+    alarmColor:
       this.data.simul || this.data.player.spectator || !this.data.pref.clockSound
         ? undefined
         : this.data.player.color,
-    nvui: !!this.nvui,
+    alarms: new Map([[60 * 1000, () => (this.chessground.state.touchIgnoreRadius = Math.SQRT2)]]),
   });
 
   private tickingClockColor = (): Color | undefined =>
