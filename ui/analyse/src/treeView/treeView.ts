@@ -42,7 +42,7 @@ export class TreeView {
           ctrl.redraw();
           return false;
         };
-        el.oncontextmenu = ctxMenuCallback;
+        //el.oncontextmenu = ctxMenuCallback;
         if (isTouchDevice()) {
           el.ondblclick = ctxMenuCallback;
           addPointerListeners(el, { hold: ctxMenuCallback });

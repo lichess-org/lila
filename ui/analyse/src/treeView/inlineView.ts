@@ -83,6 +83,32 @@ export class InlineView {
       .filter(Boolean);
   }
 
+  sidelineNodes([child, ...siblings]: Tree.Node[], args: Args): LooseVNodes {
+    if (!child) return;
+    const { parentDisclose, parentPath } = args;
+    const childArgs = {
+      isMainline: false,
+      parentPath: parentPath + child.id,
+      parentNode: child,
+      parentDisclose: this.ctrl.idbTree.discloseOf(child),
+    };
+    return [
+      this.moveNode(child, args),
+      parentDisclose !== 'collapsed' && [
+        this.commentNodes(child),
+        parentDisclose === 'expanded'
+          ? hl('interrupt', [
+              hl('interrupt', this.variationNodes(child.children, childArgs)),
+              siblings[0] && this.variationNodes(siblings, args),
+            ])
+          : [
+              this.sidelineNodes(child.children, childArgs),
+              siblings[0] && hl('interrupt', this.variationNodes(siblings, args)),
+            ],
+      ],
+    ];
+  }
+
   protected variationNodes(lines: Tree.Node[], args: Args): LooseVNodes {
     const { parentDisclose, parentPath, parentNode, isMainline } = args;
     if (!lines.length || parentDisclose === 'collapsed') return;
@@ -90,11 +116,13 @@ export class InlineView {
     const lineArgs = { parentPath, parentNode, isMainline: false };
 
     return (!isMainline || this.inline) && lines.length === 1 && !treeOps.hasBranching(lines[0], 6)
-      ? hl('inline', this.retroLine(lines[0]) || this.inlineNodes(lines, lineArgs))
+      ? hl('inline', this.retroLine(lines[0]) || this.sidelineNodes(lines, lineArgs))
       : hl('lines', { class: { anchor } }, [
-          parentDisclose === 'expanded' && this.disclosureConnector(),
+          parentDisclose === 'expanded' && this.disclosureConnector(parentPath),
           lines.map(
-            line => this.retroLine(line) || hl('line', [hl('branch'), this.inlineNodes([line], lineArgs)]),
+            line =>
+              this.retroLine(line) ||
+              hl('line', [parentDisclose && hl('branch'), this.sidelineNodes([line], lineArgs)]),
           ),
         ]);
   }
@@ -137,8 +165,8 @@ export class InlineView {
     ]);
   }
 
-  protected disclosureConnector(): VNode {
-    const callback = (vnode: VNode) => this.connectToDisclosureBtn(vnode);
+  protected disclosureConnector(parentPath: Tree.Path): VNode {
+    const callback = (vnode: VNode) => this.connectToDisclosureBtn(vnode, parentPath);
 
     return hl(
       'div.disclosure-connector',
@@ -150,12 +178,13 @@ export class InlineView {
   private disclosureBtn(node: Tree.Node, path: Tree.Path): VNode | undefined {
     return hl('a.disclosure', {
       class: { expanded: !node.collapsed },
+      attrs: { 'data-path': path },
       on: { click: () => this.ctrl.idbTree.setCollapsed(path, !node.collapsed) },
     });
   }
 
-  private connectToDisclosureBtn(v: VNode): void {
-    const [el, btn] = [v.elm as HTMLElement, this.findDisclosureBtn(v.elm)];
+  private connectToDisclosureBtn(v: VNode, path: Tree.Path): void {
+    const [el, btn] = [v.elm as HTMLElement, this.findDisclosureBtn(v.elm, path)];
     if (!el || !btn || isSafari({ below: '16' })) return;
 
     const btnRect = btn.getBoundingClientRect();
@@ -176,8 +205,8 @@ export class InlineView {
     (el.firstElementChild as HTMLElement).style.display = isFirstOnRow ? 'none' : 'block';
   }
 
-  private findDisclosureBtn(el: Node | null | undefined): HTMLElement | undefined {
-    while (el && el.nodeName !== 'A') {
+  private findDisclosureBtn(el: Node | null | undefined, path: Tree.Path): HTMLElement | undefined {
+    while (el && (el.nodeName !== 'A' || (el as HTMLElement).dataset.path !== path)) {
       if (!el.previousSibling) el = el.parentNode;
       else {
         el = el.previousSibling;
