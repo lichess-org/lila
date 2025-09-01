@@ -187,7 +187,6 @@
   <string name="blackTimeOut">Isikhathi siphelili mnyama</string>
   <string name="drawOfferSent">Dweba okunikezwayo kuthunyelwe</string>
   <string name="drawOfferAccepted">Dweba okunikezwayo okwamukelwe</string>
-  <string name="drawOfferCanceled">Dweba ukunikezwa kukhanseliwe</string>
   <string name="whiteOffersDraw">White unikeza ukudweba</string>
   <string name="blackOffersDraw">Okumnyama okunikezwayo</string>
   <string name="whiteDeclinesDraw">Imidwebo emhlophe yenqaba</string>
