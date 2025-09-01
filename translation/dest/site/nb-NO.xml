@@ -280,7 +280,6 @@
   <string name="blackTimeOut">Tiden er ute for svart</string>
   <string name="drawOfferSent">Remistilbud sendt</string>
   <string name="drawOfferAccepted">Remistilbud godtatt</string>
-  <string name="drawOfferCanceled">Remistilbud trukket tilbake</string>
   <string name="whiteOffersDraw">Hvit tilbyr remis</string>
   <string name="blackOffersDraw">Sort tilbyr remis</string>
   <string name="whiteDeclinesDraw">Hvit avslår remis</string>
