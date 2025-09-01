@@ -264,7 +264,6 @@
   <string name="blackTimeOut">Itim oras na</string>
   <string name="drawOfferSent">Naipadala na ang alok na tabla</string>
   <string name="drawOfferAccepted">Tinanggap ang alok na tabla</string>
-  <string name="drawOfferCanceled">Kinansela ang alok na tabla</string>
   <string name="whiteOffersDraw">Ang puti ay nag-alok ng tabla</string>
   <string name="blackOffersDraw">Ang itim ay nag-alok ng tabla</string>
   <string name="whiteDeclinesDraw">Tinanggihan ng puti ang alok</string>
