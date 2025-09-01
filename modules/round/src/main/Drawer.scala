@@ -68,13 +68,6 @@ final private[round] class Drawer(
 
   def no(pov: Pov)(using proxy: GameProxy): Fu[Events] = pov.game.drawable.so:
     pov match
-      case Pov(g, color) if pov.player.isOfferingDraw =>
-        proxy
-          .save:
-            messenger.system(g, trans.site.drawOfferCanceled.txt())
-            Progress(g).map: g =>
-              g.updatePlayer(color, _.copy(isOfferingDraw = false))
-          .inject(List(Event.DrawOffer(by = none)))
       case Pov(g, color) if pov.opponent.isOfferingDraw =>
         proxy
           .save:
