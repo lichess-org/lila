@@ -262,7 +262,6 @@
   <string name="blackTimeOut">Musta aeg sai läbi</string>
   <string name="drawOfferSent">Viigi pakkumine saadetud</string>
   <string name="drawOfferAccepted">Viigi pakkumine vastu võetud</string>
-  <string name="drawOfferCanceled">Viigi pakkumine tühistatud</string>
   <string name="whiteOffersDraw">Valge pakub viiki</string>
   <string name="blackOffersDraw">Must pakub viiki</string>
   <string name="whiteDeclinesDraw">Valge keeldub viigist</string>
