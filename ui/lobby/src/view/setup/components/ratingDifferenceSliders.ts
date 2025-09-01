@@ -13,6 +13,30 @@ export const ratingDifferenceSliders = (ctrl: LobbyController) => {
   const currentRatingMin = isProvisional ? -500 : setupCtrl.ratingMin();
   const currentRatingMax = isProvisional ? 500 : setupCtrl.ratingMax();
 
+  const ratingInput = (type: 'min' | 'max') => {
+    const isMin = type === 'min';
+    return hl(`input.range.rating-range__${type}`, {
+      attrs: {
+        type: 'range',
+        'aria-label': i18n.site.ratingRange,
+        min: isMin ? '-500' : '0',
+        max: isMin ? '0' : '500',
+        step: '50',
+        value: isMin ? currentRatingMin : currentRatingMax,
+        disabled: isProvisional,
+      },
+      on: {
+        input: (e: Event) => {
+          const newVal = parseInt((e.target as HTMLInputElement).value);
+          // Both values should not be 0. Modify the other slider so there is always a range
+          if (newVal === 0 && (isMin ? setupCtrl.ratingMax() : setupCtrl.ratingMin()) === 0)
+            isMin ? setupCtrl.ratingMax(50) : setupCtrl.ratingMin(-50);
+          isMin ? setupCtrl.ratingMin(newVal) : setupCtrl.ratingMax(newVal);
+        },
+      },
+    });
+  };
+
   return hl(
     `div.rating-range-config.optional-config${disabled}`,
     {
@@ -27,47 +51,13 @@ export const ratingDifferenceSliders = (ctrl: LobbyController) => {
     [
       i18n.site.ratingRange,
       hl('div.rating-range', [
-        hl('input.range.rating-range__min', {
-          attrs: {
-            type: 'range',
-            'aria-label': i18n.site.ratingRange,
-            min: '-500',
-            max: '0',
-            step: '50',
-            value: currentRatingMin,
-            disabled: isProvisional,
-          },
-          on: {
-            input: (e: Event) => {
-              const newVal = parseInt((e.target as HTMLInputElement).value);
-              if (newVal === 0 && setupCtrl.ratingMax() === 0) setupCtrl.ratingMax(50);
-              setupCtrl.ratingMin(newVal);
-            },
-          },
-        }),
+        ratingInput('min'),
         !site.blindMode && [
           hl('span.rating-min', '-' + Math.abs(currentRatingMin)),
           '/',
           hl('span.rating-max', '+' + currentRatingMax),
         ],
-        hl('input.range.rating-range__max', {
-          attrs: {
-            type: 'range',
-            'aria-label': i18n.site.ratingRange,
-            min: '0',
-            max: '500',
-            step: '50',
-            value: currentRatingMax,
-            disabled: isProvisional,
-          },
-          on: {
-            input: (e: Event) => {
-              const newVal = parseInt((e.target as HTMLInputElement).value);
-              if (newVal === 0 && setupCtrl.ratingMin() === 0) setupCtrl.ratingMin(-50);
-              setupCtrl.ratingMax(newVal);
-            },
-          },
-        }),
+        ratingInput('max'),
       ]),
     ],
   );
