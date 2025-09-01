@@ -280,7 +280,6 @@
   <string name="blackTimeOut">Siyahın zamanı tükendi</string>
   <string name="drawOfferSent">Beraberlik teklifi gönderildi</string>
   <string name="drawOfferAccepted">Beraberlik teklifi kabul edildi</string>
-  <string name="drawOfferCanceled">Beraberlik teklifi iptal edildi</string>
   <string name="whiteOffersDraw">Beyaz beraberlik teklif ediyor</string>
   <string name="blackOffersDraw">Siyah beraberlik teklif ediyor</string>
   <string name="whiteDeclinesDraw">Beyaz beraberlik teklifini geri çevirdi</string>
