@@ -276,7 +276,6 @@
   <string name="blackTimeOut">Wakhtigaa ka dhacay madowga</string>
   <string name="drawOfferSent">La dir dalbasho baraaje</string>
   <string name="drawOfferAccepted">Waa la aqbalay baraaje</string>
-  <string name="drawOfferCanceled">Waa laga noqday dalbasho baraaje</string>
   <string name="whiteOffersDraw">Cadaankaa dalbaday baraaje</string>
   <string name="blackOffersDraw">Madowgaa dalbaday baraaje</string>
   <string name="whiteDeclinesDraw">Caddaanku wudu diiday baraaje</string>
