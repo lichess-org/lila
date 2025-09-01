@@ -6,7 +6,6 @@ export function initModule(): void {
 
 export function autolinkAtoms(el: HTMLElement = document.body): void {
   if (!el || el === once) return;
-  return;
   once = el;
   for (const atom of el.querySelectorAll<HTMLElement>('.atom p, .mod-timeline__text')) {
     atom.innerHTML = autolink(atom.innerHTML);

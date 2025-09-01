@@ -162,6 +162,8 @@ export default class AnalyseCtrl implements CevalHandler {
     this.setPath(this.initialPath);
 
     this.showGround();
+
+    this.variationArrowOpacity = this.makeVariationOpacityProp();
     this.showBestMoveArrows = storedBooleanPropWithEffect('analyse.auto-shapes', true, this.resetAutoShapes);
     this.resetAutoShapes();
     this.explorer.setNode();
@@ -213,7 +215,6 @@ export default class AnalyseCtrl implements CevalHandler {
       }
     });
     this.mergeIdbThenShowTreeView();
-    this.variationArrowOpacity = this.makeVariationOpacityProp();
     (window as any).lichess.analysis = api(this);
   }
 
@@ -739,23 +740,25 @@ export default class AnalyseCtrl implements CevalHandler {
 
   cevalEnabled = (enable?: boolean): boolean | 'force' => {
     const force = !!this.practice || !!this.retro;
-    if (enable === undefined)
-      return force
-        ? 'force'
-        : this.isCevalAllowed() && this.ceval.available() && !this.ceval.isPaused && this.cevalEnabledProp();
+    const unforcedState = this.cevalEnabledProp() && this.isCevalAllowed() && !this.ceval.isPaused;
+
+    if (enable === undefined) return force ? 'force' : unforcedState;
+
     if (!force) {
       this.showCevalProp(enable);
       this.cevalEnabledProp(enable);
     }
-    if (enable) this.startCeval();
-    else {
-      this.threatMode(false);
-      this.togglePractice(false);
-      this.ceval.stop();
+    if (enable !== unforcedState || this.ceval.isPaused) {
+      if (enable) this.startCeval();
+      else {
+        this.threatMode(false);
+        this.togglePractice(false);
+        this.ceval.stop();
+      }
+      this.setAutoShapes();
+      this.ceval.showEnginePrefs(false);
+      this.redraw();
     }
-    this.setAutoShapes();
-    this.ceval.showEnginePrefs(false);
-    this.redraw();
     return force ? 'force' : enable;
   };
 
@@ -1014,13 +1017,8 @@ export default class AnalyseCtrl implements CevalHandler {
   };
 
   private makeVariationOpacityProp(): Prop<number | false> {
-    let value: number;
-    const legacy = localStorage.getItem('analyse.show-variation-arrows');
-    if (legacy !== null) {
-      value = legacy === 'true' ? 0.6 : 0; // compat
-      localStorage.removeItem('analyse.show-variation-arrows');
-    } else value = parseFloat(localStorage.getItem('analyse.variation-arrow-opacity') || '0.6');
-    if (isNaN(value) || value < -1 || value > 1) value = 0.6;
+    let value = parseFloat(localStorage.getItem('analyse.variation-arrow-opacity') || '0');
+    if (isNaN(value) || value < -1 || value > 1) value = 0;
     return (v?: number | false) => {
       if (v === false) return value;
       if (v === undefined || isNaN(v)) return value > 0 ? value : false;
@@ -1043,7 +1041,7 @@ export default class AnalyseCtrl implements CevalHandler {
   private resetAutoShapes = () => {
     if (this.showBestMoveArrows() || this.showMoveAnnotation() || this.variationArrowOpacity())
       this.setAutoShapes();
-    else this.chessground && this.chessground.setAutoShapes([]);
+    else this.chessground?.setAutoShapes([]);
   };
 
   private async mergeIdbThenShowTreeView() {
