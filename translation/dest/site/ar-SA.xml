@@ -352,7 +352,6 @@
   <string name="blackTimeOut">انتهى وقت الأسود</string>
   <string name="drawOfferSent">تم ارسال عرض التعادل</string>
   <string name="drawOfferAccepted">تم قبول عرض التعادل</string>
-  <string name="drawOfferCanceled">أُلغي عرض التعادل</string>
   <string name="whiteOffersDraw">الأبيض يعرض التعادل</string>
   <string name="blackOffersDraw">الأسود يعرض التعادل</string>
   <string name="whiteDeclinesDraw">الأبيض رفض التعادل</string>
