@@ -316,7 +316,6 @@
   <string name="blackTimeOut">Črnemu se je čas iztekel</string>
   <string name="drawOfferSent">Predlog za remi poslan</string>
   <string name="drawOfferAccepted">Predlog za remi sprejet</string>
-  <string name="drawOfferCanceled">Predlog za remi preklican</string>
   <string name="whiteOffersDraw">Beli predlaga remi</string>
   <string name="blackOffersDraw">Črni predlaga remi</string>
   <string name="whiteDeclinesDraw">Beli zavrnil remi</string>
