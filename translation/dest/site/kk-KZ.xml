@@ -278,7 +278,6 @@
   <string name="blackTimeOut">Қараның уақыты бітті</string>
   <string name="drawOfferSent">Тепе-теңдік сұрауда</string>
   <string name="drawOfferAccepted">Тепе-теңдікке келісті</string>
-  <string name="drawOfferCanceled">Тепе-теңдік сұрау тоқтатылды</string>
   <string name="whiteOffersDraw">Ақ тепе-теңдік сұрауда</string>
   <string name="blackOffersDraw">Қара тепе-теңдік сұрауда</string>
   <string name="whiteDeclinesDraw">Ақ тепе-теңдіктен бас тартты</string>
