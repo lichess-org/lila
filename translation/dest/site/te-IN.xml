@@ -283,7 +283,6 @@
   <string name="blackTimeOut">నలుపు సమయం సమాప్తి</string>
   <string name="drawOfferSent">సంధి ప్రతిపాదన పంపబడింది</string>
   <string name="drawOfferAccepted">సంధి ప్రతిపాదన ఆమోదించబడింది</string>
-  <string name="drawOfferCanceled">సంధి ప్రతిపాదన రద్దుచేయబడింది</string>
   <string name="whiteOffersDraw">తెల్ల పావులు సంధి కోరుకుంటున్నాయి</string>
   <string name="blackOffersDraw">నల్ల పావులు సంధి కోరుకుంటున్నాయి</string>
   <string name="whiteDeclinesDraw">తెల్ల పావులు సంధి నిరాకరించాయి</string>
