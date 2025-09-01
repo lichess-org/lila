@@ -276,7 +276,6 @@
   <string name="blackTimeOut">La tempo de nigro finiĝis</string>
   <string name="drawOfferSent">Egalvenka propono estis sendita</string>
   <string name="drawOfferAccepted">Egalvenka propono estis akceptita</string>
-  <string name="drawOfferCanceled">Egalvenka propono estis nuligita</string>
   <string name="whiteOffersDraw">Blanko proponas egalvenkon</string>
   <string name="blackOffersDraw">Nigro proponas egalvenkon</string>
   <string name="whiteDeclinesDraw">Blanko malakceptas egalvenkon</string>
