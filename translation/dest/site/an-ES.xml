@@ -276,7 +276,6 @@
   <string name="blackTimeOut">Cayida de bandera d\'as negras</string>
   <string name="drawOfferSent">Ofierta de taulas ninviada</string>
   <string name="drawOfferAccepted">Ofierta de taulas acceptada</string>
-  <string name="drawOfferCanceled">Ofierta de taulas cancelada</string>
   <string name="whiteOffersDraw">Las blancas ofreixen taulas</string>
   <string name="blackOffersDraw">Las negras ofreixen taulas</string>
   <string name="whiteDeclinesDraw">Las blancas refusan taulas</string>
