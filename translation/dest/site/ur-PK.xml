@@ -220,7 +220,6 @@
   <string name="blackTimeOut">سیاہ کا وقت ختم</string>
   <string name="drawOfferSent">مقابلہ برابری پر ختم کرنے کی پیشکش بھیج دی گئی</string>
   <string name="drawOfferAccepted">مقابلہ برابری پر ختم کرنے کی پیشکش قبول کرلی گئي</string>
-  <string name="drawOfferCanceled">مقابلہ برابری پر ختم کرنے کی پیشکش منسوخ کردی گئی</string>
   <string name="whiteOffersDraw">سفید مقابلہ برابری پر ختم کرنا چاہتا ہے</string>
   <string name="blackOffersDraw">سیاہ مقابلہ برابری پر ختم کرنا چاہتا ہے</string>
   <string name="whiteDeclinesDraw">سفید نے برابری کی درخواست مسترد کر دی</string>
