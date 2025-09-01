@@ -87,7 +87,6 @@
   <string name="cancel">Sguir dheth</string>
   <string name="drawOfferSent">Chaidh tairgse airson co-tharraing a chur</string>
   <string name="drawOfferAccepted">Ghabhadh ri do thairgse airson co-tharraing</string>
-  <string name="drawOfferCanceled">Sguireadh de do thairgse airson co-tharraing</string>
   <string name="whiteOffersDraw">Tha geal a\' tairgse co-tharraing</string>
   <string name="blackOffersDraw">Tha dubh a\' tairgse co-tharraing</string>
   <string name="whiteDeclinesDraw">Tha geal a\' diùltadh co-tharraing</string>
