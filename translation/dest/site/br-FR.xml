@@ -313,7 +313,6 @@
   <string name="blackTimeOut">Amzer ebet ken evit ar re zu</string>
   <string name="drawOfferSent">Kinnig rampo kaset</string>
   <string name="drawOfferAccepted">Kinnig rampo asantet</string>
-  <string name="drawOfferCanceled">Kinnig rampo nullet</string>
   <string name="whiteOffersDraw">Ar re wenn a ginnig bezañ rampo</string>
   <string name="blackOffersDraw">Ar re zu a ginnig bezañ rampo</string>
   <string name="whiteDeclinesDraw">Ar re wenn a nac\'h bezañ rampo</string>
