@@ -186,7 +186,6 @@
   <string name="blackTimeOut">Gara wagty gutardy</string>
   <string name="drawOfferSent">Deňlik teklibi iberildi</string>
   <string name="drawOfferAccepted">Deňlik teklibi kabul edildi</string>
-  <string name="drawOfferCanceled">Deňlik teklibi goýbolsun edildi</string>
   <string name="whiteOffersDraw">Aklar deňlik teklip edýär</string>
   <string name="blackOffersDraw">Garalar deňlik teklip edýär</string>
   <string name="whiteDeclinesDraw">Aklar deňligi ret etdi</string>
