@@ -238,7 +238,6 @@
   <string name="blackTimeOut">Караларның вакыты чыкты</string>
   <string name="drawOfferSent">Тиңлек тәкъдиме җибәрелде</string>
   <string name="drawOfferAccepted">Тиңлек тәкъдиме кабул ителде</string>
-  <string name="drawOfferCanceled">Тиңлек тәкъдиме туктатылды</string>
   <string name="whiteOffersDraw">Аклар тиңлек тәкъдим итә</string>
   <string name="blackOffersDraw">Каралар тиңлек тәкъдим итә</string>
   <string name="whiteDeclinesDraw">Аклар тиңлекне кире кага</string>
