@@ -313,7 +313,6 @@
   <string name="blackTimeOut">נגמר הזמן לשחור</string>
   <string name="drawOfferSent">הצעת תיקו נשלחה</string>
   <string name="drawOfferAccepted">הצעת התיקו התקבלה</string>
-  <string name="drawOfferCanceled">הצעת התיקו בוטלה</string>
   <string name="whiteOffersDraw">לבן מציע תיקו</string>
   <string name="blackOffersDraw">שחור מציע תיקו</string>
   <string name="whiteDeclinesDraw">לבן מסרב לתיקו</string>
