@@ -276,7 +276,6 @@
   <string name="blackTimeOut">কালোর সময় আপ</string>
   <string name="drawOfferSent">সমান অফার পাঠানো হয়েছে</string>
   <string name="drawOfferAccepted">সমান অফার গ্রহণ করা হয়েছে</string>
-  <string name="drawOfferCanceled">সমান অফার বাতিল করা হয়েছে</string>
   <string name="whiteOffersDraw">সাদা অফার সমান</string>
   <string name="blackOffersDraw">কালো অফার সমান</string>
   <string name="whiteDeclinesDraw">সাদা সমান প্রত্যাখান করেছে</string>
