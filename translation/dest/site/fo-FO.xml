@@ -231,7 +231,6 @@
   <string name="blackTimeOut">Tíð uppi hjá svørtum</string>
   <string name="drawOfferSent">Tilboð um javnleik sent</string>
   <string name="drawOfferAccepted">Tilboð um javnleik góðtikið</string>
-  <string name="drawOfferCanceled">Tilboð um javnleik avlýst</string>
   <string name="whiteOffersDraw">Hvítur bjóðar javnt</string>
   <string name="blackOffersDraw">Svartur bjóðar javnt</string>
   <string name="whiteDeclinesDraw">Hvítur tekur ikki av javnleiki</string>
