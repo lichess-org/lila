@@ -83,30 +83,6 @@ export class InlineView {
       .filter(Boolean);
   }
 
-  sidelineNodes([child, ...siblings]: Tree.Node[], args: Args): LooseVNodes {
-    if (!child) return;
-    const { parentDisclose, parentPath } = args;
-    const childArgs = {
-      isMainline: false,
-      parentPath: parentPath + child.id,
-      parentNode: child,
-      parentDisclose: this.ctrl.idbTree.discloseOf(child),
-    };
-    return [
-      this.moveNode(child, args),
-      this.commentNodes(child),
-      parentDisclose === 'expanded'
-        ? hl('interrupt', [
-            this.variationNodes(child.children, childArgs),
-            siblings[0] && this.variationNodes(siblings, args),
-          ])
-        : [
-            this.sidelineNodes(child.children, childArgs),
-            siblings[0] && hl('interrupt', this.variationNodes(siblings, args)),
-          ],
-    ];
-  }
-
   protected variationNodes(lines: Tree.Node[], args: Args): LooseVNodes {
     const { parentDisclose, parentPath, parentNode, isMainline } = args;
     if (!lines.length || parentDisclose === 'collapsed') return;
@@ -212,6 +188,30 @@ export class InlineView {
       }
     }
     return el as HTMLElement;
+  }
+
+  private sidelineNodes([child, ...siblings]: Tree.Node[], args: Args): LooseVNodes {
+    if (!child) return;
+    const { parentDisclose, parentPath } = args;
+    const childArgs = {
+      isMainline: false,
+      parentPath: parentPath + child.id,
+      parentNode: child,
+      parentDisclose: this.ctrl.idbTree.discloseOf(child),
+    };
+    return [
+      this.moveNode(child, args),
+      this.commentNodes(child),
+      parentDisclose === 'expanded'
+        ? hl('interrupt', [
+            this.variationNodes(child.children, childArgs),
+            this.variationNodes(siblings, args),
+          ])
+        : [
+            this.sidelineNodes(child.children, childArgs),
+            hl('interrupt', this.variationNodes(siblings, args)),
+          ],
+    ];
   }
 
   private commentNode(comment: Tree.Comment, others: Tree.Comment[], classes: Classes) {
