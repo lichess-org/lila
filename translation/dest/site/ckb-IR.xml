@@ -280,7 +280,6 @@
   <string name="blackTimeOut">رەش کاتی تەواو بوو</string>
   <string name="drawOfferSent">داخوازی بۆ یەکسان بوون نێردرا</string>
   <string name="drawOfferAccepted">داخوازی بۆ یەکسانبوون قبوڵکرا</string>
-  <string name="drawOfferCanceled">داخوازی یەکسانبوون رەتکرایەوە</string>
   <string name="whiteOffersDraw">سپی داوای یەکسانبوون پێشکەش دەکات</string>
   <string name="blackOffersDraw">رەش داوای یەکسانبوون پێشکەش دەکات</string>
   <string name="whiteDeclinesDraw">سپی یەکسانبوون رەت دەکاتەوە</string>
