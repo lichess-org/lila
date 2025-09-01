@@ -280,7 +280,6 @@
   <string name="blackTimeOut">Les prietes agotaron el so tiempu</string>
   <string name="drawOfferSent">Ufierta de tables unviada</string>
   <string name="drawOfferAccepted">Ufierta de tables aceptada</string>
-  <string name="drawOfferCanceled">Ufierta de tables encaboxada</string>
   <string name="whiteOffersDraw">Les blanques ufierten tables</string>
   <string name="blackOffersDraw">Les prietes ufierten tables</string>
   <string name="whiteDeclinesDraw">Les blanques refuguen tables</string>
