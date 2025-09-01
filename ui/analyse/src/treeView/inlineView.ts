@@ -94,18 +94,16 @@ export class InlineView {
     };
     return [
       this.moveNode(child, args),
-      parentDisclose !== 'collapsed' && [
-        this.commentNodes(child),
-        parentDisclose === 'expanded'
-          ? hl('interrupt', [
-              hl('interrupt', this.variationNodes(child.children, childArgs)),
-              siblings[0] && this.variationNodes(siblings, args),
-            ])
-          : [
-              this.sidelineNodes(child.children, childArgs),
-              siblings[0] && hl('interrupt', this.variationNodes(siblings, args)),
-            ],
-      ],
+      this.commentNodes(child),
+      parentDisclose === 'expanded'
+        ? hl('interrupt', [
+            this.variationNodes(child.children, childArgs),
+            siblings[0] && this.variationNodes(siblings, args),
+          ])
+        : [
+            this.sidelineNodes(child.children, childArgs),
+            siblings[0] && hl('interrupt', this.variationNodes(siblings, args)),
+          ],
     ];
   }
 
