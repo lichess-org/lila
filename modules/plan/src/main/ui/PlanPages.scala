@@ -1,8 +1,9 @@
 package lila.plan
 package ui
-import lila.ui.*
 
-import ScalatagsTemplate.{ *, given }
+import lila.ui.*
+import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.core.LightUser
 
 final class PlanPages(helpers: Helpers)(fishnetPerDay: Int):
   import helpers.{ *, given }
@@ -168,20 +169,20 @@ final class PlanPages(helpers: Helpers)(fishnetPerDay: Int):
   def thanks(
       patron: Option[Patron],
       stripeCustomer: Option[StripeCustomer],
-      gift: Option[Patron]
-  )(using ctx: Context) =
+      giftTo: Option[LightUser]
+  )(using ctx: Context, me: Me) =
     Page(trans.patron.thankYou.txt())
       .css("bits.page"):
         main(cls := "page-small page box box-pad")(
           boxTop(h1(cls := "text", dataIcon := patronIconChar)(trp.thankYou())),
           p(trp.tyvm()),
           p(trp.transactionCompleted()),
-          (gift, patron) match
-            case (Some(gift), _) =>
+          (giftTo, patron) match
+            case (Some(receiver), _) =>
               p(
-                userIdLink(gift.userId.some),
+                lightUserLink(receiver),
                 " ",
-                if gift.isLifetime then "is now a lifetime Lichess Patron"
+                if receiver.isPatronLifetime then "is now a lifetime Lichess Patron"
                 else "is now a Lichess Patron for one month",
                 ", thanks to you!"
               )
@@ -199,7 +200,7 @@ final class PlanPages(helpers: Helpers)(fishnetPerDay: Int):
                 }
               else
                 frag(
-                  if pat.isLifetime then
+                  if me.plan.lifetime then
                     p(
                       trp.nowLifetime(),
                       br,

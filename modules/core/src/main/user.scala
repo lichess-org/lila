@@ -106,7 +106,7 @@ object user:
 
   case class PlayTime(total: Int, tv: Int)
 
-  case class Plan(months: Int, active: Boolean, since: Option[Instant]):
+  case class Plan(months: Int, active: Boolean, lifetime: Boolean, since: Option[Instant]):
     def isEmpty: Boolean = months == 0
     def nonEmpty: Option[Plan] = Option.when(!isEmpty)(this)
 

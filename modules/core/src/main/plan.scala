@@ -9,13 +9,14 @@ case class PlanStart(userId: UserId)
 case class PlanGift(from: UserId, to: UserId, lifetime: Boolean)
 case class PlanExpire(userId: UserId)
 
-opaque type PatronMonths = Int // 0 if no plan is ongoing
+opaque type PatronMonths = Int // 0 if no plan is ongoing, 999 if lifetime
 object PatronMonths extends OpaqueInt[PatronMonths]:
 
   val zero = PatronMonths(0)
 
   extension (months: PatronMonths)
     def isOngoing: Boolean = months > 0
+    def isLifetime: Boolean = tier.contains(PatronTier.Lifetime)
     def tier: Option[PatronTier] = PatronTier(months)
 
 enum PatronTier(val months: Int, val key: String, val name: String):
@@ -30,6 +31,7 @@ enum PatronTier(val months: Int, val key: String, val name: String):
   case Years3 extends PatronTier(36, "years3", "3 years")
   case Years4 extends PatronTier(48, "years4", "4 years")
   case Years5 extends PatronTier(60, "years5", "5 years")
+  case Lifetime extends PatronTier(999, "lifetime", "Lifetime")
 
 object PatronTier:
 

@@ -7,7 +7,6 @@ case class Patron(
     payPalCheckout: Option[Patron.PayPalCheckout] = none,
     free: Option[Patron.Free] = none,
     expiresAt: Option[Instant] = none,
-    lifetime: Option[Boolean] = None,
     lastLevelUp: Option[Instant] = None
 ):
 
@@ -49,8 +48,6 @@ case class Patron(
     )
 
   def isDefined = stripe.isDefined || payPal.isDefined
-
-  def isLifetime = ~lifetime
 
 object Patron:
 

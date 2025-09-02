@@ -18,6 +18,7 @@ case class LightUser(
   def titleName: String = title.fold(name.value)(_.value + " " + name)
   def isBot = title.contains(PlayerTitle.BOT)
   def isPatron = patronMonths.isOngoing
+  def isPatronLifetime = patronMonths.isLifetime
   def patronTier = patronMonths.tier
 
 object LightUser:

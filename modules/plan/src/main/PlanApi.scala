@@ -56,8 +56,7 @@ final class PlanApi(
 
   def cancelIfAny(user: User): Fu[Boolean] =
     def onCancel = for
-      lifetime <- isLifetime(user)
-      _ <- (!lifetime).so(setDbUserPlan(user.mapPlan(_.disable)))
+      _ <- user.plan.lifetime.not.so(setDbUserPlan(user.mapPlan(_.disable)))
       _ <- mongo.patron.update
         .one($id(user.id), $unset("stripe", "payPal", "payPalCheckout", "expiresAt"))
         .map: _ =>
@@ -124,15 +123,18 @@ final class PlanApi(
 
     def onSubscriptionDeleted(sub: StripeSubscription): Funit =
       customerIdPatron(sub.customer).flatMapz { patron =>
-        if patron.isLifetime then funit
-        else
-          for
-            user <- userApi.byId(patron.userId).orFail(s"Missing user for $patron")
-            _ <- setDbUserPlan(user.mapPlan(_.disable))
-            _ <- mongo.patron.update.one($id(user.id), patron.removeStripe)
-          yield
-            notifier.onExpire(user)
-            logger.info(s"Unsubbed ${user.username} $sub")
+        userApi
+          .byId(patron.userId)
+          .orFail(s"Missing user for $patron in onSubscriptionDeleted")
+          .flatMap: user =>
+            if user.plan.lifetime then funit
+            else
+              for
+                _ <- setDbUserPlan(user.mapPlan(_.disable))
+                _ <- mongo.patron.update.one($id(user.id), patron.removeStripe)
+              yield
+                notifier.onExpire(user)
+                logger.info(s"Unsubbed ${user.username} $sub")
       }
 
     def customerInfo(user: User, customer: StripeCustomer): Fu[Option[CustomerInfo]] =
@@ -517,7 +519,7 @@ final class PlanApi(
               setDbUserPlan(user.mapPlan(_.enable)).inject(ReloadUser)
             else fuccess(Synced(patron.some, none, none))
 
-          case (None, None, None) if patron.isLifetime => fuccess(Synced(patron.some, none, none))
+          case (None, None, None) if user.plan.lifetime => fuccess(Synced(patron.some, none, none))
 
           case (None, None, None) if user.plan.active && patron.free.isEmpty =>
             logger.warn(s"${user.username} sync: disable plan of patron with no paypal or stripe")
@@ -525,20 +527,15 @@ final class PlanApi(
 
           case _ => fuccess(Synced(patron.some, none, none))
 
-  def isLifetime(user: User): Fu[Boolean] =
-    userPatron(user).map:
-      _.exists(_.isLifetime)
-
   def setLifetime(user: User): Funit =
     if user.plan.isEmpty then Bus.pub(lila.core.plan.MonthInc(user.id, 0))
     for
-      _ <- userApi.setPlan(user, user.plan.enable.some)
+      _ <- userApi.setPlan(user, user.plan.enable.copy(lifetime = true).some)
       _ <- mongo.patron.update
         .one(
           $id(user.id),
           $set(
             "lastLevelUp" -> nowInstant,
-            "lifetime" -> true,
             "free" -> Patron.Free(nowInstant, by = none)
           ),
           upsert = true
@@ -551,7 +548,6 @@ final class PlanApi(
           $id(user.id),
           $set(
             "lastLevelUp" -> nowInstant,
-            "lifetime" -> false,
             "free" -> Patron.Free(nowInstant, by = none),
             "expiresAt" -> nowInstant.plusMonths(1)
           ),
@@ -562,7 +558,7 @@ final class PlanApi(
   def gift(from: User, to: User, money: Money): Funit =
     for
       toPatronOpt <- userPatron(to)
-      isLifetime <- fuccess(toPatronOpt.exists(_.isLifetime)) >>| (pricingApi.isLifetime(money))
+      isLifetime <- fuccess(to.plan.lifetime) >>| (pricingApi.isLifetime(money))
       _ <- mongo.patron.update
         .one(
           $id(to.id),
@@ -578,7 +574,7 @@ final class PlanApi(
       _ <- setDbUserPlan(newTo)
     yield notifier.onGift(from, newTo, isLifetime)
 
-  def recentGiftFrom(from: User): Fu[Option[Patron]] =
+  def recentGiftFrom(from: User): Fu[Option[LightUser]] =
     mongo.patron
       .find(
         $doc(
@@ -588,6 +584,8 @@ final class PlanApi(
       )
       .sort($sort.desc("free.at"))
       .one[Patron]
+      .flatMapz: gift =>
+        lightUserApi.async(gift.userId)
 
   def remove(user: User): Funit = for
     _ <- userApi.setPlan(user, none)
