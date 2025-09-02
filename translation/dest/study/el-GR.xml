@@ -8,7 +8,7 @@
   <string name="myFavoriteStudies">Οι αγαπημένες μελέτες μου</string>
   <string name="whatAreStudies">Τι είναι οι μελέτες;</string>
   <string name="allStudies">Όλες οι μελέτες</string>
-  <string name="studiesCreatedByX">Μελέτες που δημιουργήθηκαν από τον/την %s</string>
+  <string name="studiesCreatedByX">Μελέτες που δημιουργήθηκαν από τον χρήστη %s</string>
   <string name="noneYet">Τίποτα ακόμη εδώ.</string>
   <string name="hot">Δημοφιλείς (hot)</string>
   <string name="dateAddedNewest">Ημερομηνία προσθήκης (νεότερες)</string>
@@ -47,7 +47,7 @@
   <string name="commentThisMove">Σχολίασε αυτήν την κίνηση</string>
   <string name="annotateWithGlyphs">Σχολιασμός με σύμβολα</string>
   <string name="theChapterIsTooShortToBeAnalysed">Το κεφάλαιο είναι πολύ μικρό για να αναλυθεί.</string>
-  <string name="onlyContributorsCanRequestAnalysis">Μόνο αυτοί που συνεισφέρουν στην σπουδή μπορούν να ζητήσουν ανάλυση από υπολογιστή.</string>
+  <string name="onlyContributorsCanRequestAnalysis">Μόνο αυτοί που συνεισφέρουν στη μελέτη μπορούν να ζητήσουν ανάλυση από υπολογιστή.</string>
   <string name="getAFullComputerAnalysis">Αίτηση πλήρης ανάλυσης της κύριας γραμμής παρτίδας από μηχανή του σέρβερ.</string>
   <string name="makeSureTheChapterIsComplete">Σιγουρευτείτε ότι το κεφάλαιο είναι ολοκληρωμένο. Μπορείτε να ζητήσετε ανάλυση μόνο μια φορά.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Όλα τα συγχρονισμένα μέλη παραμένουν στην ίδια θέση</string>
