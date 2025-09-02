@@ -7,6 +7,7 @@ import lila.core.config.*
 import lila.db.dsl.Coll
 import lila.common.autoconfig.{ *, given }
 import lila.common.Bus
+import lila.memo.CacheApi.buildAsyncTimeout
 
 @Module
 final private class UblogConfig(
@@ -56,7 +57,7 @@ final class Env(
 
   val lastPostsCache: AsyncLoadingCache[Unit, List[UblogPost.PreviewPost]] =
     cacheApi.unit[List[UblogPost.PreviewPost]]:
-      _.refreshAfterWrite(10.seconds).buildAsyncFuture: _ =>
+      _.refreshAfterWrite(10.seconds).buildAsyncTimeout(): _ =>
         api.fetchCarouselFromDb().map(_.shuffled)
 
   Bus.sub[lila.core.mod.Shadowban]:

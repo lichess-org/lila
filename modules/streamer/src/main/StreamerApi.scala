@@ -12,7 +12,7 @@ final class StreamerApi(
     notifyApi: lila.core.notify.NotifyApi,
     subsRepo: lila.core.relation.SubscriptionRepo,
     ytApi: YouTubeApi
-)(using Executor):
+)(using Executor, Scheduler):
 
   import BsonHandlers.given
 
@@ -221,13 +221,13 @@ final class StreamerApi(
       )
 
     val listedIds = cacheApi.unit[Set[Streamer.Id]]:
-      _.refreshAfterWrite(1.hour).buildAsyncFuture: _ =>
+      _.refreshAfterWrite(1.hour).buildAsyncTimeout(): _ =>
         coll.secondary.distinctEasy[Streamer.Id, Set]("_id", selectListedApproved)
 
     def isListed(id: Streamer.Id): Fu[Boolean] = listedIds.getUnit.dmap(_ contains id)
 
     val candidateIds = cacheApi.unit[Set[Streamer.Id]]:
-      _.refreshAfterWrite(1.hour).buildAsyncFuture: _ =>
+      _.refreshAfterWrite(1.hour).buildAsyncTimeout(): _ =>
         coll.secondary.distinctEasy[Streamer.Id, Set](
           "_id",
           selectListedApproved ++ $doc("liveAt".$exists(false))

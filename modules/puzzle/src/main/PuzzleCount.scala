@@ -2,12 +2,13 @@ package lila.puzzle
 
 import lila.db.dsl.*
 import lila.memo.CacheApi
+import lila.memo.CacheApi.buildAsyncTimeoutZero
 
 final private class PuzzleCountApi(
     colls: PuzzleColls,
     cacheApi: CacheApi,
     openingApi: PuzzleOpeningApi
-)(using Executor):
+)(using Executor, Scheduler):
 
   def countsByTheme: Fu[Map[PuzzleTheme.Key, Int]] =
     byThemeCache.get {}
@@ -20,7 +21,7 @@ final private class PuzzleCountApi(
     case PuzzleAngle.Opening(either) => openingApi.count(either)
 
   private val byThemeCache = cacheApi.unit[Map[PuzzleTheme.Key, Int]]:
-    _.refreshAfterWrite(1.day).buildAsyncFuture: _ =>
+    _.refreshAfterWrite(1.day).buildAsyncTimeoutZero(): _ =>
       import Puzzle.BSONFields.*
       colls.puzzle:
         _.aggregateList(Int.MaxValue, _.sec): framework =>

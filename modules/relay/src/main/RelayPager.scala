@@ -7,12 +7,13 @@ import lila.memo.CacheApi
 import lila.relay.RelayTour.WithLastRound
 
 import reactivemongo.api.bson.*
+import lila.memo.CacheApi.buildAsyncTimeout
 
 final class RelayPager(
     tourRepo: RelayTourRepo,
     colls: RelayColls,
     cacheApi: CacheApi
-)(using Executor):
+)(using Executor, Scheduler):
 
   import BSONHandlers.given
   import RelayTourRepo.{ selectors, readToursWithRoundAndGroup, unsetHeavyOptionalFields }
@@ -93,7 +94,7 @@ final class RelayPager(
         .map(readToursWithRoundAndGroup(RelayTour.WithLastRound.apply))
 
     private val firstPageCache = cacheApi.unit[List[WithLastRound]]:
-      _.refreshAfterWrite(3.seconds).buildAsyncFuture: _ =>
+      _.refreshAfterWrite(3.seconds).buildAsyncTimeout(): _ =>
         slice(0, maxPerPage.value)
 
     def apply(page: Int): Fu[Paginator[WithLastRound]] =

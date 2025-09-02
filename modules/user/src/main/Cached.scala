@@ -23,11 +23,8 @@ final class Cached(
   import BSONHandlers.given
 
   val top10 = cacheApi.unit[UserPerfs.Leaderboards]:
-    _.refreshAfterWrite(2.minutes).buildAsyncFuture: _ =>
-      rankingApi
-        .fetchLeaderboard(10)
-        .withTimeout(2.minutes, "user.cached.top10")
-        .monSuccess(_.user.leaderboardCompute)
+    _.refreshAfterWrite(2.minutes).buildAsyncTimeout(2.minutes): _ =>
+      rankingApi.fetchLeaderboard(10).monSuccess(_.user.leaderboardCompute)
 
   private val topPerfFirstPage = mongoCache[PerfKey, Seq[LightPerf]](
     PerfType.leaderboardable.size,
@@ -63,7 +60,7 @@ final class Cached(
           .dmap(_.map(u => LightCount(u.light, u.count.game)))
 
   private val top50OnlineCache = cacheApi.unit[List[UserWithPerfs]]:
-    _.refreshAfterWrite(1.minute).buildAsyncFuture: _ =>
+    _.refreshAfterWrite(1.minute).buildAsyncTimeout(): _ =>
       userApi.byIdsSortRatingNoBot(onlineUserIds.exec(), 50)
 
   def getTop50Online: Fu[List[UserWithPerfs]] = top50OnlineCache.getUnit
@@ -71,7 +68,7 @@ final class Cached(
   def rankingsOf(userId: UserId): lila.rating.UserRankMap = rankingApi.weeklyStableRanking.of(userId)
 
   private val botIds = cacheApi.unit[Set[UserId]]:
-    _.refreshAfterWrite(5.minutes).buildAsyncFuture(_ => userRepo.botIds)
+    _.refreshAfterWrite(5.minutes).buildAsyncTimeout()(_ => userRepo.botIds)
 
   def getBotIds: Fu[Set[UserId]] = botIds.getUnit
 
@@ -79,7 +76,7 @@ final class Cached(
     userRepo.userIdsLikeFilter(text, $empty, 12)
 
   private val userIdsLikeCache = cacheApi[UserSearch, List[UserId]](1024, "user.like"):
-    _.expireAfterWrite(5.minutes).buildAsyncFuture(userIdsLikeFetch)
+    _.expireAfterWrite(5.minutes).buildAsyncTimeout()(userIdsLikeFetch)
 
   def userIdsLike(text: UserSearch): Fu[List[UserId]] =
     if text.value.lengthIs < 5 then userIdsLikeCache.get(text)

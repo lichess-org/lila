@@ -11,7 +11,7 @@ final private[video] class VideoApi(
     videoColl: Coll,
     viewColl: Coll,
     cacheApi: lila.memo.CacheApi
-)(using Executor):
+)(using Executor, Scheduler):
 
   private given BSONDocumentHandler[Youtube.Metadata] = Macros.handler
   private given BSONDocumentHandler[Video] = Macros.handler
@@ -152,7 +152,7 @@ final private[video] class VideoApi(
     object count:
 
       private val cache = cacheApi.unit[Long]:
-        _.refreshAfterWrite(3.hours).buildAsyncFuture(_ => videoColl.countAll)
+        _.refreshAfterWrite(3.hours).buildAsyncTimeout()(_ => videoColl.countAll)
 
       def apply: Fu[Long] = cache.getUnit
 

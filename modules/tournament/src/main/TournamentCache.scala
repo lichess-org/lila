@@ -11,7 +11,7 @@ final class TournamentCache(
     pairingRepo: PairingRepo,
     tournamentRepo: TournamentRepo,
     cacheApi: CacheApi
-)(using Executor)(using translator: lila.core.i18n.Translator):
+)(using Executor, Scheduler)(using translator: lila.core.i18n.Translator):
 
   object tourCache:
     private val cache = cacheApi[TourId, Option[Tournament]](64, "tournament.tournament"):
@@ -120,5 +120,4 @@ final class TournamentCache(
         .buildAsyncFuture(compute)
 
   private[tournament] val notableFinishedCache = cacheApi.unit[List[Tournament]]:
-    _.refreshAfterWrite(15.seconds)
-      .buildAsyncFuture(_ => tournamentRepo.notableFinished(20))
+    _.refreshAfterWrite(15.seconds).buildAsyncTimeout()(_ => tournamentRepo.notableFinished(20))

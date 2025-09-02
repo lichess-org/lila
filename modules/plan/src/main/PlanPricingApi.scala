@@ -3,6 +3,7 @@ package lila.plan
 import java.util.Currency
 import play.api.libs.json.*
 import lila.memo.CacheApi
+import lila.memo.CacheApi.buildAsyncTimeout
 
 case class PlanPricing(suggestions: List[Money], min: Money, max: Money, lifetime: Money, giftMin: Money):
 
@@ -19,7 +20,7 @@ case class PlanPricing(suggestions: List[Money], min: Money, max: Money, lifetim
   private def valid(amount: BigDecimal, isGift: Boolean): Boolean =
     (if isGift then giftMin else min).amount <= amount && amount <= max.amount
 
-final class PlanPricingApi(currencyApi: CurrencyApi, cacheApi: CacheApi)(using Executor):
+final class PlanPricingApi(currencyApi: CurrencyApi, cacheApi: CacheApi)(using Executor, Scheduler):
 
   import currencyApi.{ EUR, USD }
 
@@ -60,16 +61,15 @@ final class PlanPricingApi(currencyApi: CurrencyApi, cacheApi: CacheApi)(using E
   object stripePricesAsJson:
     private val placeholder = "{{myCurrency}}"
     private val cache = cacheApi.unit[JsonStr]:
-      _.refreshAfterWrite(1.hour).buildAsyncFuture: _ =>
+      _.refreshAfterWrite(1.hour).buildAsyncTimeout(20.seconds): _ =>
         import PlanPricingApi.pricingWrites
         CurrencyApi.stripeCurrencyList
           .sequentially(pricingFor)
-          .map(list =>
+          .map: list =>
             Json.obj(
               "stripe" -> list.flatten,
               "myCurrency" -> placeholder
             )
-          )
           .map(Json.stringify)
           .dmap(JsonStr.apply)
     def apply(currency: Currency): Fu[JsonStr] =

@@ -7,6 +7,7 @@ import lila.common.{ LilaOpeningFamily, LilaStream, SimpleOpening }
 import lila.core.i18n.I18nKey
 import lila.db.dsl.{ *, given }
 import lila.memo.{ CacheApi, MongoCache }
+import lila.memo.CacheApi.buildAsyncTimeout
 
 case class PuzzleOpeningCollection(
     families: List[PuzzleOpening.FamilyWithCount], // most popular first
@@ -71,7 +72,7 @@ final class PuzzleOpeningApi(
 
   private val collectionCache =
     cacheApi.unit[PuzzleOpeningCollection]:
-      _.refreshAfterWrite(1.hour).buildAsyncFuture: _ =>
+      _.refreshAfterWrite(1.hour).buildAsyncTimeout(1.minute): _ =>
         countedCache
           .get(())
           .map:

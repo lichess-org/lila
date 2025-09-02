@@ -63,39 +63,6 @@ final class LiveStreamApi(
   private var userIdsCache = Set.empty[UserId]
 
   def all: Fu[LiveStreams] = cache.getUnit
-  // def all: Fu[LiveStreams] =
-  //   fuccess(
-  //     LiveStreams(
-  //       List(
-  //         Stream.Twitch.Stream(
-  //           "thibault",
-  //           "[RU] test stream on lichess.org",
-  //           Streamer(
-  //             _id = Streamer.Id("thibault"),
-  //             listed = Streamer.Listed(true),
-  //             approval = Streamer.Approval(
-  //               requested = false,
-  //               granted = true,
-  //               ignored = false,
-  //               tier = 5,
-  //               chatEnabled = true,
-  //               lastGrantedAt = nowInstant.some
-  //             ),
-  //             picturePath = none,
-  //             name = Streamer.Name("thibault"),
-  //             headline = none,
-  //             description = none,
-  //             twitch = none,
-  //             youTube = none,
-  //             seenAt = nowInstant,      // last seen online
-  //             liveAt = nowInstant.some, // last seen streaming
-  //             createdAt = nowInstant,
-  //             updatedAt = nowInstant
-  //           )
-  //         )
-  //       )
-  //     )
-  //   )
 
   def streamerUserIds(within: Iterable[UserId]): Fu[List[UserId]] =
     all.map:

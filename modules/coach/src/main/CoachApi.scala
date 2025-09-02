@@ -4,6 +4,7 @@ import lila.core.perm.Granter
 import lila.db.dsl.{ *, given }
 import lila.memo.PicfitApi
 import lila.rating.UserPerfsExt.bestStandardRating
+import lila.memo.CacheApi.buildAsyncTimeout
 
 final class CoachApi(
     coll: Coll,
@@ -12,7 +13,7 @@ final class CoachApi(
     flagApi: lila.core.user.FlagApi,
     picfitApi: PicfitApi,
     cacheApi: lila.memo.CacheApi
-)(using Executor):
+)(using Executor, Scheduler):
 
   import BsonHandlers.given
 
@@ -76,13 +77,13 @@ final class CoachApi(
       }
 
   private val languagesCache = cacheApi.unit[Set[String]]:
-    _.refreshAfterWrite(1.hour).buildAsyncFuture: _ =>
+    _.refreshAfterWrite(1.hour).buildAsyncTimeout(): _ =>
       coll.secondary.distinctEasy[String, Set]("languages", $empty)
 
   def allLanguages: Fu[Set[String]] = languagesCache.get {}
 
   private val countriesCache = cacheApi.unit[CountrySelection]:
-    _.refreshAfterWrite(1.hour).buildAsyncFuture: _ =>
+    _.refreshAfterWrite(1.hour).buildAsyncTimeout(): _ =>
       import lila.core.user.FlagCode
       userRepo.coll.secondary
         .distinctEasy[FlagCode, Set](

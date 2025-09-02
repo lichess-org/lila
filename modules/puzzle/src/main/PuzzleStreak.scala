@@ -2,10 +2,11 @@ package lila.puzzle
 
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
+import lila.memo.CacheApi.buildAsyncTimeout
 
 case class PuzzleStreak(ids: String, first: Puzzle)
 
-final class PuzzleStreakApi(colls: PuzzleColls, cacheApi: CacheApi)(using Executor):
+final class PuzzleStreakApi(colls: PuzzleColls, cacheApi: CacheApi)(using Executor, Scheduler):
 
   import BsonHandlers.given
   import lila.puzzle.PuzzlePath.sep
@@ -35,7 +36,7 @@ final class PuzzleStreakApi(colls: PuzzleColls, cacheApi: CacheApi)(using Execut
   private val theme = lila.puzzle.PuzzleTheme.mix.key
 
   private val current = cacheApi.unit[Option[PuzzleStreak]]:
-    _.refreshAfterWrite(30.seconds).buildAsyncFuture: _ =>
+    _.refreshAfterWrite(30.seconds).buildAsyncTimeout(20.seconds): _ =>
       colls
         .path:
           _.aggregateList(poolSize, _.sec): framework =>
