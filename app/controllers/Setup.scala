@@ -182,8 +182,8 @@ final class Setup(
       )
   }
 
-  def boardApiHookCancel = WithBoardApiHookAuthor { (author, _) => _ ?=>
-    env.lobby.boardApiHookStream.cancel(orUserSri(author))
+  def boardApiHookCancel = WithBoardApiHookAuthor { (author, reqSri) => _ ?=>
+    env.lobby.boardApiHookStream.cancel(orUserSri(author), reqSri)
     NoContent
   }
 
