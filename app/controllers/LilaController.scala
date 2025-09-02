@@ -10,7 +10,6 @@ import lila.common.HTTPRequest
 import scalalib.model.Language
 import lila.core.perf.UserWithPerfs
 import lila.core.perm.Permission
-import lila.core.net.UserAgent
 import lila.i18n.LangPicker
 import lila.oauth.{ EndpointScopes, OAuthScope, OAuthScopes, OAuthServer, TokenScopes }
 import lila.ui.{ Page, Snippet }
@@ -352,9 +351,6 @@ abstract private[controllers] class LilaController(val env: Env)
     .traverse(me => env.user.api.withPerfs(me.value))
     .flatMap:
       f(using _)
-
-  protected def WithUserAgent(f: UserAgent ?=> Fu[Result])(using req: RequestHeader): Fu[Result] =
-    HTTPRequest.userAgent(req).fold(BadRequest("Missing User-Agent").toFuccess)(ua => f(using ua))
 
   def meOrFetch[U: UserIdOf](id: U)(using ctx: Context): Fu[Option[lila.user.User]] =
     if id.is(UserId("me")) then fuccess(ctx.user)

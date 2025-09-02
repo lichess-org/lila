@@ -7,6 +7,7 @@ import lila.common.Bus
 import lila.common.autoconfig.{ *, given }
 import lila.core.config.*
 import lila.core.socket.{ GetVersion, SocketVersion }
+import lila.memo.CacheApi.buildAsyncTimeout
 
 @Module
 private class SimulConfig(
@@ -47,7 +48,7 @@ final class Env(
   private val simulSocket = wire[SimulSocket]
 
   val allCreatedFeaturable = cacheApi.unit[List[Simul]]:
-    _.refreshAfterWrite(3.seconds).buildAsyncFuture(_ => repo.allCreatedFeaturable)
+    _.refreshAfterWrite(3.seconds).buildAsyncTimeout()(_ => repo.allCreatedFeaturable)
 
   val featurable = SimulIsFeaturable: simul =>
     simul.conditions.teamMember.isEmpty && featureLimiter.zero(simul.hostId)(true)

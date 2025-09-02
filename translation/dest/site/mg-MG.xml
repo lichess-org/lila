@@ -167,7 +167,6 @@
   <string name="blackTimeOut">Lany fotoana ny mainty</string>
   <string name="drawOfferSent">Lasa ny fangatahana lalao sahala</string>
   <string name="drawOfferAccepted">Nekena ny fangatahana ny hahasahala ny lalao</string>
-  <string name="drawOfferCanceled">Nadaboka ny fangatahana ny hahasahala ny lalao</string>
   <string name="whiteOffersDraw">Mangataka ny fahasahalan\'ny lalao ny fotsy</string>
   <string name="blackOffersDraw">Mangataka ny fahasahalan\'ny lalao ny mainty</string>
   <string name="whiteDeclinesDraw">Mandà ny fahasahalan\'ny lalao ny fotsy</string>

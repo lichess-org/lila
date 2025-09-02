@@ -238,7 +238,6 @@
   <string name="blackTimeOut">I neri ùn anu più tempu</string>
   <string name="drawOfferSent">Offerta di partita patta mandata</string>
   <string name="drawOfferAccepted">Offerta di patta accettata</string>
-  <string name="drawOfferCanceled">Offerta di patta annullata</string>
   <string name="whiteOffersDraw">I bianchi pruponenu a partita patta</string>
   <string name="blackOffersDraw">I neri pruponenu a partita patta</string>
   <string name="whiteDeclinesDraw">I bianchi ricusanu a partita patta</string>

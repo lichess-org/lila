@@ -21,8 +21,8 @@ final class RateLimit[K](
 
   private inline def makeClearAt = nowMillis + duration.toMillis
 
-  private lazy val logger = lila.log("ratelimit").branch(key)
-  private lazy val monitor = lila.mon.security.rateLimit(key)
+  private val logger = RateLimit.logger.branch(key)
+  private val monitor = lila.mon.security.rateLimit(key)
 
   def chargeable[A](k: K, default: => A, cost: Cost = 1, msg: => String = "")(
       op: ChargeWith => A
@@ -66,6 +66,8 @@ object RateLimit:
     def apply[A](k: K, default: => A, cost: Cost = 1, msg: => String = "")(op: => A): A
     def chargeable[A](k: K, default: => A, cost: Cost = 1, msg: => String = "")(op: ChargeWith => A): A
     def test[A](k: K, cost: Cost = 1, msg: => String = ""): Boolean = apply(k, false, cost, msg)(true)
+
+  val logger = lila.log("ratelimit")
 
   def combine[A, B](limitA: RateLimit[A], limitB: RateLimit[B]): RateLimiter[(A, B)] = new:
     def apply[T](k: (A, B), default: => T, cost: Cost = 1, msg: => String = "")(op: => T): T =

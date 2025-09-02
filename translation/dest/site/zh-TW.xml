@@ -258,7 +258,6 @@
   <string name="blackTimeOut">黑方時間到</string>
   <string name="drawOfferSent">和棋請求已發送</string>
   <string name="drawOfferAccepted">同意和棋</string>
-  <string name="drawOfferCanceled">和棋取消</string>
   <string name="whiteOffersDraw">白方提出和棋</string>
   <string name="blackOffersDraw">黑方提出和棋</string>
   <string name="whiteDeclinesDraw">白方拒絕和棋</string>

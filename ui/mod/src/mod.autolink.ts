@@ -29,7 +29,7 @@ const greedyAutoLinks = [
 ];
 
 const pathMatchRe = new RegExp(
-  `(?:^|(?<![/="'\\w])|(?<=[,;(]))(?:https://)?` +
+  `(?:^|(?<![/="'\\w@>])|(?<=[,;(]))(?:https://)?` +
     `(?:${location.hostname.replace('.', '\\.')})?` +
     `(/(?:${greedyAutoLinks.join('|')})(?:/|\\?|#|\\b|$)(?:[^\\s,."';)]+)?)`,
   'gi',

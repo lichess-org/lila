@@ -158,7 +158,7 @@ export default class StudyCtrl {
       () => this.data.federations,
       this.ctrl,
     );
-    this.multiCloudEval = ctrl.ceval.allowed()
+    this.multiCloudEval = this.isCevalAllowed()
       ? new MultiCloudEval(this.redraw, this.chapters.list, this.send)
       : undefined;
     if (relayData) this.relay = new RelayCtrl(this, relayData);
@@ -318,17 +318,16 @@ export default class StudyCtrl {
     // official broadcasts cannot have local mods
     pubsub.emit('chat.permissions', { local: canContribute && !this.relay?.isOfficial() });
     pubsub.emit('voiceChat.toggle', this.data.features.chat && !!this.members.myMember());
-    const computer: boolean =
-      !this.isGamebookPlay() && !!(this.data.chapter.features.computer || this.data.chapter.practice);
-    if (!computer) this.ctrl.getCeval().enabled(false);
-    this.ctrl.getCeval().allowed(computer);
     if (!this.data.chapter.features.explorer) this.ctrl.explorer.disable();
     this.ctrl.explorer.allowed(this.data.chapter.features.explorer);
   };
 
+  isCevalAllowed = () =>
+    !this.isGamebookPlay() && !!(this.data.chapter.features.computer || this.data.chapter.practice);
+
   configurePractice = () => {
     if (!this.data.chapter.practice && this.ctrl.practice) this.ctrl.togglePractice();
-    if (this.data.chapter.practice) this.ctrl.restartPractice();
+    if (this.data.chapter.practice) this.ctrl.togglePractice(true);
     this.practice?.onLoad();
   };
 
@@ -539,9 +538,9 @@ export default class StudyCtrl {
     else this.chapters.localPaths[this.vm.chapterId] = this.ctrl.path; // don't remember position on gamebook
     this.practice?.onJump();
   };
-  onFlip = () => {
+  onFlip = (flipped: boolean) => {
     if (this.chapters.newForm.isOpen()) return false;
-    this.chapterFlipMapProp(this.data.chapter.id, this.ctrl.flipped);
+    this.chapterFlipMapProp(this.data.chapter.id, flipped);
     return true;
   };
 
@@ -717,7 +716,6 @@ export default class StudyCtrl {
       this.ctrl.tree.promoteAt(position.path, d.toMainline);
       if (this.vm.mode.sticky) this.ctrl.jump(this.ctrl.path);
       else if (this.relay) this.ctrl.jump(d.p.path);
-      this.ctrl.treeVersion++;
       return this.redraw();
     },
     reload: () => this.xhrReload(),

@@ -210,7 +210,7 @@
   <string name="usernameOrEmail">用户名 或 邮箱</string>
   <string name="changeUsername">更改用户名</string>
   <string name="changeUsernameNotSame">只能更改字母大小写。例如，将“johndoe”改为“JohnDoe”。</string>
-  <string name="changeUsernameDescription">更改用户名。注意只能更改一次，之后只能更改用户名字母的大小写。</string>
+  <string name="changeUsernameDescription">更改用户名。注意只能更改一次，且只能更改用户名字母的大小写。</string>
   <string name="signupUsernameHint">请务必选择一个和谐的用户名，用户名设置后无法更改，并且不合规的用户名会导致账户被封禁！</string>
   <string name="signupEmailHint">仅用于重置密码</string>
   <string name="password">密码</string>
@@ -262,7 +262,6 @@
   <string name="blackTimeOut">黑方超时</string>
   <string name="drawOfferSent">和棋请求已发送</string>
   <string name="drawOfferAccepted">对方同意和棋</string>
-  <string name="drawOfferCanceled">和棋请求已取消</string>
   <string name="whiteOffersDraw">白方提出和棋</string>
   <string name="blackOffersDraw">黑方提出和棋</string>
   <string name="whiteDeclinesDraw">白方拒绝和棋</string>

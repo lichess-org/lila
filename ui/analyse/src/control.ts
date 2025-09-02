@@ -15,7 +15,7 @@ export const last = (ctrl: AnalyseCtrl): void => ctrl.userJumpIfCan(treePath.fro
 
 export const first = (ctrl: AnalyseCtrl): void => ctrl.userJump(treePath.root);
 
-export function exitVariation(ctrl: AnalyseCtrl): void {
+function exitVariation(ctrl: AnalyseCtrl): void {
   if (ctrl.onMainline) return;
   let found,
     path = treePath.root;

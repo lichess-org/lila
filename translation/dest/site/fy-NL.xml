@@ -233,7 +233,6 @@
   <string name="blackTimeOut">Tiid fan swart ôfrûn</string>
   <string name="drawOfferSent">Remise oanbod stjoerd</string>
   <string name="drawOfferAccepted">Remise oanbod akseptearre</string>
-  <string name="drawOfferCanceled">Remise oanbod annulearre</string>
   <string name="whiteOffersDraw">Wyt biedt remise oan</string>
   <string name="blackOffersDraw">Swart biedt remise oan</string>
   <string name="whiteDeclinesDraw">Wyt wegert remise-oanbod</string>

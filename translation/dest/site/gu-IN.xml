@@ -246,7 +246,6 @@
   <string name="blackTimeOut">કાળાની સમય મર્યાદા પૂરી</string>
   <string name="drawOfferSent">ડ્રો ઓફર મોકલી</string>
   <string name="drawOfferAccepted">ડ્રો ઓફર સ્વીકારી</string>
-  <string name="drawOfferCanceled">ડ્રો ઓફર રદ કરી</string>
   <string name="whiteOffersDraw">સફેદ ઓફર ડ્રો</string>
   <string name="blackOffersDraw">બ્લેક ઓફર ડ્રો</string>
   <string name="whiteDeclinesDraw">સફેદ ડ્રો માટે ના કહે છે</string>

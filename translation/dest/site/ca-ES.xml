@@ -280,7 +280,6 @@
   <string name="blackTimeOut">Les negres perden per temps</string>
   <string name="drawOfferSent">S\'ha enviat l\'oferta de taules</string>
   <string name="drawOfferAccepted">Oferta de taules acceptada</string>
-  <string name="drawOfferCanceled">Oferta de taules cancel·lada</string>
   <string name="whiteOffersDraw">Blanques ofereixen taules</string>
   <string name="blackOffersDraw">Les negres ofereixen taules</string>
   <string name="whiteDeclinesDraw">Blanques rebutgen taules</string>

@@ -276,7 +276,6 @@
   <string name="blackTimeOut">Dema Reş qedîya</string>
   <string name="drawOfferSent">Pêşniyara wekheviyê hate şandin</string>
   <string name="drawOfferAccepted">Teklîfa wekheviyê hate qebûlkirin</string>
-  <string name="drawOfferCanceled">Teklîfa wekheviyê hate betalkirin</string>
   <string name="whiteOffersDraw">Ya spî wekheviyê teklîf dike</string>
   <string name="blackOffersDraw">Ya reş wekheviyê teklîf dike</string>
   <string name="whiteDeclinesDraw">Ya spî wekheviyê red dike</string>

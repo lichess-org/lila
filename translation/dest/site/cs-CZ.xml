@@ -315,7 +315,6 @@
   <string name="blackTimeOut">Černému došel čas</string>
   <string name="drawOfferSent">Nabídka remízy byla odeslána</string>
   <string name="drawOfferAccepted">Soupeř remízu přijal</string>
-  <string name="drawOfferCanceled">Nabídka remízy byla zrušena</string>
   <string name="whiteOffersDraw">Bílý nabízí remízu</string>
   <string name="blackOffersDraw">Černý nabízí remízu</string>
   <string name="whiteDeclinesDraw">Bílý odmítá remízu</string>

@@ -1,0 +1,176 @@
+@include mq-is-col1 {
+  .analyse__tools {
+    .sub-box {
+      order: 0;
+    }
+    .ceval,
+    .pv_box,
+    .analyse__fork,
+    .gamebook-edit {
+      order: 1;
+    }
+    .analyse__moves {
+      order: 2;
+    }
+    .ceval .engine {
+      margin-inline-start: 12px;
+    }
+    .ceval .switch,
+    .ceval pearl {
+      display: none;
+    }
+  }
+  .analyse__controls {
+    padding-top: 6px;
+    height: 5rem;
+    touch-action: pan-y;
+
+    .jumps {
+      order: 1;
+    }
+    [data-act='opening-explorer'] {
+      order: 2;
+    }
+    [data-act='menu'] {
+      order: 3;
+    }
+
+    .fbt {
+      flex: 3;
+      margin: 3px 2px 0;
+      border: 1px solid $m-clearer--fade-95;
+      border-bottom: none;
+      border-radius: 6px 6px 0 0;
+      background: $m-bg_bg-page--mix-50;
+    }
+    .scrub-help {
+      margin-inline: 3px;
+      align-self: center;
+      font-family: 'lichess';
+      font-size: 1.1em;
+      color: $c-border;
+    }
+    .jumps {
+      flex: 40%;
+    }
+    .jumps:has([data-act='first']) {
+      padding-inline: 8px;
+      flex: 50%;
+    }
+    .jumps .fbt {
+      margin: 5px 2px;
+      background: $m-bg_bg-page--mix-50;
+      border: 1px solid $m-clearer--fade-95;
+    }
+    .jumps .fbt[data-act='first'],
+    .jumps .fbt[data-act='last'] {
+      flex: 1.6;
+    }
+    .fbt.active {
+      padding-top: 0;
+      border-bottom: none;
+    }
+    eval {
+      font-size: 1.2em;
+    }
+    [data-mode] {
+      position: relative;
+      overflow-x: hidden;
+      min-width: 24vw;
+      max-width: 24vw;
+      display: flex;
+      padding-inline-start: 10px;
+      align-items: center;
+      text-shadow: none;
+    }
+    [data-mode]::before,
+    [data-mode]::after {
+      font-size: 1.3em;
+      font-family: 'lichess';
+    }
+    [data-mode='practice']::before {
+      content: $licon-Bullseye;
+    }
+    [data-mode='retro']::before {
+      font-size: 1.5em;
+      content: $licon-GraduateCap;
+    }
+    [data-mode='practice'].active::after,
+    [data-mode='retro'].active::after {
+      position: absolute;
+      top: -2px;
+      right: 1px;
+      font-size: 0.9em;
+      color: $c-bg;
+      content: $licon-X;
+    }
+    [data-mode='ceval']::after {
+      content: $licon-Stockfish;
+      padding-inline-end: 10px;
+    }
+    [data-mode='ceval']:has(eval)::after {
+      content: '';
+    }
+    [data-mode] .bar {
+      display: none;
+    }
+    [data-mode]:not(.active) .bar {
+      position: absolute;
+      display: block;
+      left: 0;
+      right: 0;
+      top: 0;
+      height: 5px;
+      opacity: 0;
+      transition:
+        opacity 0.3s ease-in,
+        opacity 0.6s ease-out;
+      animation: computing 1.6s linear reverse infinite paused;
+      background:
+        linear-gradient(to bottom, $m-good--fade-90, $m-good--fade-30, $m-good--fade-90) 0 0 / 100% 100%
+          no-repeat,
+        linear-gradient(45deg, transparent, $m-good--fade-30, transparent) -100% 0 / 200% 100% no-repeat;
+    }
+    [data-mode].computing:not([data-mode='ceval'].active) .bar {
+      opacity: 1;
+      animation-play-state: running;
+    }
+    @keyframes computing {
+      to {
+        background-position:
+          0 0,
+          200% 0;
+      }
+    }
+  }
+  .analyse[data-active-tool] .analyse__tools,
+  .analyse[data-active-mode] .analyse__tools {
+    border-radius: 0 0 $box-radius-size $box-radius-size;
+  }
+  .analyse[data-active-tool] .analyse__tools,
+  .analyse[data-active-mode='practice'] .analyse__tools,
+  .analyse[data-active-mode='retro'] .analyse__tools {
+    border-top: 3px solid $c-secondary;
+  }
+  .analyse[data-active-mode='practice'] .analyse__fork,
+  .analyse[data-active-mode='retro'] .analyse__fork {
+    display: none;
+  }
+  .fbt[data-mode='ceval'] .switch {
+    width: 24px;
+  }
+  #analyse-toggle-ceval + label {
+    background-color: $c-font-dimmer;
+    width: 24px;
+    height: 33px;
+  }
+  #analyse-toggle-ceval + label::before,
+  #analyse-toggle-ceval + label::after {
+    top: 0;
+    margin-top: 9px;
+  }
+  #analyse-toggle-ceval:checked + label::before,
+  #analyse-toggle-ceval:checked + label::after {
+    margin: 0;
+  }
+}

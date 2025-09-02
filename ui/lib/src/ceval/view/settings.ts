@@ -1,4 +1,4 @@
-import type { ParentCtrl } from '../types';
+import type { CevalHandler } from '../types';
 import type CevalCtrl from '../ctrl';
 import { fewerCores } from '../util';
 import { rangeConfig } from '../../view/controls';
@@ -13,18 +13,18 @@ const allSearchTicks = [4, 6, 8, 10, 12, 15, 20, 30, Number.POSITIVE_INFINITY];
 
 const formatHashSize = (v: number): string => (v < 1000 ? v + 'MB' : Math.round(v / 1024) + 'GB');
 
-export function renderCevalSettings(ctrl: ParentCtrl): VNode | null {
-  const ceval = ctrl.getCeval(),
+export function renderCevalSettings(ctrl: CevalHandler): VNode | null {
+  const ceval = ctrl.ceval,
     minThreads = ceval.engines.active?.minThreads ?? 1,
     maxThreads = ceval.maxThreads,
-    engCtrl = ctrl.getCeval().engines,
+    engCtrl = ctrl.ceval.engines,
     searchTicks = allSearchTicks.filter(x => x * 1000 <= ceval.engines.maxMovetime);
 
   let observer: ResizeObserver;
 
   function clickThreads(x = ceval.recommendedThreads) {
     ceval.setThreads(x);
-    ctrl.restartCeval?.();
+    ctrl.startCeval();
     ceval.opts.redraw();
   }
 
@@ -70,7 +70,8 @@ export function renderCevalSettings(ctrl: ParentCtrl): VNode | null {
                     },
                     hook: rangeConfig(searchTick, n => {
                       ceval.storedMovetime(searchTicks[n] * 1000);
-                      ctrl.restartCeval?.();
+                      ctrl.startCeval();
+                      ceval.opts.redraw();
                     }),
                   }),
                   hl(
@@ -94,6 +95,7 @@ export function renderCevalSettings(ctrl: ParentCtrl): VNode | null {
                         (pvs: number) => {
                           ceval.storedPv(pvs);
                           ctrl.clearCeval?.();
+                          ceval.opts.redraw();
                         },
                       ),
                     }),
@@ -165,7 +167,8 @@ export function renderCevalSettings(ctrl: ParentCtrl): VNode | null {
                     () => Math.floor(Math.log2(ceval.hashSize)),
                     v => {
                       ceval.setHashSize(Math.pow(2, v));
-                      ctrl.restartCeval?.();
+                      ctrl.startCeval();
+                      ceval.opts.redraw();
                     },
                   ),
                 }),
@@ -190,12 +193,11 @@ function setupTick(v: VNode, ceval: CevalCtrl) {
   $(tick).toggleClass('recommended', ceval.threads === ceval.recommendedThreads);
 }
 
-function engineSelection(ctrl: ParentCtrl) {
-  const ceval = ctrl.getCeval(),
+function engineSelection(ctrl: CevalHandler) {
+  const ceval = ctrl.ceval,
     active = ceval.engines.active,
     engines = ceval.engines.supporting(ceval.opts.variant.key),
     external = ceval.engines.external;
-  if (!engines?.length || !ceval.allowed()) return [];
   return [
     hl('div.setting', [
       'Engine:',
@@ -204,7 +206,7 @@ function engineSelection(ctrl: ParentCtrl) {
         {
           hook: bind('change', e => {
             ceval.selectEngine((e.target as HTMLSelectElement).value);
-            ctrl.redraw?.();
+            ceval.opts.redraw();
           }),
         },
         engines.map(engine =>
@@ -217,7 +219,7 @@ function engineSelection(ctrl: ParentCtrl) {
           hook: bind('click', async e => {
             (e.currentTarget as HTMLElement).blur();
             if (await confirm('Remove external engine?'))
-              ceval.engines.deleteExternal(external.id).then(ok => ok && ctrl.redraw?.());
+              ceval.engines.deleteExternal(external.id).then(ok => ok && ceval.opts.redraw());
           }),
         }),
     ]),

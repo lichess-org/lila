@@ -78,8 +78,3 @@
     @content;
   }
 }
-@mixin mq-has-hover {
-  @media (hover: hover) and (pointer: fine) {
-    @content;
-  }
-}

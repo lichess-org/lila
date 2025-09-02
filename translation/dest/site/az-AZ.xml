@@ -274,7 +274,6 @@
   <string name="blackTimeOut">Qaraların vaxtı bitdi</string>
   <string name="drawOfferSent">Heç-heçə təklifi göndərildi</string>
   <string name="drawOfferAccepted">Heç-heçə təklifi qəbul edildi</string>
-  <string name="drawOfferCanceled">Heç-heçə təklifi ləğv edildi</string>
   <string name="whiteOffersDraw">Ağlar heç-heçə təklif edir</string>
   <string name="blackOffersDraw">Qaralar heç-heçə təklif edir</string>
   <string name="whiteDeclinesDraw">Ağlar heç-heçə təklifini rədd edir</string>

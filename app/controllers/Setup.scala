@@ -151,10 +151,6 @@ final class Setup(
             me <- ctx.me.so(env.user.api.withPerfs)
             blocking <- ctx.me.so(env.relation.api.fetchBlocking(_))
             sri = orUserSri(author)
-            ua = HTTPRequest.userAgent(req).fold("?")(_.value)
-            _ = lila.mon.lobby.hook
-              .apiCreate(ua = ua.split(' ').take(2).mkString(" "), color = config.color.name)
-              .increment()
             forcedColor <- env.lobby.boardApiHookStream.mustPlayAsColor(config.color)
             res <- forcedColor.match
               case Some(forced) => fuccess(JsonBadRequest(s"You must also play some games as $forced"))
@@ -165,7 +161,7 @@ final class Setup(
                     case Left(hook) =>
                       limit.setupPost(req.ipAddress, rateLimited):
                         limit
-                          .boardApiConcurrency(author.map(_.id))(
+                          .boardApiConcurrency(author.map(_.id), msg = req.userAgent.value)(
                             env.lobby.boardApiHookStream(hook.copy(boardApi = true))
                           )(jsOptToNdJson)
                           .toFuccess
@@ -182,8 +178,8 @@ final class Setup(
       )
   }
 
-  def boardApiHookCancel = WithBoardApiHookAuthor { (author, _) => _ ?=>
-    env.lobby.boardApiHookStream.cancel(orUserSri(author))
+  def boardApiHookCancel = WithBoardApiHookAuthor { (author, reqSri) => _ ?=>
+    env.lobby.boardApiHookStream.cancel(orUserSri(author), reqSri)
     NoContent
   }
 

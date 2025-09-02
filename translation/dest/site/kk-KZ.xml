@@ -278,7 +278,6 @@
   <string name="blackTimeOut">Қараның уақыты бітті</string>
   <string name="drawOfferSent">Тепе-теңдік сұрауда</string>
   <string name="drawOfferAccepted">Тепе-теңдікке келісті</string>
-  <string name="drawOfferCanceled">Тепе-теңдік сұрау тоқтатылды</string>
   <string name="whiteOffersDraw">Ақ тепе-теңдік сұрауда</string>
   <string name="blackOffersDraw">Қара тепе-теңдік сұрауда</string>
   <string name="whiteDeclinesDraw">Ақ тепе-теңдіктен бас тартты</string>
@@ -773,7 +772,7 @@
   <string name="revokeAllSessions">бәрін ажырату</string>
   <string name="playChessEverywhere">Шахматты кез-келген жерде ойнаңыз</string>
   <string name="everybodyGetsAllFeaturesForFree">Барлық құралдары барлық адам үшін тегін</string>
-  <string name="viewTheSolution">Жауабты қарау</string>
+  <string name="viewTheSolution">Жауабын қарау</string>
   <string name="noChallenges">Шақыру жоқ.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">%s тілде нұсқасы бар!</item>

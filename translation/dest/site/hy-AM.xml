@@ -276,7 +276,6 @@
   <string name="blackTimeOut">Սևերի ժամանակը սպառվեց</string>
   <string name="drawOfferSent">Ոչ-ոքի առաջարկը ուղարկված է</string>
   <string name="drawOfferAccepted">Ոչ-ոքի առաջարկը ընդունվել է</string>
-  <string name="drawOfferCanceled">Ոչ-ոքի առաջարկը հերքվել է</string>
   <string name="whiteOffersDraw">Սպիտակներն առաջարկում են ոչ-ոքի</string>
   <string name="blackOffersDraw">Սևերն առաջարկում են ոչ-ոքի</string>
   <string name="whiteDeclinesDraw">Սպիտակները մերժում են ոչ-ոքին</string>

@@ -1,4 +1,4 @@
-import { view as cevalView } from 'lib/ceval/ceval';
+import { view as cevalView, renderEval as normalizeEval } from 'lib/ceval/ceval';
 import { parseFen } from 'chessops/fen';
 import { defined } from 'lib';
 import * as licon from 'lib/licon';
@@ -6,7 +6,6 @@ import {
   type VNode,
   type LooseVNode,
   type LooseVNodes,
-  type Attrs,
   bind,
   bindNonPassive,
   onInsert,
@@ -32,7 +31,6 @@ import { spinnerVdom as spinner, stepwiseScroll } from 'lib/view/controls';
 import * as Prefs from 'lib/prefs';
 import statusView from 'lib/game/view/status';
 import { renderNextChapter } from '../study/nextChapter';
-import { render as renderTreeView } from '../treeView/treeView';
 import { dispatchChessgroundResize } from 'lib/chessgroundResize';
 import serverSideUnderboard from '../serverSideUnderboard';
 import type StudyCtrl from '../study/studyCtrl';
@@ -42,6 +40,7 @@ import { renderPgnError } from '../pgnImport';
 import { storage } from 'lib/storage';
 import { backToLiveView } from '../study/relay/relayView';
 import { findTag } from '../study/studyChapters';
+import { fixCrazySan, plyToTurn } from 'lib/game/chess';
 
 export interface ViewContext {
   ctrl: AnalyseCtrl;
@@ -87,18 +86,16 @@ export function viewContext(ctrl: AnalyseCtrl, deps?: typeof studyDeps): ViewCon
   };
 }
 
-export function renderMain(
-  { ctrl, playerBars, gaugeOn, gamebookPlayView, needsInnerCoords, hasRelayTour }: ViewContext,
-  ...kids: LooseVNodes[]
-): VNode {
+export function renderMain(ctx: ViewContext, ...kids: LooseVNodes[]): VNode {
+  const { ctrl, playerBars, gaugeOn, gamebookPlayView, needsInnerCoords, hasRelayTour } = ctx;
   const isRelay = defined(ctrl.study?.relay);
-  const attrs: Attrs = {};
-  if (ctrl.showingTool()) attrs['data-showing-tool'] = ctrl.showingTool();
-  if (ctrl.ceval.enabled()) attrs['data-ceval-mode'] = ctrl.practice ? 'ceval-practice' : 'ceval';
   return hl(
     'main.analyse.variant-' + ctrl.data.game.variant.key,
     {
-      attrs,
+      attrs: {
+        'data-active-tool': ctrl.activeControlBarTool(),
+        'data-active-mode': ctrl.activeControlBarMode(),
+      },
       hook: {
         insert: () => {
           forceInnerCoords(ctrl, needsInnerCoords);
@@ -114,7 +111,7 @@ export function renderMain(
         },
       },
       class: {
-        'comp-off': !ctrl.showComputer(),
+        'comp-off': !ctrl.showFishnetAnalysis(),
         'gauge-on': gaugeOn,
         'has-players': !!playerBars,
         'gamebook-play': !!gamebookPlayView,
@@ -297,9 +294,26 @@ export function renderResult(ctrl: AnalyseCtrl): VNode[] {
   return [];
 }
 
+export const renderIndexAndMove = (node: Tree.Node, withEval: boolean, withGlyphs: boolean): LooseVNodes =>
+  node.san ? [renderIndex(node.ply, true), moveNodes(node, withEval, withGlyphs)] : undefined;
+
+export const renderIndex = (ply: Ply, withDots: boolean): VNode =>
+  hl(`index.sbhint${ply}`, plyToTurn(ply) + (withDots ? (ply % 2 === 1 ? '.' : '...') : ''));
+
+export function moveNodes(node: Tree.Node, withEval: boolean, withGlyphs: boolean): LooseVNodes {
+  const ev = node.ceval ?? node.eval;
+  const evalText = ev?.cp !== undefined ? normalizeEval(ev.cp) : ev?.mate !== undefined ? `#${ev.mate}` : '';
+  return [
+    hl('san', fixCrazySan(node.san!)),
+    withGlyphs && node.glyphs?.map(g => hl('glyph', { attrs: { title: g.name } }, g.symbol)),
+    withEval && !!node.shapes?.length && hl('shapes'),
+    withEval && evalText && hl('eval', evalText.replace('-', '−')),
+  ];
+}
+
 const renderMoveList = (ctrl: AnalyseCtrl, deps?: typeof studyDeps, concealOf?: ConcealOf): VNode =>
-  hl('div.analyse__moves.areplay', [
-    hl(`div.areplay__v${ctrl.treeVersion}`, [renderTreeView(ctrl, concealOf), renderResult(ctrl)]),
+  hl('div.analyse__moves.areplay', { hook: ctrl.treeView.hook() }, [
+    hl('div', [ctrl.treeView.render(concealOf), renderResult(ctrl)]),
     !ctrl.practice && !deps?.gbEdit.running(ctrl) && renderNextChapter(ctrl),
   ]);
 

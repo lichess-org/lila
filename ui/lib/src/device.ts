@@ -3,59 +3,6 @@ import { memoize } from './common';
 import { bind } from './snabbdom';
 import * as licon from './licon';
 
-const longPressDuration = 610;
-const scrollThreshold = 6;
-
-export function addPointerListeners(
-  el: HTMLElement,
-  click?: (e: PointerEvent) => void,
-  hold?: 'click' | ((e: PointerEvent) => void),
-): void {
-  let timer: number;
-  let x = 0;
-  let y = 0;
-
-  const reset = () => {
-    clearTimeout(timer);
-    x = y = timer = 0;
-  };
-  el.addEventListener(
-    'pointerdown',
-    e => {
-      [x, y] = [e.clientX, e.clientY];
-      timer = window.setTimeout(() => {
-        if (!hold) return;
-        if (hold === 'click') click?.(e);
-        else hold(e);
-        reset();
-      }, longPressDuration);
-    },
-    { passive: true },
-  );
-  el.addEventListener(
-    'pointerup',
-    e => {
-      if (timer) {
-        click?.(e);
-        e.preventDefault();
-      }
-      reset();
-    },
-    { passive: false },
-  );
-  el.addEventListener(
-    'pointermove',
-    e => {
-      if (timer && Math.hypot(e.clientX - x, e.clientY - y) > scrollThreshold) reset();
-    },
-    { passive: true },
-  );
-  el.addEventListener('pointercancel', reset, { passive: true });
-  if (isTouchDevice() && hold) {
-    el.addEventListener('contextmenu', e => e.preventDefault(), { passive: false });
-  }
-}
-
 export function isBrowserSupported(): boolean {
   // when feature detection is not enough
   if (isSafari({ below: '15.4' })) return false;

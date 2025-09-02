@@ -274,13 +274,12 @@
     <item quantity="one">%s partij met u</item>
     <item quantity="other">%s partijen met u</item>
   </plurals>
-  <string name="ok">Oké</string>
+  <string name="ok">OK</string>
   <string name="cancel">Annuleren</string>
   <string name="whiteTimeOut">Tijd om voor wit</string>
   <string name="blackTimeOut">Tijd om voor zwart</string>
   <string name="drawOfferSent">Remiseaanbod verstuurd</string>
   <string name="drawOfferAccepted">Remiseaanbod geaccepteerd</string>
-  <string name="drawOfferCanceled">Remiseaanbod geannuleerd</string>
   <string name="whiteOffersDraw">Wit biedt remise aan</string>
   <string name="blackOffersDraw">Zwart biedt remise aan</string>
   <string name="whiteDeclinesDraw">Wit weigert remise</string>

@@ -280,7 +280,6 @@
   <string name="blackTimeOut">زمان سیاه تمام شد</string>
   <string name="drawOfferSent">پیشنهاد تساوی ارسال شد</string>
   <string name="drawOfferAccepted">پیشنهاد تساوی پذیرفته شد</string>
-  <string name="drawOfferCanceled">پیشنهاد تساوی لغو شد</string>
   <string name="whiteOffersDraw">سفید پیشنهاد تساوی می دهد</string>
   <string name="blackOffersDraw">سیاه پیشنهاد تساوی می دهد</string>
   <string name="whiteDeclinesDraw">سفید تساوی را نمی پذیرد</string>

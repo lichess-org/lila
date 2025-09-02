@@ -280,7 +280,6 @@
   <string name="blackTimeOut">Tid udløbet for sort</string>
   <string name="drawOfferSent">Remistilbud afsendt</string>
   <string name="drawOfferAccepted">Remistilbud accepteret</string>
-  <string name="drawOfferCanceled">Remistilbud trukket tilbage</string>
   <string name="whiteOffersDraw">Hvid tilbyder remis</string>
   <string name="blackOffersDraw">Sort tilbyder remis</string>
   <string name="whiteDeclinesDraw">Hvid afslår remis</string>
@@ -497,7 +496,7 @@
   <string name="standByX">Et øjeblik %s, parrer spillere – gør dig klar!</string>
   <string name="pause">Sæt på pause</string>
   <string name="resume">Genoptag</string>
-  <string name="youArePlaying">Du spiller nu!</string>
+  <string name="youArePlaying">Du spiller!</string>
   <string name="winRate">Sejrsrate</string>
   <string name="performance">Præstation</string>
   <string name="tournamentComplete">Turnering afsluttet</string>

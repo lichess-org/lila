@@ -30,7 +30,7 @@ import { renderSetting } from 'lib/nvui/setting';
 import { commands, boardCommands, addBreaks } from 'lib/nvui/command';
 import explorerView from '../explorer/explorerView';
 import { ops, path as treePath } from 'lib/tree/tree';
-import { view as cevalView, renderEval, type CevalCtrl } from 'lib/ceval/ceval';
+import { view as cevalView, renderEval } from 'lib/ceval/ceval';
 import { next, prev } from '../control';
 import { lichessRules } from 'chessops/compat';
 import { makeSan } from 'chessops/san';
@@ -89,7 +89,7 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
       d.clock ? hl('p', `Clock: ${d.clock.initial / 60} + ${d.clock.increment}`) : null,
       hl('h2', i18n.nvui.moveList),
       hl('p.moves', { attrs: { role: 'log', 'aria-live': 'off' } }, renderCurrentLine(ctx)),
-      !ctrl.studyPractice && [
+      !ctrl.study?.practice && [
         hl(
           'button',
           {
@@ -275,10 +275,10 @@ function boardEventsHook(
 
 function renderEvalAndDepth(ctrl: AnalyseCtrl): string {
   if (ctrl.threatMode()) return `${evalInfo(ctrl.node.threat)} ${depthInfo(ctrl.node.threat, false)}`;
-  const evs = ctrl.currentEvals(),
-    bestEv = cevalView.getBestEval(evs);
+  const evs = { client: ctrl.getNode().ceval, server: ctrl.getNode().eval },
+    bestEv = cevalView.getBestEval(ctrl);
   const evalStr = evalInfo(bestEv);
-  return !evalStr ? noEvalStr(ctrl.ceval) : `${evalStr} ${depthInfo(evs.client, !!evs.client?.cloud)}`;
+  return !evalStr ? noEvalStr(ctrl) : `${evalStr} ${depthInfo(evs.client, !!evs.client?.cloud)}`;
 }
 
 const evalInfo = (bestEv: EvalScore | undefined): string =>
@@ -291,11 +291,15 @@ const evalInfo = (bestEv: EvalScore | undefined): string =>
 const depthInfo = (clientEv: Tree.ClientEval | undefined, isCloud: boolean): string =>
   clientEv ? `${i18n.site.depthX(clientEv.depth || 0)} ${isCloud ? 'Cloud' : ''}` : '';
 
-const noEvalStr = (ctrl: CevalCtrl) =>
-  !ctrl.allowed() ? 'local evaluation not allowed' : !ctrl.enabled() ? 'local evaluation not enabled' : '';
+const noEvalStr = (ctrl: AnalyseCtrl) =>
+  !ctrl.isCevalAllowed()
+    ? 'local evaluation not allowed'
+    : !ctrl.cevalEnabled()
+      ? 'local evaluation not enabled'
+      : '';
 
 function renderBestMove({ ctrl, moveStyle }: AnalyseNvuiContext): string {
-  const noEvalMsg = noEvalStr(ctrl.ceval);
+  const noEvalMsg = noEvalStr(ctrl);
   if (noEvalMsg) return noEvalMsg;
   const node = ctrl.node,
     setup = parseFen(node.fen).unwrap();

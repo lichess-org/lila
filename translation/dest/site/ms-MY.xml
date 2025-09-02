@@ -250,7 +250,6 @@
   <string name="blackTimeOut">Hitam habis masa</string>
   <string name="drawOfferSent">Tawaran seri dihantar</string>
   <string name="drawOfferAccepted">Tawaran seri diterima</string>
-  <string name="drawOfferCanceled">Tawaran seri dibatalkan</string>
   <string name="whiteOffersDraw">Pemain putih tawar seri</string>
   <string name="blackOffersDraw">Pemain hitam tawar seri</string>
   <string name="whiteDeclinesDraw">Pemain putih menolak seri</string>

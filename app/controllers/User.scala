@@ -291,7 +291,7 @@ final class User(
         import lila.user.JsonView.leaderboardStandardTopOneWrites
         JsonOk(leaderboards)
       }
-    else env.user.cached.topPerfFirstPage.get(perfKey).dmap(_.take(nb)).map(topNbJson)
+    else env.user.cached.firstPageOf(perfKey).dmap(_.take(nb)).map(topNbJson)
 
   private def topNbJson(users: Seq[LightPerf]) =
     given OWrites[LightPerf] = OWrites(env.user.jsonView.lightPerfIsOnline)
@@ -402,7 +402,7 @@ final class User(
         val otherUsers = isGranted(_.AccountInfo).so[Fu[Frag]]:
           othersAndLogins.map(_._1())
 
-        val identification = (isGranted(_.Diagnostics) || isGranted(_.ViewPrintNoIP)).so:
+        val identification = (isGranted(_.AccountInfo) || isGranted(_.ViewPrintNoIP)).so:
           for
             logins <- userLoginsFu
             others <- othersAndLogins
@@ -567,7 +567,7 @@ final class User(
       get("term").flatMap(UserSearch.read) match
         case None => BadRequest("No search term provided")
         case Some(term) if getBool("exists") =>
-          term.into(UserStr).validateId.so(env.user.repo.exists).map(JsonOk)
+          term.into(UserStr).validateId.so(env.user.repo.existsSec).map(JsonOk)
         case Some(term) =>
           {
             (get("tour"), get("swiss"), get("team")) match

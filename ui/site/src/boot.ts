@@ -128,5 +128,6 @@ export function boot() {
 const isUnsupportedBrowser = () => isWebkit({ below: '15.4' });
 
 function mirrorCheck() {
-  if (location.host == 'twisttadka.org') location.href = 'https://lichess.org' + location.pathname;
+  if (['twisttadka.org', 'randatcrics.org'].includes(location.host))
+    location.href = 'https://lichess.org' + location.pathname;
 }

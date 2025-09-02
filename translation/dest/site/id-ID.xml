@@ -257,7 +257,6 @@
   <string name="blackTimeOut">Hitam kehabisan waktu</string>
   <string name="drawOfferSent">Tawaran remis terkirim</string>
   <string name="drawOfferAccepted">Tawaran remis diterima</string>
-  <string name="drawOfferCanceled">Tawaran remis dibatalkan</string>
   <string name="whiteOffersDraw">Putih menawarkan remis</string>
   <string name="blackOffersDraw">Hitam menawarkan remis</string>
   <string name="whiteDeclinesDraw">Putih menolak remis</string>

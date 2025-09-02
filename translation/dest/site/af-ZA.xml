@@ -277,7 +277,6 @@
   <string name="blackTimeOut">Swart time-out</string>
   <string name="drawOfferSent">Gelykop aanbod gestuur</string>
   <string name="drawOfferAccepted">Gelykop aanbod aanvaar</string>
-  <string name="drawOfferCanceled">Gelykop aanbod gekanselleer</string>
   <string name="whiteOffersDraw">Wit maak gelykspel aanbod</string>
   <string name="blackOffersDraw">Swart maak gelykspel aanbod</string>
   <string name="whiteDeclinesDraw">Wit wys gelykspel aanbod van die hand</string>

@@ -280,7 +280,6 @@
   <string name="blackTimeOut">Black time out</string>
   <string name="drawOfferSent">Draw offer sent</string>
   <string name="drawOfferAccepted">Draw offer accepted</string>
-  <string name="drawOfferCanceled">Draw offer canceled</string>
   <string name="whiteOffersDraw">White offers draw</string>
   <string name="blackOffersDraw">Black offers draw</string>
   <string name="whiteDeclinesDraw">White declines draw</string>

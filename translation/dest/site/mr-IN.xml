@@ -276,7 +276,6 @@
   <string name="blackTimeOut">काळ्याचा वेळ संपला</string>
   <string name="drawOfferSent">बरोबरीत सोडवण्याचा प्रस्ताव पाठवला</string>
   <string name="drawOfferAccepted">बरोबरीत सोडवण्याचा प्रस्ताव स्वीकारला</string>
-  <string name="drawOfferCanceled">बरोबरीत सोडवण्याचा प्रस्ताव रद्द केला गेला</string>
   <string name="whiteOffersDraw">पांढऱ्याने सामना बरोबरीत सोडवण्याचा प्रस्ताव केला आहे</string>
   <string name="blackOffersDraw">काळ्याने सामना बरोबरीत सोडवण्याचा प्रस्ताव केला आहे</string>
   <string name="whiteDeclinesDraw">पांढऱ्याने सामना बरोबरीत सोडवण्याचा प्रस्ताव नाकारला</string>

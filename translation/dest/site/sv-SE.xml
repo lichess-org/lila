@@ -279,7 +279,6 @@
   <string name="blackTimeOut">Svarts tid är slut</string>
   <string name="drawOfferSent">Remierbjudande skickat</string>
   <string name="drawOfferAccepted">Remierbjudande accepterat</string>
-  <string name="drawOfferCanceled">Remierbjudande avbrutet</string>
   <string name="whiteOffersDraw">Vit erbjuder remi</string>
   <string name="blackOffersDraw">Svart erbjuder remi</string>
   <string name="whiteDeclinesDraw">Vit avböjer remi</string>

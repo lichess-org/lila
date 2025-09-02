@@ -21,7 +21,7 @@
   <string name="toGetPersonalizedPuzzles">Жекелендірген жұмбақ алу үшін:</string>
   <string name="puzzleId">Жұмбақ %s</string>
   <string name="puzzleOfTheDay">Бүгінгі жұмбақ</string>
-  <string name="dailyPuzzle">күнделікті жұмбақтар</string>
+  <string name="dailyPuzzle">Күнделікті жұмбақ</string>
   <string name="clickToSolve">Шешу үшін басыңыз</string>
   <string name="goodMove">Жақсы жүріс</string>
   <string name="bestMove">Үздік жүріс!</string>

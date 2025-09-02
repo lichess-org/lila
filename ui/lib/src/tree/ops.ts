@@ -95,3 +95,9 @@ export function updateAll(root: Tree.Node, f: (node: Tree.Node) => void): void {
   }
   update(root);
 }
+
+export function distance(a: Tree.Path, b: Tree.Path): number {
+  let i = 0;
+  while (i < a.length && i < b.length && a[i] === b[i] && a[i + 1] === b[i + 1]) i += 2;
+  return (a.length + b.length) / 2 - i;
+}

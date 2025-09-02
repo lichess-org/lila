@@ -11,17 +11,22 @@ object help:
   private def header(text: Frag) = tr(th(colspan := 2)(p(text)))
   private def row(keys: Frag, desc: Frag) = tr(td(cls := "keys")(keys), td(cls := "desc")(desc))
   private val or = tag("or")("/")
+  private val alt = span(cls := "kbd-mod")("or")
+  private val tap = span(cls := "kbd-mod")("tap")
   private val kbd = tag("kbd")
   private def voice(text: String) = strong(cls := "val-to-word", text)
   private def phonetic(text: String) = strong(cls := "val-to-word phonetic", text)
 
   private def navigateMoves(using Translate) = frag(
     header(trans.site.navigateMoveTree()),
-    row(frag(kbd("←"), or, kbd("→")), trans.site.keyMoveBackwardOrForward()),
-    row(frag(kbd("k"), or, kbd("j")), trans.site.keyMoveBackwardOrForward()),
-    row(frag(kbd("↑"), or, kbd("↓")), trans.site.keyGoToStartOrEnd()),
-    row(frag(kbd("0"), or, kbd("$")), trans.site.keyGoToStartOrEnd()),
-    row(frag(kbd("home"), or, kbd("end")), trans.site.keyGoToStartOrEnd())
+    row(
+      frag(kbd("←"), or, kbd("→"), alt, kbd("k"), or, kbd("j")),
+      trans.site.keyMoveBackwardOrForward()
+    ),
+    row(
+      frag(kbd("↑"), or, kbd("↓"), alt, kbd("0"), or, kbd("$"), alt, kbd("home"), or, kbd("end")),
+      trans.site.keyGoToStartOrEnd()
+    )
   )
   private def flip(using Translate) = row(kbd("f"), trans.site.flipBoard())
   private def zen(using Translate) = row(kbd("z"), trans.preferences.zenMode())
@@ -73,32 +78,44 @@ object help:
       h2(trans.site.keyboardShortcuts()),
       table(
         tbody(
-          row(frag(kbd("←"), or, kbd("→")), trans.site.keyMoveBackwardOrForward()),
-          row(frag(kbd("k"), or, kbd("j")), trans.site.keyMoveBackwardOrForward()),
-          row(kbd("shift"), trans.site.keyCycleSelectedVariation()),
-          row(frag(kbd("↑"), or, kbd("↓")), trans.site.cyclePreviousOrNextVariation()),
-          row(frag(kbd("shift"), kbd("←"), or, kbd("shift"), kbd("K")), trans.site.keyPreviousBranch()),
-          row(frag(kbd("shift"), kbd("→"), or, kbd("shift"), kbd("J")), trans.site.keyNextBranch()),
-          row(frag(kbd("↑"), or, kbd("↓")), trans.site.keyGoToStartOrEnd()),
-          row(frag(kbd("0"), or, kbd("$")), trans.site.keyGoToStartOrEnd()),
-          row(frag(kbd("home"), or, kbd("end")), trans.site.keyGoToStartOrEnd()),
+          row(
+            frag(kbd("↑"), or, kbd("↓"), alt, kbd("0"), or, kbd("$"), alt, kbd("home"), or, kbd("end")),
+            trans.site.keyGoToStartOrEnd()
+          ),
+          row(
+            frag(kbd("←"), or, kbd("→"), alt, kbd("k"), or, kbd("j")),
+            trans.site.keyMoveBackwardOrForward()
+          ),
+          row(frag(tap, kbd("shift"), alt, kbd("↑"), or, kbd("↓")), trans.site.keyCycleSelectedVariation()),
+          row(
+            frag(kbd("shift"), kbd("←"), or, kbd("k"), alt, kbd("shift"), kbd("→"), or, kbd("j")),
+            "Go to previous/next branch"
+          ),
+          row(
+            frag(kbd("shift"), kbd("↑"), alt, kbd("shift"), kbd("↓")),
+            "Step to previous/next line"
+          ),
+          row(frag(tap, kbd("ctrl")), "Show/hide current variation"),
           header(trans.site.analysisOptions()),
           flip,
-          row(frag(kbd("shift"), kbd("I")), trans.site.inlineNotation()),
           localAnalysis,
           row(kbd("z"), trans.site.toggleAllAnalysis()),
           row(kbd("a"), trans.site.bestMoveArrow()),
           row(kbd("v"), trans.site.toggleVariationArrows()),
-          row(kbd("e"), trans.site.openingEndgameExplorer()),
-          row(frag(kbd("shift"), kbd("space")), trans.site.playFirstOpeningEndgameExplorerMove()),
           row(kbd("r"), trans.site.keyRequestComputerAnalysis()),
           row(kbd("enter"), trans.site.keyNextLearnFromYourMistakes()),
           row(kbd("b"), trans.site.keyNextBlunder()),
           row(kbd("m"), trans.site.keyNextMistake()),
           row(kbd("i"), trans.site.keyNextInaccuracy()),
           row(kbd("c"), trans.site.focusChat()),
-          row(frag(kbd("shift"), kbd("C")), trans.site.keyShowOrHideComments()),
           helpDialog,
+          row(kbd("e"), trans.site.openingEndgameExplorer()),
+          row(
+            frag(kbd("shift"), kbd("space")),
+            trans.site.playFirstOpeningEndgameExplorerMove()
+          ),
+          row(frag(kbd("shift"), kbd("C")), trans.site.keyShowOrHideComments()),
+          row(frag(kbd("shift"), kbd("I")), trans.site.inlineNotation()),
           isStudy.option(
             frag(
               header(trans.study.studyActions()),
@@ -107,7 +124,10 @@ object help:
               row(kbd("n"), trans.study.nextChapter()),
               row(kbd("p"), trans.study.prevChapter()),
               row(frag((1 to 6).map(kbd(_))), trans.site.toggleGlyphAnnotations()),
-              row(frag(kbd("shift"), (1 to 8).map(kbd(_))), trans.site.togglePositionAnnotations()),
+              row(
+                frag(kbd("shift"), (1 to 8).map(kbd(_))),
+                trans.site.togglePositionAnnotations()
+              ),
               row(frag(kbd("ctrl"), kbd("z")), "Undo arrow changes")
             )
           ),

@@ -313,7 +313,6 @@
   <string name="blackTimeOut">Baigėsi laikas juodiesiems</string>
   <string name="drawOfferSent">Lygiųjų pasiūlymas išsiųstas</string>
   <string name="drawOfferAccepted">Lygiųjų pasiūlymas priimtas</string>
-  <string name="drawOfferCanceled">Lygiųjų pasiūlymas atšauktas</string>
   <string name="whiteOffersDraw">Baltieji siūlo lygiąsias</string>
   <string name="blackOffersDraw">Juodieji siūlo lygiąsias</string>
   <string name="whiteDeclinesDraw">Baltieji atsisako lygiųjų</string>

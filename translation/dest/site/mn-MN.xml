@@ -241,7 +241,6 @@
   <string name="blackTimeOut">Харын цаг дуусчихлаа тийм ээ</string>
   <string name="drawOfferSent">Тэнцэх санал илгээлээ</string>
   <string name="drawOfferAccepted">Тэнцэх саналыг зөвшөөрлөө</string>
-  <string name="drawOfferCanceled">Тэнцэх саналаа цуцаллаа</string>
   <string name="whiteOffersDraw">Цагаан тэнцэхийг санал болгож байна</string>
   <string name="blackOffersDraw">Хар тэнцэхийг санал болгож байна</string>
   <string name="whiteDeclinesDraw">Цагаан тэнцэхээс татгалзаж байна</string>

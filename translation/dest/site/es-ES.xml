@@ -280,7 +280,6 @@
   <string name="blackTimeOut">Las negras agotaron su tiempo</string>
   <string name="drawOfferSent">Oferta de tablas enviada</string>
   <string name="drawOfferAccepted">Oferta de tablas aceptada</string>
-  <string name="drawOfferCanceled">Oferta de tablas cancelada</string>
   <string name="whiteOffersDraw">Las blancas ofrecen tablas</string>
   <string name="blackOffersDraw">Las negras ofrecen tablas</string>
   <string name="whiteDeclinesDraw">Las blancas rechazan tablas</string>

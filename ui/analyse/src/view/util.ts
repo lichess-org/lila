@@ -1,7 +1,15 @@
 import { fixCrazySan, plyToTurn } from 'lib/game/chess';
-import { attributesModule, classModule, eventListenersModule, init, h, VNodeData } from 'snabbdom';
+import {
+  attributesModule,
+  classModule,
+  propsModule,
+  eventListenersModule,
+  init,
+  h,
+  VNodeData,
+} from 'snabbdom';
 
-export const patch = init([classModule, attributesModule, eventListenersModule]);
+export const patch = init([classModule, attributesModule, propsModule, eventListenersModule]);
 
 export const emptyRedButton = 'button.button.button-red.button-empty';
 

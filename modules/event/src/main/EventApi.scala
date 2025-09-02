@@ -3,7 +3,10 @@ import scalalib.model.Language
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 
-final class EventApi(coll: Coll, cacheApi: lila.memo.CacheApi, eventForm: EventForm)(using Executor):
+final class EventApi(coll: Coll, cacheApi: lila.memo.CacheApi, eventForm: EventForm)(using
+    Executor,
+    Scheduler
+):
 
   import BsonHandlers.given
 
@@ -14,8 +17,7 @@ final class EventApi(coll: Coll, cacheApi: lila.memo.CacheApi, eventForm: EventF
       .take(3)
 
   private val promotable = cacheApi.unit[List[Event]]:
-    _.refreshAfterWrite(5.minutes)
-      .buildAsyncFuture(_ => fetchPromotable)
+    _.refreshAfterWrite(5.minutes).buildAsyncTimeout()(_ => fetchPromotable)
 
   def fetchPromotable: Fu[List[Event]] =
     coll

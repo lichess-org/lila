@@ -215,7 +215,7 @@ final private class PayPalClient(
       case status => fufail { new StatusException(status, s"[paypal] Response status: $status") }
 
   private val tokenCache = cacheApi.unit[AccessToken]:
-    _.refreshAfterWrite(10.minutes).buildAsyncFuture { _ =>
+    _.refreshAfterWrite(10.minutes).buildAsyncFuture: _ =>
       ws.url(s"${config.endpoint}/${path.token}")
         .withAuth(config.publicKey, config.secretKey.value, WSAuthScheme.BASIC)
         .post(Map("grant_type" -> Seq("client_credentials")))
@@ -227,7 +227,6 @@ final private class PayPalClient(
               case JsError(err) => fufail(s"PayPal access token ${err} ${res.body[String].take(200)}")
               case JsSuccess(token, _) => fuccess(AccessToken(token))
         .monSuccess(_.plan.paypalCheckout.fetchAccessToken)
-    }
 
 object PayPalClient:
 

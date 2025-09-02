@@ -281,7 +281,6 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="blackTimeOut">Schwarz hät d\'Zit überschritte</string>
   <string name="drawOfferSent">Remis-Agebot gsändet</string>
   <string name="drawOfferAccepted">Remis-Agebot akzeptiert</string>
-  <string name="drawOfferCanceled">Remis-Agebot zruggzoge</string>
   <string name="whiteOffersDraw">Wiss offeriert Remis</string>
   <string name="blackOffersDraw">Schwarz offeriert Remis</string>
   <string name="whiteDeclinesDraw">Wiss wott keis Remis</string>

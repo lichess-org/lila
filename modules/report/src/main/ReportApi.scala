@@ -406,7 +406,7 @@ final class ReportApi(
     selectOpenInRoom(room, exceptIds) ++ $doc("inquiry".$exists(false))
 
   private val maxScoreCache = cacheApi.unit[Room.Scores]:
-    _.refreshAfterWrite(5.minutes).buildAsyncFuture: _ =>
+    _.refreshAfterWrite(5.minutes).buildAsyncTimeout(): _ =>
       Room.allButXfiles
         .parallel: room =>
           coll // hits the best_open partial index

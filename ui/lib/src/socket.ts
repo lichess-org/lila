@@ -37,6 +37,7 @@ interface Options {
   protocol: string;
   isAuth: boolean;
   debug?: boolean;
+  reloadOnResume?: boolean;
 }
 interface Params extends Record<string, any> {
   sri?: Sri;
@@ -357,7 +358,7 @@ class WsSocket {
       () => {
         this.options.idle = false;
         if (this.ws) clearTimeout(disconnectTimeout);
-        else location.reload();
+        else if (this.options.reloadOnResume) location.reload();
       },
     );
   };

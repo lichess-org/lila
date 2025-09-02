@@ -57,13 +57,18 @@ export async function objectStorage<V, K extends IDBValidKey = IDBValidKey>(
   const db = await dbConnect(dbInfo);
 
   return {
-    list: () => actionPromise(() => objectStore('readonly').getAllKeys()),
-    get: (key: K) => actionPromise(() => objectStore('readonly').get(key)),
-    getMany: (keys?: IDBKeyRange) => actionPromise(() => objectStore('readonly').getAll(keys)),
-    put: (key: K, value: V) => actionPromise(() => objectStore('readwrite').put(value, key)),
-    count: (key?: K | IDBKeyRange) => actionPromise(() => objectStore('readonly').count(key)),
-    remove: (key: K | IDBKeyRange) => actionPromise(() => objectStore('readwrite').delete(key)),
-    clear: () => actionPromise(() => objectStore('readwrite').clear()),
+    list: () => promise(() => objectStore('readonly').getAllKeys()),
+    has: (key: K) =>
+      promise(() => objectStore('readonly').getKey(key))
+        .then(Boolean)
+        .catch(() => false),
+    get: (key: K) => promise(() => objectStore('readonly').get(key)),
+    getOpt: (key: K) => promise<V | undefined>(() => objectStore('readonly').get(key)).catch(() => undefined),
+    getMany: (keys?: IDBKeyRange) => promise(() => objectStore('readonly').getAll(keys)),
+    put: (key: K, value: V) => promise(() => objectStore('readwrite').put(value, key)),
+    count: (key?: K | IDBKeyRange) => promise(() => objectStore('readonly').count(key)),
+    remove: (key: K | IDBKeyRange) => promise(() => objectStore('readwrite').delete(key)),
+    clear: () => promise(() => objectStore('readwrite').clear()),
     txn: (mode: IDBTransactionMode) => db.transaction(dbInfo.store, mode),
     cursor,
     readCursor: async (opts: CursorOpts, it: (v: V) => any): Promise<void> => {
@@ -73,8 +78,8 @@ export async function objectStorage<V, K extends IDBValidKey = IDBValidKey>(
       for await (const c of cursor(opts, 'readwrite')) {
         await it({
           value: c.value,
-          update: (v: V) => actionPromise(() => c.update(v)),
-          delete: () => actionPromise(() => c.delete()),
+          update: (v: V) => promise(() => c.update(v)),
+          delete: () => promise(() => c.delete()),
         });
       }
     },
@@ -84,7 +89,7 @@ export async function objectStorage<V, K extends IDBValidKey = IDBValidKey>(
     return db.transaction(dbInfo.store, mode).objectStore(dbInfo.store);
   }
 
-  function actionPromise<V>(f: () => IDBRequest) {
+  function promise<V>(f: () => IDBRequest) {
     return new Promise<V>((resolve, reject) => {
       const res = f();
       res.onsuccess = (e: Event) => resolve((e.target as IDBRequest).result);
@@ -99,7 +104,7 @@ export async function objectStorage<V, K extends IDBValidKey = IDBValidKey>(
       : store.openCursor(opts.query, opts.dir);
     return (async function* () {
       while (true) {
-        const cursor = await actionPromise<IDBCursorWithValue | null>(() => req);
+        const cursor = await promise<IDBCursorWithValue | null>(() => req);
         if (!cursor) break;
         yield cursor;
         cursor.continue();
@@ -192,8 +197,12 @@ export interface CursorOpts {
 export interface ObjectStorage<V, K extends IDBValidKey = IDBValidKey> {
   /** list all keys in the object store */
   list(): Promise<K[]>;
+  /** check if a key exists */
+  has(key: K): Promise<boolean>;
   /** retrieve a value by key */
   get(key: K): Promise<V>;
+  /** retrieve or fail gracefully */
+  getOpt(key: K): Promise<V | undefined>;
   /** retrieve multiple values by key range, or all values if omitted */
   getMany(keys?: IDBKeyRange): Promise<V[]>;
   /** put a value into the store under a specific key and return that key */

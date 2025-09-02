@@ -27,7 +27,7 @@ final class Env(
     db: lila.db.Db,
     cacheApi: lila.memo.CacheApi,
     mode: play.api.Mode
-)(using Executor):
+)(using Executor, Scheduler):
 
   private val config = appConfig.get[VideoConfig]("video")(using AutoConfig.loader)
 
