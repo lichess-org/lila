@@ -37,7 +37,7 @@
   <string name="deleteRound">Διαγραφή αυτού του γύρου</string>
   <string name="definitivelyDeleteRound">Οριστική διαγραφή του γύρου και των παρτίδων του.</string>
   <string name="deleteAllGamesOfThisRound">Διαγραφή όλων των παρτίδων αυτού του γύρου. Η πηγή μετάδοσης θα πρέπει να είναι ενεργή για να τις δημιουργήσετε ξανά.</string>
-  <string name="editRoundStudy">Επεξεργασία σπουδής γύρου</string>
+  <string name="editRoundStudy">Επεξεργασία μελέτης γύρου</string>
   <string name="deleteTournament">Διαγραφή τουρνουά</string>
   <string name="definitivelyDeleteTournament">Οριστική διαγραφή αυτού του τουρνουά, όλων των γύρων του και όλων των παρτίδων του.</string>
   <string name="showScores">Εμφάνιση βαθμών των παικτών βάσει των παρτίδων τους</string>
