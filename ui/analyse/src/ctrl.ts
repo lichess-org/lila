@@ -826,7 +826,7 @@ export default class AnalyseCtrl implements CevalHandler {
   }
 
   toggleDiscloseOf(path = this.path.slice(0, -2)) {
-    const disclose = this.idbTree.discloseOf(this.tree.nodeAtPath(path));
+    const disclose = this.idbTree.discloseOf(this.tree.nodeAtPath(path), this.tree.pathIsMainline(path));
     if (disclose) this.idbTree.setCollapsed(path, disclose === 'expanded');
     return Boolean(disclose);
   }

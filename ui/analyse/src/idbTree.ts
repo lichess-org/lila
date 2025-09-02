@@ -13,7 +13,7 @@ export class IdbTree {
 
   someCollapsedOf(collapsed: boolean, path = ''): boolean {
     return this.ctrl.tree.walkUntilTrue(
-      n => this.isCollapsible(n) && collapsed === Boolean(n.collapsed),
+      (n, m) => this.isCollapsible(n, m) && collapsed === Boolean(n.collapsed),
       path,
       path !== '',
     );
@@ -51,8 +51,8 @@ export class IdbTree {
 
   setCollapsedFrom(from: Tree.Path, collapsed: boolean, thisBranchOnly = false): void {
     this.ctrl.tree.walkUntilTrue(
-      n => {
-        if (this.isCollapsible(n)) n.collapsed = collapsed;
+      (n, m) => {
+        if (this.isCollapsible(n, m)) n.collapsed = collapsed;
         return false;
       },
       from,
@@ -75,9 +75,9 @@ export class IdbTree {
     if (save) this.saveCollapsed();
   }
 
-  discloseOf(node: Tree.Node | undefined): DiscloseState {
+  discloseOf(node: Tree.Node | undefined, isMainline: boolean): DiscloseState {
     if (!node) return undefined;
-    return this.isCollapsible(node) ? (node.collapsed ? 'collapsed' : 'expanded') : undefined;
+    return this.isCollapsible(node, isMainline) ? (node.collapsed ? 'collapsed' : 'expanded') : undefined;
   }
 
   onAddNode(node: Tree.Node, path: Tree.Path): void {
@@ -130,13 +130,16 @@ export class IdbTree {
     return this.collapseDb?.put(this.id, this.getCollapsed());
   }
 
-  private isCollapsible(node: Tree.Node): boolean {
+  private isCollapsible(node: Tree.Node, isMainline: boolean): boolean {
     if (!node) return false;
     const [first, second, third] = node.children.filter(n => this.ctrl.showFishnetAnalysis() || !n.comp);
     return Boolean(
-      third ||
+      first?.forceVariation ||
+        third ||
         (second && treeOps.hasBranching(second, 6)) ||
-        /*first?.comments?.filter(c => c.by !== 'lichess').length ||*/ first?.forceVariation,
+        (isMainline &&
+          this.ctrl.treeView.mode === 'column' &&
+          (second || first?.comments?.filter(Boolean).length)),
     );
   }
 
@@ -154,7 +157,7 @@ export class IdbTree {
     const depthThreshold = 1;
 
     const traverse = (node: Tree.Node, depth: number) => {
-      if (depth === depthThreshold && this.isCollapsible(node)) {
+      if (depth === depthThreshold && this.isCollapsible(node, false)) {
         node.collapsed = true;
       }
       node.children.forEach((n, i) => traverse(n, depth + (i === 0 ? 0 : 1)));

@@ -20,15 +20,15 @@ export class TreeView {
     str => (str === 'column' ? 'column' : 'inline'),
     v => v,
   );
+  mode: 'column' | 'inline';
 
   toggleModePreference() {
     this.modePreference(this.modePreference() === 'column' ? 'inline' : 'column');
   }
 
   render(concealOf?: ConcealOf): VNode {
-    return this.modePreference() === 'column' || concealOf
-      ? renderColumnView(this.ctrl, concealOf)
-      : renderInlineView(this.ctrl);
+    this.mode = concealOf ? 'column' : this.modePreference();
+    return this.mode === 'column' ? renderColumnView(this.ctrl, concealOf) : renderInlineView(this.ctrl);
   }
 
   hook(): Hooks {

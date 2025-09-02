@@ -13,13 +13,13 @@ import { moveNodes, renderIndex } from '../view/components';
 export function renderInlineView(ctrl: AnalyseCtrl): VNode {
   const renderer = new InlineView(ctrl);
   const parentNode = ctrl.tree.root;
-  const parentDisclose = ctrl.idbTree.discloseOf(parentNode);
+  const parentDisclose = ctrl.idbTree.discloseOf(parentNode, true);
   return hl(
     'div.tview2.tview2-inline',
     { class: { hidden: ctrl.treeView.hidden, anchor: !!parentDisclose } },
     [
       renderer.commentNodes(parentNode),
-      renderer.inlineNodes(renderer.filterNodes(parentNode.children), {
+      renderer.renderNodes(renderer.filterNodes(parentNode.children), {
         parentPath: '',
         parentNode,
         parentDisclose,
@@ -49,21 +49,21 @@ export class InlineView {
     );
   }
 
-  inlineNodes([child, ...siblings]: Tree.Node[], args: Args): LooseVNodes {
+  renderNodes([child, ...siblings]: Tree.Node[], args: Args): LooseVNodes {
     if (!child) return;
     const { isMainline, parentDisclose, parentPath } = args;
     return child.forceVariation && isMainline
-      ? hl('interrupt', this.variationNodes([child, ...siblings], args))
+      ? hl('interrupt', this.lines([child, ...siblings], args))
       : [
           this.moveNode(child, args),
           parentDisclose !== 'collapsed' && [
             this.commentNodes(child),
-            siblings[0] && hl('interrupt', this.variationNodes(siblings, args)),
+            siblings[0] && hl('interrupt', this.lines(siblings, args)),
           ],
-          this.inlineNodes(this.filterNodes(child.children), {
+          this.renderNodes(this.filterNodes(child.children), {
             parentPath: parentPath + child.id,
             parentNode: child,
-            parentDisclose: this.ctrl.idbTree.discloseOf(child),
+            parentDisclose: this.ctrl.idbTree.discloseOf(child, true),
             isMainline,
           }),
         ];
@@ -83,22 +83,48 @@ export class InlineView {
       .filter(Boolean);
   }
 
-  protected variationNodes(lines: Tree.Node[], args: Args): LooseVNodes {
+  protected lines(lines: Tree.Node[], args: Args, prepend?: LooseVNodes): LooseVNodes {
     const { parentDisclose, parentPath, parentNode, isMainline } = args;
     if (!lines.length || parentDisclose === 'collapsed') return;
     const anchor = parentDisclose === 'expanded' && (this.inline || !isMainline);
     const lineArgs = { parentPath, parentNode, isMainline: false };
 
-    return (!isMainline || this.inline) && lines.length === 1 && !treeOps.hasBranching(lines[0], 6)
-      ? hl('inline', this.retroLine(lines[0]) || this.sidelineNodes(lines, lineArgs))
-      : hl('lines', { class: { anchor } }, [
-          parentDisclose === 'expanded' && this.disclosureConnector(parentPath),
-          lines.map(
-            line =>
-              this.retroLine(line) ||
-              hl('line', [parentDisclose && hl('branch'), this.sidelineNodes([line], lineArgs)]),
-          ),
-        ]);
+    if ((!isMainline || this.inline) && this.inOrderLine(parentNode))
+      return hl('inline', this.retroLine(lines[0]) || this.sidelineNodes(lines, lineArgs));
+    else
+      return hl('lines', { class: { anchor } }, [
+        parentDisclose === 'expanded' && this.disclosureConnector(parentPath),
+        prepend && hl('line', prepend),
+        lines.map(
+          line =>
+            this.retroLine(line) ||
+            hl('line', [parentDisclose && hl('branch'), this.sidelineNodes([line], lineArgs)]),
+        ),
+      ]);
+  }
+
+  private sidelineNodes([child, ...siblings]: Tree.Node[], args: Args): LooseVNodes {
+    if (!child) return;
+    const { parentDisclose, parentPath, parentNode } = args;
+    const inOrder = this.inOrderLine(parentNode);
+    const nodes = [
+      this.moveNode(child, args),
+      this.commentNodes(child),
+      inOrder && this.lines(siblings, args),
+      this.sidelineNodes(child.children, {
+        isMainline: false,
+        parentPath: parentPath + child.id,
+        parentNode: child,
+        parentDisclose: this.ctrl.idbTree.discloseOf(child, false),
+      }),
+      !inOrder && this.lines(siblings, args),
+    ];
+    return parentDisclose === 'expanded' ? hl('interrupt', nodes) : nodes;
+  }
+
+  private inOrderLine(node: Tree.Node): boolean {
+    const [, second, third] = node.children;
+    return !third && second && !treeOps.hasBranching(second, 6);
   }
 
   protected moveNode(node: Tree.Node, opts: Args): VNode {
@@ -129,7 +155,9 @@ export class InlineView {
     return hl('move', { attrs: { p }, class: classes }, [
       parentDisclose && this.disclosureBtn(parentNode, parentPath),
       (!isMainline || this.inline) &&
-        (node.ply % 2 === 1 || parentNode.children.length > 1) &&
+        (node.ply % 2 === 1 ||
+          (parentNode.children.length > 1 &&
+            (!this.inOrderLine(parentNode) || parentNode.children[0] !== node))) &&
         renderIndex(node.ply, true),
       moveNodes(
         node,
@@ -188,30 +216,6 @@ export class InlineView {
       }
     }
     return el as HTMLElement;
-  }
-
-  private sidelineNodes([child, ...siblings]: Tree.Node[], args: Args): LooseVNodes {
-    if (!child) return;
-    const { parentDisclose, parentPath } = args;
-    const childArgs = {
-      isMainline: false,
-      parentPath: parentPath + child.id,
-      parentNode: child,
-      parentDisclose: this.ctrl.idbTree.discloseOf(child),
-    };
-    return [
-      this.moveNode(child, args),
-      this.commentNodes(child),
-      parentDisclose === 'expanded'
-        ? hl('interrupt', [
-            this.variationNodes(child.children, childArgs),
-            this.variationNodes(siblings, args),
-          ])
-        : [
-            this.sidelineNodes(child.children, childArgs),
-            hl('interrupt', this.variationNodes(siblings, args)),
-          ],
-    ];
   }
 
   private commentNode(comment: Tree.Comment, others: Tree.Comment[], classes: Classes) {

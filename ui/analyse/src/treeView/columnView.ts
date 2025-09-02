@@ -9,13 +9,12 @@ export function renderColumnView(ctrl: AnalyseCtrl, concealOf: ConcealOf = () =>
   const node = ctrl.tree.root;
   const commentTags = renderer.commentNodes(node);
   const blackStarts = (node.ply & 1) === 1;
-
   return hl('div.tview2.tview2-column', { class: { hidden: ctrl.treeView.hidden } }, [
     commentTags.length > 0 && hl('interrupt', commentTags),
     blackStarts && [renderIndex(node.ply, false), hl('move.empty', '...')],
-    renderer.columnNodes(renderer.filterNodes(node.children), {
+    renderer.renderNodes(renderer.filterNodes(node.children), {
       parentPath: '',
-      parentDisclose: ctrl.idbTree.discloseOf(node),
+      parentDisclose: ctrl.idbTree.discloseOf(node, true),
       parentNode: node,
       isMainline: true,
     }),
@@ -31,7 +30,7 @@ class ColumnView extends InlineView {
     super(ctrl);
   }
 
-  columnNodes([child, ...siblings]: Tree.Node[], opts: Args): LooseVNodes {
+  renderNodes([child, ...siblings]: Tree.Node[], opts: Args): LooseVNodes {
     if (!child) return;
     const { parentPath, parentDisclose } = opts;
     const childPath = parentPath + child.id;
@@ -42,7 +41,7 @@ class ColumnView extends InlineView {
     const comments = this.commentNodes(child, { conceal: conceal === 'conceal' });
     const interruptData = { class: { anchor: parentDisclose === 'expanded' } };
     return child.forceVariation
-      ? hl('interrupt', interruptData, this.variationNodes([child, ...siblings], opts))
+      ? hl('interrupt', interruptData, this.lines([child, ...siblings], opts))
       : [
           isWhite && renderIndex(child.ply, false),
           this.moveNode(child, { ...opts, conceal }),
@@ -52,15 +51,15 @@ class ColumnView extends InlineView {
               hl('interrupt', interruptData, [
                 comments,
                 siblings.length > 0
-                  ? this.variationNodes(siblings, opts)
+                  ? this.lines(siblings, opts)
                   : parentDisclose && this.disclosureConnector(parentPath),
               ]),
               isWhite && child.children.length > 0 && [renderIndex(child.ply, false), emptyMove()],
             ],
-          this.columnNodes(this.filterNodes(child.children), {
+          this.renderNodes(this.filterNodes(child.children), {
             parentPath: childPath,
             parentNode: child,
-            parentDisclose: this.ctrl.idbTree.discloseOf(child),
+            parentDisclose: this.ctrl.idbTree.discloseOf(child, true),
             isMainline: true,
           }),
         ];
