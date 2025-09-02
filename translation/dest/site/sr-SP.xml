@@ -563,8 +563,8 @@
   <string name="yes">Да</string>
   <string name="website">Интернет страница</string>
   <string name="mobile">Мобилни</string>
-  <string name="help">Помоћ</string>
-  <string name="createANewTopic">Направиte нову тему</string>
+  <string name="help">Помоћ:</string>
+  <string name="createANewTopic">Направи нову тему</string>
   <string name="topics">Теме</string>
   <string name="posts">Објавe</string>
   <string name="lastPost">Последња објава</string>
