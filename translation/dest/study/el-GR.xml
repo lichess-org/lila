@@ -51,12 +51,12 @@
   <string name="getAFullComputerAnalysis">Αίτηση πλήρης ανάλυσης της κύριας γραμμής παρτίδας από μηχανή του σέρβερ.</string>
   <string name="makeSureTheChapterIsComplete">Σιγουρευτείτε ότι το κεφάλαιο είναι ολοκληρωμένο. Μπορείτε να ζητήσετε ανάλυση μόνο μια φορά.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Όλα τα συγχρονισμένα μέλη παραμένουν στην ίδια θέση</string>
-  <string name="shareChanges">Διαμοιρασμός στους θεατές των αλλαγών και αποθήκευση τους στο σέρβερ</string>
+  <string name="shareChanges">Κοινοποίηση των αλλαγών στους θεατές και αποθήκευσή τους στον διακομιστή</string>
   <string name="playing">Παίζονται</string>
   <string name="showResults">Αποτελέσματα</string>
   <string name="showEvalBar">Μπάρες αξιολόγησης</string>
   <string name="next">Επόμενη</string>
-  <string name="shareAndExport">Διαμοιρασμός &amp; εξαγωγή</string>
+  <string name="shareAndExport">Κοινοποίηση &amp; εξαγωγή</string>
   <string name="cloneStudy">Κλωνοποίησε</string>
   <string name="studyPgn">PGN της μελέτης</string>
   <string name="chapterPgn">PGN του κεφαλαίου</string>
