@@ -25,6 +25,9 @@
       'timeline timeline'
       'about    about';
 
+    &__start {
+      margin-inline: 0;
+    }
     &__support {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -52,6 +55,7 @@
       flex-flow: column;
       align-items: stretch;
       justify-content: center;
+      font-weight: bold;
     }
 
     &__counters {
@@ -85,6 +89,7 @@
 
     &__start {
       justify-content: center;
+      margin-inline: 2em;
 
       button {
         padding: 1em;

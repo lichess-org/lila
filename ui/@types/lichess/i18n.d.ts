@@ -3035,6 +3035,8 @@ interface I18n {
     casual: string;
     /** Casual */
     casualTournament: string;
+    /** Challenge a friend */
+    challengeAFriend: string;
     /** Change email */
     changeEmail: string;
     /** Change password */
@@ -3169,6 +3171,8 @@ interface I18n {
     currentPassword: string;
     /** Custom */
     custom: string;
+    /** Custom lobby game */
+    customLobbyGame: string;
     /** Custom position */
     customPosition: string;
     /** Cycle previous/next variation */
@@ -3375,10 +3379,14 @@ interface I18n {
     gameAsGIF: string;
     /** You have a game in progress with %s. */
     gameInProgress: I18nFormat;
+    /** Game mode */
+    gameMode: string;
     /** Game Over */
     gameOver: string;
     /** Games */
     games: string;
+    /** Game setup */
+    gameSetup: string;
     /** Games played */
     gamesPlayed: string;
     /** Game vs %1$s */
@@ -3827,6 +3835,8 @@ interface I18n {
     opponentLeftChoices: string;
     /** Your opponent left the game. You can claim victory in %s seconds. */
     opponentLeftCounter: I18nPlural;
+    /** Opponent range */
+    opponentRange: string;
     /** Or let your opponent scan this QR code */
     orLetYourOpponentScanQrCode: string;
     /** Or upload a PGN file */
@@ -3877,14 +3887,14 @@ interface I18n {
     playFirstOpeningEndgameExplorerMove: string;
     /** Playing right now */
     playingRightNow: string;
+    /** Playing %s */
+    playingX: I18nFormat;
     /** play selected move */
     playSelectedMove: string;
     /** Play a variation to create conditional premoves */
     playVariationToCreateConditionalPremoves: string;
-    /** Play with a friend */
-    playWithAFriend: string;
-    /** Play with the computer */
-    playWithTheMachine: string;
+    /** Play versus A.I. */
+    playVsAi: string;
     /** Play %s */
     playX: I18nFormat;
     /** We aim to provide a pleasant chess experience for everyone. */
@@ -3951,8 +3961,6 @@ interface I18n {
     ratedTournament: string;
     /** Rating */
     rating: string;
-    /** Rating range */
-    ratingRange: string;
     /** Rating filters are locked because your rating is not stable. Playing rated games will increase stability. */
     ratingRangeIsDisabledBecauseYourRatingIsProvisional: string;
     /** Rating stats */
@@ -4539,6 +4547,8 @@ interface I18n {
     youHaveJoinedTeamX: I18nFormat;
     /** You need an account to do that */
     youNeedAnAccountToDoThat: string;
+    /** You play as */
+    youPlayAs: string;
     /** You play the black pieces */
     youPlayTheBlackPieces: string;
     /** You play the white pieces */
@@ -4563,6 +4573,8 @@ interface I18n {
     yourQuestionMayHaveBeenAnswered: I18nFormat;
     /** Your rating */
     yourRating: string;
+    /** Your rating is %s */
+    yourRatingIsX: I18nFormat;
     /** Your score: %s */
     yourScore: I18nFormat;
     /** Your top weekly %1$s rating (%2$s) is too high */

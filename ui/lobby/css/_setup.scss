@@ -5,21 +5,23 @@ $c-slider: $c-setup;
   width: 30em;
   max-width: 96vw;
   padding: 0;
-
   text-align: center;
 
   h2 {
     margin: 1.5rem 0;
   }
 
-  .setup-content > div {
-    padding: 0.5em 1em;
+  .setup-content {
+    @extend %flex-column;
+    border-block: $border;
+    padding: 1.5rem 1rem;
+    gap: 1.2rem;
+    background: $c-bg-zebra;
   }
 
   group.radio {
-    margin: 0 auto 1em auto;
     width: 70%;
-
+    align-self: center;
     .disabled {
       opacity: 0.4;
       cursor: default;
@@ -30,42 +32,13 @@ $c-slider: $c-setup;
     }
   }
 
-  .optional-config {
-    border-bottom: $border;
+  .config-group {
+    @extend %flex-column;
+    gap: 0.5rem;
   }
 
-  .optional-config.disabled {
+  .config-group.disabled {
     opacity: 0.5;
-    cursor: not-allowed;
-  }
-
-  .optional-config,
-  .ratings {
-    background: $c-bg-zebra;
-    border-top: $border;
-  }
-
-  .mode-choice {
-    margin-top: 1em;
-  }
-
-  .label-select {
-    @extend %flex-center;
-
-    &.variant {
-      margin-bottom: 1em;
-      padding-bottom: 0;
-    }
-
-    label {
-      flex: 0 0 33%;
-      text-align: end;
-    }
-
-    select {
-      margin-inline-start: 0.8em;
-      font-weight: bold;
-    }
   }
 
   .fen__form {
@@ -75,9 +48,8 @@ $c-slider: $c-setup;
   .fen__board {
     display: block;
     width: 50%;
-    margin: 0.5em auto 0 auto;
+    margin-inline: auto;
   }
-
   #fen-input {
     flex: 1 1 100%;
   }
@@ -86,6 +58,29 @@ $c-slider: $c-setup;
     background: $m-bad_bg--mix-20;
     box-shadow: 0 0 13px 6px $m-bad_bg--mix-20;
     border-radius: 0.5em;
+  }
+
+  group.radio.color-picker {
+    width: 240px;
+    margin: 0;
+    justify-content: center;
+  }
+
+  .footer {
+    @extend %flex-center;
+    justify-content: center;
+    padding: 1.1rem;
+  }
+
+  .radio-pane {
+    @extend %flex-center-nowrap;
+    justify-content: center;
+    gap: 0.8em;
+  }
+
+  .create-game-button {
+    font-size: 1.25em;
+    text-transform: none;
   }
 
   .color-submits {
@@ -97,17 +92,14 @@ $c-slider: $c-setup;
     text-align: center;
 
     &__button {
-      margin: 0 0.5em;
-      width: 64px;
-      height: 64px;
+      width: 80px;
+      height: 80px;
       padding: 7px;
 
       i {
-        display: block;
-        padding: 0;
-        width: 50px;
-        height: 50px;
-        background-size: 50px 50px;
+        width: 64px;
+        height: 64px;
+        background-size: 64px 64px;
       }
 
       &.white i {
@@ -118,42 +110,28 @@ $c-slider: $c-setup;
         background-image: url(../piece/cburnett/bK.svg);
       }
 
-      &.random {
-        width: 85px;
-        height: 85px;
-        padding: 10px;
-
-        i {
-          background-image: url(../images/wbK.svg);
-          background-size: 65px 65px;
-          width: 65px;
-          height: 65px;
-        }
-      }
-
-      &:disabled {
-        opacity: 0.3;
-        cursor: not-allowed;
+      &.random i {
+        background-image: url(../images/wbK.svg);
       }
     }
 
     .spinner {
-      width: 85px;
-      height: 85px;
-      margin: 10px auto 20px auto;
+      position: absolute;
+      width: 64px;
+      height: 64px;
+      right: calc(50% - 32px);
+      bottom: 6px;
     }
   }
 
   .range {
-    padding-top: 1em;
-
     span {
       font-weight: bold;
     }
 
     input {
       font-size: 1.5em;
-      margin-top: 0.5em;
+      margin-top: 0.2em;
       padding: 0;
       width: 90%;
     }
@@ -173,11 +151,49 @@ $c-slider: $c-setup;
   }
 
   .ratings {
-    padding: 1em;
     width: 100%;
     text-align: center;
     strong {
       margin-inline-end: 0.25em;
     }
+  }
+
+  .label-select {
+    @extend %flex-center;
+
+    &.variant {
+      padding-bottom: 0;
+    }
+
+    label {
+      flex: 0 0 33%;
+      text-align: end;
+    }
+
+    select {
+      margin-inline-start: 0.8em;
+      font-weight: bold;
+    }
+  }
+
+  @media (max-height: at-most(900px)) {
+    h2 {
+      margin-block: 1.1rem;
+    }
+    .setup-content {
+      padding: 1.25rem 0.75rem;
+    }
+    &:has(.correspondence) .fen__board {
+      width: 40%;
+    }
+    &:has(.increment-choice) .fen__board {
+      width: 30%;
+    }
+  }
+}
+
+@media (pointer: coarse) {
+  .game-setup select {
+    font-size: 1.2em;
   }
 }

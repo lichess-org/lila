@@ -12,12 +12,13 @@
     justify-content: stretch;
     flex: 1 1 auto;
     gap: 0.5em;
+    margin-inline: 2em;
 
     button {
-      font-size: 1.1em;
+      font-size: 1.2em;
       text-align: center;
-      padding: 0.5em;
-
+      padding: 1em;
+      text-transform: none;
       &.disabled {
         opacity: 0.2;
       }

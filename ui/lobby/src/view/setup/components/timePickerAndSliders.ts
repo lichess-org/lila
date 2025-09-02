@@ -97,7 +97,7 @@ const inputRange = (min: number, max: number, prop: Prop<InputValue>, classes?: 
 export const timePickerAndSliders = (ctrl: LobbyController, allowAnonymous = false) => {
   const { setupCtrl } = ctrl;
   return hl(
-    'div.time-mode-config.optional-config',
+    'div.config-group',
     site.blindMode
       ? renderBlindModeTimePickers(ctrl, allowAnonymous)
       : [

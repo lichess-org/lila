@@ -1,35 +1,31 @@
-import { h } from 'snabbdom';
-import { spinnerVdom } from 'lib/view/controls';
+import { hl } from 'lib/snabbdom';
 import type LobbyController from '../../../ctrl';
 import { colors, variantsWhereWhiteIsBetter } from '../../../options';
 import { option } from './option';
 
 const renderBlindModeColorPicker = (ctrl: LobbyController) => [
-  ...(ctrl.setupCtrl.gameType === 'hook'
-    ? []
-    : [
-        h('label', { attrs: { for: 'sf_color' } }, i18n.site.side),
-        h(
-          'select#sf_color',
-          {
-            on: {
-              change: (e: Event) =>
-                ctrl.setupCtrl.blindModeColor((e.target as HTMLSelectElement).value as Color | 'random'),
-            },
-          },
-          colors.map(color => option(color, ctrl.setupCtrl.blindModeColor())),
-        ),
-      ]),
-  h(
+  ctrl.setupCtrl.gameType !== 'hook' && [
+    hl('label', { attrs: { for: 'sf_color' } }, i18n.site.side),
+    hl(
+      'select#sf_color',
+      {
+        on: {
+          change: (e: Event) =>
+            ctrl.setupCtrl.blindModeColor((e.target as HTMLSelectElement).value as Color | 'random'),
+        },
+      },
+      colors.map(color => option(color, ctrl.setupCtrl.blindModeColor())),
+    ),
+  ],
+  hl(
     'button',
     { on: { click: () => ctrl.setupCtrl.submit(ctrl.setupCtrl.blindModeColor()) } },
     i18n.site.createTheGame,
   ),
 ];
 
-export const createButtons = (ctrl: LobbyController) => {
+export const colorButtons = (ctrl: LobbyController) => {
   const { setupCtrl } = ctrl;
-
   const enabledColors: (Color | 'random')[] = [];
   if (setupCtrl.valid()) {
     enabledColors.push('random');
@@ -42,21 +38,26 @@ export const createButtons = (ctrl: LobbyController) => {
     if (!randomColorOnly) enabledColors.push('white', 'black');
   }
 
-  return h(
-    'div.color-submits',
-    site.blindMode
-      ? renderBlindModeColorPicker(ctrl)
-      : setupCtrl.loading
-        ? spinnerVdom()
-        : colors.map(({ key, name }) =>
-            h(
-              `button.button.button-metal.color-submits__button.${key}`,
-              {
-                attrs: { disabled: !enabledColors.includes(key), title: name, value: key },
-                on: { click: () => setupCtrl.submit(key) },
-              },
-              h('i'),
+  if (site.blindMode) return hl('div.color-submits', renderBlindModeColorPicker(ctrl));
+  return (
+    enabledColors.length > 1 &&
+    hl('span.radio-pane', [
+      i18n.site.youPlayAs,
+      hl(
+        'group.radio.color-picker',
+        colors.map(({ key, name }) => {
+          return [
+            hl(`input#color-${key}`, {
+              attrs: { name: 'color', type: 'radio', value: key, checked: key === 'random' },
+            }),
+            hl(
+              `label.color-submits__button.${key}`,
+              { attrs: { title: name, for: `color-${key}` } },
+              hl('i'),
             ),
-          ),
+          ];
+        }),
+      ),
+    ])
   );
 };
