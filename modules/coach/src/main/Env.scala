@@ -12,7 +12,7 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     db: lila.db.Db,
     picfitApi: lila.memo.PicfitApi
-)(using Executor):
+)(using Executor, Scheduler):
 
   private lazy val coachColl = db(CollName("coach"))
 

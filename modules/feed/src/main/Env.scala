@@ -7,7 +7,8 @@ import lila.core.lilaism.Lilaism.*
 
 @Module
 final class Env(cacheApi: lila.memo.CacheApi, db: lila.db.Db, flairApi: lila.core.user.FlairApi)(using
-    Executor
+    Executor,
+    Scheduler
 ):
 
   private val feedColl = db(CollName("daily_feed"))
