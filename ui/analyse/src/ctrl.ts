@@ -786,7 +786,13 @@ export default class AnalyseCtrl implements CevalHandler {
   }
 
   showEvalGauge(): boolean {
-    return this.showAnalysis() && this.showGauge() && displayColumns() > 1 && !this.outcome();
+    return (
+      this.showGauge() &&
+      displayColumns() > 1 &&
+      this.showAnalysis() &&
+      this.isCevalAllowed() &&
+      !this.outcome()
+    );
   }
 
   showCeval = (show?: boolean) => {
