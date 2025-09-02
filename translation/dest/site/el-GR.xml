@@ -723,7 +723,7 @@
   <string name="keyNextBranch">Επόμενος κλάδως</string>
   <string name="toggleVariationArrows">Εμφάνισε βελάκια παραλλαγών</string>
   <string name="cyclePreviousOrNextVariation">Κλειδί: κύκλος ΠροηγούμενηΉΕπόμενηΒαριάντα</string>
-  <string name="toggleGlyphAnnotations">Μεταβολή ΓρίφοςΣχόλιο</string>
+  <string name="toggleGlyphAnnotations">Εμφάνιση/απόκρυψη σχολίων κινήσεων</string>
   <string name="togglePositionAnnotations">Μεταβολή ΘέσηΣχόλιο</string>
   <string name="variationArrowsInfo">Εκδοχή ΒέληΠληροφορίες.</string>
   <string name="playSelectedMove">παίξε την επιλεγμένη κίνηση</string>
