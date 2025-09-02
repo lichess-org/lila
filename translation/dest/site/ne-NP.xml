@@ -248,7 +248,6 @@
   <string name="blackTimeOut">कालोको समय सक्कियो ।</string>
   <string name="drawOfferSent">बराबरीको प्रस्ताव पठाइयो</string>
   <string name="drawOfferAccepted">बराबरीको प्रस्ताव स्वीकृत भयो</string>
-  <string name="drawOfferCanceled">बराबरीको प्रस्ताव रद्द भयो</string>
   <string name="whiteOffersDraw">सेतो ले बराबरीको प्रस्ताव गरेको छ</string>
   <string name="blackOffersDraw">कालोले बराबरीको प्रस्ताव गरेको छ</string>
   <string name="whiteDeclinesDraw">सेतोले बराबरीको प्रस्ताव अस्वीकार गरेको छ</string>

@@ -270,7 +270,6 @@
   <string name="blackTimeOut">შავს დრო ამოეწურა</string>
   <string name="drawOfferSent">ყაიმის შეთავაზება გაგზავნილია</string>
   <string name="drawOfferAccepted">ყაიმის შეთავაზება მიღებულია</string>
-  <string name="drawOfferCanceled">ყაიმის შეთავაზება გაუქმებულია</string>
   <string name="whiteOffersDraw">მოწინააღმდეგე გთავაზობთ ყაიმს</string>
   <string name="blackOffersDraw">შავებს სურთ ყაიმი</string>
   <string name="whiteDeclinesDraw">თეთრებმა უარი თქვეს ყაიმზე</string>

@@ -273,7 +273,6 @@
   <string name="blackTimeOut">Sötét ideje lejárt</string>
   <string name="drawOfferSent">Döntetlen felajánlva</string>
   <string name="drawOfferAccepted">Döntetlen elfogadva</string>
-  <string name="drawOfferCanceled">Döntetlen ajánlás elvetve</string>
   <string name="whiteOffersDraw">Világos döntetlent ajánl</string>
   <string name="blackOffersDraw">Sötét döntetlent ajánl</string>
   <string name="whiteDeclinesDraw">Világos elutasította a döntetlen ajánlatot</string>

@@ -316,7 +316,6 @@
   <string name="blackTimeOut">Час чорних вийшов</string>
   <string name="drawOfferSent">Пропозицію нічиєї надіслано</string>
   <string name="drawOfferAccepted">Пропозицію нічиєї прийнято</string>
-  <string name="drawOfferCanceled">Пропозицію нічиєї скасовано</string>
   <string name="whiteOffersDraw">Білі пропонують нічию</string>
   <string name="blackOffersDraw">Чорні пропонують нічию</string>
   <string name="whiteDeclinesDraw">Білі відхилили нічию</string>

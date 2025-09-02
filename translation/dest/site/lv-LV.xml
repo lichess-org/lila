@@ -294,7 +294,6 @@
   <string name="blackTimeOut">Melnajiem beidzās laiks</string>
   <string name="drawOfferSent">Neizšķirta piedāvājums nosūtīts</string>
   <string name="drawOfferAccepted">Neizšķirta piedāvājums pieņemts</string>
-  <string name="drawOfferCanceled">Neizšķirta piedāvājums atcelts</string>
   <string name="whiteOffersDraw">Baltie piedāvā neizšķirtu</string>
   <string name="blackOffersDraw">Melnie piedāvā neizšķirtu</string>
   <string name="whiteDeclinesDraw">Baltie noraida neizšķirtu</string>

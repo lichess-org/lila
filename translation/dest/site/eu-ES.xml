@@ -280,7 +280,6 @@
   <string name="blackTimeOut">Beltzaren denbora agortu egin da</string>
   <string name="drawOfferSent">Berdintzeko eskaintza bidali da</string>
   <string name="drawOfferAccepted">Berdintzeko eskaintza onartu da</string>
-  <string name="drawOfferCanceled">Berdintzeko eskaintza ezeztatu da</string>
   <string name="whiteOffersDraw">Zuriak berdinketa eskaintzen du</string>
   <string name="blackOffersDraw">Beltzak berdinketa eskaintzen du</string>
   <string name="whiteDeclinesDraw">Zuriak berdinketari uko egin dio.</string>

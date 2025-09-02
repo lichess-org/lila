@@ -301,7 +301,6 @@
   <string name="blackTimeOut">Час чорных скончыўся</string>
   <string name="drawOfferSent">Прапанова нічыі даслана</string>
   <string name="drawOfferAccepted">Прапанова нічыі прынята</string>
-  <string name="drawOfferCanceled">Прапанова нічыі скасавана</string>
   <string name="whiteOffersDraw">Белыя прапануюць нічыю</string>
   <string name="blackOffersDraw">Чорныя прапануюць нічыю</string>
   <string name="whiteDeclinesDraw">Белыя адхіляюць нічыю</string>

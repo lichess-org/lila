@@ -315,7 +315,6 @@
   <string name="blackTimeOut">Am Dubh istigh</string>
   <string name="drawOfferSent">Tairiscint comhscór seolta</string>
   <string name="drawOfferAccepted">Glacadh leis an tairiscint comhscór</string>
-  <string name="drawOfferCanceled">Tairiscint comhscór curtha ar ceal</string>
   <string name="whiteOffersDraw">Tairgeann Bán comhscór</string>
   <string name="blackOffersDraw">Tairgeann Dubh comhscór</string>
   <string name="whiteDeclinesDraw">Diúltaíonn Bán do chomhscór</string>

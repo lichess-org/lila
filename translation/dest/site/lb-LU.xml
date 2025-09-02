@@ -280,7 +280,6 @@
   <string name="blackTimeOut">Zäitiwwerschreidung vu Schwaarz</string>
   <string name="drawOfferSent">Remis-Offer geschéckt</string>
   <string name="drawOfferAccepted">Remis-Offer ugeholl</string>
-  <string name="drawOfferCanceled">Remis-Offer annuléiert</string>
   <string name="whiteOffersDraw">Wäiss bitt Remis</string>
   <string name="blackOffersDraw">Schwaarz bitt Remis</string>
   <string name="whiteDeclinesDraw">Wäiss leent Remis of</string>

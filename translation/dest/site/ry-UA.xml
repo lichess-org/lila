@@ -280,7 +280,6 @@
   <string name="blackTimeOut">У чорных уйшов час</string>
   <string name="drawOfferSent">Понука ремізы загната</string>
   <string name="drawOfferAccepted">Понука ремізы прията</string>
-  <string name="drawOfferCanceled">Понука ремізы не прията</string>
   <string name="whiteOffersDraw">Білі понукувут ремізу</string>
   <string name="blackOffersDraw">Чорні понукувут ремізу</string>
   <string name="whiteDeclinesDraw">Білі одвергли ремізу</string>

@@ -280,7 +280,6 @@
   <string name="blackTimeOut">Temps noir écoulé</string>
   <string name="drawOfferSent">Proposition de nulle envoyée</string>
   <string name="drawOfferAccepted">Proposition de nulle acceptée</string>
-  <string name="drawOfferCanceled">Proposition de nulle annulée</string>
   <string name="whiteOffersDraw">Les Blancs proposent la nulle</string>
   <string name="blackOffersDraw">Les Noirs proposent la nulle</string>
   <string name="whiteDeclinesDraw">Les Blancs refusent la nulle</string>

@@ -280,7 +280,6 @@
   <string name="blackTimeOut">Të ziut i mbaroi koha</string>
   <string name="drawOfferSent">U dërgua ofertë për barazim</string>
   <string name="drawOfferAccepted">Oferta për barazim u pranua</string>
-  <string name="drawOfferCanceled">Oferta për barazim u anulua</string>
   <string name="whiteOffersDraw">I bardhi ofron barazim</string>
   <string name="blackOffersDraw">I ziu ofron barazim</string>
   <string name="whiteDeclinesDraw">I bardhi hedh poshtë barazimin</string>

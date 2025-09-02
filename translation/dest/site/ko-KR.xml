@@ -262,7 +262,6 @@
   <string name="blackTimeOut">흑 시간 초과</string>
   <string name="drawOfferSent">무승부 요청함</string>
   <string name="drawOfferAccepted">무승부 요청 수락됨</string>
-  <string name="drawOfferCanceled">무승부 요청 취소함</string>
   <string name="whiteOffersDraw">백이 무승부를 제안합니다</string>
   <string name="blackOffersDraw">흑이 무승부를 제안합니다</string>
   <string name="whiteDeclinesDraw">백이 무승부 제안을 거절하였습니다</string>

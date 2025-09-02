@@ -280,7 +280,6 @@
   <string name="blackTimeOut">Qoralar vaqti tugadi</string>
   <string name="drawOfferSent">Durrang uchun taklif yuborildi</string>
   <string name="drawOfferAccepted">Durrang taklifi qabul qilindi</string>
-  <string name="drawOfferCanceled">Durrang taklifi bekor qilindi</string>
   <string name="whiteOffersDraw">Oqlar durrang taklif qilishdi</string>
   <string name="blackOffersDraw">Qoralar durrang taklif qilishdi</string>
   <string name="whiteDeclinesDraw">Oqlar durrang taklifini inkor qilishdi</string>

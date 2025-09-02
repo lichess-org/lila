@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">转播</string>
-  <string name="myBroadcasts">我的直播</string>
+  <string name="myBroadcasts">我的转播</string>
   <plurals name="nbBroadcasts">
-    <item quantity="other">%s 直播</item>
+    <item quantity="other">%s 场转播</item>
   </plurals>
   <plurals name="nbViewers">
     <item quantity="other">%s 名观众</item>
