@@ -86,6 +86,13 @@ object CacheApi:
 
   extension [V](cache: AsyncLoadingCache[Unit, V]) def getUnit: Fu[V] = cache.get {}
 
+  extension [K, V](builder: Scaffeine[K, V])
+    def buildAsyncTimeout[K1 <: K, V1 <: V](loaderTimeout: FiniteDuration = 10.seconds)(
+        loader: K1 => Future[V1]
+    )(using Scheduler, Executor): AsyncLoadingCache[K1, V1] =
+      builder.buildAsyncFuture: k =>
+        loader(k).withTimeout(loaderTimeout, s"buildAsyncFuture($k)")
+
   private[memo] def startMonitor(
       name: String,
       cache: caffeine.cache.Cache[?, ?]
