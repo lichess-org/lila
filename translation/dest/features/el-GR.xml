@@ -10,7 +10,7 @@
   </plurals>
   <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (Stockfish, Fairy-Stockfish)">Προετοιμαστής σκακιέρας και σκακιέρα ανάλυσης με το %s</string>
   <string name="cloudEngineAnalysis">Ανάλυση με μηχανή στο cloud</string>
-  <string name="studies">Σπουδές (ανάλυση με δυνατότητα κοινοποίησης και αποθήκευσης)</string>
+  <string name="studies">Μελέτες (ανάλυση με δυνατότητα κοινοποίησης και αποθήκευσης)</string>
   <string name="chessInsights">Στατιστικά των παρτίδων σας (λεπτομερής ανάλυση του στυλ παιχνιδιού σας)</string>
   <string name="allChessBasicsLessons">Όλα τα βασικά μαθήματα σκακιού</string>
   <string name="tacticalPuzzlesFromUserGames">Τακτικά από τις παρτίδες των χρηστών</string>
