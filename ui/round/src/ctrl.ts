@@ -565,6 +565,7 @@ export default class RoundController implements MoveRootCtrl {
     }
     this.promotion.cancel();
     this.chessground.stop();
+    this.chessground.state.touchIgnoreRadius = 1;
     if (o.ratingDiff) {
       d.player.ratingDiff = o.ratingDiff[d.player.color];
       d.opponent.ratingDiff = o.ratingDiff[d.opponent.color];
@@ -625,6 +626,10 @@ export default class RoundController implements MoveRootCtrl {
     if (d.clock) {
       this.corresClock = undefined;
       this.clock ??= new ClockCtrl(d.clock, d.pref, this.tickingClockColor(), this.makeClockOpts());
+      this.clock.alarmAction = {
+        seconds: 60,
+        fire: () => (this.chessground.state.touchIgnoreRadius = Math.SQRT2),
+      };
     } else {
       this.clock = undefined;
       if (d.correspondence)
@@ -634,14 +639,12 @@ export default class RoundController implements MoveRootCtrl {
 
   private makeClockOpts: () => ClockOpts = () => ({
     onFlag: this.socket.outoftime,
-    playable: () => game.playable(this.data),
     bothPlayersHavePlayed: () => game.bothPlayersHavePlayed(this.data),
     hasGoneBerserk: this.hasGoneBerserk,
-    soundColor:
+    alarmColor:
       this.data.simul || this.data.player.spectator || !this.data.pref.clockSound
         ? undefined
         : this.data.player.color,
-    nvui: !!this.nvui,
   });
 
   private tickingClockColor = (): Color | undefined =>

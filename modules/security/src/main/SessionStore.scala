@@ -60,7 +60,7 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
           "_id" -> sessionId,
           "user" -> userId,
           "ip" -> HTTPRequest.ipAddress(req),
-          "ua" -> HTTPRequest.userAgent(req).fold("?")(_.value),
+          "ua" -> HTTPRequest.userAgent(req).some.filter(_ != UserAgent.zero),
           "date" -> nowInstant,
           "up" -> up,
           "api" -> apiVersion, // lichobile
@@ -79,8 +79,7 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
     val id = s"TOK-${tokenId.value.take(20)}"
     val ua = mobile
       .map(Mobile.LichessMobileUaTrim.write)
-      .orElse(HTTPRequest.userAgent(req).map(_.value))
-      .getOrElse("?")
+      .getOrElse(HTTPRequest.userAgent(req).value)
     coll.update
       .one(
         $id(id),

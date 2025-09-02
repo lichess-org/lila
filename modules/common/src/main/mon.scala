@@ -100,8 +100,6 @@ object mon:
       val create = counter("lobby.hook.create").withoutTags()
       val join = counter("lobby.hook.join").withoutTags()
       val size = histogram("lobby.hook.size").withoutTags()
-      def apiCreate(ua: String, color: String) =
-        counter("lobby.hook.api.create").withTags(tags("ua" -> ua.escape, "color" -> color))
     object seek:
       val create = counter("lobby.seek.create").withoutTags()
       val join = counter("lobby.seek.join").withoutTags()

@@ -3235,8 +3235,6 @@ interface I18n {
     drawn: string;
     /** Draw offer accepted */
     drawOfferAccepted: string;
-    /** Draw offer cancelled */
-    drawOfferCanceled: string;
     /** Draw offer sent */
     drawOfferSent: string;
     /** Draw rate */

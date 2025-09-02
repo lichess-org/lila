@@ -25,6 +25,7 @@ export function makeConfig(ctrl: RoundController): CgConfig {
     coordinatesOnSquares: data.pref.coords === Coords.All,
     addPieceZIndex: ctrl.data.pref.is3d,
     addDimensionsCssVarsTo: document.body,
+    touchIgnoreRadius: data.correspondence ? 0 : 1,
     highlight: {
       lastMove: data.pref.highlight,
       check: data.pref.highlight,

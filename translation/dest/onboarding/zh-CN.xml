@@ -5,7 +5,7 @@
   <string name="welcomeToLichess">欢迎来到 Lichess！</string>
   <string name="thisIsYourProfilePage">这是你的个人资料页面。</string>
   <string name="enabledKidModeSuggestion">如果此账户是为儿童创建的，那你可能会想启用 %s。</string>
-  <string name="whatNowSuggestions">现在做什么？以下是一些建议：</string>
+  <string name="whatNowSuggestions">接下来做什么？以下是一些建议：</string>
   <string name="learnChessRules">学习国际象棋的规则</string>
   <string name="improveWithChessTacticsPuzzles">练习谜题以提高战术技巧</string>
   <string name="playTheArtificialIntelligence">和 AI 对战</string>

@@ -260,7 +260,6 @@
   <string name="blackTimeOut">Amser du ar ben</string>
   <string name="drawOfferSent">Anfonwyd cynnig cyfartal</string>
   <string name="drawOfferAccepted">Cynnig cyfartal wedi\'i dderbyn</string>
-  <string name="drawOfferCanceled">Cynnig cyfartal wedi\'i ganslo</string>
   <string name="whiteOffersDraw">Cynigia\'r Gwyn gêm gyfartal.</string>
   <string name="blackOffersDraw">Cynigia\'r Du gêm gyfartal.</string>
   <string name="whiteDeclinesDraw">Gwrthodd y Gwyn gêm gyfartal.</string>

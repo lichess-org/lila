@@ -52,6 +52,21 @@ describe('autolinks', () => {
     expect(autolink(`;https://${hostname}/inbox`)).toBe(`;${linked('/inbox')}`);
   });
 
+  test('multi games already linked', () => {
+    expect(
+      autolink(`
+<a href="localhost/1xeQrVqS/black">localhost/1xeQrVqS/black</a>
+<a href="/iCuMS2K7">/iCuMS2K7</a>
+/12345678
+<a href="localhost/insights/Chess_Athlete_30/acpl/blur/variant:antichess">localhost/insights/Chess_Athlete_30/acpl/blur/variant:antichess</a>
+`),
+    ).toBe(`
+<a href="localhost/1xeQrVqS/black">localhost/1xeQrVqS/black</a>
+<a href="/iCuMS2K7">/iCuMS2K7</a>
+${linked('/12345678')}
+<a href="localhost/insights/Chess_Athlete_30/acpl/blur/variant:antichess">localhost/insights/Chess_Athlete_30/acpl/blur/variant:antichess</a>
+`);
+  });
   test('grab bag', () => {
     expect(autolink(`foo /12345678#anchor bar`)).toBe(`foo ${linked('/12345678#anchor')} bar`);
     expect(autolink(`http://${hostname}/inbox/nope /${hostname}/inbox/nope`)).toBe(

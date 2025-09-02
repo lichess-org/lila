@@ -262,7 +262,6 @@
   <string name="blackTimeOut">黒時間切れ</string>
   <string name="drawOfferSent">ドローの提案を送信しました</string>
   <string name="drawOfferAccepted">ドロー提案が承諾されました</string>
-  <string name="drawOfferCanceled">ドローの提案をキャンセルしました</string>
   <string name="whiteOffersDraw">白が引き分けを提案しました</string>
   <string name="blackOffersDraw">黒が引き分けを提案しました</string>
   <string name="whiteDeclinesDraw">白が引き分けを拒否しました</string>

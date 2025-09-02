@@ -73,7 +73,7 @@ object Dependencies {
   }
 
   object macwire {
-    val version = "2.6.6"
+    val version = "2.6.7"
     val macros = "com.softwaremill.macwire" %% "macros" % version % "provided"
     val util = "com.softwaremill.macwire" %% "util" % version % "provided"
     val tagging = "com.softwaremill.common" %% "tagging" % "2.3.5"

@@ -272,7 +272,6 @@
   <string name="blackTimeOut">කලුගේ වේලාව ඉවතට</string>
   <string name="drawOfferSent">සමාන කිරීමේ අවස්තාව යවා ඇත</string>
   <string name="drawOfferAccepted">සමාන කිරීමේ අවස්තාව පිලිගනී</string>
-  <string name="drawOfferCanceled">සමාන කිරීමේ අවස්තාව අවලංගු කරයි</string>
   <string name="whiteOffersDraw">සුදු සමාන කිරීමේ අවස්තාවක් එවා ඇත</string>
   <string name="blackOffersDraw">කලු සමාන කිරීමේ අවස්තාවක් එවා ඇත</string>
   <string name="whiteDeclinesDraw">සුදු සමාන කිරීමේ අවස්තාව ප්‍රතික්ශේප කරයි</string>

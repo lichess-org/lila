@@ -45,7 +45,7 @@ export function renderControls(ctrl: AnalyseCtrl) {
             }),
           ]
         : [
-            isMobileUi() && ctrl.isCevalAllowed() && renderMobileCevalTab(ctrl),
+            displayColumns() === 1 && ctrl.isCevalAllowed() && renderMobileCevalTab(ctrl),
             hl('button.fbt', {
               attrs: {
                 title: i18n.site.openingExplorerAndTablebase,
@@ -57,7 +57,7 @@ export function renderControls(ctrl: AnalyseCtrl) {
                 active: ctrl.activeControlBarTool() === 'opening-explorer',
               },
             }),
-            !isMobileUi() && !ctrl.retro && !ctrl.ongoing && renderPracticeTab(ctrl),
+            displayColumns() > 1 && !ctrl.retro && !ctrl.ongoing && renderPracticeTab(ctrl),
           ],
       hl('div.jumps', [
         (!isMobileUi() || ctrl.study?.practice) && jumpButton(licon.JumpFirst, 'first', canJumpPrev),

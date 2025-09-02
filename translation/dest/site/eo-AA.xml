@@ -276,7 +276,6 @@
   <string name="blackTimeOut">La tempo de nigro finiĝis</string>
   <string name="drawOfferSent">Egalvenka propono estis sendita</string>
   <string name="drawOfferAccepted">Egalvenka propono estis akceptita</string>
-  <string name="drawOfferCanceled">Egalvenka propono estis nuligita</string>
   <string name="whiteOffersDraw">Blanko proponas egalvenkon</string>
   <string name="blackOffersDraw">Nigro proponas egalvenkon</string>
   <string name="whiteDeclinesDraw">Blanko malakceptas egalvenkon</string>
@@ -286,7 +285,7 @@
   <string name="decline">Malakcepti</string>
   <string name="playingRightNow">Ludate nun</string>
   <string name="eventInProgress">Ludanta</string>
-  <string name="finished">Finite</string>
+  <string name="finished">Finita</string>
   <string name="abortGame">Ĉesigi ludon</string>
   <string name="gameAborted">Ludo estis ĉesigita</string>
   <string name="standard">Normale</string>

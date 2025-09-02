@@ -15,7 +15,7 @@ final class Gamify(
     modApi: lila.mod.ModApi,
     cacheApi: lila.memo.CacheApi,
     historyRepo: HistoryRepo
-)(using Executor):
+)(using Executor, Scheduler):
 
   import Gamify.*
 
@@ -67,15 +67,13 @@ final class Gamify(
   def leaderboards = leaderboardsCache.getUnit
 
   private val leaderboardsCache = cacheApi.unit[Leaderboards]:
-    _.expireAfterWrite(10.minutes)
-      .buildAsyncFuture { _ =>
-        mixedLeaderboard(nowInstant.minusDays(1), none)
-          .zip(mixedLeaderboard(nowInstant.minusWeeks(1), none))
-          .zip(mixedLeaderboard(nowInstant.minusMonths(1), none))
-          .map { case ((daily, weekly), monthly) =>
-            Leaderboards(daily, weekly, monthly)
-          }
-      }
+    _.expireAfterWrite(10.minutes).buildAsyncTimeout(30.seconds): _ =>
+      mixedLeaderboard(nowInstant.minusDays(1), none)
+        .zip(mixedLeaderboard(nowInstant.minusWeeks(1), none))
+        .zip(mixedLeaderboard(nowInstant.minusMonths(1), none))
+        .map { case ((daily, weekly), monthly) =>
+          Leaderboards(daily, weekly, monthly)
+        }
 
   private def mixedLeaderboard(after: Instant, before: Option[Instant]): Fu[List[ModMixed]] =
     for

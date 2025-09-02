@@ -280,7 +280,6 @@
   <string name="blackTimeOut">Il nero ha esaurito il tempo</string>
   <string name="drawOfferSent">Offerta di patta inviata</string>
   <string name="drawOfferAccepted">Offerta di patta accettata</string>
-  <string name="drawOfferCanceled">Offerta di patta annullata</string>
   <string name="whiteOffersDraw">Il Bianco offre patta</string>
   <string name="blackOffersDraw">Il Nero offre patta</string>
   <string name="whiteDeclinesDraw">Il Bianco rifiuta la patta</string>

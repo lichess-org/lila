@@ -72,7 +72,11 @@ final class BoardApiHookStream(
     scheduler.scheduleWithFixedDelay(10.seconds, 10.seconds): () =>
       queue.offer(None)
 
-  def cancel(sri: Sri) = Bus.publishDyn(RemoveHook(sri.value), s"hookRemove:${sri}")
+  def cancel(sri: Sri, reqSri: Option[Sri]) =
+    remove(sri)
+    reqSri.filter(_ != sri).foreach(remove)
+
+  private def remove(sri: Sri) = Bus.publishDyn(RemoveHook(sri.value), s"hookRemove:${sri}")
 
   def mustPlayAsColor(chosen: TriColor)(using me: Option[Me]): Fu[Option[Color]] =
     (chosen != TriColor.Random).so:

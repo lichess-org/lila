@@ -10,7 +10,7 @@ import lila.ui.Icon
 final class TournamentShieldApi(
     tournamentRepo: TournamentRepo,
     cacheApi: lila.memo.CacheApi
-)(using Executor):
+)(using Executor, Scheduler):
 
   import TournamentShield.*
   import BSONHandlers.given
@@ -45,7 +45,7 @@ final class TournamentShieldApi(
     then clear()
 
   private val cache = cacheApi.unit[History]:
-    _.refreshAfterWrite(1.day).buildAsyncFuture: _ =>
+    _.refreshAfterWrite(1.day).buildAsyncTimeout(1.minute): _ =>
       tournamentRepo.coll
         .find:
           $doc(

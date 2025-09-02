@@ -280,7 +280,6 @@
   <string name="blackTimeOut">Acabou o tempo das pretas</string>
   <string name="drawOfferSent">Proposta de empate enviada</string>
   <string name="drawOfferAccepted">Proposta de empate aceite</string>
-  <string name="drawOfferCanceled">Proposta de empate cancelada</string>
   <string name="whiteOffersDraw">As brancas propõem empate</string>
   <string name="blackOffersDraw">As pretas propõem empate</string>
   <string name="whiteDeclinesDraw">As brancas recusam o empate</string>

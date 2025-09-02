@@ -316,7 +316,6 @@
   <string name="blackTimeOut">Чёрные просрочили время</string>
   <string name="drawOfferSent">Предложение ничьей отправлено</string>
   <string name="drawOfferAccepted">Предложение ничьей принято</string>
-  <string name="drawOfferCanceled">Предложение ничьей отменено</string>
   <string name="whiteOffersDraw">Белые предлагают ничью</string>
   <string name="blackOffersDraw">Чёрные предлагают ничью</string>
   <string name="whiteDeclinesDraw">Белые отклонили предложение ничьей</string>

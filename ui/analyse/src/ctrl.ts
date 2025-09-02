@@ -162,6 +162,8 @@ export default class AnalyseCtrl implements CevalHandler {
     this.setPath(this.initialPath);
 
     this.showGround();
+
+    this.variationArrowOpacity = this.makeVariationOpacityProp();
     this.showBestMoveArrows = storedBooleanPropWithEffect('analyse.auto-shapes', true, this.resetAutoShapes);
     this.resetAutoShapes();
     this.explorer.setNode();
@@ -213,7 +215,6 @@ export default class AnalyseCtrl implements CevalHandler {
       }
     });
     this.mergeIdbThenShowTreeView();
-    this.variationArrowOpacity = this.makeVariationOpacityProp();
     (window as any).lichess.analysis = api(this);
   }
 
@@ -276,7 +277,7 @@ export default class AnalyseCtrl implements CevalHandler {
   };
 
   flip = () => {
-    if (this.study?.onFlip() === false) return;
+    if (this.study?.onFlip(!this.flipped) === false) return;
     this.flipped = !this.flipped;
     this.chessground?.set({
       orientation: this.bottomColor(),
@@ -739,25 +740,31 @@ export default class AnalyseCtrl implements CevalHandler {
 
   cevalEnabled = (enable?: boolean): boolean | 'force' => {
     const force = !!this.practice || !!this.retro;
-    if (enable === undefined) return force ? 'force' : this.ceval.available() && this.cevalEnabledProp();
-    if (!force) this.showCevalProp(enable);
-    if (enable === this.cevalEnabledProp()) return enable;
-    if (!force) this.cevalEnabledProp(enable);
-    if (enable) this.startCeval();
-    else {
-      this.threatMode(false);
-      this.togglePractice(false);
-      this.ceval.stop();
+    const unforcedState = this.cevalEnabledProp() && this.isCevalAllowed() && !this.ceval.isPaused;
+
+    if (enable === undefined) return force ? 'force' : unforcedState;
+
+    if (!force) {
+      this.showCevalProp(enable);
+      this.cevalEnabledProp(enable);
     }
-    this.setAutoShapes();
-    this.ceval.showEnginePrefs(false);
-    this.redraw();
+    if (enable !== unforcedState || this.ceval.isPaused) {
+      if (enable) this.startCeval();
+      else {
+        this.threatMode(false);
+        this.togglePractice(false);
+        this.ceval.stop();
+      }
+      this.setAutoShapes();
+      this.ceval.showEnginePrefs(false);
+      this.redraw();
+    }
     return force ? 'force' : enable;
   };
 
   startCeval = () => {
     if (!this.ceval.download) this.ceval.stop();
-    if (this.node.threefold || this.outcome() || !this.cevalEnabled()) return;
+    if (this.node.threefold || this.outcome() || (!this.cevalEnabled() && !this.ceval.isPaused)) return;
     this.ceval.start(this.path, this.nodeList, undefined, this.threatMode());
     this.evalCache.fetch(this.path, this.ceval.search.multiPv);
   };
@@ -779,7 +786,13 @@ export default class AnalyseCtrl implements CevalHandler {
   }
 
   showEvalGauge(): boolean {
-    return this.showAnalysis() && this.showGauge() && displayColumns() > 1 && !this.outcome();
+    return (
+      this.showGauge() &&
+      displayColumns() > 1 &&
+      this.showAnalysis() &&
+      this.isCevalAllowed() &&
+      !this.outcome()
+    );
   }
 
   showCeval = (show?: boolean) => {
@@ -1010,13 +1023,8 @@ export default class AnalyseCtrl implements CevalHandler {
   };
 
   private makeVariationOpacityProp(): Prop<number | false> {
-    let value: number;
-    const legacy = localStorage.getItem('analyse.show-variation-arrows');
-    if (legacy !== null) {
-      value = legacy === 'true' ? 0.6 : 0; // compat
-      localStorage.removeItem('analyse.show-variation-arrows');
-    } else value = parseFloat(localStorage.getItem('analyse.variation-arrow-opacity') || '0.6');
-    if (isNaN(value) || value < -1 || value > 1) value = 0.6;
+    let value = parseFloat(localStorage.getItem('analyse.variation-arrow-opacity') || '0');
+    if (isNaN(value) || value < -1 || value > 1) value = 0;
     return (v?: number | false) => {
       if (v === false) return value;
       if (v === undefined || isNaN(v)) return value > 0 ? value : false;
@@ -1037,8 +1045,9 @@ export default class AnalyseCtrl implements CevalHandler {
   };
 
   private resetAutoShapes = () => {
-    if (this.showBestMoveArrows() || this.showMoveAnnotation()) this.setAutoShapes();
-    else this.chessground && this.chessground.setAutoShapes([]);
+    if (this.showBestMoveArrows() || this.showMoveAnnotation() || this.variationArrowOpacity())
+      this.setAutoShapes();
+    else this.chessground?.setAutoShapes([]);
   };
 
   private async mergeIdbThenShowTreeView() {

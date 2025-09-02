@@ -276,7 +276,6 @@
   <string name="blackTimeOut">കറുപ്പ് സമയം കഴിഞ്ഞു</string>
   <string name="drawOfferSent">സമനിലാ വാഗ്ദാനം അയച്ചു</string>
   <string name="drawOfferAccepted">സമനിലാ വാഗ്ദാനം സ്വീകരിക്കപ്പെട്ടു</string>
-  <string name="drawOfferCanceled">സമനിലാ വാഗ്ദാനം റദ്ദാക്കപ്പെട്ടു</string>
   <string name="whiteOffersDraw">വെള്ള സമനില വാഗ്ദാനം ചെയ്യുന്നു</string>
   <string name="blackOffersDraw">കറുപ്പ് സമനില വാഗ്ദാനം ചെയ്യുന്നു</string>
   <string name="whiteDeclinesDraw">വെള്ള സമനില നിരസിക്കുന്നു</string>

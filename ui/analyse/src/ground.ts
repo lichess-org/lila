@@ -33,6 +33,7 @@ export function makeConfig(ctrl: AnalyseCtrl): CgConfig {
     coordinatesOnSquares: pref.coords === Prefs.Coords.All,
     addPieceZIndex: pref.is3d,
     addDimensionsCssVarsTo: document.body,
+    touchIgnoreRadius: 0,
     viewOnly: false,
     movable: {
       free: false,

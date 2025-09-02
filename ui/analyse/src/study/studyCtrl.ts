@@ -538,9 +538,9 @@ export default class StudyCtrl {
     else this.chapters.localPaths[this.vm.chapterId] = this.ctrl.path; // don't remember position on gamebook
     this.practice?.onJump();
   };
-  onFlip = () => {
+  onFlip = (flipped: boolean) => {
     if (this.chapters.newForm.isOpen()) return false;
-    this.chapterFlipMapProp(this.data.chapter.id, this.ctrl.flipped);
+    this.chapterFlipMapProp(this.data.chapter.id, flipped);
     return true;
   };
 

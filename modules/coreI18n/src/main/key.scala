@@ -1663,7 +1663,6 @@ object I18nKey:
     val `blackTimeOut`: I18nKey = "blackTimeOut"
     val `drawOfferSent`: I18nKey = "drawOfferSent"
     val `drawOfferAccepted`: I18nKey = "drawOfferAccepted"
-    val `drawOfferCanceled`: I18nKey = "drawOfferCanceled"
     val `whiteOffersDraw`: I18nKey = "whiteOffersDraw"
     val `blackOffersDraw`: I18nKey = "blackOffersDraw"
     val `whiteDeclinesDraw`: I18nKey = "whiteDeclinesDraw"

@@ -279,7 +279,6 @@
   <string name="blackTimeOut">Black time oot</string>
   <string name="drawOfferSent">Draw bid sent</string>
   <string name="drawOfferAccepted">Draw bid acceptit</string>
-  <string name="drawOfferCanceled">Draw bid backlins-takkit</string>
   <string name="whiteOffersDraw">White bids a draw</string>
   <string name="blackOffersDraw">Black bids a draw</string>
   <string name="whiteDeclinesDraw">White refuises draw</string>

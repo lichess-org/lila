@@ -280,7 +280,6 @@
   <string name="blackTimeOut">Mustalta loppui aika</string>
   <string name="drawOfferSent">Tasapeliehdotus lähetetty</string>
   <string name="drawOfferAccepted">Tasapeliehdotus hyväksytty</string>
-  <string name="drawOfferCanceled">Tasapeliehdotus peruttu</string>
   <string name="whiteOffersDraw">Valkea ehdottaa tasapeliä</string>
   <string name="blackOffersDraw">Musta ehdottaa tasapeliä</string>
   <string name="whiteDeclinesDraw">Valkea kieltäytyy tasapelistä</string>

@@ -53,7 +53,7 @@ class ColumnView extends InlineView {
                 comments,
                 siblings.length > 0
                   ? this.variationNodes(siblings, opts)
-                  : parentDisclose && this.disclosureConnector(),
+                  : parentDisclose && this.disclosureConnector(parentPath),
               ]),
               isWhite && child.children.length > 0 && [renderIndex(child.ply, false), emptyMove()],
             ],

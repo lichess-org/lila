@@ -108,7 +108,27 @@ function prependChatInput(chatInput: HTMLInputElement, prefix: string): void {
 let mouchListener: EventListener;
 
 const setupHooks = (ctrl: ChatCtrl, chatEl: HTMLInputElement) => {
-  const storage = tempStorage.make('chat.input');
+  const inner = tempStorage.make(`chat.input`);
+  const storage = {
+    get: (): string | undefined => {
+      const v = inner.get();
+      if (v) {
+        try {
+          const parsed = JSON.parse(v);
+          if (parsed[0] === (ctrl.data.opponentId || '')) {
+            return parsed[1] as string;
+          }
+        } catch (e) {
+          console.log(`Could not parse "chat.input" value ${v}`);
+        }
+      }
+      return;
+    },
+    set: (txt: string) => {
+      inner.set(JSON.stringify([ctrl.data.opponentId || '', txt]));
+    },
+    inner,
+  };
   const previousText = storage.get();
   if (previousText) {
     chatEl.value = previousText;
@@ -136,7 +156,7 @@ const setupHooks = (ctrl: ChatCtrl, chatEl: HTMLInputElement) => {
           ctrl.post(txt);
         }
         el.value = '';
-        storage.remove();
+        storage.inner.remove();
         if (!pub) el.classList.remove('whisper');
       }
     });

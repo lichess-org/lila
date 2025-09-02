@@ -2,12 +2,13 @@ package lila
 package tournament
 
 import com.github.blemale.scaffeine.AsyncLoadingCache
+import lila.memo.CacheApi.buildAsyncTimeout
 
 final class TournamentFeaturing(
     api: TournamentApi,
     repo: TournamentRepo,
     cacheApi: lila.memo.CacheApi
-)(using Executor):
+)(using Executor, Scheduler):
 
   object tourIndex:
     def get(teamIds: List[TeamId]): Fu[(List[Tournament], VisibleTournaments)] = for
@@ -17,7 +18,7 @@ final class TournamentFeaturing(
     yield (scheduled, forMe)
 
     private val sameForEveryone = cacheApi.unit[(VisibleTournaments, List[Tournament])]:
-      _.refreshAfterWrite(3.seconds).buildAsyncFuture: _ =>
+      _.refreshAfterWrite(3.seconds).buildAsyncTimeout(): _ =>
         for
           visible <- api.fetchVisibleTournaments
           scheduled <- repo.allScheduledDedup
@@ -31,7 +32,7 @@ final class TournamentFeaturing(
     yield teamTours ::: base
 
     private val sameForEveryone: AsyncLoadingCache[Unit, List[Tournament]] = cacheApi.unit[List[Tournament]]:
-      _.refreshAfterWrite(2.seconds).buildAsyncFuture: _ =>
+      _.refreshAfterWrite(2.seconds).buildAsyncTimeout(): _ =>
         for
           started <- repo.scheduledStillWorthEntering
           created <- repo.scheduledCreated(crud.CrudForm.maxHomepageHours * 60)

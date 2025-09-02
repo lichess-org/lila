@@ -27,7 +27,7 @@ final class PlanApi(
     currencyApi: CurrencyApi,
     pricingApi: PlanPricingApi,
     ip2proxy: lila.core.security.Ip2ProxyApi
-)(using Executor):
+)(using Executor, Scheduler):
 
   import BsonHandlers.given
   import BsonHandlers.PatronHandlers.given
@@ -596,7 +596,7 @@ final class PlanApi(
 
   private val recentChargeUserIdsNb = 100
   private val recentChargeUserIdsCache = cacheApi.unit[List[UserId]]:
-    _.refreshAfterWrite(30.minutes).buildAsyncFuture: _ =>
+    _.refreshAfterWrite(30.minutes).buildAsyncTimeout(): _ =>
       mongo.charge
         .primitive[UserId](
           $doc("date" -> $gt(nowInstant.minusWeeks(1))),

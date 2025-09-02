@@ -197,7 +197,7 @@ object mod:
     val canIpBan = Granter.opt(_.IpBan)
     val canFpBan = Granter.opt(_.PrintBan)
     val canLocate = Granter.opt(_.Admin)
-    val canViewUA = Granter.opt(_.Diagnostics)
+    val canViewUA = Granter.opt(_.AccountInfo)
     val canViewPrint = Granter.opt(_.ViewPrintNoIP)
     mzSection("identification")(
       canLocate.option:

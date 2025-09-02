@@ -2,8 +2,9 @@ package lila.ublog
 
 import scalalib.ThreadLocalRandom.shuffle
 import lila.db.dsl.{ *, given }
-import lila.memo.CacheApi
 import lila.core.ublog.Quality
+import lila.memo.CacheApi
+import lila.memo.CacheApi.buildAsyncTimeout
 
 opaque type UblogTopic = String
 object UblogTopic extends OpaqueString[UblogTopic]:
@@ -38,13 +39,13 @@ object UblogTopic extends OpaqueString[UblogTopic]:
 
   case class WithPosts(topic: UblogTopic, posts: List[UblogPost.PreviewPost], nb: Int)
 
-final class UblogTopicApi(colls: UblogColls, cacheApi: CacheApi)(using Executor):
+final class UblogTopicApi(colls: UblogColls, cacheApi: CacheApi)(using Executor, Scheduler):
 
   import UblogBsonHandlers.{ *, given }
 
   private val withPostsCache =
     cacheApi.unit[List[UblogTopic.WithPosts]]:
-      _.refreshAfterWrite(5.minutes).buildAsyncFuture: _ =>
+      _.refreshAfterWrite(5.minutes).buildAsyncTimeout(): _ =>
         UblogTopic.all
           .map: topic =>
             for

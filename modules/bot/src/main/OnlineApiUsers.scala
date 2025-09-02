@@ -2,8 +2,9 @@ package lila.bot
 
 import lila.common.Bus
 import lila.core.socket.{ ApiUserIsOnline, IsOnline }
-import lila.memo.ExpireCallbackMemo
 import lila.core.perf.UserWithPerfs
+import lila.memo.ExpireCallbackMemo
+import lila.memo.CacheApi.buildAsyncTimeout
 
 final class OnlineApiUsers(
     isOnline: IsOnline,
@@ -11,7 +12,7 @@ final class OnlineApiUsers(
     userApi: lila.core.user.UserApi,
     jsonView: lila.core.user.JsonView,
     scheduler: Scheduler
-)(using Executor):
+)(using Executor, Scheduler):
 
   private val cache = ExpireCallbackMemo[UserId](
     scheduler,
@@ -28,7 +29,7 @@ final class OnlineApiUsers(
     Bus.pub(ApiUserIsOnline(userId, isOnline))
 
   private val usersCache = cacheApi.unit[List[UserWithPerfs]]:
-    _.expireAfterWrite(10.seconds).buildAsyncFuture: _ =>
+    _.expireAfterWrite(10.seconds).buildAsyncTimeout(): _ =>
       userApi.visibleBotsByIds(cache.keySet)
 
   def getUsers = usersCache.get({})
