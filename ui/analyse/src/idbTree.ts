@@ -1,5 +1,6 @@
 import type AnalyseCtrl from './ctrl';
 import { objectStorage, type ObjectStorage } from 'lib/objectStorage';
+import * as treeOps from 'lib/tree/ops';
 
 export type DiscloseState = undefined | 'expanded' | 'collapsed';
 
@@ -131,9 +132,11 @@ export class IdbTree {
 
   private isCollapsible(node: Tree.Node): boolean {
     if (!node) return false;
-    const [first, second] = node.children.filter(n => this.ctrl.showFishnetAnalysis() || !n.comp);
+    const [first, second, third] = node.children.filter(n => this.ctrl.showFishnetAnalysis() || !n.comp);
     return Boolean(
-      second || first?.comments?.filter(c => c.by !== 'lichess').length || first?.forceVariation,
+      third ||
+        (second && treeOps.hasBranching(second, 6)) ||
+        /*first?.comments?.filter(c => c.by !== 'lichess').length ||*/ first?.forceVariation,
     );
   }
 
