@@ -277,7 +277,7 @@ export default class AnalyseCtrl implements CevalHandler {
   };
 
   flip = () => {
-    if (this.study?.onFlip() === false) return;
+    if (this.study?.onFlip(!this.flipped) === false) return;
     this.flipped = !this.flipped;
     this.chessground?.set({
       orientation: this.bottomColor(),
