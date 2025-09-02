@@ -29,7 +29,7 @@ final class Cached(
         .withTimeout(2.minutes, "user.cached.top10")
         .monSuccess(_.user.leaderboardCompute)
 
-  val topPerfFirstPage = mongoCache[PerfKey, Seq[LightPerf]](
+  private val topPerfFirstPage = mongoCache[PerfKey, Seq[LightPerf]](
     PerfType.leaderboardable.size,
     "user:top:perf:firstPage",
     10.minutes,
@@ -39,9 +39,11 @@ final class Cached(
       loader: perf =>
         rankingApi.topPerf.pager(perf, 1).map(_.currentPageResults)
 
+  export topPerfFirstPage.get as firstPageOf
+
   def topPerfPager(perf: PerfKey, page: Int): Fu[Paginator[LightPerf]] =
     if page == 1 then
-      for users <- topPerfFirstPage.get(perf)
+      for users <- firstPageOf(perf)
       yield Paginator.fromResults(
         users,
         nbResults = 500_000,
@@ -58,8 +60,7 @@ final class Cached(
       loader: _ =>
         userRepo
           .topNbGame(10)
-          .dmap(_.map: u =>
-            LightCount(u.light, u.count.game))
+          .dmap(_.map(u => LightCount(u.light, u.count.game)))
 
   private val top50OnlineCache = cacheApi.unit[List[UserWithPerfs]]:
     _.refreshAfterWrite(1.minute).buildAsyncFuture: _ =>
