@@ -6,7 +6,7 @@ import { authorText as commentAuthorText } from '../study/studyComments';
 import { addPointerListeners } from 'lib/pointer';
 import { isTouchDevice } from 'lib/device';
 import { h, type Hooks, type VNode } from 'snabbdom';
-import { isEmpty, defined } from 'lib';
+import { isEmpty } from 'lib';
 import { type MaybeVNodes } from 'lib/snabbdom';
 import { path as treePath } from 'lib/tree/tree';
 import { playable } from 'lib/game/game';
