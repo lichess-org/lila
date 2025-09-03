@@ -170,12 +170,11 @@ function boardEventsHook(ctx: PuzzleNvuiContext, ground: Api, el: HTMLElement): 
   const $buttons = $board.find('button');
   const steps = ctrl.tree.getNodeList(ctrl.path);
   const fenSteps = () => steps.map(step => step.fen);
-  const opponentColor = opposite(ctrl.pov);
 
   $buttons.on('blur', nv.leaveSquareHandler($buttons));
   $buttons.on(
     'click',
-    nv.selectionHandler(() => opponentColor),
+    nv.selectionHandler(() => opposite(ctrl.pov)),
   );
   $buttons.on('keydown', (e: KeyboardEvent) => {
     if (e.shiftKey && e.key.match(/^[ad]$/i)) nextOrPrev(ctrl)(e);
