@@ -567,9 +567,9 @@
   <string name="createANewTopic">Направи нову тему</string>
   <string name="topics">Теме</string>
   <string name="posts">Објавe</string>
-  <string name="lastPost">Последња објава</string>
+  <string name="lastPost">Задња објава</string>
   <string name="views">Прегледa</string>
-  <string name="replies">Одговори</string>
+  <string name="replies">Одговора</string>
   <string name="replyToThisTopic">Одговори на ову тему</string>
   <string name="reply">Одговор</string>
   <string name="message">Порука</string>
