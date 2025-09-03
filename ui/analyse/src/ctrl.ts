@@ -407,7 +407,8 @@ export default class AnalyseCtrl implements CevalHandler {
   jump(path: Tree.Path): void {
     const pathChanged = path !== this.path,
       isForwardStep = pathChanged && path.length === this.path.length + 2;
-    this.autoScrollRequested = treeOps.distance(this.path, path) > 8 ? 'instant' : 'smooth';
+    if (this.path !== path)
+      this.autoScrollRequested = treeOps.distance(this.path, path) > 8 ? 'instant' : 'smooth';
     this.setPath(path);
     if (pathChanged) {
       if (this.study) this.study.setPath(path, this.node);
