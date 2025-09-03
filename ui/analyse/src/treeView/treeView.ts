@@ -42,7 +42,11 @@ export class TreeView {
           ctrl.redraw();
           return false;
         };
-        el.oncontextmenu = ctxMenuCallback;
+        if (site.debug) {
+          el.ondblclick = ctxMenuCallback; // dont steal movelist right clicks from dev tools in debug
+        } else {
+          el.oncontextmenu = ctxMenuCallback; // otherwise, standard prod behavior
+        }
         if (isTouchDevice()) {
           el.ondblclick = ctxMenuCallback;
           addPointerListeners(el, { hold: ctxMenuCallback });
