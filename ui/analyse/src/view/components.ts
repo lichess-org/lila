@@ -41,6 +41,7 @@ import { storage } from 'lib/storage';
 import { backToLiveView } from '../study/relay/relayView';
 import { findTag } from '../study/studyChapters';
 import { fixCrazySan, plyToTurn } from 'lib/game/chess';
+import { render as renderTreeView } from '../treeView/treeView';
 
 export interface ViewContext {
   ctrl: AnalyseCtrl;
@@ -312,8 +313,8 @@ export function moveNodes(node: Tree.Node, withEval: boolean, withGlyphs: boolea
 }
 
 const renderMoveList = (ctrl: AnalyseCtrl, deps?: typeof studyDeps, concealOf?: ConcealOf): VNode =>
-  hl('div.analyse__moves.areplay', { hook: ctrl.treeView.hook() }, [
-    hl('div', [ctrl.treeView.render(concealOf), renderResult(ctrl)]),
+  hl('div.analyse__moves.areplay', [
+    hl(`div.areplay__v${ctrl.treeVersion}`, [renderTreeView(ctrl, concealOf), renderResult(ctrl)]),
     !ctrl.practice && !deps?.gbEdit.running(ctrl) && renderNextChapter(ctrl),
   ]);
 

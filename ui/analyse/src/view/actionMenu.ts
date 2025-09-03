@@ -203,9 +203,9 @@ export function view(ctrl: AnalyseCtrl): VNode {
         name: i18n.site.inlineNotation,
         title: 'Shift+I',
         id: 'inline',
-        checked: ctrl.treeView.modePreference() === 'inline',
+        checked: ctrl.treeView.inline(),
         change(v) {
-          ctrl.treeView.modePreference(v ? 'inline' : 'column');
+          ctrl.treeView.set(v);
           ctrl.actionMenu.toggle();
         },
       },

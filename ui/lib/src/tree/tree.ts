@@ -27,6 +27,8 @@ export interface TreeWrapper {
   extendPath(path: Tree.Path, isMainline: boolean): Tree.Path;
   pathExists(path: Tree.Path): boolean;
   deleteNodeAt(path: Tree.Path): void;
+  setCollapsedAt(path: Tree.Path, collapsed: boolean): MaybeNode;
+  setCollapsedRecursive(path: Tree.Path, collapsed: boolean): void;
   promoteAt(path: Tree.Path, toMainline: boolean): void;
   forceVariationAt(path: Tree.Path, force: boolean): MaybeNode;
   getCurrentNodesAfterPly(nodeList: Tree.Node[], mainline: Tree.Node[], ply: number): Tree.Node[];
@@ -34,11 +36,6 @@ export interface TreeWrapper {
   removeCeval(): void;
   parentNode(path: Tree.Path): Tree.Node;
   getParentClock(node: Tree.Node, path: Tree.Path): Tree.Clock | undefined;
-  walkUntilTrue(
-    fn: (node: Tree.Node, isMainline: boolean) => boolean,
-    path?: Tree.Path,
-    branchOnly?: boolean,
-  ): boolean;
 }
 
 export function build(root: Tree.Node): TreeWrapper {
@@ -117,6 +114,11 @@ export function build(root: Tree.Node): TreeWrapper {
     return node;
   }
 
+  function updateRecursive(path: Tree.Path, update: (node: Tree.Node) => void): void {
+    const node = nodeAtPathOrNull(path);
+    if (node) ops.updateAll(node, update);
+  }
+
   // returns new path
   function addNode(node: Tree.Node, path: Tree.Path): Tree.Path | undefined {
     const newPath = path + node.id,
@@ -187,26 +189,6 @@ export function build(root: Tree.Node): TreeWrapper {
   const getParentClock = (node: Tree.Node, path: Tree.Path): Tree.Clock | undefined =>
     path ? parentNode(path).clock : node.clock;
 
-  function walkUntilTrue(
-    fn: (node: Tree.Node, isMainline: boolean) => boolean,
-    from: Tree.Path = '',
-    branchOnly: boolean = false,
-  ) {
-    function traverse(node: Tree.Node, isMainline: boolean): boolean {
-      if (fn(node, isMainline)) return true;
-      let i = branchOnly ? 1 : 0;
-      branchOnly = false;
-      while (i < node.children.length) {
-        const c = node.children[i];
-        if (traverse(c, isMainline && i === 0 && !c.forceVariation)) return true;
-        i++;
-      }
-      return false;
-    }
-    const n = nodeAtPathOrNull(from);
-    return n ? traverse(n, pathIsMainline(from)) : false;
-  }
-
   return {
     root,
     lastPly: (): number => lastNode()?.ply || root.ply,
@@ -231,6 +213,14 @@ export function build(root: Tree.Node): TreeWrapper {
       updateAt(path, node => {
         node.clock = clock;
       }),
+    setCollapsedAt: (path: Tree.Path, collapsed: boolean) =>
+      updateAt(path, node => {
+        node.collapsed = collapsed;
+      }),
+    setCollapsedRecursive: (path: Tree.Path, collapsed: boolean) =>
+      updateRecursive(path, node => {
+        node.collapsed = collapsed;
+      }),
     pathIsMainline,
     pathIsForcedVariation,
     lastMainlineNode: (path: Tree.Path): Tree.Node => lastMainlineNodeFrom(root, path),
@@ -238,10 +228,10 @@ export function build(root: Tree.Node): TreeWrapper {
     pathExists,
     deleteNodeAt,
     promoteAt,
-    forceVariationAt: (path: Tree.Path, force: boolean) => {
-      ops.updateAll(root, n => (n.forceVariation = false));
-      return updateAt(path, node => (node.forceVariation = force));
-    },
+    forceVariationAt: (path: Tree.Path, force: boolean) =>
+      updateAt(path, node => {
+        node.forceVariation = force;
+      }),
     getCurrentNodesAfterPly,
     merge: (tree: Tree.Node) => ops.merge(root, tree),
     removeCeval: () =>
@@ -251,6 +241,5 @@ export function build(root: Tree.Node): TreeWrapper {
       }),
     parentNode,
     getParentClock,
-    walkUntilTrue,
   };
 }

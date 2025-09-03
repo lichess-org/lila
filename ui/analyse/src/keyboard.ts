@@ -33,7 +33,7 @@ export const bind = (ctrl: AnalyseCtrl) => {
       ctrl.redraw();
     })
     .bind('shift+i', () => {
-      ctrl.treeView.toggleModePreference();
+      ctrl.treeView.toggle();
       ctrl.redraw();
     });
   kbd.bind('space', () => {
@@ -81,14 +81,6 @@ export const bind = (ctrl: AnalyseCtrl) => {
     })
     .bind(['shift+right', 'shift+j'], () => {
       control.nextBranch(ctrl);
-      ctrl.redraw();
-    })
-    .bind('shift+down', () => {
-      ctrl.userJumpIfCan(ctrl.idbTree.stepLine(ctrl.path, 'next'), true);
-      ctrl.redraw();
-    })
-    .bind('shift+up', () => {
-      ctrl.userJumpIfCan(ctrl.idbTree.stepLine(ctrl.path, 'prev'), true);
       ctrl.redraw();
     });
 
@@ -157,7 +149,7 @@ function addModifierKeyListeners(ctrl: AnalyseCtrl) {
   window.addEventListener('mousedown', () => (modifierOnly = false), { capture: true });
 
   document.addEventListener('keydown', e => {
-    if (e.key === 'Shift' || e.key === 'Control') modifierOnly = !modifierOnly;
+    if (e.key === 'Shift') modifierOnly = !modifierOnly;
     else modifierOnly = false;
   });
 
@@ -167,7 +159,6 @@ function addModifierKeyListeners(ctrl: AnalyseCtrl) {
     const isShift = e.key === 'Shift' && !document.activeElement?.classList.contains('mchat__say');
 
     if (isShift && ctrl.fork.next()) ctrl.setAutoShapes();
-    else if (e.key === 'Control') ctrl.toggleDiscloseOf();
     ctrl.redraw();
   });
 }

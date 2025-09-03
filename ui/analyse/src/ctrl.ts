@@ -103,6 +103,7 @@ export default class AnalyseCtrl implements CevalHandler {
   threatMode: Prop<boolean> = prop(false);
 
   treeView: TreeView;
+  treeVersion = 1;
   cgVersion = {
     js: 1, // increment to recreate chessground
     dom: 1,
@@ -135,7 +136,7 @@ export default class AnalyseCtrl implements CevalHandler {
     this.data = opts.data;
     this.element = opts.element;
     this.isEmbed = !!opts.embed;
-    this.treeView = new TreeView(this);
+    this.treeView = new TreeView('column');
     this.promotion = new PromotionCtrl(
       this.withCg,
       () => this.withCg(g => g.set(this.cgConfig)),
@@ -214,7 +215,7 @@ export default class AnalyseCtrl implements CevalHandler {
         redraw();
       }
     });
-    this.mergeIdbThenShowTreeView();
+    this.idbTree.merge();
     (window as any).lichess.analysis = api(this);
   }
 
@@ -222,7 +223,6 @@ export default class AnalyseCtrl implements CevalHandler {
     this.data = data;
     this.synthetic = data.game.id === 'synthetic';
     this.ongoing = !this.synthetic && playable(data);
-    this.treeView.hidden = true;
     const prevTree = merge && this.tree.root;
     this.tree = makeTree(treeReconstruct(this.data.treeParts, this.data.sidelines));
     if (prevTree) this.tree.merge(prevTree);
@@ -267,13 +267,15 @@ export default class AnalyseCtrl implements CevalHandler {
     this.path = path;
     this.nodeList = this.tree.getNodeList(path);
     this.node = treeOps.last(this.nodeList) as Tree.Node;
+    for (let i = 0; i < this.nodeList.length; i++) {
+      this.nodeList[i].collapsed = false;
+    }
     this.mainline = treeOps.mainlineNodeList(this.tree.root);
     this.onMainline = this.tree.pathIsMainline(path);
     this.fenInput = undefined;
     this.pgnInput = undefined;
     if (this.wiki && this.data.game.variant.key === 'standard') this.wiki(this.nodeList);
     this.idbTree.saveMoves();
-    this.idbTree.revealNode();
   };
 
   flip = () => {
@@ -407,7 +409,8 @@ export default class AnalyseCtrl implements CevalHandler {
   jump(path: Tree.Path): void {
     const pathChanged = path !== this.path,
       isForwardStep = pathChanged && path.length === this.path.length + 2;
-    this.autoScrollRequested = treeOps.distance(this.path, path) > 8 ? 'instant' : 'smooth';
+    if (path !== this.path)
+      this.autoScrollRequested = treeOps.distance(this.path, path) > 8 ? 'instant' : 'smooth';
     this.setPath(path);
     if (pathChanged) {
       if (this.study) this.study.setPath(path, this.node);
@@ -481,7 +484,7 @@ export default class AnalyseCtrl implements CevalHandler {
     this.initCeval();
     this.instanciateEvalCache();
     this.cgVersion.js++;
-    this.mergeIdbThenShowTreeView();
+    this.idbTree.merge();
   }
 
   changePgn(pgn: string, andReload: boolean): AnalyseData | undefined {
@@ -641,7 +644,18 @@ export default class AnalyseCtrl implements CevalHandler {
     if (this.study) this.study.deleteNode(path);
     this.redraw();
   }
+  setCollapsed(path: Tree.Path, collapsed: boolean): void {
+    this.tree.setCollapsedAt(path, collapsed);
+    this.redraw();
+  }
 
+  setAllCollapsed(path: Tree.Path, collapsed: boolean): void {
+    // Also update parent
+    const parentPath = treePath.init(path);
+    this.tree.setCollapsedAt(parentPath, collapsed);
+    this.tree.setCollapsedRecursive(path, collapsed);
+    this.redraw();
+  }
   outcome(node?: Tree.Node): Outcome | undefined {
     return this.position(node || this.node).unwrap(
       pos => pos.outcome(),
@@ -823,12 +837,6 @@ export default class AnalyseCtrl implements CevalHandler {
     return (
       !chap?.practice && chap?.conceal === undefined && !this.study?.gamebookPlay && !this.retro?.isSolving()
     );
-  }
-
-  toggleDiscloseOf(path = this.path.slice(0, -2)) {
-    const disclose = this.idbTree.discloseOf(this.tree.nodeAtPath(path), this.tree.pathIsMainline(path));
-    if (disclose) this.idbTree.setCollapsed(path, disclose === 'expanded');
-    return Boolean(disclose);
   }
 
   toggleThreatMode = (v = !this.threatMode()) => {
@@ -1049,11 +1057,4 @@ export default class AnalyseCtrl implements CevalHandler {
       this.setAutoShapes();
     else this.chessground?.setAutoShapes([]);
   };
-
-  private async mergeIdbThenShowTreeView() {
-    await this.idbTree.merge();
-    this.treeView.hidden = false;
-    this.idbTree.revealNode();
-    this.redraw();
-  }
 }

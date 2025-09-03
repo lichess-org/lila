@@ -6,26 +6,9 @@ import { patch, nodeFullName } from '../view/util';
 import { renderVariationPgn } from '../pgnExport';
 import { isTouchDevice } from 'lib/device';
 
-export function renderContextMenu(e: MouseEvent, ctrl: AnalyseCtrl, path: Tree.Path): void {
-  let pos = getPosition(e);
-  if (pos === null) {
-    if (ctrl.contextMenuPath) return;
-    pos = { x: 0, y: 0 };
-  }
-
-  const el = ($('#' + elementId)[0] ||
-    $('<div id="' + elementId + '">').appendTo($('body'))[0]) as HTMLElement;
-  ctrl.contextMenuPath = path;
-  function close(e: MouseEvent) {
-    if (e.button === 2) return; // right click
-    ctrl.contextMenuPath = undefined;
-    document.removeEventListener('click', close, false);
-    $('#' + elementId).removeClass('visible');
-    ctrl.redraw();
-  }
-  document.addEventListener('click', close, false);
-  el.innerHTML = '';
-  patch(el, view(ctrl, path, pos));
+export interface Opts {
+  path: Tree.Path;
+  root: AnalyseCtrl;
 }
 
 interface Coords {
@@ -103,16 +86,11 @@ function action(
   );
 }
 
-function view(ctrl: AnalyseCtrl, path: Tree.Path, coords: Coords): VNode {
-  const { tree, idbTree } = ctrl;
-  const node = tree.nodeAtPath(path),
-    onMainline = tree.pathIsMainline(path) && !tree.pathIsForcedVariation(path),
-    extendedPath = tree.extendPath(path, onMainline);
-  let canPromote = !onMainline;
-  for (let iter = tree.lastMainlineNode(path).children[1]; canPromote && iter; iter = iter.children[0]) {
-    if (iter === node) canPromote = false;
-  }
-
+function view(opts: Opts, coords: Coords): VNode {
+  const ctrl = opts.root,
+    node = ctrl.tree.nodeAtPath(opts.path),
+    onMainline = ctrl.tree.pathIsMainline(opts.path) && !ctrl.tree.pathIsForcedVariation(opts.path),
+    extendedPath = opts.root.tree.extendPath(opts.path, onMainline);
   return hl(
     'div#' + elementId + '.visible',
     {
@@ -127,41 +105,60 @@ function view(ctrl: AnalyseCtrl, path: Tree.Path, coords: Coords): VNode {
     [
       hl('p.title', nodeFullName(node)),
 
-      canPromote && action(licon.UpTriangle, i18n.site.promoteVariation, () => ctrl.promote(path, false)),
+      !onMainline &&
+        action(licon.UpTriangle, i18n.site.promoteVariation, () => ctrl.promote(opts.path, false)),
 
-      !onMainline && action(licon.Checkmark, i18n.site.makeMainLine, () => ctrl.promote(path, true)),
+      !onMainline && action(licon.Checkmark, i18n.site.makeMainLine, () => ctrl.promote(opts.path, true)),
 
-      path && ctrl.study && studyView.contextMenu(ctrl.study, path, node),
+      action(
+        licon.Trash,
+        i18n.site.deleteFromHere,
+        () => ctrl.deleteNode(opts.path),
+        () => ctrl.pendingDeletionPath(opts.path),
+        () => ctrl.pendingDeletionPath(null),
+      ),
 
-      path &&
-        onMainline &&
-        action(licon.InternalArrow, i18n.site.forceVariation, () => ctrl.forceVariation(path, true)),
+      action(licon.PlusButton, i18n.site.expandVariations, () => ctrl.setAllCollapsed(opts.path, false)),
 
-      idbTree.someCollapsedOf(false) &&
-        action(licon.MinusButton, 'Collapse all', () => idbTree.setCollapsedFrom('', true)),
+      action(licon.MinusButton, i18n.site.collapseVariations, () => ctrl.setAllCollapsed(opts.path, true)),
 
-      idbTree.someCollapsedOf(true) &&
-        action(licon.PlusButton, 'Expand all', () => idbTree.setCollapsedFrom('', false)),
+      ctrl.study && studyView.contextMenu(ctrl.study, opts.path, node),
+
+      onMainline &&
+        action(licon.InternalArrow, i18n.site.forceVariation, () => ctrl.forceVariation(opts.path, true)),
 
       action(
         licon.Clipboard,
         onMainline ? i18n.site.copyMainLinePgn : i18n.site.copyVariationPgn,
         () =>
           navigator.clipboard.writeText(
-            renderVariationPgn(ctrl.data.game, ctrl.tree.getNodeList(extendedPath)),
+            renderVariationPgn(opts.root.data.game, opts.root.tree.getNodeList(extendedPath)),
           ),
         () => ctrl.pendingCopyPath(extendedPath),
         () => ctrl.pendingCopyPath(null),
       ),
-
-      path &&
-        action(
-          licon.Trash,
-          i18n.site.deleteFromHere,
-          () => ctrl.deleteNode(path),
-          () => ctrl.pendingDeletionPath(path),
-          () => ctrl.pendingDeletionPath(null),
-        ),
     ],
   );
+}
+
+export default function (e: MouseEvent, opts: Opts): void {
+  let pos = getPosition(e);
+  if (pos === null) {
+    if (opts.root.contextMenuPath) return;
+    pos = { x: 0, y: 0 };
+  }
+
+  const el = ($('#' + elementId)[0] ||
+    $('<div id="' + elementId + '">').appendTo($('body'))[0]) as HTMLElement;
+  opts.root.contextMenuPath = opts.path;
+  function close(e: MouseEvent) {
+    if (e.button === 2) return; // right click
+    opts.root.contextMenuPath = undefined;
+    document.removeEventListener('click', close, false);
+    $('#' + elementId).removeClass('visible');
+    opts.root.redraw();
+  }
+  document.addEventListener('click', close, false);
+  el.innerHTML = '';
+  patch(el, view(opts, pos));
 }

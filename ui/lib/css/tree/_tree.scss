@@ -1,436 +1,472 @@
-$c-transp-border: $m-font--fade-88;
-$disclosure-btn-size: calc(15px + var(---touch-grow, 0px));
+@import 'extend';
 
 .tview2 {
   white-space: normal;
-  --c-base: var(--c-font);
 
-  .active {
-    --c-base: var(--c-primary);
-  }
-  .inaccuracy {
-    --c-base: var(--c-inaccuracy);
-  }
-  .mistake {
-    --c-base: var(--c-mistake);
-  }
-  .blunder {
-    --c-base: var(--c-blunder);
-  }
-  .good {
-    --c-base: var(--c-good);
-  }
-  .brilliant {
-    --c-base: var(--c-brilliant);
-  }
-  .interesting {
-    --c-base: var(--c-interesting);
-  }
-  .anchor {
-    position: relative;
-  }
-  * {
-    overflow: visible;
-  }
-}
-
-.tview2.hidden {
-  visibility: hidden;
-}
-
-.tview2 move {
-  @extend %san, %nowrap-hidden;
-  display: inline-block;
-  color: var(--c-base);
-  padding: 0.25em 0.17em;
-  white-space: nowrap;
-  font-size: 1.092em;
-  cursor: pointer;
-
-  @media (hover: none) {
-    @include prevent-select;
+  &-column {
+    @extend %flex-wrap;
   }
 
-  &.active {
-    color: white;
-    background: color-mix(in srgb, var(--c-base) 85%, transparent);
+  &-inline {
+    @include padding-direction(7px, 3px, 7px, 7px);
+  }
 
-    shapes,
-    eval,
-    index {
-      color: white;
-    }
-    .disclosure {
-      background-color: $c-font-dimmer;
+  move:not(.empty):hover {
+    &,
+    index,
+    eval {
+      background: $c-primary;
+      color: $c-over;
     }
   }
-  &.parent {
+
+  move {
+    @extend %move;
+
+    @media (hover: none) {
+      @include prevent-select;
+    }
+
+    &.inaccuracy {
+      color: $c-inaccuracy;
+      &.active {
+        background: $m-inaccuracy_bg--mix-25;
+      }
+      &:hover {
+        &,
+        index,
+        eval {
+          background: $c-inaccuracy;
+        }
+      }
+    }
+    &.mistake {
+      color: $c-mistake;
+      &.active {
+        background: $m-mistake_bg--mix-25;
+      }
+      &:hover {
+        &,
+        index,
+        eval {
+          background: $c-mistake;
+        }
+      }
+    }
+    &.blunder {
+      color: $c-blunder;
+      &.active {
+        background: $m-blunder_bg--mix-25;
+      }
+      &:hover {
+        &,
+        index,
+        eval {
+          background: $c-blunder;
+        }
+      }
+    }
+    &.good {
+      color: $c-good;
+      &.active {
+        background: $m-good_bg--mix-25;
+      }
+      &:hover {
+        &,
+        index,
+        eval {
+          background: $c-good;
+        }
+      }
+    }
+    &.brilliant {
+      color: $c-brilliant;
+      &.active {
+        background: $m-brilliant_bg--mix-25;
+      }
+      &:hover {
+        &,
+        index,
+        eval {
+          background: $c-brilliant;
+        }
+      }
+    }
+    &.interesting {
+      color: $c-interesting;
+      &.active {
+        background: $m-interesting_bg--mix-25;
+      }
+      &:hover {
+        &,
+        index,
+        eval {
+          background: $c-interesting;
+        }
+      }
+    }
+    &.pending-deletion {
+      background-color: $m-bad_bg--mix-50 !important;
+    }
+    &.pending-copy {
+      background-color: $m-good_bg--mix-50 !important;
+    }
+  }
+
+  &-column move {
+    font-size: 1.092em;
+    padding: 0 2px;
+  }
+
+  &-inline move {
+    padding: 0.25em 0.17em;
+    white-space: nowrap;
+    font-weight: bold;
+  }
+
+  move.parent {
     color: $c-primary;
   }
-  &.current {
+
+  comment.truncated {
+    cursor: pointer;
+  }
+
+  move.current {
     border: 1px solid $c-accent;
   }
-  &.pending-deletion {
-    border-radius: unset;
-    background: color-mix(in srgb, $c-bad 30%, transparent) !important;
+
+  move.active {
+    font-weight: bold;
+    background: $m-primary_bg--mix-25;
+    color: $c-font-clear;
   }
-  &.pending-copy {
-    border-radius: unset;
-    background: color-mix(in srgb, $c-good 30%, transparent) !important;
+
+  &-inline move.active,
+  line move.active {
+    @extend %box-radius;
+    background: $m-primary_bg--mix-40;
+    color: $c-font-clearer;
+    outline: 1px solid $m-primary_bg--mix-60;
+    &.inaccuracy {
+      outline: 1px solid $m-inaccuracy_bg--mix-60;
+    }
+    &.mistake {
+      outline: 1px solid $m-mistake_bg--mix-60;
+    }
+    &.blunder {
+      outline: 1px solid $m-blunder_bg--mix-60;
+    }
+    &.good {
+      outline: 1px solid $m-good_bg--mix-60;
+    }
+    &.brilliant {
+      outline: 1px solid $m-brilliant_bg--mix-60;
+    }
+    &.interesting {
+      outline: 1px solid $m-interesting_bg--mix-60;
+    }
   }
-  &.nongame {
+
+  move.nongame {
     font-style: italic;
   }
-  &.empty {
-    pointer-events: none;
-    color: $c-font-dimmer;
+
+  &-inline move:hover {
+    @extend %box-radius;
   }
-  &.context-menu {
-    border: 0;
-    background: $c-accent !important;
-    color: $c-over !important;
+
+  move.empty {
+    color: $c-font-dimmer;
+    cursor: default;
+  }
+
+  move index {
+    font-size: 90%;
+    color: $c-font-dim;
+  }
+
+  move.context-menu {
+    background: $c-accent;
+    color: $c-over;
 
     index {
       color: $c-over;
     }
   }
-}
 
-.tview2 eval {
-  @extend %roboto;
-  margin-inline-start: auto;
-  font-size: 0.8em;
-  color: $c-font-dim;
-}
-
-.tview2 glyph {
-  @extend %base-font;
-
-  margin-inline-start: 0.08em;
-  vertical-align: bottom;
-}
-
-.tview2 shapes {
-  margin-inline-start: 0.4em;
-  color: $c-good;
-  &::before {
-    @extend %data-icon;
-    vertical-align: baseline;
-    font-size: 13px;
-    content: $licon-DiscBigOutline;
-  }
-}
-
-.tview2 move index {
-  font-size: 90%;
-  color: $c-font-dim;
-}
-
-.tview2 move:not(.mainline) {
-  opacity: 0.9;
-}
-
-.tview2 interrupt > interrupt {
-  display: block;
-  margin-inline-start: 9px;
-}
-
-.tview2 > interrupt {
-  font-size: 95%;
-
-  move {
-    margin-inline: 2px 0;
+  &-column move index {
+    padding-inline-start: 5px;
   }
 
-  inline lines {
-    margin-inline-start: 0px;
+  &-column move index:first-child {
+    padding-inline-start: 0;
   }
-}
 
-.tview2 comment .by {
-  @extend %nowrap-ellipsis, %roboto;
+  &-inline move index {
+    padding-inline-end: 0.2em;
+    line-height: 111.11%;
+  }
 
-  display: inline-block;
-  vertical-align: middle;
-  color: $c-font;
-  opacity: 0.8;
-  max-width: 9em;
-}
+  line move {
+    color: $c-font;
+  }
 
-.tview2 line {
-  display: block;
-  padding-inline-start: 7px;
-  position: relative;
+  &-column > move {
+    flex: 0 0 43.5%;
+    display: flex;
+    font-size: 1.185em;
+    line-height: 1.75em;
+    padding: 0 0.3em 0 0.5em;
+  }
 
-  comment {
+  &-column > index + move {
+    border-inline-end: $c-border;
+  }
+
+  eval {
+    @extend %roboto;
+
+    flex: 3 0 auto;
+    text-align: right;
+    font-size: 0.8em;
+    color: $c-font-dim;
+  }
+
+  glyph {
+    @extend %base-font;
+
+    margin-inline-start: 0.08em;
+    vertical-align: bottom;
+  }
+
+  shapes {
+    font-size: 0.7em;
+    margin-inline-start: 0.4em;
+    text-align: right;
+    color: $c-good;
+    &::before {
+      @extend %data-icon;
+      content: $licon-DiscBigOutline;
+    }
+  }
+
+  &-column > move glyph {
+    flex: 0 1 auto;
+    text-align: center;
+    overflow: hidden;
+    font-size: 0.82em;
+  }
+
+  &-column > index {
+    flex: 0 0 13%;
+    display: flex;
+    justify-content: center;
+    border-inline-end: $border;
+    background: $c-bg-zebra;
+    line-height: 2.07em;
+    color: $c-font-dimmer;
+  }
+
+  > interrupt {
+    font-size: 95%;
+  }
+
+  &-column > interrupt {
+    flex: 0 0 100%;
+    background: $c-bg-zebra;
+    border-top: 1px solid $c-border;
+    border-bottom: 1px solid $c-border;
+    max-width: 100%;
+  }
+
+  &-column > interrupt > comment {
+    @extend %break-word;
+
+    display: block;
+    padding: 3px 5px;
+    &.inaccuracy {
+      color: $c-inaccuracy;
+    }
+    &.mistake {
+      color: $c-mistake;
+    }
+    &.blunder {
+      color: $c-blunder;
+    }
+  }
+
+  &-inline comment {
+    vertical-align: 45%;
+    word-wrap: break-word;
+    margin: 0 0.2em 0 0.1em;
+    font-size: 0.9em;
+  }
+
+  comment .by {
+    @extend %nowrap-ellipsis, %roboto;
+
+    display: inline-block;
+    vertical-align: -0.3em;
+    font-size: 0.9em;
+    opacity: 0.8;
+    margin-inline-end: 0.4em;
+    max-width: 9em;
+  }
+
+  &-column comment.white {
+    border-inline-start: 3px solid;
+  }
+
+  &-column comment.black {
+    border-inline-end: 3px solid;
+    overflow-x: hidden;
+  }
+
+  &-column comment.inaccuracy {
+    border-color: $c-inaccuracy;
+  }
+
+  &-column comment.mistake {
+    border-color: $c-mistake;
+  }
+
+  &-column comment.blunder {
+    border-color: $c-blunder;
+  }
+
+  &-column comment.undefined {
+    border-color: #66558c;
+  }
+
+  line comment {
     font-size: 90%;
   }
 
-  > branch {
-    border-inline-start: 2px solid $c-transp-border;
+  &-column line comment {
+    display: inline;
+    color: $c-font-dim;
+    word-wrap: break-word;
+    padding: 0 5px 0 3px;
+    vertical-align: top;
+  }
+
+  line comment .by {
+    font-size: 1em;
+    vertical-align: top;
+  }
+
+  lines {
+    display: block;
+    margin-top: 2px;
+    margin-inline-start: 6px;
+    margin-bottom: 0.8em;
+    padding-inline-start: 2px;
+  }
+
+  > interrupt > lines {
+    margin-inline-start: 0px;
+  }
+
+  lines.single {
+    border-inline-start: none;
+  }
+
+  lines:last-child {
+    margin-bottom: 0;
+  }
+
+  line {
+    display: block;
+    padding-inline-start: 7px;
+    position: relative;
+  }
+
+  &-column line {
+    margin: 2px 0;
+  }
+
+  line > branch {
+    border-inline-start: 2px solid $c-border;
     margin-inline-start: -9px;
     position: absolute;
     width: 8px;
     height: 100%;
   }
 
-  > branch::after {
+  line:last-child > branch,
+  line.expand > branch {
+    height: calc(0.8em + 2px);
+  }
+
+  line > branch::before {
     margin-top: 0.8em;
     content: ' ';
-    border-top: 2px solid $c-transp-border;
+    border-top: 2px solid $c-border;
     position: absolute;
     width: 7px;
-    height: 2px;
+    height: 6px;
   }
 
-  &:last-child > branch {
-    height: calc(0.8em + 2px) !important;
-  }
-}
-
-.tview2 lines {
-  display: block;
-  margin-block: 2px;
-  margin-inline-start: 1px;
-  padding-inline-start: 2px;
-  overflow-x: clip;
-
-  &.single {
-    border-inline-start: none;
+  &-column line > branch {
+    margin-top: -2px;
+    height: calc(100% + 2px);
   }
 
-  &:last-child {
+  lines lines move {
+    font-size: 13px;
+  }
+
+  lines lines {
+    margin-inline-start: 1px;
+  }
+
+  lines lines:last-child {
     margin-bottom: 0;
   }
 
-  comment {
+  line.expand > a {
     color: $c-font-dim;
   }
-  lines move {
-    font-size: 13px;
-  }
-}
 
-.tview2 inline {
-  display: inline;
-  font-style: italic;
-  font-size: 0.9em;
-  opacity: 0.8;
-
-  move {
-    margin-inline-start: 0;
-  }
-  &::before,
-  &::after {
-    vertical-align: 7px;
-    opacity: 0.7;
-    font-size: 1.1em;
+  line.expand > a:hover {
+    color: $c-font;
   }
 
-  &::before {
-    content: '(';
-    margin-inline: 2px -2px;
-  }
-
-  &::after {
-    content: ')';
-    margin-inline: -1px 1px;
-  }
-}
-
-.tview2 .conceal {
-  opacity: 0.4;
-}
-
-.tview2 .hide {
-  display: none;
-}
-
-.tview2 .disclosure {
-  display: inline-block;
-  background-color: $c-transp-border;
-  vertical-align: -2px;
-  align-self: center;
-  width: $disclosure-btn-size;
-  height: $disclosure-btn-size;
-  -webkit-mask: url('/assets/images/buttons/plus-button-mask.webp') 0 0 / contain no-repeat;
-  mask: url('/assets/images/buttons/plus-button-mask.webp') 0 0 / contain no-repeat;
-
-  + san::before,
-  + index::before {
-    content: '-';
-    color: transparent;
-  }
-}
-
-.tview2 .disclosure.expanded {
-  -webkit-mask: url('/assets/images/buttons/minus-button-mask.webp') 0 0 / contain no-repeat;
-  mask: url('/assets/images/buttons/minus-button-mask.webp') 0 0 / contain no-repeat;
-
-  + san::before,
-  + index::before {
-    color: $c-transp-border;
-  }
-}
-
-.tview2 .disclosure-connector {
-  position: absolute;
-  pointer-events: none;
-  inset-inline-start: 0;
-  border-inline-start: 2px solid $c-transp-border;
-  border-top: 2px solid $c-transp-border;
-}
-
-$riser-height: calc((10px - var(---touch-grow, 0px)) / 2);
-
-.tview2 .disclosure-connector.riser {
-  inset-inline: unset;
-  inset-inline-end: 0;
-  top: calc(-2px - $riser-height);
-  height: $riser-height;
-  width: 2px;
-}
-
-.tview2-column lines lines > .disclosure-connector + line > branch {
-  margin-top: 0;
-  height: calc(100%);
-}
-
-.tview2-column {
-  @extend %flex-wrap;
-}
-
-.tview2-column move {
-  font-size: 1.092em;
-  padding: 2px;
-}
-
-.tview2-column > move {
-  flex: 0 0 43.5%;
-  display: flex;
-  font-size: 1.185em;
-  line-height: 1.75em;
-  padding: 0 0.3em 0 0.5em;
-
-  index {
-    padding-inline-start: 5px;
-    &:first-child {
-      padding-inline-start: 0;
-    }
-  }
-  glyph {
-    flex: 0 1 auto;
-    text-align: center;
-    overflow: hidden;
-    font-size: 0.82em;
-  }
-  &.active {
-    font-weight: bold;
-  }
-}
-
-.tview2-column > index {
-  flex: 0 0 13%;
-  display: flex;
-  justify-content: center;
-  border-inline-end: $border;
-  background: $c-bg-zebra;
-  line-height: 2.07em;
-  color: $c-font-dimmer;
-
-  + move {
-    border-inline-end: $c-transp-border;
-  }
-}
-
-.tview2-column line {
-  move {
-    @extend %box-radius;
-  }
-
-  comment {
+  inline {
     display: inline;
-    word-wrap: break-word;
-    padding: 0 5px 0 3px;
-    vertical-align: 7px;
-  }
-}
-
-.tview2-column > interrupt > lines > line > branch {
-  margin-top: -2px;
-  height: calc(100% + 2px);
-}
-
-.tview2-column > interrupt {
-  flex: 0 0 100%;
-  max-width: 100%;
-  background: $c-bg-zebra;
-  border-top: 1px solid $c-transp-border;
-  border-bottom: 1px solid $c-transp-border;
-
-  > comment {
-    @extend %break-word;
-    color: var(--c-base);
-    display: block;
-    padding: 3px 5px;
-    border-inline-start: 2px solid $c-transp-border;
-  }
-}
-.tview2-inline {
-  @include padding-direction(7px, 3px, 7px, 7px);
-
-  .mainline {
-    font-weight: bold;
-    background: color-mix(in srgb, $c-clearer 4%, transparent);
-  }
-  move {
-    @extend %box-radius;
-    margin-inline-end: 2px;
-    font-size: 13.5px;
-  }
-  move index {
-    padding-inline-end: 0.2em;
-    line-height: 111.11%;
-  }
-  comment {
-    vertical-align: 45%;
-    word-wrap: break-word;
-    margin: 0 0.2em 0 0.1em;
+    font-style: italic;
     font-size: 0.9em;
+    opacity: 0.8;
   }
+
   inline::before,
   inline::after {
+    vertical-align: 0.4em;
+    opacity: 0.7;
+    font-size: 0.9em;
+  }
+
+  inline::before {
+    content: '(';
+    margin-inline-start: 2px;
+  }
+
+  inline::after {
+    content: ')';
+    margin-inline-end: 2px;
+  }
+
+  &-inline inline::before,
+  &-inline inline::after {
     vertical-align: 0.7em;
   }
-}
 
-@media (pointer: coarse) {
-  .tview2 {
-    ---touch-grow: 4px;
+  .conceal {
+    opacity: 0.4;
   }
-}
 
-@media (hover: hover) {
-  .tview2 move:not(.active):hover {
-    background: color-mix(in srgb, var(--c-base) 15%, transparent);
-    color: $c-font-clear;
-    eval,
-    index {
-      color: $c-font;
-    }
-    .disclosure {
-      background-color: $c-font-dimmer;
-    }
-  }
-  .tview2 move.active:hover {
-    cursor: default;
-
-    .disclosure:hover {
-      background-color: #ddd;
-    }
-  }
-  .tview2 move:hover .disclosure:hover {
-    background-color: $c-font-dim;
-    cursor: pointer;
+  .hide {
+    display: none;
   }
 }
