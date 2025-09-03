@@ -101,6 +101,7 @@ export default class AnalyseCtrl implements CevalHandler {
   showMoveAnnotation = storedBooleanProp('analyse.show-move-annotation', true);
   keyboardHelp: boolean = location.hash === '#keyboard';
   threatMode: Prop<boolean> = prop(false);
+  disclosureMode = storedBooleanProp('analyse.disclosure.enabled', true);
 
   treeView: TreeView;
   cgVersion = {
