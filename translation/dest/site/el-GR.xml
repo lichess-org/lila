@@ -998,7 +998,7 @@
   <string name="until">Έως</string>
   <string name="lichessDbExplanation">Δείγμα βαθμολογημένων παιχνιδιών από όλους του παίκτες στο Lichess</string>
   <string name="switchSides">Εναλλαγή πλευρών</string>
-  <string name="closingAccountWithdrawAppeal">Αν απενεργοποιήσετε τον λογαριασμό σας θα χάσετε το δικαίωμα έφεσης</string>
+  <string name="closingAccountWithdrawAppeal">Σε περίπτωση που κλείσετε τον λογαριασμό σας, τυχόν ενστάσεις που έχετε υποβάλει απορρίπτονται αυτόματα</string>
   <string name="ourEventTips">Οι συμβουλές μας για τη διοργάνωση εκδηλώσεων</string>
   <string name="instructions">Οδηγίες</string>
   <string name="showMeEverything">Εμφάνιση όλων</string>
