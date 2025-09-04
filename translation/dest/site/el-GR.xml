@@ -573,9 +573,9 @@
   <string name="cheat">Απάτη</string>
   <string name="troll">Εμπαιγμός</string>
   <string name="other">Άλλο</string>
-  <string name="reportCheatBoostHelp">Επικολλήστε τους συνδέσμους με τα παιχνίδια και εξηγήστε μας γιατί θεωρείτε ότι η συμπεριφορά του χρήστη είναι παράξενη σε αυτά. Μη λέτε απλώς ότι «κλέβει» (\"they cheat\"), αλλά πείτε μας πως καταλήξατε σε αυτό το συμπέρασμα.</string>
+  <string name="reportCheatBoostHelp">Επικολλήστε τους συνδέσμους με τα παιχνίδια και εξηγήστε μας γιατί θεωρείτε ότι η συμπεριφορά του χρήστη είναι παράξενη σε αυτά. Μη λέτε απλώς ότι «κλέβει» (\"they cheat\"), αλλά πείτε μας πώς καταλήξατε σε αυτό το συμπέρασμα.</string>
   <string name="reportUsernameHelp">Εξηγήστε μας γιατί είναι προσβλητικό το όνομα αυτού του χρήστη. Μη λέτε απλώς ότι \"είναι προσβλητικό/ακατάλληλο\" (\"it\'s offensive/inappropriate\"), αλλά πείτε μας πώς καταλήξατε σε αυτό το συμπέρασμα, ειδικά αν πρόκειται για προσβολή η οποία δεν είναι ιδιαίτερα εμφανής: για παράδειγμα αν δεν είναι στα αγγλικά, είναι σε κάποια αργκό ή κάνει κάποια προσβλητική ιστορική/πολιτιστική αναφορά.</string>
-  <string name="reportProcessedFasterInEnglish">Η αναφορά σας θα επεξεργαστεί γρηγορότερα αν είναι γραμμένη στα αγγλικά.</string>
+  <string name="reportProcessedFasterInEnglish">Η αναφορά σας θα εξεταστεί γρηγορότερα αν είναι γραμμένη στα αγγλικά.</string>
   <string name="error.provideOneCheatedGameLink">Καταχωρίστε τουλάχιστον έναν σύνδεσμο σε ένα παιχνίδι εξαπάτησης.</string>
   <string name="by">από τον %s</string>
   <string name="importedByX">Εισήχθη από τον χρήστη %s</string>
@@ -929,8 +929,8 @@
   <string name="joinTheTeamXToPost">Δηλώστε συμμετοχή στο %1$s, για να κάνετε δημοσιεύσεις σε αυτό το φόρουμ</string>
   <string name="teamNamedX">%1$s ομάδες</string>
   <string name="youCannotPostYetPlaySomeGames">Δεν μπορείτε να δημοσιεύσετε σε αυτό το φόρουμ ακόμα. Παίξτε μερικά παιχνίδια!</string>
-  <string name="subscribe">Εγγραφείτε</string>
-  <string name="unsubscribe">Απεγγραφείτε</string>
+  <string name="subscribe">Εγγραφή</string>
+  <string name="unsubscribe">Απεγγραφή</string>
   <string name="mentionedYouInX">σας ανέφερε στο \"%1$s\".</string>
   <string name="xMentionedYouInY">Ο χρήστης %1$s σας ανέφερε στο «%2$s».</string>
   <string name="invitedYouToX">σας προσκάλεσε στο «%1$s».</string>
