@@ -52,7 +52,7 @@
   <string name="makeSureTheChapterIsComplete">Σιγουρευτείτε ότι το κεφάλαιο είναι ολοκληρωμένο. Μπορείτε να ζητήσετε ανάλυση μόνο μια φορά.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Όλα τα συγχρονισμένα μέλη παραμένουν στην ίδια θέση</string>
   <string name="shareChanges">Κοινοποίηση των αλλαγών στους θεατές και αποθήκευσή τους στον διακομιστή</string>
-  <string name="playing">Παίζονται</string>
+  <string name="playing">Σε εξέλιξη</string>
   <string name="showResults">Αποτελέσματα</string>
   <string name="showEvalBar">Μπάρες αξιολόγησης</string>
   <string name="next">Επόμενη</string>
