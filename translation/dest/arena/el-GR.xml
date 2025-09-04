@@ -80,7 +80,7 @@ To Berserk δεν ισχύει για παρτίδες με μηδενικό α�
   <string name="pointsAvg">Μέσος όρος βαθμών</string>
   <string name="pointsSum">Σύνολο βαθμών</string>
   <string name="rankAvg">Μέσος όρος κατάταξης</string>
-  <string name="tournamentWinners">Νικητές πρωταθλήματος</string>
+  <string name="tournamentWinners">Νικητές τουρνουά</string>
   <string name="tournamentShields">Ασπίδες τουρνουά</string>
   <string name="onlyTitled">Μόνο τιτλούχοι παίκτες</string>
   <string name="onlyTitledHelp">Μόνο οι παίκτες με έναν επίσημο τίτλο θα έχουν δυνατότητα συμμετοχής στο τουρνουά</string>
