@@ -1,5 +1,5 @@
 $c-transp-border: $m-font--fade-88;
-$disclosure-btn-size: calc(15px + var(---touch-grow, 0px));
+$disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
 
 .tview2 {
   white-space: normal;
@@ -126,9 +126,9 @@ $disclosure-btn-size: calc(15px + var(---touch-grow, 0px));
   color: $c-font-dim;
 }
 
-.tview2 move:not(.mainline) {
-  opacity: 0.9;
-}
+// .tview2 move:not(.mainline) {
+//   opacity: 0.9;
+// }
 
 .tview2 interrupt > interrupt {
   display: block;
@@ -203,9 +203,9 @@ $disclosure-btn-size: calc(15px + var(---touch-grow, 0px));
     margin-bottom: 0;
   }
 
-  comment {
-    color: $c-font-dim;
-  }
+  // comment {
+  //   color: $c-font-dim;
+  // }
   lines move {
     font-size: 13px;
   }
@@ -281,19 +281,13 @@ $disclosure-btn-size: calc(15px + var(---touch-grow, 0px));
   border-top: 2px solid $c-transp-border;
 }
 
-$riser-height: calc((10px - var(---touch-grow, 0px)) / 2);
-
 .tview2 .disclosure-connector.riser {
   inset-inline: unset;
   inset-inline-end: 0;
+  $riser-height: calc((10px - var(---button-size-pointer-adjust, 0px)) / 2);
   top: calc(-2px - $riser-height);
   height: $riser-height;
   width: 2px;
-}
-
-.tview2-column lines lines > .disclosure-connector + line > branch {
-  margin-top: 0;
-  height: calc(100%);
 }
 
 .tview2-column {
@@ -356,6 +350,11 @@ $riser-height: calc((10px - var(---touch-grow, 0px)) / 2);
   }
 }
 
+.tview2-column lines lines > .disclosure-connector + line > branch {
+  margin-top: 0;
+  height: 100%;
+}
+
 .tview2-column > interrupt > lines > line > branch {
   margin-top: -2px;
   height: calc(100% + 2px);
@@ -376,6 +375,7 @@ $riser-height: calc((10px - var(---touch-grow, 0px)) / 2);
     border-inline-start: 2px solid $c-transp-border;
   }
 }
+
 .tview2-inline {
   @include padding-direction(7px, 3px, 7px, 7px);
 
@@ -386,7 +386,9 @@ $riser-height: calc((10px - var(---touch-grow, 0px)) / 2);
   move {
     @extend %box-radius;
     margin-inline-end: 2px;
-    font-size: 13.5px;
+    //font-size: 13.5px;
+    font-size: 13px;
+    font-weight: bold;
   }
   move index {
     padding-inline-end: 0.2em;
@@ -406,7 +408,7 @@ $riser-height: calc((10px - var(---touch-grow, 0px)) / 2);
 
 @media (pointer: coarse) {
   .tview2 {
-    ---touch-grow: 4px;
+    ---button-size-pointer-adjust: 4px;
   }
 }
 
