@@ -704,8 +704,8 @@
   <string name="simulAddExtraTimePerPlayer">Προσθήκη χρόνου στο ρολόι κάθε παίκτη που συνδέεται στο σιμουλτανέ.</string>
   <string name="simulHostExtraTimePerPlayer">Προσθήκη επιπλέον χρόνου ανά παίκτη</string>
   <string name="lichessTournaments">Τουρνουά στο Lichess</string>
-  <string name="tournamentFAQ">Τεκμηρίωση για τουρνουά τύπου αρένας</string>
-  <string name="timeBeforeTournamentStarts">Χρόνος προτού ξεκινήσει το τουρνουά</string>
+  <string name="tournamentFAQ">Συχνές ερωτήσεις για τα τουρνουά αρένας</string>
+  <string name="timeBeforeTournamentStarts">Χρόνος πριν την έναρξη του τουρνουά</string>
   <string name="averageCentipawnLoss">Μέση απώλεια εκατοστοπιονιού</string>
   <string name="accuracy">Ακρίβεια</string>
   <string name="keyboardShortcuts">Συντομεύσεις πληκτρολογίου</string>
