@@ -211,6 +211,16 @@ export function view(ctrl: AnalyseCtrl): VNode {
       },
       ctrl,
     ),
+    ctrlToggle(
+      {
+        name: 'Disclosure buttons',
+        title: 'Show disclosure buttons to expand/collapse variations',
+        id: 'disclosure',
+        checked: ctrl.disclosureMode(),
+        change: ctrl.disclosureMode,
+      },
+      ctrl,
+    ),
     !ctrl.ongoing &&
       ctrlToggle(
         {

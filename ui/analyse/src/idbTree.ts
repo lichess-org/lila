@@ -77,7 +77,11 @@ export class IdbTree {
 
   discloseOf(node: Tree.Node | undefined, isMainline: boolean): DiscloseState {
     if (!node) return undefined;
-    return this.isCollapsible(node, isMainline) ? (node.collapsed ? 'collapsed' : 'expanded') : undefined;
+    return this.isCollapsible(node, isMainline)
+      ? this.ctrl.disclosureMode() && node.collapsed
+        ? 'collapsed'
+        : 'expanded'
+      : undefined;
   }
 
   onAddNode(node: Tree.Node, path: Tree.Path): void {

@@ -1,6 +1,6 @@
 import type AnalyseCtrl from '../ctrl';
 import { type VNode, type LooseVNodes, hl } from 'lib/snabbdom';
-import { type Classes } from 'snabbdom';
+import type { Classes, Hooks } from 'snabbdom';
 import { ops as treeOps, path as treePath } from 'lib/tree/tree';
 import { isSafari } from 'lib/device';
 import { enrichText, innerHTML } from 'lib/richText';
@@ -83,7 +83,7 @@ export class InlineView {
       .filter(Boolean);
   }
 
-  protected lines(lines: Tree.Node[], args: Args, prepend?: LooseVNodes): LooseVNodes {
+  protected lines(lines: Tree.Node[], args: Args): LooseVNodes {
     const { parentDisclose, parentPath, parentNode, isMainline } = args;
     if (!lines.length || parentDisclose === 'collapsed') return;
     const anchor = parentDisclose === 'expanded' && (this.inline || !isMainline);
@@ -94,7 +94,6 @@ export class InlineView {
     else
       return hl('lines', { class: { anchor } }, [
         parentDisclose === 'expanded' && this.disclosureConnector(parentPath),
-        prepend && hl('line', prepend),
         lines.map(
           line =>
             this.retroLine(line) ||
@@ -103,11 +102,13 @@ export class InlineView {
       ]);
   }
 
-  private sidelineNodes([child, ...siblings]: Tree.Node[], args: Args): LooseVNodes {
-    if (!child) return;
+  private sidelineNodes(nodes: Tree.Node[], args: Args): LooseVNodes {
+    if (!nodes[0]) return;
+    if (!this.ctrl.disclosureMode()) return this.classicNodes(nodes, args);
+    const [child, ...siblings] = nodes;
     const { parentDisclose, parentPath, parentNode } = args;
     const inOrder = this.inOrderLine(parentNode);
-    const nodes = [
+    const sideline = [
       this.moveNode(child, args),
       this.commentNodes(child),
       inOrder && this.lines(siblings, args),
@@ -119,9 +120,30 @@ export class InlineView {
       }),
       !inOrder && this.lines(siblings, args),
     ];
-    return parentDisclose === 'expanded' ? hl('interrupt', nodes) : nodes;
+    return parentDisclose === 'expanded' ? hl('interrupt', sideline) : sideline;
   }
 
+  // classicNodes is without disclosure buttons
+  private classicNodes([child, ...siblings]: Tree.Node[], args: Args): LooseVNodes {
+    if (!child) return;
+    const { parentPath, parentNode } = args;
+    const inOrder = this.inOrderLine(parentNode);
+    const childArgs = {
+      isMainline: false,
+      parentPath: parentPath + child.id,
+      parentNode: child,
+      parentDisclose: this.ctrl.idbTree.discloseOf(child, false),
+    };
+    return [
+      this.moveNode(child, args),
+      this.commentNodes(child),
+      inOrder && this.lines(siblings, args),
+      child.children.length > 1 && !this.inOrderLine(child)
+        ? this.lines(child.children, childArgs)
+        : this.classicNodes(child.children, childArgs),
+      !inOrder && this.lines(siblings, args),
+    ];
+  }
   private inOrderLine(node: Tree.Node): boolean {
     const [, second, third] = node.children;
     return !third && second && !treeOps.hasBranching(second, 6);
@@ -167,22 +189,24 @@ export class InlineView {
     ]);
   }
 
-  protected disclosureConnector(parentPath: Tree.Path): VNode {
+  protected disclosureConnector(parentPath: Tree.Path): LooseVNodes {
     const callback = (vnode: VNode) => this.connectToDisclosureBtn(vnode, parentPath);
-
-    return hl(
-      'div.disclosure-connector',
-      { hook: { insert: callback, update: v => setTimeout(() => callback(v)) } },
-      hl('div.disclosure-connector.riser'),
+    const hook: Hooks = { insert: callback, update: v => setTimeout(() => callback(v)) };
+    return (
+      this.ctrl.disclosureMode() &&
+      hl('div.disclosure-connector', { hook }, hl('div.disclosure-connector.riser'))
     );
   }
 
-  private disclosureBtn(node: Tree.Node, path: Tree.Path): VNode | undefined {
-    return hl('a.disclosure', {
-      class: { expanded: !node.collapsed },
-      attrs: { 'data-path': path },
-      on: { click: () => this.ctrl.idbTree.setCollapsed(path, !node.collapsed) },
-    });
+  private disclosureBtn(node: Tree.Node, path: Tree.Path): LooseVNodes {
+    return (
+      this.ctrl.disclosureMode() &&
+      hl('a.disclosure', {
+        class: { expanded: !node.collapsed },
+        attrs: { 'data-path': path },
+        on: { click: () => this.ctrl.idbTree.setCollapsed(path, !node.collapsed) },
+      })
+    );
   }
 
   private connectToDisclosureBtn(v: VNode, path: Tree.Path): void {
