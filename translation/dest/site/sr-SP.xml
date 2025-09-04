@@ -573,8 +573,8 @@
   <string name="replyToThisTopic">Одговори на ову тему</string>
   <string name="reply">Одговор</string>
   <string name="message">Порука</string>
-  <string name="createTheTopic">Cтвори тему</string>
-  <string name="reportAUser">Пријавиte корисника</string>
+  <string name="createTheTopic">Направи тему</string>
+  <string name="reportAUser">Пријави корисника</string>
   <string name="user">Корисник</string>
   <string name="reason">Разлог</string>
   <string name="whatIsIheMatter">Y чему је проблем?</string>
