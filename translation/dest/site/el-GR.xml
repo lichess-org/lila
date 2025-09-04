@@ -362,7 +362,7 @@
   <string name="yourOpponentProposesATakeback">Ο αντίπαλός σας πρότεινε ακύρωση της τελευταίας κίνησης</string>
   <string name="bookmarkThisGame">Προσθέστε σελιδοδείκτη για αυτό το παιχνίδι</string>
   <string name="tournament">Τουρνουά</string>
-  <string name="tournaments">Πρωταθλήματα</string>
+  <string name="tournaments">Τουρνουά</string>
   <string name="tournamentPoints">Βαθμοί από τουρνουά</string>
   <plurals name="nbTournamentPoints">
     <item quantity="one">%s βαθμός τουρνουά</item>
@@ -731,7 +731,7 @@
   <string name="newTournament">Νέο τουρνουά</string>
   <string name="tournamentHomeTitle">Σκακιστικά τουρνουά διαφόρων χρόνων και εκδοχών</string>
   <string name="tournamentHomeDescription">Παίξτε στιγμιαία τορνουά. Συμμετάσχετε σε επίσημο διαγωνισμό ή δημιουργήστε δικό σας. Υπερταχέα, Ταχέα, Κλασσικά, 960, Βασιλιάς στο κέντρο, Τρία σαχ και πολλές άλλες επιλογές για ατελείωτη διασκέδαση.</string>
-  <string name="tournamentNotFound">Τουρνουά δεν βρέθηκε</string>
+  <string name="tournamentNotFound">Το τουρνουά δε βρέθηκε</string>
   <string name="tournamentDoesNotExist">Αυτό το τουρνουά δεν υπάρχει.</string>
   <string name="tournamentMayHaveBeenCanceled">Ίσως έχει ακυρωθεί, εάν όλοι οι παίκτες αποχώρησαν πριν ξεκινήσει το τουρνουά.</string>
   <string name="returnToTournamentsHomepage">Επιστροφή στην αρχική σελίδα τουρνουά</string>
