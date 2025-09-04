@@ -9,7 +9,7 @@
   <string name="whatAreStudies">Τι είναι οι μελέτες;</string>
   <string name="allStudies">Όλες οι μελέτες</string>
   <string name="studiesCreatedByX">Μελέτες που δημιουργήθηκαν από τον χρήστη %s</string>
-  <string name="noneYet">Τίποτα ακόμη εδώ.</string>
+  <string name="noneYet">Δε βρέθηκε καμία μελέτη.</string>
   <string name="hot">Δημοφιλείς (hot)</string>
   <string name="dateAddedNewest">Ημερομηνία προσθήκης (νεότερες)</string>
   <string name="dateAddedOldest">Ημερομηνία προσθήκης (παλαιότερες)</string>
@@ -165,6 +165,23 @@
   <string name="whatWouldYouPlay">Τι θα παίζατε σε αυτή τη θέση;</string>
   <string name="youCompletedThisLesson">Συγχαρητήρια! Ολοκληρώσατε αυτό το μάθημα.</string>
   <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">%s ανά σελίδα</string>
+  <string name="sharedAndSaveTitle" comment="Appears as the title of a pop-up lightbox in the guided tour of Lichess Studies.&#10;&#10;As in: shared with other members &amp; saved to the database.">Κοινοποιήθηκε και αποθηκεύτηκε</string>
+  <string name="studyMembersTitle">Μέλη μελέτης</string>
+  <string name="studyChaptersText">Μια μελέτη μπορεί να περιέχει παραπάνω από ένα κεφάλαια.&lt;br&gt;Κάθε κεφάλαιο έχει τη δική του αρχική θέση και το δικό του δέντρο κινήσεων.</string>
+  <string name="conclusionTitle">Σας ευχαριστούμε για τον χρόνο σας</string>
+  <string name="createChapterTitle">Ας δημιουργήσουμε μαζί ένα νέο κεφάλαιο</string>
+  <string name="fromInitialPositionTitle">Αρχική θέση</string>
+  <string name="fromInitialPositionText">Η αρχική διάταξη των κομματιών της σκακιέρας.&lt;br&gt;Ιδανική επιλογή για την εξερεύνηση και τη μελέτη ανοιγμάτων.</string>
+  <string name="customPositionTitle">Προσαρμοσμένη θέση</string>
+  <string name="customPositionText">Στήστε τη σκακιέρα όπως εσείς θέλετε.&lt;br&gt;
+Ιδανική επιλογή για την εξερεύνηση και τη μελέτη φινάλε.</string>
+  <string name="loadExistingLichessGameTitle">Φόρτωση παρτίδας από το lichess</string>
+  <string name="loadExistingLichessGameText">Επικολλήστε τη διεύθυνση URL μιας παρτίδας στο Lichess&lt;br&gt;(π.χ. lichess.org/7fHIU0XI)&lt;br&gt;για να φορτώσετε τις κινήσεις της σε αυτό το κεφάλαιο.</string>
+  <string name="fromFenStringTitle">Θέση από FEN</string>
+  <string name="fromFenStringText">Φορτώστε μία θέση επικολλώντας το αντίστοιχο FEN&lt;br&gt;&lt;i&gt;(π.χ. 4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w)&lt;/i&gt;&lt;br&gt;αν θέλετε το κεφάλαιο της μελέτης να ξεκινά από αυτή τη θέση.</string>
+  <string name="fromPgnGameTitle">Παρτίδα από αρχείο PGN</string>
+  <string name="fromPgnGameText">Φορτώστε μια παρτίδα επικολλώντας το αντίστοιχο&lt;br&gt;αρχείο PGN για να φορτώσετε τις κινήσεις, τα σχόλια και τις βαριάντες στο κεφάλαιο.</string>
+  <string name="variantsAreSupportedTitle">Οι μελέτες υποστηρίζουν τις παραλλαγές</string>
   <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Διπλή ήττα</string>
   <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">Τα Μαύρα έχασαν, ενώ τα Λευκά δεν μπορούν να κερδίσουν</string>
   <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">Τα Λευκά έχασαν, ενώ τα Μαύρα δεν μπορούν να κερδίσουν</string>
