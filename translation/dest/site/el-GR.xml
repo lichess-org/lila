@@ -397,6 +397,7 @@
     <item quantity="other">Πρέπει να παίξετε %s βαθμολογημένα παιχνίδια</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Η %s βαθμολογία σας είναι προσωρινή</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Τα φίλτρα βαθμολογιών είναι κλειδωμένα επειδή η βαθμολογία σας δεν είναι σταθερή ακόμα. Δοκιμάστε να παίξετε αξιολογημένες παρτίδες για να τη σταθεροποιήσετε.</string>
   <string name="yourPerfRatingIsTooHigh">Η %1$s βαθμολογία σας (%2$s) είναι πολύ υψηλή</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Η κορυφαία εβδομαδιαία %1$s βαθμολογία σας (%2$s) είναι πολύ υψηλή</string>
   <string name="yourPerfRatingIsTooLow">Η %1$s βαθμολογία σας (%2$s) είναι πολύ χαμηλή</string>
@@ -594,8 +595,8 @@
   <string name="newPasswordAgain">Νέος κωδικός (επαλήθευση)</string>
   <string name="newPasswordsDontMatch">Οι νέοι κωδικοί πρόσβασης δεν ταιριάζουν</string>
   <string name="newPasswordStrength">Ισχύς Κωδικού Πρόσβασης</string>
-  <string name="clockInitialTime">Ρολόι αρχικός χρόνος</string>
-  <string name="clockIncrement">Ρολόι προσαύξηση</string>
+  <string name="clockInitialTime">Αρχικός χρόνος</string>
+  <string name="clockIncrement">Προσαύξηση</string>
   <string name="privacy">Απόρρητο</string>
   <string name="privacyPolicy">Πολιτική απορρήτου</string>
   <string name="letOtherPlayersFollowYou">Επιτρέψτε σε άλλους παίκτες να σας ακολουθούν</string>
