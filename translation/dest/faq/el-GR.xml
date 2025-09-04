@@ -33,7 +33,7 @@
   <string name="gameplay">Παιχνίδι</string>
   <string name="howBulletBlitzEtcDecided">Πώς αποφασίζεται ποιοι χρόνοι είναι τι (π.χ. Bullet, Blitz);</string>
   <string name="basedOnGameDuration">Οι χρόνοι του Lichess βασίζονται στην εκτιμώμενη διάρκεια παιχνιδιού = %1$s. Για παράδειγμα, η εκτιμώμενη διάρκεια παιχνιδιού για ένα παιχνίδι με χρόνο 5+3 είναι 5 × 60 + 40 × 3 = 420 δευτερόλεπτα.</string>
-  <string name="durationFormula">(αρχικός χρόνος χρονομέτρου) + 40 × (προσαύξηση)</string>
+  <string name="durationFormula">(αρχικός χρόνος ρολογιού) + 40 × (προσαύξηση)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt;%1$s δευτερόλεπτα = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s δευτερόλεπτα = %2$s</string>
   <string name="whatVariantsCanIplay">Ποιες είναι οι διάφορες εκδοχές που μπορώ να παίξω στο Lichess;</string>
