@@ -89,7 +89,7 @@ export class InlineView {
     const anchor = parentDisclose === 'expanded' && (this.inline || !isMainline);
     const lineArgs = { parentPath, parentNode, isMainline: false };
 
-    if ((!isMainline || this.inline) && this.inOrderLine(parentNode))
+    if ((!isMainline || this.inline) && this.parenthetical(parentNode))
       return hl('inline', this.retroLine(lines[0]) || this.sidelineNodes(lines, lineArgs));
     else
       return hl('lines', { class: { anchor } }, [
@@ -107,7 +107,7 @@ export class InlineView {
     if (!this.ctrl.disclosureMode()) return this.classicNodes(nodes, args);
     const [child, ...siblings] = nodes;
     const { parentDisclose, parentPath, parentNode } = args;
-    const inOrder = this.inOrderLine(parentNode);
+    const inOrder = this.parenthetical(parentNode);
     const sideline = [
       this.moveNode(child, args),
       this.commentNodes(child),
@@ -126,11 +126,10 @@ export class InlineView {
   // classicNodes is without disclosure buttons
   private classicNodes([child, ...siblings]: Tree.Node[], args: Args): LooseVNodes {
     if (!child) return;
-    const { parentPath, parentNode } = args;
-    const inOrder = this.inOrderLine(parentNode);
+    const inOrder = this.parenthetical(args.parentNode);
     const childArgs = {
       isMainline: false,
-      parentPath: parentPath + child.id,
+      parentPath: args.parentPath + child.id,
       parentNode: child,
       parentDisclose: this.ctrl.idbTree.discloseOf(child, false),
     };
@@ -138,13 +137,14 @@ export class InlineView {
       this.moveNode(child, args),
       this.commentNodes(child),
       inOrder && this.lines(siblings, args),
-      child.children.length > 1 && !this.inOrderLine(child)
+      child.children.length > 1 && !this.parenthetical(child)
         ? this.lines(child.children, childArgs)
         : this.classicNodes(child.children, childArgs),
       !inOrder && this.lines(siblings, args),
     ];
   }
-  private inOrderLine(node: Tree.Node): boolean {
+
+  private parenthetical(node: Tree.Node): boolean {
     const [, second, third] = node.children;
     return !third && second && !treeOps.hasBranching(second, 6);
   }
@@ -157,6 +157,11 @@ export class InlineView {
       (!ctrl.synthetic && playable(ctrl.data) && ctrl.initialPath) ||
       ctrl.retro?.current()?.prev.path ||
       ctrl.study?.data.chapter.relayPath;
+    const withIndex =
+      (!isMainline || this.inline) &&
+      (node.ply % 2 === 1 ||
+        (parentNode.children.length > 1 &&
+          (!this.parenthetical(parentNode) || parentNode.children[0] !== node))); // ugh
     const classes: Classes = {
       mainline: isMainline,
       conceal: conceal === 'conceal',
@@ -176,11 +181,7 @@ export class InlineView {
 
     return hl('move', { attrs: { p }, class: classes }, [
       parentDisclose && this.disclosureBtn(parentNode, parentPath),
-      (!isMainline || this.inline) &&
-        (node.ply % 2 === 1 ||
-          (parentNode.children.length > 1 &&
-            (!this.inOrderLine(parentNode) || parentNode.children[0] !== node))) &&
-        renderIndex(node.ply, true),
+      withIndex && renderIndex(node.ply, true),
       moveNodes(
         node,
         ctrl.showFishnetAnalysis() && isMainline && !this.inline,

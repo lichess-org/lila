@@ -126,10 +126,6 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
   color: $c-font-dim;
 }
 
-// .tview2 move:not(.mainline) {
-//   opacity: 0.9;
-// }
-
 .tview2 interrupt > interrupt {
   display: block;
   margin-inline-start: 9px;
@@ -203,9 +199,6 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
     margin-bottom: 0;
   }
 
-  // comment {
-  //   color: $c-font-dim;
-  // }
   lines move {
     font-size: 13px;
   }
@@ -386,7 +379,6 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
   move {
     @extend %box-radius;
     margin-inline-end: 2px;
-    //font-size: 13.5px;
     font-size: 13px;
     font-weight: bold;
   }

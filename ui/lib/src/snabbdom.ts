@@ -69,7 +69,7 @@ const filterKids = (children: LooseVNodes): VNodeChildElement[] => {
 };
 
 // strip boolean results and flatten arrays in renders.  Allows
-//   hl('div', isDivEmpty || [ 'foo', fooHasKid && [ 'has', 'kid' ])
+//   hl('div', isDivEmpty || [ 'foo', fooHasBar && [ 'has', 'bar' ])
 export function hl(sel: string, dataOrKids?: VNodeData | LooseVNodes, kids?: LooseVNodes): VNode {
   if (kids) return snabH(sel, dataOrKids as VNodeData, filterKids(kids));
   if (!kidFilter(dataOrKids)) return snabH(sel);
