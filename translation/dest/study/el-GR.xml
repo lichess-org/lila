@@ -30,26 +30,26 @@
     <item quantity="one">%s Μέλος</item>
     <item quantity="other">%s Μέλη</item>
   </plurals>
-  <string name="inviteToTheStudy">Προσκάλεσε στην μελέτη</string>
-  <string name="pleaseOnlyInvitePeopleYouKnow">Παρακαλώ, προσκαλέστε μόνο άτομα που γνωρίζετε και που θέλουν να συμμετέχουν ενεργά σε αυτήν την μελέτη.</string>
+  <string name="inviteToTheStudy">Πρόσκληση χρηστών στη μελέτη</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Προσκαλέστε μόνο άτομα που γνωρίζετε και τα οποία επιθυμούν να συμμετέχουν ενεργά σε αυτήν την μελέτη.</string>
   <string name="searchByUsername">Αναζήτηση με όνομα χρήστη</string>
   <string name="spectator">Θεατής</string>
   <string name="contributor">Συνεισφέρων</string>
   <string name="kick">Αποβολή</string>
-  <string name="leaveTheStudy">Αποχώρησε από αυτήν την μελέτη</string>
-  <string name="youAreNowAContributor">Μπορείτε τώρα να συνεισφέρετε στην μελέτη</string>
+  <string name="leaveTheStudy">Αποχώρηση από αυτή τη μελέτη</string>
+  <string name="youAreNowAContributor">Μπορείτε τώρα να συνεισφέρετε στη μελέτη</string>
   <string name="youAreNowASpectator">Είστε πλέον θεατής</string>
-  <string name="pgnTags">PGN ετικέτες</string>
+  <string name="pgnTags">Ετικέτες PGN</string>
   <string name="like">Μου αρέσει</string>
   <string name="unlike">Δε μου αρέσει</string>
   <string name="newTag">Νέα ετικέτα</string>
-  <string name="commentThisPosition">Σχολίασε την υπάρχουσα θέση</string>
-  <string name="commentThisMove">Σχολίασε αυτήν την κίνηση</string>
+  <string name="commentThisPosition">Νέο σχόλιο σε αυτήν τη θέση</string>
+  <string name="commentThisMove">Νέο σχόλιο σε αυτήν την κίνηση</string>
   <string name="annotateWithGlyphs">Σχολιασμός με σύμβολα</string>
   <string name="theChapterIsTooShortToBeAnalysed">Το κεφάλαιο είναι πολύ μικρό για να αναλυθεί.</string>
-  <string name="onlyContributorsCanRequestAnalysis">Μόνο αυτοί που συνεισφέρουν στη μελέτη μπορούν να ζητήσουν ανάλυση από υπολογιστή.</string>
-  <string name="getAFullComputerAnalysis">Αίτηση πλήρης ανάλυσης της κύριας γραμμής παρτίδας από μηχανή του σέρβερ.</string>
-  <string name="makeSureTheChapterIsComplete">Σιγουρευτείτε ότι το κεφάλαιο είναι ολοκληρωμένο. Μπορείτε να ζητήσετε ανάλυση μόνο μια φορά.</string>
+  <string name="onlyContributorsCanRequestAnalysis">Μόνο όσοι συνεισφέρουν στη μελέτη μπορούν να ζητήσουν ανάλυση από υπολογιστή.</string>
+  <string name="getAFullComputerAnalysis">Πλήρης ανάλυσης της κύριας βαριάντας από μηχανή στον διακομιστή.</string>
+  <string name="makeSureTheChapterIsComplete">Βεβαιωθείτε πως το κεφάλαιο είναι ολοκληρωμένο. Μπορείτε να ζητήσετε ανάλυση μόνο μια φορά.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Όλα τα συγχρονισμένα μέλη παραμένουν στην ίδια θέση</string>
   <string name="shareChanges">Κοινοποίηση των αλλαγών στους θεατές και αποθήκευσή τους στον διακομιστή</string>
   <string name="playing">Σε εξέλιξη</string>
@@ -165,11 +165,24 @@
   <string name="whatWouldYouPlay">Τι θα παίζατε σε αυτή τη θέση;</string>
   <string name="youCompletedThisLesson">Συγχαρητήρια! Ολοκληρώσατε αυτό το μάθημα.</string>
   <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">%s ανά σελίδα</string>
+  <string name="getTheTour">Χρειάζεστε βοήθεια; Ξεναγηθείτε!</string>
+  <string name="welcomeToLichessStudyTitle">Καλώς ήρθατε στις μελέτες του Lichess!</string>
+  <string name="welcomeToLichessStudyText">Αυτή είναι η κοινή σκακιέρα ανάλυσης.&lt;br&gt;&lt;br&gt;Χρησιμοποιήστε την για να αναλύσετε και να σχολιάσετε παρτίδες,&lt;br&gt;για να συζητήσετε συγκεκριμένες θέσεις με φίλους&lt;br&gt;και φυσικά για να δημιουργήσετε σκακιστικά μαθήματα!&lt;br&gt;&lt;br&gt;Η σκακιέρα ανάλυσης είναι πολύ ισχυρό εργαλείο — ας δούμε, λοιπόν, πώς λειτουργεί.</string>
   <string name="sharedAndSaveTitle" comment="Appears as the title of a pop-up lightbox in the guided tour of Lichess Studies.&#10;&#10;As in: shared with other members &amp; saved to the database.">Κοινοποιήθηκε και αποθηκεύτηκε</string>
+  <string name="sharedAndSavedText">Τα άλλα μέλη της μελέτης μπορούν να δουν τις κινήσεις που κάνετε σε πραγματικό χρόνο!&lt;br&gt;Και βέβαια, οτιδήποτε εισάγετε αποθηκεύεται για πάντα.</string>
   <string name="studyMembersTitle">Μέλη μελέτης</string>
+  <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">Οι %1$s θεατές μπορούν να προβάλλουν τη μελέτη και να συνομιλήσουν στο chat.&lt;br&gt;&lt;br&gt;Οι %2$s συνεισφέροντες μπορούν να εισάγουν κινήσεις και να ενημερώσουν τη μελέτη.</string>
+  <string name="addMembersText" comment="%s is an icon that will added at runtime">Κάντε κλικ στο κουμπί %s&lt;br&gt;για να επεξεργαστείτε τη λίστα με τους συνεισφέροντες.</string>
+  <string name="studyChaptersTitle">Κεφάλαια μελέτης</string>
   <string name="studyChaptersText">Μια μελέτη μπορεί να περιέχει παραπάνω από ένα κεφάλαια.&lt;br&gt;Κάθε κεφάλαιο έχει τη δική του αρχική θέση και το δικό του δέντρο κινήσεων.</string>
+  <string name="commentPositionTitle">Δημιουργία σχολίου σε μια θέση</string>
+  <string name="commentPositionText" comment="%s is an icon that will added at runtime">Κάντε κλικ στο κουμπί %s ή δεξί κλικ στη λίστα των κινήσεων δεξιά.&lt;br&gt;Τα σχόλια κοινοποιούνται και αποθηκεύονται.</string>
+  <string name="annotatePositionTitle">Δημιουργία σχολίου με σύμβολα σε μία θέση</string>
+  <string name="annotatePositionText">Κάντε κλικ στο κουμπί !? ή δεξί κλικ στη λίστα των κινήσεων δεξιά.&lt;br&gt;Τα σχόλια με σύμβολα κοινοποιούνται και αποθηκεύονται.</string>
   <string name="conclusionTitle">Σας ευχαριστούμε για τον χρόνο σας</string>
+  <string name="conclusionText">Μπορείτε να βρείτε τις&lt;a href=\'/study/mine/hot\'&gt;προηγούμενες μελέτες σας&lt;/a&gt; στη σελίδα προφίλ σας.&lt;br&gt;Έχουμε επίσης δημοσιεύσει μια &lt;a href=\'//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way\'&gt;ανάρτηση για τις μελέτες στο ιστολόγιό μας&lt;/a&gt;.&lt;br&gt;Οι έμπειροι χρήστες μπορούν να πατήσουν το πλήκτρο «?» για να δουν τους διαθέσιμους συνδυασμούς πλήκτρων.&lt;br&gt;Καλή διασκέδαση!</string>
   <string name="createChapterTitle">Ας δημιουργήσουμε μαζί ένα νέο κεφάλαιο</string>
+  <string name="createChapterText">Μια μελέτη μπορεί να περιέχει παραπάνω από ένα κεφάλαια.&lt;br&gt;Κάθε κεφάλαιο έχει το δικό του δέντρο κινήσεων&lt;br&gt;και μπορεί να δημιουργηθεί με πολλούς τρόπους.</string>
   <string name="fromInitialPositionTitle">Αρχική θέση</string>
   <string name="fromInitialPositionText">Η αρχική διάταξη των κομματιών της σκακιέρας.&lt;br&gt;Ιδανική επιλογή για την εξερεύνηση και τη μελέτη ανοιγμάτων.</string>
   <string name="customPositionTitle">Προσαρμοσμένη θέση</string>
@@ -182,6 +195,8 @@
   <string name="fromPgnGameTitle">Παρτίδα από αρχείο PGN</string>
   <string name="fromPgnGameText">Φορτώστε μια παρτίδα επικολλώντας το αντίστοιχο&lt;br&gt;αρχείο PGN για να φορτώσετε τις κινήσεις, τα σχόλια και τις βαριάντες στο κεφάλαιο.</string>
   <string name="variantsAreSupportedTitle">Οι μελέτες υποστηρίζουν τις παραλλαγές</string>
+  <string name="variantsAreSupportedText">Μπορείτε να δημιουργήσετε μία μελέτη Crazyhouse&lt;br&gt;η μία μελέτη με οποιαδήποτε άλλη παραλλαγή υποστηρίζει το Lichess!</string>
+  <string name="chapterConclusionText">Τα κεφάλαια αποθηκεύονται για πάντα&lt;br&gt;Ευχόμαστε καλή διασκέδαση και καλή επιτυχία στην οργάνωση του σκακιστικού σας περιεχομένου!</string>
   <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Διπλή ήττα</string>
   <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">Τα Μαύρα έχασαν, ενώ τα Λευκά δεν μπορούν να κερδίσουν</string>
   <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">Τα Λευκά έχασαν, ενώ τα Μαύρα δεν μπορούν να κερδίσουν</string>
