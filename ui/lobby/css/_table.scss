@@ -11,8 +11,8 @@
 
     justify-content: stretch;
     flex: 1 1 auto;
-    gap: 0.5em;
     margin-inline: 2em;
+    gap: 9px; // grid gap in app/_pool.scss
 
     button {
       font-size: 1.2em;
