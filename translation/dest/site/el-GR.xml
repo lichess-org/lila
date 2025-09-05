@@ -28,7 +28,7 @@
   <string name="youPlayTheWhitePieces">Παίζετε τα λευκά</string>
   <string name="youPlayTheBlackPieces">Παίζετε τα μαύρα</string>
   <string name="itsYourTurn">Είναι η σειρά σας!</string>
-  <string name="cheatDetected">Βρέθηκε απάτη</string>
+  <string name="cheatDetected">Διαπιστώθηκε χρήση εξωτερικής βοήθειας</string>
   <string name="kingInTheCenter">Βασιλιάς στο κέντρο</string>
   <string name="threeChecks">Τρία σαχ</string>
   <string name="raceFinished">Τέλος αγώνα</string>
@@ -62,20 +62,20 @@
   <string name="usingServerAnalysis">Ανάλυση διακομιστή</string>
   <string name="loadingEngine">Εκκίνηση μηχανής ...</string>
   <string name="calculatingMoves">Υπολογισμός κινήσεων...</string>
-  <string name="engineFailed">Σφάλμα κατά τη φόρτωση της μηχανής</string>
+  <string name="engineFailed">Δεν ήταν δυνατή η φόρτωση της μηχανής</string>
   <string name="cloudAnalysis">Ανάλυση σε νέφος</string>
   <string name="goDeeper">Βαθύτερα</string>
   <string name="showThreat">Εμφάνιση απειλής</string>
   <string name="inLocalBrowser">σε τοπικό περιηγητή</string>
   <string name="toggleLocalEvaluation">Εναλλαγή τοπικής αξιολόγησης</string>
   <string name="promoteVariation">Προώθηση βαριάντας</string>
-  <string name="makeMainLine">Δημιουργία κύριας γραμμής</string>
+  <string name="makeMainLine">Ορισμός ως κύρια βαριάντα</string>
   <string name="deleteFromHere">Διαγραφή από εδώ</string>
-  <string name="collapseVariations">Σύμπτυξη παραλλαγών</string>
-  <string name="expandVariations">Εμφάνιση βαριάντων</string>
+  <string name="collapseVariations">Σύμπτυξη βαριάντων</string>
+  <string name="expandVariations">Ανάπτυξη βαριάντων</string>
   <string name="forceVariation">Θέσε σε βαριάντα</string>
-  <string name="copyVariationPgn">Αντιγραφή PGN αρχείου κινήσεων</string>
-  <string name="copyMainLinePgn">Αντιγραφή κύριας βαριάντας PGN</string>
+  <string name="copyVariationPgn">Αντιγραφή βαριάντας ως PGN</string>
+  <string name="copyMainLinePgn">Αντιγραφή κύριας βαριάντας ως PGN</string>
   <string name="move">Κίνηση</string>
   <string name="variantLoss">Ήττα εκδοχής</string>
   <string name="variantWin">Νίκη εκδοχής</string>
@@ -92,7 +92,7 @@
   <string name="averageRatingX">Μέση βαθμολογία: %s</string>
   <string name="recentGames">Πρόσφατα παιχνίδια</string>
   <string name="topGames">Κορυφαίες παρτίδες</string>
-  <string name="masterDbExplanation">Παρτίδες OTB %1$s + παικτών με αξιολόγηση FIDE, από %2$s έως %3$s</string>
+  <string name="masterDbExplanation">Διά ζώσης παρτίδες παικτών με FIDE elo %1$s+, από το %2$s έως %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Ματ σε %s μισή κίνηση</item>
     <item quantity="other">Ματ σε %s μισές κινήσεις</item>
@@ -105,12 +105,12 @@
   <string name="openingExplorer">Εξερευνητής ανοιγμάτων</string>
   <string name="openingEndgameExplorer">Εξερευνητής ανοιγμάτων/φινάλε</string>
   <string name="xOpeningExplorer">%s εξερευνητής ανοιγμάτων</string>
-  <string name="playFirstOpeningEndgameExplorerMove">Κλειδί: παίξτε ΠρώταΆνοιγμαΦινάλεΕξερευνητήςΚίνηση</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Πραγματοποίηση της πρώτης κίνησης στη λίστα του εξερευνητή ανοιγμάτων/φινάλε</string>
   <string name="winPreventedBy50MoveRule">H νίκη εμποδίζεται από τον κανόνα των 50 κινήσεων</string>
   <string name="lossSavedBy50MoveRule">Η ήττα αποτρέπεται από τον κανόνα των 50 κινήσεων</string>
   <string name="winOr50MovesByPriorMistake">Νίκη ή ισοπαλία από 50 κινήσεις λόγω λάθους</string>
   <string name="lossOr50MovesByPriorMistake">Ήττα ή ισοπαλία από 50 κινήσεις λόγω λάθους</string>
-  <string name="unknownDueToRounding">Η νίκη/ήττα είναι εγγυημένη μόνο εάν έχει ακολουθηθεί η συνιστώμενη γραμμή βάσης από την τελευταία κίνηση πιονιού ή την τελευταία αλλαγή, λόγω πιθανής στρογγυλοποίησης.</string>
+  <string name="unknownDueToRounding">Η νίκη/ήττα είναι εγγυημένη μόνο εάν έχει ακολουθηθεί η συνιστώμενη βαριάντα του tablebase από την τελευταία κίνηση πιονιού ή την τελευταία αλλαγή, λόγω πιθανής στρογγυλοποίησης.</string>
   <string name="allSet">Εφαρμογή!</string>
   <string name="importPgn">Εισαγωγή PGN</string>
   <string name="delete">Διαγραφή</string>
@@ -397,7 +397,7 @@
     <item quantity="other">Πρέπει να παίξετε %s βαθμολογημένα παιχνίδια</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Η %s βαθμολογία σας είναι προσωρινή</string>
-  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Τα φίλτρα βαθμολογιών είναι κλειδωμένα επειδή η βαθμολογία σας δεν είναι σταθερή ακόμα. Δοκιμάστε να παίξετε αξιολογημένες παρτίδες για να τη σταθεροποιήσετε.</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Τα φίλτρα βαθμολογιών είναι κλειδωμένα επειδή η βαθμολογία σας δεν είναι σταθερή ακόμα. Δοκιμάστε να παίξετε μερικές βαθμολογημένες παρτίδες για να τη σταθεροποιήσετε.</string>
   <string name="yourPerfRatingIsTooHigh">Η %1$s βαθμολογία σας (%2$s) είναι πολύ υψηλή</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Η κορυφαία εβδομαδιαία %1$s βαθμολογία σας (%2$s) είναι πολύ υψηλή</string>
   <string name="yourPerfRatingIsTooLow">Η %1$s βαθμολογία σας (%2$s) είναι πολύ χαμηλή</string>
@@ -875,7 +875,7 @@
   <string name="middlegame">Μέσο</string>
   <string name="endgame">Φινάλε</string>
   <string name="conditionalPremoves">Υποθετικές προκινήσεις</string>
-  <string name="addCurrentVariation">Προσθέστε τρέχουσα παραλλαγή</string>
+  <string name="addCurrentVariation">Προσθήκη τρέχουσας βαριάντας</string>
   <string name="playVariationToCreateConditionalPremoves">Παίξτε μια παραλλαγή για να δημιουργήσετε υποθετικές προκινήσεις</string>
   <string name="noConditionalPremoves">Καμία υποθετική προκίνηση</string>
   <string name="playX">Παίξτε %s</string>
