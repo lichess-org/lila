@@ -86,33 +86,33 @@
   <string name="deleteThisChapter">Θέλετε σίγουρα να διαγράψετε αυτό το κεφάλαιο; Η ενέργεια αυτή δεν αναιρείται!</string>
   <string name="clearAllCommentsInThisChapter">Εκκαθάριση όλων των σχολίων, των συμβόλων και των σχεδίων στο τρέχον κεφάλαιο</string>
   <string name="rightUnderTheBoard">Κάτω από την σκακιέρα</string>
-  <string name="noPinnedComment">Καμία</string>
+  <string name="noPinnedComment">Κανένα</string>
   <string name="normalAnalysis">Απλή ανάλυση</string>
   <string name="hideNextMoves">Απόκρυψη επόμενων κινήσεων</string>
   <string name="interactiveLesson">Διαδραστικό μάθημα</string>
   <string name="chapterX">Κεφάλαιο %s</string>
-  <string name="empty">Κενή</string>
-  <string name="startFromInitialPosition">Έναρξη από τρέχουσα θέση</string>
+  <string name="empty">Αρχική</string>
+  <string name="startFromInitialPosition">Έναρξη από την αρχική θέση</string>
   <string name="editor">Επεξεργαστής</string>
-  <string name="startFromCustomPosition">Έναρξη από τρέχουσα θέση</string>
-  <string name="loadAGameByUrl">Φόρτωση παρτίδας με URL</string>
+  <string name="startFromCustomPosition">Έναρξη από μια προσαρμοσμένη θέση</string>
+  <string name="loadAGameByUrl">Φόρτωση παρτίδας από μια διεύθυνση URL</string>
   <string name="loadAPositionFromFen">Φόρτωση θέσης από FEN</string>
-  <string name="loadAGameFromPgn">Φόρτωσε μια παρτίδα από PGN</string>
-  <string name="automatic">Αυτόματο</string>
+  <string name="loadAGameFromPgn">Φόρτωση μιας παρτίδας από ένα αρχείο PGN</string>
+  <string name="automatic">Να οριστεί αυτόματα</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="one">Επικολλήστε το PGN εδώ, μέχρι %s παρτίδα</item>
-    <item quantity="other">Επικολλήστε παιχνίδια ως PGN εδώ. Θα δημιουργηθεί κεφάλαιο για κάθε παιχνίδι. Η μελέτη μπορεί να έχει μέχρι %s κεφάλαια.</item>
+    <item quantity="one">Επικολλήστε το αρχείο PGN εδώ (μέχρι %s παρτίδα επιτρέπεται)</item>
+    <item quantity="other">Επικολλήστε το PGN εδώ. Για κάθε παρτίδα θα δημιουργηθεί νέο κεφάλαιο. Μια μελέτη μπορεί να έχει μέχρι %s κεφάλαια.</item>
   </plurals>
-  <string name="urlOfTheGame">URL παρτίδων, ένα ανά γραμμή</string>
+  <string name="urlOfTheGame">Διεύθύνσεις URL παρτίδων (μία σε κάθε γραμμή)</string>
   <string name="loadAGameFromXOrY">Φόρτωση παρτίδων από %1$s ή %2$s</string>
   <string name="createChapter">Δημιουργία κεφαλαίου</string>
   <string name="createStudy">Δημιουργία μελέτης</string>
   <string name="editStudy">Επεξεργασία μελέτης</string>
   <string name="visibility">Ορατότητα</string>
   <string name="public">Δημόσια</string>
-  <string name="unlisted">Ακαταχώρητη</string>
+  <string name="unlisted">Μη καταχωρισμένη</string>
   <string name="inviteOnly">Με πρόσκληση</string>
-  <string name="allowCloning">Επέτρεψε αντιγραφή</string>
+  <string name="allowCloning">Δημιουργία αντιγράφου</string>
   <string name="nobody">Κανένας</string>
   <string name="onlyMe">Μόνο εγώ</string>
   <string name="contributors">Συνεισφέροντες</string>
@@ -127,8 +127,8 @@
   <string name="clearChat">Εκκαθάριση συνομιλίας</string>
   <string name="deleteTheStudyChatHistory">Διαγραφή συνομιλίας μελέτης; Μη αναιρέσιμη ενέργεια!</string>
   <string name="deleteStudy">Διαγραφή μελέτης</string>
-  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Να διαγραφεί όλη η μελέτη; Η ενέργεια αυτή δεν μπορεί να αναιρεθεί! Πληκτρολογήστε το όνομα της μελέτης για επιβεβαίωση: %s</string>
-  <string name="whereDoYouWantToStudyThat">Που θέλετε να δημιουργήσετε την μελέτη;</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Θέλετε σίγουρα να διαγραφεί όλη η μελέτη; Η ενέργεια αυτή δεν μπορεί να αναιρεθεί! Πληκτρολογήστε το όνομα της μελέτης για επιβεβαίωση: %s</string>
+  <string name="whereDoYouWantToStudyThat">Πού θέλετε να μελετήσετε αυτή τη θέση;</string>
   <string name="goodMove">Καλή κίνηση</string>
   <string name="mistake">Λάθος</string>
   <string name="brilliantMove">Εξαιρετική κίνηση</string>
