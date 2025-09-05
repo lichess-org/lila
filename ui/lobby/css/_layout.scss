@@ -89,7 +89,7 @@
 
     &__start {
       justify-content: center;
-      margin-inline: 2em;
+      margin-inline: 0 4em;
 
       button {
         padding: 1em;
@@ -101,7 +101,6 @@
     }
 
     &__counters {
-      margin: 0;
       flex-flow: column;
       align-items: flex-start;
       position: absolute;

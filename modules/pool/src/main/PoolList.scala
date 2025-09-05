@@ -24,7 +24,8 @@ object PoolList:
     PoolConfig(10 ++ 5, Wave(20.seconds, 30.players)),
     PoolConfig(15 ++ 10, Wave(30.seconds, 20.players)),
     PoolConfig(30 ++ 0, Wave(40.seconds, 20.players)),
-    PoolConfig(30 ++ 20, Wave(60.seconds, 20.players))
+    PoolConfig(30 ++ 20, Wave(60.seconds, 20.players)),
+    PoolConfig(45 ++ 45, Wave(60.seconds, 20.players))
   )
 
   val clockStringSet: Set[String] = all.view.map(_.clock.show) to Set
