@@ -1,3 +1,5 @@
+type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH' | 'OPTIONS' | 'HEAD';
+
 type Menu = {
   items: MenuItem[];
   moreLabel: string;
@@ -9,6 +11,7 @@ type MenuItem = {
   href: string;
   category?: string;
   cssClass?: string;
+  httpMethod?: HttpMethod;
 };
 
 site.load.then(() => {
@@ -73,17 +76,32 @@ function renderMenu(container: HTMLElement): void {
   moreButton.textContent = `${moreLabel} ▾`;
   dropdownDiv.appendChild(moreButton);
 
-  let displayedItemCount = 0;
-
-  for (const item of items) {
+  const createMenuButton = (className: string, item: MenuItem): HTMLAnchorElement => {
     const button = document.createElement('a');
-    button.className = 'btn-rack__btn';
+    button.className = className;
     if (item.cssClass) {
       button.classList.add(item.cssClass);
     }
     button.textContent = item.label;
     button.href = item.href;
     button.setAttribute('data-icon', item.icon);
+
+    if (item.httpMethod && item.httpMethod !== 'GET') {
+      button.href = window.location.href;
+      button.onclick = () => {
+        fetch(item.href, {
+          method: item.httpMethod,
+        });
+      };
+    }
+
+    return button;
+  };
+
+  let displayedItemCount = 0;
+
+  for (const item of items) {
+    const button = createMenuButton('btn-rack__btn', item);
     menuContainer.insertBefore(button, dropdownDiv);
 
     if (container.offsetWidth > initialWidth) {
@@ -130,14 +148,7 @@ function renderMenu(container: HTMLElement): void {
     });
 
     for (let i = displayedItemCount; i < items.length; i++) {
-      const button = document.createElement('a');
-      button.className = 'text';
-      if (items[i].cssClass) {
-        button.classList.add(items[i].cssClass!);
-      }
-      button.textContent = items[i].label;
-      button.href = items[i].href;
-      button.setAttribute('data-icon', items[i].icon);
+      const button = createMenuButton('text', items[i]);
       dropdownWindow.appendChild(button);
     }
   } else {

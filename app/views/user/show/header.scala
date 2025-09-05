@@ -6,7 +6,7 @@ import lila.app.mashup.UserInfo
 import lila.user.Plan.sinceDate
 import lila.user.PlayTime.*
 import lila.user.Profile.*
-import lila.ui.{ Menu, MenuItem }
+import lila.ui.{ HttpMethod, Menu, MenuItem }
 
 object header:
 
@@ -86,7 +86,12 @@ object header:
           ctx.me
             .soUse(lila.mod.canImpersonate(u.id))
             .option(
-              MenuItem("Impersonate", Icon.Agent, routes.Mod.impersonate(u.username.value).url)
+              MenuItem(
+                "Impersonate",
+                Icon.Agent,
+                routes.Mod.impersonate(u.username.value).url,
+                httpMethod = Some(HttpMethod.POST)
+              )
             )
         ).flatten,
       trans.site.more.txt()
