@@ -18,7 +18,7 @@
   <string name="yourPuzzleRatingWillNotChange">Η βαθμολογία τακτικών σας δε θα αλλάξει. Σημειώνουμε πως η επίλυση τακτικών δεν είναι διαγωνιστική διαδικασία — η βαθμολογία σας, άλλωστε, χρησιμοποιείται ως μέτρο για την επιλογή τακτικών δυσκολίας αντίστοιχης με το επίπεδο στο οποίο βρίσκεστε.</string>
   <string name="findTheBestMoveForWhite">Βρείτε την καλύτερη κίνηση για τα λευκά.</string>
   <string name="findTheBestMoveForBlack">Βρείτε την καλύτερη κίνηση για τα μαύρα.</string>
-  <string name="toGetPersonalizedPuzzles">Για να λύνετε εξατομικευμένα τακτικά:</string>
+  <string name="toGetPersonalizedPuzzles">Για να λύνετε εξατομικευμένα τακτικά, κάντε:</string>
   <string name="puzzleId">Τακτικό %s</string>
   <string name="puzzleOfTheDay">Τακτικό της ημέρας</string>
   <string name="dailyPuzzle">Τακτικό της ημέρας</string>
