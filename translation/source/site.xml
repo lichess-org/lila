@@ -346,7 +346,7 @@
     <item quantity="other">%s playing</item>
   </plurals>
   <string name="exportGames">Export games</string>
-  <string name="opponentRange">Opponent range</string>
+  <string name="findAnOpponentWithin">Find an opponent within</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Give %s second</item>
     <item quantity="other">Give %s seconds</item>

@@ -19,26 +19,27 @@ $c-slider: $c-setup;
     background: $c-bg-zebra;
   }
 
+  .disabled {
+    opacity: 0.4;
+    cursor: default !important;
+  }
+
   group.radio {
     width: 70%;
     align-self: center;
-    .disabled {
-      opacity: 0.4;
-      cursor: default;
-    }
 
     input:checked + label {
       background: $c-setup;
     }
   }
 
+  > div {
+    @extend %flex-column;
+  }
+
   .config-group {
     @extend %flex-column;
     gap: 0.5rem;
-  }
-
-  .config-group.disabled {
-    opacity: 0.5;
   }
 
   .fen__form {
@@ -57,7 +58,7 @@ $c-slider: $c-setup;
   .failure {
     background: $m-bad_bg--mix-20;
     box-shadow: 0 0 13px 6px $m-bad_bg--mix-20;
-    border-radius: 0.5em;
+    border-radius: 0.5rem;
   }
 
   group.radio.color-picker {
@@ -72,8 +73,8 @@ $c-slider: $c-setup;
     padding: 1.1rem;
 
     button {
-      height: 3em;
-      padding-inline: 1em 1.2em;
+      height: 3rem;
+      padding-inline: 1rem 1.2rem;
       gap: 0.75em;
     }
   }
@@ -81,7 +82,7 @@ $c-slider: $c-setup;
   .radio-pane {
     @extend %flex-center-nowrap;
     justify-content: center;
-    gap: 0.8em;
+    gap: 0.8rem;
   }
 
   .create-game-button {
@@ -94,7 +95,7 @@ $c-slider: $c-setup;
     flex-flow: row nowrap;
     align-items: flex-end;
     justify-content: center;
-    margin: 1em auto;
+    margin: 1rem auto;
     text-align: center;
 
     &__button {
@@ -136,8 +137,8 @@ $c-slider: $c-setup;
     }
 
     input {
-      font-size: 1.5em;
-      margin-top: 0.2em;
+      font-size: 1.5rem;
+      margin-top: 0.2rem;
       padding: 0;
       width: 90%;
     }
@@ -146,13 +147,17 @@ $c-slider: $c-setup;
   .rating-range {
     @extend %flex-center-nowrap;
     justify-content: center;
+    font-size: 1.25rem;
+
     .rating-min,
     .rating-max {
-      flex: 0 0 7ch;
+      font-weight: bold;
+      flex: 0 0 5.5ch;
     }
     input {
+      font-size: 1.5rem;
+      padding: 0;
       width: 30%;
-      padding: 0.6em 0;
     }
   }
 
@@ -160,7 +165,7 @@ $c-slider: $c-setup;
     width: 100%;
     text-align: center;
     strong {
-      margin-inline-end: 0.25em;
+      margin-inline-end: 0.254em;
     }
   }
 
@@ -177,7 +182,7 @@ $c-slider: $c-setup;
     }
 
     select {
-      margin-inline-start: 0.8em;
+      margin-inline-start: 0.8rem;
       font-weight: bold;
     }
   }
@@ -200,6 +205,6 @@ $c-slider: $c-setup;
 
 @media (pointer: coarse) {
   .game-setup select {
-    font-size: 1.2em;
+    font-size: 1.2rem;
   }
 }

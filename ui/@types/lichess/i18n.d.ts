@@ -3339,6 +3339,8 @@ interface I18n {
     fiftyMovesWithoutProgress: string;
     /** Filter games */
     filterGames: string;
+    /** Find an opponent within */
+    findAnOpponentWithin: string;
     /** Find a better move for black */
     findBetterMoveForBlack: string;
     /** Find a better move for white */
@@ -3835,8 +3837,6 @@ interface I18n {
     opponentLeftChoices: string;
     /** Your opponent left the game. You can claim victory in %s seconds. */
     opponentLeftCounter: I18nPlural;
-    /** Opponent range */
-    opponentRange: string;
     /** Or let your opponent scan this QR code */
     orLetYourOpponentScanQrCode: string;
     /** Or upload a PGN file */

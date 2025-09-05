@@ -66,8 +66,8 @@ const views = {
     variantPicker(ctrl),
     timePickerAndSliders(ctrl),
     gameModeButtons(ctrl),
-    ratingDifferenceSliders(ctrl),
     ratingView(ctrl),
+    ratingDifferenceSliders(ctrl),
     colorButtons(ctrl),
   ],
   friend: (ctrl: LobbyController): LooseVNodes => [

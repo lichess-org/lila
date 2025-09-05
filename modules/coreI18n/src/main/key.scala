@@ -1709,7 +1709,7 @@ object I18nKey:
     val `incrementInSeconds`: I18nKey = "incrementInSeconds"
     val `freeOnlineChess`: I18nKey = "freeOnlineChess"
     val `exportGames`: I18nKey = "exportGames"
-    val `opponentRange`: I18nKey = "opponentRange"
+    val `findAnOpponentWithin`: I18nKey = "findAnOpponentWithin"
     val `thisAccountViolatedTos`: I18nKey = "thisAccountViolatedTos"
     val `openingExplorerAndTablebase`: I18nKey = "openingExplorerAndTablebase"
     val `takeback`: I18nKey = "takeback"
