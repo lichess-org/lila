@@ -1,9 +1,8 @@
 export const openInApp = (url: string): string => {
-  const parsed = URL.parse(url);
-
-  if (parsed) {
+  try {
+    const parsed = new URL(url);
     return 'lichess-broadcaster:/' + parsed.pathname;
+  } catch (e) {
+    throw new Error('Cannot parse URL');
   }
-
-  throw new Error('Cannot parse URL');
 };
