@@ -87,8 +87,8 @@ const stateOff = (ctrl: RelayCtrl) =>
     [hl('div.fat', 'Click to connect')],
   );
 
-const statePush = (ctrl: RelayCtrl) => {
-  return hl('div.state.push', { attrs: dataIcon(licon.UploadCloud) }, [
+const statePush = (ctrl: RelayCtrl) =>
+  hl('div.state.push', { attrs: dataIcon(licon.UploadCloud) }, [
     hl('div', [
       'Listening to ',
       hl('a', { attrs: { href: '/broadcast/app' } }, 'Broadcaster App'),
@@ -98,7 +98,6 @@ const statePush = (ctrl: RelayCtrl) => {
       ]),
     ]),
   ]);
-};
 
 const dateFormatter = memoize(
   () =>
