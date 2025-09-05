@@ -577,10 +577,10 @@
   <string name="reportAUser">Пријави корисника</string>
   <string name="user">Корисник</string>
   <string name="reason">Разлог</string>
-  <string name="whatIsIheMatter">Y чему је проблем?</string>
+  <string name="whatIsIheMatter">Шта је у питању?</string>
   <string name="cheat">Варање</string>
-  <string name="troll">Трол</string>
-  <string name="other">Остало</string>
+  <string name="troll">Провоцирање</string>
+  <string name="other">Друго</string>
   <string name="reportCheatBoostHelp">Залијепите везу до игре и објасните шта није у реду са понашањем корисника. Немојте само рећи \"варао\", али реците како сте дошли до тог закључка. Ваша пријава ће бити обрађена брже ако је напишете на енглеском језику.</string>
   <string name="reportUsernameHelp">Објасните шта је неприкладно у имену корисника. Немојте само да кажете да је неприкладно, реците нам како сте то закључили, поготово ако је увреда збуњујућа, није у енглеском, у сленгу, или де односи на културу/историју.</string>
   <string name="reportProcessedFasterInEnglish">Ваша пријава ће бити обрађена брже ако је написана на енглеском језику.</string>
