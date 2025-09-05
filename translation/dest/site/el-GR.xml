@@ -427,10 +427,9 @@
   <string name="continueFromHere">Συνέχεια από εδώ</string>
   <string name="toStudy">Μελέτη</string>
   <string name="importGame">Εισαγωγή παιχνιδιού</string>
-  <string name="importGameExplanation">Επικολλήστε PGN παιχνιδιού για να δημιουργήσετε περιηγήσιμη αναπαραγωγή, 
-ανάλυση από υπολογιστή, συνομιλία παιχνιδιού και κοινόχρηστο URL.</string>
-  <string name="importGameCaveat">Οι παραλλαγές θα διαγραφούν. Για να τις κρατήσετε εισάγεται το PGN μέσω μιας μελέτης.</string>
-  <string name="importGameDataPrivacyWarning">Αυτό το PGN είναι προσβάσιμο από το κοινό. Για να εισαγάγετε ένα παιχνίδι ιδιωτικά, χρησιμοποιήστε μια μελέτη.</string>
+  <string name="importGameExplanation">Επικολλήστε μια παρτίδα σε μορφή PGN. Με την εισαγωγή της παρτίδας, θα έχετε τη δυνατότητα να περιηγηθείτε στις κινήσεις, θα έχετε πρόσβαση σε ανάλυση υπολογιστή και θα μπορείτε να συνομιλήσετε με άλλους θεατές της παρτίδας, ενώ η διεύθυνση URL θα είναι δημόσια και μπορείτε, αν θέλετε, να την κοινοποιήσετε.</string>
+  <string name="importGameCaveat">Τυχόν βαριάντες εκτός της κύριας θα διαγραφούν. Αν θέλετε να τις διατηρήσετε, δημιουργήστε μια μελέτη και εισάγετε σε αυτήν το αρχείο PGN.</string>
+  <string name="importGameDataPrivacyWarning">Η παρτίδα που θα εισαγάγετε θα είναι προσβάσιμη δημόσια. Δημιουργήστε μια μελέτη αν θέλετε η παρτίδα να είναι ιδιωτική.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Εισαγόμενο παιχνίδι</item>
     <item quantity="other">%s Εισαγόμενα παιχνίδια</item>
@@ -452,8 +451,8 @@
   <string name="follow">Ακολουθήστε</string>
   <string name="following">Ακολουθείτε</string>
   <string name="unfollow">Κατάργηση παρακολούθησης</string>
-  <string name="followX">Ακολουθήστε τον %s</string>
-  <string name="unfollowX">Κατάργηση ακολούθησης του %s</string>
+  <string name="followX">Ακολουθήστε τον χρήστη %s</string>
+  <string name="unfollowX">Κατάργηση ακολούθησης του χρήστη %s</string>
   <string name="block">Αποκλείστε</string>
   <string name="blocked">Αποκλεισμένος</string>
   <string name="unblock">Κατάργηση απόκλεισης</string>
@@ -481,13 +480,13 @@
   <string name="duration">Διάρκεια</string>
   <string name="winner">Νικητής</string>
   <string name="standings">Κατάταξη</string>
-  <string name="createANewTournament">Δημιουργήστε νέο τουρνουά</string>
+  <string name="createANewTournament">Δημιουργία νέου τουρνουά</string>
   <string name="tournamentCalendar">Ημερολόγιο τουρνουά</string>
   <string name="conditionOfEntry">Προϋπόθεση εισόδου:</string>
   <string name="advancedSettings">Ρυθμίσεις για προχωρημένους</string>
   <string name="safeTournamentName">Διαλέξτε ένα πολύ ασφαλές όνομα για το τουρνουά.</string>
-  <string name="inappropriateNameWarning">Οτιδήποτε ακόμα και ελάχιστα ακατάλληλο μπορεί να κλείσει τον λογαριασμό σας.</string>
-  <string name="emptyTournamentName">Αφήστε το κενό για να πάρει το όνομά του τυχαία από κάποιον γνωστό σκακιστή.</string>
+  <string name="inappropriateNameWarning">Η επιλογή ακατάλληλου ή προσβλητικού ονόματος ενδέχεται να οδηγήσει στο κλείσιμο του λογαριασμού σας.</string>
+  <string name="emptyTournamentName">Αφήστε το παραπάνω πεδίο κενό αν θέλετε το τουρνουά να πάρει αυτόματα το όνομα κάποιου γνωστού σκακιστή.</string>
   <string name="makePrivateTournament">Κάντε το τουρνουά ιδιωτικό, και περιορίστε την πρόσβαση με κωδικό</string>
   <string name="join">Συμμετοχή</string>
   <string name="withdraw">Απόσυρση</string>
@@ -505,7 +504,7 @@
   <string name="movesPlayed">Παιγμένες κινήσεις</string>
   <string name="whiteWins">Τα άσπρα νικούν</string>
   <string name="blackWins">Τα μαύρα νικούν</string>
-  <string name="drawRate">Ποσοστά ισοπαλίας</string>
+  <string name="drawRate">Ποσοστό ισοπαλιών</string>
   <string name="draws">Ισοπαλίες</string>
   <string name="averageOpponent">Μέση βαθμολογία αντιπάλων</string>
   <string name="boardEditor">Προετοιμαστής σκακιέρας</string>
@@ -524,16 +523,16 @@
   <string name="profile">Προφίλ</string>
   <string name="editProfile">Επεξεργασία προφίλ</string>
   <string name="realName">Πραγματικό όνομα</string>
-  <string name="setFlair">Ορίστε τη νιφάδα σας</string>
-  <string name="flair">Νιφάδα</string>
-  <string name="youCanHideFlair">Υπάρχει μια ρύθμιση για να κρύψει όλες τις νιφάδες χρήστη σε ολόκληρη την ιστοσελίδα.</string>
+  <string name="setFlair">Ορίστε το flair σας</string>
+  <string name="flair">Flair</string>
+  <string name="youCanHideFlair">Μπορείτε να αποκρύψετε όλα τα flair χρηστών σε ολόκληρη την ιστοσελίδα από τις ρυθμίσεις.</string>
   <string name="biography">Βιογραφικό</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Χώρα ή περιοχή</string>
   <string name="thankYou">Ευχαριστούμε!</string>
-  <string name="socialMediaLinks">Σύνδεσμοι κοινωνικών μέσων</string>
+  <string name="socialMediaLinks">Προφίλ στα μέσα κοινωνικής δικτύωσης</string>
   <string name="oneUrlPerLine">Μία διεύθυνση URL ανά γραμμή.</string>
   <string name="inlineNotation">Ενσωματωμένη σημειογραφία</string>
-  <string name="makeAStudy">Για αποθήκευση και διαμοιρασμό, μπορείτε να δημιουργήσετε μία μελέτη.</string>
+  <string name="makeAStudy">Αν θέλετε να αποθηκεύσετε και να κοινοποιήσετε τυχόν αλλαγές, μπορείτε να δημιουργήσετε μία μελέτη.</string>
   <string name="clearSavedMoves">Εκκαθάριση κινήσεων</string>
   <string name="previouslyOnLichessTV">Νωρίτερα στη Tηλεόραση Lichess</string>
   <string name="onlinePlayers">Συνδεδεμένοι παίκτες</string>
