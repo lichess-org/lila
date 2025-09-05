@@ -120,7 +120,7 @@
   <string name="byCPL">Με CPL</string>
   <string name="enable">Ενεργοποίηση</string>
   <string name="bestMoveArrow">Βέλτιστη κίνηση βέλους</string>
-  <string name="showVariationArrows">Εμφάνισε βελάκια παραλλαγών</string>
+  <string name="showVariationArrows">Εμφάνισε βελών για βαριάντες</string>
   <string name="evaluationGauge">Δείκτης αξιολόγησης</string>
   <string name="multipleLines">Πολλαπλές γραμμές</string>
   <string name="cpus">CPUs</string>
