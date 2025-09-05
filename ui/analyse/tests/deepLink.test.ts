@@ -5,5 +5,5 @@ test('openInApp', () => {
   expect(openInApp('https://lichess.org/broadcast/fide-grand-swiss-2025--open/round-1/xSCoiNg0')).toBe(
     'lichess-broadcaster://broadcast/fide-grand-swiss-2025--open/round-1/xSCoiNg0',
   );
-  expect(() => openInApp('invalid-url')).toThrow('Cannot parse URL');
+  expect(() => openInApp('invalid-url')).toThrow('Invalid URL: invalid-url');
 });
