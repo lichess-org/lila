@@ -402,11 +402,12 @@ final class User(
         val otherUsers = isGranted(_.AccountInfo).so[Fu[Frag]]:
           othersAndLogins.map(_._1())
 
-        val identification = (isGranted(_.AccountInfo) || isGranted(_.ViewPrintNoIP)).so:
-          for
-            logins <- userLoginsFu
-            others <- othersAndLogins
-          yield views.user.mod.identification(logins, others._2.othersPartiallyLoaded)
+        val identification =
+          (isGranted(_.AccountInfo) || isGranted(_.ViewPrintNoIP) || isGranted(_.ViewUserAgent)).so:
+            for
+              logins <- userLoginsFu
+              others <- othersAndLogins
+            yield views.user.mod.identification(logins.pp, others._2.othersPartiallyLoaded.pp)
 
         val kaladin = isGranted(_.MarkEngine).so:
           env.irwin.kaladinApi.get(user).map(_.flatMap(_.response).so(views.irwin.kaladin.report))

@@ -106,11 +106,12 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
   case ApiChallengeAdmin extends Permission("API_CHALLENGE_ADMIN", "API Challenge admin")
   case LichessTeam extends Permission("LICHESS_TEAM", List(Beta), "Lichess team")
   case BotEditor extends Permission("BOT_EDITOR", "Bot editor")
+  case ViewUserAgent extends Permission("VIEW_USER_AGENT", "View user agent")
   case Diagnostics extends Permission("DIAGNOSTICS", "Diagnostics")
   case DeveloperTeam
       extends Permission(
         "DEVELOPER_TEAM",
-        List(LichessTeam, Diagnostics, UserModView, BotEditor, ApiHog, StickyPosts),
+        List(LichessTeam, Diagnostics, UserModView, BotEditor, ApiHog, StickyPosts, ViewUserAgent),
         "Developer Team"
       )
   case TimeoutMod
@@ -136,7 +137,8 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
           ModMessage,
           ModNote,
           ViewPrintNoIP,
-          SendToZulip
+          SendToZulip,
+          ViewUserAgent
         ),
         "Boost Hunter"
       )
@@ -158,7 +160,8 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
           ModMessage,
           ModNote,
           ViewPrintNoIP,
-          SendToZulip
+          SendToZulip,
+          ViewUserAgent
         ),
         "Cheat Hunter"
       )
@@ -180,7 +183,8 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
           ModLog,
           ModNote,
           ViewPrintNoIP,
-          SendToZulip
+          SendToZulip,
+          ViewUserAgent
         ),
         "Shusher"
       )
