@@ -198,6 +198,6 @@
   <string name="variantsAreSupportedText">Μπορείτε να δημιουργήσετε μία μελέτη Crazyhouse&lt;br&gt;η μία μελέτη με οποιαδήποτε άλλη παραλλαγή υποστηρίζει το Lichess!</string>
   <string name="chapterConclusionText">Τα κεφάλαια αποθηκεύονται για πάντα&lt;br&gt;Ευχόμαστε καλή διασκέδαση και καλή επιτυχία στην οργάνωση του σκακιστικού σας περιεχομένου!</string>
   <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Διπλή ήττα</string>
-  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">Τα Μαύρα έχασαν, ενώ τα Λευκά δεν μπορούν να κερδίσουν</string>
-  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">Τα Λευκά έχασαν, ενώ τα Μαύρα δεν μπορούν να κερδίσουν</string>
+  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">Τα μαύρα χάνουν, αλλά τα λευκά δεν μπορούν να κερδίσουν</string>
+  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">Τα λευκά χάνουν, αλλά τα μαύρα δεν μπορούν να κερδίσουν</string>
 </resources>
