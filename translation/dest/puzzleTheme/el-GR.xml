@@ -43,7 +43,7 @@
   <string name="doubleCheck">Διπλό σαχ</string>
   <string name="doubleCheckDescription">Ταυτόχρονο σαχ από δύο κομμάτια, ως αποτέλεσμα αποκάλυψης: τόσο το κομμάτι που μετακινήθηκε όσο και το κομμάτι το οποίο αποκάλυψε απειλούν τον αντίπαλο βασιλιά.</string>
   <string name="endgame">Φινάλε</string>
-  <string name="endgameDescription">Τακτικά στην τελευταία φάση του παιχνιδιού.</string>
+  <string name="endgameDescription">Τακτικά στην τελευταία φάση της παρτίδας.</string>
   <string name="enPassantDescription">Τακτικά που αφορούν τον κανόνα en passant, σύμφωνα με τον οποίο ένα πιόνι μπορεί να αιχμαλωτίσει ένα αντίπαλο πιόνι το οποίο προσπέρασε κινούμενο από την αρχική του θέση δύο τετράγωνα μπροστά.</string>
   <string name="exposedKing">Ευάλωτος βασιλιάς</string>
   <string name="exposedKingDescription">Τακτικά τα οποία αφορούν έναν βασιλιά με λίγα αμυντικά κομμάτια γύρω του, και τα οποία συχνά καταλήγουν σε ματ.</string>
@@ -82,11 +82,11 @@
   <string name="mateIn5">Ματ σε 5 ή περισσότερο</string>
   <string name="mateIn5Description">Βρείτε μία μακρά ακολουθία κινήσεων που οδηγεί σε ματ.</string>
   <string name="middlegame">Μέσο</string>
-  <string name="middlegameDescription">Τακτικά κατά τη δεύτερη φάση του παιχνιδιού.</string>
+  <string name="middlegameDescription">Τακτικά κατά τη δεύτερη φάση της παρτίδας.</string>
   <string name="oneMove">Τακτικό μιας κίνησης</string>
   <string name="oneMoveDescription">Τακτικά που έχουν μόνο μία κίνηση.</string>
   <string name="opening">Άνοιγμα</string>
-  <string name="openingDescription">Τακτικά κατά την πρώτη φάση του παιχνιδιού.</string>
+  <string name="openingDescription">Τακτικά κατά την πρώτη φάση της παρτίδας.</string>
   <string name="pawnEndgame">Φινάλε πιονιών</string>
   <string name="pawnEndgameDescription">Φινάλε μόνο με πιόνια.</string>
   <string name="pin">Κάρφωμα</string>
