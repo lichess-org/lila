@@ -35,7 +35,7 @@ export default function setupModal(ctrl: LobbyController): VNode | null {
       hl('div.setup-content', views[setupCtrl.gameType](ctrl)),
       hl('div.footer', [
         hl(
-          'button.button.button-metal.create-game-button',
+          `button.button.button-metal.config_${setupCtrl.gameType}`,
           {
             attrs: { disabled: setupCtrl.loading },
             class: { disabled: setupCtrl.loading },
@@ -49,7 +49,7 @@ export default function setupModal(ctrl: LobbyController): VNode | null {
                 ),
             },
           },
-          buttonText,
+          [hl('i'), buttonText],
         ),
         setupCtrl.loading && spinnerVdom(),
       ]),

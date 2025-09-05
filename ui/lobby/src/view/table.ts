@@ -39,7 +39,7 @@ export default function table(ctrl: LobbyController) {
                     ctrl.redraw,
                   ),
             },
-            text,
+            [h('i'), text],
           ),
         ),
       ),

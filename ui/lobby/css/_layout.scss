@@ -25,9 +25,6 @@
       'timeline timeline'
       'about    about';
 
-    &__start {
-      margin-inline: 0;
-    }
     &__support {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -51,10 +48,7 @@
       'about  about';
 
     &__start {
-      margin: 2em 0 0 0;
-      flex-flow: column;
-      align-items: stretch;
-      justify-content: center;
+      margin: 2em auto 0;
       font-weight: bold;
     }
 
@@ -88,12 +82,8 @@
       '.      about   about   .';
 
     &__start {
+      margin: 0 auto;
       justify-content: center;
-      margin-inline: 0 4em;
-
-      button {
-        padding: 1em;
-      }
     }
 
     &__side {

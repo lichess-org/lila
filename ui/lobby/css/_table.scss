@@ -8,19 +8,45 @@
 
   &__start {
     @extend %flex-column;
-
-    justify-content: stretch;
     flex: 1 1 auto;
-    margin-inline: 2em;
+    margin: auto;
     gap: 9px; // grid gap in app/_pool.scss
+  }
 
-    button {
-      font-size: 1.2em;
-      text-align: center;
-      padding: 1em;
-      text-transform: none;
-      &.disabled {
-        opacity: 0.2;
+  .footer button,
+  .lobby__start button {
+    display: flex;
+    align-items: center;
+    font-size: 1.2em;
+    gap: 1em;
+    padding-inline: 2em 3em;
+    height: 3.2em;
+    text-transform: none;
+    &.disabled {
+      opacity: 0.2;
+    }
+
+    i:before {
+      font-family: 'lichess';
+      font-size: 1.7em;
+      vertical-align: sub;
+      color: $c-font-dimmer;
+    }
+    &.config_hook i:before {
+      content: $licon-Group;
+    }
+    &.config_friend i:before {
+      content: $licon-User;
+    }
+    &.config_ai i:before {
+      content: $licon-Stockfish;
+    }
+    @media (hover: hover) {
+      &:hover {
+        color: $c-font-clear !important;
+        i:before {
+          color: $c-brag;
+        }
       }
     }
   }

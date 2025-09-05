@@ -70,6 +70,12 @@ $c-slider: $c-setup;
     @extend %flex-center;
     justify-content: center;
     padding: 1.1rem;
+
+    button {
+      height: 3em;
+      padding-inline: 1em 1.2em;
+      gap: 0.75em;
+    }
   }
 
   .radio-pane {
