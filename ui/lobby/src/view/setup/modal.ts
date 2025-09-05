@@ -16,9 +16,9 @@ export default function setupModal(ctrl: LobbyController): VNode | null {
   const { setupCtrl } = ctrl;
   if (!setupCtrl.gameType) return null;
   const buttonText = {
-    hook: i18n.site.createTheGame,
+    hook: i18n.site.createLobbyGame,
     friend: i18n.site.challengeAFriend,
-    ai: i18n.site.playVsAi,
+    ai: i18n.site.playAgainstAi,
   }[setupCtrl.gameType];
   return snabDialog({
     attrs: { dialog: { 'aria-labelledBy': 'lobby-setup-modal-title', 'aria-modal': 'true' } },

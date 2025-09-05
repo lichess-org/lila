@@ -2,10 +2,10 @@
 <resources>
   <string name="gameSetup">Game setup</string>
   <string name="challengeAFriend">Challenge a friend</string>
-  <string name="playVsAi">Play versus A.I.</string>
+  <string name="playAgainstAi">Play against A.I.</string>
   <string name="playingX">Playing %s</string>
   <string name="gameMode">Game mode</string>
-  <string name="customLobbyGame">Custom lobby game</string>
+  <string name="createLobbyGame">Create lobby game</string>
   <string name="youPlayAs">You play as</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">To invite someone to play, give this URL</string>
   <string name="gameOver">Game Over</string>

@@ -49,9 +49,9 @@ object home:
         )(
           div(cls := "lobby__table")(
             div(cls := "lobby__start")(
-              button(cls := "button button-metal config_hook")(i, trans.site.customLobbyGame()),
+              button(cls := "button button-metal config_hook")(i, trans.site.createLobbyGame()),
               button(cls := "button button-metal config_friend")(i, trans.site.challengeAFriend()),
-              button(cls := "button button-metal config_ai")(i, trans.site.playVsAi())
+              button(cls := "button button-metal config_ai")(i, trans.site.playAgainstAi())
             )
           ),
           currentGame

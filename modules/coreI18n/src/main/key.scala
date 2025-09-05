@@ -1457,10 +1457,10 @@ object I18nKey:
   object site:
     val `gameSetup`: I18nKey = "gameSetup"
     val `challengeAFriend`: I18nKey = "challengeAFriend"
-    val `playVsAi`: I18nKey = "playVsAi"
+    val `playAgainstAi`: I18nKey = "playAgainstAi"
     val `playingX`: I18nKey = "playingX"
     val `gameMode`: I18nKey = "gameMode"
-    val `customLobbyGame`: I18nKey = "customLobbyGame"
+    val `createLobbyGame`: I18nKey = "createLobbyGame"
     val `youPlayAs`: I18nKey = "youPlayAs"
     val `toInviteSomeoneToPlayGiveThisUrl`: I18nKey = "toInviteSomeoneToPlayGiveThisUrl"
     val `gameOver`: I18nKey = "gameOver"

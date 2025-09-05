@@ -3155,6 +3155,8 @@ interface I18n {
     createANewTournament: string;
     /** Newly created simuls */
     createdSimuls: string;
+    /** Create lobby game */
+    createLobbyGame: string;
     /** Create the game */
     createTheGame: string;
     /** Create the topic */
@@ -3171,8 +3173,6 @@ interface I18n {
     currentPassword: string;
     /** Custom */
     custom: string;
-    /** Custom lobby game */
-    customLobbyGame: string;
     /** Custom position */
     customPosition: string;
     /** Cycle previous/next variation */
@@ -3871,6 +3871,8 @@ interface I18n {
     pieceSet: string;
     /** Play */
     play: string;
+    /** Play against A.I. */
+    playAgainstAi: string;
     /** Play chess everywhere */
     playChessEverywhere: string;
     /** Play chess in style */
@@ -3893,8 +3895,6 @@ interface I18n {
     playSelectedMove: string;
     /** Play a variation to create conditional premoves */
     playVariationToCreateConditionalPremoves: string;
-    /** Play versus A.I. */
-    playVsAi: string;
     /** Play %s */
     playX: I18nFormat;
     /** We aim to provide a pleasant chess experience for everyone. */
