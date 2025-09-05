@@ -12,10 +12,13 @@ export class IdbTree {
   constructor(private ctrl: AnalyseCtrl) {}
 
   someCollapsedOf(collapsed: boolean, path = ''): boolean {
-    return this.ctrl.tree.walkUntilTrue(
-      (n, m) => this.isCollapsible(n, m) && collapsed === Boolean(n.collapsed),
-      path,
-      path !== '',
+    return (
+      this.ctrl.disclosureMode() &&
+      this.ctrl.tree.walkUntilTrue(
+        (n, m) => this.isCollapsible(n, m) && collapsed === Boolean(n.collapsed),
+        path,
+        path !== '',
+      )
     );
   }
 
