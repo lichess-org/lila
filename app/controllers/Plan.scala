@@ -40,7 +40,7 @@ final class Plan(env: Env) extends LilaController(env):
                   renderIndex(email, patron.some)
                 }
               case Synced(Some(patron), Some(stripeCus), _) => indexStripePatron(patron, stripeCus)
-              case Synced(Some(patron), _, Some(payPalSub)) => indexPayPalPatron(patron, payPalSub)
+              case Synced(Some(_), _, Some(payPalSub)) => indexPayPalPatron(payPalSub)
               case _ => indexFreeUser
 
   def list = Open:
@@ -87,7 +87,7 @@ final class Plan(env: Env) extends LilaController(env):
     gifts <- env.plan.api.giftsFrom(me)
     res <- info match
       case Some(info: CustomerInfo.Monthly) =>
-        Ok.page(views.plan.indexStripe(me, patron, info, env.plan.stripePublicKey, pricing, gifts))
+        Ok.page(views.plan.indexStripe(me, info, env.plan.stripePublicKey, pricing, gifts))
           .map(_.withHeaders(crossOriginPolicy.unsafe*))
       case Some(CustomerInfo.OneTime(cus)) =>
         renderIndex(cus.email.map { EmailAddress(_) }, patron.some)
@@ -98,12 +98,9 @@ final class Plan(env: Env) extends LilaController(env):
             renderIndex(_, patron.some)
   yield res
 
-  private def indexPayPalPatron(patron: lila.plan.Patron, sub: PayPalSubscription)(using
-      ctx: Context,
-      me: Me
-  ) =
+  private def indexPayPalPatron(sub: PayPalSubscription)(using ctx: Context, me: Me) =
     Ok.async:
-      env.plan.api.giftsFrom(me).map { views.plan.indexPayPal(me, patron, sub, _) }
+      env.plan.api.giftsFrom(me).map { views.plan.indexPayPal(me, sub, _) }
     .map:
         _.withHeaders(crossOriginPolicy.unsafe*)
 
@@ -129,7 +126,7 @@ final class Plan(env: Env) extends LilaController(env):
     env.plan.api.cancel(me).inject(Redirect(routes.Plan.index()))
   }
 
-  def thanks = Open:
+  def thanks = Auth { _ ?=> _ ?=>
     // wait for the payment data from stripe or paypal
     lila.common.LilaFuture.delay(2.seconds):
       for
@@ -138,6 +135,7 @@ final class Plan(env: Env) extends LilaController(env):
         gift <- ctx.me.so { env.plan.api.recentGiftFrom(_) }
         page <- renderPage(views.planPages.thanks(patron, customer, gift))
       yield Ok(page)
+  }
 
   def webhook = AnonBodyOf(parse.json): body =>
     if req.headers.hasHeader("PAYPAL-TRANSMISSION-SIG")

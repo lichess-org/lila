@@ -21,6 +21,7 @@
 
     color: $c-good;
     &.patron {
+      -webkit-text-stroke: 0.01em #ffffff;
       opacity: 1;
 
       &.months1 {
