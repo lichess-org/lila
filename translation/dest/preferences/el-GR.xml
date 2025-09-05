@@ -19,7 +19,7 @@
   <string name="explainShowPlayerRatings">Αυτό αποκρύπτει όλες τις βαθμολογίες από την ιστοσελίδα, έτσι ώστε να μπορείτε να επικεντρωθείτε στο σκάκι. Τα παιχνίδια θα εξακολουθούν να αξιολογούνται — η ρύθμιση αυτή επηρεάζει μόνο την εμφάνιση.</string>
   <string name="displayBoardResizeHandle">Εμφάνιση χειριστηρίου αλλαγής μεγέθους σκακιέρας</string>
   <string name="onlyOnInitialPosition">Μόνο στην αρχική διάταξη</string>
-  <string name="inGameOnly">Μόνο κατά τη διάρκεια του παιχνιδιού</string>
+  <string name="inGameOnly">Μόνο κατά τη διάρκεια της παρτίδας</string>
   <string name="exceptInGame" comment="An option regarding when player ratings should be displayed. This will display other players' ratings at all times, EXCEPT during a game. Please see screenshot - text needs to be kept short to fit in the segmented control widget used for settings.">Όχι κατά τη διάρκεια της παρτίδας</string>
   <string name="chessClock">Σκακιστικό χρονόμετρο</string>
   <string name="tenthsOfSeconds">Δέκατα του δευτερολέπτου</string>
