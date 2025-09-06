@@ -3305,7 +3305,7 @@ interface I18n {
     'error.minLength': I18nFormat;
     /** Please don't use your username as your password. */
     'error.namePassword': string;
-    /** Please provide at least one link to a game with suspected cheating. */
+    /** Please provide at least one link to a cheated game. */
     'error.provideOneCheatedGameLink': string;
     /** This field is required */
     'error.required': string;
@@ -5693,6 +5693,46 @@ interface I18n {
     xPublishedY: I18nFormat;
     /** You are blocked by the blog author. */
     youBlockedByBlogAuthor: string;
+  };
+  video: {
+    /** All videos are free for everyone. */
+    allVideosAreFree: string;
+    /** All %s video tags */
+    allVideoTags: I18nFormat;
+    /** by */
+    by: string;
+    /** Chess videos */
+    chessVideos: string;
+    /** Clear search */
+    clearSearch: string;
+    /** Click one or many tags on the left to filter. */
+    clickOneOrMany: string;
+    /** curated chess videos */
+    curatedChessVideos: string;
+    /** free, carefully curated chess videos */
+    freeCarefullyCurated: I18nFormat;
+    /** Free Chess Videos */
+    freeChessVideos: string;
+    /** free for all */
+    freeForAll: string;
+    /** matching the tags */
+    matchingTheTags: string;
+    /** No videos for these tags: */
+    noVideosForTheseTags: string;
+    /** No videos for this search: */
+    noVideosForThisSearch: string;
+    /** That's all we got for these tags: */
+    thatsAllWeGotForTheseTags: string;
+    /** That's all we got for this search */
+    thatsAllWeGotForThisSearch: string;
+    /** Video not found */
+    videoNotFound: string;
+    /** View more tags */
+    viewMoreTags: string;
+    /** We have carefully selected %s videos so far! */
+    weHaveCarefullySelected: I18nFormat;
+    /** %s video found */
+    videosFound: I18nPlural;
   };
   voiceCommands: {
     /** Cancel timer or deny a request */
