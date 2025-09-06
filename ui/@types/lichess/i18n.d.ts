@@ -3035,6 +3035,8 @@ interface I18n {
     casual: string;
     /** Casual */
     casualTournament: string;
+    /** Challenge a friend */
+    challengeAFriend: string;
     /** Change email */
     changeEmail: string;
     /** Change password */
@@ -3153,6 +3155,8 @@ interface I18n {
     createANewTournament: string;
     /** Newly created simuls */
     createdSimuls: string;
+    /** Create lobby game */
+    createLobbyGame: string;
     /** Create the game */
     createTheGame: string;
     /** Create the topic */
@@ -3335,6 +3339,8 @@ interface I18n {
     fiftyMovesWithoutProgress: string;
     /** Filter games */
     filterGames: string;
+    /** Find an opponent within */
+    findAnOpponentWithin: string;
     /** Find a better move for black */
     findBetterMoveForBlack: string;
     /** Find a better move for white */
@@ -3375,10 +3381,14 @@ interface I18n {
     gameAsGIF: string;
     /** You have a game in progress with %s. */
     gameInProgress: I18nFormat;
+    /** Game mode */
+    gameMode: string;
     /** Game Over */
     gameOver: string;
     /** Games */
     games: string;
+    /** Game setup */
+    gameSetup: string;
     /** Games played */
     gamesPlayed: string;
     /** Game vs %1$s */
@@ -3877,14 +3887,14 @@ interface I18n {
     playFirstOpeningEndgameExplorerMove: string;
     /** Playing right now */
     playingRightNow: string;
+    /** Playing %s */
+    playingX: I18nFormat;
     /** play selected move */
     playSelectedMove: string;
     /** Play a variation to create conditional premoves */
     playVariationToCreateConditionalPremoves: string;
-    /** Play with a friend */
-    playWithAFriend: string;
-    /** Play with the computer */
-    playWithTheMachine: string;
+    /** Play versus A.I. */
+    playVersusAi: string;
     /** Play %s */
     playX: I18nFormat;
     /** We aim to provide a pleasant chess experience for everyone. */
@@ -3951,8 +3961,6 @@ interface I18n {
     ratedTournament: string;
     /** Rating */
     rating: string;
-    /** Rating range */
-    ratingRange: string;
     /** Rating filters are locked because your rating is not stable. Playing rated games will increase stability. */
     ratingRangeIsDisabledBecauseYourRatingIsProvisional: string;
     /** Rating stats */
@@ -4539,6 +4547,8 @@ interface I18n {
     youHaveJoinedTeamX: I18nFormat;
     /** You need an account to do that */
     youNeedAnAccountToDoThat: string;
+    /** You play as */
+    youPlayAs: string;
     /** You play the black pieces */
     youPlayTheBlackPieces: string;
     /** You play the white pieces */
@@ -4563,6 +4573,8 @@ interface I18n {
     yourQuestionMayHaveBeenAnswered: I18nFormat;
     /** Your rating */
     yourRating: string;
+    /** Your rating is %s */
+    yourRatingIsX: I18nFormat;
     /** Your score: %s */
     yourScore: I18nFormat;
     /** Your top weekly %1$s rating (%2$s) is too high */

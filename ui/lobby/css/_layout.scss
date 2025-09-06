@@ -48,10 +48,8 @@
       'about  about';
 
     &__start {
-      margin: 2em 0 0 0;
-      flex-flow: column;
-      align-items: stretch;
-      justify-content: center;
+      margin: 2em auto 0;
+      font-weight: bold;
     }
 
     &__counters {
@@ -84,11 +82,8 @@
       '.      about   about   .';
 
     &__start {
+      margin: 0 auto;
       justify-content: center;
-
-      button {
-        padding: 1em;
-      }
     }
 
     &__side {
@@ -96,7 +91,6 @@
     }
 
     &__counters {
-      margin: 0;
       flex-flow: column;
       align-items: flex-start;
       position: absolute;

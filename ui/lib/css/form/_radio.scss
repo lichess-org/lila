@@ -25,8 +25,11 @@ group.radio {
     cursor: pointer;
     border-inline-end: $border;
 
-    &:hover {
-      @extend %metal-hover;
+    @media (hover: hover) {
+      &:hover {
+        background: linear-gradient(to bottom, $c-metal-top-hover, $c-metal-bottom-hover);
+        text-shadow: 0 1px 0 $c-font-shadow;
+      }
     }
   }
 

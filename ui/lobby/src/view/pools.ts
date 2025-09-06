@@ -29,34 +29,33 @@ export const hooks = (ctrl: LobbyController): Hooks =>
 
 export function render(ctrl: LobbyController) {
   const member = ctrl.poolMember;
-  return ctrl.pools
-    .map(pool => {
-      const active = member?.id === pool.id,
-        transp = !!member && !active;
-      return h(
-        'div',
-        {
-          class: { active, transp },
-          attrs: { role: 'button', 'data-id': pool.id, tabindex: '0' },
-        },
-        [
-          h('div.clock', `${pool.lim}+${pool.inc}`),
-          active
-            ? member.range && ctrl.opts.showRatings
-              ? h('div.range', member.range.replace('-', '–'))
-              : spinner()
-            : h('div.perf', pool.perf),
-        ],
-      );
-    })
-    .concat(
-      h(
-        'div.custom',
-        {
-          class: { transp: !!member },
-          attrs: { role: 'button', 'data-id': 'custom', tabindex: '0' },
-        },
-        i18n.site.custom,
-      ),
+  return ctrl.pools.map(pool => {
+    const active = member?.id === pool.id,
+      transp = !!member && !active;
+    return h(
+      'div',
+      {
+        class: { active, transp },
+        attrs: { role: 'button', 'data-id': pool.id, tabindex: '0' },
+      },
+      [
+        h('div.clock', `${pool.lim}+${pool.inc}`),
+        active
+          ? member.range && ctrl.opts.showRatings
+            ? h('div.range', member.range.replace('-', '–'))
+            : spinner()
+          : h('div.perf', pool.perf),
+      ],
     );
+  });
+  // .concat(
+  //   h(
+  //     'div.custom',
+  //     {
+  //       class: { transp: !!member },
+  //       attrs: { role: 'button', 'data-id': 'custom', tabindex: '0' },
+  //     },
+  //     i18n.site.custom,
+  //   ),
+  // );
 }

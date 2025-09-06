@@ -20,6 +20,7 @@ export function initModule(opts: LobbyOpts) {
     { id: '15+10', lim: 15, inc: 10, perf: 'Rapid' },
     { id: '30+0', lim: 30, inc: 0, perf: 'Classical' },
     { id: '30+20', lim: 30, inc: 20, perf: 'Classical' },
+    { id: '45+45', lim: 45, inc: 45, perf: 'Classical' },
   ];
 
   opts.socketSend = wsConnect('/lobby/socket/v5', false, {
