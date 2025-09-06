@@ -5,7 +5,7 @@ import type RelayCtrl from './relayCtrl';
 import { memoize } from 'lib';
 import { studySideNodes } from '../studyView';
 import type StudyCtrl from '../studyCtrl';
-import { openInApp } from './deepLink';
+import { broadcasterDeepLink } from './deepLink';
 
 export default function (ctrl: RelayCtrl, study: StudyCtrl): MaybeVNode {
   const contributor = study.members.canContribute(),
@@ -94,7 +94,7 @@ const statePush = (ctrl: RelayCtrl) =>
       hl('a', { attrs: { href: '/broadcast/app' } }, 'Broadcaster App'),
       hl('br'),
       hl('small', [
-        hl('a', { attrs: { href: openInApp(ctrl.currentRound().url) } }, 'Open this round in the app'),
+        hl('a', { attrs: { href: broadcasterDeepLink(ctrl.currentRound().url) } }, 'Open this round in the app'),
       ]),
     ]),
   ]);
