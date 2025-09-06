@@ -15,7 +15,6 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
   private def page(title: String, control: UserControl)(using ctx: Context) =
     Page(title)
       .css("bits.video")
-      .i18n(_.video)
       .js(infiniteScrollEsmInit)
       .flag(_.fullScreen)
       .wrap: body =>
@@ -30,7 +29,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
         OpenGraph(
           title = trv.by.txt(video.title, video.author),
           description = shorten(~video.metadata.description, 152),
-          url = s"$netBaseUrl${lila.ui.LangPath(routes.Video.show(video.id))}",
+          url = s"$netBaseUrl${langHref(routes.Video.show(video.id))}",
           `type` = "video"
         )
       ):
@@ -49,7 +48,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
             a(
               cls := "is4 text",
               dataIcon := Icon.Back,
-              href := s"${lila.ui.LangPath(routes.Video.index)}?${control.queryString}"
+              href := s"${langHref(routes.Video.index)}?${control.queryString}"
             ),
             video.title
           ),
@@ -57,13 +56,13 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
             div(cls := "target")(video.targets.map(Target.name).mkString(", ")),
             a(
               cls := "author",
-              href := s"${lila.ui.LangPath(routes.Video.author(video.author))}?${control.queryString}"
+              href := s"${langHref(routes.Video.author(video.author))}?${control.queryString}"
             )(video.author),
             video.tags.map: tag =>
               a(
                 cls := "tag",
                 dataIcon := Icon.Tag,
-                href := s"${lila.ui.LangPath(routes.Video.index)}?tags=${tag.replace(" ", "+")}"
+                href := s"${langHref(routes.Video.index)}?tags=${tag.replace(" ", "+")}"
               )(tag.capitalize),
             video.metadata.description.map: desc =>
               p(cls := "description")(richText(desc))
@@ -76,12 +75,14 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
     val tagString = control.filter.tags.some.filter(_.nonEmpty).so(_.mkString(" + ") + " • ")
     page(s"${tagString}${trv.freeChessVideos.txt()}", control)
       .graph(
-        title = trv.freeCarefullyCurated.txt(tagString),
-        description = s"${trv.curatedChessVideos.txt(videos.nbResults)}${
-            if tagString.nonEmpty then trv.withTags.txt(" ", tagString)
-            else " • "
-          }${trv.freeForAll.txt()}",
-        url = s"$netBaseUrl${lila.ui.LangPath(routes.Video.index)}?${control.queryString}"
+        OpenGraph(
+          title = trv.freeCarefullyCurated.txt(tagString),
+          description = s"${trv.curatedChessVideos.txt(videos.nbResults)}${
+              if tagString.nonEmpty then trv.withTags.txt(" ", tagString)
+              else " • "
+            }${trv.freeForAll.txt()}",
+          url = s"$netBaseUrl${langHref(routes.Video.index)}?${control.queryString}"
+        )
       ):
         frag(
           boxTop(
@@ -111,19 +112,19 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
                   a(
                     cls := "tag",
                     dataIcon := Icon.Tag,
-                    href := s"${lila.ui.LangPath(routes.Video.index)}?tags=$tag"
+                    href := s"${langHref(routes.Video.index)}?tags=$tag"
                   )(
                     tag.capitalize
                   )
                 },
                 br,
                 br,
-                a(href := lila.ui.LangPath(routes.Video.index), cls := "button")(trv.clearSearch())
+                a(href := langHref(routes.Video.index), cls := "button")(trv.clearSearch())
               )
             ),
             pagerNext(
               videos,
-              np => s"${lila.ui.LangPath(routes.Video.index)}?${control.queryString}&page=$np"
+              np => s"${langHref(routes.Video.index)}?${control.queryString}&page=$np"
             )
           )
         )
@@ -140,7 +141,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
               "empty" -> !(checked || t.nb > 0)
             ),
             href := (checked || t.nb > 0)
-              .option(s"${lila.ui.LangPath(routes.Video.index)}?${control.toggleTag(t.tag).queryString}")
+              .option(s"${langHref(routes.Video.index)}?${control.toggleTag(t.tag).queryString}")
           )(
             span(t.tag.capitalize),
             (!checked && t.nb > 0).option(em(t.nb))
@@ -148,15 +149,15 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
       ),
       div(cls := "under-tags")(
         if control.filter.tags.nonEmpty then
-          a(cls := "button button-empty", href := lila.ui.LangPath(routes.Video.index))(trv.clearSearch.txt())
-        else a(dataIcon := Icon.Tag, href := lila.ui.LangPath(routes.Video.tags))(trv.viewMoreTags.txt())
+          a(cls := "button button-empty", href := langHref(routes.Video.index))(trv.clearSearch.txt())
+        else a(dataIcon := Icon.Tag, href := langHref(routes.Video.tags))(trv.viewMoreTags.txt())
       )
     )
 
-  def card(vv: VideoView, control: UserControl) =
+  def card(vv: VideoView, control: UserControl)(using ctx: Context): Frag =
     a(
       cls := "card paginated",
-      href := s"${lila.ui.LangPath(routes.Video.show(vv.video.id))}?${control.queryStringUnlessBot}"
+      href := s"${langHref(routes.Video.show(vv.video.id))}?${control.queryStringUnlessBot}"
     )(
       vv.view.option(span(cls := "view")("watched")),
       span(cls := "duration")(vv.video.durationString),
@@ -179,7 +180,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
             a(
               cls := "is4 text",
               dataIcon := Icon.Back,
-              href := s"${lila.ui.LangPath(routes.Video.index)}?${control.queryString}"
+              href := s"${langHref(routes.Video.index)}?${control.queryString}"
             ),
             name
           ),
@@ -189,7 +190,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
           videos.currentPageResults.map { card(_, control) },
           pagerNext(
             videos,
-            np => s"${lila.ui.LangPath(routes.Video.author(name))}?${control.queryString}&page=$np"
+            np => s"${langHref(routes.Video.author(name))}?${control.queryString}&page=$np"
           )
         )
       )
@@ -201,14 +202,14 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
           a(
             cls := "is4 text",
             dataIcon := Icon.Back,
-            href := s"${lila.ui.LangPath(routes.Video.index)}"
+            href := s"${langHref(routes.Video.index)}"
           ),
           s"${trv.videoNotFound()}!"
         )
       )
 
   def searchForm(query: Option[String])(using Context) =
-    form(cls := "search", method := "GET", action := lila.ui.LangPath(routes.Video.index)):
+    form(cls := "search", method := "GET", action := langHref(routes.Video.index)):
       input(placeholder := trans.search.search.txt(), tpe := "text", name := "q", value := query)
 
   def tags(ts: List[TagNb], control: UserControl)(using ctx: Context) =
@@ -219,7 +220,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
             a(
               cls := "text",
               dataIcon := Icon.Back,
-              href := s"${lila.ui.LangPath(routes.Video.index)}?${control.queryString}"
+              href := s"${langHref(routes.Video.index)}?${control.queryString}"
             )(
               trv.allVideoTags(ts.size.toString())
             )
@@ -227,7 +228,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
         ),
         div(cls := "tag-list box__pad")(
           ts.sortBy(_.tag).map { t =>
-            a(cls := "tag", href := s"${lila.ui.LangPath(routes.Video.index)}?tags=${t.tag}")(
+            a(cls := "tag", href := s"${langHref(routes.Video.index)}?tags=${t.tag}")(
               t.tag.capitalize,
               em(" " + t.nb)
             )
@@ -251,9 +252,9 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
               s""""${~control.query}"""",
               br,
               br,
-              a(href := lila.ui.LangPath(routes.Video.index), cls := "button")(trv.clearSearch())
+              a(href := langHref(routes.Video.index), cls := "button")(trv.clearSearch())
             )
           ),
-          pagerNext(videos, np => s"${lila.ui.LangPath(routes.Video.index)}?${control.queryString}&page=$np")
+          pagerNext(videos, np => s"${langHref(routes.Video.index)}?${control.queryString}&page=$np")
         )
       )
