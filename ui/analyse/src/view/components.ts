@@ -129,17 +129,14 @@ export function renderMain(ctx: ViewContext, ...kids: LooseVNodes[]): VNode {
 export function renderTools({ ctrl, deps, concealOf, allowVideo }: ViewContext, embedded?: LooseVNode) {
   return hl(addChapterId(ctrl.study, 'div.analyse__tools'), [
     allowVideo && embedded,
-    ctrl.actionMenu()
-      ? [actionMenu(ctrl)]
-      : [
-          cevalView.renderCeval(ctrl),
-          !ctrl.retro?.isSolving() && !ctrl.practice && cevalView.renderPvs(ctrl),
-          renderMoveList(ctrl, deps, concealOf),
-          deps?.gbEdit.running(ctrl) ? deps?.gbEdit.render(ctrl) : undefined,
-          backToLiveView(ctrl),
-          forkView(ctrl, concealOf),
-          retroView(ctrl) || explorerView(ctrl) || practiceView(ctrl),
-        ],
+    cevalView.renderCeval(ctrl),
+    !ctrl.retro?.isSolving() && !ctrl.practice && cevalView.renderPvs(ctrl),
+    renderMoveList(ctrl, deps, concealOf),
+    deps?.gbEdit.running(ctrl) ? deps?.gbEdit.render(ctrl) : undefined,
+    backToLiveView(ctrl),
+    forkView(ctrl, concealOf),
+    retroView(ctrl) || explorerView(ctrl) || practiceView(ctrl),
+    ctrl.actionMenu() && actionMenu(ctrl),
   ]);
 }
 

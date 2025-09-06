@@ -172,13 +172,11 @@ export default class ExplorerCtrl {
     this.movesAway(0);
     this.enabled(!this.enabled());
     this.setNode();
-    this.root.autoScrollRequested = 'smooth';
   };
   disable = () => {
     if (this.enabled()) {
       this.enabled(false);
       this.gameMenu(null);
-      this.root.autoScrollRequested = 'instant';
     }
   };
   setHovering = (fen: FEN, uci: Uci | null) => {
