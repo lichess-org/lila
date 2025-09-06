@@ -587,10 +587,10 @@
   <string name="error.provideOneCheatedGameLink">Наведите барем једну везу игре у којој је играч варао.</string>
   <string name="by">од %s</string>
   <string name="importedByX">Увезао %s</string>
-  <string name="thisTopicIsNowClosed">Ова тема је сада затворена</string>
+  <string name="thisTopicIsNowClosed">Ова тема је сада затворена.</string>
   <string name="blog">Блог</string>
   <string name="notes">Белешке</string>
-  <string name="typePrivateNotesHere">Овде напишите приватне белешке</string>
+  <string name="typePrivateNotesHere">Напиши приватне белешке овде</string>
   <string name="writeAPrivateNoteAboutThisUser">Направи приватну белешку о овом кориснику</string>
   <string name="noNoteYet">Још нема никаквих белешки</string>
   <string name="invalidUsernameOrPassword">Неисправно корисничко име или лозинка</string>
