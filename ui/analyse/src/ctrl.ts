@@ -83,7 +83,6 @@ export default class AnalyseCtrl implements CevalHandler {
   justPlayed?: string; // pos
   justDropped?: string; // role
   justCaptured?: JustCaptured;
-  autoScrollRequested: 'instant' | 'smooth' | false = false;
   redirecting = false;
   onMainline = true;
   synthetic: boolean; // false if coming from a real game
@@ -409,7 +408,7 @@ export default class AnalyseCtrl implements CevalHandler {
     const pathChanged = path !== this.path,
       isForwardStep = pathChanged && path.length === this.path.length + 2;
     if (this.path !== path)
-      this.autoScrollRequested = treeOps.distance(this.path, path) > 8 ? 'instant' : 'smooth';
+      this.treeView.requestAutoScroll(treeOps.distance(this.path, path) > 8 ? 'instant' : 'smooth');
     this.setPath(path);
     if (pathChanged) {
       if (this.study) this.study.setPath(path, this.node);

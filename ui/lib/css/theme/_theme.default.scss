@@ -18,6 +18,7 @@ $c-bg-low: hsl(37, 7%, 22%);
 $c-bg-zebra: hsl(37, 5%, 19%);
 $c-bg-zebra2: hsl(37, 5%, 24%);
 $c-bg-popup: hsl(37, 7%, 22%);
+$c-bg-opaque: hsla(37, 7%, 14%);
 $c-body-gradient: hsl(37, 12%, 16%);
 $c-border: hsl(0, 0%, 25%);
 $c-font: hsl(0, 0%, 73%);
@@ -41,10 +42,9 @@ $c-clearer: #fff;
 $c-mv-branch-white: #fff;
 $c-mv-branch-black: #000;
 
-/* shared-color-defs is the location for theme colors that share the same definition syntax.
-   important: the assigned values often depend on variables from the including scope and
-   will therefore differ between themes.
-*/
+// shared-color-defs lists theme colors that share definitions. the assigned values usually depend on
+// sass variables from the including scope and can differ between themes.
+
 @mixin shared-color-defs {
   --c-bg: #{$c-bg};
   --c-bg-box: #{$c-bg};
@@ -57,6 +57,7 @@ $c-mv-branch-black: #000;
   --c-bg-header-dropdown: #{$c-bg-popup};
   --c-bg-input: #{change-color($c-bg-page, $lightness: 13%)};
   --c-bg-variation: #{hsl($site-hue, 5%, 15%)};
+  --c-bg-opaque: #{$c-bg-opaque};
   --c-header-dropdown: #{$c-font};
   --c-body-gradient: #{$c-body-gradient};
   --c-font: #{$c-font};
