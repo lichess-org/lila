@@ -16,9 +16,6 @@ const pieceDrop = (key: Key, role: Role, color: Color): DrawShape => ({
   brush: 'green',
 });
 
-const findShape = (uci?: Uci, shapes?: Tree.Shape[]) =>
-  ((shapes ?? []) as DrawShape[]).find(s => s.orig === uci?.slice(0, 2) && s.dest === uci?.slice(2, 4));
-
 export function makeShapesFromUci(
   color: Color,
   uci: Uci,
@@ -54,7 +51,6 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
     }
     return [];
   }
-  const instance = ctrl.getCeval();
   const {
     eval: nEval = {} as Partial<Tree.ServerEval>,
     fen: nFen,
@@ -66,7 +62,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
 
   if (!hovering || hovering.fen !== nFen) {
     ctrl.explorer.hovering(null);
-    hovering = instance.hovering();
+    hovering = ctrl.ceval.hovering();
   }
 
   let shapes: DrawShape[] = [],
@@ -76,17 +72,16 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
       lineWidth: 8,
     });
   }
-  ctrl.fork.hover(hovering?.uci);
   if (hovering?.fen === nFen) shapes = shapes.concat(makeShapesFromUci(color, hovering.uci, 'paleBlue'));
+  ctrl.fork.hover(hovering?.uci);
 
-  if (ctrl.showAutoShapes() && ctrl.showComputer()) {
-    if (nEval.best && !ctrl.showVariationArrows())
-      shapes = shapes.concat(makeShapesFromUci(rcolor, nEval.best, 'paleGreen'));
-    if (!hovering && instance.search.multiPv) {
-      const nextBest = instance.enabled() && nCeval ? nCeval.pvs[0].moves[0] : ctrl.nextNodeBest();
+  if (ctrl.showBestMoveArrows() && ctrl.showAnalysis()) {
+    if (nEval.best) shapes = shapes.concat(makeShapesFromUci(rcolor, nEval.best, 'paleGreen'));
+    if (!hovering && ctrl.ceval.search.multiPv) {
+      const nextBest = ctrl.isCevalAllowed() && nCeval ? nCeval.pvs[0].moves[0] : ctrl.nextNodeBest();
       if (nextBest) shapes = shapes.concat(makeShapesFromUci(color, nextBest, 'paleBlue'));
       if (
-        instance.enabled() &&
+        ctrl.isCevalAllowed() &&
         nCeval &&
         nCeval.pvs[1] &&
         !(ctrl.threatMode() && nThreat && nThreat.pvs.length > 2)
@@ -105,7 +100,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
       }
     }
   }
-  if (instance.enabled() && ctrl.threatMode() && nThreat) {
+  if (ctrl.isCevalAllowed() && ctrl.threatMode() && nThreat) {
     const [pv0, ...pv1s] = nThreat.pvs;
 
     shapes = shapes.concat(makeShapesFromUci(rcolor, pv0.moves[0], pv1s.length > 0 ? 'paleRed' : 'red'));
@@ -127,36 +122,27 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
 }
 
 function hiliteVariations(ctrl: AnalyseCtrl, autoShapes: DrawShape[]) {
+  const parent = ctrl.node ?? ctrl.tree.root;
+  const visible = parent.children.filter(n => ctrl.showFishnetAnalysis || !n.comp);
+  if (visible.length < 2) return;
+  ctrl.chessground.state.drawable.brushes['variation'] = {
+    key: 'variation',
+    color: 'white',
+    opacity: ctrl.variationArrowOpacity() || 0,
+    lineWidth: 12,
+  };
   const chap = ctrl.study?.data.chapter;
   const isGamebookEditor = chap?.gamebook && !ctrl.study?.gamebookPlay;
-
-  for (const [i, node] of ctrl.node.children.entries()) {
-    if (node.comp && !ctrl.showComputer()) continue;
-    const userShape = findShape(node.uci, ctrl.node.shapes);
-
-    if (userShape && i === ctrl.fork.selected()) autoShapes.push({ ...userShape }); // so we can hilite it
-
-    const existing = findShape(node.uci, autoShapes);
-    const brush = isGamebookEditor
-      ? i === 0
-        ? 'paleGreen'
-        : 'paleRed'
-      : existing
-        ? existing.brush
-        : 'white';
-    if (existing) {
-      if (i === ctrl.fork.selected()) {
-        existing.brush = brush;
-        if (!existing.modifiers) existing.modifiers = {};
-        existing.modifiers.hilite = true;
-      }
-    } else if (!userShape) {
+  for (const [i, node] of visible.entries()) {
+    const existing = autoShapes.find(s => s.orig + s.dest === node.uci);
+    if (existing) existing.modifiers = { hilite: i === ctrl.fork.selected() ? 'white' : undefined };
+    else
       autoShapes.push({
         orig: node.uci!.slice(0, 2) as Key,
         dest: node.uci?.slice(2, 4) as Key,
-        brush,
-        modifiers: { hilite: i === ctrl.fork.selected() },
+        brush: !isGamebookEditor ? 'variation' : i === 0 ? 'paleGreen' : 'paleRed',
+        modifiers: { hilite: i === ctrl.fork.selected() ? '#3291ff' : '#aaa' },
+        below: true,
       });
-    }
   }
 }

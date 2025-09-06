@@ -298,7 +298,6 @@
   <string name="blackTimeOut">Isteklo vrijeme crnome</string>
   <string name="drawOfferSent">Ponuda za remi poslana</string>
   <string name="drawOfferAccepted">Ponuda za remi prihvaćena</string>
-  <string name="drawOfferCanceled">Ponuda za remi povučena</string>
   <string name="whiteOffersDraw">Bijeli nudi remi</string>
   <string name="blackOffersDraw">Crni nudi remi</string>
   <string name="whiteDeclinesDraw">Bijeli odbija remi</string>

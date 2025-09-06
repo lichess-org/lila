@@ -197,7 +197,6 @@
   <string name="blackTimeOut">Qaranıń waqtı tawsıldı</string>
   <string name="drawOfferSent">Pat usınısı jiberildi</string>
   <string name="drawOfferAccepted">Pat usınısı qabıllandı</string>
-  <string name="drawOfferCanceled">Pat usınısı biykarlandı</string>
   <string name="whiteOffersDraw">Aqlar pattı usınıs etpekte</string>
   <string name="blackOffersDraw">Qaralar pattı usınıs etpekte</string>
   <string name="whiteDeclinesDraw">Aqlar pattı biykarladı</string>

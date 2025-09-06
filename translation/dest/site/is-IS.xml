@@ -280,7 +280,6 @@
   <string name="blackTimeOut">Svartur féll á tíma</string>
   <string name="drawOfferSent">Boð um jafntefli sent</string>
   <string name="drawOfferAccepted">Boði um jafntefli samþykkt</string>
-  <string name="drawOfferCanceled">Boði um jafntefli afturkallað</string>
   <string name="whiteOffersDraw">Hvítur býður jafntefli</string>
   <string name="blackOffersDraw">Svartur býður jafntefli</string>
   <string name="whiteDeclinesDraw">Hvítur afþakkar jafntefli</string>

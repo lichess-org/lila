@@ -47,7 +47,7 @@ final class SimulApi(
   def isSimulHost(userId: UserId): Fu[Boolean] = currentHostIds.map(_ contains userId)
 
   private val currentHostIdsCache = cacheApi.unit[Set[UserId]]:
-    _.refreshAfterWrite(5.minutes).buildAsyncFuture: _ =>
+    _.refreshAfterWrite(5.minutes).buildAsyncTimeout(): _ =>
       repo.allStarted.dmap(_.view.map(_.hostId).toSet)
 
   def create(setup: SimulForm.Setup)(using me: Me): Fu[Simul] = for

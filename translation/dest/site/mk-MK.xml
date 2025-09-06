@@ -265,7 +265,6 @@
   <string name="blackTimeOut">Времето на црниот истече</string>
   <string name="drawOfferSent">Понуда за реми е испратена</string>
   <string name="drawOfferAccepted">Понудата за реми е прифатена</string>
-  <string name="drawOfferCanceled">Понудата за реми е откажана</string>
   <string name="whiteOffersDraw">Белиот нуди реми</string>
   <string name="blackOffersDraw">Црниот нуди реми</string>
   <string name="whiteDeclinesDraw">Белиот одби реми</string>

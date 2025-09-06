@@ -262,7 +262,6 @@
   <string name="blackTimeOut">Bên đen hết giờ</string>
   <string name="drawOfferSent">Đã gửi đề nghị hòa</string>
   <string name="drawOfferAccepted">Đề nghị hoà được chấp nhận</string>
-  <string name="drawOfferCanceled">Đã hủy bỏ đề nghị hoà</string>
   <string name="whiteOffersDraw">Bên trắng đề nghị hòa</string>
   <string name="blackOffersDraw">Bên đen đề nghị hòa</string>
   <string name="whiteDeclinesDraw">Bên trắng từ chối hòa</string>

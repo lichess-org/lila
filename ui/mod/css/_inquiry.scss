@@ -74,10 +74,12 @@ body.no-inquiry {
     }
   }
 
-  &,
-  a,
-  a.user-link .line {
-    color: $c-font;
+  a {
+    color: $c-link;
+  }
+
+  a.user-link {
+    color: $c-font-clear;
   }
 
   .meat {
@@ -229,7 +231,7 @@ body.no-inquiry {
   }
 
   .fbt:hover {
-    background: rgba(56, 147, 232, 0.8);
+    background: $m-primary_bg--mix-50;
   }
 
   .fbt.icon::before,
@@ -248,12 +250,13 @@ body.no-inquiry {
   }
 
   .links a {
+    color: $c-font;
     padding: 0 13px;
   }
 
-  .links a:hover,
+  a.user-link:hover,
   .report a:hover {
-    color: $c-link;
+    color: $c-link-hover;
   }
 
   .process button {

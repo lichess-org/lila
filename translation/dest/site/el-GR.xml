@@ -280,7 +280,6 @@
   <string name="blackTimeOut">Τέλος χρόνου για τα μαύρα</string>
   <string name="drawOfferSent">Πρόταση ισοπαλίας εστάλη</string>
   <string name="drawOfferAccepted">Πρόταση ισοπαλίας αποδεκτή</string>
-  <string name="drawOfferCanceled">Πρόταση ισοπαλίας ακυρώθηκε</string>
   <string name="whiteOffersDraw">Τα λευκά προσφέρουν ισοπαλία</string>
   <string name="blackOffersDraw">Τα μαύρα προσφέρουν ισοπαλία</string>
   <string name="whiteDeclinesDraw">Τα λευκά απορρίπτουν την ισοπαλία</string>

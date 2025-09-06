@@ -17,7 +17,8 @@ export { renderVoiceBar } from './view';
 
 export const supportedLangs: [string, string][] = [
   ['en', 'English'],
-  ['fr', 'Français (expérimental)'],
+  ['fr', 'Français'],
+  ['pl', 'Polski'],
 ];
 
 if (site.debug)

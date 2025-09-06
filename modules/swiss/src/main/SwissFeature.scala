@@ -11,22 +11,21 @@ final class SwissFeature(
     mongo: SwissMongo,
     cacheApi: CacheApi,
     swissCache: SwissCache
-)(using Executor)
+)(using Executor, Scheduler)
     extends lila.core.swiss.SwissFeatureApi:
 
   import BsonHandlers.given
 
   val onHomepage = cacheApi.unit[Option[Swiss]]:
-    _.refreshAfterWrite(30.seconds)
-      .buildAsyncFuture: _ =>
-        mongo.swiss
-          .find:
-            $doc(
-              "teamId" -> lichessTeamId,
-              "startsAt".$gt(nowInstant.minusMinutes(5)).$lt(nowInstant.plusMinutes(10))
-            )
-          .sort($sort.asc("startsAt"))
-          .one[Swiss]
+    _.refreshAfterWrite(30.seconds).buildAsyncTimeout(): _ =>
+      mongo.swiss
+        .find:
+          $doc(
+            "teamId" -> lichessTeamId,
+            "startsAt".$gt(nowInstant.minusMinutes(5)).$lt(nowInstant.plusMinutes(10))
+          )
+        .sort($sort.asc("startsAt"))
+        .one[Swiss]
 
   def get(teams: Seq[TeamId]): Fu[FeaturedSwisses] =
     cache.getUnit
@@ -56,7 +55,7 @@ final class SwissFeature(
         )
 
   private val cache = cacheApi.unit[FeaturedSwisses]:
-    _.refreshAfterWrite(10.seconds).buildAsyncFuture: _ =>
+    _.refreshAfterWrite(10.seconds).buildAsyncTimeout(): _ =>
       val now = nowInstant
       cacheCompute($doc("$gt" -> now, "$lt" -> now.plusHours(1)))
         .zip(cacheCompute($doc("$gt" -> now.minusHours(3), "$lt" -> now)))

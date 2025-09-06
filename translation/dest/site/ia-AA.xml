@@ -191,7 +191,6 @@
   <string name="blackTimeOut">Le tempore del nigro ha finite</string>
   <string name="drawOfferSent">Proposition de partita nulle inviate</string>
   <string name="drawOfferAccepted">Proposition de partita nulle acceptate</string>
-  <string name="drawOfferCanceled">Proposition de partita nulle cancellate</string>
   <string name="whiteOffersDraw">Le blanco propone le partita nulle</string>
   <string name="blackOffersDraw">Le nigro propone le partita nulle</string>
   <string name="whiteDeclinesDraw">Le blanco declina le partita nulle</string>

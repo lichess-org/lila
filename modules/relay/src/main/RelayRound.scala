@@ -232,4 +232,5 @@ object RelayRound:
     def path = withTour.path
     def fullName = withTour.fullName
 
-  case class WithStudy(relay: RelayRound, study: Study)
+  case class WithStudy(relay: RelayRound, study: Study):
+    def withTour(tour: RelayTour) = WithTourAndStudy(relay, tour, study)

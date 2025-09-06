@@ -36,7 +36,7 @@ object UserAgentParser:
 
   object trust:
 
-    def isSuspicious(req: RequestHeader): Boolean = HTTPRequest.userAgent(req).forall(isSuspicious)
+    def isSuspicious(req: RequestHeader): Boolean = isSuspicious(HTTPRequest.userAgent(req))
 
     def isSuspicious(ua: UA): Boolean =
       !isLichobile(ua) && !isLM(ua) && {

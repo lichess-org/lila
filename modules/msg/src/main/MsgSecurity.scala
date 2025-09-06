@@ -24,10 +24,11 @@ final private class MsgSecurity(
 
   private object limitCost:
     val normal = 25
-    def apply(u: Contact): Int =
+    def apply(u: Contact, isNew: Boolean): Int =
       if u.isApiHog then 1
       else if u.isVerified then 5
       else if u.isBroadcastManager then 5
+      else if isNew && !u.seenRecently then normal * 5
       else if u.isDaysOld(30) then normal
       else if u.isDaysOld(7) then normal * 2
       else if u.isDaysOld(3) then normal * 3
@@ -102,7 +103,7 @@ final private class MsgSecurity(
         text: String
     ): Fu[Option[Verdict]] =
       def limitWith(limiter: RateLimit[UserId]) =
-        val cost = limitCost(contacts.orig) * {
+        val cost = limitCost(contacts.orig, isNew) * {
           if !contacts.orig.isVerified && textAnalyser.containsLink(text) then 2 else 1
         }
         limiter(contacts.orig.id, Limit.some, cost)(none)
@@ -191,7 +192,7 @@ private object MsgSecurity:
   sealed trait Verdict
   sealed trait Reject extends Verdict
   sealed abstract class Send(val mute: Boolean) extends Verdict
-  sealed abstract class Mute extends Send(true)
+  sealed abstract class Mute extends Send(mute = true)
 
   case object Ok extends Send(mute = false)
   case object TrollFriend extends Send(mute = false)

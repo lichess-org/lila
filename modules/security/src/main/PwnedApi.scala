@@ -4,9 +4,12 @@ import com.roundeights.hasher.Implicits.*
 import play.api.libs.ws.DefaultBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 
-final class Pwned(ws: StandaloneWSClient, rangeUrl: String)(using Executor):
+opaque type IsPwned = Boolean
+object IsPwned extends YesNo[IsPwned]
 
-  def apply(pass: lila.core.security.ClearPassword): Fu[Boolean] =
+final class PwnedApi(ws: StandaloneWSClient, rangeUrl: String)(using Executor):
+
+  def isPwned(pass: lila.core.security.ClearPassword): Fu[IsPwned] =
     rangeUrl.nonEmpty.so:
       val (prefix, suffix) = pass.value.sha1.hex.toUpperCase.splitAt(5)
       val url = s"${rangeUrl}${prefix}"
@@ -16,9 +19,9 @@ final class Pwned(ws: StandaloneWSClient, rangeUrl: String)(using Executor):
         .get()
         .map:
           case res if res.status == 200 =>
-            res.body[String].contains(suffix)
+            IsPwned(res.body[String].contains(suffix))
           case res =>
             logger.warn(s"Pwnd ${url} ${res.status} ${res.body[String].take(200)}")
-            false
+            IsPwned(false)
         .monValue: result =>
-          _.security.pwned.get(result)
+          _.security.pwned.get(result.yes)

@@ -32,12 +32,12 @@ import { fromNodeList } from 'lib/tree/path';
 import Report from './report';
 import { last } from 'lib/tree/ops';
 import { uciToMove } from '@lichess-org/chessground/util';
-import type { ParentCtrl } from 'lib/ceval/types';
+import type { CevalHandler } from 'lib/ceval/types';
 import { pubsub } from 'lib/pubsub';
 import { alert } from 'lib/view/dialogs';
 import { type WithGround } from 'lib/game/ground';
 
-export default class PuzzleCtrl implements ParentCtrl {
+export default class PuzzleCtrl implements CevalHandler {
   data: PuzzleData;
   next: Deferred<PuzzleData | ReplayEnd> = defer<PuzzleData>();
   tree: TreeWrapper;
@@ -77,6 +77,7 @@ export default class PuzzleCtrl implements ParentCtrl {
   isDaily: boolean;
   blindfolded: StoredProp<boolean>;
   cgVersion = 1;
+
   private report: Report;
 
   constructor(
@@ -117,7 +118,6 @@ export default class PuzzleCtrl implements ParentCtrl {
           endpoint: this.opts.externalEngineEndpoint,
         })) || [],
       initialFen: undefined, // always standard starting position
-      possible: true,
       emit: (ev, work) => {
         this.tree.updateAt(work.path, node => {
           if (work.threatMode) {
@@ -131,7 +131,7 @@ export default class PuzzleCtrl implements ParentCtrl {
           }
         });
       },
-      setAutoShapes: this.setAutoShapes,
+      onUciHover: this.setAutoShapes,
     });
 
     this.keyboardHelp = propWithEffect(location.hash === '#keyboard', this.redraw);
@@ -506,15 +506,15 @@ export default class PuzzleCtrl implements ParentCtrl {
       ),
     );
 
-  private hintSquare = () => {
+  hintSquare = () => {
     const hint = this.showHint() ? nextCorrectMove(this) : undefined;
     return hint?.from;
   };
 
-  canUseCeval = (): boolean => this.mode === 'view' && !this.outcome();
+  isCevalAllowed = (): boolean => this.mode === 'view';
 
   startCeval = (): void => {
-    if (this.ceval.enabled() && this.canUseCeval()) this.doStartCeval();
+    if (this.cevalEnabled()) this.doStartCeval();
   };
 
   private doStartCeval = throttle(800, () =>
@@ -523,29 +523,33 @@ export default class PuzzleCtrl implements ParentCtrl {
 
   nextNodeBest = () => treeOps.withMainlineChild(this.node, n => n.eval?.best);
 
-  toggleCeval = (): void => {
-    this.ceval.toggle();
-    this.setAutoShapes();
-    this.startCeval();
-    if (!this.ceval.enabled()) this.threatMode(false);
+  cevalEnabledProp = storedBooleanProp('engine.enabled', false);
+  cevalEnabled = (enable?: boolean) => {
+    if (enable === undefined) return this.cevalEnabledProp() && this.isCevalAllowed();
+    this.cevalEnabledProp(enable);
+    if (enable && this.isCevalAllowed()) this.startCeval();
+    else {
+      this.threatMode(false);
+      this.ceval.stop();
+    }
     this.autoScrollRequested = true;
+    this.setAutoShapes();
+    this.ceval.showEnginePrefs(false);
     this.redraw();
+    return enable;
   };
 
-  restartCeval = (): void => {
+  clearCeval(): void {
+    this.tree.removeCeval();
     this.ceval.stop();
     this.startCeval();
     this.redraw();
-  };
-  clearCeval(): void {
-    this.tree.removeCeval();
-    this.restartCeval();
   }
 
   toggleThreatMode = (): void => {
     if (this.node.check) return;
-    if (!this.ceval.enabled()) this.ceval.toggle();
-    if (!this.ceval.enabled()) return;
+    //if (!this.ceval.enabled()) this.ceval.toggle(); // ??
+    if (!this.cevalEnabled()) return;
     this.threatMode.toggle();
     this.setAutoShapes();
     this.startCeval();
@@ -675,8 +679,7 @@ export default class PuzzleCtrl implements ParentCtrl {
     if (uci) this.playUci(uci);
   };
   autoNexting = () => this.lastFeedback === 'win' && this.autoNext();
-  currentEvals = () => ({ client: this.node.ceval });
-  showEvalGauge = () => this.showComputer() && this.ceval.enabled() && !this.outcome();
+  showEvalGauge = () => this.showAnalysis() && this.isCevalAllowed() && !this.outcome();
   getOrientation = () => this.withGround(g => g.state.orientation)!;
   allThemes = this.opts.themes && {
     dynamic: this.opts.themes.dynamic.split(' '),
@@ -686,7 +689,7 @@ export default class PuzzleCtrl implements ParentCtrl {
   getCeval = () => this.ceval;
   ongoing = false;
   getNode = () => this.node;
-  showComputer = () => this.mode === 'view';
+  showAnalysis = () => this.mode === 'view';
   routerWithLang = (path: string): string => {
     if (document.body.hasAttribute('data-user')) return path;
     const language = document.documentElement.lang.slice(0, 2);

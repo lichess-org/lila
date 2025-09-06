@@ -260,9 +260,9 @@
     <item quantity="other">Ранг се ажурира сваких %s минута</item>
   </plurals>
   <plurals name="nbPuzzles">
-    <item quantity="one">%s тактика</item>
-    <item quantity="few">%s тактике</item>
-    <item quantity="other">%s тактика</item>
+    <item quantity="one">%s проблем</item>
+    <item quantity="few">%s проблема</item>
+    <item quantity="other">%s проблема</item>
   </plurals>
   <string name="gamesPlayed">Одиграних партија</string>
   <plurals name="nbGamesWithYou">
@@ -276,7 +276,6 @@
   <string name="blackTimeOut">Време истекло црном</string>
   <string name="drawOfferSent">Понуда за реми послата</string>
   <string name="drawOfferAccepted">Понуда за реми прихваћена</string>
-  <string name="drawOfferCanceled">Понуда за реми повучена</string>
   <string name="whiteOffersDraw">Бели нуди реми</string>
   <string name="blackOffersDraw">Црни нуди реми</string>
   <string name="whiteDeclinesDraw">Бели одбија реми</string>
@@ -339,8 +338,8 @@
   </plurals>
   <plurals name="nbPlaying">
     <item quantity="one">%s игра</item>
-    <item quantity="few">%s играју</item>
-    <item quantity="other">%s играју</item>
+    <item quantity="few">%s игра</item>
+    <item quantity="other">%s игра</item>
   </plurals>
   <string name="exportGames">Извези партије</string>
   <string name="ratingRange">Распон рејтинга</string>
@@ -552,8 +551,8 @@
     <item quantity="few">%s партије у игри</item>
     <item quantity="other">%s партија у игри</item>
   </plurals>
-  <string name="automaticallyProceedToNextGameAfterMoving">Аутоматско пребацивање у следећу партију после потеза</string>
-  <string name="autoSwitch">Аутоматско пребацивање</string>
+  <string name="automaticallyProceedToNextGameAfterMoving">Аутоматски пребаци на следећу партију после потеза</string>
+  <string name="autoSwitch">Аутопребацивање</string>
   <string name="puzzles">Проблеми</string>
   <string name="onlineBots">Онлајн ботови</string>
   <string name="name">Назив</string>
@@ -564,8 +563,8 @@
   <string name="yes">Да</string>
   <string name="website">Интернет страница</string>
   <string name="mobile">Мобилни</string>
-  <string name="help">Помоћ</string>
-  <string name="createANewTopic">Направиte нову тему</string>
+  <string name="help">Помоћ:</string>
+  <string name="createANewTopic">Направи нову тему</string>
   <string name="topics">Теме</string>
   <string name="posts">Објавe</string>
   <string name="lastPost">Последња објава</string>
@@ -647,7 +646,7 @@
   <string name="side">Страна</string>
   <string name="clock">Сат</string>
   <string name="opponent">Противник</string>
-  <string name="learnMenu">учи</string>
+  <string name="learnMenu">Учи</string>
   <string name="studyMenu">Проучи</string>
   <string name="practice">Вежбање</string>
   <string name="community">Заједница</string>
@@ -693,7 +692,7 @@
   <string name="sourceCode">Изворни Код</string>
   <string name="simultaneousExhibitions">Симултанке</string>
   <string name="host">Домаћин</string>
-  <string name="hostColorX">Боја приређивача: %s</string>
+  <string name="hostColorX">Боја домаћина: %s</string>
   <string name="yourPendingSimuls">Незавршене симултанке</string>
   <string name="createdSimuls">Новостворене симултанке</string>
   <string name="hostANewSimul">Организуј нову симултанку</string>
@@ -814,9 +813,9 @@
   <string name="background">Позадина</string>
   <string name="light">Светла</string>
   <string name="dark">Тамна</string>
-  <string name="transparent">Прозирна</string>
+  <string name="transparent">Провидна</string>
   <string name="deviceTheme">Тема уређаја</string>
-  <string name="backgroundImageUrl">УРЛ слике позадине:</string>
+  <string name="backgroundImageUrl">Линк позадиснке слике:</string>
   <string name="board">Табла</string>
   <string name="size">Величина</string>
   <string name="brightness">Осветљеност</string>

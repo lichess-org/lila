@@ -233,7 +233,6 @@
   <string name="blackTimeOut">Tempus nullum est</string>
   <string name="drawOfferSent">Missa est pacis conditio</string>
   <string name="drawOfferAccepted">Accepta est pacis conditio</string>
-  <string name="drawOfferCanceled">Sublata est pacis conditio</string>
   <string name="whiteOffersDraw">Albus terminum proponit.</string>
   <string name="blackOffersDraw">Niger terminum proponit.</string>
   <string name="whiteDeclinesDraw">Albus terminum negat.</string>

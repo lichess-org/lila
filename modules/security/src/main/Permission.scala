@@ -17,7 +17,8 @@ object Permission:
       ModerateForum,
       ModerateBlog,
       ReportBan,
-      ModMessage
+      ModMessage,
+      StickyPosts
     ),
     "Play mod" -> List(
       SeeInsight,
@@ -29,6 +30,7 @@ object Permission:
     ),
     "Account mod" -> List(
       UserModView,
+      AccountInfo,
       IpBan,
       PrintBan,
       DisableTwoFactor,
@@ -62,7 +64,6 @@ object Permission:
       ManageTournament,
       ManageSimul,
       StudyAdmin,
-      PracticeConfig,
       PuzzleCurator,
       OpeningWiki,
       Presets,
@@ -70,6 +71,7 @@ object Permission:
       BotEditor
     ),
     "Dev" -> List(
+      Diagnostics,
       Cli,
       Settings,
       Impersonate,
@@ -84,7 +86,7 @@ object Permission:
       ApiChallengeAdmin
     ),
     "Badge" -> List(
-      Developer,
+      Tech,
       PublicMod,
       Verified,
       ContentTeam,
@@ -92,6 +94,7 @@ object Permission:
     ),
     "Package" -> List(
       LichessTeam,
+      DeveloperTeam,
       TimeoutMod,
       BoostHunter,
       CheatHunter,

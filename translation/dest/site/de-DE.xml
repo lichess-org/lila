@@ -280,7 +280,6 @@
   <string name="blackTimeOut">Zeitüberschreitung von Schwarz</string>
   <string name="drawOfferSent">Remisangebot gesendet</string>
   <string name="drawOfferAccepted">Remisangebot angenommen</string>
-  <string name="drawOfferCanceled">Remisangebot zurückgezogen</string>
   <string name="whiteOffersDraw">Weiß bietet Remis</string>
   <string name="blackOffersDraw">Schwarz bietet Remis</string>
   <string name="whiteDeclinesDraw">Weiß lehnt Remis ab</string>

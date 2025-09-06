@@ -270,7 +270,6 @@
   <string name="blackTimeOut">tenpo pimeja li pini</string>
   <string name="drawOfferSent">sina toki e ni: sina wile e pini pi anpa ala</string>
   <string name="drawOfferAccepted">jan ante li wile kin e pini pi anpa ala</string>
-  <string name="drawOfferCanceled">jan ante li weka e wile sina</string>
   <string name="whiteOffersDraw">walo li wile e pini pi anpa ala</string>
   <string name="blackOffersDraw">pimeja li wile e pini pi anpa ala</string>
   <string name="whiteDeclinesDraw">walo li wile ala e pini pi anpa ala</string>

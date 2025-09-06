@@ -47,7 +47,8 @@ object net:
     object Lower extends OpaqueString[Lower]
 
   opaque type UserAgent = String
-  object UserAgent extends OpaqueString[UserAgent]
+  object UserAgent extends OpaqueString[UserAgent]:
+    val zero: UserAgent = ""
 
   opaque type Crawler = Boolean
   object Crawler extends YesNo[Crawler]

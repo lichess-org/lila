@@ -86,27 +86,42 @@
   cursor: not-allowed !important;
 }
 
-.cmn-toggle:focus-visible:not(:disabled) + label {
-  @extend %focus-shadow;
-}
-
-.cmn-toggle:hover:not(:disabled) {
-  + label {
-    @extend %focus-shadow;
-    @include transition(background);
-
+@media (hover: none) {
+  .cmn-toggle:not(:disabled) + label {
+    transition:
+      background $transition-duration,
+      box-shadow $transition-duration;
     &::before {
       transition:
         margin $transition-duration,
         color $transition-duration;
     }
-
     &::after {
-      @extend %metal;
-      @include if-transp {
-        background: linear-gradient(to bottom, hsl($site-hue, 7%, 22), hsl($site-hue, 5%, 19) 100%);
+      transition:
+        margin $transition-duration,
+        box-shadow $transition-duration;
+    }
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .cmn-toggle:focus-visible:not(:disabled) + label {
+    box-shadow: 0 0 12px $c-font-dimmer;
+  }
+  .cmn-toggle:hover:not(:disabled) {
+    + label {
+      box-shadow: 0 0 12px $c-font-dimmer;
+      transition: background $transition-duration;
+
+      &::before {
+        transition:
+          margin $transition-duration,
+          color $transition-duration;
       }
-      @include transition(margin);
+
+      &::after {
+        transition: margin $transition-duration;
+      }
     }
   }
 }

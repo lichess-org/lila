@@ -45,7 +45,7 @@ object UblogAutomod:
   )
   private given Reads[FuzzyResult] = Json.reads[FuzzyResult]
 
-final class UblogAutomod(
+private final class UblogAutomod(
     reportApi: lila.report.ReportApi,
     settingStore: lila.memo.SettingStore.Builder
 )(using Executor):
@@ -64,13 +64,8 @@ final class UblogAutomod(
     default = "Qwen/Qwen3-235B-A22B-Thinking-2507"
   )
 
-  private val dedup = scalalib.cache.OnceEvery.hashCode[String](1.hour)
-
   private[ublog] def apply(post: UblogPost, temperature: Double = 0): Fu[Option[Assessment]] = post.live.so:
-    val text = post.allText.take(40_000) // bin/ublog-automod.mjs, important for hash
-    dedup(s"${post.id}:$text").so(assess(text, temperature))
-
-  private def assess(userText: String, temperature: Double): Fu[Option[Assessment]] =
+    val userText = post.allText.take(40_000) // bin/ublog-automod.mjs, important for hash
     reportApi
       .automodRequest(
         userText = userText,

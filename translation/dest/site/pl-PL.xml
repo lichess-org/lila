@@ -316,7 +316,6 @@
   <string name="blackTimeOut">Upłynął czas czarnych</string>
   <string name="drawOfferSent">Wysłano propozycję remisu</string>
   <string name="drawOfferAccepted">Przyjęto propozycję remisu</string>
-  <string name="drawOfferCanceled">Wycofano propozycję remisu</string>
   <string name="whiteOffersDraw">Białe proponują remis</string>
   <string name="blackOffersDraw">Czarne proponują remis</string>
   <string name="whiteDeclinesDraw">Białe odrzucają propozycję remisu</string>

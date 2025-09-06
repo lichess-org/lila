@@ -3,6 +3,7 @@ package lila.fishnet
 import scalalib.ThreadLocalRandom
 
 import lila.core.chess.Depth
+import lila.memo.CacheApi.buildAsyncTimeout
 
 final private class Monitor(
     repo: FishnetRepo,
@@ -10,7 +11,7 @@ final private class Monitor(
 )(using ec: Executor, scheduler: Scheduler):
 
   val statusCache = cacheApi.unit[Monitor.Status]:
-    _.refreshAfterWrite(1.minute).buildAsyncFuture: _ =>
+    _.refreshAfterWrite(1.minute).buildAsyncTimeout(): _ =>
       repo.status.compute
 
   private val monBy = lila.mon.fishnet.analysis.by

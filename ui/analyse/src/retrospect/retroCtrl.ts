@@ -139,7 +139,6 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
         onFail(); // the move that was played in the game
       else {
         feedback('eval');
-        if (!root.ceval.enabled()) root.toggleCeval();
         checkCeval();
       }
     } else if (isSolving() && cur.prev.path !== root.path) feedback('offTrack');

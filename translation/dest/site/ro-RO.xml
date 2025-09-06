@@ -298,7 +298,6 @@
   <string name="blackTimeOut">Timpul pentru negru a expirat</string>
   <string name="drawOfferSent">Propunere de remiză trimisă</string>
   <string name="drawOfferAccepted">Propunere de remiză acceptată</string>
-  <string name="drawOfferCanceled">Propunere remiză anulată</string>
   <string name="whiteOffersDraw">Albul a oferit remiza</string>
   <string name="blackOffersDraw">Negrul a oferit remiza</string>
   <string name="whiteDeclinesDraw">Albul refuză propunerea de remiză</string>

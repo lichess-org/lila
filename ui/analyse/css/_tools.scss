@@ -132,54 +132,7 @@
     color: $c-over;
   }
 
-  .latent {
+  .fbt.latent {
     background-color: $m-secondary--fade-50;
-  }
-}
-
-@include mq-is-col1 {
-  .analyse__tools {
-    .ceval .switch {
-      display: none;
-    }
-    .sub-box {
-      order: 0;
-    }
-    .ceval,
-    .pv_box,
-    .analyse__fork {
-      order: 1;
-    }
-    .analyse__moves {
-      order: 2;
-    }
-  }
-  .analyse__controls {
-    margin-top: 4px;
-    height: 3em;
-    .fbt {
-      border-radius: 6px 6px 0 0;
-      flex: 0 0 3.5rem;
-    }
-  }
-  .analyse[data-showing-tool] .analyse__tools,
-  .analyse[data-ceval-mode] .analyse__tools {
-    border-radius: 0 0 $box-radius-size $box-radius-size;
-  }
-  .analyse[data-showing-tool] .analyse__tools,
-  .analyse[data-ceval-mode='ceval-practice'] .analyse__tools {
-    border-top: 3px solid $c-secondary;
-  }
-  .analyse:not([data-ceval-mode='ceval']) {
-    .ceval,
-    .pv_box {
-      display: none;
-    }
-    .analyse__moves {
-      border-top: none;
-    }
-  }
-  .analyse[data-ceval-mode='ceval-practice'] .analyse__fork {
-    display: none;
   }
 }

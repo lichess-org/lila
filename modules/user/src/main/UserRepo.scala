@@ -255,6 +255,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
       coll.insert.one(doc) >> byId(name.id)
 
   def exists[U: UserIdOf](u: U): Fu[Boolean] = coll.exists($id(u.id))
+  def existsSec[U: UserIdOf](u: U): Fu[Boolean] = coll.secondary.exists($id(u.id))
 
   def filterExists(ids: Set[UserId]): Fu[List[UserId]] =
     coll.primitive[UserId]($inIds(ids), F.id)

@@ -3,46 +3,11 @@ import { memoize } from './common';
 import { bind } from './snabbdom';
 import * as licon from './licon';
 
-const longPressDuration = 610;
-
-export function bindMobileTapHold(el: HTMLElement, f: (e: Event) => unknown, redraw?: () => void): void {
-  let longPressCountdown: Timeout;
-
-  el.addEventListener('touchstart', e => {
-    longPressCountdown = setTimeout(() => {
-      f(e);
-      if (redraw) redraw();
-    }, longPressDuration);
-  });
-
-  el.addEventListener('touchmove', () => clearTimeout(longPressCountdown));
-
-  el.addEventListener('touchcancel', () => clearTimeout(longPressCountdown));
-
-  el.addEventListener('touchend', () => clearTimeout(longPressCountdown));
-}
-
 export function isBrowserSupported(): boolean {
   // when feature detection is not enough
   if (isSafari({ below: '15.4' })) return false;
   return true; // TODO add unsupported browsers
 }
-
-export const bindMobileMousedown =
-  (f: (e: Event) => unknown, redraw?: () => void) =>
-  (el: HTMLElement): void => {
-    for (const mousedownEvent of ['touchstart', 'mousedown']) {
-      el.addEventListener(
-        mousedownEvent,
-        e => {
-          f(e);
-          e.preventDefault();
-          if (redraw) redraw();
-        },
-        { passive: false },
-      );
-    }
-  };
 
 export const hookMobileMousedown = (f: (e: Event) => any): Hooks =>
   bind('ontouchstart' in window ? 'click' : 'mousedown', f);

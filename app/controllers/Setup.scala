@@ -150,22 +150,18 @@ final class Setup(
           for
             me <- ctx.me.so(env.user.api.withPerfs)
             blocking <- ctx.me.so(env.relation.api.fetchBlocking(_))
-            uniqId = author.fold(_.value, u => s"sri:${u.id}")
-            ua = HTTPRequest.userAgent(req).fold("?")(_.value)
-            _ = lila.mon.lobby.hook
-              .apiCreate(ua = ua.split(' ').take(2).mkString(" "), color = config.color.name)
-              .increment()
+            sri = orUserSri(author)
             forcedColor <- env.lobby.boardApiHookStream.mustPlayAsColor(config.color)
             res <- forcedColor.match
               case Some(forced) => fuccess(JsonBadRequest(s"You must also play some games as $forced"))
               case None =>
                 config
-                  .hook(reqSri | Sri(uniqId), me, sid = uniqId.some, lila.core.pool.Blocking(blocking))
+                  .hook(reqSri | sri, me, sid = sri.value.some, lila.core.pool.Blocking(blocking))
                   .match
                     case Left(hook) =>
                       limit.setupPost(req.ipAddress, rateLimited):
                         limit
-                          .boardApiConcurrency(author.map(_.id))(
+                          .boardApiConcurrency(author.map(_.id), msg = req.userAgent.value)(
                             env.lobby.boardApiHookStream(hook.copy(boardApi = true))
                           )(jsOptToNdJson)
                           .toFuccess
@@ -182,11 +178,13 @@ final class Setup(
       )
   }
 
-  def boardApiHookCancel = WithBoardApiHookAuthor { (_, reqSri) => _ ?=>
-    reqSri.so: sri =>
-      env.lobby.boardApiHookStream.cancel(sri)
-      NoContent
+  def boardApiHookCancel = WithBoardApiHookAuthor { (author, reqSri) => _ ?=>
+    env.lobby.boardApiHookStream.cancel(orUserSri(author), reqSri)
+    NoContent
   }
+
+  private def orUserSri(author: Either[Sri, lila.user.User]): Sri =
+    author.fold(identity, u => Sri(s"user:${u.id}"))
 
   private def WithBoardApiHookAuthor(
       f: (Either[Sri, lila.user.User], Option[Sri]) => BodyContext[?] ?=> Fu[Result]

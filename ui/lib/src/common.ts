@@ -51,8 +51,17 @@ export interface Toggle extends PropWithEffect<boolean> {
 export const toggle = (initialValue: boolean, effect: (value: boolean) => void = () => {}): Toggle => {
   const prop = propWithEffect<boolean>(initialValue, effect) as Toggle;
   prop.toggle = () => prop(!prop());
-  prop.effect = effect;
   return prop;
+};
+
+export const toggleWithConstraint = (value: boolean, constraint: () => boolean): Toggle => {
+  return Object.assign(
+    (v?: boolean): boolean => {
+      if (defined(v)) value = v && constraint();
+      return value;
+    },
+    { toggle: () => (value = !value && constraint()), effect: () => {} },
+  );
 };
 
 // Only computes a value once. The computed value must not be undefined.
@@ -121,7 +130,7 @@ export function myUsername(): string | undefined {
   return document.body.dataset.username;
 }
 
-export function repeater(f: () => void, e: Event, additionalStopCond?: () => boolean): void {
+export function repeater(f: () => void, additionalStopCond?: () => boolean): void {
   let timeout: number | undefined = undefined;
   const delay = (function* () {
     yield 500;
@@ -133,6 +142,5 @@ export function repeater(f: () => void, e: Event, additionalStopCond?: () => boo
     if (additionalStopCond?.()) clearTimeout(timeout);
   };
   repeat();
-  const eventName = e.type === 'touchstart' ? 'touchend' : 'mouseup';
-  document.addEventListener(eventName, () => clearTimeout(timeout), { once: true });
+  document.addEventListener('pointerup', () => clearTimeout(timeout), { once: true });
 }

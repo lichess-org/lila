@@ -33,6 +33,9 @@ $buttons-height: 2.5rem;
 
   .fbt,
   .noop {
+    @include prevent-select;
+    -webkit-callout-touch: none;
+
     flex: 0 0 calc(100% / 6);
     text-align: center;
   }

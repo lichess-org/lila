@@ -28,8 +28,8 @@ object mod:
           tokens.map: token =>
             li(
               List(token.description, token.clientOrigin).flatten.mkString(" "),
-              ", last used ",
-              token.usedAt.map(momentFromNowOnce)
+              token.usedAt.map: at =>
+                frag(", last used ", momentFromNowOnce(at))
             )
       )
 
@@ -197,8 +197,10 @@ object mod:
     val canIpBan = Granter.opt(_.IpBan)
     val canFpBan = Granter.opt(_.PrintBan)
     val canLocate = Granter.opt(_.Admin)
+    val canViewUA = Granter.opt(_.AccountInfo)
+    val canViewPrint = Granter.opt(_.ViewPrintNoIP)
     mzSection("identification")(
-      canLocate.option(
+      canLocate.option:
         div(cls := "spy_locs")(
           table(cls := "slist slist--sort spy_filter")(
             thead(
@@ -225,8 +227,8 @@ object mod:
             )
           )
         )
-      ),
-      canLocate.option(
+      ,
+      canViewUA.option(
         div(cls := "spy_uas")(
           table(cls := "slist slist--sort")(
             thead(
@@ -257,77 +259,80 @@ object mod:
           )
         )
       ),
-      div(id := "identification_screen", cls := "spy_ips")(
-        table(cls := "slist spy_filter slist--sort")(
-          thead(
-            tr(
-              th(pluralize("IP", logins.ips.size)),
-              thSortNumber("Alts"),
-              th,
-              th("Client"),
-              thSortNumber("Date"),
-              canIpBan.option(thSortNumber)
-            )
-          ),
-          tbody(
-            logins.ips.sortBy(ip => (-ip.alts.score, -ip.ip.seconds)).map { ip =>
-              val renderedIp = renderIp(ip.ip.value)
-              tr(cls := ip.blocked.option("blocked"), dataValue := renderedIp, dataTags := ip.location.id)(
-                td(a(href := routes.Mod.singleIp(renderedIp))(renderedIp)),
-                td(dataSort := ip.alts.score)(altMarks(ip.alts)),
-                td(ip.proxy.name.map { proxy => span(cls := "proxy", title := "Proxy")(proxy) }),
-                td(ip.clients.toList.map(_.toString).sorted.mkString(", ")),
-                td(dataSort := ip.ip.date.toMillis)(momentFromNowServer(ip.ip.date)),
-                canIpBan.option(
-                  td(dataSort := (9999 - ip.alts.cleans))(
-                    button(
-                      cls := List(
-                        "button button-empty" -> true,
-                        "button-discouraging" -> (ip.alts.cleans > 0 || othersPartiallyLoaded)
-                      ),
-                      href := routes.Mod.singleIpBan(!ip.blocked, ip.ip.value.value)
-                    )("BAN")
+      canViewPrint.option:
+        div(id := "identification_screen", cls := "spy_ips")(
+          table(cls := "slist spy_filter slist--sort")(
+            thead(
+              tr(
+                th(pluralize("IP", logins.ips.size)),
+                thSortNumber("Alts"),
+                th,
+                th("Client"),
+                thSortNumber("Date"),
+                canIpBan.option(thSortNumber)
+              )
+            ),
+            tbody(
+              logins.ips.sortBy(ip => (-ip.alts.score, -ip.ip.seconds)).map { ip =>
+                val renderedIp = renderIp(ip.ip.value)
+                tr(cls := ip.blocked.option("blocked"), dataValue := renderedIp, dataTags := ip.location.id)(
+                  td(a(href := routes.Mod.singleIp(renderedIp))(renderedIp)),
+                  td(dataSort := ip.alts.score)(altMarks(ip.alts)),
+                  td(ip.proxy.name.map { proxy => span(cls := "proxy", title := "Proxy")(proxy) }),
+                  td(ip.clients.toList.map(_.toString).sorted.mkString(", ")),
+                  td(dataSort := ip.ip.date.toMillis)(momentFromNowServer(ip.ip.date)),
+                  canIpBan.option(
+                    td(dataSort := (9999 - ip.alts.cleans))(
+                      button(
+                        cls := List(
+                          "button button-empty" -> true,
+                          "button-discouraging" -> (ip.alts.cleans > 0 || othersPartiallyLoaded)
+                        ),
+                        href := routes.Mod.singleIpBan(!ip.blocked, ip.ip.value.value)
+                      )("BAN")
+                    )
                   )
                 )
-              )
-            }
+              }
+            )
           )
         )
-      ),
-      div(cls := "spy_fps")(
-        table(cls := "slist spy_filter slist--sort")(
-          thead(
-            tr(
-              th(pluralize("Print", logins.prints.size)),
-              thSortNumber("Alts"),
-              th("Client"),
-              thSortNumber("Date"),
-              canFpBan.option(thSortNumber)
-            )
-          ),
-          tbody(
-            logins.prints.sortBy(fp => (-fp.alts.score, -fp.fp.seconds)).map { fp =>
-              tr(cls := fp.banned.option("blocked"), dataValue := fp.fp.value)(
-                td(a(href := routes.Mod.print(fp.fp.value.value))(fp.fp.value)),
-                td(dataSort := fp.alts.score)(altMarks(fp.alts)),
-                td(fp.client.toString),
-                td(dataSort := fp.fp.date.toMillis)(momentFromNowServer(fp.fp.date)),
-                canFpBan.option(
-                  td(dataSort := (9999 - fp.alts.cleans))(
-                    button(
-                      cls := List(
-                        "button button-empty" -> true,
-                        "button-discouraging" -> (fp.alts.cleans > 0 || othersPartiallyLoaded)
-                      ),
-                      href := routes.Mod.printBan(!fp.banned, fp.fp.value.value)
-                    )("BAN")
+      ,
+      canViewPrint.option:
+        div(cls := "spy_fps")(
+          table(cls := "slist spy_filter slist--sort")(
+            thead(
+              tr(
+                th(pluralize("Print", logins.prints.size)),
+                thSortNumber("Alts"),
+                th("Client"),
+                thSortNumber("Date"),
+                canFpBan.option(thSortNumber)
+              )
+            ),
+            tbody(
+              logins.prints.sortBy(fp => (-fp.alts.score, -fp.fp.seconds)).map { fp =>
+                tr(cls := fp.banned.option("blocked"), dataValue := fp.fp.value)(
+                  td(a(href := routes.Mod.print(fp.fp.value.value))(fp.fp.value)),
+                  td(dataSort := fp.alts.score)(altMarks(fp.alts)),
+                  td(fp.client.toString),
+                  td(dataSort := fp.fp.date.toMillis)(momentFromNowServer(fp.fp.date)),
+                  canFpBan.option(
+                    td(dataSort := (9999 - fp.alts.cleans))(
+                      button(
+                        cls := List(
+                          "button button-empty" -> true,
+                          "button-discouraging" -> (fp.alts.cleans > 0 || othersPartiallyLoaded)
+                        ),
+                        href := routes.Mod.printBan(!fp.banned, fp.fp.value.value)
+                      )("BAN")
+                    )
                   )
                 )
-              )
-            }
+              }
+            )
           )
         )
-      )
     )
 
   private def altMarks(alts: UserLogins.Alts) =

@@ -7,7 +7,7 @@ import akka.stream.scaladsl.*
 
 import lila.common.Json.given
 import lila.core.misc.oauth.{ AccessTokenId, TokenRevoke }
-import lila.core.net.Bearer
+import lila.core.net.{ Bearer, UserAgent }
 import lila.db.dsl.{ *, given }
 
 final class AccessTokenApi(
@@ -22,7 +22,7 @@ final class AccessTokenApi(
   private def createAndRotate(token: AccessToken): Fu[AccessToken] = for
     oldIds <- coll
       .find($doc(F.userId -> token.userId, F.clientOrigin -> token.clientOrigin), $doc(F.id -> true).some)
-      .sort($doc(F.usedAt -> -1, F.createdAt -> -1))
+      .sort($doc(F.usedAt -> -1, F.created -> -1))
       .skip(30)
       .cursor[Bdoc]()
       .listAll()
@@ -33,29 +33,31 @@ final class AccessTokenApi(
     _ <- coll.insert.one(token)
   yield token
 
-  def create(setup: OAuthTokenForm.Data, isStudent: Boolean)(using me: MyId): Fu[AccessToken] = for
-    noBot <- fuccess(isStudent) >>| userApi.isManaged(me)
-    plain = Bearer.randomPersonal()
-    token = AccessToken(
-      id = AccessToken.idFrom(plain),
-      plain = plain,
-      userId = me,
-      description = setup.description.some,
-      createdAt = nowInstant.some,
-      scopes = TokenScopes:
-        setup.scopes
-          .flatMap(OAuthScope.byKey.get)
-          .filterNot(_ == OAuthScope.Bot.Play && noBot)
-          .filterNot(_ == OAuthScope.Web.Mobile)
-          .toList
-      ,
-      clientOrigin = None,
-      expires = None
-    )
-    res <- createAndRotate(token)
-  yield res
+  def create(setup: OAuthTokenForm.Data, isStudent: Boolean)(using me: MyId, ua: UserAgent): Fu[AccessToken] =
+    for
+      noBot <- fuccess(isStudent) >>| userApi.isManaged(me)
+      plain = Bearer.randomPersonal()
+      token = AccessToken(
+        id = AccessToken.idFrom(plain),
+        plain = plain,
+        userId = me,
+        description = setup.description.some,
+        created = nowInstant.some,
+        scopes = TokenScopes:
+          setup.scopes
+            .flatMap(OAuthScope.byKey.get)
+            .filterNot(_ == OAuthScope.Bot.Play && noBot)
+            .filterNot(_ == OAuthScope.Web.Mobile)
+            .toList
+        ,
+        clientOrigin = None,
+        userAgent = ua.some,
+        expires = None
+      )
+      res <- createAndRotate(token)
+    yield res
 
-  def create(granted: AccessTokenRequest.Granted): Fu[AccessToken] =
+  def create(granted: AccessTokenRequest.Granted)(using ua: UserAgent): Fu[AccessToken] =
     val plain = Bearer.random()
     createAndRotate:
       AccessToken(
@@ -63,16 +65,17 @@ final class AccessTokenApi(
         plain = plain,
         userId = granted.userId,
         description = None,
-        createdAt = nowInstant.some,
+        created = nowInstant.some,
         scopes = granted.scopes,
         clientOrigin = granted.redirectUri.clientOrigin.some,
+        userAgent = ua.some,
         expires = nowInstant.plusMonths(12).some
       )
 
   def adminChallengeTokens(
       setup: OAuthTokenForm.AdminChallengeTokensData,
       admin: User
-  ): Fu[Map[UserId, AccessToken]] = for
+  )(using ua: UserAgent): Fu[Map[UserId, AccessToken]] = for
     users <- userApi.enabledByIds(setup.usernames)
     scope = OAuthScope.Challenge.Write
     tokens <- users.sequentially: user =>
@@ -91,9 +94,10 @@ final class AccessTokenApi(
               plain = plain,
               userId = user.id,
               description = s"Challenge admin: ${admin.username}".some,
-              createdAt = nowInstant.some,
+              created = nowInstant.some,
               scopes = TokenScopes(List(scope)),
               clientOrigin = setup.description.some,
+              userAgent = ua.some,
               expires = Some(nowInstant.plusMonths(6))
             )
         .map(user.id -> _)
@@ -106,7 +110,7 @@ final class AccessTokenApi(
           F.userId -> me,
           F.clientOrigin -> $exists(false)
         )
-      .sort($sort.desc(F.createdAt)) // c.f. isBrandNew
+      .sort($sort.desc(F.created)) // c.f. isBrandNew
       .cursor[AccessToken]()
       .list(100)
 
@@ -118,7 +122,7 @@ final class AccessTokenApi(
           F.usedAt.$exists(true),
           F.userId -> user
         )
-      .sort($sort.desc(F.createdAt))
+      .sort($sort.desc(F.created))
       .cursor[AccessToken]()
       .list(30)
 
@@ -167,12 +171,12 @@ final class AccessTokenApi(
     for _ <- coll.delete.one($doc(F.id -> id, F.userId -> me))
     yield onRevoke(id)
 
-  def revokeAllByUser(user: User): Funit =
+  def revokeAllByUser(userId: UserId): Funit =
     coll
-      .find($doc(F.userId -> user.id))
+      .find($doc(F.userId -> userId))
       .cursor[AccessToken]()
       .documentSource()
-      .mapAsyncUnordered(4)(token => revokeById(token.id)(using Me(user)))
+      .mapAsyncUnordered(4)(token => revokeById(token.id)(using userId.into(MyId)))
       .runWith(Sink.ignore)
       .void
 

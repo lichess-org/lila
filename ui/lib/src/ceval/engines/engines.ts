@@ -25,7 +25,7 @@ export class Engines {
   }
 
   status = (status: { download?: { bytes: number; total: number }; error?: string } = {}): void => {
-    if (this.ctrl.enabled()) this.ctrl.download = status.download;
+    if (this.ctrl.available()) this.ctrl.download = status.download;
     if (status.error) {
       log(status.error);
       this.ctrl.engineFailed(status.error);

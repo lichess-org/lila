@@ -135,6 +135,7 @@ POST  /ublog/$id<\w{8}>/like           controllers.Ublog.like(id: UblogPostId, v
 POST  /ublog/:blogId/tier              controllers.Ublog.modBlog(blogId: String)
 POST  /ublog/$id<\w{8}>/adjust         controllers.Ublog.modPost(id: UblogPostId)
 POST  /ublog/$id<\w{8}>/pull           controllers.Ublog.modPull(id: UblogPostId)
+POST  /ublog/$id<\w{8}>/assess         controllers.Ublog.modAssess(id: UblogPostId)
 GET   /ublog/carousel                  controllers.Ublog.modShowCarousel
 POST  /upload/image/ublog/$id<\w{8}>   controllers.Ublog.image(id: UblogPostId)
 
@@ -762,7 +763,7 @@ POST  /api/challenge/ai                controllers.Setup.apiAi
 POST  /api/challenge/open              controllers.Challenge.openCreate
 POST  /api/challenge/:user             controllers.Challenge.apiCreate(user: UserStr)
 GET   /api/challenge/$id<\w{8}>/show   controllers.Challenge.apiShow(id: ChallengeId)
-POST  /api/challenge/$id<\w{8}>/accept controllers.Challenge.apiAccept(id: ChallengeId)
+POST  /api/challenge/$id<\w{8}>/accept controllers.Challenge.apiAccept(id: ChallengeId, color: Option[Color] ?= None)
 POST  /api/challenge/$id<\w{8}>/decline controllers.Challenge.apiDecline(id: ChallengeId)
 POST  /api/challenge/$id<\w{8}>/cancel controllers.Challenge.apiCancel(id: ChallengeId)
 POST  /api/challenge/$id<\w{8}>/start-clocks  controllers.Challenge.apiStartClocks(id: GameId)

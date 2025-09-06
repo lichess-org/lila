@@ -212,7 +212,12 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
               button(cls := "button button-metal carousel-pin-btn")("pin")
             )
         ),
-        post.automod.flatMap(_.lockedBy).map(u => span(s"* Edited by $u"))
+        span(cls := "ublog-mod-assess-footer")(
+          button(cls := "button button-metal assess-btn", data("url") := routes.Ublog.modAssess(post.id))(
+            if am.isDefined then "reassess" else "assess"
+          ),
+          am.flatMap(_.lockedBy).map(u => span(s"* $u"))
+        )
       ),
       fieldset(cls := "submit-fields")(
         legend("Tags", button(cls := "button button-empty none submit")("Submit")),

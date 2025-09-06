@@ -202,21 +202,20 @@ const closeButton = (ctrl: AnalyseCtrl): VNode =>
     i18n.site.close,
   );
 
-const showEmpty = (ctrl: AnalyseCtrl, data?: OpeningData): VNode =>
-  hl('div.data.empty', [
+const showEmpty = (ctrl: AnalyseCtrl, data?: OpeningData): VNode => {
+  const isTooDeep = ctrl.explorer.root.node.ply >= MAX_DEPTH;
+  return hl('div.data.empty', [
     explorerTitle(ctrl.explorer),
     openingTitle(ctrl, data),
     hl('div.message', [
-      hl(
-        'strong',
-        ctrl.explorer.root.node.ply >= MAX_DEPTH ? i18n.site.maxDepthReached : i18n.site.noGameFound,
-      ),
+      hl('strong', isTooDeep ? i18n.site.maxDepthReached : i18n.site.noGameFound),
       !!data?.queuePosition
         ? hl('p.explanation', `Indexing ${data.queuePosition} other players first ...`)
-        : !ctrl.explorer.config.fullHouse() &&
+        : !(ctrl.explorer.config.fullHouse() || isTooDeep) &&
           hl('p.explanation', i18n.site.maybeIncludeMoreGamesFromThePreferencesMenu),
     ]),
   ]);
+};
 
 const showGameEnd = (ctrl: AnalyseCtrl, title: string): VNode =>
   hl('div.data.empty', [

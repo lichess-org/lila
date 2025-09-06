@@ -6,6 +6,7 @@ import play.api.mvc.RequestHeader
 
 import lila.core.i18n.Translate
 import lila.common.Json.given
+import lila.web.AnnounceApi
 
 final class MobileApi(
     userApi: UserApi,
@@ -47,6 +48,7 @@ final class MobileApi(
       .add("ongoingGames", ongoingGames)
       .add("inbox", inbox)
       .add("challenges", challenges.map(challengeJson.all))
+      .add("announce", AnnounceApi.get.map(_.json))
 
   def tournaments(using me: Option[Me])(using Translate): Fu[JsObject] =
     for

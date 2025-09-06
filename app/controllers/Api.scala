@@ -36,7 +36,8 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
     env.security.ipTrust.rateLimit(8_000, 1.day, "user.show.api.ip", _.proxyMultiplier(4))
 
   def user(name: UserStr) = OpenOrScoped(): ctx ?=>
-    userShowApiRateLimit(rateLimited, cost = if env.socket.isOnline.exec(name.id) then 1 else 2):
+    val cost = (if env.socket.isOnline.exec(name.id) then 1 else 2) + ctx.isAnon.so(1)
+    userShowApiRateLimit(rateLimited, cost = cost):
       userApi
         .extended(
           name,
@@ -274,14 +275,13 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
     Scoped(_.Bot.Play, _.Board.Play, _.Challenge.Read) { _ ?=> me ?=>
       def limited = rateLimited:
         "Please don't poll this endpoint, it is intended to be streamed. See https://lichess.org/api#tag/Board/operation/apiStreamEvent."
-      limit.eventStream(me, limited):
-        env.round.proxyRepo
-          .urgentGames(me)
-          .flatMap: povs =>
-            env.challenge.api
-              .createdByDestId(me)
-              .map: challenges =>
-                jsOptToNdJson(env.api.eventStream(povs.map(_.game), challenges))
+      HTTPRequest.bearer(ctx.req).so { bearer =>
+        limit.eventStream(bearer, limited, msg = s"${me.username} ${HTTPRequest.printClient(req)}"):
+          for
+            povs <- env.round.proxyRepo.urgentGames(me)
+            challenges <- env.challenge.api.createdByDestId(me)
+          yield jsOptToNdJson(env.api.eventStream(povs.map(_.game), challenges, bearer))
+      }
     }
 
   def activity(name: UserStr) = ApiRequest:

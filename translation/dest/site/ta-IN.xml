@@ -280,7 +280,6 @@
   <string name="blackTimeOut">கருப்பின் காலம் கடந்தது</string>
   <string name="drawOfferSent">இழுபறி முன்வரவு தெரிவிப்பு</string>
   <string name="drawOfferAccepted">இழுபறி முன்வரவு ஏற்கப்பட்டது</string>
-  <string name="drawOfferCanceled">இழுபறி முன்வரவு நிராகரிக்கப்பட்டது</string>
   <string name="whiteOffersDraw">வெள்ளை இழுபறி வாய்ப்பளிக்கிறது</string>
   <string name="blackOffersDraw">கருப்பு இழுபறி வாய்ப்பளிக்கிறது</string>
   <string name="whiteDeclinesDraw">வெள்ளை இழுபறியை நிராகரித்தார்</string>

@@ -9,7 +9,7 @@ final class Env(
     studyApi: lila.study.StudyApi,
     cacheApi: lila.memo.CacheApi,
     db: lila.db.Db
-)(using Executor):
+)(using Executor, Scheduler):
 
   private lazy val coll = db(CollName("practice_progress"))
 

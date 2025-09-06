@@ -3235,8 +3235,6 @@ interface I18n {
     drawn: string;
     /** Draw offer accepted */
     drawOfferAccepted: string;
-    /** Draw offer cancelled */
-    drawOfferCanceled: string;
     /** Draw offer sent */
     drawOfferSent: string;
     /** Draw rate */
@@ -3955,6 +3953,8 @@ interface I18n {
     rating: string;
     /** Rating range */
     ratingRange: string;
+    /** Rating filters are locked because your rating is not stable. Playing rated games will increase stability. */
+    ratingRangeIsDisabledBecauseYourRatingIsProvisional: string;
     /** Rating stats */
     ratingStats: string;
     /** %1$s rating over %2$s games */

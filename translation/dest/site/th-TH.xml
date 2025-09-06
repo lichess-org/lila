@@ -262,7 +262,6 @@
   <string name="blackTimeOut">ดำหมดเวลา</string>
   <string name="drawOfferSent">ส่งการขอเสมอแล้ว</string>
   <string name="drawOfferAccepted">ยอมรับการขอเสมอแล้ว</string>
-  <string name="drawOfferCanceled">การขอเสมอถูกยกเลิก</string>
   <string name="whiteOffersDraw">ขาวขอเสมอ</string>
   <string name="blackOffersDraw">ดำขอเสมอ</string>
   <string name="whiteDeclinesDraw">ขาวปฏิเสธการขอเสมอ</string>

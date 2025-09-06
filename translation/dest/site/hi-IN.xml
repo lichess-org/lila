@@ -275,7 +275,6 @@
   <string name="blackTimeOut">काला का समय समाप्त</string>
   <string name="drawOfferSent">बराबरी पे खेल समाप्त करने का प्रस्ताव भेजा गया</string>
   <string name="drawOfferAccepted">बराबरी पे खेल समाप्त करने का प्रस्ताव स्वीकारित किया गया</string>
-  <string name="drawOfferCanceled">बराबरी पे खेल समाप्त करने का प्रस्ताव रद्द किया गया.</string>
   <string name="whiteOffersDraw">सफ़ेद खिलाड़ी का बराबरी पे खेल समाप्त करने का प्रस्ताव</string>
   <string name="blackOffersDraw">काले खिलाड़ी का बराबरी पे खेल समाप्त करने का प्रस्ताव</string>
   <string name="whiteDeclinesDraw">सफ़ेद खिलाड़ी द्वारा बराबरी पे खेल समाप्त करने का प्रस्ताव ख़ारिज</string>

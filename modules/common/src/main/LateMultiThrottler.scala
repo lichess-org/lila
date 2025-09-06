@@ -21,9 +21,8 @@ final class LateMultiThrottler(
       lila.common.LilaFuture.delay(delayOption | 0.seconds):
         timeoutOption
           .orElse(executionTimeout)
-          .fold(run()) { timeout =>
+          .fold(run()): timeout =>
             run().withTimeout(timeout, "LateMultiThrottler")
-          }
           .addEffectAnyway:
             self ! Done(id)
       executions = executions + id

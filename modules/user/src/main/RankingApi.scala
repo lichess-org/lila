@@ -18,7 +18,7 @@ final class RankingApi(
     c: AsyncCollFailingSilently,
     cacheApi: lila.memo.CacheApi,
     lightUser: lila.core.LightUser.Getter
-)(using Executor)
+)(using Executor, Scheduler)
     extends lila.core.user.RankingRepo(c):
 
   import RankingApi.*
@@ -123,7 +123,7 @@ final class RankingApi(
         case _ => Map.empty
 
     private val cache = cacheApi.unit[Map[PerfKey, Map[UserId, Rank]]]:
-      _.refreshAfterWrite(15.minutes).buildAsyncFuture: _ =>
+      _.refreshAfterWrite(15.minutes).buildAsyncTimeout(): _ =>
         lila.rating.PerfType.leaderboardable
           .sequentially: pt =>
             compute(pt).dmap(pt -> _)

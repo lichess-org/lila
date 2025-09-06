@@ -21,7 +21,7 @@ final class AuthorizeUi(helpers: Helpers)(lightUserFallback: UserId => LightUser
       .css("bits.oauth")
       .js(Esm("bits.oauth"))
       .flag(_.noHeader)
-      .csp(_.withUnsafeInlineScripts):
+      .csp(_.withLegacyUnsafeInlineScripts):
         main(cls := "oauth box box-pad force-ltr")(
           div(cls := "oauth__top")(
             iconTag(Icon.Logo)(cls := "oauth__logo", alt := "lichess logo"),
