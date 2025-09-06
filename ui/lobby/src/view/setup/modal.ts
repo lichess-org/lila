@@ -33,26 +33,27 @@ export default function setupModal(ctrl: LobbyController): VNode | null {
     vnodes: [
       hl('h2#lobby-setup-modal-title', i18n.site.gameSetup),
       hl('div.setup-content', views[setupCtrl.gameType](ctrl)),
-      hl('div.footer', [
-        hl(
-          `button.button.button-metal.config_${setupCtrl.gameType}`,
-          {
-            attrs: { disabled: setupCtrl.loading },
-            class: { disabled: setupCtrl.loading },
-            on: {
-              click: () =>
-                ctrl.setupCtrl.submit(
-                  (document
-                    .querySelector<HTMLElement>('.color-picker')
-                    ?.querySelector<HTMLInputElement>('input[name="color"]:checked')?.value ??
-                    'random') as Color,
-                ),
+      !site.blindMode &&
+        hl('div.footer', [
+          hl(
+            `button.button.button-metal.config_${setupCtrl.gameType}`,
+            {
+              attrs: { disabled: setupCtrl.loading },
+              class: { disabled: setupCtrl.loading },
+              on: {
+                click: () =>
+                  ctrl.setupCtrl.submit(
+                    (document
+                      .querySelector<HTMLElement>('.color-picker')
+                      ?.querySelector<HTMLInputElement>('input[name="color"]:checked')?.value ??
+                      'random') as Color,
+                  ),
+              },
             },
-          },
-          [hl('i'), buttonText],
-        ),
-        setupCtrl.loading && spinnerVdom(),
-      ]),
+            [hl('i'), buttonText],
+          ),
+          setupCtrl.loading && spinnerVdom(),
+        ]),
     ],
     onInsert: dlg => {
       setupCtrl.closeModal = dlg.close;
