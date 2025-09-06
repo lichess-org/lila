@@ -253,7 +253,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
               ...linkAttrs,
             },
           },
-          i18n.site.playAgainstAi,
+          i18n.site.playVersusAi,
         ),
         hl(
           'a.button',
