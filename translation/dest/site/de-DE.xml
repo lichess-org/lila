@@ -397,6 +397,7 @@
     <item quantity="other">Du musst noch %s gewertete Spiele mehr spielen</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Deine %s Wertung ist provisorisch</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Die Filter nach Wertungszahl sind gesperrt, da deine Wertungszahl nicht stabil ist. Gewertete Partien zu spielen erhöht die Stabilität deiner Wertung.</string>
   <string name="yourPerfRatingIsTooHigh">Deine %1$s Wertung (%2$s) ist zu hoch</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Deine beste wöchentliche %1$s Wertung (%2$s) ist zu hoch</string>
   <string name="yourPerfRatingIsTooLow">Deine %1$s Wertung (%2$s) ist zu niedrig</string>

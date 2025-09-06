@@ -459,6 +459,7 @@
     <item quantity="other">Potrebujete odohrať ešte %s hodnotených partií</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Váš %s rating je provizórny</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Filtre hodnotenia sú uzamknuté, pretože Vaše hodnotenie nie je stabilné. Hranie hodnotených partií zvýši jeho stabilitu.</string>
   <string name="yourPerfRatingIsTooHigh">Váš %1$s rating (%2$s) je príliš vysoký</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Váš najvyšší týždenný %1$s rating (%2$s) je príliš vysoký</string>
   <string name="yourPerfRatingIsTooLow">Váš %1$s rating (%2$s) je príliš nízky</string>

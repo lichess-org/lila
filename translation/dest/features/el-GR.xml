@@ -10,7 +10,7 @@
   </plurals>
   <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (Stockfish, Fairy-Stockfish)">Προετοιμαστής σκακιέρας και σκακιέρα ανάλυσης με το %s</string>
   <string name="cloudEngineAnalysis">Ανάλυση με μηχανή στο cloud</string>
-  <string name="studies">Σπουδές (ανάλυση με δυνατότητα κοινοποίησης και αποθήκευσης)</string>
+  <string name="studies">Μελέτες (ανάλυση με δυνατότητα κοινοποίησης και αποθήκευσης)</string>
   <string name="chessInsights">Στατιστικά των παρτίδων σας (λεπτομερής ανάλυση του στυλ παιχνιδιού σας)</string>
   <string name="allChessBasicsLessons">Όλα τα βασικά μαθήματα σκακιού</string>
   <string name="tacticalPuzzlesFromUserGames">Τακτικά από τις παρτίδες των χρηστών</string>
@@ -18,7 +18,7 @@
   <string name="personalOpeningExplorer">Προσωπικός εξερευνητής ανοιγμάτων</string>
   <string name="globalOpeningExplorerInNbGames">Εξερευνητής ανοιγμάτων (με %s παρτίδες!)</string>
   <string name="endgameTablebase">Tablebase για φινάλε με 7 κομμάτια</string>
-  <string name="downloadOrUploadAnyGameAsPgn">Λήψη και μεταφόρτωση παιχνιδιών σε μορφή PGN</string>
+  <string name="downloadOrUploadAnyGameAsPgn">Λήψη και μεταφόρτωση παρτίδων σε μορφή PGN</string>
   <string name="tvForumBlogTeamsMessagingFriendsChallenges">Ιστολόγιο, φόρουμ, ομάδες, TV, προσωπικές και ομαδικές συνομιλίες, προκλήσεις</string>
   <string name="lightOrDarkThemeCustomBoardsPiecesAndBackground">Ανοιχτόχρωμο/Σκουρόχρωμο θέμα εμφάνισης, προσαρμογή σκακιέρας, κομματιών και φόντου</string>
   <string name="ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess">UltraBullet, Bullet, Blitz, Rapid, Κλασικό, Σκάκι δι\' αλληλογραφίας</string>

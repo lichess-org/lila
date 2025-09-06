@@ -397,6 +397,7 @@
     <item quantity="other">Du er nødt til at spille %s ratede partier mere</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Din %s rating er provisorisk</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Rating-filtre er låst, fordi din rating ikke er stabil. Stabiliteten øges ved at spille ratede partier.</string>
   <string name="yourPerfRatingIsTooHigh">Din %1$s rating (%2$s) er for høj</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Din ugentlige %1$s toprating (%2$s) er for høj</string>
   <string name="yourPerfRatingIsTooLow">Din %1$s rating (%2$s) er for lav</string>

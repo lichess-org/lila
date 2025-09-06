@@ -22,6 +22,7 @@
   <string name="asBlack">sötéttel</string>
   <string name="randomColor">Véletlen szín</string>
   <string name="createAGame">Játék létrehozása</string>
+  <string name="createTheGame">Create the game</string>
   <string name="whiteIsVictorious">Világos nyert</string>
   <string name="blackIsVictorious">Sötét nyert</string>
   <string name="youPlayTheWhitePieces">Világossal fogsz játszani</string>

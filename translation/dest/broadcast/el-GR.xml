@@ -27,9 +27,9 @@
   <string name="fullDescription">Πλήρης περιγραφή τουρνουά</string>
   <string name="fullDescriptionHelp">Προαιρετική αναλυτική περιγραφή της μετάδοσης. Μπορείτε να χρησιμοποιήσετε %1$s και μέχρι %2$s χαρακτήρες.</string>
   <string name="sourceSingleUrl">Πηγαίο URL για PGN</string>
-  <string name="sourceUrlHelp">Η διεύθυνση URL την οποία το Lichess θα χρησιμοποιήσει για τη λήψη ενημερώσεων για τα αρχεία PGN. Πρέπει να είναι δημόσια προσβάσιμη στο διαδίκτυο.</string>
+  <string name="sourceUrlHelp">Η διεύθυνση URL την οποία θα χρησιμοποιήσει το Lichess για τη λήψη ενημερώσεων για τα αρχεία PGN. Πρέπει να είναι δημόσια προσβάσιμη στο διαδίκτυο.</string>
   <string name="sourceGameIds">Έως και 64 αναγνωριστικά (id) παρτίδων Lichess, χωρισμένα με κενά.</string>
-  <string name="startDateTimeZone">Ημερομηνία έναρξης του τουρνουά στην τοπική ζώνη ώρας: %s</string>
+  <string name="startDateTimeZone">Ημερομηνία έναρξης στην τοπική ζώνη ώρας του τουρνουά: %s</string>
   <string name="startDateHelp">Προαιρετικό, εάν γνωρίζετε πότε αρχίζει το τουρνουά</string>
   <string name="currentGameUrl">Διεύθυνση URL αυτής της παρτίδας</string>
   <string name="downloadAllRounds">Λήψη όλων των γύρων</string>
@@ -37,7 +37,7 @@
   <string name="deleteRound">Διαγραφή αυτού του γύρου</string>
   <string name="definitivelyDeleteRound">Οριστική διαγραφή του γύρου και των παρτίδων του.</string>
   <string name="deleteAllGamesOfThisRound">Διαγραφή όλων των παρτίδων αυτού του γύρου. Η πηγή μετάδοσης θα πρέπει να είναι ενεργή για να τις δημιουργήσετε ξανά.</string>
-  <string name="editRoundStudy">Επεξεργασία σπουδής γύρου</string>
+  <string name="editRoundStudy">Επεξεργασία μελέτης γύρου</string>
   <string name="deleteTournament">Διαγραφή τουρνουά</string>
   <string name="definitivelyDeleteTournament">Οριστική διαγραφή αυτού του τουρνουά, όλων των γύρων του και όλων των παρτίδων του.</string>
   <string name="showScores">Εμφάνιση βαθμών των παικτών βάσει των παρτίδων τους</string>

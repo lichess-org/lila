@@ -57,6 +57,6 @@
   <string name="thisMonth">Aυτόν τον μήνα</string>
   <string name="allTime">Όλων των εποχών</string>
   <string name="clickToReload">Επαναφόρτωση σελίδας</string>
-  <string name="thisRunHasExpired">Αυτός ο γύρος έχει τελειώσει!</string>
+  <string name="thisRunHasExpired">Αυτός ο γύρος έχει λήξει!</string>
   <string name="thisRunWasOpenedInAnotherTab">Αυτός ο γύρος είναι ανοιχτός σε άλλη καρτέλα!</string>
 </resources>

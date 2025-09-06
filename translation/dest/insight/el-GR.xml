@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="xChessInsights">στατιστικά του χρήστη %s</string>
+  <string name="xChessInsights">Στατιστικά του χρήστη %s</string>
   <string name="xHasNoChessInsights">Δεν υπάρχουν στατιστικά για τον χρήστη %s ακόμα!</string>
   <string name="insightsAreProtected">Τα στατιστικά του χρήστη %s είναι προστατευμένα</string>
-  <string name="cantSeeInsights">Δυστυχώς δεν μπορείτε να δείτε τα στατιστικά του χρήστη %s.</string>
+  <string name="cantSeeInsights">Δυστυχώς, δεν μπορείτε να δείτε τα στατιστικά του χρήστη %s.</string>
   <string name="generateInsights">Δημιουργήστε στατιστικά για τον χρήστη %s.</string>
   <string name="crunchingData">Επεξεργαζόμαστε τα δεδομένα, μόνο για σας!</string>
-  <string name="maybeAskThemToChangeTheir" comment="The parameter is the translation for 'insights settings'">Μπορείτε να του ζητήσετε να αλλάξει τις %s του;</string>
+  <string name="maybeAskThemToChangeTheir" comment="The parameter is the translation for 'insights settings'">Μπορείτε να ζητήσετε από τον χρήστη να αλλάξει τις %s του.</string>
   <string name="insightsSettings" comment="In the context of 'maybe ask them to change their insight settings'">ρυθμίσεις στατιστικών</string>
 </resources>

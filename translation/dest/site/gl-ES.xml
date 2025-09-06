@@ -397,6 +397,7 @@
     <item quantity="other">Necesitas xogar %s partidas puntuadas máis</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">A túa puntuación %s é provisional</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Os filtros de puntuación están bloqueados dado que a túa puntuación non é estable. Tes que xogar partidas puntuadas para incrementar a súa estabilidade.</string>
   <string name="yourPerfRatingIsTooHigh">A túa puntuación %1$s (%2$s) é demasiado alta</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">A túa puntuación máxima semanal %1$s (%2$s) é demasiado alta</string>
   <string name="yourPerfRatingIsTooLow">A túa puntuación %1$s (%2$s) é demasiado baixa</string>
