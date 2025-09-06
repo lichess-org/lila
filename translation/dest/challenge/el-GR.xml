@@ -18,7 +18,7 @@
   <string name="declineTimeControl">Δε δέχομαι προκλήσεις με αυτόν τον χρόνο σκέψης.</string>
   <string name="declineRated">Στείλτε μου μία βαθμολογημένη και όχι φιλική πρόκληση.</string>
   <string name="declineCasual">Στείλτε μου μία φιλική και όχι βαθμολογημένη πρόκληση.</string>
-  <string name="declineStandard">Δεν δέχομαι προκλήσεις με παραλλαγές αυτή τη στιγμή.</string>
+  <string name="declineStandard">Δε δέχομαι προκλήσεις με παραλλαγές αυτή τη στιγμή.</string>
   <string name="declineVariant">Δε θέλω να παίξω αυτήν την παραλλαγή.</string>
   <string name="declineNoBot">Δε δέχομαι προκλήσεις από bots.</string>
   <string name="declineOnlyBot">Δέχομαι προκλήσεις μόνο από bots.</string>
