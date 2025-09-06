@@ -5,6 +5,7 @@ import type RelayCtrl from './relayCtrl';
 import { memoize } from 'lib';
 import { studySideNodes } from '../studyView';
 import type StudyCtrl from '../studyCtrl';
+import { broadcasterDeepLink } from './deepLink';
 
 export default function (ctrl: RelayCtrl, study: StudyCtrl): MaybeVNode {
   const contributor = study.members.canContribute(),
@@ -21,7 +22,7 @@ export default function (ctrl: RelayCtrl, study: StudyCtrl): MaybeVNode {
             ]),
             sync?.url || sync?.ids || sync?.urls || sync?.users
               ? (sync.ongoing ? stateOn : stateOff)(ctrl)
-              : statePush(),
+              : statePush(ctrl),
             renderLog(ctrl),
           ]),
         (contributor || study.data.admin) && studySideNodes(study, false),
@@ -86,8 +87,21 @@ const stateOff = (ctrl: RelayCtrl) =>
     [hl('div.fat', 'Click to connect')],
   );
 
-const statePush = () =>
-  hl('div.state.push', { attrs: dataIcon(licon.UploadCloud) }, ['Listening to Broadcaster App']);
+const statePush = (ctrl: RelayCtrl) =>
+  hl('div.state.push', { attrs: dataIcon(licon.UploadCloud) }, [
+    hl('div', [
+      'Listening to ',
+      hl('a', { attrs: { href: '/broadcast/app' } }, 'Broadcaster App'),
+      hl('br'),
+      hl('small', [
+        hl(
+          'a',
+          { attrs: { href: broadcasterDeepLink(ctrl.currentRound().url) } },
+          'Open this round in the app',
+        ),
+      ]),
+    ]),
+  ]);
 
 const dateFormatter = memoize(
   () =>

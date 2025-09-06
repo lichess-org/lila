@@ -30,6 +30,7 @@ export interface RelayRound {
   id: RoundId;
   name: string;
   slug: string;
+  url: string;
   finished?: boolean;
   ongoing?: boolean;
   startsAt?: number;
