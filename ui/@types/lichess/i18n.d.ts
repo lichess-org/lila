@@ -1386,6 +1386,24 @@ interface I18n {
     /** You can find both these values at any time, by clicking your username in the top bar. */
     youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername: string;
   };
+  leaderboard: {
+    /** Explore popular players */
+    explorePopularPlayers: string;
+    /** Leaderboard of your friends on Lichess */
+    friendsLeaderboardDescription: string;
+    /** Friends Leaderboard */
+    friendsLeaderboardTitle: string;
+    /** See how you compare against your %s friends */
+    howYouCompareAgainstFriends: I18nPlural;
+    /** To see comparative rankings with your friends, you need to follow other users on Lichess. */
+    noFriendsInfo1: string;
+    /** Visit player profiles and click the follow button to add them to your leaderboard. */
+    noFriendsInfo2: string;
+    /** You don't have any friends to compare to yet */
+    noFriendsToCompare: string;
+    /** See Leaderboard with Friends */
+    seeLeaderboardWithFriends: string;
+  };
   learn: {
     /** Advanced */
     advanced: string;

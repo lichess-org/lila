@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="friendsLeaderboardTitle">Friends Leaderboard</string>
+    <string name="friendsLeaderboardDescription">Leaderboard of your friends on Lichess</string>
+    <string name="noFriendsToCompare">You don't have any friends to compare to yet</string>
+    <string name="noFriendsInfo1">To see comparative rankings with your friends, you need to follow other users on Lichess.</string>
+    <string name="noFriendsInfo2">Visit player profiles and click the follow button to add them to your leaderboard.</string>
+    <string name="explorePopularPlayers">Explore popular players</string>
+    <plurals name="howYouCompareAgainstFriends">
+        <item quantity="one">See how you compare against your only friend</item>
+        <item quantity="other">See how you compare against your %s friends</item>
+    </plurals>
+    <string name="seeLeaderboardWithFriends">See Leaderboard with Friends</string>
+</resources>
