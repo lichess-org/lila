@@ -32,7 +32,7 @@
   <string name="kingInTheCenter">Король у центрі</string>
   <string name="threeChecks">Три шахи</string>
   <string name="raceFinished">Перегони завершено</string>
-  <string name="variantEnding" comment="Used to describe ending conditions, such as exploding both kings in Atomic Chess.">Гру завершено</string>
+  <string name="variantEnding">Гру завершено</string>
   <string name="newOpponent">Новий суперник</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Ваш суперник хоче зіграти знову</string>
   <string name="joinTheGame">Приєднатися до гри</string>
