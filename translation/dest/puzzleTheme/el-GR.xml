@@ -126,6 +126,6 @@
   <string name="mix">Προτεινόμενο μίγμα</string>
   <string name="mixDescription">Λίγο απ\' όλα. Δεν ξέρετε τι να περιμένετε, οπότε παραμένετε σε ετοιμότητα! Όπως ακριβώς και στις πραγματικές παρτίδες.</string>
   <string name="playerGames">Παρτίδες παίκτη</string>
-  <string name="playerGamesDescription">Αναζητήστε γρίφους που προήλθαν από παρτίδες είτε δικές σας είτε άλλων χρηστών.</string>
+  <string name="playerGamesDescription">Αναζητήστε τακτικά που προήλθαν από παρτίδες είτε δικές σας είτε άλλων χρηστών.</string>
   <string name="puzzleDownloadInformation">Τα τακτικά είναι δημόσια και διαθέσιμα για λήψη στην ιστοσελίδα %s.</string>
 </resources>
