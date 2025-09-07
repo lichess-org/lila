@@ -3785,12 +3785,16 @@ interface I18n {
     numberMistakes: I18nPlural;
     /** Offer draw */
     offerDraw: string;
+    /** offline */
+    offline: string;
     /** OK */
     ok: string;
     /** One day */
     oneDay: string;
     /** One URL per line. */
     oneUrlPerLine: string;
+    /** online */
+    online: string;
     /** Online bots */
     onlineBots: string;
     /** Online players */

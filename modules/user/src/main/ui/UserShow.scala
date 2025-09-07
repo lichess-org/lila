@@ -18,9 +18,14 @@ final class UserShow(helpers: Helpers, bits: UserBits):
       (!u.isPatron).so(lineIcon(u)),
       titleTag(u.title),
       u.username,
-      userFlair(u).map: flair =>
-        if ctx.isAuth then a(href := routes.Account.profile, title := trans.site.setFlair.txt())(flair)
-        else flair
+      ctx.blind.so(
+        if isOnline.exec(u.id) then s" : ${trans.site.online.txt()}" else s" : ${trans.site.offline.txt()}"
+      ),
+      if ctx.noBlind then
+        (userFlair(u).map: flair =>
+          if ctx.isAuth then a(href := routes.Account.profile, title := trans.site.setFlair.txt())(flair)
+          else flair)
+      else ""
     )
 
   def mini(
