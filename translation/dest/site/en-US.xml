@@ -32,7 +32,7 @@
   <string name="kingInTheCenter">King in the center</string>
   <string name="threeChecks">Three checks</string>
   <string name="raceFinished">Race finished</string>
-  <string name="variantEnding" comment="Used to describe ending conditions, such as exploding both kings in Atomic Chess.">Variant ending</string>
+  <string name="variantEnding">Variant ending</string>
   <string name="newOpponent">New opponent</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Your opponent wants to play a new game with you</string>
   <string name="joinTheGame">Join the game</string>
