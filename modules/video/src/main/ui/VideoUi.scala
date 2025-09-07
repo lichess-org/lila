@@ -27,7 +27,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
     page(s"${video.title} • ${trv.freeChessVideos.txt()}", control)
       .graph(
         OpenGraph(
-          title = trv.by.txt(video.title, video.author),
+          title = trv.xByY.txt(video.title, video.author),
           description = shorten(~video.metadata.description, 152),
           url = s"$netBaseUrl${langHref(routes.Video.show(video.id))}",
           `type` = "video"
@@ -76,9 +76,9 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
     page(s"${tagString}${trv.freeChessVideos.txt()}", control)
       .graph(
         OpenGraph(
-          title = trv.freeCarefullyCurated.txt(tagString),
-          description = s"${trv.curatedChessVideos.txt(videos.nbResults)}${
-              if tagString.nonEmpty then trv.withTags.txt(" ", tagString)
+          title = trv.xFreeCarefullyCurated.txt(tagString),
+          description = s"${trv.xCuratedChessVideos(videos.nbResults)}${
+              if tagString.nonEmpty then trv.xWithTagsY(" ", tagString)
               else " • "
             }${trv.freeForAll.txt()}",
           url = s"$netBaseUrl${langHref(routes.Video.index)}?${control.queryString}"
@@ -88,7 +88,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
           boxTop(
             h1(
               if control.filter.tags.nonEmpty then
-                frag(trv.videosFound.plural(videos.nbResults, videos.nbResults.localize))
+                frag(trv.nbVideosFound.plural(videos.nbResults, videos.nbResults.localize))
               else trv.chessVideos()
             ),
             searchForm(control.query)
@@ -97,9 +97,9 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
             p(cls := "explain box__pad")(
               trv.allVideosAreFree(),
               br,
-              trv.clickOneOrMany(),
+              trv.selectTagsToFilter(),
               br,
-              trv.weHaveCarefullySelected(count.toString())
+              trv.weHaveCarefullySelectedX(count.toString())
             )
           ),
           div(cls := "list box__pad infinite-scroll")(
@@ -108,18 +108,20 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
               div(cls := s"not_much nb_${videos.nbResults}")(
                 if videos.currentPageResults.isEmpty then trv.noVideosForTheseTags()
                 else trv.thatsAllWeGotForTheseTags(),
+                br,
                 control.filter.tags.map { tag =>
-                  a(
-                    cls := "tag",
-                    dataIcon := Icon.Tag,
-                    href := s"${langHref(routes.Video.index)}?tags=$tag"
-                  )(
-                    tag.capitalize
+                  frag(
+                    a(
+                      cls := "tag",
+                      dataIcon := Icon.Tag,
+                      href := s"${langHref(routes.Video.index)}?tags=$tag"
+                    )(tag.capitalize),
+                    " "
                   )
                 },
                 br,
                 br,
-                a(href := langHref(routes.Video.index), cls := "button")(trv.clearSearch())
+                a(href := langHref(routes.Video.index), cls := "button")(trans.site.clearSearch())
               )
             ),
             pagerNext(
@@ -149,8 +151,8 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
       ),
       div(cls := "under-tags")(
         if control.filter.tags.nonEmpty then
-          a(cls := "button button-empty", href := langHref(routes.Video.index))(trv.clearSearch.txt())
-        else a(dataIcon := Icon.Tag, href := langHref(routes.Video.tags))(trv.viewMoreTags.txt())
+          a(cls := "button button-empty", href := langHref(routes.Video.index))(trans.site.clearSearch())
+        else a(dataIcon := Icon.Tag, href := langHref(routes.Video.tags))(trv.viewMoreTags())
       )
     )
 
@@ -184,7 +186,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
             ),
             name
           ),
-          span(trv.videosFound.plural(videos.nbResults, videos.nbResults.localize))
+          span(trv.nbVideosFound.plural(videos.nbResults, videos.nbResults.localize))
         ),
         div(cls := "list infinite-scroll box__pad")(
           videos.currentPageResults.map { card(_, control) },
@@ -196,7 +198,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
       )
 
   def notFound(control: UserControl)(using ctx: Context) =
-    page(trv.videoNotFound, control):
+    page(trv.videoNotFound.txt(), control):
       boxTop(
         h1(
           a(
@@ -204,7 +206,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
             dataIcon := Icon.Back,
             href := s"${langHref(routes.Video.index)}"
           ),
-          s"${trv.videoNotFound()}!"
+          trv.videoNotFound()
         )
       )
 
@@ -213,7 +215,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
       input(placeholder := trans.search.search.txt(), tpe := "text", name := "q", value := query)
 
   def tags(ts: List[TagNb], control: UserControl)(using ctx: Context) =
-    page(s"${trv.tags()} • ${trv.freeChessVideos.txt()}", control):
+    page(s"${trans.site.tags.txt()} • ${trv.freeChessVideos.txt()}", control):
       frag(
         boxTop(
           h1(
@@ -222,7 +224,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
               dataIcon := Icon.Back,
               href := s"${langHref(routes.Video.index)}?${control.queryString}"
             )(
-              trv.allVideoTags(ts.size.toString())
+              trv.allNbVideoTags(ts.size.toString())
             )
           )
         ),
@@ -237,22 +239,21 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
       )
 
   def search(videos: Paginator[VideoView], control: UserControl)(using Context) =
-    page(s"${control.query.getOrElse(trv.search())} • ${trv.freeChessVideos.txt()}", control):
+    page(s"${control.query.getOrElse(trans.site.search.txt())} • ${trv.freeChessVideos.txt()}", control):
       frag(
         boxTop(
-          h1(trv.videosFound.plural(videos.nbResults, videos.nbResults.localize)),
+          h1(trv.nbVideosFound.plural(videos.nbResults, videos.nbResults.localize)),
           searchForm(control.query)
         ),
         div(cls := "list infinitescroll box__pad")(
           videos.currentPageResults.map { card(_, control) },
           (videos.currentPageResults.sizeIs < 4).option(
             div(cls := s"not_much nb_${videos.nbResults}")(
-              if videos.currentPageResults.isEmpty then trv.noVideosForThisSearch()
-              else trv.thatsAllWeGotForThisSearch(),
-              s""""${~control.query}"""",
+              if videos.currentPageResults.isEmpty then trv.noVideosForThisSearchX(~control.query)
+              else trv.thatsAllWeGotForThisSearchX(~control.query),
               br,
               br,
-              a(href := langHref(routes.Video.index), cls := "button")(trv.clearSearch())
+              a(href := langHref(routes.Video.index), cls := "button")(trans.site.clearSearch())
             )
           ),
           pagerNext(videos, np => s"${langHref(routes.Video.index)}?${control.queryString}&page=$np")
