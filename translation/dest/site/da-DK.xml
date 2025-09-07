@@ -1010,4 +1010,7 @@ Alle driftsomkostninger, udvikling og indhold finansieres udelukkende af brugerd
   <string name="enableBlindMode">Aktiver blindtilstand</string>
   <string name="disableBlindMode">Deaktiver blindtilstand</string>
   <string name="copyToClipboard">Kopiér til udklipsholder</string>
+  <string name="search" comment="Appears on search buttons; describes an action">Søg</string>
+  <string name="clearSearch">Ryd søgning</string>
+  <string name="tags">Etiketter</string>
 </resources>
