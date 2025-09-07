@@ -32,7 +32,7 @@
   <string name="kingInTheCenter">Краљ у центру</string>
   <string name="threeChecks">Три шаха</string>
   <string name="raceFinished">Трка се завршила</string>
-  <string name="variantEnding" comment="Used to describe ending conditions, such as exploding both kings in Atomic Chess.">Завршетак варијанте</string>
+  <string name="variantEnding">Завршетак варијанте</string>
   <string name="newOpponent">Нови противник</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Твој противник жели да игра нову партију са тобом</string>
   <string name="joinTheGame">Придружи се партији</string>
