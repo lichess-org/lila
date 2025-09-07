@@ -32,7 +32,7 @@
   <string name="kingInTheCenter">Краљ у центру</string>
   <string name="threeChecks">Три шаха</string>
   <string name="raceFinished">Трка се завршила</string>
-  <string name="variantEnding">Завршетак варијанте</string>
+  <string name="variantEnding" comment="Used to describe ending conditions, such as exploding both kings in Atomic Chess.">Завршетак варијанте</string>
   <string name="newOpponent">Нови противник</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Твој противник жели да игра нову партију са тобом</string>
   <string name="joinTheGame">Придружи се партији</string>
@@ -596,10 +596,10 @@
   <string name="invalidUsernameOrPassword">Неисправно корисничко име или лозинка</string>
   <string name="incorrectPassword">Погрешна лозинка</string>
   <string name="invalidAuthenticationCode">Неважећи аутентикациони код</string>
-  <string name="emailMeALink">Пошаљи ми емаил</string>
+  <string name="emailMeALink">Пошаљи ми имејл са линком</string>
   <string name="currentPassword">Тренутна лозинка</string>
   <string name="newPassword">Нова лозинка</string>
-  <string name="newPasswordAgain">Понови нову лозинку</string>
+  <string name="newPasswordAgain">Нова лозинка (поново)</string>
   <string name="newPasswordsDontMatch">Нове лозинке се не подударају</string>
   <string name="newPasswordStrength">Јачина лозинке</string>
   <string name="clockInitialTime">Почетно време на сату</string>
