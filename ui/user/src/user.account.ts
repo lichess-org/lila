@@ -63,7 +63,7 @@ site.load.then(() => {
     submit.on('click', function (this: HTMLElement, e: Event) {
       if (!isDanger) return true;
       e.preventDefault();
-      confirm(this.title, i18n.site.ok, i18n.site.cancel).then(yes => {
+      confirm(this.title).then(yes => {
         if (yes) (form[0] as HTMLFormElement).submit();
       });
       return false;
