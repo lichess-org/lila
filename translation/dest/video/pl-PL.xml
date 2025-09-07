@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="chessVideos">Filmy o szachach</string>
+  <string name="allVideosAreFree">Wszystkie filmy są darmowe dla wszystkich.</string>
+  <string name="selectTagsToFilter">Wybierz tagi do filtrowania filmów.</string>
+  <string name="freeChessVideos">Darmowe filmy o szachach</string>
+  <string name="freeForAll">za darmo dla wszystkich</string>
+  <plurals name="nbVideosFound" comment="%s is the number of videos found when searching on https://lichess.org/video">
+    <item quantity="one">Znaleziono %s film</item>
+    <item quantity="few">Znaleziono %s filmy</item>
+    <item quantity="many">Znaleziono %s filmów</item>
+    <item quantity="other">Znaleziono %s filmów</item>
+  </plurals>
+  <string name="noVideosForTheseTags">Brak filmów dla tych tagów:</string>
+  <string name="thatsAllWeGotForTheseTags">To wszystko, co mamy dla tych tagów:</string>
+  <string name="thatsAllWeGotForThisSearchX" comment="%s is the search term that the user entered.&#10;&#10;Appears at the end of a list of search results on https://lichess.org/video">To wszystko, co mamy dla tego wyszukiwania: \"%s\"</string>
+  <string name="viewMoreTags">Zobacz więcej tagów</string>
   <string name="videoNotFound">Nie znaleziono filmu!</string>
 </resources>
