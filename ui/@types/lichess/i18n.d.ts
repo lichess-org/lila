@@ -5715,14 +5715,14 @@ interface I18n {
     nbVideosFound: I18nPlural;
     /** No videos for these tags: */
     noVideosForTheseTags: string;
-    /** No videos for this search: "%s" */
-    noVideosForThisSearchX: I18nFormat;
     /** Select tags to filter the videos. */
     selectTagsToFilter: string;
     /** That's all we got for these tags: */
     thatsAllWeGotForTheseTags: string;
     /** That's all we got for this search: "%s" */
     thatsAllWeGotForThisSearchX: I18nFormat;
+    /** There are no results for "%s" */
+    thereAreNoResultsForX: I18nFormat;
     /** Video not found! */
     videoNotFound: string;
     /** View more tags */

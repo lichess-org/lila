@@ -16,7 +16,7 @@
   <string name="noVideosForTheseTags">No videos for these tags:</string>
   <string name="thatsAllWeGotForTheseTags">That's all we got for these tags:</string>
   <string name="thatsAllWeGotForThisSearchX">That's all we got for this search: "%s"</string>
-  <string name="noVideosForThisSearchX">No videos for this search: "%s"</string>
+  <string name="thereAreNoResultsForX">There are no results for "%s"</string>
   <string name="viewMoreTags">View more tags</string>
   <string name="videoNotFound">Video not found!</string>
   <string name="xByY">%1$s by %2$s</string>

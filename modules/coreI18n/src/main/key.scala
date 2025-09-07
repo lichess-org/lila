@@ -2913,7 +2913,7 @@ object I18nKey:
     val `noVideosForTheseTags`: I18nKey = "video:noVideosForTheseTags"
     val `thatsAllWeGotForTheseTags`: I18nKey = "video:thatsAllWeGotForTheseTags"
     val `thatsAllWeGotForThisSearchX`: I18nKey = "video:thatsAllWeGotForThisSearchX"
-    val `noVideosForThisSearchX`: I18nKey = "video:noVideosForThisSearchX"
+    val `thereAreNoResultsForX`: I18nKey = "video:thereAreNoResultsForX"
     val `viewMoreTags`: I18nKey = "video:viewMoreTags"
     val `videoNotFound`: I18nKey = "video:videoNotFound"
     val `xByY`: I18nKey = "video:xByY"
