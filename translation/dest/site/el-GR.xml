@@ -1010,4 +1010,7 @@
   <string name="enableBlindMode">Ενεργοποίηση λειτουργίας για τυφλούς</string>
   <string name="disableBlindMode">Απενεργοποίηση λειτουργίας για τυφλούς</string>
   <string name="copyToClipboard">Αντιγραφή στο πρόχειρο</string>
+  <string name="search" comment="Appears on search buttons; describes an action">Αναζήτηση</string>
+  <string name="clearSearch">Εκκαθάριση πεδίου αναζήτησης</string>
+  <string name="tags">Ετικέτες</string>
 </resources>
