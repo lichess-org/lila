@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="chessVideos">Schach-Videos</string>
+  <string name="allVideosAreFree">All Video sind gratis - für Alli.</string>
+  <string name="selectTagsToFilter">Wähl Tags zum d\'Video filtere.</string>
+  <string name="weHaveCarefullySelectedX">Mir händ bis jetzt %s Videos sorgfälti usgwählt!</string>
+  <string name="freeChessVideos">Gratis Schach-Videos</string>
+  <string name="xFreeCarefullyCurated" comment="%s is the number of videos. Appears in social media embeds (i.e. OpenGraph information) when linking Lichess videos.">%s gratis, sorgfältig z\'ämmengschtellti Schachvideos</string>
+  <string name="xCuratedChessVideos" comment="%s is the number of videos. Appears in social media embeds (i.e. OpenGraph information) when linking Lichess videos.">%s kuratierti Schachvideos</string>
+  <string name="xWithTagsY" comment="%1$s is the number of videos found.&#10;&#10;%2$s is a list of tags.&#10;&#10;Appears when filtering for videos by tag.">%1$s mit Tags %2$s</string>
+  <string name="thereAreNoResultsForX" comment="%s is the search term that the user entered.">Kei Ergäbnis zum Begriff: \"%s\"</string>
+</resources>
