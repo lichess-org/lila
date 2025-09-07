@@ -3,7 +3,7 @@ import type { LooseVNode } from 'lib/snabbdom';
 import type RoundController from '../ctrl';
 import { boardMenu as menuDropdown } from 'lib/view/boardMenu';
 import { toggle } from 'lib';
-import { boolPrefXhrToggle } from 'lib/view/controls';
+import { toggle as cmnToggle, boolPrefXhrToggle } from 'lib/view/controls';
 
 export default function (ctrl: RoundController): LooseVNode {
   return menuDropdown(ctrl.redraw, ctrl.menu, menu => {
@@ -22,6 +22,16 @@ export default function (ctrl: RoundController): LooseVNode {
           toggle(ctrl.blindfold(), v => ctrl.blindfold(v)),
           !spectator,
         ),
+        'vibrate' in navigator &&
+          cmnToggle(
+            {
+              name: 'Vibration feedback',
+              id: 'haptics',
+              checked: ctrl.vibration(),
+              change: v => ctrl.vibration(v),
+            },
+            ctrl.redraw,
+          ),
         menu.voiceInput(boolPrefXhrToggle('voice', !!ctrl.voiceMove), !spectator),
         menu.keyboardInput(boolPrefXhrToggle('keyboardMove', !!ctrl.keyboardMove), !spectator),
         !spectator && (d.pref.submitMove || ctrl.voiceMove)
