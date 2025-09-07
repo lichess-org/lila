@@ -1020,4 +1020,7 @@ Alli Betriebs-Choschte, d\'Entwicklig und d\'Inhält werded usschliesslich dur B
   <string name="enableBlindMode">Blindmodus aktiviere</string>
   <string name="disableBlindMode">Blindmodus deaktiviere</string>
   <string name="copyToClipboard">Kopier ufs Clipboard</string>
+  <string name="search" comment="Appears on search buttons; describes an action">Suechi</string>
+  <string name="clearSearch">Suechi lösche</string>
+  <string name="tags">Tags</string>
 </resources>
