@@ -180,7 +180,7 @@
   <string name="annotatePositionTitle">Scrivi una nota su una posizione</string>
   <string name="annotatePositionText">Fai clic sul pulsante !? oppure fai clic col tasto destro sull\'elenco delle mosse.&lt;br&gt;Le icone delle note sono condivise e salvate.</string>
   <string name="conclusionTitle">Grazie del tuo tempo</string>
-  <string name="conclusionText">Puoi trovare i tuoi &lt;a href=\'/study/mine/hot\'&gt;studi precedenti&lt;/a&gt; sulla pagina del tuo profilo.&lt;br&gt;C\'è anche un &lt;a href=\'//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way\'&gt;post sugli studi&lt;/a&gt; sul blog.&lt;br&gt;Gli utenti esperti possono premere \"?\" per vedere le scorciatoie da tasriera.&lt;br&gt;Divertiti!</string>
+  <string name="conclusionText">Puoi trovare i tuoi &lt;a href=\'/study/mine/hot\'&gt;studi precedenti&lt;/a&gt; sulla pagina del tuo profilo.&lt;br&gt;C\'è anche un &lt;a href=\'//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way\'&gt;post sugli studi&lt;/a&gt; sul blog.&lt;br&gt;Gli utenti esperti possono premere \"?\" per vedere le scorciatoie da tastiera.&lt;br&gt;Divertiti!</string>
   <string name="createChapterTitle">Creiamo un capitolo di studio</string>
   <string name="createChapterText">Uno studio può avere diversi capitoli.&lt;br&gt;Ogni capitolo ha un albero mosse distinto &lt;br&gt;e può essere creato in vari modi.</string>
   <string name="fromInitialPositionTitle">Parti dalla posizione iniziale</string>
