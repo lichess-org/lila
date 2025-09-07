@@ -1010,4 +1010,7 @@ Todos los gastos de funcionamiento, desarrollo y contenidos se financian exclusi
   <string name="enableBlindMode">Activar modo para no videntes</string>
   <string name="disableBlindMode">Desactivar modo para no videntes</string>
   <string name="copyToClipboard">Copiar al portapapeles</string>
+  <string name="search" comment="Appears on search buttons; describes an action">Buscar</string>
+  <string name="clearSearch">Borrar búsqueda</string>
+  <string name="tags">Etiquetas</string>
 </resources>
