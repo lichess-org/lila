@@ -1,5 +1,4 @@
-import { h } from 'snabbdom';
-import type { LooseVNode } from 'lib/snabbdom';
+import { hl, type LooseVNode } from 'lib/snabbdom';
 import type RoundController from '../ctrl';
 import { boardMenu as menuDropdown } from 'lib/view/boardMenu';
 import { toggle } from 'lib';
@@ -10,13 +9,13 @@ export default function (ctrl: RoundController): LooseVNode {
     const d = ctrl.data,
       spectator = d.player.spectator;
     return [
-      h('section', [
+      hl('section', [
         menu.flip(i18n.site.flipBoard, ctrl.flip, () => {
           ctrl.flipNow();
           ctrl.menu.toggle();
         }),
       ]),
-      h('section', [
+      hl('section', [
         menu.zenMode(true),
         menu.blindfold(
           toggle(ctrl.blindfold(), v => ctrl.blindfold(v)),
@@ -38,13 +37,13 @@ export default function (ctrl: RoundController): LooseVNode {
           ? menu.confirmMove(ctrl.confirmMoveToggle)
           : undefined,
       ]),
-      h('section.board-menu__links', [
-        h(
+      hl('section.board-menu__links', [
+        hl(
           'a',
           { attrs: { target: '_blank', href: '/account/preferences/display' } },
           i18n.preferences.display,
         ),
-        h(
+        hl(
           'a',
           { attrs: { target: '_blank', href: '/account/preferences/game-behavior ' } },
           i18n.preferences.gameBehavior,
