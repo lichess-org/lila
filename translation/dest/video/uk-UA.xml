@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="chessVideos">Відео із шахів</string>
+  <string name="allVideosAreFree">Усі відео є безкоштовними для кожного.</string>
+  <string name="freeChessVideos">Безкоштовні відео із шахів</string>
+</resources>
