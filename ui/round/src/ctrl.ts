@@ -91,7 +91,7 @@ export default class RoundController implements MoveRootCtrl {
   blindfoldStorage: LichessBooleanStorage;
   server: Server;
   nvui?: NvuiPlugin;
-  vibration: Prop<boolean> = storedBooleanProp('vibration', 'vibrate' in navigator);
+  vibration: Prop<boolean> = storedBooleanProp('vibration', false);
 
   constructor(
     readonly opts: RoundOpts,
