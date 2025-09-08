@@ -397,7 +397,7 @@
     <item quantity="other">Você precisa jogar ainda %s partidas valendo pontos</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Seu rating %s é provisório</string>
-  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Filtros de pontuação bloqueados, pois sua pontuação não é estável. Partidas valendo pontos aumentarão a estabilidade.</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Filtros de rating bloqueados, pois seu rating não é estável. Partidas valendo rating aumentarão a estabilidade.</string>
   <string name="yourPerfRatingIsTooHigh">Seu %1$s rating (%2$s) é muito alta</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Seu melhor rating %1$s da semana (%2$s) é muito alto</string>
   <string name="yourPerfRatingIsTooLow">Sua %1$s pontuação (%2$s) é muito baixa</string>
