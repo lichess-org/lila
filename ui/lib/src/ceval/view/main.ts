@@ -87,7 +87,7 @@ function threatButton(ctrl: CevalHandler): VNode | null {
   return hl('button.show-threat', {
     class: { active: ctrl.threatMode(), hidden: !!ctrl.getNode().check },
     attrs: { 'data-icon': licon.Target, title: i18n.site.showThreat + ' (x)' },
-    hook: bind('click', ctrl.toggleThreatMode),
+    hook: bind('click', () => ctrl.toggleThreatMode()),
   });
 }
 
