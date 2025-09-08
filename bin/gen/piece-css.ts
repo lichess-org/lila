@@ -1,109 +1,46 @@
-import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'fs';
-import path from 'path';
+import { existsSync, mkdirSync, readdirSync, writeFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import path from 'node:path';
 
-const lilaDir = path.resolve(__dirname, '../..');
+const lilaDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const sourceDir = path.resolve(lilaDir, 'public/piece');
-const destDir = path.resolve(lilaDir, 'public/piece-css');
+const destDir = path.resolve(lilaDir, 'ui/lib/css/build/pieces-gen');
 
-const themes: string[] = [
-  ...['cburnett'],
-  // get list of other piece sets from modules/pref/src/main/PieceSet.scala
-  ...[
-    'merida',
-    'alpha',
-    'pirouetti',
-    'chessnut',
-    'chess7',
-    'reillycraig',
-    'companion',
-    'riohacha',
-    'kosal',
-    'leipzig',
-    'fantasy',
-    'spatial',
-    'celtic',
-    'california',
-    'caliente',
-    'pixel',
-    'rhosgfx',
-    'maestro',
-    'fresca',
-    'cardinal',
-    'gioco',
-    'tatiana',
-    'staunty',
-    'cooke',
-    'monarchy',
-    'governor',
-    'dubrovny',
-    'icpieces',
-    'mpchess',
-    'kiwen-suwi',
-    'horsey',
-    'anarcandy',
-    'xkcd',
-    'shapes',
-    'letter',
-    'disguised',
-    'firi',
-  ],
-];
-
-const roles = ['pawn', 'knight', 'bishop', 'rook', 'queen', 'king'];
-const colors: Color[] = ['white', 'black'];
+const roles = ['pawn', 'knight', 'bishop', 'rook', 'queen', 'king'] as const;
+const colors = ['white', 'black'] as const;
 
 const svgFilename = (color: string, role: string) => {
   const piece = color[0] + (role === 'knight' ? 'N' : role[0].toUpperCase());
   return `${piece}.svg`;
 };
 
-function generateBase64Css() {
+const themes = readdirSync(sourceDir, { withFileTypes: true })
+  .filter(d => d.isDirectory() && d.name !== 'mono')
+  .map(d => d.name);
+
+function generateUrlCss() {
   themes.forEach(name => {
     const classes =
       colors
         .map(color =>
           roles
             .map(role => {
-              const filePath = path.join(sourceDir, name, svgFilename(color, role));
-              const image = readFileSync(filePath);
-              const base64 = image.toString('base64');
-              return `.is2d .${role}.${color} {background-image:url('data:image/svg+xml;base64,${base64}')}`;
+              const filename = svgFilename(color, role);
+              const filePath = path.join(sourceDir, name, filename);
+              if (name !== 'disguised' && !existsSync(filePath)) throw new Error(`${filePath} is missing`);
+              return `.is2d .${role}.${color}{background-image:url(../piece/${name}/${filename})}`;
             })
             .join('\n'),
         )
         .join('\n') + '\n';
 
-    const outputFile = path.join(destDir, `${name}.css`);
+    const outputFile = path.join(destDir, `pieces.${name}.scss`);
     writeFileSync(outputFile, classes, 'utf-8');
   });
 }
 
-if (!existsSync(destDir)) {
-  mkdirSync(destDir, { recursive: true });
-}
+if (!existsSync(destDir)) mkdirSync(destDir, { recursive: true });
 
-generateBase64Css();
+generateUrlCss();
 
 console.log(`✅ Generated piece CSS files in ${destDir}`);
-
-function validateThemeDirectories() {
-  const validFilenames = colors.flatMap(color => roles.map(role => svgFilename(color, role)));
-  readdirSync(sourceDir)
-    .filter(dir => dir !== 'mono')
-    .forEach(dir => {
-      if (!themes.includes(dir)) {
-        console.error(`${path.join(sourceDir, dir)} is not in the theme list`);
-        process.exit(1);
-      }
-
-      readdirSync(path.join(sourceDir, dir)).forEach(file => {
-        if (dir === 'disguised' && ['b.svg', 'w.svg'].includes(file)) return;
-        if (!validFilenames.includes(file)) {
-          console.error(`${path.join(sourceDir, dir, file)} is not a valid piece SVG filename`);
-          process.exit(1);
-        }
-      });
-    });
-}
-
-validateThemeDirectories();

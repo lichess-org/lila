@@ -16,7 +16,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     reportScore: () => Int
 ):
   import helpers.{ *, given }
-  import assetHelper.{ defaultCsp, netConfig, cashTag, siteName }
+  import assetHelper.{ defaultCsp, netConfig, cashTag, siteName, manifest }
 
   val doctype = raw("<!DOCTYPE html>")
   def htmlTag(using lang: Lang) = html(st.lang := lang.code, dir := isRTL(lang).option("rtl"))
@@ -34,7 +34,12 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
         "document.documentElement.classList.add('light');"
     )(nonce)
   def pieceSprite(name: String): Frag =
-    link(id := "piece-sprite", href := assetUrl(s"piece-css/$name.css"), rel := "stylesheet")
+    val key = s"pieces.$name"
+    link(
+      attr("data-css-key") := "piece-sprite",
+      href := staticAssetUrl(s"css/${manifest.css(key)}"),
+      rel := "stylesheet"
+    )
   val noTranslate = raw("""<meta name="google" content="notranslate">""")
 
   def preload(href: String, as: String, crossorigin: Boolean, tpe: Option[String] = None) =
