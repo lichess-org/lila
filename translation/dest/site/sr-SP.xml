@@ -545,7 +545,7 @@
   <string name="onlinePlayers">Играчи на мрежи</string>
   <string name="activePlayers">Активни играчи</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Опрезно, партија је рангирана али нема шаховског сата!</string>
-  <string name="success">Успешно</string>
+  <string name="success">Успех</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s партија у игри</item>
     <item quantity="few">%s партије у игри</item>
