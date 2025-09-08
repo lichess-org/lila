@@ -1010,4 +1010,7 @@ Les despeses de funcionament, desenvolupament i continguts es financen exclusiva
   <string name="enableBlindMode">Activar el mode cec</string>
   <string name="disableBlindMode">Desactivar el mode cec</string>
   <string name="copyToClipboard">Copia al porta-retalls</string>
+  <string name="search" comment="Appears on search buttons; describes an action">Cerca</string>
+  <string name="clearSearch">Neteja la cerca</string>
+  <string name="tags">Etiquetes</string>
 </resources>
