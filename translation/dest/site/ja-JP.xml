@@ -366,6 +366,7 @@
     <item quantity="other">レート戦があと %s 局必要です</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">あなたの %s レーティングは仮レートです</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">あなたのレーティングが不安定なため、レーティングフィルタは使用できません。レート戦をプレイすると安定度が上がります。</string>
   <string name="yourPerfRatingIsTooHigh">%1$s レーティング (%2$s) が高すぎます</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">%1$s の週間パフォーマンス (%2$s) が高すぎます</string>
   <string name="yourPerfRatingIsTooLow">%1$s レーティング (%2$s) が低すぎます</string>
