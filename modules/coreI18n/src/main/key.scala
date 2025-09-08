@@ -2487,6 +2487,7 @@ object I18nKey:
     val `currentChapterUrl`: I18nKey = "study:currentChapterUrl"
     val `youCanPasteThisInTheForumToEmbed`: I18nKey = "study:youCanPasteThisInTheForumToEmbed"
     val `startAtInitialPosition`: I18nKey = "study:startAtInitialPosition"
+    val `exportCleanPgn`: I18nKey = "study:exportCleanPgn"
     val `startAtX`: I18nKey = "study:startAtX"
     val `embedInYourWebsite`: I18nKey = "study:embedInYourWebsite"
     val `readMoreAboutEmbedding`: I18nKey = "study:readMoreAboutEmbedding"
