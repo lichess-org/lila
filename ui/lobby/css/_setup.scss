@@ -85,11 +85,6 @@ $c-slider: $c-setup;
     gap: 0.8rem;
   }
 
-  .create-game-button {
-    font-size: 1.25em;
-    text-transform: none;
-  }
-
   .color-submits {
     display: flex;
     flex-flow: row nowrap;
@@ -165,7 +160,7 @@ $c-slider: $c-setup;
     width: 100%;
     text-align: center;
     strong {
-      margin-inline-end: 0.254em;
+      margin-inline-end: 0.25rem;
     }
   }
 
