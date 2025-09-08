@@ -187,7 +187,7 @@
   <string name="fromInitialPositionText">Partida berri baterako taularen ezarpenak.&lt;br&gt;Adibidez irekierak aztertzeko.</string>
   <string name="customPositionTitle">Posizio pertsonalizatua</string>
   <string name="customPositionText">Konfiguratu taula zuk nahi duzun moduan.&lt;br&gt;Adibidez finalak aztertzeko.</string>
-  <string name="loadExistingLichessGameTitle">Igo Lichess-en dagoen joko bat</string>
+  <string name="loadExistingLichessGameTitle">Kargatu Lichess-en dagoen partida bat</string>
   <string name="loadExistingLichessGameText">Itsatsi lichesseko partida batn URLa&lt;br&gt;(adibidez lichess.org/7fHIU0XI)&lt;br&gt;partidaren jokaldiak kapituluan kargatzeko.</string>
   <string name="fromFenStringTitle">FEN kate batetik</string>
   <string name="fromFenStringText">Itsatsu FEN formatuko posizio bat&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;kapitulua posizio batetik hasteko.</string>
@@ -197,6 +197,6 @@
   <string name="variantsAreSupportedText">Bai, Crazyhouse&lt;br&gt; eta Lichess bariante guztiak aztertu ditzazkezu!</string>
   <string name="chapterConclusionText">Kapituluak betirako gordetzen dira.&lt;br&gt;Ondo pasa zure xake edukiak antolatzen!</string>
   <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Porrot bikoitza</string>
-  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">Beltzen porrota, baina Txuriek irabazi ezin</string>
-  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">Txurien porrota, baina Beltzek irabazi ezin</string>
+  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">Beltzaren porrota, baina Zuriak ezin du irabazi</string>
+  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">Zuriaren porrota, baina Beltzak ezin du irabazi</string>
 </resources>
