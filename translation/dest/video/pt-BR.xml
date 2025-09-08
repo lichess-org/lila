@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="chessVideos">Vídeos</string>
+  <string name="allVideosAreFree">Todos os vídeos são gratuitos.</string>
+  <string name="selectTagsToFilter">Use etiquetas para filtrar os vídeos.</string>
+</resources>
