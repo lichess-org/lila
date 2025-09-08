@@ -123,7 +123,6 @@ export interface Started {
 export interface CevalHandler {
   ceval: CevalCtrl;
   nextNodeBest(): string | undefined;
-  disableThreatMode?: Prop<boolean>;
   toggleThreatMode(v?: boolean): void;
   outcome(): Outcome | undefined;
   showEvalGauge: Prop<boolean>;

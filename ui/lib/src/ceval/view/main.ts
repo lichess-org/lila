@@ -82,14 +82,14 @@ function localInfo(ctrl: CevalHandler, ev?: Tree.ClientEval | false): EvalInfo {
   return info;
 }
 
-function threatButton(ctrl: CevalHandler): VNode | null {
-  if (ctrl.ceval.download || ctrl.disableThreatMode?.()) return null;
-  return hl('button.show-threat', {
-    class: { active: ctrl.threatMode(), hidden: !!ctrl.getNode().check },
-    attrs: { 'data-icon': licon.Target, title: i18n.site.showThreat + ' (x)' },
-    hook: bind('click', () => ctrl.toggleThreatMode()),
-  });
-}
+const threatButton = (ctrl: CevalHandler): VNode | null =>
+  ctrl.ceval.download
+    ? null
+    : hl('button.show-threat', {
+        class: { active: ctrl.threatMode(), hidden: !!ctrl.getNode().check },
+        attrs: { 'data-icon': licon.Target, title: i18n.site.showThreat + ' (x)' },
+        hook: bind('click', () => ctrl.toggleThreatMode()),
+      });
 
 function engineName(ctrl: CevalCtrl): VNode[] {
   const engine = ctrl.engines.active;
