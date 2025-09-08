@@ -33,7 +33,7 @@
   <string name="openingsYouPlayedTheMost">Ανοίγματα που παίξατε πιο συχνά σε βαθμολογημένες παρτίδες</string>
   <string name="useFindInPage">Πατήστε «Εύρεση στη σελίδα» στο μενού του προγράμματος περιήγησης, για να βρείτε το αγαπημένο σας άνοιγμα!</string>
   <string name="useCtrlF">Πατήστε Ctrl+f για να βρείτε το αγαπημένο σας άνοιγμα!</string>
-  <string name="notTheMove">Δεν είναι αυτή η κίνηση!</string>
+  <string name="notTheMove">Η κίνηση αυτή δεν είναι σωστή!</string>
   <string name="trySomethingElse">Δοκιμάστε κάποια άλλη.</string>
   <string name="ratingX">Βαθμολογία: %s</string>
   <string name="hidden">κρυφό</string>
