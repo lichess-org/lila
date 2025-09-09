@@ -966,7 +966,7 @@
   <string name="enableBlindMode">視覚障害モードをオンに</string>
   <string name="disableBlindMode">視覚障害モードをオフに</string>
   <string name="copyToClipboard">クリップボードにコピー</string>
-  <string name="search" comment="Appears on search buttons; describes an action">検索</string>
+  <string name="search">検索</string>
   <string name="clearSearch">検索をクリア</string>
   <string name="tags">タグ</string>
 </resources>
