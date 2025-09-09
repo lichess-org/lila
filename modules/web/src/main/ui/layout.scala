@@ -3,7 +3,6 @@ package ui
 
 import play.api.i18n.Lang
 import scalalib.model.Language
-import scala.collection.concurrent.TrieMap
 
 import lila.core.i18n.I18nModule
 import lila.core.report.ScoreThresholds
@@ -225,7 +224,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
   }
 </style>"""
 
-  private val pieceVarCache = TrieMap.empty[String, String]
+  private val pieceVarCache = scala.collection.concurrent.TrieMap.empty[String, String]
 
   def pieceVarsCss(pieceSet: String): Frag = raw:
     if !pieceVarCache.get("lastUpdate").has(s"${manifest.lastUpdate}") then
