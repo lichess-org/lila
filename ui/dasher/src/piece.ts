@@ -75,6 +75,29 @@ export class PieceCtrl extends PaneCtrl {
     xhrText(`/pref/${field}`, { body: xhrForm({ [field]: t }), method: 'post' }).catch(() =>
       site.announce({ msg: 'Failed to save piece set  preference' }),
     );
+    if (!this.is3d) pieceVarRules(t);
     this.redraw();
   };
+}
+
+const pieceVars = [
+  ['---white-pawn', 'wP'],
+  ['---black-pawn', 'bP'],
+  ['---white-knight', 'wN'],
+  ['---black-knight', 'bN'],
+  ['---white-bishop', 'wB'],
+  ['---black-bishop', 'bB'],
+  ['---white-rook', 'wR'],
+  ['---black-rook', 'bR'],
+  ['---white-queen', 'wQ'],
+  ['---black-queen', 'bQ'],
+  ['---white-king', 'wK'],
+  ['---black-king', 'bK'],
+];
+
+function pieceVarRules(theme: string) {
+  for (const [varName, fileName] of pieceVars) {
+    const url = site.asset.url(`piece/${theme}/${fileName}.svg`, { pathOnly: true });
+    document.body.style.setProperty(varName, `url(${url})`);
+  }
 }

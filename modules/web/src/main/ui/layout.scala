@@ -16,7 +16,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     reportScore: () => Int
 ):
   import helpers.{ *, given }
-  import assetHelper.{ defaultCsp, netConfig, cashTag, siteName, manifest }
+  import assetHelper.{ defaultCsp, netConfig, cashTag, siteName }
 
   val doctype = raw("<!DOCTYPE html>")
   def htmlTag(using lang: Lang) = html(st.lang := lang.code, dir := isRTL(lang).option("rtl"))
@@ -33,13 +33,6 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
       "if (window.matchMedia('(prefers-color-scheme: light)')?.matches) " +
         "document.documentElement.classList.add('light');"
     )(nonce)
-  def pieceSprite(name: String): Frag =
-    val key = s"pieces.$name"
-    link(
-      attr("data-css-key") := "piece-sprite",
-      href := staticAssetUrl(s"css/${manifest.css(key)}"),
-      rel := "stylesheet"
-    )
   val noTranslate = raw("""<meta name="google" content="notranslate">""")
 
   def preload(href: String, as: String, crossorigin: Boolean, tpe: Option[String] = None) =
@@ -228,6 +221,25 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     font-family: 'lichess';
     font-display: block;
     src: url('${assetUrl("font/lichess.woff2")}') format('woff2')
+  }
+</style>"""
+
+  def pieceVarsCss(pieceSet: String) = spaceless:
+    s"""
+<style>
+  :root {
+    ---white-pawn: url(${assetUrl(s"piece/$pieceSet/wP.svg")});
+    ---white-knight: url(${assetUrl(s"piece/$pieceSet/wN.svg")});
+    ---white-bishop: url(${assetUrl(s"piece/$pieceSet/wB.svg")});
+    ---white-rook: url(${assetUrl(s"piece/$pieceSet/wR.svg")});
+    ---white-queen: url(${assetUrl(s"piece/$pieceSet/wQ.svg")});
+    ---white-king: url(${assetUrl(s"piece/$pieceSet/wK.svg")});
+    ---black-pawn: url(${assetUrl(s"piece/$pieceSet/bP.svg")});
+    ---black-knight: url(${assetUrl(s"piece/$pieceSet/bN.svg")});
+    ---black-bishop: url(${assetUrl(s"piece/$pieceSet/bB.svg")});
+    ---black-rook: url(${assetUrl(s"piece/$pieceSet/bR.svg")});
+    ---black-queen: url(${assetUrl(s"piece/$pieceSet/bQ.svg")});
+    ---black-king: url(${assetUrl(s"piece/$pieceSet/bK.svg")});
   }
 </style>"""
 
