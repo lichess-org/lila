@@ -1100,7 +1100,7 @@
   <string name="enableBlindMode">Включить слепой режим</string>
   <string name="disableBlindMode">Выключить слепой режим</string>
   <string name="copyToClipboard">Скопировать в буфер обмена</string>
-  <string name="search" comment="Appears on search buttons; describes an action">Поиск</string>
+  <string name="search">Поиск</string>
   <string name="clearSearch">Очистить поиск</string>
   <string name="tags">Теги</string>
 </resources>
