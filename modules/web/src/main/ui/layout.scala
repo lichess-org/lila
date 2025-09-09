@@ -231,17 +231,18 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     pieceVarCache.get(pieceSet).getOrElse {
       case class PieceVar(key: String, name: String):
         def path = s"piece/$pieceSet/$key.svg"
-      val pcs = List("wP", "wN", "wB", "wR", "wQ", "wK", "bP", "bN", "bB", "bR", "bQ", "bK").map: key =>
-        val piece = key(1) match
-          case 'P' => "pawn"
-          case 'N' => "knight"
-          case 'B' => "bishop"
-          case 'R' => "rook"
-          case 'Q' => "queen"
-          case 'K' => "king"
-          case _ => "unknown"
-        PieceVar(key, s"---${if key(0) == 'w' then "white" else "black"}-$piece")
-
+      val pcs =
+        for
+          (c, color) <- List('w' -> "white", 'b' -> "black")
+          (p, piece) <- List(
+            'P' -> "pawn",
+            'N' -> "knight",
+            'B' -> "bishop",
+            'R' -> "rook",
+            'Q' -> "queen",
+            'K' -> "king"
+          )
+        yield PieceVar(s"$c$p", s"---$color-$piece")
       val css = s"<style>:root{" + pcs.map(v => s"${v.name}:url(${assetUrl(v.path)});").mkString + "}</style>"
       if pcs.exists(p => manifest.hashed(p.path).isEmpty)
       then lila.log("layout").error(s"$pieceSet manifest incomplete")
