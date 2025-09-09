@@ -21,9 +21,9 @@ final class UserShow(helpers: Helpers, bits: UserBits):
       ctx.blind.so(
         if isOnline.exec(u.id) then s" : ${trans.site.online.txt()}" else s" : ${trans.site.offline.txt()}"
       ),
-      (userFlair(u).map: flair =>
+      userFlair(u).map: flair =>
         if ctx.isAuth then a(href := routes.Account.profile, title := trans.site.setFlair.txt())(flair)
-        else flair)
+        else flair
     )
 
   def mini(
