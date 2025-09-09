@@ -1010,6 +1010,8 @@ Alle Betriebskosten, Entwicklung und Inhalte werden ausschließlich durch Benutz
   <string name="enableBlindMode">Blindenmodus aktivieren</string>
   <string name="disableBlindMode">Blindenmodus deaktivieren</string>
   <string name="copyToClipboard">In die Zwischenablage kopieren</string>
+  <string name="online" comment="status of a user">online</string>
+  <string name="offline" comment="status of a user">offline</string>
   <string name="search">Suchen</string>
   <string name="clearSearch">Neue Suche</string>
   <string name="tags">Schlagwörter</string>
