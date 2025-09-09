@@ -87,43 +87,32 @@ export class InlineView {
     if (!lines.length || parentDisclose === 'collapsed') return;
     const anchor = parentDisclose === 'expanded' && (this.inline || !isMainline);
     const lineArgs = { parentPath, parentNode, isMainline: false };
-    if ((!isMainline || this.inline) && this.parenthetical(parentNode))
-      return hl('inline', this.sidelineNodes(lines, lineArgs));
-    else
-      return hl('lines', { class: { anchor } }, [
-        parentDisclose === 'expanded' && this.disclosureConnector(parentPath),
-        lines.map(line => hl('line', [parentDisclose && hl('branch'), this.sidelineNodes([line], lineArgs)])),
-      ]);
+
+    return (!isMainline || this.inline) && args.parenthetical
+      ? hl('inline', this.sidelineNodes(lines, lineArgs))
+      : hl('lines', { class: { anchor } }, [
+          parentDisclose === 'expanded' && this.disclosureConnector(parentPath),
+          lines.map(line =>
+            hl('line', [parentDisclose && hl('branch'), this.sidelineNodes([line], lineArgs)]),
+          ),
+        ]);
   }
 
-  private sidelineNodes(nodes: Tree.Node[], args: Args): LooseVNodes {
-    if (!this.ctrl.disclosureMode()) return this.classicNodes(nodes, args);
-    const [child, ...siblings] = nodes;
+  private sidelineNodes([child, ...siblings]: Tree.Node[], args: Args): LooseVNodes {
     if (!child) return;
     const childArgs = this.childArgs(child, args, false);
     const sideline = [
       this.moveNode(child, args),
       this.commentNodes(child),
-      childArgs.parenthetical && this.lines(siblings, args),
-      this.sidelineNodes(child.children, childArgs),
-      !childArgs.parenthetical && this.lines(siblings, args),
+      args.parenthetical && this.lines(siblings, args),
+      this.ctrl.disclosureMode() || child.children.length < 2 || childArgs.parenthetical
+        ? this.sidelineNodes(child.children, childArgs)
+        : this.lines(child.children, childArgs),
+      !args.parenthetical && this.lines(siblings, args),
     ];
-    return args.parentDisclose === 'expanded' ? hl('interrupt', sideline) : sideline;
-  }
-
-  // classicNodes is without disclosure buttons
-  private classicNodes([child, ...siblings]: Tree.Node[], args: Args): LooseVNodes {
-    if (!child) return;
-    const childArgs = this.childArgs(child, args);
-    return [
-      this.moveNode(child, args),
-      this.commentNodes(child),
-      childArgs.parenthetical && this.lines(siblings, args),
-      child.children.length > 1 && !this.parenthetical(child)
-        ? this.lines(child.children, childArgs)
-        : this.classicNodes(child.children, childArgs),
-      !childArgs.parenthetical && this.lines(siblings, args),
-    ];
+    return this.ctrl.disclosureMode() && args.parentDisclose === 'expanded'
+      ? hl('interrupt', sideline)
+      : sideline;
   }
 
   private childArgs(child: Tree.Node, args: Args, isMainline = false) {
@@ -132,7 +121,7 @@ export class InlineView {
       parentPath: args.parentPath + child.id,
       parentNode: child,
       parentDisclose: this.ctrl.idbTree.discloseOf(child, false),
-      parenthetical: this.parenthetical(args.parentNode),
+      parenthetical: this.parenthetical(child),
     };
   }
 
@@ -141,8 +130,8 @@ export class InlineView {
     return !third && second && !treeOps.hasBranching(second, 6);
   }
 
-  protected moveNode(node: Tree.Node, opts: Args): LooseVNodes {
-    const { conceal, isMainline, parentPath, parentNode, parentDisclose } = opts;
+  protected moveNode(node: Tree.Node, args: Args): LooseVNodes {
+    const { conceal, isMainline, parentPath, parentNode, parentDisclose, parenthetical } = args;
     const { ctrl } = this;
     const path = parentPath + node.id;
     const currentPath =
@@ -152,8 +141,9 @@ export class InlineView {
     const withIndex =
       (!isMainline || this.inline) &&
       (node.ply % 2 === 1 ||
-        (parentNode.children.length > 1 &&
-          (!this.parenthetical(parentNode) || parentNode.children[0] !== node))); // ugh
+        (!isMainline &&
+          parentNode.children.length > 1 &&
+          (!parenthetical || parentNode.children[0] !== node))); // ugh
     const classes: Classes = {
       mainline: isMainline,
       conceal: conceal === 'conceal',
