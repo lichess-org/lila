@@ -25,23 +25,8 @@ function fromPly(ctrl: StudyShare): VNode {
   );
 }
 
-function fromCleanPgn(ctrl: StudyShare): VNode {
-  return hl(
-    'div.clean-pgn-wrap',
-    ctrl.onMainline() &&
-      hl('label.clean-pgn', [
-        hl('input', {
-          attrs: { type: 'checkbox', checked: ctrl.cleanPgn() },
-          hook: bind('change', e => ctrl.cleanPgn((e.target as HTMLInputElement).checked), ctrl.redraw),
-        }),
-        i18n.study.exportCleanPgn,
-      ]),
-  );
-}
-
 export class StudyShare {
   withPly = prop(false);
-  cleanPgn = prop(false);
 
   constructor(
     readonly data: StudyData,
@@ -152,11 +137,7 @@ export function view(ctrl: StudyShare): VNode {
                       1000,
                     );
                   };
-                  writePgnClipboard(
-                    `/study/${studyId}/${ctrl.chapter().id}.pgn${
-                      ctrl.cleanPgn() ? `?clocks=false&comments=false&variations=false` : ``
-                    }`,
-                  ).then(
+                  writePgnClipboard(`/study/${studyId}/${ctrl.chapter().id}.pgn`).then(
                     () => iconFeedback(true),
                     err => {
                       console.log(err);
@@ -166,6 +147,37 @@ export function view(ctrl: StudyShare): VNode {
                 }),
               },
               i18n.study.copyChapterPgn,
+            ),
+            hl(
+              'a.button.text',
+              {
+                attrs: {
+                  ...dataIcon(licon.Clipboard),
+                  tabindex: '0',
+                },
+                hook: bind('click', async event => {
+                  const iconFeedback = (success: boolean) => {
+                    (event.target as HTMLElement).setAttribute(
+                      'data-icon',
+                      success ? licon.Checkmark : licon.X,
+                    );
+                    setTimeout(
+                      () => (event.target as HTMLElement).setAttribute('data-icon', licon.Clipboard),
+                      1000,
+                    );
+                  };
+                  writePgnClipboard(
+                    `/study/${studyId}/${ctrl.chapter().id}.pgn?clocks=false&comments=false&variations=false`,
+                  ).then(
+                    () => iconFeedback(true),
+                    err => {
+                      console.log(err);
+                      iconFeedback(false);
+                    },
+                  );
+                }),
+              },
+              i18n.study.copyRawChapterPgn,
             ),
             hl(
               'a.button.text',
@@ -216,7 +228,6 @@ export function view(ctrl: StudyShare): VNode {
                 hl('label.form-label', text),
                 copyMeInput(`${baseUrl()}${path}`),
                 pastable && fromPly(ctrl),
-                pastable && fromCleanPgn(ctrl),
                 pastable && isPrivate && youCanPasteThis(),
               ]),
             ),
