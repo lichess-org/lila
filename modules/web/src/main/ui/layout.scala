@@ -3,6 +3,7 @@ package ui
 
 import play.api.i18n.Lang
 import scalalib.model.Language
+import scala.collection.concurrent.TrieMap
 
 import lila.core.i18n.I18nModule
 import lila.core.report.ScoreThresholds
@@ -16,7 +17,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     reportScore: () => Int
 ):
   import helpers.{ *, given }
-  import assetHelper.{ defaultCsp, netConfig, cashTag, siteName }
+  import assetHelper.{ defaultCsp, netConfig, cashTag, siteName, manifest }
 
   val doctype = raw("<!DOCTYPE html>")
   def htmlTag(using lang: Lang) = html(st.lang := lang.code, dir := isRTL(lang).option("rtl"))
@@ -224,24 +225,29 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
   }
 </style>"""
 
-  def pieceVarsCss(pieceSet: String) = spaceless:
-    s"""
-<style>
-  :root {
-    ---white-pawn: url(${assetUrl(s"piece/$pieceSet/wP.svg")});
-    ---white-knight: url(${assetUrl(s"piece/$pieceSet/wN.svg")});
-    ---white-bishop: url(${assetUrl(s"piece/$pieceSet/wB.svg")});
-    ---white-rook: url(${assetUrl(s"piece/$pieceSet/wR.svg")});
-    ---white-queen: url(${assetUrl(s"piece/$pieceSet/wQ.svg")});
-    ---white-king: url(${assetUrl(s"piece/$pieceSet/wK.svg")});
-    ---black-pawn: url(${assetUrl(s"piece/$pieceSet/bP.svg")});
-    ---black-knight: url(${assetUrl(s"piece/$pieceSet/bN.svg")});
-    ---black-bishop: url(${assetUrl(s"piece/$pieceSet/bB.svg")});
-    ---black-rook: url(${assetUrl(s"piece/$pieceSet/bR.svg")});
-    ---black-queen: url(${assetUrl(s"piece/$pieceSet/bQ.svg")});
-    ---black-king: url(${assetUrl(s"piece/$pieceSet/bK.svg")});
-  }
-</style>"""
+  private val pieceVarCache = TrieMap.empty[String, String]
+
+  def pieceVarsCss(pieceSet: String): Frag = raw:
+    pieceVarCache.get(pieceSet).getOrElse {
+      case class PieceVar(key: String, name: String):
+        def path = s"piece/$pieceSet/$key.svg"
+      val pcs = List("wP", "wN", "wB", "wR", "wQ", "wK", "bP", "bN", "bB", "bR", "bQ", "bK").map: key =>
+        val piece = key(1) match
+          case 'P' => "pawn"
+          case 'N' => "knight"
+          case 'B' => "bishop"
+          case 'R' => "rook"
+          case 'Q' => "queen"
+          case 'K' => "king"
+          case _ => "unknown"
+        PieceVar(key, s"---${if key(0) == 'w' then "white" else "black"}-$piece")
+
+      val css = s"<style>:root{" + pcs.map(v => s"${v.name}:url(${assetUrl(v.path)});").mkString + "}</style>"
+      if pcs.exists(p => manifest.hashed(p.path).isEmpty)
+      then lila.log("layout").error(s"$pieceSet manifest incomplete")
+      else pieceVarCache.put(pieceSet, css)
+      css
+    }
 
   def bottomHtml(using ctx: Context) = frag(
     ctx.me
