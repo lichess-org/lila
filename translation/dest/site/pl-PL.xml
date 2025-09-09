@@ -1100,7 +1100,7 @@ Wszystkie koszty operacyjne, rozwój i treści są finansowane wyłącznie z dar
   <string name="enableBlindMode">Włącz tryb gry \"na ślepo\"</string>
   <string name="disableBlindMode">Wyłącz tryb gry \"na ślepo\"</string>
   <string name="copyToClipboard">Kopiuj do schowka</string>
-  <string name="search" comment="Appears on search buttons; describes an action">Szukaj</string>
+  <string name="search">Szukaj</string>
   <string name="clearSearch">Wyczyść wyszukiwanie</string>
   <string name="tags">Tagi</string>
 </resources>
