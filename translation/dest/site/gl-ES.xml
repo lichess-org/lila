@@ -1009,6 +1009,8 @@ Todos os custos de funcionamento, desenvolvemento e contidos fináncianse unicam
   <string name="enableBlindMode">Activar o modo de accesibilidade web</string>
   <string name="disableBlindMode">Desactivar o modo de accesibilidade web</string>
   <string name="copyToClipboard">Copiar ao portapapeis</string>
+  <string name="online" comment="status of a user">conectado</string>
+  <string name="offline" comment="status of a user">desconectado</string>
   <string name="search">Buscar</string>
   <string name="clearSearch">Borrar a procura</string>
   <string name="tags">Etiquetas</string>
