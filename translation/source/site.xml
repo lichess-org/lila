@@ -1009,6 +1009,8 @@ All operating costs, development, and content are funded solely by user donation
   <string name="enableBlindMode">Enable blind mode</string>
   <string name="disableBlindMode">Disable blind mode</string>
   <string name="copyToClipboard">Copy to clipboard</string>
+  <string name="online" comment="status of a user">online</string>
+  <string name="offline" comment="status of a user">offline</string>
   <string name="search">Search</string>
   <string name="clearSearch">Clear search</string>
   <string name="tags">Tags</string>
