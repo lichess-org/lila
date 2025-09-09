@@ -1,5 +1,4 @@
-import { xhrHeader } from 'lib/xhr';
-import { alert } from 'lib/view/dialogs';
+import { frag } from 'lib';
 
 type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH' | 'OPTIONS' | 'HEAD';
 
@@ -80,7 +79,14 @@ function renderMenu(container: HTMLElement): void {
   dropdownDiv.appendChild(moreButton);
 
   const createMenuButton = (className: string, item: MenuItem): HTMLElement => {
-    if (item.httpMethod && item.httpMethod !== 'GET') return createXhrButton(className, item);
+    if (item.httpMethod === 'POST') {
+      return frag($html`
+        <form method="POST" action="${item.href}">
+          <button type="submit" class="button-text" data-icon="${item.icon}"}>
+            ${item.label}
+          </button>
+        </form>`);
+    }
     const button = document.createElement('a');
     button.className = className;
     if (item.cssClass) {
@@ -157,28 +163,4 @@ function getMenuFromDataAttr(root: HTMLElement): Menu {
 
 function setMenuToDataAttr(root: HTMLElement, menu: Menu): void {
   $(root).data('menu', menu);
-}
-
-function createXhrButton(className: string, item: MenuItem): HTMLElement {
-  const button = document.createElement('button');
-  button.classList.add('button', 'button-empty', 'button-text', className);
-  if (item.cssClass) {
-    button.classList.add(item.cssClass);
-  }
-  button.textContent = item.label;
-  button.setAttribute('data-icon', item.icon);
-  button.type = 'button';
-  button.onclick = async () => {
-    try {
-      const res = await fetch(item.href, {
-        method: item.httpMethod,
-        headers: xhrHeader,
-      });
-      if (!res.ok) throw new Error((await res.text()) || res.statusText);
-      if (res.url) window.location.href = res.url;
-    } catch (e) {
-      alert(e instanceof Error ? e.message : String(e));
-    }
-  };
-  return button;
 }
