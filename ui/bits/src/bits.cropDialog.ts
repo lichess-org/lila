@@ -2,6 +2,7 @@ import { defined } from 'lib';
 import { domDialog } from 'lib/view/dialog';
 import { spinnerHtml } from 'lib/view/controls';
 import Cropper from 'cropperjs';
+import { supported, mimeAccept } from './crop';
 
 export interface CropOpts {
   aspectRatio?: number;
@@ -18,7 +19,7 @@ export async function initModule(o?: CropOpts): Promise<void> {
   const url =
     opts.source instanceof Blob
       ? URL.createObjectURL(opts.source)
-      : typeof opts.source === 'string'
+      : typeof opts.source === 'string' && supported(opts.source)
         ? URL.createObjectURL((opts.source = await (await fetch(opts.source)).blob()))
         : URL.createObjectURL((opts.source = await chooseImage()));
   if (!url) {
@@ -100,7 +101,6 @@ export async function initModule(o?: CropOpts): Promise<void> {
     const tryQuality = (quality = 0.9) => {
       canvas.toBlob(
         blob => {
-          console.log(blob?.size, quality, opts.max?.pixels, opts.max?.megabytes);
           if (blob && blob.size < (opts.max?.megabytes ?? 100) * 1024 * 1024) submit(blob);
           else if (blob && quality > 0.05) tryQuality(quality * 0.9);
           else submit(false, 'Rendering failed');
@@ -135,7 +135,7 @@ export async function initModule(o?: CropOpts): Promise<void> {
     return new Promise<File>((resolve, reject) => {
       const input = document.createElement('input');
       input.type = 'file';
-      input.accept = 'image/*';
+      input.accept = mimeAccept;
       input.onchange = () => {
         const file = input.files?.[0];
         if (file) resolve(file);
