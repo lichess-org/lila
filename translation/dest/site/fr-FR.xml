@@ -1010,6 +1010,8 @@ Tous les coûts d\'exploitation, le développement et le contenu sont financés 
   <string name="enableBlindMode">Activer le mode pour non-voyant</string>
   <string name="disableBlindMode">Désactiver le mode pour non-voyant</string>
   <string name="copyToClipboard">Copier dans le presse-papier</string>
+  <string name="online" comment="status of a user">en ligne</string>
+  <string name="offline" comment="status of a user">hors ligne</string>
   <string name="search">Rechercher</string>
   <string name="clearSearch">Réinitialiser la recherche</string>
   <string name="tags">Étiquettes</string>
