@@ -36,7 +36,7 @@ object header:
             MenuItem(trans.site.editProfile.txt(), Icon.Gear, routes.Account.profile.url)
           ),
         Some(
-          MenuItem(trans.site.watchGames.txt(), Icon.AnalogTv, routes.User.tv(u.username).url)
+          MenuItem(trans.site.watch.txt(), Icon.AnalogTv, routes.User.tv(u.username).url)
         )
       ).flatten ++
         ctx

@@ -665,7 +665,7 @@
     <item quantity="other">%s forum posts</item>
   </plurals>
   <string name="tpTimeSpentPlaying">Time spent playing: %s</string>
-  <string name="watchGames">Watch</string>
+  <string name="watchGames">Watch games</string>
   <string name="tpTimeSpentOnTV">Time featured on TV: %s</string>
   <string name="watch">Watch</string>
   <string name="videoLibrary">Video library</string>

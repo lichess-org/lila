@@ -1,3 +1,6 @@
+import { xhrHeader } from 'lib/xhr';
+import { alert } from 'lib/view/dialogs';
+
 type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH' | 'OPTIONS' | 'HEAD';
 
 type Menu = {
@@ -76,7 +79,8 @@ function renderMenu(container: HTMLElement): void {
   moreButton.textContent = `${moreLabel} ▾`;
   dropdownDiv.appendChild(moreButton);
 
-  const createMenuButton = (className: string, item: MenuItem): HTMLAnchorElement => {
+  const createMenuButton = (className: string, item: MenuItem): HTMLElement => {
+    if (item.httpMethod && item.httpMethod !== 'GET') return createXhrButton(className, item);
     const button = document.createElement('a');
     button.className = className;
     if (item.cssClass) {
@@ -85,15 +89,6 @@ function renderMenu(container: HTMLElement): void {
     button.textContent = item.label;
     button.href = item.href;
     button.setAttribute('data-icon', item.icon);
-
-    if (item.httpMethod && item.httpMethod !== 'GET') {
-      button.href = window.location.href;
-      button.onclick = () => {
-        fetch(item.href, {
-          method: item.httpMethod,
-        });
-      };
-    }
 
     return button;
   };
@@ -162,4 +157,28 @@ function getMenuFromDataAttr(root: HTMLElement): Menu {
 
 function setMenuToDataAttr(root: HTMLElement, menu: Menu): void {
   $(root).data('menu', menu);
+}
+
+function createXhrButton(className: string, item: MenuItem): HTMLElement {
+  const button = document.createElement('button');
+  button.classList.add('button', 'button-empty', 'button-text', className);
+  if (item.cssClass) {
+    button.classList.add(item.cssClass);
+  }
+  button.textContent = item.label;
+  button.setAttribute('data-icon', item.icon);
+  button.type = 'button';
+  button.onclick = async () => {
+    try {
+      const res = await fetch(item.href, {
+        method: item.httpMethod,
+        headers: xhrHeader,
+      });
+      if (!res.ok) throw new Error((await res.text()) || res.statusText);
+      if (res.url) window.location.href = res.url;
+    } catch (e) {
+      alert(e instanceof Error ? e.message : String(e));
+    }
+  };
+  return button;
 }

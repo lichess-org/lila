@@ -395,7 +395,7 @@ interface I18n {
     challengeDeclined: string;
     /** Challenges: %1$s */
     challengesX: I18nFormat;
-    /** Challenge to a game */
+    /** Challenge */
     challengeToPlay: string;
     /** Please send me a casual challenge instead. */
     declineCasual: string;
@@ -3101,7 +3101,7 @@ interface I18n {
     collapseVariations: string;
     /** Community */
     community: string;
-    /** Compose message */
+    /** Message */
     composeMessage: string;
     /** Computer */
     computer: string;
