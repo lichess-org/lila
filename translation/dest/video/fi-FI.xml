@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="chessVideos">Shakkivideot</string>
+  <string name="allVideosAreFree">Kaikki videot ovat kaikille ilmaisia.</string>
+  <string name="weHaveCarefullySelectedX" comment="%s is the number of videos.&#10;&#10;Appears on https://lichess.org/video">Tähän mennessä olemme valinneet huolella %s videota.</string>
+  <string name="freeChessVideos">Ilmainen shakkivideoita</string>
+  <string name="xFreeCarefullyCurated" comment="%s is the number of videos. Appears in social media embeds (i.e. OpenGraph information) when linking Lichess videos.">%s ilmaista, huolella valittua shakkivideota</string>
+</resources>
