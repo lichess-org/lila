@@ -1099,6 +1099,6 @@
   <string name="enableBlindMode">Увімкнути режим для незрячих</string>
   <string name="disableBlindMode">Вимкнути режим для незрячих</string>
   <string name="copyToClipboard">Скопіювати до буферу обміну</string>
-  <string name="search" comment="Appears on search buttons; describes an action">Пошук</string>
+  <string name="search">Пошук</string>
   <string name="clearSearch">Очистити пошук</string>
 </resources>
