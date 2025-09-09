@@ -381,9 +381,9 @@
   <string name="noDrawBeforeSwissLimit">Не можеш ремизирати пре 30. потеза на турниру играном према швајцарском систему.</string>
   <string name="thematic">Тематски</string>
   <plurals name="moreThanNbRatedGames">
-    <item quantity="one">≥ %s рангирана игра</item>
-    <item quantity="few">≥ %s рангиране игре</item>
-    <item quantity="other">≥ %s рангираних игара</item>
+    <item quantity="one">≥ %s рангирана партија</item>
+    <item quantity="few">≥ %s рангиране партије</item>
+    <item quantity="other">≥ %s рангираних партија</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
     <item quantity="one">≥ %1$s %2$s рангирана игра</item>
@@ -391,17 +391,17 @@
     <item quantity="other">≥ %1$s %2$s рангираних игара</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
-    <item quantity="one">Морате одиграти још %1$s %2$s рангирану игру</item>
-    <item quantity="few">Морате одиграти још %1$s %2$s рангиране игре</item>
-    <item quantity="other">Морате одиграти још %1$s %2$s рангираних игара</item>
+    <item quantity="one">Мораш одиграти још %1$s %2$s рангирану партију</item>
+    <item quantity="few">Мораш одиграти још %1$s %2$s рангиране партије</item>
+    <item quantity="other">Мораш одиграти још %1$s %2$s рангираних партија</item>
   </plurals>
   <plurals name="needNbMoreGames">
-    <item quantity="one">Морате одиграти још %s рангирану игру</item>
-    <item quantity="few">Морате одиграти још %s рангиране игре</item>
-    <item quantity="other">Морате одиграти још %s рангираних игара</item>
+    <item quantity="one">Мораш одиграти још %s рангирану партију</item>
+    <item quantity="few">Мораш одиграти још %s рангиране партије</item>
+    <item quantity="other">Мораш одиграти још %s рангираних партија</item>
   </plurals>
-  <string name="yourPerfRatingIsProvisional">Ваш %s рејтинг је привремен</string>
-  <string name="yourPerfRatingIsTooHigh">Ваш %1$s рејтинг (%2$s) је превисок</string>
+  <string name="yourPerfRatingIsProvisional">Твој %s рејтинг је привремен</string>
+  <string name="yourPerfRatingIsTooHigh">Твој %1$s рејтинг (%2$s) је превисок</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Ваш највиши недељни %1$s рејтинг (%2$s) је превисок</string>
   <string name="yourPerfRatingIsTooLow">Ваш %1$s рејтинг (%2$s) је пренизак</string>
   <string name="ratedMoreThanInPerf">Рејтинг ≥ %1$s у %2$s</string>
