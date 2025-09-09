@@ -1010,7 +1010,7 @@ Tous les coûts d\'exploitation, le développement et le contenu sont financés 
   <string name="enableBlindMode">Activer le mode pour non-voyant</string>
   <string name="disableBlindMode">Désactiver le mode pour non-voyant</string>
   <string name="copyToClipboard">Copier dans le presse-papier</string>
-  <string name="search" comment="Appears on search buttons; describes an action">Rechercher</string>
+  <string name="search">Rechercher</string>
   <string name="clearSearch">Réinitialiser la recherche</string>
   <string name="tags">Étiquettes</string>
 </resources>
