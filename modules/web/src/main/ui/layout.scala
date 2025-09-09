@@ -228,19 +228,15 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
   private val pieceVarCache = TrieMap.empty[String, String]
 
   def pieceVarsCss(pieceSet: String): Frag = raw:
+    if !pieceVarCache.get("lastUpdate").has(s"${manifest.lastUpdate}") then
+      pieceVarCache.clear()
+      pieceVarCache.put("lastUpdate", s"${manifest.lastUpdate}")
     pieceVarCache.get(pieceSet).getOrElse {
       val vars =
         for
-          (c, color) <- List('w' -> "white", 'b' -> "black")
-          (r, role) <- List(
-            'P' -> "pawn",
-            'N' -> "knight",
-            'B' -> "bishop",
-            'R' -> "rook",
-            'Q' -> "queen",
-            'K' -> "king"
-          )
-        yield (s"piece/$pieceSet/$c$r.svg", s"---$color-$role")
+          (c, color) <- chess.Color.all.map(c => c.letter -> c.name)
+          (r, role) <- chess.Role.all.map(r => r.forsythUpper -> r.name)
+        yield s"piece/$pieceSet/$c$r.svg" -> s"---$color-$role"
       val css = s"<style>:root{"
         + vars.map { case (path, name) => s"$name:url(${assetUrl(path)});" }.mkString
         + "}</style>"
