@@ -28,7 +28,7 @@ function generateUrlCss() {
               const filename = svgFilename(color, role);
               const filePath = path.join(sourceDir, name, filename);
               if (name !== 'disguised' && !existsSync(filePath)) throw new Error(`${filePath} is missing`);
-              return `.is2d .${role}.${color}{background-image:url(../piece/${name}/${filename})}`;
+              return `.is2d .${role}.${color} {\n  background-image: url(../piece/${name}/${filename});\n}`;
             })
             .join('\n'),
         )
@@ -43,4 +43,4 @@ if (!existsSync(destDir)) mkdirSync(destDir, { recursive: true });
 
 generateUrlCss();
 
-console.log(`✅ Generated piece CSS files in ${destDir}`);
+console.log(`✅ Generated ${themes.length} piece CSS files in ${destDir}`);
