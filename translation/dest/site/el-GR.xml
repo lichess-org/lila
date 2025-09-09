@@ -1010,6 +1010,8 @@
   <string name="enableBlindMode">Ενεργοποίηση λειτουργίας για τυφλούς</string>
   <string name="disableBlindMode">Απενεργοποίηση λειτουργίας για τυφλούς</string>
   <string name="copyToClipboard">Αντιγραφή στο πρόχειρο</string>
+  <string name="online" comment="status of a user">σε σύνδεση</string>
+  <string name="offline" comment="status of a user">εκτός σύνδεσης</string>
   <string name="search">Αναζήτηση</string>
   <string name="clearSearch">Εκκαθάριση πεδίου αναζήτησης</string>
   <string name="tags">Ετικέτες</string>
