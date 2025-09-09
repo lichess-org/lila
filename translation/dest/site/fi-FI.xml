@@ -1011,4 +1011,5 @@ Kaikki toimintakustannukset, kehitystyö ja sisältö rahoitetaan yksinomaan kä
   <string name="copyToClipboard">Kopioi leikepöydälle</string>
   <string name="search" comment="Appears on search buttons; describes an action">Hae</string>
   <string name="clearSearch">Tyhjennä haku</string>
+  <string name="tags">Tunnisteet</string>
 </resources>
