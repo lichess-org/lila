@@ -1009,7 +1009,7 @@ Garapen eta mantentze-kostu guztiak erabiltzaileen dohaintzekin ordaintzen dira.
   <string name="enableBlindMode">Aktibatu modu-itsua</string>
   <string name="disableBlindMode">Desaktibatu modu-itsua</string>
   <string name="copyToClipboard">Kopiatu arbelera</string>
-  <string name="search" comment="Appears on search buttons; describes an action">Bilatu</string>
+  <string name="search">Bilatu</string>
   <string name="clearSearch">Garbitu bilaketa</string>
   <string name="tags">Etiketak</string>
 </resources>
