@@ -1009,4 +1009,6 @@ Kaikki toimintakustannukset, kehitystyö ja sisältö rahoitetaan yksinomaan kä
   <string name="enableBlindMode">Siirry sokean käyttäjän tilaan</string>
   <string name="disableBlindMode">Poistu sokean käyttäjän tilasta</string>
   <string name="copyToClipboard">Kopioi leikepöydälle</string>
+  <string name="search" comment="Appears on search buttons; describes an action">Hae</string>
+  <string name="clearSearch">Tyhjennä haku</string>
 </resources>
