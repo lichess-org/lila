@@ -164,11 +164,11 @@
   <string name="playAgain">Jogar novamente</string>
   <string name="whatWouldYouPlay">O que jogaria nessa situação?</string>
   <string name="youCompletedThisLesson">Parabéns! Completou esta lição.</string>
-  <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">%s por página</string>
+  <string name="perPage">%s por página</string>
   <string name="getTheTour">Precisas de ajuda? Obter uma visita guiada!</string>
   <string name="welcomeToLichessStudyTitle">Bem-vindo ao Estudo Lichess!</string>
   <string name="welcomeToLichessStudyText">Este é um tabuleiro de análise partilhado.&lt;br&gt;&lt;br&gt;Utilize-o para analisar e anotar jogos,&lt;br&gt;discutir posições com amigos,&lt;br&gt;e, claro, para lições de xadrez!&lt;br&gt;&lt;br&gt;É uma ferramenta poderosa, vamos tirar algum tempo para ver como funciona.</string>
-  <string name="sharedAndSaveTitle" comment="Appears as the title of a pop-up lightbox in the guided tour of Lichess Studies.&#10;&#10;As in: shared with other members &amp; saved to the database.">Partilhado e salvado</string>
+  <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Partilhado e salvado</string>
   <string name="sharedAndSavedText">Outros membros podem ver as suas jogadas em tempo real! &lt;br&gt;Além disso, tudo é guardado para sempre.</string>
   <string name="studyMembersTitle">Membros do estudo</string>
   <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s Os espetadores podem ver o estudo e falar no chat.&lt;br&gt;&lt;br&gt;%2$s Os contribuidores podem fazer movimentos e atualizar o estudo.</string>
@@ -196,7 +196,7 @@
   <string name="variantsAreSupportedTitle">Estudos suportam variantes</string>
   <string name="variantsAreSupportedText">Sim, podes estudar crazyhouse&lt;br&gt;e todas as variantes do Lichess!</string>
   <string name="chapterConclusionText">Capítulos são salvos permanentemente.&lt;br&gt;Diverte a organizar o teu conteúdo de xadrez!</string>
-  <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Derrota dupla</string>
-  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">Pretas perderam, mas Brancas não podem vencer</string>
-  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">Brancas perderam, mas Pretas não podem vencer</string>
+  <string name="doubleDefeat">Derrota dupla</string>
+  <string name="blackDefeatWhiteCanNotWin">Pretas perderam, mas Brancas não podem vencer</string>
+  <string name="whiteDefeatBlackCanNotWin">Brancas perderam, mas Pretas não podem vencer</string>
 </resources>
