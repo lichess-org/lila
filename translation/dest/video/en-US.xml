@@ -3,4 +3,15 @@
   <string name="chessVideos">Chess videos</string>
   <string name="allVideosAreFree">All videos are free for everyone.</string>
   <string name="selectTagsToFilter">Select tags to filter the videos.</string>
+  <string name="freeChessVideos">Free chess videos</string>
+  <string name="xFreeCarefullyCurated" comment="%s is the number of videos. Appears in social media embeds (i.e. OpenGraph information) when linking Lichess videos.">%s free, carefully curated chess videos</string>
+  <string name="xCuratedChessVideos" comment="%s is the number of videos. Appears in social media embeds (i.e. OpenGraph information) when linking Lichess videos.">%s curated chess videos</string>
+  <string name="xWithTagsY" comment="%1$s is the number of videos found.&#10;&#10;%2$s is a list of tags.&#10;&#10;Appears when filtering for videos by tag.">%1$s with tags %2$s</string>
+  <string name="freeForAll" comment="Appears in social media embeds (i.e. OpenGraph information) when linking Lichess videos. Part of a longer piece of text.&#10;&#10;The full text will be something like &quot;%s carefully curated chess videos • free for all&quot;">free for all</string>
+  <plurals name="nbVideosFound" comment="%s is the number of videos found when searching on https://lichess.org/video">
+    <item quantity="one">%s video found</item>
+    <item quantity="other">%s videos found</item>
+  </plurals>
+  <string name="noVideosForTheseTags">No videos for these tags:</string>
+  <string name="thatsAllWeGotForTheseTags">That\'s all we got for these tags:</string>
 </resources>
