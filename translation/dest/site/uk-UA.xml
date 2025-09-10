@@ -1099,6 +1099,9 @@
   <string name="enableBlindMode">Увімкнути режим для незрячих</string>
   <string name="disableBlindMode">Вимкнути режим для незрячих</string>
   <string name="copyToClipboard">Скопіювати до буферу обміну</string>
+  <string name="online" comment="status of a user">у мережі</string>
+  <string name="offline" comment="status of a user">не в мережі</string>
   <string name="search">Пошук</string>
   <string name="clearSearch">Очистити пошук</string>
+  <string name="tags">Теги</string>
 </resources>
