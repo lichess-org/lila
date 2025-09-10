@@ -164,11 +164,11 @@
   <string name="playAgain">Παίξτε ξανά</string>
   <string name="whatWouldYouPlay">Τι θα παίζατε σε αυτή τη θέση;</string>
   <string name="youCompletedThisLesson">Συγχαρητήρια! Ολοκληρώσατε αυτό το μάθημα.</string>
-  <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">%s ανά σελίδα</string>
+  <string name="perPage">%s ανά σελίδα</string>
   <string name="getTheTour">Χρειάζεστε βοήθεια; Ξεναγηθείτε!</string>
   <string name="welcomeToLichessStudyTitle">Καλώς ήρθατε στις μελέτες του Lichess!</string>
   <string name="welcomeToLichessStudyText">Αυτή είναι η κοινή σκακιέρα ανάλυσης.&lt;br&gt;&lt;br&gt;Χρησιμοποιήστε την για να αναλύσετε και να σχολιάσετε παρτίδες,&lt;br&gt;για να συζητήσετε συγκεκριμένες θέσεις με φίλους&lt;br&gt;και φυσικά για να δημιουργήσετε σκακιστικά μαθήματα!&lt;br&gt;&lt;br&gt;Η σκακιέρα ανάλυσης είναι πολύ ισχυρό εργαλείο — ας δούμε, λοιπόν, πώς λειτουργεί.</string>
-  <string name="sharedAndSaveTitle" comment="Appears as the title of a pop-up lightbox in the guided tour of Lichess Studies.&#10;&#10;As in: shared with other members &amp; saved to the database.">Κοινοποιήθηκε και αποθηκεύτηκε</string>
+  <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Κοινοποιήθηκε και αποθηκεύτηκε</string>
   <string name="sharedAndSavedText">Τα άλλα μέλη της μελέτης μπορούν να δουν τις κινήσεις που κάνετε σε πραγματικό χρόνο!&lt;br&gt;Και βέβαια, οτιδήποτε εισάγετε αποθηκεύεται για πάντα.</string>
   <string name="studyMembersTitle">Μέλη μελέτης</string>
   <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">Οι %1$s θεατές μπορούν να προβάλλουν τη μελέτη και να συνομιλήσουν στο chat.&lt;br&gt;&lt;br&gt;Οι %2$s συνεισφέροντες μπορούν να εισάγουν κινήσεις και να ενημερώσουν τη μελέτη.</string>
@@ -197,7 +197,7 @@
   <string name="variantsAreSupportedTitle">Οι μελέτες υποστηρίζουν τις παραλλαγές</string>
   <string name="variantsAreSupportedText">Μπορείτε να δημιουργήσετε μία μελέτη Crazyhouse&lt;br&gt;η μία μελέτη με οποιαδήποτε άλλη παραλλαγή υποστηρίζει το Lichess!</string>
   <string name="chapterConclusionText">Τα κεφάλαια αποθηκεύονται για πάντα&lt;br&gt;Ευχόμαστε καλή διασκέδαση και καλή επιτυχία στην οργάνωση του σκακιστικού σας περιεχομένου!</string>
-  <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Διπλή ήττα</string>
-  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">Τα μαύρα χάνουν, αλλά τα λευκά δεν μπορούν να κερδίσουν</string>
-  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">Τα λευκά χάνουν, αλλά τα μαύρα δεν μπορούν να κερδίσουν</string>
+  <string name="doubleDefeat">Διπλή ήττα</string>
+  <string name="blackDefeatWhiteCanNotWin">Τα μαύρα χάνουν, αλλά τα λευκά δεν μπορούν να κερδίσουν</string>
+  <string name="whiteDefeatBlackCanNotWin">Τα λευκά χάνουν, αλλά τα μαύρα δεν μπορούν να κερδίσουν</string>
 </resources>
