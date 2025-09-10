@@ -164,11 +164,11 @@
   <string name="playAgain">Jokatu berriz</string>
   <string name="whatWouldYouPlay">Zer jokatuko zenuke posizio honetan?</string>
   <string name="youCompletedThisLesson">Zorionak! Ikasgai hau osatu duzu.</string>
-  <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">%s orrialde bakoitzean</string>
+  <string name="perPage">%s orrialde bakoitzean</string>
   <string name="getTheTour">Laguntzarik behar? Etorri gurekin!</string>
   <string name="welcomeToLichessStudyTitle">Ongi etorri Lichess Study-ra!</string>
   <string name="welcomeToLichessStudyText">Hau partekatutako analisi taula bat da.&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;Erabili partidak analizatu edo komentatzeko,&lt;br&gt;&lt;br&gt;&lt;br&gt;eztabaidatu posizioak lagunekin,&lt;br&gt;&lt;br&gt;eta erabili xake klaseetan!&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;Tresna ahaltsua da, hartu denbora bat nola dabilen ikasteko.</string>
-  <string name="sharedAndSaveTitle" comment="Appears as the title of a pop-up lightbox in the guided tour of Lichess Studies.&#10;&#10;As in: shared with other members &amp; saved to the database.">Partekatuta eta gordeta</string>
+  <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Partekatuta eta gordeta</string>
   <string name="sharedAndSavedText">Beste kide batzuk zure jokaldiak denbora errealean ikusi ditzakete!&lt;br&gt;Gainera, dena betiko gordetzen da.</string>
   <string name="studyMembersTitle">Azterlanaren kideak</string>
   <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s Ikusleek zure azterlanak ikusi eta txatean komentatu dezakete.&lt;br&gt;&lt;br&gt;%2$s Laguntzaileek jokaldiak egin eta azterlana eguneratu dezakete.</string>
@@ -196,7 +196,7 @@
   <string name="variantsAreSupportedTitle">Azterlanetan aldaerak erabili daitezke</string>
   <string name="variantsAreSupportedText">Bai, Crazyhouse&lt;br&gt; eta Lichess bariante guztiak aztertu ditzazkezu!</string>
   <string name="chapterConclusionText">Kapituluak betirako gordetzen dira.&lt;br&gt;Ondo pasa zure xake edukiak antolatzen!</string>
-  <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Porrot bikoitza</string>
-  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">Beltzaren porrota, baina Zuriak ezin du irabazi</string>
-  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">Zuriaren porrota, baina Beltzak ezin du irabazi</string>
+  <string name="doubleDefeat">Porrot bikoitza</string>
+  <string name="blackDefeatWhiteCanNotWin">Beltzaren porrota, baina Zuriak ezin du irabazi</string>
+  <string name="whiteDefeatBlackCanNotWin">Zuriaren porrota, baina Beltzak ezin du irabazi</string>
 </resources>
