@@ -22,7 +22,7 @@
     <item quantity="other">%s Κεφάλαια</item>
   </plurals>
   <plurals name="nbGames">
-    <item quantity="one">%s Παρτίδα</item>
+    <item quantity="one">%s παρτίδα</item>
     <item quantity="other">%s Παρτίδες</item>
   </plurals>
   <string name="addMembers">Προσθήκη μελών</string>
