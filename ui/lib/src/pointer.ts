@@ -38,7 +38,7 @@ export function addPointerListeners(el: HTMLElement, listeners: PointerListeners
   const pointermove = (e: PointerEvent) => {
     const [dx, dy] = [e.clientX - g.x, e.clientY - g.y];
 
-    if (!g.lastMove && Math.abs(dy) > 6) return reset(e);
+    if (!g.lastMove && Math.abs(dy) > 12) return reset(e);
     if (!hscrub || Math.abs(dx) < 5) return;
     clearTimeout(g.timer);
     g.timer = 0;
