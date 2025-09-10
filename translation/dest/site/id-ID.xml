@@ -159,7 +159,6 @@
   <string name="drawByMutualAgreement">Remis atas keputusan bersama</string>
   <string name="fiftyMovesWithoutProgress">50 langkah tanpa kemajuan</string>
   <string name="currentGames">Permainan saat ini</string>
-  <string name="joinedX">Bergabung</string>
   <plurals name="nbGames">
     <item quantity="other">Lihat semua %s Permainan</item>
   </plurals>
