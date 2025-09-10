@@ -61,6 +61,7 @@
   <string name="studyPgn">PGN de l’estudi</string>
   <string name="chapterPgn">PGN del capítol</string>
   <string name="copyChapterPgn">Copiar PGN</string>
+  <string name="copyRawChapterPgn">Copiar PGN en brut</string>
   <string name="downloadGame">Descarrega partida</string>
   <string name="studyUrl">URL de l’estudi</string>
   <string name="currentChapterUrl">URL del capítol actual</string>
