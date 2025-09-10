@@ -22,13 +22,21 @@ final class UblogApi(
     shutupApi: ShutupApi,
     irc: lila.core.irc.IrcApi,
     automod: UblogAutomod,
-    config: UblogConfig
+    config: UblogConfig,
+    settingStore: lila.memo.SettingStore.Builder
 )(using Executor, Scheduler)
     extends lila.core.ublog.UblogApi:
 
   import UblogBsonHandlers.{ *, given }
   import UblogBlog.Tier
   import UblogAutomod.Assessment
+
+  lazy val carouselSizeSetting =
+    settingStore[Int](
+      "carouselSize",
+      default = 9,
+      text = "Homepage blog carousel size".some
+    )
 
   def create(data: UblogForm.UblogPostData, author: User): Fu[UblogPost] =
     val post = data.create(author)
@@ -106,7 +114,7 @@ final class UblogApi(
         .find($doc("live" -> true, "featured.until" -> $gte(nowInstant)), previewPostProjection.some)
         .sort($doc("featured.until" -> -1))
         .cursor[UblogPost.PreviewPost](ReadPref.sec)
-        .list(config.carouselSize)
+        .list(carouselSizeSetting.get())
 
       queue <- colls.post
         .find(
@@ -115,7 +123,7 @@ final class UblogApi(
         )
         .sort($doc("featured.at" -> -1))
         .cursor[UblogPost.PreviewPost](ReadPref.sec)
-        .list(config.carouselSize - pinned.size)
+        .list(carouselSizeSetting.get() - pinned.size)
     yield UblogPost.CarouselPosts(pinned, queue)
 
   def postPreview(id: UblogPostId) =

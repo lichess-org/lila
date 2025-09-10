@@ -125,6 +125,11 @@
   }
 }
 
+.column-gap {
+  @extend %flex-column;
+  gap: 4rem;
+}
+
 .ublog-mod-carousel {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));

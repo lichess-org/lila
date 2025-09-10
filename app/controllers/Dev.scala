@@ -20,6 +20,7 @@ final class Dev(env: Env) extends LilaController(env):
     env.round.selfReportEndGame,
     env.round.selfReportMarkUser,
     env.bot.boardReport.domainSetting,
+    env.ublog.api.carouselSizeSetting,
     env.streamer.homepageMaxSetting,
     env.streamer.alwaysFeaturedSetting,
     env.plan.donationGoalSetting,
