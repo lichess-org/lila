@@ -41,7 +41,7 @@ export function wireCropDialog(
   });
 }
 
-const imageTypes = ['svg+xml', 'jpeg', 'jpg', 'png', 'webp', 'gif', 'tiff', 'avif'].concat(
+const imageTypes = ['jpeg', 'jpg', 'png', 'webp', 'gif', 'tiff', 'avif'].concat(
   isSafari() ? ['heic', 'heif', 'svg+xml'] : isFirefox() ? ['svg+xml'] : [],
 ); // chrome canvas butchers svgs without intrinsic size
 

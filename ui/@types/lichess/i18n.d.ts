@@ -3787,12 +3787,16 @@ interface I18n {
     numberMistakes: I18nPlural;
     /** Offer draw */
     offerDraw: string;
+    /** offline */
+    offline: string;
     /** OK */
     ok: string;
     /** One day */
     oneDay: string;
     /** One URL per line. */
     oneUrlPerLine: string;
+    /** online */
+    online: string;
     /** Online bots */
     onlineBots: string;
     /** Online players */
@@ -4855,6 +4859,8 @@ interface I18n {
     contributors: string;
     /** Copy PGN */
     copyChapterPgn: string;
+    /** Copy Raw PGN (without annotations, clock times or variations) */
+    copyRawChapterPgn: string;
     /** Counterplay */
     counterplay: string;
     /** Create chapter */

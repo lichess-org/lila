@@ -43,8 +43,8 @@ import type {
   ApiMove,
   ApiEnd,
 } from './interfaces';
-import { defined, type Toggle, toggle, requestIdleCallback, memoize } from 'lib';
-import { storage, once, type LichessBooleanStorage } from 'lib/storage';
+import { defined, type Toggle, type Prop, toggle, requestIdleCallback, memoize } from 'lib';
+import { storage, once, storedBooleanProp, type LichessBooleanStorage } from 'lib/storage';
 import * as poolRangeStorage from 'lib/poolRangeStorage';
 import { pubsub } from 'lib/pubsub';
 import { readFen, almostSanOf, speakable } from 'lib/game/sanWriter';
@@ -91,6 +91,7 @@ export default class RoundController implements MoveRootCtrl {
   blindfoldStorage: LichessBooleanStorage;
   server: Server;
   nvui?: NvuiPlugin;
+  vibration: Prop<boolean> = storedBooleanProp('vibration', false);
 
   constructor(
     readonly opts: RoundOpts,
@@ -485,8 +486,8 @@ export default class RoundController implements MoveRootCtrl {
       cevalSub.publish(d, o);
     }
     if (!this.replaying() && playedColor != d.player.color) {
-      // atrocious hack to prevent race condition
-      // with explosions and premoves
+      if (this.vibration() && 'vibrate' in navigator) navigator.vibrate(100);
+      // prevent race conditions with explosions and premoves
       // https://github.com/lichess-org/lila/issues/343
       const premoveDelay = d.game.variant.key === 'atomic' ? 100 : 1;
       setTimeout(() => {
