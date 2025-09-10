@@ -2280,6 +2280,8 @@ object I18nKey:
     val `enableBlindMode`: I18nKey = "enableBlindMode"
     val `disableBlindMode`: I18nKey = "disableBlindMode"
     val `copyToClipboard`: I18nKey = "copyToClipboard"
+    val `online`: I18nKey = "online"
+    val `offline`: I18nKey = "offline"
     val `search`: I18nKey = "search"
     val `clearSearch`: I18nKey = "clearSearch"
     val `tags`: I18nKey = "tags"
