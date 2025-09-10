@@ -230,20 +230,21 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     if !pieceVarCache.get("lastUpdate").has(s"${manifest.lastUpdate}") then
       pieceVarCache.clear()
       pieceVarCache.put("lastUpdate", s"${manifest.lastUpdate}")
-    pieceVarCache.get(pieceSet).getOrElse {
-      val vars =
-        for
-          (c, color) <- chess.Color.all.map(c => c.letter -> c.name)
-          (r, role) <- chess.Role.all.map(r => r.forsythUpper -> r.name)
-        yield s"piece/$pieceSet/$c$r.svg" -> s"---$color-$role"
-      val css = s"<style>:root{"
-        + vars.map { case (path, name) => s"$name:url(${assetUrl(path)});" }.mkString
-        + "}</style>"
-      if vars.exists { case (path, _) => manifest.hashed(path).isEmpty }
-      then lila.log("layout").error(s"$pieceSet manifest incomplete")
-      else pieceVarCache.put(pieceSet, css)
-      css
-    }
+    pieceVarCache.getOrElseUpdate(
+      pieceSet, {
+        val vars =
+          for
+            (c, color) <- chess.Color.all.map(c => c.letter -> c.name)
+            (r, role) <- chess.Role.all.map(r => r.forsythUpper -> r.name)
+          yield s"piece/$pieceSet/$c$r.svg" -> s"---$color-$role"
+        val css = s"<style>:root{"
+          + vars.map { case (path, name) => s"$name:url(${assetUrl(path)});" }.mkString
+          + "}</style>"
+        if vars.exists { case (path, _) => manifest.hashed(path).isEmpty }
+        then lila.log("layout").error(s"$pieceSet manifest incomplete")
+        css
+      }
+    )
 
   def bottomHtml(using ctx: Context) = frag(
     ctx.me
