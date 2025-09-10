@@ -487,7 +487,7 @@ export default class RoundController implements MoveRootCtrl {
     }
     if (!this.replaying() && playedColor != d.player.color) {
       if (this.vibration() && 'vibrate' in navigator) navigator.vibrate(100);
-      // prevent race conditins with explosions and premoves
+      // prevent race conditions with explosions and premoves
       // https://github.com/lichess-org/lila/issues/343
       const premoveDelay = d.game.variant.key === 'atomic' ? 100 : 1;
       setTimeout(() => {
