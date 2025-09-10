@@ -74,6 +74,30 @@ export function view(ctrl: StudyShare): VNode {
       { attrs: dataIcon(licon.InfoCircle) },
       i18n.study.youCanPasteThisInTheForumToEmbed,
     );
+  const copyChapterPgn = (url: string, text: string) =>
+    hl(
+      'a.button.text',
+      {
+        attrs: {
+          ...dataIcon(licon.Clipboard),
+          tabindex: '0',
+        },
+        hook: bind('click', async event => {
+          const iconFeedback = (success: boolean) => {
+            (event.target as HTMLElement).setAttribute('data-icon', success ? licon.Checkmark : licon.X);
+            setTimeout(() => (event.target as HTMLElement).setAttribute('data-icon', licon.Clipboard), 1000);
+          };
+          writePgnClipboard(url).then(
+            () => iconFeedback(true),
+            err => {
+              console.log(err);
+              iconFeedback(false);
+            },
+          );
+        }),
+      },
+      text,
+    );
   return hl(
     'div.study__share',
     ctrl.shareable()
@@ -119,34 +143,10 @@ export function view(ctrl: StudyShare): VNode {
               },
               ctrl.relay ? i18n.study.downloadGame : i18n.study.chapterPgn,
             ),
-            hl(
-              'a.button.text',
-              {
-                attrs: {
-                  ...dataIcon(licon.Clipboard),
-                  tabindex: '0',
-                },
-                hook: bind('click', async event => {
-                  const iconFeedback = (success: boolean) => {
-                    (event.target as HTMLElement).setAttribute(
-                      'data-icon',
-                      success ? licon.Checkmark : licon.X,
-                    );
-                    setTimeout(
-                      () => (event.target as HTMLElement).setAttribute('data-icon', licon.Clipboard),
-                      1000,
-                    );
-                  };
-                  writePgnClipboard(`/study/${studyId}/${ctrl.chapter().id}.pgn`).then(
-                    () => iconFeedback(true),
-                    err => {
-                      console.log(err);
-                      iconFeedback(false);
-                    },
-                  );
-                }),
-              },
-              i18n.study.copyChapterPgn,
+            copyChapterPgn(`/study/${studyId}/${ctrl.chapter().id}.pgn`, i18n.study.copyChapterPgn),
+            copyChapterPgn(
+              `/study/${studyId}/${ctrl.chapter().id}.pgn?clocks=false&comments=false&variations=false`,
+              i18n.study.copyRawChapterPgn,
             ),
             hl(
               'a.button.text',

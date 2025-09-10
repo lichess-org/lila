@@ -2484,6 +2484,7 @@ object I18nKey:
     val `studyPgn`: I18nKey = "study:studyPgn"
     val `chapterPgn`: I18nKey = "study:chapterPgn"
     val `copyChapterPgn`: I18nKey = "study:copyChapterPgn"
+    val `copyRawChapterPgn`: I18nKey = "study:copyRawChapterPgn"
     val `downloadGame`: I18nKey = "study:downloadGame"
     val `studyUrl`: I18nKey = "study:studyUrl"
     val `currentChapterUrl`: I18nKey = "study:currentChapterUrl"

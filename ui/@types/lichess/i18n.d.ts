@@ -4859,6 +4859,8 @@ interface I18n {
     contributors: string;
     /** Copy PGN */
     copyChapterPgn: string;
+    /** Copy Raw PGN (without annotations, clock times or variations) */
+    copyRawChapterPgn: string;
     /** Counterplay */
     counterplay: string;
     /** Create chapter */
