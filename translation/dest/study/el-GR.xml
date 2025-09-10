@@ -61,12 +61,13 @@
   <string name="studyPgn">Αρχείο PGN μελέτης</string>
   <string name="chapterPgn">Αρχείο PGN κεφαλαίου</string>
   <string name="copyChapterPgn">Αντιγραφή PGN</string>
+  <string name="copyRawChapterPgn">Αντιγραφή κύριας γραμμής ως PGN</string>
   <string name="downloadGame">Λήψη παρτίδας</string>
   <string name="studyUrl">Διεύθυνση URL μελέτης</string>
   <string name="currentChapterUrl">Διεύθυνση URL τρέχοντος κεφαλαίου</string>
   <string name="youCanPasteThisInTheForumToEmbed">Επικολλήστε την παραπάνω διεύθυνση URL στο φόρουμ ή στο ιστολόγιό σας στο Lichess αν θέλετε να ενσωματώσετε το κεφάλαιο</string>
   <string name="startAtInitialPosition">Εκκίνηση από την αρχική θέση του κεφαλαίου</string>
-  <string name="startAtX">Εκκίνηση από την κίνηση %s</string>
+  <string name="startAtX">Έναρξη από την κίνηση %s</string>
   <string name="embedInYourWebsite">Ενσωμάτωση στην ιστοσελίδα σας ή το ιστολόγιό σας</string>
   <string name="readMoreAboutEmbedding">Διαβάστε περισσότερα για την ενσωμάτωση</string>
   <string name="onlyPublicStudiesCanBeEmbedded">Μόνο οι δημόσιες μελέτες μπορούν να ενσωματωθούν!</string>
@@ -125,7 +126,7 @@
   <string name="start">Δημιουργία</string>
   <string name="save">Αποθήκευση</string>
   <string name="clearChat">Εκκαθάριση συνομιλίας</string>
-  <string name="deleteTheStudyChatHistory">Διαγραφή συνομιλίας μελέτης; Μη αναιρέσιμη ενέργεια!</string>
+  <string name="deleteTheStudyChatHistory">Θέλετε σίγουρα να διαγράψετε το ιστορικό συνομιλίας της μελέτης; Η ενέργεια αυτή δεν μπορεί να αναιρεθεί!</string>
   <string name="deleteStudy">Διαγραφή μελέτης</string>
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Θέλετε σίγουρα να διαγραφεί όλη η μελέτη; Η ενέργεια αυτή δεν μπορεί να αναιρεθεί! Πληκτρολογήστε το όνομα της μελέτης για επιβεβαίωση: %s</string>
   <string name="whereDoYouWantToStudyThat">Πού θέλετε να μελετήσετε αυτή τη θέση;</string>
