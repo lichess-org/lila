@@ -1011,6 +1011,8 @@ Alle kostnader for drift, utvikling og innhald vert finansiert eine og åleine a
   <string name="enableBlindMode">Aktiver blindsjakkmodus</string>
   <string name="disableBlindMode">Deaktiver blindsjakkmodus</string>
   <string name="copyToClipboard">Kopiér til utklippstavla</string>
+  <string name="online" comment="status of a user">online</string>
+  <string name="offline" comment="status of a user">offline</string>
   <string name="search">Søk</string>
   <string name="clearSearch">Nytt søk</string>
   <string name="tags">Etikettar</string>
