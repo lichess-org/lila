@@ -41,7 +41,7 @@
     <item quantity="one">Λύθηκε %s φορά</item>
     <item quantity="other">Λύθηκε %s φορές</item>
   </plurals>
-  <string name="fromGameLink">Από το παιχνίδι %s</string>
+  <string name="fromGameLink">Από την παρτίδα %s</string>
   <string name="continueTraining">Συνέχεια εξάσκησης</string>
   <string name="difficultyLevel">Επίπεδο δυσκολίας</string>
   <string name="normal">Κανονικό</string>
