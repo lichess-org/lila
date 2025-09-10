@@ -439,6 +439,10 @@ interface I18n {
     addStudent: string;
     /** A link to the class will be automatically added at the end of the message, so you don't need to include it yourself. */
     aLinkToTheClassWillBeAdded: string;
+    /** Allow messages between students */
+    allowMessagingBetweenStudents: string;
+    /** This only applies to the accounts you have created for your students. */
+    allowMessagingBetweenStudentsDesc: string;
     /** An invitation has been sent to %s */
     anInvitationHasBeenSentToX: I18nFormat;
     /** Apply to be a Lichess Teacher */
@@ -4859,7 +4863,7 @@ interface I18n {
     contributors: string;
     /** Copy PGN */
     copyChapterPgn: string;
-    /** Copy Raw PGN (without annotations, clock times or variations) */
+    /** Copy Raw PGN */
     copyRawChapterPgn: string;
     /** Counterplay */
     counterplay: string;
