@@ -39,7 +39,7 @@
   <string name="whitePlays">Παίζουν τα λευκά</string>
   <string name="blackPlays">Παίζουν τα μαύρα</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">Ο αντίπαλός σας έφυγε από το παιχνίδι. Διεκδίκηση νίκης σε %s δευτερόλεπτο.</item>
+    <item quantity="one">Ο αντίπαλός σας έφυγε από την παρτίδα. Διεκδίκηση νίκης σε %s δευτερόλεπτο.</item>
     <item quantity="other">Ο αντίπαλος έφυγε από το παιχνίδι. Διεκδίκηση νίκης σε %s δευτερόλεπτα.</item>
   </plurals>
   <string name="opponentLeftChoices">Ο αντίπαλός σας έφυγε από το παιχνίδι. Μπορείτε να ισχυρισθείτε νίκη, ισοπαλία, ή να περιμένετε.</string>
@@ -404,7 +404,7 @@
   <string name="ratedMoreThanInPerf">Βαθμολογημένο ≥ %1$s στο %2$s</string>
   <string name="ratedLessThanInPerf">Βαθμολογημένο ≤ %1$s στο %2$s</string>
   <string name="mustBeInTeam">Πρέπει να είστε μέλος της ομάδας %s</string>
-  <string name="youAreNotInTeam">Δεν είστε στην ομάδα %s</string>
+  <string name="youAreNotInTeam">Δεν είστε μέλος της ομάδας %s</string>
   <string name="backToGame">Επιστρέψτε στο παιχνίδι</string>
   <string name="siteDescription">Δωρεάν διαδικτυακό παιχνίδι Σκακιού. Παίξτε Σκάκι τώρα σε καθαρό γραφικό περιβάλλον. Χωρίς εγγραφές, χωρίς διαφημίσεις, χωρίς πρόσθετα. Παίξτε Σκάκι με τον υπολογιστή, με φίλους ή με τυχαίους αντιπάλους.</string>
   <string name="xJoinedTeamY">Ο χρήστης %1$s έγινε μέλος της ομάδα %2$s</string>
@@ -484,7 +484,7 @@
   <string name="tournamentCalendar">Ημερολόγιο τουρνουά</string>
   <string name="conditionOfEntry">Προϋπόθεση εισόδου:</string>
   <string name="advancedSettings">Ρυθμίσεις για προχωρημένους</string>
-  <string name="safeTournamentName">Διαλέξτε ένα πολύ ασφαλές όνομα για το τουρνουά.</string>
+  <string name="safeTournamentName">Διαλέξτε ένα ουδέτερο όνομα για το τουρνουά.</string>
   <string name="inappropriateNameWarning">Η επιλογή ακατάλληλου ή προσβλητικού ονόματος ενδέχεται να οδηγήσει στο κλείσιμο του λογαριασμού σας.</string>
   <string name="emptyTournamentName">Αφήστε το παραπάνω πεδίο κενό αν θέλετε το τουρνουά να πάρει αυτόματα το όνομα κάποιου γνωστού σκακιστή.</string>
   <string name="makePrivateTournament">Κάντε το τουρνουά ιδιωτικό, και περιορίστε την πρόσβαση με κωδικό</string>
@@ -573,7 +573,7 @@
   <string name="cheat">Απάτη</string>
   <string name="troll">Εμπαιγμός</string>
   <string name="other">Άλλη</string>
-  <string name="reportCheatBoostHelp">Επικολλήστε τους συνδέσμους με τα παιχνίδια και εξηγήστε μας γιατί θεωρείτε ότι η συμπεριφορά του χρήστη είναι παράξενη σε αυτά. Μη λέτε απλώς ότι «κλέβει» (\"they cheat\"), αλλά πείτε μας πώς καταλήξατε σε αυτό το συμπέρασμα.</string>
+  <string name="reportCheatBoostHelp">Επικολλήστε τους συνδέσμους με τις παρτίδες και εξηγήστε μας γιατί θεωρείτε ότι η συμπεριφορά του χρήστη είναι παράξενη σε αυτά. Μη λέτε απλώς ότι «κλέβει» (\"they cheat\"), αλλά πείτε μας πώς καταλήξατε σε αυτό το συμπέρασμα.</string>
   <string name="reportUsernameHelp">Εξηγήστε μας γιατί είναι προσβλητικό το όνομα αυτού του χρήστη. Μη λέτε απλώς ότι \"είναι προσβλητικό/ακατάλληλο\" (\"it\'s offensive/inappropriate\"), αλλά πείτε μας πώς καταλήξατε σε αυτό το συμπέρασμα, ειδικά αν πρόκειται για προσβολή η οποία δεν είναι ιδιαίτερα εμφανής: για παράδειγμα αν δεν είναι στα αγγλικά, είναι σε κάποια αργκό ή κάνει κάποια προσβλητική ιστορική/πολιτιστική αναφορά.</string>
   <string name="reportProcessedFasterInEnglish">Η αναφορά σας θα εξεταστεί γρηγορότερα αν είναι γραμμένη στα αγγλικά.</string>
   <string name="error.provideOneCheatedGameLink">Παρακαλούμε συμπεριλάβετε τουλάχιστον έναν σύνδεσμο παρτίδας στην οποία υποψιάζεστε πως υπήρξε χρήση εξωτερικής βοήθειας.</string>
@@ -593,7 +593,7 @@
   <string name="newPassword">Νέος κωδικός</string>
   <string name="newPasswordAgain">Νέος κωδικός (επαλήθευση)</string>
   <string name="newPasswordsDontMatch">Οι νέοι κωδικοί πρόσβασης δεν ταιριάζουν</string>
-  <string name="newPasswordStrength">Ισχύς Κωδικού Πρόσβασης</string>
+  <string name="newPasswordStrength">Ισχύς κωδικού πρόσβασης</string>
   <string name="clockInitialTime">Αρχικός χρόνος</string>
   <string name="clockIncrement">Προσαύξηση</string>
   <string name="privacy">Απόρρητο</string>
@@ -755,7 +755,7 @@
   <string name="verifyYourAddress">Επιβεβαιώστε ότι η διεύθυνση %s είναι η διεύθυνση email σας</string>
   <string name="weHaveSentYouAnEmailTo">Έχουμε στείλει ένα μήνυμα ηλ. ταχυδρομείου στο %s. Κάντε κλικ τον σύνδεσμο στο ηλ. ταχυδρομείο για να επαναφέρετε τον κωδικό πρόσβασής σας.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Με την εγγραφή σας συμφωνείτε ότι δεσμεύεστε από τους %s.</string>
-  <string name="readAboutOur">Διαβάστε για την %s μας.</string>
+  <string name="readAboutOur">Διαβάστε την %s μας.</string>
   <string name="networkLagBetweenYouAndLichess">Υστέρηση δικτύου ανάμεσα σε εσάς και το lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Χρόνος επεξεργασίας μίας κίνησης στον διακομιστή lichess</string>
   <string name="downloadAnnotated">Λήψη με υποσημειώσεις</string>
@@ -893,8 +893,8 @@
   <string name="howToAvoidThis">Τι μπορώ να κάνω;</string>
   <string name="playEveryGame">Τελειώστε κάθε παρτίδα που ξεκινάτε.</string>
   <string name="tryToWin">Προσπαθήστε να νικήσετε (ή να κάνετε ισοπαλία) κάθε παρτίδα που παίζετε.</string>
-  <string name="resignLostGames">Παραιτηθείτε σε παιχνίδια που χάνετε (μην αφήνετε τον χρόνο σας να τελειώσει).</string>
-  <string name="temporaryInconvenience">Συγχωρέστε μας για την προσωρινή δυσφορία,</string>
+  <string name="resignLostGames">Παραιτηθείτε σε παρτίδες που χάνετε (μην αφήνετε τον χρόνο σας να τελειώσει).</string>
+  <string name="temporaryInconvenience">Ζητούμε συγγνώμη για την αναστάτωση,</string>
   <string name="wishYouGreatGames">και σας ευχόμαστε καλές παρτίδες στο lichess.org.</string>
   <string name="thankYouForReading">Σας ευχαριστούμε για τον χρόνο σας!</string>
   <string name="lifetimeScore">Συνολικό σκορ</string>
@@ -951,8 +951,7 @@
   <string name="cancelTournament">Ακύρωση τουρνουά</string>
   <string name="tournDescription">Περιγραφή του τουρνουά</string>
   <string name="tournDescriptionHelp">Θέλετε να πείτε κάτι ιδιαίτερο στους παίκτες; Προσπαθήστε να κρατήσετε το μήνυμά σας σύντομο. Μπορείτε να χρησιμοποιείτε συνδέσμους σε Markdown: [name](https://url)</string>
-  <string name="ratedFormHelp">Τα παιχνίδια αξιολογούνται
-και επηρεάζουν τη βαθμολογία των παικτών</string>
+  <string name="ratedFormHelp">Οι παρτίδες είναι βαθμολογημένες και επηρεάζουν τη βαθμολογία των παικτών</string>
   <string name="onlyMembersOfTeam">Μόνο μέλη της ομάδας</string>
   <string name="noRestriction">Χωρίς περιορισμούς</string>
   <string name="minimumRatedGames">Ελάχιστος αριθμός βαθμολογημένων παρτίδων</string>
@@ -991,7 +990,7 @@
   <string name="tournamentEntryCode">Κωδικός εισόδου τουρνουά</string>
   <string name="hangOn">Περιμένετε!</string>
   <string name="gameInProgress">Η παρτίδα σας με τον χρήστη %s είναι ακόμα σε εξέλιξη.</string>
-  <string name="abortTheGame">Διακοπή</string>
+  <string name="abortTheGame">Ματαίωση παρτίδας</string>
   <string name="resignTheGame">Παραίτηση</string>
   <string name="youCantStartNewGame">Δεν μπορείτε να ξεκινήσετε μια καινούργια παρτίδα εάν δεν ολοκληρώσετε προηγουμένως αυτήν.</string>
   <string name="since">Από</string>
