@@ -59,7 +59,7 @@
   <string name="notifyInboxMsg">Νέο εισερχόμενο μήνυμα</string>
   <string name="notifyForumMention">Αναφορά από σχόλιο σε φόρουμ</string>
   <string name="notifyInvitedStudy">Πρόσκληση σε μελέτη</string>
-  <string name="notifyGameEvent">Ενημερώσεις σε παιχνίδια αλληλογραφίας</string>
+  <string name="notifyGameEvent">Ενημερώσεις σε παρτίδες δι\' αλληλογραφίας</string>
   <string name="notifyChallenge">Προκλήσεις</string>
   <string name="notifyTournamentSoon">Το τουρνουά ξεκινά σύντομα</string>
   <string name="notifyTimeAlarm">Λίγος χρόνος σε παρτίδα δι\' αλληλογραφίας</string>
