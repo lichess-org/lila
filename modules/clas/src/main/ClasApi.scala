@@ -88,8 +88,17 @@ final class ClasApi(
         colls.student.aggregateExists(_.sec): framework =>
           import framework.*
           Match($doc("userId".$in(List(kid1.id, kid2.id)))) -> List(
-            GroupField("clasId")("nb" -> SumAll),
-            Match($doc("nb" -> 2)),
+            PipelineOperator(
+              $lookup.simple(
+                from = colls.clas,
+                as = "clas",
+                local = "clasId",
+                foreign = "_id"
+              )
+            ),
+            Unwind("clas"),
+            GroupField("clasId")("nb" -> SumAll, "canMsg" -> FirstField("clas.canMsg")),
+            Match($doc("nb" -> 2, "canMsg" -> true)),
             Limit(1)
           )
 
