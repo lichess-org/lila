@@ -16,7 +16,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     reportScore: () => Int
 ):
   import helpers.{ *, given }
-  import assetHelper.{ defaultCsp, netConfig, cashTag, siteName, manifest }
+  import assetHelper.{ defaultCsp, netConfig, cashTag, siteName }
 
   val doctype = raw("<!DOCTYPE html>")
   def htmlTag(using lang: Lang) = html(st.lang := lang.code, dir := isRTL(lang).option("rtl"))
@@ -223,28 +223,6 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     src: url('${assetUrl("font/lichess.woff2")}') format('woff2')
   }
 </style>"""
-
-  private val pieceVarCache = scala.collection.concurrent.TrieMap.empty[String, String]
-
-  def pieceVarsCss(pieceSet: String): Frag = raw:
-    if !pieceVarCache.get("lastUpdate").has(s"${manifest.lastUpdate}") then
-      pieceVarCache.clear()
-      pieceVarCache.put("lastUpdate", s"${manifest.lastUpdate}")
-    pieceVarCache.getOrElseUpdate(
-      pieceSet, {
-        val vars =
-          for
-            (c, color) <- chess.Color.all.map(c => c.letter -> c.name)
-            (r, role) <- chess.Role.all.map(r => r.forsythUpper -> r.name)
-          yield s"piece/$pieceSet/$c$r.svg" -> s"---$color-$role"
-        val css = s"<style>:root{"
-          + vars.map { case (path, name) => s"$name:url(${assetUrl(path)});" }.mkString
-          + "}</style>"
-        if vars.exists { case (path, _) => manifest.hashed(path).isEmpty }
-        then lila.log("layout").error(s"$pieceSet manifest incomplete")
-        css
-      }
-    )
 
   def bottomHtml(using ctx: Context) = frag(
     ctx.me
