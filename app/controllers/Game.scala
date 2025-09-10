@@ -83,7 +83,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
               )
               if ctx.is(UserId.explorer) then
                 Ok.chunked(env.api.gameApiV2.exportByUser(config))
-                  .pipe(noProxyBuffer)
+                  .noProxyBuffer
                   .as(gameContentType(config))
               else
                 apiC
@@ -139,7 +139,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
     )
     apiC.GlobalConcurrencyLimitPerIP
       .download(req.ipAddress)(env.api.gameApiV2.exportByIds(config)): source =>
-        noProxyBuffer(Ok.chunked(source)).as(gameContentType(config))
+        Ok.chunked(source).as(gameContentType(config)).noProxyBuffer
 
   private def WithVs(f: Option[lila.user.User] => Fu[Result])(using Context): Fu[Result] =
     getUserStr("vs").fold(f(none)): name =>

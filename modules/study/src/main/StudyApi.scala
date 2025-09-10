@@ -27,7 +27,8 @@ final class StudyApi(
     chatApi: lila.core.chat.ChatApi,
     serverEvalRequester: ServerEval.Requester,
     preview: ChapterPreviewApi,
-    flairApi: lila.core.user.FlairApi
+    flairApi: lila.core.user.FlairApi,
+    userApi: lila.core.user.UserApi
 )(using Executor, akka.stream.Materializer)
     extends lila.core.study.StudyApi:
 
@@ -824,7 +825,8 @@ final class StudyApi(
         sendTo(study.id)(_.reloadChapters(previews))
 
   private def canActAsOwner(study: Study, userId: UserId): Fu[Boolean] =
-    fuccess(study.isOwner(userId)) >>| studyRepo.isAdminMember(study, userId)
+    fuccess(study.isOwner(userId)) >>| studyRepo.isAdminMember(study, userId) >>|
+      userApi.byId(userId).map(_.exists(Granter.ofUser(_.StudyAdmin)))
 
   private def Contribute[A: Zero](userId: UserId, study: Study)(f: => A): A =
     study.canContribute(userId).so(f)
