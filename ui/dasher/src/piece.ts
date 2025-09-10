@@ -59,8 +59,9 @@ export class PieceCtrl extends PaneCtrl {
     this.dimData.current = t;
     document.body.dataset[this.is3d ? 'pieceSet3d' : 'pieceSet'] = t;
     if (!this.is3d) {
-      site.asset.removeCssPath('piece-sprite');
-      site.asset.loadCss(`css/pieces.${t}.${site.manifest.css[`pieces.${t}`]}.css`, 'piece-sprite');
+      const sprite = document.getElementById('piece-sprite') as HTMLLinkElement;
+      if (sprite) sprite.href = site.asset.url(`piece-css/${t}.css`);
+      pieceVarRules(t);
     }
     pubsub.emit('board.change', this.is3d);
   };
@@ -75,7 +76,6 @@ export class PieceCtrl extends PaneCtrl {
     xhrText(`/pref/${field}`, { body: xhrForm({ [field]: t }), method: 'post' }).catch(() =>
       site.announce({ msg: 'Failed to save piece set  preference' }),
     );
-    if (!this.is3d) pieceVarRules(t);
     this.redraw();
   };
 }

@@ -21,18 +21,17 @@ final class PieceSetImages(useSvgFiles: SettingStore[Boolean], assets: AssetFull
     if !pieceVarCache.get("lastUpdate").has(s"${assets.manifest.lastUpdate}") then
       pieceVarCache.clear()
       pieceVarCache.put("lastUpdate", s"${assets.manifest.lastUpdate}")
-    pieceVarCache.getOrElseUpdate(
-      pieceSet, {
-        val vars =
-          for
-            (c, color) <- chess.Color.all.map(c => c.letter -> c.name)
-            (r, role) <- chess.Role.all.map(r => r.forsythUpper -> r.name)
-          yield s"piece/$pieceSet/$c$r.svg" -> s"---$color-$role"
-        val css = s"<style>:root{"
-          + vars.map { (path, name) => s"$name:url(${assets.assetUrl(path)});" }.mkString
-          + "}</style>"
-        if vars.exists { (path, _) => assets.manifest.hashed(path).isEmpty }
-        then lila.log("layout").error(s"$pieceSet manifest incomplete")
-        css.pp(pieceSet)
-      }
-    )
+    pieceVarCache.get(pieceSet).getOrElse {
+      val vars =
+        for
+          (c, color) <- chess.Color.all.map(c => c.letter -> c.name)
+          (r, role) <- chess.Role.all.map(r => r.forsythUpper -> r.name)
+        yield s"piece/$pieceSet/$c$r.svg" -> s"---$color-$role"
+      val css = s"<style>:root{"
+        + vars.map { (path, name) => s"$name:url(${assets.assetUrl(path)});" }.mkString
+        + "}</style>"
+      if vars.exists { (path, _) => assets.manifest.hashed(path).isEmpty }
+      then lila.log("layout").error(s"$pieceSet manifest incomplete")
+      else pieceVarCache.put(pieceSet, css) // dont populate cache unless we're good
+      css.pp(pieceSet)
+    }
