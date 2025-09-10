@@ -438,7 +438,7 @@ const getCommand = (input: string) => {
   const split = input.split(' ');
   const firstWordLowerCase = split[0].toLowerCase();
   return (
-    inputCommands.find(c => c.cmd === input) ||
+    inputCommands.find(c => c.cmd === input.toLowerCase()) ||
     inputCommands.find(c => split.length !== 1 && c.cmd === firstWordLowerCase)
   ); // 'next line' should not be interpreted as 'next'
 };

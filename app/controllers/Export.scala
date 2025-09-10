@@ -73,5 +73,5 @@ final class Export(env: Env) extends LilaController(env):
       Ok.chunked(stream)
         .headerCacheSeconds(cacheSeconds)
         .as(contentType)
-        .pipe(noProxyBuffer)
+        .noProxyBuffer
     .recover { case lila.game.GifExport.UpstreamStatus(code) => Status(code) }
