@@ -67,6 +67,7 @@
   <string name="studyPgn">PGN štúdie</string>
   <string name="chapterPgn">PGN kapitoly</string>
   <string name="copyChapterPgn">Kopírovať PGN</string>
+  <string name="copyRawChapterPgn">Kopírovať čisté PGN</string>
   <string name="downloadGame">Stiahnúť hru</string>
   <string name="studyUrl">URL štúdie</string>
   <string name="currentChapterUrl">URL aktuálnej kapitoly</string>
