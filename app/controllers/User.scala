@@ -399,7 +399,7 @@ final class User(
           render = () => views.user.mod.otherUsers(user, data, appeals)
         yield (render, data)
 
-        val otherUsers = isGranted(_.AccountInfo).so[Fu[Frag]]:
+        val otherUsers = isGranted(_.ViewPrintNoIP).so[Fu[Frag]]:
           othersAndLogins.map(_._1())
 
         val identification = (isGranted(_.AccountInfo) || isGranted(_.ViewPrintNoIP)).so:
