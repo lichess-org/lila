@@ -1010,6 +1010,8 @@ Les despeses de funcionament, desenvolupament i continguts es financen exclusiva
   <string name="enableBlindMode">Activar el mode cec</string>
   <string name="disableBlindMode">Desactivar el mode cec</string>
   <string name="copyToClipboard">Copia al porta-retalls</string>
+  <string name="online" comment="status of a user">en línia</string>
+  <string name="offline" comment="status of a user">fora de línia</string>
   <string name="search">Cerca</string>
   <string name="clearSearch">Neteja la cerca</string>
   <string name="tags">Etiquetes</string>
