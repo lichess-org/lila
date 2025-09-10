@@ -448,7 +448,7 @@ final class User(
             .via(EventSource.flow)
             .log("User.renderModZone")
         .as(ContentTypes.EVENT_STREAM)
-          .pipe(noProxyBuffer)
+          .noProxyBuffer
       }
 
   protected[controllers] def renderModZoneActions(username: UserStr)(using Context, Me) =
