@@ -847,7 +847,7 @@
   <string name="blackWinsGame">Κερδίζουν τα μαύρα</string>
   <string name="learnFromYourMistakes">Μάθετε από τα λάθη σας</string>
   <string name="learnFromThisMistake">Μάθετε από αυτό το λάθος</string>
-  <string name="skipThisMove">Παραλείψτε αυτό το βήμα</string>
+  <string name="skipThisMove">Παράλειψη κίνησης</string>
   <string name="next">Επόμενο</string>
   <string name="xWasPlayed">%s παίχτηκε</string>
   <string name="findBetterMoveForWhite">Βρείτε μια καλύτερη κίνηση για τα λευκά</string>
