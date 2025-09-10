@@ -29,7 +29,7 @@ export const bind = (ctrl: AnalyseCtrl) => {
     })
     .bind('shift+c', () => {
       ctrl.showComments = !ctrl.showComments;
-      ctrl.autoScrollRequested = 'smooth';
+      ctrl.treeView.requestAutoScroll('smooth');
       ctrl.redraw();
     })
     .bind('shift+i', () => {
