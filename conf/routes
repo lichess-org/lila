@@ -533,10 +533,14 @@ GET  /notify                           controllers.Notify.recent(page: Int ?= 1)
 POST /notify/clear                     controllers.Notify.clear
 
 # Video
-GET   /video                           controllers.Video.index
-GET   /video/tags                      controllers.Video.tags
-GET   /video/author/:author            controllers.Video.author(author)
-GET   /video/:id                       controllers.Video.show(id)
+GET   /video                                 controllers.Video.index
+GET   /video/tags                            controllers.Video.tags
+GET   /video/author/:author                  controllers.Video.author(author)
+GET   /video/:id                             controllers.Video.show(id)
+GET   /$lang<\w\w\w?>/video                  controllers.Video.indexLang(lang: Language)
+GET   /$lang<\w\w\w?>/video/tags             controllers.Video.tagsLang(lang: Language)
+GET   /$lang<\w\w\w?>/video/author/:author   controllers.Video.authorLang(lang: Language, author: String)
+GET   /$lang<\w\w\w?>/video/:id              controllers.Video.showLang(lang: Language, id: String)
 
 # I18n
 POST  /translation/select              controllers.I18n.select

@@ -10,10 +10,9 @@ import ScalatagsTemplate.{ *, given }
 
 final class VideoUi(helpers: Helpers)(using NetDomain):
   import helpers.{ *, given }
+  import trans.video as trv
 
-  private val titleSuffix = "• Free Chess Videos"
-
-  private def page(title: String, control: UserControl) =
+  private def page(title: String, control: UserControl)(using ctx: Context) =
     Page(title)
       .css("bits.video")
       .js(infiniteScrollEsmInit)
@@ -24,13 +23,13 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
           div(cls := "page-menu__content box")(body)
         )
 
-  def show(video: Video, similar: Seq[VideoView], control: UserControl) =
-    page(s"${video.title} $titleSuffix", control)
+  def show(video: Video, similar: Seq[VideoView], control: UserControl)(using ctx: Context) =
+    page(s"${video.title} • ${trv.freeChessVideos.txt()}", control)
       .graph(
         OpenGraph(
-          title = s"${video.title} by ${video.author}",
+          title = trv.xByY.txt(video.title, video.author),
           description = shorten(~video.metadata.description, 152),
-          url = s"$netBaseUrl${routes.Video.show(video.id)}",
+          url = s"$netBaseUrl${langHref(routes.Video.show(video.id))}",
           `type` = "video"
         )
       ):
@@ -49,7 +48,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
             a(
               cls := "is4 text",
               dataIcon := Icon.Back,
-              href := s"${routes.Video.index}?${control.queryString}"
+              href := s"${langHref(routes.Video.index)}?${control.queryString}"
             ),
             video.title
           ),
@@ -57,13 +56,13 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
             div(cls := "target")(video.targets.map(Target.name).mkString(", ")),
             a(
               cls := "author",
-              href := s"${routes.Video.author(video.author)}?${control.queryString}"
+              href := s"${langHref(routes.Video.author(video.author))}?${control.queryString}"
             )(video.author),
             video.tags.map: tag =>
               a(
                 cls := "tag",
                 dataIcon := Icon.Tag,
-                href := s"${routes.Video.index}?tags=${tag.replace(" ", "+")}"
+                href := s"${langHref(routes.Video.index)}?tags=${tag.replace(" ", "+")}"
               )(tag.capitalize),
             video.metadata.description.map: desc =>
               p(cls := "description")(richText(desc))
@@ -74,55 +73,65 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
 
   def index(videos: Paginator[VideoView], count: Long, control: UserControl)(using ctx: Context) =
     val tagString = control.filter.tags.some.filter(_.nonEmpty).so(_.mkString(" + ") + " • ")
-    page(s"${tagString}Free Chess Videos", control)
+    page(s"${tagString}${trv.freeChessVideos.txt()}", control)
       .graph(
-        title = s"${tagString}free, carefully curated chess videos",
-        description = s"${videos.nbResults} curated chess videos${
-            if tagString.nonEmpty then " matching the tags " + tagString
-            else " • "
-          }free for all",
-        url = s"$netBaseUrl${routes.Video.index}?${control.queryString}"
+        OpenGraph(
+          title = trv.xFreeCarefullyCurated.txt(tagString),
+          description = s"${trv.xCuratedChessVideos(videos.nbResults)}${
+              if tagString.nonEmpty then trv.xWithTagsY(" ", tagString)
+              else " • "
+            }${trv.freeForAll.txt()}",
+          url = s"$netBaseUrl${langHref(routes.Video.index)}?${control.queryString}"
+        )
       ):
         frag(
           boxTop(
             h1(
-              if control.filter.tags.nonEmpty then frag(pluralize("video", videos.nbResults), " found")
-              else "Chess videos"
+              if control.filter.tags.nonEmpty then
+                frag(trv.nbVideosFound.plural(videos.nbResults, videos.nbResults.localize))
+              else trv.chessVideos()
             ),
             searchForm(control.query)
           ),
           control.filter.tags.isEmpty.option(
             p(cls := "explain box__pad")(
-              "All videos are free for everyone.",
+              trv.allVideosAreFree(),
               br,
-              "Click one or many tags on the left to filter.",
+              trv.selectTagsToFilter(),
               br,
-              "We have carefully selected ",
-              strong(count),
-              " videos so far!"
+              trv.weHaveCarefullySelectedX(count.toString())
             )
           ),
           div(cls := "list box__pad infinite-scroll")(
             videos.currentPageResults.map { card(_, control) },
             (videos.currentPageResults.sizeIs < 4).option(
               div(cls := s"not_much nb_${videos.nbResults}")(
-                if videos.currentPageResults.isEmpty then "No videos for these tags:"
-                else "That's all we got for these tags:",
+                if videos.currentPageResults.isEmpty then trv.noVideosForTheseTags()
+                else trv.thatsAllWeGotForTheseTags(),
+                br,
                 control.filter.tags.map { tag =>
-                  a(cls := "tag", dataIcon := Icon.Tag, href := s"${routes.Video.index}?tags=$tag")(
-                    tag.capitalize
+                  frag(
+                    a(
+                      cls := "tag",
+                      dataIcon := Icon.Tag,
+                      href := s"${langHref(routes.Video.index)}?tags=$tag"
+                    )(tag.capitalize),
+                    " "
                   )
                 },
                 br,
                 br,
-                a(href := routes.Video.index, cls := "button")("Clear search")
+                a(href := langHref(routes.Video.index), cls := "button")(trans.site.clearSearch())
               )
             ),
-            pagerNext(videos, np => s"${routes.Video.index}?${control.queryString}&page=$np")
+            pagerNext(
+              videos,
+              np => s"${langHref(routes.Video.index)}?${control.queryString}&page=$np"
+            )
           )
         )
 
-  private def menu(control: UserControl) =
+  private def menu(control: UserControl)(using ctx: Context) =
     st.aside(cls := "page-menu__menu")(
       lila.ui.bits.subnav(
         control.tags.map: t =>
@@ -134,7 +143,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
               "empty" -> !(checked || t.nb > 0)
             ),
             href := (checked || t.nb > 0)
-              .option(s"${routes.Video.index}?${control.toggleTag(t.tag).queryString}")
+              .option(s"${langHref(routes.Video.index)}?${control.toggleTag(t.tag).queryString}")
           )(
             span(t.tag.capitalize),
             (!checked && t.nb > 0).option(em(t.nb))
@@ -142,13 +151,16 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
       ),
       div(cls := "under-tags")(
         if control.filter.tags.nonEmpty then
-          a(cls := "button button-empty", href := routes.Video.index)("Clear search")
-        else a(dataIcon := Icon.Tag, href := routes.Video.tags)("View more tags")
+          a(cls := "button button-empty", href := langHref(routes.Video.index))(trans.site.clearSearch())
+        else a(dataIcon := Icon.Tag, href := langHref(routes.Video.tags))(trv.viewMoreTags())
       )
     )
 
-  def card(vv: VideoView, control: UserControl) =
-    a(cls := "card paginated", href := s"${routes.Video.show(vv.video.id)}?${control.queryStringUnlessBot}")(
+  def card(vv: VideoView, control: UserControl)(using ctx: Context): Frag =
+    a(
+      cls := "card paginated",
+      href := s"${langHref(routes.Video.show(vv.video.id))}?${control.queryStringUnlessBot}"
+    )(
       vv.view.option(span(cls := "view")("watched")),
       span(cls := "duration")(vv.video.durationString),
       span(cls := "img", style := s"background-image: url(${vv.video.thumbnail})"),
@@ -162,61 +174,63 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
       )
     )
 
-  def author(name: String, videos: Paginator[VideoView], control: UserControl) =
-    page(s"$name $titleSuffix", control):
+  def author(name: String, videos: Paginator[VideoView], control: UserControl)(using ctx: Context) =
+    page(s"$name • ${trv.freeChessVideos.txt()}", control):
       frag(
         boxTop(
           h1(
             a(
               cls := "is4 text",
               dataIcon := Icon.Back,
-              href := s"${routes.Video.index}?${control.queryString}"
+              href := s"${langHref(routes.Video.index)}?${control.queryString}"
             ),
             name
           ),
-          span(
-            pluralize("video", videos.nbResults),
-            " found"
-          )
+          span(trv.nbVideosFound.plural(videos.nbResults, videos.nbResults.localize))
         ),
         div(cls := "list infinite-scroll box__pad")(
           videos.currentPageResults.map { card(_, control) },
-          pagerNext(videos, np => s"${routes.Video.author(name)}?${control.queryString}&page=$np")
+          pagerNext(
+            videos,
+            np => s"${langHref(routes.Video.author(name))}?${control.queryString}&page=$np"
+          )
         )
       )
 
-  def notFound(control: UserControl) =
-    page("Video not found", control):
+  def notFound(control: UserControl)(using ctx: Context) =
+    page(trv.videoNotFound.txt(), control):
       boxTop(
         h1(
           a(
             cls := "is4 text",
             dataIcon := Icon.Back,
-            href := s"${routes.Video.index}"
+            href := s"${langHref(routes.Video.index)}"
           ),
-          "Video Not Found!"
+          trv.videoNotFound()
         )
       )
 
   def searchForm(query: Option[String])(using Context) =
-    form(cls := "search", method := "GET", action := routes.Video.index):
+    form(cls := "search", method := "GET", action := langHref(routes.Video.index)):
       input(placeholder := trans.search.search.txt(), tpe := "text", name := "q", value := query)
 
-  def tags(ts: List[TagNb], control: UserControl) =
-    page(s"Tags $titleSuffix", control):
+  def tags(ts: List[TagNb], control: UserControl)(using ctx: Context) =
+    page(s"${trans.site.tags.txt()} • ${trv.freeChessVideos.txt()}", control):
       frag(
         boxTop(
           h1(
-            a(cls := "text", dataIcon := Icon.Back, href := s"${routes.Video.index}?${control.queryString}")(
-              "All ",
-              ts.size,
-              " video tags"
+            a(
+              cls := "text",
+              dataIcon := Icon.Back,
+              href := s"${langHref(routes.Video.index)}?${control.queryString}"
+            )(
+              trv.allNbVideoTags(ts.size.toString())
             )
           )
         ),
         div(cls := "tag-list box__pad")(
           ts.sortBy(_.tag).map { t =>
-            a(cls := "tag", href := s"${routes.Video.index}?tags=${t.tag}")(
+            a(cls := "tag", href := s"${langHref(routes.Video.index)}?tags=${t.tag}")(
               t.tag.capitalize,
               em(" " + t.nb)
             )
@@ -225,24 +239,23 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
       )
 
   def search(videos: Paginator[VideoView], control: UserControl)(using Context) =
-    page(s"${control.query.getOrElse("Search")} $titleSuffix", control):
+    page(s"${control.query.getOrElse(trans.site.search.txt())} • ${trv.freeChessVideos.txt()}", control):
       frag(
         boxTop(
-          h1(pluralize("video", videos.nbResults), " found"),
+          h1(trv.nbVideosFound.plural(videos.nbResults, videos.nbResults.localize)),
           searchForm(control.query)
         ),
         div(cls := "list infinitescroll box__pad")(
           videos.currentPageResults.map { card(_, control) },
           (videos.currentPageResults.sizeIs < 4).option(
             div(cls := s"not_much nb_${videos.nbResults}")(
-              if videos.currentPageResults.isEmpty then "No videos for this search:"
-              else "That's all we got for this search:",
-              s""""${~control.query}"""",
+              if videos.currentPageResults.isEmpty then trv.thereAreNoResultsForX(~control.query)
+              else trv.thatsAllWeGotForThisSearchX(~control.query),
               br,
               br,
-              a(href := routes.Video.index, cls := "button")("Clear search")
+              a(href := langHref(routes.Video.index), cls := "button")(trans.site.clearSearch())
             )
           ),
-          pagerNext(videos, np => s"${routes.Video.index}?${control.queryString}&page=$np")
+          pagerNext(videos, np => s"${langHref(routes.Video.index)}?${control.queryString}&page=$np")
         )
       )

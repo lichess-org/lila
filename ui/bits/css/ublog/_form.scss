@@ -31,4 +31,7 @@
 
 .ublog-image-edit {
   @extend %image-preview-and-upload;
+  img {
+    width: 65%;
+  }
 }
