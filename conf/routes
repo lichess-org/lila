@@ -19,6 +19,9 @@ POST  /timeline/unsub/:channel         controllers.Timeline.unsub(channel)
 # Search
 GET   /games/search                    controllers.Search.index(page: Int ?= 1)
 
+# Markdown
+POST  /markdown/preview                controllers.ForumPost.preview
+
 # Game export
 POST  /games/export/_ids               controllers.Game.exportByIds
 POST  /api/games/export/_ids           controllers.Game.exportByIds
@@ -655,6 +658,23 @@ GET   /api/stream/irwin                controllers.Irwin.eventStream
 
 # Kaladin
 GET   /kaladin                         controllers.Irwin.kaladin
+
+# Ask
+GET   /ask/by/:username                controllers.Ask.byUser(username: UserStr)
+
+# Ask xhr
+GET   /ask/view/:id                    controllers.Ask.view(id: AskId, view: Option[String], tally: Boolean ?= false)
+POST  /ask/picks/:id                   controllers.Ask.picks(id: AskId, picks: Option[String], view: Option[String], anon: Boolean ?= false)
+POST  /ask/form/:id                    controllers.Ask.form(id: AskId, view: Option[String], anon: Boolean ?= false)
+POST  /ask/conclude/:id                controllers.Ask.conclude(id: AskId)
+POST  /ask/conclude-by-url             controllers.Ask.concludeByUrl(url: String)
+POST  /ask/unset/:id                   controllers.Ask.unset(id: AskId, view: Option[String], anon: Boolean ?= false)
+POST  /ask/reset/:id                   controllers.Ask.reset(id: AskId)
+POST  /ask/reset-by-url                controllers.Ask.resetByUrl(url: String)
+POST  /ask/delete/:id                  controllers.Ask.delete(id: AskId)
+GET   /ask/admin/:id                   controllers.Ask.admin(id: AskId)
+GET   /ask/json/:id                    controllers.Ask.json(id: AskId)
+GET   /ask/json-by-url                 controllers.Ask.jsonByUrl(url: String)
 
 # Forum
 GET   /forum                           controllers.ForumCateg.index

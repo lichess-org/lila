@@ -3,12 +3,12 @@ import type { Node as NodeType } from 'prosemirror-model';
 import type { Selection as SelectionType } from 'prosemirror-state';
 import type { EditorView as EditorViewType } from 'prosemirror-view';
 
-import { frag } from 'lib';
 import { currentTheme } from 'lib/device';
 import { pubsub } from 'lib/pubsub';
 import { alert, enter, spinnerHtml } from 'lib/view';
 import { wireMarkdownImgResizers, wrapImg, naturalSize } from 'lib/view/markdownImgResizer';
-import { ValidationError, json as xhrJson, text as xhrText } from 'lib/xhr';
+import { markdownPreview } from 'lib/view/markdownPreview';
+import { ValidationError, json as xhrJson } from 'lib/xhr';
 
 export function makeToastEditor(el: HTMLElement, text = '', height = '60vh'): Editor {
   const rewire = () =>
@@ -127,17 +127,7 @@ function setupTabListeners(el: HTMLElement) {
     writeTab.classList.remove('active');
     previewTab.classList.add('active');
     toastUiPanes().forEach(el => (el.style.visibility = 'hidden'));
-    const rendered = frag<HTMLElement>(
-      await xhrText(`/markdown/preview/${el.dataset.markdownRealm}`, {
-        method: 'POST',
-        body: content.value,
-      }),
-    );
-    await Promise.all([
-      rendered.querySelector('.lpv--autostart') && site.asset.loadEsm('bits.lpv', { init: { el: rendered } }),
-      rendered.querySelector('a') && site.asset.loadEsm('bits.expandText', { init: rendered }),
-    ]);
-    preview.replaceChildren(rendered);
+    preview.replaceChildren(await markdownPreview(content.value, el.dataset.markdownRealm));
   });
 
   writeTab.addEventListener('focus', () => {
