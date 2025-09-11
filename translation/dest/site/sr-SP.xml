@@ -128,7 +128,7 @@
   <string name="memory">Меморија</string>
   <string name="infiniteAnalysis">Бесконачна анализа</string>
   <string name="removesTheDepthLimit">Уклања ограничење дубине и држи твој рачунар топлим</string>
-  <string name="blunder">Груба грешка</string>
+  <string name="blunder">Превид</string>
   <string name="mistake">Грешка</string>
   <string name="inaccuracy">Непрецизност</string>
   <plurals name="numberBlunders">
@@ -538,7 +538,7 @@
   <string name="thankYou">Хвала!</string>
   <string name="socialMediaLinks">Линкови за социјалне медије</string>
   <string name="oneUrlPerLine">Један УРЛ по линији.</string>
-  <string name="inlineNotation">Нотација у реду</string>
+  <string name="inlineNotation">Линијска нотација</string>
   <string name="makeAStudy">Како би сачувао и делио, размисли о томе да направиш студију.</string>
   <string name="clearSavedMoves">Уклони потезе</string>
   <string name="previouslyOnLichessTV">Претходно на Lichess ТВ-у</string>
@@ -842,7 +842,7 @@
     <item quantity="few">%s секунде да одиграте први потез</item>
     <item quantity="other">%s секунди да одиграте први потез</item>
   </plurals>
-  <string name="practiceWithComputer">Тренирај са компјутером</string>
+  <string name="practiceWithComputer">Вежбај са компјутером</string>
   <string name="anotherWasX">Још једно је %s</string>
   <string name="bestWasX">Најбољи је %s</string>
   <string name="youBrowsedAway">Отишли сте са овог екрана</string>
