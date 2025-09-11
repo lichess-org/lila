@@ -182,6 +182,13 @@ $c-slider: $c-setup;
     }
   }
 
+  @media (hover: hover) {
+    .opponent:hover {
+      color: $c-font-clearer;
+      cursor: pointer;
+    }
+  }
+
   @media (max-height: at-most(900px)) {
     h2 {
       margin-block: 1.1rem;

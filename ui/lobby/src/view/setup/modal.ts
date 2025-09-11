@@ -1,5 +1,4 @@
 import { hl, type VNode, type LooseVNodes } from 'lib/snabbdom';
-import { userLink } from 'lib/view/userLink';
 import { snabDialog } from 'lib/view/dialog';
 import type LobbyController from '../../ctrl';
 import { variantPicker } from './components/variantPicker';
@@ -31,7 +30,16 @@ export default function setupModal(ctrl: LobbyController): VNode | null {
     },
     modal: true,
     vnodes: [
-      hl('h2#lobby-setup-modal-title', i18n.site.gameSetup),
+      hl(
+        'h2',
+        ctrl.setupCtrl.friendUser
+          ? hl(
+              'span.ulpt.opponent',
+              { attrs: { 'data-href': `/@/${ctrl.setupCtrl.friendUser}` } },
+              i18n.site.playingX(ctrl.setupCtrl.friendUser),
+            )
+          : i18n.site.gameSetup,
+      ),
       hl('div.setup-content', views[setupCtrl.gameType](ctrl)),
       !site.blindMode &&
         hl('div.footer', [
@@ -72,7 +80,12 @@ const views = {
     colorButtons(ctrl),
   ],
   friend: (ctrl: LobbyController): LooseVNodes => [
-    ctrl.setupCtrl.friendUser ? userLink({ name: ctrl.setupCtrl.friendUser, line: false }) : null,
+    // ctrl.setupCtrl.friendUser &&
+    //   hl(
+    //     'p.user-link.ulpt.opponent',
+    //     { attrs: { 'data-href': `/@/${ctrl.setupCtrl.friendUser}` } },
+    //     i18n.site.playingX(ctrl.setupCtrl.friendUser),
+    //   ),
     hl('div.config-group', [variantPicker(ctrl), fenInput(ctrl)]),
     timePickerAndSliders(ctrl, true),
     gameModeButtons(ctrl),
