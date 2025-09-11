@@ -79,6 +79,10 @@
     background: $c-bg-preview;
   }
 
+  .preview .ask {
+    pointer-events: none;
+  }
+
   .preview img {
     max-width: 100%;
     margin: 0 auto;

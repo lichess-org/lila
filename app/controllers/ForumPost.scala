@@ -8,6 +8,12 @@ import lila.msg.MsgPreset
 
 final class ForumPost(env: Env) extends LilaController(env) with ForumController:
 
+  def preview = AuthBody(parse.tolerantText) { ctx ?=> me ?=>
+    val encoded = env.ask.api.encode(ctx.body.body, me)
+    val html = env.forum.textExpand.preview(encoded.text)
+    Ok.snip(views.askUi.renderHtmlWithAsks(html, encoded.asks))
+  }
+
   def search(text: String, page: Int) = AuthBody: _ ?=>
     _ ?=>
       NotForKids:
@@ -44,6 +50,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
                         for
                           unsub <- env.timeline.status(s"forum:${topic.id}")
                           canModCateg <- access.isGrantedMod(categ.id)
+                          asks <- env.ask.repo.asksIn(posts.currentPageResults.map(_.body.render)*)
                           page <- renderPage:
                             views.forum.topic
                               .show(
@@ -54,6 +61,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
                                 unsub,
                                 canModCateg = canModCateg
                               )
+                              .copy(askFrags = asks.map(views.askUi.render))
                         yield BadRequest(page)
                     ,
                     data =>

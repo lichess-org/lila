@@ -2,7 +2,8 @@ import { frag } from 'lib';
 import { alert, info, spinnerHtml } from 'lib/view';
 import { previousFocusable } from 'lib/view/focus';
 import { wireMarkdownImgResizers, naturalSize, markdownPicfitRegex } from 'lib/view/markdownImgResizer';
-import { text as xhrText, json as xhrJson, ValidationError } from 'lib/xhr';
+import { markdownPreview } from 'lib/view/markdownPreview';
+import { json as xhrJson, ValidationError } from 'lib/xhr';
 
 // also see markdownTextarea.ts
 
@@ -27,17 +28,8 @@ function wireMarkdownTextarea(markdown: HTMLElement) {
     uploadBtn?.classList.add('none');
     writeTab.classList.remove('active');
     previewTab.classList.add('active');
-    const rendered = frag<HTMLElement>(
-      await xhrText(`/markdown/preview/${markdown.dataset.formatKey ?? 'forum'}`, {
-        method: 'POST',
-        body: textarea.value,
-      }),
-    );
-    await Promise.all([
-      rendered.querySelector('.lpv--autostart') && site.asset.loadEsm('bits.lpv', { init: { el: rendered } }),
-      rendered.querySelector('a') && site.asset.loadEsm('bits.expandText', { init: rendered }),
-    ]);
-    preview.replaceChildren(rendered);
+
+    preview.replaceChildren(await markdownPreview(textarea.value, markdown.dataset.formatKey));
     if (markdownPicfitRegex().test(textarea.value) && !localStorage.getItem('markdown.rtfm')) {
       await info('Drag a side or bottom edge to resize an image.');
       localStorage.setItem('markdown.rtfm', '1');
@@ -51,6 +43,10 @@ function wireMarkdownTextarea(markdown: HTMLElement) {
       designWidth: Number(markdown.dataset.imageDesignWidth),
       realm: markdown.dataset.markdownRealm!,
     });
+  });
+
+  writeTab.addEventListener('focus', () => {
+    if (writeTab.classList.contains('active')) textarea.focus();
   });
 
   writeTab.addEventListener('click', () => {

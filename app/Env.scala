@@ -61,6 +61,7 @@ final class Env(
   val search: lila.search.Env = wire[lila.search.Env]
   val gameSearch: lila.gameSearch.Env = wire[lila.gameSearch.Env]
   val perfStat: lila.perfStat.Env = wire[lila.perfStat.Env]
+  val ask: lila.ask.Env = wire[lila.ask.Env]
   val team: lila.team.Env = wire[lila.team.Env]
   val tournament: lila.tournament.Env = wire[lila.tournament.Env]
   val swiss: lila.swiss.Env = wire[lila.swiss.Env]
