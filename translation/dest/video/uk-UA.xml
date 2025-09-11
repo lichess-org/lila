@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="chessVideos">Відео із шахів</string>
-  <string name="allVideosAreFree">Усі відео є безкоштовними для кожного.</string>
+  <string name="allVideosAreFree">Усі відео безкоштовні для кожного.</string>
   <string name="selectTagsToFilter">Виберіть теги, аби відфільтрувати відео.</string>
   <string name="weHaveCarefullySelectedX" comment="%s is the number of videos.&#10;&#10;Appears on https://lichess.org/video">Ми ретельно обрали %s відео!</string>
   <string name="freeChessVideos">Безкоштовні відео із шахів</string>
