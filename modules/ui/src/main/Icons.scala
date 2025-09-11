@@ -78,6 +78,7 @@ enum Icon:
   case link
   case list
   case logo
+  case mask
   case mic
   case microscope
   case minusButton

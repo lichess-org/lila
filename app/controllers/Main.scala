@@ -162,9 +162,9 @@ final class Main(env: Env, assetsC: ExternalAssets) extends LilaController(env):
       case MarkdownRealm.blog => lila.ublog.markdownOptions
       case MarkdownRealm.cms => lila.cms.markdownOptions
       case _ => env.forum.textExpand.markdownOptions
+    val encoded = env.ask.api.encode(ctx.body.body, me)
 
     env.memo.markdown
-      .toHtml(renderKey, Markdown(ctx.body.body), options)
-      .map(_.frag)
-      .map(Ok.snip(_))
+      .toHtml(renderKey, Markdown(encoded.text), options)
+      .map(html => Ok.snip(views.askUi.renderHtmlWithAsks(html, encoded.asks)))
   }

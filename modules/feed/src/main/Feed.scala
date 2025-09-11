@@ -7,6 +7,7 @@ import java.time.format.{ DateTimeFormatter, FormatStyle }
 import scalalib.paginator.Paginator
 
 import lila.core.lilaism.Lilaism.*
+import lila.core.ask.AskApi
 export lila.common.extensions.unapply
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
@@ -44,7 +45,10 @@ object Feed:
   import scalalib.ThreadLocalRandom
   def makeId = ThreadLocalRandom.nextString(6)
 
-final class FeedApi(coll: Coll, cacheApi: CacheApi, flairApi: FlairApi)(using Executor, Scheduler):
+final class FeedApi(coll: Coll, cacheApi: CacheApi, flairApi: FlairApi, askApi: AskApi)(using
+    Executor,
+    Scheduler
+):
 
   import Feed.*
 
@@ -73,8 +77,19 @@ final class FeedApi(coll: Coll, cacheApi: CacheApi, flairApi: FlairApi)(using Ex
 
   def get(id: ID): Fu[Option[Update]] = coll.byId[Update](id)
 
-  def set(update: Update): Funit =
-    for _ <- coll.update.one($id(update.id), update, upsert = true) yield cache.clear()
+  def edit(id: ID): Fu[Option[Update]] = get(id).flatMap:
+    case Some(up) =>
+      askApi
+        .decode(up.content.value)
+        .map: editable =>
+          up.copy(content = Markdown(editable)).some
+    case _ => fuccess(none[Update])
+
+  def set(update: Update)(using me: Me): Funit =
+    for
+      askEncoded <- askApi.encodeAndCommit(update.content.value, me, s"/feed#${update.id}".some)
+      _ <- coll.update.one($id(update.id), update.copy(content = Markdown(askEncoded)), upsert = true)
+    yield cache.clear()
 
   def delete(id: ID): Funit =
     for _ <- coll.delete.one($id(id)) yield cache.clear()

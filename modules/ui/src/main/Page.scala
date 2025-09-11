@@ -32,6 +32,7 @@ case class Page(
     atomLinkTag: Option[Tag] = None,
     withHrefLangs: Option[LangPath] = None,
     flags: Set[PageFlags] = Set.empty,
+    askFrags: List[Frag] = Nil,
     transform: Update[Frag] = identity,
     transformHead: Update[Frag] = identity
 ):
