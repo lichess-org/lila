@@ -42,7 +42,10 @@
       content: $licon-Stockfish;
     }
     @media (hover: hover) {
-      &:hover {
+      &:hover.disabled {
+        cursor: default;
+      }
+      &:hover:not(.disabled) {
         color: $c-font-clear !important;
         i:before {
           color: $c-brag;
