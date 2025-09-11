@@ -58,6 +58,7 @@
   <string name="studyPgn">PGN nghiên cứu</string>
   <string name="chapterPgn">PGN chương</string>
   <string name="copyChapterPgn">Sao chép PGN</string>
+  <string name="copyRawChapterPgn" comment="Appears as a button on individual study chapters. Lets you copy a PGN without any annotations, commentary or analysis">Sao chép bản PGN thô</string>
   <string name="downloadGame">Tải về ván cờ</string>
   <string name="studyUrl">URL nghiên cứu</string>
   <string name="currentChapterUrl">URL chương hiện tại</string>
