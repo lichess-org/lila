@@ -182,11 +182,8 @@ $c-slider: $c-setup;
     }
   }
 
-  @media (hover: hover) {
-    .opponent:hover {
-      color: $c-font-clearer;
-      cursor: pointer;
-    }
+  .config_friend-user i:before {
+    content: $licon-Swords;
   }
 
   @media (max-height: at-most(900px)) {

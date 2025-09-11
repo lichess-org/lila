@@ -16,7 +16,7 @@ export default function setupModal(ctrl: LobbyController): VNode | null {
   if (!setupCtrl.gameType) return null;
   const buttonText = {
     hook: i18n.site.createLobbyGame,
-    friend: i18n.site.challengeAFriend,
+    friend: setupCtrl.friendUser ? i18n.site.challengeX(setupCtrl.friendUser) : i18n.site.challengeAFriend,
     ai: i18n.site.playVersusAi,
   }[setupCtrl.gameType];
   return snabDialog({
@@ -30,21 +30,12 @@ export default function setupModal(ctrl: LobbyController): VNode | null {
     },
     modal: true,
     vnodes: [
-      hl(
-        'h2',
-        ctrl.setupCtrl.friendUser
-          ? hl(
-              'span.ulpt.opponent',
-              { attrs: { 'data-href': `/@/${ctrl.setupCtrl.friendUser}` } },
-              i18n.site.playingX(ctrl.setupCtrl.friendUser),
-            )
-          : i18n.site.gameSetup,
-      ),
+      hl('h2', i18n.site.gameSetup),
       hl('div.setup-content', views[setupCtrl.gameType](ctrl)),
       !site.blindMode &&
         hl('div.footer', [
           hl(
-            `button.button.button-metal.config_${setupCtrl.gameType}`,
+            `button.button.button-metal.config_${setupCtrl.friendUser ? 'friend-user' : setupCtrl.gameType}`,
             {
               attrs: { disabled: setupCtrl.loading },
               class: { disabled: setupCtrl.loading },
@@ -80,12 +71,6 @@ const views = {
     colorButtons(ctrl),
   ],
   friend: (ctrl: LobbyController): LooseVNodes => [
-    // ctrl.setupCtrl.friendUser &&
-    //   hl(
-    //     'p.user-link.ulpt.opponent',
-    //     { attrs: { 'data-href': `/@/${ctrl.setupCtrl.friendUser}` } },
-    //     i18n.site.playingX(ctrl.setupCtrl.friendUser),
-    //   ),
     hl('div.config-group', [variantPicker(ctrl), fenInput(ctrl)]),
     timePickerAndSliders(ctrl, true),
     gameModeButtons(ctrl),

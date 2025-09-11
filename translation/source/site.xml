@@ -884,6 +884,7 @@
   <string name="playVariationToCreateConditionalPremoves">Play a variation to create conditional premoves</string>
   <string name="noConditionalPremoves">No conditional premoves</string>
   <string name="playX">Play %s</string>
+  <string name="challengeX">Challenge %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">and save %s premove line</item>
     <item quantity="other">and save %s premove lines</item>

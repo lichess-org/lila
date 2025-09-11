@@ -3037,6 +3037,8 @@ interface I18n {
     casualTournament: string;
     /** Challenge a friend */
     challengeAFriend: string;
+    /** Challenge %s */
+    challengeX: I18nFormat;
     /** Change email */
     changeEmail: string;
     /** Change password */

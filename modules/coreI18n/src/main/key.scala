@@ -2163,6 +2163,7 @@ object I18nKey:
     val `playVariationToCreateConditionalPremoves`: I18nKey = "playVariationToCreateConditionalPremoves"
     val `noConditionalPremoves`: I18nKey = "noConditionalPremoves"
     val `playX`: I18nKey = "playX"
+    val `challengeX`: I18nKey = "challengeX"
     val `showUnreadLichessMessage`: I18nKey = "showUnreadLichessMessage"
     val `clickHereToReadIt`: I18nKey = "clickHereToReadIt"
     val `sorry`: I18nKey = "sorry"
