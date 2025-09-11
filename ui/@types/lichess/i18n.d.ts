@@ -3209,6 +3209,8 @@ interface I18n {
     apply: string;
     /** as black */
     asBlack: string;
+    /** %1$s concluded survey question: %2$s */
+    askConcluded: I18nFormat;
     /** Your account is managed. Ask your chess teacher about removing kid mode. */
     askYourChessTeacherAboutLiftingKidMode: string;
     /** as white */
