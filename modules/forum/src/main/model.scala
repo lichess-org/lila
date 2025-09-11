@@ -30,7 +30,7 @@ case class TopicView(
   def lastPostUserId = lastPost.flatMap(_.userId)
 
 case class PostView(post: ForumPost, topic: ForumTopic, categ: ForumCateg):
-  def show = s"${post.showUserIdOrAuthor} @ ${topic.name} - ${post.text.take(80)}"
+  def show = s"${post.showUserIdOrAuthor} @ ${topic.name} - ${lila.core.ask.AskMarkup.strip(post.text, 80)}"
   def logFormatted = s"${categ.name} / ${topic.name} #${post.id} / ${post.text}"
 
 object PostView:

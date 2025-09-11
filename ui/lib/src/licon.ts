@@ -137,6 +137,7 @@ export const licon = {
   Cpu: '' as const, // e07e
   Prune: '' as const, // e07f
   Friends: '' as const, // e080
+  Mask: '' as const, // e081
 };
 
 export type Licon = typeof licon;

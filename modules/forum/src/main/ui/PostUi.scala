@@ -140,7 +140,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                   autocomplete := "off",
                   cls := "form-control post-text-area edit-post-box",
                   required
-                )
+                )(post.text)
               ,
               div(cls := "edit-buttons")(
                 a(

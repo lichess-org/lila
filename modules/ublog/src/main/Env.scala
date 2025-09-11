@@ -33,7 +33,8 @@ final class Env(
     settingStore: lila.memo.SettingStore.Builder,
     client: lila.search.client.SearchClient,
     lightUser: lila.core.LightUser.GetterSync,
-    automod: lila.report.Automod
+    automod: lila.report.Automod,
+    askApi: lila.core.ask.AskApi
 )(using Executor, Scheduler, play.api.Mode, RateLimit):
 
   export net.{ baseUrl, domain }

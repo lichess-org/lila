@@ -33,6 +33,7 @@ final class Preload(
     simulIsFeaturable: SimulIsFeaturable,
     getLastUpdates: lila.feed.Feed.GetLastUpdates,
     ublogApi: lila.ublog.UblogApi,
+    askRepo: lila.ask.AskRepo,
     unreadCount: lila.msg.MsgUnreadCount,
     relayHome: lila.relay.RelayHomeApi,
     notifyApi: lila.notify.NotifyApi,
@@ -51,21 +52,25 @@ final class Preload(
     nbNotifications <- ctx.me.so(notifyApi.unreadCount(_))
     withPerfs <- ctx.user.traverse(perfsRepo.withPerfs)
     given Option[UserWithPerfs] = withPerfs
+    lastUpdates = getLastUpdates()
     (
       (
         (
           (
             (
-              (((((((data, povs), tours), events), simuls), feat), entries), puzzle),
-              streams
+              (
+                (((((((data, povs), tours), events), simuls), feat), entries), puzzle),
+                streams
+              ),
+              playban
             ),
-            playban
+            blindGames
           ),
-          blindGames
+          ublogPosts
         ),
-        ublogPosts
+        lichessMsg
       ),
-      lichessMsg
+      asks
     ) <- lobbyApi.get
       .mon(lila.mon.lobby.segment("lobbyApi"))
       .zip(tours.mon(lila.mon.lobby.segment("tours")))
@@ -87,6 +92,7 @@ final class Preload(
           .ifTrue(nbNotifications > 0)
           .filterNot(liveStreamApi.isStreaming)
           .so(unreadCount.hasMustReadLichessMsg)
+      .zip(askRepo.asksIn(lastUpdates.map(_.content.value)*))
     (currentGame, _) <- ctx.me
       .soUse(currentGameMyTurnOrJustMoved(povs))
       .mon(lila.mon.lobby.segment("currentGame"))
@@ -111,7 +117,8 @@ final class Preload(
     currentGame,
     simulIsFeaturable,
     blindGames,
-    getLastUpdates(),
+    lastUpdates,
+    asks,
     ublogPosts,
     classes,
     withPerfs,
@@ -151,6 +158,7 @@ object Preload:
       isFeaturable: Simul => Boolean,
       blindGames: UrgentGames,
       lastUpdates: List[lila.feed.Feed.Update],
+      lastUpdateAsks: List[Option[lila.ask.Ask]],
       ublogPosts: List[UblogPost.PreviewPost],
       classes: List[lila.clas.Clas],
       me: Option[UserWithPerfs],
