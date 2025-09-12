@@ -842,15 +842,15 @@
     <item quantity="few">%s секунде да одиграте први потез</item>
     <item quantity="other">%s секунди да одиграте први потез</item>
   </plurals>
-  <string name="practiceWithComputer">Вежбај са компјутером</string>
+  <string name="practiceWithComputer">Вежбај са рачунаром</string>
   <string name="anotherWasX">Још једно је %s</string>
   <string name="bestWasX">Најбољи је %s</string>
-  <string name="youBrowsedAway">Отишли сте са овог екрана</string>
-  <string name="resumePractice">Настави тренинг</string>
+  <string name="youBrowsedAway">Отишао/ла си далеко</string>
+  <string name="resumePractice">Настави вежбање</string>
   <string name="drawByFiftyMoves">Партија је ремизирана правилом педесет потеза.</string>
   <string name="theGameIsADraw">Партија је нерешена.</string>
-  <string name="computerThinking">Компјутер мисли ...</string>
-  <string name="seeBestMove">Погледајте најбољи потез</string>
+  <string name="computerThinking">Рачунар размишља ...</string>
+  <string name="seeBestMove">Види најбољи потез</string>
   <string name="hideBestMove">Сакријте најбољи потез</string>
   <string name="getAHint">Добиј те помоћ</string>
   <string name="evaluatingYourMove">Процењивање вашег потеза ...</string>
