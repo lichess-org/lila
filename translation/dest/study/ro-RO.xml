@@ -64,6 +64,7 @@
   <string name="studyPgn">PGN-ul studiului</string>
   <string name="chapterPgn">PGN-ul capitolului</string>
   <string name="copyChapterPgn">Copiază PGN</string>
+  <string name="copyRawChapterPgn" comment="Appears as a button on individual study chapters. Lets you copy a PGN without any annotations, commentary or analysis">Copiază PGN simplu</string>
   <string name="downloadGame">Descarcă partida</string>
   <string name="studyUrl">URL-ul studiului</string>
   <string name="currentChapterUrl">URL-ul capitolului curent</string>
