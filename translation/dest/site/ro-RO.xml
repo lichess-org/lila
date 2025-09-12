@@ -1055,4 +1055,7 @@ Toate costurile de operare și de dezvoltare sunt finanțate doar din donațiile
   <string name="enableBlindMode">Activează modul fără vedere</string>
   <string name="disableBlindMode">Dezactivează modul fără vedere</string>
   <string name="copyToClipboard">Copiază în memorie</string>
+  <string name="online" comment="status of a user">conectat</string>
+  <string name="offline" comment="status of a user">deconectat</string>
+  <string name="search">Căutare</string>
 </resources>
