@@ -61,6 +61,7 @@
   <string name="studyPgn">PGN de estudo</string>
   <string name="chapterPgn">PGN do capítulo</string>
   <string name="copyChapterPgn">Copiar PGN</string>
+  <string name="copyRawChapterPgn" comment="Appears as a button on individual study chapters. Lets you copy a PGN without any annotations, commentary or analysis">Copiar PGN sem formatação</string>
   <string name="downloadGame">Baixar partida</string>
   <string name="studyUrl">URL de estudo</string>
   <string name="currentChapterUrl">URL do capítulo atual</string>
