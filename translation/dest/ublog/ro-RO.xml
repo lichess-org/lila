@@ -9,7 +9,7 @@
   <string name="myBlog">Blogul meu</string>
   <string name="likedBlogs">Postări apreciate pe blog</string>
   <plurals name="blogPosts">
-    <item quantity="one">O postare blog</item>
+    <item quantity="one">O postare pe blog</item>
     <item quantity="few">%s postări blog</item>
     <item quantity="other">%s de postări pe blog</item>
   </plurals>
