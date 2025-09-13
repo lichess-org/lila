@@ -40,7 +40,7 @@
   <string name="classicalShield">Κλασικό Shield</string>
   <string name="xShieldArena">%s Shield Arena</string>
   <string name="xShield">%s Shield</string>
-  <string name="xTeamBattle">%s Ομαδική Μάχη</string>
+  <string name="xTeamBattle">Ομαδική μάχη %s</string>
   <string name="eliteXArena">Ελίτ %s Αρένα</string>
   <string name="eliteX">Ελίτ %s</string>
   <string name="xArena">%s Αρένα</string>

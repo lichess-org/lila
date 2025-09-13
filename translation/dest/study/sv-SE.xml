@@ -164,11 +164,11 @@
   <string name="playAgain">Spela igen</string>
   <string name="whatWouldYouPlay">Vad skulle du spela i denna position?</string>
   <string name="youCompletedThisLesson">Grattis! Du har slutfört denna lektionen.</string>
-  <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">%s per sida</string>
+  <string name="perPage">%s per sida</string>
   <string name="getTheTour">Behöver du hjälp? Ta en snabbtur!</string>
   <string name="welcomeToLichessStudyTitle">Välkommen till Lichess Studier!</string>
   <string name="welcomeToLichessStudyText">Detta är ett delat analysbräde.&lt;br&gt;&lt;br&gt;Använd det för att analysera och kommentera partier,&lt;br&gt;diskutera positioner med vänner,&lt;br&gt;och naturligtvis för schacklektioner!&lt;br&gt;&lt;br&gt;Det är ett kraftfullt verktyg, låt oss ta lite tid att se hur det fungerar.</string>
-  <string name="sharedAndSaveTitle" comment="Appears as the title of a pop-up lightbox in the guided tour of Lichess Studies.&#10;&#10;As in: shared with other members &amp; saved to the database.">Delat och sparat</string>
+  <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Delat och sparat</string>
   <string name="sharedAndSavedText">Andra medlemmar kan se dina drag i realtid!&lt;br&gt;Och allt sparas för evigt.</string>
   <string name="studyMembersTitle">Studiens medlemmar</string>
   <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s Åskådare kan se studien och skriva i chatten.&lt;br&gt;&lt;br&gt;%2$s Bidragsgivare kan göra drag och uppdatera studien.</string>
@@ -196,7 +196,7 @@
   <string name="variantsAreSupportedTitle">Studier stödjer varianter</string>
   <string name="variantsAreSupportedText">Ja, du kan studera crazyhouse&lt;br&gt;och alla varianter som finns på Lichess!</string>
   <string name="chapterConclusionText">Kapitel sparas för evigt.&lt;br&gt;Ha kul med att organisera ditt schackinnehåll!</string>
-  <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Dubbel förlust</string>
-  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">Svart förlorar, men vit kan inte vinna</string>
-  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">Vitt förlorar, men svart kan inte vinna</string>
+  <string name="doubleDefeat">Dubbel förlust</string>
+  <string name="blackDefeatWhiteCanNotWin">Svart förlorar, men vit kan inte vinna</string>
+  <string name="whiteDefeatBlackCanNotWin">Vitt förlorar, men svart kan inte vinna</string>
 </resources>

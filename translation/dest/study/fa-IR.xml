@@ -164,11 +164,11 @@
   <string name="playAgain">دوباره بازی کنید</string>
   <string name="whatWouldYouPlay">در این وضعیت چطور بازی می‌کنید؟</string>
   <string name="youCompletedThisLesson">تبریک! شما این درس را کامل کردید.</string>
-  <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">%s میز</string>
+  <string name="perPage">%s میز</string>
   <string name="getTheTour">کمک لازم داری؟ یه دور بزن!</string>
   <string name="welcomeToLichessStudyTitle">به بخش مطالعه لیچس خوش‌آمدید!</string>
   <string name="welcomeToLichessStudyText">این یک تختهٔ تحلیل اشتراکی است. از آن برای تحلیل و یادداشت‌گذاری بازی‌ها، گفتگو دربارهٔ وضعیت‌ها با دوستان و البته برای درس‌های شطرنج استفاده کنید! این یک ابزار قدرتمند است؛ بیایید با نحوهٔ کار آن آشنا شویم.</string>
-  <string name="sharedAndSaveTitle" comment="Appears as the title of a pop-up lightbox in the guided tour of Lichess Studies.&#10;&#10;As in: shared with other members &amp; saved to the database.">اشتراک‌گذاری و ذخیره‌سازی</string>
+  <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">اشتراک‌گذاری و ذخیره‌سازی</string>
   <string name="sharedAndSavedText">سایر اعضا می‌توانند حرکات شما را به‌صورت زنده ببینند! به‌علاوه، همه‌چیز برای همیشه ذخیره می‌شود.</string>
   <string name="studyMembersTitle">اعضای مطالعه</string>
   <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s تماشاگر می‌توانند مطالعه را مشاهده کرده و در گفتگو شرکت کنند. %2$s مشارکت‌کننده می‌توانند حرکت انجام دهند و مطالعه را به‌روزرسانی کنند.</string>
@@ -196,7 +196,7 @@
   <string name="variantsAreSupportedTitle">مطالعه‌ها از واریانت‌ها پشتیبانی می‌کنند</string>
   <string name="variantsAreSupportedText">بله، شما می‌توانید شطرنج دیوانه‌وار (Crazyhouse) و تمام واریانت‌های لیچس را مطالعه کنید!</string>
   <string name="chapterConclusionText">فصل‌ها برای همیشه ذخیره می‌شوند. از سازماندهی محتوای شطرنجی خود لذت ببرید!</string>
-  <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">باخت دوطرفه</string>
-  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">سیاه باخت، اما سفید نمی‌تواند ببرد</string>
-  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">سفید باخت، اما سیاه نمی‌تواند ببرد</string>
+  <string name="doubleDefeat">باخت دوطرفه</string>
+  <string name="blackDefeatWhiteCanNotWin">سیاه باخت، اما سفید نمی‌تواند ببرد</string>
+  <string name="whiteDefeatBlackCanNotWin">سفید باخت، اما سیاه نمی‌تواند ببرد</string>
 </resources>

@@ -4,5 +4,7 @@
   <string name="closeAccount">Tutup akun</string>
   <string name="managedAccountCannotBeClosed">Akun Anda dikelola, dan tidak dapat ditutup.</string>
   <string name="cantOpenSimilarAccount" comment="Please note this string was simplified in January 2025. Before this, it used to state &quot;You will not be allowed to open a new account with the same name, even if the case is different.&quot; Please update existing translations as required.">Anda tidak akan diizinkan untuk membuka akun baru dengan nama yang sama, meskipun besar-kecil hurufnya berbeda.</string>
+  <string name="cancelKeepAccount">Batalkan dan simpan akun saya</string>
+  <string name="closeAccountAreYouSure">Apakah Anda yakin ingin menutup akun Anda?</string>
   <string name="thisAccountIsClosed">Akun ini telah ditutup.</string>
 </resources>

@@ -164,11 +164,11 @@
   <string name="playAgain">Spill igjen</string>
   <string name="whatWouldYouPlay">Hva vil du spille i denne stillingen?</string>
   <string name="youCompletedThisLesson">Gratulerer! Du har fullført denne leksjonen.</string>
-  <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">%s per side</string>
+  <string name="perPage">%s per side</string>
   <string name="getTheTour">Trenger du hjelp? Ta omvisningen!</string>
   <string name="welcomeToLichessStudyTitle">Velkommen til Lichess-studier!</string>
   <string name="welcomeToLichessStudyText">Dette er et delt analysebrett.&lt;br&gt;&lt;br&gt;Bruk det til å analysere og kommentere partier,&lt;br&gt;diskutere stillinger med venner,&lt;br&gt;og selvfølgelig til sjakkleksjoner!&lt;br&gt;&lt;br&gt;Det er et kraftig verktøy, la oss ta oss tid til å se hvordan det fungerer.</string>
-  <string name="sharedAndSaveTitle" comment="Appears as the title of a pop-up lightbox in the guided tour of Lichess Studies.&#10;&#10;As in: shared with other members &amp; saved to the database.">Delt og lagret</string>
+  <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Delt og lagret</string>
   <string name="sharedAndSavedText">Andre medlemmer kan se trekkene dine i sanntid!&lt;br&gt;I tillegg blir alt lagret for alltid.</string>
   <string name="studyMembersTitle">Studiemedlemmer</string>
   <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s Tilskuere kan se studien og samtale.&lt;br&gt;&lt;br&gt;%2$s Bidragsytere kan gjøre trekk og oppdatere studien.</string>
@@ -196,7 +196,7 @@
   <string name="variantsAreSupportedTitle">Studier støtter varianter</string>
   <string name="variantsAreSupportedText">Ja, du kan studere crazyhouse&lt;br&gt;og alle Lichess-varianter!</string>
   <string name="chapterConclusionText">Kapitler lagres for alltid.&lt;br&gt;Ha det gøy med å organisere sjakkinnholdet ditt!</string>
-  <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Dobbelt tap</string>
-  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">Svart tap, men hvit kan ikke vinne</string>
-  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">Hvitt tap, men svart kan ikke vinne</string>
+  <string name="doubleDefeat">Dobbelt tap</string>
+  <string name="blackDefeatWhiteCanNotWin">Svart tap, men hvit kan ikke vinne</string>
+  <string name="whiteDefeatBlackCanNotWin">Hvitt tap, men svart kan ikke vinne</string>
 </resources>

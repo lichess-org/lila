@@ -167,5 +167,5 @@
   <string name="playAgain">Igraj ponovno</string>
   <string name="whatWouldYouPlay">Što bi igrali u ovoj poziciji?</string>
   <string name="youCompletedThisLesson">Čestitamo! Završili ste lekciju.</string>
-  <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">%s po stranici</string>
+  <string name="perPage">%s po stranici</string>
 </resources>

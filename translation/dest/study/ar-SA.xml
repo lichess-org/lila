@@ -180,11 +180,11 @@
   <string name="playAgain">اللعب مجددا</string>
   <string name="whatWouldYouPlay">ماذا ستلعب في هذا الموقف؟</string>
   <string name="youCompletedThisLesson">تهانينا! لقد أكملت هذا الدرس.</string>
-  <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">%s في كل صفحة</string>
+  <string name="perPage">%s في كل صفحة</string>
   <string name="getTheTour">بحاجة للمساعدة؟ احصل على الجولة!</string>
   <string name="welcomeToLichessStudyTitle">مرحبًا بك في Lichess study  !</string>
   <string name="welcomeToLichessStudyText">هذه لوحة تحليل مشتركة.&lt;br&gt;&lt;br&gt;استخدمها لتُحلل وتُعلق على المباريات،&lt;br&gt;ناقش المواقف المختلفة مع الأصدقاء،&lt;br&gt;وبالطبع لدروس الشطرنج!&lt;br&gt;&lt;br&gt;هي أداة قوية، دعنا نأخذ بعض من الوقت لنرى كيفية عملها.</string>
-  <string name="sharedAndSaveTitle" comment="Appears as the title of a pop-up lightbox in the guided tour of Lichess Studies.&#10;&#10;As in: shared with other members &amp; saved to the database.">تم المشاركة والحفظ</string>
+  <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">تم المشاركة والحفظ</string>
   <string name="sharedAndSavedText">يمكن للأعضاء الآخرين رؤية نقلاتك في الوقت الحقيقي!&lt;br&gt;زيادة على ذلك، يتم حفظ كل شيء إلى الأبد.</string>
   <string name="studyMembersTitle">أعضاء الدراسة</string>
   <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">يمكن لـ%1$s متفرجين رؤية الدراسة والتكلم في المحادثة &lt;br&gt;&lt;br&gt;%2$s المساهمين يستطيعون القيام بالحركات وتحديث الدراسة.</string>
@@ -212,7 +212,7 @@
   <string name="variantsAreSupportedTitle">تدعم الدراسات أنماط الشطرنج المختلفة</string>
   <string name="variantsAreSupportedText">نعم، يمكنك دراسة البيت المجنون&lt;br&gt;وجميع أنواع ألعاب Lichess!</string>
   <string name="chapterConclusionText">يتم حفظ الفصول للأبد.&lt;br&gt; استمتعوا بتنظيم محتوى الشطرنج خاصتكم!</string>
-  <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">هزيمة مزدوجة</string>
-  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">الأسود مهزوم, لكن الأبيض لا يستطيع الفوز</string>
-  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">الأبيض مهزوم, لكن الأسود لا يستطيع الفوز</string>
+  <string name="doubleDefeat">هزيمة مزدوجة</string>
+  <string name="blackDefeatWhiteCanNotWin">الأسود مهزوم, لكن الأبيض لا يستطيع الفوز</string>
+  <string name="whiteDefeatBlackCanNotWin">الأبيض مهزوم, لكن الأسود لا يستطيع الفوز</string>
 </resources>

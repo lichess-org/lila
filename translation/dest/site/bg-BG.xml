@@ -990,4 +990,6 @@
   <string name="accessibility">Достъпност</string>
   <string name="enableBlindMode">Включи режима за незрящи</string>
   <string name="disableBlindMode">Изключи режима за незрящи</string>
+  <string name="online" comment="status of a user">онлайн</string>
+  <string name="offline" comment="status of a user">офлайн</string>
 </resources>

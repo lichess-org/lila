@@ -1009,4 +1009,7 @@ Alle exploitatiekosten, ontwikkeling en inhoud worden enkel gefinancierd door do
   <string name="enableBlindMode">Modus voor blinden inschakelen</string>
   <string name="disableBlindMode">Modus voor blinden uitschakelen</string>
   <string name="copyToClipboard">Kopiëren naar klembord</string>
+  <string name="online" comment="status of a user">online</string>
+  <string name="offline" comment="status of a user">offline</string>
+  <string name="search">Zoeken</string>
 </resources>

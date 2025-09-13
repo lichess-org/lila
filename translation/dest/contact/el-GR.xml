@@ -57,10 +57,10 @@
   <string name="reportErrorPage">Αν εμφανίστηκε σελίδα σφάλματος, μπορείτε να υποβάλλετε αναφορά:</string>
   <string name="learnHowToMakeBroadcasts">Μάθετε πώς να κάνετε τις δικές σας μεταδόσεις στο Lichess</string>
   <string name="banAppeal">Θέλω να αρθεί ο αποκλεισμός της διεύθυνσης IP μου</string>
-  <string name="engineAppeal">Μηχανή ή απάτη</string>
+  <string name="engineAppeal">Μηχανή ή χρήση εξωτερικής βοήθειας</string>
   <string name="sendAppealTo">Μπορείτε να υποβάλετε ένσταση στη διεύθυνση %s.</string>
   <string name="falsePositives">Λανθασμένοι αποκλεισμοί συμβαίνουν μερικές φορές, και λυπούμαστε γι\' αυτό.</string>
-  <string name="ifLegit">Αν η ένστασή σας είναι έγκυρη, θα ο αποκλεισμός θα αρθεί το συντομότερο δυνατόν.</string>
+  <string name="ifLegit">Αν η ένστασή σας είναι έγκυρη, ο αποκλεισμός θα αρθεί το συντομότερο δυνατόν.</string>
   <string name="accountLost">Αν όμως έχετε χρησιμοποιήσει βοήθεια μηχανής έστω και μία μόνο φορά, τότε ο λογαριασμός σας θα κλείσει οριστικά.</string>
   <string name="doNotDeny">Μην αρνείστε ότι κλέψατε — αν θέλετε να σας επιτραπεί η δημιουργία νέου λογαριασμού, παραδεχθείτε τις πράξεις σας και δείξτε ότι καταλάβατε το λάθος σας.</string>
   <string name="otherRestriction">Άλλος αποκλεισμός</string>

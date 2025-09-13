@@ -397,6 +397,7 @@
     <item quantity="other">You need to play %s more rated games</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Your %s rating is provisional</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Rating filters are locked because your rating is not stable. Playing rated games will increase stability.</string>
   <string name="yourPerfRatingIsTooHigh">Your %1$s rating (%2$s) is too high</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Your top weekly %1$s rating (%2$s) is too high</string>
   <string name="yourPerfRatingIsTooLow">Your %1$s rating (%2$s) is too low</string>
@@ -1008,4 +1009,9 @@ All operating costs, development, and content are funded solely by user donation
   <string name="enableBlindMode">Enable blind mode</string>
   <string name="disableBlindMode">Disable blind mode</string>
   <string name="copyToClipboard">Copy to clipboard</string>
+  <string name="online" comment="status of a user">online</string>
+  <string name="offline" comment="status of a user">offline</string>
+  <string name="search">Search</string>
+  <string name="clearSearch">Clear search</string>
+  <string name="tags">Tags</string>
 </resources>

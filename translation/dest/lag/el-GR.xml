@@ -5,7 +5,7 @@
   <string name="noAndYourNetworkIsGood">Όχι. Η σύνδεση σας είναι καλή.</string>
   <string name="noAndYourNetworkIsBad" comment="noAndYourNetworkIsBad&#10;&#10;The system checks the network lag and replies in response to the question &quot;Is Lichess lagging?&quot;&#10;In this case, it's the user's network connection that is making the game lag.">Όχι. Η σύνδεση σας είναι κακή.</string>
   <string name="yesItWillBeFixedSoon">Ναι. Το πρόβλημα θα διορθωθεί σύντομα!</string>
-  <string name="andNowTheLongAnswerLagComposedOfTwoValues">Η καθυστέρηση ενός παιχνιδιού εξαρτάται από δύο ανεξάρτητες τιμές (όσο χαμηλότερες είναι οι τιμές τόσο καλύτερη είναι η σύνδεση):</string>
+  <string name="andNowTheLongAnswerLagComposedOfTwoValues">Η καθυστέρηση μιας παρτίδας εξαρτάται από δύο ανεξάρτητες τιμές (όσο χαμηλότερες είναι οι τιμές τόσο καλύτερη είναι η σύνδεση):</string>
   <string name="lichessServerLatency">Καθυστέρηση του διακομιστή του Lichess</string>
   <string name="lichessServerLatencyExplanation">Ο χρόνος που απαιτείται για την επεξεργασία μιας κίνησης από τον διακομιστή. Είναι ο ίδιος για όλους τους χρήστες, και εξαρτάται μόνο από τον φόρτο του διακομιστή. Όσο περισσότεροι είναι οι παίκτες τόσο περισσότερο αυξάνεται. Οι προγραμματιστές του Lichess κάνουν ό,τι μπορούν για να τον κρατήσουν χαμηλό. Σπάνια ξεπερνά τα 10 χιλιοστά του δευτερολέπτου.</string>
   <string name="networkBetweenLichessAndYou">Η σύνδεσή σας με το Lichess</string>

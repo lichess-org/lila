@@ -397,6 +397,7 @@
     <item quantity="other">Du må spela endå %s rangerte parti</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Ratinga di på %s er mellombels</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Rating-filtra er låst fordi ratinga di ikkje er stabil. Stabiliteten aukar om du spelar rata parti.</string>
   <string name="yourPerfRatingIsTooHigh">Ratinga di i %1$s (%2$s) er for høg</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Den beste vekesratinga di i %1$s (%2$s) er for høg</string>
   <string name="yourPerfRatingIsTooLow">Ratinga di i %1$s (%2$s) er for låg</string>
@@ -1010,4 +1011,9 @@ Alle kostnader for drift, utvikling og innhald vert finansiert eine og åleine a
   <string name="enableBlindMode">Aktiver blindsjakkmodus</string>
   <string name="disableBlindMode">Deaktiver blindsjakkmodus</string>
   <string name="copyToClipboard">Kopiér til utklippstavla</string>
+  <string name="online" comment="status of a user">online</string>
+  <string name="offline" comment="status of a user">offline</string>
+  <string name="search">Søk</string>
+  <string name="clearSearch">Nytt søk</string>
+  <string name="tags">Etikettar</string>
 </resources>

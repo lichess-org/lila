@@ -397,6 +397,7 @@
     <item quantity="other">Du er nødt til at spille %s ratede partier mere</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Din %s rating er provisorisk</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Rating-filtre er låst, fordi din rating ikke er stabil. Stabiliteten øges ved at spille ratede partier.</string>
   <string name="yourPerfRatingIsTooHigh">Din %1$s rating (%2$s) er for høj</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Din ugentlige %1$s toprating (%2$s) er for høj</string>
   <string name="yourPerfRatingIsTooLow">Din %1$s rating (%2$s) er for lav</string>
@@ -1009,4 +1010,9 @@ Alle driftsomkostninger, udvikling og indhold finansieres udelukkende af brugerd
   <string name="enableBlindMode">Aktiver blindtilstand</string>
   <string name="disableBlindMode">Deaktiver blindtilstand</string>
   <string name="copyToClipboard">Kopiér til udklipsholder</string>
+  <string name="online" comment="status of a user">online</string>
+  <string name="offline" comment="status of a user">offline</string>
+  <string name="search">Søg</string>
+  <string name="clearSearch">Ryd søgning</string>
+  <string name="tags">Etiketter</string>
 </resources>

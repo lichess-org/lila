@@ -172,7 +172,7 @@
   <string name="playAgain">הפעל שוב</string>
   <string name="whatWouldYouPlay">מה הייתם משחקים בעמדה הזו?</string>
   <string name="youCompletedThisLesson">מזל טוב! סיימתם את השיעור.</string>
-  <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">%s לכל עמוד</string>
+  <string name="perPage">%s לכל עמוד</string>
   <string name="getTheTour">זקוקים לעזרה? קבלו הדרכה!</string>
   <string name="welcomeToLichessStudyTitle">ברוכים הבאים ללוחות הלמידה של Lichess!</string>
 </resources>

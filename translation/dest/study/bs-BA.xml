@@ -168,11 +168,11 @@
   <string name="playAgain">Igrajte ponovo</string>
   <string name="whatWouldYouPlay">Šta biste odigrali u ovoj poziciji?</string>
   <string name="youCompletedThisLesson">Čestitamo! Kompletirali ste ovu lekciju.</string>
-  <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">%s po stranici</string>
+  <string name="perPage">%s po stranici</string>
   <string name="getTheTour">Trebate pomoć? Zakažite obilazak!</string>
   <string name="welcomeToLichessStudyTitle">Dobrodošli u Lichess studiju!</string>
   <string name="welcomeToLichessStudyText">Ovo je dijeljena analitička ploča.&lt;br&gt;&lt;br&gt;Koristite je za analizu i komentiranje partija,&lt;br&gt;diskusiju o pozicijama s prijateljima&lt;br&gt;i naravno za časove šaha!&lt;br&gt;&lt;br&gt;To je moćan alat, hajde da odvojimo malo vremena da vidimo kako funkcioniše.</string>
-  <string name="sharedAndSaveTitle" comment="Appears as the title of a pop-up lightbox in the guided tour of Lichess Studies.&#10;&#10;As in: shared with other members &amp; saved to the database.">Podijeljeno i sačuvano</string>
+  <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Podijeljeno i sačuvano</string>
   <string name="sharedAndSavedText">Drugi članovi mogu vidjeti vaše poteze u stvarnom vremenu!&lt;br&gt;Osim toga, sve je zauvijek spremljeno.</string>
   <string name="studyMembersTitle">Članovi studije</string>
   <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s Posmatrači mogu pregledati studiju i razgovarati u četu.&lt;br&gt;&lt;br&gt;%2$s Saradnici mogu mijenjati i ažurirati studiju.</string>
@@ -200,7 +200,7 @@
   <string name="variantsAreSupportedTitle">Studije podržavaju varijante</string>
   <string name="variantsAreSupportedText">Da, možeš proučavati ludokuću&lt;br&gt;i sve varijante lichess-a!</string>
   <string name="chapterConclusionText">Poglavlja se čuvaju zauvijek.&lt;br&gt;Zabavite se organizirajući svoj šahovski sadržaj!</string>
-  <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Dvostruki poraz</string>
-  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">Crni pobjeđuju, ali bijeli ne mogu pobijediti</string>
-  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">Bijeli pobjeđuju, ali Crni ne mogu pobijediti</string>
+  <string name="doubleDefeat">Dvostruki poraz</string>
+  <string name="blackDefeatWhiteCanNotWin">Crni pobjeđuju, ali bijeli ne mogu pobijediti</string>
+  <string name="whiteDefeatBlackCanNotWin">Bijeli pobjeđuju, ali Crni ne mogu pobijediti</string>
 </resources>

@@ -459,6 +459,7 @@
     <item quantity="other">Ви повинні зіграти ще %s рейтингових ігор</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Ваш рейтинг %s є умовним</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Фільтри за рейтингом заблоковано, бо ваш рейтинг нестабільний. Стабільність підвищуватиметься, коли ви гратимете в рейтингові ігри.</string>
   <string name="yourPerfRatingIsTooHigh">Ваш рейтинг у %1$s (%2$s) занадто високий</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Ваш щотижневий рейтинг %1$s (%2$s) занадто високий</string>
   <string name="yourPerfRatingIsTooLow">Ваш рейтинг у %1$s (%2$s) занадто низький</string>
@@ -1098,4 +1099,9 @@
   <string name="enableBlindMode">Увімкнути режим для незрячих</string>
   <string name="disableBlindMode">Вимкнути режим для незрячих</string>
   <string name="copyToClipboard">Скопіювати до буферу обміну</string>
+  <string name="online" comment="status of a user">у мережі</string>
+  <string name="offline" comment="status of a user">не в мережі</string>
+  <string name="search">Пошук</string>
+  <string name="clearSearch">Очистити пошук</string>
+  <string name="tags">Теги</string>
 </resources>

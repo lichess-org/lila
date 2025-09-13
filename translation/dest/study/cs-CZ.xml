@@ -172,11 +172,11 @@
   <string name="playAgain">Hrát znovu</string>
   <string name="whatWouldYouPlay">Co byste v této pozici hráli?</string>
   <string name="youCompletedThisLesson">Blahopřejeme! Dokončili jste tuto lekci.</string>
-  <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">%s na stránku</string>
+  <string name="perPage">%s na stránku</string>
   <string name="getTheTour">Potřebujete pomoc? Pojďme na prohlídku!</string>
   <string name="welcomeToLichessStudyTitle">Vítejte v Lichess studiích!</string>
   <string name="welcomeToLichessStudyText">To je společná analytická deska.&lt;br&gt;&lt;br&gt;Použijte ji k analýze a anotování her,&lt;br&gt;diskutování o pozicích s přáteli,&lt;br&gt;a samozřejmě pro šachové lekce!&lt;br&gt;&lt;br&gt;Je to výkonný nástroj, podívejme se, jak to funguje.</string>
-  <string name="sharedAndSaveTitle" comment="Appears as the title of a pop-up lightbox in the guided tour of Lichess Studies.&#10;&#10;As in: shared with other members &amp; saved to the database.">Sdíleno a uloženo</string>
+  <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Sdíleno a uloženo</string>
   <string name="sharedAndSavedText">Ostatní členové mohou vidět vaše tahy v reálném čase!&lt;br&gt;Navíc vše je navždy uloženo.</string>
   <string name="studyMembersTitle">Členové studie</string>
   <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s Diváci si mohou prohlížet studii a psát do chatu..&lt;br&gt;&lt;br&gt;%2$s Přispěvatelé mohou provádět tahy a upravovat studii.</string>
@@ -204,7 +204,7 @@
   <string name="variantsAreSupportedTitle">Studie podporují varianty</string>
   <string name="variantsAreSupportedText">Ano, můžete studovat crazyhouse&lt;br&gt;a všechny lichess varianty!</string>
   <string name="chapterConclusionText">Kapitoly jsou navždy uloženy.&lt;br&gt;Hodně zábavy s organizováním vašeho šachového obsahu!</string>
-  <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Dvojitá prohra</string>
-  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">Černý prohrál, ale bílý nemůže vyhrát</string>
-  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">Bílý prohrál, ale černý nemůže vyhrát</string>
+  <string name="doubleDefeat">Dvojitá prohra</string>
+  <string name="blackDefeatWhiteCanNotWin">Černý prohrál, ale bílý nemůže vyhrát</string>
+  <string name="whiteDefeatBlackCanNotWin">Bílý prohrál, ale černý nemůže vyhrát</string>
 </resources>

@@ -164,11 +164,11 @@
   <string name="playAgain">Tefla aftur</string>
   <string name="whatWouldYouPlay">Hvað myndir þú leika í þessari stöðu?</string>
   <string name="youCompletedThisLesson">Til hamingju! Þú hefur lokið þessari kennslu.</string>
-  <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">%s á síðu</string>
+  <string name="perPage">%s á síðu</string>
   <string name="getTheTour">Viltu aðstoð? Skoðaðu kynninguna!</string>
   <string name="welcomeToLichessStudyTitle">Velkomin(n) í stúderingar Lichess!</string>
   <string name="welcomeToLichessStudyText">Þetta er skipt greiningarborð.&lt;br&gt;&lt;br&gt;Notfærðu þér það til að greina og gera athugasemdir við skákir,&lt;br&gt;ræddu stöður við vini,&lt;br&gt;og auðvitað fyrir kennsluefni í skák!&lt;br&gt;&lt;br&gt;Það er öflugt tól, lofum okkur að skoða hvernig það virkar.</string>
-  <string name="sharedAndSaveTitle" comment="Appears as the title of a pop-up lightbox in the guided tour of Lichess Studies.&#10;&#10;As in: shared with other members &amp; saved to the database.">Deilt og vistað</string>
+  <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Deilt og vistað</string>
   <string name="sharedAndSavedText">Aðrir meðlimir geta séð leiki þína í rauntíma!&lt;br&gt;Auk þess vistast allt saman til frambúðar.</string>
   <string name="studyMembersTitle">Þátttakendur stúderingar</string>
   <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s Áhorfendur geta skoðað stúderinguna og rabbað í spjallinu.&lt;br&gt;&lt;br&gt;%2$s Þátttakendur geta leikið og uppfært stúderinguna.</string>
@@ -196,7 +196,7 @@
   <string name="variantsAreSupportedTitle">Stúderingar styðja afbrigði</string>
   <string name="variantsAreSupportedText">Já, þú getur stúderað crazyhouse&lt;br&gt; og öll Lichess-afbrigði!</string>
   <string name="chapterConclusionText">Kaflar vistast að eilífu.&lt;br&gt;Góða skemmtun við að skipuleggja skákefnið þitt!</string>
-  <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Tvöfalt tap</string>
-  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">Svartur tapar, en hvítur getur ekki unnið</string>
-  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">Hvítur tapar, en svartur getur ekki unnið</string>
+  <string name="doubleDefeat">Tvöfalt tap</string>
+  <string name="blackDefeatWhiteCanNotWin">Svartur tapar, en hvítur getur ekki unnið</string>
+  <string name="whiteDefeatBlackCanNotWin">Hvítur tapar, en svartur getur ekki unnið</string>
 </resources>

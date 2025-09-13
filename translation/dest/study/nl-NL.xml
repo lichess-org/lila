@@ -61,6 +61,7 @@
   <string name="studyPgn">PGN bestuderen</string>
   <string name="chapterPgn">Hoofdstuk PGN</string>
   <string name="copyChapterPgn">PGN kopiëren</string>
+  <string name="copyRawChapterPgn" comment="Appears as a button on individual study chapters. Lets you copy a PGN without any annotations, commentary or analysis">Pgn zonder toevoegingen kopiëren</string>
   <string name="downloadGame">Partij downloaden</string>
   <string name="studyUrl">Studie URL</string>
   <string name="currentChapterUrl">Huidige hoofdstuk URL</string>
@@ -164,11 +165,11 @@
   <string name="playAgain">Opnieuw spelen</string>
   <string name="whatWouldYouPlay">Wat zou je in deze stelling spelen?</string>
   <string name="youCompletedThisLesson">Gefeliciteerd! Je hebt deze les voltooid.</string>
-  <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">%s per pagina</string>
+  <string name="perPage">%s per pagina</string>
   <string name="getTheTour">Hulp nodig? Volg de rondleiding!</string>
   <string name="welcomeToLichessStudyTitle">Welkom bij Lichess Study!</string>
   <string name="welcomeToLichessStudyText">Dit is een gedeeld analyselbord.&lt;br&gt;&lt;br&gt;Gebruik het om partijen te analyseren en aantekeningen te maken,&lt;br&gt;stellingen met vrienden te bespreken,&lt;br&gt;en natuurlijk voor schaaklessen!&lt;br&gt;&lt;br&gt;Het is een krachtig gereedschap, laten we even de tijd nemen om te zien hoe het werkt.</string>
-  <string name="sharedAndSaveTitle" comment="Appears as the title of a pop-up lightbox in the guided tour of Lichess Studies.&#10;&#10;As in: shared with other members &amp; saved to the database.">Gedeeld en opgeslagen</string>
+  <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Gedeeld en opgeslagen</string>
   <string name="sharedAndSavedText">Andere leden kunnen in real time je zetten zien!&lt;br&gt;Plus, alles wordt voor altijd bewaard.</string>
   <string name="studyMembersTitle">Studieleden</string>
   <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s Toeschouwers kunnen de studie bekijken en praten in de chat.&lt;br&gt;&lt;br&gt;%2$s Bijdragers kunnen zetten doen en de studie bijwerken.</string>
@@ -196,7 +197,7 @@
   <string name="variantsAreSupportedTitle">Studies ondersteunen varianten</string>
   <string name="variantsAreSupportedText">Ja, je kunt crazyhouse&lt;br&gt;en alle lichess-varianten bestuderen!</string>
   <string name="chapterConclusionText">Hoofdstukken worden voor altijd bewaard.&lt;br&gt;Veel plezier met het ordenen van uw schaakinhoud!</string>
-  <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Dubbele nederlaag</string>
-  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">Zwarte nederlaag, maar Wit kan niet winnen</string>
-  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">Witte nederlaag, maar Zwart kan niet winnen</string>
+  <string name="doubleDefeat">Dubbele nederlaag</string>
+  <string name="blackDefeatWhiteCanNotWin">Zwarte nederlaag, maar Wit kan niet winnen</string>
+  <string name="whiteDefeatBlackCanNotWin">Witte nederlaag, maar Zwart kan niet winnen</string>
 </resources>

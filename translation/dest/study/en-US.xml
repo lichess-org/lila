@@ -61,6 +61,7 @@
   <string name="studyPgn">Study PGN</string>
   <string name="chapterPgn">Chapter PGN</string>
   <string name="copyChapterPgn">Copy PGN</string>
+  <string name="copyRawChapterPgn">Copy Raw PGN</string>
   <string name="downloadGame">Download game</string>
   <string name="studyUrl">Study URL</string>
   <string name="currentChapterUrl">Current chapter URL</string>
@@ -164,11 +165,11 @@
   <string name="playAgain">Play again</string>
   <string name="whatWouldYouPlay">What would you play in this position?</string>
   <string name="youCompletedThisLesson">Congratulations! You completed this lesson.</string>
-  <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">%s per page</string>
+  <string name="perPage">%s per page</string>
   <string name="getTheTour">Need help? Get the tour!</string>
   <string name="welcomeToLichessStudyTitle">Welcome to Lichess Study!</string>
   <string name="welcomeToLichessStudyText">This is a shared analysis board.&lt;br&gt;&lt;br&gt;Use it to analyze and annotate games,&lt;br&gt;to discuss positions with friends,&lt;br&gt;and of course for chess lessons!&lt;br&gt;&lt;br&gt;It\'s a powerful tool. Let\'s take some time to see how it works.</string>
-  <string name="sharedAndSaveTitle" comment="Appears as the title of a pop-up lightbox in the guided tour of Lichess Studies.&#10;&#10;As in: shared with other members &amp; saved to the database.">Shared and saved</string>
+  <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Shared and saved</string>
   <string name="sharedAndSavedText">Other members can see your moves in real time!&lt;br&gt;Plus, everything is saved forever.</string>
   <string name="studyMembersTitle">Study members</string>
   <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s Spectators can view the study and talk in the chat.&lt;br&gt;&lt;br&gt;%2$s Contributors can make moves and update the study.</string>
@@ -196,7 +197,7 @@
   <string name="variantsAreSupportedTitle">Studies support variants</string>
   <string name="variantsAreSupportedText">Yes, you can study crazyhouse&lt;br&gt;and all lichess variants!</string>
   <string name="chapterConclusionText">Chapters are saved forever.&lt;br&gt;Have fun organizing your chess content!</string>
-  <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Double defeat</string>
-  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">Black defeat, but White can\'t win</string>
-  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">White defeat, but Black can\'t win</string>
+  <string name="doubleDefeat">Double defeat</string>
+  <string name="blackDefeatWhiteCanNotWin">Black defeat, but White can\'t win</string>
+  <string name="whiteDefeatBlackCanNotWin">White defeat, but Black can\'t win</string>
 </resources>

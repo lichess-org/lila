@@ -61,6 +61,7 @@
   <string name="studyPgn">Azterlanaren PGNa</string>
   <string name="chapterPgn">Kapituluaren PGNa</string>
   <string name="copyChapterPgn">Kopiatu PGNa</string>
+  <string name="copyRawChapterPgn" comment="Appears as a button on individual study chapters. Lets you copy a PGN without any annotations, commentary or analysis">Kopiatu jatorrizko PGNa</string>
   <string name="downloadGame">Partida deskargatu</string>
   <string name="studyUrl">Azterlanaren helbidea</string>
   <string name="currentChapterUrl">Uneko kapituluaren helbidea</string>
@@ -164,11 +165,11 @@
   <string name="playAgain">Jokatu berriz</string>
   <string name="whatWouldYouPlay">Zer jokatuko zenuke posizio honetan?</string>
   <string name="youCompletedThisLesson">Zorionak! Ikasgai hau osatu duzu.</string>
-  <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">%s orrialde bakoitzean</string>
+  <string name="perPage">%s orrialde bakoitzean</string>
   <string name="getTheTour">Laguntzarik behar? Etorri gurekin!</string>
   <string name="welcomeToLichessStudyTitle">Ongi etorri Lichess Study-ra!</string>
   <string name="welcomeToLichessStudyText">Hau partekatutako analisi taula bat da.&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;Erabili partidak analizatu edo komentatzeko,&lt;br&gt;&lt;br&gt;&lt;br&gt;eztabaidatu posizioak lagunekin,&lt;br&gt;&lt;br&gt;eta erabili xake klaseetan!&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;Tresna ahaltsua da, hartu denbora bat nola dabilen ikasteko.</string>
-  <string name="sharedAndSaveTitle" comment="Appears as the title of a pop-up lightbox in the guided tour of Lichess Studies.&#10;&#10;As in: shared with other members &amp; saved to the database.">Partekatuta eta gordeta</string>
+  <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Partekatuta eta gordeta</string>
   <string name="sharedAndSavedText">Beste kide batzuk zure jokaldiak denbora errealean ikusi ditzakete!&lt;br&gt;Gainera, dena betiko gordetzen da.</string>
   <string name="studyMembersTitle">Azterlanaren kideak</string>
   <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s Ikusleek zure azterlanak ikusi eta txatean komentatu dezakete.&lt;br&gt;&lt;br&gt;%2$s Laguntzaileek jokaldiak egin eta azterlana eguneratu dezakete.</string>
@@ -187,7 +188,7 @@
   <string name="fromInitialPositionText">Partida berri baterako taularen ezarpenak.&lt;br&gt;Adibidez irekierak aztertzeko.</string>
   <string name="customPositionTitle">Posizio pertsonalizatua</string>
   <string name="customPositionText">Konfiguratu taula zuk nahi duzun moduan.&lt;br&gt;Adibidez finalak aztertzeko.</string>
-  <string name="loadExistingLichessGameTitle">Igo Lichess-en dagoen joko bat</string>
+  <string name="loadExistingLichessGameTitle">Kargatu Lichess-en dagoen partida bat</string>
   <string name="loadExistingLichessGameText">Itsatsi lichesseko partida batn URLa&lt;br&gt;(adibidez lichess.org/7fHIU0XI)&lt;br&gt;partidaren jokaldiak kapituluan kargatzeko.</string>
   <string name="fromFenStringTitle">FEN kate batetik</string>
   <string name="fromFenStringText">Itsatsu FEN formatuko posizio bat&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;kapitulua posizio batetik hasteko.</string>
@@ -196,7 +197,7 @@
   <string name="variantsAreSupportedTitle">Azterlanetan aldaerak erabili daitezke</string>
   <string name="variantsAreSupportedText">Bai, Crazyhouse&lt;br&gt; eta Lichess bariante guztiak aztertu ditzazkezu!</string>
   <string name="chapterConclusionText">Kapituluak betirako gordetzen dira.&lt;br&gt;Ondo pasa zure xake edukiak antolatzen!</string>
-  <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Porrot bikoitza</string>
-  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">Beltzen porrota, baina Txuriek irabazi ezin</string>
-  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">Txurien porrota, baina Beltzek irabazi ezin</string>
+  <string name="doubleDefeat">Porrot bikoitza</string>
+  <string name="blackDefeatWhiteCanNotWin">Beltzaren porrota, baina Zuriak ezin du irabazi</string>
+  <string name="whiteDefeatBlackCanNotWin">Zuriaren porrota, baina Beltzak ezin du irabazi</string>
 </resources>

@@ -160,7 +160,7 @@
   <string name="playAgain">再玩一次</string>
   <string name="whatWouldYouPlay">你會在這個位置上怎麼走？</string>
   <string name="youCompletedThisLesson">恭喜！您完成了這個課程。</string>
-  <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">%s 每頁</string>
+  <string name="perPage">%s 每頁</string>
   <string name="getTheTour">需要幫助？查看導覽！</string>
   <string name="welcomeToLichessStudyTitle">歡迎來到 Lichess 研究區！</string>
 </resources>

@@ -533,7 +533,7 @@
   <string name="inlineNotation">نشانه‌گذاری خطی</string>
   <string name="makeAStudy">برای نگهداری مطمئن و همرسانی، ساخت یک مطالعه را در نظر بگیرید.</string>
   <string name="clearSavedMoves">حرکت های واضح</string>
-  <string name="previouslyOnLichessTV">بازی پیشین در لیچس</string>
+  <string name="previouslyOnLichessTV">بازی پیشین در Lichess</string>
   <string name="onlinePlayers">بازیکنان بَرخط</string>
   <string name="activePlayers">بازیکنان فعال</string>
   <string name="bewareTheGameIsRatedButHasNoClock">مراقب باشید،این بازی رتبه بندی میشود اما بدون ساعت!</string>

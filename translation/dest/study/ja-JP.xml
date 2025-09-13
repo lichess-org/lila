@@ -160,11 +160,11 @@
   <string name="playAgain">もう一度プレイ</string>
   <string name="whatWouldYouPlay">この局面、あなたならどう指す？</string>
   <string name="youCompletedThisLesson">おめでとう ！　このレッスンを修了しました。</string>
-  <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">%s 件/ページ</string>
+  <string name="perPage">%s 件/ページ</string>
   <string name="getTheTour">お困りですか？　ツアーへどうぞ！</string>
   <string name="welcomeToLichessStudyTitle">Lichess 「研究」機能にようこそ！</string>
   <string name="welcomeToLichessStudyText">これは共有される検討用のボードです。&lt;br&gt;&lt;br&gt;棋譜の検討や注釈、&lt;br&gt;友達との相談、&lt;br&gt;レッスンなどに使えます。&lt;br&gt;&lt;br&gt;とても便利なツールなので、ちょっと仕組みを見てみましょう。</string>
-  <string name="sharedAndSaveTitle" comment="Appears as the title of a pop-up lightbox in the guided tour of Lichess Studies.&#10;&#10;As in: shared with other members &amp; saved to the database.">共有と保存</string>
+  <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">共有と保存</string>
   <string name="sharedAndSavedText">他のメンバーはあなたの手をリアルタイムで見ることができ、&lt;br&gt;変更はすべて永久に保存されます。</string>
   <string name="studyMembersTitle">研究のメンバー</string>
   <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s 観戦者は研究を見てチャットで会話できます。&lt;br&gt;&lt;br&gt;%2$s 参加者は駒を動かし、研究に変更を加えられます。</string>
@@ -192,7 +192,7 @@
   <string name="variantsAreSupportedTitle">研究はバリアントにも対応</string>
   <string name="variantsAreSupportedText">はい、クレージーハウスなど Lichess の&lt;br&gt;バリアントすべてを研究できます！</string>
   <string name="chapterConclusionText">各章は永久に保存されます。&lt;br&gt;チェスコンテンツの整理は楽しい作業です！</string>
-  <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">両者負け</string>
-  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">黒負け白1/2ポイント</string>
-  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">白負け黒1/2ポイント</string>
+  <string name="doubleDefeat">両者負け</string>
+  <string name="blackDefeatWhiteCanNotWin">黒負け白1/2ポイント</string>
+  <string name="whiteDefeatBlackCanNotWin">白負け黒1/2ポイント</string>
 </resources>

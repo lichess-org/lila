@@ -144,5 +144,5 @@
   <string name="studyMembersTitle">Чланови студије</string>
   <string name="studyChaptersTitle">Поглавља студије</string>
   <string name="fromPgnGameTitle">Из PGN партије</string>
-  <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Дупли пораз</string>
+  <string name="doubleDefeat">Дупли пораз</string>
 </resources>

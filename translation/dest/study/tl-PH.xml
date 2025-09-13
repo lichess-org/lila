@@ -115,6 +115,6 @@
   <string name="playAgain">Maglaro ulit</string>
   <string name="whatWouldYouPlay">Ano ang lalaruin mo sa posisyong ito?</string>
   <string name="youCompletedThisLesson">Binabati kita! Nakumpleto mo ang araling ito.</string>
-  <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">%s bawat pahina</string>
+  <string name="perPage">%s bawat pahina</string>
   <string name="welcomeToLichessStudyTitle">Maligayang pagdating sa Lichess Pag-aralan!</string>
 </resources>

@@ -459,6 +459,7 @@
     <item quantity="other">Musisz rozegrać jeszcze %s partii rankingowych</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Twój ranking (%s) jest prowizoryczny</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Filtry rankingu są zablokowane, ponieważ Twój ranking nie jest stabilny. Rozegranie partii rankingowych zwiększy tę stabilność.</string>
   <string name="yourPerfRatingIsTooHigh">Twój ranking %2$s (%1$s) jest za wysoki</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Twój ranking tygodniowy %2$s (%1$s) jest za wysoki</string>
   <string name="yourPerfRatingIsTooLow">Twój ranking %2$s (%1$s) jest za niski</string>
@@ -1099,4 +1100,9 @@ Wszystkie koszty operacyjne, rozwój i treści są finansowane wyłącznie z dar
   <string name="enableBlindMode">Włącz tryb gry \"na ślepo\"</string>
   <string name="disableBlindMode">Wyłącz tryb gry \"na ślepo\"</string>
   <string name="copyToClipboard">Kopiuj do schowka</string>
+  <string name="online" comment="status of a user">online</string>
+  <string name="offline" comment="status of a user">offline</string>
+  <string name="search">Szukaj</string>
+  <string name="clearSearch">Wyczyść wyszukiwanie</string>
+  <string name="tags">Tagi</string>
 </resources>

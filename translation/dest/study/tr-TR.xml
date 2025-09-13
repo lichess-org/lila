@@ -164,11 +164,11 @@
   <string name="playAgain">Tekrar oyna</string>
   <string name="whatWouldYouPlay">Burada hangi hamleyi yapardınız?</string>
   <string name="youCompletedThisLesson">Tebrikler! Bu dersi tamamlandınız.</string>
-  <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">Sayfa başına %s</string>
+  <string name="perPage">Sayfa başına %s</string>
   <string name="getTheTour">Yardıma mı ihtiyacın var? Tura başla!</string>
   <string name="welcomeToLichessStudyTitle">Lichess Dersine Hoşgeldin! </string>
   <string name="welcomeToLichessStudyText">Bu paylaşımlı bir analiz panosudur.&lt;br&gt;&lt;br&gt;Oyunları analiz etmek ve not eklemek,&lt;br&gt;arkadaşlarınızla pozisyonları tartışmak,&lt;br&gt;ve tabii ki satranç dersleri için kullanabilirsiniz!&lt;br&gt;&lt;br&gt;Güçlü bir araç, nasıl çalıştığını görmek için biraz zaman ayıralım.</string>
-  <string name="sharedAndSaveTitle" comment="Appears as the title of a pop-up lightbox in the guided tour of Lichess Studies.&#10;&#10;As in: shared with other members &amp; saved to the database.">Paylaşıldı ve kaydedildi</string>
+  <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Paylaşıldı ve kaydedildi</string>
   <string name="sharedAndSavedText">Diğer üyeler sizin hareketlerinizi gerçek zamanlı olarak görebilir!&lt;br&gt;Ayrıca, her şey sonsuza kadar kaydedilir.</string>
   <string name="studyMembersTitle">Çalışma üyeleri</string>
   <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s Seyirciler çalışmayı görüntüleyebilir ve sohbette konuşabilir.&lt;br&gt;&lt;br&gt;%2$s Katılımcılar hamle yapabilir ve çalışmayı güncelleyebilir.</string>
@@ -191,6 +191,6 @@
   <string name="loadExistingLichessGameText">Lichess oyun URL\'sini yapıştırın&lt;br&gt;(örneğin lichess.org/7fHIU0XI)&lt;br&gt;bölümdeki oyun hamlelerini yüklemek için.</string>
   <string name="fromFenStringTitle">Bir FEN dizisinden</string>
   <string name="fromPgnGameTitle">PGN oyunundan</string>
-  <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Çift mağlubiyet</string>
-  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">Beyaz kaybeder fakat siyah kazanamaz</string>
+  <string name="doubleDefeat">Çift mağlubiyet</string>
+  <string name="whiteDefeatBlackCanNotWin">Beyaz kaybeder fakat siyah kazanamaz</string>
 </resources>

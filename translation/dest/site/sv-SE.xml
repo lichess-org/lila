@@ -1007,4 +1007,10 @@ Alla driftskostnader, utveckling och innehåll finansieras enbart av användardo
   <string name="accessibility">Tillgänglighet</string>
   <string name="enableBlindMode">Aktivera blind-läge</string>
   <string name="disableBlindMode">Inaktivera blind-läge</string>
+  <string name="copyToClipboard">Kopiera till urklipp</string>
+  <string name="online" comment="status of a user">online</string>
+  <string name="offline" comment="status of a user">offline</string>
+  <string name="search">Sök</string>
+  <string name="clearSearch">Rensa sökning</string>
+  <string name="tags">Taggar</string>
 </resources>

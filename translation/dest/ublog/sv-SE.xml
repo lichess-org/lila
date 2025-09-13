@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="community">Community</string>
+  <string name="myFriends">Mina vänner</string>
   <string name="myBlog">Min blogg</string>
   <string name="likedBlogs">Gillade blogginlägg</string>
   <plurals name="blogPosts">

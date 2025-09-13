@@ -1009,4 +1009,7 @@ Kaikki toimintakustannukset, kehitystyö ja sisältö rahoitetaan yksinomaan kä
   <string name="enableBlindMode">Siirry sokean käyttäjän tilaan</string>
   <string name="disableBlindMode">Poistu sokean käyttäjän tilasta</string>
   <string name="copyToClipboard">Kopioi leikepöydälle</string>
+  <string name="search">Hae</string>
+  <string name="clearSearch">Tyhjennä haku</string>
+  <string name="tags">Tunnisteet</string>
 </resources>

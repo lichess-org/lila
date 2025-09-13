@@ -39,7 +39,7 @@
   <string name="leaveTheStudy">Forlad dette studie</string>
   <string name="youAreNowAContributor">Du er nu bidragsyder</string>
   <string name="youAreNowASpectator">Du er nu tilskuer</string>
-  <string name="pgnTags">PGN tags</string>
+  <string name="pgnTags">PGN-etiketter</string>
   <string name="like">Synes godt om</string>
   <string name="unlike">Synes ikke godt om</string>
   <string name="newTag">Nyt tag</string>
@@ -61,6 +61,7 @@
   <string name="studyPgn">Studie PGN</string>
   <string name="chapterPgn">Kapitel PGN</string>
   <string name="copyChapterPgn">Kopier PGN</string>
+  <string name="copyRawChapterPgn">Kopiér rå PGN</string>
   <string name="downloadGame">Download parti</string>
   <string name="studyUrl">Studie URL</string>
   <string name="currentChapterUrl">Nuværende kapitel URL</string>
@@ -164,11 +165,11 @@
   <string name="playAgain">Spil igen</string>
   <string name="whatWouldYouPlay">Hvad ville du spille i denne position?</string>
   <string name="youCompletedThisLesson">Tillykke! Du har fuldført denne lektion.</string>
-  <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">%s pr. side</string>
+  <string name="perPage">%s pr. side</string>
   <string name="getTheTour">Brug for hjælp? Tag rundvisningen!</string>
   <string name="welcomeToLichessStudyTitle">Velkommen til Lichess Study!</string>
   <string name="welcomeToLichessStudyText">Dette er et delt analysebræt.&lt;br&gt;&lt;br&gt;Brug det til at analysere og kommentere partier,&lt;br&gt;diskutere positioner med venner,&lt;br&gt;og selvfølgelig til skakundervisning!&lt;br&gt;&lt;br&gt;Det er et effektivt værktøj, så lad os bruge lidt tid på at se, hvordan det virker.</string>
-  <string name="sharedAndSaveTitle" comment="Appears as the title of a pop-up lightbox in the guided tour of Lichess Studies.&#10;&#10;As in: shared with other members &amp; saved to the database.">Delt og gemt</string>
+  <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Delt og gemt</string>
   <string name="sharedAndSavedText">Andre medlemmer kan se dine træk i realtid!&lt;br&gt;Plus, alt er gemt for evigt.</string>
   <string name="studyMembersTitle">Medlemmer af studiet</string>
   <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s Tilskuere kan se studiet og snakke i chatten.&lt;br&gt;&lt;br&gt;%2$s Bidragsydere kan foretage træk og opdatere studiet.</string>
@@ -196,7 +197,7 @@
   <string name="variantsAreSupportedTitle">Studier understøtter varianter</string>
   <string name="variantsAreSupportedText">Ja, du kan studere crazyhouse&lt;br&gt;og alle lichess-varianter!</string>
   <string name="chapterConclusionText">Kapitler gemmes for evigt.&lt;br&gt;God fornøjelse med at organisere dit skakindhold!</string>
-  <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Dobbelt nederlag</string>
-  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">Sort nederlag, men hvid kan ikke vinde</string>
-  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">Hvidt nederlag, men sort kan ikke vinde</string>
+  <string name="doubleDefeat">Dobbelt nederlag</string>
+  <string name="blackDefeatWhiteCanNotWin">Sort nederlag, men hvid kan ikke vinde</string>
+  <string name="whiteDefeatBlackCanNotWin">Hvidt nederlag, men sort kan ikke vinde</string>
 </resources>
