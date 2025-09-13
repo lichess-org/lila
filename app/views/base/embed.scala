@@ -19,7 +19,7 @@ object embed:
           page.ui.metaCsp(embedCsp.withNonce(ctx.nonce).withInlineIconFont),
           st.headTitle(title),
           (ctx.bg == "system").option(page.ui.systemThemeScript(ctx.nonce.some)),
-          page.ui.pieceSprite(ctx.pieceSet.name),
+          page.pieceSetImages.load(ctx.pieceSet.name),
           cssTag("lib.theme.embed"),
           cssKeys.map(cssTag),
           page.ui.scriptsPreload(modules.flatMap(_.map(_.key)))
@@ -65,7 +65,7 @@ object embed:
           page.ui.metaCsp(csp(basicCsp.withNonce(ctx.nonce).withInlineIconFont)),
           st.headTitle(title),
           (ctx.bg == "system").option(page.ui.systemThemeScript(ctx.nonce.some)),
-          page.ui.pieceSprite(ctx.pieceSet.name),
+          page.pieceSetImages.load(ctx.pieceSet.name),
           cssTag("lib.theme.embed"),
           cssKeys.map(cssTag),
           page.ui.sitePreload(List[I18nModule.Selector](_.site, _.timeago) ++ i18nModules, allModules),

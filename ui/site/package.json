@@ -27,7 +27,7 @@
       "/public/lifat/background/**/*.webp",
       "/public/npm/*",
       "/public/piece/**",
-      "/public/piece-css/*",
+      "/public/piece-css/**",
       "/public/sound/**/*.mp3"
     ]
   }

@@ -19,7 +19,7 @@ interface Site {
     baseUrl(): string;
     url(url: string, opts?: AssetUrlOpts): string;
     flairSrc(flair: Flair): string;
-    loadCss(href: string): Promise<void>;
+    loadCss(href: string, key?: string): Promise<void>;
     loadCssPath(key: string): Promise<void>;
     removeCss(href: string): void;
     removeCssPath(key: string): void;

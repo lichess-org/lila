@@ -60,7 +60,8 @@ export class PieceCtrl extends PaneCtrl {
     document.body.dataset[this.is3d ? 'pieceSet3d' : 'pieceSet'] = t;
     if (!this.is3d) {
       const sprite = document.getElementById('piece-sprite') as HTMLLinkElement;
-      sprite.href = site.asset.url(`piece-css/${t}.css`);
+      if (sprite) sprite.href = site.asset.url(`piece-css/${t}.css`);
+      pieceVarRules(t);
     }
     pubsub.emit('board.change', this.is3d);
   };
@@ -77,4 +78,26 @@ export class PieceCtrl extends PaneCtrl {
     );
     this.redraw();
   };
+}
+
+const pieceVars = [
+  ['---white-pawn', 'wP'],
+  ['---black-pawn', 'bP'],
+  ['---white-knight', 'wN'],
+  ['---black-knight', 'bN'],
+  ['---white-bishop', 'wB'],
+  ['---black-bishop', 'bB'],
+  ['---white-rook', 'wR'],
+  ['---black-rook', 'bR'],
+  ['---white-queen', 'wQ'],
+  ['---black-queen', 'bQ'],
+  ['---white-king', 'wK'],
+  ['---black-king', 'bK'],
+];
+
+function pieceVarRules(theme: string) {
+  for (const [varName, fileName] of pieceVars) {
+    const url = site.asset.url(`piece/${theme}/${fileName}.svg`, { pathOnly: true });
+    document.body.style.setProperty(varName, `url(${url})`);
+  }
 }

@@ -33,8 +33,6 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
       "if (window.matchMedia('(prefers-color-scheme: light)')?.matches) " +
         "document.documentElement.classList.add('light');"
     )(nonce)
-  def pieceSprite(name: String): Frag =
-    link(id := "piece-sprite", href := assetUrl(s"piece-css/$name.css"), rel := "stylesheet")
   val noTranslate = raw("""<meta name="google" content="notranslate">""")
 
   def preload(href: String, as: String, crossorigin: Boolean, tpe: Option[String] = None) =

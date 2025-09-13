@@ -4859,7 +4859,7 @@ interface I18n {
     contributors: string;
     /** Copy PGN */
     copyChapterPgn: string;
-    /** Copy Raw PGN (without annotations, clock times or variations) */
+    /** Copy Raw PGN */
     copyRawChapterPgn: string;
     /** Counterplay */
     counterplay: string;
