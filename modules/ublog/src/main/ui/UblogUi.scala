@@ -308,13 +308,18 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
           )
         )
 
-  def modShowCarousel(posts: UblogPost.CarouselPosts)(using Context) =
+  def modShowCarousel(posts: UblogPost.CarouselPosts, carouselSize: Int)(using Context) =
     Page("Blog carousel")
       .css("bits.ublog")
       .js(Esm("bits.ublog")):
         main(cls := "page-menu")(
           bits.modMenu("carousel"),
-          div(cls := "page-menu__content box box-pad")(
+          div(cls := "page-menu__content box box-pad column-gap")(
+            postForm(action := routes.Ublog.modSetCarouselSize)(
+              label("Carousel size: "),
+              input(name := "size", size := "2", value := s"$carouselSize", enterkeyhint := "set"),
+              submitButton(cls := "button button-empty", dataIcon := Icon.Checkmark)
+            ),
             div(cls := "ublog-index__posts ublog-mod-carousel")(
               (posts.pinned ++ posts.queue).map: p =>
                 val by = userIdLink(

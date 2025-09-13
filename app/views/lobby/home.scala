@@ -128,7 +128,7 @@ object home:
           div(cls := "lobby__blog carousel")(
             ublogPosts
               .filter(_.isLichess || ctx.kid.no)
-              .take(9)
+              .take(env.ublog.api.carouselSizeSetting.get())
               .map:
                 views.ublog.ui
                   .card(_, showAuthor = views.ublog.ui.ShowAt.bottom, showIntro = false, strictDate = false)
