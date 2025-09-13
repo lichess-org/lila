@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="chessVideos">Videoclipuri despre șah</string>
+  <string name="allVideosAreFree">Toate videoclipurile sunt gratuite pentru toată lumea.</string>
+  <string name="selectTagsToFilter">Selectați etichetele pentru a filtra videoclipurile.</string>
+  <string name="freeChessVideos">Videoclipuri gratuite despre șah</string>
+  <string name="thereAreNoResultsForX" comment="%s is the search term that the user entered.">Nu există rezultate pentru \"%s\"</string>
+  <string name="viewMoreTags" comment="Appears as a link on https://lichess.org/video&#10;&#10;The link leads to https://lichess.org/video/tags">Vezi mai multe etichete</string>
+  <string name="videoNotFound">Video inexistent!</string>
+  <string name="allNbVideoTags" comment="%s is the number of video tags. Appears on https://lichess.org/video/tags">Toate %s etichetele</string>
+</resources>
