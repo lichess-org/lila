@@ -337,6 +337,8 @@ object I18nKey:
     val `xIsAKidAccountWarning`: I18nKey = "class:xIsAKidAccountWarning"
     val `moveToClass`: I18nKey = "class:moveToClass"
     val `moveToAnotherClass`: I18nKey = "class:moveToAnotherClass"
+    val `allowMessagingBetweenStudents`: I18nKey = "class:allowMessagingBetweenStudents"
+    val `allowMessagingBetweenStudentsDesc`: I18nKey = "class:allowMessagingBetweenStudentsDesc"
     val `nbPendingInvitations`: I18nKey = "class:nbPendingInvitations"
     val `nbTeachers`: I18nKey = "class:nbTeachers"
     val `nbStudents`: I18nKey = "class:nbStudents"
