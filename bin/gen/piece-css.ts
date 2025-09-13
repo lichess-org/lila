@@ -70,7 +70,7 @@ function generateBase64Css() {
               const base64 = image.toString('base64');
               return `.is2d .${role}.${color} {background-image:url('data:image/svg+xml;base64,${base64}')}`;
             })
-            .join('\n')
+            .join('\n'),
         )
         .join('\n') + '\n';
 
