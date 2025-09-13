@@ -1058,4 +1058,5 @@ Toate costurile de operare și de dezvoltare sunt finanțate doar din donațiile
   <string name="online" comment="status of a user">conectat</string>
   <string name="offline" comment="status of a user">deconectat</string>
   <string name="search">Căutare</string>
+  <string name="tags">Etichete</string>
 </resources>
