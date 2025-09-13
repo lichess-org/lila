@@ -1,7 +1,8 @@
-import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'fs';
-import path from 'path';
+import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const lilaDir = path.resolve(__dirname, '../..');
+const lilaDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const sourceDir = path.resolve(lilaDir, 'public/piece');
 const destDir = path.resolve(lilaDir, 'public/piece-css');
 

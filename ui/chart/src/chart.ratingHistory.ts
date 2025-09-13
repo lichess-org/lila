@@ -245,6 +245,7 @@ export function initModule({ data, singlePerfName }: Opts): void {
     pubsub.on('chart.panning', () => {
       slider.set([chart.scales.x.min, chart.scales.x.max], false, true);
     });
+    $el[0]!.style.touchAction = 'pan-y';
     const activeIfDuration = (d: duration.Duration) => (initial.isSame(endDate.subtract(d)) ? 'active' : '');
     const timeBtn = (b: { t: TimeButton; duration: duration.Duration }) =>
       `<button class = "btn-rack__btn ${activeIfDuration(b.duration)}">${b.t}</button>`;
