@@ -26,7 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           submodules: recursive
       - name: Install pnpm
@@ -39,7 +39,7 @@ jobs:
       - name: Install pnpm dependencies
         run: pnpm install
       - name: Checkout ab (optional)
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: lichess-org/ab
           ssh-key: ${{ secrets.id_rsa_ab }}
