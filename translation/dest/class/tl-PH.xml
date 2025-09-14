@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses" comment="Lichess Classes are a feature that lets a teacher create virtual classes and check out students' progress.&#10;&#10;This text used to be &quot;Lichess Classes&quot;, which has since been shortened to &quot;Classes&quot;.">Mga Klase</string>
+  <string name="lichessClasses">Mga Klase</string>
   <string name="teachClassesOfChessStudents">Magturo sa mga klase ng mga mag-aaral ng chess gamit ang tool suite ng Lichess Klase.</string>
   <string name="features">Mga tampok</string>
   <string name="quicklyGenerateSafeUsernames">Mabilis na gumawa ng mga ligtas na username at passwords para sa mga mag-aaral</string>
   <string name="trackStudentProgress">Subaybayan ang pag-unlad ng nag-aaral sa mga laro at palaisipan</string>
   <string name="messageAllStudents">Mensahe sa lahat ng mga mag-aaral tungkol sa bagong materyal sa klase</string>
-  <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">100% libre para sa lahat, magpakailanman, na walang mga ads o mga trackers</string>
+  <string name="freeForAllForever">100% libre para sa lahat, magpakailanman, na walang mga ads o mga trackers</string>
   <string name="applyToBeLichessTeacher">Mag-apply para maging Lichess na Guro</string>
   <string name="noClassesYet">Wala pang klase.</string>
   <string name="teachersX">Mga Guro: %s</string>
   <string name="newClass">Bagong klase</string>
   <string name="closeClass">Isara ang klase</string>
   <string name="removedByX">Inalis ni %s</string>
-  <string name="reopen" comment="A button, permitting a teacher to reopen a closed class.">Buksan muli</string>
-  <string name="removeStudent" comment="Removes a student from the class. Note the same text is used both for initial removal, and for full erasure.">Alisin ang mag-aaral</string>
-  <string name="removedStudents" comment="This is in plural form. It is a heading showing all students who have been removed from the class.">Inalis</string>
-  <string name="inviteTheStudentBack" comment="A button. Clicking this will re-invite a student that has been removed from the class.">Imbitahing muli ang mag-aaral</string>
+  <string name="reopen">Buksan muli</string>
+  <string name="removeStudent">Alisin ang mag-aaral</string>
+  <string name="removedStudents">Inalis</string>
+  <string name="inviteTheStudentBack">Imbitahing muli ang mag-aaral</string>
   <string name="sendAMessage">Magpadala ng mensahe sa lahat ng mga mag-aaral.</string>
   <string name="aLinkToTheClassWillBeAdded">Ang isang link sa klase ay awtomatikong idinagdag sa dulo ng mensahe, kaya hindi mo na kailangang ilagay pa sa sarili mo.</string>
   <string name="className">Pangalan ng Klase</string>
@@ -30,7 +30,7 @@
   <string name="generateANewPassword">Gumawa ng bagong password para sa mag-aaral</string>
   <string name="invitedToXByY">Imbitado sa %1$s ni %2$s</string>
   <string name="realName">Totoong pangalan</string>
-  <string name="privateWillNeverBeShown" comment="A description of the real name field for members of a class.">Pribado. Hindi kailanman ipapakita sa labas ng klase. Tumutulong sa iyo na matandaan kung sino ang mag-aaral.</string>
+  <string name="privateWillNeverBeShown">Pribado. Hindi kailanman ipapakita sa labas ng klase. Tumutulong sa iyo na matandaan kung sino ang mag-aaral.</string>
   <string name="addStudent">Magdagdag ng mag-aaral</string>
   <string name="lichessProfileXCreatedForY">Lichess profile %1$s gumawa para sa %2$s.</string>
   <string name="studentCredentials">Mag-aaral: %1$s
@@ -41,14 +41,14 @@ Password: %3$s</string>
   <string name="inviteDesc2">Makakatanggap sila ng mensahe sa Lichess na may link para makasali sa klase.</string>
   <string name="inviteDesc3">Importante: mag-imbita lamang ng mga mag-aaral na kilala mo, at sino ang aktibong gustong sumali sa klase.</string>
   <string name="inviteDesc4">Huwag magpadala ng mga hindi hinihinging imbitasyon sa mga arbitraryong manlalaro.</string>
-  <string name="createANewLichessAccount" comment="The person who would see this would always be a teacher.&#10;In this context, it is to create a new account for a student of their class.">Gumawa ng bagong Lichess account</string>
+  <string name="createANewLichessAccount">Gumawa ng bagong Lichess account</string>
   <string name="createDesc1">Kung ang mag-aaral ay wala pang Lichess account, maaari kang gumawa ng isa para sa kanila rito.</string>
   <string name="createDesc2">Hindi kailangang ng email address. Ang isang password ay magagawa at kailangang mong ibigay ito sa mag-aaral upang sila ay pwedeng mag-log in.</string>
   <string name="createDesc3">Importante: ang isang mag-aaral ay hindi dapat magkaroon ng maraming account.</string>
   <string name="createDesc4">Kung mayroon na sila, gamitin na lang ang porma na imbitasyon.</string>
   <string name="createStudentWarning">Gumawa lamang ng mga account para sa mga tunay na mag-aaral. Huwag gamitin ito para gumawa ng maraming account para sa iyong sarili. Magkakaroon ka ng ban.</string>
   <string name="lichessUsername">Lichess username</string>
-  <string name="generateANewUsername" comment="A button which lets teachers create a random username for students they are registering.">Gumawa ng bagong username</string>
+  <string name="generateANewUsername">Gumawa ng bagong username</string>
   <string name="welcomeToClass">Maligayang pagdating sa iyong klase: %s.
 Dito ang link para ma-access ang klase.</string>
   <string name="invitationToClass">Inimbita ka na sumali sa klaseng \"%s\" bilang isang mag-aaral.</string>
@@ -57,8 +57,8 @@ Dito ang link para ma-access ang klase.</string>
     <item quantity="one">Isang nakabinbing imibitasyon</item>
     <item quantity="other">%s mga nakabinbing imbitasyon</item>
   </plurals>
-  <string name="pending" comment="Appears in a table of students. Refers to invitation by a teacher to join a class, which the student has not yet responded to.">Nakabinbin</string>
-  <string name="declined" comment="Appears in a table of students. Refers to invitation by a teacher to join a class, which the student declined.">Tinanggihan</string>
+  <string name="pending">Nakabinbin</string>
+  <string name="declined">Tinanggihan</string>
   <string name="onlyVisibleToTeachers">Nakikita lamang ng mga guro ng klase</string>
   <string name="lastActiveDate">Aktibo</string>
   <string name="managed">Pinamamahalaan</string>
@@ -97,17 +97,17 @@ Dito ang link para ma-access ang klase.</string>
 Magpapakita ito ng pahalang na linya.</string>
   <string name="invite">Imbitahan</string>
   <string name="youHaveBeenInvitedByX">Inimbitahan ka ni %s.</string>
-  <string name="youAcceptedThisInvitation" comment="Appears when revisiting the page of an invitation to a class, which you have already accepted.">Tinanggap mo ang imbitasyong ito.</string>
-  <string name="youDeclinedThisInvitation" comment="Appears when revisiting the page of an invitation to a class, which you have already declined.">Tinanggihan mo ang imbitasyong ito.</string>
+  <string name="youAcceptedThisInvitation">Tinanggap mo ang imbitasyong ito.</string>
+  <string name="youDeclinedThisInvitation">Tinanggihan mo ang imbitasyong ito.</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">o</string>
   <string name="createMultipleAccounts">Gumawa ng maraming Lichess accounts nang sabay-sabay</string>
   <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Maaari mo rin %s upang magawa ng maraming mga Lichess account mula sa listahan ng mga pangalan ng mag-aaral.</string>
   <string name="useThisForm" comment="Link text in multipleAccsFromDescription">gamitin ang porma na ito</string>
   <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Tandaan na ang isang klase ay maaaring magkaroon ng hanggang %1$s mag-aaral. Upang pamahalaan ang higit pang mga mag-aaral, %2$s.</string>
   <string name="createMoreClasses" comment="Link text in maxStudentsNote">gumawa nang higit pang mga klase</string>
-  <string name="studentsRealNamesOnePerLine" comment="An instruction on how to enter students' names when creating new accounts for them.">Totoong pangalan ng mga mag-aaral, isa bawat linya</string>
-  <string name="xisNowAStudentOfTheClass" comment="%s is the player's name">Si %s ay mag-aaral na ngayon sa klase</string>
-  <string name="anInvitationHasBeenSentToX" comment="%s is the username of a player already registered on Lichess.">Isang imbitasyon ang ipinadala kay %s</string>
-  <string name="moveToClass" comment="%s is the name of the class. The name of the class is set by the teacher.&#10;&#10;Appears on a confirmation prompt when a teacher looks to move a student to one of the other classes they run.">Ilipat sa %s</string>
-  <string name="moveToAnotherClass" comment="Appears as a heading on a page which lets a teacher move one of their students to one of the other classes they run.">Lumipat sa ibang klase</string>
+  <string name="studentsRealNamesOnePerLine">Totoong pangalan ng mga mag-aaral, isa bawat linya</string>
+  <string name="xisNowAStudentOfTheClass">Si %s ay mag-aaral na ngayon sa klase</string>
+  <string name="anInvitationHasBeenSentToX">Isang imbitasyon ang ipinadala kay %s</string>
+  <string name="moveToClass">Ilipat sa %s</string>
+  <string name="moveToAnotherClass">Lumipat sa ibang klase</string>
 </resources>
