@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses" comment="Lichess Classes are a feature that lets a teacher create virtual classes and check out students' progress.&#10;&#10;This text used to be &quot;Lichess Classes&quot;, which has since been shortened to &quot;Classes&quot;.">Խմբեր</string>
+  <string name="lichessClasses">Խմբեր</string>
   <string name="teachClassesOfChessStudents">Շախմատն աշակերտներին դասավանդեք «Lichess-ի դասեր» գործիքների օգնությամբ։</string>
   <string name="features">Հնարավորություններ</string>
   <string name="quicklyGenerateSafeUsernames">Արագ ստեղծեք անվտանգ անուններ և գաղտնաբառեր աշակերտների համար։</string>
   <string name="trackStudentProgress">Հետևեք աշակերտների առաջընթացին պարտիաներում և խնդիրներում</string>
   <string name="messageAllStudents">Հայտնեք բոլոր աշակերտներին խմբերի նոր նյութերի մասին</string>
-  <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">Անվճար է բոլորի համար, ընդմիշտ, 100 տոկոսով առանց գովազդի և հետևման</string>
+  <string name="freeForAllForever">Անվճար է բոլորի համար, ընդմիշտ, 100 տոկոսով առանց գովազդի և հետևման</string>
   <string name="applyToBeLichessTeacher">Ներկայացնել հայտ՝ Lichess-ի ուսուցիչ դառնալու համար</string>
   <string name="noClassesYet">Խմբեր դեռ չկան։</string>
   <string name="teachersX">Ուսուցիչներ՝ %s</string>
   <string name="newClass">Նոր խումբ</string>
   <string name="closeClass">Փակել խումբը</string>
   <string name="removedByX">Հեռացված է %s օգտատիրոջ կողմից</string>
-  <string name="reopen" comment="A button, permitting a teacher to reopen a closed class.">Վերաբացել</string>
-  <string name="removeStudent" comment="Removes a student from the class. Note the same text is used both for initial removal, and for full erasure.">Հեռացնել աշակերտին</string>
-  <string name="removedStudents" comment="This is in plural form. It is a heading showing all students who have been removed from the class.">Հեռացված է</string>
-  <string name="inviteTheStudentBack" comment="A button. Clicking this will re-invite a student that has been removed from the class.">Հետ հրավիրել աշակերտին</string>
+  <string name="reopen">Վերաբացել</string>
+  <string name="removeStudent">Հեռացնել աշակերտին</string>
+  <string name="removedStudents">Հեռացված է</string>
+  <string name="inviteTheStudentBack">Հետ հրավիրել աշակերտին</string>
   <string name="sendAMessage">Հաղորդագրություն ուղարկել բոլոր աշակերտներին։</string>
   <string name="aLinkToTheClassWillBeAdded">Խմբի հղումն ինքնաբերաբար կավելանա հաղորդագրության վերջում, ինքնուրույն ավելացնելու կարիք չկա։</string>
   <string name="className">Խմբի անվանումը</string>
@@ -36,14 +36,14 @@
   <string name="inviteDesc2">Նրանք Lichess-ում կստանան դասարան մտնելու հղումով հաղորդագրություն։</string>
   <string name="inviteDesc3">Կարևոր է. հրավիրեք միայն այն մասնակիցներին, որոնց ճանաչում եք, և որոնք իրոք ցանկանում են պարապել դասարանում։</string>
   <string name="inviteDesc4">Երբեք մի՛ ուղարկեք անցանկալի հրավերներ պատահական խաղացողներին։</string>
-  <string name="createANewLichessAccount" comment="The person who would see this would always be a teacher.&#10;In this context, it is to create a new account for a student of their class.">Ստեղծել նոր հաշիվ Lichess-ում</string>
+  <string name="createANewLichessAccount">Ստեղծել նոր հաշիվ Lichess-ում</string>
   <string name="createDesc1">Եթե աշակերտը դեռևս չունի Lichess-ի մասնակցային հաշիվ, Դուք այն կարող եք ստեղծել այստեղ։</string>
   <string name="createDesc2">Էլեկտրոնային փոստի հասցե պետք չէ։ Կձևավորվի պատահական գաղտնաբառ, որը պետք է ուղարկեք աշակերտին, որպեսզի նա կարողանա մուտք գործել համակարգ։</string>
   <string name="createDesc3">Կարևոր է. աշակերտը չպետք է ունենա մի քանի մասնակցային հաշիվ։</string>
   <string name="createDesc4">Եթե նրանք արդեն ունեն, օգտագործեք հրավերի ձևանմուշը։</string>
   <string name="createStudentWarning">Ստեղծեք մասնակցային հաշիվներ միայն իրական աշակերտների համար։ Այդ հնարավորությունը մի՛ օգտագործեք անձնական նպատակներով մասնակցային հաշիվներ ստեղծելու համար, այլապես կարգելափակվեք։</string>
   <string name="lichessUsername">Մասնակցային անունը Lichess-ում</string>
-  <string name="generateANewUsername" comment="A button which lets teachers create a random username for students they are registering.">Ստեղծել նոր մասնակցային անուն</string>
+  <string name="generateANewUsername">Ստեղծել նոր մասնակցային անուն</string>
   <string name="welcomeToClass">Բարի՜ գալուստ Ձեր դասարան՝ %s։
 Ահա դասարանի մուտքի հղումը։</string>
   <string name="invitationToClass">Ձեզ հրավիրել են «%s» դասարան որպես աշակերտի։</string>
@@ -57,7 +57,7 @@
   <string name="managed">Կառավարվող</string>
   <string name="thisStudentAccountIsManaged">Այս աշակերտի հաշիվը ղեկավարում է դասավանդողը</string>
   <string name="upgradeFromManaged">Փոխել կառավարվողը ինքնավարով</string>
-  <string name="release" comment="This used to be 'release'. It is now called 'graduate', and the term is used here as a verb.&#10;&#10;'Releasing' an account means making it a full Lichess account. It will no longer be tied to the teacher that created it.">Հանձնել</string>
+  <string name="release">Հանձնել</string>
   <string name="releaseTheAccount">Հանձնել հաշիվը աշակերտին, որպեսզի նա կառավարի ինքնուրույն։</string>
   <string name="releaseDesc1">Հանձնված հաշիվը կրկին չի կարող դառնալ կառավարվող։ Աշակերտը կկարողանա ինքնուրույն անջատել/միացնել մանկական ռեժիմը և փոխել գաղտնաբառը։</string>
   <string name="releaseDesc2">Աշակերտը կմնա դասարանում նույնիսկ երբ նրա հաշիվը հաձնվի իրեն։</string>
@@ -95,11 +95,11 @@
   <string name="newsEdit3">Նորությունները բաժանեք երեք գծիկով --- դրանք կվերածվեն հորիզոնական գծի։</string>
   <string name="invite">Հրավիրել</string>
   <string name="youHaveBeenInvitedByX">Դուք հրավիրվել եք %s։</string>
-  <string name="youAcceptedThisInvitation" comment="Appears when revisiting the page of an invitation to a class, which you have already accepted.">Դուք ընդունեցիք այս հրավերը։</string>
-  <string name="youDeclinedThisInvitation" comment="Appears when revisiting the page of an invitation to a class, which you have already declined.">Դուք մերժեցիք այս հրավերը։</string>
+  <string name="youAcceptedThisInvitation">Դուք ընդունեցիք այս հրավերը։</string>
+  <string name="youDeclinedThisInvitation">Դուք մերժեցիք այս հրավերը։</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">կամ</string>
   <string name="createMultipleAccounts">Միաժամանակ ստեղծել Lichess-ի մի քանի հաշիվ</string>
   <string name="useThisForm" comment="Link text in multipleAccsFromDescription">օգտագործեք այս ձևը</string>
   <string name="createMoreClasses" comment="Link text in maxStudentsNote">ստեղծեք ավելի շատ դասարաններ</string>
-  <string name="studentsRealNamesOnePerLine" comment="An instruction on how to enter students' names when creating new accounts for them.">Աշակերտների իրական անունները․ մեկական յուրաքանչյուր տողում</string>
+  <string name="studentsRealNamesOnePerLine">Աշակերտների իրական անունները․ մեկական յուրաքանչյուր տողում</string>
 </resources>
