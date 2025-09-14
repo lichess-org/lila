@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses" comment="Lichess Classes are a feature that lets a teacher create virtual classes and check out students' progress.&#10;&#10;This text used to be &quot;Lichess Classes&quot;, which has since been shortened to &quot;Classes&quot;.">শ্রেণি</string>
-  <string name="reopen" comment="A button, permitting a teacher to reopen a closed class.">পুনরায় খোলা</string>
+  <string name="lichessClasses">শ্রেণি</string>
+  <string name="reopen">পুনরায় খোলা</string>
   <string name="createDesc3">গুরুত্বপূর্ণ: একজন ছাত্রের একাধিক অ্যাকাউন্ট থাকা যাবে না।</string>
   <string name="createDesc4">যদি তাদের ইতিমধ্যেই একটি থেকে থাকে, তাহলে বরং আমন্ত্রণ ফর্ম ব্যবহার করুন।</string>
   <string name="lichessUsername">Lichess ইউজারনেম</string>
-  <string name="generateANewUsername" comment="A button which lets teachers create a random username for students they are registering.">একটি ইউজারনেম জেনারেট করুন</string>
+  <string name="generateANewUsername">একটি ইউজারনেম জেনারেট করুন</string>
   <string name="welcomeToClass">আপনার ক্লাসে স্বাগতম: %s.
 এখানে আপনার ক্লাসের লিংক।</string>
   <string name="invitationToClass">ক্লাস \"%s\" এ আপনাকে ছাত্র হিসেবে যোগদানের জন্য আমন্ত্রণ জানানো হয়েছে।</string>
@@ -19,7 +19,7 @@
   <string name="managed">ম্যানেজ কৃত</string>
   <string name="thisStudentAccountIsManaged">এই ছাত্র অ্যাকাউন্ট ম্যানেজ কৃত</string>
   <string name="upgradeFromManaged">ম্যানেজকৃত অ্যাকাউন্ট থেকে স্বাধীন অ্যাকাউন্টে পরিণত করুন</string>
-  <string name="release" comment="This used to be 'release'. It is now called 'graduate', and the term is used here as a verb.&#10;&#10;'Releasing' an account means making it a full Lichess account. It will no longer be tied to the teacher that created it.">মুক্তি দিন</string>
+  <string name="release">মুক্তি দিন</string>
   <string name="releaseTheAccount">অ্যাকাউন্টটিকে মুক্তি দিন যাতে ছাত্র তা স্বাধীনভাবে ব্যবহার করতে পারে।</string>
   <string name="releaseDesc1">একটা মুক্তি দেয়া অ্যাকাউন্ট পুনরায় বানানো যাবে না। ছাত্ররা নিজেরাই কিড মোড টগল করতে এবং পাসওয়ার্ড রিসেট করতে পারবে।</string>
   <string name="releaseDesc2">এই ছা্ত্র অ্যাকাউন্ট মুক্তি দেয়ার পর ক্লাসে থেকে যাবে।</string>
