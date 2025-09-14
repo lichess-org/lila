@@ -83,7 +83,7 @@ final class ClasApi(
     def isTeacherOf(teacher: User, clasId: ClasId): Fu[Boolean] =
       coll.exists($id(clasId) ++ $doc("teachers" -> teacher.id))
 
-    def areKidsInSameClass(kid1: UserId, kid2: UserId): Fu[Boolean] =
+    def canKidsUseMessages(kid1: UserId, kid2: UserId): Fu[Boolean] =
       fuccess(studentCache.isStudent(kid1) && studentCache.isStudent(kid2)) >>&
         colls.student.aggregateExists(_.sec): framework =>
           import framework.*
