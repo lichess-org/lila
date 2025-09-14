@@ -18,16 +18,33 @@ object header:
         u.profile.flatMap(_.nonEmptyBio).exists(_.contains("https://"))
     )
 
+  private def userDom(u: User)(using ctx: Context) =
+    span(
+      cls := userClass(u.id, none, withOnline = !u.isPatron, withPowerTip = false),
+      dataHref := userUrl(u.username)
+    )(
+      u.isPatron.not.so(lineIcon(u)),
+      titleTag(u.title),
+      u.username,
+      ctx.blind.so(
+        if isOnline.exec(u.id) then s" : ${trans.site.online.txt()}" else s" : ${trans.site.offline.txt()}"
+      ),
+      userFlair(u).map: flair =>
+        if ctx.isAuth then a(href := routes.Account.profile, title := trans.site.setFlair.txt())(flair)
+        else flair
+    )
+
   def apply(u: User, info: UserInfo, angle: UserInfo.Angle, social: UserInfo.Social)(using ctx: Context) =
     val showLinks = !possibleSeoBot(u) || isGranted(_.Shadowban)
     frag(
       div(cls := "box__top user-show__header")(
-        if u.isPatron then
-          h1(cls := s"user-link ${if isOnline.exec(u.id) then "online" else "offline"}")(
-            a(href := routes.Plan.index())(patronIcon),
-            ui.userDom(u)
-          )
-        else h1(ui.userDom(u)),
+        u.patronTier.match
+          case Some(tier) =>
+            h1(cls := s"user-link ${if isOnline.exec(u.id) then "online" else "offline"}")(
+              a(href := routes.Plan.index())(patronIcon(tier)),
+              userDom(u)
+            )
+          case None => h1(userDom(u)),
         div(
           cls := List(
             "trophies" -> true,
