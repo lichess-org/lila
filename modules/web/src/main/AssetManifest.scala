@@ -15,6 +15,8 @@ case class AssetMaps(
     modified: Instant
 )
 
+case object AssetManifestUpdate
+
 final class AssetManifest(getFile: GetRelativeFile):
 
   private var maps: AssetMaps = AssetMaps(Map.empty, Map.empty, Map.empty, java.time.Instant.MIN)
@@ -31,8 +33,9 @@ final class AssetManifest(getFile: GetRelativeFile):
     val pathname = getFile.exec(s"public/compiled/manifest.json").toPath
     try
       val current = Files.getLastModifiedTime(pathname).toInstant
-      if current.isAfter(maps.modified)
-      then maps = readMaps(Json.parse(Files.newInputStream(pathname)))
+      if current.isAfter(maps.modified) then
+        maps = readMaps(Json.parse(Files.newInputStream(pathname)))
+        lila.common.Bus.pub(AssetManifestUpdate)
     catch case e: Throwable => lila.log("assetManifest").warn(s"Error reading $pathname", e)
 
   private val jsKeyRe = """^(?!common\.)(\S+)\.([A-Z0-9]{8})\.js""".r
