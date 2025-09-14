@@ -30,7 +30,7 @@
   <string name="nextRound">Következő forduló</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
     <item quantity="one">Folyamatban lévő játék</item>
-    <item quantity="other">Folyamatban lévő játékok</item>
+    <item quantity="other">Folyamatban lévő játszmák</item>
   </plurals>
   <string name="tournStartDate">Verseny kezdési ideje</string>
   <string name="numberOfRounds">Fordulók száma</string>
@@ -41,15 +41,15 @@
   <string name="manualPairings">Kézi párosítás a következő fordulóban</string>
   <string name="newSwiss">Új svájci rendszerű verseny</string>
   <string name="swissVsArenaQ">Mikor érdemes svájci rendszerű versenyt indítani aréna helyett?</string>
-  <string name="swissVsArenaA">Svájci rendszerű versenyben minden résztvevő ugyanannyi partit játszik és minden ellenféllel csak egyszer.
-Ez jó alternetívát nyújt kluboknak és hivatalos rendezvények szervezőinek.</string>
+  <string name="swissVsArenaA">Svájci rendszerű versenyben minden résztvevő ugyanannyi partit játszik, és minden ellenféllel csak egyszer.
+Jó választás kluboknak és hivatalos versenyekre.</string>
   <string name="pointsCalculationQ">Hogyan történik a pontok számítása?</string>
   <string name="pointsCalculationA">Minden nyert játszma egy, a döntetlen fél és a vereség nulla pontot ér.
 Ha egy játékost nem lehet párosítani a fordulóban akkor kap egy pontot érő szabadkört.</string>
   <string name="tiebreaksCalculationQ">Hogyan történik a holtverseny eldöntése?</string>
   <string name="sonnebornBergerScore">Sonneborn–Berger pont</string>
   <string name="tiebreaksCalculationA">A %s alapján.
-Összeadja a játékos legyőzött ellenfelei pontjainak összegét és a döntetlent játszott ellenfelei pontjainak felét.</string>
+Összeadjuk a játékos által legyőzött ellenfelek pontjait, és a döntetlent játszott ellenfelek pontjainak felét.</string>
   <string name="pairingsQ">Hogyan történik a játékosok párosítása?</string>
   <string name="dutchSystem">Holland rendszer</string>
   <string name="FIDEHandbook">FIDE kézikönyv</string>
@@ -59,15 +59,15 @@ Ha egy játékost nem lehet párosítani a fordulóban akkor kap egy pontot ér�
   <string name="restrictedToTeamsQ">Miért van csapatokra korlátozva?</string>
   <string name="restrictedToTeamsA">A svájci rendszerű versenyek nem online sakkra lettek kitalálva. Pontosságot, elköteleződést és türelmet vár el a résztvevőktől. Úgy gondoljuk, hogy ezek a feltételek jobban adottak egy csapaton belül a nyílt versenyekkel szemben.</string>
   <string name="numberOfByesQ">Hány szabadkört kaphat egy játékos?</string>
-  <string name="numberOfByesA">A játékos kap egy pontot érő szabadkört minden alkalommal amikor a rendszer nem tudja őt összepárosítani valakivel egy fordulóban.
-Továbbá, fél pontot érő egyszeri szabadkört kap minden játékos, aki késve csatlakozik a versenyhez.</string>
+  <string name="numberOfByesA">A játékos kap egy pontot érő szabadkört minden alkalommal, amikor a rendszer nem tudja őt összepárosítani valakivel egy fordulóban.
+Továbbá fél pontot érő egyszeri szabadkört kap minden játékos, aki később csatlakozik a versenyhez.</string>
   <string name="earlyDrawsQ">Mi van a korai döntetlenekkel?</string>
   <string name="earlyDrawsAnswer">A svájci rendszerű játékok 30 lépés megtétele előtt nem fejeződhetnek be döntetlenként. Ez az intézkedés nem tudja teljesen megakadályozni az előre megszervezett döntetleneket, mindenesetre megnehezíti a menet közbeni döntetlenben való megegyezést.</string>
   <string name="whatIfOneDoesntPlayQ">Mi történik, ha egy játékos nem játssza a partit?</string>
-  <string name="whatIfOneDoesntPlayA">Az órájuk ugyanúgy ketyeg, az idejük lejár és elvesztik a játszmát.
-A rendszer visszalépteti ezeket a játékosokat a versenytől, hogy ne veszítsenek el több játszmát.
- Bármikor újracsatlakozhatnak a versenyhez.</string>
-  <string name="protectionAgainstNoShowQ">Mi lesz ha nem jelenik meg egy játékos?</string>
+  <string name="whatIfOneDoesntPlayA">Az órájuk ketyeg, az idejük lejár, és elvesztik a játszmát.
+A rendszer visszalépteti ezeket a játékosokat a versenytől, hogy ne veszítsenek több játszmát.
+ Bármikor újra csatlakozhatnak a versenyhez.</string>
+  <string name="protectionAgainstNoShowQ">Mi van, ha nem jelenik meg egy játékos?</string>
   <string name="protectionAgainstNoShowA">Játékosok akik regisztrálnak egy svájci rendszerű versenyre, de nem játszák le játszmáikat, az problémás lehet. Hogy enyhítsen a dolgon, Lichess egy adott időre megakadályozza ezeket a játékosokat hogy új svájci rendszerű versenyre jelentkezzenek. Egy verseny szervezője dönthet úgy, hogy ennek ellenére is játszhassanak.</string>
   <string name="lateJoinQ">Csatlakozhatnak-e a játékosok utólag?</string>
   <string name="lateJoinA">Igen, amíg nem több, mint a fordulók fele elkezdődött; például egy 11 fordulósban játékosok csatlakozhatnak a 6. forduló kezdete előtt illetve egy 12 fordulósban a 7. forduló kezdetéig.
