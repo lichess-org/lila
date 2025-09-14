@@ -155,6 +155,7 @@
   <string name="flipBoard">Tábla megfordítása</string>
   <string name="threefoldRepetition">Háromszori állásismétlés</string>
   <string name="claimADraw">Döntetlen igénylése</string>
+  <string name="drawClaimed">Döntetlen igényelve</string>
   <string name="offerDraw">Döntetlen felajánlása</string>
   <string name="draw">Döntetlen</string>
   <plurals name="nbPlayers">
@@ -477,6 +478,7 @@
   <string name="points">Pont</string>
   <string name="wins">Győzelmek</string>
   <string name="losses">Vereségek</string>
+  <string name="startingIn" comment="Displayed above a timer">Kezdésig még</string>
   <string name="standByX">Állj készen %s, hamarosan ellenfelet kapsz!</string>
   <string name="pause">Szünet</string>
   <string name="resume">Folytatás</string>
@@ -658,6 +660,7 @@
   <string name="really">tényleg</string>
   <string name="contribute">Hozzájárul</string>
   <string name="termsOfService">Felhasználási feltételek</string>
+  <string name="titleVerification">Cím igazolása</string>
   <string name="sourceCode">Forráskód</string>
   <string name="simultaneousExhibitions">Szimultán játékok</string>
   <string name="host">Létrehozó</string>
@@ -729,6 +732,7 @@ Jelszavad megváltoztatásához kattints az üzenetben lévő linkre.</string>
   <string name="downloadAnnotated">Letöltés elemzéssel</string>
   <string name="downloadRaw">Letöltés elemzés nélkül</string>
   <string name="downloadImported">Importált PGN letöltése</string>
+  <string name="downloadAllGames">Összes játszma letöltése</string>
   <string name="crosstable">Eredménytábla</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Görgess az egérgörgővel a tábla felett, hogy láthasd lépéseket.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Vidd a kurzort a számítógép variációk fölé az előnézethez.</string>
@@ -752,6 +756,7 @@ Jelszavad megváltoztatásához kattints az üzenetben lévő linkre.</string>
   <string name="playChessEverywhere">Sakkozz bárhol!</string>
   <string name="everybodyGetsAllFeaturesForFree">Az összes funkció ingyenes, mindenki számára</string>
   <string name="viewTheSolution">Megoldás megtekintése</string>
+  <string name="noChallenges">Nincs kihívás.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Elérhető %s nyelven</item>
     <item quantity="other">Elérhető %s nyelven</item>
@@ -764,6 +769,7 @@ Jelszavad megváltoztatásához kattints az üzenetben lévő linkre.</string>
   <string name="anonymous">Névtelen</string>
   <string name="yourScore">A te eredményed: %s</string>
   <string name="language">Nyelv</string>
+  <string name="allLanguages">Minden nyelv</string>
   <string name="background">Háttér</string>
   <string name="light">Világos</string>
   <string name="dark">Sötét</string>
@@ -968,4 +974,8 @@ Hagyd üresen és a játszmák a kezdőállásból indulnak.</string>
   <string name="lichessPatronInfo">A Lichess egy jótékonysági szervezet és teljesen ingyenes/szabad nyílt forrású szoftver.
 Minden működési költséget, fejlesztést és tartalmat felhasználói adományokból fedezünk.</string>
   <string name="nothingToSeeHere">Itt nincs semmi látnivaló jelenleg.</string>
+  <string name="online" comment="status of a user">online</string>
+  <string name="offline" comment="status of a user">offline</string>
+  <string name="search">Keresés</string>
+  <string name="tags">Címkék</string>
 </resources>
