@@ -29,7 +29,7 @@ function exitVariation(ctrl: AnalyseCtrl): void {
 export function previousBranch(ctrl: AnalyseCtrl): void {
   let path = treePath.init(ctrl.path),
     parent = ctrl.tree.nodeAtPath(path);
-  while (path.length && parent && parent.children.length < 2) {
+  while (path.length && parent && ctrl.visibleChildren(parent).length < 2) {
     path = treePath.init(path);
     parent = ctrl.tree.nodeAtPath(path);
   }
@@ -37,8 +37,7 @@ export function previousBranch(ctrl: AnalyseCtrl): void {
 }
 
 export function nextBranch(ctrl: AnalyseCtrl): void {
-  const { selected } = ctrl.fork.state();
-  let child = ctrl.node.children[selected];
+  let child = ctrl.visibleChildren()[ctrl.fork.selectedIndex];
   let path = ctrl.path;
   while (child && child.children.length < 2) {
     path += child.id;

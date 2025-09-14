@@ -2,6 +2,7 @@ import type { Outcome } from 'chessops/types';
 import type { Prop } from '../common';
 import type { Feature } from '../device';
 import type CevalCtrl from './ctrl';
+import type { VNode } from 'snabbdom';
 
 export type WinningChances = number;
 export type SearchBy = { movetime: number } | { depth: number } | { nodes: number };
@@ -92,15 +93,22 @@ export interface EvalMeta {
 export type Redraw = () => void;
 export type Progress = (p?: { bytes: number; total: number }) => void;
 
+export interface CustomCeval {
+  search?: () => Search | number; // pass number as millis to cap user defined search
+  pearlNode?: () => VNode | undefined;
+  statusNode?: () => VNode | string | undefined;
+  onclick?: (e: MouseEvent) => void;
+}
+
 export interface CevalOpts {
   variant: Variant;
   initialFen: string | undefined;
   emit: (ev: Tree.LocalEval, meta: EvalMeta) => void;
   onUciHover: (hovering: Hovering | null) => void;
   redraw: Redraw;
-  search?: Search;
   onSelectEngine?: () => void;
   externalEngines?: ExternalEngineInfoFromServer[];
+  custom?: CustomCeval; // hides switch, threat, and go deeper buttons
 }
 
 export interface Hovering {
@@ -127,17 +135,13 @@ export interface CevalHandler {
   outcome(): Outcome | undefined;
   showEvalGauge: Prop<boolean>;
   ongoing: boolean;
-  playUci(uci: string): void;
   playUciList(uciList: string[]): void;
   getOrientation(): Color;
   threatMode(): boolean;
   getNode(): Tree.Node;
-  showAnalysis(): boolean;
   clearCeval: () => void;
   startCeval: () => void;
   cevalEnabled: (enable?: boolean) => boolean | 'force';
-  showCeval?: (show?: boolean) => boolean;
-  isCevalAllowed?: () => boolean;
   externalEngines?: () => ExternalEngineInfo[] | undefined;
   showFishnetAnalysis?: () => boolean;
 }

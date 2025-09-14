@@ -27,6 +27,7 @@ export interface RetroCtrl {
   close(): void;
   node(): Tree.Node;
   redraw: Redraw;
+  forceCeval(): boolean;
 }
 
 interface NodeWithPath {
@@ -249,5 +250,6 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
     close: root.toggleRetro,
     node: () => root.node,
     redraw: root.redraw,
+    forceCeval: () => feedback() === 'eval',
   };
 }

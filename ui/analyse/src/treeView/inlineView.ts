@@ -19,7 +19,7 @@ export function renderInlineView(ctrl: AnalyseCtrl): VNode {
     { class: { hidden: ctrl.treeView.hidden, anchor: !!parentDisclose } },
     [
       renderer.commentNodes(parentNode),
-      renderer.renderNodes(renderer.filterNodes(parentNode.children), {
+      renderer.renderNodes(ctrl.visibleChildren(parentNode), {
         parentPath: '',
         parentNode,
         parentDisclose,
@@ -44,12 +44,6 @@ export class InlineView {
 
   constructor(readonly ctrl: AnalyseCtrl) {}
 
-  filterNodes(nodes: Tree.Node[]): Tree.Node[] {
-    return nodes.filter(
-      node => !node.comp || (this.ctrl.showFishnetAnalysis() && !this.ctrl.retro?.hideComputerLine(node)),
-    );
-  }
-
   renderNodes([child, ...siblings]: Tree.Node[], args: Args): LooseVNodes {
     if (!child) return;
     const { isMainline, parentDisclose } = args;
@@ -61,24 +55,31 @@ export class InlineView {
             this.commentNodes(child),
             siblings[0] && hl('interrupt', this.lines(siblings, args)),
           ],
-          this.renderNodes(this.filterNodes(child.children), this.childArgs(child, args, true)),
+          this.renderNodes(this.ctrl.visibleChildren(child), this.childArgs(child, args, true)),
         ];
   }
 
   commentNodes(node: Tree.Node, classes: Classes = {}): LooseVNodes[] {
     if (!this.ctrl.showComments || !node.comments) return [];
     return node.comments
-      .map(comment => {
-        return this.ctrl.retro?.hideComputerLine(node)
+      .map(comment =>
+        this.ctrl.retro?.hideComputerLine(node)
           ? hl('comment', i18n.site.learnFromThisMistake)
-          : this.commentNode(comment, node.comments!, {
-              inaccuracy: comment.text.startsWith('Inaccuracy.'),
-              mistake: comment.text.startsWith('Mistake.'),
-              blunder: comment.text.startsWith('Blunder.'),
-              ...classes,
-            });
-      })
-
+          : (comment.by !== 'lichess' || this.ctrl.showFishnetAnalysis()) &&
+            hl('comment', {
+              class: {
+                inaccuracy: comment.text.startsWith('Inaccuracy.'),
+                mistake: comment.text.startsWith('Mistake.'),
+                blunder: comment.text.startsWith('Blunder.'),
+                ...classes,
+              },
+              hook: innerHTML(comment.text, text =>
+                node.comments?.[1]
+                  ? `<span class="by">${authorText(comment.by)}</span> ` + enrichText(text)
+                  : enrichText(text),
+              ),
+            }),
+      )
       .filter(Boolean);
   }
 
@@ -224,12 +225,5 @@ export class InlineView {
       }
     }
     return el as HTMLElement;
-  }
-
-  private commentNode(comment: Tree.Comment, others: Tree.Comment[], classes: Classes) {
-    if (comment.by === 'lichess' && !this.ctrl.showFishnetAnalysis()) return;
-    const by = !others[1] ? '' : `<span class="by">${authorText(comment.by)}</span> `,
-      htmlHook = innerHTML(comment.text, text => by + enrichText(text));
-    return hl('comment', { class: classes, hook: htmlHook });
   }
 }

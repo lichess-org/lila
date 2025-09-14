@@ -137,3 +137,10 @@
     background-color: $m-secondary--fade-50;
   }
 }
+
+@media (hover: hover) {
+  .analyse[data-active-mode='practice'] .ceval:hover:not(:has(.settings-gear:hover)) {
+    background: $m-primary--fade-70;
+    cursor: pointer;
+  }
+}

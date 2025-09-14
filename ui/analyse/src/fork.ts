@@ -6,81 +6,69 @@ import { renderIndexAndMove } from './view/components';
 import { isTouchDevice } from 'lib/device';
 import { addPointerListeners } from 'lib/pointer';
 
-export interface ForkCtrl {
-  state(): {
-    node: Tree.Node;
-    selected: number;
-    displayed: boolean;
-  };
-  selected(): number | undefined;
-  next: () => boolean;
-  prev: () => boolean;
-  hover: (uci: Uci | null | undefined) => void;
-  highlight: (it?: number) => void;
-  proceed: (it?: number) => boolean | undefined;
-}
+export class ForkCtrl {
+  selectedIndex = 0;
 
-export function make(ctrl: AnalyseCtrl): ForkCtrl {
-  let prev: Tree.Node | undefined;
-  let selected = 0;
-  let hovering: number | undefined;
-  const selections = new Map<Tree.Path, number>();
+  private hoveringIndex: number | undefined;
+  private mostRecent: Tree.Node | undefined;
 
-  function displayed() {
-    return ctrl.node.children.length > 1;
+  constructor(private ctrl: AnalyseCtrl) {}
+
+  get forks(): Tree.Node[] {
+    return this.ctrl.visibleChildren();
   }
-  return {
-    state() {
-      const node = ctrl.node;
-      if (!prev || prev.id !== node.id) {
-        prev = node;
-        selected = 0;
-      }
-      return { node, selected, displayed: displayed() };
-    },
-    next() {
-      if (!displayed()) return false;
-      selected = (selected + 1) % ctrl.node.children.length;
-      selections.set(ctrl.path, selected);
-      return true;
-    },
-    prev() {
-      if (!displayed()) return false;
-      selected = (selected + ctrl.node.children.length - 1) % ctrl.node.children.length;
-      selections.set(ctrl.path, selected);
-      return true;
-    },
-    hover(uci: Uci | undefined | null) {
-      hovering = ctrl.node.children.findIndex(n => n.uci === uci);
-      if (isTouchDevice() || hovering < 0) hovering = undefined;
-    },
-    selected() {
-      return hovering ?? selected;
-    },
-    highlight(it) {
-      if (!displayed() || !defined(it)) {
-        ctrl.explorer.setHovering(ctrl.node.fen, null);
-        return;
-      }
 
-      const nodeUci = ctrl.node.children[it]?.uci;
-      const uci = defined(nodeUci) ? nodeUci : null;
+  get isVisible(): boolean {
+    return this.forks.length > 1;
+  }
 
-      ctrl.explorer.setHovering(ctrl.node.fen, uci);
-    },
-    proceed(it) {
-      if (displayed()) {
-        it = it ?? hovering ?? selected;
+  get selected(): Tree.Node | undefined {
+    return this.forks[this.hoveringIndex ?? this.selectedIndex];
+  }
 
-        const childNode = ctrl.node.children[it];
-        if (defined(childNode)) {
-          ctrl.userJumpIfCan(ctrl.path + childNode.id);
-          return true;
-        }
+  update() {
+    if (this.mostRecent && this.mostRecent.id === this.ctrl.node.id) return;
+    this.mostRecent = this.ctrl.node;
+    this.selectedIndex = 0;
+    this.hoveringIndex = undefined;
+  }
+
+  select(which: 'next' | 'prev') {
+    if (!this.isVisible) return false;
+    const numKids = this.forks.length;
+    this.selectedIndex = (numKids + this.selectedIndex + (which === 'next' ? 1 : -1)) % numKids;
+    return true;
+  }
+
+  hover(uci: Uci | undefined | null) {
+    this.hoveringIndex = this.forks.findIndex(n => n.uci === uci);
+    if (isTouchDevice() || this.hoveringIndex < 0) this.hoveringIndex = undefined;
+  }
+
+  highlight(it?: number) {
+    if (!this.isVisible || !defined(it)) {
+      this.ctrl.explorer.setHovering(this.ctrl.node.fen, null);
+      return;
+    }
+
+    const nodeUci = this.forks[it]?.uci;
+    const uci = defined(nodeUci) ? nodeUci : null;
+
+    this.ctrl.explorer.setHovering(this.ctrl.node.fen, uci);
+  }
+
+  proceed(it?: number) {
+    if (this.isVisible) {
+      it = it ?? this.hoveringIndex ?? this.selectedIndex;
+
+      const childNode = this.forks[it];
+      if (defined(childNode)) {
+        this.ctrl.userJumpIfCan(this.ctrl.path + childNode.id);
+        return true;
       }
-      return undefined;
-    },
-  };
+    }
+    return undefined;
+  }
 }
 
 const eventToIndex = (e: MouseEvent): number | undefined => {
@@ -92,8 +80,8 @@ const eventToIndex = (e: MouseEvent): number | undefined => {
 
 export function view(ctrl: AnalyseCtrl, concealOf?: ConcealOf) {
   if (ctrl.retro?.isSolving()) return;
-  const state = ctrl.fork.state();
-  if (!state.displayed) return;
+  ctrl.fork.update();
+  if (!ctrl.fork.isVisible) return;
   const isMainline = concealOf && ctrl.onMainline;
   return hl(
     'div.analyse__fork',
@@ -110,9 +98,9 @@ export function view(ctrl: AnalyseCtrl, concealOf?: ConcealOf) {
         el.addEventListener('mouseout', () => ctrl.fork.highlight());
       }),
     },
-    state.node.children.map((node, it) => {
+    ctrl.visibleChildren().map((node, it) => {
       const classes = {
-        selected: it === state.selected && !isTouchDevice(),
+        selected: it === ctrl.fork.selectedIndex && !isTouchDevice(),
         correct: ctrl.isGamebook() && it === 0,
         wrong: ctrl.isGamebook() && it > 0,
       };

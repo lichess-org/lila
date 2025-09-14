@@ -127,10 +127,11 @@ export function renderMain(ctx: ViewContext, ...kids: LooseVNodes[]): VNode {
 }
 
 export function renderTools({ ctrl, deps, concealOf, allowVideo }: ViewContext, embedded?: LooseVNode) {
+  const showCeval = ctrl.isCevalAllowed() && ctrl.showCeval();
   return hl(addChapterId(ctrl.study, 'div.analyse__tools'), [
     allowVideo && embedded,
-    cevalView.renderCeval(ctrl),
-    !ctrl.retro?.isSolving() && !ctrl.practice && cevalView.renderPvs(ctrl),
+    showCeval && cevalView.renderCeval(ctrl),
+    showCeval && !ctrl.retro?.isSolving() && !ctrl.practice && cevalView.renderPvs(ctrl),
     renderMoveList(ctrl, deps, concealOf),
     deps?.gbEdit.running(ctrl) ? deps?.gbEdit.render(ctrl) : undefined,
     backToLiveView(ctrl),
