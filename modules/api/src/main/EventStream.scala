@@ -61,7 +61,6 @@ final class EventStream(
         killChannel
       )
 
-      @scala.annotation.nowarn
       var lastSetSeenAt = me.seenAt | me.createdAt
 
       override def preStart(): Unit =

@@ -118,4 +118,6 @@ It will display a horizontal line.</string>
   <string name="xIsAKidAccountWarning">%1$s is a kid account and can't receive your message. You must give them the invitation URL manually: %2$s</string>
   <string name="moveToClass">Move to %s</string>
   <string name="moveToAnotherClass">Move to another class</string>
+  <string name="allowMessagingBetweenStudents">Allow messages between students</string>
+  <string name="allowMessagingBetweenStudentsDesc">This only applies to the accounts you have created for your students.</string>
 </resources>

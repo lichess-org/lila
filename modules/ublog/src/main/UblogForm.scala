@@ -111,6 +111,9 @@ object UblogForm:
         lived = prev.lived.orElse(live.option(UblogPost.Recorded(user.id, nowInstant)))
       )
 
+  lazy val carouselSize =
+    Form(single("size" -> number(min = 0, max = 30)))
+
   lazy val modBlogForm = Form(
     tuple(
       "tier" -> number(min = UblogBlog.Tier.HIDDEN.value, max = UblogBlog.Tier.BEST.value)
