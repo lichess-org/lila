@@ -19,7 +19,7 @@ final class PieceSetImages(useSvgFiles: SettingStore[Boolean], assets: AssetFull
 
     private val cache = scala.collection.concurrent.TrieMap.empty[String, String]
 
-    lila.common.Bus.sub[AssetManifestUpdate.type](_ => cache.clear().pp("clear"))
+    lila.common.Bus.sub[AssetManifestUpdate.type](_ => cache.clear())
 
     def css(pieceSet: String): Frag = raw:
       cache.getOrElseUpdate(
