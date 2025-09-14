@@ -136,6 +136,7 @@ POST  /ublog/:blogId/tier              controllers.Ublog.modBlog(blogId: String)
 POST  /ublog/$id<\w{8}>/adjust         controllers.Ublog.modPost(id: UblogPostId)
 POST  /ublog/$id<\w{8}>/pull           controllers.Ublog.modPull(id: UblogPostId)
 POST  /ublog/$id<\w{8}>/assess         controllers.Ublog.modAssess(id: UblogPostId)
+POST  /ublog/carousel/size             controllers.Ublog.modSetCarouselSize
 GET   /ublog/carousel                  controllers.Ublog.modShowCarousel
 POST  /upload/image/ublog/$id<\w{8}>   controllers.Ublog.image(id: UblogPostId)
 
