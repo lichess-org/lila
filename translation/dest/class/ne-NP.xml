@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses" comment="Lichess Classes are a feature that lets a teacher create virtual classes and check out students' progress.&#10;&#10;This text used to be &quot;Lichess Classes&quot;, which has since been shortened to &quot;Classes&quot;.">कक्षा</string>
+  <string name="lichessClasses">कक्षा</string>
   <string name="trackStudentProgress">पजलहरूमा र खेलमा विद्यार्थी को प्रगतिमा निग्रानी गर्नुहोस्।</string>
 </resources>
