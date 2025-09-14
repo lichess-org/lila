@@ -15,7 +15,13 @@ export const stockfishName = 'Stockfish 17.1';
 
 export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   $(element).replaceWith(ctrl.opts.$underboard);
-
+  document.querySelectorAll<HTMLFormElement>('form.future-game-analysis')?.forEach(
+    form =>
+      (form.onsubmit = () => {
+        ctrl.showFishnetAnalysis(true);
+        ctrl.redraw();
+      }),
+  );
   const data = ctrl.data,
     $panels = $('.analyse__underboard__panels > div'),
     $menu = $('.analyse__underboard__menu'),
