@@ -33,7 +33,7 @@ object Clas:
       created = Recorded(teacher.id, nowInstant),
       viewedAt = nowInstant,
       archived = none,
-      canMsg = some(false)
+      canMsg = false.some
     )
 
   case class Recorded(by: UserId, at: Instant)

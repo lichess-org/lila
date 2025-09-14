@@ -40,7 +40,7 @@ final class ClasForm(
         name = c.name,
         desc = c.desc,
         teachers = c.teachers.toList.mkString("\n"),
-        canMsg = c.canMsg.getOrElse(false)
+        canMsg = ~c.canMsg
       )
 
     def wall = Form(single("wall" -> text(maxLength = 100_000).into[Markdown]))
