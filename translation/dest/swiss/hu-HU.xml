@@ -39,6 +39,16 @@
   <string name="forbiddenPairings">Tiltott párosítások</string>
   <string name="forbiddenPairingsHelp">Játékosok felhasználónevei amelyek nem játszhatnak egymás ellen (például testvérek). Két felhasználónév soronként, szóközzel elválasztva.</string>
   <string name="manualPairings">Kézi párosítás a következő fordulóban</string>
+  <string name="manualPairingsHelp">Csinálj kézi párosítást a következő fordulóra!
+Egy sor egy párosítás. Például:
+A játékos - B játékos
+C játékos - D játékos
+Ha párosítás helyett egy játékosnak szabadkört (1 pontot) szeretnél adni, így írd be:
+E játékos 1
+A hiányzó játékosok távollévőnek számítanak, és nulla pontot kapnak.
+Hagyd üresen ezt a mezőt, hogy a Lichess szeretné automatikusan párosíthasson.</string>
+  <string name="mustHavePlayedTheirLastSwissGame">Az utolsó svájci parti lejátszása kötelező</string>
+  <string name="mustHavePlayedTheirLastSwissGameHelp">Csak azok a játékosok csatlakozhatnak, akik lejátszották az utolsó svájci játszmájukat. Akik nem jelentek meg egy közelmúltbeli svájci tornán, nem tudnak belépni a tiédre. Ez jobb versenyzési élményt eredményez azoknak, akik ténylegesen megjelennek.</string>
   <string name="newSwiss">Új svájci rendszerű verseny</string>
   <string name="swissVsArenaQ">Mikor érdemes svájci rendszerű versenyt indítani aréna helyett?</string>
   <string name="swissVsArenaA">Svájci rendszerű versenyben minden résztvevő ugyanannyi partit játszik, és minden ellenféllel csak egyszer.
@@ -70,11 +80,11 @@ A rendszer visszalépteti ezeket a játékosokat a versenytől, hogy ne veszíts
   <string name="protectionAgainstNoShowQ">Mi van, ha nem jelenik meg egy játékos?</string>
   <string name="protectionAgainstNoShowA">Játékosok akik regisztrálnak egy svájci rendszerű versenyre, de nem játszák le játszmáikat, az problémás lehet. Hogy enyhítsen a dolgon, Lichess egy adott időre megakadályozza ezeket a játékosokat hogy új svájci rendszerű versenyre jelentkezzenek. Egy verseny szervezője dönthet úgy, hogy ennek ellenére is játszhassanak.</string>
   <string name="lateJoinQ">Csatlakozhatnak-e a játékosok utólag?</string>
-  <string name="lateJoinA">Igen, amíg nem több, mint a fordulók fele elkezdődött; például egy 11 fordulósban játékosok csatlakozhatnak a 6. forduló kezdete előtt illetve egy 12 fordulósban a 7. forduló kezdetéig.
+  <string name="lateJoinA">Igen, amíg nem kezdődött el több, mint a fordulók fele; pl. egy 11 fordulósban játékosok még csatlakozhatnak a 6. forduló kezdete előtt, illetve egy 12 fordulósban a 7. forduló kezdetéig.
 A későn csatlakozók egy pontot érő szabadkört kapnak akkor is, ha több fordulóból maradtak ki.</string>
   <string name="willSwissReplaceArenasQ">A svájci rendszerű versenyek lecserélik majd az arénákat?</string>
-  <string name="willSwissReplaceArenasA">Nem. Két eltérő funkciók ezek.</string>
-  <string name="roundRobinQ">Mi a helyzet a körmérkőzéssel?</string>
+  <string name="willSwissReplaceArenasA">Nem. Ezek eltérő típusú versenyek.</string>
+  <string name="roundRobinQ">What about Round Robin?</string>
   <string name="roundRobinA">Szeretnénk hozzáadni, de sajnos a körmérkőzés nem működik online.
 Ennek az az oka, hogy nem tudjuk tisztességesen kezelni a versenyből idő előtt távozókat. Nem várhatjuk el, hogy egy online versenyen minden játékos lejátssza az összes meccsét. Ez egyszerűen nem fog menni és ennek eredményeképpen a legtöbb körmérkőzés verseny hibás és igazságtalan lenne, ami meghiúsítja az értelmüket.
 Az online körmérkőzéshez legközelebb egy svájci verseny áll, ahol nagyon sok forduló van. Ilyenkor az összes lehetséges párosítást lejátsszák, mielőtt a verseny véget ér.</string>
@@ -112,4 +122,7 @@ Az online körmérkőzéshez legközelebb egy svájci verseny áll, ahol nagyon 
   <string name="predefinedUsers">Csak engedélyezett játékosok csatlakozhatnak</string>
   <string name="forbiddedUsers">Amennyiben a lista nem üres, úgy a listán nem szereplő játékosok nem csatlakozhatnak. Soronként egy felhasználónév.</string>
   <string name="playYourGames">Játszd le a játszmáidat</string>
+  <string name="byes">Erőnyerők</string>
+  <string name="absences">Távollevők</string>
+  <string name="tieBreak">Holtverseny eldöntése</string>
 </resources>
