@@ -67,6 +67,10 @@ Nem törölhetsz egy csapatot, ha egyik játékosa már megkezdte a versenyt.</s
   <string name="numberOfLeadsPerTeam">Vezetők száma csapatonként. Pontjaik összege a csapatpont.</string>
   <string name="numberOfLeadsPerTeamHelp">Nem kellene változtatnod ezt az értéket a verseny kezdete után!</string>
   <string name="innerTeam">Belső csapat</string>
+  <plurals name="battleOfNbTeams">
+    <item quantity="one">%s Csapat csatája</item>
+    <item quantity="other">Ez %s csapat csatája</item>
+  </plurals>
   <plurals name="nbLeadersPerTeam">
     <item quantity="one">Egy vezető csapatonként</item>
     <item quantity="other">%s vezető csapatonként</item>
