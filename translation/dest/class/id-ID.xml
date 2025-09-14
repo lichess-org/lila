@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses" comment="Lichess Classes are a feature that lets a teacher create virtual classes and check out students' progress.&#10;&#10;This text used to be &quot;Lichess Classes&quot;, which has since been shortened to &quot;Classes&quot;.">Kelas Lichess</string>
+  <string name="lichessClasses">Kelas Lichess</string>
   <string name="teachClassesOfChessStudents">Ajarkan siswa kelas catur dengan perangkat alat Kelas Lichess.</string>
   <string name="features">Fitur</string>
   <string name="quicklyGenerateSafeUsernames">Secara cepat menghasilkan nama pengguna dan kata sandi yang aman untuk siswa</string>
   <string name="trackStudentProgress">Lacak kemajuan siswa dalam permainan dan teka-teki</string>
   <string name="messageAllStudents">Kirim pesan semua siswa tentang materi kelas baru</string>
-  <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">100% gratis untuk semua, selamanya, tanpa iklan atau pelacak</string>
+  <string name="freeForAllForever">100% gratis untuk semua, selamanya, tanpa iklan atau pelacak</string>
   <string name="applyToBeLichessTeacher">Terapkan menjadi Guru Lichess</string>
   <string name="noClassesYet">Tidak ada sesi kelas.</string>
   <string name="teachersX">Guru: %s</string>
   <string name="newClass">Kelas baru</string>
   <string name="closeClass">Tutup kelas</string>
   <string name="removedByX">Dikeluarkan oleh %s</string>
-  <string name="reopen" comment="A button, permitting a teacher to reopen a closed class.">Buka kembali</string>
-  <string name="removeStudent" comment="Removes a student from the class. Note the same text is used both for initial removal, and for full erasure.">Hapus murid</string>
-  <string name="removedStudents" comment="This is in plural form. It is a heading showing all students who have been removed from the class.">Terhapus</string>
-  <string name="inviteTheStudentBack" comment="A button. Clicking this will re-invite a student that has been removed from the class.">Ajak murid kembali</string>
+  <string name="reopen">Buka kembali</string>
+  <string name="removeStudent">Hapus murid</string>
+  <string name="removedStudents">Terhapus</string>
+  <string name="inviteTheStudentBack">Ajak murid kembali</string>
   <string name="sendAMessage">Kirim pesan kepada semua siswa.</string>
   <string name="aLinkToTheClassWillBeAdded">Tautan ke kelas akan ditambahkan secara otomatis di akhir pesan, jadi Anda tidak perlu memasukkannya sendiri.</string>
   <string name="className">Nama kelas</string>
@@ -30,7 +30,7 @@
   <string name="generateANewPassword">Buat kata sandi baru untuk siswa</string>
   <string name="invitedToXByY">Ajakan kepada %1$s dari %2$s</string>
   <string name="realName">Nama asli</string>
-  <string name="privateWillNeverBeShown" comment="A description of the real name field for members of a class.">Pribadi. Tidak akan pernah ditampilkan di luar kelas. Membantu mengingat siapa siswa itu.</string>
+  <string name="privateWillNeverBeShown">Pribadi. Tidak akan pernah ditampilkan di luar kelas. Membantu mengingat siapa siswa itu.</string>
   <string name="addStudent">Tambahkan siswa</string>
   <string name="lichessProfileXCreatedForY">Profil Lichess %1$s dibuat untuk %2$s.</string>
   <string name="studentCredentials">Siswa: %1$s
@@ -41,13 +41,13 @@ Kata sandi: %3$s</string>
   <string name="inviteDesc2">Mereka akan menerima pesan di Lichess dengan tautan untuk bergabung di kelas.</string>
   <string name="inviteDesc3">Penting: hanya undang siswa yang Anda kenal, dan yang secara aktif ingin bergabung dengan kelas.</string>
   <string name="inviteDesc4">Jangan pernah mengirim undangan yang tidak diminta ke pemain yang sewenang-wenang.</string>
-  <string name="createANewLichessAccount" comment="The person who would see this would always be a teacher.&#10;In this context, it is to create a new account for a student of their class.">Buat akun Lichess baru</string>
+  <string name="createANewLichessAccount">Buat akun Lichess baru</string>
   <string name="createDesc1">Jika siswa belum memiliki akun Lichess, Anda dapat membuatnya di sini.</string>
   <string name="createDesc2">Tidak memerlukan alamat email. Kata sandi akan dibuat, dan Anda harus mengirimkannya kepada siswa, sehingga mereka dapat masuk.</string>
   <string name="createDesc3">Penting: seorang siswa tidak boleh memiliki banyak akun.</string>
   <string name="createDesc4">Jika sudah memilikinya, gunakan kolom undangan sebagai gantinya.</string>
   <string name="lichessUsername">Nama pengguna Lichess</string>
-  <string name="generateANewUsername" comment="A button which lets teachers create a random username for students they are registering.">Buat nama pengguna baru</string>
+  <string name="generateANewUsername">Buat nama pengguna baru</string>
   <string name="welcomeToClass">Selamat datang di kelas Anda: %s.
 Inilah tautan untuk mengakses kelas.</string>
   <string name="invitationToClass">Anda di undang untuk ikut serta ke kelas \"%s\" sebagai murid.</string>
@@ -60,7 +60,7 @@ Inilah tautan untuk mengakses kelas.</string>
   <string name="managed">Kelola</string>
   <string name="thisStudentAccountIsManaged">Akun siswa ini dikelola</string>
   <string name="upgradeFromManaged">Peningkatan dari dikelola menjadi otonom</string>
-  <string name="release" comment="This used to be 'release'. It is now called 'graduate', and the term is used here as a verb.&#10;&#10;'Releasing' an account means making it a full Lichess account. It will no longer be tied to the teacher that created it.">Bebaskan</string>
+  <string name="release">Bebaskan</string>
   <string name="releaseTheAccount">Lepaskan akun sehingga siswa dapat mengaturnya secara otonom.</string>
   <string name="releaseDesc1">Akun yang dirilis tidak dapat dikelola lagi. Siswa akan dapat mengaktifkan mode anak dan mereset kata sandi sendiri.</string>
   <string name="releaseDesc2">Siswa akan tetap berada di kelas setelah akun mereka dirilis.</string>
@@ -96,7 +96,7 @@ Inilah tautan untuk mengakses kelas.</string>
   <string name="newsEdit3">Pisahkan berita dengan --- itu akan menampilkan garis horizontal.</string>
   <string name="invite">Undang</string>
   <string name="youHaveBeenInvitedByX">Anda sudah diundang oleh %s.</string>
-  <string name="youAcceptedThisInvitation" comment="Appears when revisiting the page of an invitation to a class, which you have already accepted.">Anda telah menerima undangan ini.</string>
-  <string name="youDeclinedThisInvitation" comment="Appears when revisiting the page of an invitation to a class, which you have already declined.">Anda telah menolak undangan ini.</string>
+  <string name="youAcceptedThisInvitation">Anda telah menerima undangan ini.</string>
+  <string name="youDeclinedThisInvitation">Anda telah menolak undangan ini.</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">atau</string>
 </resources>
