@@ -124,4 +124,6 @@ Prikazal bo horizontalno črto.</string>
   <string name="xIsAKidAccountWarning">%1$s je otroški račun in ne more prejeti vašega sporočila. Ročno jim morate dati URL povabila: %2$s</string>
   <string name="moveToClass">Premakni v %s</string>
   <string name="moveToAnotherClass">Premakni se v drug razred</string>
+  <string name="allowMessagingBetweenStudents">Dovoli sporočila med študenti</string>
+  <string name="allowMessagingBetweenStudentsDesc">To velja samo za račune, ki ste jih ustvarili za svoje učence.</string>
 </resources>
