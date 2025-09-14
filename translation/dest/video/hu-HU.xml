@@ -9,6 +9,10 @@
   <string name="xCuratedChessVideos" comment="%s is the number of videos. Appears in social media embeds (i.e. OpenGraph information) when linking Lichess videos.">%s igényesen válogatott sakkvideó</string>
   <string name="xWithTagsY" comment="%1$s is the number of videos found.&#10;&#10;%2$s is a list of tags.&#10;&#10;Appears when filtering for videos by tag.">%1$s címkékkel %2$s</string>
   <string name="freeForAll" comment="Appears in social media embeds (i.e. OpenGraph information) when linking Lichess videos. Part of a longer piece of text.&#10;&#10;The full text will be something like &quot;%s carefully curated chess videos • free for all&quot;">ingyenes mindenkinek</string>
+  <plurals name="nbVideosFound" comment="%s is the number of videos found when searching on https://lichess.org/video">
+    <item quantity="one">%s videót találtunk</item>
+    <item quantity="other">%s videót találtunk</item>
+  </plurals>
   <string name="noVideosForTheseTags">Nincs videó ilyen címkékkel:</string>
   <string name="thatsAllWeGotForTheseTags">Ez minden, amit találtunk ezekkel a címkékkel:</string>
   <string name="thatsAllWeGotForThisSearchX" comment="%s is the search term that the user entered.&#10;&#10;Appears at the end of a list of search results on https://lichess.org/video">Ez minden, amit találtunk erre a keresésre: \"%s\"</string>
