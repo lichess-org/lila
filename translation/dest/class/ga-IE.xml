@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses" comment="Lichess Classes are a feature that lets a teacher create virtual classes and check out students' progress.&#10;&#10;This text used to be &quot;Lichess Classes&quot;, which has since been shortened to &quot;Classes&quot;.">Ranganna</string>
+  <string name="lichessClasses">Ranganna</string>
   <string name="teachClassesOfChessStudents">Múin ranganna daltaí ficheallaithe leis an tsraith uirlisí ranganna Lichess.</string>
   <string name="features">Gnéithe</string>
   <string name="quicklyGenerateSafeUsernames">Cruthaigh ainmneacha úsáideora agus pasfhocail shábháilte go tapa do daltaí</string>
   <string name="trackStudentProgress">Rianaigh dul chun cinn na daltaí i gcluichí agus i fadhbhanna fichille</string>
   <string name="messageAllStudents">Cuir teachtaireacht chuig gach dalta faoi ábhar nua ranga</string>
-  <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">100% saor in aisce do chách, go deo, gan aon fhógraí nó rianairí</string>
+  <string name="freeForAllForever">100% saor in aisce do chách, go deo, gan aon fhógraí nó rianairí</string>
   <string name="applyToBeLichessTeacher">Déan iarratas bheith i do Mhúinteoir Lichess</string>
   <string name="noClassesYet">Níl aon ranganna fós.</string>
   <string name="teachersX">Múinteoirí: %s</string>
   <string name="newClass">Rang nua</string>
   <string name="closeClass">Dún rang</string>
   <string name="removedByX">Bainte ag %s</string>
-  <string name="reopen" comment="A button, permitting a teacher to reopen a closed class.">Athoscailt</string>
-  <string name="removeStudent" comment="Removes a student from the class. Note the same text is used both for initial removal, and for full erasure.">Bain dalta</string>
-  <string name="removedStudents" comment="This is in plural form. It is a heading showing all students who have been removed from the class.">Bainte</string>
-  <string name="inviteTheStudentBack" comment="A button. Clicking this will re-invite a student that has been removed from the class.">Tabhair cuireadh don dalta teacht ar ais</string>
+  <string name="reopen">Athoscailt</string>
+  <string name="removeStudent">Bain dalta</string>
+  <string name="removedStudents">Bainte</string>
+  <string name="inviteTheStudentBack">Tabhair cuireadh don dalta teacht ar ais</string>
   <string name="sendAMessage">Seol teachtaireacht chuig gach dalta.</string>
   <string name="aLinkToTheClassWillBeAdded">Cuirfear nasc don rang sa ghnáthchúrsa ag deireadh na teachtaireachta, mar sin ní gá duit é a iniaigh roimh ré.</string>
   <string name="className">Ainm ranga</string>
@@ -30,7 +30,7 @@
   <string name="generateANewPassword">Cruthaigh pasfhocal nua don dalta</string>
   <string name="invitedToXByY">Cuireadh tugtha do %1$s ó %2$s</string>
   <string name="realName">Fíorainm</string>
-  <string name="privateWillNeverBeShown" comment="A description of the real name field for members of a class.">Príobháideach. Ní thaispeánfar ríomh taobh amuigh den rang. Cabhraíonn sé seo leat cuimhneamh ar cé hé an dalta.</string>
+  <string name="privateWillNeverBeShown">Príobháideach. Ní thaispeánfar ríomh taobh amuigh den rang. Cabhraíonn sé seo leat cuimhneamh ar cé hé an dalta.</string>
   <string name="addStudent">Cuir dalta leis</string>
   <string name="lichessProfileXCreatedForY">Próifíl Lichess %1$s cruthaithe do %2$s.</string>
   <string name="studentCredentials">Dalta: %1$s 
@@ -41,14 +41,14 @@ Pasfhocal: %3$s</string>
   <string name="inviteDesc2">Gheobhaidh siad teachtaireacht ar Lichess le nasc chun páirt a ghlacadh sa rang.</string>
   <string name="inviteDesc3">Tábhachtach: ná tabhair cuireadh ach do dalta a bhfuil aithne agat orthu, agus ar mian leo páirt gníomhach a glacadh sa rang.</string>
   <string name="inviteDesc4">Ná seol cuirí gan iarraidh chuig imreoirí treallach riamh.</string>
-  <string name="createANewLichessAccount" comment="The person who would see this would always be a teacher.&#10;In this context, it is to create a new account for a student of their class.">Cruthaigh cuntas Lichess nua</string>
+  <string name="createANewLichessAccount">Cruthaigh cuntas Lichess nua</string>
   <string name="createDesc1">Mura bhfuil cuntas Lichess ag an dalta fós, is féidir leat ceann a chruthú dóibh anseo.</string>
   <string name="createDesc2">Níl ríomhphoist de dhith. Beidh pasfhocal cruaithe, agus beidh ort é a cur chuig an dalta, ionas gur féidir leo logáil isteach.</string>
   <string name="createDesc3">Tábhachtach: níl cead ag daltaí cuntais iolracha a bheith acu.</string>
   <string name="createDesc4">Má tá ceann acu cheana féin, bain úsáid as an bhfoirm cuireadh ina ionad.</string>
   <string name="createStudentWarning">Ná cruthaigh ach cuntais do mhic léinn fíor. Ná húsáid é seo chun cuntais iolracha a dhéanamh duit féin. Chuirfí cosc ort.</string>
   <string name="lichessUsername">Ainm úsáideora Lichess</string>
-  <string name="generateANewUsername" comment="A button which lets teachers create a random username for students they are registering.">Cruthaigh ainm úsáideora nua</string>
+  <string name="generateANewUsername">Cruthaigh ainm úsáideora nua</string>
   <string name="welcomeToClass">Fáilte go dtí do rang: %s.
 Seo an nasc le dul isteach sa rang.</string>
   <string name="invitationToClass">Tugtar cuireadh duit a bheith páirteach sa rang \"%s\" mar dalta.</string>
@@ -65,7 +65,7 @@ Seo an nasc le dul isteach sa rang.</string>
   <string name="managed">Faoi bhainistíocht</string>
   <string name="thisStudentAccountIsManaged">Tá cuntas an dalta seo faoi bhainistíocht</string>
   <string name="upgradeFromManaged">Uasghrádú ó bhainistíocht go neamhspleách</string>
-  <string name="release" comment="This used to be 'release'. It is now called 'graduate', and the term is used here as a verb.&#10;&#10;'Releasing' an account means making it a full Lichess account. It will no longer be tied to the teacher that created it.">Scaoil</string>
+  <string name="release">Scaoil</string>
   <string name="releaseTheAccount">Scaoil an cuntas ionas gur féidir leis an dalta é a bhainistiú go neamhspleách.</string>
   <string name="releaseDesc1">Ní féidir cuntas scaoilte a bhainistiú arís. Beidh an dalta in ann modh páiste a scoránú agus pasfhocal a athshocrú iad féin.</string>
   <string name="releaseDesc2">Fanfaidh an dalta sa rang tar éis a chuntas a scaoileadh.</string>
@@ -110,17 +110,17 @@ Seo an nasc le dul isteach sa rang.</string>
 Beidh líne chothrománach le feiceáil.</string>
   <string name="invite">Cuireadh</string>
   <string name="youHaveBeenInvitedByX">Thug %s cuireadh duit.</string>
-  <string name="youAcceptedThisInvitation" comment="Appears when revisiting the page of an invitation to a class, which you have already accepted.">Ghlac tú leis an gcuireadh seo.</string>
-  <string name="youDeclinedThisInvitation" comment="Appears when revisiting the page of an invitation to a class, which you have already declined.">Dhiúltaigh tú an gcuireadh seo.</string>
+  <string name="youAcceptedThisInvitation">Ghlac tú leis an gcuireadh seo.</string>
+  <string name="youDeclinedThisInvitation">Dhiúltaigh tú an gcuireadh seo.</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">nó</string>
   <string name="createMultipleAccounts">Cruthaigh cuntais Lichess iolracha ag an am céanna</string>
   <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Is féidir leat %s freisin chun cuntais Lichess iolracha a chruthú ó liosta ainmneacha mic léinn.</string>
   <string name="useThisForm" comment="Link text in multipleAccsFromDescription">d\'úsáid as an bhfoirm seo</string>
   <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Tabhair faoi deara gur féidir suas le %1$s dalta a bheith i rang. Chun níos mó mac léinn a bhainistiú, %2$s.</string>
   <string name="createMoreClasses" comment="Link text in maxStudentsNote">cruthaigh ranganna breise</string>
-  <string name="studentsRealNamesOnePerLine" comment="An instruction on how to enter students' names when creating new accounts for them.">Ainmneacha ceart na mac léinn, ceann in aghaidh an líne</string>
-  <string name="xisNowAStudentOfTheClass" comment="%s is the player's name">Is mac léinn den rang é %s anois</string>
-  <string name="anInvitationHasBeenSentToX" comment="%s is the username of a player already registered on Lichess.">Tá cuireadh seolta chuig %s</string>
-  <string name="xAlreadyHasAPendingInvitation" comment="An error message. %s is the username of a player already registered on Lichess.">Tá cuireadh ar feitheamh ag %s cheana féin</string>
-  <string name="xIsAKidAccountWarning" comment="%1$s is the username&#10;%2$s is a link.">Is cuntas páiste é %1$s agus ní féidir leis do theachtaireacht a fháil. Caithfidh tú an cuiridh URL a thabhairt dóibh de lámh: %2$s</string>
+  <string name="studentsRealNamesOnePerLine">Ainmneacha ceart na mac léinn, ceann in aghaidh an líne</string>
+  <string name="xisNowAStudentOfTheClass">Is mac léinn den rang é %s anois</string>
+  <string name="anInvitationHasBeenSentToX">Tá cuireadh seolta chuig %s</string>
+  <string name="xAlreadyHasAPendingInvitation">Tá cuireadh ar feitheamh ag %s cheana féin</string>
+  <string name="xIsAKidAccountWarning">Is cuntas páiste é %1$s agus ní féidir leis do theachtaireacht a fháil. Caithfidh tú an cuiridh URL a thabhairt dóibh de lámh: %2$s</string>
 </resources>
