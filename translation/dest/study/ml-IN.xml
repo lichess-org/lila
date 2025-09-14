@@ -156,5 +156,5 @@
   <string name="playAgain">പിന്നേയും കളിക്കുക</string>
   <string name="whatWouldYouPlay">താങ്ങൾ ഈ കരുനിലയിൽ എന്ത് ചെയ്യും?</string>
   <string name="youCompletedThisLesson">അഭിനന്ദനങ്ങൾ! താങ്ങൾ ഈ പാഠം പൂർത്തീകരിച്ചിരിക്കുന്നു.</string>
-  <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">ഒരോ താളിൽ %s</string>
+  <string name="perPage">ഒരോ താളിൽ %s</string>
 </resources>

@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses" comment="Lichess Classes are a feature that lets a teacher create virtual classes and check out students' progress.&#10;&#10;This text used to be &quot;Lichess Classes&quot;, which has since been shortened to &quot;Classes&quot;.">پۆلەکان</string>
+  <string name="lichessClasses">پۆلەکان</string>
   <string name="teachClassesOfChessStudents">بە بەکارهێنانی ئامرازەکانی پۆلی لیچێس پۆلێک لە خوێندکارانی شەترەنج فێر بکە.</string>
   <string name="features">تایبەتمەندییەکان</string>
   <string name="quicklyGenerateSafeUsernames">دروستکردنی ناوی بەکارھێنەر و تێپەڕوشەی سەلامەت بۆ خوێندکاران</string>
   <string name="trackStudentProgress">بەدواداچوون بۆ پێشکەوتنی ئاستی خوێندکار لە یاری و مەتەڵەکاندا</string>
   <string name="messageAllStudents">پەیام بۆ هەموو خوێندکاران بنێرە دەربارەی مادەی نوێی ناو پۆلەکەت</string>
-  <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">100% بەخۆڕاییە بۆ هەمووان، بۆ هەمیشە، بەبێ هیچ ڕیکلام و شوێنپێهەڵگرێک</string>
+  <string name="freeForAllForever">100% بەخۆڕاییە بۆ هەمووان، بۆ هەمیشە، بەبێ هیچ ڕیکلام و شوێنپێهەڵگرێک</string>
   <string name="applyToBeLichessTeacher">داواکاری پێشکەش بکە بۆ ئەوەی ببیتە مامۆستای لیچێس</string>
   <string name="noClassesYet">هێشتا هیچ پۆلێک نییە.</string>
   <string name="teachersX">مامۆستایان: %s</string>
   <string name="newClass">پۆلی نوێ</string>
   <string name="closeClass">داخستنی پۆل</string>
   <string name="removedByX">لەلایەن %s لابرا</string>
-  <string name="reopen" comment="A button, permitting a teacher to reopen a closed class.">دووبارە بیکەوە</string>
-  <string name="removeStudent" comment="Removes a student from the class. Note the same text is used both for initial removal, and for full erasure.">لابردنی خوێندکار</string>
-  <string name="removedStudents" comment="This is in plural form. It is a heading showing all students who have been removed from the class.">لابردن</string>
-  <string name="inviteTheStudentBack" comment="A button. Clicking this will re-invite a student that has been removed from the class.">خوێندکارەکە بانگهێشت بکەرەوە</string>
+  <string name="reopen">دووبارە بیکەوە</string>
+  <string name="removeStudent">لابردنی خوێندکار</string>
+  <string name="removedStudents">لابردن</string>
+  <string name="inviteTheStudentBack">خوێندکارەکە بانگهێشت بکەرەوە</string>
   <string name="sendAMessage">نامە بۆ سەرجەم قوتابیان بنێرە.</string>
   <string name="aLinkToTheClassWillBeAdded">لە کۆتایی نامەکەدا بە شێوەیەکی خۆکارانە بەستەرێک بۆ پۆلەکە زیاد دەکرێت، بۆیە پێویست ناکات خۆت ئەو کارە بکەیت.</string>
   <string name="className">ناوی پۆل</string>
@@ -30,7 +30,7 @@
   <string name="generateANewPassword">وشەی نهێنی نوێ بۆ خوێندکار دروست بکە</string>
   <string name="invitedToXByY">بانگهێشتکرا بۆ %1$s لە لایەن %2$s</string>
   <string name="realName">ناوی راستەقینەت</string>
-  <string name="privateWillNeverBeShown" comment="A description of the real name field for members of a class.">تایبەت. هەرگیز لە دەرەوەی پۆل نیشان نادرێت. یارمەتیت دەدات لەبیرت بێت کە خوێندکارەکە کێیە.</string>
+  <string name="privateWillNeverBeShown">تایبەت. هەرگیز لە دەرەوەی پۆل نیشان نادرێت. یارمەتیت دەدات لەبیرت بێت کە خوێندکارەکە کێیە.</string>
   <string name="addStudent">زیادکردنی خوێندکار</string>
   <string name="lichessProfileXCreatedForY">پڕۆفایلی لیچێس %1$s دروستکرا بۆ %2$s.</string>
   <string name="studentCredentials">خوێندکار:  %1$s
@@ -41,14 +41,14 @@
   <string name="inviteDesc2">پەیامێک لە لیچێس وەردەگرن کە لینکی بەشداریکردنی لە پۆلەکەدا لەگەڵە.</string>
   <string name="inviteDesc3">گرنگ: تەنها ئەو خوێندکارانە بانگهێشت بکە کە دەیانناسیت، و چالاکانە دەیانەوێت بەشداری پۆلەکە بکەن.</string>
   <string name="inviteDesc4">هەرگیز بانگهێشتی بێ داواکراو مەنێرە بۆ یاریزانە ئارەزوومەندەکان.</string>
-  <string name="createANewLichessAccount" comment="The person who would see this would always be a teacher.&#10;In this context, it is to create a new account for a student of their class.">هەژمارێکی نوێی لیچێس دروست بکە</string>
+  <string name="createANewLichessAccount">هەژمارێکی نوێی لیچێس دروست بکە</string>
   <string name="createDesc1">ئەگەر خوێندکارەکە هێشتا هەژماری لیچێسی نییە، دەتوانیت لێرەدا هەژمارێکی بۆ دروست بکەیت.</string>
   <string name="createDesc2">ناونیشانی ئیمێڵ پێویست نییە. وشەی نهێنی دروست دەکرێت، و دەبێت بیدەیت بە خوێندکارەکە، بۆ ئەوەی بتوانێت بچێتە ژوورەوە.</string>
   <string name="createDesc3">گرنگ: نابێت خوێندکار زیاد لە هەژمارێکی هەبێت.</string>
   <string name="createDesc4">ئەگەر پێشتر هەژماری دروستکردوە، ئەوا فۆڕمی بانگهێشتکردن بەکاربێنە.</string>
   <string name="createStudentWarning">تەنها ئەکاونت بۆ خوێندکارە ڕاستەقینەکان دروست بکە. ئەمە بەکارمەهێنە بۆ دروستکردنی چەند ئەکاونتێک بۆ خۆت. دواتر بان دەکرێیت.</string>
   <string name="lichessUsername">ناوی بەکارهێنەری لیچێس</string>
-  <string name="generateANewUsername" comment="A button which lets teachers create a random username for students they are registering.">ناوی بەکارهێنەرێکی نوێ دروست بکە</string>
+  <string name="generateANewUsername">ناوی بەکارهێنەرێکی نوێ دروست بکە</string>
   <string name="welcomeToClass">بەخێربێن بۆ پۆلەکەت: %s.
 ئەمە لینکی دەستگەیشتنە بە پۆلەکە.</string>
   <string name="invitationToClass">تۆ بانگهێشتکراوی بۆ بەشداریکردن لە پۆلی \"%s\" وەک a خوێندکار.</string>
@@ -57,14 +57,14 @@
     <item quantity="one">یەک بانگهێشتنامەی چاوەڕوانکراو</item>
     <item quantity="other">%s بانگهێشتنامەی چاوەڕوانکراو</item>
   </plurals>
-  <string name="pending" comment="Appears in a table of students. Refers to invitation by a teacher to join a class, which the student has not yet responded to.">ھەڵواسراو</string>
-  <string name="declined" comment="Appears in a table of students. Refers to invitation by a teacher to join a class, which the student declined.">ڕەتکرایەوە</string>
+  <string name="pending">ھەڵواسراو</string>
+  <string name="declined">ڕەتکرایەوە</string>
   <string name="onlyVisibleToTeachers">تەنها لای مامۆستایانی پۆلەکە دەردەکەوێت</string>
   <string name="lastActiveDate">چالاک</string>
   <string name="managed">بەڕێوەدەبرێت</string>
   <string name="thisStudentAccountIsManaged">هەژماری ئەو خوێندکارە بەڕێوەدەبردرێت</string>
   <string name="upgradeFromManaged">بەرزکردنەوە بۆ هەژمارێکی سەربەخۆ</string>
-  <string name="release" comment="This used to be 'release'. It is now called 'graduate', and the term is used here as a verb.&#10;&#10;'Releasing' an account means making it a full Lichess account. It will no longer be tied to the teacher that created it.">دەرچوو</string>
+  <string name="release">دەرچوو</string>
   <string name="releaseTheAccount">کە هەژمارەکە دەرچوو، خوێندکارەکە دەتوانێت سەربەخۆ هەژمارەکەی خۆی بەڕێوە ببات.</string>
   <string name="releaseDesc1">ئەکاونتێکی دەرچووی پۆلەکە ناتوانرێت جارێکی تر بەڕێوەببرێتەوە. خوێندکار دەتوانێت خۆی دۆخی منداڵان بگۆڕێت و وشەی نهێنی رێکبخاتەوە.</string>
   <string name="releaseDesc2">خوێندکار دوای دەرچوونی ئەکاونتەکەی لە پۆلەکەدا دەمێنێتەوە.</string>
@@ -103,19 +103,19 @@
 بۆ ئەوەی بە هێڵێکی ئاسۆیی نیشانی بدات.</string>
   <string name="invite">بانگهێشتکردن</string>
   <string name="youHaveBeenInvitedByX">تۆ بانگهێشتکراویت لەلایەن %s.</string>
-  <string name="youAcceptedThisInvitation" comment="Appears when revisiting the page of an invitation to a class, which you have already accepted.">ئەم بانگهێشتنامەیەت قبوڵکرد.</string>
-  <string name="youDeclinedThisInvitation" comment="Appears when revisiting the page of an invitation to a class, which you have already declined.">ئەم بانگهێشتنامەیەت رەتکردەوە.</string>
+  <string name="youAcceptedThisInvitation">ئەم بانگهێشتنامەیەت قبوڵکرد.</string>
+  <string name="youDeclinedThisInvitation">ئەم بانگهێشتنامەیەت رەتکردەوە.</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">یان</string>
   <string name="createMultipleAccounts">چەند هەژمارێکی زۆری لیچێس بە یەکجار دروستبکە</string>
   <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">هەروەها دەتوانیت %s بکەیت بۆ دروستکردنی چەندین ئەکاونتی لیچێس لە لیستی ناوی خوێندکاران.</string>
   <string name="useThisForm" comment="Link text in multipleAccsFromDescription">ئەم فۆرمە بەکاربێنە</string>
   <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">تێبینی بکە کە پۆلێک دەتوانێت تا %1$s خوێندکاری هەبێت. بۆ بەڕێوەبردنی خوێندکاری زیاتر، %2$s.</string>
   <string name="createMoreClasses" comment="Link text in maxStudentsNote">پۆلی زۆرتر دروستبکە</string>
-  <string name="studentsRealNamesOnePerLine" comment="An instruction on how to enter students' names when creating new accounts for them.">ناوی راستەقینەی خوێندکار، بۆ هەر دێڕێک یەک ناو</string>
-  <string name="xisNowAStudentOfTheClass" comment="%s is the player's name">%s ئێستا خوێندکاری پۆلەکەیە</string>
-  <string name="anInvitationHasBeenSentToX" comment="%s is the username of a player already registered on Lichess.">بانگهێشتنامەکە نێردا بۆ %s</string>
-  <string name="xAlreadyHasAPendingInvitation" comment="An error message. %s is the username of a player already registered on Lichess.">%s بانگهێشتنامەی بۆکراوە</string>
-  <string name="xIsAKidAccountWarning" comment="%1$s is the username&#10;%2$s is a link.">%1$s ئەکاونتێکی منداڵانە و ناتوانێت نامەکەت وەربگرێت. پێویستە بە دەستی بەستەری بانگهێشتکردنیان پێ بدەیت: %2$s</string>
-  <string name="moveToClass" comment="%s is the name of the class. The name of the class is set by the teacher.&#10;&#10;Appears on a confirmation prompt when a teacher looks to move a student to one of the other classes they run.">دەتەوێت بگوازرێتەوە بۆ %s</string>
-  <string name="moveToAnotherClass" comment="Appears as a heading on a page which lets a teacher move one of their students to one of the other classes they run.">چوون بۆ پۆلێکی تر</string>
+  <string name="studentsRealNamesOnePerLine">ناوی راستەقینەی خوێندکار، بۆ هەر دێڕێک یەک ناو</string>
+  <string name="xisNowAStudentOfTheClass">%s ئێستا خوێندکاری پۆلەکەیە</string>
+  <string name="anInvitationHasBeenSentToX">بانگهێشتنامەکە نێردا بۆ %s</string>
+  <string name="xAlreadyHasAPendingInvitation">%s بانگهێشتنامەی بۆکراوە</string>
+  <string name="xIsAKidAccountWarning">%1$s ئەکاونتێکی منداڵانە و ناتوانێت نامەکەت وەربگرێت. پێویستە بە دەستی بەستەری بانگهێشتکردنیان پێ بدەیت: %2$s</string>
+  <string name="moveToClass">دەتەوێت بگوازرێتەوە بۆ %s</string>
+  <string name="moveToAnotherClass">چوون بۆ پۆلێکی تر</string>
 </resources>

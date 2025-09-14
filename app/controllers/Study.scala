@@ -489,6 +489,14 @@ final class Study(
             }
         }(privateUnauthorizedFu(study), privateForbiddenFu(study))
 
+  def apiChapterTagsUpdate(studyId: StudyId, chapterId: StudyChapterId) =
+    ScopedBody(_.Study.Write) { _ ?=> _ ?=>
+      bindForm(StudyForm.chapterTagsForm)(
+        jsonFormError,
+        pgn => env.study.api.updateChapterTags(studyId, chapterId, pgn).inject(NoContent)
+      )
+    }
+
   def topicAutocomplete = Anon:
     get("term").filter(_.nonEmpty) match
       case None => BadRequest("No search term provided")

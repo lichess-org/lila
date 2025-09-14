@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses" comment="Lichess Classes are a feature that lets a teacher create virtual classes and check out students' progress.&#10;&#10;This text used to be &quot;Lichess Classes&quot;, which has since been shortened to &quot;Classes&quot;.">शिकवणी</string>
+  <string name="lichessClasses">शिकवणी</string>
   <string name="teachClassesOfChessStudents">Lichess Class साधनॆचा वापर करुन विद्यार्थ्यांना शिकवा.</string>
   <string name="features">वैशिष्ट्ये</string>
   <string name="quicklyGenerateSafeUsernames">विद्यार्थ्यांसाठी त्वरीत सुरक्षित वापरकर्तानाव आणि पासवर्ड तयार करा</string>
   <string name="trackStudentProgress">खेळ आणि कोड्यांमध्ये विद्यार्थ्यांच्या प्रगतीचा मोगावा घ्या</string>
   <string name="messageAllStudents">नवीन वर्ग सामग्रीबद्दल सर्व विद्यार्थ्यांना संदेश द्या</string>
-  <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">सर्वांसाठी 100% विनामूल्य, कायमचे, कोणत्याही जाहिराती किंवा ट्रॅकरशिवाय</string>
+  <string name="freeForAllForever">सर्वांसाठी 100% विनामूल्य, कायमचे, कोणत्याही जाहिराती किंवा ट्रॅकरशिवाय</string>
   <string name="applyToBeLichessTeacher">लिचेस प्रशिक्षक होण्यासाठी अर्ज करा</string>
   <string name="noClassesYet">अजून वर्ग नाहीत.</string>
   <string name="teachersX">शिक्षक: %s</string>
   <string name="newClass">नविन शिकवणी</string>
   <string name="closeClass">शिकवणी संपली</string>
   <string name="removedByX">%s ने काढले</string>
-  <string name="reopen" comment="A button, permitting a teacher to reopen a closed class.">परत सुरू करा</string>
-  <string name="removeStudent" comment="Removes a student from the class. Note the same text is used both for initial removal, and for full erasure.">विद्यार्थी हटवा</string>
-  <string name="removedStudents" comment="This is in plural form. It is a heading showing all students who have been removed from the class.">काढून टाका</string>
-  <string name="inviteTheStudentBack" comment="A button. Clicking this will re-invite a student that has been removed from the class.">विद्यार्थ्याला परत आमंत्रित करा</string>
+  <string name="reopen">परत सुरू करा</string>
+  <string name="removeStudent">विद्यार्थी हटवा</string>
+  <string name="removedStudents">काढून टाका</string>
+  <string name="inviteTheStudentBack">विद्यार्थ्याला परत आमंत्रित करा</string>
   <string name="sendAMessage">सर्व विद्यार्थ्याना संदेश पाठवा.</string>
   <string name="aLinkToTheClassWillBeAdded">मेसेजच्या शेवटी क्लासची लिंक आपोआप जोडली जाईल, त्यामुळे तुम्हाला तो स्वतः समाविष्ट करण्याची आवश्यकता नाही.</string>
   <string name="className">शिकवणीचे नाव</string>
@@ -30,7 +30,7 @@
   <string name="generateANewPassword">या विद्यार्थी साठी नवीन पासवर्ड बनवा</string>
   <string name="invitedToXByY">%1$s ला %2$s द्वारे आमंत्रित केले आहे</string>
   <string name="realName">खरे नाव</string>
-  <string name="privateWillNeverBeShown" comment="A description of the real name field for members of a class.">खाजगी. वर्गाबाहेर कधीही दाखवले जाणार नाही. विद्यार्थी कोण आहे हे लक्षात ठेवण्यास मदत होते.</string>
+  <string name="privateWillNeverBeShown">खाजगी. वर्गाबाहेर कधीही दाखवले जाणार नाही. विद्यार्थी कोण आहे हे लक्षात ठेवण्यास मदत होते.</string>
   <string name="addStudent">विद्यार्थी जोडा</string>
   <string name="lichessProfileXCreatedForY">%2$s साठी %1$s लिचेस प्रोफइल तयार केले.</string>
   <string name="studentCredentials">विद्यार्थी:  %1$s
@@ -41,14 +41,14 @@
   <string name="inviteDesc2">त्यांना वर्गात सामील होण्यासाठी लिंकसह Lichess वर संदेश प्राप्त होईल.</string>
   <string name="inviteDesc3">महत्त्वाचे: केवळ तुमच्या ओळखीच्या विद्यार्थ्यांना आमंत्रित करा आणि ज्यांना सक्रियपणे वर्गात सामील व्हायचे आहे.</string>
   <string name="inviteDesc4">अनियंत्रित खेळाडूंना कधीही अनपेक्षित आमंत्रणे पाठवू नका.</string>
-  <string name="createANewLichessAccount" comment="The person who would see this would always be a teacher.&#10;In this context, it is to create a new account for a student of their class.">नविन लिचेस खाते तयार करा</string>
+  <string name="createANewLichessAccount">नविन लिचेस खाते तयार करा</string>
   <string name="createDesc1">विद्यार्थ्याकडे अद्याप Lichess खाते नसल्यास, तुम्ही त्यांच्यासाठी येथे एक तयार करू शकता.</string>
   <string name="createDesc2">कोणताही ईमेल पत्ता आवश्यक नाही. एक पासवर्ड व्युत्पन्न केला जाईल, आणि तुम्हाला तो विद्यार्थ्याला पाठवावा लागेल जेणेकरून ते लॉग इन करू शकतील.</string>
   <string name="createDesc3">महत्त्वाचे: विद्यार्थ्याकडे एकाधिक खाती नसावीत.</string>
   <string name="createDesc4">त्यांच्याकडे आधीपासूनच एखादे असल्यास, त्याऐवजी आमंत्रण फॉर्म वापरा.</string>
   <string name="createStudentWarning">केवळ वास्तविक विद्यार्थ्यांसाठी खाती तयार करा. स्वतःसाठी एकाधिक खाती बनवण्यासाठी याचा वापर करू नका. तुमच्यावर बंदी येईल.</string>
   <string name="lichessUsername">लीचेस वापरकर्तानाव</string>
-  <string name="generateANewUsername" comment="A button which lets teachers create a random username for students they are registering.">नविन वापरकर्तानाव</string>
+  <string name="generateANewUsername">नविन वापरकर्तानाव</string>
   <string name="welcomeToClass">%s वर्गात तुमचे स्वागत आहे.
 वर्गात प्रवेशासाठी ही लिंक वापरा.</string>
   <string name="invitationToClass">तुम्हाला \"%s\" वर्गात विद्यार्थी म्हणून सामील होण्यासाठी आमंत्रित केले आहे.</string>
@@ -62,7 +62,7 @@
   <string name="managed">व्यवस्थापित</string>
   <string name="thisStudentAccountIsManaged">हे विद्यार्थी खाते व्यवस्थापित केले जाते</string>
   <string name="upgradeFromManaged">व्यवस्थापित वरून स्वायत्त वर श्रेणीसुधारित करा</string>
-  <string name="release" comment="This used to be 'release'. It is now called 'graduate', and the term is used here as a verb.&#10;&#10;'Releasing' an account means making it a full Lichess account. It will no longer be tied to the teacher that created it.">पदवीधर</string>
+  <string name="release">पदवीधर</string>
   <string name="releaseTheAccount">खाते पदवीधर करा जेणेकरून विद्यार्थी ते स्वायत्तपणे व्यवस्थापित करू शकेल.</string>
   <string name="releaseDesc1">पदवीधर खाते पुन्हा व्यवस्थापित केले जाऊ शकत नाही. विद्यार्थी किड मोड टॉगल करू शकेल आणि पासवर्ड स्वतः रीसेट करू शकेल.</string>
   <string name="releaseDesc2">विद्यार्थ्याचे खाते ग्रॅज्युएट झाल्यानंतर वर्गात राहील.</string>
@@ -101,17 +101,17 @@
 ते क्षैतिज रेषा दर्शवेल.</string>
   <string name="invite">आमंत्रित करा</string>
   <string name="youHaveBeenInvitedByX">%s ने तुम्हाला आमंत्रित केले आहे.</string>
-  <string name="youAcceptedThisInvitation" comment="Appears when revisiting the page of an invitation to a class, which you have already accepted.">तुम्ही हे आमंत्रण स्वीकारले.</string>
-  <string name="youDeclinedThisInvitation" comment="Appears when revisiting the page of an invitation to a class, which you have already declined.">तुम्ही हे आमंत्रण नाकारले.</string>
+  <string name="youAcceptedThisInvitation">तुम्ही हे आमंत्रण स्वीकारले.</string>
+  <string name="youDeclinedThisInvitation">तुम्ही हे आमंत्रण नाकारले.</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">किंवा</string>
   <string name="createMultipleAccounts">एकाच वेळी अनेक लिचेस खाती तयार करा</string>
   <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">विद्यार्थ्यांच्या नावाच्या यादीवरून अनेक लिचेस खाती तयार करण्यासाठी %s.</string>
   <string name="useThisForm" comment="Link text in multipleAccsFromDescription">हा अर्ज वापरा</string>
   <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">एका वर्गात %1$s पर्यंतच विद्यार्थी असू शकतात. जास्त विद्यार्थ्यांसाठी %2$s.</string>
   <string name="createMoreClasses" comment="Link text in maxStudentsNote">आणखी वर्ग तयार करा</string>
-  <string name="studentsRealNamesOnePerLine" comment="An instruction on how to enter students' names when creating new accounts for them.">विद्यार्थ्यांची खरी नावे, एका ओळीत एक</string>
-  <string name="xisNowAStudentOfTheClass" comment="%s is the player's name">%s हा आता या वर्गाचा विद्यार्थी आहे</string>
-  <string name="anInvitationHasBeenSentToX" comment="%s is the username of a player already registered on Lichess.">%s ला आमंत्रण पाठवले आहे</string>
-  <string name="xAlreadyHasAPendingInvitation" comment="An error message. %s is the username of a player already registered on Lichess.">%s कडे आधीच प्रलंबित आमंत्रण आहे</string>
-  <string name="xIsAKidAccountWarning" comment="%1$s is the username&#10;%2$s is a link.">%1$s हे लहान मुलांसाठीचे खाते आहे आणि संदेश स्वीकारू शकत नाही. तुम्हाला त्यांना व्यक्तीगतरीत्या आमंत्रण URL द्यावी लागेल: %2$s</string>
+  <string name="studentsRealNamesOnePerLine">विद्यार्थ्यांची खरी नावे, एका ओळीत एक</string>
+  <string name="xisNowAStudentOfTheClass">%s हा आता या वर्गाचा विद्यार्थी आहे</string>
+  <string name="anInvitationHasBeenSentToX">%s ला आमंत्रण पाठवले आहे</string>
+  <string name="xAlreadyHasAPendingInvitation">%s कडे आधीच प्रलंबित आमंत्रण आहे</string>
+  <string name="xIsAKidAccountWarning">%1$s हे लहान मुलांसाठीचे खाते आहे आणि संदेश स्वीकारू शकत नाही. तुम्हाला त्यांना व्यक्तीगतरीत्या आमंत्रण URL द्यावी लागेल: %2$s</string>
 </resources>

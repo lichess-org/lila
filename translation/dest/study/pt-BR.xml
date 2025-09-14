@@ -61,6 +61,7 @@
   <string name="studyPgn">PGN de estudo</string>
   <string name="chapterPgn">PGN do capítulo</string>
   <string name="copyChapterPgn">Copiar PGN</string>
+  <string name="copyRawChapterPgn" comment="Appears as a button on individual study chapters. Lets you copy a PGN without any annotations, commentary or analysis">Copiar PGN sem formatação</string>
   <string name="downloadGame">Baixar partida</string>
   <string name="studyUrl">URL de estudo</string>
   <string name="currentChapterUrl">URL do capítulo atual</string>
@@ -164,11 +165,11 @@
   <string name="playAgain">Jogar novamente</string>
   <string name="whatWouldYouPlay">O que você jogaria nessa posição?</string>
   <string name="youCompletedThisLesson">Parabéns! Você completou essa lição.</string>
-  <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">%s por página</string>
+  <string name="perPage">%s por página</string>
   <string name="getTheTour">Perdido(a)? Faça o tour!</string>
   <string name="welcomeToLichessStudyTitle">Bem-vindo(a) aos Estudos do Lichess!</string>
   <string name="welcomeToLichessStudyText">Este é um tabuleiro de análise compartilhado.&lt;br&gt;&lt;br&gt;Use para analisar jogos,&lt;br&gt;discutir posições com amigos&lt;br&gt;e, claro, ter aulas de xadrez!&lt;br&gt;&lt;br&gt;Vejamos como usar esse poderoso recurso.</string>
-  <string name="sharedAndSaveTitle" comment="Appears as the title of a pop-up lightbox in the guided tour of Lichess Studies.&#10;&#10;As in: shared with other members &amp; saved to the database.">Compartilhado e salvo</string>
+  <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Compartilhado e salvo</string>
   <string name="sharedAndSavedText">Outros membros podem ver suas jogadas em tempo real!&lt;br&gt;E tudo fica salvo para sempre.</string>
   <string name="studyMembersTitle">Membros do estudo</string>
   <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s Espectadores podem ver o estudo e conversar.&lt;br&gt;&lt;br&gt;%2$s Colaboradores podem mover peças e atualizar o estudo.</string>
@@ -196,7 +197,7 @@
   <string name="variantsAreSupportedTitle">Os estudos suportam variantes</string>
   <string name="variantsAreSupportedText">Sim, você pode estudar Crazyhouse&lt;br&gt;e qualquer outra variante!</string>
   <string name="chapterConclusionText">Capítulos ficam salvos para sempre.&lt;br&gt;Divirta-se organizando o conteúdo!</string>
-  <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Derrota dupla</string>
-  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">Pretas perderam, mas brancas não podem vencer</string>
-  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">Brancas perderam, mas pretas não podem vencer</string>
+  <string name="doubleDefeat">Derrota dupla</string>
+  <string name="blackDefeatWhiteCanNotWin">Pretas perderam, mas brancas não podem vencer</string>
+  <string name="whiteDefeatBlackCanNotWin">Brancas perderam, mas pretas não podem vencer</string>
 </resources>

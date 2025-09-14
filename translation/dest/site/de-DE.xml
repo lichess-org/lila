@@ -397,6 +397,7 @@
     <item quantity="other">Du musst noch %s gewertete Spiele mehr spielen</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Deine %s Wertung ist provisorisch</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Die Filter nach Wertungszahl sind gesperrt, da deine Wertungszahl nicht stabil ist. Gewertete Partien zu spielen erhöht die Stabilität deiner Wertung.</string>
   <string name="yourPerfRatingIsTooHigh">Deine %1$s Wertung (%2$s) ist zu hoch</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Deine beste wöchentliche %1$s Wertung (%2$s) ist zu hoch</string>
   <string name="yourPerfRatingIsTooLow">Deine %1$s Wertung (%2$s) ist zu niedrig</string>
@@ -1009,4 +1010,9 @@ Alle Betriebskosten, Entwicklung und Inhalte werden ausschließlich durch Benutz
   <string name="enableBlindMode">Blindenmodus aktivieren</string>
   <string name="disableBlindMode">Blindenmodus deaktivieren</string>
   <string name="copyToClipboard">In die Zwischenablage kopieren</string>
+  <string name="online" comment="status of a user">online</string>
+  <string name="offline" comment="status of a user">offline</string>
+  <string name="search">Suchen</string>
+  <string name="clearSearch">Neue Suche</string>
+  <string name="tags">Schlagwörter</string>
 </resources>

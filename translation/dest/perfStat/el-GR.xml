@@ -3,16 +3,16 @@
   <string name="perfStats">Στατιστικά %s</string>
   <string name="viewTheGames">Προβολή παρτίδων</string>
   <string name="provisional">προσωρινή</string>
-  <string name="notEnoughRatedGames">Δεν έχουν παιχτεί αρκετές βαθμολογημένες παρτίδες ώστε να υπάρξει έμπιστη βαθμολογία.</string>
+  <string name="notEnoughRatedGames">Δεν έχουν παιχτεί αρκετές βαθμολογημένες παρτίδες ώστε να υπάρξει σταθερή βαθμολογία.</string>
   <string name="progressOverLastXGames">Εξέλιξη βάσει των τελευταίων %s παρτίδων:</string>
   <string name="ratingDeviation">Απόκλιση βαθμολογίας: %s.</string>
-  <string name="ratingDeviationTooltip" comment="ratingDeviationTooltip&#10;&#10;This is a tooltip (appears on mouseover) for the rating deviation. Appears on performance statistics pages such as https://lichess.org/@/thibault/perf/ultraBullet&#10;&#10;As of 2021-05-19, $1%s is set to 110.">Χαμηλότερη τιμή σημαίνει ότι η βαθμολογία είναι πιο σταθερή. Βαθμολογίες πάνω από %1$s θεωρούνται προσωρινές. Για να συμπεριληφθείτε στην κατάταξη, η βαθμολογία σας πρέπει να είναι κάτω από %2$s (στο κανονικό σκάκι) ή %3$s (στις παραλλαγές).</string>
-  <string name="totalGames">Σύνολο παρτίδων</string>
+  <string name="ratingDeviationTooltip" comment="ratingDeviationTooltip&#10;&#10;This is a tooltip (appears on mouseover) for the rating deviation. Appears on performance statistics pages such as https://lichess.org/@/thibault/perf/ultraBullet&#10;&#10;As of 2021-05-19, $1%s is set to 110.">Όσο χαμηλότερη είναι αυτή η τιμή, τόσο πιο σταθερή είναι η βαθμολογία του παίκτη. Η βαθμολογία θεωρείται σταθερή μόνο αν αυτή η τιμή δεν ξεπερνά το %1$s. Για να συμπεριληφθείτε στις κατατάξεις του Lichess, η τιμή αυτή πρέπει να είναι χαμηλότερη του %2$s (στο κανονικό σκάκι) ή του %3$s (στις παραλλαγές).</string>
+  <string name="totalGames">Πλήθος παρτίδων</string>
   <string name="ratedGames">Βαθμολογημένες παρτίδες</string>
   <string name="tournamentGames">Παρτίδες σε τουρνουά</string>
   <string name="berserkedGames">Παρτίδες με berserk</string>
   <string name="timeSpentPlaying">Χρόνος που διατέθηκε παίζοντας</string>
-  <string name="averageOpponent">Μέση αξιολόγηση αντιπάλων</string>
+  <string name="averageOpponent">Μέσος όρος βαθμολογίας αντιπάλων</string>
   <string name="victories">Νίκες</string>
   <string name="defeats">Ήττες</string>
   <string name="disconnections">Αποσυνδέσεις</string>
@@ -22,7 +22,7 @@
   <string name="fromXToY">από %1$s έως %2$s</string>
   <string name="winningStreak">Συνεχόμενες νίκες</string>
   <string name="losingStreak">Συνεχόμενες ήττες</string>
-  <string name="longestStreak">Μεγαλύτερο Σερί: %s</string>
+  <string name="longestStreak">Μεγαλύτερο σερί: %s</string>
   <string name="currentStreak">Τρέχον σερί: %s</string>
   <string name="bestRated">Καλύτερες αξιολογήσιμες νίκες</string>
   <string name="gamesInARow">Συνεχόμενες παρτίδες</string>

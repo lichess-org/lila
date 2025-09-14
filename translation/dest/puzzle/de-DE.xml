@@ -94,5 +94,5 @@ Spiele Schnellschach und klassische Partien, um deine Chancen zu erhöhen, dass 
   <string name="percentSolved">%s gelöst</string>
   <string name="noPuzzlesToShow">Es gibt nichts zu zeigen, löse zuerst ein paar Aufgaben!</string>
   <string name="improvementAreasDescription">Übe das, um deinen Fortschritt zu optimieren!</string>
-  <string name="strengthDescription">Bei diesen Themen schneiden Sie am besten ab</string>
+  <string name="strengthDescription">Bei diesen Themen schneidest du am besten ab</string>
 </resources>

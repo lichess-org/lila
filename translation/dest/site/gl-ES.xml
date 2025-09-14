@@ -397,6 +397,7 @@
     <item quantity="other">Necesitas xogar %s partidas puntuadas máis</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">A túa puntuación %s é provisional</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Os filtros de puntuación están bloqueados dado que a túa puntuación non é estable. Tes que xogar partidas puntuadas para incrementar a súa estabilidade.</string>
   <string name="yourPerfRatingIsTooHigh">A túa puntuación %1$s (%2$s) é demasiado alta</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">A túa puntuación máxima semanal %1$s (%2$s) é demasiado alta</string>
   <string name="yourPerfRatingIsTooLow">A túa puntuación %1$s (%2$s) é demasiado baixa</string>
@@ -1008,4 +1009,9 @@ Todos os custos de funcionamento, desenvolvemento e contidos fináncianse unicam
   <string name="enableBlindMode">Activar o modo de accesibilidade web</string>
   <string name="disableBlindMode">Desactivar o modo de accesibilidade web</string>
   <string name="copyToClipboard">Copiar ao portapapeis</string>
+  <string name="online" comment="status of a user">conectado</string>
+  <string name="offline" comment="status of a user">desconectado</string>
+  <string name="search">Buscar</string>
+  <string name="clearSearch">Borrar a procura</string>
+  <string name="tags">Etiquetas</string>
 </resources>

@@ -55,8 +55,7 @@ export function initModule(old: { youtube: string; twitch: string }): any {
       if (!old.youtube && !old.twitch) return userSubmitEl.click();
       if (youTubeEl.value === old.youtube && twitchEl.value === old.twitch) return userSubmitEl.click();
 
-      if (await confirm(i18n.streamer.twitchOrYouTubeMustBeVerified, i18n.site.ok, i18n.site.cancel))
-        return userSubmitEl.click();
+      if (await confirm(i18n.streamer.twitchOrYouTubeMustBeVerified)) return userSubmitEl.click();
     });
   }
   wireCropDialog({

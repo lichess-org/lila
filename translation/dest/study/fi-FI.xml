@@ -164,11 +164,11 @@
   <string name="playAgain">Pelaa uudelleen</string>
   <string name="whatWouldYouPlay">Mitä pelaisit tässä asemassa?</string>
   <string name="youCompletedThisLesson">Onnittelut! Olet suorittanut tämän oppiaiheen.</string>
-  <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">%s per sivu</string>
+  <string name="perPage">%s per sivu</string>
   <string name="getTheTour">Avun tarpeessa? Katso esittely!</string>
   <string name="welcomeToLichessStudyTitle">Tervetuloa Lichess-tutkielmiin!</string>
   <string name="welcomeToLichessStudyText">Tämä on jaettu analyysilauta.&lt;br&gt;&lt;br&gt;Käytä sitä pelien analysoimiseen ja kommentoimiseen,&lt;br&gt;asemien tarkasteluun ystävien kesken&lt;br&gt;ja tietysti shakkioppitunneilla!&lt;br&gt;&lt;br&gt;Katsotaanpa lähemmin, miten tämä tehokas työkalu toimii.</string>
-  <string name="sharedAndSaveTitle" comment="Appears as the title of a pop-up lightbox in the guided tour of Lichess Studies.&#10;&#10;As in: shared with other members &amp; saved to the database.">Jaettuna ja tallessa</string>
+  <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Jaettuna ja tallessa</string>
   <string name="sharedAndSavedText">Toiset jäsenet näkevät siirtosi reaaliajassa!&lt;br&gt;Lisäksi kaikki pysyy ikuisesti tallennettuna.</string>
   <string name="studyMembersTitle">Tutkielman jäsenet</string>
   <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s Katsojat voivat katsoa tutkielmaa ja keskustella chatissa.&lt;br&gt;&lt;br&gt;%2$s Osallistujat voivat tehdä siirtoja ja muokata tutkielmaa.</string>
@@ -196,7 +196,7 @@
   <string name="variantsAreSupportedTitle">Tutkielmat varianteille</string>
   <string name="variantsAreSupportedText">Kyllä, voit tutkia crazyhousea&lt;br&gt;ja kaikkia Lichessin variantteja!</string>
   <string name="chapterConclusionText">Luvut pysyvät aina tallennettuina.&lt;br&gt;Toivotamme mukavia hetkiä shakkisisältöjesi järjestelyyn!</string>
-  <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Molemminpuolinen tappio</string>
-  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">Mustan tappio, mutta valkea ei voi voittaa</string>
-  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">Valkean tappio, mutta musta ei voi voittaa</string>
+  <string name="doubleDefeat">Molemminpuolinen tappio</string>
+  <string name="blackDefeatWhiteCanNotWin">Mustan tappio, mutta valkea ei voi voittaa</string>
+  <string name="whiteDefeatBlackCanNotWin">Valkean tappio, mutta musta ei voi voittaa</string>
 </resources>

@@ -397,6 +397,7 @@
     <item quantity="other">Necessites jugar %s partides puntuades més</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">La teva puntuació de %s és provisional</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">El filtres de puntuació estan bloquejats perquè la teva puntuació no és estable. Juga més partides per incrementar l\'estabilitat.</string>
   <string name="yourPerfRatingIsTooHigh">La teva puntuació de %1$s (%2$s) és massa alta</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">La teva puntuació setmanal de %1$s (%2$s) és massa alta</string>
   <string name="yourPerfRatingIsTooLow">La teva puntuació de %1$s (%2$s) és massa baixa</string>
@@ -1009,4 +1010,9 @@ Les despeses de funcionament, desenvolupament i continguts es financen exclusiva
   <string name="enableBlindMode">Activar el mode cec</string>
   <string name="disableBlindMode">Desactivar el mode cec</string>
   <string name="copyToClipboard">Copia al porta-retalls</string>
+  <string name="online" comment="status of a user">en línia</string>
+  <string name="offline" comment="status of a user">fora de línia</string>
+  <string name="search">Cerca</string>
+  <string name="clearSearch">Neteja la cerca</string>
+  <string name="tags">Etiquetes</string>
 </resources>

@@ -140,7 +140,7 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
   private def image(post: UblogPost, form: Form[UblogForm.UblogPostData])(using ctx: Context) =
     form3.fieldset("Image", toggle = true.some)(
       div(cls := "form-group ublog-image-edit", data("post-url") := routes.Ublog.image(post.id))(
-        ui.thumbnail(post, _.Size.Small)(
+        ui.thumbnail(post, _.Size.Large)(
           cls := "drop-target " + post.image.isDefined.so("user-image"),
           attr("draggable") := "true"
         ),

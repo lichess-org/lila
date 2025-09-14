@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses" comment="Lichess Classes are a feature that lets a teacher create virtual classes and check out students' progress.&#10;&#10;This text used to be &quot;Lichess Classes&quot;, which has since been shortened to &quot;Classes&quot;.">Wane</string>
+  <string name="lichessClasses">Wane</string>
   <string name="teachClassesOfChessStudents">Bi alavên Polên Lichessê ders pêş xwendekarên setrencê bike.</string>
   <string name="features">Taybetî</string>
   <string name="quicklyGenerateSafeUsernames">Ji bo xwendekaran bi lez bernavan û şîfreyan çêbike</string>
   <string name="trackStudentProgress">Pêşveçûna xwendekaran a di lîstik û pazilan de bişopîne</string>
   <string name="messageAllStudents">Di derheqa materyalên nuh de peyam bişîne ji xwendekaran re</string>
-  <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">%100 bêbuha, ji herkesî re, her tim, bê reklam û peyger</string>
+  <string name="freeForAllForever">%100 bêbuha, ji herkesî re, her tim, bê reklam û peyger</string>
   <string name="applyToBeLichessTeacher">Ji bo bûyîna mamosteyê Lichessê serî lê bide</string>
   <string name="noClassesYet">Hîna pol tune ne.</string>
   <string name="teachersX">Mamoste: %s</string>
   <string name="newClass">Waneya nû</string>
   <string name="closeClass">Waneyê bigir</string>
   <string name="removedByX">Hat derxistin ji aliyê %s ve</string>
-  <string name="reopen" comment="A button, permitting a teacher to reopen a closed class.">Ji nû ve veke</string>
-  <string name="removeStudent" comment="Removes a student from the class. Note the same text is used both for initial removal, and for full erasure.">Şargirt derxîne</string>
-  <string name="removedStudents" comment="This is in plural form. It is a heading showing all students who have been removed from the class.">Hilatî</string>
-  <string name="inviteTheStudentBack" comment="A button. Clicking this will re-invite a student that has been removed from the class.">Şagirtê dîsa vexwîne</string>
+  <string name="reopen">Ji nû ve veke</string>
+  <string name="removeStudent">Şargirt derxîne</string>
+  <string name="removedStudents">Hilatî</string>
+  <string name="inviteTheStudentBack">Şagirtê dîsa vexwîne</string>
   <string name="sendAMessage">Ji hemû şagirtan ra peyaş bişeyne.</string>
   <string name="aLinkToTheClassWillBeAdded">Ji bo polê wê lînkek di dawiya peyamê de bê dan, ne hewce ye ku tu bixwe têxê.</string>
   <string name="className">Navê polê</string>
