@@ -118,4 +118,6 @@ Amosará unha liña separadora horizontal.</string>
   <string name="xIsAKidAccountWarning">%1$s é unha conta infantil e non pode recibir a túa mensaxe. Debes enviarlle o URL de invitación de xeito manual: %2$s</string>
   <string name="moveToClass">Mover a %s</string>
   <string name="moveToAnotherClass">Mover a outra clase</string>
+  <string name="allowMessagingBetweenStudents">Permitir mensaxes entre estudantes</string>
+  <string name="allowMessagingBetweenStudentsDesc">Só se aplica ás contas que creaches para os teus estudantes.</string>
 </resources>
