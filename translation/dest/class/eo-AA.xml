@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses" comment="Lichess Classes are a feature that lets a teacher create virtual classes and check out students' progress.&#10;&#10;This text used to be &quot;Lichess Classes&quot;, which has since been shortened to &quot;Classes&quot;.">Lecionoj</string>
+  <string name="lichessClasses">Lecionoj</string>
   <string name="teachClassesOfChessStudents">Instruu al klasoj de ŝako-studentoj kun la ilo de Klasoj de Lichess.</string>
   <string name="features">Funkcioj</string>
   <string name="quicklyGenerateSafeUsernames">Rapide kreu sekurajn uzantonomon kaj pasvortojn por viaj lernantoj</string>
   <string name="trackStudentProgress">Sekvi la progreson de la lernanto en ludoj kaj puzloj</string>
   <string name="messageAllStudents">Mesaĝu al ĉiuj lernantoj pri nova leciona materialo</string>
-  <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">100% senpaga por ĉiuj, por ĉiam, sen reklamoj aŭ spuriloj</string>
+  <string name="freeForAllForever">100% senpaga por ĉiuj, por ĉiam, sen reklamoj aŭ spuriloj</string>
   <string name="applyToBeLichessTeacher">Petu esti Instruisto en Lichess</string>
   <string name="noClassesYet">Neniu leciono ankoraŭ.</string>
   <string name="teachersX">Instruistoj: %s</string>
   <string name="newClass">Nova klaso</string>
   <string name="closeClass">Fermi klason</string>
   <string name="removedByX">Forigita de %s</string>
-  <string name="reopen" comment="A button, permitting a teacher to reopen a closed class.">Remalfermu</string>
-  <string name="removeStudent" comment="Removes a student from the class. Note the same text is used both for initial removal, and for full erasure.">Forigi lernanton</string>
-  <string name="removedStudents" comment="This is in plural form. It is a heading showing all students who have been removed from the class.">Forigita</string>
-  <string name="inviteTheStudentBack" comment="A button. Clicking this will re-invite a student that has been removed from the class.">Denove inviti la lernanton</string>
+  <string name="reopen">Remalfermu</string>
+  <string name="removeStudent">Forigi lernanton</string>
+  <string name="removedStudents">Forigita</string>
+  <string name="inviteTheStudentBack">Denove inviti la lernanton</string>
   <string name="sendAMessage">Sendi mesaĝon al ĉiuj lernantoj.</string>
   <string name="aLinkToTheClassWillBeAdded">Ligilo al la klaso memage aldoniĝos ĉe la fino de la mesaĝo, do vi ne devas enmeti ĝin vi mem.</string>
   <string name="className">Nomo de la leciono</string>
@@ -30,7 +30,7 @@
   <string name="generateANewPassword">Krei novan pasvortojn por la lernanto</string>
   <string name="invitedToXByY">Invitita %1$s al %2$s</string>
   <string name="realName">Reala nomo</string>
-  <string name="privateWillNeverBeShown" comment="A description of the real name field for members of a class.">Privata. Neniam montriĝos ekster la klaso. Ĝi helpas memori, kiu estas la lernanto.</string>
+  <string name="privateWillNeverBeShown">Privata. Neniam montriĝos ekster la klaso. Ĝi helpas memori, kiu estas la lernanto.</string>
   <string name="addStudent">Aldoni lernanton</string>
   <string name="lichessProfileXCreatedForY">Lichess profilo %1$s kreita de %2$s.</string>
   <string name="studentCredentials">Lernanto: %1$s
@@ -41,14 +41,14 @@ Pasvorto: %3$s</string>
   <string name="inviteDesc2">Ili ricevos mesaĝon en Lichess kun ligo por aliĝi al la klaso.</string>
   <string name="inviteDesc3">Grava: invitu nur homojn, kiujn vi konas kaj kiuj aktive volas aliĝi al tiu ĉi studo.</string>
   <string name="inviteDesc4">Neniam sendu nepetitajn invitojn al arbitraj ludantoj.</string>
-  <string name="createANewLichessAccount" comment="The person who would see this would always be a teacher.&#10;In this context, it is to create a new account for a student of their class.">Kreni novan Lichess konton</string>
+  <string name="createANewLichessAccount">Kreni novan Lichess konton</string>
   <string name="createDesc1">Se la studento ankoraŭ ne havas Lichess konton, vi povas krei unu por ili ĉi tie.</string>
   <string name="createDesc2">Neniu retpoŝtadreso estas bezonata. Pasvorto estos generita, kaj vi devos transdoni ĝin al la studento, por ke ili povu ensaluti.</string>
   <string name="createDesc3">Grava: studento ne devas havi pluraj kontoj.</string>
   <string name="createDesc4">Se ili jam havas unu, uzu anstataŭe la inviti formo anstataŭe.</string>
   <string name="createStudentWarning">Nur kreu kontojn por veraj studentoj. Ne uzu ĉi tion por krei plurajn kontojn por vi mem. Vi estus malpermesita.</string>
   <string name="lichessUsername">Lichess-uzantnomo</string>
-  <string name="generateANewUsername" comment="A button which lets teachers create a random username for students they are registering.">Krei novan uzantonomon</string>
+  <string name="generateANewUsername">Krei novan uzantonomon</string>
   <string name="welcomeToClass">Bonvenon al via klaso: %s.
 Jen la ligo por aliri la klason.</string>
   <string name="invitationToClass">Vi estas invitita aliĝi al la klaso \"%s\" kiel studento.</string>
@@ -62,7 +62,7 @@ Jen la ligo por aliri la klason.</string>
   <string name="managed">Administrita</string>
   <string name="thisStudentAccountIsManaged">Ĉi tiu studenta konto estas administrita</string>
   <string name="upgradeFromManaged">Ĝisdatigu de administrita al aŭtonoma</string>
-  <string name="release" comment="This used to be 'release'. It is now called 'graduate', and the term is used here as a verb.&#10;&#10;'Releasing' an account means making it a full Lichess account. It will no longer be tied to the teacher that created it.">Liberigi</string>
+  <string name="release">Liberigi</string>
   <string name="releaseTheAccount">Liberigi la konton por ke la lernanto povu memstare administri ĝin.</string>
   <string name="releaseDesc1">Liberigita konto ne povas esti administrata denove. La studento povos mem alternigi infanan reĝimon kaj restarigi pasvorton mem.</string>
   <string name="releaseDesc2">La studento restos en la klaso post kiam ilia konto estos liberigita.</string>
@@ -101,17 +101,17 @@ Jen la ligo por aliri la klason.</string>
 Ĝi aperos horizontala linio.</string>
   <string name="invite">Inviti</string>
   <string name="youHaveBeenInvitedByX">Vi estis invitita de %s.</string>
-  <string name="youAcceptedThisInvitation" comment="Appears when revisiting the page of an invitation to a class, which you have already accepted.">Vi akceptis ĉi tiun inviton.</string>
-  <string name="youDeclinedThisInvitation" comment="Appears when revisiting the page of an invitation to a class, which you have already declined.">Vi malakceptis ĉi tiun inviton.</string>
+  <string name="youAcceptedThisInvitation">Vi akceptis ĉi tiun inviton.</string>
+  <string name="youDeclinedThisInvitation">Vi malakceptis ĉi tiun inviton.</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">aŭ</string>
   <string name="createMultipleAccounts">Krei plurajn Lichess kontojn samtempe</string>
   <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Vi povas ankaŭ %s por krei plurajn Lichess kontojn el listo de lernantaj nomoj.</string>
   <string name="useThisForm" comment="Link text in multipleAccsFromDescription">uzi ĉi tiun formularon</string>
   <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Notu, ke klaso povas havi ĝis %1$s lernantoj. Por administri pli lernantoj, %2$s.</string>
   <string name="createMoreClasses" comment="Link text in maxStudentsNote">krei pli da klasoj</string>
-  <string name="studentsRealNamesOnePerLine" comment="An instruction on how to enter students' names when creating new accounts for them.">Veraj nomoj de lernantoj, unu po lino</string>
-  <string name="xisNowAStudentOfTheClass" comment="%s is the player's name">%s nun apartenas al la klaso</string>
-  <string name="anInvitationHasBeenSentToX" comment="%s is the username of a player already registered on Lichess.">Invito sendis al %s</string>
-  <string name="xAlreadyHasAPendingInvitation" comment="An error message. %s is the username of a player already registered on Lichess.">%s jam havas pritraktota invito</string>
-  <string name="xIsAKidAccountWarning" comment="%1$s is the username&#10;%2$s is a link.">%1$s estas infana kono kaj ne povas ricevi vian mesaĝo. Vi devas aldoni al ili la invita URL permane: %2$s</string>
+  <string name="studentsRealNamesOnePerLine">Veraj nomoj de lernantoj, unu po lino</string>
+  <string name="xisNowAStudentOfTheClass">%s nun apartenas al la klaso</string>
+  <string name="anInvitationHasBeenSentToX">Invito sendis al %s</string>
+  <string name="xAlreadyHasAPendingInvitation">%s jam havas pritraktota invito</string>
+  <string name="xIsAKidAccountWarning">%1$s estas infana kono kaj ne povas ricevi vian mesaĝo. Vi devas aldoni al ili la invita URL permane: %2$s</string>
 </resources>

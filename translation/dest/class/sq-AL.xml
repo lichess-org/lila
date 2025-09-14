@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses" comment="Lichess Classes are a feature that lets a teacher create virtual classes and check out students' progress.&#10;&#10;This text used to be &quot;Lichess Classes&quot;, which has since been shortened to &quot;Classes&quot;.">Mësimet</string>
+  <string name="lichessClasses">Mësimet</string>
   <string name="teachClassesOfChessStudents">Jepni mësim për kurse nxënësish të shahut, me suitën e mjeteve Lichess Classes.</string>
   <string name="features">Veçori</string>
   <string name="quicklyGenerateSafeUsernames">Prodhoni shpejt e shpejt për nxënësit emra përdoruesish dhe fjalëkalime të parrezik</string>
   <string name="trackStudentProgress">Ndiqni ecurinë e nxënësve në lojëra dhe ushtrime</string>
   <string name="messageAllStudents">Dërgojuni mesazh krejt nxënësve mbi lëndë të re mësimi</string>
-  <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">100% e lirë për gjithkënd, përgjithmonë, pa reklama dhe gjurmues</string>
+  <string name="freeForAllForever">100% e lirë për gjithkënd, përgjithmonë, pa reklama dhe gjurmues</string>
   <string name="applyToBeLichessTeacher">Aplikoni për t’u bërë Mësues i Lichess-it</string>
   <string name="noClassesYet">Ende pa klasë.</string>
   <string name="teachersX">Mësues: %s</string>
   <string name="newClass">Kurs i ri</string>
   <string name="closeClass">Mbylle kursin</string>
   <string name="removedByX">Hequr nga %s</string>
-  <string name="reopen" comment="A button, permitting a teacher to reopen a closed class.">Rihape</string>
-  <string name="removeStudent" comment="Removes a student from the class. Note the same text is used both for initial removal, and for full erasure.">Fshij nxënësin</string>
-  <string name="removedStudents" comment="This is in plural form. It is a heading showing all students who have been removed from the class.">U fshi</string>
-  <string name="inviteTheStudentBack" comment="A button. Clicking this will re-invite a student that has been removed from the class.">Riftojeni nxënësin</string>
+  <string name="reopen">Rihape</string>
+  <string name="removeStudent">Fshij nxënësin</string>
+  <string name="removedStudents">U fshi</string>
+  <string name="inviteTheStudentBack">Riftojeni nxënësin</string>
   <string name="sendAMessage">Dërgoni një mesazh për gjithë nxënësit.</string>
   <string name="aLinkToTheClassWillBeAdded">Në fund të mesazhit do të shtohet automatikisht një lidhje për te kursi, ndaj s’ju duhet ta shtoni ju vetë.</string>
   <string name="className">Emër kursi</string>
@@ -30,7 +30,7 @@
   <string name="generateANewPassword">Prodho një fjalëkalim të ri për nxënësin</string>
   <string name="invitedToXByY">I ftuar në %1$s nga %2$s</string>
   <string name="realName">Emri i vërtetë</string>
-  <string name="privateWillNeverBeShown" comment="A description of the real name field for members of a class.">Privat. S’do të shfaqet kurrë jashtë kursit. Ndihmon të mbahet mend se cili është denti.</string>
+  <string name="privateWillNeverBeShown">Privat. S’do të shfaqet kurrë jashtë kursit. Ndihmon të mbahet mend se cili është denti.</string>
   <string name="addStudent">Shtoni student</string>
   <string name="lichessProfileXCreatedForY">Profil Lichess-ii %1$s krijuar për %2$s.</string>
   <string name="studentCredentials">Studenti: %1$s
@@ -41,14 +41,14 @@ Fjalëkalimi: %3$s</string>
   <string name="inviteDesc2">Do të marrin një mesazh në Lichess, me një lidhje për pjesëmarrje në kurs.</string>
   <string name="inviteDesc3">E rëndësishme: ftoni vetëm nxënës që i njihni dhe duan vërtet të bëhen pjesë e kursit.</string>
   <string name="inviteDesc4">Mos dërgoni kurrë ftesa të pakërkuara për lojtarë në tym.</string>
-  <string name="createANewLichessAccount" comment="The person who would see this would always be a teacher.&#10;In this context, it is to create a new account for a student of their class.">Krijoni një llogari të re Lichess-i</string>
+  <string name="createANewLichessAccount">Krijoni një llogari të re Lichess-i</string>
   <string name="createDesc1">Nëse nxënësi s’ka ende një llogari Lichess-ii, mund të krijoni një për të nga këtu.</string>
   <string name="createDesc2">S’ka nevojë për adresë email. Do të prodhohet një fjalëkalim dhe do t’ju duhet t’ia kaloni nxënësit, që të mund të bëjë hyrjen në sistem.</string>
   <string name="createDesc3">E rëndësishme: nxënësi s’duhet të ketë disa llogari.</string>
   <string name="createDesc4">Nëse ka një tashmë, përdorni formularin për ftesë.</string>
   <string name="createStudentWarning">Krijo llogari vetëm për nxënës të njëmendtë. Mos e përdorni këtë për të krijuar llogari të shumëfishta për veten. Mund të dëboheni.</string>
   <string name="lichessUsername">Emër përdoruesi Lichess</string>
-  <string name="generateANewUsername" comment="A button which lets teachers create a random username for students they are registering.">Prodho një emër të ri përdoruesi</string>
+  <string name="generateANewUsername">Prodho një emër të ri përdoruesi</string>
   <string name="welcomeToClass">Mirë se vini në kursin tuaj: %s.
 Ja një lidhje për t’u futur te kursi.</string>
   <string name="invitationToClass">Jeni ftuar të merrni pjesë në kursin “%s” si nxënës.</string>
@@ -57,14 +57,14 @@ Ja një lidhje për t’u futur te kursi.</string>
     <item quantity="one">Një ftesë pezull</item>
     <item quantity="other">%s ftesa pezull</item>
   </plurals>
-  <string name="pending" comment="Appears in a table of students. Refers to invitation by a teacher to join a class, which the student has not yet responded to.">Në pritje të shqyrtimi</string>
-  <string name="declined" comment="Appears in a table of students. Refers to invitation by a teacher to join a class, which the student declined.">Hedhur poshtë</string>
+  <string name="pending">Në pritje të shqyrtimi</string>
+  <string name="declined">Hedhur poshtë</string>
   <string name="onlyVisibleToTeachers">E dukshme vetëm për mësuesit e kursit</string>
   <string name="lastActiveDate">Aktive</string>
   <string name="managed">E administruar</string>
   <string name="thisStudentAccountIsManaged">Llogaria e këtij studenti administrohet</string>
   <string name="upgradeFromManaged">Përmirësojeni nga e administruar në autonome</string>
-  <string name="release" comment="This used to be 'release'. It is now called 'graduate', and the term is used here as a verb.&#10;&#10;'Releasing' an account means making it a full Lichess account. It will no longer be tied to the teacher that created it.">Përparojeni</string>
+  <string name="release">Përparojeni</string>
   <string name="releaseTheAccount">Përparojeni llogarinë, që nxënësi të mund ta administrojë në mënyrë të pavarur.</string>
   <string name="releaseDesc1">Një llogari e shpënë përpara s’mund të ribëhet e administruar. Nxënësi do të jetë në gjendje të aktivizojë/çaktivizojë mënyrën për fëmijë dhe të ricaktojë fjalëkalimin për vete.</string>
   <string name="releaseDesc2">Nxënësi do të mbete pjesë e kursit, pasi llogaria e tij të përparohet.</string>
@@ -103,19 +103,19 @@ Ja një lidhje për t’u futur te kursi.</string>
 Do të shfaqë një vijë horizontale.</string>
   <string name="invite">Ftoni</string>
   <string name="youHaveBeenInvitedByX">Jeni ftuar nga %s.</string>
-  <string name="youAcceptedThisInvitation" comment="Appears when revisiting the page of an invitation to a class, which you have already accepted.">E pranuat këtë ftesë.</string>
-  <string name="youDeclinedThisInvitation" comment="Appears when revisiting the page of an invitation to a class, which you have already declined.">E hodhët postë këtë ftesë.</string>
+  <string name="youAcceptedThisInvitation">E pranuat këtë ftesë.</string>
+  <string name="youDeclinedThisInvitation">E hodhët postë këtë ftesë.</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">ose</string>
   <string name="createMultipleAccounts">Krijoni një numër llogarish Lichess njëherësh</string>
   <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Mundeni edhe të %s që të krijoni disa llogari Lichess që nga një listë emrash nxënësish.</string>
   <string name="useThisForm" comment="Link text in multipleAccsFromDescription">përdorni këtë formular</string>
   <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Kin parasysh se klasa mund të ketë deri në %1$s nxënës. Që të administroni më tepër nxënës, %2$s.</string>
   <string name="createMoreClasses" comment="Link text in maxStudentsNote">krijoni më tepër klasa</string>
-  <string name="studentsRealNamesOnePerLine" comment="An instruction on how to enter students' names when creating new accounts for them.">Emrat e njëmendtë të nxënësve, një për rresht</string>
-  <string name="xisNowAStudentOfTheClass" comment="%s is the player's name">%s tani është një nxënës i klasës</string>
-  <string name="anInvitationHasBeenSentToX" comment="%s is the username of a player already registered on Lichess.">Për %s u dërgua një ftesë</string>
-  <string name="xAlreadyHasAPendingInvitation" comment="An error message. %s is the username of a player already registered on Lichess.">%s ka tashmë një ftesë pezull</string>
-  <string name="xIsAKidAccountWarning" comment="%1$s is the username&#10;%2$s is a link.">%1$s është llogari fëmijësh dhe s’mund të marrë mesazhin tuaj. Duhet t’u jepni dorazin URL-në e ftesës: %2$s</string>
-  <string name="moveToClass" comment="%s is the name of the class. The name of the class is set by the teacher.&#10;&#10;Appears on a confirmation prompt when a teacher looks to move a student to one of the other classes they run.">Kalo te %s</string>
-  <string name="moveToAnotherClass" comment="Appears as a heading on a page which lets a teacher move one of their students to one of the other classes they run.">Kalo te një klasë tjetër</string>
+  <string name="studentsRealNamesOnePerLine">Emrat e njëmendtë të nxënësve, një për rresht</string>
+  <string name="xisNowAStudentOfTheClass">%s tani është një nxënës i klasës</string>
+  <string name="anInvitationHasBeenSentToX">Për %s u dërgua një ftesë</string>
+  <string name="xAlreadyHasAPendingInvitation">%s ka tashmë një ftesë pezull</string>
+  <string name="xIsAKidAccountWarning">%1$s është llogari fëmijësh dhe s’mund të marrë mesazhin tuaj. Duhet t’u jepni dorazin URL-në e ftesës: %2$s</string>
+  <string name="moveToClass">Kalo te %s</string>
+  <string name="moveToAnotherClass">Kalo te një klasë tjetër</string>
 </resources>

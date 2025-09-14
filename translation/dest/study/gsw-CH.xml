@@ -164,11 +164,11 @@
   <string name="playAgain">Vo vornä</string>
   <string name="whatWouldYouPlay">Was würdisch du ih derä Stellig spiele?</string>
   <string name="youCompletedThisLesson">Gratulation! Du häsch die Lektion abgschlosse.</string>
-  <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">%s pro Site</string>
+  <string name="perPage">%s pro Site</string>
   <string name="getTheTour">Bruchsch Hilf? Mach d\'Tour!</string>
   <string name="welcomeToLichessStudyTitle">Willkomme bi de Lichess-Schtudie!</string>
   <string name="welcomeToLichessStudyText">Das isch es gmeinsams Analysebrätt.&lt;br&gt;&lt;br&gt;Benutz es zum Partie analysiere und zum kommentiere,&lt;br&gt;zum Schtellige mit Fründe z\'diskutiere,&lt;br&gt;und natürli für Schachunterricht!&lt;br&gt;&lt;br&gt;Es isch es schtarchs Werchzüg, lass der ochli Zit, zum luege, wie\'s funktioniert.</string>
-  <string name="sharedAndSaveTitle" comment="Appears as the title of a pop-up lightbox in the guided tour of Lichess Studies.&#10;&#10;As in: shared with other members &amp; saved to the database.">Teilt und g\'schpeicheret</string>
+  <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Teilt und g\'schpeicheret</string>
   <string name="sharedAndSavedText">Anderi Mitglieder chönd dini Züg live gseh!&lt;br&gt;Und alles isch gschpeicheret, für immer.</string>
   <string name="studyMembersTitle">Schtudie-Mitglieder</string>
   <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s Zueschauer chönd die Schtudie gseh und im Chat schribe.&lt;br&gt;&lt;br&gt;%2$s Mitwürkendi chönd Züg mache und die Schtudie aktualisiere.</string>
@@ -196,7 +196,7 @@
   <string name="variantsAreSupportedTitle">Vu Schtudie underschtützti Variante</string>
   <string name="variantsAreSupportedText">Ja, du chasch crazyhouse Schtudie mache&lt;br&gt;und alli andere LichessVariante!</string>
   <string name="chapterConclusionText">Kapitel sind für immer g\'sicheret.&lt;br&gt;Freu dich am Organisiere vu dine Schach-Inhält!</string>
-  <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Beidi besiegt</string>
-  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">Schwarz besiegt, aber Wiss chann nöd günne</string>
-  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">Wiss besiegt, aber Schwarz chann nöd günne</string>
+  <string name="doubleDefeat">Beidi besiegt</string>
+  <string name="blackDefeatWhiteCanNotWin">Schwarz besiegt, aber Wiss chann nöd günne</string>
+  <string name="whiteDefeatBlackCanNotWin">Wiss besiegt, aber Schwarz chann nöd günne</string>
 </resources>

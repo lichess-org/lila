@@ -172,11 +172,11 @@
   <string name="playAgain">Сыграть снова</string>
   <string name="whatWouldYouPlay">Как бы вы сыграли в этой позиции?</string>
   <string name="youCompletedThisLesson">Поздравляем! Вы прошли этот урок.</string>
-  <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">%s на страницу</string>
+  <string name="perPage">%s на страницу</string>
   <string name="getTheTour">Нужна помощь? Пройдите обучение!</string>
   <string name="welcomeToLichessStudyTitle">Добро пожаловать в Студии Lichess!</string>
   <string name="welcomeToLichessStudyText">Это общая аналитическая доска.&lt;br&gt;&lt;br&gt; Используйте её для анализа и аннотирования партий,&lt;br&gt;обсуждения позиций с друзьями,&lt;br&gt; и, конечно же, для уроков шахмат!&lt;br&gt;&lt;br&gt; Это мощный инструмент, давайте уделим немного времени, чтобы посмотреть, как он работает.</string>
-  <string name="sharedAndSaveTitle" comment="Appears as the title of a pop-up lightbox in the guided tour of Lichess Studies.&#10;&#10;As in: shared with other members &amp; saved to the database.">Общие и сохранённые</string>
+  <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Общие и сохранённые</string>
   <string name="sharedAndSavedText">Другие пользователи могут смотреть за вашими ходами в режиме реального времени!&lt;br&gt;Кроме того, всё сохраняется навсегда.</string>
   <string name="studyMembersTitle">Участники студии</string>
   <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s Участники могут видеть студию и общаться в чате.&lt;br&gt;&lt;br&gt;%2$s Соавторы могут делать ходы и вносить изменения.</string>
@@ -204,7 +204,7 @@
   <string name="variantsAreSupportedTitle">Студии поддерживают варианты шахмат</string>
   <string name="variantsAreSupportedText">Да, вы можете исследовать Безумные шахматы&lt;br&gt;и другие варианты шахмат Lichess!</string>
   <string name="chapterConclusionText">Главы сохраняются навсегда.&lt;br&gt;Получайте удовольствие от разбора вашей шахматной истории!</string>
-  <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Обоюдное поражение</string>
-  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">Чёрные сдались, но белые не могут выиграть</string>
-  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">Белые сдались, но чёрные не могут выиграть</string>
+  <string name="doubleDefeat">Обоюдное поражение</string>
+  <string name="blackDefeatWhiteCanNotWin">Чёрные сдались, но белые не могут выиграть</string>
+  <string name="whiteDefeatBlackCanNotWin">Белые сдались, но чёрные не могут выиграть</string>
 </resources>

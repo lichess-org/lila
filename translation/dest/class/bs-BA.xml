@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses" comment="Lichess Classes are a feature that lets a teacher create virtual classes and check out students' progress.&#10;&#10;This text used to be &quot;Lichess Classes&quot;, which has since been shortened to &quot;Classes&quot;.">Lichess časovi</string>
+  <string name="lichessClasses">Lichess časovi</string>
   <string name="teachClassesOfChessStudents">Predajite časove šaha Vašim učenicima pomoću Lichess časovi alata.</string>
   <string name="features">Glavne karakteristike</string>
   <string name="quicklyGenerateSafeUsernames">Brzo generišite sigurna korisnička imena i lozinke za učenike</string>
   <string name="trackStudentProgress">Pratite napredak Vaših učenika u partijama i problemima</string>
   <string name="messageAllStudents">Pošaljite poruku svim učenicima kada mogu pristupiti novom materijalu</string>
-  <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">Uvijek 100 besplatno za sve, bez reklama i bilo kakvih tragača</string>
+  <string name="freeForAllForever">Uvijek 100 besplatno za sve, bez reklama i bilo kakvih tragača</string>
   <string name="applyToBeLichessTeacher">Aplicirajte da postanete Lichess instruktor</string>
   <string name="noClassesYet">Još nema časova.</string>
   <string name="teachersX">Instruktori: %s</string>
   <string name="newClass">Novi čas</string>
   <string name="closeClass">Zatvorite Čas</string>
   <string name="removedByX">Uklonjen od %s</string>
-  <string name="reopen" comment="A button, permitting a teacher to reopen a closed class.">Otvorite ponovo</string>
-  <string name="removeStudent" comment="Removes a student from the class. Note the same text is used both for initial removal, and for full erasure.">Uklonite učenika/cu</string>
-  <string name="removedStudents" comment="This is in plural form. It is a heading showing all students who have been removed from the class.">Uklonjen</string>
-  <string name="inviteTheStudentBack" comment="A button. Clicking this will re-invite a student that has been removed from the class.">Ponovo pozovite učenika</string>
+  <string name="reopen">Otvorite ponovo</string>
+  <string name="removeStudent">Uklonite učenika/cu</string>
+  <string name="removedStudents">Uklonjen</string>
+  <string name="inviteTheStudentBack">Ponovo pozovite učenika</string>
   <string name="sendAMessage">Pošaljite poruku svim učenicima.</string>
   <string name="aLinkToTheClassWillBeAdded">Link na ovaj čas će biti automatski uključen na kraju poruke, tako da nema potrebe da ga dodajete.</string>
   <string name="className">Naziv časa</string>
@@ -30,7 +30,7 @@
   <string name="generateANewPassword">Generišite novu lozinku za učenika/cu</string>
   <string name="invitedToXByY">Pozvan/a u %1$s od strane %2$s</string>
   <string name="realName">Stvarno ime</string>
-  <string name="privateWillNeverBeShown" comment="A description of the real name field for members of a class.">Privatno. Nikada se neće moći vidjeti izvan časa. Pomaže kako bi se upamtilo ko je učenik.</string>
+  <string name="privateWillNeverBeShown">Privatno. Nikada se neće moći vidjeti izvan časa. Pomaže kako bi se upamtilo ko je učenik.</string>
   <string name="addStudent">Dodajte učenika</string>
   <string name="lichessProfileXCreatedForY">Lichess profil %1$s kreiran za %2$s.</string>
   <string name="studentCredentials">Učenik/ca: %1$s
@@ -41,14 +41,14 @@ Lozinka: %3$s</string>
   <string name="inviteDesc2">Oni će primiti poruku na Lichess-u sa linkom koji će im dozvoliti da se pridruže času.</string>
   <string name="inviteDesc3">Važno: pozovite samo učenike koje znate i koji će biti aktivni.</string>
   <string name="inviteDesc4">Nikada nemojte nasumično slati pozive igračima.</string>
-  <string name="createANewLichessAccount" comment="The person who would see this would always be a teacher.&#10;In this context, it is to create a new account for a student of their class.">Kreirajte novi Lichess korisnički račun</string>
+  <string name="createANewLichessAccount">Kreirajte novi Lichess korisnički račun</string>
   <string name="createDesc1">Ako učenici nemaju Lichess korisnički račun, ovde ga možete kreirati.</string>
   <string name="createDesc2">E-mail adresa nije potrebna. Lozinka će biti generisana i Vi ćete je morati proslijediti učenicima, kako bi se oni mogli logirati.</string>
   <string name="createDesc3">Važno: učenik ne smije imati više korisničkih računa.</string>
   <string name="createDesc4">Ukoliko učenici već imaju korisnički račun, nemojte kreirati novi račun nego ih pozovite.</string>
   <string name="createStudentWarning">Napravite račune isključivo za prave učenike. Nemojte ovo koristiti za izradu višestrukih vlastitih računa. Zabraniti ćemo vam pristup.</string>
   <string name="lichessUsername">Lichess korisničko ime</string>
-  <string name="generateANewUsername" comment="A button which lets teachers create a random username for students they are registering.">Generišite novo korisničko ime</string>
+  <string name="generateANewUsername">Generišite novo korisničko ime</string>
   <string name="welcomeToClass">Dobro došli na Vaš čas: %s.
 Evo linka za pristup času.</string>
   <string name="invitationToClass">Pozvani ste da se pridružite času %s kao student.</string>
@@ -58,14 +58,14 @@ Evo linka za pristup času.</string>
     <item quantity="few">%s pozivnice / pozivnica na čekanju</item>
     <item quantity="other">%s pozivnice / pozivnica na čekanju</item>
   </plurals>
-  <string name="pending" comment="Appears in a table of students. Refers to invitation by a teacher to join a class, which the student has not yet responded to.">Na čekanju</string>
-  <string name="declined" comment="Appears in a table of students. Refers to invitation by a teacher to join a class, which the student declined.">Odbijeno</string>
+  <string name="pending">Na čekanju</string>
+  <string name="declined">Odbijeno</string>
   <string name="onlyVisibleToTeachers">Vidljivo samo instruktorima časa</string>
   <string name="lastActiveDate">Zadnja aktivnost</string>
   <string name="managed">Pod nadzorom</string>
   <string name="thisStudentAccountIsManaged">Instruktor upravlja ovim korisničkim računom</string>
   <string name="upgradeFromManaged">Nadogradite račun pod nadzorom u nezavisni račun</string>
-  <string name="release" comment="This used to be 'release'. It is now called 'graduate', and the term is used here as a verb.&#10;&#10;'Releasing' an account means making it a full Lichess account. It will no longer be tied to the teacher that created it.">Oslobodite</string>
+  <string name="release">Oslobodite</string>
   <string name="releaseTheAccount">Oslobodite račun tako da učenik/ca mogu samostalno upravljati njim.</string>
   <string name="releaseDesc1">Oslobođenim računom se više ne može upravljati. Učenik/ca će moći sam/a uključiti ili isključiti dječji režim i resetovati lozinku.</string>
   <string name="releaseDesc2">Učenici će ostati u času i nakon oslobođanja njihovog računa.</string>
@@ -105,19 +105,19 @@ Evo linka za pristup času.</string>
   <string name="newsEdit3">Odvojite vijesti sa --- kako biste prikazali horizontalnu liniju.</string>
   <string name="invite">Pozovite</string>
   <string name="youHaveBeenInvitedByX">Pozvani ste od %s.</string>
-  <string name="youAcceptedThisInvitation" comment="Appears when revisiting the page of an invitation to a class, which you have already accepted.">Prihvatili ste ovu pozivnicu.</string>
-  <string name="youDeclinedThisInvitation" comment="Appears when revisiting the page of an invitation to a class, which you have already declined.">Odbili ste ovu pozivnicu.</string>
+  <string name="youAcceptedThisInvitation">Prihvatili ste ovu pozivnicu.</string>
+  <string name="youDeclinedThisInvitation">Odbili ste ovu pozivnicu.</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">ili</string>
   <string name="createMultipleAccounts">Napravite više Lichess računa odjednom</string>
   <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Isto možete %s da bi napravili više Lichess računa odjednom iz popisa imena studenata.</string>
   <string name="useThisForm" comment="Link text in multipleAccsFromDescription">koristite ovaj obrazac</string>
   <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Uzmite u obzir da razred može imati do %1$s studenata. Da biste sa više studenta upravljali, %2$s.</string>
   <string name="createMoreClasses" comment="Link text in maxStudentsNote">napravite nove razrede</string>
-  <string name="studentsRealNamesOnePerLine" comment="An instruction on how to enter students' names when creating new accounts for them.">Prava imena studenata, jedno po redu</string>
-  <string name="xisNowAStudentOfTheClass" comment="%s is the player's name">%s je sad student u razredu</string>
-  <string name="anInvitationHasBeenSentToX" comment="%s is the username of a player already registered on Lichess.">Pozivnica je poslana %s</string>
-  <string name="xAlreadyHasAPendingInvitation" comment="An error message. %s is the username of a player already registered on Lichess.">%s već ima pozivnicu na čekanju</string>
-  <string name="xIsAKidAccountWarning" comment="%1$s is the username&#10;%2$s is a link.">%1$s je dječiji račun i ne može primati vaše poruke. Morate im ručno poslati vezu: %2$s</string>
-  <string name="moveToClass" comment="%s is the name of the class. The name of the class is set by the teacher.&#10;&#10;Appears on a confirmation prompt when a teacher looks to move a student to one of the other classes they run.">Premjesti u %s</string>
-  <string name="moveToAnotherClass" comment="Appears as a heading on a page which lets a teacher move one of their students to one of the other classes they run.">Premjesti se u drugi razred</string>
+  <string name="studentsRealNamesOnePerLine">Prava imena studenata, jedno po redu</string>
+  <string name="xisNowAStudentOfTheClass">%s je sad student u razredu</string>
+  <string name="anInvitationHasBeenSentToX">Pozivnica je poslana %s</string>
+  <string name="xAlreadyHasAPendingInvitation">%s već ima pozivnicu na čekanju</string>
+  <string name="xIsAKidAccountWarning">%1$s je dječiji račun i ne može primati vaše poruke. Morate im ručno poslati vezu: %2$s</string>
+  <string name="moveToClass">Premjesti u %s</string>
+  <string name="moveToAnotherClass">Premjesti se u drugi razred</string>
 </resources>

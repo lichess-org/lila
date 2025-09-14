@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="realName">Жинхэнэ нэр</string>
-  <string name="createANewLichessAccount" comment="The person who would see this would always be a teacher.&#10;In this context, it is to create a new account for a student of their class.">Шинэ хаяг нээе</string>
+  <string name="createANewLichessAccount">Шинэ хаяг нээе</string>
   <string name="lichessUsername">Lichess нэр</string>
   <string name="lastActiveDate">Идэвхтэй</string>
   <string name="teachers">Багш нар</string>

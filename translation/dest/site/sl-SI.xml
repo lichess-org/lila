@@ -1099,4 +1099,7 @@ Vsi operativni stroški, razvoj in vsebina se financirajo izključno iz donacij 
   <string name="enableBlindMode">Vključite slepi način</string>
   <string name="disableBlindMode">Izključite slepi način</string>
   <string name="copyToClipboard">Kopiraj v odložišče</string>
+  <string name="search">Išči</string>
+  <string name="clearSearch">Počisti iskanje</string>
+  <string name="tags">Oznake</string>
 </resources>

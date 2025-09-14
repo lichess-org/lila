@@ -160,11 +160,11 @@
   <string name="playAgain">重玩</string>
   <string name="whatWouldYouPlay">你会在这个位置上怎么走？</string>
   <string name="youCompletedThisLesson">恭喜！你完成了这个课程！</string>
-  <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">%s 每页</string>
+  <string name="perPage">%s 每页</string>
   <string name="getTheTour">需要帮助？开始导览！</string>
   <string name="welcomeToLichessStudyTitle">欢迎来到 Lichess 研讨！</string>
   <string name="welcomeToLichessStudyText">这是一个共同的分析委员会。&lt;br&gt;&lt;br&gt;用它来分析和批注游戏，&lt;br&gt;与朋友讨论位置，&lt;br&gt;或者进行课程！&lt;br&gt;&lt;br&gt;这是一个强大的工具，让我们花一些时间看看它如何运作。</string>
-  <string name="sharedAndSaveTitle" comment="Appears as the title of a pop-up lightbox in the guided tour of Lichess Studies.&#10;&#10;As in: shared with other members &amp; saved to the database.">已共享并保存</string>
+  <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">已共享并保存</string>
   <string name="sharedAndSavedText">其他成员可以实时看到您的移动！&lt;br&gt;一切都会永远保存。</string>
   <string name="studyMembersTitle">研讨成员</string>
   <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s 旁观者可以在聊天室查看研讨并进行谈话。&lt;br&gt;&lt;br&gt;%2$s 贡献者可以移动并更新研讨。</string>
@@ -192,7 +192,7 @@
   <string name="variantsAreSupportedTitle">研究支持变体</string>
   <string name="variantsAreSupportedText">你也可以研讨 CrazyHouse&lt;br&gt;和所有其他的 lichess 变种</string>
   <string name="chapterConclusionText">章节会永久保存。&lt;br&gt;研讨愉快！</string>
-  <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">双败</string>
-  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">黑负，但白方无法获胜</string>
-  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">白负，但黑方无法获胜</string>
+  <string name="doubleDefeat">双败</string>
+  <string name="blackDefeatWhiteCanNotWin">黑负，但白方无法获胜</string>
+  <string name="whiteDefeatBlackCanNotWin">白负，但黑方无法获胜</string>
 </resources>

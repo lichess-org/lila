@@ -963,4 +963,7 @@
   <string name="enableBlindMode">打开视障模式</string>
   <string name="disableBlindMode">关闭视障模式</string>
   <string name="copyToClipboard">复制到剪贴板</string>
+  <string name="online" comment="status of a user">在线</string>
+  <string name="offline" comment="status of a user">离线</string>
+  <string name="search">搜索</string>
 </resources>

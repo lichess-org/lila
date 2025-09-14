@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses" comment="Lichess Classes are a feature that lets a teacher create virtual classes and check out students' progress.&#10;&#10;This text used to be &quot;Lichess Classes&quot;, which has since been shortened to &quot;Classes&quot;.">ชั้นเรียน</string>
+  <string name="lichessClasses">ชั้นเรียน</string>
   <string name="features">แสดง</string>
   <string name="quicklyGenerateSafeUsernames">สร้างชื่อและพาสเวิร์ดที่ปลอดภัยให้นักเรียนโดยเร็ว</string>
   <string name="trackStudentProgress">ติดตามความก้าวหน้าของนักเรียนจากเกมและปริศนา</string>
-  <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">ฟรีสำหรับทุกคนตลอดไป 100% โดยไม่มีโฆษณาหรือการติดตาม</string>
+  <string name="freeForAllForever">ฟรีสำหรับทุกคนตลอดไป 100% โดยไม่มีโฆษณาหรือการติดตาม</string>
   <string name="applyToBeLichessTeacher">สมัครเพื่อเป็นครู Lichess</string>
   <string name="noClassesYet">ยังไม่มีห้อง</string>
   <string name="teachersX">ครู: %s</string>
   <string name="newClass">ห้องใหม่</string>
   <string name="closeClass">ปิดห้องเรียน</string>
   <string name="removedByX">นำออกโดย: %s</string>
-  <string name="reopen" comment="A button, permitting a teacher to reopen a closed class.">เปิดอีกรอบ</string>
-  <string name="removeStudent" comment="Removes a student from the class. Note the same text is used both for initial removal, and for full erasure.">นำเด็กออก</string>
-  <string name="removedStudents" comment="This is in plural form. It is a heading showing all students who have been removed from the class.">นำออก</string>
-  <string name="inviteTheStudentBack" comment="A button. Clicking this will re-invite a student that has been removed from the class.">เชิญเด็กเข้าร่วมใหม่</string>
+  <string name="reopen">เปิดอีกรอบ</string>
+  <string name="removeStudent">นำเด็กออก</string>
+  <string name="removedStudents">นำออก</string>
+  <string name="inviteTheStudentBack">เชิญเด็กเข้าร่วมใหม่</string>
   <string name="sendAMessage">ส่งข้อความหาเด็กทุกคน</string>
   <string name="className">ชื่อห้อง</string>
   <string name="classDescription">คำบรรยายของห้อง</string>
@@ -36,11 +36,11 @@
   <string name="inviteDesc1">ถ้านักเรียนของคุณมีบัญชี Lichess แล้ว คุณสามารถเชิญพวกเขาเข้าชั้นเรียนได้</string>
   <string name="inviteDesc2">เขาจะได้รับข้อความจาก Lichess พร้อมลิ้งค์เข้าร่วมชั้นเรียน</string>
   <string name="inviteDesc3">โปรดเชิญเฉพาะคนที่คุณรู้จักและคนที่ต้องการเข้าร่วมการศึกษานี้จริงๆ</string>
-  <string name="createANewLichessAccount" comment="The person who would see this would always be a teacher.&#10;In this context, it is to create a new account for a student of their class.">สร้างบัญชี Lichess ใหม่</string>
+  <string name="createANewLichessAccount">สร้างบัญชี Lichess ใหม่</string>
   <string name="createDesc3">สำคัญ: นักเรียนไม่สามารถมีหลายบัญชีได้</string>
   <string name="lichessUsername">ชี่อผู้ใช้ Lichess</string>
-  <string name="generateANewUsername" comment="A button which lets teachers create a random username for students they are registering.">สร้างชื่อผู้ใช้ใหม่</string>
-  <string name="release" comment="This used to be 'release'. It is now called 'graduate', and the term is used here as a verb.&#10;&#10;'Releasing' an account means making it a full Lichess account. It will no longer be tied to the teacher that created it.">สำเร็จหลักสูตร</string>
+  <string name="generateANewUsername">สร้างชื่อผู้ใช้ใหม่</string>
+  <string name="release">สำเร็จหลักสูตร</string>
   <string name="releaseTheAccount">สำเร็จหลักสูตรบัญชีนี้ เพี่อที่จะให้นักเรียนสามารถใช้งานบัญชีได้อย่างอิสระ</string>
   <string name="closeStudent">ปิดบัญชี</string>
   <string name="closeTheAccount">ปิดบัญชีของนักเรียนอย่างถาวร</string>
@@ -58,11 +58,11 @@
   <string name="nothingHere">ยังไม่มีอะไรที่นี่</string>
   <string name="invite">เชิญ</string>
   <string name="youHaveBeenInvitedByX">คุณได้รับคำเชิญจาก %s</string>
-  <string name="youAcceptedThisInvitation" comment="Appears when revisiting the page of an invitation to a class, which you have already accepted.">คุณได้รับคำเชิญ</string>
-  <string name="youDeclinedThisInvitation" comment="Appears when revisiting the page of an invitation to a class, which you have already declined.">คุณได้ปฎิเสธคำเชิญ</string>
+  <string name="youAcceptedThisInvitation">คุณได้รับคำเชิญ</string>
+  <string name="youDeclinedThisInvitation">คุณได้ปฎิเสธคำเชิญ</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">หรือ</string>
   <string name="createMultipleAccounts">สร้างบัญชี Lichess หลายบัญชีในครั้งเดียว</string>
   <string name="useThisForm" comment="Link text in multipleAccsFromDescription">ใช้แบบฟอร์มนี้</string>
   <string name="createMoreClasses" comment="Link text in maxStudentsNote">สร้างชั้นเรียนเพิ่ม</string>
-  <string name="anInvitationHasBeenSentToX" comment="%s is the username of a player already registered on Lichess.">ส่งคำเชิญให้ %s แล้ว</string>
+  <string name="anInvitationHasBeenSentToX">ส่งคำเชิญให้ %s แล้ว</string>
 </resources>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="reopen" comment="A button, permitting a teacher to reopen a closed class.">Ailagor</string>
+  <string name="reopen">Ailagor</string>
   <string name="className">Enw\'r dosbarth</string>
   <string name="passwordX">Cyfrinair: %s</string>
   <string name="realName">Enw go iawn</string>

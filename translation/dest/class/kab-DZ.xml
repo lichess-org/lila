@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="features">Timahilin</string>
-  <string name="removedStudents" comment="This is in plural form. It is a heading showing all students who have been removed from the class.">Ittwakkes</string>
+  <string name="removedStudents">Ittwakkes</string>
   <string name="realName">Isem n tidet</string>
   <string name="lastActiveDate">Urmid</string>
   <string name="teachers">Iselmaden</string>

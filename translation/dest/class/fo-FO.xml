@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses" comment="Lichess Classes are a feature that lets a teacher create virtual classes and check out students' progress.&#10;&#10;This text used to be &quot;Lichess Classes&quot;, which has since been shortened to &quot;Classes&quot;.">Flokkar</string>
+  <string name="lichessClasses">Flokkar</string>
   <string name="teachClassesOfChessStudents">Gev flokkum við talvnæmingum frálæru við Lichess-amboðskassanum.</string>
   <string name="features">Eyðkenni</string>
   <string name="quicklyGenerateSafeUsernames">Ger kvikliga talvnæmingum trygg brúkaranøvn og loyniorð</string>
   <string name="trackStudentProgress">Fylg næmingaframgongd í talvum og uppgávum</string>
   <string name="messageAllStudents">Boða øllum næmingum frá um nýtt flokstilfar</string>
-  <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">100% ókeypis fyri øll, altíð, við ongum lýsingum ella farsporum</string>
+  <string name="freeForAllForever">100% ókeypis fyri øll, altíð, við ongum lýsingum ella farsporum</string>
   <string name="applyToBeLichessTeacher">Søk um at gerast Lichess-lærari</string>
   <string name="noClassesYet">Eingir flokkar enn.</string>
   <string name="teachersX">Lærarar: %s</string>
   <string name="newClass">Nýggjur flokkur</string>
   <string name="closeClass">Lat flokk aftur</string>
-  <string name="reopen" comment="A button, permitting a teacher to reopen a closed class.">Lat upp</string>
-  <string name="removeStudent" comment="Removes a student from the class. Note the same text is used both for initial removal, and for full erasure.">Koyr næming úr</string>
-  <string name="removedStudents" comment="This is in plural form. It is a heading showing all students who have been removed from the class.">Úrkoyrdur</string>
-  <string name="inviteTheStudentBack" comment="A button. Clicking this will re-invite a student that has been removed from the class.">Bjóða næminginum við aftur</string>
+  <string name="reopen">Lat upp</string>
+  <string name="removeStudent">Koyr næming úr</string>
+  <string name="removedStudents">Úrkoyrdur</string>
+  <string name="inviteTheStudentBack">Bjóða næminginum við aftur</string>
   <string name="sendAMessage">Send eini boð til allar næmingar.</string>
   <string name="aLinkToTheClassWillBeAdded">Eitt leinki til flokkin, verður lagt afturat móti endanum á boðunum, so tær nýtist ikki at skoyta tað upp í sjálv/ur.</string>
   <string name="className">Floksnavn</string>
@@ -29,7 +29,7 @@
   <string name="generateANewPassword">Ger eitt nýtt loyniorð til næmingin</string>
   <string name="invitedToXByY">%2$s bjóðaði til %1$s</string>
   <string name="realName">Veruligt navn</string>
-  <string name="privateWillNeverBeShown" comment="A description of the real name field for members of a class.">Privat. Fer ongantíð at verða víst uttanfyri flokkin. Hjálpir tær at minnast, hvør næmingurin er.</string>
+  <string name="privateWillNeverBeShown">Privat. Fer ongantíð at verða víst uttanfyri flokkin. Hjálpir tær at minnast, hvør næmingurin er.</string>
   <string name="addStudent">Legg næming afturat</string>
   <string name="lichessProfileXCreatedForY">Lichess vangamynd %1$s gjørd til %2$s.</string>
   <string name="studentCredentials">Næmingur:  %1$s
@@ -40,13 +40,13 @@ Loyniorð: %3$s</string>
   <string name="inviteDesc2">Næmingarnir fáa eini boð á Lichess við einum leinki at melda seg til flokkin.</string>
   <string name="inviteDesc3">Týdningarmikið: Bjóða bert fólki, tú kennir, og sum vilja taka virknan lut í flokkinum.</string>
   <string name="inviteDesc4">Send ongantíð óbodnar innbjóðingar til tilvildarligar telvarar.</string>
-  <string name="createANewLichessAccount" comment="The person who would see this would always be a teacher.&#10;In this context, it is to create a new account for a student of their class.">Stovna eina nýggja Lichess kontu</string>
+  <string name="createANewLichessAccount">Stovna eina nýggja Lichess kontu</string>
   <string name="createDesc1">Um næmingurin ikki hevur eina Lichess-kontu enn, kanst tú stovna honum ella henni eina.</string>
   <string name="createDesc2">Teldupostbústaður er ikki kravdur. Eitt loyniorð verður gjørt, og tær nýtist at senda næminginum tað, so hann fær ritað inn.</string>
   <string name="createDesc3">Týdningarmikið: Ein næmingur sleppur ikki at hava fleiri kontur.</string>
   <string name="createDesc4">Nýt innbjóðingaroyðublaðið, um næmingurin longu hevur eina brúkarakontu.</string>
   <string name="lichessUsername">Lichess brúkaranavn</string>
-  <string name="generateANewUsername" comment="A button which lets teachers create a random username for students they are registering.">Ger eitt nýtt brúkaranavn</string>
+  <string name="generateANewUsername">Ger eitt nýtt brúkaranavn</string>
   <string name="welcomeToClass">Vælkomin til tín flokk: %s.
 Her er leinkið til atgongdina til flokkin.</string>
   <string name="invitationToClass">Tú ert boðin at luttaka í flokkinum \"%s\" sum næmingur.</string>
@@ -60,7 +60,7 @@ Her er leinkið til atgongdina til flokkin.</string>
   <string name="managed">Umsitið</string>
   <string name="thisStudentAccountIsManaged">Henda næmingakontu verður umsitin</string>
   <string name="upgradeFromManaged">Uppstiga frá umsitnari til sjálvstýrandi</string>
-  <string name="release" comment="This used to be 'release'. It is now called 'graduate', and the term is used here as a verb.&#10;&#10;'Releasing' an account means making it a full Lichess account. It will no longer be tied to the teacher that created it.">Leysgev</string>
+  <string name="release">Leysgev</string>
   <string name="releaseTheAccount">Leysgev kontuna, so næmingurin fær stýrt henni sjálvur.</string>
   <string name="releaseDesc1">Konta, ið er leysgivin, kann ikki verða sett undir umsiting aftur. Næmingurin kann velja barnastøðu, og sjálvur nullstilla loyniorðið.</string>
   <string name="releaseDesc2">Næmingurin verður verandi í flokkinum, hóast kontan er leysgivin.</string>

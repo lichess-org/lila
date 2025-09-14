@@ -57,6 +57,10 @@
   <string name="interferenceDescription">Menggerakan sebuah bidak diantara dua bidak lawan agar menghilangkan pertahanan satu atau kedua bidak lasan, contohnya sebuah kuda pada kotak yang aman diantara dua benteng.</string>
   <string name="intermezzo">Selingan</string>
   <string name="intermezzoDescription">Daripada memainkan gerakan yang disangka, mainkan terlebih dulu gerakan lain yang mengancam sehingga mewajibkan lawan untuk membalas. Juga disebut \"Zwischenzug\" atau \"Di antara\".</string>
+  <string name="killBoxMate">Kotak pembunuh kawan</string>
+  <string name="killBoxMateDescription">Rokok berada di samping raja musuh dan didukung oleh ratu yang juga menghalangi petak pelarian raja. Benteng dan ratu menangkap raja musuh dalam \"kotak pembunuh\" 3x3.</string>
+  <string name="vukovicMate">Teman Vukovic</string>
+  <string name="vukovicMateDescription">Benteng dan kuda bekerja sama untuk mengawinkan raja. Benteng memberikan mate sambil didukung oleh bidak ketiga, dan kuda digunakan untuk memblokir petak pelarian raja.</string>
   <string name="knightEndgame">Babak akhir kuda</string>
   <string name="knightEndgameDescription">Babak akhir dengan hanya kuda dan pion.</string>
   <string name="long">Puzzle Panjang</string>

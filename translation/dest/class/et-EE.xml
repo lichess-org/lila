@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses" comment="Lichess Classes are a feature that lets a teacher create virtual classes and check out students' progress.&#10;&#10;This text used to be &quot;Lichess Classes&quot;, which has since been shortened to &quot;Classes&quot;.">Klassid</string>
+  <string name="lichessClasses">Klassid</string>
   <string name="teachClassesOfChessStudents">Õpeta klassitäit maleõpilasi Lichessi Klassid tööriistaga.</string>
   <string name="features">Funktsioonid</string>
   <string name="quicklyGenerateSafeUsernames">Loo kiiresti turvalised kasutajanimed ja salasõnad oma õpilastele</string>
   <string name="trackStudentProgress">Jälgi õpilaste edenemist mängudes ja ülesannetes</string>
   <string name="messageAllStudents">Teavita kõiki õpilasi uuest materjalist klassis</string>
-  <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">100% kõigile tasuta, igavesti, reklaamivaba ja jälitamiseta</string>
+  <string name="freeForAllForever">100% kõigile tasuta, igavesti, reklaamivaba ja jälitamiseta</string>
   <string name="applyToBeLichessTeacher">Kandideeri Lichessi õpetajaks</string>
   <string name="noClassesYet">Hetkel pole ühtegi klassi.</string>
   <string name="teachersX">Õpetajad: %s</string>
   <string name="newClass">Uus klass</string>
   <string name="closeClass">Sulge klass</string>
   <string name="removedByX">Kustutatud %s poolt</string>
-  <string name="reopen" comment="A button, permitting a teacher to reopen a closed class.">Ava uuesti</string>
-  <string name="removeStudent" comment="Removes a student from the class. Note the same text is used both for initial removal, and for full erasure.">Eemalda õpilane</string>
-  <string name="removedStudents" comment="This is in plural form. It is a heading showing all students who have been removed from the class.">Eemaldatud</string>
-  <string name="inviteTheStudentBack" comment="A button. Clicking this will re-invite a student that has been removed from the class.">Kutsu õpilane tagasi</string>
+  <string name="reopen">Ava uuesti</string>
+  <string name="removeStudent">Eemalda õpilane</string>
+  <string name="removedStudents">Eemaldatud</string>
+  <string name="inviteTheStudentBack">Kutsu õpilane tagasi</string>
   <string name="sendAMessage">Saada kiri kõigitele õpilastele.</string>
   <string name="aLinkToTheClassWillBeAdded">Link sinu klassi juurde lisatakse automaatselt kirja lõppu, sa ei pea seda ise lisama.</string>
   <string name="className">Klassi nimi</string>
@@ -30,7 +30,7 @@
   <string name="generateANewPassword">Loo õpilasele uus parool</string>
   <string name="invitedToXByY">Kutsutud %1$s %2$s poolt</string>
   <string name="realName">Päris nimi</string>
-  <string name="privateWillNeverBeShown" comment="A description of the real name field for members of a class.">Privaatne. Pole nähtav väljaspool klassi. Aitab jätta meelde kes see õpilane on.</string>
+  <string name="privateWillNeverBeShown">Privaatne. Pole nähtav väljaspool klassi. Aitab jätta meelde kes see õpilane on.</string>
   <string name="addStudent">Lisa õpilane</string>
   <string name="lichessProfileXCreatedForY">Lichessi profiil %1$s on tehtud %2$s jaoks.</string>
   <string name="studentCredentials">Õpilane: %1$s
@@ -41,14 +41,14 @@ Parool: %3$s</string>
   <string name="inviteDesc2">Nad saavad Lichessis kirja, kus on link klassi juurde.</string>
   <string name="inviteDesc3">Tähtis: ainult kutsu õpilasi keda sa tunned ja kes tahavad ühineda klassiga.</string>
   <string name="inviteDesc4">Ära saada soovimatuid kutseid suvalistele mängijatele.</string>
-  <string name="createANewLichessAccount" comment="The person who would see this would always be a teacher.&#10;In this context, it is to create a new account for a student of their class.">Loo uus Lichessi konto</string>
+  <string name="createANewLichessAccount">Loo uus Lichessi konto</string>
   <string name="createDesc1">Kui õpilasel pole veel Lichessi kasutajat siis saad selle neile teha.</string>
   <string name="createDesc2">Emaili pole vaja. Parool luuakse ja sa pead selle edastama õpilasele, et nad saaks sisse logida.</string>
   <string name="createDesc3">Tähtis: õpilasel ei tohi olla mitu kasutajat.</string>
   <string name="createDesc4">Kui neil juba on kasutaja, siis kasuta vormi nende kutsumiseks.</string>
   <string name="createStudentWarning">Loo kontosid ainult päris õpilastele. Ära tee mitu kontot endale, muidu su konto suletakse.</string>
   <string name="lichessUsername">Lichessi kasutajanimi</string>
-  <string name="generateANewUsername" comment="A button which lets teachers create a random username for students they are registering.">Loo uus kasutajanimi</string>
+  <string name="generateANewUsername">Loo uus kasutajanimi</string>
   <string name="welcomeToClass">Tere tulemast sinu klassi: %s.
 Siin on link klassi sisenemiseks.</string>
   <string name="invitationToClass">Sind kutsuti klassi \"%s\" õpilaseks.</string>
@@ -62,7 +62,7 @@ Siin on link klassi sisenemiseks.</string>
   <string name="managed">Hallatud</string>
   <string name="thisStudentAccountIsManaged">See õpilaskonto on hallatud</string>
   <string name="upgradeFromManaged">Uuenda iseseisvaks</string>
-  <string name="release" comment="This used to be 'release'. It is now called 'graduate', and the term is used here as a verb.&#10;&#10;'Releasing' an account means making it a full Lichess account. It will no longer be tied to the teacher that created it.">Vabasta</string>
+  <string name="release">Vabasta</string>
   <string name="releaseTheAccount">Vabasta kasutaja, et õpilane saaks seda muuta ise.</string>
   <string name="releaseDesc1">Vabastatud kasutajaid ei saa uuesti hallata. Õpilane saab ise ümberlülituda lapsereziimile ja lähtestada oma parooli ise.</string>
   <string name="releaseDesc2">Õpilane jääb peale vabastamist ikka klassi.</string>
@@ -101,17 +101,17 @@ Siin on link klassi sisenemiseks.</string>
 Neid näidatakse horisontaalselt.</string>
   <string name="invite">Kutsu</string>
   <string name="youHaveBeenInvitedByX">%s kutsus sind.</string>
-  <string name="youAcceptedThisInvitation" comment="Appears when revisiting the page of an invitation to a class, which you have already accepted.">Sa võtsid vastu selle kutse.</string>
-  <string name="youDeclinedThisInvitation" comment="Appears when revisiting the page of an invitation to a class, which you have already declined.">Sa keeldusid sellest kutsest.</string>
+  <string name="youAcceptedThisInvitation">Sa võtsid vastu selle kutse.</string>
+  <string name="youDeclinedThisInvitation">Sa keeldusid sellest kutsest.</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">või</string>
   <string name="createMultipleAccounts">Loo korraga mitu Lichess kontot</string>
   <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">%s võid luua mitu Lichess kontot õpilaste nimekirjast.</string>
   <string name="useThisForm" comment="Link text in multipleAccsFromDescription">kasuta seda ankeeti</string>
   <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Klassis saab olla maksimaalsest %1$s õpilast. Kui soovid hallata rohkem õpilasi, %2$s.</string>
   <string name="createMoreClasses" comment="Link text in maxStudentsNote">loo rohkem klasse</string>
-  <string name="studentsRealNamesOnePerLine" comment="An instruction on how to enter students' names when creating new accounts for them.">Õpilaste päris nimed, üks per rida</string>
-  <string name="xisNowAStudentOfTheClass" comment="%s is the player's name">%s on nüüd klassi õpilane</string>
-  <string name="anInvitationHasBeenSentToX" comment="%s is the username of a player already registered on Lichess.">Kutse on saadetud kasutajale %s</string>
-  <string name="xAlreadyHasAPendingInvitation" comment="An error message. %s is the username of a player already registered on Lichess.">%s on juba saanud kutse, mis ootab vastust</string>
-  <string name="xIsAKidAccountWarning" comment="%1$s is the username&#10;%2$s is a link.">%1$s on lastekonto ega saa võtta vastu su sõnumit. Sa pead andma õpilasele kutse manuaalselt läbi URLi: %2$s</string>
+  <string name="studentsRealNamesOnePerLine">Õpilaste päris nimed, üks per rida</string>
+  <string name="xisNowAStudentOfTheClass">%s on nüüd klassi õpilane</string>
+  <string name="anInvitationHasBeenSentToX">Kutse on saadetud kasutajale %s</string>
+  <string name="xAlreadyHasAPendingInvitation">%s on juba saanud kutse, mis ootab vastust</string>
+  <string name="xIsAKidAccountWarning">%1$s on lastekonto ega saa võtta vastu su sõnumit. Sa pead andma õpilasele kutse manuaalselt läbi URLi: %2$s</string>
 </resources>

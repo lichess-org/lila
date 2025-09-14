@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses" comment="Lichess Classes are a feature that lets a teacher create virtual classes and check out students' progress.&#10;&#10;This text used to be &quot;Lichess Classes&quot;, which has since been shortened to &quot;Classes&quot;.">Үйірме</string>
+  <string name="lichessClasses">Үйірме</string>
   <string name="teachClassesOfChessStudents">Личес Үйірме құралын пайдаланып, шәкірттерге шахматты үйретіңіз.</string>
   <string name="features">Ерекшеліктері</string>
   <string name="quicklyGenerateSafeUsernames">Шәкірттерге берік тіркеулі ат пен құпиясөз құрастыру</string>
   <string name="trackStudentProgress">Шәкірттердің ойны мен жұмбақ шешу жетістіктерін қадағалау</string>
   <string name="messageAllStudents">Барлық шәкірттерге жаңа оқу материал туралы хабар жіберу</string>
-  <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">Барлығы үшін 100% тегін, мәңгі, жарнамасыз, трекерсіз</string>
+  <string name="freeForAllForever">Барлығы үшін 100% тегін, мәңгі, жарнамасыз, трекерсіз</string>
   <string name="applyToBeLichessTeacher">Личесте Ұстаз болуға сұраныс жіберіңіз</string>
   <string name="noClassesYet">Әзірге үйірме жоқ.</string>
   <string name="teachersX">Ұстаздар: %s</string>
   <string name="newClass">Жаңа үйірме</string>
   <string name="closeClass">Үйірмені жабу</string>
   <string name="removedByX">%s шығарды</string>
-  <string name="reopen" comment="A button, permitting a teacher to reopen a closed class.">Қайта ашу</string>
-  <string name="removeStudent" comment="Removes a student from the class. Note the same text is used both for initial removal, and for full erasure.">Шәкіртті шығару</string>
-  <string name="removedStudents" comment="This is in plural form. It is a heading showing all students who have been removed from the class.">Шығарылды</string>
-  <string name="inviteTheStudentBack" comment="A button. Clicking this will re-invite a student that has been removed from the class.">Шәкіртті қайта шақыру</string>
+  <string name="reopen">Қайта ашу</string>
+  <string name="removeStudent">Шәкіртті шығару</string>
+  <string name="removedStudents">Шығарылды</string>
+  <string name="inviteTheStudentBack">Шәкіртті қайта шақыру</string>
   <string name="sendAMessage">Барлық шәкірттерге хабар жіберу.</string>
   <string name="aLinkToTheClassWillBeAdded">Үйірмеге апарар сілтемені қоспаңыз, ол автоматты түрде хабар аяғына қосылатын болады.</string>
   <string name="className">Үйірме атауы</string>
@@ -30,7 +30,7 @@
   <string name="generateANewPassword">Шәкіртке жаңа құпиясөз құру</string>
   <string name="invitedToXByY">%1$s-не %2$s шақырған</string>
   <string name="realName">Шын аты</string>
-  <string name="privateWillNeverBeShown" comment="A description of the real name field for members of a class.">Жеке дара. Үйірмеден тыс көрсетілмейді. Шәкірттің кім екенін есте сақтауға көмектеседі.</string>
+  <string name="privateWillNeverBeShown">Жеке дара. Үйірмеден тыс көрсетілмейді. Шәкірттің кім екенін есте сақтауға көмектеседі.</string>
   <string name="addStudent">Шәкірт қосу</string>
   <string name="lichessProfileXCreatedForY">%1$s тіркелгісі %2$s үшін құрылды.</string>
   <string name="studentCredentials">Шәкірт: %1$s
@@ -41,14 +41,14 @@
   <string name="inviteDesc2">Ол Личестен үйірмеге жаздыратын сілтемесі бар хабар алатын болады.</string>
   <string name="inviteDesc3">Ескерту: тек өзіңізге таныс, үйірмеге қосылуды шын ниет еткен шәкірттерді ғана шақырыңыз.</string>
   <string name="inviteDesc4">Барша ойыншыларға сұраусыз шақыру жібере бермеңіз.</string>
-  <string name="createANewLichessAccount" comment="The person who would see this would always be a teacher.&#10;In this context, it is to create a new account for a student of their class.">Жаңа Личес тіркелгісін құру</string>
+  <string name="createANewLichessAccount">Жаңа Личес тіркелгісін құру</string>
   <string name="createDesc1">Егер шәкірттің Личес аккаунты болмаса, оған осы жерде аккаунт құра аласыз.</string>
   <string name="createDesc2">Поштаның қажеті жоқ. Құпиясөз құрылған соң, оны шәкіртке жіберіңіз, ол тіркелгіге осылай кіретін болады.</string>
   <string name="createDesc3">Ескерту: шәкірттің тек бір тіркелгісі болуы керек.</string>
   <string name="createDesc4">Егер тіркелгісі бар болса, оның орнына шақыру формасын қолданыңыз.</string>
   <string name="createStudentWarning">Тіркелгілерді тек шын шәкірттерге ғана жасаңыз. Өзіңізге бірнеше тіркелгі жасауға болмайды. Әйтпесе, бұғаулы боласыз.</string>
   <string name="lichessUsername">Личестегі тіркеулі ат</string>
-  <string name="generateANewUsername" comment="A button which lets teachers create a random username for students they are registering.">Жаңа тіркеулі атты құру</string>
+  <string name="generateANewUsername">Жаңа тіркеулі атты құру</string>
   <string name="welcomeToClass">%s үйірмесіне қош келдіңіз.
 Бұл – үйірмеге апаратын сілтеме.</string>
   <string name="invitationToClass">Сіз %s үйірмесіне шәкірт ретінде шақырылғансыз.</string>
@@ -62,7 +62,7 @@
   <string name="managed">Байлаулы</string>
   <string name="thisStudentAccountIsManaged">Бұл шәкірт тіркелгісі – байлаулы</string>
   <string name="upgradeFromManaged">Байлаулы күйден тәуелсіз күйге ауыстыру</string>
-  <string name="release" comment="This used to be 'release'. It is now called 'graduate', and the term is used here as a verb.&#10;&#10;'Releasing' an account means making it a full Lichess account. It will no longer be tied to the teacher that created it.">Босату</string>
+  <string name="release">Босату</string>
   <string name="releaseTheAccount">Тіркелгіні босатсаңыз, оны шәкірт дара өзі басқаратын болады.</string>
   <string name="releaseDesc1">Босатылған тіркелгіні қайттан басқару мүмкін емес. Шәкірт өз еркімен бала нұсқаны қосып-өшіруге, құпиясөзді қайта орнатуға қабілетті болады.</string>
   <string name="releaseDesc2">Тіркелгі босатылған соң шәкірт үйірмеде қала береді.</string>
@@ -101,17 +101,17 @@
 Ол көлденең сызық болып көрсетіледі.</string>
   <string name="invite">Шақыру</string>
   <string name="youHaveBeenInvitedByX">Сізді шақырған – %s.</string>
-  <string name="youAcceptedThisInvitation" comment="Appears when revisiting the page of an invitation to a class, which you have already accepted.">Сіз шақыруды қабылдадыңыз.</string>
-  <string name="youDeclinedThisInvitation" comment="Appears when revisiting the page of an invitation to a class, which you have already declined.">Сіз шақыруды қабылдамадыңыз.</string>
+  <string name="youAcceptedThisInvitation">Сіз шақыруды қабылдадыңыз.</string>
+  <string name="youDeclinedThisInvitation">Сіз шақыруды қабылдамадыңыз.</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">не</string>
   <string name="createMultipleAccounts">Бірден бірнеше тіркелгі жасау</string>
   <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Онымен қатар, шәкірттердің тізіміне негізделген бірнеше тіркелгі жасау үшін %s.</string>
   <string name="useThisForm" comment="Link text in multipleAccsFromDescription">осы кестені толтырыңыз</string>
   <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Ескертпе! Үйірмеде шәкірт саны %1$s-ен аспау керек. Одан көп шәкіртті басқару үшін %2$s.</string>
   <string name="createMoreClasses" comment="Link text in maxStudentsNote">тағы үйірмелер жасаңыз</string>
-  <string name="studentsRealNamesOnePerLine" comment="An instruction on how to enter students' names when creating new accounts for them.">Шәкірттің шын аты, әр жолға бір-бірден</string>
-  <string name="xisNowAStudentOfTheClass" comment="%s is the player's name">%s енді үйірменің шәкірті</string>
-  <string name="anInvitationHasBeenSentToX" comment="%s is the username of a player already registered on Lichess.">%s - ға шақыру жіберілген</string>
-  <string name="xAlreadyHasAPendingInvitation" comment="An error message. %s is the username of a player already registered on Lichess.">%s-тың шақыруы бар, әлі жауапсыз</string>
-  <string name="xIsAKidAccountWarning" comment="%1$s is the username&#10;%2$s is a link.">%1$s бұл балалық тіркелгі болғандықтан сіздің хабарыңызды ала алмайды. Шақыру URL-дің өзін жіберуіңіз керек: %2$s</string>
+  <string name="studentsRealNamesOnePerLine">Шәкірттің шын аты, әр жолға бір-бірден</string>
+  <string name="xisNowAStudentOfTheClass">%s енді үйірменің шәкірті</string>
+  <string name="anInvitationHasBeenSentToX">%s - ға шақыру жіберілген</string>
+  <string name="xAlreadyHasAPendingInvitation">%s-тың шақыруы бар, әлі жауапсыз</string>
+  <string name="xIsAKidAccountWarning">%1$s бұл балалық тіркелгі болғандықтан сіздің хабарыңызды ала алмайды. Шақыру URL-дің өзін жіберуіңіз керек: %2$s</string>
 </resources>

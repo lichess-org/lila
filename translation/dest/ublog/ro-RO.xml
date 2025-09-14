@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="community">Comunitate</string>
+  <string name="byMonth">După lună</string>
   <string name="byTopic">După subiect</string>
+  <string name="byLichess">De Lichess</string>
   <string name="myFriends">Prietenii mei</string>
+  <string name="myLikes">Aprecierile mele</string>
   <string name="myBlog">Blogul meu</string>
-  <string name="likedBlogs">Postări plăcute pe blog</string>
+  <string name="likedBlogs">Postări apreciate pe blog</string>
   <plurals name="blogPosts">
-    <item quantity="one">O postare blog</item>
+    <item quantity="one">O postare pe blog</item>
     <item quantity="few">%s postări blog</item>
-    <item quantity="other">%s postări blog</item>
+    <item quantity="other">%s de postări pe blog</item>
   </plurals>
   <string name="continueReadingPost">Continuă să citești această postare</string>
   <string name="lichessBlogPostsFromXYear">Postări pe blog Lichess în %s</string>
@@ -17,21 +20,21 @@
   <string name="newPost">Postare nouă</string>
   <string name="editYourBlogPost">Editează-ți postarea</string>
   <string name="saveDraft">Salvează ciorna</string>
-  <string name="postTitle">Titlul mesajului</string>
-  <string name="postIntro">Introducere</string>
-  <string name="postBody">Conținut</string>
+  <string name="postTitle">Titlul postării</string>
+  <string name="postIntro">Introducerea postării</string>
+  <string name="postBody">Conținutul postării</string>
   <string name="drafts">Ciorne</string>
   <string name="published">Publicat</string>
   <string name="createBlogDiscussion">Permite comentarii</string>
   <string name="createBlogDiscussionHelp">Va fi creat un subiect pe forum pentru ca oamenii să comenteze despre postarea dumneavoastră</string>
   <string name="publishOnYourBlog">Publică pe blogul tău</string>
-  <string name="publishHelp">Daca bifezi, postarea va fi listată pe blogul tău. Daca nu, va fi privată, în ciornele tale</string>
+  <string name="publishHelp">Dacă bifezi, postarea va fi listată pe blogul tău. Dacă nu, va fi privată, în ciornele tale</string>
   <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Fixează postarea</string>
   <string name="stickyPostHelp">Dacă este bifat, această postare va fi listată înaintea postărilor recente de pe profil.</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">A publicat o postare pe blog</item>
     <item quantity="few">A publicat %s postări pe blog</item>
-    <item quantity="other">Ai publicat %s postări pe blog</item>
+    <item quantity="other">A publicat %s de postări pe blog</item>
   </plurals>
   <plurals name="nbViews">
     <item quantity="one">O vizualizare</item>
@@ -41,8 +44,8 @@
   <string name="xPublishedY">%1$s a publicat %2$s</string>
   <string name="thisPostIsPublished">Această postare este publicată</string>
   <string name="thisIsADraft">Aceasta este o ciornă</string>
-  <string name="noPostsInThisBlogYet">Nici o postare în acest blog, încă.</string>
-  <string name="noDrafts">Nici o ciornă de afișat.</string>
+  <string name="noPostsInThisBlogYet">Nicio postare în acest blog, încă.</string>
+  <string name="noDrafts">Nicio ciornă de afișat.</string>
   <string name="latestBlogPosts">Ultimele postări pe blog</string>
   <plurals name="viewAllNbPosts">
     <item quantity="one">Vezi o postare</item>

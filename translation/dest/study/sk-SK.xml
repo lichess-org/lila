@@ -67,6 +67,7 @@
   <string name="studyPgn">PGN štúdie</string>
   <string name="chapterPgn">PGN kapitoly</string>
   <string name="copyChapterPgn">Kopírovať PGN</string>
+  <string name="copyRawChapterPgn">Kopírovať čisté PGN</string>
   <string name="downloadGame">Stiahnúť hru</string>
   <string name="studyUrl">URL štúdie</string>
   <string name="currentChapterUrl">URL aktuálnej kapitoly</string>
@@ -172,11 +173,11 @@
   <string name="playAgain">Hrať znova</string>
   <string name="whatWouldYouPlay">Čo by ste hrali v tejto pozícii?</string>
   <string name="youCompletedThisLesson">Gratulujeme! Túto lekciu ste ukončili.</string>
-  <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">%s na stránku</string>
+  <string name="perPage">%s na stránku</string>
   <string name="getTheTour">Potrebujete pomoc? Pozrite sa ako to funguje!</string>
   <string name="welcomeToLichessStudyTitle">Vitajte v Lichess štúdii!</string>
   <string name="welcomeToLichessStudyText">Toto je zdieľaná analytická tabuľka.&lt;br&gt;&lt;br&gt;Použite ju na analýzu a komentovanie partií,&lt;br&gt;diskutujte o pozíciách s priateľmi,&lt;br&gt;a samozrejme na šachové lekcie!&lt;br&gt;&lt;br&gt;Je to silný nástroj, poďme sa pozrieť, ako funguje.</string>
-  <string name="sharedAndSaveTitle" comment="Appears as the title of a pop-up lightbox in the guided tour of Lichess Studies.&#10;&#10;As in: shared with other members &amp; saved to the database.">Zdieľané a uložené</string>
+  <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Zdieľané a uložené</string>
   <string name="sharedAndSavedText">Ostatní členovia môžu vidieť vaše pohyby v reálnom čase!&lt;br&gt;Navyše je všetko navždy uložené.</string>
   <string name="studyMembersTitle">Členovia štúdie</string>
   <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s Diváci si môžu prezerať štúdiu a rozprávať sa na čete.&lt;br&gt;&lt;br&gt;%2$s Prispievatelia môžu vykonávať ťahy a aktualizovať štúdiu.</string>
@@ -204,7 +205,7 @@
   <string name="variantsAreSupportedTitle">Štúdie podporujú varianty</string>
   <string name="variantsAreSupportedText">Áno, môžete študovať crazyhouse&lt;br&gt;a všetky lichess varianty!</string>
   <string name="chapterConclusionText">Kapitoly sú uložené navždy.&lt;br&gt;Nech Vás organizovanie svojho šachového obsahu baví!</string>
-  <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Dvojitá prehra</string>
-  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">Čierny porazený, ale biely nedokáže vyhrať</string>
-  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">Biely porazený, ale čierny nedokáže vyhrať</string>
+  <string name="doubleDefeat">Dvojitá prehra</string>
+  <string name="blackDefeatWhiteCanNotWin">Čierny porazený, ale biely nedokáže vyhrať</string>
+  <string name="whiteDefeatBlackCanNotWin">Biely porazený, ale čierny nedokáže vyhrať</string>
 </resources>

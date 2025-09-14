@@ -163,14 +163,14 @@
   <string name="playAgain">Играйте отново</string>
   <string name="whatWouldYouPlay">Какво бихте играли в тази позиция?</string>
   <string name="youCompletedThisLesson">Поздравления! Вие завършихте този урок.</string>
-  <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">%s на страница</string>
+  <string name="perPage">%s на страница</string>
   <string name="welcomeToLichessStudyTitle">Добре дошли в Lichess Study!</string>
-  <string name="sharedAndSaveTitle" comment="Appears as the title of a pop-up lightbox in the guided tour of Lichess Studies.&#10;&#10;As in: shared with other members &amp; saved to the database.">Споделено и запазено</string>
+  <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Споделено и запазено</string>
   <string name="fromInitialPositionTitle">От начална позиция</string>
   <string name="customPositionTitle">От позиция</string>
   <string name="fromFenStringTitle">От FEN нотация</string>
   <string name="fromPgnGameTitle">От PGN нотация</string>
-  <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Взаимна загуба</string>
-  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">Черните са победени, но белите не могат да спечелят</string>
-  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">Белите са победени, но черните не могат да спечелят</string>
+  <string name="doubleDefeat">Взаимна загуба</string>
+  <string name="blackDefeatWhiteCanNotWin">Черните са победени, но белите не могат да спечелят</string>
+  <string name="whiteDefeatBlackCanNotWin">Белите са победени, но черните не могат да спечелят</string>
 </resources>

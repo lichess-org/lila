@@ -397,6 +397,7 @@
     <item quantity="other">Sailkapenerako balio duten beste %s partida jokatu behar dituzu</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Zure %s sailkapena behin-behinekoa</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Zure puntuazioa egonkorra ez denez, filtroak blokeatuta daude. Jokatu puntuaziorako balio duten partidak egonkortasuna handitzeko.</string>
   <string name="yourPerfRatingIsTooHigh">Zure %1$s sailkapena (%2$s) altuegia da</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Zure asteko %1$s sailkapen onena (%2$s) altuegia da</string>
   <string name="yourPerfRatingIsTooLow">Zure %1$s sailkapena (%2$s) baxuegia da</string>
@@ -1008,4 +1009,9 @@ Garapen eta mantentze-kostu guztiak erabiltzaileen dohaintzekin ordaintzen dira.
   <string name="enableBlindMode">Aktibatu modu-itsua</string>
   <string name="disableBlindMode">Desaktibatu modu-itsua</string>
   <string name="copyToClipboard">Kopiatu arbelera</string>
+  <string name="online" comment="status of a user">konektatuta</string>
+  <string name="offline" comment="status of a user">deskonektatuta</string>
+  <string name="search">Bilatu</string>
+  <string name="clearSearch">Garbitu bilaketa</string>
+  <string name="tags">Etiketak</string>
 </resources>
