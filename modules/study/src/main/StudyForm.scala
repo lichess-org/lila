@@ -101,3 +101,11 @@ object StudyForm:
 
   def topicsForm(topics: StudyTopics) =
     Form(single("topics" -> text)).fill(topics.value.mkString(","))
+
+  def chapterTagsForm = Form:
+    import chess.format.pgn.{ Tags, Parser }
+    given Formatter[Tags] = formatter.stringTryFormatter(
+      pgn => Parser.tags(PgnStr(pgn)).left.map(_.value),
+      _ => "" // unused, API only
+    )
+    single("pgn" -> of[Tags])

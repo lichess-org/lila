@@ -263,6 +263,7 @@ GET   /api/study/$id<\w{8}>/$chapterId<\w{8}>.pgn controllers.Study.apiChapterPg
 DELETE /api/study/$id<\w{8}>/$chapterId<\w{8}>    controllers.Study.apiChapterDelete(id: StudyId, chapterId: StudyChapterId)
 GET   /api/study/by/:user              controllers.Study.apiListByOwner(user: UserStr)
 POST  /api/study/$id<\w{8}>/import-pgn controllers.Study.apiImportPgn(id: StudyId)
+POST  /api/study/$id<\w{8}>/$chapterId<\w{8}>/tags controllers.Study.apiChapterTagsUpdate(id: StudyId, chapterId: StudyChapterId)
 
 # Relay
 GET   /broadcast                              controllers.RelayTour.index(page: Int ?= 1, q ?= "")
