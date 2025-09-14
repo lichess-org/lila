@@ -83,4 +83,5 @@ Illetve a Patronok kapnak menő profil ikont amivel lehet villogni.</string>
   <string name="changeCurrency">Pénznem módosítása</string>
   <string name="paymentDetails">Fizetés részletei</string>
   <string name="updatePaymentMethod">Fizetési mód frissítése</string>
+  <string name="stripeManageSub">Kezeld előfizetésed, és töltsd le a számlákat és nyugtákat</string>
 </resources>
