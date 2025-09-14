@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses" comment="Lichess Classes are a feature that lets a teacher create virtual classes and check out students' progress.&#10;&#10;This text used to be &quot;Lichess Classes&quot;, which has since been shortened to &quot;Classes&quot;.">Siniflər</string>
+  <string name="lichessClasses">Siniflər</string>
   <string name="teachClassesOfChessStudents">Tələbələrinizə Lichess Sinif alətləri dəsti ilə dərs deyin.</string>
   <string name="features">Özəlliklər</string>
   <string name="quicklyGenerateSafeUsernames">Tələbələr üçün sürətli istifadəçi adları və şifrələr yaradın</string>
   <string name="trackStudentProgress">Oyunlarda və tapmacalarda tələbələrin irəliləyişini izləyin</string>
   <string name="messageAllStudents">Bütün tələbələrə yeni dərs materialları haqqında mesaj göndərin</string>
-  <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">Heç bir reklam və izləyicisiz, hər kəs üçün 100% pulsuz</string>
+  <string name="freeForAllForever">Heç bir reklam və izləyicisiz, hər kəs üçün 100% pulsuz</string>
   <string name="applyToBeLichessTeacher">Lichess müəllimi olmaq üçün müraciət edin</string>
   <string name="noClassesYet">Hələki bir sinif yoxdur.</string>
   <string name="teachersX">Müəllimlər: %s</string>
   <string name="newClass">Yeni sinif</string>
   <string name="closeClass">Sinfi bağla</string>
-  <string name="reopen" comment="A button, permitting a teacher to reopen a closed class.">Yenidən aç</string>
-  <string name="removeStudent" comment="Removes a student from the class. Note the same text is used both for initial removal, and for full erasure.">Tələbəni sil</string>
-  <string name="removedStudents" comment="This is in plural form. It is a heading showing all students who have been removed from the class.">Çıxarıldı</string>
-  <string name="inviteTheStudentBack" comment="A button. Clicking this will re-invite a student that has been removed from the class.">Tələbəni yenidən dəvət edin</string>
+  <string name="reopen">Yenidən aç</string>
+  <string name="removeStudent">Tələbəni sil</string>
+  <string name="removedStudents">Çıxarıldı</string>
+  <string name="inviteTheStudentBack">Tələbəni yenidən dəvət edin</string>
   <string name="sendAMessage">Bütün tələbələrə mesaj göndərin.</string>
   <string name="aLinkToTheClassWillBeAdded">Mesajın sonunda avtomatik olaraq sinfə keçid üçün bir link əlavə ediləcək, bu səbəbdən özünüz daxil etməyinizə ehtiyac yoxdur.</string>
   <string name="className">Sinif adı</string>
@@ -29,7 +29,7 @@
   <string name="generateANewPassword">Tələbə üçün yeni bir şifrə yaradın</string>
   <string name="invitedToXByY">%2$s tərəfindən %1$s adlı sinfə dəvət</string>
   <string name="realName">Həqiqi ad</string>
-  <string name="privateWillNeverBeShown" comment="A description of the real name field for members of a class.">Şəxsi. Yalnız sinif daxilində göstərilir. Tələbənin kim olduğunu xatırlamağa kömək edir.</string>
+  <string name="privateWillNeverBeShown">Şəxsi. Yalnız sinif daxilində göstərilir. Tələbənin kim olduğunu xatırlamağa kömək edir.</string>
   <string name="addStudent">Tələbə əlavə et</string>
   <string name="lichessProfileXCreatedForY">%2$s üçün %1$s Lichess profili yaradıldı.</string>
   <string name="studentCredentials">Tələbə: %1$s
@@ -40,13 +40,13 @@
   <string name="inviteDesc2">Lichessdə sinfə qoşulmaq üçün içində bir link olan əlaqə mesajı alacaqlar.</string>
   <string name="inviteDesc3">Önəmli: yalnız tanıdığınız və sinfə fəal bir şəkildə qoşulmaq istəyən tələbələri dəvət edin.</string>
   <string name="inviteDesc4">Heç vaxt kimə gəldi istənilməyən dəvətlər göndərməyin.</string>
-  <string name="createANewLichessAccount" comment="The person who would see this would always be a teacher.&#10;In this context, it is to create a new account for a student of their class.">Yeni bir Lichess hesabı yaradın</string>
+  <string name="createANewLichessAccount">Yeni bir Lichess hesabı yaradın</string>
   <string name="createDesc1">Tələbənin hələ bir Lichess hesabı yoxdursa, burada onun üçün bir hesab yarada bilərsiniz.</string>
   <string name="createDesc2">Elektron poçt ünvanı tələb olunmur. Bir şifrə yaradılacaq və onu tələbəyə ötürdükdən sonra, sinfə daxil ola bilər.</string>
   <string name="createDesc3">Önəmli: bir tələbənin birdən çox hesabı olmamalıdır.</string>
   <string name="createDesc4">Əgər hesabları varsa, bunun əvəzinə dəvət formunu istifadə edin.</string>
   <string name="lichessUsername">Lichess istifadəçi adı</string>
-  <string name="generateANewUsername" comment="A button which lets teachers create a random username for students they are registering.">Yeni bir istifadəçi adı yaradın</string>
+  <string name="generateANewUsername">Yeni bir istifadəçi adı yaradın</string>
   <string name="welcomeToClass">Sinfinizə xoş gəlmisiniz: %s.
 Sinfə daxil olmaq üçün link.</string>
   <string name="invitationToClass">Tələbə olaraq \"%s\" sinfinə dəvətlisiniz.</string>
@@ -60,7 +60,7 @@ Sinfə daxil olmaq üçün link.</string>
   <string name="managed">İdarə Edilən</string>
   <string name="thisStudentAccountIsManaged">Bu tələbə hesabı idarə olunur</string>
   <string name="upgradeFromManaged">İdarə ediləndən hesabdan normal hesaba keçin</string>
-  <string name="release" comment="This used to be 'release'. It is now called 'graduate', and the term is used here as a verb.&#10;&#10;'Releasing' an account means making it a full Lichess account. It will no longer be tied to the teacher that created it.">Azad et</string>
+  <string name="release">Azad et</string>
   <string name="releaseTheAccount">Hesabı tələbənin özbaşına idarə edə bilməsi üçün azad et.</string>
   <string name="releaseDesc1">Azad edilmiş bir hesab yenidən idarə oluna bilməz. Tələbə uşaq rejimini dəyişə və şifrəni özü sıfırlaya biləcək.</string>
   <string name="releaseDesc2">Tələbələr, hesabları azad edildikdən sonra sinifdə qalacaqlar.</string>
