@@ -165,6 +165,7 @@
   <string name="drawByMutualAgreement">Döntetlen közös megegyezés alapján</string>
   <string name="fiftyMovesWithoutProgress">Ötven lépés fejlemény nélkül</string>
   <string name="currentGames">Futó játékok</string>
+  <string name="joinedX">Csatlakozott %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s játszma</item>
     <item quantity="other">%s játszma</item>
