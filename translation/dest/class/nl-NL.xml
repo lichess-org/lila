@@ -117,4 +117,6 @@ Hier is de link om toegang te krijgen tot de groep.</string>
   <string name="xIsAKidAccountWarning">%1$s is een kinderaccount en kan je bericht niet ontvangen. Je moet het kind de uitnodigingslink handmatig geven: %2$s</string>
   <string name="moveToClass">Verplaats naar %s</string>
   <string name="moveToAnotherClass">Verplaats naar een andere klas</string>
+  <string name="allowMessagingBetweenStudents">Berichten tussen leerlingen toestaan</string>
+  <string name="allowMessagingBetweenStudentsDesc">Dit geldt alleen voor de accounts die u hebt aangemaakt voor uw leerlingen.</string>
 </resources>
