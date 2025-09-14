@@ -216,19 +216,15 @@ final class Ublog(env: Env) extends LilaController(env):
         Ok.page(views.ublog.ui.modShowCarousel(carousel, env.ublog.api.carouselSizeSetting.get()))
   }
 
-  def modSetCarouselSize = SecureBody(_.ModerateBlog) { ctx ?=>
-    import play.api.data.Forms.*
-    import play.api.data.Form
-
-    Form(single("size" -> number(min = 0, max = 30)))
-      .bindFromRequest()
-      .value
-      .map: newSize =>
+  def modSetCarouselSize = SecureBody(_.ModerateBlog) { _ ?=> _ ?=>
+    bindForm(lila.ublog.UblogForm.carouselSize)(
+      _ => Redirect(routes.Ublog.modShowCarousel),
+      size =>
         for
-          _ <- env.ublog.api.carouselSizeSetting.set(newSize)
-          _ <- env.mod.logApi.setCarouselSize(newSize)
+          _ <- env.ublog.api.carouselSizeSetting.set(size)
+          _ <- env.mod.logApi.setCarouselSize(size)
         yield Redirect(routes.Ublog.modShowCarousel)
-      .getOrElse(fuccess(Redirect(routes.Ublog.modShowCarousel)))
+    )
   }
 
   def modPull(postId: UblogPostId) = Secure(_.ModerateBlog) { ctx ?=> me ?=>
