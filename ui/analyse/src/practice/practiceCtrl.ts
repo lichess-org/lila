@@ -47,12 +47,11 @@ export interface PracticeCtrl {
   bottomColor(): Color;
   customCeval: CustomCeval;
   redraw: Redraw;
-  hardMode: Prop<boolean>;
 }
 
 export function make(root: AnalyseCtrl, customPlayableDepth?: () => number): PracticeCtrl {
   const playableDepth = customPlayableDepth ?? (() => 18);
-  const hardMode = storedBooleanPropWithEffect('analyse.practice-hard-mode', false, root.redraw);
+  const masteryMode = storedBooleanPropWithEffect('analyse.practice-hard-mode', false, root.redraw);
   const variant = root.data.game.variant.key,
     running = prop(true),
     comment = prop<Comment | null>(null),
@@ -77,7 +76,7 @@ export function make(root: AnalyseCtrl, customPlayableDepth?: () => number): Pra
   function playable(node: Tree.Node): boolean {
     const ceval = node.ceval;
     return ceval
-      ? hardMode()
+      ? masteryMode()
         ? !root.ceval.isComputing
         : ceval.depth >= playableDepth() || (ceval.depth >= 15 && (ceval.cloud || ceval.millis > 5000))
       : false;
@@ -265,15 +264,14 @@ export function make(root: AnalyseCtrl, customPlayableDepth?: () => number): Pra
     currentNode: () => root.node,
     bottomColor: root.bottomColor,
     redraw: root.redraw,
-    hardMode,
     customCeval: {
       search: () =>
-        hardMode() && !isMyTurn()
+        masteryMode() && !isMyTurn()
           ? 60 * 1000
           : { by: { depth: playableDepth() }, multiPv: 1, indeterminate: true },
-      pearlNode: () => renderCustomPearl(root, hardMode()),
+      pearlNode: () => renderCustomPearl(root, masteryMode()),
       statusNode: () => (root.ceval.isComputing ? undefined : renderCustomStatus(root)),
-      onclick: () => hardMode(!hardMode()),
+      onclick: () => masteryMode(!masteryMode()),
     },
   };
 }

@@ -171,6 +171,7 @@ export default class AnalyseCtrl implements CevalHandler {
       opts.study && makeStudy
         ? new makeStudy(opts.study, this, (opts.tagTypes || '').split(','), opts.practice, opts.relay)
         : undefined;
+
     if (location.hash === '#practice' || (this.study && this.study.data.chapter.practice))
       this.togglePractice();
     else if (location.hash === '#menu') requestIdleCallback(this.actionMenu.toggle, 500);
@@ -754,8 +755,8 @@ export default class AnalyseCtrl implements CevalHandler {
     if (enable === undefined) return force ? 'force' : unforcedState;
 
     if (!force) {
-      this.cevalEnabledProp(enable);
       this.showCevalProp(enable);
+      this.cevalEnabledProp(enable);
     }
 
     if (enable !== unforcedState || this.ceval.isPaused) {
@@ -805,7 +806,7 @@ export default class AnalyseCtrl implements CevalHandler {
   }
 
   showCeval = (show?: boolean) => {
-    const barMode = this.activeControlBarMode();
+    const barMode = this.activeControlMode();
     if (show === undefined) return displayColumns() > 1 || barMode === 'ceval' || barMode === 'practice';
     this.ceval.showEnginePrefs(false);
     this.showCevalProp(show);
@@ -813,7 +814,7 @@ export default class AnalyseCtrl implements CevalHandler {
     return show;
   };
 
-  activeControlBarMode = () =>
+  activeControlMode = () =>
     !!this.study?.practice
       ? 'learn-practice'
       : !!this.practice

@@ -94,7 +94,7 @@ export function renderMain(ctx: ViewContext, ...kids: LooseVNodes[]): VNode {
     {
       attrs: {
         'data-active-tool': ctrl.activeControlBarTool(),
-        'data-active-mode': ctrl.activeControlBarMode(),
+        'data-active-mode': ctrl.activeControlMode(),
       },
       hook: {
         insert: () => {
