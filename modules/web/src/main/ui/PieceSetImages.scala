@@ -33,6 +33,6 @@ final class PieceSetImages(useSvgFiles: SettingStore[Boolean], assets: AssetFull
           + "}</style>"
         if vars.exists { (path, _) => assets.manifest.hashed(path).isEmpty }
         then lila.log("layout").error(s"$pieceSet manifest incomplete")
-        css.pp(pieceSet)
+        css
       }
     )
