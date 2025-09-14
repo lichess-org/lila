@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses" comment="Lichess Classes are a feature that lets a teacher create virtual classes and check out students' progress.&#10;&#10;This text used to be &quot;Lichess Classes&quot;, which has since been shortened to &quot;Classes&quot;.">Учебные классы</string>
+  <string name="lichessClasses">Учебные классы</string>
   <string name="teachClassesOfChessStudents">Преподавайте шахматы ученикам с помощью инструментов «Уроки Lichess».</string>
   <string name="features">Возможности</string>
   <string name="quicklyGenerateSafeUsernames">Быстро создавайте безопасные имена и пароли для учеников</string>
   <string name="trackStudentProgress">Отслеживайте прогресс учеников в партиях и задачах</string>
   <string name="messageAllStudents">Сообщайте всем ученикам о новых материалах класса</string>
-  <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">Бесплатно для всех, навсегда, без рекламы и отслеживания на 100 %</string>
+  <string name="freeForAllForever">Бесплатно для всех, навсегда, без рекламы и отслеживания на 100 %</string>
   <string name="applyToBeLichessTeacher">Подайте заявку, чтобы стать Преподавателем Lichess</string>
   <string name="noClassesYet">Ещё нет классов.</string>
   <string name="teachersX">Преподаватели: %s</string>
   <string name="newClass">Новый класс</string>
   <string name="closeClass">Закрыть класс</string>
   <string name="removedByX">Исключён пользователем %s</string>
-  <string name="reopen" comment="A button, permitting a teacher to reopen a closed class.">Открыть снова</string>
-  <string name="removeStudent" comment="Removes a student from the class. Note the same text is used both for initial removal, and for full erasure.">Удалить ученика</string>
-  <string name="removedStudents" comment="This is in plural form. It is a heading showing all students who have been removed from the class.">Удалён</string>
-  <string name="inviteTheStudentBack" comment="A button. Clicking this will re-invite a student that has been removed from the class.">Пригласить ученика обратно</string>
+  <string name="reopen">Открыть снова</string>
+  <string name="removeStudent">Удалить ученика</string>
+  <string name="removedStudents">Удалён</string>
+  <string name="inviteTheStudentBack">Пригласить ученика обратно</string>
   <string name="sendAMessage">Отправить сообщение всем ученикам.</string>
   <string name="aLinkToTheClassWillBeAdded">Ссылка на класс будет автоматически добавлена в конце сообщения, поэтому вам не нужно добавлять её самостоятельно.</string>
   <string name="className">Название класса</string>
@@ -30,7 +30,7 @@
   <string name="generateANewPassword">Создать новый пароль для ученика</string>
   <string name="invitedToXByY">Приглашение в %1$s получено от %2$s</string>
   <string name="realName">Настоящее имя</string>
-  <string name="privateWillNeverBeShown" comment="A description of the real name field for members of a class.">Приватно. Никогда не будет показано вне класса. Помогает вспомнить, кто этот ученик.</string>
+  <string name="privateWillNeverBeShown">Приватно. Никогда не будет показано вне класса. Помогает вспомнить, кто этот ученик.</string>
   <string name="addStudent">Добавить ученика</string>
   <string name="lichessProfileXCreatedForY">Lichess профиль %1$s создан для %2$s.</string>
   <string name="studentCredentials">Ученик: %1$s
@@ -41,14 +41,14 @@
   <string name="inviteDesc2">Они получат сообщение в Lichess со ссылкой для вступления в класс.</string>
   <string name="inviteDesc3">Важно: приглашайте только тех учеников, которых вы знаете и которые действительно хотят заниматься в классе.</string>
   <string name="inviteDesc4">Никогда не отправляйте нежелательные приглашения случайным игрокам.</string>
-  <string name="createANewLichessAccount" comment="The person who would see this would always be a teacher.&#10;In this context, it is to create a new account for a student of their class.">Создать новый аккаунт Lichess</string>
+  <string name="createANewLichessAccount">Создать новый аккаунт Lichess</string>
   <string name="createDesc1">Если у ученика ещё нет учётной записи Lichess, вы можете создать её здесь.</string>
   <string name="createDesc2">Email адрес не требуется. Будет сгенерирован пароль, который вы передадите ученику, чтобы он мог войти в систему.</string>
   <string name="createDesc3">Важно: ученик не должен иметь несколько учётных записей.</string>
   <string name="createDesc4">Если у них уже есть, используйте форму приглашения.</string>
   <string name="createStudentWarning">Создавайте аккаунты только для реальных учеников. Не используйте эту возможность для создания аккаунтов в личных целях, иначе вы будете заблокированы.</string>
   <string name="lichessUsername">Имя пользователя в Lichess</string>
-  <string name="generateANewUsername" comment="A button which lets teachers create a random username for students they are registering.">Создать новое имя пользователя</string>
+  <string name="generateANewUsername">Создать новое имя пользователя</string>
   <string name="welcomeToClass">Добро пожаловать в ваш класс: %s.
 Вот ссылка для входа в класс.</string>
   <string name="invitationToClass">Вас пригласили в класс «%s» в качестве студента.</string>
@@ -59,14 +59,14 @@
     <item quantity="many">%s приглашений, ожидающих рассмотрения</item>
     <item quantity="other">%s приглашений, ожидающих рассмотрения</item>
   </plurals>
-  <string name="pending" comment="Appears in a table of students. Refers to invitation by a teacher to join a class, which the student has not yet responded to.">В ожидании</string>
-  <string name="declined" comment="Appears in a table of students. Refers to invitation by a teacher to join a class, which the student declined.">Отклонено</string>
+  <string name="pending">В ожидании</string>
+  <string name="declined">Отклонено</string>
   <string name="onlyVisibleToTeachers">Доступны для просмотра только преподавателю</string>
   <string name="lastActiveDate">Активный</string>
   <string name="managed">Управляемый</string>
   <string name="thisStudentAccountIsManaged">Учётная запись этого ученика управляется преподавателем</string>
   <string name="upgradeFromManaged">Изменить управляемую на автономную</string>
-  <string name="release" comment="This used to be 'release'. It is now called 'graduate', and the term is used here as a verb.&#10;&#10;'Releasing' an account means making it a full Lichess account. It will no longer be tied to the teacher that created it.">Выдать</string>
+  <string name="release">Выдать</string>
   <string name="releaseTheAccount">Выдать учётную запись ученику, чтобы он управлял ей самостоятельно.</string>
   <string name="releaseDesc1">Выданная учётная запись не может стать опять управляемой. Ученик сможет самостоятельно переключать детский режим и менять пароль.</string>
   <string name="releaseDesc2">Ученик останется в классе даже после того, как его учётная запись будет выдана ему.</string>
@@ -108,19 +108,19 @@
   <string name="newsEdit3">Разделяйте новости с помощью трёх дефисов --- они превратятся в горизонтальную линию.</string>
   <string name="invite">Пригласить</string>
   <string name="youHaveBeenInvitedByX">Вы были приглашены %s.</string>
-  <string name="youAcceptedThisInvitation" comment="Appears when revisiting the page of an invitation to a class, which you have already accepted.">Вы приняли это приглашение.</string>
-  <string name="youDeclinedThisInvitation" comment="Appears when revisiting the page of an invitation to a class, which you have already declined.">Вы отклонили это приглашение.</string>
+  <string name="youAcceptedThisInvitation">Вы приняли это приглашение.</string>
+  <string name="youDeclinedThisInvitation">Вы отклонили это приглашение.</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">или</string>
   <string name="createMultipleAccounts">Создать несколько Lichess аккаунтов одновременно</string>
   <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Также вы можете %s чтобы, создать несколько аккаунтов Lichess из списка учеников.</string>
   <string name="useThisForm" comment="Link text in multipleAccsFromDescription">используйте эту форму</string>
   <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Обратите внимание, что в классе может быть до %1$s учеников. Если этого мало то, %2$s.</string>
   <string name="createMoreClasses" comment="Link text in maxStudentsNote">создайте больше классов</string>
-  <string name="studentsRealNamesOnePerLine" comment="An instruction on how to enter students' names when creating new accounts for them.">Настоящие имена учеников, по одному на каждой строке</string>
-  <string name="xisNowAStudentOfTheClass" comment="%s is the player's name">%s теперь ученик этого класса</string>
-  <string name="anInvitationHasBeenSentToX" comment="%s is the username of a player already registered on Lichess.">Приглашение пользователю %s было отправлено</string>
-  <string name="xAlreadyHasAPendingInvitation" comment="An error message. %s is the username of a player already registered on Lichess.">Вы уже отправили приглашение %s</string>
-  <string name="xIsAKidAccountWarning" comment="%1$s is the username&#10;%2$s is a link.">%1$s детский аккаунт и не может получить ваше сообщение. Вам нужно передать им ссылку на приглашение вручную: %2$s</string>
-  <string name="moveToClass" comment="%s is the name of the class. The name of the class is set by the teacher.&#10;&#10;Appears on a confirmation prompt when a teacher looks to move a student to one of the other classes they run.">Перейти к %s</string>
-  <string name="moveToAnotherClass" comment="Appears as a heading on a page which lets a teacher move one of their students to one of the other classes they run.">Переместить в другой класс</string>
+  <string name="studentsRealNamesOnePerLine">Настоящие имена учеников, по одному на каждой строке</string>
+  <string name="xisNowAStudentOfTheClass">%s теперь ученик этого класса</string>
+  <string name="anInvitationHasBeenSentToX">Приглашение пользователю %s было отправлено</string>
+  <string name="xAlreadyHasAPendingInvitation">Вы уже отправили приглашение %s</string>
+  <string name="xIsAKidAccountWarning">%1$s детский аккаунт и не может получить ваше сообщение. Вам нужно передать им ссылку на приглашение вручную: %2$s</string>
+  <string name="moveToClass">Перейти к %s</string>
+  <string name="moveToAnotherClass">Переместить в другой класс</string>
 </resources>
