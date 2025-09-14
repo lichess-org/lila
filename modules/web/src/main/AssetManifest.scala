@@ -16,9 +16,8 @@ case class AssetMaps(
 )
 
 final class AssetManifest(getFile: GetRelativeFile):
-  private var maps: AssetMaps = AssetMaps(Map.empty, Map.empty, Map.empty, java.time.Instant.MIN)
 
-  private val logger = lila.log("assetManifest")
+  private var maps: AssetMaps = AssetMaps(Map.empty, Map.empty, Map.empty, java.time.Instant.MIN)
 
   def css(key: String): String = maps.css.getOrElse(key, key)
   def hashed(path: String): Option[String] = maps.hashed.get(path)
@@ -34,7 +33,7 @@ final class AssetManifest(getFile: GetRelativeFile):
       val current = Files.getLastModifiedTime(pathname).toInstant
       if current.isAfter(maps.modified)
       then maps = readMaps(Json.parse(Files.newInputStream(pathname)))
-    catch case e: Throwable => logger.warn(s"Error reading $pathname", e)
+    catch case e: Throwable => lila.log("assetManifest").warn(s"Error reading $pathname", e)
 
   private val jsKeyRe = """^(?!common\.)(\S+)\.([A-Z0-9]{8})\.js""".r
 
