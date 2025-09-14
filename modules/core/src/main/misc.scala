@@ -19,7 +19,7 @@ package streamer:
 
 package clas:
   enum ClasBus:
-    case AreKidsInSameClass(kid1: UserId, kid2: UserId, promise: Promise[Boolean])
+    case CanKidsUseMessages(kid1: UserId, kid2: UserId, promise: Promise[Boolean])
     case IsTeacherOf(teacher: UserId, student: UserId, promise: Promise[Boolean])
     case ClasMatesAndTeachers(kid: UserId, promise: Promise[Set[UserId]])
 

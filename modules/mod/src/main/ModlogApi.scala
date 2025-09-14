@@ -342,7 +342,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       )
       .sort($sort.desc("date"))
       .cursor[Modlog]()
-      .list(200)
+      .list(300)
 
   def recentBy(mod: Mod) =
     coll.secondary

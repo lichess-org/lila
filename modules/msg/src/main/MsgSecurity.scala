@@ -172,8 +172,7 @@ final private class MsgSecurity(
       if !isNew || !hasKid then fuTrue
       else
         (orig.isKid, dest.isKid) match
-          case (true, true) =>
-            Bus.ask[Boolean, ClasBus] { ClasBus.AreKidsInSameClass(orig.id, dest.id, _) }
+          case (true, true) => Bus.ask[Boolean, ClasBus] { ClasBus.CanKidsUseMessages(orig.id, dest.id, _) }
           case (false, true) => isTeacherOf(orig.id, dest.id)
           case (true, false) => isTeacherOf(dest.id, orig.id)
           case _ => fuFalse

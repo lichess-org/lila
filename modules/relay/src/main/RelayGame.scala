@@ -76,7 +76,7 @@ private object RelayGame:
   )
 
   def fromStudyImport(res: lila.study.StudyPgnImport.Result): RelayGame =
-    val fixedTags = removeBrokenPlayerNames:
+    val fixedTags = cleanOrRemovePlayerNames:
       removeDateTag:
         Tags:
           // remove wrong ongoing result tag if the board has a mate on it
@@ -98,12 +98,13 @@ private object RelayGame:
       points = res.ending.map(_.points)
     ).applyTagClocksToLastMoves
 
-  private def removeBrokenPlayerNames(tags: Tags) = tags.copy(
-    value = tags.value.filter: tag =>
-      (tag.name != Tag.White && tag.name != Tag.Black) || {
-        val n = tag.value.toLowerCase
-        n.size > 1 && n != "unknown"
-      }
+  private def cleanOrRemovePlayerNames(tags: Tags) = tags.copy(
+    value = tags.value.flatMap: tag =>
+      if tag.name != Tag.White && tag.name != Tag.Black then tag.some
+      else
+        val clean = tag.value.trim
+        Option.when(clean.size > 1 && clean.toLowerCase != "unknown"):
+          tag.copy(value = clean)
   )
 
   // trust the chapter date, not the source date
