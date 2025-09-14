@@ -200,7 +200,7 @@ final class RelayRound(
         else apiC.GlobalConcurrencyLimitPerIP.events
       studyC.CanView(rs.study) {
         limiter(req.ipAddress)(env.relay.pgnStream.streamRoundGames(rs)): source =>
-          noProxyBuffer(Ok.chunked[PgnStr](source.keepAlive(60.seconds, () => PgnStr(" "))))
+          Ok.chunked[PgnStr](source.keepAlive(60.seconds, () => PgnStr(" "))).noProxyBuffer
       }(Unauthorized, Forbidden)
 
   def chapter(ts: String, rs: String, id: RelayRoundId, chapterId: StudyChapterId) =

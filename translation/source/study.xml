@@ -61,6 +61,7 @@
   <string name="studyPgn">Study PGN</string>
   <string name="chapterPgn">Chapter PGN</string>
   <string name="copyChapterPgn">Copy PGN</string>
+  <string name="copyRawChapterPgn">Copy Raw PGN</string>
   <string name="downloadGame">Download game</string>
   <string name="studyUrl">Study URL</string>
   <string name="currentChapterUrl">Current chapter URL</string>

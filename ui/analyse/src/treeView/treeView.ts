@@ -12,6 +12,7 @@ import { addPointerListeners } from 'lib/pointer';
 
 export class TreeView {
   constructor(readonly ctrl: AnalyseCtrl) {}
+  private autoScrollRequest: 'instant' | 'smooth' | false = false;
 
   hidden = true;
   modePreference = storedProp<'column' | 'inline'>(
@@ -20,15 +21,19 @@ export class TreeView {
     str => (str === 'column' ? 'column' : 'inline'),
     v => v,
   );
+  mode: 'column' | 'inline';
 
   toggleModePreference() {
     this.modePreference(this.modePreference() === 'column' ? 'inline' : 'column');
   }
 
   render(concealOf?: ConcealOf): VNode {
-    return this.modePreference() === 'column' || concealOf
-      ? renderColumnView(this.ctrl, concealOf)
-      : renderInlineView(this.ctrl);
+    this.mode = concealOf ? 'column' : this.modePreference();
+    return this.mode === 'column' ? renderColumnView(this.ctrl, concealOf) : renderInlineView(this.ctrl);
+  }
+
+  requestAutoScroll(request: 'instant' | 'smooth' | false) {
+    this.autoScrollRequest = request;
   }
 
   hook(): Hooks {
@@ -36,30 +41,34 @@ export class TreeView {
     return {
       insert: vnode => {
         const el = vnode.elm as HTMLElement;
-        if (ctrl.path !== '') ctrl.autoScrollRequested = 'instant';
+        if (ctrl.path !== '') this.autoScrollRequest = 'instant';
         const ctxMenuCallback = (e: MouseEvent) => {
           renderContextMenu(e, ctrl, eventPath(e) ?? '');
           ctrl.redraw();
           return false;
         };
-        el.oncontextmenu = ctxMenuCallback;
+        if (site.debug) {
+          el.ondblclick = ctxMenuCallback; // dont steal movelist right clicks from dev tools in debug
+        } else {
+          el.oncontextmenu = ctxMenuCallback; // otherwise, standard prod behavior
+        }
         if (isTouchDevice()) {
           el.ondblclick = ctxMenuCallback;
           addPointerListeners(el, { hold: ctxMenuCallback });
         }
-        el.addEventListener('click', (e: MouseEvent) => {
+        el.addEventListener('pointerup', (e: PointerEvent) => {
           if (!(e.target instanceof HTMLElement)) return;
           if (e.target.classList.contains('disclosure') || (defined(e.button) && e.button !== 0)) return;
           const path = eventPath(e);
           if (path) ctrl.userJump(path);
-          ctrl.autoScrollRequested = false;
+          this.autoScrollRequest = false;
           ctrl.redraw();
         });
       },
       postpatch: () => {
-        if (ctrl.autoScrollRequested) {
-          autoScroll(ctrl.autoScrollRequested);
-          ctrl.autoScrollRequested = false;
+        if (this.autoScrollRequest) {
+          autoScroll(this.autoScrollRequest);
+          this.autoScrollRequest = false;
         }
       },
     };

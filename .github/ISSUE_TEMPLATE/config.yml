@@ -1,8 +1,11 @@
 blank_issues_enabled: false
 contact_links:
   - name: Mobile app
-    url: https://github.com/lichess-org/lichobile/issues
+    url: https://github.com/lichess-org/mobile
     about: Issues for the mobile app are tracked in a separate repository. Please check for duplicates first.
+  - name: Legacy Mobile app
+    url: https://github.com/lichess-org/lichobile/issues
+    about: Issues for the mobile app are tracked in a separate repository. Please check for duplicates first. If you are using the legacy app, you are strongly advised to install the latest app from https://lichess.org/mobile
   - name: Support
     url: https://discord.gg/lichess
     about: GitHub issues are meant for tracking enhancements and bugs, not general support. Instead, search the Wiki, Lichess Forum, StackOverflow, or join our Discord.

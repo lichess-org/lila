@@ -1,6 +1,7 @@
 .analyse__tools {
   @extend %box-neat-force, %flex-column;
 
+  position: relative;
   background: $c-bg-box;
 
   .ceval {

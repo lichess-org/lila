@@ -22,12 +22,12 @@ object Dependencies {
   val maxmind = "com.maxmind.geoip2" % "geoip2" % "4.0.1"
   val caffeine = "com.github.ben-manes.caffeine" % "caffeine" % "3.2.2" % "compile"
   val scaffeine = "com.github.blemale" %% "scaffeine" % "5.3.0" % "compile"
-  val googleOAuth = "com.google.auth" % "google-auth-library-oauth2-http" % "1.38.0"
+  val googleOAuth = "com.google.auth" % "google-auth-library-oauth2-http" % "1.39.0"
   val galimatias = "io.mola.galimatias" % "galimatias" % "0.2.2-NF"
   val scalatags = "com.lihaoyi" %% "scalatags" % "0.13.1"
-  val lettuce = "io.lettuce" % "lettuce-core" % "6.8.0.RELEASE"
+  val lettuce = "io.lettuce" % "lettuce-core" % "6.8.1.RELEASE"
   val nettyTransport =
-    ("io.netty" % s"netty-transport-native-$notifier" % "4.2.4.Final").classifier(s"$os-$arch")
+    ("io.netty" % s"netty-transport-native-$notifier" % "4.2.6.Final").classifier(s"$os-$arch")
   val lilaSearch = "com.github.lichess-org.lila-search" %% "client" % "3.2.0"
   val munit = "org.scalameta" %% "munit" % "1.1.1" % Test
   val uaparser = "org.uaparser" %% "uap-scala" % "0.20.0"
@@ -36,15 +36,15 @@ object Dependencies {
   val bloomFilter = "com.github.alexandrnikitin" %% "bloom-filter" % "0.13.1_lila-1"
   val kittens = "org.typelevel" %% "kittens" % "3.5.0"
 
-  val scalacheck = "org.scalacheck" %% "scalacheck" % "1.18.1" % Test
-  val munitCheck = "org.scalameta" %% "munit-scalacheck" % "1.1.0" % Test
+  val scalacheck = "org.scalacheck" %% "scalacheck" % "1.19.0" % Test
+  val munitCheck = "org.scalameta" %% "munit-scalacheck" % "1.2.0" % Test
 
   object tests {
     val bundle = Seq(munit)
   }
 
   object chess {
-    val version = "17.9.5"
+    val version = "17.9.6"
     val core = "com.github.lichess-org.scalachess" %% "scalachess" % version
     val testKit = "com.github.lichess-org.scalachess" %% "scalachess-test-kit" % version % Test
     val playJson = "com.github.lichess-org.scalachess" %% "scalachess-play-json" % version
@@ -99,7 +99,7 @@ object Dependencies {
   }
 
   object playWs {
-    val version = "2.2.11"
+    val version = "2.2.12"
     val ahc = "com.typesafe.play" %% "play-ahc-ws-standalone" % version
     val json = "com.typesafe.play" %% "play-ws-standalone-json" % version
     val bundle = Seq(ahc, json)

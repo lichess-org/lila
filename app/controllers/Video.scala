@@ -1,5 +1,7 @@
 package controllers
 
+import scalalib.model.Language
+
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.video.{ Filter, UserControl, View }
@@ -22,7 +24,9 @@ final class Video(env: Env) extends LilaController(env):
       }
       .flatMap(f)
 
-  def index = Open:
+  def index = Open(serveIndex)
+  def indexLang = LangPage(routes.Video.index)(serveIndex)
+  private def serveIndex(using ctx: Context) = NoBot:
     pageHit
     WithUserControl: control =>
       Ok.async:
@@ -39,7 +43,9 @@ final class Video(env: Env) extends LilaController(env):
               .map: (videos, count) =>
                 views.video.index(videos, count, control)
 
-  def show(id: String) = Open:
+  def show(id: String) = Open(serveShow(id))
+  def showLang(lang: Language, id: String) = LangPage(routes.Video.show(id))(serveShow(id))(lang)
+  private def serveShow(id: String)(using ctx: Context) =
     WithUserControl: control =>
       api.video
         .find(id)
@@ -55,7 +61,10 @@ final class Video(env: Env) extends LilaController(env):
                 Ok.page(views.video.show(video, similar, control))
               }
 
-  def author(author: String) = Open:
+  def author(author: String) = Open(serveAuthor(author))
+  def authorLang(lang: Language, author: String) =
+    LangPage(routes.Video.author(author))(serveAuthor(author))(lang)
+  private def serveAuthor(author: String)(using ctx: Context) =
     WithUserControl: control =>
       Ok.async:
         api.video
@@ -63,7 +72,9 @@ final class Video(env: Env) extends LilaController(env):
           .map:
             views.video.author(author, _, control)
 
-  def tags = Open:
+  def tags = Open(serveTags)
+  def tagsLang = LangPage(routes.Video.tags)(serveTags)
+  private def serveTags(using ctx: Context) =
     WithUserControl: control =>
       Ok.async:
         api.tag.allPopular.map:

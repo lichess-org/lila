@@ -7,6 +7,8 @@ import lila.ui.{ RenderedPage, PageFlags }
 
 object page:
 
+  val pieceSetImages = lila.web.ui.PieceSetImages(env.web.settings.useSvgFiles, assetHelper)
+
   val ui = lila.web.ui.layout(helpers, assetHelper)(
     popularAlternateLanguages = lila.i18n.LangList.popularAlternateLanguages,
     reportScoreThreshold = env.report.scoreThresholdsSetting.get,
@@ -66,7 +68,6 @@ object page:
           ctx.impersonatedBy.isDefined.option(cssTag("mod.impersonate")),
           ctx.blind.option(cssTag("bits.blind")),
           p.cssKeys.map(cssTag),
-          pieceSprite(ctx.pref.currentPieceSet.name),
           meta(
             content := p.openGraph.fold(trans.site.siteDescription.txt())(o => o.description),
             name := "description"
@@ -91,6 +92,7 @@ object page:
           p.withHrefLangs.map(hrefLangs),
           sitePreload(p.i18nModules, ctx.data.inquiry.isDefined.option(Esm("mod.inquiry")) :: allModules),
           lichessFontFaceCss,
+          pieceSetImages.load(ctx.pref.currentPieceSet.name),
           (ctx.pref.bg === lila.pref.Pref.Bg.SYSTEM || ctx.impersonatedBy.isDefined)
             .so(systemThemeScript(ctx.nonce))
         ),

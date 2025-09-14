@@ -3,7 +3,7 @@
 import re
 import sys
 import pathlib
-import urllib
+from urllib import parse
 
 # Do not load C implementation, so that we can override some parser methods.
 sys.modules["_elementtree"] = None
@@ -47,7 +47,7 @@ def ends_with_punctuation(text):
 
 
 def crowdin_q(text):
-    return urllib.parse.quote(text or "")
+    return parse.quote(text or "")
 
 
 class ReportContext:

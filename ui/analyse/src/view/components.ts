@@ -129,17 +129,14 @@ export function renderMain(ctx: ViewContext, ...kids: LooseVNodes[]): VNode {
 export function renderTools({ ctrl, deps, concealOf, allowVideo }: ViewContext, embedded?: LooseVNode) {
   return hl(addChapterId(ctrl.study, 'div.analyse__tools'), [
     allowVideo && embedded,
-    ctrl.actionMenu()
-      ? [actionMenu(ctrl)]
-      : [
-          cevalView.renderCeval(ctrl),
-          !ctrl.retro?.isSolving() && !ctrl.practice && cevalView.renderPvs(ctrl),
-          renderMoveList(ctrl, deps, concealOf),
-          deps?.gbEdit.running(ctrl) ? deps?.gbEdit.render(ctrl) : undefined,
-          backToLiveView(ctrl),
-          forkView(ctrl, concealOf),
-          retroView(ctrl) || explorerView(ctrl) || practiceView(ctrl),
-        ],
+    cevalView.renderCeval(ctrl),
+    !ctrl.retro?.isSolving() && !ctrl.practice && cevalView.renderPvs(ctrl),
+    renderMoveList(ctrl, deps, concealOf),
+    deps?.gbEdit.running(ctrl) ? deps?.gbEdit.render(ctrl) : undefined,
+    backToLiveView(ctrl),
+    forkView(ctrl, concealOf),
+    retroView(ctrl) || explorerView(ctrl) || practiceView(ctrl),
+    ctrl.actionMenu() && actionMenu(ctrl),
   ]);
 }
 
@@ -295,12 +292,12 @@ export function renderResult(ctrl: AnalyseCtrl): VNode[] {
 }
 
 export const renderIndexAndMove = (node: Tree.Node, withEval: boolean, withGlyphs: boolean): LooseVNodes =>
-  node.san ? [renderIndex(node.ply, true), moveNodes(node, withEval, withGlyphs)] : undefined;
+  node.san ? [renderIndex(node.ply, true), renderMoveNodes(node, withEval, withGlyphs)] : undefined;
 
 export const renderIndex = (ply: Ply, withDots: boolean): VNode =>
   hl(`index.sbhint${ply}`, plyToTurn(ply) + (withDots ? (ply % 2 === 1 ? '.' : '...') : ''));
 
-export function moveNodes(node: Tree.Node, withEval: boolean, withGlyphs: boolean): LooseVNodes {
+export function renderMoveNodes(node: Tree.Node, withEval: boolean, withGlyphs: boolean): LooseVNodes {
   const ev = node.ceval ?? node.eval;
   const evalText = ev?.cp !== undefined ? normalizeEval(ev.cp) : ev?.mate !== undefined ? `#${ev.mate}` : '';
   return [

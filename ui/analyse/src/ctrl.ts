@@ -83,7 +83,6 @@ export default class AnalyseCtrl implements CevalHandler {
   justPlayed?: string; // pos
   justDropped?: string; // role
   justCaptured?: JustCaptured;
-  autoScrollRequested: 'instant' | 'smooth' | false = false;
   redirecting = false;
   onMainline = true;
   synthetic: boolean; // false if coming from a real game
@@ -101,6 +100,7 @@ export default class AnalyseCtrl implements CevalHandler {
   showMoveAnnotation = storedBooleanProp('analyse.show-move-annotation', true);
   keyboardHelp: boolean = location.hash === '#keyboard';
   threatMode: Prop<boolean> = prop(false);
+  disclosureMode = storedBooleanProp('analyse.disclosure.enabled', false);
 
   treeView: TreeView;
   cgVersion = {
@@ -407,7 +407,8 @@ export default class AnalyseCtrl implements CevalHandler {
   jump(path: Tree.Path): void {
     const pathChanged = path !== this.path,
       isForwardStep = pathChanged && path.length === this.path.length + 2;
-    this.autoScrollRequested = treeOps.distance(this.path, path) > 8 ? 'instant' : 'smooth';
+    if (this.path !== path)
+      this.treeView.requestAutoScroll(treeOps.distance(this.path, path) > 8 ? 'instant' : 'smooth');
     this.setPath(path);
     if (pathChanged) {
       if (this.study) this.study.setPath(path, this.node);
@@ -826,7 +827,7 @@ export default class AnalyseCtrl implements CevalHandler {
   }
 
   toggleDiscloseOf(path = this.path.slice(0, -2)) {
-    const disclose = this.idbTree.discloseOf(this.tree.nodeAtPath(path));
+    const disclose = this.idbTree.discloseOf(this.tree.nodeAtPath(path), this.tree.pathIsMainline(path));
     if (disclose) this.idbTree.setCollapsed(path, disclose === 'expanded');
     return Boolean(disclose);
   }
