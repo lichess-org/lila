@@ -142,5 +142,10 @@ final class ClasPages(helpers: Helpers, clasUi: ClasUi, dashUi: DashboardUi):
             form("teachers"),
             trans.clas.teachersOfTheClass(),
             help = trans.clas.addLichessUsernames().some
-          )(form3.textarea(_)(rows := 4))
+          )(form3.textarea(_)(rows := 4)),
+      form3.checkbox(
+        form("canMsg"),
+        frag(trans.clas.allowMessagingBetweenStudents()),
+        help = trans.clas.allowMessagingBetweenStudentsDesc().some
+      )
     )
