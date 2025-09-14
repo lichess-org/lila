@@ -93,12 +93,16 @@ final class ClasApi(
                 from = colls.clas,
                 as = "clas",
                 local = "clasId",
-                foreign = "_id"
+                foreign = "_id",
+                pipe = List(
+                  $doc("$match" -> $doc("canMsg" -> true)),
+                  $doc("$project" -> $id(true))
+                )
               )
             ),
             Unwind("clas"),
-            GroupField("clasId")("nb" -> SumAll, "canMsg" -> FirstField("clas.canMsg")),
-            Match($doc("nb" -> 2, "canMsg" -> true)),
+            GroupField("clas._id")("nb" -> SumAll),
+            Match($doc("nb" -> 2)),
             Limit(1)
           )
 
