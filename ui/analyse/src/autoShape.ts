@@ -122,8 +122,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
 }
 
 function hiliteVariations(ctrl: AnalyseCtrl, autoShapes: DrawShape[]) {
-  const parent = ctrl.node ?? ctrl.tree.root;
-  const visible = parent.children.filter(n => ctrl.showFishnetAnalysis || !n.comp);
+  const visible = ctrl.visibleChildren();
   if (visible.length < 2) return;
   ctrl.chessground.state.drawable.brushes['variation'] = {
     key: 'variation',
