@@ -2,4 +2,15 @@
 <resources>
   <string name="cleanAllGood">A fiókod nincs megjelölve vagy korlátozva. Minden rendben!</string>
   <string name="engineMarked">A fiókodat megjelöltük játszmák közbeni külső segítség használata miatt.</string>
+  <string name="engineMarkedInfo">Ezt úgy határozzuk meg, hogy bármilyen külső segítség igénybevétele a tudásod és/vagy számítási képességeid megerősítésére az ellenfeleddel szembeni tisztességtelen előny megszerzése érdekében.
+További részletekért lásd a %s oldalt.</string>
+  <string name="arenaBanned">A fiókodat tiltottuk az arénákba lépéstől.</string>
+  <string name="prizeBanned">A fiókodat tiltottuk a valódi díjazású versenyektől.</string>
+  <string name="accountMuted">A fiókodat elnémítottuk.</string>
+  <string name="excludedFromLeaderboards">A fiókodat kizárták a ranglistákról.</string>
+  <string name="closedByModerators">Fiókodat zárolták a moderátorok.</string>
+  <string name="hiddenBlog">Blogjaidat elrejtették a moderátorok.</string>
+  <string name="hiddenBlogInfo">Győződj meg róla, hogy ismét elolvastad: %s.</string>
+  <string name="communicationGuidelines">kommunikációs irányelvek</string>
+  <string name="blogRules">blog szabályok</string>
 </resources>
