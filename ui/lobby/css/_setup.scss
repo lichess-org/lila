@@ -62,7 +62,7 @@ $c-slider: $c-setup;
   }
 
   group.radio.color-picker {
-    width: 240px;
+    width: auto;
     margin: 0;
     justify-content: center;
   }
@@ -85,6 +85,9 @@ $c-slider: $c-setup;
     gap: 0.8rem;
   }
 
+  --color-button-size: 40px;
+  --color-king-size: 32px;
+
   .color-submits {
     display: flex;
     flex-flow: row nowrap;
@@ -94,14 +97,15 @@ $c-slider: $c-setup;
     text-align: center;
 
     &__button {
-      width: 80px;
-      height: 80px;
-      padding: 7px;
+      width: 50px;
+      height: var(--color-button-size);
+      padding: 4px 8px;
 
       i {
-        width: 64px;
-        height: 64px;
-        background-size: 64px 64px;
+        display: block;
+        width: var(--color-king-size);
+        height: var(--color-king-size);
+        background-size: var(--color-king-size) var(--color-king-size);
       }
 
       &.white i {

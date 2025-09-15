@@ -45,18 +45,12 @@ export const colorButtons = (ctrl: LobbyController) => {
       i18n.site.youPlayAs,
       hl(
         'group.radio.color-picker',
-        colors.map(({ key, name }) => {
-          return [
-            hl(`input#color-${key}`, {
-              attrs: { name: 'color', type: 'radio', value: key, checked: key === 'random' },
-            }),
-            hl(
-              `label.color-submits__button.${key}`,
-              { attrs: { title: name, for: `color-${key}` } },
-              hl('i'),
-            ),
-          ];
-        }),
+        colors.map(({ key, name }) => [
+          hl(`input#color-${key}`, {
+            attrs: { name: 'color', type: 'radio', value: key, checked: key === 'random' },
+          }),
+          hl(`label.color-submits__button.${key}`, { attrs: { title: name, for: `color-${key}` } }, hl('i')),
+        ]),
       ),
     ])
   );
