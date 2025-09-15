@@ -61,7 +61,7 @@ export const bind = (ctrl: AnalyseCtrl) => {
       ctrl.redraw();
     })
     .bind('a', () => {
-      ctrl.showBestMoveArrows(!ctrl.showBestMoveArrows());
+      ctrl.showBestMoveArrowsProp(!ctrl.showBestMoveArrowsProp());
       ctrl.redraw();
     })
     .bind('v', () => {

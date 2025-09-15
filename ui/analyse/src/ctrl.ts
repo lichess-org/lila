@@ -30,7 +30,7 @@ import { parseFen } from 'chessops/fen';
 import type { Position, PositionError } from 'chessops/chess';
 import type { Result } from '@badrap/result';
 import { setupPosition } from 'chessops/variant';
-import { storedBooleanProp } from 'lib/storage';
+import { storedBooleanProp, storedBooleanPropWithEffect } from 'lib/storage';
 import type { AnaMove } from './study/interfaces';
 import { valid as crazyValid } from './crazy/crazyCtrl';
 import { PromotionCtrl } from 'lib/game/promotion';
@@ -92,7 +92,7 @@ export default class AnalyseCtrl implements CevalHandler {
   // display flags
   flipped = false;
   showComments = true; // whether to display comments in the move tree
-  showBestMoveArrows: Prop<boolean>;
+  showBestMoveArrowsProp: Prop<boolean>;
   variationArrowOpacity: Prop<number | false>;
   showGauge = storedBooleanProp('analyse.show-gauge', true);
   private showCevalProp: Prop<boolean> = storedBooleanProp('analyse.show-engine', !!this.cevalEnabledProp());
@@ -164,7 +164,11 @@ export default class AnalyseCtrl implements CevalHandler {
     this.showGround();
 
     this.variationArrowOpacity = this.makeVariationOpacityProp();
-    this.showBestMoveArrows = this.makeBestMoveArrowsProp();
+    this.showBestMoveArrowsProp = storedBooleanPropWithEffect(
+      'analyse.auto-shapes',
+      true,
+      this.setAutoShapes,
+    );
     this.resetAutoShapes();
     this.explorer.setNode();
     this.study =
@@ -1049,23 +1053,14 @@ export default class AnalyseCtrl implements CevalHandler {
     };
   }
 
-  private makeBestMoveArrowsProp(): Prop<boolean> {
-    let value = (localStorage.getItem('analyse.auto-shapes') ?? 'true') === 'true';
-    return (v?: boolean) => {
-      if (v === undefined) return value && !!this.retro;
-      localStorage.setItem('analyse.auto-shapes', v.toString());
-      value = v;
-      this.setAutoShapes();
-      return value;
-    };
-  }
-
   private pluginUpdate = (fen: string) => {
     // If controller and chessground board states differ, ignore this update. Once the chessground
     // state is updated to match, pluginUpdate will be called again.
     if (!fen.startsWith(this.chessground?.getFen())) return;
     this.keyboardMove?.update({ fen, canMove: true });
   };
+
+  showBestMoveArrows = () => this.showBestMoveArrowsProp() && !this.retro;
 
   private resetAutoShapes = () => {
     if (this.showBestMoveArrows() || this.showMoveAnnotation() || this.variationArrowOpacity())
