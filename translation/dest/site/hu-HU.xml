@@ -479,6 +479,7 @@
   <string name="openTournaments">Nyílt versenyek</string>
   <string name="duration">Időtartam</string>
   <string name="winner">Győztes</string>
+  <string name="standings">Állás</string>
   <string name="createANewTournament">Új verseny indítása</string>
   <string name="tournamentCalendar">Versenynaptár</string>
   <string name="conditionOfEntry">Nevezés feltétele:</string>
@@ -710,6 +711,7 @@
   <string name="keyboardShortcuts">Billentyű kombinációk</string>
   <string name="keyMoveBackwardOrForward">lépj előre/hátra</string>
   <string name="keyGoToStartOrEnd">menjen az elejére/végére</string>
+  <string name="keyCycleSelectedVariation">A választott változatok váltogatása</string>
   <string name="keyShowOrHideComments">kommentek megjelenítése/elrejtése</string>
   <string name="keyEnterOrExitVariation">ki/belépés változatba</string>
   <string name="keyRequestComputerAnalysis">Kérelmezz számítógépes elemzést és tanulj a hibáidból</string>
@@ -717,6 +719,14 @@
   <string name="keyNextBlunder">Következő baklövés</string>
   <string name="keyNextMistake">Következő hiba</string>
   <string name="keyNextInaccuracy">Következő pontatlanság</string>
+  <string name="keyPreviousBranch">Előző elágazás</string>
+  <string name="keyNextBranch">Következő elágazás</string>
+  <string name="toggleVariationArrows">Változatnyilak ki-be</string>
+  <string name="cyclePreviousOrNextVariation">Az előző/következő változatok váltogatása</string>
+  <string name="toggleGlyphAnnotations">Lépésjegyzetek ki-be</string>
+  <string name="togglePositionAnnotations">Helyzetelemzések ki-be</string>
+  <string name="variationArrowsInfo">A változatnyilakkal a lépéslista használata nélkül is navigálhatsz.</string>
+  <string name="playSelectedMove">játszd a kijelölt lépést</string>
   <string name="newTournament">Új torna</string>
   <string name="tournamentHomeTitle">A sakk bajnokságokban lehetőség van különböző időbeállítások és változatok beállítására</string>
   <string name="tournamentHomeDescription">Vegyél részt pörgős versenyeken! Csatlakozz hivatalos versenyekhez, vagy hozz létre egyet saját magad. Bullet, Blitz, Hagyományos, Chess960, King of the Hill, Threecheck és sok más lehetőség elérhető, hogy minél jobban élvezd a sakkot.</string>
@@ -741,6 +751,7 @@
   <string name="weHaveSentYouAnEmailClickTheLink">Küldtünk neked egy email-t. A fiókod aktiválásához kattints az email-ben lévő linkre.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ha nem látod az email-t, ellenőrizd, hogy nincs-e a szemetes, a spam vagy a közösségi mappában, vagy egyéb mappákban.</string>
   <string name="ifYouDoNotGetTheEmail">Ha 5 percen belül nem kapod meg az emailt:</string>
+  <string name="checkAllEmailFolders">Ellenőrizd az összes levélszemét-, spam- és egyéb mappát</string>
   <string name="verifyYourAddress">Ellenőrizd, hogy a(z) %s valóban a te email-címed</string>
   <string name="weHaveSentYouAnEmailTo">Üzenetet küldtünk a(z) %s e-mail-címre.
 Jelszavad megváltoztatásához kattints az üzenetben lévő linkre.</string>
@@ -996,6 +1007,7 @@ Hagyd üresen és a játszmák a kezdőállásból indulnak.</string>
 Minden működési költséget, fejlesztést és tartalmat felhasználói adományokból fedezünk.</string>
   <string name="nothingToSeeHere">Itt nincs semmi látnivaló jelenleg.</string>
   <string name="stats">Statisztikák</string>
+  <string name="accessibility">Hozzáférhetőség</string>
   <string name="enableBlindMode">Vak mód bekapcsolása</string>
   <string name="disableBlindMode">Vak mód kikapcsolása</string>
   <string name="copyToClipboard">Másold vágólapra</string>
