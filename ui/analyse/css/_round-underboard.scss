@@ -3,6 +3,7 @@
 $col1-panel-height: 30vh;
 $col2-panel-height: 240px;
 
+// show the request button even if analysis is disabled
 .comp-off .analyse__underboard:not(:has(.future-game-analysis)) .computer-analysis {
   display: none !important;
 }
