@@ -72,10 +72,15 @@ $c-slider: $c-setup;
     justify-content: center;
     padding: 1.1rem;
 
-    button {
+    .button {
       height: 3rem;
       padding-inline: 1rem 1.2rem;
       gap: 0.8rem;
+      color: $c-font;
+      border: 2px solid $c-setup;
+      i:before {
+        color: $c-setup !important;
+      }
     }
   }
 
