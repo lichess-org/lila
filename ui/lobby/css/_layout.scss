@@ -9,6 +9,9 @@
   &__simuls {
     max-height: 30em;
   }
+  &__start {
+    margin: 0 $block-gap;
+  }
 
   @include mq-at-least-col2 {
     ---cols: 2; // ui/lobby/src/main.ts
@@ -30,6 +33,9 @@
       grid-template-columns: 1fr 1fr;
       grid-gap: 2%;
     }
+    &__start {
+      margin-inline-end: $block-gap;
+    }
   }
 
   @include mq-at-least-col3 {
@@ -48,7 +54,7 @@
       'about  about';
 
     &__start {
-      margin: 2em auto 0;
+      margin: 2em 0 0 0;
       font-weight: bold;
     }
 
@@ -82,7 +88,7 @@
       '.      about   about   .';
 
     &__start {
-      margin: 0 auto;
+      margin: 0;
       justify-content: center;
     }
 

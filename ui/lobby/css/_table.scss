@@ -9,7 +9,7 @@
   &__start {
     @extend %flex-column;
     flex: 1 1 auto;
-    margin: auto;
+    justify-content: stretch;
     gap: 9px; // grid gap in app/_pool.scss
   }
 
