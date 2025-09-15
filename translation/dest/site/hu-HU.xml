@@ -71,8 +71,11 @@
   <string name="promoteVariation">Változat feljebb léptetése</string>
   <string name="makeMainLine">Legyen ez a főváltozat</string>
   <string name="deleteFromHere">Törlés innentől</string>
+  <string name="collapseVariations">Rejtsd el a változatokat</string>
+  <string name="expandVariations">Mutasd a változatokat</string>
   <string name="forceVariation">Mentés változatként</string>
   <string name="copyVariationPgn">PGN másolása</string>
+  <string name="copyMainLinePgn">Másold a főváltozat PGN-jét</string>
   <string name="move">Lépés</string>
   <string name="variantLoss">Vesztő</string>
   <string name="variantWin">Nyerő</string>
@@ -191,6 +194,7 @@
   <string name="latestForumPosts">Friss bejegyzések</string>
   <string name="players">Játékosok</string>
   <string name="friends">Barátok</string>
+  <string name="otherPlayers">más játékosok</string>
   <string name="discussions">Beszélgetések</string>
   <string name="today">Ma</string>
   <string name="yesterday">Tegnap</string>
@@ -346,7 +350,15 @@
   <string name="openingExplorerAndTablebase">Megnyitás- és állásböngésző</string>
   <string name="takeback">Visszalépés</string>
   <string name="proposeATakeback">Visszalépés kérése</string>
+  <string name="whiteProposesTakeback">Világos visszalépést kér</string>
+  <string name="blackProposesTakeback">Sötét visszalépést kér</string>
   <string name="takebackPropositionSent">Visszalépés elküldve</string>
+  <string name="whiteDeclinesTakeback">Világos elutasítja a visszalépést</string>
+  <string name="blackDeclinesTakeback">Sötét elutasítja a visszalépést</string>
+  <string name="whiteAcceptsTakeback">Világos elfogadja a visszalépést</string>
+  <string name="blackAcceptsTakeback">Sötét elfogadja a visszalépést</string>
+  <string name="whiteCancelsTakeback">Világos érvényteleníti a visszalépést</string>
+  <string name="blackCancelsTakeback">Sötét érvényteleníti a visszalépést</string>
   <string name="yourOpponentProposesATakeback">Az ellenfeled vissza szeretne lépni</string>
   <string name="bookmarkThisGame">Játszma könyvjelzőzése</string>
   <string name="tournament">Verseny</string>
@@ -729,6 +741,7 @@
   <string name="weHaveSentYouAnEmailClickTheLink">Küldtünk neked egy email-t. A fiókod aktiválásához kattints az email-ben lévő linkre.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ha nem látod az email-t, ellenőrizd, hogy nincs-e a szemetes, a spam vagy a közösségi mappában, vagy egyéb mappákban.</string>
   <string name="ifYouDoNotGetTheEmail">Ha 5 percen belül nem kapod meg az emailt:</string>
+  <string name="verifyYourAddress">Ellenőrizd, hogy a(z) %s valóban a te email-címed</string>
   <string name="weHaveSentYouAnEmailTo">Üzenetet küldtünk a(z) %s e-mail-címre.
 Jelszavad megváltoztatásához kattints az üzenetben lévő linkre.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">A regisztrációval elfogadod a %s-t.</string>
@@ -882,6 +895,7 @@ Jelszavad megváltoztatásához kattints az üzenetben lévő linkre.</string>
   <string name="agreementPolicy">Elfogadom, hogy követni fogom a Lichess szabályait.</string>
   <string name="searchOrStartNewDiscussion">Keresés, vagy új beszélgetés indítása</string>
   <string name="edit">Szerkeszt</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Villám</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Rapid</string>
   <string name="classical">Klasszikus</string>
@@ -961,6 +975,7 @@ Hagyd üresen és a játszmák a kezdőállásból indulnak.</string>
   <string name="focusChat">Fókusz a csevegőre</string>
   <string name="showHelpDialog">Mutasd ezt a súgót</string>
   <string name="reopenYourAccount">Fiók újranyitása</string>
+  <string name="reopenYourAccountDescription">Ha bezártad a fiókod, de meggondoltad magad, visszaszerezheted a fiókod.</string>
   <string name="emailAssociatedToaccount">A fiókhoz rendelt email cím</string>
   <string name="sentEmailWithLink">Küldtünk neked egy linket e-mailben.</string>
   <string name="tournamentEntryCode">Verseny belépési kód</string>
