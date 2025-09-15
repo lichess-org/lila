@@ -28,6 +28,7 @@
   <string name="createBlogDiscussionHelp">Egy új téma készül majd a fórumban azok számára akik hozzászólnának a bejegyzésedhez</string>
   <string name="publishOnYourBlog">Tedd közzé a blogodon</string>
   <string name="publishHelp">Ha bejelölöd, a poszt nyilvános lesz. Ha nem, akkor privát poszt marad, és a piszkozatok között megtalálod</string>
+  <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Rögzített poszt</string>
   <string name="stickyPostHelp">Ha ezt bejelölöd, a poszt elsőként fog megjelenni a profilod legfrissebb posztjai között és a blogodon.</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">Blog poszt közzétéve</item>
