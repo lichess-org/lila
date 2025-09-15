@@ -7,6 +7,7 @@ import type { VNode } from 'snabbdom';
 export type WinningChances = number;
 export type SearchBy = { movetime: number } | { depth: number } | { nodes: number };
 export type Search = { by: SearchBy; multiPv: number; indeterminate?: boolean };
+export type Millis = number;
 
 export interface Work {
   variant: VariantKey;
@@ -94,7 +95,7 @@ export type Redraw = () => void;
 export type Progress = (p?: { bytes: number; total: number }) => void;
 
 export interface CustomCeval {
-  search?: () => Search | number; // pass number as millis to cap user defined search
+  search?: () => Search | Millis; // pass number as millis to cap user defined search
   pearlNode?: () => VNode | undefined;
   statusNode?: () => VNode | string | undefined;
   onclick?: (e: MouseEvent) => void;

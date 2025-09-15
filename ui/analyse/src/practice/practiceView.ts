@@ -88,7 +88,8 @@ export function renderCustomPearl({ ceval }: AnalyseCtrl, hardMode: boolean): VN
       !isFinite(ceval.storedMovetime()) ? 60 : Math.round(ceval.storedMovetime() / 1000),
     );
     return hl('div.practice-mode', [hl('p', 'Mastery'), hl('p.secondary', time)]);
-  } else return hl('div.practice-mode', [hl('p', 'Casual'), hl('p.secondary', 'depth 18')]);
+  }
+  return hl('div.practice-mode', [hl('p', 'Casual'), hl('p.secondary', 'depth 18')]);
 }
 
 export function renderCustomStatus({ ceval }: AnalyseCtrl): VNode | undefined {
