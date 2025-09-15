@@ -57,6 +57,7 @@ A csoportot az alábbi linken éred el.</string>
     <item quantity="one">Egy függőben lévő meghívó</item>
     <item quantity="other">%s függőben lévő meghívó</item>
   </plurals>
+  <string name="declined">Visszautasítva</string>
   <string name="onlyVisibleToTeachers">Csak a tanárok látják</string>
   <string name="lastActiveDate">Aktív</string>
   <string name="managed">Kezelt fiók</string>

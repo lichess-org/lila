@@ -3,6 +3,7 @@
   <string name="donate">Adakozz</string>
   <string name="donateAsX">Adakozás mint %s</string>
   <string name="lichessPatron">Lichess Patron</string>
+  <string name="patronSince" comment="%s is a date e.g. &quot;21 Jan 2025&quot;,&#10;meaning the final text would be something like &quot;Patron since 21 Jan 2025&quot;.">Támogató: %s</string>
   <string name="freeAccount">Ingyenes fiók</string>
   <string name="becomePatron">Támogasd a Lichesst</string>
   <string name="xBecamePatron">%s már Lichess támogató</string>
@@ -82,4 +83,5 @@ Illetve a Patronok kapnak menő profil ikont amivel lehet villogni.</string>
   <string name="changeCurrency">Pénznem módosítása</string>
   <string name="paymentDetails">Fizetés részletei</string>
   <string name="updatePaymentMethod">Fizetési mód frissítése</string>
+  <string name="stripeManageSub">Kezeld előfizetésed, és töltsd le a számlákat és nyugtákat</string>
 </resources>

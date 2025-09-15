@@ -162,4 +162,5 @@
   <string name="playAgain">Újra</string>
   <string name="whatWouldYouPlay">Mit lépnél ebben az állásban?</string>
   <string name="youCompletedThisLesson">Gratulálok! A fejezet végére értél.</string>
+  <string name="fromPgnGameTitle">Egy PGN játszmából</string>
 </resources>

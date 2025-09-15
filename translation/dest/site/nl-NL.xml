@@ -397,6 +397,7 @@
     <item quantity="other">Je moet %s partijen meer met rating spelen</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Je %s rating is een voorlopige</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Raitingfilters zijn vergrendeld omdat je rating niet stabiel is. Het spelen van partijen met rating zal de stabiliteit vergroten.</string>
   <string name="yourPerfRatingIsTooHigh">Je rating %1$s (%2$s) is te hoog</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Je beste hoogste rating deze week %1$s (%2$s) is te hoog</string>
   <string name="yourPerfRatingIsTooLow">Je rating %1$s (%2$s) is te laag</string>
