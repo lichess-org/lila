@@ -75,14 +75,12 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
     val tagString = control.filter.tags.some.filter(_.nonEmpty).so(_.mkString(" + ") + " • ")
     page(s"${tagString}${trv.freeChessVideos.txt()}", control)
       .graph(
-        OpenGraph(
-          title = trv.xFreeCarefullyCurated.txt(tagString),
-          description = s"${trv.xCuratedChessVideos(videos.nbResults)}${
-              if tagString.nonEmpty then trv.xWithTagsY(" ", tagString)
-              else " • "
-            }${trv.freeForAll.txt()}",
-          url = s"$netBaseUrl${langHref(routes.Video.index)}?${control.queryString}"
-        )
+        title = trv.xFreeCarefullyCurated.txt(tagString),
+        description = s"${trv.xCuratedChessVideos(videos.nbResults)}${
+            if tagString.nonEmpty then trv.xWithTagsY(" ", tagString)
+            else " • "
+          }${trv.freeForAll.txt()}",
+        url = s"$netBaseUrl${langHref(routes.Video.index)}?${control.queryString}"
       ):
         frag(
           boxTop(

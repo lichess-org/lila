@@ -47,15 +47,13 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
         else "tournament.show"
       )
       .graph(
-        OpenGraph(
-          title = s"${tour.name()}: ${tour.variant.name} ${tour.clock.show} ${tour.rated.name} #${tour.id}",
-          url = s"$netBaseUrl${routes.Tournament.show(tour.id).url}",
-          description =
-            s"${tour.nbPlayers} players compete in the ${showEnglishDate(tour.startsAt)} ${tour.name()}. " +
-              s"${tour.clock.show} ${tour.rated.name} games are played during ${tour.minutes} minutes. " +
-              tour.winnerId.fold("Winner is not yet decided."): winnerId =>
-                s"${titleNameOrId(winnerId)} takes the prize home!"
-        )
+        title = s"${tour.name()}: ${tour.variant.name} ${tour.clock.show} ${tour.rated.name} #${tour.id}",
+        url = s"$netBaseUrl${routes.Tournament.show(tour.id).url}",
+        description =
+          s"${tour.nbPlayers} players compete in the ${showEnglishDate(tour.startsAt)} ${tour.name()}. " +
+            s"${tour.clock.show} ${tour.rated.name} games are played during ${tour.minutes} minutes. " +
+            tour.winnerId.fold("Winner is not yet decided."): winnerId =>
+              s"${titleNameOrId(winnerId)} takes the prize home!"
       )
       .csp(_.withLilaHttp):
         main(cls := s"tour$extraCls")(

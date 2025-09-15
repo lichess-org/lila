@@ -1,2 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="thereAreNoResultsForX" comment="%s is the search term that the user entered.">Ingen treff for \"%s\"</string>
+</resources>

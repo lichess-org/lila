@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Versenyközvetítések</string>
+  <string name="myBroadcasts">Közvetítéseim</string>
   <plurals name="nbBroadcasts">
     <item quantity="one">%s versenyközvetítés</item>
     <item quantity="other">%s versenyközvetítés</item>
   </plurals>
+  <plurals name="nbViewers">
+    <item quantity="one">%s néző</item>
+    <item quantity="other">%s néző</item>
+  </plurals>
   <string name="liveBroadcasts">Közvetítések élő versenyekről</string>
+  <string name="broadcastCalendar">Közvetítés naptár</string>
   <string name="newBroadcast">Új élő versenyközvetítés</string>
+  <string name="subscribedBroadcasts">Feliratkozások közvetítésekre</string>
+  <string name="aboutBroadcasts">A közvetítésekről</string>
+  <string name="howToUseLichessBroadcasts">A Lichess közvetítések használata.</string>
+  <string name="theNewRoundHelp">Új forduló: ugyanazok a tagok és a közreműködők.</string>
   <string name="addRound">Forduló hozzáadása</string>
   <string name="ongoing">Folyamatban</string>
   <string name="upcoming">Közelgő</string>

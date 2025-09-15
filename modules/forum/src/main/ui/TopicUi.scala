@@ -99,11 +99,9 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
       .csp(_.withInlineIconFont.withTwitter)
       .js(Esm("bits.forum") ++ Esm("bits.expandText") ++ formWithCaptcha.isDefined.so(captchaEsm))
       .graph(
-        OpenGraph(
-          title = topic.name,
-          url = s"$netBaseUrl${routes.ForumTopic.show(categ.id, topic.slug, posts.currentPage).url}",
-          description = shorten(posts.currentPageResults.headOption.so(_.post.text), 152)
-        )
+        title = topic.name,
+        url = s"$netBaseUrl${routes.ForumTopic.show(categ.id, topic.slug, posts.currentPage).url}",
+        description = shorten(posts.currentPageResults.headOption.so(_.post.text), 152)
       ):
         main(cls := "forum forum-topic page-small box box-pad")(
           boxTop(
