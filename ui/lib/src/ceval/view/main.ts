@@ -239,7 +239,8 @@ export function renderCeval(ctrl: CevalHandler): VNode[] {
       false,
     ),
   });
-  const hook = ceval.opts.custom?.onclick && bind('click', e => ctrl.ceval.opts.custom?.onclick?.(e));
+  const onclick = ceval.opts.custom?.onclick;
+  const hook = onclick && bind('click', onclick);
   return [
     hl('div.ceval' + (enabled ? '.enabled' : ''), { class: { computing: ceval.isComputing }, hook }, [
       renderCevalSwitch(ctrl),
@@ -249,7 +250,7 @@ export function renderCeval(ctrl: CevalHandler): VNode[] {
       progressBar,
     ]),
     renderCevalSettings(ctrl),
-  ].filter((v): v is VNode => !!v);
+  ].filter(v => v != null);
 }
 
 export function renderCevalSwitch(ctrl: CevalHandler): VNode | false {
