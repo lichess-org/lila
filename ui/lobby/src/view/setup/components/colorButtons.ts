@@ -38,7 +38,7 @@ export const colorButtons = (ctrl: LobbyController) => {
     if (!randomColorOnly) enabledColors.push('white', 'black');
   }
 
-  if (site.blindMode) return hl('div.color-submits', renderBlindModeColorPicker(ctrl));
+  if (site.blindMode) return hl('div', renderBlindModeColorPicker(ctrl));
   return (
     enabledColors.length > 1 &&
     hl('span.radio-pane', [
@@ -46,10 +46,14 @@ export const colorButtons = (ctrl: LobbyController) => {
       hl(
         'group.radio.color-picker',
         colors.map(({ key, name }) => [
-          hl(`input#color-${key}`, {
+          hl(`input#color-picker-${key}`, {
             attrs: { name: 'color', type: 'radio', value: key, checked: key === 'random' },
           }),
-          hl(`label.color-submits__button.${key}`, { attrs: { title: name, for: `color-${key}` } }, hl('i')),
+          hl(
+            `label.color-picker__button.${key}`,
+            { attrs: { title: name, for: `color-picker-${key}` } },
+            hl('i'),
+          ),
         ]),
       ),
     ])

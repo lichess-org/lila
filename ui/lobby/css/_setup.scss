@@ -88,14 +88,7 @@ $c-slider: $c-setup;
   --color-button-size: 40px;
   --color-king-size: 32px;
 
-  .color-submits {
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: flex-end;
-    justify-content: center;
-    margin: 1rem auto;
-    text-align: center;
-
+  .color-picker {
     &__button {
       width: 50px;
       height: var(--color-button-size);
