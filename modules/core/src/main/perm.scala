@@ -110,7 +110,7 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
   case DeveloperTeam
       extends Permission(
         "DEVELOPER_TEAM",
-        List(LichessTeam, Diagnostics, UserModView, BotEditor, ApiHog, StickyPosts),
+        List(LichessTeam, Diagnostics, UserModView, AccountInfo, BotEditor, ApiHog, StickyPosts),
         "Developer Team"
       )
   case TimeoutMod

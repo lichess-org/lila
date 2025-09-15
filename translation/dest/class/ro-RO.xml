@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses" comment="Lichess Classes are a feature that lets a teacher create virtual classes and check out students' progress.&#10;&#10;This text used to be &quot;Lichess Classes&quot;, which has since been shortened to &quot;Classes&quot;.">Clase</string>
+  <string name="lichessClasses">Clase</string>
   <string name="teachClassesOfChessStudents">Predă clase celor care învață șahul cu suita de aplicații Clase Lichess.</string>
   <string name="features">Caracteristici</string>
   <string name="quicklyGenerateSafeUsernames">Generează rapid nume de utilizator și parole sigure pentru studenți</string>
   <string name="trackStudentProgress">Urmărește progresul elevilor în jocuri și puzzle-uri</string>
   <string name="messageAllStudents">Trimite un mesaj tuturor elevilor despre materiale noi pentru clasă</string>
-  <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">100% gratuit pentru toți, pentru totdeauna, fără reclame sau trackere</string>
+  <string name="freeForAllForever">100% gratuit pentru toți, pentru totdeauna, fără reclame sau trackere</string>
   <string name="applyToBeLichessTeacher">Înscrie-te pentru a fi profesor de șah Lichess</string>
   <string name="noClassesYet">Nu există încă nicio clasă.</string>
   <string name="teachersX">Profesori: %s</string>
   <string name="newClass">Clasă nouă</string>
   <string name="closeClass">Închide clasa</string>
   <string name="removedByX">Eliminat de %s</string>
-  <string name="reopen" comment="A button, permitting a teacher to reopen a closed class.">Redeschide</string>
-  <string name="removeStudent" comment="Removes a student from the class. Note the same text is used both for initial removal, and for full erasure.">Elimină student</string>
-  <string name="removedStudents" comment="This is in plural form. It is a heading showing all students who have been removed from the class.">Eliminat</string>
-  <string name="inviteTheStudentBack" comment="A button. Clicking this will re-invite a student that has been removed from the class.">Invită studentul înapoi</string>
+  <string name="reopen">Redeschide</string>
+  <string name="removeStudent">Elimină student</string>
+  <string name="removedStudents">Eliminat</string>
+  <string name="inviteTheStudentBack">Invită studentul înapoi</string>
   <string name="sendAMessage">Trimite un mesaj tuturor elevilor.</string>
   <string name="aLinkToTheClassWillBeAdded">Un link la clasă va fi adăugat automat la finalul mesajului, așa că nu trebuie să îl incluzi tu manual.</string>
   <string name="className">Numele clasei</string>
@@ -30,7 +30,7 @@
   <string name="generateANewPassword">Generează o parolă nouă pentru student</string>
   <string name="invitedToXByY">Invitat la %1$s de către %2$s</string>
   <string name="realName">Nume real</string>
-  <string name="privateWillNeverBeShown" comment="A description of the real name field for members of a class.">Privat. Nu va fi afișat niciodată în afara clasei. Ajută la identificarea studentului.</string>
+  <string name="privateWillNeverBeShown">Privat. Nu va fi afișat niciodată în afara clasei. Ajută la identificarea studentului.</string>
   <string name="addStudent">Adaugă student</string>
   <string name="lichessProfileXCreatedForY">Profilul Lichess %1$s creat pentru %2$s.</string>
   <string name="studentCredentials">Student:  %1$s
@@ -41,14 +41,14 @@ Parola: %3$s</string>
   <string name="inviteDesc2">Ei vor primi un mesaj pe Lichess cu un link pentru a alătura clasei.</string>
   <string name="inviteDesc3">Important: invitați doar elevi pe care îi cunoașteți și care doresc în mod activ să se alăture clasei.</string>
   <string name="inviteDesc4">Nu trimiteți niciodată invitații nesolicitate la întâmplare.</string>
-  <string name="createANewLichessAccount" comment="The person who would see this would always be a teacher.&#10;In this context, it is to create a new account for a student of their class.">Creează un cont nou Lichess aici</string>
+  <string name="createANewLichessAccount">Creează un cont nou Lichess aici</string>
   <string name="createDesc1">Dacă studentul nu are încă un cont de Lichess, poți crea unul pentru ei aici.</string>
   <string name="createDesc2">Nu este necesară o adresă de e-mail. O parolă va fi generată și va trebui să o transmiți studentului să se poată conecta.</string>
   <string name="createDesc3">Important: un student nu trebuie să aibă mai multe conturi.</string>
   <string name="createDesc4">Dacă au deja unul, folosește în schimb formularul de invitație.</string>
   <string name="createStudentWarning">Creează doar conturi pentru elevi reali. Nu utiliza acest lucru pentru a crea conturi multiple pentru tine. Poți fi blocat dacă faci acest lucru.</string>
   <string name="lichessUsername">Nume de utilizator Lichess</string>
-  <string name="generateANewUsername" comment="A button which lets teachers create a random username for students they are registering.">Generează un nou nume de utilizator</string>
+  <string name="generateANewUsername">Generează un nou nume de utilizator</string>
   <string name="welcomeToClass">Bine ai venit la clasa ta: %s.
 Aici este link-ul pentru a accesa clasa.</string>
   <string name="invitationToClass">Ești invitat să te alături clasei \"%s\" ca și student.</string>
@@ -58,14 +58,14 @@ Aici este link-ul pentru a accesa clasa.</string>
     <item quantity="few">%s invitații în așteptare</item>
     <item quantity="other">%s invitații în așteptare</item>
   </plurals>
-  <string name="pending" comment="Appears in a table of students. Refers to invitation by a teacher to join a class, which the student has not yet responded to.">În desfășurare</string>
-  <string name="declined" comment="Appears in a table of students. Refers to invitation by a teacher to join a class, which the student declined.">Respins</string>
+  <string name="pending">În desfășurare</string>
+  <string name="declined">Respins</string>
   <string name="onlyVisibleToTeachers">Vizibil doar profesorilor de clasă</string>
   <string name="lastActiveDate">Acrtiv</string>
   <string name="managed">Manageriat</string>
   <string name="thisStudentAccountIsManaged">Contul studentului este manageriat</string>
   <string name="upgradeFromManaged">Actualizare de la manageriat la autonom</string>
-  <string name="release" comment="This used to be 'release'. It is now called 'graduate', and the term is used here as a verb.&#10;&#10;'Releasing' an account means making it a full Lichess account. It will no longer be tied to the teacher that created it.">Eliberează</string>
+  <string name="release">Eliberează</string>
   <string name="releaseTheAccount">Eliberează contul pentru ca studentul să poata manageria singur contul.</string>
   <string name="releaseDesc1">Un cont eliberat nu poate fi facut din nou manageriat. Studentul poate să activeze modul copil și să reseteze parola singur.</string>
   <string name="releaseDesc2">Studentul va rămâne în clasă dupa e contul lui este eliberat.</string>
@@ -106,19 +106,21 @@ Aici este link-ul pentru a accesa clasa.</string>
 Va aparea o linie orizontală.</string>
   <string name="invite">Invită</string>
   <string name="youHaveBeenInvitedByX">Ai fost invitat de către %s.</string>
-  <string name="youAcceptedThisInvitation" comment="Appears when revisiting the page of an invitation to a class, which you have already accepted.">Ai acceptat această invitație.</string>
-  <string name="youDeclinedThisInvitation" comment="Appears when revisiting the page of an invitation to a class, which you have already declined.">Ai refuzat această invitație.</string>
+  <string name="youAcceptedThisInvitation">Ai acceptat această invitație.</string>
+  <string name="youDeclinedThisInvitation">Ai refuzat această invitație.</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">sau</string>
   <string name="createMultipleAccounts">Creează mai multe conturi Lichess odată</string>
   <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Poți deasemenea %s să creezi mai multe conturi Lichess dintr-o listă de nume de student.</string>
   <string name="useThisForm" comment="Link text in multipleAccsFromDescription">utilizează acest formular</string>
   <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Ține cont că o clasă poate avea până la %1$s elevi. Pentru a gestiona mai mulți elevi, %2$s.</string>
   <string name="createMoreClasses" comment="Link text in maxStudentsNote">creează mai multe clase</string>
-  <string name="studentsRealNamesOnePerLine" comment="An instruction on how to enter students' names when creating new accounts for them.">Numele reale ale elevilor, câte unul pe linie</string>
-  <string name="xisNowAStudentOfTheClass" comment="%s is the player's name">%s este acum un student din clasă</string>
-  <string name="anInvitationHasBeenSentToX" comment="%s is the username of a player already registered on Lichess.">A fost trimisă o invitație către %s</string>
-  <string name="xAlreadyHasAPendingInvitation" comment="An error message. %s is the username of a player already registered on Lichess.">%s are deja o invitație în așteptare</string>
-  <string name="xIsAKidAccountWarning" comment="%1$s is the username&#10;%2$s is a link.">%1$s are un cont de copil si nu poate primi mesajul. Trebuie sa ii dai manual URL-ul invitatiei: %2$s</string>
-  <string name="moveToClass" comment="%s is the name of the class. The name of the class is set by the teacher.&#10;&#10;Appears on a confirmation prompt when a teacher looks to move a student to one of the other classes they run.">Mutați la %s</string>
-  <string name="moveToAnotherClass" comment="Appears as a heading on a page which lets a teacher move one of their students to one of the other classes they run.">Mutați la altă clasă</string>
+  <string name="studentsRealNamesOnePerLine">Numele reale ale elevilor, câte unul pe linie</string>
+  <string name="xisNowAStudentOfTheClass">%s este acum un student din clasă</string>
+  <string name="anInvitationHasBeenSentToX">A fost trimisă o invitație către %s</string>
+  <string name="xAlreadyHasAPendingInvitation">%s are deja o invitație în așteptare</string>
+  <string name="xIsAKidAccountWarning">%1$s are un cont de copil si nu poate primi mesajul. Trebuie sa ii dai manual URL-ul invitatiei: %2$s</string>
+  <string name="moveToClass">Mutați la %s</string>
+  <string name="moveToAnotherClass">Mutați la altă clasă</string>
+  <string name="allowMessagingBetweenStudents" comment="An option that a class's teacher can select. Has the extended description &quot;This only applies to the accounts you have created for your students.&quot;">Permite mesaje între studenți</string>
+  <string name="allowMessagingBetweenStudentsDesc" comment="Description for the option &quot;Allow messages between students&quot;.">Acest lucru se aplică numai conturilor pe care le-ai creat pentru studenții tăi.</string>
 </resources>

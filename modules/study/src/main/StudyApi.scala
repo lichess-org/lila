@@ -706,6 +706,17 @@ final class StudyApi(
             studyRepo.updateNow(study)
         }
 
+  // update provided tags, keep missing tags, delete tags with empty value
+  def updateChapterTags(studyId: StudyId, chapterId: StudyChapterId, tags: Tags)(using me: Me) =
+    sequenceStudyWithChapter(studyId, chapterId):
+      case Study.WithChapter(study, chapter) =>
+        Contribute(me, study):
+          val newTags = tags.value.foldLeft(chapter.tags): (ctags, tag) =>
+            if tag.value.isEmpty
+            then ctags.copy(value = ctags.value.filterNot(_.name == tag.name))
+            else ctags + tag
+          doSetTags(study, chapter, newTags, Who(me.userId, Sri("")))
+
   def sortChapters(studyId: StudyId, chapterIds: List[StudyChapterId])(who: Who): Funit =
     sequenceStudy(studyId): study =>
       Contribute(who.u, study):

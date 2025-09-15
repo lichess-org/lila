@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses" comment="Lichess Classes are a feature that lets a teacher create virtual classes and check out students' progress.&#10;&#10;This text used to be &quot;Lichess Classes&quot;, which has since been shortened to &quot;Classes&quot;.">课程</string>
+  <string name="lichessClasses">课程</string>
   <string name="teachClassesOfChessStudents">使用 Lichess 班级工具教学生班。</string>
   <string name="features">特性</string>
   <string name="quicklyGenerateSafeUsernames">快速为学生生成安全的用户名和密码</string>
   <string name="trackStudentProgress">跟踪学生在棋局和棋题中的进度</string>
   <string name="messageAllStudents">向所有学生发送关于新班级材料的消息</string>
-  <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">对所有人 100% 免费，永远没有广告或跟踪者</string>
+  <string name="freeForAllForever">对所有人 100% 免费，永远没有广告或跟踪者</string>
   <string name="applyToBeLichessTeacher">申请成为 Lichess 教师</string>
   <string name="noClassesYet">尚无班级。</string>
   <string name="teachersX">教师：%s</string>
   <string name="newClass">创建班级</string>
   <string name="closeClass">关闭班级</string>
   <string name="removedByX">已被 %s 删除</string>
-  <string name="reopen" comment="A button, permitting a teacher to reopen a closed class.">重新开启</string>
-  <string name="removeStudent" comment="Removes a student from the class. Note the same text is used both for initial removal, and for full erasure.">移除学生</string>
-  <string name="removedStudents" comment="This is in plural form. It is a heading showing all students who have been removed from the class.">已移除</string>
-  <string name="inviteTheStudentBack" comment="A button. Clicking this will re-invite a student that has been removed from the class.">邀请学生返回</string>
+  <string name="reopen">重新开启</string>
+  <string name="removeStudent">移除学生</string>
+  <string name="removedStudents">已移除</string>
+  <string name="inviteTheStudentBack">邀请学生返回</string>
   <string name="sendAMessage">给所有学生发消息</string>
   <string name="aLinkToTheClassWillBeAdded">班级的链接将会自动添加到消息末尾，所以你不需要自己添加。</string>
   <string name="className">班级名称</string>
@@ -30,7 +30,7 @@
   <string name="generateANewPassword">为学生生成一个新密码</string>
   <string name="invitedToXByY">%1$s 被 %2$s 邀请</string>
   <string name="realName">真实姓名</string>
-  <string name="privateWillNeverBeShown" comment="A description of the real name field for members of a class.">隐私。永远不会在课外显示。有助回忆学生是谁。</string>
+  <string name="privateWillNeverBeShown">隐私。永远不会在课外显示。有助回忆学生是谁。</string>
   <string name="addStudent">添加学生</string>
   <string name="lichessProfileXCreatedForY">为 %2$s 创建的 Lichess 档案 %1$s。</string>
   <string name="studentCredentials">学生：%1$s
@@ -41,14 +41,14 @@
   <string name="inviteDesc2">他们将在 Lichess 上收到一条带有加入课堂链接的消息。</string>
   <string name="inviteDesc3">请仅邀请你认识的或者积极地想要加入课堂的学生。</string>
   <string name="inviteDesc4">从不向任意玩家发送未经请求的邀请。</string>
-  <string name="createANewLichessAccount" comment="The person who would see this would always be a teacher.&#10;In this context, it is to create a new account for a student of their class.">创建一个新的 Lichess 账户</string>
+  <string name="createANewLichessAccount">创建一个新的 Lichess 账户</string>
   <string name="createDesc1">如果学生还没有 Lichess 账户，你可以在此为他们创建一个。</string>
   <string name="createDesc2">无需邮箱地址。密码将自动生成，将其发给学生以让他们登录。</string>
   <string name="createDesc3">重要：学生不得拥有多个账户。</string>
   <string name="createDesc4">如果他们已经拥有账号，请使用邀请。</string>
   <string name="createStudentWarning">仅为每个真实的学生创建账户，不要用此功能为你自己创建多个账户，否则你会被封号。</string>
   <string name="lichessUsername">Lichess 用户名</string>
-  <string name="generateANewUsername" comment="A button which lets teachers create a random username for students they are registering.">生成一个新用户名</string>
+  <string name="generateANewUsername">生成一个新用户名</string>
   <string name="welcomeToClass">欢迎来到你的班级：%s。
 这里是访问班级的链接。</string>
   <string name="invitationToClass">你被邀请以学生身份加入班级 “%s”。</string>
@@ -56,14 +56,14 @@
   <plurals name="nbPendingInvitations">
     <item quantity="other">%s 个待处理的邀请</item>
   </plurals>
-  <string name="pending" comment="Appears in a table of students. Refers to invitation by a teacher to join a class, which the student has not yet responded to.">等待处理</string>
-  <string name="declined" comment="Appears in a table of students. Refers to invitation by a teacher to join a class, which the student declined.">已拒绝</string>
+  <string name="pending">等待处理</string>
+  <string name="declined">已拒绝</string>
   <string name="onlyVisibleToTeachers">仅对班级老师可见</string>
   <string name="lastActiveDate">最近登录</string>
   <string name="managed">被管理</string>
   <string name="thisStudentAccountIsManaged">此学生账户被管理</string>
   <string name="upgradeFromManaged">由被管理升级为自主</string>
-  <string name="release" comment="This used to be 'release'. It is now called 'graduate', and the term is used here as a verb.&#10;&#10;'Releasing' an account means making it a full Lichess account. It will no longer be tied to the teacher that created it.">释放</string>
+  <string name="release">释放</string>
   <string name="releaseTheAccount">释放账户，以便学生能够自主管理。</string>
   <string name="releaseDesc1">已释放的账户不能再次被管理。学生将能切换幼儿模式开关和重置密码。</string>
   <string name="releaseDesc2">该学生在账户激活后将留在课堂。</string>
@@ -100,19 +100,19 @@
 它将显示一条横线。</string>
   <string name="invite">邀请</string>
   <string name="youHaveBeenInvitedByX">%s 邀请你加入</string>
-  <string name="youAcceptedThisInvitation" comment="Appears when revisiting the page of an invitation to a class, which you have already accepted.">你接受了此邀请</string>
-  <string name="youDeclinedThisInvitation" comment="Appears when revisiting the page of an invitation to a class, which you have already declined.">你拒绝了此邀请</string>
+  <string name="youAcceptedThisInvitation">你接受了此邀请</string>
+  <string name="youDeclinedThisInvitation">你拒绝了此邀请</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">或</string>
   <string name="createMultipleAccounts">一次创建多个 Lichess 账户</string>
   <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">你也可以 %s 通过学生名称列表创建多个 Lichess 账户。</string>
   <string name="useThisForm" comment="Link text in multipleAccsFromDescription">使用此表单</string>
   <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">请注意，一个班级最多可以有 %1$s 名学生。如需管理更多学生，%2$s。</string>
   <string name="createMoreClasses" comment="Link text in maxStudentsNote">创建更多班级</string>
-  <string name="studentsRealNamesOnePerLine" comment="An instruction on how to enter students' names when creating new accounts for them.">学生的真实姓名，每行一个</string>
-  <string name="xisNowAStudentOfTheClass" comment="%s is the player's name">%s 现在是班级的学生</string>
-  <string name="anInvitationHasBeenSentToX" comment="%s is the username of a player already registered on Lichess.">邀请已发送到 %s</string>
-  <string name="xAlreadyHasAPendingInvitation" comment="An error message. %s is the username of a player already registered on Lichess.">%s 已经有待处理的邀请</string>
-  <string name="xIsAKidAccountWarning" comment="%1$s is the username&#10;%2$s is a link.">%1$s 是儿童账户，无法接收你的消息。你必须手动给他发送邀请链接： %2$s</string>
-  <string name="moveToClass" comment="%s is the name of the class. The name of the class is set by the teacher.&#10;&#10;Appears on a confirmation prompt when a teacher looks to move a student to one of the other classes they run.">移动至 %s</string>
-  <string name="moveToAnotherClass" comment="Appears as a heading on a page which lets a teacher move one of their students to one of the other classes they run.">移到另一个班级</string>
+  <string name="studentsRealNamesOnePerLine">学生的真实姓名，每行一个</string>
+  <string name="xisNowAStudentOfTheClass">%s 现在是班级的学生</string>
+  <string name="anInvitationHasBeenSentToX">邀请已发送到 %s</string>
+  <string name="xAlreadyHasAPendingInvitation">%s 已经有待处理的邀请</string>
+  <string name="xIsAKidAccountWarning">%1$s 是儿童账户，无法接收你的消息。你必须手动给他发送邀请链接： %2$s</string>
+  <string name="moveToClass">移动至 %s</string>
+  <string name="moveToAnotherClass">移到另一个班级</string>
 </resources>

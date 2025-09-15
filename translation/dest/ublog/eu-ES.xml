@@ -9,7 +9,7 @@
   <string name="myBlog">Nire bloga</string>
   <string name="likedBlogs">Atsegin dituzun sarrerak</string>
   <plurals name="blogPosts">
-    <item quantity="one">%s blog sarrera</item>
+    <item quantity="one">Blog sarrera %s</item>
     <item quantity="other">%s blog sarrera</item>
   </plurals>
   <string name="continueReadingPost">Jarraitu sarrera hau irakurtzen</string>

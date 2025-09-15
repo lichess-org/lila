@@ -165,7 +165,7 @@
   <string name="getTheTour">Hulp nodig? Doen die toer!</string>
   <string name="welcomeToLichessStudyTitle">Welkom by Lichess Studie!</string>
   <string name="welcomeToLichessStudyText">Hierdie is \'n gedeelde analisebord.&lt;br&gt;&lt;br&gt;Gebruik dit om mee te analiseer en spelle te annoteer,&lt;br&gt;posisies met vriende te deel,&lt;br&gt;en natuurlik vir skaaklesse!&lt;br&gt;&lt;br&gt;Dit is \'n kragtige hulpmiddel; spandeer \'n bietjie tyd om te sien hoe dit werk.</string>
-  <string name="sharedAndSaveTitle" comment="Appears as the title of a pop-up lightbox in the guided tour of Lichess Studies.&#10;&#10;As in: shared with other members &amp; saved to the database.">Gedeel en gestoor</string>
+  <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Gedeel en gestoor</string>
   <string name="sharedAndSavedText">Ander lede kan jou skuiwe intyds sien!&lt;br&gt;Alles is boonop vir altyd gestoor.</string>
   <string name="studyMembersTitle">Studielede</string>
   <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s Toeskouers kan die studie sien en praat in die chat.&lt;br&gt;&lt;br&gt;%2$s Bydraers kan skuiwe maak en die studie opdateer.</string>

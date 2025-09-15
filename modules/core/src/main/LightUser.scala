@@ -6,24 +6,26 @@ import scala.concurrent.ExecutionContext
 
 import lila.core.id.Flair
 import lila.core.userId.*
+import lila.core.plan.PatronMonths
 
 case class LightUser(
     id: UserId,
     name: UserName,
     title: Option[PlayerTitle],
     flair: Option[Flair],
-    isPatron: Boolean
+    patronMonths: PatronMonths
 ):
   def titleName: String = title.fold(name.value)(_.value + " " + name)
   def isBot = title.contains(PlayerTitle.BOT)
-  // def isPatron = patronMonths.isOngoing
-  // def patronTier = patronMonths.tier
+  def isPatron = patronMonths.isOngoing
+  def isPatronLifetime = patronMonths.isLifetime
+  def patronTier = patronMonths.tier
 
 object LightUser:
 
   type Ghost = LightUser
 
-  val ghost: Ghost = LightUser(UserId("ghost"), UserName("ghost"), None, None, false)
+  val ghost: Ghost = LightUser(UserId("ghost"), UserName("ghost"), None, None, PatronMonths.zero)
 
   given UserIdOf[LightUser] = _.id
 
@@ -32,7 +34,7 @@ object LightUser:
     name = name,
     title = None,
     flair = None,
-    isPatron = false
+    patronMonths = PatronMonths.zero
   )
 
   opaque type Me = LightUser

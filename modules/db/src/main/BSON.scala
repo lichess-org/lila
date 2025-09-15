@@ -82,25 +82,23 @@ object BSON extends Handlers:
   final class Writer:
 
     def apply[A](a: A)(using writer: BSONWriter[A]): BSONValue = writer.writeTry(a).get
-    def boolO(b: Boolean): Option[BSONBoolean] = if b then Some(BSONBoolean(true)) else None
+    def boolO(b: Boolean): Option[BSONBoolean] = Option.when(b)(BSONBoolean(true))
     def str(s: String): BSONString = BSONString(s)
-    def strO(s: String): Option[BSONString] = if s.nonEmpty then Some(BSONString(s)) else None
+    def strO(s: String): Option[BSONString] = Option.when(s.nonEmpty)(BSONString(s))
     def int(i: Int): BSONInteger = BSONInteger(i)
-    def intO(i: Int): Option[BSONInteger] = if i != 0 then Some(BSONInteger(i)) else None
+    def intO(i: Int): Option[BSONInteger] = Option.unless(i == 0)(BSONInteger(i))
     def date(d: Instant)(using handler: BSONHandler[Instant]): BSONValue = handler.writeTry(d).get
     def byteArrayO(b: ByteArray)(using handler: BSONHandler[ByteArray]): Option[BSONValue] =
       if b.isEmpty then None else handler.writeOpt(b)
     def bytesO(b: Array[Byte]): Option[BSONValue] = byteArrayO(ByteArray(b))
     def bytes(b: Array[Byte]): BSONBinary = BSONBinary(b, ByteArray.subtype)
-    def listO[A](list: List[A])(using writer: BSONWriter[A]): Option[Barr] =
-      if list.isEmpty then None
-      else Some(BSONArray(list.flatMap(writer.writeOpt)))
-    def docO(o: Bdoc): Option[Bdoc] = if o.isEmpty then None else Some(o)
+    def listO[A](list: List[A])(using writer: BSONWriter[A]): Option[Barr] = Option.when(list.nonEmpty):
+      BSONArray(list.flatMap(writer.writeOpt))
+    def docO(o: Bdoc): Option[Bdoc] = Option.unless(o.isEmpty)(o)
     def double(i: Double): BSONDouble = BSONDouble(i)
-    def doubleO(i: Double): Option[BSONDouble] = if i != 0 then Some(BSONDouble(i)) else None
-    def zero[A](a: A)(using zero: Zero[A]): Option[A] = if zero.zero == a then None else Some(a)
-    def yesnoO[A](a: A)(using sr: SameRuntime[A, Boolean]): Option[BSONBoolean] =
-      boolO(sr(a))
+    def doubleO(i: Double): Option[BSONDouble] = Option.unless(i == 0)(BSONDouble(i))
+    def zero[A](a: A)(using zero: Zero[A]): Option[A] = Option.unless(zero.zero == a)(a)
+    def yesnoO[A](a: A)(using sr: SameRuntime[A, Boolean]): Option[BSONBoolean] = boolO(sr(a))
 
   val writer = new Writer
 
@@ -115,11 +113,10 @@ object BSON extends Handlers:
       case v => v.toString
   def debugArr(doc: Barr): String = doc.values.toList.map(debug).mkString("[", ", ", "]")
   def debugDoc(doc: Bdoc): String =
-    (doc.elements.toList
-      .map {
+    doc.elements.toList
+      .map:
         case BSONElement(k, v) => s"$k: ${debug(v)}"
         case x => x.toString
-      })
       .mkString("{", ", ", "}")
 
   def print(v: BSONValue): Unit = println(debug(v))

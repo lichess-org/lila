@@ -171,5 +171,5 @@
   <string name="playAgain">Žaisti dar kartą</string>
   <string name="whatWouldYouPlay">Ar norėtumėte žaisti nuo šios pozicijos?</string>
   <string name="youCompletedThisLesson">Sveikiname! Jūs pabaigėte šią pamoką.</string>
-  <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">%s puslapyje</string>
+  <string name="perPage">%s puslapyje</string>
 </resources>

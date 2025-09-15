@@ -8,7 +8,7 @@
   <string name="orLetYourOpponentScanQrCode">Sau lăsați adversarul să scaneze acest cod QR</string>
   <string name="waiting">Se așteaptă</string>
   <string name="yourTurn">Rândul tău</string>
-  <string name="aiNameLevelAiLevel">%1$s nivel %2$s</string>
+  <string name="aiNameLevelAiLevel">%1$s nivelul %2$s</string>
   <string name="level">Nivel</string>
   <string name="strength">Putere</string>
   <string name="toggleTheChat">Arată/Ascunde discuţia</string>
@@ -28,7 +28,7 @@
   <string name="youPlayTheWhitePieces">Joci cu albele</string>
   <string name="youPlayTheBlackPieces">Joci cu negrele</string>
   <string name="itsYourTurn">E rândul tău!</string>
-  <string name="cheatDetected">S-a trişat</string>
+  <string name="cheatDetected">Trișare detectată</string>
   <string name="kingInTheCenter">Regele în centru</string>
   <string name="threeChecks">Trei șahuri</string>
   <string name="raceFinished">Competiție terminată</string>
@@ -41,30 +41,30 @@
   <plurals name="opponentLeftCounter">
     <item quantity="one">Adversarul tău a părăsit jocul. Poți revendica victoria peste o secundă.</item>
     <item quantity="few">Adversarul tău a părăsit jocul. Poți revendica victoria peste %s secunde.</item>
-    <item quantity="other">Adversarul tău a părăsit jocul. Poți revendica victoria peste %s secunde.</item>
+    <item quantity="other">Adversarul tău a părăsit jocul. Poți revendica victoria peste %s de secunde.</item>
   </plurals>
   <string name="opponentLeftChoices">Adversarul tău a părăsit jocul. Poți cere victoria, decide remiza sau îl poți aștepta.</string>
   <string name="forceResignation">Revendică victoria</string>
   <string name="forceDraw">Anunță remiză</string>
-  <string name="talkInChat">Te rog să fii cu bun simț pe chat!</string>
+  <string name="talkInChat">Te rugăm să fii cu bun simț pe chat!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Prima persoană care accesează acest link va juca cu tine.</string>
   <string name="whiteResigned">Albul a cedat</string>
   <string name="blackResigned">Negrul a cedat</string>
   <string name="whiteLeftTheGame">Albul a părăsit partida</string>
   <string name="blackLeftTheGame">Negrul a părăsit partida</string>
   <string name="whiteDidntMove">Albul nu s-a mișcat</string>
-  <string name="blackDidntMove">Negrul nu s-a mișcat</string>
+  <string name="blackDidntMove">Negrul nu a mutat</string>
   <string name="requestAComputerAnalysis">Cereți o analiză făcută de calculator</string>
   <string name="computerAnalysis">Analiza calculatorului</string>
-  <string name="computerAnalysisAvailable">Analiză computerizată disponibilă</string>
+  <string name="computerAnalysisAvailable">Analiza calculatorului este disponibilă</string>
   <string name="computerAnalysisDisabled">Analiză computerizată dezactivată</string>
   <string name="analysis">Tablă de analiză</string>
   <string name="depthX">Profunzime %s</string>
   <string name="usingServerAnalysis">Utilizează analiză de server</string>
-  <string name="loadingEngine">Se încarcă motorul de analiză...</string>
+  <string name="loadingEngine">Se încarcă motorul...</string>
   <string name="calculatingMoves">Se calculează mutările...</string>
   <string name="engineFailed">Eroare încărcare motor</string>
-  <string name="cloudAnalysis">Analiză online</string>
+  <string name="cloudAnalysis">Analiză cloud</string>
   <string name="goDeeper">Mergi mai în profunzime</string>
   <string name="showThreat">Afișează amenințarea</string>
   <string name="inLocalBrowser">în browserul local</string>
@@ -100,7 +100,7 @@
     <item quantity="other">Mat în %s mutări</item>
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' cu rotunjire, bazat pe numărul de jumătăți de mutări până la următoarea captură sau mutare de pion</string>
-  <string name="noGameFound">Nu a fost găsit nici un joc</string>
+  <string name="noGameFound">Niciun joc găsit</string>
   <string name="maxDepthReached">Adâncime maximă atinsă!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Poate doriți să includeți mai multe jocuri din meniul de preferințe?</string>
   <string name="openings">Deschideri</string>
@@ -428,6 +428,7 @@
     <item quantity="other">Trebuie să joci încă %s de partide oficiale</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Scorul tău la %s este provizoriu</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Filtrele de rating sunt blocate pentru că ratingul tău nu este stabil. Jucarea partidelor cu rating va crește stabilitatea.</string>
   <string name="yourPerfRatingIsTooHigh">Scorul tău la %1$s (%2$s) este prea mare</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Scorul tău săptămânal la %1$s (%2$s) este prea mare</string>
   <string name="yourPerfRatingIsTooLow">Scorul tău la %1$s (%2$s) este prea mic</string>
@@ -841,7 +842,7 @@
   <string name="language">Limbă</string>
   <string name="allLanguages">Orice limbă</string>
   <string name="background">Fundal</string>
-  <string name="light">Luminos</string>
+  <string name="light">Luminoasă</string>
   <string name="dark">Culoare închisă</string>
   <string name="transparent">Transparent</string>
   <string name="deviceTheme">Tema dispozitivului</string>
@@ -1054,4 +1055,9 @@ Toate costurile de operare și de dezvoltare sunt finanțate doar din donațiile
   <string name="enableBlindMode">Activează modul fără vedere</string>
   <string name="disableBlindMode">Dezactivează modul fără vedere</string>
   <string name="copyToClipboard">Copiază în memorie</string>
+  <string name="online" comment="status of a user">conectat</string>
+  <string name="offline" comment="status of a user">deconectat</string>
+  <string name="search">Căutare</string>
+  <string name="clearSearch">Șterge căutarea</string>
+  <string name="tags">Etichete</string>
 </resources>

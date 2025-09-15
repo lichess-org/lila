@@ -535,14 +535,14 @@ final class Mod(
   }
 
   def eventStream = SecuredScoped(_.Admin) { _ ?=> _ ?=>
-    noProxyBuffer(Ok.chunked(env.mod.stream.events()))
+    Ok.chunked(env.mod.stream.events()).noProxyBuffer
   }
 
   def markedUsersStream = Scoped() { _ ?=> me ?=>
     me.is(UserId.explorer)
       .so(getTimestamp("since"))
       .so: since =>
-        noProxyBuffer(Ok.chunked(env.mod.stream.markedSince(since).map(_.value + "\n")))
+        Ok.chunked(env.mod.stream.markedSince(since).map(_.value + "\n")).noProxyBuffer
   }
 
   def apiUserLog(username: UserStr) = SecuredScoped(_.ModLog) { _ ?=> me ?=>

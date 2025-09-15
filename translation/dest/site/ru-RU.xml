@@ -459,6 +459,7 @@
     <item quantity="other">Вы должны сыграть ещё %s рейтинговых игр</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Ваш рейтинг в %s ещё недостоверный</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Рейтинговые фильтры заблокированы, поскольку ваш рейтинг нестабилен. Игра на рейтинг повысит стабильность.</string>
   <string name="yourPerfRatingIsTooHigh">Ваш рейтинг в %1$s (%2$s) слишком высок для участия</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Ваш еженедельный рейтинг в %1$s (%2$s) слишком высок</string>
   <string name="yourPerfRatingIsTooLow">Ваш рейтинг в %1$s (%2$s) недостаточен для участия</string>
@@ -1099,4 +1100,9 @@
   <string name="enableBlindMode">Включить слепой режим</string>
   <string name="disableBlindMode">Выключить слепой режим</string>
   <string name="copyToClipboard">Скопировать в буфер обмена</string>
+  <string name="online" comment="status of a user">онлайн</string>
+  <string name="offline" comment="status of a user">оффлайн</string>
+  <string name="search">Поиск</string>
+  <string name="clearSearch">Очистить поиск</string>
+  <string name="tags">Теги</string>
 </resources>

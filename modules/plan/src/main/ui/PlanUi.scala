@@ -75,7 +75,7 @@ final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
                   iconTag(patronIconChar),
                   div(
                     h1(cls := "box__top")(trp.thankYou()),
-                    if p.isLifetime then trp.youHaveLifetime()
+                    if ctx.me.exists(_.plan.lifetime) then trp.youHaveLifetime()
                     else
                       p.expiresAt.map: expires =>
                         frag(
@@ -173,9 +173,9 @@ final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
                           tpe := "radio",
                           name := "freq",
                           id := "freq_lifetime",
-                          patron.exists(_.isLifetime).option(disabled),
+                          ctx.me.exists(_.plan.lifetime).option(disabled),
                           value := "lifetime",
-                          cls := List("lifetime-check" -> patron.exists(_.isLifetime))
+                          cls := List("lifetime-check" -> ctx.me.exists(_.plan.lifetime))
                         ),
                         label(`for` := "freq_lifetime")(trp.lifetime())
                       )
@@ -319,7 +319,6 @@ final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
 
   def indexPayPal(
       me: User,
-      patron: Patron,
       subscription: PayPalSubscription,
       gifts: List[Charge.Gift]
   )(using Context) =
@@ -331,7 +330,7 @@ final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
             h1(
               userLink(me),
               " • ",
-              if patron.isLifetime then strong(trp.lifetimePatron())
+              if me.plan.lifetime then strong(trp.lifetimePatron())
               else trp.patronForMonths(me.plan.months)
             )
           ),
@@ -397,7 +396,6 @@ final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
 
   def indexStripe(
       me: User,
-      patron: Patron,
       info: CustomerInfo.Monthly,
       stripePublicKey: String,
       pricing: PlanPricing,
@@ -413,7 +411,7 @@ final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
             h1(
               userLink(me),
               " • ",
-              if patron.isLifetime then strong(trp.lifetimePatron())
+              if me.plan.lifetime then strong(trp.lifetimePatron())
               else trp.patronForMonths(me.plan.months)
             )
           ),

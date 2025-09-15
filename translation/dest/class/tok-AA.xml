@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses" comment="Lichess Classes are a feature that lets a teacher create virtual classes and check out students' progress.&#10;&#10;This text used to be &quot;Lichess Classes&quot;, which has since been shortened to &quot;Classes&quot;.">toki awen sona</string>
+  <string name="lichessClasses">toki awen sona</string>
   <string name="teachClassesOfChessStudents">o pana e sona tawa kulupa jan pi kama sona kepeken ilo lon lipu ni.</string>
   <string name="features">ken</string>
   <string name="quicklyGenerateSafeUsernames">o pali e nimi awen tawa jan pi kama sona</string>
   <string name="trackStudentProgress">o lukin e pali lon jan pi kama sona</string>
   <string name="messageAllStudents">o toki pi sona sin tawa jan kulupu ale</string>
-  <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">tenpo ala la o pana e mani. sitelen esun en ilo lukin ike li lon ala</string>
+  <string name="freeForAllForever">tenpo ala la o pana e mani. sitelen esun en ilo lukin ike li lon ala</string>
   <string name="applyToBeLichessTeacher">o kama jan pi pana sona</string>
   <string name="noClassesYet">kulupu li lon ala.</string>
   <string name="teachersX">jan pi pana sona: %s</string>
   <string name="newClass">kulupu sin</string>
   <string name="closeClass">o pini e kulupu</string>
-  <string name="reopen" comment="A button, permitting a teacher to reopen a closed class.">kama sin</string>
-  <string name="removeStudent" comment="Removes a student from the class. Note the same text is used both for initial removal, and for full erasure.">o weka e jan pi kama sona</string>
-  <string name="removedStudents" comment="This is in plural form. It is a heading showing all students who have been removed from the class.">tenpo pini la weka</string>
-  <string name="inviteTheStudentBack" comment="A button. Clicking this will re-invite a student that has been removed from the class.">o toki kama pi tenpo sin e jan pi kama sona</string>
+  <string name="reopen">kama sin</string>
+  <string name="removeStudent">o weka e jan pi kama sona</string>
+  <string name="removedStudents">tenpo pini la weka</string>
+  <string name="inviteTheStudentBack">o toki kama pi tenpo sin e jan pi kama sona</string>
   <string name="sendAMessage">o toki tawa jan pi kama sona ale.</string>
   <string name="aLinkToTheClassWillBeAdded">nimi open pi lipu sona li lon pini pi toki sina. sina wile ala pana e ona.</string>
   <string name="className">nimi kulupu</string>
@@ -29,20 +29,20 @@
   <string name="generateANewPassword">o pana e nimi awen sin tawa jan pi kama sona</string>
   <string name="invitedToXByY">wile pi jan %2$s la jan ni li kama tawa %1$s</string>
   <string name="realName">nimi lon</string>
-  <string name="privateWillNeverBeShown" comment="A description of the real name field for members of a class.">jan li lon selo la ona ken ala lukin e ni. sina ken sona e ni: jan ni pi kama sona li seme.</string>
+  <string name="privateWillNeverBeShown">jan li lon selo la ona ken ala lukin e ni. sina ken sona e ni: jan ni pi kama sona li seme.</string>
   <string name="addStudent">poka e jan pi kama sona</string>
   <string name="lichessProfileXCreatedForY">lipu nimi %1$s pi jan %2$s li lon.</string>
   <string name="studentCredentials">jan pi kama sona: %1$s
 nimi jan: %2$s
 nimi awen: %3$s</string>
   <string name="inviteALichessAccount">sina wile e kama la o toki e ni tawa lipu jan</string>
-  <string name="createANewLichessAccount" comment="The person who would see this would always be a teacher.&#10;In this context, it is to create a new account for a student of their class.">o pali e jan sin</string>
+  <string name="createANewLichessAccount">o pali e jan sin</string>
   <string name="createDesc1">jan pi kama sona li jo ala e lipu jan la, sina ken pali lon ni.</string>
   <string name="lichessUsername">nimi pi ilo Lichess</string>
-  <string name="generateANewUsername" comment="A button which lets teachers create a random username for students they are registering.">o pali e nimi sin</string>
+  <string name="generateANewUsername">o pali e nimi sin</string>
   <string name="lastActiveDate">tenpo pini la lon</string>
   <string name="managed">jan pi pana sona li pana e pona</string>
-  <string name="release" comment="This used to be 'release'. It is now called 'graduate', and the term is used here as a verb.&#10;&#10;'Releasing' an account means making it a full Lichess account. It will no longer be tied to the teacher that created it.">jan pi pana sona o pini e pana e pona</string>
+  <string name="release">jan pi pana sona o pini e pana e pona</string>
   <string name="closeStudent">o pini e lipu jan</string>
   <string name="closeTheAccount">o pini e lipu pi jan pi kama sona lon tenpo ale.</string>
   <string name="closeDesc1">pini li pini. o sona e ni: jan pi kama sona li sona e ni: jan pi kama sona li ken musi ala lon tenpo ale.</string>

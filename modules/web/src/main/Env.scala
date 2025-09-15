@@ -70,3 +70,9 @@ final class Env(
       default = true,
       text = "Enable COEP:credentialless header site-wide in supported browsers (Chromium)".some
     )
+
+    val useSvgFiles = settingStore[Boolean](
+      "usePieceSvgFiles",
+      default = false,
+      text = "Load each piece image from an SVG file".some
+    )

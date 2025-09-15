@@ -16,6 +16,7 @@
   <string name="phoneticAlphabetIsBest">Το φωνητικό αλφάβητο είναι καλύτερο</string>
   <string name="cancelTimerOrDenyARequest">Ακύρωση χρονομέτρου ή άρνηση αιτήματος</string>
   <string name="playPreferredMoveOrConfirmSomething">Παίξτε την προτιμώμενη κίνηση ή επιβεβαιώστε κάτι</string>
+  <string name="sleep">Ενεργοποίηση λειτουργίας ύπνου (μόνο στην περίπτωση που η λέξη απενεργοποίησης της λειτουργίας ύπνου έχει οριστεί)</string>
   <string name="turnOffVoiceRecognition">Απενεργοποίηση αναγνώρισης φωνής</string>
-  <string name="showPuzzleSolution">Εμφάνιση λύσης γρίφου</string>
+  <string name="showPuzzleSolution">Εμφάνιση λύσης τακτικού</string>
 </resources>

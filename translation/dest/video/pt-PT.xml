@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="chessVideos">Vídeos de xadrez</string>
+  <string name="allVideosAreFree">Todos os vídeos são grátis para todos.</string>
+  <string name="selectTagsToFilter">Seleciona etiquetas para filtrar os vídeos.</string>
+  <string name="thereAreNoResultsForX" comment="%s is the search term that the user entered.">Não há resultados para \"%s\"</string>
+</resources>

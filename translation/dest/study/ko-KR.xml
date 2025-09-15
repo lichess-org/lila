@@ -160,10 +160,10 @@
   <string name="playAgain">다시 플레이</string>
   <string name="whatWouldYouPlay">이 포지션에서 무엇을 하시겠습니까?</string>
   <string name="youCompletedThisLesson">축하합니다! 이 레슨을 완료했습니다.</string>
-  <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">페이지 당 %s개</string>
+  <string name="perPage">페이지 당 %s개</string>
   <string name="getTheTour">도움이 필요하세요? 투어를 해보세요!</string>
   <string name="welcomeToLichessStudyTitle">Lichess 연구에 오신 것을 환영합니다!</string>
-  <string name="sharedAndSaveTitle" comment="Appears as the title of a pop-up lightbox in the guided tour of Lichess Studies.&#10;&#10;As in: shared with other members &amp; saved to the database.">공유되고 저장됨</string>
+  <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">공유되고 저장됨</string>
   <string name="sharedAndSavedText">다른 회원들이 내 수를 실시간으로 볼 수 있습니다!&lt;br&gt;그리고 모든 것은 영원히 저장됩니다.</string>
   <string name="studyMembersTitle">연구 회원들</string>
   <string name="studyChaptersTitle">연구 챕터</string>
@@ -182,7 +182,7 @@
   <string name="fromPgnGameTitle">PGN 게임에서</string>
   <string name="variantsAreSupportedTitle">연구들은 변형 체스를 지원합니다</string>
   <string name="variantsAreSupportedText">네, 크레이지하우스나 모든 lichess 변형 체스를&lt;br&gt;연구할 수 있어요!</string>
-  <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">양측 패배</string>
-  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">흑 패배, 그러나 백 승리 불가</string>
-  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">백 패배, 그러나 흑 승리 불가</string>
+  <string name="doubleDefeat">양측 패배</string>
+  <string name="blackDefeatWhiteCanNotWin">흑 패배, 그러나 백 승리 불가</string>
+  <string name="whiteDefeatBlackCanNotWin">백 패배, 그러나 흑 승리 불가</string>
 </resources>

@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses" comment="Lichess Classes are a feature that lets a teacher create virtual classes and check out students' progress.&#10;&#10;This text used to be &quot;Lichess Classes&quot;, which has since been shortened to &quot;Classes&quot;.">کلاس ها</string>
+  <string name="lichessClasses">کلاس ها</string>
   <string name="teachClassesOfChessStudents">با استفاده از مجموعه ابزار های کلاس های lichess به دانش آموزان، شطرنج آموزش دهید.</string>
   <string name="features">امکانات</string>
   <string name="quicklyGenerateSafeUsernames">برای دانش آموزان خود سریعا نام کاربری و رمز عبور امن بسازید</string>
   <string name="trackStudentProgress">روند پیشرفت شطرنج‌آموزان را در بازی‌ها و معماها دنبال کنید</string>
   <string name="messageAllStudents">به تمام دانش آموزان درباره شرایط جدید کلاس پیام دهید</string>
-  <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">صد درصد رایگان برای همه و بدون تبلیغات</string>
+  <string name="freeForAllForever">صد درصد رایگان برای همه و بدون تبلیغات</string>
   <string name="applyToBeLichessTeacher">برای آنکه معلمِ Lichess باشید درخواست بدهید</string>
   <string name="noClassesYet">هنوز کلاسی موجود نیست.</string>
   <string name="teachersX">معلم‌ها: %s</string>
   <string name="newClass">کلاس جدید</string>
   <string name="closeClass">کلاس را ببندید</string>
   <string name="removedByX">توسط %s اخراج شد</string>
-  <string name="reopen" comment="A button, permitting a teacher to reopen a closed class.">بازگشایی</string>
-  <string name="removeStudent" comment="Removes a student from the class. Note the same text is used both for initial removal, and for full erasure.">برداشتن شطرنج‌آموز</string>
-  <string name="removedStudents" comment="This is in plural form. It is a heading showing all students who have been removed from the class.">حذف شده</string>
-  <string name="inviteTheStudentBack" comment="A button. Clicking this will re-invite a student that has been removed from the class.">دانش‌جو را برای بازگشت دعوت کنید</string>
+  <string name="reopen">بازگشایی</string>
+  <string name="removeStudent">برداشتن شطرنج‌آموز</string>
+  <string name="removedStudents">حذف شده</string>
+  <string name="inviteTheStudentBack">دانش‌جو را برای بازگشت دعوت کنید</string>
   <string name="sendAMessage">یک پیام به همه دانش‌جویان ارسال نمایید.</string>
   <string name="aLinkToTheClassWillBeAdded">یک لینک به کلاس به طور خودکار به انتهای پیام شما اضافه خواهد شد. پس شما نیازی ندارید که خودتان لینک را درج کنید.</string>
   <string name="className">نام کلاس</string>
@@ -30,7 +30,7 @@
   <string name="generateANewPassword">یک گذرواژه جدید برای دانشجو تولید کنید</string>
   <string name="invitedToXByY">توسط %2$s به %1$s دعوت شد</string>
   <string name="realName">نام واقعی</string>
-  <string name="privateWillNeverBeShown" comment="A description of the real name field for members of a class.">خصوصی. هرگز در خارج از کلاس نمایش داده نخواهد شد. به یاد آوری دانش آموز کمک می کند.</string>
+  <string name="privateWillNeverBeShown">خصوصی. هرگز در خارج از کلاس نمایش داده نخواهد شد. به یاد آوری دانش آموز کمک می کند.</string>
   <string name="addStudent">افزودن شطرنج‌آموز</string>
   <string name="lichessProfileXCreatedForY">رُخ‌نما %1$s برای %2$s ساخته شد.</string>
   <string name="studentCredentials">شطرنج‌آموز: %1$s
@@ -41,14 +41,14 @@
   <string name="inviteDesc2">آنها یک پیام در lichess حاوی یک لینک برای ورود به کلاس دریافت خواهند کرد.</string>
   <string name="inviteDesc3">مهم: فقط دانش آموزانی که میشناسید و میخواهند وارد کلاس بشوند را دعوت کنید.</string>
   <string name="inviteDesc4">هرگز دعوت‌های ناخواسته را برای بازیکنان دلخواه ارسال نکنید.</string>
-  <string name="createANewLichessAccount" comment="The person who would see this would always be a teacher.&#10;In this context, it is to create a new account for a student of their class.">ساخت یک حساب جدید در lichess</string>
+  <string name="createANewLichessAccount">ساخت یک حساب جدید در lichess</string>
   <string name="createDesc1">اگر دانش آموز هنوز حساب lichess ندارد، شما می توانید از اینجا برای او حساب درست کنید.</string>
   <string name="createDesc2">هیچ آدرس ایمیلی نیاز نیست. یک رمز عبور ساخته خواهد شد و شما باید آن را به دانش آموز انتقال بدهید تا بتواند وارد شود.</string>
   <string name="createDesc3">مهم: یک دانش‌جو نباید حسابهای کاربری متعدد داشته باشد.</string>
   <string name="createDesc4">اگر قبلاً یکی دارند، به جای آن از فرم دعوت استفاده کنید.</string>
   <string name="createStudentWarning">فقط برای شطرنج‌آموزان واقعی حساب بسازید. جهت ساخت حساب‌های چندگانه برای خودتان استفاده نکنید. حساب‌تان بسته می‌شود.</string>
   <string name="lichessUsername">نام کاربریِ Lichess</string>
-  <string name="generateANewUsername" comment="A button which lets teachers create a random username for students they are registering.">یک نام کاربری جدید تولید کنید</string>
+  <string name="generateANewUsername">یک نام کاربری جدید تولید کنید</string>
   <string name="welcomeToClass">به کلاس %s خوش آمدید.
 این لینک برای ورود به کلاس است.</string>
   <string name="invitationToClass">شما به کلاس %s به عنوان دانش آموز دعوت شده اید.</string>
@@ -57,14 +57,14 @@
     <item quantity="one">یک دعوت‌نامه منتظر پاسخ</item>
     <item quantity="other">%s دعوت‌نامه منتظر پاسخ</item>
   </plurals>
-  <string name="pending" comment="Appears in a table of students. Refers to invitation by a teacher to join a class, which the student has not yet responded to.">در انتظار</string>
-  <string name="declined" comment="Appears in a table of students. Refers to invitation by a teacher to join a class, which the student declined.">رد کرد</string>
+  <string name="pending">در انتظار</string>
+  <string name="declined">رد کرد</string>
   <string name="onlyVisibleToTeachers">دسترس‌پذیر فقط برای آموزگاران کلاس</string>
   <string name="lastActiveDate">فعال</string>
   <string name="managed">مدیریت‌شده</string>
   <string name="thisStudentAccountIsManaged">این حساب شطرنج‌آموز، مدیریت می‌شود</string>
   <string name="upgradeFromManaged">ارتقا از مدیریت‌شده به خودمختار</string>
-  <string name="release" comment="This used to be 'release'. It is now called 'graduate', and the term is used here as a verb.&#10;&#10;'Releasing' an account means making it a full Lichess account. It will no longer be tied to the teacher that created it.">حساب کاربری تبدیل شده به حساب اصلی</string>
+  <string name="release">حساب کاربری تبدیل شده به حساب اصلی</string>
   <string name="releaseTheAccount">حساب را فارغ التحصیل کنید تا دانش آموز بتواند به صورت مستقل آن را مدیریت کند.</string>
   <string name="releaseDesc1">یک حساب فارغ التحصیل شده را نمی توان دوباره مدیریت کرد. دانش‌آموز می‌تواند حالت کودک را ببندد و رمز عبور خود را عوض کند.</string>
   <string name="releaseDesc2">دانش آموز پس از فارغ التحصیلی حساب خود در کلاس باقی می ماند.</string>
@@ -103,19 +103,19 @@
 یک خط افقی را نمایش می دهد.</string>
   <string name="invite">دعوت</string>
   <string name="youHaveBeenInvitedByX">شما توسط %s دعوت شده اید.</string>
-  <string name="youAcceptedThisInvitation" comment="Appears when revisiting the page of an invitation to a class, which you have already accepted.">دعوتنامه را پذیرفتید.</string>
-  <string name="youDeclinedThisInvitation" comment="Appears when revisiting the page of an invitation to a class, which you have already declined.">دعوتنامه را رد کردید.</string>
+  <string name="youAcceptedThisInvitation">دعوتنامه را پذیرفتید.</string>
+  <string name="youDeclinedThisInvitation">دعوتنامه را رد کردید.</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">یا</string>
-  <string name="createMultipleAccounts">ایجاد همزمان چند حساب لیچس</string>
+  <string name="createMultipleAccounts">ایجاد همزمان چند حساب Lichess</string>
   <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">همچنین می‌توانید %s کنید برای ایجاد چندین حساب Lichess از فهرست نام‌های دانش‌آموزان.</string>
   <string name="useThisForm" comment="Link text in multipleAccsFromDescription">از این فرم استفاده کنید</string>
   <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">توجه داشته باشید که یک کلاس می‌تواند تا %1$s دانش‌آموز داشته باشد. برای مدیریت دانش‌آموزان بیشتر، %2$s.</string>
   <string name="createMoreClasses" comment="Link text in maxStudentsNote">کلاس های بیشتری ایجاد کنید</string>
-  <string name="studentsRealNamesOnePerLine" comment="An instruction on how to enter students' names when creating new accounts for them.">نام واقعی دانش آموزان، یکی در هر خط</string>
-  <string name="xisNowAStudentOfTheClass" comment="%s is the player's name">%s الان دانش آموز کلاس است</string>
-  <string name="anInvitationHasBeenSentToX" comment="%s is the username of a player already registered on Lichess.">یک دعوتنامه به %s فرستاده شد</string>
-  <string name="xAlreadyHasAPendingInvitation" comment="An error message. %s is the username of a player already registered on Lichess.">%s از قبل یک دعوتنامه در حال انتظار دارد</string>
-  <string name="xIsAKidAccountWarning" comment="%1$s is the username&#10;%2$s is a link.">%1$s حساب کودک است و نمی‌تواند پیام‌تان را دریافت کند. شما باید وب‌نشانی دعوت را، دستی به آن‌ها دهید: %2$s</string>
-  <string name="moveToClass" comment="%s is the name of the class. The name of the class is set by the teacher.&#10;&#10;Appears on a confirmation prompt when a teacher looks to move a student to one of the other classes they run.">حرکت به %s</string>
-  <string name="moveToAnotherClass" comment="Appears as a heading on a page which lets a teacher move one of their students to one of the other classes they run.">حرکت به کلاس دیگر</string>
+  <string name="studentsRealNamesOnePerLine">نام واقعی دانش آموزان، یکی در هر خط</string>
+  <string name="xisNowAStudentOfTheClass">%s الان دانش آموز کلاس است</string>
+  <string name="anInvitationHasBeenSentToX">یک دعوتنامه به %s فرستاده شد</string>
+  <string name="xAlreadyHasAPendingInvitation">%s از قبل یک دعوتنامه در حال انتظار دارد</string>
+  <string name="xIsAKidAccountWarning">%1$s حساب کودک است و نمی‌تواند پیام‌تان را دریافت کند. شما باید وب‌نشانی دعوت را، دستی به آن‌ها دهید: %2$s</string>
+  <string name="moveToClass">حرکت به %s</string>
+  <string name="moveToAnotherClass">حرکت به کلاس دیگر</string>
 </resources>
