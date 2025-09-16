@@ -26,17 +26,14 @@ const renderBlindModeColorPicker = (ctrl: LobbyController) => [
 
 export const colorButtons = (ctrl: LobbyController) => {
   const { setupCtrl } = ctrl;
-  const enabledColors: (Color | 'random')[] = [];
-  if (setupCtrl.valid()) {
-    enabledColors.push('random');
+  const enabledColors: (Color | 'random')[] = ['random'];
 
-    const randomColorOnly =
-      setupCtrl.gameType === 'hook' ||
-      (setupCtrl.gameType !== 'ai' &&
-        setupCtrl.gameMode() === 'rated' &&
-        variantsWhereWhiteIsBetter.includes(setupCtrl.variant()));
-    if (!randomColorOnly) enabledColors.push('white', 'black');
-  }
+  const randomColorOnly =
+    setupCtrl.gameType === 'hook' ||
+    (setupCtrl.gameType !== 'ai' &&
+      setupCtrl.gameMode() === 'rated' &&
+      variantsWhereWhiteIsBetter.includes(setupCtrl.variant()));
+  if (!randomColorOnly) enabledColors.push('white', 'black');
 
   if (site.blindMode) return hl('div', renderBlindModeColorPicker(ctrl));
   return (

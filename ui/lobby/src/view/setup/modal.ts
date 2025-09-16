@@ -19,6 +19,7 @@ export default function setupModal(ctrl: LobbyController): VNode | null {
     friend: setupCtrl.friendUser ? i18n.site.challengeX(setupCtrl.friendUser) : i18n.site.challengeAFriend,
     ai: i18n.site.playVersusAi,
   }[setupCtrl.gameType];
+  const disabled = !setupCtrl.valid();
   return snabDialog({
     attrs: { dialog: { 'aria-labelledBy': 'lobby-setup-modal-title', 'aria-modal': 'true' } },
     class: 'game-setup',
@@ -40,6 +41,8 @@ export default function setupModal(ctrl: LobbyController): VNode | null {
             : hl(
                 `button.button.button-metal.lobby__start__button.lobby__start__button--${setupCtrl.friendUser ? 'friend-user' : setupCtrl.gameType}`,
                 {
+                  attrs: { disabled },
+                  class: { disabled },
                   on: {
                     click: () =>
                       ctrl.setupCtrl.submit(
