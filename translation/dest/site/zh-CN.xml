@@ -396,7 +396,6 @@
   <string name="toStudy">研讨</string>
   <string name="importGame">导入棋局</string>
   <string name="importGameExplanation">粘贴 PGN 棋谱后可重放棋局、使用电脑分析、使用对局聊天室以及获得通往本局的链接。</string>
-  <string name="importGameCaveat">变着分支将被删除。若要保存这些变着，请通过研讨导入 PGN。</string>
   <string name="importGameDataPrivacyWarning">该 PGN（用以记录棋类游戏棋谱的文件格式）可被公众访问。私人导入游戏请用研究研究</string>
   <plurals name="nbImportedGames">
     <item quantity="other">%s 盘导入的棋局</item>
