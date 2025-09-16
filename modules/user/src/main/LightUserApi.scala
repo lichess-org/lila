@@ -61,7 +61,8 @@ final class LightUserApi(repo: UserRepo, cacheApi: CacheApi)(using Executor)
             plan <- doc.child(F.plan)
             if ~plan.getAsOpt[Boolean]("active")
             months <- plan.getAsOpt[PatronMonths]("months")
-          yield months
+            lifetime = ~plan.getAsOpt[Boolean]("lifetime")
+          yield if lifetime then PatronMonths.lifetime else months
           LightUser(
             id = name.id,
             name = name,
