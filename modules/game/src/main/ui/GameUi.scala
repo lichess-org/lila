@@ -215,8 +215,8 @@ final class GameUi(helpers: Helpers):
             p(cls := "explanation")(
               trans.site.importGameExplanation(),
               br,
-              a(cls := "text", dataIcon := Icon.InfoCircle, href := routes.Study.allDefault()):
-                trans.site.importGameCaveat()
+              a(cls := "text", dataIcon := Icon.InfoCircle, href := routes.Study.allDefault(1)):
+                trans.site.importGameDataPrivacyWarning()
             ),
             standardFlash,
             postForm(cls := "form3 import", action := routes.Importer.sendGame)(
@@ -237,9 +237,6 @@ final class GameUi(helpers: Helpers):
                 help = Some(analyseHelp),
                 disabled = !ctx.isAuth
               ),
-              a(cls := "text", dataIcon := Icon.InfoCircle, href := routes.Study.allDefault(1)):
-                trans.site.importGameDataPrivacyWarning()
-              ,
               form3.action(form3.submit(trans.site.importGame(), Icon.UploadCloud.some))
             )
           )
