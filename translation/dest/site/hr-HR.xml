@@ -447,7 +447,6 @@
   <string name="importGame">Uvezi partiju</string>
   <string name="importGameExplanation">Kada zalijepiš PGN neke partije, dobivaš reprizu partije (koju možeš pretraživati), 
 računalnu analizu, chat partije i URL za dijeljenje.</string>
-  <string name="importGameCaveat">Varijacije će biti obrisane. Da bi ih sačuvao, uvezi PGN preko studije.</string>
   <string name="importGameDataPrivacyWarning">Ovaj PGN je javan. Kako bi unijeli privatnu igru, koristite opciju uči.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s uvezena partija</item>
