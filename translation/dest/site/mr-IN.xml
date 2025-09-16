@@ -411,7 +411,6 @@
   <string name="toStudy">अभ्यास</string>
   <string name="importGame">खेळ आयात करा</string>
   <string name="importGameExplanation">प्रतिक्रिया, संगणक विश्लेषण, संभाषण, URL मिळवण्यासाठी खेळाची PGN टाका.</string>
-  <string name="importGameCaveat">भिन्नता मिटवली जाईल. ते जतन करण्यासाठी त्याची एक स्टडी बनवा.</string>
   <string name="importGameDataPrivacyWarning">हे PGN लोकांसाठी उपलब्ध आहे. जर तुम्हाला हा गेम खाजगी ठेवायचा असेल, तर एक स्टडी वापरा.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s खेळ मागवला</item>
