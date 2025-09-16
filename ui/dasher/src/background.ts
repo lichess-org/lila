@@ -113,8 +113,8 @@ export class BackgroundCtrl extends PaneCtrl {
 
   private imageInput = () =>
     h('div.image', [
-      h('p', i18n.site.backgroundImageUrl),
-      h('input', {
+      h('label', { attrs: { for: 'backgroundUrl' } }, i18n.site.backgroundImageUrl),
+      h('input#backgroundUrl', {
         attrs: { type: 'text', placeholder: 'https://', value: this.getImage() },
         hook: {
           insert: vnode => {
