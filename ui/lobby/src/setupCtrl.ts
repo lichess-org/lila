@@ -7,6 +7,7 @@ import { alert } from 'lib/view/dialogs';
 import { INITIAL_FEN } from 'chessops/fen';
 import type LobbyController from './ctrl';
 import type {
+  ColorOrRandom,
   ForceSetupOptions,
   GameMode,
   GameType,
@@ -41,7 +42,7 @@ export default class SetupController {
   fenError = false;
   friendUser = '';
   loading = false;
-  blindModeColor: Prop<Color | 'random'>;
+  color: Prop<ColorOrRandom>;
 
   // Store props
   variant: Prop<VariantKey>;
@@ -65,7 +66,7 @@ export default class SetupController {
 
   constructor(ctrl: LobbyController) {
     this.root = ctrl;
-    this.blindModeColor = propWithEffect('random', this.onPropChange);
+    this.color = propWithEffect('random', this.onPropChange);
     // Initialize stores with default props as necessary
     this.store = {
       hook: this.makeSetupStore('hook'),
@@ -242,7 +243,7 @@ export default class SetupController {
     return `${Math.max(100, rating + this.ratingMin())}-${rating + this.ratingMax()}`;
   };
 
-  hookToPoolMember = (color: Color | 'random'): PoolMember | null => {
+  hookToPoolMember = (color: ColorOrRandom): PoolMember | null => {
     const valid =
       color === 'random' &&
       this.gameType === 'hook' &&
@@ -258,7 +259,7 @@ export default class SetupController {
       : null;
   };
 
-  propsToFormData = (color: Color | 'random'): FormData =>
+  propsToFormData = (color: ColorOrRandom): FormData =>
     xhr.form({
       variant: keyToId(this.variant(), variants).toString(),
       fen: this.variant() === 'fromPosition' ? this.fen() : undefined,
@@ -286,7 +287,8 @@ export default class SetupController {
     this.time() >= 1;
   valid = (): boolean => this.validFen() && this.validTime() && this.validAiTime();
 
-  submit = async (color: Color | 'random') => {
+  submit = async () => {
+    const color = this.color();
     const poolMember = this.hookToPoolMember(color);
     if (poolMember) {
       this.root.enterPool(poolMember);
