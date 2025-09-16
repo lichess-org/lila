@@ -117,14 +117,11 @@ export const timePickerAndSliders = (ctrl: LobbyController, allowAnonymous = fal
                 inputRange(0, 30, setupCtrl.incrementV, { failure: !setupCtrl.validTime() }),
               ])
             : setupCtrl.timeMode() === 'correspondence' &&
-              hl(
-                'div.correspondence',
-                hl('div.days-choice.range', [
-                  `${i18n.site.daysPerTurn}: `,
-                  hl('span', `${setupCtrl.days()}`),
-                  inputRange(1, 7, setupCtrl.daysV),
-                ]),
-              ),
+              hl('div.days-choice.range', [
+                `${i18n.site.daysPerTurn}: `,
+                hl('span', `${setupCtrl.days()}`),
+                inputRange(1, 7, setupCtrl.daysV),
+              ]),
         ],
   );
 };

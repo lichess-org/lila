@@ -157,6 +157,11 @@ $c-slider: $c-setup;
     }
   }
 
+  .time-choice,
+  .days-choice {
+    margin-top: 0.5rem;
+  }
+
   .ratings {
     width: 100%;
     text-align: center;
@@ -190,7 +195,7 @@ $c-slider: $c-setup;
     .setup-content {
       padding: 1.25rem 0.75rem;
     }
-    &:has(.correspondence) .fen__board {
+    .fen__board {
       width: 40%;
     }
     &:has(.increment-choice) .fen__board {
