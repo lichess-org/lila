@@ -415,7 +415,6 @@
   <string name="toStudy">Սովորել</string>
   <string name="importGame">Խաղ ներմուծել</string>
   <string name="importGameExplanation">Տեղադրեք պարտիայի գրառումը PGN ձևաչափով, և հնարավորություն կստանաք վերախաղարկելու պարտիան, կատարելու համակարգչային վերլուծություն, շփվելու զրուցարանում և կիսվելու այդ պարտիայի հղումով։</string>
-  <string name="importGameCaveat">Տարբերակները կհեռացվեն։ Դրանք պահպանելու համար, PGN-ը տեղափոխեք ստուդիա։</string>
   <string name="importGameDataPrivacyWarning">Այս PGN ֆայլը կարող է հասանելի լինել բոլորին։ Պարտիան անհատապես ներբեռնելու համար օգտագործեք ստուդիան։</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s ներմուծված խաղեր</item>
