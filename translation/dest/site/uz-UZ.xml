@@ -427,7 +427,6 @@
   <string name="toStudy">O\'rganish</string>
   <string name="importGame">O\'yinni import qilish</string>
   <string name="importGameExplanation">PGN o\'yinni qo\'ying va qayta o\'ynashlar, kompyuter tahlili, o\'yin chati va ulashish linkiga ega bo\'ling.</string>
-  <string name="importGameCaveat">Variantlar o‘chiriladi. Ularni saqlash uchun PGN yordamida \"ta‘lim\"da saqlang.</string>
   <string name="importGameDataPrivacyWarning">Ushbu PGN ommaga ochiq boʻladi. Oʻyinni yopiq holatda import qilish uchun study - oʻrganish boʻlimidan foydalaning.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s import qilingan o\'yin</item>
