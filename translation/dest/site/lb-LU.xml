@@ -427,7 +427,6 @@
   <string name="toStudy">Etüd</string>
   <string name="importGame">Partie importéieren</string>
   <string name="importGameExplanation">Füg eng Partien PGN an fir en browsbaren Replay, Computer Analyse, Partienchat and eng deelbar URL ze kréien.</string>
-  <string name="importGameCaveat">Varianten wäerten geläscht ginn. Fir se ze haalen, importéier d\'PGN an eng Etüd.</string>
   <string name="importGameDataPrivacyWarning">Dëse PGN ass ëffentlech zougänglech. Benotzt eng Studie fir eng Partie privat z\'importéieren.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importéiert Partie</item>
