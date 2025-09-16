@@ -23,7 +23,7 @@ export default function table(ctrl: LobbyController) {
           ...(opts.botEditor ? [['dev', 'bot development', false]] : []),
         ].map(([gameType, text, disabled]: [GameType | 'dev' | 'bots', string, boolean]) =>
           h(
-            `button.button.button-metal.config_${gameType}`,
+            `button.button.button-metal.lobby__start__${gameType}`,
             {
               class: { active: ctrl.setupCtrl.gameType === gameType, disabled },
               attrs: { type: 'button' },

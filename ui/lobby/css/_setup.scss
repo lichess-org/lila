@@ -184,10 +184,6 @@ $c-slider: $c-setup;
     }
   }
 
-  .config_friend-user i:before {
-    content: $licon-Swords;
-  }
-
   @media (max-height: at-most(900px)) {
     h2 {
       margin-block: 1.1rem;

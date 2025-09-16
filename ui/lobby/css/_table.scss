@@ -14,43 +14,46 @@
   }
 
   .footer button, // _setup.scss
-  .lobby__start button {
-    display: flex;
-    align-items: center;
-    font-size: 1.2em;
-    gap: 1em;
-    padding-inline: 2em 3em;
-    height: 3.2em;
-    text-transform: none;
-    &.disabled {
-      opacity: 0.2;
-    }
-
-    i:before {
-      font-family: 'lichess';
+  .lobby__start {
+    i::before {
+      @extend %data-icon;
       font-size: 1.7em;
-      vertical-align: sub;
       color: $c-font-dimmer;
     }
-    &.config_hook i:before {
-      content: $licon-Group;
-    }
-    &.config_friend i:before {
-      content: $licon-User;
-    }
-    &.config_ai i:before {
-      content: $licon-Cpu;
-    }
-    @media (hover: hover) {
-      &:hover.disabled {
-        cursor: default;
+    button {
+      display: flex;
+      align-items: center;
+      font-size: 1.2em;
+      gap: 1em;
+      padding-inline: 2em 3em;
+      height: 3.2em;
+      text-transform: none;
+      &.disabled {
+        opacity: 0.2;
       }
-      &:hover:not(.disabled) {
-        color: $c-font-clear !important;
-        i:before {
-          color: $c-brag;
+      @media (hover: hover) {
+        &:hover.disabled {
+          cursor: default;
+        }
+        &:hover:not(.disabled) {
+          color: $c-font-clear !important;
+          i::before {
+            color: $c-brag;
+          }
         }
       }
+    }
+    &__hook i::before {
+      content: $licon-Group;
+    }
+    &__friend i::before {
+      content: $licon-User;
+    }
+    &__ai i::before {
+      content: $licon-Cpu;
+    }
+    &__friend-user i::before {
+      content: $licon-Swords;
     }
   }
 
