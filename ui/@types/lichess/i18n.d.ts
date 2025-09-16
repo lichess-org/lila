@@ -3895,8 +3895,6 @@ interface I18n {
     playFirstOpeningEndgameExplorerMove: string;
     /** Playing right now */
     playingRightNow: string;
-    /** Playing %s */
-    playingX: I18nFormat;
     /** play selected move */
     playSelectedMove: string;
     /** Play a variation to create conditional premoves */

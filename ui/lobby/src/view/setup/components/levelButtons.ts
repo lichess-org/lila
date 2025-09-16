@@ -16,7 +16,6 @@ export const levelButtons = (ctrl: LobbyController) => {
         ),
       ]
     : h('div.config-group', [
-        i18n.site.playingX('Fairy-Stockfish'),
         h('div.radio-pane', [
           i18n.site.strength,
           h(

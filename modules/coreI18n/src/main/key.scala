@@ -1460,7 +1460,6 @@ object I18nKey:
     val `gameSetup`: I18nKey = "gameSetup"
     val `challengeAFriend`: I18nKey = "challengeAFriend"
     val `playVersusAi`: I18nKey = "playVersusAi"
-    val `playingX`: I18nKey = "playingX"
     val `gameMode`: I18nKey = "gameMode"
     val `createLobbyGame`: I18nKey = "createLobbyGame"
     val `youPlayAs`: I18nKey = "youPlayAs"
