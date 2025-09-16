@@ -371,7 +371,6 @@
   <string name="toStudy">Дугуйлан</string>
   <string name="importGame">Өрөг импортлох</string>
   <string name="importGameExplanation">Өрөгийн PGN-г оруулсанаар та өргийг дахин тоглуулах, компьютер шинжилгээ хийх, чат бичих болон бусдад түгээх холбоос авах боломжтой.</string>
-  <string name="importGameCaveat">Салаалсан хувилбарууд арилгагдах болно. Тэднийг арилгахыг хүсэхгүй бол, \"Судлах\" горимоор тоглолтыг PGN болгож хадгалаарай.</string>
   <string name="importGameDataPrivacyWarning">Энэ PGN нь олон нийтэд нээлттэй байна. Хэрэв та тоглолтыг олон нийтэд харуулахыг хүсэхгүй байвал, \"Судлах\" горимыг ашиглаарай.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">Импортлогдсон өргийн тоо: %s</item>
