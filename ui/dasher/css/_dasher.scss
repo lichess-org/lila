@@ -188,9 +188,11 @@
   }
 
   .background {
-    .image p {
+    .image label {
+      display: block;
       font-size: 0.9em;
       padding: 5px;
+      margin-bottom: 1em;
     }
 
     input {
