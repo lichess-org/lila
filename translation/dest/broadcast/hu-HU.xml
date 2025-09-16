@@ -26,6 +26,7 @@
   <string name="tournamentDescription">Verseny rövid leírása</string>
   <string name="fullDescription">Esemény teljes leírása</string>
   <string name="fullDescriptionHelp">Opcionális a közvetítés még bővebb leírása. %1$s használható. A hossz nem lehet több, mint %2$s karakter.</string>
+  <string name="sourceSingleUrl">PGN forrás URL</string>
   <string name="sourceUrlHelp">URL amit a Lichess időnként PGN frissítésekért ellenőriz. Ennek nyilvános internetcímnek kell lennie.</string>
   <string name="startDateHelp">Opcionális, ha tudod mikor kezdődik az esemény</string>
   <string name="currentGameUrl">Jelenlegi játszma URL</string>
@@ -56,6 +57,7 @@
   <string name="embedThisBroadcast">Ágyazd be az élő közvetítést a weboldaladra</string>
   <string name="ratingDiff">Értékszám eltérés</string>
   <string name="gamesThisTournament">E verseny játszmái</string>
+  <string name="score">Pontszám</string>
   <string name="allTeams">Összes csapat</string>
   <string name="tournamentLocation">Verseny helye</string>
   <string name="topPlayers">Top játékosok</string>
