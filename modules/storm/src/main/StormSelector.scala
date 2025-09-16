@@ -46,16 +46,17 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(using Executor
   private val setSize = ratingBuckets.map(_._2).sum
 
   private val batchProvider =
-    BatchProvider[PuzzleSet]("stormSelector", timeout = 15.seconds)(() => aggregateMultipleSets)
+    BatchProvider[PuzzleSet]("stormSelector", timeout = 15.seconds): () =>
+      aggregateMultipleSets:
+        if lila.common.Uptime.startedSinceMinutes(2) then setsPerAggregation else 1
 
   private val current = cacheApi.unit[PuzzleSet]:
     _.refreshAfterWrite(7.seconds).buildAsyncFuture(_ => batchProvider.one)
 
   private var aggregationColor = chess.Color.White
 
-  private def aggregateMultipleSets: Fu[List[PuzzleSet]] =
+  private def aggregateMultipleSets(nbSets: Int): Fu[List[PuzzleSet]] =
     aggregationColor = !aggregationColor
-    val nbSets = if lila.common.Uptime.startedSinceMinutes(2) then setsPerAggregation else 1
     colls
       .path:
         _.aggregateList(setSize * nbSets, _.sec): framework =>
@@ -88,6 +89,10 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(using Executor
           _.grouped(nbSets).toList.map(ThreadLocalRandom.shuffle).transpose
       .logTimeIfGt(s"storm selector x$nbSets", 8.seconds)
       .mon(_.storm.selector.time)
+      .recoverWith:
+        case e: IllegalArgumentException if nbSets > 1 =>
+          logger.warn(s"Storm selector x$nbSets failed, retrying with x1", e)
+          aggregateMultipleSets(1)
       .addEffect:
         _.foreach: puzzles =>
           monitor(puzzles.toVector)
