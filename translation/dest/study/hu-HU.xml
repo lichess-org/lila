@@ -163,6 +163,7 @@
   <string name="playAgain">Újra</string>
   <string name="whatWouldYouPlay">Mit lépnél ebben az állásban?</string>
   <string name="youCompletedThisLesson">Gratulálok! A fejezet végére értél.</string>
+  <string name="perPage">Oldalanként %s</string>
   <string name="welcomeToLichessStudyTitle">Üdvözöl a Lichess Tanulmányok!</string>
   <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Megosztva és elmentve</string>
   <string name="studyMembersTitle">Tanulmányszerzők</string>
