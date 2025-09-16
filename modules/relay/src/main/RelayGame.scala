@@ -88,6 +88,7 @@ private object RelayGame:
               if tag.name == Tag.Result
               then tag.copy(value = Outcome.showPoints(Outcome.pointsFromResult(tag.value)))
               else tag
+      .pipe(withUnplayedTermination(_, res))
     RelayGame(
       tags = fixedTags,
       variant = res.variant,
@@ -110,6 +111,11 @@ private object RelayGame:
   // trust the chapter date, not the source date
   private def removeDateTag(tags: Tags) =
     tags.copy(value = tags.value.filterNot(_.name == Tag.Date))
+
+  private def withUnplayedTermination(tags: Tags, res: lila.study.StudyPgnImport.Result) =
+    if res.ending.isDefined && res.root.mainline.sizeIs < 2 then
+      tags.copy(value = tags.value.filterNot(_.name == Tag.Termination) :+ (Tag(_.Termination, "Unplayed")))
+    else tags
 
   import scalalib.Iso
   import chess.format.pgn.InitialComments

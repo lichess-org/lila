@@ -6,6 +6,7 @@ import scalalib.Json.writeAs
 import scalalib.Debouncer
 import chess.{ ByColor, Color, FideId, Outcome, PlayerName, IntRating }
 import chess.rating.{ Elo, IntRatingDiff }
+import chess.format.pgn.Tag
 
 import lila.study.{ ChapterPreviewApi, StudyPlayer }
 import lila.study.StudyPlayer.json.given
@@ -80,7 +81,8 @@ object RelayPlayer:
       color: Color,
       points: Option[Outcome.GamePoints],
       rated: chess.Rated,
-      customScoring: Option[ByColor[RelayRound.CustomScoring]] = None
+      customScoring: Option[ByColor[RelayRound.CustomScoring]] = None,
+      unplayed: Boolean
   ):
     def playerPoints = points.map(_(color))
     def customPlayerPoints: Option[RelayRound.CustomPoints] = customScoring.flatMap: cs =>
@@ -104,7 +106,7 @@ object RelayPlayer:
         )
 
     // only rate draws and victories, not exotic results
-    def isRated = rated.yes && points.exists(_.mapReduce(_.value)(_ + _) == 1)
+    def isRated = rated.yes && !unplayed && points.exists(_.mapReduce(_.value)(_ + _) == 1)
     def eloGame = for
       pp <- playerPoints
       if isRated
@@ -233,7 +235,9 @@ private final class RelayPlayerApi(
                               color,
                               tags.points,
                               round.rated,
-                              round.customScoring
+                              round.customScoring,
+                              tags.value
+                                .exists(tag => tag.name == Tag.Termination && tag.value == "Unplayed")
                             )
                             players.updated(
                               playerId,
