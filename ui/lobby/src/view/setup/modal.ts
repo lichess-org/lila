@@ -33,21 +33,22 @@ export default function setupModal(ctrl: LobbyController): VNode | null {
     vnodes: [
       hl('h2', i18n.site.gameSetup),
       hl('div.setup-content', views[setupCtrl.gameType](ctrl)),
-      !site.blindMode &&
-        hl(
-          'div.footer',
-          setupCtrl.loading
-            ? spinnerVdom()
-            : hl(
-                `button.button.button-metal.lobby__start__button.lobby__start__button--${setupCtrl.friendUser ? 'friend-user' : setupCtrl.gameType}`,
-                {
-                  attrs: { disabled },
-                  class: { disabled },
-                  on: { click: ctrl.setupCtrl.submit },
-                },
-                buttonText,
-              ),
-        ),
+      site.blindMode
+        ? hl('button', { on: { click: ctrl.setupCtrl.submit } }, i18n.site.createTheGame)
+        : hl(
+            'div.footer',
+            setupCtrl.loading
+              ? spinnerVdom()
+              : hl(
+                  `button.button.button-metal.lobby__start__button.lobby__start__button--${setupCtrl.friendUser ? 'friend-user' : setupCtrl.gameType}`,
+                  {
+                    attrs: { disabled },
+                    class: { disabled },
+                    on: { click: ctrl.setupCtrl.submit },
+                  },
+                  buttonText,
+                ),
+          ),
     ],
     onInsert: dlg => {
       setupCtrl.closeModal = dlg.close;

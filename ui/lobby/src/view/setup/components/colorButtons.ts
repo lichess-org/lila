@@ -17,7 +17,6 @@ const renderBlindModeColorPicker = (ctrl: LobbyController) => [
       colors.map(color => option(color, ctrl.setupCtrl.color())),
     ),
   ],
-  hl('button', { on: { click: ctrl.setupCtrl.submit } }, i18n.site.createTheGame),
 ];
 
 export const colorButtons = (ctrl: LobbyController) => {
