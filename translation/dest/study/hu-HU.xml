@@ -172,7 +172,13 @@
   <string name="studyMembersTitle">Tanulmányszerzők</string>
   <string name="studyChaptersTitle">Tanulmány fejezetek</string>
   <string name="conclusionTitle">Köszönjük az idődet</string>
+  <string name="fromInitialPositionTitle">Kezdőállásból</string>
+  <string name="customPositionTitle">Saját állás</string>
   <string name="loadExistingLichessGameTitle">Tölts be egy létező Lichess játszmát</string>
+  <string name="fromFenStringTitle">Egy FEN karakterláncból</string>
   <string name="fromPgnGameTitle">Egy PGN játszmából</string>
+  <string name="variantsAreSupportedTitle">Tanulmányok támasztják alá a változatokat</string>
   <string name="doubleDefeat">Kettős vereség</string>
+  <string name="blackDefeatWhiteCanNotWin">Sötét vesztésre áll, de világos nem tud nyerni</string>
+  <string name="whiteDefeatBlackCanNotWin">Világos vesztésre áll, de sötét nem tud nyerni</string>
 </resources>
