@@ -428,7 +428,6 @@
   <string name="toStudy">Tanulmány</string>
   <string name="importGame">Játszma importálása</string>
   <string name="importGameExplanation">Ha PGN formátumban adsz hozzá játszmát, visszanézheted a partit, elemezheted számítógéppel, chatelhetsz és linkkel meg tudod osztani másokkal.</string>
-  <string name="importGameCaveat">A változatok törlődnek. Ha meg akarod tartani, akkor importáld a PGN-t egy tanulmányban.</string>
   <string name="importGameDataPrivacyWarning">Az itt importált PGN fájl mindenki számára elérhetővé válik. Ha privátan szeretnéd a partidat importálni, akkor használd a Tanulmányok menüpontot.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importált játszma</item>
