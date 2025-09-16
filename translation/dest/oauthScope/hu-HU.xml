@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="newAccessToken">Új API hozzáférési token</string>
-  <string name="tokenGrantsPermission">A token segítségével más felhasználók is hozzáférhetnek a fiókodhoz.</string>
+  <string name="tokenGrantsPermission">A kulcs segítségével más felhasználók is hozzáférhetnek a fiókodhoz.</string>
   <string name="carefullySelect">A jogosultsági köröket gondosan válaszd meg.</string>
-  <string name="tokenDescription">Token leírás</string>
-  <string name="rememberTokenUse">Rövid emlékeztető a token felhasználásának módját illetően</string>
-  <string name="whatTheTokenCanDo">Token jogosultságai:</string>
-  <string name="doNotShareIt">A token hozzáférést biztosít a fiókodhoz. NE oszd meg senkivel!</string>
-  <string name="copyTokenNow">Jegyezd fel az alábbi token azonosítót, melyet csak itt és most láthatsz!</string>
+  <string name="tokenDescription">Kulcsleírás</string>
+  <string name="rememberTokenUse">Rövid emlékeztető a kulcs felhasználásának módjáról</string>
+  <string name="whatTheTokenCanDo">Kulcs jogosultságai:</string>
+  <string name="doNotShareIt">A kulcs hozzáférést biztosít a fiókodhoz. NE oszd meg senkivel!</string>
+  <string name="copyTokenNow">Jegyezd fel az alábbi kulcs azonosítót, melyet csak itt és most láthatsz!</string>
   <string name="preferenceRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's preferences.&#10;&#10;There is a separate setting to let applications write (edit) preferences.">Olvasási jogosultság</string>
   <string name="preferenceWrite" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to edit/change the user's preferences.&#10;&#10;There is a separate setting to let applications only read preferences, but not to write (edit) them.">Írási jogosultság</string>
   <string name="emailRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's registered email address.">E-mail cím olvasása</string>
@@ -31,19 +31,24 @@
   <string name="engineWrite">Külső motorok létrehozása és frissítése</string>
   <string name="webLogin" comment="In the context of an access token, a setting which permits third-party software to create authenticated sessions - meaning effectively unlimited access to your account, using it as if it is you, instead of a third party program. It will be unable to view your password but it will be able to do almost everything else.">Azonosított munkamenet létrehozása (teljes hozzáférést biztosít!)</string>
   <string name="webMod" comment="In the context of an access token, this is a setting which permits third-party software to use moderator tools on your behalf. Most players will not be able to see this option.">Moderálási eszközök használata (jogosultsági köreiden belül)</string>
-  <string name="personalAccessTokens">Egyéni API tokenek</string>
+  <string name="personalAccessTokens">Egyéni API kulcsok</string>
+  <string name="canMakeOauthRequests" comment="%s is 'authorisation code flow' (flow, as in a process).">OAuth-kéréseket a(z) %s nélkül is küldhetsz.</string>
   <string name="authorizationCodeFlow" comment="Part of longer string canMakeOauthRequests:&#10;You can make OAuth requests without going through the authorisation code flow.&#10;&#10;This text is also a link which directs to https://lichess.org/api#section/Introduction/Authentication.&#10;&#10;In this context, 'flow' means a process. Technical information explaining this concept here: https://oauth.net/2/grant-types/authorization-code/ - its formal name is &quot;authorisation code grant type&quot;.&#10;&#10;If you are not comfortable in translating this, we recommend leaving it untranslated.">authorizációs folyamat</string>
-  <string name="generatePersonalToken" comment="Part of longer string insteadGenerateToken:&#10;'Instead, generate a personal access token you can directly use in API requests.'&#10;&#10;It is a link, which links to https://lichess.org/account/oauth/token/create and appears after you have created at least one token.">egyéni token létrehozása</string>
-  <string name="guardTokensCarefully">Tárold a tokeneket biztonságosan, hiszen a jelszavakkal egyenértékűek. A tokenek előnye a jelszavakkal szemben az, hogy a tokeneket vissza lehet vonni és sokat lehet belőlük generálni.</string>
+  <string name="insteadGenerateToken" comment="%s is 'generate a personal access token'.">Ehelyett %s, amit közvetlenül használhatsz API-kérésekben.</string>
+  <string name="generatePersonalToken" comment="Part of longer string insteadGenerateToken:&#10;'Instead, generate a personal access token you can directly use in API requests.'&#10;&#10;It is a link, which links to https://lichess.org/account/oauth/token/create and appears after you have created at least one token.">egyéni kulcs létrehozása</string>
+  <string name="guardTokensCarefully">Tárold a kulcsokat biztonságosan, hiszen a jelszavakkal egyenértékűek. A kulcsok előnye a jelszavakkal szemben az, hogy a kulcsokat vissza lehet vonni, és sokat lehet belőlük generálni.</string>
   <string name="apiDocumentationLinks" comment="%1$s links to a personal token app example (string: personalTokenAppExample).&#10;&#10;%2$s links to the API documentation (string: apiDocumentation).&#10;&#10;Full sentence after %1$s and %2$s have been substituted:&#10;&quot;Here's a personal app token example and the API documentation.&quot;&#10;&#10;personalTokenAppExample and apiDocumentation can both be translated separately.">Itt van egy %1$s és a(z) %2$s.</string>
-  <string name="personalTokenAppExample" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'&#10;&#10;This text is also a link which directs to https://github.com/lichess-org/api/tree/master/example/oauth-personal-token.">példa a token használatára</string>
+  <string name="personalTokenAppExample" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'&#10;&#10;This text is also a link which directs to https://github.com/lichess-org/api/tree/master/example/oauth-personal-token.">példa a kulcs használatára</string>
   <string name="apiDocumentation" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'&#10;&#10;This text is also a link which directs to https://lichess.org/api.">API dokumentáció</string>
-  <string name="newToken">Új token</string>
-  <string name="apiAccessTokens">API tokenek</string>
+  <string name="newToken">Új kulcs</string>
+  <string name="apiAccessTokens">API kulcsok</string>
   <string name="created" comment="%s is relative time, e.g. 2 hours ago.">Létrehozva: %s</string>
   <string name="lastUsed" comment="%s is relative time, e.g. 2 hours ago. 'Last used' in this context means 'You used this most recently %s time ago'.">Legutóbb használva: %s</string>
   <string name="alreadyHavePlayedGames">Már játszottál játszmákat!</string>
   <string name="attentionOfDevelopers">Fejlesztők figyelmébe:</string>
-  <string name="possibleToPrefill">A query paraméterek segítségével az űrlap kitölthető.</string>
+  <string name="possibleToPrefill">Az URL lekérdezési paramétereinek változtatásával az űrlap előre kitölthető.</string>
   <string name="forExample" comment="%s is an example URL.&#10;&#10;Please note the sentence continues on the next line. The complete sentence is:&#10;'For example: https://lichess.org/account/oauth/token/create?scopes[]=challenge:write&amp;scopes[]=puzzle:read&amp;description=Prefilled+token+example&#10;ticks the challenge:create and puzzle:read scopes, and sets the token description.'">Például: %s</string>
+  <string name="ticksTheScopes" comment="Part of a longer sentence, this is the second line:&#10;&#10;'For example: https://lichess.org/account/oauth/token/create?scopes[]=challenge:write&amp;scopes[]=puzzle:read&amp;description=Prefilled+token+example&#10;ticks the challenge:create and puzzle:read scopes, and sets the token description.'&#10;&#10;%1$s is 'challenge:create', %2$s is 'puzzle:read' which are both used as technical examples. These should not be translated which is why they are included as substituted strings.">bejelöli a %1$s és %2$s jogosultságokat, majd megadja a kulcs leírását.</string>
+  <string name="scopesCanBeFound" comment="scopesCanBeFound&#10;&#10;For this page in particular, developers can link to it so that some options are pre-ticked when a user follows the URL.&#10;&#10;To pre-tick those options, developers need the scope codes, which they can find by inspecting the source code of the page itself.">A jogosultsági kódok az űrlap HTML-kódjában találhatóak.</string>
+  <string name="givingPrefilledUrls">Ha ezeket az előre kitöltött URL-eket adod a felhasználóidnak, segítenek nekik a megfelelő kulcs jogosultságok megszerzésében.</string>
 </resources>
