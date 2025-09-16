@@ -54,6 +54,7 @@
   <string name="shareChanges">A módosítások láthatóak a nézők számára, és mentésre kerülnek a szerveren</string>
   <string name="playing">Folyamatban</string>
   <string name="showResults">Eredmények</string>
+  <string name="showEvalBar">Értéksávok</string>
   <string name="next">Következő</string>
   <string name="shareAndExport">Megosztás és exportálás</string>
   <string name="cloneStudy">Klónozás</string>
@@ -165,6 +166,7 @@
   <string name="whatWouldYouPlay">Mit lépnél ebben az állásban?</string>
   <string name="youCompletedThisLesson">Gratulálok! A fejezet végére értél.</string>
   <string name="perPage">Oldalanként %s</string>
+  <string name="getTheTour">Segítség kell? Indítsd el a bemutatót!</string>
   <string name="welcomeToLichessStudyTitle">Üdvözöl a Lichess Tanulmányok!</string>
   <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Megosztva és elmentve</string>
   <string name="studyMembersTitle">Tanulmányszerzők</string>
@@ -172,4 +174,5 @@
   <string name="conclusionTitle">Köszönjük az idődet</string>
   <string name="loadExistingLichessGameTitle">Tölts be egy létező Lichess játszmát</string>
   <string name="fromPgnGameTitle">Egy PGN játszmából</string>
+  <string name="doubleDefeat">Kettős vereség</string>
 </resources>
