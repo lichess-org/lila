@@ -12,7 +12,8 @@ case class PlanExpire(userId: UserId)
 opaque type PatronMonths = Int // 0 if no plan is ongoing, 999 if lifetime
 object PatronMonths extends OpaqueInt[PatronMonths]:
 
-  val zero = PatronMonths(0)
+  val zero: PatronMonths = 0
+  val lifetime: PatronMonths = PatronTier.Lifetime.months
 
   extension (months: PatronMonths)
     def isOngoing: Boolean = months > 0

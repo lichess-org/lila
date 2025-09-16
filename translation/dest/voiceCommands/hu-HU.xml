@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="voiceCommands">Hangvezérlés</string>
+  <string name="watchTheVideoTutorial">Nézd meg a videós útmutatót</string>
+  <string name="thisBlogPost">Ez a blog poszt</string>
   <string name="phoneticAlphabetIsBest">Fonetikus ábécé a legjobb</string>
+  <string name="turnOffVoiceRecognition">Kapcsold ki a hangfelismerést</string>
+  <string name="showPuzzleSolution">Mutasd a feladvány megoldását</string>
 </resources>

@@ -147,6 +147,9 @@ object BSONHandlers:
         marks -> o.marks.value.nonEmpty.option(o.marks)
       )
 
-  private[user] given BSONDocumentHandler[lila.core.LightUser] = Macros.handler
+  // This LightUser handler is only used to store light users in other documents
+  // not to read light users from the user collection
+  // The LightUser handler is in modules/user/src/main/LightUserApi.scala
+  private given BSONDocumentHandler[lila.core.LightUser] = Macros.handler
   private[user] given BSONDocumentHandler[lila.core.user.LightPerf] = Macros.handler
   private[user] given BSONDocumentHandler[lila.user.LightCount] = Macros.handler
