@@ -55,12 +55,16 @@
   <string name="teams">Csapatok</string>
   <string name="boards">Táblák</string>
   <string name="overview">Áttekintés</string>
+  <string name="subscribeTitle">Iratkozz fel, hogy értesítést kapj minden forduló kezdésekor! Fiókod beállításaiban be- és kikapcsolhatod a csengő- és push-értesítéseket a közvetítésekhez.</string>
   <string name="uploadImage">Verseny képének feltöltése</string>
+  <string name="noBoardsYet">Még nincsenek táblák. A játszmák feltöltése után jelennek csak meg.</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">A táblákat feltöltheted forrásmegjelöléssel vagy a(z) %s segítségével</string>
   <string name="startsAfter">Kezdődik: %s</string>
   <string name="startVerySoon">Az élő közvetítés hamarosan kezdődik.</string>
   <string name="notYetStarted">Az élő közvetítés még nem kezdődött el.</string>
   <string name="officialWebsite">Hivatalos weboldal</string>
   <string name="officialStandings">Hivatalos állás</string>
+  <string name="iframeHelp" comment="%s is 'webmasters page'">Több választási lehetőség itt: %s</string>
   <string name="webmastersPage">webmester oldal</string>
   <string name="embedThisBroadcast">Ágyazd be az élő közvetítést a weboldaladra</string>
   <string name="ratingDiff">Értékszám eltérés</string>
@@ -73,8 +77,11 @@
   <string name="timezone">Időzóna</string>
   <string name="fideRatingCategory">FIDE értékszám kategória</string>
   <string name="optionalDetails">Nem kötelező adatok</string>
+  <string name="pastBroadcasts">Korábbi közvetítések</string>
+  <string name="allBroadcastsByMonth">Minden közvetítés megtekintése havi bontásban</string>
   <string name="backToLiveMove">Vissza az aktuális lépéshez</string>
   <string name="sinceHideResults">Mivel elrejtetted az eredményeket, minden előnézeti tábla üres, hogy ne legyenek idő előtt nyilvánossá téve.</string>
+  <string name="liveboard">Élő tábla</string>
   <string name="communityBroadcast">Közösségi közvetítés</string>
   <string name="createdAndManagedBy">Létrehozta és felügyeli: %s.</string>
 </resources>
