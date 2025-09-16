@@ -17,7 +17,7 @@ export const ratingDifferenceSliders = (ctrl: LobbyController) => {
     return hl(`input.range.rating-range__${type}`, {
       attrs: {
         type: 'range',
-        'aria-label': i18n.site.findAnOpponentWithin,
+        'aria-label': i18n.site.ratingFilter,
         min: isMin ? '-500' : '0',
         max: isMin ? '0' : '500',
         step: '50',
@@ -49,7 +49,7 @@ export const ratingDifferenceSliders = (ctrl: LobbyController) => {
         : undefined,
     },
     [
-      i18n.site.findAnOpponentWithin,
+      i18n.site.ratingFilter,
       hl('div.rating-range', [
         ratingInput('min'),
         !site.blindMode && [

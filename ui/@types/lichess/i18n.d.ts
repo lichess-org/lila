@@ -3347,8 +3347,6 @@ interface I18n {
     fiftyMovesWithoutProgress: string;
     /** Filter games */
     filterGames: string;
-    /** Find an opponent within */
-    findAnOpponentWithin: string;
     /** Find a better move for black */
     findBetterMoveForBlack: string;
     /** Find a better move for white */
@@ -3971,6 +3969,8 @@ interface I18n {
     ratedTournament: string;
     /** Rating */
     rating: string;
+    /** Rating filter */
+    ratingFilter: string;
     /** Rating filters are locked because your rating is not stable. Playing rated games will increase stability. */
     ratingRangeIsDisabledBecauseYourRatingIsProvisional: string;
     /** Rating stats */
