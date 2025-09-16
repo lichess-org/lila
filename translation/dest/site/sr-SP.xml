@@ -859,11 +859,11 @@
   <string name="learnFromThisMistake">Научите из ове грешке</string>
   <string name="skipThisMove">Прескочи овај потез</string>
   <string name="next">Следеће</string>
-  <string name="xWasPlayed">%s је одиграно</string>
-  <string name="findBetterMoveForWhite">Нађите бољи потез за белог</string>
-  <string name="findBetterMoveForBlack">Нађите бољи потез за црног</string>
-  <string name="resumeLearning">Наставите са учењем</string>
-  <string name="youCanDoBetter">Можете то боље</string>
+  <string name="xWasPlayed">%s је био одигран</string>
+  <string name="findBetterMoveForWhite">Нађи бољи потез за белог</string>
+  <string name="findBetterMoveForBlack">Нађи бољи потез за црног</string>
+  <string name="resumeLearning">Настави учити</string>
+  <string name="youCanDoBetter">Можеш одрадити боље</string>
   <string name="tryAnotherMoveForWhite">Покушајте други потез за белог</string>
   <string name="tryAnotherMoveForBlack">Покушајте други потез за црног</string>
   <string name="solution">Решење</string>
