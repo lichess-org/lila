@@ -414,7 +414,6 @@
   <string name="toStudy">പഠനം</string>
   <string name="importGame">കളി ഇറക്കുമതി ചെയ്യുക</string>
   <string name="importGameExplanation">ഒരു ഗെയിം PGN പേസ്റ്റ് ചെയ്യുമ്പോൾ ബ്രൗസ്‌ ചെയ്യാൻ പറ്റുന്ന റീപ്ലേ, കമ്പ്യൂട്ടർ വിശകലനം, ഗെയിം ചാറ്റ്, ഷെയർ ചെയ്യാൻ പറ്റുന്ന ഒരു URL എന്നിവ ലഭിക്കുന്നു.</string>
-  <string name="importGameCaveat">വ്യതിയാനങ്ങൾ മായ്ക്കപ്പെടും. അവയെ വയ്ക്കാനായി PGN ഒരു പഠനം വഴി ഇറക്കുമതിക്കുക.</string>
   <string name="importGameDataPrivacyWarning">ഈ PGN എല്ലാവൎക്കും കാണാം. ഈ കളി സ്വകാര്യമായി ഇറക്കുമതിക്കാൻ ഒരു പഠനം ഉപയോഗിക്കുക.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">ഇറക്കിയ കളികൾ %s</item>
