@@ -1761,7 +1761,6 @@ object I18nKey:
     val `toStudy`: I18nKey = "toStudy"
     val `importGame`: I18nKey = "importGame"
     val `importGameExplanation`: I18nKey = "importGameExplanation"
-    val `importGameCaveat`: I18nKey = "importGameCaveat"
     val `importGameDataPrivacyWarning`: I18nKey = "importGameDataPrivacyWarning"
     val `thisIsAChessCaptcha`: I18nKey = "thisIsAChessCaptcha"
     val `clickOnTheBoardToMakeYourMove`: I18nKey = "clickOnTheBoardToMakeYourMove"
