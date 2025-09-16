@@ -43,15 +43,7 @@ export default function setupModal(ctrl: LobbyController): VNode | null {
                 {
                   attrs: { disabled },
                   class: { disabled },
-                  on: {
-                    click: () =>
-                      ctrl.setupCtrl.submit(
-                        (document
-                          .querySelector<HTMLElement>('.color-picker')
-                          ?.querySelector<HTMLInputElement>('input[name="color"]:checked')?.value ??
-                          'random') as Color,
-                      ),
-                  },
+                  on: { click: () => ctrl.setupCtrl.submit(getColorChoiceFromDom()) },
                 },
                 buttonText,
               ),
@@ -62,6 +54,11 @@ export default function setupModal(ctrl: LobbyController): VNode | null {
       dlg.show();
     },
   });
+}
+
+function getColorChoiceFromDom(): Color {
+  const found = document.querySelector<HTMLInputElement>('.color-picker input[name="color"]:checked');
+  return (found?.value ?? 'random') as Color;
 }
 
 const views = {
