@@ -412,7 +412,6 @@
   <string name="toStudy">Çalışma</string>
   <string name="importGame">Oyun daxil edin</string>
   <string name="importGameExplanation">Göz gəzdiriləbilən bir oyun təkrarı, kompüter analizi, oyun söhbəti və paylaşılabilən bir URL əldə etmək üçün bir oyun PGN-si daxil edin.</string>
-  <string name="importGameCaveat">Variasiyalar silinəcək. Onları saxlamaq üçün PGN-ni araşdırma vasitəsilə idxal edin.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s oyun daxil edildi</item>
     <item quantity="other">%s oyun daxil edildi</item>
