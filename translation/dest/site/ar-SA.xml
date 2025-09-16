@@ -551,7 +551,6 @@
   <string name="toStudy">دراسة</string>
   <string name="importGame">استورد مباراة</string>
   <string name="importGameExplanation">عند لصق مباراة PGN تحصل على إمكانية كرار استعراضها وتحليل حاسوبي ودردشة للمباراة ورابط قابل للمشاركة.</string>
-  <string name="importGameCaveat">سيتم محو التغييرات. للحفاظ عليها، يرجى استيراد PGN (تنسيق لعبة الشطرنج المحمول) عبر تبويب دراسة.</string>
   <string name="importGameDataPrivacyWarning">يمكن لأي أحد الوصول إلى PGN، إذا أردت إنشاء تحليل خاص، استخدم قسم دراسة.</string>
   <plurals name="nbImportedGames">
     <item quantity="zero">مباراة مستوردة %s</item>
