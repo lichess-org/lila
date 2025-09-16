@@ -49,9 +49,15 @@ object home:
         )(
           div(cls := "lobby__table")(
             div(cls := "lobby__start")(
-              button(cls := "button button-metal lobby__start__hook")(i, trans.site.createLobbyGame()),
-              button(cls := "button button-metal lobby__start__friend")(i, trans.site.challengeAFriend()),
-              button(cls := "button button-metal lobby__start__ai")(i, trans.site.playVersusAi())
+              button(cls := "button button-metal lobby__start__button lobby__start__button--hook")(
+                trans.site.createLobbyGame()
+              ),
+              button(cls := "button button-metal lobby__start__button lobby__start__button--friend")(
+                trans.site.challengeAFriend()
+              ),
+              button(cls := "button button-metal lobby__start__button lobby__start__button--ai")(
+                trans.site.playVersusAi()
+              )
             )
           ),
           currentGame

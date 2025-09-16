@@ -35,7 +35,7 @@ export default function setupModal(ctrl: LobbyController): VNode | null {
       !site.blindMode &&
         hl('div.footer', [
           hl(
-            `button.button.button-metal.lobby__start__${setupCtrl.friendUser ? 'friend-user' : setupCtrl.gameType}`,
+            `button.button.button-metal.lobby__start__button.lobby__start__button--${setupCtrl.friendUser ? 'friend-user' : setupCtrl.gameType}`,
             {
               attrs: { disabled: setupCtrl.loading },
               class: { disabled: setupCtrl.loading },
@@ -49,7 +49,7 @@ export default function setupModal(ctrl: LobbyController): VNode | null {
                   ),
               },
             },
-            [hl('i'), buttonText],
+            buttonText,
           ),
           setupCtrl.loading && spinnerVdom(),
         ]),

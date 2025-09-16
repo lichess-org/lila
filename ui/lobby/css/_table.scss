@@ -11,16 +11,8 @@
     flex: 1 1 auto;
     justify-content: stretch;
     gap: 9px; // grid gap in app/_pool.scss
-  }
 
-  .footer button, // _setup.scss
-  .lobby__start {
-    i::before {
-      @extend %data-icon;
-      font-size: 1.7em;
-      color: $c-font-dimmer;
-    }
-    button {
+    &__button {
       display: flex;
       align-items: center;
       font-size: 1.2em;
@@ -31,29 +23,34 @@
       &.disabled {
         opacity: 0.2;
       }
+      &::before {
+        @extend %data-icon;
+        font-size: 1.7em;
+        color: $c-font-dimmer;
+      }
+      &--hook.button::before {
+        content: $licon-Group;
+      }
+      &--friend.button::before {
+        content: $licon-User;
+      }
+      &--ai.button::before {
+        content: $licon-Cpu;
+      }
+      &--friend-user.button::before {
+        content: $licon-Swords;
+      }
       @media (hover: hover) {
         &:hover.disabled {
           cursor: default;
         }
         &:hover:not(.disabled) {
           color: $c-font-clear !important;
-          i::before {
-            color: $c-brag;
+          &::before {
+            color: $c-accent;
           }
         }
       }
-    }
-    &__hook i::before {
-      content: $licon-Group;
-    }
-    &__friend i::before {
-      content: $licon-User;
-    }
-    &__ai i::before {
-      content: $licon-Cpu;
-    }
-    &__friend-user i::before {
-      content: $licon-Swords;
     }
   }
 

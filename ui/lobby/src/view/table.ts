@@ -23,7 +23,7 @@ export default function table(ctrl: LobbyController) {
           ...(opts.botEditor ? [['dev', 'bot development', false]] : []),
         ].map(([gameType, text, disabled]: [GameType | 'dev' | 'bots', string, boolean]) =>
           h(
-            `button.button.button-metal.lobby__start__${gameType}`,
+            `button.button.button-metal.lobby__start__button.lobby__start__button--${gameType}`,
             {
               class: { active: ctrl.setupCtrl.gameType === gameType, disabled },
               attrs: { type: 'button' },
@@ -39,7 +39,7 @@ export default function table(ctrl: LobbyController) {
                     ctrl.redraw,
                   ),
             },
-            [h('i'), text],
+            text,
           ),
         ),
       ),
