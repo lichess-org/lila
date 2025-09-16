@@ -200,9 +200,9 @@ function engineSelection(ctrl: CevalHandler) {
     external = ceval.engines.external;
   return [
     hl('div.setting', [
-      'Engine:',
+      hl('label', { attrs: { for: 'select-engine' } }, 'Engine:'),
       hl(
-        'select.select-engine',
+        'select#select-engine',
         {
           hook: bind('change', e => {
             ceval.selectEngine((e.target as HTMLSelectElement).value);

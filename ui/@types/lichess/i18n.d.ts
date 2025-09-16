@@ -3447,11 +3447,9 @@ interface I18n {
     importedByX: I18nFormat;
     /** Import game */
     importGame: string;
-    /** Variations will be erased. To keep them, import the PGN via a study. */
-    importGameCaveat: string;
     /** This PGN can be accessed by the public. To import a game privately, use a study. */
     importGameDataPrivacyWarning: string;
-    /** Paste a game PGN to get a browsable replay, computer analysis, game chat and public shareable URL. */
+    /** Paste a game PGN to get a browsable replay of the main line, computer analysis, game chat and public shareable URL. */
     importGameExplanation: string;
     /** Import PGN */
     importPgn: string;

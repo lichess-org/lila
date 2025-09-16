@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessClasses">Tanulócsoportok</string>
-  <string name="teachClassesOfChessStudents">Taníts sakkozni diákokat a Lichess Tanulócsoportok funkciójával.</string>
+  <string name="teachClassesOfChessStudents">Taníts sakkosztályokat a Lichess Tanulócsoportok funkciójával.</string>
   <string name="features">Funkciók</string>
-  <string name="quicklyGenerateSafeUsernames">Gyorsan létrehozhatsz a tanulóknak biztonságos felhasználónevet és jelszót</string>
-  <string name="trackStudentProgress">Nyomon követheted a tanulók fejlődését a játékaikban és feladványokban</string>
+  <string name="quicklyGenerateSafeUsernames">Biztonságos felhasználónevek és jelszavak gyorsgenerálása tanulóknak</string>
+  <string name="trackStudentProgress">Kövesd nyomon a tanulók fejlődését játszmákon és feladványokon keresztül</string>
   <string name="messageAllStudents">Üzeneted küldhetsz minden tanulónak az új anyagokról</string>
   <string name="freeForAllForever">Teljesen ingyenes mindenkinek, örökre, hirdetések és nyomkövetők nélkül</string>
   <string name="applyToBeLichessTeacher">Jelentkezz Lichess tanárnak</string>
   <string name="noClassesYet">Még nincs tanulócsoportod.</string>
   <string name="teachersX">Tanár: %s</string>
   <string name="newClass">Új tanulócsoport</string>
-  <string name="closeClass">Tanulócsoport bezárása</string>
+  <string name="closeClass">Tanulócsoport törlése</string>
   <string name="removedByX">%s eltávolította a csoportból</string>
-  <string name="reopen">Megnyitás újra</string>
+  <string name="reopen">Újranyitás</string>
   <string name="removeStudent">Tanuló eltávolítása</string>
   <string name="removedStudents">Eltávolítva</string>
   <string name="inviteTheStudentBack">Tanuló visszahívása</string>
   <string name="sendAMessage">Üzenet minden tanulónak.</string>
-  <string name="aLinkToTheClassWillBeAdded">Az üzenet végére automatikusan hozzáfűzzük a tanulócsoport linkéjt, így neked azt nem kell elküldened.</string>
+  <string name="aLinkToTheClassWillBeAdded">Az üzenet végére automatikusan hozzáfűzzük a tanulócsoport linkjét, így neked azt nem kell elküldened.</string>
   <string name="className">Tanulócsoport neve</string>
   <string name="classDescription">Csoport leírása</string>
-  <string name="visibleByBothStudentsAndTeachers">Látható mind a tanárok, mind az csoport tanulói számára</string>
-  <string name="teachersOfTheClass">A csoport tanárai</string>
+  <string name="visibleByBothStudentsAndTeachers">Látható a tanároknak és a csoport tanulóinak is</string>
+  <string name="teachersOfTheClass">A tanulócsoport tanárai</string>
   <string name="addLichessUsernames">Tanár meghívásához add meg a Lichess felhasználóneveket, soronként egyet.</string>
   <string name="resetPassword">Jelszó visszaállítása</string>
   <string name="makeSureToCopy">Jegyezd fel most a jelszót, mert többé nem jelenik meg!</string>
@@ -57,6 +57,7 @@ A csoportot az alábbi linken éred el.</string>
     <item quantity="one">Egy függőben lévő meghívó</item>
     <item quantity="other">%s függőben lévő meghívó</item>
   </plurals>
+  <string name="pending">Függőben</string>
   <string name="declined">Visszautasítva</string>
   <string name="onlyVisibleToTeachers">Csak a tanárok látják</string>
   <string name="lastActiveDate">Aktív</string>
@@ -115,4 +116,8 @@ Itt egy vízszintes vonal fog megjelenni.</string>
   <string name="anInvitationHasBeenSentToX">A meghívót elküldtük %s részére</string>
   <string name="xAlreadyHasAPendingInvitation">%s már kapott meghívót, még nem válaszolt rá</string>
   <string name="xIsAKidAccountWarning">%1$s gyerekfiókkal rendelkezik ezért nem kapja meg az üzeneted. Juttasd el hozzá más csatornán a meghívó URL-jét: %2$s</string>
+  <string name="moveToClass">Áthelyezés ide: %s</string>
+  <string name="moveToAnotherClass">Áthelyezés másik osztályba</string>
+  <string name="allowMessagingBetweenStudents" comment="An option that a class's teacher can select. Has the extended description &quot;This only applies to the accounts you have created for your students.&quot;">Tanulók közötti üzenetek engedélyezése</string>
+  <string name="allowMessagingBetweenStudentsDesc" comment="Description for the option &quot;Allow messages between students&quot;.">Ez csak azokra a fiókokra vonatkozik, amiket tanulóid számára hoztál létre.</string>
 </resources>
