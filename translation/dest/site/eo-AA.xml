@@ -415,7 +415,6 @@
   <string name="toStudy">Studo</string>
   <string name="importGame">Importi ludon</string>
   <string name="importGameExplanation">Kiam vi enmetas PGN-on de ludo, vi povas reludi ĝin, vidi komputilan analizon, babili kun la kontraŭulon, kaj dissemi la ligilon URL.</string>
-  <string name="importGameCaveat">Variaĵoj estos forigitaj. Por havi ilin enportu la PGN tra studoj.</string>
   <string name="importGameDataPrivacyWarning">Ĉi tiun PGN estas atingebla de la publiko. Por importi ludon private, uzu studon.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Importitaj ludoj</item>
