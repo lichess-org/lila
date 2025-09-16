@@ -397,7 +397,6 @@
   <string name="importGame">ක්‍රීඩාව ආනයනය කරන්න</string>
   <string name="importGameExplanation">බ්‍රවුස් කළ හැකි නැවත ධාවනයක් ලබා ගැනීමට PGN ක්‍රීඩාවක් අලවන්න,
 පරිගණක විශ්ලේෂණය, ක්‍රීඩා කතාබස් සහ බෙදාගත හැකි URL.</string>
-  <string name="importGameCaveat">වේරියේශන් මැකෙනු ලැබේ. ඒවා තබා ගැනීමට අධ්‍යයනයක් හරහා pgn ආනයනය කරන්න.</string>
   <string name="importGameDataPrivacyWarning">මෙම pgn එක වෙත​ මහජනතාවට ප්‍රවේශ විය හැක. ක්‍රීඩාවක් පුද්ගලිකව ආනයනය කිරීමට, අධ්‍යයනයක් භාවිතා කරන්න.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s ආනයනික තරගය</item>
