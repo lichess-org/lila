@@ -74,7 +74,10 @@ object user:
     def withMarks(f: UserMarks => UserMarks) = copy(marks = f(marks))
 
     def isPatron = plan.active
-    def patronMonths = if isPatron then PatronMonths(plan.months) else PatronMonths.zero
+    def patronMonths: PatronMonths =
+      if plan.lifetime then PatronMonths.lifetime
+      else if isPatron then PatronMonths(plan.months)
+      else PatronMonths.zero
     def patronTier = patronMonths.tier
 
     def isBot = title.contains(PlayerTitle.BOT)

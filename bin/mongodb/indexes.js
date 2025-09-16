@@ -328,3 +328,18 @@ db.puzzle2_puzzle.createIndex(
 );
 db.puzzle2_puzzle.createIndex({ tagMe: 1 }, { partialFilterExpression: { tagMe: true } });
 db.puzzle2_path.createIndex({ min: 1, max: -1 });
+/*
+ *   {
+    v: 2,
+    key: { expiresAt: 1 },
+    name: 'expiresAt_1',
+    expireAfterSeconds: 0
+  },
+  {
+    v: 2,
+    key: { perf: 1, stable: 1, rating: -1 },
+    name: 'perf_1_stable_1_rating_-1'
+  }
+*/
+db.ranking.createIndex({ expiresAt: 1 }, { expireAfterSeconds: 0 });
+db.ranking.createIndex({ perf: 1, rating: -1 }, { partialFilterExpression: { stable: true } });
