@@ -431,7 +431,6 @@
   <string name="importGame">దిగుమతి ఆట</string>
   <string name="importGameExplanation">బ్రౌజ్ చేయగల రీప్లేని పొందడానికి గేమ్ PGNని అతికించండి,
 కంప్యూటర్ విశ్లేషణ, గేమ్ చాట్ మరియు భాగస్వామ్యం చేయదగిన URL.</string>
-  <string name="importGameCaveat">వేరియేషన్స్ పోతాయి. ఉంచడానికి, పీ.జీ.యన్ స్టడీ ద్వారా ఇంపోర్ట్ చెయ్.</string>
   <string name="importGameDataPrivacyWarning">ఈ పీ. జీ. యన్ ను ప్రజలు యాక్సెస్ చేసుకోవచ్చు. ఒక గేమ్ ప్రైవేట్ గా దిగుమతి చేయడానికి, ఒక స్టడీ ఉపయోగించండి.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s గేమ్‌ దిగుమతి చేయబడ్డాయి</item>
