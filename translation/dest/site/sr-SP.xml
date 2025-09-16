@@ -431,7 +431,6 @@
   <string name="toStudy">Проучи</string>
   <string name="importGame">Увези партију</string>
   <string name="importGameExplanation">Налепи PGN партије да добијеш проигриву репризу, рачунарску анализу, ћаскање партије и јавни линк за дељење.</string>
-  <string name="importGameCaveat">Варијације ће бити избрисане. Ако желиш да их сачуваш, увези PGN путем студије.</string>
   <string name="importGameDataPrivacyWarning">Овај PGN је јавно доступан. Ако желиш да партију увезеш као приватну, користи студију.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s увезена партија</item>
