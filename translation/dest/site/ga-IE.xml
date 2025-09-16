@@ -486,7 +486,6 @@
   <string name="importGame">Déan cluiche a iompórtáil</string>
   <string name="importGameExplanation">Greamaigh cluiche PGN chun athfhéachaint inbhrabhsala a fháil,
 anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
-  <string name="importGameCaveat">Scriosfar éagsúlachtaí. Chun iad a choinneáil, iompórtáil an PGN trí staidéar.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s cluiche iompórtáilte</item>
     <item quantity="two">%s chluiche iompórtáilte</item>
