@@ -111,7 +111,7 @@ final class RankingApi(
       racingKings = racingKings
     )
 
-  object weeklyStableRanking:
+  private[user] object weeklyStableRanking:
 
     private type Rank = Int
 
@@ -123,7 +123,7 @@ final class RankingApi(
         case _ => Map.empty
 
     private val cache = cacheApi.unit[Map[PerfKey, Map[UserId, Rank]]]:
-      _.refreshAfterWrite(15.minutes).buildAsyncTimeout(): _ =>
+      _.refreshAfterWrite(30.minutes).buildAsyncTimeout(10.minutes): _ =>
         lila.rating.PerfType.leaderboardable
           .sequentially: pt =>
             compute(pt).dmap(pt -> _)
