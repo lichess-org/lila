@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advancedPawn">Előretört gyalog</string>
-  <string name="advancedPawnDescription">Egy gyalogod előretört az ellenfél térfelére és át is változhat.</string>
+  <string name="advancedPawnDescription">Egy gyalogod előretört az ellenfél térfelére, és át is változhat.</string>
   <string name="advantage">Előny</string>
   <string name="advantageDescription">Ragadd meg a lehetőséget a döntő előny megszerzéséhez. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Anasztázia mattja</string>
@@ -57,6 +57,10 @@
   <string name="interferenceDescription">Egy figura mozgatása két ellenséges figura közé az egyiket vagy mindkettőt védtelenné téve, például egy huszárral belépni egy védett mezőre két bástya közé.</string>
   <string name="intermezzo">Köztes lépés</string>
   <string name="intermezzoDescription">A várt lépés megtétele helyett egy olyan lépés beszúrása, amely fenyegetésére az ellenfélnek rögtön válaszolnia kell. Ismert még \"Zwischenzug\"-nak vagy \"Intermezzo\"-nak.</string>
+  <string name="killBoxMate">Kill box matt</string>
+  <string name="killBoxMateDescription">Egy bástya az ellenséges király mellett áll, és egy vezér támogatja, ami blokkolja a király menekülőmezőit is. A bástya és a vezér egy 3×3-as területre, ún. kill boxba zárja az ellenséges királyt.</string>
+  <string name="vukovicMate">Vukovic matt</string>
+  <string name="vukovicMateDescription">Egy bástya és egy huszár együttműködnek a mattadáshoz. A bástya ad mattot, miközben egy harmadik figura támogatja, a huszár pedig a király menekülőmezőit zárja le.</string>
   <string name="knightEndgame">Huszár végjáték</string>
   <string name="knightEndgameDescription">Végjáték csak huszárokkal és gyalogokkal.</string>
   <string name="long">Hosszú feladvány</string>
