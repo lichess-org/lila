@@ -173,12 +173,16 @@ Használd játszmák elemzésére és jegyzetek készítésére,&lt;br&gt;beszé
   <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Megosztva és elmentve</string>
   <string name="sharedAndSavedText">Más tagok valós időben láthatják a lépéseidet!&lt;br&gt;Ráadásul minden örökre elmentődik.</string>
   <string name="studyMembersTitle">Tanulmányszerzők</string>
+  <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s A nézők megtekinthetik a tanulmányt, és beszélgethetnek a csevegésben.&lt;br&gt;&lt;br&gt;%2$s A közreműködők lépéseket tehetnek, és frissíthetik a tanulmányt.</string>
   <string name="addMembersText" comment="%s is an icon that will added at runtime">Kattints a %s parancsra!&lt;br&gt;Majd döntsd el, ki lehet közreműködő.</string>
   <string name="studyChaptersTitle">Tanulmány fejezetek</string>
+  <string name="studyChaptersText">Egy tanulmány több fejezetet is tartalmazhat.&lt;br&gt;Minden fejezetnek saját kezdőállása és külön lépésváltozata van.</string>
   <string name="commentPositionTitle">Kommentáld az állást</string>
-  <string name="commentPositionText" comment="%s is an icon that will added at runtime">Kattints a %s parancsra, vagy jobb gombbal a jobb oldali lépéslistára.&lt;br&gt;A megjegyzéseket megosztod és elmented.</string>
+  <string name="commentPositionText" comment="%s is an icon that will added at runtime">Kattints a %s parancsra, vagy jobb klikk a jobb oldali lépéslistára.&lt;br&gt;A megjegyzéseket megosztod és elmented.</string>
   <string name="annotatePositionTitle">Jegyezd le az állást</string>
+  <string name="annotatePositionText">Kattints a !? parancsra, vagy jobb klikk a jobb oldali lépéslistára!&lt;br&gt;Így az értékelő jelzéseket megosztod és elmented.</string>
   <string name="conclusionTitle">Köszönjük az idődet</string>
+  <string name="conclusionText">Megtalálod&lt;a href=\'/study/mine/hot\'&gt;korábbi tanulmányaidat&lt;/a&gt;a profilod oldalán.&lt;br&gt;Van egy &lt;ahref=\'//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way\'&gt;blog poszt is a tanulmányokról&lt;/a&gt;.&lt;br&gt;A haladó felhasználók a \"?\" megnyomásával megnézhetik a billentyűparancsokat.&lt;br&gt;Jó szórakozást!</string>
   <string name="createChapterTitle">Hozzunk létre egy tanulmány fejezetet</string>
   <string name="createChapterText">Egy tanulmány több fejezetet is tartalmazhat.&lt;br&gt;Minden fejezetnek különböző lépésváltozatai vannak,&lt;br&gt;és számos módon hozhatók létre.</string>
   <string name="fromInitialPositionTitle">Kezdőállásból</string>
