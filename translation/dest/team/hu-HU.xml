@@ -44,14 +44,35 @@ Azok a játékosok akik nem szeretnek üzeneteket kapni akár ki is léphetnek.<
   <string name="teamsIlead">Általam vezetett csapatok</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Akarsz linket létrehozni a közelgő események egyikére?</string>
   <string name="leadersChat">Vezetői csevegő</string>
+  <string name="introduction">Bemutatkozás</string>
+  <string name="teamIntroductionHelp">Rövid leírás a csapatlistákon látható. Maximum 200 karakter.</string>
+  <string name="teamDescriptionHelp">A teljes leírás a csapat oldalán található.</string>
   <string name="closeTeam">Csapat megszüntetése</string>
   <string name="closeTeamDescription">Véglegesen megszünteti a csapatot.</string>
   <string name="entryCode">Belépési kód</string>
   <string name="entryCodeDescriptionForLeader">(Nem kötelező) Egyszeri kód amit az új tagoknak ismerniük kell a csapathoz való csatlakozáshoz.</string>
   <string name="incorrectEntryCode">Érvénytelen belépési kód.</string>
   <string name="teamAlreadyExists">Ez a csapat már létezik.</string>
+  <string name="upcomingTournaments">Közelgő versenyek</string>
   <string name="completedTourns">Véget ért versenyek</string>
   <string name="declinedRequests">Visszautasított kérelmek</string>
   <string name="joinLichessVariantTeam">Csatlakozz a hivatalos %s csapathoz, hogy értesülj hírekről és eseményekről</string>
   <string name="teamPage">Csapat oldala</string>
+  <string name="thisTeamBattleIsOver">A verseny véget ért, a csapatok már nem változhatnak.</string>
+  <string name="listTheTeamsThatWillCompete">A versenyen játszó csapatok listázása.</string>
+  <string name="oneTeamPerLine">Soronként egy csapat. Használd az automatikus kitöltést.</string>
+  <string name="oneTeamPerLineHelp">Másolhatod ezt a listát egyik versenyből a másikba.
+
+Nem törölhetsz egy csapatot, ha egyik játékosa már megkezdte a versenyt.</string>
+  <string name="numberOfLeadsPerTeam">Vezetők száma csapatonként. Pontjaik összege a csapatpont.</string>
+  <string name="numberOfLeadsPerTeamHelp">Nem kellene változtatnod ezt az értéket a verseny kezdete után!</string>
+  <string name="innerTeam">Belső csapat</string>
+  <plurals name="battleOfNbTeams">
+    <item quantity="one">%s Csapat csatája</item>
+    <item quantity="other">Ez %s csapat csatája</item>
+  </plurals>
+  <plurals name="nbLeadersPerTeam">
+    <item quantity="one">Egy vezető csapatonként</item>
+    <item quantity="other">%s vezető csapatonként</item>
+  </plurals>
 </resources>

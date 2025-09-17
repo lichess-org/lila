@@ -1010,4 +1010,5 @@ Alle kostnader for drift, utvikling og innhold finansieres utelukkende av bruker
   <string name="enableBlindMode">Aktiver blindemodus</string>
   <string name="disableBlindMode">Deaktiver blindemodus</string>
   <string name="copyToClipboard">Kopier til utklippstavlen</string>
+  <string name="search">Søk</string>
 </resources>

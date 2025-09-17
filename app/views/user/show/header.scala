@@ -26,12 +26,12 @@ object header:
       u.isPatron.not.so(lineIcon(u)),
       titleTag(u.title),
       u.username,
-      ctx.blind.so(
-        if isOnline.exec(u.id) then s" : ${trans.site.online.txt()}" else s" : ${trans.site.offline.txt()}"
-      ),
-      userFlair(u).map: flair =>
-        if ctx.isAuth then a(href := routes.Account.profile, title := trans.site.setFlair.txt())(flair)
-        else flair
+      if ctx.blind
+      then s" : ${if isOnline.exec(u.id) then trans.site.online.txt() else trans.site.offline.txt()}"
+      else
+        userFlair(u).map: flair =>
+          if ctx.isAuth then a(href := routes.Account.profile, title := trans.site.setFlair.txt())(flair)
+          else flair
     )
 
   def apply(u: User, info: UserInfo, angle: UserInfo.Angle, social: UserInfo.Social)(using ctx: Context) =

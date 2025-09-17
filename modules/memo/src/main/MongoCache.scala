@@ -21,7 +21,7 @@ final class MongoCache[K, V: BSONHandler] private (
 
   private given BSONDocumentHandler[Entry] = Macros.handler[Entry]
 
-  private val cache = build { loader => k =>
+  private val cache: AsyncLoadingCache[K, V] = build { loader => k =>
     val dbKey = makeDbKey(k)
     coll
       .one[Entry]($id(dbKey))

@@ -61,7 +61,7 @@
   <string name="studyPgn">PGN bestuderen</string>
   <string name="chapterPgn">Hoofdstuk PGN</string>
   <string name="copyChapterPgn">PGN kopiëren</string>
-  <string name="copyRawChapterPgn" comment="Appears as a button on individual study chapters. Lets you copy a PGN without any annotations, commentary or analysis">Pgn zonder toevoegingen kopiëren</string>
+  <string name="copyRawChapterPgn" comment="Appears as a button on individual study chapters. Lets you copy a PGN without any annotations, commentary or analysis">Kale pgn kopiëren</string>
   <string name="downloadGame">Partij downloaden</string>
   <string name="studyUrl">Studie URL</string>
   <string name="currentChapterUrl">Huidige hoofdstuk URL</string>

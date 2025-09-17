@@ -8,7 +8,7 @@ import scala.util.{ Success, Try }
 import lila.db.BSON
 import lila.db.dsl.{ *, given }
 
-object BsonHandlers:
+private object BsonHandlers:
 
   import Puzzle.BSONFields.*
   import lila.rating.Glicko.glickoHandler
