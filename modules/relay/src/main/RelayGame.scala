@@ -113,8 +113,8 @@ private object RelayGame:
     tags.copy(value = tags.value.filterNot(_.name == Tag.Date))
 
   private def withUnplayedTermination(tags: Tags, res: lila.study.StudyPgnImport.Result) =
-    if res.ending.isDefined && res.root.mainline.sizeIs < 2 then
-      tags.copy(value = tags.value.filterNot(_.name == Tag.Termination) :+ (Tag(_.Termination, "Unplayed")))
+    if res.ending.isDefined && res.root.mainline.sizeIs < 2
+    then tags + Tag(_.Termination, "Unplayed")
     else tags
 
   import scalalib.Iso
