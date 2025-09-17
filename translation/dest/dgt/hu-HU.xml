@@ -8,6 +8,8 @@
   <string name="toConnectTheDgtBoard" comment="%s is a piece of software e.g. &quot;LiveChess 2.25+&quot;">A DGT táblád csatlakoztatásához telepítened kell: %s.</string>
   <string name="downloadHere">A szoftver innen letölthető: %s.</string>
   <string name="openingThisLink">az alábbi link megnyitásával</string>
+  <string name="keepPlayPageOpen">A játékoldalnak nyitva kell maradnia a böngésződben. Nem kell láthatónak lennie, kicsinyítheted, vagy az oldalra teheted a Lichess játékoldallal együtt, de ne zárd be, különben a tábla nem működik tovább.</string>
+  <string name="ifMoveNotDetected">Ha egy lépés nincs észlelve</string>
   <string name="reloadThisPage">Oldal frissítése</string>
   <string name="dgtConfigure">DGT - Beállítások</string>
   <string name="lichessConnectivity">Lichess csatlakoztatás</string>
