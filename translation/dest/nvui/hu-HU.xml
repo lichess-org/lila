@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveList">Lépéslista</string>
+  <string name="gameInfo">Játék infó</string>
+  <string name="pieces">Figurák</string>
+  <string name="lastMove">Utolsó lépés</string>
+  <string name="yourClock">Az órád</string>
+  <string name="opponentClock">Ellenfeled órája</string>
+  <string name="gameStart">Játék indítása</string>
+  <string name="moveToRank">Lépj az 1. sorról a 8. sorra.</string>
   <string name="king">király</string>
   <string name="whiteKing">világos király</string>
   <string name="blackKing">sötét király</string>
@@ -21,7 +28,8 @@
   <string name="blackPawn">sötét gyalog</string>
   <string name="sanCheck" comment="+ in standard notation">sakk</string>
   <string name="sanCheckmate" comment="# in standard notation">matt</string>
-  <string name="sanShortCastling" comment="O-O in standard notation">rövidsánc</string>
-  <string name="sanLongCastling" comment="O-O-O in standard notation">hosszúsánc</string>
+  <string name="sanShortCastling" comment="O-O in standard notation; also known as kingside castling">rövidsánc</string>
+  <string name="sanLongCastling" comment="O-O-O in standard notation; also known as queenside castling.">hosszúsánc</string>
+  <string name="copyToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">Másold %s vágólapra</string>
   <string name="pgnAndFen" comment="Will be a heading read out over text-to-speech for blind users looking to share a PGN or FEN of a game.">PGN és FEN</string>
 </resources>
