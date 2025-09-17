@@ -2,8 +2,12 @@
 <resources>
   <string name="voiceCommands">Hangvezérlés</string>
   <string name="watchTheVideoTutorial">Nézd meg a videós útmutatót</string>
+  <string name="instructions4">Engedélyezd %s-t zajos környezetben. Tartsd lenyomva a Shift billentyűt, miközben parancsokat mondasz, ha ez be van kapcsolva.</string>
   <string name="thisBlogPost">Ez a blog poszt</string>
+  <string name="takeRookWithQueen">Üsd le a bástyát a vezérrel</string>
+  <string name="castle" comment="Castle is used as a verb here, referring to castling.">Sáncolj (bármelyik oldalra)</string>
   <string name="phoneticAlphabetIsBest">Fonetikus ábécé a legjobb</string>
+  <string name="sleep">Alvó mód (ha éber módban van)</string>
   <string name="turnOffVoiceRecognition">Kapcsold ki a hangfelismerést</string>
   <string name="showPuzzleSolution">Mutasd a feladvány megoldását</string>
 </resources>
