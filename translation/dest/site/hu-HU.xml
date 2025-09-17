@@ -71,11 +71,11 @@
   <string name="promoteVariation">Változat feljebb léptetése</string>
   <string name="makeMainLine">Legyen ez a főváltozat</string>
   <string name="deleteFromHere">Törlés innentől</string>
-  <string name="collapseVariations">Rejtsd el a változatokat</string>
-  <string name="expandVariations">Mutasd a változatokat</string>
+  <string name="collapseVariations">Változatok elrejtése</string>
+  <string name="expandVariations">Változatok megjelenítése</string>
   <string name="forceVariation">Mentés változatként</string>
   <string name="copyVariationPgn">PGN másolása</string>
-  <string name="copyMainLinePgn">Másold a főváltozat PGN-jét</string>
+  <string name="copyMainLinePgn">Főváltozat másolása PGN-ben</string>
   <string name="move">Lépés</string>
   <string name="variantLoss">Vesztő</string>
   <string name="variantWin">Nyerő</string>
@@ -259,7 +259,7 @@
   <string name="accountConfirmationEmailNotNeeded">Nincs szükség megerősítő emailre.</string>
   <string name="accountClosed">A(z) %s felhasználói fiókot zároltuk.</string>
   <string name="accountRegisteredWithoutEmail">A(z) %s felhasználói fiók e-mail-cím nélkül lett regisztrálva.</string>
-  <string name="rank">Rang</string>
+  <string name="rank">Helyezés</string>
   <string name="rankX">Helyezés: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
     <item quantity="one">A helyezés percenként frissül</item>
@@ -274,7 +274,7 @@
     <item quantity="one">%s játszma veled</item>
     <item quantity="other">%s játék veled</item>
   </plurals>
-  <string name="ok">OKÉ</string>
+  <string name="ok">OK</string>
   <string name="cancel">Mégse</string>
   <string name="whiteTimeOut">Világos ideje lejárt</string>
   <string name="blackTimeOut">Sötét ideje lejárt</string>
@@ -293,7 +293,7 @@
   <string name="abortGame">Játszma elvetése</string>
   <string name="gameAborted">Játszma elvetve</string>
   <string name="standard">Hagyományos</string>
-  <string name="customPosition">Szokásos állás</string>
+  <string name="customPosition">Megadott állásból</string>
   <string name="unlimited">Végtelen</string>
   <string name="mode">Mód</string>
   <string name="casual">Nem rangsorolt</string>
