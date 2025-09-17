@@ -21,14 +21,6 @@ private[controllers] trait ForumController:
         if _ then a
         else Forbidden("You cannot post to this category")
 
-  protected def CategGrantMod[A <: Result](
-      categId: ForumCategId
-  )(a: => Fu[A])(using Context, Me): Fu[Result] =
-    access.isGrantedMod(categId).flatMap { granted =>
-      if granted | isGranted(_.ModerateForum) then a
-      else Forbidden("You cannot post to this category")
-    }
-
   protected def TopicGrantModBySlug[A <: Result](
       categId: ForumCategId,
       topicSlug: ForumTopicSlug
