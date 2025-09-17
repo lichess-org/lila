@@ -9,16 +9,11 @@ export interface ChallengeOpts {
 type ChallengeStatus = 'created' | 'offline' | 'canceled' | 'declined' | 'accepted';
 export type ChallengeDirection = 'in' | 'out';
 
-export interface ChallengeUser {
-  id: string;
-  name: string;
+export interface ChallengeUser extends LightUser {
   rating: number;
   provisional?: boolean;
-  title?: string;
   online?: boolean;
-  patron?: boolean;
   lag?: number;
-  flair?: Flair;
 }
 
 export interface TimeControl {
