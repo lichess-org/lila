@@ -247,7 +247,7 @@ export function renderCeval(ctrl: CevalHandler): VNode[] {
         class: { computing: ceval.isComputing },
         hook: {
           update: vnode => {
-            if (customOnclick) (vnode.elm as HTMLElement).onclick = customOnclick;
+            (vnode.elm as HTMLElement).onclick = customOnclick ?? null;
           },
         },
       },
