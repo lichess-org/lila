@@ -8,8 +8,11 @@
   <string name="toConnectTheDgtBoard" comment="%s is a piece of software e.g. &quot;LiveChess 2.25+&quot;">A DGT táblád csatlakoztatásához telepítened kell: %s.</string>
   <string name="downloadHere">A szoftver innen letölthető: %s.</string>
   <string name="openingThisLink">az alábbi link megnyitásával</string>
+  <string name="ifLiveChessRunningElsewhere">Ha %1$s egy másik gépen vagy másik porton fut, itt kell beállítanod az IP-címet és a portot: %2$s.</string>
   <string name="keepPlayPageOpen">A játékoldalnak nyitva kell maradnia a böngésződben. Nem kell láthatónak lennie, kicsinyítheted, vagy az oldalra teheted a Lichess játékoldallal együtt, de ne zárd be, különben a tábla nem működik tovább.</string>
+  <string name="boardWillAutoConnect">A tábla automatikusan csatlakozik bármelyik folyamatban lévő játékhoz, illetve bármelyik újonnan induló játékhoz. Hamarosan lehetőséged lesz kiválasztani, melyik játékban szeretnél játszani.</string>
   <string name="ifMoveNotDetected">Ha egy lépés nincs észlelve</string>
+  <string name="checkYouHaveMadeOpponentsMove">Először ellenőrizd, hogy megtetted-e a DGT táblán az ellenfeled lépését! Vond vissza a saját lépésedet, majd játszd újra.</string>
   <string name="reloadThisPage">Oldal frissítése</string>
   <string name="dgtConfigure">DGT - Beállítások</string>
   <string name="lichessConnectivity">Lichess csatlakoztatás</string>
@@ -29,6 +32,7 @@
   <string name="keywordFormatDescription">A kulcsszavak JSON formátumban, melyekkel az általad használt nyelvre fordítjuk a lépéseket és eredményeket. Alapértelmezetten Angol, de ezt bármikor megváltoztathatod.</string>
   <string name="debug">Hibakeresés</string>
   <string name="verboseLogging">Részletes naplózás</string>
+  <string name="toSeeConsoleMessage">A konzol üzenetek megtekintéséhez nyomd meg: Command + Option + C (Mac) vagy Control + Shift + C (Windows, Linux, Chrome OS)</string>
   <string name="playWithDgtBoard">Játék DGT táblával</string>
   <string name="configure">Beállítás</string>
 </resources>
