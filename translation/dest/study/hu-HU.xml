@@ -180,8 +180,10 @@ Használd játszmák elemzésére és jegyzetek készítésére,&lt;br&gt;beszé
   <string name="loadExistingLichessGameTitle">Tölts be egy létező Lichess játszmát</string>
   <string name="fromFenStringTitle">Egy FEN karakterláncból</string>
   <string name="fromPgnGameTitle">Egy PGN játszmából</string>
+  <string name="fromPgnGameText">Illessz be egy partit PGN formátumban!&lt;br&gt;,hogy betölthess a lépéseket, megjegyzéseket és változatokat a fejezetbe.</string>
   <string name="variantsAreSupportedTitle">Tanulmányok támasztják alá a változatokat</string>
   <string name="variantsAreSupportedText">Igen, tanulhatsz crazyhouse-t&lt;br&gt;és minden Lichess játéktípust!</string>
+  <string name="chapterConclusionText">A fejezeteket örökre elmentjük.&lt;br&gt;Jó szórakozást a sakktartalom rendszerezéséhez!</string>
   <string name="doubleDefeat">Kettős vereség</string>
   <string name="blackDefeatWhiteCanNotWin">Sötét vesztésre áll, de világos nem tud nyerni</string>
   <string name="whiteDefeatBlackCanNotWin">Világos vesztésre áll, de sötét nem tud nyerni</string>
