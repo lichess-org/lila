@@ -67,6 +67,7 @@ private object RelayGame:
   val fideIdTags: TagNames = List(_.WhiteFideId, _.BlackFideId)
   val whiteTags: TagNames = List(_.White, _.WhiteFideId)
   val blackTags: TagNames = List(_.Black, _.BlackFideId)
+  val unplayedTag = Tag(_.Termination, "Unplayed")
 
   def fromChapter(c: lila.study.Chapter) = RelayGame(
     tags = c.tags,
@@ -114,7 +115,7 @@ private object RelayGame:
 
   private def withUnplayedTermination(tags: Tags, res: lila.study.StudyPgnImport.Result) =
     if res.ending.isDefined && res.root.mainline.sizeIs < 2
-    then tags + Tag(_.Termination, "Unplayed")
+    then tags + unplayedTag
     else tags
 
   import scalalib.Iso

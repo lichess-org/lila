@@ -236,7 +236,7 @@ private final class RelayPlayerApi(
                               tags.points,
                               round.rated,
                               round.customScoring,
-                              unplayed = tags.value.contains(Tag(_.Termination, "Unplayed"))
+                              unplayed = tags.value.contains(RelayGame.unplayedTag)
                             )
                             players.updated(
                               playerId,
