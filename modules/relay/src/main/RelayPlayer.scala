@@ -236,8 +236,7 @@ private final class RelayPlayerApi(
                               tags.points,
                               round.rated,
                               round.customScoring,
-                              tags.value
-                                .exists(tag => tag.name == Tag.Termination && tag.value == "Unplayed")
+                              unplayed = tags.value.contains(Tag(_.Termination, "Unplayed"))
                             )
                             players.updated(
                               playerId,
