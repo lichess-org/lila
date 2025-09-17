@@ -864,11 +864,11 @@
   <string name="findBetterMoveForBlack">Нађи бољи потез за црног</string>
   <string name="resumeLearning">Настави учити</string>
   <string name="youCanDoBetter">Можеш одрадити боље</string>
-  <string name="tryAnotherMoveForWhite">Покушајте други потез за белог</string>
-  <string name="tryAnotherMoveForBlack">Покушајте други потез за црног</string>
+  <string name="tryAnotherMoveForWhite">Пробај други потез за белог</string>
+  <string name="tryAnotherMoveForBlack">Пробај други потез за црног</string>
   <string name="solution">Решење</string>
   <string name="waitingForAnalysis">Чекање на анализу</string>
-  <string name="noMistakesFoundForWhite">Нема грешке нађене за белог</string>
+  <string name="noMistakesFoundForWhite">Ниједна грешка није нађена за белог</string>
   <string name="noMistakesFoundForBlack">Нема грешке нађене за црног</string>
   <string name="doneReviewingWhiteMistakes">Завршено прегледање белих грешака</string>
   <string name="doneReviewingBlackMistakes">Завршено прегледање црних грешака</string>
