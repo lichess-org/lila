@@ -1012,4 +1012,6 @@ Alle exploitatiekosten, ontwikkeling en inhoud worden enkel gefinancierd door do
   <string name="online" comment="status of a user">online</string>
   <string name="offline" comment="status of a user">offline</string>
   <string name="search">Zoeken</string>
+  <string name="clearSearch">Zoekopdracht wissen</string>
+  <string name="tags">Labels</string>
 </resources>
