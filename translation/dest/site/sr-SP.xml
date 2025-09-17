@@ -954,6 +954,8 @@
   <string name="timeAlmostUp">Време ускоро изтиче!</string>
   <string name="clickToRevealEmailAddress">[Притисни да откријеш имејл адресу]</string>
   <string name="download">Преузми</string>
+  <string name="onlyMembersOfTeam">Само чланови тима</string>
+  <string name="cancelSimul">Откажи симултанку</string>
   <string name="simulHostcolor">Које фигуре има домаћин за сваку партију</string>
   <string name="estimatedStart">Очекивано време почетка</string>
   <string name="simulFeatured">Прикажи на %s</string>
@@ -993,4 +995,7 @@
   <string name="instructions">Инструкције</string>
   <string name="showMeEverything">Прикажи све</string>
   <string name="stats">Статистике</string>
+  <string name="online" comment="status of a user">онлајн</string>
+  <string name="offline" comment="status of a user">офлајн</string>
+  <string name="search">Тражи</string>
 </resources>
