@@ -77,18 +77,18 @@ private object RelayGame:
 
   def fromStudyImport(res: lila.study.StudyPgnImport.Result): RelayGame =
     val fixedTags = cleanOrRemovePlayerNames:
-      removeDateTag:
-        Tags:
-          // remove wrong ongoing result tag if the board has a mate on it
-          if res.ending.isDefined && res.tags(_.Result).has("*") then
-            res.tags.value.filter(_ != Tag(_.Result, "*"))
-          // normalize result tag (e.g. 0.5-0 ->  1/2-0)
-          else
-            res.tags.value.map: tag =>
-              if tag.name == Tag.Result
-              then tag.copy(value = Outcome.showPoints(Outcome.pointsFromResult(tag.value)))
-              else tag
-      .pipe(withUnplayedTermination(_, res))
+      Tags:
+        // remove wrong ongoing result tag if the board has a mate on it
+        if res.ending.isDefined && res.tags(_.Result).has("*") then
+          res.tags.value.filter(_ != Tag(_.Result, "*"))
+        // normalize result tag (e.g. 0.5-0 ->  1/2-0)
+        else
+          res.tags.value.map: tag =>
+            if tag.name == Tag.Result
+            then tag.copy(value = Outcome.showPoints(Outcome.pointsFromResult(tag.value)))
+            else tag
+      .pipe(removeDateTag)
+        .pipe(withUnplayedTermination(_, res))
     RelayGame(
       tags = fixedTags,
       variant = res.variant,
