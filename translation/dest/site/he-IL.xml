@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">שחק/י עם חבר/ה</string>
-  <string name="playWithTheMachine">שחק/י מול המחשב</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">כדי להזמין מישהו לשחק, שתפו את הכתובת הזאת</string>
   <string name="gameOver">המשחק הסתיים</string>
   <string name="waitingForOpponent">ממתין ליריב</string>
@@ -384,7 +382,6 @@
     <item quantity="other">%s נוכחיים</item>
   </plurals>
   <string name="exportGames">ייצוא משחקים</string>
-  <string name="ratingRange">טווח דירוג</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">תן שנייה %s</item>
     <item quantity="two">תן %s שניות</item>
