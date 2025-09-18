@@ -68,7 +68,7 @@ export const tourSide = (ctx: RelayViewContext, kid: LooseVNode) => {
               hl(
                 'button.relay-tour__side__name',
                 { hook: bind('mousedown', relay.tourShow.toggle, relay.redraw) },
-                relay.currentRound.name,
+                relay.round.name,
               ),
               !ctrl.isEmbed &&
                 hl('button.streamer-show.data-count', {
@@ -116,7 +116,7 @@ export const tourSide = (ctx: RelayViewContext, kid: LooseVNode) => {
 };
 
 const startCountdown = (relay: RelayCtrl) => {
-  const round = relay.currentRound,
+  const round = relay.round,
     startsAt = defined(round.startsAt) && new Date(round.startsAt),
     date = startsAt && hl('time', commonDateFormat(startsAt));
   return hl('div.relay-tour__side__empty', { attrs: dataIcon(licon.RadioTower) }, [
@@ -208,7 +208,7 @@ const share = (ctx: RelayViewContext) => {
       copyMeInput(path.startsWith('/') ? `${baseUrl()}${path}` : path),
       help,
     ]);
-  const roundName = ctx.relay.currentRound.name;
+  const roundName = ctx.relay.round.name;
   const { tour, group } = ctx.relay.data;
   return hl(
     'div.relay-tour__share-all',
@@ -308,7 +308,7 @@ const groupSelect = (ctx: RelayViewContext, group: RelayGroup) => {
 const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
   const toggle = relay.roundSelectShow;
   const clickHook = { hook: bind('click', toggle.toggle, relay.redraw) };
-  const round = relay.currentRound;
+  const round = relay.round;
   const icon = roundStateIcon(round, true);
   return hl(
     'div.mselect.relay-tour__mselect.relay-tour__round-select',
