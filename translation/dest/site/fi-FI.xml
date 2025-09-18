@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Pelaa kaveria vastaan</string>
-  <string name="playWithTheMachine">Pelaa tietokonetta vastaan</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Lähetä tämä linkki kaverillesi, jonka haluat kutsua pelaamaan</string>
   <string name="gameOver">Peli ohi</string>
   <string name="waitingForOpponent">Odotetaan vastustajaa</string>
@@ -341,7 +339,6 @@
     <item quantity="other">%s meneillään</item>
   </plurals>
   <string name="exportGames">Vie pelejä</string>
-  <string name="ratingRange">Vahvuuslukualue</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Anna %s sekuntia</item>
     <item quantity="other">Anna %s sekuntia</item>

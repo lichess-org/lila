@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Гуляць з сябрам</string>
-  <string name="playWithTheMachine">Гуляць з камп\'ютарам</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Выкарыстайце гэтую спасылку каб запрасіць кагосьці да гульні</string>
   <string name="gameOver">Гульня скончана</string>
   <string name="waitingForOpponent">Чакаем апанента</string>
@@ -371,7 +369,6 @@
     <item quantity="other">%s у працэсе</item>
   </plurals>
   <string name="exportGames">Экспарт гульняў</string>
-  <string name="ratingRange">Дыяпазон рэйтынгу</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Даць %s секунду</item>
     <item quantity="few">Даць %s секунды</item>

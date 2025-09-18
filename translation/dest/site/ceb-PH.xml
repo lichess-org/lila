@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Makigduwa sa imong amigo</string>
-  <string name="playWithTheMachine">Makigduwa sa Makina</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Mag-imbitar ug bisag kinsa para makigduwa, ihatg ni nga URL</string>
   <string name="gameOver">Nahuman na ang Duwa</string>
   <string name="waitingForOpponent">Naghuwat sa Kontra</string>

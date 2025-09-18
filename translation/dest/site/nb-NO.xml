@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Spill mot en venn</string>
-  <string name="playWithTheMachine">Spill mot maskinen</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">For å invitere noen til å spille, gi dem denne lenken</string>
   <string name="gameOver">Partiet er avsluttet</string>
   <string name="waitingForOpponent">Venter på motstander</string>
@@ -341,7 +339,6 @@
     <item quantity="other">%s pågår</item>
   </plurals>
   <string name="exportGames">Eksporter partier</string>
-  <string name="ratingRange">Ratingspenn</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Gi %s sekund</item>
     <item quantity="other">Gi %s sekunder</item>

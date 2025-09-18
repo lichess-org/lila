@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Cum amicō ludere</string>
-  <string name="playWithTheMachine">Cum ordinatrō ludere</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Hōc URL alicui dā ut ludatis</string>
   <string name="gameOver">Ludus conclusus est</string>
   <string name="waitingForOpponent">Adversarius expectatur</string>
@@ -293,7 +291,6 @@
     <item quantity="other">%s ludentes</item>
   </plurals>
   <string name="exportGames">Lusiones extrahere</string>
-  <string name="ratingRange">Ordo</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Da %s secundas</item>
     <item quantity="other">Da %s secundas</item>

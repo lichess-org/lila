@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">La ciyaar saaxiib</string>
-  <string name="playWithTheMachine">La ciyaar komyuutar</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Si aad u casuumtid qof kula ciyaara, u dir laynkan</string>
   <string name="gameOver">Ciyaarti way dhamaatay</string>
   <string name="waitingForOpponent">Sugaya herjeede cusub</string>
@@ -337,7 +335,6 @@
     <item quantity="other">%s ciyaaraya</item>
   </plurals>
   <string name="exportGames">La bax ciyaaro</string>
-  <string name="ratingRange">Qiimayntayda</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Sii %s sikin</item>
     <item quantity="other">Sii %s sikin</item>

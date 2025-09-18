@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">বন্ধুর সাথে খেলো</string>
-  <string name="playWithTheMachine">কম্পিউটারের সাথে খেলতে চান</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">কাউকে খেলার জন্য আমন্ত্রণ জানাতে চাইলে এই URL টি দিন</string>
   <string name="gameOver">খেলা সমাপ্ত</string>
   <string name="waitingForOpponent">প্রতিপক্ষের জন্য অপেক্ষারত</string>
@@ -337,7 +335,6 @@
     <item quantity="other">%s খেলছে</item>
   </plurals>
   <string name="exportGames">খেলা রপ্তানী</string>
-  <string name="ratingRange">রেটিং সীমা</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">%s সেকেন্ড দিন</item>
     <item quantity="other">%s সেকেন্ড দিন</item>

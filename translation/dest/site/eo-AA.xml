@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Ludi kun amiko</string>
-  <string name="playWithTheMachine">Ludi kontraŭ la komputilo</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Por inviti iun al ludo, donu ĉi tiun ligilon</string>
   <string name="gameOver">Ludo finiĝis</string>
   <string name="waitingForOpponent">Atendante kontraŭulon</string>
@@ -337,7 +335,6 @@
     <item quantity="other">%s aktualaj</item>
   </plurals>
   <string name="exportGames">Eksporti ludojn</string>
-  <string name="ratingRange">Rangogamo</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Doni %s sekundojn</item>
     <item quantity="other">Doni %s sekundojn</item>

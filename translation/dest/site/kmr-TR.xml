@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Bi hevalekê re bilîze</string>
-  <string name="playWithTheMachine">Bi kompîtûrê ra bilîze</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Vê girêdankê parve bike da ku hevalên te bi te ra bilîzin</string>
   <string name="gameOver">Lîstik bi dawî bû</string>
   <string name="waitingForOpponent">Li benda reqîbê ye</string>
@@ -337,7 +335,6 @@
     <item quantity="other">%s dilîze</item>
   </plurals>
   <string name="exportGames">Lîstikan derxîne</string>
-  <string name="ratingRange">Navbera reytîngê</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">%s çirke bide</item>
     <item quantity="other">%s çirke bide</item>

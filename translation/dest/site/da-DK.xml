@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Spil mod en ven</string>
-  <string name="playWithTheMachine">Spil mod computeren</string>
+  <string name="gameSetup">Opsætning af parti</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Spil mod en ven</string>
+  <string name="playAgainstAI">Spil mod AI</string>
+  <string name="gameMode">Spiltype</string>
+  <string name="createLobbyGame">Opret lobbyparti</string>
+  <string name="youPlayAs">Du spiller som</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Invitér nogen til at spille ved at give dem denne URL</string>
   <string name="gameOver">Spillet er slut</string>
   <string name="waitingForOpponent">Venter på modstander</string>
@@ -341,7 +345,7 @@
     <item quantity="other">%s spil i gang</item>
   </plurals>
   <string name="exportGames">Eksporter spil</string>
-  <string name="ratingRange">Rating-interval</string>
+  <string name="ratingFilter">Ratingfilter</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Giv %s sekund</item>
     <item quantity="other">Giv %s sekunder</item>
@@ -826,6 +830,7 @@
   <string name="notifications">Notifikationer</string>
   <string name="notificationsX">Notifikationer: %1$s</string>
   <string name="perfRatingX">Rating: %s</string>
+  <string name="yourRatingIsX">Din rating er %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekund til at lave det første træk</item>
     <item quantity="other">%s sekunder til at lave det første træk</item>
@@ -877,6 +882,7 @@
   <string name="playVariationToCreateConditionalPremoves">Spil en variant for at lave betingede forhåndstræk</string>
   <string name="noConditionalPremoves">Ingen betingede forhåndstræk</string>
   <string name="playX">Spil %s</string>
+  <string name="challengeX">Udfordr %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">og gem %s serie af forhåndstræk</item>
     <item quantity="other">og gem %s serier af forhåndstræk</item>

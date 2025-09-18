@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Zagraj ze znajomym</string>
-  <string name="playWithTheMachine">Zagraj z komputerem</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Przekaż ten adres, by zaprosić kogoś do wspólnej gry</string>
   <string name="gameOver">Partia zakończona</string>
   <string name="waitingForOpponent">Oczekiwanie na ruch przeciwnika</string>
@@ -387,7 +385,6 @@
     <item quantity="other">%s w toku</item>
   </plurals>
   <string name="exportGames">Eksportuj partie</string>
-  <string name="ratingRange">Przedział rankingowy</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Dodaj %s sekundę</item>
     <item quantity="few">Dodaj %s sekundy</item>

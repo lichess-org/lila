@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">دوست کے ساتھ کھیلیں</string>
-  <string name="playWithTheMachine">کمپیوٹر کے ساتھ کھیلیں</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">کھیل کی دعوت کے لیے اس رابطے کا استعمال کریں</string>
   <string name="gameOver">کھیل ختم</string>
   <string name="waitingForOpponent">حریف کا انتظار</string>
@@ -280,7 +278,6 @@
     <item quantity="other">%s جاری بازیوں کی تعداد</item>
   </plurals>
   <string name="exportGames">مقابلوں کی CSV حاصل کریں</string>
-  <string name="ratingRange">میعار کی حدود</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">%s سیکنڈ دیں</item>
     <item quantity="other">%s سیکنڈ دیں</item>

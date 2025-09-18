@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">یو ملګری سره لوبه وکړئ</string>
-  <string name="playWithTheMachine">ماشین سره لوبه وکړئ</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">که غواړئ څوک لوبې ته راوبولئ، دا پته ورکړئ</string>
   <string name="gameOver">د لوبې پای</string>
   <string name="waitingForOpponent">سیال ته تم شئ</string>

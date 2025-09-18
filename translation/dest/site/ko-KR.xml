@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">친구와 체스 두기</string>
-  <string name="playWithTheMachine">컴퓨터와 체스 두기</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">이 URL로 친구를 초대하세요</string>
   <string name="gameOver">대국 종료</string>
   <string name="waitingForOpponent">상대를 기다리는 중</string>
@@ -318,7 +316,6 @@
     <item quantity="other">현재 두고 있는 대국 %s개</item>
   </plurals>
   <string name="exportGames">대국 저장하기</string>
-  <string name="ratingRange">레이팅 범위</string>
   <plurals name="giveNbSeconds">
     <item quantity="other">%s초 더 주기</item>
   </plurals>

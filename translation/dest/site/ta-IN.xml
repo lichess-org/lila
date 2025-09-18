@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">தோழருடன் விளையாடு</string>
-  <string name="playWithTheMachine">கணினியுடன் விளையாடு</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">பிறரை ஆட்டத்திற்கு அழைக்க, இந்த URLஐ கொடு</string>
   <string name="gameOver">ஆட்டம் முடிந்துவிட்டது</string>
   <string name="waitingForOpponent">எதிராளிக்காகக் காத்திருக்கின்றது</string>
@@ -341,7 +339,6 @@
     <item quantity="other">%s விளையாடிக்கொண்டிருக்கிறார்</item>
   </plurals>
   <string name="exportGames">ஆட்டங்களை வெளியேற்று</string>
-  <string name="ratingRange">மதிப்பீட்டு வரம்பு</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">%s நொடி வழங்கு</item>
     <item quantity="other">%s நொடிகள் வழங்கு</item>

@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Jucați cu un prieten</string>
-  <string name="playWithTheMachine">Jucați cu calculatorul</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Pentru a invita pe cineva să joace, folosiți acest URL</string>
   <string name="gameOver">Partidă încheiată</string>
   <string name="waitingForOpponent">Se așteaptă adversarul</string>
@@ -364,7 +362,6 @@
     <item quantity="other">%s de jocuri</item>
   </plurals>
   <string name="exportGames">Exportă partidele</string>
-  <string name="ratingRange">Nivel valoric</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Acordă o secundă</item>
     <item quantity="few">Acordă %s secunde</item>

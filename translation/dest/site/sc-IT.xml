@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Gioga con unu amigu</string>
-  <string name="playWithTheMachine">Gioga chin su elaboradore</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Para inbidai calicunu dona issu custu URL</string>
   <string name="gameOver">As perdiu</string>
   <string name="waitingForOpponent">Ispettende unu enemigu</string>

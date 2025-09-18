@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">మిత్రులతో ఆడండి</string>
-  <string name="playWithTheMachine">కంప్యూటర్ తో ఆడండి</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">ఆటకు పిలవడానికి ఈ లంకె పంపండి</string>
   <string name="gameOver">ఆట ముగిసింది</string>
   <string name="waitingForOpponent">ప్రత్యర్థి కోసం ఎదురుచూస్తున్నాం</string>
@@ -344,7 +342,6 @@
     <item quantity="other">%s ఆడుతున్నారు</item>
   </plurals>
   <string name="exportGames">ఆటలను ఎగుమతి చేయండి</string>
-  <string name="ratingRange">రేటింగ్ పరిధి</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">%s సెకను ఇవ్వండి</item>
     <item quantity="other">%s సెకన్లు ఇవ్వండి</item>

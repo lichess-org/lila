@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Tefla við vin</string>
-  <string name="playWithTheMachine">Tefla við tölvuna</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Gefðu upp þessa vefslóð til að bjóða einhverjum að tefla</string>
   <string name="gameOver">Búið spil</string>
   <string name="waitingForOpponent">Bið eftir andstæðingi</string>
@@ -341,7 +339,6 @@
     <item quantity="other">%s í gangi</item>
   </plurals>
   <string name="exportGames">Flytja út skákir</string>
-  <string name="ratingRange">Skákstig</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Gefa %s sekúndu</item>
     <item quantity="other">Gefa %s sekúndur</item>

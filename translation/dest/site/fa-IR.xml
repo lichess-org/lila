@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">بازی با دوستان</string>
-  <string name="playWithTheMachine">بازی با رایانه</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">برای دعوت یک نفر به بازی، این آدرس را به او بدهید</string>
   <string name="gameOver">پایان بازی</string>
   <string name="waitingForOpponent">انتطار برای حریف</string>
@@ -341,7 +339,6 @@
     <item quantity="other">%s بازیِ اکنونی</item>
   </plurals>
   <string name="exportGames">برون‏بُرد بازی‌ها</string>
-  <string name="ratingRange">محدوده درجه‌بندی</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">%s ثانیه اضافه کن</item>
     <item quantity="other">%s ثانیه اضافه کن</item>

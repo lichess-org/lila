@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">o musi lon poka pi jan pona</string>
-  <string name="playWithTheMachine">o musi lon poka ilo</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">sina wile kama e jan la o pana e linja ni</string>
   <string name="gameOver">musi li pini</string>
   <string name="waitingForOpponent">o awen. jan ante li kama.</string>
@@ -331,7 +329,6 @@
     <item quantity="other">musi %s</item>
   </plurals>
   <string name="exportGames">o kama jo e musi</string>
-  <string name="ratingRange">nanpa Glicko</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">o pana e tenpo Sekunta %s</item>
     <item quantity="other">o pana e tenpo Sekunta %s</item>

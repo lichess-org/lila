@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Mängi sõbraga</string>
-  <string name="playWithTheMachine">Mängi arvuti vastu</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Et kutsuda kedagi mängima, anna talle see URL</string>
   <string name="gameOver">Mäng läbi</string>
   <string name="waitingForOpponent">Ootan vastast</string>
@@ -322,7 +320,6 @@
     <item quantity="other">%s mängimas</item>
   </plurals>
   <string name="exportGames">Ekspordi mängud</string>
-  <string name="ratingRange">Reitingu vahemik</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Lisa %s sekund</item>
     <item quantity="other">Lisa %s sekundit</item>

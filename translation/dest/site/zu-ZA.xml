@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Ukudlala nomngane</string>
-  <string name="playWithTheMachine">Ukudlala emshinini</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Ukuze umeme othile ukudlala, unike lolu kheli</string>
   <string name="gameOver">Game Over</string>
   <string name="waitingForOpponent">Elinde isitha</string>
@@ -247,7 +245,6 @@
     <item quantity="other">%s ukudlala</item>
   </plurals>
   <string name="exportGames">Thekelisa imidlalo</string>
-  <string name="ratingRange">Ububanzi besilinganiso</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Nikeza i-%s yesibili</item>
     <item quantity="other">Nikeza i-%s imizuzwana</item>

@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">jvikei lo pendo</string>
-  <string name="playWithTheMachine">jvikei lo proga</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">ko cusku di\'e noi .urli ku\'o lo voi do .aidji lo ka jvikei ke\'a</string>
   <string name="gameOver">mo\'u jivna</string>
   <string name="waitingForOpponent">denpa tu\'a lo se jivna</string>
@@ -256,7 +254,6 @@
     <item quantity="other">cabna %s lo co\'e</item>
   </plurals>
   <string name="exportGames">cpacu lo nunjvi datni</string>
-  <string name="ratingRange">keijvi nilcre jimte</string>
   <plurals name="giveNbSeconds">
     <item quantity="other">dunda %s snidu</item>
   </plurals>

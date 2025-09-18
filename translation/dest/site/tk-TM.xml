@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Dostuñyz bilen oýnañ</string>
-  <string name="playWithTheMachine">Kompýutere garşy oýnañ</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Kimdir birine oýnamaga çagyrmak üçin şu linki iberiñ</string>
   <string name="gameOver">Oýun gutardy</string>
   <string name="waitingForOpponent">Garşydaşa garaşylýar</string>
@@ -246,7 +244,6 @@
     <item quantity="other">%s progressiýada</item>
   </plurals>
   <string name="exportGames">Oýunlary eksport et</string>
-  <string name="ratingRange">Reýting aralygy</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">%s sekunt goş</item>
     <item quantity="other">%s sekunt goş</item>

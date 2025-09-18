@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Cluich còmhla ri caraid</string>
-  <string name="playWithTheMachine">Cluich an aghaidh a\' choimpiutair</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Gus cuireadh a thoirt do chuideigin, thoir an url seo dha</string>
   <string name="gameOver">Crìoch a’ gheama</string>
   <string name="waitingForOpponent">A’ feitheamh air nàmhaid</string>
@@ -121,7 +119,6 @@
   <string name="incrementInSeconds">Ioncramaid ann an diogan</string>
   <string name="freeOnlineChess">Tàileasg air loidhne an-asgaidh</string>
   <string name="exportGames">Às-phortaich geamannan</string>
-  <string name="ratingRange">Rainse an rangachaidh</string>
   <string name="takeback">Tarraing air ais</string>
   <string name="proposeATakeback">Tairg tarraing air ais</string>
   <string name="takebackPropositionSent">Tairgse tarraing air ais air a cur</string>

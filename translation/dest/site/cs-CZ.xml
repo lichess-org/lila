@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Hrát proti kamarádovi</string>
-  <string name="playWithTheMachine">Hrát proti počítači</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Pro pozvání někoho ke hře využijte tento odkaz</string>
   <string name="gameOver">Konec hry</string>
   <string name="waitingForOpponent">Čekání na soupeře</string>
@@ -386,7 +384,6 @@
     <item quantity="other">%s se hraje</item>
   </plurals>
   <string name="exportGames">Exportovat partie</string>
-  <string name="ratingRange">Síla hráče</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Přidat %s sekundu</item>
     <item quantity="few">Přidat %s sekundy</item>

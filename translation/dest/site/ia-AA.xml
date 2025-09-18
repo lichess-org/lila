@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Jocar con un amico</string>
-  <string name="playWithTheMachine">Jocar con le machina</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Pro invitar alcuno a jocar, da le iste adresse</string>
   <string name="gameOver">Partita finite</string>
   <string name="waitingForOpponent">Attendente le adversario</string>
@@ -251,7 +249,6 @@
     <item quantity="other">%s jocante</item>
   </plurals>
   <string name="exportGames">Exportar partitas</string>
-  <string name="ratingRange">Intervallo de classificationes</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Dona %s secundas</item>
     <item quantity="other">Dona %s secundas</item>
