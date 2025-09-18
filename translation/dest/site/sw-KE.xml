@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">cheza na rafiki</string>
-  <string name="playWithTheMachine">Cheza Na Tarakilishi</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Kumwalika mtu acheze, mpe anwani hii</string>
   <string name="gameOver">Mchezo umekwisha</string>
   <string name="waitingForOpponent">Subiri mpinzani</string>
