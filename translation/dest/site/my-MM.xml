@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">သူငယ်ချင်းနှင့်ကစားမည်</string>
-  <string name="playWithTheMachine">ကွန်ပျူတာဖြင့်ကစားမည်</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">အခြားကစားမည့်သူအားဖိတ်ကြားရန်</string>
   <string name="gameOver">ပွဲပြီးပြီ</string>
   <string name="waitingForOpponent">ပြိုင်ဘက်အားစောင့်ဆိုင်းနေသည်</string>
