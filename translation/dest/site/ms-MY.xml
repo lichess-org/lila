@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Main bersama rakan</string>
-  <string name="playWithTheMachine">Bermain dengan mesin</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Untuk menjemput seseorang bermain, berikan pautan ini</string>
   <string name="gameOver">Permainan Tamat</string>
   <string name="waitingForOpponent">Menunggu untuk lawan</string>
@@ -305,7 +303,6 @@
     <item quantity="other">%s bermain</item>
   </plurals>
   <string name="exportGames">Export permainan</string>
-  <string name="ratingRange">Jurang rating</string>
   <plurals name="giveNbSeconds">
     <item quantity="other">Beri %s saat</item>
   </plurals>
