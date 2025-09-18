@@ -5,7 +5,7 @@
   <string name="challengeDeclined">Useforderig abglehnt</string>
   <string name="challengeAccepted">Useforderig agnah!</string>
   <string name="challengeCanceled">Useforderig zrugg\'zoge.</string>
-  <string name="registerToSendChallenges" comment="This used to say &quot;Please register to send challenges.&quot;&#10;We have since added &quot;[...] to this user.&quot; to the end of the string for absolute clarity, given the context this appears in. Please update translations as needed.">Bitte regischtier dich, zum Useforderige schicke.</string>
+  <string name="registerToSendChallenges">Bitte regischtier dich, zum Useforderige schicke.</string>
   <string name="youCannotChallengeX">Du chasch %s nöd usefordere.</string>
   <string name="xDoesNotAcceptChallenges">%s akzeptiert kei Useforderige.</string>
   <string name="yourXRatingIsTooFarFromY">Dini %1$s Wertig isch z\'wit vu %2$s entfernt.</string>
