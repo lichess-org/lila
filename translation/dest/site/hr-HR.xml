@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Igraj protiv prijatelja</string>
-  <string name="playWithTheMachine">Igraj protiv računala</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Za poziv na igru, pošalji ovaj URL</string>
   <string name="gameOver">Igra gotova</string>
   <string name="waitingForOpponent">Čekam protivnika</string>
@@ -360,7 +358,6 @@
     <item quantity="other">%s u tijeku</item>
   </plurals>
   <string name="exportGames">Izvoz partija</string>
-  <string name="ratingRange">Raspon rejtinga</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Dodaj protivniku %s sekundu</item>
     <item quantity="few">Dodaj protivniku %s sekunde</item>
