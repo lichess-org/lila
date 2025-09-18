@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Играй с приятел</string>
-  <string name="playWithTheMachine">Играй с компютъра</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">За да поканите някого на игра, дайте му този адрес</string>
   <string name="gameOver">Край на партията</string>
   <string name="waitingForOpponent">Изчакване на противник</string>
@@ -339,7 +337,6 @@
     <item quantity="other">%s текущи</item>
   </plurals>
   <string name="exportGames">Изтегли партиите</string>
-  <string name="ratingRange">Рейтинг на съперника</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Дай %s sec</item>
     <item quantity="other">Дай %s sec</item>
