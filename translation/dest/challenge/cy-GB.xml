@@ -4,7 +4,7 @@
   <string name="challengeDeclined">Her wedi ei wrthod</string>
   <string name="challengeAccepted">Her wedi ei dderbyn!</string>
   <string name="challengeCanceled">Her wedi ei ohirio.</string>
-  <string name="registerToSendChallenges" comment="This used to say &quot;Please register to send challenges.&quot;&#10;We have since added &quot;[...] to this user.&quot; to the end of the string for absolute clarity, given the context this appears in. Please update translations as needed.">Cofrestrwch cyn danfon her.</string>
+  <string name="registerToSendChallenges">Cofrestrwch cyn danfon her.</string>
   <string name="youCannotChallengeX">Ni fedrwch chi herio %s.</string>
   <string name="xDoesNotAcceptChallenges">Nid yw %s yn derbyn heriau.</string>
   <string name="yourXRatingIsTooFarFromY">Mae eich graddfa %1$s yn rhy bell o un %2$s.</string>

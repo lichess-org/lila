@@ -5,7 +5,7 @@
   <string name="challengeDeclined">การท้าถูกปฏิเสธ</string>
   <string name="challengeAccepted">การท้าถูกยอมรับ!</string>
   <string name="challengeCanceled">การท้าถูกยกเลิก</string>
-  <string name="registerToSendChallenges" comment="This used to say &quot;Please register to send challenges.&quot;&#10;We have since added &quot;[...] to this user.&quot; to the end of the string for absolute clarity, given the context this appears in. Please update translations as needed.">กรุณาลงทะเบียนเพื่อส่งคำท้าประลอง</string>
+  <string name="registerToSendChallenges">กรุณาลงทะเบียนเพื่อส่งคำท้าประลอง</string>
   <string name="youCannotChallengeX">คุณไม่สามารถท้าประลอง %s</string>
   <string name="xDoesNotAcceptChallenges">%s ไม่รับคำท้าประลอง</string>
   <string name="yourXRatingIsTooFarFromY">ระดับคะแนน %1$s ของคุณห่างจาก %2$s เกินไป</string>

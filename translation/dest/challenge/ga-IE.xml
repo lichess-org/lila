@@ -4,7 +4,7 @@
   <string name="challengeDeclined">Dúshlán diúltaithe</string>
   <string name="challengeAccepted">Dúshlán glactha!</string>
   <string name="challengeCanceled">Dúshlán ar ceal.</string>
-  <string name="registerToSendChallenges" comment="This used to say &quot;Please register to send challenges.&quot;&#10;We have since added &quot;[...] to this user.&quot; to the end of the string for absolute clarity, given the context this appears in. Please update translations as needed.">Cláraigh le do thoil chun dúshláin a sheoladh.</string>
+  <string name="registerToSendChallenges">Cláraigh le do thoil chun dúshláin a sheoladh.</string>
   <string name="youCannotChallengeX">Níl cead dúshlán a cuir chuig %s.</string>
   <string name="xDoesNotAcceptChallenges">Ní ghlacann %s le dúshláin.</string>
   <string name="yourXRatingIsTooFarFromY">Tá do rátáil %1$s rófhada ó %2$s.</string>

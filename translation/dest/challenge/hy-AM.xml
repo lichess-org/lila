@@ -5,7 +5,7 @@
   <string name="challengeDeclined">Մարտահրավերը մերժված է</string>
   <string name="challengeAccepted">Մարտահրավերն ընդունված է</string>
   <string name="challengeCanceled">Մարտահրավերը կասեցված է</string>
-  <string name="registerToSendChallenges" comment="This used to say &quot;Please register to send challenges.&quot;&#10;We have since added &quot;[...] to this user.&quot; to the end of the string for absolute clarity, given the context this appears in. Please update translations as needed.">Գրանցվեք՝ մրցակիցներին խաղի հրավիրելու համար։</string>
+  <string name="registerToSendChallenges">Գրանցվեք՝ մրցակիցներին խաղի հրավիրելու համար։</string>
   <string name="youCannotChallengeX">Դուք չեք կարող խաղին հրավիրել %s-ին։</string>
   <string name="xDoesNotAcceptChallenges">%s-ը չի ընդունում մարտահրավերները։</string>
   <string name="yourXRatingIsTooFarFromY">Ձեր %1$s վարկանիշը շատ հեռու է %2$s-ից։</string>

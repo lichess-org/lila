@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="gameSetup">Configuração de jogo</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Desafiar um Amigo</string>
+  <string name="playAgainstAI">Jogar contra IA</string>
+  <string name="gameMode">Modo de jogo</string>
+  <string name="createLobbyGame">Criar jogo no lobby</string>
+  <string name="youPlayAs">Jogas com</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Para convidares alguém para jogar, envia este URL</string>
   <string name="gameOver">Fim da partida</string>
   <string name="waitingForOpponent">Aguardando oponente</string>
@@ -339,6 +345,7 @@
     <item quantity="other">%s a jogar</item>
   </plurals>
   <string name="exportGames">Exportar partidas</string>
+  <string name="ratingFilter">Filtro de Rating</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Dar %s segundo</item>
     <item quantity="other">Dar %s segundos</item>
@@ -823,6 +830,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="notifications">Notificações</string>
   <string name="notificationsX">Notificações: %1$s</string>
   <string name="perfRatingX">Pontuação: %s</string>
+  <string name="yourRatingIsX">O teu rating é %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s segundo para jogar o primeiro movimento</item>
     <item quantity="other">%s segundos para jogar o primeiro movimento</item>
@@ -874,6 +882,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="playVariationToCreateConditionalPremoves">Joga uma variante para criares movimentos antecipados condicionais</string>
   <string name="noConditionalPremoves">Sem movimentos antecipados condicionais</string>
   <string name="playX">Joga %s</string>
+  <string name="challengeX">Desafiar %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">e guarda %s variante de movimentos antecipados</item>
     <item quantity="other">e guarda %s variantes de movimentos antecipados</item>

@@ -5,7 +5,7 @@
   <string name="challengeDeclined">Lời thách đấu bị từ chối.</string>
   <string name="challengeAccepted">Lời thách đấu được chấp nhận!</string>
   <string name="challengeCanceled">Lời thách đấu bị hủy bỏ.</string>
-  <string name="registerToSendChallenges" comment="This used to say &quot;Please register to send challenges.&quot;&#10;We have since added &quot;[...] to this user.&quot; to the end of the string for absolute clarity, given the context this appears in. Please update translations as needed.">Xin hãy đăng ký để gửi lời thách đấu tới người dùng này.</string>
+  <string name="registerToSendChallenges">Xin hãy đăng ký để gửi lời thách đấu tới người dùng này.</string>
   <string name="youCannotChallengeX">Bạn không thể thách đấu %s.</string>
   <string name="xDoesNotAcceptChallenges">%s không chấp nhận các lời thách đấu.</string>
   <string name="yourXRatingIsTooFarFromY">Hệ số %1$s của bạn quá cách biệt so với %2$s.</string>

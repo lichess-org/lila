@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="gameSetup">Partioppsett</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Utfordre ein ven</string>
+  <string name="playAgainstAI">Spel mot KI</string>
+  <string name="gameMode">Spelmodus</string>
+  <string name="createLobbyGame">Opprett lobbyparti</string>
+  <string name="youPlayAs">Du spelar som</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Send denne lekkja til den du utfordrar</string>
   <string name="gameOver">Partiet er avslutta</string>
   <string name="waitingForOpponent">Ventar på motspelar</string>
@@ -339,6 +345,7 @@
     <item quantity="other">%s pågår</item>
   </plurals>
   <string name="exportGames">Eksporter parti</string>
+  <string name="ratingFilter">Ratingfilter</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Gje %s sekund</item>
     <item quantity="other">Gje %s sekund</item>
@@ -824,6 +831,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="notifications">Meldingar</string>
   <string name="notificationsX">Varsel: %1$s</string>
   <string name="perfRatingX">Rating: %s</string>
+  <string name="yourRatingIsX">Ratinga di er %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekund til å ta det første trekket</item>
     <item quantity="other">%s sekund til å ta det første trekket</item>
@@ -875,6 +883,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="playVariationToCreateConditionalPremoves">Spel ein variant for å lage vilkårsbundne førehandstrekk</string>
   <string name="noConditionalPremoves">Ingen vilkårsbundne førehandstrekk</string>
   <string name="playX">Spel %s</string>
+  <string name="challengeX">Utfordre %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">og lagra %s line med førehandstrekk</item>
     <item quantity="other">og lagra %s liner med førehandstrekk</item>

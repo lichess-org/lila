@@ -5,7 +5,7 @@
   <string name="challengeDeclined">Desafiament rebutjat</string>
   <string name="challengeAccepted">Desafiament acceptat!</string>
   <string name="challengeCanceled">Desafiament cancel·lat.</string>
-  <string name="registerToSendChallenges" comment="This used to say &quot;Please register to send challenges.&quot;&#10;We have since added &quot;[...] to this user.&quot; to the end of the string for absolute clarity, given the context this appears in. Please update translations as needed.">Si us plau, registra\'t per enviar desafiaments.</string>
+  <string name="registerToSendChallenges">Si us plau, registra\'t per enviar desafiaments.</string>
   <string name="youCannotChallengeX">No pots desafiar a %s.</string>
   <string name="xDoesNotAcceptChallenges">%s no accepta desafiaments.</string>
   <string name="yourXRatingIsTooFarFromY">La teva qualificació de %1$s és massa distant de la de %2$s.</string>

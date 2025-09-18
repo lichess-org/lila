@@ -5,7 +5,7 @@
   <string name="challengeDeclined">Erausfuerderung ofgeleent</string>
   <string name="challengeAccepted">Erausfuerderung ugeholl!</string>
   <string name="challengeCanceled">Erausfuerderung annuléiert.</string>
-  <string name="registerToSendChallenges" comment="This used to say &quot;Please register to send challenges.&quot;&#10;We have since added &quot;[...] to this user.&quot; to the end of the string for absolute clarity, given the context this appears in. Please update translations as needed.">Mell dech wgl. u fir dësem Benotzer Erausfuerderungen ze schécken.</string>
+  <string name="registerToSendChallenges">Mell dech wgl. u fir dësem Benotzer Erausfuerderungen ze schécken.</string>
   <string name="youCannotChallengeX">Du kanns %s net erausfuerderen.</string>
   <string name="xDoesNotAcceptChallenges">%s akzeptéiert keng Erausfuerderungen.</string>
   <string name="yourXRatingIsTooFarFromY">Deng %1$s Wäertung ass ze wäit vum %2$s.</string>

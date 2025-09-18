@@ -4,7 +4,7 @@
   <string name="challengeDeclined">Çağırış rədd edildi.</string>
   <string name="challengeAccepted">Çağırış qəbul edildi!</string>
   <string name="challengeCanceled">Çağırışdan imtina edildi.</string>
-  <string name="registerToSendChallenges" comment="This used to say &quot;Please register to send challenges.&quot;&#10;We have since added &quot;[...] to this user.&quot; to the end of the string for absolute clarity, given the context this appears in. Please update translations as needed.">Çağırış göndərmək üçün lütfən qeydiyyatdan keçin.</string>
+  <string name="registerToSendChallenges">Çağırış göndərmək üçün lütfən qeydiyyatdan keçin.</string>
   <string name="youCannotChallengeX">%s istifadəçisinə çağırış edə bilməzsiz.</string>
   <string name="xDoesNotAcceptChallenges">%s çağırışları qəbul etmir.</string>
   <string name="yourXRatingIsTooFarFromY">Sizin %1$s reytinqiniz %2$s-in reytinqindən çox uzaqdır.</string>

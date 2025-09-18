@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="gameSetup">Налаштування гри</string>
+  <string name="gameMode">Режим гри</string>
+  <string name="youPlayAs">Ви граєте за</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Щоб запросити когось до гри, дайте це посилання</string>
   <string name="gameOver">Гру завершено</string>
   <string name="waitingForOpponent">Очікування на суперника</string>
@@ -385,6 +388,7 @@
     <item quantity="other">%s грають</item>
   </plurals>
   <string name="exportGames">Експортувати ігри</string>
+  <string name="ratingFilter">Фільтр рейтингу</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Додати %s секунду</item>
     <item quantity="few">Додати %s секунди</item>
@@ -907,6 +911,7 @@
   <string name="notifications">Сповіщення</string>
   <string name="notificationsX">Сповіщення: %1$s</string>
   <string name="perfRatingX">Рейтинг: %s</string>
+  <string name="yourRatingIsX">Ваш рейтинг — %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s секунда на перший хід</item>
     <item quantity="few">%s секунди на перший хід</item>

@@ -5,7 +5,7 @@
   <string name="challengeDeclined">Izziv zavrnjen</string>
   <string name="challengeAccepted">Izziv je sprejet!</string>
   <string name="challengeCanceled">Izziv je preklican.</string>
-  <string name="registerToSendChallenges" comment="This used to say &quot;Please register to send challenges.&quot;&#10;We have since added &quot;[...] to this user.&quot; to the end of the string for absolute clarity, given the context this appears in. Please update translations as needed.">Če želite poslati izziv, se, prosim, registrirajte.</string>
+  <string name="registerToSendChallenges">Če želite poslati izziv, se, prosim, registrirajte.</string>
   <string name="youCannotChallengeX">Ne morete izzvati %s.</string>
   <string name="xDoesNotAcceptChallenges">%s ne sprejema izzivov.</string>
   <string name="yourXRatingIsTooFarFromY">Vaš %1$s rating je predaleč od ratinga igralca %2$s.</string>
