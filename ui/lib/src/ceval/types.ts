@@ -98,7 +98,6 @@ export interface CustomCeval {
   search?: () => Search | Millis; // pass number as millis to cap user defined search
   pearlNode?: () => VNode | undefined;
   statusNode?: () => VNode | string | undefined;
-  onclick?: (e: MouseEvent) => void;
 }
 
 export interface CevalOpts {

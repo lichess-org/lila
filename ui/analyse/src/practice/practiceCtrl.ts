@@ -270,8 +270,7 @@ export function make(root: AnalyseCtrl, customPlayableDepth?: () => number): Pra
           ? 60 * 1000
           : { by: { depth: playableDepth() }, multiPv: 1, indeterminate: true },
       pearlNode: () => renderCustomPearl(root, masteryMode()),
-      statusNode: () => (root.ceval.isComputing ? undefined : renderCustomStatus(root)),
-      onclick: () => masteryMode(!masteryMode()),
+      statusNode: () => (root.ceval.isComputing ? undefined : renderCustomStatus(root, masteryMode)),
     },
   };
 }

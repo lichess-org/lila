@@ -239,26 +239,14 @@ export function renderCeval(ctrl: CevalHandler): VNode[] {
       false,
     ),
   });
-  const customOnclick = ceval.opts.custom?.onclick;
   return [
-    hl(
-      'div.ceval' + (enabled ? '.enabled' : ''),
-      {
-        class: { computing: ceval.isComputing },
-        hook: {
-          update: vnode => {
-            (vnode.elm as HTMLElement).onclick = customOnclick ?? null;
-          },
-        },
-      },
-      [
-        renderCevalSwitch(ctrl),
-        body,
-        !ctrl.ceval.opts.custom && threatButton(ctrl),
-        settingsGear,
-        progressBar,
-      ],
-    ),
+    hl('div.ceval' + (enabled ? '.enabled' : ''), { class: { computing: ceval.isComputing } }, [
+      renderCevalSwitch(ctrl),
+      body,
+      !ctrl.ceval.opts.custom && threatButton(ctrl),
+      settingsGear,
+      progressBar,
+    ]),
     renderCevalSettings(ctrl),
   ].filter(v => v != null);
 }
