@@ -4,7 +4,7 @@
   <string name="challengeDeclined">Сынаулар кире кагылды</string>
   <string name="challengeAccepted">Сынаулар алынды!</string>
   <string name="challengeCanceled">Сынауны кире кактылар.</string>
-  <string name="registerToSendChallenges" comment="This used to say &quot;Please register to send challenges.&quot;&#10;We have since added &quot;[...] to this user.&quot; to the end of the string for absolute clarity, given the context this appears in. Please update translations as needed.">Зинһар теркәл сынаулар җибәрер өчен.</string>
+  <string name="registerToSendChallenges">Зинһар теркәл сынаулар җибәрер өчен.</string>
   <string name="youCannotChallengeX">Сез сыный алмыйсыз %s.</string>
   <string name="xDoesNotAcceptChallenges">%s сезнең сынауны кире какты.</string>
   <string name="yourXRatingIsTooFarFromY">Сезнең %1$s рейтингыгыз %2$s дан оглы ара.</string>
