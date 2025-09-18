@@ -4,7 +4,7 @@
   <string name="challengeDeclined">Mwito wa kuja kushindana umekataliwa</string>
   <string name="challengeAccepted">Mwito wa kuja kushindana umekubaliwa!</string>
   <string name="challengeCanceled">Mwito wa kuja kushindana umeghairiwa.</string>
-  <string name="registerToSendChallenges" comment="This used to say &quot;Please register to send challenges.&quot;&#10;We have since added &quot;[...] to this user.&quot; to the end of the string for absolute clarity, given the context this appears in. Please update translations as needed.">Tafadhali jiandikishi ili utume miito ya mashindano.</string>
+  <string name="registerToSendChallenges">Tafadhali jiandikishi ili utume miito ya mashindano.</string>
   <string name="youCannotChallengeX">Hukubaliwi kutuma mwito wa kuja kushindana %s.</string>
   <string name="xDoesNotAcceptChallenges">%s hakubali miito ya mashindano.</string>
 </resources>
