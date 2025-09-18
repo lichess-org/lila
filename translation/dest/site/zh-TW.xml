@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">和好友下棋</string>
-  <string name="playWithTheMachine">和電腦下棋</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">請分享此網址以邀人下棋</string>
   <string name="gameOver">遊戲結束</string>
   <string name="waitingForOpponent">正在等待對手</string>
@@ -314,7 +312,6 @@
     <item quantity="other">%s下棋中</item>
   </plurals>
   <string name="exportGames">導出棋局</string>
-  <string name="ratingRange">對方級別範圍</string>
   <plurals name="giveNbSeconds">
     <item quantity="other">給對方加%s秒</item>
   </plurals>
