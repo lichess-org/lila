@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">C\'hoari a-enep ur mignon</string>
-  <string name="playWithTheMachine">C\'hoari a-enep an urzhiataer</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Evit pediñ unan bennak da c\'hoari, kasit dezhañ/dezhi an URL -mañ</string>
   <string name="gameOver">Krogad echu</string>
   <string name="waitingForOpponent">O c\'hortoz an enebour</string>
@@ -388,7 +386,6 @@
     <item quantity="other">%s o c\'hoari</item>
   </plurals>
   <string name="exportGames">Ezporzhiañ krogadoù</string>
-  <string name="ratingRange">Renkadur hoc\'h enebourien</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Reiñ %s eilenn</item>
     <item quantity="two">Reiñ %s eilenn</item>
