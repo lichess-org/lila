@@ -80,7 +80,8 @@ object RelayPlayer:
       color: Color,
       points: Option[Outcome.GamePoints],
       rated: chess.Rated,
-      customScoring: Option[ByColor[RelayRound.CustomScoring]] = None
+      customScoring: Option[ByColor[RelayRound.CustomScoring]] = None,
+      unplayed: Boolean
   ):
     def playerPoints = points.map(_(color))
     def customPlayerPoints: Option[RelayRound.CustomPoints] = customScoring.flatMap: cs =>
@@ -104,7 +105,7 @@ object RelayPlayer:
         )
 
     // only rate draws and victories, not exotic results
-    def isRated = rated.yes && points.exists(_.mapReduce(_.value)(_ + _) == 1)
+    def isRated = rated.yes && !unplayed && points.exists(_.mapReduce(_.value)(_ + _) == 1)
     def eloGame = for
       pp <- playerPoints
       if isRated
@@ -233,7 +234,8 @@ private final class RelayPlayerApi(
                               color,
                               tags.points,
                               round.rated,
-                              round.customScoring
+                              round.customScoring,
+                              unplayed = tags.value.contains(RelayGame.unplayedTag)
                             )
                             players.updated(
                               playerId,

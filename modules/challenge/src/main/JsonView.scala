@@ -10,7 +10,7 @@ import lila.ui.Icon
 
 final class JsonView(
     baseUrl: lila.core.config.BaseUrl,
-    getLightUser: lila.core.LightUser.GetterSync,
+    getLightUser: lila.core.LightUser.GetterSyncFallback,
     getLagRating: userLag.GetLagRating,
     isOnline: lila.core.socket.IsOnline
 ):
@@ -18,19 +18,12 @@ final class JsonView(
   import Challenge.*
 
   private given OWrites[Challenger.Registered] = OWrites: r =>
-    val light = getLightUser(r.id)
-    Json
-      .obj(
-        "id" -> r.id,
-        "name" -> light.fold(r.id.into(UserName))(_.name),
-        "rating" -> r.rating.int
-      )
-      .add("title" -> light.map(_.title))
-      .add("provisional" -> r.rating.provisional)
-      .add("patron" -> light.so(_.isPatron))
-      .add("flair" -> light.flatMap(_.flair))
-      .add("online" -> isOnline.exec(r.id))
-      .add("lag" -> getLagRating(r.id))
+    Json.toJsObject(getLightUser(r.id)) ++
+      Json
+        .obj("rating" -> r.rating.int)
+        .add("provisional" -> r.rating.provisional)
+        .add("online" -> isOnline.exec(r.id))
+        .add("lag" -> getLagRating(r.id))
 
   def apply(a: AllChallenges)(using Translate): JsObject =
     Json.obj(
