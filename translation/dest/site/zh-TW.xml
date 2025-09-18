@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">和好友下棋</string>
-  <string name="playWithTheMachine">和電腦下棋</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">請分享此網址以邀人下棋</string>
   <string name="gameOver">遊戲結束</string>
   <string name="waitingForOpponent">正在等待對手</string>
@@ -314,7 +312,6 @@
     <item quantity="other">%s下棋中</item>
   </plurals>
   <string name="exportGames">導出棋局</string>
-  <string name="ratingRange">對方級別範圍</string>
   <plurals name="giveNbSeconds">
     <item quantity="other">給對方加%s秒</item>
   </plurals>
@@ -384,7 +381,6 @@
   <string name="toStudy">研究</string>
   <string name="importGame">導入棋局</string>
   <string name="importGameExplanation">貼上PGN棋譜後可以重播棋局，使用電腦分析、對局聊天室及取得此棋局的分享連結。</string>
-  <string name="importGameCaveat">變種分支將被刪除。 若要保存這些變種，請透過導入 PGN 棋譜建立一個研究。</string>
   <string name="importGameDataPrivacyWarning">此為公開 PGN。若要導入私人棋局，請使用研究。</string>
   <plurals name="nbImportedGames">
     <item quantity="other">已導入%s盤棋局</item>

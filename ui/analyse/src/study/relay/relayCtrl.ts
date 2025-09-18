@@ -149,7 +149,7 @@ export default class RelayCtrl {
     return true;
   };
 
-  noEmbed() {
+  userClosedTheVideoEmbed() {
     return document.cookie.includes('relayVideo=no');
   }
 

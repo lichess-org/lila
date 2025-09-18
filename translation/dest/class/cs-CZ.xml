@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses" comment="Lichess Classes are a feature that lets a teacher create virtual classes and check out students' progress.&#10;&#10;This text used to be &quot;Lichess Classes&quot;, which has since been shortened to &quot;Classes&quot;.">Třídy</string>
+  <string name="lichessClasses">Třídy</string>
   <string name="teachClassesOfChessStudents">Učte třídy šachových studentů s nástrojem Lichess třídy.</string>
   <string name="features">Funkce</string>
   <string name="quicklyGenerateSafeUsernames">Rychle generovat bezpečná uživatelská jména a hesla pro studenty</string>
   <string name="trackStudentProgress">Sledovat pokrok studentů ve hrách a hlavolamech</string>
   <string name="messageAllStudents">Napsat všem studentům o novém materiálu třídy</string>
-  <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">100% zdarma pro všechny, navždy, bez reklam nebo sledování</string>
+  <string name="freeForAllForever">100% zdarma pro všechny, navždy, bez reklam nebo sledování</string>
   <string name="applyToBeLichessTeacher">Ucházet se o místo Lichess učitele</string>
   <string name="noClassesYet">Zatím žádné třídy.</string>
   <string name="teachersX">Učitelé: %s</string>
   <string name="newClass">Nová třída</string>
   <string name="closeClass">Zavřít třídu</string>
   <string name="removedByX">Odstraněno uživatelem %s</string>
-  <string name="reopen" comment="A button, permitting a teacher to reopen a closed class.">Znovu otevřít</string>
-  <string name="removeStudent" comment="Removes a student from the class. Note the same text is used both for initial removal, and for full erasure.">Odstranit studenta</string>
-  <string name="removedStudents" comment="This is in plural form. It is a heading showing all students who have been removed from the class.">Odstraněno</string>
-  <string name="inviteTheStudentBack" comment="A button. Clicking this will re-invite a student that has been removed from the class.">Pozvat studenta zpět</string>
+  <string name="reopen">Znovu otevřít</string>
+  <string name="removeStudent">Odstranit studenta</string>
+  <string name="removedStudents">Odstraněno</string>
+  <string name="inviteTheStudentBack">Pozvat studenta zpět</string>
   <string name="sendAMessage">Poslat zprávu všem studentům.</string>
   <string name="aLinkToTheClassWillBeAdded">Odkaz na třídu bude automaticky přidán na konec zprávy, takže ho nemusíte uvádět sami.</string>
   <string name="className">Název třídy</string>
@@ -30,7 +30,7 @@
   <string name="generateANewPassword">Vygenerovat nové heslo pro studenta</string>
   <string name="invitedToXByY">Pozváno do %1$s uživatelem %2$s</string>
   <string name="realName">Skutečné jméno</string>
-  <string name="privateWillNeverBeShown" comment="A description of the real name field for members of a class.">Soukromé. Nikdy se nezobrazí mimo třídu. Pomáhá si pamatovat, kdo je student.</string>
+  <string name="privateWillNeverBeShown">Soukromé. Nikdy se nezobrazí mimo třídu. Pomáhá si pamatovat, kdo je student.</string>
   <string name="addStudent">Přidat studenta</string>
   <string name="lichessProfileXCreatedForY">Lichess profil %1$s vytvořen pro %2$s.</string>
   <string name="studentCredentials">Student:  %1$s
@@ -41,14 +41,14 @@ Heslo: %3$s</string>
   <string name="inviteDesc2">Dostanou zprávu na Lichess s odkazem na připojení ke třídě.</string>
   <string name="inviteDesc3">Důležité: Pozvěte pouze studenty, které znáte a kteří se aktivně chtějí připojit ke třídě.</string>
   <string name="inviteDesc4">Nikdy neposílejte nevyžádané pozvánky náhodným hráčům.</string>
-  <string name="createANewLichessAccount" comment="The person who would see this would always be a teacher.&#10;In this context, it is to create a new account for a student of their class.">Vytvořit nový Lichess účet</string>
+  <string name="createANewLichessAccount">Vytvořit nový Lichess účet</string>
   <string name="createDesc1">Pokud student ještě nemá Lichess účet, můžete pro něj účet vytvořit.</string>
   <string name="createDesc2">Není vyžadována žádná e-mailová adresa. Bude vygenerováno heslo a budete ho muset předat studentovi, aby se mohl přihlásit.</string>
   <string name="createDesc3">Důležité: student nesmí mít více účtů.</string>
   <string name="createDesc4">Pokud již nějaký má, použijte místo toho formulář pro pozvánky.</string>
   <string name="createStudentWarning">Vytvořte účty pouze pro skutečné studenty. Nepoužívejte je k vytváření více účtů pro sebe, jinak budete zablokováni.</string>
   <string name="lichessUsername">Lichess uživatelské jméno</string>
-  <string name="generateANewUsername" comment="A button which lets teachers create a random username for students they are registering.">Vygenerovat nové uživatelské jméno</string>
+  <string name="generateANewUsername">Vygenerovat nové uživatelské jméno</string>
   <string name="welcomeToClass">Vítejte ve vaší třídě: %s.
 Zde je odkaz pro přístup ke třídě.</string>
   <string name="invitationToClass">Jste pozváni k účasti v hodině \"%s\" jako student.</string>
@@ -59,14 +59,14 @@ Zde je odkaz pro přístup ke třídě.</string>
     <item quantity="many">%s čekajících pozvánek</item>
     <item quantity="other">%s čekajících pozvánek</item>
   </plurals>
-  <string name="pending" comment="Appears in a table of students. Refers to invitation by a teacher to join a class, which the student has not yet responded to.">Čekající</string>
-  <string name="declined" comment="Appears in a table of students. Refers to invitation by a teacher to join a class, which the student declined.">Zamítnuto</string>
+  <string name="pending">Čekající</string>
+  <string name="declined">Zamítnuto</string>
   <string name="onlyVisibleToTeachers">Viditelné pouze pro učitele třídy</string>
   <string name="lastActiveDate">Aktivní</string>
   <string name="managed">Spravovaný</string>
   <string name="thisStudentAccountIsManaged">Tento studentský účet je spravován</string>
   <string name="upgradeFromManaged">Povýšit ze spravovaného na vlastní</string>
-  <string name="release" comment="This used to be 'release'. It is now called 'graduate', and the term is used here as a verb.&#10;&#10;'Releasing' an account means making it a full Lichess account. It will no longer be tied to the teacher that created it.">Uvolnit</string>
+  <string name="release">Uvolnit</string>
   <string name="releaseTheAccount">Uvolněte účet, aby jej student mohl spravovat samostatně.</string>
   <string name="releaseDesc1">Uvolněný účet nemůže být znovu spravován. Student bude schopen přepnout režim dětských oprávnění a sám obnovit heslo.</string>
   <string name="releaseDesc2">Student zůstane ve třídě poté, co bude uvolněn jeho účet.</string>
@@ -109,19 +109,19 @@ Zde je odkaz pro přístup ke třídě.</string>
 Zobrazí se vodorovná čára.</string>
   <string name="invite">Pozvat</string>
   <string name="youHaveBeenInvitedByX">Byli jste pozváni uživatelem %s.</string>
-  <string name="youAcceptedThisInvitation" comment="Appears when revisiting the page of an invitation to a class, which you have already accepted.">Přijali jste pozvánku.</string>
-  <string name="youDeclinedThisInvitation" comment="Appears when revisiting the page of an invitation to a class, which you have already declined.">Odmítli jste pozvánku.</string>
+  <string name="youAcceptedThisInvitation">Přijali jste pozvánku.</string>
+  <string name="youDeclinedThisInvitation">Odmítli jste pozvánku.</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">nebo</string>
   <string name="createMultipleAccounts">Vytvořit více Lichess účtů najednou</string>
   <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Můžete také %s a vytvořit více Lichess účtů ze seznamu jmen studentů.</string>
   <string name="useThisForm" comment="Link text in multipleAccsFromDescription">použít tento formulář</string>
   <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Všimněte si, že třída může mít až %1$s studentů. Chcete-li spravovat více studentů, %2$s.</string>
   <string name="createMoreClasses" comment="Link text in maxStudentsNote">vytvořit více tříd</string>
-  <string name="studentsRealNamesOnePerLine" comment="An instruction on how to enter students' names when creating new accounts for them.">Skutečná jména studentů, jedno na řádek</string>
-  <string name="xisNowAStudentOfTheClass" comment="%s is the player's name">%s je nyní student třídy</string>
-  <string name="anInvitationHasBeenSentToX" comment="%s is the username of a player already registered on Lichess.">Pozvánka byla odeslána uživateli %s</string>
-  <string name="xAlreadyHasAPendingInvitation" comment="An error message. %s is the username of a player already registered on Lichess.">%s již má pozvánku</string>
-  <string name="xIsAKidAccountWarning" comment="%1$s is the username&#10;%2$s is a link.">%1$s je dětský účet a nemůže přijmout tvojí zprávu. Musíš mu dát URL adresu pozvánky sám:%2$s</string>
-  <string name="moveToClass" comment="%s is the name of the class. The name of the class is set by the teacher.&#10;&#10;Appears on a confirmation prompt when a teacher looks to move a student to one of the other classes they run.">Přesunout do %s</string>
-  <string name="moveToAnotherClass" comment="Appears as a heading on a page which lets a teacher move one of their students to one of the other classes they run.">Přesunout do jiné třídy</string>
+  <string name="studentsRealNamesOnePerLine">Skutečná jména studentů, jedno na řádek</string>
+  <string name="xisNowAStudentOfTheClass">%s je nyní student třídy</string>
+  <string name="anInvitationHasBeenSentToX">Pozvánka byla odeslána uživateli %s</string>
+  <string name="xAlreadyHasAPendingInvitation">%s již má pozvánku</string>
+  <string name="xIsAKidAccountWarning">%1$s je dětský účet a nemůže přijmout tvojí zprávu. Musíš mu dát URL adresu pozvánky sám:%2$s</string>
+  <string name="moveToClass">Přesunout do %s</string>
+  <string name="moveToAnotherClass">Přesunout do jiné třídy</string>
 </resources>

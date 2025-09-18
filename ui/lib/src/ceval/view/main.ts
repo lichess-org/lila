@@ -26,16 +26,17 @@ const gaugeTicks: VNode[] = [...Array(8).keys()].map(i =>
 
 function localEvalNodes(ctrl: CevalHandler, evs: NodeEvals): Array<VNode | string> {
   const ceval = ctrl.ceval,
-    state = ceval.state;
+    state = ceval.state,
+    status = ceval.opts.custom?.statusNode?.();
+  if (status) return [status];
   if (!evs.client) {
     if (!ceval.analysable) return ['Engine cannot analyze this position'];
     if (state === CevalState.Failed) return [i18n.site.engineFailed];
     const localEvalText = state === CevalState.Loading ? loadingText(ctrl) : i18n.site.calculatingMoves;
     return [evs.server && ctrl.nextNodeBest() ? i18n.site.usingServerAnalysis : localEvalText];
   }
-
   const t: Array<VNode | string> = [];
-  if (ceval.canGoDeeper)
+  if (!ceval.opts.custom && ceval.canGoDeeper)
     t.push(
       hl('a.deeper', {
         attrs: { title: i18n.site.goDeeper, 'data-icon': licon.PlusButton },
@@ -82,14 +83,14 @@ function localInfo(ctrl: CevalHandler, ev?: Tree.ClientEval | false): EvalInfo {
   return info;
 }
 
-function threatButton(ctrl: CevalHandler): VNode | null {
-  if (ctrl.ceval.download || ctrl.disableThreatMode?.()) return null;
-  return hl('button.show-threat', {
-    class: { active: ctrl.threatMode(), hidden: !!ctrl.getNode().check },
-    attrs: { 'data-icon': licon.Target, title: i18n.site.showThreat + ' (x)' },
-    hook: bind('click', ctrl.toggleThreatMode),
-  });
-}
+const threatButton = (ctrl: CevalHandler): VNode | null =>
+  ctrl.ceval.download
+    ? null
+    : hl('button.show-threat', {
+        class: { active: ctrl.threatMode(), hidden: !!ctrl.getNode().check },
+        attrs: { 'data-icon': licon.Target, title: i18n.site.showThreat + ' (x)' },
+        hook: bind('click', () => ctrl.toggleThreatMode()),
+      });
 
 function engineName(ctrl: CevalCtrl): VNode[] {
   const engine = ctrl.engines.active;
@@ -138,7 +139,6 @@ export function renderGauge(ctrl: CevalHandler): VNode | undefined {
 
 export function renderCeval(ctrl: CevalHandler): VNode[] {
   const ceval = ctrl.ceval;
-  if (ctrl.isCevalAllowed?.() === false || ctrl.showCeval?.() === false) return [];
   const enabled = !ceval.isPaused && ctrl.cevalEnabled(),
     client = ctrl.getNode().ceval,
     server = ctrl.getNode().eval,
@@ -147,7 +147,7 @@ export function renderCeval(ctrl: CevalHandler): VNode[] {
     bestEv = threat || getBestEval(ctrl),
     search = ceval.search,
     download = ceval.download;
-  let pearl: VNode | string,
+  let pearl: VNode | undefined,
     percent = 0;
 
   if (client) {
@@ -158,16 +158,19 @@ export function renderCeval(ctrl: CevalHandler): VNode[] {
     else if ('depth' in search.by) percent = Math.min(100, (100 * client.depth) / search.by.depth);
     else if ('nodes' in search.by) percent = Math.min(100, (100 * client.nodes) / search.by.nodes);
   }
-  if (bestEv && typeof bestEv.cp !== 'undefined') pearl = renderEval(bestEv.cp);
-  else if (bestEv && defined(bestEv.mate)) {
-    pearl = '#' + bestEv.mate;
+  if (ceval.opts.custom?.pearlNode) {
+    pearl = ceval.opts.custom.pearlNode();
+  } else if (bestEv && typeof bestEv.cp !== 'undefined') {
+    pearl = hl('pearl', renderEval(bestEv.cp));
+  } else if (bestEv && defined(bestEv.mate)) {
+    pearl = hl('pearl', '#' + bestEv.mate);
     percent = 100;
   } else {
-    if (!enabled) pearl = hl('i');
-    else if (ctrl.outcome() || ctrl.getNode().threefold) pearl = '-';
+    if (!enabled) pearl = hl('pearl', hl('i'));
+    else if (ctrl.outcome() || ctrl.getNode().threefold) pearl = hl('pearl', '-');
     else if (ceval.state === CevalState.Failed)
-      pearl = hl('i.is-red', { attrs: { 'data-icon': licon.CautionCircle } });
-    else pearl = hl('i.ddloader');
+      pearl = hl('pearl', hl('i.is-red', { attrs: { 'data-icon': licon.CautionCircle } }));
+    else pearl = hl('pearl', hl('i.ddloader'));
     percent = ctrl.outcome() ? 100 : 0;
   }
   if (download) percent = Math.min(100, Math.round((100 * download.bytes) / download.total));
@@ -197,7 +200,7 @@ export function renderCeval(ctrl: CevalHandler): VNode[] {
 
   const body: LooseVNodes = enabled
     ? [
-        hl('pearl', [pearl]),
+        pearl,
         hl('div.engine', [
           threatMode ? [i18n.site.showThreat] : engineName(ceval),
           hl(
@@ -213,7 +216,7 @@ export function renderCeval(ctrl: CevalHandler): VNode[] {
         ]),
       ]
     : [
-        pearl && hl('pearl', [pearl]),
+        pearl,
         hl('div.engine', [
           engineName(ceval),
           hl('br'),
@@ -226,26 +229,26 @@ export function renderCeval(ctrl: CevalHandler): VNode[] {
     class: { active: ctrl.ceval.showEnginePrefs() }, // must use ctrl.ceval rather than ceval here
     hook: bind(
       'click',
-      () => {
+      e => {
+        e.stopPropagation();
         ctrl.ceval.showEnginePrefs.toggle(); // must use ctrl.ceval rather than ceval here
         if (ctrl.ceval.showEnginePrefs())
-          setTimeout(() => document.querySelector<HTMLElement>('.select-engine')?.focus()); // nvui
+          setTimeout(() => document.querySelector<HTMLElement>('#select-engine')?.focus()); // nvui
       },
       () => ctrl.ceval.opts.redraw(), // must use ctrl.ceval rather than ceval here
       false,
     ),
   });
-
   return [
     hl('div.ceval' + (enabled ? '.enabled' : ''), { class: { computing: ceval.isComputing } }, [
       renderCevalSwitch(ctrl),
       body,
-      threatButton(ctrl),
+      !ctrl.ceval.opts.custom && threatButton(ctrl),
       settingsGear,
       progressBar,
     ]),
     renderCevalSettings(ctrl),
-  ].filter((v): v is VNode => !!v);
+  ].filter(v => v != null);
 }
 
 export function renderCevalSwitch(ctrl: CevalHandler): VNode | false {
@@ -313,8 +316,8 @@ function setHovering(ceval: CevalCtrl, fen: FEN | null, uci?: Uci): void {
 }
 
 export function renderPvs(ctrl: CevalHandler): VNode | undefined {
+  if (!ctrl.cevalEnabled()) return;
   const ceval = ctrl.ceval;
-  if (ctrl.showCeval?.() === false || !ctrl.cevalEnabled()) return;
   const multiPv = ceval.search.multiPv,
     node = ctrl.getNode(),
     setup = parseFen(node.fen).unwrap();

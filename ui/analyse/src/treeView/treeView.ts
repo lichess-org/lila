@@ -12,6 +12,7 @@ import { addPointerListeners } from 'lib/pointer';
 
 export class TreeView {
   constructor(readonly ctrl: AnalyseCtrl) {}
+  private autoScrollRequest: 'instant' | 'smooth' | false = false;
 
   hidden = true;
   modePreference = storedProp<'column' | 'inline'>(
@@ -31,12 +32,16 @@ export class TreeView {
     return this.mode === 'column' ? renderColumnView(this.ctrl, concealOf) : renderInlineView(this.ctrl);
   }
 
+  requestAutoScroll(request: 'instant' | 'smooth' | false) {
+    this.autoScrollRequest = request;
+  }
+
   hook(): Hooks {
     const { ctrl } = this;
     return {
       insert: vnode => {
         const el = vnode.elm as HTMLElement;
-        if (ctrl.path !== '') ctrl.autoScrollRequested = 'instant';
+        if (ctrl.path !== '') this.autoScrollRequest = 'instant';
         const ctxMenuCallback = (e: MouseEvent) => {
           renderContextMenu(e, ctrl, eventPath(e) ?? '');
           ctrl.redraw();
@@ -51,19 +56,19 @@ export class TreeView {
           el.ondblclick = ctxMenuCallback;
           addPointerListeners(el, { hold: ctxMenuCallback });
         }
-        el.addEventListener('click', (e: MouseEvent) => {
+        el.addEventListener('pointerup', (e: PointerEvent) => {
           if (!(e.target instanceof HTMLElement)) return;
           if (e.target.classList.contains('disclosure') || (defined(e.button) && e.button !== 0)) return;
           const path = eventPath(e);
           if (path) ctrl.userJump(path);
-          ctrl.autoScrollRequested = false;
+          this.autoScrollRequest = false;
           ctrl.redraw();
         });
       },
       postpatch: () => {
-        if (ctrl.autoScrollRequested) {
-          autoScroll(ctrl.autoScrollRequested);
-          ctrl.autoScrollRequested = false;
+        if (this.autoScrollRequest) {
+          autoScroll(this.autoScrollRequest);
+          this.autoScrollRequest = false;
         }
       },
     };

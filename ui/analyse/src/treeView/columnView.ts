@@ -12,7 +12,7 @@ export function renderColumnView(ctrl: AnalyseCtrl, concealOf: ConcealOf = () =>
   return hl('div.tview2.tview2-column', { class: { hidden: ctrl.treeView.hidden } }, [
     commentTags.length > 0 && hl('interrupt', commentTags),
     blackStarts && [renderIndex(node.ply, false), hl('move.empty', '...')],
-    renderer.renderNodes(renderer.filterNodes(node.children), {
+    renderer.renderNodes(ctrl.visibleChildren(node), {
       parentPath: '',
       parentDisclose: ctrl.idbTree.discloseOf(node, true),
       parentNode: node,
@@ -56,7 +56,7 @@ class ColumnView extends InlineView {
               ]),
               isWhite && child.children.length > 0 && [renderIndex(child.ply, false), emptyMove()],
             ],
-          this.renderNodes(this.filterNodes(child.children), {
+          this.renderNodes(this.ctrl.visibleChildren(child), {
             parentPath: childPath,
             parentNode: child,
             parentDisclose: this.ctrl.idbTree.discloseOf(child, true),

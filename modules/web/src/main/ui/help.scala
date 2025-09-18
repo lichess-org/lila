@@ -203,11 +203,6 @@ object help:
             td(cls := "tips")(
               ul(
                 li(
-                  a(target := "_blank", href := "https://youtu.be/Ibfk4TyDZpY")(
-                    watchTheVideoTutorial()
-                  )
-                ),
-                li(
                   instructions1(
                     i(dataIcon := Icon.Voice),
                     i(dataIcon := Icon.InfoCircle),
@@ -227,14 +222,7 @@ object help:
                   " in Settings, set timer off, and set clarity to clear if you are playing blindfolded",
                   " with speech synthesis. This enables spoken move confirmation."
                 ),
-                li(instructions5(), phonetics),
-                li(
-                  instructions6(
-                    a(target := "_blank", href := "/@/schlawg/blog/how-to-lichess-voice/nWrypoWI")(
-                      thisBlogPost()
-                    )
-                  )
-                )
+                li(instructions5(), phonetics)
               )
             )
           )

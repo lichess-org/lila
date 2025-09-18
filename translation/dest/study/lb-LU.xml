@@ -163,9 +163,9 @@
   <string name="playAgain">Nach eng Kéier spillen</string>
   <string name="whatWouldYouPlay">Wat géifs du an dëser Stellung spillen?</string>
   <string name="youCompletedThisLesson">Gudd gemaach! Du hues dës Übung ofgeschloss.</string>
-  <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">%s pro Säit</string>
+  <string name="perPage">%s pro Säit</string>
   <string name="welcomeToLichessStudyTitle">Wëllkomm op Lichess Study!</string>
-  <string name="sharedAndSaveTitle" comment="Appears as the title of a pop-up lightbox in the guided tour of Lichess Studies.&#10;&#10;As in: shared with other members &amp; saved to the database.">Gedeelt a gespäichert</string>
+  <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Gedeelt a gespäichert</string>
   <string name="sharedAndSavedText">Aner Membere kënnen deng Zich an Echtzäit gesinn!&lt;br&gt;Ausserdeem gëtt alles fir ëmmer gespäichert.</string>
   <string name="studyMembersTitle">Membere vun der Etüd</string>
   <string name="addMembersText" comment="%s is an icon that will added at runtime">Klick op den %s-Knäppchen.&lt;br&gt;Da kanns de decidéieren, wee bäidroen däerf a ween net.</string>
@@ -182,7 +182,7 @@
   <string name="fromPgnGameTitle">Aus enger PGN-Partie</string>
   <string name="variantsAreSupportedTitle">Etüden ënnerstëtze Schachvarianten</string>
   <string name="variantsAreSupportedText">Jo, du kanns Crazyhouse&lt;br&gt;an all aner Lichess-Schachvariante studéieren!</string>
-  <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Duebel Néierlag</string>
-  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">Néierlag fir Schwaarz, mee Wäiss kann net gewannen</string>
-  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">Néierlag fir Wäiss, mee Schwaarz kann net gewannen</string>
+  <string name="doubleDefeat">Duebel Néierlag</string>
+  <string name="blackDefeatWhiteCanNotWin">Néierlag fir Schwaarz, mee Wäiss kann net gewannen</string>
+  <string name="whiteDefeatBlackCanNotWin">Néierlag fir Wäiss, mee Schwaarz kann net gewannen</string>
 </resources>

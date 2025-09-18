@@ -8,18 +8,48 @@
 
   &__start {
     @extend %flex-column;
-
-    justify-content: stretch;
     flex: 1 1 auto;
-    gap: 0.5em;
+    justify-content: stretch;
+    gap: 9px; // grid gap in app/_pool.scss
 
-    button {
-      font-size: 1.1em;
-      text-align: center;
-      padding: 0.5em;
-
+    &__button {
+      display: flex;
+      align-items: center;
+      font-size: 1.2em;
+      gap: 1em;
+      padding-inline: 2em 3em;
+      height: 3.2em;
+      text-transform: none;
       &.disabled {
         opacity: 0.2;
+      }
+      &::before {
+        @extend %data-icon;
+        font-size: 1.7em;
+        color: $c-font-dimmer;
+      }
+      &--hook.button::before {
+        content: $licon-Group;
+      }
+      &--friend.button::before {
+        content: $licon-User;
+      }
+      &--ai.button::before {
+        content: $licon-Cpu;
+      }
+      &--friend-user.button::before {
+        content: $licon-Swords;
+      }
+      @media (hover: hover) {
+        &:hover.disabled {
+          cursor: default;
+        }
+        &:hover:not(.disabled) {
+          color: $c-font-clear !important;
+          &::before {
+            color: $c-accent;
+          }
+        }
       }
     }
   }

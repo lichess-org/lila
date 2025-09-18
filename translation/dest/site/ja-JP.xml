@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">友達と対局する</string>
-  <string name="playWithTheMachine">コンピュータと対戦</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">誰かを招待する時はこのURLを送ってください</string>
   <string name="gameOver">終局</string>
   <string name="waitingForOpponent">相手を待っています</string>
@@ -318,7 +316,6 @@
     <item quantity="other">%s 局進行中</item>
   </plurals>
   <string name="exportGames">対局をエクスポートする</string>
-  <string name="ratingRange">レーティングの範囲</string>
   <plurals name="giveNbSeconds">
     <item quantity="other">%s秒を与える</item>
   </plurals>
@@ -366,6 +363,7 @@
     <item quantity="other">レート戦があと %s 局必要です</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">あなたの %s レーティングは仮レートです</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">あなたのレーティングが不安定なため、レーティングフィルタは使用できません。レート戦をプレイすると安定度が上がります。</string>
   <string name="yourPerfRatingIsTooHigh">%1$s レーティング (%2$s) が高すぎます</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">%1$s の週間パフォーマンス (%2$s) が高すぎます</string>
   <string name="yourPerfRatingIsTooLow">%1$s レーティング (%2$s) が低すぎます</string>
@@ -397,7 +395,6 @@
   <string name="importGame">棋譜をインポート</string>
   <string name="importGameExplanation">ゲームの PGN を貼りつけると、ブラウザ上でのリプレイ、
 コンピュータ解析、ゲームチャット、共有可能 URL が得られます。</string>
-  <string name="importGameCaveat">変化手順は消えます。残したい場合は研究を経由して PGN をインポートしてください。</string>
   <string name="importGameDataPrivacyWarning">この PGN はすべての人に公開されます。非公開の状態で棋譜をインポートするには「研究」機能でどうぞ。</string>
   <plurals name="nbImportedGames">
     <item quantity="other">%s 局をインポート</item>
@@ -965,4 +962,9 @@
   <string name="enableBlindMode">視覚障害モードをオンに</string>
   <string name="disableBlindMode">視覚障害モードをオフに</string>
   <string name="copyToClipboard">クリップボードにコピー</string>
+  <string name="online" comment="status of a user">オンライン</string>
+  <string name="offline" comment="status of a user">オフライン</string>
+  <string name="search">検索</string>
+  <string name="clearSearch">検索をクリア</string>
+  <string name="tags">タグ</string>
 </resources>

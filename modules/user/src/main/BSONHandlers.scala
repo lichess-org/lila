@@ -47,12 +47,25 @@ object BSONFields:
 object BSONHandlers:
 
   given playTimeHandler: BSONDocumentHandler[PlayTime] = Macros.handler[PlayTime]
-  given planHandler: BSONDocumentHandler[Plan] = Macros.handler[Plan]
   given profileHandler: BSONDocumentHandler[Profile] = Macros.handler[Profile]
   private[user] given BSONHandler[TotpSecret] = lila.db.dsl.quickHandler[TotpSecret](
     { case v: BSONBinary => new TotpSecret(v.byteArray) },
     v => BSONBinary(v.secret, Subtype.GenericBinarySubtype)
   )
+  given planHandler: BSONDocumentHandler[Plan] = new BSON[Plan]:
+    def reads(r: BSON.Reader) = Plan(
+      months = r.int("months"),
+      active = r.bool("active"),
+      lifetime = r.boolD("lifetime"),
+      since = r.dateO("since")
+    )
+    def writes(w: BSON.Writer, o: Plan) = $doc(
+      "months" -> w.int(o.months),
+      "active" -> o.active,
+      "lifetime" -> w.boolO(o.lifetime),
+      "since" -> o.since
+    )
+
   private[user] given BSONDocumentHandler[Count] = new BSON[Count]:
     def reads(r: BSON.Reader): Count =
       lila.core.user.Count(
@@ -134,6 +147,9 @@ object BSONHandlers:
         marks -> o.marks.value.nonEmpty.option(o.marks)
       )
 
-  private[user] given BSONDocumentHandler[lila.core.LightUser] = Macros.handler
+  // This LightUser handler is only used to store light users in other documents
+  // not to read light users from the user collection
+  // The LightUser handler is in modules/user/src/main/LightUserApi.scala
+  private given BSONDocumentHandler[lila.core.LightUser] = Macros.handler
   private[user] given BSONDocumentHandler[lila.core.user.LightPerf] = Macros.handler
   private[user] given BSONDocumentHandler[lila.user.LightCount] = Macros.handler

@@ -67,6 +67,7 @@ private object RelayGame:
   val fideIdTags: TagNames = List(_.WhiteFideId, _.BlackFideId)
   val whiteTags: TagNames = List(_.White, _.WhiteFideId)
   val blackTags: TagNames = List(_.Black, _.BlackFideId)
+  val unplayedTag = Tag(_.Termination, "Unplayed")
 
   def fromChapter(c: lila.study.Chapter) = RelayGame(
     tags = c.tags,
@@ -76,18 +77,19 @@ private object RelayGame:
   )
 
   def fromStudyImport(res: lila.study.StudyPgnImport.Result): RelayGame =
-    val fixedTags = removeBrokenPlayerNames:
-      removeDateTag:
-        Tags:
-          // remove wrong ongoing result tag if the board has a mate on it
-          if res.ending.isDefined && res.tags(_.Result).has("*") then
-            res.tags.value.filter(_ != Tag(_.Result, "*"))
-          // normalize result tag (e.g. 0.5-0 ->  1/2-0)
-          else
-            res.tags.value.map: tag =>
-              if tag.name == Tag.Result
-              then tag.copy(value = Outcome.showPoints(Outcome.pointsFromResult(tag.value)))
-              else tag
+    val fixedTags = cleanOrRemovePlayerNames:
+      Tags:
+        // remove wrong ongoing result tag if the board has a mate on it
+        if res.ending.isDefined && res.tags(_.Result).has("*") then
+          res.tags.value.filter(_ != Tag(_.Result, "*"))
+        // normalize result tag (e.g. 0.5-0 ->  1/2-0)
+        else
+          res.tags.value.map: tag =>
+            if tag.name == Tag.Result
+            then tag.copy(value = Outcome.showPoints(Outcome.pointsFromResult(tag.value)))
+            else tag
+      .pipe(removeDateTag)
+        .pipe(withUnplayedTermination(_, res))
     RelayGame(
       tags = fixedTags,
       variant = res.variant,
@@ -98,17 +100,23 @@ private object RelayGame:
       points = res.ending.map(_.points)
     ).applyTagClocksToLastMoves
 
-  private def removeBrokenPlayerNames(tags: Tags) = tags.copy(
-    value = tags.value.filter: tag =>
-      (tag.name != Tag.White && tag.name != Tag.Black) || {
-        val n = tag.value.toLowerCase
-        n.size > 1 && n != "unknown"
-      }
+  private def cleanOrRemovePlayerNames(tags: Tags) = tags.copy(
+    value = tags.value.flatMap: tag =>
+      if tag.name != Tag.White && tag.name != Tag.Black then tag.some
+      else
+        val clean = tag.value.trim
+        Option.when(clean.size > 1 && clean.toLowerCase != "unknown"):
+          tag.copy(value = clean)
   )
 
   // trust the chapter date, not the source date
   private def removeDateTag(tags: Tags) =
     tags.copy(value = tags.value.filterNot(_.name == Tag.Date))
+
+  private def withUnplayedTermination(tags: Tags, res: lila.study.StudyPgnImport.Result) =
+    if res.ending.isDefined && res.root.mainline.sizeIs < 2
+    then tags + unplayedTag
+    else tags
 
   import scalalib.Iso
   import chess.format.pgn.InitialComments

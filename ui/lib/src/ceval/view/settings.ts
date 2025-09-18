@@ -9,9 +9,7 @@ import { onClickAway } from '../../common';
 import { clamp } from '../../algo';
 import { confirm } from '../../view/dialogs';
 
-const allSearchTicks = [4, 6, 8, 10, 12, 15, 20, 30, Number.POSITIVE_INFINITY];
-
-const formatHashSize = (v: number): string => (v < 1000 ? v + 'MB' : Math.round(v / 1024) + 'GB');
+const allSearchTicks: number[] = [2, 4, 6, 8, 10, 12, 15, 20, 30, Number.POSITIVE_INFINITY];
 
 export function renderCevalSettings(ctrl: CevalHandler): VNode | null {
   const ceval = ctrl.ceval,
@@ -56,53 +54,51 @@ export function renderCevalSettings(ctrl: CevalHandler): VNode | null {
           },
           [
             engineSelection(ctrl),
-            !ceval.customSearch &&
-              (id => {
-                return hl('div.setting', { attrs: { title: 'Set time to evaluate fresh positions' } }, [
-                  hl('label', { attrs: { for: id } }, 'Search time'),
-                  hl('input#' + id, {
-                    attrs: {
-                      type: 'range',
-                      min: 0,
-                      max: searchTicks.length - 1,
-                      step: 1,
-                      'aria-valuetext': i18n.site.nbSeconds(searchTicks[searchTick()]),
-                    },
-                    hook: rangeConfig(searchTick, n => {
-                      ceval.storedMovetime(searchTicks[n] * 1000);
-                      ctrl.startCeval();
-                      ceval.opts.redraw();
-                    }),
+            (id => {
+              return hl('div.setting', { attrs: { title: 'Set time to evaluate fresh positions' } }, [
+                hl('label', { attrs: { for: id } }, 'Search time'),
+                hl('input#' + id, {
+                  attrs: {
+                    type: 'range',
+                    min: 0,
+                    max: searchTicks.length - 1,
+                    step: 1,
+                    'aria-valuetext': i18n.site.nbSeconds(searchTicks[searchTick()]),
+                  },
+                  hook: rangeConfig(searchTick, n => {
+                    ceval.storedMovetime(searchTicks[n] * 1000);
+                    ctrl.startCeval();
+                    ceval.opts.redraw();
                   }),
-                  hl(
-                    'div.range_value',
-                    isFinite(searchTicks[searchTick()]) ? `${searchTicks[searchTick()]}s` : '∞',
-                  ),
-                ]);
-              })('engine-search-ms'),
-            !ceval.customSearch &&
-              (id => {
-                const max = 5;
-                return hl(
-                  'div.setting',
-                  { attrs: { title: 'Set number of evaluation lines and move arrows on the board' } },
-                  [
-                    hl('label', { attrs: { for: id } }, i18n.site.multipleLines),
-                    hl('input#' + id, {
-                      attrs: { type: 'range', min: 0, max, step: 1 },
-                      hook: rangeConfig(
-                        () => ceval.storedPv(),
-                        (pvs: number) => {
-                          ceval.storedPv(pvs);
-                          ctrl.clearCeval?.();
-                          ceval.opts.redraw();
-                        },
-                      ),
-                    }),
-                    hl('div.range_value', `${ceval.storedPv()} / ${max}`),
-                  ],
-                );
-              })('analyse-multipv'),
+                }),
+                hl(
+                  'div.range_value',
+                  isFinite(searchTicks[searchTick()]) ? `${searchTicks[searchTick()]}s` : '∞',
+                ),
+              ]);
+            })('engine-search-ms'),
+            (id => {
+              const max = 5;
+              return hl(
+                'div.setting',
+                { attrs: { title: 'Set number of evaluation lines and move arrows on the board' } },
+                [
+                  hl('label', { attrs: { for: id } }, i18n.site.multipleLines),
+                  hl('input#' + id, {
+                    attrs: { type: 'range', min: 0, max, step: 1 },
+                    hook: rangeConfig(
+                      () => ceval.storedPv(),
+                      (pvs: number) => {
+                        ceval.storedPv(pvs);
+                        ctrl.clearCeval?.();
+                        ceval.opts.redraw();
+                      },
+                    ),
+                  }),
+                  hl('div.range_value', `${ceval.storedPv()} / ${max}`),
+                ],
+              );
+            })('analyse-multipv'),
             maxThreads > minThreads &&
               (id => {
                 return hl(
@@ -180,6 +176,10 @@ export function renderCevalSettings(ctrl: CevalHandler): VNode | null {
       );
 }
 
+function formatHashSize(v: number) {
+  return v < 1000 ? v + 'MB' : Math.round(v / 1024) + 'GB';
+}
+
 function setupTick(v: VNode, ceval: CevalCtrl) {
   const tick = v.elm as HTMLElement;
   const parentSpan = tick.parentElement!;
@@ -200,9 +200,9 @@ function engineSelection(ctrl: CevalHandler) {
     external = ceval.engines.external;
   return [
     hl('div.setting', [
-      'Engine:',
+      hl('label', { attrs: { for: 'select-engine' } }, 'Engine:'),
       hl(
-        'select.select-engine',
+        'select#select-engine',
         {
           hook: bind('change', e => {
             ceval.selectEngine((e.target as HTMLSelectElement).value);

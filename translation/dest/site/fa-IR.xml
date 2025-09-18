@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">بازی با دوستان</string>
-  <string name="playWithTheMachine">بازی با رایانه</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">برای دعوت یک نفر به بازی، این آدرس را به او بدهید</string>
   <string name="gameOver">پایان بازی</string>
   <string name="waitingForOpponent">انتطار برای حریف</string>
@@ -341,7 +339,6 @@
     <item quantity="other">%s بازیِ اکنونی</item>
   </plurals>
   <string name="exportGames">برون‏بُرد بازی‌ها</string>
-  <string name="ratingRange">محدوده درجه‌بندی</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">%s ثانیه اضافه کن</item>
     <item quantity="other">%s ثانیه اضافه کن</item>
@@ -427,7 +424,6 @@
   <string name="toStudy">مطالعه</string>
   <string name="importGame">بارگذاری بازی</string>
   <string name="importGameExplanation">برای دریافت بازپخش مرورپذیر، واکاوی رایانه‌ای، گپ‌های بازی، و وب‌نشانی همگانی همرسانی‌پذیر، PGN یک بازی را جای‌گذاری کنید.</string>
-  <string name="importGameCaveat">ورتش‌ها پاک خواهند شد. برای حفظشان، PGN را از طریق مطالعه درون‌بَرید.</string>
   <string name="importGameDataPrivacyWarning">این PGN برای عموم در دسترس است، برای وارد کردن یک بازی خصوصی، از *مطالعه* استفاده کنید.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s بارگذاری شده</item>
@@ -533,7 +529,7 @@
   <string name="inlineNotation">نشانه‌گذاری خطی</string>
   <string name="makeAStudy">برای نگهداری مطمئن و همرسانی، ساخت یک مطالعه را در نظر بگیرید.</string>
   <string name="clearSavedMoves">حرکت های واضح</string>
-  <string name="previouslyOnLichessTV">بازی پیشین در لیچس</string>
+  <string name="previouslyOnLichessTV">بازی پیشین در Lichess</string>
   <string name="onlinePlayers">بازیکنان بَرخط</string>
   <string name="activePlayers">بازیکنان فعال</string>
   <string name="bewareTheGameIsRatedButHasNoClock">مراقب باشید،این بازی رتبه بندی میشود اما بدون ساعت!</string>

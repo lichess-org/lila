@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Бавити против цімборы</string>
-  <string name="playWithTheMachine">Бавити против компютора</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Обы дакого закликати, дайте му се одкликованя</string>
   <string name="gameOver">Бавка довершена</string>
   <string name="waitingForOpponent">Чекаєме противника</string>
@@ -345,7 +343,6 @@
     <item quantity="other">%s ся бавлят</item>
   </plurals>
   <string name="exportGames">Стерьхати бавкы</string>
-  <string name="ratingRange">Рейтінґ противника</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Дати %s секунду</item>
     <item quantity="few">Дати %s секунды</item>
@@ -395,7 +392,6 @@
   <string name="toStudy">Штудія</string>
   <string name="importGame">Перенести бавку</string>
   <string name="importGameExplanation">Впишіт бавку у форматови PGN, и будете мати можность перегравати бавку, довершовати компюторный аналіз, приказовати у четови ай дїлити ся одкликованьом на ниї.</string>
-  <string name="importGameCaveat">Варіанты ся зотрут. Обы усокотити їх, перенесіт PGN у штудію.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s перенесена бавка</item>
     <item quantity="few">%s перенесені бавкы</item>

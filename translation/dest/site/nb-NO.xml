@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Spill mot en venn</string>
-  <string name="playWithTheMachine">Spill mot maskinen</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">For å invitere noen til å spille, gi dem denne lenken</string>
   <string name="gameOver">Partiet er avsluttet</string>
   <string name="waitingForOpponent">Venter på motstander</string>
@@ -341,7 +339,6 @@
     <item quantity="other">%s pågår</item>
   </plurals>
   <string name="exportGames">Eksporter partier</string>
-  <string name="ratingRange">Ratingspenn</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Gi %s sekund</item>
     <item quantity="other">Gi %s sekunder</item>
@@ -397,6 +394,7 @@
     <item quantity="other">Du må spille enda %s ratede partier</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">%s-ratingen din er provisorisk</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Ratingfiltrene er låst fordi ratingen din er ustabil. Stabiliteten øker når du spiller ratede partier.</string>
   <string name="yourPerfRatingIsTooHigh">Ratingen din i %1$s (%2$s) er for høy</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Den beste ukeratingen din i %1$s (%2$s) er for høy</string>
   <string name="yourPerfRatingIsTooLow">Ratingen din i %1$s (%2$s) er for lav</string>
@@ -427,7 +425,6 @@
   <string name="toStudy">Studie</string>
   <string name="importGame">Importer parti</string>
   <string name="importGameExplanation">Lim inn PGN for gjennomblaing, maskinanalyse, partisamtale og delbar URL.</string>
-  <string name="importGameCaveat">Varianter importeres ikke. Bruk en studie for å importere PGN med varianter.</string>
   <string name="importGameDataPrivacyWarning">Denne PGN-en er offentlig tilgjengelig. Bruk en studie for å importere et parti privat.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importert parti</item>
@@ -1009,4 +1006,5 @@ Alle kostnader for drift, utvikling og innhold finansieres utelukkende av bruker
   <string name="enableBlindMode">Aktiver blindemodus</string>
   <string name="disableBlindMode">Deaktiver blindemodus</string>
   <string name="copyToClipboard">Kopier til utklippstavlen</string>
+  <string name="search">Søk</string>
 </resources>

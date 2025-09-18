@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Chugar contra un amigo</string>
-  <string name="playWithTheMachine">Chugar contra l\'ordinador</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Pa convidar a belún a chugar, comparte este vinclo</string>
   <string name="gameOver">Fin d\'a partida</string>
   <string name="waitingForOpponent">Aguardando a l\'oponent</string>
@@ -337,7 +335,6 @@
     <item quantity="other">%s en chuego</item>
   </plurals>
   <string name="exportGames">Exportar partidas</string>
-  <string name="ratingRange">Rango de puntuación</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Dar %s segundo</item>
     <item quantity="other">Dar %s segundos</item>
@@ -415,7 +412,6 @@
   <string name="toStudy">Estudiar</string>
   <string name="importGame">Importar partida</string>
   <string name="importGameExplanation">Apegando lo PGN d\'una partida, s\'obtiene una repetición navegable, una analisi per ordinador, un chat de partida y un vinclo pa compartir.</string>
-  <string name="importGameCaveat">Se borrarán las variants. Pa mantenir-la, importa lo PGN a traviés d\'un estudio.</string>
   <string name="importGameDataPrivacyWarning">Este PGN ye accesible per lo publico. Pa importar una partida de manera privada, fe servir un estudio.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s partida importada</item>

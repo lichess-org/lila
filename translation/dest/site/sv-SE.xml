@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Spela med en vän</string>
-  <string name="playWithTheMachine">Spela mot datorn</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">För att bjuda in någon att spela, ge dem den här länken</string>
   <string name="gameOver">Partiet är slut</string>
   <string name="waitingForOpponent">Väntar på motståndare</string>
@@ -340,7 +338,6 @@
     <item quantity="other">%s spelas</item>
   </plurals>
   <string name="exportGames">Exportera partier</string>
-  <string name="ratingRange">Ratingomfång</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Ge %s sekund</item>
     <item quantity="other">Ge %s sekunder</item>
@@ -426,7 +423,6 @@
   <string name="toStudy">Studera</string>
   <string name="importGame">Importera parti</string>
   <string name="importGameExplanation">Klistra in ett partis PGN-kod så får du en bläddringsbar uppspelning, en datoranalys, en spel-chatt och en delbar URL.</string>
-  <string name="importGameCaveat">Variationer kommer att raderas. För att behålla dem, importera PGN:en via en studie.</string>
   <string name="importGameDataPrivacyWarning">Denna PGN kan nås av allmänheten. För att importera ett parti privat, använd en studie.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Importerat parti</item>
@@ -1007,4 +1003,10 @@ Alla driftskostnader, utveckling och innehåll finansieras enbart av användardo
   <string name="accessibility">Tillgänglighet</string>
   <string name="enableBlindMode">Aktivera blind-läge</string>
   <string name="disableBlindMode">Inaktivera blind-läge</string>
+  <string name="copyToClipboard">Kopiera till urklipp</string>
+  <string name="online" comment="status of a user">online</string>
+  <string name="offline" comment="status of a user">offline</string>
+  <string name="search">Sök</string>
+  <string name="clearSearch">Rensa sökning</string>
+  <string name="tags">Taggar</string>
 </resources>

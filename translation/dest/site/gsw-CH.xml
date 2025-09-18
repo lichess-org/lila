@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Schpill mit eme Fründ</string>
-  <string name="playWithTheMachine">Schpill mit em Computer</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Wottsch öpper zum Schpille ilade - schick die URL</string>
   <string name="gameOver">Schpiel verbi</string>
   <string name="waitingForOpponent">Uf de Gägner warte</string>
@@ -342,7 +340,6 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
     <item quantity="other">%s am Schpille</item>
   </plurals>
   <string name="exportGames">Schpiel exportiere</string>
-  <string name="ratingRange">Wertigsbereich</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Gib dim Gägner %s Sekunde</item>
     <item quantity="other">Gib dim Gägner %s Sekunde</item>
@@ -398,6 +395,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
     <item quantity="other">Du bruchsch no %s g\'werteti Schpiel meh</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Dini %s Wertig isch provisorisch</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">D\'Bewertigsfilter sind geschperrt, will dini Wertig nöd schtabil isch. Durs Schpiele vu bewertete Schpiel wird die Schtabilität erhöht.</string>
   <string name="yourPerfRatingIsTooHigh">Dini %1$s Wertig (%2$s) isch z\'höch</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Dini höchschti %1$s Wertig (%2$s) isch z\'höch</string>
   <string name="yourPerfRatingIsTooLow">Dini %1$s Wertig (%2$s) isch z\'tüf</string>
@@ -428,7 +426,6 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="toStudy">Schtudie</string>
   <string name="importGame">Schpiel importiere</string>
   <string name="importGameExplanation">Füeg e Schpiel-PGN i, für Zuegriff uf Schpielwiderholig, Computeranalyse, Chat und e teilbari URL.</string>
-  <string name="importGameCaveat">d\'Variazione werded glöscht. Zums b\'halte, muesch d\'PGN mit ere Schtudie importiere.</string>
   <string name="importGameDataPrivacyWarning">De PGN isch öffentlich zuegänglich. Zum es Schpiel privat importiere, nimmsch e Schtudie.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importierts Schpiel</item>
@@ -1019,4 +1016,9 @@ Alli Betriebs-Choschte, d\'Entwicklig und d\'Inhält werded usschliesslich dur B
   <string name="enableBlindMode">Blindmodus aktiviere</string>
   <string name="disableBlindMode">Blindmodus deaktiviere</string>
   <string name="copyToClipboard">Kopier ufs Clipboard</string>
+  <string name="online" comment="status of a user">online</string>
+  <string name="offline" comment="status of a user">offline</string>
+  <string name="search">Suechi</string>
+  <string name="clearSearch">Suechi lösche</string>
+  <string name="tags">Tags</string>
 </resources>

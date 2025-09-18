@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">मित्र के साथ खेलें</string>
-  <string name="playWithTheMachine">कंप्यूटर के साथ खेलें</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">इस खेल में किसी को आमंत्रित करने के लिए उन्हें ये पता दें</string>
   <string name="gameOver">खेल समाप्त</string>
   <string name="waitingForOpponent">आप प्रतिद्वंदी की प्रतीक्षा कर रहे हैं</string>
@@ -336,7 +334,6 @@
     <item quantity="other">%s खेल रहा है</item>
   </plurals>
   <string name="exportGames">खेल को निर्यात (एक्सपोर्ट) करें</string>
-  <string name="ratingRange">अंकों की सीमा</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">%s सेकंड्स दें</item>
     <item quantity="other">%s सेकंड्स दें</item>
@@ -414,7 +411,6 @@
   <string name="toStudy">पढ़े</string>
   <string name="importGame">खेल आयात (इम्पोर्ट) करे</string>
   <string name="importGameExplanation">जब एक खेल PGN चिपकाने आप एक ब्राउसेबल पुनरावृत्ति, एक कंप्यूटर विश्लेषण, एक खेल चैट और एक साझा यूआरएल मिलता है ।</string>
-  <string name="importGameCaveat">विविधताएं मिट जाएंगी. उन्हें रखने के लिए, एक अध्ययन के माध्यम से PGN आयात करें।</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s खेल आयत (इम्पोर्ट) किये गए</item>
     <item quantity="other">%s खेल आयत (इम्पोर्ट) किये गए</item>

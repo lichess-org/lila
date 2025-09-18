@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses" comment="Lichess Classes are a feature that lets a teacher create virtual classes and check out students' progress.&#10;&#10;This text used to be &quot;Lichess Classes&quot;, which has since been shortened to &quot;Classes&quot;.">Aulas</string>
+  <string name="lichessClasses">Aulas</string>
   <string name="teachClassesOfChessStudents">Dá aulas de xadrez ao teus alunos com o conjunto de ferramentas das Aulas Lichess.</string>
   <string name="features">Funcionalidades</string>
   <string name="quicklyGenerateSafeUsernames">Gera rapidamente nomes de utilizadores e palavras-passe seguros para os alunos</string>
   <string name="trackStudentProgress">Acompanha o progresso do aluno em jogos e em problemas</string>
   <string name="messageAllStudents">Envia uma mensagem a todos os alunos sobre o novo material didático</string>
-  <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">100% gratuito para todos, para sempre, sem anúncios ou rastreadores</string>
+  <string name="freeForAllForever">100% gratuito para todos, para sempre, sem anúncios ou rastreadores</string>
   <string name="applyToBeLichessTeacher">Candidata-te para seres um professor Lichess</string>
   <string name="noClassesYet">Não há aulas ainda.</string>
   <string name="teachersX">Professores: %s</string>
   <string name="newClass">Nova aula</string>
   <string name="closeClass">Fechar aula</string>
   <string name="removedByX">Removido por %s</string>
-  <string name="reopen" comment="A button, permitting a teacher to reopen a closed class.">Reabrir</string>
-  <string name="removeStudent" comment="Removes a student from the class. Note the same text is used both for initial removal, and for full erasure.">Remover aluno</string>
-  <string name="removedStudents" comment="This is in plural form. It is a heading showing all students who have been removed from the class.">Removido</string>
-  <string name="inviteTheStudentBack" comment="A button. Clicking this will re-invite a student that has been removed from the class.">Convidar o aluno de volta</string>
+  <string name="reopen">Reabrir</string>
+  <string name="removeStudent">Remover aluno</string>
+  <string name="removedStudents">Removido</string>
+  <string name="inviteTheStudentBack">Convidar o aluno de volta</string>
   <string name="sendAMessage">Enviar uma mensagem a todos os alunos.</string>
   <string name="aLinkToTheClassWillBeAdded">Um link para a aula será adicionado automaticamente ao final da mensagem, para que não o tenhas de incluir.</string>
   <string name="className">Nome da aula</string>
@@ -30,7 +30,7 @@
   <string name="generateANewPassword">Gerar uma nova palavra-passe para o aluno</string>
   <string name="invitedToXByY">Convidado para %1$s por %2$s</string>
   <string name="realName">Nome verdadeiro</string>
-  <string name="privateWillNeverBeShown" comment="A description of the real name field for members of a class.">Privado. Nunca será mostrado fora da aula. Ajuda a lembrar quem é o aluno.</string>
+  <string name="privateWillNeverBeShown">Privado. Nunca será mostrado fora da aula. Ajuda a lembrar quem é o aluno.</string>
   <string name="addStudent">Adicionar aluno</string>
   <string name="lichessProfileXCreatedForY">Perfil Lichess %1$s criado para %2$s.</string>
   <string name="studentCredentials">Aluno: %1$s
@@ -41,14 +41,14 @@ Palavra-passe: %3$s</string>
   <string name="inviteDesc2">Eles receberão uma mensagem no Lichess com um link para se juntar à aula.</string>
   <string name="inviteDesc3">Importante: convida apenas os alunos que conheces e que querem ativamente participar na aula.</string>
   <string name="inviteDesc4">Nunca envies convites não solicitados para jogadores arbitrários.</string>
-  <string name="createANewLichessAccount" comment="The person who would see this would always be a teacher.&#10;In this context, it is to create a new account for a student of their class.">Criar uma nova conta Lichess</string>
+  <string name="createANewLichessAccount">Criar uma nova conta Lichess</string>
   <string name="createDesc1">Se o aluno ainda não tem uma conta Lichess, podes criar uma para ele aqui.</string>
   <string name="createDesc2">Nenhum endereço de e-mail é necessário. Uma palavra-passe será gerada e terás que transmiti-la ao aluno, para que eles possam ter acesso.</string>
   <string name="createDesc3">Importante: um aluno não pode ter várias contas.</string>
   <string name="createDesc4">Se já tiveres um, utiliza o formulário de convite.</string>
   <string name="createStudentWarning">Crie contas apenas para alunos reais. Não usar isto para criar várias contas para si próprio. Você seria banido.</string>
   <string name="lichessUsername">Nome de utilizador no Lichess</string>
-  <string name="generateANewUsername" comment="A button which lets teachers create a random username for students they are registering.">Gerar um novo nome de utilizador</string>
+  <string name="generateANewUsername">Gerar um novo nome de utilizador</string>
   <string name="welcomeToClass">Bem-vindo à tua aula: %s.
 Aqui está o link para acederes à aula.</string>
   <string name="invitationToClass">Estás convidado para entrares na aula \"%s\" como um aluno.</string>
@@ -57,14 +57,14 @@ Aqui está o link para acederes à aula.</string>
     <item quantity="one">Um convite pendente</item>
     <item quantity="other">%s convites pendentes</item>
   </plurals>
-  <string name="pending" comment="Appears in a table of students. Refers to invitation by a teacher to join a class, which the student has not yet responded to.">Pendente</string>
-  <string name="declined" comment="Appears in a table of students. Refers to invitation by a teacher to join a class, which the student declined.">Recusado</string>
+  <string name="pending">Pendente</string>
+  <string name="declined">Recusado</string>
   <string name="onlyVisibleToTeachers">Visível apenas aos professores da turma</string>
   <string name="lastActiveDate">Ativo</string>
   <string name="managed">Gerido</string>
   <string name="thisStudentAccountIsManaged">Esta conta de aluno é gerida</string>
   <string name="upgradeFromManaged">Atualizar de gerido para autónomo</string>
-  <string name="release" comment="This used to be 'release'. It is now called 'graduate', and the term is used here as a verb.&#10;&#10;'Releasing' an account means making it a full Lichess account. It will no longer be tied to the teacher that created it.">Libertar</string>
+  <string name="release">Libertar</string>
   <string name="releaseTheAccount">Liberta a conta para que o aluno possa geri-la com autonomia.</string>
   <string name="releaseDesc1">Uma conta libertada não pode ser administrada novamente. O aluno será capaz de alternar o modo de criança e redefinir a palavra-passe por si mesmo.</string>
   <string name="releaseDesc2">O aluno permanecerá na aula após a libertação da sua conta.</string>
@@ -102,19 +102,21 @@ Aqui está o link para acederes à aula.</string>
   <string name="newsEdit3">Separa as novidades com --- tal irá mostrar uma linha horizontal.</string>
   <string name="invite">Convidar</string>
   <string name="youHaveBeenInvitedByX">Foi convidado por %s.</string>
-  <string name="youAcceptedThisInvitation" comment="Appears when revisiting the page of an invitation to a class, which you have already accepted.">Aceitou este convite.</string>
-  <string name="youDeclinedThisInvitation" comment="Appears when revisiting the page of an invitation to a class, which you have already declined.">Recusou este convite.</string>
+  <string name="youAcceptedThisInvitation">Aceitou este convite.</string>
+  <string name="youDeclinedThisInvitation">Recusou este convite.</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">ou</string>
   <string name="createMultipleAccounts">Criar várias contas Lichess de uma vez</string>
   <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Também pode %s para criar várias contas Lichess a partir de uma lista de nomes de alunos.</string>
   <string name="useThisForm" comment="Link text in multipleAccsFromDescription">use este formulário</string>
   <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Tenha em atenção que uma turma só pode ter até %1$s alunos. Para gerir mais alunos, %2$s.</string>
   <string name="createMoreClasses" comment="Link text in maxStudentsNote">criar mais turmas</string>
-  <string name="studentsRealNamesOnePerLine" comment="An instruction on how to enter students' names when creating new accounts for them.">Nomes verdadeiros dos alunos, um por linha</string>
-  <string name="xisNowAStudentOfTheClass" comment="%s is the player's name">%s é agora aluno da presente turma</string>
-  <string name="anInvitationHasBeenSentToX" comment="%s is the username of a player already registered on Lichess.">Foi enviado um convite para %s</string>
-  <string name="xAlreadyHasAPendingInvitation" comment="An error message. %s is the username of a player already registered on Lichess.">%s já tem um convite pendente</string>
-  <string name="xIsAKidAccountWarning" comment="%1$s is the username&#10;%2$s is a link.">%1$s é uma conta de criança e não pode receber a sua mensagem. Deve dar-lhe o URL de convite manualmente: %2$s</string>
-  <string name="moveToClass" comment="%s is the name of the class. The name of the class is set by the teacher.&#10;&#10;Appears on a confirmation prompt when a teacher looks to move a student to one of the other classes they run.">Mover para %s</string>
-  <string name="moveToAnotherClass" comment="Appears as a heading on a page which lets a teacher move one of their students to one of the other classes they run.">Mover para outra aula</string>
+  <string name="studentsRealNamesOnePerLine">Nomes verdadeiros dos alunos, um por linha</string>
+  <string name="xisNowAStudentOfTheClass">%s é agora aluno da presente turma</string>
+  <string name="anInvitationHasBeenSentToX">Foi enviado um convite para %s</string>
+  <string name="xAlreadyHasAPendingInvitation">%s já tem um convite pendente</string>
+  <string name="xIsAKidAccountWarning">%1$s é uma conta de criança e não pode receber a sua mensagem. Deve dar-lhe o URL de convite manualmente: %2$s</string>
+  <string name="moveToClass">Mover para %s</string>
+  <string name="moveToAnotherClass">Mover para outra aula</string>
+  <string name="allowMessagingBetweenStudents" comment="An option that a class's teacher can select. Has the extended description &quot;This only applies to the accounts you have created for your students.&quot;">Permitir mensagens entre alunos</string>
+  <string name="allowMessagingBetweenStudentsDesc" comment="Description for the option &quot;Allow messages between students&quot;.">Isso só se aplica às contas que criastes para os teus alunos.</string>
 </resources>

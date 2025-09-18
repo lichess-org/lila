@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Pelaa kaveria vastaan</string>
-  <string name="playWithTheMachine">Pelaa tietokonetta vastaan</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Lähetä tämä linkki kaverillesi, jonka haluat kutsua pelaamaan</string>
   <string name="gameOver">Peli ohi</string>
   <string name="waitingForOpponent">Odotetaan vastustajaa</string>
@@ -341,7 +339,6 @@
     <item quantity="other">%s meneillään</item>
   </plurals>
   <string name="exportGames">Vie pelejä</string>
-  <string name="ratingRange">Vahvuuslukualue</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Anna %s sekuntia</item>
     <item quantity="other">Anna %s sekuntia</item>
@@ -427,7 +424,6 @@
   <string name="toStudy">Tutki</string>
   <string name="importGame">Tuo peli</string>
   <string name="importGameExplanation">Liitä pelin PGN, niin voit selata peliä ja saat sille tietokoneanalyysin, keskusteluhuoneen sekä URL:n, jonka voit jakaa.</string>
-  <string name="importGameCaveat">Muunnelmat poistetaan. Jos haluat säilyttää ne, tuo PGN ensin tutkielmaan.</string>
   <string name="importGameDataPrivacyWarning">Tähän PGN:ään on julkinen pääsy. Käytä tutkielmaa halutessasi tuoda pelin ja pitää sen yksityisenä.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Tuotua peliä</item>
@@ -1009,4 +1005,7 @@ Kaikki toimintakustannukset, kehitystyö ja sisältö rahoitetaan yksinomaan kä
   <string name="enableBlindMode">Siirry sokean käyttäjän tilaan</string>
   <string name="disableBlindMode">Poistu sokean käyttäjän tilasta</string>
   <string name="copyToClipboard">Kopioi leikepöydälle</string>
+  <string name="search">Hae</string>
+  <string name="clearSearch">Tyhjennä haku</string>
+  <string name="tags">Tunnisteet</string>
 </resources>

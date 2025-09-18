@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Ghjucà cù un amicu</string>
-  <string name="playWithTheMachine">Ghjucà cù l\'urdinatore</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Per invità qualchissia à ghjucà, dà lu questu URL</string>
   <string name="gameOver">Persu</string>
   <string name="waitingForOpponent">Aspittendu un aversariu</string>
@@ -298,7 +296,6 @@
     <item quantity="other">%s ghjucate</item>
   </plurals>
   <string name="exportGames">Spurtà e partite</string>
-  <string name="ratingRange">Ampiezza di a classifica</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Dà %s seconda</item>
     <item quantity="other">Give %s seconde</item>

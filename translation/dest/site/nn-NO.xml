@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Spel mot ein ven</string>
-  <string name="playWithTheMachine">Spel mot sjakkprogrammet</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Send denne lekkja til den du utfordrar</string>
   <string name="gameOver">Partiet er avslutta</string>
   <string name="waitingForOpponent">Ventar på motspelar</string>
@@ -341,7 +339,6 @@
     <item quantity="other">%s pågår</item>
   </plurals>
   <string name="exportGames">Eksporter parti</string>
-  <string name="ratingRange">Ratingspenn</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Gje %s sekund</item>
     <item quantity="other">Gje %s sekund</item>
@@ -397,6 +394,7 @@
     <item quantity="other">Du må spela endå %s rangerte parti</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Ratinga di på %s er mellombels</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Rating-filtra er låst fordi ratinga di ikkje er stabil. Stabiliteten aukar om du spelar rata parti.</string>
   <string name="yourPerfRatingIsTooHigh">Ratinga di i %1$s (%2$s) er for høg</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Den beste vekesratinga di i %1$s (%2$s) er for høg</string>
   <string name="yourPerfRatingIsTooLow">Ratinga di i %1$s (%2$s) er for låg</string>
@@ -428,7 +426,6 @@
   <string name="importGame">Importér parti</string>
   <string name="importGameExplanation">Når du limer inn eit PGN-parti kan du bla gjennom partiet,
 få en computeranalyse, chatte eller dele ein URL.</string>
-  <string name="importGameCaveat">Variantar vert sletta. Vil du behalde dei kan du importere PGN\'en via ein studie.</string>
   <string name="importGameDataPrivacyWarning">Denne PGN-fila er offentleg tilgjengeleg. Bruk ein studie for å importere eit parti berre for deg.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importert parti</item>
@@ -1010,4 +1007,9 @@ Alle kostnader for drift, utvikling og innhald vert finansiert eine og åleine a
   <string name="enableBlindMode">Aktiver blindsjakkmodus</string>
   <string name="disableBlindMode">Deaktiver blindsjakkmodus</string>
   <string name="copyToClipboard">Kopiér til utklippstavla</string>
+  <string name="online" comment="status of a user">online</string>
+  <string name="offline" comment="status of a user">offline</string>
+  <string name="search">Søk</string>
+  <string name="clearSearch">Nytt søk</string>
+  <string name="tags">Etikettar</string>
 </resources>

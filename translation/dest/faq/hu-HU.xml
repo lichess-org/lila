@@ -170,4 +170,9 @@ A piros ikont azért mutatjuk, hogy figyelmeztessünk, amikor ez történik. Sok
   <string name="mentalHealthCondition">mentális betegség</string>
   <string name="lichessUserstyles">Lichess egyéni stílusok</string>
   <string name="fewerLobbyPools">kevesebb lobbival</string>
+  <string name="adviceOnMitigatingAddiction">Rendszeresen kapunk üzeneteket felhasználóktól, akik segítséget kérnek tőlünk, hogy ne játsszanak túl sokat.
+
+A Lichess nem tiltja vagy blokkolja a játékosokat, de külső eszközök segíthetnek a túl sok játék elkerülésében. Néhány gyakori weboldal-blokkoló: %1$s, %2$s, %3$s. Ha továbbra is játszanál, de kerülnéd a gyors partikat, nézd meg %4$s, például %5$s.”
+
+„Néhány játékos úgy érezheti, hogy a játékfüggővé válik. A WHO %6$s-ként sorolja be, jellemzői: 1) kontrollvesztés 2) a játék elsődlegessége, és 3) folytatás negatív következmények mellett. Ha magadra ismersz, beszélj róla baráttal, családtaggal vagy szakemberrel.</string>
 </resources>

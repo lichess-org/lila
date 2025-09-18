@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Xogar cun amigo</string>
-  <string name="playWithTheMachine">Xogar coa a máquina</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Para invitar a alguén a xogar, dálle este URL</string>
   <string name="gameOver">Partida rematada</string>
   <string name="waitingForOpponent">Agardando polo rival</string>
@@ -341,7 +339,6 @@
     <item quantity="other">%s en xogo</item>
   </plurals>
   <string name="exportGames">Exportar partidas</string>
-  <string name="ratingRange">Rango de puntuación</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Dar %s segundo</item>
     <item quantity="other">Dar %s segundos</item>
@@ -397,6 +394,7 @@
     <item quantity="other">Necesitas xogar %s partidas puntuadas máis</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">A túa puntuación %s é provisional</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Os filtros de puntuación están bloqueados dado que a túa puntuación non é estable. Tes que xogar partidas puntuadas para incrementar a súa estabilidade.</string>
   <string name="yourPerfRatingIsTooHigh">A túa puntuación %1$s (%2$s) é demasiado alta</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">A túa puntuación máxima semanal %1$s (%2$s) é demasiado alta</string>
   <string name="yourPerfRatingIsTooLow">A túa puntuación %1$s (%2$s) é demasiado baixa</string>
@@ -426,8 +424,7 @@
   <string name="continueFromHere">Continuar dende aquí</string>
   <string name="toStudy">Estudar</string>
   <string name="importGame">Importar partida</string>
-  <string name="importGameExplanation">Pega o PGN dunha partida para obter unha versión navegable, análise por ordenador, sala de conversa e unha ligazón pública para compartila.</string>
-  <string name="importGameCaveat">As variantes borraranse. Pra conservalas, importa o PGN mediante un estudo.</string>
+  <string name="importGameExplanation">Pega o PGN dunha partida para obter unha versión navegable da liña principal, análise por ordenador, sala de conversa e unha ligazón pública para compartila.</string>
   <string name="importGameDataPrivacyWarning">Este PGN é de acceso público. Para importar unha partida de xeito privado, emprega un estudo.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s partida importada</item>
@@ -1008,4 +1005,9 @@ Todos os custos de funcionamento, desenvolvemento e contidos fináncianse unicam
   <string name="enableBlindMode">Activar o modo de accesibilidade web</string>
   <string name="disableBlindMode">Desactivar o modo de accesibilidade web</string>
   <string name="copyToClipboard">Copiar ao portapapeis</string>
+  <string name="online" comment="status of a user">conectado</string>
+  <string name="offline" comment="status of a user">desconectado</string>
+  <string name="search">Buscar</string>
+  <string name="clearSearch">Borrar a procura</string>
+  <string name="tags">Etiquetas</string>
 </resources>

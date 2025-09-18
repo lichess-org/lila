@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Telva móti einum vini</string>
-  <string name="playWithTheMachine">Telva móti telduni</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Bjóða einum at telva við at geva honum hesa adressuna</string>
   <string name="gameOver">Talvið er liðugt</string>
   <string name="waitingForOpponent">Bíða eftir móttelvara</string>
@@ -291,7 +289,6 @@
     <item quantity="other">%s í gongd</item>
   </plurals>
   <string name="exportGames">Flyt út talv</string>
-  <string name="ratingRange">Styrkitalaspenni</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Gev %s sekund</item>
     <item quantity="other">Gev %s sekund</item>

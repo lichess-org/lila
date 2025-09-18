@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Igrajte protiv prijatelja</string>
-  <string name="playWithTheMachine">Igrajte protiv računara</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Da bi ste pozvali nekoga na partiju, pošaljite ovaj link</string>
   <string name="gameOver">Partija je gotova</string>
   <string name="waitingForOpponent">Čekanje na protivnika</string>
@@ -364,7 +362,6 @@
     <item quantity="other">%s u toku</item>
   </plurals>
   <string name="exportGames">Izvezite odigrane partije</string>
-  <string name="ratingRange">Raspon rejtinga</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Dodajte protivniku %s sekundu</item>
     <item quantity="few">Dodajte protivniku %s sekundi</item>
@@ -459,7 +456,6 @@
   <string name="importGame">Unesite partiju</string>
   <string name="importGameExplanation">Kada zalijepite PGN neke partije, dobijate reprizu partije koju možete detaljno pregledati, 
 računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
-  <string name="importGameCaveat">Varijante će biti izbrisane. Da ih sačuvate, uvezite PGN posredstvom studije.</string>
   <string name="importGameDataPrivacyWarning">Ovom PGN-u može pristupiti javnost. Za privatni uvoz igre, koristite studiju.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s unesena partija</item>

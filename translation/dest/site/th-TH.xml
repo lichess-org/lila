@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">เล่นกับเพื่อน</string>
-  <string name="playWithTheMachine">เล่นกับคอมพิวเตอร์</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">ให้ URL นี้เพื่อเชิญคนมาเล่น</string>
   <string name="gameOver">จบเกม</string>
   <string name="waitingForOpponent">กำลังรอคู่แข่ง</string>
@@ -318,7 +316,6 @@
     <item quantity="other">%s เกมกำลังเล่น</item>
   </plurals>
   <string name="exportGames">ส่งออกเกม</string>
-  <string name="ratingRange">ช่วงระดับคะแนน</string>
   <plurals name="giveNbSeconds">
     <item quantity="other">ให้ %s วินาที</item>
   </plurals>
@@ -396,7 +393,6 @@
   <string name="toStudy">ทำเป็นกรณีศึกษา</string>
   <string name="importGame">นำเข้าเกม</string>
   <string name="importGameExplanation">เมื่อวาง PGN ของเกมแล้ว คุณจะได้รับความสามารถเรียกดูการเล่นซ้ำ, การวิเคราะห์ด้วยคอมพิวเตอร์, แชทของเกม และ URL ที่สามารถแชร์ได้</string>
-  <string name="importGameCaveat">การเดินรูปแบบต่างๆ จะถูกลบทิ้ง หากต้องการเก็บไว้ ให้นำเข้า PGN ผ่านการศึกษา</string>
   <string name="importGameDataPrivacyWarning">PGN นี้เป็นสาธารณะ หากอยากจะนำเข้าเกมแบบส่วนตัว โปรดใช้หน้ากรณีศึกษา</string>
   <plurals name="nbImportedGames">
     <item quantity="other">%s เกมที่ถูกนำเข้า</item>

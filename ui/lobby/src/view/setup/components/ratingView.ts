@@ -19,7 +19,7 @@ export const ratingView = (ctrl: LobbyController): MaybeVNode => {
       !opts.showRatings
         ? [h('i', perfIconAttrs), perfOrSpeed.name]
         : [
-            ...i18n.site.perfRatingX.asArray(
+            ...i18n.site.yourRatingIsX.asArray(
               h(
                 'strong',
                 perfIconAttrs,

@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Гуляць з сябрам</string>
-  <string name="playWithTheMachine">Гуляць з камп\'ютарам</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Выкарыстайце гэтую спасылку каб запрасіць кагосьці да гульні</string>
   <string name="gameOver">Гульня скончана</string>
   <string name="waitingForOpponent">Чакаем апанента</string>
@@ -371,7 +369,6 @@
     <item quantity="other">%s у працэсе</item>
   </plurals>
   <string name="exportGames">Экспарт гульняў</string>
-  <string name="ratingRange">Дыяпазон рэйтынгу</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Даць %s секунду</item>
     <item quantity="few">Даць %s секунды</item>
@@ -459,7 +456,6 @@
   <string name="toStudy">Навучанне</string>
   <string name="importGame">Імпартаваць гульню</string>
   <string name="importGameExplanation">Калі вы імпартуеце PGN-натацыю гульні, вы атрымаеце спасылку на гэтую гульню і зможаце праглядаць яе паўтор у браўзеры і аналізаваць яе. Таксама будзе даступны чат.</string>
-  <string name="importGameCaveat">Варыянты будуць выдалены. Каб захаваць іх, імпартуйце PGN праз студыю.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s імпартаваная гульня</item>
     <item quantity="few">%s імпартаваныя гульні</item>

@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Spylje mei in freon</string>
-  <string name="playWithTheMachine">Spylje tsjin de kompjûter</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Om ien út te noegjen foar in partij, stjoer dizze URL</string>
   <string name="gameOver">De partij is dien</string>
   <string name="waitingForOpponent">Wachtsje op tsjinstanner</string>
@@ -277,7 +275,6 @@
     <item quantity="other">%s spyljende</item>
   </plurals>
   <string name="exportGames">Eksportear partijen</string>
-  <string name="ratingRange">Ratingberik</string>
   <string name="thisAccountViolatedTos">Dit akkount hat de regels fan de Lichess Tsjinstbetingsten oertrêden</string>
   <string name="openingExplorerAndTablebase">Openingsblêder &amp; tablebase</string>
   <string name="takeback">Set werom</string>

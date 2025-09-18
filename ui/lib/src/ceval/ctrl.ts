@@ -36,7 +36,6 @@ export default class CevalCtrl {
   curEval: Tree.LocalEval | null = null;
   lastStarted: Started | false = false;
   showEnginePrefs: Toggle = toggle(false);
-  customSearch?: Search;
 
   private worker: CevalEngine | undefined;
 
@@ -63,7 +62,6 @@ export default class CevalCtrl {
       ? parseFen(this.opts.initialFen).chain(setup => setupPosition(this.rules, setup))
       : Result.ok(defaultPosition(this.rules));
     this.analysable = pos.isOk;
-    this.customSearch = opts.search;
     if (this.worker?.getInfo().id !== this.engines?.activate()?.id) {
       this.worker?.destroy();
       this.worker = undefined;
@@ -178,13 +176,16 @@ export default class CevalCtrl {
   }
 
   get search(): Search {
-    const s = {
-      multiPv: this.storedPv(),
-      by: { movetime: Math.min(this.storedMovetime(), this.engines.maxMovetime) },
-      ...this.customSearch,
-    };
-    if (this.isDeeper() || (this.isInfinite && !this.customSearch)) s.by = { depth: 99 };
-    return s;
+    const custom = this.opts.custom?.search?.();
+    return custom && typeof custom !== 'number' // number puts a cap on movetime
+      ? custom
+      : {
+          multiPv: this.storedPv(),
+          by:
+            !this.opts.custom && (this.isDeeper() || this.isInfinite)
+              ? { depth: 99 }
+              : { movetime: Math.min(this.storedMovetime(), custom ?? 30 * 1000, this.engines.maxMovetime) },
+        };
   }
 
   get safeMovetime(): number {

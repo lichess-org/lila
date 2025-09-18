@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Chwarae efo ffrind</string>
-  <string name="playWithTheMachine">Chwarae yn erbyn y cyfrifiadur</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">I wahodd rhywun i chwarae, rhowch y cyfeiriad hwn</string>
   <string name="gameOver">Gêm drosodd</string>
   <string name="waitingForOpponent">Aros am wrthwynebydd</string>
@@ -308,7 +306,6 @@
     <item quantity="other">Enillodd %s gêmau</item>
   </plurals>
   <string name="exportGames">Allforio</string>
-  <string name="ratingRange">Graddfa rhwng</string>
   <string name="thisAccountViolatedTos">Mae\'r defnyddiwr y cyfrif yma wedi torri termau defnyddio Lichess</string>
   <string name="openingExplorerAndTablebase">Porwr agoriadau &amp; bas tabl diweddglo</string>
   <string name="takeback">Cymryd yn ôl</string>

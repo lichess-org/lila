@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Chơi với bạn bè</string>
-  <string name="playWithTheMachine">Chơi với máy tính</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Để mời ai đó chơi, hãy gửi URL này</string>
   <string name="gameOver">Ván cờ kết thúc</string>
   <string name="waitingForOpponent">Đang chờ đối thủ</string>
@@ -318,7 +316,6 @@
     <item quantity="other">%s ván đang chơi</item>
   </plurals>
   <string name="exportGames">Xuất các ván cờ</string>
-  <string name="ratingRange">Phạm vi hệ số</string>
   <plurals name="giveNbSeconds">
     <item quantity="other">Cho thêm %s giây</item>
   </plurals>
@@ -366,6 +363,7 @@
     <item quantity="other">Bạn cần chơi thêm %s ván xếp hạng</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Hệ số %s của bạn là tạm thời</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Bộ lọc xếp hạng bị khóa vì xếp hạng của bạn không ổn định. Chơi các ván cờ có xếp hạng sẽ tăng tính ổn định.</string>
   <string name="yourPerfRatingIsTooHigh">Hệ số %1$s của bạn (%2$s) quá cao</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Hệ số %1$s hàng tuần của bạn (%2$s) quá cao</string>
   <string name="yourPerfRatingIsTooLow">Hệ số Elo %1$s (%2$s) của bạn quá thấp</string>
@@ -397,7 +395,6 @@
   <string name="importGame">Nhập ván cờ</string>
   <string name="importGameExplanation">Dán PGN của ván đấu để xem lại trên trình duyệt, phân tích bằng máy tính, 
 trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai.</string>
-  <string name="importGameCaveat">Các biến sẽ bị xóa. Để giữ chúng, hãy nhập PGN thông qua một nghiên cứu.</string>
   <string name="importGameDataPrivacyWarning">Ai cũng có thể truy cập PGN này. Để nhập ván cờ một cách riêng tư, hãy sử dụng nghiên cứu.</string>
   <plurals name="nbImportedGames">
     <item quantity="other">%s ván cờ đã nhập</item>
@@ -964,4 +961,9 @@ Mọi chi phí vận hành, phát triển, và nội dung được tài trợ b�
   <string name="enableBlindMode">Bật chế độ mù</string>
   <string name="disableBlindMode">Tắt chế độ mù</string>
   <string name="copyToClipboard">Sao chép vào bảng nhớ tạm</string>
+  <string name="online" comment="status of a user">trực tuyến</string>
+  <string name="offline" comment="status of a user">ngoại tuyến</string>
+  <string name="search">Tìm kiếm</string>
+  <string name="clearSearch">Xóa nội dung tìm kiếm</string>
+  <string name="tags">Thẻ</string>
 </resources>

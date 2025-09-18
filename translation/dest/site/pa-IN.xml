@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">ਦੋਸਤਾਂ ਨਾਲ ਖੇਡੋ</string>
-  <string name="playWithTheMachine">ਕੰਪਿਟਰ ਨਾਲ ਖੇਡੋ</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">ਕਿਸੇ ਨਾਲ ਖੇਡਣ ਲਈ ਸੱਦਾ ਦੇਣ ਲਈ, ਇਹ ਲਿੰਕ ਦਿਓ</string>
   <string name="gameOver">ਖੇਡ ਖਤਮ</string>
   <string name="waitingForOpponent">ਵਿਰੋਧੀ ਖਿਡਾਰੀ ਦੀ ਉਡੀਕ</string>

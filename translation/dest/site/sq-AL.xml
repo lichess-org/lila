@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Luani me një shok</string>
-  <string name="playWithTheMachine">Luaj me kompjuterin</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Për të ftuar dikë të luajë, jepni këtë URL</string>
   <string name="gameOver">Loja mbaroi</string>
   <string name="waitingForOpponent">Në pritje të kundërshtarit</string>
@@ -341,7 +339,6 @@
     <item quantity="other">%s duke luajtur</item>
   </plurals>
   <string name="exportGames">Eksporto lojërat</string>
-  <string name="ratingRange">Shtrirja e vlerësimit</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Jep %s sekondë</item>
     <item quantity="other">Dhuro %s sekonda</item>
@@ -429,7 +426,6 @@
   <string name="importGameExplanation">Ngjitni një PGN loje, që të merrni një përsëritje
 të lojës në shfletues, analizë kompjuterike, bisedë
 loje dhe URL për ta ndarë me të tjerë.</string>
-  <string name="importGameCaveat">Variacionet do të fshihen. Për t\'i mbajtur ato, importoni PGN përmes një studimi.</string>
   <string name="importGameDataPrivacyWarning">Kjo PGN mund të shihet nga publiku. Që të importoni privatisht një lojë, përdorni një ushtrim.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s lojë e importuar</item>

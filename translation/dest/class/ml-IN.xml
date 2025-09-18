@@ -2,9 +2,9 @@
 <resources>
   <string name="features">സവിശേഷതകൾ</string>
   <string name="quicklyGenerateSafeUsernames">വിദ്യാൎത്ഥികൾക്കായി പെട്ടന്നു് സുരക്ഷിതമായ രഹസ്യവാക്കുകളും ഉപയോക്തൃപ്പേരുകളും സൃഷ്ടിക്കുക</string>
-  <string name="reopen" comment="A button, permitting a teacher to reopen a closed class.">വീണ്ടും തുറക്കുക</string>
-  <string name="removeStudent" comment="Removes a student from the class. Note the same text is used both for initial removal, and for full erasure.">ശിഷ്യനിന് നീക്കം ചെയുക</string>
-  <string name="removedStudents" comment="This is in plural form. It is a heading showing all students who have been removed from the class.">നീക്കം ചെയ്തിരിക്കുന്നു</string>
+  <string name="reopen">വീണ്ടും തുറക്കുക</string>
+  <string name="removeStudent">ശിഷ്യനിന് നീക്കം ചെയുക</string>
+  <string name="removedStudents">നീക്കം ചെയ്തിരിക്കുന്നു</string>
   <string name="sendAMessage">എല്ലാ വിദ്യാൎത്ഥികളെയൊരു സന്ദേശം അയയ്ക്കുക.</string>
   <string name="resetPassword">രഹസ്യവാക്ക് മാറ്റുക</string>
   <string name="passwordX">രഹസ്യവാക്ക്: %s</string>
@@ -15,11 +15,11 @@
 ഉപയോക്തൃപ്പേരു്: %2$s
 രഹസ്യവാക്കു്: %3$s</string>
   <string name="inviteALichessAccount">Lichess അക്കൌണ്ടിനെ ക്ഷണിക്കുക</string>
-  <string name="createANewLichessAccount" comment="The person who would see this would always be a teacher.&#10;In this context, it is to create a new account for a student of their class.">പുതിയ Lichess അക്കൌണ്ട് ഉണ്ടാക്കുക</string>
+  <string name="createANewLichessAccount">പുതിയ Lichess അക്കൌണ്ട് ഉണ്ടാക്കുക</string>
   <string name="lichessUsername">Lichess ഉപയോക്തൃപേര്</string>
-  <string name="generateANewUsername" comment="A button which lets teachers create a random username for students they are registering.">പുതിയ ഉപയോക്തൃപേര് ഉണ്ടാക്കുക</string>
-  <string name="pending" comment="Appears in a table of students. Refers to invitation by a teacher to join a class, which the student has not yet responded to.">ശേഷിക്കുന്ന</string>
-  <string name="declined" comment="Appears in a table of students. Refers to invitation by a teacher to join a class, which the student declined.">വേണ്ടവച്ചതു്</string>
+  <string name="generateANewUsername">പുതിയ ഉപയോക്തൃപേര് ഉണ്ടാക്കുക</string>
+  <string name="pending">ശേഷിക്കുന്ന</string>
+  <string name="declined">വേണ്ടവച്ചതു്</string>
   <string name="lastActiveDate">സജീവം</string>
   <string name="managed">കൈകാര്യചെയ്തവ</string>
   <string name="closeStudent">അക്കൗണ്ട് അടച്ചുപൂട്ടുക</string>

@@ -58,6 +58,7 @@
   <string name="studyPgn">PGN nghiên cứu</string>
   <string name="chapterPgn">PGN chương</string>
   <string name="copyChapterPgn">Sao chép PGN</string>
+  <string name="copyRawChapterPgn" comment="Appears as a button on individual study chapters. Lets you copy a PGN without any annotations, commentary or analysis">Sao chép bản PGN thô</string>
   <string name="downloadGame">Tải về ván cờ</string>
   <string name="studyUrl">URL nghiên cứu</string>
   <string name="currentChapterUrl">URL chương hiện tại</string>
@@ -160,11 +161,11 @@
   <string name="playAgain">Chơi lại</string>
   <string name="whatWouldYouPlay">Bạn sẽ làm gì ở thế cờ này?</string>
   <string name="youCompletedThisLesson">Chúc mừng! Bạn đã hoàn thành bài học này.</string>
-  <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">%s mỗi trang</string>
+  <string name="perPage">%s mỗi trang</string>
   <string name="getTheTour">Cần giúp đỡ? Khám phá nào!</string>
   <string name="welcomeToLichessStudyTitle">Chào mừng đến với Lichess Study!</string>
   <string name="welcomeToLichessStudyText">Đây là một bàn cờ phân tích được chia sẻ.&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;Sử dụng nó để phân tích và chú thích các trò chơi,&lt;br&gt;thảo luận về các vị trí với bạn bè, &lt;br&gt;và tất nhiên cho các bài học cờ vua!&lt;br&gt;&lt;br&gt;Đó là một công cụ mạnh mẽ, hãy dành một chút thời gian để xem nó hoạt động như thế nào.</string>
-  <string name="sharedAndSaveTitle" comment="Appears as the title of a pop-up lightbox in the guided tour of Lichess Studies.&#10;&#10;As in: shared with other members &amp; saved to the database.">Đã lưu và chia sẻ</string>
+  <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Đã lưu và chia sẻ</string>
   <string name="sharedAndSavedText">Các thành viên khác có thể thấy các nước đi của bạn trong thời gian thực!&lt;br&gt;Ngoài ra, mọi thứ được lưu mãi mãi.</string>
   <string name="studyMembersTitle">Thành viên nghiên cứu</string>
   <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s Khán giả có thể xem nghiên cứu và nói chuyện trong cuộc trò chuyện.&lt;br&gt;&lt;br&gt;%2$sNgười đóng góp có thể thực hiện các nước cờ và cập nhật nghiên cứu.</string>
@@ -192,7 +193,7 @@
   <string name="variantsAreSupportedTitle">Nghiên cứu hỗ trợ các biến thể</string>
   <string name="variantsAreSupportedText">Có, bạn có thể nghiên cứu Crazyhouse&lt;br&gt;và tất cả các biến thể của Lichess!</string>
   <string name="chapterConclusionText">Các chương được lưu mãi mãi.&lt;br&gt;Hãy vui vẻ tổ chức nội dung cờ vua của bạn!</string>
-  <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Đôi bại</string>
-  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">Bên Đen thua, nhưng bên Trắng không thể thắng</string>
-  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">Bên Trắng thua, nhưng bên Đen không thể thắng</string>
+  <string name="doubleDefeat">Đôi bại</string>
+  <string name="blackDefeatWhiteCanNotWin">Bên Đen thua, nhưng bên Trắng không thể thắng</string>
+  <string name="whiteDefeatBlackCanNotWin">Bên Trắng thua, nhưng bên Đen không thể thắng</string>
 </resources>

@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Pley wi a freend</string>
-  <string name="playWithTheMachine">Pley wi the computer</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Fur tae inveet a body tae pley, gie thaim this URL</string>
   <string name="gameOver">Spiel feenisht</string>
   <string name="waitingForOpponent">Waitin fur opponent</string>
@@ -340,7 +338,6 @@
     <item quantity="other">%s spielin</item>
   </plurals>
   <string name="exportGames">Export gemms</string>
-  <string name="ratingRange">Ratin range</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Gie %s seicont</item>
     <item quantity="other">Gie %s seiconts</item>
@@ -398,7 +395,6 @@
   <string name="toStudy">Muise</string>
   <string name="importGame">Inbring gemm</string>
   <string name="importGameExplanation">Paste a gemm PGN tae get a brousable scance, computer analysis, gemm chat an dale-ootable URL.</string>
-  <string name="importGameCaveat">Variations\'ll be dicht, tae haud them, inbring the PGN by a muise.</string>
   <string name="thisIsAChessCaptcha">This is a chess CAPTCHA.</string>
   <string name="clickOnTheBoardToMakeYourMove">Click oan the buird tae mak yer muive, an pruive ye\'re human.</string>
   <string name="captcha.fail">Maun solve the chess captcha.</string>

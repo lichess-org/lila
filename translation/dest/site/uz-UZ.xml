@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Do‘stingiz bilan o‘ynang</string>
-  <string name="playWithTheMachine">Kompyuterga qarshi oʻynang</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Kimnidir o\'yinga taklif qilish uchun ushbu URL ni olib unga bering</string>
   <string name="gameOver">O‘yin tugadi</string>
   <string name="waitingForOpponent">Sherik tanlanishi kutilayabdi</string>
@@ -341,7 +339,6 @@
     <item quantity="other">%s o\'yinlar</item>
   </plurals>
   <string name="exportGames">O\'yinlarni eksport qilish</string>
-  <string name="ratingRange">Reyting oralig\'i</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">%s sekund berish</item>
     <item quantity="other">%s sekundlar berish</item>
@@ -427,7 +424,6 @@
   <string name="toStudy">O\'rganish</string>
   <string name="importGame">O\'yinni import qilish</string>
   <string name="importGameExplanation">PGN o\'yinni qo\'ying va qayta o\'ynashlar, kompyuter tahlili, o\'yin chati va ulashish linkiga ega bo\'ling.</string>
-  <string name="importGameCaveat">Variantlar o‘chiriladi. Ularni saqlash uchun PGN yordamida \"ta‘lim\"da saqlang.</string>
   <string name="importGameDataPrivacyWarning">Ushbu PGN ommaga ochiq boʻladi. Oʻyinni yopiq holatda import qilish uchun study - oʻrganish boʻlimidan foydalaning.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s import qilingan o\'yin</item>

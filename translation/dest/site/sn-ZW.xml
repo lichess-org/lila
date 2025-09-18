@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Tamba ne shamwari</string>
-  <string name="playWithTheMachine">Tamba ne Mushini</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Kudaidza munhu kuti mutambe shandisa URL iyi</string>
   <string name="gameOver">Mutambo wapera</string>
   <string name="waitingForOpponent">Kumirira munhu wekutamba naye</string>

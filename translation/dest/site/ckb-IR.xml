@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">یاریکردن لەگەڵ هاوڕێ</string>
-  <string name="playWithTheMachine">یاریکردن لەگەڵ کۆمپیوتەر</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">بۆ بانگهێشت کردنی کەسێک بۆ یاریکردن, ئەم بەستەرەیان پێ بدە</string>
   <string name="gameOver">یاریەکە کۆتایی هات</string>
   <string name="waitingForOpponent">چاوەڕوانی لایەینی بەرامبەر</string>
@@ -341,7 +339,6 @@
     <item quantity="other">%s یاریکردن</item>
   </plurals>
   <string name="exportGames">یارییەکان هەناردەبکە</string>
-  <string name="ratingRange">مەودای هەڵسەنگاندن</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">پێیبدە %s چرکە</item>
     <item quantity="other">پێیبدە %s چرکە</item>
@@ -427,7 +424,6 @@
   <string name="toStudy">خوێندن</string>
   <string name="importGame">یارییەکان هەناردەبکە</string>
   <string name="importGameExplanation">دوای پەیستکردنی PGN لینکێکت دەست دەکەوێت، دەتوانی لە وێبگەرەکان بەکاری بێنیت بۆ شیکاریکردنی یارییەکە، گفتوگۆکردن و بەشداریپێکردن.</string>
-  <string name="importGameCaveat">گۆڕانکارییەکان دەسڕدرێنەوە. بۆ پاراستنی، لە ڕێگەی PGN توێژینەوەکە هاوردە بکە.</string>
   <string name="importGameDataPrivacyWarning">ئەم PGNە گشتییە و ھەموو کەس دەستی پێی دەگات. بۆ ھاوردەکردنی یارییەک بە شێوەی کەسی، خوێندن بەکاربھێنە.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s یاری هاوردەکراو</item>

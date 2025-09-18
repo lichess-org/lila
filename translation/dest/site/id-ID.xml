@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Bermain dengan teman</string>
-  <string name="playWithTheMachine">Bermain melawan komputer</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Undang yang lain dengan memberikan URL berikut</string>
   <string name="gameOver">Permainan Berakhir</string>
   <string name="waitingForOpponent">Menunggu lawan</string>
@@ -22,6 +20,7 @@
   <string name="asBlack">sebagai Hitam</string>
   <string name="randomColor">Warna acak</string>
   <string name="createAGame">Mulai permainan baru</string>
+  <string name="createTheGame">BUAT GAMENYA</string>
   <string name="whiteIsVictorious">Putih menang</string>
   <string name="blackIsVictorious">Hitam menang</string>
   <string name="youPlayTheWhitePieces">Anda bermain dipihak putih</string>
@@ -73,6 +72,7 @@
   <string name="expandVariations">Buka variasi</string>
   <string name="forceVariation">Paksakan variasi</string>
   <string name="copyVariationPgn">Salin Variasi dalam PGN</string>
+  <string name="copyMainLinePgn">Salin PGN jalur utama</string>
   <string name="move">Langkah</string>
   <string name="variantLoss">Kekalahan variasi</string>
   <string name="variantWin">Kemenangan variasi</string>
@@ -148,6 +148,7 @@
   <string name="flipBoard">Putar papan catur</string>
   <string name="threefoldRepetition">Pengulangan 3x posisi yang sama</string>
   <string name="claimADraw">Klaim remis</string>
+  <string name="drawClaimed">Hasil imbang diklaim</string>
   <string name="offerDraw">Tawarkan remis</string>
   <string name="draw">Remis</string>
   <plurals name="nbPlayers">
@@ -252,6 +253,7 @@
   <plurals name="nbGamesWithYou">
     <item quantity="other">%s kali bermain dengan anda</item>
   </plurals>
+  <string name="ok">Oke</string>
   <string name="cancel">Batal</string>
   <string name="whiteTimeOut">Putih kehabisan waktu</string>
   <string name="blackTimeOut">Hitam kehabisan waktu</string>
@@ -313,7 +315,6 @@
     <item quantity="other">%s Sedang bermain</item>
   </plurals>
   <string name="exportGames">Ekspor Permainan</string>
-  <string name="ratingRange">Batasan rating</string>
   <plurals name="giveNbSeconds">
     <item quantity="other">Berikan %s detik</item>
   </plurals>
@@ -321,7 +322,14 @@
   <string name="openingExplorerAndTablebase">Penjelajah pembukaan &amp; tablebase</string>
   <string name="takeback">Langkah Batal</string>
   <string name="proposeATakeback">Ajukan langkah batal</string>
+  <string name="whiteProposesTakeback">PUTIH MENGUSULKAN PENGAMBILALIHAN</string>
   <string name="takebackPropositionSent">Penawaran untuk langkah batal terkirim</string>
+  <string name="whiteDeclinesTakeback">White menolak pengembalian</string>
+  <string name="blackDeclinesTakeback">Black menolak pengembalian</string>
+  <string name="whiteAcceptsTakeback">White menerima pengembalian</string>
+  <string name="blackAcceptsTakeback">Hitam menerima pengembalian</string>
+  <string name="whiteCancelsTakeback">White membatalkan pengambilan kembali</string>
+  <string name="blackCancelsTakeback">Pembatalan hitam takevack</string>
   <string name="yourOpponentProposesATakeback">Musuh anda menawarkan langkah batal</string>
   <string name="bookmarkThisGame">Tandai permainan ini</string>
   <string name="tournament">Turnamen</string>
@@ -353,6 +361,7 @@
     <item quantity="other">Kamu perlu bermain %s lebih banyak permainan yang di-rating</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Rating Anda (%s) bersifat sementara</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Filter rating terkunci karena rating Anda tidak stabil. Memainkan game berperingkat akan meningkatkan stabilitas.</string>
   <string name="yourPerfRatingIsTooHigh">Rating %1$s kamu (%2$s) terlalu besar</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Rating permainan %1$s mingguan teratas Anda (%2$s) terlalu besar</string>
   <string name="yourPerfRatingIsTooLow">Rating %1$s kamu (%2$s) terlalu rendah</string>
@@ -383,7 +392,6 @@
   <string name="toStudy">Studi</string>
   <string name="importGame">Masukkan permainan</string>
   <string name="importGameExplanation">Ketika menyalin PGN permainan Anda dapat putar-ulang di browser analisis komputer, obrolan permainan dan URL yand dapat di bagi.</string>
-  <string name="importGameCaveat">Variasi akan dihapus. Untuk menyimpan, Import berkas PGN melalui Study.</string>
   <string name="importGameDataPrivacyWarning">Berkas PGN ini bisa diakses oleh publik. Untuk mengimpor pertandingan dengan privasi, gunakan study.</string>
   <plurals name="nbImportedGames">
     <item quantity="other">%s permainan telah dimasukkan</item>
@@ -429,6 +437,7 @@
   <string name="openTournaments">Turnamen terbuka</string>
   <string name="duration">Durasi</string>
   <string name="winner">Pemenang</string>
+  <string name="standings">Klasemen</string>
   <string name="createANewTournament">Buat turnamen baru</string>
   <string name="tournamentCalendar">Jadwal turnamen</string>
   <string name="conditionOfEntry">Persyaratan masuk:</string>
@@ -442,6 +451,7 @@
   <string name="points">Poin</string>
   <string name="wins">Menang</string>
   <string name="losses">Kalah</string>
+  <string name="startingIn" comment="Displayed above a timer">Menyatakan dalam</string>
   <string name="standByX">Bersiaplah %s, pairing pemain sedang dilakukan!</string>
   <string name="pause">Jeda</string>
   <string name="resume">Lanjutkan</string>
@@ -493,6 +503,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Otomatis memproses permainan berikutnya setelah melangkah</string>
   <string name="autoSwitch">Pindah otomatis</string>
   <string name="puzzles">Taktik</string>
+  <string name="onlineBots">Bot daring</string>
   <string name="name">Nama</string>
   <string name="description">Keterangan</string>
   <string name="descPrivate">Deskripsi pribadi</string>

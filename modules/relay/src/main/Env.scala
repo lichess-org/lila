@@ -110,6 +110,8 @@ final class Env(
 
   private lazy val delay = wire[RelayDelay]
 
+  export delay.delayedUntil
+
   // eager init to start the scheduler
   private val stats = wire[RelayStatsApi]
   export stats.getJson as statsJson

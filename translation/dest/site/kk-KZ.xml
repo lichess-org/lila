@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Доспен ойнау</string>
-  <string name="playWithTheMachine">Компьютермен ойнау</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Ойынға біреуді шақыру үшін бұл сілтемені жіберіңіз</string>
   <string name="gameOver">Ойын аяқталды</string>
   <string name="waitingForOpponent">Қарсыласты тосып тұрмыз</string>
@@ -339,7 +337,6 @@
     <item quantity="other">%s ойналуда</item>
   </plurals>
   <string name="exportGames">Ойынды жүктеп алу</string>
-  <string name="ratingRange">Рейтинг ауқымы</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">%s секунд беру</item>
     <item quantity="other">%s секунд беру</item>
@@ -418,7 +415,6 @@
   <string name="importGame">Ойынды жүктеп салу</string>
   <string name="importGameExplanation">Ойынның PGN-ын салыңыз.
 Бұл ойынды қайта көру, компьютерлік талдау, чат пен бөліспелі URL-ға жол ашады.</string>
-  <string name="importGameCaveat">Вариациялар жойылады. Оларды сақтау үшін зерттеу арқылы PGN импорттаңыз.</string>
   <string name="importGameDataPrivacyWarning">Бұл PGN - жалпыға жария болады. Жеке болуын қаласаңыз, Зерттеу арқылы салуыңыз керек.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s ойын салынды</item>

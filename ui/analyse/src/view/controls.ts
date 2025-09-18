@@ -98,11 +98,11 @@ function renderPracticeTab(ctrl: AnalyseCtrl): LooseVNode {
 }
 
 function renderMobileCevalTab(ctrl: AnalyseCtrl): LooseVNode {
-  const engineMode = !!ctrl.practice ? 'practice' : !!ctrl.retro ? 'retro' : 'ceval',
+  const engineMode = ctrl.activeControlMode() || 'ceval',
     ev = ctrl.node.ceval ?? (ctrl.showFishnetAnalysis() ? ctrl.node.eval : undefined),
     evalstr = ev?.cp !== undefined ? renderEval(ev.cp) : ev?.mate ? '#' + ev.mate : '',
-    active = ctrl.activeControlBarMode() && !ctrl.activeControlBarTool(),
-    latent = ctrl.activeControlBarMode() && !!ctrl.activeControlBarTool();
+    active = ctrl.activeControlMode() && !ctrl.activeControlBarTool(),
+    latent = ctrl.activeControlMode() && !!ctrl.activeControlBarTool();
 
   return hl(
     'button.fbt',
@@ -117,6 +117,7 @@ function renderMobileCevalTab(ctrl: AnalyseCtrl): LooseVNode {
         cevalView.renderCevalSwitch(ctrl),
         evalstr && ctrl.showAnalysis() && !ctrl.isGamebook() && hl('eval', evalstr),
       ],
+      engineMode === 'practice' && evalstr && hl('eval', evalstr),
       engineMode === 'retro' && ctrl.retro?.completion().join('/'),
     ],
   );

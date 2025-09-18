@@ -5,67 +5,41 @@ $c-slider: $c-setup;
   width: 30em;
   max-width: 96vw;
   padding: 0;
-
   text-align: center;
 
   h2 {
     margin: 1.5rem 0;
   }
 
-  .setup-content > div {
-    padding: 0.5em 1em;
+  .setup-content {
+    @extend %flex-column;
+    border-block: $border;
+    padding: 1.5rem 1rem;
+    gap: 1.2rem;
+    background: $c-bg-zebra;
+  }
+
+  .disabled {
+    opacity: 0.4;
+    cursor: default !important;
   }
 
   group.radio {
-    margin: 0 auto 1em auto;
     width: 70%;
-
-    .disabled {
-      opacity: 0.4;
-      cursor: default;
-    }
+    align-self: center;
 
     input:checked + label {
       background: $c-setup;
     }
   }
 
-  .optional-config {
-    border-bottom: $border;
+  > div {
+    @extend %flex-column;
   }
 
-  .optional-config.disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-
-  .optional-config,
-  .ratings {
-    background: $c-bg-zebra;
-    border-top: $border;
-  }
-
-  .mode-choice {
-    margin-top: 1em;
-  }
-
-  .label-select {
-    @extend %flex-center;
-
-    &.variant {
-      margin-bottom: 1em;
-      padding-bottom: 0;
-    }
-
-    label {
-      flex: 0 0 33%;
-      text-align: end;
-    }
-
-    select {
-      margin-inline-start: 0.8em;
-      font-weight: bold;
-    }
+  .config-group {
+    @extend %flex-column;
+    gap: 0.5rem;
   }
 
   .fen__form {
@@ -75,9 +49,8 @@ $c-slider: $c-setup;
   .fen__board {
     display: block;
     width: 50%;
-    margin: 0.5em auto 0 auto;
+    margin-inline: auto;
   }
-
   #fen-input {
     flex: 1 1 100%;
   }
@@ -85,29 +58,51 @@ $c-slider: $c-setup;
   .failure {
     background: $m-bad_bg--mix-20;
     box-shadow: 0 0 13px 6px $m-bad_bg--mix-20;
-    border-radius: 0.5em;
+    border-radius: 0.5rem;
   }
 
-  .color-submits {
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: flex-end;
+  group.radio.color-picker {
+    width: auto;
+    margin: 0;
     justify-content: center;
-    margin: 1em auto;
-    text-align: center;
+  }
 
+  .footer {
+    @extend %flex-center;
+    justify-content: center;
+    padding: 1.1rem;
+  }
+  .lobby__start__button {
+    height: 3rem;
+    padding-inline: 1rem 1.2rem;
+    gap: 0.8rem;
+    color: $c-font;
+    border: 2px solid $c-setup;
+    &::before {
+      color: $c-setup !important;
+    }
+  }
+
+  .radio-pane {
+    @extend %flex-center-nowrap;
+    justify-content: center;
+    gap: 0.8rem;
+  }
+
+  --color-button-size: 40px;
+  --color-king-size: 32px;
+
+  .color-picker {
     &__button {
-      margin: 0 0.5em;
-      width: 64px;
-      height: 64px;
-      padding: 7px;
+      width: 50px;
+      height: var(--color-button-size);
+      padding: 4px 8px;
 
       i {
         display: block;
-        padding: 0;
-        width: 50px;
-        height: 50px;
-        background-size: 50px 50px;
+        width: var(--color-king-size);
+        height: var(--color-king-size);
+        background-size: var(--color-king-size) var(--color-king-size);
       }
 
       &.white i {
@@ -118,42 +113,28 @@ $c-slider: $c-setup;
         background-image: url(../piece/cburnett/bK.svg);
       }
 
-      &.random {
-        width: 85px;
-        height: 85px;
-        padding: 10px;
-
-        i {
-          background-image: url(../images/wbK.svg);
-          background-size: 65px 65px;
-          width: 65px;
-          height: 65px;
-        }
-      }
-
-      &:disabled {
-        opacity: 0.3;
-        cursor: not-allowed;
+      &.random i {
+        background-image: url(../images/wbK.svg);
       }
     }
 
     .spinner {
-      width: 85px;
-      height: 85px;
-      margin: 10px auto 20px auto;
+      position: absolute;
+      width: 64px;
+      height: 64px;
+      right: calc(50% - 32px);
+      bottom: 6px;
     }
   }
 
   .range {
-    padding-top: 1em;
-
     span {
       font-weight: bold;
     }
 
     input {
-      font-size: 1.5em;
-      margin-top: 0.5em;
+      font-size: 1.5rem;
+      margin-top: 0.2rem;
       padding: 0;
       width: 90%;
     }
@@ -162,22 +143,69 @@ $c-slider: $c-setup;
   .rating-range {
     @extend %flex-center-nowrap;
     justify-content: center;
+    font-size: 1.25rem;
+
     .rating-min,
     .rating-max {
-      flex: 0 0 7ch;
+      font-weight: bold;
+      flex: 0 0 5.5ch;
     }
     input {
+      font-size: 1.5rem;
+      padding: 0;
       width: 30%;
-      padding: 0.6em 0;
     }
   }
 
+  .time-choice,
+  .days-choice {
+    margin-top: 0.5rem;
+  }
+
   .ratings {
-    padding: 1em;
     width: 100%;
     text-align: center;
     strong {
-      margin-inline-end: 0.25em;
+      margin-inline-end: 0.25rem;
     }
+  }
+
+  .label-select {
+    @extend %flex-center;
+
+    &.variant {
+      padding-bottom: 0;
+    }
+
+    label {
+      flex: 0 0 33%;
+      text-align: end;
+    }
+
+    select {
+      margin-inline-start: 0.8rem;
+      font-weight: bold;
+    }
+  }
+
+  @media (max-height: at-most(900px)) {
+    h2 {
+      margin-block: 1.1rem;
+    }
+    .setup-content {
+      padding: 1.25rem 0.75rem;
+    }
+    .fen__board {
+      width: 40%;
+    }
+    &:has(.increment-choice) .fen__board {
+      width: 30%;
+    }
+  }
+}
+
+@media (pointer: coarse) {
+  .game-setup select {
+    font-size: 1.2rem;
   }
 }

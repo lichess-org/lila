@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses" comment="Lichess Classes are a feature that lets a teacher create virtual classes and check out students' progress.&#10;&#10;This text used to be &quot;Lichess Classes&quot;, which has since been shortened to &quot;Classes&quot;.">Класове</string>
+  <string name="lichessClasses">Класове</string>
   <string name="teachClassesOfChessStudents">Води часове с ученици на шахмат с инструмента Lichess Часове.</string>
   <string name="features">Функционалности</string>
   <string name="quicklyGenerateSafeUsernames">Бързо създаване на безопасни потребителски имена и пароли за ученици</string>
   <string name="trackStudentProgress">Следи прогреса на учениците в игри и пъзели</string>
   <string name="messageAllStudents">Изпрати съобщение на всички ученици за нов учебен материал</string>
-  <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">100% безплатно, безкрайно, без реклами и следене</string>
+  <string name="freeForAllForever">100% безплатно, безкрайно, без реклами и следене</string>
   <string name="applyToBeLichessTeacher">Кандидатствай за Lichess учител</string>
   <string name="noClassesYet">Все още няма часове.</string>
   <string name="teachersX">Учители: %s</string>
   <string name="newClass">Нов клас</string>
   <string name="closeClass">Затвори класа</string>
   <string name="removedByX">Премахнати от %s</string>
-  <string name="reopen" comment="A button, permitting a teacher to reopen a closed class.">Повторно отваряне</string>
-  <string name="removeStudent" comment="Removes a student from the class. Note the same text is used both for initial removal, and for full erasure.">Премахни ученик</string>
-  <string name="removedStudents" comment="This is in plural form. It is a heading showing all students who have been removed from the class.">Премахнат</string>
-  <string name="inviteTheStudentBack" comment="A button. Clicking this will re-invite a student that has been removed from the class.">Покани ученика отново</string>
+  <string name="reopen">Повторно отваряне</string>
+  <string name="removeStudent">Премахни ученик</string>
+  <string name="removedStudents">Премахнат</string>
+  <string name="inviteTheStudentBack">Покани ученика отново</string>
   <string name="sendAMessage">Изпратете съобщение до всички ученици.</string>
   <string name="aLinkToTheClassWillBeAdded">Адресът на класа ще бъде добавен автоматично към края на съобщението и няма нужда да го добавяте ръчно.</string>
   <string name="className">Име на класа</string>
@@ -30,7 +30,7 @@
   <string name="generateANewPassword">Генерирайте нова парола за ученика</string>
   <string name="invitedToXByY">Поканен в %1$s от %2$s</string>
   <string name="realName">Истинско име</string>
-  <string name="privateWillNeverBeShown" comment="A description of the real name field for members of a class.">Поверително. Това няма да бъде показано извън класа. Помага да запомните кой е ученикът.</string>
+  <string name="privateWillNeverBeShown">Поверително. Това няма да бъде показано извън класа. Помага да запомните кой е ученикът.</string>
   <string name="addStudent">Добави ученик</string>
   <string name="lichessProfileXCreatedForY">Lichess профил %1$s създаден за %2$s.</string>
   <string name="studentCredentials">Ученик: %1$s
@@ -41,14 +41,14 @@
   <string name="inviteDesc2">Те ще получат съобщение в Lichess с линк, с който могат да влязат в класа.</string>
   <string name="inviteDesc3">Важно: канете само ученици, които познавате и които активно ще се включват в час.</string>
   <string name="inviteDesc4">Никога не изпращайте нежелани покани към други потребители.</string>
-  <string name="createANewLichessAccount" comment="The person who would see this would always be a teacher.&#10;In this context, it is to create a new account for a student of their class.">Създадете нов Lichess акаунт</string>
+  <string name="createANewLichessAccount">Създадете нов Lichess акаунт</string>
   <string name="createDesc1">Ако ученикът няма Lichess акаунт, можете да създадете негов тук.</string>
   <string name="createDesc2">Няма нужда от e-mail адрес. Паролата ще се генерира автоматично, а Вие трябва да я предадете на ученика, за да могат да влязат.</string>
   <string name="createDesc3">Важно: учениците не трябва да имат няколко акаунта.</string>
   <string name="createDesc4">Ако вече имат акаунт, използвайте тази форма.</string>
   <string name="createStudentWarning">Можете да създавате регистрации само за истински ученици. Не използвайте тази възможност да правите допълнителни профили за себе си, защото ще бъдете блокирани.</string>
   <string name="lichessUsername">Lichess потребителско име</string>
-  <string name="generateANewUsername" comment="A button which lets teachers create a random username for students they are registering.">Генерирайте ново потребителско име</string>
+  <string name="generateANewUsername">Генерирайте ново потребителско име</string>
   <string name="welcomeToClass">Добре дошли във Вашият клас: %s.
 Ето линк за достъп към класа.</string>
   <string name="invitationToClass">Вие сте поканен да влезете в класа \"%s\" като ученик.</string>
@@ -57,14 +57,14 @@
     <item quantity="one">Една покана в изчакване</item>
     <item quantity="other">%s покани в изчакване</item>
   </plurals>
-  <string name="pending" comment="Appears in a table of students. Refers to invitation by a teacher to join a class, which the student has not yet responded to.">Чакащи</string>
-  <string name="declined" comment="Appears in a table of students. Refers to invitation by a teacher to join a class, which the student declined.">Отхвърлено</string>
+  <string name="pending">Чакащи</string>
+  <string name="declined">Отхвърлено</string>
   <string name="onlyVisibleToTeachers">Да се вижда само от учители на класа</string>
   <string name="lastActiveDate">Активен</string>
   <string name="managed">Управляван</string>
   <string name="thisStudentAccountIsManaged">Този учебен акаунт е управляван</string>
   <string name="upgradeFromManaged">Смени от управляван към автономен</string>
-  <string name="release" comment="This used to be 'release'. It is now called 'graduate', and the term is used here as a verb.&#10;&#10;'Releasing' an account means making it a full Lichess account. It will no longer be tied to the teacher that created it.">Дипломирай</string>
+  <string name="release">Дипломирай</string>
   <string name="releaseTheAccount">Дипломирай акаунта, за да може ученикът да го управлява автономно.</string>
   <string name="releaseDesc1">Дипломиран акаунт не може да бъде управляван отново. Ученикът ще може да управлява режима за деца и да смени паролата си.</string>
   <string name="releaseDesc2">Ученикът ще остане в класа след дипломирането на акаунта.</string>
@@ -103,19 +103,19 @@
 Ще покаже хоризонтална линия.</string>
   <string name="invite">Покани</string>
   <string name="youHaveBeenInvitedByX">Поканени сте от %s.</string>
-  <string name="youAcceptedThisInvitation" comment="Appears when revisiting the page of an invitation to a class, which you have already accepted.">Вие приехте тази покана.</string>
-  <string name="youDeclinedThisInvitation" comment="Appears when revisiting the page of an invitation to a class, which you have already declined.">Вие отказахте тази покана.</string>
+  <string name="youAcceptedThisInvitation">Вие приехте тази покана.</string>
+  <string name="youDeclinedThisInvitation">Вие отказахте тази покана.</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">или</string>
   <string name="createMultipleAccounts">Създайте няколко Lichess акаунта наведнъж</string>
   <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Можете също %s да създадете множество Lichess акаунти от списък с имена на ученици.</string>
   <string name="useThisForm" comment="Link text in multipleAccsFromDescription">използвайте този формуляр</string>
   <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Имайте предвид, че един клас може да има до %1$s ученици. За да управлявате повече ученици, %2$s.</string>
   <string name="createMoreClasses" comment="Link text in maxStudentsNote">създайте повече класове</string>
-  <string name="studentsRealNamesOnePerLine" comment="An instruction on how to enter students' names when creating new accounts for them.">Истински имена на учениците, по едно на ред</string>
-  <string name="xisNowAStudentOfTheClass" comment="%s is the player's name">%s вече е ученик в класа</string>
-  <string name="anInvitationHasBeenSentToX" comment="%s is the username of a player already registered on Lichess.">Изпратена е покана до %s</string>
-  <string name="xAlreadyHasAPendingInvitation" comment="An error message. %s is the username of a player already registered on Lichess.">%s вече има чакаща покана</string>
-  <string name="xIsAKidAccountWarning" comment="%1$s is the username&#10;%2$s is a link.">%1$s е на детски режим и не може да получи съобщението ви. Трябва да им предоставите URL адреса на поканата ръчно: %2$s</string>
-  <string name="moveToClass" comment="%s is the name of the class. The name of the class is set by the teacher.&#10;&#10;Appears on a confirmation prompt when a teacher looks to move a student to one of the other classes they run.">Преместване в %s</string>
-  <string name="moveToAnotherClass" comment="Appears as a heading on a page which lets a teacher move one of their students to one of the other classes they run.">Преместване в друг клас</string>
+  <string name="studentsRealNamesOnePerLine">Истински имена на учениците, по едно на ред</string>
+  <string name="xisNowAStudentOfTheClass">%s вече е ученик в класа</string>
+  <string name="anInvitationHasBeenSentToX">Изпратена е покана до %s</string>
+  <string name="xAlreadyHasAPendingInvitation">%s вече има чакаща покана</string>
+  <string name="xIsAKidAccountWarning">%1$s е на детски режим и не може да получи съобщението ви. Трябва да им предоставите URL адреса на поканата ръчно: %2$s</string>
+  <string name="moveToClass">Преместване в %s</string>
+  <string name="moveToAnotherClass">Преместване в друг клас</string>
 </resources>

@@ -15,7 +15,6 @@ export const stockfishName = 'Stockfish 17.1';
 
 export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   $(element).replaceWith(ctrl.opts.$underboard);
-
   const data = ctrl.data,
     $panels = $('.analyse__underboard__panels > div'),
     $menu = $('.analyse__underboard__menu'),
@@ -128,6 +127,9 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
         });
         return false;
       }
+      // ensure the analysis tab remains visible, if it was only displayed to render the request button
+      ctrl.showFishnetAnalysis(true);
+      ctrl.redraw();
       xhrTextRaw(this.action, { method: this.method }).then(res => {
         if (res.ok) startAdvantageChart();
         else

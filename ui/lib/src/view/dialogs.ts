@@ -31,27 +31,27 @@ export async function info(msg: string, autoDismiss?: Millis): Promise<Dialog> {
 // non-blocking window.confirm-alike
 export async function confirm(
   msg: string,
-  yes: string = i18n.site.yes,
-  no: string = i18n.site.no,
+  ok: string = i18n.site.ok,
+  cancel: string = i18n.site.cancel,
 ): Promise<boolean> {
   return (
     (
       await domDialog({
         htmlText: $html`<div>${escapeHtmlAddBreaks(msg)}</div>
-          <span><button class="button button-empty no">${no}</button>
-          <button class="button yes">${yes}</button></span>`,
+          <span><button class="button button-empty cancel">${cancel}</button>
+          <button class="button ok">${ok}</button></span>`,
         class: 'alert',
         noCloseButton: true,
         noClickAway: true,
         modal: true,
         show: true,
-        focus: '.yes',
+        focus: '.ok',
         actions: [
-          { selector: '.yes', result: 'yes' },
-          { selector: '.no', result: 'no' },
+          { selector: '.cancel', result: 'cancel' },
+          { selector: '.ok', result: 'ok' },
         ],
       })
-    ).returnValue === 'yes'
+    ).returnValue === 'ok'
   );
 }
 

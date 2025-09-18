@@ -7,8 +7,9 @@ import scalalib.model.Seconds
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 import lila.study.MultiPgn
+import lila.relay.RelayRound.Sync.Upstream
 
-final private class RelayDelay(colls: RelayColls)(using Executor):
+final private class RelayDelay(colls: RelayColls, cacheApi: CacheApi)(using Executor):
 
   import RelayDelay.*
 
@@ -17,6 +18,21 @@ final private class RelayDelay(colls: RelayColls)(using Executor):
 
   def internalSource(round: RelayRound, doFetch: => Fu[RelayGames]): Fu[RelayGames] =
     fromSource(InternalSource(round.id), round, () => doFetch)
+
+  def delayedUntil(round: RelayRound): Fu[Option[Instant]] =
+    round.hasStarted.not
+      .so(round.sync.delay)
+      .so: delay =>
+        round.sync.upstream
+          .so:
+            case Upstream.Ids(_) => InternalSource(round.id).some
+            case Upstream.Users(_) => InternalSource(round.id).some
+            case Upstream.Url(url) => UrlSource(url).some
+            // only looks at the first URL. Probably won't always work.
+            case Upstream.Urls(urls) => urls.headOption.map(UrlSource(_))
+          .so: source =>
+            store.nextDate.get(source.cacheKey)
+          .map2(_.plusSeconds(delay.value))
 
   private def fromSource(
       source: RelaySource,
@@ -89,6 +105,15 @@ final private class RelayDelay(colls: RelayColls)(using Executor):
           .one[Bdoc]
           .map:
             _.flatMap(_.getAsOpt[PgnStr]("pgn"))
+
+    val nextDate = cacheApi[CacheKey, Option[Instant]](64, "relay.delayedUntil"):
+      _.expireAfterWrite(1.second).buildAsyncFuture: key =>
+        colls.delay:
+          _.primitiveOne[Instant](
+            $doc("_id".$gt(idOf(key, longPast))),
+            $sort.asc("_id"),
+            "at"
+          )
 
 private object RelayDelay:
 

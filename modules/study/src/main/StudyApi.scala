@@ -27,7 +27,8 @@ final class StudyApi(
     chatApi: lila.core.chat.ChatApi,
     serverEvalRequester: ServerEval.Requester,
     preview: ChapterPreviewApi,
-    flairApi: lila.core.user.FlairApi
+    flairApi: lila.core.user.FlairApi,
+    userApi: lila.core.user.UserApi
 )(using Executor, akka.stream.Materializer)
     extends lila.core.study.StudyApi:
 
@@ -705,6 +706,17 @@ final class StudyApi(
             studyRepo.updateNow(study)
         }
 
+  // update provided tags, keep missing tags, delete tags with empty value
+  def updateChapterTags(studyId: StudyId, chapterId: StudyChapterId, tags: Tags)(using me: Me) =
+    sequenceStudyWithChapter(studyId, chapterId):
+      case Study.WithChapter(study, chapter) =>
+        Contribute(me, study):
+          val newTags = tags.value.foldLeft(chapter.tags): (ctags, tag) =>
+            if tag.value.isEmpty
+            then ctags.copy(value = ctags.value.filterNot(_.name == tag.name))
+            else ctags + tag
+          doSetTags(study, chapter, newTags, Who(me.userId, Sri("")))
+
   def sortChapters(studyId: StudyId, chapterIds: List[StudyChapterId])(who: Who): Funit =
     sequenceStudy(studyId): study =>
       Contribute(who.u, study):
@@ -824,7 +836,8 @@ final class StudyApi(
         sendTo(study.id)(_.reloadChapters(previews))
 
   private def canActAsOwner(study: Study, userId: UserId): Fu[Boolean] =
-    fuccess(study.isOwner(userId)) >>| studyRepo.isAdminMember(study, userId)
+    fuccess(study.isOwner(userId)) >>| studyRepo.isAdminMember(study, userId) >>|
+      userApi.byId(userId).map(_.exists(Granter.ofUser(_.StudyAdmin)))
 
   private def Contribute[A: Zero](userId: UserId, study: Study)(f: => A): A =
     study.canContribute(userId).so(f)

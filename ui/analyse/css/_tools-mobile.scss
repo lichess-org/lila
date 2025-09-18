@@ -72,6 +72,7 @@
     }
     eval {
       font-size: 1.2em;
+      pointer-events: none;
     }
     [data-mode] {
       position: relative;
@@ -90,6 +91,7 @@
     }
     [data-mode='practice']::before {
       content: $licon-Bullseye;
+      padding-inline-end: 8px;
     }
     [data-mode='retro']::before {
       font-size: 1.5em;
@@ -101,11 +103,11 @@
       top: -2px;
       right: 1px;
       font-size: 0.9em;
-      color: $c-bg;
+      color: $m-bg_secondary--mix-50;
       content: $licon-X;
     }
     [data-mode='ceval']::after {
-      content: $licon-Stockfish;
+      content: $licon-Cpu;
       padding-inline-end: 10px;
     }
     [data-mode='ceval']:has(eval)::after {
@@ -113,6 +115,9 @@
     }
     [data-mode] .bar {
       display: none;
+    }
+    [data-mode] .switch {
+      width: 24px;
     }
     [data-mode]:not(.active) .bar {
       position: absolute;
@@ -148,16 +153,15 @@
     border-radius: 0 0 $box-radius-size $box-radius-size;
   }
   .analyse[data-active-tool] .analyse__tools,
-  .analyse[data-active-mode='practice'] .analyse__tools,
   .analyse[data-active-mode='retro'] .analyse__tools {
     border-top: 3px solid $c-secondary;
+  }
+  .analyse[data-active-mode='practice'] .analyse__tools .ceval {
+    order: 0;
   }
   .analyse[data-active-mode='practice'] .analyse__fork,
   .analyse[data-active-mode='retro'] .analyse__fork {
     display: none;
-  }
-  .fbt[data-mode='ceval'] .switch {
-    width: 24px;
   }
   #analyse-toggle-ceval + label {
     background-color: $c-font-dimmer;

@@ -2,8 +2,8 @@
 <resources>
   <string name="lichessCoaches">Προπονητές του Lichess</string>
   <string name="lichessCoach">Προπονητής του Lichess</string>
-  <string name="areYouCoach">Είστε ενας εξαιρετικός προπονητές σκακιού που κατέχει %s;</string>
-  <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">έναν NM ή FIDE τίτλο</string>
+  <string name="areYouCoach">Είστε προπονητής σκακιού που έχει τίτλο %s;</string>
+  <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">NM ή FIDE</string>
   <string name="confirmTitle">Επιβεβαιώστε εδώ τον τίτλο σας και θα εξετάσουμε την αίτησή σας.</string>
   <string name="sendApplication" comment="sendApplication&#10;&#10;%s is the lichess email address">Στείλτε μας ένα email στο %s και θα εξετάσουμε την αίτησή σας.</string>
   <string name="location">Τοποθεσία</string>
@@ -12,12 +12,12 @@
   <string name="hourlyRate">Ωριαία αμοιβή</string>
   <string name="availability">Διαθεσιμότητα</string>
   <string name="accepting">Αποδέχομαι μαθητές</string>
-  <string name="notAccepting">Δεν δέχομαι μαθητές προς το παρόν</string>
-  <string name="xCoachesStudents">%s προπονεί μαθητές σκακιού</string>
+  <string name="notAccepting">Δε δέχομαι μαθητές προς το παρόν</string>
+  <string name="xCoachesStudents">Ο χρήστης %s προπονεί μαθητές σκακιού</string>
   <string name="viewXProfile">Προβολή προφίλ του %s</string>
   <string name="sendPM">Αποστολή προσωπικού μηνύματος</string>
   <string name="aboutMe">Σχετικά με εμένα</string>
-  <string name="playingExperience">Εμπειρία ως παίχτης</string>
+  <string name="playingExperience">Εμπειρία ως παίκτης</string>
   <string name="teachingExperience">Εμπειρία ως προπονητής</string>
   <string name="otherExperiences">Άλλες εμπειρίες</string>
   <string name="bestSkills">Καλύτερες ικανότητες</string>

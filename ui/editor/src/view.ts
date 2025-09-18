@@ -259,12 +259,12 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
             h(
               'a.button',
               { attrs: { href: '/?fen=' + state.legalFen + '#ai', rel: 'nofollow' } },
-              i18n.site.playWithTheMachine,
+              i18n.site.playAgainstAI,
             ),
             h(
               'a.button',
               { attrs: { href: '/?fen=' + state.legalFen + '#friend', rel: 'nofollow' } },
-              i18n.site.playWithAFriend,
+              i18n.site.challengeAFriend,
             ),
           ]),
         ]),

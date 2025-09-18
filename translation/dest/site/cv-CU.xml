@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Туспа выльа</string>
-  <string name="playWithTheMachine">Машшинпа выльа</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Пӗр-пӗр ҫынпа выљас тесен, каҫҫине йар</string>
   <string name="gameOver">Вӑйӑ вӗҫленнӗ</string>
   <string name="waitingForOpponent">Ӑмӑртуҫа кӗтсе тӑни</string>
@@ -185,7 +183,6 @@
     <item quantity="other">%s вӑйӑ</item>
   </plurals>
   <string name="exportGames">Вӑйӑ еспортласси</string>
-  <string name="ratingRange">Рейтинг хушши</string>
   <plurals name="giveNbSeconds">
     <item quantity="other">%s ҫеккунт пар</item>
   </plurals>

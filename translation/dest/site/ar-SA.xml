@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">اللعب مع صديق</string>
-  <string name="playWithTheMachine">اللعب مع الحاسوب</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">لدعوة شخص ما للعب، أرسل له هذا الرابط</string>
   <string name="gameOver">انتهت المباراة</string>
   <string name="waitingForOpponent">في إنتظار الخصم</string>
@@ -433,7 +431,6 @@
     <item quantity="other">%s لعبت</item>
   </plurals>
   <string name="exportGames">تصدير المباريات</string>
-  <string name="ratingRange">نطاق التقييم</string>
   <plurals name="giveNbSeconds">
     <item quantity="zero">منح %s ثانية</item>
     <item quantity="one">منح %s ثانية</item>
@@ -551,7 +548,6 @@
   <string name="toStudy">دراسة</string>
   <string name="importGame">استورد مباراة</string>
   <string name="importGameExplanation">عند لصق مباراة PGN تحصل على إمكانية كرار استعراضها وتحليل حاسوبي ودردشة للمباراة ورابط قابل للمشاركة.</string>
-  <string name="importGameCaveat">سيتم محو التغييرات. للحفاظ عليها، يرجى استيراد PGN (تنسيق لعبة الشطرنج المحمول) عبر تبويب دراسة.</string>
   <string name="importGameDataPrivacyWarning">يمكن لأي أحد الوصول إلى PGN، إذا أردت إنشاء تحليل خاص، استخدم قسم دراسة.</string>
   <plurals name="nbImportedGames">
     <item quantity="zero">مباراة مستوردة %s</item>

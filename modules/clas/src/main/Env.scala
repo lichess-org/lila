@@ -47,8 +47,8 @@ final class Env(
   lila.common.Bus.sub[ClasBus]:
     case ClasBus.IsTeacherOf(teacher, student, promise) =>
       promise.completeWith(api.clas.isTeacherOf(teacher, student))
-    case ClasBus.AreKidsInSameClass(kid1, kid2, promise) =>
-      promise.completeWith(api.clas.areKidsInSameClass(kid1, kid2))
+    case ClasBus.CanKidsUseMessages(kid1, kid2, promise) =>
+      promise.completeWith(api.clas.canKidsUseMessages(kid1, kid2))
     case ClasBus.ClasMatesAndTeachers(kid, promise) =>
       promise.completeWith(matesCache.get(kid.id))
 

@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">යහළුවෙකු සමඟ ක්‍රීඩා කරන්න</string>
-  <string name="playWithTheMachine">පරිගණකය සමඟ ක්‍රීඩා කරන්න</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">ක්‍රීඩා කිරීමට යමෙකුට ආරාධනා කිරීමට, මෙම URL එක දෙන්න</string>
   <string name="gameOver">තරගය අවසන්</string>
   <string name="waitingForOpponent">ප්‍රතිවාදියා වෙනුවෙන් බලාසිටිමින්</string>
@@ -331,7 +329,6 @@
     <item quantity="other">කරන %s</item>
   </plurals>
   <string name="exportGames">තරග ආනයනය කරන්න</string>
-  <string name="ratingRange">ශ්‍රේණිගත පරාසය</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">තප්පර %s දීම</item>
     <item quantity="other">තප්පර %s දීම</item>
@@ -397,7 +394,6 @@
   <string name="importGame">ක්‍රීඩාව ආනයනය කරන්න</string>
   <string name="importGameExplanation">බ්‍රවුස් කළ හැකි නැවත ධාවනයක් ලබා ගැනීමට PGN ක්‍රීඩාවක් අලවන්න,
 පරිගණක විශ්ලේෂණය, ක්‍රීඩා කතාබස් සහ බෙදාගත හැකි URL.</string>
-  <string name="importGameCaveat">වේරියේශන් මැකෙනු ලැබේ. ඒවා තබා ගැනීමට අධ්‍යයනයක් හරහා pgn ආනයනය කරන්න.</string>
   <string name="importGameDataPrivacyWarning">මෙම pgn එක වෙත​ මහජනතාවට ප්‍රවේශ විය හැක. ක්‍රීඩාවක් පුද්ගලිකව ආනයනය කිරීමට, අධ්‍යයනයක් භාවිතා කරන්න.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s ආනයනික තරගය</item>

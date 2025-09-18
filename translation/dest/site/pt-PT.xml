@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Jogar com um amigo</string>
-  <string name="playWithTheMachine">Jogar contra o computador</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Para convidares alguém para jogar, envia este URL</string>
   <string name="gameOver">Fim da partida</string>
   <string name="waitingForOpponent">Aguardando oponente</string>
@@ -341,7 +339,6 @@
     <item quantity="other">%s a jogar</item>
   </plurals>
   <string name="exportGames">Exportar partidas</string>
-  <string name="ratingRange">Pontuação entre</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Dar %s segundo</item>
     <item quantity="other">Dar %s segundos</item>
@@ -428,7 +425,6 @@
   <string name="importGame">Importar uma partida</string>
   <string name="importGameExplanation">Coloca aqui o PGN de um jogo, para teres acesso a navegar pela repetição,
 análise de computador, sala de chat do jogo e link de partilha.</string>
-  <string name="importGameCaveat">As variações serão apagadas. Para mantê-las, importe o PGN através de um estudo.</string>
   <string name="importGameDataPrivacyWarning">Este PGN pode ser acessada pelo público. Para importar um jogo de forma privada, use um estudo.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s partida importada</item>
@@ -1009,4 +1005,10 @@ Todos os custos operacionais, de desenvolvimento e conteúdo são financiados ex
   <string name="accessibility">Acessibilidade</string>
   <string name="enableBlindMode">Ativar o modo cego</string>
   <string name="disableBlindMode">Desativar o modo cego</string>
+  <string name="copyToClipboard">Copiar para área de transferência</string>
+  <string name="online" comment="status of a user">online</string>
+  <string name="offline" comment="status of a user">offline</string>
+  <string name="search">Pesquisar</string>
+  <string name="clearSearch">Limpar pesquisa</string>
+  <string name="tags">Etiquetas</string>
 </resources>

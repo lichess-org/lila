@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Imir le cara</string>
-  <string name="playWithTheMachine">Imir in aghaidh an ríomhaire</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Chun cuireadh a thabhairt do dhuine, tabhair an URL seo dóibh</string>
   <string name="gameOver">Cluiche Thart</string>
   <string name="waitingForOpponent">Ag fanacht ar chéile comhraic</string>
@@ -390,7 +388,6 @@
     <item quantity="other">%s á imirt</item>
   </plurals>
   <string name="exportGames">Easpórtáil cluichí</string>
-  <string name="ratingRange">Raon rátála</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Tabhair %s soicind</item>
     <item quantity="two">Tabhair %s shoicind</item>
@@ -486,7 +483,6 @@
   <string name="importGame">Déan cluiche a iompórtáil</string>
   <string name="importGameExplanation">Greamaigh cluiche PGN chun athfhéachaint inbhrabhsala a fháil,
 anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
-  <string name="importGameCaveat">Scriosfar éagsúlachtaí. Chun iad a choinneáil, iompórtáil an PGN trí staidéar.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s cluiche iompórtáilte</item>
     <item quantity="two">%s chluiche iompórtáilte</item>

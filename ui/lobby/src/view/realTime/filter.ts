@@ -29,7 +29,7 @@ function initialize(ctrl: LobbyController, el: HTMLElement) {
     .on('reset', (e: Event) => {
       e.preventDefault();
       ctrl.filter.save(null);
-      ctrl.filter.open = false;
+      ctrl.filter.uiCacheBuster++;
       ctrl.redraw();
     })
     .on('submit', (e: Event) => {
@@ -73,7 +73,7 @@ export interface FilterNode extends HTMLElement {
 }
 
 export const render = (ctrl: LobbyController) =>
-  h('div.hook__filters', {
+  h('div.hook__filters.cache-buster-' + ctrl.filter.uiCacheBuster, {
     hook: {
       insert(vnode) {
         const el = vnode.elm as FilterNode;

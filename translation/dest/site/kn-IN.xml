@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">ಸ್ನೇಹಿತರೊಡನೆ ಆಡಿ</string>
-  <string name="playWithTheMachine">ಕಂಪ್ಯೂಟರ್ ಜೊತೆ ಆಡಿ</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">ಎದುರಾಳಿಯನ್ನು ಚೆಸ್ ಆಟಕ್ಕೆ ಆಹ್ವಾನಿಸಲು ಈ ಕೊಂಡಿಯನ್ನು ನೀಡಿ</string>
   <string name="gameOver">ಆಟ ಮುಗಿಯಿತು</string>
   <string name="waitingForOpponent">ಎದುರಾಳಿಯನ್ನು ನಿರೀಕ್ಷಿಸಲಾಗುತ್ತಿದೆ</string>
@@ -330,7 +328,6 @@
     <item quantity="other">%s ಚಾಲ್ತಿಯಲ್ಲಿವೆ</item>
   </plurals>
   <string name="exportGames">ಆಟಗಳನ್ನು ರಫ್ತುಮಾಡು</string>
-  <string name="ratingRange">ಧಾರಣೆ ವ್ಯಾಪ್ತಿ</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">%s ಸೆಕೆಂಡು ಕೊಡಿ</item>
     <item quantity="other">%s ಸೆಕೆಂಡುಗಳನ್ನು ಕೊಡಿ</item>
@@ -408,7 +405,6 @@
   <string name="toStudy">ಅಧ್ಯಯನ</string>
   <string name="importGame">ಆಟವನ್ನು ಆಮದು ಮಾಡಿ</string>
   <string name="importGameExplanation">ಒಂದು ಆಟದ PGN ಅನ್ನು ಇಲ್ಲಿ ಅಂಟಿಸಿ, ಬ್ರೌಸ್ ಮಾಡಲರ್ಹ ರಿಪ್ಲೇಗಳು, ಕಂಪ್ಯೂಟರ್ ವಿಶ್ಲೇಷಣೆ, ಹಾಗೂ ಆಟದ ಚಾಟ್ ಅಥವಾ ಹರಟೆ, ಮತ್ತು ಹಂಚಿಕೊಳ್ಳಬಹುದಾದ URL ಪಡೆಯಿರಿ.</string>
-  <string name="importGameCaveat">ವ್ಯತ್ಯಾಸಗಳನ್ನು ಅಳಿಸಲಾಗುತ್ತದೆ. ಅವುಗಳನ್ನು ಇರಿಸಿಕೊಳ್ಳಲು, ಅಧ್ಯಯನದ ಮೂಲಕ PGN ಅನ್ನು ಆಮದು ಮಾಡಿಕೊಳ್ಳಿ.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s ಆಮದು ಮಾಡಿದ ಆಟ</item>
     <item quantity="other">%s ಆಮದು ಮಾಡಿದ ಆಟಗಳು</item>

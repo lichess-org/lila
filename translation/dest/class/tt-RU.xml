@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses" comment="Lichess Classes are a feature that lets a teacher create virtual classes and check out students' progress.&#10;&#10;This text used to be &quot;Lichess Classes&quot;, which has since been shortened to &quot;Classes&quot;.">Сыйныфлар</string>
+  <string name="lichessClasses">Сыйныфлар</string>
   <string name="features">Үзенчәлекләр</string>
   <string name="teachersX">Укытучылар: %s</string>
-  <string name="reopen" comment="A button, permitting a teacher to reopen a closed class.">Яңадан ачу</string>
-  <string name="removedStudents" comment="This is in plural form. It is a heading showing all students who have been removed from the class.">Чыгарылды</string>
+  <string name="reopen">Яңадан ачу</string>
+  <string name="removedStudents">Чыгарылды</string>
   <string name="resetPassword">Серсүзне алыштыру</string>
   <string name="passwordX">Парол: %s</string>
   <string name="lastActiveDate">Актив</string>

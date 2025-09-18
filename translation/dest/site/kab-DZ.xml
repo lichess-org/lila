@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Urar yed umddakul</string>
-  <string name="playWithTheMachine">Urar mgal aselkim</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Blik ad-snnefteghed yiwen ad urar, fka-s tuqqna agi</string>
   <string name="gameOver">Tekfa tiremt</string>
   <string name="waitingForOpponent">S taganit sɣuṛ afna</string>
@@ -155,7 +153,6 @@
     <item quantity="other">%s ilmawen</item>
   </plurals>
   <string name="exportGames">Ssifeḍ temliliyin</string>
-  <string name="ratingRange">Abellez</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Efk %s tisinin</item>
     <item quantity="other">Efk %s tisinin</item>

@@ -1,2 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="moveList">Flytta lista</string>
+  <string name="gameInfo">Spelinfo</string>
+  <string name="actions">Åtgärder</string>
+  <string name="yourClock">Din klocka</string>
+  <string name="king">kung</string>
+  <string name="whiteKing">vit kung</string>
+  <string name="blackKing">svart kung</string>
+  <string name="queen">drottning</string>
+  <string name="whiteQueen">vit drottning</string>
+  <string name="blackQueen">svart drottning</string>
+  <string name="bishop">biskop</string>
+  <string name="knight">riddare</string>
+  <string name="whitePawn">vit bonde</string>
+  <string name="blackPawn">svart bonde</string>
+  <string name="sanTakes" comment="Indicates a piece captured another piece as part of a longer sentence.&#10;Examples:&#10;&quot;knight takes f 3&quot;&#10;&quot;e takes f 3&quot;&#10;The exact format can vary depending on the user's preferences. See the screenshot for the options as of 2025-08-23.&#10;&#10;Used only in blind mode when the screen reader verbally announces a move.&#10;&#10;'Takes' corresponds to &quot;x&quot; in Standard Algebraic Notation, for pieces being captured.">tar</string>
+</resources>

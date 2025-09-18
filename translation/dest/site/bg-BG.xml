@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Играй с приятел</string>
-  <string name="playWithTheMachine">Играй с компютъра</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">За да поканите някого на игра, дайте му този адрес</string>
   <string name="gameOver">Край на партията</string>
   <string name="waitingForOpponent">Изчакване на противник</string>
@@ -339,7 +337,6 @@
     <item quantity="other">%s текущи</item>
   </plurals>
   <string name="exportGames">Изтегли партиите</string>
-  <string name="ratingRange">Рейтинг на съперника</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Дай %s sec</item>
     <item quantity="other">Дай %s sec</item>
@@ -426,7 +423,6 @@
   <string name="importGame">Добави игра</string>
   <string name="importGameExplanation">При поставяне на PGN може да разгледате играта с чата,
 да получите компютърен анализ и линк за споделяне.</string>
-  <string name="importGameCaveat">Вариациите ще бъдат изтрити. За да ги запазите, импортирайте PGN чрез казус.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Добавени игри</item>
     <item quantity="other">%s Добавени игри</item>
@@ -990,4 +986,6 @@
   <string name="accessibility">Достъпност</string>
   <string name="enableBlindMode">Включи режима за незрящи</string>
   <string name="disableBlindMode">Изключи режима за незрящи</string>
+  <string name="online" comment="status of a user">онлайн</string>
+  <string name="offline" comment="status of a user">офлайн</string>
 </resources>

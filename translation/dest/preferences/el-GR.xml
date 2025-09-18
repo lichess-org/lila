@@ -16,10 +16,10 @@
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Λειτουργία Zεν</string>
   <string name="showPlayerRatings">Εμφάνιση αξιολογήσεων παικτών</string>
   <string name="showFlairs">Εμφάνιση διακριτικών παικτών</string>
-  <string name="explainShowPlayerRatings">Αυτό επιτρέπει την απόκρυψη όλων τις βαθμολογίες από την ιστοσελίδα, έτσι ώστε να μπορείτε να επικεντρωθείτε στο σκάκι. Τα παιχνίδια θα αξιολογούνται, η ρύθμιση αυτή επηρεάζει την εμφάνιση μόνο.</string>
+  <string name="explainShowPlayerRatings">Αυτό αποκρύπτει όλες τις βαθμολογίες από την ιστοσελίδα, έτσι ώστε να μπορείτε να επικεντρωθείτε στο σκάκι. Τα παιχνίδια θα εξακολουθούν να αξιολογούνται — η ρύθμιση αυτή επηρεάζει μόνο την εμφάνιση.</string>
   <string name="displayBoardResizeHandle">Εμφάνιση χειριστηρίου αλλαγής μεγέθους σκακιέρας</string>
   <string name="onlyOnInitialPosition">Μόνο στην αρχική διάταξη</string>
-  <string name="inGameOnly">Μόνο κατά τη διάρκεια του παιχνιδιού</string>
+  <string name="inGameOnly">Μόνο κατά τη διάρκεια της παρτίδας</string>
   <string name="exceptInGame" comment="An option regarding when player ratings should be displayed. This will display other players' ratings at all times, EXCEPT during a game. Please see screenshot - text needs to be kept short to fit in the segmented control widget used for settings.">Όχι κατά τη διάρκεια της παρτίδας</string>
   <string name="chessClock">Σκακιστικό χρονόμετρο</string>
   <string name="tenthsOfSeconds">Δέκατα του δευτερολέπτου</string>
@@ -27,7 +27,7 @@
   <string name="horizontalGreenProgressBars">Οριζόντιες πράσινες γραμμές προόδου</string>
   <string name="soundWhenTimeGetsCritical">Ηχητική ειδοποίηση όταν ο χρόνος γίνεται κρίσιμος</string>
   <string name="giveMoreTime">Προσθέστε περισσότερο χρόνο</string>
-  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Συμπεριφορά παιχνιδιού</string>
+  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Συμπεριφορά παρτίδας</string>
   <string name="howDoYouMovePieces">Πώς θέλετε να μετακινείτε τα κομμάτια;</string>
   <string name="clickTwoSquares">Κάνοντας κλικ στα δύο τετράγωνα</string>
   <string name="dragPiece">Σέρνοντας ένα πιόνι</string>
@@ -41,7 +41,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Διεκδικήστε ισοπαλία αυτόματα σε τριπλή επανάληψη</string>
   <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Όταν απομένουν &lt; 30 δευτερόλεπτα</string>
   <string name="moveConfirmation">Επιβεβαίωση κίνησης</string>
-  <string name="explainCanThenBeTemporarilyDisabled">Μπορεί να απενεργοποιηθεί κατά τη διάρκεια ενός παιχνιδιού με το μενού της σκακιέρας</string>
+  <string name="explainCanThenBeTemporarilyDisabled">Μπορεί να απενεργοποιηθεί κατά τη διάρκεια μιας παρτίδας από το μενού της σκακιέρας</string>
   <string name="inCorrespondenceGames">Στις παρτίδες δι\' αλληλογραφίας</string>
   <string name="correspondenceAndUnlimited">Δι\' αλληλογραφίας και απεριορίστου χρόνου</string>
   <string name="confirmResignationAndDrawOffers">Επιβεβαίωση παραίτησης και προσφοράς ισοπαλίας</string>
@@ -53,16 +53,16 @@
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Αγκύρωση βελών σε έγκυρες κινήσεις</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Αποστολή «Good game, well played» (Ωραίο παιχνίδι, καλά παιγμένο) μετά από ήττα ή ισοπαλία</string>
   <string name="yourPreferencesHaveBeenSaved">Οι προτιμήσεις σας αποθηκεύτηκαν.</string>
-  <string name="scrollOnTheBoardToReplayMoves">Κυλίστε τον δρομέα πάνω στη σκακιέρα για να ξαναδείτε κινήσεις</string>
-  <string name="correspondenceEmailNotification">Να δέχομαι ημερήσια ειδοποίηση ηλεκτρονικού ταχυδρομείου για τα παιχνίδια διά αλληλογραφίας μου</string>
-  <string name="notifyStreamStart">Streamer εκπέμπει ζωντανά</string>
+  <string name="scrollOnTheBoardToReplayMoves">Κύλιση δρομέα πάνω στη σκακιέρα για περιήγηση στις κινήσεις</string>
+  <string name="correspondenceEmailNotification">Ημερήσια ειδοποίηση ηλεκτρονικού ταχυδρομείου για τις δι\' αλληλογραφίας παρτίδες μου</string>
+  <string name="notifyStreamStart">Ένας streamer εκπέμπει ζωντανά</string>
   <string name="notifyInboxMsg">Νέο εισερχόμενο μήνυμα</string>
-  <string name="notifyForumMention">Το σχόλιο του φόρουμ σας αναφέρει</string>
-  <string name="notifyInvitedStudy">Πρόσκληση μελέτης</string>
-  <string name="notifyGameEvent">Ενημερώσεις σε παιχνίδια αλληλογραφίας</string>
+  <string name="notifyForumMention">Αναφορά από σχόλιο σε φόρουμ</string>
+  <string name="notifyInvitedStudy">Πρόσκληση σε μελέτη</string>
+  <string name="notifyGameEvent">Ενημερώσεις σε παρτίδες δι\' αλληλογραφίας</string>
   <string name="notifyChallenge">Προκλήσεις</string>
   <string name="notifyTournamentSoon">Το τουρνουά ξεκινά σύντομα</string>
-  <string name="notifyTimeAlarm">Το ρολόι εξαντλείται στο παιχνίδι αλληλογραφίας</string>
+  <string name="notifyTimeAlarm">Λίγος χρόνος σε παρτίδα δι\' αλληλογραφίας</string>
   <string name="notifyBell">Ειδοποίηση με καμπανάκι εντός του Lichess</string>
   <string name="notifyPush">Ειδοποίηση συσκευής όταν δεν είστε στο Lichess</string>
   <string name="notifyWeb">Browser</string>

@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Найзтайгаа тоглох</string>
-  <string name="playWithTheMachine">Компьютертай тоглох</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Тоглох хүндээ энэ холбоос хаягыг илгээж өрөгт урина уу</string>
   <string name="gameOver">Өрөг өндөрлөлөө</string>
   <string name="waitingForOpponent">Өрсөлдөгчийг хүлээж байна</string>
@@ -297,7 +295,6 @@
     <item quantity="other">%s тоглуулж байна</item>
   </plurals>
   <string name="exportGames">Тоглолтыг гадагш нүүлгэх</string>
-  <string name="ratingRange">Чансааны хязгаарлалт</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">%s секунд нэмж өгөх</item>
     <item quantity="other">%s секунд нэмж өгөх</item>
@@ -371,7 +368,6 @@
   <string name="toStudy">Дугуйлан</string>
   <string name="importGame">Өрөг импортлох</string>
   <string name="importGameExplanation">Өрөгийн PGN-г оруулсанаар та өргийг дахин тоглуулах, компьютер шинжилгээ хийх, чат бичих болон бусдад түгээх холбоос авах боломжтой.</string>
-  <string name="importGameCaveat">Салаалсан хувилбарууд арилгагдах болно. Тэднийг арилгахыг хүсэхгүй бол, \"Судлах\" горимоор тоглолтыг PGN болгож хадгалаарай.</string>
   <string name="importGameDataPrivacyWarning">Энэ PGN нь олон нийтэд нээлттэй байна. Хэрэв та тоглолтыг олон нийтэд харуулахыг хүсэхгүй байвал, \"Судлах\" горимыг ашиглаарай.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">Импортлогдсон өргийн тоо: %s</item>

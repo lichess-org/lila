@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">maqaDchuq</string>
-  <string name="playWithTheMachine">maQuj jIH De\'wI\' je</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">QujmeH vay\' DarItmeH, tlharwIlvam yInob</string>
   <string name="gameOver">Quj bertlham</string>
   <string name="waitingForOpponent">narghmeH ghol bIloStaH</string>

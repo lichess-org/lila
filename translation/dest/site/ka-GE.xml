@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">ეთამაშე მეგობარს</string>
-  <string name="playWithTheMachine">ეთამაშე კომპიუტერს</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">მეტოქეს, მოსაწვევად, გაუგზავნეთ აღნიშნული ბმული</string>
   <string name="gameOver">თამაში დასრულებულია</string>
   <string name="waitingForOpponent">მეტოქის მოლოდინი</string>
@@ -330,7 +328,6 @@
     <item quantity="other">%s ნათამაშები</item>
   </plurals>
   <string name="exportGames">თამაშის ექსპორტი</string>
-  <string name="ratingRange">ელო რეიტინგი</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">მიეცით %s წამი</item>
     <item quantity="other">მიეცით %s წამი</item>
@@ -408,7 +405,6 @@
   <string name="toStudy">კვლევად გადაკეთება</string>
   <string name="importGame">თამაშის იმპორტი</string>
   <string name="importGameExplanation">პარტიის PGN-ს დაკოპირებისას მიიღებთ სრულ თამაშს, კომპიუტერის ანალიზს, თამაშის მიმოწერას და გასაზიარებელ ლინკს.</string>
-  <string name="importGameCaveat">ვარიაციები წაიშლება. მათი შესანარჩუნებლად, დააიმპორტეთ PGN კვლევის მეშვეობით.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s იმპორტირებული თამაშები</item>
     <item quantity="other">%s იმპორტირებული თამაშები</item>

@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">שחק/י עם חבר/ה</string>
-  <string name="playWithTheMachine">שחק/י מול המחשב</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">כדי להזמין מישהו לשחק, שתפו את הכתובת הזאת</string>
   <string name="gameOver">המשחק הסתיים</string>
   <string name="waitingForOpponent">ממתין ליריב</string>
@@ -384,7 +382,6 @@
     <item quantity="other">%s נוכחיים</item>
   </plurals>
   <string name="exportGames">ייצוא משחקים</string>
-  <string name="ratingRange">טווח דירוג</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">תן שנייה %s</item>
     <item quantity="two">תן %s שניות</item>
@@ -478,7 +475,6 @@
   <string name="toStudy">לוח למידה</string>
   <string name="importGame">ייבוא משחק</string>
   <string name="importGameExplanation">כשמדביקים משחק בפורמט PGN מקבלים אפשרות לצפות במשחק ולדפדף בו, ניתוח ממוחשב, צ׳אט וקישור לשיתוף.</string>
-  <string name="importGameCaveat">וריאציות — כלומר רצפי מהלכים שאינם המסעים הראשיים (mainline) — יימחקו. כדי לשמור אותן, ייבאו את ה־PGN כלוח למידה.</string>
   <string name="importGameDataPrivacyWarning">ה־PGN הזה זמין לציבור. כדי לייצא את המשחק באופן פרטי, השתמשו בלוח למידה.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">משחק מיובא %s</item>

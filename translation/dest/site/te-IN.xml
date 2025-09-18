@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">మిత్రులతో ఆడండి</string>
-  <string name="playWithTheMachine">కంప్యూటర్ తో ఆడండి</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">ఆటకు పిలవడానికి ఈ లంకె పంపండి</string>
   <string name="gameOver">ఆట ముగిసింది</string>
   <string name="waitingForOpponent">ప్రత్యర్థి కోసం ఎదురుచూస్తున్నాం</string>
@@ -344,7 +342,6 @@
     <item quantity="other">%s ఆడుతున్నారు</item>
   </plurals>
   <string name="exportGames">ఆటలను ఎగుమతి చేయండి</string>
-  <string name="ratingRange">రేటింగ్ పరిధి</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">%s సెకను ఇవ్వండి</item>
     <item quantity="other">%s సెకన్లు ఇవ్వండి</item>
@@ -431,7 +428,6 @@
   <string name="importGame">దిగుమతి ఆట</string>
   <string name="importGameExplanation">బ్రౌజ్ చేయగల రీప్లేని పొందడానికి గేమ్ PGNని అతికించండి,
 కంప్యూటర్ విశ్లేషణ, గేమ్ చాట్ మరియు భాగస్వామ్యం చేయదగిన URL.</string>
-  <string name="importGameCaveat">వేరియేషన్స్ పోతాయి. ఉంచడానికి, పీ.జీ.యన్ స్టడీ ద్వారా ఇంపోర్ట్ చెయ్.</string>
   <string name="importGameDataPrivacyWarning">ఈ పీ. జీ. యన్ ను ప్రజలు యాక్సెస్ చేసుకోవచ్చు. ఒక గేమ్ ప్రైవేట్ గా దిగుమతి చేయడానికి, ఒక స్టడీ ఉపయోగించండి.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s గేమ్‌ దిగుమతి చేయబడ్డాయి</item>

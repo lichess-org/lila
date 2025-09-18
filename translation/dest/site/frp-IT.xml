@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Joyèr avoy un amì</string>
-  <string name="playWithTheMachine">Joyèr contra la machina</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Per invitar quarqu\'un a joyèr, balyi cetì lèm</string>
   <string name="gameOver">Finit</string>
   <string name="waitingForOpponent">Atendant l’ adverséro</string>

@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">தோழருடன் விளையாடு</string>
-  <string name="playWithTheMachine">கணினியுடன் விளையாடு</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">பிறரை ஆட்டத்திற்கு அழைக்க, இந்த URLஐ கொடு</string>
   <string name="gameOver">ஆட்டம் முடிந்துவிட்டது</string>
   <string name="waitingForOpponent">எதிராளிக்காகக் காத்திருக்கின்றது</string>
@@ -341,7 +339,6 @@
     <item quantity="other">%s விளையாடிக்கொண்டிருக்கிறார்</item>
   </plurals>
   <string name="exportGames">ஆட்டங்களை வெளியேற்று</string>
-  <string name="ratingRange">மதிப்பீட்டு வரம்பு</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">%s நொடி வழங்கு</item>
     <item quantity="other">%s நொடிகள் வழங்கு</item>
@@ -419,7 +416,6 @@
   <string name="toStudy">கற்கை</string>
   <string name="importGame">ஆட்டத்தை உள்ளேற்று</string>
   <string name="importGameExplanation">கணினி பகுப்பாய்வு, உலாவக்கூடிய மீளாடல், விளையாட்டு உரையாடல், மற்றும் பகிரக்கூடிய URL பெற விளையாட்டின் PGN ஐ ஒட்டவும்.</string>
-  <string name="importGameCaveat">மாறுபடு வரிகள் அழிக்கப்படும். அவற்றை வைத்திருக்க, ஆய்வுமூலம் PGN ஐ இறக்குமதி செய்யவும்.</string>
   <string name="importGameDataPrivacyWarning">இந்த PGN-ஐ பொதுமக்கள் அணுகலாம். தனிப்பட்ட முறையில் விளையாட்டை இறக்குமதி செய்ய, ஒரு ஆய்வைப் பயன்படுத்தவும்.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s உள்ளேற்றின ஆட்டம்</item>

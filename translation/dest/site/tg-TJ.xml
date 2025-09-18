@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Бозӣ бо рафиқ</string>
-  <string name="playWithTheMachine">Бозӣ бо компютер</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Барои касеро даъват ба бозӣ кардан, ин URL-ро фиристонед</string>
   <string name="gameOver">Бозӣ тамом шуд</string>
   <string name="waitingForOpponent">Интизори ҳариф</string>

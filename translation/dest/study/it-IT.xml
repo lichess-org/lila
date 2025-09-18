@@ -164,11 +164,11 @@
   <string name="playAgain">Gioca di nuovo</string>
   <string name="whatWouldYouPlay">Cosa giocheresti in questa posizione?</string>
   <string name="youCompletedThisLesson">Congratulazioni! Hai completato questa lezione.</string>
-  <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">%s per pagina</string>
+  <string name="perPage">%s per pagina</string>
   <string name="getTheTour">Hai bisogno di aiuto? Fai un tour!</string>
   <string name="welcomeToLichessStudyTitle">Benvenuto allo Studio!</string>
   <string name="welcomeToLichessStudyText">Questa è una scacchiera di analisi condivisa.&lt;br&gt;&lt;br&gt;Usala per analizzare e annotare le partite,&lt;br&gt;discutere delle posizioni con gli amici,&lt;br&gt;e, naturalmente, per le lezioni di scacchi!&lt;br&gt;&lt;br&gt;È uno strumento potente, prendiamoci un po\' di tempo per vedere come funziona.</string>
-  <string name="sharedAndSaveTitle" comment="Appears as the title of a pop-up lightbox in the guided tour of Lichess Studies.&#10;&#10;As in: shared with other members &amp; saved to the database.">Condivisa e salvata</string>
+  <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Condivisa e salvata</string>
   <string name="sharedAndSavedText">Altri membri possono vedere le tue mosse in tempo reale!&lt;br&gt;Inoltre, tutto è salvato per sempre.</string>
   <string name="studyMembersTitle">Membri dello studio</string>
   <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s Gli spettatori possono vedere lo studio e parlare in chat.&lt;br&gt;&lt;br&gt;%2$s I collaboratori possono fare mosse e aggiornare lo studio.</string>
@@ -180,7 +180,7 @@
   <string name="annotatePositionTitle">Scrivi una nota su una posizione</string>
   <string name="annotatePositionText">Fai clic sul pulsante !? oppure fai clic col tasto destro sull\'elenco delle mosse.&lt;br&gt;Le icone delle note sono condivise e salvate.</string>
   <string name="conclusionTitle">Grazie del tuo tempo</string>
-  <string name="conclusionText">Puoi trovare i tuoi &lt;a href=\'/study/mine/hot\'&gt;studi precedenti&lt;/a&gt; sulla pagina del tuo profilo.&lt;br&gt;C\'è anche un &lt;a href=\'//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way\'&gt;post sugli studi&lt;/a&gt; sul blog.&lt;br&gt;Gli utenti esperti possono premere \"?\" per vedere le scorciatoie da tasriera.&lt;br&gt;Divertiti!</string>
+  <string name="conclusionText">Puoi trovare i tuoi &lt;a href=\'/study/mine/hot\'&gt;studi precedenti&lt;/a&gt; sulla pagina del tuo profilo.&lt;br&gt;C\'è anche un &lt;a href=\'//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way\'&gt;post sugli studi&lt;/a&gt; sul blog.&lt;br&gt;Gli utenti esperti possono premere \"?\" per vedere le scorciatoie da tastiera.&lt;br&gt;Divertiti!</string>
   <string name="createChapterTitle">Creiamo un capitolo di studio</string>
   <string name="createChapterText">Uno studio può avere diversi capitoli.&lt;br&gt;Ogni capitolo ha un albero mosse distinto &lt;br&gt;e può essere creato in vari modi.</string>
   <string name="fromInitialPositionTitle">Parti dalla posizione iniziale</string>
@@ -196,7 +196,7 @@
   <string name="variantsAreSupportedTitle">Gli studi supportano le varianti</string>
   <string name="variantsAreSupportedText">Proprio così, puoi studiare le varianti crazyhouse&lt;br&gt;e lichess!</string>
   <string name="chapterConclusionText">I capitoli sono salvati per sempre.&lt;br&gt;Divertiti a organzizare il tuo contenuto scacchistico!</string>
-  <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Doppia sconfitta</string>
-  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">Il Nero è sconfitto, ma il Bianco non può vincere</string>
-  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">Il Bianco è sconfitto, ma il Nero non pul vincere</string>
+  <string name="doubleDefeat">Doppia sconfitta</string>
+  <string name="blackDefeatWhiteCanNotWin">Il Nero è sconfitto, ma il Bianco non può vincere</string>
+  <string name="whiteDefeatBlackCanNotWin">Il Bianco è sconfitto, ma il Nero non pul vincere</string>
 </resources>

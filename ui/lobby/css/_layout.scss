@@ -9,6 +9,9 @@
   &__simuls {
     max-height: 30em;
   }
+  &__start {
+    margin: 0 $block-gap;
+  }
 
   @include mq-at-least-col2 {
     ---cols: 2; // ui/lobby/src/main.ts
@@ -30,6 +33,9 @@
       grid-template-columns: 1fr 1fr;
       grid-gap: 2%;
     }
+    &__start {
+      margin-inline-end: $block-gap;
+    }
   }
 
   @include mq-at-least-col3 {
@@ -49,9 +55,7 @@
 
     &__start {
       margin: 2em 0 0 0;
-      flex-flow: column;
-      align-items: stretch;
-      justify-content: center;
+      font-weight: bold;
     }
 
     &__counters {
@@ -84,11 +88,8 @@
       '.      about   about   .';
 
     &__start {
+      margin: 0;
       justify-content: center;
-
-      button {
-        padding: 1em;
-      }
     }
 
     &__side {
@@ -96,7 +97,6 @@
     }
 
     &__counters {
-      margin: 0;
       flex-flow: column;
       align-items: flex-start;
       position: absolute;
