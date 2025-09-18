@@ -4,7 +4,7 @@
   <string name="challengeDeclined">Väljakutse tagasi lükatud</string>
   <string name="challengeAccepted">Väljakutse vastu võetud!</string>
   <string name="challengeCanceled">Väljakutse tühistatud.</string>
-  <string name="registerToSendChallenges" comment="This used to say &quot;Please register to send challenges.&quot;&#10;We have since added &quot;[...] to this user.&quot; to the end of the string for absolute clarity, given the context this appears in. Please update translations as needed.">Palun registreeri, et väljakutseid saata.</string>
+  <string name="registerToSendChallenges">Palun registreeri, et väljakutseid saata.</string>
   <string name="youCannotChallengeX">Sa ei saa väljakutset esitada mängijale %s.</string>
   <string name="xDoesNotAcceptChallenges">Mängija %s ei võta väljakutseid vastu.</string>
   <string name="yourXRatingIsTooFarFromY">Sinu %1$s reiting on liiga kaugel mängija %2$s omast.</string>
