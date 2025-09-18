@@ -1,12 +1,12 @@
 package lila.ui
 
-import play.api.libs.json.{ JsString, JsValue, Json, Writes }
+import play.api.libs.json.{ JsValue, Json, Writes }
 
 enum HttpMethod:
-  case GET, POST, PUT, DELETE, PATCH, OPTIONS, HEAD
+  case GET, POST
 
 object HttpMethod:
-  given Writes[HttpMethod] = Writes(hm => JsString(hm.toString))
+  given Writes[HttpMethod] = scalalib.json.Json.writeAs(_.toString)
 
 case class Menu(val items: List[MenuItem], val moreLabel: String):
   def serialize: String = Json.stringify(Json.toJson(this))
