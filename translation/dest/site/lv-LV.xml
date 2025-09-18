@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Spēlēt ar draugu</string>
-  <string name="playWithTheMachine">Spēlēt ar datoru</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Lai uzaicinātu kādu spēlēt, iedod šo saiti</string>
   <string name="gameOver">Spēle galā</string>
   <string name="waitingForOpponent">Gaidām pretinieku</string>
@@ -359,7 +357,6 @@
     <item quantity="other">%s notiek</item>
   </plurals>
   <string name="exportGames">Eksportēt spēles</string>
-  <string name="ratingRange">Reitinga diapazons</string>
   <plurals name="giveNbSeconds">
     <item quantity="zero">Piešķirt %s sekundes</item>
     <item quantity="one">Piešķirt %s sekundi</item>
