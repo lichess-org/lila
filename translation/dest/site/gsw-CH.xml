@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Schpill mit eme Fründ</string>
-  <string name="playWithTheMachine">Schpill mit em Computer</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Wottsch öpper zum Schpille ilade - schick die URL</string>
   <string name="gameOver">Schpiel verbi</string>
   <string name="waitingForOpponent">Uf de Gägner warte</string>
@@ -342,7 +340,6 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
     <item quantity="other">%s am Schpille</item>
   </plurals>
   <string name="exportGames">Schpiel exportiere</string>
-  <string name="ratingRange">Wertigsbereich</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Gib dim Gägner %s Sekunde</item>
     <item quantity="other">Gib dim Gägner %s Sekunde</item>
