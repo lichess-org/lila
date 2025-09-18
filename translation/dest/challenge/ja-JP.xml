@@ -5,7 +5,7 @@
   <string name="challengeDeclined">挑戦が拒否されました。</string>
   <string name="challengeAccepted">挑戦が承認されました！</string>
   <string name="challengeCanceled">挑戦がキャンセルされました。</string>
-  <string name="registerToSendChallenges" comment="This used to say &quot;Please register to send challenges.&quot;&#10;We have since added &quot;[...] to this user.&quot; to the end of the string for absolute clarity, given the context this appears in. Please update translations as needed.">挑戦を送るには登録が必要です。</string>
+  <string name="registerToSendChallenges">挑戦を送るには登録が必要です。</string>
   <string name="youCannotChallengeX">%s には挑戦できません。</string>
   <string name="xDoesNotAcceptChallenges">%s は挑戦を受け付けていません。</string>
   <string name="yourXRatingIsTooFarFromY">あなたの %1$s レーティングは %2$s と離れすぎています。</string>
