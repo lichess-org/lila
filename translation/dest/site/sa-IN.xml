@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">मित्रेण सह  क्रीडतु</string>
-  <string name="playWithTheMachine">यन्त्रेण सह  क्रीडतु</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">कमपि   क्रीडार्थम् उपाह्वयितुम्  एनम्  निर्देशम् प्रेषयतु</string>
   <string name="gameOver">क्रीडा समाप्ता</string>
   <string name="waitingForOpponent">प्रतियोगिनम् प्रतीक्षे</string>
