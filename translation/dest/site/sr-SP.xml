@@ -866,11 +866,11 @@
   <string name="solution">Решење</string>
   <string name="waitingForAnalysis">Чекање на анализу</string>
   <string name="noMistakesFoundForWhite">Ниједна грешка није нађена за белог</string>
-  <string name="noMistakesFoundForBlack">Нема грешке нађене за црног</string>
+  <string name="noMistakesFoundForBlack">Ниједна грешка није нађена за црног</string>
   <string name="doneReviewingWhiteMistakes">Завршено прегледање белих грешака</string>
   <string name="doneReviewingBlackMistakes">Завршено прегледање црних грешака</string>
-  <string name="doItAgain">Урадите поново</string>
-  <string name="reviewWhiteMistakes">Пронађите грешке белог</string>
+  <string name="doItAgain">Одради поново</string>
+  <string name="reviewWhiteMistakes">Прегледај беле грешке</string>
   <string name="reviewBlackMistakes">Пронађите грешке црног</string>
   <string name="advantage">Предност</string>
   <plurals name="nbSeconds">
