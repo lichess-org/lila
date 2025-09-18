@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Žaisti su draugu</string>
-  <string name="playWithTheMachine">Žaisti su kompiuteriu</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Norėdami pakviesti varžovą, pasidalinkite šiuo adresu</string>
   <string name="gameOver">Partija baigta</string>
   <string name="waitingForOpponent">Laukiama varžovo</string>
@@ -384,7 +382,6 @@
     <item quantity="other">%s žaidžiamų</item>
   </plurals>
   <string name="exportGames">Eksportuoti partijas</string>
-  <string name="ratingRange">Reitingo rėžis</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Duoti %s sekundę</item>
     <item quantity="few">Duoti %s sekundes</item>
