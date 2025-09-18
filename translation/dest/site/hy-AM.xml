@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Խաղալ ընկերոջ հետ</string>
-  <string name="playWithTheMachine">Խաղալ համակարգչի հետ</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Որևէ մեկին խաղի հրավիրելու համար ուղարկեք ստորև տրված հղումը</string>
   <string name="gameOver">Խաղն ավարտված է</string>
   <string name="waitingForOpponent">Սպասում եմ հակառակորդին</string>
@@ -337,7 +335,6 @@
     <item quantity="other">%s խաղացվում են</item>
   </plurals>
   <string name="exportGames">Էկսպորտ անել խաղերը</string>
-  <string name="ratingRange">Elo միջակայք</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Տալ %s վայրկան</item>
     <item quantity="other">Տալ %s վայրկան</item>
