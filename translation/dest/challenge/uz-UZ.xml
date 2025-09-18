@@ -5,7 +5,7 @@
   <string name="challengeDeclined">Chorlovni rad etildi</string>
   <string name="challengeAccepted">Chorlov qabul qilindi!</string>
   <string name="challengeCanceled">Chorlov bekor qilindi.</string>
-  <string name="registerToSendChallenges" comment="This used to say &quot;Please register to send challenges.&quot;&#10;We have since added &quot;[...] to this user.&quot; to the end of the string for absolute clarity, given the context this appears in. Please update translations as needed.">Iltimos o\'yinga chorlash uchun ro\'yhatdan o\'ting.</string>
+  <string name="registerToSendChallenges">Iltimos o\'yinga chorlash uchun ro\'yhatdan o\'ting.</string>
   <string name="youCannotChallengeX">Siz %s ni chorlay olmaysiz.</string>
   <string name="xDoesNotAcceptChallenges">%s chorlovni qabul qilmadi.</string>
   <string name="yourXRatingIsTooFarFromY">Sizning %1$s reytingingiz %2$s dan ancha uzoq.</string>
