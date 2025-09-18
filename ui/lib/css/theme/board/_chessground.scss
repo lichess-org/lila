@@ -208,7 +208,8 @@ html:not(.transp) body:not(.simple-board) {
   &.coords-in coord,
   cg-board piece,
   cg-board square,
-  .cg-custom-svgs {
+  .cg-custom-svgs,
+  .cg-custom-below {
     filter: brightness(calc(0.35 + 0.0065 * min(120, var(---board-brightness))));
   }
 }

@@ -67,7 +67,7 @@ final class SetupUi(helpers: Helpers):
           ),
           ctx.isAuth.option(
             tr(
-              td(trans.site.ratingRange()),
+              td(trans.site.ratingFilter()),
               td(
                 label(cls := "range")("? - ?"),
                 div(cls := "rating-range") {

@@ -105,7 +105,7 @@
       content: $licon-X;
     }
     [data-mode='ceval']::after {
-      content: $licon-Stockfish;
+      content: $licon-Cpu;
       padding-inline-end: 10px;
     }
     [data-mode='ceval']:has(eval)::after {
