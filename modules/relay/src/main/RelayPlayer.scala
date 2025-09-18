@@ -6,7 +6,6 @@ import scalalib.Json.writeAs
 import scalalib.Debouncer
 import chess.{ ByColor, Color, FideId, Outcome, PlayerName, IntRating }
 import chess.rating.{ Elo, IntRatingDiff }
-import chess.format.pgn.Tag
 
 import lila.study.{ ChapterPreviewApi, StudyPlayer }
 import lila.study.StudyPlayer.json.given
