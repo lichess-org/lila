@@ -5,7 +5,7 @@
   <string name="challengeDeclined">Výzva odmietnutá</string>
   <string name="challengeAccepted">Výzva prijatá!</string>
   <string name="challengeCanceled">Výzva zrušená.</string>
-  <string name="registerToSendChallenges" comment="This used to say &quot;Please register to send challenges.&quot;&#10;We have since added &quot;[...] to this user.&quot; to the end of the string for absolute clarity, given the context this appears in. Please update translations as needed.">Pre odoslanie výzvy sa zaregistrujte.</string>
+  <string name="registerToSendChallenges">Pre odoslanie výzvy sa zaregistrujte.</string>
   <string name="youCannotChallengeX">Nemôžete vyzvať %s.</string>
   <string name="xDoesNotAcceptChallenges">%s neprijíma výzvy.</string>
   <string name="yourXRatingIsTooFarFromY">Medzi Vaším %1$s hodnotením a hodnotením hráča %2$s je príliš veľký rozdiel.</string>
