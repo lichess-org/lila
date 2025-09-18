@@ -1,14 +1,14 @@
 import type { Outcome } from 'chessops/types';
-import { h, type VNode } from 'snabbdom';
-import { bind, type MaybeVNodes } from 'lib/snabbdom';
+import { hl, type VNode, bind, type MaybeVNodes } from 'lib/snabbdom';
 import type { PracticeCtrl, Comment } from './practiceCtrl';
 import type AnalyseCtrl from '../ctrl';
 import { renderNextChapter } from '../study/nextChapter';
+import { Prop } from 'lib';
 
 function commentBest(c: Comment, ctrl: PracticeCtrl): MaybeVNodes {
   return c.best
     ? i18n.site[c.verdict === 'goodMove' ? 'anotherWasX' : 'bestWasX'].asArray(
-        h(
+        hl(
           'move',
           {
             hook: {
@@ -28,11 +28,13 @@ function commentBest(c: Comment, ctrl: PracticeCtrl): MaybeVNodes {
 }
 
 function renderOffTrack(ctrl: PracticeCtrl): VNode {
-  return h('div.player.off', [
-    h('div.icon.off', '!'),
-    h('div.instruction', [
-      h('strong', i18n.site.youBrowsedAway),
-      h('div.choices', [h('a', { hook: bind('click', ctrl.resume, ctrl.redraw) }, i18n.site.resumePractice)]),
+  return hl('div.player.off', [
+    hl('div.icon.off', '!'),
+    hl('div.instruction', [
+      hl('strong', i18n.site.youBrowsedAway),
+      hl('div.choices', [
+        hl('a', { hook: bind('click', ctrl.resume, ctrl.redraw) }, i18n.site.resumePractice),
+      ]),
     ]),
   ]);
 }
@@ -40,50 +42,32 @@ function renderOffTrack(ctrl: PracticeCtrl): VNode {
 function renderEnd(root: AnalyseCtrl, end: Outcome): VNode {
   const color = end.winner || root.turnColor();
   const isFiftyMoves = root.practice?.currentNode().fen.split(' ')[4] === '100';
-  return h('div.player', [
-    color ? h('div.no-square', h('piece.king.' + color)) : h('div.icon.off', '!'),
-    h('div.instruction', [
-      h('strong', end.winner ? i18n.site.checkmate : i18n.site.draw),
+  return hl('div.player', [
+    color ? hl('div.no-square', hl('piece.king.' + color)) : hl('div.icon.off', '!'),
+    hl('div.instruction', [
+      hl('strong', end.winner ? i18n.site.checkmate : i18n.site.draw),
       end.winner
-        ? h('em', h('color', i18n.site[end.winner === 'white' ? 'whiteWinsGame' : 'blackWinsGame']))
+        ? hl('em', hl('color', i18n.site[end.winner === 'white' ? 'whiteWinsGame' : 'blackWinsGame']))
         : isFiftyMoves
           ? i18n.site.drawByFiftyMoves
-          : h('em', i18n.site.theGameIsADraw),
+          : hl('em', i18n.site.theGameIsADraw),
     ]),
   ]);
 }
 
-const minDepth = 8;
-
-function renderEvalProgress(node: Tree.Node, maxDepth: number): VNode {
-  return h(
-    'div.progress',
-    h('div', {
-      attrs: {
-        style: `width: ${
-          node.ceval ? (100 * Math.max(0, node.ceval.depth - minDepth)) / (maxDepth - minDepth) + '%' : 0
-        }`,
-      },
-    }),
-  );
-}
-
 function renderRunning(root: AnalyseCtrl, ctrl: PracticeCtrl): VNode {
   const hint = ctrl.hinting();
-  return h('div.player.running', [
-    h('div.no-square', h('piece.king.' + root.turnColor())),
-    h(
+  return hl('div.player.running', [
+    hl('div.no-square', hl('piece.king.' + root.turnColor())),
+    hl(
       'div.instruction',
       (ctrl.isMyTurn()
-        ? [h('strong', i18n.site.yourTurn)]
-        : [
-            h('strong', i18n.site.computerThinking),
-            renderEvalProgress(ctrl.currentNode(), ctrl.playableDepth()),
-          ]
+        ? [hl('strong', i18n.site.yourTurn)]
+        : [hl('strong', i18n.site.computerThinking)]
       ).concat(
-        h('div.choices', [
+        hl('div.choices', [
           ctrl.isMyTurn()
-            ? h(
+            ? hl(
                 'a',
                 { hook: bind('click', () => root.practice!.hint(), ctrl.redraw) },
                 hint
@@ -99,6 +83,26 @@ function renderRunning(root: AnalyseCtrl, ctrl: PracticeCtrl): VNode {
   ]);
 }
 
+export function renderCustomPearl({ ceval }: AnalyseCtrl, hardMode: boolean): VNode {
+  if (hardMode) {
+    const time = i18n.site.nbSeconds(
+      !isFinite(ceval.storedMovetime()) ? 60 : Math.round(ceval.storedMovetime() / 1000),
+    );
+    return hl('div.practice-mode', [hl('p', 'Mastery'), hl('p.secondary', time)]);
+  }
+  return hl('div.practice-mode', [hl('p', 'Casual'), hl('p.secondary', 'depth 18')]);
+}
+
+export function renderCustomStatus({ ceval }: AnalyseCtrl, hardMode: Prop<boolean>): VNode | undefined {
+  return ceval.isComputing
+    ? undefined
+    : hl(
+        'button.status.button-link',
+        { hook: bind('click', () => hardMode(!hardMode())) },
+        'Toggle difficulty',
+      );
+}
+
 export default function (root: AnalyseCtrl): VNode | undefined {
   const ctrl = root.practice;
   if (!ctrl) return;
@@ -106,27 +110,27 @@ export default function (root: AnalyseCtrl): VNode | undefined {
   const isFiftyMoves = ctrl.currentNode().fen.split(' ')[4] === '100';
   const running: boolean = ctrl.running();
   const end = ctrl.currentNode().threefold || isFiftyMoves ? { winner: undefined } : root.outcome();
-  return h('div.practice-box.training-box.sub-box.' + (comment ? comment.verdict : 'no-verdict'), [
-    h('div.title', i18n.site.practiceWithComputer),
-    h(
+  return hl('div.practice-box.training-box.sub-box.' + (comment ? comment.verdict : 'no-verdict'), [
+    hl('div.title', i18n.site.practiceWithComputer),
+    hl(
       'div.feedback',
       !running ? renderOffTrack(ctrl) : end ? renderEnd(root, end) : renderRunning(root, ctrl),
     ),
     running
-      ? h(
+      ? hl(
           'div.comment',
           (end && !root.study?.practice ? renderNextChapter(root) : null) ||
             (comment
               ? (
                   [
-                    h(
+                    hl(
                       'span.verdict',
                       comment.verdict === 'goodMove' ? i18n.study.goodMove : i18n.site[comment!.verdict],
                     ),
                     ' ',
                   ] as MaybeVNodes
                 ).concat(commentBest(comment, ctrl))
-              : [ctrl.isMyTurn() || end ? '' : h('span.wait', i18n.site.evaluatingYourMove)]),
+              : [ctrl.isMyTurn() || end ? '' : hl('span.wait', i18n.site.evaluatingYourMove)]),
         )
       : null,
   ]);

@@ -1,4 +1,4 @@
-import { winningChances, type Search } from 'lib/ceval/ceval';
+import { winningChances, type CustomCeval } from 'lib/ceval/ceval';
 import { path as treePath } from 'lib/tree/tree';
 import { detectThreefold } from '../nodeFinder';
 import { tablebaseGuaranteed } from '../explorer/explorerCtrl';
@@ -6,6 +6,8 @@ import type AnalyseCtrl from '../ctrl';
 import { defined, prop, type Prop, requestIdleCallback } from 'lib';
 import { parseUci } from 'chessops/util';
 import { makeSan } from 'chessops/san';
+import { storedBooleanPropWithEffect } from 'lib/storage';
+import { renderCustomPearl, renderCustomStatus } from './practiceView';
 
 declare type Verdict = 'goodMove' | 'inaccuracy' | 'mistake' | 'blunder';
 
@@ -34,7 +36,6 @@ export interface PracticeCtrl {
   hovering: Prop<{ uci: string } | null>;
   hinting: Prop<Hinting | null>;
   resume(): void;
-  playableDepth(): number;
   reset(): void;
   preUserJump(from: Tree.Path, to: Tree.Path): void;
   postUserJump(from: Tree.Path, to: Tree.Path): void;
@@ -44,11 +45,13 @@ export interface PracticeCtrl {
   hint(): void;
   currentNode(): Tree.Node;
   bottomColor(): Color;
-  search: Search;
+  customCeval: CustomCeval;
   redraw: Redraw;
 }
 
-export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCtrl {
+export function make(root: AnalyseCtrl, customPlayableDepth?: () => number): PracticeCtrl {
+  const playableDepth = customPlayableDepth ?? (() => 18);
+  const masteryMode = storedBooleanPropWithEffect('analyse.practice-hard-mode', false, root.redraw);
   const variant = root.data.game.variant.key,
     running = prop(true),
     comment = prop<Comment | null>(null),
@@ -73,7 +76,9 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
   function playable(node: Tree.Node): boolean {
     const ceval = node.ceval;
     return ceval
-      ? ceval.depth >= playableDepth() || (ceval.depth >= 15 && (ceval.cloud || ceval.millis > 5000))
+      ? masteryMode()
+        ? !root.ceval.isComputing
+        : ceval.depth >= playableDepth() || (ceval.depth >= 15 && (ceval.cloud || ceval.millis > 5000))
       : false;
   }
 
@@ -148,8 +153,6 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
       return root.redraw();
     }
     if (tablebaseGuaranteed(variant, node.fen) && !defined(node.tbhit)) return;
-    root.cevalEnabled(true);
-    root.toggleThreatMode(false);
     if (isMyTurn()) {
       const h = hinting();
       if (h) {
@@ -216,7 +219,6 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
     hovering,
     hinting,
     resume,
-    playableDepth,
     reset() {
       comment(null);
       hinting(null);
@@ -262,6 +264,13 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
     currentNode: () => root.node,
     bottomColor: root.bottomColor,
     redraw: root.redraw,
-    search: { by: { depth: 20 }, multiPv: 1, indeterminate: true },
+    customCeval: {
+      search: () =>
+        masteryMode() && !isMyTurn()
+          ? 60 * 1000
+          : { by: { depth: playableDepth() }, multiPv: 1, indeterminate: true },
+      pearlNode: () => renderCustomPearl(root, masteryMode()),
+      statusNode: () => (root.ceval.isComputing ? undefined : renderCustomStatus(root, masteryMode)),
+    },
   };
 }

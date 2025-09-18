@@ -26,7 +26,7 @@ export default class StudyPracticeCtrl {
   }
 
   onLoad = () => {
-    this.root.showBestMoveArrows = readOnlyProp(true);
+    this.root.showBestMoveArrowsProp = readOnlyProp(true);
     this.root.showGauge = readOnlyProp(true);
     this.root.showFishnetAnalysis = readOnlyProp(true);
     this.goal(this.root.data.practiceGoal!);
@@ -90,6 +90,12 @@ export default class StudyPracticeCtrl {
     this.root.practice!.reset();
     this.onLoad();
     this.root.practice!.resume();
+  };
+  // push to 20 to store AI moves in the cloud
+  // lower to 18 after task completion (or failure)
+  playableDepth = () => (this.success() === null ? 20 : 18);
+  customCeval = {
+    search: () => ({ by: { depth: this.playableDepth() }, multiPv: 1, indeterminate: true }),
   };
   isWhite = this.root.bottomIsWhite;
   analysisUrl = () =>

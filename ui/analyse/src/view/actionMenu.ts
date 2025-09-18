@@ -121,20 +121,20 @@ export function view(ctrl: AnalyseCtrl): VNode {
           },
           i18n.site.boardEditor,
         ),
-      displayColumns() === 1 && [
+      displayColumns() === 1 &&
         canPractice &&
-          hl(
-            'a',
-            { hook: bind('click', () => ctrl.togglePractice()), attrs: dataIcon(licon.Bullseye) },
-            'Practice with computer',
-          ),
-        canRetro &&
-          hl(
-            'a',
-            { hook: bind('click', ctrl.toggleRetro, ctrl.redraw), attrs: dataIcon(licon.GraduateCap) },
-            'Learn from your mistakes',
-          ),
-      ],
+        hl(
+          'a',
+          { hook: bind('click', () => ctrl.togglePractice()), attrs: dataIcon(licon.Bullseye) },
+          'Practice with computer',
+        ),
+      canRetro &&
+        hl(
+          'a',
+          { hook: bind('click', ctrl.toggleRetro, ctrl.redraw), attrs: dataIcon(licon.GraduateCap) },
+          'Learn from your mistakes',
+        ),
+      ,
       canContinue &&
         hl(
           'a',
@@ -179,8 +179,8 @@ export function view(ctrl: AnalyseCtrl): VNode {
         name: i18n.site.bestMoveArrow,
         title: 'Hotkey: a',
         id: 'shapes',
-        checked: ctrl.showBestMoveArrows(),
-        change: ctrl.showBestMoveArrows,
+        checked: ctrl.showBestMoveArrowsProp(),
+        change: ctrl.showBestMoveArrowsProp,
       },
       ctrl,
     ),

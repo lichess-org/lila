@@ -36,6 +36,11 @@
   grid-area: tools;
   justify-content: flex-end;
 
+  @include mq-is-col1 {
+    padding-top: 1rem;
+    justify-content: start;
+  }
+
   .comment {
     @extend %flex-column, %box-shadow;
 

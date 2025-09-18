@@ -94,7 +94,7 @@ export function renderMain(ctx: ViewContext, ...kids: LooseVNodes[]): VNode {
     {
       attrs: {
         'data-active-tool': ctrl.activeControlBarTool(),
-        'data-active-mode': ctrl.activeControlBarMode(),
+        'data-active-mode': ctrl.activeControlMode(),
       },
       hook: {
         insert: () => {
@@ -127,10 +127,11 @@ export function renderMain(ctx: ViewContext, ...kids: LooseVNodes[]): VNode {
 }
 
 export function renderTools({ ctrl, deps, concealOf, allowVideo }: ViewContext, embeddedVideo?: LooseVNode) {
+  const showCeval = ctrl.isCevalAllowed() && ctrl.showCeval();
   return hl(addChapterId(ctrl.study, 'div.analyse__tools'), [
     allowVideo && embeddedVideo,
-    cevalView.renderCeval(ctrl),
-    !ctrl.retro?.isSolving() && !ctrl.practice && cevalView.renderPvs(ctrl),
+    showCeval && cevalView.renderCeval(ctrl),
+    showCeval && !ctrl.retro?.isSolving() && !ctrl.practice && cevalView.renderPvs(ctrl),
     renderMoveList(ctrl, deps, concealOf),
     deps?.gbEdit.running(ctrl) ? deps?.gbEdit.render(ctrl) : undefined,
     backToLiveView(ctrl),

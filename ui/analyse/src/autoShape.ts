@@ -122,8 +122,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
 }
 
 function hiliteVariations(ctrl: AnalyseCtrl, autoShapes: DrawShape[]) {
-  const parent = ctrl.node ?? ctrl.tree.root;
-  const visible = parent.children.filter(n => ctrl.showFishnetAnalysis || !n.comp);
+  const visible = ctrl.visibleChildren();
   if (visible.length < 2) return;
   ctrl.chessground.state.drawable.brushes['variation'] = {
     key: 'variation',
@@ -135,13 +134,13 @@ function hiliteVariations(ctrl: AnalyseCtrl, autoShapes: DrawShape[]) {
   const isGamebookEditor = chap?.gamebook && !ctrl.study?.gamebookPlay;
   for (const [i, node] of visible.entries()) {
     const existing = autoShapes.find(s => s.orig + s.dest === node.uci);
-    if (existing) existing.modifiers = { hilite: i === ctrl.fork.selected() ? 'white' : undefined };
+    if (existing) existing.modifiers = { hilite: i === ctrl.fork.selectedIndex ? 'white' : undefined };
     else
       autoShapes.push({
         orig: node.uci!.slice(0, 2) as Key,
         dest: node.uci?.slice(2, 4) as Key,
         brush: !isGamebookEditor ? 'variation' : i === 0 ? 'paleGreen' : 'paleRed',
-        modifiers: { hilite: i === ctrl.fork.selected() ? '#3291ff' : '#aaa' },
+        modifiers: { hilite: i === ctrl.fork.selectedIndex ? '#3291ff' : '#aaa' },
         below: true,
       });
   }

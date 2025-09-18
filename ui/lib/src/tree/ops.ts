@@ -101,3 +101,7 @@ export function distance(a: Tree.Path, b: Tree.Path): number {
   while (i < a.length && i < b.length && a[i] === b[i] && a[i + 1] === b[i + 1]) i += 2;
   return (a.length + b.length) / 2 - i;
 }
+
+export function contains(container: Tree.Node, descendant: Tree.Node): boolean {
+  return container === descendant || container.children.some(child => contains(child, descendant));
+}
