@@ -154,11 +154,6 @@ export default class RelayCtrl {
   }
 
   private socketHandlers = {
-    relayData: (d: RelayData) => {
-      if (d.sync) d.sync.log = this.data.sync?.log || [];
-      this.data = d;
-      this.redraw();
-    },
     relaySync: (sync: RelaySync) => {
       this.data.sync = {
         ...sync,
