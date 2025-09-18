@@ -438,14 +438,17 @@ const header = (ctx: RelayViewContext) => {
         hl('div', { hook: richHTML(d.note, false) }),
         hl('small', 'This note is visible to contributors only.'),
       ),
-    d.delayedUntil &&
-      renderNote(
-        hl('div', ['Transmission will start ', timeago(d.delayedUntil)]),
-        hl('small', 'The tournament organizers have requested that moves be delayed.'),
-      ),
+    delayedUntil(d.delayedUntil),
     hl('div.relay-tour__nav', [makeTabs(ctrl), subscribe(relay, ctrl)]),
   ];
 };
+
+const delayedUntil = (date?: number) =>
+  date &&
+  renderNote(
+    hl('div', ['Transmission will start ', date > Date.now() ? timeago(date) : 'momentarily']),
+    hl('small', 'The tournament organizers have requested that moves be delayed.'),
+  );
 
 const subscribe = (relay: RelayCtrl, ctrl: AnalyseCtrl) =>
   defined(relay.data.isSubscribed)
