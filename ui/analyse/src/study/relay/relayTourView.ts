@@ -447,7 +447,6 @@ const delayedUntil = (ctx: RelayViewContext) => {
   const date = ctx.relay.data.delayedUntil;
   return (
     date &&
-    !ctx.study.chapters.hasPlayingChapter() &&
     renderNote(
       hl('div', ['Transmission will start ', date > Date.now() ? timeago(date) : 'momentarily']),
       hl('small', 'The tournament organizers have requested that moves be delayed.'),

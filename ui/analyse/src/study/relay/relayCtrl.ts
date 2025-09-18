@@ -151,6 +151,15 @@ export default class RelayCtrl {
     return document.cookie.includes('relayVideo=no');
   }
 
+  onAddNode = () => {
+    if (!this.currentRound.ongoing) {
+      // we have a move, set the current round as started
+      this.currentRound.ongoing = true;
+      this.currentRound.startsAt = this.currentRound.startsAt || Date.now();
+      this.data.delayedUntil = undefined;
+    }
+  };
+
   private socketHandlers = {
     relaySync: (sync: RelaySync) => {
       this.data.sync = {

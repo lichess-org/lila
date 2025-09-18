@@ -670,6 +670,7 @@ export default class StudyCtrl {
       this.setMemberActive(who);
       this.chapters.addNode(d);
       this.multiCloudEval?.addNode(d);
+      this.relay?.onAddNode();
       if (sticky && !this.vm.mode.sticky) this.vm.behind++;
       if (this.wrongChapter(d)) {
         if (sticky && !this.vm.mode.sticky) this.redraw();
