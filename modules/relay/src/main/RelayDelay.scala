@@ -110,7 +110,10 @@ final private class RelayDelay(colls: RelayColls, cacheApi: CacheApi)(using Exec
       _.expireAfterWrite(1.second).buildAsyncFuture: key =>
         colls.delay:
           _.primitiveOne[Instant](
-            $doc("_id".$gt(idOf(key, longPast))),
+            $doc(
+              "_id".$gt(idOf(key, longPast)),
+              "pgn".$regex("\n1\\. ")
+            ),
             $sort.asc("_id"),
             "at"
           )
