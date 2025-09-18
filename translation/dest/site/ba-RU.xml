@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Дуҫ менән уйнарға</string>
-  <string name="playWithTheMachine">Компьютер менән уйнарға</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Берәй кемде саҡырыу өсөн һылтанманы уңа ебәрегеҙ</string>
   <string name="gameOver">Партия тамамланды</string>
   <string name="waitingForOpponent">Ярышыусыны көтәбеҙ</string>
