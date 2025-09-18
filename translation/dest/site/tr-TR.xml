@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Bir arkadaşınla oyna</string>
-  <string name="playWithTheMachine">Bilgisayara karşı oyna</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Oyuna davet etmek için, bu linki gönderin</string>
   <string name="gameOver">Oyun bitti</string>
   <string name="waitingForOpponent">Rakip bekleniyor</string>
@@ -341,7 +339,6 @@
     <item quantity="other">%s oynuyor</item>
   </plurals>
   <string name="exportGames">Oyunları indir</string>
-  <string name="ratingRange">Puan aralığı</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">%s saniye ver</item>
     <item quantity="other">%s saniye ver</item>
