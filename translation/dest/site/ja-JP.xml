@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">友達と対局する</string>
-  <string name="playWithTheMachine">コンピュータと対戦</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">誰かを招待する時はこのURLを送ってください</string>
   <string name="gameOver">終局</string>
   <string name="waitingForOpponent">相手を待っています</string>
@@ -318,7 +316,6 @@
     <item quantity="other">%s 局進行中</item>
   </plurals>
   <string name="exportGames">対局をエクスポートする</string>
-  <string name="ratingRange">レーティングの範囲</string>
   <plurals name="giveNbSeconds">
     <item quantity="other">%s秒を与える</item>
   </plurals>
