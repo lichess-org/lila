@@ -5,7 +5,7 @@
   <string name="challengeDeclined">도전 거절됨</string>
   <string name="challengeAccepted">도전 수락!</string>
   <string name="challengeCanceled">도전 취소됨.</string>
-  <string name="registerToSendChallenges" comment="This used to say &quot;Please register to send challenges.&quot;&#10;We have since added &quot;[...] to this user.&quot; to the end of the string for absolute clarity, given the context this appears in. Please update translations as needed.">도전을 하려면 가입하십시오.</string>
+  <string name="registerToSendChallenges">도전을 하려면 가입하십시오.</string>
   <string name="youCannotChallengeX">%s에게는 도전할 수 없습니다.</string>
   <string name="xDoesNotAcceptChallenges">%s가 도전을 받아들이지 않았습니다.</string>
   <string name="yourXRatingIsTooFarFromY">당신의 레이팅 등급인 %1$s과 상대의 레이팅 등급인 %2$s과의 격차가 너무 큽니다.</string>
