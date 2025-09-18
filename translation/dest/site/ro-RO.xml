@@ -459,7 +459,6 @@
   <string name="toStudy">Studiază</string>
   <string name="importGame">Importați partida</string>
   <string name="importGameExplanation">Lipiți o partidă în format PGN pentru a putea apoi să o rejucați, să cereți o analiză a computerului, să folosiți funcția de chat și să obțineți un URL pentru distribuire.</string>
-  <string name="importGameCaveat">Variațiile vor fi șterse. Pentru a le păstra, importați PGN-ul printr-un studiu.</string>
   <string name="importGameDataPrivacyWarning">Acest PGN poate fi accesat public. Pentru a importa un joc în mod privat, folosește un studiu.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">O partidă importată</item>

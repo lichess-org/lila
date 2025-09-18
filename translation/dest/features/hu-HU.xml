@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="correspondenceWithConditionalPremoves">Levelező sakk feltételes előlépésekkel</string>
   <plurals name="gamesPerDay">
     <item quantity="one">%s játszma naponta</item>
     <item quantity="other">%s játszma naponta</item>
   </plurals>
+  <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (Stockfish, Fairy-Stockfish)">Táblaszerkesztő és elemzőtábla %s-vel</string>
   <string name="allChessBasicsLessons">Minden alapszintű sakklecke</string>
   <string name="tacticalPuzzlesFromUserGames">Taktikai feladványok felhasználói játszmákból</string>
+  <string name="tvForumBlogTeamsMessagingFriendsChallenges">Blog, fórum, csapatok, TV, üzenetküldés, barátok, kihívások</string>
+  <string name="lightOrDarkThemeCustomBoardsPiecesAndBackground">Világos/Sötét témák, személyre szabott táblák, figurák és háttér</string>
+  <string name="ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess">UltraBullet, Bullet, Blitz, Rapid, Klasszikus, Levelező sakk</string>
   <string name="everybodyGetsAllFeaturesForFree">Igen, mindkét fióknak ugyanazok a funkciói!</string>
   <string name="weBelieveEveryChessPlayerDeservesTheBest">Úgy véljük, minden sakkozó a legjobbat érdemli, ezért:</string>
   <string name="allFeaturesAreFreeForEverybody">Minden funkció mindenki számára ingyenes, örökre!</string>

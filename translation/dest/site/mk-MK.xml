@@ -404,7 +404,6 @@
   <string name="importGame">Внеси игра</string>
   <string name="importGameExplanation">Залепи PGN од игра за да добиеш реприза, 
 компјутерска анализа, разговор во играта и URL за споделување.</string>
-  <string name="importGameCaveat">Варијациите ќе бидат избришани. За да ги задржите внесете го PNG преку студија.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s внесени игри</item>
     <item quantity="other">%s внесени игри</item>

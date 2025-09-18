@@ -414,7 +414,6 @@
   <string name="toStudy">पढ़े</string>
   <string name="importGame">खेल आयात (इम्पोर्ट) करे</string>
   <string name="importGameExplanation">जब एक खेल PGN चिपकाने आप एक ब्राउसेबल पुनरावृत्ति, एक कंप्यूटर विश्लेषण, एक खेल चैट और एक साझा यूआरएल मिलता है ।</string>
-  <string name="importGameCaveat">विविधताएं मिट जाएंगी. उन्हें रखने के लिए, एक अध्ययन के माध्यम से PGN आयात करें।</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s खेल आयत (इम्पोर्ट) किये गए</item>
     <item quantity="other">%s खेल आयत (इम्पोर्ट) किये गए</item>

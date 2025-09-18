@@ -408,7 +408,6 @@
   <string name="toStudy">ಅಧ್ಯಯನ</string>
   <string name="importGame">ಆಟವನ್ನು ಆಮದು ಮಾಡಿ</string>
   <string name="importGameExplanation">ಒಂದು ಆಟದ PGN ಅನ್ನು ಇಲ್ಲಿ ಅಂಟಿಸಿ, ಬ್ರೌಸ್ ಮಾಡಲರ್ಹ ರಿಪ್ಲೇಗಳು, ಕಂಪ್ಯೂಟರ್ ವಿಶ್ಲೇಷಣೆ, ಹಾಗೂ ಆಟದ ಚಾಟ್ ಅಥವಾ ಹರಟೆ, ಮತ್ತು ಹಂಚಿಕೊಳ್ಳಬಹುದಾದ URL ಪಡೆಯಿರಿ.</string>
-  <string name="importGameCaveat">ವ್ಯತ್ಯಾಸಗಳನ್ನು ಅಳಿಸಲಾಗುತ್ತದೆ. ಅವುಗಳನ್ನು ಇರಿಸಿಕೊಳ್ಳಲು, ಅಧ್ಯಯನದ ಮೂಲಕ PGN ಅನ್ನು ಆಮದು ಮಾಡಿಕೊಳ್ಳಿ.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s ಆಮದು ಮಾಡಿದ ಆಟ</item>
     <item quantity="other">%s ಆಮದು ಮಾಡಿದ ಆಟಗಳು</item>

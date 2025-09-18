@@ -419,7 +419,6 @@
   <string name="toStudy">கற்கை</string>
   <string name="importGame">ஆட்டத்தை உள்ளேற்று</string>
   <string name="importGameExplanation">கணினி பகுப்பாய்வு, உலாவக்கூடிய மீளாடல், விளையாட்டு உரையாடல், மற்றும் பகிரக்கூடிய URL பெற விளையாட்டின் PGN ஐ ஒட்டவும்.</string>
-  <string name="importGameCaveat">மாறுபடு வரிகள் அழிக்கப்படும். அவற்றை வைத்திருக்க, ஆய்வுமூலம் PGN ஐ இறக்குமதி செய்யவும்.</string>
   <string name="importGameDataPrivacyWarning">இந்த PGN-ஐ பொதுமக்கள் அணுகலாம். தனிப்பட்ட முறையில் விளையாட்டை இறக்குமதி செய்ய, ஒரு ஆய்வைப் பயன்படுத்தவும்.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s உள்ளேற்றின ஆட்டம்</item>

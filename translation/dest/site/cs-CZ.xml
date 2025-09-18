@@ -488,7 +488,6 @@
   <string name="toStudy">Do studie</string>
   <string name="importGame">Importuj hru</string>
   <string name="importGameExplanation">Vložení partie ve formátu PGN Vám umožní přehrání partie, získáte počítačovou analýzu, chat ke hře a URL ke sdílení hry.</string>
-  <string name="importGameCaveat">Varianty budou vymazány. Chcete-li je ponechat, importujte PGN prostřednictvím studie.</string>
   <string name="importGameDataPrivacyWarning">K této PGN má přístup kdokoli. Chcete-li hru naimportovat soukromě, použijte studii.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importovaná</item>

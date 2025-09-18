@@ -395,7 +395,6 @@
   <string name="toStudy">Studi</string>
   <string name="importGame">Masukkan permainan</string>
   <string name="importGameExplanation">Ketika menyalin PGN permainan Anda dapat putar-ulang di browser analisis komputer, obrolan permainan dan URL yand dapat di bagi.</string>
-  <string name="importGameCaveat">Variasi akan dihapus. Untuk menyimpan, Import berkas PGN melalui Study.</string>
   <string name="importGameDataPrivacyWarning">Berkas PGN ini bisa diakses oleh publik. Untuk mengimpor pertandingan dengan privasi, gunakan study.</string>
   <plurals name="nbImportedGames">
     <item quantity="other">%s permainan telah dimasukkan</item>

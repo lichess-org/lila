@@ -395,7 +395,6 @@
   <string name="toStudy">Штудія</string>
   <string name="importGame">Перенести бавку</string>
   <string name="importGameExplanation">Впишіт бавку у форматови PGN, и будете мати можность перегравати бавку, довершовати компюторный аналіз, приказовати у четови ай дїлити ся одкликованьом на ниї.</string>
-  <string name="importGameCaveat">Варіанты ся зотрут. Обы усокотити їх, перенесіт PGN у штудію.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s перенесена бавка</item>
     <item quantity="few">%s перенесені бавкы</item>

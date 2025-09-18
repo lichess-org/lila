@@ -396,7 +396,6 @@
   <string name="toStudy">연구</string>
   <string name="importGame">대국 불러오기</string>
   <string name="importGameExplanation">체스 대국의 PGN 을 붙여 넣으면, 복기와 컴퓨터 분석을 진행할 수 있고, 채팅을 칠 수도 있으며, 대국을 공유할 수 있는 URL 링크도 생성할 수 있습니다.</string>
-  <string name="importGameCaveat">변형은 지워집니다. 변형을 유지하려면 연구를 통해 PGN을 가져오세요.</string>
   <string name="importGameDataPrivacyWarning">이 PGN은 모두가 볼 수 있게 됩니다. 비공개로 대국을 불러오려면, 연구 기능을 이용하세요.</string>
   <plurals name="nbImportedGames">
     <item quantity="other">불러온 대국 %s개</item>

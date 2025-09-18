@@ -459,7 +459,6 @@
   <string name="toStudy">Навучанне</string>
   <string name="importGame">Імпартаваць гульню</string>
   <string name="importGameExplanation">Калі вы імпартуеце PGN-натацыю гульні, вы атрымаеце спасылку на гэтую гульню і зможаце праглядаць яе паўтор у браўзеры і аналізаваць яе. Таксама будзе даступны чат.</string>
-  <string name="importGameCaveat">Варыянты будуць выдалены. Каб захаваць іх, імпартуйце PGN праз студыю.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s імпартаваная гульня</item>
     <item quantity="few">%s імпартаваныя гульні</item>

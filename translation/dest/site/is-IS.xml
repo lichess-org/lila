@@ -427,7 +427,6 @@
   <string name="toStudy">Stúdera</string>
   <string name="importGame">Hlaða inn skák</string>
   <string name="importGameExplanation">Límdu inn PGN skákar til að fá möguleika á endursýningu, tölvugreiningu, spjalli og deilanlegri vefslóð.</string>
-  <string name="importGameCaveat">Afbrigði verða strokuð út. Til þess að halda þeim skaltu flytja inn PGN-skák í gegnum stúderingu.</string>
   <string name="importGameDataPrivacyWarning">Þessi PGN-skák er aðgengileg almenningi. Til þess að flytja inn skák í trúnaði skaltu notfæra þér stúderasérleikann.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s innhlaðin skák</item>

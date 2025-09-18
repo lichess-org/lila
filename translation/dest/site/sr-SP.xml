@@ -431,7 +431,6 @@
   <string name="toStudy">Проучи</string>
   <string name="importGame">Увези партију</string>
   <string name="importGameExplanation">Налепи PGN партије да добијеш проигриву репризу, рачунарску анализу, ћаскање партије и јавни линк за дељење.</string>
-  <string name="importGameCaveat">Варијације ће бити избрисане. Ако желиш да их сачуваш, увези PGN путем студије.</string>
   <string name="importGameDataPrivacyWarning">Овај PGN је јавно доступан. Ако желиш да партију увезеш као приватну, користи студију.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s увезена партија</item>
@@ -860,16 +859,16 @@
   <string name="learnFromThisMistake">Научите из ове грешке</string>
   <string name="skipThisMove">Прескочи овај потез</string>
   <string name="next">Следеће</string>
-  <string name="xWasPlayed">%s је одиграно</string>
-  <string name="findBetterMoveForWhite">Нађите бољи потез за белог</string>
-  <string name="findBetterMoveForBlack">Нађите бољи потез за црног</string>
-  <string name="resumeLearning">Наставите са учењем</string>
-  <string name="youCanDoBetter">Можете то боље</string>
-  <string name="tryAnotherMoveForWhite">Покушајте други потез за белог</string>
-  <string name="tryAnotherMoveForBlack">Покушајте други потез за црног</string>
+  <string name="xWasPlayed">%s је био одигран</string>
+  <string name="findBetterMoveForWhite">Нађи бољи потез за белог</string>
+  <string name="findBetterMoveForBlack">Нађи бољи потез за црног</string>
+  <string name="resumeLearning">Настави учити</string>
+  <string name="youCanDoBetter">Можеш одрадити боље</string>
+  <string name="tryAnotherMoveForWhite">Пробај други потез за белог</string>
+  <string name="tryAnotherMoveForBlack">Пробај други потез за црног</string>
   <string name="solution">Решење</string>
   <string name="waitingForAnalysis">Чекање на анализу</string>
-  <string name="noMistakesFoundForWhite">Нема грешке нађене за белог</string>
+  <string name="noMistakesFoundForWhite">Ниједна грешка није нађена за белог</string>
   <string name="noMistakesFoundForBlack">Нема грешке нађене за црног</string>
   <string name="doneReviewingWhiteMistakes">Завршено прегледање белих грешака</string>
   <string name="doneReviewingBlackMistakes">Завршено прегледање црних грешака</string>
@@ -955,6 +954,8 @@
   <string name="timeAlmostUp">Време ускоро изтиче!</string>
   <string name="clickToRevealEmailAddress">[Притисни да откријеш имејл адресу]</string>
   <string name="download">Преузми</string>
+  <string name="onlyMembersOfTeam">Само чланови тима</string>
+  <string name="cancelSimul">Откажи симултанку</string>
   <string name="simulHostcolor">Које фигуре има домаћин за сваку партију</string>
   <string name="estimatedStart">Очекивано време почетка</string>
   <string name="simulFeatured">Прикажи на %s</string>
@@ -994,4 +995,7 @@
   <string name="instructions">Инструкције</string>
   <string name="showMeEverything">Прикажи све</string>
   <string name="stats">Статистике</string>
+  <string name="online" comment="status of a user">онлајн</string>
+  <string name="offline" comment="status of a user">офлајн</string>
+  <string name="search">Тражи</string>
 </resources>

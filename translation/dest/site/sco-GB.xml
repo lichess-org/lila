@@ -398,7 +398,6 @@
   <string name="toStudy">Muise</string>
   <string name="importGame">Inbring gemm</string>
   <string name="importGameExplanation">Paste a gemm PGN tae get a brousable scance, computer analysis, gemm chat an dale-ootable URL.</string>
-  <string name="importGameCaveat">Variations\'ll be dicht, tae haud them, inbring the PGN by a muise.</string>
   <string name="thisIsAChessCaptcha">This is a chess CAPTCHA.</string>
   <string name="clickOnTheBoardToMakeYourMove">Click oan the buird tae mak yer muive, an pruive ye\'re human.</string>
   <string name="captcha.fail">Maun solve the chess captcha.</string>
