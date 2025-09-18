@@ -4,7 +4,7 @@
   <string name="challengeDeclined">Avbjóðing avvíst</string>
   <string name="challengeAccepted">Avbjóðing góðtikin!</string>
   <string name="challengeCanceled">Avbjóðing avlýst.</string>
-  <string name="registerToSendChallenges" comment="This used to say &quot;Please register to send challenges.&quot;&#10;We have since added &quot;[...] to this user.&quot; to the end of the string for absolute clarity, given the context this appears in. Please update translations as needed.">Skráset teg vinaliga at senda avbjóðingar.</string>
+  <string name="registerToSendChallenges">Skráset teg vinaliga at senda avbjóðingar.</string>
   <string name="youCannotChallengeX">Tú kanst ikki bjóða %s av.</string>
   <string name="xDoesNotAcceptChallenges">%s tekur ikki ímóti avbjóðingum.</string>
   <string name="yourXRatingIsTooFarFromY">Títt %1$s styrkital er ov langt frá %2$s.</string>
