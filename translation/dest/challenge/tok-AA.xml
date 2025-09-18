@@ -5,7 +5,7 @@
   <string name="challengeDeclined">ona li wile ala musi</string>
   <string name="challengeAccepted">ona li wile musi a!</string>
   <string name="challengeCanceled">wile musi li weka.</string>
-  <string name="registerToSendChallenges" comment="This used to say &quot;Please register to send challenges.&quot;&#10;We have since added &quot;[...] to this user.&quot; to the end of the string for absolute clarity, given the context this appears in. Please update translations as needed.">o kama tawa la sina ken utala musi.</string>
+  <string name="registerToSendChallenges">o kama tawa la sina ken utala musi.</string>
   <string name="youCannotChallengeX">sina ken ala utala musi e %s.</string>
   <string name="xDoesNotAcceptChallenges">%s li utala musi ala.</string>
   <string name="yourXRatingIsTooFarFromY">sona sina li %1$s li weka tan %2$s.</string>
