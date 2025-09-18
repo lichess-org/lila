@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Játék egy ismerőssel</string>
-  <string name="playWithTheMachine">Játék a gép ellen</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Küldd el ezt a linket annak, akivel játszani szeretnél</string>
   <string name="gameOver">Játszma vége</string>
   <string name="waitingForOpponent">Várakozás az ellenfélre</string>
@@ -341,7 +339,6 @@
     <item quantity="other">%s folyamatban</item>
   </plurals>
   <string name="exportGames">Játszmák exportálása</string>
-  <string name="ratingRange">Értékszámtartomány</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Adj %s másodpercet</item>
     <item quantity="other">Adj %s másodpercet</item>
