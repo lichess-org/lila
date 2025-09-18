@@ -5,7 +5,7 @@
   <string name="challengeDeclined">Dae nac’het</string>
   <string name="challengeAccepted">Dae asantet!</string>
   <string name="challengeCanceled">Dae nullet.</string>
-  <string name="registerToSendChallenges" comment="This used to say &quot;Please register to send challenges.&quot;&#10;We have since added &quot;[...] to this user.&quot; to the end of the string for absolute clarity, given the context this appears in. Please update translations as needed.">Kevreit evit daeañ an implijer-mañ mar plij.</string>
+  <string name="registerToSendChallenges">Kevreit evit daeañ an implijer-mañ mar plij.</string>
   <string name="youCannotChallengeX">Ne c\'hallit ket daeañ %s.</string>
   <string name="xDoesNotAcceptChallenges">%s n\'he/en deus ket c\'hant da vezañ daeet.</string>
   <string name="yourXRatingIsTooFarFromY">Re vras an diforc\'h etre ho renkadur %1$s hag hini %2$s.</string>
