@@ -5,7 +5,7 @@
   <string name="challengeDeclined">پیشنهاد بازی رد شد.</string>
   <string name="challengeAccepted">پیشنهاد بازی پذیرفته شد!</string>
   <string name="challengeCanceled">پیشنهاد بازی لغو شد.</string>
-  <string name="registerToSendChallenges" comment="This used to say &quot;Please register to send challenges.&quot;&#10;We have since added &quot;[...] to this user.&quot; to the end of the string for absolute clarity, given the context this appears in. Please update translations as needed.">برای پیشنهاد بازی دادن به این کاربر، لطفا نام‌نویسی کنید.</string>
+  <string name="registerToSendChallenges">برای پیشنهاد بازی دادن به این کاربر، لطفا نام‌نویسی کنید.</string>
   <string name="youCannotChallengeX">شما نمی‌توانید به %s پیشنهاد بازی دهید.</string>
   <string name="xDoesNotAcceptChallenges">%s پیشنهاد بازی را نپذیرفت.</string>
   <string name="yourXRatingIsTooFarFromY">درجه‌بندی %1$s شما با %2$s اختلاف زیادی دارد.</string>
