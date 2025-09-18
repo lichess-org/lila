@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Chơi với bạn bè</string>
-  <string name="playWithTheMachine">Chơi với máy tính</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Để mời ai đó chơi, hãy gửi URL này</string>
   <string name="gameOver">Ván cờ kết thúc</string>
   <string name="waitingForOpponent">Đang chờ đối thủ</string>
@@ -318,7 +316,6 @@
     <item quantity="other">%s ván đang chơi</item>
   </plurals>
   <string name="exportGames">Xuất các ván cờ</string>
-  <string name="ratingRange">Phạm vi hệ số</string>
   <plurals name="giveNbSeconds">
     <item quantity="other">Cho thêm %s giây</item>
   </plurals>
