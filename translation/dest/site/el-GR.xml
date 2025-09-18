@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Παίξτε με έναν φίλο</string>
-  <string name="playWithTheMachine">Παίξτε με τον υπολογιστή</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Για να προσκαλέσετε κάποιον σε ένα παιχνίδι, στείλτε του αυτήν τη διεύθυνση</string>
   <string name="gameOver">Τέλος παρτίδας</string>
   <string name="waitingForOpponent">Αναμονή για αντίπαλο</string>
@@ -341,7 +339,6 @@
     <item quantity="other">%s παίζονται</item>
   </plurals>
   <string name="exportGames">Εξαγωγή παιχνιδιών</string>
-  <string name="ratingRange">Εμβέλεια βαθμολογίας</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Προσθέστε %s δευτερόλεπτα</item>
     <item quantity="other">Προσθέστε %s δευτερόλεπτα</item>
