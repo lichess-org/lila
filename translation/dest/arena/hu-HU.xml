@@ -6,16 +6,16 @@
   <string name="willBeNotified">Értesítünk amikor a verseny elkezdődik, ezért várakozás alatt nyugodtan játszhatsz másik fülön.</string>
   <string name="isRated">Ez egy rangsorolt verseny, ami befolyásolja a pontszámodat.</string>
   <string name="isNotRated">Ez egy *nem* rangsorolt verseny, *nem* befolyásolja a pontszámodat.</string>
-  <string name="someRated">Egyes versenyek rangsoroltak, és befolyásolják a pontszámodat.</string>
-  <string name="howAreScoresCalculated">Hogyan történik a pontszámok számítása?</string>
+  <string name="someRated">Egyes versenyek rangsoroltak, és befolyásolják az értékszámodat.</string>
+  <string name="howAreScoresCalculated">Hogyan történik a pontszámítás?</string>
   <string name="howAreScoresCalculatedAnswer">Egy győzelem alapból 2 pont, egy döntetlen 1 pont, a vereség pedig nem ér pontot.
-Ha egymás után két játszmát nyersz, beindul a pont duplázási sorozatod, amit egy láng ikon jelez.
+Ha egymás után két játszmát nyersz, beindul a pontduplázási sorozatod, amit egy láng ikon jelez.
 A következő játszmákért egészen addig dupla pontot kapsz, ameddig nem veszítesz.
 Vagyis egy győzelem 4 pontot, egy döntetlen 2 pontot, és a vereség továbbra is nulla pontot ér.
 
 Például két győzelem után egy döntetlen, az összesen 6 pont: 2 + 2 + (2 x 1)</string>
   <string name="berserk">Aréna Berserk</string>
-  <string name="berserkAnswer">Amikor valaki rákattint a Berserk gombra a játszma kezdetekor, elveszti a gondolkodási idejének a felét, de győzelem esetén egy extra pontot kap.
+  <string name="berserkAnswer">Amikor valaki rákattint a Berserk gombra a játszma kezdetekor, elveszti gondolkodási ideje felét, de győzelem esetén egy extra pontot kap.
 
 Növekményes gondolkodási időknél a növekmény is eltűnik (az 1+2 kivétel, amiből 1+0 lesz).
 
