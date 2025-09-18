@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Бавити против цімборы</string>
-  <string name="playWithTheMachine">Бавити против компютора</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Обы дакого закликати, дайте му се одкликованя</string>
   <string name="gameOver">Бавка довершена</string>
   <string name="waitingForOpponent">Чекаєме противника</string>
@@ -345,7 +343,6 @@
     <item quantity="other">%s ся бавлят</item>
   </plurals>
   <string name="exportGames">Стерьхати бавкы</string>
-  <string name="ratingRange">Рейтінґ противника</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Дати %s секунду</item>
     <item quantity="few">Дати %s секунды</item>
