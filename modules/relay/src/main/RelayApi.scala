@@ -320,6 +320,7 @@ final class RelayApi(
           from,
           updated,
           ("caption", _.caption),
+          ("startsAt", _.startsAt),
           ("startedAt", _.startedAt),
           ("finishedAt", _.finishedAt),
           ("customScoring", _.customScoring)
