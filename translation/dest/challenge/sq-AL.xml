@@ -5,7 +5,7 @@
   <string name="challengeDeclined">Sfida u refuzua</string>
   <string name="challengeAccepted">Sfida u pranua!</string>
   <string name="challengeCanceled">Sfida u anulua.</string>
-  <string name="registerToSendChallenges" comment="This used to say &quot;Please register to send challenges.&quot;&#10;We have since added &quot;[...] to this user.&quot; to the end of the string for absolute clarity, given the context this appears in. Please update translations as needed.">Që të dërgoni sfidë, ju lutemi, regjistrohuni.</string>
+  <string name="registerToSendChallenges">Që të dërgoni sfidë, ju lutemi, regjistrohuni.</string>
   <string name="youCannotChallengeX">S’mund të sfidoni %s.</string>
   <string name="xDoesNotAcceptChallenges">%s nuk pranon sfida.</string>
   <string name="yourXRatingIsTooFarFromY">Vlerësimi juaj prej %1$s është shumë larg nga %2$s.</string>
