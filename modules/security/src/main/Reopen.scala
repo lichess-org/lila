@@ -84,10 +84,14 @@ ${trans.common_orPaste.txt()}"""),
 
   def confirm(token: String): Fu[Option[User]] =
     tokener.read(token).flatMapz(userRepo.disabledById).flatMapz { user =>
-      for _ <- userRepo.reopen(user.id)
+      for
+        forever <- userRepo.isForeverClosed(user)
+        _ <- forever.not.so(userRepo.reopen(user.id))
+        reopened = forever.not.option(user)
       yield
-        lila.common.Bus.pub(lila.core.security.ReopenAccount(user))
-        user.some
+        if reopened.isDefined
+        then lila.common.Bus.pub(lila.core.security.ReopenAccount(user))
+        reopened
     }
 
   private val tokener = StringToken.withLifetime[UserId](tokenerSecret, 20.minutes)
