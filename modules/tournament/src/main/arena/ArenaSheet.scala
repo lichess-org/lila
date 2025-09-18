@@ -2,6 +2,7 @@ package lila.tournament
 package arena
 
 import chess.variant.Variant
+import lila.core.LightUser.IsBotSync
 
 // most recent first
 case class Sheet(scores: List[Sheet.Score], total: Int, variant: Variant):
@@ -11,7 +12,13 @@ case class Sheet(scores: List[Sheet.Score], total: Int, variant: Variant):
     scores.headOption.exists(_.res == Result.Win) &&
       scores.lift(1).exists(_.res == Result.Win)
 
-  def addResult(userId: UserId, p: Pairing, version: Version, streakable: Streakable): Sheet =
+  def addResult(
+      userId: UserId,
+      p: Pairing,
+      version: Version,
+      streakable: Streakable,
+      isBotSync: IsBotSync
+  ): Sheet =
     val berserk =
       if p.berserkOf(userId) then if p.notSoQuickFinish then Berserk.Valid else Berserk.Invalid
       else Berserk.No
@@ -21,7 +28,8 @@ case class Sheet(scores: List[Sheet.Score], total: Int, variant: Variant):
         Score(
           Result.Draw,
           if streakable && isOnFire then Flag.Double
-          else if version != Version.V1 && !p.longGame(variant) && isDrawStreak(scores) then Flag.Null
+          else if version != Version.V1 && (!p.longGame(variant) || isBotSync(userId)) && isDrawStreak(scores)
+          then Flag.Null
           else Flag.Normal,
           berserk
         )
@@ -55,11 +63,11 @@ object Sheet:
       pairings: List[Pairing],
       version: Version,
       streakable: Streakable,
-      variant: Variant
+      variant: Variant,
+      isBotSync: IsBotSync
   ): Sheet =
-    pairings.foldLeft(empty(variant)) { (sheet, pairing) =>
-      sheet.addResult(userId, pairing, version, streakable)
-    }
+    pairings.foldLeft(empty(variant)): (sheet, pairing) =>
+      sheet.addResult(userId, pairing, version, streakable, isBotSync)
 
   opaque type Version = Int
   object Version:
