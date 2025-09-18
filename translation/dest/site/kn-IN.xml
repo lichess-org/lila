@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">ಸ್ನೇಹಿತರೊಡನೆ ಆಡಿ</string>
-  <string name="playWithTheMachine">ಕಂಪ್ಯೂಟರ್ ಜೊತೆ ಆಡಿ</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">ಎದುರಾಳಿಯನ್ನು ಚೆಸ್ ಆಟಕ್ಕೆ ಆಹ್ವಾನಿಸಲು ಈ ಕೊಂಡಿಯನ್ನು ನೀಡಿ</string>
   <string name="gameOver">ಆಟ ಮುಗಿಯಿತು</string>
   <string name="waitingForOpponent">ಎದುರಾಳಿಯನ್ನು ನಿರೀಕ್ಷಿಸಲಾಗುತ್ತಿದೆ</string>
@@ -330,7 +328,6 @@
     <item quantity="other">%s ಚಾಲ್ತಿಯಲ್ಲಿವೆ</item>
   </plurals>
   <string name="exportGames">ಆಟಗಳನ್ನು ರಫ್ತುಮಾಡು</string>
-  <string name="ratingRange">ಧಾರಣೆ ವ್ಯಾಪ್ತಿ</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">%s ಸೆಕೆಂಡು ಕೊಡಿ</item>
     <item quantity="other">%s ಸೆಕೆಂಡುಗಳನ್ನು ಕೊಡಿ</item>
