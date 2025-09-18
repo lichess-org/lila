@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Spil mod en ven</string>
-  <string name="playWithTheMachine">Spil mod computeren</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Invitér nogen til at spille ved at give dem denne URL</string>
   <string name="gameOver">Spillet er slut</string>
   <string name="waitingForOpponent">Venter på modstander</string>
@@ -341,7 +339,6 @@
     <item quantity="other">%s spil i gang</item>
   </plurals>
   <string name="exportGames">Eksporter spil</string>
-  <string name="ratingRange">Rating-interval</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Giv %s sekund</item>
     <item quantity="other">Giv %s sekunder</item>
