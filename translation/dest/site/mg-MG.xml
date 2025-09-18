@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Milalaova miaraka amin\'ny namana</string>
-  <string name="playWithTheMachine">Milalaova miaraka amin\'ny solosaina</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Raha te hanasa olona hilalao dia alefaso any aminy ity URL ity</string>
   <string name="gameOver">Vita ny lalao</string>
   <string name="waitingForOpponent">Miandry mpifanandrina</string>
@@ -225,7 +223,6 @@
     <item quantity="other">%s lalao</item>
   </plurals>
   <string name="exportGames">Exporter-o ny lalao</string>
-  <string name="ratingRange">Rating range</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Omeo %s segondra</item>
     <item quantity="other">Omeo %s segondra</item>
