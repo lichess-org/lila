@@ -3879,6 +3879,8 @@ interface I18n {
     pieceSet: string;
     /** Play */
     play: string;
+    /** Play against AI */
+    playAgainstAI: string;
     /** Play chess everywhere */
     playChessEverywhere: string;
     /** Play chess in style */
@@ -3899,8 +3901,6 @@ interface I18n {
     playSelectedMove: string;
     /** Play a variation to create conditional premoves */
     playVariationToCreateConditionalPremoves: string;
-    /** Play versus A.I. */
-    playVersusAi: string;
     /** Play %s */
     playX: I18nFormat;
     /** We aim to provide a pleasant chess experience for everyone. */

@@ -18,7 +18,7 @@ export default function table(ctrl: LobbyController) {
         [
           ['hook', i18n.site.createLobbyGame, hookDisabled],
           ['friend', i18n.site.challengeAFriend, hasOngoingRealTimeGame],
-          ['ai', i18n.site.playVersusAi, hasOngoingRealTimeGame],
+          ['ai', i18n.site.playAgainstAI, hasOngoingRealTimeGame],
           ...(opts.bots ? [['bots', 'play bot', false]] : []),
           ...(opts.botEditor ? [['dev', 'bot development', false]] : []),
         ].map(([gameType, text, disabled]: [GameType | 'dev' | 'bots', string, boolean]) =>

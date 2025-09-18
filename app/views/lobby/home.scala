@@ -56,7 +56,7 @@ object home:
                 trans.site.challengeAFriend()
               ),
               button(cls := "button button-metal lobby__start__button lobby__start__button--ai")(
-                trans.site.playVersusAi()
+                trans.site.playAgainstAI()
               )
             )
           ),
