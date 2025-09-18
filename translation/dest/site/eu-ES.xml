@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Lagun baten aurka jokatu</string>
-  <string name="playWithTheMachine">Ordenagailuaren aurka jokatu</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Norbait jokatzera gonbidatzeko, URL hau bidali iezaiozu</string>
   <string name="gameOver">Partida amaitu da</string>
   <string name="waitingForOpponent">Aurkariaren zain</string>
@@ -341,7 +339,6 @@
     <item quantity="other">%s jokatzen</item>
   </plurals>
   <string name="exportGames">Partidak esportatu</string>
-  <string name="ratingRange">Aurkariaren puntuazio-tartea</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Segundo %s eman</item>
     <item quantity="other">%s segundo eman</item>
