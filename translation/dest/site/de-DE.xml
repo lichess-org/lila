@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="gameSetup">Spieleinstellungen</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Einen Freund herausfordern</string>
+  <string name="playAgainstAI">Gegen KI spielen</string>
+  <string name="gameMode">Spielmodus</string>
+  <string name="createLobbyGame">Neue Partie erstellen</string>
+  <string name="youPlayAs">Du spielst als</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Versende diese URL, um jemanden zum Spiel einzuladen</string>
   <string name="gameOver">Partie beendet</string>
   <string name="waitingForOpponent">Auf den Gegner warten</string>
@@ -339,6 +345,7 @@
     <item quantity="other">%s laufende Partien</item>
   </plurals>
   <string name="exportGames">Partien exportieren</string>
+  <string name="ratingFilter">Wertungsfilter</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Dem Gegner %s Sekunde geben</item>
     <item quantity="other">Dem Gegner %s Sekunden geben</item>
@@ -823,6 +830,7 @@
   <string name="notifications">Benachrichtigungen</string>
   <string name="notificationsX">Benachrichtigungen: %1$s</string>
   <string name="perfRatingX">Wertung: %s</string>
+  <string name="yourRatingIsX">Deine Wertungszahl beträgt %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s Sekunde, um den ersten Zug zu machen</item>
     <item quantity="other">%s Sekunden, um den ersten Zug zu machen</item>
@@ -874,6 +882,7 @@
   <string name="playVariationToCreateConditionalPremoves">Spiele eine Variante, um bedingte Vorauszüge hinzuzufügen</string>
   <string name="noConditionalPremoves">Keine bedingten Vorauszüge</string>
   <string name="playX">Spiele %s</string>
+  <string name="challengeX">Fordere %s heraus</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">und speichere %s Variante im Voraus</item>
     <item quantity="other">und speichere %s Varianten im Voraus</item>
