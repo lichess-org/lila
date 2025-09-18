@@ -142,7 +142,8 @@ final class RelayRound(
                 canContribute = false,
                 isSubscribed = none,
                 videoUrls = none,
-                pinned = none
+                pinned = none,
+                delayedUntil = none
               )
               sVersion <- NoCrawlers(env.study.version(sc.study.id))
               embed <- views.relay.embed(rt.withStudy(sc.study), data, sVersion)
@@ -266,6 +267,7 @@ final class RelayRound(
         rounds <- env.relay.api.byTourOrdered(rt.tour)
         group <- env.relay.api.withTours.get(rt.tour.id)
         isSubscribed <- ctx.userId.traverse(env.relay.api.isSubscribed(rt.tour.id, _))
+        delayedUntil <- env.relay.delayedUntil(rt.round)
         videoUrls <- embed match
           case VideoEmbed.Stream(userId) =>
             env.streamer.api
@@ -290,7 +292,8 @@ final class RelayRound(
           ctx.userId.exists(sc.study.canContribute),
           isSubscribed,
           videoUrls,
-          rt.tour.pinnedStream
+          rt.tour.pinnedStream,
+          delayedUntil = delayedUntil
         )
         chat <- NoCrawlers(studyC.chatOf(sc.study))
         sVersion <- NoCrawlers(env.study.version(sc.study.id))

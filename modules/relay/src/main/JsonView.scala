@@ -129,15 +129,17 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, picfitUrl: PicfitUrl
       canContribute: Boolean,
       isSubscribed: Option[Boolean],
       videoUrls: Option[PairOf[String]],
-      pinned: Option[RelayPinnedStream]
+      pinned: Option[RelayPinnedStream],
+      delayedUntil: Option[Instant]
   ) =
     JsonView.JsData(
       relay = fullTourWithRounds(trs, group)(using Config(html = true))
-        .add("sync" -> (canContribute.so(trs.rounds.find(_.id == currentRoundId).map(_.sync))))
+        .add("sync" -> canContribute.so(trs.rounds.find(_.id == currentRoundId).map(_.sync)))
         .add("lcc", trs.rounds.find(_.id == currentRoundId).map(_.sync.upstream.exists(_.hasLcc)))
         .add("isSubscribed" -> isSubscribed)
         .add("videoUrls" -> videoUrls)
         .add("note" -> trs.tour.note.ifTrue(canContribute))
+        .add("delayedUntil" -> delayedUntil)
         .add("pinned" -> pinned.map: p =>
           Json
             .obj("name" -> p.name)

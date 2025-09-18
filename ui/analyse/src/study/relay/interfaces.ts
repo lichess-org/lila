@@ -8,6 +8,7 @@ export interface RelayData {
   pinned?: { name: string; redirect: string; text?: string };
   note?: string;
   lcc?: boolean;
+  delayedUntil?: number;
 }
 
 export interface RelayGroup {

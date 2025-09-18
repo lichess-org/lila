@@ -387,18 +387,15 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
 const games = (ctx: RelayViewContext) => [
   header(ctx),
   ctx.study.chapters.list.looksNew()
-    ? hl(
-        'div.relay-tour__note',
-        hl('div', [
-          hl('div', i18n.broadcast.noBoardsYet),
-          ctx.study.members.myMember() &&
-            hl(
-              'small',
-              i18n.broadcast.boardsCanBeLoaded.asArray(
-                hl('a', { attrs: { href: '/broadcast/app' } }, 'Broadcaster App'),
-              ),
+    ? renderNote(
+        hl('div', i18n.broadcast.noBoardsYet),
+        ctx.study.members.myMember() &&
+          hl(
+            'small',
+            i18n.broadcast.boardsCanBeLoaded.asArray(
+              hl('a', { attrs: { href: '/broadcast/app' } }, 'Broadcaster App'),
             ),
-        ]),
+          ),
       )
     : multiBoardView(ctx.study.multiBoard, ctx.study),
   !ctx.ctrl.isEmbed && showSource(ctx.relay.data),
@@ -410,6 +407,8 @@ const teams = (ctx: RelayViewContext) => [
 ];
 
 const stats = (ctx: RelayViewContext) => [header(ctx), statsView(ctx.relay.stats)];
+
+const renderNote = (title: VNode, desc?: VNode) => hl('div.relay-tour__note', hl('div', [title, desc]));
 
 const header = (ctx: RelayViewContext) => {
   const { ctrl, relay } = ctx;
@@ -430,20 +429,19 @@ const header = (ctx: RelayViewContext) => {
     ]),
     studyD && hl('div.relay-tour__note.pinned', hl('div', [hl('div', { hook: richHTML(studyD, false) })])),
     d.tour.communityOwner &&
-      hl(
-        'div.relay-tour__note',
-        hl('div', [
-          hl('div', i18n.broadcast.communityBroadcast),
-          hl('small', i18n.broadcast.createdAndManagedBy.asArray(userLink(d.tour.communityOwner))),
-        ]),
+      renderNote(
+        hl('div', i18n.broadcast.communityBroadcast),
+        hl('small', i18n.broadcast.createdAndManagedBy.asArray(userLink(d.tour.communityOwner))),
       ),
     d.note &&
-      hl(
-        'div.relay-tour__note',
-        hl('div', [
-          hl('div', { hook: richHTML(d.note, false) }),
-          hl('small', 'This note is visible to contributors only.'),
-        ]),
+      renderNote(
+        hl('div', { hook: richHTML(d.note, false) }),
+        hl('small', 'This note is visible to contributors only.'),
+      ),
+    d.delayedUntil &&
+      renderNote(
+        hl('div', ['Transmission will start ', timeago(d.delayedUntil)]),
+        hl('small', 'The tournament organizers have requested that moves be delayed.'),
       ),
     hl('div.relay-tour__nav', [makeTabs(ctrl), subscribe(relay, ctrl)]),
   ];
