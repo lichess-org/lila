@@ -5,7 +5,7 @@
   <string name="challengeDeclined">Uitdaging afgewys.</string>
   <string name="challengeAccepted">Uitdaging aanvaar!</string>
   <string name="challengeCanceled">Uitdaging gekanselleer.</string>
-  <string name="registerToSendChallenges" comment="This used to say &quot;Please register to send challenges.&quot;&#10;We have since added &quot;[...] to this user.&quot; to the end of the string for absolute clarity, given the context this appears in. Please update translations as needed.">Registreer om uitdagings te stuur.</string>
+  <string name="registerToSendChallenges">Registreer om uitdagings te stuur.</string>
   <string name="youCannotChallengeX">Jy kan nie %s uitdaag nie.</string>
   <string name="xDoesNotAcceptChallenges">%s aanvaar nie uitdagings nie.</string>
   <string name="yourXRatingIsTooFarFromY">Jou %1$s gradering is te ver van %2$s.</string>

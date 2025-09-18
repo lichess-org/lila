@@ -4,7 +4,7 @@
   <string name="challengeDeclined">Предизвикот е одбиен</string>
   <string name="challengeAccepted">Предизвикот е прифатен!</string>
   <string name="challengeCanceled">Предизвикот е откажан.</string>
-  <string name="registerToSendChallenges" comment="This used to say &quot;Please register to send challenges.&quot;&#10;We have since added &quot;[...] to this user.&quot; to the end of the string for absolute clarity, given the context this appears in. Please update translations as needed.">Ве молиме регистрирајте се за испраќање предизвици.</string>
+  <string name="registerToSendChallenges">Ве молиме регистрирајте се за испраќање предизвици.</string>
   <string name="youCannotChallengeX">Не можете да го предизвикате %s.</string>
   <string name="xDoesNotAcceptChallenges">%s не прифаќа предизвици.</string>
   <string name="yourXRatingIsTooFarFromY">Вашиот %1$s рејтинг е многу поголем од %2$s.</string>

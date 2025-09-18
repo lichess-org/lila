@@ -5,7 +5,7 @@
   <string name="challengeDeclined">Defio malakceptita</string>
   <string name="challengeAccepted">Defio akceptita!</string>
   <string name="challengeCanceled">Defio nuligita.</string>
-  <string name="registerToSendChallenges" comment="This used to say &quot;Please register to send challenges.&quot;&#10;We have since added &quot;[...] to this user.&quot; to the end of the string for absolute clarity, given the context this appears in. Please update translations as needed.">Bonvolu registri por sendi defiojn.</string>
+  <string name="registerToSendChallenges">Bonvolu registri por sendi defiojn.</string>
   <string name="youCannotChallengeX">Vi ne povas defii %s.</string>
   <string name="xDoesNotAcceptChallenges">%s ne akceptas defiojn.</string>
   <string name="yourXRatingIsTooFarFromY">Via rango por %1$s estas tro for de la rango de %2$s.</string>

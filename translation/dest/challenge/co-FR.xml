@@ -4,7 +4,7 @@
   <string name="challengeDeclined">Sfida scartata</string>
   <string name="challengeAccepted">Sfida accettata!</string>
   <string name="challengeCanceled">Sfida annullata.</string>
-  <string name="registerToSendChallenges" comment="This used to say &quot;Please register to send challenges.&quot;&#10;We have since added &quot;[...] to this user.&quot; to the end of the string for absolute clarity, given the context this appears in. Please update translations as needed.">Ci vole à esse arrigestratu pè prupone una sfida.</string>
+  <string name="registerToSendChallenges">Ci vole à esse arrigestratu pè prupone una sfida.</string>
   <string name="youCannotChallengeX">Ùn pudete sfidà %s.</string>
   <string name="xDoesNotAcceptChallenges">%s ùn accettà sfide.</string>
   <string name="yourXRatingIsTooFarFromY">A vostra %1$s classifica hè troppu luntana di %2$s.</string>

@@ -5,7 +5,7 @@
   <string name="challengeDeclined">Utmaning avböjd</string>
   <string name="challengeAccepted">Utmaning accepterad!</string>
   <string name="challengeCanceled">Utmaning avbruten.</string>
-  <string name="registerToSendChallenges" comment="This used to say &quot;Please register to send challenges.&quot;&#10;We have since added &quot;[...] to this user.&quot; to the end of the string for absolute clarity, given the context this appears in. Please update translations as needed.">Vänligen registrera ett konto för att skicka utmaningar.</string>
+  <string name="registerToSendChallenges">Vänligen registrera ett konto för att skicka utmaningar.</string>
   <string name="youCannotChallengeX">Du kan inte utmana %s.</string>
   <string name="xDoesNotAcceptChallenges">%s accepterar inte utmaningar.</string>
   <string name="yourXRatingIsTooFarFromY">Din %1$srating är för långt ifrån %2$s.</string>

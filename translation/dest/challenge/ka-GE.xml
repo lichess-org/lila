@@ -5,7 +5,7 @@
   <string name="challengeDeclined">გამოწვევა უარყოფილია</string>
   <string name="challengeAccepted">გამოწვევა მიღებულია!</string>
   <string name="challengeCanceled">გამოწვევა გაუქმებულია.</string>
-  <string name="registerToSendChallenges" comment="This used to say &quot;Please register to send challenges.&quot;&#10;We have since added &quot;[...] to this user.&quot; to the end of the string for absolute clarity, given the context this appears in. Please update translations as needed.">გთხოვთ დარეგისტრირდეთ რათა გაგზავნოთ გამოწვევა.</string>
+  <string name="registerToSendChallenges">გთხოვთ დარეგისტრირდეთ რათა გაგზავნოთ გამოწვევა.</string>
   <string name="youCannotChallengeX">ვერ გამოიწვევთ %s-ს.</string>
   <string name="xDoesNotAcceptChallenges">%s არ იღებს გამოწვევებს.</string>
   <string name="yourXRatingIsTooFarFromY">თქვენი %1$s რეიტინგი ძალიან განსხვავდება %2$s-სგან.</string>

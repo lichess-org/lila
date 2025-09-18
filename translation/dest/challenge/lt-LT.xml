@@ -5,7 +5,7 @@
   <string name="challengeDeclined">Iššūkis atmestas</string>
   <string name="challengeAccepted">Iššūkis priimtas!</string>
   <string name="challengeCanceled">Iššūkis atšauktas.</string>
-  <string name="registerToSendChallenges" comment="This used to say &quot;Please register to send challenges.&quot;&#10;We have since added &quot;[...] to this user.&quot; to the end of the string for absolute clarity, given the context this appears in. Please update translations as needed.">Norėdami kurti iššūkius užsiregistruokite.</string>
+  <string name="registerToSendChallenges">Norėdami kurti iššūkius užsiregistruokite.</string>
   <string name="youCannotChallengeX">Negalite kelti iššūkio %s.</string>
   <string name="xDoesNotAcceptChallenges">%s nepriima iššūkių.</string>
   <string name="yourXRatingIsTooFarFromY">Jūsų %1$s reitingas per toli nuo %2$s.</string>

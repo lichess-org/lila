@@ -5,7 +5,7 @@
   <string name="challengeDeclined">Izazov odbijen</string>
   <string name="challengeAccepted">Izazov prihvaćen!</string>
   <string name="challengeCanceled">Izazov otkazan.</string>
-  <string name="registerToSendChallenges" comment="This used to say &quot;Please register to send challenges.&quot;&#10;We have since added &quot;[...] to this user.&quot; to the end of the string for absolute clarity, given the context this appears in. Please update translations as needed.">Registriraj se za slanje izazova.</string>
+  <string name="registerToSendChallenges">Registriraj se za slanje izazova.</string>
   <string name="youCannotChallengeX">Ne možeš izazvati %s.</string>
   <string name="xDoesNotAcceptChallenges">%s ne prihvaća izazove.</string>
   <string name="yourXRatingIsTooFarFromY">Prevelika je razlika između tvog i %2$s %1$s rejtinga.</string>

@@ -5,7 +5,7 @@
   <string name="challengeDeclined">Шақыруды қабылдамады</string>
   <string name="challengeAccepted">Шақыруды қабылдады!</string>
   <string name="challengeCanceled">Шақырудың күші жойылды.</string>
-  <string name="registerToSendChallenges" comment="This used to say &quot;Please register to send challenges.&quot;&#10;We have since added &quot;[...] to this user.&quot; to the end of the string for absolute clarity, given the context this appears in. Please update translations as needed.">Ойынға шақыру үшін тіркеліңіз.</string>
+  <string name="registerToSendChallenges">Ойынға шақыру үшін тіркеліңіз.</string>
   <string name="youCannotChallengeX">Сіз %s шақыра алмайсыз.</string>
   <string name="xDoesNotAcceptChallenges">%s шақыруды қабылдамады.</string>
   <string name="yourXRatingIsTooFarFromY">Сіз %1$s рейтингіңіз %2$s-дан тым алшақ.</string>

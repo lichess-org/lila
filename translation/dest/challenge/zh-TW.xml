@@ -5,7 +5,7 @@
   <string name="challengeDeclined">對弈邀請已拒絕</string>
   <string name="challengeAccepted">對弈邀請已接受</string>
   <string name="challengeCanceled">對弈邀請已撤銷</string>
-  <string name="registerToSendChallenges" comment="This used to say &quot;Please register to send challenges.&quot;&#10;We have since added &quot;[...] to this user.&quot; to the end of the string for absolute clarity, given the context this appears in. Please update translations as needed.">請登入以向其他人發出對弈邀請</string>
+  <string name="registerToSendChallenges">請登入以向其他人發出對弈邀請</string>
   <string name="youCannotChallengeX">你無法向%s發出對弈邀請</string>
   <string name="xDoesNotAcceptChallenges">%s沒有接受對弈邀請</string>
   <string name="yourXRatingIsTooFarFromY">您的%1$s積分與%2$s相差太多</string>
