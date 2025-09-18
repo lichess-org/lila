@@ -6,9 +6,10 @@ import lila.app.mashup.UserInfo
 import lila.user.Plan.sinceDate
 import lila.user.PlayTime.*
 import lila.user.Profile.*
-import lila.ui.{ HttpMethod, Menu, MenuItem }
 
 object header:
+
+  private val actionMenu = lila.user.ui.UserActionMenu(helpers)
 
   private val dataToints = attr("data-toints")
   private val dataTab = attr("data-tab")
@@ -20,81 +21,19 @@ object header:
     )
 
   private def userActionsMenu(u: User, social: UserInfo.Social)(using ctx: Context) =
-    Menu(
-      List(
-        isGranted(_.UserModView).option(
-          MenuItem(
-            "Mod zone",
-            Icon.Agent,
-            routes.User.mod(u.username).url,
-            cssClass = Some("mod-zone-toggle")
+    actionMenu(
+      u,
+      ctx
+        .isnt(u)
+        .so:
+          views.relation.actions(
+            u.light,
+            relation = social.relation,
+            followable = social.followable,
+            blocked = social.blocked
           )
-        ),
-        ctx
-          .is(u)
-          .option(
-            MenuItem(trans.site.editProfile.txt(), Icon.Gear, routes.Account.profile.url)
-          ),
-        Some(
-          MenuItem(trans.site.watch.txt(), Icon.AnalogTv, routes.User.tv(u.username).url)
-        )
-      ).flatten ++
-        ctx
-          .isnt(u)
-          .option(
-            views.relation.actions(
-              u.light,
-              relation = social.relation,
-              followable = social.followable,
-              blocked = social.blocked
-            )
-          )
-          .getOrElse(Nil) ++
-        List(
-          Some(
-            MenuItem(
-              trans.site.openingExplorer.txt(),
-              Icon.Book,
-              s"${routes.UserAnalysis.index}#explorer/${u.username}"
-            )
-          ),
-          Some(
-            MenuItem(trans.site.exportGames.txt(), Icon.Download, routes.User.download(u.username).url)
-          ),
-          (ctx.isAuth && ctx.kid.no && ctx.isnt(u)).option(
-            MenuItem(
-              trans.site.reportXToModerators.txt(u.username),
-              Icon.CautionTriangle,
-              s"${routes.Report.form}?username=${u.username}"
-            )
-          ),
-          (ctx.is(u) || isGranted(_.CloseAccount)).option(
-            MenuItem(trans.site.friends().render, Icon.User, routes.Relation.following(u.username).url)
-          ),
-          (ctx.is(u) || isGranted(_.BoostHunter)).option(
-            MenuItem(
-              trans.site.favoriteOpponents().render,
-              Icon.User,
-              s"${routes.User.opponents}?u=${u.username}"
-            )
-          ),
-          ctx
-            .is(u)
-            .option(
-              MenuItem(trans.site.listBlockedPlayers.txt(), Icon.NotAllowed, routes.Relation.blocks().url)
-            ),
-          ctx.me
-            .soUse(lila.mod.canImpersonate(u.id))
-            .option(
-              MenuItem(
-                "Impersonate",
-                Icon.Agent,
-                routes.Mod.impersonate(u.username.value).url,
-                httpMethod = Some(HttpMethod.POST)
-              )
-            )
-        ).flatten,
-      trans.site.more.txt()
+      ,
+      ctx.me.soUse(lila.mod.canImpersonate(u.id))
     )
 
   private def userDom(u: User)(using ctx: Context) =
