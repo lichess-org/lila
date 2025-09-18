@@ -5,7 +5,7 @@
   <string name="challengeDeclined">आव्हान नाकारले</string>
   <string name="challengeAccepted">आव्हान स्वीकारले!</string>
   <string name="challengeCanceled">आव्हान रद्द केले.</string>
-  <string name="registerToSendChallenges" comment="This used to say &quot;Please register to send challenges.&quot;&#10;We have since added &quot;[...] to this user.&quot; to the end of the string for absolute clarity, given the context this appears in. Please update translations as needed.">कृपया आव्हाने पाठविण्यासाठी नोंदणी करा.</string>
+  <string name="registerToSendChallenges">कृपया आव्हाने पाठविण्यासाठी नोंदणी करा.</string>
   <string name="youCannotChallengeX">तुम्ही %s ला आव्हान देऊ शकत नाही.</string>
   <string name="xDoesNotAcceptChallenges">%s ने आपले आव्हान स्वीकारले नाही.</string>
   <string name="yourXRatingIsTooFarFromY">तुमची व %2$s च्या %1$s च्या रेटिंग पेक्षा फार फरक आहे.</string>
