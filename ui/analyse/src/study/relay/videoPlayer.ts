@@ -27,21 +27,22 @@ export class VideoPlayer {
     this.addWindowResizer();
   }
 
-  cover = (el?: HTMLElement) => {
+  cover = (placeholder?: HTMLElement) => {
     if (this.animationFrameId) cancelAnimationFrame(this.animationFrameId);
     this.animationFrameId = requestAnimationFrame(() => {
-      if (!el) {
+      if (!placeholder) {
         this.iframe.remove();
         this.close.remove();
         return;
       }
+      const position = placeholder.getBoundingClientRect();
       this.iframe.style.display = 'block';
-      this.iframe.style.left = `${el.offsetLeft}px`;
-      this.iframe.style.top = `${el.offsetTop}px`;
-      this.iframe.style.width = `${el.offsetWidth}px`;
-      this.iframe.style.height = `${el.offsetHeight}px`;
-      this.close.style.left = `${el.offsetLeft + el!.offsetWidth - 16}px`;
-      this.close.style.top = `${el.offsetTop - 4}px`;
+      this.iframe.style.left = `${position.x}px`;
+      this.iframe.style.top = `${position.y}px`;
+      this.iframe.style.width = `${position.width}px`;
+      this.iframe.style.height = `${position.height}px`;
+      this.close.style.left = `${position.x + position.width - 16}px`;
+      this.close.style.top = `${position.y - 4}px`;
       if (document.body.contains(this.iframe)) return;
       document.body.appendChild(this.iframe);
       document.body.appendChild(this.close);
