@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Грати з другом</string>
-  <string name="playWithTheMachine">Грати з комп’ютером</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Щоб запросити когось до гри, дайте це посилання</string>
   <string name="gameOver">Гру завершено</string>
   <string name="waitingForOpponent">Очікування на суперника</string>
@@ -387,7 +385,6 @@
     <item quantity="other">%s грають</item>
   </plurals>
   <string name="exportGames">Експортувати ігри</string>
-  <string name="ratingRange">Діапазон рейтингу</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Додати %s секунду</item>
     <item quantity="few">Додати %s секунди</item>
