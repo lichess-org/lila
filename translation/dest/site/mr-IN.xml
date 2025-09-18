@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">मित्रा सोबत खेळा</string>
-  <string name="playWithTheMachine">संगणकाविरूद्ध खेळा</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">कुणाला आपल्या बरोबर खेळण्याचे निमंत्रण देण्यासाठी हा URL द्या</string>
   <string name="gameOver">डाव समाप्त</string>
   <string name="waitingForOpponent">प्रतिस्पर्ध्याची प्रतीक्षा आहे</string>
@@ -337,7 +335,6 @@
     <item quantity="other">%s खेळतोय</item>
   </plurals>
   <string name="exportGames">खेळ निर्यात करा</string>
-  <string name="ratingRange">गुणांकन व्याप्ती</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">%s सेकंद द्या</item>
     <item quantity="other">%s सेकंद द्या</item>
