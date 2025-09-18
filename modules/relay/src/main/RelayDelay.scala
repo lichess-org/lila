@@ -32,7 +32,8 @@ final private class RelayDelay(colls: RelayColls, cacheApi: CacheApi)(using Exec
             case Upstream.Urls(urls) => urls.headOption.map(UrlSource(_))
           .so: source =>
             store.nextDate.get(source.cacheKey)
-          .map2(_.plusSeconds(delay.value))
+          .map:
+            _.map(_.plusSeconds(delay.value)).orElse(round.startsAtTime)
 
   private def fromSource(
       source: RelaySource,
