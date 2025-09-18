@@ -96,7 +96,7 @@ const statePush = (ctrl: RelayCtrl) =>
       hl('small', [
         hl(
           'a',
-          { attrs: { href: broadcasterDeepLink(ctrl.currentRound().url) } },
+          { attrs: { href: broadcasterDeepLink(ctrl.currentRound.url) } },
           'Open this round in the app',
         ),
       ]),
