@@ -313,7 +313,7 @@
   <string name="loginToChat">Sign in to chat</string>
   <string name="youHaveBeenTimedOut">You have been timed out.</string>
   <string name="spectatorRoom">Spectator room</string>
-  <string name="composeMessage">Compose message</string>
+  <string name="composeMessage">Message</string>
   <string name="subject">Subject</string>
   <string name="send">Send</string>
   <string name="incrementInSeconds">Increment in seconds</string>
@@ -661,7 +661,7 @@
     <item quantity="other">%s forum posts</item>
   </plurals>
   <string name="tpTimeSpentPlaying">Time spent playing: %s</string>
-  <string name="watchGames">Watch games</string>
+  <string name="watchGames">Watch</string>
   <string name="tpTimeSpentOnTV">Time featured on TV: %s</string>
   <string name="watch">Watch</string>
   <string name="videoLibrary">Video library</string>

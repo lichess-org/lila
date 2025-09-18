@@ -27,11 +27,11 @@ export async function search(q: string): Promise<SearchResult> {
 }
 
 export function block(u: string) {
-  return json(`/api/rel/block/${u}`, { method: 'post' });
+  return json(`/api/rel/block/${u}?mini=1`, { method: 'post' });
 }
 
 export function unblock(u: string) {
-  return json(`/api/rel/unblock/${u}`, { method: 'post' });
+  return json(`/api/rel/unblock/${u}?mini=1`, { method: 'post' });
 }
 
 export async function del(u: string): Promise<MsgData> {

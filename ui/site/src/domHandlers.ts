@@ -27,11 +27,16 @@ export function attachDomHandlers() {
 
   $('body').on('click', '.relation-button', function (this: HTMLAnchorElement) {
     const $a = $(this).addClass('processing').css('opacity', 0.3);
-    xhrText(this.href, { method: 'post' }).then(html => {
-      if ($a.hasClass('aclose')) $a.hide();
-      else if (html.includes('relation-actions')) $a.parent().replaceWith(html);
-      else $a.replaceWith(html);
-    });
+    const dropdownOverflowParent = this.closest<HTMLElement>('.dropdown-overflow');
+    if (dropdownOverflowParent) {
+      dropdownOverflowParent.dispatchEvent(new CustomEvent('reload', { detail: this.href }));
+    } else {
+      xhrText(this.href, { method: 'post' }).then(html => {
+        if ($a.hasClass('aclose')) $a.hide();
+        else if (html.includes('relation-actions')) $a.parent().replaceWith(html);
+        else $a.replaceWith(html);
+      });
+    }
     return false;
   });
 

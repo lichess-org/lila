@@ -173,7 +173,7 @@ final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
             p(
               "In the meantime, you can block this user: ",
               submitButton(
-                attr("data-action") := routes.Relation.block(userId),
+                attr("data-action") := s"${routes.Relation.block(userId)}?mini=1",
                 cls := "report-block button",
                 st.title := trans.site.block.txt()
               )(span(cls := "text", dataIcon := Icon.NotAllowed)("Block ", titleNameOrId(userId)))

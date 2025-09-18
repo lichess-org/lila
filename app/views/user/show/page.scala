@@ -77,6 +77,7 @@ object page:
   private def esModules(withSearch: Boolean = false)(using Context): EsmList =
     infiniteScrollEsmInit
       ++ esmInit("user")
+      ++ Esm("bits.dropdownOverflow")
       ++ withSearch.so(Esm("bits.gameSearch"))
       ++ isGranted(_.UserModView).so(Esm("mod.user"))
 
