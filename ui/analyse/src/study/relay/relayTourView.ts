@@ -438,17 +438,22 @@ const header = (ctx: RelayViewContext) => {
         hl('div', { hook: richHTML(d.note, false) }),
         hl('small', 'This note is visible to contributors only.'),
       ),
-    delayedUntil(d.delayedUntil),
+    delayedUntil(ctx),
     hl('div.relay-tour__nav', [makeTabs(ctrl), subscribe(relay, ctrl)]),
   ];
 };
 
-const delayedUntil = (date?: number) =>
-  date &&
-  renderNote(
-    hl('div', ['Transmission will start ', date > Date.now() ? timeago(date) : 'momentarily']),
-    hl('small', 'The tournament organizers have requested that moves be delayed.'),
+const delayedUntil = (ctx: RelayViewContext) => {
+  const date = ctx.relay.data.delayedUntil;
+  return (
+    date &&
+    !ctx.study.chapters.hasPlayingChapter() &&
+    renderNote(
+      hl('div', ['Transmission will start ', date > Date.now() ? timeago(date) : 'momentarily']),
+      hl('small', 'The tournament organizers have requested that moves be delayed.'),
+    )
   );
+};
 
 const subscribe = (relay: RelayCtrl, ctrl: AnalyseCtrl) =>
   defined(relay.data.isSubscribed)

@@ -113,6 +113,8 @@ export default class StudyChaptersCtrl {
       result = findTag(tags, 'result');
     if (chap && result) chap.status = result.replace(/1\/2/g, '½') as StatusStr;
   };
+
+  hasPlayingChapter = () => this.list.all().some(c => c.playing);
 }
 
 export const convertPlayerFromServer = <A extends StudyPlayerFromServer>(
