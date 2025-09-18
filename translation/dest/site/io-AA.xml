@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Ludar kun amiko</string>
-  <string name="playWithTheMachine">Ludar kun komputero</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Por invitar ulu por ludar, donez ica URL</string>
   <string name="gameOver">Ludo Finis</string>
   <string name="waitingForOpponent">Vartanta stroko di adverso</string>
@@ -98,7 +96,6 @@
     <item quantity="other">%s desvinki</item>
   </plurals>
   <string name="exportGames">Exportacar ludi</string>
-  <string name="ratingRange">Elo-rango</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Donar %s sekundo</item>
     <item quantity="other">Donar %s sekundi</item>
