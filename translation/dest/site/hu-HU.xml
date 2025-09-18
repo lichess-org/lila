@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="gameSetup">Játék beállítás</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Hívj ki egy ismerőst</string>
+  <string name="playAgainstAI">Játssz az AI ellen</string>
+  <string name="gameMode">Játékmód</string>
+  <string name="createLobbyGame">Hozz létre egy játszmaajánlatot</string>
+  <string name="youPlayAs">Úgy játszol, mint</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Küldd el ezt a linket annak, akivel játszani szeretnél</string>
   <string name="gameOver">Játszma vége</string>
   <string name="waitingForOpponent">Várakozás az ellenfélre</string>
@@ -339,6 +345,7 @@
     <item quantity="other">%s folyamatban</item>
   </plurals>
   <string name="exportGames">Játszmák exportálása</string>
+  <string name="ratingFilter">Értékszámszűrő</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Adj %s másodpercet</item>
     <item quantity="other">Adj %s másodpercet</item>
@@ -824,6 +831,7 @@ Jelszavad megváltoztatásához kattints az üzenetben lévő linkre.</string>
   <string name="notifications">Értesítések</string>
   <string name="notificationsX">Értesítések: %1$s</string>
   <string name="perfRatingX">Pontszám: %s</string>
+  <string name="yourRatingIsX">Értékszámod %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s másodperc a kezdőlépés megtételére</item>
     <item quantity="other">%s másodperc a kezdőlépés megtételére</item>
@@ -875,6 +883,7 @@ Jelszavad megváltoztatásához kattints az üzenetben lévő linkre.</string>
   <string name="playVariationToCreateConditionalPremoves">Egy változat megjátszásával, hozzáadható feltételes előre megadott lépés</string>
   <string name="noConditionalPremoves">Nincs feltételes előre megadott lépés</string>
   <string name="playX">%s megjátszása</string>
+  <string name="challengeX">Kihívás %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">és %s változat mentése</item>
     <item quantity="other">és %s változat mentése</item>
