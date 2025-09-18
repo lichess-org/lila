@@ -7,7 +7,6 @@ import chess.rating.IntRatingDiff
 
 import lila.core.perf.{ PerfId, UserWithPerfs }
 import lila.core.user.LightPerf
-import lila.db.AsyncCollFailingSilently
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 import lila.rating.GlickoExt.rankable
@@ -15,7 +14,7 @@ import lila.rating.PerfType
 import scalalib.paginator.Paginator
 
 final class RankingApi(
-    c: AsyncCollFailingSilently,
+    c: lila.db.AsyncCollFailingSilently,
     cacheApi: lila.memo.CacheApi,
     lightUser: lila.core.LightUser.Getter
 )(using Executor, Scheduler)
@@ -111,7 +110,7 @@ final class RankingApi(
       racingKings = racingKings
     )
 
-  object weeklyStableRanking:
+  private[user] object weeklyStableRanking:
 
     private type Rank = Int
 
@@ -123,31 +122,32 @@ final class RankingApi(
         case _ => Map.empty
 
     private val cache = cacheApi.unit[Map[PerfKey, Map[UserId, Rank]]]:
-      _.refreshAfterWrite(15.minutes).buildAsyncTimeout(): _ =>
+      _.refreshAfterWrite(15.minutes).buildAsyncTimeout(5.minutes): _ =>
         lila.rating.PerfType.leaderboardable
-          .sequentially: pt =>
-            compute(pt).dmap(pt -> _)
+          .sequentially: perf =>
+            computeAggregate(perf).chronometer
+              .logIfSlow(500, logger.branch("ranking"))(_ => s"slow weeklyStableRanking for $perf")
+              .result
+              .monSuccess(_.user.weeklyStableRanking(perf))
+              .dmap(perf -> _)
           .map(_.toMap)
           .chronometer
-          .logIfSlow(500, logger.branch("ranking"))(_ => "slow weeklyStableRanking")
+          .logIfSlow(5000, logger.branch("ranking"))(_ => "slow weeklyStableRanking")
           .result
 
-    private def compute(pt: PerfType): Fu[Map[UserId, Rank]] = coll:
-      _.find(
-        $doc("perf" -> pt.id, "stable" -> true),
-        $doc("_id" -> true).some
-      )
-        .sort($doc("rating" -> -1))
-        .cursor[Bdoc]()
-        .fold(1 -> Map.newBuilder[UserId, Rank]) { case (state @ (rank, b), doc) =>
-          doc
-            .string("_id")
-            .fold(state): id =>
-              val user = UserId(id.takeWhile(':' !=))
-              b += (user -> rank)
-              (rank + 1) -> b
-        }
-        .map(_._2.result())
+    private def computeAggregate(pt: PerfType): Fu[Map[UserId, Rank]] = coll:
+      _.aggregateOne(): framework =>
+        import framework.*
+        Match($doc("perf" -> pt.id, "stable" -> true)) -> List(
+          Sort(Descending("rating")),
+          Group(BSONNull)("all" -> Push($doc("$first" -> $doc("$split" -> $arr("$_id", ":")))))
+        )
+      .map:
+        _.flatMap(_.getAsOpt[BSONArray]("all")).so:
+          _.values.view.zipWithIndex
+            .collect:
+              case (BSONString(id), index) => UserId(id) -> (index + 1)
+            .toMap
 
 object RankingApi:
 

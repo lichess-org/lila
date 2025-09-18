@@ -123,4 +123,5 @@
   <string name="xIsAKidAccountWarning">%1$s детский аккаунт и не может получить ваше сообщение. Вам нужно передать им ссылку на приглашение вручную: %2$s</string>
   <string name="moveToClass">Перейти к %s</string>
   <string name="moveToAnotherClass">Переместить в другой класс</string>
+  <string name="allowMessagingBetweenStudentsDesc" comment="Description for the option &quot;Allow messages between students&quot;.">Это применяется только к учетным записям, которые Вы создали для своих учеников.</string>
 </resources>

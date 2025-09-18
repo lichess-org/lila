@@ -74,11 +74,14 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
   }
 
   def sticky(categId: ForumCategId, slug: ForumTopicSlug) = Auth { _ ?=> me ?=>
-    isGrantedOpt(_.StickyPosts).so:
-      Found(topicApi.show(categId, slug, 1)): (categ, topic, pag) =>
-        topicApi
-          .toggleSticky(categ, topic)
-          .inject(Redirect(routes.ForumTopic.show(categId, slug, pag.nbPages)))
+    access.isGrantedMod(categId).flatMap { granted =>
+      if granted || isGranted(_.ModerateForum) || isGrantedOpt(_.StickyPosts) then
+        Found(topicApi.show(categId, slug, 1)): (categ, topic, pag) =>
+          topicApi
+            .toggleSticky(categ, topic)
+            .inject(Redirect(routes.ForumTopic.show(categId, slug, pag.nbPages)))
+      else Forbidden("You cannot sticky this post")
+    }
   }
 
   /** Returns a list of the usernames of people participating in a forum topic conversation

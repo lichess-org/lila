@@ -24,6 +24,7 @@ export default class Filter {
   store: FormStore;
   data: FilterData | null;
   open = false;
+  uiCacheBuster: number = 1; // used to force re-init of filter UI
 
   constructor(
     storage: LichessStorage,

@@ -3039,6 +3039,10 @@ interface I18n {
     casual: string;
     /** Casual */
     casualTournament: string;
+    /** Challenge a friend */
+    challengeAFriend: string;
+    /** Challenge %s */
+    challengeX: I18nFormat;
     /** Change email */
     changeEmail: string;
     /** Change password */
@@ -3159,6 +3163,8 @@ interface I18n {
     createANewTournament: string;
     /** Newly created simuls */
     createdSimuls: string;
+    /** Create lobby game */
+    createLobbyGame: string;
     /** Create the game */
     createTheGame: string;
     /** Create the topic */
@@ -3381,10 +3387,14 @@ interface I18n {
     gameAsGIF: string;
     /** You have a game in progress with %s. */
     gameInProgress: I18nFormat;
+    /** Game mode */
+    gameMode: string;
     /** Game Over */
     gameOver: string;
     /** Games */
     games: string;
+    /** Game setup */
+    gameSetup: string;
     /** Games played */
     gamesPlayed: string;
     /** Game vs %1$s */
@@ -3435,11 +3445,9 @@ interface I18n {
     importedByX: I18nFormat;
     /** Import game */
     importGame: string;
-    /** Variations will be erased. To keep them, import the PGN via a study. */
-    importGameCaveat: string;
     /** This PGN can be accessed by the public. To import a game privately, use a study. */
     importGameDataPrivacyWarning: string;
-    /** Paste a game PGN to get a browsable replay, computer analysis, game chat and public shareable URL. */
+    /** Paste a game PGN to get a browsable replay of the main line, computer analysis, game chat and public shareable URL. */
     importGameExplanation: string;
     /** Import PGN */
     importPgn: string;
@@ -3871,6 +3879,8 @@ interface I18n {
     pieceSet: string;
     /** Play */
     play: string;
+    /** Play against AI */
+    playAgainstAI: string;
     /** Play chess everywhere */
     playChessEverywhere: string;
     /** Play chess in style */
@@ -3891,10 +3901,6 @@ interface I18n {
     playSelectedMove: string;
     /** Play a variation to create conditional premoves */
     playVariationToCreateConditionalPremoves: string;
-    /** Play with a friend */
-    playWithAFriend: string;
-    /** Play with the computer */
-    playWithTheMachine: string;
     /** Play %s */
     playX: I18nFormat;
     /** We aim to provide a pleasant chess experience for everyone. */
@@ -3961,8 +3967,8 @@ interface I18n {
     ratedTournament: string;
     /** Rating */
     rating: string;
-    /** Rating range */
-    ratingRange: string;
+    /** Rating filter */
+    ratingFilter: string;
     /** Rating filters are locked because your rating is not stable. Playing rated games will increase stability. */
     ratingRangeIsDisabledBecauseYourRatingIsProvisional: string;
     /** Rating stats */
@@ -4553,6 +4559,8 @@ interface I18n {
     youHaveJoinedTeamX: I18nFormat;
     /** You need an account to do that */
     youNeedAnAccountToDoThat: string;
+    /** You play as */
+    youPlayAs: string;
     /** You play the black pieces */
     youPlayTheBlackPieces: string;
     /** You play the white pieces */
@@ -4577,6 +4585,8 @@ interface I18n {
     yourQuestionMayHaveBeenAnswered: I18nFormat;
     /** Your rating */
     yourRating: string;
+    /** Your rating is %s */
+    yourRatingIsX: I18nFormat;
     /** Your score: %s */
     yourScore: I18nFormat;
     /** Your top weekly %1$s rating (%2$s) is too high */

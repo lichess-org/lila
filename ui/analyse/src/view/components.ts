@@ -126,10 +126,10 @@ export function renderMain(ctx: ViewContext, ...kids: LooseVNodes[]): VNode {
   );
 }
 
-export function renderTools({ ctrl, deps, concealOf, allowVideo }: ViewContext, embedded?: LooseVNode) {
+export function renderTools({ ctrl, deps, concealOf, allowVideo }: ViewContext, embeddedVideo?: LooseVNode) {
   const showCeval = ctrl.isCevalAllowed() && ctrl.showCeval();
   return hl(addChapterId(ctrl.study, 'div.analyse__tools'), [
-    allowVideo && embedded,
+    allowVideo && embeddedVideo,
     showCeval && cevalView.renderCeval(ctrl),
     showCeval && !ctrl.retro?.isSolving() && !ctrl.practice && cevalView.renderPvs(ctrl),
     renderMoveList(ctrl, deps, concealOf),

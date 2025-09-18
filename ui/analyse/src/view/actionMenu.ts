@@ -253,7 +253,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
               ...linkAttrs,
             },
           },
-          i18n.site.playWithTheMachine,
+          i18n.site.playAgainstAI,
         ),
         hl(
           'a.button',
@@ -265,7 +265,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
               ...linkAttrs,
             },
           },
-          i18n.site.playWithAFriend,
+          i18n.site.challengeAFriend,
         ),
       ]),
   ]);

@@ -97,7 +97,7 @@ const inputRange = (min: number, max: number, prop: Prop<InputValue>, classes?: 
 export const timePickerAndSliders = (ctrl: LobbyController, allowAnonymous = false) => {
   const { setupCtrl } = ctrl;
   return hl(
-    'div.time-mode-config.optional-config',
+    'div.config-group',
     site.blindMode
       ? renderBlindModeTimePickers(ctrl, allowAnonymous)
       : [
@@ -117,14 +117,11 @@ export const timePickerAndSliders = (ctrl: LobbyController, allowAnonymous = fal
                 inputRange(0, 30, setupCtrl.incrementV, { failure: !setupCtrl.validTime() }),
               ])
             : setupCtrl.timeMode() === 'correspondence' &&
-              hl(
-                'div.correspondence',
-                hl('div.days-choice.range', [
-                  `${i18n.site.daysPerTurn}: `,
-                  hl('span', `${setupCtrl.days()}`),
-                  inputRange(1, 7, setupCtrl.daysV),
-                ]),
-              ),
+              hl('div.days-choice.range', [
+                `${i18n.site.daysPerTurn}: `,
+                hl('span', `${setupCtrl.days()}`),
+                inputRange(1, 7, setupCtrl.daysV),
+              ]),
         ],
   );
 };
