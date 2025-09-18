@@ -1,6 +1,7 @@
 import { frag } from 'lib';
+import { json as xhrJson } from 'lib/xhr';
 
-type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH' | 'OPTIONS' | 'HEAD';
+type HttpMethod = 'GET' | 'POST';
 
 type Menu = {
   items: MenuItem[];
@@ -23,14 +24,25 @@ site.load.then(() => {
   }
 
   function render() {
-    containers.forEach(container => renderMenu(container));
+    containers.forEach(container => {
+      renderMenu(container);
+      listenToReload(container);
+    });
   }
 
   render();
   window.addEventListener('resize', render);
 });
 
-export function replaceMenuItems(container: HTMLElement, items: MenuItem[]): void {
+function listenToReload(container: HTMLElement): void {
+  container.addEventListener('reload', (e: CustomEvent) => {
+    xhrJson(e.detail, { method: 'post', headers: { 'Content-Type': 'application/json' } }).then(menuItems =>
+      replaceMenuItems(container, menuItems),
+    );
+  });
+}
+
+function replaceMenuItems(container: HTMLElement, items: MenuItem[]): void {
   const menu = getMenuFromDataAttr(container);
   const newMenuItemsByCategory: Record<string, MenuItem[]> = items.reduce(
     (acc, item) => {

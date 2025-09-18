@@ -1,9 +1,8 @@
 import * as licon from 'lib/licon';
-import { text as xhrText, json as xhrJson } from 'lib/xhr';
+import { text as xhrText } from 'lib/xhr';
 import topBar from './topBar';
 import { userComplete } from 'lib/view/userComplete';
 import { confirm } from 'lib/view/dialogs';
-import { replaceMenuItems } from 'bits/bits.dropdownOverflow';
 
 export function attachDomHandlers() {
   topBar();
@@ -28,13 +27,9 @@ export function attachDomHandlers() {
 
   $('body').on('click', '.relation-button', function (this: HTMLAnchorElement) {
     const $a = $(this).addClass('processing').css('opacity', 0.3);
-    const dropdownOverflowParent = this.closest('.dropdown-overflow');
-    if (dropdownOverflowParent && dropdownOverflowParent instanceof HTMLElement) {
-      xhrJson(this.href, { method: 'post', headers: { 'Content-Type': 'application/json' } }).then(
-        menuItems => {
-          replaceMenuItems(dropdownOverflowParent, menuItems);
-        },
-      );
+    const dropdownOverflowParent = this.closest<HTMLElement>('.dropdown-overflow');
+    if (dropdownOverflowParent) {
+      dropdownOverflowParent.dispatchEvent(new CustomEvent('reload', { detail: this.href }));
     } else {
       xhrText(this.href, { method: 'post' }).then(html => {
         if ($a.hasClass('aclose')) $a.hide();
