@@ -5,7 +5,7 @@
   <string name="challengeDeclined">Utfordring avvist</string>
   <string name="challengeAccepted">Utfordring akseptert!</string>
   <string name="challengeCanceled">Utfordring avbroten.</string>
-  <string name="registerToSendChallenges" comment="This used to say &quot;Please register to send challenges.&quot;&#10;We have since added &quot;[...] to this user.&quot; to the end of the string for absolute clarity, given the context this appears in. Please update translations as needed.">Du må registrera deg om du vil oppretta utfordringar.</string>
+  <string name="registerToSendChallenges">Du må registrera deg om du vil oppretta utfordringar.</string>
   <string name="youCannotChallengeX">Du kan ikkje utfordra %s.</string>
   <string name="xDoesNotAcceptChallenges">%s tek ikkje i mot utfordringar.</string>
   <string name="yourXRatingIsTooFarFromY">Ratinga di i %1$s er for langt unna %2$s.</string>
