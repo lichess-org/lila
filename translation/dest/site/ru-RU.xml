@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="gameSetup">Настройка игры</string>
-  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Бросьте вызов другу</string>
+  <string name="challengeAFriend" comment="Be mindful of how 'friend' translates in gendered languages. Look for a more neutral term if there's an issue, or base your translation on a different phrase like 'Invite to a game'.&#10;&#10;Keep it short and convey the button's meaning without causing offense.">Бросьте вызов другу</string>
   <string name="playAgainstAI">Играйте против ИИ</string>
   <string name="gameMode">Игровой режим</string>
-  <string name="createLobbyGame">Создать игру</string>
-  <string name="youPlayAs">Вы играете как</string>
+  <string name="createLobbyGame">Создать запрос на игру</string>
+  <string name="youPlayAs">Вы играете за</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Чтобы пригласить друга, отправьте ему эту ссылку</string>
   <string name="gameOver">Партия окончена</string>
   <string name="waitingForOpponent">Ожидание соперника</string>
@@ -970,7 +970,7 @@
   <string name="playVariationToCreateConditionalPremoves">Выполните ходы на доске, чтобы задать условные предходы</string>
   <string name="noConditionalPremoves">Безусловные предходы</string>
   <string name="playX">Сыграть %s</string>
-  <string name="challengeX">Вызов %s</string>
+  <string name="challengeX">Бросить вызов %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">и сохранить %s последовательность</item>
     <item quantity="few">и сохранить %s последовательности</item>
@@ -1106,7 +1106,7 @@
   <string name="disableBlindMode">Выключить слепой режим</string>
   <string name="copyToClipboard">Скопировать в буфер обмена</string>
   <string name="online" comment="status of a user">онлайн</string>
-  <string name="offline" comment="status of a user">оффлайн</string>
+  <string name="offline" comment="status of a user">офлайн</string>
   <string name="search">Поиск</string>
   <string name="clearSearch">Очистить поиск</string>
   <string name="tags">Теги</string>
