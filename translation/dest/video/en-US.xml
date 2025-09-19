@@ -3,6 +3,7 @@
   <string name="chessVideos">Chess videos</string>
   <string name="allVideosAreFree">All videos are free for everyone.</string>
   <string name="selectTagsToFilter">Select tags to filter the videos.</string>
+  <string name="weHaveCarefullySelectedX" comment="%s is the number of videos.&#10;&#10;Appears on https://lichess.org/video">We have carefully selected %s videos so far!</string>
   <string name="freeChessVideos">Free chess videos</string>
   <string name="xFreeCarefullyCurated" comment="%s is the number of videos. Appears in social media embeds (i.e. OpenGraph information) when linking Lichess videos.">%s free, carefully curated chess videos</string>
   <string name="xCuratedChessVideos" comment="%s is the number of videos. Appears in social media embeds (i.e. OpenGraph information) when linking Lichess videos.">%s curated chess videos</string>
