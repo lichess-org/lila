@@ -17,7 +17,7 @@
   </plurals>
   <string name="noVideosForTheseTags">По следующим тегам видео не найдены:</string>
   <string name="thatsAllWeGotForTheseTags">Вот что мы нашли по следующим тегам:</string>
-  <string name="thatsAllWeGotForThisSearchX" comment="%s is the search term that the user entered.&#10;&#10;Appears at the end of a list of search results on https://lichess.org/video">Это все, что мы нашли для такого запроса: \"%s\"</string>
+  <string name="thatsAllWeGotForThisSearchX" comment="%s is the search term that the user entered.&#10;&#10;Appears at the end of a list of search results on https://lichess.org/video">Это всё, что мы нашли для такого запроса: \"%s\"</string>
   <string name="thereAreNoResultsForX" comment="%s is the search term that the user entered.">По запросу \"%s\" не нашлось видео</string>
   <string name="viewMoreTags" comment="Appears as a link on https://lichess.org/video&#10;&#10;The link leads to https://lichess.org/video/tags">Посмотреть больше тегов</string>
   <string name="videoNotFound">Видео не найдено!</string>
