@@ -20,7 +20,7 @@ final private class RelayDelay(colls: RelayColls, cacheApi: CacheApi)(using Exec
     fromSource(InternalSource(round.id), round, () => doFetch)
 
   def delayedUntil(round: RelayRound): Fu[Option[Instant]] =
-    round.hasStarted.not
+    (round.sync.ongoing && !round.hasStarted)
       .so(round.sync.delay)
       .so: delay =>
         round.sync.upstream
