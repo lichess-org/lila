@@ -331,6 +331,7 @@ final class TournamentApi(
                 if !isPlaying then waitingUsers.addApiUser(tour, me)
               }
           socket.reload(tour.id)
+        .recover(lila.db.recoverDuplicateKey(_ => JoinResult.Ok))
 
   def pageOf(tour: Tournament, userId: UserId): Fu[Option[Int]] =
     cached
