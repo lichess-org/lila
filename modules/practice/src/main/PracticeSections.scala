@@ -1,6 +1,5 @@
 package lila.practice
 
-import lila.core.study.data.StudyName
 import lila.core.i18n.I18nKey
 
 private object PracticeSections:

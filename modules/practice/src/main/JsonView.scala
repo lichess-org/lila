@@ -10,11 +10,11 @@ object JsonView:
   case class JsData(study: JsObject, analysis: JsObject, practice: JsObject)
 
   given Writes[PracticeProgress.NbMoves] = writeAs(_.value)
-  given Writes[PracticeStudy] = OWrites: ps =>
+  given (using Translate): Writes[PracticeStudy] = OWrites: ps =>
     Json.obj(
       "id" -> ps.id,
-      "name" -> ps.name,
-      "desc" -> ps.desc
+      "name" -> ps.name.txt(),
+      "desc" -> ps.desc.txt()
     )
   import PracticeGoal.*
   given Writes[PracticeGoal] = OWrites:
@@ -33,7 +33,7 @@ object JsonView:
         Json.obj(
           "id" -> stu.id,
           "slug" -> stu.slug,
-          "name" -> stu.name
+          "name" -> stu.name.txt()
         )
     )
 

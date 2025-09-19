@@ -1,6 +1,5 @@
 package lila.practice
 
-import lila.core.study.data.StudyName
 import lila.study.Chapter
 import lila.core.i18n.I18nKey
 
@@ -41,7 +40,7 @@ case class PracticeStudy(
     name: I18nKey,
     desc: I18nKey,
     chapters: List[Chapter.IdName]
-):
+) extends lila.ui.practice.Study:
   val slug = scalalib.StringOps.slug(name.value)
   val chapterIds = chapters.map(_.id)
 

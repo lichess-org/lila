@@ -80,7 +80,7 @@ final class ActivityUi(helpers: Helpers)(
     val (study, nb) = tup
     val href = routes.Practice.show("-", study.slug, study.id)
     frag(
-      trans.activity.practicedNbPositions.plural(nb, nb, a(st.href := href)(study.name)),
+      trans.activity.practicedNbPositions.plural(nb, nb, a(st.href := href)(study.name())),
       br
     )
 

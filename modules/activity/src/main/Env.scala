@@ -52,7 +52,7 @@ final class Env(
 
   Bus.sub[lila.core.ublog.UblogPost.Create]: create =>
     write.ublogPost(create.post)
-  Bus.sub[lila.ui.practice.OnComplete](write.practice(_))
+  Bus.sub[lila.core.misc.practice.OnComplete](write.practice(_))
   Bus.sub[lila.core.simul.OnStart]: start =>
     write.simul(start.simul)
   Bus.sub[CorresMoveEvent]:

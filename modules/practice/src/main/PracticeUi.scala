@@ -9,7 +9,7 @@ import lila.ui.ScalatagsTemplate.{ *, given }
 final class PracticeUi(helpers: Helpers)(
     csp: Update[ContentSecurityPolicy],
     explorerAndCevalConfig: Context ?=> JsObject
-) extends PracticeFragments(helpers):
+):
   import helpers.{ *, given }
   import trans.practice as trp
 
@@ -80,8 +80,8 @@ final class PracticeUi(helpers: Helpers)(
                       ),
                       i(cls := s"${stud.id}"),
                       span(cls := "text")(
-                        h3(stud.name.txt()),
-                        em(studiesDesc(stud.desc).txt())
+                        h3(stud.name()),
+                        em(stud.desc())
                       )
                     )
                 )
