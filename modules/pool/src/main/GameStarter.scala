@@ -4,6 +4,7 @@ import chess.ByColor
 
 import lila.core.game.{ GameRepo, IdGenerator, NewPlayer, Source }
 import lila.core.pool.{ Pairing, Pairings }
+import lila.common.Bus
 
 final private class GameStarter(
     userApi: lila.core.user.UserApi,
@@ -26,8 +27,14 @@ final private class GameStarter(
       workQueue:
         for
           (perfs, ids) <- userApi.perfOf(userIds, pool.perfKey).zip(idGenerator.games(couples.size))
-          pairings <- couples.zip(ids).parallel(one(pool, perfs).tupled)
-        yield lila.common.Bus.pub(Pairings(pairings.flatten.toList))
+          pairingOpts <- couples.zip(ids).parallel(one(pool, perfs).tupled)
+        yield
+          val pairings = pairingOpts.flatten.toList
+          for
+            pairing <- pairings
+            (sri, _) <- pairing.players.toList
+          do Bus.publishDyn(pairing, s"hookRemove:$sri")
+          Bus.pub(Pairings(pairings))
 
   private def one(pool: PoolConfig, perfs: Map[UserId, Perf])(
       couple: MatchMaking.Couple,

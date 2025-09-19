@@ -5,7 +5,7 @@
   <string name="challengeDeclined">Tinanggihan ang hamon.</string>
   <string name="challengeAccepted">Tinanggap ang hamon!</string>
   <string name="challengeCanceled">Kinansela ang hamon.</string>
-  <string name="registerToSendChallenges" comment="This used to say &quot;Please register to send challenges.&quot;&#10;We have since added &quot;[...] to this user.&quot; to the end of the string for absolute clarity, given the context this appears in. Please update translations as needed.">Magparehistro upang makapagpadala ng mga hamon sa user na ito.</string>
+  <string name="registerToSendChallenges">Magparehistro upang makapagpadala ng mga hamon sa user na ito.</string>
   <string name="youCannotChallengeX">Hindi mo puwedeng hamunin si %s.</string>
   <string name="xDoesNotAcceptChallenges">Si %s ay hindi tumatanggap ng mga hamon.</string>
   <string name="yourXRatingIsTooFarFromY">Ang iyong %1$s marka ay masyadong malayo sa %2$s.</string>

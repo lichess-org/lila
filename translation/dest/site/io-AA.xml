@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Ludar kun amiko</string>
-  <string name="playWithTheMachine">Ludar kun komputero</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Por invitar ulu por ludar, donez ica URL</string>
   <string name="gameOver">Ludo Finis</string>
   <string name="waitingForOpponent">Vartanta stroko di adverso</string>
@@ -63,7 +61,6 @@
   <string name="cancel">Abrogar</string>
   <string name="drawOfferSent">Egaligo-ofro sendita</string>
   <string name="drawOfferAccepted">Egaligo-ofro aceptita</string>
-  <string name="drawOfferCanceled">Egaligo-ofro abrogita</string>
   <string name="yourOpponentOffersADraw">Vua adverso ofras egaligo</string>
   <string name="accept">Aceptar</string>
   <string name="decline">Refuzar</string>
@@ -99,7 +96,6 @@
     <item quantity="other">%s desvinki</item>
   </plurals>
   <string name="exportGames">Exportacar ludi</string>
-  <string name="ratingRange">Elo-rango</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Donar %s sekundo</item>
     <item quantity="other">Donar %s sekundi</item>

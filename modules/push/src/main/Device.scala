@@ -10,16 +10,12 @@ final private case class Device(
     platform: String, // cordova platform (android, ios, firebase)
     userId: UserId,
     seenAt: Instant,
-    ua: Option[UserAgent]
+    ua: UserAgent
 ):
-  def isMobile = ua.exists(lila.common.HTTPRequest.isLichessMobile)
+  def isMobile = lila.common.HTTPRequest.isLichessMobile(ua)
 
   def isMobileVersionCompatible(version: LichessMobileVersion): Boolean =
-    ua.exists: devUa =>
-      lila.common.HTTPRequest
-        .lichessMobileVersion(devUa)
-        .exists:
-          _ >= version
+    lila.common.HTTPRequest.lichessMobileVersion(ua).exists(_ >= version)
 
   def deviceId = platform match
     case "ios" => _id.grouped(8).mkString("<", " ", ">")

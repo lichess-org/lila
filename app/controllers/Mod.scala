@@ -442,10 +442,11 @@ final class Mod(
       else Redirect(routes.Mod.singleIp(ip))
   }
 
-  def blankPassword(username: UserStr) = Secure(_.SetEmail) { _ ?=> _ ?=>
+  def blankPassword(username: UserStr) = SecureOrScoped(_.SetEmail) { _ ?=> _ ?=>
     for
       _ <- env.mod.api.blankPassword(username)
       _ <- env.security.store.closeAllSessionsOf(username.id)
+      _ <- env.oAuth.tokenApi.revokeAllByUser(username.id)
     yield Redirect(routes.User.show(username)).flashSuccess("Password blanked")
   }
 
@@ -482,7 +483,7 @@ final class Mod(
             Permission
               .ofDbKeys(permissions)
               .exists(p =>
-                p.grants(Permission.SeeReport) || p.grants(Permission.Developer) || p.grants(
+                p.grants(Permission.SeeReport) || p.grants(Permission.DeveloperTeam) || p.grants(
                   Permission.ContentTeam
                 ) || p.grants(Permission.BroadcastTeam)
               )
@@ -534,14 +535,14 @@ final class Mod(
   }
 
   def eventStream = SecuredScoped(_.Admin) { _ ?=> _ ?=>
-    noProxyBuffer(Ok.chunked(env.mod.stream.events()))
+    Ok.chunked(env.mod.stream.events()).noProxyBuffer
   }
 
   def markedUsersStream = Scoped() { _ ?=> me ?=>
     me.is(UserId.explorer)
       .so(getTimestamp("since"))
       .so: since =>
-        noProxyBuffer(Ok.chunked(env.mod.stream.markedSince(since).map(_.value + "\n")))
+        Ok.chunked(env.mod.stream.markedSince(since).map(_.value + "\n")).noProxyBuffer
   }
 
   def apiUserLog(username: UserStr) = SecuredScoped(_.ModLog) { _ ?=> me ?=>

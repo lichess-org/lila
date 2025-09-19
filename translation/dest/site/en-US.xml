@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Play with a friend</string>
-  <string name="playWithTheMachine">Play with the computer</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">To invite someone to play, give this URL</string>
   <string name="gameOver">Game Over</string>
   <string name="waitingForOpponent">Waiting for opponent</string>
@@ -280,7 +278,6 @@
   <string name="blackTimeOut">Black time out</string>
   <string name="drawOfferSent">Draw offer sent</string>
   <string name="drawOfferAccepted">Draw offer accepted</string>
-  <string name="drawOfferCanceled">Draw offer canceled</string>
   <string name="whiteOffersDraw">White offers draw</string>
   <string name="blackOffersDraw">Black offers draw</string>
   <string name="whiteDeclinesDraw">White declines draw</string>
@@ -316,7 +313,7 @@
   <string name="loginToChat">Sign in to chat</string>
   <string name="youHaveBeenTimedOut">You have been timed out.</string>
   <string name="spectatorRoom">Spectator room</string>
-  <string name="composeMessage">Compose message</string>
+  <string name="composeMessage">Message</string>
   <string name="subject">Subject</string>
   <string name="send">Send</string>
   <string name="incrementInSeconds">Increment in seconds</string>
@@ -342,7 +339,6 @@
     <item quantity="other">%s playing</item>
   </plurals>
   <string name="exportGames">Export games</string>
-  <string name="ratingRange">Rating range</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Give %s second</item>
     <item quantity="other">Give %s seconds</item>
@@ -398,6 +394,7 @@
     <item quantity="other">You need to play %s more rated games</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Your %s rating is provisional</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Rating filters are locked because your rating is not stable. Playing rated games will increase stability.</string>
   <string name="yourPerfRatingIsTooHigh">Your %1$s rating (%2$s) is too high</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Your top weekly %1$s rating (%2$s) is too high</string>
   <string name="yourPerfRatingIsTooLow">Your %1$s rating (%2$s) is too low</string>
@@ -428,7 +425,6 @@
   <string name="toStudy">Study</string>
   <string name="importGame">Import game</string>
   <string name="importGameExplanation">Paste a game PGN to get a browsable replay, computer analysis, game chat and public shareable URL.</string>
-  <string name="importGameCaveat">Variations will be erased. To keep them, import the PGN via a study.</string>
   <string name="importGameDataPrivacyWarning">This PGN can be accessed by the public. To import a game privately, use a study.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s imported game</item>
@@ -665,7 +661,7 @@
     <item quantity="other">%s forum posts</item>
   </plurals>
   <string name="tpTimeSpentPlaying">Time spent playing: %s</string>
-  <string name="watchGames">Watch games</string>
+  <string name="watchGames">Watch</string>
   <string name="tpTimeSpentOnTV">Time featured on TV: %s</string>
   <string name="watch">Watch</string>
   <string name="videoLibrary">Video library</string>
@@ -1009,4 +1005,9 @@ All operating costs, development, and content are funded solely by user donation
   <string name="enableBlindMode">Enable blind mode</string>
   <string name="disableBlindMode">Disable blind mode</string>
   <string name="copyToClipboard">Copy to clipboard</string>
+  <string name="online" comment="status of a user">online</string>
+  <string name="offline" comment="status of a user">offline</string>
+  <string name="search">Search</string>
+  <string name="clearSearch">Clear search</string>
+  <string name="tags">Tags</string>
 </resources>

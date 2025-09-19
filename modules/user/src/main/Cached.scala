@@ -2,12 +2,13 @@ package lila.user
 
 import reactivemongo.api.bson.*
 
-import lila.core.perf.{ PerfId, UserWithPerfs }
+import lila.core.perf.UserWithPerfs
 import lila.core.user.LightPerf
 import lila.core.userId.UserSearch
 import lila.db.dsl.*
 import lila.memo.CacheApi.*
 import lila.rating.{ PerfType, UserPerfs }
+import scalalib.paginator.Paginator
 
 final class Cached(
     userRepo: UserRepo,
@@ -22,34 +23,31 @@ final class Cached(
   import BSONHandlers.given
 
   val top10 = cacheApi.unit[UserPerfs.Leaderboards]:
-    _.refreshAfterWrite(2.minutes).buildAsyncFuture: _ =>
-      rankingApi
-        .fetchLeaderboard(10)
-        .withTimeout(2.minutes, "user.Cached.top10")
-        .monSuccess(_.user.leaderboardCompute)
+    _.refreshAfterWrite(2.minutes).buildAsyncTimeout(2.minutes): _ =>
+      rankingApi.fetchLeaderboard(10).monSuccess(_.user.leaderboardCompute)
 
-  val top200Perf = mongoCache[PerfId, List[LightPerf]](
+  private val topPerfFirstPage = mongoCache[PerfKey, Seq[LightPerf]](
     PerfType.leaderboardable.size,
-    "user:top200:perf",
-    19.minutes,
-    _.toString
-  ): loader =>
-    _.refreshAfterWrite(20.minutes).buildAsyncFuture:
-      loader:
-        rankingApi.topPerf(_, 200)
-
-  private val topWeekCache = mongoCache.unit[List[LightPerf]](
-    "user:top:week",
-    9.minutes
+    "user:top:perf:firstPage",
+    10.minutes,
+    _.value
   ): loader =>
     _.refreshAfterWrite(10.minutes).buildAsyncFuture:
-      loader: _ =>
-        PerfType.leaderboardable
-          .sequentially: perf =>
-            rankingApi.topPerf(PerfType(perf).id, 1)
-          .dmap(_.flatten)
+      loader: perf =>
+        rankingApi.topPerf.pager(perf, 1).map(_.currentPageResults)
 
-  def topWeek = topWeekCache.get {}
+  export topPerfFirstPage.get as firstPageOf
+
+  def topPerfPager(perf: PerfKey, page: Int): Fu[Paginator[LightPerf]] =
+    if page == 1 then
+      for users <- firstPageOf(perf)
+      yield Paginator.fromResults(
+        users,
+        nbResults = 500_000,
+        currentPage = page,
+        rankingApi.topPerf.maxPerPage
+      )
+    else rankingApi.topPerf.pager(perf, page)
 
   val top10NbGame = mongoCache.unit[List[LightCount]](
     "user:top:nbGame",
@@ -59,11 +57,10 @@ final class Cached(
       loader: _ =>
         userRepo
           .topNbGame(10)
-          .dmap(_.map: u =>
-            LightCount(u.light, u.count.game))
+          .dmap(_.map(u => LightCount(u.light, u.count.game)))
 
   private val top50OnlineCache = cacheApi.unit[List[UserWithPerfs]]:
-    _.refreshAfterWrite(1.minute).buildAsyncFuture: _ =>
+    _.refreshAfterWrite(1.minute).buildAsyncTimeout(): _ =>
       userApi.byIdsSortRatingNoBot(onlineUserIds.exec(), 50)
 
   def getTop50Online: Fu[List[UserWithPerfs]] = top50OnlineCache.getUnit
@@ -71,7 +68,7 @@ final class Cached(
   def rankingsOf(userId: UserId): lila.rating.UserRankMap = rankingApi.weeklyStableRanking.of(userId)
 
   private val botIds = cacheApi.unit[Set[UserId]]:
-    _.refreshAfterWrite(5.minutes).buildAsyncFuture(_ => userRepo.botIds)
+    _.refreshAfterWrite(5.minutes).buildAsyncTimeout()(_ => userRepo.botIds)
 
   def getBotIds: Fu[Set[UserId]] = botIds.getUnit
 
@@ -79,7 +76,7 @@ final class Cached(
     userRepo.userIdsLikeFilter(text, $empty, 12)
 
   private val userIdsLikeCache = cacheApi[UserSearch, List[UserId]](1024, "user.like"):
-    _.expireAfterWrite(5.minutes).buildAsyncFuture(userIdsLikeFetch)
+    _.expireAfterWrite(5.minutes).buildAsyncTimeout()(userIdsLikeFetch)
 
   def userIdsLike(text: UserSearch): Fu[List[UserId]] =
     if text.value.lengthIs < 5 then userIdsLikeCache.get(text)

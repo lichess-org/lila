@@ -48,6 +48,8 @@ case class Team(
 
   def notable = open && (nbMembers > 10 || (nbMembers > 1 && daysOld > 7))
 
+  def automodText = s"$name\n${~intro}\n$description"
+
 object Team:
 
   case class WithLeaders(team: Team, leaders: List[TeamMember]):

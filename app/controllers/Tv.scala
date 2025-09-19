@@ -85,7 +85,7 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
             flags = gameC.requestPgnFlags(extended = false).copy(delayMoves = false),
             perSecond = MaxPerSecond(30)
           )
-        noProxyBuffer(Ok.chunked(env.api.gameApiV2.exportByIds(config))).as(gameC.gameContentType(config))
+        Ok.chunked(env.api.gameApiV2.exportByIds(config)).as(gameC.gameContentType(config)).noProxyBuffer
       }
     }
 
@@ -104,7 +104,7 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
           if bc then
             Ok.chunked(source.via(EventSource.flow).log("Tv.feed"))
               .as(ContentTypes.EVENT_STREAM)
-              .pipe(noProxyBuffer)
+              .noProxyBuffer
           else jsToNdJson(source)
 
   def frameDefault = Anon:

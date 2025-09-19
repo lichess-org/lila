@@ -18,15 +18,15 @@ case class Duel(
 
 object Duel:
 
-  type UsernameRating = (UserName, IntRating)
+  type UsernameRating = (user: UserName, rating: IntRating)
 
   case class DuelPlayer(name: UserName, rating: IntRating, rank: Rank)
   object DuelPlayer:
     given UserIdOf[DuelPlayer] = _.name.id
 
   def tbUser(p: UsernameRating, ranking: Ranking) =
-    ranking.get(p._1.id).map { rank =>
-      DuelPlayer(p._1, p._2, rank + 1)
+    ranking.get(p.user.id).map { rank =>
+      DuelPlayer(p.user, p.rating, rank + 1)
     }
 
   private[tournament] val ratingOrdering = Ordering.by[Duel, Int](_.averageRating.value)

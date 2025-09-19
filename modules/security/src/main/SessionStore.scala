@@ -51,7 +51,8 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
       apiVersion: Option[ApiVersion],
       up: Boolean,
       fp: Option[FingerPrint],
-      proxy: lila.core.security.IsProxy
+      proxy: lila.core.security.IsProxy,
+      pwned: IsPwned
   ): Funit =
     coll.insert
       .one:
@@ -59,12 +60,13 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
           "_id" -> sessionId,
           "user" -> userId,
           "ip" -> HTTPRequest.ipAddress(req),
-          "ua" -> HTTPRequest.userAgent(req).fold("?")(_.value),
+          "ua" -> HTTPRequest.userAgent(req).some.filter(_ != UserAgent.zero),
           "date" -> nowInstant,
           "up" -> up,
           "api" -> apiVersion, // lichobile
           "fp" -> fp.flatMap(lila.security.FingerHash.from),
-          "proxy" -> proxy
+          "proxy" -> proxy.is.option(proxy),
+          "pwned" -> pwned.yes.option(true)
         )
       .void
 
@@ -77,8 +79,7 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
     val id = s"TOK-${tokenId.value.take(20)}"
     val ua = mobile
       .map(Mobile.LichessMobileUaTrim.write)
-      .orElse(HTTPRequest.userAgent(req).map(_.value))
-      .getOrElse("?")
+      .getOrElse(HTTPRequest.userAgent(req).value)
     coll.update
       .one(
         $id(id),

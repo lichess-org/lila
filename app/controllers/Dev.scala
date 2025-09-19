@@ -29,6 +29,7 @@ final class Dev(env: Env) extends LilaController(env):
     env.web.settings.noDelaySecret,
     env.web.settings.prizeTournamentMakers,
     env.web.settings.sitewideCoepCredentiallessHeader,
+    env.web.settings.useSvgFiles,
     env.tournament.reloadEndpointSetting,
     env.tutor.nbAnalysisSetting,
     env.tutor.parallelismSetting,
@@ -36,6 +37,8 @@ final class Dev(env: Env) extends LilaController(env):
     env.relay.proxyDomainRegex,
     env.relay.proxyHostPort,
     env.relay.proxyCredentials,
+    env.report.api.modelSetting,
+    env.report.api.promptSetting,
     env.ublog.automod.modelSetting,
     env.ublog.automod.promptSetting
   )

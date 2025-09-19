@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">ከጓደኛዎ ጋር ይጫወቱ</string>
-  <string name="playWithTheMachine">ከኮምፒውተር ጋር ይጫወቱ</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">ሌላ ሰው ለመጋበዝ ፣ ይህን ማስፈንጠሪያ ያጋሩ</string>
   <string name="gameOver">ጨዋታው አልቋል</string>
   <string name="waitingForOpponent">ተጫዋቹን እየጠበቀ</string>

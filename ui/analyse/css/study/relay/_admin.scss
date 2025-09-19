@@ -89,3 +89,9 @@
     }
   }
 }
+.relay-admin__container {
+  .study__chapters {
+    max-height: 25vh;
+    overflow-y: auto;
+  }
+}

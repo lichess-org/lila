@@ -11,9 +11,10 @@ import { bind, onInsert } from 'lib/snabbdom';
 import { throttle } from 'lib/async';
 import type PuzzleCtrl from '../ctrl';
 import { Chessground as makeChessground } from '@lichess-org/chessground';
-import { opposite } from 'chessops';
+import { makeSquare, opposite } from 'chessops';
 import { scanDirectionsHandler } from 'lib/nvui/directionScan';
 import { Api } from '@lichess-org/chessground/api';
+import { nextCorrectMove } from '@/moveTree';
 
 const throttled = (sound: string) => throttle(100, () => site.sound.play(sound));
 const selectSound = throttled('select');
@@ -48,7 +49,7 @@ export function renderNvui({
       h('h2', 'Puzzle info'),
       puzzleBox(ctrl),
       theme(ctrl),
-      !ctrl.streak && userBox(ctrl),
+      ctrl.streak ? undefined : userBox(ctrl),
       h('h2', 'Moves'),
       h(
         'p.moves',
@@ -94,7 +95,7 @@ export function renderNvui({
       ),
       notify.render(),
       h('h2', 'Actions'),
-      ctrl.mode === 'view' ? afterActions(ctrl) : playActions(ctrl),
+      ctrl.mode === 'view' ? afterActions(ctrl) : playActions({ ctrl, notify } as PuzzleNvuiContext),
       h('h2', 'Board'),
       h(
         'div.board',
@@ -169,12 +170,11 @@ function boardEventsHook(ctx: PuzzleNvuiContext, ground: Api, el: HTMLElement): 
   const $buttons = $board.find('button');
   const steps = ctrl.tree.getNodeList(ctrl.path);
   const fenSteps = () => steps.map(step => step.fen);
-  const opponentColor = opposite(ctrl.pov);
 
   $buttons.on('blur', nv.leaveSquareHandler($buttons));
   $buttons.on(
     'click',
-    nv.selectionHandler(() => opponentColor),
+    nv.selectionHandler(() => opposite(ctrl.pov)),
   );
   $buttons.on('keydown', (e: KeyboardEvent) => {
     if (e.shiftKey && e.key.match(/^[ad]$/i)) nextOrPrev(ctrl)(e);
@@ -298,10 +298,20 @@ function renderReplay(ctrl: PuzzleCtrl): string {
   return `Replaying ${text} puzzles: ${i} of ${replay.of}`;
 }
 
-const playActions = (ctrl: PuzzleCtrl): VNode =>
-  ctrl.streak
+const playActions = (ctx: PuzzleNvuiContext): VNode => {
+  const { ctrl, notify } = ctx;
+  return ctrl.streak
     ? button(i18n.storm.skip, ctrl.skip, i18n.puzzle.streakSkipExplanation, !ctrl.streak.data.skip)
-    : h('div.actions_play', button(i18n.site.viewTheSolution, ctrl.viewSolution));
+    : h('div.actions_play', [
+        button(i18n.site.getAHint, () => {
+          const hint = nextCorrectMove(ctrl);
+          if (hint) {
+            notify.set(makeSquare(hint.from));
+          }
+        }),
+        button(i18n.site.viewTheSolution, ctrl.viewSolution),
+      ]);
+};
 
 const afterActions = (ctrl: PuzzleCtrl): VNode =>
   h(

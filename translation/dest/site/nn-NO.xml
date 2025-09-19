@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Spel mot ein ven</string>
-  <string name="playWithTheMachine">Spel mot sjakkprogrammet</string>
+  <string name="gameSetup">Partioppsett</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Utfordre ein ven</string>
+  <string name="playAgainstAI">Spel mot KI</string>
+  <string name="gameMode">Spelmodus</string>
+  <string name="createLobbyGame">Opprett lobbyparti</string>
+  <string name="youPlayAs">Du spelar som</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Send denne lekkja til den du utfordrar</string>
   <string name="gameOver">Partiet er avslutta</string>
   <string name="waitingForOpponent">Ventar på motspelar</string>
@@ -280,7 +284,6 @@
   <string name="blackTimeOut">Tida er ute for svart</string>
   <string name="drawOfferSent">Tilbod om remis er sendt</string>
   <string name="drawOfferAccepted">Remistilbod godtatt</string>
-  <string name="drawOfferCanceled">Remistilbodet vart trekt attende</string>
   <string name="whiteOffersDraw">Kvit tilbyr remis</string>
   <string name="blackOffersDraw">Svart tilbyr remis</string>
   <string name="whiteDeclinesDraw">Kvit avslår remis</string>
@@ -342,7 +345,7 @@
     <item quantity="other">%s pågår</item>
   </plurals>
   <string name="exportGames">Eksporter parti</string>
-  <string name="ratingRange">Ratingspenn</string>
+  <string name="ratingFilter">Ratingfilter</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Gje %s sekund</item>
     <item quantity="other">Gje %s sekund</item>
@@ -398,6 +401,7 @@
     <item quantity="other">Du må spela endå %s rangerte parti</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Ratinga di på %s er mellombels</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Rating-filtra er låst fordi ratinga di ikkje er stabil. Stabiliteten aukar om du spelar rata parti.</string>
   <string name="yourPerfRatingIsTooHigh">Ratinga di i %1$s (%2$s) er for høg</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Den beste vekesratinga di i %1$s (%2$s) er for høg</string>
   <string name="yourPerfRatingIsTooLow">Ratinga di i %1$s (%2$s) er for låg</string>
@@ -429,7 +433,6 @@
   <string name="importGame">Importér parti</string>
   <string name="importGameExplanation">Når du limer inn eit PGN-parti kan du bla gjennom partiet,
 få en computeranalyse, chatte eller dele ein URL.</string>
-  <string name="importGameCaveat">Variantar vert sletta. Vil du behalde dei kan du importere PGN\'en via ein studie.</string>
   <string name="importGameDataPrivacyWarning">Denne PGN-fila er offentleg tilgjengeleg. Bruk ein studie for å importere eit parti berre for deg.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importert parti</item>
@@ -828,6 +831,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="notifications">Meldingar</string>
   <string name="notificationsX">Varsel: %1$s</string>
   <string name="perfRatingX">Rating: %s</string>
+  <string name="yourRatingIsX">Ratinga di er %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekund til å ta det første trekket</item>
     <item quantity="other">%s sekund til å ta det første trekket</item>
@@ -879,6 +883,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="playVariationToCreateConditionalPremoves">Spel ein variant for å lage vilkårsbundne førehandstrekk</string>
   <string name="noConditionalPremoves">Ingen vilkårsbundne førehandstrekk</string>
   <string name="playX">Spel %s</string>
+  <string name="challengeX">Utfordre %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">og lagra %s line med førehandstrekk</item>
     <item quantity="other">og lagra %s liner med førehandstrekk</item>
@@ -1011,4 +1016,9 @@ Alle kostnader for drift, utvikling og innhald vert finansiert eine og åleine a
   <string name="enableBlindMode">Aktiver blindsjakkmodus</string>
   <string name="disableBlindMode">Deaktiver blindsjakkmodus</string>
   <string name="copyToClipboard">Kopiér til utklippstavla</string>
+  <string name="online" comment="status of a user">online</string>
+  <string name="offline" comment="status of a user">offline</string>
+  <string name="search">Søk</string>
+  <string name="clearSearch">Nytt søk</string>
+  <string name="tags">Etikettar</string>
 </resources>

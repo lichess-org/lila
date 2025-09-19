@@ -69,26 +69,26 @@ final class PgnDump(
           Tag(_.ECO, opening.fold("?")(_.eco)),
           Tag(_.Opening, opening.fold("?")(_.name)),
           Tag(_.Result, "*") // required for SCID to import
-        ) ::: List(
-          Tag("StudyName", study.name),
-          Tag("ChapterName", chapter.name)
+        ) ::: study.isRelay.not.so(
+          List(
+            Tag("StudyName", study.name),
+            Tag("ChapterName", chapter.name),
+            Tag("ChapterURL", s"${net.baseUrl}/study/${study.id}/${chapter.id}"),
+            Tag(_.Annotator, s"${net.baseUrl}/@/${ownerName(study)}")
+          )
         ) ::: chapter.root.fen.isInitial.not.so(
           List(
             Tag(_.FEN, chapter.root.fen.value),
             Tag("SetUp", "1")
           )
-        ) ::: (!chapter.tags.exists(_.Date)).so(
+        ) ::: (!chapter.tags.exists(_.Date)).so {
+          val dateStr = Tag.UTCDate.format.print(chapter.createdAt)
           List(
-            Tag(_.UTCDate, Tag.UTCDate.format.print(chapter.createdAt)),
+            Tag(_.Date, dateStr),
+            Tag(_.UTCDate, dateStr),
             Tag(_.UTCTime, Tag.UTCTime.format.print(chapter.createdAt))
           )
-        ) ::: List(
-          study.isRelay.not.option:
-            Tag(_.Annotator, s"${net.baseUrl}/@/${ownerName(study)}")
-          ,
-          study.isRelay.not.option:
-            Tag("ChapterURL", s"${net.baseUrl}/study/${study.id}/${chapter.id}")
-          ,
+        } ::: List(
           flags.orientation.option(Tag("Orientation", chapter.setup.orientation.name)),
           chapter.isGamebook.option(Tag("ChapterMode", "gamebook"))
         ).flatten

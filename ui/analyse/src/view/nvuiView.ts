@@ -30,7 +30,7 @@ import { renderSetting } from 'lib/nvui/setting';
 import { commands, boardCommands, addBreaks } from 'lib/nvui/command';
 import explorerView from '../explorer/explorerView';
 import { ops, path as treePath } from 'lib/tree/tree';
-import { view as cevalView, renderEval, type CevalCtrl } from 'lib/ceval/ceval';
+import { view as cevalView, renderEval } from 'lib/ceval/ceval';
 import { next, prev } from '../control';
 import { lichessRules } from 'chessops/compat';
 import { makeSan } from 'chessops/san';
@@ -89,7 +89,7 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
       d.clock ? hl('p', `Clock: ${d.clock.initial / 60} + ${d.clock.increment}`) : null,
       hl('h2', i18n.nvui.moveList),
       hl('p.moves', { attrs: { role: 'log', 'aria-live': 'off' } }, renderCurrentLine(ctx)),
-      !ctrl.studyPractice && [
+      !ctrl.study?.practice && [
         hl(
           'button',
           {
@@ -268,15 +268,17 @@ function boardEventsHook(
     else if (e.key.toLowerCase() === 'm')
       possibleMovesHandler(ctrl.turnColor(), ctrl.chessground, ctrl.data.game.variant.key, ctrl.nodeList)(e);
     else if (e.key.toLowerCase() === 'v') notify.set(renderEvalAndDepth(ctrl));
+    else if (e.key === 'G') ctrl.playBestMove();
+    else if (e.key === 'g') notify.set(renderBestMove({ ctrl, moveStyle } as AnalyseNvuiContext));
   });
 }
 
 function renderEvalAndDepth(ctrl: AnalyseCtrl): string {
   if (ctrl.threatMode()) return `${evalInfo(ctrl.node.threat)} ${depthInfo(ctrl.node.threat, false)}`;
-  const evs = ctrl.currentEvals(),
-    bestEv = cevalView.getBestEval(evs);
+  const evs = { client: ctrl.getNode().ceval, server: ctrl.getNode().eval },
+    bestEv = cevalView.getBestEval(ctrl);
   const evalStr = evalInfo(bestEv);
-  return !evalStr ? noEvalStr(ctrl.ceval) : `${evalStr} ${depthInfo(evs.client, !!evs.client?.cloud)}`;
+  return !evalStr ? noEvalStr(ctrl) : `${evalStr} ${depthInfo(evs.client, !!evs.client?.cloud)}`;
 }
 
 const evalInfo = (bestEv: EvalScore | undefined): string =>
@@ -289,17 +291,15 @@ const evalInfo = (bestEv: EvalScore | undefined): string =>
 const depthInfo = (clientEv: Tree.ClientEval | undefined, isCloud: boolean): string =>
   clientEv ? `${i18n.site.depthX(clientEv.depth || 0)} ${isCloud ? 'Cloud' : ''}` : '';
 
-const noEvalStr = (ctrl: CevalCtrl) =>
-  !ctrl.allowed()
+const noEvalStr = (ctrl: AnalyseCtrl) =>
+  !ctrl.isCevalAllowed()
     ? 'local evaluation not allowed'
-    : !ctrl.possible
-      ? 'local evaluation not possible'
-      : !ctrl.enabled()
-        ? 'local evaluation not enabled'
-        : '';
+    : !ctrl.cevalEnabled()
+      ? 'local evaluation not enabled'
+      : '';
 
 function renderBestMove({ ctrl, moveStyle }: AnalyseNvuiContext): string {
-  const noEvalMsg = noEvalStr(ctrl.ceval);
+  const noEvalMsg = noEvalStr(ctrl);
   if (noEvalMsg) return noEvalMsg;
   const node = ctrl.node,
     setup = parseFen(node.fen).unwrap();
@@ -438,7 +438,7 @@ const getCommand = (input: string) => {
   const split = input.split(' ');
   const firstWordLowerCase = split[0].toLowerCase();
   return (
-    inputCommands.find(c => c.cmd === input) ||
+    inputCommands.find(c => c.cmd === input.toLowerCase()) ||
     inputCommands.find(c => split.length !== 1 && c.cmd === firstWordLowerCase)
   ); // 'next line' should not be interpreted as 'next'
 };

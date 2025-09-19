@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">友達と対局する</string>
-  <string name="playWithTheMachine">コンピュータと対戦</string>
+  <string name="gameSetup">ゲームの設定</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">友達に挑戦</string>
+  <string name="playAgainstAI">AI と対戦</string>
+  <string name="gameMode">ゲームのモード</string>
+  <string name="createLobbyGame">ロビー対局を作成</string>
+  <string name="youPlayAs">色（白/黒）</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">誰かを招待する時はこのURLを送ってください</string>
   <string name="gameOver">終局</string>
   <string name="waitingForOpponent">相手を待っています</string>
@@ -262,7 +266,6 @@
   <string name="blackTimeOut">黒時間切れ</string>
   <string name="drawOfferSent">ドローの提案を送信しました</string>
   <string name="drawOfferAccepted">ドロー提案が承諾されました</string>
-  <string name="drawOfferCanceled">ドローの提案をキャンセルしました</string>
   <string name="whiteOffersDraw">白が引き分けを提案しました</string>
   <string name="blackOffersDraw">黒が引き分けを提案しました</string>
   <string name="whiteDeclinesDraw">白が引き分けを拒否しました</string>
@@ -319,7 +322,7 @@
     <item quantity="other">%s 局進行中</item>
   </plurals>
   <string name="exportGames">対局をエクスポートする</string>
-  <string name="ratingRange">レーティングの範囲</string>
+  <string name="ratingFilter">レーティング指定</string>
   <plurals name="giveNbSeconds">
     <item quantity="other">%s秒を与える</item>
   </plurals>
@@ -367,6 +370,7 @@
     <item quantity="other">レート戦があと %s 局必要です</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">あなたの %s レーティングは仮レートです</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">あなたのレーティングが不安定なため、レーティングフィルタは使用できません。レート戦をプレイすると安定度が上がります。</string>
   <string name="yourPerfRatingIsTooHigh">%1$s レーティング (%2$s) が高すぎます</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">%1$s の週間パフォーマンス (%2$s) が高すぎます</string>
   <string name="yourPerfRatingIsTooLow">%1$s レーティング (%2$s) が低すぎます</string>
@@ -398,7 +402,6 @@
   <string name="importGame">棋譜をインポート</string>
   <string name="importGameExplanation">ゲームの PGN を貼りつけると、ブラウザ上でのリプレイ、
 コンピュータ解析、ゲームチャット、共有可能 URL が得られます。</string>
-  <string name="importGameCaveat">変化手順は消えます。残したい場合は研究を経由して PGN をインポートしてください。</string>
   <string name="importGameDataPrivacyWarning">この PGN はすべての人に公開されます。非公開の状態で棋譜をインポートするには「研究」機能でどうぞ。</string>
   <plurals name="nbImportedGames">
     <item quantity="other">%s 局をインポート</item>
@@ -786,6 +789,7 @@
   <string name="notifications">通知</string>
   <string name="notificationsX">通知：%1$s</string>
   <string name="perfRatingX">レーティング: %s</string>
+  <string name="yourRatingIsX">あなたのレーティングは %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">あと %s 秒以内に初手を指してください</item>
   </plurals>
@@ -835,6 +839,7 @@
   <string name="playVariationToCreateConditionalPremoves">駒を動かしてコンディショナルムーブを設定します</string>
   <string name="noConditionalPremoves">コンディショナルムーブなし</string>
   <string name="playX">指し手は %s</string>
+  <string name="challengeX">%s に挑戦</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="other">%s 種のコンディショナルムーブを設定</item>
   </plurals>
@@ -966,4 +971,9 @@
   <string name="enableBlindMode">視覚障害モードをオンに</string>
   <string name="disableBlindMode">視覚障害モードをオフに</string>
   <string name="copyToClipboard">クリップボードにコピー</string>
+  <string name="online" comment="status of a user">オンライン</string>
+  <string name="offline" comment="status of a user">オフライン</string>
+  <string name="search">検索</string>
+  <string name="clearSearch">検索をクリア</string>
+  <string name="tags">タグ</string>
 </resources>

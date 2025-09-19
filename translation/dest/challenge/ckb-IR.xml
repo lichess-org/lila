@@ -5,7 +5,7 @@
   <string name="challengeDeclined">بەرەنگاربوونەوەکە ڕەتکرایەوە</string>
   <string name="challengeAccepted">بەرەنگاربوونەوەکە قبوڵکرا!</string>
   <string name="challengeCanceled">بەرەنگاربوونەوەکە ھەڵوەشێندرایەوە.</string>
-  <string name="registerToSendChallenges" comment="This used to say &quot;Please register to send challenges.&quot;&#10;We have since added &quot;[...] to this user.&quot; to the end of the string for absolute clarity, given the context this appears in. Please update translations as needed.">تکایە خۆت تۆماربکە بۆ ئەوەی بتوانیت بەرەنگاری ئەم بەکارھێنەرە ببیتەوە.</string>
+  <string name="registerToSendChallenges">تکایە خۆت تۆماربکە بۆ ئەوەی بتوانیت بەرەنگاری ئەم بەکارھێنەرە ببیتەوە.</string>
   <string name="youCannotChallengeX">ناتوانیت بەرەنگاری %s ببیتەوە.</string>
   <string name="xDoesNotAcceptChallenges">%s بەرەنگاربوونەوە قبوڵ ناکات.</string>
   <string name="yourXRatingIsTooFarFromY">ھەڵسەنگاندنی %1$sی تۆ زۆر دوورە لە %2$sەوە.</string>

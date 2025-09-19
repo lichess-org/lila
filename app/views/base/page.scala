@@ -7,6 +7,8 @@ import lila.ui.{ RenderedPage, PageFlags }
 
 object page:
 
+  val pieceSetImages = lila.web.ui.PieceSetImages(env.web.settings.useSvgFiles, assetHelper)
+
   val ui = lila.web.ui.layout(helpers, assetHelper)(
     popularAlternateLanguages = lila.i18n.LangList.popularAlternateLanguages,
     reportScoreThreshold = env.report.scoreThresholdsSetting.get,
@@ -66,7 +68,6 @@ object page:
           ctx.impersonatedBy.isDefined.option(cssTag("mod.impersonate")),
           ctx.blind.option(cssTag("bits.blind")),
           p.cssKeys.map(cssTag),
-          pieceSprite(ctx.pref.currentPieceSet.name),
           meta(
             content := p.openGraph.fold(trans.site.siteDescription.txt())(o => o.description),
             name := "description"
@@ -91,6 +92,7 @@ object page:
           p.withHrefLangs.map(hrefLangs),
           sitePreload(p.i18nModules, ctx.data.inquiry.isDefined.option(Esm("mod.inquiry")) :: allModules),
           lichessFontFaceCss,
+          pieceSetImages.load(ctx.pref.currentPieceSet.name),
           (ctx.pref.bg === lila.pref.Pref.Bg.SYSTEM || ctx.impersonatedBy.isDefined)
             .so(systemThemeScript(ctx.nonce))
         ),
@@ -140,17 +142,19 @@ object page:
               frag(cssTag("bits.email-confirm"), views.auth.checkYourEmailBanner(u.username, u.email))
             ),
           zenable.option(zenZone),
-          ui.siteHeader(
-            zenable = zenable,
-            isAppealUser = ctx.isAppealUser,
-            challenges = ctx.nbChallenges,
-            notifications = ctx.nbNotifications.value,
-            error = ctx.data.error,
-            topnav = topnav(
-              hasClas = ctx.hasClas,
-              hasDgt = ctx.pref.hasDgt
+          Option.unless(p.flags(PageFlags.noHeader)):
+            ui.siteHeader(
+              zenable = zenable,
+              isAppealUser = ctx.isAppealUser,
+              challenges = ctx.nbChallenges,
+              notifications = ctx.nbNotifications.value,
+              error = ctx.data.error,
+              topnav = topnav(
+                hasClas = ctx.hasClas,
+                hasDgt = ctx.pref.hasDgt
+              )
             )
-          ),
+          ,
           div(
             id := "main-wrap",
             cls := List(

@@ -1,9 +1,14 @@
+.analyse__tools:has(.action-menu) {
+  box-shadow: none;
+}
+
 .action-menu {
   @extend %border-bottom-active;
 
-  flex: 1 1 0;
-
-  // 0 size forces vertical scrollbar
+  position: absolute;
+  z-index: $z-action-menu-99;
+  inset: 0;
+  background: $c-bg-opaque;
   display: flex;
   flex-flow: column;
   overflow: auto;
@@ -116,9 +121,9 @@
     }
   }
 
-  @include mq-is-col1 {
-    .abset-inline {
-      display: none;
-    }
+  span {
+    @extend %flex-center;
+    justify-content: start;
+    gap: 0.6em;
   }
 }

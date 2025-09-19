@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Juga amb un amic</string>
-  <string name="playWithTheMachine">Juga contra la màquina</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Per convidar algú a jugar, envia-li aquest enllaç</string>
   <string name="gameOver">Partida finalitzada</string>
   <string name="waitingForOpponent">Esperant a l\'oponent</string>
@@ -280,7 +278,6 @@
   <string name="blackTimeOut">Les negres perden per temps</string>
   <string name="drawOfferSent">S\'ha enviat l\'oferta de taules</string>
   <string name="drawOfferAccepted">Oferta de taules acceptada</string>
-  <string name="drawOfferCanceled">Oferta de taules cancel·lada</string>
   <string name="whiteOffersDraw">Blanques ofereixen taules</string>
   <string name="blackOffersDraw">Les negres ofereixen taules</string>
   <string name="whiteDeclinesDraw">Blanques rebutgen taules</string>
@@ -342,7 +339,6 @@
     <item quantity="other">%s en joc</item>
   </plurals>
   <string name="exportGames">Exporta les partides</string>
-  <string name="ratingRange">Rang de puntuació</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Dona %s segon</item>
     <item quantity="other">Dona %s segons</item>
@@ -398,6 +394,7 @@
     <item quantity="other">Necessites jugar %s partides puntuades més</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">La teva puntuació de %s és provisional</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">El filtres de puntuació estan bloquejats perquè la teva puntuació no és estable. Juga més partides per incrementar l\'estabilitat.</string>
   <string name="yourPerfRatingIsTooHigh">La teva puntuació de %1$s (%2$s) és massa alta</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">La teva puntuació setmanal de %1$s (%2$s) és massa alta</string>
   <string name="yourPerfRatingIsTooLow">La teva puntuació de %1$s (%2$s) és massa baixa</string>
@@ -428,7 +425,6 @@
   <string name="toStudy">Estudiar</string>
   <string name="importGame">Importa una partida</string>
   <string name="importGameExplanation">Enganxa el PGN d\'una partida per obtenir una repetició navegable, anàlisi computeritzada, xat de joc i enllaç per compartir.</string>
-  <string name="importGameCaveat">S\'esborraran les variants. Per mantenir-les, importeu el PGN mitjançant un estudi.</string>
   <string name="importGameDataPrivacyWarning">Aquest PGN és accessible públicament. Per a importar un joc de manera privada, utilitza un estudi.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s partides importades</item>
@@ -1010,4 +1006,9 @@ Les despeses de funcionament, desenvolupament i continguts es financen exclusiva
   <string name="enableBlindMode">Activar el mode cec</string>
   <string name="disableBlindMode">Desactivar el mode cec</string>
   <string name="copyToClipboard">Copia al porta-retalls</string>
+  <string name="online" comment="status of a user">en línia</string>
+  <string name="offline" comment="status of a user">fora de línia</string>
+  <string name="search">Cerca</string>
+  <string name="clearSearch">Neteja la cerca</string>
+  <string name="tags">Etiquetes</string>
 </resources>

@@ -111,6 +111,8 @@ PROFILES = {
     "testy-server": server_profile("root@snafu.lichess.ovh", deploy_dir="/home/testy/deploy", post="systemctl restart testy", stage=True, user="testy"),
     "manta-server": server_profile("root@manta.lichess.ovh", post="systemctl restart lichess"),
     "manta-assets": asset_profile("root@manta.lichess.ovh"),
+    "starr-server": server_profile("root@starr.lichess.ovh", post="systemctl restart lichess"),
+    "starr-assets": asset_profile("root@starr.lichess.ovh"),
 }
 
 
@@ -300,7 +302,7 @@ def deploy_script(profile, session, run, url):
         commands += [
             f"rsync -a {artifact_unzipped}/d/bin/ {deploy_dir}/bin/",
             f"rm -rf {deploy_dir}/lib~",
-            f"mv {deploy_dir}/lib {deploy_dir}/lib~",
+            f"mv {deploy_dir}/lib {deploy_dir}/lib~ || true",
             f"mv {artifact_unzipped}/d/lib {deploy_dir}/",
             f"chmod -f +x {deploy_dir}/bin/lila || true",
         ]

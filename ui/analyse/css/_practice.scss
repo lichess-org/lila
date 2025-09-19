@@ -103,3 +103,26 @@
     content: '✗';
   }
 }
+
+.ceval .practice-mode {
+  @extend %flex-column;
+  justify-content: center;
+  flex: 1 0 auto;
+  height: 38px;
+  width: 64px;
+  text-align: center;
+  font-weight: bold;
+  p {
+    margin: 0;
+    font-size: 1rem;
+  }
+  p.secondary {
+    font-size: 0.9rem;
+    opacity: 0.6;
+  }
+}
+
+.ceval p.status {
+  margin: 0;
+  color: $c-primary;
+}

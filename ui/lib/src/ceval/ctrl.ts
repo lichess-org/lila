@@ -19,43 +19,36 @@ import { povChances } from './winningChances';
 import { prop, Prop, Toggle, toggle } from '../common';
 import { clamp } from '../algo';
 import { Result } from '@badrap/result';
-import { storedIntProp, storage, tempStorage } from '../storage';
+import { storedIntProp, storage } from '../storage';
 import type { Rules } from 'chessops';
-
-const cevalDisabledSentinel = '1';
-
-function enabledAfterDisable() {
-  const enabledAfter = tempStorage.get('ceval.enabled-after');
-  const disable = storage.get('ceval.disable') || cevalDisabledSentinel;
-  return enabledAfter === disable;
-}
 
 export default class CevalCtrl {
   opts: CevalOpts;
   rules: Rules;
   analysable: boolean;
-  possible: boolean;
-
   engines: Engines;
   storedPv: Prop<number> = storedIntProp('ceval.multipv', 1);
   storedMovetime: Prop<number> = storedIntProp('ceval.search-ms', 8000); // may be 'Infinity'
-  allowed: Toggle = toggle(true);
-  enabled: Toggle;
   download?: { bytes: number; total: number };
   hovering: Prop<Hovering | null> = prop<Hovering | null>(null);
   pvBoard: Prop<PvBoard | null> = prop<PvBoard | null>(null);
   isDeeper: Toggle = toggle(false);
-
   curEval: Tree.LocalEval | null = null;
-  lastStarted: Started | false = false; // last started object (for going deeper even if stopped)
+  lastStarted: Started | false = false;
   showEnginePrefs: Toggle = toggle(false);
-  customSearch?: Search;
 
   private worker: CevalEngine | undefined;
 
   constructor(opts: CevalOpts) {
     this.init(opts);
     this.engines = new Engines(this);
+
+    storage.make('ceval.disable').listen(() => {
+      this.stop();
+      this.worker?.destroy();
+      this.worker = undefined; // release memory
+      this.opts.redraw();
+    });
   }
 
   setOpts(opts: Partial<CevalOpts>): void {
@@ -64,14 +57,11 @@ export default class CevalCtrl {
 
   init(opts: CevalOpts): void {
     this.opts = opts;
-    this.possible = this.opts.possible;
     this.rules = lichessRules(this.opts.variant.key);
     const pos = this.opts.initialFen
       ? parseFen(this.opts.initialFen).chain(setup => setupPosition(this.rules, setup))
       : Result.ok(defaultPosition(this.rules));
     this.analysable = pos.isOk;
-    this.enabled = toggle(this.possible && this.analysable && this.allowed() && enabledAfterDisable());
-    this.customSearch = opts.search;
     if (this.worker?.getInfo().id !== this.engines?.activate()?.id) {
       this.worker?.destroy();
       this.worker = undefined;
@@ -82,7 +72,7 @@ export default class CevalCtrl {
     this.sortPvsInPlace(ev.pvs, work.ply % 2 === (work.threatMode ? 1 : 0) ? 'white' : 'black');
     this.curEval = ev;
     this.opts.emit(ev, work);
-    if (ev.fen !== this.lastEmitFen && enabledAfterDisable()) {
+    if (ev.fen !== this.lastEmitFen) {
       // amnesty while auto disable not processed
       this.lastEmitFen = ev.fen;
       storage.fire('ceval.fen', ev.fen);
@@ -94,13 +84,15 @@ export default class CevalCtrl {
       const targetNodes = showingNode.ceval.nodes;
       const likelyNodes = Math.round((byMovetime * ev.nodes) / ev.millis);
 
-      // nps varies with positional complexity so this is rough, but save planet earth
-      if (likelyNodes < targetNodes) this.stop(); // let them click plus
+      if (likelyNodes < targetNodes) this.stop();
     }
   });
 
+  available(): boolean {
+    return !document.hidden && this.analysable;
+  }
+
   private doStart = (path: Tree.Path, steps: Step[], gameId: string | undefined, threatMode: boolean) => {
-    if (!this.enabled() || !this.possible || !enabledAfterDisable()) return;
     const step = steps[steps.length - 1];
     if (
       !this.isDeeper() &&
@@ -124,10 +116,7 @@ export default class CevalCtrl {
       search: this.search.by,
       multiPv: this.search.multiPv,
       threatMode,
-      emit: (ev: Tree.LocalEval) => {
-        if (!this.enabled()) return;
-        this.onEmit(ev, work);
-      },
+      emit: (ev: Tree.LocalEval) => this.onEmit(ev, work),
     };
 
     if (threatMode) {
@@ -148,10 +137,8 @@ export default class CevalCtrl {
 
     // Notify all other tabs to disable ceval.
     storage.fire('ceval.disable');
-    tempStorage.set('ceval.enabled-after', storage.get('ceval.disable')!);
 
     if (!this.worker) this.worker = this.engines.make({ variant: this.opts.variant.key });
-
     this.worker.start(work);
 
     this.lastStarted = {
@@ -175,9 +162,11 @@ export default class CevalCtrl {
 
   stop = (): void => {
     this.worker?.stop();
+    this.download = undefined;
   };
 
   start = (path: string, steps: Step[], gameId: string | undefined, threatMode?: boolean): void => {
+    if (!this.available()) return;
     this.isDeeper(false);
     this.doStart(path, steps, gameId, !!threatMode);
   };
@@ -187,13 +176,16 @@ export default class CevalCtrl {
   }
 
   get search(): Search {
-    const s = {
-      multiPv: this.storedPv(),
-      by: { movetime: Math.min(this.storedMovetime(), this.engines.maxMovetime) },
-      ...this.customSearch,
-    };
-    if (this.isDeeper() || (this.isInfinite && !this.customSearch)) s.by = { depth: 99 };
-    return s;
+    const custom = this.opts.custom?.search?.();
+    return custom && typeof custom !== 'number' // number puts a cap on movetime
+      ? custom
+      : {
+          multiPv: this.storedPv(),
+          by:
+            !this.opts.custom && (this.isDeeper() || this.isInfinite)
+              ? { depth: 99 }
+              : { movetime: Math.min(this.storedMovetime(), custom ?? 30 * 1000, this.engines.maxMovetime) },
+        };
   }
 
   get safeMovetime(): number {
@@ -214,6 +206,10 @@ export default class CevalCtrl {
 
   get isCacheable(): boolean {
     return !!this.engines.active?.cloudEval;
+  }
+
+  get isPaused(): boolean {
+    return !this.worker && !!this.lastStarted; // another tab started ceval
   }
 
   get showingCloud(): boolean {
@@ -265,34 +261,14 @@ export default class CevalCtrl {
     this.opts.onSelectEngine?.();
   };
 
-  setHovering = (fen: FEN, uci?: Uci): void => {
-    this.hovering(uci ? { fen, uci } : null);
-    this.opts.setAutoShapes();
-  };
-
   setPvBoard = (pvBoard: PvBoard | null): void => {
     this.pvBoard(pvBoard);
     this.opts.redraw();
   };
 
-  toggle = (): void => {
-    if (!this.possible || !this.allowed()) return;
-    this.stop();
-    if (!this.enabled() && !document.hidden) {
-      const disable = storage.get('ceval.disable') || cevalDisabledSentinel;
-      if (disable) tempStorage.set('ceval.enabled-after', disable);
-      this.enabled(true);
-    } else {
-      tempStorage.set('ceval.enabled-after', '');
-      this.enabled(false);
-      this.download = undefined;
-    }
-  };
-
   engineFailed(msg: string): void {
     if (msg.includes('Blocking on the main thread')) return; // mostly harmless
     showEngineError(this.engines.active?.name ?? 'Engine', msg);
-    //this.toggle();
     this.worker?.destroy();
     this.worker = undefined;
   }

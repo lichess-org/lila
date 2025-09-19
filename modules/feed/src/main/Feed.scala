@@ -3,16 +3,15 @@ package lila.feed
 import play.api.data.Form
 import reactivemongo.api.bson.*
 import reactivemongo.api.bson.Macros.Annotations.Key
-
 import java.time.format.{ DateTimeFormatter, FormatStyle }
+import scalalib.paginator.Paginator
 
 import lila.core.lilaism.Lilaism.*
 export lila.common.extensions.unapply
-
-import scalalib.paginator.Paginator
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
 import lila.memo.CacheApi
+import lila.memo.CacheApi.buildAsyncTimeout
 import lila.core.user.FlairApi
 
 object Feed:
@@ -41,7 +40,7 @@ object Feed:
   import scalalib.ThreadLocalRandom
   def makeId = ThreadLocalRandom.nextString(6)
 
-final class FeedApi(coll: Coll, cacheApi: CacheApi, flairApi: FlairApi)(using Executor):
+final class FeedApi(coll: Coll, cacheApi: CacheApi, flairApi: FlairApi)(using Executor, Scheduler):
 
   import Feed.*
 
@@ -50,7 +49,7 @@ final class FeedApi(coll: Coll, cacheApi: CacheApi, flairApi: FlairApi)(using Ex
   private object cache:
     private var mutableLastUpdates: List[Update] = Nil
     val store = cacheApi.unit[List[Update]]:
-      _.refreshAfterWrite(1.minute).buildAsyncFuture: _ =>
+      _.refreshAfterWrite(1.minute).buildAsyncTimeout(): _ =>
         coll
           .find($empty)
           .sort($sort.desc("at"))

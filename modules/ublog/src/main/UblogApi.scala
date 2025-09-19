@@ -22,13 +22,21 @@ final class UblogApi(
     shutupApi: ShutupApi,
     irc: lila.core.irc.IrcApi,
     automod: UblogAutomod,
-    config: UblogConfig
+    config: UblogConfig,
+    settingStore: lila.memo.SettingStore.Builder
 )(using Executor, Scheduler)
     extends lila.core.ublog.UblogApi:
 
   import UblogBsonHandlers.{ *, given }
   import UblogBlog.Tier
   import UblogAutomod.Assessment
+
+  lazy val carouselSizeSetting =
+    settingStore[Int](
+      "carouselSize",
+      default = 9,
+      text = "Homepage blog carousel size".some
+    )
 
   def create(data: UblogForm.UblogPostData, author: User): Fu[UblogPost] =
     val post = data.create(author)
@@ -106,7 +114,7 @@ final class UblogApi(
         .find($doc("live" -> true, "featured.until" -> $gte(nowInstant)), previewPostProjection.some)
         .sort($doc("featured.until" -> -1))
         .cursor[UblogPost.PreviewPost](ReadPref.sec)
-        .list(config.carouselSize)
+        .list(carouselSizeSetting.get())
 
       queue <- colls.post
         .find(
@@ -115,7 +123,7 @@ final class UblogApi(
         )
         .sort($doc("featured.at" -> -1))
         .cursor[UblogPost.PreviewPost](ReadPref.sec)
-        .list(config.carouselSize - pinned.size)
+        .list(carouselSizeSetting.get() - pinned.size)
     yield UblogPost.CarouselPosts(pinned, queue)
 
   def postPreview(id: UblogPostId) =
@@ -177,31 +185,20 @@ final class UblogApi(
       automodNotes
     )
 
-  private def triggerAutomod(post: UblogPost): Fu[Option[UblogAutomod.Assessment]] =
+  def triggerAutomod(post: UblogPost): Fu[Option[UblogAutomod.Assessment]] =
     val retries = 5 // 30s, 1m, 2m, 4m, 8m
-    def attempt(n: Int = 0): Fu[Option[UblogAutomod.Assessment]] =
+    def attempt(n: Int): Fu[Option[UblogAutomod.Assessment]] =
       automod(post, n * 0.1)
         .flatMapz: llm =>
-          val result = post.automod match
-            case Some(prev) if prev.lockedBy.isDefined =>
-              prev.copy(
-                flagged = prev.flagged.orElse(llm.flagged),
-                commercial = prev.commercial.orElse(llm.commercial)
-              )
-            case Some(prev) =>
-              llm.copy(
-                quality = Quality.fromOrdinal:
-                  llm.quality.ordinal.atLeast(prev.quality.ordinal)
-              )
-            case _ => llm
-          for _ <- colls.post.updateField($id(post.id), "automod", result).void
+          val result = post.automod.foldLeft(llm)(_.updateByLLM(_))
+          for _ <- colls.post.updateField($id(post.id), "automod", result)
           yield result.some
         .recoverWith: e =>
-          if n < 5 then delay((30 * math.pow(2, n).toInt).seconds)(attempt(n + 1))
+          if n < retries then delay((30 * math.pow(2, n).toInt).seconds)(attempt(n + 1))
           else
             logger.warn(s"automod ${post.id} failed after $retries retry attempts", e)
             fuccess(none)
-    attempt()
+    attempt(0)
 
   def liveLightsByIds(ids: List[UblogPostId]): Fu[List[UblogPost.LightPost]] =
     colls.post
@@ -271,9 +268,8 @@ final class UblogApi(
 
   def modPost(
       post: UblogPost,
-      d: UblogForm.ModPostData,
-      mod: UserId
-  ): Fu[Option[UblogAutomod.Assessment]] =
+      d: UblogForm.ModPostData
+  )(using mod: Me): Fu[Option[UblogAutomod.Assessment]] =
     def maybeCopy(v: Option[String], base: Option[String]) =
       v match
         case Some("") => none // form sends empty string to unset

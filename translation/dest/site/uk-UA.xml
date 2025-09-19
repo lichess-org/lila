@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Грати з другом</string>
-  <string name="playWithTheMachine">Грати з комп’ютером</string>
+  <string name="gameSetup">Налаштування гри</string>
+  <string name="gameMode">Режим гри</string>
+  <string name="youPlayAs">Ви граєте за</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Щоб запросити когось до гри, дайте це посилання</string>
   <string name="gameOver">Гру завершено</string>
   <string name="waitingForOpponent">Очікування на суперника</string>
@@ -316,7 +317,6 @@
   <string name="blackTimeOut">Час чорних вийшов</string>
   <string name="drawOfferSent">Пропозицію нічиєї надіслано</string>
   <string name="drawOfferAccepted">Пропозицію нічиєї прийнято</string>
-  <string name="drawOfferCanceled">Пропозицію нічиєї скасовано</string>
   <string name="whiteOffersDraw">Білі пропонують нічию</string>
   <string name="blackOffersDraw">Чорні пропонують нічию</string>
   <string name="whiteDeclinesDraw">Білі відхилили нічию</string>
@@ -388,7 +388,7 @@
     <item quantity="other">%s грають</item>
   </plurals>
   <string name="exportGames">Експортувати ігри</string>
-  <string name="ratingRange">Діапазон рейтингу</string>
+  <string name="ratingFilter">Фільтр рейтингу</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Додати %s секунду</item>
     <item quantity="few">Додати %s секунди</item>
@@ -460,6 +460,7 @@
     <item quantity="other">Ви повинні зіграти ще %s рейтингових ігор</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Ваш рейтинг %s є умовним</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Фільтри за рейтингом заблоковано, бо ваш рейтинг нестабільний. Стабільність підвищуватиметься, коли ви гратимете в рейтингові ігри.</string>
   <string name="yourPerfRatingIsTooHigh">Ваш рейтинг у %1$s (%2$s) занадто високий</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Ваш щотижневий рейтинг %1$s (%2$s) занадто високий</string>
   <string name="yourPerfRatingIsTooLow">Ваш рейтинг у %1$s (%2$s) занадто низький</string>
@@ -490,7 +491,6 @@
   <string name="toStudy">Дослідження</string>
   <string name="importGame">Імпортувати гру</string>
   <string name="importGameExplanation">Вставте PGN гри щоб отримати повтор в браузері, комп\'ютерний аналіз, ігровий чат та посилання, яким можна поділитися.</string>
-  <string name="importGameCaveat">Варіації будуть видалені. Для збереження імпортуйте PGN через дослідження.</string>
   <string name="importGameDataPrivacyWarning">Цей PGN може бути у вільному доступі. Для імпорту гри в приватному режимі використовуйте студії.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s імпортована гра</item>
@@ -911,6 +911,7 @@
   <string name="notifications">Сповіщення</string>
   <string name="notificationsX">Сповіщення: %1$s</string>
   <string name="perfRatingX">Рейтинг: %s</string>
+  <string name="yourRatingIsX">Ваш рейтинг — %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s секунда на перший хід</item>
     <item quantity="few">%s секунди на перший хід</item>
@@ -1099,4 +1100,9 @@
   <string name="enableBlindMode">Увімкнути режим для незрячих</string>
   <string name="disableBlindMode">Вимкнути режим для незрячих</string>
   <string name="copyToClipboard">Скопіювати до буферу обміну</string>
+  <string name="online" comment="status of a user">у мережі</string>
+  <string name="offline" comment="status of a user">не в мережі</string>
+  <string name="search">Пошук</string>
+  <string name="clearSearch">Очистити пошук</string>
+  <string name="tags">Теги</string>
 </resources>

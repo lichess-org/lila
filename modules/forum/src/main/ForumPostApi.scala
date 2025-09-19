@@ -187,7 +187,7 @@ final class ForumPostApi(
   def categsForUser(teams: Iterable[TeamId], forUser: Option[User]): Fu[List[CategView]] =
     val isMod = forUser.fold(false)(MasterGranter.of(_.ModerateForum))
     for
-      categs <- categRepo.visibleWithTeams(teams, isMod)
+      categs <- categRepo.visibleWithTeams(teams, forUser)
       diagnostic <- if isMod then fuccess(none) else forUser.so(diagnosticForUser)
       views <- categs
         .parallel: categ =>
@@ -226,10 +226,8 @@ final class ForumPostApi(
       .one($id(post.id), post.erase)
       .void
 
-  def teamIdOfPostId(postId: ForumPostId): Fu[Option[TeamId]] =
-    postRepo.coll.byId[ForumPost](postId).flatMapz { post =>
-      categRepo.coll.primitiveOne[TeamId]($id(post.categId), "team")
-    }
+  def teamIdOfPost(post: ForumPost): Fu[Option[TeamId]] =
+    categRepo.coll.primitiveOne[TeamId]($id(post.categId), "team")
 
   private def logAnonPost(post: ForumPost, edit: Boolean)(using Me): Funit =
     topicRepo.byId(post.topicId).orFail(s"No such topic ${post.topicId}").flatMap { topic =>

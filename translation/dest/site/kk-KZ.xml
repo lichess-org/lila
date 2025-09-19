@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Доспен ойнау</string>
-  <string name="playWithTheMachine">Компьютермен ойнау</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Ойынға біреуді шақыру үшін бұл сілтемені жіберіңіз</string>
   <string name="gameOver">Ойын аяқталды</string>
   <string name="waitingForOpponent">Қарсыласты тосып тұрмыз</string>
@@ -278,7 +276,6 @@
   <string name="blackTimeOut">Қараның уақыты бітті</string>
   <string name="drawOfferSent">Тепе-теңдік сұрауда</string>
   <string name="drawOfferAccepted">Тепе-теңдікке келісті</string>
-  <string name="drawOfferCanceled">Тепе-теңдік сұрау тоқтатылды</string>
   <string name="whiteOffersDraw">Ақ тепе-теңдік сұрауда</string>
   <string name="blackOffersDraw">Қара тепе-теңдік сұрауда</string>
   <string name="whiteDeclinesDraw">Ақ тепе-теңдіктен бас тартты</string>
@@ -340,7 +337,6 @@
     <item quantity="other">%s ойналуда</item>
   </plurals>
   <string name="exportGames">Ойынды жүктеп алу</string>
-  <string name="ratingRange">Рейтинг ауқымы</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">%s секунд беру</item>
     <item quantity="other">%s секунд беру</item>
@@ -419,7 +415,6 @@
   <string name="importGame">Ойынды жүктеп салу</string>
   <string name="importGameExplanation">Ойынның PGN-ын салыңыз.
 Бұл ойынды қайта көру, компьютерлік талдау, чат пен бөліспелі URL-ға жол ашады.</string>
-  <string name="importGameCaveat">Вариациялар жойылады. Оларды сақтау үшін зерттеу арқылы PGN импорттаңыз.</string>
   <string name="importGameDataPrivacyWarning">Бұл PGN - жалпыға жария болады. Жеке болуын қаласаңыз, Зерттеу арқылы салуыңыз керек.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s ойын салынды</item>
@@ -773,7 +768,7 @@
   <string name="revokeAllSessions">бәрін ажырату</string>
   <string name="playChessEverywhere">Шахматты кез-келген жерде ойнаңыз</string>
   <string name="everybodyGetsAllFeaturesForFree">Барлық құралдары барлық адам үшін тегін</string>
-  <string name="viewTheSolution">Жауабты қарау</string>
+  <string name="viewTheSolution">Жауабын қарау</string>
   <string name="noChallenges">Шақыру жоқ.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">%s тілде нұсқасы бар!</item>

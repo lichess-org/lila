@@ -5,7 +5,7 @@
   <string name="challengeDeclined">Выклік адхілены</string>
   <string name="challengeAccepted">Выклік прыняты!</string>
   <string name="challengeCanceled">Выклік скасаваны.</string>
-  <string name="registerToSendChallenges" comment="This used to say &quot;Please register to send challenges.&quot;&#10;We have since added &quot;[...] to this user.&quot; to the end of the string for absolute clarity, given the context this appears in. Please update translations as needed.">Зарэгіструйцеся, каб выклікаць супернікаў на гульню.</string>
+  <string name="registerToSendChallenges">Зарэгіструйцеся, каб выклікаць супернікаў на гульню.</string>
   <string name="youCannotChallengeX">Вы не можаце выклікаць на гульню %s.</string>
   <string name="xDoesNotAcceptChallenges">%s не прымае выклікі.</string>
   <string name="yourXRatingIsTooFarFromY">Ваш рэйтынг у рэжыме «%1$s» значна адрозніваецца ад %2$s.</string>

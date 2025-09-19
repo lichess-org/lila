@@ -34,6 +34,7 @@ object page:
       )
       .js(pageModule(info))
       .js(esModules())
+      .js(isGranted(_.UserModView).option(esmInit("mod.autolink")))
       .css("user.show")
       .css(isGranted(_.UserModView).option("mod.user"))
       .flag(_.noRobots, !indexable(u)):
@@ -76,6 +77,7 @@ object page:
   private def esModules(withSearch: Boolean = false)(using Context): EsmList =
     infiniteScrollEsmInit
       ++ esmInit("user")
+      ++ Esm("bits.dropdownOverflow")
       ++ withSearch.so(Esm("bits.gameSearch"))
       ++ isGranted(_.UserModView).so(Esm("mod.user"))
 

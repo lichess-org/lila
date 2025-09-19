@@ -40,7 +40,11 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
       cls := s"ublog-post-card ublog-post-card--link ublog-post-card--by-${post.created.by}",
       href := makeUrl(post)
     )(
-      span(cls := "ublog-post-card__top")(
+      span(
+        cls := s"ublog-post-card__top" + post.image.isEmpty.so(
+          s" ublog-generic-bg${1 + Math.floorMod(post.created.at.hashCode, 28)}"
+        )
+      )(
         thumbnail(post, _.Size.Small)(cls := "ublog-post-card__image"),
         post.lived.map { live =>
           if strictDate || DAYS.between(live.at, nowInstant) < 30 then
@@ -304,13 +308,18 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
           )
         )
 
-  def modShowCarousel(posts: UblogPost.CarouselPosts)(using Context) =
+  def modShowCarousel(posts: UblogPost.CarouselPosts, carouselSize: Int)(using Context) =
     Page("Blog carousel")
       .css("bits.ublog")
       .js(Esm("bits.ublog")):
         main(cls := "page-menu")(
           bits.modMenu("carousel"),
-          div(cls := "page-menu__content box box-pad")(
+          div(cls := "page-menu__content box box-pad column-gap")(
+            postForm(action := routes.Ublog.modSetCarouselSize)(
+              label("Carousel size: "),
+              input(name := "size", size := "2", value := s"$carouselSize", enterkeyhint := "set"),
+              submitButton(cls := "button button-empty", dataIcon := Icon.Checkmark)
+            ),
             div(cls := "ublog-index__posts ublog-mod-carousel")(
               (posts.pinned ++ posts.queue).map: p =>
                 val by = userIdLink(

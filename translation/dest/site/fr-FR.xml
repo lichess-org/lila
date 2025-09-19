@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Inviter à une partie</string>
-  <string name="playWithTheMachine">Jouer contre l\'ordinateur</string>
+  <string name="gameSetup">Paramètres de la partie</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Inviter à jouer</string>
+  <string name="playAgainstAI">Jouer contre l\'IA</string>
+  <string name="gameMode">Mode de la partie</string>
+  <string name="createLobbyGame">Créer une partie dans le salon</string>
+  <string name="youPlayAs">Vous jouez les</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Pour inviter quelqu\'un à jouer, donnez-lui ce lien</string>
   <string name="gameOver">Partie terminée</string>
   <string name="waitingForOpponent">En attente de votre adversaire</string>
@@ -280,7 +284,6 @@
   <string name="blackTimeOut">Temps noir écoulé</string>
   <string name="drawOfferSent">Proposition de nulle envoyée</string>
   <string name="drawOfferAccepted">Proposition de nulle acceptée</string>
-  <string name="drawOfferCanceled">Proposition de nulle annulée</string>
   <string name="whiteOffersDraw">Les Blancs proposent la nulle</string>
   <string name="blackOffersDraw">Les Noirs proposent la nulle</string>
   <string name="whiteDeclinesDraw">Les Blancs refusent la nulle</string>
@@ -342,7 +345,7 @@
     <item quantity="other">%s en cours</item>
   </plurals>
   <string name="exportGames">Exporter les parties</string>
-  <string name="ratingRange">Classement de vos adversaires</string>
+  <string name="ratingFilter">Filtre de classement</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Rajouter %s seconde</item>
     <item quantity="other">Rajouter %s secondes</item>
@@ -398,6 +401,7 @@
     <item quantity="other">Vous devez encore jouer %s parties classées</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Votre classement %s est provisoire</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Les filtres de classement sont verrouillés parce que votre classement (votre cote) n\'est pas stable. Jouer davantage de parties classées contribuera à stabiliser votre classement.</string>
   <string name="yourPerfRatingIsTooHigh">Votre cote %1$s (%2$s) est trop élevée</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Votre meilleure cote hebdomadaire de %1$s (%2$s) est trop élevée</string>
   <string name="yourPerfRatingIsTooLow">Votre cote de %1$s (%2$s) est trop faible</string>
@@ -428,7 +432,6 @@
   <string name="toStudy">Étude</string>
   <string name="importGame">Importer une partie</string>
   <string name="importGameExplanation">Quand vous collez une partie en PGN vous pouvez la rejouer, consulter l\'analyse de l\'ordinateur, utiliser le tchat et partager le lien.</string>
-  <string name="importGameCaveat">Les variantes seront effacées. Pour les conserver, importez le PGN dans une étude.</string>
   <string name="importGameDataPrivacyWarning">Cette partie en format PGN n\'est pas privée. Pour importer une partie en privé, utilisez une étude.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s partie importée</item>
@@ -827,6 +830,7 @@
   <string name="notifications">Notifications</string>
   <string name="notificationsX">Notifications : %1$s</string>
   <string name="perfRatingX">Classement : %s</string>
+  <string name="yourRatingIsX">Votre classement : %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s seconde pour jouer le premier coup</item>
     <item quantity="other">%s secondes pour jouer le premier coup</item>
@@ -878,6 +882,7 @@
   <string name="playVariationToCreateConditionalPremoves">Jouer une variante pour créer des précoups conditionnels</string>
   <string name="noConditionalPremoves">Pas de précoups conditionnels</string>
   <string name="playX">Jouer %s</string>
+  <string name="challengeX">Défier %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">et enregistrer %s variante de précoups</item>
     <item quantity="other">et enregistrer %s variantes de précoups</item>
@@ -1010,4 +1015,9 @@ Tous les coûts d\'exploitation, le développement et le contenu sont financés 
   <string name="enableBlindMode">Activer le mode pour non-voyant</string>
   <string name="disableBlindMode">Désactiver le mode pour non-voyant</string>
   <string name="copyToClipboard">Copier dans le presse-papier</string>
+  <string name="online" comment="status of a user">en ligne</string>
+  <string name="offline" comment="status of a user">hors ligne</string>
+  <string name="search">Rechercher</string>
+  <string name="clearSearch">Réinitialiser la recherche</string>
+  <string name="tags">Étiquettes</string>
 </resources>

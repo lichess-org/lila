@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Jugar contra un amigo</string>
-  <string name="playWithTheMachine">Jugar contra el ordenador</string>
+  <string name="gameSetup">Configuración de la partida</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Desafía a un amigo</string>
+  <string name="playAgainstAI">Jugar contra la IA</string>
+  <string name="gameMode">Modo juego</string>
+  <string name="createLobbyGame">Crear partida en la sala de espera</string>
+  <string name="youPlayAs">Juegas con</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Para invitar a alguien a jugar, comparte este enlace</string>
   <string name="gameOver">Fin de la partida</string>
   <string name="waitingForOpponent">Esperando al oponente</string>
@@ -110,7 +114,7 @@
   <string name="lossSavedBy50MoveRule">La regla de los 50 movimientos evita la derrota</string>
   <string name="winOr50MovesByPriorMistake">Victoria o 50 movimientos por error anterior</string>
   <string name="lossOr50MovesByPriorMistake">Derrota o 50 movimientos por error anterior</string>
-  <string name="unknownDueToRounding">Victoria o derrota segura solo si se siguió la línea de movimientos recomendados desde la última captura o movimiento de peón, a causa del posible redondeo de valores DTZ de las tablas de finales Syzygy.</string>
+  <string name="unknownDueToRounding">Victoria o derrota segura solo si se siguió la línea de movimientos recomendados desde la última captura o movimiento de peón, a causa del posible redondeo de valores DTZ de las tablas de finales Sizigia.</string>
   <string name="allSet">¡Listo!</string>
   <string name="importPgn">Importar PGN</string>
   <string name="delete">Borrar</string>
@@ -280,7 +284,6 @@
   <string name="blackTimeOut">Las negras agotaron su tiempo</string>
   <string name="drawOfferSent">Oferta de tablas enviada</string>
   <string name="drawOfferAccepted">Oferta de tablas aceptada</string>
-  <string name="drawOfferCanceled">Oferta de tablas cancelada</string>
   <string name="whiteOffersDraw">Las blancas ofrecen tablas</string>
   <string name="blackOffersDraw">Las negras ofrecen tablas</string>
   <string name="whiteDeclinesDraw">Las blancas rechazan tablas</string>
@@ -342,7 +345,7 @@
     <item quantity="other">%s en juego</item>
   </plurals>
   <string name="exportGames">Exportar partidas</string>
-  <string name="ratingRange">Rango de puntuación</string>
+  <string name="ratingFilter">Filtro de puntuación</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Dar %s segundo</item>
     <item quantity="other">Dar %s segundos</item>
@@ -398,6 +401,7 @@
     <item quantity="other">Necesitas jugar %s partidas por puntos más</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Tu puntuación de %s es provisional</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Los filtros de valoración están bloqueados porque tu puntuación no es estable. Jugar partidas valoradas aumentará la estabilidad.</string>
   <string name="yourPerfRatingIsTooHigh">Tu puntuación de %1$s (%2$s) es demasiado alta</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Tu máxima puntación semanal de %1$s (%2$s) es demasiado alta</string>
   <string name="yourPerfRatingIsTooLow">Tu puntuación de %1$s (%2$s) es demasiado baja</string>
@@ -428,7 +432,6 @@
   <string name="toStudy">Estudiar</string>
   <string name="importGame">Importar partida</string>
   <string name="importGameExplanation">Al pegar el PGN de una partida, se obtiene una repetición navegable, un análisis por ordenador, un chat de juego y un enlace para compartir.</string>
-  <string name="importGameCaveat">Las variaciones serán borradas. Para mantenerlas, importa el PGN a través de un estudio.</string>
   <string name="importGameDataPrivacyWarning">Este PGN es de acceso público. Para importar una partida de forma privada, utiliza un estudio.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s partida importada</item>
@@ -827,6 +830,7 @@
   <string name="notifications">Notificaciones</string>
   <string name="notificationsX">Notificaciones: %1$s</string>
   <string name="perfRatingX">Puntuación: %s</string>
+  <string name="yourRatingIsX">Tu puntuación es %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s segundo para hacer el primer movimiento</item>
     <item quantity="other">%s segundos para hacer el primer movimiento</item>
@@ -878,6 +882,7 @@
   <string name="playVariationToCreateConditionalPremoves">Juega una variante para crear movimientos condicionales</string>
   <string name="noConditionalPremoves">Sin movimientos condicionales</string>
   <string name="playX">Jugar %s</string>
+  <string name="challengeX">Desafía a %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">y ahorra %s línea de premovimiento</item>
     <item quantity="other">y ahorra %s líneas de premovimiento</item>
@@ -1010,4 +1015,9 @@ Todos los gastos de funcionamiento, desarrollo y contenidos se financian exclusi
   <string name="enableBlindMode">Activar modo para no videntes</string>
   <string name="disableBlindMode">Desactivar modo para no videntes</string>
   <string name="copyToClipboard">Copiar al portapapeles</string>
+  <string name="online" comment="status of a user">conectado</string>
+  <string name="offline" comment="status of a user">desconectado</string>
+  <string name="search">Buscar</string>
+  <string name="clearSearch">Borrar búsqueda</string>
+  <string name="tags">Etiquetas</string>
 </resources>

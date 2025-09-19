@@ -29,7 +29,9 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
               data =>
                 limit.forumTopic(ctx.ip, rateLimited):
                   topicApi.makeTopic(categ, data).map { topic =>
-                    Redirect(routes.ForumTopic.show(categ.id, topic.slug, 1))
+                    val url = routes.ForumTopic.show(categ.id, topic.slug, 1).url
+                    discard { env.report.api.automodComms(data.automodText, url) }
+                    Redirect(url)
                   }
             )
           }
@@ -40,7 +42,8 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
       Found(topicApi.show(categId, slug, page)): (categ, topic, posts) =>
         if categId == diagnosticId &&
           !ctx.userId.exists(me => slug.value.startsWith(me.value)) &&
-          !isGrantedOpt(_.ModerateForum)
+          !isGrantedOpt(_.ModerateForum) &&
+          !isGrantedOpt(_.Diagnostics)
         then notFound
         else
           for
@@ -71,11 +74,14 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
   }
 
   def sticky(categId: ForumCategId, slug: ForumTopicSlug) = Auth { _ ?=> me ?=>
-    CategGrantMod(categId):
-      Found(topicApi.show(categId, slug, 1)): (categ, topic, pag) =>
-        topicApi
-          .toggleSticky(categ, topic)
-          .inject(Redirect(routes.ForumTopic.show(categId, slug, pag.nbPages)))
+    access.isGrantedMod(categId).flatMap { granted =>
+      if granted || isGranted(_.ModerateForum) || isGrantedOpt(_.StickyPosts) then
+        Found(topicApi.show(categId, slug, 1)): (categ, topic, pag) =>
+          topicApi
+            .toggleSticky(categ, topic)
+            .inject(Redirect(routes.ForumTopic.show(categId, slug, pag.nbPages)))
+      else Forbidden("You cannot sticky this post")
+    }
   }
 
   /** Returns a list of the usernames of people participating in a forum topic conversation

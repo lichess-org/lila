@@ -14,7 +14,6 @@ site.load.then(() => {
 
   const localPrefs: [string, string, string, boolean][] = [
     ['behavior', 'arrowSnap', 'arrow.snap', true],
-    ['behavior', 'courtesy', 'courtesy', false],
     ['behavior', 'scrollMoves', 'scrollMoves', true],
     ['notification', 'playBellSound', 'playBellSound', true],
   ];
@@ -64,7 +63,7 @@ site.load.then(() => {
     submit.on('click', function (this: HTMLElement, e: Event) {
       if (!isDanger) return true;
       e.preventDefault();
-      confirm(this.title, i18n.site.ok, i18n.site.cancel).then(yes => {
+      confirm(this.title).then(yes => {
         if (yes) (form[0] as HTMLFormElement).submit();
       });
       return false;

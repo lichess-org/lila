@@ -132,7 +132,7 @@ final class MsgApi(
             val msg =
               if verdict == MsgSecurity.Spam
               then
-                logger.branch("spam").warn(s"$orig->$dest $msgPre.text")
+                logger.branch("spam").warn(s"$orig -> $dest $msgPre.text")
                 msgPre.copy(text = spam.replace(msgPre.text))
               else msgPre
             val msgWrite = colls.msg.insert.one(writeMsg(msg, threadId))

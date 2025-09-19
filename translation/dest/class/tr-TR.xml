@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses" comment="Lichess Classes are a feature that lets a teacher create virtual classes and check out students' progress.&#10;&#10;This text used to be &quot;Lichess Classes&quot;, which has since been shortened to &quot;Classes&quot;.">Lichess Sınıfları</string>
+  <string name="lichessClasses">Lichess Sınıfları</string>
   <string name="teachClassesOfChessStudents">Satranç öğrencilerine Lichess Sınıflar araç setiyle ders verin.</string>
   <string name="features">Özellikler</string>
   <string name="quicklyGenerateSafeUsernames">Öğrenciler için hızlıca güvenli kullanıcı adları ve şifreleri oluşturun</string>
   <string name="trackStudentProgress">Oyunlar ve bulmacalardaki öğrenci ilerlemesini takip edin</string>
   <string name="messageAllStudents">Yeni ders materyali hakkında tüm öğrencilere mesaj atın</string>
-  <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">Herkes için, her zaman, reklamsız ve takipçisiz, %100 ücretsiz</string>
+  <string name="freeForAllForever">Herkes için, her zaman, reklamsız ve takipçisiz, %100 ücretsiz</string>
   <string name="applyToBeLichessTeacher">Lichess Eğitmeni olmak için başvurun</string>
   <string name="noClassesYet">Henüz bir sınıf yok.</string>
   <string name="teachersX">Eğitmenler: %s</string>
   <string name="newClass">Yeni sınıf</string>
   <string name="closeClass">Sınıfı kapatın</string>
   <string name="removedByX">%s tarafından çıkarıldı</string>
-  <string name="reopen" comment="A button, permitting a teacher to reopen a closed class.">Yeniden açın</string>
-  <string name="removeStudent" comment="Removes a student from the class. Note the same text is used both for initial removal, and for full erasure.">Öğrenciyi çıkarın</string>
-  <string name="removedStudents" comment="This is in plural form. It is a heading showing all students who have been removed from the class.">Çıkarıldı</string>
-  <string name="inviteTheStudentBack" comment="A button. Clicking this will re-invite a student that has been removed from the class.">Öğrenciyi yeniden davet edin</string>
+  <string name="reopen">Yeniden açın</string>
+  <string name="removeStudent">Öğrenciyi çıkarın</string>
+  <string name="removedStudents">Çıkarıldı</string>
+  <string name="inviteTheStudentBack">Öğrenciyi yeniden davet edin</string>
   <string name="sendAMessage">Tüm öğrencilere bir mesaj gönderin.</string>
   <string name="aLinkToTheClassWillBeAdded">Mesajın sonuna bu sınıfın bağlantısı kendiliğinden eklenecek, bu nedenle bağlantıyı tekrar yazmanıza gerek yok.</string>
   <string name="className">Sınıfın ismi</string>
@@ -30,7 +30,7 @@
   <string name="generateANewPassword">Öğrenci için yeni bir şifre oluştur</string>
   <string name="invitedToXByY">%1$s adlı sınıfa %2$s tarafından davet edildi</string>
   <string name="realName">Gerçek isim</string>
-  <string name="privateWillNeverBeShown" comment="A description of the real name field for members of a class.">Özel. Yalnızca sınıftakiler görebilir. Öğrencinin kim olduğunu hatırlamanıza yardımcı olur.</string>
+  <string name="privateWillNeverBeShown">Özel. Yalnızca sınıftakiler görebilir. Öğrencinin kim olduğunu hatırlamanıza yardımcı olur.</string>
   <string name="addStudent">Öğrenci ekleyin</string>
   <string name="lichessProfileXCreatedForY">%2$s için Lichess profili %1$s oluşturuldu.</string>
   <string name="studentCredentials">Öğrenci: %1$s
@@ -41,14 +41,14 @@ Kullanıcı adı: %2$s
   <string name="inviteDesc2">Lichess üzerinden göndereceğimiz mesajdaki bağlantıyı kullanarak sınıfa katılabilirler.</string>
   <string name="inviteDesc3">Önemli: Sadece tanıdığınız ve sınıfa etkin bir şekilde katılmak isteyen öğrencileri davet edin.</string>
   <string name="inviteDesc4">Asla rastgele oyunculara istenmeyen davetler göndermeyin.</string>
-  <string name="createANewLichessAccount" comment="The person who would see this would always be a teacher.&#10;In this context, it is to create a new account for a student of their class.">Yeni bir Lichess hesabı oluşturun</string>
+  <string name="createANewLichessAccount">Yeni bir Lichess hesabı oluşturun</string>
   <string name="createDesc1">Öğrencinin Lichess hesabı yoksa buradan yeni bir hesap açabilirsiniz.</string>
   <string name="createDesc2">E-posta adresine gerek yoktur. Size vereceğimiz şifreyi öğrenciye iletirseniz hesabına giriş yapabilir.</string>
   <string name="createDesc3">Önemli: Öğrencilerin birden fazla hesabı olmamalı.</string>
   <string name="createDesc4">Hâlihazırda hesabı olan öğrenciler için davet formunu kullanın.</string>
   <string name="createStudentWarning">Yalnızca gerçek öğrenciler için hesap oluşturun. Kendi adınıza birden fazla hesap açmak için bu özelliği kullanmayın. Aksi takdirde hesabınız kapatılabilir.</string>
   <string name="lichessUsername">Lichess kullanıcı adı</string>
-  <string name="generateANewUsername" comment="A button which lets teachers create a random username for students they are registering.">Yeni bir kullanıcı adı oluşturun</string>
+  <string name="generateANewUsername">Yeni bir kullanıcı adı oluşturun</string>
   <string name="welcomeToClass">Sınıfınıza hoşgeldiniz: %s
 Sınıfa erişim linki burada.</string>
   <string name="invitationToClass">Öğrenci olarak \"%s\" sınıfına katılmaya davet edildiniz.</string>
@@ -57,14 +57,14 @@ Sınıfa erişim linki burada.</string>
     <item quantity="one">%s tane bekleyen davetiye</item>
     <item quantity="other">%s tane bekleyen davet</item>
   </plurals>
-  <string name="pending" comment="Appears in a table of students. Refers to invitation by a teacher to join a class, which the student has not yet responded to.">Beklemede</string>
-  <string name="declined" comment="Appears in a table of students. Refers to invitation by a teacher to join a class, which the student declined.">Reddedildi</string>
+  <string name="pending">Beklemede</string>
+  <string name="declined">Reddedildi</string>
   <string name="onlyVisibleToTeachers">Sadece sınıf antrenörleri tarafından görülebilir</string>
   <string name="lastActiveDate">Aktif</string>
   <string name="managed">Yönetilen</string>
   <string name="thisStudentAccountIsManaged">Bu öğrenci hesabı yönetiliyor</string>
   <string name="upgradeFromManaged">Yönetilen hesaptan bağımsız hesaba yükselt</string>
-  <string name="release" comment="This used to be 'release'. It is now called 'graduate', and the term is used here as a verb.&#10;&#10;'Releasing' an account means making it a full Lichess account. It will no longer be tied to the teacher that created it.">Serbest bırak</string>
+  <string name="release">Serbest bırak</string>
   <string name="releaseTheAccount">Hesabı öğrencinin kendi başına yönetmesine izin ver.</string>
   <string name="releaseDesc1">Serbest bırakılan bir hesap tekrar yönetilemez. Öğrenciler kendileri çocuk modunu değiştirebilirler ve şifrelerini sıfırlayabilirler.</string>
   <string name="releaseDesc2">Öğrenciler hesapları serbest bırakıldıktan sonra sınıfta kalmaya devam edecekler.</string>
@@ -103,19 +103,19 @@ Sınıfa erişim linki burada.</string>
 Bu yatay bir çizgi oluşturacaktır.</string>
   <string name="invite">Davet Et</string>
   <string name="youHaveBeenInvitedByX">%s tarafından davet edildiniz.</string>
-  <string name="youAcceptedThisInvitation" comment="Appears when revisiting the page of an invitation to a class, which you have already accepted.">Bu daveti kabul ettiniz.</string>
-  <string name="youDeclinedThisInvitation" comment="Appears when revisiting the page of an invitation to a class, which you have already declined.">Bu daveti reddettiniz.</string>
+  <string name="youAcceptedThisInvitation">Bu daveti kabul ettiniz.</string>
+  <string name="youDeclinedThisInvitation">Bu daveti reddettiniz.</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">veya</string>
   <string name="createMultipleAccounts">Çoklu Lichess hesabı oluşturun</string>
   <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Ayrıca %s öğrenci isimlerini içeren bir listeyle birden çok Lichess hesabı oluşturabilirsiniz.</string>
   <string name="useThisForm" comment="Link text in multipleAccsFromDescription">bu formu kullanarak</string>
   <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Bir sınıfta en fazla %1$s öğrenci olabilir. Daha fazla öğrenci eklemek istiyorsanız %2$s.</string>
   <string name="createMoreClasses" comment="Link text in maxStudentsNote">yeni sınıflar oluşturun</string>
-  <string name="studentsRealNamesOnePerLine" comment="An instruction on how to enter students' names when creating new accounts for them.">Öğrencilerin gerçek ismi, her satır için bir kişi</string>
-  <string name="xisNowAStudentOfTheClass" comment="%s is the player's name">%s artık sınıfın bir öğrencisi</string>
-  <string name="anInvitationHasBeenSentToX" comment="%s is the username of a player already registered on Lichess.">%s adlı oyuncuya davet gönderildi</string>
-  <string name="xAlreadyHasAPendingInvitation" comment="An error message. %s is the username of a player already registered on Lichess.">%s adlı oyuncuya zaten bir davet gönderdiniz</string>
-  <string name="xIsAKidAccountWarning" comment="%1$s is the username&#10;%2$s is a link.">%1$s adlı oyuncu çocuk hesabı kullandığı için mesajlarınızı alamaz. Oyuncuya bağlantıyı kendiniz göndermelisiniz: %2$s</string>
-  <string name="moveToClass" comment="%s is the name of the class. The name of the class is set by the teacher.&#10;&#10;Appears on a confirmation prompt when a teacher looks to move a student to one of the other classes they run.">%s\'e oyna</string>
-  <string name="moveToAnotherClass" comment="Appears as a heading on a page which lets a teacher move one of their students to one of the other classes they run.">Başka bir satrança geç</string>
+  <string name="studentsRealNamesOnePerLine">Öğrencilerin gerçek ismi, her satır için bir kişi</string>
+  <string name="xisNowAStudentOfTheClass">%s artık sınıfın bir öğrencisi</string>
+  <string name="anInvitationHasBeenSentToX">%s adlı oyuncuya davet gönderildi</string>
+  <string name="xAlreadyHasAPendingInvitation">%s adlı oyuncuya zaten bir davet gönderdiniz</string>
+  <string name="xIsAKidAccountWarning">%1$s adlı oyuncu çocuk hesabı kullandığı için mesajlarınızı alamaz. Oyuncuya bağlantıyı kendiniz göndermelisiniz: %2$s</string>
+  <string name="moveToClass">%s\'e oyna</string>
+  <string name="moveToAnotherClass">Başka bir satrança geç</string>
 </resources>

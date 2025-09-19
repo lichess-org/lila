@@ -17,8 +17,8 @@ object TeamBattle:
   val maxTeams = 200
   val displayTeams = 10
 
-  val blacklist: Set[TeamId] =
-    Set("lichess-swiss", "lichess-curator", "lichess-productions", "lichess-broadcasts").map { TeamId(_) }
+  val blacklist: Set[TeamId] = TeamId.from:
+    Set("lichess-swiss", "lichess-curator", "lichess-productions", "lichess-broadcasts")
 
   def init(teamId: TeamId) = TeamBattle(Set(teamId), 5)
 

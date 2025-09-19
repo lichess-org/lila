@@ -27,7 +27,6 @@
     }
 
     label {
-      flex: 4 1 auto;
       cursor: pointer;
     }
 
@@ -54,7 +53,7 @@
       text-overflow: ellipsis;
     }
 
-    .select-engine {
+    #select-engine {
       padding: 0.5em;
     }
 

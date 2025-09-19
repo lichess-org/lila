@@ -148,7 +148,14 @@ trait PrefHelper:
 
   def translatedBoardResizeHandleChoices(using Translate) =
     List(
-      (Pref.ResizeHandle.NEVER, trans.site.never.txt()),
+      (Pref.ResizeHandle.NEVER, trans.site.no.txt()),
       (Pref.ResizeHandle.INITIAL, trans.preferences.onlyOnInitialPosition.txt()),
       (Pref.ResizeHandle.ALWAYS, trans.site.always.txt())
+    )
+
+  def translatedSayGGChoices(using Translate) =
+    List(
+      (Pref.SayGG.NO, trans.site.never.txt()),
+      (Pref.SayGG.DEFEAT, "Defeat only"),
+      (Pref.SayGG.DRAW, "Draw and defeat")
     )

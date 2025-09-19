@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">jvikei lo pendo</string>
-  <string name="playWithTheMachine">jvikei lo proga</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">ko cusku di\'e noi .urli ku\'o lo voi do .aidji lo ka jvikei ke\'a</string>
   <string name="gameOver">mo\'u jivna</string>
   <string name="waitingForOpponent">denpa tu\'a lo se jivna</string>
@@ -201,7 +199,6 @@
   <string name="blackTimeOut">lo te caxmati cu xaksu lo temci</string>
   <string name="drawOfferSent">lo se friti cu se benji</string>
   <string name="drawOfferAccepted">lo se friti cu se fitytu\'i</string>
-  <string name="drawOfferCanceled">lo se friti cu se nu\'osti</string>
   <string name="whiteOffersDraw">lo se caxmati cu friti lo nu no da cu jinga</string>
   <string name="blackOffersDraw">lo te caxmati cu friti lo nu no da cu jinga</string>
   <string name="whiteDeclinesDraw">lo se caxmati cu cpapro lo nu no da cu jinga</string>
@@ -257,7 +254,6 @@
     <item quantity="other">cabna %s lo co\'e</item>
   </plurals>
   <string name="exportGames">cpacu lo nunjvi datni</string>
-  <string name="ratingRange">keijvi nilcre jimte</string>
   <plurals name="giveNbSeconds">
     <item quantity="other">dunda %s snidu</item>
   </plurals>

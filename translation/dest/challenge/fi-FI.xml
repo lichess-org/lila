@@ -5,7 +5,7 @@
   <string name="challengeDeclined">Haasteesta kieltäydyttiin</string>
   <string name="challengeAccepted">Haaste hyväksytty!</string>
   <string name="challengeCanceled">Haaste peruutettu.</string>
-  <string name="registerToSendChallenges" comment="This used to say &quot;Please register to send challenges.&quot;&#10;We have since added &quot;[...] to this user.&quot; to the end of the string for absolute clarity, given the context this appears in. Please update translations as needed.">Rekisteröidy niin voit lähettää haasteita.</string>
+  <string name="registerToSendChallenges">Rekisteröidy niin voit lähettää haasteita.</string>
   <string name="youCannotChallengeX">Et voi haastaa pelaajaa %s.</string>
   <string name="xDoesNotAcceptChallenges">%s ei ota haasteita vastaan.</string>
   <string name="yourXRatingIsTooFarFromY">%1$s-vahvuuslukusi on liian kaukana pelaajan %2$s vahvuusluvusta.</string>

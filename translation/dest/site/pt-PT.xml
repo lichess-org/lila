@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Jogar com um amigo</string>
-  <string name="playWithTheMachine">Jogar contra o computador</string>
+  <string name="gameSetup">Configuração de jogo</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Desafiar um Amigo</string>
+  <string name="playAgainstAI">Jogar contra IA</string>
+  <string name="gameMode">Modo de jogo</string>
+  <string name="createLobbyGame">Criar jogo no lobby</string>
+  <string name="youPlayAs">Jogas com</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Para convidares alguém para jogar, envia este URL</string>
   <string name="gameOver">Fim da partida</string>
   <string name="waitingForOpponent">Aguardando oponente</string>
@@ -280,7 +284,6 @@
   <string name="blackTimeOut">Acabou o tempo das pretas</string>
   <string name="drawOfferSent">Proposta de empate enviada</string>
   <string name="drawOfferAccepted">Proposta de empate aceite</string>
-  <string name="drawOfferCanceled">Proposta de empate cancelada</string>
   <string name="whiteOffersDraw">As brancas propõem empate</string>
   <string name="blackOffersDraw">As pretas propõem empate</string>
   <string name="whiteDeclinesDraw">As brancas recusam o empate</string>
@@ -342,7 +345,7 @@
     <item quantity="other">%s a jogar</item>
   </plurals>
   <string name="exportGames">Exportar partidas</string>
-  <string name="ratingRange">Pontuação entre</string>
+  <string name="ratingFilter">Filtro de Rating</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Dar %s segundo</item>
     <item quantity="other">Dar %s segundos</item>
@@ -429,7 +432,6 @@
   <string name="importGame">Importar uma partida</string>
   <string name="importGameExplanation">Coloca aqui o PGN de um jogo, para teres acesso a navegar pela repetição,
 análise de computador, sala de chat do jogo e link de partilha.</string>
-  <string name="importGameCaveat">As variações serão apagadas. Para mantê-las, importe o PGN através de um estudo.</string>
   <string name="importGameDataPrivacyWarning">Este PGN pode ser acessada pelo público. Para importar um jogo de forma privada, use um estudo.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s partida importada</item>
@@ -828,6 +830,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="notifications">Notificações</string>
   <string name="notificationsX">Notificações: %1$s</string>
   <string name="perfRatingX">Pontuação: %s</string>
+  <string name="yourRatingIsX">O teu rating é %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s segundo para jogar o primeiro movimento</item>
     <item quantity="other">%s segundos para jogar o primeiro movimento</item>
@@ -879,6 +882,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="playVariationToCreateConditionalPremoves">Joga uma variante para criares movimentos antecipados condicionais</string>
   <string name="noConditionalPremoves">Sem movimentos antecipados condicionais</string>
   <string name="playX">Joga %s</string>
+  <string name="challengeX">Desafiar %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">e guarda %s variante de movimentos antecipados</item>
     <item quantity="other">e guarda %s variantes de movimentos antecipados</item>
@@ -1010,4 +1014,10 @@ Todos os custos operacionais, de desenvolvimento e conteúdo são financiados ex
   <string name="accessibility">Acessibilidade</string>
   <string name="enableBlindMode">Ativar o modo cego</string>
   <string name="disableBlindMode">Desativar o modo cego</string>
+  <string name="copyToClipboard">Copiar para área de transferência</string>
+  <string name="online" comment="status of a user">online</string>
+  <string name="offline" comment="status of a user">offline</string>
+  <string name="search">Pesquisar</string>
+  <string name="clearSearch">Limpar pesquisa</string>
+  <string name="tags">Etiquetas</string>
 </resources>

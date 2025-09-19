@@ -5,7 +5,7 @@
   <string name="challengeDeclined">Cabaran ditolak</string>
   <string name="challengeAccepted">Cabaran diterima!</string>
   <string name="challengeCanceled">Cabaran dibatalkan.</string>
-  <string name="registerToSendChallenges" comment="This used to say &quot;Please register to send challenges.&quot;&#10;We have since added &quot;[...] to this user.&quot; to the end of the string for absolute clarity, given the context this appears in. Please update translations as needed.">Sila mendaftar untuk menghantar cabaran.</string>
+  <string name="registerToSendChallenges">Sila mendaftar untuk menghantar cabaran.</string>
   <string name="youCannotChallengeX">Anda tidak boleh mencabar %s.</string>
   <string name="xDoesNotAcceptChallenges">%s tidak menerima cabaran.</string>
   <string name="yourXRatingIsTooFarFromY">Penilaian %1$s anda terlalu jauh daripada %2$s.</string>

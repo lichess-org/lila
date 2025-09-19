@@ -2,10 +2,12 @@ import type { Outcome } from 'chessops/types';
 import type { Prop } from '../common';
 import type { Feature } from '../device';
 import type CevalCtrl from './ctrl';
+import type { VNode } from 'snabbdom';
 
 export type WinningChances = number;
 export type SearchBy = { movetime: number } | { depth: number } | { nodes: number };
 export type Search = { by: SearchBy; multiPv: number; indeterminate?: boolean };
+export type Millis = number;
 
 export interface Work {
   variant: VariantKey;
@@ -92,16 +94,21 @@ export interface EvalMeta {
 export type Redraw = () => void;
 export type Progress = (p?: { bytes: number; total: number }) => void;
 
+export interface CustomCeval {
+  search?: () => Search | Millis; // pass number as millis to cap user defined search
+  pearlNode?: () => VNode | undefined;
+  statusNode?: () => VNode | string | undefined;
+}
+
 export interface CevalOpts {
-  possible: boolean;
   variant: Variant;
   initialFen: string | undefined;
   emit: (ev: Tree.LocalEval, meta: EvalMeta) => void;
-  setAutoShapes: () => void;
+  onUciHover: (hovering: Hovering | null) => void;
   redraw: Redraw;
-  search?: Search;
   onSelectEngine?: () => void;
   externalEngines?: ExternalEngineInfoFromServer[];
+  custom?: CustomCeval; // hides switch, threat, and go deeper buttons
 }
 
 export interface Hovering {
@@ -121,28 +128,22 @@ export interface Started {
   threatMode: boolean;
 }
 
-export interface ParentCtrl {
-  getCeval(): CevalCtrl;
+export interface CevalHandler {
+  ceval: CevalCtrl;
   nextNodeBest(): string | undefined;
-  disableThreatMode?: Prop<boolean>;
-  toggleThreatMode(): void;
-  toggleCeval(): void;
+  toggleThreatMode(v?: boolean): void;
   outcome(): Outcome | undefined;
-  mandatoryCeval?: Prop<boolean>;
   showEvalGauge: Prop<boolean>;
-  currentEvals(): NodeEvals;
   ongoing: boolean;
-  playUci(uci: string): void;
   playUciList(uciList: string[]): void;
   getOrientation(): Color;
   threatMode(): boolean;
   getNode(): Tree.Node;
-  showComputer(): boolean;
-  toggleComputer?: () => void;
   clearCeval: () => void;
-  restartCeval: () => void;
-  redraw?: () => void;
+  startCeval: () => void;
+  cevalEnabled: (enable?: boolean) => boolean | 'force';
   externalEngines?: () => ExternalEngineInfo[] | undefined;
+  showFishnetAnalysis?: () => boolean;
 }
 
 export interface NodeEvals {

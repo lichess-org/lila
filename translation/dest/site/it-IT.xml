@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Gioca con un amico</string>
-  <string name="playWithTheMachine">Gioca contro il computer</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Per invitare qualcuno a giocare, dagli questo URL</string>
   <string name="gameOver">Partita terminata</string>
   <string name="waitingForOpponent">In attesa dell\'avversario</string>
@@ -280,7 +278,6 @@
   <string name="blackTimeOut">Il nero ha esaurito il tempo</string>
   <string name="drawOfferSent">Offerta di patta inviata</string>
   <string name="drawOfferAccepted">Offerta di patta accettata</string>
-  <string name="drawOfferCanceled">Offerta di patta annullata</string>
   <string name="whiteOffersDraw">Il Bianco offre patta</string>
   <string name="blackOffersDraw">Il Nero offre patta</string>
   <string name="whiteDeclinesDraw">Il Bianco rifiuta la patta</string>
@@ -342,7 +339,6 @@
     <item quantity="other">%s in corso</item>
   </plurals>
   <string name="exportGames">Esporta le partite</string>
-  <string name="ratingRange">Punteggio avversario</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Concedi %s secondo</item>
     <item quantity="other">Concedi %s secondi</item>
@@ -429,7 +425,6 @@
   <string name="importGame">Importa partita</string>
   <string name="importGameExplanation">Quando incolli una partita tramite PGN potrai rivederla,
 analizzarla con il computer, commentarla in chat, e condividerla tramite un indirizzo URL.</string>
-  <string name="importGameCaveat">Le varianti saranno cancellate. Per salvarle, importa il PGN in uno studio.</string>
   <string name="importGameDataPrivacyWarning">Questo PGN è accessibile pubblicamente. Per importare una partita privatamente, utilizza uno studio.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s partita importata</item>

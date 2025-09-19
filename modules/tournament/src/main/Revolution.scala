@@ -9,7 +9,7 @@ import lila.memo.CacheApi.*
 final class RevolutionApi(
     tournamentRepo: TournamentRepo,
     cacheApi: lila.memo.CacheApi
-)(using Executor):
+)(using Executor, Scheduler):
 
   import Revolution.*
   import BSONHandlers.given
@@ -19,35 +19,32 @@ final class RevolutionApi(
   private[tournament] def clear() = cache.invalidateUnit()
 
   private val cache = cacheApi.unit[PerOwner]:
-    _.refreshAfterWrite(1.day)
-      .buildAsyncFuture { _ =>
-        tournamentRepo.coll
-          .find(
-            $doc(
-              "schedule.freq" -> (Schedule.Freq.Unique: Schedule.Freq),
-              "startsAt".$lt(nowInstant).$gt(nowInstant.minusYears(1).minusDays(1)),
-              "name".$regex(Revolution.namePattern),
-              "status" -> (Status.finished: Status)
-            ),
-            $doc("winner" -> true, "variant" -> true).some
-          )
-          .cursor[Bdoc](ReadPref.sec)
-          .list(300)
-          .map { docOpt =>
-            val awards =
-              for
-                doc <- docOpt
-                winner <- doc.getAsOpt[UserId]("winner")
-                variant <- doc.getAsOpt[Variant.Id]("variant").map(Variant.orDefault)
-                id <- doc.getAsOpt[TourId]("_id")
-              yield Award(
-                owner = winner,
-                variant = variant,
-                tourId = id
-              )
-            awards.groupBy(_.owner)
-          }
-      }
+    _.refreshAfterWrite(1.day).buildAsyncTimeout(1.minute): _ =>
+      tournamentRepo.coll
+        .find(
+          $doc(
+            "schedule.freq" -> (Schedule.Freq.Unique: Schedule.Freq),
+            "startsAt".$lt(nowInstant).$gt(nowInstant.minusYears(1).minusDays(1)),
+            "name".$regex(Revolution.namePattern),
+            "status" -> (Status.finished: Status)
+          ),
+          $doc("winner" -> true, "variant" -> true).some
+        )
+        .cursor[Bdoc](ReadPref.sec)
+        .list(300)
+        .map: docOpt =>
+          val awards =
+            for
+              doc <- docOpt
+              winner <- doc.getAsOpt[UserId]("winner")
+              variant <- doc.getAsOpt[Variant.Id]("variant").map(Variant.orDefault)
+              id <- doc.getAsOpt[TourId]("_id")
+            yield Award(
+              owner = winner,
+              variant = variant,
+              tourId = id
+            )
+          awards.groupBy(_.owner)
 
 object Revolution:
 

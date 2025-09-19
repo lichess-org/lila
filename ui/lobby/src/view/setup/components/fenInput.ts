@@ -7,7 +7,7 @@ export const fenInput = (ctrl: LobbyController) => {
   const { setupCtrl } = ctrl;
   if (setupCtrl.variant() !== 'fromPosition') return null;
   const fen = setupCtrl.fen();
-  return h('div.fen.optional-config', [
+  return h('div.config-group', [
     h('div.fen__form', [
       h('input#fen-input', {
         attrs: { placeholder: i18n.site.pasteTheFenStringHere, value: fen },

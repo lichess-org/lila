@@ -27,7 +27,7 @@ final class Challenge(env: Env) extends LilaController(env):
   def show(id: ChallengeId, @annotation.nowarn color: Option[Color]) = Open:
     showId(id)
 
-  def apiShow(id: ChallengeId) = Scoped(_.Challenge.Read, _.Web.Mobile) { ctx ?=> _ ?=>
+  def apiShow(id: ChallengeId) = AnonOrScoped(_.Challenge.Read, _.Web.Mobile) { ctx ?=>
     Found(api.byId(id)): c =>
       val direction: Option[Direction] =
         if isMine(c) then Direction.Out.some
@@ -110,9 +110,9 @@ final class Challenge(env: Env) extends LilaController(env):
           )
       )
 
-  def apiAccept(id: ChallengeId) =
-    Scoped(_.Challenge.Write, _.Bot.Play, _.Board.Play, _.Web.Mobile) { _ ?=> me ?=>
-      def tryRematch =
+  def apiAccept(id: ChallengeId, color: Option[Color]) =
+    AnonOrScoped(_.Challenge.Write, _.Bot.Play, _.Board.Play, _.Web.Mobile) { ctx ?=>
+      def tryRematch = ctx.me.soUse:
         env.bot.player
           .rematchAccept(id.into(GameId))
           .flatMap:
@@ -126,7 +126,7 @@ final class Challenge(env: Env) extends LilaController(env):
             case Some(c) if c.accepted => tryRematch
             case Some(c) =>
               allow:
-                api.accept(c, none).as(jsonOkResult)
+                api.accept(c, none, color).as(jsonOkResult)
               .rescue: err =>
                 fuccess(BadRequest(jsonError(err)))
     }
@@ -288,9 +288,7 @@ final class Challenge(env: Env) extends LilaController(env):
                     .fetchFollows(destUser.id, me.userId)
                     .flatMap: isFriend =>
                       if config.onlyIfOpponentFollowsMe && !isFriend
-                      then
-                        fuccess:
-                          JsonBadRequest(jsonError(s"$username does not follow you"))
+                      then JsonBadRequest(jsonError(s"$username does not follow you"))
                       else
                         val cost = if isFriend || me.isApiHog then 0 else if destUser.isBot then 1 else 5
                         limit.challengeBot(req.ipAddress, rateLimited, cost = if me.isBot then 1 else 0):
@@ -347,7 +345,7 @@ final class Challenge(env: Env) extends LilaController(env):
           rules = config.rules
         )
 
-  def openCreate = AnonOrScopedBody(parse.anyContent)(_.Challenge.Write): ctx ?=>
+  def openCreate = AnonOrScopedBody(parse.anyContent)(_.Challenge.Write, _.Web.Mobile): ctx ?=>
     bindForm(
       env.setup.forms.api.open(isAdmin = isGrantedOpt(_.ApiChallengeAdmin) || ctx.me.exists(_.isVerified))
     )(

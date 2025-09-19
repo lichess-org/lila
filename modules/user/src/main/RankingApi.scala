@@ -7,17 +7,17 @@ import chess.rating.IntRatingDiff
 
 import lila.core.perf.{ PerfId, UserWithPerfs }
 import lila.core.user.LightPerf
-import lila.db.AsyncCollFailingSilently
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 import lila.rating.GlickoExt.rankable
 import lila.rating.PerfType
+import scalalib.paginator.Paginator
 
 final class RankingApi(
-    c: AsyncCollFailingSilently,
+    c: lila.db.AsyncCollFailingSilently,
     cacheApi: lila.memo.CacheApi,
     lightUser: lila.core.LightUser.Getter
-)(using Executor)
+)(using Executor, Scheduler)
     extends lila.core.user.RankingRepo(c):
 
   import RankingApi.*
@@ -48,46 +48,52 @@ final class RankingApi(
     coll:
       _.delete.one($doc("_id".$startsWith(s"$userId:"))).void
 
-  private def makeId(userId: UserId, perfType: PerfType) =
-    s"$userId:${perfType.id}"
+  private def makeId(userId: UserId, perfType: PerfType) = s"$userId:${perfType.id}"
 
-  private[user] def topPerf(perfId: PerfId, nb: Int): Fu[List[LightPerf]] =
-    lila.rating
-      .PerfType(perfId)
-      .map(_.key)
-      .filter(k => lila.rating.PerfType.isLeaderboardable(PerfType(k)))
-      .so: perfKey =>
-        coll:
-          _.find($doc("perf" -> perfId, "stable" -> true))
-            .sort($doc("rating" -> -1))
-            .cursor[Ranking]()
-            .list(nb)
-            .flatMap:
-              _.parallel: r =>
-                lightUser(r.user).map2: light =>
-                  LightPerf(
-                    user = light,
-                    perfKey = perfKey,
-                    rating = r.rating,
-                    progress = ~r.prog
-                  )
-              .dmap(_.flatten)
+  private[user] object topPerf:
+    val maxPerPage = MaxPerPage(100)
+
+    def pager(perf: PerfKey, page: Int): Fu[Paginator[LightPerf]] =
+      Paginator(
+        adapter = new:
+          def nbResults = fuccess(500_000)
+          def slice(offset: Int, length: Int): Fu[List[LightPerf]] = fetchLightPerfs(perf, length, offset)
+        ,
+        currentPage = page,
+        maxPerPage = maxPerPage
+      )
+
+    private[user] def fetchLightPerfs(perf: PerfKey, nb: Int, skip: Int = 0): Fu[List[LightPerf]] =
+      lila.rating.PerfType
+        .isLeaderboardable(perf)
+        .so:
+          coll:
+            _.find($doc("perf" -> perf.id, "stable" -> true))
+              .sort($doc("rating" -> -1))
+              .skip(skip)
+              .cursor[Ranking]()
+              .list(nb)
+              .flatMap:
+                _.parallel: r =>
+                  lightUser(r.user).map2:
+                    LightPerf(_, perf, r.rating, ~r.prog)
+                .dmap(_.flatten)
 
   private[user] def fetchLeaderboard(nb: Int): Fu[lila.rating.UserPerfs.Leaderboards] =
     for
-      ultraBullet <- topPerf(PerfType.UltraBullet.id, nb)
-      bullet <- topPerf(PerfType.Bullet.id, nb)
-      blitz <- topPerf(PerfType.Blitz.id, nb)
-      rapid <- topPerf(PerfType.Rapid.id, nb)
-      classical <- topPerf(PerfType.Classical.id, nb)
-      chess960 <- topPerf(PerfType.Chess960.id, nb)
-      kingOfTheHill <- topPerf(PerfType.KingOfTheHill.id, nb)
-      threeCheck <- topPerf(PerfType.ThreeCheck.id, nb)
-      antichess <- topPerf(PerfType.Antichess.id, nb)
-      atomic <- topPerf(PerfType.Atomic.id, nb)
-      horde <- topPerf(PerfType.Horde.id, nb)
-      racingKings <- topPerf(PerfType.RacingKings.id, nb)
-      crazyhouse <- topPerf(PerfType.Crazyhouse.id, nb)
+      ultraBullet <- topPerf.fetchLightPerfs(PerfKey.ultraBullet, nb)
+      bullet <- topPerf.fetchLightPerfs(PerfKey.bullet, nb)
+      blitz <- topPerf.fetchLightPerfs(PerfKey.blitz, nb)
+      rapid <- topPerf.fetchLightPerfs(PerfKey.rapid, nb)
+      classical <- topPerf.fetchLightPerfs(PerfKey.classical, nb)
+      chess960 <- topPerf.fetchLightPerfs(PerfKey.chess960, nb)
+      kingOfTheHill <- topPerf.fetchLightPerfs(PerfKey.kingOfTheHill, nb)
+      threeCheck <- topPerf.fetchLightPerfs(PerfKey.threeCheck, nb)
+      antichess <- topPerf.fetchLightPerfs(PerfKey.antichess, nb)
+      atomic <- topPerf.fetchLightPerfs(PerfKey.atomic, nb)
+      horde <- topPerf.fetchLightPerfs(PerfKey.horde, nb)
+      racingKings <- topPerf.fetchLightPerfs(PerfKey.racingKings, nb)
+      crazyhouse <- topPerf.fetchLightPerfs(PerfKey.crazyhouse, nb)
     yield lila.rating.UserPerfs.Leaderboards(
       ultraBullet = ultraBullet,
       bullet = bullet,
@@ -104,7 +110,7 @@ final class RankingApi(
       racingKings = racingKings
     )
 
-  object weeklyStableRanking:
+  private[user] object weeklyStableRanking:
 
     private type Rank = Int
 
@@ -116,31 +122,32 @@ final class RankingApi(
         case _ => Map.empty
 
     private val cache = cacheApi.unit[Map[PerfKey, Map[UserId, Rank]]]:
-      _.refreshAfterWrite(15.minutes).buildAsyncFuture: _ =>
+      _.refreshAfterWrite(10.minutes).buildAsyncTimeout(2.minutes): _ =>
         lila.rating.PerfType.leaderboardable
-          .sequentially: pt =>
-            compute(pt).dmap(pt -> _)
+          .sequentially: perf =>
+            computeAggregate(perf).chronometer
+              .logIfSlow(500, logger.branch("ranking"))(_ => s"slow weeklyStableRanking for $perf")
+              .result
+              .monSuccess(_.user.weeklyStableRanking(perf))
+              .dmap(perf -> _)
           .map(_.toMap)
           .chronometer
-          .logIfSlow(500, logger.branch("ranking"))(_ => "slow weeklyStableRanking")
+          .logIfSlow(5000, logger.branch("ranking"))(_ => "slow weeklyStableRanking")
           .result
 
-    private def compute(pt: PerfType): Fu[Map[UserId, Rank]] = coll:
-      _.find(
-        $doc("perf" -> pt.id, "stable" -> true),
-        $doc("_id" -> true).some
-      )
-        .sort($doc("rating" -> -1))
-        .cursor[Bdoc]()
-        .fold(1 -> Map.newBuilder[UserId, Rank]) { case (state @ (rank, b), doc) =>
-          doc
-            .string("_id")
-            .fold(state): id =>
-              val user = UserId(id.takeWhile(':' !=))
-              b += (user -> rank)
-              (rank + 1) -> b
-        }
-        .map(_._2.result())
+    private def computeAggregate(pt: PerfType): Fu[Map[UserId, Rank]] = coll:
+      _.aggregateOne(): framework =>
+        import framework.*
+        Match($doc("perf" -> pt.id, "stable" -> true)) -> List(
+          Sort(Descending("rating")),
+          Group(BSONNull)("all" -> Push($doc("$first" -> $doc("$split" -> $arr("$_id", ":")))))
+        )
+      .map:
+        _.flatMap(_.getAsOpt[BSONArray]("all")).so:
+          _.values.view.zipWithIndex
+            .collect:
+              case (BSONString(id), index) => UserId(id) -> (index + 1)
+            .toMap
 
 object RankingApi:
 

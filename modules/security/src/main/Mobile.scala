@@ -15,7 +15,7 @@ object Mobile:
 
     val currentVersion = ApiVersion.lichobile
 
-    val acceptedVersions: Set[ApiVersion] = Set(1, 2, 3, 4, 5, 6).map { ApiVersion(_) }
+    val acceptedVersions: Set[ApiVersion] = ApiVersion.from(Set(1, 2, 3, 4, 5, 6))
 
     def requestVersion(req: RequestHeader): Option[ApiVersion] =
       HTTPRequest.apiVersion(req).filter(acceptedVersions.contains)
@@ -30,7 +30,7 @@ object Mobile:
     def is(ua: UserAgent): Boolean = ua.value.startsWith("Lichess Mobile/")
     private val Regex =
       """(?i)lichess mobile/(\S+)(?: \(\d*\))? as:(\S+) sri:(\S+) os:(Android|iOS)/(\S+) dev:(.*)""".r
-    def parse(req: RequestHeader): Option[LichessMobileUa] = HTTPRequest.userAgent(req).flatMap(parse)
+    def parse(req: RequestHeader): Option[LichessMobileUa] = parse(HTTPRequest.userAgent(req))
     def parse(ua: UserAgent): Option[LichessMobileUa] = is(ua).so:
       ua.value match
         case Regex(version, user, sri, osName, osVersion, device) =>

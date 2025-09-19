@@ -165,7 +165,9 @@ function renderHelpModal(ctrl: VoiceCtrl) {
       const grammar =
         ctrl.moduleId === 'coords'
           ? []
-          : await jsonSimple(site.asset.url(`compiled/grammar/${ctrl.moduleId}-${ctrl.lang()}.json`));
+          : await jsonSimple(site.asset.url(`compiled/grammar/${ctrl.moduleId}-${ctrl.lang()}.json`)).catch(
+              () => ({ entries: [] }),
+            );
 
       const valToWord = (val: string, phonetic: boolean) =>
         grammar.entries.find(

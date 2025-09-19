@@ -48,15 +48,13 @@ final class SwissShow(helpers: Helpers, ui: SwissBitsUi, gathering: GatheringUi)
         )
       )
       .graph(
-        OpenGraph(
-          title = s"${fullName(s, team)}: ${s.variant.name} ${s.clock.show} #${s.id}",
-          url = s"$netBaseUrl${routes.Swiss.show(s.id).url}",
-          description =
-            s"${s.nbPlayers} players compete in the ${showEnglishDate(s.startsAt)} ${s.name} Swiss tournament " +
-              s"organized by ${team.name}. " +
-              s.winnerId.fold("Winner is not yet decided."): winnerId =>
-                s"${titleNameOrId(winnerId)} takes the prize home!"
-        )
+        title = s"${fullName(s, team)}: ${s.variant.name} ${s.clock.show} #${s.id}",
+        url = s"$netBaseUrl${routes.Swiss.show(s.id).url}",
+        description =
+          s"${s.nbPlayers} players compete in the ${showEnglishDate(s.startsAt)} ${s.name} Swiss tournament " +
+            s"organized by ${team.name}. " +
+            s.winnerId.fold("Winner is not yet decided."): winnerId =>
+              s"${titleNameOrId(winnerId)} takes the prize home!"
       ):
         main(cls := "swiss")(
           st.aside(cls := "swiss__side")(

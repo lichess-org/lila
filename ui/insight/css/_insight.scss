@@ -130,12 +130,10 @@
     height: var(---header-height);
     background: $c-bg-zebra;
     h2 {
-      font-size: vmax;
       line-height: var(---header-height);
     }
 
     h2::before {
-      font-size: vmax;
       vertical-align: top;
       line-height: var(---header-height);
       margin: 0 10px;

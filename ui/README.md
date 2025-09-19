@@ -150,7 +150,6 @@ Hash entries identify files for which a symlink named with their content hash wi
       "/public/lifat/background/montage*.webp",
       "/public/npm/*",
       "/public/javascripts/**",
-      "/public/piece-css/*"
     ]
 ```
 Entries may also take object form:

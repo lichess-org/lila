@@ -19,7 +19,7 @@ final class Moretimer(
   def apply(pov: Pov, duration: FiniteDuration, force: Boolean): Fu[Option[Progress]] =
     isAllowedIn(pov.game, Preload.none, force).map:
       case false =>
-        logger.warn(s"[moretimer] not allowed on ${pov.game.id}")
+        logger.info(s"[moretimer] not allowed on ${pov.game.id}")
         none
       case true =>
         if pov.game.clock.exists(_.moretimeable(!pov.color))

@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses" comment="Lichess Classes are a feature that lets a teacher create virtual classes and check out students' progress.&#10;&#10;This text used to be &quot;Lichess Classes&quot;, which has since been shortened to &quot;Classes&quot;.">Lichess klaseak</string>
+  <string name="lichessClasses">Lichess klaseak</string>
   <string name="teachClassesOfChessStudents">Irakatsi xakean ikasleei Lichess Klaseak tresnak erabiliz.</string>
   <string name="features">Ezaugarriak</string>
   <string name="quicklyGenerateSafeUsernames">Ikasleentzat erabiltzaile-izen eta pasahitz seguruak sortu</string>
   <string name="trackStudentProgress">Ikasleen aurrerapenaren berri izan partida eta ariketetan</string>
   <string name="messageAllStudents">Ikasle guztien material berriaren inguruko informazioa bidali</string>
-  <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">%100 doan guztientzat, betiko eta iragarkirik gabe</string>
+  <string name="freeForAllForever">%100 doan guztientzat, betiko eta iragarkirik gabe</string>
   <string name="applyToBeLichessTeacher">Lichess Irakasle izatea eskatu</string>
   <string name="noClassesYet">Ez duzu klaserik.</string>
   <string name="teachersX">Irakasleak: %s</string>
   <string name="newClass">Klase berria</string>
   <string name="closeClass">Klasea itxi</string>
   <string name="removedByX">%s erabiltzaileak ezabatu du</string>
-  <string name="reopen" comment="A button, permitting a teacher to reopen a closed class.">Berriz ireki</string>
-  <string name="removeStudent" comment="Removes a student from the class. Note the same text is used both for initial removal, and for full erasure.">Ikaslea ezabatu</string>
-  <string name="removedStudents" comment="This is in plural form. It is a heading showing all students who have been removed from the class.">Ezabatuta</string>
-  <string name="inviteTheStudentBack" comment="A button. Clicking this will re-invite a student that has been removed from the class.">Ikaslea berriz gonbidatu</string>
+  <string name="reopen">Berriz ireki</string>
+  <string name="removeStudent">Ikaslea ezabatu</string>
+  <string name="removedStudents">Ezabatuta</string>
+  <string name="inviteTheStudentBack">Ikaslea berriz gonbidatu</string>
   <string name="sendAMessage">Ikasle guztiei mezua bidali.</string>
   <string name="aLinkToTheClassWillBeAdded">Klaserako lotura automatikoki gehituko da mezuan, beraz ez duzu zertan zuk idatzi.</string>
   <string name="className">Klasearen izena</string>
@@ -30,7 +30,7 @@
   <string name="generateANewPassword">Ikaslearentzat pasahitz berria sortu</string>
   <string name="invitedToXByY">%1$s klasera %2$s erabiltzaileak gonbidatua</string>
   <string name="realName">Benetako izena</string>
-  <string name="privateWillNeverBeShown" comment="A description of the real name field for members of a class.">Pribatua. Ez da klasetik kanpora inoiz erakutsiko. Ikaslea zein den gogorarazten laguntzen du.</string>
+  <string name="privateWillNeverBeShown">Pribatua. Ez da klasetik kanpora inoiz erakutsiko. Ikaslea zein den gogorarazten laguntzen du.</string>
   <string name="addStudent">Ikaslea gehitu</string>
   <string name="lichessProfileXCreatedForY">%1$s Lichess profila %2$s erabiltzailearentzat sortu da.</string>
   <string name="studentCredentials">Ikaslea: %1$s
@@ -41,14 +41,14 @@ Pasahitza: %3$s</string>
   <string name="inviteDesc2">Mezu bat jasoko dute Lichessen klasera sartzeko loturarekin.</string>
   <string name="inviteDesc3">Garrantzitsua: ezagutzen dituzu ikasleak eta klasera sartu nahi dutenak bakarrik gonbidatu.</string>
   <string name="inviteDesc4">Sekula ez bidali eskatu gabeko gonbidapenak edozein jokalariri.</string>
-  <string name="createANewLichessAccount" comment="The person who would see this would always be a teacher.&#10;In this context, it is to create a new account for a student of their class.">Lichess kontu berri bat sortu</string>
+  <string name="createANewLichessAccount">Lichess kontu berri bat sortu</string>
   <string name="createDesc1">Ikasleak ez badu Lichess kontu bat, hemendik sortu diezaiokezu.</string>
   <string name="createDesc2">Ez dugu eposta helbiderik behar. Pasahitz bat sortuko da eta ikasleari eman beharko dozu.</string>
   <string name="createDesc3">Garrantzitsua: ikasle batek ezin du kontu bat baino gehiago eduki.</string>
   <string name="createDesc4">Jada bat badu, erabili gonbidatzeko formularioa horretarako.</string>
   <string name="createStudentWarning">Benetako ikasleentzat bakarrik sortu kontuak. Ez erabili hau zuretzat kontu bat baino gehiago sortzeko. Webgunera sartzea debekatu egingo dizugu.</string>
   <string name="lichessUsername">Lichess erabiltzaile-izena</string>
-  <string name="generateANewUsername" comment="A button which lets teachers create a random username for students they are registering.">Erabiltzaile-izen berria sortu</string>
+  <string name="generateANewUsername">Erabiltzaile-izen berria sortu</string>
   <string name="welcomeToClass">Ongi etorri zure klasera: %s.
 Hemen dago bertara sartzeko lotura.</string>
   <string name="invitationToClass">\"%s\" klasera ikasle gisa sartzeko gonbidapena jaso duzu.</string>
@@ -57,14 +57,14 @@ Hemen dago bertara sartzeko lotura.</string>
     <item quantity="one">Gonbidapen bat zain</item>
     <item quantity="other">%s gonbidapen zain</item>
   </plurals>
-  <string name="pending" comment="Appears in a table of students. Refers to invitation by a teacher to join a class, which the student has not yet responded to.">Zain</string>
-  <string name="declined" comment="Appears in a table of students. Refers to invitation by a teacher to join a class, which the student declined.">Baztertuta</string>
+  <string name="pending">Zain</string>
+  <string name="declined">Baztertuta</string>
   <string name="onlyVisibleToTeachers">Klase honen irakasleek bakarrik ikusi dezakete</string>
   <string name="lastActiveDate">Aktibo</string>
   <string name="managed">Kudeatuta</string>
   <string name="thisStudentAccountIsManaged">Ikasle honen kontua kudeatutakoa da</string>
   <string name="upgradeFromManaged">Kudeatutakotik autonomora eguneratu</string>
-  <string name="release" comment="This used to be 'release'. It is now called 'graduate', and the term is used here as a verb.&#10;&#10;'Releasing' an account means making it a full Lichess account. It will no longer be tied to the teacher that created it.">Askatu</string>
+  <string name="release">Askatu</string>
   <string name="releaseTheAccount">Kontua askatu ikasleak era autonomoan kudeatu dezan.</string>
   <string name="releaseDesc1">Askatutako kontua ezin da kudeatutako kontu bihurtu berriz. Ikasleak haur-modua aktibatu dezake eta pasahitza euren kabuz berrezarri dezakete.</string>
   <string name="releaseDesc2">Ikasleak klasean jarraituko du kontua askatu ostean.</string>
@@ -102,19 +102,21 @@ Hemen dago bertara sartzeko lotura.</string>
   <string name="newsEdit3">Albisteak --- ikurrarekin banatu. Horrela marra bat agertuko da.</string>
   <string name="invite">Gonbidatu</string>
   <string name="youHaveBeenInvitedByX">%s erabiltzaileak gonbidatu zaitu.</string>
-  <string name="youAcceptedThisInvitation" comment="Appears when revisiting the page of an invitation to a class, which you have already accepted.">Gonbidapen hau onartu egin duzu.</string>
-  <string name="youDeclinedThisInvitation" comment="Appears when revisiting the page of an invitation to a class, which you have already declined.">Gonbidapen hau baztertu egin duzu.</string>
+  <string name="youAcceptedThisInvitation">Gonbidapen hau onartu egin duzu.</string>
+  <string name="youDeclinedThisInvitation">Gonbidapen hau baztertu egin duzu.</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">edo</string>
   <string name="createMultipleAccounts">Sortu Lichess kontu bat baino gehiago batera</string>
   <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">%s ikasle talde batentzako hainbat Lichess kontu sortu ditzakezu.</string>
   <string name="useThisForm" comment="Link text in multipleAccsFromDescription">Formulario hau erabiliz</string>
   <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Klase batek %1$s ikasle izan ditzake. Ikasle gehiago izateko %2$s.</string>
   <string name="createMoreClasses" comment="Link text in maxStudentsNote">sortu klase gehiago</string>
-  <string name="studentsRealNamesOnePerLine" comment="An instruction on how to enter students' names when creating new accounts for them.">Ikasleen benetako izenak, bat lerro bakoitzean</string>
-  <string name="xisNowAStudentOfTheClass" comment="%s is the player's name">%s klaseko ikaslea da orain</string>
-  <string name="anInvitationHasBeenSentToX" comment="%s is the username of a player already registered on Lichess.">Gonbidapena bidali diozu %s erabiltzaileari</string>
-  <string name="xAlreadyHasAPendingInvitation" comment="An error message. %s is the username of a player already registered on Lichess.">%s erabiltzaileak onartu gabeko gonbidapen bat du oraindik</string>
-  <string name="xIsAKidAccountWarning" comment="%1$s is the username&#10;%2$s is a link.">%1$s erabiltzaileak haurren kontu bat du eta ezin du zure mezurik jaso. Gonbidapenaren helbidea eskuz eman behar diozu: %2$s</string>
-  <string name="moveToClass" comment="%s is the name of the class. The name of the class is set by the teacher.&#10;&#10;Appears on a confirmation prompt when a teacher looks to move a student to one of the other classes they run.">%s-ra mugitu</string>
-  <string name="moveToAnotherClass" comment="Appears as a heading on a page which lets a teacher move one of their students to one of the other classes they run.">Beste klase batera mugitu</string>
+  <string name="studentsRealNamesOnePerLine">Ikasleen benetako izenak, bat lerro bakoitzean</string>
+  <string name="xisNowAStudentOfTheClass">%s klaseko ikaslea da orain</string>
+  <string name="anInvitationHasBeenSentToX">Gonbidapena bidali diozu %s erabiltzaileari</string>
+  <string name="xAlreadyHasAPendingInvitation">%s erabiltzaileak onartu gabeko gonbidapen bat du oraindik</string>
+  <string name="xIsAKidAccountWarning">%1$s erabiltzaileak haurren kontu bat du eta ezin du zure mezurik jaso. Gonbidapenaren helbidea eskuz eman behar diozu: %2$s</string>
+  <string name="moveToClass">%s-ra mugitu</string>
+  <string name="moveToAnotherClass">Beste klase batera mugitu</string>
+  <string name="allowMessagingBetweenStudents" comment="An option that a class's teacher can select. Has the extended description &quot;This only applies to the accounts you have created for your students.&quot;">Baimendu ikasleen arteko mezuak</string>
+  <string name="allowMessagingBetweenStudentsDesc" comment="Description for the option &quot;Allow messages between students&quot;.">Hau zure ikasleentzat sortutako kontuen artekoa da bakarrik.</string>
 </resources>

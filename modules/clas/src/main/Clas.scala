@@ -12,7 +12,8 @@ case class Clas(
     teachers: NonEmptyList[UserId], // first is owner
     created: Clas.Recorded,
     viewedAt: Instant,
-    archived: Option[Clas.Recorded]
+    archived: Option[Clas.Recorded],
+    canMsg: Option[Boolean]
 ):
   def withStudents(students: List[Student]) = Clas.WithStudents(this, students)
 
@@ -31,7 +32,8 @@ object Clas:
       teachers = NonEmptyList.one(teacher.id),
       created = Recorded(teacher.id, nowInstant),
       viewedAt = nowInstant,
-      archived = none
+      archived = none,
+      canMsg = false.some
     )
 
   case class Recorded(by: UserId, at: Instant)

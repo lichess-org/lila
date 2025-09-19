@@ -23,8 +23,8 @@ final class TopNav(helpers: Helpers):
           )
         ),
         div(role := "group")(
-          if ctx.noBot then a(href := s"${langHref("/")}?any#hook")(trans.site.createAGame())
-          else a(href := "/?any#friend")(trans.site.playWithAFriend()),
+          if ctx.noBot then a(href := s"${langHref("/")}?any#hook")(trans.site.createLobbyGame())
+          else a(href := "/?any#friend")(trans.site.challengeAFriend()),
           Option.when(ctx.noBot):
             frag(
               a(href := langHref(routes.Tournament.home))(trans.arena.arenaTournaments()),
@@ -74,7 +74,7 @@ final class TopNav(helpers: Helpers):
             a(href := langHref(routes.Tv.index))("Lichess TV"),
             a(href := routes.Tv.games)(trans.site.currentGames()),
             (ctx.kid.no && ctx.noBot).option(a(href := routes.Streamer.index())(trans.site.streamersMenu())),
-            ctx.noBot.option(a(href := routes.Video.index)(trans.site.videoLibrary()))
+            ctx.noBot.option(a(href := langHref(routes.Video.index))(trans.site.videoLibrary()))
           )
         )
       ,

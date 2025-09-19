@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses" comment="Lichess Classes are a feature that lets a teacher create virtual classes and check out students' progress.&#10;&#10;This text used to be &quot;Lichess Classes&quot;, which has since been shortened to &quot;Classes&quot;.">Lớp học</string>
+  <string name="lichessClasses">Lớp học</string>
   <string name="teachClassesOfChessStudents">Dạy các lớp học viên chơi cờ với bộ công cụ Lớp học Lichess.</string>
   <string name="features">Tính năng</string>
   <string name="quicklyGenerateSafeUsernames">Tạo nhanh tên người dùng và mật khẩu an toàn cho các học viên</string>
   <string name="trackStudentProgress">Theo dõi sự tiến bộ của học viên trong các ván đấu và giải đố</string>
   <string name="messageAllStudents">Thông báo cho tất cả học viên về tài liệu lớp học mới</string>
-  <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">Miễn phí 100% cho tất cả, mãi mãi, không có quảng cáo hay theo dõi</string>
+  <string name="freeForAllForever">Miễn phí 100% cho tất cả, mãi mãi, không có quảng cáo hay theo dõi</string>
   <string name="applyToBeLichessTeacher">Đăng ký để trở thành một Giáo viên Lichess</string>
   <string name="noClassesYet">Chưa có lớp nào.</string>
   <string name="teachersX">Giáo viên: %s</string>
   <string name="newClass">Lớp học mới</string>
   <string name="closeClass">Đóng lớp học</string>
   <string name="removedByX">Đã bị xóa bởi %s</string>
-  <string name="reopen" comment="A button, permitting a teacher to reopen a closed class.">Mở lại</string>
-  <string name="removeStudent" comment="Removes a student from the class. Note the same text is used both for initial removal, and for full erasure.">Loại bỏ học viên</string>
-  <string name="removedStudents" comment="This is in plural form. It is a heading showing all students who have been removed from the class.">Đã loại bỏ</string>
-  <string name="inviteTheStudentBack" comment="A button. Clicking this will re-invite a student that has been removed from the class.">Mời học viên trở lại</string>
+  <string name="reopen">Mở lại</string>
+  <string name="removeStudent">Loại bỏ học viên</string>
+  <string name="removedStudents">Đã loại bỏ</string>
+  <string name="inviteTheStudentBack">Mời học viên trở lại</string>
   <string name="sendAMessage">Gửi tin nhắn tới tất cả học viên.</string>
   <string name="aLinkToTheClassWillBeAdded">Một liên kết đến lớp sẽ được tự động thêm vào cuối tin nhắn, vì vậy bạn không cần phải tự đưa nó vào.</string>
   <string name="className">Tên lớp</string>
@@ -30,7 +30,7 @@
   <string name="generateANewPassword">Tạo mật khẩu mới cho học viên</string>
   <string name="invitedToXByY">%1$s được mời bởi %2$s</string>
   <string name="realName">Tên thật</string>
-  <string name="privateWillNeverBeShown" comment="A description of the real name field for members of a class.">Riêng tư. Sẽ không bao giờ được hiển thị bên ngoài lớp học. Giúp bạn nhớ học viên là ai.</string>
+  <string name="privateWillNeverBeShown">Riêng tư. Sẽ không bao giờ được hiển thị bên ngoài lớp học. Giúp bạn nhớ học viên là ai.</string>
   <string name="addStudent">Thêm học viên</string>
   <string name="lichessProfileXCreatedForY">Đã tạo %1$s làm hồ sơ Lichess cho %2$s.</string>
   <string name="studentCredentials">Học viên: %1$s
@@ -41,14 +41,14 @@ Mật khẩu: %3$s</string>
   <string name="inviteDesc2">Họ sẽ nhận được một tin nhắn trên Lichess với một liên kết để tham gia lớp học.</string>
   <string name="inviteDesc3">Quan trọng: chỉ mời những học viên mà bạn biết và là những người thực sự muốn tham gia lớp học.</string>
   <string name="inviteDesc4">Không bao giờ gửi lời mời không mong muốn đến người chơi tùy ý.</string>
-  <string name="createANewLichessAccount" comment="The person who would see this would always be a teacher.&#10;In this context, it is to create a new account for a student of their class.">Tạo một tài khoản Lichess mới</string>
+  <string name="createANewLichessAccount">Tạo một tài khoản Lichess mới</string>
   <string name="createDesc1">Nếu học viên chưa có tài khoản Lichess, bạn có thể tạo một tài khoản cho họ tại đây.</string>
   <string name="createDesc2">Không yêu cầu địa chỉ email. Một mật khẩu sẽ được tạo và bạn sẽ phải gửi nó cho học viên để họ có thể đăng nhập.</string>
   <string name="createDesc3">Quan trọng: một học viên không được có nhiều tài khoản.</string>
   <string name="createDesc4">Nếu họ đã có, hãy sử dụng biểu mẫu mời thay thế.</string>
   <string name="createStudentWarning">Chỉ được tạo tài khoản cho học viên có thật. Không được lợi dụng để tạo nhiều tài khoản cho bản thân. Bạn sẽ bị cấm.</string>
   <string name="lichessUsername">Tên người dùng Lichess</string>
-  <string name="generateANewUsername" comment="A button which lets teachers create a random username for students they are registering.">Gợi ý tạo một tên người dùng mới</string>
+  <string name="generateANewUsername">Gợi ý tạo một tên người dùng mới</string>
   <string name="welcomeToClass">Chào mừng đến với lớp học của bạn: %s.
 Đây là đường link để tham gia lớp học.</string>
   <string name="invitationToClass">Bạn được mời đến vào lớp học \"%s\" với tư cách là một học viên.</string>
@@ -56,14 +56,14 @@ Mật khẩu: %3$s</string>
   <plurals name="nbPendingInvitations">
     <item quantity="other">%s lời mời đang chờ</item>
   </plurals>
-  <string name="pending" comment="Appears in a table of students. Refers to invitation by a teacher to join a class, which the student has not yet responded to.">Đang chờ duyệt</string>
-  <string name="declined" comment="Appears in a table of students. Refers to invitation by a teacher to join a class, which the student declined.">Bị từ chối</string>
+  <string name="pending">Đang chờ duyệt</string>
+  <string name="declined">Bị từ chối</string>
   <string name="onlyVisibleToTeachers">Chỉ hiển thị cho các giáo viên</string>
   <string name="lastActiveDate">Hoạt động</string>
   <string name="managed">Được quản lý</string>
   <string name="thisStudentAccountIsManaged">Tài khoản học viên này đã được quản lý</string>
   <string name="upgradeFromManaged">Nâng cấp từ bị quản lý sang tự chủ</string>
-  <string name="release" comment="This used to be 'release'. It is now called 'graduate', and the term is used here as a verb.&#10;&#10;'Releasing' an account means making it a full Lichess account. It will no longer be tied to the teacher that created it.">Bản phát hành</string>
+  <string name="release">Bản phát hành</string>
   <string name="releaseTheAccount">Giải phóng tài khoản để học viên có thể quản lý nó một cách tự chủ.</string>
   <string name="releaseDesc1">Một tài khoản đã được tốt nghiệp không thể được quản lý lại. Học viên sẽ có thể chuyển đổi chế độ trẻ em và tự đặt lại mật khẩu.</string>
   <string name="releaseDesc2">Học viên sẽ vẫn ở trong lớp sau khi tài khoản của họ được giải phóng.</string>
@@ -99,19 +99,21 @@ Mật khẩu: %3$s</string>
   <string name="newsEdit3">Phân cách tin tức bởi --- nó sẽ hiển thị một đường ngang.</string>
   <string name="invite">Mời</string>
   <string name="youHaveBeenInvitedByX">Bạn được mời bởi %s.</string>
-  <string name="youAcceptedThisInvitation" comment="Appears when revisiting the page of an invitation to a class, which you have already accepted.">Bạn đã chấp nhận lời mời.</string>
-  <string name="youDeclinedThisInvitation" comment="Appears when revisiting the page of an invitation to a class, which you have already declined.">Bạn đã từ chối lời mời.</string>
+  <string name="youAcceptedThisInvitation">Bạn đã chấp nhận lời mời.</string>
+  <string name="youDeclinedThisInvitation">Bạn đã từ chối lời mời.</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">hoặc</string>
   <string name="createMultipleAccounts">Tạo nhiều tài khoản Lichess cùng lúc</string>
   <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Bạn cũng có thể %s để tạo nhiều tài khoản Lichess từ một danh sách chứa tên các học viên.</string>
   <string name="useThisForm" comment="Link text in multipleAccsFromDescription">dùng biểu mẫu này</string>
   <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Chú ý rằng một lớp học chỉ có thể có tối đa %1$s học viên. Để quản lý nhiều học viên hơn, %2$s.</string>
   <string name="createMoreClasses" comment="Link text in maxStudentsNote">tạo thêm nhiều lớp học</string>
-  <string name="studentsRealNamesOnePerLine" comment="An instruction on how to enter students' names when creating new accounts for them.">Tên thật của các học viên, mỗi tên một dòng</string>
-  <string name="xisNowAStudentOfTheClass" comment="%s is the player's name">%s bây giờ là một học viên của lớp</string>
-  <string name="anInvitationHasBeenSentToX" comment="%s is the username of a player already registered on Lichess.">Một lời mời đã được gửi tới %s</string>
-  <string name="xAlreadyHasAPendingInvitation" comment="An error message. %s is the username of a player already registered on Lichess.">%s đang có một lời mời chưa trả lời</string>
-  <string name="xIsAKidAccountWarning" comment="%1$s is the username&#10;%2$s is a link.">%1$s là một tài khoản trẻ em và không thể nhận tin nhắn từ bạn. Bạn phải gửi lời mời thông qua URL: %2$s</string>
-  <string name="moveToClass" comment="%s is the name of the class. The name of the class is set by the teacher.&#10;&#10;Appears on a confirmation prompt when a teacher looks to move a student to one of the other classes they run.">Chuyển sang %s</string>
-  <string name="moveToAnotherClass" comment="Appears as a heading on a page which lets a teacher move one of their students to one of the other classes they run.">Chuyển sang một lớp học khác</string>
+  <string name="studentsRealNamesOnePerLine">Tên thật của các học viên, mỗi tên một dòng</string>
+  <string name="xisNowAStudentOfTheClass">%s bây giờ là một học viên của lớp</string>
+  <string name="anInvitationHasBeenSentToX">Một lời mời đã được gửi tới %s</string>
+  <string name="xAlreadyHasAPendingInvitation">%s đang có một lời mời chưa trả lời</string>
+  <string name="xIsAKidAccountWarning">%1$s là một tài khoản trẻ em và không thể nhận tin nhắn từ bạn. Bạn phải gửi lời mời thông qua URL: %2$s</string>
+  <string name="moveToClass">Chuyển sang %s</string>
+  <string name="moveToAnotherClass">Chuyển sang một lớp học khác</string>
+  <string name="allowMessagingBetweenStudents" comment="An option that a class's teacher can select. Has the extended description &quot;This only applies to the accounts you have created for your students.&quot;">Cho phép nhắn tin giữa các học viên</string>
+  <string name="allowMessagingBetweenStudentsDesc" comment="Description for the option &quot;Allow messages between students&quot;.">Điều này chỉ áp dụng cho những tài khoản bạn đã tạo cho học viên của mình.</string>
 </resources>

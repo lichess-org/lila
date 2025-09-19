@@ -395,7 +395,7 @@ interface I18n {
     challengeDeclined: string;
     /** Challenges: %1$s */
     challengesX: I18nFormat;
-    /** Challenge to a game */
+    /** Challenge */
     challengeToPlay: string;
     /** Please send me a casual challenge instead. */
     declineCasual: string;
@@ -439,6 +439,10 @@ interface I18n {
     addStudent: string;
     /** A link to the class will be automatically added at the end of the message, so you don't need to include it yourself. */
     aLinkToTheClassWillBeAdded: string;
+    /** Allow messages between students */
+    allowMessagingBetweenStudents: string;
+    /** This only applies to the accounts you have created for your students. */
+    allowMessagingBetweenStudentsDesc: string;
     /** An invitation has been sent to %s */
     anInvitationHasBeenSentToX: I18nFormat;
     /** Apply to be a Lichess Teacher */
@@ -3181,6 +3185,10 @@ interface I18n {
     casual: string;
     /** Casual */
     casualTournament: string;
+    /** Challenge a friend */
+    challengeAFriend: string;
+    /** Challenge %s */
+    challengeX: I18nFormat;
     /** Change email */
     changeEmail: string;
     /** Change password */
@@ -3221,6 +3229,8 @@ interface I18n {
     clearBoard: string;
     /** Clear moves */
     clearSavedMoves: string;
+    /** Clear search */
+    clearSearch: string;
     /** Click here to read it */
     clickHereToReadIt: string;
     /** Click on the board to make your move, and prove you are human. */
@@ -3247,7 +3257,7 @@ interface I18n {
     collapseVariations: string;
     /** Community */
     community: string;
-    /** Compose message */
+    /** Message */
     composeMessage: string;
     /** Computer */
     computer: string;
@@ -3299,6 +3309,8 @@ interface I18n {
     createANewTournament: string;
     /** Newly created simuls */
     createdSimuls: string;
+    /** Create lobby game */
+    createLobbyGame: string;
     /** Create the game */
     createTheGame: string;
     /** Create the topic */
@@ -3381,8 +3393,6 @@ interface I18n {
     drawn: string;
     /** Draw offer accepted */
     drawOfferAccepted: string;
-    /** Draw offer cancelled */
-    drawOfferCanceled: string;
     /** Draw offer sent */
     drawOfferSent: string;
     /** Draw rate */
@@ -3523,10 +3533,14 @@ interface I18n {
     gameAsGIF: string;
     /** You have a game in progress with %s. */
     gameInProgress: I18nFormat;
+    /** Game mode */
+    gameMode: string;
     /** Game Over */
     gameOver: string;
     /** Games */
     games: string;
+    /** Game setup */
+    gameSetup: string;
     /** Games played */
     gamesPlayed: string;
     /** Game vs %1$s */
@@ -3577,11 +3591,9 @@ interface I18n {
     importedByX: I18nFormat;
     /** Import game */
     importGame: string;
-    /** Variations will be erased. To keep them, import the PGN via a study. */
-    importGameCaveat: string;
     /** This PGN can be accessed by the public. To import a game privately, use a study. */
     importGameDataPrivacyWarning: string;
-    /** Paste a game PGN to get a browsable replay, computer analysis, game chat and public shareable URL. */
+    /** Paste a game PGN to get a browsable replay of the main line, computer analysis, game chat and public shareable URL. */
     importGameExplanation: string;
     /** Import PGN */
     importPgn: string;
@@ -3933,12 +3945,16 @@ interface I18n {
     numberMistakes: I18nPlural;
     /** Offer draw */
     offerDraw: string;
+    /** offline */
+    offline: string;
     /** OK */
     ok: string;
     /** One day */
     oneDay: string;
     /** One URL per line. */
     oneUrlPerLine: string;
+    /** online */
+    online: string;
     /** Online bots */
     onlineBots: string;
     /** Online players */
@@ -4009,6 +4025,8 @@ interface I18n {
     pieceSet: string;
     /** Play */
     play: string;
+    /** Play against AI */
+    playAgainstAI: string;
     /** Play chess everywhere */
     playChessEverywhere: string;
     /** Play chess in style */
@@ -4029,10 +4047,6 @@ interface I18n {
     playSelectedMove: string;
     /** Play a variation to create conditional premoves */
     playVariationToCreateConditionalPremoves: string;
-    /** Play with a friend */
-    playWithAFriend: string;
-    /** Play with the computer */
-    playWithTheMachine: string;
     /** Play %s */
     playX: I18nFormat;
     /** We aim to provide a pleasant chess experience for everyone. */
@@ -4099,8 +4113,10 @@ interface I18n {
     ratedTournament: string;
     /** Rating */
     rating: string;
-    /** Rating range */
-    ratingRange: string;
+    /** Rating filter */
+    ratingFilter: string;
+    /** Rating filters are locked because your rating is not stable. Playing rated games will increase stability. */
+    ratingRangeIsDisabledBecauseYourRatingIsProvisional: string;
     /** Rating stats */
     ratingStats: string;
     /** %1$s rating over %2$s games */
@@ -4203,6 +4219,8 @@ interface I18n {
     screenshotCurrentPosition: string;
     /** Scroll over computer variations to preview them. */
     scrollOverComputerVariationsToPreviewThem: string;
+    /** Search */
+    search: string;
     /** Search or start new conversation */
     searchOrStartNewDiscussion: string;
     /** Security */
@@ -4325,6 +4343,8 @@ interface I18n {
     success: string;
     /** Switch sides */
     switchSides: string;
+    /** Tags */
+    tags: string;
     /** Takeback */
     takeback: string;
     /** Takeback sent */
@@ -4685,6 +4705,8 @@ interface I18n {
     youHaveJoinedTeamX: I18nFormat;
     /** You need an account to do that */
     youNeedAnAccountToDoThat: string;
+    /** You play as */
+    youPlayAs: string;
     /** You play the black pieces */
     youPlayTheBlackPieces: string;
     /** You play the white pieces */
@@ -4709,6 +4731,8 @@ interface I18n {
     yourQuestionMayHaveBeenAnswered: I18nFormat;
     /** Your rating */
     yourRating: string;
+    /** Your rating is %s */
+    yourRatingIsX: I18nFormat;
     /** Your score: %s */
     yourScore: I18nFormat;
     /** Your top weekly %1$s rating (%2$s) is too high */
@@ -4995,6 +5019,8 @@ interface I18n {
     contributors: string;
     /** Copy PGN */
     copyChapterPgn: string;
+    /** Copy Raw PGN */
+    copyRawChapterPgn: string;
     /** Counterplay */
     counterplay: string;
     /** Create chapter */
@@ -5839,6 +5865,44 @@ interface I18n {
     xPublishedY: I18nFormat;
     /** You are blocked by the blog author. */
     youBlockedByBlogAuthor: string;
+  };
+  video: {
+    /** All %s video tags */
+    allNbVideoTags: I18nFormat;
+    /** All videos are free for everyone. */
+    allVideosAreFree: string;
+    /** Chess videos */
+    chessVideos: string;
+    /** Free chess videos */
+    freeChessVideos: string;
+    /** free for all */
+    freeForAll: string;
+    /** %s videos found */
+    nbVideosFound: I18nPlural;
+    /** No videos for these tags: */
+    noVideosForTheseTags: string;
+    /** Select tags to filter the videos. */
+    selectTagsToFilter: string;
+    /** That's all we got for these tags: */
+    thatsAllWeGotForTheseTags: string;
+    /** That's all we got for this search: "%s" */
+    thatsAllWeGotForThisSearchX: I18nFormat;
+    /** There are no results for "%s" */
+    thereAreNoResultsForX: I18nFormat;
+    /** Video not found! */
+    videoNotFound: string;
+    /** View more tags */
+    viewMoreTags: string;
+    /** We have carefully selected %s videos so far! */
+    weHaveCarefullySelectedX: I18nFormat;
+    /** %1$s by %2$s */
+    xByY: I18nFormat;
+    /** %s curated chess videos */
+    xCuratedChessVideos: I18nFormat;
+    /** %s free, carefully curated chess videos */
+    xFreeCarefullyCurated: I18nFormat;
+    /** %1$s with tags %2$s */
+    xWithTagsY: I18nFormat;
   };
   voiceCommands: {
     /** Cancel timer or deny a request */

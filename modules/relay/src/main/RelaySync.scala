@@ -25,7 +25,7 @@ final private class RelaySync(
     plan = RelayUpdatePlan(chapters, games)
     _ <- plan.reorder.so(studyApi.sortChapters(study.id, _)(who(study.ownerId)))
     updates <- plan.update.sequentially: (chapter, game) =>
-      updateChapter(rt, study, game, chapter)
+      updateChapter(rt, study, chapter, game)
     appends <- plan.append.toList.sequentially: game =>
       createChapter(rt, study, game)
     result = SyncResult.Ok(updates ::: appends.flatten, plan)
@@ -46,8 +46,8 @@ final private class RelaySync(
   private def updateChapter(
       rt: RelayRound.WithTour,
       study: Study,
-      game: RelayGame,
-      chapter: Chapter
+      chapter: Chapter,
+      game: RelayGame
   ): Fu[SyncResult.ChapterResult] = for
     chapter <- updateInitialPosition(study.id, chapter, game)
     (newTags, newEnd) <- updateChapterTags(rt.tour, study, chapter, game)

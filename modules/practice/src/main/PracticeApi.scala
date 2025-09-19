@@ -9,7 +9,7 @@ final class PracticeApi(
     coll: Coll,
     cacheApi: lila.memo.CacheApi,
     studyApi: lila.study.StudyApi
-)(using Executor):
+)(using Executor, Scheduler):
 
   import BSONHandlers.given
 
@@ -58,7 +58,7 @@ final class PracticeApi(
 
   object structure:
     private val cache = cacheApi.unit[PracticeStructure]:
-      _.expireAfterAccess(3.hours).buildAsyncFuture: _ =>
+      _.expireAfterAccess(3.hours).buildAsyncTimeout(): _ =>
         studyApi.chapterIdNames(PracticeStructure.studyIds).map(PracticeStructure.withChapters)
     def get = cache.getUnit
     def clear() = cache.invalidateUnit()

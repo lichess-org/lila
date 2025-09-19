@@ -1,4 +1,4 @@
-import { isSafari } from 'lib/device';
+import { isSafari, isFirefox } from 'lib/device';
 import { type CropOpts } from './bits.cropDialog';
 export { type CropOpts } from './bits.cropDialog';
 
@@ -22,17 +22,34 @@ export function wireCropDialog(
 
   init.selectDrags?.on('dragover', e => e.preventDefault());
 
-  init.selectDrags?.on('drop', e => {
+  init.selectDrags?.on('drop', async e => {
     e.preventDefault();
+    init.source = undefined;
 
     for (const item of e.dataTransfer.items) {
-      if (item.kind === 'file' && item.type.startsWith('image/')) init.source = item.getAsFile();
-      else if (item.type === 'text/uri-list') item.getAsString((uri: string) => (init.source = uri));
-      else continue;
-
-      if (init.source) return site.asset.loadEsm('bits.cropDialog', { init });
+      if (item.kind === 'file' && mimeAccept.includes(item.type)) {
+        init.source = item.getAsFile();
+        return site.asset.loadEsm('bits.cropDialog', { init });
+      } else if (item.type === 'text/uri-list' || item.type === 'text/plain') {
+        const uri = await new Promise<string>(res => item.getAsString(res));
+        if (supported(uri)) {
+          init.source = uri;
+          return site.asset.loadEsm('bits.cropDialog', { init });
+        }
+      }
     }
   });
+}
+
+const imageTypes = ['jpeg', 'jpg', 'png', 'webp', 'gif', 'tiff', 'avif'].concat(
+  isSafari() ? ['heic', 'heif', 'svg+xml'] : isFirefox() ? ['svg+xml'] : [],
+); // chrome canvas butchers svgs without intrinsic size
+
+export const mimeAccept: string = imageTypes.map(t => `image/${t}`).join(',');
+
+export function supported(src: string): boolean {
+  const ext = src.split('.').pop()?.toLowerCase();
+  return Boolean(ext && imageTypes.find(t => ext.startsWith(t.split('+')[0])));
 }
 
 if (isSafari()) wireCropDialog(); // preload

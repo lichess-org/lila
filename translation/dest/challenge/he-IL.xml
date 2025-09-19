@@ -5,7 +5,7 @@
   <string name="challengeDeclined">ההזמנה למשחק נדחתה</string>
   <string name="challengeAccepted">ההזמנה למשחק התקבלה!</string>
   <string name="challengeCanceled">ההזמנה למשחק התבטלה.</string>
-  <string name="registerToSendChallenges" comment="This used to say &quot;Please register to send challenges.&quot;&#10;We have since added &quot;[...] to this user.&quot; to the end of the string for absolute clarity, given the context this appears in. Please update translations as needed.">אנא הירשמו כדי לשלוח הזמנות למשחקים.</string>
+  <string name="registerToSendChallenges">אנא הירשמו כדי לשלוח הזמנות למשחקים.</string>
   <string name="youCannotChallengeX">לא ניתן להזמין את %s למשחק.</string>
   <string name="xDoesNotAcceptChallenges">%s לא מקבל/ת הזמנות למשחקים.</string>
   <string name="yourXRatingIsTooFarFromY">הדירוג שלך ב%1$s רחוק מדי מהדירוג של %2$s.</string>

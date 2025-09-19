@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Ludi kun amiko</string>
-  <string name="playWithTheMachine">Ludi kontraŭ la komputilo</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Por inviti iun al ludo, donu ĉi tiun ligilon</string>
   <string name="gameOver">Ludo finiĝis</string>
   <string name="waitingForOpponent">Atendante kontraŭulon</string>
@@ -276,7 +274,6 @@
   <string name="blackTimeOut">La tempo de nigro finiĝis</string>
   <string name="drawOfferSent">Egalvenka propono estis sendita</string>
   <string name="drawOfferAccepted">Egalvenka propono estis akceptita</string>
-  <string name="drawOfferCanceled">Egalvenka propono estis nuligita</string>
   <string name="whiteOffersDraw">Blanko proponas egalvenkon</string>
   <string name="blackOffersDraw">Nigro proponas egalvenkon</string>
   <string name="whiteDeclinesDraw">Blanko malakceptas egalvenkon</string>
@@ -286,7 +283,7 @@
   <string name="decline">Malakcepti</string>
   <string name="playingRightNow">Ludate nun</string>
   <string name="eventInProgress">Ludanta</string>
-  <string name="finished">Finite</string>
+  <string name="finished">Finita</string>
   <string name="abortGame">Ĉesigi ludon</string>
   <string name="gameAborted">Ludo estis ĉesigita</string>
   <string name="standard">Normale</string>
@@ -338,7 +335,6 @@
     <item quantity="other">%s aktualaj</item>
   </plurals>
   <string name="exportGames">Eksporti ludojn</string>
-  <string name="ratingRange">Rangogamo</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Doni %s sekundojn</item>
     <item quantity="other">Doni %s sekundojn</item>
@@ -416,7 +412,6 @@
   <string name="toStudy">Studo</string>
   <string name="importGame">Importi ludon</string>
   <string name="importGameExplanation">Kiam vi enmetas PGN-on de ludo, vi povas reludi ĝin, vidi komputilan analizon, babili kun la kontraŭulon, kaj dissemi la ligilon URL.</string>
-  <string name="importGameCaveat">Variaĵoj estos forigitaj. Por havi ilin enportu la PGN tra studoj.</string>
   <string name="importGameDataPrivacyWarning">Ĉi tiun PGN estas atingebla de la publiko. Por importi ludon private, uzu studon.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Importitaj ludoj</item>

@@ -4,15 +4,15 @@ import akka.actor.*
 import akka.stream.scaladsl.*
 import play.api.i18n.Lang
 import play.api.libs.json.*
-import play.api.mvc.RequestHeader
 import scalalib.ThreadLocalRandom
 
 import lila.chat.{ Chat, UserLine }
-import lila.common.{ Bus, HTTPRequest }
+import lila.common.Bus
 import lila.common.actorBus.*
 import lila.core.game.{ AbortedBy, FinishGame, WithInitialFen }
 import lila.core.round.{ Tell, RoundBus }
 import lila.core.user.KidMode
+import lila.core.net.UserAgent
 import lila.game.actorApi.{
   BoardDrawOffer,
   BoardGone,
@@ -35,7 +35,7 @@ final class GameStateStream(
 
   def apply(init: WithInitialFen, as: Color)(using
       lang: Lang,
-      req: RequestHeader,
+      ua: lila.core.net.UserAgent,
       me: Me
   ): Source[Option[JsObject], ?] =
 
@@ -52,19 +52,18 @@ final class GameStateStream(
         .addEffectAnyway:
           actor ! PoisonPill
 
-  private def uniqChan(pov: Pov)(using req: RequestHeader) =
-    s"gameStreamFor:${pov.fullId}:${HTTPRequest.userAgent(req) | "?"}"
+  private def uniqChan(pov: Pov)(using ua: UserAgent) =
+    s"gameStreamFor:${pov.fullId}:$ua"
 
   private def mkActor(
       init: WithInitialFen,
       as: Color,
       user: User,
       queue: SourceQueueWithComplete[Option[JsObject]]
-  )(using Lang, RequestHeader): Actor = new:
+  )(using Lang, UserAgent): Actor = new:
 
     import init.game.id
 
-    @scala.annotation.nowarn
     var gameOver = false
 
     private val classifiers = List(

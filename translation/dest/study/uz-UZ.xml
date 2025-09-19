@@ -164,5 +164,5 @@
   <string name="playAgain">Qayta o‘ynash</string>
   <string name="whatWouldYouPlay">Ushbu holatda qanday o‘ynagan bo‘lardingiz?</string>
   <string name="youCompletedThisLesson">Tabriklaymiz! Siz bu darsni tugatdingiz.</string>
-  <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">Har bir sahifaga %s</string>
+  <string name="perPage">Har bir sahifaga %s</string>
 </resources>

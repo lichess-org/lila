@@ -12,7 +12,7 @@ final class Env(
     onStart: lila.core.game.OnStart,
     gameCache: lila.game.Cached,
     rematches: lila.game.Rematches,
-    lightUser: lila.core.LightUser.GetterSync,
+    lightUser: lila.core.LightUser.GetterSyncFallback,
     lightUserApi: lila.core.user.LightUserApi,
     isOnline: lila.core.socket.IsOnline,
     db: lila.db.Db,

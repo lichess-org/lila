@@ -6,7 +6,7 @@
   <string name="notifications">Notificări</string>
   <string name="pieceAnimation">Animația piesei</string>
   <string name="materialDifference">Diferență de piese capturate</string>
-  <string name="boardHighlights">Evidențiază pe tablă (ultima mutare și șahul)</string>
+  <string name="boardHighlights">Evidențieri pe tablă (ultima mutare și șahul)</string>
   <string name="pieceDestinations">Destinația piesei (mutări valide și premutări)</string>
   <string name="boardCoordinates">Coordonatele tablei (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Lista de mutări în timpul jocului</string>
@@ -18,7 +18,7 @@
   <string name="showFlairs">Arată pictograma personalizată a jucătorului</string>
   <string name="explainShowPlayerRatings">Acest lucru permite ascunderea tuturor ratingurilor de pe site, pentru a ajuta la concentrarea pe jocul de șah. Jocurile pot fi evaluate, această setare este doar despre ce se poate vedea.</string>
   <string name="displayBoardResizeHandle">Arată indicatorul de redimensionare a tablei</string>
-  <string name="onlyOnInitialPosition">Doar inainte de prima mutare</string>
+  <string name="onlyOnInitialPosition">Doar înainte de prima mutare</string>
   <string name="inGameOnly">Doar în joc</string>
   <string name="exceptInGame" comment="An option regarding when player ratings should be displayed. This will display other players' ratings at all times, EXCEPT during a game. Please see screenshot - text needs to be kept short to fit in the segmented control widget used for settings.">Exceptând în timpul jocului</string>
   <string name="chessClock">Ceasul de șah</string>
@@ -52,7 +52,7 @@
   <string name="inputMovesWithVoice">Execută mișcările cu vocea</string>
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Trage săgețile la mutările valide</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Spune \"Joc bun, bine jucat\" la înfrângere sau la remiză</string>
-  <string name="yourPreferencesHaveBeenSaved">Preferințele tale au fost salvate</string>
+  <string name="yourPreferencesHaveBeenSaved">Preferințele tale au fost salvate.</string>
   <string name="scrollOnTheBoardToReplayMoves">Derulează pe tablă pentru a rejuca mutările</string>
   <string name="correspondenceEmailNotification">Notificare zilnică prin email cu lista jocurilor prin corespondență</string>
   <string name="notifyStreamStart">Un streamer e live</string>
@@ -62,10 +62,10 @@
   <string name="notifyGameEvent">Actualizări la jocurile prin corespondență</string>
   <string name="notifyChallenge">Provocări</string>
   <string name="notifyTournamentSoon">Turneul începe în curând</string>
-  <string name="notifyTimeAlarm">Timpul rămas la jocurile prin corespondenţă e scurt</string>
+  <string name="notifyTimeAlarm">Timpul rămas la jocurile prin corespondență e scurt</string>
   <string name="notifyBell">Notificare în Lichess</string>
   <string name="notifyPush">Notificare dispozitiv când nu ești în Lichess</string>
-  <string name="notifyWeb">Navigator</string>
+  <string name="notifyWeb">Browser</string>
   <string name="notifyDevice">Dispozitiv</string>
   <string name="bellNotificationSound">Sunet de notificare</string>
   <string name="blindfold" comment="Appears in the in-game preferences view. Enabling the blindfold option will hide all the pieces.">Legat la ochi</string>

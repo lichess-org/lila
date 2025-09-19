@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Дустың белән уйнарга</string>
-  <string name="playWithTheMachine">Компьютер белән уйнарга</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Бу сылтама белән уенга чакыру</string>
   <string name="gameOver">Уен бетте</string>
   <string name="waitingForOpponent">Ярышучыны көтәбез</string>
@@ -61,6 +59,7 @@
   <string name="usingServerAnalysis">Сервер анализын куллану</string>
   <string name="loadingEngine">Движок йөкләнә...</string>
   <string name="calculatingMoves">Хәрәкәтләр хисаплана...</string>
+  <string name="engineFailed">Йөрткеч йөкләгәндә хата килеп чыкты</string>
   <string name="cloudAnalysis">Болыт анализы</string>
   <string name="goDeeper">Тирәңрәк</string>
   <string name="showThreat">Янауны күрсәтү</string>
@@ -237,7 +236,6 @@
   <string name="blackTimeOut">Караларның вакыты чыкты</string>
   <string name="drawOfferSent">Тиңлек тәкъдиме җибәрелде</string>
   <string name="drawOfferAccepted">Тиңлек тәкъдиме кабул ителде</string>
-  <string name="drawOfferCanceled">Тиңлек тәкъдиме туктатылды</string>
   <string name="whiteOffersDraw">Аклар тиңлек тәкъдим итә</string>
   <string name="blackOffersDraw">Каралар тиңлек тәкъдим итә</string>
   <string name="whiteDeclinesDraw">Аклар тиңлекне кире кага</string>
@@ -293,7 +291,6 @@
     <item quantity="other">%s уйнала</item>
   </plurals>
   <string name="exportGames">Уеннарны экспортлау</string>
-  <string name="ratingRange">Рейтинг аралыгы</string>
   <plurals name="giveNbSeconds">
     <item quantity="other">%s секунд бирү</item>
   </plurals>

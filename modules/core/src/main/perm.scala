@@ -33,13 +33,15 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
   final def grants(p: Permission): Boolean = this == p || alsoGrants.exists(_.grants(p))
 
   case ViewBlurs extends Permission("VIEW_BLURS", "View blurs")
-  case ModerateForum extends Permission("MODERATE_FORUM", "Moderate forum")
+  case StickyPosts extends Permission("STICKY_POSTS", "Sticky forum posts")
+  case ModerateForum extends Permission("MODERATE_FORUM", List(StickyPosts), "Moderate forum")
   case ModerateBlog extends Permission("MODERATE_BLOG", "Moderate blog")
   case ChatTimeout extends Permission("CHAT_TIMEOUT", "Chat timeout")
   case BroadcastTimeout extends Permission("BROADCAST_TIMEOUT", "Broadcast timeout")
   case PublicChatView extends Permission("VIEW_PUBLIC_CHAT", "See public chat page")
   case GamifyView extends Permission("GAMIFY_VIEW", "See mod leaderboard")
   case UserModView extends Permission("USER_SPY", "User profile mod view")
+  case AccountInfo extends Permission("ACCOUNT_INFO", "View innocuous account info")
   case UserEvaluate extends Permission("USER_EVALUATE", "Request evaluation")
   case GamesModView extends Permission("GAMES_MOD_VIEW", "User games mod view")
   case SendToZulip extends Permission("NOTIFY_SLACK", List(UserModView), "Send to Zulip")
@@ -64,7 +66,6 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
   case ModLog extends Permission("MOD_LOG", "See mod log")
   case SeeInsight extends Permission("SEE_INSIGHT", "View player insights")
   case FreePatron extends Permission("FREE_PATRON", List(UserModView), "Give free patron")
-  case PracticeConfig extends Permission("PRACTICE_CONFIG", "Configure practice")
   case PuzzleCurator extends Permission("PUZZLE_CURATOR", "Classify puzzles")
   case OpeningWiki extends Permission("OPENING_WIKI", "Opening wiki")
   case Beta extends Permission("BETA", "Beta features")
@@ -75,7 +76,7 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
   case ManageSimul extends Permission("MANAGE_SIMUL", "Manage simuls")
   case ChangePermission extends Permission("CHANGE_PERMISSION", "Change permissions")
   case PublicMod extends Permission("PUBLIC_MOD", "Mod badge")
-  case Developer extends Permission("DEVELOPER", "Developer badge")
+  case Tech extends Permission("DEVELOPER", "Tech badge")
   case ContentTeam extends Permission("CONTENT_TEAM", "Content Team badge")
   case BroadcastTeam extends Permission("BROADCAST_TEAM", "Broadcast Team badge")
   case Coach extends Permission("COACH", "Is a coach")
@@ -105,6 +106,13 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
   case ApiChallengeAdmin extends Permission("API_CHALLENGE_ADMIN", "API Challenge admin")
   case LichessTeam extends Permission("LICHESS_TEAM", List(Beta), "Lichess team")
   case BotEditor extends Permission("BOT_EDITOR", "Bot editor")
+  case Diagnostics extends Permission("DIAGNOSTICS", "Diagnostics")
+  case DeveloperTeam
+      extends Permission(
+        "DEVELOPER_TEAM",
+        List(LichessTeam, Diagnostics, UserModView, AccountInfo, BotEditor, ApiHog, StickyPosts),
+        "Developer Team"
+      )
   case TimeoutMod
       extends Permission(
         "TIMEOUT_MOD",
@@ -119,6 +127,7 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
           MarkBooster,
           ArenaBan,
           UserModView,
+          AccountInfo,
           GamesModView,
           GamifyView,
           SeeReport,
@@ -139,6 +148,7 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
           ViewBlurs,
           MarkEngine,
           UserModView,
+          AccountInfo,
           GamesModView,
           GamifyView,
           UserEvaluate,
@@ -157,6 +167,7 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
         "SHUSHER",
         List(
           LichessTeam,
+          AccountInfo,
           TimeoutMod,
           ViewPrivateComms,
           Shadowban,
@@ -179,6 +190,7 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
         List(
           LichessTeam,
           UserSearch,
+          AccountInfo,
           CloseAccount,
           GdprErase,
           SetEmail,
@@ -190,8 +202,9 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
       extends Permission(
         "ADMIN",
         List(
-          BotEditor,
           LichessTeam,
+          DeveloperTeam,
+          AccountInfo,
           UserSearch,
           PrizeBan,
           RemoveRanking,
@@ -209,7 +222,6 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
           ManageTournament,
           ManageSimul,
           ManageEvent,
-          PracticeConfig,
           PuzzleCurator,
           OpeningWiki,
           Presets,
@@ -247,7 +259,7 @@ object Permission:
   val all: Set[Permission] = values.toSet
 
   val nonModPermissions: Set[Permission] =
-    Set(Beta, LichessTeam, Coach, Teacher, Developer, Verified, ContentTeam, BroadcastTeam, ApiHog, BotEditor)
+    Set(Beta, LichessTeam, Coach, Teacher, Tech, Verified, ContentTeam, BroadcastTeam, ApiHog, BotEditor)
 
   val modPermissions: Set[Permission] = all.diff(nonModPermissions)
 

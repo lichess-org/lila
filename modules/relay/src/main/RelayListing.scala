@@ -3,6 +3,7 @@ package lila.relay
 import reactivemongo.api.bson.*
 import monocle.syntax.all.*
 import java.time.temporal.ChronoUnit
+import lila.memo.CacheApi.buildAsyncTimeout
 
 import lila.db.dsl.{ *, given }
 
@@ -12,7 +13,7 @@ final class RelayListing(
     tourRepo: RelayTourRepo,
     cacheApi: lila.memo.CacheApi,
     groupCrowd: RelayGroupCrowdSumCache
-)(using Executor):
+)(using Executor, Scheduler):
 
   import BSONHandlers.given
   import RelayListing.tierPriority
@@ -41,7 +42,7 @@ final class RelayListing(
   private var spotlightCache: List[RelayCard] = Nil
 
   private val activeCache = cacheApi.unit[List[RelayCard]]:
-    _.expireAfterWrite(5.seconds).buildAsyncFuture: _ =>
+    _.expireAfterWrite(5.seconds).buildAsyncTimeout(): _ =>
       for
         spots <- getSpots
         selected = spots.flatMap:

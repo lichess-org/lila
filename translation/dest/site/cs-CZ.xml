@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Hrát proti kamarádovi</string>
-  <string name="playWithTheMachine">Hrát proti počítači</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Pro pozvání někoho ke hře využijte tento odkaz</string>
   <string name="gameOver">Konec hry</string>
   <string name="waitingForOpponent">Čekání na soupeře</string>
@@ -315,7 +313,6 @@
   <string name="blackTimeOut">Černému došel čas</string>
   <string name="drawOfferSent">Nabídka remízy byla odeslána</string>
   <string name="drawOfferAccepted">Soupeř remízu přijal</string>
-  <string name="drawOfferCanceled">Nabídka remízy byla zrušena</string>
   <string name="whiteOffersDraw">Bílý nabízí remízu</string>
   <string name="blackOffersDraw">Černý nabízí remízu</string>
   <string name="whiteDeclinesDraw">Bílý odmítá remízu</string>
@@ -387,7 +384,6 @@
     <item quantity="other">%s se hraje</item>
   </plurals>
   <string name="exportGames">Exportovat partie</string>
-  <string name="ratingRange">Síla hráče</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Přidat %s sekundu</item>
     <item quantity="few">Přidat %s sekundy</item>
@@ -489,7 +485,6 @@
   <string name="toStudy">Do studie</string>
   <string name="importGame">Importuj hru</string>
   <string name="importGameExplanation">Vložení partie ve formátu PGN Vám umožní přehrání partie, získáte počítačovou analýzu, chat ke hře a URL ke sdílení hry.</string>
-  <string name="importGameCaveat">Varianty budou vymazány. Chcete-li je ponechat, importujte PGN prostřednictvím studie.</string>
   <string name="importGameDataPrivacyWarning">K této PGN má přístup kdokoli. Chcete-li hru naimportovat soukromě, použijte studii.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importovaná</item>

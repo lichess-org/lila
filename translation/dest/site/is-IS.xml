@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Tefla við vin</string>
-  <string name="playWithTheMachine">Tefla við tölvuna</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Gefðu upp þessa vefslóð til að bjóða einhverjum að tefla</string>
   <string name="gameOver">Búið spil</string>
   <string name="waitingForOpponent">Bið eftir andstæðingi</string>
@@ -280,7 +278,6 @@
   <string name="blackTimeOut">Svartur féll á tíma</string>
   <string name="drawOfferSent">Boð um jafntefli sent</string>
   <string name="drawOfferAccepted">Boði um jafntefli samþykkt</string>
-  <string name="drawOfferCanceled">Boði um jafntefli afturkallað</string>
   <string name="whiteOffersDraw">Hvítur býður jafntefli</string>
   <string name="blackOffersDraw">Svartur býður jafntefli</string>
   <string name="whiteDeclinesDraw">Hvítur afþakkar jafntefli</string>
@@ -342,7 +339,6 @@
     <item quantity="other">%s í gangi</item>
   </plurals>
   <string name="exportGames">Flytja út skákir</string>
-  <string name="ratingRange">Skákstig</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Gefa %s sekúndu</item>
     <item quantity="other">Gefa %s sekúndur</item>
@@ -428,7 +424,6 @@
   <string name="toStudy">Stúdera</string>
   <string name="importGame">Hlaða inn skák</string>
   <string name="importGameExplanation">Límdu inn PGN skákar til að fá möguleika á endursýningu, tölvugreiningu, spjalli og deilanlegri vefslóð.</string>
-  <string name="importGameCaveat">Afbrigði verða strokuð út. Til þess að halda þeim skaltu flytja inn PGN-skák í gegnum stúderingu.</string>
   <string name="importGameDataPrivacyWarning">Þessi PGN-skák er aðgengileg almenningi. Til þess að flytja inn skák í trúnaði skaltu notfæra þér stúderasérleikann.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s innhlaðin skák</item>

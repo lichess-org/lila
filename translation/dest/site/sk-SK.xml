@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Hrať s priateľom</string>
-  <string name="playWithTheMachine">Hrať proti počítaču</string>
+  <string name="gameSetup">Nastavenie partie</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Vyzvať priateľa</string>
+  <string name="playAgainstAI">Hrať proti UI</string>
+  <string name="gameMode">Herný režim</string>
+  <string name="createLobbyGame">Vytvoriť výzvu</string>
+  <string name="youPlayAs">Hráte ako</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Zdieľaním tejto adresy môžete niekoho pozvať k partii</string>
   <string name="gameOver">Koniec partie</string>
   <string name="waitingForOpponent">Čaká sa na súpera</string>
@@ -316,7 +320,6 @@
   <string name="blackTimeOut">Čiernemu došiel čas</string>
   <string name="drawOfferSent">Ponuka remízy odoslaná</string>
   <string name="drawOfferAccepted">Ponuka remízy prijatá</string>
-  <string name="drawOfferCanceled">Ponuka remízy zrušená</string>
   <string name="whiteOffersDraw">Biely ponúka remízu</string>
   <string name="blackOffersDraw">Čierny ponúka remízu</string>
   <string name="whiteDeclinesDraw">Biely odmietol remízu</string>
@@ -388,7 +391,7 @@
     <item quantity="other">%s práve sa hrá</item>
   </plurals>
   <string name="exportGames">Exportovať partie</string>
-  <string name="ratingRange">Rozsah hodnotení</string>
+  <string name="ratingFilter">Filter podľa ratingu</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Pridať %s sekundu</item>
     <item quantity="few">Pridať %s sekundy</item>
@@ -460,6 +463,7 @@
     <item quantity="other">Potrebujete odohrať ešte %s hodnotených partií</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Váš %s rating je provizórny</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Filtre hodnotenia sú uzamknuté, pretože Vaše hodnotenie nie je stabilné. Hranie hodnotených partií zvýši jeho stabilitu.</string>
   <string name="yourPerfRatingIsTooHigh">Váš %1$s rating (%2$s) je príliš vysoký</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Váš najvyšší týždenný %1$s rating (%2$s) je príliš vysoký</string>
   <string name="yourPerfRatingIsTooLow">Váš %1$s rating (%2$s) je príliš nízky</string>
@@ -490,7 +494,6 @@
   <string name="toStudy">Štúdia</string>
   <string name="importGame">Importovať partiu</string>
   <string name="importGameExplanation">Vložením partie vo formáte PGN získate možnosť jej prehrania, počítačovú analýzu, chat k partii ako aj URL pre jej zdieľanie.</string>
-  <string name="importGameCaveat">Variácie sa vymažú. Ak ich chcete zachovať, importujte PGN prostredníctvom štúdie.</string>
   <string name="importGameDataPrivacyWarning">Toto PGN je verejne dostupné. Ak chcete partiu importovať súkromne, použite štúdiu!</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importovaná partia</item>
@@ -911,6 +914,7 @@
   <string name="notifications">Upozornenia</string>
   <string name="notificationsX">Upozornenia: %1$s</string>
   <string name="perfRatingX">Rating: %s</string>
+  <string name="yourRatingIsX">Váš rating je %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekunda na vykonanie prvého ťahu</item>
     <item quantity="few">%s sekundy na vykonanie prvého ťahu</item>
@@ -966,6 +970,7 @@
   <string name="playVariationToCreateConditionalPremoves">Hrať variant a vytvoriť podmienené predťahy</string>
   <string name="noConditionalPremoves">Žiadne podmienené predťahy</string>
   <string name="playX">Hrať %s</string>
+  <string name="challengeX">Vyzvať %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">a uložiť %s variant predťahu</item>
     <item quantity="few">a uložiť %s varianty predťahu</item>
@@ -1098,4 +1103,6 @@ Nechajte prázdne pre začatie partií zo základnej pozície!</string>
   <string name="accessibility">Dostupnosť</string>
   <string name="enableBlindMode">Povoliť režim naslepo</string>
   <string name="disableBlindMode">Zrušiť režim naslepo</string>
+  <string name="online" comment="status of a user">online</string>
+  <string name="offline" comment="status of a user">offline</string>
 </resources>

@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses" comment="Lichess Classes are a feature that lets a teacher create virtual classes and check out students' progress.&#10;&#10;This text used to be &quot;Lichess Classes&quot;, which has since been shortened to &quot;Classes&quot;.">Заняткі</string>
+  <string name="lichessClasses">Заняткі</string>
   <string name="teachClassesOfChessStudents">Выкладайце шахматныя заняткі студэнтам з інструментамі заняткаў Lichess.</string>
   <string name="features">Магчымасці</string>
   <string name="quicklyGenerateSafeUsernames">Хутка стварайце імёны карыстальнікаў і паролі для студэнтаў</string>
   <string name="trackStudentProgress">Адсочвайце прагрэс студэнтаў у гульнях і задачах</string>
   <string name="messageAllStudents">Паведамляйце ўсім студэнтам аб новым матэрыяле занятка</string>
-  <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">100% бясплатна для ўсіх, назаўсёды, без рэкламы і трэкінгу</string>
+  <string name="freeForAllForever">100% бясплатна для ўсіх, назаўсёды, без рэкламы і трэкінгу</string>
   <string name="applyToBeLichessTeacher">Падаць заяўку, каб стаць Lichess выкладчыкам</string>
   <string name="noClassesYet">Пакуль няма ніякіх заняткаў.</string>
   <string name="teachersX">Выкладчыкі: %s</string>
   <string name="newClass">Новы занятак</string>
   <string name="closeClass">Скончыць занятак</string>
   <string name="removedByX">Выдаліў(-ла): %s</string>
-  <string name="reopen" comment="A button, permitting a teacher to reopen a closed class.">Пераадкрыць</string>
-  <string name="removeStudent" comment="Removes a student from the class. Note the same text is used both for initial removal, and for full erasure.">Выдаліць студэнта</string>
-  <string name="removedStudents" comment="This is in plural form. It is a heading showing all students who have been removed from the class.">Выдаленыя</string>
-  <string name="inviteTheStudentBack" comment="A button. Clicking this will re-invite a student that has been removed from the class.">Запрасіць студэнта абратна</string>
+  <string name="reopen">Пераадкрыць</string>
+  <string name="removeStudent">Выдаліць студэнта</string>
+  <string name="removedStudents">Выдаленыя</string>
+  <string name="inviteTheStudentBack">Запрасіць студэнта абратна</string>
   <string name="sendAMessage">Даслаць паведамленне ўсім студэнтам.</string>
   <string name="aLinkToTheClassWillBeAdded">Спасылка на занятак будзе аўтаматычна дадана у канец паведамлення, таму няма неабходнасці дадаваць яе самастойна.</string>
   <string name="className">Назва занятку</string>
@@ -30,7 +30,7 @@
   <string name="generateANewPassword">Стварыць новы пароль для студэнта(-кі)</string>
   <string name="invitedToXByY">%2$s запрасіл(а) да %1$s</string>
   <string name="realName">Сапраўднае імя</string>
-  <string name="privateWillNeverBeShown" comment="A description of the real name field for members of a class.">Прыватны. Ніколі не адлюструеце па за межамі занятку. Дапамагае памятаць хто студэнт.</string>
+  <string name="privateWillNeverBeShown">Прыватны. Ніколі не адлюструеце па за межамі занятку. Дапамагае памятаць хто студэнт.</string>
   <string name="addStudent">Дадаць студэнта</string>
   <string name="lichessProfileXCreatedForY">Профіль Lichess %1$s створаны %2$s.</string>
   <string name="studentCredentials">Студэнт(ка):  %1$s
@@ -41,14 +41,14 @@
   <string name="inviteDesc2">Яны атрымаюць паведамленне на Lichess са спасылкай на далучэнне да занятку.</string>
   <string name="inviteDesc3">Важна: запрашайце толькі студэнтаў, якіх ведаеце, і якія актыўна хочуць далучыцца да занятку.</string>
   <string name="inviteDesc4">Ніколі не адпраўляйце непажаданыя запрашэнні выпадковым людзям.</string>
-  <string name="createANewLichessAccount" comment="The person who would see this would always be a teacher.&#10;In this context, it is to create a new account for a student of their class.">Стварыць новы ўліковы запіс Lichess</string>
+  <string name="createANewLichessAccount">Стварыць новы ўліковы запіс Lichess</string>
   <string name="createDesc1">Калі ў студэнта(кі) яшчэ нямае ўліковага запісу Lichess, вы можаце ўласнаруч стварыць яго тут.</string>
   <string name="createDesc2">Электронная пошта не патрэбна. Пароль будзе згенераваны, і вы зможаце перадаць яго студэнту(цы) для ўвахода на сайт.</string>
   <string name="createDesc3">Важна: студэнт(ка) не павінен мець некалькі ўліковых запісаў.</string>
   <string name="createDesc4">Калі ён/яна ўжо мае ўліковы запіс, тады замест выкарыстоўвайце запрашальную форму.</string>
   <string name="createStudentWarning">Стварайце ўліковыя запісы толькі для рэальных студэнтаў. Не выкарыстоўвайце для стварэння некалькіх ўліковых запісаў для сябе, інакш вы будзіце забанены.</string>
   <string name="lichessUsername">Імя карыстальніка Lichess</string>
-  <string name="generateANewUsername" comment="A button which lets teachers create a random username for students they are registering.">Стварыць новае імя карыстальніка</string>
+  <string name="generateANewUsername">Стварыць новае імя карыстальніка</string>
   <string name="welcomeToClass">Вітаем на вашым занятку: %s.
 Вось спасылка з доступам на занятак.</string>
   <string name="invitationToClass">Вас запрасілі на занятак \"%s\" у якасці студэнта(кі).</string>
@@ -64,7 +64,7 @@
   <string name="managed">Кіраваны</string>
   <string name="thisStudentAccountIsManaged">Гэты ўліковы запіс студэнта(кі) кіраваны</string>
   <string name="upgradeFromManaged">Абнавіць з кіраванага да аўтаномнага</string>
-  <string name="release" comment="This used to be 'release'. It is now called 'graduate', and the term is used here as a verb.&#10;&#10;'Releasing' an account means making it a full Lichess account. It will no longer be tied to the teacher that created it.">Вызваліць</string>
+  <string name="release">Вызваліць</string>
   <string name="releaseTheAccount">\"Вызваліце\" ўліковы запіс, каб студэнт(ка) мог самастойна кіраваць ім.</string>
   <string name="releaseDesc1">Вызвалены ўліковы запіс не можа стаць кіраваным зноў. Студэнт(ка) зможа ўключаць/выключаць дзіцячы рэжым і скасоўваць пароль самастойна.</string>
   <string name="releaseDesc2">Студэнт(ка) застанецца на занятку пасля \"вызвалення\" уліковага запісу.</string>
@@ -107,17 +107,17 @@
 Гэта адлюструе гарызантальную лінію.</string>
   <string name="invite">Запрасіць</string>
   <string name="youHaveBeenInvitedByX">Вас запрасіў(-ла) - %s.</string>
-  <string name="youAcceptedThisInvitation" comment="Appears when revisiting the page of an invitation to a class, which you have already accepted.">Вы прынялі запрашэнне.</string>
-  <string name="youDeclinedThisInvitation" comment="Appears when revisiting the page of an invitation to a class, which you have already declined.">Вы адхілілі запрашэнне.</string>
+  <string name="youAcceptedThisInvitation">Вы прынялі запрашэнне.</string>
+  <string name="youDeclinedThisInvitation">Вы адхілілі запрашэнне.</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">або</string>
   <string name="createMultipleAccounts">Адначасова стварыць некалькі ўліковых запісаў Lichess</string>
   <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Вы таксама можаце %s каб стварыць некалькі ўліковых запісаў Lichess са спісу імён студэнтаў.</string>
   <string name="useThisForm" comment="Link text in multipleAccsFromDescription">выкарыстаць гэту форму</string>
   <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Звярніце ўвагу, што на занятку можа прысутнічаць не больш за %1$s студэнтаў. Каб выкладаць большай колькасці студэнтаў - %2$s.</string>
   <string name="createMoreClasses" comment="Link text in maxStudentsNote">стварыце яшчэ некалькі заняткаў</string>
-  <string name="studentsRealNamesOnePerLine" comment="An instruction on how to enter students' names when creating new accounts for them.">Сапраўдныя імёны студэнтаў, па аднаму на радок</string>
-  <string name="xisNowAStudentOfTheClass" comment="%s is the player's name">%s зараз на занятку</string>
-  <string name="anInvitationHasBeenSentToX" comment="%s is the username of a player already registered on Lichess.">Запрашэнне адпраўлена да %s</string>
-  <string name="xAlreadyHasAPendingInvitation" comment="An error message. %s is the username of a player already registered on Lichess.">%s ужо мае запрашэнне</string>
-  <string name="xIsAKidAccountWarning" comment="%1$s is the username&#10;%2$s is a link.">Уліковы запіс %1$s - дзіцячы, таму не можа атрымліваць паведамленні. Вам трэба перадаць запрашальную спасылку ўласнаручна: %2$s</string>
+  <string name="studentsRealNamesOnePerLine">Сапраўдныя імёны студэнтаў, па аднаму на радок</string>
+  <string name="xisNowAStudentOfTheClass">%s зараз на занятку</string>
+  <string name="anInvitationHasBeenSentToX">Запрашэнне адпраўлена да %s</string>
+  <string name="xAlreadyHasAPendingInvitation">%s ужо мае запрашэнне</string>
+  <string name="xIsAKidAccountWarning">Уліковы запіс %1$s - дзіцячы, таму не можа атрымліваць паведамленні. Вам трэба перадаць запрашальную спасылку ўласнаручна: %2$s</string>
 </resources>

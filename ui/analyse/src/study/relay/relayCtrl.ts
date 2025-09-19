@@ -14,6 +14,7 @@ export type RelayTab = (typeof relayTabs)[number];
 type StreamInfo = [UserId, { name: string; lang: string }];
 
 export default class RelayCtrl {
+  readonly round: RelayRound;
   log: LogEvent[] = [];
   cooldown = false;
   tourShow: Toggle;
@@ -29,9 +30,10 @@ export default class RelayCtrl {
   liveboardPlugin?: LiveboardPlugin;
 
   constructor(
-    private study: StudyCtrl,
-    public data: RelayData,
+    private readonly study: StudyCtrl,
+    public readonly data: RelayData,
   ) {
+    this.round = this.data.rounds.find(r => r.id === this.study.data.id)!;
     this.tourShow = toggle((location.pathname.split('/broadcast/')[1].match(/\//g) || []).length < 3);
     if (study.ctrl.opts.chat) {
       const showLiveboard = () => this.tourShow() || !study.multiBoard.showResults();
@@ -56,7 +58,7 @@ export default class RelayCtrl {
       () => study.data.federations,
       this.redraw,
     );
-    this.stats = new RelayStats(this.currentRound(), this.redraw);
+    this.stats = new RelayStats(this.round, this.redraw);
     if (data.videoUrls?.[0] || this.isPinnedStreamOngoing())
       this.videoPlayer = new VideoPlayer(
         {
@@ -117,15 +119,11 @@ export default class RelayCtrl {
       });
   };
 
-  roundById = (id: string) => this.data.rounds.find(r => r.id === id);
-  currentRound = () => this.roundById(this.study.data.id)!;
-  roundName = () => this.currentRound().name;
-
-  fullRoundName = () => `${this.data.tour.name} - ${this.roundName()}`;
+  fullRoundName = () => `${this.data.tour.name} - ${this.round.name}`;
 
   tourPath = () => `/broadcast/${this.data.tour.slug}/${this.data.tour.id}`;
   roundPath = (round?: RelayRound) => {
-    const r = round || this.currentRound();
+    const r = round || this.round;
     return `/broadcast/${this.data.tour.slug}/${r.slug}/${r.id}`;
   };
   roundUrlWithHash = (round?: RelayRound) => `${this.roundPath(round)}#${this.tab()}`;
@@ -144,21 +142,25 @@ export default class RelayCtrl {
 
   isPinnedStreamOngoing = () => {
     if (!this.data.pinned) return false;
-    if (this.currentRound().finished) return false;
-    if (Date.now() < this.currentRound().startsAt! - 1000 * 3600) return false;
+    if (this.round.finished) return false;
+    if (Date.now() < this.round.startsAt! - 1000 * 3600) return false;
     return true;
   };
 
-  noEmbed() {
+  userClosedTheVideoEmbed() {
     return document.cookie.includes('relayVideo=no');
   }
 
+  onAddNode = () => {
+    if (!this.round.ongoing) {
+      // we have a move, set the current round as started
+      this.round.ongoing = true;
+      this.round.startsAt = this.round.startsAt || Date.now();
+      this.data.delayedUntil = undefined;
+    }
+  };
+
   private socketHandlers = {
-    relayData: (d: RelayData) => {
-      if (d.sync) d.sync.log = this.data.sync?.log || [];
-      this.data = d;
-      this.redraw();
-    },
     relaySync: (sync: RelaySync) => {
       this.data.sync = {
         ...sync,

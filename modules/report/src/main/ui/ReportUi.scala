@@ -173,7 +173,7 @@ final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
             p(
               "In the meantime, you can block this user: ",
               submitButton(
-                attr("data-action") := routes.Relation.block(userId),
+                attr("data-action") := s"${routes.Relation.block(userId)}?mini=1",
                 cls := "report-block button",
                 st.title := trans.site.block.txt()
               )(span(cls := "text", dataIcon := Icon.NotAllowed)("Block ", titleNameOrId(userId)))
@@ -191,6 +191,7 @@ final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
     def layout(filter: String, scores: Room.Scores, pending: PendingCounts)(using Context, Me) =
       Page("Reports")
         .css("mod.report")
+        .js(esmInit("mod.autolink"))
         .wrap: body =>
           main(cls := "page-menu")(
             menu,
@@ -301,7 +302,7 @@ final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
                             "text" -> true,
                             "large" -> (a.text.length > 100 || a.text.linesIterator.size > 3)
                           )
-                        )(shorten(a.text, 200))
+                        )(shortenRight(a.text, 200))
                       ),
                   (r.atoms.size > 3).option(i(cls := "more")("And ", r.atoms.size - 3, " more"))
                 ),
@@ -329,3 +330,8 @@ final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
           }
         )
       )
+
+  private def shortenRight(text: String, maxLength: Int): Frag =
+    val condensed = text.replaceAll("\\s+", " ").trim
+    if condensed.length <= maxLength then condensed
+    else condensed.takeRight(maxLength - 3) + "..."

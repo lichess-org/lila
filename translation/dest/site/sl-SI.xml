@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Igraj s prijateljem</string>
-  <string name="playWithTheMachine">Igraj proti računalniku</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Kopiraj URL in povabi prijatelja k igri</string>
   <string name="gameOver">Konec igre</string>
   <string name="waitingForOpponent">Čakam nasprotnika</string>
@@ -316,7 +314,6 @@
   <string name="blackTimeOut">Črnemu se je čas iztekel</string>
   <string name="drawOfferSent">Predlog za remi poslan</string>
   <string name="drawOfferAccepted">Predlog za remi sprejet</string>
-  <string name="drawOfferCanceled">Predlog za remi preklican</string>
   <string name="whiteOffersDraw">Beli predlaga remi</string>
   <string name="blackOffersDraw">Črni predlaga remi</string>
   <string name="whiteDeclinesDraw">Beli zavrnil remi</string>
@@ -388,7 +385,6 @@
     <item quantity="other">%s v teku</item>
   </plurals>
   <string name="exportGames">Izvozi igre</string>
-  <string name="ratingRange">Razpon ocene</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Dodaj %s sekundo</item>
     <item quantity="two">Dodaj %s sekundi</item>
@@ -490,7 +486,6 @@
   <string name="toStudy">Študiraj</string>
   <string name="importGame">Uvozi igro</string>
   <string name="importGameExplanation">Ko prilepite PGN partijo imate na voljo brskanje partije, računalniško analizo, klepet o igri in povezavo, ki jo lahko delite.</string>
-  <string name="importGameCaveat">Variante bodo izbrisane. Če jih želite obdržat, uvozite PGN kot študijo.</string>
   <string name="importGameDataPrivacyWarning">Ta PGN je javno dostopen. Za zasebni uvoz igre uporabite študijo.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s uvožena igra</item>
@@ -1100,4 +1095,7 @@ Vsi operativni stroški, razvoj in vsebina se financirajo izključno iz donacij 
   <string name="enableBlindMode">Vključite slepi način</string>
   <string name="disableBlindMode">Izključite slepi način</string>
   <string name="copyToClipboard">Kopiraj v odložišče</string>
+  <string name="search">Išči</string>
+  <string name="clearSearch">Počisti iskanje</string>
+  <string name="tags">Oznake</string>
 </resources>

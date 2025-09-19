@@ -1,20 +1,25 @@
-import { h } from 'snabbdom';
-import type { MaybeVNode, MaybeVNodes } from 'lib/snabbdom';
-import { userLink } from 'lib/view/userLink';
+import { hl, type VNode, type LooseVNodes } from 'lib/snabbdom';
 import { snabDialog } from 'lib/view/dialog';
 import type LobbyController from '../../ctrl';
 import { variantPicker } from './components/variantPicker';
 import { timePickerAndSliders } from './components/timePickerAndSliders';
 import { gameModeButtons } from './components/gameModeButtons';
 import { ratingDifferenceSliders } from './components/ratingDifferenceSliders';
-import { createButtons } from './components/colorButtons';
+import { colorButtons } from './components/colorButtons';
 import { ratingView } from './components/ratingView';
 import { fenInput } from './components/fenInput';
 import { levelButtons } from './components/levelButtons';
+import { spinnerVdom } from 'lib/view/controls';
 
-export default function setupModal(ctrl: LobbyController): MaybeVNode {
+export default function setupModal(ctrl: LobbyController): VNode | null {
   const { setupCtrl } = ctrl;
   if (!setupCtrl.gameType) return null;
+  const buttonText = {
+    hook: i18n.site.createLobbyGame,
+    friend: setupCtrl.friendUser ? i18n.site.challengeX(setupCtrl.friendUser) : i18n.site.challengeAFriend,
+    ai: i18n.site.playAgainstAI,
+  }[setupCtrl.gameType];
+  const disabled = !setupCtrl.valid();
   return snabDialog({
     attrs: { dialog: { 'aria-labelledBy': 'lobby-setup-modal-title', 'aria-modal': 'true' } },
     class: 'game-setup',
@@ -25,7 +30,24 @@ export default function setupModal(ctrl: LobbyController): MaybeVNode {
       setupCtrl.root.redraw();
     },
     modal: true,
-    vnodes: [views[setupCtrl.gameType](ctrl), ratingView(ctrl)],
+    vnodes: [
+      hl('h2', i18n.site.gameSetup),
+      hl('div.setup-content', views[setupCtrl.gameType](ctrl)),
+      hl(
+        'div.footer',
+        setupCtrl.loading
+          ? spinnerVdom()
+          : hl(
+              `button.button.button-metal.lobby__start__button.lobby__start__button--${setupCtrl.friendUser ? 'friend-user' : setupCtrl.gameType}`,
+              {
+                attrs: { disabled },
+                class: { disabled },
+                on: { click: ctrl.setupCtrl.submit },
+              },
+              buttonText,
+            ),
+      ),
+    ],
     onInsert: dlg => {
       setupCtrl.closeModal = dlg.close;
       dlg.show();
@@ -34,35 +56,24 @@ export default function setupModal(ctrl: LobbyController): MaybeVNode {
 }
 
 const views = {
-  hook: (ctrl: LobbyController): MaybeVNodes => [
-    h('h2#lobby-setup-modal-title', i18n.site.createAGame),
-    h('div.setup-content', [
-      variantPicker(ctrl),
-      timePickerAndSliders(ctrl),
-      gameModeButtons(ctrl),
-      ratingDifferenceSliders(ctrl),
-      createButtons(ctrl),
-    ]),
+  hook: (ctrl: LobbyController): LooseVNodes => [
+    variantPicker(ctrl),
+    timePickerAndSliders(ctrl),
+    gameModeButtons(ctrl),
+    ratingView(ctrl),
+    ratingDifferenceSliders(ctrl),
+    colorButtons(ctrl),
   ],
-  friend: (ctrl: LobbyController): MaybeVNodes => [
-    h('h2#lobby-setup-modal-title', i18n.site.playWithAFriend),
-    h('div.setup-content', [
-      ctrl.setupCtrl.friendUser ? userLink({ name: ctrl.setupCtrl.friendUser, line: false }) : null,
-      variantPicker(ctrl),
-      fenInput(ctrl),
-      timePickerAndSliders(ctrl, true),
-      gameModeButtons(ctrl),
-      createButtons(ctrl),
-    ]),
+  friend: (ctrl: LobbyController): LooseVNodes => [
+    hl('div.config-group', [variantPicker(ctrl), fenInput(ctrl)]),
+    timePickerAndSliders(ctrl, true),
+    gameModeButtons(ctrl),
+    colorButtons(ctrl),
   ],
-  ai: (ctrl: LobbyController): MaybeVNodes => [
-    h('h2#lobby-setup-modal-title', i18n.site.playWithTheMachine),
-    h('div.setup-content', [
-      variantPicker(ctrl),
-      fenInput(ctrl),
-      timePickerAndSliders(ctrl, true),
-      ...levelButtons(ctrl),
-      createButtons(ctrl),
-    ]),
+  ai: (ctrl: LobbyController): LooseVNodes => [
+    hl('div.config-group', [variantPicker(ctrl), fenInput(ctrl)]),
+    timePickerAndSliders(ctrl, true),
+    levelButtons(ctrl),
+    colorButtons(ctrl),
   ],
 };

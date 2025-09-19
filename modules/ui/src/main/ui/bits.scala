@@ -45,7 +45,7 @@ object bits:
     val prefix = s"calendar-mselect"
     def prefixed(suffix: String) = s"${prefix}$suffix"
     def nonEmptyDate(date: YearMonth) =
-      val ok = date.isAfter(firstMonth.minusMonths(1)) && date.isBefore(YearMonth.now.plusMonths(1))
+      val ok = date.isAfter(firstMonth.minusMonths(1)) && date.isBefore(YearMonth.now.plusMonths(12))
       Option.when(ok)(date)
     val prev = nonEmptyDate(at.minusMonths(1))
     val next = nonEmptyDate(at.plusMonths(1))

@@ -328,3 +328,8 @@ db.puzzle2_puzzle.createIndex(
 );
 db.puzzle2_puzzle.createIndex({ tagMe: 1 }, { partialFilterExpression: { tagMe: true } });
 db.puzzle2_path.createIndex({ min: 1, max: -1 });
+
+// you may want to run these on the yolo database
+db.relay_delay.createIndex({ at: 1 }, { expireAfterSeconds: 7200 });
+db.ranking.createIndex({ expiresAt: 1 }, { expireAfterSeconds: 0 });
+db.ranking.createIndex({ perf: 1, rating: -1 }, { partialFilterExpression: { stable: true } });

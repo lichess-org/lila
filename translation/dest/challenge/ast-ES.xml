@@ -5,7 +5,7 @@
   <string name="challengeDeclined">Desafíu refugáu.</string>
   <string name="challengeAccepted">¡Desafíu aceptáu!</string>
   <string name="challengeCanceled">Desafíu canceláu.</string>
-  <string name="registerToSendChallenges" comment="This used to say &quot;Please register to send challenges.&quot;&#10;We have since added &quot;[...] to this user.&quot; to the end of the string for absolute clarity, given the context this appears in. Please update translations as needed.">Por favor, rexístrate pa desafiar a otros xugadores.</string>
+  <string name="registerToSendChallenges">Por favor, rexístrate pa desafiar a otros xugadores.</string>
   <string name="youCannotChallengeX">Nun puedes desafiar a %s.</string>
   <string name="xDoesNotAcceptChallenges">%s nun acepta desafíos.</string>
   <string name="yourXRatingIsTooFarFromY">La to puntuación de %1$s difier enforma de la de %2$s.</string>

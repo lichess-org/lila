@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Туспа выльа</string>
-  <string name="playWithTheMachine">Машшинпа выльа</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Пӗр-пӗр ҫынпа выљас тесен, каҫҫине йар</string>
   <string name="gameOver">Вӑйӑ вӗҫленнӗ</string>
   <string name="waitingForOpponent">Ӑмӑртуҫа кӗтсе тӑни</string>
@@ -137,7 +135,6 @@
   <string name="blackTimeOut">Хурисен вӑхӑчӗ тухнӑ</string>
   <string name="drawOfferSent">Парма-пар сӗннине йанӑ</string>
   <string name="drawOfferAccepted">Парма-пар сӗннине йышӑннӑ</string>
-  <string name="drawOfferCanceled">Парма-пар сӗннине пӑрахӑҫланӑ</string>
   <string name="whiteOffersDraw">Шуррисем парма-паршӑн</string>
   <string name="blackOffersDraw">Хурисем парма-паршӑн</string>
   <string name="whiteDeclinesDraw">Шуррисем парма-паршӑн мар</string>
@@ -186,7 +183,6 @@
     <item quantity="other">%s вӑйӑ</item>
   </plurals>
   <string name="exportGames">Вӑйӑ еспортласси</string>
-  <string name="ratingRange">Рейтинг хушши</string>
   <plurals name="giveNbSeconds">
     <item quantity="other">%s ҫеккунт пар</item>
   </plurals>

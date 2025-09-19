@@ -2,12 +2,12 @@
 <resources>
   <string name="coordinates">Координате</string>
   <string name="coordinateTraining">Тренинг координата</string>
-  <string name="averageScoreAsWhiteX">Просечан резултат као бели: %s</string>
-  <string name="averageScoreAsBlackX">Просечан резултат као црни: %s</string>
-  <string name="knowingTheChessBoard">Знање координата шаховске табле је веома важна шаховска вештина:</string>
-  <string name="mostChessCourses">Већина шаховских курсева и вежби интензивно користе алгебарску нотацију.</string>
-  <string name="talkToYourChessFriends">Олакшава вам причање о шаху са вашим пријатељима, јер обоје разумете \"језик шаха\".</string>
-  <string name="youCanAnalyseAGameMoreEffectively">Можете ефективније анализирати партије ако можете брзо препознати координате.</string>
+  <string name="averageScoreAsWhiteX">Просечан скор као бели: %s</string>
+  <string name="averageScoreAsBlackX">Просечан скор као црни: %s</string>
+  <string name="knowingTheChessBoard">Знати координате шаховске табле је веома важна шаховска вештина из више разлога:</string>
+  <string name="mostChessCourses">Већина шаховских курсева и вежби опширно користе алгебарску нотацију.</string>
+  <string name="talkToYourChessFriends">Олакшава ти да причаш са твојим шаховским пријатељима, јер обоје разумете \'језик шаха\'.</string>
+  <string name="youCanAnalyseAGameMoreEffectively">Можеш ефективније анализирати партију ако можеш брзо препознати координате.</string>
   <string name="showCoordinates">Прикажи координате</string>
   <string name="showCoordsOnAllSquares">Координате на сваком пољу</string>
   <string name="showPieces">Прикажи фигуре</string>

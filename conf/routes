@@ -88,9 +88,9 @@ GET   /player/myself                   controllers.User.myself
 GET   /player/opponents                controllers.User.opponents
 GET   /player/search/:term             controllers.User.search(term: String)
 GET   /player                          controllers.User.list
-GET   /player/top/:nb/:perfKey         controllers.User.topNb(nb: Int, perfKey: PerfKey)
+GET   /player/top/:nb/:perfKey         controllers.User.topBcRedirect(nb: Int, perfKey: PerfKey)
+GET   /player/top/:perfKey             controllers.User.top(perfKey: PerfKey, page: Int ?= 1)
 GET   /api/player/top/:nb/:perfKey     controllers.User.topNbApi(nb: Int, perfKey: PerfKey)
-GET   /player/top/week                 controllers.User.topWeek
 GET   /player/online                   controllers.User.online
 GET   /api/player/autocomplete         controllers.User.autocomplete
 GET   /api/player                      controllers.User.apiList
@@ -135,6 +135,8 @@ POST  /ublog/$id<\w{8}>/like           controllers.Ublog.like(id: UblogPostId, v
 POST  /ublog/:blogId/tier              controllers.Ublog.modBlog(blogId: String)
 POST  /ublog/$id<\w{8}>/adjust         controllers.Ublog.modPost(id: UblogPostId)
 POST  /ublog/$id<\w{8}>/pull           controllers.Ublog.modPull(id: UblogPostId)
+POST  /ublog/$id<\w{8}>/assess         controllers.Ublog.modAssess(id: UblogPostId)
+POST  /ublog/carousel/size             controllers.Ublog.modSetCarouselSize
 GET   /ublog/carousel                  controllers.Ublog.modShowCarousel
 POST  /upload/image/ublog/$id<\w{8}>   controllers.Ublog.image(id: UblogPostId)
 
@@ -262,6 +264,7 @@ GET   /api/study/$id<\w{8}>/$chapterId<\w{8}>.pgn controllers.Study.apiChapterPg
 DELETE /api/study/$id<\w{8}>/$chapterId<\w{8}>    controllers.Study.apiChapterDelete(id: StudyId, chapterId: StudyChapterId)
 GET   /api/study/by/:user              controllers.Study.apiListByOwner(user: UserStr)
 POST  /api/study/$id<\w{8}>/import-pgn controllers.Study.apiImportPgn(id: StudyId)
+POST  /api/study/$id<\w{8}>/$chapterId<\w{8}>/tags controllers.Study.apiChapterTagsUpdate(id: StudyId, chapterId: StudyChapterId)
 
 # Relay
 GET   /broadcast                              controllers.RelayTour.index(page: Int ?= 1, q ?= "")
@@ -533,10 +536,14 @@ GET  /notify                           controllers.Notify.recent(page: Int ?= 1)
 POST /notify/clear                     controllers.Notify.clear
 
 # Video
-GET   /video                           controllers.Video.index
-GET   /video/tags                      controllers.Video.tags
-GET   /video/author/:author            controllers.Video.author(author)
-GET   /video/:id                       controllers.Video.show(id)
+GET   /video                                 controllers.Video.index
+GET   /video/tags                            controllers.Video.tags
+GET   /video/author/:author                  controllers.Video.author(author)
+GET   /video/:id                             controllers.Video.show(id)
+GET   /$lang<\w\w\w?>/video                  controllers.Video.indexLang(lang: Language)
+GET   /$lang<\w\w\w?>/video/tags             controllers.Video.tagsLang(lang: Language)
+GET   /$lang<\w\w\w?>/video/author/:author   controllers.Video.authorLang(lang: Language, author: String)
+GET   /$lang<\w\w\w?>/video/:id              controllers.Video.showLang(lang: Language, id: String)
 
 # I18n
 POST  /translation/select              controllers.I18n.select
@@ -759,7 +766,7 @@ POST  /api/challenge/ai                controllers.Setup.apiAi
 POST  /api/challenge/open              controllers.Challenge.openCreate
 POST  /api/challenge/:user             controllers.Challenge.apiCreate(user: UserStr)
 GET   /api/challenge/$id<\w{8}>/show   controllers.Challenge.apiShow(id: ChallengeId)
-POST  /api/challenge/$id<\w{8}>/accept controllers.Challenge.apiAccept(id: ChallengeId)
+POST  /api/challenge/$id<\w{8}>/accept controllers.Challenge.apiAccept(id: ChallengeId, color: Option[Color] ?= None)
 POST  /api/challenge/$id<\w{8}>/decline controllers.Challenge.apiDecline(id: ChallengeId)
 POST  /api/challenge/$id<\w{8}>/cancel controllers.Challenge.apiCancel(id: ChallengeId)
 POST  /api/challenge/$id<\w{8}>/start-clocks  controllers.Challenge.apiStartClocks(id: GameId)

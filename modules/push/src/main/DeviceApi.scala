@@ -1,6 +1,5 @@
 package lila.push
 
-import play.api.mvc.RequestHeader
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
@@ -30,7 +29,7 @@ final private class DeviceApi(coll: Coll)(using Executor):
   private[push] def findLastOneByUserId(platform: String)(userId: UserId): Fu[Option[Device]] =
     findLastManyByUserId(platform, 1)(userId).dmap(_.headOption)
 
-  def register(user: User, platform: String, deviceId: String)(using req: RequestHeader) =
+  def register(user: User, platform: String, deviceId: String)(using ua: lila.core.net.UserAgent) =
     lila.mon.push.register.in(platform).increment()
     coll.update
       .one(
@@ -40,7 +39,7 @@ final private class DeviceApi(coll: Coll)(using Executor):
           platform = platform,
           userId = user.id,
           seenAt = nowInstant,
-          ua = lila.common.HTTPRequest.userAgent(req)
+          ua = ua
         ),
         upsert = true
       )

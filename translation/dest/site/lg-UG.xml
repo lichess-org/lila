@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Zzanya N\'emukwano gwo</string>
-  <string name="playWithTheMachine">Zzanya Ne kompuuta</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Okukyaaza omuntu y\'ena okuzanya, musindikile URL eno</string>
   <string name="gameOver">Omuzanyo guweddemu</string>
   <string name="waitingForOpponent">Okyaalinze omuzanyi</string>

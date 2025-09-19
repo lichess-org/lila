@@ -10,11 +10,12 @@ final class TournamentCache(
     playerRepo: PlayerRepo,
     pairingRepo: PairingRepo,
     tournamentRepo: TournamentRepo,
-    cacheApi: CacheApi
-)(using Executor)(using translator: lila.core.i18n.Translator):
+    cacheApi: CacheApi,
+    lightUserApi: lila.core.user.LightUserApi
+)(using Executor, Scheduler)(using translator: lila.core.i18n.Translator):
 
   object tourCache:
-    private val cache = cacheApi[TourId, Option[Tournament]](128, "tournament.tournament"):
+    private val cache = cacheApi[TourId, Option[Tournament]](64, "tournament.tournament"):
       _.expireAfterWrite(1.second)
         .maximumSize(256)
         .buildAsyncFuture(tournamentRepo.byId)
@@ -62,12 +63,11 @@ final class TournamentCache(
 
     val teamStanding =
       cacheApi[TourId, List[TeamBattle.RankedTeam]](32, "tournament.teamStanding"):
-        _.expireAfterWrite(1.second)
-          .buildAsyncFuture: id =>
-            tournamentRepo
-              .teamBattleOf(id)
-              .flatMapz:
-                playerRepo.bestTeamIdsByTour(id, _)
+        _.expireAfterWrite(1.second).buildAsyncFuture: id =>
+          tournamentRepo
+            .teamBattleOf(id)
+            .flatMapz:
+              playerRepo.bestTeamIdsByTour(id, _)
 
   private[tournament] object sheet:
 
@@ -89,7 +89,13 @@ final class TournamentCache(
       val key = keyOf(tour, userId)
       cache.getIfPresent(key).fold(recompute(tour, userId)) { prev =>
         val next = prev.map:
-          _.addResult(userId, pairing, Sheet.Version.V2, Sheet.Streakable(tour.streakable))
+          _.addResult(
+            userId,
+            pairing,
+            Sheet.Version.V2,
+            Sheet.Streakable(tour.streakable),
+            lightUserApi.isBotSync
+          )
         cache.put(key, next)
         next
       }
@@ -112,7 +118,14 @@ final class TournamentCache(
       pairingRepo
         .finishedByPlayerChronological(key.tourId, key.userId)
         .map:
-          arena.Sheet.buildFromScratch(key.userId, _, key.version, key.streakable, key.variant)
+          arena.Sheet.buildFromScratch(
+            key.userId,
+            _,
+            key.version,
+            key.streakable,
+            key.variant,
+            lightUserApi.isBotSync
+          )
 
     private val cache = cacheApi[SheetKey, Sheet](32_768, "tournament.sheet"):
       _.expireAfterAccess(4.minutes)
@@ -120,5 +133,4 @@ final class TournamentCache(
         .buildAsyncFuture(compute)
 
   private[tournament] val notableFinishedCache = cacheApi.unit[List[Tournament]]:
-    _.refreshAfterWrite(15.seconds)
-      .buildAsyncFuture(_ => tournamentRepo.notableFinished(20))
+    _.refreshAfterWrite(15.seconds).buildAsyncTimeout()(_ => tournamentRepo.notableFinished(20))

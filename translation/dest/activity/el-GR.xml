@@ -70,7 +70,7 @@
     <item quantity="one">Αγωνίστηκε σε %s ελβετικό τουρνουά</item>
     <item quantity="other">Αγωνίστηκε σε %s ελβετικά τουρνουά</item>
   </plurals>
-  <string name="rankedInSwissTournament">Κατατάχθηκε #%1$s στο %2$s</string>
+  <string name="rankedInSwissTournament">Κατατάχθηκε #%1$s στο τουρνουά %2$s</string>
   <string name="signedUp">Έκανε εγγραφή στο lichess.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Έγινε μέλος %s ομάδας</item>

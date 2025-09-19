@@ -5,7 +5,7 @@
   <string name="challengeDeclined">Къецалде ахӀи нахъчӀвана</string>
   <string name="challengeAccepted">Къецалде ахӀи къабул гьабуна!</string>
   <string name="challengeCanceled">Кецалде ахӀичӀого тана.</string>
-  <string name="registerToSendChallenges" comment="This used to say &quot;Please register to send challenges.&quot;&#10;We have since added &quot;[...] to this user.&quot; to the end of the string for absolute clarity, given the context this appears in. Please update translations as needed.">Гьев хӀалтӀизабулев къецалде ахӀизе, хъвай-хъвагӀай гьабе.</string>
+  <string name="registerToSendChallenges">Гьев хӀалтӀизабулев къецалде ахӀизе, хъвай-хъвагӀай гьабе.</string>
   <string name="youCannotChallengeX">Дуда %s къецалде ахӀизе кӀоларо.</string>
   <string name="xDoesNotAcceptChallenges">%s-(и)ца къецалде ахӀи къабул гьабуларо.</string>
   <string name="yourXRatingIsTooFarFromY">Дур %1$s рейтинг %2$s-(и)лалдаса кутакалда гьитӀинаб буго.</string>

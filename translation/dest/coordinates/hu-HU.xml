@@ -18,4 +18,5 @@
   <string name="startTraining">Gyakorlás kezdése</string>
   <string name="findSquare">Találd meg a mezőt</string>
   <string name="nameSquare">Nevezd meg a mezőt</string>
+  <string name="practiceOnlySomeFilesAndRanks" comment="Label for a checkbox, keep it very short">Gyakorolj csak pár oszloppal &amp; sorral</string>
 </resources>

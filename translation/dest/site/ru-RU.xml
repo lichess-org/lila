@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Сыграть с другом</string>
-  <string name="playWithTheMachine">Сыграть с компьютером</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Чтобы пригласить друга, отправьте ему эту ссылку</string>
   <string name="gameOver">Партия окончена</string>
   <string name="waitingForOpponent">Ожидание соперника</string>
@@ -316,7 +314,6 @@
   <string name="blackTimeOut">Чёрные просрочили время</string>
   <string name="drawOfferSent">Предложение ничьей отправлено</string>
   <string name="drawOfferAccepted">Предложение ничьей принято</string>
-  <string name="drawOfferCanceled">Предложение ничьей отменено</string>
   <string name="whiteOffersDraw">Белые предлагают ничью</string>
   <string name="blackOffersDraw">Чёрные предлагают ничью</string>
   <string name="whiteDeclinesDraw">Белые отклонили предложение ничьей</string>
@@ -388,7 +385,6 @@
     <item quantity="other">%s играются</item>
   </plurals>
   <string name="exportGames">Скачать игры</string>
-  <string name="ratingRange">Рейтинг соперника</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Дать %s секунду</item>
     <item quantity="few">Дать %s секунды</item>
@@ -460,6 +456,7 @@
     <item quantity="other">Вы должны сыграть ещё %s рейтинговых игр</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Ваш рейтинг в %s ещё недостоверный</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Рейтинговые фильтры заблокированы, поскольку ваш рейтинг нестабилен. Игра на рейтинг повысит стабильность.</string>
   <string name="yourPerfRatingIsTooHigh">Ваш рейтинг в %1$s (%2$s) слишком высок для участия</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Ваш еженедельный рейтинг в %1$s (%2$s) слишком высок</string>
   <string name="yourPerfRatingIsTooLow">Ваш рейтинг в %1$s (%2$s) недостаточен для участия</string>
@@ -490,7 +487,6 @@
   <string name="toStudy">Студия</string>
   <string name="importGame">Импортировать партию</string>
   <string name="importGameExplanation">Вставьте запись партии в формате PGN, и вы получите возможность переигрывать партию, выполнять компьютерный анализ, общаться в чате и делиться ссылкой на эту игру.</string>
-  <string name="importGameCaveat">Варианты будут удалены. Чтобы их сохранить, импортируйте PGN в студии.</string>
   <string name="importGameDataPrivacyWarning">Этот PGN-файл может быть доступен публично. Чтобы импортировать игру приватно, используйте студию.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s импортированная</item>
@@ -1100,4 +1096,9 @@
   <string name="enableBlindMode">Включить слепой режим</string>
   <string name="disableBlindMode">Выключить слепой режим</string>
   <string name="copyToClipboard">Скопировать в буфер обмена</string>
+  <string name="online" comment="status of a user">онлайн</string>
+  <string name="offline" comment="status of a user">оффлайн</string>
+  <string name="search">Поиск</string>
+  <string name="clearSearch">Очистить поиск</string>
+  <string name="tags">Теги</string>
 </resources>

@@ -1,13 +1,12 @@
 package lila.relay
 
-import play.api.mvc.RequestHeader
 import chess.format.pgn.{ PgnStr, San, Std, Tags }
 import chess.{ ErrorStr, Replay, Square, TournamentClock }
 import scalalib.actor.AsyncActorSequencers
 import lila.tree.{ ImportResult, ParseImport }
 
 import lila.study.{ ChapterPreviewApi, MultiPgn, StudyPgnImport }
-import lila.common.HTTPRequest
+import lila.core.net.UserAgent
 import RelayPush.*
 
 final class RelayPush(
@@ -27,7 +26,7 @@ final class RelayPush(
     lila.log.asyncActorMonitor.full
   )
 
-  def apply(rt: RelayRound.WithTour, pgn: PgnStr)(using Me, RequestHeader): Fu[Results] =
+  def apply(rt: RelayRound.WithTour, pgn: PgnStr)(using Me, UserAgent): Fu[Results] =
     push(rt, pgn).addEffect(monitor(rt))
 
   private def push(rt: RelayRound.WithTour, pgn: PgnStr): Fu[Results] =
@@ -49,13 +48,12 @@ final class RelayPush(
                 push(rt, games)
               fuccess(response)
 
-  private def monitor(rt: RelayRound.WithTour)(results: Results)(using me: Me, req: RequestHeader): Unit =
-    val ua = HTTPRequest.userAgent(req)
-    val client = ua
-      .filter(_.value.startsWith("Lichess Broadcaster"))
-      .flatMap(_.value.split("as:").headOption)
-      .orElse(ua.map(_.value))
-      .fold("unknown")(_.trim)
+  private def monitor(rt: RelayRound.WithTour)(results: Results)(using me: Me, ua: UserAgent): Unit =
+    val client = ua.value.some
+      .filter(_.startsWith("Lichess Broadcaster"))
+      .flatMap(_.split("as:").headOption)
+      .getOrElse(ua.value)
+      .trim
     lila.mon.relay.push(name = rt.fullName, user = me.username, client = client)(
       moves = results.collect { case Right(a) => a.moves }.sum,
       errors = results.count(_.isLeft)

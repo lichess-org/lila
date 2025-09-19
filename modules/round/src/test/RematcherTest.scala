@@ -13,12 +13,6 @@ class RematcherTest extends munit.FunSuite:
     val x = returnChessGame(Chess960, none, Fen.write(originalBoard).some, true)
     assertEquals(x.position, originalBoard)
 
-  // this test is flaky because we the new generated position could be the same as the original
-  test("chess960 && not shouldRepeatChessPosition".flaky):
-    val originalBoard = Position(Board.fromMap(Chess960.initialPieces(317)), Chess960, Color.White)
-    val x = returnChessGame(Chess960, none, Fen.write(originalBoard).some, false)
-    assertNotEquals(x.position, originalBoard)
-
   test("FromPosition with custom Fen"):
     val originalFen = Fen.Full("rqbnknrb/pppppppp/8/8/8/8/PPPPPPPP/RQBNKNRB w Qq - 0 1")
     val originalBoard = Fen.read(FromPosition, originalFen)

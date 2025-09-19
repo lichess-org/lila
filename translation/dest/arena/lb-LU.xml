@@ -48,7 +48,7 @@ Spill schnell an géih zeréck an d\'Turnéieriwwersicht fir méi Partien ze spi
     <item quantity="one">Ekipp ukucken</item>
     <item quantity="other">All %s Ekippen ukucken</item>
   </plurals>
-  <string name="newTeamBattle">Neien Ekippenkampf</string>
+  <string name="newTeamBattle">Neien Ekippekampf</string>
   <string name="customStartDate">Benotzerdefinéierten Startdatum</string>
   <string name="customStartDateHelp">An denger eegener, lokaler Zäitzon. Iwwerschreift d\'Astellung \"Zäit bis Turnéier ufänkt\"</string>
   <string name="allowBerserk">Berserk erlaben</string>
@@ -62,6 +62,7 @@ Spill schnell an géih zeréck an d\'Turnéieriwwersicht fir méi Partien ze spi
   <string name="averageScore">Duerchschnëttlech Punktzuel</string>
   <string name="myTournaments">Meng Turnéieren</string>
   <string name="editTournament">Turnéier änneren</string>
+  <string name="editTeamBattle">Ekippekampf änneren</string>
   <string name="defender">Verdeedeger</string>
   <string name="pickYourTeam">Wiel deng Ekipp</string>
   <string name="recentlyPlayed">Viru Kuerzem gespillt</string>

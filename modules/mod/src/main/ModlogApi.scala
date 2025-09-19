@@ -56,6 +56,9 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       Modlog.Context(postName.some, routes.Ublog.redirect(postId).url.some, postId.value.some).some
     )
 
+  def setCarouselSize(size: Int)(using MyId) = add:
+    Modlog(none, Modlog.setCarouselSize, size.toString.some)
+
   def practiceConfig(using MyId) = add:
     Modlog(none, Modlog.practiceConfig)
 
@@ -339,7 +342,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       )
       .sort($sort.desc("date"))
       .cursor[Modlog]()
-      .list(200)
+      .list(300)
 
   def recentBy(mod: Mod) =
     coll.secondary
@@ -349,16 +352,19 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       .list(200)
 
   def withModlogs(users: List[UserWithPerfs]): Fu[List[UserWithModlog]] =
+    val onlyUsers = users.filter: u =>
+      u.marks.value.nonEmpty || u.enabled.no
     coll.secondary
       .find(
         $doc(
-          "user".$in(users.filter(_.marks.value.nonEmpty).map(_.id)),
+          "user".$in(onlyUsers.map(_.id)),
           "action".$in(
             List(
               Modlog.engine,
               Modlog.troll,
               Modlog.booster,
               Modlog.closeAccount,
+              Modlog.selfCloseAccount,
               Modlog.alt,
               Modlog.reportban
             )

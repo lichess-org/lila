@@ -147,7 +147,7 @@ export default class ExplorerCtrl {
   };
 
   private tablebaseRelevant = (variant: VariantKey, fen: FEN) =>
-    pieceCount(fen) - 1 <= tablebasePieces(variant) && this.root.ceval.possible;
+    pieceCount(fen) - 1 <= tablebasePieces(variant) && this.root.isCevalAllowed();
 
   setNode = () => {
     if (!this.enabled()) return;
@@ -172,13 +172,11 @@ export default class ExplorerCtrl {
     this.movesAway(0);
     this.enabled(!this.enabled());
     this.setNode();
-    this.root.autoScroll();
   };
   disable = () => {
     if (this.enabled()) {
       this.enabled(false);
       this.gameMenu(null);
-      this.root.autoScroll();
     }
   };
   setHovering = (fen: FEN, uci: Uci | null) => {

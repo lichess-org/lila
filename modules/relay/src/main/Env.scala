@@ -50,9 +50,9 @@ final class Env(
 
   private val colls = wire[RelayColls]
 
-  private lazy val roundRepo = RelayRoundRepo(colls.round)
-
   private lazy val tourRepo = RelayTourRepo(colls.tour)
+
+  private lazy val roundRepo = RelayRoundRepo(colls.round, tourRepo)
 
   private lazy val groupRepo = RelayGroupRepo(colls.group)
 
@@ -109,6 +109,8 @@ final class Env(
   private lazy val formatApi = wire[RelayFormatApi]
 
   private lazy val delay = wire[RelayDelay]
+
+  export delay.delayedUntil
 
   // eager init to start the scheduler
   private val stats = wire[RelayStatsApi]

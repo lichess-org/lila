@@ -164,11 +164,11 @@
   <string name="playAgain">Riluaje</string>
   <string name="whatWouldYouPlay">Ç’lëvizje do të bënit në këtë pozicion?</string>
   <string name="youCompletedThisLesson">Përgëzime! E mbaruat këtë mësim.</string>
-  <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">%s për faqe</string>
+  <string name="perPage">%s për faqe</string>
   <string name="getTheTour">Ju duhet ndihmë? Bëni turin!</string>
   <string name="welcomeToLichessStudyTitle">Mirë se vini te Ushtrim në Lichess!</string>
   <string name="welcomeToLichessStudyText">Kjo është një fushë analize që u tregohet të tjerëve.&lt;br&gt;&lt;br&gt;Përdoreni për të analizuar dhe mbajtur shëni lojërat,&lt;br&gt;për të diskutuar pozicione me shokët,&lt;br&gt;dhe, sigurisht, për mësime shahu!&lt;br&gt;&lt;br&gt;Është një mjet i fuqishëm, le ta kalojmë për pak, për të parë se si funksionon.</string>
-  <string name="sharedAndSaveTitle" comment="Appears as the title of a pop-up lightbox in the guided tour of Lichess Studies.&#10;&#10;As in: shared with other members &amp; saved to the database.">Tregohen dhe ruhen</string>
+  <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Tregohen dhe ruhen</string>
   <string name="sharedAndSavedText">Anëtarët e tjerë mund të shohin aty për aty lëvizjet tuaja!&lt;br&gt;Plus, gjithçka ruhet përgjithmonë.</string>
   <string name="studyMembersTitle">Anëtar të ushtrimit</string>
   <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s Spektatorët mund të shohin ushtrimin dhe të bisedojnë te fjalosja.&lt;br&gt;&lt;br&gt;%2$s Kontribuesit mund të bëjnë lëvizje dhe të përditësojnë ushtrimin.</string>
@@ -195,7 +195,7 @@
   <string name="variantsAreSupportedTitle">Uhtrimet mbulojnë variante</string>
   <string name="variantsAreSupportedText">Po, mund të ushtroheni në “crazyhouse”&lt;br&gt;dhe krejt variantet e lichess-it!</string>
   <string name="chapterConclusionText">Kapitujt ruhen përgjithmonë.&lt;br&gt;Zbavituni duke sistemuar lëndën tuaj për shahun!</string>
-  <string name="doubleDefeat" comment="A rare ending condition. Both sides were defeated, resulting in 0-0 (no points awarded to either side). Can only appear in studies and broadcasts.">Dopiohumbje</string>
-  <string name="blackDefeatWhiteCanNotWin" comment="A rare ending condition. White will get ½, while Black will get 0 points.&#10;Can only appear in studies and broadcasts.">I ziu humb, por i Bardhi s’fiton dot</string>
-  <string name="whiteDefeatBlackCanNotWin" comment="A rare ending condition. Black will get ½, while White will get 0 points.&#10;Can only appear in studies and broadcasts.">I bardhi humb, por i Ziu s’fiton dot</string>
+  <string name="doubleDefeat">Dopiohumbje</string>
+  <string name="blackDefeatWhiteCanNotWin">I ziu humb, por i Bardhi s’fiton dot</string>
+  <string name="whiteDefeatBlackCanNotWin">I bardhi humb, por i Ziu s’fiton dot</string>
 </resources>

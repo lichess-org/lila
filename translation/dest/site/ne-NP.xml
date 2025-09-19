@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">साथी सङ्ग खेल्नुहोस् ।</string>
-  <string name="playWithTheMachine">कम्प्युटर सँग खेल्नुहोस् ।</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">कसैलाई खैलको लागी निम्तो दिनु परेमा यो लिङ्क (URL) दिनुहोला । </string>
   <string name="gameOver">खेल सक्कियो ।</string>
   <string name="waitingForOpponent">प्रतिद्वन्दी को प्रतिक्षा गर्दै</string>
@@ -248,7 +246,6 @@
   <string name="blackTimeOut">कालोको समय सक्कियो ।</string>
   <string name="drawOfferSent">बराबरीको प्रस्ताव पठाइयो</string>
   <string name="drawOfferAccepted">बराबरीको प्रस्ताव स्वीकृत भयो</string>
-  <string name="drawOfferCanceled">बराबरीको प्रस्ताव रद्द भयो</string>
   <string name="whiteOffersDraw">सेतो ले बराबरीको प्रस्ताव गरेको छ</string>
   <string name="blackOffersDraw">कालोले बराबरीको प्रस्ताव गरेको छ</string>
   <string name="whiteDeclinesDraw">सेतोले बराबरीको प्रस्ताव अस्वीकार गरेको छ</string>
@@ -310,7 +307,6 @@
     <item quantity="other">%s सुचारु</item>
   </plurals>
   <string name="exportGames">खेलहरु निर्यात गर्नुहोस्</string>
-  <string name="ratingRange">रेटिङ को सिमा</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">%s सेकेण्ड दिनु</item>
     <item quantity="other">%s सेकेण्ड दिनु</item>

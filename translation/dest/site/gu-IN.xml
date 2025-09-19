@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">મિત્ર સાથે રમો</string>
-  <string name="playWithTheMachine">મશીન સાથે રમો</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">રમવા માટે કોઈને આમંત્રણ આપવા, આ URL આપો</string>
   <string name="gameOver">રમત પુરી</string>
   <string name="waitingForOpponent">વિરોધિ માટે રાહ જુએ છે</string>
@@ -246,7 +244,6 @@
   <string name="blackTimeOut">કાળાની સમય મર્યાદા પૂરી</string>
   <string name="drawOfferSent">ડ્રો ઓફર મોકલી</string>
   <string name="drawOfferAccepted">ડ્રો ઓફર સ્વીકારી</string>
-  <string name="drawOfferCanceled">ડ્રો ઓફર રદ કરી</string>
   <string name="whiteOffersDraw">સફેદ ઓફર ડ્રો</string>
   <string name="blackOffersDraw">બ્લેક ઓફર ડ્રો</string>
   <string name="whiteDeclinesDraw">સફેદ ડ્રો માટે ના કહે છે</string>
@@ -300,7 +297,6 @@
     <item quantity="other">%s રમતમાં</item>
   </plurals>
   <string name="exportGames">રમતોનો નિકાસ કરો</string>
-  <string name="ratingRange">રેટિંગ શ્રેણી</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">%s સેકંડ આપો</item>
     <item quantity="other">%s સેકંડો આપો</item>

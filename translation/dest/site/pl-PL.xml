@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Zagraj ze znajomym</string>
-  <string name="playWithTheMachine">Zagraj z komputerem</string>
+  <string name="gameSetup">Ustawienia gry</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Rzuć wyzwanie znajomemu</string>
+  <string name="playAgainstAI">Graj przeciwko AI</string>
+  <string name="gameMode">Tryby gry</string>
+  <string name="createLobbyGame">Utwórz grę w poczekalni</string>
+  <string name="youPlayAs">Grasz</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Przekaż ten adres, by zaprosić kogoś do wspólnej gry</string>
   <string name="gameOver">Partia zakończona</string>
   <string name="waitingForOpponent">Oczekiwanie na ruch przeciwnika</string>
@@ -316,7 +320,6 @@
   <string name="blackTimeOut">Upłynął czas czarnych</string>
   <string name="drawOfferSent">Wysłano propozycję remisu</string>
   <string name="drawOfferAccepted">Przyjęto propozycję remisu</string>
-  <string name="drawOfferCanceled">Wycofano propozycję remisu</string>
   <string name="whiteOffersDraw">Białe proponują remis</string>
   <string name="blackOffersDraw">Czarne proponują remis</string>
   <string name="whiteDeclinesDraw">Białe odrzucają propozycję remisu</string>
@@ -388,7 +391,7 @@
     <item quantity="other">%s w toku</item>
   </plurals>
   <string name="exportGames">Eksportuj partie</string>
-  <string name="ratingRange">Przedział rankingowy</string>
+  <string name="ratingFilter">Filtr rankingu</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Dodaj %s sekundę</item>
     <item quantity="few">Dodaj %s sekundy</item>
@@ -460,6 +463,7 @@
     <item quantity="other">Musisz rozegrać jeszcze %s partii rankingowych</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Twój ranking (%s) jest prowizoryczny</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Filtry rankingu są zablokowane, ponieważ Twój ranking nie jest stabilny. Rozegranie partii rankingowych zwiększy tę stabilność.</string>
   <string name="yourPerfRatingIsTooHigh">Twój ranking %2$s (%1$s) jest za wysoki</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Twój ranking tygodniowy %2$s (%1$s) jest za wysoki</string>
   <string name="yourPerfRatingIsTooLow">Twój ranking %2$s (%1$s) jest za niski</string>
@@ -490,7 +494,6 @@
   <string name="toStudy">Opracowanie</string>
   <string name="importGame">Importuj partię</string>
   <string name="importGameExplanation">Wklejenie PGN partii daje możliwość jej odtworzenia, analizy komputerowej, rozmowy i udostępnienia.</string>
-  <string name="importGameCaveat">Warianty zostaną usunięte. Aby je zachować, zaimportuj plik PGN jako opracowanie.</string>
   <string name="importGameDataPrivacyWarning">Ten zapis PGN będzie dostępny publicznie. Aby zaimportować partię tylko dla siebie, stwórz prywatne opracowanie.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s zaimportowana partia</item>
@@ -911,6 +914,7 @@
   <string name="notifications">Powiadomienia</string>
   <string name="notificationsX">Powiadomienia: %1$s</string>
   <string name="perfRatingX">Ranking: %s</string>
+  <string name="yourRatingIsX">Twój ranking wynosi %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekunda na wykonanie pierwszego ruchu</item>
     <item quantity="few">%s sekundy na wykonanie pierwszego ruchu</item>
@@ -966,6 +970,7 @@
   <string name="playVariationToCreateConditionalPremoves">Zagraj wariant, by utworzyć ruchy warunkowe</string>
   <string name="noConditionalPremoves">Brak ruchów warunkowych</string>
   <string name="playX">Zagraj %s</string>
+  <string name="challengeX">Rzuć wyzwanie %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">i zapisz wariant warunkowy</item>
     <item quantity="few">i zapisz %s warianty warunkowe</item>
@@ -1100,4 +1105,9 @@ Wszystkie koszty operacyjne, rozwój i treści są finansowane wyłącznie z dar
   <string name="enableBlindMode">Włącz tryb gry \"na ślepo\"</string>
   <string name="disableBlindMode">Wyłącz tryb gry \"na ślepo\"</string>
   <string name="copyToClipboard">Kopiuj do schowka</string>
+  <string name="online" comment="status of a user">online</string>
+  <string name="offline" comment="status of a user">offline</string>
+  <string name="search">Szukaj</string>
+  <string name="clearSearch">Wyczyść wyszukiwanie</string>
+  <string name="tags">Tagi</string>
 </resources>

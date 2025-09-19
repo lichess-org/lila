@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses" comment="Lichess Classes are a feature that lets a teacher create virtual classes and check out students' progress.&#10;&#10;This text used to be &quot;Lichess Classes&quot;, which has since been shortened to &quot;Classes&quot;.">Lichess 教室</string>
+  <string name="lichessClasses">Lichess 教室</string>
   <string name="teachClassesOfChessStudents">「Lichess 教室」機能で生徒にチェスを教えよう。</string>
   <string name="features">機能</string>
   <string name="quicklyGenerateSafeUsernames">生徒のために安全なユーザー名とパスワードを自動生成</string>
   <string name="trackStudentProgress">対局やタクティクス問題での生徒の進歩を表示</string>
   <string name="messageAllStudents">新しい教材について全生徒に通知</string>
-  <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">誰にでも永久に完全無料、広告・トラッカーなし</string>
+  <string name="freeForAllForever">誰にでも永久に完全無料、広告・トラッカーなし</string>
   <string name="applyToBeLichessTeacher">Lichess 講師に登録申請する</string>
   <string name="noClassesYet">まだ教室がありません。</string>
   <string name="teachersX">講師：%s</string>
   <string name="newClass">新しい教室</string>
   <string name="closeClass">教室を閉鎖する</string>
   <string name="removedByX">%s によって削除</string>
-  <string name="reopen" comment="A button, permitting a teacher to reopen a closed class.">再開</string>
-  <string name="removeStudent" comment="Removes a student from the class. Note the same text is used both for initial removal, and for full erasure.">生徒を削除</string>
-  <string name="removedStudents" comment="This is in plural form. It is a heading showing all students who have been removed from the class.">削除済み</string>
-  <string name="inviteTheStudentBack" comment="A button. Clicking this will re-invite a student that has been removed from the class.">生徒を再招待</string>
+  <string name="reopen">再開</string>
+  <string name="removeStudent">生徒を削除</string>
+  <string name="removedStudents">削除済み</string>
+  <string name="inviteTheStudentBack">生徒を再招待</string>
   <string name="sendAMessage">全生徒にメッセージを送ります。</string>
   <string name="aLinkToTheClassWillBeAdded">講座へのリンクはメッセージの最後に自動で入るので、自分で入れる必要はありません。</string>
   <string name="className">教室名</string>
@@ -30,7 +30,7 @@
   <string name="generateANewPassword">生徒に新しいパスワードを発行する</string>
   <string name="invitedToXByY">%2$s が %1$s に招待しています</string>
   <string name="realName">姓名</string>
-  <string name="privateWillNeverBeShown" comment="A description of the real name field for members of a class.">非公開。教室参加者以外には表示されません。生徒を覚えておくために。</string>
+  <string name="privateWillNeverBeShown">非公開。教室参加者以外には表示されません。生徒を覚えておくために。</string>
   <string name="addStudent">生徒を追加</string>
   <string name="lichessProfileXCreatedForY">%2$s のために Lichess プロフィール %1$s が作成されました。</string>
   <string name="studentCredentials">生徒：%1$s
@@ -41,14 +41,14 @@
   <string name="inviteDesc2">教室へのリンクを含むメッセージが Lichess 内で送られます。</string>
   <string name="inviteDesc3">注意：招待する相手は、あなたが知っていて参加したい人だけにしてください。</string>
   <string name="inviteDesc4">勝手に選んだ相手に招待を送ってはいけません。</string>
-  <string name="createANewLichessAccount" comment="The person who would see this would always be a teacher.&#10;In this context, it is to create a new account for a student of their class.">新しい Lichess アカウントを作る</string>
+  <string name="createANewLichessAccount">新しい Lichess アカウントを作る</string>
   <string name="createDesc1">生徒がまだ Lichess アカウントを持っていない場合、あなたが代わって作ることができます。</string>
   <string name="createDesc2">メールアドレスは不要です。パスワードが自動生成されるので生徒に送信してください。生徒はそれを使ってログインします。</string>
   <string name="createDesc3">注意：1 人の生徒が複数のアカウントを持つことはできません。</string>
   <string name="createDesc4">アカウントを持っている生徒には招待用フォームを使います。</string>
   <string name="createStudentWarning">実在の生徒のアカウントだけを作ってください。自分用の別アカウントを作ってはいけません。アクセス禁止になります。</string>
   <string name="lichessUsername">Lichess ユーザー名</string>
-  <string name="generateANewUsername" comment="A button which lets teachers create a random username for students they are registering.">新しいユーザー名を作る</string>
+  <string name="generateANewUsername">新しいユーザー名を作る</string>
   <string name="welcomeToClass">教室「%s」にあなたを歓迎します。
 教室に参加するためのリンクです。</string>
   <string name="invitationToClass">あなたは「%s」教室に生徒として招待されました。</string>
@@ -56,14 +56,14 @@
   <plurals name="nbPendingInvitations">
     <item quantity="other">まだ返事のない招待 %s 件</item>
   </plurals>
-  <string name="pending" comment="Appears in a table of students. Refers to invitation by a teacher to join a class, which the student has not yet responded to.">ペンディング</string>
-  <string name="declined" comment="Appears in a table of students. Refers to invitation by a teacher to join a class, which the student declined.">だめ</string>
+  <string name="pending">ペンディング</string>
+  <string name="declined">だめ</string>
   <string name="onlyVisibleToTeachers">講師だけに見えます</string>
   <string name="lastActiveDate">最後のログイン</string>
   <string name="managed">管理下</string>
   <string name="thisStudentAccountIsManaged">この生徒のアカウントは講師が管理します。</string>
   <string name="upgradeFromManaged">講師の管理下から自主管理へ移行</string>
-  <string name="release" comment="This used to be 'release'. It is now called 'graduate', and the term is used here as a verb.&#10;&#10;'Releasing' an account means making it a full Lichess account. It will no longer be tied to the teacher that created it.">解放</string>
+  <string name="release">解放</string>
   <string name="releaseTheAccount">生徒がアカウントを自分で管理できるようにします。</string>
   <string name="releaseDesc1">解放したアカウントは二度と管理下にできません。生徒は自分でキッズモードの切り替えやパスワードリセットを行なえます。</string>
   <string name="releaseDesc2">アカウントを解放しても、生徒は教室に残ったままです。</string>
@@ -99,19 +99,21 @@
   <string name="newsEdit3">項目の間に「---」を入れてください、横線が表示されます。</string>
   <string name="invite">招待</string>
   <string name="youHaveBeenInvitedByX">あなたは %s に招待されました。</string>
-  <string name="youAcceptedThisInvitation" comment="Appears when revisiting the page of an invitation to a class, which you have already accepted.">あなたはこの招待を承認しました。</string>
-  <string name="youDeclinedThisInvitation" comment="Appears when revisiting the page of an invitation to a class, which you have already declined.">あなたはこの招待を拒否しました。</string>
+  <string name="youAcceptedThisInvitation">あなたはこの招待を承認しました。</string>
+  <string name="youDeclinedThisInvitation">あなたはこの招待を拒否しました。</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">または</string>
   <string name="createMultipleAccounts">一度に複数の Lichess アカウントを作成する</string>
   <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">また%s生徒の名前のリストから複数の Lichess アカウントを作成することもできます。</string>
   <string name="useThisForm" comment="Link text in multipleAccsFromDescription">このフォームで</string>
   <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">教室の生徒数の上限は %1$s 人です。さらに多くの生徒を扱うには、%2$s。</string>
   <string name="createMoreClasses" comment="Link text in maxStudentsNote">複数の教室を作成します</string>
-  <string name="studentsRealNamesOnePerLine" comment="An instruction on how to enter students' names when creating new accounts for them.">生徒の実名、1 行に 1 つずつ</string>
-  <string name="xisNowAStudentOfTheClass" comment="%s is the player's name">%s は現在この教室の生徒です</string>
-  <string name="anInvitationHasBeenSentToX" comment="%s is the username of a player already registered on Lichess.">%s に招待が送信されました</string>
-  <string name="xAlreadyHasAPendingInvitation" comment="An error message. %s is the username of a player already registered on Lichess.">%s はすでに招待ずみです</string>
-  <string name="xIsAKidAccountWarning" comment="%1$s is the username&#10;%2$s is a link.">%1$s は子供のアカウントで、あなたのメッセージを受信できません。招待 URL を手動で伝えてください： %2$s</string>
-  <string name="moveToClass" comment="%s is the name of the class. The name of the class is set by the teacher.&#10;&#10;Appears on a confirmation prompt when a teacher looks to move a student to one of the other classes they run.">%s へ移動</string>
-  <string name="moveToAnotherClass" comment="Appears as a heading on a page which lets a teacher move one of their students to one of the other classes they run.">別のクラスに移動</string>
+  <string name="studentsRealNamesOnePerLine">生徒の実名、1 行に 1 つずつ</string>
+  <string name="xisNowAStudentOfTheClass">%s は現在この教室の生徒です</string>
+  <string name="anInvitationHasBeenSentToX">%s に招待が送信されました</string>
+  <string name="xAlreadyHasAPendingInvitation">%s はすでに招待ずみです</string>
+  <string name="xIsAKidAccountWarning">%1$s は子供のアカウントで、あなたのメッセージを受信できません。招待 URL を手動で伝えてください： %2$s</string>
+  <string name="moveToClass">%s へ移動</string>
+  <string name="moveToAnotherClass">別のクラスに移動</string>
+  <string name="allowMessagingBetweenStudents" comment="An option that a class's teacher can select. Has the extended description &quot;This only applies to the accounts you have created for your students.&quot;">生徒どうしのメッセージを許可</string>
+  <string name="allowMessagingBetweenStudentsDesc" comment="Description for the option &quot;Allow messages between students&quot;.">これはあなたが生徒のために作成したアカウントにのみ適用されます。</string>
 </resources>

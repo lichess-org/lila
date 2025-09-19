@@ -42,20 +42,20 @@ object HTTPRequest:
 
   def isAssets(req: RequestHeader) = req.path.startsWith("/assets/")
 
-  def userAgent(req: RequestHeader): Option[UserAgent] = UserAgent.from:
-    req.headers.get(HeaderNames.USER_AGENT)
+  def userAgent(req: RequestHeader): UserAgent =
+    req.headers.get(HeaderNames.USER_AGENT).fold(UserAgent.zero)(UserAgent(_))
 
   val isChrome96Plus = UaMatcher("""Chrome/(?:\d{3,}|9[6-9])""")
   val isChrome113Plus = UaMatcher("""Chrome/(?:11[3-9]|1[2-9]\d)""")
   val isFirefox119Plus = UaMatcher("""Firefox/(?:119|1[2-9]\d)""")
   val isMobileBrowser = UaMatcher("""(?i)iphone|ipad|ipod|android.+mobile""")
   def isLichessMobile(ua: UserAgent): Boolean = ua.value.startsWith("Lichess Mobile/")
-  def isLichessMobile(req: RequestHeader): Boolean = userAgent(req).exists(isLichessMobile)
-  def isLichobile(req: RequestHeader) = userAgent(req).exists(_.value.contains("Lichobile/"))
+  def isLichessMobile(req: RequestHeader): Boolean = isLichessMobile(userAgent(req))
+  def isLichobile(req: RequestHeader) = userAgent(req).value.contains("Lichobile/")
   def isLichobileDev(req: RequestHeader) = // lichobile in a browser can't set its user-agent
     isLichobile(req) || (appOrigin(req).isDefined && !isLichessMobile(req))
   def isAndroid = UaMatcher("Android")
-  def isLitools(req: RequestHeader) = userAgent(req).has(UserAgent("litools"))
+  def isLitools(req: RequestHeader) = userAgent(req) == UserAgent("litools")
   def lichessMobileVersion(ua: UserAgent): Option[LichessMobileVersion] =
     isLichessMobile(ua).so:
       for
@@ -92,10 +92,9 @@ object HTTPRequest:
 
   final class UaMatcher(rStr: String):
     private val pattern = rStr.r.pattern
-    def apply(req: RequestHeader): Boolean = userAgent(req).exists(ua => pattern.matcher(ua.value).find)
+    def apply(req: RequestHeader): Boolean = pattern.matcher(userAgent(req).value).find
 
-  def uaMatches(req: RequestHeader, regex: Regex): Boolean =
-    userAgent(req).exists(ua => regex.find(ua.value))
+  def uaMatches(req: RequestHeader, regex: Regex): Boolean = regex.find(userAgent(req).value)
 
   def isFishnet(req: RequestHeader) = req.path.startsWith("/fishnet/")
 
@@ -110,7 +109,7 @@ object HTTPRequest:
   def printReq(req: RequestHeader) = s"${req.method} ${req.domain}${req.uri}"
 
   def printClient(req: RequestHeader) =
-    s"${ipAddress(req)} origin:${~origin(req)} referer:${~referer(req)} ua:${userAgent(req).so(_.value)}"
+    s"${ipAddress(req)} origin:${~origin(req)} referer:${~referer(req)} ua:${userAgent(req).value}"
 
   def bearer(req: RequestHeader): Option[Bearer] = for
     authorization <- req.headers.get(HeaderNames.AUTHORIZATION)
@@ -142,17 +141,15 @@ object HTTPRequest:
       case LichobileVersionHeaderPattern(v) => ApiVersion.from(v.toIntOption)
       case _ => none
 
-  private def isDataDump(req: RequestHeader) = req.path == "/account/personal-data"
   private def isAppeal(req: RequestHeader) = req.path.startsWith("/appeal")
   private def isGameExport(req: RequestHeader) =
     "^/@/[\\w-]{2,30}/download$".r.matches(req.path) ||
       "^/(api/games/user|games/export)/[\\w-]{2,30}($|/.+)".r.matches(req.path)
   private def isStudyExport(req: RequestHeader) = "^/study/by/[\\w-]{2,30}/export.pgn$".r.matches(req.path)
-  private def isAccountClose(req: RequestHeader) =
-    req.path == "/account/close" || req.path == "/account/delete"
+  private def isAccount(req: RequestHeader) = req.path.startsWith("/account")
 
   def isClosedLoginPath(req: RequestHeader) =
-    isDataDump(req) || isAppeal(req) || isStudyExport(req) || isGameExport(req) || isAccountClose(req)
+    isAppeal(req) || isStudyExport(req) || isGameExport(req) || isAccount(req)
 
   def clientName(req: RequestHeader) =
     // lichobile sends XHR headers
@@ -165,8 +162,8 @@ object HTTPRequest:
     req.queryString.get(name).flatMap(_.headOption).filter(_.nonEmpty)
 
   def looksLikeLichessBot(req: RequestHeader) =
-    userAgent(req).exists: ua =>
-      ua.value.startsWith("lichess-bot/") || ua.value.startsWith("maia-bot/")
+    val ua = userAgent(req).value
+    ua.startsWith("lichess-bot/") || ua.startsWith("maia-bot/")
 
   // this header is set by our nginx config, based on the nginx whitelist file.
   def nginxWhitelist(req: RequestHeader) =

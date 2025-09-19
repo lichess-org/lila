@@ -125,6 +125,11 @@
   }
 }
 
+.column-gap {
+  @extend %flex-column;
+  gap: 4rem;
+}
+
 .ublog-mod-carousel {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
@@ -183,6 +188,15 @@
 .ublog-index__posts--empty {
   margin: 20vh auto;
   text-align: center;
+}
+
+.ublog-mod-assess-footer span {
+  margin-inline-start: auto;
+}
+
+.ublog-mod-assess-footer .spinner {
+  width: 2em;
+  height: 2em;
 }
 
 #mod-tools,

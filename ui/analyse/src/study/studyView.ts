@@ -32,14 +32,8 @@ import { watchers } from 'lib/view/watchers';
 import type StudyCtrl from './studyCtrl';
 import { verticalResize } from 'lib/view/verticalResize';
 import { isTouchDevice, displayColumns, shareIcon } from 'lib/device';
-import {
-  viewContext,
-  renderBoard,
-  renderMain,
-  renderControls,
-  renderTools,
-  renderUnderboard,
-} from '../view/components';
+import { viewContext, renderBoard, renderMain, renderTools, renderUnderboard } from '../view/components';
+import { renderControls } from '../view/controls';
 
 export function studyView(ctrl: AnalyseCtrl, study: StudyCtrl, deps: typeof studyDeps): VNode {
   const ctx = viewContext(ctrl, deps);
@@ -57,7 +51,7 @@ export function studyView(ctrl: AnalyseCtrl, study: StudyCtrl, deps: typeof stud
     renderUnderboard(ctx),
     ctrl.keyboardMove && renderKeyboardMove(ctrl.keyboardMove),
     trainingView(ctrl),
-    ctrl.studyPractice
+    ctrl.study?.practice
       ? deps?.studyPracticeView.side(study!)
       : hl(
           'aside.analyse__side',
@@ -159,7 +153,7 @@ export const overboard = (ctrl: StudyCtrl) =>
               : undefined;
 
 export function underboard(ctrl: AnalyseCtrl): LooseVNodes {
-  if (ctrl.studyPractice) return practiceView.underboard(ctrl.study!);
+  if (ctrl.study?.practice) return practiceView.underboard(ctrl.study!);
   const study = ctrl.study!,
     toolTab = study.vm.toolTab();
   if (study.gamebookPlay)

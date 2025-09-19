@@ -94,7 +94,10 @@ export function initModule({
   };
 
   async function initGrammar(): Promise<void> {
-    const g = await jsonSimple(site.asset.url(`compiled/grammar/move-${voice.lang()}.json`));
+    const g = await jsonSimple(site.asset.url(`compiled/grammar/move-${voice.lang()}.json`)).catch(() => ({
+      entries: [],
+      partials: { numbers: [], commands: [], colors: [] },
+    }));
     byWord.clear();
     byTok.clear();
     byVal.clear();

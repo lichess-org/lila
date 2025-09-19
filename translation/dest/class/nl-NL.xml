@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses" comment="Lichess Classes are a feature that lets a teacher create virtual classes and check out students' progress.&#10;&#10;This text used to be &quot;Lichess Classes&quot;, which has since been shortened to &quot;Classes&quot;.">Klassen</string>
+  <string name="lichessClasses">Klassen</string>
   <string name="teachClassesOfChessStudents">Geef groepen leerlingen les met Lichess schaakgroep hulpmiddelen.</string>
   <string name="features">Functies</string>
   <string name="quicklyGenerateSafeUsernames">Genereer snel veilige gebruikersnamen en wachtwoorden voor leerlingen</string>
   <string name="trackStudentProgress">Volg de voortgang van leerlingen in partijen en puzzels</string>
   <string name="messageAllStudents">Informeer alle leerlingen over nieuw lesmateriaal</string>
-  <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">100% gratis voor iedereen, voor altijd, zonder advertenties of trackers</string>
+  <string name="freeForAllForever">100% gratis voor iedereen, voor altijd, zonder advertenties of trackers</string>
   <string name="applyToBeLichessTeacher">Meld u aan als Lichess Leraar</string>
   <string name="noClassesYet">Nog geen lessen.</string>
   <string name="teachersX">Leraren: %s</string>
   <string name="newClass">Nieuwe klas</string>
   <string name="closeClass">Groep sluiten</string>
   <string name="removedByX">Verwijderd door %s</string>
-  <string name="reopen" comment="A button, permitting a teacher to reopen a closed class.">Heropen</string>
-  <string name="removeStudent" comment="Removes a student from the class. Note the same text is used both for initial removal, and for full erasure.">Verwijder leerling</string>
-  <string name="removedStudents" comment="This is in plural form. It is a heading showing all students who have been removed from the class.">Verwijderd</string>
-  <string name="inviteTheStudentBack" comment="A button. Clicking this will re-invite a student that has been removed from the class.">Nodig de student opnieuw uit</string>
+  <string name="reopen">Heropen</string>
+  <string name="removeStudent">Verwijder leerling</string>
+  <string name="removedStudents">Verwijderd</string>
+  <string name="inviteTheStudentBack">Nodig de student opnieuw uit</string>
   <string name="sendAMessage">Stuur een bericht naar alle leerlingen.</string>
   <string name="aLinkToTheClassWillBeAdded">Een link naar de groep wordt automatisch toegevoegd aan het einde van het bericht, dus u hoeft deze niet zelf toe te voegen.</string>
   <string name="className">Naam van de groep</string>
@@ -30,7 +30,7 @@
   <string name="generateANewPassword">Genereer een nieuw wachtwoord voor de leerling</string>
   <string name="invitedToXByY">Uitgenodigd tot %1$s door %2$s</string>
   <string name="realName">Echte naam</string>
-  <string name="privateWillNeverBeShown" comment="A description of the real name field for members of a class.">Privé. Wordt nooit getoond buiten de groep. Helpt onthouden wie de leerling is.</string>
+  <string name="privateWillNeverBeShown">Privé. Wordt nooit getoond buiten de groep. Helpt onthouden wie de leerling is.</string>
   <string name="addStudent">Voeg een student toe</string>
   <string name="lichessProfileXCreatedForY">Lichess profiel %1$s gemaakt voor %2$s.</string>
   <string name="studentCredentials">Student:  %1$s
@@ -41,14 +41,14 @@ Wachtwoord: %3$s</string>
   <string name="inviteDesc2">Ze ontvangen een bericht op Lichess met een link om zich bij de groep aan te sluiten.</string>
   <string name="inviteDesc3">Belangrijk: nodig alleen leerlingen uit die je kent en die actief deel willen nemen aan de groep.</string>
   <string name="inviteDesc4">Stuur nooit ongevraagde uitnodigingen naar willekeurige spelers.</string>
-  <string name="createANewLichessAccount" comment="The person who would see this would always be a teacher.&#10;In this context, it is to create a new account for a student of their class.">Maak een nieuw Lichess account aan</string>
+  <string name="createANewLichessAccount">Maak een nieuw Lichess account aan</string>
   <string name="createDesc1">Als de leerling nog geen Lichess account heeft, kunt u deze hier aanmaken.</string>
   <string name="createDesc2">Er is geen e-mailadres vereist. Er wordt een wachtwoord aangemaakt die moet worden doorgeven aan de student, zodat ze kunnen inloggen.</string>
   <string name="createDesc3">Belangrijk: een leerling mag niet meerdere accounts hebben.</string>
   <string name="createDesc4">Als ze er al een hebben, gebruik dan het uitnodigingsformulier.</string>
   <string name="createStudentWarning">Maak alleen accounts aan voor echte leerlingen. Gebruik deze functie niet om meerdere accounts voor jezelf te maken. In dat geval wordt je account gesloten.</string>
   <string name="lichessUsername">Lichess gebruikersnaam</string>
-  <string name="generateANewUsername" comment="A button which lets teachers create a random username for students they are registering.">Nieuwe gebruikersnaam genereren</string>
+  <string name="generateANewUsername">Nieuwe gebruikersnaam genereren</string>
   <string name="welcomeToClass">Welkom bij de groep: %s.
 Hier is de link om toegang te krijgen tot de groep.</string>
   <string name="invitationToClass">Je bent uitgenodigd om als leerling deel te nemen aan klas \"%s\".</string>
@@ -57,14 +57,14 @@ Hier is de link om toegang te krijgen tot de groep.</string>
     <item quantity="one">Eén openstaande uitnodiging</item>
     <item quantity="other">%s openstaande uitnodigingen</item>
   </plurals>
-  <string name="pending" comment="Appears in a table of students. Refers to invitation by a teacher to join a class, which the student has not yet responded to.">In behandeling</string>
-  <string name="declined" comment="Appears in a table of students. Refers to invitation by a teacher to join a class, which the student declined.">Afgewezen</string>
+  <string name="pending">In behandeling</string>
+  <string name="declined">Afgewezen</string>
   <string name="onlyVisibleToTeachers">Alleen zichtbaar voor leraren in de groep</string>
   <string name="lastActiveDate">Actief</string>
   <string name="managed">Beheerd</string>
   <string name="thisStudentAccountIsManaged">Dit leerlingaccount wordt beheerd</string>
   <string name="upgradeFromManaged">Upgrade van beheerd naar zelfstandig</string>
-  <string name="release" comment="This used to be 'release'. It is now called 'graduate', and the term is used here as a verb.&#10;&#10;'Releasing' an account means making it a full Lichess account. It will no longer be tied to the teacher that created it.">Vrijgeven</string>
+  <string name="release">Vrijgeven</string>
   <string name="releaseTheAccount">Geef het account vrij zodat de student het zelfstandig kan beheren.</string>
   <string name="releaseDesc1">Een vrijgegeven account kan niet opnieuw worden beheerd. De student kan dan zelf de kind-modus veranderen of het wachtwoord resetten.</string>
   <string name="releaseDesc2">De leerling blijft in de groep nadat zijn account is vrijgegeven.</string>
@@ -102,19 +102,21 @@ Hier is de link om toegang te krijgen tot de groep.</string>
   <string name="newsEdit3">Scheid het nieuws met --- het zal als een horizontale lijn worden weergeven.</string>
   <string name="invite">Uitnodigen</string>
   <string name="youHaveBeenInvitedByX">Je bent uitgenodigd door %s.</string>
-  <string name="youAcceptedThisInvitation" comment="Appears when revisiting the page of an invitation to a class, which you have already accepted.">Je hebt deze uitnodiging geaccepteerd.</string>
-  <string name="youDeclinedThisInvitation" comment="Appears when revisiting the page of an invitation to a class, which you have already declined.">Je hebt deze uitnodiging geweigerd.</string>
+  <string name="youAcceptedThisInvitation">Je hebt deze uitnodiging geaccepteerd.</string>
+  <string name="youDeclinedThisInvitation">Je hebt deze uitnodiging geweigerd.</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">of</string>
   <string name="createMultipleAccounts">Meerdere Lichess-accounts tegelijk aanmaken</string>
   <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Je kunt ook %s om meerdere Lichess-accounts te maken van een lijst met leerlingnamen.</string>
   <string name="useThisForm" comment="Link text in multipleAccsFromDescription">gebruik dit formulier</string>
   <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Merk op dat een klas tot %1$s leerlingen kan hebben. Om meer leerlingen te beheren, %2$s.</string>
   <string name="createMoreClasses" comment="Link text in maxStudentsNote">maak meer klassen</string>
-  <string name="studentsRealNamesOnePerLine" comment="An instruction on how to enter students' names when creating new accounts for them.">De echte namen van de leerlingen, één per regel</string>
-  <string name="xisNowAStudentOfTheClass" comment="%s is the player's name">%s is nu een leerling van de klas</string>
-  <string name="anInvitationHasBeenSentToX" comment="%s is the username of a player already registered on Lichess.">Een uitnodiging is verstuurd naar %s</string>
-  <string name="xAlreadyHasAPendingInvitation" comment="An error message. %s is the username of a player already registered on Lichess.">%s heeft al een uitnodiging in behandeling</string>
-  <string name="xIsAKidAccountWarning" comment="%1$s is the username&#10;%2$s is a link.">%1$s is een kinderaccount en kan je bericht niet ontvangen. Je moet het kind de uitnodigingslink handmatig geven: %2$s</string>
-  <string name="moveToClass" comment="%s is the name of the class. The name of the class is set by the teacher.&#10;&#10;Appears on a confirmation prompt when a teacher looks to move a student to one of the other classes they run.">Verplaats naar %s</string>
-  <string name="moveToAnotherClass" comment="Appears as a heading on a page which lets a teacher move one of their students to one of the other classes they run.">Verplaats naar een andere klas</string>
+  <string name="studentsRealNamesOnePerLine">De echte namen van de leerlingen, één per regel</string>
+  <string name="xisNowAStudentOfTheClass">%s is nu een leerling van de klas</string>
+  <string name="anInvitationHasBeenSentToX">Een uitnodiging is verstuurd naar %s</string>
+  <string name="xAlreadyHasAPendingInvitation">%s heeft al een uitnodiging in behandeling</string>
+  <string name="xIsAKidAccountWarning">%1$s is een kinderaccount en kan je bericht niet ontvangen. Je moet het kind de uitnodigingslink handmatig geven: %2$s</string>
+  <string name="moveToClass">Verplaats naar %s</string>
+  <string name="moveToAnotherClass">Verplaats naar een andere klas</string>
+  <string name="allowMessagingBetweenStudents" comment="An option that a class's teacher can select. Has the extended description &quot;This only applies to the accounts you have created for your students.&quot;">Berichten tussen leerlingen toestaan</string>
+  <string name="allowMessagingBetweenStudentsDesc" comment="Description for the option &quot;Allow messages between students&quot;.">Dit geldt alleen voor de accounts die u hebt aangemaakt voor uw leerlingen.</string>
 </resources>

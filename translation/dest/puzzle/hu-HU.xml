@@ -22,7 +22,7 @@
   <string name="puzzleId">%s. feladvány</string>
   <string name="puzzleOfTheDay">Napi feladvány</string>
   <string name="dailyPuzzle">Napi feladvány</string>
-  <string name="clickToSolve">Katt a megoldáshoz</string>
+  <string name="clickToSolve">Kattints a megoldáshoz</string>
   <string name="goodMove">Jó lépés</string>
   <string name="bestMove">A legjobb lépés!</string>
   <string name="keepGoing">Folytasd…</string>
@@ -35,7 +35,7 @@
   <string name="useCtrlF">Ctrl+f a kedvenc megnyitásod megtalálásához!</string>
   <string name="notTheMove">Nem a legjobb lépés!</string>
   <string name="trySomethingElse">Próbálkozz mással.</string>
-  <string name="ratingX">Pontszám: %s</string>
+  <string name="ratingX">Értékszám: %s</string>
   <string name="hidden">rejtett</string>
   <plurals name="playedXTimes">
     <item quantity="one">%s beküldött megfejtés</item>
@@ -77,6 +77,10 @@
   <string name="searchPuzzles">Feladványok keresése</string>
   <string name="fromMyGamesNone">Nincsenek feladványaid az adatbázisban, de ez semmi rosszat nem jelent.
 Játssz rapid vagy klasszikus partikat, így nagyobb eséllyel szerepelhetnek a te játszmáid feladványai is!</string>
+  <plurals name="puzzlesFoundInUserGames">
+    <item quantity="one">Feladvány %2$s játszmáiból</item>
+    <item quantity="other">%1$s feladvány %2$s játszmáiból</item>
+  </plurals>
   <string name="puzzleDashboardDescription">Gyakorolj, elemezz, fejlődj</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s játszott</item>

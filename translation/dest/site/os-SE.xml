@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Хъаз де \'мбалимæ</string>
-  <string name="playWithTheMachine">Хъаз компьютеримæ</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Цæмæй кæйдæр æрбахонын хъазынмæ, арвит ын ацы дæнцæг</string>
   <string name="gameOver">Хъазт фæци</string>
   <string name="waitingForOpponent">Ныхмæлæууæгмæ æнхъæлмæкæсын</string>
@@ -215,7 +213,6 @@
   <string name="blackTimeOut">Саутæн рæстæг фæци</string>
   <string name="drawOfferSent">Хæрæгсаст фæуын æнхъарæн æрвыст у</string>
   <string name="drawOfferAccepted">Хæрæгсаст фæуын æнхъарæн райст уыди</string>
-  <string name="drawOfferCanceled">Хæрæгсаст фæуын æнхъарæн аивд уыди</string>
   <string name="whiteOffersDraw">Урсытæ æнхъарынц хæрæхсаст фæуын</string>
   <string name="blackOffersDraw">Саутæ æнхъарынц хæрæхсаст фæуын</string>
   <string name="whiteDeclinesDraw">Урсытæ хæрæгсаст фæуын æнхъарæн нæ райстой</string>
@@ -276,7 +273,6 @@
     <item quantity="other">%s хъазгæгонд</item>
   </plurals>
   <string name="exportGames">Хъæзтытæ рацъирын</string>
-  <string name="ratingRange">Ныхмæлæууæджы рейтинг</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">%s секундæ раттын</item>
     <item quantity="other">%s секунды раттын</item>

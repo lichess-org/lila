@@ -140,7 +140,7 @@ const playerView = (ctrl: RelayPlayers, show: PlayerToShow, tour: RelayTour): VN
   const year = (tour.dates?.[0] ? new Date(tour.dates[0]) : new Date()).getFullYear();
   const tc = tour.info.fideTc || 'standard';
   const age: number | undefined = p?.fide?.year && year - p.fide.year;
-  const fidePageData = p && { attrs: fidePageLinkAttrs(p, ctrl.isEmbed) };
+  const fidePageAttrs = p ? fidePageLinkAttrs(p, ctrl.isEmbed) : {};
   return hl(
     'div.relay-tour__player',
     {
@@ -148,7 +148,16 @@ const playerView = (ctrl: RelayPlayers, show: PlayerToShow, tour: RelayTour): VN
     },
     p
       ? [
-          hl(`a.relay-tour__player__name`, fidePageData, [userTitle(p), p.name]),
+          hl(
+            'a.relay-tour__player__name.text',
+            {
+              attrs: {
+                ...fidePageAttrs,
+                ...dataIcon(licon.AccountCircle),
+              },
+            },
+            [userTitle(p), p.name],
+          ),
           p.team
             ? hl('div.relay-tour__player__team.text', { attrs: dataIcon(licon.Group) }, p.team)
             : undefined,
@@ -175,7 +184,7 @@ const playerView = (ctrl: RelayPlayers, show: PlayerToShow, tour: RelayTour): VN
             !!p.fideId &&
               hl('div.relay-tour__player__card', [
                 hl('em', 'FIDE ID'),
-                hl('a', fidePageData, p.fideId.toString()),
+                hl('a', { attrs: fidePageAttrs }, p.fideId.toString()),
               ]),
             p.score !== undefined &&
               hl('div.relay-tour__player__card', [

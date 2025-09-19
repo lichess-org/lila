@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@lichess-org/chessground':
-        specifier: 9.4.1
-        version: 9.4.1
+        specifier: 9.7.0
+        version: 9.7.0
       '@lichess-org/pgn-viewer':
         specifier: 2.4.7
         version: 2.4.7
@@ -493,6 +493,9 @@ importers:
 
   ui/site:
     dependencies:
+      bits:
+        specifier: workspace:*
+        version: link:../bits
       dialog-polyfill:
         specifier: 0.5.6
         version: 0.5.6
@@ -835,8 +838,8 @@ packages:
   '@kurkle/color@0.3.4':
     resolution: {integrity: sha512-M5UknZPHRu3DEDWoipU6sE8PdkZ6Z/S+v4dD+Ke8IaNlpdSQah50lz1KtcFBa2vsdOnwbbnxJwVM4wty6udA5w==}
 
-  '@lichess-org/chessground@9.4.1':
-    resolution: {integrity: sha512-CbrJwhaXKz9uBXBAjQCtEeJSyU0SFOk6GsWfU/oijLLOC1qXGXReyRX6WsHQ66CoufPX3kd8jQUvr8k33XoWLA==}
+  '@lichess-org/chessground@9.7.0':
+    resolution: {integrity: sha512-jWfIs4Ym8zM9uPX3ChWr8sPlHp9Xf8qjIiIHt0U7PENNtClm1bKHn7aWTcMCu5epxnU/xkF0dniTtoeJNcdnmQ==}
 
   '@lichess-org/pgn-viewer@2.4.7':
     resolution: {integrity: sha512-ybq/ZXvfcVxR+pasCBdQ0BkJGgDdpW84KioexJyD00oT2ERyTpnwMBxDaqL6/3uv1WPUPfBPwbaeaDcknqlvTg==}
@@ -2649,7 +2652,7 @@ snapshots:
 
   '@kurkle/color@0.3.4': {}
 
-  '@lichess-org/chessground@9.4.1': {}
+  '@lichess-org/chessground@9.7.0': {}
 
   '@lichess-org/pgn-viewer@2.4.7':
     dependencies:

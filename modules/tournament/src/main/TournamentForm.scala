@@ -5,8 +5,10 @@ import chess.format.Fen
 import chess.{ Clock, Rated }
 import play.api.data.*
 import play.api.data.Forms.*
+import play.api.libs.json.JsValue
 
 import lila.common.Form.{ *, given }
+import lila.common.Json.given
 import lila.core.perm.Granter
 import lila.core.team.LightTeam
 import lila.gathering.GatheringClock
@@ -144,6 +146,10 @@ object TournamentForm:
       password: Option[String],
       pairMeAsap: Option[Boolean] = None
   )
+  def tournamentJoin(js: JsValue) = TournamentJoin(
+    password = js.\("p").asOpt[String],
+    team = js.\("team").asOpt[TeamId]
+  )
 
 private[tournament] case class TournamentSetup(
     name: Option[String],
@@ -163,7 +169,6 @@ private[tournament] case class TournamentSetup(
     description: Option[String],
     hasChat: Option[Boolean]
 ):
-
   def validClock = (clockTime + clockIncrement.value) > 0
 
   def validClockForBots = !conditions.allowsBots || lila.core.game.isBotCompatible(clockConfig)
@@ -243,6 +248,8 @@ private[tournament] case class TournamentSetup(
         description = description.fold(old.description)(_.some.filter(_.nonEmpty)),
         hasChat = hasChat | old.hasChat
       )
+
+  def automodText = List(name, description).flatten.mkString("\n")
 
   private def estimateNumberOfGamesOneCanPlay: Double = (minutes.atMost(720) * 60) / estimatedGameSeconds
 

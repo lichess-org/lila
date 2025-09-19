@@ -17,13 +17,13 @@ final class ForumCateg(env: Env) extends LilaController(env) with ForumControlle
         page <- renderPage(views.forum.categ.index(categs))
       yield Ok(page)
 
-  def show(slug: ForumCategId, page: Int) = Open:
-    if slug == ublogId && !isGrantedOpt(_.ModerateForum) then Redirect(routes.Ublog.communityAll())
-    else if slug == diagnosticId && !isGrantedOpt(_.ModerateForum) then notFound
+  def show(id: ForumCategId, page: Int) = Open:
+    if id == ublogId && !isGrantedOpt(_.ModerateForum) then Redirect(routes.Ublog.communityAll())
+    else if id == diagnosticId && !isGrantedOpt(_.ModerateForum) && !isGrantedOpt(_.Diagnostics) then notFound
     else
       NotForKids:
         Reasonable(page, Max(50), notFound):
-          Found(categApi.show(slug, page)): (categ, topics) =>
+          Found(categApi.show(id, page)): (categ, topics) =>
             for
               canRead <- access.isGrantedRead(categ.id)
               canWrite <- access.isGrantedWrite(categ.id)

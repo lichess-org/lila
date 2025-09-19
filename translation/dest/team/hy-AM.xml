@@ -44,14 +44,27 @@
   <string name="teamsIlead">Իմ ղեկավարած թիմերը</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Չե՞ք ցանկանում կցել առաջիկա մրցաշարերից մեկը</string>
   <string name="leadersChat">Ղեկավարների զրուցարան</string>
+  <string name="introduction">Ներածություն</string>
+  <string name="teamIntroductionHelp">Ակումբային ցանկերում երևացող համառոտ նկարագրություն։ Մինչև 200 նշան։</string>
+  <string name="teamDescriptionHelp">Ակումբի էջում երևացող ամբողջական նկարագրություն։</string>
   <string name="closeTeam">Լուծարել թիմը</string>
   <string name="closeTeamDescription">Թիմն ընդմիշտ փակում է։</string>
   <string name="entryCode">Թիմ ընդունվելու համար կոդ</string>
   <string name="entryCodeDescriptionForLeader">(Պարտադիր չէ) Կոդ, որը պետք է իմանան նոր անդամները՝ թիմում ընդգրկվելու համար։</string>
   <string name="incorrectEntryCode">Մուտքի սխալ կոդ։</string>
   <string name="teamAlreadyExists">Այդպիսի թիմ արդեն գոյություն ունի։</string>
+  <string name="upcomingTournaments">Գալիք մրցաշարեր</string>
   <string name="completedTourns">Ավարտված մրցաշարեր</string>
   <string name="declinedRequests">Մերժված հայտեր</string>
   <string name="joinLichessVariantTeam">Անդամագրվեք %s ակումբին՝ նորություններին և իրադարձություններին տեղեկացված լինելու համար</string>
   <string name="teamPage">Թիմի էջ</string>
+  <string name="thisTeamBattleIsOver">Այս մրցաշարն ավարտվել է, Դուք չեք կարող փոխել ակումբները։</string>
+  <string name="listTheTeamsThatWillCompete">Այս մրցաշարին մասնակցող ակումբների ցանկ։</string>
+  <string name="oneTeamPerLine">Ամեն տողում՝ մեկ ակումբ։ Աշխատում է ինքնալրացումը։</string>
+  <string name="numberOfLeadsPerTeam">Ակումբի առաջատարների քանակը։ Նրանց միավորների գումարը ակումբի արդյունքն է։</string>
+  <string name="innerTeam">Ներքին ակումբ</string>
+  <plurals name="battleOfNbTeams">
+    <item quantity="one">%s թիմով մրցաշար</item>
+    <item quantity="other">%s թիմով մրցաշար</item>
+  </plurals>
 </resources>

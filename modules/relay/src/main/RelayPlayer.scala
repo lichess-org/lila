@@ -31,6 +31,43 @@ case class RelayPlayer(
   def toTieBreakPlayer: Option[Tiebreak.Player] = player.id.map: id =>
     Tiebreak.Player(id = id.toString, rating = player.rating.map(_.into(Elo)))
 
+given Ordering[List[TiebreakPoint]] = new:
+  def compare(a: List[TiebreakPoint], b: List[TiebreakPoint]): Int =
+    @scala.annotation.tailrec
+    def loop(a: List[TiebreakPoint], b: List[TiebreakPoint]): Int = (a, b) match
+      case (Nil, Nil) => 0
+      case (Nil, _) => -1 // a is empty, b is not
+      case (_, Nil) => 1 // b is empty, a is not
+      case (ah :: at, bh :: bt) =>
+        val cmp = bh.value.compare(ah.value)
+        if cmp != 0 then cmp else loop(at, bt)
+    loop(a, b)
+
+given Ordering[Option[List[TiebreakPoint]]] = new Ordering[Option[List[TiebreakPoint]]]:
+  def compare(a: Option[List[TiebreakPoint]], b: Option[List[TiebreakPoint]]): Int =
+    (a, b) match
+      case (Some(ta), Some(tb)) => Ordering[List[TiebreakPoint]].compare(ta, tb)
+      case (Some(_), None) => 1 // a is defined, b is not
+      case (None, Some(_)) => -1 // b is defined, a is not
+      case (None, None) => 0
+
+given Ordering[RelayPlayer] = new Ordering[RelayPlayer]:
+  /* Sort players by:
+      1. Score (Descending)
+      2. Tiebreak points (compare each tiebreak in order, higher is better)
+      3. Player rating (Descending)
+      4. Player name (Alphabetical, ascending)
+   */
+  def compare(a: RelayPlayer, b: RelayPlayer): Int =
+    val scoreComparison = b.score.compare(a.score)
+    lazy val tiebreakComparison = Ordering[Option[List[TiebreakPoint]]]
+      .compare(a.tiebreaks.map(_.values.toList), b.tiebreaks.map(_.values.toList))
+    lazy val ratingComparison = b.rating.map(_.value).compare(a.rating.map(_.value))
+    if scoreComparison != 0 then scoreComparison
+    else if tiebreakComparison != 0 then tiebreakComparison
+    else if ratingComparison != 0 then ratingComparison
+    else a.player.name.map(_.value).compare(b.player.name.map(_.value))
+
 object RelayPlayer:
 
   opaque type Rank = Int
@@ -43,7 +80,8 @@ object RelayPlayer:
       color: Color,
       points: Option[Outcome.GamePoints],
       rated: chess.Rated,
-      customScoring: Option[ByColor[RelayRound.CustomScoring]] = None
+      customScoring: Option[ByColor[RelayRound.CustomScoring]] = None,
+      unplayed: Boolean
   ):
     def playerPoints = points.map(_(color))
     def customPlayerPoints: Option[RelayRound.CustomPoints] = customScoring.flatMap: cs =>
@@ -67,7 +105,7 @@ object RelayPlayer:
         )
 
     // only rate draws and victories, not exotic results
-    def isRated = rated.yes && points.exists(_.mapReduce(_.value)(_ + _) == 1)
+    def isRated = rated.yes && !unplayed && points.exists(_.mapReduce(_.value)(_ + _) == 1)
     def eloGame = for
       pp <- playerPoints
       if isRated
@@ -196,7 +234,8 @@ private final class RelayPlayerApi(
                               color,
                               tags.points,
                               round.rated,
-                              round.customScoring
+                              round.customScoring,
+                              unplayed = tags.value.contains(RelayGame.unplayedTag)
                             )
                             players.updated(
                               playerId,
@@ -260,10 +299,16 @@ private final class RelayPlayerApi(
           p.toTieBreakPlayer.map: tbPlayer =>
             tbPlayer.id -> Tiebreak.PlayerWithGames(tbPlayer, p.games.flatMap(_.toTiebreakGame))
         .toMap
-    val result = Tiebreak.compute(tbGames, tiebreaks.toList).zipWithIndex
-    players.map: (id, rp) =>
-      val found = result.find((p, _) => p.player.id == id.toString)
-      id -> rp.copy(
-        tiebreaks = found.map(t => tiebreaks.zip(t._1.tiebreakPoints).to(SeqMap)),
-        rank = Rank.from(found.map(_._2 + 1))
-      )
+    val result = Tiebreak.compute(tbGames, tiebreaks.toList)
+    players
+      .map: (id, rp) =>
+        val found = result.find(p => p.player.id == id.toString)
+        id -> rp.copy(
+          tiebreaks = found.map(t => tiebreaks.zip(t.tiebreakPoints).to(SeqMap))
+        )
+      .toList
+      .sortBy(_._2)
+      .mapWithIndex:
+        case ((id, rp), index) =>
+          id -> rp.copy(rank = Rank.from((index + 1).some))
+      .to(SeqMap)

@@ -4,7 +4,7 @@
   <string name="challengeDeclined">Aramba kutamba newe</string>
   <string name="challengeAccepted">\"Abvuma Kutamba newe!\"!</string>
   <string name="challengeCanceled">Mutambo wavhariswa.</string>
-  <string name="registerToSendChallenges" comment="This used to say &quot;Please register to send challenges.&quot;&#10;We have since added &quot;[...] to this user.&quot; to the end of the string for absolute clarity, given the context this appears in. Please update translations as needed.">Joina Lichess kana uchida kumba neMutambi uyu.</string>
+  <string name="registerToSendChallenges">Joina Lichess kana uchida kumba neMutambi uyu.</string>
   <string name="youCannotChallengeX">Haukwanisi kutamba na %s.</string>
   <string name="xDoesNotAcceptChallenges">%s haagamuchiri maChallenges.</string>
   <string name="yourXRatingIsTooFarFromY">Zera rako re %1$s ririkure zvisingaite ne %2$s.</string>

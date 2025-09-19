@@ -43,8 +43,8 @@ import type {
   ApiMove,
   ApiEnd,
 } from './interfaces';
-import { defined, type Toggle, toggle, requestIdleCallback, memoize } from 'lib';
-import { storage, once, type LichessBooleanStorage } from 'lib/storage';
+import { defined, type Toggle, type Prop, toggle, requestIdleCallback, memoize } from 'lib';
+import { storage, once, storedBooleanProp, type LichessBooleanStorage } from 'lib/storage';
 import * as poolRangeStorage from 'lib/poolRangeStorage';
 import { pubsub } from 'lib/pubsub';
 import { readFen, almostSanOf, speakable } from 'lib/game/sanWriter';
@@ -91,6 +91,7 @@ export default class RoundController implements MoveRootCtrl {
   blindfoldStorage: LichessBooleanStorage;
   server: Server;
   nvui?: NvuiPlugin;
+  vibration: Prop<boolean> = storedBooleanProp('vibration', false);
 
   constructor(
     readonly opts: RoundOpts,
@@ -485,8 +486,8 @@ export default class RoundController implements MoveRootCtrl {
       cevalSub.publish(d, o);
     }
     if (!this.replaying() && playedColor != d.player.color) {
-      // atrocious hack to prevent race condition
-      // with explosions and premoves
+      if (this.vibration() && 'vibrate' in navigator) navigator.vibrate(100);
+      // prevent race conditions with explosions and premoves
       // https://github.com/lichess-org/lila/issues/343
       const premoveDelay = d.game.variant.key === 'atomic' ? 100 : 1;
       setTimeout(() => {
@@ -565,6 +566,7 @@ export default class RoundController implements MoveRootCtrl {
     }
     this.promotion.cancel();
     this.chessground.stop();
+    this.chessground.state.touchIgnoreRadius = 1;
     if (o.ratingDiff) {
       d.player.ratingDiff = o.ratingDiff[d.player.color];
       d.opponent.ratingDiff = o.ratingDiff[d.opponent.color];
@@ -575,14 +577,6 @@ export default class RoundController implements MoveRootCtrl {
       // Delay 'victory' & 'defeat' sounds to avoid overlapping with 'checkmate' sound
       if (o.status.name === 'mate') site.sound.playAndDelayMateResultIfNecessary(key);
       else site.sound.play(key);
-      if (
-        key != 'victory' &&
-        d.game.turns > 6 &&
-        !d.tournament &&
-        !d.swiss &&
-        storage.boolean('courtesy').get()
-      )
-        this.opts.chat?.instance?.post('Good game, well played');
     }
     endGameView();
     if (d.crazyhouse) crazyEndHook();
@@ -633,6 +627,10 @@ export default class RoundController implements MoveRootCtrl {
     if (d.clock) {
       this.corresClock = undefined;
       this.clock ??= new ClockCtrl(d.clock, d.pref, this.tickingClockColor(), this.makeClockOpts());
+      this.clock.alarmAction = {
+        seconds: 60,
+        fire: () => (this.chessground.state.touchIgnoreRadius = Math.SQRT2),
+      };
     } else {
       this.clock = undefined;
       if (d.correspondence)
@@ -642,14 +640,12 @@ export default class RoundController implements MoveRootCtrl {
 
   private makeClockOpts: () => ClockOpts = () => ({
     onFlag: this.socket.outoftime,
-    playable: () => game.playable(this.data),
     bothPlayersHavePlayed: () => game.bothPlayersHavePlayed(this.data),
     hasGoneBerserk: this.hasGoneBerserk,
-    soundColor:
+    alarmColor:
       this.data.simul || this.data.player.spectator || !this.data.pref.clockSound
         ? undefined
         : this.data.player.color,
-    nvui: !!this.nvui,
   });
 
   private tickingClockColor = (): Color | undefined =>
@@ -941,6 +937,12 @@ export default class RoundController implements MoveRootCtrl {
           this.blindfold(this.blindfoldStorage.get());
         }
         if (!d.local && d.game.speed !== 'correspondence') wakeLock.request();
+
+        // temporary: migrate local `courtesy` to server `sayGG`
+        if (storage.boolean('courtesy').get()) {
+          xhr.setPreference('sayGG', '2');
+          storage.remove('courtesy');
+        }
 
         setTimeout(() => {
           if ($('#KeyboardO,#show_btn,#shadowHostId').length) {

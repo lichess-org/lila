@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">dulanan karo konco</string>
-  <string name="playWithTheMachine">dulanan karo mesin</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">nggo ngundang konco ben maen bareng, ke\'i URL iki</string>
   <string name="gameOver">kowe kalah</string>
   <string name="waitingForOpponent">ngenteni kanca kanca</string>

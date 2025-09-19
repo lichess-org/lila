@@ -1,9 +1,6 @@
 package lila.ublog
 
 import play.api.libs.json.*
-import play.api.libs.ws.*
-import play.api.libs.ws.JsonBodyWritables.*
-import play.api.libs.ws.DefaultBodyReadables.readableAsString
 import com.roundeights.hasher.Algo
 
 import lila.core.data.Text
@@ -27,7 +24,18 @@ object UblogAutomod:
       hash: Option[String] = none,
       lockedBy: Option[UserId] = none,
       version: Int = schemaVersion
-  )
+  ):
+    def updateByLLM(llm: Assessment): Assessment =
+      if lockedBy.isDefined then
+        copy(
+          flagged = flagged.orElse(llm.flagged),
+          commercial = commercial.orElse(llm.commercial)
+        )
+      else
+        llm.copy(
+          quality = Quality.fromOrdinal:
+            llm.quality.ordinal.atLeast(quality.ordinal)
+        )
 
   private case class FuzzyResult(
       quality: String,
@@ -37,9 +45,8 @@ object UblogAutomod:
   )
   private given Reads[FuzzyResult] = Json.reads[FuzzyResult]
 
-final class UblogAutomod(
-    ws: StandaloneWSClient,
-    config: AutomodConfig,
+private final class UblogAutomod(
+    reportApi: lila.report.ReportApi,
     settingStore: lila.memo.SettingStore.Builder
 )(using Executor):
 
@@ -57,50 +64,24 @@ final class UblogAutomod(
     default = "Qwen/Qwen3-235B-A22B-Thinking-2507"
   )
 
-  private val dedup = scalalib.cache.OnceEvery.hashCode[String](1.hour)
-
   private[ublog] def apply(post: UblogPost, temperature: Double = 0): Fu[Option[Assessment]] = post.live.so:
-    val text = post.allText.take(40_000) // bin/ublog-automod.mjs, important for hash
-    dedup(s"${post.id}:$text").so(assess(text, temperature))
-
-  private def assess(userText: String, temperature: Double): Fu[Option[Assessment]] =
-    val prompt = promptSetting.get().value
-    (config.apiKey.value.nonEmpty && prompt.nonEmpty).so:
-      val body = Json.obj(
-        "model" -> modelSetting.get(),
-        "temperature" -> temperature,
-        "max_tokens" -> 4096,
-        "messages" -> Json.arr(
-          Json.obj("role" -> "system", "content" -> prompt),
-          Json.obj("role" -> "user", "content" -> userText)
-        )
+    val userText = post.allText.take(40_000) // bin/ublog-automod.mjs, important for hash
+    reportApi
+      .automodRequest(
+        userText = userText,
+        systemPrompt = promptSetting.get(),
+        model = modelSetting.get(),
+        temperature = temperature
       )
-      ws.url(config.url)
-        .withHttpHeaders(
-          "Authorization" -> s"Bearer ${config.apiKey.value}",
-          "Content-Type" -> "application/json"
-        )
-        .post(body)
-        .flatMap: rsp =>
-          (for
-            choices <- (Json.parse(rsp.body) \ "choices").asOpt[List[JsObject]]
-            if rsp.status == 200
-            best <- choices.headOption
-            resultStr <- (best \ "message" \ "content").asOpt[String]
-            result <- normalize(resultStr)
-          yield result) match
-            case None => fufail(s"${rsp.status} ${rsp.body.take(500)}")
-            case Some(res) =>
-              lila.mon.ublog.automod.quality(res.quality.toString).increment()
-              lila.mon.ublog.automod.flagged(res.flagged.isDefined).increment()
-              val hash = Algo.sha256(userText).hex.take(12) // matches ublog-automod.mjs hash
-              fuccess(res.copy(hash = hash.some).some)
-        .monSuccess(_.ublog.automod.request)
+      .map:
+        _.flatMap(normalize).so: res =>
+          lila.mon.ublog.automod.quality(res.quality.toString).increment()
+          lila.mon.ublog.automod.flagged(res.flagged.isDefined).increment()
+          res.copy(hash = Algo.sha256(userText).hex.take(12).some).some // matches ublog-automod.mjs hash
+      .monSuccess(_.ublog.automod.request)
 
-  private def normalize(msg: String): Option[Assessment] = // keep in sync with bin/ublog-automod.mjs
-    val trimmed = msg.slice(msg.indexOf('{', msg.indexOf("</think>")), msg.lastIndexOf('}') + 1)
-    Json
-      .parse(trimmed)
+  private def normalize(rsp: JsObject): Option[Assessment] = // keep in sync with bin/ublog-automod.mjs
+    rsp
       .asOpt[FuzzyResult]
       .flatMap: res =>
         Quality

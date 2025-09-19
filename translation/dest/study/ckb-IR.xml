@@ -164,11 +164,11 @@
   <string name="playAgain">یاریکردنەوە</string>
   <string name="whatWouldYouPlay">چۆن یاریدەکەی لەم پۆزشنەدا؟</string>
   <string name="youCompletedThisLesson">پیرۆزە! ئەم دەرسەت تەواوکرد.</string>
-  <string name="perPage" comment="%s is a number.&#10;&#10;Appears on the pages of broadcasts (https://lichess.org/broadcast). Lets the user select how many games to show on each page.">%s لە ھەر پەڕەیەکدا</string>
+  <string name="perPage">%s لە ھەر پەڕەیەکدا</string>
   <string name="getTheTour">پێویستت بە یارمەتییە؟ گەشتێک بکە!</string>
   <string name="welcomeToLichessStudyTitle">بەخێربێیت بۆ خوێندنی لیچێس!</string>
   <string name="welcomeToLichessStudyText">ئەمە تەختەیەکی شیکاریی ھاوبەشە.&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;بەکاری بھێنە بۆ پەراوێزکردنی یارییەکان،&lt;br&gt;&lt;br&gt;گفتوگۆکردنی جووڵەکان لەگەڵ ھاوڕێیاندا،&lt;br&gt;&lt;br&gt;و بە دڵنیاییەوە بۆ وانەکانی شەتڕەنج!&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;ئەمە ئامرازێکی زۆر بەھێزە، با بزانین چۆن کاردەکات.</string>
-  <string name="sharedAndSaveTitle" comment="Appears as the title of a pop-up lightbox in the guided tour of Lichess Studies.&#10;&#10;As in: shared with other members &amp; saved to the database.">ھاوبەشی و پاشەکەوتکرا</string>
+  <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">ھاوبەشی و پاشەکەوتکرا</string>
   <string name="sharedAndSavedText">ئەندامەکانی تر دەتوانن ڕاستەوخۆ جووڵەکانت ببینن!&lt;br&gt;ھەموو شتێکیش بۆ ھەمیشەیی پاشەکەوت دەکرێت.</string>
   <string name="studyMembersTitle">ئەندامانی خوێندن</string>
   <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s بینەر دەتوانێت خوێندنەکە ببنێت و لەڕێی چاتەوە قسە بکات.&lt;br&gt;&lt;br&gt;&lt;br&gt;%2$s بەشداران دەتوانن جووڵە بکەن و خوێندنەکە نوێ بکەنەوە.</string>

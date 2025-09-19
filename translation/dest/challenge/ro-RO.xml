@@ -5,7 +5,7 @@
   <string name="challengeDeclined">Provocare refuzată</string>
   <string name="challengeAccepted">Provocare acceptată!</string>
   <string name="challengeCanceled">Provocare anulată.</string>
-  <string name="registerToSendChallenges" comment="This used to say &quot;Please register to send challenges.&quot;&#10;We have since added &quot;[...] to this user.&quot; to the end of the string for absolute clarity, given the context this appears in. Please update translations as needed.">Te rugăm să te înregistrezi pentru a putea trimite provocări.</string>
+  <string name="registerToSendChallenges">Te rugăm să te înregistrezi pentru a putea trimite provocări.</string>
   <string name="youCannotChallengeX">Nu poți să îl provoci pe %s.</string>
   <string name="xDoesNotAcceptChallenges">%s nu acceptă provocări.</string>
   <string name="yourXRatingIsTooFarFromY">Scorul tău pe %1$s este prea mare față de %2$s.</string>

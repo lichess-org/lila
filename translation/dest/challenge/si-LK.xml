@@ -5,7 +5,7 @@
   <string name="challengeDeclined">අභියෝගය ප්‍රතික්ෂේප කරනු ලැබුවා</string>
   <string name="challengeAccepted">අභියෝගය බාරගත්තා!</string>
   <string name="challengeCanceled">අභියෝගය අවලංගු කරන ලදි.</string>
-  <string name="registerToSendChallenges" comment="This used to say &quot;Please register to send challenges.&quot;&#10;We have since added &quot;[...] to this user.&quot; to the end of the string for absolute clarity, given the context this appears in. Please update translations as needed.">අභියෝග යැවීමට කරුණාකර ලියාපදිංචි වන්න.</string>
+  <string name="registerToSendChallenges">අභියෝග යැවීමට කරුණාකර ලියාපදිංචි වන්න.</string>
   <string name="youCannotChallengeX">ඔබට %s අභියෝග කළ නොහැක.</string>
   <string name="xDoesNotAcceptChallenges">%s අභියෝග භාර නොගනී.</string>
   <string name="yourXRatingIsTooFarFromY">ඔබගේ %1$s ශ්‍රේණිගත කිරීම %2$s ට වඩා වැඩිය.</string>
