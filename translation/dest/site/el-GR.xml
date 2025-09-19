@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="gameSetup">Ρύθμιση παρτίδας</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Νέα πρόκληση</string>
+  <string name="playAgainstAI">Νέα παρτίδα με το AI</string>
+  <string name="gameMode">Τύπος παιχνιδιού</string>
+  <string name="createLobbyGame">Νέα παρτίδα</string>
+  <string name="youPlayAs">Παίζετε με τα</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Για να προσκαλέσετε κάποιον σε ένα παιχνίδι, στείλτε του αυτήν τη διεύθυνση</string>
   <string name="gameOver">Τέλος παρτίδας</string>
   <string name="waitingForOpponent">Αναμονή για αντίπαλο</string>
@@ -339,6 +345,7 @@
     <item quantity="other">%s παίζονται</item>
   </plurals>
   <string name="exportGames">Εξαγωγή παιχνιδιών</string>
+  <string name="ratingFilter">Φίλτρο βαθμολογίας</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Προσθέστε %s δευτερόλεπτα</item>
     <item quantity="other">Προσθέστε %s δευτερόλεπτα</item>
@@ -823,6 +830,7 @@
   <string name="notifications">Ειδοποιήσεις</string>
   <string name="notificationsX">Ειδοποιήσεις: %1$s</string>
   <string name="perfRatingX">Βαθμολογία: %s</string>
+  <string name="yourRatingIsX">Η βαθμολογία σας είναι %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s δευτερόλεπτο για την πρώτη κίνηση</item>
     <item quantity="other">%s δευτερόλεπτα για την πρώτη κίνηση</item>
@@ -874,6 +882,7 @@
   <string name="playVariationToCreateConditionalPremoves">Παίξτε μια βαριάντα για να δημιουργήσετε υποθετικές προκινήσεις</string>
   <string name="noConditionalPremoves">Καμία υποθετική προκίνηση</string>
   <string name="playX">Παίξτε %s</string>
+  <string name="challengeX">Προκαλέστε τον χρήστη %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">και αποθηκεύστε %s γραμμή προκίνησης</item>
     <item quantity="other">και αποθηκεύστε %s γραμμές προκίνησης</item>
