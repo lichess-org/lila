@@ -179,15 +179,9 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
     NoLame:
       NoPlayban:
         limit.tourJoinOrResume(me, rateLimited):
-          val data = TournamentForm.TournamentJoin(
-            password = ctx.body.body.\("p").asOpt[String],
-            team = ctx.body.body.\("team").asOpt[TeamId]
-          )
-          doJoin(id, data)
-            .dmap(_.error)
-            .map:
-              case None => jsonOkResult
-              case Some(error) => BadRequest(Json.obj("joined" -> false, "error" -> error))
+          doJoin(id, TournamentForm.tournamentJoin(ctx.body.body)).map:
+            _.error.fold(jsonOkResult): error =>
+              BadRequest(Json.obj("joined" -> false, "error" -> error))
   }
 
   def apiJoin(id: TourId) = ScopedBody(_.Tournament.Write, _.Bot.Play, _.Web.Mobile) { ctx ?=> me ?=>

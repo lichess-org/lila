@@ -5,8 +5,10 @@ import chess.format.Fen
 import chess.{ Clock, Rated }
 import play.api.data.*
 import play.api.data.Forms.*
+import play.api.libs.json.JsValue
 
 import lila.common.Form.{ *, given }
+import lila.common.Json.given
 import lila.core.perm.Granter
 import lila.core.team.LightTeam
 import lila.gathering.GatheringClock
@@ -143,6 +145,10 @@ object TournamentForm:
       team: Option[TeamId],
       password: Option[String],
       pairMeAsap: Option[Boolean] = None
+  )
+  def tournamentJoin(js: JsValue) = TournamentJoin(
+    password = js.\("p").asOpt[String],
+    team = js.\("team").asOpt[TeamId]
   )
 
 private[tournament] case class TournamentSetup(
