@@ -380,11 +380,11 @@ final class JsonView(
           "teams" -> teams
         )
 
-  private val teamStandingJsonCache = cacheApi[TourId, JsArray](16, "tournament.teamStanding"):
+  private val teamStandingJsonCache = cacheApi[TourId, JsArray](16, "tournament.teamStandingJson"):
     _.expireAfterWrite(500.millis)
       .buildAsyncFuture(fetchAndRenderTeamStandingJson(TeamBattle.displayTeams))
 
-  private val bigTeamStandingJsonCache = cacheApi[TourId, JsArray](4, "tournament.teamStanding.big"):
+  private val bigTeamStandingJsonCache = cacheApi[TourId, JsArray](4, "tournament.teamStandingJson.big"):
     _.expireAfterWrite(2.seconds)
       .buildAsyncFuture(fetchAndRenderTeamStandingJson(TeamBattle.maxTeams))
 
