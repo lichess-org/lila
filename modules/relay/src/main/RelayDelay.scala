@@ -33,7 +33,11 @@ final private class RelayDelay(colls: RelayColls, cacheApi: CacheApi)(using Exec
           .so: source =>
             store.nextDate.get(source.cacheKey)
           .map:
-            _.map(_.plusSeconds(delay.value)).orElse(round.startsAtTime)
+            _.map(_.plusSeconds(delay.value)).orElse:
+              // no moves ever seen from the source yet?
+              // we'll have to wait at least `delay` from now, then
+              round.startsAtTime.map:
+                _.atLeast(nowInstant.plusSeconds(delay.value))
 
   private def fromSource(
       source: RelaySource,
