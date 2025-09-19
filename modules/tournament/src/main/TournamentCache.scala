@@ -63,12 +63,11 @@ final class TournamentCache(
 
     val teamStanding =
       cacheApi[TourId, List[TeamBattle.RankedTeam]](32, "tournament.teamStanding"):
-        _.expireAfterWrite(1.second)
-          .buildAsyncFuture: id =>
-            tournamentRepo
-              .teamBattleOf(id)
-              .flatMapz:
-                playerRepo.bestTeamIdsByTour(id, _)
+        _.expireAfterWrite(1.second).buildAsyncFuture: id =>
+          tournamentRepo
+            .teamBattleOf(id)
+            .flatMapz:
+              playerRepo.bestTeamIdsByTour(id, _)
 
   private[tournament] object sheet:
 
