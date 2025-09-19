@@ -3,7 +3,6 @@
   <string name="makesPerfect">makes your chess perfect</string>
   <string name="resetMyProgress">Reset my progress</string>
   <string name="progressX">Progress: %s</string>
-  <string name="youWillLoseYourPracticeProgress">You will lose your practice progress!</string>
   <string name="signUpToSaveYourProgress">Sign up to save your progress</string>
   <string name="secHeadCheckmates">Checkmates</string>
   <string name="secHeadFundamentalTactics">Fundamental tactics</string>

@@ -1144,7 +1144,6 @@ object I18nKey:
     val `makesPerfect`: I18nKey = "practice:makesPerfect"
     val `resetMyProgress`: I18nKey = "practice:resetMyProgress"
     val `progressX`: I18nKey = "practice:progressX"
-    val `youWillLoseYourPracticeProgress`: I18nKey = "practice:youWillLoseYourPracticeProgress"
     val `signUpToSaveYourProgress`: I18nKey = "practice:signUpToSaveYourProgress"
     val `secHeadCheckmates`: I18nKey = "practice:secHeadCheckmates"
     val `secHeadFundamentalTactics`: I18nKey = "practice:secHeadFundamentalTactics"

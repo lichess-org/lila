@@ -55,8 +55,7 @@ final class PracticeUi(helpers: Helpers)(
               if ctx.isAuth then
                 (data.nbDoneChapters > 0).option(
                   submitButton(
-                    cls := "button ok-cancel-confirm",
-                    title := trp.youWillLoseYourPracticeProgress.txt()
+                    cls := "button ok-cancel-confirm"
                   )(trp.resetMyProgress())
                 )
               else a(href := routes.Auth.signup)(trp.signUpToSaveYourProgress())
