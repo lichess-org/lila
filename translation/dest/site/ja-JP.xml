@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="gameSetup">ゲームの設定</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">友達に挑戦</string>
+  <string name="playAgainstAI">AI と対戦</string>
+  <string name="gameMode">ゲームのモード</string>
+  <string name="createLobbyGame">ロビー対局を作成</string>
+  <string name="youPlayAs">色（白/黒）</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">誰かを招待する時はこのURLを送ってください</string>
   <string name="gameOver">終局</string>
   <string name="waitingForOpponent">相手を待っています</string>
@@ -316,6 +322,7 @@
     <item quantity="other">%s 局進行中</item>
   </plurals>
   <string name="exportGames">対局をエクスポートする</string>
+  <string name="ratingFilter">レーティング指定</string>
   <plurals name="giveNbSeconds">
     <item quantity="other">%s秒を与える</item>
   </plurals>
@@ -782,6 +789,7 @@
   <string name="notifications">通知</string>
   <string name="notificationsX">通知：%1$s</string>
   <string name="perfRatingX">レーティング: %s</string>
+  <string name="yourRatingIsX">あなたのレーティングは %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">あと %s 秒以内に初手を指してください</item>
   </plurals>
@@ -831,6 +839,7 @@
   <string name="playVariationToCreateConditionalPremoves">駒を動かしてコンディショナルムーブを設定します</string>
   <string name="noConditionalPremoves">コンディショナルムーブなし</string>
   <string name="playX">指し手は %s</string>
+  <string name="challengeX">%s に挑戦</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="other">%s 種のコンディショナルムーブを設定</item>
   </plurals>
