@@ -80,7 +80,7 @@ final class PracticeUi(helpers: Helpers)(
                       ),
                       i(cls := s"${stud.id}"),
                       span(cls := "text")(
-                        h3(studyName(stud.name).txt()),
+                        h3(stud.name.txt()),
                         em(studiesDesc(stud.desc).txt())
                       )
                     )

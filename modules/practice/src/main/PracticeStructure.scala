@@ -38,10 +38,10 @@ case class PracticeSection(
 
 case class PracticeStudy(
     id: StudyId,
-    name: StudyName,
-    desc: String,
+    name: I18nKey,
+    desc: I18nKey,
     chapters: List[Chapter.IdName]
-) extends lila.core.practice.Study:
+):
   val slug = scalalib.StringOps.slug(name.value)
   val chapterIds = chapters.map(_.id)
 

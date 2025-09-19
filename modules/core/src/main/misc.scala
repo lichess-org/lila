@@ -66,3 +66,7 @@ trait PicfitUrl:
   def raw(id: lila.core.id.ImageId): String
 
 type BookmarkExists = (game.Game, Option[userId.UserId]) => Fu[Boolean]
+
+package practice:
+  import lila.core.id.{ StudyId, StudyChapterId }
+  case class OnComplete(userId: UserId, studyId: StudyId, chapterId: StudyChapterId)
