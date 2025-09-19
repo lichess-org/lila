@@ -59,3 +59,4 @@ instance.lock
 
 # deploy bearer
 .lila-cli
+.gitpod.yml
