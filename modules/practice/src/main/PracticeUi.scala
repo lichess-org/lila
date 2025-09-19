@@ -34,7 +34,7 @@ final class PracticeUi(helpers: Helpers)(
         main(cls := "analyse")
 
   def index(data: lila.practice.UserPractice)(using ctx: Context) =
-    Page(s"${trp.practiceChess.txt()} - ${trp.makesPerfect.txt()}")
+    Page(s"${trans.site.practice.txt()} - ${trp.makesPerfect.txt()}")
       .css("bits.practice.index")
       .i18n(_.practice)
       .graph(
@@ -45,10 +45,10 @@ final class PracticeUi(helpers: Helpers)(
         main(cls := "page-menu force-ltr")(
           st.aside(cls := "page-menu__menu practice-side")(
             i(cls := "fat"),
-            h1(trp.practice()),
+            h1(trans.site.practice()),
             h2(trp.makesPerfect()),
             div(cls := "progress")(
-              div(cls := "text")(trp.progressX(data.progressPercent.toString() + "%")),
+              div(cls := "text")(trp.progressX(data.progressPercent.toString + "%")),
               div(cls := "bar", style := s"width: ${data.progressPercent}%")
             ),
             postForm(action := routes.Practice.reset)(

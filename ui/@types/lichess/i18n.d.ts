@@ -2213,10 +2213,6 @@ interface I18n {
   practice: {
     /** makes your chess perfect */
     makesPerfect: string;
-    /** Practice */
-    practice: string;
-    /** Practice chess */
-    practiceChess: string;
     /** Progress: %s */
     progressX: I18nFormat;
     /** Reset my progress */
