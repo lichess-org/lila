@@ -8,8 +8,8 @@
   <string name="youWillLoseYourPracticeProgress">You will lose your practice progress!</string>
   <string name="signUpToSaveYourProgress">Sign up to save your progress</string>
   <string name="secHeadCheckmates">Checkmates</string>
-  <string name="secHeadBasicTactics">Basic Tactics</string>
-  <string name="secHeadIntermediateTactics">Intermediate Tactics</string>
+  <string name="secHeadFundamentalTactics">Fundamental tactics</string>
+  <string name="secHeadAdvancedTactics">Advanced tactics</string>
   <string name="secHeadPawnEndgames">Pawn Endgames</string>
   <string name="secHeadRookEndgames">Rook Endgames</string>
   <string name="stNamPieceCheckmatesI">Piece Checkmates I</string>

@@ -1,12 +1,15 @@
 package lila.practice
 
 import lila.core.study.data.StudyName
+import lila.core.i18n.I18nKey
 
 private object PracticeSections:
 
+  import I18nKey.practice.*
+
   val list = List(
     PracticeSection(
-      name = "Checkmates",
+      name = secHeadCheckmates,
       id = "checkmates",
       studies = List(
         study("BJy6fEDf", "Piece Checkmates I", "Basic checkmates"),
@@ -19,7 +22,7 @@ private object PracticeSections:
       )
     ),
     PracticeSection(
-      name = "Fundamental Tactics",
+      name = secHeadFundamentalTactics,
       id = "fundamental-tactics",
       studies = List(
         study("9ogFv8Ac", "The Pin", "Pin it to win it"),
@@ -33,7 +36,7 @@ private object PracticeSections:
       )
     ),
     PracticeSection(
-      name = "Advanced Tactics",
+      name = secHeadAdvancedTactics,
       id = "advanced-tactics",
       studies = List(
         study("9cKgYrHb", "Zugzwang", "Being forced to move"),
@@ -49,7 +52,7 @@ private object PracticeSections:
       )
     ),
     PracticeSection(
-      name = "Pawn Endgames",
+      name = secHeadPawnEndgames,
       id = "pawn-endgames",
       studies = List(
         study("xebrDvFe", "Key Squares", "Reach a key square"),
@@ -58,7 +61,7 @@ private object PracticeSections:
       )
     ),
     PracticeSection(
-      name = "Rook Endgames",
+      name = secHeadRookEndgames,
       id = "rook-endgames",
       studies = List(
         study("MkDViieT", "7th-Rank Rook Pawn", "And Passive Rook vs Rook"),

@@ -2221,12 +2221,12 @@ interface I18n {
     progressX: I18nFormat;
     /** Reset my progress */
     resetMyProgress: string;
-    /** Basic Tactics */
-    secHeadBasicTactics: string;
+    /** Advanced tactics */
+    secHeadAdvancedTactics: string;
     /** Checkmates */
     secHeadCheckmates: string;
-    /** Intermediate Tactics */
-    secHeadIntermediateTactics: string;
+    /** Fundamental tactics */
+    secHeadFundamentalTactics: string;
     /** Pawn Endgames */
     secHeadPawnEndgames: string;
     /** Rook Endgames */

@@ -8,14 +8,6 @@ import lila.core.study.data.StudyName
 class PracticeFragments(helpers: Helpers):
   import helpers.trans.practice as trp
 
-  val headersMap: Map[String, I18nKey] = Map(
-    "Checkmates" -> trp.secHeadCheckmates,
-    "Basic Tactics" -> trp.secHeadBasicTactics,
-    "Intermediate Tactics" -> trp.secHeadIntermediateTactics,
-    "Pawn Endgames" -> trp.secHeadPawnEndgames,
-    "Rook Endgames" -> trp.secHeadRookEndgames
-  )
-
   val studiesMap: Map[StudyName, I18nKey] = Map(
     StudyName("Piece Checkmates I") -> trp.stNamPieceCheckmatesI,
     StudyName("Checkmate Patterns I") -> trp.stNamCheckmatePatternsI,
@@ -85,6 +77,5 @@ class PracticeFragments(helpers: Helpers):
   private def getFragment[N](name: N, map: Map[N, I18nKey]): I18nKey =
     map.getOrElse(name, I18nKey(name.toString))
 
-  def sectionHeader(s: PracticeSection): I18nKey = getFragment(s.name, headersMap)
   def studyName(name: StudyName): I18nKey = getFragment(name, studiesMap)
   def studiesDesc(name: String): I18nKey = getFragment(name, studiesDescMap)

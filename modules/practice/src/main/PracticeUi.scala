@@ -65,7 +65,7 @@ final class PracticeUi(helpers: Helpers)(
           div(cls := "page-menu__content practice-app")(
             data.structure.sections.map: section =>
               st.section(
-                h2(sectionHeader(section).txt()),
+                h2(section.name()),
                 div(cls := "studies")(
                   section.studies.map: stud =>
                     val prog = data.progressOn(stud.id)
