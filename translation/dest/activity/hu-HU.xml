@@ -31,11 +31,11 @@
     <item quantity="other">%1$s levelező játszmában</item>
   </plurals>
   <plurals name="completedNbGames">
-    <item quantity="one">Befejezett %s levelező sakk játszmát</item>
-    <item quantity="other">Befejezett %s levelező sakk játszmát</item>
+    <item quantity="one">Befejezett %s levelező sakkjátszmát</item>
+    <item quantity="other">Befejezett %s levelező sakkjátszmát</item>
   </plurals>
   <plurals name="completedNbVariantGames">
-    <item quantity="one">Befejezett  %1$s %2$s levelezési játszma</item>
+    <item quantity="one">Befejezett %1$s %2$s levelezési játszma</item>
     <item quantity="other">Befejezett %1$s %2$s levelezési játszmák</item>
   </plurals>
   <plurals name="followedNbPlayers">
@@ -59,8 +59,8 @@
     <item quantity="other">%s új tanulmány</item>
   </plurals>
   <plurals name="competedInNbTournaments">
-    <item quantity="one">%s versenyen vett részt</item>
-    <item quantity="other">%s versenyen vett részt</item>
+    <item quantity="one">%s aréna versenyen vett részt</item>
+    <item quantity="other">%s aréna versenyen vett részt</item>
   </plurals>
   <plurals name="rankedInTournament">
     <item quantity="one">%4$s #%1$s. helyezés (felső %2$s%%) %3$s játszmából</item>
