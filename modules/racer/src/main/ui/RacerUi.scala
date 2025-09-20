@@ -20,7 +20,7 @@ final class RacerUi(helpers: Helpers):
           h1(cls := "box__top")("Puzzle Racer"),
           div(cls := "racer-home__buttons")(
             postForm(cls := "racer-home__lobby", action := routes.Racer.lobby)(
-              submitButton(cls := "button button-fat")(i(cls := "car")(0), s.joinPublicRace())
+              submitButton(cls := "button button-fat")(i(cls := "car")(1), s.joinPublicRace())
             ),
             postForm(cls := "racer-home__create", action := routes.Racer.create)(
               submitButton(cls := "button button-fat")(i(cls := "car")(0), s.raceYourFriends())
