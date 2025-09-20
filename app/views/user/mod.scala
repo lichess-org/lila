@@ -165,6 +165,7 @@ object mod:
                       href := Granter.opt(_.Appeals).option(routes.Appeal.show(o.username).url),
                       cls := List(
                         "text" -> true,
+                        "appeal-recent" -> appeal.isRecent,
                         "appeal-muted" -> appeal.isMuted
                       ),
                       dataIcon := Icon.InkQuill,
