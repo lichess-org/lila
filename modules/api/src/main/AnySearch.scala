@@ -7,6 +7,8 @@ final class AnySearch(
     relayEnv: lila.relay.Env,
     studyEnv: lila.study.Env,
     puzzleEnv: lila.puzzle.Env,
+    tourEnv: lila.tournament.Env,
+    swissEnv: lila.swiss.Env,
     ublogApi: lila.ublog.UblogApi
 )(using Executor):
 
@@ -28,6 +30,10 @@ final class AnySearch(
 
         def puzzle = puzzleEnv.api.puzzle.find(PuzzleId(id)).map2(_ => routes.Puzzle.show(id).url)
 
+        def tour = tourEnv.api.get(TourId(id)).map2(_ => routes.Tournament.show(TourId(id)).url)
+
+        def swiss = swissEnv.api.fetchByIdNoCache(SwissId(id)).map2(_ => routes.Swiss.show(SwissId(id)).url)
+
         def ublog = ublogApi.getPost(UblogPostId(id)).map2(_ => routes.Ublog.redirect(UblogPostId(id)).url)
 
         game
@@ -36,4 +42,6 @@ final class AnySearch(
           .orElse(study)
           .orElse(chapter)
           .orElse(puzzle)
+          .orElse(tour)
+          .orElse(swiss)
           .orElse(ublog)
