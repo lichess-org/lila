@@ -28,10 +28,9 @@
   }
 
   h2 {
-    font-size: 1.6em;
-    border-bottom: 1px solid $border;
+    border-bottom: $border;
     text-transform: capitalize;
-    letter-spacing: 2px;
+    padding-bottom: 0.3em;
   }
 
   .player_chats {

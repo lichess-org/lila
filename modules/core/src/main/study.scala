@@ -38,5 +38,3 @@ case class RemoveStudy(studyId: StudyId)
 
 enum Order:
   case hot, newest, oldest, updated, popular, alphabetical, mine
-
-case class GetRelayCrowd(id: StudyId, promise: Promise[Int])

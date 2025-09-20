@@ -56,8 +56,10 @@ final class Mod(
     }(reportC.onModAction)
 
   def publicChat = Secure(_.PublicChatView) { ctx ?=> _ ?=>
-    env.mod.publicChat.all.flatMap: (tournamentsAndChats, swissesAndChats) =>
-      Ok.page(views.mod.publicChat(tournamentsAndChats, swissesAndChats))
+    for
+      (t, s, r) <- env.mod.publicChat.all
+      page <- Ok.page(views.mod.publicChat(t, s, r))
+    yield page
   }
 
   def publicChatTimeout = SecureOrScopedBody(_.ChatTimeout) { _ ?=> me ?=>
