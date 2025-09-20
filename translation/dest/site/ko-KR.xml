@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="gameSetup">게임 설정</string>
+  <string name="challengeAFriend" comment="Be mindful of how 'friend' translates in gendered languages. Look for a more neutral term if there's an issue, or base your translation on a different phrase like 'Invite to a game'.&#10;&#10;Keep it short and convey the button's meaning without causing offense.">친구에게 도전</string>
+  <string name="playAgainstAI">인공 지능에 대한 재생</string>
+  <string name="gameMode">게임 모드</string>
+  <string name="createLobbyGame">로비 게임 만들기</string>
+  <string name="youPlayAs">당신은 재생</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">이 URL로 친구를 초대하세요</string>
   <string name="gameOver">대국 종료</string>
   <string name="waitingForOpponent">상대를 기다리는 중</string>
@@ -316,6 +322,7 @@
     <item quantity="other">현재 두고 있는 대국 %s개</item>
   </plurals>
   <string name="exportGames">대국 저장하기</string>
+  <string name="ratingFilter">등급 필터</string>
   <plurals name="giveNbSeconds">
     <item quantity="other">%s초 더 주기</item>
   </plurals>
@@ -363,6 +370,7 @@
     <item quantity="other">공식 대국을 %s회 더 두어야 합니다.</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">사용자의 임시 등급 %s는 임시적입니다.</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">귀하의 평가가 안정적이지 않기 때문에 평가 필터가 잠겨 있습니다. 정격 게임을 플레이하면 안정성이 향상됩니다.</string>
   <string name="yourPerfRatingIsTooHigh">귀하의 %1$s 레이팅(%2$s)은 너무 높습니다.</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">%1$s 랭크가 너무 높습니다. (%2$s)</string>
   <string name="yourPerfRatingIsTooLow">%1$s 랭크가 너무 낮습니다. (%2$s)</string>

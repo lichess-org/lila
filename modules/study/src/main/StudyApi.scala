@@ -713,7 +713,7 @@ final class StudyApi(
         Contribute(me, study):
           val newTags = tags.value.foldLeft(chapter.tags): (ctags, tag) =>
             if tag.value.isEmpty
-            then ctags.copy(value = ctags.value.filterNot(_.name == tag.name))
+            then ctags - tag.name
             else ctags + tag
           doSetTags(study, chapter, newTags, Who(me.userId, Sri("")))
 

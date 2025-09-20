@@ -871,7 +871,7 @@
   <string name="doneReviewingBlackMistakes">Завршено прегледање црних грешака</string>
   <string name="doItAgain">Одради поново</string>
   <string name="reviewWhiteMistakes">Прегледај беле грешке</string>
-  <string name="reviewBlackMistakes">Пронађите грешке црног</string>
+  <string name="reviewBlackMistakes">Прегледај црне грешке</string>
   <string name="advantage">Предност</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s секунд</item>
