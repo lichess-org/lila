@@ -690,6 +690,7 @@ object mon:
   object ublog:
     def create(user: UserId) = counter("ublog.create").withTag("user", user)
     def view = counter("ublog.view").withoutTags()
+    def pgnsFromText = future("ublog.pgnsFromText")
     object automod:
       val request = future("ublog.automod.request")
       def quality(q: String) = counter("ublog.automod.quality").withTag("quality", q)
