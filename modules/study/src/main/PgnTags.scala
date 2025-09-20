@@ -21,25 +21,22 @@ object PgnTags:
     .filter(c !=)
 
   // clean up tags before exposing them
-  def cleanUpForPublication(tags: Tags) = tags.copy(
-    value = tags.value.filter:
+  def cleanUpForPublication(tags: Tags) = tags.map:
+    _.filter:
       // we need fideId=0 to know that the player really doesn't have one,
       // and that we shouldn't alert about it or try to fix it.
       // But we don't want to publish it.
       case Tag(Tag.WhiteFideId | Tag.BlackFideId, "0") => false
       case _ => true
-  )
 
   private def filterRelevant(extraTypes: Set[TagType])(tags: Tags) =
-    Tags(tags.value.filter { t =>
-      (relevantTypeSet(t.name) || extraTypes(t.name)) && !unknownValues(t.value)
-    })
+    tags.map(_.filter: t =>
+      (relevantTypeSet(t.name) || extraTypes(t.name)) && !unknownValues(t.value))
 
   private def removeContradictingTermination(tags: Tags) =
     if tags.outcome.isDefined then
-      Tags(tags.value.filterNot { t =>
-        t.name == Tag.Termination && t.value.toLowerCase == "unterminated"
-      })
+      tags.map(_.filterNot: t =>
+        t.name == Tag.Termination && t.value.toLowerCase == "unterminated")
     else tags
 
   private val unknownValues = Set("", "?", "unknown")
