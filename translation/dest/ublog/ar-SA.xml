@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="community">المجتمع</string>
+  <string name="byMonth">حسب الشهر</string>
+  <string name="byTopic">حسب الموضوع</string>
+  <string name="byLichess">بواسطة ليشيس</string>
+  <string name="myFriends">أصدقائي</string>
+  <string name="myLikes">ما أعجبني</string>
   <string name="myBlog">مدونتي</string>
   <string name="likedBlogs">المنشورات التي أحببتها</string>
   <plurals name="blogPosts">
@@ -11,7 +17,7 @@
     <item quantity="other">%s منشورات في المدونة</item>
   </plurals>
   <string name="continueReadingPost">تابع قراءة هذا المنشور</string>
-  <string name="lichessBlogPostsFromXYear">تجد منشورات مدونة ليتشيس %s</string>
+  <string name="lichessBlogPostsFromXYear">تجد منشورات مدونة ليشيس %s</string>
   <string name="previousBlogPosts">مشاركات المدونة السابقة</string>
   <string name="xBlog">مدونة %s</string>
   <string name="newPost">منشور جديد</string>
@@ -25,7 +31,7 @@
   <string name="createBlogDiscussion">تمكين التعليقات</string>
   <string name="createBlogDiscussionHelp">سيوضع منتدى للأشخاص الذين يريدون التعليق على مشاركتك</string>
   <string name="publishOnYourBlog">المنشور على مدونتك</string>
-  <string name="publishHelp">إذا تم تحديد الخيار سيتم نشر المقال على مدونتك، اذا لم يتم تحديد الخيار سيتم حفظها بشكل خاص في مسوداتك</string>
+  <string name="publishHelp">إذا تم التحديد، فسيُدرج المنشور في مدونتك. وإذا لم يتم، فسيكون خاصًا ضمن مسوداتك</string>
   <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">منشور مثبت</string>
   <string name="stickyPostHelp">إذا تم الاختيار، سيتم إدراج هذا المنشور أولاً في منشورات ملفك الشخصية الحديثة وعلى مدونتك.</string>
   <plurals name="publishedNbBlogPosts">
@@ -37,7 +43,7 @@
     <item quantity="other">نشر %s مشاركات المدونة</item>
   </plurals>
   <plurals name="nbViews">
-    <item quantity="zero">صفر مشاهدات</item>
+    <item quantity="zero">مشاهدة واحدة %s</item>
     <item quantity="one">%s مشاهدات</item>
     <item quantity="two">%s مشاهدات</item>
     <item quantity="few">%s مشاهدات</item>
@@ -47,13 +53,13 @@
   <string name="xPublishedY">%1$s نشر %2$s</string>
   <string name="thisPostIsPublished">المقال تم نشره</string>
   <string name="thisIsADraft">هذه مسودة</string>
-  <string name="noPostsInThisBlogYet">لايوجد مقالات في هذه المدونة حالياً.</string>
+  <string name="noPostsInThisBlogYet">لا يوجد مقالات في هذه المدونة حالياً.</string>
   <string name="noDrafts">لا يوجد مسودات لعرضها.</string>
   <string name="latestBlogPosts">أخر منشورات المدونة</string>
   <plurals name="viewAllNbPosts">
     <item quantity="zero">عرض كل %s المنشورات</item>
     <item quantity="one">عرض مقالة</item>
-    <item quantity="two">عرض مقالتين</item>
+    <item quantity="two">عرض مقالتين %s</item>
     <item quantity="few">عرض %s مقالات</item>
     <item quantity="many">عرض %s مقالات</item>
     <item quantity="other">عرض %s مقال</item>
@@ -64,9 +70,9 @@
   <string name="deleteBlog">حذف مشاركة المدونة هذه بشكل قاطع</string>
   <string name="safeToUseImages">من الآمن استخدام الصور من المواقع التالية على الإنترنت: </string>
   <string name="selectPostTopics">حدد الموضوع الذي تدور مقالتك حوله</string>
-  <string name="useImagesYouMadeYourself">يمكنك ايضا استخدام الصور التي صممتها بنفسك، او التي التقطها انتاو الي لقطات شاشة من موقعنا... أو اي شيء لا يخضع لحقوق النشر لاي احد اخر.</string>
-  <string name="safeAndRespectfulContent">يرجى نشر المحتوى الحصري و المفيد فقط. لا تنسخ محتوى احد اخر.</string>
-  <string name="inappropriateContentAccountClosed">اي شيء غير لائق من الممكن أن يتسبب باغلاق حسابك.</string>
+  <string name="useImagesYouMadeYourself">يمكنك أيضًا استخدام الصور التي قمت بإنشائها بنفسك، والصور التي التقطها، ولقطات شاشة من موقعنا... وأي شيء لا يخضع لحقوق النشر لأي شخص أخر.</string>
+  <string name="safeAndRespectfulContent">يرجى نشر المحتوى الحصري و المفيد فقط. لا تنسخ محتوى احد أخر.</string>
+  <string name="inappropriateContentAccountClosed">أي شيء غير لائق من الممكن أن يتسبب بإغلاق حسابك.</string>
   <string name="blogTips">نصائحنا البسيطة لكتابة مقالة رائعة</string>
   <string name="discussThisBlogPostInTheForum">ناقش منشور المدونة هذا في المنتدى</string>
   <string name="youBlockedByBlogAuthor">تم حظرك من قبل مؤلف المدونة.</string>
