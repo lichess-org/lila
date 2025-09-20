@@ -30,9 +30,34 @@
       display: block;
       margin-top: -0.5em;
     }
+    .bus {
+      position: relative;
+      font-size: 9em;
+      display: block;
+      margin-top: -0.5em;
+      width: 1em;
+      height: 1em;
+      background-color: currentColor;
+      -webkit-mask: url(../images/racer/bus.svg) no-repeat center;
+      mask: url(../images/racer/bus.svg) no-repeat center;
+      -webkit-mask-size: contain;
+      mask-size: contain;
+    }
     &:hover {
       opacity: 1;
       .car {
+        transform: translateX(0.1em) scaleX(0.95) skewX(6deg) rotate(-3deg);
+        transition: all 0.15s ease-out;
+        &::before {
+          content: 'A';
+          position: absolute;
+          @include inline-start(-0.9em);
+          bottom: 0.6em;
+          font-size: 0.3em;
+          animation: boost 0.1s ease-in infinite;
+        }
+      }
+      .bus {
         transform: translateX(0.1em) scaleX(0.95) skewX(6deg) rotate(-3deg);
         transition: all 0.15s ease-out;
         &::before {
