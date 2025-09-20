@@ -151,7 +151,7 @@ final class RoundSocket(
     case P.In.Ping(id) => send(P.Out.pong(id))
     case Protocol.In.GetGame(reqId, anyId) =>
       for
-        game <- rounds.ask[GameAndSocketStatus](anyId.gameId)(GetGameAndSocketStatus.apply)
+        game <- rounds.ask(anyId.gameId)(GetGameAndSocketStatus.apply)
         data <- mobileSocket.online(game.game, anyId, game.socket)
       yield sendForGameId(anyId.gameId).exec(Protocol.Out.respond(reqId, data))
 
