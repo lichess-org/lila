@@ -24,7 +24,8 @@ export type RoundId = string;
 export interface RelayTourPreview {
   id: TourId;
   name: string;
-  live?: boolean;
+  active: boolean; // see modules/relay/src/main/RelayTour.scala
+  live?: boolean; // see modules/relay/src/main/RelayTour.scala
 }
 
 export interface RelayRound {

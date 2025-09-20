@@ -4,7 +4,14 @@ import * as licon from 'lib/licon';
 import { bind, dataIcon, onInsert, hl, type LooseVNode } from 'lib/snabbdom';
 import type { VNode } from 'snabbdom';
 import { innerHTML, richHTML } from 'lib/richText';
-import type { RelayData, RelayGroup, RelayRound, RelayTourDates, RelayTourInfo } from './interfaces';
+import type {
+  RelayData,
+  RelayGroup,
+  RelayRound,
+  RelayTourDates,
+  RelayTourInfo,
+  RelayTourPreview,
+} from './interfaces';
 import { view as multiBoardView } from '../multiBoard';
 import { defined, memoize } from 'lib';
 import type StudyCtrl from '../studyCtrl';
@@ -290,16 +297,11 @@ const groupSelect = (ctx: RelayViewContext, group: RelayGroup) => {
                 class: {
                   current: tour.id === ctx.relay.data.tour.id,
                   ['ongoing-tour']: !!tour.live,
+                  ['finished-tour']: !!tour.live,
                 },
                 attrs: { href: ctx.study.embeddablePath(`/broadcast/-/${tour.id}`) },
               },
-              [
-                tour.name,
-                tour.live &&
-                  hl('span.tour-state.ongoing', {
-                    attrs: { ...dataIcon(licon.DiscBig), title: i18n.broadcast.ongoing },
-                  }),
-              ],
+              [tour.name, tourStateIcon(tour, false)],
             ),
           ),
         ),
@@ -307,6 +309,19 @@ const groupSelect = (ctx: RelayViewContext, group: RelayGroup) => {
     ],
   );
 };
+
+const tourStateIcon = (tour: RelayTourPreview, titleAsText: boolean) =>
+  tour.live
+    ? hl('span.tour-state.ongoing', {
+        attrs: { ...dataIcon(licon.DiscBig), title: i18n.broadcast.ongoing },
+      })
+    : tour.active === false
+      ? hl(
+          'span.tour-state.finished',
+          { attrs: { ...dataIcon(licon.Checkmark), title: !titleAsText && i18n.site.finished } },
+          titleAsText && i18n.site.finished,
+        )
+      : undefined;
 
 const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
   const toggle = relay.roundSelectShow;

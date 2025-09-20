@@ -131,7 +131,12 @@ object RelayTour:
     def link = round
     def display = round
 
-  case class TourPreview(@Key("_id") id: RelayTourId, name: Name, live: Option[Boolean])
+  case class TourPreview(
+      @Key("_id") id: RelayTourId,
+      name: Name,
+      active: Boolean,
+      live: Option[Boolean]
+  )
 
   case class WithGroup(tour: RelayTour, group: Option[RelayGroup])
   case class WithGroupTours(tour: RelayTour, group: Option[RelayGroup.WithTours])

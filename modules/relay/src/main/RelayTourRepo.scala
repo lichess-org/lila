@@ -59,7 +59,10 @@ final private class RelayTourRepo(val coll: Coll)(using Executor):
     coll.delete.one($id(tour.id)).void
 
   def previews(ids: List[RelayTourId]): Fu[List[TourPreview]] =
-    coll.byOrderedIds[TourPreview, RelayTourId](ids, $doc("name" -> true, "live" -> true).some)(_.id)
+    coll.byOrderedIds[TourPreview, RelayTourId](
+      ids,
+      $doc("name" -> true, "live" -> true, "active" -> true).some
+    )(_.id)
 
   def byIds(ids: List[RelayTourId]): Fu[List[RelayTour]] =
     coll.byOrderedIds[RelayTour, RelayTourId](ids, unsetHeavyOptionalFields.some)(_.id)

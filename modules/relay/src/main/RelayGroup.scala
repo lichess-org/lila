@@ -47,7 +47,7 @@ private final class RelayGroupForm(baseUrl: BaseUrl):
           .take(50)
           .map(_.trim.takeWhile(' ' != _))
           .flatMap(parseId)
-          .map(RelayTour.TourPreview(_, RelayTour.Name(""), live = none))
+          .map(RelayTour.TourPreview(_, RelayTour.Name(""), active = false, live = none))
         RelayGroupData(RelayGroup.Name(name.linesIterator.next.trim), tours).some
   private def parseId(str: String): Option[RelayTourId] =
     def looksLikeId(id: String): Boolean = id.size == 8 && id.forall(_.isLetterOrDigit)

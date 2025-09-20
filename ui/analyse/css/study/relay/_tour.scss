@@ -187,9 +187,6 @@ $hover-bg: $m-primary_bg--mix-30;
     .mselect__item {
       opacity: unset;
     }
-    .tour-state.ongoing::before {
-      color: $c-bad;
-    }
     .mselect__list {
       transform: unset;
       a {
@@ -200,6 +197,19 @@ $hover-bg: $m-primary_bg--mix-30;
   &__tour-select {
     .mselect__item {
       @extend %flex-between;
+    }
+    .tour-state {
+      &.finished::before {
+        color: $c-good;
+        font-size: 0.8em;
+      }
+      &.ongoing::before {
+        color: $c-bad;
+        font-size: 0.7em;
+      }
+    }
+    a:hover .tour-state::before {
+      color: $c-over;
     }
   }
   &__round-select {
