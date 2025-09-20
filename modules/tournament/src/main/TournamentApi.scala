@@ -273,7 +273,7 @@ final class TournamentApi(
             verify(tour.conditions, tour.perfType)
 
   private val initialJoin =
-    lila.memo.RateLimit.composite[UserId]("tournament.user.join")(("fast", 6, 1.hour), ("slow", 20, 1.day))
+    lila.memo.RateLimit.composite[UserId]("tournament.user.join")(("fast", 8, 1.hour), ("slow", 30, 1.day))
 
   def join(
       tourId: TourId,
@@ -285,10 +285,13 @@ final class TournamentApi(
       playerRepo
         .find(tour.id, me)
         .flatMap: prevPlayer =>
-          if prevPlayer.isEmpty && !initialJoin.test(me.userId, cost = if asLeader then 0 else 1)
-          then fuccess(JoinResult.RateLimited)
-          else if me.marks.arenaBan then fuccess(JoinResult.ArenaBanned)
+          if me.marks.arenaBan then fuccess(JoinResult.ArenaBanned)
           else if me.marks.prizeban && tour.prizeInDescription then fuccess(JoinResult.PrizeBanned)
+          else if prevPlayer.isEmpty && !initialJoin.test(
+              me.userId,
+              cost = if asLeader then 0 else if tour.byLichess then 1 else 2
+            )
+          then fuccess(JoinResult.RateLimited)
           else if prevPlayer.nonEmpty || tour.password.forall: p =>
               // plain text access code
               MessageDigest.isEqual(p.getBytes(UTF_8), (~data.password).getBytes(UTF_8)) ||

@@ -134,7 +134,9 @@ case class Tournament(
       )
     }
 
-  def nonLichessCreatedBy = (createdBy != UserId.lichess).option(createdBy)
+  def byLichess = createdBy.is(UserId.lichess)
+
+  def nonLichessCreatedBy = byLichess.not.option(createdBy)
 
   def ratingVariant = if variant.fromPosition then chess.variant.Standard else variant
 
