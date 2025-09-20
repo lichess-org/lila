@@ -46,11 +46,11 @@
     <item quantity="one">Az ellenfeled elhagyta a játékot, %s másodperc múlva győzelmet igényelhetsz.</item>
     <item quantity="other">Az ellenfeled elhagyta a játékot, %s másodperc múlva győzelmet igényelhetsz.</item>
   </plurals>
-  <string name="opponentLeftChoices">Úgy tűnik, az ellenfeled kilépett. Győzelmet vagy döntetlent igényelhetsz, esetleg várhatsz rá.</string>
+  <string name="opponentLeftChoices">Úgy tűnik, az ellenfeled kilépett. Győzelmet vagy döntetlent igényelhetsz, vagy várhatsz rá.</string>
   <string name="forceResignation">Győzelem igénylése</string>
   <string name="forceDraw">Döntetlen felajánlása</string>
   <string name="talkInChat">Légy udvarias másokkal!</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Az első ember, aki felkeresi ezt a címet, az lesz az ellenfeled.</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Az első ember aki felkeresi ezt a linket, lesz az ellenfeled.</string>
   <string name="whiteResigned">Világos feladta</string>
   <string name="blackResigned">Sötét feladta</string>
   <string name="whiteLeftTheGame">Világos elhagyta a játékot</string>

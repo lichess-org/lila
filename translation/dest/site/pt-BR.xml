@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="gameSetup">Configuração do jogo</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Desafie um amigo</string>
+  <string name="playAgainstAI">Jogar contra IA</string>
+  <string name="gameMode">Modo de jogo</string>
+  <string name="createLobbyGame">Criar jogo na sala de espera</string>
+  <string name="youPlayAs">Você joga com as</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Para convidar alguém para jogar, envie este URL</string>
   <string name="gameOver">Fim da partida</string>
   <string name="waitingForOpponent">Aguardando oponente</string>
@@ -339,6 +345,7 @@
     <item quantity="other">%s jogando</item>
   </plurals>
   <string name="exportGames">Exportar partidas</string>
+  <string name="ratingFilter">Filtro de Rating</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Dar %s segundos</item>
     <item quantity="other">Dar %s segundos</item>
@@ -823,6 +830,7 @@
   <string name="notifications">Notificações</string>
   <string name="notificationsX">Notificações: %1$s</string>
   <string name="perfRatingX">Rating: %s</string>
+  <string name="yourRatingIsX">Seu rating é %s </string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s segundo para fazer o primeiro lance</item>
     <item quantity="other">%s segundos para fazer o primeiro lance</item>
@@ -874,6 +882,7 @@
   <string name="playVariationToCreateConditionalPremoves">Jogar uma variação para criar pré-lances condicionais</string>
   <string name="noConditionalPremoves">Sem pré-lances condicionais</string>
   <string name="playX">Jogar %s</string>
+  <string name="challengeX">Desafiar %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">e salvar a linha de pré-lance de %s</item>
     <item quantity="other">e salvar as linhas de pré-lance de %s</item>

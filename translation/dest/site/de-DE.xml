@@ -2,7 +2,7 @@
 <resources>
   <string name="gameSetup">Spieleinstellungen</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Einen Freund herausfordern</string>
-  <string name="playAgainstAI">Gegen KI spielen</string>
+  <string name="playAgainstAI">Gegen den Computer spielen</string>
   <string name="gameMode">Spielmodus</string>
   <string name="createLobbyGame">Neue Partie erstellen</string>
   <string name="youPlayAs">Du spielst als</string>

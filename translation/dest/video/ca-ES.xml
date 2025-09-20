@@ -9,6 +9,10 @@
   <string name="xCuratedChessVideos" comment="%s is the number of videos. Appears in social media embeds (i.e. OpenGraph information) when linking Lichess videos.">%s vídeos d\'escacs seleccionats</string>
   <string name="xWithTagsY" comment="%1$s is the number of videos found.&#10;&#10;%2$s is a list of tags.&#10;&#10;Appears when filtering for videos by tag.">%1$s amb etiquetes %2$s</string>
   <string name="freeForAll" comment="Appears in social media embeds (i.e. OpenGraph information) when linking Lichess videos. Part of a longer piece of text.&#10;&#10;The full text will be something like &quot;%s carefully curated chess videos • free for all&quot;">gratuïts per tothom</string>
+  <plurals name="nbVideosFound" comment="%s is the number of videos found when searching on https://lichess.org/video">
+    <item quantity="one">S\'ha trobat %s vídeo</item>
+    <item quantity="other">S\'han trobat %s vídeos</item>
+  </plurals>
   <string name="noVideosForTheseTags">No s\'han trobat vídeos per aquestes etiquetes:</string>
   <string name="thatsAllWeGotForTheseTags">Això és tot el que tenim per aquestes etiquetes:</string>
   <string name="thatsAllWeGotForThisSearchX" comment="%s is the search term that the user entered.&#10;&#10;Appears at the end of a list of search results on https://lichess.org/video">Això és tot el que tenim per aquesta cerca: %s</string>

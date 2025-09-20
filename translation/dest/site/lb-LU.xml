@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="gameMode">Spillmodus</string>
+  <string name="youPlayAs">Du spills mat</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Fir een an dës Partie z\'invitéieren, gëff ëm dëse Link</string>
   <string name="gameOver">Game Over</string>
   <string name="waitingForOpponent">Op de Géigner waarden</string>
