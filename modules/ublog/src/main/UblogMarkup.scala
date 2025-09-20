@@ -1,5 +1,7 @@
 package lila.ublog
 
+import scalalib.future.TimeoutException
+
 import lila.common.{ Bus, Markdown, MarkdownRender, MarkdownToastUi }
 import lila.core.config
 import lila.core.misc.lpv.{ LpvEmbed, Lpv as LpvBus }
@@ -47,7 +49,9 @@ final class UblogMarkup(
           .andThen { case scala.util.Success(pgns) =>
             pgnCache.putAll(pgns)
           }
-          .inject(process(id)(markdown))
+        .recoverWith:
+          case TimeoutException(msg) => Future.failed(TimeoutException(msg.take(100)))
+        .inject(process(id)(markdown))
 
   private def process(id: UblogPostId): Markdown => Html = replaceGameGifs.apply
     .andThen(MarkdownToastUi.unescapeAtUsername.apply)
