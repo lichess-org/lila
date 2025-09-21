@@ -5,7 +5,7 @@ import reactivemongo.api.bson.*
 import lila.core.LightUser
 import lila.db.dsl.{ *, given }
 import lila.memo.{ CacheApi, Syncache }
-import lila.core.plan.PatronMonths
+import lila.core.plan.{ PatronMonths, PatronStyle }
 
 import BSONFields as F
 
@@ -57,18 +57,24 @@ final class LightUserApi(repo: UserRepo, cacheApi: CacheApi)(using Executor)
       doc
         .getAsTry[UserName](F.username)
         .map: name =>
+          val planOpt = doc.child(F.plan)
           val patronMonths = for
-            plan <- doc.child(F.plan)
+            plan <- planOpt
             if ~plan.getAsOpt[Boolean]("active")
             months <- plan.getAsOpt[PatronMonths]("months")
             lifetime = ~plan.getAsOpt[Boolean]("lifetime")
           yield if lifetime then PatronMonths.lifetime else months
+          val patronStyle = for
+            plan <- planOpt
+            style <- plan.getAsOpt[String]("style").flatMap(PatronStyle.map.get)
+          yield style
           LightUser(
             id = name.id,
             name = name,
             title = doc.getAsOpt[chess.PlayerTitle](F.title),
             flair = doc.getAsOpt[Flair](F.flair).filter(FlairApi.exists),
-            patronMonths = patronMonths | PatronMonths.zero
+            patronMonths = patronMonths | PatronMonths.zero,
+            patronStyle = patronStyle
           )
 
   private val projection =

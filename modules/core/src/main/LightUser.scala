@@ -6,20 +6,22 @@ import scala.concurrent.ExecutionContext
 
 import lila.core.id.Flair
 import lila.core.userId.*
-import lila.core.plan.PatronMonths
+import lila.core.plan.{ PatronMonths, PatronTier, PatronStyle }
 
 case class LightUser(
     id: UserId,
     name: UserName,
     title: Option[PlayerTitle],
     flair: Option[Flair],
-    patronMonths: PatronMonths
+    patronMonths: PatronMonths,
+    patronStyle: Option[PatronStyle] = None
 ):
   def titleName: String = title.fold(name.value)(_.value + " " + name)
   def isBot = title.contains(PlayerTitle.BOT)
   def isPatron = patronMonths.isOngoing
   def isPatronLifetime = patronMonths.isLifetime
   def patronTier = patronMonths.tier
+  def patronAndStyle = patronTier.map(t => PatronTier.AndStyle(t, patronStyle))
 
 object LightUser:
 
