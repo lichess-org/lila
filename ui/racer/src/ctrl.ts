@@ -53,7 +53,7 @@ export default class RacerCtrl implements PuzCtrl {
   ) {
     this.data = opts.data;
     this.race = this.data.race;
-    this.cars = this.makeCars();
+    this.cars = this.makeCars(this.race.id);
     this.pref = opts.pref;
     this.filters = new PuzFilters(redraw, true);
     this.run = {
@@ -219,10 +219,15 @@ export default class RacerCtrl implements PuzCtrl {
     pubsub.emit('ply', this.run.moves);
   };
 
-  private makeCars = (): Car[] => {
-    // TODO: return 10 car numbers, based on this.data.race.id hash
-    // bonus: avoid duplicates (maybe, idk)
-    return [];
+  private makeCars = (raceId: String): Car[] => {
+    const cars = [];
+    for (let c = 0; c < 10; c++) {
+      let h = 0;
+      const str = `${raceId}${c}`;
+      for (let i = 0; i < str.length; i++) h = (Math.imul(31, h) + str.charCodeAt(i)) | 0;
+      cars.push(Math.abs(h) % 4); // If the car number is changed, change the number.
+    }
+    return cars;
   };
 
   private redrawQuick = () => setTimeout(this.redraw, 100);

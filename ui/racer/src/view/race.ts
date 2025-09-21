@@ -69,12 +69,6 @@ const renderTrack = (
   );
 };
 
-const hashCodeToVehicle = (str: string) => {
-  let h = 0;
-  for (let i = 0; i < str.length; i++) h = (Math.imul(31, h) + str.charCodeAt(i)) | 0;
-  return Math.abs(h) % 4;
-};
-
 export const playerLink = (player: PlayerWithScore, isMe: boolean) =>
   player.id
     ? userLink({ ...player, line: false })
