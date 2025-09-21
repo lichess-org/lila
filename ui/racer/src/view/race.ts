@@ -60,7 +60,7 @@ const renderTrack = (
           },
         },
         [
-          h(`div.racer__race__player__car.car-${index}`, [vehicle]),
+          h(`div.racer__race__player__car.car-${index}.vehicle${vehicle}`, [vehicle]),
           h('span.racer__race__player__name', playerLink(player, isMe)),
         ],
       ),
