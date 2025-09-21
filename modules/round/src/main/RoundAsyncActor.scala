@@ -371,7 +371,7 @@ final private class RoundAsyncActor(
 
   private def getPlayer(color: Color): Player = color.fold(whitePlayer, blackPlayer)
 
-  private def getSocketStatus: Future[SocketStatus] =
+  private def getSocketStatus: Fu[SocketStatus] =
     whitePlayer.isLongGone
       .zip(blackPlayer.isLongGone)
       .map: (whiteIsGone, blackIsGone) =>
