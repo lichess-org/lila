@@ -306,8 +306,9 @@ object mon:
           "proxy" -> proxy.getOrElse("none")
         )
     val dedup = counter("relay.fetch.dedup").withoutTags()
-    def push(name: String, user: UserName, client: String)(moves: Int, errors: Int) =
+    def push(name: String, user: UserName, client: String)(games: Int, moves: Int, errors: Int) =
       val ts = tags("name" -> name.escape, "user" -> user, "client" -> client.escape)
+      histogram("relay.push.games").withTags(ts).record(games)
       histogram("relay.push.moves").withTags(ts).record(moves)
       histogram("relay.push.errors").withTags(ts).record(errors)
 

@@ -55,6 +55,7 @@ final class RelayPush(
       .getOrElse(ua.value)
       .trim
     lila.mon.relay.push(name = rt.fullName, user = me.username, client = client)(
+      games = results.size,
       moves = results.collect { case Right(a) => a.moves }.sum,
       errors = results.count(_.isLeft)
     )
