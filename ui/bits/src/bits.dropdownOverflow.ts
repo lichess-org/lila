@@ -1,5 +1,6 @@
 import { frag } from 'lib';
 import { json as xhrJson } from 'lib/xhr';
+import { isTouchDevice } from 'lib/device';
 
 type HttpMethod = 'GET' | 'POST';
 
@@ -77,13 +78,11 @@ function renderMenu(container: HTMLElement): void {
   const initialWidth = container.offsetWidth;
 
   const menuContainer = document.createElement('div');
-  menuContainer.className = 'menu-container';
-  menuContainer.classList.add('btn-rack');
+  menuContainer.classList = 'menu-container btn-rack';
   container.appendChild(menuContainer);
 
   const dropdownDiv = document.createElement('div');
-  dropdownDiv.className = 'dropdown';
-  dropdownDiv.classList.add('btn-rack__btn');
+  dropdownDiv.classList = 'dropdown btn-rack__btn';
   menuContainer.appendChild(dropdownDiv);
 
   const moreButton = document.createElement('a');
@@ -141,11 +140,17 @@ function renderMenu(container: HTMLElement): void {
     dropdownDiv.tabIndex = 0;
     dropdownDiv.role = 'button';
 
-    const showDropdownWindow = () => {
-      dropdownWindow.style.visibility = 'visible';
+    const closeListener = (e: Event) => dropdownDiv.contains(e.target as Node) || showDropdownWindow(false);
+
+    const showDropdownWindow = (show?: boolean) => {
+      if (site.blindMode || !isTouchDevice()) return;
+      if (show ?? !dropdownDiv.classList.contains('visible'))
+        document.addEventListener('click', closeListener);
+      else document.removeEventListener('click', closeListener);
+      dropdownDiv.classList.toggle('visible', show);
     };
 
-    dropdownDiv.onclick = showDropdownWindow;
+    dropdownDiv.onclick = () => showDropdownWindow();
     dropdownDiv.onkeydown = event => {
       if (event.key === 'Enter') {
         showDropdownWindow();
