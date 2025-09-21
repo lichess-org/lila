@@ -4,6 +4,8 @@ export type RaceStatus = 'pre' | 'racing' | 'post';
 
 export type PlayerId = string;
 
+export type Vehicle = number;
+
 export interface RacerOpts {
   data: RacerData;
   pref: RacerPrefs;

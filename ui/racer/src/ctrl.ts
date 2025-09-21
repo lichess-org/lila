@@ -20,6 +20,7 @@ import type {
   Race,
   UpdatableData,
   RaceStatus,
+  Vehicle,
 } from './interfaces';
 import { storedBooleanProp } from 'lib/storage';
 import { PromotionCtrl } from 'lib/game/promotion';
@@ -44,6 +45,7 @@ export default class RacerCtrl implements PuzCtrl {
   ground = prop<CgApi | false>(false);
   flipped = false;
   redrawInterval: Timeout;
+  vehicle: Vehicle[];
 
   constructor(
     opts: RacerOpts,
@@ -51,6 +53,7 @@ export default class RacerCtrl implements PuzCtrl {
   ) {
     this.data = opts.data;
     this.race = this.data.race;
+    this.vehicle = this.makeVehicles(this.race.id);
     this.pref = opts.pref;
     this.filters = new PuzFilters(redraw, true);
     this.run = {
@@ -214,6 +217,17 @@ export default class RacerCtrl implements PuzCtrl {
       this.setGround();
     }
     pubsub.emit('ply', this.run.moves);
+  };
+
+  private makeVehicles = (raceId: String): Vehicle[] => {
+    const vehicle = [];
+    for (let c = 0; c < 10; c++) {
+      let h = 0;
+      const str = `${raceId}${c}`;
+      for (let i = 0; i < str.length; i++) h = (Math.imul(31, h) + str.charCodeAt(i)) | 0;
+      vehicle.push(Math.abs(h) % 4); // If the car number is changed, change the number.
+    }
+    return vehicle;
   };
 
   private redrawQuick = () => setTimeout(this.redraw, 100);
