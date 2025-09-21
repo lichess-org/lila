@@ -2,16 +2,16 @@
   @extend %nowrap-hidden;
 
   color: $c-font;
-  $c-months1: #292f56;
-  $c-months2: #1e4572;
-  $c-months3: #005c8b;
-  $c-months6: #007498;
-  $c-months9: #008ba0;
-  $c-years1: #00a3a4;
-  $c-years2: #00bca1;
-  $c-years3: #00d493;
-  $c-years4: #69e882;
-  $c-years5: #d59020;
+  $c-months1: hsl(90, 52%, 57%);
+  $c-months2: hsl(120, 32%, 62%);
+  $c-months3: hsl(151.9, 62%, 62%);
+  $c-months6: hsl(190, 52%, 57%);
+  $c-months9: hsl(207, 63%, 66%);
+  $c-years1: hsl(220, 62%, 67%);
+  $c-years2: hsl(270, 72%, 73%);
+  $c-years3: hsl(310, 52%, 67%);
+  $c-years4: hsl(0, 52%, 65%);
+  $c-years5: hsl(37, 74%, 43%);
 
   &.online .line {
     &::before {
@@ -21,7 +21,6 @@
 
     color: $c-good;
     &.patron {
-      -webkit-text-stroke: 0.01em #ffffff;
       opacity: 1;
 
       &.months1 {
