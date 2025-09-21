@@ -307,10 +307,13 @@ object mon:
         )
     val dedup = counter("relay.fetch.dedup").withoutTags()
     def push(name: String, user: UserName, client: String)(games: Int, moves: Int, errors: Int) =
-      val ts = tags("name" -> name.escape, "user" -> user, "client" -> client.escape)
-      histogram("relay.push.games").withTags(ts).record(games)
-      histogram("relay.push.moves").withTags(ts).record(moves)
-      histogram("relay.push.errors").withTags(ts).record(errors)
+      val histogramTags = tags("name" -> name.escape, "user" -> user, "client" -> client.escape)
+      val counterTags = tags("name" -> name.escape, "user" -> user)
+      histogram("relay.push.games").withTags(histogramTags).record(games)
+      histogram("relay.push.moves").withTags(histogramTags).record(moves)
+      histogram("relay.push.errors").withTags(histogramTags).record(errors)
+      counter("relay.push.games.nb").withTags(counterTags).increment(games)
+      counter("relay.push.moves.nb").withTags(counterTags).increment(moves)
 
   object bot:
     def moves(username: String) = counter("bot.moves").withTag("name", username)
