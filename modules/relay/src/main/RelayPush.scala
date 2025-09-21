@@ -3,11 +3,13 @@ package lila.relay
 import chess.format.pgn.{ PgnStr, San, Std, Tags }
 import chess.{ ErrorStr, Replay, Square, TournamentClock }
 import scalalib.actor.AsyncActorSequencers
-import lila.tree.{ ImportResult, ParseImport }
+import com.github.blemale.scaffeine.LoadingCache
 
+import lila.tree.{ ImportResult, ParseImport }
 import lila.study.{ ChapterPreviewApi, MultiPgn, StudyPgnImport }
 import lila.core.net.UserAgent
-import RelayPush.*
+import lila.relay.RelayPush.*
+import lila.memo.CacheApi
 
 final class RelayPush(
     sync: RelaySync,
@@ -55,6 +57,7 @@ final class RelayPush(
       .getOrElse(ua.value)
       .trim
     lila.mon.relay.push(name = rt.fullName, user = me.username, client = client)(
+      games = results.size,
       moves = results.collect { case Right(a) => a.moves }.sum,
       errors = results.count(_.isLeft)
     )
@@ -64,7 +67,7 @@ final class RelayPush(
       for
         rt <- api.byIdWithTour(prev.round.id).orFail(s"Relay $prev no longer available")
         _ <- cantHaveUpstream(rt.round).so(fail => fufail[Unit](fail.error))
-        withPlayers <- playerEnrich.enrichAndReportAmbiguous(rt)(rawGames)
+        withPlayers = playerEnrich.enrichAndReportAmbiguous(rt)(rawGames)
         withFide <- fidePlayers.enrichGames(rt.tour)(withPlayers)
         games = rt.tour.teams.fold(withFide)(_.update(withFide))
         event <- sync
@@ -85,13 +88,20 @@ final class RelayPush(
         _ <- games.nonEmpty.so(api.syncTargetsOfSource(round))
       yield ()
 
+  private val pgnCache: LoadingCache[PgnStr, Either[Failure, RelayGame]] =
+    CacheApi.scaffeineNoScheduler
+      .expireAfterAccess(2.minutes)
+      .initialCapacity(1024)
+      .maximumSize(4096)
+      .build: pgn =>
+        validate(pgn).map: importResult =>
+          RelayGame.fromStudyImport(StudyPgnImport.result(importResult, Nil))
+
   private def pgnToGames(pgnBody: PgnStr, tc: Option[TournamentClock]): List[Either[Failure, RelayGame]] =
     RelayFetch.injectTimeControl
       .in(tc)(MultiPgn.split(pgnBody, RelayFetch.maxChaptersToShow))
       .value
-      .map: pgn =>
-        validate(pgn).map: importResult =>
-          RelayGame.fromStudyImport(StudyPgnImport.result(importResult, Nil))
+      .map(pgnCache.get)
 
   private def cantHaveUpstream(round: RelayRound): Option[Failure] =
     round.sync.hasUpstream.option:
