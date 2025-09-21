@@ -140,7 +140,8 @@ $c-bg-position-y: 2px;
           font-size: 0.4em;
           animation: boost 0.1s ease-in infinite;
         }
-        &.vehicle0::before, &.vehicle1::before {
+        &.vehicle0::before,
+        &.vehicle1::before {
           content: 'A';
           position: absolute;
           left: -0.9em;
