@@ -412,10 +412,8 @@ private object RelayFetch:
         .expireAfterAccess(2.minutes)
         .initialCapacity(1024)
         .maximumSize(4096)
-        .build(compute)
-
-    private def compute(pgn: PgnStr): Either[LilaInvalid, RelayGame] =
-      StudyPgnImport
-        .result(pgn, Nil)
-        .leftMap(err => LilaInvalid(err.value))
-        .map(RelayGame.fromStudyImport)
+        .build: pgn =>
+          StudyPgnImport
+            .result(pgn, Nil)
+            .leftMap(err => LilaInvalid(err.value))
+            .map(RelayGame.fromStudyImport)
