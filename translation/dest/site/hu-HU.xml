@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="gameSetup">Játék beállítás</string>
-  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Hívj ki egy ismerőst</string>
+  <string name="gameSetup" comment="Title of the modal on the various screens that let you create a game (e.g. a public lobby game, challenging a friend, playing against the computer...)">Játék beállítás</string>
+  <string name="challengeAFriend" comment="Please be mindful of how 'friend' translates in gendered languages. Look for a more neutral term if there's an issue, or base your translation on a different phrase like 'Invite to a game'.&#10;&#10;Keep it short and convey the button's meaning without causing offense.">Hívj ki egy ismerőst</string>
   <string name="playAgainstAI">Játssz az AI ellen</string>
-  <string name="gameMode">Játékmód</string>
-  <string name="createLobbyGame">Hozz létre egy játszmaajánlatot</string>
-  <string name="youPlayAs">Úgy játszol, mint</string>
+  <string name="gameMode" comment="A segmented selection when creating a game, allowing you to pick either 'Casual' (not rated) or 'Rated' (meaning your rating points could change).">Játékmód</string>
+  <string name="createLobbyGame" comment="Creates a game for the home page's lobby.&#10;Please try to use the same language that you use for 'Lobby' tab at the top.">Játszma létrehozása</string>
+  <string name="youPlayAs" comment="Lets you select either black, white, or random colour.">Úgy játszol, mint</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Küldd el ezt a linket annak, akivel játszani szeretnél</string>
   <string name="gameOver">Játszma vége</string>
   <string name="waitingForOpponent">Várakozás az ellenfélre</string>
@@ -345,7 +345,7 @@
     <item quantity="other">%s folyamatban</item>
   </plurals>
   <string name="exportGames">Játszmák exportálása</string>
-  <string name="ratingFilter">Értékszámszűrő</string>
+  <string name="ratingFilter" comment="Appears in the menu to create a lobby game. Lets you filter the ratings of players that your game will be displayed to (from -500 to +500 relative to your own rating)">Értékszámszűrő</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Adj %s másodpercet</item>
     <item quantity="other">Adj %s másodpercet</item>
@@ -831,7 +831,7 @@ Jelszavad megváltoztatásához kattints az üzenetben lévő linkre.</string>
   <string name="notifications">Értesítések</string>
   <string name="notificationsX">Értesítések: %1$s</string>
   <string name="perfRatingX">Pontszám: %s</string>
-  <string name="yourRatingIsX">Értékszámod %s</string>
+  <string name="yourRatingIsX" comment="%s is your rating points, followed by the rating category. Lichess displays the rating category so players know what rating of their (e.g. bullet, blitz, classical) will be used to match with other players - and potentially affected if the game is rated.&#10;&#10;Appears on the modals to create a game, on the home page.">Értékszámod %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s másodperc a kezdőlépés megtételére</item>
     <item quantity="other">%s másodperc a kezdőlépés megtételére</item>
@@ -883,7 +883,7 @@ Jelszavad megváltoztatásához kattints az üzenetben lévő linkre.</string>
   <string name="playVariationToCreateConditionalPremoves">Egy változat megjátszásával, hozzáadható feltételes előre megadott lépés</string>
   <string name="noConditionalPremoves">Nincs feltételes előre megadott lépés</string>
   <string name="playX">%s megjátszása</string>
-  <string name="challengeX">Kihívás %s</string>
+  <string name="challengeX" comment="%s is a player's username.&#10;&#10;Challenge is used as a verb here, as this will only appear on buttons.">Kihívás %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">és %s változat mentése</item>
     <item quantity="other">és %s változat mentése</item>
