@@ -124,30 +124,22 @@ $c-bg-position-y: 2px;
           transform: translateX(6px) scaleX(-0.95) skewX(7deg) rotate(-3deg);
         }
         transition: all 0.15s ease-out;
-        &.vehicle3::before {
+        &::before {
           content: 'A';
           position: absolute;
-          left: -0.1em;
           bottom: 0.3em;
           font-size: 0.4em;
           animation: boost 0.1s ease-in infinite;
         }
+        &.vehicle3::before {
+          left: -0.1em;
+        }
         &.vehicle2::before {
-          content: 'A';
-          position: absolute;
           left: -0.6em;
-          bottom: 0.3em;
-          font-size: 0.4em;
-          animation: boost 0.1s ease-in infinite;
         }
         &.vehicle0::before,
         &.vehicle1::before {
-          content: 'A';
-          position: absolute;
           left: -0.9em;
-          bottom: 0.3em;
-          font-size: 0.4em;
-          animation: boost 0.1s ease-in infinite;
         }
       }
     }
