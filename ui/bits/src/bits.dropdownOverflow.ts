@@ -143,27 +143,13 @@ function renderMenu(container: HTMLElement): void {
     const closeListener = (e: Event) => dropdownDiv.contains(e.target as Node) || showDropdownWindow(false);
 
     const showDropdownWindow = (show?: boolean) => {
-      if (site.blindMode || !isTouchDevice()) return;
       if (show ?? !dropdownDiv.classList.contains('visible'))
         document.addEventListener('click', closeListener);
       else document.removeEventListener('click', closeListener);
       dropdownDiv.classList.toggle('visible', show);
     };
 
-    dropdownDiv.onclick = () => showDropdownWindow();
-    dropdownDiv.onkeydown = event => {
-      if (event.key === 'Enter') {
-        showDropdownWindow();
-      }
-    };
-
-    dropdownWindow.addEventListener('focusout', () => {
-      setTimeout(() => {
-        if (!dropdownWindow.contains(document.activeElement)) {
-          dropdownWindow.style.visibility = 'hidden';
-        }
-      }, 0);
-    });
+    if (isTouchDevice() && !site.blindMode) dropdownDiv.onclick = () => showDropdownWindow();
 
     for (let i = displayedItemCount; i < items.length; i++) {
       const button = createMenuButton('text', items[i]);

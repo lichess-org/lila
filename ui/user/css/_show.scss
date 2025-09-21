@@ -135,7 +135,8 @@
             color: $c-over;
           }
         }
-        .dropdown:hover .dropdown-window {
+        .dropdown:hover .dropdown-window,
+        .dropdown:focus-within .dropdown-window {
           visibility: visible;
         }
       }
