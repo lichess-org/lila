@@ -20,7 +20,7 @@ export const renderRace = (ctrl: RacerCtrl) => {
   const tracks: VNodes = [];
   players.forEach((p, i) => {
     const isMe = p.name === myName;
-    const track = renderTrack(relative, isMe, bestScore, ctrl.boost, p, i, ctrl.cars[i]);
+    const track = renderTrack(relative, isMe, bestScore, ctrl.boost, p, i, ctrl.vehicle[i]);
     if (isMe) tracks.unshift(track);
     else tracks.push(track);
   });
