@@ -38,12 +38,12 @@ Mindkettőre szükséged van!</string>
   <string name="kingComplete">Most már parancsolhatsz a parancsnoknak!</string>
   <string name="theKnight">A huszár</string>
   <string name="itMovesInAnLShape">L alakban mozog</string>
-  <string name="knightIntro">Itt van a kihívásod. A huszár egy trükkös figura.</string>
+  <string name="knightIntro">Itt egy feladat számodra. A huszár trükkös figura.</string>
   <string name="knightsHaveAFancyWay">A huszárok különös módon
 ugrálnak a táblán!</string>
   <string name="knightsCanJumpOverObstacles">A huszárok átugorhatják az akadályokat!
 Menekülj és szerezd meg a csillagokat!</string>
-  <string name="knightComplete">Gratulálunk! Most már a huszár mestere vagy!</string>
+  <string name="knightComplete">Gratulálunk! Most már a huszár mozgásának mestere vagy.</string>
   <string name="thePawn">A gyalog</string>
   <string name="itMovesForwardOnly">Csak előre tud lépni</string>
   <string name="pawnIntro">A gyalogok gyengék, de nagy lehetőséget rejtenek.</string>
@@ -55,7 +55,7 @@ De néha egy huszár is jól jöhet!</string>
 de átlósan ütnek!</string>
   <string name="captureThenPromote">Üsd le az ellenfelet, aztán változtasd át a gyalogodat!</string>
   <string name="useAllThePawns">Használd az összes gyalogot!
-Nem kell átalakulni.</string>
+Nem kell átváltoztatni őket.</string>
   <string name="aPawnOnTheSecondRank">A második sorban levő gyalogok kettőt is léphetnek!</string>
   <string name="grabAllTheStarsNoNeedToPromote">Szedd fel az összes csillagot!
 Nem kell átváltoztatni.</string>
