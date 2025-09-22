@@ -26,7 +26,7 @@ final class ChallengeKeepAliveStream(api: ChallengeApi)(using
             yield queue.complete()
 
           val subPositive = Bus.sub[PositiveEvent]:
-            case PositiveEvent.Accept(c, _) if c.id == challenge.id => completeWith("accepted")
+            case PositiveEvent.Accept(c, _, _) if c.id == challenge.id => completeWith("accepted")
 
           val subNegative = Bus.sub[NegativeEvent]:
             case NegativeEvent.Decline(c) if c.id == challenge.id => completeWith("declined")

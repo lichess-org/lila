@@ -159,7 +159,7 @@ final class ChallengeApi(
                 for _ <- repo.accept(c)
                 yield
                   uncacheAndNotify(c)
-                  Bus.pub(PositiveEvent.Accept(c, me.map(_.id)))
+                  Bus.pub(PositiveEvent.Accept(c, pov.game, me.map(_.id)))
                   c.rematchOf.foreach: gameId =>
                     Bus.pub(lila.game.actorApi.NotifyRematch(gameId, pov.game))
                   pov.some
