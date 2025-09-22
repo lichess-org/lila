@@ -25,9 +25,9 @@ Berserk nur donas ekstran punkton se vi ludas almenaŭ 7 movojn en la ludo.</str
   <string name="howIsTheWinnerDecided">Kiel decidas la venkanto?</string>
   <string name="howIsTheWinnerDecidedAnswer">La ludanto(j) kun plej multaj poentoj ĉe la konkludo de la tempo de la turniro de la turniro estos anoncita venkanto(j).</string>
   <string name="howDoesPairingWork">Kiel funkcias la kuniĝo?</string>
-  <string name="howDoesPairingWorkAnswer">Al la komenco de la turniro, ludantoj estas parigitaj laŭ ilia rango.
-Tuj kiam vi finos ludon, revenu al la turniro de la turniro: vi tiam parolos kun ludanto proksima al via ranking. Ĉi tio certigas minimuman atendi tempon, tamen vi eble ne alfrontos ĉiujn aliajn ludantojn en la turniro.
-Ludu rapide kaj revenu al la vestiblo por ludi pli da ludoj kaj venki pli da punktoj.</string>
+  <string name="howDoesPairingWorkAnswer">Komence de la turniro, ludantoj estas parigitaj laŭ ilia rango.
+Tuj kiam vi finos ludon, revenu al la atendejo de la turniro: vi tiam estos parigita kun ludanto, kies rango estas proksima al la via. Ĉi tio certigas minimuman atendon, tamen vi eble ne alfrontos ĉiujn aliajn ludantojn en la turniro.
+Ludu rapide kaj revenu al la atendejo por ludi pli da ludoj kaj venki pli da poentoj.</string>
   <string name="howDoesItEnd">Kiel finiĝas?</string>
   <string name="howDoesItEndAnswer">La turniro havas kalkuleran horloĝon. Kiam ĝi atingas nulon, la turniroj estas frostigitaj, kaj la gajninto estas anoncita. Ludoj en progreso devas esti finitaj, tamen ili ne kalkulas por la turniro.</string>
   <string name="otherRules">Aliaj gravaj reguloj.</string>
