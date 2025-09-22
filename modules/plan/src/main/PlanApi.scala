@@ -78,11 +78,12 @@ final class PlanApi(
 
   def setColorById(id: Int)(using me: Me): Funit =
     val color = for
-      color <- PatronColor.map.get(id).pp(id)
-      tier <- me.patronTier.pp("tier")
-      if color.selectable(tier).pp("selectable")
+      color <- PatronColor.map.get(id)
+      tier <- me.patronTier
+      if color.selectable(tier)
     yield color
-    userApi.setPlan(me, me.plan.copy(color = color).pp.some)
+    for _ <- userApi.setPlan(me, me.plan.copy(color = color).some)
+    yield lightUserApi.invalidate(me.userId)
 
   object stripe:
 

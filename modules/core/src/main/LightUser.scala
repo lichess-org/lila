@@ -14,7 +14,7 @@ case class LightUser(
     title: Option[PlayerTitle],
     flair: Option[Flair],
     patronMonths: PatronMonths,
-    patronColor: Option[PatronColor] = None
+    patronColor: Option[PatronColor]
 ):
   def titleName: String = title.fold(name.value)(_.value + " " + name)
   def isBot = title.contains(PlayerTitle.BOT)
@@ -27,7 +27,7 @@ object LightUser:
 
   type Ghost = LightUser
 
-  val ghost: Ghost = LightUser(UserId("ghost"), UserName("ghost"), None, None, PatronMonths.zero)
+  val ghost: Ghost = LightUser(UserId("ghost"), UserName("ghost"), None, None, PatronMonths.zero, None)
 
   given UserIdOf[LightUser] = _.id
 
@@ -36,7 +36,8 @@ object LightUser:
     name = name,
     title = None,
     flair = None,
-    patronMonths = PatronMonths.zero
+    patronMonths = PatronMonths.zero,
+    patronColor = None
   )
 
   opaque type Me = LightUser
