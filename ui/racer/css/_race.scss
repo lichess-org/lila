@@ -131,15 +131,17 @@ $c-bg-position-y: 2px;
           font-size: 0.4em;
           animation: boost 0.1s ease-in infinite;
         }
-        &.vehicle3::before {
-          left: -0.1em;
-        }
-        &.vehicle2::before {
-          left: -0.6em;
-        }
-        &.vehicle0::before,
-        &.vehicle1::before {
-          left: -0.9em;
+        $vehicle-boost: (
+          0: -0.9em,
+          1: -0.9em,
+          2: -0.6em,
+          3: -0.1em,
+        );
+
+        @each $index, $left in $vehicle-boost {
+          &.vehicle#{$index}::before {
+            left: #{$left};
+          }
         }
       }
     }
