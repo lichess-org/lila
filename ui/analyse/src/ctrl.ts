@@ -776,12 +776,12 @@ export default class AnalyseCtrl implements CevalHandler {
     return force ? 'force' : enable;
   };
 
-  startCeval = throttle(700, () => {
+  startCeval = () => {
     if (!this.ceval.download) this.ceval.stop();
     if (this.node.threefold || this.outcome() || (!this.cevalEnabled() && !this.ceval.isPaused)) return;
     this.ceval.start(this.path, this.nodeList, undefined, this.threatMode());
     this.evalCache.fetch(this.path, this.ceval.search.multiPv);
-  });
+  };
 
   clearCeval(): void {
     this.tree.removeCeval();
