@@ -5,7 +5,6 @@
   <string name="newBroadcast">Skignañ war-eeun nevez</string>
   <string name="ongoing">O ren</string>
   <string name="upcoming">A-benn nebeut</string>
-  <string name="roundNumber">Niverenn ar batalm</string>
   <string name="fullDescription">Deskrivadur an abadenn a-bezh</string>
   <string name="fullDescriptionHelp">Deskrivadur hir ar skignañ war-eeun ma fell deoc\'h.%1$s zo dijabl. Ne vo ket hiroc\'h evit %2$s sin.</string>
   <string name="sourceUrlHelp">An URL a ray Lichess ganti evit kaout hizivadurioù ar PGN. Ret eo dezhi bezañ digor d\'an holl war Internet.</string>
