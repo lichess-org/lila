@@ -2,7 +2,6 @@
 <resources>
   <string name="gameSetup">Partioppsett</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Utfordre ein ven</string>
-  <string name="playAgainstAI">Spel mot KI</string>
   <string name="gameMode">Spelmodus</string>
   <string name="createLobbyGame">Opprett lobbyparti</string>
   <string name="youPlayAs">Du spelar som</string>
