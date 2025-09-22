@@ -54,7 +54,7 @@ export default function (ctrl: PuzzleCtrl): VNode {
                   attrs: {
                     'data-icon': licon.Bullseye,
                     href: `/analysis/${ctrl.node.fen.replace(/ /g, '_')}?color=${ctrl.pov}#practice`,
-                    title: i18n.site.playAgainstAI,
+                    title: i18n.site.playAgainstComputer,
                     target: '_blank',
                   },
                 })

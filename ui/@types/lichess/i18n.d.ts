@@ -3877,8 +3877,8 @@ interface I18n {
     pieceSet: string;
     /** Play */
     play: string;
-    /** Play against AI */
-    playAgainstAI: string;
+    /** Play against computer */
+    playAgainstComputer: string;
     /** Play chess everywhere */
     playChessEverywhere: string;
     /** Play chess in style */

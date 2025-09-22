@@ -1458,7 +1458,7 @@ object I18nKey:
   object site:
     val `gameSetup`: I18nKey = "gameSetup"
     val `challengeAFriend`: I18nKey = "challengeAFriend"
-    val `playAgainstAI`: I18nKey = "playAgainstAI"
+    val `playAgainstComputer`: I18nKey = "playAgainstComputer"
     val `gameMode`: I18nKey = "gameMode"
     val `createLobbyGame`: I18nKey = "createLobbyGame"
     val `youPlayAs`: I18nKey = "youPlayAs"
