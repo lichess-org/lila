@@ -68,8 +68,8 @@ final class PlanUi(helpers: Helpers)(style: PlanStyle, contactEmail: EmailAddres
             )
           ),
           div(cls := "page-menu__content box")(
-            (patron, ctx.me.filter(_.isPatron)).tupled.match
-              case Some((p, me)) =>
+            (patron, ctx.me, ctx.me.map(_.plan).filter(_.active)).tupled.match
+              case Some((p, me, plan)) =>
                 frag(
                   div(cls := "banner one_time_active")(
                     iconTag(patronIconChar),
@@ -87,7 +87,7 @@ final class PlanUi(helpers: Helpers)(style: PlanStyle, contactEmail: EmailAddres
                     iconTag(patronIconChar)
                   ),
                   me.patronAndColor.map: p =>
-                    div(cls := "box__pad")(style.selector(p))
+                    div(cls := "box__pad")(style.selector(plan, p)(using me))
                 )
               case None =>
                 div(cls := "banner moto")(

@@ -1,59 +1,66 @@
+@import '../../../lib/css/abstract/patron-colors';
+
 .patron-style-selector {
-  margin: 2em 0;
+  @extend %flex-column;
+  gap: 3em;
+  border-bottom: $border;
+  padding-bottom: 4em;
+  margin: 5em 0;
 }
 .pss__colors {
-  @extend %flex-wrap;
-  gap: 1.5em;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  grid-gap: 1em;
 }
 .pss__color {
   @extend %box-neat, %flex-column;
-  flex: 0 0 auto;
+  justify-content: space-between;
+  overflow: hidden;
   background: $c-bg-high;
-  padding: 2.5em;
   border: $border;
-  cursor: pointer;
 
   .line {
-    font-size: 3em;
+    font-size: 2.8em;
+    margin: 1.5rem 0.5rem;
   }
 
-  transition: 0.3s;
-  &:hover {
-    background: $c-bg-zebra;
+  &--selectable {
+    cursor: pointer;
+    &:hover {
+      background: $c-bg-zebra;
+    }
+  }
+  &:disabled {
+    cursor: not-allowed;
   }
   &--active {
-    border-width: 5px;
-    border-radius: 50%;
+    border-width: 3px 3px 1px 3px;
+    border-radius: 15px 15px 6px 6px;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
   }
 
-  &--1 {
-    border-color: var(--c-paco1);
+  &__tier-name {
+    @extend %nowrap-hidden;
+    text-align: center;
+    text-transform: uppercase;
+    padding: 0.5em;
+    font-weight: bold;
+    .pss__color--selectable & {
+      color: $c-over;
+      text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
+    }
   }
-  &--2 {
-    border-color: var(--c-paco2);
-  }
-  &--3 {
-    border-color: var(--c-paco3);
-  }
-  &--4 {
-    border-color: var(--c-paco4);
-  }
-  &--5 {
-    border-color: var(--c-paco5);
-  }
-  &--6 {
-    border-color: var(--c-paco6);
-  }
-  &--7 {
-    border-color: var(--c-paco7);
-  }
-  &--8 {
-    border-color: var(--c-paco8);
-  }
-  &--9 {
-    border-color: var(--c-paco9);
-  }
-  &--10 {
-    border-color: var(--c-paco10);
+
+  @each $id in $patron-colors-ids {
+    &--#{$id}.pss__color--selectable {
+      border-color: var(--c-paco#{$id});
+      box-shadow: 0 0 9px transparentize(map-get($patron-colors-dark, $id), 0.5);
+      &.pss__color--active {
+        box-shadow: 0 0 23px map-get($patron-colors-dark, $id);
+      }
+      .pss__color__tier-name {
+        background-color: var(--c-paco#{$id});
+      }
+    }
   }
 }

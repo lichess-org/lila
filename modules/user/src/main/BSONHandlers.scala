@@ -58,13 +58,15 @@ object BSONHandlers:
       months = r.int("months"),
       active = r.bool("active"),
       lifetime = r.boolD("lifetime"),
-      since = r.dateO("since")
+      since = r.dateO("since"),
+      color = r.intO("color").flatMap(PatronColor.map.get)
     )
     def writes(w: BSON.Writer, o: Plan) = $doc(
       "months" -> w.int(o.months),
       "active" -> o.active,
       "lifetime" -> w.boolO(o.lifetime),
-      "since" -> o.since
+      "since" -> o.since,
+      "color" -> o.color
     )
 
   private[user] given BSONDocumentHandler[Count] = new BSON[Count]:

@@ -13,6 +13,7 @@ import lila.core.LightUser
 import lila.db.paginator.Adapter
 import lila.ui.Context
 import lila.core.config.BaseUrl
+import lila.core.plan.PatronColor
 
 final class PlanApi(
     stripeClient: StripeClient,
@@ -74,6 +75,14 @@ final class PlanApi(
             .flatMap:
               case None => fuccess(false)
               case Some(sub) => payPalClient.cancelSubscription(sub) >> onCancel
+
+  def setColorById(id: Int)(using me: Me): Funit =
+    val color = for
+      color <- PatronColor.map.get(id).pp(id)
+      tier <- me.patronTier.pp("tier")
+      if color.selectable(tier).pp("selectable")
+    yield color
+    userApi.setPlan(me, me.plan.copy(color = color).pp.some)
 
   object stripe:
 

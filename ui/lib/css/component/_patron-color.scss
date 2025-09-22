@@ -1,30 +1,7 @@
-.paco1 {
-  color: var(--c-paco1) !important;
-}
-.paco2 {
-  color: var(--c-paco2) !important;
-}
-.paco3 {
-  color: var(--c-paco3) !important;
-}
-.paco4 {
-  color: var(--c-paco4) !important;
-}
-.paco5 {
-  color: var(--c-paco5) !important;
-}
-.paco6 {
-  color: var(--c-paco6) !important;
-}
-.paco7 {
-  color: var(--c-paco7) !important;
-}
-.paco8 {
-  color: var(--c-paco8) !important;
-}
-.paco9 {
-  color: var(--c-paco9) !important;
-}
-.paco10 {
-  color: var(--c-paco10) !important;
+@import '../../../lib/css/abstract/patron-colors';
+
+@each $id in $patron-colors-ids {
+  .paco#{$id} {
+    color: var(--c-paco#{$id}) !important;
+  }
 }
