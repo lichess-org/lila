@@ -143,7 +143,6 @@ object I18nKey:
     val `ongoing`: I18nKey = "broadcast:ongoing"
     val `upcoming`: I18nKey = "broadcast:upcoming"
     val `roundName`: I18nKey = "broadcast:roundName"
-    val `roundNumber`: I18nKey = "broadcast:roundNumber"
     val `tournamentName`: I18nKey = "broadcast:tournamentName"
     val `tournamentDescription`: I18nKey = "broadcast:tournamentDescription"
     val `fullDescription`: I18nKey = "broadcast:fullDescription"
