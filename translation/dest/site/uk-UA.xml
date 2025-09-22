@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="gameSetup" comment="Title of the modal on the various screens that let you create a game (e.g. a public lobby game, challenging a friend, playing against the computer...)">Налаштування гри</string>
-  <string name="challengeAFriend" comment="Please be mindful of how 'friend' translates in gendered languages. Look for a more neutral term if there's an issue, or base your translation on a different phrase like 'Invite to a game'.&#10;&#10;Keep it short and convey the button's meaning without causing offense.">Кинути виклик другові</string>
-  <string name="playAgainstAI">Зіграти проти ШІ</string>
-  <string name="gameMode" comment="A segmented selection when creating a game, allowing you to pick either 'Casual' (not rated) or 'Rated' (meaning your rating points could change).">Режим гри</string>
-  <string name="createLobbyGame" comment="Creates a game for the home page's lobby.&#10;Please try to use the same language that you use for 'Lobby' tab at the top.">Створити ігрове лобі</string>
-  <string name="youPlayAs" comment="Lets you select either black, white, or random colour.">Ви граєте за</string>
+  <string name="gameSetup">Налаштування гри</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Кинути виклик другові</string>
+  <string name="gameMode">Режим гри</string>
+  <string name="createLobbyGame">Створити ігрове лобі</string>
+  <string name="youPlayAs">Ви граєте за</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Щоб запросити когось до гри, дайте це посилання</string>
   <string name="gameOver">Гру завершено</string>
   <string name="waitingForOpponent">Очікування на суперника</string>
@@ -391,7 +390,7 @@
     <item quantity="other">%s грають</item>
   </plurals>
   <string name="exportGames">Експортувати ігри</string>
-  <string name="ratingFilter" comment="Appears in the menu to create a lobby game. Lets you filter the ratings of players that your game will be displayed to (from -500 to +500 relative to your own rating)">Фільтр рейтингу</string>
+  <string name="ratingFilter">Фільтр рейтингу</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Додати %s секунду</item>
     <item quantity="few">Додати %s секунди</item>
@@ -914,7 +913,7 @@
   <string name="notifications">Сповіщення</string>
   <string name="notificationsX">Сповіщення: %1$s</string>
   <string name="perfRatingX">Рейтинг: %s</string>
-  <string name="yourRatingIsX" comment="%s is your rating points, followed by the rating category. Lichess displays the rating category so players know what rating of their (e.g. bullet, blitz, classical) will be used to match with other players - and potentially affected if the game is rated.&#10;&#10;Appears on the modals to create a game, on the home page.">Ваш рейтинг — %s</string>
+  <string name="yourRatingIsX">Ваш рейтинг — %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s секунда на перший хід</item>
     <item quantity="few">%s секунди на перший хід</item>
@@ -970,7 +969,7 @@
   <string name="playVariationToCreateConditionalPremoves">Виконайте ходи на шахівниці, щоб встановити умовні ходи на випередження</string>
   <string name="noConditionalPremoves">Безумовні ходи на випередження</string>
   <string name="playX">Зіграти %s</string>
-  <string name="challengeX" comment="%s is a player's username.&#10;&#10;Challenge is used as a verb here, as this will only appear on buttons.">Кинути виклик %s</string>
+  <string name="challengeX">Кинути виклик %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">і зберегти %s послідовність</item>
     <item quantity="few">і зберегти %s послідовності</item>
