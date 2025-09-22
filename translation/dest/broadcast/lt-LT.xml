@@ -25,7 +25,6 @@
   <string name="ongoing">Vykstančios</string>
   <string name="upcoming">Artėjančios</string>
   <string name="roundName">Raundo pavadinimas</string>
-  <string name="roundNumber">Raundo numeris</string>
   <string name="tournamentName">Turnyro pavadinimas</string>
   <string name="tournamentDescription">Trumpas turnyro aprašymas</string>
   <string name="fullDescription">Pilnas renginio aprašymas</string>
