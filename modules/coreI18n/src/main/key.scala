@@ -143,7 +143,6 @@ object I18nKey:
     val `ongoing`: I18nKey = "broadcast:ongoing"
     val `upcoming`: I18nKey = "broadcast:upcoming"
     val `roundName`: I18nKey = "broadcast:roundName"
-    val `roundNumber`: I18nKey = "broadcast:roundNumber"
     val `tournamentName`: I18nKey = "broadcast:tournamentName"
     val `tournamentDescription`: I18nKey = "broadcast:tournamentDescription"
     val `fullDescription`: I18nKey = "broadcast:fullDescription"
@@ -1459,7 +1458,7 @@ object I18nKey:
   object site:
     val `gameSetup`: I18nKey = "gameSetup"
     val `challengeAFriend`: I18nKey = "challengeAFriend"
-    val `playAgainstAI`: I18nKey = "playAgainstAI"
+    val `playAgainstComputer`: I18nKey = "playAgainstComputer"
     val `gameMode`: I18nKey = "gameMode"
     val `createLobbyGame`: I18nKey = "createLobbyGame"
     val `youPlayAs`: I18nKey = "youPlayAs"

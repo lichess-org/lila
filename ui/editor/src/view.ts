@@ -259,7 +259,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
             h(
               'a.button',
               { attrs: { href: '/?fen=' + state.legalFen + '#ai', rel: 'nofollow' } },
-              i18n.site.playAgainstAI,
+              i18n.site.playAgainstComputer,
             ),
             h(
               'a.button',

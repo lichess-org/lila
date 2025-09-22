@@ -17,7 +17,7 @@ export default function setupModal(ctrl: LobbyController): VNode | null {
   const buttonText = {
     hook: i18n.site.createLobbyGame,
     friend: setupCtrl.friendUser ? i18n.site.challengeX(setupCtrl.friendUser) : i18n.site.challengeAFriend,
-    ai: i18n.site.playAgainstAI,
+    ai: i18n.site.playAgainstComputer,
   }[setupCtrl.gameType];
   const disabled = !setupCtrl.valid();
   return snabDialog({
