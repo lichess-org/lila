@@ -7,6 +7,7 @@ import lila.common.HTTPRequest
 import lila.core.net.Crawler
 import lila.opening.OpeningQuery.queryFromUrl
 import lila.opening.OpeningAccessControl
+import lila.security.UserAgentParser
 
 final class Opening(env: Env) extends LilaController(env):
 
@@ -35,7 +36,11 @@ final class Opening(env: Env) extends LilaController(env):
       val crawler = HTTPRequest.isCrawler(ctx.req)
       if moves.sizeIs > 10 && crawler.yes then Forbidden
       else
-        openingRateLimit(rateLimited):
+        val cost =
+          if ctx.isAuth then 1
+          else if UserAgentParser.trust.isSuspicious(req.userAgent) then 5
+          else 2
+        openingRateLimit(rateLimited, cost = cost):
           env.opening.api
             .lookup(queryFromUrl(key, moves.some), isGrantedOpt(_.OpeningWiki), crawler)
             .flatMap:

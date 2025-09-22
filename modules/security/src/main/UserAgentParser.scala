@@ -67,4 +67,6 @@ object UserAgentParser:
 
     private def isLichobile(ua: UA) = ua.value.contains("Lichobile/")
 
-    private def isLM(ua: UA) = ua.value.startsWith("LM/0.1")
+    private def isLM(ua: UA) =
+      // stored UA in oauth security document compresses `Lichess Mobile/` into `LM/`
+      ua.value.startsWith("LM/") || HTTPRequest.isLichessMobile(ua)
