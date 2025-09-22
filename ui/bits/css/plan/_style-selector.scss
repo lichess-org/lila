@@ -1,5 +1,12 @@
 @import '../../../lib/css/abstract/patron-colors';
 
+@mixin dynamic-text-gradient($base-color) {
+  background: linear-gradient(65deg, $base-color 35%, lighten($base-color, 25%) 50%, $base-color 60%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
 .patron-style-selector {
   @extend %flex-column;
   gap: 3em;
@@ -26,6 +33,7 @@
 
   &--selectable {
     cursor: pointer;
+    @include transition();
     &:hover {
       background: $c-bg-zebra;
     }
@@ -34,17 +42,21 @@
     cursor: not-allowed;
   }
   &--active {
-    border-width: 3px 3px 1px 3px;
-    border-radius: 15px 15px 6px 6px;
+    border-width: 5px 5px 1px 5px;
+    border-radius: 10px 10px 6px 6px;
     box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+    i {
+      transform: translateY(-4px);
+    }
   }
 
   &__tier-name {
-    @extend %nowrap-hidden;
+    @extend %nowrap-hidden, %roboto;
+    font-size: 0.9em;
+    font-weight: bold;
     text-align: center;
     text-transform: uppercase;
     padding: 0.5em;
-    font-weight: bold;
     .pss__color--selectable & {
       color: $c-over;
       text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
@@ -54,12 +66,18 @@
   @each $id in $patron-colors-ids {
     &--#{$id}.pss__color--selectable {
       border-color: var(--c-paco#{$id});
-      box-shadow: 0 0 9px transparentize(map-get($patron-colors-dark, $id), 0.5);
+      box-shadow: 0 0 9px transparentize(map-get($patron-colors-dark, $id), 0.7);
+      &:hover {
+        box-shadow: 0 0 14px transparentize(map-get($patron-colors-dark, $id), 0.3);
+      }
       &.pss__color--active {
         box-shadow: 0 0 23px map-get($patron-colors-dark, $id);
       }
       .pss__color__tier-name {
         background-color: var(--c-paco#{$id});
+      }
+      i::before {
+        @include dynamic-text-gradient(map-get($patron-colors-dark, $id));
       }
     }
   }
