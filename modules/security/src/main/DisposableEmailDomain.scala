@@ -148,6 +148,7 @@ private object DisposableEmailDomain:
       "protonmail.ch",
       "pm.me",
       "proton.me",
+      "passfwd.com", // proton.me
       "btopenworld.com",
       /* Other global domains */
       "email.com",
