@@ -138,6 +138,15 @@
       overflow: visible;
     }
 
+    @media (min-width: at-least($large)) {
+      group div:first-child label {
+        border-radius: $box-radius-size 0 0 $box-radius-size;
+      }
+      group div:last-child label {
+        border-radius: 0 $box-radius-size $box-radius-size 0;
+      }
+    }
+
     group input:checked + label,
     .amount_fixed label,
     .lifetime-check + label {
