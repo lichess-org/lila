@@ -67,8 +67,8 @@
   <string name="showThreat">Покажи претњу</string>
   <string name="inLocalBrowser">у локалном претраживачу</string>
   <string name="toggleLocalEvaluation">Укључи/искључи локалну процену</string>
-  <string name="promoteVariation">Промовишите варијацију</string>
-  <string name="makeMainLine">Направи као главну линију</string>
+  <string name="promoteVariation">Промовиши варијацију</string>
+  <string name="makeMainLine">Направи главном линијом</string>
   <string name="deleteFromHere">Избриши одавде</string>
   <string name="collapseVariations">Скупи варијације</string>
   <string name="expandVariations">Рашири варијације</string>
@@ -282,7 +282,7 @@
   <string name="accept">Прихвати</string>
   <string name="decline">Одбиј</string>
   <string name="playingRightNow">Тренутно се игра</string>
-  <string name="eventInProgress">Управо игра</string>
+  <string name="eventInProgress">Управо се одиграва</string>
   <string name="finished">Завршено</string>
   <string name="abortGame">Прекини партију</string>
   <string name="gameAborted">Партија прекинута</string>
@@ -292,8 +292,8 @@
   <string name="mode">Тип</string>
   <string name="casual">Нерангирана</string>
   <string name="rated">Рангирана</string>
-  <string name="casualTournament">Неформално</string>
-  <string name="ratedTournament">Рангирано</string>
+  <string name="casualTournament">Нерангирани</string>
+  <string name="ratedTournament">Рангирани</string>
   <string name="thisGameIsRated">Ова партија се рангира</string>
   <string name="rematch">Реванш</string>
   <string name="rematchOfferSent">Понуда за реванш послата</string>
@@ -364,9 +364,9 @@
   <string name="tournaments">Турнири</string>
   <string name="tournamentPoints">Бодови са турнира</string>
   <plurals name="nbTournamentPoints">
-    <item quantity="one">%s поен на турнирима</item>
-    <item quantity="few">%s поена на турнирима</item>
-    <item quantity="other">%s поена на турнирима</item>
+    <item quantity="one">%s турнирски бод</item>
+    <item quantity="few">%s турнирска бода</item>
+    <item quantity="other">%s турнириских бодова</item>
   </plurals>
   <plurals name="nbStudies">
     <item quantity="one">%s студија</item>
@@ -834,9 +834,9 @@
   <string name="notificationsX">Нотификација: %1$s</string>
   <string name="perfRatingX">Рејтинг: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
-    <item quantity="one">%s секунд да одиграте први потез</item>
-    <item quantity="few">%s секунде да одиграте први потез</item>
-    <item quantity="other">%s секунди да одиграте први потез</item>
+    <item quantity="one">%s секунд да се одигра први потез</item>
+    <item quantity="few">%s секунде да се одигра први потез</item>
+    <item quantity="other">%s секунди да се одигра први потез</item>
   </plurals>
   <string name="practiceWithComputer">Вежбај са рачунаром</string>
   <string name="anotherWasX">Још један је био %s</string>
@@ -853,7 +853,7 @@
   <string name="whiteWinsGame">Бели побеђује</string>
   <string name="blackWinsGame">Црни побеђује</string>
   <string name="learnFromYourMistakes">Научи из својих грешака</string>
-  <string name="learnFromThisMistake">Научите из ове грешке</string>
+  <string name="learnFromThisMistake">Научи из ове грешке</string>
   <string name="skipThisMove">Прескочи овај потез</string>
   <string name="next">Следеће</string>
   <string name="xWasPlayed">%s је био одигран</string>
