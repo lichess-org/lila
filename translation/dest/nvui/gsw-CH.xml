@@ -17,6 +17,7 @@
   <string name="announcePossibleMoves">Zeig die mögliche Züg, für die g\'wählt Figur.</string>
   <string name="announcePossibleCaptures">Zeig möglichi Schlagzüg mit de g\'wählte Figur.</string>
   <string name="moveWithArrows">Zieh is benachbarti Fäld links, rächts, obe oder unne.</string>
+  <string name="moveToPieceByType">Zieh zu Fälder mit Figurenäme. z.B.: Es wiederholts k gaht zu jedem Schpringer-Fäld. Mit em Grossbuechstabe cheersch d\'Reihefolg um.</string>
   <string name="king">König</string>
   <string name="whiteKing">wisse König</string>
   <string name="blackKing">schwarze König</string>
