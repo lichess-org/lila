@@ -1,3 +1,11 @@
+@import '../../../lib/css/abstract/patron-colors';
+
+@each $id in $patron-colors-ids {
+  .user-link.online .paco#{$id} {
+    color: var(--c-paco#{$id}) !important;
+  }
+}
+
 .user-link {
   @extend %nowrap-hidden;
 
@@ -25,9 +33,8 @@
     text-align: center;
     vertical-align: text-top;
 
-    /* not sure about that */
     &.patron {
-      opacity: 0.8;
+      opacity: 0.7;
 
       @include if-rtl {
         transform: scaleX(-1);

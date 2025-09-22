@@ -1,7 +1,0 @@
-@import '../../../lib/css/abstract/patron-colors';
-
-@each $id in $patron-colors-ids {
-  .paco#{$id} {
-    color: var(--c-paco#{$id}) !important;
-  }
-}
