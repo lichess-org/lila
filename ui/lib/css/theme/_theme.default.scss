@@ -42,6 +42,17 @@ $c-clearer: #fff;
 $c-mv-branch-white: #fff;
 $c-mv-branch-black: #000;
 
+$c-paco1: hsl(90, 52%, 57%);
+$c-paco2: hsl(120, 32%, 62%);
+$c-paco3: hsl(151.9, 62%, 62%);
+$c-paco4: hsl(190, 52%, 57%);
+$c-paco5: hsl(207, 63%, 66%);
+$c-paco6: hsl(220, 62%, 67%);
+$c-paco7: hsl(270, 72%, 73%);
+$c-paco8: hsl(310, 52%, 67%);
+$c-paco9: hsl(0, 52%, 65%);
+$c-paco10: hsl(37, 74%, 43%);
+
 // shared-color-defs lists theme colors that share definitions. the assigned values usually depend on
 // sass variables from the including scope and can differ between themes.
 
@@ -130,4 +141,15 @@ $c-mv-branch-black: #000;
   --c-mv-branch-black: #{$c-mv-branch-black};
   --c-pool-button: #{hsla($site-hue, 7%, 19%, 66%)};
   --c-paper: #{$c-paper};
+
+  --c-paco1: #{$c-paco1};
+  --c-paco2: #{$c-paco2};
+  --c-paco3: #{$c-paco3};
+  --c-paco4: #{$c-paco4};
+  --c-paco5: #{$c-paco5};
+  --c-paco6: #{$c-paco6};
+  --c-paco7: #{$c-paco7};
+  --c-paco8: #{$c-paco8};
+  --c-paco9: #{$c-paco9};
+  --c-paco10: #{$c-paco10};
 }

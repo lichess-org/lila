@@ -31,7 +31,8 @@ enum PatronColor(val id: Int):
   case color8 extends PatronColor(8)
   case color9 extends PatronColor(9)
   case color10 extends PatronColor(10)
-  def cssClass = s"paco-$id"
+  def cssClass = s"paco$id"
+  def selectable(tier: PatronTier) = id <= tier.color.id
 
 object PatronColor:
   val map: Map[Int, PatronColor] = values.mapBy(_.id)
@@ -55,6 +56,9 @@ object PatronTier:
 
   def apply(months: PatronMonths): Option[PatronTier] =
     reverseValues.find(_.months <= months.value)
+
+  def byColor(color: PatronColor): PatronTier =
+    values.find(_.color == color).getOrElse(Months1)
 
   case class AndColor(tier: PatronTier, custom: Option[PatronColor]):
     def color = custom | tier.color

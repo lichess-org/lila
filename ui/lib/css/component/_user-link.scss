@@ -3,28 +3,6 @@
 
   color: $c-font;
 
-  $c-dark-color1: hsl(90, 52%, 57%);
-  $c-dark-color2: hsl(120, 32%, 62%);
-  $c-dark-color3: hsl(151.9, 62%, 62%);
-  $c-dark-color4: hsl(190, 52%, 57%);
-  $c-dark-color5: hsl(207, 63%, 66%);
-  $c-dark-color6: hsl(220, 62%, 67%);
-  $c-dark-color7: hsl(270, 72%, 73%);
-  $c-dark-color8: hsl(310, 52%, 67%);
-  $c-dark-color9: hsl(0, 52%, 65%);
-  $c-dark-color10: hsl(37, 74%, 43%);
-
-  $c-light-color1: hsl(90, 60%, 43%);
-  $c-light-color2: hsl(120, 52%, 52%);
-  $c-light-color3: hsl(162.9, 65%, 44%);
-  $c-light-color4: hsl(190, 57%, 48%);
-  $c-light-color5: hsl(207, 78%, 49%);
-  $c-light-color6: hsl(220, 60%, 57%);
-  $c-light-color7: hsl(270, 62%, 67%);
-  $c-light-color8: hsl(310, 56%, 57%);
-  $c-light-color9: hsl(0, 52%, 60%);
-  $c-light-color10: hsl(37, 74%, 43%);
-
   &.online .line {
     &::before {
       content: $licon-Disc;
@@ -34,71 +12,6 @@
     color: $c-good;
     &.patron {
       opacity: 1;
-
-      &.paco1 {
-        color: $c-dark-color1;
-      }
-      &.paco2 {
-        color: $c-dark-color2;
-      }
-      &.paco3 {
-        color: $c-dark-color3;
-      }
-      &.paco4 {
-        color: $c-dark-color4;
-      }
-      &.paco5 {
-        color: $c-dark-color5;
-      }
-      &.paco6 {
-        color: $c-dark-color6;
-      }
-      &.paco7 {
-        color: $c-dark-color7;
-      }
-      &.paco8 {
-        color: $c-dark-color8;
-      }
-      &.paco9 {
-        color: $c-dark-color9;
-      }
-      &.paco10,
-      &.lifetime {
-        color: $c-dark-color10;
-      }
-      @include if-light {
-        &.paco1 {
-          color: $c-light-color1;
-        }
-        &.paco2 {
-          color: $c-light-color2;
-        }
-        &.paco3 {
-          color: $c-light-color3;
-        }
-        &.paco4 {
-          color: $c-light-color4;
-        }
-        &.paco5 {
-          color: $c-light-color5;
-        }
-        &.paco6 {
-          color: $c-light-color6;
-        }
-        &.paco7 {
-          color: $c-light-color7;
-        }
-        &.paco8 {
-          color: $c-light-color8;
-        }
-        &.paco9 {
-          color: $c-light-color9;
-        }
-        &.paco10,
-        &.lifetime {
-          color: $c-light-color10;
-        }
-      }
     }
   }
 

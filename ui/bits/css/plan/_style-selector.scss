@@ -1,0 +1,59 @@
+.patron-style-selector {
+  margin: 2em 0;
+}
+.pss__colors {
+  @extend %flex-wrap;
+  gap: 1.5em;
+}
+.pss__color {
+  @extend %box-neat, %flex-column;
+  flex: 0 0 auto;
+  background: $c-bg-high;
+  padding: 2.5em;
+  border: $border;
+  cursor: pointer;
+
+  .line {
+    font-size: 3em;
+  }
+
+  transition: 0.3s;
+  &:hover {
+    background: $c-bg-zebra;
+  }
+  &--active {
+    border-width: 5px;
+    border-radius: 50%;
+  }
+
+  &--1 {
+    border-color: var(--c-paco1);
+  }
+  &--2 {
+    border-color: var(--c-paco2);
+  }
+  &--3 {
+    border-color: var(--c-paco3);
+  }
+  &--4 {
+    border-color: var(--c-paco4);
+  }
+  &--5 {
+    border-color: var(--c-paco5);
+  }
+  &--6 {
+    border-color: var(--c-paco6);
+  }
+  &--7 {
+    border-color: var(--c-paco7);
+  }
+  &--8 {
+    border-color: var(--c-paco8);
+  }
+  &--9 {
+    border-color: var(--c-paco9);
+  }
+  &--10 {
+    border-color: var(--c-paco10);
+  }
+}

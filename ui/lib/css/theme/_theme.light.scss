@@ -30,6 +30,17 @@ $c-border: hsl(0, 0%, 85%);
 $c-dimmer: #fff;
 $c-clearer: #000;
 
+$c-paco1: hsl(90, 60%, 43%);
+$c-paco2: hsl(120, 52%, 52%);
+$c-paco3: hsl(162.9, 65%, 44%);
+$c-paco4: hsl(190, 57%, 48%);
+$c-paco5: hsl(207, 78%, 49%);
+$c-paco6: hsl(220, 60%, 57%);
+$c-paco7: hsl(270, 62%, 67%);
+$c-paco8: hsl(310, 56%, 57%);
+$c-paco9: hsl(0, 52%, 60%);
+$c-paco10: hsl(37, 74%, 43%);
+
 html.light {
   @include shared-color-defs;
 

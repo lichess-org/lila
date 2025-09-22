@@ -86,7 +86,8 @@ final class PlanUi(helpers: Helpers)(style: PlanStyle, contactEmail: EmailAddres
                     ),
                     iconTag(patronIconChar)
                   ),
-                  div(cls := "box__pad")(style.selector(me))
+                  me.patronAndColor.map: p =>
+                    div(cls := "box__pad")(style.selector(p))
                 )
               case None =>
                 div(cls := "banner moto")(
