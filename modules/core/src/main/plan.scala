@@ -20,28 +20,34 @@ object PatronMonths extends OpaqueInt[PatronMonths]:
     def isLifetime: Boolean = tier.contains(PatronTier.Lifetime)
     def tier: Option[PatronTier] = PatronTier(months)
 
-enum PatronStyle:
-  case months1, months2, months3, months6, months9,
-        years1, years2, years3, years4, years5,
-        lifetime
-  def key = toString
-  def cssClass = toString
+enum PatronColor(val id: Int):
+  case color1 extends PatronColor(1)
+  case color2 extends PatronColor(2)
+  case color3 extends PatronColor(3)
+  case color4 extends PatronColor(4)
+  case color5 extends PatronColor(5)
+  case color6 extends PatronColor(6)
+  case color7 extends PatronColor(7)
+  case color8 extends PatronColor(8)
+  case color9 extends PatronColor(9)
+  case color10 extends PatronColor(10)
+  def cssClass = s"paco-$id"
 
-object PatronStyle:
-  val map: Map[String, PatronStyle] = values.mapBy(_.cssClass)
+object PatronColor:
+  val map: Map[Int, PatronColor] = values.mapBy(_.id)
 
-enum PatronTier(val months: Int, val style: PatronStyle, val name: String):
-  case Months1 extends PatronTier(1, PatronStyle.months1, "1 month")
-  case Months2 extends PatronTier(2, PatronStyle.months2, "2 months")
-  case Months3 extends PatronTier(3, PatronStyle.months3, "3 months")
-  case Months6 extends PatronTier(6, PatronStyle.months6, "6 months")
-  case Months9 extends PatronTier(9, PatronStyle.months9, "9 months")
-  case Years1 extends PatronTier(12, PatronStyle.years1, "1 year")
-  case Years2 extends PatronTier(24, PatronStyle.years2, "2 years")
-  case Years3 extends PatronTier(36, PatronStyle.years3, "3 years")
-  case Years4 extends PatronTier(48, PatronStyle.years4, "4 years")
-  case Years5 extends PatronTier(60, PatronStyle.years5, "5 years")
-  case Lifetime extends PatronTier(999, PatronStyle.lifetime, "Lifetime")
+enum PatronTier(val months: Int, val color: PatronColor, val name: String):
+  case Months1 extends PatronTier(1, PatronColor.color1, "1 month")
+  case Months2 extends PatronTier(2, PatronColor.color2, "2 months")
+  case Months3 extends PatronTier(3, PatronColor.color3, "3 months")
+  case Months6 extends PatronTier(6, PatronColor.color4, "6 months")
+  case Months9 extends PatronTier(9, PatronColor.color5, "9 months")
+  case Years1 extends PatronTier(12, PatronColor.color6, "1 year")
+  case Years2 extends PatronTier(24, PatronColor.color7, "2 years")
+  case Years3 extends PatronTier(36, PatronColor.color8, "3 years")
+  case Years4 extends PatronTier(48, PatronColor.color9, "4 years")
+  case Years5 extends PatronTier(60, PatronColor.color10, "5 years")
+  case Lifetime extends PatronTier(999, PatronColor.color10, "Lifetime")
 
 object PatronTier:
 
@@ -50,5 +56,5 @@ object PatronTier:
   def apply(months: PatronMonths): Option[PatronTier] =
     reverseValues.find(_.months <= months.value)
 
-  case class AndStyle(tier: PatronTier, custom: Option[PatronStyle]):
-    def style = custom | tier.style
+  case class AndColor(tier: PatronTier, custom: Option[PatronColor]):
+    def color = custom | tier.color

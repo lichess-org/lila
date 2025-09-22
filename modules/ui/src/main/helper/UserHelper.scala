@@ -63,7 +63,7 @@ trait UserHelper:
         userIdNameLink(
           userId = user.id,
           username = user.name,
-          patron = user.patronAndStyle,
+          patron = user.patronAndColor,
           title = user.title.ifTrue(withTitle),
           flair = if withFlair then user.flair else none,
           cssClass = cssClass,
@@ -85,7 +85,7 @@ trait UserHelper:
     userIdNameLink(
       userId = user.id,
       username = user.name,
-      patron = user.patronAndStyle,
+      patron = user.patronAndColor,
       title = user.title.ifTrue(withTitle),
       flair = user.flair,
       cssClass = cssClass,
@@ -104,7 +104,7 @@ trait UserHelper:
       cls := userClass(user.id, cssClass, withOnline),
       dataHref := userUrl(user.name)
     )(
-      withOnline.so(lineIcon(user.patronAndStyle)),
+      withOnline.so(lineIcon(user.patronAndColor)),
       titleTag(user.title),
       user.name,
       user.flair.map(userFlair)
@@ -157,7 +157,7 @@ trait UserHelper:
   def userIdNameLink(
       userId: UserId,
       username: UserName,
-      patron: Option[PatronTier.AndStyle],
+      patron: Option[PatronTier.AndColor],
       cssClass: Option[String],
       withOnline: Boolean,
       truncate: Option[Int],
@@ -256,16 +256,19 @@ trait UserHelper:
 
   val lineIcon: Frag = i(cls := "line")
 
-  def patronIcon(p: PatronTier.AndStyle)(using Translate): Frag =
-    i(cls := s"line patron ${p.style.cssClass}", title := s"${trans.patron.lichessPatron.txt()} (${p.tier.name})")
+  def patronIcon(p: PatronTier.AndColor)(using Translate): Frag =
+    i(
+      cls := s"line patron ${p.color.cssClass}",
+      title := s"${trans.patron.lichessPatron.txt()} (${p.tier.name})"
+    )
 
   val moderatorIcon: Frag = i(cls := "line moderator", title := "Lichess Mod")
   @targetName("lineIconPatron")
-  private def lineIcon(p: Option[PatronTier.AndStyle])(using Translate): Frag =
+  private def lineIcon(p: Option[PatronTier.AndColor])(using Translate): Frag =
     p.fold(lineIcon)(patronIcon)
   @targetName("lineIconUser")
   private def lineIcon(user: Option[LightUser])(using Translate): Frag =
-    lineIcon(user.flatMap(_.patronAndStyle))
-  def lineIcon(user: LightUser)(using Translate): Frag = lineIcon(user.patronAndStyle)
-  def lineIcon(user: User)(using Translate): Frag = lineIcon(user.patronAndStyle)
+    lineIcon(user.flatMap(_.patronAndColor))
+  def lineIcon(user: LightUser)(using Translate): Frag = lineIcon(user.patronAndColor)
+  def lineIcon(user: User)(using Translate): Frag = lineIcon(user.patronAndColor)
   def lineIconChar(user: User): Icon = if user.isPatron then patronIconChar else lineIconChar

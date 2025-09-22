@@ -56,7 +56,7 @@ object header:
     val showLinks = !possibleSeoBot(u) || isGranted(_.Shadowban)
     frag(
       div(cls := "box__top user-show__header")(
-        u.patronAndStyle.match
+        u.patronAndColor.match
           case Some(p) =>
             h1(cls := s"user-link ${if isOnline.exec(u.id) then "online" else "offline"}")(
               a(href := routes.Plan.index())(patronIcon(p)),

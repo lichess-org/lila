@@ -17,7 +17,7 @@ import lila.core.user.{
 }
 import lila.db.BSON
 import lila.db.dsl.{ *, given }
-import lila.core.plan.PatronStyle
+import lila.core.plan.PatronColor
 
 object BSONFields:
   export lila.core.user.BSONFields.*
@@ -148,9 +148,9 @@ object BSONHandlers:
         marks -> o.marks.value.nonEmpty.option(o.marks)
       )
 
-  given BSONHandler[PatronStyle] = lila.db.dsl.tryHandler[PatronStyle](
-    { case BSONString(v) => PatronStyle.map.get(v).toTry(s"Invalid patron style: $v") },
-    s => BSONString(s.key)
+  given BSONHandler[PatronColor] = lila.db.dsl.tryHandler[PatronColor](
+    { case BSONInteger(id) => PatronColor.map.get(id).toTry(s"Invalid patron color id: $id") },
+    s => BSONInteger(s.id)
   )
 
   // This LightUser handler is only used to store light users in other documents
