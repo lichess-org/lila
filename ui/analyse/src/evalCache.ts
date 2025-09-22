@@ -101,8 +101,6 @@ export default class EvalCache {
     const fetched = this.fetchedByFen.get(node.fen);
     if (fetched) return this.opts.receive(toCeval(fetched), path);
     else if (fetched === awaitingEval) return;
-    // waiting for response
-    else this.fetchedByFen.set(node.fen, awaitingEval); // mark as waiting
     const obj: EvalGetData = {
       fen: node.fen,
       path,
@@ -110,7 +108,7 @@ export default class EvalCache {
     if (this.opts.variant !== 'standard') obj.variant = this.opts.variant;
     if (multiPv > 1) obj.mpv = multiPv;
     if (this.upgradable()) obj.up = true;
-    this.opts.send('evalGet', obj);
+    this.fetchThrottled(obj);
   };
 
   onCloudEval = (ev: EvalHit) => {
@@ -119,4 +117,9 @@ export default class EvalCache {
   };
 
   clear = () => this.fetchedByFen.clear();
+
+  private fetchThrottled = throttle(700, (obj: EvalGetData) => {
+    this.fetchedByFen.set(obj.fen, awaitingEval); // waiting for response
+    this.opts.send('evalGet', obj);
+  });
 }
