@@ -66,6 +66,7 @@ final class LightUserApi(repo: UserRepo, cacheApi: CacheApi)(using Executor)
           yield if lifetime then PatronMonths.lifetime else months
           val patronColor = for
             plan <- planOpt
+            if patronMonths.isDefined
             color <- plan.getAsOpt[Int]("color").flatMap(PatronColor.map.get)
           yield color
           LightUser(
