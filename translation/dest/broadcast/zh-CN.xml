@@ -19,7 +19,6 @@
   <string name="ongoing">进行中</string>
   <string name="upcoming">即将举行</string>
   <string name="roundName">轮次名称</string>
-  <string name="roundNumber">轮数</string>
   <string name="tournamentName">锦标赛名称</string>
   <string name="tournamentDescription">锦标赛简短描述</string>
   <string name="fullDescription">赛事详情</string>
