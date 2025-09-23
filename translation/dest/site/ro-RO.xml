@@ -923,6 +923,7 @@
   <string name="playVariationToCreateConditionalPremoves">Joacă o variație pentru a crea mutări anticipate condiționale</string>
   <string name="noConditionalPremoves">Fără mutări anticipate condiționale</string>
   <string name="playX">Mută %s</string>
+  <string name="challengeX">Provocări: %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">și salvează %s variație cu mutare anticipată</item>
     <item quantity="few">și salvează %s variațiile cu mutare anticipată</item>
