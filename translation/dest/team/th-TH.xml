@@ -54,7 +54,6 @@
   <string name="completedTourns">ทัวร์นาเมนต์ที่เสร็จสมบูรณ์</string>
   <string name="declinedRequests">ปฏิเสธคำขอ</string>
   <string name="joinLichessVariantTeam">เข้าร่วมทีม %s เพื่อดูข่าวและเหตุการณ์สำคัญ</string>
-  <string name="teamPage">หน้าหลักของทีม</string>
   <string name="thisTeamBattleIsOver">ทัวร์นาเมนต์นี้สิ้นสุดแล้ว และไม่สามารถอัปเดตทีมได้อีกต่อไป</string>
   <string name="listTheTeamsThatWillCompete">รายชื่อทีมที่จะเข้าแข่งขันในการดวลครั้งนี้</string>
   <string name="oneTeamPerLine">หนึ่งทีมต่อหนึ่งแถว ใช้ระบบเติมข้อความอัตโนมัติ</string>
