@@ -403,7 +403,7 @@
   <string name="yourPerfRatingIsTooLow">Твој %1$s рејтинг (%2$s) је пренизак</string>
   <string name="ratedMoreThanInPerf">Рејтован ≥ %1$s у %2$s</string>
   <string name="ratedLessThanInPerf">Рејтован ≤ %1$s у %2$s последњих недељу дана</string>
-  <string name="mustBeInTeam">Морате бити у тиму %s</string>
+  <string name="mustBeInTeam">Мораш бити у тиму %s</string>
   <string name="youAreNotInTeam">Ви нисте члан тима %s</string>
   <string name="backToGame">Назад на партију</string>
   <string name="siteDescription">Бесплатан интернетски шах сервер. Играј шах у чистом окружењу. Без регистрације, без реклама, без потребних додатака. Играј шах са рачунаром, пријатељима или насумичним противницима.</string>
@@ -488,8 +488,8 @@
   <string name="conditionOfEntry">Услови за улаз:</string>
   <string name="advancedSettings">Напредна подешавања</string>
   <string name="safeTournamentName">Изабери веома сигурно име за турнир.</string>
-  <string name="inappropriateNameWarning">Било које име које је бар мало неприкладно може да вам затвори налог.</string>
-  <string name="emptyTournamentName">Оставите празно како би назвали турнир по насумично изабраном Велемајстору.</string>
+  <string name="inappropriateNameWarning">Било шта имало неприкладно може довести до затварања твог налога.</string>
+  <string name="emptyTournamentName">Остави празно да би назвао/ла турнир по познатом шаховском играчу.</string>
   <string name="makePrivateTournament">Учини турнир приватним и ограничи приступ са шифром</string>
   <string name="join">Придружи се</string>
   <string name="withdraw">Повуци се</string>
@@ -591,7 +591,7 @@
   <string name="noNoteYet">Још нема никаквих белешки</string>
   <string name="invalidUsernameOrPassword">Неисправно корисничко име или лозинка</string>
   <string name="incorrectPassword">Погрешна лозинка</string>
-  <string name="invalidAuthenticationCode">Неважећи аутентикациони код</string>
+  <string name="invalidAuthenticationCode">Неважећи аутентификациони код</string>
   <string name="emailMeALink">Пошаљи ми имејл са линком</string>
   <string name="currentPassword">Тренутна лозинка</string>
   <string name="newPassword">Нова лозинка</string>
