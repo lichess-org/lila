@@ -25,7 +25,7 @@ export default function (ctrl: TournamentController): VNode | undefined {
       hook: bind('click', () => ctrl.showTeamInfo(data.id), ctrl.redraw),
     }),
     h('div.stats', [
-      h('h2', [teamTag]),
+      h('h2', h('a', { attrs: { href: `/team/${data.id}` } }, teamTag)),
       h('table', [
         numberRow(i18n.site.players, data.nbPlayers),
         ...(data.rating
