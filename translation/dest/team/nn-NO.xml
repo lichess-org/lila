@@ -57,7 +57,6 @@ Spelarar som ikkje er interesserte i å få meldingar kan kome til å forlate gr
   <string name="completedTourns">Avslutta turneringar</string>
   <string name="declinedRequests">Avviste førespurnader</string>
   <string name="joinLichessVariantTeam">Meld deg på det offisielle %s-laget for hendingar og nyhende</string>
-  <string name="teamPage">Lagside</string>
   <string name="thisTeamBattleIsOver">Turneringa er ferdigspela og laga kan ikkje lengre oppdateras.</string>
   <string name="listTheTeamsThatWillCompete">List opp dei laga som skal delta i denne kampen.</string>
   <string name="oneTeamPerLine">Eit lag per linje. Bruk automatisk komplettering.</string>
