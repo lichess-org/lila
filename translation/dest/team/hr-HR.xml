@@ -57,7 +57,6 @@ Igrači koji ne vole primiti vaše poruke bi mogli napustiti tim.</string>
   <string name="completedTourns">Završeni turniri</string>
   <string name="declinedRequests">Odbijeni zahtjevi</string>
   <string name="joinLichessVariantTeam">Pridružite se službenom %s timu za novosti i događaje</string>
-  <string name="teamPage">Stranica tima</string>
   <string name="thisTeamBattleIsOver">Ovaj turnir je završen te ekipe više ne mogu biti ažurirane.</string>
   <string name="listTheTeamsThatWillCompete">Unesi ekipe koje će se natjecati u ovoj bitki.</string>
   <string name="oneTeamPerLine">Jedna ekipa po liniji. Koristite automatsko popunjenje.</string>
