@@ -47,10 +47,10 @@ function whosTurn(ctrl: RoundController, color: Color, position: TopOrBottom) {
   );
 }
 
-const showBerserk = (ctrl: RoundController, color: Color): boolean => {  
-  const player = ctrl.playerAt(color === 'white' ? 'top' : 'bottom');  
-  const isBot = player.user?.title === 'BOT';  
-  return ctrl.hasGoneBerserk(color) && !bothPlayersHavePlayed(ctrl.data) && playable(ctrl.data) && !isBot;  
+const showBerserk = (ctrl: RoundController, color: Color): boolean => {
+  const player = ctrl.playerAt(color === 'white' ? 'top' : 'bottom');
+  const isBot = player.user?.title === 'BOT';
+  return ctrl.hasGoneBerserk(color) && !bothPlayersHavePlayed(ctrl.data) && playable(ctrl.data) && !isBot;
 };
 const renderBerserk = (ctrl: RoundController, color: Color, position: TopOrBottom) =>
   showBerserk(ctrl, color) ? hl('div.berserked.' + position, justIcon(licon.Berserk)) : null;
