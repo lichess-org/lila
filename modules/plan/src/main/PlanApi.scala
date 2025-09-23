@@ -13,6 +13,7 @@ import lila.core.LightUser
 import lila.db.paginator.Adapter
 import lila.ui.Context
 import lila.core.config.BaseUrl
+import lila.core.plan.PatronColor
 
 final class PlanApi(
     stripeClient: StripeClient,
@@ -74,6 +75,15 @@ final class PlanApi(
             .flatMap:
               case None => fuccess(false)
               case Some(sub) => payPalClient.cancelSubscription(sub) >> onCancel
+
+  def setColorById(id: Int)(using me: Me): Funit =
+    val color = for
+      color <- PatronColor.map.get(id)
+      tier <- me.patronTier
+      if color.selectable(tier)
+    yield color
+    for _ <- userApi.setPlan(me, me.plan.copy(color = color).some)
+    yield lightUserApi.invalidate(me.userId)
 
   object stripe:
 
@@ -495,7 +505,7 @@ final class PlanApi(
                   mongo.patron.update.one($id(patron.id), patron.removeStripe) >> sync(user)
                 case Some(customer) if customer.firstSubscription.exists(_.isActive) && !user.plan.active =>
                   logger.warn(s"${user.username} sync: enable plan of customer with a stripe subscription")
-                  setDbUserPlan(user.mapPlan(_.enable)).inject(ReloadUser)
+                  for _ <- setDbUserPlan(user.mapPlan(_.enable)) yield ReloadUser
                 case customer => fuccess(Synced(patron.some, customer, none))
 
           case (_, Some(Patron.PayPalCheckout(_, _, Some(subId))), _) =>

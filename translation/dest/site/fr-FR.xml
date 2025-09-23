@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="gameSetup" comment="Title of the modal on the various screens that let you create a game (e.g. a public lobby game, challenging a friend, playing against the computer...)">Paramètres de la partie</string>
-  <string name="challengeAFriend" comment="Please be mindful of how 'friend' translates in gendered languages. Look for a more neutral term if there's an issue, or base your translation on a different phrase like 'Invite to a game'.&#10;&#10;Keep it short and convey the button's meaning without causing offense.">Défi</string>
-  <string name="playAgainstAI">Jouer contre l\'IA</string>
-  <string name="gameMode" comment="A segmented selection when creating a game, allowing you to pick either 'Casual' (not rated) or 'Rated' (meaning your rating points could change).">Mode de la partie</string>
-  <string name="createLobbyGame" comment="Creates a game for the home page's lobby.&#10;Please try to use the same language that you use for 'Lobby' tab at the top.">Créer une partie au salon</string>
-  <string name="youPlayAs" comment="Lets you select either black, white, or random colour.">Couleur</string>
+  <string name="gameSetup">Paramètres de la partie</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Défi</string>
+  <string name="playAgainstComputer">Jouer contre l\'ordinateur</string>
+  <string name="gameMode">Mode de la partie</string>
+  <string name="createLobbyGame">Créer une partie au salon</string>
+  <string name="youPlayAs">Couleur</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Pour inviter quelqu\'un à jouer, donnez-lui ce lien</string>
   <string name="gameOver">Partie terminée</string>
   <string name="waitingForOpponent">En attente de votre adversaire</string>
@@ -345,7 +345,7 @@
     <item quantity="other">%s en cours</item>
   </plurals>
   <string name="exportGames">Exporter les parties</string>
-  <string name="ratingFilter" comment="Appears in the menu to create a lobby game. Lets you filter the ratings of players that your game will be displayed to (from -500 to +500 relative to your own rating)">Filtre de classement</string>
+  <string name="ratingFilter">Filtre de classement</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Rajouter %s seconde</item>
     <item quantity="other">Rajouter %s secondes</item>
@@ -830,7 +830,7 @@
   <string name="notifications">Notifications</string>
   <string name="notificationsX">Notifications : %1$s</string>
   <string name="perfRatingX">Classement : %s</string>
-  <string name="yourRatingIsX" comment="%s is your rating points, followed by the rating category. Lichess displays the rating category so players know what rating of their (e.g. bullet, blitz, classical) will be used to match with other players - and potentially affected if the game is rated.&#10;&#10;Appears on the modals to create a game, on the home page.">Votre classement : %s</string>
+  <string name="yourRatingIsX">Votre classement : %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s seconde pour jouer le premier coup</item>
     <item quantity="other">%s secondes pour jouer le premier coup</item>
@@ -882,7 +882,7 @@
   <string name="playVariationToCreateConditionalPremoves">Jouer une variante pour créer des précoups conditionnels</string>
   <string name="noConditionalPremoves">Pas de précoups conditionnels</string>
   <string name="playX">Jouer %s</string>
-  <string name="challengeX" comment="%s is a player's username.&#10;&#10;Challenge is used as a verb here, as this will only appear on buttons.">Défier %s</string>
+  <string name="challengeX">Défier %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">et enregistrer %s variante de précoups</item>
     <item quantity="other">et enregistrer %s variantes de précoups</item>

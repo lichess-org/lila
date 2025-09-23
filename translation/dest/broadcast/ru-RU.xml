@@ -25,7 +25,6 @@
   <string name="ongoing">Текущие</string>
   <string name="upcoming">Предстоящие</string>
   <string name="roundName">Название тура</string>
-  <string name="roundNumber">Номер тура</string>
   <string name="tournamentName">Название турнира</string>
   <string name="tournamentDescription">Краткое описание турнира</string>
   <string name="fullDescription">Полное описание события</string>

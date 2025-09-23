@@ -17,6 +17,7 @@ import lila.core.user.{
 }
 import lila.db.BSON
 import lila.db.dsl.{ *, given }
+import lila.core.plan.PatronColor
 
 object BSONFields:
   export lila.core.user.BSONFields.*
@@ -57,13 +58,15 @@ object BSONHandlers:
       months = r.int("months"),
       active = r.bool("active"),
       lifetime = r.boolD("lifetime"),
-      since = r.dateO("since")
+      since = r.dateO("since"),
+      color = r.intO("color").flatMap(PatronColor.map.get)
     )
     def writes(w: BSON.Writer, o: Plan) = $doc(
       "months" -> w.int(o.months),
       "active" -> o.active,
       "lifetime" -> w.boolO(o.lifetime),
-      "since" -> o.since
+      "since" -> o.since,
+      "color" -> o.color
     )
 
   private[user] given BSONDocumentHandler[Count] = new BSON[Count]:
@@ -146,6 +149,11 @@ object BSONHandlers:
         flair -> o.flair,
         marks -> o.marks.value.nonEmpty.option(o.marks)
       )
+
+  given BSONHandler[PatronColor] = lila.db.dsl.tryHandler[PatronColor](
+    { case BSONInteger(id) => PatronColor.map.get(id).toTry(s"Invalid patron color id: $id") },
+    s => BSONInteger(s.id)
+  )
 
   // This LightUser handler is only used to store light users in other documents
   // not to read light users from the user collection

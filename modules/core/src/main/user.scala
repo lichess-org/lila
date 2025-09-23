@@ -15,7 +15,7 @@ import lila.core.id.Flair
 import lila.core.perf.{ KeyedPerf, Perf, PerfKey, UserPerfs, UserWithPerfs }
 import lila.core.userId.*
 import lila.core.misc.AtInstant
-import lila.core.plan.PatronMonths
+import lila.core.plan.{ PatronMonths, PatronTier, PatronColor }
 
 object user:
 
@@ -58,7 +58,7 @@ object user:
 
     def hasTitle: Boolean = title.exists(PlayerTitle.BOT != _)
 
-    def light = LightUser(id, username, title, flair, patronMonths)
+    def light = LightUser(id, username, title, flair, patronMonths, plan.color)
 
     def profileOrDefault = profile | Profile.default
 
@@ -79,6 +79,7 @@ object user:
       else if isPatron then PatronMonths(plan.months)
       else PatronMonths.zero
     def patronTier = patronMonths.tier
+    def patronAndColor = patronTier.map(t => PatronTier.AndColor(t, plan.color))
 
     def isBot = title.contains(PlayerTitle.BOT)
     def noBot = !isBot
@@ -109,7 +110,13 @@ object user:
 
   case class PlayTime(total: Int, tv: Int)
 
-  case class Plan(months: Int, active: Boolean, lifetime: Boolean, since: Option[Instant]):
+  case class Plan(
+      months: Int,
+      active: Boolean,
+      lifetime: Boolean,
+      since: Option[Instant],
+      color: Option[PatronColor] = None // manual selection
+  ):
     def isEmpty: Boolean = months == 0
     def nonEmpty: Option[Plan] = Option.when(!isEmpty)(this)
 

@@ -137,6 +137,16 @@ final class Plan(env: Env) extends LilaController(env):
       yield Ok(page)
   }
 
+  def style = AuthBody { _ ?=> _ ?=>
+    def redirect = Redirect(routes.Plan.index())
+    bindForm(lila.plan.PlanForm.style)(
+      _ => redirect,
+      id =>
+        for _ <- env.plan.api.setColorById(id)
+        yield redirect
+    )
+  }
+
   def webhook = AnonBodyOf(parse.json): body =>
     if req.headers.hasHeader("PAYPAL-TRANSMISSION-SIG")
     then env.plan.webhook.payPal(body).inject(Ok("kthxbye"))

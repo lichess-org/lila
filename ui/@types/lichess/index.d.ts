@@ -197,6 +197,7 @@ interface LightUserNoId {
   title?: string;
   flair?: Flair;
   patron?: boolean;
+  patronColor?: number;
 }
 
 interface LightUser extends LightUserNoId {

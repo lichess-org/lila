@@ -21,7 +21,6 @@
   <string name="ongoing">I gang</string>
   <string name="upcoming">Kommende</string>
   <string name="roundName">Rundenavn</string>
-  <string name="roundNumber">Rundenummer</string>
   <string name="tournamentName">Turneringsnavn</string>
   <string name="tournamentDescription">Kort beskrivelse af turnering</string>
   <string name="fullDescription">Fuld beskrivelse af begivenheden</string>
