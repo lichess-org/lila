@@ -57,7 +57,6 @@
   <string name="completedTourns">Ավարտված մրցաշարեր</string>
   <string name="declinedRequests">Մերժված հայտեր</string>
   <string name="joinLichessVariantTeam">Անդամագրվեք %s ակումբին՝ նորություններին և իրադարձություններին տեղեկացված լինելու համար</string>
-  <string name="teamPage">Թիմի էջ</string>
   <string name="thisTeamBattleIsOver">Այս մրցաշարն ավարտվել է, Դուք չեք կարող փոխել ակումբները։</string>
   <string name="listTheTeamsThatWillCompete">Այս մրցաշարին մասնակցող ակումբների ցանկ։</string>
   <string name="oneTeamPerLine">Ամեն տողում՝ մեկ ակումբ։ Աշխատում է ինքնալրացումը։</string>
