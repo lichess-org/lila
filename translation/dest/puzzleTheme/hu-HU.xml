@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advancedPawn">Előretört gyalog</string>
-  <string name="advancedPawnDescription">Egy gyalogod betört az ellenfél állásába, talán fenyegethet átváltozással.</string>
+  <string name="advancedPawnDescription">Egy gyalogod betört az ellenfél állásába, talán átváltozással fenyegetve.</string>
   <string name="advantage">Előny</string>
   <string name="advantageDescription">Ragadd meg a lehetőséget a döntő előny megszerzéséhez. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Anasztázia-matt</string>
