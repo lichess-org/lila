@@ -54,7 +54,6 @@
   <string name="completedTourns">完了したトーナメント</string>
   <string name="declinedRequests">却下した申請</string>
   <string name="joinLichessVariantTeam">公式チーム %s にはニュースやイベント情報が</string>
-  <string name="teamPage">チームのページ</string>
   <string name="thisTeamBattleIsOver">このトーナメントは終了しており、チームの更新はできません。</string>
   <string name="listTheTeamsThatWillCompete">このバトルに参加するチームをリストしてください。</string>
   <string name="oneTeamPerLine">1 行に 1 チームです。オートコンプリートを使用します。</string>
