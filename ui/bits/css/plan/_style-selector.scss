@@ -12,7 +12,9 @@
   gap: 3em;
   border-bottom: $border;
   padding-bottom: 4em;
-  margin: 5em 0;
+  &.box__pad {
+    margin: 5em 0;
+  }
 }
 .pss__colors {
   display: grid;

@@ -505,7 +505,7 @@ final class PlanApi(
                   mongo.patron.update.one($id(patron.id), patron.removeStripe) >> sync(user)
                 case Some(customer) if customer.firstSubscription.exists(_.isActive) && !user.plan.active =>
                   logger.warn(s"${user.username} sync: enable plan of customer with a stripe subscription")
-                  setDbUserPlan(user.mapPlan(_.enable)).inject(ReloadUser)
+                  for _ <- setDbUserPlan(user.mapPlan(_.enable)) yield ReloadUser
                 case customer => fuccess(Synced(patron.some, customer, none))
 
           case (_, Some(Patron.PayPalCheckout(_, _, Some(subId))), _) =>

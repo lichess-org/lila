@@ -68,8 +68,8 @@ final class PlanUi(helpers: Helpers)(style: PlanStyle, contactEmail: EmailAddres
             )
           ),
           div(cls := "page-menu__content box")(
-            (patron, ctx.me, ctx.me.map(_.plan).filter(_.active)).tupled.match
-              case Some((p, me, plan)) =>
+            patron.match
+              case Some(patron) =>
                 frag(
                   div(cls := "banner one_time_active")(
                     iconTag(patronIconChar),
@@ -77,7 +77,7 @@ final class PlanUi(helpers: Helpers)(style: PlanStyle, contactEmail: EmailAddres
                       h1(cls := "box__top")(trp.thankYou()),
                       if ctx.me.exists(_.plan.lifetime) then trp.youHaveLifetime()
                       else
-                        p.expiresAt.map: expires =>
+                        patron.expiresAt.map: expires =>
                           frag(
                             trp.patronUntil(showDate(expires)),
                             br,
@@ -86,8 +86,7 @@ final class PlanUi(helpers: Helpers)(style: PlanStyle, contactEmail: EmailAddres
                     ),
                     iconTag(patronIconChar)
                   ),
-                  me.patronAndColor.map: p =>
-                    div(cls := "box__pad")(style.selector(plan, p)(using me))
+                  style.selector.map(_(cls := "box__pad"))
                 )
               case None =>
                 div(cls := "banner moto")(
@@ -335,6 +334,7 @@ final class PlanUi(helpers: Helpers)(style: PlanStyle, contactEmail: EmailAddres
               else trp.patronForMonths(me.plan.months)
             )
           ),
+          style.selector,
           table(cls := "all")(
             tbody(
               tr(
@@ -416,6 +416,7 @@ final class PlanUi(helpers: Helpers)(style: PlanStyle, contactEmail: EmailAddres
               else trp.patronForMonths(me.plan.months)
             )
           ),
+          style.selector,
           table(cls := "all")(
             tbody(
               tr(
