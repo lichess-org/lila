@@ -2,7 +2,6 @@
 <resources>
   <string name="gameSetup">ゲームの設定</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">友達に挑戦</string>
-  <string name="playAgainstAI">AI と対戦</string>
   <string name="gameMode">ゲームのモード</string>
   <string name="createLobbyGame">ロビー対局を作成</string>
   <string name="youPlayAs">色（白/黒）</string>

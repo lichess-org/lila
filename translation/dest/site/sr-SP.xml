@@ -487,7 +487,7 @@
   <string name="tournamentCalendar">Календар турнира</string>
   <string name="conditionOfEntry">Услови за улаз:</string>
   <string name="advancedSettings">Напредна подешавања</string>
-  <string name="safeTournamentName">Изаберите веома сигурно име за турнир.</string>
+  <string name="safeTournamentName">Изабери веома сигурно име за турнир.</string>
   <string name="inappropriateNameWarning">Било које име које је бар мало неприкладно може да вам затвори налог.</string>
   <string name="emptyTournamentName">Оставите празно како би назвали турнир по насумично изабраном Велемајстору.</string>
   <string name="makePrivateTournament">Учини турнир приватним и ограничи приступ са шифром</string>
@@ -820,9 +820,9 @@
   <string name="pieceSet">Сет фигура</string>
   <string name="embedInYourWebsite">Угради у свој сајт</string>
   <string name="usernameAlreadyUsed">Ово корисничко име је већ у употреби, молимо Вас да изаберете друго.</string>
-  <string name="usernamePrefixInvalid">Корисничко име мора да почне са словом.</string>
-  <string name="usernameSuffixInvalid">Корисничко име мора да заврши са словом или бројем.</string>
-  <string name="usernameCharsInvalid">Корисничко име може само да садржи слова, бројеве, доње црте и цртице.</string>
+  <string name="usernamePrefixInvalid">Корисничко име мора започети са словом.</string>
+  <string name="usernameSuffixInvalid">Корисничко име мора завршити са словом или бројем.</string>
+  <string name="usernameCharsInvalid">Корисничко име мора садржати само слова, бројеве, подвлаке и цртице. Узастопне подвлаке и цртице нису дозвољене.</string>
   <string name="usernameUnacceptable">Ово корисничко име није прихватљиво.</string>
   <string name="playChessInStyle">Играј шах у стилу</string>
   <string name="chessBasics">Шаховске основе</string>
@@ -881,15 +881,15 @@
   <string name="opening">Отварање</string>
   <string name="middlegame">Средишњица</string>
   <string name="endgame">Завршница</string>
-  <string name="conditionalPremoves">Условни пре-потези</string>
-  <string name="addCurrentVariation">Додајте тренутну варијацију</string>
-  <string name="playVariationToCreateConditionalPremoves">Играјте варијацију да направите условне пре-потезе</string>
-  <string name="noConditionalPremoves">Нема условних пре-потеза</string>
-  <string name="playX">Играј %s</string>
+  <string name="conditionalPremoves">Условни предпотези</string>
+  <string name="addCurrentVariation">Додај тренутну варијацију</string>
+  <string name="playVariationToCreateConditionalPremoves">Одиграј варијацију да направиш условне предпотезе</string>
+  <string name="noConditionalPremoves">Нема условних предпотеза</string>
+  <string name="playX">Одиграј %s</string>
   <plurals name="andSaveNbPremoveLines">
-    <item quantity="one">и сачувај %s пре-потезну линију</item>
-    <item quantity="few">и сачувај %s пре-потезне линије</item>
-    <item quantity="other">и сачувај %s пре-потезних линија</item>
+    <item quantity="one">и сачувај %s предпотезну линију</item>
+    <item quantity="few">и сачувај %s предпотезне линије</item>
+    <item quantity="other">и сачувај %s предпотезних линија</item>
   </plurals>
   <string name="showUnreadLichessMessage">Примио/ла си приватну поруку од Lichess-а.</string>
   <string name="sorry">Извините :(</string>

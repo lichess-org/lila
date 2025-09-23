@@ -43,10 +43,10 @@
 Egy sor egy párosítás. Például:
 A játékos - B játékos
 C játékos - D játékos
-Ha párosítás helyett egy játékosnak szabadkört (1 pontot) szeretnél adni, így írd be:
+Ha párosítás helyett egy játékosnak bye-t (1 pont) szeretnél adni, így írd be:
 E játékos 1
 A hiányzó játékosok távollévőnek számítanak, és nulla pontot kapnak.
-Hagyd üresen ezt a mezőt, hogy a Lichess szeretné automatikusan párosíthasson.</string>
+Hagyd üresen ezt a mezőt, hogy a Lichess automatikusan létrehozza a párosításokat.</string>
   <string name="mustHavePlayedTheirLastSwissGame">Az utolsó svájci parti lejátszása kötelező</string>
   <string name="mustHavePlayedTheirLastSwissGameHelp">Csak azok a játékosok csatlakozhatnak, akik lejátszották az utolsó svájci játszmájukat. Akik nem jelentek meg egy közelmúltbeli svájci tornán, nem tudnak belépni a tiédre. Ez jobb versenyzési élményt eredményez azoknak, akik ténylegesen megjelennek.</string>
   <string name="newSwiss">Új svájci rendszerű verseny</string>
@@ -55,7 +55,7 @@ Hagyd üresen ezt a mezőt, hogy a Lichess szeretné automatikusan párosíthass
 Jó választás kluboknak és hivatalos versenyekre.</string>
   <string name="pointsCalculationQ">Hogyan történik a pontok számítása?</string>
   <string name="pointsCalculationA">Minden nyert játszma egy, a döntetlen fél és a vereség nulla pontot ér.
-Ha egy játékost nem lehet párosítani a fordulóban akkor kap egy pontot érő szabadkört.</string>
+Ha egy játékost nem lehet párosítani, erőnyerő lesz, ami egy pontot ér.</string>
   <string name="tiebreaksCalculationQ">Hogyan történik a holtverseny eldöntése?</string>
   <string name="sonnebornBergerScore">Sonneborn–Berger pont</string>
   <string name="tiebreaksCalculationA">A %s alapján.
@@ -68,23 +68,22 @@ Ha egy játékost nem lehet párosítani a fordulóban akkor kap egy pontot ér�
   <string name="moreRoundsThanPlayersA">Ha minden lehetséges párosítást lejátszottak, a versenynek vége és a győztest kihirdetjük.</string>
   <string name="restrictedToTeamsQ">Miért van csapatokra korlátozva?</string>
   <string name="restrictedToTeamsA">A svájci rendszerű versenyek nem online sakkra lettek kitalálva. Pontosságot, elköteleződést és türelmet vár el a résztvevőktől. Úgy gondoljuk, hogy ezek a feltételek jobban adottak egy csapaton belül a nyílt versenyekkel szemben.</string>
-  <string name="numberOfByesQ">Hány szabadkört kaphat egy játékos?</string>
-  <string name="numberOfByesA">A játékos kap egy pontot érő szabadkört minden alkalommal, amikor a rendszer nem tudja őt összepárosítani valakivel egy fordulóban.
-Továbbá fél pontot érő egyszeri szabadkört kap minden játékos, aki később csatlakozik a versenyhez.</string>
+  <string name="numberOfByesQ">Hányszor kaphat egy játékos bye-t?</string>
+  <string name="numberOfByesA">A játékos kap egy bye pontot minden alkalommal, amikor a párosító program nem tudja párosítani senkivel. Továbbá fél pontot kap, ha késve csatlakozik a versenyhez.</string>
   <string name="earlyDrawsQ">Mi van a korai döntetlenekkel?</string>
   <string name="earlyDrawsAnswer">A svájci rendszerű játékok 30 lépés megtétele előtt nem fejeződhetnek be döntetlenként. Ez az intézkedés nem tudja teljesen megakadályozni az előre megszervezett döntetleneket, mindenesetre megnehezíti a menet közbeni döntetlenben való megegyezést.</string>
   <string name="whatIfOneDoesntPlayQ">Mi történik, ha egy játékos nem játssza a partit?</string>
-  <string name="whatIfOneDoesntPlayA">Az órájuk ketyeg, az idejük lejár, és elvesztik a játszmát.
+  <string name="whatIfOneDoesntPlayA">Az órája ketyeg, az ideje lejár, és elveszti a játszmát.
 A rendszer visszalépteti ezeket a játékosokat a versenytől, hogy ne veszítsenek több játszmát.
  Bármikor újra csatlakozhatnak a versenyhez.</string>
   <string name="protectionAgainstNoShowQ">Mi van, ha nem jelenik meg egy játékos?</string>
   <string name="protectionAgainstNoShowA">Játékosok akik regisztrálnak egy svájci rendszerű versenyre, de nem játszák le játszmáikat, az problémás lehet. Hogy enyhítsen a dolgon, Lichess egy adott időre megakadályozza ezeket a játékosokat hogy új svájci rendszerű versenyre jelentkezzenek. Egy verseny szervezője dönthet úgy, hogy ennek ellenére is játszhassanak.</string>
   <string name="lateJoinQ">Csatlakozhatnak-e a játékosok utólag?</string>
-  <string name="lateJoinA">Igen, amíg nem kezdődött el több, mint a fordulók fele; pl. egy 11 fordulósban játékosok még csatlakozhatnak a 6. forduló kezdete előtt, illetve egy 12 fordulósban a 7. forduló kezdetéig.
-A későn csatlakozók egy pontot érő szabadkört kapnak akkor is, ha több fordulóból maradtak ki.</string>
+  <string name="lateJoinA">Igen, amíg a fordulóknak kevesebb, mint a fele kezdődött el. Például egy 11 fordulós versenyben a játékosok csatlakozhatnak a 6. forduló kezdete előtt; illetve egy 12 fordulósban a 7. forduló kezdetéig.
+A későn csatlakozók egy fél pontot érő bye-t kapnak akkor is, ha több fordulóból maradtak ki.</string>
   <string name="willSwissReplaceArenasQ">A svájci rendszerű versenyek lecserélik majd az arénákat?</string>
   <string name="willSwissReplaceArenasA">Nem. Ezek eltérő típusú versenyek.</string>
-  <string name="roundRobinQ">What about Round Robin?</string>
+  <string name="roundRobinQ">Mi a helyzet a körmérkőzéssel?</string>
   <string name="roundRobinA">Szeretnénk hozzáadni, de sajnos a körmérkőzés nem működik online.
 Ennek az az oka, hogy nem tudjuk tisztességesen kezelni a versenyből idő előtt távozókat. Nem várhatjuk el, hogy egy online versenyen minden játékos lejátssza az összes meccsét. Ez egyszerűen nem fog menni és ennek eredményeképpen a legtöbb körmérkőzés verseny hibás és igazságtalan lenne, ami meghiúsítja az értelmüket.
 Az online körmérkőzéshez legközelebb egy svájci verseny áll, ahol nagyon sok forduló van. Ilyenkor az összes lehetséges párosítást lejátsszák, mielőtt a verseny véget ér.</string>
@@ -93,7 +92,7 @@ Az online körmérkőzéshez legközelebb egy svájci verseny áll, ahol nagyon 
   <string name="swissDescription">A svájci rendszerű versenyekben %1$s a résztvevők nem feltétlen játszanak mindenki más ellen. A versenyzőket egymás ellen párosítják minden fordulóban előre meghatározott szabályok alapján úgy, hogy mindenki hasonló teljesítményű ellenfelet kapjon, de ne ugyanazt kétszer egymás után. A nyertes az, aki a legtöbb pontot szerezte a fordulókban összesen. Minden résztvevő játszik valaki ellen minden fordulóban, kivéve ha páratlan számú versenyző van.</string>
   <string name="teamOnly">Svájci rendszerű versenyeket csak csapatvezetők indíthatnak és csak csapattagok vehetnek benne részt.           
 %1$s, hogy részt vehess svájci rendszerű versenyben.</string>
-  <string name="joinOrCreateTeam">Csatlakozz vagy csinálj egy csapatot</string>
+  <string name="joinOrCreateTeam">Csatlakozz egy csapathoz, vagy hozz létre egy újat</string>
   <string name="nowPlaying">Most játszik</string>
   <string name="startingSoon">Hamarosan kezdődik</string>
   <string name="comparison">Összehasonlítás</string>
@@ -103,7 +102,7 @@ Az online körmérkőzéshez legközelebb egy svájci verseny áll, ahol nagyon 
   <string name="numberOfGames">Játszmák száma</string>
   <string name="numberOfGamesAsManyAsPossible">Amennyi belefér az előre lefoglalt időtartamba</string>
   <string name="numberOfGamesPreDefined">Előre eldöntött, minden játékosnak egyforma</string>
-  <string name="pairingSystem">Játszmák száma</string>
+  <string name="pairingSystem">Párosítási rendszer</string>
   <string name="pairingSystemArena">Bármelyik szabad játékos hasonló értékszámmal</string>
   <string name="pairingSystemSwiss">Optimális párosítás pontszámok alapján</string>
   <string name="pairingWaitTime">Párosítás üteme</string>

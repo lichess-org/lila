@@ -21,7 +21,6 @@
   <string name="ongoing">En cours</string>
   <string name="upcoming">À venir</string>
   <string name="roundName">Nom de la ronde</string>
-  <string name="roundNumber">Numéro de la ronde</string>
   <string name="tournamentName">Nom du tournoi</string>
   <string name="tournamentDescription">Brève description du tournoi</string>
   <string name="fullDescription">Description complète de l\'événement</string>

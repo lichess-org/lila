@@ -67,6 +67,7 @@
   <string name="studyPgn">PGN študije</string>
   <string name="chapterPgn">PGN poglavja</string>
   <string name="copyChapterPgn">Kopiraj PGN</string>
+  <string name="copyRawChapterPgn" comment="Appears as a button on individual study chapters. Lets you copy a PGN without any annotations, commentary or analysis">Kopiraj surovi PGN</string>
   <string name="downloadGame">Prenesi igro</string>
   <string name="studyUrl">URL študije</string>
   <string name="currentChapterUrl">URL trenutnega poglavja</string>

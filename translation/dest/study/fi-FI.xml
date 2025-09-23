@@ -61,6 +61,7 @@
   <string name="studyPgn">Tutkielman PGN</string>
   <string name="chapterPgn">Luvun PGN</string>
   <string name="copyChapterPgn">Kopioi PGN</string>
+  <string name="copyRawChapterPgn" comment="Appears as a button on individual study chapters. Lets you copy a PGN without any annotations, commentary or analysis">Kopioi kommentoimaton PGN</string>
   <string name="downloadGame">Lataa peli</string>
   <string name="studyUrl">Tutkielman URL</string>
   <string name="currentChapterUrl">Tämän luvun URL</string>
