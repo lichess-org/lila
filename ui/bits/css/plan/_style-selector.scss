@@ -1,11 +1,5 @@
 @import '../../../lib/css/abstract/patron-colors';
-
-@mixin dynamic-text-gradient($base-color) {
-  background: linear-gradient(65deg, $base-color 35%, lighten($base-color, 25%) 50%, $base-color 60%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
+@import 'icon-shiny';
 
 .patron-style-selector {
   @extend %flex-column;
@@ -16,6 +10,7 @@
     margin: 5em 0;
   }
 }
+
 .pss__colors {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
@@ -28,9 +23,9 @@
   background: $c-bg-high;
   border: $border;
 
-  .line {
-    font-size: 2.8em;
-    margin: 1.5rem 0.5rem;
+  .patron-icon--shiny {
+    font-size: 3.2em;
+    margin: 0.7rem 0.4rem 1.2rem 0.4rem;
   }
 
   &--selectable {
@@ -42,7 +37,7 @@
   }
   &:disabled {
     cursor: not-allowed;
-    .user-link {
+    .patron-icon--shiny {
       position: relative;
       &::after {
         @extend %data-icon;
@@ -52,7 +47,7 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        font-size: 3.4em;
+        font-size: 3.4rem;
       }
     }
   }
@@ -60,8 +55,8 @@
     border-width: 5px 5px 1px 5px;
     border-radius: 10px 10px 6px 6px;
     box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
-    i {
-      transform: translateY(-4px);
+    .patron-icon--shiny {
+      margin-top: calc(0.7rem - 4px);
     }
   }
 
@@ -78,21 +73,18 @@
     }
   }
 
-  @each $id in $patron-colors-ids {
+  @each $id, $color in $patron-colors-dark {
     &--#{$id}.pss__color--selectable {
       border-color: var(--c-paco#{$id});
-      box-shadow: 0 0 9px transparentize(map-get($patron-colors-dark, $id), 0.7);
+      box-shadow: 0 0 9px transparentize($color, 0.7);
       &:hover {
-        box-shadow: 0 0 14px transparentize(map-get($patron-colors-dark, $id), 0.3);
+        box-shadow: 0 0 14px transparentize($color, 0.3);
       }
       &.pss__color--active {
-        box-shadow: 0 0 23px map-get($patron-colors-dark, $id);
+        box-shadow: 0 0 23px $color;
       }
       .pss__color__tier-name {
         background-color: var(--c-paco#{$id});
-      }
-      i::before {
-        @include dynamic-text-gradient(map-get($patron-colors-dark, $id));
       }
     }
   }
