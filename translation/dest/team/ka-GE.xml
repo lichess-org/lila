@@ -42,5 +42,4 @@
   <string name="completedTourns">დასრულებული ტურნირები</string>
   <string name="declinedRequests">უარყოფილი შეთავაზება</string>
   <string name="joinLichessVariantTeam">შეუერთდი ოფიციალურ %s გუნდს ახალი ამბებისა და ღონისძიებებისთვის</string>
-  <string name="teamPage">გუნდის გვერდი</string>
 </resources>

@@ -54,7 +54,6 @@
   <string name="completedTourns">已完成的锦标赛</string>
   <string name="declinedRequests">被拒的请求</string>
   <string name="joinLichessVariantTeam">加入 %s 官方团队以获取最新消息和事件</string>
-  <string name="teamPage">团队页面</string>
   <string name="thisTeamBattleIsOver">这个锦标赛已结束，团队无法再更新。</string>
   <string name="listTheTeamsThatWillCompete">列出将参与这场战斗的团队。</string>
   <string name="oneTeamPerLine">每行一个团队。使用自动完成。</string>

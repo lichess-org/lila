@@ -52,7 +52,6 @@
   <string name="completedTourns">종료된 토너먼트</string>
   <string name="declinedRequests">거절된 요청들</string>
   <string name="joinLichessVariantTeam">%s 공식 팀을 가입하면 관련 소식과 행사에 대해 알 수 있습니다</string>
-  <string name="teamPage">팀 페이지</string>
   <string name="thisTeamBattleIsOver">이 토너먼트는 종료되었으며 더 이상 팀을 수정할 수 없습니다.</string>
   <string name="listTheTeamsThatWillCompete">이 배틀에서 경쟁할 팀을 나열하세요.</string>
   <string name="oneTeamPerLine">한 줄에 한 팀이 들어가야 합니다. 자동 완성을 사용하세요.</string>

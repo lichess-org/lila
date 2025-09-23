@@ -60,7 +60,6 @@
   <string name="completedTourns">טורנירים שהושלמו</string>
   <string name="declinedRequests">בקשות שנדחתו</string>
   <string name="joinLichessVariantTeam">הצטרפו לקבוצת %s הרשמית של ליצ\'ס כדי לקבל עדכונים על חדשות ואירועים</string>
-  <string name="teamPage">עמוד הקבוצה</string>
   <string name="thisTeamBattleIsOver">הטורניר הזה הסתיים ולא ניתן לעדכן יותר את הקבוצות.</string>
   <string name="listTheTeamsThatWillCompete">רשימה של הקבוצות שישתתפו בקרב הזה.</string>
   <string name="oneTeamPerLine">קבוצה אחת בכל שורה. ניתן להשתמש בהשלמה האוטומטית.</string>

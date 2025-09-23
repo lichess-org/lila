@@ -56,10 +56,10 @@
   <string name="showResults">Eredmények</string>
   <string name="showEvalBar">Értéksávok</string>
   <string name="next">Következő</string>
-  <string name="shareAndExport">Oszd meg &amp;-t, és exportáld</string>
+  <string name="shareAndExport">Megosztás és exportálás</string>
   <string name="cloneStudy">Klónozás</string>
   <string name="studyPgn">PGN a tanulmányról</string>
-  <string name="chapterPgn">PGN a fejezetről</string>
+  <string name="chapterPgn">Fejezet PGN</string>
   <string name="copyChapterPgn">PGN másolása</string>
   <string name="copyRawChapterPgn" comment="Appears as a button on individual study chapters. Lets you copy a PGN without any annotations, commentary or analysis">Eredeti PGN másolása</string>
   <string name="downloadGame">Játszma letöltése</string>

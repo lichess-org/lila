@@ -57,7 +57,6 @@ Los jugadores a los que no les guste recibir tus mensajes pueden abandonar el eq
   <string name="completedTourns">Torneos terminados</string>
   <string name="declinedRequests">Solicitudes rechazadas</string>
   <string name="joinLichessVariantTeam">Únete al equipo oficial de %s para noticias y eventos</string>
-  <string name="teamPage">Página del equipo</string>
   <string name="thisTeamBattleIsOver">Este torneo ha terminado y los equipos ya no pueden ser actualizados.</string>
   <string name="listTheTeamsThatWillCompete">Listar los equipos que competirán en esta batalla.</string>
   <string name="oneTeamPerLine">Un equipo por línea. Utiliza el autocompletado.</string>

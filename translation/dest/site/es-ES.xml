@@ -345,7 +345,7 @@
     <item quantity="other">%s en juego</item>
   </plurals>
   <string name="exportGames">Exportar partidas</string>
-  <string name="ratingFilter">Filtro de puntuación</string>
+  <string name="ratingFilter">Filtro de valoración</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Dar %s segundo</item>
     <item quantity="other">Dar %s segundos</item>
@@ -830,7 +830,7 @@
   <string name="notifications">Notificaciones</string>
   <string name="notificationsX">Notificaciones: %1$s</string>
   <string name="perfRatingX">Puntuación: %s</string>
-  <string name="yourRatingIsX">Tu puntuación es %s</string>
+  <string name="yourRatingIsX">Tu valoración es %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s segundo para hacer el primer movimiento</item>
     <item quantity="other">%s segundos para hacer el primer movimiento</item>
