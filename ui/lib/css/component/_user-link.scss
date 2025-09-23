@@ -1,29 +1,15 @@
+@import '../../../lib/css/abstract/patron-colors';
+
+@each $id in $patron-colors-ids {
+  .user-link.online .paco#{$id} {
+    color: var(--c-paco#{$id}) !important;
+  }
+}
+
 .user-link {
   @extend %nowrap-hidden;
 
   color: $c-font;
-
-  $c-dark-months1: hsl(90, 52%, 57%);
-  $c-dark-months2: hsl(120, 32%, 62%);
-  $c-dark-months3: hsl(151.9, 62%, 62%);
-  $c-dark-months6: hsl(190, 52%, 57%);
-  $c-dark-months9: hsl(207, 63%, 66%);
-  $c-dark-years1: hsl(220, 62%, 67%);
-  $c-dark-years2: hsl(270, 72%, 73%);
-  $c-dark-years3: hsl(310, 52%, 67%);
-  $c-dark-years4: hsl(0, 52%, 65%);
-  $c-dark-years5: hsl(37, 74%, 43%);
-
-  $c-light-months1: hsl(90, 60%, 43%);
-  $c-light-months2: hsl(120, 52%, 52%);
-  $c-light-months3: hsl(162.9, 65%, 44%);
-  $c-light-months6: hsl(190, 57%, 48%);
-  $c-light-months9: hsl(207, 78%, 49%);
-  $c-light-years1: hsl(220, 60%, 57%);
-  $c-light-years2: hsl(270, 62%, 67%);
-  $c-light-years3: hsl(310, 56%, 57%);
-  $c-light-years4: hsl(0, 52%, 60%);
-  $c-light-years5: hsl(37, 74%, 43%);
 
   &.online .line {
     &::before {
@@ -34,71 +20,6 @@
     color: $c-good;
     &.patron {
       opacity: 1;
-
-      &.months1 {
-        color: $c-dark-months1;
-      }
-      &.months2 {
-        color: $c-dark-months2;
-      }
-      &.months3 {
-        color: $c-dark-months3;
-      }
-      &.months6 {
-        color: $c-dark-months6;
-      }
-      &.months9 {
-        color: $c-dark-months9;
-      }
-      &.years1 {
-        color: $c-dark-years1;
-      }
-      &.years2 {
-        color: $c-dark-years2;
-      }
-      &.years3 {
-        color: $c-dark-years3;
-      }
-      &.years4 {
-        color: $c-dark-years4;
-      }
-      &.years5,
-      &.lifetime {
-        color: $c-dark-years5;
-      }
-      @include if-light {
-        &.months1 {
-          color: $c-light-months1;
-        }
-        &.months2 {
-          color: $c-light-months2;
-        }
-        &.months3 {
-          color: $c-light-months3;
-        }
-        &.months6 {
-          color: $c-light-months6;
-        }
-        &.months9 {
-          color: $c-light-months9;
-        }
-        &.years1 {
-          color: $c-light-years1;
-        }
-        &.years2 {
-          color: $c-light-years2;
-        }
-        &.years3 {
-          color: $c-light-years3;
-        }
-        &.years4 {
-          color: $c-light-years4;
-        }
-        &.years5,
-        &.lifetime {
-          color: $c-light-years5;
-        }
-      }
     }
   }
 
@@ -112,9 +33,8 @@
     text-align: center;
     vertical-align: text-top;
 
-    /* not sure about that */
     &.patron {
-      opacity: 0.8;
+      opacity: 0.7;
 
       @include if-rtl {
         transform: scaleX(-1);

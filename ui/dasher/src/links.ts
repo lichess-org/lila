@@ -2,6 +2,7 @@ import { type Attrs, hl, type VNode, bind } from 'lib/snabbdom';
 import * as licon from 'lib/licon';
 import { type Mode, type DasherCtrl, PaneCtrl } from './interfaces';
 import { pubsub } from 'lib/pubsub';
+import { userLine } from 'lib/view/userLink';
 
 export class LinksCtrl extends PaneCtrl {
   constructor(root: DasherCtrl) {
@@ -43,11 +44,10 @@ export class LinksCtrl extends PaneCtrl {
       linkCfg = this.linkCfg;
     return d.user
       ? hl('div.links', [
-          hl(
-            'a.user-link.online.text.is-green',
-            linkCfg(`/@/${d.user.name}`, d.user.patron ? licon.Wings : licon.Disc),
+          hl('a.user-link.online', { attrs: { href: `/@/${d.user.name}` } }, [
+            userLine(d.user),
             i18n.site.profile,
-          ),
+          ]),
 
           hl('a.text', linkCfg('/inbox', licon.Envelope), i18n.site.inbox),
 

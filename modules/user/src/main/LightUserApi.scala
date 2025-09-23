@@ -5,7 +5,7 @@ import reactivemongo.api.bson.*
 import lila.core.LightUser
 import lila.db.dsl.{ *, given }
 import lila.memo.{ CacheApi, Syncache }
-import lila.core.plan.PatronMonths
+import lila.core.plan.{ PatronMonths, PatronColor }
 
 import BSONFields as F
 
@@ -47,7 +47,7 @@ final class LightUserApi(repo: UserRepo, cacheApi: CacheApi)(using Executor)
           .recover:
             case _: reactivemongo.api.bson.exceptions.BSONValueNotFoundException => LightUser.ghost.some
     ,
-    default = id => LightUser(id, id.into(UserName), None, None, patronMonths = PatronMonths.zero).some,
+    default = id => LightUser(id, id.into(UserName), None, None, PatronMonths.zero, None).some,
     strategy = Syncache.Strategy.WaitAfterUptime(10.millis),
     expireAfter = Syncache.ExpireAfter.Write(20.minutes)
   )
@@ -57,18 +57,25 @@ final class LightUserApi(repo: UserRepo, cacheApi: CacheApi)(using Executor)
       doc
         .getAsTry[UserName](F.username)
         .map: name =>
+          val planOpt = doc.child(F.plan)
           val patronMonths = for
-            plan <- doc.child(F.plan)
+            plan <- planOpt
             if ~plan.getAsOpt[Boolean]("active")
             months <- plan.getAsOpt[PatronMonths]("months")
             lifetime = ~plan.getAsOpt[Boolean]("lifetime")
           yield if lifetime then PatronMonths.lifetime else months
+          val patronColor = for
+            plan <- planOpt
+            if patronMonths.isDefined
+            color <- plan.getAsOpt[Int]("color").flatMap(PatronColor.map.get)
+          yield color
           LightUser(
             id = name.id,
             name = name,
             title = doc.getAsOpt[chess.PlayerTitle](F.title),
             flair = doc.getAsOpt[Flair](F.flair).filter(FlairApi.exists),
-            patronMonths = patronMonths | PatronMonths.zero
+            patronMonths = patronMonths | PatronMonths.zero,
+            patronColor = patronColor
           )
 
   private val projection =

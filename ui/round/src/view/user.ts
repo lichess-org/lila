@@ -33,7 +33,13 @@ export function userHtml(ctrl: RoundController, player: Player, position: TopOrB
         },
       },
       [
-        hl('i.line' + (user.patron ? '.patron' : ''), {
+        hl('i.line', {
+          class: user.patron
+            ? {
+                patron: true,
+                ...(user.patronColor ? { [`paco${user.patronColor}`]: true } : {}),
+              }
+            : {},
           attrs: {
             title: connecting
               ? 'Connecting to the game'
