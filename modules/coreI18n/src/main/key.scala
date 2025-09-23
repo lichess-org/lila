@@ -2763,7 +2763,6 @@ object I18nKey:
     val `completedTourns`: I18nKey = "team:completedTourns"
     val `declinedRequests`: I18nKey = "team:declinedRequests"
     val `joinLichessVariantTeam`: I18nKey = "team:joinLichessVariantTeam"
-    val `teamPage`: I18nKey = "team:teamPage"
     val `thisTeamBattleIsOver`: I18nKey = "team:thisTeamBattleIsOver"
     val `listTheTeamsThatWillCompete`: I18nKey = "team:listTheTeamsThatWillCompete"
     val `oneTeamPerLine`: I18nKey = "team:oneTeamPerLine"

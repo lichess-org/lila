@@ -39,8 +39,19 @@ export default function (ctrl: TournamentController): VNode | undefined {
                 : []),
             ]
           : []),
-        h('tr', h('th', h('a', { attrs: { href: '/team/' + data.id } }, i18n.team.teamPage))),
       ]),
+      data.joined
+        ? 'You are part of this team'
+        : h(
+            'form',
+            {
+              attrs: {
+                method: 'post',
+                action: `/team/${data.id}/join?referrer=${location.pathname}#team/${data.id}`,
+              },
+            },
+            [h('button.button.button-empty', { attrs: { type: 'submit' } }, i18n.team.joinTeam)],
+          ),
     ]),
     h('div', [
       h(

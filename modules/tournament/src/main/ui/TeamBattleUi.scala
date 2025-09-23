@@ -71,7 +71,9 @@ final class TeamBattleUi(helpers: Helpers):
           )
         )
 
-  def teamInfo(tour: Tournament, team: LightTeam, info: TeamBattle.TeamInfo)(using ctx: Context) =
+  def teamInfo(tour: Tournament, team: LightTeam, info: TeamBattle.TeamInfo, joined: Boolean)(using
+      ctx: Context
+  ) =
     Page(s"${tour.name()} • ${team.name}")
       .css("tournament.show.team-battle"):
         main(cls := "box")(

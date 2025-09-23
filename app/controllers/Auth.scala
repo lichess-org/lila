@@ -28,7 +28,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
     )
 
   private def getReferrerOption(using ctx: Context): Option[String] =
-    get("referrer").flatMap(env.web.referrerRedirect.valid).orElse(ctx.req.session.get(api.AccessUri))
+    env.web.referrerRedirect.fromReq.orElse(ctx.req.session.get(api.AccessUri))
 
   private def getReferrer(using Context): String = getReferrerOption | routes.Lobby.home.url
 
@@ -76,7 +76,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
   def loginLang = LangPage(routes.Auth.login)(serveLogin)
 
   private def serveLogin(using ctx: Context) = NoBot:
-    val referrer = get("referrer").flatMap(env.web.referrerRedirect.valid)
+    val referrer = env.web.referrerRedirect.fromReq
     val switch = get("switch").orElse(get("as"))
     referrer.ifTrue(ctx.isAuth).ifTrue(switch.isEmpty) match
       case Some(url) => Redirect(url) // redirect immediately if already logged in

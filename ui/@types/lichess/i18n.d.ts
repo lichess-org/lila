@@ -5437,8 +5437,6 @@ interface I18n {
     teamIntroductionHelp: string;
     /** Team leaders */
     teamLeaders: I18nPlural;
-    /** Team page */
-    teamPage: string;
     /** Recent members */
     teamRecentMembers: string;
     /** Teams */

@@ -193,6 +193,7 @@ export interface TeamInfo {
   perf: number;
   score: number;
   topPlayers: TeamPlayer[];
+  joined?: boolean;
 }
 
 export interface TeamPlayer {

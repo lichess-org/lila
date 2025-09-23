@@ -59,7 +59,7 @@ export default class TournamentController {
     this.scrollToMe();
     sound.end(this.data);
     sound.countDown(this.data);
-    this.recountTeams();
+    this.setupBattle();
     this.redirectToMyGame();
     pubsub.on('socket.in.crowd', data => {
       this.nbWatchers = data.nb;
@@ -90,6 +90,14 @@ export default class TournamentController {
   private recountTeams() {
     if (this.data.teamBattle)
       this.data.teamBattle.hasMoreThanTenTeams = Object.keys(this.data.teamBattle.teams).length > 10;
+  }
+
+  private setupBattle() {
+    if (this.data.teamBattle) {
+      this.recountTeams();
+      const locationTeam = location.hash.startsWith('#team/') && location.hash.slice(6);
+      if (locationTeam) this.showTeamInfo(locationTeam);
+    }
   }
 
   private redirectToMyGame() {
