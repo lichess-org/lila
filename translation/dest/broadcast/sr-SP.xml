@@ -6,6 +6,5 @@
   <string name="newBroadcast">Нова ужива емитовања</string>
   <string name="ongoing">Текућа</string>
   <string name="upcoming">Предстојећа</string>
-  <string name="roundNumber">Број рунде</string>
   <string name="fullDescription">Цео опис догађаја</string>
 </resources>

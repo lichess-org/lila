@@ -10,7 +10,6 @@
   <string name="theNewRoundHelp">รอบใหม่จะมีสมาชิกและผู้มีส่วนร่วมเท่าเดิม</string>
   <string name="ongoing">ดำเนินอยู่</string>
   <string name="upcoming">ใกล้จะถึง</string>
-  <string name="roundNumber">เลขรอบ</string>
   <string name="tournamentName">ชื่อทัวร์นาเมนต์</string>
   <string name="tournamentDescription">คำบรรยายทัวร์นาเมนต์สั้นๆ</string>
   <string name="fullDescription">คำอธิบายรายการแบบเต็ม</string>

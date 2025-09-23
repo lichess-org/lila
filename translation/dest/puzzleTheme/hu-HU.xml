@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advancedPawn">Előretört gyalog</string>
-  <string name="advancedPawnDescription">Egy gyalogod előretört az ellenfél térfelére, és át is változhat.</string>
+  <string name="advancedPawnDescription">Egy gyalogod betört az ellenfél állásába, talán átváltozással fenyegetve.</string>
   <string name="advantage">Előny</string>
   <string name="advantageDescription">Ragadd meg a lehetőséget a döntő előny megszerzéséhez. (200cp ≤ eval ≤ 600cp)</string>
-  <string name="anastasiaMate">Anasztázia mattja</string>
+  <string name="anastasiaMate">Anasztázia-matt</string>
   <string name="anastasiaMateDescription">Egy huszár és egy bástya vagy a vezér közösen csapdába ejtik az ellenfél királyát a tábla széle és egy figurája között.</string>
   <string name="arabianMate">Arab matt</string>
   <string name="arabianMateDescription">Egy huszár és egy bástya közösen sarokba szorítják az ellenfél királyát.</string>
@@ -14,7 +14,7 @@
   <string name="attractionDescription">Csere vagy áldozat ami elmozdítja az ellenfél figuráját egy olyan mezőre ahol újabb taktika alkalmazható.</string>
   <string name="backRankMate">Alapsori matt</string>
   <string name="backRankMateDescription">Adj mattot az alapsoron ragadt királynak, mikor a saját figurái ejtik csapdába.</string>
-  <string name="bishopEndgame">Futó végjáték</string>
+  <string name="bishopEndgame">Futóvégjáték</string>
   <string name="bishopEndgameDescription">Végjáték csak futókkal és gyalogokkal.</string>
   <string name="bodenMate">Boden mattja</string>
   <string name="bodenMateDescription">Két támadó futó az átlókat keresztezve adnak mattot a saját figurái által akadályozott királynak.</string>
