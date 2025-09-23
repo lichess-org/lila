@@ -42,6 +42,19 @@
   }
   &:disabled {
     cursor: not-allowed;
+    .user-link {
+      position: relative;
+      &::after {
+        @extend %data-icon;
+        content: $licon-Padlock;
+        position: absolute;
+        opacity: 1;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 3.4em;
+      }
+    }
   }
   &--active {
     border-width: 5px 5px 1px 5px;
