@@ -79,7 +79,7 @@ object userId:
       val trimmed = str.trim
       Option.when(UserName.historicalRegex.matches(trimmed))(UserStr(trimmed))
 
-  // the prefix, or entirety, of a user name.
+  // the prefix, or entirety, of a username.
   // "chess-" is a valid username prefix, but not a valid username
   opaque type UserSearch = String
   object UserSearch extends OpaqueString[UserSearch]:
