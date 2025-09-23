@@ -4349,7 +4349,7 @@ interface I18n {
     user: string;
     /** %1$s is better than %2$s of %3$s players. */
     userIsBetterThanPercentOfPerfTypePlayers: I18nFormat;
-    /** User name */
+    /** Username */
     username: string;
     /** This username is already in use, please try another one. */
     usernameAlreadyUsed: string;
@@ -4359,7 +4359,7 @@ interface I18n {
     usernameCharsInvalid: string;
     /** We couldn't find any user by this name: %s. */
     usernameNotFound: I18nFormat;
-    /** User name or email */
+    /** Username or email */
     usernameOrEmail: string;
     /** The username must start with a letter. */
     usernamePrefixInvalid: string;
