@@ -401,7 +401,7 @@ final class JsonView(
       "score" -> rt.score,
       "players" -> rt.leaders.map: p =>
         Json.obj(
-          "user" -> lightUserApi.sync(p.userId),
+          "user" -> lightUserApi.syncFallback(p.userId),
           "score" -> p.score
         )
     )
