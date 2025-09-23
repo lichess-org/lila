@@ -55,6 +55,5 @@
   <string name="completedTourns">Завършени турнири</string>
   <string name="declinedRequests">Отказани заявки за присъединяване</string>
   <string name="joinLichessVariantTeam">Присъединете се към официалния %s отбор за следите новините и събитията</string>
-  <string name="teamPage">Страница на отбора</string>
   <string name="thisTeamBattleIsOver">Това състезание приключи - отборите не могат да се променят.</string>
 </resources>
