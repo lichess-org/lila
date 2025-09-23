@@ -54,6 +54,5 @@
   <string name="completedTourns">پاڵەوانێتیەکە کۆتای ھاتوە</string>
   <string name="declinedRequests">رەتکردنەوەی داواکردن</string>
   <string name="joinLichessVariantTeam">بەشداری تیمی فەرمی %s بکە بۆ زانینی هەواڵ و ڕووداوەکان</string>
-  <string name="teamPage">پەڕەی تیم</string>
   <string name="innerTeam">تیمە ناوخۆییەکان</string>
 </resources>

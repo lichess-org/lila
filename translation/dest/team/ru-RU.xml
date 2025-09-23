@@ -63,7 +63,6 @@
   <string name="completedTourns">Завершённые турниры</string>
   <string name="declinedRequests">Отклонённые запросы</string>
   <string name="joinLichessVariantTeam">Вступайте в официальный клуб %s, чтобы узнавать его новости и события</string>
-  <string name="teamPage">Страница клуба</string>
   <string name="thisTeamBattleIsOver">Этот турнир закончился, вы не можете изменять клубы.</string>
   <string name="listTheTeamsThatWillCompete">Список клубов, которые будут участвовать в этом турнире.</string>
   <string name="oneTeamPerLine">По одному клубу в каждой строке. Работает автодополнение.</string>

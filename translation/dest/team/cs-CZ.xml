@@ -63,7 +63,6 @@ Hráči, kteří si nepřejí dostávat vaše zprávy mohou opustit tým.</strin
   <string name="completedTourns">Proběhlé turnaje</string>
   <string name="declinedRequests">Odmítnuté žádosti</string>
   <string name="joinLichessVariantTeam">Připojte se k oficiálnímu týmu %s pro novinky a události</string>
-  <string name="teamPage">Týmová stránka</string>
   <string name="thisTeamBattleIsOver">Tento turnaj skončil a týmy již nemohou být aktualizovány.</string>
   <string name="listTheTeamsThatWillCompete">Uveďte týmy, které se zúčastní této bitvy.</string>
   <string name="oneTeamPerLine">Jeden tým na řádek. Použijte automatické dokončování.</string>

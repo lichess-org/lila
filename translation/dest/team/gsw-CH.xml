@@ -55,7 +55,6 @@
   <string name="completedTourns">Beendeti Turnier</string>
   <string name="declinedRequests">Abglähnti Afrage</string>
   <string name="joinLichessVariantTeam">Chumm is offizielli %s Team für Neuigkeite und Ereignis</string>
-  <string name="teamPage">Team - Site</string>
   <string name="thisTeamBattleIsOver">Das Turnier isch verbi und d\'Teams chönd nümme aktualisiert werde.</string>
   <string name="listTheTeamsThatWillCompete">Nänn alli Teams, wo du für de Kampf wottsch isetze.</string>
   <string name="oneTeamPerLine">Eis Team pro Zile. Benutz s\'Autousfülle.</string>
