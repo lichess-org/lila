@@ -57,7 +57,6 @@
   <string name="completedTourns">போட்டிகள் நிறைவடைந்தன</string>
   <string name="declinedRequests">நிராகரிக்கப்பட்ட கோரிக்கைகள்</string>
   <string name="joinLichessVariantTeam">செய்திகள் மற்றும் நிகழ்வுகளுக்கு அதிகாரப்பூர்வ %s குழுவில் சேரவும்</string>
-  <string name="teamPage">குழுப் பக்கம்</string>
   <string name="thisTeamBattleIsOver">இந்த போட்டி முடிந்துவிட்டது, மேலும் அணிகளை இனி புதுப்பிக்க முடியாது.</string>
   <string name="listTheTeamsThatWillCompete">இந்த போரில் போட்டியிடும் அணிகளை பட்டியலிடுங்கள்.</string>
   <string name="oneTeamPerLine">ஒரு வரிக்கு ஒரு குழு. தானாக முடிப்பதைப் பயன்படுத்தவும்.</string>
