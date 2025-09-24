@@ -8,27 +8,27 @@
   <string name="whatTheTokenCanDo">Qué puede fer lo token en o tuyo nombre:</string>
   <string name="doNotShareIt">Lo token garantizar l\'acceso a la tuya cuenta. NO lo compartas con dengún!</string>
   <string name="copyTokenNow">Asegura-te de copiar lo tuyo nuevo token d\'acceso personal. No lo podrás tornar a veyer!</string>
-  <string name="preferenceRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's preferences.&#10;&#10;There is a separate setting to let applications write (edit) preferences.">Leyer las preferencias</string>
-  <string name="preferenceWrite" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to edit/change the user's preferences.&#10;&#10;There is a separate setting to let applications only read preferences, but not to write (edit) them.">Escribir las preferencias</string>
-  <string name="emailRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's registered email address.">Leyer l\'adreza de correu electronico</string>
-  <string name="challengeRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view game challenges from other players.&#10;&#10;There is a separate setting to let applications send, accept or reject challenges.">Leyer los retos que t\'arriben</string>
-  <string name="challengeWrite" comment="challengeWrite&#10;&#10;In the context of an authentication token, a setting that permits third party software to send, accept and reject challenges on behalf of the player.">Ninviar, aceptar y refusar retos</string>
+  <string name="preferenceRead">Leyer las preferencias</string>
+  <string name="preferenceWrite">Escribir las preferencias</string>
+  <string name="emailRead">Leyer l\'adreza de correu electronico</string>
+  <string name="challengeRead">Leyer los retos que t\'arriben</string>
+  <string name="challengeWrite">Ninviar, aceptar y refusar retos</string>
   <string name="challengeBulk">Crear muitas partidas d\'una vegada pa atros chugadors</string>
-  <string name="studyRead" comment="Gives permission to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Leyer estudios privaus y transmisions</string>
-  <string name="studyWrite" comment="In the context of an access token, a setting that enables third party software to create, update or delete studies and broadcasts.">Carear, esviellar y borrar estudios y transmisions</string>
-  <string name="tournamentWrite" comment="In the context of an access token, a setting that permits third party software to create, update or delete studies and join tournaments.">Crear, esviellar y uniar-te a torneyos</string>
-  <string name="racerWrite" comment="In the context of an access token, a setting which permits third party software to create, and join puzzle races (this is for the activity/minigame Puzzle Racer: https://lichess.org/racer)">Crear y unir-te a corridas de problemas</string>
-  <string name="puzzleRead" comment="In the context of an access token, a setting which permits third-party software to view the user's puzzle solving history.">Leyer l\'actividat de problemas</string>
-  <string name="teamRead" comment="Gives permission to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Leyer la información privada d\'equipo</string>
-  <string name="teamWrite" comment="In the context of an access token, a setting that permits the third party software to join or leave teams on your behalf.">Unir-te y deixar equipos</string>
+  <string name="studyRead">Leyer estudios privaus y transmisions</string>
+  <string name="studyWrite">Carear, esviellar y borrar estudios y transmisions</string>
+  <string name="tournamentWrite">Crear, esviellar y uniar-te a torneyos</string>
+  <string name="racerWrite">Crear y unir-te a corridas de problemas</string>
+  <string name="puzzleRead">Leyer l\'actividat de problemas</string>
+  <string name="teamRead">Leyer la información privada d\'equipo</string>
+  <string name="teamWrite">Unir-te y deixar equipos</string>
   <string name="teamLead">Chestionar equipos que lideras: ninviar mensaches privaus, forachitar miembros</string>
-  <string name="followRead" comment="In the context of an access token, a setting which permits third-party software to view (read) which players you are following.">Leyer los chugadors seguius</string>
-  <string name="followWrite" comment="In the context of an access token, a setting which permits third-party software to follow and unfollow other players on your behalf.">Seguir y deixar de seguir a atros chugadors</string>
-  <string name="msgWrite" comment="In the context of an access token, a setting which permits third-party software to send messages on your behalf.">Ninviar mensaches privaus a atros chugadors</string>
-  <string name="boardPlay" comment="In the context of an access token, a setting which permits third-party software to play games using e-boards like DGT, through Lichess's board API.">Chugar con escaquero-API</string>
-  <string name="botPlay" comment="In the context of an access token, a setting which permits third-party software to play games over the bot API. This is intended mainly for having an engine account e.g. the accounts featured on https://lichess.org/player/bots">Chugar con l\'API de bot</string>
+  <string name="followRead">Leyer los chugadors seguius</string>
+  <string name="followWrite">Seguir y deixar de seguir a atros chugadors</string>
+  <string name="msgWrite">Ninviar mensaches privaus a atros chugadors</string>
+  <string name="boardPlay">Chugar con escaquero-API</string>
+  <string name="botPlay">Chugar con l\'API de bot</string>
   <string name="engineRead">Veyer y usar los tuyos modulos externos</string>
   <string name="engineWrite">Crear y esviellar modulos externos</string>
-  <string name="webLogin" comment="In the context of an access token, a setting which permits third-party software to create authenticated sessions - meaning effectively unlimited access to your account, using it as if it is you, instead of a third party program. It will be unable to view your password but it will be able to do almost everything else.">Crear sesions web autentificadas (da acceso completo!)</string>
-  <string name="webMod" comment="In the context of an access token, this is a setting which permits third-party software to use moderator tools on your behalf. Most players will not be able to see this option.">Usar ferramientas de moderador (con los limites d\'os tuyos permisos)</string>
+  <string name="webLogin">Crear sesions web autentificadas (da acceso completo!)</string>
+  <string name="webMod">Usar ferramientas de moderador (con los limites d\'os tuyos permisos)</string>
 </resources>
