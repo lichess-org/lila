@@ -260,7 +260,9 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   def apiNext = AnonOrScoped(_.Puzzle.Read):
     fetchRateLimit(rateLimited, cost = if ctx.isAuth then 1 else 2):
       WithPuzzlePerf:
-        FoundOk(selector.nextPuzzleFor(PuzzleAngle.findOrMix(~get("angle")), none, reqDifficulty.some)):
+        val angle = PuzzleAngle.findOrMix(~get("angle"))
+        val settings = reqSettings
+        FoundOk(selector.nextPuzzleFor(angle, settings.color.map(some), settings.difficulty.some)):
           env.puzzle.jsonView(_, none, none)
 
   def frame = Anon:
@@ -330,12 +332,16 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     val nb = getInt("nb") | 15
     fetchRateLimit(rateLimited, cost = if ctx.isAuth then nb / 2 else nb):
       WithPuzzlePerf:
-        for puzzles <- batchSelect(PuzzleAngle.findOrMix(angleStr), reqDifficulty, nb)
+        for puzzles <- batchSelect(PuzzleAngle.findOrMix(angleStr), reqSettings, nb)
         yield Ok(puzzles)
 
-  private def reqDifficulty(using req: RequestHeader) = PuzzleDifficulty.orDefault(~get("difficulty"))
-  private def batchSelect(angle: PuzzleAngle, difficulty: PuzzleDifficulty, nb: Int)(using Option[Me], Perf) =
-    env.puzzle.batch.nextForMe(angle, difficulty, nb.atMost(50)).flatMap(env.puzzle.jsonView.batch)
+  private def reqSettings(using req: RequestHeader) = PuzzleSettings(
+    PuzzleDifficulty.orDefault(~get("difficulty")),
+    get("color").flatMap(Color.fromName)
+  )
+
+  private def batchSelect(angle: PuzzleAngle, settings: PuzzleSettings, nb: Int)(using Option[Me], Perf) =
+    env.puzzle.batch.nextForMe(angle, settings, nb.atMost(50)).flatMap(env.puzzle.jsonView.batch)
 
   private val solveRateLimit =
     env.security.ipTrust.rateLimit(200, 1.hour, "puzzle.solve.ip", _.proxyMultiplier(2))
@@ -362,7 +368,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
                     .inject(Nil)
               given Option[Me] <- ctx.me.so(env.user.repo.me)
               nextPuzzles <- WithPuzzlePerf:
-                batchSelect(angle, reqDifficulty, ~getInt("nb"))
+                batchSelect(angle, reqSettings, ~getInt("nb"))
               result = nextPuzzles ++ Json.obj("rounds" -> rounds)
             yield Ok(result)
       )

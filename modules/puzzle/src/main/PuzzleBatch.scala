@@ -13,16 +13,17 @@ final class PuzzleBatch(
   import BsonHandlers.given
 
   def nextForMe(difficulty: PuzzleDifficulty, nb: Int)(using Option[Me], Perf): Fu[Vector[Puzzle]] =
-    nextForMe(PuzzleAngle.mix, difficulty, nb)
+    nextForMe(PuzzleAngle.mix, PuzzleSettings(difficulty, none), nb)
 
   def nextForMe(
       angle: PuzzleAngle,
-      difficulty: PuzzleDifficulty,
+      settings: PuzzleSettings,
       nb: Int
   )(using me: Option[Me], perf: Perf): Fu[Vector[Puzzle]] =
+    import settings.*
     if nb < 1 then fuccess(Vector.empty)
-    else if nb == 1 then selector.nextPuzzleFor(angle, none, difficulty.some).map(_.toVector)
-    else
+    else if nb == 1 then selector.nextPuzzleFor(angle, color.map(some), difficulty.some).map(_.toVector)
+    else // todo honor color for batch, maybe
       me.foldUse(anonApi.getBatchFor(angle, difficulty, nb)): me ?=>
         val tier =
           if perf.nb > 5000 then PuzzleTier.good
