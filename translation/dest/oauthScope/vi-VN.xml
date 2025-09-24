@@ -8,47 +8,46 @@
   <string name="whatTheTokenCanDo">Những gì mà Token có thể làm thay bạn:</string>
   <string name="doNotShareIt">Token sẽ cấp quyền truy cập vào tài khoản của bạn. KHÔNG chia sẻ nó với bất kỳ ai!</string>
   <string name="copyTokenNow">Đảm bảo rằng bạn đã sao chép mã truy cập cá nhân mới ngay bây giờ. Bạn sẽ không thể nhìn thấy nó lần nữa!</string>
-  <string name="preferenceRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's preferences.&#10;&#10;There is a separate setting to let applications write (edit) preferences.">Tùy chọn đọc</string>
-  <string name="preferenceWrite" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to edit/change the user's preferences.&#10;&#10;There is a separate setting to let applications only read preferences, but not to write (edit) them.">Tùy chọn viết</string>
-  <string name="emailRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's registered email address.">Đọc địa chỉ email</string>
-  <string name="challengeRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view game challenges from other players.&#10;&#10;There is a separate setting to let applications send, accept or reject challenges.">Đọc các lời thách đấu được gửi đến</string>
-  <string name="challengeWrite" comment="challengeWrite&#10;&#10;In the context of an authentication token, a setting that permits third party software to send, accept and reject challenges on behalf of the player.">Gửi, chấp nhận và từ chối thách đấu</string>
+  <string name="preferenceRead">Tùy chọn đọc</string>
+  <string name="preferenceWrite">Tùy chọn viết</string>
+  <string name="emailRead">Đọc địa chỉ email</string>
+  <string name="challengeRead">Đọc các lời thách đấu được gửi đến</string>
+  <string name="challengeWrite">Gửi, chấp nhận và từ chối thách đấu</string>
   <string name="challengeBulk">Tạo nhiều ván đấu cùng lúc với nhiều người chơi</string>
-  <string name="studyRead" comment="Gives permission to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Đọc các bài học riêng và các chương trình phát sóng</string>
-  <string name="studyWrite" comment="In the context of an access token, a setting that enables third party software to create, update or delete studies and broadcasts.">Tạo, cập nhật, xóa các bài học và các chương trình phát sóng</string>
-  <string name="tournamentWrite" comment="In the context of an access token, a setting that permits third party software to create, update or delete studies and join tournaments.">Tạo, cập nhật và tham gia các giải đấu</string>
-  <string name="racerWrite" comment="In the context of an access token, a setting which permits third party software to create, and join puzzle races (this is for the activity/minigame Puzzle Racer: https://lichess.org/racer)">Tạo và tham gia đua câu đố</string>
-  <string name="puzzleRead" comment="In the context of an access token, a setting which permits third-party software to view the user's puzzle solving history.">Đọc các hoạt động câu đố</string>
-  <string name="teamRead" comment="Gives permission to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Đọc thông tin riêng của đội</string>
-  <string name="teamWrite" comment="In the context of an access token, a setting that permits the third party software to join or leave teams on your behalf.">Tham gia và rời khỏi đội</string>
+  <string name="studyRead">Đọc các bài học riêng và các chương trình phát sóng</string>
+  <string name="studyWrite">Tạo, cập nhật, xóa các bài học và các chương trình phát sóng</string>
+  <string name="tournamentWrite">Tạo, cập nhật và tham gia các giải đấu</string>
+  <string name="racerWrite">Tạo và tham gia đua câu đố</string>
+  <string name="puzzleRead">Đọc các hoạt động câu đố</string>
+  <string name="teamRead">Đọc thông tin riêng của đội</string>
+  <string name="teamWrite">Tham gia và rời khỏi đội</string>
   <string name="teamLead">Quản lý các đội bạn đứng đầu: gửi tin nhắn riêng, xóa thành viên</string>
-  <string name="followRead" comment="In the context of an access token, a setting which permits third-party software to view (read) which players you are following.">Đọc người chơi đã theo dõi</string>
-  <string name="followWrite" comment="In the context of an access token, a setting which permits third-party software to follow and unfollow other players on your behalf.">Theo dõi và bỏ theo dõi những người chơi khác</string>
-  <string name="msgWrite" comment="In the context of an access token, a setting which permits third-party software to send messages on your behalf.">Gửi tin nhắn riêng đến những kỳ thủ khác</string>
-  <string name="boardPlay" comment="In the context of an access token, a setting which permits third-party software to play games using e-boards like DGT, through Lichess's board API.">Chơi với bàn cờ API</string>
-  <string name="botPlay" comment="In the context of an access token, a setting which permits third-party software to play games over the bot API. This is intended mainly for having an engine account e.g. the accounts featured on https://lichess.org/player/bots">Chơi cờ với bot API</string>
+  <string name="followRead">Đọc người chơi đã theo dõi</string>
+  <string name="followWrite">Theo dõi và bỏ theo dõi những người chơi khác</string>
+  <string name="msgWrite">Gửi tin nhắn riêng đến những kỳ thủ khác</string>
+  <string name="boardPlay">Chơi với bàn cờ API</string>
+  <string name="botPlay">Chơi cờ với bot API</string>
   <string name="engineRead">Xem và sử dụng động cơ máy tính bên ngoài</string>
   <string name="engineWrite">Tạo và cập nhật các động cơ bên ngoài</string>
-  <string name="webLogin" comment="In the context of an access token, a setting which permits third-party software to create authenticated sessions - meaning effectively unlimited access to your account, using it as if it is you, instead of a third party program. It will be unable to view your password but it will be able to do almost everything else.">Tạo các phiên trang web đã được xác thực (cấp toàn quyền truy cập!)</string>
-  <string name="webMod" comment="In the context of an access token, this is a setting which permits third-party software to use moderator tools on your behalf. Most players will not be able to see this option.">Sử dụng các công cụ điều hành (nằm trong quyền kiểm soát của bạn)</string>
+  <string name="webLogin">Tạo các phiên trang web đã được xác thực (cấp toàn quyền truy cập!)</string>
+  <string name="webMod">Sử dụng các công cụ điều hành (nằm trong quyền kiểm soát của bạn)</string>
   <string name="personalAccessTokens">Khóa truy cập API cá nhân</string>
-  <string name="canMakeOauthRequests" comment="%s is 'authorisation code flow' (flow, as in a process).">Bạn có thể thực hiện các yêu cầu OAuth mà không cần thông qua %s.</string>
-  <string name="authorizationCodeFlow" comment="Part of longer string canMakeOauthRequests:&#10;You can make OAuth requests without going through the authorisation code flow.&#10;&#10;This text is also a link which directs to https://lichess.org/api#section/Introduction/Authentication.&#10;&#10;In this context, 'flow' means a process. Technical information explaining this concept here: https://oauth.net/2/grant-types/authorization-code/ - its formal name is &quot;authorisation code grant type&quot;.&#10;&#10;If you are not comfortable in translating this, we recommend leaving it untranslated.">luồng mã ủy quyền</string>
-  <string name="insteadGenerateToken" comment="%s is 'generate a personal access token'.">Thay vào đó, %s mà bạn có thể sử dụng trực tiếp trong các yêu cầu API.</string>
-  <string name="generatePersonalToken" comment="Part of longer string insteadGenerateToken:&#10;'Instead, generate a personal access token you can directly use in API requests.'&#10;&#10;It is a link, which links to https://lichess.org/account/oauth/token/create and appears after you have created at least one token.">tạo khóa truy cập cá nhân</string>
+  <string name="canMakeOauthRequests">Bạn có thể thực hiện các yêu cầu OAuth mà không cần thông qua %s.</string>
+  <string name="authorizationCodeFlow">luồng mã ủy quyền</string>
+  <string name="insteadGenerateToken" comment="The parameter is a link to generate a token a personal access token">Thay vào đó, %s mà bạn có thể sử dụng trực tiếp trong các yêu cầu API.</string>
+  <string name="generatePersonalToken">tạo khóa truy cập cá nhân</string>
   <string name="guardTokensCarefully">Hãy bảo vệ những khóa này một cách cẩn thận! Chúng giống như mật khẩu. Ưu điểm của việc sử dụng mã thông báo thay vì đặt mật khẩu của bạn vào tập lệnh là mã thông báo có thể bị thu hồi và bạn có thể tạo nhiều mã thông báo.</string>
-  <string name="apiDocumentationLinks" comment="%1$s links to a personal token app example (string: personalTokenAppExample).&#10;&#10;%2$s links to the API documentation (string: apiDocumentation).&#10;&#10;Full sentence after %1$s and %2$s have been substituted:&#10;&quot;Here's a personal app token example and the API documentation.&quot;&#10;&#10;personalTokenAppExample and apiDocumentation can both be translated separately.">Đây là %1$s và %2$s.</string>
-  <string name="personalTokenAppExample" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'&#10;&#10;This text is also a link which directs to https://github.com/lichess-org/api/tree/master/example/oauth-personal-token.">ví dụ về ứng dụng khóa cá nhân</string>
-  <string name="apiDocumentation" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'&#10;&#10;This text is also a link which directs to https://lichess.org/api.">Tài liệu API</string>
+  <string name="apiDocumentationLinks" comment="The first parameter links to a personal token app example. The second parameter links to the API documentation">Đây là %1$s và %2$s.</string>
+  <string name="personalTokenAppExample">ví dụ về ứng dụng khóa cá nhân</string>
+  <string name="apiDocumentation">Tài liệu API</string>
   <string name="newToken">Khoá truy cập mới</string>
   <string name="apiAccessTokens">Khoá truy cập API</string>
-  <string name="created" comment="%s is relative time, e.g. 2 hours ago.">Đã tạo %s</string>
-  <string name="lastUsed" comment="%s is relative time, e.g. 2 hours ago. 'Last used' in this context means 'You used this most recently %s time ago'.">Lần cuối sử dụng %s</string>
+  <string name="created">Đã tạo %s</string>
+  <string name="lastUsed">Lần cuối sử dụng %s</string>
   <string name="alreadyHavePlayedGames">Bạn đã từng chơi ván cờ rồi!</string>
   <string name="attentionOfDevelopers">Lưu ý chỉ dành cho nhà phát triển:</string>
   <string name="possibleToPrefill">Có thể điền trước biểu mẫu này bằng cách điều chỉnh các tham số truy vấn của URL.</string>
-  <string name="forExample" comment="%s is an example URL.&#10;&#10;Please note the sentence continues on the next line. The complete sentence is:&#10;'For example: https://lichess.org/account/oauth/token/create?scopes[]=challenge:write&amp;scopes[]=puzzle:read&amp;description=Prefilled+token+example&#10;ticks the challenge:create and puzzle:read scopes, and sets the token description.'">Ví dụ như: %s</string>
-  <string name="ticksTheScopes" comment="Part of a longer sentence, this is the second line:&#10;&#10;'For example: https://lichess.org/account/oauth/token/create?scopes[]=challenge:write&amp;scopes[]=puzzle:read&amp;description=Prefilled+token+example&#10;ticks the challenge:create and puzzle:read scopes, and sets the token description.'&#10;&#10;%1$s is 'challenge:create', %2$s is 'puzzle:read' which are both used as technical examples. These should not be translated which is why they are included as substituted strings.">đánh dấu vào phạm vi %1$s và %2$s, đồng thời đặt mô tả khóa.</string>
-  <string name="scopesCanBeFound" comment="scopesCanBeFound&#10;&#10;For this page in particular, developers can link to it so that some options are pre-ticked when a user follows the URL.&#10;&#10;To pre-tick those options, developers need the scope codes, which they can find by inspecting the source code of the page itself.">Mã phạm vi có thể được tìm thấy trong mã HTML của biểu mẫu.</string>
+  <string name="forExample">Ví dụ như: %s</string>
+  <string name="ticksTheScopes">đánh dấu vào phạm vi %1$s và %2$s, đồng thời đặt mô tả khóa.</string>
   <string name="givingPrefilledUrls">Việc cung cấp các URL điền sẵn này cho người dùng của bạn sẽ giúp họ có được phạm vi mã thông báo phù hợp.</string>
 </resources>
