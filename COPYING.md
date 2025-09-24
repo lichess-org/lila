@@ -32,7 +32,7 @@ public/piece/horsey, public/images/emoji/horsey.png | cham, michael1241 | [CC BY
 public/images/staunton | [James Clarke](https://github.com/clarkerubber/Staunton-Pieces) | [MIT](https://github.com/clarkerubber/Staunton-Pieces/blob/master/LICENSE)
 public/images/staunton/piece/CubesAndPi | CubesAndPi | AGPLv3+
 public/images/trophy | [James Clarke](https://github.com/clarkerubber/Staunton-Pieces/tree/master/Trophies) | [MIT](https://github.com/clarkerubber/Staunton-Pieces/blob/master/LICENSE)
-public/images/flags | [Go Squared Ltd.](https://www.gosquared.com/resources/flag-icons/) | [MIT](https://github.com/gosquared/flags/blob/master/LICENSE.txt)
+public/flags | [Go Squared Ltd.](https://www.gosquared.com/resources/flag-icons/) | [MIT](https://github.com/gosquared/flags/blob/master/LICENSE.txt)
 public/images/board | the lila authors and [pirouetti](https://lichess.org/@/pirouetti) | AGPLv3+
 public/images/learn/pieces | Thibault Duplessis and [Colin M.L. Burnett](https://en.wikipedia.org/wiki/User:Cburnett) | [GPLv2+](https://www.gnu.org/licenses/gpl-2.0.txt)
 public/piece/mono | Thibault Duplessis and [Colin M.L. Burnett](https://en.wikipedia.org/wiki/User:Cburnett) | [GPLv2+](https://www.gnu.org/licenses/gpl-2.0.txt)

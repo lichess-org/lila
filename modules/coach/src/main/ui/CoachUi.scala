@@ -63,7 +63,7 @@ final class CoachUi(helpers: Helpers)(
                 flagInfo(profile).map: c =>
                   frag(
                     span(cls := "flag")(
-                      img(src := assetUrl(s"images/flags/${c.code}.png")),
+                      img(src := assetUrl(s"flags/${c.code}.png")),
                       " ",
                       c.name
                     )
