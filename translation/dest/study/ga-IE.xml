@@ -114,7 +114,6 @@
     <item quantity="other">Greamaigh do théacs PGN anseo, suas le %s cluiche</item>
   </plurals>
   <string name="urlOfTheGame">URL na gcluichí, ceann amháin an líne</string>
-  <string name="loadAGameFromXOrY">Lódáil cluichí ó %1$s nó %2$s</string>
   <string name="createChapter">Cruthaigh caibidil</string>
   <string name="createStudy">Cruthaigh staidéar</string>
   <string name="editStudy">Cuir staidéar in eagar</string>
