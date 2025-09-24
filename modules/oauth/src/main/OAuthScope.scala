@@ -127,7 +127,7 @@ object OAuthScope:
     I18nKey("Interactions") -> List(Follow.Read, Follow.Write, Msg.Write),
     I18nKey("Play games") -> List(Challenge.Read, Challenge.Write, Challenge.Bulk, Tournament.Write),
     I18nKey("Teams") -> List(Team.Read, Team.Write, Team.Lead),
-    I18nKey("Puzzles") -> List(Puzzle.Read, Racer.Write),
+    I18nKey("Puzzles") -> List(Puzzle.Read, Puzzle.Write, Racer.Write),
     I18nKey("Studies & Broadcasts") -> List(Study.Read, Study.Write),
     I18nKey("External play") -> List(Board.Play, Bot.Play),
     I18nKey("External engine") -> List(Engine.Read, Engine.Write)
