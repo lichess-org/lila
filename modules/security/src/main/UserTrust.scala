@@ -56,7 +56,7 @@ private final class UserTrustApi(
     user.count.loss > 10 || user.createdSinceDays(15) || !user.plan.isEmpty || user.hasTitle
 
   private def looksLikeKnownAbuser(user: User): Boolean = List(
-    user.count.lossH < 2,
+    user.count.loss < 2,
     user.lang.has(scalalib.model.LangTag("tr-TR")),
     user.profile.flatMap(_.flag).has(FlagCode("TR")),
     user.flair.isDefined,

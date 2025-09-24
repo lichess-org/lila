@@ -163,7 +163,8 @@ object user:
       game: Int,
       loss: Int,
       rated: Int,
-      win: Int
+      win: Int,
+      human: Option[Int] // only for bots, counts games vs humans
   )
 
   case class WithPerf(user: User, perf: Perf):

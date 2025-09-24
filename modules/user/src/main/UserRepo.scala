@@ -208,15 +208,16 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
 
   def incNbGames(
       id: UserId,
-      rated: Boolean,
-      ai: Boolean,
+      rated: chess.Rated,
       result: Int,
       totalTime: Option[Int],
-      tvTime: Option[Int]
+      tvTime: Option[Int],
+      botVsHuman: Boolean
   ) =
     val incs: List[BSONElement] = List(
       "count.game".some,
-      rated.option("count.rated"),
+      rated.yes.option("count.rated"),
+      botVsHuman.option("count.human"),
       (result match
         case -1 => "count.loss".some
         case 1 => "count.win".some
@@ -562,7 +563,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
   def filterClosedOrInactiveIds(since: Instant)(ids: Iterable[UserId]): Fu[List[UserId]] =
     coll.distinctEasy[UserId, List](F.id, $inIds(ids) ++ $or(disabledSelect, F.seenAt.$lt(since)), _.sec)
 
-  private val defaultCount = lila.core.user.Count(0, 0, 0, 0, 0, 0, 0, 0, 0)
+  private val defaultCount = lila.core.user.Count(0, 0, 0, 0, 0, none)
 
   private def newUser(
       name: UserName,

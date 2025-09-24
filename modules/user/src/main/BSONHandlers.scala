@@ -76,7 +76,8 @@ object BSONHandlers:
         game = r.nInt("game"),
         loss = r.nInt("loss"),
         rated = r.nInt("rated"),
-        win = r.nInt("win")
+        win = r.nInt("win"),
+        human = r.nIntO("human")
       )
     def writes(w: BSON.Writer, o: Count) =
       $doc(
@@ -84,7 +85,8 @@ object BSONHandlers:
         "game" -> w.int(o.game),
         "loss" -> w.int(o.loss),
         "rated" -> w.int(o.rated),
-        "win" -> w.int(o.win)
+        "win" -> w.int(o.win),
+        "human" -> o.human
       )
 
   private[user] given BSONHandler[HashedPassword] = quickHandler[HashedPassword](
