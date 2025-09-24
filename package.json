@@ -60,7 +60,6 @@
     "journal": "journalctl --user -fu lila -o cat",
     "metals": "tail -F .metals/metals.log | stdbuf -oL cut -c 21- | rg -v '(notification for request|handleCancellation)'",
     "serverlog": "pnpm journal & pnpm metals",
-    "piece-css": "pnpx tsx bin/gen/piece-css.ts",
     "kill-build": "[ -f ui/.build/instance.lock ] && kill \"$(cat ui/.build/instance.lock)\" 2>/dev/null || true",
     "i18n-file-gen": "pnpx tsx bin/i18n-file-gen.ts",
     "test": "vitest run --config=ui/vitest.config.mts",

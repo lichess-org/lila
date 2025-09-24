@@ -29,7 +29,6 @@ final class Dev(env: Env) extends LilaController(env):
     env.web.settings.noDelaySecret,
     env.web.settings.prizeTournamentMakers,
     env.web.settings.sitewideCoepCredentiallessHeader,
-    env.web.settings.useSvgFiles,
     env.tournament.reloadEndpointSetting,
     env.tutor.nbAnalysisSetting,
     env.tutor.parallelismSetting,

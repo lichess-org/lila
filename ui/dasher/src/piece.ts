@@ -59,8 +59,6 @@ export class PieceCtrl extends PaneCtrl {
     this.dimData.current = t;
     document.body.dataset[this.is3d ? 'pieceSet3d' : 'pieceSet'] = t;
     if (!this.is3d) {
-      const sprite = document.getElementById('piece-sprite') as HTMLLinkElement;
-      if (sprite) sprite.href = site.asset.url(`piece-css/${t}.css`);
       pieceVarRules(t);
     }
     pubsub.emit('board.change', this.is3d);
