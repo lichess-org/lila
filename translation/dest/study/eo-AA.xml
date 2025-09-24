@@ -103,7 +103,6 @@
     <item quantity="other">Algluu ĉi tie vian PGN kodon, ĝis maksimume %s ludoj</item>
   </plurals>
   <string name="urlOfTheGame">URL de la ludo</string>
-  <string name="loadAGameFromXOrY">Ŝarĝu ludon el %1$s aŭ %2$s</string>
   <string name="createChapter">Krei ĉapitron</string>
   <string name="createStudy">Krei studon</string>
   <string name="editStudy">Redakti studon</string>
