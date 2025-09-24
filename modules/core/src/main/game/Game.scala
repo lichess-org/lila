@@ -241,7 +241,7 @@ case class Game(
 
   def userIds: List[UserId] = players.flatMap(_.userId)
 
-  def twoUserIds: Option[(UserId, UserId)] = for
+  def twoUserIds: Option[PairOf[UserId]] = for
     w <- whitePlayer.userId
     b <- blackPlayer.userId
     if w != b

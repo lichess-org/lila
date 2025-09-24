@@ -51,9 +51,9 @@ final private class TvSyncActor(
 
     case GetChampions(promise) => promise.success(Tv.Champions(channelChampions))
 
-    case lila.core.game.StartGame(g) =>
+    case lila.core.game.StartGame(g, users) =>
       if g.hasClock then
-        val candidate = Tv.Candidate(g, g.userIds.exists(lightUserApi.isBotSync))
+        val candidate = Tv.Candidate(g, users.exists(_.exists(_.isBot)))
         channelActors
           .collect:
             case (chan, actor) if chan.filter(candidate) => actor

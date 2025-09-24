@@ -19,7 +19,7 @@ final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(using akka.stream.M
             case List(u1, u2) if u1 != u2 => userIds(u1) && userIds(u2)
             case _ => false
           val subStart = Bus.sub[StartGame]:
-            case StartGame(game) if matches(game) => queue.offer(game)
+            case StartGame(game, _) if matches(game) => queue.offer(game)
           val subFinish = Bus.sub[FinishGame]:
             case FinishGame(game, _) if matches(game) => queue.offer(game)
           queue

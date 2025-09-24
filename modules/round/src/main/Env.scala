@@ -107,9 +107,9 @@ final class Env(
       .game(gameId)
       .foreach:
         _.foreach: game =>
-          for _ <- lightUserApi.preloadMany(game.userIds)
+          for users <- game.players.map(_.userId).traverse(_.so(lightUserApi.async))
           yield
-            val sg = lila.core.game.StartGame(game)
+            val sg = lila.core.game.StartGame(game, users)
             Bus.pub(sg)
             game.userIds.foreach: userId =>
               Bus.publishDyn(sg, s"userStartGame:$userId")

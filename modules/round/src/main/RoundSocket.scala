@@ -203,7 +203,7 @@ final class RoundSocket(
     case TourStanding(tourId, json) => send(Protocol.Out.tourStanding(tourId, json))
 
   Bus.sub[lila.core.game.StartGame]:
-    case lila.core.game.StartGame(game) if game.hasClock =>
+    case lila.core.game.StartGame(game, _) if game.hasClock =>
       game.userIds.some
         .filter(_.nonEmpty)
         .foreach: usersPlaying =>
