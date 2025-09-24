@@ -13,6 +13,7 @@
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+    -webkit-text-fill-color: transparent;
   }
   @each $id, $color in $patron-colors-dark {
     &--#{$id} {
