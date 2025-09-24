@@ -99,7 +99,6 @@
     <item quantity="other">Aseta oma PGN tekst siia, kuni %s mängu</item>
   </plurals>
   <string name="urlOfTheGame">URL mängu</string>
-  <string name="loadAGameFromXOrY">Lae mäng alla %1$s või %2$s</string>
   <string name="createChapter">Alusta peatükk</string>
   <string name="createStudy">Koosta uuring</string>
   <string name="editStudy">Muuda uuringut</string>
