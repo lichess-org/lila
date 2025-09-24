@@ -8,27 +8,27 @@
   <string name="whatTheTokenCanDo">Cad is féidir leis an comhartha a dhéanamh ar do shon:</string>
   <string name="doNotShareIt">Tabharfaidh an comhartha rochtain ar do chuntas. NÍ é a roinnt le duine ar bith!</string>
   <string name="copyTokenNow">Déan cinnte do chomhartha rochtana pearsanta nua a chóipeáil anois. Ní bheidh tú in ann é a fheiceáil arís!</string>
-  <string name="preferenceRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's preferences.&#10;&#10;There is a separate setting to let applications write (edit) preferences.">Léigh roghanna</string>
-  <string name="preferenceWrite" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to edit/change the user's preferences.&#10;&#10;There is a separate setting to let applications only read preferences, but not to write (edit) them.">Scríobh rogha</string>
-  <string name="emailRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's registered email address.">Léigh seoladh ríomhphoist</string>
-  <string name="challengeRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view game challenges from other players.&#10;&#10;There is a separate setting to let applications send, accept or reject challenges.">Léigh dúshláin ag teacht isteach</string>
-  <string name="challengeWrite" comment="challengeWrite&#10;&#10;In the context of an authentication token, a setting that permits third party software to send, accept and reject challenges on behalf of the player.">Dúshláin a sheoladh, a ghlacadh agus a dhiúltú</string>
+  <string name="preferenceRead">Léigh roghanna</string>
+  <string name="preferenceWrite">Scríobh rogha</string>
+  <string name="emailRead">Léigh seoladh ríomhphoist</string>
+  <string name="challengeRead">Léigh dúshláin ag teacht isteach</string>
+  <string name="challengeWrite">Dúshláin a sheoladh, a ghlacadh agus a dhiúltú</string>
   <string name="challengeBulk">Cruthaigh roinnt cluichí ag an am céanna do imreoirí eile</string>
-  <string name="studyRead" comment="Gives permission to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Léigh staidéir phríobháideacha agus craoltaí</string>
-  <string name="studyWrite" comment="In the context of an access token, a setting that enables third party software to create, update or delete studies and broadcasts.">Cruthaigh, nuashonraigh, scrios staidéir agus craoltaí</string>
-  <string name="tournamentWrite" comment="In the context of an access token, a setting that permits third party software to create, update or delete studies and join tournaments.">Cruthaigh, nuashonraigh agus glac páirt i gcomórtais</string>
-  <string name="racerWrite" comment="In the context of an access token, a setting which permits third party software to create, and join puzzle races (this is for the activity/minigame Puzzle Racer: https://lichess.org/racer)">Cruthaigh agus páirt a ghlacadh i rásaí bhfadhbhanna</string>
-  <string name="puzzleRead" comment="In the context of an access token, a setting which permits third-party software to view the user's puzzle solving history.">Léigh gníomhaíocht fadhbanna</string>
-  <string name="teamRead" comment="Gives permission to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Léigh faisnéis foirne príobháideacha</string>
-  <string name="teamWrite" comment="In the context of an access token, a setting that permits the third party software to join or leave teams on your behalf.">Glac páirt agus fág foirne</string>
+  <string name="studyRead">Léigh staidéir phríobháideacha agus craoltaí</string>
+  <string name="studyWrite">Cruthaigh, nuashonraigh, scrios staidéir agus craoltaí</string>
+  <string name="tournamentWrite">Cruthaigh, nuashonraigh agus glac páirt i gcomórtais</string>
+  <string name="racerWrite">Cruthaigh agus páirt a ghlacadh i rásaí bhfadhbhanna</string>
+  <string name="puzzleRead">Léigh gníomhaíocht fadhbanna</string>
+  <string name="teamRead">Léigh faisnéis foirne príobháideacha</string>
+  <string name="teamWrite">Glac páirt agus fág foirne</string>
   <string name="teamLead">Bainistigh na foirne atá i gceannas ort: seol teachtaireachtaí príobháideacha, ciceáil baill</string>
-  <string name="followRead" comment="In the context of an access token, a setting which permits third-party software to view (read) which players you are following.">Léigh imreoirí atá leanta</string>
-  <string name="followWrite" comment="In the context of an access token, a setting which permits third-party software to follow and unfollow other players on your behalf.">Lean ficheallaithe eile agus dílean iad</string>
-  <string name="msgWrite" comment="In the context of an access token, a setting which permits third-party software to send messages on your behalf.">Seol teachtaireachtaí príobháideacha chuig ficheallaithe eile</string>
-  <string name="boardPlay" comment="In the context of an access token, a setting which permits third-party software to play games using e-boards like DGT, through Lichess's board API.">Imir cluichí le bord API</string>
-  <string name="botPlay" comment="In the context of an access token, a setting which permits third-party software to play games over the bot API. This is intended mainly for having an engine account e.g. the accounts featured on https://lichess.org/player/bots">Imir cluichí le bota api</string>
+  <string name="followRead">Léigh imreoirí atá leanta</string>
+  <string name="followWrite">Lean ficheallaithe eile agus dílean iad</string>
+  <string name="msgWrite">Seol teachtaireachtaí príobháideacha chuig ficheallaithe eile</string>
+  <string name="boardPlay">Imir cluichí le bord API</string>
+  <string name="botPlay">Imir cluichí le bota api</string>
   <string name="engineRead">Féach ar agus úsáid do innill sheachtracha</string>
   <string name="engineWrite">Cruthaigh agus nuashonraigh innill sheachtracha</string>
-  <string name="webLogin" comment="In the context of an access token, a setting which permits third-party software to create authenticated sessions - meaning effectively unlimited access to your account, using it as if it is you, instead of a third party program. It will be unable to view your password but it will be able to do almost everything else.">Cruthaigh seisiúin suíomh Gréasáin fíordheimhnithe (deonaíonn rochtain iomlán!)</string>
-  <string name="webMod" comment="In the context of an access token, this is a setting which permits third-party software to use moderator tools on your behalf. Most players will not be able to see this option.">Úsáid uirlisí modhnóra (laistigh de do chead)</string>
+  <string name="webLogin">Cruthaigh seisiúin suíomh Gréasáin fíordheimhnithe (deonaíonn rochtain iomlán!)</string>
+  <string name="webMod">Úsáid uirlisí modhnóra (laistigh de do chead)</string>
 </resources>
