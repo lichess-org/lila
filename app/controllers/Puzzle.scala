@@ -256,16 +256,8 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
 
   def apiNext = AnonOrScoped(_.Puzzle.Read):
     WithPuzzlePerf:
-      validateParam("angle", PuzzleAngle.find): angle =>
-        validateParam("difficulty", PuzzleDifficulty.find): difficulty =>
-          FoundOk(selector.nextPuzzleFor(angle | PuzzleAngle.mix, none, difficulty)):
-            env.puzzle.jsonView(_, none, none)
-
-  private def validateParam[A](name: String, read: String => Option[A])(
-      f: Option[A] => Fu[Result]
-  )(using Context): Fu[Result] =
-    get(name).fold(f(none)): param =>
-      read(param).fold(BadRequest(s"Invalid $name=$param").toFuccess)(p => f(p.some))
+      FoundOk(selector.nextPuzzleFor(PuzzleAngle.findOrMix(~get("angle")), none, reqDifficulty.some)):
+        env.puzzle.jsonView(_, none, none)
 
   def frame = Anon:
     InEmbedContext:
