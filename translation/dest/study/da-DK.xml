@@ -105,7 +105,6 @@
     <item quantity="other">Indsæt din PGN-tekst her, op til %s partier</item>
   </plurals>
   <string name="urlOfTheGame">URL for partiet</string>
-  <string name="loadAGameFromXOrY">Indlæs et parti fra %1$s eller %2$s</string>
   <string name="createChapter">Opret kapitel</string>
   <string name="createStudy">Opret studie</string>
   <string name="editStudy">Rediger studie</string>
