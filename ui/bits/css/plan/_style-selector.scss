@@ -84,6 +84,7 @@
         box-shadow: 0 0 23px $color;
       }
       .pss__color__tier-name {
+        width: 100%;
         background-color: var(--c-paco#{$id});
       }
     }
