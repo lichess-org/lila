@@ -57,8 +57,6 @@ final class Env(
 
   lazy val jsonView = wire[JsonView]
 
-  private lazy val pgnFetch = wire[PgnFetch]
-
   private lazy val chapterMaker = wire[ChapterMaker]
 
   private lazy val explorerGame = wire[ExplorerGameApi]

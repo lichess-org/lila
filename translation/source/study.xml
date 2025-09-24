@@ -105,7 +105,6 @@
     <item quantity="other">Paste games as PGN text here. For each game, a new chapter is created. The study can have up to %s chapters.</item>
   </plurals>
   <string name="urlOfTheGame">URL of the games, one per line</string>
-  <string name="loadAGameFromXOrY">Load games from %1$s or %2$s</string>
   <string name="createChapter">Create chapter</string>
   <string name="createStudy">Create study</string>
   <string name="editStudy">Edit study</string>

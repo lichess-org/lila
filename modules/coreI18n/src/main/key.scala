@@ -2529,7 +2529,6 @@ object I18nKey:
     val `loadAGameFromPgn`: I18nKey = "study:loadAGameFromPgn"
     val `automatic`: I18nKey = "study:automatic"
     val `urlOfTheGame`: I18nKey = "study:urlOfTheGame"
-    val `loadAGameFromXOrY`: I18nKey = "study:loadAGameFromXOrY"
     val `createChapter`: I18nKey = "study:createChapter"
     val `createStudy`: I18nKey = "study:createStudy"
     val `editStudy`: I18nKey = "study:editStudy"

@@ -234,11 +234,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
             ),
           activeTab === 'game' &&
             hl('div.form-group', [
-              hl(
-                'label.form-label',
-                { attrs: { for: 'chapter-game' } },
-                i18n.study.loadAGameFromXOrY('lichess.org', 'chessgames.com'),
-              ),
+              hl('label.form-label', { attrs: { for: 'chapter-game' } }, 'Load Lichess games'),
               hl('textarea#chapter-game.form-control', {
                 attrs: { placeholder: i18n.study.urlOfTheGame },
                 hook: onInsert((el: HTMLTextAreaElement) => {

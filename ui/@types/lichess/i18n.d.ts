@@ -4967,8 +4967,6 @@ interface I18n {
     loadAGameByUrl: string;
     /** Load games from PGN */
     loadAGameFromPgn: string;
-    /** Load games from %1$s or %2$s */
-    loadAGameFromXOrY: I18nFormat;
     /** Load a position from FEN */
     loadAPositionFromFen: string;
     /** Paste a lichess game URL<br>(like lichess.org/7fHIU0XI)<br>to load the game moves in the chapter. */
