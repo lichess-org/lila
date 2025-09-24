@@ -1937,8 +1937,6 @@ interface I18n {
     racerWrite: string;
     /** So you remember what this token is for */
     rememberTokenUse: string;
-    /** The scope codes can be found in the HTML code of the form. */
-    scopesCanBeFound: string;
     /** Read private studies and broadcasts */
     studyRead: string;
     /** Create, update, delete studies and broadcasts */

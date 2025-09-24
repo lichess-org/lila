@@ -1011,7 +1011,6 @@ object I18nKey:
     val `possibleToPrefill`: I18nKey = "oauthScope:possibleToPrefill"
     val `forExample`: I18nKey = "oauthScope:forExample"
     val `ticksTheScopes`: I18nKey = "oauthScope:ticksTheScopes"
-    val `scopesCanBeFound`: I18nKey = "oauthScope:scopesCanBeFound"
     val `givingPrefilledUrls`: I18nKey = "oauthScope:givingPrefilledUrls"
 
   object onboarding:

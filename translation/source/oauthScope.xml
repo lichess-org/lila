@@ -49,6 +49,5 @@
   <string name="possibleToPrefill">It is possible to pre-fill this form by tweaking the query parameters of the URL.</string>
   <string name="forExample">For example: %s</string>
   <string name="ticksTheScopes">ticks the %1$s and %2$s scopes, and sets the token description.</string>
-  <string name="scopesCanBeFound">The scope codes can be found in the HTML code of the form.</string>
   <string name="givingPrefilledUrls">Giving these pre-filled URLs to your users will help them get the right token scopes.</string>
 </resources>
