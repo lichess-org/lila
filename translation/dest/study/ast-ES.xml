@@ -104,7 +104,6 @@
     <item quantity="other">Pega equí el códigu PGN, %s partíes a lo másimo</item>
   </plurals>
   <string name="urlOfTheGame">URL de la partida</string>
-  <string name="loadAGameFromXOrY">Cargar una partida dende %1$s o %2$s</string>
   <string name="createChapter">Crear capítulu</string>
   <string name="createStudy">Crear estudiu</string>
   <string name="editStudy">Editar estudiu</string>
