@@ -108,7 +108,12 @@ object user:
   opaque type UserEnabled = Boolean
   object UserEnabled extends YesNo[UserEnabled]
 
-  case class PlayTime(total: Int, tv: Int)
+  // in seconds
+  case class PlayTime(
+      total: Int,
+      tv: Int,
+      human: Option[Int] // only for bots, in games vs humans
+  )
 
   case class Plan(
       months: Int,
@@ -163,8 +168,7 @@ object user:
       game: Int,
       loss: Int,
       rated: Int,
-      win: Int,
-      human: Option[Int] // only for bots, counts games vs humans
+      win: Int
   )
 
   case class WithPerf(user: User, perf: Perf):

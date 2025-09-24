@@ -217,7 +217,6 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
     val incs: List[BSONElement] = List(
       "count.game".some,
       rated.yes.option("count.rated"),
-      botVsHuman.option("count.human"),
       (result match
         case -1 => "count.loss".some
         case 1 => "count.win".some
@@ -226,7 +225,8 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
       )
     ).flatten.map(k => BSONElement(k, BSONInteger(1))) ::: List(
       totalTime.map(v => BSONElement(s"${F.playTime}.total", BSONInteger(v + 2))),
-      tvTime.map(v => BSONElement(s"${F.playTime}.tv", BSONInteger(v + 2)))
+      tvTime.map(v => BSONElement(s"${F.playTime}.tv", BSONInteger(v + 2))),
+      totalTime.ifTrue(botVsHuman).map(v => BSONElement(s"${F.playTime}.human", BSONInteger(v + 2)))
     ).flatten
 
     coll.update.one($id(id), $inc($doc(incs*)))
@@ -563,7 +563,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
   def filterClosedOrInactiveIds(since: Instant)(ids: Iterable[UserId]): Fu[List[UserId]] =
     coll.distinctEasy[UserId, List](F.id, $inIds(ids) ++ $or(disabledSelect, F.seenAt.$lt(since)), _.sec)
 
-  private val defaultCount = lila.core.user.Count(0, 0, 0, 0, 0, none)
+  private val defaultCount = lila.core.user.Count(0, 0, 0, 0, 0)
 
   private def newUser(
       name: UserName,
@@ -587,7 +587,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
       F.createdAt -> now,
       F.createdWithApiVersion -> mobileApiVersion,
       F.seenAt -> now,
-      F.playTime -> PlayTime(0, 0),
+      F.playTime -> PlayTime(0, 0, none),
       F.lang -> lang
     ) ++ {
       (email.value != normalizedEmail.value).so($doc(F.verbatimEmail -> email))
