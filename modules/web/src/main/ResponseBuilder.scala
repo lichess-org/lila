@@ -5,6 +5,8 @@ import play.api.http.*
 import play.api.libs.json.*
 import play.api.mvc.*
 
+import lila.memo.RateLimit.Limited
+
 trait ResponseBuilder(using Executor)
     extends ControllerHelpers
     with ResponseWriter
@@ -30,6 +32,7 @@ trait ResponseBuilder(using Executor)
   def JsonStrOk(str: JsonStr): Result = Ok(str).as(JSON)
   def JsonBadRequest(body: JsValue): Result = BadRequest(body).as(JSON)
   def JsonBadRequest(msg: String): Result = JsonBadRequest(jsonError(msg))
+  def JsonLimited(limited: Limited): Result = TooManyRequests(Json.toJson(limited)).as(JSON)
 
   def strToNdJson(source: Source[String, ?]): Result =
     Ok.chunked(source).as(ndJson.contentType).noProxyBuffer

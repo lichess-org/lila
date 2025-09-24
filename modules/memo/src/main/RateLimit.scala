@@ -53,6 +53,17 @@ final class RateLimit[K](
   def zero[A](k: K, cost: Cost = 1, msg: => String = "")(op: => A)(using default: Zero[A]): A =
     apply[A](k, default.zero, cost, msg)(op)
 
+  def isLimited(k: K): Option[Instant] =
+    enforce.yes
+      .so(storage.getIfPresent(k))
+      .flatMap:
+        case (a, _) if a < credits => none
+        case (_, clearAt) if nowMillis > clearAt => none
+        case (_, clearAt) =>
+          if log then logger.info(s"$credits/$duration $k")
+          monitor.increment()
+          millisToInstant(clearAt).some
+
 object RateLimit:
 
   type ChargeWith = Cost => Unit
@@ -61,6 +72,8 @@ object RateLimit:
 
   enum Result:
     case Through, Limited
+
+  case class Limited(key: String, msg: String, until: Instant)
 
   trait RateLimiter[K]:
     def apply[A](k: K, default: => A, cost: Cost = 1, msg: => String = "")(op: => A): A
