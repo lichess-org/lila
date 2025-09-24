@@ -64,7 +64,7 @@
   <string name="studyPgn">PGN-ul studiului</string>
   <string name="chapterPgn">PGN-ul capitolului</string>
   <string name="copyChapterPgn">Copiază PGN</string>
-  <string name="copyRawChapterPgn" comment="Appears as a button on individual study chapters. Lets you copy a PGN without any annotations, commentary or analysis">Copiază PGN simplu</string>
+  <string name="copyRawChapterPgn">Copiază PGN simplu</string>
   <string name="downloadGame">Descarcă partida</string>
   <string name="studyUrl">URL-ul studiului</string>
   <string name="currentChapterUrl">URL-ul capitolului curent</string>
@@ -109,7 +109,6 @@
     <item quantity="other">Lipiți textul PGN aici, până la %s meciuri. Pentru fiecare joc se creează un nou capitol.</item>
   </plurals>
   <string name="urlOfTheGame">URL-urile jocurilor, câte unul pe linie</string>
-  <string name="loadAGameFromXOrY">Încărcați un joc de pe %1$s sau %2$s</string>
   <string name="createChapter">Creați capitolul</string>
   <string name="createStudy">Creați studiul</string>
   <string name="editStudy">Editați studiul</string>
