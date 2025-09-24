@@ -227,7 +227,13 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
       .aggregateList(onlineBotVisible.value, _.sec): framework =>
         import framework.*
         Match($inIds(ids) ++ userRepo.botWithBioSelect ++ userRepo.enabledSelect ++ userRepo.notLame) -> List(
-          Sort(Descending(BSONFields.roles), Descending(BSONFields.playTimeTotal)),
+          AddFields(
+            $doc(
+              "rand" -> $doc("$rand" -> $empty),
+              "cappedTime" -> $doc("$min" -> $arr("$time.total", 3600 * 24 * 100))
+            )
+          ),
+          Sort(Descending(BSONFields.roles), Descending("cappedTime"), Descending("rand")),
           Limit(onlineBotVisible.value),
           PipelineOperator(perfsRepo.aggregate.lookup)
         )
