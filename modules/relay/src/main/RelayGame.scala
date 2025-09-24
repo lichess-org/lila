@@ -108,11 +108,9 @@ private object RelayGame:
           tag.copy(value = clean)
 
   private def toggleUnplayedTermination(tags: Tags, res: lila.study.StudyPgnImport.Result) =
-    if res.ending.isDefined then
-      if res.root.mainline.sizeIs < 2
-      then tags + unplayedTag
-      else tags.map(_.filter(_ != unplayedTag))
-    else tags
+    if res.ending.isDefined && res.root.mainline.sizeIs < 2
+    then tags + unplayedTag
+    else tags.map(_.filter(_ != unplayedTag))
 
   import scalalib.Iso
   import chess.format.pgn.InitialComments
