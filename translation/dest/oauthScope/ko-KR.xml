@@ -8,47 +8,46 @@
   <string name="whatTheTokenCanDo">토큰이 사용자를 대신해 수행할 수 있는 작업:</string>
   <string name="doNotShareIt">토큰은 계정에 대한 액세스 권한을 부여합니다. 누구와도 공유하지 마세요!</string>
   <string name="copyTokenNow">지금 새 개인 액세스 토큰을 복사했는지 확인하십시오. 다시 볼 수 없게 됩니다.</string>
-  <string name="preferenceRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's preferences.&#10;&#10;There is a separate setting to let applications write (edit) preferences.">읽기 환경 설정</string>
-  <string name="preferenceWrite" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to edit/change the user's preferences.&#10;&#10;There is a separate setting to let applications only read preferences, but not to write (edit) them.">쓰기 설정</string>
-  <string name="emailRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's registered email address.">이메일 주소 확인</string>
-  <string name="challengeRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view game challenges from other players.&#10;&#10;There is a separate setting to let applications send, accept or reject challenges.">새로운 도전 과제 읽기</string>
-  <string name="challengeWrite" comment="challengeWrite&#10;&#10;In the context of an authentication token, a setting that permits third party software to send, accept and reject challenges on behalf of the player.">도전 과제 보내기, 수락 및 거부</string>
+  <string name="preferenceRead">읽기 환경 설정</string>
+  <string name="preferenceWrite">쓰기 설정</string>
+  <string name="emailRead">이메일 주소 확인</string>
+  <string name="challengeRead">새로운 도전 과제 읽기</string>
+  <string name="challengeWrite">도전 과제 보내기, 수락 및 거부</string>
   <string name="challengeBulk">다른 플레이어를 위해 한 번에 여러 게임을 생성하세요</string>
-  <string name="studyRead" comment="Gives permission to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">비공개 연구 및 방송 보기</string>
-  <string name="studyWrite" comment="In the context of an access token, a setting that enables third party software to create, update or delete studies and broadcasts.">연구 및 방송 생성, 업데이트, 삭제하기</string>
-  <string name="tournamentWrite" comment="In the context of an access token, a setting that permits third party software to create, update or delete studies and join tournaments.">토너먼트 생성, 업데이트 및 참여하기</string>
-  <string name="racerWrite" comment="In the context of an access token, a setting which permits third party software to create, and join puzzle races (this is for the activity/minigame Puzzle Racer: https://lichess.org/racer)">퍼즐 레이스 생성 및 참여</string>
-  <string name="puzzleRead" comment="In the context of an access token, a setting which permits third-party software to view the user's puzzle solving history.">퍼즐 액티비티 읽기</string>
-  <string name="teamRead" comment="Gives permission to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">비공개 팀 정보 확인하기</string>
-  <string name="teamWrite" comment="In the context of an access token, a setting that permits the third party software to join or leave teams on your behalf.">팀 가입 및 탈퇴하기</string>
+  <string name="studyRead">비공개 연구 및 방송 보기</string>
+  <string name="studyWrite">연구 및 방송 생성, 업데이트, 삭제하기</string>
+  <string name="tournamentWrite">토너먼트 생성, 업데이트 및 참여하기</string>
+  <string name="racerWrite">퍼즐 레이스 생성 및 참여</string>
+  <string name="puzzleRead">퍼즐 액티비티 읽기</string>
+  <string name="teamRead">비공개 팀 정보 확인하기</string>
+  <string name="teamWrite">팀 가입 및 탈퇴하기</string>
   <string name="teamLead">이끄는 팀 관리: PM 보내기, 멤버 내보내기</string>
-  <string name="followRead" comment="In the context of an access token, a setting which permits third-party software to view (read) which players you are following.">팔로우한 플레이어 보기</string>
-  <string name="followWrite" comment="In the context of an access token, a setting which permits third-party software to follow and unfollow other players on your behalf.">다른 플레이어 팔로우 및 언팔로우하기</string>
-  <string name="msgWrite" comment="In the context of an access token, a setting which permits third-party software to send messages on your behalf.">다른 플레이어에게 비공개 메시지 보내기</string>
-  <string name="boardPlay" comment="In the context of an access token, a setting which permits third-party software to play games using e-boards like DGT, through Lichess's board API.">보드 api로 게임하기</string>
-  <string name="botPlay" comment="In the context of an access token, a setting which permits third-party software to play games over the bot API. This is intended mainly for having an engine account e.g. the accounts featured on https://lichess.org/player/bots">봇 api로 게임하기</string>
+  <string name="followRead">팔로우한 플레이어 보기</string>
+  <string name="followWrite">다른 플레이어 팔로우 및 언팔로우하기</string>
+  <string name="msgWrite">다른 플레이어에게 비공개 메시지 보내기</string>
+  <string name="boardPlay">보드 api로 게임하기</string>
+  <string name="botPlay">봇 api로 게임하기</string>
   <string name="engineRead">외부 엔진 보기 및 사용하기</string>
   <string name="engineWrite">외부 엔진 제작 및 업데이트</string>
-  <string name="webLogin" comment="In the context of an access token, a setting which permits third-party software to create authenticated sessions - meaning effectively unlimited access to your account, using it as if it is you, instead of a third party program. It will be unable to view your password but it will be able to do almost everything else.">인증된 웹사이트 세션 만들기(전체 액세스 권한 부여!)</string>
-  <string name="webMod" comment="In the context of an access token, this is a setting which permits third-party software to use moderator tools on your behalf. Most players will not be able to see this option.">운영자 도구 사용(허용 범위 내에서)</string>
+  <string name="webLogin">인증된 웹사이트 세션 만들기(전체 액세스 권한 부여!)</string>
+  <string name="webMod">운영자 도구 사용(허용 범위 내에서)</string>
   <string name="personalAccessTokens">개인 API 액세스 토큰</string>
-  <string name="canMakeOauthRequests" comment="%s is 'authorisation code flow' (flow, as in a process).">당신은 %s를 거치지 않고 OAuth 요청을 만들 수 있습니다.</string>
-  <string name="authorizationCodeFlow" comment="Part of longer string canMakeOauthRequests:&#10;You can make OAuth requests without going through the authorisation code flow.&#10;&#10;This text is also a link which directs to https://lichess.org/api#section/Introduction/Authentication.&#10;&#10;In this context, 'flow' means a process. Technical information explaining this concept here: https://oauth.net/2/grant-types/authorization-code/ - its formal name is &quot;authorisation code grant type&quot;.&#10;&#10;If you are not comfortable in translating this, we recommend leaving it untranslated.">인증 코드 흐름</string>
-  <string name="insteadGenerateToken" comment="%s is 'generate a personal access token'.">대신 당신이 직접적으로 APi 요청을 사용할 수 있게 %s</string>
-  <string name="generatePersonalToken" comment="Part of longer string insteadGenerateToken:&#10;'Instead, generate a personal access token you can directly use in API requests.'&#10;&#10;It is a link, which links to https://lichess.org/account/oauth/token/create and appears after you have created at least one token.">개인 접속 토큰을 생성합니다.</string>
+  <string name="canMakeOauthRequests">당신은 %s를 거치지 않고 OAuth 요청을 만들 수 있습니다.</string>
+  <string name="authorizationCodeFlow">인증 코드 흐름</string>
+  <string name="insteadGenerateToken" comment="The parameter is a link to generate a token a personal access token">대신 당신이 직접적으로 APi 요청을 사용할 수 있게 %s</string>
+  <string name="generatePersonalToken">개인 접속 토큰을 생성합니다.</string>
   <string name="guardTokensCarefully">토큰들을 잘 지키세요! 그들은 비밀번호와도 같습니다. 암호를 스크립트에 입력하는 것보다 토큰을 사용하는 것의 장점은 토큰을 취소할 수 있고 많은 토큰을 생성할 수 있다는 것입니다.</string>
-  <string name="apiDocumentationLinks" comment="%1$s links to a personal token app example (string: personalTokenAppExample).&#10;&#10;%2$s links to the API documentation (string: apiDocumentation).&#10;&#10;Full sentence after %1$s and %2$s have been substituted:&#10;&quot;Here's a personal app token example and the API documentation.&quot;&#10;&#10;personalTokenAppExample and apiDocumentation can both be translated separately.">여기 %1$s와 %2$s가 있습니다.</string>
-  <string name="personalTokenAppExample" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'&#10;&#10;This text is also a link which directs to https://github.com/lichess-org/api/tree/master/example/oauth-personal-token.">개인 토큰 앱의 예시</string>
-  <string name="apiDocumentation" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'&#10;&#10;This text is also a link which directs to https://lichess.org/api.">API 문서</string>
+  <string name="apiDocumentationLinks" comment="The first parameter links to a personal token app example. The second parameter links to the API documentation">여기 %1$s와 %2$s가 있습니다.</string>
+  <string name="personalTokenAppExample">개인 토큰 앱의 예시</string>
+  <string name="apiDocumentation">API 문서</string>
   <string name="newToken">새로운 액세스 토큰</string>
   <string name="apiAccessTokens">API 액세스 토큰</string>
-  <string name="created" comment="%s is relative time, e.g. 2 hours ago.">생성됨: %s</string>
-  <string name="lastUsed" comment="%s is relative time, e.g. 2 hours ago. 'Last used' in this context means 'You used this most recently %s time ago'.">최근 사용: %s</string>
+  <string name="created">생성됨: %s</string>
+  <string name="lastUsed">최근 사용: %s</string>
   <string name="alreadyHavePlayedGames">당신은 이미 경기를 플레이하였습니다!</string>
   <string name="attentionOfDevelopers">개발자들을 위한 메모:</string>
   <string name="possibleToPrefill">URL의 쿼리 파라미터를 변경하여 이 서식을 미리 채울 수 있습니다.</string>
-  <string name="forExample" comment="%s is an example URL.&#10;&#10;Please note the sentence continues on the next line. The complete sentence is:&#10;'For example: https://lichess.org/account/oauth/token/create?scopes[]=challenge:write&amp;scopes[]=puzzle:read&amp;description=Prefilled+token+example&#10;ticks the challenge:create and puzzle:read scopes, and sets the token description.'">예시: %s</string>
-  <string name="ticksTheScopes" comment="Part of a longer sentence, this is the second line:&#10;&#10;'For example: https://lichess.org/account/oauth/token/create?scopes[]=challenge:write&amp;scopes[]=puzzle:read&amp;description=Prefilled+token+example&#10;ticks the challenge:create and puzzle:read scopes, and sets the token description.'&#10;&#10;%1$s is 'challenge:create', %2$s is 'puzzle:read' which are both used as technical examples. These should not be translated which is why they are included as substituted strings.">위 링크는 \'%1$s\'와 \'%2$s\' 스코프를 체크하고, 토큰의 설명을 설정합니다.</string>
-  <string name="scopesCanBeFound" comment="scopesCanBeFound&#10;&#10;For this page in particular, developers can link to it so that some options are pre-ticked when a user follows the URL.&#10;&#10;To pre-tick those options, developers need the scope codes, which they can find by inspecting the source code of the page itself.">스코프 코드는 서식의 HTML 코드에서 찾을 수 있습니다.</string>
+  <string name="forExample">예시: %s</string>
+  <string name="ticksTheScopes">위 링크는 \'%1$s\'와 \'%2$s\' 스코프를 체크하고, 토큰의 설명을 설정합니다.</string>
   <string name="givingPrefilledUrls">이러한 미리 채워진 URL을 유저에게 제공하면 올바른 토큰 스코프를 갖도록 하는 데 도움이 될 것입니다.</string>
 </resources>
