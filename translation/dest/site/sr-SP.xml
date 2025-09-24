@@ -404,7 +404,7 @@
   <string name="ratedMoreThanInPerf">Рејтован ≥ %1$s у %2$s</string>
   <string name="ratedLessThanInPerf">Рејтован ≤ %1$s у %2$s последњих недељу дана</string>
   <string name="mustBeInTeam">Мораш бити у тиму %s</string>
-  <string name="youAreNotInTeam">Ви нисте члан тима %s</string>
+  <string name="youAreNotInTeam">Ниси у тиму %s</string>
   <string name="backToGame">Назад на партију</string>
   <string name="siteDescription">Бесплатан интернетски шах сервер. Играј шах у чистом окружењу. Без регистрације, без реклама, без потребних додатака. Играј шах са рачунаром, пријатељима или насумичним противницима.</string>
   <string name="xJoinedTeamY">%1$s се придружио/ла тиму %2$s</string>
@@ -580,7 +580,7 @@
   <string name="reportCheatBoostHelp">Залијепите везу до игре и објасните шта није у реду са понашањем корисника. Немојте само рећи \"варао\", али реците како сте дошли до тог закључка. Ваша пријава ће бити обрађена брже ако је напишете на енглеском језику.</string>
   <string name="reportUsernameHelp">Објасните шта је неприкладно у имену корисника. Немојте само да кажете да је неприкладно, реците нам како сте то закључили, поготово ако је увреда збуњујућа, није у енглеском, у сленгу, или де односи на културу/историју.</string>
   <string name="reportProcessedFasterInEnglish">Ваша пријава ће бити обрађена брже ако је написана на енглеском језику.</string>
-  <string name="error.provideOneCheatedGameLink">Наведите барем једну везу игре у којој је играч варао.</string>
+  <string name="error.provideOneCheatedGameLink">Молимо Вас да наведете бар један линк до партије са сумњом варања.</string>
   <string name="by">од %s</string>
   <string name="importedByX">Увезао %s</string>
   <string name="thisTopicIsNowClosed">Ова тема је сада затворена.</string>
@@ -681,7 +681,7 @@
   <string name="webmasters">Вебмастери</string>
   <string name="about">О нама</string>
   <string name="aboutX">О %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s је бесплатан (%2$s), слободан, без реклама, шаховски сервер са отвореним изворним кодом.</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s је бесплатан (%2$s), слободан, шаховски сервер без реклама, са отвореним изворним кодом.</string>
   <string name="really">стварно</string>
   <string name="contribute">Добринеси</string>
   <string name="termsOfService">Услови коришћења Услуге</string>
