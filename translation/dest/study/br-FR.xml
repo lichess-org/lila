@@ -109,7 +109,6 @@
     <item quantity="other">Pegit testenn ho PGN amañ, betek %s krogadoù</item>
   </plurals>
   <string name="urlOfTheGame">URL ar c\'hrogad</string>
-  <string name="loadAGameFromXOrY">Kargañ ur c\'hrogad eus %1$s pe %2$s</string>
   <string name="createChapter">Krouiñ pennad</string>
   <string name="createStudy">Krouiñ ur studiadenn</string>
   <string name="editStudy">Aozañ studiadenn</string>
