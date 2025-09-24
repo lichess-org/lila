@@ -254,10 +254,14 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
               .flatMap:
                 _.fold(redirectNoPuzzle) { renderShow(_, angle, color = color) }
 
+  private val fetchRateLimit =
+    env.security.ipTrust.rateLimit(200, 1.hour, "puzzle.fetch.ip", _.antiScraping(dch = 10, others = 2))
+
   def apiNext = AnonOrScoped(_.Puzzle.Read):
-    WithPuzzlePerf:
-      FoundOk(selector.nextPuzzleFor(PuzzleAngle.findOrMix(~get("angle")), none, reqDifficulty.some)):
-        env.puzzle.jsonView(_, none, none)
+    fetchRateLimit(rateLimited, cost = if ctx.isAuth then 1 else 2):
+      WithPuzzlePerf:
+        FoundOk(selector.nextPuzzleFor(PuzzleAngle.findOrMix(~get("angle")), none, reqDifficulty.some)):
+          env.puzzle.jsonView(_, none, none)
 
   def frame = Anon:
     InEmbedContext:
@@ -323,12 +327,18 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   }
 
   def apiBatchSelect(angleStr: String) = AnonOrScoped(_.Puzzle.Read, _.Web.Mobile): ctx ?=>
-    WithPuzzlePerf:
-      batchSelect(PuzzleAngle.findOrMix(angleStr), reqDifficulty, getInt("nb") | 15).dmap(Ok.apply)
+    val nb = getInt("nb") | 15
+    fetchRateLimit(rateLimited, cost = if ctx.isAuth then nb / 2 else nb):
+      WithPuzzlePerf:
+        for puzzles <- batchSelect(PuzzleAngle.findOrMix(angleStr), reqDifficulty, nb)
+        yield Ok(puzzles)
 
   private def reqDifficulty(using req: RequestHeader) = PuzzleDifficulty.orDefault(~get("difficulty"))
   private def batchSelect(angle: PuzzleAngle, difficulty: PuzzleDifficulty, nb: Int)(using Option[Me], Perf) =
     env.puzzle.batch.nextForMe(angle, difficulty, nb.atMost(50)).flatMap(env.puzzle.jsonView.batch)
+
+  private val solveRateLimit =
+    env.security.ipTrust.rateLimit(200, 1.hour, "puzzle.solve.ip", _.proxyMultiplier(2))
 
   def apiBatchSolve(angleStr: String) = AnonOrScopedBody(parse.json)(_.Puzzle.Write, _.Web.Mobile): ctx ?=>
     ctx.body.body
@@ -336,24 +346,25 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       .fold(
         err => BadRequest(err.toString),
         data =>
-          val angle = PuzzleAngle.findOrMix(angleStr)
-          for
-            rounds <- ctx.me match
-              case Some(me) =>
-                given Me = me
-                WithPuzzlePerf:
-                  env.puzzle.finisher.batch(angle, data.solutions).map {
-                    _.map { (round, rDiff) => env.puzzle.jsonView.roundJson.api(round, rDiff) }
-                  }
-              case None =>
-                data.solutions
-                  .sequentiallyVoid { sol => env.puzzle.finisher.incPuzzlePlays(sol.id) }
-                  .inject(Nil)
-            given Option[Me] <- ctx.me.so(env.user.repo.me)
-            nextPuzzles <- WithPuzzlePerf:
-              batchSelect(angle, reqDifficulty, ~getInt("nb"))
-            result = nextPuzzles ++ Json.obj("rounds" -> rounds)
-          yield Ok(result)
+          solveRateLimit(rateLimited, cost = data.solutions.size * (if ctx.isAuth then 1 else 2)):
+            val angle = PuzzleAngle.findOrMix(angleStr)
+            for
+              rounds <- ctx.me match
+                case Some(me) =>
+                  given Me = me
+                  WithPuzzlePerf:
+                    env.puzzle.finisher.batch(angle, data.solutions).map {
+                      _.map { (round, rDiff) => env.puzzle.jsonView.roundJson.api(round, rDiff) }
+                    }
+                case None =>
+                  data.solutions
+                    .sequentiallyVoid { sol => env.puzzle.finisher.incPuzzlePlays(sol.id) }
+                    .inject(Nil)
+              given Option[Me] <- ctx.me.so(env.user.repo.me)
+              nextPuzzles <- WithPuzzlePerf:
+                batchSelect(angle, reqDifficulty, ~getInt("nb"))
+              result = nextPuzzles ++ Json.obj("rounds" -> rounds)
+            yield Ok(result)
       )
 
   def mobileBcLoad(nid: Long) = Open:
