@@ -10,6 +10,7 @@ import lila.core.net.Bearer
 import lila.game.AnonCookie
 import lila.oauth.{ EndpointScopes, OAuthScope, OAuthServer }
 import lila.setup.ApiConfig
+import lila.memo.RateLimit.Limited
 
 final class Challenge(env: Env) extends LilaController(env):
   def api = env.challenge.api
@@ -291,37 +292,41 @@ final class Challenge(env: Env) extends LilaController(env):
                       then JsonBadRequest(jsonError(s"$username does not follow you"))
                       else
                         val cost = if isFriend || me.isApiHog then 0 else if destUser.isBot then 1 else 5
-                        limit.challengeBot(req.ipAddress, rateLimited, cost = if me.isBot then 1 else 0):
-                          limit.challengeUser(me, rateLimited, cost = cost):
-                            for
-                              challenge <- makeOauthChallenge(config, me, destUser)
-                              grant <- env.challenge.granter.isDenied(destUser, config.perfKey.some)
-                              res <- grant match
-                                case Some(denied) =>
-                                  fuccess:
-                                    JsonBadRequest:
-                                      jsonError(lila.challenge.ChallengeDenied.translated(denied))
-                                case _ =>
-                                  env.challenge.api.delayedCreate(challenge).flatMap {
-                                    case None => JsonBadRequest(jsonError("Challenge not created")).toFuccess
-                                    case Some(createNow) =>
-                                      for
-                                        socket <- ctx.isMobileOauth
-                                          .optionFu(env.challenge.version(challenge.id))
-                                        json = env.challenge.jsonView.apiAndMobile(
-                                          challenge,
-                                          socket,
-                                          lila.challenge.Direction.Out.some
-                                        )
-                                        res <-
-                                          if config.keepAliveStream then
-                                            val stream =
-                                              env.challenge.keepAliveStream(challenge, json)(createNow)
-                                            jsOptToNdJson(ndJson.addKeepAlive(stream)).toFuccess
-                                          else for _ <- createNow() yield JsonOk(json)
-                                      yield res
-                                  }
-                            yield res
+                        limit.challengeUser(me, rateLimited, cost = cost):
+                          env.bot.limit.challengeLimitError(me, destUser) match
+                            case Some(limited: Limited) => JsonLimited(limited)
+                            case Some(err: String) => JsonBadRequest(jsonError(err))
+                            case None =>
+                              for
+                                challenge <- makeOauthChallenge(config, me, destUser)
+                                grant <- env.challenge.granter.isDenied(destUser, config.perfKey.some)
+                                res <- grant match
+                                  case Some(denied) =>
+                                    fuccess:
+                                      JsonBadRequest:
+                                        jsonError(lila.challenge.ChallengeDenied.translated(denied))
+                                  case _ =>
+                                    env.challenge.api.delayedCreate(challenge).flatMap {
+                                      case None =>
+                                        JsonBadRequest(jsonError("Challenge not created")).toFuccess
+                                      case Some(createNow) =>
+                                        for
+                                          socket <- ctx.isMobileOauth
+                                            .optionFu(env.challenge.version(challenge.id))
+                                          json = env.challenge.jsonView.apiAndMobile(
+                                            challenge,
+                                            socket,
+                                            lila.challenge.Direction.Out.some
+                                          )
+                                          res <-
+                                            if config.keepAliveStream then
+                                              val stream =
+                                                env.challenge.keepAliveStream(challenge, json)(createNow)
+                                              jsOptToNdJson(ndJson.addKeepAlive(stream)).toFuccess
+                                            else for _ <- createNow() yield JsonOk(json)
+                                        yield res
+                                    }
+                              yield res
               }
         )
       }

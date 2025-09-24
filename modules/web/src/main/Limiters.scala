@@ -64,11 +64,6 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
     10.minute,
     key = "challenge.create.ip"
   )
-  val challengeBot = RateLimit[IpAddress](
-    400,
-    1.day,
-    key = "challenge.bot.create.ip"
-  )
   val challengeUser = RateLimit.composite[UserId](
     key = "challenge.create.user"
   )(
