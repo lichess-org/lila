@@ -8,47 +8,46 @@
   <string name="whatTheTokenCanDo">Wat de token voor je kan doen:</string>
   <string name="doNotShareIt">De token geeft toegang tot uw account. Deel deze met niemand!</string>
   <string name="copyTokenNow">Zorg ervoor dat je het persoonlijke toegangs-token nu kopieert of opschrijft. Je kunt het later niet meer zien!</string>
-  <string name="preferenceRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's preferences.&#10;&#10;There is a separate setting to let applications write (edit) preferences.">Voorkeuren lezen</string>
-  <string name="preferenceWrite" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to edit/change the user's preferences.&#10;&#10;There is a separate setting to let applications only read preferences, but not to write (edit) them.">Voorkeur schrijven</string>
-  <string name="emailRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's registered email address.">E-mailadres lezen</string>
-  <string name="challengeRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view game challenges from other players.&#10;&#10;There is a separate setting to let applications send, accept or reject challenges.">Lees inkomende uitdagingen</string>
-  <string name="challengeWrite" comment="challengeWrite&#10;&#10;In the context of an authentication token, a setting that permits third party software to send, accept and reject challenges on behalf of the player.">Verzenden, accepteren en afwijzen van uitdagingen</string>
+  <string name="preferenceRead">Voorkeuren lezen</string>
+  <string name="preferenceWrite">Voorkeur schrijven</string>
+  <string name="emailRead">E-mailadres lezen</string>
+  <string name="challengeRead">Lees inkomende uitdagingen</string>
+  <string name="challengeWrite">Verzenden, accepteren en afwijzen van uitdagingen</string>
   <string name="challengeBulk">Maak veel spellen tegelijk voor andere spelers</string>
-  <string name="studyRead" comment="Gives permission to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Lees privéstudies en uitzendingen</string>
-  <string name="studyWrite" comment="In the context of an access token, a setting that enables third party software to create, update or delete studies and broadcasts.">Aanmaken, bijwerken, verwijderen van studies en uitzendingen</string>
-  <string name="tournamentWrite" comment="In the context of an access token, a setting that permits third party software to create, update or delete studies and join tournaments.">Maak, update en neem deel aan toernooien</string>
-  <string name="racerWrite" comment="In the context of an access token, a setting which permits third party software to create, and join puzzle races (this is for the activity/minigame Puzzle Racer: https://lichess.org/racer)">Maak en neem deel aan puzzelraces</string>
-  <string name="puzzleRead" comment="In the context of an access token, a setting which permits third-party software to view the user's puzzle solving history.">Lees puzzelactiviteit</string>
-  <string name="teamRead" comment="Gives permission to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Lees privé team-informatie</string>
-  <string name="teamWrite" comment="In the context of an access token, a setting that permits the third party software to join or leave teams on your behalf.">Word lid en verlaat teams</string>
+  <string name="studyRead">Lees privéstudies en uitzendingen</string>
+  <string name="studyWrite">Aanmaken, bijwerken, verwijderen van studies en uitzendingen</string>
+  <string name="tournamentWrite">Maak, update en neem deel aan toernooien</string>
+  <string name="racerWrite">Maak en neem deel aan puzzelraces</string>
+  <string name="puzzleRead">Lees puzzelactiviteit</string>
+  <string name="teamRead">Lees privé team-informatie</string>
+  <string name="teamWrite">Word lid en verlaat teams</string>
   <string name="teamLead">Beheer teams die u leidt: verstuur PBen, leden schoppen</string>
-  <string name="followRead" comment="In the context of an access token, a setting which permits third-party software to view (read) which players you are following.">Lees gevolgde spelers</string>
-  <string name="followWrite" comment="In the context of an access token, a setting which permits third-party software to follow and unfollow other players on your behalf.">Andere spelers volgen en ontvolgen</string>
-  <string name="msgWrite" comment="In the context of an access token, a setting which permits third-party software to send messages on your behalf.">Stuur privéberichten naar andere spelers</string>
-  <string name="boardPlay" comment="In the context of an access token, a setting which permits third-party software to play games using e-boards like DGT, through Lichess's board API.">Speel spellen met bord api</string>
-  <string name="botPlay" comment="In the context of an access token, a setting which permits third-party software to play games over the bot API. This is intended mainly for having an engine account e.g. the accounts featured on https://lichess.org/player/bots">Speel spellen met de bot api</string>
+  <string name="followRead">Lees gevolgde spelers</string>
+  <string name="followWrite">Andere spelers volgen en ontvolgen</string>
+  <string name="msgWrite">Stuur privéberichten naar andere spelers</string>
+  <string name="boardPlay">Speel spellen met bord api</string>
+  <string name="botPlay">Speel spellen met de bot api</string>
   <string name="engineRead">Bekijk en gebruik je externe engines</string>
   <string name="engineWrite">Externe engines aanmaken en bijwerken</string>
-  <string name="webLogin" comment="In the context of an access token, a setting which permits third-party software to create authenticated sessions - meaning effectively unlimited access to your account, using it as if it is you, instead of a third party program. It will be unable to view your password but it will be able to do almost everything else.">Geauthenticeerde website-sessies maken (verleent volledige toegang!)</string>
-  <string name="webMod" comment="In the context of an access token, this is a setting which permits third-party software to use moderator tools on your behalf. Most players will not be able to see this option.">Gebruik moderatortools (binnen de perken van uw toestemming)</string>
+  <string name="webLogin">Geauthenticeerde website-sessies maken (verleent volledige toegang!)</string>
+  <string name="webMod">Gebruik moderatortools (binnen de perken van uw toestemming)</string>
   <string name="personalAccessTokens">Persoonlijke API-toegangstokens</string>
-  <string name="canMakeOauthRequests" comment="%s is 'authorisation code flow' (flow, as in a process).">Je kunt OAuth-verzoeken doen zonder via de %s te gaan.</string>
-  <string name="authorizationCodeFlow" comment="Part of longer string canMakeOauthRequests:&#10;You can make OAuth requests without going through the authorisation code flow.&#10;&#10;This text is also a link which directs to https://lichess.org/api#section/Introduction/Authentication.&#10;&#10;In this context, 'flow' means a process. Technical information explaining this concept here: https://oauth.net/2/grant-types/authorization-code/ - its formal name is &quot;authorisation code grant type&quot;.&#10;&#10;If you are not comfortable in translating this, we recommend leaving it untranslated.">autorisatiecodestroom</string>
-  <string name="insteadGenerateToken" comment="%s is 'generate a personal access token'.">In plaats daarvan, %s dat je direct kunt gebruiken in API requests.</string>
-  <string name="generatePersonalToken" comment="Part of longer string insteadGenerateToken:&#10;'Instead, generate a personal access token you can directly use in API requests.'&#10;&#10;It is a link, which links to https://lichess.org/account/oauth/token/create and appears after you have created at least one token.">genereer een persoonlijk toegangstoken</string>
+  <string name="canMakeOauthRequests">Je kunt OAuth-verzoeken doen zonder via de %s te gaan.</string>
+  <string name="authorizationCodeFlow">autorisatiecodestroom</string>
+  <string name="insteadGenerateToken" comment="The parameter is a link to generate a token a personal access token">In plaats daarvan, %s dat je direct kunt gebruiken in API requests.</string>
+  <string name="generatePersonalToken">genereer een persoonlijk toegangstoken</string>
   <string name="guardTokensCarefully">Bewaak deze tokens zorgvuldig! Deze zijn als wachtwoorden. Het voordeel van het gebruik van tokens (in plaats van het invoeren van je wachtwoord in een script) is dat tokens ingetrokken kunnen worden, en er veel van gegenereerd kunnen worden.</string>
-  <string name="apiDocumentationLinks" comment="%1$s links to a personal token app example (string: personalTokenAppExample).&#10;&#10;%2$s links to the API documentation (string: apiDocumentation).&#10;&#10;Full sentence after %1$s and %2$s have been substituted:&#10;&quot;Here's a personal app token example and the API documentation.&quot;&#10;&#10;personalTokenAppExample and apiDocumentation can both be translated separately.">Hier is een %1$s en de %2$s.</string>
-  <string name="personalTokenAppExample" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'&#10;&#10;This text is also a link which directs to https://github.com/lichess-org/api/tree/master/example/oauth-personal-token.">voordeel van een persoonlijk token in een app</string>
-  <string name="apiDocumentation" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'&#10;&#10;This text is also a link which directs to https://lichess.org/api.">API-documentatie</string>
+  <string name="apiDocumentationLinks" comment="The first parameter links to a personal token app example. The second parameter links to the API documentation">Hier is een %1$s en de %2$s.</string>
+  <string name="personalTokenAppExample">voordeel van een persoonlijk token in een app</string>
+  <string name="apiDocumentation">API-documentatie</string>
   <string name="newToken">Nieuw toegangstoken</string>
   <string name="apiAccessTokens">API-toegangstokens</string>
-  <string name="created" comment="%s is relative time, e.g. 2 hours ago.">Gemaakt: %s</string>
-  <string name="lastUsed" comment="%s is relative time, e.g. 2 hours ago. 'Last used' in this context means 'You used this most recently %s time ago'.">Laatst gebruikt %s</string>
+  <string name="created">Gemaakt: %s</string>
+  <string name="lastUsed">Laatst gebruikt %s</string>
   <string name="alreadyHavePlayedGames">Je hebt al partijen gespeeld!</string>
   <string name="attentionOfDevelopers">Opmerking alleen voor ontwikkelaars:</string>
   <string name="possibleToPrefill">Het is mogelijk om dit formulier vooraf in te vullen door de queryparameters van de URL aan te passen.</string>
-  <string name="forExample" comment="%s is an example URL.&#10;&#10;Please note the sentence continues on the next line. The complete sentence is:&#10;'For example: https://lichess.org/account/oauth/token/create?scopes[]=challenge:write&amp;scopes[]=puzzle:read&amp;description=Prefilled+token+example&#10;ticks the challenge:create and puzzle:read scopes, and sets the token description.'">Bijvoorbeeld: %s</string>
-  <string name="ticksTheScopes" comment="Part of a longer sentence, this is the second line:&#10;&#10;'For example: https://lichess.org/account/oauth/token/create?scopes[]=challenge:write&amp;scopes[]=puzzle:read&amp;description=Prefilled+token+example&#10;ticks the challenge:create and puzzle:read scopes, and sets the token description.'&#10;&#10;%1$s is 'challenge:create', %2$s is 'puzzle:read' which are both used as technical examples. These should not be translated which is why they are included as substituted strings.">vinkt de %1$s en %2$s scopes aan, en stelt de token scope beschrijving in.</string>
-  <string name="scopesCanBeFound" comment="scopesCanBeFound&#10;&#10;For this page in particular, developers can link to it so that some options are pre-ticked when a user follows the URL.&#10;&#10;To pre-tick those options, developers need the scope codes, which they can find by inspecting the source code of the page itself.">De scope-codes kunnen worden gevonden in de HTML-code van het formulier.</string>
+  <string name="forExample">Bijvoorbeeld: %s</string>
+  <string name="ticksTheScopes">vinkt de %1$s en %2$s scopes aan, en stelt de token scope beschrijving in.</string>
   <string name="givingPrefilledUrls">Door deze pre-filled URLs aan je gebruikers te geven, help je hen de juiste token scope te krijgen.</string>
 </resources>
