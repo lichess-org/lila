@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="emailRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's registered email address.">Elektron pochta mánzilin oqıw</string>
-  <string name="challengeRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view game challenges from other players.&#10;&#10;There is a separate setting to let applications send, accept or reject challenges.">Kelgen shaqırıqlardı oqıw</string>
-  <string name="challengeWrite" comment="challengeWrite&#10;&#10;In the context of an authentication token, a setting that permits third party software to send, accept and reject challenges on behalf of the player.">Shaqırıqlardı jiberiw, qabıllaw hám biykarlaw</string>
+  <string name="emailRead">Elektron pochta mánzilin oqıw</string>
+  <string name="challengeRead">Kelgen shaqırıqlardı oqıw</string>
+  <string name="challengeWrite">Shaqırıqlardı jiberiw, qabıllaw hám biykarlaw</string>
   <string name="challengeBulk">Basqa oyınshılar ushın bir waqıtta kóp oyın jaratıw</string>
-  <string name="tournamentWrite" comment="In the context of an access token, a setting that permits third party software to create, update or delete studies and join tournaments.">Jarıslardı shólkemlestiriw, jańalaw hám olarǵa qosılıw</string>
+  <string name="tournamentWrite">Jarıslardı shólkemlestiriw, jańalaw hám olarǵa qosılıw</string>
 </resources>
