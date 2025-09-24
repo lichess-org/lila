@@ -111,7 +111,6 @@
     <item quantity="other">Устаўце сюды ваш PGN тэкст, не больш за %s гульняў</item>
   </plurals>
   <string name="urlOfTheGame">URL гульняў, адзін на радок</string>
-  <string name="loadAGameFromXOrY">Загрузіць партыі з %1$s або %2$s</string>
   <string name="createChapter">Стварыць раздзел</string>
   <string name="createStudy">Стварыць навучанне</string>
   <string name="editStudy">Рэдактаваць навучанне</string>
