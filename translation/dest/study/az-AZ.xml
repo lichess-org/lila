@@ -98,7 +98,6 @@
     <item quantity="other">PGN mətninizi bura yapışdırın, ən çox %s oyuna qədər</item>
   </plurals>
   <string name="urlOfTheGame">Oyun URL-i</string>
-  <string name="loadAGameFromXOrY">%1$s və ya %2$s ilə oyun yükləyin</string>
   <string name="createChapter">Fəsil yarat</string>
   <string name="createStudy">Çalışma yarat</string>
   <string name="editStudy">Çalışmaya düzəliş et</string>
