@@ -1,8 +1,8 @@
-const botIds = new Set(db.user4.distinct('_id', { title: 'BOT', 'count.game': { $gte: 10 } }))
+const botIds = new Set(db.user4.distinct('_id', { title: 'BOT', 'count.game': { $gte: 10 } }));
 
 print(botIds.size + ' bot ids');
 
-const timeVsHuman = (uid) => {
+const timeVsHuman = uid => {
   let nb = 0;
   let seconds = 0;
   db.game5.find({ us: uid, c: { $exists: 1 } }, { us: 1, t: 1, ca: 1, ua: 1 }).forEach(g => {
@@ -12,13 +12,13 @@ const timeVsHuman = (uid) => {
       seconds += s;
       nb++;
     }
-  })
+  });
   return [nb, seconds];
-}
+};
 
-db.user4.find({ title: 'BOT' }, { username: 1 }).forEach(function(user) {
+db.user4.find({ title: 'BOT' }, { username: 1 }).forEach(function (user) {
   const [nb, seconds] = timeVsHuman(user._id);
-  if (seconds > 0) print(user.username + ' ' + seconds + 's in ' + nb + ' games, ', Math.round(seconds / nb), 's/game');
+  if (seconds > 0)
+    print(user.username + ' ' + seconds + 's in ' + nb + ' games, ', Math.round(seconds / nb), 's/game');
   db.user4.updateOne({ _id: user._id }, { $set: { 'time.human': seconds } });
 });
-
