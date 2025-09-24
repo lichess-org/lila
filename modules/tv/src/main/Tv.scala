@@ -215,14 +215,14 @@ object Tv:
     g.players.exists(_.rating.exists(_ >= min))
 
   private[tv] val titleScores: Map[PlayerTitle, Int] = Map(
-    PlayerTitle.GM -> 500,
-    PlayerTitle.WGM -> 500,
-    PlayerTitle.IM -> 300,
-    PlayerTitle.WIM -> 300,
-    PlayerTitle.FM -> 200,
-    PlayerTitle.WFM -> 200,
-    PlayerTitle.NM -> 100,
-    PlayerTitle.CM -> 100,
-    PlayerTitle.WCM -> 100,
-    PlayerTitle.WNM -> 100
+    PlayerTitle.GM -> 600,
+    PlayerTitle.WGM -> 600,
+    PlayerTitle.IM -> 400,
+    PlayerTitle.WIM -> 400,
+    PlayerTitle.FM -> 250,
+    PlayerTitle.WFM -> 250,
+    PlayerTitle.NM -> 150,
+    PlayerTitle.CM -> 150,
+    PlayerTitle.WCM -> 150,
+    PlayerTitle.WNM -> 150
   )
