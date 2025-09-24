@@ -3,24 +3,24 @@
   <string name="tokenDescription">Թոքենի նկարագրություն</string>
   <string name="rememberTokenUse">Այնպես, որ հիշեք, թե ինչի համար է այս թոքենը</string>
   <string name="whatTheTokenCanDo">Գործողություններ, որոնք կարելի է կատարել թոքենի օգնությամբ Ձեր անունից․</string>
-  <string name="preferenceRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's preferences.&#10;&#10;There is a separate setting to let applications write (edit) preferences.">Կարդալ կարգավորումները</string>
-  <string name="preferenceWrite" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to edit/change the user's preferences.&#10;&#10;There is a separate setting to let applications only read preferences, but not to write (edit) them.">Գրել կարգավորումները</string>
-  <string name="emailRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's registered email address.">Կարդալ էլփոստի հասցեները</string>
-  <string name="challengeRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view game challenges from other players.&#10;&#10;There is a separate setting to let applications send, accept or reject challenges.">Կարդալ մուտքային մարտահրավերները</string>
-  <string name="challengeWrite" comment="challengeWrite&#10;&#10;In the context of an authentication token, a setting that permits third party software to send, accept and reject challenges on behalf of the player.">Գրել մուտքային մարտահրավերները</string>
+  <string name="preferenceRead">Կարդալ կարգավորումները</string>
+  <string name="preferenceWrite">Գրել կարգավորումները</string>
+  <string name="emailRead">Կարդալ էլփոստի հասցեները</string>
+  <string name="challengeRead">Կարդալ մուտքային մարտահրավերները</string>
+  <string name="challengeWrite">Գրել մուտքային մարտահրավերները</string>
   <string name="challengeBulk">Ստեղծել բազմաթիվ պարտիաներ միանգամից այլ խաղացողների համար</string>
-  <string name="studyRead" comment="Gives permission to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Կարդալ փակ ստուդիաները և հեռարձակումները</string>
-  <string name="studyWrite" comment="In the context of an access token, a setting that enables third party software to create, update or delete studies and broadcasts.">Ստեղծել, թարմացնել և հեռացնել ստուդիաները և հեռարձակումները</string>
-  <string name="tournamentWrite" comment="In the context of an access token, a setting that permits third party software to create, update or delete studies and join tournaments.">Ստեղծել, թարմացնել և միանալ մրցաշարերին</string>
-  <string name="racerWrite" comment="In the context of an access token, a setting which permits third party software to create, and join puzzle races (this is for the activity/minigame Puzzle Racer: https://lichess.org/racer)">Ստեղծել և միանալ խնդիրների մրցարշավին</string>
-  <string name="puzzleRead" comment="In the context of an access token, a setting which permits third-party software to view the user's puzzle solving history.">Կարդալ ակտիվությունը խնդիրներում</string>
-  <string name="teamRead" comment="Gives permission to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Կարդալ տեղեկություններ փակ ակումբներից</string>
-  <string name="teamWrite" comment="In the context of an access token, a setting that permits the third party software to join or leave teams on your behalf.">Միանալ, կառավարել և լքել ակումբները</string>
-  <string name="followRead" comment="In the context of an access token, a setting which permits third-party software to view (read) which players you are following.">Կարդալ բաժանորդ խաղացողներին</string>
-  <string name="followWrite" comment="In the context of an access token, a setting which permits third-party software to follow and unfollow other players on your behalf.">Հետևել այլ խաղացողներին և չեղարկել բաժանորդագրությունը</string>
-  <string name="msgWrite" comment="In the context of an access token, a setting which permits third-party software to send messages on your behalf.">Ուղարկել մասնավոր հաղորդագրություններ այլ խաղացողներին</string>
-  <string name="boardPlay" comment="In the context of an access token, a setting which permits third-party software to play games using e-boards like DGT, through Lichess's board API.">Խաղալ պարտիաներ API տախտակով</string>
-  <string name="botPlay" comment="In the context of an access token, a setting which permits third-party software to play games over the bot API. This is intended mainly for having an engine account e.g. the accounts featured on https://lichess.org/player/bots">Խաղալ պարտիաներ API բոտերի հետ</string>
+  <string name="studyRead">Կարդալ փակ ստուդիաները և հեռարձակումները</string>
+  <string name="studyWrite">Ստեղծել, թարմացնել և հեռացնել ստուդիաները և հեռարձակումները</string>
+  <string name="tournamentWrite">Ստեղծել, թարմացնել և միանալ մրցաշարերին</string>
+  <string name="racerWrite">Ստեղծել և միանալ խնդիրների մրցարշավին</string>
+  <string name="puzzleRead">Կարդալ ակտիվությունը խնդիրներում</string>
+  <string name="teamRead">Կարդալ տեղեկություններ փակ ակումբներից</string>
+  <string name="teamWrite">Միանալ, կառավարել և լքել ակումբները</string>
+  <string name="followRead">Կարդալ բաժանորդ խաղացողներին</string>
+  <string name="followWrite">Հետևել այլ խաղացողներին և չեղարկել բաժանորդագրությունը</string>
+  <string name="msgWrite">Ուղարկել մասնավոր հաղորդագրություններ այլ խաղացողներին</string>
+  <string name="boardPlay">Խաղալ պարտիաներ API տախտակով</string>
+  <string name="botPlay">Խաղալ պարտիաներ API բոտերի հետ</string>
   <string name="engineRead">Դիտել և օգտագործել ձեր արտաքին շարժիչը</string>
   <string name="engineWrite">Ստեղծել և փոփոխել արտաքին շարժիչները</string>
 </resources>
