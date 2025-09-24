@@ -8,47 +8,46 @@
   <string name="whatTheTokenCanDo">உங்கள் சார்பாக டோக்கன் என்ன செய்ய முடியும்:</string>
   <string name="doNotShareIt">டோக்கன் உங்கள் கணக்கிற்கான அணுகலை வழங்கும். யாருடனும் பகிர்ந்து கொள்ள வேண்டாம்!</string>
   <string name="copyTokenNow">உங்களின் புதிய தனிப்பட்ட அணுகல் டோக்கனை இப்போது நகலெடுக்கவும். நீங்கள் அதை மீண்டும் பார்க்க முடியாது!</string>
-  <string name="preferenceRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's preferences.&#10;&#10;There is a separate setting to let applications write (edit) preferences.">விருப்பங்களைப் படிக்கவும்</string>
-  <string name="preferenceWrite" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to edit/change the user's preferences.&#10;&#10;There is a separate setting to let applications only read preferences, but not to write (edit) them.">விருப்பத்தை எழுதுங்கள்</string>
-  <string name="emailRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's registered email address.">மின்னஞ்சல் முகவரியைப் படிக்கவும்</string>
-  <string name="challengeRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view game challenges from other players.&#10;&#10;There is a separate setting to let applications send, accept or reject challenges.">உள்வரும் சவால்களைப் படிக்கவும்</string>
-  <string name="challengeWrite" comment="challengeWrite&#10;&#10;In the context of an authentication token, a setting that permits third party software to send, accept and reject challenges on behalf of the player.">சவால்களை அனுப்பவும், ஏற்கவும் மற்றும் நிராகரிக்கவும்</string>
+  <string name="preferenceRead">விருப்பங்களைப் படிக்கவும்</string>
+  <string name="preferenceWrite">விருப்பத்தை எழுதுங்கள்</string>
+  <string name="emailRead">மின்னஞ்சல் முகவரியைப் படிக்கவும்</string>
+  <string name="challengeRead">உள்வரும் சவால்களைப் படிக்கவும்</string>
+  <string name="challengeWrite">சவால்களை அனுப்பவும், ஏற்கவும் மற்றும் நிராகரிக்கவும்</string>
   <string name="challengeBulk">மற்ற வீரர்களுக்காக ஒரே நேரத்தில் பல கேம்களை உருவாக்கவும்</string>
-  <string name="studyRead" comment="Gives permission to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">தனியார் படிப்புகள் மற்றும் ஒளிபரப்புகளைப் படிக்கவும்</string>
-  <string name="studyWrite" comment="In the context of an access token, a setting that enables third party software to create, update or delete studies and broadcasts.">ஆய்வுகள் மற்றும் ஒளிபரப்புகளை உருவாக்கவும், புதுப்பிக்கவும், நீக்கவும்</string>
-  <string name="tournamentWrite" comment="In the context of an access token, a setting that permits third party software to create, update or delete studies and join tournaments.">போட்டிகளை உருவாக்கவும், புதுப்பிக்கவும் மற்றும் சேரவும்</string>
-  <string name="racerWrite" comment="In the context of an access token, a setting which permits third party software to create, and join puzzle races (this is for the activity/minigame Puzzle Racer: https://lichess.org/racer)">புதிர் பந்தயங்களை உருவாக்கி சேரவும்</string>
-  <string name="puzzleRead" comment="In the context of an access token, a setting which permits third-party software to view the user's puzzle solving history.">புதிர் செயல்பாட்டைப் படிக்கவும்</string>
-  <string name="teamRead" comment="Gives permission to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">தனிப்பட்ட குழு தகவலைப் படிக்கவும்</string>
-  <string name="teamWrite" comment="In the context of an access token, a setting that permits the third party software to join or leave teams on your behalf.">அணிகளில் சேர்ந்து வெளியேறவும்</string>
+  <string name="studyRead">தனியார் படிப்புகள் மற்றும் ஒளிபரப்புகளைப் படிக்கவும்</string>
+  <string name="studyWrite">ஆய்வுகள் மற்றும் ஒளிபரப்புகளை உருவாக்கவும், புதுப்பிக்கவும், நீக்கவும்</string>
+  <string name="tournamentWrite">போட்டிகளை உருவாக்கவும், புதுப்பிக்கவும் மற்றும் சேரவும்</string>
+  <string name="racerWrite">புதிர் பந்தயங்களை உருவாக்கி சேரவும்</string>
+  <string name="puzzleRead">புதிர் செயல்பாட்டைப் படிக்கவும்</string>
+  <string name="teamRead">தனிப்பட்ட குழு தகவலைப் படிக்கவும்</string>
+  <string name="teamWrite">அணிகளில் சேர்ந்து வெளியேறவும்</string>
   <string name="teamLead">நீங்கள் வழிநடத்தும் அணிகளை நிர்வகிக்கவும்: PMகளை அனுப்பவும், உறுப்பினர்களை உதைக்கவும்</string>
-  <string name="followRead" comment="In the context of an access token, a setting which permits third-party software to view (read) which players you are following.">பின்தொடர்ந்த வீரர்களைப் படிக்கவும்</string>
-  <string name="followWrite" comment="In the context of an access token, a setting which permits third-party software to follow and unfollow other players on your behalf.">மற்ற வீரர்களைப் பின்தொடரவும், பின்தொடரவும்</string>
-  <string name="msgWrite" comment="In the context of an access token, a setting which permits third-party software to send messages on your behalf.">பிற வீரர்களுக்கு தனிப்பட்ட செய்திகளை அனுப்பவும்</string>
-  <string name="boardPlay" comment="In the context of an access token, a setting which permits third-party software to play games using e-boards like DGT, through Lichess's board API.">போர்டு API உடன் கேம்களை விளையாடுங்கள்</string>
-  <string name="botPlay" comment="In the context of an access token, a setting which permits third-party software to play games over the bot API. This is intended mainly for having an engine account e.g. the accounts featured on https://lichess.org/player/bots">பாட் ஏபிஐ மூலம் கேம்களை விளையாடுங்கள்</string>
+  <string name="followRead">பின்தொடர்ந்த வீரர்களைப் படிக்கவும்</string>
+  <string name="followWrite">மற்ற வீரர்களைப் பின்தொடரவும், பின்தொடரவும்</string>
+  <string name="msgWrite">பிற வீரர்களுக்கு தனிப்பட்ட செய்திகளை அனுப்பவும்</string>
+  <string name="boardPlay">போர்டு API உடன் கேம்களை விளையாடுங்கள்</string>
+  <string name="botPlay">பாட் ஏபிஐ மூலம் கேம்களை விளையாடுங்கள்</string>
   <string name="engineRead">உங்கள் வெளிப்புற இயந்திரங்களைப் பார்த்து பயன்படுத்தவும்</string>
   <string name="engineWrite">வெளிப்புற இயந்திரங்களை உருவாக்கி புதுப்பிக்கவும்</string>
-  <string name="webLogin" comment="In the context of an access token, a setting which permits third-party software to create authenticated sessions - meaning effectively unlimited access to your account, using it as if it is you, instead of a third party program. It will be unable to view your password but it will be able to do almost everything else.">அங்கீகரிக்கப்பட்ட இணையதள அமர்வுகளை உருவாக்கவும் (முழு அணுகலை வழங்குகிறது!)</string>
-  <string name="webMod" comment="In the context of an access token, this is a setting which permits third-party software to use moderator tools on your behalf. Most players will not be able to see this option.">மதிப்பீட்டாளர் கருவிகளைப் பயன்படுத்தவும் (உங்கள் அனுமதியின் எல்லைக்குள்)</string>
+  <string name="webLogin">அங்கீகரிக்கப்பட்ட இணையதள அமர்வுகளை உருவாக்கவும் (முழு அணுகலை வழங்குகிறது!)</string>
+  <string name="webMod">மதிப்பீட்டாளர் கருவிகளைப் பயன்படுத்தவும் (உங்கள் அனுமதியின் எல்லைக்குள்)</string>
   <string name="personalAccessTokens">தனிப்பட்ட API அணுகல் டோக்கன்கள்</string>
-  <string name="canMakeOauthRequests" comment="%s is 'authorisation code flow' (flow, as in a process).">OAuth கோரிக்கைகளை %s வழியாகச் செல்லாமல் செய்யலாம்.</string>
-  <string name="authorizationCodeFlow" comment="Part of longer string canMakeOauthRequests:&#10;You can make OAuth requests without going through the authorisation code flow.&#10;&#10;This text is also a link which directs to https://lichess.org/api#section/Introduction/Authentication.&#10;&#10;In this context, 'flow' means a process. Technical information explaining this concept here: https://oauth.net/2/grant-types/authorization-code/ - its formal name is &quot;authorisation code grant type&quot;.&#10;&#10;If you are not comfortable in translating this, we recommend leaving it untranslated.">அங்கீகார குறியீடு ஓட்டம்</string>
-  <string name="insteadGenerateToken" comment="%s is 'generate a personal access token'.">மாறாக, API கோரிக்கைகளில் நீங்கள் நேரடியாகப் பயன்படுத்தக்கூடிய %s.</string>
-  <string name="generatePersonalToken" comment="Part of longer string insteadGenerateToken:&#10;'Instead, generate a personal access token you can directly use in API requests.'&#10;&#10;It is a link, which links to https://lichess.org/account/oauth/token/create and appears after you have created at least one token.">தனிப்பட்ட அணுகல் டோக்கனை உருவாக்கவும்</string>
+  <string name="canMakeOauthRequests">OAuth கோரிக்கைகளை %s வழியாகச் செல்லாமல் செய்யலாம்.</string>
+  <string name="authorizationCodeFlow">அங்கீகார குறியீடு ஓட்டம்</string>
+  <string name="insteadGenerateToken" comment="The parameter is a link to generate a token a personal access token">மாறாக, API கோரிக்கைகளில் நீங்கள் நேரடியாகப் பயன்படுத்தக்கூடிய %s.</string>
+  <string name="generatePersonalToken">தனிப்பட்ட அணுகல் டோக்கனை உருவாக்கவும்</string>
   <string name="guardTokensCarefully">இந்த டோக்கன்களை கவனமாக பாதுகாக்கவும்! அவை கடவுச்சொற்கள் போன்றவை. உங்கள் கடவுச்சொல்லை ஸ்கிரிப்ட்டில் வைப்பதை விட டோக்கன்களைப் பயன்படுத்துவதன் நன்மை என்னவென்றால், டோக்கன்கள் திரும்பப் பெறப்படலாம், மேலும் நீங்கள் அவற்றை நிறைய உருவாக்கலாம்.</string>
-  <string name="apiDocumentationLinks" comment="%1$s links to a personal token app example (string: personalTokenAppExample).&#10;&#10;%2$s links to the API documentation (string: apiDocumentation).&#10;&#10;Full sentence after %1$s and %2$s have been substituted:&#10;&quot;Here's a personal app token example and the API documentation.&quot;&#10;&#10;personalTokenAppExample and apiDocumentation can both be translated separately.">இதோ %1$s மற்றும் %2$s.</string>
-  <string name="personalTokenAppExample" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'&#10;&#10;This text is also a link which directs to https://github.com/lichess-org/api/tree/master/example/oauth-personal-token.">தனிப்பட்ட டோக்கன் பயன்பாட்டின் உதாரணம்</string>
-  <string name="apiDocumentation" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'&#10;&#10;This text is also a link which directs to https://lichess.org/api.">API ஆவணங்கள்</string>
+  <string name="apiDocumentationLinks" comment="The first parameter links to a personal token app example. The second parameter links to the API documentation">இதோ %1$s மற்றும் %2$s.</string>
+  <string name="personalTokenAppExample">தனிப்பட்ட டோக்கன் பயன்பாட்டின் உதாரணம்</string>
+  <string name="apiDocumentation">API ஆவணங்கள்</string>
   <string name="newToken">புதிய அணுகல் டோக்கன்</string>
   <string name="apiAccessTokens">API அணுகல் டோக்கன்கள்</string>
-  <string name="created" comment="%s is relative time, e.g. 2 hours ago.">%s உருவாக்கப்பட்டது</string>
-  <string name="lastUsed" comment="%s is relative time, e.g. 2 hours ago. 'Last used' in this context means 'You used this most recently %s time ago'.">கடைசியாகப் பயன்படுத்தப்பட்டது %s</string>
+  <string name="created">%s உருவாக்கப்பட்டது</string>
+  <string name="lastUsed">கடைசியாகப் பயன்படுத்தப்பட்டது %s</string>
   <string name="alreadyHavePlayedGames">நீங்கள் ஏற்கனவே கேம்களை விளையாடியுள்ளீர்கள்!</string>
   <string name="attentionOfDevelopers">டெவலப்பர்களின் கவனத்திற்கு மட்டும் குறிப்பு:</string>
   <string name="possibleToPrefill">URL இன் வினவல் அளவுருக்களை மாற்றுவதன் மூலம் இந்தப் படிவத்தை முன்கூட்டியே நிரப்ப முடியும்.</string>
-  <string name="forExample" comment="%s is an example URL.&#10;&#10;Please note the sentence continues on the next line. The complete sentence is:&#10;'For example: https://lichess.org/account/oauth/token/create?scopes[]=challenge:write&amp;scopes[]=puzzle:read&amp;description=Prefilled+token+example&#10;ticks the challenge:create and puzzle:read scopes, and sets the token description.'">உதாரணமாக: %s</string>
-  <string name="ticksTheScopes" comment="Part of a longer sentence, this is the second line:&#10;&#10;'For example: https://lichess.org/account/oauth/token/create?scopes[]=challenge:write&amp;scopes[]=puzzle:read&amp;description=Prefilled+token+example&#10;ticks the challenge:create and puzzle:read scopes, and sets the token description.'&#10;&#10;%1$s is 'challenge:create', %2$s is 'puzzle:read' which are both used as technical examples. These should not be translated which is why they are included as substituted strings.">%1$s மற்றும் %2$s ஸ்கோப்களை டிக் செய்து, டோக்கன் விளக்கத்தை அமைக்கிறது.</string>
-  <string name="scopesCanBeFound" comment="scopesCanBeFound&#10;&#10;For this page in particular, developers can link to it so that some options are pre-ticked when a user follows the URL.&#10;&#10;To pre-tick those options, developers need the scope codes, which they can find by inspecting the source code of the page itself.">ஸ்கோப் குறியீடுகளை படிவத்தின் HTML குறியீட்டில் காணலாம்.</string>
+  <string name="forExample">உதாரணமாக: %s</string>
+  <string name="ticksTheScopes">%1$s மற்றும் %2$s ஸ்கோப்களை டிக் செய்து, டோக்கன் விளக்கத்தை அமைக்கிறது.</string>
   <string name="givingPrefilledUrls">முன் நிரப்பப்பட்ட இந்த URLகளை உங்கள் பயனர்களுக்கு வழங்குவது, சரியான டோக்கன் நோக்கங்களைப் பெற அவர்களுக்கு உதவும்.</string>
 </resources>
