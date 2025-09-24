@@ -94,7 +94,7 @@ export const playerFed = (fed?: Federation): VNode | undefined =>
   fed &&
   hl('img.mini-game__flag', {
     attrs: {
-      src: site.asset.url(`images/fide-fed-webp/${fed.id}.webp`),
+      src: site.asset.url(`fide/fed-webp/${fed.id}.webp`),
       title: `Federation: ${fed.name}`,
     },
   });
