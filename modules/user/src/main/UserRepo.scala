@@ -217,19 +217,12 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
     val incs: List[BSONElement] = List(
       "count.game".some,
       rated.option("count.rated"),
-      ai.option("count.ai"),
       (result match
         case -1 => "count.loss".some
         case 1 => "count.win".some
         case 0 => "count.draw".some
         case _ => none
-      ),
-      (result match
-        case -1 => "count.lossH".some
-        case 1 => "count.winH".some
-        case 0 => "count.drawH".some
-        case _ => none
-      ).ifFalse(ai)
+      )
     ).flatten.map(k => BSONElement(k, BSONInteger(1))) ::: List(
       totalTime.map(v => BSONElement(s"${F.playTime}.total", BSONInteger(v + 2))),
       tvTime.map(v => BSONElement(s"${F.playTime}.tv", BSONInteger(v + 2)))

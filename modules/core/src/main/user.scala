@@ -159,15 +159,11 @@ object user:
     given AtInstant[User] = _.createdAt
 
   case class Count(
-      ai: Int,
       draw: Int,
-      drawH: Int, // only against human opponents
       game: Int,
       loss: Int,
-      lossH: Int, // only against human opponents
       rated: Int,
-      win: Int,
-      winH: Int // only against human opponents
+      win: Int
   )
 
   case class WithPerf(user: User, perf: Perf):
