@@ -20,6 +20,7 @@ import lila.puzzle.{
 import lila.rating.PerfType
 import lila.ui.LangPath
 import scalalib.model.Days
+import lila.common.HTTPRequest
 
 final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
 
@@ -330,7 +331,12 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
 
   def apiBatchSelect(angleStr: String) = AnonOrScoped(_.Puzzle.Read, _.Web.Mobile): ctx ?=>
     val nb = getInt("nb") | 15
-    fetchRateLimit(rateLimited, cost = if ctx.isAuth then nb / 2 else nb):
+    val cost =
+      if ctx.isMobileOauth then 0
+      else if HTTPRequest.isLichessMobile(ctx.req) then nb / 5
+      else if ctx.isAuth then nb / 3
+      else nb
+    fetchRateLimit(rateLimited, cost = cost):
       WithPuzzlePerf:
         for puzzles <- batchSelect(PuzzleAngle.findOrMix(angleStr), reqSettings, nb)
         yield Ok(puzzles)
@@ -344,7 +350,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     env.puzzle.batch.nextForMe(angle, settings, nb.atMost(50)).flatMap(env.puzzle.jsonView.batch)
 
   private val solveRateLimit =
-    env.security.ipTrust.rateLimit(200, 1.hour, "puzzle.solve.ip", _.proxyMultiplier(2))
+    env.security.ipTrust.rateLimit(400, 1.hour, "puzzle.solve.ip", _.proxyMultiplier(2))
 
   def apiBatchSolve(angleStr: String) = AnonOrScopedBody(parse.json)(_.Puzzle.Write, _.Web.Mobile): ctx ?=>
     ctx.body.body
@@ -352,7 +358,10 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       .fold(
         err => BadRequest(err.toString),
         data =>
-          solveRateLimit(rateLimited, cost = data.solutions.size * (if ctx.isAuth then 1 else 2)):
+          val cost = data.solutions.size * {
+            if ctx.isMobileOauth then 1 else if ctx.isAuth then 2 else 5
+          }
+          solveRateLimit(rateLimited, cost = cost):
             val angle = PuzzleAngle.findOrMix(angleStr)
             for
               rounds <- ctx.me match
