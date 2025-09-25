@@ -22,18 +22,18 @@ final class PublicChatUi(helpers: Helpers)(highlightBad: String => Frag):
           div(id := "comm-wrap")(
             div(id := "communication", cls := "page-menu__content public-chat box box-pad")(
               div(
-                h2("Broadcast Chats"),
-                div(cls := "player_chats"):
-                  relayChats.map: (relay, chat) =>
-                    div(cls := "game", dataChan := "study", dataRoom := relay.id):
-                      chatOf(relayTitle(relay), chat)
-              ),
-              div(
                 h2("Tournament Chats"),
                 div(cls := "player_chats"):
                   tourChats.map: (tournament, chat) =>
                     div(cls := "game", dataChan := "tournament", dataRoom := tournament.id):
                       chatOf(tournamentTitle(tournament), chat)
+              ),
+              div(
+                h2("Broadcast Chats"),
+                div(cls := "player_chats"):
+                  relayChats.map: (relay, chat) =>
+                    div(cls := "game", dataChan := "study", dataRoom := relay.id):
+                      chatOf(relayTitle(relay), chat)
               ),
               div(
                 h2("Swiss Chats"),
