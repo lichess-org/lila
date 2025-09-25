@@ -255,10 +255,10 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
                 _.fold(redirectNoPuzzle) { renderShow(_, angle, color = color) }
 
   private val fetchRateLimit =
-    env.security.ipTrust.rateLimit(200, 1.hour, "puzzle.fetch.ip", _.antiScraping(dch = 10, others = 2))
+    env.security.ipTrust.rateLimit(300, 1.hour, "puzzle.fetch.ip", _.antiScraping(dch = 5, others = 1))
 
   def apiNext = AnonOrScoped(_.Puzzle.Read):
-    fetchRateLimit(rateLimited, cost = if ctx.isAuth then 1 else 2):
+    fetchRateLimit(rateLimited, cost = if ctx.isAuth then 1 else 5):
       WithPuzzlePerf:
         val angle = PuzzleAngle.findOrMix(~get("angle"))
         val settings = reqSettings
