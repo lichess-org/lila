@@ -16,7 +16,7 @@ case class ActivityView(
     storm: Option[Storm] = None,
     racer: Option[Racer] = None,
     streak: Option[Streak] = None,
-    practice: Option[Map[lila.core.practice.Study, Int]] = None,
+    practice: Option[Map[lila.ui.practice.Study, Int]] = None,
     simuls: Option[List[Simul]] = None,
     patron: Option[Patron] = None,
     forumPosts: Option[Map[ForumTopicMini, List[ForumPostMini]]] = None,
