@@ -48,7 +48,7 @@
   <string name="annotateWithGlyphs">Skýra með stafbrigðum</string>
   <string name="theChapterIsTooShortToBeAnalysed">Kaflinn er of stuttur til að hægt sé að greina hann.</string>
   <string name="onlyContributorsCanRequestAnalysis">Aðeins þátttakendur í stúderingu geta beðið um tölvugreiningu.</string>
-  <string name="getAFullComputerAnalysis">Fáðu ýtarlega tölvugreiningu á netþjóni á meginleikjunum.</string>
+  <string name="getAFullComputerAnalysis">Fáðu ýtarlega tölvugreiningu á netþjóni á höfuðafbrigðinu.</string>
   <string name="makeSureTheChapterIsComplete">Gakktu úr skugga um að kaflanum sé lokið. Þú getur aðeins beðið um greiningu einu sinni.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Allir samstilltir meðlimir halda sama stað</string>
   <string name="shareChanges">Deila breytingum með áhorfendum og vista þær á netþjóninum</string>
@@ -61,6 +61,7 @@
   <string name="studyPgn">Stúdera PGN</string>
   <string name="chapterPgn">PGN kafla</string>
   <string name="copyChapterPgn">Afrita PGN</string>
+  <string name="copyRawChapterPgn">Afrita óunna PGN-skák</string>
   <string name="downloadGame">Hlaða niður skák</string>
   <string name="studyUrl">Stúdera slóð</string>
   <string name="currentChapterUrl">Núverandi slóð kafla</string>
