@@ -53,6 +53,7 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
 
   &.active {
     color: white;
+    background: $c-primary;
     background: color-mix(in srgb, var(--c-base) 85%, transparent);
 
     shapes,
