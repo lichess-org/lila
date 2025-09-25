@@ -308,7 +308,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
     coll.exists($id(id) ++ $doc(F.createdAt.$lt(since)))
 
   def setRoles(id: UserId, roles: List[RoleDbKey]): Funit =
-    coll.updateField($id(id), F.roles, roles).void
+    coll.updateOrUnsetField($id(id), F.roles, Option.when(roles.nonEmpty)(roles)).void
 
   def getRoles[U: UserIdOf](u: U): Fu[List[RoleDbKey]] =
     coll.primitiveOne[List[RoleDbKey]]($id(u.id), BSONFields.roles).dmap(_.orZero)
