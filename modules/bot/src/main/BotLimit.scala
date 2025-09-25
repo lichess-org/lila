@@ -6,7 +6,7 @@ import lila.memo.RateLimit.Limited
 final class BotLimit(using Executor, lila.core.config.RateLimit):
 
   private val limitKey = "bot.vsBot.day"
-  private val max = Max(1)
+  private val max = Max(100)
 
   // number of bot-vs-bot games per day
   private val botGamesPerDay = RateLimit[UserId](max.value, 1.day, limitKey)
