@@ -118,7 +118,7 @@ Skipuleggjandi Swiss-viðburðar getur ákveðið að leyfa þeim að taka þát
   <string name="pause">Pása</string>
   <string name="pauseSwiss">Já en gæti fækkað umferðum</string>
   <string name="streaksAndBerserk">Hrina og Berserk-stig</string>
-  <string name="similarToOTB">Svipað og á raunverulegum skákmótum (e. OTB)</string>
+  <string name="similarToOTB">Svipað og á raunverulegum skákmótum (OTB-mótum)</string>
   <string name="unlimitedAndFree">Ótakmarkandi og ókeypis</string>
   <string name="predefinedUsers">Leyfa aðeins fyrirframskilgreindum notendum að taka þátt</string>
   <string name="forbiddedUsers">Ef þessi listi er ekki tómur, þá verður notendum sem eru fjarverandi á þessum lista bannað að vera með. Eitt notandanafn á línu.</string>
