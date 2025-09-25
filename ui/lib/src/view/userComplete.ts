@@ -42,11 +42,13 @@ export function userComplete(opts: UserCompleteOpts): void {
       debounced(t).then(({ term, result }) => (t === term ? result : Promise.reject('Debounced ' + t))),
     render(o: LightUserOnline) {
       const tag = opts.tag || 'a';
+      const patronClass = o.patronColor ? ` paco${o.patronColor}` : '';
       return (
         '<' +
         tag +
         ' class="complete-result ulpt user-link' +
         (o.online ? ' online' : '') +
+        patronClass +
         '" ' +
         (tag === 'a' ? '' : 'data-') +
         'href="/@/' +
