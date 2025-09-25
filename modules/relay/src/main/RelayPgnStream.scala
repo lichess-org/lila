@@ -52,7 +52,7 @@ final class RelayPgnStream(
         r <- rounds
         s <- visible.find(_.id == r.studyId)
       yield r.withTour(tour).withStudy(s)
-    yield Source(withStudy).flatMapConcat(ofGames).throttle(16, 1.second)
+    yield Source(withStudy).flatMapConcat(ofGames).throttle(20, 1.second)
 
   private val baseFlags = PgnDump.WithFlags(
     comments = true, // analysis
