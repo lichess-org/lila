@@ -66,21 +66,24 @@ final class PuzzleApi(
     )
 
     def update(id: PuzzleId, user: User, vote: Boolean): Funit =
-      sequencer(id):
-        round
-          .find(user, id)
-          .flatMapz: prevRound =>
-            trustApi.vote(user, prevRound, vote).flatMapz { weight =>
-              val voteValue = (if vote then 1 else -1) * weight
-              lila.mon.puzzle.vote.count(vote, prevRound.win.yes).increment()
-              updatePuzzle(id, voteValue, prevRound.vote)
-                .zip(colls.round {
-                  _.updateField($id(prevRound.id), PuzzleRound.BSONFields.vote, voteValue)
-                })
-                .void
-            }
-      .monSuccess(_.puzzle.vote.future)
-        .recoverDefault
+      lila.common.Uptime
+        .startedSinceSeconds(30) // puzzle voting is expensive and often times out on startup
+        .so:
+          sequencer(id):
+            round
+              .find(user, id)
+              .flatMapz: prevRound =>
+                trustApi.vote(user, prevRound, vote).flatMapz { weight =>
+                  val voteValue = (if vote then 1 else -1) * weight
+                  lila.mon.puzzle.vote.count(vote, prevRound.win.yes).increment()
+                  updatePuzzle(id, voteValue, prevRound.vote)
+                    .zip(colls.round {
+                      _.updateField($id(prevRound.id), PuzzleRound.BSONFields.vote, voteValue)
+                    })
+                    .void
+                }
+          .monSuccess(_.puzzle.vote.future)
+            .recoverDefault
 
     private def updatePuzzle(puzzleId: PuzzleId, newVote: Int, prevVote: Option[Int]): Funit =
       colls.puzzle: coll =>
