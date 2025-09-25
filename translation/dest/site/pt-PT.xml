@@ -2,6 +2,7 @@
 <resources>
   <string name="gameSetup">Configuração de jogo</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Desafiar um Amigo</string>
+  <string name="playAgainstComputer">Jogar contra o computador</string>
   <string name="gameMode">Modo de jogo</string>
   <string name="createLobbyGame">Criar jogo no lobby</string>
   <string name="youPlayAs">Jogas com</string>
