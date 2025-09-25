@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="gameSetup">Partioppsett</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Utfordre en venn</string>
+  <string name="playAgainstComputer">Spill mot maskinen</string>
+  <string name="gameMode">Modus</string>
+  <string name="createLobbyGame">Opprett lobbyparti</string>
+  <string name="youPlayAs">Dine brikker</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">For å invitere noen til å spille, gi dem denne lenken</string>
   <string name="gameOver">Partiet er avsluttet</string>
   <string name="waitingForOpponent">Venter på motstander</string>
@@ -339,6 +345,7 @@
     <item quantity="other">%s pågår</item>
   </plurals>
   <string name="exportGames">Eksporter partier</string>
+  <string name="ratingFilter">Ratingfilter</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Gi %s sekund</item>
     <item quantity="other">Gi %s sekunder</item>
@@ -823,6 +830,7 @@
   <string name="notifications">Varsler</string>
   <string name="notificationsX">Varsler: %1$s</string>
   <string name="perfRatingX">Rating: %s</string>
+  <string name="yourRatingIsX">Ratingen din er %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekund til å ta det første trekket</item>
     <item quantity="other">%s sekunder til å ta det første trekket</item>
@@ -874,6 +882,7 @@
   <string name="playVariationToCreateConditionalPremoves">Spill en variant for å lage betingede forhåndstrekk</string>
   <string name="noConditionalPremoves">Ingen betingede forhåndstrekk</string>
   <string name="playX">Spill %s</string>
+  <string name="challengeX">Utfordre %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">og lagre %s forhåndstrekkvariant</item>
     <item quantity="other">og lagre %s forhåndstrekkvarianter</item>
@@ -1007,4 +1016,5 @@ Alle kostnader for drift, utvikling og innhold finansieres utelukkende av bruker
   <string name="disableBlindMode">Deaktiver blindemodus</string>
   <string name="copyToClipboard">Kopier til utklippstavlen</string>
   <string name="search">Søk</string>
+  <string name="clearSearch">Tøm søk</string>
 </resources>

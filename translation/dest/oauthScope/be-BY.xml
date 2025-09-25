@@ -8,13 +8,13 @@
   <string name="whatTheTokenCanDo">Што токен можа рабіць ад вашага імя:</string>
   <string name="doNotShareIt">Токен дасць доступ да вашага ўліковага запісу. НЕ дзяліцеся ім ні з кім!</string>
   <string name="copyTokenNow">Не забудзьцеся скапіраваць свой новы асабісты токен доступу. Вы не зможаце ўбачыць яго зноў!</string>
-  <string name="preferenceRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's preferences.&#10;&#10;There is a separate setting to let applications write (edit) preferences.">Паглядзець налады</string>
-  <string name="preferenceWrite" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to edit/change the user's preferences.&#10;&#10;There is a separate setting to let applications only read preferences, but not to write (edit) them.">Змяніць налады</string>
-  <string name="emailRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's registered email address.">Паглядзець адрас электроннай пошты</string>
-  <string name="challengeRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view game challenges from other players.&#10;&#10;There is a separate setting to let applications send, accept or reject challenges.">Паглядзець уваходныя выклікі</string>
-  <string name="tournamentWrite" comment="In the context of an access token, a setting that permits third party software to create, update or delete studies and join tournaments.">Стварыць, абнавіць і далучыцца да турніраў</string>
-  <string name="boardPlay" comment="In the context of an access token, a setting which permits third-party software to play games using e-boards like DGT, through Lichess's board API.">Гуляць гульні з API дошкі</string>
+  <string name="preferenceRead">Паглядзець налады</string>
+  <string name="preferenceWrite">Змяніць налады</string>
+  <string name="emailRead">Паглядзець адрас электроннай пошты</string>
+  <string name="challengeRead">Паглядзець уваходныя выклікі</string>
+  <string name="tournamentWrite">Стварыць, абнавіць і далучыцца да турніраў</string>
+  <string name="boardPlay">Гуляць гульні з API дошкі</string>
   <string name="engineRead">Прагледзець і выкарыстаць вашы знешнія рухавікі</string>
   <string name="engineWrite">Стварыць і абнавіць знешнія рухавікі</string>
-  <string name="forExample" comment="%s is an example URL.&#10;&#10;Please note the sentence continues on the next line. The complete sentence is:&#10;'For example: https://lichess.org/account/oauth/token/create?scopes[]=challenge:write&amp;scopes[]=puzzle:read&amp;description=Prefilled+token+example&#10;ticks the challenge:create and puzzle:read scopes, and sets the token description.'">Напрыклад: %s</string>
+  <string name="forExample">Напрыклад: %s</string>
 </resources>

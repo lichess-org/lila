@@ -8,47 +8,46 @@
   <string name="whatTheTokenCanDo">令牌可以代表你做什么：</string>
   <string name="doNotShareIt">令牌将授权访问你的账户。不要与任何人分享它！</string>
   <string name="copyTokenNow">请确保你已复制个人访问令牌。令牌将不再显示。</string>
-  <string name="preferenceRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's preferences.&#10;&#10;There is a separate setting to let applications write (edit) preferences.">读取首选项</string>
-  <string name="preferenceWrite" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to edit/change the user's preferences.&#10;&#10;There is a separate setting to let applications only read preferences, but not to write (edit) them.">写入首选项</string>
-  <string name="emailRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's registered email address.">阅读邮箱地址</string>
-  <string name="challengeRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view game challenges from other players.&#10;&#10;There is a separate setting to let applications send, accept or reject challenges.">读取收到的挑战</string>
-  <string name="challengeWrite" comment="challengeWrite&#10;&#10;In the context of an authentication token, a setting that permits third party software to send, accept and reject challenges on behalf of the player.">发送、接受和拒绝挑战</string>
+  <string name="preferenceRead">读取首选项</string>
+  <string name="preferenceWrite">写入首选项</string>
+  <string name="emailRead">阅读邮箱地址</string>
+  <string name="challengeRead">读取收到的挑战</string>
+  <string name="challengeWrite">发送、接受和拒绝挑战</string>
   <string name="challengeBulk">为其他玩家一次创建许多游戏</string>
-  <string name="studyRead" comment="Gives permission to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">阅读私人研讨和广播</string>
-  <string name="studyWrite" comment="In the context of an access token, a setting that enables third party software to create, update or delete studies and broadcasts.">创建、更新、删除研讨和广播</string>
-  <string name="tournamentWrite" comment="In the context of an access token, a setting that permits third party software to create, update or delete studies and join tournaments.">创建、更新和加入锦标赛</string>
-  <string name="racerWrite" comment="In the context of an access token, a setting which permits third party software to create, and join puzzle races (this is for the activity/minigame Puzzle Racer: https://lichess.org/racer)">创建并加入谜题赛事</string>
-  <string name="puzzleRead" comment="In the context of an access token, a setting which permits third-party software to view the user's puzzle solving history.">读取谜题活动</string>
-  <string name="teamRead" comment="Gives permission to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">读取私人团队信息</string>
-  <string name="teamWrite" comment="In the context of an access token, a setting that permits the third party software to join or leave teams on your behalf.">加入和离开团队</string>
+  <string name="studyRead">阅读私人研讨和广播</string>
+  <string name="studyWrite">创建、更新、删除研讨和广播</string>
+  <string name="tournamentWrite">创建、更新和加入锦标赛</string>
+  <string name="racerWrite">创建并加入谜题赛事</string>
+  <string name="puzzleRead">读取谜题活动</string>
+  <string name="teamRead">读取私人团队信息</string>
+  <string name="teamWrite">加入和离开团队</string>
   <string name="teamLead">管理你领导的团队：发送私信，踢出成员</string>
-  <string name="followRead" comment="In the context of an access token, a setting which permits third-party software to view (read) which players you are following.">阅读关注的棋手</string>
-  <string name="followWrite" comment="In the context of an access token, a setting which permits third-party software to follow and unfollow other players on your behalf.">关注并取消关注其他棋手</string>
-  <string name="msgWrite" comment="In the context of an access token, a setting which permits third-party software to send messages on your behalf.">向其他棋手发送私信</string>
-  <string name="boardPlay" comment="In the context of an access token, a setting which permits third-party software to play games using e-boards like DGT, through Lichess's board API.">用棋盘 API 下棋</string>
-  <string name="botPlay" comment="In the context of an access token, a setting which permits third-party software to play games over the bot API. This is intended mainly for having an engine account e.g. the accounts featured on https://lichess.org/player/bots">用机器人 API 下棋</string>
+  <string name="followRead">阅读关注的棋手</string>
+  <string name="followWrite">关注并取消关注其他棋手</string>
+  <string name="msgWrite">向其他棋手发送私信</string>
+  <string name="boardPlay">用棋盘 API 下棋</string>
+  <string name="botPlay">用机器人 API 下棋</string>
   <string name="engineRead">查看和使用你的外部引擎</string>
   <string name="engineWrite">创建和更新外部引擎</string>
-  <string name="webLogin" comment="In the context of an access token, a setting which permits third-party software to create authenticated sessions - meaning effectively unlimited access to your account, using it as if it is you, instead of a third party program. It will be unable to view your password but it will be able to do almost everything else.">创建认证的网站会话 (授予完全访问权限!)</string>
-  <string name="webMod" comment="In the context of an access token, this is a setting which permits third-party software to use moderator tools on your behalf. Most players will not be able to see this option.">使用版主工具 (在你的权限范围内)</string>
+  <string name="webLogin">创建认证的网站会话 (授予完全访问权限!)</string>
+  <string name="webMod">使用版主工具 (在你的权限范围内)</string>
   <string name="personalAccessTokens">个人访问令牌</string>
-  <string name="canMakeOauthRequests" comment="%s is 'authorisation code flow' (flow, as in a process).">您可以选择通过 %s 提出OAuth 请求。</string>
-  <string name="authorizationCodeFlow" comment="Part of longer string canMakeOauthRequests:&#10;You can make OAuth requests without going through the authorisation code flow.&#10;&#10;This text is also a link which directs to https://lichess.org/api#section/Introduction/Authentication.&#10;&#10;In this context, 'flow' means a process. Technical information explaining this concept here: https://oauth.net/2/grant-types/authorization-code/ - its formal name is &quot;authorisation code grant type&quot;.&#10;&#10;If you are not comfortable in translating this, we recommend leaving it untranslated.">授权码模式</string>
-  <string name="insteadGenerateToken" comment="%s is 'generate a personal access token'.">或者，你也可以 %s，并直接在 API 请求中使用。</string>
-  <string name="generatePersonalToken" comment="Part of longer string insteadGenerateToken:&#10;'Instead, generate a personal access token you can directly use in API requests.'&#10;&#10;It is a link, which links to https://lichess.org/account/oauth/token/create and appears after you have created at least one token.">生成个人访问令牌</string>
+  <string name="canMakeOauthRequests">您可以选择通过 %s 提出OAuth 请求。</string>
+  <string name="authorizationCodeFlow">授权码模式</string>
+  <string name="insteadGenerateToken" comment="The parameter is a link to generate a token a personal access token">或者，你也可以 %s，并直接在 API 请求中使用。</string>
+  <string name="generatePersonalToken">生成个人访问令牌</string>
   <string name="guardTokensCarefully">小心守护这些令牌！他们就像密码一样。 使用令牌而不是将密码放入脚本的优势是令牌可以被撤销，而且您可以生成大量的令牌。</string>
-  <string name="apiDocumentationLinks" comment="%1$s links to a personal token app example (string: personalTokenAppExample).&#10;&#10;%2$s links to the API documentation (string: apiDocumentation).&#10;&#10;Full sentence after %1$s and %2$s have been substituted:&#10;&quot;Here's a personal app token example and the API documentation.&quot;&#10;&#10;personalTokenAppExample and apiDocumentation can both be translated separately.">详见 %1$s 和 %2$s。</string>
-  <string name="personalTokenAppExample" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'&#10;&#10;This text is also a link which directs to https://github.com/lichess-org/api/tree/master/example/oauth-personal-token.">个人令牌应用示例</string>
-  <string name="apiDocumentation" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'&#10;&#10;This text is also a link which directs to https://lichess.org/api.">API 文档</string>
+  <string name="apiDocumentationLinks" comment="The first parameter links to a personal token app example. The second parameter links to the API documentation">详见 %1$s 和 %2$s。</string>
+  <string name="personalTokenAppExample">个人令牌应用示例</string>
+  <string name="apiDocumentation">API 文档</string>
   <string name="newToken">新增访问令牌</string>
   <string name="apiAccessTokens">API 访问令牌</string>
-  <string name="created" comment="%s is relative time, e.g. 2 hours ago.">创建于 %s</string>
-  <string name="lastUsed" comment="%s is relative time, e.g. 2 hours ago. 'Last used' in this context means 'You used this most recently %s time ago'.">上次使用：%s</string>
+  <string name="created">创建于 %s</string>
+  <string name="lastUsed">上次使用：%s</string>
   <string name="alreadyHavePlayedGames">你已经玩过对局了！</string>
   <string name="attentionOfDevelopers">给开发者的提示：</string>
   <string name="possibleToPrefill">可以通过调整 URL 内参数以预填此界面。</string>
-  <string name="forExample" comment="%s is an example URL.&#10;&#10;Please note the sentence continues on the next line. The complete sentence is:&#10;'For example: https://lichess.org/account/oauth/token/create?scopes[]=challenge:write&amp;scopes[]=puzzle:read&amp;description=Prefilled+token+example&#10;ticks the challenge:create and puzzle:read scopes, and sets the token description.'">例如：%s</string>
-  <string name="ticksTheScopes" comment="Part of a longer sentence, this is the second line:&#10;&#10;'For example: https://lichess.org/account/oauth/token/create?scopes[]=challenge:write&amp;scopes[]=puzzle:read&amp;description=Prefilled+token+example&#10;ticks the challenge:create and puzzle:read scopes, and sets the token description.'&#10;&#10;%1$s is 'challenge:create', %2$s is 'puzzle:read' which are both used as technical examples. These should not be translated which is why they are included as substituted strings.">将 %1$s 和 %2$s 作用域划勾，并设置令牌描述。</string>
-  <string name="scopesCanBeFound" comment="scopesCanBeFound&#10;&#10;For this page in particular, developers can link to it so that some options are pre-ticked when a user follows the URL.&#10;&#10;To pre-tick those options, developers need the scope codes, which they can find by inspecting the source code of the page itself.">作用域代码可以在此表格的 HTML 代码中找到。</string>
+  <string name="forExample">例如：%s</string>
+  <string name="ticksTheScopes">将 %1$s 和 %2$s 作用域划勾，并设置令牌描述。</string>
   <string name="givingPrefilledUrls">将这些预填的 URL 提供给您的用户将有助于他们获得正确的令牌作用域。</string>
 </resources>

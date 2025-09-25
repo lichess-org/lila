@@ -4,7 +4,7 @@
   <string name="arenaTournaments">Torneios de arena</string>
   <string name="isItRated">Valendo pontos?</string>
   <string name="willBeNotified">Você será notificado quando o torneio começar, portanto, é seguro jogar em outra aba enquanto espera.</string>
-  <string name="isRated">Este torneio vale pontos e afetará o seu rating.</string>
+  <string name="isRated">Este torneio vale rating e irá afetar o seu rating.</string>
   <string name="isNotRated">Este torneio *não* está valendo pontos e *não* afetará seu rating.</string>
   <string name="someRated">Alguns torneios valem pontos e afetarão seu rating.</string>
   <string name="howAreScoresCalculated">Como os pontos são calculados?</string>

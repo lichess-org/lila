@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="gameSetup">Partidaren konfigurazioa</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Erronka jo lagun bati</string>
+  <string name="playAgainstComputer">Jokatu ordenagailuaren aurka</string>
+  <string name="gameMode">Jokuaren modua</string>
+  <string name="createLobbyGame">Sortu partidaren itxarongela</string>
+  <string name="youPlayAs">Kolore hau izango duzu</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Norbait jokatzera gonbidatzeko, URL hau bidali iezaiozu</string>
   <string name="gameOver">Partida amaitu da</string>
   <string name="waitingForOpponent">Aurkariaren zain</string>
@@ -339,6 +345,7 @@
     <item quantity="other">%s jokatzen</item>
   </plurals>
   <string name="exportGames">Partidak esportatu</string>
+  <string name="ratingFilter">Puntuazioaren filtroa</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Segundo %s eman</item>
     <item quantity="other">%s segundo eman</item>
@@ -823,6 +830,7 @@
   <string name="notifications">Jakinarazpenak</string>
   <string name="notificationsX">Jakinarazpenak: %1$s</string>
   <string name="perfRatingX">Sailkapena: %s</string>
+  <string name="yourRatingIsX">Zure puntuazioa %s da</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">Segundo %s lehenengo jokaldia egiteko</item>
     <item quantity="other">%s segundo lehenengo jokaldia egiteko</item>
@@ -874,6 +882,7 @@
   <string name="playVariationToCreateConditionalPremoves">Aldaera bat jokatu baldintzadun aurre-jokaldiak sortzeko</string>
   <string name="noConditionalPremoves">Ez dago baldintzadun aurrejokaldirik</string>
   <string name="playX">%s jokatu</string>
+  <string name="challengeX">Jo erronda %s erabiltzaileari</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">eta aurrejokaldi linea %s gorde</item>
     <item quantity="other">eta %s aurrejokaldi linea gorde</item>

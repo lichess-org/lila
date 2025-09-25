@@ -92,7 +92,6 @@
     <item quantity="other">Nivîsa xwe ya PGNê bi vir ve bize, herî zêde %s lîstik</item>
   </plurals>
   <string name="urlOfTheGame">URLya lîstikê</string>
-  <string name="loadAGameFromXOrY">Lîstikekê bar bike ji %1$s an %2$s</string>
   <string name="createChapter">Beşê çêbike</string>
   <string name="createStudy">Xebatê çêbike</string>
   <string name="editStudy">Xebatê sererast bike</string>

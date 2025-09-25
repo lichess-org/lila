@@ -102,7 +102,6 @@
     <item quantity="other">Տեղադրեք տեսքտը PGN ձևաչափով, %s պարտիայից ոչ ավելի</item>
   </plurals>
   <string name="urlOfTheGame">Պարտիայի URL-ը, մեկ տողով</string>
-  <string name="loadAGameFromXOrY">Ներբեռնել խաղը %1$s-ից կամ %2$s-ից</string>
   <string name="createChapter">Ստեղծել գլուխը</string>
   <string name="createStudy">Ստեղծել ստուդիա</string>
   <string name="editStudy">Խմբագրել ստուդիան</string>

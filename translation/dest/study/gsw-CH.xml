@@ -61,7 +61,7 @@
   <string name="studyPgn">Schtudie PGN</string>
   <string name="chapterPgn">Kapitel PGN</string>
   <string name="copyChapterPgn">PGN kopiere</string>
-  <string name="copyRawChapterPgn" comment="Appears as a button on individual study chapters. Lets you copy a PGN without any annotations, commentary or analysis">Kopier PGN</string>
+  <string name="copyRawChapterPgn">Kopier PGN</string>
   <string name="downloadGame">Das Schpiel abelade</string>
   <string name="studyUrl">Schtudie URL</string>
   <string name="currentChapterUrl">URL aktuells Kapitel</string>
@@ -105,7 +105,6 @@
     <item quantity="other">Füeg din PGN Tegscht da i, bis zu %s Schpiel</item>
   </plurals>
   <string name="urlOfTheGame">URL vu de Schpiel</string>
-  <string name="loadAGameFromXOrY">Lad es Schpiel vo %1$s oder %2$s</string>
   <string name="createChapter">Kapitäl ärschtelä</string>
   <string name="createStudy">Schtudie erschtelle</string>
   <string name="editStudy">Schtudie bearbeite</string>

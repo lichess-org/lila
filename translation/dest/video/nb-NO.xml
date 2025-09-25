@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="chessVideos">Sjakkvideoer</string>
+  <string name="allVideosAreFree">Alle videoene er fritt tilgjengelige for alle.</string>
   <string name="thereAreNoResultsForX" comment="%s is the search term that the user entered.">Ingen treff for \"%s\"</string>
 </resources>

@@ -100,7 +100,6 @@
     <item quantity="other">在此貼上PGN文本，最多可導入%s個棋局</item>
   </plurals>
   <string name="urlOfTheGame">棋局連結，一行一個</string>
-  <string name="loadAGameFromXOrY">從%1$s或%2$s載入棋局</string>
   <string name="createChapter">建立章節</string>
   <string name="createStudy">建立研究</string>
   <string name="editStudy">編輯此研究</string>

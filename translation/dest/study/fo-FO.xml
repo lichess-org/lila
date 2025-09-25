@@ -97,7 +97,6 @@
     <item quantity="other">Set PGN tekstin hjá tær inn her, upp til %s talv</item>
   </plurals>
   <string name="urlOfTheGame">URL fyri talvini</string>
-  <string name="loadAGameFromXOrY">Les talv inn frá %1$s ella %2$s</string>
   <string name="createChapter">Stovna kapittul</string>
   <string name="createStudy">Stovna rannsókn</string>
   <string name="editStudy">Ritstjórna rannsókn</string>

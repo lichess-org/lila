@@ -8,32 +8,32 @@
   <string name="whatTheTokenCanDo">Ką žetonas gali daryti jūsų vardu:</string>
   <string name="doNotShareIt">Žetonas suteikia prieigą prie jūsų paskyros. NESIDALINKITE juo su niekuo!</string>
   <string name="copyTokenNow">Įsitikinkite, kad nusikopijavote savo asmeninį prieigos žetoną. Daugiau jo neberodysime!</string>
-  <string name="preferenceRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's preferences.&#10;&#10;There is a separate setting to let applications write (edit) preferences.">Skaityti nustatymus</string>
-  <string name="preferenceWrite" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to edit/change the user's preferences.&#10;&#10;There is a separate setting to let applications only read preferences, but not to write (edit) them.">Keisti nustatymus</string>
-  <string name="emailRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's registered email address.">Skaityti pašto adresą</string>
-  <string name="challengeRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view game challenges from other players.&#10;&#10;There is a separate setting to let applications send, accept or reject challenges.">Skaityti įeinančius iššūkius</string>
-  <string name="challengeWrite" comment="challengeWrite&#10;&#10;In the context of an authentication token, a setting that permits third party software to send, accept and reject challenges on behalf of the player.">Siųsti, priimti ir atmesti iššūkius</string>
+  <string name="preferenceRead">Skaityti nustatymus</string>
+  <string name="preferenceWrite">Keisti nustatymus</string>
+  <string name="emailRead">Skaityti pašto adresą</string>
+  <string name="challengeRead">Skaityti įeinančius iššūkius</string>
+  <string name="challengeWrite">Siųsti, priimti ir atmesti iššūkius</string>
   <string name="challengeBulk">Vienu metu sukurti daug partijų su daug žaidėjų</string>
-  <string name="studyRead" comment="Gives permission to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Skaityti privačias studijas ir transliacijas</string>
-  <string name="studyWrite" comment="In the context of an access token, a setting that enables third party software to create, update or delete studies and broadcasts.">Kurti, keisti, trinti studijas ir transliacijas</string>
-  <string name="tournamentWrite" comment="In the context of an access token, a setting that permits third party software to create, update or delete studies and join tournaments.">Kurti, keisti ir prisijungti prie turnyrų</string>
-  <string name="racerWrite" comment="In the context of an access token, a setting which permits third party software to create, and join puzzle races (this is for the activity/minigame Puzzle Racer: https://lichess.org/racer)">Kurti ir prisijungti prie užduočių lenktynių</string>
-  <string name="puzzleRead" comment="In the context of an access token, a setting which permits third-party software to view the user's puzzle solving history.">Skaityti užduočių veiklą</string>
-  <string name="teamRead" comment="Gives permission to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Skaityti privačia komandos informaciją</string>
-  <string name="teamWrite" comment="In the context of an access token, a setting that permits the third party software to join or leave teams on your behalf.">Prisijungti ir palikti komandas</string>
+  <string name="studyRead">Skaityti privačias studijas ir transliacijas</string>
+  <string name="studyWrite">Kurti, keisti, trinti studijas ir transliacijas</string>
+  <string name="tournamentWrite">Kurti, keisti ir prisijungti prie turnyrų</string>
+  <string name="racerWrite">Kurti ir prisijungti prie užduočių lenktynių</string>
+  <string name="puzzleRead">Skaityti užduočių veiklą</string>
+  <string name="teamRead">Skaityti privačia komandos informaciją</string>
+  <string name="teamWrite">Prisijungti ir palikti komandas</string>
   <string name="teamLead">Valdyti komandas, kurioms vadovaujate: siųsti žinutes, išmesti narius</string>
-  <string name="followRead" comment="In the context of an access token, a setting which permits third-party software to view (read) which players you are following.">Skaityti sekamus žaidėjus</string>
-  <string name="followWrite" comment="In the context of an access token, a setting which permits third-party software to follow and unfollow other players on your behalf.">Sekti ir nebesekti kitų žaidėjų</string>
-  <string name="msgWrite" comment="In the context of an access token, a setting which permits third-party software to send messages on your behalf.">Siųsti privačias žinutes kitiems žaidėjams</string>
-  <string name="boardPlay" comment="In the context of an access token, a setting which permits third-party software to play games using e-boards like DGT, through Lichess's board API.">Žaisti partijas su lentos API</string>
-  <string name="botPlay" comment="In the context of an access token, a setting which permits third-party software to play games over the bot API. This is intended mainly for having an engine account e.g. the accounts featured on https://lichess.org/player/bots">Žaisti partijas su botų API</string>
+  <string name="followRead">Skaityti sekamus žaidėjus</string>
+  <string name="followWrite">Sekti ir nebesekti kitų žaidėjų</string>
+  <string name="msgWrite">Siųsti privačias žinutes kitiems žaidėjams</string>
+  <string name="boardPlay">Žaisti partijas su lentos API</string>
+  <string name="botPlay">Žaisti partijas su botų API</string>
   <string name="engineRead">Peržiūrėti ir naudoti jūsų išorinius variklius</string>
   <string name="engineWrite">Kurti ir keisti išorinius variklius</string>
-  <string name="webLogin" comment="In the context of an access token, a setting which permits third-party software to create authenticated sessions - meaning effectively unlimited access to your account, using it as if it is you, instead of a third party program. It will be unable to view your password but it will be able to do almost everything else.">Kurti autentikuotas svetainės sesijas (suteikia pilną prieigą!)</string>
-  <string name="webMod" comment="In the context of an access token, this is a setting which permits third-party software to use moderator tools on your behalf. Most players will not be able to see this option.">Naudoti moderatoriaus įrankius (jūsų leidimo ribose)</string>
+  <string name="webLogin">Kurti autentikuotas svetainės sesijas (suteikia pilną prieigą!)</string>
+  <string name="webMod">Naudoti moderatoriaus įrankius (jūsų leidimo ribose)</string>
   <string name="personalAccessTokens">Asmeniniai API prieigos žetonai</string>
-  <string name="canMakeOauthRequests" comment="%s is 'authorisation code flow' (flow, as in a process).">Galite daryti OAuth užklausaus nepereidami %s.</string>
-  <string name="authorizationCodeFlow" comment="Part of longer string canMakeOauthRequests:&#10;You can make OAuth requests without going through the authorisation code flow.&#10;&#10;This text is also a link which directs to https://lichess.org/api#section/Introduction/Authentication.&#10;&#10;In this context, 'flow' means a process. Technical information explaining this concept here: https://oauth.net/2/grant-types/authorization-code/ - its formal name is &quot;authorisation code grant type&quot;.&#10;&#10;If you are not comfortable in translating this, we recommend leaving it untranslated.">autorizacijos kodo sekos</string>
-  <string name="apiDocumentation" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'&#10;&#10;This text is also a link which directs to https://lichess.org/api.">API dokumentacija</string>
+  <string name="canMakeOauthRequests">Galite daryti OAuth užklausaus nepereidami %s.</string>
+  <string name="authorizationCodeFlow">autorizacijos kodo sekos</string>
+  <string name="apiDocumentation">API dokumentacija</string>
   <string name="newToken">Naujas prieigos raktas</string>
 </resources>

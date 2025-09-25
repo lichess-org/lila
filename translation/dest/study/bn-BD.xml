@@ -58,7 +58,6 @@
     <item quantity="other">PGN টেক্সট এখানে পেস্ট করুন, %s টি খেলা পর্যন্ত</item>
   </plurals>
   <string name="urlOfTheGame">খেলাগুলোর URL, লাইনপ্রতি একটি</string>
-  <string name="loadAGameFromXOrY">%1$s অথবা %2$s থেকে খেলাসমূহ লোড করুন</string>
   <string name="createChapter">অধ্যায় তৈরি করুন</string>
   <string name="createStudy">স্টাডি তৈরি করুন</string>
   <string name="editStudy">স্টাডি সম্পাদনা করুন</string>

@@ -92,7 +92,6 @@
     <item quantity="other">PGN स्ट्रिङ्ग यहाँ पेष्ट गरौं, %s खेल सम्म</item>
   </plurals>
   <string name="urlOfTheGame">खेलको URL</string>
-  <string name="loadAGameFromXOrY">%1$s वा %2$s बाट खेल लोड गरौं</string>
   <string name="createChapter">अध्याय श्रीजना</string>
   <string name="createStudy">पाठ रचना गरौँ</string>
   <string name="editStudy">पाठ संशोधन गरौँ</string>

@@ -8,30 +8,30 @@
   <string name="whatTheTokenCanDo">نیشانە تەیبەتەکەت دەتوانێت بە ناوی تۆوە چی بکات:</string>
   <string name="doNotShareIt">ئەو نیشانە ڕێگە بە چونەژوورەوەی هەژمارەکەت دەدا. مەیدە ڤە هیچ کەسێک!</string>
   <string name="copyTokenNow">دڵنیا ببەوە لەوەی کە ئێستا نیشانەکەت کۆپی کردووە. جارێکی دیکە ناتوانیت بیبینیەوە!</string>
-  <string name="preferenceRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's preferences.&#10;&#10;There is a separate setting to let applications write (edit) preferences.">هەڵبژاردەکان بخوێنەرەوە</string>
-  <string name="preferenceWrite" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to edit/change the user's preferences.&#10;&#10;There is a separate setting to let applications only read preferences, but not to write (edit) them.">هەڵبژاردەکان بنووسەوە</string>
-  <string name="emailRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's registered email address.">ئیمێڵەکە بخوێنەوە</string>
-  <string name="challengeRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view game challenges from other players.&#10;&#10;There is a separate setting to let applications send, accept or reject challenges.">چالێنجەکانی داهاتوو بخوێنەرەوە</string>
-  <string name="challengeWrite" comment="challengeWrite&#10;&#10;In the context of an authentication token, a setting that permits third party software to send, accept and reject challenges on behalf of the player.">ناردن و قبوڵکردن و ڕەتکردنەوەی چاڵێنجەکان</string>
+  <string name="preferenceRead">هەڵبژاردەکان بخوێنەرەوە</string>
+  <string name="preferenceWrite">هەڵبژاردەکان بنووسەوە</string>
+  <string name="emailRead">ئیمێڵەکە بخوێنەوە</string>
+  <string name="challengeRead">چالێنجەکانی داهاتوو بخوێنەرەوە</string>
+  <string name="challengeWrite">ناردن و قبوڵکردن و ڕەتکردنەوەی چاڵێنجەکان</string>
   <string name="challengeBulk">دروستکردنی چەندین یاری بە یەکجار بۆ یاریزانانی تر</string>
-  <string name="studyRead" comment="Gives permission to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">خوێندن و پەخشی تایبەت فێربوون</string>
-  <string name="studyWrite" comment="In the context of an access token, a setting that enables third party software to create, update or delete studies and broadcasts.">دروستکردن و نوێکردنەوە و سڕینەوەی فێرکاری و پەخشەکان</string>
-  <string name="tournamentWrite" comment="In the context of an access token, a setting that permits third party software to create, update or delete studies and join tournaments.">دروستکردن و نوێکردنەوە و بەشداریکردن لە پاڵەوانێتییەکان</string>
-  <string name="racerWrite" comment="In the context of an access token, a setting which permits third party software to create, and join puzzle races (this is for the activity/minigame Puzzle Racer: https://lichess.org/racer)">دروستکردن و بەشداریکردن لە پێشبڕکێکانی مەتەڵ</string>
-  <string name="puzzleRead" comment="In the context of an access token, a setting which permits third-party software to view the user's puzzle solving history.">چالاکیی مەتەڵ بخوێنەرەوە</string>
-  <string name="teamRead" comment="Gives permission to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">زانیارییەکانی تیمی تایبەت بخوێنەرەوە</string>
-  <string name="teamWrite" comment="In the context of an access token, a setting that permits the third party software to join or leave teams on your behalf.">بەشداریکردن و جێهێشتنی تیمەکان</string>
+  <string name="studyRead">خوێندن و پەخشی تایبەت فێربوون</string>
+  <string name="studyWrite">دروستکردن و نوێکردنەوە و سڕینەوەی فێرکاری و پەخشەکان</string>
+  <string name="tournamentWrite">دروستکردن و نوێکردنەوە و بەشداریکردن لە پاڵەوانێتییەکان</string>
+  <string name="racerWrite">دروستکردن و بەشداریکردن لە پێشبڕکێکانی مەتەڵ</string>
+  <string name="puzzleRead">چالاکیی مەتەڵ بخوێنەرەوە</string>
+  <string name="teamRead">زانیارییەکانی تیمی تایبەت بخوێنەرەوە</string>
+  <string name="teamWrite">بەشداریکردن و جێهێشتنی تیمەکان</string>
   <string name="teamLead">بەڕێوەبردنی ئەو تیمانەی کە سەرکردایەتی دەکەیت: نامەی تایبەت بنێرە، یان ئەندامەکان دەربکە</string>
-  <string name="followRead" comment="In the context of an access token, a setting which permits third-party software to view (read) which players you are following.">خوێندنەوەی یاریزانانی فۆڵۆوکراو</string>
-  <string name="followWrite" comment="In the context of an access token, a setting which permits third-party software to follow and unfollow other players on your behalf.">فۆڵۆو و ئەنفۆڵۆوی یاریزانانی تر بکە</string>
-  <string name="msgWrite" comment="In the context of an access token, a setting which permits third-party software to send messages on your behalf.">ناردنی نامەی تایبەت بۆ یاریزانانی تر</string>
-  <string name="boardPlay" comment="In the context of an access token, a setting which permits third-party software to play games using e-boards like DGT, through Lichess's board API.">یاری لەگەڵ تەختەی API بکە</string>
-  <string name="botPlay" comment="In the context of an access token, a setting which permits third-party software to play games over the bot API. This is intended mainly for having an engine account e.g. the accounts featured on https://lichess.org/player/bots">یاری لەگەڵ تەختەی APIـیەکە بکە</string>
+  <string name="followRead">خوێندنەوەی یاریزانانی فۆڵۆوکراو</string>
+  <string name="followWrite">فۆڵۆو و ئەنفۆڵۆوی یاریزانانی تر بکە</string>
+  <string name="msgWrite">ناردنی نامەی تایبەت بۆ یاریزانانی تر</string>
+  <string name="boardPlay">یاری لەگەڵ تەختەی API بکە</string>
+  <string name="botPlay">یاری لەگەڵ تەختەی APIـیەکە بکە</string>
   <string name="engineRead">بینین یان بەکارهێنانی بزوێنەرە دەرەکییەکان</string>
   <string name="engineWrite">دروستکردن یان نوێکردنەوەی بزوێنەری دەرەکی</string>
-  <string name="webLogin" comment="In the context of an access token, a setting which permits third-party software to create authenticated sessions - meaning effectively unlimited access to your account, using it as if it is you, instead of a third party program. It will be unable to view your password but it will be able to do almost everything else.">دروستکردنی پێگەیەکی باوەڕپێکراو (رێگە بە گەیشتن بە هەمووی دەدات!)</string>
-  <string name="webMod" comment="In the context of an access token, this is a setting which permits third-party software to use moderator tools on your behalf. Most players will not be able to see this option.">ئامرازەکانی بەڕێوەبەر بەکاربهێنە (لە سنووری مۆڵەتەکەتدا)</string>
+  <string name="webLogin">دروستکردنی پێگەیەکی باوەڕپێکراو (رێگە بە گەیشتن بە هەمووی دەدات!)</string>
+  <string name="webMod">ئامرازەکانی بەڕێوەبەر بەکاربهێنە (لە سنووری مۆڵەتەکەتدا)</string>
   <string name="personalAccessTokens">نیشانەی نوێ کەسی تایبەت بە API</string>
-  <string name="canMakeOauthRequests" comment="%s is 'authorisation code flow' (flow, as in a process).">دەتوانیت داوای OAuth بکەیت بەبێ ئەوەی بچیتە %sەوە.</string>
-  <string name="forExample" comment="%s is an example URL.&#10;&#10;Please note the sentence continues on the next line. The complete sentence is:&#10;'For example: https://lichess.org/account/oauth/token/create?scopes[]=challenge:write&amp;scopes[]=puzzle:read&amp;description=Prefilled+token+example&#10;ticks the challenge:create and puzzle:read scopes, and sets the token description.'">بۆ نمونە: %s</string>
+  <string name="canMakeOauthRequests">دەتوانیت داوای OAuth بکەیت بەبێ ئەوەی بچیتە %sەوە.</string>
+  <string name="forExample">بۆ نمونە: %s</string>
 </resources>

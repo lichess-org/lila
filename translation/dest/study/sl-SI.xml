@@ -67,7 +67,7 @@
   <string name="studyPgn">PGN študije</string>
   <string name="chapterPgn">PGN poglavja</string>
   <string name="copyChapterPgn">Kopiraj PGN</string>
-  <string name="copyRawChapterPgn" comment="Appears as a button on individual study chapters. Lets you copy a PGN without any annotations, commentary or analysis">Kopiraj surovi PGN</string>
+  <string name="copyRawChapterPgn">Kopiraj surovi PGN</string>
   <string name="downloadGame">Prenesi igro</string>
   <string name="studyUrl">URL študije</string>
   <string name="currentChapterUrl">URL trenutnega poglavja</string>
@@ -113,7 +113,6 @@
     <item quantity="other">Prilepite PGN besedilo, z največ %s partijami</item>
   </plurals>
   <string name="urlOfTheGame">URL igre</string>
-  <string name="loadAGameFromXOrY">Naloži partijo iz %1$s ali %2$s</string>
   <string name="createChapter">Ustvari poglavje</string>
   <string name="createStudy">Ustvarite študijo</string>
   <string name="editStudy">Uredite študijo</string>

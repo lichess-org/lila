@@ -104,7 +104,6 @@
     <item quantity="other">دانانی تیکستی PGN لێرە، بۆ %s یاریانە</item>
   </plurals>
   <string name="urlOfTheGame">URL ی یارییەکان، بۆ هەر دێڕێک یەک دانە</string>
-  <string name="loadAGameFromXOrY">یارییەکان لە %1$s یان %2$s بار بکە</string>
   <string name="createChapter">دروستکردنی بەش</string>
   <string name="createStudy">دروستکردنی لێکۆڵینەوە</string>
   <string name="editStudy">چاککردنی لێکۆڵینەوە</string>

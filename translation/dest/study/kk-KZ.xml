@@ -102,7 +102,6 @@
     <item quantity="other">PGN мәтінін осында қойыңыз, %s ойынға дейін</item>
   </plurals>
   <string name="urlOfTheGame">Ойындардың сілтемесі, әр жолға бір-бірден</string>
-  <string name="loadAGameFromXOrY">%1$s не %2$s ойындарын жүктеп салу</string>
   <string name="createChapter">Бөлім құру</string>
   <string name="createStudy">Зерттеуді құру</string>
   <string name="editStudy">Зерттеуді өңдеу</string>
