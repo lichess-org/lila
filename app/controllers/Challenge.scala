@@ -93,7 +93,7 @@ final class Challenge(env: Env) extends LilaController(env):
   import cats.mtl.implicits.*
   def accept(id: ChallengeId, color: Option[Color]) = Open:
     Found(api.byId(id)): c =>
-      isForMe(c).so(
+      isForMe(c).so:
         allow:
           api
             .accept(c, ctx.req.sid, color)
@@ -109,7 +109,11 @@ final class Challenge(env: Env) extends LilaController(env):
             Redirect(routes.Round.watcher(c.gameId, color | Color.white)),
             notFoundJson(err)
           )
-      )
+
+  private def eitherBotLimitResponse(l: lila.bot.EitherBotLimit) = fuccess:
+    l match
+      case l: Limited => JsonLimited(l)
+      case lila.bot.OpponentLimit(msg) => BadRequest(jsonError(msg))
 
   def apiAccept(id: ChallengeId, color: Option[Color]) =
     AnonOrScoped(_.Challenge.Write, _.Bot.Play, _.Board.Play, _.Web.Mobile) { ctx ?=>
@@ -117,8 +121,8 @@ final class Challenge(env: Env) extends LilaController(env):
         env.bot.player
           .rematchAccept(id.into(GameId))
           .flatMap:
-            if _ then jsonOkResult
-            else notFoundJson()
+            case l: lila.bot.EitherBotLimit => eitherBotLimitResponse(l)
+            case res: Boolean => if res then jsonOkResult else notFoundJson()
       api
         .byId(id)
         .flatMap:
@@ -126,10 +130,14 @@ final class Challenge(env: Env) extends LilaController(env):
             case None => tryRematch
             case Some(c) if c.accepted => tryRematch
             case Some(c) =>
-              allow:
-                api.accept(c, none, color).as(jsonOkResult)
-              .rescue: err =>
-                fuccess(BadRequest(jsonError(err)))
+              ctx.me
+                .soUse(c.challengerUserId.so(env.bot.limit.acceptLimitError))
+                .map(eitherBotLimitResponse)
+                .getOrElse:
+                  allow:
+                    api.accept(c, none, color).as(jsonOkResult)
+                  .rescue: err =>
+                    fuccess(BadRequest(jsonError(err)))
     }
 
   private def withChallengeAnonCookie(cond: Boolean, c: ChallengeModel, owner: Boolean)(
@@ -293,10 +301,10 @@ final class Challenge(env: Env) extends LilaController(env):
                       else
                         val cost = if isFriend || me.isApiHog then 0 else if destUser.isBot then 1 else 5
                         limit.challengeUser(me, rateLimited, cost = cost):
-                          env.bot.limit.challengeLimitError(me, destUser) match
-                            case Some(limited: Limited) => JsonLimited(limited)
-                            case Some(err: String) => JsonBadRequest(jsonError(err))
-                            case None =>
+                          env.bot.limit
+                            .challengeLimitError(me.light, destUser.light)
+                            .map(eitherBotLimitResponse)
+                            .getOrElse:
                               for
                                 challenge <- makeOauthChallenge(config, me, destUser)
                                 grant <- env.challenge.granter.isDenied(destUser, config.perfKey.some)

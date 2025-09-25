@@ -2,8 +2,13 @@ package lila.bot
 
 import lila.memo.RateLimit
 import lila.memo.RateLimit.Limited
+import lila.core.LightUser
+import lila.core.user.LightUserApi
 
-final class BotLimit(using Executor, lila.core.config.RateLimit):
+case class OpponentLimit(msg: String)
+type EitherBotLimit = Limited | OpponentLimit
+
+final class BotLimit(lightUserApi: LightUserApi)(using Executor, lila.core.config.RateLimit):
 
   private val limitKey = "bot.vsBot.day"
   private val max = Max(100)
@@ -17,7 +22,7 @@ final class BotLimit(using Executor, lila.core.config.RateLimit):
       if users.forall(_.isBot)
       then users.foreach(u => botGamesPerDay.test(u.id))
 
-  def challengeLimitError(orig: User, dest: User): Option[Limited | String] =
+  def challengeLimitError(orig: LightUser, dest: LightUser): Option[EitherBotLimit] =
     (orig.isBot && dest.isBot).so:
       isLimited(orig.id)
         .map: until =>
@@ -28,6 +33,11 @@ final class BotLimit(using Executor, lila.core.config.RateLimit):
           )
         .orElse:
           isLimited(dest.id).map: until =>
-            s"${dest.username} played $max games against other bots today, please wait until ${showDate(until)} to challenge them."
+            OpponentLimit:
+              s"${dest.name} played $max games against other bots today, please wait until ${showDate(until)} to challenge them."
+
+  def acceptLimitError(opponent: UserId)(using me: Me): Option[EitherBotLimit] =
+    me.isBot.so:
+      challengeLimitError(me.light, lightUserApi.syncFallback(opponent))
 
   private def showDate(i: Instant) = isoDateTimeFormatter.print(i)

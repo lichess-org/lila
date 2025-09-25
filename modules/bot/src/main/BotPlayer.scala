@@ -12,7 +12,8 @@ final class BotPlayer(
     chatApi: lila.chat.ChatApi,
     gameRepo: GameRepo,
     rematches: Rematches,
-    spam: lila.core.security.SpamApi
+    spam: lila.core.security.SpamApi,
+    limit: BotLimit
 )(using Executor, Scheduler):
 
   private def clientError[A](msg: String): Fu[A] = fufail(lila.core.round.ClientError(msg))
@@ -40,21 +41,26 @@ final class BotPlayer(
         }
         chatApi.userChat.write(chatId, me, d.text, publicSource = source, _.round))
 
-  def rematchAccept(id: GameId)(using Me): Fu[Boolean] = rematch(id, accept = true)
+  def rematchAccept(id: GameId)(using Me): Fu[Boolean | EitherBotLimit] = rematch(id, accept = true)
 
-  def rematchDecline(id: GameId)(using Me): Fu[Boolean] = rematch(id, accept = false)
+  def rematchDecline(id: GameId)(using Me): Fu[Boolean] = rematch(id, accept = false).map:
+    case res: Boolean => res
+    case _ => false
 
-  private def rematch(challengeId: GameId, accept: Boolean)(using me: Me): Fu[Boolean] =
+  private def rematch(challengeId: GameId, accept: Boolean)(using me: Me): Fu[Boolean | EitherBotLimit] =
     rematches
       .prevGameIdOffering(challengeId)
       .so(gameRepo.game)
       .map:
-        _.flatMap(Pov(_, me)).so { pov =>
-          // delay so it feels more natural
-          lila.common.LilaFuture.delay(if accept then 100.millis else 1.second):
-            fuccess:
-              tellRound(pov.gameId, RoundBus.Rematch(pov.playerId, accept))
-          true
+        _.flatMap(Pov(_, me)).fold(false) { pov =>
+          pov.opponent.userId
+            .flatMap(limit.acceptLimitError)
+            .getOrElse:
+              // delay so it feels more natural
+              lila.common.LilaFuture.delay(if accept then 100.millis else 1.second):
+                fuccess:
+                  tellRound(pov.gameId, RoundBus.Rematch(pov.playerId, accept))
+              true
         }
 
   private def tellRound(id: GameId, msg: RoundBus) =
