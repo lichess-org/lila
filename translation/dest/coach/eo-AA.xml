@@ -24,4 +24,5 @@
   <string name="teachingMethod">Instrua metodologio</string>
   <string name="publicStudies">Publikaj studoj</string>
   <string name="youtubeVideos">YouTube videoj</string>
+  <string name="lichessRating" comment="An option for coaches (https://lichess.org/coach) to list their Lichess rating. Coaches list their FIDE rating as standard, but have an option to separately list their rating on Lichess">Rango en Lichess</string>
 </resources>
