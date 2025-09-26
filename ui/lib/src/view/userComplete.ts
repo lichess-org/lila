@@ -42,6 +42,7 @@ export function userComplete(opts: UserCompleteOpts): void {
       debounced(t).then(({ term, result }) => (t === term ? result : Promise.reject('Debounced ' + t))),
     render(o: LightUserOnline) {
       const tag = opts.tag || 'a';
+      const patronClass = o.patronColor ? ` paco${o.patronColor}` : '';
       return (
         '<' +
         tag +
@@ -54,6 +55,7 @@ export function userComplete(opts: UserCompleteOpts): void {
         '">' +
         '<i class="line' +
         (o.patron ? ' patron' : '') +
+        patronClass +
         '"></i>' +
         (o.title
           ? '<span class="utitle"' +
