@@ -495,6 +495,7 @@
   <string name="points">Poentoj</string>
   <string name="wins">Venkoj</string>
   <string name="losses">Malvenkoj</string>
+  <string name="startingIn" comment="Displayed above a timer">Komenciĝo post</string>
   <string name="standByX">Atentu %s, parigante ludantojn, pretiĝu!</string>
   <string name="pause">Paŭzu</string>
   <string name="resume">Daŭrigu</string>
@@ -555,6 +556,7 @@
   <string name="no">Ne</string>
   <string name="yes">Jes</string>
   <string name="website">Retejo</string>
+  <string name="mobile">Poŝaparato</string>
   <string name="help">Helpo:</string>
   <string name="createANewTopic">Krei novan temon</string>
   <string name="topics">Temoj</string>
