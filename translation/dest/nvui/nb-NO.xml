@@ -10,6 +10,9 @@
   <string name="actions">Handlinger</string>
   <string name="yourClock">Ditt ur</string>
   <string name="opponentClock">Motstanders ur</string>
+  <string name="gameStart">Partistart</string>
+  <string name="moveToRank">Flytt til rad 1 til 8.</string>
+  <string name="moveToFile">Flytt til linje a til h.</string>
   <string name="king">konge</string>
   <string name="whiteKing">hvit konge</string>
   <string name="blackKing">svart konge</string>
