@@ -31,6 +31,9 @@
   <string name="editRoundStudy">Redakti raŭndan studon</string>
   <string name="deleteTournament">Forigi ĉi tiun turniron</string>
   <string name="definitivelyDeleteTournament">Sendube forigi la tuta turniro, kaj ĝiajn raŭndojn kaj ĉiujn ĝiajn ludojn.</string>
+  <string name="replacePlayerTags">Nedeviga: anstataŭigi nomojn de ludantoj, rangojn kaj titolojn</string>
   <string name="top10Rating">La 10 plej bonaj</string>
   <string name="unrated">Sen rango</string>
+  <string name="ratingDiff">Ranga malsamo</string>
+  <string name="fideRatingCategory">Kategorio de rango de FIDE</string>
 </resources>
