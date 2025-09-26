@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="gameSetup">Agordoj de ludo</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Defii geamikon</string>
+  <string name="playAgainstComputer">Ludi kontraŭ komputilo</string>
+  <string name="gameMode">Tipo de ludo</string>
   <string name="createLobbyGame">Krei ludon en atendejo</string>
+  <string name="youPlayAs">Koloro de viaj pecoj</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Por inviti iun al ludo, donu ĉi tiun ligilon</string>
   <string name="gameOver">Ludo finiĝis</string>
   <string name="waitingForOpponent">Atendante kontraŭulon</string>
@@ -22,6 +26,7 @@
   <string name="asBlack">kiel nigro</string>
   <string name="randomColor">Hazarda koloro</string>
   <string name="createAGame">Krei ludon</string>
+  <string name="createTheGame">Krei ludon</string>
   <string name="whiteIsVictorious">Blanko venkis</string>
   <string name="blackIsVictorious">Nigro venkis</string>
   <string name="youPlayTheWhitePieces">Vi ludas per la blankaj pecoj</string>
@@ -74,6 +79,7 @@
   <string name="expandVariations">Etendi variaĵojn</string>
   <string name="forceVariation">Devigi variaĵon</string>
   <string name="copyVariationPgn">Kopi varianto PGN</string>
+  <string name="copyMainLinePgn">Kopii la ĉefan linion kiel PNG</string>
   <string name="move">Movo</string>
   <string name="variantLoss">Malvenka variaĵo</string>
   <string name="variantWin">Venka variaĵo</string>
@@ -156,6 +162,7 @@
   <string name="flipBoard">Rotacii tabulon</string>
   <string name="threefoldRepetition">Triobla ripeto</string>
   <string name="claimADraw">Postuli egalvenkon</string>
+  <string name="drawClaimed">Egalvenko petita</string>
   <string name="offerDraw">Proponi egalvenkon</string>
   <string name="draw">Egalvenko</string>
   <plurals name="nbPlayers">
@@ -165,6 +172,7 @@
   <string name="drawByMutualAgreement">Egalvenko per interkonsento</string>
   <string name="fiftyMovesWithoutProgress">Kvindek movoj sen progreso</string>
   <string name="currentGames">Ludataj ludoj</string>
+  <string name="joinedX">Aliĝinta %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s ludo</item>
     <item quantity="other">%s ludoj</item>
@@ -346,7 +354,15 @@
   <string name="openingExplorerAndTablebase">Esplorilo de malfermoj &amp; tablobazo</string>
   <string name="takeback">Repreno</string>
   <string name="proposeATakeback">Proponi reprenon</string>
+  <string name="whiteProposesTakeback">Blanko proponas nuligi la lastan movon</string>
+  <string name="blackProposesTakeback">Nigro proponas nuligi la lastan movon</string>
   <string name="takebackPropositionSent">Reprena propono estis sendita</string>
+  <string name="whiteDeclinesTakeback">Blanko rifuzas nuligon de la lasta movo</string>
+  <string name="blackDeclinesTakeback">Nigro rifuzas nuligon de la lasta movo</string>
+  <string name="whiteAcceptsTakeback">Blanko akceptas nuligon de la lasta movo</string>
+  <string name="blackAcceptsTakeback">Nigro akceptas nuligon de la lasta movo</string>
+  <string name="whiteCancelsTakeback">Blanko nuligas la proponon nuligi movon</string>
+  <string name="blackCancelsTakeback">Nigro nuligas la proponon nuligi movon</string>
   <string name="yourOpponentProposesATakeback">Via kontraŭulo proponas nuligi la movon</string>
   <string name="bookmarkThisGame">Paĝmarki ĉi tiun ludon</string>
   <string name="tournament">Turniro</string>
@@ -385,6 +401,7 @@
     <item quantity="other">Vi devas ludi %s pli de taksaj ludoj</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Via rango de %s estas provizora</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">La rangaj filtriloj estas blokitaj ĉar via rango ne estas stabila. Ju pli da rangaj ludoj vi ludas des pli stabila estos via rango.</string>
   <string name="yourPerfRatingIsTooHigh">Via rango %1$s (%2$s) estas tro alta</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Via plej alta semajna rango en %1$s (%2$s) estas tro alta</string>
   <string name="yourPerfRatingIsTooLow">Via rango %1$s (%2$s) estas tro malalta</string>
@@ -772,6 +789,7 @@
   <string name="anonymous">Sennoma</string>
   <string name="yourScore">Via poentaro: %s</string>
   <string name="language">Lingvo</string>
+  <string name="allLanguages">Ĉiuj lingvoj</string>
   <string name="background">Fono</string>
   <string name="light">Hela</string>
   <string name="dark">Malhela</string>
@@ -800,6 +818,7 @@
   <string name="notifications">Sciigoj</string>
   <string name="notificationsX">Sciigoj: %1$s</string>
   <string name="perfRatingX">Rango: %s</string>
+  <string name="yourRatingIsX">Via rango estas %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekundo por ludi la unuan movon</item>
     <item quantity="other">%s sekundoj por ludi la unuan movon</item>
