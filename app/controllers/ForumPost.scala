@@ -4,25 +4,60 @@ import lila.app.{ *, given }
 import lila.core.i18n.I18nKey as trans
 import lila.core.id.{ ForumCategId, ForumTopicSlug }
 import lila.msg.MsgPreset
+import scalalib.paginator.{ Paginator, AdapterLike }
+import scala.concurrent.Future
 
 final class ForumPost(env: Env) extends LilaController(env) with ForumController:
 
   def search(text: String, page: Int) =
     OpenBody:
       NotForKids:
-        if text.trim.isEmpty
+        val searchText = text.trim
+        if searchText.isEmpty
         then Redirect(routes.ForumCateg.index)
         else
+          def readablePage(idx: Int, lastPage: Int): Fu[List[lila.forum.PostView]] =
+            if idx > lastPage then fuccess(Nil)
+            else
+              for
+                ids <- env.forumSearch(searchText, idx, ctx.troll)
+                viewsPage <- ids.mapFutureList(env.forum.postApi.viewsFromIds)
+                views = viewsPage.currentPageResults.toList
+                granted <- Future.sequence(views.map(v => access.isGrantedRead(v.topic.categId)))
+              yield views.zip(granted).collect { case (v, true) => v }
+
+          def collectReadable(limit: Int, lastPage: Int): Fu[List[lila.forum.PostView]] =
+            def loop(idx: Int, acc: List[lila.forum.PostView]): Fu[List[lila.forum.PostView]] =
+              if acc.size >= limit || idx > lastPage
+              then fuccess(acc)
+              else
+                readablePage(idx, lastPage).flatMap: chunk =>
+                  loop(idx + 1, if chunk.isEmpty then acc else acc ++ chunk)
+            loop(1, Nil)
+
+          def countAllReadable(lastPage: Int): Fu[Int] =
+            def loop(idx: Int, total: Int): Fu[Int] =
+              if idx > lastPage then fuccess(total)
+              else
+                readablePage(idx, lastPage).flatMap: chunk =>
+                  loop(idx + 1, total + chunk.size)
+            loop(1, 0)
+
           for
-            ids <- env.forumSearch(text, page, ctx.troll)
-            posts <- ids.mapFutureList(env.forum.postApi.viewsFromIds)
-            pager <- posts.mapFutureResults: post =>
-              access
-                .isGrantedRead(post.topic.categId)
-                .map:
-                  lila.forum.PostView.WithReadPerm(post, _)
-            page <- renderPage(views.forum.post.search(text, pager))
-          yield Ok(page)
+            firstIds <- env.forumSearch(searchText, 1, ctx.troll)
+            pager <-
+              val maxPerPage = firstIds.maxPerPage
+              val lastPage = firstIds.nbPages
+              val adapter = new AdapterLike[lila.forum.PostView.WithReadPerm]:
+                def nbResults: Fu[Int] =
+                  countAllReadable(lastPage)
+
+                def slice(offset: Int, length: Int): Fu[Seq[lila.forum.PostView.WithReadPerm]] =
+                  collectReadable(offset + length, lastPage).map: all =>
+                    all.slice(offset, offset + length).map(v => lila.forum.PostView.WithReadPerm(v, true))
+              Paginator(adapter, page, maxPerPage)
+            html <- renderPage(views.forum.post.search(searchText, pager))
+          yield Ok(html)
 
   def create(categId: ForumCategId, slug: ForumTopicSlug, page: Int) = AuthBody { ctx ?=> me ?=>
     NoBot:
