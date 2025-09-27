@@ -3159,8 +3159,6 @@ interface I18n {
     createANewTournament: string;
     /** Newly created simuls */
     createdSimuls: string;
-    /** Create lobby game */
-    createLobbyGame: string;
     /** Create the game */
     createTheGame: string;
     /** Create the topic */
@@ -3733,6 +3731,8 @@ interface I18n {
     never: string;
     /** Never type your Lichess password on another site! */
     neverTypeYourPassword: string;
+    /** New game */
+    newGame: string;
     /** New opponent */
     newOpponent: string;
     /** New password */
