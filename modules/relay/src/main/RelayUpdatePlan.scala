@@ -25,12 +25,10 @@ object RelayUpdatePlan:
     override def toString: String =
       s"Output(reorder = $reorder, update = ${update.map(_._1.name)}, append = ${append.map(_.tags.names)})"
 
-  def apply(chapters: List[Chapter], games: RelayGames): Plan =
-    apply(Input(chapters, games))
-
   def apply(input: Input): Plan =
-    import input.*
+    apply(input.chapters, input.games)
 
+  def apply(chapters: List[Chapter], games: RelayGames): Plan =
     val likelyMatches: List[(RelayGame, Chapter)] =
       games
         .foldLeft(List.empty[(RelayGame, Chapter)]): (matches, game) =>
