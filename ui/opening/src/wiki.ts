@@ -24,7 +24,7 @@ async function fetchAndRender(data: OpeningPage, render: (html: string) => void)
 
   const removeAllPossibleRepliesSection = (html: string) =>
     html.replace(
-      /<h2 data-mw-anchor="All_possible_replies">All possible replies<\/h2>.*?(?=<h[1-6]|$)/gs,
+      /<h3 data-mw-anchor="All_possible_replies">All possible replies<\/h3>.*?(?=<h[1-6]|$)/gs,
       '',
     );
 

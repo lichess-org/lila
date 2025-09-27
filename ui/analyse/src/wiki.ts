@@ -33,18 +33,27 @@ export default function wikiTheory(): WikiTheory {
     `${Math.floor((node.ply + 1) / 2)}${node.ply % 2 === 1 ? '._' : '...'}`;
 
   const wikiBooksUrl = 'https://en.wikibooks.org';
-  const apiArgs =
-    'redirects&origin=*&action=query&prop=extracts&formatversion=2&format=json&exchars=1200&stable=1';
+  const apiArgs = 'redirects&origin=*&action=query&prop=extracts&formatversion=2&format=json&stable=1';
 
+  const removeH1 = (html: string) => html.replace(/<h1.+<\/h1>/g, '');
   const removeEmptyParagraph = (html: string) => html.replace(/<p>(<br \/>|\s)*<\/p>/g, '');
+  const removeTheoryTableSection = (html: string) =>
+    html.replace(/<h2 data-mw-anchor="Theory_table">Theory table<\/h2>.*?(?=<h[1-6]|$)/gs, '');
 
-  const removeTableHeader = (html: string) =>
-    html.replace('<h2><span id="Theory_table">Theory table</span></h2>', '');
-  const removeTableExpl = (html: string) =>
+  const removeAllBlacksMovesSection = (html: string) =>
     html.replace(
-      /For explanation of theory tables see theory table and for notation see algebraic notation.?/,
+      /<h2 data-mw-anchor="All_possible_Black's_moves" data-mw-fallback-anchor="All_possible_Black\.27s_moves">All possible Black's moves<\/h2>.*?(?=<h[1-6]|$)/gs,
       '',
     );
+
+  const removeAllPossibleRepliesSection = (html: string) =>
+    html.replace(
+      /<h3 data-mw-anchor="All_possible_replies">All possible replies<\/h3>.*?(?=<h[1-6]|$)/gs,
+      '',
+    );
+
+  const removeExternalLinksSection = (html: string) =>
+    html.replace(/<h2 data-mw-anchor="External_links">External links<\/h2>.*?(?=<h[1-6]|$)/gs, '');
   const removeContributing = (html: string) =>
     html.replace('When contributing to this Wikibook, please follow the Conventions for organization.', '');
 
@@ -52,7 +61,15 @@ export default function wikiTheory(): WikiTheory {
     `<p><a target="_blank" href="${wikiBooksUrl}/wiki/${title}">Read more on WikiBooks</a></p>`;
 
   const transform = (html: string, title: string) =>
-    removeEmptyParagraph(removeTableHeader(removeTableExpl(removeContributing(html)))) + readMore(title);
+    removeH1(
+      removeEmptyParagraph(
+        removeTheoryTableSection(
+          removeAllBlacksMovesSection(
+            removeAllPossibleRepliesSection(removeExternalLinksSection(removeContributing(html))),
+          ),
+        ),
+      ),
+    ) + readMore(title);
 
   return debounce(
     async (nodes: Tree.Node[]) => {
