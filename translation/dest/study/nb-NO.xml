@@ -61,6 +61,7 @@
   <string name="studyPgn">Studie-PGN</string>
   <string name="chapterPgn">Kapittel-PGN</string>
   <string name="copyChapterPgn">Kopier PGN</string>
+  <string name="copyRawChapterPgn">Kopier rå PGN</string>
   <string name="downloadGame">Last ned partiet</string>
   <string name="studyUrl">Studie-URL</string>
   <string name="currentChapterUrl">Kapittel-URL</string>

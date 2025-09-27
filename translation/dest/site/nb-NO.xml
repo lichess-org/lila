@@ -1015,6 +1015,9 @@ Alle kostnader for drift, utvikling og innhold finansieres utelukkende av bruker
   <string name="enableBlindMode">Aktiver blindemodus</string>
   <string name="disableBlindMode">Deaktiver blindemodus</string>
   <string name="copyToClipboard">Kopier til utklippstavlen</string>
+  <string name="online" comment="status of a user">pålogget</string>
+  <string name="offline" comment="status of a user">frakoblet</string>
   <string name="search">Søk</string>
   <string name="clearSearch">Tøm søk</string>
+  <string name="tags">Merkelapper</string>
 </resources>

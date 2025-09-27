@@ -214,9 +214,9 @@
   <string name="ratingStats">Рејтинг статистике</string>
   <string name="username">Корисничко име</string>
   <string name="usernameOrEmail">Корисничко име или имејл</string>
-  <string name="changeUsername">Промените корисничко име</string>
-  <string name="changeUsernameNotSame">Само се величина слова може променити. На пример \"johndoe\" у \"JohnDoe\".</string>
-  <string name="changeUsernameDescription">Промените ваше корисничко име. Можете променити ваше корисничко име само једном и то само величину слова.</string>
+  <string name="changeUsername">Промени корисничко име</string>
+  <string name="changeUsernameNotSame">Само величина слова може да се промени. На пример \"johndoe\" у \"JohnDoe\".</string>
+  <string name="changeUsernameDescription">Промени своје корисничко име. Ово се може урадити само једном и само ти је дозвољено да промениш величину слова у свом корисничком имену.</string>
   <string name="signupUsernameHint">Постарај се да одабереш пристојно корисничко име. Касније га нећеш моћи променити, а налози са непристојним корисничким именима биће затворени!</string>
   <string name="signupEmailHint">Биће коришћено само аз ресетовање лозинке.</string>
   <string name="password">Лозинка</string>
@@ -254,7 +254,7 @@
   <string name="rankX">Ранг: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
     <item quantity="one">Ранг се ажурира сваки минут</item>
-    <item quantity="few">Ранг се ажурира сваке %s минуте</item>
+    <item quantity="few">Ранг се ажурира свака %s минута</item>
     <item quantity="other">Ранг се ажурира сваких %s минута</item>
   </plurals>
   <plurals name="nbPuzzles">

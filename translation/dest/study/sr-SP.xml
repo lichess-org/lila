@@ -15,7 +15,7 @@
   <string name="dateAddedOldest">Датум додавања (најстарије)</string>
   <string name="recentlyUpdated">Недавно ажуриране</string>
   <string name="mostPopular">Најпопуларније</string>
-  <string name="addNewChapter">Додајте ново поглавље</string>
+  <string name="addNewChapter">Додај ново поглавље</string>
   <plurals name="nbChapters">
     <item quantity="one">%s Поглавље</item>
     <item quantity="few">%s Поглављa</item>
@@ -68,7 +68,7 @@
   <string name="embedInYourWebsite">Угради у свој сајт или блог</string>
   <string name="readMoreAboutEmbedding">Прочитај више о уграђивању</string>
   <string name="onlyPublicStudiesCanBeEmbedded">Само јавне студије могу бити уграђене!</string>
-  <string name="open">Отворите</string>
+  <string name="open">Отвори</string>
   <string name="xBroughtToYouByY">%2$s Вам доноси %1$s</string>
   <string name="studyNotFound">Студија није пронађена</string>
   <string name="editChapter">Измени поглавље</string>

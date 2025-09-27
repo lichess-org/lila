@@ -3,9 +3,9 @@
   <string name="activity">Активност</string>
   <string name="hostedALiveStream">Одржали пренос уживо</string>
   <plurals name="supportedNbMonths">
-    <item quantity="one">Подржали lichess.org на %1$s месец као %2$s</item>
-    <item quantity="few">Подржали lichess.org на %1$s месеца као %2$s</item>
-    <item quantity="other">Подржали lichess.org на %1$s месеци као %2$s</item>
+    <item quantity="one">Подржаo/ла lichess.org на %1$s месец као %2$s</item>
+    <item quantity="few">Подржаo/ла lichess.org на %1$s месеца као %2$s</item>
+    <item quantity="other">Подржаo/ла lichess.org на %1$s месеци као %2$s</item>
   </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="one">Вежбаo/ла %1$s позицију на %2$s</item>
@@ -28,9 +28,9 @@
     <item quantity="other">Поставио/ла %1$s порука у %2$s</item>
   </plurals>
   <plurals name="playedNbMoves">
-    <item quantity="one">Одиграли %1$s потез</item>
-    <item quantity="few">Одиграли %1$s потеза</item>
-    <item quantity="other">Одиграли %1$s потеза</item>
+    <item quantity="one">Одиграо/ла %1$s потез</item>
+    <item quantity="few">Одиграо/ла %1$s потеза</item>
+    <item quantity="other">Одиграо/ла %1$s потеза</item>
   </plurals>
   <plurals name="inNbCorrespondenceGames">
     <item quantity="one">у %1$s дописној партији</item>
