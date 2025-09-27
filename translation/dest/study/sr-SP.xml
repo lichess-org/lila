@@ -32,7 +32,7 @@
     <item quantity="few">%s Чланa</item>
     <item quantity="other">%s Чланова</item>
   </plurals>
-  <string name="inviteToTheStudy">Позовите у студију</string>
+  <string name="inviteToTheStudy">Позови у студију</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">Молимо вас да само позивате људе које познајете и који активно желе да се придруже овој студији.</string>
   <string name="searchByUsername">Претражујте по корисничком имену</string>
   <string name="spectator">Посматрач</string>
@@ -69,7 +69,7 @@
   <string name="readMoreAboutEmbedding">Прочитај више о уграђивању</string>
   <string name="onlyPublicStudiesCanBeEmbedded">Само јавне студије могу бити уграђене!</string>
   <string name="open">Отвори</string>
-  <string name="xBroughtToYouByY">%2$s Вам доноси %1$s</string>
+  <string name="xBroughtToYouByY">%1$s, донето вама од стране %2$s</string>
   <string name="studyNotFound">Студија није пронађена</string>
   <string name="editChapter">Измени поглавље</string>
   <string name="newChapter">Ново поглавље</string>

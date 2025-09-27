@@ -72,7 +72,7 @@
   <string name="deleteFromHere">Избриши одавде</string>
   <string name="collapseVariations">Скупи варијације</string>
   <string name="expandVariations">Рашири варијације</string>
-  <string name="forceVariation">Промакни варијацију</string>
+  <string name="forceVariation">Приморај варијацијом</string>
   <string name="copyVariationPgn">Ископирај ПГН варијације</string>
   <string name="move">Потез</string>
   <string name="variantLoss">Пораз варијанте</string>
@@ -438,8 +438,8 @@
   <string name="clickOnTheBoardToMakeYourMove">Кликај на таблу да направиш свој потез и докажи да си људско биће.</string>
   <string name="captcha.fail">Молимо Вас да решите шаховску капчу.</string>
   <string name="notACheckmate">Није шах-мат</string>
-  <string name="whiteCheckmatesInOneMove">Бели матирау једном потезу</string>
-  <string name="blackCheckmatesInOneMove">Црни матирау једном потезу</string>
+  <string name="whiteCheckmatesInOneMove">Бели матира у једном потезу</string>
+  <string name="blackCheckmatesInOneMove">Црни матира у једном потезу</string>
   <string name="retry">Покушај поново</string>
   <string name="reconnecting">Поново повезујемо</string>
   <string name="noNetwork">Ван мреже</string>
