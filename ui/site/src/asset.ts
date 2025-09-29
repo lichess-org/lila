@@ -84,7 +84,7 @@ export const loadPieces = new Promise<void>((resolve, reject) => {
   if (document.getElementById('main-wrap')?.classList.contains('is3d')) return resolve();
   const urls = ['white', 'black']
     .flatMap(c => ['pawn', 'knight', 'bishop', 'rook', 'queen', 'king'].map(r => `---${c}-${r}`))
-    .map(u => getComputedStyle(document.documentElement).getPropertyValue(u).slice(4, -1))
+    .map(u => window.getComputedStyle(document.documentElement).getPropertyValue(u).slice(4, -1))
     .filter(x => x);
   let assetsToDecode = urls.length;
   if (assetsToDecode === 0) return resolve();
