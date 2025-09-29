@@ -157,8 +157,10 @@ object RelayPlayer:
           .add("points" -> g.playerPoints)
           .add("customPoints" -> g.customPlayerPoints)
           .add("ratingDiff" -> rd)
-          .add("isFollowing" -> isFollowing)
-      Json.toJsObject(p).add("fide", fidePlayer) ++ Json.obj("games" -> gamesJson)
+      Json
+        .toJsObject(p)
+        .add("fide", fidePlayer)
+        .add("isFollowing" -> isFollowing) ++ Json.obj("games" -> gamesJson)
     given OWrites[FidePlayer] = OWrites: p =>
       Json.obj("ratings" -> p.ratingsMap.mapKeys(_.toString), "year" -> p.year)
 
