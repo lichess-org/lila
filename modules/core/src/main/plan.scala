@@ -37,6 +37,19 @@ enum PatronColor(val id: Int):
 object PatronColor:
   val map: Map[Int, PatronColor] = values.mapBy(_.id)
 
+// color manually chosen by the user
+opaque type PatronColorChoice = PatronColor
+object PatronColorChoice:
+  extension (color: PatronColorChoice) def value: PatronColor = color
+  def apply(color: PatronColor): PatronColorChoice = color
+  def resolve(choice: Option[PatronColorChoice], default: PatronColor): PatronColorResolved =
+    choice | default
+
+// color to display, either chosen by the user or the default for their tier
+opaque type PatronColorResolved = PatronColor
+object PatronColorResolved:
+  extension (color: PatronColorResolved) def value: PatronColor = color
+
 enum PatronTier(val months: Int, val color: PatronColor, val name: String):
   case Months1 extends PatronTier(1, PatronColor.color1, "1 month")
   case Months2 extends PatronTier(2, PatronColor.color2, "2 months")
@@ -60,5 +73,5 @@ object PatronTier:
   def byColor(color: PatronColor): PatronTier =
     values.find(_.color == color).getOrElse(Months1)
 
-  case class AndColor(tier: PatronTier, custom: Option[PatronColor]):
-    def color = custom | tier.color
+  case class AndColor(tier: PatronTier, choice: Option[PatronColorChoice]):
+    def color: PatronColorResolved = PatronColorChoice.resolve(choice, tier.color)

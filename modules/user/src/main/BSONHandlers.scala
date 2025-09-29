@@ -17,7 +17,7 @@ import lila.core.user.{
 }
 import lila.db.BSON
 import lila.db.dsl.{ *, given }
-import lila.core.plan.PatronColor
+import lila.core.plan.{ PatronColor, PatronColorChoice }
 
 object BSONFields:
   export lila.core.user.BSONFields.*
@@ -53,13 +53,17 @@ object BSONHandlers:
     { case v: BSONBinary => new TotpSecret(v.byteArray) },
     v => BSONBinary(v.secret, Subtype.GenericBinarySubtype)
   )
+  val colorHandler = summon[BSONHandler[PatronColor]]
+  given colorChoiceHandler: BSONHandler[PatronColorChoice] =
+    isoHandler[PatronColorChoice, PatronColor](_.value, PatronColorChoice.apply)(using colorHandler)
+
   given planHandler: BSONDocumentHandler[Plan] = new BSON[Plan]:
     def reads(r: BSON.Reader) = Plan(
       months = r.int("months"),
       active = r.bool("active"),
       lifetime = r.boolD("lifetime"),
       since = r.dateO("since"),
-      color = r.intO("color").flatMap(PatronColor.map.get)
+      color = r.intO("color").flatMap(PatronColor.map.get).map(PatronColorChoice.apply)
     )
     def writes(w: BSON.Writer, o: Plan) = $doc(
       "months" -> w.int(o.months),

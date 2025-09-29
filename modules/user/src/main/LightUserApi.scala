@@ -5,7 +5,7 @@ import reactivemongo.api.bson.*
 import lila.core.LightUser
 import lila.db.dsl.{ *, given }
 import lila.memo.{ CacheApi, Syncache }
-import lila.core.plan.{ PatronMonths, PatronColor }
+import lila.core.plan.{ PatronMonths, PatronColor, PatronColorChoice }
 
 import BSONFields as F
 
@@ -68,7 +68,7 @@ final class LightUserApi(repo: UserRepo, cacheApi: CacheApi)(using Executor)
             plan <- planOpt
             if patronMonths.isDefined
             color <- plan.getAsOpt[Int]("color").flatMap(PatronColor.map.get)
-          yield color
+          yield PatronColorChoice(color)
           LightUser(
             id = name.id,
             name = name,

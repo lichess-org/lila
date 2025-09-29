@@ -15,7 +15,7 @@ import lila.core.id.Flair
 import lila.core.perf.{ KeyedPerf, Perf, PerfKey, UserPerfs, UserWithPerfs }
 import lila.core.userId.*
 import lila.core.misc.AtInstant
-import lila.core.plan.{ PatronMonths, PatronTier, PatronColor }
+import lila.core.plan.{ PatronMonths, PatronTier, PatronColorChoice }
 
 object user:
 
@@ -120,7 +120,7 @@ object user:
       active: Boolean,
       lifetime: Boolean,
       since: Option[Instant],
-      color: Option[PatronColor] = None // manual selection
+      color: Option[PatronColorChoice] = None
   ):
     def isEmpty: Boolean = months == 0
     def nonEmpty: Option[Plan] = Option.when(!isEmpty)(this)
