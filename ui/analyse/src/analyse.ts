@@ -8,7 +8,8 @@ export { patch };
 const start = makeStart(patch);
 const boot = makeBoot(start);
 
-export function initModule({ mode, cfg }: { mode: 'userAnalysis' | 'replay'; cfg: any }) {
+export async function initModule({ mode, cfg }: { mode: 'userAnalysis' | 'replay'; cfg: any }) {
+  await site.asset.loadPieces;
   if (mode === 'replay') boot(cfg);
   else userAnalysis(cfg);
 }
