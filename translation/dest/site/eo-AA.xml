@@ -2,7 +2,7 @@
 <resources>
   <string name="gameSetup">Agordoj de ludo</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Defii geamikon</string>
-  <string name="playAgainstComputer">Ludi kontraŭ komputilo</string>
+  <string name="playAgainstComputer" comment="Appears on the homepage. Opens the modal to create a game against a chess engine. Please keep your translation short.">Ludi kontraŭ komputilo</string>
   <string name="gameMode">Tipo de ludo</string>
   <string name="createLobbyGame">Krei ludon en atendejo</string>
   <string name="youPlayAs">Koloro de viaj pecoj</string>
@@ -748,6 +748,7 @@
   <string name="checkYourEmail">Kontrolu vian retpoŝton</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Ni sendis al vi retmesaĝon . Klaku la ligilon en la poŝto por aktivigi vian konton.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Se vi ne vidas la retpoŝton , kontrolu aliajn lokojn kie ĝi povas esti, kiel via rubo , spam, socia , aŭ aliaj dosierujoj.</string>
+  <string name="checkAllEmailFolders">Kontroli ĉiujn dosierujojn, trudmesaĝojn kaj rubujon</string>
   <string name="weHaveSentYouAnEmailTo">Ni sendis retmesaĝon al %s. Klaku la ligilon en la poŝto por rekomencigi vian pasvorton.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">De registranta , vi konsentas al esti ligita de nia %s.</string>
   <string name="readAboutOur">Legu pri nia %s.</string>
@@ -756,6 +757,7 @@
   <string name="downloadAnnotated">Elŝutu prinotitan</string>
   <string name="downloadRaw">Elŝutu krudaj</string>
   <string name="downloadImported">Elŝutu importitan</string>
+  <string name="downloadAllGames">Elŝuti ĉiujn ludojn</string>
   <string name="crosstable">Kructabelo</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Vi povas ankaŭ rulumi sur la tabulo por movi en la ludo.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Tuŝadi sur komputilaj varioj por antaŭrigardi ilin.</string>
@@ -779,6 +781,7 @@
   <string name="playChessEverywhere">Ludi ŝakon ĉie</string>
   <string name="everybodyGetsAllFeaturesForFree">Ĉiuj ricevas ĉiujn trajtojn senpage</string>
   <string name="viewTheSolution">Vidi la solvon</string>
+  <string name="noChallenges">Sen defioj.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Havebla en %s lingvo!</item>
     <item quantity="other">Havebla en %s lingvoj!</item>
@@ -872,6 +875,7 @@
   <string name="playVariationToCreateConditionalPremoves">Ludi variaĵo por krei kondiĉajn antaŭmovojn</string>
   <string name="noConditionalPremoves">Ne kondiĉaj antaŭmovoj</string>
   <string name="playX">Ludu %s</string>
+  <string name="challengeX">Defii %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">kaj savi %s antaŭmovan vicon</item>
     <item quantity="other">kaj savi %s antaŭmovajn vicojn</item>
@@ -998,4 +1002,11 @@ Lasi ĝin malplena por komenci ludojn de la norma komenca pozicio.</string>
   <string name="lichessPatronInfo">Lichess estas almoza kaj tute libera malfermitkoda programaro.
 Ĉiu funkciada elspezo, ellaborado, kaj enhavo estas financita sole de uzantajn donacojn.</string>
   <string name="nothingToSeeHere">Nenio videbla ĉi tie nuntempe.</string>
+  <string name="accessibility">Alireblo</string>
+  <string name="copyToClipboard">Kopii al tondujo</string>
+  <string name="online" comment="status of a user">konektita</string>
+  <string name="offline" comment="status of a user">konektita</string>
+  <string name="search">Serĉi</string>
+  <string name="clearSearch">Viŝi serĉon</string>
+  <string name="tags">Etikedoj</string>
 </resources>
