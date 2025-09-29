@@ -152,7 +152,7 @@ final private class MovePlayer(
     val moveEvent = MoveEvent(
       gameId = game.id,
       fen = Fen.write(game.chess),
-      move = moveOrDrop.fold(_.toUci.keys, _.toUci.uci)
+      move = moveOrDrop.toUci
     )
 
     // I checked and the bus doesn't do much if there's no subscriber for a classifier,
