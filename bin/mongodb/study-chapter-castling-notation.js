@@ -3,23 +3,23 @@ const debug = false;
 const diagColl = 'study_chapter_castling_diagnostic';
 
 const fixUci = {
-  'e1c1': 'e1a1',
-  'e1g1': 'e1h1',
-  'e8c8': 'e8a8',
-  'e8g8': 'e8h8',
+  e1c1: 'e1a1',
+  e1g1: 'e1h1',
+  e8c8: 'e8a8',
+  e8g8: 'e8h8',
 };
 const castleChars = {
-  'e1c1': '\'%',
-  'e1g1': '\')',
-  'e8c8': '_]',
-  'e8g8': '_a',
-  'e1a1': '\'#',
-  'e1h1': '\'*',
-  'e8a8': '_[',
-  'e8h8': '_b',
+  e1c1: "'%",
+  e1g1: "')",
+  e8c8: '_]',
+  e8g8: '_a',
+  e1a1: "'#",
+  e1h1: "'*",
+  e8a8: '_[',
+  e8h8: '_b',
 };
 
-const repairChapter = (idOrDiag) => {
+const repairChapter = idOrDiag => {
   const diag = idOrDiag._id ? idOrDiag : db[diagColl].findOne({ _id: idOrDiag });
   const chapter = db.study_chapter_flat.findOne({ _id: diag._id });
   if (!chapter) {
@@ -43,7 +43,7 @@ const repairChapter = (idOrDiag) => {
     moveList.forEach(m => {
       if (m[0].startsWith(d.k)) {
         // replace the 2-chars key at the correct position
-        const fixedSubKey = m[0].slice(0, d.k.length - 2) + key + m[0].slice(d.k.length)
+        const fixedSubKey = m[0].slice(0, d.k.length - 2) + key + m[0].slice(d.k.length);
         if (debug) console.log('must also fix\n' + m[0] + ' as\n' + fixedSubKey);
         m[0] = fixedSubKey;
       }
@@ -51,7 +51,9 @@ const repairChapter = (idOrDiag) => {
   });
   // Object.fromEntries doesn't preserve order, so we need to rebuild the object manually
   const fixedRoot = {};
-  moveList.forEach(([k, v]) => { fixedRoot[k] = v; });
+  moveList.forEach(([k, v]) => {
+    fixedRoot[k] = v;
+  });
   return [chapter, fixedRoot];
 };
 
@@ -60,21 +62,20 @@ const updateChapterRoot = (oldChapter, newRoot) => {
   db.study_chapter_castling_backup.insertOne(oldChapter);
   db.study_chapter_flat.updateOne({ _id: oldChapter._id }, { $set: { root: newRoot } });
   db[diagColl].updateOne({ _id: oldChapter._id }, { $set: { repairedAt: new Date() } });
-}
+};
 
-const findCorruptedChapters = (id) => {
-
+const findCorruptedChapters = id => {
   const castle = (san, uci) => ({
     $and: [
       { $eq: ['$$move.v.s', san] },
-      { $eq: ['$$move.v.u', uci] }
+      { $eq: ['$$move.v.u', uci] },
       // {
       //   $regexMatch: {
       //     input: '$$move.k',
       //     regex: uciChars,
       //   }
       // }]
-    ]
+    ],
   });
 
   db.study_chapter_flat.aggregate([
@@ -92,7 +93,7 @@ const findCorruptedChapters = (id) => {
         variant: '$setup.variant',
         root: {
           $filter: {
-            input: { $objectToArray: "$root" },
+            input: { $objectToArray: '$root' },
             as: 'move',
             cond: {
               $or: [
@@ -100,24 +101,24 @@ const findCorruptedChapters = (id) => {
                 castle('O-O-O', 'e1c1'),
                 castle('O-O', 'e8g8'),
                 castle('O-O-O', 'e8c8'),
-              ]
-            }
-          }
-        }
-      }
+              ],
+            },
+          },
+        },
+      },
     },
     { $match: { 'root.0': { $exists: true } } },
     // { $unwind: '$root' },
     // { $group: { _id: '$_id', variant: { $first: '$variant' }, createdAt: { $first: '$createdAt' }, moves: { $push: '$root' } } },
-    id ? { $merge: { into: diagColl, } } : { $out: diagColl },
+    id ? { $merge: { into: diagColl } } : { $out: diagColl },
     // { $group: { _id: { variant: '$variant', year: '$year' }, nb: { $sum: 1 } } },
     // { $group: { _id: { year: '$year' }, nb: { $sum: 1 } } },
     // { $group: { _id: '$year', count: { $sum: 1 } } }
     // {
     // $match: {
     //   'root.k': '\')'
-  ])
-}
+  ]);
+};
 
 const repairAll = () => {
   let nb = db[diagColl].countDocuments();
@@ -130,7 +131,7 @@ const repairAll = () => {
       console.log(nb + ' remaining');
     }
   });
-}
+};
 
 repairAll();
 
