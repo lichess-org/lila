@@ -94,7 +94,7 @@ final class PgnDump(
         ).flatten
         genTags
           .foldLeft(chapter.tagsExport.value.reverse): (tags, tag) =>
-            if tags.exists(t => tag.name == t.name)
+            if tags.exists(t => tag.name == t.name) && tag.name != Tag.FEN
             then tags
             else tag :: tags
           .reverse
