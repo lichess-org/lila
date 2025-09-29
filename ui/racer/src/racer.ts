@@ -7,7 +7,8 @@ const patch = init([classModule, attributesModule]);
 
 import view from './view/main';
 
-export function initModule(opts: RacerOpts) {
+export async function initModule(opts: RacerOpts) {
+  await site.asset.loadPieces;
   const element = document.querySelector('.racer-app') as HTMLElement;
 
   let vnode: VNode;
