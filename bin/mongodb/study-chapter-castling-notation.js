@@ -22,14 +22,19 @@ const castleChars = {
 const repairChapter = (idOrDiag) => {
   const diag = idOrDiag._id ? idOrDiag : db[diagColl].findOne({ _id: idOrDiag });
   const chapter = db.study_chapter_flat.findOne({ _id: diag._id });
+  if (!chapter) {
+    console.log('Cannot find chapter for diag ' + diag._id);
+    return [];
+  }
   const moves = chapter.root;
   const moveList = Object.entries(moves);
   const moveIndexes = diag.root.map(d => moveList.findIndex(([k, _]) => k == d.k));
   diag.root.forEach((d, index) => {
     const move = moveList[moveIndexes[index]];
     if (!move) {
-      console.log(diag);
-      throw 'Cannot find move for ' + d.k;
+      // console.log(diag);
+      console.log(chapter._id + ' Cannot find move for ' + d.k);
+      return [chapter, null];
     }
     const uci = fixUci[d.v.u];
     move[1].u = uci;
@@ -119,7 +124,7 @@ const repairAll = () => {
   console.log('Found ' + nb + ' diagnostics');
   db[diagColl].find({ repairedAt: { $exists: 0 } }).forEach(diag => {
     const [c, r] = repairChapter(diag);
-    updateChapterRoot(c, r);
+    if (c && r) updateChapterRoot(c, r);
     nb--;
     if (nb % 100 == 0) {
       console.log(nb + ' remaining');
