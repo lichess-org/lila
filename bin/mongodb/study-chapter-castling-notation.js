@@ -81,7 +81,7 @@ const findCorruptedChapters = (id) => {
     {
       $match: {
         ...(id ? { _id: id } : {}),
-        'setup.variant': { $ne: 2 },
+        'setup.variant': { $nin: [2, 7] }, // chess960, from position. The later contains chess960 games.
         // createdAt: { $gte: new Date('2025-09-19') }
       },
     },
