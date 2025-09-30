@@ -100,7 +100,7 @@ mother(fuc?k(er|)|)
 mthrfckr
 nazi
 nigg?
-nigg?a[hr]?
+[nv]igg?[ae][hr]?
 nonce
 noo++b
 nutsac?k
