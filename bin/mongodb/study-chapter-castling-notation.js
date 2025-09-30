@@ -64,8 +64,7 @@ const updateChapterRoot = (oldChapter, newRoot) => {
   db[diagColl].updateOne({ _id: oldChapter._id }, { $set: { repairedAt: new Date() } });
 };
 
-const findCorruptedChapters = (selector) => {
-
+const findCorruptedChapters = selector => {
   const castle = (san, uci) => ({
     $and: [
       { $eq: ['$$move.v.s', san] },
@@ -111,7 +110,7 @@ const findCorruptedChapters = (selector) => {
     { $match: { 'root.0': { $exists: true } } },
     // { $unwind: '$root' },
     // { $group: { _id: '$_id', variant: { $first: '$variant' }, createdAt: { $first: '$createdAt' }, moves: { $push: '$root' } } },
-    selector ? { $merge: { into: diagColl, } } : { $out: diagColl },
+    selector ? { $merge: { into: diagColl } } : { $out: diagColl },
     // { $group: { _id: { variant: '$variant', year: '$year' }, nb: { $sum: 1 } } },
     // { $group: { _id: { year: '$year' }, nb: { $sum: 1 } } },
     // { $group: { _id: '$year', count: { $sum: 1 } } }
@@ -124,14 +123,17 @@ const findCorruptedChapters = (selector) => {
 const repairAll = () => {
   let nb = db[diagColl].countDocuments();
   console.log('Found ' + nb + ' diagnostics');
-  db[diagColl].find({ repairedAt: { $exists: 0 } }).limit(10).forEach(diag => {
-    const [c, r] = repairChapter(diag);
-    if (c && r) updateChapterRoot(c, r);
-    nb--;
-    if (nb % 100 == 0) {
-      console.log(nb + ' remaining');
-    }
-  });
+  db[diagColl]
+    .find({ repairedAt: { $exists: 0 } })
+    .limit(10)
+    .forEach(diag => {
+      const [c, r] = repairChapter(diag);
+      if (c && r) updateChapterRoot(c, r);
+      nb--;
+      if (nb % 100 == 0) {
+        console.log(nb + ' remaining');
+      }
+    });
 };
 
 // repairAll();
