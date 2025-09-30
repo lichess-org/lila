@@ -8,6 +8,7 @@ import lila.common.Json.given
 import lila.web.AnnounceApi
 import lila.core.i18n.Translate
 import lila.core.user.KidMode
+import lila.core.net.UserAgent
 
 final class MobileApi(
     userApi: UserApi,
@@ -34,7 +35,7 @@ final class MobileApi(
 
   private given (using trans: Translate): Lang = trans.lang
 
-  def home(using me: Option[Me])(using RequestHeader, Translate, KidMode): Fu[JsObject] =
+  def home(using me: Option[Me], ua: UserAgent)(using RequestHeader, Translate, KidMode): Fu[JsObject] =
     import ublogJson.given
     val myUser = me.map(_.value)
     for
@@ -45,7 +46,8 @@ final class MobileApi(
         gameProxy.urgentGames(u).map(_.take(20).map(lobbyApi.nowPlaying))
       inbox <- me.traverse(unreadCount.mobile)
       challenges <- me.traverse(challengeApi.allFor(_))
-      posts <- ublogApi.myCarousel
+      needsPosts = lila.common.HTTPRequest.lichessMobileVersion(ua).exists(_.gte(0, 18))
+      posts <- needsPosts.so(ublogApi.myCarousel)
     yield Json
       .obj(
         "tournaments" -> tours,
