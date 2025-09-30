@@ -31,10 +31,7 @@ final class Ublog(env: Env) extends LilaController(env):
   def apiCarousel = AnonOrScoped():
     import env.ublog.jsonView.given
     for posts <- env.ublog.lastPostsCache.get(())
-    yield JsonOk:
-      posts
-        .filter(_.isLichess || ctx.kid.no)
-        .take(env.ublog.api.carouselSizeSetting.get())
+    yield JsonOk(env.ublog.api.filterAndTruncateCarousel(posts))
 
   def drafts(username: UserStr, page: Int) = Auth { ctx ?=> me ?=>
     NotForKids:

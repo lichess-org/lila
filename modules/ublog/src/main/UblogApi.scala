@@ -126,6 +126,11 @@ final class UblogApi(
         .list(carouselSizeSetting.get() - pinned.size)
     yield UblogPost.CarouselPosts(pinned, queue)
 
+  def filterAndTruncateCarousel(posts: List[UblogPost.PreviewPost])(using kid: KidMode) =
+    posts
+      .filter(_.isLichess || kid.no)
+      .take(carouselSizeSetting.get())
+
   def postPreview(id: UblogPostId) =
     colls.post.byId[UblogPost.PreviewPost](id, previewPostProjection)
 

@@ -30,6 +30,7 @@ final class Preload(
     simulIsFeaturable: SimulIsFeaturable,
     getLastUpdates: lila.feed.Feed.GetLastUpdates,
     lastPostsCache: AsyncLoadingCache[Unit, List[UblogPost.PreviewPost]],
+    ublogApi: lila.ublog.UblogApi,
     unreadCount: lila.msg.MsgUnreadCount,
     relayListing: lila.relay.RelayListing,
     notifyApi: lila.notify.NotifyApi
@@ -109,7 +110,7 @@ final class Preload(
     simulIsFeaturable,
     blindGames,
     getLastUpdates(),
-    ublogPosts,
+    ublogApi.filterAndTruncateCarousel(ublogPosts),
     withPerfs,
     hasUnreadLichessMessage = lichessMsg
   )
