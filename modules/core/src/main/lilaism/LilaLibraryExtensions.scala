@@ -23,6 +23,14 @@ trait LilaLibraryExtensions extends CoreExports:
   val fuTrue = fuccess(true)
   val fuFalse = fuccess(false)
 
+  /* Raise error if the condition met */
+  inline def raiseIf[E, A](cond: Boolean, e: => E)(fa: => Fu[A]): FuRaise[E, A] =
+    if cond then e.raise else fa
+
+  /* Raise error if the condition not met */
+  inline def raiseUnless[E, A](cond: Boolean, e: => E)(fa: => Fu[A]): FuRaise[E, A] =
+    raiseIf(!cond, e)(fa)
+
   /* library-agnostic way to run a future after a delay */
   given (using sched: Scheduler, ec: Executor): FutureAfter =
     [A] => (duration: FiniteDuration) => (fua: () => Future[A]) => akka.pattern.after(duration, sched)(fua())

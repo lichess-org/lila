@@ -151,17 +151,15 @@ final class ChallengeApi(
         else
           for
             me <- withPerf
-            join <- joiner(c, me)
-            result <- join match
-              case Right(pov) =>
-                for _ <- repo.accept(c)
-                yield
-                  uncacheAndNotify(c)
-                  Bus.pub(PositiveEvent.Accept(c, pov.game, me.map(_.id)))
-                  c.rematchOf.foreach: gameId =>
-                    Bus.pub(lila.game.actorApi.NotifyRematch(gameId, pov.game))
-                  pov.some
-              case Left(err) => err.raise
+            pov <- joiner(c, me)
+            result <-
+              for _ <- repo.accept(c)
+              yield
+                uncacheAndNotify(c)
+                Bus.pub(PositiveEvent.Accept(c, pov.game, me.map(_.id)))
+                c.rematchOf.foreach: gameId =>
+                  Bus.pub(lila.game.actorApi.NotifyRematch(gameId, pov.game))
+                pov.some
           yield result
 
   def offerRematchForGame(game: Game, user: User): Fu[Boolean] =
