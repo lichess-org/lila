@@ -53,6 +53,7 @@ final class Env(
     modLogApi: lila.mod.ModlogApi,
     activityWriteApi: lila.activity.ActivityWriteApi,
     ublogApi: lila.ublog.UblogApi,
+    ublogJson: lila.ublog.UblogJsonView,
     picfitUrl: lila.memo.PicfitUrl,
     cacheApi: lila.memo.CacheApi,
     webConfig: lila.web.WebConfig,
