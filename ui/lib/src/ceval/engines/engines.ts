@@ -66,16 +66,16 @@ export class Engines {
     const browserEngines: WithMake[] = [
       {
         info: {
-          id: '__sf16nnue7',
-          name: 'Stockfish 16 NNUE · 7MB',
-          short: 'SF 16 · 7MB',
+          id: '__sf17_1nnue7',
+          name: 'Stockfish 17.1 NNUE · 7MB',
+          short: 'SF 17.1 · 7MB',
           tech: 'NNUE',
           requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
           minMem: 1536,
           cloudEval: true,
           assets: {
             root: 'npm/@lichess-org/stockfish-web',
-            js: 'sf16-7.js',
+            js: 'sf171-7.js',
           },
         },
         make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.status),

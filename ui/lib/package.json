@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "@badrap/result": "^0.2.13",
-    "@lichess-org/stockfish-web": "0.0.13",
+    "@lichess-org/stockfish-web": "0.0.14",
     "@types/debounce-promise": "^3.1.9",
     "debounce-promise": "^3.1.2",
     "idb-keyval": "^6.2.1",
