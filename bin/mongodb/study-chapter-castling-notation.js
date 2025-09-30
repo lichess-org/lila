@@ -26,6 +26,7 @@ const repairChapter = idOrDiag => {
     console.log('Cannot find chapter for diag ' + diag._id);
     return [];
   }
+  if (debug) console.log('https://lichess.org/study/' + chapter.studyId + '/' + chapter._id);
   const moves = chapter.root;
   const moveList = Object.entries(moves);
   const moveIndexes = diag.root.map(d => moveList.findIndex(([k, _]) => k == d.k));
@@ -36,15 +37,19 @@ const repairChapter = idOrDiag => {
       console.log(chapter._id + ' Cannot find move for ' + d.k);
       return [chapter, null];
     }
-    const uci = fixUci[d.v.u];
+    const fixedUci = fixUci[d.v.u];
+    if (!fixedUci) {
+      console.log(chapter._id + ' already has UCI ' + d.v.u + ' but wrong key ' + d.k.slice(-2));
+    }
+    const uci = fixedUci || d.v.u;
     move[1].u = uci;
     const key = castleChars[uci];
-    if (debug) console.log(d.v.u + ' -> ' + uci);
+    if (debug) console.log(d.k + ' : ' + d.v.u + ' -> ' + uci);
     moveList.forEach(m => {
-      if (m[0].startsWith(d.k)) {
+      if (m[0].startsWith(move[0])) {
         // replace the 2-chars key at the correct position
         const fixedSubKey = m[0].slice(0, d.k.length - 2) + key + m[0].slice(d.k.length);
-        if (debug) console.log('must also fix\n' + m[0] + ' as\n' + fixedSubKey);
+        // if (debug) console.log('must also fix\n' + m[0] + ' as\n' + fixedSubKey);
         m[0] = fixedSubKey;
       }
     });
@@ -59,7 +64,9 @@ const repairChapter = idOrDiag => {
 
 const updateChapterRoot = (oldChapter, newRoot) => {
   if (dry) return;
-  db.study_chapter_castling_backup.insertOne(oldChapter);
+  try {
+    db.study_chapter_castling_backup.insertOne(oldChapter);
+  } catch (e) {}
   db.study_chapter_flat.updateOne({ _id: oldChapter._id }, { $set: { root: newRoot } });
   db[diagColl].updateOne({ _id: oldChapter._id }, { $set: { repairedAt: new Date() } });
 };
@@ -120,12 +127,12 @@ const findCorruptedChapters = selector => {
   ]);
 };
 
-const repairAll = () => {
-  let nb = db[diagColl].countDocuments();
-  console.log('Found ' + nb + ' diagnostics');
+const repairAll = nb => {
+  nb = nb || db[diagColl].countDocuments();
+  console.log('Repairing ' + nb + ' diagnostics');
   db[diagColl]
     .find({ repairedAt: { $exists: 0 } })
-    .limit(10)
+    .limit(nb)
     .forEach(diag => {
       const [c, r] = repairChapter(diag);
       if (c && r) updateChapterRoot(c, r);
@@ -136,9 +143,9 @@ const repairAll = () => {
     });
 };
 
-// repairAll();
+repairAll();
 
-findCorruptedChapters({ 'setup.variant': 7 });
+// findCorruptedChapters({ 'setup.variant': 7 });
 // const id = '8xvhgbZc';
 // const [c, r] = repairChapter(id);
 // updateChapterRoot(c, r);
