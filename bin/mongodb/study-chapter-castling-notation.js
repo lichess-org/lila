@@ -62,7 +62,7 @@ const updateChapterRoot = (oldChapter, newRoot) => {
   db[diagColl].updateOne({ _id: oldChapter._id }, { $set: { repairedAt: new Date() } });
 }
 
-const findCorruptedChapters = (id) => {
+const findCorruptedChapters = (selector) => {
 
   const castle = (san, uci) => ({
     $and: [
@@ -80,8 +80,8 @@ const findCorruptedChapters = (id) => {
   db.study_chapter_flat.aggregate([
     {
       $match: {
-        ...(id ? { _id: id } : {}),
-        'setup.variant': { $nin: [2, 7] }, // chess960, from position. The later contains chess960 games.
+        ...(selector || {}),
+        // 'setup.variant': { $nin: [2, 3] }, // chess960, from position. The later contains chess960 games.
         // createdAt: { $gte: new Date('2025-09-19') }
       },
     },
@@ -109,7 +109,7 @@ const findCorruptedChapters = (id) => {
     { $match: { 'root.0': { $exists: true } } },
     // { $unwind: '$root' },
     // { $group: { _id: '$_id', variant: { $first: '$variant' }, createdAt: { $first: '$createdAt' }, moves: { $push: '$root' } } },
-    id ? { $merge: { into: diagColl, } } : { $out: diagColl },
+    selector ? { $merge: { into: diagColl, } } : { $out: diagColl },
     // { $group: { _id: { variant: '$variant', year: '$year' }, nb: { $sum: 1 } } },
     // { $group: { _id: { year: '$year' }, nb: { $sum: 1 } } },
     // { $group: { _id: '$year', count: { $sum: 1 } } }
@@ -122,7 +122,7 @@ const findCorruptedChapters = (id) => {
 const repairAll = () => {
   let nb = db[diagColl].countDocuments();
   console.log('Found ' + nb + ' diagnostics');
-  db[diagColl].find({ repairedAt: { $exists: 0 } }).forEach(diag => {
+  db[diagColl].find({ repairedAt: { $exists: 0 } }).limit(10).forEach(diag => {
     const [c, r] = repairChapter(diag);
     if (c && r) updateChapterRoot(c, r);
     nb--;
@@ -132,9 +132,9 @@ const repairAll = () => {
   });
 }
 
-repairAll();
+// repairAll();
 
-// findCorruptedChapters();
+findCorruptedChapters({ 'setup.variant': 7 });
 // const id = '8xvhgbZc';
 // const [c, r] = repairChapter(id);
 // updateChapterRoot(c, r);
