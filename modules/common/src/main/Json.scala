@@ -21,7 +21,7 @@ object Json:
 
   given Writes[chess.PlayerTitle] = writeAs(_.value)
 
-  given Writes[lila.core.plan.PatronColor] = writeAs(_.id)
+  given Writes[lila.core.plan.PatronColorResolved] = writeAs(_.value.id)
 
   given [A: Writes]: OWrites[chess.ByColor[A]] = PlayJson.writes
 

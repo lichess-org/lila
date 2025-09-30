@@ -7,7 +7,8 @@ const patch = init([classModule, attributesModule]);
 
 import view from './view/main';
 
-export function initModule(opts: StormOpts): void {
+export async function initModule(opts: StormOpts): Promise<void> {
+  await site.asset.loadPieces;
   const element = document.querySelector('.storm-app') as HTMLElement;
 
   let vnode: VNode;

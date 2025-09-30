@@ -18,6 +18,7 @@ import { alert } from 'lib/view/dialogs';
 const patch = init([classModule, attributesModule]);
 
 export async function initModule(opts: RoundOpts): Promise<RoundController> {
+  await site.asset.loadPieces;
   return opts.data.local ? app(opts) : boot(opts, app);
 }
 

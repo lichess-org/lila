@@ -258,7 +258,7 @@ trait UserHelper:
 
   def patronIcon(p: PatronTier.AndColor)(using Translate): Frag =
     i(
-      cls := s"line patron ${p.color.cssClass}",
+      cls := s"line patron ${p.color.value.cssClass}",
       title := s"${trans.patron.lichessPatron.txt()} (${p.tier.name})"
     )
 

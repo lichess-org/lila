@@ -41,8 +41,9 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
       href := makeUrl(post)
     )(
       span(
-        cls := s"ublog-post-card__top" + post.image.isEmpty.so(
-          s" ublog-generic-bg${1 + Math.floorMod(post.created.at.hashCode, 28)}"
+        cls := s"ublog-post-card__top",
+        post.image.isEmpty.option(
+          style := s"---thumb-backdrop-url:url(${assetUrl(f"lifat/background/gallery/bg${1 + Math.floorMod(post.created.at.hashCode, 28)}%02d-thumb.webp")})"
         )
       )(
         thumbnail(post, _.Size.Small)(cls := "ublog-post-card__image"),

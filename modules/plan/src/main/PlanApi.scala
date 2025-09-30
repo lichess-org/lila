@@ -13,7 +13,7 @@ import lila.core.LightUser
 import lila.db.paginator.Adapter
 import lila.ui.Context
 import lila.core.config.BaseUrl
-import lila.core.plan.PatronColor
+import lila.core.plan.{ PatronColor, PatronColorChoice }
 
 final class PlanApi(
     stripeClient: StripeClient,
@@ -81,7 +81,7 @@ final class PlanApi(
       color <- PatronColor.map.get(id)
       tier <- me.patronTier
       if color.selectable(tier)
-    yield color
+    yield PatronColorChoice(color)
     for _ <- userApi.setPlan(me, me.plan.copy(color = color).some)
     yield lightUserApi.invalidate(me.userId)
 

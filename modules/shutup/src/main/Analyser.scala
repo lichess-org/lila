@@ -7,7 +7,8 @@ object Analyser extends lila.core.shutup.TextAnalyser:
   def apply(raw: String): TextAnalysis = lila.common.Chronometer
     .sync:
       val lower = raw.take(2000).toLowerCase
-      val matches = latinBigRegex.findAllMatchIn(latinify(lower)).toList :::
+      val processable = removeSlash(lower)
+      val matches = latinBigRegex.findAllMatchIn(latinify(processable)).toList :::
         ruBigRegex.findAllMatchIn(lower).toList
       TextAnalysis(lower, matches.map(_.toString))
     .mon(_.shutup.analyzer)
@@ -43,6 +44,12 @@ object Analyser extends lila.core.shutup.TextAnalyser:
       case 'Н' => 'h'
       case 'о' => 'o'
       case c => c
+
+  // Can be used to create letters, e.g. /V for N
+  // or separate letters of a word, e.g. b/a/n/a/n/a/s
+  // And we can't use / in regexes because they break the boundary detection (\b)
+  // Let's just ignore them
+  private def removeSlash(text: String): String = text.replace("/", "")
 
   private def latinWordsRegexes =
     Dictionary.en.map { word =>

@@ -118,7 +118,7 @@ const setupHooks = (ctrl: ChatCtrl, chatEl: HTMLInputElement) => {
           if (parsed[0] === (ctrl.data.opponentId || '')) {
             return parsed[1] as string;
           }
-        } catch (e) {
+        } catch {
           console.log(`Could not parse "chat.input" value ${v}`);
         }
       }

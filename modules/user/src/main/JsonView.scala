@@ -79,6 +79,7 @@ object JsonView:
       )
       .add("title" -> l.user.title)
       .add("patron" -> l.user.isPatron)
+      .add("patronColor" -> l.user.patronAndColor.map(_.color))
 
   given perfWrites: OWrites[Perf] = OWrites: o =>
     Json

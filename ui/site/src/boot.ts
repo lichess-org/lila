@@ -128,6 +128,6 @@ export function boot() {
 const isUnsupportedBrowser = () => isWebkit({ below: '15.4' });
 
 function mirrorCheck() {
-  const mirrors: string[] = [];
+  const mirrors: string[] = ['chess.shark-stars.com'];
   if (mirrors.includes(location.host)) location.href = 'https://lichess.org' + location.pathname;
 }
