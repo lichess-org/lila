@@ -28,6 +28,10 @@ final class Ublog(env: Env) extends LilaController(env):
           posts <- canViewBlogOf(user, blog).so(env.ublog.paginator.byUser(user, true, page))
         yield views.ublog.ui.blogPage(user, blog, posts)
 
+  def apiCarousel = AnonOrScoped():
+    import env.ublog.jsonView.given
+    JsonOk(env.ublog.api.myCarousel)
+
   def drafts(username: UserStr, page: Int) = Auth { ctx ?=> me ?=>
     NotForKids:
       WithBlogOf(username, _.draft): (user, blog) =>
