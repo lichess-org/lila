@@ -10,13 +10,12 @@ import scalalib.model.Language
 import lila.i18n.{ LangList, LangPicker }
 import lila.report.Suspect
 import lila.ublog.{ UblogBlog, UblogPost, UblogByMonth }
-import lila.core.LightUser
 import lila.core.ublog.{ BlogsBy, Quality, QualityFilter }
 import lila.core.i18n.toLanguage
 import lila.ublog.UblogForm.ModPostData
 import lila.common.HTTPRequest
 
-final class Ublog(env: Env)(using LightUser.GetterSync) extends LilaController(env):
+final class Ublog(env: Env) extends LilaController(env):
 
   import views.ublog.ui.{ editUrlOfPost, urlOfPost, urlOfBlog }
   import scalalib.paginator.Paginator.given
@@ -29,18 +28,13 @@ final class Ublog(env: Env)(using LightUser.GetterSync) extends LilaController(e
           posts <- canViewBlogOf(user, blog).so(env.ublog.paginator.byUser(user, true, page))
         yield views.ublog.ui.blogPage(user, blog, posts)
 
-  def apiCarousel = Open:
-    env.ublog.lastPostsCache
-      .get(())
-      .flatMap: carousel =>
-        Ok(
-          Json.arr(
-            carousel
-              .filter(_.isLichess || ctx.kid.no)
-              .take(env.ublog.api.carouselSizeSetting.get())
-              .map(env.ublog.jsonView.previewPost)
-          )
-        )
+  def apiCarousel = AnonOrScoped():
+    import env.ublog.jsonView.given
+    for posts <- env.ublog.lastPostsCache.get(())
+    yield JsonOk:
+      posts
+        .filter(_.isLichess || ctx.kid.no)
+        .take(env.ublog.api.carouselSizeSetting.get())
 
   def drafts(username: UserStr, page: Int) = Auth { ctx ?=> me ?=>
     NotForKids:
