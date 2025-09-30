@@ -9,6 +9,7 @@ import lila.core.timeline as tl
 import lila.core.LightUser
 import lila.db.dsl.{ *, given }
 import lila.memo.PicfitApi
+import lila.memo.CacheApi.buildAsyncTimeout
 import lila.core.user.KidMode
 import lila.core.ublog.{ BlogsBy, Quality }
 import lila.core.timeline.{ Propagate, UblogPostLike }
@@ -23,7 +24,8 @@ final class UblogApi(
     irc: lila.core.irc.IrcApi,
     automod: UblogAutomod,
     config: UblogConfig,
-    settingStore: lila.memo.SettingStore.Builder
+    settingStore: lila.memo.SettingStore.Builder,
+    cacheApi: lila.memo.CacheApi
 )(using Executor, Scheduler)
     extends lila.core.ublog.UblogApi:
 
@@ -32,11 +34,15 @@ final class UblogApi(
   import UblogAutomod.Assessment
 
   lazy val carouselSizeSetting =
-    settingStore[Int](
-      "carouselSize",
-      default = 9,
-      text = "Homepage blog carousel size".some
-    )
+    settingStore[Int]("carouselSize", default = 9, text = "Homepage blog carousel size".some)
+
+  private val carouselCache = cacheApi.unit[List[UblogPost.PreviewPost]]:
+    _.refreshAfterWrite(10.seconds).buildAsyncTimeout(): _ =>
+      fetchCarouselFromDb().map(_.shuffled)
+
+  def myCarousel(using kid: KidMode) =
+    for posts <- carouselCache.get({})
+    yield posts.filter(_.isLichess || kid.no).take(carouselSizeSetting.get())
 
   def create(data: UblogForm.UblogPostData, author: User): Fu[UblogPost] =
     val post = data.create(author)
@@ -125,11 +131,6 @@ final class UblogApi(
         .cursor[UblogPost.PreviewPost](ReadPref.sec)
         .list(carouselSizeSetting.get() - pinned.size)
     yield UblogPost.CarouselPosts(pinned, queue)
-
-  def filterAndTruncateCarousel(posts: List[UblogPost.PreviewPost])(using kid: KidMode) =
-    posts
-      .filter(_.isLichess || kid.no)
-      .take(carouselSizeSetting.get())
 
   def postPreview(id: UblogPostId) =
     colls.post.byId[UblogPost.PreviewPost](id, previewPostProjection)

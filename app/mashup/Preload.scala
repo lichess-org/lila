@@ -1,7 +1,6 @@
 package lila.app
 package mashup
 
-import com.github.blemale.scaffeine.AsyncLoadingCache
 import play.api.libs.json.*
 
 import lila.core.game.Game
@@ -29,7 +28,6 @@ final class Preload(
     roundProxy: lila.round.GameProxyRepo,
     simulIsFeaturable: SimulIsFeaturable,
     getLastUpdates: lila.feed.Feed.GetLastUpdates,
-    lastPostsCache: AsyncLoadingCache[Unit, List[UblogPost.PreviewPost]],
     ublogApi: lila.ublog.UblogApi,
     unreadCount: lila.msg.MsgUnreadCount,
     relayListing: lila.relay.RelayListing,
@@ -80,7 +78,7 @@ final class Preload(
       )
       .zip((ctx.userId.so(playbanApi.currentBan)).mon(_.lobby.segment("playban")))
       .zip(ctx.blind.so(ctx.me).so(roundProxy.urgentGames))
-      .zip(lastPostsCache.get {})
+      .zip(ublogApi.myCarousel)
       .zip(
         ctx.userId
           .ifTrue(nbNotifications > 0)
@@ -110,7 +108,7 @@ final class Preload(
     simulIsFeaturable,
     blindGames,
     getLastUpdates(),
-    ublogApi.filterAndTruncateCarousel(ublogPosts),
+    ublogPosts,
     withPerfs,
     hasUnreadLichessMessage = lichessMsg
   )
