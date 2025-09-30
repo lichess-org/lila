@@ -32,7 +32,7 @@
   </plurals>
   <string name="inviteToTheStudy">Inviti al la studo</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">Bonvolu inviti nur homojn, kiujn vi konas kaj kiuj aktive volas aliĝi al tiu ĉi studo.</string>
-  <string name="searchByUsername">Serĉi laŭ uzantnomo</string>
+  <string name="searchByUsername" comment="Appears when adding members to a Lichess Study as placeholder text in a search box.">Serĉi laŭ uzantnomo</string>
   <string name="spectator">Spektanto</string>
   <string name="contributor">Kontribuanto</string>
   <string name="kick">Forpuŝi</string>
@@ -53,6 +53,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Ĉiuj sinkronigitaj membroj restas ĉe la sama pozicio</string>
   <string name="shareChanges">Diskonigi ŝanĝojn al spektantoj kaj konservi tiujn ĉe la servilo</string>
   <string name="playing">Ludanta</string>
+  <string name="showResults">Rezultoj</string>
   <string name="showEvalBar">Taksaj stangoj</string>
   <string name="next">Sekva</string>
   <string name="shareAndExport">Konigi &amp; eksporti</string>
@@ -162,5 +163,6 @@
   <string name="playAgain">Reludi</string>
   <string name="whatWouldYouPlay">Kion vi ludus en ĉi tiu pozicio?</string>
   <string name="youCompletedThisLesson">Gratulon! Vi kompletigis la lecionon.</string>
+  <string name="perPage">Po %s en ĉiu paĝo</string>
   <string name="welcomeToLichessStudyTitle">Bonvenu al Lichess Studo!</string>
 </resources>

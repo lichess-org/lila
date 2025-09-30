@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="gameSetup">棋局设置</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">挑战朋友</string>
+  <string name="playAgainstComputer" comment="Appears on the homepage. Opens the modal to create a game against a chess engine. Please keep your translation short.">挑战电脑</string>
+  <string name="gameMode">游戏模式</string>
+  <string name="createLobbyGame">创建对局</string>
+  <string name="youPlayAs">你执</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">分享这个网址以邀请好友下棋</string>
   <string name="gameOver">棋局结束</string>
   <string name="waitingForOpponent">正在等待对手</string>
@@ -316,6 +322,7 @@
     <item quantity="other">%s 正在进行</item>
   </plurals>
   <string name="exportGames">导出棋局</string>
+  <string name="ratingFilter">等级分范围</string>
   <plurals name="giveNbSeconds">
     <item quantity="other">添加对方 %s 秒</item>
   </plurals>
@@ -363,6 +370,7 @@
     <item quantity="other">你需要再完成 %s 局排位赛</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">你的 %s 等级分是暂时的</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">你的等级分不稳定，暂时无法选择等级分范围。下排位棋局会增加稳定性。</string>
   <string name="yourPerfRatingIsTooHigh">你的 %1$s 等级分 (%2$s) 过高</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">你本周 %1$s 的最高等级分 (%2$s) 过高</string>
   <string name="yourPerfRatingIsTooLow">你的 %1$s 等级分 (%2$s) 过低</string>
@@ -780,6 +788,7 @@
   <string name="notifications">通知</string>
   <string name="notificationsX">通知：%1$s</string>
   <string name="perfRatingX">等级分：%s</string>
+  <string name="yourRatingIsX">你的等级分是 %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">还剩 %s 秒走第一步</item>
   </plurals>
@@ -829,6 +838,7 @@
   <string name="playVariationToCreateConditionalPremoves">走一步变着以创建条件预先走棋</string>
   <string name="noConditionalPremoves">没有条件预先走棋</string>
   <string name="playX">走 %s</string>
+  <string name="challengeX">挑战 %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="other">已保存 %s 条先前的走子</item>
   </plurals>
@@ -962,4 +972,6 @@
   <string name="online" comment="status of a user">在线</string>
   <string name="offline" comment="status of a user">离线</string>
   <string name="search">搜索</string>
+  <string name="clearSearch">清除搜索</string>
+  <string name="tags">标签</string>
 </resources>
