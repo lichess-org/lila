@@ -6,6 +6,7 @@ import lila.api.GameApiV2
 import lila.app.*
 import lila.challenge.ChallengeBulkSetup
 import lila.common.Json.given
+import cats.mtl.Handle.*
 
 final class BulkPairing(gameC: => Game, apiC: => Api, env: Env) extends LilaController(env):
 
@@ -74,10 +75,8 @@ final class BulkPairing(gameC: => Game, apiC: => Api, env: Env) extends LilaCont
             case Left(ScheduleError.DuplicateUsers(users)) =>
               BadRequest(Json.obj("duplicateUsers" -> users))
             case Right(bulk) =>
-              env.challenge.bulk
-                .schedule(bulk)
-                .map:
-                  case Left(error) => BadRequest(jsonError(error))
-                  case Right(bulk) => JsonOk(toJson(bulk))
+              allow:
+                env.challenge.bulk.schedule(bulk).map(bulk => JsonOk(toJson(bulk)))
+              .rescue(error => BadRequest(jsonError(error)))
     )
   }
