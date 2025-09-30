@@ -21,6 +21,7 @@ final class Env(
     userRepo: lila.core.user.UserRepo,
     userApi: lila.core.user.UserApi,
     picfitApi: lila.memo.PicfitApi,
+    picfitUrl: lila.memo.PicfitUrl,
     ircApi: lila.core.irc.IrcApi,
     relationApi: lila.core.relation.RelationApi,
     shutupApi: lila.core.shutup.ShutupApi,
@@ -54,6 +55,8 @@ final class Env(
   val form = wire[UblogForm]
 
   val viewCounter = wire[UblogViewCounter]
+
+  val jsonView = wire[UblogJsonView]
 
   val lastPostsCache: AsyncLoadingCache[Unit, List[UblogPost.PreviewPost]] =
     cacheApi.unit[List[UblogPost.PreviewPost]]:
