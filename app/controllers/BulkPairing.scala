@@ -60,23 +60,24 @@ final class BulkPairing(gameC: => Game, apiC: => Api, env: Env) extends LilaCont
       jsonFormError,
       data =>
         import ChallengeBulkSetup.*
-        env.challenge
-          .bulkSetupApi(data, me)
-          .flatMap:
-            case Left(ScheduleError.RateLimited) =>
-              TooManyRequests:
-                jsonError(s"Ratelimited! Max games per 10 minutes: ${maxGames}")
-            case Left(ScheduleError.BadTokens(tokens)) =>
-              BadRequest:
-                Json.obj:
-                  "tokens" -> JsObject:
-                    tokens.map:
-                      case BadToken(token, error) => token.value -> JsString(error.message)
-            case Left(ScheduleError.DuplicateUsers(users)) =>
-              BadRequest(Json.obj("duplicateUsers" -> users))
-            case Right(bulk) =>
+        allow:
+          env.challenge
+            .bulkSetupApi(data, me)
+            .flatMap: bulk =>
               allow:
                 env.challenge.bulk.schedule(bulk).map(bulk => JsonOk(toJson(bulk)))
               .rescue(error => BadRequest(jsonError(error)))
+        .rescue:
+          case ScheduleError.RateLimited =>
+            TooManyRequests:
+              jsonError(s"Ratelimited! Max games per 10 minutes: ${maxGames}")
+          case ScheduleError.BadTokens(tokens) =>
+            BadRequest:
+              Json.obj:
+                "tokens" -> JsObject:
+                  tokens.map:
+                    case BadToken(token, error) => token.value -> JsString(error.message)
+          case ScheduleError.DuplicateUsers(users) =>
+            BadRequest(Json.obj("duplicateUsers" -> users))
     )
   }
