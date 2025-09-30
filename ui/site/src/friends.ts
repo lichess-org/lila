@@ -1,4 +1,3 @@
-import { notNull } from 'lib';
 import * as licon from 'lib/licon';
 import { api as lichess } from 'lib/api';
 
@@ -9,7 +8,7 @@ interface Friend {
   name: string;
   title?: string;
   playing: boolean;
-  patron: boolean;
+  patronColor?: number;
 }
 
 export default class OnlineFriends {
@@ -34,17 +33,13 @@ export default class OnlineFriends {
     api.events.on('playing', this.playing);
     api.events.on('stopped_playing', this.stopped_playing);
   }
-  receive = (friends: TitleName[], msg: { playing: string[]; patrons: string[] }) => {
+  receive = (friends: TitleName[], msg: { playing: string[]; patronColors: number[] }) => {
     this.users.clear();
-    friends.forEach(this.insert);
-    msg.playing
-      .map(p => this.users.get(p))
-      .filter(notNull)
-      .forEach(u => (u.playing = true));
-    msg.patrons
-      .map(p => this.users.get(p))
-      .filter(notNull)
-      .forEach(u => (u.patron = true));
+    friends.forEach((f, i) => {
+      const friend = this.insert(f);
+      friend.patronColor = msg.patronColors[i];
+      friend.playing = msg.playing.includes(friend.id!);
+    });
     this.repaint();
   };
   repaint = () => {
@@ -62,7 +57,8 @@ export default class OnlineFriends {
       });
   };
   renderFriend = (friend: Friend) => {
-    const icon = `<i class="line${friend.patron ? ' patron' : ''}"></i>`,
+    const patronCls = friend.patronColor && ` patron paco${friend.patronColor}`;
+    const icon = `<i class="line${patronCls}"></i>`,
       titleTag = friend.title
         ? `<span class="utitle"${friend.title === 'BOT' ? ' data-bot' : ''}>${friend.title}</span>&nbsp;`
         : '',
@@ -70,13 +66,13 @@ export default class OnlineFriends {
       tvButton = friend.playing
         ? `<a data-icon="${licon.AnalogTv}" class="tv ulpt" data-pt-pos="nw" href="${url}/tv" data-href="${url}"></a>`
         : '';
-    return `<div><a class="user-link ulpt" data-pt-pos="nw" href="${url}">${icon}${titleTag}${friend.name}</a>${tvButton}</div>`;
+    return `<div><a class="online user-link ulpt" data-pt-pos="nw" href="${url}">${icon}${titleTag}${friend.name}</a>${tvButton}</div>`;
   };
 
-  enters = (titleName: TitleName, msg: { playing: boolean; patron: boolean }) => {
+  enters = (titleName: TitleName, msg: { playing: boolean; patronColor?: number }) => {
     const friend = this.insert(titleName);
     friend.playing = msg.playing;
-    friend.patron = msg.patron;
+    friend.patronColor = msg.patronColor;
     this.repaint();
   };
   leaves = (titleName: TitleName) => {
@@ -94,8 +90,11 @@ export default class OnlineFriends {
 
   insert = (titleName: TitleName): Partial<Friend> => {
     const id = this.getId(titleName);
-    if (!this.users.has(id)) this.users.set(id, this.toFriend(titleName));
-    return this.users.get(id)!;
+    const found = this.users.get(id);
+    if (found) return found;
+    const newFriend = this.toFriend(titleName);
+    this.users.set(id, newFriend);
+    return newFriend;
   };
 
   getId = (titleName: TitleName) => titleName.toLowerCase().replace(/^\w+\s/, '');
@@ -107,7 +106,6 @@ export default class OnlineFriends {
       name: split[split.length - 1],
       title: split.length > 1 ? split[0] : undefined,
       playing: false,
-      patron: false,
     };
   };
 }
