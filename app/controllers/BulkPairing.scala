@@ -61,12 +61,10 @@ final class BulkPairing(gameC: => Game, apiC: => Api, env: Env) extends LilaCont
       data =>
         import ChallengeBulkSetup.*
         allow:
-          env.challenge
-            .bulkSetupApi(data, me)
-            .flatMap: bulk =>
-              allow:
-                env.challenge.bulk.schedule(bulk).map(bulk => JsonOk(toJson(bulk)))
-              .rescue(error => BadRequest(jsonError(error)))
+          for
+            bulk <- env.challenge.bulkSetupApi(data, me)
+            response <- env.challenge.bulk.schedule(bulk).map(bulk => JsonOk(toJson(bulk)))
+          yield response
         .rescue:
           case ScheduleError.RateLimited =>
             TooManyRequests:
@@ -79,5 +77,6 @@ final class BulkPairing(gameC: => Game, apiC: => Api, env: Env) extends LilaCont
                     case BadToken(token, error) => token.value -> JsString(error.message)
           case ScheduleError.DuplicateUsers(users) =>
             BadRequest(Json.obj("duplicateUsers" -> users))
+          case error: String => BadRequest(jsonError(error))
     )
   }
