@@ -5,8 +5,6 @@ import lila.core.i18n.LangPicker
 import lila.core.challenge.PositiveEvent
 import lila.core.socket.SendTo
 import lila.memo.CacheApi.*
-import cats.mtl.Raise
-import cats.mtl.implicits.*
 
 final class ChallengeApi(
     repo: ChallengeRepo,
@@ -124,7 +122,7 @@ final class ChallengeApi(
       c: Challenge,
       sid: Option[String],
       requestedColor: Option[Color] = None
-  )(using me: Option[Me]): Raise[Fu, String] ?=> Fu[Option[Pov]] =
+  )(using me: Option[Me]): FuRaise[String, Option[Pov]] =
     acceptQueue:
       def withPerf = me.map(_.value).traverse(userApi.withPerf(_, c.perfType))
       if c.canceled
