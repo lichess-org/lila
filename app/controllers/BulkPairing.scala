@@ -63,8 +63,8 @@ final class BulkPairing(gameC: => Game, apiC: => Api, env: Env) extends LilaCont
         allow:
           for
             bulk <- env.challenge.bulkSetupApi(data, me)
-            response <- env.challenge.bulk.schedule(bulk).map(bulk => JsonOk(toJson(bulk)))
-          yield response
+            scheduled <- env.challenge.bulk.schedule(bulk)
+          yield JsonOk(toJson(scheduled))
         .rescue:
           case ScheduleError.RateLimited =>
             TooManyRequests:
