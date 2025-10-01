@@ -232,8 +232,8 @@ function renderText(t: string, opts?: enhance.EnhanceOpts) {
   return h('t', processedText);
 }
 
-const userThunk = (name: string, title?: string, patron?: boolean, flair?: Flair) =>
-  userLink({ name, title, patron, line: !!patron, flair });
+const userThunk = (name: string, title?: string, patronColor?: number, flair?: Flair) =>
+  userLink({ name, title, patronColor, line: !!patronColor, flair, online: !!patronColor });
 
 const actionIcons = (ctrl: ChatCtrl, line: Line): Array<VNode | null> => {
   if (!ctrl.data.userId || !line.u || ctrl.data.userId === line.u) return [];
@@ -261,7 +261,7 @@ function renderLine(ctrl: ChatCtrl, line: Line): VNode {
 
   if (line.c) return h('li', [h('span.color', '[' + line.c + ']'), textNode]);
 
-  const userNode = thunk('a', line.u, userThunk, [line.u, line.title, line.p, line.f]);
+  const userNode = thunk('a', line.u, userThunk, [line.u, line.title, line.pc, line.f]);
   const userId = line.u?.toLowerCase();
 
   const myUserId = ctrl.data.userId;
