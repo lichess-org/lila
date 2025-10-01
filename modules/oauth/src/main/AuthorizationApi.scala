@@ -35,7 +35,7 @@ final class AuthorizationApi(val coll: Coll)(using Executor):
         .ensure(Protocol.Error.MismatchingRedirectUri(request.redirectUri.value)):
           _.redirectUri.matches(request.redirectUri)
         .ensure(Protocol.Error.MismatchingClient(request.clientId))(_.clientId == request.clientId)
-        .fold(_.raise, fuccess)
+        .raiseIfLeft
       _ <- pending.challenge
         .match
           case Left(hashedClientSecret) =>
@@ -46,7 +46,7 @@ final class AuthorizationApi(val coll: Coll)(using Executor):
             request.codeVerifier
               .toRight(LegacyClientApi.CodeVerifierIgnored)
               .ensure(Protocol.Error.MismatchingCodeVerifier)(_.matches(codeChallenge))
-        .fold(_.raise, fuccess)
+        .raiseIfLeft
     yield AccessTokenRequest.Granted(pending.userId, pending.scopes.into(TokenScopes), pending.redirectUri)
 
 private object AuthorizationApi:
