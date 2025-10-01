@@ -31,6 +31,8 @@ object LightUser:
 
   given UserIdOf[LightUser] = _.id
 
+  type IdMap = Map[UserId, LightUser]
+
   def fallback(name: UserName) = LightUser(
     id = name.id,
     name = name,

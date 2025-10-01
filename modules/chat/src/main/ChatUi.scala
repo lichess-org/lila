@@ -105,5 +105,5 @@ object ChatUi:
         .add("noteAge" -> withNoteAge)
         .add(
           "timeoutReasons" -> (!localMod && (Granter.opt(_.ChatTimeout) || Granter.opt(_.BroadcastTimeout)))
-            .option(JsonView.timeoutReasons)
+            .option(ChatJsonView.timeoutReasons)
         )

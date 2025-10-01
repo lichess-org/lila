@@ -7,12 +7,12 @@ import lila.core.config.NetDomain
 import lila.core.perm.Granter
 import lila.core.security.{ FloodApi, FloodSource, SpamApi }
 import lila.core.shutup.PublicSource
-import lila.core.user.{ FlairGet, FlairGetMap }
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 
 final class ChatApi(
     coll: Coll,
+    jsonView: ChatJsonView,
     userApi: lila.core.user.UserApi,
     userRepo: lila.core.user.UserRepo,
     chatTimeout: ChatTimeout,
@@ -21,7 +21,7 @@ final class ChatApi(
     shutupApi: lila.core.shutup.ShutupApi,
     cacheApi: lila.memo.CacheApi,
     netDomain: NetDomain
-)(using Executor, Scheduler, FlairGet, FlairGetMap)
+)(using Executor, Scheduler)
     extends lila.core.chat.ChatApi:
 
   import Chat.given
@@ -58,7 +58,7 @@ final class ChatApi(
     private def makeMine(chat: UserChat)(using me: Option[Me], all: AllMessages): Fu[UserChat.Mine] =
       val mine = chat.forMe
       for
-        lines <- JsonView.asyncLines(mine)
+        lines <- jsonView.asyncLines(mine)
         timeout <- me
           .ifFalse(mine.isEmpty)
           .so:
@@ -318,8 +318,8 @@ final class ChatApi(
     Bus.publishDyn(msg, Chat.chanOf(chatId))
 
   private def publishLine(chatId: ChatId, line: Line, busChan: BusChan.Select): Funit =
-    JsonView(line).map: json =>
-      publish(chatId, ChatLine(chatId, line, json), busChan)
+    for json <- jsonView.asyncLine(line)
+    yield publish(chatId, ChatLine(chatId, line, json), busChan)
 
   def remove(chatId: ChatId) = coll.delete.one($id(chatId)).void
 

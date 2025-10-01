@@ -24,6 +24,7 @@ object FlairApi:
 
   val adminFlairs: Set[Flair] = Set(Flair("activity.lichess"))
 
+// #TODO delete all?
 final class FlairApi(lightUserApi: LightUserApi, getFile: lila.common.config.GetRelativeFile)(using Executor)(
     using scheduler: Scheduler
 ) extends lila.core.user.FlairApi:

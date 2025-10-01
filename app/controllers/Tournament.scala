@@ -17,7 +17,6 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
   private def jsonView = env.tournament.jsonView
   private def forms = env.tournament.forms
   private def cachedTour(id: TourId) = env.tournament.cached.tourCache.byId(id)
-  import env.user.flairApi.given
   private given lila.core.team.LightTeam.Api = env.team.lightTeamApi
 
   private def tournamentNotFound(using Context) = NotFound.page(views.tournament.ui.notFound)
@@ -116,7 +115,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
               )
               chatOpt <- partial.not.so(loadChat(tour, json))
               jsChat <- chatOpt.traverse: c =>
-                lila.chat.JsonView.mobile(c.chat)
+                env.chat.json.mobile(c.chat)
             yield Ok(json.add("chat" -> jsChat)).noCache
           .monSuccess(_.tournament.apiShowPartial(getBool("partial"), HTTPRequest.clientName(ctx.req)))
       )
@@ -140,7 +139,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
             withAllowList = true
           )
           chatOpt <- getBool("chat").so(loadChat(tour, data))
-          jsChat <- chatOpt.traverse(c => lila.chat.JsonView.mobile(c.chat))
+          jsChat <- chatOpt.traverse(c => env.chat.json.mobile(c.chat))
           socketVersion <- getBool("socketVersion").optionFu(env.tournament.version(tour.id))
         yield data
           .add("chat", jsChat)
