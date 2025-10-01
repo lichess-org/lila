@@ -5,8 +5,6 @@ import lila.core.i18n.LangPicker
 import lila.core.challenge.PositiveEvent
 import lila.core.socket.SendTo
 import lila.memo.CacheApi.*
-import cats.mtl.Raise
-import cats.mtl.implicits.*
 
 final class ChallengeApi(
     repo: ChallengeRepo,
@@ -124,7 +122,7 @@ final class ChallengeApi(
       c: Challenge,
       sid: Option[String],
       requestedColor: Option[Color] = None
-  )(using me: Option[Me]): Raise[Fu, String] ?=> Fu[Option[Pov]] =
+  )(using me: Option[Me]): FuRaise[String, Option[Pov]] =
     acceptQueue:
       def withPerf = me.map(_.value).traverse(userApi.withPerf(_, c.perfType))
       if c.canceled
@@ -153,18 +151,14 @@ final class ChallengeApi(
         else
           for
             me <- withPerf
-            join <- joiner(c, me)
-            result <- join match
-              case Right(pov) =>
-                for _ <- repo.accept(c)
-                yield
-                  uncacheAndNotify(c)
-                  Bus.pub(PositiveEvent.Accept(c, pov.game, me.map(_.id)))
-                  c.rematchOf.foreach: gameId =>
-                    Bus.pub(lila.game.actorApi.NotifyRematch(gameId, pov.game))
-                  pov.some
-              case Left(err) => err.raise
-          yield result
+            pov <- joiner(c, me)
+            _ <- repo.accept(c)
+          yield
+            uncacheAndNotify(c)
+            Bus.pub(PositiveEvent.Accept(c, pov.game, me.map(_.id)))
+            c.rematchOf.foreach: gameId =>
+              Bus.pub(lila.game.actorApi.NotifyRematch(gameId, pov.game))
+            pov.some
 
   def offerRematchForGame(game: Game, user: User): Fu[Boolean] =
     challengeMaker.makeRematchOf(game, user).flatMapz { challenge =>

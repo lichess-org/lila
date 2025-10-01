@@ -90,7 +90,6 @@ final class Challenge(env: Env) extends LilaController(env):
       !challenge.challengerUserId.so(orig => me.exists(_.is(orig)))
 
   import cats.mtl.Handle.*
-  import cats.mtl.implicits.*
   def accept(id: ChallengeId, color: Option[Color]) = Open:
     Found(api.byId(id)): c =>
       isForMe(c).so:

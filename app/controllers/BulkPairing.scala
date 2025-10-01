@@ -6,6 +6,7 @@ import lila.api.GameApiV2
 import lila.app.*
 import lila.challenge.ChallengeBulkSetup
 import lila.common.Json.given
+import cats.mtl.Handle.*
 
 final class BulkPairing(gameC: => Game, apiC: => Api, env: Env) extends LilaController(env):
 
@@ -59,25 +60,23 @@ final class BulkPairing(gameC: => Game, apiC: => Api, env: Env) extends LilaCont
       jsonFormError,
       data =>
         import ChallengeBulkSetup.*
-        env.challenge
-          .bulkSetupApi(data, me)
-          .flatMap:
-            case Left(ScheduleError.RateLimited) =>
-              TooManyRequests:
-                jsonError(s"Ratelimited! Max games per 10 minutes: ${maxGames}")
-            case Left(ScheduleError.BadTokens(tokens)) =>
-              BadRequest:
-                Json.obj:
-                  "tokens" -> JsObject:
-                    tokens.map:
-                      case BadToken(token, error) => token.value -> JsString(error.message)
-            case Left(ScheduleError.DuplicateUsers(users)) =>
-              BadRequest(Json.obj("duplicateUsers" -> users))
-            case Right(bulk) =>
-              env.challenge.bulk
-                .schedule(bulk)
-                .map:
-                  case Left(error) => BadRequest(jsonError(error))
-                  case Right(bulk) => JsonOk(toJson(bulk))
+        allow:
+          for
+            bulk <- env.challenge.bulkSetupApi(data, me)
+            scheduled <- env.challenge.bulk.schedule(bulk)
+          yield JsonOk(toJson(scheduled))
+        .rescue:
+          case ScheduleError.RateLimited =>
+            TooManyRequests:
+              jsonError(s"Ratelimited! Max games per 10 minutes: ${maxGames}")
+          case ScheduleError.BadTokens(tokens) =>
+            BadRequest:
+              Json.obj:
+                "tokens" -> JsObject:
+                  tokens.map: t =>
+                    t.token.value -> JsString(t.error.message)
+          case ScheduleError.DuplicateUsers(users) =>
+            BadRequest(Json.obj("duplicateUsers" -> users))
+          case error: String => BadRequest(jsonError(error))
     )
   }
