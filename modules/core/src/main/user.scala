@@ -251,6 +251,7 @@ object user:
     val asyncFallback: LightUser.GetterFallback
     def asyncMany(ids: List[UserId]): Fu[List[Option[LightUser]]]
     def asyncManyFallback(ids: Seq[UserId]): Fu[Seq[LightUser]]
+    def asyncIdMapFallback(ids: Set[UserId]): Fu[LightUser.IdMap]
     def preloadMany(ids: Seq[UserId]): Funit
     def preloadUser(user: User): Unit
     def invalidate(id: UserId): Unit
@@ -322,12 +323,7 @@ object user:
 
   abstract class RankingRepo(val coll: lila.core.db.AsyncCollFailingSilently)
 
-  type FlairMap = Map[UserId, Flair]
-  type FlairGet = UserId => Fu[Option[Flair]]
-  type FlairGetMap = List[UserId] => Fu[FlairMap]
   trait FlairApi:
-    given flairOf: FlairGet
-    given flairsOf: FlairGetMap
     val adminFlairs: Set[Flair]
     def formField(anyFlair: Boolean = false, asAdmin: Boolean = false): play.api.data.Mapping[Option[Flair]]
     def find(name: String): Option[Flair]

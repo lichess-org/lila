@@ -332,8 +332,8 @@ importers:
         specifier: ^0.2.13
         version: 0.2.13
       '@lichess-org/stockfish-web':
-        specifier: 0.0.13
-        version: 0.0.13
+        specifier: 0.0.14
+        version: 0.0.14
       '@types/debounce-promise':
         specifier: ^3.1.9
         version: 3.1.9
@@ -844,8 +844,8 @@ packages:
   '@lichess-org/pgn-viewer@2.4.7':
     resolution: {integrity: sha512-ybq/ZXvfcVxR+pasCBdQ0BkJGgDdpW84KioexJyD00oT2ERyTpnwMBxDaqL6/3uv1WPUPfBPwbaeaDcknqlvTg==}
 
-  '@lichess-org/stockfish-web@0.0.13':
-    resolution: {integrity: sha512-EpcySs+J03xnWDIdY8lz48DSEbDjlxt3lX0I1bv6VgFkW6KkmUZ22aD/BlaNIvyf+mG55KvFhaI5cDSVpMsEqQ==}
+  '@lichess-org/stockfish-web@0.0.14':
+    resolution: {integrity: sha512-GBXBdQ3Sbg7KecFzaq4VnppK7NVwDcvqfVxOKmDonEUNMJ9FyiLfe2yeWUmbGWUnbnWXBCgYjX8QSDLP3OVe3Q==}
 
   '@lichess-org/vosk-browser@0.0.3':
     resolution: {integrity: sha512-kgxU346dZC/YbtVhqQTJbjZupUjuvwR3R270mGF5LJLmKAUCLRAQFhkRAqv4eUK1dmzu47ywN/SwrL5QrV7tCg==}
@@ -2661,7 +2661,7 @@ snapshots:
       chessops: 0.14.2
       snabbdom: 3.5.1
 
-  '@lichess-org/stockfish-web@0.0.13': {}
+  '@lichess-org/stockfish-web@0.0.14': {}
 
   '@lichess-org/vosk-browser@0.0.3':
     dependencies:

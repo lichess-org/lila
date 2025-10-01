@@ -35,6 +35,9 @@ final class LightUserApi(repo: UserRepo, cacheApi: CacheApi)(using Executor)
   def preloadUser(user: User): Unit = cache.set(user.id, user.light.some)
   def preloadUsers(users: Seq[User]): Unit = users.foreach(preloadUser)
 
+  def asyncIdMapFallback(ids: Set[UserId]): Fu[LightUser.IdMap] =
+    asyncManyFallback(ids.toSeq).map(_.mapBy(_.id))
+
   private val cache: Syncache[UserId, Option[LightUser]] = cacheApi.sync[UserId, Option[LightUser]](
     name = "user.light",
     initialCapacity = 1024 * 1024,

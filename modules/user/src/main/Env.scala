@@ -50,7 +50,6 @@ final class Env(
   lazy val forms = wire[UserForm]
 
   val flairApi = wire[FlairApi]
-  export flairApi.{ flairOf, flairsOf }
 
   val flagApi: lila.core.user.FlagApi = Flags
 

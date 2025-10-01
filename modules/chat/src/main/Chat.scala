@@ -12,7 +12,7 @@ sealed trait AnyChat:
 
   def isEmpty = lines.isEmpty
 
-  def flairUserIds: List[UserId]
+  def userIds: Set[UserId]
 
 sealed trait Chat[L <: Line] extends AnyChat:
   def id: ChatId
@@ -43,8 +43,7 @@ case class UserChat(
 
   def filterLines(f: UserLine => Boolean) = copy(lines = lines.filter(f))
 
-  def flairUserIds = lines.collect:
-    case l if l.flair => l.userId
+  def userIds = lines.view.map(_.userId).toSet
 
   def truncate(max: Int) = copy(lines = lines.drop((lines.size - max).atLeast(0)))
 
@@ -70,8 +69,10 @@ case class MixedChat(
 
   def mapLines(f: Line => Line) = copy(lines = lines.map(f))
 
-  def flairUserIds = lines.collect:
-    case l: UserLine if l.flair => l.userId
+  def userIds = lines
+    .collect:
+      case l: UserLine => l.userId
+    .toSet
 
 object Chat:
 

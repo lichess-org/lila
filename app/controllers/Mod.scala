@@ -463,9 +463,7 @@ final class Mod(
 
   def chatUser(username: UserStr) = SecureOrScoped(_.ChatTimeout) { _ ?=> _ ?=>
     JsonOptionOk:
-      env.chat.api.userChat
-        .userModInfo(username)
-        .map2(lila.chat.JsonView.userModInfo(using env.user.lightUserSync))
+      env.chat.api.userChat.userModInfo(username).map2(env.chat.json.userModInfo)
   }
 
   def permissions(username: UserStr) = Secure(_.ChangePermission) { _ ?=> _ ?=>

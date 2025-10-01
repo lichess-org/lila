@@ -5,11 +5,11 @@ import play.api.libs.json.{ JsArray, JsObject, Json }
 
 import lila.chat.Chat
 import lila.common.Json.given
-import lila.core.LightUser
 import scalalib.data.Preload
 import lila.pref.Pref
 import lila.round.RoundGame.*
 import lila.round.Forecast.given
+import lila.core.LightUser
 
 object RoundMobile:
 
@@ -40,9 +40,10 @@ final class RoundMobile(
     forecastApi: ForecastApi,
     isOfferingRematch: lila.core.round.IsOfferingRematch,
     chatApi: lila.chat.ChatApi,
+    chatJson: lila.chat.ChatJsonView,
     bookmarkExists: lila.core.misc.BookmarkExists,
     tourApi: lila.core.data.CircularDep[lila.core.tournament.TournamentApi]
-)(using Executor, lila.core.user.FlairGetMap):
+)(using Executor):
 
   import RoundMobile.*
 
@@ -72,7 +73,7 @@ final class RoundMobile(
       takebackable <- takebacker.isAllowedIn(game, Preload(prefs))
       moretimeable <- moretimer.isAllowedIn(game, Preload(prefs), force = false)
       chat <- use.chat.so(getPlayerChat(game, myPlayer.exists(_.hasUser)))
-      chatLines <- chat.map(_.chat).traverse(lila.chat.JsonView.asyncLines)
+      chatLines <- chat.map(_.chat).traverse(chatJson.asyncLines)
       bookmarked <- use.bookmark.so(bookmarkExists(game, myPlayer.flatMap(_.userId)))
       forecast <- use.forecast.so(myPlayer).so(p => forecastApi.loadForDisplay(Pov(game, p)))
       tournament <- tourInfo(game)
@@ -153,5 +154,5 @@ final class RoundMobile(
       for
         chat <- chatApi.playerChat.findIf(game.id.into(ChatId), game.secondsSinceCreation > 1)
         filtered = chat.copy(lines = chat.lines.filterNot(l => l.troll || l.deleted))
-        lines <- lila.chat.JsonView.asyncLines(filtered)
+        lines <- chatJson.asyncLines(filtered)
       yield Chat.Restricted(filtered, lines, restricted = game.sourceIs(_.Lobby) && !isAuth).some

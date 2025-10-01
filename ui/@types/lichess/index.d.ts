@@ -51,6 +51,7 @@ interface EsmModuleOpts extends AssetUrlOpts {
 type PairOf<T> = [T, T];
 
 type Flair = string;
+type PatronColor = number;
 type Redraw = () => void;
 type RedirectTo = string | { url: string; cookie: Cookie };
 
@@ -198,7 +199,7 @@ interface LightUserNoId {
   title?: string;
   flair?: Flair;
   patron?: boolean;
-  patronColor?: number;
+  patronColor?: PatronColor;
 }
 
 interface LightUser extends LightUserNoId {

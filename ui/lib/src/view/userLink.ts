@@ -21,8 +21,7 @@ export interface HasTitle {
 
 export interface HasLine {
   line?: boolean; // display i.line, true by default
-  patron?: boolean; // turn i.line into a patron wing
-  patronColor?: number;
+  patronColor?: PatronColor; // turn i.line into a patron wing
   moderator?: boolean; // turn i.line into a mod icon
 }
 
@@ -50,11 +49,11 @@ export const userLine = (u: HasLine): VNode | undefined =>
   u.line !== false
     ? h('i.line', {
         class: {
-          patron: !!u.patron,
+          patron: !!u.patronColor,
           moderator: !!u.moderator,
           ...(u.patronColor ? { [`paco${u.patronColor}`]: true } : {}),
         },
-        attrs: u.patron ? { title: 'Lichess Patron' } : {},
+        attrs: u.patronColor ? { title: 'Lichess Patron' } : {},
       })
     : undefined;
 

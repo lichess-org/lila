@@ -29,8 +29,6 @@ final class Study(
     apiC: => Api
 ) extends LilaController(env):
 
-  import env.user.flairApi.given
-
   def search(text: String, page: Int) = OpenOrScopedBody(parse.anyContent)(_.Study.Read, _.Web.Mobile):
     Reasonable(page):
       text.trim.some.filter(_.nonEmpty).filter(_.sizeIs > 2).filter(_.sizeIs < 200) match
@@ -180,7 +178,7 @@ final class Study(
               loadChat = !HTTPRequest.isXhr(ctx.req)
               chatOpt <- loadChat.so(chatOf(sc.study))
               jsChat <- chatOpt.traverse: c =>
-                lila.chat.JsonView.mobile(c.chat, writeable = ctx.userId.so(sc.study.canChat))
+                env.chat.json.mobile(c.chat, writeable = ctx.userId.so(sc.study.canChat))
             yield Ok:
               Json.obj(
                 "study" -> data.study.add("chat" -> jsChat),
