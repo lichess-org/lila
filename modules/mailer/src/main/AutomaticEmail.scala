@@ -9,7 +9,7 @@ import lila.core.i18n.Translator
 import lila.core.lilaism.LilaException
 import lila.core.misc.mailer.CorrespondenceOpponent
 import lila.core.msg.SystemMsg
-import lila.core.log.Logger
+import lila.core.ublog.Logger
 
 final class AutomaticEmail(
     userApi: lila.core.user.UserApi,
@@ -20,7 +20,7 @@ final class AutomaticEmail(
 
   import Mailer.html.*
   
-  private val logger = lila.core.log.logger("mailer")
+  private val logger = lila.core.ublog.logger("mailer")
 
   val regards = """Regards,
 
