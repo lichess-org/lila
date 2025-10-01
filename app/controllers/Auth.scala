@@ -176,11 +176,11 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
     forms.signup.website.flatMap: form =>
       Ok.page(views.auth.signup(form))
 
-  private def authLog(user: UserName, email: Option[EmailAddress], msg: String)(using ctx: Context) =
-    env.security.ip2proxy
-      .ofReq(ctx.req)
-      .foreach: proxy =>
-        lila.log("auth").info(s"$proxy $user ${email.fold("-")(_.value)} $msg")
+  private def authLog(user: UserName, email: Option[EmailAddress], msg: String)(using ctx: Context) = for
+    proxy <- env.security.ip2proxy.ofReq(ctx.req)
+    creationApi <- env.user.repo.createdWithApiVersion(user.id)
+    cav = creationApi.fold("-")(_.toString)
+  do lila.log("auth").info(s"$proxy $user ${email.fold("-")(_.value)} cav:$cav $msg")
 
   def signupPost = OpenBody:
     NoTor:
