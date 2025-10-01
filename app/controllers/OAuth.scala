@@ -4,6 +4,7 @@ import play.api.libs.json.{ JsNull, JsObject, JsValue, Json }
 import play.api.mvc.*
 import scalalib.ThreadLocalRandom
 import scalatags.Text.all.stringFrag
+import cats.mtl.Handle.*
 
 import lila.app.*
 import lila.common.HTTPRequest
@@ -47,56 +48,49 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
 
   def authorizeApply = Auth { _ ?=> me ?=>
     withPrompt: prompt =>
-      prompt
-        .authorize(me, env.oAuth.legacyClientApi.apply)
-        .flatMap:
-          case Right(authorized) =>
-            env.oAuth.authorizationApi.create(authorized).map { code =>
-              SeeOther(authorized.redirectUrl(code))
-            }
-          case Left(error) => SeeOther(prompt.redirectUri.error(error, prompt.state))
+      allow:
+        for
+          authorized <- prompt.authorize(me, env.oAuth.legacyClientApi.apply)
+          code <- env.oAuth.authorizationApi.create(authorized)
+        yield SeeOther(authorized.redirectUrl(code))
+      .rescue: error =>
+        SeeOther(prompt.redirectUri.error(error, prompt.state))
   }
 
-  def tokenApply = AnonBodyOf(parse.form(lila.oauth.AccessTokenRequest.form)):
-    _.prepare match
-      case Right(prepared) =>
-        env.oAuth.authorizationApi
-          .consume(prepared)
-          .flatMap:
-            case Right(granted) =>
-              env.oAuth.tokenApi.create(granted).map { token =>
-                Ok(
-                  Json
-                    .obj(
-                      "token_type" -> "Bearer",
-                      "access_token" -> token.plain
-                    )
-                    .add("expires_in" -> token.expires.map(_.toSeconds - nowSeconds))
-                )
-              }
-            case Left(err) => BadRequest(err.toJson)
-      case Left(err) => BadRequest(err.toJson)
+  def tokenApply = AnonBodyOf(parse.form(lila.oauth.AccessTokenRequest.form)): raw =>
+    allow:
+      for
+        prepared <- raw.prepare.raiseIfLeft
+        granted <- env.oAuth.authorizationApi.consume(prepared)
+        token <- env.oAuth.tokenApi.create(granted)
+      yield Ok(
+        Json
+          .obj(
+            "token_type" -> "Bearer",
+            "access_token" -> token.plain
+          )
+          .add("expires_in" -> token.expires.map(_.toSeconds - nowSeconds))
+      )
+    .rescue: err =>
+      BadRequest(err.toJson)
 
-  def legacyTokenApply = AnonBodyOf(parse.form(lila.oauth.AccessTokenRequest.form)):
-    _.prepareLegacy(AccessTokenRequest.BasicAuth.from(req)) match
-      case Right(prepared) =>
-        env.oAuth.authorizationApi
-          .consume(prepared)
-          .flatMap:
-            case Right(granted) =>
-              env.oAuth.tokenApi.create(granted).map { token =>
-                Ok(
-                  Json
-                    .obj(
-                      "token_type" -> "Bearer",
-                      "access_token" -> token.plain,
-                      "refresh_token" -> s"invalid_for_bc_${ThreadLocalRandom.nextString(17)}"
-                    )
-                    .add("expires_in" -> token.expires.map(_.toSeconds - nowSeconds))
-                )
-              }
-            case Left(err) => BadRequest(err.toJson)
-      case Left(err) => BadRequest(err.toJson)
+  def legacyTokenApply = AnonBodyOf(parse.form(lila.oauth.AccessTokenRequest.form)): raw =>
+    allow:
+      for
+        prepared <- raw.prepareLegacy(AccessTokenRequest.BasicAuth.from(req)).raiseIfLeft
+        granted <- env.oAuth.authorizationApi.consume(prepared)
+        token <- env.oAuth.tokenApi.create(granted)
+      yield Ok(
+        Json
+          .obj(
+            "token_type" -> "Bearer",
+            "access_token" -> token.plain,
+            "refresh_token" -> s"invalid_for_bc_${ThreadLocalRandom.nextString(17)}"
+          )
+          .add("expires_in" -> token.expires.map(_.toSeconds - nowSeconds))
+      )
+    .rescue: err =>
+      BadRequest(err.toJson)
 
   def tokenRevoke = Scoped() { ctx ?=> _ ?=>
     HTTPRequest.bearer(ctx.req).so { token =>

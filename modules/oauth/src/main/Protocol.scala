@@ -23,10 +23,8 @@ object Protocol:
   object State extends OpaqueString[State]
 
   object CodeChallengeMethod:
-    def from(codeChallengeMethod: String): Either[Error, Unit] =
-      codeChallengeMethod match
-        case "S256" => ().asRight
-        case _ => Error.UnsupportedCodeChallengeMethod.asLeft
+    def check(codeChallengeMethod: String): Option[Error] =
+      Option.when(codeChallengeMethod != "S256")(Error.UnsupportedCodeChallengeMethod)
 
   opaque type CodeChallenge = String
   object CodeChallenge extends OpaqueString[CodeChallenge]
@@ -43,10 +41,8 @@ object Protocol:
         .map(CodeVerifier(_))
 
   object ResponseType:
-    def from(responseType: String): Either[Error, Unit] =
-      responseType match
-        case "code" => ().asRight
-        case _ => Error.UnsupportedResponseType.asLeft
+    def check(responseType: String): Option[Error] =
+      Option.when(responseType != "code")(Error.UnsupportedResponseType)
 
   object GrantType:
     def from(grantType: String): Either[Error, Unit] =

@@ -44,6 +44,12 @@ trait LilaLibraryExtensions extends CoreExports:
 
     def err(message: => String): A = self.getOrElse(sys.error(message))
 
+    inline def raiseIfNone[E](err: => E): FuRaise[E, A] =
+      self.fold(err.raise)(fuccess)
+
+    inline def raiseIfSome[B](f: => Fu[B]): FuRaise[A, B] =
+      self.fold(f)(_.raise)
+
   extension (self: Boolean)
     def not: Boolean = !self
     // move to scalalib? generalize Future away?
@@ -63,6 +69,8 @@ trait LilaLibraryExtensions extends CoreExports:
         err match
           case e: Exception => Future.failed(e)
           case _ => fufail(err.toString)
+
+    inline def raiseIfLeft: FuRaise[A, B] = v.fold(_.raise, fuccess)
 
   extension [A, B](v: (A, B)) def map2[C](f: B => C): (A, C) = (v._1, f(v._2))
 
