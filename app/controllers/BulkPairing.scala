@@ -73,8 +73,8 @@ final class BulkPairing(gameC: => Game, apiC: => Api, env: Env) extends LilaCont
             BadRequest:
               Json.obj:
                 "tokens" -> JsObject:
-                  tokens.map:
-                    case BadToken(token, error) => token.value -> JsString(error.message)
+                  tokens.map: t =>
+                    t.token.value -> JsString(t.error.message)
           case ScheduleError.DuplicateUsers(users) =>
             BadRequest(Json.obj("duplicateUsers" -> users))
           case error: String => BadRequest(jsonError(error))
