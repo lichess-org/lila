@@ -60,42 +60,40 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
   def tokenApply = AnonBodyOf(parse.form(lila.oauth.AccessTokenRequest.form)):
     _.prepare match
       case Right(prepared) =>
-        env.oAuth.authorizationApi
-          .consume(prepared)
-          .flatMap:
-            case Right(granted) =>
-              env.oAuth.tokenApi.create(granted).map { token =>
-                Ok(
-                  Json
-                    .obj(
-                      "token_type" -> "Bearer",
-                      "access_token" -> token.plain
-                    )
-                    .add("expires_in" -> token.expires.map(_.toSeconds - nowSeconds))
-                )
-              }
-            case Left(err) => BadRequest(err.toJson)
+        allow:
+          for
+            granted <- env.oAuth.authorizationApi.consume(prepared)
+            token <- env.oAuth.tokenApi.create(granted)
+          yield Ok(
+            Json
+              .obj(
+                "token_type" -> "Bearer",
+                "access_token" -> token.plain
+              )
+              .add("expires_in" -> token.expires.map(_.toSeconds - nowSeconds))
+          )
+        .rescue: err =>
+          BadRequest(err.toJson)
       case Left(err) => BadRequest(err.toJson)
 
   def legacyTokenApply = AnonBodyOf(parse.form(lila.oauth.AccessTokenRequest.form)):
     _.prepareLegacy(AccessTokenRequest.BasicAuth.from(req)) match
       case Right(prepared) =>
-        env.oAuth.authorizationApi
-          .consume(prepared)
-          .flatMap:
-            case Right(granted) =>
-              env.oAuth.tokenApi.create(granted).map { token =>
-                Ok(
-                  Json
-                    .obj(
-                      "token_type" -> "Bearer",
-                      "access_token" -> token.plain,
-                      "refresh_token" -> s"invalid_for_bc_${ThreadLocalRandom.nextString(17)}"
-                    )
-                    .add("expires_in" -> token.expires.map(_.toSeconds - nowSeconds))
-                )
-              }
-            case Left(err) => BadRequest(err.toJson)
+        allow:
+          for
+            granted <- env.oAuth.authorizationApi.consume(prepared)
+            token <- env.oAuth.tokenApi.create(granted)
+          yield Ok(
+            Json
+              .obj(
+                "token_type" -> "Bearer",
+                "access_token" -> token.plain,
+                "refresh_token" -> s"invalid_for_bc_${ThreadLocalRandom.nextString(17)}"
+              )
+              .add("expires_in" -> token.expires.map(_.toSeconds - nowSeconds))
+          )
+        .rescue: err =>
+          BadRequest(err.toJson)
       case Left(err) => BadRequest(err.toJson)
 
   def tokenRevoke = Scoped() { ctx ?=> _ ?=>
