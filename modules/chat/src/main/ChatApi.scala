@@ -119,7 +119,7 @@ final class ChatApi(
     def clear(chatId: ChatId) = coll.delete.one($id(chatId)).void
 
     def system(chatId: ChatId, text: String, busChan: BusChan.Select): Funit =
-      val line = UserLine(UserName.lichess, None, false, flair = true, text, troll = false, deleted = false)
+      val line = UserLine(UserName.lichess, text, troll = false, deleted = false)
       for _ <- persistLine(chatId, line)
       yield
         cached.invalidate(chatId)
@@ -127,7 +127,7 @@ final class ChatApi(
 
     // like system, but not persisted.
     def volatile(chatId: ChatId, text: String, busChan: BusChan.Select): Unit =
-      val line = UserLine(UserName.lichess, None, false, flair = true, text, troll = false, deleted = false)
+      val line = UserLine(UserName.lichess, text, troll = false, deleted = false)
       publishLine(chatId, line, busChan)
 
     def timeout(
@@ -186,17 +186,8 @@ final class ChatApi(
           val lineText = scope match
             case ChatTimeout.Scope.Global => s"${user.username} was timed out 15 minutes for ${reason.name}."
             case _ => s"${user.username} was timed out 15 minutes by a page mod (not a Lichess mod)"
-          val line = (isNew && c.hasRecentLine(user)).option(
-            UserLine(
-              username = UserName.lichess,
-              title = None,
-              patron = false,
-              flair = true,
-              text = lineText,
-              troll = false,
-              deleted = false
-            )
-          )
+          val line = (isNew && c.hasRecentLine(user)).option:
+            UserLine(UserName.lichess, text = lineText, troll = false, deleted = false)
           val c2 = c.markDeleted(user)
           val chat = line.fold(c2)(c2.add)
           for _ <- coll.update.one($id(chat.id), chat)
@@ -245,17 +236,8 @@ final class ChatApi(
               val allow =
                 if user.isBot then !lila.common.String.hasLinks(t2)
                 else flood.allowMessage(userId.into(FloodSource), t2)
-              allow.option(
-                UserLine(
-                  user.username,
-                  user.title,
-                  patron = user.isPatron,
-                  flair = user.flair.isDefined,
-                  t2,
-                  troll = user.isTroll,
-                  deleted = false
-                )
-              )
+              allow.option:
+                UserLine(user.username, t2, troll = user.isTroll, deleted = false)
             }
           case _ => none
 
