@@ -73,25 +73,23 @@ object AuthorizationRequest:
         user: UserId,
         legacy: (ClientId, RedirectUri) => Fu[Option[LegacyClientApi.HashedClientSecret]]
     )(using Executor): FuRaise[Error, Authorized] =
-
-      val challengeFu: FuRaise[Error, Either[LegacyClientApi.HashedClientSecret, CodeChallenge]] =
+      val challengeFu =
         codeChallengeMethod.match
           case None =>
-            legacy(clientId, redirectUri).flatMap:
-              case None => Error.CodeChallengeMethodRequired.raise
-              case Some(sec) => fuccess(Left(sec))
+            legacy(clientId, redirectUri)
+              .flatMap(_.raiseIfNone(Error.CodeChallengeMethodRequired))
+              .map(Left(_))
           case Some(method) =>
-            CodeChallengeMethod.check(method) match
-              case Some(err) => err.raise
-              case _ =>
-                codeChallenge.fold(Error.CodeChallengeRequired.raise): challenge =>
-                  fuccess(Right(challenge))
+            CodeChallengeMethod
+              .check(method)
+              .raiseIfSome:
+                codeChallenge.raiseIfNone(Error.CodeChallengeMethodRequired).map(Right(_))
 
       for
         challenge <- challengeFu
         scopes <- validScopes.fold(_.raise, fuccess)
-        _ <- responseType.fold(Error.ResponseTypeRequired.raise): tpe =>
-          ResponseType.check(tpe).fold(funit)(_.raise)
+        tpe <- responseType.raiseIfNone(Error.ResponseTypeRequired)
+        _ <- ResponseType.check(tpe).raiseIfSome(funit)
       yield Authorized(clientId, redirectUri, state, user, scopes, challenge)
 
   case class Authorized(
