@@ -323,12 +323,7 @@ object user:
 
   abstract class RankingRepo(val coll: lila.core.db.AsyncCollFailingSilently)
 
-  type FlairMap = Map[UserId, Flair] // # TODO remove
-  type FlairGet = UserId => Fu[Option[Flair]] // # TODO remove
-  type FlairGetMap = List[UserId] => Fu[FlairMap] // # TODO remove
   trait FlairApi:
-    given flairOf: FlairGet
-    given flairsOf: FlairGetMap
     val adminFlairs: Set[Flair]
     def formField(anyFlair: Boolean = false, asAdmin: Boolean = false): play.api.data.Mapping[Option[Flair]]
     def find(name: String): Option[Flair]
