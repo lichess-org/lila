@@ -18,7 +18,6 @@ final class AutomaticEmail(
 )(using Executor, Translator):
 
   import Mailer.html.*
-
   private val logger = lila.log("mailer")
 
   val regards = """Regards,
@@ -27,7 +26,7 @@ The Lichess team"""
 
   def welcomeEmail(user: User, email: EmailAddress)(using Lang): Funit =
     // BUGFIX: Add null check for username to prevent string interpolation errors
-    if user.username.nonEmpty then
+    if user.username.value.nonEmpty then
       mailer.canSend.so:
         lila.mon.email.send.welcome.increment()
         val profileUrl = s"$baseUrl/@/${user.username}"
@@ -64,7 +63,7 @@ The Lichess team"""
       emailOption <- userApi.email(user.id)
       body = alsoSendAsPrivateMessage(user): _ =>
         // BUGFIX: Add null check for username to prevent string interpolation errors
-        if user.username.nonEmpty then s"""Hello,
+        if user.username.value.nonEmpty then s"""Hello,
 
 Thank you for confirming your $title title on Lichess.
 It is now visible on your profile page: $baseUrl/@/${user.username}.
@@ -141,7 +140,7 @@ $regards
   def delete(user: User): Funit =
     // BUGFIX: Add null check for username to prevent string interpolation errors
     val body =
-      if user.username.nonEmpty then s"""Hello,
+      if user.username.value.nonEmpty then s"""Hello,
 
 Following your request, the Lichess account "${user.username}" will be deleted in 7 days from now.
 
@@ -218,7 +217,7 @@ To make a new donation, head to $baseUrl/patron"""
             if lifetime then "Lifetime Patron wings"
             else "Patron wings for one month"
           // BUGFIX: Add null checks for usernames to prevent null pointer exceptions
-          if from.username.nonEmpty && to.username.nonEmpty then
+          if from.username.value.nonEmpty && to.username.value.nonEmpty then
             alsoSendAsPrivateMessage(from): _ =>
               s"""You gifted @${to.username} $wings. Thank you so much!"""
             alsoSendAsPrivateMessage(to): _ =>
@@ -252,7 +251,7 @@ $baseUrl/patron"""
   ): Funit =
     userApi.withEmails(userId).flatMapz { userWithEmail =>
       // BUGFIX: Add null check for user and validate opponents list
-      if userWithEmail.user.username.nonEmpty && opponents.nonEmpty then
+      if userWithEmail.user.username.value.nonEmpty && opponents.nonEmpty then
         lightUser
           .preloadMany(opponents.flatMap(_.opponentId))
           .flatMap { _ =>
