@@ -4,6 +4,7 @@ import play.api.libs.json.{ JsNull, JsObject, JsValue, Json }
 import play.api.mvc.*
 import scalalib.ThreadLocalRandom
 import scalatags.Text.all.stringFrag
+import cats.mtl.Handle.*
 
 import lila.app.*
 import lila.common.HTTPRequest
@@ -47,14 +48,13 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
 
   def authorizeApply = Auth { _ ?=> me ?=>
     withPrompt: prompt =>
-      prompt
-        .authorize(me, env.oAuth.legacyClientApi.apply)
-        .flatMap:
-          case Right(authorized) =>
-            env.oAuth.authorizationApi.create(authorized).map { code =>
-              SeeOther(authorized.redirectUrl(code))
-            }
-          case Left(error) => SeeOther(prompt.redirectUri.error(error, prompt.state))
+      allow:
+        for
+          authorized <- prompt.authorize(me, env.oAuth.legacyClientApi.apply)
+          code <- env.oAuth.authorizationApi.create(authorized)
+        yield SeeOther(authorized.redirectUrl(code))
+      .rescue: error =>
+        SeeOther(prompt.redirectUri.error(error, prompt.state))
   }
 
   def tokenApply = AnonBodyOf(parse.form(lila.oauth.AccessTokenRequest.form)):
