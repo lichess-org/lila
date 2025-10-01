@@ -9,7 +9,6 @@ import lila.core.i18n.Translator
 import lila.core.lilaism.LilaException
 import lila.core.misc.mailer.CorrespondenceOpponent
 import lila.core.msg.SystemMsg
-import lila.core.ublog.Logger
 
 final class AutomaticEmail(
     userApi: lila.core.user.UserApi,
@@ -19,8 +18,8 @@ final class AutomaticEmail(
 )(using Executor, Translator):
 
   import Mailer.html.*
-  
-  private val logger = lila.core.ublog.logger("mailer")
+
+  private val logger = lila.log("mailer")
 
   val regards = """Regards,
 
@@ -28,7 +27,7 @@ The Lichess team"""
 
   def welcomeEmail(user: User, email: EmailAddress)(using Lang): Funit =
     // BUGFIX: Add null check for username to prevent string interpolation errors
-    if (user.username.nonEmpty) {
+    if user.username.nonEmpty then
       mailer.canSend.so:
         lila.mon.email.send.welcome.increment()
         val profileUrl = s"$baseUrl/@/${user.username}"
@@ -42,24 +41,22 @@ The Lichess team"""
               trans.welcome_text.txt(profileUrl, editUrl)
             ).some
           )
-    } else {
+    else
       // BUGFIX: Log error and return failure for invalid user
       logger.error(s"Failed to send welcome email: user has empty username")
       Future.failed(new IllegalArgumentException("User has empty username"))
-    }
 
-  def welcomePM(user: User): Funit = 
-    try {
+  def welcomePM(user: User): Funit =
+    try
       alsoSendAsPrivateMessage(user): lang =>
         given Lang = lang
         import lila.core.i18n.I18nKey as trans
         s"""${trans.onboarding.welcome.txt()}\n${trans.site.lichessPatronInfo.txt()}"""
       fuccess(())
-    } catch {
+    catch
       case e: Exception =>
         logger.error(s"Failed to send welcome PM to user ${user.username}: ${e.getMessage}")
         Future.failed(e)
-    }
 
   def onTitleSet(username: UserStr, title: chess.PlayerTitle): Funit = {
     for
@@ -67,23 +64,20 @@ The Lichess team"""
       emailOption <- userApi.email(user.id)
       body = alsoSendAsPrivateMessage(user): _ =>
         // BUGFIX: Add null check for username to prevent string interpolation errors
-        if (user.username.nonEmpty) {
-          s"""Hello,
+        if user.username.nonEmpty then s"""Hello,
 
 Thank you for confirming your $title title on Lichess.
 It is now visible on your profile page: $baseUrl/@/${user.username}.
 
 $regards
 """
-        } else {
-          s"""Hello,
+        else s"""Hello,
 
 Thank you for confirming your $title title on Lichess.
 It is now visible on your profile page.
 
 $regards
 """
-        }
       _ <- emailOption.so { email =>
         given Lang = userLang(user)
         mailer.sendOrSkip:
@@ -95,7 +89,7 @@ $regards
           )
       }
     yield ()
-  }.recover { 
+  }.recover {
     case e: LilaException =>
       logger.info(e.message)
     case e: Exception =>
@@ -146,36 +140,37 @@ $regards
 
   def delete(user: User): Funit =
     // BUGFIX: Add null check for username to prevent string interpolation errors
-    val body = if (user.username.nonEmpty) {
-      s"""Hello,
+    val body =
+      if user.username.nonEmpty then s"""Hello,
 
 Following your request, the Lichess account "${user.username}" will be deleted in 7 days from now.
 
 $regards
 """
-    } else {
-      s"""Hello,
+      else s"""Hello,
 
 Following your request, the Lichess account will be deleted in 7 days from now.
 
 $regards
 """
-    }
-    userApi.emailOrPrevious(user.id).flatMapz { email =>
-      given Lang = userLang(user)
-      mailer.sendOrSkip:
-        Mailer.Message(
-          to = email,
-          subject = "lichess.org account deletion",
-          text = Mailer.txt.addServiceNote(body),
-          htmlBody = standardEmail(body).some
-        )
-    }.recover {
-      // BUGFIX: Add error handling for email retrieval failures
-      case e: Exception =>
-        logger.error(s"Failed to send deletion email to ${user.username}: ${e.getMessage}")
-        fuccess(())
-    }
+    userApi
+      .emailOrPrevious(user.id)
+      .flatMapz { email =>
+        given Lang = userLang(user)
+        mailer.sendOrSkip:
+          Mailer.Message(
+            to = email,
+            subject = "lichess.org account deletion",
+            text = Mailer.txt.addServiceNote(body),
+            htmlBody = standardEmail(body).some
+          )
+      }
+      .recover {
+        // BUGFIX: Add error handling for email retrieval failures
+        case e: Exception =>
+          logger.error(s"Failed to send deletion email to ${user.username}: ${e.getMessage}")
+          fuccess(())
+      }
 
   def onPatronNew(userId: UserId): Funit =
     userApi
@@ -223,33 +218,33 @@ To make a new donation, head to $baseUrl/patron"""
             if lifetime then "Lifetime Patron wings"
             else "Patron wings for one month"
           // BUGFIX: Add null checks for usernames to prevent null pointer exceptions
-          if (from.username.nonEmpty && to.username.nonEmpty) {
+          if from.username.nonEmpty && to.username.nonEmpty then
             alsoSendAsPrivateMessage(from): _ =>
               s"""You gifted @${to.username} $wings. Thank you so much!"""
             alsoSendAsPrivateMessage(to): _ =>
               s"""@${from.username} gifted you $wings!"""
             fuccess(())
-          } else {
-            logger.error(s"Failed to send patron gift notification: invalid usernames from=${from.username}, to=${to.username}")
+          else
+            logger.error(
+              s"Failed to send patron gift notification: invalid usernames from=${from.username}, to=${to.username}"
+            )
             Future.failed(new IllegalArgumentException("Invalid usernames for patron gift"))
-          }
         case None =>
           logger.error(s"Failed to send patron gift notification: could not find users from=$from, to=$to")
           Future.failed(new IllegalArgumentException("Users not found for patron gift"))
 
-  def onPatronFree(dest: User): Funit =  // BUGFIX: Change return type from Unit to Funit for consistency
-    try {
+  def onPatronFree(dest: User): Funit = // BUGFIX: Change return type from Unit to Funit for consistency
+    try
       alsoSendAsPrivateMessage(dest)(
         body = _ => s"""Thank you for being an active member of our community!
 As a token of our appreciation, you have been gifted Patron Wings for a month.
 $baseUrl/patron"""
       )
       fuccess(())
-    } catch {
+    catch
       case e: Exception =>
         logger.error(s"Failed to send patron free notification to user ${dest.username}: ${e.getMessage}")
         Future.failed(e)
-    }
 
   private[mailer] def dailyCorrespondenceNotice(
       userId: UserId,
@@ -257,73 +252,73 @@ $baseUrl/patron"""
   ): Funit =
     userApi.withEmails(userId).flatMapz { userWithEmail =>
       // BUGFIX: Add null check for user and validate opponents list
-      if (userWithEmail.user.username.nonEmpty && opponents.nonEmpty) {
-        lightUser.preloadMany(opponents.flatMap(_.opponentId)).flatMap { _ =>
-          userWithEmail.emails.current
-            .filterNot(_.isNoReply)
-            .so: email =>
-              given Lang = userLang(userWithEmail.user)
-              val hello =
-                "Hello and thank you for playing correspondence chess on Lichess!"
-              val disableSettingNotice =
-                "You are receiving this email because you have correspondence email notification turned on. You can turn it off in your settings:"
-              val disableLink = s"$baseUrl/account/preferences/notification#correspondence-email-notif"
-              mailer.sendOrSkip:
-                Mailer.Message(
-                  to = email,
-                  subject = "Daily correspondence notice",
-                  text = Mailer.txt.addServiceNote {
-                    s"""$hello
+      if userWithEmail.user.username.nonEmpty && opponents.nonEmpty then
+        lightUser
+          .preloadMany(opponents.flatMap(_.opponentId))
+          .flatMap { _ =>
+            userWithEmail.emails.current
+              .filterNot(_.isNoReply)
+              .so: email =>
+                given Lang = userLang(userWithEmail.user)
+                val hello =
+                  "Hello and thank you for playing correspondence chess on Lichess!"
+                val disableSettingNotice =
+                  "You are receiving this email because you have correspondence email notification turned on. You can turn it off in your settings:"
+                val disableLink = s"$baseUrl/account/preferences/notification#correspondence-email-notif"
+                mailer.sendOrSkip:
+                  Mailer.Message(
+                    to = email,
+                    subject = "Daily correspondence notice",
+                    text = Mailer.txt.addServiceNote {
+                      s"""$hello
 
 ${opponents.map { opponent => s"${showGame(opponent)} $baseUrl/${opponent.gameId}" }.mkString("\n\n")}
 
 $disableSettingNotice $disableLink"""
-                  },
-                  htmlBody = emailMessage(
-                    p(hello),
-                    opponents.map: opponent =>
-                      li(
-                        showGame(opponent),
-                        Mailer.html.url(s"$baseUrl/${opponent.gameId}", clickOrPaste = false)
-                      ),
-                    disableSettingNotice,
-                    Mailer.html.url(disableLink),
-                    serviceNote
-                  ).some
-                )
-        }.recover {
-          case e: Exception =>
+                    },
+                    htmlBody = emailMessage(
+                      p(hello),
+                      opponents.map: opponent =>
+                        li(
+                          showGame(opponent),
+                          Mailer.html.url(s"$baseUrl/${opponent.gameId}", clickOrPaste = false)
+                        ),
+                      disableSettingNotice,
+                      Mailer.html.url(disableLink),
+                      serviceNote
+                    ).some
+                  )
+          }
+          .recover { case e: Exception =>
             logger.error(s"Failed to send correspondence notice to user $userId: ${e.getMessage}")
             fuccess(())
-        }
-      } else {
+          }
+      else
         logger.warn(s"Skipping correspondence notice for user $userId: invalid user or empty opponents list")
         fuccess(())
-      }
     }
 
   private def showGame(opponent: CorrespondenceOpponent)(using Lang) =
-    try {
-      val opponentName = opponent.opponentId.fold("Anonymous")(id => 
-        try lightUser.syncFallback(id).name catch { case _: Exception => "Anonymous" }
+    try
+      val opponentName = opponent.opponentId.fold("Anonymous")(id =>
+        try lightUser.syncFallback(id).name
+        catch case _: Exception => "Anonymous"
       )
       opponent.remainingTime.fold(s"It's your turn in your game with $opponentName:"): remainingTime =>
         s"You have ${lila.core.i18n.translateDuration(remainingTime)} remaining in your game with $opponentName:"
-    } catch {
+    catch
       case e: Exception =>
         logger.error(s"Failed to show game for opponent: ${e.getMessage}")
         "Your correspondence game"
-    }
 
   private def alsoSendAsPrivateMessage(user: User)(body: Lang => String): String =
-    try {
+    try
       body(userLang(user)).tap: txt =>
         lila.common.Bus.pub(SystemMsg(user.id, txt))
-    } catch {
+    catch
       case e: Exception =>
         logger.error(s"Failed to send private message to user ${user.username}: ${e.getMessage}")
         throw e
-    }
 
   private def sendAsPrivateMessageAndEmail(user: User)(subject: Lang => String, body: Lang => String): Funit =
     alsoSendAsPrivateMessage(user)(body).pipe: body =>
@@ -338,10 +333,9 @@ $disableSettingNotice $disableLink"""
               text = Mailer.txt.addServiceNote(body),
               htmlBody = standardEmail(body).some
             )
-        .recover {
-          case e: Exception =>
-            logger.error(s"Failed to send email to user ${user.username}: ${e.getMessage}")
-            fuccess(())
+        .recover { case e: Exception =>
+          logger.error(s"Failed to send email to user ${user.username}: ${e.getMessage}")
+          fuccess(())
         }
 
   private def sendAsPrivateMessageAndEmail[U: UserIdOf](
@@ -351,10 +345,9 @@ $disableSettingNotice $disableLink"""
       .byId(to)
       .flatMapz: user =>
         sendAsPrivateMessageAndEmail(user)(subject, body)
-      .recover {
-        case e: Exception =>
-          logger.error(s"Failed to send email to user ID $to: ${e.getMessage}")
-          fuccess(())
+      .recover { case e: Exception =>
+        logger.error(s"Failed to send email to user ID $to: ${e.getMessage}")
+        fuccess(())
       }
 
   private def userLang(user: User): Lang = user.realLang | lila.core.i18n.defaultLang
