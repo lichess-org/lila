@@ -88,8 +88,6 @@ final class ChallengeBulkSetupApi(
 
   import ChallengeBulkSetup.*
 
-  type Result = Either[ScheduleError, ScheduledBulk]
-
   private val rateLimit = lila.memo.RateLimit[UserId](
     credits = maxGames * 3,
     duration = 10.minutes,
