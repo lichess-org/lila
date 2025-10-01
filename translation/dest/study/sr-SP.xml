@@ -49,7 +49,7 @@
   <string name="annotateWithGlyphs">Прибележи глифовима</string>
   <string name="theChapterIsTooShortToBeAnalysed">Поглавље је прекратко да би се анализирало.</string>
   <string name="onlyContributorsCanRequestAnalysis">Само доприносиоци студије могу захтевати рачунарску анализу.</string>
-  <string name="getAFullComputerAnalysis">Добијте потпуну рачунарску анализу главне варијације од стране сервера.</string>
+  <string name="getAFullComputerAnalysis">Добиј комплетну рачунарску анализу главне варијације од стране сервера.</string>
   <string name="makeSureTheChapterIsComplete">Побрини се да је поглавље завршено. Можеш само једном захтевати анализу.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Сви SYNC чланови остају на истој позицији</string>
   <string name="shareChanges">Дели измене са посматрачима и сачувај их на серверу</string>
