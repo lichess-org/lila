@@ -23,7 +23,7 @@ final private class ChallengeJoiner(
               val game = ChallengeJoiner.createGame(c, origUser, destUser)
               gameRepo
                 .insertDenormalized(game)
-                .inject:
+                .as:
                   onStart.exec(game.id)
                   Pov(game, !c.finalColor)
 
