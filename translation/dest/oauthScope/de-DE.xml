@@ -22,18 +22,18 @@
   <string name="teamRead">Private Team-Informationen lesen</string>
   <string name="teamWrite">Teams beitreten und verlassen</string>
   <string name="teamLead">Verwalte von dir geleitete Teams: Sende PMs, entferne Mitglieder</string>
-  <string name="followRead">Gefolgte Spieler lesen</string>
+  <string name="followRead">Gefolge Spieler lesen</string>
   <string name="followWrite">Anderen Spielern folgen und entfolgen</string>
   <string name="msgWrite">Anderen Spielern private Nachrichten senden</string>
   <string name="boardPlay">Partien mit der Board-API spielen</string>
   <string name="botPlay">Partien mit der Bot-API spielen</string>
-  <string name="engineRead">Deine externen Engines anzeigen und benutzen</string>
-  <string name="engineWrite">Externe Engines erstellen und aktualisieren</string>
+  <string name="engineRead">Deine externen Engine</string>
+  <string name="engineWrite">Externe Engine</string>
   <string name="webLogin">Authentifizierte Website-Sitzungen erstellen (gewährt vollen Zugriff!)</string>
   <string name="webMod">Moderator-Werkzeuge verwenden (innerhalb der Grenzen deiner Berechtigung)</string>
   <string name="personalAccessTokens">Persönlicher API-Zugangsschlüssel</string>
   <string name="canMakeOauthRequests">Du kannst OAuth-Anfragen erstellen, ohne den %s zu durchlaufen.</string>
-  <string name="authorizationCodeFlow">Autorisierungs-Code-Prozess</string>
+  <string name="authorizationCodeFlow">Autorisierung-Code-Prozess</string>
   <string name="insteadGenerateToken" comment="The parameter is a link to generate a token a personal access token">Stattdessen %s, den du direkt in deinen API-Anfragen benutzen kannst.</string>
   <string name="generatePersonalToken">generiere einen persönlichen Zugangs-Schlüssel</string>
   <string name="guardTokensCarefully">Hüte diese Schlüssel gewissenhaft! Sie sind wie Passwörter. Der Vorteil bei der Verwendung von Schlüsseln anstelle von Passwörtern in Skripten ist, dass Schlüssel widerrufen werden können und du viele von ihnen generieren kannst.</string>
