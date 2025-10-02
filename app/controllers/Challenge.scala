@@ -207,9 +207,8 @@ final class Challenge(env: Env) extends LilaController(env):
                     .game(id.into(GameId))
                     .dmap:
                       _.flatMap { Pov(_, me) }
-                    .flatMapz { p =>
+                    .flatMapz: p =>
                       env.round.proxyRepo.upgradeIfPresent(p).dmap(some)
-                    }
                     .flatMap:
                       case Some(pov) if pov.game.abortableByUser =>
                         lila.common.Bus.pub(Tell(pov.gameId, RoundBus.Abort(pov.playerId)))
@@ -218,14 +217,18 @@ final class Challenge(env: Env) extends LilaController(env):
                         Bearer.from(get("opponentToken")) match
                           case Some(bearer) =>
                             val required = OAuthScope.select(_.Challenge.Write).into(EndpointScopes)
-                            env.oAuth.server
-                              .auth(bearer, required, ctx.req.some)
-                              .map:
-                                case Right(access) if pov.opponent.isUser(access.me) =>
-                                  lila.common.Bus.pub(Tell(pov.gameId, RoundBus.AbortForce))
-                                  jsonOkResult
-                                case Right(_) => BadRequest(jsonError("Not the opponent token"))
-                                case Left(err) => BadRequest(jsonError(err.message))
+                            allow:
+                              for
+                                access <- env.oAuth.server.auth(bearer, required, ctx.req.some)
+                                _ <- raiseUnless(
+                                  pov.opponent.isUser(access.me),
+                                  OAuthServer.AuthError("Not the opponent token")
+                                )(funit)
+                              yield
+                                lila.common.Bus.pub(Tell(pov.gameId, RoundBus.AbortForce))
+                                jsonOkResult
+                            .rescue: err =>
+                              BadRequest(jsonError(err.message))
                           case None if api.isOpenBy(id, me) =>
                             if pov.game.abortable then
                               lila.common.Bus.pub(Tell(pov.gameId, RoundBus.AbortForce))
@@ -240,23 +243,23 @@ final class Challenge(env: Env) extends LilaController(env):
       def startNow =
         env.round.roundApi.tell(game.id, lila.core.round.StartClock)
         jsonOkResult
-      if game.hasAi
-      then
-        getAs[Bearer]("token1")
-          .traverse(env.oAuth.server.auth(_, accepted, req.some))
-          .mapz:
-            case Left(e) => handleScopedFail(accepted, e).some
-            case Right(a) if game.hasUserId(a.scoped.user.id) => startNow.some
-            case _ => none
-          .getOrElse(notFoundJson())
-      else
-        (getAs[Bearer]("token1"), getAs[Bearer]("token2"))
-          .mapN(env.oAuth.server.authBoth(accepted, req))
-          .so:
-            _.map:
-              case Left(e) => handleScopedFail(accepted, e)
-              case Right((u1, u2)) if game.hasUserIds(u1.id, u2.id) => startNow
-              case _ => notFoundJson()
+      allow:
+        for res <-
+            if game.hasAi
+            then
+              getAs[Bearer]("token1")
+                .traverse(env.oAuth.server.auth(_, accepted, req.some))
+                .map:
+                  _.exists(a => game.hasUserId(a.scoped.user.id)).option(startNow)
+            else
+              (getAs[Bearer]("token1"), getAs[Bearer]("token2"))
+                .mapN(env.oAuth.server.authBoth(accepted, req))
+                .so:
+                  _.map: (u1, u2) =>
+                    game.hasUserIds(u1.id, u2.id).option(startNow)
+        yield res | notFoundJson()
+      .rescue: err =>
+        handleScopedFail(accepted, err)
 
   def toFriend(id: ChallengeId) = AuthBody { ctx ?=> _ ?=>
     Found(api.byId(id)): c =>

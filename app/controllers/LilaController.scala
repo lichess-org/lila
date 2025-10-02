@@ -1,5 +1,6 @@
 package controllers
 
+import cats.mtl.Handle.*
 import play.api.data.{ Form, FormBinding }
 import play.api.http.*
 import play.api.libs.json.Writes
@@ -249,15 +250,14 @@ abstract private[controllers] class LilaController(val env: Env)
 
   private def handleScopedCommon(selectors: Seq[OAuthScope.Selector])(using
       req: RequestHeader
-  )(
-      f: OAuthScope.Scoped => Fu[Result]
-  ) =
+  )(f: OAuthScope.Scoped => Fu[Result]) =
     val accepted = OAuthScope.select(selectors).into(EndpointScopes)
-    env.security.api
-      .oauthScoped(req, accepted)
-      .flatMap:
-        case Left(e) => handleScopedFail(accepted, e)
-        case Right(scoped) => f(scoped).map(OAuthServer.responseHeaders(accepted, scoped.scopes))
+    allow:
+      for
+        scoped <- env.security.api.oauthScoped(req, accepted)
+        res <- f(scoped)
+      yield OAuthServer.responseHeaders(accepted, scoped.scopes)(res)
+    .rescue(handleScopedFail(accepted, _))
 
   def handleScopedFail(accepted: EndpointScopes, e: OAuthServer.AuthError) = e match
     case e @ lila.oauth.OAuthServer.MissingScope(_, available) =>
