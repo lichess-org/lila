@@ -1,6 +1,6 @@
-import { Pieces, Pos } from '@lichess-org/chessground/types';
+import type { Pieces, Pos } from '@lichess-org/chessground/types';
 import { key2pos, pos2key } from '@lichess-org/chessground/util';
-import { keyFromAttrs, MoveStyle, renderKey, transPieceStr } from './chess';
+import { keyFromAttrs, type MoveStyle, renderKey, transPieceStr } from './chess';
 
 const directions = ['top', 'topRight', 'right', 'bottomRight', 'bottom', 'bottomLeft', 'left', 'topLeft'];
 type Direction = (typeof directions)[number];
