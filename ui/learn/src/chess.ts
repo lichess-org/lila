@@ -118,10 +118,12 @@ export default function (fen: string, appleKeys: SquareName[]): ChessCtrl {
     return kingSq !== undefined ? makeSquare(kingSq) : undefined;
   };
 
-  const dests = (pos: LearnVariant, opts?: { illegal?: boolean }) =>
-    chessgroundDests(
+  const dests = (pos: LearnVariant, opts?: { illegal?: boolean }) => {
+    if (!pos.isCheck() && moves(pos).length === 0) return {};
+    return chessgroundDests(
       opts?.illegal || !kingKey(pos.turn) ? cloneWithAntichessDests(pos) : cloneWithChessDests(pos),
     );
+  };
 
   return {
     dests: dests,
