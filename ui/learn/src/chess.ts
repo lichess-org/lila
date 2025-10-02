@@ -119,7 +119,7 @@ export default function (fen: string, appleKeys: SquareName[]): ChessCtrl {
   };
 
   const dests = (pos: LearnVariant, opts?: { illegal?: boolean }) => {
-    if (!pos.isCheck() && moves(pos).length === 0) return {};
+    if (moves(pos).length === 0) return {};
     return chessgroundDests(
       opts?.illegal || !kingKey(pos.turn) ? cloneWithAntichessDests(pos) : cloneWithChessDests(pos),
     );
