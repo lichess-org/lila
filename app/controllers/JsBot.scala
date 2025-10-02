@@ -5,7 +5,7 @@ import play.api.mvc.*
 
 import lila.app.{ given, * }
 import lila.common.Json.given
-import lila.jsBot.{ AssetType, BotJson }
+import lila.jsBot.{ BotUid, AssetType, BotJson }
 
 final class JsBot(env: Env) extends LilaController(env):
 
@@ -36,9 +36,9 @@ final class JsBot(env: Env) extends LilaController(env):
     env.jsBot.api.devGetAssets.map(JsonOk)
   }
 
-  def devBotHistory(botId: Option[UserStr]) = Secure(_.BotEditor) { _ ?=> _ ?=>
+  def devBotHistory(botId: Option[String]) = Secure(_.BotEditor) { _ ?=> _ ?=>
     env.jsBot.repo
-      .getVersions(botId.map(_.id))
+      .getVersions(BotUid.from(botId))
       .map: history =>
         JsonOk(Json.obj("bots" -> history))
   }

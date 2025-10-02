@@ -370,7 +370,7 @@ GET   /bots                           controllers.JsBot.index
 GET   /bots/assets                    controllers.JsBot.assetKeys
 # GET   /bots/test                      controllers.JsBot.test
 GET   /bots/dev                       controllers.JsBot.devIndex
-GET   /bots/dev/history               controllers.JsBot.devBotHistory(id: Option[UserStr])
+GET   /bots/dev/history               controllers.JsBot.devBotHistory(id: Option[String])
 POST  /bots/dev/bot                   controllers.JsBot.devPostBot
 GET   /bots/dev/assets                controllers.JsBot.devAssets
 POST  /bots/dev/asset/$tpe<sound|image|book>/$key<\w{12}(\.\w{2,4})?> controllers.JsBot.devPostAsset(tpe: String, key: String)
