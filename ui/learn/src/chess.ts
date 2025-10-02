@@ -98,7 +98,7 @@ export default function (fen: string, appleKeys: SquareName[]): ChessCtrl {
   const moves = (pos: LearnVariant): NormalMove[] =>
     Array.from(dests(pos)).reduce<NormalMove[]>(
       (prev, [orig, dests]) =>
-        prev.concat(dests.map((dest: SquareName): NormalMove => ({ from: parseSquare(orig), to: parseSquare(dest) }))), 
+        prev.concat(dests.map((dest: SquareName): NormalMove => ({ from: parseSquare(orig), to: parseSquare(dest) }))),
       [],
     );
 
