@@ -1,4 +1,4 @@
- import { parseFen, makeBoardFen } from 'chessops/fen';
+import { parseFen, makeBoardFen } from 'chessops/fen';
 import {
   parseSquare,
   makeSquare,
