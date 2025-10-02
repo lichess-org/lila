@@ -18,73 +18,50 @@ final class OAuthServer(
 
   import OAuthServer.*
 
-  def auth(req: RequestHeader, accepted: EndpointScopes): Fu[AccessResult] =
-    HTTPRequest
-      .bearer(req)
-      .fold(fufail(MissingAuthorizationHeader)):
-        auth(_, accepted, req.some)
-      .map(checkOauthUaUser(HTTPRequest.userAgent(req)))
-      .recover:
-        case e: AuthError => Left(e)
-      .addEffect: res =>
-        monitorAuth(res.isRight)
+  def authReq(req: RequestHeader, accepted: EndpointScopes): AccessFu =
+    val res = for
+      bearer <- HTTPRequest.bearer(req).raiseIfNone(MissingAuthorizationHeader)
+      res <- auth(bearer, accepted, req.some)
+      _ <- checkOauthUaUser(res, HTTPRequest.userAgent(req)).raiseIfSome(funit)
+    yield res
+    res.onComplete(x => monitorAuth(x.isSuccess))
+    res
 
-  def auth(
-      tokenId: Bearer,
-      accepted: EndpointScopes,
-      andLogReq: Option[RequestHeader]
-  ): Fu[AccessResult] =
-    getTokenFromSignedBearer(tokenId)
-      .orFailWith(NoSuchToken)
-      .flatMap: at =>
-        if !accepted.isEmpty && !accepted.compatible(at.scopes)
-        then fufail(MissingScope(accepted, at.scopes))
-        else
-          userApi
-            .me(at.userId)
-            .flatMap:
-              case None => fufail(NoSuchUser)
-              case Some(u) =>
-                val blocked =
-                  at.clientOrigin.exists(origin => originBlocklist.get().value.exists(origin.contains))
-                andLogReq
-                  .filter: req =>
-                    blocked || {
-                      u.isnt(UserId.explorer) && !HTTPRequest.looksLikeLichessBot(req)
-                    }
-                  .foreach: req =>
-                    def logMsg =
-                      s"${if blocked then "block" else "auth"} ${at.clientOrigin | "-"} as ${u.username} ${HTTPRequest.print(req).take(200)}"
-                    if blocked
-                    then logger.info(logMsg)
-                    else logger.debug(logMsg)
-                if blocked then fufail(OriginBlocked)
-                else fuccess(OAuthScope.Access(OAuthScope.Scoped(u, at.scopes), at.tokenId))
-      .dmap(Right(_))
-      .recover:
-        case e: AuthError => Left(e)
+  def auth(tokenId: Bearer, accepted: EndpointScopes, andLogReq: Option[RequestHeader]): AccessFu = for
+    at <- getTokenFromSignedBearer(tokenId)
+    at <- at.raiseIfNone(NoSuchToken)
+    _ <- raiseIf(
+      !accepted.isEmpty && !accepted.compatible(at.scopes),
+      MissingScope(accepted, at.scopes)
+    )(funit)
+    u <- userApi.me(at.userId)
+    u <- u.raiseIfNone(NoSuchUser)
+    blocked = at.clientOrigin.exists(origin => originBlocklist.get().value.exists(origin.contains))
+    _ = andLogReq
+      .filter: req =>
+        blocked || (u.isnt(UserId.explorer) && !HTTPRequest.looksLikeLichessBot(req))
+      .foreach: req =>
+        def logMsg =
+          s"${if blocked then "block" else "auth"} ${at.clientOrigin | "-"} as ${u.username} ${HTTPRequest.print(req).take(200)}"
+        if blocked then logger.info(logMsg) else logger.debug(logMsg)
+    _ <- raiseIf(blocked, OriginBlocked)(funit)
+  yield OAuthScope.Access(OAuthScope.Scoped(u, at.scopes), at.tokenId)
 
   def authBoth(scopes: EndpointScopes, req: RequestHeader)(
       token1: Bearer,
       token2: Bearer
-  ): Fu[Either[AuthError, (User, User)]] = for
+  ): FuRaise[AuthError, (User, User)] = for
     auth1 <- auth(token1, scopes, req.some)
     auth2 <- auth(token2, scopes, req.some)
-  yield for
-    user1 <- auth1
-    user2 <- auth2
-    result <-
-      if user1.user.is(user2.user)
-      then Left(OneUserWithTwoTokens)
-      else Right(user1.user -> user2.user)
+    result <- raiseIf(auth1.user.is(auth2.user), OneUserWithTwoTokens):
+      fuccess(auth1.user -> auth2.user)
   yield result
 
   val UaUserRegex = """(?:user|as):\s?([\w\-]{3,31})""".r
-  private def checkOauthUaUser(ua: UserAgent)(access: AccessResult): AccessResult =
-    access.flatMap: a =>
-      ua.value match
-        case UaUserRegex(u) if a.me.isnt(UserStr(u)) => Left(UserAgentMismatch)
-        case _ => Right(a)
+  private def checkOauthUaUser(access: OAuthScope.Access, ua: UserAgent): Option[AuthError] =
+    ua.value match
+      case UaUserRegex(u) if access.me.isnt(UserStr(u)) => UserAgentMismatch.some
+      case _ => none
 
   private val bearerSigners = mobileSecrets.map(s => Algo.hmac(s.value))
 
@@ -109,10 +86,10 @@ final class OAuthServer(
 
 object OAuthServer:
 
-  type AccessResult = Either[AuthError, OAuthScope.Access]
-  type AuthResult = Either[AuthError, OAuthScope.Scoped]
+  type AccessFu = FuRaise[AuthError, OAuthScope.Access]
+  type AuthFu = FuRaise[AuthError, OAuthScope.Scoped]
 
-  sealed abstract class AuthError(val message: String) extends lila.core.lilaism.LilaException
+  class AuthError(val message: String)
   case object MissingAuthorizationHeader extends AuthError("Missing authorization header")
   case object NoSuchToken extends AuthError("No such token")
   case class MissingScope(accepted: EndpointScopes, available: TokenScopes)

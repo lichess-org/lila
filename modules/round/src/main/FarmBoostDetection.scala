@@ -1,7 +1,7 @@
 package lila.round
 
 import scalalib.future.FutureAfter
-import chess.ByColor
+import chess.{ ByColor, IntRating }
 
 import lila.core.LightUser.IsBotSync
 import lila.core.perf.UserWithPerfs
@@ -37,11 +37,23 @@ final private class FarmBoostDetection(
               if _ then lila.mon.round.farming.bot.increment()
 
   def newAccountBoosting(g: Game, users: ByColor[UserWithPerfs]): Fu[Boolean] =
-    g.winnerColor
-      .map(users(_))
-      .filterNot(_.user.createdSinceDays(7))
-      .so: winner =>
-        val perf = winner.perfs(g.perfKey)
+    newAccountBoostingWin(g, users) >>| newAccountBoostingDraw(g, users)
+
+  private def newAccountBoostingDraw(g: Game, users: ByColor[UserWithPerfs]): Fu[Boolean] =
+    (g.status == chess.Status.Draw).so:
+      users.zipColor
+        .find: (c, u) =>
+          u.perfs(g.perfKey).intRating < (users(!c).perfs(g.perfKey).intRating - IntRating(150))
+        .map(_._1) // color of the lower rated player
+        .so(newAccountBoostingInFavorOf(g, users, _))
+
+  private def newAccountBoostingWin(g: Game, users: ByColor[UserWithPerfs]): Fu[Boolean] =
+    g.winnerColor.so(newAccountBoostingInFavorOf(g, users, _))
+
+  private def newAccountBoostingInFavorOf(g: Game, users: ByColor[UserWithPerfs], favor: Color): Fu[Boolean] =
+    (!users(favor).user.createdSinceDays(7).not)
+      .so:
+        val perf = users(favor).perfs(g.perfKey)
         val minSeconds = linearInterpolation(perf.nb)(0 -> 90, 5 -> 60)
         def minPliesForPerfNb =
           if g.variant.standard

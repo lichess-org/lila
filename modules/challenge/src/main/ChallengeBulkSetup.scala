@@ -1,5 +1,6 @@
 package lila.challenge
 
+import cats.mtl.Handle.*
 import akka.stream.scaladsl.*
 import chess.format.Fen
 import chess.variant.{ FromPosition, Variant }
@@ -99,10 +100,12 @@ final class ChallengeBulkSetupApi(
       .mapConcat: (whiteToken, blackToken) =>
         List(whiteToken, blackToken) // flatten now, re-pair later!
       .mapAsync(8): token =>
-        oauthServer
-          .auth(token, OAuthScope.select(_.Challenge.Write).into(EndpointScopes), none)
-          .map:
-            _.left.map { BadToken(token, _) }
+        allow:
+          oauthServer
+            .auth(token, OAuthScope.select(_.Challenge.Write).into(EndpointScopes), none)
+            .map(Right(_))
+        .rescue: err =>
+          fuccess(Left(BadToken(token, err)))
       .runFold[Either[List[BadToken], List[UserId]]](Right(Nil)):
         case (Left(bads), Left(bad)) => Left(bad :: bads)
         case (Left(bads), _) => Left(bads)
