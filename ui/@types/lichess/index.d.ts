@@ -72,6 +72,7 @@ interface LichessPowertip {
   manualGame(el: HTMLElement): void;
   manualUser(el: HTMLElement): void;
   manualUserIn(parent: HTMLElement): void;
+  forcePlacementHook?: (el: HTMLElement) => PowerTip.Placement | null;
 }
 
 interface QuestionChoice {

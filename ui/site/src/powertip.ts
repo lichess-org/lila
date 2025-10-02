@@ -326,6 +326,8 @@ function placementCalculator() {
       tipHeight: number,
       offset: number,
     ) {
+      placement = site.powertip.forcePlacementHook?.(element[0]!) ?? placement;
+
       const placementBase = placement.split('-')[0], // ignore 'alt' for corners
         coords = cssCoordinates(),
         position = getHtmlPlacement(element, placementBase);
