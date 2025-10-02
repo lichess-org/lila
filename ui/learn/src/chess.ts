@@ -119,12 +119,11 @@ export default function (fen: string, appleKeys: SquareName[]): ChessCtrl {
   };
 
   const dests = (pos: LearnVariant, opts?: { illegal?: boolean }) => {
-    if (moves(pos).length === 0) return {};
-    if (opts?.illegal || !kingKey(pos.turn)) {
-      return chessgroundDests(Antichess.fromSetup(pos.toSetup()).unwrap());
-    } else {
-      return chessgroundDests(Chess.fromSetup(pos.toSetup()).unwrap());
+    const clonedPos = opts?.illegal || !kingKey(pos.turn) ? cloneWithAntichessDests(pos) : cloneWithChessDests(pos); 
+    if (clonedPos.isStalemate()) {
+      return new Map();
     }
+    return chessgroundDests(clonedPos);
   };
 
   return {
