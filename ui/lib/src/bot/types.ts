@@ -34,10 +34,10 @@ export type FilterType = 'cplTarget' | 'cplStdev' | 'aggression' | 'lc0bias' | '
 
 export type AssetType = 'image' | 'book' | 'sound' | 'net';
 
-export type BotId = string;
+export type BotUid = string;
 
 export interface BotInfo {
-  readonly uid: BotId;
+  readonly uid: BotUid;
   readonly name: string;
   readonly description: string;
   readonly version: number;

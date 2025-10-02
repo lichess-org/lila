@@ -8,7 +8,9 @@ import lila.db.dsl.{ *, given }
 final private class JsBotRepo(bots: Coll, assets: Coll)(using Executor):
 
   private given BSONDocumentHandler[BotJson] = new BSON[BotJson]:
-    def reads(r: BSON.Reader) = BotJson(JSON.jval(r.doc) - "_id")
+    import play.api.libs.json.JsString
+    def reads(r: BSON.Reader) = BotJson:
+      JSON.jval(r.doc) - "_id" + ("key" -> JsString(r.str("uid").drop(1)))
     def writes(w: BSON.Writer, b: BotJson) = JSON.bdoc(b.value)
 
   private def $uid(uid: BotUid) = $doc("uid" -> uid)

@@ -38,9 +38,9 @@ export class BotCtrl {
   };
 
   private resumeGame = (game: Game) => {
-    const bot = this.opts.bots.find(b => b.uid === game.botId);
+    const bot = this.opts.bots.find(b => b.uid === game.botKey);
     if (!bot) {
-      alert(`Couldn't find your opponent ${game.botId}`);
+      alert(`Couldn't find your opponent ${game.botKey}`);
       return;
     }
     try {

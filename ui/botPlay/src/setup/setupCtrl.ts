@@ -1,4 +1,4 @@
-import { BotOpts } from '../interfaces';
+import { Bot, BotOpts } from '../interfaces';
 import { type BotInfo } from 'lib/bot/types';
 import { Game } from '../game';
 
@@ -11,14 +11,14 @@ export default class SetupCtrl {
     readonly redraw: () => void,
   ) {}
 
-  play = (bot: BotInfo) => {
+  play = (bot: Bot) => {
     this.start(bot, Math.random() < 0.5 ? 'white' : 'black');
   };
 
   ongoingGameWorthResuming = () => {
     const game = this.ongoing();
     if (!game?.worthResuming()) return;
-    const bot = this.opts.bots.find(b => b.id === game.botId);
+    const bot = this.opts.bots.find(b => b.key === game.botKey);
     if (!bot) return;
     return { game, board: game.lastBoard(), bot };
   };

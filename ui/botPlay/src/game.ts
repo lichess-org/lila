@@ -4,8 +4,7 @@ import { defaultGame, parsePgn, type PgnNodeData, type Game as PgnGame } from 'c
 import { randomId } from 'lib/algo';
 import { StatusName } from 'lib/game/game';
 import type { ClockConfig, SetData as ClockState } from 'lib/game/clock/clockCtrl';
-import { type BotId } from 'lib/bot/types';
-import { DateMillis } from './interfaces';
+import { BotKey, DateMillis } from './interfaces';
 import { Board } from './chess';
 import { makeSan, parseSan } from 'chessops/san';
 import { normalizeMove } from 'chessops/chess';
@@ -27,7 +26,7 @@ export class Game {
   end?: GameEnd;
 
   constructor(
-    readonly botId: BotId,
+    readonly botKey: BotKey,
     readonly pov: Color,
     readonly clockConfig?: ClockConfig,
     readonly initialFen?: FEN,
@@ -65,7 +64,7 @@ export class Game {
   copyAtPly = (ply: Ply): Game => {
     if (ply >= this.ply()) return this;
     const moves = this.moves.slice(0, ply);
-    return new Game(this.botId, this.pov, this.clockConfig, this.initialFen, moves);
+    return new Game(this.botKey, this.pov, this.clockConfig, this.initialFen, moves);
   };
 
   toPgn = (): [PgnGame<PgnNodeData>, Chess] => {

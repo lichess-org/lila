@@ -1,8 +1,8 @@
 import { botAssetUrl } from 'lib/bot/botLoader';
 import { bind, hl } from 'lib/snabbdom';
 import type SetupCtrl from './setupCtrl';
-import { type BotInfo, Bot } from 'lib/bot/bot';
 import { miniBoard } from '../ground';
+import { Bot } from '@/interfaces';
 
 export const setupView = (ctrl: SetupCtrl) =>
   hl('main.bot-app.bot-setup', [viewOngoing(ctrl), viewBotList(ctrl)]);
@@ -28,13 +28,13 @@ const viewBotList = (ctrl: SetupCtrl) => {
   const g = ctrl.ongoingGameWorthResuming();
   return hl(
     'div.bot-setup__bots',
-    ctrl.opts.bots.map(bot => viewBotCard(ctrl, bot, !!g && bot.id === g.game.botId)),
+    ctrl.opts.bots.map(bot => viewBotCard(ctrl, bot, !!g && bot.key === g.game.botKey)),
   );
 };
 
-const viewBotCard = (ctrl: SetupCtrl, bot: BotInfo, ongoing: boolean) =>
+const viewBotCard = (ctrl: SetupCtrl, bot: Bot, ongoing: boolean) =>
   hl(
-    'div.bot-card.bot-color--' + bot.id,
+    'div.bot-card.bot-color--' + bot.key,
     {
       hook: bind('click', () => ctrl.play(bot)),
       class: { 'bot-card--ongoing': ongoing },
@@ -46,9 +46,9 @@ const viewBotCard = (ctrl: SetupCtrl, bot: BotInfo, ongoing: boolean) =>
       hl('div.bot-card__content', [
         hl('div.bot-card__header', [
           hl('h2.bot-card__name', bot.name),
-          hl('span.bot-card__rating', Bot.rating(bot, 'classical').toString()),
+          // hl('span.bot-card__rating', BotUtil.rating(bot, 'classical').toString()),
         ]),
-        hl('p.bot-card__description', bot.description),
+        hl('p.bot-card__description', bot.description || 'Short description here'),
       ]),
     ],
   );
