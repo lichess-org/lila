@@ -112,7 +112,9 @@ final class Challenge(env: Env) extends LilaController(env):
   private def eitherBotLimitResponse(l: lila.bot.EitherBotLimit) = fuccess:
     l match
       case l: Limited => JsonLimited(l)
-      case lila.bot.OpponentLimit(msg) => BadRequest(jsonError(msg))
+      case l: lila.bot.OpponentLimit =>
+        import lila.bot.BotLimit.given
+        BadRequest(Json.toJson(l))
 
   def apiAccept(id: ChallengeId, color: Option[Color]) =
     AnonOrScoped(_.Challenge.Write, _.Bot.Play, _.Board.Play, _.Web.Mobile) { ctx ?=>
