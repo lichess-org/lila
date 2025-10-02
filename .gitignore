@@ -21,7 +21,7 @@ logs/
 /public/css/
 /public/json/
 target/
-data/
+/data/
 dist/
 node_modules/
 ui/lib/css/theme/gen/*.scss

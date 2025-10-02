@@ -71,15 +71,11 @@ final class JsBot(env: Env) extends LilaController(env):
         val name = formValue("name").getOrElse(key)
         ctx.body.body
           .file("file")
-          .map: file =>
-            env.jsBot.api
-              .storeAsset(tpe, key, file)
-              .flatMap:
-                case Left(error) => InternalServerError(jsonError(error)).as(JSON)
-                case Right(_) =>
-                  for _ <- env.jsBot.repo.nameAsset(tpe.some, key, name, author)
-                  yield JsonOk(Json.obj("key" -> key, "name" -> name))
-          .getOrElse(BadRequest(jsonError("missing file")).as(JSON))
+          .fold(BadRequest(jsonError("missing file")).as(JSON).toFuccess): file =>
+            for
+              _ <- env.jsBot.api.storeAsset(tpe, key, file)
+              _ <- env.jsBot.repo.nameAsset(tpe.some, key, name, author)
+            yield JsonOk(Json.obj("key" -> key, "name" -> name))
   }
 
   // def test = Open:

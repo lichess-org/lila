@@ -127,5 +127,5 @@ export function botAssetUrl(type: AssetType, path: string): string {
     ? path
     : path.includes('/')
       ? `${site.asset.baseUrl()}/assets/${path}`
-      : site.asset.url(`lifat/bots/${type}/${encodeURIComponent(path)}`);
+      : site.asset.url(`data/bot/${type}/${encodeURIComponent(path)}`);
 }
