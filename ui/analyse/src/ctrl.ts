@@ -607,7 +607,7 @@ export default class AnalyseCtrl implements CevalHandler {
     }
 
     const relayPath = this.study?.data.chapter.relayPath;
-    if (relayPath && relayPath !== newPath) this.forceVariation(newPath, true);
+    if (relayPath && relayPath === path) this.forceVariation(newPath, true);
     else this.jump(newPath);
 
     this.redraw();
