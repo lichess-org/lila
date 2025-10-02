@@ -285,61 +285,47 @@ final class Challenge(env: Env) extends LilaController(env):
 
   def apiCreate(username: UserStr) =
     ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play, _.Web.Mobile) { ctx ?=> me ?=>
-      me.isnt(username).so {
-        bindForm(env.setup.forms.api.user)(
-          doubleJsonFormError,
-          config =>
-            limit.challenge(req.ipAddress, rateLimited, cost = if me.isApiHog then 0 else 1):
-              env.user.repo.enabledById(username).flatMap {
-                case None => JsonBadRequest(jsonError(s"No such user: $username"))
-                case Some(destUser) if destUser.isBot && !config.rules.isEmpty =>
-                  JsonBadRequest(jsonError("Rules not applicable for bots"))
-                case Some(destUser) =>
-                  env.relation.api
-                    .fetchFollows(destUser.id, me.userId)
-                    .flatMap: isFriend =>
-                      if config.onlyIfOpponentFollowsMe && !isFriend
-                      then JsonBadRequest(jsonError(s"$username does not follow you"))
-                      else
-                        val cost = if isFriend || me.isApiHog then 0 else if destUser.isBot then 1 else 5
-                        limit.challengeUser(me, rateLimited, cost = cost):
-                          env.bot.limit
-                            .challengeLimitError(me.light, destUser.light)
-                            .map(eitherBotLimitResponse)
-                            .getOrElse:
-                              for
-                                challenge <- makeOauthChallenge(config, me, destUser)
-                                grant <- env.challenge.granter.isDenied(destUser, config.perfKey.some)
-                                res <- grant match
-                                  case Some(denied) =>
-                                    fuccess:
-                                      JsonBadRequest:
-                                        jsonError(lila.challenge.ChallengeDenied.translated(denied))
-                                  case _ =>
-                                    env.challenge.api.delayedCreate(challenge).flatMap {
-                                      case None =>
-                                        JsonBadRequest(jsonError("Challenge not created")).toFuccess
-                                      case Some(createNow) =>
-                                        for
-                                          socket <- ctx.isMobileOauth
-                                            .optionFu(env.challenge.version(challenge.id))
-                                          json = env.challenge.jsonView.apiAndMobile(
-                                            challenge,
-                                            socket,
-                                            lila.challenge.Direction.Out.some
-                                          )
-                                          res <-
-                                            if config.keepAliveStream then
-                                              val stream =
-                                                env.challenge.keepAliveStream(challenge, json)(createNow)
-                                              jsOptToNdJson(ndJson.addKeepAlive(stream)).toFuccess
-                                            else for _ <- createNow() yield JsonOk(json)
-                                        yield res
-                                    }
-                              yield res
-              }
-        )
-      }
+      bindForm(env.setup.forms.api.user)(
+        doubleJsonFormError,
+        config =>
+          limit.challenge(req.ipAddress, rateLimited, cost = if me.isApiHog then 0 else 1):
+            allow:
+              for
+                destUser <- env.user.repo.enabledById(username)
+                destUser <- destUser.raiseIfNone(s"No such user: $username")
+                _ <- raiseIf(me.is(destUser), "You cannot challenge yourself")(funit)
+                _ <- raiseIf(destUser.isBot && !config.rules.isEmpty, "Rules not applicable for bots")(funit)
+                isFriend <- env.relation.api.fetchFollows(destUser.id, me.userId)
+                restricted = config.onlyIfOpponentFollowsMe && !isFriend
+                _ <- raiseIf(restricted, s"$username does not follow you")(funit)
+                cost = if isFriend || me.isApiHog then 0 else if destUser.isBot then 1 else 5
+                res <- limit.challengeUser(me, rateLimited, cost = cost):
+                  env.bot.limit
+                    .challengeLimitError(me.light, destUser.light)
+                    .map(eitherBotLimitResponse)
+                    .getOrElse:
+                      for
+                        challenge <- makeOauthChallenge(config, me, destUser)
+                        denied <- env.challenge.granter.isDenied(destUser, config.perfKey.some)
+                        _ <- raiseIfSome(denied.map(lila.challenge.ChallengeDenied.translated))(funit)
+                        createNow <- env.challenge.api.delayedCreate(challenge)
+                        createNow <- createNow.raiseIfNone("Challenge not created")
+                        socket <- ctx.isMobileOauth.optionFu(env.challenge.version(challenge.id))
+                        json = env.challenge.jsonView.apiAndMobile(
+                          challenge,
+                          socket,
+                          lila.challenge.Direction.Out.some
+                        )
+                        res <-
+                          if config.keepAliveStream then
+                            val stream = env.challenge.keepAliveStream(challenge, json)(createNow)
+                            jsOptToNdJson(ndJson.addKeepAlive(stream)).toFuccess
+                          else createNow().as(JsonOk(json))
+                      yield res
+              yield res
+            .rescue: err =>
+              BadRequest(jsonError(err))
+      )
     }
 
   private def makeOauthChallenge(config: ApiConfig, orig: lila.user.User, dest: lila.user.User) =
