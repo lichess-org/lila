@@ -98,7 +98,9 @@ export default function (fen: string, appleKeys: SquareName[]): ChessCtrl {
   const moves = (pos: LearnVariant): NormalMove[] =>
     Array.from(dests(pos)).reduce<NormalMove[]>(
       (prev, [orig, dests]) =>
-        prev.concat(dests.map((dest: SquareName): NormalMove => ({ from: parseSquare(orig), to: parseSquare(dest) }))),
+        prev.concat(
+          dests.map((dest: SquareName): NormalMove => ({ from: parseSquare(orig), to: parseSquare(dest) })),
+        ),
       [],
     );
 
@@ -119,7 +121,8 @@ export default function (fen: string, appleKeys: SquareName[]): ChessCtrl {
   };
 
   const dests = (pos: LearnVariant, opts?: { illegal?: boolean }) => {
-    const clonedPos = opts?.illegal || !kingKey(pos.turn) ? cloneWithAntichessDests(pos) : cloneWithChessDests(pos); 
+    const clonedPos =
+      opts?.illegal || !kingKey(pos.turn) ? cloneWithAntichessDests(pos) : cloneWithChessDests(pos);
     if (clonedPos.isStalemate()) {
       return new Map();
     }
