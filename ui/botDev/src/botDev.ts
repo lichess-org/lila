@@ -10,7 +10,7 @@ import { renderGameView } from './gameView';
 import { LocalDb } from './localDb';
 import type { RoundController } from 'round';
 import type { LocalPlayOpts, LocalSetup } from 'lib/bot/types';
-import makeZerofish from 'zerofish';
+import makeZerofish from '@lichess-org/zerofish';
 
 const patch = init([classModule, attributesModule]);
 
