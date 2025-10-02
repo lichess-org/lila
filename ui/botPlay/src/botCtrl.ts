@@ -29,7 +29,7 @@ export class BotCtrl {
 
   private resume = () => {
     const game = loadCurrentGame();
-    if (game) this.resumeGame(game);
+    if (game?.worthResuming()) this.resumeGame(game);
   };
 
   private newGame = (bot: BotInfo, pov: Color) => {

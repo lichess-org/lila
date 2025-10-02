@@ -117,6 +117,8 @@ export class Game {
     else if (clock?.black <= 0) this.end = flag('black');
     return this.end;
   };
+
+  worthResuming = () => this.moves.length > 1 && !this.end;
 }
 
 const endOnTheBoard = (chess: Chess): GameEnd | undefined => {
