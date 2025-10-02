@@ -15,10 +15,10 @@ export default class SetupCtrl {
     this.start(bot, Math.random() < 0.5 ? 'white' : 'black');
   };
 
-  ongoingGame = () => {
+  ongoingGameWorthResuming = () => {
     const game = this.ongoing();
-    if (!game) return;
-    const bot = this.opts.bots.find(b => b.uid === game.botId);
+    if (!game?.worthResuming()) return;
+    const bot = this.opts.bots.find(b => b.id === game.botId);
     if (!bot) return;
     return { game, board: game.lastBoard(), bot };
   };

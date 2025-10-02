@@ -8,8 +8,8 @@ export const setupView = (ctrl: SetupCtrl) =>
   hl('main.bot-app.bot-setup', [viewOngoing(ctrl), viewBotList(ctrl)]);
 
 const viewOngoing = (ctrl: SetupCtrl) => {
-  const g = ctrl.ongoingGame();
-  return g && !g.game.end
+  const g = ctrl.ongoingGameWorthResuming();
+  return g
     ? hl('div.bot-setup__ongoing', { hook: bind('click', ctrl.resume, ctrl.redraw) }, [
         hl('div.bot-setup__ongoing__preview', miniBoard(g.board, g.game.pov)),
         g.bot.image &&
@@ -24,22 +24,31 @@ const viewOngoing = (ctrl: SetupCtrl) => {
     : undefined;
 };
 
-const viewBotList = (ctrl: SetupCtrl) =>
-  hl(
+const viewBotList = (ctrl: SetupCtrl) => {
+  const g = ctrl.ongoingGameWorthResuming();
+  return hl(
     'div.bot-setup__bots',
-    ctrl.opts.bots.map(bot => viewBotCard(ctrl, bot)),
+    ctrl.opts.bots.map(bot => viewBotCard(ctrl, bot, !!g && bot.id === g.game.botId)),
   );
+};
 
-const viewBotCard = (ctrl: SetupCtrl, bot: BotInfo) =>
-  hl('div.bot-card', { hook: bind('click', () => ctrl.play(bot)) }, [
-    hl('img.bot-card__image', {
-      attrs: { src: bot?.image && botAssetUrl('image', bot.image) },
-    }),
-    hl('div.bot-card__content', [
-      hl('div.bot-card__header', [
-        hl('h2.bot-card__name', bot.name),
-        hl('span.bot-card__rating', Bot.rating(bot, 'classical').toString()),
+const viewBotCard = (ctrl: SetupCtrl, bot: BotInfo, ongoing: boolean) =>
+  hl(
+    'div.bot-card.bot-color--' + bot.id,
+    {
+      hook: bind('click', () => ctrl.play(bot)),
+      class: { 'bot-card--ongoing': ongoing },
+    },
+    [
+      hl('img.bot-card__image', {
+        attrs: { src: bot?.image && botAssetUrl('image', bot.image) },
+      }),
+      hl('div.bot-card__content', [
+        hl('div.bot-card__header', [
+          hl('h2.bot-card__name', bot.name),
+          hl('span.bot-card__rating', Bot.rating(bot, 'classical').toString()),
+        ]),
+        hl('p.bot-card__description', bot.description),
       ]),
-      hl('p.bot-card__description', bot.description),
-    ]),
-  ]);
+    ],
+  );
