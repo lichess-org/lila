@@ -63,7 +63,7 @@
   <string name="studyUrl">Линк студије</string>
   <string name="currentChapterUrl">Линк тренутног поглавља</string>
   <string name="youCanPasteThisInTheForumToEmbed">Ово можете налепити у форум да уградите</string>
-  <string name="startAtInitialPosition">Започни на иницијалној позицији</string>
+  <string name="startAtInitialPosition">Започни на почетној позицији</string>
   <string name="startAtX">Започни на %s</string>
   <string name="embedInYourWebsite">Угради у свој сајт или блог</string>
   <string name="readMoreAboutEmbedding">Прочитај више о уграђивању</string>
