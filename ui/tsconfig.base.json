@@ -10,6 +10,8 @@
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedSideEffectImports": true,
     "esModuleInterop": true,
     "isolatedModules": true,
     "isolatedDeclarations": true,
