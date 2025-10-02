@@ -120,11 +120,11 @@ export default function (fen: string, appleKeys: SquareName[]): ChessCtrl {
 
   const dests = (pos: LearnVariant, opts?: { illegal?: boolean }) => {
     if (moves(pos).length === 0) return {};
-    return chessgroundDests(
-      opts?.illegal || !kingKey(pos.turn)
-        ? cloneWithAntichessDests(pos) as Antichess
-        : cloneWithChessDests(pos) as Chess
-    );
+    if (opts?.illegal || !kingKey(pos.turn)) {
+      return chessgroundDests(Antichess.fromSetup(pos.toSetup()).unwrap());
+    } else {
+      return chessgroundDests(Chess.fromSetup(pos.toSetup()).unwrap());
+    }
   };
 
   return {
