@@ -32,9 +32,7 @@
   margin-top: 20%;
   cursor: pointer;
 
-  box-shadow:
-    0 0 5px var(--bot-color),
-    0 0 20px var(--bot-color);
+  border: 1px solid var(--bot-color);
 
   &--ongoing {
     box-shadow:
@@ -44,20 +42,41 @@
 
   &:hover {
     box-shadow:
-      0 0 5px $c-link,
-      0 0 20px $c-link;
+      0 0 5px var(--bot-color),
+      0 0 20px var(--bot-color);
   }
 
   &__image {
     aspect-ratio: 1;
     width: 82%;
-    opacity: 0.9;
     margin: auto;
     margin-top: -20%;
     line-height: 0;
     @include transition(opacity);
-    .bot-setup__bot-card:hover & {
+    .bot-card:hover & {
       opacity: 1;
+    }
+    // animate translateX back and forth once on hover
+    .bot-card:hover & {
+      animation: bot-card-image-hover 1s ease-in-out;
+    }
+  }
+
+  @keyframes bot-card-image-hover {
+    0% {
+      transform: translateX(0);
+    }
+    25% {
+      transform: translateX(-4px);
+    }
+    50% {
+      transform: translateX(4px);
+    }
+    75% {
+      transform: translateX(-4px);
+    }
+    100% {
+      transform: translateX(0);
     }
   }
 
@@ -66,6 +85,7 @@
     flex: 1;
     background: $c-bg-zebra;
     padding: 0em 0.6em 0 0.8em;
+    text-align: center;
   }
 
   &__header {
@@ -75,11 +95,10 @@
   }
   &__name {
     @include line-clamp(2);
-    margin: 0.3em 0;
+    margin: 0.4em 0 0.2em 0;
     font-weight: normal;
     color: $c-font-clearer;
     font-size: 1.6em;
-    text-align: center;
   }
   &__rating {
     color: $c-font-dim;
