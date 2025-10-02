@@ -549,6 +549,7 @@ export default class RoundController implements MoveRootCtrl {
   };
 
   endWithData = (o: ApiEnd): void => {
+    site.powertip.forcePlacementHook = undefined;
     const d = this.data;
     d.game.winner = o.winner;
     d.game.status = o.status;
@@ -629,7 +630,10 @@ export default class RoundController implements MoveRootCtrl {
       this.clock ??= new ClockCtrl(d.clock, d.pref, this.tickingClockColor(), this.makeClockOpts());
       this.clock.alarmAction = {
         seconds: 60,
-        fire: () => (this.chessground.state.touchIgnoreRadius = Math.SQRT2),
+        fire: () => {
+          this.chessground.state.touchIgnoreRadius = Math.SQRT2;
+          site.powertip.forcePlacementHook = (el: HTMLElement) => el.closest('.crosstable') && 's';
+        },
       };
     } else {
       this.clock = undefined;
