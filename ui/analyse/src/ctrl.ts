@@ -354,13 +354,7 @@ export default class AnalyseCtrl implements CevalHandler {
         ? gamebookPlay.movableColor()
         : this.practice
           ? this.bottomColor()
-          : (() => {
-              const pos = this.position(this.node);
-              return pos.unwrap(
-                p => p.isCheckmate() || p.isStalemate() || p.isInsufficientMaterial() || this.node.threefold,
-                _ => false
-              );
-            })()
+          : this.data.game.status.id >= 30
             ? undefined
             : (dests && dests.size > 0) || drops === null || drops.length
               ? color
