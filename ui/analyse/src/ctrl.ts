@@ -1,5 +1,4 @@
 import { fenToEpd, readDests, readDrops } from 'lib/game/chess';
-import { finished } from 'lib/game/status';
 import { playable, playedTurns } from 'lib/game/game';
 import * as keyboard from './keyboard';
 import { treeReconstruct, plyColor } from './util';
@@ -355,7 +354,13 @@ export default class AnalyseCtrl implements CevalHandler {
         ? gamebookPlay.movableColor()
         : this.practice
           ? this.bottomColor()
-          : finished(this.data)
+          : (() => {
+              const pos = this.position(this.node);
+              return pos.unwrap(
+                p => p.isCheckmate() || p.isStalemate() || p.isInsufficientMaterial() || this.node.threefold,
+                _ => false
+              );
+            })()
             ? undefined
             : (dests && dests.size > 0) || drops === null || drops.length
               ? color
