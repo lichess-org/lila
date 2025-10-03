@@ -5,7 +5,9 @@ $col1-moves-height: 4em;
 
 #main-wrap {
   ---main-max-width: auto;
+}
 
+#main-wrap.bot-play {
   @include mq-is-col1 {
     ---main-max-width: calc(
       100vh - #{$site-header-outer-height} - #{$col1-player-clock-height * 2} - #{$col1-moves-height}

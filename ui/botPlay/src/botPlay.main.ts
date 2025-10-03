@@ -11,7 +11,10 @@ export async function initModule(opts: BotOpts) {
 
   let vnode = patch(element, ctrl.view());
 
+  const mainWrap = document.getElementById('main-wrap')!;
+
   function redraw() {
+    mainWrap.classList.toggle('bot-play', !!ctrl.playCtrl);
     vnode = patch(vnode, ctrl.view());
   }
 

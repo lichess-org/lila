@@ -2,7 +2,7 @@ import { botAssetUrl } from 'lib/bot/botLoader';
 import { bind, hl } from 'lib/snabbdom';
 import type SetupCtrl from './setupCtrl';
 import { miniBoard } from '../ground';
-import { Bot } from '@/interfaces';
+import { type Bot } from '@/interfaces';
 
 export const setupView = (ctrl: SetupCtrl) =>
   hl('main.bot-app.bot-setup', [viewOngoing(ctrl), viewBotList(ctrl)]);
@@ -21,7 +21,7 @@ const viewOngoing = (ctrl: SetupCtrl) => {
           hl('p.bot-setup__ongoing__text', 'Should we resume our game?'),
         ]),
       ])
-    : undefined;
+    : hl('h1.bot-setup__title', 'Choose your opponent');
 };
 
 const viewBotList = (ctrl: SetupCtrl) => {
