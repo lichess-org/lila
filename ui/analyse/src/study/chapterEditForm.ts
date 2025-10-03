@@ -12,7 +12,7 @@ import type {
 import { defined, prop } from 'lib';
 import { snabDialog } from 'lib/view/dialog';
 import { confirm } from 'lib/view/dialogs';
-import { h, VNode } from 'snabbdom';
+import { h, type VNode } from 'snabbdom';
 import type { StudySocketSend } from '../socket';
 
 export class StudyChapterEditForm {

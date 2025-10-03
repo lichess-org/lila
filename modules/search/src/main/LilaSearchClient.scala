@@ -1,6 +1,6 @@
 package lila.search
 
-import lila.search.client.{ SearchClient, SearchError }
+import lila.search.client.SearchClient
 import lila.search.spec.*
 
 class LilaSearchClient(client: SearchClient)(using Executor) extends SearchClient:
@@ -10,7 +10,7 @@ class LilaSearchClient(client: SearchClient)(using Executor) extends SearchClien
       client
         .count(query)
         .handleError:
-          case e: SearchError =>
+          case e =>
             logger.info(s"Count error: query={$query}", e)
             CountOutput(0)
 
@@ -19,7 +19,7 @@ class LilaSearchClient(client: SearchClient)(using Executor) extends SearchClien
       client
         .search(query, from, size)
         .handleError:
-          case e: SearchError =>
+          case e =>
             logger.info(s"Search error: query={$query}, from={$from}, size={$size}", e)
             SearchOutput(Nil)
 

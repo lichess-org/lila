@@ -1,6 +1,6 @@
 import { onInsert } from 'lib/snabbdom';
 import { throttle } from 'lib/async';
-import { Attrs, h, thunk, type VNode } from 'snabbdom';
+import { type Attrs, h, thunk, type VNode } from 'snabbdom';
 import { option } from '../view/util';
 import { looksLikeLichessGame } from './studyChapters';
 import { prop } from 'lib';

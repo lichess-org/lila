@@ -1,6 +1,6 @@
 import { pieceGrams, totalGames } from './constants';
 import type { ByColor, Counted, Opening, Recap, Sources, RecapPerf } from './interfaces';
-import { onInsert, hl, LooseVNodes, VNode, dataIcon } from 'lib/snabbdom';
+import { onInsert, hl, type LooseVNodes, type VNode, dataIcon } from 'lib/snabbdom';
 import { formatNumber, loadOpeningLpv } from './ui';
 import { shuffle } from 'lib/algo';
 import { fullName, userFlair, userTitle } from 'lib/view/userLink';

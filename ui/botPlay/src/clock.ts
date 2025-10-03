@@ -1,5 +1,5 @@
 import type { ClockConfig, SetData as ClockState } from 'lib/game/clock/clockCtrl';
-import { DateMillis } from './interfaces';
+import type { DateMillis } from './interfaces';
 
 interface ClockMove {
   at: DateMillis;

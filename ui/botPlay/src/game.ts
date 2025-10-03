@@ -1,11 +1,11 @@
-import { Chess, Move as ChessMove, opposite } from 'chessops';
+import { Chess, type Move as ChessMove, opposite } from 'chessops';
 import { makeFen, parseFen } from 'chessops/fen';
 import { defaultGame, parsePgn, type PgnNodeData, type Game as PgnGame } from 'chessops/pgn';
 import { randomId } from 'lib/algo';
-import { StatusName } from 'lib/game/game';
+import type { StatusName } from 'lib/game/game';
 import type { ClockConfig, SetData as ClockState } from 'lib/game/clock/clockCtrl';
-import { BotKey, DateMillis } from './interfaces';
-import { Board } from './chess';
+import type { BotKey, DateMillis } from './interfaces';
+import type { Board } from './chess';
 import { makeSan, parseSan } from 'chessops/san';
 import { normalizeMove } from 'chessops/chess';
 import { computeClockState } from './clock';

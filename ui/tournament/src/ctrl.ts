@@ -14,7 +14,7 @@ import type {
 import { storage, storedMapAsProp } from 'lib/storage';
 import { pubsub } from 'lib/pubsub';
 import { alerts, prompt } from 'lib/view/dialogs';
-import { Prop } from 'lib';
+import type { Prop } from 'lib';
 
 interface CtrlTeamInfo {
   requested?: string;

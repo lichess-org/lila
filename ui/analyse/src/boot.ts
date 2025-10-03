@@ -1,6 +1,6 @@
 import type { AnalyseApi, AnalyseOpts } from './interfaces';
 import { wsConnect } from 'lib/socket';
-import { AnalyseSocketSend } from './socket';
+import type { AnalyseSocketSend } from './socket';
 
 export default function (start: (opts: AnalyseOpts) => AnalyseApi) {
   return function (cfg: AnalyseOpts) {

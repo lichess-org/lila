@@ -1,4 +1,4 @@
-import { Bot, BotOpts } from '../interfaces';
+import type { Bot, BotOpts } from '../interfaces';
 import { type BotInfo } from 'lib/bot/types';
 import { Game } from '../game';
 

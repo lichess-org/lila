@@ -2,7 +2,7 @@ import { h, type VNode } from 'snabbdom';
 import * as licon from 'lib/licon';
 import { bind } from 'lib/snabbdom';
 import { confirm } from 'lib/view/dialogs';
-import { Convo } from '../interfaces';
+import type { Convo } from '../interfaces';
 import type MsgCtrl from '../ctrl';
 
 export default function renderActions(ctrl: MsgCtrl, convo: Convo): VNode[] {
