@@ -1,4 +1,4 @@
-import makeZerofish, { type Zerofish } from 'zerofish';
+import makeZerofish, { type Zerofish } from '@lichess-org/zerofish';
 import { type OpeningBook, makeBookFromPolyglot } from '../game/polyglot';
 import { Bot } from './bot';
 import type { BotInfo, MoveSource, LocalSpeed, AssetType } from './types';

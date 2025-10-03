@@ -1,4 +1,4 @@
-import type { Position } from 'zerofish';
+import type { Position } from '@lichess-org/zerofish';
 import type { Chess } from 'chessops';
 import type { Filter, FilterFacet, Filters, Point } from './filter';
 import type { BotLoader } from './botLoader';
