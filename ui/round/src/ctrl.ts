@@ -566,7 +566,6 @@ export default class RoundController implements MoveRootCtrl {
     }
     this.promotion.cancel();
     this.chessground.stop();
-    this.chessground.state.touchIgnoreRadius = 1;
     if (o.ratingDiff) {
       d.player.ratingDiff = o.ratingDiff[d.player.color];
       d.opponent.ratingDiff = o.ratingDiff[d.opponent.color];
@@ -577,8 +576,8 @@ export default class RoundController implements MoveRootCtrl {
       // Delay 'victory' & 'defeat' sounds to avoid overlapping with 'checkmate' sound
       if (o.status.name === 'mate') site.sound.playAndDelayMateResultIfNecessary(key);
       else site.sound.play(key);
-      site.powertip.forcePlacementHook = undefined;
     }
+    this.onTimeTrouble(false);
     endGameView();
     if (d.crazyhouse) crazyEndHook();
     this.clearJust();
@@ -630,12 +629,7 @@ export default class RoundController implements MoveRootCtrl {
       this.clock ??= new ClockCtrl(d.clock, d.pref, this.tickingClockColor(), this.makeClockOpts());
       this.clock.alarmAction = {
         seconds: 60,
-        fire: () => {
-          if (!this.data.player.spectator) {
-            this.chessground.state.touchIgnoreRadius = Math.SQRT2;
-            site.powertip.forcePlacementHook = (el: HTMLElement) => el.closest('.crosstable') && 's';
-          }
-        },
+        fire: () => this.onTimeTrouble(true),
       };
     } else {
       this.clock = undefined;
@@ -897,6 +891,12 @@ export default class RoundController implements MoveRootCtrl {
     this.socket.send(`blindfold-${v ? 'yes' : 'no'}`);
     this.redraw();
     return v;
+  };
+
+  onTimeTrouble = (t: boolean): void => {
+    if (this.data.player.spectator) return;
+    site.powertip.forcePlacementHook = t ? (el: HTMLElement) => el.closest('.crosstable') && 's' : undefined;
+    this.chessground.state.touchIgnoreRadius = t ? Math.SQRT2 : 1;
   };
 
   yeet = (): void => {
