@@ -13,7 +13,7 @@ import type PuzzleCtrl from '../ctrl';
 import { Chessground as makeChessground } from '@lichess-org/chessground';
 import { makeSquare, opposite } from 'chessops';
 import { scanDirectionsHandler } from 'lib/nvui/directionScan';
-import { Api } from '@lichess-org/chessground/api';
+import type { Api } from '@lichess-org/chessground/api';
 import { nextCorrectMove } from '@/moveTree';
 
 const throttled = (sound: string) => throttle(100, () => site.sound.play(sound));

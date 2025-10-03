@@ -1,5 +1,12 @@
 import * as licon from 'lib/licon';
-import { abortable, playable, drawableSwiss, resignable, takebackable, TopOrBottom } from 'lib/game/game';
+import {
+  abortable,
+  playable,
+  drawableSwiss,
+  resignable,
+  takebackable,
+  type TopOrBottom,
+} from 'lib/game/game';
 import { render as renderReplay, analysisButton } from './replay';
 import renderExpiration from './expiration';
 import { userHtml } from './user';

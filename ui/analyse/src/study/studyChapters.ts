@@ -1,4 +1,4 @@
-import { defined, prop, Prop, scrollToInnerSelector } from 'lib';
+import { defined, prop, type Prop, scrollToInnerSelector } from 'lib';
 import * as licon from 'lib/licon';
 import { type VNode, bind, dataIcon, iconTag, hl } from 'lib/snabbdom';
 import type AnalyseCtrl from '../ctrl';

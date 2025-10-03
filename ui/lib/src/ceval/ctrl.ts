@@ -16,7 +16,7 @@ import { defaultPosition, setupPosition } from 'chessops/variant';
 import { parseFen } from 'chessops/fen';
 import { lichessRules } from 'chessops/compat';
 import { povChances } from './winningChances';
-import { prop, Prop, Toggle, toggle } from '../common';
+import { prop, type Prop, type Toggle, toggle } from '../common';
 import { clamp } from '../algo';
 import { Result } from '@badrap/result';
 import { storedIntProp, storage } from '../storage';

@@ -1,7 +1,7 @@
 import type { AnalyseData, Game } from './interfaces';
 import { makeFen } from 'chessops/fen';
 import { makeSanAndPlay, parseSan } from 'chessops/san';
-import { makeUci, Rules } from 'chessops';
+import { makeUci, type Rules } from 'chessops';
 import {
   makeVariant,
   parsePgn,

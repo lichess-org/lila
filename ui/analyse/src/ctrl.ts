@@ -8,7 +8,7 @@ import type GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
 import type StudyCtrl from './study/studyCtrl';
 import type { AnalyseOpts, AnalyseData, ServerEvalData, JustCaptured, NvuiPlugin } from './interfaces';
 import type { Api as ChessgroundApi } from '@lichess-org/chessground/api';
-import { Autoplay, AutoplayDelay } from './autoplay';
+import { Autoplay, type AutoplayDelay } from './autoplay';
 import { build as makeTree, path as treePath, ops as treeOps, type TreeWrapper } from 'lib/tree/tree';
 import { compute as computeAutoShapes } from './autoShape';
 import type { Config as ChessgroundConfig } from '@lichess-org/chessground/config';
@@ -607,7 +607,7 @@ export default class AnalyseCtrl implements CevalHandler {
     }
 
     const relayPath = this.study?.data.chapter.relayPath;
-    if (relayPath && relayPath !== newPath) this.forceVariation(newPath, true);
+    if (relayPath && relayPath === path) this.forceVariation(newPath, true);
     else this.jump(newPath);
 
     this.redraw();

@@ -2,7 +2,7 @@ import { h, type VNode } from 'snabbdom';
 import type AnalyseCtrl from '../ctrl';
 import { defined, notNull } from 'lib';
 import * as licon from 'lib/licon';
-import { iconTag, MaybeVNode, MaybeVNodes } from 'lib/snabbdom';
+import { iconTag, type MaybeVNode, type MaybeVNodes } from 'lib/snabbdom';
 import { formatClockTimeVerbal } from 'lib/game/clock/clockView';
 
 interface ClockOpts {

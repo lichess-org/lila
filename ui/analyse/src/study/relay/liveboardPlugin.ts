@@ -1,4 +1,4 @@
-import { hl, VNode } from 'lib/snabbdom';
+import { hl, type VNode } from 'lib/snabbdom';
 import { getChessground, initMiniBoardWith } from 'lib/view/miniBoard';
 import { fenColor, uciToMove } from 'lib/game/chess';
 import { type ChatPlugin } from 'lib/chat/interfaces';
