@@ -354,7 +354,7 @@ export default class AnalyseCtrl implements CevalHandler {
         ? gamebookPlay.movableColor()
         : this.practice
           ? this.bottomColor()
-          : this.outcome()
+          : finished(this.data)
             ? undefined
             : (dests && dests.size > 0) || drops === null || drops.length
               ? color
