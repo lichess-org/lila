@@ -3,7 +3,7 @@ import { zip, clamp } from '../algo';
 import { clockToSpeed } from '../game/game';
 import { quantizeFilter, evaluateFilter, filterFacets, combine, type FilterValue } from './filter';
 import { pawnStructure } from './filters';
-import type { SearchResult } from 'zerofish';
+import type { SearchResult } from '@lichess-org/zerofish';
 import type { OpeningBook } from '../game/polyglot';
 import { movetime as getMovetime } from './movetime';
 import { normalMove } from '../game/chess';
