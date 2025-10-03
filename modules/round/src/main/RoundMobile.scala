@@ -83,7 +83,11 @@ final class RoundMobile(
         jsonView
           .player(pov.player, users(color))
           .add("isGone" -> (game.forceDrawable && use.socketStatus.exists(_.isGone(pov.color))))
-          .add("onGame" -> (pov.player.isAi || use.socketStatus.exists(_.onGame(pov.color))))
+          .add(
+            "onGame" -> (myPlayer.map(_.color).has(color) ||
+              pov.player.isAi ||
+              use.socketStatus.exists(_.onGame(pov.color)))
+          )
           .add("offeringRematch" -> isOfferingRematch.exec(pov.ref))
           .add("offeringDraw" -> pov.player.isOfferingDraw)
           .add("proposingTakeback" -> pov.player.isProposingTakeback)
