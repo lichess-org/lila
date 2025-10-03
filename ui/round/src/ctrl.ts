@@ -549,7 +549,6 @@ export default class RoundController implements MoveRootCtrl {
   };
 
   endWithData = (o: ApiEnd): void => {
-    site.powertip.forcePlacementHook = undefined;
     const d = this.data;
     d.game.winner = o.winner;
     d.game.status = o.status;
@@ -578,6 +577,7 @@ export default class RoundController implements MoveRootCtrl {
       // Delay 'victory' & 'defeat' sounds to avoid overlapping with 'checkmate' sound
       if (o.status.name === 'mate') site.sound.playAndDelayMateResultIfNecessary(key);
       else site.sound.play(key);
+      site.powertip.forcePlacementHook = undefined;
     }
     endGameView();
     if (d.crazyhouse) crazyEndHook();
@@ -631,8 +631,10 @@ export default class RoundController implements MoveRootCtrl {
       this.clock.alarmAction = {
         seconds: 60,
         fire: () => {
-          this.chessground.state.touchIgnoreRadius = Math.SQRT2;
-          site.powertip.forcePlacementHook = (el: HTMLElement) => el.closest('.crosstable') && 's';
+          if (!this.data.player.spectator) {
+            this.chessground.state.touchIgnoreRadius = Math.SQRT2;
+            site.powertip.forcePlacementHook = (el: HTMLElement) => el.closest('.crosstable') && 's';
+          }
         },
       };
     } else {
