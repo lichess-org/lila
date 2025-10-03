@@ -16,6 +16,10 @@ export const setupDialog = (ctrl: SetupCtrl) => {
         attrs: { src: bot?.image && botAssetUrl('image', bot.image) },
       }),
       hl('h2.bot-setup__dialog__title', 'Challenge ' + bot.name),
+      hl('fieldset.bot-setup__dialog__settings.toggle-box.toggle-box--toggle.toggle-box--toggle-off', [
+        hl('legend', 'Game options'),
+        hl('div', ['game options here']),
+      ]),
       hl('button.button', { hook: bind('click', ctrl.play) }, 'Play now'),
     ],
   });

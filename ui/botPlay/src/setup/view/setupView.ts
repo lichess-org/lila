@@ -29,6 +29,7 @@ const viewBotList = (ctrl: SetupCtrl) => {
   const g = ctrl.ongoingGameWorthResuming();
   return hl(
     'div.bot-setup__bots',
+    { class: { 'bot-setup--blur': !!ctrl.selectedBot } },
     ctrl.opts.bots.map(bot => viewBotCard(ctrl, bot, !!g && bot.key === g.game.botKey)),
   );
 };
