@@ -4,7 +4,7 @@ import { ShowResizeHandle, Coords, MoveEvent } from 'lib/prefs';
 import { storage } from 'lib/storage';
 import { makeFen } from 'chessops/fen';
 import { chessgroundDests, chessgroundMove } from 'chessops/compat';
-import { Board } from './chess';
+import type { Board } from './chess';
 import { h } from 'snabbdom';
 import { initMiniBoard } from 'lib/view/miniBoard';
 import { makeUci } from 'chessops';

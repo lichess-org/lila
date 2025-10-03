@@ -4,7 +4,7 @@ import { SimpleEngine } from './simpleEngine';
 import { StockfishWebEngine } from './stockfishWebEngine';
 import { ThreadedEngine } from './threadedEngine';
 import { ExternalEngine } from './externalEngine';
-import { storedStringProp, StoredProp } from '../../storage';
+import { storedStringProp, type StoredProp } from '../../storage';
 import { isAndroid, isIos, isIPad, features as browserSupport } from '../../device';
 import { xhrHeader } from '../../xhr';
 import { lichessRules } from 'chessops/compat';

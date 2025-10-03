@@ -1,5 +1,5 @@
 import type { Challenge, ChallengeData, ChallengeDirection, ChallengeUser, TimeControl } from './interfaces';
-import { h, VNode } from 'snabbdom';
+import { h, type VNode } from 'snabbdom';
 import * as licon from 'lib/licon';
 import { spinnerVdom as spinner } from 'lib/view/controls';
 import { userLink } from 'lib/view/userLink';

@@ -4,6 +4,7 @@ import play.api.mvc.RequestHeader
 
 import lila.core.game.{ GameRepo, PgnDump }
 import lila.core.net.Crawler
+import lila.core.security.IsProxy
 import lila.memo.CacheApi
 
 final class OpeningApi(
@@ -20,15 +21,15 @@ final class OpeningApi(
   private val defaultCache = cacheApi.notLoading[Query, Option[OpeningPage]](1024, "opening.defaultCache"):
     _.maximumSize(4096).expireAfterWrite(10.minutes).buildAsync()
 
-  def index(using RequestHeader, OpeningAccessControl): Fu[Option[OpeningPage]] =
-    lookup(Query("", none), withWikiRevisions = false, crawler = Crawler.No)
+  def index(using RequestHeader, Option[Me]): Fu[Option[OpeningPage]] =
+    lookup(Query("", none), withWikiRevisions = false, crawler = Crawler.No, proxy = IsProxy.empty)
 
-  def lookup(q: Query, withWikiRevisions: Boolean, crawler: Crawler)(using
+  def lookup(q: Query, withWikiRevisions: Boolean, crawler: Crawler, proxy: IsProxy)(using
       RequestHeader,
-      OpeningAccessControl
+      Option[Me]
   ): Fu[Option[OpeningPage]] =
     val config = if crawler.yes then OpeningConfig.default else readConfig
-    def doLookup = lookup(q, config, withWikiRevisions, crawler)
+    def doLookup = lookup(q, config, withWikiRevisions, crawler, proxy)
     if crawler.no && config.isDefault && !withWikiRevisions
     then
       defaultCache
@@ -42,18 +43,20 @@ final class OpeningApi(
       q: Query,
       config: OpeningConfig,
       withWikiRevisions: Boolean,
-      crawler: Crawler
-  )(using OpeningAccessControl): Fu[Option[OpeningPage]] =
-    OpeningQuery(q, config).so { compute(_, withWikiRevisions, crawler) }
+      crawler: Crawler,
+      proxy: IsProxy
+  )(using Option[Me]): Fu[Option[OpeningPage]] =
+    OpeningQuery(q, config).so { compute(_, withWikiRevisions, crawler, proxy) }
 
   private def compute(
       query: OpeningQuery,
       withWikiRevisions: Boolean,
-      crawler: Crawler
-  )(using accessControl: OpeningAccessControl): Fu[Option[OpeningPage]] =
+      crawler: Crawler,
+      proxy: IsProxy
+  )(using Option[Me]): Fu[Option[OpeningPage]] =
     for
       wiki <- query.closestOpening.traverse(wikiApi(_, withWikiRevisions))
-      loadStats <- accessControl.canLoadExpensiveStats(wiki.exists(_.hasMarkup), crawler)
+      loadStats = canLoadExpensiveStats(wiki.exists(_.hasMarkup), crawler, proxy)
       stats <-
         if loadStats then explorer.stats(query.uci, query.config, crawler)
         else fuccess(scala.util.Success(none))
@@ -84,3 +87,12 @@ final class OpeningApi(
         explorer
           .stats(Vector.empty, config, Crawler(false))
           .map(_.toOption.flatten.so(_.popularityHistory))
+
+  private def canLoadExpensiveStats(wikiMarkup: Boolean, crawler: Crawler, proxy: IsProxy)(using
+      me: Option[Me]
+  ): Boolean =
+    if (crawler.yes || proxy.yes) && !wikiMarkup
+    then false // nothing for crawlers to index if we don't have our own text
+    else
+      proxy.no || // legit IPs are always allowed
+      me.isDefined // only allow proxy IPs if they have a session

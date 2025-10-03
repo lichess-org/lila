@@ -3,7 +3,7 @@ import { hl, type VNode, bind, type MaybeVNodes } from 'lib/snabbdom';
 import type { PracticeCtrl, Comment } from './practiceCtrl';
 import type AnalyseCtrl from '../ctrl';
 import { renderNextChapter } from '../study/nextChapter';
-import { Prop } from 'lib';
+import type { Prop } from 'lib';
 
 function commentBest(c: Comment, ctrl: PracticeCtrl): MaybeVNodes {
   return c.best

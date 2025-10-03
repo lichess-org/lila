@@ -65,7 +65,7 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
           "up" -> up,
           "api" -> apiVersion, // lichobile
           "fp" -> fp.flatMap(lila.security.FingerHash.from),
-          "proxy" -> proxy.is.option(proxy),
+          "proxy" -> proxy.yes.option(proxy),
           "pwned" -> pwned.yes.option(true)
         )
       .void

@@ -2,7 +2,7 @@ import { hl } from 'lib/snabbdom';
 import type LobbyController from '../../../ctrl';
 import { colors, variantsWhereWhiteIsBetter } from '../../../options';
 import { option } from './option';
-import { ColorOrRandom } from '@/interfaces';
+import type { ColorOrRandom } from '@/interfaces';
 
 const renderBlindModeColorPicker = (ctrl: LobbyController) => [
   ctrl.setupCtrl.gameType !== 'hook' && [

@@ -10,6 +10,8 @@
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedSideEffectImports": true,
     "esModuleInterop": true,
     "isolatedModules": true,
     "isolatedDeclarations": true,
@@ -22,6 +24,7 @@
     "types": ["lichess", "web"],
     "paths": {
       "@/*": ["${configDir}/src/*"]
-    }
+    },
+    "verbatimModuleSyntax": true
   }
 }

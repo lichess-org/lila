@@ -3,7 +3,7 @@ import { h } from 'snabbdom';
 import { fixCrazySan, plyToTurn } from 'lib/game/chess';
 import { type MaybeVNodes } from 'lib/snabbdom';
 import { INITIAL_FEN } from 'chessops/fen';
-import { Game } from './interfaces';
+import type { Game } from './interfaces';
 
 interface PgnNode {
   ply: Ply;
