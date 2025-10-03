@@ -1,11 +1,12 @@
 import { botAssetUrl } from 'lib/bot/botLoader';
 import { bind, hl } from 'lib/snabbdom';
-import type SetupCtrl from './setupCtrl';
-import { miniBoard } from '../ground';
+import type SetupCtrl from '../setupCtrl';
+import { miniBoard } from '../../ground';
 import { type Bot } from '@/interfaces';
+import { setupDialog } from './setupDialog';
 
 export const setupView = (ctrl: SetupCtrl) =>
-  hl('main.bot-app.bot-setup', [viewOngoing(ctrl), viewBotList(ctrl)]);
+  hl('main.bot-app.bot-setup', [setupDialog(ctrl), viewOngoing(ctrl), viewBotList(ctrl)]);
 
 const viewOngoing = (ctrl: SetupCtrl) => {
   const g = ctrl.ongoingGameWorthResuming();
@@ -36,7 +37,7 @@ const viewBotCard = (ctrl: SetupCtrl, bot: Bot, ongoing: boolean) =>
   hl(
     'div.bot-card.bot-color--' + bot.key,
     {
-      hook: bind('click', () => ctrl.play(bot)),
+      hook: bind('click', () => ctrl.select(bot)),
       class: { 'bot-card--ongoing': ongoing },
     },
     [

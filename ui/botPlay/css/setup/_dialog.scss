@@ -1,0 +1,12 @@
+.bot-setup__dialog {
+  @extend %flex-column;
+  gap: 2vh;
+
+  &__image {
+    aspect-ratio: 1;
+    width: 75%;
+    margin: auto;
+    margin-top: -30%;
+    line-height: 0;
+  }
+}
