@@ -28,7 +28,7 @@ final private class JsBotApi(repo: JsBotRepo, getFile: GetRelativeFile)(using
   ): Fu[(JsBotAssets, JsonStr)] =
     FileIO
       .fromPath(file.ref.path)
-      .runWith(FileIO.toPath(getFile.exec(s"$assetPath/${tpe}/$fileName".pp).toPath.pp))
+      .runWith(FileIO.toPath(getFile.exec(s"$assetPath/${tpe}/$fileName").toPath))
       .as(updateAssets)
 
   def getBoth: (JsBotAssets, JsonStr) = cachedAssets.getOrElse(updateAssets)
