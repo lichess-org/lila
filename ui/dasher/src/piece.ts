@@ -4,7 +4,7 @@ import { header, elementScrollBarWidthSlowGuess, moreButton } from './util';
 import { bind } from 'lib/snabbdom';
 import { type DasherCtrl, PaneCtrl } from './interfaces';
 import { pubsub } from 'lib/pubsub';
-import { Toggle, toggle } from 'lib';
+import { type Toggle, toggle } from 'lib';
 
 export class PieceCtrl extends PaneCtrl {
   featured: { [key in 'd2' | 'd3']: string[] } = { d2: [], d3: [] };

@@ -11,7 +11,7 @@ import { make as makeSocket, type RoundSocket } from './socket';
 import * as title from './title';
 import * as blur from './blur';
 import viewStatus from 'lib/game/view/status';
-import { ClockCtrl, ClockOpts } from 'lib/game/clock/clockCtrl';
+import { ClockCtrl, type ClockOpts } from 'lib/game/clock/clockCtrl';
 import { CorresClockController } from './corresClock/corresClockCtrl';
 import MoveOn from './moveOn';
 import TransientMove from './transientMove';

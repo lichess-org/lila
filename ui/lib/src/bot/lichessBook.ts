@@ -1,4 +1,4 @@
-import { OpeningBook } from '../game/polyglot';
+import type { OpeningBook } from '../game/polyglot';
 import * as co from 'chessops';
 import { clamp } from '../algo';
 

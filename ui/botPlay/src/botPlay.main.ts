@@ -1,6 +1,6 @@
 import { init, classModule, attributesModule } from 'snabbdom';
 
-import { BotOpts } from './interfaces';
+import type { BotOpts } from './interfaces';
 import { BotCtrl } from './botCtrl';
 
 export async function initModule(opts: BotOpts) {

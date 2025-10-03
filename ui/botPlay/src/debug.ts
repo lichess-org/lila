@@ -1,4 +1,4 @@
-import { Game, Move } from './game';
+import { Game, type Move } from './game';
 
 export function debugCli(play: (game: Game) => void) {
   (window['bot' as any] as any) = {

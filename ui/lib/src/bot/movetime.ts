@@ -1,5 +1,5 @@
 import { clamp } from '../algo';
-import { MoveArgs } from './types';
+import type { MoveArgs } from './types';
 
 export function movetime(
   { initial, increment, remaining, opponentRemaining, ply }: MoveArgs,

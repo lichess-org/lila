@@ -1,5 +1,5 @@
 import { type ObjectStorage, objectStorage } from 'lib/objectStorage';
-import { makeBookFromPolyglot, makeBookFromPgn, PgnProgress, PgnFilter } from 'lib/game/polyglot';
+import { makeBookFromPolyglot, makeBookFromPgn, type PgnProgress, type PgnFilter } from 'lib/game/polyglot';
 import { botAssetUrl } from 'lib/bot/botLoader';
 import { alert } from 'lib/view/dialogs';
 import { zip } from 'lib/algo';
