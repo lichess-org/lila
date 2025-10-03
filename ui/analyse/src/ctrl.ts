@@ -1,4 +1,5 @@
 import { fenToEpd, readDests, readDrops } from 'lib/game/chess';
+import { finished } from 'lib/game/status';
 import { playable, playedTurns } from 'lib/game/game';
 import * as keyboard from './keyboard';
 import { treeReconstruct, plyColor } from './util';
