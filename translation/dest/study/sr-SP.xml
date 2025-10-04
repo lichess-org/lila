@@ -63,7 +63,7 @@
   <string name="studyUrl">Линк студије</string>
   <string name="currentChapterUrl">Линк тренутног поглавља</string>
   <string name="youCanPasteThisInTheForumToEmbed">Ово можете налепити у форум да уградите</string>
-  <string name="startAtInitialPosition">Започни на иницијалној позицији</string>
+  <string name="startAtInitialPosition">Започни на почетној позицији</string>
   <string name="startAtX">Започни на %s</string>
   <string name="embedInYourWebsite">Угради у свој сајт или блог</string>
   <string name="readMoreAboutEmbedding">Прочитај више о уграђивању</string>
@@ -74,10 +74,10 @@
   <string name="editChapter">Измени поглавље</string>
   <string name="newChapter">Ново поглавље</string>
   <string name="orientation">Оријентација</string>
-  <string name="analysisMode">Врста анализе</string>
+  <string name="analysisMode">Режим анализе</string>
   <string name="pinnedChapterComment">Закачен коментар поглавља</string>
   <string name="saveChapter">Сачувај поглавље</string>
-  <string name="clearAnnotations">Избриши анотације</string>
+  <string name="clearAnnotations">Избриши напомене</string>
   <string name="deleteChapter">Избриши поглавље</string>
   <string name="deleteThisChapter">Избриши ово поглавље? Нема повратка назад!</string>
   <string name="clearAllCommentsInThisChapter">Избриши све коментаре, глифове и нацртане облике у овом поглављу?</string>

@@ -29,7 +29,7 @@
   </plurals>
   <string name="inviteToTheStudy">邀请参加研讨</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">请仅邀请你认识的并且积极希望参与这个研讨的成员</string>
-  <string name="searchByUsername">按用户名搜索</string>
+  <string name="searchByUsername" comment="Appears when adding members to a Lichess Study as placeholder text in a search box.">按用户名搜索</string>
   <string name="spectator">旁观者</string>
   <string name="contributor">贡献者</string>
   <string name="kick">踢出</string>
@@ -58,6 +58,7 @@
   <string name="studyPgn">研究 PGN</string>
   <string name="chapterPgn">章节 PGN</string>
   <string name="copyChapterPgn">复制 PGN</string>
+  <string name="copyRawChapterPgn">复制纯 PGN</string>
   <string name="downloadGame">下载棋局</string>
   <string name="studyUrl">研究链接</string>
   <string name="currentChapterUrl">当前章节链接</string>
