@@ -2,7 +2,6 @@ import { hl, type VNode, type LooseVNodes } from 'lib/snabbdom';
 import { snabDialog } from 'lib/view/dialog';
 import type LobbyController from '../../ctrl';
 import { variantPicker } from './components/variantPicker';
-import { timePickerAndSliders } from './components/timePickerAndSliders';
 import { gameModeButtons } from './components/gameModeButtons';
 import { ratingDifferenceSliders } from './components/ratingDifferenceSliders';
 import { colorButtons } from './components/colorButtons';
@@ -10,6 +9,7 @@ import { ratingView } from './components/ratingView';
 import { fenInput } from './components/fenInput';
 import { levelButtons } from './components/levelButtons';
 import { spinnerVdom } from 'lib/view/controls';
+import { timePickerAndSliders } from 'lib/setup/view/timeControl';
 
 export default function setupModal(ctrl: LobbyController): VNode | null {
   const { setupCtrl } = ctrl;
@@ -58,7 +58,7 @@ export default function setupModal(ctrl: LobbyController): VNode | null {
 const views = {
   hook: (ctrl: LobbyController): LooseVNodes => [
     variantPicker(ctrl),
-    timePickerAndSliders(ctrl),
+    timePickerAndSliders(ctrl.setupCtrl.timeControl),
     gameModeButtons(ctrl),
     ratingView(ctrl),
     ratingDifferenceSliders(ctrl),
@@ -66,13 +66,13 @@ const views = {
   ],
   friend: (ctrl: LobbyController): LooseVNodes => [
     hl('div.config-group', [variantPicker(ctrl), fenInput(ctrl)]),
-    timePickerAndSliders(ctrl, true),
+    timePickerAndSliders(ctrl.setupCtrl.timeControl),
     gameModeButtons(ctrl),
     colorButtons(ctrl),
   ],
   ai: (ctrl: LobbyController): LooseVNodes => [
     hl('div.config-group', [variantPicker(ctrl), fenInput(ctrl)]),
-    timePickerAndSliders(ctrl, true),
+    timePickerAndSliders(ctrl.setupCtrl.timeControl),
     levelButtons(ctrl),
     colorButtons(ctrl),
   ],

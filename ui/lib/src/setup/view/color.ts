@@ -1,6 +1,6 @@
-import type { ColorOrRandom, ColorProp } from './interfaces';
+import type { ColorOrRandom, ColorProp } from '../interfaces';
 import { hl, type VNode } from '@/snabbdom';
-import { option } from './option';
+import { option } from '../option';
 
 const colors: { key: ColorOrRandom; name: string }[] = [
   { key: 'black', name: i18n.site.black },
@@ -8,7 +8,7 @@ const colors: { key: ColorOrRandom; name: string }[] = [
   { key: 'white', name: i18n.site.white },
 ];
 
-export const blindModeColorPicker: (c: ColorProp) => VNode[] = (colorProp: ColorProp) => [
+export const blindModeColorPicker = (colorProp: ColorProp): VNode[] => [
   hl('label', { attrs: { for: 'sf_color' } }, i18n.site.side),
   hl(
     'select#sf_color',
@@ -21,7 +21,7 @@ export const blindModeColorPicker: (c: ColorProp) => VNode[] = (colorProp: Color
   ),
 ];
 
-export const colorButtons: (c: ColorProp) => VNode = colorProp =>
+export const colorButtons = (colorProp: ColorProp): VNode =>
   hl('div.radio-pane', [
     i18n.site.youPlayAs,
     hl(

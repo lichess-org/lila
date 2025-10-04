@@ -1,7 +1,7 @@
 import { hl } from 'lib/snabbdom';
 import type LobbyController from '../../../ctrl';
 import { variantsWhereWhiteIsBetter } from '@/options';
-import { blindModeColorPicker, colorButtons as renderButtons } from 'lib/setup/colorChoice';
+import { blindModeColorPicker, colorButtons as renderButtons } from 'lib/setup/view/color';
 
 export const colorButtons = (ctrl: LobbyController) => {
   const { setupCtrl } = ctrl;

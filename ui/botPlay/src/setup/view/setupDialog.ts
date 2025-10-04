@@ -2,7 +2,7 @@ import { snabDialog } from 'lib/view/dialog';
 import type SetupCtrl from '../setupCtrl';
 import { bind, hl } from 'lib/snabbdom';
 import { botAssetUrl } from 'lib/bot/botLoader';
-import { colorButtons } from 'lib/setup/colorChoice';
+import { colorButtons } from 'lib/setup/view/color';
 
 export const setupDialog = (ctrl: SetupCtrl) => {
   const bot = ctrl.selectedBot;
