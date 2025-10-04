@@ -8,7 +8,6 @@ import { timePickerAndSliders } from 'lib/setup/view/timeControl';
 export const setupDialog = (ctrl: SetupCtrl) => {
   const bot = ctrl.selectedBot;
   if (!bot) return;
-  console.log(ctrl.timeControl);
   return snabDialog({
     class: 'bot-setup__dialog',
     onClose: ctrl.cancel,

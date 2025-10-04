@@ -28,7 +28,7 @@ export const colorButtons = (colorProp: ColorProp): VNode =>
       'group.radio.color-picker',
       colors.map(({ key, name }) => [
         hl(`input#color-picker-${key}`, {
-          attrs: { name: 'color', type: 'radio', value: key, checked: key === 'random' },
+          attrs: { name: 'color', type: 'radio', value: key, checked: key === colorProp() },
           on: { change: () => colorProp(key) },
         }),
         hl(

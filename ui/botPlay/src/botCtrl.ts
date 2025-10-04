@@ -11,6 +11,8 @@ import { Game } from './game';
 import { debugCli } from './debug';
 import { pubsub } from 'lib/pubsub';
 import { loadCurrentGame, saveCurrentGame } from './storage';
+import type { ColorOrRandom } from 'lib/setup/interfaces';
+import type { ClockConfig } from 'lib/game/clock/clockCtrl';
 
 export class BotCtrl {
   setupCtrl: SetupCtrl;
@@ -32,9 +34,9 @@ export class BotCtrl {
     if (game?.worthResuming()) this.resumeGame(game);
   };
 
-  private newGame = (bot: BotInfo, pov: Color) => {
-    const clock = { initial: 300, increment: 2, moretime: 0 };
-    this.resumeGameAndRedraw(new Game(bot.uid, pov, clock));
+  private newGame = (bot: BotInfo, pov: ColorOrRandom, clock?: ClockConfig) => {
+    const color = pov == 'random' ? (Math.random() < 0.5 ? 'white' : 'black') : pov;
+    this.resumeGameAndRedraw(new Game(bot.uid, color, clock));
   };
 
   private resumeGame = (game: Game) => {
@@ -52,7 +54,7 @@ export class BotCtrl {
         redraw: this.redraw,
         save: saveCurrentGame,
         close: this.closeGame,
-        rematch: () => this.newGame(bot, opposite(game.pov)),
+        rematch: () => this.newGame(bot, opposite(game.pov), game.clockConfig),
       });
     } catch (e) {
       console.error('Failed to resume game', e);

@@ -218,7 +218,7 @@ export default class SetupController {
       this.gameType === 'hook' &&
       this.variant() === 'standard' &&
       this.gameMode() === 'rated' &&
-      this.timeControl.mode() === 'realTime';
+      this.timeControl.isRealTime();
     const id = this.timeControl.clockStr();
     return valid && this.root.pools.find(p => p.id === id)
       ? {
@@ -259,8 +259,7 @@ export default class SetupController {
       return;
     }
 
-    if (this.gameType === 'hook')
-      this.root.setTab(this.timeControl.mode() === 'realTime' ? 'real_time' : 'seeks');
+    if (this.gameType === 'hook') this.root.setTab(this.timeControl.isRealTime() ? 'real_time' : 'seeks');
     this.loading = true;
     this.root.redraw();
 

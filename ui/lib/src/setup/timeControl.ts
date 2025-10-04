@@ -18,21 +18,23 @@ export default class TimeControl {
   increment: () => RealValue = () => incrementVToIncrement(this.incrementV());
   days: () => RealValue = () => daysVToDays(this.daysV());
 
+  isRealTime = (): boolean => this.mode() === 'realTime';
+
   realTimeValid = (): boolean => this.time() > 0 || this.increment() > 0;
 
-  valid = (): boolean => this.mode() !== 'realTime' || this.realTimeValid();
+  valid = (): boolean => !this.isRealTime() || this.realTimeValid();
 
   initialSeconds = (): Seconds => this.time() * 60;
 
   notForRatedVariant = (): boolean =>
-    this.mode() !== 'realTime' ||
+    !this.isRealTime() ||
     (this.time() < 0.5 && this.increment() === 0) ||
     (this.time() === 0 && this.increment() < 2);
 
   clockStr = (): string => `${this.time()}+${this.increment()}`;
 
   speed = (): Speed =>
-    this.mode() !== 'realTime' ? 'correspondence' : clockToSpeed(this.initialSeconds(), this.increment());
+    this.isRealTime() ? clockToSpeed(this.initialSeconds(), this.increment()) : 'correspondence';
 
   canSelectMode = (): boolean => this.modes.length > 1;
 }

@@ -6,6 +6,7 @@ import { prop, propWithEffect } from 'lib';
 import type TimeControl from 'lib/setup/timeControl';
 import { timeControlFromStoredValues } from 'lib/setup/timeControl';
 import { storedJsonProp } from 'lib/storage';
+import type { ClockConfig } from 'lib/game/clock/clockCtrl';
 
 interface Settings {
   color: ColorOrRandom;
@@ -16,7 +17,6 @@ interface Settings {
 
 export default class SetupCtrl {
   selectedBot?: Bot;
-  color: ColorProp = prop('random' as ColorOrRandom);
   timeControl: TimeControl;
   settings = storedJsonProp<Settings>('botPlay.setup.settings', () => ({
     color: 'random',
@@ -24,16 +24,18 @@ export default class SetupCtrl {
     time: 5,
     increment: 3,
   }));
+  color: ColorProp;
 
   constructor(
     readonly opts: BotOpts,
     private readonly ongoing: () => Game | undefined,
     readonly resume: () => void,
-    private readonly start: (bot: BotInfo, pov: Color | undefined) => void,
+    private readonly start: (bot: BotInfo, pov: ColorOrRandom, clock?: ClockConfig) => void,
     readonly redraw: () => void,
   ) {
     this.selectedBot = this.opts.bots[0];
     const s = this.settings();
+    this.color = prop(s.color);
     this.timeControl = timeControlFromStoredValues(
       propWithEffect(s.clock ? 'realTime' : 'unlimited', this.redraw),
       ['realTime', 'unlimited'],
@@ -56,7 +58,17 @@ export default class SetupCtrl {
 
   play = () => {
     if (!this.selectedBot) return;
-    this.start(this.selectedBot, Math.random() < 0.5 ? 'white' : 'black');
+    this.saveSettings();
+    this.start(this.selectedBot, this.color(), clockConfig(this.timeControl));
+  };
+
+  private saveSettings = () => {
+    this.settings({
+      color: this.color(),
+      clock: this.timeControl.mode() === 'realTime',
+      time: this.timeControl.time(),
+      increment: this.timeControl.increment(),
+    });
   };
 
   ongoingGameWorthResuming = () => {
@@ -67,3 +79,12 @@ export default class SetupCtrl {
     return { game, board: game.lastBoard(), bot };
   };
 }
+
+const clockConfig = (tc: TimeControl): ClockConfig | undefined =>
+  tc.isRealTime() && tc.realTimeValid()
+    ? {
+        initial: tc.initialSeconds(),
+        increment: tc.increment(),
+        moretime: 0,
+      }
+    : undefined;
