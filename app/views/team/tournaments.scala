@@ -47,10 +47,10 @@ object tournaments:
           )
         )(
           td(cls := "icon")(
-            iconTag(any.value.fold(views.tournament.ui.tournamentIcon, _.perfType.icon))
+            iconTag(any.fold(views.tournament.ui.tournamentIcon, _.perfType.icon))
           ),
           td(cls := "header")(
-            any.value.fold(
+            any.fold(
               t =>
                 a(href := routes.Tournament.show(t.id))(
                   span(cls := "name")(t.name()),
@@ -79,7 +79,7 @@ object tournaments:
             )
           ),
           td(cls := "infos")(
-            any.value.fold(
+            any.fold(
               t =>
                 frag(
                   t.teamBattle.fold(trans.team.innerTeam()): battle =>
