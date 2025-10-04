@@ -3,7 +3,9 @@ import type SetupCtrl from '../setupCtrl';
 import { bind, hl } from 'lib/snabbdom';
 import { botAssetUrl } from 'lib/bot/botLoader';
 import { colorButtons } from 'lib/setup/view/color';
+import { colors } from 'lib/setup/color';
 import { timePickerAndSliders } from 'lib/setup/view/timeControl';
+import { pubsub } from 'lib/pubsub';
 
 export const setupDialog = (ctrl: SetupCtrl) => {
   const bot = ctrl.selectedBot;
@@ -13,6 +15,10 @@ export const setupDialog = (ctrl: SetupCtrl) => {
     onClose: ctrl.cancel,
     modal: true,
     noScrollable: true,
+    onInsert(dialog) {
+      dialog.show();
+      pubsub.emit('content-loaded');
+    },
     vnodes: [
       hl('img.bot-setup__dialog__image', {
         attrs: { src: bot?.image && botAssetUrl('image', bot.image) },
@@ -20,13 +26,26 @@ export const setupDialog = (ctrl: SetupCtrl) => {
       hl('h2.bot-setup__dialog__title', 'Challenge ' + bot.name),
       hl(
         'fieldset.bot-setup__dialog__settings.toggle-box.toggle-box--toggle',
-        { class: { 'toggle-box--toggle-off': false } },
+        { class: { 'toggle-box--toggle-off': true } },
         [
-          hl('legend', 'Game options'),
+          hl('legend', settingsPreview(ctrl)),
           hl('div.bot-setup__form', [colorButtons(ctrl.color), timePickerAndSliders(ctrl.timeControl)]),
         ],
       ),
-      hl('button.button', { hook: bind('click', ctrl.play) }, 'Play now'),
+      hl(
+        'button.button',
+        {
+          hook: bind('click', ctrl.play),
+          attrs: { disabled: !ctrl.timeControl.valid() },
+          class: { disabled: !ctrl.timeControl.valid() },
+        },
+        'Play now',
+      ),
     ],
   });
+};
+
+const settingsPreview = (ctrl: SetupCtrl) => {
+  const color = colors.find(c => c.key === ctrl.color())?.name!;
+  return [color, ctrl.timeControl.isRealTime() ? ctrl.timeControl.clockStr() : 'No clock'].join(' | ');
 };

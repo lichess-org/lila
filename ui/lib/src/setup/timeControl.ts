@@ -1,6 +1,8 @@
 import { propWithEffect, type Prop } from '@/common';
-import type { InputValue, RealValue, TimeMode } from './interfaces';
+import type { InputValue, RealValue } from './interfaces';
 import { clockToSpeed } from '@/game/game';
+
+export type TimeMode = 'realTime' | 'correspondence' | 'unlimited';
 
 export default class TimeControl {
   constructor(

@@ -11,8 +11,8 @@ import { Game } from './game';
 import { debugCli } from './debug';
 import { pubsub } from 'lib/pubsub';
 import { loadCurrentGame, saveCurrentGame } from './storage';
-import type { ColorOrRandom } from 'lib/setup/interfaces';
 import type { ClockConfig } from 'lib/game/clock/clockCtrl';
+import type { ColorChoice } from 'lib/setup/color';
 
 export class BotCtrl {
   setupCtrl: SetupCtrl;
@@ -34,7 +34,7 @@ export class BotCtrl {
     if (game?.worthResuming()) this.resumeGame(game);
   };
 
-  private newGame = (bot: BotInfo, pov: ColorOrRandom, clock?: ClockConfig) => {
+  private newGame = (bot: BotInfo, pov: ColorChoice, clock?: ClockConfig) => {
     const color = pov == 'random' ? (Math.random() < 0.5 ? 'white' : 'black') : pov;
     this.resumeGameAndRedraw(new Game(bot.uid, color, clock));
   };

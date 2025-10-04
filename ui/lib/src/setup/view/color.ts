@@ -1,12 +1,6 @@
-import type { ColorOrRandom, ColorProp } from '../interfaces';
 import { hl, type VNode } from '@/snabbdom';
 import { option } from '../option';
-
-const colors: { key: ColorOrRandom; name: string }[] = [
-  { key: 'black', name: i18n.site.black },
-  { key: 'random', name: i18n.site.randomColor },
-  { key: 'white', name: i18n.site.white },
-];
+import { colors, type ColorChoice, type ColorProp } from '../color';
 
 export const blindModeColorPicker = (colorProp: ColorProp): VNode[] => [
   hl('label', { attrs: { for: 'sf_color' } }, i18n.site.side),
@@ -14,7 +8,7 @@ export const blindModeColorPicker = (colorProp: ColorProp): VNode[] => [
     'select#sf_color',
     {
       on: {
-        change: (e: Event) => colorProp((e.target as HTMLSelectElement).value as ColorOrRandom),
+        change: (e: Event) => colorProp((e.target as HTMLSelectElement).value as ColorChoice),
       },
     },
     colors.map(color => option(color, colorProp())),

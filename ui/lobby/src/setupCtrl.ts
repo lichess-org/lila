@@ -1,7 +1,6 @@
 import { type Prop, propWithEffect } from 'lib';
 import { debounce } from 'lib/async';
 import * as xhr from 'lib/xhr';
-import type { ColorOrRandom, ColorProp } from 'lib/setup/interfaces';
 import { storedJsonProp } from 'lib/storage';
 import { alert } from 'lib/view/dialogs';
 import { INITIAL_FEN } from 'chessops/fen';
@@ -9,6 +8,7 @@ import type LobbyController from './ctrl';
 import type { ForceSetupOptions, GameMode, GameType, PoolMember, SetupStore } from './interfaces';
 import { keyToId, variants } from './options';
 import TimeControl, { allTimeModeKeys, timeControlFromStoredValues, timeModes } from 'lib/setup/timeControl';
+import type { ColorChoice, ColorProp } from 'lib/setup/color';
 
 const getPerf = (variant: VariantKey, tc: TimeControl): Perf =>
   variant !== 'standard' && variant !== 'fromPosition' ? variant : tc.speed();
@@ -212,7 +212,7 @@ export default class SetupController {
     return `${Math.max(100, rating + this.ratingMin())}-${rating + this.ratingMax()}`;
   };
 
-  hookToPoolMember = (color: ColorOrRandom): PoolMember | null => {
+  hookToPoolMember = (color: ColorChoice): PoolMember | null => {
     const valid =
       color === 'random' &&
       this.gameType === 'hook' &&
@@ -228,7 +228,7 @@ export default class SetupController {
       : null;
   };
 
-  propsToFormData = (color: ColorOrRandom): FormData =>
+  propsToFormData = (color: ColorChoice): FormData =>
     xhr.form({
       variant: keyToId(this.variant(), variants).toString(),
       fen: this.variant() === 'fromPosition' ? this.fen() : undefined,

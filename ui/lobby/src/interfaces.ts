@@ -1,4 +1,4 @@
-import type { TimeMode } from 'lib/setup/interfaces';
+import type { TimeMode } from 'lib/setup/timeControl';
 
 export type Sort = 'rating' | 'time';
 export type Mode = 'list' | 'chart';

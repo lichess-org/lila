@@ -6,7 +6,6 @@ import { makeVoice, type VoiceCtrl } from 'voice';
 import { storedBooleanProp, storedProp } from 'lib/storage';
 import type { Api as CgApi } from '@lichess-org/chessground/api';
 import type {
-  ColorChoice,
   TimeControl,
   CoordinateTrainerConfig,
   InputMethod,
@@ -15,6 +14,7 @@ import type {
   Redraw,
 } from './interfaces';
 import { pubsub } from 'lib/pubsub';
+import type { ColorChoice } from 'lib/setup/color';
 
 const orientationFromColorChoice = (colorChoice: ColorChoice): Color =>
   (colorChoice === 'random' ? ['white', 'black'][Math.round(Math.random())] : colorChoice) as Color;

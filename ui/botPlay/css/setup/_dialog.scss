@@ -39,4 +39,26 @@
     @extend %flex-center;
     gap: 1em;
   }
+
+  .range {
+    span {
+      font-weight: bold;
+    }
+
+    input {
+      font-size: 1.5rem;
+      margin-top: 0.2rem;
+      padding: 0;
+      width: 100%;
+    }
+  }
+  .time-choice {
+    margin-top: 0.5rem;
+  }
+
+  .failure {
+    background: $m-bad_bg--mix-20;
+    box-shadow: 0 0 13px 6px $m-bad_bg--mix-20;
+    border-radius: 0.5rem;
+  }
 }
