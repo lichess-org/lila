@@ -1,13 +1,13 @@
 import { type Prop, propWithEffect } from 'lib';
 import { debounce } from 'lib/async';
 import * as xhr from 'lib/xhr';
+import type { ColorOrRandom, ColorProp } from 'lib/setup/interfaces';
 import { storedJsonProp } from 'lib/storage';
 import { clockToSpeed } from 'lib/game/game';
 import { alert } from 'lib/view/dialogs';
 import { INITIAL_FEN } from 'chessops/fen';
 import type LobbyController from './ctrl';
 import type {
-  ColorOrRandom,
   ForceSetupOptions,
   GameMode,
   GameType,
@@ -42,7 +42,7 @@ export default class SetupController {
   fenError = false;
   friendUser = '';
   loading = false;
-  color: Prop<ColorOrRandom>;
+  color: ColorProp;
 
   // Store props
   variant: Prop<VariantKey>;

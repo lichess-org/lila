@@ -10,8 +10,6 @@ export type InputValue = number;
 // Visible value computed from the input value
 export type RealValue = number;
 
-export type ColorOrRandom = Color | 'random';
-
 export interface Variant {
   id: number;
   key: VariantKey;

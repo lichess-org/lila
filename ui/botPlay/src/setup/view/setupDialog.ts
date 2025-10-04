@@ -2,6 +2,7 @@ import { snabDialog } from 'lib/view/dialog';
 import type SetupCtrl from '../setupCtrl';
 import { bind, hl } from 'lib/snabbdom';
 import { botAssetUrl } from 'lib/bot/botLoader';
+import { colorButtons } from 'lib/setup/colorChoice';
 
 export const setupDialog = (ctrl: SetupCtrl) => {
   const bot = ctrl.selectedBot;
@@ -16,10 +17,11 @@ export const setupDialog = (ctrl: SetupCtrl) => {
         attrs: { src: bot?.image && botAssetUrl('image', bot.image) },
       }),
       hl('h2.bot-setup__dialog__title', 'Challenge ' + bot.name),
-      hl('fieldset.bot-setup__dialog__settings.toggle-box.toggle-box--toggle.toggle-box--toggle-off', [
-        hl('legend', 'Game options'),
-        hl('div', ['game options here']),
-      ]),
+      hl(
+        'fieldset.bot-setup__dialog__settings.toggle-box.toggle-box--toggle',
+        { class: { 'toggle-box--toggle-off': false } },
+        [hl('legend', 'Game options'), hl('div.bot-setup__form', [colorButtons(ctrl.color)])],
+      ),
       hl('button.button', { hook: bind('click', ctrl.play) }, 'Play now'),
     ],
   });

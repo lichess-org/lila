@@ -3,7 +3,7 @@ import { hl } from 'lib/snabbdom';
 import type LobbyController from '../../../ctrl';
 import type { InputValue, TimeMode } from '../../../interfaces';
 import { daysVToDays, incrementVToIncrement, sliderTimes, timeModes } from '../../../options';
-import { option } from './option';
+import { option } from 'lib/setup/option';
 
 const showTime = (v: number) => {
   if (v === 1 / 4) return '¼';

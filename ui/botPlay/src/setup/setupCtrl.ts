@@ -1,9 +1,12 @@
 import type { Bot, BotOpts } from '../interfaces';
 import { type BotInfo } from 'lib/bot/types';
 import { Game } from '../game';
+import type { ColorOrRandom, ColorProp } from 'lib/setup/interfaces';
+import { prop } from 'lib';
 
 export default class SetupCtrl {
   selectedBot?: Bot;
+  color: ColorProp = prop('random' as ColorOrRandom);
 
   constructor(
     readonly opts: BotOpts,

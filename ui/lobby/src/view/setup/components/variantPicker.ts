@@ -2,7 +2,7 @@ import { onInsert } from 'lib/snabbdom';
 import { h } from 'snabbdom';
 import type LobbyController from '../../../ctrl';
 import { variants, variantsForGameType } from '../../../options';
-import { option } from './option';
+import { option } from 'lib/setup/option';
 
 export const variantPicker = (ctrl: LobbyController) => {
   const { setupCtrl } = ctrl;

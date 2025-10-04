@@ -1,14 +1,6 @@
 import * as licon from 'lib/licon';
 
-import type {
-  ColorOrRandom,
-  GameMode,
-  GameType,
-  InputValue,
-  RealValue,
-  TimeMode,
-  Variant,
-} from './interfaces';
+import type { GameMode, GameType, InputValue, RealValue, TimeMode, Variant } from './interfaces';
 
 export const variants: Variant[] = [
   { id: 1, icon: licon.Crown, key: 'standard', name: 'Standard' },
@@ -153,10 +145,4 @@ export const sliderInitVal = (
 export const gameModes: { key: GameMode; name: string }[] = [
   { key: 'casual', name: i18n.site.casual },
   { key: 'rated', name: i18n.site.rated },
-];
-
-export const colors: { key: ColorOrRandom; name: string }[] = [
-  { key: 'black', name: i18n.site.black },
-  { key: 'random', name: i18n.site.randomColor },
-  { key: 'white', name: i18n.site.white },
 ];

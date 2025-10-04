@@ -1,6 +1,6 @@
 import { h } from 'snabbdom';
 import type LobbyController from '../../../ctrl';
-import { option } from './option';
+import { option } from 'lib/setup/option';
 
 const levels = [1, 2, 3, 4, 5, 6, 7, 8];
 
