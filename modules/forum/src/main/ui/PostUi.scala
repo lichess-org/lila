@@ -182,31 +182,29 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
           table(cls := "slist slist-pad slist-invert search__results")(
             (pager.nbResults > 0).option(
               tbody(cls := "infinite-scroll")(
-                pager.currentPageResults.map: viewWithRead =>
-                  val view = viewWithRead.view
-                  val info =
-                    td(cls := "info")(
-                      momentFromNow(view.post.createdAt),
-                      br,
-                      bits.authorLink(view.post)
-                    )
-                  tr(cls := "paginated stack-row")(
-                    if viewWithRead.canRead then
-                      frag(
-                        td(
-                          a(cls := "post", href := routes.ForumPost.redirect(view.post.id))(
-                            view.categ.name,
-                            " - ",
-                            view.topic.name,
-                            "#",
-                            view.post.number
-                          ),
-                          p(shorten(view.post.text, 200))
-                        ),
-                        info
+                pager.currentPageResults
+                  .filter(_.canRead)
+                  .map: viewWithRead =>
+                    val view = viewWithRead.view
+                    val info =
+                      td(cls := "info")(
+                        momentFromNow(view.post.createdAt),
+                        br,
+                        bits.authorLink(view.post)
                       )
-                    else td(colspan := "2")("[You can't access this team forum post]")
-                  )
+                    tr(cls := "paginated stack-row")(
+                      td(
+                        a(cls := "post", href := routes.ForumPost.redirect(view.post.id))(
+                          view.categ.name,
+                          " - ",
+                          view.topic.name,
+                          "#",
+                          view.post.number
+                        ),
+                        p(shorten(view.post.text, 200))
+                      ),
+                      info
+                    )
                 ,
                 pagerNextTable(pager, n => routes.ForumPost.search(text, n).url)
               )
