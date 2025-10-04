@@ -5,7 +5,7 @@ import { clockToSpeed } from '@/game/game';
 export default class TimeControl {
   constructor(
     readonly mode: Prop<TimeMode>,
-    readonly canChangeMode: boolean,
+    readonly modes: TimeMode[],
     // The following three quantities are suffixed with 'V' to draw attention to the
     // fact that they are not the true quantities. They represent the value of the
     // input element. Use time(), increment(), and days() below for the true quantities.
@@ -33,11 +33,13 @@ export default class TimeControl {
 
   speed = (): Speed =>
     this.mode() !== 'realTime' ? 'correspondence' : clockToSpeed(this.initialSeconds(), this.increment());
+
+  canSelectMode = (): boolean => this.modes.length > 1;
 }
 
 export const timeControlFromStoredValues = (
   mode: Prop<TimeMode>,
-  hasMode: boolean,
+  modes: TimeMode[],
   time: RealValue,
   inc: RealValue,
   days: RealValue,
@@ -45,7 +47,7 @@ export const timeControlFromStoredValues = (
 ): TimeControl =>
   new TimeControl(
     mode,
-    hasMode,
+    modes,
     propWithEffect(sliderInitVal(time, timeVToTime, 100, 14), onChange),
     propWithEffect(sliderInitVal(inc, incrementVToIncrement, 100, 5), onChange),
     propWithEffect(sliderInitVal(days, daysVToDays, 20, 7), onChange),
@@ -56,6 +58,8 @@ export const timeModes: { id: number; key: TimeMode; name: string }[] = [
   { id: 2, key: 'correspondence', name: i18n.site.correspondence },
   { id: 0, key: 'unlimited', name: i18n.site.unlimited },
 ];
+
+export const allTimeModeKeys: TimeMode[] = ['realTime', 'correspondence', 'unlimited'];
 
 // When we store timeV, incrementV, and daysV in local storage, we save the actual time, increment,
 // and days, and not the value of the input element. We use this function to recompute the value of the

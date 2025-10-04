@@ -8,7 +8,7 @@ import { INITIAL_FEN } from 'chessops/fen';
 import type LobbyController from './ctrl';
 import type { ForceSetupOptions, GameMode, GameType, PoolMember, SetupStore } from './interfaces';
 import { keyToId, variants } from './options';
-import TimeControl, { timeControlFromStoredValues, timeModes } from 'lib/setup/timeControl';
+import TimeControl, { allTimeModeKeys, timeControlFromStoredValues, timeModes } from 'lib/setup/timeControl';
 
 const getPerf = (variant: VariantKey, tc: TimeControl): Perf =>
   variant !== 'standard' && variant !== 'fromPosition' ? variant : tc.speed();
@@ -69,7 +69,7 @@ export default class SetupController {
     const canChangeTimeMode = !!this.root.me || this.gameType !== 'hook';
     this.timeControl = timeControlFromStoredValues(
       propWithEffect(forceOptions?.timeMode || storeProps.timeMode, this.onDropdownChange),
-      canChangeTimeMode,
+      canChangeTimeMode ? allTimeModeKeys : ['realTime'],
       forceOptions?.time ?? storeProps.time,
       forceOptions?.increment ?? storeProps.increment,
       storeProps.days,

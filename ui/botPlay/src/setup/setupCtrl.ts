@@ -2,11 +2,28 @@ import type { Bot, BotOpts } from '../interfaces';
 import { type BotInfo } from 'lib/bot/types';
 import { Game } from '../game';
 import type { ColorOrRandom, ColorProp } from 'lib/setup/interfaces';
-import { prop } from 'lib';
+import { prop, propWithEffect } from 'lib';
+import type TimeControl from 'lib/setup/timeControl';
+import { timeControlFromStoredValues } from 'lib/setup/timeControl';
+import { storedJsonProp } from 'lib/storage';
+
+interface Settings {
+  color: ColorOrRandom;
+  clock: boolean;
+  time: Minutes;
+  increment: Seconds;
+}
 
 export default class SetupCtrl {
   selectedBot?: Bot;
   color: ColorProp = prop('random' as ColorOrRandom);
+  timeControl: TimeControl;
+  settings = storedJsonProp<Settings>('botPlay.setup.settings', () => ({
+    color: 'random',
+    clock: false,
+    time: 5,
+    increment: 3,
+  }));
 
   constructor(
     readonly opts: BotOpts,
@@ -16,6 +33,15 @@ export default class SetupCtrl {
     readonly redraw: () => void,
   ) {
     this.selectedBot = this.opts.bots[0];
+    const s = this.settings();
+    this.timeControl = timeControlFromStoredValues(
+      propWithEffect(s.clock ? 'realTime' : 'unlimited', this.redraw),
+      ['realTime', 'unlimited'],
+      s.time,
+      s.increment,
+      0,
+      this.redraw,
+    );
   }
 
   select = (bot: Bot) => {

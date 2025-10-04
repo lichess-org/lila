@@ -67,23 +67,23 @@ const blindModeTimePickers = (tc: TimeControl) => {
   ];
 };
 
-const renderTimeModePicker = (tc: TimeControl) => {
-  return (
-    tc.canChangeMode &&
-    hl('div.label-select', [
-      hl('label', { attrs: { for: 'sf_timeMode' } }, i18n.site.timeControl),
-      hl(
-        'select#sf_timeMode',
-        {
-          on: {
-            change: (e: Event) => tc.mode((e.target as HTMLSelectElement).value as TimeMode),
+const renderTimeModePicker = (tc: TimeControl) =>
+  tc.canSelectMode() &&
+  hl('div.label-select', [
+    hl('label', { attrs: { for: 'sf_timeMode' } }, i18n.site.timeControl),
+    hl(
+      'select#sf_timeMode',
+      {
+        on: {
+          change: (e: Event) => {
+            console.log('Time mode changed to', (e.target as HTMLSelectElement).value);
+            tc.mode((e.target as HTMLSelectElement).value as TimeMode);
           },
         },
-        timeModes.map(timeMode => option(timeMode, tc.mode())),
-      ),
-    ])
-  );
-};
+      },
+      timeModes.filter(m => tc.modes.includes(m.key)).map(timeMode => option(timeMode, tc.mode())),
+    ),
+  ]);
 
 const inputRange = (min: number, max: number, prop: Prop<InputValue>, classes?: Record<string, boolean>) =>
   hl('input.range', {

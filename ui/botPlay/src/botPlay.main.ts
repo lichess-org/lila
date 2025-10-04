@@ -1,11 +1,11 @@
-import { init, classModule, attributesModule } from 'snabbdom';
+import { init, classModule, attributesModule, eventListenersModule } from 'snabbdom';
 
 import type { BotOpts } from './interfaces';
 import { BotCtrl } from './botCtrl';
 
 export async function initModule(opts: BotOpts) {
   const element = document.querySelector('main.bot-play') as HTMLElement,
-    patch = init([classModule, attributesModule]);
+    patch = init([classModule, attributesModule, eventListenersModule]);
 
   const ctrl = new BotCtrl(opts, redraw);
 

@@ -32,8 +32,10 @@
   @extend %flex-column;
   gap: 1em;
   padding-bottom: 2em;
+  text-align: left;
 
-  .radio-pane {
+  .radio-pane,
+  .label-select {
     @extend %flex-center;
     gap: 1em;
   }
