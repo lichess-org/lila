@@ -39,7 +39,7 @@
   "build": {
     "bundle": "src/**/botDev.*ts",
     "sync": {
-      "node_modules/zerofish/dist/zerofishEngine.*": "/public/npm"
+      "node_modules/**/zerofishEngine.*": "/public/npm"
     }
   }
 }
