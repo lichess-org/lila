@@ -87,14 +87,14 @@
   <string name="hideNextMoves">Сакриј следеће потезе</string>
   <string name="interactiveLesson">Интерактивна лекција</string>
   <string name="chapterX">Поглавље %s</string>
-  <string name="empty">Празно</string>
-  <string name="startFromInitialPosition">Започните од иницијалне позиције</string>
+  <string name="empty">Празна</string>
+  <string name="startFromInitialPosition">Започни од почетне позиције</string>
   <string name="editor">Уређивач</string>
-  <string name="startFromCustomPosition">Започните од жељене позиције</string>
+  <string name="startFromCustomPosition">Започни од жељене позиције</string>
   <string name="loadAGameByUrl">Учитајте партије преко линкова</string>
-  <string name="loadAPositionFromFen">Учитајте позицију из FEN-а</string>
+  <string name="loadAPositionFromFen">Учитај позицију из FEN-а</string>
   <string name="loadAGameFromPgn">Учитајте партију из PGN-а</string>
-  <string name="automatic">Аутоматски</string>
+  <string name="automatic">Аутоматска</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
     <item quantity="one">Налепите свој PGN текст овде, до %s партије</item>
     <item quantity="few">Налепите свој PGN текст овде, до %s партије</item>
