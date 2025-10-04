@@ -69,9 +69,11 @@ $c-slider: $c-setup;
 
   .footer {
     @extend %flex-center;
+    position: relative;
     justify-content: center;
-    padding: 1.1rem;
+    padding: 1.5rem;
   }
+
   .lobby__start__button {
     height: 3rem;
     padding-inline: 1rem 1.2rem;
@@ -81,6 +83,12 @@ $c-slider: $c-setup;
     &::before {
       color: $c-setup !important;
     }
+  }
+
+  .footer .spinner {
+    position: absolute;
+    width: 56px;
+    height: 56px;
   }
 
   .radio-pane {
@@ -116,14 +124,6 @@ $c-slider: $c-setup;
       &.random i {
         background-image: url(../images/wbK.svg);
       }
-    }
-
-    .spinner {
-      position: absolute;
-      width: 64px;
-      height: 64px;
-      right: calc(50% - 32px);
-      bottom: 6px;
     }
   }
 
@@ -191,6 +191,9 @@ $c-slider: $c-setup;
   @media (max-height: at-most(900px)) {
     h2 {
       margin-block: 1.1rem;
+    }
+    .footer {
+      padding: 1.1rem;
     }
     .setup-content {
       padding: 1.25rem 0.75rem;
