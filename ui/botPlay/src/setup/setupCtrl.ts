@@ -33,7 +33,7 @@ export default class SetupCtrl {
     private readonly start: (bot: BotInfo, pov: ColorChoice, clock?: ClockConfig) => void,
     readonly redraw: () => void,
   ) {
-    this.selectedBot = this.opts.bots[0];
+    // this.selectedBot = this.opts.bots[0];
     const s = this.settings();
     this.color = prop(s.color);
     this.timeControl = timeControlFromStoredValues(
