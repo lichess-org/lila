@@ -9,7 +9,7 @@ import lila.jsBot.{ BotUid, AssetType, BotJson }
 
 final class JsBot(env: Env) extends LilaController(env):
 
-  def index = Secure(_.Beta) { _ ?=> _ ?=>
+  def index = Beta:
     for
       bots <- env.jsBot.repo.getLatestBots()
       res <- negotiate(
@@ -19,7 +19,6 @@ final class JsBot(env: Env) extends LilaController(env):
         json = JsonOk(Json.obj("bots" -> bots))
       )
     yield res
-  }
 
   def assetKeys = Anon: // for service worker
     JsonOk(env.jsBot.api.getJson)
