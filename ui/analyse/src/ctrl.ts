@@ -354,9 +354,11 @@ export default class AnalyseCtrl implements CevalHandler {
         ? gamebookPlay.movableColor()
         : this.practice
           ? this.bottomColor()
-          : (dests && dests.size > 0) || drops === null || drops.length
-            ? color
-            : undefined,
+          : this.data.game.status.id >= 30
+            ? undefined
+            : (dests && dests.size > 0) || drops === null || drops.length
+              ? color
+              : undefined,
       config: ChessgroundConfig = {
         fen: node.fen,
         turnColor: color,
