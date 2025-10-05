@@ -125,7 +125,7 @@
     @extend %metal;
 
     &,
-    &:hover {
+    &:not(.disabled):hover {
       color: $c-font-dim;
     }
 
