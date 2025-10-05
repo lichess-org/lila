@@ -79,8 +79,8 @@
   <string name="saveChapter">Сачувај поглавље</string>
   <string name="clearAnnotations">Избриши напомене</string>
   <string name="deleteChapter">Избриши поглавље</string>
-  <string name="deleteThisChapter">Избриши ово поглавље? Нема повратка назад!</string>
-  <string name="clearAllCommentsInThisChapter">Избриши све коментаре, глифове и нацртане облике у овом поглављу?</string>
+  <string name="deleteThisChapter">Избриши ово поглавље. Нема повратка назад!</string>
+  <string name="clearAllCommentsInThisChapter">Очисти све коментаре, глифове и нацртане облике у овом поглављу</string>
   <string name="rightUnderTheBoard">Одмах испод табле</string>
   <string name="noPinnedComment">Ниједан</string>
   <string name="normalAnalysis">Нормална анализа</string>
@@ -91,16 +91,16 @@
   <string name="startFromInitialPosition">Започни од почетне позиције</string>
   <string name="editor">Уређивач</string>
   <string name="startFromCustomPosition">Започни од жељене позиције</string>
-  <string name="loadAGameByUrl">Учитајте партије преко линкова</string>
+  <string name="loadAGameByUrl">Учитај партије преко линкова</string>
   <string name="loadAPositionFromFen">Учитај позицију из FEN-а</string>
-  <string name="loadAGameFromPgn">Учитајте партију из PGN-а</string>
+  <string name="loadAGameFromPgn">Учитај партијe из PGN-а</string>
   <string name="automatic">Аутоматска</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
     <item quantity="one">Налепи свој PGN текст овде, до %s партије</item>
     <item quantity="few">Налепи партије као PGN текст овде. За сваку партију, ново поглавље је направљено. Студија може садржати до %s поглавља.</item>
     <item quantity="other">Налепи партије као PGN текст овде. За сваку партију, ново поглавље је направљено. Студија може садржати до %s поглавља.</item>
   </plurals>
-  <string name="urlOfTheGame">Линкови партија, једна по реду</string>
+  <string name="urlOfTheGame">Линкови партија, један по реду</string>
   <string name="createChapter">Направи поглавље</string>
   <string name="createStudy">Направи студију</string>
   <string name="editStudy">Измени студију</string>
