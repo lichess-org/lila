@@ -67,10 +67,6 @@
       box-shadow: none;
     }
 
-    .expiration-top {
-      display: none;
-    }
-
     &.invert-clock {
       .ruser {
         justify-content: end;
@@ -79,12 +75,16 @@
         justify-self: start;
       }
     }
+
     .ricons {
       margin: 0.5em 0;
       &.empty {
         margin-bottom: 0;
       }
     }
+
+    &__table,
+    .expiration-top,
     .keyboard-move {
       display: none;
     }

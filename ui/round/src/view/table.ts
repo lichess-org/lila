@@ -137,6 +137,7 @@ export const renderTablePlay = (ctrl: RoundController): LooseVNodes => {
 };
 
 export const renderTable = (ctrl: RoundController): LooseVNodes => [
+  hl('div.round__app__table'),
   renderExpiration(ctrl),
   renderPlayer(ctrl, 'top'),
   ctrl.data.player.spectator
