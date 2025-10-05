@@ -90,6 +90,11 @@ final class AccountPref(helpers: Helpers, helper: PrefHelper, bits: AccountUi):
           ),
           categFieldset(PrefCateg.ChessClock, categ)(
             setting(
+              "Swap clock and username positions in realtime games on portrait mode phones",
+              radios(form("clock.swapClock"), booleanChoices),
+              "swapClock"
+            ),
+            setting(
               trp.tenthsOfSeconds(),
               radios(form("clock.tenths"), translatedClockTenthsChoices),
               "tenthsOfSeconds"

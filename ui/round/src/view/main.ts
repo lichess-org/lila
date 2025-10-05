@@ -29,7 +29,11 @@ export function main(ctrl: RoundController): VNode {
     ? ctrl.nvui.render()
     : hl(
         'div.round__app.variant-' + d.game.variant.key,
-        { class: { 'invert-clock': isTouchDevice() && displayColumns() === 1 && ctrl.invertClock() } },
+        {
+          class: {
+            'swap-clock': isTouchDevice() && displayColumns() === 1 && storage.boolean('swapClock').get(),
+          },
+        },
         [
           hl(
             'div.round__app__board.main-board' + (hideBoard ? '.blindfold' : ''),
