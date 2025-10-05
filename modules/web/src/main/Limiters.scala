@@ -2,6 +2,7 @@ package lila.web
 
 import lila.core.net.{ IpAddress, Bearer }
 import lila.core.socket.Sri
+import lila.core.security.IsProxy
 import lila.memo.RateLimit
 
 final class Limiters(using Executor, lila.core.config.RateLimit):
@@ -137,3 +138,10 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
 
   val teamKick =
     RateLimit.composite[IpAddress](key = "team.kick.api.ip")(("fast", 10, 2.minutes), ("slow", 50, 1.day))
+
+  val openingProxyLimit = RateLimit[IsProxy](20 * 2, 1.minute, "opening.byKeyAndMoves.proxy")
+
+  def enumerationProxyCost(proxy: IsProxy): Int =
+    if proxy.isFloodish then 2
+    else if proxy.isVpn then 1
+    else 0
