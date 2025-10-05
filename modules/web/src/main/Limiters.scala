@@ -139,9 +139,15 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
   val teamKick =
     RateLimit.composite[IpAddress](key = "team.kick.api.ip")(("fast", 10, 2.minutes), ("slow", 50, 1.day))
 
-  val openingProxyLimit = RateLimit[IsProxy](20 * 2, 1.minute, "opening.byKeyAndMoves.proxy")
+  object enumeration:
 
-  def enumerationProxyCost(proxy: IsProxy): Int =
-    if proxy.isFloodish then 2
-    else if proxy.isVpn then 1
-    else 0
+    private val maxCost = 2
+
+    val opening = RateLimit[IsProxy](20 * maxCost, 1.minute, "opening.byKeyAndMoves.proxy")
+
+    val userProfile = RateLimit[IsProxy](100 * maxCost, 1.minute, "user.profile.page.proxy")
+
+    def cost(proxy: IsProxy): Int =
+      if proxy.isFloodish then maxCost
+      else if proxy.isVpn then 1
+      else 0

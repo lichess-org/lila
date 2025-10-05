@@ -71,29 +71,32 @@ final class User(
       case _ => notFound
 
   private def renderShow(u: UserModel, status: Results.Status = Results.Ok)(using Context): Fu[Result] =
-    if HTTPRequest.isSynchronousHttp(ctx.req)
-    then
-      val cost =
-        if isGrantedOpt(_.UserModView) then 0
-        else if env.socket.isOnline.exec(u.id) then 1
-        else 2
-      userShowHtmlRateLimit(rateLimited, cost = cost):
-        for
-          as <- env.activity.read.recentAndPreload(u)
-          nbs <- env.userNbGames(u, withCrosstable = false)
-          info <- env.userInfo(u, nbs)
-          _ <- env.userInfo.preloadTeams(info)
-          social <- env.socialInfo(u)
-          page <- renderPage:
-            lila.mon.chronoSync(_.user.segment("renderSync")):
-              views.user.show.page.activity(as, info, social)
-        yield status(page).withCanonical(routes.User.show(u.username))
-    else
-      for
-        withPerfs <- env.user.perfsRepo.withPerfs(u)
-        as <- env.activity.read.recentAndPreload(u)
-        snip = lila.ui.Snippet(views.activity(withPerfs, as))
-      yield status(snip)
+    WithProxy: proxy =>
+      limit.enumeration.userProfile(proxy, rateLimited, limit.enumeration.cost(proxy)):
+        def fetchActivity = proxy.isFloodish.not.so(env.activity.read.recentAndPreload(u))
+        if HTTPRequest.isSynchronousHttp(ctx.req)
+        then
+          val cost =
+            if isGrantedOpt(_.UserModView) then 0
+            else if env.socket.isOnline.exec(u.id) then 1
+            else 2
+          userShowHtmlRateLimit(rateLimited, cost = cost):
+            for
+              as <- fetchActivity
+              nbs <- env.userNbGames(u, withCrosstable = false)
+              info <- env.userInfo(u, nbs)
+              _ <- env.userInfo.preloadTeams(info)
+              social <- env.socialInfo(u)
+              page <- renderPage:
+                lila.mon.chronoSync(_.user.segment("renderSync")):
+                  views.user.show.page.activity(as, info, social)
+            yield status(page).withCanonical(routes.User.show(u.username))
+        else
+          for
+            withPerfs <- env.user.perfsRepo.withPerfs(u)
+            as <- fetchActivity
+            snip = lila.ui.Snippet(views.activity(withPerfs, as))
+          yield status(snip)
 
   def download(username: UserStr) = OpenBody:
     val user =
