@@ -3,8 +3,14 @@ import * as Prefs from 'lib/prefs';
 
 export type DateMillis = number; // local millis since Unix epoch = Date.getTime()
 
+export type BotKey = string; // like Uid without the leading #. Less slicing downstream.
+
+export interface Bot extends BotInfo {
+  key: BotKey;
+}
+
 export interface BotOpts {
-  bots: BotInfo[];
+  bots: Bot[];
   pref: Pref;
 }
 

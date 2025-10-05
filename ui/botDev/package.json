@@ -34,12 +34,12 @@
   "//": [
     "pnpm import-assets ../../../lila-db-seed/spamdb/data/jsbot.asset.json",
     "pnpm import-bots ../../../lila-db-seed/spamdb/data/jsbot.json",
-    "the asset json in lila-db-seed map the hashed asset filenames in lifat/bots"
+    "the asset json in lila-db-seed map the hashed asset filenames in data/bot"
   ],
   "build": {
     "bundle": "src/**/botDev.*ts",
     "sync": {
-      "node_modules/zerofish/dist/zerofishEngine.*": "/public/npm"
+      "node_modules/**/zerofishEngine.*": "/public/npm"
     }
   }
 }

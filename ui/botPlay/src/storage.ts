@@ -14,11 +14,11 @@ export const saveCurrentGame = (game: Game | null) => {
 
 const toJson = (game: Game) => ({
   id: game.id,
-  botId: game.botId,
+  botKey: game.botKey,
   pov: game.pov,
   clockConfig: game.clockConfig,
   initialFen: game.initialFen,
   moves: game.moves,
 });
 
-const fromJson = (o: any) => new Game(o.botId, o.pov, o.clockConfig, o.initialFen, o.moves, o.id);
+const fromJson = (o: any) => new Game(o.botKey, o.pov, o.clockConfig, o.initialFen, o.moves, o.id);

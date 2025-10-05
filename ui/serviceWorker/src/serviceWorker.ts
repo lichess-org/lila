@@ -127,8 +127,8 @@ self.addEventListener('notificationclick', (e: NotificationEvent) => e.waitUntil
 //     for (const key of list) {
 //       assetPaths.push(
 //         ...(type === 'book'
-//           ? [`lifat/bots/book/${key}.bin`, `lifat/bots/book/${key}.png`]
-//           : [`lifat/bots/${type}/${key}`]),
+//           ? [`data/bot/book/${key}.bin`, `lifat/bots/book/${key}.png`]
+//           : [`data/bot/${type}/${key}`]),
 //       );
 //     }
 //   }

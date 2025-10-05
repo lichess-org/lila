@@ -1,3 +1,5 @@
+@import '../../lib/css/setup/colorChoice';
+
 $c-setup: $c-secondary;
 $c-slider: $c-setup;
 
@@ -95,36 +97,6 @@ $c-slider: $c-setup;
     @extend %flex-center-nowrap;
     justify-content: center;
     gap: 0.8rem;
-  }
-
-  --color-button-size: 40px;
-  --color-king-size: 32px;
-
-  .color-picker {
-    &__button {
-      width: 50px;
-      height: var(--color-button-size);
-      padding: 4px 8px;
-
-      i {
-        display: block;
-        width: var(--color-king-size);
-        height: var(--color-king-size);
-        background-size: var(--color-king-size) var(--color-king-size);
-      }
-
-      &.white i {
-        background-image: url(../piece/cburnett/wK.svg);
-      }
-
-      &.black i {
-        background-image: url(../piece/cburnett/bK.svg);
-      }
-
-      &.random i {
-        background-image: url(../images/wbK.svg);
-      }
-    }
   }
 
   .range {
