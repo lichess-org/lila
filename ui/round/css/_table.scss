@@ -1,11 +1,3 @@
-.round__app {
-  &__table {
-    @extend %box-radius-right, %box-shadow;
-
-    background: $c-bg-box;
-  }
-}
-
 .expiration {
   @extend %flex-center;
 

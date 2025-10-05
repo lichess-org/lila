@@ -3,6 +3,7 @@ import type RoundController from '../ctrl';
 import { boardMenu as menuDropdown } from 'lib/view/boardMenu';
 import { toggle } from 'lib';
 import { toggle as cmnToggle, boolPrefXhrToggle } from 'lib/view/controls';
+import { displayColumns, isTouchDevice } from 'lib/device';
 
 export default function (ctrl: RoundController): LooseVNode {
   return menuDropdown(ctrl.redraw, ctrl.menu, menu => {
@@ -28,6 +29,17 @@ export default function (ctrl: RoundController): LooseVNode {
               id: 'haptics',
               checked: ctrl.vibration(),
               change: v => ctrl.vibration(v),
+            },
+            ctrl.redraw,
+          ),
+        isTouchDevice() &&
+          displayColumns() === 1 &&
+          cmnToggle(
+            {
+              name: 'Invert clock',
+              id: 'invertClock',
+              checked: ctrl.invertClock(),
+              change: v => ctrl.invertClock(v),
             },
             ctrl.redraw,
           ),

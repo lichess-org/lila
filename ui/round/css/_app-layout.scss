@@ -71,8 +71,13 @@
       display: none;
     }
 
-    &__table {
-      display: none;
+    &.invert-clock {
+      .ruser {
+        justify-content: end;
+      }
+      .rclock {
+        justify-self: start;
+      }
     }
     .ricons {
       margin: 0.5em 0;

@@ -92,6 +92,7 @@ export default class RoundController implements MoveRootCtrl {
   server: Server;
   nvui?: NvuiPlugin;
   vibration: Prop<boolean> = storedBooleanProp('vibration', false);
+  invertClock: Prop<boolean> = storedBooleanProp('invertClock', false);
 
   constructor(
     readonly opts: RoundOpts,
