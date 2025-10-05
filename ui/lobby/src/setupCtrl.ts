@@ -7,7 +7,12 @@ import { INITIAL_FEN } from 'chessops/fen';
 import type LobbyController from './ctrl';
 import type { ForceSetupOptions, GameMode, GameType, PoolMember, SetupStore } from './interfaces';
 import { keyToId, variants } from './options';
-import TimeControl, { allTimeModeKeys, timeControlFromStoredValues, timeModes } from 'lib/setup/timeControl';
+import {
+  allTimeModeKeys,
+  timeControlFromStoredValues,
+  timeModes,
+  type TimeControl,
+} from 'lib/setup/timeControl';
 import type { ColorChoice, ColorProp } from 'lib/setup/color';
 
 const getPerf = (variant: VariantKey, tc: TimeControl): Perf =>

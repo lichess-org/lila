@@ -2,11 +2,11 @@ import type { Prop } from '@/common';
 import { hl, type VNode } from '@/snabbdom';
 import type { InputValue } from '../interfaces';
 import {
-  TimeControl,
   timeModes,
   sliderTimes,
   incrementVToIncrement,
   daysVToDays,
+  type TimeControl,
   type TimeMode,
 } from '../timeControl';
 import { option } from '../option';
