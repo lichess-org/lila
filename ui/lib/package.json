@@ -33,11 +33,11 @@
   "build": {
     "sync": {
       "node_modules/**/stockfish*/*.{js,wasm}": "/public/npm",
-      "node_modules/zerofish/dist/zerofishEngine.*": "/public/npm"
+      "node_modules/**/zerofishEngine.*": "/public/npm"
     },
     "hash": [
-      "/public/npm/stockfish-web/*",
-      "/public/npm/zerofishEngine.*"
+      "/public/npm/**/stockfish-web/*",
+      "/public/npm/**/zerofishEngine.*"
     ]
   }
 }

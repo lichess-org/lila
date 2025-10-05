@@ -9,7 +9,7 @@ import lila.common.config.GetRelativeFile
 
 // this stuff is for bot devs
 
-final private class JsBotApi(config: JsBotConfig, repo: JsBotRepo, getFile: GetRelativeFile)(using
+final private class JsBotApi(repo: JsBotRepo, getFile: GetRelativeFile)(using
     Executor,
     akka.stream.Materializer
 ):
@@ -19,17 +19,17 @@ final private class JsBotApi(config: JsBotConfig, repo: JsBotRepo, getFile: GetR
 
   @volatile private var cachedAssets: Option[(JsBotAssets, JsonStr)] = None
 
+  private val assetPath = "public/data/bot"
+
   def storeAsset(
       tpe: AssetType,
       fileName: String,
       file: MultipartFormData.FilePart[Files.TemporaryFile]
-  ): Fu[Either[String, (JsBotAssets, JsonStr)]] =
+  ): Fu[(JsBotAssets, JsonStr)] =
     FileIO
       .fromPath(file.ref.path)
-      .runWith(FileIO.toPath(getFile.exec(s"${config.assetPath}/${tpe}/$fileName").toPath))
-      .map(_ => Right(updateAssets))
-      .recover:
-        case e: Exception => Left(s"Exception: ${e.getMessage}")
+      .runWith(FileIO.toPath(getFile.exec(s"$assetPath/${tpe}/$fileName").toPath))
+      .as(updateAssets)
 
   def getBoth: (JsBotAssets, JsonStr) = cachedAssets.getOrElse(updateAssets)
   def getAssets: JsBotAssets = getBoth._1
@@ -45,7 +45,7 @@ final private class JsBotApi(config: JsBotConfig, repo: JsBotRepo, getFile: GetR
           yield Json.obj("key" -> key, "name" -> name))
 
   private def listFiles(tpe: AssetType, ext: String): List[AlmostFileName] =
-    val path = getFile.exec(s"${config.assetPath}/${tpe}")
+    val path = getFile.exec(s"$assetPath/${tpe}")
     if !path.exists() then
       NioFiles.createDirectories(path.toPath)
       Nil

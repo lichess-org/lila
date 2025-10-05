@@ -3,7 +3,7 @@ import { h } from 'snabbdom';
 import type LobbyController from '../../../ctrl';
 import type { GameMode } from '../../../interfaces';
 import { gameModes } from '../../../options';
-import { option } from './option';
+import { option } from 'lib/setup/option';
 
 export const gameModeButtons = (ctrl: LobbyController): MaybeVNode => {
   if (!ctrl.me) return null;

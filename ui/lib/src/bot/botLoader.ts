@@ -7,6 +7,8 @@ import { definedMap } from '../algo';
 import { makeLichessBook } from './lichessBook';
 import { myUserId, myUsername } from '../common';
 
+export const zerofishPath = 'npm/@lichess-org/zerofish/dist';
+
 export class BotLoader {
   zerofish: Zerofish;
   readonly net: Map<string, Promise<{ key: string; data: Uint8Array }>> = new Map();
@@ -32,7 +34,8 @@ export class BotLoader {
       defBots ?? xhr.json('/bots').then(res => res.bots),
       this.zerofish ??
         makeZerofish({
-          locator: (file: string) => site.asset.url(`npm/${file}`, { documentOrigin: file.endsWith('js') }),
+          locator: (file: string) =>
+            site.asset.url(`${zerofishPath}/${file}`, { documentOrigin: file.endsWith('js') }),
         }).then(zf => (this.zerofish = zf)),
     ]);
     for (const b of [...bots].filter(Bot.isValid)) {
@@ -127,5 +130,5 @@ export function botAssetUrl(type: AssetType, path: string): string {
     ? path
     : path.includes('/')
       ? `${site.asset.baseUrl()}/assets/${path}`
-      : site.asset.url(`lifat/bots/${type}/${encodeURIComponent(path)}`);
+      : site.asset.url(`data/bot/${type}/${encodeURIComponent(path)}`);
 }

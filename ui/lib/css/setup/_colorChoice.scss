@@ -1,0 +1,28 @@
+.color-picker {
+  --button-size: 40px;
+  --king-size: 32px;
+  &__button {
+    width: 50px !important;
+    height: var(--button-size) !important;
+    padding: 4px 8px !important;
+
+    i {
+      display: block;
+      width: var(--king-size);
+      height: var(--king-size);
+      background-size: var(--king-size) var(--king-size);
+    }
+
+    &.white i {
+      background-image: url(../piece/cburnett/wK.svg);
+    }
+
+    &.black i {
+      background-image: url(../piece/cburnett/bK.svg);
+    }
+
+    &.random i {
+      background-image: url(../images/wbK.svg);
+    }
+  }
+}

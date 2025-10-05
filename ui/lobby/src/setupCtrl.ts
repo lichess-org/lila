@@ -2,37 +2,21 @@ import { type Prop, propWithEffect } from 'lib';
 import { debounce } from 'lib/async';
 import * as xhr from 'lib/xhr';
 import { storedJsonProp } from 'lib/storage';
-import { clockToSpeed } from 'lib/game/game';
 import { alert } from 'lib/view/dialogs';
 import { INITIAL_FEN } from 'chessops/fen';
 import type LobbyController from './ctrl';
-import type {
-  ColorOrRandom,
-  ForceSetupOptions,
-  GameMode,
-  GameType,
-  InputValue,
-  PoolMember,
-  RealValue,
-  SetupStore,
-  TimeMode,
-} from './interfaces';
+import type { ForceSetupOptions, GameMode, GameType, PoolMember, SetupStore } from './interfaces';
+import { keyToId, variants } from './options';
 import {
-  daysVToDays,
-  incrementVToIncrement,
-  keyToId,
-  sliderInitVal,
+  allTimeModeKeys,
+  timeControlFromStoredValues,
   timeModes,
-  timeVToTime,
-  variants,
-} from './options';
+  type TimeControl,
+} from 'lib/setup/timeControl';
+import type { ColorChoice, ColorProp } from 'lib/setup/color';
 
-const getPerf = (variant: VariantKey, timeMode: TimeMode, time: RealValue, increment: RealValue): Perf =>
-  variant !== 'standard' && variant !== 'fromPosition'
-    ? variant
-    : timeMode !== 'realTime'
-      ? 'correspondence'
-      : clockToSpeed(time * 60, increment);
+const getPerf = (variant: VariantKey, tc: TimeControl): Perf =>
+  variant !== 'standard' && variant !== 'fromPosition' ? variant : tc.speed();
 
 export default class SetupController {
   root: LobbyController;
@@ -42,27 +26,17 @@ export default class SetupController {
   fenError = false;
   friendUser = '';
   loading = false;
-  color: Prop<ColorOrRandom>;
+  color: ColorProp;
 
   // Store props
   variant: Prop<VariantKey>;
   fen: Prop<string>;
-  timeMode: Prop<TimeMode>;
   gameMode: Prop<GameMode>;
   ratingMin: Prop<number>;
   ratingMax: Prop<number>;
   aiLevel: Prop<number>;
 
-  // The following three quantities are suffixed with 'V' to draw attention to the
-  // fact that they are not the true quantities. They represent the value of the
-  // input element. Use time(), increment(), and days() below for the true quantities.
-  timeV: Prop<InputValue>;
-  incrementV: Prop<InputValue>;
-  daysV: Prop<InputValue>;
-
-  time: () => RealValue = () => timeVToTime(this.timeV());
-  increment: () => RealValue = () => incrementVToIncrement(this.incrementV());
-  days: () => RealValue = () => daysVToDays(this.daysV());
+  timeControl: TimeControl;
 
   constructor(ctrl: LobbyController) {
     this.root = ctrl;
@@ -97,12 +71,15 @@ export default class SetupController {
     // Load props from the store, but override any store values with values found in forceOptions
     this.variant = propWithEffect(forceOptions?.variant || storeProps.variant, this.onDropdownChange);
     this.fen = this.propWithApply(forceOptions?.fen || storeProps.fen);
-    this.timeMode = propWithEffect(forceOptions?.timeMode || storeProps.timeMode, this.onDropdownChange);
-    this.timeV = this.propWithApply(sliderInitVal(forceOptions?.time ?? storeProps.time, timeVToTime, 100)!);
-    this.incrementV = this.propWithApply(
-      sliderInitVal(forceOptions?.increment ?? storeProps.increment, incrementVToIncrement, 100)!,
+    const canChangeTimeMode = !!this.root.me || this.gameType !== 'hook';
+    this.timeControl = timeControlFromStoredValues(
+      propWithEffect(forceOptions?.timeMode || storeProps.timeMode, this.onDropdownChange),
+      canChangeTimeMode ? allTimeModeKeys : ['realTime'],
+      forceOptions?.time ?? storeProps.time,
+      forceOptions?.increment ?? storeProps.increment,
+      storeProps.days,
+      this.onPropChange,
     );
-    this.daysV = this.propWithApply(sliderInitVal(storeProps.days, daysVToDays, 20)!);
     this.gameMode = this.propWithApply(storeProps.gameMode);
     this.ratingMin = this.propWithApply(storeProps.ratingMin);
     this.ratingMax = this.propWithApply(storeProps.ratingMax);
@@ -137,10 +114,10 @@ export default class SetupController {
     this.store[this.gameType]({
       variant: this.variant(),
       fen: this.fen(),
-      timeMode: this.timeMode(),
-      time: this.time(),
-      increment: this.increment(),
-      days: this.days(),
+      timeMode: this.timeControl.mode(),
+      time: this.timeControl.time(),
+      increment: this.timeControl.increment(),
+      days: this.timeControl.days(),
       gameMode: this.gameMode(),
       ratingMin: this.ratingMin(),
       ratingMax: this.ratingMax(),
@@ -227,15 +204,12 @@ export default class SetupController {
   ratedModeDisabled = (): boolean =>
     // anonymous games cannot be rated
     !this.root.me ||
-    this.timeMode() === 'unlimited' ||
+    this.timeControl.mode() === 'unlimited' ||
     (this.variant() === 'fromPosition' && this.fen() !== INITIAL_FEN) ||
     // variants with very low time cannot be rated
-    (this.variant() !== 'standard' &&
-      (this.timeMode() !== 'realTime' ||
-        (this.time() < 0.5 && this.increment() === 0) ||
-        (this.time() === 0 && this.increment() < 2)));
+    (this.variant() !== 'standard' && this.timeControl.notForRatedVariant());
 
-  selectedPerf = (): Perf => getPerf(this.variant(), this.timeMode(), this.time(), this.increment());
+  selectedPerf = (): Perf => getPerf(this.variant(), this.timeControl);
 
   ratingRange = (): string => {
     if (!this.root.data.ratingMap) return '';
@@ -243,14 +217,14 @@ export default class SetupController {
     return `${Math.max(100, rating + this.ratingMin())}-${rating + this.ratingMax()}`;
   };
 
-  hookToPoolMember = (color: ColorOrRandom): PoolMember | null => {
+  hookToPoolMember = (color: ColorChoice): PoolMember | null => {
     const valid =
       color === 'random' &&
       this.gameType === 'hook' &&
       this.variant() === 'standard' &&
       this.gameMode() === 'rated' &&
-      this.timeMode() === 'realTime';
-    const id = `${this.time()}+${this.increment()}`;
+      this.timeControl.isRealTime();
+    const id = this.timeControl.clockStr();
     return valid && this.root.pools.find(p => p.id === id)
       ? {
           id,
@@ -259,17 +233,17 @@ export default class SetupController {
       : null;
   };
 
-  propsToFormData = (color: ColorOrRandom): FormData =>
+  propsToFormData = (color: ColorChoice): FormData =>
     xhr.form({
       variant: keyToId(this.variant(), variants).toString(),
       fen: this.variant() === 'fromPosition' ? this.fen() : undefined,
-      timeMode: keyToId(this.timeMode(), timeModes).toString(),
-      time: this.time().toString(),
-      time_range: this.timeV().toString(),
-      increment: this.increment().toString(),
-      increment_range: this.incrementV().toString(),
-      days: this.days().toString(),
-      days_range: this.daysV().toString(),
+      timeMode: keyToId(this.timeControl.mode(), timeModes).toString(),
+      time: this.timeControl.time().toString(),
+      time_range: this.timeControl.timeV().toString(),
+      increment: this.timeControl.increment().toString(),
+      increment_range: this.timeControl.incrementV().toString(),
+      days: this.timeControl.days().toString(),
+      days_range: this.timeControl.daysV().toString(),
       mode: this.gameMode() === 'casual' ? '0' : '1',
       ratingRange: this.ratingRange(),
       ratingRange_range_min: this.ratingMin().toString(),
@@ -279,13 +253,7 @@ export default class SetupController {
     });
 
   validFen = (): boolean => this.variant() !== 'fromPosition' || (!this.fenError && !!this.fen());
-  validTime = (): boolean => this.timeMode() !== 'realTime' || this.time() > 0 || this.increment() > 0;
-  validAiTime = (): boolean =>
-    this.gameType !== 'ai' ||
-    this.timeMode() !== 'realTime' ||
-    this.variant() !== 'fromPosition' ||
-    this.time() >= 1;
-  valid = (): boolean => this.validFen() && this.validTime() && this.validAiTime();
+  valid = (): boolean => this.validFen() && this.timeControl.valid();
 
   submit = async () => {
     const color = this.color();
@@ -296,7 +264,7 @@ export default class SetupController {
       return;
     }
 
-    if (this.gameType === 'hook') this.root.setTab(this.timeMode() === 'realTime' ? 'real_time' : 'seeks');
+    if (this.gameType === 'hook') this.root.setTab(this.timeControl.isRealTime() ? 'real_time' : 'seeks');
     this.loading = true;
     this.root.redraw();
 
