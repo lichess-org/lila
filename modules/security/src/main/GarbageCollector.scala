@@ -111,7 +111,7 @@ final class GarbageCollector(
         .exec(userId)
         .map2(_.game)
         .flatMap: game =>
-          if game.exists(_.playedPlies > 25) then funit
+          if game.exists(_.playedPlies > 20) then funit
           else
-            LilaFuture.delay(if game.isDefined then 12.seconds else 40.seconds):
+            LilaFuture.delay(if game.isDefined then 10.seconds else 30.seconds):
               waitForCollection(userId, max)
