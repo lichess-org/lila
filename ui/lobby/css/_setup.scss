@@ -79,7 +79,7 @@ $c-slider: $c-setup;
     padding-inline: 1rem 1.2rem;
     gap: 0.8rem;
     color: $c-font;
-    border: 2px solid $c-setup;
+    border: $border;
     &::before {
       color: $c-setup !important;
     }
@@ -210,5 +210,8 @@ $c-slider: $c-setup;
 @media (pointer: coarse) {
   .game-setup select {
     font-size: 1.2rem;
+  }
+  .game-setup .lobby__start__button {
+    border: 2px solid $c-setup;
   }
 }
