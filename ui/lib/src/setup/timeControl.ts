@@ -4,7 +4,7 @@ import { clockToSpeed } from '@/game/game';
 
 export type TimeMode = 'realTime' | 'correspondence' | 'unlimited';
 
-export default class TimeControl {
+export class TimeControl {
   constructor(
     readonly mode: Prop<TimeMode>,
     readonly modes: TimeMode[],

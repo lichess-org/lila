@@ -1,8 +1,14 @@
 import type { Prop } from '@/common';
 import { hl, type VNode } from '@/snabbdom';
 import type { InputValue } from '../interfaces';
-import type TimeControl from '../timeControl';
-import { timeModes, sliderTimes, incrementVToIncrement, daysVToDays, type TimeMode } from '../timeControl';
+import {
+  TimeControl,
+  timeModes,
+  sliderTimes,
+  incrementVToIncrement,
+  daysVToDays,
+  type TimeMode,
+} from '../timeControl';
 import { option } from '../option';
 
 const showTime = (v: number) => {
