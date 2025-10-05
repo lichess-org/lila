@@ -26,8 +26,8 @@ export interface PlayOpts {
 }
 
 export default class PlayCtrl {
-  game: Game;
-  board: Board; // the state of the board being displayed
+  game: Game; // the entire game with moves and ending info
+  board: Board; // the state of the board being displayed on `ground`
   clock?: ClockCtrl;
   promotion: PromotionCtrl;
   menu: Toggle;
@@ -86,6 +86,7 @@ export default class PlayCtrl {
     this.game.computeEnd();
     if (this.game.end?.status == 'outoftime') {
       this.recomputeAndSetClock();
+      this.updateGround();
       this.opts.redraw();
     }
   };
@@ -94,10 +95,14 @@ export default class PlayCtrl {
     const newPly = Math.max(0, Math.min(this.game.ply(), ply));
     if (newPly === this.board.onPly) return;
     this.board = this.opts.game.copyAtPly(newPly).lastBoard();
-    this.withGround(cg => cg.set(updateGround(this.board)));
+    this.updateGround();
     this.opts.redraw();
     this.autoScroll();
     this.safelyRequestBotMove();
+  };
+
+  private updateGround = () => {
+    this.withGround(cg => cg.set(updateGround(this.game, this.board)));
   };
 
   goDiff = (plyDiff: number) => this.goTo(this.board.onPly + plyDiff);
