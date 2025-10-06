@@ -105,7 +105,8 @@ final class Env(
     proxyRepo
       .game(gameId)
       .foreach:
-        _.foreach: game =>
+        case None => logger.error(s"Could not find game $gameId on start")
+        case Some(game) =>
           for users <- game.players.map(_.userId).traverse(_.so(lightUser.async))
           yield
             val sg = lila.core.game.StartGame(game, users)
