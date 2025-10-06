@@ -77,7 +77,6 @@ object mon:
       timer("caffeine.loadTime.penalty").withTag("name", name).record(stats.averageLoadPenalty.toLong)
     gauge("caffeine.eviction.count").withTag("name", name).update(stats.evictionCount.toDouble)
     gauge("caffeine.entry.count").withTag("name", name).update(cache.estimatedSize.toDouble)
-    ()
   object mongoCache:
     def request(name: String, hit: Boolean) =
       counter("mongocache.request").withTags:

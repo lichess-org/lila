@@ -115,7 +115,7 @@ object CacheApi:
       builder.buildAsyncFuture: k =>
         loader(k).withTimeoutDefault(loaderTimeout, zero.zero)
 
-  private[memo] def startMonitor(
+  private def startMonitor(
       name: String,
       cache: caffeine.cache.Cache[?, ?]
   )(using ec: Executor, scheduler: Scheduler): Unit =

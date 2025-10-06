@@ -4,7 +4,7 @@ import lila.core.net.Domain
 import lila.user.{ User, UserRepo }
 import lila.core.user.RoleDbKey
 
-final private[security] class Cli(
+final private class Cli(
     userRepo: UserRepo,
     emailValidator: EmailAddressValidator,
     verifyMail: VerifyMail,
