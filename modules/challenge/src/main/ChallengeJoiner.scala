@@ -18,17 +18,17 @@ final private class ChallengeJoiner(
     origUser <- c.challengerUserId.so(userApi.byIdWithPerf(_, c.perfType))
     game = ChallengeJoiner.createGame(c, origUser, destUser)
     _ <- gameRepo.insertDenormalized(game)
-    _ <- onStartOrRetry(game.id).recover: e =>
-      logger.error(s"onStart failed for game ${game.id}", e)
+    _ <- onStartOrRetry(game.id).recover: _ =>
+      logger.error(s"onStart failed for game ${game.id}")
   yield Pov(game, !c.finalColor)
 
-  private def onStartOrRetry(id: GameId, retries: Int = 1): Funit =
+  private def onStartOrRetry(id: GameId, retries: Int = 3): Funit =
     onStart
       .exec(id)
       .recoverWith:
-        case e if retries > 0 =>
-          logger.warn(s"onStart failed for game $id, retrying", e)
-          lila.common.LilaFuture.delay(1.second)(onStartOrRetry(id, retries - 1))
+        case _ if retries > 0 =>
+          logger.warn(s"onStart failed for game $id. Retries left: $retries")
+          lila.common.LilaFuture.delay(500.millis)(onStartOrRetry(id, retries - 1))
       .void
 
 private object ChallengeJoiner:
