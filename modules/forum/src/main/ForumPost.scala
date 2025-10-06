@@ -23,7 +23,8 @@ case class ForumPost(
     updatedAt: Option[Instant] = None,
     erasedAt: Option[Instant] = None,
     modIcon: Option[Boolean],
-    reactions: Option[ForumPost.Reactions] = None
+    reactions: Option[ForumPost.Reactions] = None,
+    markdown: Option[Boolean] = None // future PR will set this to true.some
 ) extends lila.core.forum.ForumPost:
 
   private def showAuthor: String =

@@ -13,7 +13,13 @@ import lila.core.fide.FideTC
 import lila.core.socket.SocketVersion
 import lila.core.LightUser.GetterSync
 
-final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, picfitUrl: PicfitUrl, lightUserSync: GetterSync):
+final class JsonView(
+    baseUrl: BaseUrl,
+    picfitUrl: PicfitUrl,
+    lightUserSync: GetterSync,
+    markdown: lila.memo.MarkdownCache,
+    markdownOptions: lila.memo.MarkdownOptions
+):
 
   import JsonView.{ Config, given }
 
@@ -55,7 +61,7 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, picfitUrl: PicfitUrl
     Json
       .toJsObject(tour)
       .add("description" -> tour.markup.map: md =>
-        if config.html then markup(tour)(md).value
+        if config.html then markdown.toFragSync(s"relay:${tour.id}", md, markdownOptions).render
         else md.value)
       .add("teamTable" -> tour.teamTable)
       .add("communityOwner" -> tour.communityOwner.map(lightUserSync))

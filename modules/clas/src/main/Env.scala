@@ -36,8 +36,6 @@ final class Env(
 
   lazy val progressApi = wire[ClasProgressApi]
 
-  lazy val markup = wire[ClasMarkup]
-
   def hasClas(using me: Me) =
     lila.core.perm.Granter(_.Teacher) || studentCache.isStudent(me)
 
