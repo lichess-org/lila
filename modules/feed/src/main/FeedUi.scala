@@ -13,11 +13,11 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi)(
 )(using Executor):
   import helpers.{ *, given }
 
-  private def renderCache[A](ttl: FiniteDuration)(toHtml: A => Frag): A => Frag =
+  private def renderCache[A](ttl: FiniteDuration)(toFrag: A => Frag): A => Frag =
     val cache = lila.memo.CacheApi.scaffeineNoScheduler
       .expireAfterWrite(ttl)
       .build[A, String]()
-    from => raw(cache.get(from, from => toHtml(from).render))
+    from => raw(cache.get(from, from => toFrag(from).render))
 
   private def page(title: String, edit: Boolean = false)(using Context): Page =
     sitePage(title)
