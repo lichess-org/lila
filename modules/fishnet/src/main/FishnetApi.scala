@@ -81,13 +81,13 @@ final class FishnetApi(
       workId: Work.Id,
       client: Client,
       data: JsonApi.Request.PostAnalysis
-  ): Fu[PostAnalysisResult] =
+  ): FuRaise[Error, PostAnalysisResult] =
     repo
       .getAnalysis(workId)
       .flatMap:
         case None =>
           Monitor.notFound(workId, client)
-          fufail(WorkNotFound)
+          Error.WorkNotFound.raise
         case Some(work) if work.isAcquiredBy(client) =>
           data.completeOrPartial match
             case complete: CompleteAnalysis =>
@@ -112,7 +112,7 @@ final class FishnetApi(
           : Fu[PostAnalysisResult]
         case Some(work) =>
           Monitor.notAcquired(work, client)
-          fufail(NotAcquired)
+          Error.NotAcquired.raise
       .chronometer
       .logIfSlow(200, logger):
         case PostAnalysisResult.Complete(res) => s"post analysis for ${res.id}"
@@ -158,14 +158,8 @@ object FishnetApi:
 
   case class Config(offlineMode: Boolean)
 
-  case object WorkNotFound extends LilaException:
-    val message = "The work has disappeared"
-
-  case object GameNotFound extends LilaException:
-    val message = "The game has disappeared"
-
-  case object NotAcquired extends LilaException:
-    val message = "The work was distributed to someone else"
+  enum Error:
+    case WorkNotFound, GameNotFound, NotAcquired
 
   enum PostAnalysisResult:
     case Complete(analysis: lila.analyse.Analysis)
