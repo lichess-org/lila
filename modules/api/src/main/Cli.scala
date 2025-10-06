@@ -22,7 +22,7 @@ final private class Cli(manifest: lila.web.AssetManifest)(using Executor, Schedu
         case e: Exception => s"ERROR $e\n"
 
   Cli.handle:
-    case List("uptime") => fuccess(s"${lila.common.Uptime.seconds} seconds")
+    case "uptime" :: Nil => fuccess(s"${lila.common.Uptime.seconds} seconds")
     case "announce" :: words => lila.web.AnnounceApi.cli(words)
     case "change" :: ("asset" | "assets") :: "version" :: Nil =>
       manifest.update()

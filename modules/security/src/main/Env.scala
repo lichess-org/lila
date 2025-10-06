@@ -177,7 +177,7 @@ final class Env(
 
   lazy val csrfRequestHandler = wire[CSRFRequestHandler]
 
-  lazy val cli = wire[Cli]
+  wire[Cli]
 
   lazy val coreApi = new lila.core.security.SecurityApi:
     export api.shareAnIpOrFp
