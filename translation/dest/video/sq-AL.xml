@@ -3,5 +3,14 @@
   <string name="chessVideos">Video shahu</string>
   <string name="allVideosAreFree">Krejt videot janë falas për këdo.</string>
   <string name="selectTagsToFilter">Përzgjidhni etiketa që të filtroni videot.</string>
+  <string name="weHaveCarefullySelectedX" comment="%s is the number of videos.&#10;&#10;Appears on https://lichess.org/video">Deri sot kemi përzgjedhur me kujdes %s video!</string>
+  <string name="freeChessVideos">Video shahu falas</string>
+  <plurals name="nbVideosFound" comment="%s is the number of videos found when searching on https://lichess.org/video">
+    <item quantity="one">U gjet %s video</item>
+    <item quantity="other">U gjetën %s video</item>
+  </plurals>
+  <string name="noVideosForTheseTags">S’ka video për këto etiketa:</string>
+  <string name="thatsAllWeGotForTheseTags">Kjo është krejt çka morëm për këto etiketa:</string>
+  <string name="thatsAllWeGotForThisSearchX" comment="%s is the search term that the user entered.&#10;&#10;Appears at the end of a list of search results on https://lichess.org/video">Kjo është krejt çka morëm për këtë kërkim: “%s”</string>
   <string name="thereAreNoResultsForX" comment="%s is the search term that the user entered.">S’ka përfundime për “%s”</string>
 </resources>
