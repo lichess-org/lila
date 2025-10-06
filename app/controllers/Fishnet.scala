@@ -31,7 +31,7 @@ final class Fishnet(env: Env) extends LilaController(env):
       def onComplete =
         if stop then NoContent.raise
         else api.acquire(client, slow)
-      allow:
+      allow[Error]:
         api
           .postAnalysis(Work.Id(workId), client, data)
           .flatMap:
@@ -43,7 +43,6 @@ final class Fishnet(env: Env) extends LilaController(env):
             case PostAnalysisResult.UnusedPartial => NoContent.raise
       .rescue:
         case _: Error => onComplete
-        case res: Result => res.raise
     }
 
   def abort(workId: String) =
