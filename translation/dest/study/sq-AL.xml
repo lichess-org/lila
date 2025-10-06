@@ -32,7 +32,7 @@
   </plurals>
   <string name="inviteToTheStudy">Ftoni në mësim</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">Ju lutemi, ftoni vetëm njerëzit që i njihni dhe që duan vërtet të marrin pjesë në këtë mësim.</string>
-  <string name="searchByUsername">Kërkoni sipas emrit të përdoruesit</string>
+  <string name="searchByUsername" comment="Appears when adding members to a Lichess Study as placeholder text in a search box.">Kërkoni sipas emrit të përdoruesit</string>
   <string name="spectator">Shikues</string>
   <string name="contributor">Kontribues</string>
   <string name="kick">Përjashtoje</string>
@@ -61,6 +61,7 @@
   <string name="studyPgn">Studioni PGN</string>
   <string name="chapterPgn">PGN e kapitullit</string>
   <string name="copyChapterPgn">Kopjo PGN</string>
+  <string name="copyRawChapterPgn">Kopjo PNG të Papërpunuar</string>
   <string name="downloadGame">Shkarko lojën</string>
   <string name="studyUrl">URL Mësimi</string>
   <string name="currentChapterUrl">URL e Kapitullit Aktual</string>
