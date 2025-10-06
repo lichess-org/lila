@@ -15,7 +15,7 @@ final class WikiUi(helpers: Helpers, bits: OpeningBits):
           .flatMap(_.markupForMove(page.query.sans.lastOption.so(_.value)))
           .fold(
             div(cls := "opening__wiki__markup__placeholder")(
-              "No description of the opening, yet. We're working on it!"
+              "No description of the opening, yet."
             )
           )(rawHtml)
       ),
