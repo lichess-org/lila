@@ -19,7 +19,7 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
   import SessionStore.*
   import FingerHash.given
 
-  private val authCache = cacheApi[SessionId, Option[AuthInfo]](65_536, "security.authCache"):
+  private val authCache = cacheApi[SessionId, Option[AuthInfo]](65_536, "security.session.info"):
     _.expireAfterAccess(5.minutes).buildAsyncFuture[SessionId, Option[AuthInfo]]: id =>
       coll
         .find($doc("_id" -> id, "up" -> true), authInfoProjection.some)

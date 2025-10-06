@@ -47,14 +47,13 @@ final class Env(
 
   lazy val api = wire[TeamApi]
 
-  def cli: lila.common.Cli = new:
-    def process =
-      case "team" :: "members" :: "add" :: teamId :: members :: Nil =>
-        for
-          team <- teamRepo.byId(TeamId(teamId)).orFail(s"Team $teamId not found")
-          userIds = members.split(',').flatMap(UserStr.read).map(_.id).toList
-          _ <- api.addMembers(team, userIds)
-        yield s"Added ${userIds.size} members to team ${team.name}"
+  lila.common.Cli.handle:
+    case "team" :: "members" :: "add" :: teamId :: members :: Nil =>
+      for
+        team <- teamRepo.byId(TeamId(teamId)).orFail(s"Team $teamId not found")
+        userIds = members.split(',').flatMap(UserStr.read).map(_.id).toList
+        _ <- api.addMembers(team, userIds)
+      yield s"Added ${userIds.size} members to team ${team.name}"
 
   lila.common.Bus.sub[lila.core.mod.Shadowban]:
     case lila.core.mod.Shadowban(userId, true) =>

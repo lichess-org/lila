@@ -105,13 +105,13 @@
   <string name="createStudy">Направи студију</string>
   <string name="editStudy">Измени студију</string>
   <string name="visibility">Видљивост</string>
-  <string name="public">Јавно</string>
+  <string name="public">Јавна</string>
   <string name="unlisted">Неприказано</string>
   <string name="inviteOnly">Само по позиву</string>
-  <string name="allowCloning">Дозволите клонирање</string>
+  <string name="allowCloning">Дозволи клонирање</string>
   <string name="nobody">Нико</string>
   <string name="onlyMe">Само ја</string>
-  <string name="contributors">Сарадници</string>
+  <string name="contributors">Доприносиоци</string>
   <string name="members">Чланови</string>
   <string name="everyone">Сви</string>
   <string name="enableSync">Омогући синхронизацију</string>

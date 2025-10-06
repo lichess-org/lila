@@ -46,3 +46,9 @@ final class Env(
   val picfitApi = PicfitApi(db(config.picfit.collection), picfitUrl, ws, config.picfit)
 
   val markdown = wire[MarkdownCache]
+
+  lila.common.Cli.handle:
+    case "cache" :: "clear" :: name :: Nil =>
+      cacheApi.clearByName(name) match
+        case Some(nb) => fuccess(s"Cleared $nb entries from cache $name")
+        case None => fufail(s"No cache named $name")
