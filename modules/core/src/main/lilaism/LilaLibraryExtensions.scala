@@ -27,6 +27,9 @@ trait LilaLibraryExtensions extends CoreExports:
   inline def raiseIf[E, A](cond: Boolean, e: => E)(fa: => Fu[A]): FuRaise[E, A] =
     if cond then e.raise else fa
 
+  inline def raiseIfUnit[E](cond: Boolean)(e: => E): FuRaise[E, Unit] =
+    if cond then e.raise else funit
+
   /* Raise error if the condition not met */
   inline def raiseUnless[E, A](cond: Boolean, e: => E)(fa: => Fu[A]): FuRaise[E, A] =
     raiseIf(!cond, e)(fa)
