@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="chessVideos">Video shahu</string>
+  <string name="allVideosAreFree">Krejt videot janë falas për këdo.</string>
+  <string name="selectTagsToFilter">Përzgjidhni etiketa që të filtroni videot.</string>
+  <string name="thereAreNoResultsForX" comment="%s is the search term that the user entered.">S’ka përfundime për “%s”</string>
+</resources>
