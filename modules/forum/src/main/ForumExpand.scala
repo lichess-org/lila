@@ -7,9 +7,11 @@ import lila.core.config.NetDomain
 
 final class ForumTextExpand(markdown: lila.memo.MarkdownCache)(using Executor, Scheduler):
 
+  val markdownOptions = lila.memo.MarkdownOptions.all.copy(maxPgns = lila.memo.Max(10))
+
   private def one(post: ForumPost)(using NetDomain): Fu[Frag] =
     if ~post.markdown then
-      markdown.toHtml(s"forum:${post.id}", Markdown(post.text)).map(html => raw(html.value))
+      markdown.toHtml(s"forum:${post.id}", Markdown(post.text), markdownOptions).map(html => raw(html.value))
     else
       lila.common.Bus
         .ask(lila.core.misc.lpv.Lpv.LinkRenderFromText(post.text, _))

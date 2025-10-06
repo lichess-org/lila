@@ -6,7 +6,9 @@ final class EventMarkdown(cache: lila.memo.MarkdownCache):
   private val options = lila.memo.MarkdownOptions(
     autoLink = true,
     list = true,
-    table = true
+    table = true,
+    header = true,
+    strikeThrough = true
   )
 
   def of(event: Event): Fu[Option[Html]] = event.description.so: md =>
