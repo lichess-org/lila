@@ -9,11 +9,9 @@ final private[security] class Cli(
     emailValidator: EmailAddressValidator,
     verifyMail: VerifyMail,
     gc: GarbageCollector
-)(using ec: Executor)
-    extends lila.common.Cli:
+)(using Executor):
 
-  def process =
-
+  lila.common.Cli.handle:
     case "security" :: "roles" :: uid :: Nil =>
       userRepo
         .byId(UserStr(uid))

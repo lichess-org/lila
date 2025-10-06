@@ -55,14 +55,13 @@ final class Env(
 
   val emailReminder = wire[EmailReminder]
 
-  def cli: lila.common.Cli = new:
-    def process =
-      case "msg" :: "multi" :: orig :: dests :: words =>
-        api.cliMultiPost(
-          UserStr(orig),
-          UserId.from(dests.map(_.toLower).split(',').toIndexedSeq),
-          words.mkString(" ")
-        )
+  lila.common.Cli.handle:
+    case "msg" :: "multi" :: orig :: dests :: words =>
+      api.cliMultiPost(
+        UserStr(orig),
+        UserId.from(dests.map(_.toLower).split(',').toIndexedSeq),
+        words.mkString(" ")
+      )
 
   Bus.sub[lila.core.msg.SystemMsg]:
     case lila.core.msg.SystemMsg(userId, text) =>
