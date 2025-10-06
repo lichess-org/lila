@@ -15,6 +15,8 @@ export const colorButtons = (ctrl: LobbyController) => {
   return randomColorOnly
     ? undefined
     : site.blindMode
-      ? hl('div', blindModeColorPicker(setupCtrl.color))
+      ? setupCtrl.gameType != 'hook'
+        ? hl('div', blindModeColorPicker(setupCtrl.color))
+        : undefined
       : renderButtons(setupCtrl.color);
 };
