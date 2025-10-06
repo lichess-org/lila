@@ -23,13 +23,8 @@ trait LilaLibraryExtensions extends CoreExports:
   val fuTrue: Future[Boolean] = fuccess(true)
   val fuFalse: Future[Boolean] = fuccess(false)
 
-  /* Raise error if the condition met */
-  inline def raiseIf[E, A](cond: Boolean, e: => E)(fa: => Fu[A]): FuRaise[E, A] =
-    if cond then e.raise else fa
-
-  /* Raise error if the condition not met */
-  inline def raiseUnless[E, A](cond: Boolean, e: => E)(fa: => Fu[A]): FuRaise[E, A] =
-    raiseIf(!cond, e)(fa)
+  inline def raiseIf[E](cond: Boolean)(e: => E): FuRaise[E, Unit] =
+    if cond then e.raise else funit
 
   /* library-agnostic way to run a future after a delay */
   given (using sched: Scheduler, ec: Executor): FutureAfter =
