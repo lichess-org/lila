@@ -105,7 +105,7 @@
   <string name="createStudy">Направи студију</string>
   <string name="editStudy">Измени студију</string>
   <string name="visibility">Видљивост</string>
-  <string name="public">Јавно</string>
+  <string name="public">Јавна</string>
   <string name="unlisted">Неприказано</string>
   <string name="inviteOnly">Само по позиву</string>
   <string name="allowCloning">Дозволите клонирање</string>
