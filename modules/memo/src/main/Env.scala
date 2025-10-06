@@ -41,3 +41,10 @@ final class Env(
   val picfitUrl = lila.memo.PicfitUrl(config.picfit)
 
   val picfitApi = PicfitApi(db(config.picfit.collection), picfitUrl, ws, config.picfit)
+
+  def cli: lila.common.Cli = new:
+    def process =
+      case "cache" :: "clear" :: name :: Nil =>
+        cacheApi.clearByName(name) match
+          case Some(nb) => fuccess(s"Cleared $nb entries from cache $name")
+          case None => fufail(s"No cache named $name")

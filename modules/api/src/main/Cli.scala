@@ -3,6 +3,7 @@ package lila.api
 import lila.common.Bus
 
 final private[api] class Cli(
+    memo: lila.memo.Env,
     security: lila.security.Env,
     tournament: lila.tournament.Env,
     fishnet: lila.fishnet.Env,
@@ -60,4 +61,5 @@ final private[api] class Cli(
       .orElse(team.cli.process)
       .orElse(notify.cli.process)
       .orElse(fide.cli.process)
+      .orElse(memo.cli.process)
       .orElse(process)

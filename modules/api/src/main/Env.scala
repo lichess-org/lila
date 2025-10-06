@@ -56,6 +56,7 @@ final class Env(
     ublogJson: lila.ublog.UblogJsonView,
     picfitUrl: lila.memo.PicfitUrl,
     cacheApi: lila.memo.CacheApi,
+    memoEnv: lila.memo.Env,
     webConfig: lila.web.WebConfig,
     manifest: lila.web.AssetManifest,
     tokenApi: lila.oauth.AccessTokenApi,
