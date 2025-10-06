@@ -16,7 +16,7 @@ final class TeamUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCache):
   object markdown:
     private val options = lila.memo.MarkdownOptions(autoLink = true, header = true, list = true, table = true)
 
-    def apply(team: Team, text: Markdown): Frag = markdownCache.toFragSync(s"team:${team.id}", text, options)
+    def apply(team: Team, text: Markdown): Frag = markdownCache.toHtmlSync(s"team:${team.id}", text, options)
 
   def menu(currentTab: Option[String])(using ctx: Context) =
     val tab = ~currentTab

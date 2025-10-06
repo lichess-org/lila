@@ -34,9 +34,8 @@ final class CmsApi(coll: Coll, markdown: lila.memo.MarkdownCache, langList: Lang
   def render(key: CmsPageKey)(using Context): Fu[Option[Render]] =
     getBestFor(key).flatMapz: page =>
       markdown
-        .toFrag(s"cms:${page.id}", page.markdown)
-        .map: html =>
-          Render(page, Html(html)).some
+        .toHtml(s"cms:${page.id}", page.markdown)
+        .map(Render(page, _).some)
 
   def renderOpt(key: CmsPageKey)(using Context): Fu[RenderOpt] =
     render(key).map(RenderOpt(key, _))

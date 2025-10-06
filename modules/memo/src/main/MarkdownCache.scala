@@ -22,8 +22,6 @@ final class MarkdownCache(
     assetDomain: config.AssetDomain
 )(using Executor, Scheduler)(using mode: play.api.Mode):
 
-  import scalatags.Text.all.raw
-
   private val allOptions = MarkdownOptions(
     autoLink = true,
     list = true,
@@ -62,20 +60,19 @@ final class MarkdownCache(
               case TimeoutException(msg) => Future.failed(TimeoutException(msg.take(100)))
             .inject(processor(markdown))
 
-  def toFrag(key: String, markdown: Markdown, opts: MarkdownOptions = allOptions) =
+  def toHtml(key: String, markdown: Markdown, opts: MarkdownOptions = allOptions) =
     cache
       .get((key, markdown, opts))
-      .map(html => raw(html.value))
 
-  def toFragSync(key: String, markdown: Markdown, opts: MarkdownOptions) =
+  def toHtmlSync(key: String, markdown: Markdown, opts: MarkdownOptions) =
     cache
       .getIfPresent((key, markdown, opts))
-      .flatMap(_.value.collect { case scala.util.Success(html) => raw(html.value) })
+      .flatMap(_.value.collect { case scala.util.Success(html) => html })
       .getOrElse:
         val (processor, _) = bodyProcessor(key, opts)
         val html = processor(markdown)
         cache.put((key, markdown, opts), fuccess(html))
-        raw(html.value)
+        html
 
   private def getRenderer(opts: MarkdownOptions): MarkdownRender =
     renderMap.getOrElseUpdate(

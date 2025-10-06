@@ -51,7 +51,7 @@ final class EventUi(helpers: Helpers)(modMenu: Context ?=> Frag):
       case Some(c) if c == EventForm.icon.broadcast => i(cls := "img", dataIcon := Icon.RadioTower)
       case Some(c) => img(cls := "img", src := assetUrl(s"images/$c"))
 
-  def show(e: Event, description: Option[Frag])(using Context) =
+  def show(e: Event, description: Option[Html])(using Context) =
     Page(e.title)
       .css("bits.event")
       .js(esmInitBit("eventCountdown")):
@@ -63,7 +63,7 @@ final class EventUi(helpers: Helpers)(modMenu: Context ?=> Frag):
               strong(cls := "headline")(e.headline)
             )
           ),
-          description.map(d => div(cls := "desc")(d)),
+          description.map(d => div(cls := "desc")(raw(d.value))),
           if e.isFinished then p(cls := "desc")("The event is finished.")
           else if e.isNow then a(href := e.url, cls := "button button-fat")(trans.site.eventInProgress())
           else

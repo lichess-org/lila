@@ -103,11 +103,11 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
           teachers <- env.clas.api.clas.teachers(clas)
           _ = preloadStudentUsers(students)
           students <- env.clas.api.student.withPerfs(students)
-          html <- env.memo.markdown.toFrag(s"clas:${clas.id}", clas.wall, markdownOptions)
+          html <- env.memo.markdown.toHtml(s"clas:${clas.id}", clas.wall, markdownOptions)
           page <- renderPage:
             views.clas.studentDashboard(
               clas,
-              Html(html),
+              html,
               teachers,
               students
             )
@@ -145,9 +145,9 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
         Ok.async:
           for
             students <- env.clas.api.student.allWithUsers(clas)
-            html <- env.memo.markdown.toFrag(s"clas:${clas.id}", clas.wall, markdownOptions)
+            html <- env.memo.markdown.toHtml(s"clas:${clas.id}", clas.wall, markdownOptions)
           yield views.clas.teacherDashboard.wall
-            .show(clas, students, Html(html))
+            .show(clas, students, html)
       ,
       forStudent = (clas, _) => redirectTo(clas)
     )

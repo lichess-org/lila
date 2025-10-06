@@ -61,7 +61,7 @@ final class JsonView(
     Json
       .toJsObject(tour)
       .add("description" -> tour.markup.map: md =>
-        if config.html then markdown.toFragSync(s"relay:${tour.id}", md, markdownOptions).render
+        if config.html then markdown.toHtmlSync(s"relay:${tour.id}", md, markdownOptions).render
         else md.value)
       .add("teamTable" -> tour.teamTable)
       .add("communityOwner" -> tour.communityOwner.map(lightUserSync))

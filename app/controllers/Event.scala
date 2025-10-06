@@ -16,7 +16,7 @@ final class Event(env: Env) extends LilaController(env):
     FoundPage(api.oneEnabled(id)): event =>
       Future
         .traverse(event.description.toList):
-          env.memo.markdown.toFrag(s"event:${event.id}", _, markdownOptions)
+          env.memo.markdown.toHtml(s"event:${event.id}", _, markdownOptions)
         .map(_.headOption)
         .map(views.event.show(event, _))
 

@@ -8,7 +8,8 @@ import lila.core.config.NetDomain
 final class ForumTextExpand(markdown: lila.memo.MarkdownCache)(using Executor, Scheduler):
 
   private def one(post: ForumPost)(using NetDomain): Fu[Frag] =
-    if ~post.markdown then markdown.toFrag(s"forum:${post.id}", Markdown(post.text))
+    if ~post.markdown then
+      markdown.toHtml(s"forum:${post.id}", Markdown(post.text)).map(html => raw(html.value))
     else
       lila.common.Bus
         .ask(lila.core.misc.lpv.Lpv.LinkRenderFromText(post.text, _))

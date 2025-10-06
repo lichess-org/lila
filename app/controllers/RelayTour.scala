@@ -216,7 +216,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
   private def emptyBroadcastPage(tour: TourModel)(using Context) = for
     owner <- env.user.lightUser(tour.ownerIds.head)
     html <- tour.markup.fold(fuccess(none)):
-      env.memo.markdown.toFrag(s"relay:${tour.id}", _, env.relay.markdownOptions).map(Html(_).some)
+      env.memo.markdown.toHtml(s"relay:${tour.id}", _, env.relay.markdownOptions).map(_.some)
     page <- Ok.page(views.relay.tour.showEmpty(tour, owner, html))
   yield page
 
