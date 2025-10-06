@@ -33,14 +33,14 @@ final class MarkdownCache(
   )
 
   private val pgnCache =
-    cacheApi.notLoadingSync[String, LpvEmbed](32, "markdownCache"):
+    cacheApi.notLoadingSync[String, LpvEmbed](32, "memo.markdown.pgn"):
       _.expireAfterWrite(2.second).build()
 
   private val pgnExpand = MarkdownRender.PgnSourceExpand(netDomain, pgnCache.getIfPresent)
 
   private val renderMap = scala.collection.concurrent.TrieMap[MarkdownOptions, MarkdownRender]()
 
-  private val cache = cacheApi[(String, Markdown, MarkdownOptions), Html](1024, "memo.markup"):
+  private val cache = cacheApi[(String, Markdown, MarkdownOptions), Html](1024, "memo.markdown"):
     _.maximumSize(8192)
       .expireAfterWrite(if mode.isProd then 20.minutes else 1.second)
       .buildAsyncFuture: (key, markdown, opts) =>
@@ -61,8 +61,7 @@ final class MarkdownCache(
             .inject(processor(markdown))
 
   def toHtml(key: String, markdown: Markdown, opts: MarkdownOptions = allOptions) =
-    cache
-      .get((key, markdown, opts))
+    cache.get((key, markdown, opts))
 
   def toHtmlSync(key: String, markdown: Markdown, opts: MarkdownOptions) =
     cache

@@ -18,6 +18,7 @@ final class Env(
     signupForm: lila.core.security.SignupForm,
     authenticator: lila.core.security.Authenticator,
     cacheApi: lila.memo.CacheApi,
+    markdownCache: lila.memo.MarkdownCache,
     hcaptcha: lila.core.security.Hcaptcha,
     baseUrl: BaseUrl
 )(using Executor, Scheduler, akka.stream.Materializer, lila.core.i18n.Translator):
@@ -35,6 +36,8 @@ final class Env(
   lazy val api: ClasApi = wire[ClasApi]
 
   lazy val progressApi = wire[ClasProgressApi]
+
+  lazy val markdown = wire[ClasMarkdown]
 
   def hasClas(using me: Me) =
     lila.core.perm.Granter(_.Teacher) || studentCache.isStudent(me)

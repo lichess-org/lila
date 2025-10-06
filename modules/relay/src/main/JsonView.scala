@@ -17,8 +17,7 @@ final class JsonView(
     baseUrl: BaseUrl,
     picfitUrl: PicfitUrl,
     lightUserSync: GetterSync,
-    markdown: lila.memo.MarkdownCache,
-    markdownOptions: lila.memo.MarkdownOptions
+    markdown: RelayMarkdown
 ):
 
   import JsonView.{ Config, given }
@@ -61,7 +60,7 @@ final class JsonView(
     Json
       .toJsObject(tour)
       .add("description" -> tour.markup.map: md =>
-        if config.html then markdown.toHtmlSync(s"relay:${tour.id}", md, markdownOptions).render
+        if config.html then markdown.sync(tour, md).render
         else md.value)
       .add("teamTable" -> tour.teamTable)
       .add("communityOwner" -> tour.communityOwner.map(lightUserSync))

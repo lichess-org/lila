@@ -6,19 +6,10 @@ final class Event(env: Env) extends LilaController(env):
 
   import env.event.api
 
-  private val markdownOptions = lila.memo.MarkdownOptions(
-    autoLink = true,
-    list = true,
-    table = true
-  )
-
   def show(id: String) = Open:
     FoundPage(api.oneEnabled(id)): event =>
-      Future
-        .traverse(event.description.toList):
-          env.memo.markdown.toHtml(s"event:${event.id}", _, markdownOptions)
-        .map(_.headOption)
-        .map(views.event.show(event, _))
+      for html <- env.event.markdown.of(event)
+      yield views.event.show(event, html)
 
   def manager = Secure(_.ManageEvent) { ctx ?=> _ ?=>
     Ok.async:

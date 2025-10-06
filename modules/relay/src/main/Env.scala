@@ -42,7 +42,7 @@ final class Env(
     lightUserSync: lila.core.LightUser.GetterSync,
     langList: lila.core.i18n.LangList,
     baker: lila.core.security.LilaCookie,
-    markdown: lila.memo.MarkdownCache
+    markdownCache: lila.memo.MarkdownCache
 )(using Executor, akka.stream.Materializer, play.api.Mode)(using scheduler: Scheduler):
 
   lazy val roundForm = wire[RelayRoundForm]
@@ -68,6 +68,8 @@ final class Env(
   private lazy val studyPropagation = wire[RelayStudyPropagation]
 
   private lazy val tagManualOverride = wire[RelayTagManualOverride]
+
+  lazy val markdown = wire[RelayMarkdown]
 
   lazy val jsonView = wire[JsonView]
 
@@ -142,14 +144,6 @@ final class Env(
 
   import lila.common.config.given
   private val syncOnlyIds = config.getOptional[List[String]]("relay.syncOnlyIds").map(RelayTourId.from)
-
-  val markdownOptions = lila.memo.MarkdownOptions(
-    autoLink = true,
-    list = true,
-    table = true,
-    header = true,
-    strikeThrough = true
-  )
 
   // start the sync scheduler
   wire[RelayFetch]

@@ -13,9 +13,6 @@ import lila.core.security.ClearPassword
 
 final class Clas(env: Env, authC: Auth) extends LilaController(env):
 
-  val markdownOptions =
-    lila.memo.MarkdownOptions(autoLink = true, list = true, table = true, header = true, strikeThrough = true)
-
   def index = Open: ctx ?=>
     NoBot:
       ctx.me
@@ -103,7 +100,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
           teachers <- env.clas.api.clas.teachers(clas)
           _ = preloadStudentUsers(students)
           students <- env.clas.api.student.withPerfs(students)
-          html <- env.memo.markdown.toHtml(s"clas:${clas.id}", clas.wall, markdownOptions)
+          html <- env.clas.markdown.wallHtml(clas)
           page <- renderPage:
             views.clas.studentDashboard(
               clas,
@@ -145,7 +142,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
         Ok.async:
           for
             students <- env.clas.api.student.allWithUsers(clas)
-            html <- env.memo.markdown.toHtml(s"clas:${clas.id}", clas.wall, markdownOptions)
+            html <- env.clas.markdown.wallHtml(clas)
           yield views.clas.teacherDashboard.wall
             .show(clas, students, html)
       ,
