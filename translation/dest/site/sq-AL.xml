@@ -401,6 +401,7 @@
     <item quantity="other">Lypset të luani edhe %s lojëra të vlerësuara</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Vlerësimi juaj %s është i përkohshëm</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Filtrat e vlerësimit janë kyçur, ngaqë vlerësimi juaj s’është i qëndrueshëm. Luajtja e lojërave të vlerësuara do të rritë qëndrueshmërinë.</string>
   <string name="yourPerfRatingIsTooHigh">Vlerësimi juaj (%2$s) në %1$s është më i lartë seç duhet</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Vlerësimi juaj javor më i madh (%2$s) në %1$s është më i lartë seç duhet</string>
   <string name="yourPerfRatingIsTooLow">Vlerësimi juaj (%2$s) në %1$s është më i ulët seç duhet</string>
@@ -483,6 +484,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="openTournaments">Turne të hapur</string>
   <string name="duration">Kohëzgjatja</string>
   <string name="winner">Fituesi</string>
+  <string name="standings">Renditja</string>
   <string name="createANewTournament">Krijoni një turne të ri</string>
   <string name="tournamentCalendar">Kalendari i turneut</string>
   <string name="conditionOfEntry">Domosdoshmëri Pjesëmarrjeje:</string>
@@ -1008,6 +1010,7 @@ Krejt kostot operative, zhvillimi dhe lënda financohen vetëm me dhurime nga p�
   <string name="accessibility">Përdorim nga persona me aftësi të kufizuara</string>
   <string name="enableBlindMode">Aktivizo mënyrën për të verbër</string>
   <string name="disableBlindMode">Çaktivizo mënyrën për të verbër</string>
+  <string name="copyToClipboard">Kopjoje në të papastër</string>
   <string name="online" comment="status of a user">në linjë</string>
   <string name="offline" comment="status of a user">jashtë linje</string>
   <string name="search">Kërko</string>
