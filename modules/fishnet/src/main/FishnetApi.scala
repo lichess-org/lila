@@ -86,7 +86,7 @@ final class FishnetApi(
     work <- work.raiseIfNone:
       Monitor.notFound(workId, client)
       Error.WorkNotFound
-    _ <- raiseIfUnit(!work.isAcquiredBy(client)):
+    _ <- raiseIf(!work.isAcquiredBy(client)):
       Monitor.notAcquired(work, client)
       Error.NotAcquired
     res <- data.completeOrPartial match

@@ -12,20 +12,15 @@ final private class ChallengeJoiner(
     onStart: lila.core.game.OnStart
 )(using Executor):
 
-  def apply(c: Challenge, destUser: GameUser): FuRaise[String, Pov] =
-    gameRepo
-      .exists(c.gameId)
-      .flatMap: exists =>
-        raiseIf(exists, "The challenge has already been accepted"):
-          c.challengerUserId
-            .so(userApi.byIdWithPerf(_, c.perfType))
-            .flatMap: origUser =>
-              val game = ChallengeJoiner.createGame(c, origUser, destUser)
-              gameRepo
-                .insertDenormalized(game)
-                .as:
-                  onStart.exec(game.id)
-                  Pov(game, !c.finalColor)
+  def apply(c: Challenge, destUser: GameUser): FuRaise[String, Pov] = for
+    exists <- gameRepo.exists(c.gameId)
+    _ <- raiseIf(exists)("The challenge has already been accepted")
+    origUser <- c.challengerUserId.so(userApi.byIdWithPerf(_, c.perfType))
+    game = ChallengeJoiner.createGame(c, origUser, destUser)
+    _ <- gameRepo.insertDenormalized(game)
+  yield
+    onStart.exec(game.id)
+    Pov(game, !c.finalColor)
 
 private object ChallengeJoiner:
 
