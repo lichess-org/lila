@@ -121,6 +121,6 @@ Va aparea o linie orizontală.</string>
   <string name="xIsAKidAccountWarning">%1$s are un cont de copil si nu poate primi mesajul. Trebuie sa ii dai manual URL-ul invitatiei: %2$s</string>
   <string name="moveToClass">Mutați la %s</string>
   <string name="moveToAnotherClass">Mutați la altă clasă</string>
-  <string name="allowMessagingBetweenStudents" comment="An option that a class's teacher can select. Has the extended description &quot;This only applies to the accounts you have created for your students.&quot;">Permite mesaje între studenți</string>
-  <string name="allowMessagingBetweenStudentsDesc" comment="Description for the option &quot;Allow messages between students&quot;.">Acest lucru se aplică numai conturilor pe care le-ai creat pentru studenții tăi.</string>
+  <string name="allowMessagingBetweenStudents">Permite mesaje între studenți</string>
+  <string name="allowMessagingBetweenStudentsDesc">Acest lucru se aplică numai conturilor pe care le-ai creat pentru studenții tăi.</string>
 </resources>
