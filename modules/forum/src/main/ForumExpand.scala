@@ -10,7 +10,7 @@ final class ForumTextExpand(markdown: lila.memo.MarkdownCache)(using Executor, S
   val markdownOptions = lila.memo.MarkdownOptions.all.copy(maxPgns = lila.memo.Max(10))
 
   private def one(post: ForumPost)(using NetDomain): Fu[Frag] =
-    if ~post.markdown then
+    if post.hasMarkdown then
       markdown.toHtml(s"forum:${post.id}", Markdown(post.text), markdownOptions).map(html => raw(html.value))
     else
       lila.common.Bus

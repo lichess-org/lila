@@ -23,8 +23,7 @@ case class ForumPost(
     updatedAt: Option[Instant] = None,
     erasedAt: Option[Instant] = None,
     modIcon: Option[Boolean],
-    reactions: Option[ForumPost.Reactions] = None,
-    markdown: Option[Boolean] = None // future PR will set this to true.some
+    reactions: Option[ForumPost.Reactions] = None
 ) extends lila.core.forum.ForumPost:
 
   private def showAuthor: String =
@@ -86,6 +85,8 @@ case class ForumPost(
     createdAt = createdAt
   )
 
+  def hasMarkdown = createdAt.isAfter(ForumPost.hasMarkdownSince)
+
   override def toString = s"Post($categId/$topicId/$id)"
 
 object ForumPost:
@@ -143,3 +144,5 @@ object ForumPost:
       categId = categId,
       modIcon = modIcon
     )
+
+  val hasMarkdownSince = instantOf(2125, 10, 10, 7, 0)
