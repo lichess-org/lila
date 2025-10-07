@@ -149,20 +149,24 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
                   }
         )
 
+  private val clasLoginRateLimit =
+    env.security.ipTrust.rateLimit(300, 1.hour, "clas.login")
+
   def clasLogin = OpenBody:
     Firewall:
       val failRedir = Redirect(routes.Clas.index).flashFailure("Invalid or expired login code")
       bindForm(lila.clas.ClasForm.login)(
         _ => failRedir,
         code =>
-          env.clas.login
-            .login(code)
-            .flatMap:
-              case None => failRedir
-              case Some((user, clsId)) =>
-                val redir = Redirect(routes.Clas.show(clsId))
-                  .flashSuccess(lila.core.i18n.I18nKey.emails.welcome_subject.txt(user.username))
-                authenticateUser(user, IsPwned.No, false, Some(_ => redir))
+          clasLoginRateLimit(rateLimited):
+            env.clas.login
+              .login(code)
+              .flatMap:
+                case None => failRedir
+                case Some((user, clsId)) =>
+                  val redir = Redirect(routes.Clas.show(clsId))
+                    .flashSuccess(lila.core.i18n.I18nKey.emails.welcome_subject.txt(user.username))
+                  authenticateUser(user, IsPwned.No, false, Some(_ => redir))
       )
 
   def logout = Open:
