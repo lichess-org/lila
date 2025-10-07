@@ -136,7 +136,7 @@ final class Challenge(env: Env) extends LilaController(env):
                 .map(eitherBotLimitResponse)
                 .getOrElse:
                   allow:
-                    api.accept(c, none, color).as(jsonOkResult)
+                    api.accept(c, none, color).inject(jsonOkResult)
                   .rescue: err =>
                     fuccess(BadRequest(jsonError(err)))
     }
@@ -320,7 +320,7 @@ final class Challenge(env: Env) extends LilaController(env):
                           if config.keepAliveStream then
                             val stream = env.challenge.keepAliveStream(challenge, json)(createNow)
                             jsOptToNdJson(ndJson.addKeepAlive(stream)).toFuccess
-                          else createNow().as(JsonOk(json))
+                          else createNow().inject(JsonOk(json))
                       yield res
               yield res
             .rescue: err =>
