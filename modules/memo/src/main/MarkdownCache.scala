@@ -35,33 +35,15 @@ final class MarkdownCache(
     assetDomain: config.AssetDomain
 )(using Executor, Scheduler)(using mode: play.api.Mode):
 
-  private val pgnCache =
-    cacheApi.notLoadingSync[String, LpvEmbed](32, "memo.markdown.pgn"):
-      _.expireAfterWrite(2.second).build()
-
-  private val pgnExpand = MarkdownRender.PgnSourceExpand(netDomain, pgnCache.getIfPresent)
-
   private val renderMap = scala.collection.concurrent.TrieMap[MarkdownOptions, MarkdownRender]()
 
   private val cache = cacheApi[(String, Markdown, MarkdownOptions), Html](1024, "memo.markdown"):
     _.maximumSize(8192)
       .expireAfterWrite(if mode.isProd then 20.minutes else 1.second)
       .buildAsyncFuture: (key, markdown, opts) =>
-        val processor = bodyProcessor(key, opts)
-        if opts.maxPgns == Max(0) then fuccess(processor(markdown))
-        else
-          Bus
-            .ask(LpvBus.AllPgnsFromText(markdown.value, opts.maxPgns, _), 3.seconds)
-            .chronometer
-            .logIfSlow(300, logger): result =>
-              s"AllPgnsFromText for markdown $key - found ${result.size} embeds"
-            .result
-            .monSuccess(_.markdown.pgnsFromText)
-            .andThen:
-              case scala.util.Success(pgns) => pgnCache.putAll(pgns)
-            .recoverWith:
-              case TimeoutException(msg) => Future.failed(TimeoutException(msg.take(100)))
-            .inject(processor(markdown))
+        pgnCache
+          .preload(key, markdown, opts.maxPgns)
+          .as(bodyProcessor(key, opts)(markdown))
 
   def toHtml(key: String, markdown: Markdown, opts: MarkdownOptions) =
     cache.get((key, markdown, opts))
@@ -76,6 +58,31 @@ final class MarkdownCache(
         cache.put((key, markdown, opts), fuccess(html))
         html
 
+  /* Temporarily preloads PGNs associated to IDs found in the text.
+   * The markdown renderer will shortly after hit the cache to get the PGN.
+   */
+  private object pgnCache:
+
+    private val cache =
+      cacheApi.notLoadingSync[String, LpvEmbed](32, "memo.markdown.pgn"):
+        _.expireAfterWrite(2.second).build()
+
+    def preload(key: String, markdown: Markdown, max: Max): Funit = (max > 0).so:
+      Bus
+        .ask(LpvBus.AllPgnsFromText(markdown.value, max, _), 3.seconds)
+        .chronometer
+        .logIfSlow(300, logger): result =>
+          s"AllPgnsFromText for markdown $key - found ${result.size} embeds"
+        .result
+        .monSuccess(_.markdown.pgnsFromText)
+        .andThen:
+          case scala.util.Success(pgns) => cache.putAll(pgns)
+        .recoverWith:
+          case TimeoutException(msg) => Future.failed(TimeoutException(msg.take(100)))
+        .void
+
+    def expand = MarkdownRender.PgnSourceExpand(netDomain, cache.getIfPresent)
+
   private def getRenderer(opts: MarkdownOptions): MarkdownRender =
     renderMap.getOrElseUpdate(
       opts,
@@ -87,7 +94,7 @@ final class MarkdownCache(
         blockQuote = opts.blockQuote,
         code = opts.code,
         table = opts.table,
-        pgnExpand = pgnExpand.some,
+        pgnExpand = pgnCache.expand.some,
         assetDomain.some
       )
     )
