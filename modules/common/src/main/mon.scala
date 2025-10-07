@@ -690,10 +690,10 @@ object mon:
     val computeTimeout = counter("parallelQueue.buildTimeout").withTag("name", name)
   object markdown:
     val time = timer("markdown.time").withoutTags()
+    def pgnsFromText = future("markdown.pgnsFromText")
   object ublog:
     def create(user: UserId) = counter("ublog.create").withTag("user", user)
     def view = counter("ublog.view").withoutTags()
-    def pgnsFromText = future("ublog.pgnsFromText")
     object automod:
       val request = future("ublog.automod.request")
       def quality(q: String) = counter("ublog.automod.quality").withTag("quality", q)

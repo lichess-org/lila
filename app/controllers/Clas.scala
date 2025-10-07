@@ -100,8 +100,14 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
           teachers <- env.clas.api.clas.teachers(clas)
           _ = preloadStudentUsers(students)
           students <- env.clas.api.student.withPerfs(students)
+          html <- env.clas.markdown.wallHtml(clas)
           page <- renderPage:
-            views.clas.studentDashboard(clas, env.clas.markup(clas), teachers, students)
+            views.clas.studentDashboard(
+              clas,
+              html,
+              teachers,
+              students
+            )
         yield Ok(page),
       orDefault = _ =>
         isGranted(_.UserModView).so(FoundPage(env.clas.api.clas.byId(id)): clas =>
@@ -134,9 +140,11 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
     WithClassAny(id)(
       forTeacher = WithClass(id): clas =>
         Ok.async:
-          env.clas.api.student.allWithUsers(clas).map {
-            views.clas.teacherDashboard.wall.show(clas, _, env.clas.markup(clas))
-          }
+          for
+            students <- env.clas.api.student.allWithUsers(clas)
+            html <- env.clas.markdown.wallHtml(clas)
+          yield views.clas.teacherDashboard.wall
+            .show(clas, students, html)
       ,
       forStudent = (clas, _) => redirectTo(clas)
     )
