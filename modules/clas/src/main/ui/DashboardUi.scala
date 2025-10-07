@@ -127,12 +127,10 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
     def students(c: Clas, all: List[Student.WithUserPerfs], invites: List[ClasInvite])(using Context) =
       TeacherPage(c, all.filter(_.student.isActive), "students")():
         val archived = all.filter(_.student.isArchived)
-        val inviteBox =
-          if invites.isEmpty
-          then div(cls := "box__pad invites__empty")(h2(trans.clas.nbPendingInvitations(0)))
-          else
-            div(cls := "box__pad invites")(
-              h2(trans.clas.nbPendingInvitations.pluralSame(invites.size)),
+        div(cls := "clas-show__body")(
+          div(cls := "invites")(
+            h2(trans.clas.nbPendingInvitations.pluralSame(invites.size)),
+            invites.nonEmpty.option:
               table(cls := "slist"):
                 tbody:
                   invites.map: i =>
@@ -147,16 +145,15 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
                         postForm(action := routes.Clas.invitationRevoke(i.id)):
                           submitButton(cls := "button button-red button-empty")(trans.site.delete())
                     )
-            )
-        val archivedBox =
+          ),
           if archived.isEmpty
-          then div(cls := "box__pad students__empty")(h2(trans.clas.noRemovedStudents()))
+          then div(h2(trans.clas.noRemovedStudents()))
           else
-            div(cls := "box__pad")(
+            div(
               h2(trans.clas.removedStudents()),
               studentList(c, archived)
             )
-        frag(inviteBox, archivedBox)
+        )
 
     def progress(c: Clas, students: List[Student.WithUserPerf], progress: ClasProgress)(using Context) =
       TeacherPage(c, students, "progress")():

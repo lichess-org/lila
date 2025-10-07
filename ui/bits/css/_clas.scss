@@ -154,6 +154,11 @@ $c-bg-clas-over-dim: $m-clas_white--mix-20;
   &__archived {
     @extend %archived;
   }
+
+  &__body {
+    @extend %box-padding, %flex-column;
+    gap: 3em;
+  }
 }
 
 .dashboard {
@@ -347,10 +352,6 @@ $c-bg-clas-over-dim: $m-clas_white--mix-20;
     }
 
     .students {
-      &__empty {
-        margin: 4em 0;
-      }
-
       td:first-child {
         font-weight: bold;
       }
