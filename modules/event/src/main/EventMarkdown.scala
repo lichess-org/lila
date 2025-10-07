@@ -7,7 +7,7 @@ final class EventMarkdown(cache: lila.memo.MarkdownCache):
     autoLink = true,
     list = true,
     table = true,
-    header = true,
+    header = false,
     strikeThrough = true
   )
 
