@@ -3,11 +3,15 @@ import type RoundController from '../ctrl';
 import { boardMenu as menuDropdown } from 'lib/view/boardMenu';
 import { toggle } from 'lib';
 import { toggle as cmnToggle, boolPrefXhrToggle } from 'lib/view/controls';
+import { displayColumns, isTouchDevice } from 'lib/device';
+import { storage } from 'lib/storage';
 
 export default function (ctrl: RoundController): LooseVNode {
   return menuDropdown(ctrl.redraw, ctrl.menu, menu => {
     const d = ctrl.data,
-      spectator = d.player.spectator;
+      spectator = d.player.spectator,
+      portraitMobile = displayColumns() === 1 && isTouchDevice(),
+      swapClockStorage = storage.boolean('swapClock');
     return [
       hl('section', [
         menu.flip(i18n.site.flipBoard, ctrl.flip, () => {
@@ -31,8 +35,20 @@ export default function (ctrl: RoundController): LooseVNode {
             },
             ctrl.redraw,
           ),
+        portraitMobile &&
+          cmnToggle(
+            {
+              name: 'Show clock on left',
+              id: 'swapClock',
+              checked: swapClockStorage.get(),
+              change: v => swapClockStorage.set(v),
+            },
+            ctrl.redraw,
+          ),
+
         menu.voiceInput(boolPrefXhrToggle('voice', !!ctrl.voiceMove), !spectator),
-        menu.keyboardInput(boolPrefXhrToggle('keyboardMove', !!ctrl.keyboardMove), !spectator),
+        !portraitMobile &&
+          menu.keyboardInput(boolPrefXhrToggle('keyboardMove', !!ctrl.keyboardMove), !spectator),
         !spectator && (d.pref.submitMove || ctrl.voiceMove)
           ? menu.confirmMove(ctrl.confirmMoveToggle)
           : undefined,

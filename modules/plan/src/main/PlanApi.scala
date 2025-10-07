@@ -223,7 +223,7 @@ final class PlanApi(
 
     def canUse(freq: Freq)(using me: Me, ctx: Context): Fu[StripeCanUse] =
       ip2proxy.ofReq(ctx.req).flatMap { proxy =>
-        if !proxy.is then fuccess(StripeCanUse.Yes)
+        if proxy.no then fuccess(StripeCanUse.Yes)
         else
           val maxPerWeek = {
             val verifiedBonus = me.isVerified.so(50)

@@ -4,20 +4,25 @@ import { ShowResizeHandle, Coords, MoveEvent } from 'lib/prefs';
 import { storage } from 'lib/storage';
 import { makeFen } from 'chessops/fen';
 import { chessgroundDests, chessgroundMove } from 'chessops/compat';
-import { Board } from './chess';
+import type { Board } from './chess';
 import { h } from 'snabbdom';
 import { initMiniBoard } from 'lib/view/miniBoard';
 import { makeUci } from 'chessops';
+import type { Game } from './game';
 
-export const updateGround = (board: Board): CgConfig => ({
-  fen: fenOf(board),
-  check: board.chess.isCheck(),
-  turnColor: board.chess.turn,
-  lastMove: board.lastMove && chessgroundMove(board.lastMove),
-  movable: {
-    dests: board.chess.isEnd() ? new Map() : chessgroundDests(board.chess),
-  },
-});
+export const updateGround = (game: Game, board: Board): CgConfig => {
+  const onLastPosition = board.onPly === game.ply();
+  const onEndPosition = onLastPosition && game.end;
+  return {
+    fen: fenOf(board),
+    check: board.chess.isCheck(),
+    turnColor: board.chess.turn,
+    lastMove: board.lastMove && chessgroundMove(board.lastMove),
+    movable: {
+      dests: onEndPosition || board.chess.isEnd() ? new Map() : chessgroundDests(board.chess),
+    },
+  };
+};
 
 const lastMove = (board: Board) => board.lastMove && chessgroundMove(board.lastMove);
 const fenOf = (board: Board) => makeFen(board.chess.toSetup());

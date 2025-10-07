@@ -5,16 +5,15 @@ import lila.memo.RateLimit.Limited
 import lila.core.LightUser
 import lila.core.user.LightUserApi
 
-case class OpponentLimit(msg: String)
+case class OpponentLimit(msg: String, until: Instant)
 type EitherBotLimit = Limited | OpponentLimit
 
 final class BotLimit(lightUserApi: LightUserApi)(using Executor, lila.core.config.RateLimit):
 
-  private val limitKey = "bot.vsBot.day"
   private val max = Max(100)
 
   // number of bot-vs-bot games per day
-  private val botGamesPerDay = RateLimit[UserId](max.value, 1.day, limitKey)
+  private val botGamesPerDay = RateLimit[UserId](max.value, 1.day, BotLimit.limitKey)
   import botGamesPerDay.isLimited
 
   lila.common.Bus.sub[lila.core.game.StartGame]: g =>
@@ -27,17 +26,32 @@ final class BotLimit(lightUserApi: LightUserApi)(using Executor, lila.core.confi
       isLimited(orig.id)
         .map: until =>
           Limited(
-            limitKey,
+            BotLimit.limitKey,
             s"You played $max games against other bots today, please wait before challenging another bot.",
             until
           )
         .orElse:
           isLimited(dest.id).map: until =>
-            OpponentLimit:
+            val msg =
               s"${dest.name} played $max games against other bots today, please wait until ${showDate(until)} to challenge them."
+            OpponentLimit(msg, until)
 
   def acceptLimitError(opponent: UserId)(using me: Me): Option[EitherBotLimit] =
     me.isBot.so:
       challengeLimitError(me.light, lightUserApi.syncFallback(opponent))
 
   private def showDate(i: Instant) = isoDateTimeFormatter.print(i)
+
+object BotLimit:
+
+  private val limitKey = "bot.vsBot.day"
+
+  import play.api.libs.json.*
+  given Writes[OpponentLimit] = Writes: l =>
+    Json.obj(
+      "error" -> l.msg,
+      "ratelimit" -> Json.obj(
+        "key" -> limitKey,
+        "seconds" -> (l.until.toSeconds - nowSeconds).toInt.atLeast(0)
+      )
+    )

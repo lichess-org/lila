@@ -1,4 +1,4 @@
-import { init, VNode, classModule, attributesModule } from 'snabbdom';
+import { init, type VNode, classModule, attributesModule } from 'snabbdom';
 import ChallengeCtrl from './ctrl';
 import { loaded, loading } from './view';
 import { json } from 'lib/xhr';

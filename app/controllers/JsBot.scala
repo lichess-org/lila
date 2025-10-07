@@ -5,11 +5,11 @@ import play.api.mvc.*
 
 import lila.app.{ given, * }
 import lila.common.Json.given
-import lila.jsBot.{ AssetType, BotJson }
+import lila.jsBot.{ BotUid, AssetType, BotJson }
 
 final class JsBot(env: Env) extends LilaController(env):
 
-  def index = Secure(_.Beta) { _ ?=> _ ?=>
+  def index = Beta:
     for
       bots <- env.jsBot.repo.getLatestBots()
       res <- negotiate(
@@ -19,7 +19,6 @@ final class JsBot(env: Env) extends LilaController(env):
         json = JsonOk(Json.obj("bots" -> bots))
       )
     yield res
-  }
 
   def assetKeys = Anon: // for service worker
     JsonOk(env.jsBot.api.getJson)
@@ -36,9 +35,9 @@ final class JsBot(env: Env) extends LilaController(env):
     env.jsBot.api.devGetAssets.map(JsonOk)
   }
 
-  def devBotHistory(botId: Option[UserStr]) = Secure(_.BotEditor) { _ ?=> _ ?=>
+  def devBotHistory(botId: Option[String]) = Secure(_.BotEditor) { _ ?=> _ ?=>
     env.jsBot.repo
-      .getVersions(botId.map(_.id))
+      .getVersions(BotUid.from(botId))
       .map: history =>
         JsonOk(Json.obj("bots" -> history))
   }
@@ -71,15 +70,11 @@ final class JsBot(env: Env) extends LilaController(env):
         val name = formValue("name").getOrElse(key)
         ctx.body.body
           .file("file")
-          .map: file =>
-            env.jsBot.api
-              .storeAsset(tpe, key, file)
-              .flatMap:
-                case Left(error) => InternalServerError(jsonError(error)).as(JSON)
-                case Right(_) =>
-                  for _ <- env.jsBot.repo.nameAsset(tpe.some, key, name, author)
-                  yield JsonOk(Json.obj("key" -> key, "name" -> name))
-          .getOrElse(BadRequest(jsonError("missing file")).as(JSON))
+          .fold(BadRequest(jsonError("missing file")).as(JSON).toFuccess): file =>
+            for
+              _ <- env.jsBot.api.storeAsset(tpe, key, file)
+              _ <- env.jsBot.repo.nameAsset(tpe.some, key, name, author)
+            yield JsonOk(Json.obj("key" -> key, "name" -> name))
   }
 
   // def test = Open:

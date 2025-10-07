@@ -249,7 +249,7 @@ ${this.isChooser || !env.canPost ? ' disabled' : ''} spellcheck="false"></input>
 
   private categories = {
     image: {
-      placeholder: '<img src="/assets/lifat/bots/image/gray-torso.webp">',
+      placeholder: `<img src="/${env.assets.path}/image/gray-torso.webp">`,
       preview: (key: string) => frag<HTMLElement>(`<img src="${env.bot.getImageUrl(key)}">`),
       process: (file: File, onSuccess: (key: string) => void) => {
         if (!file.type.startsWith('image/')) return;

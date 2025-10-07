@@ -1,5 +1,6 @@
 package controllers
 
+import cats.mtl.Handle.*
 import play.api.data.Form
 import play.api.libs.json.*
 import play.api.mvc.*
@@ -367,19 +368,18 @@ final class Account(
             .fold(
               err => BadRequest.async(renderReopen(err.some, none)),
               data =>
-                env.security.reopen
-                  .prepare(data.username, data.email, env.mod.logApi.closedByMod)
-                  .flatMap {
-                    case Left((code, msg)) =>
-                      lila.mon.user.auth.reopenRequest(code).increment()
-                      BadRequest.async(renderReopen(none, msg.some))
-                    case Right(user) =>
+                allow:
+                  env.security.reopen
+                    .prepare(data.username, data.email, env.mod.logApi.closedByMod)
+                    .flatMap: user =>
                       env.security.loginToken.rateLimit[Result](user, data.email, ctx.req, rateLimited):
                         lila.mon.user.auth.reopenRequest("success").increment()
                         env.security.reopen
                           .send(user, data.email)
                           .inject(Redirect(routes.Account.reopenSent))
-                  }
+                .rescue: (code, msg) =>
+                  lila.mon.user.auth.reopenRequest(code).increment()
+                  BadRequest.async(renderReopen(none, msg.some))
             )
       else BadRequest.async(renderReopen(none, none))
     }

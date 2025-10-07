@@ -19,7 +19,7 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
   import SessionStore.*
   import FingerHash.given
 
-  private val authCache = cacheApi[SessionId, Option[AuthInfo]](65_536, "security.authCache"):
+  private val authCache = cacheApi[SessionId, Option[AuthInfo]](65_536, "security.session.info"):
     _.expireAfterAccess(5.minutes).buildAsyncFuture[SessionId, Option[AuthInfo]]: id =>
       coll
         .find($doc("_id" -> id, "up" -> true), authInfoProjection.some)
@@ -65,7 +65,7 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
           "up" -> up,
           "api" -> apiVersion, // lichobile
           "fp" -> fp.flatMap(lila.security.FingerHash.from),
-          "proxy" -> proxy.is.option(proxy),
+          "proxy" -> proxy.yes.option(proxy),
           "pwned" -> pwned.yes.option(true)
         )
       .void

@@ -2,7 +2,6 @@ import { hl, type VNode, type LooseVNodes } from 'lib/snabbdom';
 import { snabDialog } from 'lib/view/dialog';
 import type LobbyController from '../../ctrl';
 import { variantPicker } from './components/variantPicker';
-import { timePickerAndSliders } from './components/timePickerAndSliders';
 import { gameModeButtons } from './components/gameModeButtons';
 import { ratingDifferenceSliders } from './components/ratingDifferenceSliders';
 import { colorButtons } from './components/colorButtons';
@@ -10,6 +9,7 @@ import { ratingView } from './components/ratingView';
 import { fenInput } from './components/fenInput';
 import { levelButtons } from './components/levelButtons';
 import { spinnerVdom } from 'lib/view/controls';
+import { timePickerAndSliders } from 'lib/setup/view/timeControl';
 
 export default function setupModal(ctrl: LobbyController): VNode | null {
   const { setupCtrl } = ctrl;
@@ -19,7 +19,7 @@ export default function setupModal(ctrl: LobbyController): VNode | null {
     friend: setupCtrl.friendUser ? i18n.site.challengeX(setupCtrl.friendUser) : i18n.site.challengeAFriend,
     ai: i18n.site.playAgainstComputer,
   }[setupCtrl.gameType];
-  const disabled = !setupCtrl.valid();
+  const disabled = !setupCtrl.valid() || setupCtrl.loading;
   return snabDialog({
     attrs: { dialog: { 'aria-labelledBy': 'lobby-setup-modal-title', 'aria-modal': 'true' } },
     class: 'game-setup',
@@ -33,20 +33,18 @@ export default function setupModal(ctrl: LobbyController): VNode | null {
     vnodes: [
       hl('h2', i18n.site.gameSetup),
       hl('div.setup-content', views[setupCtrl.gameType](ctrl)),
-      hl(
-        'div.footer',
-        setupCtrl.loading
-          ? spinnerVdom()
-          : hl(
-              `button.button.button-metal.lobby__start__button.lobby__start__button--${setupCtrl.friendUser ? 'friend-user' : setupCtrl.gameType}`,
-              {
-                attrs: { disabled },
-                class: { disabled },
-                on: { click: ctrl.setupCtrl.submit },
-              },
-              buttonText,
-            ),
-      ),
+      hl('div.footer', [
+        hl(
+          `button.button.button-metal.lobby__start__button.lobby__start__button--${setupCtrl.friendUser ? 'friend-user' : setupCtrl.gameType}`,
+          {
+            attrs: { disabled },
+            class: { disabled },
+            on: { click: ctrl.setupCtrl.submit },
+          },
+          buttonText,
+        ),
+        setupCtrl.loading && spinnerVdom(),
+      ]),
     ],
     onInsert: dlg => {
       setupCtrl.closeModal = dlg.close;
@@ -58,7 +56,7 @@ export default function setupModal(ctrl: LobbyController): VNode | null {
 const views = {
   hook: (ctrl: LobbyController): LooseVNodes => [
     variantPicker(ctrl),
-    timePickerAndSliders(ctrl),
+    timePickerAndSliders(ctrl.setupCtrl.timeControl),
     gameModeButtons(ctrl),
     ratingView(ctrl),
     ratingDifferenceSliders(ctrl),
@@ -66,13 +64,13 @@ const views = {
   ],
   friend: (ctrl: LobbyController): LooseVNodes => [
     hl('div.config-group', [variantPicker(ctrl), fenInput(ctrl)]),
-    timePickerAndSliders(ctrl, true),
+    timePickerAndSliders(ctrl.setupCtrl.timeControl),
     gameModeButtons(ctrl),
     colorButtons(ctrl),
   ],
   ai: (ctrl: LobbyController): LooseVNodes => [
     hl('div.config-group', [variantPicker(ctrl), fenInput(ctrl)]),
-    timePickerAndSliders(ctrl, true),
+    timePickerAndSliders(ctrl.setupCtrl.timeControl),
     levelButtons(ctrl),
     colorButtons(ctrl),
   ],

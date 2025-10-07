@@ -10,8 +10,8 @@ import {
   bothPlayersHavePlayed,
   finished,
   playable,
-  TopOrBottom,
-  TournamentRanks,
+  type TopOrBottom,
+  type TournamentRanks,
 } from 'lib/game/game';
 import { justIcon } from '../util';
 

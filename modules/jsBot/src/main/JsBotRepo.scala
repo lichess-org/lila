@@ -2,39 +2,42 @@ package lila.jsBot
 
 import reactivemongo.api.bson.*
 
-import lila.db.JSON
+import lila.db.{ BSON, JSON }
 import lila.db.dsl.{ *, given }
 
 final private class JsBotRepo(bots: Coll, assets: Coll)(using Executor):
 
-  def getVersions(botId: Option[UserId] = none): Fu[List[BotJson]] =
+  private given BSONDocumentHandler[BotJson] = new BSON[BotJson]:
+    import play.api.libs.json.JsString
+    def reads(r: BSON.Reader) = BotJson:
+      JSON.jval(r.doc) - "_id" + ("key" -> JsString(r.str("uid").drop(1)))
+    def writes(w: BSON.Writer, b: BotJson) = JSON.bdoc(b.value)
+
+  private def $uid(uid: BotUid) = $doc("uid" -> uid)
+
+  def getVersions(botId: Option[BotUid] = none): Fu[List[BotJson]] =
     bots
-      .find(botId.so(v => $doc("uid" -> v)), $doc("_id" -> 0).some)
+      .find(botId.so(v => $uid(v)))
       .sort($doc("version" -> -1))
-      .cursor[Bdoc]()
+      .cursor[BotJson]()
       .list(Int.MaxValue)
-      .map:
-        _.map(JSON.jval).map(BotJson(_))
 
   def getLatestBots(): Fu[List[BotJson]] =
     bots
-      .aggregateWith[Bdoc](readPreference = ReadPref.sec): framework =>
+      .aggregateWith[BotJson](readPreference = ReadPref.sec): framework =>
         import framework.*
         List(
           Sort(Descending("version")),
           GroupField("uid")("doc" -> FirstField("$ROOT")),
-          ReplaceRootField("doc"),
-          Project($doc("_id" -> 0))
+          ReplaceRootField("doc")
         )
       .list(Int.MaxValue)
-      .map:
-        _.map(JSON.jval).map(BotJson(_))
 
   def putBot(bot: BotJson, author: UserId): Fu[BotJson] = for
-    fullBot <- bots.find($doc("uid" -> bot.uid)).sort($doc("version" -> -1)).one[Bdoc]
+    fullBot <- bots.find($uid(bot.uid)).sort($doc("version" -> -1)).one[Bdoc]
     nextVersion = fullBot.flatMap(_.int("version")).getOrElse(-1) + 1 // race condition
     newBot = bot.withMeta(BotMeta(bot.uid, author, nextVersion))
-    _ <- bots.insert.one(JSON.bdoc(newBot.value))
+    _ <- bots.insert.one(newBot)
   yield newBot
 
   def getAssets: Fu[Map[String, AssetName]] =
@@ -55,10 +58,10 @@ final private class JsBotRepo(bots: Coll, assets: Coll)(using Executor):
     if !(tpe.has("book") && key.endsWith(".png")) then
       val id = if tpe.has("book") then key.dropRight(4) else key
       val setDoc = $doc("name" -> name) ++ author.so(a => $doc("author" -> a))
-      assets.update.one($doc("_id" -> id), $doc("$set" -> setDoc), upsert = true).void
+      assets.update.one($id(id), $doc("$set" -> setDoc), upsert = true).void
     else funit
 
   def deleteAsset(key: String): Funit =
-    assets.delete.one($doc("_id" -> key)).void
+    assets.delete.one($id(key)).void
 
 end JsBotRepo

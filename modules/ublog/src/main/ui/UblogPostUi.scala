@@ -12,7 +12,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
       user: User,
       blog: UblogBlog,
       post: UblogPost,
-      markup: Frag,
+      markup: Html,
       others: List[UblogPost.PreviewPost],
       liked: Boolean,
       followable: Boolean,
@@ -109,7 +109,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
               )
             ),
             strong(cls := "ublog-post__intro")(post.intro),
-            div(cls := "ublog-post__markup expand-text")(markup),
+            div(cls := "ublog-post__markup expand-text")(raw(markup.value)),
             post.isLichess.option(
               div(cls := "ublog-post__lichess")(
                 connectLinks,

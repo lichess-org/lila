@@ -1,5 +1,7 @@
 package lila.common
 
+import scalalib.data.LazyFu
+
 export lila.core.lilaism.Lilaism.{ *, given }
 
 object extensions:
@@ -15,5 +17,9 @@ object extensions:
 
 export extensions.*
 
-trait Cli:
-  def process: PartialFunction[List[String], Fu[String]]
+case class CliCommand(args: List[String], promise: Promise[LazyFu[String]])
+
+object Cli:
+  def handle(f: PartialFunction[List[String], Fu[String]]) =
+    Bus.sub[CliCommand]:
+      case c if f.isDefinedAt(c.args) => c.promise.success(LazyFu(() => f(c.args)))

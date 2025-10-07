@@ -21,44 +21,26 @@ final class Reopen(
       u: UserStr,
       email: EmailAddress,
       closedByMod: User => Fu[Boolean]
-  ): Fu[Either[(String, String), User]] =
-    userRepo
-      .enabledWithEmail(email.normalize)
-      .flatMap:
-        case Some(_) =>
-          fuccess(Left("emailUsed" -> "This email address is already in use by an active account."))
-        case _ =>
-          userRepo
-            .byId(u)
-            .flatMap:
-              case None =>
-                fuccess(Left("noUser" -> "No account found with this username."))
-              case Some(user) if user.enabled.yes =>
-                fuccess(Left("alreadyActive" -> "This account is already active."))
-              case Some(user) =>
-                userRepo
-                  .currentOrPrevEmail(user.id)
-                  .flatMap:
-                    case None =>
-                      fuccess(
-                        Left(
-                          "noEmail" -> "That account doesn't have any associated email, and cannot be reopened."
-                        )
-                      )
-                    case Some(prevEmail) if !email.similarTo(prevEmail) =>
-                      fuccess(Left("differentEmail" -> "That account has a different email address."))
-                    case _ =>
-                      closedByMod(user).flatMap:
-                        if _ then fuccess(Left("nope" -> "Sorry, that account can no longer be reopened."))
-                        else
-                          userRepo
-                            .isForeverClosed(user)
-                            .map:
-                              if _ then
-                                Left(
-                                  "nope" -> "Sorry, but you explicitly requested that your account could never be reopened."
-                                )
-                              else Right(user)
+  ): FuRaise[(String, String), User] = for
+    existing <- userRepo.enabledWithEmail(email.normalize)
+    _ <- raiseIf(existing.isDefined):
+      "emailUsed" -> "This email address is already in use by an active account."
+    user <- userRepo.byId(u)
+    user <- user.raiseIfNone("noUser" -> "No account found with this username.")
+    _ <- raiseIf(user.enabled.yes):
+      "alreadyActive" -> "This account is already active."
+    userEmail <- userRepo.currentOrPrevEmail(user.id)
+    userEmail <- userEmail.raiseIfNone:
+      "noEmail" -> "That account doesn't have any associated email, and cannot be reopened."
+    _ <- raiseIf(!email.similarTo(userEmail)):
+      "differentEmail" -> "That account has a different email address."
+    modClosed <- closedByMod(user)
+    _ <- raiseIf(modClosed):
+      "nope" -> "Sorry, that account can no longer be reopened."
+    forever <- userRepo.isForeverClosed(user)
+    _ <- raiseIf(forever):
+      "nope" -> "Sorry, but you explicitly requested that your account could never be reopened."
+  yield user
 
   def send(user: User, email: EmailAddress)(using lang: Lang): Funit =
     tokener.make(user.id).flatMap { token =>

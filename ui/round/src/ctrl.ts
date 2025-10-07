@@ -11,7 +11,7 @@ import { make as makeSocket, type RoundSocket } from './socket';
 import * as title from './title';
 import * as blur from './blur';
 import viewStatus from 'lib/game/view/status';
-import { ClockCtrl, ClockOpts } from 'lib/game/clock/clockCtrl';
+import { ClockCtrl, type ClockOpts } from 'lib/game/clock/clockCtrl';
 import { CorresClockController } from './corresClock/corresClockCtrl';
 import MoveOn from './moveOn';
 import TransientMove from './transientMove';
@@ -566,7 +566,6 @@ export default class RoundController implements MoveRootCtrl {
     }
     this.promotion.cancel();
     this.chessground.stop();
-    this.chessground.state.touchIgnoreRadius = 1;
     if (o.ratingDiff) {
       d.player.ratingDiff = o.ratingDiff[d.player.color];
       d.opponent.ratingDiff = o.ratingDiff[d.opponent.color];
@@ -578,6 +577,7 @@ export default class RoundController implements MoveRootCtrl {
       if (o.status.name === 'mate') site.sound.playAndDelayMateResultIfNecessary(key);
       else site.sound.play(key);
     }
+    this.onTimeTrouble(false);
     endGameView();
     if (d.crazyhouse) crazyEndHook();
     this.clearJust();
@@ -629,7 +629,7 @@ export default class RoundController implements MoveRootCtrl {
       this.clock ??= new ClockCtrl(d.clock, d.pref, this.tickingClockColor(), this.makeClockOpts());
       this.clock.alarmAction = {
         seconds: 60,
-        fire: () => (this.chessground.state.touchIgnoreRadius = Math.SQRT2),
+        fire: () => this.onTimeTrouble(true),
       };
     } else {
       this.clock = undefined;
@@ -891,6 +891,12 @@ export default class RoundController implements MoveRootCtrl {
     this.socket.send(`blindfold-${v ? 'yes' : 'no'}`);
     this.redraw();
     return v;
+  };
+
+  onTimeTrouble = (t: boolean): void => {
+    if (this.data.player.spectator) return;
+    site.powertip.forcePlacementHook = t ? (el: HTMLElement) => el.closest('.crosstable') && 's' : undefined;
+    this.chessground.state.touchIgnoreRadius = t ? Math.SQRT2 : 1;
   };
 
   yeet = (): void => {

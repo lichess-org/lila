@@ -1,5 +1,5 @@
 import { header, moreButton } from './util';
-import { hyphenToCamel, Toggle, toggle } from 'lib';
+import { hyphenToCamel, type Toggle, toggle } from 'lib';
 import { debounce } from 'lib/async';
 import * as licon from 'lib/licon';
 import { text as xhrText, form as xhrForm } from 'lib/xhr';

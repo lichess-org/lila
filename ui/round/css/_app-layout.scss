@@ -67,19 +67,28 @@
       box-shadow: none;
     }
 
-    .expiration-top {
-      display: none;
+    &.swap-clock {
+      .ruser {
+        justify-content: end;
+      }
+      .rclock {
+        justify-self: start;
+      }
+      .material {
+        justify-self: end;
+        margin-inline-end: 6px;
+      }
     }
 
-    &__table {
-      display: none;
-    }
     .ricons {
       margin: 0.5em 0;
       &.empty {
         margin-bottom: 0;
       }
     }
+
+    &__table,
+    .expiration-top,
     .keyboard-move {
       display: none;
     }

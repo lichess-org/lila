@@ -24,8 +24,11 @@ final class PicfitConfig(
 final class Env(
     appConfig: Configuration,
     db: lila.db.Db,
-    ws: play.api.libs.ws.StandaloneWSClient
+    ws: play.api.libs.ws.StandaloneWSClient,
+    net: NetConfig
 )(using Executor, Scheduler, play.api.Mode):
+
+  export net.{ domain, assetDomain }
 
   given ConfigLoader[PicfitConfig] = AutoConfig.loader
   val config = appConfig.get[MemoConfig]("memo")(using AutoConfig.loader)
@@ -41,3 +44,11 @@ final class Env(
   val picfitUrl = lila.memo.PicfitUrl(config.picfit)
 
   val picfitApi = PicfitApi(db(config.picfit.collection), picfitUrl, ws, config.picfit)
+
+  val markdown = wire[MarkdownCache]
+
+  lila.common.Cli.handle:
+    case "cache" :: "clear" :: name :: Nil =>
+      cacheApi.clearByName(name) match
+        case Some(nb) => fuccess(s"Cleared $nb entries from cache $name")
+        case None => fufail(s"No cache named $name")

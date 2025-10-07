@@ -84,9 +84,12 @@ trait PromotionApi:
 opaque type IsProxy = String
 object IsProxy extends OpaqueString[IsProxy]:
   extension (a: IsProxy)
-    def is = a.value.nonEmpty
+    def yes = a.value.nonEmpty
+    def no = !yes
     def in(any: (IsProxy.type => IsProxy)*) = any.exists(f => f(IsProxy) == a)
-    def isSafeish: Boolean = in(_.empty, _.vpn, _.privacy)
+    def isVpn: Boolean = in(_.vpn, _.privacy, _.enterprise)
+    def isSafeish: Boolean = a == empty || isVpn
+    def isFloodish: Boolean = in(_.public, _.web, _.tor, _.server)
     def name = a.value.nonEmpty.option(a.value)
   def unapply(a: IsProxy): Option[String] = a.name
   // https://blog.ip2location.com/knowledge-base/what-are-the-proxy-types-supported-in-ip2proxy/

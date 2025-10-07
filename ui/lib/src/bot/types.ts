@@ -1,4 +1,4 @@
-import type { Position } from 'zerofish';
+import type { Position } from '@lichess-org/zerofish';
 import type { Chess } from 'chessops';
 import type { Filter, FilterFacet, Filters, Point } from './filter';
 import type { BotLoader } from './botLoader';
@@ -34,10 +34,10 @@ export type FilterType = 'cplTarget' | 'cplStdev' | 'aggression' | 'lc0bias' | '
 
 export type AssetType = 'image' | 'book' | 'sound' | 'net';
 
-export type BotId = string;
+export type BotUid = string;
 
 export interface BotInfo {
-  readonly uid: BotId;
+  readonly uid: BotUid;
   readonly name: string;
   readonly description: string;
   readonly version: number;

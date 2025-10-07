@@ -1,10 +1,10 @@
-import { h, VNode } from 'snabbdom';
+import { h, type VNode } from 'snabbdom';
 import { myUsername, type Prop, prop } from 'lib';
 import * as licon from 'lib/licon';
 import { type Dialog, snabDialog } from 'lib/view/dialog';
 import { bind, dataIcon, iconTag, onInsert } from 'lib/snabbdom';
 import { storedProp, storedJsonProp, type StoredProp, storedStringProp } from 'lib/storage';
-import { ExplorerDb, ExplorerSpeed, ExplorerMode } from './interfaces';
+import type { ExplorerDb, ExplorerSpeed, ExplorerMode } from './interfaces';
 import AnalyseCtrl from '../ctrl';
 import perfIcons from 'lib/game/perfIcons';
 import { ucfirst } from './explorerUtil';

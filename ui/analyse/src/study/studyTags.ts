@@ -1,6 +1,6 @@
 import { onInsert } from 'lib/snabbdom';
 import { throttle } from 'lib/async';
-import { Attrs, h, thunk, type VNode } from 'snabbdom';
+import { type Attrs, h, thunk, type VNode } from 'snabbdom';
 import { option } from '../view/util';
 import { looksLikeLichessGame } from './studyChapters';
 import { prop } from 'lib';
@@ -101,7 +101,8 @@ function renderPgnTags(tags: TagsForm, showRatings: boolean): VNode {
     chapter.tags
       .filter(
         tag =>
-          showRatings || !['WhiteElo', 'BlackElo'].includes(tag[0]) || !looksLikeLichessGame(chapter.tags),
+          tag[0] != 'Variant' &&
+          (showRatings || !['WhiteElo', 'BlackElo'].includes(tag[0]) || !looksLikeLichessGame(chapter.tags)),
       )
       .map(tag => [tag[0], tags.editable() ? editable(tag[0], tag[1], tags.submit) : fixed(tag)]),
   );

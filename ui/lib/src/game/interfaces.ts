@@ -1,4 +1,4 @@
-import { Status } from './status';
+import type { Status } from './status';
 
 export interface GameData {
   game: Game;

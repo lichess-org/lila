@@ -1,5 +1,5 @@
 import type { ClockConfig, SetData as ClockState } from 'lib/game/clock/clockCtrl';
-import { DateMillis } from './interfaces';
+import type { DateMillis } from './interfaces';
 
 interface ClockMove {
   at: DateMillis;
@@ -11,9 +11,10 @@ export const computeClockState = (
   ticking: Color | undefined,
 ): ClockState | undefined => {
   if (!config) return;
+  const initial = config.initial || 5;
   const state = {
-    white: config.initial,
-    black: config.initial,
+    white: initial,
+    black: initial,
   };
   let lastMoveAt: DateMillis | undefined;
   moves.forEach(({ at }, i) => {

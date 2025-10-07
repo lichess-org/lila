@@ -7,7 +7,7 @@ import type { LevelCtrl } from '../levelCtrl';
 import type { RunCtrl } from './runCtrl';
 import { mapSideView } from '../mapSideView';
 import type { LearnCtrl } from '../ctrl';
-import { h, VNode } from 'snabbdom';
+import { h, type VNode } from 'snabbdom';
 import { bind } from 'lib/snabbdom';
 import { makeStars, progressView } from '../progressView';
 import { promotionView } from '../promotionView';

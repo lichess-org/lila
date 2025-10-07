@@ -10,7 +10,8 @@ import { renderGameView } from './gameView';
 import { LocalDb } from './localDb';
 import type { RoundController } from 'round';
 import type { LocalPlayOpts, LocalSetup } from 'lib/bot/types';
-import makeZerofish from 'zerofish';
+import makeZerofish from '@lichess-org/zerofish';
+import { zerofishPath } from 'lib/bot/botLoader';
 
 const patch = init([classModule, attributesModule]);
 
@@ -40,7 +41,8 @@ export async function initModule(opts: LocalPlayDevOpts): Promise<void> {
     redraw,
     bot: new DevBotCtrl(
       await makeZerofish({
-        locator: (file: string) => site.asset.url(`npm/${file}`, { documentOrigin: file.endsWith('js') }),
+        locator: (file: string) =>
+          site.asset.url(`${zerofishPath}/${file}`, { documentOrigin: file.endsWith('js') }),
         dev: true,
       }),
     ),

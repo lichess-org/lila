@@ -50,8 +50,7 @@ final class Env(db: lila.db.Db, cacheApi: CacheApi, ws: StandaloneWSClient)(usin
       if nowDateTime.getHour == 4
       then fideSync()
 
-  def cli = new lila.common.Cli:
-    def process =
-      case "fide" :: "player" :: "sync" :: Nil =>
-        fideSync()
-        fuccess("Updating the player database in the background.")
+  lila.common.Cli.handle:
+    case "fide" :: "player" :: "sync" :: Nil =>
+      fideSync()
+      fuccess("Updating the player database in the background.")

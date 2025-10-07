@@ -13,6 +13,6 @@ final class Env(
 
   private val coll = db(CollName("appeal"))
 
-  private lazy val snoozer = new lila.memo.Snoozer[Appeal.SnoozeKey](cacheApi)
+  private lazy val snoozer = lila.memo.Snoozer[Appeal.SnoozeKey]("appeal.snooze", cacheApi)
 
   lazy val api: AppealApi = wire[AppealApi]

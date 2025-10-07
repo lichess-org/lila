@@ -48,7 +48,6 @@ site.load.then(() => {
   modBlogOrigTier = tierEl?.value ?? '';
 
   tierEl?.addEventListener('change', e => showModBlogSubmitDlg(e));
-  console.log(tierEl, document.querySelector('.ublog-mod-note-btn'));
   document.querySelector<HTMLElement>('.ublog-mod-note-btn')?.addEventListener('click', showModBlogSubmitDlg);
   rewireModPost();
 });

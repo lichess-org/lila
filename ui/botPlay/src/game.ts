@@ -1,12 +1,11 @@
-import { Chess, Move as ChessMove, opposite } from 'chessops';
+import { Chess, type Move as ChessMove, opposite } from 'chessops';
 import { makeFen, parseFen } from 'chessops/fen';
 import { defaultGame, parsePgn, type PgnNodeData, type Game as PgnGame } from 'chessops/pgn';
 import { randomId } from 'lib/algo';
-import { StatusName } from 'lib/game/game';
+import type { StatusName } from 'lib/game/game';
 import type { ClockConfig, SetData as ClockState } from 'lib/game/clock/clockCtrl';
-import { type BotId } from 'lib/bot/types';
-import { DateMillis } from './interfaces';
-import { Board } from './chess';
+import type { BotKey, DateMillis } from './interfaces';
+import type { Board } from './chess';
 import { makeSan, parseSan } from 'chessops/san';
 import { normalizeMove } from 'chessops/chess';
 import { computeClockState } from './clock';
@@ -27,7 +26,7 @@ export class Game {
   end?: GameEnd;
 
   constructor(
-    readonly botId: BotId,
+    readonly botKey: BotKey,
     readonly pov: Color,
     readonly clockConfig?: ClockConfig,
     readonly initialFen?: FEN,
@@ -65,7 +64,7 @@ export class Game {
   copyAtPly = (ply: Ply): Game => {
     if (ply >= this.ply()) return this;
     const moves = this.moves.slice(0, ply);
-    return new Game(this.botId, this.pov, this.clockConfig, this.initialFen, moves);
+    return new Game(this.botKey, this.pov, this.clockConfig, this.initialFen, moves);
   };
 
   toPgn = (): [PgnGame<PgnNodeData>, Chess] => {
@@ -117,6 +116,8 @@ export class Game {
     else if (clock?.black <= 0) this.end = flag('black');
     return this.end;
   };
+
+  worthResuming = () => this.moves.length > 1 && !this.end;
 }
 
 const endOnTheBoard = (chess: Chess): GameEnd | undefined => {
