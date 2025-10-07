@@ -110,7 +110,7 @@ final class AccountPref(helpers: Helpers, helper: PrefHelper, bits: AccountUi):
               "giveMoreTime"
             ),
             setting(
-              "Swap clock and username positions in realtime games on portrait mode phones",
+              "Show on the left of mobile devices",
               radios(form("clock.swapClock"), booleanChoices),
               "swapClock"
             )
