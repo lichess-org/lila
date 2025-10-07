@@ -212,7 +212,8 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
         students <- env.clas.api.student.allWithUsers(clas)
         students <- env.clas.api.student.withPerfs(students)
         invites <- env.clas.api.invite.listPending(clas)
-        page <- renderPage(views.clas.teacherDashboard.students(clas, students, invites))
+        login <- getBool("codes").so(env.clas.login.get(clas.id))
+        page <- renderPage(views.clas.teacherDashboard.students(clas, students, invites, login))
       yield Ok(page)
   }
 
@@ -533,7 +534,8 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
 
   def loginCreate(id: ClasId) = Secure(_.Teacher) { _ ?=> me ?=>
     WithClassAndStudents(id): (clas, students) =>
-      env.clas.login.create(clas, students).inject(Redirect(routes.Clas.show(clas.id)).flashSuccess)
+      for _ <- env.clas.login.create(clas, students)
+      yield Redirect(s"${routes.Clas.students(clas.id)}?codes=1")
   }
 
   private def Reasonable(clas: lila.clas.Clas, students: List[lila.clas.Student.WithUser], active: String)(

@@ -22,7 +22,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
         active: String
     )(modifiers: AttrPair*)(using Context): Page =
       val allModifiers =
-        List(cls := "clas-show dashboard dashboard-teacher dashboard-teacher-$active") ++ modifiers
+        List(cls := s"clas-show dashboard dashboard-teacher dashboard-teacher-$active") ++ modifiers
       ClasPage(c.name, Left(c.withStudents(students.map(_.student))))(
         allModifiers*
       ).prepend(atTheTop(c, active))
@@ -119,46 +119,74 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
           else studentList(c, students)
         )
 
-    def students(c: Clas, all: List[Student.WithUserPerfs], invites: List[ClasInvite])(using Context) =
+    def students(
+        c: Clas,
+        all: List[Student.WithUserPerfs],
+        invites: List[ClasInvite],
+        login: Option[ClasLogin]
+    )(using Context) =
       TeacherPage(c, all.filter(_.student.isActive), "students")():
         val archived = all.filter(_.student.isArchived)
-        div(cls := "clas-show__body")(
-          div(
-            a(
-              href := routes.Clas.studentForm(c.id),
-              cls := "button button-clas text",
-              dataIcon := Icon.PlusButton
-            )(trans.clas.addStudent()),
-            postForm(action := routes.Clas.loginCreate(c.id))(
-              submitButton(cls := "button button-clas text")("Quick login codes")
+        div(cls := "clas-show__body")(login match
+          case Some(l) => renderLogin(all.map(_.student), l)
+          case None =>
+            frag(
+              div(cls := "clas-show__actions")(
+                a(
+                  href := routes.Clas.studentForm(c.id),
+                  cls := "button button-clas text",
+                  dataIcon := Icon.PlusButton
+                )(trans.clas.addStudent()),
+                postForm(action := routes.Clas.loginCreate(c.id))(
+                  submitButton(cls := "button button-clas text", dataIcon := Icon.Group)("Quick login codes")
+                )
+              ),
+              div(cls := "invites")(
+                h2(trans.clas.nbPendingInvitations.pluralSame(invites.size)),
+                invites.nonEmpty.option:
+                  table(cls := "slist"):
+                    tbody:
+                      invites.map: i =>
+                        tr(
+                          td(userIdLink(i.userId.some)),
+                          td(i.realName),
+                          td(
+                            if i.accepted.has(false) then trans.clas.declined.txt()
+                            else trans.clas.pending.txt()
+                          ),
+                          td(momentFromNow(i.created.at)),
+                          td:
+                            postForm(action := routes.Clas.invitationRevoke(i.id)):
+                              submitButton(cls := "button button-red button-empty")(trans.site.delete())
+                        )
+              ),
+              if archived.isEmpty
+              then div(h2(trans.clas.noRemovedStudents()))
+              else
+                div(
+                  h2(trans.clas.removedStudents()),
+                  studentList(c, archived)
+                )
+            ))
+
+    private def renderLogin(students: List[Student], login: ClasLogin)(using Context) =
+      val url = s"$netBaseUrl/class"
+      div(cls := "clas-login")(
+        div(cls := "clas-login__top")(
+          p(h2("Quick login codes - expire ", momentFromNow(login.expiresAt))),
+          p("Use these codes on ", a(href := url)(url), " to log your students into Lichess."),
+          p("When the codes expire, the opened sessions will remain valid, until manually closed.")
+        ),
+        table(cls := "slist"):
+          tbody:
+            for
+              student <- students.filter(_.isActive).sortBy(!_.managed)
+              c = login.codes.find(_.user == student.userId)
+            yield tr(
+              td(student.realName, br, userIdLink(student.userId.some)),
+              td(c.map(_.code).fold(iconTag(Icon.X, "not managed"))(code(_)))
             )
-          ),
-          div(cls := "invites")(
-            h2(trans.clas.nbPendingInvitations.pluralSame(invites.size)),
-            invites.nonEmpty.option:
-              table(cls := "slist"):
-                tbody:
-                  invites.map: i =>
-                    tr(
-                      td(userIdLink(i.userId.some)),
-                      td(i.realName),
-                      td(
-                        if i.accepted.has(false) then trans.clas.declined.txt() else trans.clas.pending.txt()
-                      ),
-                      td(momentFromNow(i.created.at)),
-                      td:
-                        postForm(action := routes.Clas.invitationRevoke(i.id)):
-                          submitButton(cls := "button button-red button-empty")(trans.site.delete())
-                    )
-          ),
-          if archived.isEmpty
-          then div(h2(trans.clas.noRemovedStudents()))
-          else
-            div(
-              h2(trans.clas.removedStudents()),
-              studentList(c, archived)
-            )
-        )
+      )
 
     def progress(c: Clas, students: List[Student.WithUserPerf], progress: ClasProgress)(using Context) =
       TeacherPage(c, students, "progress")():
@@ -383,6 +411,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
             h1(dataIcon := Icon.Group, cls := "text")(c.name),
             c.desc.trim.nonEmpty.option(div(cls := "clas-show__desc")(richText(c.desc)))
           ),
+          standardFlash,
           c.archived.map { archived =>
             div(cls := "box__pad")(
               div(cls := "clas-show__archived archived")(ui.showArchived(archived))

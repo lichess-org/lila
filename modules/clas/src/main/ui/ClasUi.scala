@@ -25,7 +25,7 @@ final class ClasUi(helpers: lila.ui.Helpers)(
           )
         else main(cls := "page-small box")(mods, body)
 
-  def home(using Context) =
+  def home(using ctx: Context) =
     Page(trans.clas.lichessClasses.txt())
       .css("bits.page", "bits.clas"):
         main(cls := "page-small box box-pad page clas-home")(
@@ -40,17 +40,29 @@ final class ClasUi(helpers: lila.ui.Helpers)(
               li(trans.clas.freeForAllForever())
             )
           ),
-          div(cls := "clas-home__onboard")(
-            postForm(action := routes.Clas.becomeTeacher)(
-              submitButton(cls := "button button-fat")(trans.clas.applyToBeLichessTeacher())
+          if ctx.isAuth
+          then
+            div(cls := "clas-home__onboard")(
+              postForm(action := routes.Clas.becomeTeacher)(
+                submitButton(cls := "button button-fat")(trans.clas.applyToBeLichessTeacher())
+              )
             )
-          ),
-          div(cls := "clas-home__login")(
-            postForm(action := routes.Auth.clasLogin)(
-              input(name := "code", st.placeholder := "Quick login code"),
-              submitButton(cls := "button button-fat")(trans.site.signIn())
+          else
+            frag(
+              standardFlash,
+              div(cls := "clas-home__login")(
+                postForm(action := routes.Auth.clasLogin)(
+                  input(
+                    name := "code",
+                    st.placeholder := "Quick login code",
+                    spellcheck := "false",
+                    autocomplete := "off",
+                    required
+                  ),
+                  submitButton(cls := "button button-fat")(trans.site.signIn())
+                )
+              )
             )
-          )
         )
 
   def showArchived(archived: Clas.Recorded)(using Translate) =

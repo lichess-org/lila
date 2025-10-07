@@ -6,7 +6,8 @@ import reactivemongo.api.bson.Macros.Annotations.Key
 import lila.core.id.ClasId
 import lila.db.dsl.{ *, given }
 
-case class ClasLogin(@Key("_id") id: ClasId, created: Clas.Recorded, codes: List[ClasUserCode])
+case class ClasLogin(@Key("_id") id: ClasId, created: Clas.Recorded, codes: List[ClasUserCode]):
+  def expiresAt: Instant = created.at.plusMinutes(15)
 
 case class ClasUserCode(user: UserId, code: String)
 
@@ -21,9 +22,11 @@ final class ClasLoginApi(colls: ClasColls, userRepo: lila.user.UserRepo)(using E
     _ <- coll.insert.one(login)
   yield login
 
+  def get(clasId: ClasId) = coll.byId[ClasLogin](clasId)
+
   def login(code: String): Fu[Option[(User, ClasId)]] =
     coll
-      .find($doc("codes.code" -> code), $doc("codes.$" -> 1).some)
+      .find($doc("codes.code" -> code))
       .one[ClasLogin]
       .flatMapz: login =>
         login.codes
@@ -34,7 +37,7 @@ final class ClasLoginApi(colls: ClasColls, userRepo: lila.user.UserRepo)(using E
 
   private def makeCodes(students: List[Student]): List[ClasUserCode] =
     val codes = students.collect:
-      case s if s.managed => ClasUserCode(s.userId, Student.password.generate(4).value)
+      case s if s.managed && s.isActive => ClasUserCode(s.userId, Student.password.generate(5).value)
 
     // detect duplicates (very unlikely)
     if codes.map(_.code).distinct.size != codes.size
