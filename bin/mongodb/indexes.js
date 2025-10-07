@@ -52,8 +52,8 @@ db.relay_tour.createIndex(
     textIndexVersion: 3,
   },
 );
-db.relay_tour.createIndex({ ownerId: 1, syncedAt: -1 });
-db.relay_tour.createIndex({ ownerId: 1, createdAt: -1 });
+db.relay_tour.createIndex({ ownerIds: 1, syncedAt: -1 });
+db.relay_tour.createIndex({ ownerIds: 1, createdAt: -1 });
 db.relay_tour.createIndex({ subscribers: 1, createdAt: -1 });
 db.relation_subs.createIndex({ s: 1 });
 db.round_alarm.createIndex({ ringsAt: 1 });
