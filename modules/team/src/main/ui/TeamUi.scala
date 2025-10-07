@@ -14,9 +14,16 @@ final class TeamUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCache):
   def TeamPage(title: String) = Page(title).css("bits.team").js(infiniteScrollEsmInit)
 
   object markdown:
-    private val options = lila.memo.MarkdownOptions(autoLink = true, header = true, list = true, table = true)
+    private val options = lila.memo.MarkdownOptions(
+      autoLink = true,
+      header = true,
+      list = true,
+      table = true,
+      maxPgns = lila.memo.Max(0)
+    )
 
-    def apply(team: Team, text: Markdown): Frag = markdownCache.toHtmlSync(s"team:${team.id}", text, options)
+    def apply(team: Team, text: Markdown): Frag =
+      markdownCache.toHtmlSyncWithoutPgnEmbeds(s"team:${team.id}", text, options)
 
   def menu(currentTab: Option[String])(using ctx: Context) =
     val tab = ~currentTab

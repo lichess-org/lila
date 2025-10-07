@@ -8,11 +8,9 @@ final class RelayMarkdown(cache: lila.memo.MarkdownCache):
     list = true,
     table = true,
     header = true,
-    strikeThrough = true
+    strikeThrough = true,
+    maxPgns = lila.memo.Max(0)
   )
 
-  def of(tour: RelayTour): Fu[Option[Html]] = tour.markup.so: md =>
-    cache.toHtml(s"relay:${tour.id}", md, options).dmap(some)
-
-  def sync(tour: RelayTour, md: Markdown): Html =
-    cache.toHtmlSync(s"relay:${tour.id}", md, options)
+  def of(tour: RelayTour): Option[Html] = tour.markup.map: md =>
+    cache.toHtmlSyncWithoutPgnEmbeds(s"relay:${tour.id}", md, options)

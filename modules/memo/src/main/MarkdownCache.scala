@@ -41,14 +41,13 @@ final class MarkdownCache(
     _.maximumSize(8192)
       .expireAfterWrite(if mode.isProd then 20.minutes else 1.second)
       .buildAsyncFuture: (key, markdown, opts) =>
-        pgnCache
-          .preload(key, markdown, opts.maxPgns)
-          .as(bodyProcessor(key, opts)(markdown))
+        for _ <- pgnCache.preload(key, markdown, opts.maxPgns)
+        yield bodyProcessor(key, opts)(markdown)
 
   def toHtml(key: String, markdown: Markdown, opts: MarkdownOptions) =
     cache.get((key, markdown, opts))
 
-  def toHtmlSync(key: String, markdown: Markdown, opts: MarkdownOptions) =
+  def toHtmlSyncWithoutPgnEmbeds(key: String, markdown: Markdown, opts: MarkdownOptions) =
     cache
       .getIfPresent((key, markdown, opts))
       .flatMap(_.value.collect { case scala.util.Success(html) => html })
@@ -103,10 +102,7 @@ final class MarkdownCache(
     if opts.imageUpload then toastUiProcessor(key, opts)
     else getRenderer(opts)(key)
 
-  private def toastUiProcessor(
-      key: String,
-      opts: MarkdownOptions
-  ): Markdown => Html =
+  private def toastUiProcessor(key: String, opts: MarkdownOptions): Markdown => Html =
     MarkdownToastUi.unescapeAtUsername.apply
       .andThen(getRenderer(opts)(key))
       .andThen(MarkdownToastUi.imageParagraph)

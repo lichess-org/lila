@@ -59,9 +59,9 @@ final class JsonView(
   def fullTour(tour: RelayTour)(using config: Config): JsObject =
     Json
       .toJsObject(tour)
-      .add("description" -> tour.markup.map: md =>
-        if config.html then markdown.sync(tour, md).render
-        else md.value)
+      .add("description" -> {
+        if config.html then markdown.of(tour).map(_.render) else tour.markup.map(_.value)
+      })
       .add("teamTable" -> tour.teamTable)
       .add("communityOwner" -> tour.communityOwner.map(lightUserSync))
 

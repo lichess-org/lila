@@ -118,7 +118,7 @@ final class TextLpvExpand(
         else if s.isRelay then relayPgnDump.ofFirstChapter(s).map2(LpvEmbed.PublicPgn.apply)
         else studyPgnDump.ofFirstChapter(s, fullFlags).map2(LpvEmbed.PublicPgn.apply)
 
-final class LpvGameRegex(domain: NetDomain):
+private final class LpvGameRegex(domain: NetDomain):
 
   private val quotedDomain = java.util.regex.Pattern.quote(domain.value)
 
