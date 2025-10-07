@@ -368,10 +368,6 @@ $c-bg-clas-over-dim: $m-clas_white--mix-20;
         margin-inline-end: 0.2em;
       }
     }
-
-    &-students h2 {
-      margin: 2em 0 1em 0;
-    }
   }
 }
 
@@ -627,19 +623,36 @@ $c-bg-clas-over-dim: $m-clas_white--mix-20;
 .clas-login {
   @extend %flex-column;
   gap: 2em;
-  table {
+  &__cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-gap: 1em;
+  }
+  &__card {
+    @extend %box-neat, %flex-column;
+    padding: 1em;
+    background: $c-bg-zebra;
+    border: $border;
     font-size: 1.5em;
-    width: auto;
-    margin: 0 auto;
-    code {
-      font-size: 1.4em;
+    h3 {
+      color: $c-font-clear;
     }
     a {
-      font-size: 0.8em;
+      font-size: 0.7em;
+      color: $c-font-dim;
+    }
+    code {
+      font-size: 1.8em;
+      text-align: center;
+      font-weight: bold;
+      margin-top: 1rem;
+      color: $c-font-dim;
     }
     i {
       font-size: 0.8em;
       color: $c-bad;
+      text-align: center;
+      margin-top: 1rem;
     }
   }
 }
