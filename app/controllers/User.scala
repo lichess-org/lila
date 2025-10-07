@@ -73,7 +73,7 @@ final class User(
   private def renderShow(u: UserModel, status: Results.Status = Results.Ok)(using Context): Fu[Result] =
     WithProxy: proxy =>
       limit.enumeration.userProfile(proxy, rateLimited, limit.enumeration.cost(proxy)):
-        def fetchActivity = proxy.isFloodish.not.so(env.activity.read.recentAndPreload(u))
+        def fetchActivity = (ctx.isAuth || !proxy.isFloodish).so(env.activity.read.recentAndPreload(u))
         if HTTPRequest.isSynchronousHttp(ctx.req)
         then
           val cost =
