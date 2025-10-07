@@ -159,27 +159,22 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
         _ => failRedir,
         code =>
           clasLoginRateLimit(rateLimited):
-            env.clas.login
-              .login(code)
-              .flatMap:
-                case None => failRedir
-                case Some((user, clsId)) =>
-                  val redir = Redirect(routes.Clas.show(clsId))
-                    .flashSuccess(lila.core.i18n.I18nKey.emails.welcome_subject.txt(user.username))
-                  authenticateUser(user, IsPwned.No, false, Some(_ => redir))
+            for
+              found <- env.clas.login.login(code)
+              res <- found.fold(failRedir.toFuccess): (user, clsId) =>
+                val redir = Redirect(routes.Clas.show(clsId)).flashSuccess:
+                  lila.core.i18n.I18nKey.emails.welcome_subject.txt(user.username)
+                authenticateUser(user, IsPwned.No, false, Some(_ => redir))
+            yield res
       )
 
   def logout = Open:
-    env.security.api
-      .reqSessionId(ctx.req)
-      .so: currentSessionId =>
-        env.security.store.delete(currentSessionId) >>
-          env.push.webSubscriptionApi.unsubscribeBySession(currentSessionId)
-    >>
-      negotiate(
-        Redirect(routes.Auth.login),
-        jsonOkResult
-      ).dmap(_.withCookies(env.security.lilaCookie.newSession))
+    val sid = env.security.api.reqSessionId(ctx.req)
+    for
+      _ <- sid.so(env.security.store.delete)
+      _ <- sid.so(env.push.webSubscriptionApi.unsubscribeBySession)
+      res <- negotiate(Redirect(routes.Auth.login), jsonOkResult)
+    yield res.withCookies(env.security.lilaCookie.newSession)
 
   // mobile app BC logout with GET
   def logoutGet = Auth { ctx ?=> _ ?=>
