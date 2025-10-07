@@ -147,7 +147,7 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
 
     val userProfile = RateLimit[IsProxy](100 * maxCost, 1.minute, "user.profile.page.proxy")
 
-    def cost(proxy: IsProxy): Int =
+    def cost(using proxy: IsProxy): Int =
       if proxy.isFloodish then maxCost
       else if proxy.isVpn then 1
       else 0

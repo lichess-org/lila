@@ -11,6 +11,7 @@ import lila.forum.ForumPostApi
 import lila.game.Crosstable
 import lila.relation.RelationApi
 import lila.ublog.{ UblogApi, UblogPost }
+import lila.core.security.IsProxy
 
 case class UserInfo(
     nbs: UserInfo.NbGames,
@@ -102,12 +103,17 @@ object UserInfo:
       fideIdOf: lila.core.user.PublicFideIdOf,
       insightShare: lila.insight.Share
   )(using Executor):
-    def apply(user: User, nbs: NbGames, withUblog: Boolean = true)(using ctx: Context): Fu[UserInfo] =
+    def fetch(user: User, nbs: NbGames, withUblog: Boolean = true)(using
+        ctx: Context,
+        proxy: IsProxy
+    ): Fu[UserInfo] =
       (
         perfsRepo.withPerfs(user),
         userApi.getTrophiesAndAwards(user).mon(_.user.segment("trophies")),
         (nbs.playing > 0).so(simulApi.isSimulHost(user.id).mon(_.user.segment("simul"))),
-        ((ctx.noBlind && ctx.pref.showRatings).so(ratingChartApi(user))).mon(_.user.segment("ratingChart")),
+        ((ctx.noBlind && !proxy.isFloodish && !proxy.isCrawler && ctx.pref.showRatings)
+          .so(ratingChartApi(user)))
+          .mon(_.user.segment("ratingChart")),
         (!user.is(UserId.lichess) && !user.isBot).so {
           postApi.nbByUser(user.id).mon(_.user.segment("nbForumPosts"))
         },

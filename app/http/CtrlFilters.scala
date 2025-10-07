@@ -37,8 +37,8 @@ trait CtrlFilters(using Executor) extends ControllerHelpers with ResponseBuilder
     if env.security.firewall.accepts(ctx.req) then a
     else keyPages.blacklisted
 
-  def WithProxy(res: IsProxy => Fu[Result])(using req: RequestHeader): Fu[Result] =
-    env.security.ip2proxy.ofIp(req.ipAddress).flatMap(res)
+  def WithProxy(res: IsProxy ?=> Fu[Result])(using req: RequestHeader): Fu[Result] =
+    env.security.ip2proxy.ofIp(req.ipAddress).flatMap(res(using _))
 
   def NoTor(res: => Fu[Result])(using ctx: Context): Fu[Result] =
     env.security.ipTrust
