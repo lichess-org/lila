@@ -84,4 +84,5 @@ disposable reload msumain.edu.ph
 video sheet
 puzzle issue {id} {longer-win | ambiguous | ...}
 fide player sync
+cache clear security.session.info
 """

@@ -136,7 +136,7 @@ final class Challenge(env: Env) extends LilaController(env):
                 .map(eitherBotLimitResponse)
                 .getOrElse:
                   allow:
-                    api.accept(c, none, color).as(jsonOkResult)
+                    api.accept(c, none, color).inject(jsonOkResult)
                   .rescue: err =>
                     fuccess(BadRequest(jsonError(err)))
     }
@@ -222,10 +222,8 @@ final class Challenge(env: Env) extends LilaController(env):
                             allow:
                               for
                                 access <- env.oAuth.server.auth(bearer, required, ctx.req.some)
-                                _ <- raiseUnless(
-                                  pov.opponent.isUser(access.me),
+                                _ <- raiseIf(!pov.opponent.isUser(access.me)):
                                   OAuthServer.AuthError("Not the opponent token")
-                                )(funit)
                               yield
                                 lila.common.Bus.pub(Tell(pov.gameId, RoundBus.AbortForce))
                                 jsonOkResult
@@ -295,11 +293,11 @@ final class Challenge(env: Env) extends LilaController(env):
               for
                 destUser <- env.user.repo.enabledById(username)
                 destUser <- destUser.raiseIfNone(s"No such user: $username")
-                _ <- raiseIf(me.is(destUser), "You cannot challenge yourself")(funit)
-                _ <- raiseIf(destUser.isBot && !config.rules.isEmpty, "Rules not applicable for bots")(funit)
+                _ <- raiseIf(me.is(destUser))("You cannot challenge yourself")
+                _ <- raiseIf(destUser.isBot && !config.rules.isEmpty)("Rules not applicable for bots")
                 isFriend <- env.relation.api.fetchFollows(destUser.id, me.userId)
                 restricted = config.onlyIfOpponentFollowsMe && !isFriend
-                _ <- raiseIf(restricted, s"$username does not follow you")(funit)
+                _ <- raiseIf(restricted)(s"$username does not follow you")
                 cost = if isFriend || me.isApiHog then 0 else if destUser.isBot then 1 else 5
                 res <- limit.challengeUser(me, rateLimited, cost = cost):
                   env.bot.limit
@@ -322,7 +320,7 @@ final class Challenge(env: Env) extends LilaController(env):
                           if config.keepAliveStream then
                             val stream = env.challenge.keepAliveStream(challenge, json)(createNow)
                             jsOptToNdJson(ndJson.addKeepAlive(stream)).toFuccess
-                          else createNow().as(JsonOk(json))
+                          else createNow().inject(JsonOk(json))
                       yield res
               yield res
             .rescue: err =>

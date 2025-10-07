@@ -8,7 +8,9 @@ import lila.core.id.{ CmsPageId, CmsPageKey }
 import lila.db.dsl.{ *, given }
 import lila.ui.Context
 
-final class CmsApi(coll: Coll, markup: CmsMarkup, langList: LangList, langPicker: LangPicker)(using Executor):
+final class CmsApi(coll: Coll, markdown: lila.memo.MarkdownCache, langList: LangList, langPicker: LangPicker)(
+    using Executor
+):
 
   private given BSONDocumentHandler[CmsPage] = Macros.handler
 
@@ -31,8 +33,9 @@ final class CmsApi(coll: Coll, markup: CmsMarkup, langList: LangList, langPicker
 
   def render(key: CmsPageKey)(using Context): Fu[Option[Render]] =
     getBestFor(key).flatMapz: page =>
-      markup(page).map: html =>
-        Render(page, html).some
+      markdown
+        .toHtml(s"cms:${page.id}", page.markdown, lila.cms.markdownOptions)
+        .map(Render(page, _).some)
 
   def renderOpt(key: CmsPageKey)(using Context): Fu[RenderOpt] =
     render(key).map(RenderOpt(key, _))

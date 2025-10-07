@@ -63,14 +63,14 @@ final class Ublog(env: Env) extends LilaController(env):
             isInCarousel <- isGrantedOpt(_.ModerateBlog)
               .so(env.ublog.api.fetchCarouselFromDb().map(_.has(post.id)))
             followable = prefFollowable && !blocked
-            markup <- env.ublog.markup(post)
+            html <- env.memo.markdown.toHtml(s"blog:${post.id}", post.markdown, lila.ublog.markdownOptions)
             viewedPost = env.ublog.viewCounter(post, ctx.ip)
             page <- renderPage:
               views.ublog.post.page(
                 user,
                 blog,
                 viewedPost,
-                markup,
+                html,
                 otherPosts,
                 liked,
                 followable,

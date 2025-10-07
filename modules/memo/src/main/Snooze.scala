@@ -11,9 +11,9 @@ object Snooze:
   object Duration:
     def apply(key: String) = Duration.values.find(_.toString == key)
 
-final class Snoozer[Key](cacheApi: CacheApi)(using userIdOf: UserIdOf[Key]):
+final class Snoozer[Key](name: String, cacheApi: CacheApi)(using userIdOf: UserIdOf[Key]):
 
-  private val store = cacheApi.notLoadingSync[Key, Snooze.Duration](256, "appeal.snooze")(
+  private val store = cacheApi.notLoadingSync[Key, Snooze.Duration](256, name)(
     _.expireAfter[Key, Snooze.Duration](
       create = (_, duration) => duration.value,
       update = (_, duration, _) => duration.value,

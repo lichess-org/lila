@@ -41,7 +41,8 @@ final class Env(
     picfitUrl: lila.memo.PicfitUrl,
     lightUserSync: lila.core.LightUser.GetterSync,
     langList: lila.core.i18n.LangList,
-    baker: lila.core.security.LilaCookie
+    baker: lila.core.security.LilaCookie,
+    markdownCache: lila.memo.MarkdownCache
 )(using Executor, akka.stream.Materializer, play.api.Mode)(using scheduler: Scheduler):
 
   lazy val roundForm = wire[RelayRoundForm]
@@ -68,6 +69,8 @@ final class Env(
 
   private lazy val tagManualOverride = wire[RelayTagManualOverride]
 
+  lazy val markdown = wire[RelayMarkdown]
+
   lazy val jsonView = wire[JsonView]
 
   lazy val listing = wire[RelayListing]
@@ -81,8 +84,6 @@ final class Env(
   lazy val calendar = wire[RelayCalendar]
 
   lazy val push = wire[RelayPush]
-
-  lazy val markup = wire[RelayMarkup]
 
   lazy val pgnStream = wire[RelayPgnStream]
 
