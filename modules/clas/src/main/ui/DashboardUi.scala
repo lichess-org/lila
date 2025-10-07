@@ -177,15 +177,15 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
           p("Use these codes on ", a(href := url)(url), " to log your students into Lichess."),
           p("When the codes expire, the opened sessions will remain valid, until manually closed.")
         ),
-        table(cls := "slist"):
-          tbody:
-            for
-              student <- students.filter(_.isActive).sortBy(!_.managed)
-              c = login.codes.find(_.user == student.userId)
-            yield tr(
-              td(student.realName, br, userIdLink(student.userId.some)),
-              td(c.map(_.code).fold(iconTag(Icon.X, "not managed"))(code(_)))
-            )
+        div(cls := "clas-login__cards"):
+          for
+            student <- students.filter(_.isActive).sortBy(!_.managed)
+            c = login.codes.find(_.user == student.userId)
+          yield div(cls := "clas-login__card")(
+            h3(student.realName),
+            userIdLink(student.userId.some, withOnline = false),
+            c.map(_.code).fold(iconTag(Icon.X, "not managed"))(code(_))
+          )
       )
 
     def progress(c: Clas, students: List[Student.WithUserPerf], progress: ClasProgress)(using Context) =
