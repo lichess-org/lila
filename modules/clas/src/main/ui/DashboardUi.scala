@@ -111,12 +111,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
           div(cls := "clas-show__overview")(
             c.desc.trim.nonEmpty.option(div(cls := "clas-show__desc")(richText(c.desc))),
             div(cls := "clas-show__overview__manage")(
-              ui.teachers(c),
-              a(
-                href := routes.Clas.studentForm(c.id),
-                cls := "button button-clas text",
-                dataIcon := Icon.PlusButton
-              )(trans.clas.addStudent())
+              ui.teachers(c)
             )
           ),
           if students.isEmpty
@@ -128,6 +123,13 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
       TeacherPage(c, all.filter(_.student.isActive), "students")():
         val archived = all.filter(_.student.isArchived)
         div(cls := "clas-show__body")(
+          div(
+            a(
+              href := routes.Clas.studentForm(c.id),
+              cls := "button button-clas text",
+              dataIcon := Icon.PlusButton
+            )(trans.clas.addStudent())
+          ),
           div(cls := "invites")(
             h2(trans.clas.nbPendingInvitations.pluralSame(invites.size)),
             invites.nonEmpty.option:
