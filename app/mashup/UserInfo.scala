@@ -114,9 +114,9 @@ object UserInfo:
         ((ctx.noBlind && !proxy.isFloodish && !proxy.isCrawler && ctx.pref.showRatings)
           .so(ratingChartApi(user)))
           .mon(_.user.segment("ratingChart")),
-        (!user.is(UserId.lichess) && !user.isBot).so {
+        (!user.is(UserId.lichess) && !user.isBot).so:
           postApi.nbByUser(user.id).mon(_.user.segment("nbForumPosts"))
-        },
+        ,
         withUblog.so(ublogApi.userBlogPreviewFor(user, 3)),
         studyRepo.countByOwner(user.id).recoverDefault.mon(_.user.segment("nbStudies")),
         simulApi.countHostedByUser.get(user.id).mon(_.user.segment("nbSimuls")),
