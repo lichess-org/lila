@@ -1,4 +1,4 @@
-import { defined, notNull, type Prop, type Toggle, withEffect } from './common';
+import { defined, notNull, type Prop, withEffect } from './common';
 
 export const storage: LichessStorageHelper = builder(window.localStorage);
 export const tempStorage: LichessStorageHelper = builder(window.sessionStorage);
@@ -137,30 +137,6 @@ export const storedSet = <V>(propKey: string, maxSize: number): StoredSet<V> => 
     }
     return set;
   };
-};
-
-export interface ToggleWithUsed extends Toggle {
-  used: () => boolean;
-}
-
-export const toggleWithUsed = (key: string, toggle: Toggle): ToggleWithUsed => {
-  let value = toggle();
-  let used = !!storage.get(key);
-  const novTog = (v?: boolean) => {
-    if (defined(v)) {
-      value = v;
-      if (!used) {
-        storage.set(key, '1');
-        used = true;
-      }
-      toggle.effect(v);
-    }
-    return value;
-  };
-  novTog.toggle = () => novTog(!novTog());
-  novTog.used = () => used;
-  novTog.effect = toggle.effect;
-  return novTog;
 };
 
 export function once(key: string, every?: { seconds?: number; hours?: number; days?: number }): boolean {
