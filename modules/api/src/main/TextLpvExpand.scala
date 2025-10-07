@@ -52,7 +52,7 @@ final class TextLpvExpand(
   // used by blogs & ublogs to build game|chapter id -> pgn maps
   // the substitution happens later in blog/BlogApi or common/MarkdownRender
   def allPgnsFromText(text: String, max: Max): Fu[Map[String, LpvEmbed]] =
-    regex.blogPgnCandidatesRe
+    regex.markdownPgnCandidatesRe
       .findAllMatchIn(text)
       .map(_.group(1))
       .toList
@@ -124,7 +124,7 @@ final class LpvGameRegex(domain: NetDomain):
 
   val pgnCandidates = raw"""(?:https?://)?(?:lichess\.org|$quotedDomain)(/[/\w#]{8,})\b"""
 
-  val blogPgnCandidatesRe = pgnCandidates.r
+  val markdownPgnCandidatesRe = pgnCandidates.r
   val forumPgnCandidatesRe = raw"(?m)^$pgnCandidates".r
 
   val params = raw"""(?:#(?:last|\d{1,4}))?"""
