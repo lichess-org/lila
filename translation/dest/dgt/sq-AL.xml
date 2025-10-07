@@ -19,6 +19,8 @@
   <string name="reloadThisPage">Ringarko këtë faqe</string>
   <string name="dgtConfigure">DGT - Formësojeni</string>
   <string name="clickToGenerateOne">Klikoni që të prodhohet një</string>
+  <string name="webSocketUrl">URL WebSocket-i %s</string>
+  <string name="useWebSocketUrl">Përdorni “%1$s”, veç nëse %2$s po xhiron në një makinë tjetër, ose portë tjetër.</string>
   <string name="textToSpeech">Tekst në të folur</string>
   <string name="enableSpeechSynthesis">Aktivizo Sintetizim të Folure</string>
   <string name="speechSynthesisVoice">Zë sintetizimi të folure</string>

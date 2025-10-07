@@ -114,7 +114,7 @@
   <string name="contributors">Доприносиоци</string>
   <string name="members">Чланови</string>
   <string name="everyone">Сви</string>
-  <string name="enableSync">Омогући синхронизацију</string>
+  <string name="enableSync">Омогући sync</string>
   <string name="yesKeepEveryoneOnTheSamePosition">Да: задржи све на истој позицији</string>
   <string name="noLetPeopleBrowseFreely">Не: дозволи људима да слободно прегледају</string>
   <string name="pinnedStudyComment">Закачен коментар студије</string>
