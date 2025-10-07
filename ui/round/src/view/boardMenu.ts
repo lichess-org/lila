@@ -38,7 +38,7 @@ export default function (ctrl: RoundController): LooseVNode {
         portraitMobile &&
           cmnToggle(
             {
-              name: 'Invert clock',
+              name: 'Show clock on left',
               id: 'swapClock',
               checked: swapClockStorage.get(),
               change: v => swapClockStorage.set(v),
