@@ -51,7 +51,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
   }
 
   private def renderHome(using Context) =
-    Ok.page(views.clas.clas.home)
+    Ok.page(views.clas.ui.home)
 
   def form = Secure(_.Teacher) { ctx ?=> _ ?=>
     Ok.async(renderCreate(none)).map(_.hasPersonalData)
@@ -529,6 +529,11 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
     Found(env.clas.api.invite.get(id)): invite =>
       WithClass(invite.clasId): clas =>
         env.clas.api.invite.delete(invite.id).inject(Redirect(routes.Clas.students(clas.id)))
+  }
+
+  def loginCreate(id: ClasId) = Secure(_.Teacher) { _ ?=> me ?=>
+    WithClassAndStudents(id): (clas, students) =>
+      env.clas.login.create(clas, students).inject(Redirect(routes.Clas.show(clas.id)).flashSuccess)
   }
 
   private def Reasonable(clas: lila.clas.Clas, students: List[lila.clas.Student.WithUser], active: String)(

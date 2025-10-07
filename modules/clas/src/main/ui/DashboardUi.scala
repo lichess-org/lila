@@ -128,7 +128,10 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
               href := routes.Clas.studentForm(c.id),
               cls := "button button-clas text",
               dataIcon := Icon.PlusButton
-            )(trans.clas.addStudent())
+            )(trans.clas.addStudent()),
+            postForm(action := routes.Clas.loginCreate(c.id))(
+              submitButton(cls := "button button-clas text")("Quick login codes")
+            )
           ),
           div(cls := "invites")(
             h2(trans.clas.nbPendingInvitations.pluralSame(invites.size)),

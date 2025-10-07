@@ -29,7 +29,7 @@ final class ClasUi(helpers: lila.ui.Helpers)(
     Page(trans.clas.lichessClasses.txt())
       .css("bits.page", "bits.clas"):
         main(cls := "page-small box box-pad page clas-home")(
-          h1(cls := "box__top")(trans.clas.lichessClasses()),
+          h1(trans.clas.lichessClasses()),
           div(cls := "clas-home__doc body")(
             p(trans.clas.teachClassesOfChessStudents()),
             h2(trans.clas.features()),
@@ -43,6 +43,12 @@ final class ClasUi(helpers: lila.ui.Helpers)(
           div(cls := "clas-home__onboard")(
             postForm(action := routes.Clas.becomeTeacher)(
               submitButton(cls := "button button-fat")(trans.clas.applyToBeLichessTeacher())
+            )
+          ),
+          div(cls := "clas-home__login")(
+            postForm(action := routes.Auth.clasLogin)(
+              input(name := "code", st.placeholder := "Quick login code"),
+              submitButton(cls := "button button-fat")(trans.site.signIn())
             )
           )
         )

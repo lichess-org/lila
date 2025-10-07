@@ -149,6 +149,19 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
                   }
         )
 
+  def clasLogin = OpenBody:
+    Firewall:
+      bindForm(lila.clas.ClasForm.login)(
+        _ => Redirect(routes.Clas.index),
+        code =>
+          env.clas.login
+            .login(code)
+            .flatMap:
+              case None => Redirect(routes.Clas.index)
+              case Some((user, clsId)) =>
+                authenticateUser(user, IsPwned.No, false, Some(_ => Redirect(routes.Clas.show(clsId))))
+      )
+
   def logout = Open:
     env.security.api
       .reqSessionId(ctx.req)
