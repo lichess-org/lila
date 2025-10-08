@@ -57,7 +57,7 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi)(
             a(cls := "daily-feed__update__day", href := s"${routes.Feed.index(1)}#${update.id}"):
               momentFromNow(update.at)
             ,
-            rawHtml(update.rendered)
+            update.rendered
           )
         ),
       div(cls := "daily-feed__update")(
@@ -150,7 +150,7 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi)(
                   )
                 )
               ),
-              div(cls := "daily-feed__update__markup")(rawHtml(update.rendered))
+              div(cls := "daily-feed__update__markup")(update.rendered)
             )
           ),
       pagerNext(ups, np => routes.Feed.index(np).url)

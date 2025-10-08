@@ -76,7 +76,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
             ),
             if c.wall.value.isEmpty then
               div(cls := "box__pad clas-wall clas-wall--empty")(trans.clas.nothingHere())
-            else div(cls := "box__pad clas-wall")(rawHtml(html))
+            else div(cls := "box__pad clas-wall")(html)
           )
 
       def edit(c: Clas, students: List[Student.WithUser], form: Form[?])(using Context) =
@@ -445,7 +445,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
                   challengeTd(user)
                 )
           ),
-          c.wall.value.nonEmpty.option(div(cls := "box__pad clas-wall")(rawHtml(wall))),
+          c.wall.value.nonEmpty.option(div(cls := "box__pad clas-wall")(wall)),
           div(cls := "students")(studentList(students))
         )
 

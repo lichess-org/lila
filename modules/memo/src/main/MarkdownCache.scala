@@ -47,7 +47,7 @@ final class MarkdownCache(
   def toHtml(key: String, markdown: Markdown, opts: MarkdownOptions) =
     cache.get((key, markdown, opts))
 
-  def toHtmlSyncWithoutPgnEmbeds(key: String, markdown: Markdown, opts: MarkdownOptions) =
+  def toHtmlSyncWithoutPgnEmbeds(key: String, markdown: Markdown, opts: MarkdownOptions): Html =
     cache
       .getIfPresent((key, markdown, opts))
       .flatMap(_.value.collect { case scala.util.Success(html) => html })

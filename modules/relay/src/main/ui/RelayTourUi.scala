@@ -155,8 +155,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi, card: RelayCardUi, pageMe
           markup.map: html =>
             frag(
               hr,
-              div(cls := "body"):
-                raw(html.value)
+              div(cls := "body")(html)
             )
         )
       )

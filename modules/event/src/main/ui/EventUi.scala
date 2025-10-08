@@ -63,7 +63,7 @@ final class EventUi(helpers: Helpers)(modMenu: Context ?=> Frag):
               strong(cls := "headline")(e.headline)
             )
           ),
-          description.map(d => div(cls := "desc")(raw(d.value))),
+          description.map(div(cls := "desc")(_)),
           if e.isFinished then p(cls := "desc")("The event is finished.")
           else if e.isNow then a(href := e.url, cls := "button button-fat")(trans.site.eventInProgress())
           else

@@ -69,8 +69,6 @@ trait ScalatagsSnippets:
   val boxTop = div(cls := "box__top")
   val decorativeImg = img(emptyAlt)
 
-  def rawHtml(html: Html) = raw(html.value)
-
   def userTitleTag(t: PlayerTitle) = span(
     cls := "utitle",
     (t == PlayerTitle.BOT).option(dataBotAttr),
@@ -128,6 +126,8 @@ trait ScalatagsExtensions:
   given Render[URL] = _.toString
 
   given [A](using Render[A]): Conversion[A, Frag] = a => StringFrag(a.render)
+
+  given Conversion[Html, Frag] = _.frag
 
   given opaqueIntFrag[A](using r: IntRuntime[A]): Conversion[A, Frag] = a => intFrag(r(a))
 

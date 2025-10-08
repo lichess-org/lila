@@ -60,7 +60,7 @@ final class JsonView(
     Json
       .toJsObject(tour)
       .add("description" -> {
-        if config.html then markdown.of(tour).map(_.render) else tour.markup.map(_.value)
+        if config.html then markdown.of(tour).map(_.value) else tour.markup.map(_.value)
       })
       .add("teamTable" -> tour.teamTable)
       .add("communityOwner" -> tour.communityOwner.map(lightUserSync))

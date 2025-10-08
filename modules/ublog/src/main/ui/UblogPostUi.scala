@@ -109,7 +109,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
               )
             ),
             strong(cls := "ublog-post__intro")(post.intro),
-            div(cls := "ublog-post__markup expand-text")(raw(markup.value)),
+            div(cls := "ublog-post__markup expand-text")(markup),
             post.isLichess.option(
               div(cls := "ublog-post__lichess")(
                 connectLinks,
