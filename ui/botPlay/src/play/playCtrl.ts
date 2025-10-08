@@ -1,12 +1,12 @@
 import { opposite, parseSquare } from 'chessops';
-import type { LocalBridge, Pref } from '../interfaces';
+import type { LocalBridge, Move, Pref } from '../interfaces';
 import { normalizeMove } from 'chessops/chess';
 import { type BotInfo } from 'lib/bot/types';
 import type { Board } from '../chess';
 import { requestBotMove } from './botMove';
 import keyboard from './keyboard';
 import { initialGround, updateGround } from '../ground';
-import { Game, type Move } from '../game';
+import { Game } from '../game';
 import { prop, toggle, type Toggle } from 'lib';
 import { playMoveSounds } from './sound';
 import { PromotionCtrl } from 'lib/game/promotion';
