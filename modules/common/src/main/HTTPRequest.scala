@@ -70,10 +70,12 @@ object HTTPRequest:
   def origin(req: RequestHeader): Option[String] = req.headers.get(HeaderNames.ORIGIN)
   def referer(req: RequestHeader): Option[String] = req.headers.get(HeaderNames.REFERER)
 
-  def ipAddress(req: RequestHeader) =
-    IpAddress.unchecked:
-      // chain of trusted proxies, strip scope id
-      req.remoteAddress.split(", ").last.split("%").head
+  def ipAddress(req: RequestHeader): IpAddress =
+    IpAddress.unchecked(ipAddressStr(req))
+
+  def ipAddressStr(req: RequestHeader): String =
+    // chain of trusted proxies, strip scope id
+    req.remoteAddress.split(", ").last.split("%").head
 
   def isCrawler(req: RequestHeader) = Crawler(crawlerMatcher(req))
 

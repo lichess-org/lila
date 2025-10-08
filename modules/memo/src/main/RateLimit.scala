@@ -70,7 +70,7 @@ object RateLimit:
   type Charge = () => Unit
   type Cost = Int
 
-  enum Result:
+  enum LimitResult:
     case Through, Limited
 
   case class Limited(key: String, msg: String, until: Instant)

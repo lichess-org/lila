@@ -36,7 +36,7 @@ final class Opening(env: Env) extends LilaController(env):
         if moves.sizeIs > 10 && crawler.yes then Forbidden
         else if moves.sizeIs > 6 && proxy.isFloodish && ctx.isAnon then Forbidden
         else
-          limit.enumeration.opening(proxy, rateLimited, limit.enumeration.cost):
+          limit.enumeration.opening(rateLimited):
             val cost =
               if ctx.isAuth then 1
               else if suspUA then 5

@@ -72,7 +72,7 @@ final class User(
 
   private def renderShow(u: UserModel, status: Results.Status = Results.Ok)(using Context): Fu[Result] =
     WithProxy: proxy ?=>
-      limit.enumeration.userProfile(proxy, rateLimited, limit.enumeration.cost):
+      limit.enumeration.userProfile(rateLimited):
         def fetchActivity = (ctx.isAuth || !proxy.isFloodish).so(env.activity.read.recentAndPreload(u))
         if HTTPRequest.isSynchronousHttp(ctx.req)
         then
@@ -109,7 +109,7 @@ final class User(
   def games(username: UserStr, filter: String, page: Int) = OpenBody:
     Reasonable(page):
       WithProxy: proxy ?=>
-        limit.enumeration.userProfile(proxy, rateLimited, limit.enumeration.cost):
+        limit.enumeration.userProfile(rateLimited):
           EnabledUser(username): u =>
             if filter == "search" && ctx.isAnon
             then
