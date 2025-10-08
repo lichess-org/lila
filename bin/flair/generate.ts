@@ -59,8 +59,8 @@ const ignoredEmoji = [
 
 let currentCategory = '';
 
-let names: string[] = [];
-let wgets: string[] = [];
+const names: string[] = [];
+const wgets: string[] = [];
 
 $('div').each((i, el) => {
   const category = $(el)
@@ -80,7 +80,7 @@ $('div').each((i, el) => {
     .find('a')
     .each((i, el) => {
       let name = $(el).attr('href');
-      let url = $(el).attr('data-src');
+      const url = $(el).attr('data-src');
 
       name = name?.substring(name.lastIndexOf('/') + 1);
       name = `${currentCategory}.${name?.replaceAll('_', '-')}`;
