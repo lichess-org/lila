@@ -309,7 +309,7 @@
   <string name="loginToChat">Пријави се да ћаскаш</string>
   <string name="youHaveBeenTimedOut">Тајм-аутован/а си.</string>
   <string name="spectatorRoom">Соба за гледаоце</string>
-  <string name="composeMessage">Састави поруку</string>
+  <string name="composeMessage" comment="Appears as a button on user profiles. Pressing the button will let you send a message to that user. &quot;Message&quot; is used as a verb.&#10;&#10;This text used to state &quot;Compose message&quot;. Please shorten to just &quot;Message&quot; if you see a translation of the old version of the string.">Састави поруку</string>
   <string name="subject">Наслов</string>
   <string name="send">Пошаљи</string>
   <string name="incrementInSeconds">Додатак у секундама</string>
@@ -892,7 +892,7 @@
     <item quantity="other">и сачувај %s предпотезних линија</item>
   </plurals>
   <string name="showUnreadLichessMessage">Примио/ла си приватну поруку од Lichess-а.</string>
-  <string name="sorry">Извините :(</string>
+  <string name="sorry">Извини :(</string>
   <string name="weHadToTimeYouOutForAWhile">Морали смо Вас привремено избацити.</string>
   <string name="why">Зашто?</string>
   <string name="pleasantChessExperience">Желимо да свима обезбедимо пријатно искуство у шаху.</string>
