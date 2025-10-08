@@ -57,9 +57,9 @@ and wait for someone else to compile it before it comes online.
 If you have a command line and want to compile the flair list, run the following:
 
 ```shell
-./flair/list.sh
+pnpx tsx bin/flair/generate.ts
 ```
 
-It will update the `flair/list.txt` file which you must commit along with the updated flair images.
+It will update the `public/flair/list.txt` file which you must commit along with the updated flair images.
 
-Lichess reads `flair/list.txt` periodically to update its flair database.
+Lichess reads `public/flair/list.txt` periodically to update its flair database.
