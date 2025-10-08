@@ -117,6 +117,6 @@ Hier ist der Link zum Zugriff auf die Klasse.</string>
   <string name="xIsAKidAccountWarning">%1$s ist ein Kinderkonto und kann deine Nachricht nicht erhalten. Du musst ihm die Einladungs-URL manuell geben: %2$s</string>
   <string name="moveToClass">Zu %s verschieben</string>
   <string name="moveToAnotherClass">In eine andere Klasse verschieben</string>
-  <string name="allowMessagingBetweenStudents" comment="An option that a class's teacher can select. Has the extended description &quot;This only applies to the accounts you have created for your students.&quot;">Nachrichten zwischen Schülern erlauben</string>
-  <string name="allowMessagingBetweenStudentsDesc" comment="Description for the option &quot;Allow messages between students&quot;.">Dies gilt nur für die Konten, die du für deine Schüler erstellt hast.</string>
+  <string name="allowMessagingBetweenStudents">Nachrichten zwischen Schülern erlauben</string>
+  <string name="allowMessagingBetweenStudentsDesc">Dies gilt nur für die Konten, die du für deine Schüler erstellt hast.</string>
 </resources>

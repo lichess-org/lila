@@ -118,6 +118,6 @@ Hér er tengillinn til að fá aðgang að bekknum.</string>
   <string name="xIsAKidAccountWarning">%1$s er krakkaaðgangur og getur ekki tekið á móti skilaboðunum þínum. Þú verður að segja þeim slóðina á boðið hjálparlaust: %2$s</string>
   <string name="moveToClass">Flytja yfir í %s</string>
   <string name="moveToAnotherClass">Færa í annan bekk</string>
-  <string name="allowMessagingBetweenStudents" comment="An option that a class's teacher can select. Has the extended description &quot;This only applies to the accounts you have created for your students.&quot;">Leyfa skilaboð milli nemenda</string>
-  <string name="allowMessagingBetweenStudentsDesc" comment="Description for the option &quot;Allow messages between students&quot;.">Þetta á aðeins við um aðganga sem þú hefur stofnað fyrir nemendur þína.</string>
+  <string name="allowMessagingBetweenStudents">Leyfa skilaboð milli nemenda</string>
+  <string name="allowMessagingBetweenStudentsDesc">Þetta á aðeins við um aðganga sem þú hefur stofnað fyrir nemendur þína.</string>
 </resources>

@@ -118,6 +118,6 @@ Itt egy vízszintes vonal fog megjelenni.</string>
   <string name="xIsAKidAccountWarning">%1$s gyerekfiókkal rendelkezik ezért nem kapja meg az üzeneted. Juttasd el hozzá más csatornán a meghívó URL-jét: %2$s</string>
   <string name="moveToClass">Áthelyezés ide: %s</string>
   <string name="moveToAnotherClass">Áthelyezés másik osztályba</string>
-  <string name="allowMessagingBetweenStudents" comment="An option that a class's teacher can select. Has the extended description &quot;This only applies to the accounts you have created for your students.&quot;">Tanulók közötti üzenetek engedélyezése</string>
-  <string name="allowMessagingBetweenStudentsDesc" comment="Description for the option &quot;Allow messages between students&quot;.">Ez csak azokra a fiókokra vonatkozik, amiket tanulóid számára hoztál létre.</string>
+  <string name="allowMessagingBetweenStudents">Tanulók közötti üzenetek engedélyezése</string>
+  <string name="allowMessagingBetweenStudentsDesc">Ez csak azokra a fiókokra vonatkozik, amiket tanulóid számára hoztál létre.</string>
 </resources>

@@ -117,6 +117,6 @@ Her er lenka som gir deg tilgjenge til klassen.</string>
   <string name="xIsAKidAccountWarning">%1$s er ein barnekonto og kan ikkj ta mot meldinga di. Du må gje invitasjons-URLen manuelt: %2$s</string>
   <string name="moveToClass">Flytt til %s</string>
   <string name="moveToAnotherClass">Flytt til ei anna klasse</string>
-  <string name="allowMessagingBetweenStudents" comment="An option that a class's teacher can select. Has the extended description &quot;This only applies to the accounts you have created for your students.&quot;">Tillat meldingar mellom elevar</string>
-  <string name="allowMessagingBetweenStudentsDesc" comment="Description for the option &quot;Allow messages between students&quot;.">Dette gjeld berre for kontoane du har oppretta for elevane dine.</string>
+  <string name="allowMessagingBetweenStudents">Tillat meldingar mellom elevar</string>
+  <string name="allowMessagingBetweenStudentsDesc">Dette gjeld berre for kontoane du har oppretta for elevane dine.</string>
 </resources>

@@ -118,6 +118,6 @@
   <string name="xIsAKidAccountWarning">Ο χρήστης %1$s είναι λογαριασμός παιδιού και δεν μπορεί να λάβει το μήνυμά σας. Πρέπει να του δώσετε με κάποιον άλλο τρόπο τη διεύθυνση URL της πρόσκλησης: %2$s</string>
   <string name="moveToClass">Μετακίνηση στην τάξη %s</string>
   <string name="moveToAnotherClass">Μετακίνηση σε άλλη τάξη</string>
-  <string name="allowMessagingBetweenStudents" comment="An option that a class's teacher can select. Has the extended description &quot;This only applies to the accounts you have created for your students.&quot;">Να επιτρέπεται η αποστολή μηνυμάτων μεταξύ των μαθητών</string>
-  <string name="allowMessagingBetweenStudentsDesc" comment="Description for the option &quot;Allow messages between students&quot;.">Η ρύθμιση αυτή ισχύει μόνο για τους λογαριασμούς που έχετε δημιουργήσει εσείς για τους μαθητές σας.</string>
+  <string name="allowMessagingBetweenStudents">Να επιτρέπεται η αποστολή μηνυμάτων μεταξύ των μαθητών</string>
+  <string name="allowMessagingBetweenStudentsDesc">Η ρύθμιση αυτή ισχύει μόνο για τους λογαριασμούς που έχετε δημιουργήσει εσείς για τους μαθητές σας.</string>
 </resources>

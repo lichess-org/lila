@@ -117,6 +117,6 @@ Hier is de link om toegang te krijgen tot de groep.</string>
   <string name="xIsAKidAccountWarning">%1$s is een kinderaccount en kan je bericht niet ontvangen. Je moet het kind de uitnodigingslink handmatig geven: %2$s</string>
   <string name="moveToClass">Verplaats naar %s</string>
   <string name="moveToAnotherClass">Verplaats naar een andere klas</string>
-  <string name="allowMessagingBetweenStudents" comment="An option that a class's teacher can select. Has the extended description &quot;This only applies to the accounts you have created for your students.&quot;">Berichten tussen leerlingen toestaan</string>
-  <string name="allowMessagingBetweenStudentsDesc" comment="Description for the option &quot;Allow messages between students&quot;.">Dit geldt alleen voor de accounts die u hebt aangemaakt voor uw leerlingen.</string>
+  <string name="allowMessagingBetweenStudents">Berichten tussen leerlingen toestaan</string>
+  <string name="allowMessagingBetweenStudentsDesc">Dit geldt alleen voor de accounts die u hebt aangemaakt voor uw leerlingen.</string>
 </resources>
