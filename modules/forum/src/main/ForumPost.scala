@@ -85,6 +85,8 @@ case class ForumPost(
     createdAt = createdAt
   )
 
+  def hasMarkdown = createdAt.isAfter(ForumPost.hasMarkdownSince)
+
   override def toString = s"Post($categId/$topicId/$id)"
 
 object ForumPost:
@@ -142,3 +144,5 @@ object ForumPost:
       categId = categId,
       modIcon = modIcon
     )
+
+  val hasMarkdownSince = instantOf(2125, 10, 10, 7, 0)

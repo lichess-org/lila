@@ -12,7 +12,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
       user: User,
       blog: UblogBlog,
       post: UblogPost,
-      markup: Frag,
+      markup: Html,
       others: List[UblogPost.PreviewPost],
       liked: Boolean,
       followable: Boolean,

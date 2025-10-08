@@ -31,7 +31,7 @@ final class RelayListing(
         .flatMapz: group =>
           tourRepo.byIds(group.tours).map(RelayListing.defaultTourOfGroup)
 
-  def active: Fu[List[RelayCard]] = activeCache.get({})
+  def active: Fu[List[RelayCard]] = activeCache.get({}).recoverDefault
 
   private enum Spot:
     case UngroupedTour(tour: RelayTour.WithRounds) extends Spot

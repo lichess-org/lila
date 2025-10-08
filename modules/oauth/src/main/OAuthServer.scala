@@ -30,10 +30,8 @@ final class OAuthServer(
   def auth(tokenId: Bearer, accepted: EndpointScopes, andLogReq: Option[RequestHeader]): AccessFu = for
     at <- getTokenFromSignedBearer(tokenId)
     at <- at.raiseIfNone(NoSuchToken)
-    _ <- raiseIf(
-      !accepted.isEmpty && !accepted.compatible(at.scopes),
+    _ <- raiseIf(!accepted.isEmpty && !accepted.compatible(at.scopes)):
       MissingScope(accepted, at.scopes)
-    )(funit)
     u <- userApi.me(at.userId)
     u <- u.raiseIfNone(NoSuchUser)
     blocked = at.clientOrigin.exists(origin => originBlocklist.get().value.exists(origin.contains))
@@ -44,7 +42,7 @@ final class OAuthServer(
         def logMsg =
           s"${if blocked then "block" else "auth"} ${at.clientOrigin | "-"} as ${u.username} ${HTTPRequest.print(req).take(200)}"
         if blocked then logger.info(logMsg) else logger.debug(logMsg)
-    _ <- raiseIf(blocked, OriginBlocked)(funit)
+    _ <- raiseIf(blocked)(OriginBlocked)
   yield OAuthScope.Access(OAuthScope.Scoped(u, at.scopes), at.tokenId)
 
   def authBoth(scopes: EndpointScopes, req: RequestHeader)(
@@ -53,9 +51,8 @@ final class OAuthServer(
   ): FuRaise[AuthError, (User, User)] = for
     auth1 <- auth(token1, scopes, req.some)
     auth2 <- auth(token2, scopes, req.some)
-    result <- raiseIf(auth1.user.is(auth2.user), OneUserWithTwoTokens):
-      fuccess(auth1.user -> auth2.user)
-  yield result
+    _ <- raiseIf(auth1.user.is(auth2.user))(OneUserWithTwoTokens)
+  yield auth1.user -> auth2.user
 
   val UaUserRegex = """(?:user|as):\s?([\w\-]{3,31})""".r
   private def checkOauthUaUser(access: OAuthScope.Access, ua: UserAgent): Option[AuthError] =

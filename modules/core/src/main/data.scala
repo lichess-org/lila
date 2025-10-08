@@ -1,6 +1,6 @@
 package lila.core
 
-import scalalib.newtypes.OpaqueString
+import scalalib.newtypes.{ OpaqueString, TotalWrapper }
 
 import lila.core.userId.UserId
 import lila.core.lilaism.Lilaism.StringValue
@@ -23,8 +23,10 @@ object data:
   object Markdown extends OpaqueString[Markdown]
 
   opaque type Html = String
-  object Html extends OpaqueString[Html]:
+  // not an OpaqueString, because we don't want the default Render[Html]
+  object Html extends TotalWrapper[Html, String]:
     def apply(frag: scalatags.Text.Frag): Html = frag.render
+    extension (a: Html) def frag = scalatags.Text.all.raw(a.value)
 
   opaque type JsonStr = String
   object JsonStr extends OpaqueString[JsonStr]

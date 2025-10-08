@@ -3,12 +3,11 @@ package ui
 
 import play.api.data.Form
 
-import lila.common.MarkdownRender
 import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
 
-final class EventUi(helpers: Helpers)(modMenu: Context ?=> Frag)(using Executor):
+final class EventUi(helpers: Helpers)(modMenu: Context ?=> Frag):
   import helpers.{ *, given }
 
   private val dataSeconds = attr("data-seconds")
@@ -52,7 +51,7 @@ final class EventUi(helpers: Helpers)(modMenu: Context ?=> Frag)(using Executor)
       case Some(c) if c == EventForm.icon.broadcast => i(cls := "img", dataIcon := Icon.RadioTower)
       case Some(c) => img(cls := "img", src := assetUrl(s"images/$c"))
 
-  def show(e: Event)(using Context) =
+  def show(e: Event, description: Option[Html])(using Context) =
     Page(e.title)
       .css("bits.event")
       .js(esmInitBit("eventCountdown")):
@@ -64,8 +63,7 @@ final class EventUi(helpers: Helpers)(modMenu: Context ?=> Frag)(using Executor)
               strong(cls := "headline")(e.headline)
             )
           ),
-          e.description.map: d =>
-            div(cls := "desc")(markdown(e, d)),
+          description.map(div(cls := "desc")(_)),
           if e.isFinished then p(cls := "desc")("The event is finished.")
           else if e.isNow then a(href := e.url, cls := "button button-fat")(trans.site.eventInProgress())
           else
@@ -73,16 +71,6 @@ final class EventUi(helpers: Helpers)(modMenu: Context ?=> Frag)(using Executor)
               List("Days", "Hours", "Minutes", "Seconds").map: t =>
                 li(span(cls := t.toLowerCase), t)
         )
-
-  private object markdown:
-    private val renderer = new MarkdownRender(table = true, list = true)
-    // hashcode caching is safe for official events
-    private val cache = lila.memo.CacheApi.scaffeineNoScheduler
-      .expireAfterAccess(10.minutes)
-      .maximumSize(64)
-      .build[Int, Html]()
-    def apply(e: Event, text: Markdown): Frag =
-      rawHtml(cache.get(text.hashCode, _ => renderer(s"event:${e.id}")(text)))
 
   def manager(events: List[Event])(using Context) =
     val title = "Event manager"

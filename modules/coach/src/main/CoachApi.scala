@@ -41,14 +41,8 @@ final class CoachApi(
       })
 
   def isListedCoach(user: User): Fu[Boolean] =
-    canCoach(user).so:
-      user.enabled.yes
-        .so(user.marks.clean)
-        .so(
-          coll.exists(
-            $id(user.id) ++ $doc("listed" -> true)
-          )
-        )
+    (canCoach(user) && user.enabled.yes && user.marks.clean).so:
+      coll.secondary.exists($id(user.id) ++ $doc("listed" -> true))
 
   def setSeenAt(user: User): Funit =
     canCoach(user).so:

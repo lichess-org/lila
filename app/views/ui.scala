@@ -41,7 +41,7 @@ val feed =
 
 val cms = lila.cms.ui.CmsUi(helpers)(modMenu("cms"))
 
-val event = lila.event.ui.EventUi(helpers)(modMenu("event"))(using env.executor)
+val event = lila.event.ui.EventUi(helpers)(modMenu("event"))
 
 val userTournament = lila.tournament.ui.UserTournament(helpers, tournament.ui)
 

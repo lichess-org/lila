@@ -113,6 +113,8 @@ object ClasForm:
 
     def teacherIds = readTeacherIds(teachers)
 
+  val login = Form(single("code" -> nonEmptyText))
+
   private def readTeacherIds(str: String) =
     UserStr.from(str.linesIterator.map(_.trim).filter(_.nonEmpty)).map(_.id).distinct.toList
 

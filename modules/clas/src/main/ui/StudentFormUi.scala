@@ -154,7 +154,7 @@ final class StudentFormUi(helpers: Helpers, clasUi: ClasUi, studentUi: StudentUi
                     tr(
                       td(student.realName),
                       td(titleNameOrId(student.userId)),
-                      td(password.value)
+                      td(pre(password.value))
                     )
                   }
                 )

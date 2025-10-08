@@ -92,24 +92,23 @@ final class Env(
   private def disable(keyOrUser: String) =
     repo.toKey(keyOrUser).flatMap { repo.enableClient(_, v = false) }
 
-  def cli = new lila.common.Cli:
-    def process =
-      case "fishnet" :: "client" :: "create" :: name :: Nil =>
-        userApi
-          .enabledById(UserStr(name))
-          .map(_.exists(_.marks.clean))
-          .flatMap:
-            if _ then
-              api.createClient(UserStr(name).id).map { client =>
-                Bus.pub(lila.core.fishnet.NewKey(client.userId, client.key.value))
-                s"Created key: ${client.key.value} for: $name"
-              }
-            else fuccess("User missing, closed, or banned")
-      case "fishnet" :: "client" :: "delete" :: key :: Nil =>
-        repo.toKey(key).flatMap(repo.deleteClient).inject("done!")
-      case "fishnet" :: "client" :: "enable" :: key :: Nil =>
-        repo.toKey(key).flatMap { repo.enableClient(_, v = true) }.inject("done!")
-      case "fishnet" :: "client" :: "disable" :: key :: Nil => disable(key).inject("done!")
+  lila.common.Cli.handle:
+    case "fishnet" :: "client" :: "create" :: name :: Nil =>
+      userApi
+        .enabledById(UserStr(name))
+        .map(_.exists(_.marks.clean))
+        .flatMap:
+          if _ then
+            api.createClient(UserStr(name).id).map { client =>
+              Bus.pub(lila.core.fishnet.NewKey(client.userId, client.key.value))
+              s"Created key: ${client.key.value} for: $name"
+            }
+          else fuccess("User missing, closed, or banned")
+    case "fishnet" :: "client" :: "delete" :: key :: Nil =>
+      repo.toKey(key).flatMap(repo.deleteClient).inject("done!")
+    case "fishnet" :: "client" :: "enable" :: key :: Nil =>
+      repo.toKey(key).flatMap { repo.enableClient(_, v = true) }.inject("done!")
+    case "fishnet" :: "client" :: "disable" :: key :: Nil => disable(key).inject("done!")
 
   Bus.sub[lila.core.mod.MarkCheater]:
     case lila.core.mod.MarkCheater(userId, true) => disable(userId.value)

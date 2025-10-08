@@ -124,6 +124,6 @@ To zobrazí horizontálnu čiaru.</string>
   <string name="xIsAKidAccountWarning">%1$s je detský účet a nemôže prijať Vašu správu. Pre doručenie pozvánky musíte URL %2$s poskytnúť prostredníctvom iného kanála</string>
   <string name="moveToClass">Presunúť do %s</string>
   <string name="moveToAnotherClass">Presunúť do inej triedy</string>
-  <string name="allowMessagingBetweenStudents" comment="An option that a class's teacher can select. Has the extended description &quot;This only applies to the accounts you have created for your students.&quot;">Povoliť správy medzi študentami</string>
-  <string name="allowMessagingBetweenStudentsDesc" comment="Description for the option &quot;Allow messages between students&quot;.">Toto sa vzťahuje iba na tie účty, ktoré ste vytvorili pre svojich študentov.</string>
+  <string name="allowMessagingBetweenStudents">Povoliť správy medzi študentami</string>
+  <string name="allowMessagingBetweenStudentsDesc">Toto sa vzťahuje iba na tie účty, ktoré ste vytvorili pre svojich študentov.</string>
 </resources>
