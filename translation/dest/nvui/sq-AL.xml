@@ -6,6 +6,7 @@
   <string name="pieces">Gurë</string>
   <string name="gameStatus">Gjendje loje</string>
   <string name="lastMove">Lëvizja e fundit</string>
+  <string name="inputForm">Formular dhënieje urdhrash</string>
   <string name="actions">Veprime</string>
   <string name="yourClock">Sahati juaj</string>
   <string name="opponentClock">Sahati i kundërshtarit</string>
@@ -33,4 +34,10 @@
   <string name="sanCheck" comment="+ in standard notation">shah</string>
   <string name="sanCheckmate" comment="# in standard notation">shat mat</string>
   <string name="invalidMove">Lëvizje e pavlefshme</string>
+  <string name="premoveCancelled">Lëvizja paraprake u anulua</string>
+  <string name="premoveRecorded">Lëvizja paraprake u regjistrua: %s. Që të anulohet, shtypni tastin Enter</string>
+  <string name="pockets" comment="Pockets in Crazyhouse, which hold captured pieces and let players place them again">Xhepa</string>
+  <string name="copyToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">Kopjojey %s në të papastër</string>
+  <string name="copiedToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">%s u kopjua në të papastër</string>
+  <string name="pgnAndFen" comment="Will be a heading read out over text-to-speech for blind users looking to share a PGN or FEN of a game.">PGN dhe FEN</string>
 </resources>
