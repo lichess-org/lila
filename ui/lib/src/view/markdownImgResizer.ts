@@ -1,5 +1,4 @@
-import { frag } from '@/common';
-import type { Prop } from '@/common';
+import { frag, type Prop } from '@/common';
 import { clamp } from '@/algo';
 
 export type UpdateImageHook =
