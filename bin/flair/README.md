@@ -54,7 +54,9 @@ It can only contain letters, numbers, and dashes. Descriptive names help users f
 Optional. You can add and remove flair images without compiling the flair list,
 and wait for someone else to compile it before it comes online.
 
-If you have a command line and want to compile the flair list, run the following:
+[Save](https://github.com/lichess-org/lila/pull/18368#issuecomment-3385711626) https://emojipedia.org/google into bin/flair/emojipedia.html.
+
+Run the generation script:
 
 ```shell
 pnpx tsx bin/flair/generate.ts
