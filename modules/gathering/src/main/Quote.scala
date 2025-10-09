@@ -1648,6 +1648,10 @@ object Quote:
       "As for knight endings with an extra pawn... they are, as a rule, won.",
       "Mark Dvoretsky"
     ),
+    Quote(
+      "Sometimes I think I’ve created a Frankenstein’s monster with this [Elo] system because some of the young players become just like race track habitues who never really see a race; all they do is peruse the tote sheets.",
+      "Arpad Elo"
+    ),
     // lichess facts
     Quote("All features for free; for everyone; forever.", "lichess.org"),
     Quote("We will never display ads.", "lichess.org"),
