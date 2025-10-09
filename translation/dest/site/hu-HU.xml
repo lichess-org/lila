@@ -883,7 +883,7 @@ Jelszavad megváltoztatásához kattints az üzenetben lévő linkre.</string>
   <string name="playVariationToCreateConditionalPremoves">Egy változat megjátszásával, hozzáadható feltételes előre megadott lépés</string>
   <string name="noConditionalPremoves">Nincs feltételes előre megadott lépés</string>
   <string name="playX">%s megjátszása</string>
-  <string name="challengeX">Kihívás %s</string>
+  <string name="challengeX">%s kihívása</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">és %s változat mentése</item>
     <item quantity="other">és %s változat mentése</item>
