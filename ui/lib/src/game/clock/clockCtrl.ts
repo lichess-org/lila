@@ -104,9 +104,6 @@ export class ClockCtrl {
       black: data.black,
       ticking,
     });
-
-    console.log('Clock initialized with:', data);
-    console.log(this.times);
   }
 
   timeRatio = (millis: number): number => Math.min(1, millis * this.timeRatioDivisor);
