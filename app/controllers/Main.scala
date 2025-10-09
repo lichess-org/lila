@@ -4,7 +4,7 @@ import play.api.mvc.*
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
-import lila.core.id.GameFullId
+import lila.core.id.{ GameFullId, ImageId }
 import lila.web.{ StaticContent, WebForms }
 
 final class Main(
@@ -135,14 +135,52 @@ final class Main(
         then lila.mon.link.external(tag, ctx.isAuth).increment()
         Redirect(url)
 
+  private case class UploadData(
+      context: Option[String],
+      width: Option[Int],
+      height: Option[Int]
+  )
+
+  private val uploadForm: play.api.data.Form[UploadData] =
+    import play.api.data.Forms.*
+    play.api.data.Form(
+      mapping(
+        "context" -> optional(nonEmptyText),
+        "width" -> optional(number(min = 1, max = 10000)),
+        "height" -> optional(number(min = 1, max = 10000))
+      )(UploadData.apply)(unapply)
+    )
+
+  // designWidth used for consistent scaling independent of client viewport
+  private def getDesignWidth(rel: String) = rel match // TODO find better place
+    case rel if rel.startsWith("forum") => 864
+    case rel if rel.startsWith("ublog") => 800
+    case rel if rel.startsWith("cms") => 800
+    case _ => 1920
+
   def uploadImage(rel: String) = AuthBody(parse.multipartFormData) { ctx ?=> _ ?=>
-    ctx.body.body.file("image") match
-      case Some(image) =>
-        limit.imageUpload(ctx.ip, rateLimited):
-          env.memo.picfitApi.bodyImage
-            .upload(rel, image)
-            .map(url => JsonOk(Json.obj("imageUrl" -> url)))
-            .recover:
-              case e: Exception => JsonBadRequest(jsonError(e.getMessage))
-      case None => JsonBadRequest(jsonError("Image content only"))
+    limit.imageUpload(ctx.ip, rateLimited):
+      val formData = ctx.body.body
+      formData.file("image") match
+        case None => JsonBadRequest(jsonError("Image content only"))
+        case Some(image) =>
+          uploadForm
+            .bindFromRequest()
+            .fold(
+              err => JsonBadRequest(jsonError(err.errors.map(_.message).mkString(", "))),
+              data =>
+                val designWidth = getDesignWidth(rel)
+                val maxWidth = data.width.exists(_ > designWidth).option(designWidth)
+                env.memo.picfitApi.bodyImage
+                  .upload(rel, image, data.context, maxWidth)
+                  .map(url => JsonOk(Json.obj("imageUrl" -> url)))
+                  .recover:
+                    case e: Exception => JsonBadRequest(jsonError(e.getMessage))
+            )
+  }
+
+  def imageUrl(rel: String, widthRatio: Double) = Auth { _ ?=> _ ?=>
+    JsonOk(
+      Json.obj("imageUrl" -> env.memo.picfitApi.url.resize(ImageId(rel), getDesignWidth(rel), widthRatio))
+    )
   }

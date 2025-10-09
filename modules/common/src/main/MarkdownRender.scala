@@ -45,6 +45,7 @@ final class MarkdownRender(
     blockQuote: Boolean = false,
     list: Boolean = false,
     code: Boolean = false,
+    imageDesignWidth: Option[Int] = None,
     pgnExpand: Option[MarkdownRender.PgnSourceExpand] = None,
     assetDomain: Option[AssetDomain] = None
 ):
@@ -57,7 +58,7 @@ final class MarkdownRender(
   if strikeThrough then extensions.add(StrikethroughExtension.create())
   if autoLink then
     extensions.add(AutolinkExtension.create())
-    extensions.add(MarkdownRender.WhitelistedImage.create(assetDomain))
+    extensions.add(MarkdownRender.WhitelistedImage.create(assetDomain, imageDesignWidth))
   extensions.add(
     pgnExpand.fold[Extension](MarkdownRender.LilaLinkExtension) { MarkdownRender.PgnEmbedExtension(_) }
   )
@@ -137,49 +138,54 @@ object MarkdownRender:
         "127.0.0.1"
       )
 
-    private def whitelistedSrc(src: String, assetDomain: Option[AssetDomain]): Option[String] = for
+    private def whitelistedSrc(src: String, assetDomain: Option[AssetDomain]) = for
       url <- lila.common.url.parse(src).toOption
       if url.scheme == "http" || url.scheme == "https"
       host <- Option(url.host).map(_.toHostString)
       if (assetDomain.toList ::: whitelist).exists(h => host == h.value || host.endsWith(s".$h"))
     yield url.toString
 
-    def create(assetDomain: Option[AssetDomain]) = new HtmlRenderer.HtmlRendererExtension:
-      override def rendererOptions(options: MutableDataHolder) = ()
-      override def extend(htmlRendererBuilder: HtmlRenderer.Builder, rendererType: String) =
-        htmlRendererBuilder.nodeRendererFactory:
-          new:
-            override def apply(options: DataHolder) = new NodeRenderer:
-              override def getNodeRenderingHandlers() =
-                Set(NodeRenderingHandler(classOf[Image], render(_, _, _))).asJava
+    def create(assetDomain: Option[AssetDomain], designWidth: Option[Int]) =
+      new HtmlRenderer.HtmlRendererExtension:
+        override def rendererOptions(options: MutableDataHolder) = ()
+        override def extend(htmlRendererBuilder: HtmlRenderer.Builder, rt: String) =
+          htmlRendererBuilder.nodeRendererFactory:
+            new:
+              override def apply(options: DataHolder) = new NodeRenderer:
+                override def getNodeRenderingHandlers() =
+                  Set(NodeRenderingHandler(classOf[Image], render(_, _, _))).asJava
 
-      private def render(node: Image, context: NodeRendererContext, html: HtmlWriter): Unit =
-        // Based on implementation in CoreNodeRenderer.
-        if context.isDoNotRenderLinks || CoreNodeRenderer.isSuppressedLinkPrefix(node.getUrl(), context) then
-          context.renderChildren(node)
-        else
-          val resolvedLink = context.resolveLink(LinkType.IMAGE, node.getUrl().unescape(), null, null)
-          val url = resolvedLink.getUrl()
-          val altText = new TextCollectingVisitor().collectAndGetText(node)
-          whitelistedSrc(url, assetDomain) match
-            case Some(src) =>
-              html
-                .srcPos(node.getChars())
-                .attr("src", src)
-                .attr("alt", altText)
-                .attr(resolvedLink.getNonNullAttributes())
-                .withAttr(resolvedLink)
-                .tagVoid("img")
-            case None =>
-              html
-                .srcPos(node.getChars())
-                .attr("href", url)
-                .attr("target", "_blank")
-                .attr("rel", rel)
-                .withAttr(resolvedLink)
-                .tag("a")
-                .text(if altText.isEmpty then url else altText)
-                .tag("/a")
+        private def render(node: Image, context: NodeRendererContext, html: HtmlWriter): Unit =
+          if context.isDoNotRenderLinks || CoreNodeRenderer.isSuppressedLinkPrefix(node.getUrl(), context)
+          then context.renderChildren(node)
+          else
+            val resolvedLink = context.resolveLink(LinkType.IMAGE, node.getUrl().unescape(), null, null)
+            val url = resolvedLink.getUrl
+            val alt = new TextCollectingVisitor().collectAndGetText(node)
+            whitelistedSrc(url, assetDomain) match
+              case Some(src) =>
+                val widthReOpt =
+                  assetDomain.map(host => ("(?i)" + Regex.quote(host.value) + raw"[^\s]+[?&]w=(\d{1,4})").r)
+                val widthOpt = widthReOpt.flatMap(_.findFirstMatchIn(src).flatMap(_.group(1).toIntOption))
+                html.srcPos(node.getChars()).withAttr().attr("class", "img-container").tag("span")
+                html.attr("src", src).attr("alt", alt).attr(resolvedLink.getNonNullAttributes())
+                widthOpt.foreach: px =>
+                  html.attr(
+                    "style",
+                    s"width:${designWidth.fold(s"${px}px")(dw => s"${100.min(math.round(px * 100.0f / dw))}%")}"
+                  )
+                html.withAttr(resolvedLink).tagVoid("img")
+                html.tag("/span")
+              case None =>
+                html
+                  .srcPos(node.getChars())
+                  .attr("href", url)
+                  .attr("target", "_blank")
+                  .attr("rel", rel)
+                  .withAttr(resolvedLink)
+                  .tag("a")
+                  .text(if alt.isEmpty then url else alt)
+                  .tag("/a")
 
   private class PgnEmbedExtension(expander: PgnSourceExpand) extends HtmlRenderer.HtmlRendererExtension:
     override def rendererOptions(options: MutableDataHolder) = ()

@@ -15,7 +15,8 @@ case class MarkdownOptions(
     blockQuote: Boolean = false,
     code: Boolean = false,
     maxPgns: Max = Max(0),
-    imageUpload: Boolean = false
+    toastUi: Boolean = false,
+    imageDesignWidth: Option[Int] = None
 )
 object MarkdownOptions:
   val all = MarkdownOptions(
@@ -93,17 +94,17 @@ final class MarkdownCache(
         blockQuote = opts.blockQuote,
         code = opts.code,
         table = opts.table,
+        imageDesignWidth = opts.imageDesignWidth,
         pgnExpand = pgnCache.expand.some,
         assetDomain.some
       )
     )
 
   private def bodyProcessor(key: String, opts: MarkdownOptions): Markdown => Html =
-    if opts.imageUpload then toastUiProcessor(key, opts)
+    if opts.toastUi then toastUiProcessor(key, opts)
     else getRenderer(opts)(key)
 
   private def toastUiProcessor(key: String, opts: MarkdownOptions): Markdown => Html =
     MarkdownToastUi.unescapeAtUsername.apply
       .andThen(getRenderer(opts)(key))
-      .andThen(MarkdownToastUi.imageParagraph)
       .andThen(MarkdownToastUi.unescapeUnderscoreInLinks.apply)

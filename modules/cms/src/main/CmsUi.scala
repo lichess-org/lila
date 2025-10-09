@@ -203,7 +203,7 @@ final class CmsUi(helpers: Helpers)(menu: Context ?=> Frag):
       ): field =>
         frag(
           form3.textarea(field)(),
-          div(cls := "markdown-editor", attr("data-image-upload-url") := routes.Main.uploadImage("cmsPage"))
+          div(cls := "markdown-toastui", attr("data-image-upload-url") := routes.Main.uploadImage("cmsPage"))
         ),
       form3.split(
         form3.checkbox(form("live"), raw("Live"), half = true)
