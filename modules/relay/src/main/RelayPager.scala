@@ -31,7 +31,12 @@ final class RelayPager(
               import framework.*
               Match(selectors.ownerId(owner.id) ++ isMe.not.so(selectors.vis.public)) -> {
                 List(Project(unsetHeavyOptionalFields), Sort(Descending("createdAt"))) :::
-                  tourRepo.aggregateRound(colls, framework, onlyKeepGroupFirst = false) :::
+                  tourRepo.aggregateRound(
+                    colls,
+                    framework,
+                    onlyKeepGroupFirst = false,
+                    roundPipeline = roundPipelineFirstUnfinished.some
+                  ) :::
                   List(Skip(offset), Limit(length))
               }
             .map(readTours)
@@ -69,7 +74,11 @@ final class RelayPager(
             import framework.*
             Match(selectors.subscriberId(userId)) -> {
               List(Project(unsetHeavyOptionalFields), Sort(Descending("createdAt"))) ::: tourRepo
-                .aggregateRoundAndUnwind(colls, framework) ::: List(
+                .aggregateRoundAndUnwind(
+                  colls,
+                  framework,
+                  roundPipeline = roundPipelineFirstUnfinished.some
+                ) ::: List(
                 Skip(offset),
                 Limit(length)
               )
@@ -147,6 +156,13 @@ final class RelayPager(
       onlyKeepGroupFirst = false,
       sortFields = List("syncedAt")
     )
+
+  // select the first round of the tour, that is not yet finished
+  private val roundPipelineFirstUnfinished = List(
+    $doc("$sort" -> RelayRoundRepo.sort.asc),
+    $doc("$match" -> $doc("finishedAt".$exists(false))),
+    $doc("$limit" -> 1)
+  )
 
   private def forSelector(
       selector: Bdoc,
