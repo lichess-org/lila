@@ -51,7 +51,7 @@ final private class FarmBoostDetection(
     g.winnerColor.so(newAccountBoostingInFavorOf(g, users, _))
 
   private def newAccountBoostingInFavorOf(g: Game, users: ByColor[UserWithPerfs], favor: Color): Fu[Boolean] =
-    (!users(favor).user.createdSinceDays(7).not)
+    (!users(favor).user.createdSinceDays(7))
       .so:
         val perf = users(favor).perfs(g.perfKey)
         val minSeconds = linearInterpolation(perf.nb)(0 -> 90, 5 -> 60)

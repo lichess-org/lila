@@ -40,7 +40,7 @@ final class LightUserApi(repo: UserRepo, cacheApi: CacheApi)(using Executor)
 
   private val cache: Syncache[UserId, Option[LightUser]] = cacheApi.sync[UserId, Option[LightUser]](
     name = "user.light",
-    initialCapacity = 1024 * 1024,
+    initialCapacity = 512 * 1024,
     compute = id =>
       if id.isGhost then fuccess(LightUser.ghost.some)
       else
@@ -52,7 +52,7 @@ final class LightUserApi(repo: UserRepo, cacheApi: CacheApi)(using Executor)
     ,
     default = id => LightUser(id, id.into(UserName), None, None, PatronMonths.zero, None).some,
     strategy = Syncache.Strategy.WaitAfterUptime(10.millis),
-    expireAfter = Syncache.ExpireAfter.Write(20.minutes)
+    expireAfter = Syncache.ExpireAfter.Write(15.minutes)
   )
 
   private given BSONDocumentReader[LightUser] with

@@ -50,7 +50,7 @@ trait AssetHelper:
   def embedJsUnsafeLoadThen(js: String): WithNonce[Frag] = embedJsUnsafe(s"""site.load.then(()=>{$js})""")
 
   // bump flairs version if a flair is changed only (not added or removed)
-  val flairVersion = "______3"
+  val flairVersion = "______4"
 
   def staticAssetUrl(path: String): String = s"$assetBaseUrl/assets/$path"
 
