@@ -8,7 +8,11 @@ import lila.core.misc.lpv.LpvEmbed
 class MarkdownTest extends munit.FunSuite:
 
   val render: Markdown => Html =
-    new MarkdownRender(assetDomain = AssetDomain("lichess1.org").some, header = true)("test")
+    new MarkdownRender(
+      assetDomain = AssetDomain("lichess1.org").some,
+      header = true,
+      imageDesignWidth = 1000.some
+    )("test")
 
   test("autolinks add rel"):
     val md = Markdown("https://example.com")
@@ -68,8 +72,20 @@ class MarkdownTest extends munit.FunSuite:
   test("markdown image whitelist pass"):
     assertEquals(
       render(Markdown("![image](https://lichess1.org/image.png)")),
-      Html("""<p><img src="https://lichess1.org/image.png" alt="image" /></p>
-""")
+      Html(
+        """<p><span class="img-container"><img src="https://lichess1.org/image.png" alt="image" /></span></p>
+"""
+      )
+    )
+  test("markdown image resize pass"):
+    val url =
+      "https://image.lichess1.org/display?fmt=webp&h=0&op=resize&path=ublogBody:pUItly7Xabcd:G8hsgUbZ.webp&w=500&sig=blahblahblah"
+    assertEquals(
+      render(Markdown(s"![image]($url)")),
+      Html(
+        raw"""<p><span class="img-container"><img src="$url" alt="image" style="width:50%" /></span></p>
+"""
+      ).map(_.replaceAll("&", "&amp;"))
     )
   test("markdown image whitelist block"):
     assertEquals(
