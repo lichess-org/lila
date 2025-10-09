@@ -14,7 +14,7 @@ export function initModule(): void {
             <span class="mini-game__user">
               <span class="utitle" title="Candidate Master">CM</span>
               &nbsp;Tester1
-              <img class="uflair" src="${ds.assetUrl}/assets/______3/flair/img/activity.lichess-horsey.webp">
+              <img class="uflair" src="${ds.assetUrl}/assets/______4/flair/img/activity.lichess-horsey.webp">
               <span class="rating">2649</span>
             </span>
             <span class="mini-game__clock mini-game__clock--black clock--run" data-time="60">0:26</span>
@@ -24,7 +24,7 @@ export function initModule(): void {
             <span class="mini-game__user">
               <span class="utitle" title="FIDE Master">FM</span>
               &nbsp;tester2
-              <img class="uflair" src="${ds.assetUrl}/assets/______3/flair/img/activity.lichess-berserk.webp">
+              <img class="uflair" src="${ds.assetUrl}/assets/______4/flair/img/activity.lichess-berserk.webp">
               <span class="rating">2760</span>
             </span>
             <span class="mini-game__clock mini-game__clock--white" data-time="60">0:19</span>

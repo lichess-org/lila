@@ -6,6 +6,7 @@ if [ -z "$1" ]; then
 fi
 
 exit_code=0
+flairs_checked=0
 
 for img_file in "$1"/*; do
     if [[ ! "$img_file" =~ \.webp$ ]]; then
@@ -40,6 +41,11 @@ for img_file in "$1"/*; do
     if grep -q "ANMF" "$img_file"; then
         echo "Animated: $img_file"
         exit_code=1
+    fi
+
+    flairs_checked=$((flairs_checked + 1))
+    if [ $((flairs_checked % 100)) -eq 0 ]; then
+        echo "Checked $flairs_checked flair images so far..."
     fi
 done
 
