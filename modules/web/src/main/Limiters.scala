@@ -152,16 +152,17 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
     private val userProfileLimiter = RateLimit[IsProxy](100 * maxCost, 1.minute, "user.profile.page.proxy")
     def userProfile[A]: ProxyLimit[A] = proxyLimit(userProfileLimiter)
 
-    private type ProxyLimit[A] = (IsProxy, RequestHeader) ?=> (=> Fu[A]) => (=> Fu[A]) => Fu[A]
+    private type ProxyLimit[A] = (IsProxy, RequestHeader, Option[Me]) ?=> (=> Fu[A]) => (=> Fu[A]) => Fu[A]
 
     private def proxyLimit[A](limiter: RateLimiter[IsProxy]): ProxyLimit[A] =
-      (proxy, req) ?=>
+      (proxy, req, me) ?=>
         default =>
           f =>
-            if proxy.no then f
+            if proxy.no || me.isDefined then f
             else limiter(proxy, default, cost, msg = HTTPRequest.ipAddressStr(req))(f)
 
     private def cost(using proxy: IsProxy): Int =
-      if proxy.isFloodish then maxCost
+      if proxy == IsProxy.public then maxCost * 2
+      else if proxy.isFloodish then maxCost
       else if proxy.isVpn then 1
       else 0
