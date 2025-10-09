@@ -19,13 +19,10 @@ export function wrapImg(arg: { img: HTMLImageElement } | { src: string; alt: str
   return span;
 }
 
-export async function wireMarkdownImgResizers(init: {
-  root: HTMLElement;
-  updateImage: UpdateImageHook;
-  isToastUi?: boolean;
-}): Promise<void> {
-  const { root, updateImage } = init;
-
+export async function wireMarkdownImgResizers(
+  root: HTMLElement,
+  updateImage: UpdateImageHook,
+): Promise<void> {
   let rootStyle: CSSStyleDeclaration;
   let rootPadding: number;
 

@@ -129,24 +129,24 @@ function imageNodeView(node: NodeType, view: EditorViewType, getPos: () => numbe
     ignoreMutation: () => true,
   };
 }
-
+const updateImage = {
+  url: (img: HTMLElement, imageUrl: string, widthRatio?: number) => {
+    const { getPos, view } = proseMirrorProps.get(img) || {};
+    if (!view) return;
+    const pos = getPos?.();
+    if (pos === undefined) return;
+    view.dispatch(
+      view.state.tr.setNodeMarkup(pos, undefined, {
+        ...view.state.doc.nodeAt(pos)?.attrs,
+        styleWidth: widthRatio ? `${widthRatio * 100}%` : null,
+        imageUrl,
+      }),
+    );
+  },
+};
 function rewire() {
-  wireMarkdownImgResizers({
-    root: document.querySelector<HTMLElement>('.toastui-editor-ww-container .ProseMirror')!,
-    updateImage: {
-      url: (img: HTMLElement, imageUrl: string, widthRatio?: number) => {
-        const { getPos, view } = proseMirrorProps.get(img) || {};
-        if (!view) return;
-        const pos = getPos?.();
-        if (pos === undefined) return;
-        view.dispatch(
-          view.state.tr.setNodeMarkup(pos, undefined, {
-            ...view.state.doc.nodeAt(pos)?.attrs,
-            styleWidth: widthRatio ? `${widthRatio * 100}%` : null,
-            imageUrl,
-          }),
-        );
-      },
-    },
-  });
+  wireMarkdownImgResizers(
+    document.querySelector<HTMLElement>('.toastui-editor-ww-container .ProseMirror')!,
+    updateImage,
+  );
 }
