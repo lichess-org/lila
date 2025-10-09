@@ -10,7 +10,15 @@
   <string name="actions">Veprime</string>
   <string name="yourClock">Sahati juaj</string>
   <string name="opponentClock">Sahati i kundërshtarit</string>
+  <string name="boardCommandList">Listë urdhrash, kur fokusin e ka fusha</string>
   <string name="inputFormCommandList">Shtypini këto urdhra te formulari i dhënies së urdhrave.</string>
+  <string name="goToInputForm">Kalo te formulari i dhënies së urdhrave.</string>
+  <string name="announceCurrentSquare">Shqipto kuadratin e tanishëm.</string>
+  <string name="announceLastMove">Shqipto lëvizjen e fundit.</string>
+  <string name="announceLastMoveCapture">Shqipto gurin e zënë në lëvizjen e fundit.</string>
+  <string name="announcePossibleMoves">Shqipto lëvizje të mundshme për gurin e përzgjedhur.</string>
+  <string name="announcePossibleCaptures">Shqipto kapje të mundshme me gurin e përzgjedhur.</string>
+  <string name="moveWithArrows">Kaloje te kuadrati ngjitur në të majtë, të djathtë, sipër ose poshtë.</string>
   <string name="goToBoard" comment="Please keep the hyphen in or use a space for moves (e.g. &quot;a 1&quot;). Screen readers may not read the text out correctly without a hyphen or space present.">Kaloni te fusha. Kuadrati parazgjedhje është e-4. Mund të përcaktoni një kuadrat: “board a-1” ose “b a-1” do t’ju kalojë te kuadrati a-1.</string>
   <string name="movePiece">Që të lëvizni një gur, përdorni paraqitjen standarde algjebrike.</string>
   <string name="king">mbret</string>
