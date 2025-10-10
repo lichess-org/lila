@@ -78,9 +78,6 @@ export class EditDialog {
     this.view
       .querySelector('[data-bot-action="push-one"]')
       ?.classList.toggle('none', !env.canPost || this.isDirty() || !this.localChanges);
-    this.view
-      .querySelector('[data-bot-action="delete"]')
-      ?.classList.toggle('none', !env.canPost && !this.serverBot);
   }
 
   assetDialog = async (type?: AssetType): Promise<string | undefined> => {
@@ -119,7 +116,7 @@ export class EditDialog {
       ...this.panes.actions,
       { selector: '[data-bot-action="save-one"]', listener: () => this.save() },
       { selector: '[data-bot-action="new"]', listener: () => this.newBotDialog() },
-      { selector: '[data-bot-action="delete"]', listener: () => this.deleteBot() },
+      { selector: '[data-bot-action="vision"]', listener: () => this.visionDialog() },
       { selector: '[data-bot-action="history-one"]', listener: () => historyDialog(this, this.uid) },
       { selector: '[data-bot-action="json"]', listener: () => this.jsonDialog() },
       { selector: '[data-bot-action="unrate-all"]', listener: () => this.clearRatings() },
@@ -171,21 +168,6 @@ export class EditDialog {
     this.uid = uid;
     localStorage.setItem('devBot.edit', uid);
     this.makeEditView();
-    this.update();
-  }
-
-  private async deleteBot(): Promise<void> {
-    if (!(await confirm(`Delete ${this.uid}?`))) return;
-
-    const rsp = await fetch('/bots/dev/bot', {
-      method: 'post',
-      headers: { 'Content-Type': 'application/json' },
-      body: `{"uid":"${this.uid}"}`,
-    });
-
-    if (!rsp.ok) return;
-    this.scratch.delete(this.uid);
-    await env.bot.deleteStoredBot(this.uid).then(() => this.selectBot(env.bot.firstUid));
     this.update();
   }
 
@@ -291,6 +273,42 @@ export class EditDialog {
     });
   }
 
+  private async visionDialog(): Promise<void> {
+    const view = frag<HTMLElement>($html`
+      <div class="dev-view json-dialog">
+        <p>A private description of who the bot is. This is only for the bot editor team, to know what the bot is about.</p>
+        <textarea class="vision" rows="12">${this.editing().vision || ''}</textarea>
+        <div class="actions">
+          <button class="button button-empty button-red" data-action="cancel">cancel</button>
+          <button class="button button-empty" data-action="save">save</button>
+          </div>
+      </div>`);
+    const dlg = await domDialog({
+      append: [{ node: view }],
+      onClose: () => {},
+      show: true,
+      actions: [
+        { selector: '[data-action="cancel"]', result: 'cancel' },
+        { selector: '[data-action="save"]', result: 'save' },
+      ],
+    });
+    if (dlg.returnValue !== 'save') return;
+
+    const newBot = {
+      ...this.editing(),
+      vision: view.querySelector<HTMLTextAreaElement>('.vision')!.value,
+    };
+    this.scratch.set(
+      this.uid,
+      Object.defineProperties(new Bot(newBot, env.bot), {
+        disabled: { value: new Set<string>() },
+        viewing: { value: new Map<string, string>() },
+      }) as WritableBot,
+    );
+    this.makeEditView();
+    this.update();
+  }
+
   private async jsonDialog(): Promise<void> {
     const version = this.editing().version;
     const view = frag<HTMLElement>($html`
@@ -361,9 +379,9 @@ export class EditDialog {
 
   private botActionsEl = frag<HTMLElement>($html`
     <div class="bot-actions">
-      <button class="button button-empty button-red none" data-bot-action="delete">delete</button>
+      <button class="button button-empty button" data-bot-action="vision">vision</button>
       <button class="button button-empty button-dim" data-bot-action="json">json</button>
-      <button class="button button-empty button-brag" data-bot-action="history-one">history</button>
+      <button class="button button-empty button-dim" data-bot-action="history-one">history</button>
       <button class="button button-empty none" data-bot-action="pull-one">pull</button>
       <button class="button button-empty button-clas none" data-bot-action="push-one">push</button>
       <button class="button none" data-bot-action="save-one">save</button>

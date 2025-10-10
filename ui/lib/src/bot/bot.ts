@@ -38,6 +38,7 @@ export class Bot implements BotInfo, MoveSource {
 
   name: string;
   description: string;
+  vision: string;
   image: string;
   ratings: Ratings;
   books?: Book[];
