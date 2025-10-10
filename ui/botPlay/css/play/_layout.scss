@@ -44,6 +44,9 @@ $col1-moves-height: 4em;
         margin-right: $block-gap !important;
       }
     }
+    &__clock--top {
+      min-width: 30vw;
+    }
     &__mat--bottom {
       padding: 0.3em 0 0 1em;
     }
