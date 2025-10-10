@@ -751,7 +751,7 @@
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s је бољи од %2$s играча %3$s.</string>
   <string name="betterThanPercentPlayers">Боље од %1$s од %2$s играча</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Немаш утврђен %s рејтинг.</string>
-  <string name="yourRating">Ваш рејтинг</string>
+  <string name="yourRating">Твој рејтинг</string>
   <string name="cumulative">Кумулативно</string>
   <string name="glicko2Rating">Glicko-2 рејтинг</string>
   <string name="checkYourEmail">Проверите Ваш Имејл</string>
@@ -901,9 +901,9 @@
   <string name="howToAvoidThis">Како ово избећи?</string>
   <string name="playEveryGame">Одиграј сваку партију коју започнеш.</string>
   <string name="tryToWin">Пробај да победиш (или барем изједначиш) сваку партију коју одиграш.</string>
-  <string name="resignLostGames">Предај изгубљене игре (немој пуштати да време истекне).</string>
+  <string name="resignLostGames">Предај изгубљене партије (немој пуштати време да истекне).</string>
   <string name="temporaryInconvenience">Извињавамо се на привременој нелагодности,</string>
-  <string name="wishYouGreatGames">и желимо вам одличне партије на lichess.org.</string>
+  <string name="wishYouGreatGames">и желимо ти одличне партије на lichess.org.</string>
   <string name="thankYouForReading">Хвала на читању!</string>
   <string name="lifetimeScore">Животни скор</string>
   <string name="currentMatchScore">Скор тренутног меча</string>
