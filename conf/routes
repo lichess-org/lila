@@ -898,6 +898,7 @@ GET   /costs                           controllers.Main.costs
 GET   /InstantChess.com                controllers.Main.instantChess
 GET   /daily-puzzle-slack              controllers.Main.dailyPuzzleSlackApp
 POST  /upload/image/user/:rel          controllers.Main.uploadImage(rel)
+GET   /image-url/:id                   controllers.Main.imageUrl(id: String, width: Int ?= 0)
 POST  /github/secret-scanning          controllers.Github.secretScanning
 
 GET   /verify-title                    controllers.TitleVerify.index

@@ -3605,7 +3605,7 @@ interface I18n {
     makePrivateTournament: string;
     /** Make sure to read %1$s */
     makeSureToRead: I18nFormat;
-    /** %s is available for more advanced syntax. */
+    /** %s is available for formatting. */
     markdownAvailable: I18nFormat;
     /** OTB games of %1$s+ FIDE-rated players from %2$s to %3$s */
     masterDbExplanation: I18nFormat;

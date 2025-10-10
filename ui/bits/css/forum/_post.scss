@@ -104,6 +104,16 @@
   &__message {
     @extend %break-word, %zalgoverflow;
 
+    @include rendered-markdown(1em, 1600px);
+    @include rendered-markdown--code;
+    @include rendered-markdown--quote;
+    @include rendered-markdown--img;
+    @include rendered-markdown--embed;
+
+    p {
+      margin-block: 0;
+    }
+
     margin-top: 1em;
     margin-bottom: 1em;
 
@@ -158,5 +168,22 @@
       width: 100%;
       height: 20em;
     }
+  }
+}
+
+.comment-preview {
+  font-size: 1.1rem;
+
+  @include rendered-markdown(1em, 1600px);
+  @include rendered-markdown--code;
+  @include rendered-markdown--quote;
+  @include rendered-markdown--img;
+  @include rendered-markdown--embed;
+
+  blockquote {
+    padding: 0.3em 0.7em;
+    border-left: 0.3em solid;
+    unicode-bidi: plaintext;
+    position: relative;
   }
 }

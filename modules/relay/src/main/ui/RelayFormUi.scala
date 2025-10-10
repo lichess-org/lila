@@ -424,51 +424,55 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
           )
 
     def create(form: Form[lila.relay.RelayTourForm.Data])(using Context) =
-      page(trb.newBroadcast.txt(), menu = Left("new")):
-        frag(
-          boxTop(h1(dataIcon := Icon.RadioTower, cls := "text")(trb.newBroadcast())),
-          postForm(cls := "form3", action := routes.RelayTour.create)(
-            inner(form, none),
-            form3.actions(
-              a(href := routes.RelayTour.index(1))(trs.cancel()),
-              form3.submit(trs.apply())
+      page(trb.newBroadcast.txt(), menu = Left("new"))
+        .css("bits.markdownTextarea")
+        .js(Esm("bits.markdownTextarea")):
+          frag(
+            boxTop(h1(dataIcon := Icon.RadioTower, cls := "text")(trb.newBroadcast())),
+            postForm(cls := "form3", action := routes.RelayTour.create)(
+              inner(form, none),
+              form3.actions(
+                a(href := routes.RelayTour.index(1))(trs.cancel()),
+                form3.submit(trs.apply())
+              )
             )
           )
-        )
 
     def edit(form: Form[RelayTourForm.Data], nav: FormNavigation)(using Context) =
-      page(nav.tour.name.value, menu = Right(nav)):
-        frag(
-          boxTop(h1(a(href := routes.RelayTour.show(nav.tour.slug, nav.tour.id))(nav.tour.name))),
-          standardFlash,
-          image(nav.tour),
-          postForm(cls := "form3", action := routes.RelayTour.update(nav.tour.id))(
-            inner(form, nav.tourWithGroup.some),
-            form3.actions(
-              a(href := routes.RelayTour.show(nav.tour.slug, nav.tour.id))(trs.cancel()),
-              form3.submit(trs.apply())
-            )
-          ),
-          div(cls := "relay-form__actions")(
-            postForm(action := routes.RelayTour.delete(nav.tour.id))(
-              submitButton(
-                cls := "button button-red button-empty yes-no-confirm"
-              )(strong(trb.deleteTournament()), em(trb.definitivelyDeleteTournament()))
+      page(nav.tour.name.value, menu = Right(nav))
+        .css("bits.markdownTextarea")
+        .js(Esm("bits.markdownTextarea")):
+          frag(
+            boxTop(h1(a(href := routes.RelayTour.show(nav.tour.slug, nav.tour.id))(nav.tour.name))),
+            standardFlash,
+            image(nav.tour),
+            postForm(cls := "form3", action := routes.RelayTour.update(nav.tour.id))(
+              inner(form, nav.tourWithGroup.some),
+              form3.actions(
+                a(href := routes.RelayTour.show(nav.tour.slug, nav.tour.id))(trs.cancel()),
+                form3.submit(trs.apply())
+              )
             ),
-            Granter
-              .opt(_.Relay)
-              .option(
-                postForm(action := routes.RelayTour.cloneTour(nav.tour.id))(
-                  submitButton(
-                    cls := "button button-green button-empty yes-no-confirm"
-                  )(
-                    strong("Clone as broadcast admin"),
-                    em("Clone this broadcast, its rounds, and their studies")
+            div(cls := "relay-form__actions")(
+              postForm(action := routes.RelayTour.delete(nav.tour.id))(
+                submitButton(
+                  cls := "button button-red button-empty yes-no-confirm"
+                )(strong(trb.deleteTournament()), em(trb.definitivelyDeleteTournament()))
+              ),
+              Granter
+                .opt(_.Relay)
+                .option(
+                  postForm(action := routes.RelayTour.cloneTour(nav.tour.id))(
+                    submitButton(
+                      cls := "button button-green button-empty yes-no-confirm"
+                    )(
+                      strong("Clone as broadcast admin"),
+                      em("Clone this broadcast, its rounds, and their studies")
+                    )
                   )
                 )
-              )
+            )
           )
-        )
 
     private val sortedTiebreaks = Tiebreak.preset.sortBy(_.extendedCode)
 
@@ -551,7 +555,16 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
                 20000.localize
               )
               .some
-          )(form3.textarea(_)(rows := 10))
+          )(field =>
+            lila.ui.bits.markdownTextarea("broadcastDescription".some)(
+              rows := 10,
+              maxlength := 20000,
+              cls := "form-control",
+              id := s"form3-${field.id}",
+              name := field.name,
+              field.value
+            )
+          )
         ),
         form3
           .fieldset(
