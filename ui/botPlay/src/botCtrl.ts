@@ -23,7 +23,10 @@ export class BotCtrl {
     readonly redraw: () => void,
   ) {
     this.setupCtrl = new SetupCtrl(opts, loadCurrentGame, this.resume, this.newGame, redraw);
-    debugCli(this.resumeGameAndRedraw);
+    debugCli(game => {
+      saveCurrentGame(game);
+      this.resumeGameAndRedraw(game);
+    });
     addZenSupport();
 
     this.resume(true); // auto-join the ongoing game

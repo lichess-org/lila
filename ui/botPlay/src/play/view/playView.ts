@@ -26,20 +26,25 @@ export const playView = (ctrl: PlayCtrl) =>
 const viewTable = (ctrl: PlayCtrl) => {
   const diffs = materialDiffs(ctrl);
   return [
-    viewClockMat(ctrl, 'top', diffs[0]),
+    viewMat('top', diffs[0]),
+    viewClock(ctrl, 'top'),
     viewOpponent(ctrl.opts.bot),
     viewMoves(ctrl),
     viewNavigation(ctrl),
     viewActions(ctrl),
-    viewClockMat(ctrl, 'bottom', diffs[1]),
+    viewClock(ctrl, 'bottom'),
+    viewMat('bottom', diffs[1]),
   ];
 };
 
-const viewClockMat = (ctrl: PlayCtrl, position: TopOrBottom, material: VNode) =>
-  hl(`div.bot-game__clock-mat.bot-game__clock-mat--${position}`, [
+const viewMat = (position: TopOrBottom, material: VNode) =>
+  hl(`div.bot-game__mat.bot-game__mat--${position}`, [material]);
+
+const viewClock = (ctrl: PlayCtrl, position: TopOrBottom) =>
+  hl(
+    `div.bot-game__clock.bot-game__clock--${position}`,
     ctrl.clock && renderClock(ctrl.clock, ctrl.colorAt(position), position, () => []),
-    material,
-  ]);
+  );
 
 const viewActions = (ctrl: PlayCtrl) =>
   hl('div.bot-game__actions', [
@@ -156,17 +161,14 @@ const goThroughMoves = (ctrl: PlayCtrl, e: Event) => {
   );
 };
 
-const viewOpponentImage = (bot: BotInfo) =>
-  bot.image && hl('img', { attrs: { src: botAssetUrl('image', bot.image) } });
-
 const viewOpponent = (bot: BotInfo) =>
   hl('div.bot-game__opponent', [
-    hl('div.bot-game__opponent__head', [
-      viewOpponentImage(bot),
+    hl('div.bot-game__opponent__header', [
       hl('span.bot-game__opponent__name', bot.name),
       hl('span.bot-game__opponent__rating', '' + Bot.rating(bot, 'classical')),
     ]),
-    hl('div.bot-game__opponent__description', bot.description),
+    bot.image && hl('img.bot-game__opponent__image', { attrs: { src: botAssetUrl('image', bot.image) } }),
+    // hl('div.bot-game__opponent__description', bot.description),
   ]);
 
 const viewBoard = (ctrl: PlayCtrl) =>
