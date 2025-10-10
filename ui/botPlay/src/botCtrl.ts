@@ -29,7 +29,7 @@ export class BotCtrl {
     });
     addZenSupport();
 
-    this.resume(true); // auto-join the ongoing game
+    this.resume(); // auto-join the ongoing game
   }
 
   private resume = (evenIfEnded?: boolean) => {

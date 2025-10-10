@@ -1,4 +1,7 @@
 .bot-setup {
-  width: 80vw;
-  max-width: 1200px;
+  width: 85vw;
+  max-width: 1000px;
+  @media (max-width: at-most($x-small)) {
+    width: 95vw;
+  }
 }

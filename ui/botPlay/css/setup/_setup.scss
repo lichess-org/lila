@@ -11,11 +11,11 @@
 .bot-setup__bots {
   --min-card-width: 200px;
   @media (max-width: at-most($x-small)) {
-    --min-card-width: 150px;
+    --min-card-width: 140px;
   }
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(var(--min-card-width), 1fr));
-  grid-gap: 2em;
+  grid-gap: 3vmin;
   margin-bottom: 1em;
   user-select: none;
 
