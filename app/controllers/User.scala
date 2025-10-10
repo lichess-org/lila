@@ -593,7 +593,11 @@ final class User(
                     }
                   case None if getBool("teacher") =>
                     env.user.repo.userIdsLikeWithRole(term, lila.core.perm.Permission.Teacher.dbKey)
-                  case None => env.user.cached.userIdsLike(term)
+                  case None =>
+                    for
+                      found <- env.user.cached.userIdsLike(term)
+                      closed <- isGrantedOpt(_.AccountInfo).so(env.user.repo.userIdsLikeClosed(term))
+                    yield found ::: closed
           }.flatMap { userIds =>
             if getBool("names") then
               lightUserApi
