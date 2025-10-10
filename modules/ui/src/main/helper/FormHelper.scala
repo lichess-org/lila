@@ -37,7 +37,7 @@ trait FormHelper:
   def markdownAvailable(using Translate): Frag =
     trans.site.markdownAvailable:
       a(
-        href := "https://guides.github.com/features/mastering-markdown/",
+        href := "https://www.markdownguide.org/cheat-sheet/",
         targetBlank
       )("Markdown")
 
