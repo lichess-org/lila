@@ -23,7 +23,7 @@ function asHashed(path: string, hash: string) {
 }
 
 // bump flairs version if a flair is changed only (not added or removed)
-export const flairSrc = (flair: Flair) => url(`flair/img/${flair}.webp`, { pathVersion: '_____3' });
+export const flairSrc = (flair: Flair) => url(`flair/img/${flair}.webp`, { pathVersion: '_____4' });
 
 export const loadCss = (href: string, key?: string): Promise<void> => {
   return new Promise(resolve => {

@@ -37,8 +37,3 @@ $('button.explain').on('click', async e => {
 $('.emoji-details').each(function (this: HTMLElement) {
   flairPickerLoader(this);
 });
-
-// TMP hack for markdown rendering
-$('.team-show__desc').each(function (this: HTMLElement) {
-  this.innerHTML = this.textContent || '';
-});

@@ -4,6 +4,9 @@
 /.bloop/
 /.metals/
 /.pnpm-store/
+/bin/flair/download-flair.sh
+/bin/flair/emoji.txt
+/bin/flair/emojipedia.html
 /bin/git-hooks/post-*
 /bin/git-hooks/pre-push
 /bin/ublog-automod
