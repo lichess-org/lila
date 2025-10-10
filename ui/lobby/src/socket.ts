@@ -1,4 +1,3 @@
-import * as xhr from './xhr';
 import * as hookRepo from './hookRepo';
 import type LobbyController from './ctrl';
 import type { PoolMember, Hook } from './interfaces';
@@ -37,7 +36,7 @@ export default class LobbySocket {
         ctrl.redraw();
       },
       reload_seeks() {
-        if (ctrl.tab === 'seeks') xhr.seeks().then(ctrl.setSeeks);
+        if (ctrl.tab === 'seeks') ctrl.fetchSeeks();
       },
     };
 
