@@ -21,7 +21,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
     Page("New forum topic")
       .csp(_.withInlineIconFont)
       .css("bits.forum")
-      .js(Esm("bits.forum"))
+      .js(Esm("bits.forum") ++ Esm("bits.markdownTextarea"))
       .js(captchaEsm):
         main(cls := "forum forum-topic topic-form page-small box box-pad")(
           boxTop(
@@ -54,8 +54,8 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
           ),
           postForm(cls := "form3", action := routes.ForumTopic.create(categ.id))(
             form3.group(form("name"), trans.site.subject())(form3.input(_)(autofocus)),
-            form3.group(form("post")("text"), trans.site.message())(
-              form3.textarea(_, klass = "post-text-area")(rows := 10)
+            form3.group(form("post")("text"), trans.site.message(), help = markdownAvailable.some)(f =>
+              bits.postTextarea(f.some)()
             ),
             renderCaptcha(form("post"), captcha),
             form3.actions(
@@ -97,7 +97,10 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
     Page(s"${topic.name} • page ${posts.currentPage}/${posts.nbPages} • ${categ.name}")
       .css("bits.forum")
       .csp(_.withInlineIconFont.withTwitter)
-      .js(Esm("bits.forum") ++ Esm("bits.expandText") ++ formWithCaptcha.isDefined.so(captchaEsm))
+      .js(
+        Esm("bits.forum") ++ Esm("bits.expandText") ++ Esm("bits.markdownTextarea")
+          ++ formWithCaptcha.isDefined.so(captchaEsm)
+      )
       .graph(
         title = topic.name,
         url = s"$netBaseUrl${routes.ForumTopic.show(categ.id, topic.slug, posts.currentPage).url}",
@@ -179,17 +182,17 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
               form3.group(
                 form("text"),
                 trans.site.message(),
-                help = a(
-                  dataIcon := Icon.InfoCircle,
-                  cls := "text",
-                  href := routes.Cms.lonePage(CmsPageKey("forum-etiquette"))
-                )(
-                  "Forum etiquette"
+                help = span(cls := "space-between")(
+                  span(markdownAvailable),
+                  a(
+                    dataIcon := Icon.InfoCircle,
+                    cls := "text",
+                    href := routes.Cms.lonePage(CmsPageKey("forum-etiquette"))
+                  )(
+                    "Forum etiquette"
+                  )
                 ).some
-              ): f =>
-                form3.textarea(f, klass = "post-text-area")(rows := 10, bits.dataTopic := topic.id)(
-                  formText
-                ),
+              )(f => bits.postTextarea(f.some)(bits.dataTopic := topic.id, formText)),
               renderCaptcha(form, captcha),
               form3.actions(
                 a(href := routes.ForumCateg.show(categ.id))(trans.site.cancel()),
@@ -221,11 +224,8 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
             p("Only you and the Lichess moderators can see this forum.")
           ),
           postForm(cls := "form3", action := routes.ForumTopic.create(categ.id))(
-            form3.group(form("post")("text"), trans.site.message())(
-              form3.textarea(_, klass = "post-text-area")(rows := 10, autofocus := "")(
-                "\n\n\n" +
-                  text
-              )
+            form3.group(form("post")("text"), trans.site.message())(f =>
+              bits.postTextarea(f.some)(autofocus := "", maxlength := 5000000, s"\n\n\n$text".some)
             ),
             form3.hidden("name", s"${me.username.value} problem report"),
             renderCaptcha(form("post"), captcha),

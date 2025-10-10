@@ -21,7 +21,8 @@ case class PicfitImage(
     rel: String,
     name: String,
     size: Int, // in bytes
-    createdAt: Instant
+    createdAt: Instant,
+    context: Option[String]
 )
 
 final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, config: PicfitConfig)(using
@@ -33,12 +34,22 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
 
   val idSep = ':'
 
-  def uploadFile(rel: String, uploaded: FilePart, userId: UserId): Fu[PicfitImage] =
+  def uploadFile(
+      rel: String,
+      uploaded: FilePart,
+      userId: UserId,
+      context: Option[String] = none
+  ): Fu[PicfitImage] =
     val ref: ByteSource = FileIO.fromPath(uploaded.ref.path)
     val source = uploaded.copy[ByteSource](ref = ref, refToBytes = _ => None)
-    uploadSource(rel, source, userId)
+    uploadSource(rel, source, userId, context)
 
-  private def uploadSource(rel: String, part: SourcePart, userId: UserId): Fu[PicfitImage] =
+  private def uploadSource(
+      rel: String,
+      part: SourcePart,
+      userId: UserId,
+      context: Option[String]
+  ): Fu[PicfitImage] =
     if part.fileSize > uploadMaxBytes
     then fufail(s"File size must not exceed ${uploadMaxMb}MB.")
     else
@@ -56,7 +67,8 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
               rel = rel,
               name = part.filename,
               size = part.fileSize.toInt,
-              createdAt = nowInstant
+              createdAt = nowInstant,
+              context = context
             )
             for
               _ <- picfitServer.store(image, part)
@@ -77,11 +89,12 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
       .void
 
   object bodyImage:
-    val sizePx = Left(800)
-    def upload(rel: String, image: FilePart)(using me: Me): Fu[Option[String]] =
+    def upload(rel: String, image: FilePart, context: Option[String])(using
+        me: Me
+    ): Fu[Option[String]] =
       rel.contains(idSep).not.so {
-        uploadFile(s"$rel$idSep${scalalib.ThreadLocalRandom.nextString(12)}", image, me)
-          .map(pic => url.resize(pic.id, sizePx).some)
+        uploadFile(s"$rel$idSep${scalalib.ThreadLocalRandom.nextString(12)}", image, me, context)
+          .map(p => url.raw(p.id).some)
       }
 
   private object picfitServer:
@@ -135,8 +148,8 @@ object PicfitApi:
     BodyWritable(b => SourceBody(Multipart.transform(b, boundary)), contentType)
 
   def findInMarkdown(md: Markdown): Set[ImageId] =
-    // path=some_username:ublogBody:mdTLUTfzboGg:wVo9Pqru.jpg
-    val regex = """(?i)&path=([a-z0-9_-]{2,30}:[a-z]+:\w{12}:\w{8}\.\w{3,4})&""".r
+    // path=ublogBody:mdTLUTfzboGg:wVo9Pqru.jpg
+    val regex = """(?i)&path=([a-z]\w+:[a-z0-9]{12}:[a-z0-9]{8}\.\w{3,4})&""".r
     regex
       .findAllMatchIn(md.value)
       .map(_.group(1))

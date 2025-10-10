@@ -17,78 +17,82 @@ final class FormUi(helpers: Helpers, bits: TeamUi)(
   import bits.{ TeamPage, menu }
 
   def create(form: Form[?], captcha: Captcha)(using Context) =
-    TeamPage(trans.team.newTeam.txt()).js(captchaEsm):
-      main(cls := "page-menu page-small")(
-        menu("form".some),
-        div(cls := "page-menu__content box box-pad")(
-          h1(cls := "box__top")(trt.newTeam()),
-          postForm(cls := "form3", action := routes.Team.create)(
-            form3.globalError(form),
-            form3.group(form("name"), trans.site.name())(form3.input(_)),
-            entryFields(form),
-            textFields(form),
-            renderCaptcha(form, captcha),
-            form3.actions(
-              a(href := routes.Team.home(1))(trans.site.cancel()),
-              form3.submit(trt.newTeam())
-            )
-          )
-        )
-      )
-
-  def edit(t: Team, form: Form[?], member: Option[TeamMember])(using ctx: Context) =
-    TeamPage(s"Edit Team ${t.name}").js(Esm("bits.team")):
-      main(cls := "page-menu page-small team-edit")(
-        menu(none),
-        div(cls := "page-menu__content box box-pad")(
-          boxTop(h1("Edit team ", a(href := routes.Team.show(t.id))(t.name))),
-          standardFlash,
-          t.enabled.option(
-            postForm(cls := "form3", action := routes.Team.update(t.id))(
-              flairField(form),
+    TeamPage(trans.team.newTeam.txt())
+      .css("bits.markdownTextarea")
+      .js(Esm("bits.markdownTextarea") ++ captchaEsm):
+        main(cls := "page-menu page-small")(
+          menu("form".some),
+          div(cls := "page-menu__content box box-pad")(
+            h1(cls := "box__top")(trt.newTeam()),
+            postForm(cls := "form3", action := routes.Team.create)(
+              form3.globalError(form),
+              form3.group(form("name"), trans.site.name())(form3.input(_)),
               entryFields(form),
               textFields(form),
-              accessFields(form),
+              renderCaptcha(form, captcha),
               form3.actions(
-                a(href := routes.Team.show(t.id))(trans.site.cancel()),
-                form3.submit(trans.site.apply())
+                a(href := routes.Team.home(1))(trans.site.cancel()),
+                form3.submit(trt.newTeam())
               )
-            )
-          ),
-          hr,
-          (t.enabled && (member.exists(_.hasPerm(_.Admin)) || Granter.opt(_.ManageTeam))).option(
-            postForm(cls := "inline", action := routes.Team.disable(t.id))(
-              explainInput,
-              submitButton(
-                dataIcon := Icon.CautionCircle,
-                cls := "submit button text explain button-empty button-red",
-                st.title := trans.team.closeTeamDescription.txt() // can actually be reverted
-              )(trt.closeTeam())
-            )
-          ),
-          Granter
-            .opt(_.ManageTeam)
-            .option(
-              postForm(cls := "inline", action := routes.Team.close(t.id))(
-                explainInput,
-                submitButton(
-                  dataIcon := Icon.Trash,
-                  cls := "text button button-empty button-red explain",
-                  st.title := "Deletes the team and its memberships. Cannot be reverted!"
-                )(trans.site.delete())
-              )
-            ),
-          (t.disabled && Granter.opt(_.ManageTeam)).option(
-            postForm(cls := "inline", action := routes.Team.disable(t.id))(
-              explainInput,
-              submitButton(
-                cls := "button button-empty explain",
-                st.title := "Re-enables the team and restores memberships"
-              )("Re-enable")
             )
           )
         )
-      )
+
+  def edit(t: Team, form: Form[?], member: Option[TeamMember])(using ctx: Context) =
+    TeamPage(s"Edit Team ${t.name}")
+      .css("bits.markdownTextarea")
+      .js(Esm("bits.team") ++ Esm("bits.markdownTextarea")):
+        main(cls := "page-menu page-small team-edit")(
+          menu(none),
+          div(cls := "page-menu__content box box-pad")(
+            boxTop(h1("Edit team ", a(href := routes.Team.show(t.id))(t.name))),
+            standardFlash,
+            t.enabled.option(
+              postForm(cls := "form3", action := routes.Team.update(t.id))(
+                flairField(form),
+                entryFields(form),
+                textFields(form),
+                accessFields(form),
+                form3.actions(
+                  a(href := routes.Team.show(t.id))(trans.site.cancel()),
+                  form3.submit(trans.site.apply())
+                )
+              )
+            ),
+            hr,
+            (t.enabled && (member.exists(_.hasPerm(_.Admin)) || Granter.opt(_.ManageTeam))).option(
+              postForm(cls := "inline", action := routes.Team.disable(t.id))(
+                explainInput,
+                submitButton(
+                  dataIcon := Icon.CautionCircle,
+                  cls := "submit button text explain button-empty button-red",
+                  st.title := trans.team.closeTeamDescription.txt() // can actually be reverted
+                )(trt.closeTeam())
+              )
+            ),
+            Granter
+              .opt(_.ManageTeam)
+              .option(
+                postForm(cls := "inline", action := routes.Team.close(t.id))(
+                  explainInput,
+                  submitButton(
+                    dataIcon := Icon.Trash,
+                    cls := "text button button-empty button-red explain",
+                    st.title := "Deletes the team and its memberships. Cannot be reverted!"
+                  )(trans.site.delete())
+                )
+              ),
+            (t.disabled && Granter.opt(_.ManageTeam)).option(
+              postForm(cls := "inline", action := routes.Team.disable(t.id))(
+                explainInput,
+                submitButton(
+                  cls := "button button-empty explain",
+                  st.title := "Re-enables the team and restores memberships"
+                )("Re-enable")
+              )
+            )
+          )
+        )
 
   private val explainInput = input(st.name := "explain", tpe := "hidden")
 
@@ -107,9 +111,7 @@ final class FormUi(helpers: Helpers, bits: TeamUi)(
       form("description"),
       trans.site.description(),
       help = frag(trans.team.teamDescriptionHelp(), br, markdownAvailable).some
-    )(
-      form3.textarea(_)(rows := 10)
-    ),
+    )(f => teamDescTextarea(f)(minlength := 30, f.value)),
     form3.group(
       form("descPrivate"),
       trans.site.descPrivate(),
@@ -118,9 +120,7 @@ final class FormUi(helpers: Helpers, bits: TeamUi)(
         br,
         markdownAvailable
       ).some
-    )(
-      form3.textarea(_)(rows := 10)
-    )
+    )(f => teamDescTextarea(f)(f.value))
   )
 
   private def accessFields(form: Form[?])(using Context) =
@@ -177,4 +177,15 @@ final class FormUi(helpers: Helpers, bits: TeamUi)(
         help = trans.team.entryCodeDescriptionForLeader().some,
         half = true
       )(form3.input(_))
+    )
+
+  private def teamDescTextarea(field: play.api.data.Field)(modifiers: Modifier*) =
+    lila.ui.bits.markdownTextarea("teamDescription".some)(
+      (Seq(
+        rows := 10,
+        maxlength := 4000,
+        cls := "form-control",
+        id := s"form3-${field.id}",
+        name := field.name
+      ) ++ modifiers)*
     )

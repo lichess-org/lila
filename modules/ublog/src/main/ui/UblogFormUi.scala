@@ -81,7 +81,10 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
       ): field =>
         frag(
           form3.textarea(field)(),
-          div(cls := "markdown-editor", attr("data-image-upload-url") := routes.Main.uploadImage("ublogBody"))
+          div(
+            cls := "markdown-toastui",
+            attr("data-image-upload-url") := routes.Main.uploadImage("ublogBody")
+          )
         ),
       post.toOption match
         case None =>
