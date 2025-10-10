@@ -12,7 +12,6 @@ import type {
   Mode,
   Sort,
   Hook,
-  Seek,
   Pool,
   PoolMember,
   GameType,
@@ -51,8 +50,11 @@ export default class LobbyController {
     readonly opts: LobbyOpts,
     readonly redraw: () => void,
   ) {
-    this.data = opts.data;
-    this.data.hooks = [];
+    this.data = {
+      ...opts.data,
+      hooks: [],
+      seeks: [],
+    };
     this.me = opts.data.me;
     this.pools = opts.pools;
     this.playban = opts.playban;
@@ -136,6 +138,7 @@ export default class LobbyController {
         this.data.hooks = [];
         this.socket.realTimeIn();
       } else if (this.tab === 'pools' && this.poolMember) this.poolIn();
+      else if (this.tab === 'seeks') this.fetchSeeks();
     });
 
     window.addEventListener('beforeunload', () => this.leavePool());
@@ -184,7 +187,7 @@ export default class LobbyController {
 
   setTab = (tab: Tab) => {
     if (tab !== this.tab) {
-      if (tab === 'seeks') xhr.seeks().then(this.setSeeks);
+      if (tab === 'seeks') this.fetchSeeks();
       else if (tab === 'real_time') this.socket.realTimeIn();
       else if (this.tab === 'real_time') {
         this.socket.realTimeOut();
@@ -223,8 +226,8 @@ export default class LobbyController {
       this.socket.send(seek.action, seek.id);
   };
 
-  setSeeks = (seeks: Seek[]) => {
-    this.data.seeks = seeks;
+  fetchSeeks = async () => {
+    this.data.seeks = await xhr.seeks();
     seekRepo.initAll(this);
     this.redraw();
   };
@@ -293,7 +296,7 @@ export default class LobbyController {
         this.socket.realTimeIn();
         break;
       case 'seeks':
-        xhr.seeks().then(this.setSeeks);
+        this.fetchSeeks();
         break;
     }
   };

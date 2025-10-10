@@ -33,10 +33,12 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
     Ok.snip(views.bits.api)
 
   private val userShowApiRateLimit =
-    env.security.ipTrust.rateLimit(8_000, 1.day, "user.show.api.ip", _.proxyMultiplier(4))
+    env.security.ipTrust.rateLimit(8_000 * 2, 1.day, "user.show.api.ip", _.proxyMultiplier(4))
 
   def user(name: UserStr) = OpenOrScoped(): ctx ?=>
-    val cost = (if env.socket.isOnline.exec(name.id) then 1 else 2) + ctx.isAnon.so(1)
+    val cost =
+      if ctx.me.exists(_.isVerified) then 1
+      else (if env.socket.isOnline.exec(name.id) then 2 else 4) + ctx.isAnon.so(3)
     userShowApiRateLimit(rateLimited, cost = cost):
       userApi
         .extended(
@@ -51,10 +53,10 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
   private[controllers] def userWithFollows(using req: RequestHeader) =
     HTTPRequest.apiVersion(req).exists(_.value < 6) && !getBool("noFollows")
 
-  def usersByIds = AnonBodyOf(parse.tolerantText): body =>
-    val usernames = body.replace("\n", "").split(',').take(300).flatMap(UserStr.read).toList
-    val cost = usernames.size / 4
-    limit.apiUsers(req.ipAddress, rateLimited, cost = cost):
+  def usersByIds = AnonOrScopedBody(parse.tolerantText)(): ctx ?=>
+    val usernames = ctx.body.body.replace("\n", "").split(',').take(300).flatMap(UserStr.read).toList
+    val cost = usernames.size / (if ctx.me.exists(_.isVerified) then 20 else 4)
+    limit.apiUsers(req.ipAddress, rateLimited, cost = cost.atLeast(1)):
       lila.mon.api.users.increment(cost.toLong)
       env.user.api
         .listWithPerfs(usernames)
