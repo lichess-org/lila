@@ -8,7 +8,7 @@
   <string name="myFavoriteStudies">Моје омиљене студије</string>
   <string name="whatAreStudies">Шта су студије?</string>
   <string name="allStudies">Све студије</string>
-  <string name="studiesCreatedByX">Студије које је %s направио/ла</string>
+  <string name="studiesCreatedByX">Студије које је направио/ла %s</string>
   <string name="noneYet">Ниједна за сад.</string>
   <string name="hot">У тренду</string>
   <string name="dateAddedNewest">Датум додавања (најновије)</string>
