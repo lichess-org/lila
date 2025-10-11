@@ -36,7 +36,9 @@ export const ensureOk = (res: Response): Promise<string> => {
   if (res.ok) return res.text();
   if (res.status === 429) throw new Error('Too many requests');
   if (res.status === 413) throw new Error('The uploaded file is too large');
-  if (res.status === 400) return res.text().then(text => { throw new Error(text) });
+  if (res.status === 400)
+    return res.text().then(text => {
+      throw new Error(text);
+    });
   throw new Error(`Error ${res.status}`);
 };
-
