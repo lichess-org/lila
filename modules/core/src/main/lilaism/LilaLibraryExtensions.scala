@@ -110,14 +110,16 @@ trait LilaLibraryExtensions extends CoreExports:
       list
         .foldLeft(fuccess((List.empty[B], none[E]))): (facc, a) =>
           facc.flatMap:
-            case xss @ (bs, acc) =>
-              acc match
-                case Some(_) => fuccess(xss) // short-circuit on first error
+            case acc @ (bs, err) =>
+              err match
+                case Some(_) => fuccess(acc) // short-circuit on first error
                 case None =>
                   allow:
                     f(a).map(b => (b :: bs) -> none)
                   .rescue: e =>
                     fuccess((bs, e.some))
+        .dmap: (xs, err) =>
+          (xs.reverse, err)
 
   extension [A, M[A] <: IterableOnce[A]](list: M[A])
     def parallel[B](f: A => Fu[B])(using Executor, BuildFrom[M[A], B, M[B]]): Fu[M[B]] =
