@@ -124,7 +124,7 @@ export async function naturalSize(image: Blob): Promise<{ width: number; height:
 
 const imageIdRe = /&path=([a-z]\w+:[a-z0-9]{12}:[a-z0-9]{8}\.\w{3,4})&/i;
 const globalImageLinkRe =
-  /(?:^|\s)!\[([^\n]*)\]\(https:[^)\s]+&path=([a-z]\w+:[a-z0-9]{12}:[a-z0-9]{8}\.\w{3,4})&[^)]+\)/gi;
+  /!\[([^\n]*)\]\(https:[^)\s]+&path=([a-z]\w+:[a-z0-9]{12}:[a-z0-9]{8}\.\w{3,4})&[^)]+\)/gi;
 
 function dragHandles(img: HTMLImageElement): HTMLElement[] {
   const span = img.closest('.markdown-img-container') ?? wrapImg({ img });

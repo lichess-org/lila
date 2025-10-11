@@ -22,7 +22,13 @@ case class PicfitImage(
     name: String,
     size: Int, // in bytes
     createdAt: Instant,
-    context: Option[String]
+    meta: Option[ImageMetaData]
+)
+
+case class ImageMetaData(
+    context: String,
+    width: Int,
+    height: Int
 )
 
 final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, config: PicfitConfig)(using
@@ -38,17 +44,17 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
       rel: String,
       uploaded: FilePart,
       userId: UserId,
-      context: Option[String] = none
+      meta: Option[ImageMetaData] = none
   ): Fu[PicfitImage] =
     val ref: ByteSource = FileIO.fromPath(uploaded.ref.path)
     val source = uploaded.copy[ByteSource](ref = ref, refToBytes = _ => None)
-    uploadSource(rel, source, userId, context)
+    uploadSource(rel, source, userId, meta)
 
   private def uploadSource(
       rel: String,
       part: SourcePart,
       userId: UserId,
-      context: Option[String]
+      meta: Option[ImageMetaData]
   ): Fu[PicfitImage] =
     if part.fileSize > uploadMaxBytes
     then fufail(s"File size must not exceed ${uploadMaxMb}MB.")
@@ -68,7 +74,7 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
               name = part.filename,
               size = part.fileSize.toInt,
               createdAt = nowInstant,
-              context = context
+              meta = meta
             )
             for
               _ <- picfitServer.store(image, part)
@@ -89,12 +95,16 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
       .void
 
   object bodyImage:
-    def upload(rel: String, image: FilePart, context: Option[String])(using
+    def upload(rel: String, image: FilePart, meta: Option[ImageMetaData], maxWidth: Int)(using
         me: Me
     ): Fu[Option[String]] =
       rel.contains(idSep).not.so {
-        uploadFile(s"$rel$idSep${scalalib.ThreadLocalRandom.nextString(12)}", image, me, context)
-          .map(p => url.raw(p.id).some)
+        uploadFile(s"$rel$idSep${scalalib.ThreadLocalRandom.nextString(12)}", image, me, meta)
+          .map: p =>
+            meta match
+              case Some(info) if info.width > maxWidth => url.resize(p.id, Left(maxWidth)).some
+              case _ => url.raw(p.id).some
+        // clients send followup request for resize url when meta.width > designWidth
       }
 
   private object picfitServer:
@@ -136,6 +146,7 @@ object PicfitApi:
   private type ByteSource = Source[ByteString, ?]
   private type SourcePart = MultipartFormData.FilePart[ByteSource]
 
+  private given BSONDocumentHandler[ImageMetaData] = Macros.handler
   private given BSONDocumentHandler[PicfitImage] = Macros.handler
 
 // from playframework/transport/client/play-ws/src/main/scala/play/api/libs/ws/WSBodyWritables.scala
@@ -155,6 +166,16 @@ object PicfitApi:
       .map(_.group(1))
       .map(ImageId(_))
       .toSet
+
+  val uploadForm: play.api.data.Form[ImageMetaData] =
+    import play.api.data.Forms.*
+    play.api.data.Form(
+      mapping(
+        "context" -> text,
+        "width" -> number(min = 1, max = 10000),
+        "height" -> number(min = 1, max = 10000)
+      )(ImageMetaData.apply)(unapply)
+    )
 
 final class PicfitUrl(config: PicfitConfig)(using Executor) extends lila.core.misc.PicfitUrl:
 
