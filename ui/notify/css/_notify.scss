@@ -10,11 +10,20 @@
     padding: 2rem 0;
   }
 
-  .delete {
+  .delete,
+  .settings {
     position: absolute;
     top: 0;
-    @include inline-end(0);
     padding: 0.5rem;
+  }
+  .settings {
+    @include inline-end(0);
+    &:hover {
+      color: $c-link;
+    }
+  }
+  .delete {
+    @include inline-start(0);
     &:hover {
       color: $c-bad;
     }
