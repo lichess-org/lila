@@ -321,7 +321,7 @@ final class Study(
         doubleJsonFormError,
         data =>
           doImportPgn(id, data, Sri(sri)): (_, errors) =>
-            errors.fold(NoContent)(NoContent.flashFailure(_))
+            errors.fold(NoContent)(BadRequest(_))
       )
   }
 
