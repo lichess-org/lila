@@ -84,6 +84,7 @@ export function initModule({ data, singlePerfName }: Opts): void {
   $('.spinner').remove();
 
   const $el = $('canvas.rating-history');
+  if (!$el.length) return;
   const singlePerfIndex = data.findIndex(x => x.name === singlePerfName);
   if (singlePerfName && !data[singlePerfIndex]?.points.length) {
     $el.hide();
