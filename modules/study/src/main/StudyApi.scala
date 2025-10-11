@@ -580,9 +580,9 @@ final class StudyApi(
   ): FuRaise[String, Option[Chapter]] =
     sequenceStudy(studyId): study =>
       for
-        _ <- raiseIf(!study.canContribute(who.u), "No permission to add chapter")(funit)
+        _ <- raiseIf(!study.canContribute(who.u))("No permission to add chapter")
         count <- chapterRepo.countByStudyId(study.id)
-        _ <- raiseIf(Study.maxChapters <= count, "Too many chapters")(funit)
+        _ <- raiseIf(Study.maxChapters <= count)("Too many chapters")
         _ <- data.initial.so:
           chapterRepo
             .firstByStudy(study.id)
