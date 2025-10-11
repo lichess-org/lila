@@ -225,7 +225,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
           ),
           postForm(cls := "form3", action := routes.ForumTopic.create(categ.id))(
             form3.group(form("post")("text"), trans.site.message())(f =>
-              bits.postTextarea(f.some)(autofocus := "", maxlength := 5000000, s"\n\n\n$text".some)
+              bits.postTextarea(f.some)(autofocus := "", maxlength := 5_000_000, s"\n\n\n$text".some)
             ),
             form3.hidden("name", s"${me.username.value} problem report"),
             renderCaptcha(form("post"), captcha),

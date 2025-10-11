@@ -178,10 +178,10 @@ object bits:
       )
     )
 
-  def imageDesignWidth(picfitRel: String) = picfitRel match
-    case rel if rel.startsWith("forum") => 864.some
-    case rel if rel.startsWith("ublog") => 800.some
-    case rel if rel.startsWith("cms") => 800.some
-    case rel if rel.startsWith("broadcast") => 800.some
-    case rel if rel.startsWith("team") => 768.some // desc & private desc
-    case _ => none
+  def imageDesignWidth(rel: String) =
+    if rel.startsWith("forum") then 864.some
+    else if rel.startsWith("ublog") then 800.some
+    else if rel.startsWith("cms") then 800.some
+    else if rel.startsWith("broadcast") then 800.some
+    else if rel.startsWith("team") then 768.some // desc & private desc
+    else none
