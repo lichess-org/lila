@@ -169,11 +169,12 @@ object PicfitApi:
 
   val uploadForm: play.api.data.Form[ImageMetaData] =
     import play.api.data.Forms.*
+    val pixels = number(min = 20, max = 10_000)
     play.api.data.Form(
       mapping(
         "context" -> text,
-        "width" -> number(min = 1, max = 10000),
-        "height" -> number(min = 1, max = 10000)
+        "width" -> pixels,
+        "height" -> pixels
       )(ImageMetaData.apply)(unapply)
     )
 
