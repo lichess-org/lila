@@ -114,6 +114,6 @@ Mật khẩu: %3$s</string>
   <string name="xIsAKidAccountWarning">%1$s là một tài khoản trẻ em và không thể nhận tin nhắn từ bạn. Bạn phải gửi lời mời thông qua URL: %2$s</string>
   <string name="moveToClass">Chuyển sang %s</string>
   <string name="moveToAnotherClass">Chuyển sang một lớp học khác</string>
-  <string name="allowMessagingBetweenStudents" comment="An option that a class's teacher can select. Has the extended description &quot;This only applies to the accounts you have created for your students.&quot;">Cho phép nhắn tin giữa các học viên</string>
-  <string name="allowMessagingBetweenStudentsDesc" comment="Description for the option &quot;Allow messages between students&quot;.">Điều này chỉ áp dụng cho những tài khoản bạn đã tạo cho học viên của mình.</string>
+  <string name="allowMessagingBetweenStudents">Cho phép nhắn tin giữa các học viên</string>
+  <string name="allowMessagingBetweenStudentsDesc">Điều này chỉ áp dụng cho những tài khoản bạn đã tạo cho học viên của mình.</string>
 </resources>

@@ -7,7 +7,7 @@ import { definedMap } from '../algo';
 import { makeLichessBook } from './lichessBook';
 import { myUserId, myUsername } from '../common';
 
-export const zerofishPath = 'npm/@lichess-org/zerofish/dist';
+export { makeZerofish, type Zerofish };
 
 export class BotLoader {
   zerofish: Zerofish;
@@ -34,8 +34,7 @@ export class BotLoader {
       defBots ?? xhr.json('/bots').then(res => res.bots),
       this.zerofish ??
         makeZerofish({
-          locator: (file: string) =>
-            site.asset.url(`${zerofishPath}/${file}`, { documentOrigin: file.endsWith('js') }),
+          locator: (file: string) => site.asset.url(`npm/${file}`, { documentOrigin: file.endsWith('js') }),
         }).then(zf => (this.zerofish = zf)),
     ]);
     for (const b of [...bots].filter(Bot.isValid)) {

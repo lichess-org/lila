@@ -1,19 +1,17 @@
 package lila.opening
 package ui
+
 import chess.opening.Opening
 
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
   import helpers.{ *, given }
   import bits.*
 
   def index(page: OpeningPage, wikiMissing: List[Opening])(using ctx: Context) =
-    Page(trans.site.opening.txt())
-      .css("opening")
-      .js(bits.pageModule(page.some))
+    openingPage(trans.site.opening.txt(), page.some)
       .graph(
         OpenGraph(
           `type` = "article",
@@ -24,8 +22,7 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
           url = s"$netBaseUrl${routes.Opening.index()}",
           description = "Explore the chess openings"
         )
-      )
-      .csp(_.withInlineIconFont):
+      ):
         main(cls := "page box box-pad opening opening--index")(
           searchAndConfig(page.query.config, "", ""),
           resultsList(Nil),
@@ -41,28 +38,24 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
         )
 
   def tree(root: OpeningTree, config: OpeningConfig)(using Context) =
-    Page(trans.site.opening.txt())
-      .css("opening")
-      .js(bits.pageModule(none)):
-        main(cls := "page box box-pad opening opening--tree")(
-          searchAndConfig(config, "", "tree"),
-          resultsList(Nil),
-          boxTop(
-            h1("Chess openings name tree"),
-            div(cls := "box__top__actions")(
-              a(href := routes.Opening.index())("Opening pages"),
-              a(href := s"${routes.UserAnalysis.index}#explorer")("Explorer")
-            )
-          ),
-          div(cls := "opening__tree")(
-            renderChildren(root, 1)
+    openingPage(trans.site.opening.txt(), none):
+      main(cls := "page box box-pad opening opening--tree")(
+        searchAndConfig(config, "", "tree"),
+        resultsList(Nil),
+        boxTop(
+          h1("Chess openings name tree"),
+          div(cls := "box__top__actions")(
+            a(href := routes.Opening.index())("Opening pages"),
+            a(href := s"${routes.UserAnalysis.index}#explorer")("Explorer")
           )
+        ),
+        div(cls := "opening__tree")(
+          renderChildren(root, 1)
         )
+      )
 
   def show(page: OpeningPage, puzzleKey: Option[String])(using ctx: Context) =
-    Page(s"${trans.site.opening.txt()} • ${page.name}")
-      .css("opening")
-      .js(bits.pageModule(page.some))
+    openingPage(s"${trans.site.opening.txt()} • ${page.name}", page.some)
       .graph(
         OpenGraph(
           `type` = "article",
@@ -74,7 +67,7 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
           description = page.query.pgnString.value
         )
       )
-      .csp(_.withInlineIconFont.withExternalAnalysisApis):
+      .csp(_.withExternalAnalysisApis):
         main(cls := "page box box-pad opening")(
           searchAndConfig(page.query.config, "", page.query.query.key),
           resultsList(Nil),
@@ -159,15 +152,12 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
         )
 
   def resultsPage(q: String, results: List[OpeningSearchResult], config: OpeningConfig)(using Context) =
-    Page(s"${trans.site.opening.txt()} • $q")
-      .css("opening")
-      .js(bits.pageModule(none))
-      .csp(_.withInlineIconFont):
-        main(cls := "page box box-pad opening opening--search")(
-          searchAndConfig(config, q, s"q:$q", searchFocus = true),
-          h1(cls := "box__top")("Chess openings"),
-          resultsList(results)
-        )
+    openingPage(s"${trans.site.opening.txt()} • $q", none):
+      main(cls := "page box box-pad opening opening--search")(
+        searchAndConfig(config, q, s"q:$q", searchFocus = true),
+        h1(cls := "box__top")("Chess openings"),
+        resultsList(results)
+      )
 
   private def searchForm(q: String, focus: Boolean) =
     st.form(cls := "opening__search-form", action := routes.Opening.index(), method := "get")(

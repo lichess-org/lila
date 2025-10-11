@@ -30,7 +30,7 @@ export const schema: Schema = deepFreeze<Schema>({
       type: 'textarea',
       rows: 3,
       class: ['placard'],
-      placeholder: 'short description',
+      placeholder: 'short, public description',
     },
     name: {
       type: 'text',

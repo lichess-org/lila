@@ -44,7 +44,7 @@ final class RelayPush(
           .ifTrue(games.exists(_.root.children.nonEmpty))
           .match
             case None =>
-              push(rt, games).as(response)
+              push(rt, games).inject(response)
             case Some(delay) =>
               scheduler.scheduleOnce(delay.value.seconds):
                 push(rt, games)

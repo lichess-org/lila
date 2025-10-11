@@ -3,24 +3,27 @@ package ui
 
 import scalalib.paginator.Paginator
 
-import lila.common.MarkdownRender
 import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
 
-final class TeamUi(helpers: Helpers)(using Executor):
+final class TeamUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCache):
   import helpers.{ *, given }
   import trans.team as trt
 
   def TeamPage(title: String) = Page(title).css("bits.team").js(infiniteScrollEsmInit)
 
   object markdown:
-    private val renderer = MarkdownRender(header = true, list = true, table = true)
-    private val cache = lila.memo.CacheApi.scaffeineNoScheduler
-      .expireAfterAccess(10.minutes)
-      .maximumSize(1024)
-      .build[Markdown, Html]()
-    def apply(team: Team, text: Markdown): Frag = rawHtml(cache.get(text, renderer(s"team:${team.id}")))
+    private val options = lila.memo.MarkdownOptions(
+      autoLink = true,
+      header = true,
+      list = true,
+      table = true,
+      maxPgns = Max(0)
+    )
+
+    def apply(team: Team, text: Markdown): Frag =
+      markdownCache.toHtmlSyncWithoutPgnEmbeds(s"team:${team.id}", text, options)
 
   def menu(currentTab: Option[String])(using ctx: Context) =
     val tab = ~currentTab

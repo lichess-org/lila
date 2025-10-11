@@ -45,20 +45,24 @@ object Dependencies {
 
   object chess {
     val version = "17.12.3"
-    val core = "com.github.lichess-org.scalachess" %% "scalachess" % version
-    val testKit = "com.github.lichess-org.scalachess" %% "scalachess-test-kit" % version % Test
-    val playJson = "com.github.lichess-org.scalachess" %% "scalachess-play-json" % version
-    val rating = "com.github.lichess-org.scalachess" %% "scalachess-rating" % version
-    val tiebreak = "com.github.lichess-org.scalachess" %% "scalachess-tiebreak" % version
+    val org = "com.github.lichess-org.scalachess"
+    // val org = "org.lichess" // for publishLocal
+    val core = org %% "scalachess" % version
+    val testKit = org %% "scalachess-test-kit" % version % Test
+    val playJson = org %% "scalachess-play-json" % version
+    val rating = org %% "scalachess-rating" % version
+    val tiebreak = org %% "scalachess-tiebreak" % version
     def bundle = Seq(core, testKit, playJson, rating, tiebreak)
   }
 
   object scalalib {
-    val version = "11.9.1"
-    val core = "com.github.lichess-org.scalalib" %% "scalalib-core" % version
-    val model = "com.github.lichess-org.scalalib" %% "scalalib-model" % version
-    val playJson = "com.github.lichess-org.scalalib" %% "scalalib-play-json" % version
-    val lila = "com.github.lichess-org.scalalib" %% "scalalib-lila" % version
+    val version = "11.9.4"
+    val org = "com.github.lichess-org.scalalib"
+    // val org = "org.lichess" // for publishLocal
+    val core = org %% "scalalib-core" % version
+    val model = org %% "scalalib-model" % version
+    val playJson = org %% "scalalib-play-json" % version
+    val lila = org %% "scalalib-lila" % version
     def bundle = Seq(core, model, playJson, lila)
   }
 
@@ -82,7 +86,7 @@ object Dependencies {
 
   object reactivemongo {
     val driver = ("org.reactivemongo" %% "reactivemongo" % "1.1.0-RC16")
-    val stream = "org.reactivemongo" %% "reactivemongo-akkastream" % "1.1.0-RC16"
+    val stream = "org.reactivemongo" %% "reactivemongo-akkastream" % "1.1.0-RC18"
     val shaded = "org.reactivemongo" % s"reactivemongo-shaded-native-$os-$dashArch" % "1.1.0-RC15"
     // val kamon  = "org.reactivemongo" %% "reactivemongo-kamon"         % "1.0.8"
     def bundle = Seq(driver, stream)

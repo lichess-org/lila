@@ -51,7 +51,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
   }
 
   private def renderHome(using Context) =
-    Ok.page(views.clas.clas.home)
+    Ok.page(views.clas.ui.home)
 
   def form = Secure(_.Teacher) { ctx ?=> _ ?=>
     Ok.async(renderCreate(none)).map(_.hasPersonalData)
@@ -100,8 +100,14 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
           teachers <- env.clas.api.clas.teachers(clas)
           _ = preloadStudentUsers(students)
           students <- env.clas.api.student.withPerfs(students)
+          html <- env.clas.markdown.wallHtml(clas)
           page <- renderPage:
-            views.clas.studentDashboard(clas, env.clas.markup(clas), teachers, students)
+            views.clas.studentDashboard(
+              clas,
+              html,
+              teachers,
+              students
+            )
         yield Ok(page),
       orDefault = _ =>
         isGranted(_.UserModView).so(FoundPage(env.clas.api.clas.byId(id)): clas =>
@@ -134,9 +140,11 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
     WithClassAny(id)(
       forTeacher = WithClass(id): clas =>
         Ok.async:
-          env.clas.api.student.allWithUsers(clas).map {
-            views.clas.teacherDashboard.wall.show(clas, _, env.clas.markup(clas))
-          }
+          for
+            students <- env.clas.api.student.allWithUsers(clas)
+            html <- env.clas.markdown.wallHtml(clas)
+          yield views.clas.teacherDashboard.wall
+            .show(clas, students, html)
       ,
       forStudent = (clas, _) => redirectTo(clas)
     )
@@ -204,7 +212,8 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
         students <- env.clas.api.student.allWithUsers(clas)
         students <- env.clas.api.student.withPerfs(students)
         invites <- env.clas.api.invite.listPending(clas)
-        page <- renderPage(views.clas.teacherDashboard.students(clas, students, invites))
+        login <- getBool("codes").so(env.clas.login.get(clas.id))
+        page <- renderPage(views.clas.teacherDashboard.students(clas, students, invites, login))
       yield Ok(page)
   }
 
@@ -521,6 +530,12 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
     Found(env.clas.api.invite.get(id)): invite =>
       WithClass(invite.clasId): clas =>
         env.clas.api.invite.delete(invite.id).inject(Redirect(routes.Clas.students(clas.id)))
+  }
+
+  def loginCreate(id: ClasId) = Secure(_.Teacher) { _ ?=> me ?=>
+    WithClassAndStudents(id): (clas, students) =>
+      for _ <- env.clas.login.create(clas, students)
+      yield Redirect(s"${routes.Clas.students(clas.id)}?codes=1")
   }
 
   private def Reasonable(clas: lila.clas.Clas, students: List[lila.clas.Student.WithUser], active: String)(

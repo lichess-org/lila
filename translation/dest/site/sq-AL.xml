@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="gameSetup">Ujdisje loje</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Sfidoni një shok</string>
+  <string name="playAgainstComputer" comment="Appears on the homepage. Opens the modal to create a game against a chess engine. Please keep your translation short.">Luani kundër kompjuterit</string>
+  <string name="gameMode">Mënyrë loje</string>
+  <string name="createLobbyGame">Krijoni loji holli</string>
+  <string name="youPlayAs">Ju luani si</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Për të ftuar dikë të luajë, jepni këtë URL</string>
   <string name="gameOver">Loja mbaroi</string>
   <string name="waitingForOpponent">Në pritje të kundërshtarit</string>
@@ -313,7 +319,7 @@
   <string name="loginToChat">Që të bisedoni, bëni hyrjen</string>
   <string name="youHaveBeenTimedOut">Ju mbaroi koha.</string>
   <string name="spectatorRoom">Dhoma e shikuesve</string>
-  <string name="composeMessage">Hartoni mesazh</string>
+  <string name="composeMessage" comment="Appears as a button on user profiles. Pressing the button will let you send a message to that user. &quot;Message&quot; is used as a verb.&#10;&#10;This text used to state &quot;Compose message&quot;. Please shorten to just &quot;Message&quot; if you see a translation of the old version of the string.">Hartoni mesazh</string>
   <string name="subject">Subjekti</string>
   <string name="send">Dërgoje</string>
   <string name="incrementInSeconds">Koha shtesë në sekonda</string>
@@ -339,6 +345,7 @@
     <item quantity="other">%s duke luajtur</item>
   </plurals>
   <string name="exportGames">Eksporto lojërat</string>
+  <string name="ratingFilter">Filtër vlerësimesh</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Jep %s sekondë</item>
     <item quantity="other">Dhuro %s sekonda</item>
@@ -394,6 +401,7 @@
     <item quantity="other">Lypset të luani edhe %s lojëra të vlerësuara</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Vlerësimi juaj %s është i përkohshëm</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Filtrat e vlerësimit janë kyçur, ngaqë vlerësimi juaj s’është i qëndrueshëm. Luajtja e lojërave të vlerësuara do të rritë qëndrueshmërinë.</string>
   <string name="yourPerfRatingIsTooHigh">Vlerësimi juaj (%2$s) në %1$s është më i lartë seç duhet</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Vlerësimi juaj javor më i madh (%2$s) në %1$s është më i lartë seç duhet</string>
   <string name="yourPerfRatingIsTooLow">Vlerësimi juaj (%2$s) në %1$s është më i ulët seç duhet</string>
@@ -476,6 +484,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="openTournaments">Turne të hapur</string>
   <string name="duration">Kohëzgjatja</string>
   <string name="winner">Fituesi</string>
+  <string name="standings">Renditja</string>
   <string name="createANewTournament">Krijoni një turne të ri</string>
   <string name="tournamentCalendar">Kalendari i turneut</string>
   <string name="conditionOfEntry">Domosdoshmëri Pjesëmarrjeje:</string>
@@ -819,6 +828,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="notifications">Njoftime</string>
   <string name="notificationsX">Njoftime: %1$s</string>
   <string name="perfRatingX">Vlerësimi: %s</string>
+  <string name="yourRatingIsX">Vlerësimi juaj është %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekondë për kryerjen e lëvizjes së parë</item>
     <item quantity="other">%s sekonda për kryerjen e lëvizjes së parë</item>
@@ -870,6 +880,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="playVariationToCreateConditionalPremoves">Që të krijohen lëvizje paraprake të kushtëzuara, luani një variant</string>
   <string name="noConditionalPremoves">Nuk ka premove condicionale</string>
   <string name="playX">Luani %s</string>
+  <string name="challengeX">Sfidoni %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">edhe ruaj %s linja premove</item>
     <item quantity="other">edhe ruaj %s linja premove</item>
@@ -999,4 +1010,10 @@ Krejt kostot operative, zhvillimi dhe lënda financohen vetëm me dhurime nga p�
   <string name="accessibility">Përdorim nga persona me aftësi të kufizuara</string>
   <string name="enableBlindMode">Aktivizo mënyrën për të verbër</string>
   <string name="disableBlindMode">Çaktivizo mënyrën për të verbër</string>
+  <string name="copyToClipboard">Kopjoje në të papastër</string>
+  <string name="online" comment="status of a user">në linjë</string>
+  <string name="offline" comment="status of a user">jashtë linje</string>
+  <string name="search">Kërko</string>
+  <string name="clearSearch">Spastro kërkimin</string>
+  <string name="tags">Etiketa</string>
 </resources>

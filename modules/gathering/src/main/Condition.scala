@@ -57,9 +57,10 @@ object Condition:
 
   case class AccountAge(days: Days) extends Condition:
     def name(perf: PerfType)(using Translate): String =
-      if days < 30 then s"${days.value} days old account"
-      else if days < 365 then s"${days.value / 30} months old account"
-      else s"${days.value / 365} years old account"
+      val d = days.value
+      if d < 30 then s"$d days old account"
+      else if d < 365 then s"${d / 30} months old account"
+      else s"${d / 365} years old account"
     def apply(using getAge: GetAge)(using Me, Executor): Fu[Verdict] =
       if summon[Me].title.isDefined then fuccess(Accepted)
       else

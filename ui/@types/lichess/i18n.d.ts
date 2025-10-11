@@ -551,7 +551,7 @@ interface I18n {
     newsEdit3: string;
     /** No classes yet. */
     noClassesYet: string;
-    /** No removed students. */
+    /** No removed students */
     noRemovedStudents: string;
     /** No students in the class, yet. */
     noStudents: string;

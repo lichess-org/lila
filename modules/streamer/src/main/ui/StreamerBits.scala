@@ -140,10 +140,7 @@ final class StreamerBits(helpers: Helpers)(picfitUrl: lila.core.misc.PicfitUrl):
 
   def liveStreams(l: LiveStreams.WithTitles): Frag =
     l.live.streams.map { s =>
-      redirectLink(s.streamer.id.into(UserStr))(
-        cls := "stream highlight",
-        title := s.status
-      )(
+      redirectLink(s.streamer.id.into(UserStr))(cls := "stream highlight")(
         strong(cls := "text", dataIcon := Icon.Mic)(l.titleName(s)),
         " ",
         s.cleanStatus

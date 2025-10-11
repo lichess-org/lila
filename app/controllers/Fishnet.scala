@@ -31,20 +31,18 @@ final class Fishnet(env: Env) extends LilaController(env):
       def onComplete =
         if stop then NoContent.raise
         else api.acquire(client, slow)
-      api
-        .postAnalysis(Work.Id(workId), client, data)
-        .flatMap:
-          case PostAnalysisResult.Complete(analysis) =>
-            env.round.proxyRepo.updateIfPresent(GameId(analysis.id.value)): g =>
-              g.focus(_.metadata.analysed).replace(true)
-            onComplete
-          case _: PostAnalysisResult.Partial => NoContent.raise
-          case PostAnalysisResult.UnusedPartial => NoContent.raise
-        .recoverWith:
-          case WorkNotFound => onComplete
-          case GameNotFound => onComplete
-          case NotAcquired => onComplete
-          case e => InternalServerError(e.getMessage).raise
+      allow[Error]:
+        api
+          .postAnalysis(Work.Id(workId), client, data)
+          .flatMap:
+            case PostAnalysisResult.Complete(analysis) =>
+              env.round.proxyRepo.updateIfPresent(GameId(analysis.id.value)): g =>
+                g.focus(_.metadata.analysed).replace(true)
+              onComplete
+            case _: PostAnalysisResult.Partial => NoContent.raise
+            case PostAnalysisResult.UnusedPartial => NoContent.raise
+      .rescue:
+        case _: Error => onComplete
     }
 
   def abort(workId: String) =

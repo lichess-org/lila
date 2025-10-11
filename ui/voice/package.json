@@ -20,7 +20,7 @@
     "bundle": "src/**/voice.*.ts",
     "sync": {
       "grammar/**": "/public/compiled/grammar",
-      "node_modules/@lichess-org/vosk-browser/dist/**/*.{js,wasm}": "/public/npm/vosk"
+      "node_modules/@lichess-org/vosk-browser/dist/*.{js,wasm}": "/public/npm/vosk"
     },
     "hash": [
       "/public/compiled/grammar/*",

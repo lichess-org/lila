@@ -30,13 +30,13 @@ final class Opening(env: Env) extends LilaController(env):
 
   def byKeyAndMoves(key: String, moves: String) = Open:
     Firewall:
-      WithProxy: proxy =>
+      WithProxy: proxy ?=>
         val crawler = HTTPRequest.isCrawler(req)
-        val suspUA = UserAgentParser.trust.isSuspicious(req.userAgent)
         if moves.sizeIs > 10 && crawler.yes then Forbidden
         else if moves.sizeIs > 6 && proxy.isFloodish && ctx.isAnon then Forbidden
         else
-          limit.enumeration.opening(proxy, rateLimited, limit.enumeration.cost(proxy)):
+          limit.enumeration.opening(rateLimited):
+            val suspUA = UserAgentParser.trust.isSuspicious(req.userAgent)
             val cost =
               if ctx.isAuth then 1
               else if suspUA then 5

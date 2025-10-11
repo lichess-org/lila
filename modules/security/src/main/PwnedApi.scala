@@ -25,3 +25,4 @@ final class PwnedApi(ws: StandaloneWSClient, rangeUrl: String)(using Executor):
             IsPwned(false)
         .monValue: result =>
           _.security.pwned.get(result.yes)
+        .recoverDefault(IsPwned(false))

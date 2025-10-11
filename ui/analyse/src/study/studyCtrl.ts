@@ -166,7 +166,6 @@ export default class StudyCtrl {
       this.chapters.list,
       defined(this.relay),
       this.multiCloudEval,
-      this.relay?.tourShow() ? undefined : this.data.chapter.id,
       this.redraw,
     );
     this.form = new StudyForm(
@@ -472,7 +471,6 @@ export default class StudyCtrl {
     }
     const componentCallbacks = (id: ChapterId) => {
       this.relay?.onChapterChange(id);
-      this.multiBoard.onChapterChange(id);
     };
     const alreadySet = id === this.vm.chapterId && !force;
     if (alreadySet) {

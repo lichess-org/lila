@@ -436,14 +436,14 @@ final class Team(env: Env) extends LilaController(env):
 
   def pmAllSubmit(id: TeamId) = AuthOrScopedBody(_.Team.Lead) { ctx ?=> me ?=>
     WithOwnedTeamEnabled(id, _.PmAll): team =>
-      import lila.memo.RateLimit.Result
+      import lila.memo.RateLimit.LimitResult
       bindForm(forms.pmAll)(
         Left(_),
         msg =>
           val normalized = msg.replaceAll("\r\n?", "\n")
           if env.teamInfo.pmAll.dedup(team.id, normalized) then
             Right:
-              env.teamInfo.pmAll.limiter[Result](
+              env.teamInfo.pmAll.limiter[LimitResult](
                 team.id,
                 if me.isVerifiedOrAdmin then 1 else mashup.TeamInfo.pmAllCost
               ) {
@@ -458,8 +458,8 @@ final class Team(env: Env) extends LilaController(env):
                   )
                   .addEffect(lila.mon.msg.teamBulk.record(_))
                 // we don't wait for the stream to complete, it would make lichess time out
-                fuccess(Result.Through)
-              }(Result.Limited)
+                fuccess(LimitResult.Through)
+              }(LimitResult.Limited)
           else Left(forms.pmAll.withError("duplicate", "You already sent this message recently"))
       )
         .fold(
@@ -468,12 +468,12 @@ final class Team(env: Env) extends LilaController(env):
             negotiate(
               Redirect(routes.Team.show(team.id)).flashing:
                 res match
-                  case Result.Through => "success" -> ""
-                  case Result.Limited => "failure" -> rateLimitedMsg
+                  case LimitResult.Through => "success" -> ""
+                  case LimitResult.Limited => "failure" -> rateLimitedMsg
               ,
               res match
-                case Result.Through => jsonOkResult
-                case Result.Limited => rateLimitedJson
+                case LimitResult.Through => jsonOkResult
+                case LimitResult.Limited => rateLimitedJson
             )
         )
   }

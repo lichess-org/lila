@@ -23,26 +23,42 @@ export class BotCtrl {
     readonly redraw: () => void,
   ) {
     this.setupCtrl = new SetupCtrl(opts, loadCurrentGame, this.resume, this.newGame, redraw);
-    debugCli(this.resumeGameAndRedraw);
+    debugCli(game => {
+      saveCurrentGame(game);
+      this.resumeGameAndRedraw(game);
+    });
     addZenSupport();
 
     this.resume(); // auto-join the ongoing game
   }
 
-  private resume = () => {
-    const game = loadCurrentGame();
-    if (game?.worthResuming()) this.resumeGame(game);
+  private resume = (evenIfEnded?: boolean) => {
+    try {
+      const game = loadCurrentGame();
+      if (game && (game.worthResuming() || evenIfEnded)) this.resumeGame(game);
+    } catch (e) {
+      this.onResumeFail(e);
+      return;
+    }
   };
 
   private newGame = (bot: BotInfo, pov: ColorChoice, clock?: ClockConfig) => {
     const color = pov == 'random' ? (Math.random() < 0.5 ? 'white' : 'black') : pov;
-    this.resumeGameAndRedraw(new Game(bot.uid, color, clock));
+    this.resumeGameAndRedraw(
+      new Game({
+        id: Game.randomId(),
+        botKey: bot.uid,
+        pov: color,
+        clockConfig: clock,
+        moves: [],
+      }),
+    );
   };
 
   private resumeGame = (game: Game) => {
-    const bot = this.opts.bots.find(b => b.uid === game.botKey);
+    const bot = this.opts.bots.find(b => b.uid === game.data.botKey);
     if (!bot) {
-      alert(`Couldn't find your opponent ${game.botKey}`);
+      alert(`Couldn't find your opponent ${game.data.botKey}`);
       return;
     }
     try {
@@ -54,14 +70,18 @@ export class BotCtrl {
         redraw: this.redraw,
         save: saveCurrentGame,
         close: this.closeGame,
-        rematch: () => this.newGame(bot, opposite(game.pov), game.clockConfig),
+        rematch: () => this.newGame(bot, opposite(game.data.pov), game.data.clockConfig),
       });
     } catch (e) {
-      console.error('Failed to resume game', e);
-      alert('Failed to resume game. Please start a new one.');
-      saveCurrentGame(null);
+      this.onResumeFail(e);
       return;
     }
+  };
+
+  private onResumeFail = (e: unknown) => {
+    console.error('Failed to resume game', e);
+    alert('Failed to resume game. Please start a new one.');
+    saveCurrentGame(null);
   };
 
   private resumeGameAndRedraw = (game: Game) => {

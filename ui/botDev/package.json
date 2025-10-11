@@ -37,9 +37,6 @@
     "the asset json in lila-db-seed map the hashed asset filenames in data/bot"
   ],
   "build": {
-    "bundle": "src/**/botDev.*ts",
-    "sync": {
-      "node_modules/**/zerofishEngine.*": "/public/npm"
-    }
+    "bundle": "src/**/botDev.*ts"
   }
 }

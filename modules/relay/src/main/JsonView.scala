@@ -13,7 +13,12 @@ import lila.core.fide.FideTC
 import lila.core.socket.SocketVersion
 import lila.core.LightUser.GetterSync
 
-final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, picfitUrl: PicfitUrl, lightUserSync: GetterSync):
+final class JsonView(
+    baseUrl: BaseUrl,
+    picfitUrl: PicfitUrl,
+    lightUserSync: GetterSync,
+    markdown: RelayMarkdown
+):
 
   import JsonView.{ Config, given }
 
@@ -54,9 +59,9 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, picfitUrl: PicfitUrl
   def fullTour(tour: RelayTour)(using config: Config): JsObject =
     Json
       .toJsObject(tour)
-      .add("description" -> tour.markup.map: md =>
-        if config.html then markup(tour)(md).value
-        else md.value)
+      .add("description" -> {
+        if config.html then markdown.of(tour).map(_.value) else tour.markup.map(_.value)
+      })
       .add("teamTable" -> tour.teamTable)
       .add("communityOwner" -> tour.communityOwner.map(lightUserSync))
 

@@ -5,6 +5,16 @@
 
   opacity: 0;
   transform: translate(-50%, calc(-50% - 30px));
+
+  @media (max-width: at-most($small)) {
+    width: 70%;
+  }
+  @media (max-width: at-most($x-small)) {
+    width: 90%;
+  }
+  @media (max-width: at-most($xx-small)) {
+    width: 100%;
+  }
 }
 
 @keyframes show {
@@ -30,7 +40,7 @@
 
 .bot-setup__form {
   @extend %flex-column;
-  gap: 1em;
+  gap: 1.5em;
   padding-bottom: 2em;
   text-align: left;
 

@@ -1060,7 +1060,7 @@ export default class AnalyseCtrl implements CevalHandler {
     this.keyboardMove?.update({ fen, canMove: true });
   };
 
-  showBestMoveArrows = () => this.showBestMoveArrowsProp() && !this.retro;
+  showBestMoveArrows = () => this.showBestMoveArrowsProp() && !this.retro?.hideComputerLine(this.node);
 
   private resetAutoShapes = () => {
     if (this.showBestMoveArrows() || this.showMoveAnnotation() || this.variationArrowOpacity())

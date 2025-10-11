@@ -38,7 +38,7 @@ final class CmsUi(helpers: Helpers)(menu: Context ?=> Frag):
             "This draft is not published"
           )
         ),
-        rawHtml(page.html)
+        page.html
       )
 
   def render(p: CmsPage.RenderOpt)(using Context): Frag =

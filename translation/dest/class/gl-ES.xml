@@ -85,7 +85,7 @@ Aquí está a ligazón para acceder.</string>
   <string name="students">Estudantes</string>
   <string name="progress">Progreso</string>
   <string name="noStudents">Aínda non hai estudantes na clase.</string>
-  <string name="noRemovedStudents">Non hai estudantes eliminados.</string>
+  <string name="noRemovedStudents">Non hai estudantes eliminados</string>
   <string name="overDays">Ó longo dos días</string>
   <string name="timePlaying">Tempo xogado</string>
   <string name="variantXOverLastY">%1$s nos últimos %2$s</string>
@@ -118,6 +118,6 @@ Amosará unha liña separadora horizontal.</string>
   <string name="xIsAKidAccountWarning">%1$s é unha conta infantil e non pode recibir a túa mensaxe. Debes enviarlle o URL de invitación de xeito manual: %2$s</string>
   <string name="moveToClass">Mover a %s</string>
   <string name="moveToAnotherClass">Mover a outra clase</string>
-  <string name="allowMessagingBetweenStudents" comment="An option that a class's teacher can select. Has the extended description &quot;This only applies to the accounts you have created for your students.&quot;">Permitir mensaxes entre estudantes</string>
-  <string name="allowMessagingBetweenStudentsDesc" comment="Description for the option &quot;Allow messages between students&quot;.">Só se aplica ás contas que creaches para os teus estudantes.</string>
+  <string name="allowMessagingBetweenStudents">Permitir mensaxes entre estudantes</string>
+  <string name="allowMessagingBetweenStudentsDesc">Só se aplica ás contas que creaches para os teus estudantes.</string>
 </resources>

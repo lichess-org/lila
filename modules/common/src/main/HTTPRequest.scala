@@ -70,16 +70,18 @@ object HTTPRequest:
   def origin(req: RequestHeader): Option[String] = req.headers.get(HeaderNames.ORIGIN)
   def referer(req: RequestHeader): Option[String] = req.headers.get(HeaderNames.REFERER)
 
-  def ipAddress(req: RequestHeader) =
-    IpAddress.unchecked:
-      // chain of trusted proxies, strip scope id
-      req.remoteAddress.split(", ").last.split("%").head
+  def ipAddress(req: RequestHeader): IpAddress =
+    IpAddress.unchecked(ipAddressStr(req))
+
+  def ipAddressStr(req: RequestHeader): String =
+    // chain of trusted proxies, strip scope id
+    req.remoteAddress.split(", ").last.split("%").head
 
   def isCrawler(req: RequestHeader) = Crawler(crawlerMatcher(req))
 
   private val crawlerMatcher = UaMatcher:
     // spiders/crawlers
-    """Googlebot|GoogleOther|AdsBot|Google-Read-Aloud|bingbot|BingPreview|facebookexternalhit|meta-externalagent|SemrushBot|AhrefsBot|PetalBot|Applebot|YandexBot|YandexAdNet|YandexImages|Twitterbot|Bluesky|Baiduspider|Amazonbot|Bytespider|yacybot|ImagesiftBot|ChatGLM-Spider|YisouSpider|Yeti/|DataForSeoBot|ChatGPT|openai.com""" +
+    """Googlebot|GoogleOther|AdsBot|Google-Read-Aloud|bingbot|BingPreview|facebookexternalhit|meta-externalagent|SemrushBot|AhrefsBot|PetalBot|Applebot|YandexBot|YandexAdNet|YandexImages|Twitterbot|Bluesky|Baiduspider|Amazonbot|Bytespider|yacybot|ImagesiftBot|ChatGLM-Spider|YisouSpider|Yeti/|DataForSeoBot|ChatGPT|openai.com|anthropic.com""" +
       // apps and servers that load previews
       """|Discordbot|WhatsApp""" +
       // http libs

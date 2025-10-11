@@ -10,6 +10,7 @@ final class Env(
     appConfig: Configuration,
     db: lila.db.Db,
     cacheApi: lila.memo.CacheApi,
+    markdownCache: lila.memo.MarkdownCache,
     langList: lila.core.i18n.LangList
 )(using Executor, Scheduler):
 
@@ -18,3 +19,5 @@ final class Env(
   val form = wire[EventForm]
 
   lazy val api = wire[EventApi]
+
+  lazy val markdown = wire[EventMarkdown]

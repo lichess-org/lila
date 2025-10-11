@@ -7,6 +7,7 @@ import lila.relay.BSONHandlers.given
 import lila.core.study.Visibility
 
 final private class RelayTourRepo(val coll: Coll)(using Executor):
+
   import RelayTourRepo.*
   import RelayTour.TourPreview
 
@@ -33,7 +34,7 @@ final private class RelayTourRepo(val coll: Coll)(using Executor):
     )
 
   def countByOwner(owner: UserId, publicOnly: Boolean): Fu[Int] =
-    coll.countSel(selectors.ownerId(owner) ++ publicOnly.so(selectors.vis.public))
+    coll.secondary.countSel(selectors.ownerId(owner) ++ publicOnly.so(selectors.vis.public))
 
   def subscribers(tid: RelayTourId): Fu[Set[UserId]] =
     coll.distinctEasy[UserId, Set]("subscribers", $id(tid))

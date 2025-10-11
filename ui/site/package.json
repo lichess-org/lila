@@ -7,8 +7,7 @@
   "license": "AGPL-3.0-or-later",
   "dependencies": {
     "lib": "workspace:*",
-    "bits": "workspace:*",
-    "dialog-polyfill": "0.5.6"
+    "bits": "workspace:*"
   },
   "build": {
     "bundle": [
@@ -17,18 +16,6 @@
         "module": "src/site.ts",
         "inline": "src/site.inline.ts"
       }
-    ],
-    "sync": {
-      "node_modules/dialog-polyfill/dist/dialog-polyfill.esm.js": "/public/npm"
-    },
-    "hash": [
-      "/public/font/*.woff2",
-      "/public/images/**",
-      "/public/javascripts/**",
-      "/public/lifat/background/**/*.webp",
-      "/public/npm/*",
-      "/public/piece/**",
-      "/public/sound/**/*.mp3"
     ]
   }
 }

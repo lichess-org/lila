@@ -124,6 +124,6 @@
   <string name="xIsAKidAccountWarning">%1$s є обліковим записом дитини та не може отримати ваше повідомлення. Ви повинні дати їм URL-адресу запрошення вручну: %2$s</string>
   <string name="moveToClass">Перевести в %s</string>
   <string name="moveToAnotherClass">Перевести в інший клас</string>
-  <string name="allowMessagingBetweenStudents" comment="An option that a class's teacher can select. Has the extended description &quot;This only applies to the accounts you have created for your students.&quot;">Дозволити учням обмінюватися повідомленнями</string>
-  <string name="allowMessagingBetweenStudentsDesc" comment="Description for the option &quot;Allow messages between students&quot;.">Це стосується лише облікових записів, які ви створили своїм студентам.</string>
+  <string name="allowMessagingBetweenStudents">Дозволити учням обмінюватися повідомленнями</string>
+  <string name="allowMessagingBetweenStudentsDesc">Це стосується лише облікових записів, які ви створили своїм студентам.</string>
 </resources>

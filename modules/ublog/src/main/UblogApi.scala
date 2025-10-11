@@ -103,13 +103,13 @@ final class UblogApi(
   def userBlogPreviewFor(user: User, nb: Int)(using me: Option[Me]): Fu[Option[UblogPost.BlogPreview]] =
     val blogId = UblogBlog.Id.User(user.id)
     val canView = fuccess(me.exists(_.is(user))) >>|
-      colls.blog
+      colls.blog.secondary
         .primitiveOne[Tier]($id(blogId.full), "tier")
         .dmap(_.exists(_ > Tier.HIDDEN))
     canView.flatMapz { blogPreview(blogId, nb).dmap(some) }
 
   def blogPreview(blogId: UblogBlog.Id, nb: Int): Fu[UblogPost.BlogPreview] =
-    colls.post
+    colls.post.secondary
       .countSel($doc("blog" -> blogId, "live" -> true))
       .zip(latestPosts(blogId, nb))
       .map((UblogPost.BlogPreview.apply).tupled)

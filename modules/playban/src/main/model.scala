@@ -36,7 +36,7 @@ case class UserRecord(
 
   def badOutcomeTolerance(age: Days, trust: UserTrust): Float =
     val base =
-      if age <= 1 then 0.3f
+      if age <= Days(1) then 0.3f
       else if bans.sizeIs < 3 then 0.4f
       else 0.3f
     base - trust.no.so(0.5f)
@@ -48,7 +48,7 @@ case class UserRecord(
       case _ => 2
 
   def badOutcomesStreakSize(age: Days): Int =
-    if age < 1
+    if age.isZero
     then 3
     else if bans.size == 0 then 6
     else if bans.size < 3 then 5
@@ -67,7 +67,7 @@ case class UserRecord(
           outcomes.takeRight(streakSize).forall(Outcome.Good !=)
         } || {
           // last 2 games
-          (age < 1 || trust.no) &&
+          (age.isZero || trust.no) &&
           outcomes.sizeIs < 9 &&
           outcomes.sizeIs > 1 &&
           outcomes.reverse.take(2).forall(Outcome.Good !=)
@@ -120,7 +120,7 @@ object TempBan:
             case h if h < 72 => prev.mins * (132 - h) / 60
             case h => (55.6 * prev.mins / (Math.pow(5.56 * prev.mins - 54.6, h / 720) + 54.6)).toInt
         .atLeast(baseMinutes)
-      val multiplier = if age == Days(0) then 3 else if age <= 3 then 2 else 1
+      val multiplier = if age.isZero then 3 else if age <= Days(3) then 2 else 1
       val trustMultiplier = if trust.yes then 1 else 2
       base * multiplier * trustMultiplier
 
