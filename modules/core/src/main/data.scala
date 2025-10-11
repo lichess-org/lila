@@ -38,5 +38,8 @@ object data:
   opaque type Template = String
   object Template extends OpaqueString[Template]
 
+  opaque type ErrorMsg = String
+  object ErrorMsg extends OpaqueString[ErrorMsg]
+
   final class CircularDep[A](val resolve: () => A)
   final class LazyDep[A](val resolve: () => A)

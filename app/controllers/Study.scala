@@ -13,6 +13,7 @@ import lila.core.misc.lpv.LpvEmbed
 import lila.core.net.IpAddress
 import lila.core.socket.Sri
 import lila.core.study.Order
+import lila.core.data.ErrorMsg
 import lila.study.JsonView.JsData
 import lila.study.PgnDump.WithFlags
 import lila.study.Study.WithChapter
@@ -307,7 +308,7 @@ final class Study(
   }
 
   private def doImportPgn(id: StudyId, data: StudyForm.importPgn.Data, sri: Sri)(
-      f: (List[Chapter], Option[String]) => Result
+      f: (List[Chapter], Option[ErrorMsg]) => Result
   )(using ctx: Context, me: Me): Future[Result] =
     val chapterDatas = data.toChapterDatas
     limit.studyPgnImport(me, rateLimited, cost = chapterDatas.size):

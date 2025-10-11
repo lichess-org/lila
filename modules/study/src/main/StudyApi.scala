@@ -11,6 +11,7 @@ import lila.core.perm.Granter
 import lila.core.socket.Sri
 import lila.core.study as hub
 import lila.core.timeline.{ Propagate, StudyLike }
+import lila.core.data.ErrorMsg
 import lila.tree.Clock
 import lila.tree.Node.{ Comment, Gamebook, Shapes }
 import cats.mtl.Handle.*
@@ -564,7 +565,7 @@ final class StudyApi(
 
   def addChapter(studyId: StudyId, data: ChapterMaker.Data, sticky: Boolean, withRatings: Boolean)(
       who: Who
-  ): FuRaise[String, List[Chapter]] =
+  ): FuRaise[ErrorMsg, List[Chapter]] =
     data.manyGames match
       case Some(datas) =>
         datas.sequentially(addSingleChapter(studyId, _, sticky, withRatings)(who)).map(_.flatten)
@@ -573,12 +574,12 @@ final class StudyApi(
 
   def addSingleChapter(studyId: StudyId, data: ChapterMaker.Data, sticky: Boolean, withRatings: Boolean)(
       who: Who
-  ): FuRaise[String, Option[Chapter]] =
+  ): FuRaise[ErrorMsg, Option[Chapter]] =
     sequenceStudy(studyId): study =>
       for
-        _ <- raiseIf(!study.canContribute(who.u))("No permission to add chapter")
+        _ <- raiseIf(!study.canContribute(who.u))(ErrorMsg("No permission to add chapter"))
         count <- chapterRepo.countByStudyId(study.id)
-        _ <- raiseIf(Study.maxChapters <= count)("Too many chapters")
+        _ <- raiseIf(Study.maxChapters <= count)(ErrorMsg("Too many chapters"))
         _ <- data.initial.so:
           chapterRepo
             .firstByStudy(study.id)
@@ -589,7 +590,7 @@ final class StudyApi(
           .recoverWith:
             case ChapterMaker.ValidationException(error) =>
               sendTo(study.id)(_.validationError(error, who.sri))
-              error.raise
+              ErrorMsg(error).raise
         _ <- doAddChapter(study, chapter, sticky, who)
       yield chapter.some
 
@@ -600,7 +601,7 @@ final class StudyApi(
 
   def importPgns(studyId: StudyId, datas: List[ChapterMaker.Data], sticky: Boolean, withRatings: Boolean)(
       who: Who
-  ): Future[(List[Chapter], Option[String])] =
+  ): Future[(List[Chapter], Option[ErrorMsg])] =
     datas
       .sequentiallyRaise:
         addSingleChapter(studyId, _, sticky, withRatings)(who)
