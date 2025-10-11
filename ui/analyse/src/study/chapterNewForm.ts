@@ -93,6 +93,8 @@ export class StudyChapterNewForm {
     else
       importPgn(study.data.id, dd).catch(e => {
         if (e.message === 'Too many requests') alert('Limit of 1000 pgn imports every 24 hours');
+        if (e.message === 'Too many chapters')
+          alert('You have reached the maximum number of chapters (64). Some of the games were not imported.');
         throw e;
       });
     this.isOpen(false);

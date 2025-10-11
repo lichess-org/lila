@@ -11,8 +11,10 @@ import lila.core.perm.Granter
 import lila.core.socket.Sri
 import lila.core.study as hub
 import lila.core.timeline.{ Propagate, StudyLike }
+import lila.core.data.ErrorMsg
 import lila.tree.Clock
 import lila.tree.Node.{ Comment, Gamebook, Shapes }
+import cats.mtl.Handle.*
 
 final class StudyApi(
     studyRepo: StudyRepo,
@@ -130,12 +132,15 @@ final class StudyApi(
       byId(studyId)
         .flatMap:
           case Some(study) if study.canContribute(user.id) =>
-            addChapter(
-              studyId = study.id,
-              data = data.form.toChapterData,
-              sticky = study.settings.sticky,
-              withRatings
-            )(Who(user.id, Sri(""))) >> byIdWithLastChapter(studyId)
+            allow:
+              addSingleChapter(
+                studyId = study.id,
+                data = data.form.toChapterData,
+                sticky = study.settings.sticky,
+                withRatings
+              )(Who(user.id, Sri(""))) >> byIdWithLastChapter(studyId)
+            .rescue: _ =>
+              fuccess(none)
           case _ => fuccess(none)
         .orElse(importGame(data.copy(form = data.form.copy(asStr = none)), user, withRatings))
 
@@ -560,34 +565,34 @@ final class StudyApi(
 
   def addChapter(studyId: StudyId, data: ChapterMaker.Data, sticky: Boolean, withRatings: Boolean)(
       who: Who
-  ): Fu[List[Chapter]] =
+  ): FuRaise[ErrorMsg, List[Chapter]] =
     data.manyGames match
       case Some(datas) =>
-        datas.sequentially(addChapter(studyId, _, sticky, withRatings)(who)).map(_.flatten)
+        datas.sequentially(addSingleChapter(studyId, _, sticky, withRatings)(who)).map(_.flatten)
       case _ =>
-        sequenceStudy(studyId): study =>
-          Contribute(who.u, study):
-            chapterRepo
-              .countByStudyId(study.id)
-              .flatMap: count =>
-                if Study.maxChapters <= count then fuccess(Nil)
-                else
-                  for
-                    _ <- data.initial.so:
-                      chapterRepo
-                        .firstByStudy(study.id)
-                        .flatMap:
-                          _.filter(_.isEmptyInitial).so(chapterRepo.delete)
-                    order <- chapterRepo.nextOrderByStudy(study.id)
-                    chapter <- chapterMaker(study, data, order, who.u, withRatings)
-                    _ <- doAddChapter(study, chapter, sticky, who)
-                  yield List(chapter)
-              .recover:
-                case ChapterMaker.ValidationException(error) =>
-                  sendTo(study.id)(_.validationError(error, who.sri))
-                  Nil
-              .addFailureEffect:
-                case u => logger.error(s"StudyApi.addChapter to $studyId", u)
+        addSingleChapter(studyId, data, sticky, withRatings)(who).dmap(_.toList)
+
+  def addSingleChapter(studyId: StudyId, data: ChapterMaker.Data, sticky: Boolean, withRatings: Boolean)(
+      who: Who
+  ): FuRaise[ErrorMsg, Option[Chapter]] =
+    sequenceStudy(studyId): study =>
+      for
+        _ <- raiseIf(!study.canContribute(who.u))(ErrorMsg("No permission to add chapter"))
+        count <- chapterRepo.countByStudyId(study.id)
+        _ <- raiseIf(Study.maxChapters <= count)(ErrorMsg("Too many chapters"))
+        _ <- data.initial.so:
+          chapterRepo
+            .firstByStudy(study.id)
+            .flatMap:
+              _.filter(_.isEmptyInitial).so(chapterRepo.delete)
+        order <- chapterRepo.nextOrderByStudy(study.id)
+        chapter <- chapterMaker(study, data, order, who.u, withRatings)
+          .recoverWith:
+            case ChapterMaker.ValidationException(error) =>
+              sendTo(study.id)(_.validationError(error, who.sri))
+              ErrorMsg(error).raise
+        _ <- doAddChapter(study, chapter, sticky, who)
+      yield chapter.some
 
   def rename(studyId: StudyId, name: StudyName): Funit =
     sequenceStudy(studyId): old =>
@@ -596,17 +601,20 @@ final class StudyApi(
 
   def importPgns(studyId: StudyId, datas: List[ChapterMaker.Data], sticky: Boolean, withRatings: Boolean)(
       who: Who
-  ): Future[List[Chapter]] = datas
-    .sequentially:
-      addChapter(studyId, _, sticky, withRatings)(who)
-    .map(_.flatten)
+  ): Future[(List[Chapter], Option[ErrorMsg])] =
+    datas
+      .sequentiallyRaise:
+        addSingleChapter(studyId, _, sticky, withRatings)(who)
+      .dmap: (oc, errors) =>
+        (oc.flatten, errors)
 
-  def doAddChapter(study: Study, chapter: Chapter, sticky: Boolean, who: Who): Funit = for
-    _ <- chapterRepo.insert(chapter)
-    newStudy = study.withChapter(chapter)
-    _ <- if sticky then studyRepo.updateSomeFields(newStudy) else studyRepo.updateNow(study)
-    _ = preview.invalidate(study.id)
-  yield sendTo(study.id)(_.addChapter(newStudy.position, sticky, who))
+  def doAddChapter(study: Study, chapter: Chapter, sticky: Boolean, who: Who): Funit =
+    for
+      _ <- chapterRepo.insert(chapter)
+      newStudy = study.withChapter(chapter)
+      _ <- if sticky then studyRepo.updateSomeFields(newStudy) else studyRepo.updateNow(study)
+      _ = preview.invalidate(study.id)
+    yield sendTo(study.id)(_.addChapter(newStudy.position, sticky, who))
 
   def setChapter(studyId: StudyId, chapterId: StudyChapterId)(who: Who) =
     sequenceStudy(studyId): study =>

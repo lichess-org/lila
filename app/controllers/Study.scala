@@ -13,6 +13,7 @@ import lila.core.misc.lpv.LpvEmbed
 import lila.core.net.IpAddress
 import lila.core.socket.Sri
 import lila.core.study.Order
+import lila.core.data.ErrorMsg
 import lila.study.JsonView.JsData
 import lila.study.PgnDump.WithFlags
 import lila.study.Study.WithChapter
@@ -307,19 +308,21 @@ final class Study(
   }
 
   private def doImportPgn(id: StudyId, data: StudyForm.importPgn.Data, sri: Sri)(
-      f: List[Chapter] => Result
+      f: (List[Chapter], Option[ErrorMsg]) => Result
   )(using ctx: Context, me: Me): Future[Result] =
     val chapterDatas = data.toChapterDatas
     limit.studyPgnImport(me, rateLimited, cost = chapterDatas.size):
       env.study.api
         .importPgns(id, chapterDatas, sticky = data.sticky, ctx.pref.showRatings)(Who(me, sri))
-        .map(f)
+        .map(f.tupled)
 
   def importPgn(id: StudyId) = AuthBody { ctx ?=> me ?=>
     get("sri").so: sri =>
       bindForm(StudyForm.importPgn.form)(
         doubleJsonFormError,
-        data => doImportPgn(id, data, Sri(sri))(_ => NoContent)
+        data =>
+          doImportPgn(id, data, Sri(sri)): (_, errors) =>
+            errors.fold(NoContent)(BadRequest(_))
       )
   }
 
@@ -327,10 +330,10 @@ final class Study(
     bindForm(StudyForm.importPgn.form)(
       jsonFormError,
       data =>
-        doImportPgn(id, data, Sri("api")): chapters =>
+        doImportPgn(id, data, Sri("api")): (chapters, errors) =>
           import lila.study.ChapterPreview.json.given
           val previews = chapters.map(env.study.preview.fromChapter(_))
-          JsonOk(Json.obj("chapters" -> previews))
+          JsonOk(Json.obj("chapters" -> previews, "error" -> errors))
     )
   }
 
