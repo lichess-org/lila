@@ -76,23 +76,18 @@ function wireMarkdownTextarea(markdown: HTMLElement) {
   const uploadAndInsert = async (image: File) => {
     try {
       const { width, height } = await naturalSize(image);
-      const designWidth = Number(markdown.dataset.imageDesignWidth);
       const body = new FormData();
-      body.append('context', markdown.dataset.imageContext || location.href);
+      body.append('context', markdown.dataset.imageContext ?? location.href);
       body.append('width', String(width));
       body.append('height', String(height));
       body.append('image', image);
 
-      let { imageUrl } = await xhrJson(markdown.dataset.imageUploadUrl!, { method: 'POST', body });
-      const id = imageUrl?.match(/&path=([a-z]\w+:[a-z0-9]{12}:[a-z0-9]{8}\.\w{3,4})&/i)?.[1];
-      if (!id) throw `Bad image URL ${imageUrl ?? ''}`;
-      if (designWidth && width > designWidth)
-        ({ imageUrl } = await xhrJson(`/image-url/${id}?width=${designWidth}`));
+      const { imageUrl } = await xhrJson(markdown.dataset.imageUploadUrl!, { method: 'POST', body });
       if (!imageUrl) throw '';
 
       const before = textarea.value.slice(0, textarea.selectionStart);
       const after = textarea.value.slice(textarea.selectionEnd);
-      const maybeNewline = before.length === 0 || /\s$/.test(before) ? '' : '\n';
+      const maybeNewline = /\s$/.test(before) ? '' : '\n';
 
       textarea.value = `${before}${maybeNewline}![${image.name}](${imageUrl})\n${after}`;
       textarea.selectionStart = textarea.selectionEnd = textarea.value.length - after.length;

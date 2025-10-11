@@ -141,9 +141,15 @@ final class Main(
       formData.file("image") match
         case None => JsonBadRequest(jsonError("Image content only"))
         case Some(image) =>
-          val context = formData.dataParts.get("context").flatMap(_.headOption).filter(_.nonEmpty)
           env.memo.picfitApi.bodyImage
-            .upload(rel, image, context)
+            .upload(
+              rel,
+              image,
+              lila.memo.PicfitApi.uploadForm.bindFromRequest().value,
+              lila.ui.bits
+                .imageDesignWidth(rel)
+                .getOrElse(800)
+            )
             .map(url => JsonOk(Json.obj("imageUrl" -> url)))
             .recover { case e: Exception => JsonBadRequest(jsonError(e.getMessage)) }
   }
