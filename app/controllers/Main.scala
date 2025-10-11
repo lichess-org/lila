@@ -146,9 +146,7 @@ final class Main(
               rel,
               image,
               lila.memo.PicfitApi.uploadForm.bindFromRequest().value,
-              lila.ui.bits
-                .imageDesignWidth(rel)
-                .getOrElse(800)
+              lila.ui.bits.imageDesignWidth(rel)
             )
             .map(url => JsonOk(Json.obj("imageUrl" -> url)))
             .recover { case e: Exception => JsonBadRequest(jsonError(e.getMessage)) }

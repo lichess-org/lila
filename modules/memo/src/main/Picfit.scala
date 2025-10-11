@@ -22,7 +22,7 @@ case class PicfitImage(
     name: String,
     size: Int, // in bytes
     createdAt: Instant,
-    meta: Option[ImageMetaData]
+    context: Option[String]
 )
 
 case class ImageMetaData(
@@ -74,7 +74,7 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
               name = part.filename,
               size = part.fileSize.toInt,
               createdAt = nowInstant,
-              meta = meta
+              context = meta.map(_.context)
             )
             for
               _ <- picfitServer.store(image, part)
@@ -95,16 +95,17 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
       .void
 
   object bodyImage:
-    def upload(rel: String, image: FilePart, meta: Option[ImageMetaData], maxWidth: Int)(using
+    def upload(rel: String, image: FilePart, meta: Option[ImageMetaData], widthCap: Option[Int])(using
         me: Me
     ): Fu[Option[String]] =
+      val maxWidth = widthCap.getOrElse(800)
       rel.contains(idSep).not.so {
         uploadFile(s"$rel$idSep${scalalib.ThreadLocalRandom.nextString(12)}", image, me, meta)
           .map: p =>
             meta match
-              case Some(info) if info.width > maxWidth => url.resize(p.id, Left(maxWidth)).some
+              case Some(info) if info.width > maxWidth =>
+                url.resize(p.id, Left(maxWidth)).some
               case _ => url.raw(p.id).some
-        // clients send followup request for resize url when meta.width > designWidth
       }
 
   private object picfitServer:
