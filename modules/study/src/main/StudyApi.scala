@@ -601,12 +601,10 @@ final class StudyApi(
   def importPgns(studyId: StudyId, datas: List[ChapterMaker.Data], sticky: Boolean, withRatings: Boolean)(
       who: Who
   ): Future[(List[Chapter], Option[String])] =
-    println(s"importPgns called with ${datas.size} chapters")
     datas
       .sequentiallyRaise:
         addSingleChapter(studyId, _, sticky, withRatings)(who)
       .dmap: (oc, errors) =>
-        println(s"importPgns completed with ${oc.flatten.size} chapters and $errors")
         (oc.flatten, errors)
 
   def doAddChapter(study: Study, chapter: Chapter, sticky: Boolean, who: Who): Funit =
