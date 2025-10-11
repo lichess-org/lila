@@ -19,7 +19,7 @@ final class TeamUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCache):
       header = true,
       list = true,
       table = true,
-      maxPgns = lila.memo.Max(0)
+      maxPgns = Max(0)
     )
 
     def apply(team: Team, text: Markdown): Frag =

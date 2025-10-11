@@ -42,8 +42,8 @@ final class AutoPairing(
         onStart.exec(game.id)
         given Zero[IntRating] = Zero(IntRating(0))
         duelStore.add(
-          tour = tour,
-          game = game,
+          tour = tour.id,
+          game = game.id,
           p1 = usernameOf(pairing.player1) -> ~game.whitePlayer.rating,
           p2 = usernameOf(pairing.player2) -> ~game.blackPlayer.rating,
           ranking = ranking

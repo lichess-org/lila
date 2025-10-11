@@ -80,10 +80,10 @@ case class Tournament(
       val remaining = secondsToFinish.value
       100 - (remaining * 100 / total)
 
-  def pairingsClosed = secondsToFinish < math.max(30, math.min(clock.limitSeconds.value / 2, 120))
+  def pairingsClosed = secondsToFinish < Seconds(math.max(30, math.min(clock.limitSeconds.value / 2, 120)))
 
   def isStillWorthEntering = isMarathon || isUnique || {
-    secondsToFinish > (minutes * 60 / 3).atMost(20 * 60)
+    secondsToFinish > Seconds((minutes * 60 / 3).atMost(20 * 60))
   }
 
   def finishedSinceSeconds: Option[Long] = isFinished.option(nowSeconds - finishesAt.toSeconds)

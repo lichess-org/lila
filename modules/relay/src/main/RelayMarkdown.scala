@@ -9,7 +9,7 @@ final class RelayMarkdown(cache: lila.memo.MarkdownCache):
     table = true,
     header = true,
     strikeThrough = true,
-    maxPgns = lila.memo.Max(0)
+    maxPgns = Max(0)
   )
 
   def of(tour: RelayTour): Option[Html] = tour.markup.map: md =>
