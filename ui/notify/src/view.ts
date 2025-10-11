@@ -1,5 +1,5 @@
 import type { Ctrl, NotifyData, Notification } from './interfaces';
-import { h, type VNode } from 'snabbdom';
+import { hl, type VNode, type LooseVNodes } from 'lib/snabbdom';
 import * as licon from 'lib/licon';
 import { spinnerVdom as spinner } from 'lib/view/controls';
 import makeRenderers from './renderers';
@@ -9,45 +9,45 @@ const renderers = makeRenderers();
 
 export default function view(ctrl: Ctrl): VNode {
   const d = ctrl.data();
-  return h(
+  return hl(
     'div#notify-app.links.dropdown',
-    d && !ctrl.initiating() ? renderContent(ctrl, d) : [h('div.initiating', spinner())],
+    d && !ctrl.initiating() ? renderContent(ctrl, d) : [hl('div.initiating', spinner())],
   );
 }
 
-function renderContent(ctrl: Ctrl, d: NotifyData): VNode[] {
+function renderContent(ctrl: Ctrl, d: NotifyData): LooseVNodes {
   const pager = d.pager;
   const nb = pager.currentPageResults.length;
-
-  const nodes: VNode[] = [];
-
-  nodes.push(
-    h(`div.pager.prev${pager.previousPage ? '' : '.disabled'}`, {
+  return [
+    hl('div.pager.prev', {
       attrs: { 'data-icon': licon.UpTriangle },
+      class: { disabled: !pager.previousPage },
       hook: clickHook(ctrl.previousPage),
     }),
-  );
+    hl('a.settings.button.button-empty', {
+      attrs: {
+        href: '/account/preferences/notification',
+        'data-icon': licon.Gear,
+        title: 'Notification Settings',
+      },
+    }),
+    nb === 0
+      ? empty()
+      : [
+          hl('button.delete.button.button-empty', {
+            attrs: { 'data-icon': licon.Trash, title: 'Clear' },
+            hook: clickHook(ctrl.clear),
+          }),
+          recentNotifications(d, ctrl.scrolling()),
+        ],
 
-  if (nb > 0)
-    nodes.push(
-      h('button.delete.button.button-empty', {
-        attrs: { 'data-icon': licon.Trash, title: 'Clear' },
-        hook: clickHook(ctrl.clear),
-      }),
-    );
+    pager.nextPage &&
+      hl('div.pager.next', { attrs: { 'data-icon': licon.DownTriangle }, hook: clickHook(ctrl.nextPage) }),
 
-  nodes.push(nb ? recentNotifications(d, ctrl.scrolling()) : empty());
-
-  if (pager.nextPage)
-    nodes.push(
-      h('div.pager.next', { attrs: { 'data-icon': licon.DownTriangle }, hook: clickHook(ctrl.nextPage) }),
-    );
-
-  if (!('Notification' in window))
-    nodes.push(h('div.browser-notification', 'Browser does not support notification popups'));
-  else if (Notification.permission === 'denied') nodes.push(notificationDenied());
-
-  return nodes;
+    !('Notification' in window)
+      ? hl('div.browser-notification', 'Browser does not support notification popups')
+      : Notification.permission === 'denied' && notificationDenied(),
+  ];
 }
 
 export function asText(n: Notification): string | undefined {
@@ -55,7 +55,7 @@ export function asText(n: Notification): string | undefined {
 }
 
 function notificationDenied(): VNode {
-  return h(
+  return hl(
     'a.browser-notification.denied',
     { attrs: { href: '/faq#browser-notifications', target: '_blank' } },
     'Notification popups disabled by browser setting',
@@ -77,7 +77,7 @@ function clickHook(f: () => void) {
 const contentLoaded = (vnode: VNode) => pubsub.emit('content-loaded', vnode.elm);
 
 function recentNotifications(d: NotifyData, scrolling: boolean): VNode {
-  return h(
+  return hl(
     'div',
     {
       class: { notifications: true, scrolling },
@@ -88,5 +88,5 @@ function recentNotifications(d: NotifyData, scrolling: boolean): VNode {
 }
 
 function empty() {
-  return h('div.empty.text', { attrs: { 'data-icon': licon.InfoCircle } }, 'No notifications.');
+  return hl('div.empty.text', { attrs: { 'data-icon': licon.InfoCircle } }, 'No notifications.');
 }
