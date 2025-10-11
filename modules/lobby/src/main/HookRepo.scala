@@ -53,12 +53,9 @@ final private class HookRepo:
   def exists(hook: Hook): Boolean =
     hooks.contains(hook.id)
 
-  // returns removed hooks
-  def cleanupOld: Set[Hook] =
+  def hooksToCleanup: Set[Hook] =
     val limit = nowInstant.minusMinutes(15)
-    val removed = hooks.values.view.filter(_.createdAt.isBefore(limit)).toSet
-    hooks = hooks.removed(removed)
-    removed
+    hooks.values.view.filter(_.createdAt.isBefore(limit)).toSet
 
   // O(n)
   // invoked regularly when stealing hooks for pools
