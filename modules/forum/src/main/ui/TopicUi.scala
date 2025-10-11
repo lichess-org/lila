@@ -54,7 +54,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
           ),
           postForm(cls := "form3", action := routes.ForumTopic.create(categ.id))(
             form3.group(form("name"), trans.site.subject())(form3.input(_)(autofocus)),
-            form3.group(form("post")("text"), trans.site.message(), help = markdownAvailable.some)(f =>
+            form3.group(form("post")("text"), trans.site.message(), help = markdownIsAvailable.some)(f =>
               bits.postTextarea(f.some)()
             ),
             renderCaptcha(form("post"), captcha),
@@ -184,7 +184,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
                 form("text"),
                 trans.site.message(),
                 help = span(cls := "space-between")(
-                  plaintext.not.option(span(markdownAvailable)),
+                  plaintext.not.option(span(markdownIsAvailable)),
                   a(
                     dataIcon := Icon.InfoCircle,
                     cls := "text",

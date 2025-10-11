@@ -110,7 +110,7 @@ final class FormUi(helpers: Helpers, bits: TeamUi)(
     form3.group(
       form("description"),
       trans.site.description(),
-      help = frag(trans.team.teamDescriptionHelp(), br, markdownAvailable).some
+      help = frag(trans.team.teamDescriptionHelp(), br, markdownIsAvailable).some
     )(f => teamDescTextarea(f)(minlength := 30, f.value)),
     form3.group(
       form("descPrivate"),
@@ -118,7 +118,7 @@ final class FormUi(helpers: Helpers, bits: TeamUi)(
       help = frag(
         trans.site.descPrivateHelp(),
         br,
-        markdownAvailable
+        markdownIsAvailable
       ).some
     )(f => teamDescTextarea(f)(f.value))
   )
