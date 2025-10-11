@@ -99,14 +99,14 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
         me: Me
     ): Fu[Option[String]] =
       val maxWidth = widthCap.getOrElse(800)
-      rel.contains(idSep).not.so {
+      if rel.contains(idSep) then fuccess(none)
+      else
         uploadFile(s"$rel$idSep${scalalib.ThreadLocalRandom.nextString(12)}", image, me, meta)
-          .map: p =>
+          .map: pic =>
             meta match
               case Some(info) if info.width > maxWidth =>
-                url.resize(p.id, Left(maxWidth)).some
-              case _ => url.raw(p.id).some
-      }
+                url.resize(pic.id, Left(maxWidth)).some
+              case _ => url.raw(pic.id).some
 
   private object picfitServer:
 
@@ -147,7 +147,6 @@ object PicfitApi:
   private type ByteSource = Source[ByteString, ?]
   private type SourcePart = MultipartFormData.FilePart[ByteSource]
 
-  private given BSONDocumentHandler[ImageMetaData] = Macros.handler
   private given BSONDocumentHandler[PicfitImage] = Macros.handler
 
 // from playframework/transport/client/play-ws/src/main/scala/play/api/libs/ws/WSBodyWritables.scala
