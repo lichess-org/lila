@@ -564,16 +564,12 @@ final class StudyApi(
 
   def addChapter(studyId: StudyId, data: ChapterMaker.Data, sticky: Boolean, withRatings: Boolean)(
       who: Who
-  ): Fu[List[Chapter]] =
-    allow:
-      data.manyGames match
-        case Some(datas) =>
-          datas.sequentially(addSingleChapter(studyId, _, sticky, withRatings)(who)).map(_.flatten)
-        case _ =>
-          addSingleChapter(studyId, data, sticky, withRatings)(who).dmap(_.toList)
-    .rescue: e =>
-      logger.info(s"StudyApi.addChapter to $studyId failed with $e")
-      fuccess(Nil)
+  ): FuRaise[String, List[Chapter]] =
+    data.manyGames match
+      case Some(datas) =>
+        datas.sequentially(addSingleChapter(studyId, _, sticky, withRatings)(who)).map(_.flatten)
+      case _ =>
+        addSingleChapter(studyId, data, sticky, withRatings)(who).dmap(_.toList)
 
   def addSingleChapter(studyId: StudyId, data: ChapterMaker.Data, sticky: Boolean, withRatings: Boolean)(
       who: Who
