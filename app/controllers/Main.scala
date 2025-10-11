@@ -4,7 +4,7 @@ import play.api.mvc.*
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
-import lila.core.id.GameFullId
+import lila.core.id.{ GameFullId, ImageId }
 import lila.web.{ StaticContent, WebForms }
 
 final class Main(
@@ -136,13 +136,28 @@ final class Main(
         Redirect(url)
 
   def uploadImage(rel: String) = AuthBody(parse.multipartFormData) { ctx ?=> _ ?=>
-    ctx.body.body.file("image") match
-      case Some(image) =>
-        limit.imageUpload(ctx.ip, rateLimited):
+    limit.imageUpload(ctx.ip, rateLimited):
+      ctx.body.body.file("image") match
+        case None => JsonBadRequest("Image content only")
+        case Some(image) =>
           env.memo.picfitApi.bodyImage
-            .upload(rel, image)
+            .upload(
+              rel,
+              image,
+              lila.memo.PicfitApi.uploadForm.bindFromRequest().value,
+              lila.ui.bits.imageDesignWidth(rel)
+            )
             .map(url => JsonOk(Json.obj("imageUrl" -> url)))
-            .recover:
-              case e: Exception => JsonBadRequest(jsonError(e.getMessage))
-      case None => JsonBadRequest(jsonError("Image content only"))
+            .recover { case e: Exception => JsonBadRequest(e.getMessage) }
+  }
+
+  def imageUrl(rel: String, width: Int) = Auth { _ ?=> _ ?=>
+    if width < 1 then JsonBadRequest("Invalid width")
+    else
+      JsonOk(
+        Json.obj(
+          "imageUrl" -> env.memo.picfitApi.url
+            .resize(ImageId(rel), Left(width.min(lila.ui.bits.imageDesignWidth(rel).getOrElse(1920))))
+        )
+      )
   }

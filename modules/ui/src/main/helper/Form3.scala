@@ -164,7 +164,7 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
     st.textarea(
       st.id := id(field),
       name := field.name,
-      cls := List("form-control" -> true, klass -> klass.nonEmpty)
+      cls := List("form-control" -> true) ++ klass.split(" ").map(_ -> true)
     )(validationModifiers(field))(modifiers)((field.value.orZero: String))
 
   val actions = div(cls := "form-actions")

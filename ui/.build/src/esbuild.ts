@@ -159,7 +159,7 @@ const plugins = [
         loader: 'ts',
         contents: (await fs.promises.readFile(args.path, 'utf8')).replace(
           /\$html`([^`]*)`/g,
-          (_, s) => `\`${s.trim().replace(/\s+/g, ' ')}\``,
+          (_, s) => `\`${s.trim().replace(/\s+/g, ' ').replaceAll('> <', '><')}\``,
         ),
       }));
     },

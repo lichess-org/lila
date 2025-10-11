@@ -159,3 +159,29 @@ object bits:
     )
 
   private def itemCls(active: String, item: String) = if active == item then "active" else ""
+
+  def markdownTextarea(picfitIdPrefix: Option[String])(modifiers: Modifier*) =
+    div(
+      cls := "markdown-textarea",
+      picfitIdPrefix.map(id => attr("data-image-upload-url") := routes.Main.uploadImage(id)),
+      picfitIdPrefix.flatMap(id => imageDesignWidth(id)).map(dw => attr("data-image-design-width") := dw),
+      attr("data-image-resize-url") := "/image-url"
+    )(
+      div(cls := "comment-header")(
+        button(cls := "header-tab write active", tpe := "button")("Write"),
+        button(cls := "header-tab preview", tpe := "button", title := "Preview and resize images")("Preview"),
+        button(cls := "upload-image", tpe := "button", title := "Upload image")
+      ),
+      div(cls := "comment-content")(
+        textarea(modifiers),
+        div(cls := "comment-preview none")
+      )
+    )
+
+  def imageDesignWidth(rel: String) =
+    if rel.startsWith("forum") then 864.some
+    else if rel.startsWith("ublog") then 800.some
+    else if rel.startsWith("cms") then 800.some
+    else if rel.startsWith("broadcast") then 800.some
+    else if rel.startsWith("team") then 768.some // desc & private desc
+    else none

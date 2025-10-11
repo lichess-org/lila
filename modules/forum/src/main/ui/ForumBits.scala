@@ -35,3 +35,15 @@ final class ForumBits(helpers: Helpers):
 
   val dataTopic = attr("data-topic")
   val dataUnsub = attr("data-unsub")
+
+  def postTextarea(field: Option[play.api.data.Field])(modifiers: Modifier*) =
+    bits.markdownTextarea("forumPostBody".some)(
+      Seq(
+        rows := 10,
+        minlength := 3,
+        maxlength := 10_000,
+        cls := "form-control post-text-area",
+        id := field.map(f => s"form3-${f.id}"),
+        name := field.map(_.name)
+      ) ++ modifiers
+    )

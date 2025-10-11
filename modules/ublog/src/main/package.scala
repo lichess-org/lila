@@ -7,4 +7,4 @@ private val logger = lila.log("ublog")
 
 val monthOfFirstPost = java.time.YearMonth.of(2021, 9)
 
-val markdownOptions = lila.memo.MarkdownOptions.all.copy(maxPgns = lila.memo.Max(50), imageUpload = true)
+val markdownOptions = lila.memo.MarkdownOptions.all.copy(maxPgns = lila.memo.Max(50), toastUi = true)
