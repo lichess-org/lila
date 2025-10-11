@@ -107,13 +107,13 @@ object UserInfo:
         ctx: Context,
         proxy: IsProxy
     ): Fu[UserInfo] =
+      def isAuthOrNotProxied = ctx.isAuth || (!proxy.isFloodish && !proxy.isCrawler)
+      def showRatings = ctx.noBlind && ctx.pref.showRatings && isAuthOrNotProxied
       (
         perfsRepo.withPerfs(user),
         userApi.getTrophiesAndAwards(user).mon(_.user.segment("trophies")),
         (nbs.playing > 0).so(simulApi.isSimulHost(user.id).mon(_.user.segment("simul"))),
-        ((ctx.noBlind && !proxy.isFloodish && !proxy.isCrawler && ctx.pref.showRatings)
-          .so(ratingChartApi(user)))
-          .mon(_.user.segment("ratingChart")),
+        showRatings.so(ratingChartApi(user)).mon(_.user.segment("ratingChart")),
         (!user.is(UserId.lichess) && !user.isBot).so:
           postApi.nbByUser(user.id).mon(_.user.segment("nbForumPosts"))
         ,
