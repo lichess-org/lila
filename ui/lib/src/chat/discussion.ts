@@ -257,7 +257,7 @@ const actionIcons = (ctrl: ChatCtrl, line: Line): Array<VNode | null> => {
 function renderLine(ctrl: ChatCtrl, line: Line): VNode {
   const textNode = renderText(line.t, ctrl.opts.enhance);
 
-  if (line.u === 'lichess' || line.u === 'Lichess') return h('li.system', textNode);
+  if (line.u === 'lichess') return h('li.system', textNode);
 
   if (line.c) return h('li', [h('span.color', '[' + line.c + ']'), textNode]);
 
