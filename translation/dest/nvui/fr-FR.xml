@@ -13,7 +13,7 @@
   <string name="gameStart">Début de la partie</string>
   <string name="boardCommandList">Liste des commandes quand l\'échiquier a le focus</string>
   <string name="inputFormCommandList">Tapez ces commandes dans le formulaire de commande.</string>
-  <string name="goToInputForm">Aller au formulaire des options de coups et de commandes</string>
+  <string name="goToInputForm">Aller au formulaire de saisie de commandes.</string>
   <string name="announceCurrentSquare">Annoncer la case actuelle</string>
   <string name="announceLastMove">Annoncer le dernier coup</string>
   <string name="announceLastMoveCapture">Annoncer la capture d\'une pièce au dernier coup</string>
