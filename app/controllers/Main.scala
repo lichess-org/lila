@@ -137,9 +137,8 @@ final class Main(
 
   def uploadImage(rel: String) = AuthBody(parse.multipartFormData) { ctx ?=> _ ?=>
     limit.imageUpload(ctx.ip, rateLimited):
-      val formData = ctx.body.body
-      formData.file("image") match
-        case None => JsonBadRequest(jsonError("Image content only"))
+      ctx.body.body.file("image") match
+        case None => JsonBadRequest("Image content only")
         case Some(image) =>
           env.memo.picfitApi.bodyImage
             .upload(
@@ -149,11 +148,11 @@ final class Main(
               lila.ui.bits.imageDesignWidth(rel)
             )
             .map(url => JsonOk(Json.obj("imageUrl" -> url)))
-            .recover { case e: Exception => JsonBadRequest(jsonError(e.getMessage)) }
+            .recover { case e: Exception => JsonBadRequest(e.getMessage) }
   }
 
   def imageUrl(rel: String, width: Int) = Auth { _ ?=> _ ?=>
-    if width < 1 then JsonBadRequest(jsonError("Invalid width"))
+    if width < 1 then JsonBadRequest("Invalid width")
     else
       JsonOk(
         Json.obj(
