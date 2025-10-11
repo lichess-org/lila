@@ -181,11 +181,11 @@ final class FormUi(helpers: Helpers, bits: TeamUi)(
 
   private def teamDescTextarea(field: play.api.data.Field)(modifiers: Modifier*) =
     lila.ui.bits.markdownTextarea("teamDescription".some)(
-      (Seq(
+      Seq(
         rows := 10,
         maxlength := 4000,
         cls := "form-control",
         id := s"form3-${field.id}",
         name := field.name
-      ) ++ modifiers)*
+      ) ++ modifiers
     )
