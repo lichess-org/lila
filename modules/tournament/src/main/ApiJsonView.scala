@@ -51,7 +51,7 @@ final class ApiJsonView(lightUserApi: lila.core.user.LightUserApi)(using Executo
         "status" -> tour.status.id,
         "perf" -> perfJson(tour.perfType)
       )
-      .add("secondsToStart", tour.secondsToStart.some.filter(_ > 0))
+      .add("secondsToStart", tour.secondsToStart.some.filter(_.nonZero))
       .add("hasMaxRating", tour.conditions.maxRating.isDefined) // BC
       .add[Condition.RatingCondition]("maxRating", tour.conditions.maxRating)
       .add[Condition.RatingCondition]("minRating", tour.conditions.minRating)

@@ -39,7 +39,7 @@ final private class StartedOrganizer(
       .void
 
   private def processTour(tour: Tournament): Funit =
-    if tour.secondsToFinish <= 0 then api.finish(tour)
+    if tour.secondsToFinish.isZero then api.finish(tour)
     else if api.killSchedule contains tour.id then
       api.killSchedule.remove(tour.id)
       api.finish(tour)
