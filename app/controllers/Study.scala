@@ -329,10 +329,10 @@ final class Study(
     bindForm(StudyForm.importPgn.form)(
       jsonFormError,
       data =>
-        doImportPgn(id, data, Sri("api")): (chapters, _) =>
+        doImportPgn(id, data, Sri("api")): (chapters, errors) =>
           import lila.study.ChapterPreview.json.given
           val previews = chapters.map(env.study.preview.fromChapter(_))
-          JsonOk(Json.obj("chapters" -> previews))
+          JsonOk(Json.obj("chapters" -> previews, "error" -> errors))
     )
   }
 
