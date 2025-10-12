@@ -4,7 +4,6 @@
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Vyzvať priateľa</string>
   <string name="playAgainstComputer">Hrať proti počítaču</string>
   <string name="gameMode">Herný režim</string>
-  <string name="createLobbyGame">Vytvoriť výzvu</string>
   <string name="youPlayAs">Hráte ako</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Zdieľaním tejto adresy môžete niekoho pozvať k partii</string>
   <string name="gameOver">Koniec partie</string>
