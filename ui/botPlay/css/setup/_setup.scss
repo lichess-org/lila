@@ -5,7 +5,17 @@
 }
 
 .bot-setup__title {
-  text-align: center;
+  @extend %flex-center;
+  justify-content: center;
+  .beta {
+    @extend %box-radius;
+    font-family: monospace;
+    font-size: 0.5em;
+    margin-inline-start: 0.5em;
+    padding: 0.1em 0.3em;
+    background-color: $c-brag;
+    color: $c-over;
+  }
 }
 
 .bot-setup__bots {
