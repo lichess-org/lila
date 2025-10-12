@@ -2,9 +2,8 @@
 <resources>
   <string name="gameSetup">Agordoj de ludo</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Defii geamikon</string>
-  <string name="playAgainstComputer" comment="Appears on the homepage. Opens the modal to create a game against a chess engine. Please keep your translation short.">Ludi kontraŭ komputilo</string>
+  <string name="playAgainstComputer">Ludi kontraŭ komputilo</string>
   <string name="gameMode">Tipo de ludo</string>
-  <string name="createLobbyGame">Krei ludon en atendejo</string>
   <string name="youPlayAs">Koloro de viaj pecoj</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Por inviti iun al ludo, donu ĉi tiun ligilon</string>
   <string name="gameOver">Ludo finiĝis</string>
