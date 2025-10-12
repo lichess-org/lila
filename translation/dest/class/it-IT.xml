@@ -117,4 +117,6 @@ Questo è il link per accedere alla lezione.</string>
   <string name="xIsAKidAccountWarning">%1$s è un profilo per bambini e non può ricevere il tuo messaggio. Devi dare loro l\'URL d\'invito manualmente: %2$s</string>
   <string name="moveToClass">Vai a %s</string>
   <string name="moveToAnotherClass">Vai a un\'altra lezione</string>
+  <string name="allowMessagingBetweenStudents">Consenti messaggi tra studenti</string>
+  <string name="allowMessagingBetweenStudentsDesc">Questo vale solo per gli account che hai creato per i tuoi studenti.</string>
 </resources>
