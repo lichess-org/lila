@@ -31,9 +31,8 @@ final class GeoIP(config: GeoIP.Config, scheduler: Scheduler)(using Executor):
         case e: Exception =>
           logger.error("MaxMindIpGeo couldn't load", e)
           scheduler.scheduleOnce(5.minutes)(loadFromFile())
-          none
 
-  scheduler.scheduleOnce(23.seconds)(loadFromFile())
+  scheduler.scheduleWithFixedDelay(33.seconds, 1.day)(() => loadFromFile())
 
   private val cache: LoadingCache[IpAddress, Option[Location]] =
     lila.memo.CacheApi.scaffeineNoScheduler
