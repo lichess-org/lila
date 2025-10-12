@@ -2,9 +2,8 @@
 <resources>
   <string name="gameSetup">棋局设置</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">挑战朋友</string>
-  <string name="playAgainstComputer" comment="Appears on the homepage. Opens the modal to create a game against a chess engine. Please keep your translation short.">挑战电脑</string>
+  <string name="playAgainstComputer">挑战电脑</string>
   <string name="gameMode">游戏模式</string>
-  <string name="createLobbyGame">创建对局</string>
   <string name="youPlayAs">你执</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">分享这个网址以邀请好友下棋</string>
   <string name="gameOver">棋局结束</string>
