@@ -3,7 +3,6 @@
   <string name="gameSetup">게임 설정</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">친구에게 도전</string>
   <string name="gameMode">게임 모드</string>
-  <string name="createLobbyGame">로비 게임 만들기</string>
   <string name="youPlayAs">당신은 재생</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">이 URL로 친구를 초대하세요</string>
   <string name="gameOver">대국 종료</string>
