@@ -4,7 +4,6 @@
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Erronka jo lagun bati</string>
   <string name="playAgainstComputer">Jokatu ordenagailuaren aurka</string>
   <string name="gameMode">Jokuaren modua</string>
-  <string name="createLobbyGame">Sortu partidaren itxarongela</string>
   <string name="youPlayAs">Kolore hau izango duzu</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Norbait jokatzera gonbidatzeko, URL hau bidali iezaiozu</string>
   <string name="gameOver">Partida amaitu da</string>
