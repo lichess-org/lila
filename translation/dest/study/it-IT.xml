@@ -32,7 +32,7 @@
   </plurals>
   <string name="inviteToTheStudy">Invita allo studio</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">Invita solo persone che conosci e che desiderano partecipare attivamente a questo studio.</string>
-  <string name="searchByUsername">Cerca per nome utente</string>
+  <string name="searchByUsername" comment="Appears when adding members to a Lichess Study as placeholder text in a search box.">Cerca per nome utente</string>
   <string name="spectator">Spettatore</string>
   <string name="contributor">Partecipante</string>
   <string name="kick">Espelli</string>
@@ -61,6 +61,7 @@
   <string name="studyPgn">PGN dello studio</string>
   <string name="chapterPgn">PGN del capitolo</string>
   <string name="copyChapterPgn">Copia in PGN</string>
+  <string name="copyRawChapterPgn">Copia PGN grezzo</string>
   <string name="downloadGame">Scarica partita</string>
   <string name="studyUrl">URL dello studio</string>
   <string name="currentChapterUrl">URL del capitolo corrente</string>
