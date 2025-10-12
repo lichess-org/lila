@@ -20,6 +20,7 @@ import lila.study.{
   StudyMembers,
   StudyRepo,
   StudyTopic,
+  Chapter,
   ChapterPreviewApi
 }
 
@@ -449,6 +450,15 @@ final class RelayApi(
       .mapConcat(identity)
       .throttle(perSecond.value, 1.second)
       .take(max.fold(9999)(_.value))
+
+  private val isOngoingWithoutDelay = cacheApi[RelayRoundId, Boolean](512, "relay.ongoingWithoutDelay"):
+    _.expireAfterWrite(5.seconds).buildAsyncFuture(roundRepo.isOngoingWithoutDelay)
+
+  def reconfigureStudy(study: Study, chapter: Chapter): Fu[Study] =
+    (study.isRelay && chapter.tags.outcome.isEmpty)
+      .so(isOngoingWithoutDelay.get(study.id.into(RelayRoundId)))
+      .map:
+        if _ then study.configureForOngoingRelay else study
 
   export tourRepo.{ isSubscribed, setSubscribed as subscribe, byId as tourById }
   export roundRepo.nextRoundThatStartsAfterThisOneCompletes
