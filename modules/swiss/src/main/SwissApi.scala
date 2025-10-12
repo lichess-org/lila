@@ -168,7 +168,7 @@ final class SwissApi(
           verify(swiss)
 
   private val initialJoin =
-    lila.memo.RateLimit.composite[UserId]("swiss.user.join")(("fast", 4, 1.hour), ("slow", 12, 1.day))
+    lila.memo.RateLimit.composite[UserId]("swiss.user.join")(("fast", 4, 1.hour), ("slow", 24, 1.day))
 
   def join(id: SwissId, isInTeam: TeamId => Boolean, password: Option[String])(using
       me: Me
