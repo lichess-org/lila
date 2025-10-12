@@ -31,7 +31,8 @@ final class Env(
     settingStore: lila.memo.SettingStore.Builder,
     client: lila.search.client.SearchClient,
     reportApi: lila.report.ReportApi,
-    lightUser: lila.core.LightUser.GetterSync
+    lightUser: lila.core.LightUser.GetterSync,
+    automod: lila.report.Automod
 )(using Executor, Scheduler, play.api.Mode):
 
   export net.{ assetBaseUrl, baseUrl, domain, assetDomain }
@@ -41,7 +42,7 @@ final class Env(
 
   val topic = wire[UblogTopicApi]
 
-  val automod = wire[UblogAutomod]
+  val ublogAutomod = wire[UblogAutomod]
 
   val api: UblogApi = wire[UblogApi]
 

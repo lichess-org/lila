@@ -10,18 +10,29 @@ export type UpdateImageHook =
   | { markdown: Prop<string> }
   | { url: (img: HTMLElement, newUrl: string, width: number) => void };
 
-type ResizerOptions = {
+export type ResizeArgs = {
   root: HTMLElement;
   update: UpdateImageHook;
   designWidth?: number;
+  origin?: string;
 };
 
-export async function wireMarkdownImgResizers({ root, update, designWidth }: ResizerOptions): Promise<void> {
+export async function wireMarkdownImgResizers({
+  root,
+  update,
+  designWidth,
+  origin,
+}: ResizeArgs): Promise<void> {
   let rootStyle: CSSStyleDeclaration;
   let rootPadding: number;
+  globalImageLinkRe ??= new RegExp(
+    String.raw`!\[([^\n]*)\]\((${regexQuote(origin ?? 'http')}[^)\s]+[?&]path=([a-z]\w+:[a-z0-9]{12}:[a-z0-9]{8}\.\w{3,4})[^)]*)\)`,
+    'gi',
+  );
 
-  for (const [index, img] of root.querySelectorAll<HTMLImageElement>('img').entries()) {
+  for (const img of root.querySelectorAll<HTMLImageElement>('img')) {
     if (img.closest('.markdown-img-resizer')) continue; // already wrapped
+    if (origin && !img.src.startsWith(origin)) continue;
     await img.decode().catch(() => {});
     rootStyle ??= window.getComputedStyle(root);
     rootPadding ??= parseInt(rootStyle.paddingLeft) + parseInt(rootStyle.paddingRight);
@@ -32,8 +43,6 @@ export async function wireMarkdownImgResizers({ root, update, designWidth }: Res
       const rootWidth = root.clientWidth - rootPadding;
       const imgClientRect = img.getBoundingClientRect();
       const aspectRatio = img.naturalHeight ? img.naturalWidth / img.naturalHeight : 1;
-      // here, extrinsic is pixels in the current viewport (whereas intrinsic is natural/picfit size)
-      const oldExtrinsicImgWidth = imgClientRect.width;
       const isBottomDrag = handle.className.includes('bottom');
       const isCornerDrag = !isBottomDrag && imgClientRect.bottom - down.clientY < 18;
       const dir = handle.className.includes('left') ? -1 : 1;
@@ -41,7 +50,7 @@ export async function wireMarkdownImgResizers({ root, update, designWidth }: Res
 
       handle.setPointerCapture?.(down.pointerId);
       img.style.willChange = 'width,height';
-      img.style.width = `${oldExtrinsicImgWidth}px`;
+      img.style.width = `${imgClientRect.width}px`;
       img.closest<HTMLElement>('.markdown-img-resizer')!.style.width = '';
 
       const pointermove = (move: PointerEvent) => {
@@ -50,14 +59,14 @@ export async function wireMarkdownImgResizers({ root, update, designWidth }: Res
           : isBottomDrag
             ? (move.clientY - down.clientY) * aspectRatio
             : dir * 2 * (move.clientX - down.clientX);
-        const newExtrinsicImgWidth = Math.round(
-          clamp(oldExtrinsicImgWidth + deltaX, { min: 128, max: rootWidth }),
+        const viewportImgWidth = Math.round(
+          clamp(imgClientRect.width + deltaX, { min: 128, max: rootWidth }),
         );
-        img.style.width = `${newExtrinsicImgWidth}px`;
+        img.style.width = `${viewportImgWidth}px`;
         img.dataset.resizeWidth = String(
-          designWidth ? Math.round((newExtrinsicImgWidth * designWidth) / rootWidth) : newExtrinsicImgWidth,
+          designWidth ? Math.round((viewportImgWidth * designWidth) / rootWidth) : viewportImgWidth,
         );
-        img.dataset.widthRatio = String(newExtrinsicImgWidth / rootWidth);
+        img.dataset.widthRatio = String(viewportImgWidth / rootWidth);
       };
       const pointerup = async () => {
         handle.removeEventListener('pointermove', pointermove);
@@ -76,12 +85,13 @@ export async function wireMarkdownImgResizers({ root, update, designWidth }: Res
           return;
         }
         const text = update.markdown();
-        const path = [...text.matchAll(globalImageLinkRe)][index];
-        if (!img.dataset.widthRatio || !path[1]) return;
-        const { imageUrl } = await xhrJson(`/image-url/${path[2]}?width=${img.dataset.resizeWidth}`);
-        const before = text.slice(0, path.index);
-        const after = text.slice(path.index! + path[0].length);
-        update.markdown(before + `![${path[1]}](${imageUrl})` + after);
+        console.log(img.src, [...text.matchAll(globalImageLinkRe)]);
+        const link = [...text.matchAll(globalImageLinkRe)].find(l => l[2] === img.src);
+        if (!link?.[1] || !img.dataset.widthRatio) return;
+        const { imageUrl } = await xhrJson(`/image-url/${link[3]}?width=${img.dataset.resizeWidth}`);
+        const before = text.slice(0, link.index);
+        const after = text.slice(link.index! + link[0].length);
+        update.markdown(before + `![${link[1]}](${imageUrl})` + after);
       };
       handle.addEventListener('pointermove', pointermove, { passive: true });
       handle.addEventListener('pointerup', pointerup, { passive: true });
@@ -122,12 +132,15 @@ export async function naturalSize(image: Blob): Promise<{ width: number; height:
   }
 }
 
+let globalImageLinkRe: RegExp;
 const imageIdRe = /&path=([a-z]\w+:[a-z0-9]{12}:[a-z0-9]{8}\.\w{3,4})&/i;
-const globalImageLinkRe =
-  /!\[([^\n]*)\]\(https:[^)\s]+&path=([a-z]\w+:[a-z0-9]{12}:[a-z0-9]{8}\.\w{3,4})&[^)]+\)/gi;
 
 function dragHandles(img: HTMLImageElement): HTMLElement[] {
   const span = img.closest('.markdown-img-container') ?? wrapImg({ img });
   span.firstElementChild!.classList.add('markdown-img-resizer');
   return [...span.querySelectorAll<HTMLElement>('.resize-handle')];
+}
+
+function regexQuote(origin: string) {
+  return origin.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }

@@ -46,8 +46,10 @@ object UblogAutomod:
   private given Reads[FuzzyResult] = Json.reads[FuzzyResult]
 
 private final class UblogAutomod(
-    reportApi: lila.report.ReportApi,
-    settingStore: lila.memo.SettingStore.Builder
+    automod: lila.report.Automod,
+    settingStore: lila.memo.SettingStore.Builder,
+    picfitApi: lila.memo.PicfitApi,
+    picfitUrl: lila.memo.PicfitUrl
 )(using Executor):
 
   import UblogAutomod.*
@@ -65,22 +67,34 @@ private final class UblogAutomod(
   )
 
   private[ublog] def apply(post: UblogPost, temperature: Double = 0): Fu[Option[Assessment]] = post.live.so:
-    val userText = post.allText.take(40_000) // bin/ublog-automod.mjs, important for hash
-    reportApi
-      .automodRequest(
-        userText = userText,
-        systemPrompt = promptSetting.get(),
-        model = modelSetting.get(),
-        temperature = temperature
-      )
-      .map:
-        _.flatMap(normalize).so: res =>
-          lila.mon.ublog.automod.quality(res.quality.toString).increment()
-          lila.mon.ublog.automod.flagged(res.flagged.isDefined).increment()
-          res.copy(hash = Algo.sha256(userText).hex.take(12).some).some // matches ublog-automod.mjs hash
-      .monSuccess(_.ublog.automod.request)
+    val assessImages =
+      automod
+        .markdownImages(~post.image.map(i => s"![](${picfitUrl.contain(i.id, 560)})\n") + post.allText)
+        .flatMap: images =>
+          picfitApi.setContext(s"/ublog/${post.id}/redirect", images.map(_.id)*).inject(images)
+    val assessText =
+      val userText = post.allText.take(40_000) // match bin/ublog-automod.mjs hash
+      automod
+        .text(
+          userText = userText,
+          systemPrompt = promptSetting.get(),
+          model = modelSetting.get(),
+          temperature = temperature
+        )
+        .map:
+          _.flatMap(normalize).so: res =>
+            lila.mon.ublog.automod.quality(res.quality.toString).increment()
+            lila.mon.ublog.automod.flagged(res.flagged.isDefined).increment()
+            res.copy(hash = Algo.sha256(userText).hex.take(12).some).some // match bin/ublog-automod.mjs hash
+        .monSuccess(_.ublog.automod.request)
+    assessImages
+      .zip(assessText)
+      .map: (imgs, text) =>
+        val flags = imgs.flatMap(_.automod.flatMap(_.flagged))
+        if flags.nonEmpty then text.map(t => t.copy(flagged = (t.flagged ++ flags).mkString(", ").some))
+        else text
 
-  private def normalize(rsp: JsObject): Option[Assessment] = // keep in sync with bin/ublog-automod.mjs
+  private def normalize(rsp: JsObject): Option[Assessment] =
     rsp
       .asOpt[FuzzyResult]
       .flatMap: res =>

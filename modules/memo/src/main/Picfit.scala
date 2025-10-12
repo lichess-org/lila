@@ -22,7 +22,13 @@ case class PicfitImage(
     name: String,
     size: Int, // in bytes
     createdAt: Instant,
-    context: Option[String]
+    context: Option[String],
+    automod: Option[ImageAutomod] = none
+)
+
+case class ImageAutomod(
+    flagged: Option[String] = none,
+    processed: Boolean = false
 )
 
 case class ImageMetaData(
@@ -94,6 +100,23 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
       .flatMap { _.result[PicfitImage].so(picfitServer.delete) }
       .void
 
+  def setContext(context: String, ids: ImageId*): Funit =
+    coll.update.one($inIds(ids), $set("context" -> context), multi = true).void
+
+  def setAutomod(id: ImageId, flagged: Option[String]): Funit =
+    val op = flagged.fold($doc($unset("automod.flagged") ++ $set("automod.processed" -> true))): reason =>
+      $set("automod.processed" -> true, "automod.flagged" -> reason)
+    coll.update.one($id(id), op).void
+
+  def byIds(ids: ImageId*): Fu[Seq[PicfitImage]] =
+    coll
+      .find($inIds(ids))
+      .cursor[PicfitImage]()
+      .list(ids.size)
+
+  // def flaggedByUser(user: UserId): Fu[Seq[PicfitImage]] =
+  //   coll.find($doc("user" -> user, "automod.flagged" -> $exists(true))).cursor[PicfitImage]().collect()
+
   object bodyImage:
     def upload(rel: String, image: FilePart, meta: Option[ImageMetaData], widthCap: Option[Int])(using
         me: Me
@@ -147,6 +170,7 @@ object PicfitApi:
   private type ByteSource = Source[ByteString, ?]
   private type SourcePart = MultipartFormData.FilePart[ByteSource]
 
+  private given BSONDocumentHandler[ImageAutomod] = Macros.handler
   private given BSONDocumentHandler[PicfitImage] = Macros.handler
 
 // from playframework/transport/client/play-ws/src/main/scala/play/api/libs/ws/WSBodyWritables.scala
@@ -160,7 +184,7 @@ object PicfitApi:
 
   def findInMarkdown(md: Markdown): Set[ImageId] =
     // path=ublogBody:mdTLUTfzboGg:wVo9Pqru.jpg
-    val regex = """(?i)&path=([a-z]\w+:[a-z0-9]{12}:[a-z0-9]{8}\.\w{3,4})&""".r
+    val regex = """(?i)[\?&]path=([a-z]\w+:[a-z0-9]{12}:[a-z0-9]{8}\.\w{3,4})&""".r
     regex
       .findAllMatchIn(md.value)
       .map(_.group(1))
@@ -180,6 +204,10 @@ object PicfitApi:
 
 final class PicfitUrl(config: PicfitConfig)(using Executor) extends lila.core.misc.PicfitUrl:
 
+  val origin =
+    val pathBegin = config.endpointGet.indexOf('/', 8)
+    if pathBegin == -1 then config.endpointGet else config.endpointGet.slice(0, pathBegin)
+
   // This operation will able you to resize the image to the specified width and height.
   // Preserves the aspect ratio
   def resize(
@@ -189,6 +217,8 @@ final class PicfitUrl(config: PicfitConfig)(using Executor) extends lila.core.mi
     width = ~size.left.toOption,
     height = ~size.toOption
   )
+
+  def contain(id: ImageId, size: Int) = display(id, "resize")(width = size, height = size)
 
   // Thumbnail scales the image up or down using the specified resample filter,
   // crops it to the specified width and height and returns the transformed image.

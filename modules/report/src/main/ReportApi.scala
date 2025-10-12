@@ -25,7 +25,8 @@ final class ReportApi(
     snoozer: lila.memo.Snoozer[Report.SnoozeKey],
     thresholds: Thresholds,
     automodApi: Automod,
-    settingStore: lila.memo.SettingStore.Builder
+    settingStore: lila.memo.SettingStore.Builder,
+    picfitApi: lila.memo.PicfitApi
 )(using Executor, Scheduler, lila.core.config.NetDomain)
     extends lila.core.report.ReportApi:
 
@@ -36,13 +37,13 @@ final class ReportApi(
 
   private lazy val scorer = wire[ReportScore]
 
-  val promptSetting = settingStore[Text](
+  val commsPromptSetting = settingStore[Text](
     "commsAutomodPrompt",
     text = "Comms automod prompt".some,
     default = Text("")
   )
 
-  val modelSetting = settingStore[String](
+  val commsModelSetting = settingStore[String](
     "commsAutomodModel",
     text = "Comms automod model".some,
     default = "Qwen/Qwen3-235B-A22B-Instruct-2507-tput"
@@ -313,33 +314,43 @@ final class ReportApi(
     for _ <- doProcessReport(selector, unsetInquiry = true)
     yield onReportClose()
 
-  def automodRequest(
-      userText: String,
-      systemPrompt: Text,
-      model: String,
-      temperature: Double = 0
-  ): Fu[Option[play.api.libs.json.JsObject]] =
-    automodApi.request(userText, systemPrompt, model, temperature)
-
   def automodComms(userText: String, url: String)(using me: Me): Funit =
+    val assessImages =
+      automodApi
+        .markdownImages(userText)
+        .flatMap: images =>
+          picfitApi.setContext(url, images.map(_.id)*).inject(images)
+    val assessText = automodApi
+      .text(
+        userText,
+        systemPrompt = commsPromptSetting.get(),
+        model = commsModelSetting.get()
+      )
+      .monSuccess(_.mod.report.automod.request)
     for
-      rsp <- automodRequest(userText, systemPrompt = promptSetting.get(), model = modelSetting.get())
-        .monSuccess(_.mod.report.automod.request)
+      (images, textResponse) <- assessImages.zip(assessText)
+      flaggedImages = images.flatMap(_.automod.flatMap(_.flagged))
       suspectOpt <- getSuspect(me)
       reporter <- automodReporter
     yield for
-      res <- rsp
+      res <- textResponse
       fromLlm <- (res \ "assessment").asOpt[String]
-      _ = lila.mon.mod.report.automod.assessment(if fromLlm == "pass" then "ok" else fromLlm).increment()
-      reason <- Reason(if fromLlm == "other" then "comm" else fromLlm) // to avoid explaining "comm" in prompt
+      hasFlaggedImages = flaggedImages.size > 0
+      kamonTag = if hasFlaggedImages then "image" else if fromLlm == "pass" then "ok" else fromLlm
+      _ = lila.mon.mod.report.automod.assessment(kamonTag).increment()
+      reason <- fromLlm match
+        case "pass" if hasFlaggedImages => Reason("comm")
+        case "other" => Reason("comm") // llm knows "other"
+        case r => Reason(r)
       suspect <- suspectOpt
-      summary = ~(res \ "reason").asOpt[String]
+      summary = (flaggedImages ++ (res \ "reason").asOpt[String]).mkString(", ")
     yield create(
       Candidate(
         reporter = reporter,
         suspect = suspect,
         reason = reason,
-        text = s"AUTOMOD: $summary $url"
+        text = (hasFlaggedImages.option("IMAGE") ++ (fromLlm != "pass").option("TEXT")).mkString("/") +
+          s" AI: $summary $url"
       )
     ).recoverWith: e =>
       logger.warn(s"Comms automod failed for ${me.username}: ${e.getMessage}", e)

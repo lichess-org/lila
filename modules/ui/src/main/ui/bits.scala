@@ -13,6 +13,9 @@ import ScalatagsTemplate.{ *, given }
 
 object bits:
 
+  private var picfitOrigin: Option[String] = none // nothing says i love you like a fresh var
+  def setPicfitOrigin(origin: String) = picfitOrigin = origin.some // injected from the app
+
   val engineFullName = "Stockfish 17.1"
 
   def subnav(mods: Modifier*) = st.aside(cls := "subnav"):
@@ -163,8 +166,9 @@ object bits:
   def markdownTextarea(picfitIdPrefix: Option[String])(modifiers: Modifier*) =
     div(
       cls := "markdown-textarea",
-      picfitIdPrefix.map(id => attr("data-image-upload-url") := routes.Main.uploadImage(id)),
-      picfitIdPrefix.flatMap(id => imageDesignWidth(id)).map(dw => attr("data-image-design-width") := dw),
+      picfitIdPrefix.map(pre => attr("data-image-upload-url") := routes.Main.uploadImage(pre)),
+      picfitOrigin.map(origin => attr("data-image-download-origin") := origin),
+      picfitIdPrefix.flatMap(pre => imageDesignWidth(pre)).map(w => attr("data-image-design-width") := w),
       attr("data-image-resize-url") := "/image-url"
     )(
       div(cls := "comment-header")(

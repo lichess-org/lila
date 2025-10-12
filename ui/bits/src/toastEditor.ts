@@ -7,12 +7,12 @@ import { currentTheme } from 'lib/device';
 import { wireMarkdownImgResizers, wrapImg, naturalSize } from 'lib/view/markdownImgResizer';
 
 export function makeToastEditor(el: HTMLTextAreaElement, text: string = '', height: string = '60vh'): Editor {
-  const designWidth = Number(el.dataset.imageDesignWidth);
   const rewire = () =>
     wireMarkdownImgResizers({
       root: document.querySelector<HTMLElement>('.toastui-editor-ww-container .ProseMirror')!,
       update: { url: updateImage },
-      designWidth,
+      designWidth: Number(el.dataset.imageDesignWidth),
+      origin: el.dataset.imageDownloadOrigin,
     });
   const editor = newToast(el, text, rewire, height);
   rewire();
