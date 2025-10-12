@@ -2,7 +2,7 @@
 <resources>
   <string name="gameSetup">Configurare joc</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Provoacă un prieten</string>
-  <string name="playAgainstComputer" comment="Appears on the homepage. Opens the modal to create a game against a chess engine. Please keep your translation short.">Joacă împotriva calculatorului</string>
+  <string name="playAgainstComputer">Joacă împotriva calculatorului</string>
   <string name="gameMode">Mod joc</string>
   <string name="youPlayAs">Tu joci ca</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Pentru a invita pe cineva să joace, folosiți acest URL</string>
@@ -336,7 +336,7 @@
   <string name="loginToChat">Conectare la chat</string>
   <string name="youHaveBeenTimedOut">Pentru o perioadă, nu mai aveți acces la chat.</string>
   <string name="spectatorRoom">Zona spectatorilor</string>
-  <string name="composeMessage" comment="Appears as a button on user profiles. Pressing the button will let you send a message to that user. &quot;Message&quot; is used as a verb.&#10;&#10;This text used to state &quot;Compose message&quot;. Please shorten to just &quot;Message&quot; if you see a translation of the old version of the string.">Compune un mesaj</string>
+  <string name="composeMessage">Compune un mesaj</string>
   <string name="subject">Subiect</string>
   <string name="send">Trimite</string>
   <string name="incrementInSeconds">Adaos de timp în secunde</string>
