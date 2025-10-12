@@ -84,7 +84,7 @@ const stateOff = (ctrl: RelayCtrl) =>
   hl(
     'div.state.off.clickable',
     { hook: bind('click', _ => ctrl.setSync(true)), attrs: dataIcon(licon.PlayTriangle) },
-    [hl('div.fat', 'Click to connect')],
+    [hl('div.fat', 'Connect to source')],
   );
 
 const statePush = (ctrl: RelayCtrl) =>
