@@ -152,7 +152,7 @@ final class Study(
             Redirect(chapterId.fold(rt.path)(rt.path))
     else f
 
-  private def showQuery(query: Fu[Option[WithChapter]])(using ctx: Context): Fu[Result] =
+  private def showQuery(query: Option[WithChapter])(using ctx: Context): Fu[Result] =
     Found(query): oldSc =>
       CanView(oldSc.study) {
         if !oldSc.study.notable && HTTPRequest.isCrawler(req).yes
@@ -227,7 +227,7 @@ final class Study(
 
   def show(id: StudyId) = OpenOrScoped(_.Study.Read, _.Web.Mobile):
     orRelayRedirect(id):
-      showQuery(env.study.api.byIdWithChapter(id))
+      env.study.api.byIdWithChapter(id).flatMap(showQuery)
 
   def chapter(id: StudyId, chapterId: StudyChapterId) = OpenOrScoped(_.Study.Read, _.Web.Mobile):
     orRelayRedirect(id, chapterId.some):
@@ -239,8 +239,8 @@ final class Study(
               .exists(id)
               .flatMap:
                 if _ then negotiate(Redirect(routes.Study.show(id)), notFoundJson())
-                else showQuery(fuccess(none))
-          case sc => showQuery(fuccess(sc))
+                else showQuery(none)
+          case sc => showQuery(sc)
 
   def chapterConfig(id: StudyId, chapterId: StudyChapterId) = Open:
     Found(env.study.chapterRepo.byIdAndStudy(chapterId, id)): chapter =>

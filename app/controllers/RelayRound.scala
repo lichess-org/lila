@@ -282,8 +282,9 @@ final class RelayRound(
                 .flatMap(_.upstream)
                 .map(_.urls.toPair(netDomain))
           case _ => fuccess(none)
-        crossSiteIsolation = videoUrls.isEmpty || (rt.tour.pinnedStream.isDefined && crossOriginPolicy
-          .supportsCredentiallessIFrames(ctx.req))
+        crossSiteIsolation = videoUrls.isEmpty || (
+          rt.tour.pinnedStream.isDefined && crossOriginPolicy.supportsCredentiallessIFrames(ctx.req)
+        )
         data = env.relay.jsonView.makeData(
           rt.tour.withRounds(rounds.map(_.round)),
           rt.round.id,
