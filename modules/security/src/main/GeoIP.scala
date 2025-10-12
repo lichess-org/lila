@@ -20,7 +20,12 @@ final class GeoIP(config: GeoIP.Config, scheduler: Scheduler)(using Executor):
       try
         val time = lila.common.Chronometer.sync:
           reader = DatabaseReader.Builder(java.io.File(config.file)).build.some
-        logger.info(s"MaxMindIpGeo loaded from ${config.file} in ${time.showDuration}")
+        reader.foreach: r =>
+          val meta = r.getMetadata
+          val date = isoInstantFormatter.format(millisToInstant(meta.getBuildDate.getTime))
+          logger.info(s"${meta.getDescription} $date loaded from ${config.file} in ${time.showDuration}")
+          lila.mon.security.geoip.epoch.update(meta.getBuildDate.getTime.toDouble)
+          lila.mon.security.geoip.loadTime.update(time.millis)
         cache.invalidateAll()
       catch
         case e: Exception =>
