@@ -64,8 +64,7 @@ body {
   }
 
   .keyboard-move {
-    grid-area: kb-move;
-    margin: $analyse-block-gap;
+    display: none;
   }
 
   ---chat-height: fit-content(0);
@@ -118,6 +117,9 @@ body {
     }
 
     .keyboard-move {
+      display: block;
+      grid-area: kb-move;
+      margin: $analyse-block-gap;
       margin: calc($analyse-block-gap / 2) 0 0 0;
     }
   }
