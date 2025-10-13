@@ -23,7 +23,7 @@ final class TopNav(helpers: Helpers):
           )
         ),
         div(role := "group")(
-          if ctx.noBot then a(href := s"${langHref("/")}?any#hook")(trans.site.newGame())
+          if ctx.noBot then a(href := s"${langHref("/")}?any#hook")(trans.site.createLobbyGame())
           else a(href := "/?any#friend")(trans.site.challengeAFriend()),
           Option.when(ctx.noBot):
             frag(
