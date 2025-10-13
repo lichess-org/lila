@@ -2,9 +2,9 @@
 <resources>
   <string name="gameSetup">Game setup</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Challenge a friend</string>
-  <string name="playAgainstComputer" comment="Appears on the homepage. Opens the modal to create a game against a chess engine. Please keep your translation short.">Play against computer</string>
+  <string name="playAgainstComputer">Play against computer</string>
   <string name="gameMode">Game mode</string>
-  <string name="createLobbyGame">Create lobby game</string>
+  <string name="newGame" comment="One of the three main buttons on the home page. Opens a modal which lets users list a new game in the lobby.">New game</string>
   <string name="youPlayAs">You play as</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">To invite someone to play, give this URL</string>
   <string name="gameOver">Game Over</string>
@@ -319,7 +319,7 @@
   <string name="loginToChat">Sign in to chat</string>
   <string name="youHaveBeenTimedOut">You have been timed out.</string>
   <string name="spectatorRoom">Spectator room</string>
-  <string name="composeMessage" comment="This text used to be &quot;Compose message&quot;">Message</string>
+  <string name="composeMessage">Message</string>
   <string name="subject">Subject</string>
   <string name="send">Send</string>
   <string name="incrementInSeconds">Increment in seconds</string>

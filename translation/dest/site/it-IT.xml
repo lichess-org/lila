@@ -2,9 +2,9 @@
 <resources>
   <string name="gameSetup">Impostazioni partita</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Lancia una sfida</string>
-  <string name="playAgainstComputer" comment="Appears on the homepage. Opens the modal to create a game against a chess engine. Please keep your translation short.">Gioca contro il computer</string>
+  <string name="playAgainstComputer">Gioca contro il computer</string>
   <string name="gameMode">Modalità di gioco</string>
-  <string name="createLobbyGame">Crea una partita nella lobby</string>
+  <string name="newGame" comment="One of the three main buttons on the home page. Opens a modal which lets users list a new game in the lobby.">Nuova partita</string>
   <string name="youPlayAs">Giochi come</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Per invitare qualcuno a giocare, dagli questo URL</string>
   <string name="gameOver">Partita terminata</string>
@@ -319,7 +319,7 @@
   <string name="loginToChat">Entra per partecipare alla chat</string>
   <string name="youHaveBeenTimedOut">Sei stato temporaneamente mutato.</string>
   <string name="spectatorRoom">Chat spettatori</string>
-  <string name="composeMessage" comment="Appears as a button on user profiles. Pressing the button will let you send a message to that user. &quot;Message&quot; is used as a verb.&#10;&#10;This text used to state &quot;Compose message&quot;. Please shorten to just &quot;Message&quot; if you see a translation of the old version of the string.">Componi messaggio</string>
+  <string name="composeMessage">Componi messaggio</string>
   <string name="subject">Oggetto</string>
   <string name="send">Invia</string>
   <string name="incrementInSeconds">Incremento in secondi</string>
@@ -345,6 +345,7 @@
     <item quantity="other">%s in corso</item>
   </plurals>
   <string name="exportGames">Esporta le partite</string>
+  <string name="ratingFilter">Filtro punteggi</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Concedi %s secondo</item>
     <item quantity="other">Concedi %s secondi</item>
@@ -400,6 +401,7 @@
     <item quantity="other">Ti mancano ancora %s partite classificate</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Il tuo punteggio %s è provvisorio</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">I filtri dei punteggi sono bloccati perché la tua valutazione non è stabile. Giocare partite classificate aumenterà la stabilità.</string>
   <string name="yourPerfRatingIsTooHigh">Il tuo punteggio %1$s (%2$s) è troppo alto</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Il tuo miglior punteggio settimanale %1$s (%2$s) è troppo alto</string>
   <string name="yourPerfRatingIsTooLow">Il tuo punteggio %1$s (%2$s) è troppo basso</string>
@@ -829,6 +831,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="notifications">Notifiche</string>
   <string name="notificationsX">Notifiche: %1$s</string>
   <string name="perfRatingX">Punteggio: %s</string>
+  <string name="yourRatingIsX">Il tuo punteggio è %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s secondi per giocare la prima mossa</item>
     <item quantity="other">%s secondi per giocare la prima mossa</item>
@@ -880,6 +883,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="playVariationToCreateConditionalPremoves">Gioca una variazione per creare premosse condizionali</string>
   <string name="noConditionalPremoves">Nessuna premossa condizionale</string>
   <string name="playX">Gioca %s</string>
+  <string name="challengeX">Sfida %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">e salva %s linea pre-mossa</item>
     <item quantity="other">e salva %s linee pre-mossa</item>
@@ -1012,4 +1016,9 @@ Tutti i costi operativi, lo sviluppo e i contenuti sono finanziati esclusivament
   <string name="enableBlindMode">Attiva \"modalità non vedenti\"</string>
   <string name="disableBlindMode">Disattiva \"modalità non vedenti\"</string>
   <string name="copyToClipboard">Copia negli appunti</string>
+  <string name="online" comment="status of a user">in linea</string>
+  <string name="offline" comment="status of a user">offline</string>
+  <string name="search">Cerca</string>
+  <string name="clearSearch">Cancella ricerca</string>
+  <string name="tags">Tag</string>
 </resources>

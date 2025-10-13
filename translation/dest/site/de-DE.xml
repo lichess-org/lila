@@ -2,9 +2,9 @@
 <resources>
   <string name="gameSetup">Spieleinstellungen</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Einen Freund herausfordern</string>
-  <string name="playAgainstComputer" comment="Appears on the homepage. Opens the modal to create a game against a chess engine. Please keep your translation short.">Gegen den Computer spielen</string>
+  <string name="playAgainstComputer">Gegen den Computer spielen</string>
   <string name="gameMode">Spielmodus</string>
-  <string name="createLobbyGame">Neue Partie erstellen</string>
+  <string name="newGame">Neue Partie</string>
   <string name="youPlayAs">Du spielst als</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Versende diese URL, um jemanden zum Spiel einzuladen</string>
   <string name="gameOver">Partie beendet</string>
@@ -319,7 +319,7 @@
   <string name="loginToChat">Logge dich ein, um zu chatten</string>
   <string name="youHaveBeenTimedOut">Dir wurde eine Auszeit verordnet.</string>
   <string name="spectatorRoom">Zuschauerraum</string>
-  <string name="composeMessage" comment="Appears as a button on user profiles. Pressing the button will let you send a message to that user. &quot;Message&quot; is used as a verb.&#10;&#10;This text used to state &quot;Compose message&quot;. Please shorten to just &quot;Message&quot; if you see a translation of the old version of the string.">Nachricht verfassen</string>
+  <string name="composeMessage">Nachricht verfassen</string>
   <string name="subject">Betreff</string>
   <string name="send">Senden</string>
   <string name="incrementInSeconds">Inkrement in Sekunden</string>

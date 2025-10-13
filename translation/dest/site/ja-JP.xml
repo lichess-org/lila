@@ -4,7 +4,6 @@
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">友達に挑戦</string>
   <string name="playAgainstComputer">コンピュータと対戦</string>
   <string name="gameMode">対局モード</string>
-  <string name="createLobbyGame">ロビー対局を作成</string>
   <string name="youPlayAs">色（白/黒）</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">誰かを招待する時はこのURLを送ってください</string>
   <string name="gameOver">終局</string>

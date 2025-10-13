@@ -46,6 +46,7 @@
   <string name="pawn">peón</string>
   <string name="whitePawn">peón branco</string>
   <string name="blackPawn">peón negro</string>
+  <string name="sanSymbols" comment="Keep this order: king queen rook bishop knight takes">R D T A C</string>
   <string name="sanTakes" comment="Indicates a piece captured another piece as part of a longer sentence.&#10;Examples:&#10;&quot;knight takes f 3&quot;&#10;&quot;e takes f 3&quot;&#10;The exact format can vary depending on the user's preferences. See the screenshot for the options as of 2025-08-23.&#10;&#10;Used only in blind mode when the screen reader verbally announces a move.&#10;&#10;'Takes' corresponds to &quot;x&quot; in Standard Algebraic Notation, for pieces being captured.">captura</string>
   <string name="sanCheck" comment="+ in standard notation">xaque</string>
   <string name="sanCheckmate" comment="# in standard notation">xaque mate</string>
