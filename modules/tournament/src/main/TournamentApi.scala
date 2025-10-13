@@ -487,7 +487,9 @@ final class TournamentApi(
                 if tour.isCreated then playerRepo.remove(tour.id, userId)
                 else playerRepo.withdraw(tour.id, userId)
               _ <- updateNbPlayers(tourId)
-            yield socket.reload(tourId)
+            yield
+              duelStore.kick(tour, userId)
+              socket.reload(tourId)
 
   // withdraws the player and forfeits all pairings in ongoing tournaments
   private[tournament] def ejectLameFromEnterable(tourId: TourId, userId: UserId): Funit =
@@ -507,6 +509,7 @@ final class TournamentApi(
             yield ()
           _ <- updateNbPlayers(tour.id)
         yield
+          duelStore.kick(tour, userId)
           socket.reload(tour.id)
           publish()
 

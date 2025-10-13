@@ -12,7 +12,7 @@ case class Duel(
     averageRating: IntRating
 ):
 
-  def has(u: User) = u.is(p1) || u.is(p2)
+  def has(u: UserId) = u.is(p1) || u.is(p2)
 
   def userIds = List[UserId](p1.name.id, p2.name.id)
 
@@ -44,7 +44,7 @@ final private class DuelStore:
     get(tourId).so:
       scalalib.HeapSort.topNToList(_, nb)(using ratingOrdering)
 
-  def find(tour: Tournament, user: User): Option[GameId] =
+  def find(tour: Tournament, user: UserId): Option[GameId] =
     get(tour.id).flatMap { _.find(_.has(user)).map(_.gameId) }
 
   def add(tour: TourId, game: GameId, p1: UsernameRating, p2: UsernameRating, ranking: Ranking): Unit =
@@ -75,3 +75,6 @@ final private class DuelStore:
       Option.when(w.nonEmpty)(w)
 
   def remove(tour: Tournament): Unit = byTourId.remove(tour.id)
+
+  def kick(tour: Tournament, user: UserId): Unit =
+    find(tour, user).foreach(remove(_, tour.id))
