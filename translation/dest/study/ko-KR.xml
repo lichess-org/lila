@@ -29,7 +29,7 @@
   </plurals>
   <string name="inviteToTheStudy">연구에 초대</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">당신이 아는 사람들이나 연구에 적극적으로 참여하고 싶은 사람들만 초대하세요.</string>
-  <string name="searchByUsername">사용자 이름으로 검색</string>
+  <string name="searchByUsername" comment="Appears when adding members to a Lichess Study as placeholder text in a search box.">사용자 이름으로 검색</string>
   <string name="spectator">관전자</string>
   <string name="contributor">기여자</string>
   <string name="kick">강제 퇴장</string>
