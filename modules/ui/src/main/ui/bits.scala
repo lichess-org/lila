@@ -1,15 +1,12 @@
 package lila.ui
 
 import play.api.i18n.Lang
-
 import java.time.YearMonth
-
 import chess.format.Fen
 
 import lila.core.i18n.Translate
 import lila.core.security.HcaptchaForm
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 object bits:
 
@@ -160,7 +157,7 @@ object bits:
 
   private def itemCls(active: String, item: String) = if active == item then "active" else ""
 
-  def markdownTextarea(picfitIdPrefix: Option[String])(modifiers: Modifier*) =
+  def markdownTextarea(picfitIdPrefix: Option[String])(textareaTag: Tag) =
     div(
       cls := "markdown-textarea",
       picfitIdPrefix.map(id => attr("data-image-upload-url") := routes.Main.uploadImage(id)),
@@ -173,7 +170,7 @@ object bits:
         button(cls := "upload-image", tpe := "button", title := "Upload image")
       ),
       div(cls := "comment-content")(
-        textarea(modifiers),
+        textareaTag,
         div(cls := "comment-preview none")
       )
     )

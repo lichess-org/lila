@@ -54,8 +54,8 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
           ),
           postForm(cls := "form3", action := routes.ForumTopic.create(categ.id))(
             form3.group(form("name"), trans.site.subject())(form3.input(_)(autofocus)),
-            form3.group(form("post")("text"), trans.site.message(), help = markdownIsAvailable.some)(f =>
-              bits.postTextarea(f.some)()
+            form3.group(form("post")("text"), trans.site.message(), help = markdownIsAvailable.some)(
+              bits.postTextarea(_)()
             ),
             renderCaptcha(form("post"), captcha),
             form3.actions(
@@ -189,17 +189,14 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
                     dataIcon := Icon.InfoCircle,
                     cls := "text",
                     href := routes.Cms.lonePage(CmsPageKey("forum-etiquette"))
-                  )(
-                    "Forum etiquette"
-                  )
+                  )("Forum etiquette")
                 ).some
-              )(f =>
+              ): f =>
                 if plaintext then
                   form3.textarea(f, klass = "post-text-area")(rows := 10, bits.dataTopic := topic.id)(
                     formText
                   )
-                else bits.postTextarea(f.some)(bits.dataTopic := topic.id, formText)
-              ),
+                else bits.postTextarea(f)(bits.dataTopic := topic.id, formText),
               renderCaptcha(form, captcha),
               form3.actions(
                 a(href := routes.ForumCateg.show(categ.id))(trans.site.cancel()),
@@ -240,7 +237,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
             form3.group(form("post")("text"), trans.site.message())(f =>
               if plaintext then
                 form3.textarea(f, klass = "post-text-area")(rows := 10, autofocus := "")(s"\n\n\n$text")
-              else bits.postTextarea(f.some)(autofocus := "", maxlength := 200_000, s"\n\n\n$text".some)
+              else bits.postTextarea(f)(autofocus := "", maxlength := 200_000, s"\n\n\n$text".some)
             ),
             form3.hidden("name", s"${me.username.value} problem report"),
             renderCaptcha(form("post"), captcha),
