@@ -106,7 +106,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
               else
                 FoundPage(env.forum.categRepo.byId(diagnosticId)): categ =>
                   views.forum.topic
-                    .makeDiagnostic(categ, forms.topic(false), anyCaptcha, data.pp.text, ~data.plaintext)
+                    .makeDiagnostic(categ, forms.topic(false), anyCaptcha, data.text, ~data.plaintext)
       )
   }
 
