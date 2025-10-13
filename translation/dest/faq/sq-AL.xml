@@ -17,7 +17,7 @@
   <string name="areThereWebsitesBasedOnLichess">A ka sajte të bazuara në Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Po. Lichess-i në fakt ka frymëzuar sajte me burim të hapur që përdorin %1$s, %2$s, ose %3$s.</string>
   <string name="keyboardShortcuts">Çfarë shkurtore tastiere ka?</string>
-  <string name="keyboardShortcutsExplanation">Disa faqe Lichess-i kanë shkurtore që mund të përdorni. Provoni të shtypni tastin “?” në një faqe ushtrimesh, analizash, puzzle-esh apo lojërësh, që të shfaqen shkurtoret e gatshme të tastierës.</string>
+  <string name="keyboardShortcutsExplanation">Disa faqe Lichess-i kanë shkurtore që mund të përdorni. Provoni të shtypni tastin “?” në një faqe ushtrimesh, analizash, puzzle-esh apo lojërash, që të shfaqen shkurtoret e gatshme të tastierës.</string>
   <string name="fairPlay">Fair Play</string>
   <string name="whenAmIEligibleRatinRefund">Kur kualifikohem për kthim pikësh të humbura nga lojtarë hileqarë?</string>
   <string name="ratingRefundExplanation">Një minutë pasi një lojtar cilësohet si i tillë, i merren 40 lojëra të vlerësuara të 3 ditët e fundit. Nëse jeni kundërshtar i tij në këto lojëra, humbet vlerësim (për shkak të një humbjeje ose barazimi) dhe vlerësimi për ju nuk qe i përkohshëm, përfitoni kthim pikësh. Kthimi i pikëve bazohen në vlerësimin tuaj kulmor dhe në ecurinë e vlerësimeve tuaja pas lojës.
@@ -26,7 +26,7 @@
   <string name="leavingGameWithoutResigningExplanation">Nëse kundërshtari juaj ndërpret/braktis shpesh lojërat, për ta jepet “dëbuar nga luajtje”, që do të thotë se dëbohen përkohësisht nga luajtja e lojërave. Kjo nuk shfaqet publikisht në profilin e tij. Nëse kjo sjellje vazhdon, kohëzgjatja e dëbimit nga luajta rritet - dhe përsëritja e zgjatur e sjelljes së kësaj natyre ve mund të çojë në mbyllje të llogarisë.</string>
   <string name="howCanIBecomeModerator">Si mund të bëhem moderator?</string>
   <string name="youCannotApply">Nuk është e mundur të aplikoni për t’u bërë moderator. Nëse shohim dikë që mendojmë se do të ishte moderator i mirë, do të lidhemi me të drejtpërsëdrejti.</string>
-  <string name="isCorrespondenceDifferent">A është loja me korrespondence ndryshe nga shahu normal?</string>
+  <string name="isCorrespondenceDifferent">A është loja me korrespondencë ndryshe nga shahu normal?</string>
   <string name="pleaseReadFairPlayPage">Për më tepër hollësi, ju lutemi, lexoni %s</string>
   <string name="fairPlayPage">faqen tonë për lojë të ndershme</string>
   <string name="youCanUseOpeningBookNoEngine">Në Lichess, dallimi kryesor në rregullat për shahun me korrespondenë është se lejohet hapja e librave. Përdorimi i makinave të shahut është ende e ndaluar dhe do të sjellë shënim për asistencë nga makina. Edhe pse ICCF-ja lejon përdorim makinash shahu në lojëra me korrespondencë, Lichess-i s’e lejon.</string>
@@ -39,7 +39,7 @@ Për shembull, kohëzgjatja e përafërt e një loje 5+3 është 5 x 60 + 40 x 3
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Cilat variante mund të luaj në Lichess?</string>
   <string name="lichessSupportChessAnd">Lichess-i mbulon shah standard dhe %1$s.</string>
-  <string name="eightVariants">8 variantet e shahut</string>
+  <string name="eightVariants">8 variante shahu</string>
   <string name="whatIsACPL">Ç’është humbja mesatare në centiushtarë (ACPL)?</string>
   <string name="acplExplanation">Një centiushtar është njësia matëse e përdorur në shah si përfaqësuese e avantazhit. Një centiushtar është baras me 1/100 e një ushtari. Ndaj 100 centiushtarë = 1 ushtar. Këto vlera nuk luajnë rol formal në lojë, por janë të dobishme për lojtarët dhe thelbësore në shah kompjuteri, për vlerësim pozicionesh.
 
@@ -59,11 +59,11 @@ Kini parasysh se është e mundur të jepet mat me një kalë ose oficer të vet
   <string name="discoveringEnPassant">Pse mundet një ushtar të hajë një ushtar tjetër, kur është bërë tashmë prerja? (me prerje)</string>
   <string name="explainingEnPassant">Kjo është një lëvizje e ligjshme, e njohur si “me prerje”. Artikulli i Wikipedia-s jep një %1$s.
 
-Përshkruhet në ndarjen 3.7 (d) të %2$s:
+Përshkruhet në ndarjen 3.7.3.1 dhe 3.7.3.2 të %2$s:
 
-“Një ushtar në një kuadrat të të njëjtit rang dhe ngjitur \"A pawn occupying a square on the same rank as and on an adjacent file to an opponent’s pawn which has just advanced two squares in one move from its original square may capture this opponent’s pawn as though the latter had been moved only one square. This capture is only legal on the move following this advance and is called an ‘en passant’ capture.\"
+“Një ushtar në një kuadrat të të njëjtit rresht me një ushtar të kundërshtarit dhe që gjendet në nëj shtyllë ngjitur me të, kur ky i fundit sapo ka përparuar dy kuadrate në një lëvizje që nga kuadrati origjinal, mund ta hajë këtë ushtar të kundërshtarit sikur ky të kishte lëvizur vetëm me një kuadrat. Kjo ngrënies është e ligjshme vetëm për lëvizjen në vijim të këtij përparimi dhe quhet ngrënie me prerje”.\"
 
-See the %3$s on this move for some practice with it.</string>
+Rreth kësaj lvizjeje shihni %3$s, për ca ushtrim me të.</string>
   <string name="goodIntroduction">hyrje të mirë</string>
   <string name="lichessTraining">Trajnim Lichess</string>
   <string name="watchIMRosenCheckmate">Shihni shah-matin %s e Mjeshtrit Ndërkombëtar Eric Rosen.</string>
@@ -167,6 +167,8 @@ Ikonën e kuqe jua shfaqim për t’ju sinjalizuar, kur ndodh kjo. Shpesh, mund 
 4. Shkoni më poshtë dhe klikoni “Vetëluajtje mediash”
 5. Shtoni lichess.org te Lejoje</string>
   <string name="stopMyselfFromPlaying">Të ndal veten nga loja?</string>
+  <string name="mentalHealthCondition">konditë më vete shëndeti mendor</string>
+  <string name="lichessUserstyles">Stile përdoruesi Lichess</string>
   <string name="adviceOnMitigatingAddiction">Marrim rregullisht mesazhe nga përdorues ku na kërkohet t’i ndihmojmë të reshtin së luajturi tej mase.
 
 Teksa Lichess-i nuk dëbon, apo bllokon lojtarë, hiq cenime të Kushteve të Shërbimit, rekomandojmë përdorim mjetesh të jashtme për kufizim sjelljeje të tepruar të luajturi. Disa nga sugjerimet e rëndomta për bllokues sajtesh përfshijnë %1$s, %2$s dhe %3$s. Nësedoni të vazhdoni të përdorni sajtin, por pa qenë të joshur nga kontrolle të shpejtë kohe, mund t’ju interesojnë edhe %4$s, ja një me %5$s.
