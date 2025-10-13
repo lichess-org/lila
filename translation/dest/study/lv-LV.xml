@@ -35,7 +35,7 @@
   </plurals>
   <string name="inviteToTheStudy">Ielūgt uz izpēti</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">Lūdzu, ielūdziet tikai cilvēkus, kurus pazīstat un kuri vēlas pievienoties izpētei.</string>
-  <string name="searchByUsername">Meklēt pēc lietotājvārda</string>
+  <string name="searchByUsername" comment="Appears when adding members to a Lichess Study as placeholder text in a search box.">Meklēt pēc lietotājvārda</string>
   <string name="spectator">Skatītājs</string>
   <string name="contributor">Ieguldītājs</string>
   <string name="kick">Izmest</string>
