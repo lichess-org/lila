@@ -37,9 +37,9 @@
   <string name="whitePlays">Бели на потезу</string>
   <string name="blackPlays">Црни на потезу</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">Ваш противник је напустио игру. Победа ће Вам бити приписана за %s секунди.</item>
-    <item quantity="few">Ваш противник је напустио игру. Победа ће Вам бити приписана за %s секунди.</item>
-    <item quantity="other">Ваш противник је напустио игру. Победа ће Вам бити приписана за %s секунди.</item>
+    <item quantity="one">Твој противник је напустио партију. Можеш прогласити победу за %s секунд.</item>
+    <item quantity="few">Твој противник је напустио партију. Можеш прогласити победу за %s секунде.</item>
+    <item quantity="other">Твој противник је напустио партију. Можеш прогласити победу за %s секунди.</item>
   </plurals>
   <string name="opponentLeftChoices">Твој противник је изашао из партије. Можеш прогласити победу, прогласити партију ремијем или чекати.</string>
   <string name="forceResignation">Прогласи победу</string>
