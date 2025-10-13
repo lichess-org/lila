@@ -38,7 +38,7 @@
   </plurals>
   <string name="inviteToTheStudy">Закліцца да навучання</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">Калі ласка, заклікайце толькі людзей, якіх вы ведаеце, та тых хто актыўна хоча далучыцца да навучання.</string>
-  <string name="searchByUsername">Шукаць па імені карыстальніка</string>
+  <string name="searchByUsername" comment="Appears when adding members to a Lichess Study as placeholder text in a search box.">Шукаць па імені карыстальніка</string>
   <string name="spectator">Глядач</string>
   <string name="contributor">Рэдактар</string>
   <string name="kick">Выдаліць</string>
