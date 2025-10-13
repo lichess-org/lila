@@ -25,7 +25,7 @@
     <item quantity="other">%s ଜଣ ସଦସ୍ୟ</item>
   </plurals>
   <string name="inviteToTheStudy">ଅଧ୍ୟୟନକୁ ଆମନ୍ତ୍ରଣ କରନ୍ତୁ</string>
-  <string name="searchByUsername">ଉପଭୋକ୍ତାଙ୍କ ନା‍ଁ ଦ୍ୱାରା ସନ୍ଧାନ</string>
+  <string name="searchByUsername" comment="Appears when adding members to a Lichess Study as placeholder text in a search box.">ଉପଭୋକ୍ତାଙ୍କ ନା‍ଁ ଦ୍ୱାରା ସନ୍ଧାନ</string>
   <string name="spectator">ଦର୍ଶକ</string>
   <string name="contributor">ଯୋଗଦାନକାରୀ</string>
   <string name="kick">ବାହାର କର</string>
