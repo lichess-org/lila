@@ -16,7 +16,7 @@ export default function table(ctrl: LobbyController) {
       'div.lobby__start',
       (site.blindMode ? [h('h2', i18n.site.play)] : []).concat(
         [
-          ['hook', i18n.site.newGame, hookDisabled],
+          ['hook', i18n.site.createLobbyGame, hookDisabled],
           ['friend', i18n.site.challengeAFriend, hasOngoingRealTimeGame],
           ['ai', i18n.site.playAgainstComputer, hasOngoingRealTimeGame],
           ...(opts.bots ? [['bots', 'play bot', false]] : []),
