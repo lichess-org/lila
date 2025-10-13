@@ -29,7 +29,7 @@
   </plurals>
   <string name="inviteToTheStudy">邀請加入研究</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">只邀請你所認識的人，以及願意積極投入的人來共同研究</string>
-  <string name="searchByUsername">透過使用者名稱搜尋</string>
+  <string name="searchByUsername" comment="Appears when adding members to a Lichess Study as placeholder text in a search box.">透過使用者名稱搜尋</string>
   <string name="spectator">觀眾</string>
   <string name="contributor">共同研究者</string>
   <string name="kick">踢出</string>
