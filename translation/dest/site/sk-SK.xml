@@ -1103,6 +1103,10 @@ Nechajte prázdne pre začatie partií zo základnej pozície!</string>
   <string name="accessibility">Dostupnosť</string>
   <string name="enableBlindMode">Povoliť režim naslepo</string>
   <string name="disableBlindMode">Zrušiť režim naslepo</string>
+  <string name="copyToClipboard">Kopírovať do schránky</string>
   <string name="online" comment="status of a user">online</string>
   <string name="offline" comment="status of a user">offline</string>
+  <string name="search">Hľadať</string>
+  <string name="clearSearch">Vymazať vyhľadávanie</string>
+  <string name="tags">Značky</string>
 </resources>
