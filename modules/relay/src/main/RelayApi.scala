@@ -451,8 +451,8 @@ final class RelayApi(
       .throttle(perSecond.value, 1.second)
       .take(max.fold(9999)(_.value))
 
-  private val isOngoingWithoutDelay = cacheApi[RelayRoundId, Boolean](512, "relay.ongoingWithoutDelay"):
-    _.expireAfterWrite(5.seconds).buildAsyncFuture(roundRepo.isOngoingWithoutDelay)
+  private val isOngoingWithoutDelay = cacheApi[RelayRoundId, Boolean](32, "relay.ongoingWithoutDelay"):
+    _.expireAfterWrite(5.seconds).buildAsyncFuture(roundRepo.isOngoingLichessGamesWithoutDelay)
 
   def reconfigureStudy(study: Study, chapter: Chapter): Fu[Study] =
     (study.isRelay && chapter.tags.outcome.isEmpty)

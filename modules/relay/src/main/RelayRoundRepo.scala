@@ -98,8 +98,9 @@ final private class RelayRoundRepo(val coll: Coll, tourRepo: RelayTourRepo)(usin
     if no == co.map(_ + 1)
   yield n
 
-  private[relay] def isOngoingWithoutDelay(id: RelayRoundId): Fu[Boolean] = coll.exists:
-    $id(id) ++ selectors.started(true) ++ selectors.finished(false) ++ $doc("sync.delay".$exists(false))
+  private[relay] def isOngoingLichessGamesWithoutDelay(id: RelayRoundId): Fu[Boolean] = coll.exists:
+    $id(id) ++ selectors.started(true) ++ selectors.finished(false) ++
+      $doc("sync.delay".$exists(false) ++ $doc("sync.upstream.ids".$exists(true)))
 
 private object RelayRoundRepo:
 
