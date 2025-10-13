@@ -1,6 +1,4 @@
-import { thunk } from 'snabbdom';
-import { hl } from 'lib/snabbdom';
-import { bind, onInsert } from 'lib/snabbdom';
+import { bind, onInsert, hl, thunk } from 'lib/snabbdom';
 import type LobbyController from '../ctrl';
 import type { GameType } from '../interfaces';
 import renderSetupModal from './setup/modal';
