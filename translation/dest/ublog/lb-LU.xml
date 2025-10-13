@@ -5,7 +5,7 @@
   <string name="byTopic">Nom Theema</string>
   <string name="byLichess">Vu Lichess</string>
   <string name="myFriends">Meng Kolleegen</string>
-  <string name="myLikes">Meng Liken</string>
+  <string name="myLikes" comment="A page which lists blog posts that you have pressed ❤️ Like on: https://lichess.org/blog/liked">Meng Liken</string>
   <string name="myBlog">Mäi Blog</string>
   <string name="likedBlogs">Geliket Blog-Bäiträg</string>
   <plurals name="blogPosts">
