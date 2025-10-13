@@ -31,7 +31,7 @@
   </plurals>
   <string name="inviteToTheStudy">पाठनमा आमन्त्रण गर्नुहोस्।</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">कृपया तपाइले चिन्नुभएको र यो पाठमा सहभागी हुन इच्छुक व्यक्तिहरूलाई मात्र आमन्त्रण गर्नुहोस्।</string>
-  <string name="searchByUsername">युजर नेम अनुसार खोजी गर्नुहोस्।</string>
+  <string name="searchByUsername" comment="Appears when adding members to a Lichess Study as placeholder text in a search box.">युजर नेम अनुसार खोजी गर्नुहोस्।</string>
   <string name="spectator">दर्शक</string>
   <string name="contributor">योगदान कर्ता</string>
   <string name="kick">बाहिर</string>
