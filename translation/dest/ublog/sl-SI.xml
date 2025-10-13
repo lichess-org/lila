@@ -5,7 +5,7 @@
   <string name="byTopic">Po temi</string>
   <string name="byLichess">Od Lichessa</string>
   <string name="myFriends">Moji prijatelji</string>
-  <string name="myLikes">Moji všečki</string>
+  <string name="myLikes" comment="A page which lists blog posts that you have pressed ❤️ Like on: https://lichess.org/blog/liked">Moji všečki</string>
   <string name="myBlog">Moj spletni dnevnik</string>
   <string name="likedBlogs">Všečkane objave v spletnem dnevniku</string>
   <plurals name="blogPosts">
