@@ -107,6 +107,7 @@ private object RelayGame:
         Option.when(clean.size > 1 && clean.toLowerCase != "unknown"):
           tag.copy(value = clean)
 
+  // Used during chapter creation. Also handled in RelaySync.
   private def toggleUnplayedTermination(tags: Tags, res: lila.study.StudyPgnImport.Result) =
     if res.ending.isDefined && res.root.mainline.sizeIs < 2
     then tags + unplayedTag

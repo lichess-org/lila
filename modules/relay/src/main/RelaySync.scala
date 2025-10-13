@@ -160,16 +160,18 @@ final private class RelaySync(
         !chapter.tags(_.Result).has(game.showResult)
     ).option(Tag(_.Result, game.showResult))
     val tags = newEndTag.fold(gameTags)(gameTags + _)
-    def removeUnplayedTermination(tags: Tags): Tags =
+    def toggleUnplayedTermination(tags: Tags): Tags =
       import RelayGame.unplayedTag
-      if tags.value.has(unplayedTag) && game.tags.value.has(unplayedTag).not then tags - Tag.Termination
-      else tags
+      // Only add the unplayed tag if both the source and the chapter have < 2 moves
+      if tags.points.isDefined && Seq(chapter.root, game.root).forall(_.mainline.sizeIs < 2)
+      then tags + unplayedTag
+      else tags.map(_.filter(_ != unplayedTag))
     val chapterNewTags = tags.value
       .filterNot: tag =>
         tagManualOverride.exists(chapter.id, tag.name)
       .foldLeft(chapter.tags): (chapterTags, tag) =>
         PgnTags(chapterTags + tag)
-      .pipe(removeUnplayedTermination)
+      .pipe(toggleUnplayedTermination)
     if chapterNewTags == chapter.tags then fuccess(none -> false)
     else
       if vs(chapterNewTags) != vs(chapter.tags) then
