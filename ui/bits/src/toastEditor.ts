@@ -12,6 +12,7 @@ export function makeToastEditor(el: HTMLTextAreaElement, text: string = '', heig
     wireMarkdownImgResizers({
       root: document.querySelector<HTMLElement>('.toastui-editor-ww-container .ProseMirror')!,
       update: { url: updateImage },
+      resizePath: '/image-url',
       designWidth,
     });
   const editor = newToast(el, text, rewire, height);

@@ -13,10 +13,16 @@ export type UpdateImageHook =
 type ResizerOptions = {
   root: HTMLElement;
   update: UpdateImageHook;
+  resizePath: string;
   designWidth?: number;
 };
 
-export async function wireMarkdownImgResizers({ root, update, designWidth }: ResizerOptions): Promise<void> {
+export async function wireMarkdownImgResizers({
+  root,
+  update,
+  resizePath,
+  designWidth,
+}: ResizerOptions): Promise<void> {
   let rootStyle: CSSStyleDeclaration;
   let rootPadding: number;
 
@@ -68,7 +74,7 @@ export async function wireMarkdownImgResizers({ root, update, designWidth }: Res
         handle.style.cursor = '';
         if ('url' in update) {
           const imageId = img.src.match(imageIdRe)?.[1];
-          const { imageUrl } = await xhrJson(`/image-url/${imageId}?width=${img.dataset.resizeWidth}`);
+          const { imageUrl } = await xhrJson(`${resizePath}/${imageId}?width=${img.dataset.resizeWidth}`);
           const preloadImg = new Image();
           preloadImg.src = imageUrl;
           await preloadImg.decode();
@@ -78,7 +84,7 @@ export async function wireMarkdownImgResizers({ root, update, designWidth }: Res
         const text = update.markdown();
         const path = [...text.matchAll(globalImageLinkRe)][index];
         if (!img.dataset.widthRatio || !path[1]) return;
-        const { imageUrl } = await xhrJson(`/image-url/${path[2]}?width=${img.dataset.resizeWidth}`);
+        const { imageUrl } = await xhrJson(`${resizePath}/${path[2]}?width=${img.dataset.resizeWidth}`);
         const before = text.slice(0, path.index);
         const after = text.slice(path.index! + path[0].length);
         update.markdown(before + `![${path[1]}](${imageUrl})` + after);

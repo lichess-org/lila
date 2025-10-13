@@ -164,8 +164,8 @@ object bits:
     div(
       cls := "markdown-textarea",
       picfitIdPrefix.map(id => attr("data-image-upload-url") := routes.Main.uploadImage(id)),
-      picfitIdPrefix.flatMap(id => imageDesignWidth(id)).map(dw => attr("data-image-design-width") := dw),
-      attr("data-image-resize-url") := "/image-url"
+      picfitIdPrefix.flatMap(imageDesignWidth).map(dw => attr("data-image-design-width") := dw),
+      attr("data-image-resize-path") := "/image-url"
     )(
       div(cls := "comment-header")(
         button(cls := "header-tab write active", tpe := "button")("Write"),
