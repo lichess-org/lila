@@ -4,7 +4,7 @@
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Νέα πρόκληση</string>
   <string name="playAgainstComputer">Νέα παρτίδα εναντίον μηχανής</string>
   <string name="gameMode">Τύπος παιχνιδιού</string>
-  <string name="createLobbyGame">Νέα παρτίδα</string>
+  <string name="newGame" comment="One of the three main buttons on the home page. Opens a modal which lets users list a new game in the lobby.">Νέα παρτίδα</string>
   <string name="youPlayAs">Παίζετε με τα</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Για να προσκαλέσετε κάποιον σε ένα παιχνίδι, στείλτε του αυτήν τη διεύθυνση</string>
   <string name="gameOver">Τέλος παρτίδας</string>

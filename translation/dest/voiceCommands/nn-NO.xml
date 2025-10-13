@@ -3,7 +3,7 @@
   <string name="voiceCommands">Stemmekommandoar</string>
   <string name="watchTheVideoTutorial">Sjå videovegleiinga</string>
   <string name="instructions1">Bruk knappen %1$s for å aktivera/deaktivera talegjenkjenning, %2$s -knappen for å opna denne hjelpe-dialogboksen og %3$s -menyen for å endra innstilling for tale.</string>
-  <string name="instructions2">Vi syner piler for fleire trekk når vi ikkje er sikre. Vel variant ved å seie namnet på variantpila sin farge eller nummer.</string>
+  <string name="instructions2">Vi syner piler for fleire trekk når vi ikkje er sikre. Vel variant ved å seie namnet på variantpila si farge eller nummer.</string>
   <string name="instructions3">Dersom ei pil syner ein sveipande radar vil trekket bli spelt nå sirkelen er fullførd. I løpet av denne tida kan du berre seie %1$s for å spela trekket straks, %2$s for å bryte av eller seie ut farga eller nummeret til ei anna pil. Du kan justera eller slå av tidtakaren i innstillingane.</string>
   <string name="instructions4">Aktivér %s i støyande omgjevnadar. Hald shift nede medan du seier kommandoar når dette er slått på.</string>
   <string name="instructions5">Bruk det fonetiske alfabetet for å gjera det lettare å kjenne att kva kolonner på sjakkbrettet der er snakk om. </string>

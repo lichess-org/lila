@@ -4,7 +4,7 @@
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Spil mod en ven</string>
   <string name="playAgainstComputer">Spil mod computer</string>
   <string name="gameMode">Spiltype</string>
-  <string name="createLobbyGame">Opret lobbyparti</string>
+  <string name="newGame" comment="One of the three main buttons on the home page. Opens a modal which lets users list a new game in the lobby.">Nyt parti</string>
   <string name="youPlayAs">Du spiller som</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Invitér nogen til at spille ved at give dem denne URL</string>
   <string name="gameOver">Spillet er slut</string>

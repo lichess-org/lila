@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="gameSetup">Configurare joc</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Provoacă un prieten</string>
   <string name="playAgainstComputer">Joacă împotriva calculatorului</string>
   <string name="gameMode">Mod joc</string>
+  <string name="newGame" comment="One of the three main buttons on the home page. Opens a modal which lets users list a new game in the lobby.">Joc nou</string>
   <string name="youPlayAs">Tu joci ca</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Pentru a invita pe cineva să joace, folosiți acest URL</string>
   <string name="gameOver">Partidă încheiată</string>
@@ -13,10 +15,10 @@
   <string name="aiNameLevelAiLevel">%1$s nivelul %2$s</string>
   <string name="level">Nivel</string>
   <string name="strength">Putere</string>
-  <string name="toggleTheChat">Arată/Ascunde discuţia</string>
-  <string name="chat">Discuţie</string>
+  <string name="toggleTheChat">Arată/Ascunde discuția</string>
+  <string name="chat">Discuție</string>
   <string name="resign">Renunță</string>
-  <string name="checkmate">Şah mat</string>
+  <string name="checkmate">Șah mat</string>
   <string name="stalemate">Pat</string>
   <string name="white">Alb</string>
   <string name="black">Negru</string>
@@ -843,8 +845,8 @@
   <string name="language">Limbă</string>
   <string name="allLanguages">Orice limbă</string>
   <string name="background">Fundal</string>
-  <string name="light">Luminoasă</string>
-  <string name="dark">Culoare închisă</string>
+  <string name="light">Luminos</string>
+  <string name="dark">Întunecat</string>
   <string name="transparent">Transparent</string>
   <string name="deviceTheme">Tema dispozitivului</string>
   <string name="backgroundImageUrl">URL-ul imaginii de fundal:</string>

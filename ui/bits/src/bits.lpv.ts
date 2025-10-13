@@ -27,8 +27,14 @@ async function autostart() {
           }
         : {}),
     };
-    const lpv = Lpv(this, config);
-    if (gamebook) toGamebook(lpv);
+    try {
+      const lpv = Lpv(this, config);
+      if (gamebook) toGamebook(lpv);
+    } catch (e) {
+      const url = this.dataset['url'];
+      if (url) this.innerHTML = `<a href="${url}">${location.host}${url}</a>`;
+      console.warn(`LPV refused to load ${url}: ${e}`);
+    }
   });
 }
 

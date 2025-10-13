@@ -19,17 +19,18 @@ final class ChatJsonView(lightUser: LightUserApi)(using Executor):
       )
 
   def asyncLines(chat: AnyChat): Fu[JsonChatLines] =
-    for users <- lightUser.asyncIdMapFallback(chat.userIds)
-    yield syncLines(chat)(using users)
-
-  def syncLines(chat: AnyChat)(using LightUser.IdMap): JsonChatLines = JsonChatLines:
-    chat match
-      case c: MixedChat => JsArray(c.lines.map(lineWriter.writes))
-      case c: UserChat => JsArray(c.lines.map(userLineWriter.writes))
+    for users <- chatUsers(chat.userIds)
+    yield JsonChatLines:
+      chat match
+        case c: MixedChat => JsArray(c.lines.map(lineWriter(users).writes))
+        case c: UserChat => JsArray(c.lines.map(userLineWriter(users).writes))
 
   private[chat] def asyncLine(line: Line): Fu[JsObject] =
-    for users <- lightUser.asyncIdMapFallback(line.userIdMaybe.toSet)
-    yield lineWriter(using users).writes(line)
+    for users <- chatUsers(line.userIdMaybe.toSet)
+    yield lineWriter(users).writes(line)
+
+  private def chatUsers(userIds: Set[UserId]): Fu[LightUser.IdMap] =
+    lightUser.asyncIdMapFallback(userIds - UserId.lichess)
 
   def userModInfo(u: UserModInfo) = modView(u.user) ++ Json.obj("history" -> u.history)
 
@@ -55,12 +56,12 @@ object ChatJsonView:
   given OWrites[ChatTimeout.Reason] = OWrites[ChatTimeout.Reason]: r =>
     Json.obj("key" -> r.key, "name" -> r.name)
 
-  private[chat] def lineWriter(using LightUser.IdMap): OWrites[Line] = OWrites:
-    case l: UserLine => userLineWriter.writes(l)
+  private[chat] def lineWriter(users: LightUser.IdMap): OWrites[Line] = OWrites:
+    case l: UserLine => userLineWriter(users).writes(l)
     case l: PlayerLine => playerLineWriter.writes(l)
 
-  def userLineWriter(using getUser: LightUser.IdMap): OWrites[UserLine] = OWrites: l =>
-    val u = getUser.getOrElse(l.userId, LightUser.fallback(l.username))
+  def userLineWriter(users: LightUser.IdMap): OWrites[UserLine] = OWrites: l =>
+    val u = users.getOrElse(l.userId, LightUser.fallback(l.username))
     Json
       .obj(
         "u" -> u.name,

@@ -149,7 +149,7 @@ lazy val racer = module("racer",
 )
 
 lazy val jsBot = module("jsBot",
-  Seq(db, ui),
+  Seq(memo, ui),
   Seq()
 )
 
