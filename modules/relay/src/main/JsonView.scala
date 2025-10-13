@@ -9,6 +9,8 @@ import lila.core.config.BaseUrl
 import lila.memo.PicfitUrl
 import lila.relay.RelayTour.{ WithLastRound, WithRounds }
 import lila.study.ChapterPreview
+import lila.study.Settings
+import lila.study.Study
 import lila.core.fide.FideTC
 import lila.core.socket.SocketVersion
 import lila.core.LightUser.GetterSync
@@ -117,13 +119,26 @@ final class JsonView(
 
   def sync(round: RelayRound) = Json.toJsObject(round.sync)
 
-  def myRound(r: RelayRound.WithTourAndStudy)(using me: Option[Me]) = Json
-    .obj(
+  def myRound(r: RelayRound.WithTourAndStudy)(using me: Option[Me]) =
+
+    def allowed(study: Study, selection: Settings => Settings.UserSelection): Boolean =
+      Settings.UserSelection.allows(selection(study.settings), study, me.map(_.userId))
+
+    Json.obj(
       "round" -> apply(r.relay)
         .add("url" -> s"$baseUrl${r.path}".some)
         .add("delay" -> r.relay.sync.delay),
       "tour" -> r.tour,
-      "study" -> Json.obj("writeable" -> me.exists(r.study.canContribute))
+      "study" -> Json.obj(
+        "writeable" -> me.exists(r.study.canContribute),
+        "features" -> Json.obj(
+          "chat" -> allowed(r.study, _.chat),
+          "computer" -> allowed(r.study, _.computer),
+          "explorer" -> allowed(r.study, _.explorer),
+          "cloneable" -> allowed(r.study, _.cloneable),
+          "shareable" -> allowed(r.study, _.shareable)
+        )
+      )
     )
 
   def makeData(
