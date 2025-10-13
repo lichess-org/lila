@@ -5,7 +5,7 @@
   <string name="byTopic">Podľa témy</string>
   <string name="byLichess">Lichess-om</string>
   <string name="myFriends">Moji priatelia</string>
-  <string name="myLikes">Obľúbené</string>
+  <string name="myLikes" comment="A page which lists blog posts that you have pressed ❤️ Like on: https://lichess.org/blog/liked">Obľúbené</string>
   <string name="myBlog">Môj blog</string>
   <string name="likedBlogs">Blogové príspevky, ktoré sa Vám páčia</string>
   <plurals name="blogPosts">
