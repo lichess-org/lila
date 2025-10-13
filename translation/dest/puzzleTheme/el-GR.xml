@@ -35,7 +35,7 @@
   <string name="clearance">Απελευθέρωση</string>
   <string name="clearanceDescription">Μία κίνηση, συνήθως με tempo, που ελευθερώνει ένα τετράγωνο, μια στήλη ή μια διαγώνιο για την ολοκλήρωση ενός τακτικού.</string>
   <string name="defensiveMove">Αμυντική κίνηση</string>
-  <string name="defensiveMoveDescription">Μια ακριβής κίνηση ή ακολουθία κινήσεων που απαιτείται για να αποφευχθεί η απώλεια υλικού ή άλλου πλεονεκτήματος.</string>
+  <string name="defensiveMoveDescription">Μια κίνηση ή μια ακολουθία κινήσεων που απαιτείται για να αποφευχθεί η απώλεια υλικού και γενικά οποιουδήποτε πλεονεκτήματος.</string>
   <string name="deflection">Αντιπερισπασμός</string>
   <string name="deflectionDescription">Μία κίνηση που απομακρύνει ένα αντίπαλο κομμάτι από κάποιο άλλο του καθήκον, όπως η φύλαξη ενός σημαντικού τετραγώνου. Ονομάζεται ενίοτε και \"υπερφόρτωση\".</string>
   <string name="discoveredAttack">Αποκάλυψη</string>
