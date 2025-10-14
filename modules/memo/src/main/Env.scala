@@ -33,6 +33,8 @@ final class Env(
   given ConfigLoader[PicfitConfig] = AutoConfig.loader
   val config = appConfig.get[MemoConfig]("memo")(using AutoConfig.loader)
 
+  val imageGetUrl = ImageGetUrl(config.picfit.endpointGet)
+
   val cacheApi = wire[CacheApi]
 
   val settingStore = wire[SettingStore.Builder]

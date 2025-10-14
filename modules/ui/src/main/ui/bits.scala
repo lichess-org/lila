@@ -6,6 +6,7 @@ import chess.format.Fen
 
 import lila.core.i18n.Translate
 import lila.core.security.HcaptchaForm
+import lila.core.config.ImageGetUrl
 import lila.ui.ScalatagsTemplate.{ *, given }
 
 object bits:
@@ -157,7 +158,7 @@ object bits:
 
   private def itemCls(active: String, item: String) = if active == item then "active" else ""
 
-  def markdownTextarea(picfitIdPrefix: Option[String])(textareaTag: Tag) =
+  def markdownTextarea(picfitIdPrefix: Option[String])(textareaTag: Tag)(using imageGetUrl: ImageGetUrl) =
     div(
       cls := "markdown-textarea",
       picfitIdPrefix.map(id => attr("data-image-upload-url") := routes.Main.uploadImage(id)),

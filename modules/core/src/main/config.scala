@@ -61,3 +61,6 @@ object config:
       email: EmailAddress,
       logRequests: Boolean
   )
+
+  opaque type ImageGetUrl = String
+  object ImageGetUrl extends OpaqueString[ImageGetUrl]
