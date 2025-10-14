@@ -122,6 +122,8 @@ final class JsonView(
     def allowed(selection: Settings => Settings.UserSelection): Boolean =
       Settings.UserSelection.allows(selection(r.study.settings), r.study, me.map(_.userId))
 
+    val cheatable = r.relay.sync.isInternalWithoutDelay && !r.relay.isFinished
+
     Json.obj(
       "round" -> apply(r.relay)
         .add("url" -> s"$baseUrl${r.path}".some)
@@ -131,8 +133,8 @@ final class JsonView(
         "writeable" -> me.exists(r.study.canContribute),
         "features" -> Json.obj(
           "chat" -> allowed(_.chat),
-          "computer" -> allowed(_.computer),
-          "explorer" -> allowed(_.explorer)
+          "computer" -> (!cheatable && allowed(_.computer)),
+          "explorer" -> (!cheatable && allowed(_.explorer))
         )
       )
     )
