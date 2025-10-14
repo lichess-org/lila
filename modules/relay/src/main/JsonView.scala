@@ -132,9 +132,7 @@ final class JsonView(
         "features" -> Json.obj(
           "chat" -> allowed(_.chat),
           "computer" -> allowed(_.computer),
-          "explorer" -> allowed(_.explorer),
-          "cloneable" -> allowed(_.cloneable),
-          "shareable" -> allowed(_.shareable)
+          "explorer" -> allowed(_.explorer)
         )
       )
     )
