@@ -96,7 +96,7 @@ final class StudyPager(
       page: Int,
       nbResults: Option[Fu[Int]] = none,
       hint: Option[Bdoc] = none
-  )(using me: Option[Me]): Fu[Paginator[Study.WithChaptersAndLiked]] = studyRepo.coll: coll =>
+  )(using Option[Me]): Fu[Paginator[Study.WithChaptersAndLiked]] = studyRepo.coll: coll =>
     val adapter = Adapter[Study](
       collection = coll,
       selector = selector,
@@ -129,11 +129,9 @@ final class StudyPager(
       studies: Seq[Study],
       nbChaptersPerStudy: Int
   ): Fu[Seq[Study.WithChapters]] =
-    chapterRepo.idNamesByStudyIds(studies.map(_.id), nbChaptersPerStudy).map { chapters =>
-      studies.map { study =>
-        Study.WithChapters(study, (chapters.get(study.id)).so(_.map(_.name)))
-      }
-    }
+    for chapters <- chapterRepo.idNamesByStudyIds(studies.map(_.id), nbChaptersPerStudy)
+    yield studies.map: study =>
+      Study.WithChapters(study, chapters.get(study.id).so(_.map(_.name)))
 
   private def withLiking(
       studies: Seq[Study.WithChapters]

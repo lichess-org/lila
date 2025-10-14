@@ -21,7 +21,7 @@ const assetTypes = ['image', 'sound', 'book', 'bookCover', 'net'] as const;
 const urlTypes = ['image', 'sound', 'bookCover'] as const;
 
 export class DevAssets {
-  path = 'public/data/bot';
+  path = 'assets/data/bot';
   server: Record<AssetType, Map<string, string>> = assetTypes.reduce(
     (obj, type) => ({ ...obj, [type]: new Map() }),
     {} as Record<AssetType, Map<string, string>>,

@@ -20,6 +20,7 @@ body:has(.base-view.setup-view) {
 
   .main-content {
     display: flex;
+    flex-flow: row nowrap;
     overflow-x: auto;
     overflow-y: hidden;
     scroll-snap-type: x mandatory;
