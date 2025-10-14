@@ -53,4 +53,4 @@ final class Env(
   lila.common.Bus.sub[lila.core.mod.Shadowban]:
     case lila.core.mod.Shadowban(userId, true) => entryApi.removeRecentFollowsBy(userId)
 
-  lila.common.Bus.sub[lila.core.timeline.Propagate](api(_))
+  lila.common.Bus.sub[lila.core.timeline.Propagate](api.propagate(_))

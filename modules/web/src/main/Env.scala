@@ -51,8 +51,7 @@ final class Env(
     val noDelaySecret = settingStore[Strings](
       "noDelaySecrets",
       default = Strings(Nil),
-      text =
-        "Secret tokens that allows fetching ongoing games without the 3-moves delay. Separated by commas.".some
+      text = "Secret tokens that allows fetching ongoing games without the delay. Separated by commas.".some
     )
     val prizeTournamentMakers = settingStore[UserIds](
       "prizeTournamentMakers",

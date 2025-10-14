@@ -33,7 +33,7 @@ object Entry:
 
   private[timeline] def make(data: Atom): Entry =
     import atomBsonHandlers.given
-    data match
+    val (typ, bson) = data match
       case d: Follow => "follow" -> toBson(d)
       case d: TeamJoin => "team-join" -> toBson(d)
       case d: TeamCreate => "team-create" -> toBson(d)
@@ -48,9 +48,7 @@ object Entry:
       case d: PlanRenew => "plan-renew" -> toBson(d)
       case d: UblogPostLike => "ublog-post-like" -> toBson(d)
       case d: StreamStart => "stream-start" -> toBson(d)
-    match
-      case (typ, bson) =>
-        new Entry(BSONObjectID.generate(), typ, data.channel.some, bson, nowInstant)
+    new Entry(BSONObjectID.generate(), typ, data.channel.some, bson, nowInstant)
 
   object atomBsonHandlers:
     given followHandler: BSONDocumentHandler[Follow] = Macros.handler
