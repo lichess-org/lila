@@ -13,7 +13,7 @@
 
   &__name {
     font-weight: normal;
-    color: $c-brag;
+    color: var(--bot-color);
     font-size: 1.3em;
     @media (min-width: at-least($xx-small)) {
       font-size: 1.6em;

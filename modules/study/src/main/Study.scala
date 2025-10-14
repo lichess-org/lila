@@ -91,6 +91,13 @@ case class Study(
       topics = topics.fold(ts)(_ ++ ts).some
     )
 
+  def configureForOngoingRelay = copy(
+    settings = settings.copy(
+      computer = Settings.UserSelection.Nobody,
+      explorer = Settings.UserSelection.Nobody
+    )
+  )
+
 object Study:
 
   val maxChapters = Max(64)

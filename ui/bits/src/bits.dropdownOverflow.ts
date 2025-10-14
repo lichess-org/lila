@@ -116,7 +116,7 @@ function renderMenu(container: HTMLElement): void {
     const button = createMenuButton('btn-rack__btn', item);
     menuContainer.insertBefore(button, dropdownDiv);
 
-    if (container.offsetWidth > initialWidth) {
+    if (container.offsetWidth > initialWidth && !site.blindMode) {
       menuContainer.removeChild(button);
       break;
     }

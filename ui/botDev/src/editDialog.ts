@@ -17,10 +17,11 @@ import stringify from 'json-stringify-pretty-compact';
 import * as licon from 'lib/licon';
 
 export class EditDialog {
-  static default: BotInfo = deepFreeze<BotInfo>({
+  static default: ReadableBot = deepFreeze<ReadableBot>({
     uid: '#default',
     name: '',
     description: '',
+    vision: '',
     image: 'gray-torso.webp',
     books: [],
     fish: { multipv: 1, depth: 1 },
@@ -275,7 +276,7 @@ export class EditDialog {
 
   private async visionDialog(): Promise<void> {
     const view = frag<HTMLElement>($html`
-      <div class="dev-view json-dialog">
+      <div class="dev-view">
         <p>A private description of who the bot is. This is only for the bot editor team, to know what the bot is about.</p>
         <textarea class="vision" rows="12">${this.editing().vision || ''}</textarea>
         <div class="actions">
@@ -294,17 +295,7 @@ export class EditDialog {
     });
     if (dlg.returnValue !== 'save') return;
 
-    const newBot = {
-      ...this.editing(),
-      vision: view.querySelector<HTMLTextAreaElement>('.vision')!.value,
-    };
-    this.scratch.set(
-      this.uid,
-      Object.defineProperties(new Bot(newBot, env.bot), {
-        disabled: { value: new Set<string>() },
-        viewing: { value: new Map<string, string>() },
-      }) as WritableBot,
-    );
+    this.editing().vision = view.querySelector<HTMLTextAreaElement>('.vision')!.value;
     this.makeEditView();
     this.update();
   }

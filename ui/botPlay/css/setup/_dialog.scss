@@ -25,9 +25,10 @@
 }
 
 .bot-setup__dialog {
-  @extend %flex-column;
+  @extend %flex-column, %box-neat;
   gap: 2vh;
   filter: none;
+  border: 1px solid var(--bot-color);
 
   &__image {
     aspect-ratio: 1;
@@ -35,6 +36,24 @@
     margin: auto;
     margin-top: -30%;
     line-height: 0;
+  }
+  &__title {
+    font-size: 3em;
+    font-weight: bold;
+    color: var(--bot-color);
+    margin-top: -1vh;
+  }
+  &__desc {
+    font-style: italic;
+    font-size: 1.3em;
+  }
+  .button {
+    padding: 2em 1em;
+    background: var(--bot-color);
+    background: hsl(from var(--bot-color) h calc(s - 10) calc(l - 10));
+    &:not(.disabled):hover {
+      background: hsl(from var(--bot-color) h s l);
+    }
   }
 }
 

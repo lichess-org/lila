@@ -6,6 +6,7 @@ import lila.app.mashup.UserInfo
 import lila.user.Plan.sinceDate
 import lila.user.PlayTime.*
 import lila.user.Profile.*
+import lila.web.ui.bits.splitNumber
 
 object header:
 

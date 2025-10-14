@@ -53,7 +53,10 @@ function renderDuel(ctrl: TournamentController) {
         duelTeams &&
         hl(
           'line.t',
-          [0, 1].map(i => teamName(battle, duelTeams[d.p[i].n.toLowerCase()])),
+          d.p.map(p => {
+            const teamId = duelTeams[p.n.toLowerCase()];
+            return teamId && teamName(battle, teamId);
+          }),
         ),
       hl('line.a', [hl('strong', d.p[0].n), hl('span', duelPlayerMeta(d.p[1], ctrl).reverse())]),
       hl('line.b', [hl('span', duelPlayerMeta(d.p[0], ctrl)), hl('strong', d.p[1].n)]),

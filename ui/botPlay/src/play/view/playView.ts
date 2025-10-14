@@ -17,7 +17,7 @@ import { type TopOrBottom } from 'lib/game/game';
 import { renderClock } from 'lib/game/clock/clockView';
 
 export const playView = (ctrl: PlayCtrl) =>
-  hl('main.bot-app.bot-game.unique-game-' + ctrl.game.id, [
+  hl(`main.bot-app.bot-game.unique-game-${ctrl.game.id}.bot-color--${ctrl.opts.bot.key}`, [
     viewBoard(ctrl),
     hl('div.bot-game__table'),
     viewTable(ctrl),

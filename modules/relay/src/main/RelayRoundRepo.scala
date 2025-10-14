@@ -82,7 +82,7 @@ final private class RelayRoundRepo(val coll: Coll, tourRepo: RelayTourRepo)(usin
       .find(
         $doc(
           "tourId" -> round.tourId,
-          "startedAt".$exists(false),
+          selectors.started(false),
           "startsAt" -> BSONHandlers.startsAfterPrevious
         )
       )
@@ -98,6 +98,15 @@ final private class RelayRoundRepo(val coll: Coll, tourRepo: RelayTourRepo)(usin
     if no == co.map(_ + 1)
   yield n
 
+  private[relay] def isInternalWithoutDelay(id: RelayRoundId): Fu[Boolean] = coll.exists:
+    $id(id) ++ selectors.started(true) ++ selectors.finished(false) ++
+      $doc(
+        "sync.delay".$exists(false) ++ $or(
+          $doc("sync.upstream.ids".$exists(true)),
+          $doc("sync.upstream.users".$exists(true))
+        )
+      )
+
 private object RelayRoundRepo:
 
   object sort:
@@ -106,4 +115,5 @@ private object RelayRoundRepo:
 
   object selectors:
     def tour(id: RelayTourId) = $doc("tourId" -> id)
+    def started(v: Boolean) = $doc("startedAt".$exists(v))
     def finished(v: Boolean) = $doc("finishedAt".$exists(v))

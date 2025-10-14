@@ -366,6 +366,9 @@ object mon:
         counter("hcaptcha.form").withTags(tags("client" -> client, "result" -> result))
     object pwned:
       def get(res: Boolean) = timer("security.pwned.result").withTag("res", res)
+    object geoip:
+      val epoch = gauge("security.geoip.epoch").withoutTags()
+      val loadTime = gauge("security.geoip.loadTime").withoutTags()
     object login:
       def attempt(byEmail: Boolean, stuffing: String, pwned: Boolean, result: Boolean) =
         counter("security.login.attempt").withTags:

@@ -11,7 +11,7 @@ export const setupDialog = (ctrl: SetupCtrl) => {
   const bot = ctrl.selectedBot;
   if (!bot) return;
   return snabDialog({
-    class: 'bot-setup__dialog',
+    class: `bot-setup__dialog bot-color--${bot.key}`,
     onClose: ctrl.cancel,
     modal: true,
     noScrollable: true,
@@ -23,7 +23,8 @@ export const setupDialog = (ctrl: SetupCtrl) => {
       hl('img.bot-setup__dialog__image', {
         attrs: { src: bot?.image && botAssetUrl('image', bot.image) },
       }),
-      hl('h2.bot-setup__dialog__title', 'Challenge ' + bot.name),
+      hl('h2.bot-setup__dialog__title', bot.name),
+      hl('div.bot-setup__dialog__desc', bot.description),
       hl(
         'fieldset.bot-setup__dialog__settings.toggle-box.toggle-box--toggle',
         { class: { 'toggle-box--toggle-off': true } },

@@ -1,7 +1,6 @@
 import { opposite, parseSquare } from 'chessops';
-import type { LocalBridge, Move, Pref } from '../interfaces';
+import type { Bot, LocalBridge, Move, Pref } from '../interfaces';
 import { normalizeMove } from 'chessops/chess';
-import { type BotInfo } from 'lib/bot/types';
 import type { Board } from '../chess';
 import { requestBotMove } from './botMove';
 import keyboard from './keyboard';
@@ -17,7 +16,7 @@ import type { TopOrBottom } from 'lib/game/game';
 export interface PlayOpts {
   pref: Pref;
   game: Game;
-  bot: BotInfo;
+  bot: Bot;
   bridge: Promise<LocalBridge>;
   redraw: () => void;
   save: (game: Game) => void;

@@ -9,15 +9,20 @@ import lila.jsBot.{ BotUid, AssetType, BotJson }
 
 final class JsBot(env: Env) extends LilaController(env):
 
-  def index = Beta:
+  private val betaTeamId = TeamId("lichess-beta-testers")
+
+  def index = Open:
     for
-      bots <- env.jsBot.api.playable.get
-      res <- negotiate(
-        html =
-          for page <- renderPage(views.jsBot.play(bots, prefJson))
-          yield Ok(page).withServiceWorker,
-        json = JsonOk(Json.obj("bots" -> bots))
-      )
+      bots <- env.jsBot.api.playable.get(env.team.api.belongsTo(betaTeamId, _))
+      res <-
+        if bots.isEmpty then notFound
+        else
+          negotiate(
+            html =
+              for page <- renderPage(views.jsBot.play(bots, prefJson))
+              yield Ok(page).withServiceWorker,
+            json = JsonOk(Json.obj("bots" -> bots))
+          )
     yield res
 
   def assetKeys = Anon: // for service worker
