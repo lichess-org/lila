@@ -19,6 +19,8 @@ logs/
 /project/project/
 /project/target/
 /public/compiled/
+/public/data/*
+!/public/data/README.md
 /public/hashed/
 /public/npm/
 /public/css/
