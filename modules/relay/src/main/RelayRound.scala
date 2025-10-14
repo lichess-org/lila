@@ -141,6 +141,8 @@ object RelayRound:
     private def pollingLag = Seconds(if isPush then 1 else 6)
     def delayMinusLag = delay.map(_ - pollingLag).filter(_.value > 0)
 
+    def isInternalWithoutDelay = upstream.exists(_.isInternal && delay.isEmpty)
+
     override def toString = upstream.toString
 
   object Sync:
