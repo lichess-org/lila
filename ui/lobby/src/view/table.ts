@@ -17,14 +17,14 @@ export default function table(ctrl: LobbyController) {
       gameType: 'hook',
       label: i18n.site.createLobbyGame,
       disabled: hookDisabled,
-      title: 'Click to create a custom game within the lobby tab that any online player can join.',
+      title: 'Create a custom game that any online player can join.',
     },
     {
       gameType: 'friend',
       label: i18n.site.challengeAFriend,
       disabled: hasOngoingRealTimeGame,
       title: $trim`
-        Create a custom game and choose any opponent in the world.
+        Create a custom game and choose your opponent.
 
         You will receive a challenge link to share via email or text, as well as a QR code
         that someone nearby can scan.`,
