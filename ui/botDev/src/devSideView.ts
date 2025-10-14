@@ -24,7 +24,7 @@ export function renderDevSide(): VNode {
 
 function player(color: Color): VNode {
   const p = env.bot[color] as Bot | undefined;
-  const imgUrl = env.bot.imageUrl(p) ?? `/${env.assets.path}/image/${color}-torso.webp`;
+  const imgUrl = env.bot.imageUrl(p) ?? `/${env.assets.path}/image/gray-torso.webp`;
   const isLight = document.documentElement.classList.contains('light');
   const buttonClass = {
     white: isLight ? '.button-metal' : '.button-inverse',
