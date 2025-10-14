@@ -47,7 +47,6 @@ object Entry:
       case d: PlanStart => "plan-start" -> toBson(d)
       case d: PlanRenew => "plan-renew" -> toBson(d)
       case d: UblogPostLike => "ublog-post-like" -> toBson(d)
-      case d: StreamStart => "stream-start" -> toBson(d)
     new Entry(BSONObjectID.generate(), typ, data.channel.some, bson, nowInstant)
 
   object atomBsonHandlers:
@@ -64,7 +63,6 @@ object Entry:
     given planStartHandler: BSONDocumentHandler[PlanStart] = Macros.handler
     given planRenewHandler: BSONDocumentHandler[PlanRenew] = Macros.handler
     given ublogPostLikeHandler: BSONDocumentHandler[UblogPostLike] = Macros.handler
-    given streamStartHandler: BSONDocumentHandler[StreamStart] = Macros.handler
 
     val handlers = Map(
       "follow" -> followHandler,
@@ -79,8 +77,7 @@ object Entry:
       "study-like" -> studyLikeHandler,
       "plan-start" -> planStartHandler,
       "plan-renew" -> planRenewHandler,
-      "ublog-post-like" -> ublogPostLikeHandler,
-      "stream-start" -> streamStartHandler
+      "ublog-post-like" -> ublogPostLikeHandler
     )
 
   object atomJsonWrite:
@@ -97,7 +94,6 @@ object Entry:
     val planStartWrite = Json.writes[PlanStart]
     val planRenewWrite = Json.writes[PlanRenew]
     val ublogPostLikeWrite = Json.writes[UblogPostLike]
-    val streamStartWrite = Json.writes[StreamStart]
     given Writes[Atom] = Writes:
       case d: Follow => followWrite.writes(d)
       case d: TeamJoin => teamJoinWrite.writes(d)
@@ -112,7 +108,6 @@ object Entry:
       case d: PlanStart => planStartWrite.writes(d)
       case d: PlanRenew => planRenewWrite.writes(d)
       case d: UblogPostLike => ublogPostLikeWrite.writes(d)
-      case d: StreamStart => streamStartWrite.writes(d)
 
   given BSONDocumentHandler[Entry] = Macros.handler
 
