@@ -23,9 +23,9 @@
   <string name="createTheGame">Започни партију</string>
   <string name="whiteIsVictorious">Бели је поебдио</string>
   <string name="blackIsVictorious">Црни је победио</string>
-  <string name="youPlayTheWhitePieces">Играте са белим фигурама</string>
-  <string name="youPlayTheBlackPieces">Играте са црним фигурама</string>
-  <string name="itsYourTurn">Ти си на потезу!</string>
+  <string name="youPlayTheWhitePieces">Играш белим фигурама</string>
+  <string name="youPlayTheBlackPieces">Играш црним фигурама</string>
+  <string name="itsYourTurn">Твој је потез!</string>
   <string name="cheatDetected">Детектована превара</string>
   <string name="kingInTheCenter">Краљ у центру</string>
   <string name="threeChecks">Три шаха</string>
