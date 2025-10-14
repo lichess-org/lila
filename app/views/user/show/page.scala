@@ -95,9 +95,12 @@ object page:
         )
       )
 
-  def userGameFilterTitle(u: User, nbs: UserInfo.NbGames, filter: GameFilter)(using Translate): Frag =
+  def userGameFilterTitle(u: User, nbs: UserInfo.NbGames, filter: GameFilter)(using
+      Context,
+      Translate
+  ): Frag =
     if filter == GameFilter.Search then frag(iconTag(Icon.Search), br, trans.search.advancedSearch())
-    else splitNumber(userGameFilterTitleNoTag(u, nbs, filter))
+    else lila.web.ui.bits.splitNumber(userGameFilterTitleNoTag(u, nbs, filter))
 
   def userGameFilterTitleNoTag(u: User, nbs: UserInfo.NbGames, filter: GameFilter)(using Translate): String =
     import ui.transLocalize

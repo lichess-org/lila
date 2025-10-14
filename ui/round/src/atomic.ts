@@ -14,10 +14,12 @@ export function capture(ctrl: RoundController, key: Key): void {
   for (let x = minX; x <= maxX; x++) {
     for (let y = minY; y <= maxY; y++) {
       const k = pos2key([x, y]);
-      exploding.push(k);
-      const p = ctrl.chessground.state.pieces.get(k);
-      const explodes = p && (k === key || p.role !== 'pawn');
-      if (explodes) diff.set(k, undefined);
+      if (k) {
+        exploding.push(k);
+        const p = ctrl.chessground.state.pieces.get(k);
+        const explodes = p && (k === key || p.role !== 'pawn');
+        if (explodes) diff.set(k, undefined);
+      }
     }
   }
   ctrl.chessground.setPieces(diff);
