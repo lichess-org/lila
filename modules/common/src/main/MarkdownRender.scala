@@ -65,7 +65,7 @@ final class MarkdownRender(
   private val options = MutableDataSet()
     .set(Parser.EXTENSIONS, extensions)
     .set(HtmlRenderer.ESCAPE_HTML, true)
-    .set(HtmlRenderer.SOFT_BREAK, "<br>")
+    .set(HtmlRenderer.SOFT_BREAK, "<br/>")
     // always disabled
     .set(Parser.HTML_BLOCK_PARSER, false)
     .set(Parser.INDENTED_CODE_BLOCK_PARSER, false)

@@ -310,3 +310,4 @@ declare const fipr: Fipr;
 declare const i18n: I18n;
 declare module 'tablesort';
 declare const $html: (s: TemplateStringsArray, ...k: any[]) => string; // file://./../../.build/src/esbuild.ts
+declare const $trim: (s: TemplateStringsArray, ...k: any[]) => string; // file://./../../.build/src/esbuild.ts

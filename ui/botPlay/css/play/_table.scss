@@ -61,12 +61,14 @@
 
     &:hover {
       background: $c-primary;
-      color: #fff;
+      background: hsl(from var(--bot-color) h s calc(l - 10) / 0.8);
+      color: $c-over;
     }
 
     &.current {
       font-weight: bold;
       background: $m-primary_bg--mix-20;
+      background: hsl(from var(--bot-color) h calc(s - 20) calc(l - 10) / 0.5);
       color: $c-font-clear;
     }
   }

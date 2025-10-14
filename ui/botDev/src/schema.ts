@@ -106,14 +106,13 @@ export const schema: Schema = deepFreeze<Schema>({
         step: { weight: 1 },
         value: { weight: 1 },
       },
-      title: condense(
-        `opening books may be imported into the asset databas from pgns, studies, or polyglot files.
-        
+      title: $trim`
+        opening books may be imported into the asset databas from pgns, studies, or polyglot files.
+
         once imported, you may add any number of different opening books to a bot. the
         weight of a book is used to choose one when multiple books offer moves for the
         same position. a book with a weight of 10 is 10 times more likely to be selected
         than one with a weight of 1. a weight of 0 will disable a book without removing it`,
-      ),
     },
     sounds: {
       label: 'sounds',
@@ -205,8 +204,8 @@ export const schema: Schema = deepFreeze<Schema>({
       class: ['filter'],
       value: { range: { min: 0, max: 1 }, by: 'max' },
       requires: { every: ['behavior_zero', 'behavior_fish'] },
-      title: condense(
-        `this filter assigns a weight in order to bias moves from the lc0 engine.
+      title: $trim`
+        this filter assigns a weight in order to bias moves from the lc0 engine.
         a higher weight makes a move more likely to be selected.
         
         if the engine is configured to return multiple lines, the same bias is
@@ -215,7 +214,6 @@ export const schema: Schema = deepFreeze<Schema>({
         generally, moves are preferred in descending order of
         the sum of their weights. so lc0 bias can compensate for (by
         adding to) weights from other filters`,
-      ),
     },
     cplTarget: {
       label: 'cpl target',
@@ -223,8 +221,8 @@ export const schema: Schema = deepFreeze<Schema>({
       class: ['filter'],
       value: { range: { min: 0, max: 150 }, by: 'max' },
       requires: { every: ['behavior_fish', 'behavior_fish_multipv > 1'] },
-      title: condense(
-        `cpl target assigns a weight calculated from the average centipawn loss relative
+      title: $trim`
+        cpl target assigns a weight calculated from the average centipawn loss relative
         to bestmove according to stockfish at the chosen depth.
         
         it identifies the mean of a folded normal distribution of target cpl values. 
@@ -235,7 +233,6 @@ export const schema: Schema = deepFreeze<Schema>({
         sigmoid function.
         
         moves are sorted in descending order by the sum of their weights (lc0 bias and/or cpl).`,
-      ),
     },
     cplStdev: {
       label: 'cpl stdev',
@@ -243,10 +240,11 @@ export const schema: Schema = deepFreeze<Schema>({
       class: ['filter'],
       value: { range: { min: 0, max: 100 }, by: 'max' },
       requires: 'bot_filters_cplTarget',
-      title: `cpl stdev, if given, describes the standard deviation of the folder normal
-      distribution from which each move's random cpl target is chosen. if not given, it defaults
-      to 50. cpl stdev participates in the cpl target
-      weight calculation. it does not assign its own weight.`,
+      title: $trim`
+        cpl stdev, if given, describes the standard deviation of the folder normal
+        distribution from which each move's random cpl target is chosen. if not given, it defaults
+        to 50. cpl stdev participates in the cpl target
+        weight calculation. it does not assign its own weight.`,
     },
     aggression: {
       label: 'aggression',
@@ -260,14 +258,13 @@ export const schema: Schema = deepFreeze<Schema>({
           { every: ['behavior_zero', 'behavior_fish'] },
         ],
       },
-      title: condense(
-        `aggression assigns weights to moves that remove opponent material from the board.
+      title: $trim`
+        aggression assigns weights to moves that remove opponent material from the board.
 
         a value of 1 will increase the likelihood of captures, 0 is neutral, and -1 will avoid
         captures.
         
         this one should be combined with other filters.`,
-      ),
     },
     pawnStructure: {
       label: 'pawn structure',
@@ -281,11 +278,11 @@ export const schema: Schema = deepFreeze<Schema>({
           { every: ['behavior_zero', 'behavior_fish'] },
         ],
       },
-      title:
-        condense(`pawn structure assigns weights up to the graph value for pawns that support each other, control the center,
+      title: $trim`
+        pawn structure assigns weights up to the graph value for pawns that support each other, control the center,
         and are not doubled or isolated.
         
-        This filter assigns a weight between 0 and 1.`),
+        This filter assigns a weight between 0 and 1.`,
     },
     moveDecay: {
       label: 'move quality decay',
@@ -299,8 +296,8 @@ export const schema: Schema = deepFreeze<Schema>({
           { every: ['behavior_zero', 'behavior_fish'] },
         ],
       },
-      title: condense(
-        `move quality decay is an optional final stage of move selection.
+      title: $trim`
+        move quality decay is an optional final stage of move selection.
 
         if any previous filter assigns weights, they are first used to sort moves in
         descending order
@@ -318,7 +315,6 @@ export const schema: Schema = deepFreeze<Schema>({
         scored stockfish and unscored lc0 moves.
         it operates on the full list provided by engine behavior and pairs well
         with the think time facet and a crisp chardonnay.`,
-      ),
     },
   },
 });
@@ -326,11 +322,4 @@ export const schema: Schema = deepFreeze<Schema>({
 export function getSchemaDefault(id: string): PropertyValue {
   const setting = schema[id] ?? id.split('_').reduce((obj, key) => obj[key], schema);
   return typeof setting === 'object' && 'value' in setting ? setting.value : undefined;
-}
-
-function condense(str: string): string {
-  return str
-    .replace(/\n[ \t]*\n[ \t]*/g, '\n\n')
-    .replace(/\n[ \t]+/g, ' ')
-    .trim();
 }

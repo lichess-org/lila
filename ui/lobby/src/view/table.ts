@@ -1,9 +1,10 @@
-import { h, thunk } from 'snabbdom';
-import { bind, onInsert } from 'lib/snabbdom';
+import { bind, onInsert, hl, thunk } from 'lib/snabbdom';
 import type LobbyController from '../ctrl';
 import type { GameType } from '../interfaces';
 import renderSetupModal from './setup/modal';
 import { numberFormat } from 'lib/i18n';
+
+type ButtonInfo = { gameType: GameType | 'dev' | 'bots'; label: string; disabled?: boolean; title?: string };
 
 export default function table(ctrl: LobbyController) {
   const { data, opts } = ctrl;
@@ -11,39 +12,42 @@ export default function table(ctrl: LobbyController) {
   const hookDisabled =
     opts.playban || opts.hasUnreadLichessMessage || ctrl.me?.isBot || hasOngoingRealTimeGame;
   const { members, rounds } = data.counters;
-  return h('div.lobby__table', [
-    h(
-      'div.lobby__start',
-      (site.blindMode ? [h('h2', i18n.site.play)] : []).concat(
-        [
-          ['hook', i18n.site.createLobbyGame, hookDisabled],
-          ['friend', i18n.site.challengeAFriend, hasOngoingRealTimeGame],
-          ['ai', i18n.site.playAgainstComputer, hasOngoingRealTimeGame],
-          ...(opts.bots ? [['bots', 'play bot', false]] : []),
-          ...(opts.botEditor ? [['dev', 'bot development', false]] : []),
-        ].map(([gameType, text, disabled]: [GameType | 'dev' | 'bots', string, boolean]) =>
-          h(
-            `button.button.button-metal.lobby__start__button.lobby__start__button--${gameType}`,
-            {
-              class: { active: ctrl.setupCtrl.gameType === gameType, disabled },
-              attrs: { type: 'button' },
-              hook: disabled
-                ? {}
-                : bind(
-                    'click',
-                    () => {
-                      if (gameType === 'bots') location.href = '/bots';
-                      else if (gameType === 'dev') location.href = '/bots/dev';
-                      else ctrl.setupCtrl.openModal(gameType);
-                    },
-                    ctrl.redraw,
-                  ),
-            },
-            text,
-          ),
-        ),
-      ),
-    ),
+  const lobbyButtons: ButtonInfo[] = [
+    {
+      gameType: 'hook',
+      label: i18n.site.createLobbyGame,
+      disabled: hookDisabled,
+      title: 'Create a custom game that any online player can join.',
+    },
+    {
+      gameType: 'friend',
+      label: i18n.site.challengeAFriend,
+      disabled: hasOngoingRealTimeGame,
+      title: $trim`
+        Create a custom game and choose your opponent.
+
+        You will receive a challenge link to share via email or text, as well as a QR code
+        that someone nearby can scan.`,
+    },
+    {
+      gameType: 'ai',
+      label: i18n.site.playAgainstComputer,
+      disabled: hasOngoingRealTimeGame,
+    },
+  ];
+  if (opts.bots)
+    lobbyButtons.push({
+      gameType: 'bots',
+      label: 'play bot',
+    });
+  if (opts.botEditor)
+    lobbyButtons.push({
+      gameType: 'dev',
+      label: 'bot development',
+    });
+
+  return hl('div.lobby__table', [
+    hl('div.lobby__start', [site.blindMode && hl('h2', i18n.site.play), lobbyButtons.map(makeLobbyButton)]),
     renderSetupModal(ctrl),
     // Use a thunk here so that snabbdom does not rerender; we will do so manually after insert
     site.blindMode
@@ -51,13 +55,13 @@ export default function table(ctrl: LobbyController) {
       : thunk(
           'div.lobby__counters',
           () =>
-            h('div.lobby__counters', [
-              h(
+            hl('div.lobby__counters', [
+              hl(
                 'a',
                 { attrs: site.blindMode ? {} : { href: '/player' } },
                 i18n.site.nbPlayers.asArray(
                   members,
-                  h(
+                  hl(
                     'strong',
                     {
                       attrs: { 'data-count': members },
@@ -69,12 +73,12 @@ export default function table(ctrl: LobbyController) {
                   ),
                 ),
               ),
-              h(
+              hl(
                 'a',
                 site.blindMode ? {} : { attrs: { href: '/games' } },
                 i18n.site.nbGamesInPlay.asArray(
                   rounds,
-                  h(
+                  hl(
                     'strong',
                     {
                       attrs: { 'data-count': rounds },
@@ -90,4 +94,26 @@ export default function table(ctrl: LobbyController) {
           [],
         ),
   ]);
+
+  function makeLobbyButton({ gameType, label, disabled, title }: ButtonInfo) {
+    return hl(
+      `button.button.button-metal.lobby__start__button.lobby__start__button--${gameType}`,
+      {
+        class: { active: ctrl.setupCtrl.gameType === gameType, disabled: !!disabled },
+        attrs: { type: 'button', title: title ?? '' },
+        hook: !!disabled
+          ? {}
+          : bind(
+              'click',
+              () => {
+                if (gameType === 'bots') location.href = '/bots';
+                else if (gameType === 'dev') location.href = '/bots/dev';
+                else ctrl.setupCtrl.openModal(gameType);
+              },
+              ctrl.redraw,
+            ),
+      },
+      label,
+    );
+  }
 }

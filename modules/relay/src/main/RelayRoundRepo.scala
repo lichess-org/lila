@@ -98,8 +98,14 @@ final private class RelayRoundRepo(val coll: Coll, tourRepo: RelayTourRepo)(usin
     if no == co.map(_ + 1)
   yield n
 
-  private[relay] def isOngoingWithoutDelay(id: RelayRoundId): Fu[Boolean] = coll.exists:
-    $id(id) ++ selectors.started(true) ++ selectors.finished(false) ++ $doc("sync.delay".$exists(false))
+  private[relay] def isInternalWithoutDelay(id: RelayRoundId): Fu[Boolean] = coll.exists:
+    $id(id) ++ selectors.started(true) ++ selectors.finished(false) ++
+      $doc(
+        "sync.delay".$exists(false) ++ $or(
+          $doc("sync.upstream.ids".$exists(true)),
+          $doc("sync.upstream.users".$exists(true))
+        )
+      )
 
 private object RelayRoundRepo:
 

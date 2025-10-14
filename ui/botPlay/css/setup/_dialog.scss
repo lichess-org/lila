@@ -41,14 +41,19 @@
     font-size: 3em;
     font-weight: bold;
     color: var(--bot-color);
+    margin-top: -1vh;
   }
   &__desc {
     font-style: italic;
     font-size: 1.3em;
   }
   .button {
-    background: var(--bot-color);
     padding: 2em 1em;
+    background: var(--bot-color);
+    background: hsl(from var(--bot-color) h calc(s - 10) calc(l - 10));
+    &:not(.disabled):hover {
+      background: hsl(from var(--bot-color) h s l);
+    }
   }
 }
 

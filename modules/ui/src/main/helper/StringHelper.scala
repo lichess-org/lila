@@ -11,26 +11,6 @@ trait StringHelper:
 
   def showNumber(n: Int): String = if n > 0 then s"+$n" else n.toString
 
-  private val NumberFirstRegex = """(\d++)\s(.+)""".r
-  private val NumberLastRegex = """\s(\d++)$""".r.unanchored
-
-  def splitNumber(s: Frag)(using Translate): Frag =
-    val rendered = s.render
-    rendered match
-      case NumberFirstRegex(number, html) =>
-        frag(
-          strong((~number.toIntOption).localize),
-          br,
-          raw(html)
-        )
-      case NumberLastRegex(n) if rendered.length > n.length + 1 =>
-        frag(
-          raw(rendered.dropRight(n.length + 1)),
-          br,
-          strong((~n.toIntOption).localize)
-        )
-      case h => raw(h.replaceIf('\n', "<br>"))
-
   def fragList(frags: List[Frag], separator: String = ", "): Frag =
     frags match
       case Nil => emptyFrag
