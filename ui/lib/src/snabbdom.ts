@@ -7,11 +7,13 @@ import {
   type Attrs,
   type Classes,
   h as snabH,
+  thunk,
 } from 'snabbdom';
 
 export type { Attrs, Hooks, Classes, VNode, VNodeData, VNodeChildElement, VNodeChildren };
 export type MaybeVNode = VNode | string | null | undefined;
 export type MaybeVNodes = MaybeVNode[];
+export { thunk };
 
 export function onInsert<A extends HTMLElement>(f: (element: A) => void): Hooks {
   return {
