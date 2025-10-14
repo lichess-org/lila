@@ -10,8 +10,6 @@ import lila.memo.PicfitUrl
 import lila.relay.RelayTour.{ WithLastRound, WithRounds }
 import lila.study.ChapterPreview
 import lila.study.Settings
-import lila.study.Study
-import lila.core.fide.FideTC
 import lila.core.socket.SocketVersion
 import lila.core.LightUser.GetterSync
 
@@ -26,7 +24,7 @@ final class JsonView(
 
   given Writes[RelayTour.Tier] = writeAs(_.v)
 
-  given Writes[FideTC] = writeAs(_.toString)
+  given Writes[lila.core.fide.FideTC] = writeAs(_.toString)
   given Writes[java.time.ZoneId] = writeAs(_.getId)
 
   given OWrites[RelayTour.Info] = Json.writes
@@ -121,8 +119,8 @@ final class JsonView(
 
   def myRound(r: RelayRound.WithTourAndStudy)(using me: Option[Me]) =
 
-    def allowed(study: Study, selection: Settings => Settings.UserSelection): Boolean =
-      Settings.UserSelection.allows(selection(study.settings), study, me.map(_.userId))
+    def allowed(selection: Settings => Settings.UserSelection): Boolean =
+      Settings.UserSelection.allows(selection(r.study.settings), r.study, me.map(_.userId))
 
     Json.obj(
       "round" -> apply(r.relay)
@@ -132,11 +130,11 @@ final class JsonView(
       "study" -> Json.obj(
         "writeable" -> me.exists(r.study.canContribute),
         "features" -> Json.obj(
-          "chat" -> allowed(r.study, _.chat),
-          "computer" -> allowed(r.study, _.computer),
-          "explorer" -> allowed(r.study, _.explorer),
-          "cloneable" -> allowed(r.study, _.cloneable),
-          "shareable" -> allowed(r.study, _.shareable)
+          "chat" -> allowed(_.chat),
+          "computer" -> allowed(_.computer),
+          "explorer" -> allowed(_.explorer),
+          "cloneable" -> allowed(_.cloneable),
+          "shareable" -> allowed(_.shareable)
         )
       )
     )
