@@ -9,12 +9,47 @@ import { uciToMove } from '@lichess-org/chessground/util';
 import { ShowResizeHandle, Coords, MoveEvent } from 'lib/prefs';
 import { storage } from 'lib/storage';
 import { Chessground as makeChessground } from '@lichess-org/chessground';
+import { finished, status } from 'lib/game/status';
 
 export function makeConfig(ctrl: RoundController): CgConfig {
   const data = ctrl.data,
     hooks = ctrl.makeCgHooks(),
     step = plyStep(data, ctrl.ply),
-    playing = ctrl.isPlaying();
+    playing = ctrl.isPlaying(),
+    gameFinished = finished(data),
+    customHighlights = new Map<Key, string>();
+  if (gameFinished && data.game.variant.key == 'standard') {
+    const gameStatus = data.game.status.id;
+    const winner = data.game.winner,
+      loser = winner === 'white' ? 'black' : winner === 'black' ? 'white' : undefined;
+    if (winner) {
+      const winningKingSquare = util.findKingSquare(step.fen, winner);
+      if (winningKingSquare) {
+        customHighlights.set(winningKingSquare as Key, 'king-win');
+      }
+    }
+    if (loser) {
+      const losingKingSquare = util.findKingSquare(step.fen, loser);
+      if (losingKingSquare) {
+        if (gameStatus === status.mate) {
+          customHighlights.set(losingKingSquare as Key, 'king-lose-checkmate');
+        } else if (gameStatus === status.outoftime || gameStatus === status.timeout) {
+          customHighlights.set(losingKingSquare as Key, 'king-lose-timeout');
+        } else if (gameStatus === status.resign) {
+          customHighlights.set(losingKingSquare as Key, 'king-lose-resign');
+        }
+      }
+    } else if (
+      gameStatus === status.draw ||
+      gameStatus === status.stalemate ||
+      gameStatus === status.timeout
+    ) {
+      const white_king = util.findKingSquare(step.fen, 'white');
+      const black_king = util.findKingSquare(step.fen, 'black');
+      customHighlights.set(white_king as Key, 'king-draw');
+      customHighlights.set(black_king as Key, 'king-draw');
+    }
+  }
   return {
     fen: step.fen,
     orientation: boardOrientation(data, ctrl.flip),
@@ -29,6 +64,7 @@ export function makeConfig(ctrl: RoundController): CgConfig {
     highlight: {
       lastMove: data.pref.highlight,
       check: data.pref.highlight,
+      custom: customHighlights,
     },
     events: {
       move: hooks.onMove,

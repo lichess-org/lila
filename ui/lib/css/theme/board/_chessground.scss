@@ -1,5 +1,21 @@
 @import 'board-2d';
 
+@keyframes pulse {
+  0% {
+    background-size: 0%;
+    top: -1%;
+    left: 11%;
+    opacity: 0.2;
+  }
+  100% {
+    background-size: 45%;
+    top: -2.8%;
+    left: 9.8%;
+    opacity: 0.98;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.6));
+  }
+}
+
 cg-board {
   @extend %box-shadow, %abs-100;
   @include prevent-select;
@@ -117,6 +133,37 @@ square {
 
   &.bh1 piece {
     opacity: 0.98;
+  }
+
+  &.king-win {
+    background-image: url(../images/icons/victory.svg);
+  }
+
+  &.king-draw {
+    background-image: url(../images/icons/stalemate.svg);
+  }
+
+  &.king-lose-checkmate {
+    background-image: url(../images/icons/checkmate.svg);
+  }
+
+  &.king-lose-resign {
+    background-image: url(../images/icons/resign.svg);
+  }
+
+  &.king-lose-timeout {
+    background-image: url(../images/icons/timeout.svg);
+  }
+
+  &.king-win,
+  &.king-draw,
+  &.king-lose-checkmate,
+  &.king-lose-resign,
+  &.king-lose-timeout {
+    background-color: transparent;
+    background-repeat: no-repeat;
+    z-index: 5;
+    animation: pulse 0.4s ease-out 1 forwards;
   }
 }
 
