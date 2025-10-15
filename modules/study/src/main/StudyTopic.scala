@@ -23,7 +23,7 @@ opaque type StudyTopics = List[StudyTopic]
 object StudyTopics extends TotalWrapper[StudyTopics, List[StudyTopic]]:
   extension (e: StudyTopics)
     def diff(other: StudyTopics): StudyTopics = e.toSet.diff(other.value.toSet).toList
-    def ++(other: StudyTopics): StudyTopics = e.toSet.++(other.value.toSet).toList
+    def ++(other: StudyTopics): StudyTopics = (e.value ++ other.value).distinct
 
   val empty: StudyTopics = Nil
   val studyMax = 30
@@ -86,7 +86,7 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
 
   def userTopicsAdd(userId: UserId, topics: StudyTopics): Funit =
     topics.value.nonEmpty.so(userTopics(userId).flatMap { prev =>
-      val newTopics = StudyTopics(prev.value ++ topics.value)
+      val newTopics = prev ++ topics
       (newTopics != prev).so(
         userTopicRepo
           .coll:
