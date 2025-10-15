@@ -86,7 +86,7 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
 
   def userTopicsAdd(userId: UserId, topics: StudyTopics): Funit =
     topics.value.nonEmpty.so(userTopics(userId).flatMap { prev =>
-      val newTopics = prev ++ topics
+      val newTopics = StudyTopics(prev.value ++ topics.value)
       (newTopics != prev).so(
         userTopicRepo
           .coll:
