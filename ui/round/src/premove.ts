@@ -198,5 +198,11 @@ const king: cg.Mobility = (ctx: cg.MobilityContext) =>
 
 const mobilityByRole = { pawn, knight, bishop, rook, queen, king };
 
-export const additionalPremoveRequirements: cg.Mobility = (ctx: cg.MobilityContext) =>
-  mobilityByRole[ctx.role](ctx);
+export const additionalPremoveRequirements: cg.Mobility = (ctx: cg.MobilityContext) => {
+  try {
+    return mobilityByRole[ctx.role](ctx);
+  } catch (e) {
+    console.error(e);
+    return true;
+  }
+};
