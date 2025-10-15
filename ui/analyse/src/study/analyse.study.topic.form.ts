@@ -3,7 +3,6 @@ import { json as xhrJson, url as xhrUrl } from 'lib/xhr';
 import Tagify from '@yaireo/tagify';
 import Sortable from 'sortablejs';
 
-
 site.load.then(() => {
   const input = document.getElementById('form3-topics') as HTMLInputElement;
   const tagify = new Tagify(input, {
@@ -35,11 +34,11 @@ site.load.then(() => {
       }, 200);
     })
     .on('dblclick', _ => clearTimeout(clickDebounce));
-    new Sortable(tagify.DOM.scope, {
+  new Sortable(tagify.DOM.scope, {
     animation: 150,
-    dragClass: "."+tagify.settings.classNames.tag,
+    dragClass: '.' + tagify.settings.classNames.tag,
     onEnd() {
-      tagify.updateValueByDOMTags()
+      tagify.updateValueByDOMTags();
     },
-    })
+  });
 });
