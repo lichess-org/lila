@@ -5,8 +5,10 @@ import scalalib.paginator.*
 
 import lila.search.*
 import lila.search.client.SearchClient
-import lila.search.spec.Query
+import lila.search.spec.{ Query, StudySorting }
 import lila.study.Study
+import lila.search.spec.StudyOrderBy
+import lila.search.spec.Order
 
 final class Env(
     studyRepo: lila.study.StudyRepo,
@@ -19,7 +21,8 @@ final class Env(
   def apply(text: String, page: Int)(using me: Option[Me]) =
     Paginator[Study.WithChaptersAndLiked](
       adapter = new AdapterLike[Study]:
-        def query = Query.study(text.take(100), me.map(_.userId.value))
+        def query =
+          Query.study(text.take(100), StudySorting(StudyOrderBy.Likes, Order.Asc), me.map(_.userId.value))
         def nbResults = api.count(query).dmap(_.toInt)
         def slice(offset: Int, length: Int) = api.search(query, From(offset), Size(length))
       .mapFutureList(pager.withChaptersAndLiking()),
