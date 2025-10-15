@@ -9,11 +9,11 @@ importers:
   .:
     dependencies:
       '@lichess-org/chessground':
-        specifier: 9.8.1
-        version: 9.8.1
+        specifier: 9.8.2
+        version: 9.8.2
       '@lichess-org/pgn-viewer':
-        specifier: 2.5.1
-        version: 2.5.1
+        specifier: 2.5.2
+        version: 2.5.2
       '@types/lichess':
         specifier: workspace:*
         version: link:ui/@types/lichess
@@ -845,11 +845,11 @@ packages:
   '@kurkle/color@0.3.4':
     resolution: {integrity: sha512-M5UknZPHRu3DEDWoipU6sE8PdkZ6Z/S+v4dD+Ke8IaNlpdSQah50lz1KtcFBa2vsdOnwbbnxJwVM4wty6udA5w==}
 
-  '@lichess-org/chessground@9.8.1':
-    resolution: {integrity: sha512-U8fzNBnTTWdqa3Z0jTY9LtlcVXnHsM2VJ0/dkfQusqvn9xCcc35Bqcu85iCmhADeXjRvdPJK/NHZEW23INOtuQ==}
+  '@lichess-org/chessground@9.8.2':
+    resolution: {integrity: sha512-5zJ5Ixkkrz/h7GUc7pk/ERLzcRNLdKNNRIGS/pGmyOlrnlHyh8rgMfm46iKuwDRl/wl2T/AoDhSfpbFIBL+oag==}
 
-  '@lichess-org/pgn-viewer@2.5.1':
-    resolution: {integrity: sha512-a92KupVzAxnFs0+p9V/BA/zVmDgssn2+OJ8SL42IhyQ8Ppi+RtM8oYjq8fSY8GE8U3tNST8kvyI/4ziD2XYyuA==}
+  '@lichess-org/pgn-viewer@2.5.2':
+    resolution: {integrity: sha512-RPbq5xOa80/p1B7DkZQe4HDJN18gf7SANn8nXfDOmCi9tmqbVAPEtGs7W+qw62B5EZpU98gXxfomZ3Cr/rOkpA==}
 
   '@lichess-org/stockfish-web@0.0.14':
     resolution: {integrity: sha512-GBXBdQ3Sbg7KecFzaq4VnppK7NVwDcvqfVxOKmDonEUNMJ9FyiLfe2yeWUmbGWUnbnWXBCgYjX8QSDLP3OVe3Q==}
@@ -1320,10 +1320,6 @@ packages:
   cheerio@1.1.2:
     resolution: {integrity: sha512-IkxPpb5rS/d1IiLbHMgfPuS0FgiWTtFIm/Nj+2woXDLTZ7fOT2eqzgYbdMlLweqlHbsZjxEChoVK+7iph7jyQg==}
     engines: {node: '>=20.18.1'}
-
-  chessground@9.2.1:
-    resolution: {integrity: sha512-KIdxm0zD69e62XRwdnFB0XUNYSzn5HM3pMazRCwpfruRUowFI8y+1OAK5YSyBff29myeV1/4o5Q8T191+Irbog==}
-    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   chessops@0.14.2:
     resolution: {integrity: sha512-7DghoMODSN8a17L9JHYBWhLBaSKROKS7+NDsvseNJ502UTbuZ7EYueIAmo1oD+f0TeEqh+jo2gsUFRhGRKAR3g==}
@@ -2724,12 +2720,12 @@ snapshots:
 
   '@kurkle/color@0.3.4': {}
 
-  '@lichess-org/chessground@9.8.1': {}
+  '@lichess-org/chessground@9.8.2': {}
 
-  '@lichess-org/pgn-viewer@2.5.1':
+  '@lichess-org/pgn-viewer@2.5.2':
     dependencies:
+      '@lichess-org/chessground': 9.8.2
       '@types/node': 24.7.2
-      chessground: 9.2.1
       chessops: 0.15.0
       snabbdom: 3.5.1
 
@@ -3212,8 +3208,6 @@ snapshots:
       parse5-parser-stream: 7.1.2
       undici: 7.16.0
       whatwg-mimetype: 4.0.0
-
-  chessground@9.2.1: {}
 
   chessops@0.14.2:
     dependencies:

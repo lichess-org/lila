@@ -28,8 +28,8 @@
     ]
   },
   "dependencies": {
-    "@lichess-org/chessground": "9.8.1",
-    "@lichess-org/pgn-viewer": "2.5.1",
+    "@lichess-org/chessground": "9.8.2",
+    "@lichess-org/pgn-viewer": "2.5.2",
     "@types/lichess": "workspace:*",
     "@types/web": "^0.0.216",
     "@typescript-eslint/eslint-plugin": "^8.39.1",
