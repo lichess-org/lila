@@ -70,7 +70,7 @@ export function makeConfig(ctrl: RoundController): CgConfig {
         unset: hooks.onCancelPremove,
       },
       unrestrictedPremoves: data.game.variant.key === 'atomic',
-      additionalPremoveRequirements: additionalPremoveRequirements
+      additionalPremoveRequirements: additionalPremoveRequirements,
     },
     predroppable: {
       enabled: data.pref.enablePremove && data.game.variant.key === 'crazyhouse',

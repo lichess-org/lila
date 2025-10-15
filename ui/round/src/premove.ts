@@ -81,7 +81,10 @@ const canBeCapturedBySomeEnemyEnPassant = (
   );
 };
 
-const isPathClearEnoughOfFriendliesForPremove = (ctx: cg.MobilityContext, isPawnAdvance: boolean): boolean => {
+const isPathClearEnoughOfFriendliesForPremove = (
+  ctx: cg.MobilityContext,
+  isPawnAdvance: boolean,
+): boolean => {
   if (ctx.unrestrictedPremoves) return true;
   const squaresBetween = util.squaresBetween(...ctx.orig.pos, ...ctx.dest.pos);
   if (isPawnAdvance) squaresBetween.push(ctx.dest.key);
@@ -195,4 +198,5 @@ const king: cg.Mobility = (ctx: cg.MobilityContext) =>
 
 const mobilityByRole = { pawn, knight, bishop, rook, queen, king };
 
-export const additionalPremoveRequirements: cg.Mobility = (ctx: cg.MobilityContext) => mobilityByRole[ctx.role](ctx);
+export const additionalPremoveRequirements: cg.Mobility = (ctx: cg.MobilityContext) =>
+  mobilityByRole[ctx.role](ctx);
