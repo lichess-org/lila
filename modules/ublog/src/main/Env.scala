@@ -30,7 +30,6 @@ final class Env(
     appConfig: Configuration,
     settingStore: lila.memo.SettingStore.Builder,
     client: lila.search.client.SearchClient,
-    reportApi: lila.report.ReportApi,
     lightUser: lila.core.LightUser.GetterSync,
     automod: lila.report.Automod
 )(using Executor, Scheduler, play.api.Mode):

@@ -20,7 +20,6 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     appConfig: play.api.Configuration,
     ws: play.api.libs.ws.StandaloneWSClient,
-    net: lila.core.config.NetConfig,
     picfitUrl: lila.memo.PicfitUrl,
     picfitApi: lila.memo.PicfitApi
 )(using Executor, NetDomain)(using scheduler: Scheduler):
@@ -28,7 +27,6 @@ final class Env(
   private def lazyPlaybansOf = () => playbansOf
 
   private lazy val reportColl = db(CollName("report2"))
-  private val assetDomain = net.assetDomain
 
   lazy val scoreThresholdsSetting = ReportThresholds.makeScoreSetting(settingStore)
 

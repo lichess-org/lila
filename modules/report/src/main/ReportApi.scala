@@ -349,8 +349,9 @@ final class ReportApi(
         reporter = reporter,
         suspect = suspect,
         reason = reason,
-        text = (hasFlaggedImages.option("IMAGE") ++ (fromLlm != "pass").option("TEXT")).mkString("/") +
-          s" AI: $summary $url"
+        text = s"AUTO " + (hasFlaggedImages.option("IMG") ++ (fromLlm != "pass").option("TXT"))
+          .mkString("/") +
+          s": $summary $url"
       )
     ).recoverWith: e =>
       logger.warn(s"Comms automod failed for ${me.username}: ${e.getMessage}", e)

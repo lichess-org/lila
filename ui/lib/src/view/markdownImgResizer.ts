@@ -85,7 +85,6 @@ export async function wireMarkdownImgResizers({
           return;
         }
         const text = update.markdown();
-        console.log(img.src, [...text.matchAll(globalImageLinkRe)]);
         const link = [...text.matchAll(globalImageLinkRe)].find(l => l[2] === img.src);
         if (!link?.[1] || !img.dataset.widthRatio) return;
         const { imageUrl } = await xhrJson(`/image-url/${link[3]}?width=${img.dataset.resizeWidth}`);

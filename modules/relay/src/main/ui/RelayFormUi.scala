@@ -555,16 +555,9 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
                 20000.localize
               )
               .some
-          )(field =>
-            lila.ui.bits.markdownTextarea("broadcastDescription".some)(
-              rows := 10,
-              maxlength := 20000,
-              cls := "form-control",
-              id := s"form3-${field.id}",
-              name := field.name,
-              field.value
-            )
-          )
+          ): field =>
+            lila.ui.bits.markdownTextarea("broadcastDescription".some):
+              form3.textarea(field)(rows := 10)
         ),
         form3
           .fieldset(

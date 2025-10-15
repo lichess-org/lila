@@ -27,15 +27,13 @@ function wireMarkdownTextarea(markdown: HTMLElement) {
     uploadBtn.classList.add('none');
     writeTab.classList.remove('active');
     previewTab.classList.add('active');
-    const resizeUrl = markdown.dataset.imageResizeUrl;
-    if (!resizeUrl) return;
     wireMarkdownImgResizers({
       root: preview,
       update: {
         markdown: (text?: string) => (text !== undefined ? (textarea.value = text) : textarea.value),
       },
-      designWidth: Number(markdown.dataset.imageDesignWidth),
       origin: markdown.dataset.imageDownloadOrigin,
+      designWidth: Number(markdown.dataset.imageDesignWidth),
     });
   });
 

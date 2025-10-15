@@ -1,6 +1,10 @@
 .markdown-textarea {
   overflow: visible; // don't clip textarea focus ring
 
+  $c-bg-preview: $c-bg-input;
+  @include if-transp {
+    $c-bg-preview: $c-bg-opaque;
+  }
   .comment-header {
     position: relative;
     display: flex;
@@ -29,7 +33,7 @@
   }
   .header-tab.active {
     position: relative;
-    background: $c-bg-input;
+    background: $c-bg-preview;
     border-color: $c-border;
     color: $c-font;
     font-weight: bold;
@@ -42,7 +46,7 @@
     right: 1px;
     bottom: -2px;
     height: 2px;
-    background-color: $c-bg-input;
+    background-color: $c-bg-preview;
   }
   &:has(textarea:focus) .write.active {
     border-color: $m-primary--fade-40;
@@ -74,7 +78,7 @@
     overflow-y: auto;
     padding: 0.8em 1em 0;
     border-radius: 6px 6px 24px 6px;
-    background: $c-bg-input;
+    background: $c-bg-preview;
   }
   .comment-preview img {
     max-width: 100%;

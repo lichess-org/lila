@@ -1,15 +1,13 @@
 package lila.ui
 
 import play.api.i18n.Lang
-
 import java.time.YearMonth
-
 import chess.format.Fen
 
 import lila.core.i18n.Translate
 import lila.core.security.HcaptchaForm
-
-import ScalatagsTemplate.{ *, given }
+import lila.core.config.ImageGetOrigin
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 object bits:
 
@@ -163,13 +161,14 @@ object bits:
 
   private def itemCls(active: String, item: String) = if active == item then "active" else ""
 
-  def markdownTextarea(picfitIdPrefix: Option[String])(modifiers: Modifier*) =
+  def markdownTextarea(picfitIdPrefix: Option[String])(textareaTag: Tag)(using
+      imageGetOrigin: ImageGetOrigin
+  ) =
     div(
       cls := "markdown-textarea",
-      picfitIdPrefix.map(pre => attr("data-image-upload-url") := routes.Main.uploadImage(pre)),
-      picfitOrigin.map(origin => attr("data-image-download-origin") := origin),
-      picfitIdPrefix.flatMap(pre => imageDesignWidth(pre)).map(w => attr("data-image-design-width") := w),
-      attr("data-image-resize-url") := "/image-url"
+      attr("data-image-download-origin") := imageGetOrigin,
+      picfitIdPrefix.map(id => attr("data-image-upload-url") := routes.Main.uploadImage(id)),
+      picfitIdPrefix.flatMap(imageDesignWidth).map(dw => attr("data-image-design-width") := dw)
     )(
       div(cls := "comment-header")(
         button(cls := "header-tab write active", tpe := "button")("Write"),
@@ -177,7 +176,7 @@ object bits:
         button(cls := "upload-image", tpe := "button", title := "Upload image")
       ),
       div(cls := "comment-content")(
-        textarea(modifiers),
+        textareaTag,
         div(cls := "comment-preview none")
       )
     )
