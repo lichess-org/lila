@@ -108,6 +108,13 @@ final class RelayApi(
       _ <- tourRepo.denormalize(tourId, active, live, dates)
     yield ()
 
+  private[relay] def denormalizeOldTours(): Funit =
+    tourRepo.oldActiveCursor
+      .documentSource()
+      .mapAsync(1)(t => denormalizeTour(t.id))
+      .runWith(Sink.ignore)
+      .void
+
   private def computeDates(tourId: RelayTourId): Fu[Option[RelayTour.Dates]] =
     roundRepo.coll
       .aggregateOne(): framework =>

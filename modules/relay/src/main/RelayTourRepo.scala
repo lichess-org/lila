@@ -1,5 +1,6 @@
 package lila.relay
 
+import reactivemongo.akkastream.cursorProducer
 import java.time.YearMonth
 
 import lila.db.dsl.{ *, given }
@@ -23,6 +24,11 @@ final private class RelayTourRepo(val coll: Coll)(using Executor):
       dates: Option[RelayTour.Dates]
   ): Funit =
     coll.update.one($id(tourId), $set("active" -> active, "live" -> live, "dates" -> dates)).void
+
+  def oldActiveCursor =
+    coll
+      .find($doc("active" -> true, "dates.end".$lt(nowInstant.minusDays(1))))
+      .cursor[RelayTour]()
 
   def lookup(local: String) =
     $lookup.simple(
