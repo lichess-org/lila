@@ -99,6 +99,8 @@ case class TempBan(date: Instant, mins: Int, reason: Option[String]):
 
   def inEffect = endsAt.isAfterNow
 
+  override def toString = s"${mins}m${reason.so(r => s" for $r")}"
+
 object TempBan:
 
   given Writes[TempBan] = Json.writes
