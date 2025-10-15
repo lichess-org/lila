@@ -36,7 +36,8 @@ site.load.then(() => {
     .on('dblclick', _ => clearTimeout(clickDebounce));
   new Sortable(tagify.DOM.scope, {
     animation: 150,
-    dragClass: '.' + tagify.settings.classNames.tag,
+    draggable: '.' + tagify.settings.classNames.tag,
+    ghostClass: 'sortable-ghost',
     onEnd() {
       tagify.updateValueByDOMTags();
     },
