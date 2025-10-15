@@ -55,28 +55,32 @@ case class UserRecord(
     else if bans.size < 10 then 4
     else 3
 
-  def bannable(age: Days, trust: UserTrust): Option[TempBan] = {
-    rageSitRecidive || {
-      outcomes.lastOption.exists(_ != Outcome.Good) && {
+  def bannable(age: Days, trust: UserTrust): Option[TempBan] =
+    val reason: Option[String] =
+      if rageSitRecidive
+      then "ragesit recidive".some
+      else if outcomes.lastOption.forall(_ == Outcome.Good) then none
+      else
         // too many bad overall
         val toleranceRatio = badOutcomeTolerance(age, trust)
-        badOutcomeScore >= ((toleranceRatio * nbOutcomes).atLeast(minBadOutcomes.toFloat)) || {
+        if badOutcomeScore >= ((toleranceRatio * nbOutcomes).atLeast(minBadOutcomes.toFloat))
+        then Outcome.describe(outcomes).some
+        else
           // bad result streak
           val streakSize = badOutcomesStreakSize(age)
-          outcomes.sizeIs >= streakSize &&
-          outcomes.takeRight(streakSize).forall(Outcome.Good !=)
-        } || {
-          // last 2 games
-          (age.isZero || trust.no) &&
-          outcomes.sizeIs < 9 &&
-          outcomes.sizeIs > 1 &&
-          outcomes.reverse.take(2).forall(Outcome.Good !=)
-        }
-      }
-    }
-  }.option(TempBan.make(bans, age, trust))
+          val streak = outcomes.takeRight(streakSize)
+          if outcomes.sizeIs >= streakSize && streak.forall(Outcome.Good !=)
+          then s"streak: ${Outcome.describe(streak)}".some
+          else
+            val untrusted = age.isZero || trust.no
+            val lastTwo = outcomes.takeRight(2)
+            if untrusted && outcomes.sizeIs < 9 && lastTwo.sizeIs > 1 && lastTwo.forall(Outcome.Good !=)
+            then s"untrusted, last two: ${lastTwo.mkString(", ")}".some
+            else none
 
-  def rageSitRecidive =
+    reason.map(TempBan.make(bans, age, trust, _))
+
+  private def rageSitRecidive =
     outcomes.lastOption.exists(Outcome.rageSitLike.contains) && {
       rageSit.isTerrible || {
         rageSit.isVeryBad && outcomes.count(Outcome.rageSitLike.contains) > 1
@@ -85,7 +89,7 @@ case class UserRecord(
       }
     }
 
-case class TempBan(date: Instant, mins: Int):
+case class TempBan(date: Instant, mins: Int, reason: Option[String]):
 
   def endsAt = date.plusMinutes(mins)
 
@@ -99,21 +103,18 @@ object TempBan:
 
   given Writes[TempBan] = Json.writes
 
-  private def make(minutes: Int) =
-    TempBan(
-      nowInstant,
-      minutes.atMost(3 * 24 * 60)
-    )
+  private def make(minutes: Int, reason: String) =
+    TempBan(nowInstant, minutes.atMost(3 * 24 * 60), reason.some)
 
   private val baseMinutes = 10
 
   /** Create a playban. First offense: 10 min. Multiplier of repeat offense after X days:
     *   - 0 days: 3x
     *   - 0 - 3 days: linear scale from 3x to 1x
-    *   - >3 days quick drop off Account less than 3 days old --> 2x the usual time
+    *   - > 3 days quick drop off Account less than 3 days old --> 2x the usual time
     */
-  def make(bans: Vector[TempBan], age: Days, trust: UserTrust): TempBan =
-    make:
+  def make(bans: Vector[TempBan], age: Days, trust: UserTrust, reason: String): TempBan =
+    val minutes =
       val base = bans.lastOption
         .so: prev =>
           prev.endsAt.toNow.toHours.toSaturatedInt match
@@ -123,17 +124,17 @@ object TempBan:
       val multiplier = if age.isZero then 3 else if age <= Days(3) then 2 else 1
       val trustMultiplier = if trust.yes then 1 else 2
       base * multiplier * trustMultiplier
+    make(minutes, reason)
 
-enum Outcome(val id: Int, val name: String):
-
-  case Good extends Outcome(0, "Nothing unusual")
-  case Abort extends Outcome(1, "Aborts the game")
-  case NoPlay extends Outcome(2, "Won't play a move")
-  case RageQuit extends Outcome(3, "Quits without resigning")
-  case Sitting extends Outcome(4, "Lets time run out")
-  case SitMoving extends Outcome(5, "Waits then moves at last moment")
-  case Sandbag extends Outcome(6, "Deliberately lost the game")
-  case SitResign extends Outcome(7, "Waits then resigns at last moment")
+enum Outcome(val id: Int):
+  case Good extends Outcome(0)
+  case Abort extends Outcome(1)
+  case NoPlay extends Outcome(2)
+  case RageQuit extends Outcome(3)
+  case Sitting extends Outcome(4)
+  case SitMoving extends Outcome(5)
+  case Sandbag extends Outcome(6)
+  case SitResign extends Outcome(7)
 
   val key = lila.common.String.lcfirst(toString)
 
@@ -144,3 +145,13 @@ object Outcome:
   val byId = values.mapBy(_.id)
 
   def apply(id: Int): Option[Outcome] = byId.get(id)
+
+  def describe(os: Seq[Outcome]) =
+    os.filter(_ != Good)
+      .groupBy(identity)
+      .view
+      .mapValues(_.size)
+      .toList
+      .sortBy(-_._2)
+      .map { (o, l) => s"$o($l)" }
+      .mkString(", ")
