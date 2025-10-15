@@ -4,6 +4,8 @@
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Teikite iššūkį draugui</string>
   <string name="playAgainstComputer">Žaiskite prieš kompiuterį</string>
   <string name="gameMode">Žaidimo režimas</string>
+  <string name="createLobbyGame" comment="One of three buttons on the home page. Opens the modal to create a game that goes in the lobby.">Sukurti žaidimą laukimo salėje</string>
+  <string name="youPlayAs">Jūs žaidžiate kaip</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Norėdami pakviesti varžovą, pasidalinkite šiuo adresu</string>
   <string name="gameOver">Partija baigta</string>
   <string name="waitingForOpponent">Laukiama varžovo</string>
@@ -24,6 +26,7 @@
   <string name="asBlack">už juoduosius</string>
   <string name="randomColor">Atsitiktinė spalva</string>
   <string name="createAGame">Kurti žaidimą</string>
+  <string name="createTheGame">Sukurti žaidimą</string>
   <string name="whiteIsVictorious">Baltieji laimėjo</string>
   <string name="blackIsVictorious">Juodieji laimėjo</string>
   <string name="youPlayTheWhitePieces">Jūs žaidžiate baltosiomis figūromis</string>
@@ -78,6 +81,7 @@
   <string name="expandVariations">Plėtoti variantus</string>
   <string name="forceVariation">Rodyti kaip variaciją</string>
   <string name="copyVariationPgn">Kopijuoti variacijos PGN</string>
+  <string name="copyMainLinePgn">Kopijuoti pagrindinės linijos PGN</string>
   <string name="move">Ėjimas</string>
   <string name="variantLoss">Variantinis pralaimėjimas</string>
   <string name="variantWin">Variantinė pergalė</string>
@@ -186,6 +190,7 @@
   <string name="drawByMutualAgreement">Lygiosios sutarimu</string>
   <string name="fiftyMovesWithoutProgress">Penkiasdešimt ėjimų be progreso</string>
   <string name="currentGames">Vykstančios partijos</string>
+  <string name="joinedX">Prisijungė %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s partija</item>
     <item quantity="few">%s partijos</item>
@@ -386,6 +391,7 @@
     <item quantity="other">%s žaidžiamų</item>
   </plurals>
   <string name="exportGames">Eksportuoti partijas</string>
+  <string name="ratingFilter">Reitingo filtras</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Duoti %s sekundę</item>
     <item quantity="few">Duoti %s sekundes</item>
@@ -396,6 +402,7 @@
   <string name="openingExplorerAndTablebase">Debiutų naršyklė ir pozicijų duomenų bazė</string>
   <string name="takeback">Atsiimti ėjimą</string>
   <string name="proposeATakeback">Prašyti leidimo atšaukti ėjimą</string>
+  <string name="whiteProposesTakeback">Baltieji siūlo atstatyti</string>
   <string name="takebackPropositionSent">Ėjimo atšaukimo prašymas išsiųstas</string>
   <string name="yourOpponentProposesATakeback">Varžovas prašo atšaukti ėjimą</string>
   <string name="bookmarkThisGame">Pasižymėti šią partiją</string>

@@ -23,7 +23,7 @@
     <item quantity="other">%s Membros</item>
   </plurals>
   <string name="inviteToTheStudy">Invitar al studio</string>
-  <string name="searchByUsername">Cercar per nomine de usator</string>
+  <string name="searchByUsername" comment="Appears when adding members to a Lichess Study as placeholder text in a search box.">Cercar per nomine de usator</string>
   <string name="spectator">Spectator</string>
   <string name="contributor">Contributor</string>
   <string name="commentThisPosition">Commentar iste position</string>

@@ -38,7 +38,7 @@
   </plurals>
   <string name="inviteToTheStudy">Pakviesti į studiją</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">Kvieskite tik pažįstamus žmones, ir tik norinčius dalyvauti šioje studijoje.</string>
-  <string name="searchByUsername">Ieškoti pagal naudotojo vardą</string>
+  <string name="searchByUsername" comment="Appears when adding members to a Lichess Study as placeholder text in a search box.">Ieškoti pagal naudotojo vardą</string>
   <string name="spectator">Žiūrovas</string>
   <string name="contributor">Talkininkas</string>
   <string name="kick">Išmesti</string>

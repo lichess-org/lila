@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="justNow">tikko</string>
+  <string name="justNow" comment="This string refers to an event which has not started yet, but will begin in the next few seconds-to-milliseconds, depending on when your browser refreshes. Used in areas with live-refreshing text like this, such as the list of Open Tournaments on the homepage.&#10;&#10;There is a separate string for right after events that have begun, which reads &quot;right now&quot;.">tikko</string>
   <plurals name="inNbSeconds">
     <item quantity="zero">pēc %s sekundēm</item>
     <item quantity="one">pēc %s sekundes</item>
@@ -36,7 +36,7 @@
     <item quantity="one">pēc %s gada</item>
     <item quantity="other">pēc %s gadiem</item>
   </plurals>
-  <string name="rightNow">tieši tagad</string>
+  <string name="rightNow" comment="This string refers to an event that has started in the last few milliseconds-to-seconds, depending on when your browser refreshes. Used in areas with live-refreshing text like this, such as the list of Open Tournaments on the homepage.&#10;&#10;There is a separate string for just before events that have begun, which reads &quot;just now&quot;.">tieši tagad</string>
   <plurals name="nbMinutesAgo">
     <item quantity="zero">pirms %s minūtēm</item>
     <item quantity="one">pirms %s minūtes</item>

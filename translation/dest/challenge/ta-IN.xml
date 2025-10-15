@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="challengesX">சவால்கள்: %1$s</string>
-  <string name="challengeToPlay">விளையாட அழை</string>
+  <string name="challengeToPlay" comment="Appears as a button on profiles and on a challenge modal; lets you challenge that player to a game.&#10;&quot;Challenge&quot; is used as a verb.&#10;&#10;This text used to state &quot;Challenge to a game&quot;. Please shorten to just &quot;Challenge&quot; if you see a translation of the old version of the string.">விளையாட அழை</string>
   <string name="challengeDeclined">சவால் மறுக்கப்பட்டது.</string>
   <string name="challengeAccepted">சவால் ஏற்றுக் கொள்ளப்பட்டது!</string>
   <string name="challengeCanceled">சவால் இரத்து செய்யப்பட்டது.</string>

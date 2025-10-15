@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="challengesX">Предизвикателства: %1$s</string>
-  <string name="challengeToPlay">Предизвикайте на партия</string>
+  <string name="challengeToPlay" comment="Appears as a button on profiles and on a challenge modal; lets you challenge that player to a game.&#10;&quot;Challenge&quot; is used as a verb.&#10;&#10;This text used to state &quot;Challenge to a game&quot;. Please shorten to just &quot;Challenge&quot; if you see a translation of the old version of the string.">Предизвикайте на партия</string>
   <string name="challengeDeclined">Предизвикателството е отказано</string>
   <string name="challengeAccepted">Предизвикателството е прието!</string>
   <string name="challengeCanceled">Предизвикателството е отменено.</string>

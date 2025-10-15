@@ -38,7 +38,7 @@
   </plurals>
   <string name="inviteToTheStudy">הזמינו ללוח הלמידה</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">אנא הזמינו רק שחקנים שאתם מכירים המעוניינים להצטרף ללוח הלמידה הזה.</string>
-  <string name="searchByUsername">חיפוש לפי שם משתמש</string>
+  <string name="searchByUsername" comment="Appears when adding members to a Lichess Study as placeholder text in a search box.">חיפוש לפי שם משתמש</string>
   <string name="spectator">צופה</string>
   <string name="contributor">תורם</string>
   <string name="kick">הסרה</string>

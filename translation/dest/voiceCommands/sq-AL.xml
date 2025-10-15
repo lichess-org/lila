@@ -11,6 +11,7 @@
   <string name="thisBlogPost">Ky postim blogu</string>
   <string name="moveToE4OrSelectE4Piece">Kaloje në e4, ose përzgjidh gurin e4</string>
   <string name="selectOrCaptureABishop">Përzgjidhni, ose kapni një oficer</string>
+  <string name="takeRookWithQueen">Merrni torrën me mbretëreshë</string>
   <string name="castle" comment="Castle is used as a verb here, referring to castling.">Torre (cilado anë)</string>
   <string name="phoneticAlphabetIsBest">Alfabeti fonetik është më e mira</string>
   <string name="cancelTimerOrDenyARequest">Anuloni kohëmatësin, ose mohoni një kërkesë</string>

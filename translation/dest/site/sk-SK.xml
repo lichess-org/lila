@@ -4,6 +4,7 @@
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Vyzvať priateľa</string>
   <string name="playAgainstComputer">Hrať proti počítaču</string>
   <string name="gameMode">Herný režim</string>
+  <string name="createLobbyGame" comment="One of three buttons on the home page. Opens the modal to create a game that goes in the lobby.">Vytvoriť výzvu</string>
   <string name="youPlayAs">Hráte ako</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Zdieľaním tejto adresy môžete niekoho pozvať k partii</string>
   <string name="gameOver">Koniec partie</string>
@@ -1102,6 +1103,10 @@ Nechajte prázdne pre začatie partií zo základnej pozície!</string>
   <string name="accessibility">Dostupnosť</string>
   <string name="enableBlindMode">Povoliť režim naslepo</string>
   <string name="disableBlindMode">Zrušiť režim naslepo</string>
+  <string name="copyToClipboard">Kopírovať do schránky</string>
   <string name="online" comment="status of a user">online</string>
   <string name="offline" comment="status of a user">offline</string>
+  <string name="search">Hľadať</string>
+  <string name="clearSearch">Vymazať vyhľadávanie</string>
+  <string name="tags">Značky</string>
 </resources>

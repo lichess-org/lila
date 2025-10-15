@@ -19,13 +19,13 @@
     <item quantity="other">Έπαιξε %1$s γύρους %2$s</item>
   </plurals>
   <string name="highscoreX">Ρεκόρ: %s</string>
-  <string name="score">Βαθμολογία</string>
+  <string name="score">Σκορ</string>
   <string name="moves">Κινήσεις</string>
   <string name="accuracy">Ακρίβεια</string>
   <string name="combo">Combo</string>
   <string name="time">Χρόνος</string>
   <string name="timePerMove">Χρόνος ανά κίνηση</string>
-  <string name="highestSolved">Υψηλότερο επιλυμένο</string>
+  <string name="highestSolved">Μεγαλύτερη βαθμολογία</string>
   <string name="puzzlesPlayed">Παιγμένοι γρίφοι</string>
   <string name="newRun">Νέος γύρος (πλήκτρο: Space)</string>
   <string name="endRun">Τερματισμός γύρου (πλήκτρο: Enter)</string>

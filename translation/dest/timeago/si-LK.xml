@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="justNow">මේ දැන්</string>
+  <string name="justNow" comment="This string refers to an event which has not started yet, but will begin in the next few seconds-to-milliseconds, depending on when your browser refreshes. Used in areas with live-refreshing text like this, such as the list of Open Tournaments on the homepage.&#10;&#10;There is a separate string for right after events that have begun, which reads &quot;right now&quot;.">මේ දැන්</string>
   <plurals name="inNbSeconds">
     <item quantity="one">තත්පර %s කින්</item>
     <item quantity="other">තව තත්පර %s කින්</item>
@@ -29,7 +29,7 @@
     <item quantity="one">වසර %s කින්</item>
     <item quantity="other">වසර %s කින්</item>
   </plurals>
-  <string name="rightNow">මේ දැන්</string>
+  <string name="rightNow" comment="This string refers to an event that has started in the last few milliseconds-to-seconds, depending on when your browser refreshes. Used in areas with live-refreshing text like this, such as the list of Open Tournaments on the homepage.&#10;&#10;There is a separate string for just before events that have begun, which reads &quot;just now&quot;.">මේ දැන්</string>
   <plurals name="nbMinutesAgo">
     <item quantity="one">මිනිත්තුවකට පෙර</item>
     <item quantity="other">මිනිත්තු %s කට පෙර</item>

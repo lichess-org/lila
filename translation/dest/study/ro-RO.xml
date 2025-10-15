@@ -35,7 +35,7 @@
   </plurals>
   <string name="inviteToTheStudy">Invită la studiu</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">Vă rugăm să invitați doar persoanele pe care le cunoașteți și care vor în mod activ să se alăture studiului.</string>
-  <string name="searchByUsername">Caută după numele de utilizator</string>
+  <string name="searchByUsername" comment="Appears when adding members to a Lichess Study as placeholder text in a search box.">Caută după numele de utilizator</string>
   <string name="spectator">Spectator</string>
   <string name="contributor">Contribuitor</string>
   <string name="kick">Înlătură</string>

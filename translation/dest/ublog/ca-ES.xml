@@ -5,7 +5,7 @@
   <string name="byTopic">Per tema</string>
   <string name="byLichess">De lichess</string>
   <string name="myFriends">Els meus amics</string>
-  <string name="myLikes">Els que m\'agraden</string>
+  <string name="myLikes" comment="A page which lists blog posts that you have pressed ❤️ Like on: https://lichess.org/blog/liked">Els que m\'agraden</string>
   <string name="myBlog">El meu blog</string>
   <string name="likedBlogs">Entrades del blog que t\'han agradat</string>
   <plurals name="blogPosts">
