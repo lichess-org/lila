@@ -883,6 +883,7 @@ export default class AnalyseCtrl implements CevalHandler {
   };
 
   toggleExplorer = (): void => {
+    if (this.study && !this.study.data.chapter.features.explorer) return;
     if (!this.explorer.enabled()) {
       this.retro = undefined;
       this.actionMenu(false);
