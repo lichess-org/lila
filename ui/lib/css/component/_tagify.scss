@@ -221,6 +221,11 @@
     cursor: default;
     transition: 0.13s ease-out;
 
+    &.sortable-ghost {
+      opacity: 0.6;
+      outline: 1px solid $c-primary;
+    }
+
     > div {
       vertical-align: top;
       box-sizing: border-box;
