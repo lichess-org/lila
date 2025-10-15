@@ -24,6 +24,8 @@ case class PicfitImage(
     createdAt: Instant,
     context: Option[String],
     automod: Option[ImageAutomod] = none
+    // need a urls array here that tracks generated urls (including sigs) for cf purge
+    // operations on delete. there is no regex or partial query string wildcard support
 )
 
 case class ImageAutomod(
@@ -113,9 +115,6 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
       .find($inIds(ids))
       .cursor[PicfitImage]()
       .list(ids.size)
-
-  // def flaggedByUser(user: UserId): Fu[Seq[PicfitImage]] =
-  //   coll.find($doc("user" -> user, "automod.flagged" -> $exists(true))).cursor[PicfitImage]().collect()
 
   object bodyImage:
     def upload(rel: String, image: FilePart, meta: Option[ImageMetaData], widthCap: Option[Int])(using

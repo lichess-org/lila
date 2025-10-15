@@ -195,10 +195,6 @@ final class LilaComponents(
   private val teamRouter: _root_.router.team.Routes = wire[_root_.router.team.Routes]
   val router: Router = wire[_root_.router.router.Routes]
 
-  // i'll leave this unseemly var injection here (in the most obnoxious place)
-  // and pay attention to how you fix it. burn after reading
-  lila.ui.bits.setPicfitOrigin(env.memo.picfitUrl.origin)
-
   lila.common.Uptime.startedAt
   UiEnv.setEnv(env)
 

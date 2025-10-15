@@ -11,9 +11,6 @@ import lila.ui.ScalatagsTemplate.{ *, given }
 
 object bits:
 
-  private var picfitOrigin: Option[String] = none // nothing says i love you like a fresh var
-  def setPicfitOrigin(origin: String) = picfitOrigin = origin.some // injected from the app
-
   val engineFullName = "Stockfish 17.1"
 
   def subnav(mods: Modifier*) = st.aside(cls := "subnav"):
