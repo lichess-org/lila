@@ -17,7 +17,7 @@ object BotJson extends OpaqueJson[BotJson]:
     def withMeta(meta: BotMeta): BotJson = b ++ Json.toJsObject(meta)
     def key = (b \ "key").as[BotKey]
 
-case class BotMeta(id: BotUid, author: UserId, version: Int)
+case class BotMeta(id: BotUid, author: UserId, version: Int, date: Instant)
 private given OWrites[BotMeta] = Json.writes
 
 type AssetType = "sound" | "image" | "book" | "net"

@@ -32,7 +32,7 @@
   </plurals>
   <string name="inviteToTheStudy">بانگێشتکردن بۆ لێکۆڵینەوەکه</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">تکایە تەنھا ئەو کەسانە بانگێشت بکە کە دەیانناسیت و دەیانەوێت بە شێوەیەکی چالاکانە بێنە پاڵ ئەو لێکۆڵینەوەیه.</string>
-  <string name="searchByUsername">لە ڕێگەی ناوی بەکارھێنەرەوە بگەڕێ</string>
+  <string name="searchByUsername" comment="Appears when adding members to a Lichess Study as placeholder text in a search box.">لە ڕێگەی ناوی بەکارھێنەرەوە بگەڕێ</string>
   <string name="spectator">بینەر</string>
   <string name="contributor">بەشدار</string>
   <string name="kick">بیکە دەرەوە</string>

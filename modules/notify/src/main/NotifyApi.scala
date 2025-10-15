@@ -1,15 +1,14 @@
 package lila.notify
 
 import play.api.libs.json.Json
-
-import lila.common.Bus
-
 import scalalib.paginator.Paginator
 import scalalib.data.LazyFu
+
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
 import lila.core.socket.SendTos
 import lila.memo.CacheApi.*
+import lila.common.Bus
 import lila.core.notify.{ NotificationPref as _, * }
 import lila.core.notify.NotificationContent.*
 import lila.core.socket.SendToOnlineUser
@@ -27,7 +26,7 @@ final class NotifyApi(
   import Notification.*
   import BSONHandlers.given
 
-  lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
+  Bus.sub[lila.core.user.UserDelete]: del =>
     for
       _ <- colls.pref.delete.one($id(del.id))
       _ <- colls.notif.delete.one($doc("notifies" -> del.id))

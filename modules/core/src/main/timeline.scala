@@ -42,8 +42,6 @@ case class PlanRenew(userId: UserId, months: Int) extends Atom("planRenew", true
   def userIds = List(userId)
 case class UblogPostLike(userId: UserId, id: UblogPostId, title: String) extends Atom("ublogPostLike", false):
   def userIds = List(userId)
-case class StreamStart(id: UserId, name: String) extends Atom("streamStart", false):
-  def userIds = List(id)
 
 enum Propagation extends NotBuseable:
   case Users(users: List[UserId])

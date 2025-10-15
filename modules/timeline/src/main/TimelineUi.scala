@@ -6,9 +6,7 @@ import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
 
-final class TimelineUi(helpers: Helpers)(
-    streamerLink: UserStr => Tag
-):
+final class TimelineUi(helpers: Helpers):
   import helpers.{ *, given }
 
   def entries(entries: Vector[Entry])(using Context) =
@@ -105,10 +103,6 @@ final class TimelineUi(helpers: Helpers)(
           trans.site.xLikesY(
             userLink(userId),
             a(href := routes.Ublog.redirect(postId))(postTitle)
-          )
-        case StreamStart(id, name) =>
-          streamerLink(id.into(UserStr))(cls := "text", dataIcon := Icon.Mic)(
-            trans.site.xStartedStreaming(name)
           )
       ,
       " ",

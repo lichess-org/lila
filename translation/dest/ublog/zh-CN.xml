@@ -5,7 +5,7 @@
   <string name="byTopic">按主题</string>
   <string name="byLichess">由Lichess创建</string>
   <string name="myFriends">我的好友</string>
-  <string name="myLikes">我的点赞</string>
+  <string name="myLikes" comment="A page which lists blog posts that you have pressed ❤️ Like on: https://lichess.org/blog/liked">我的点赞</string>
   <string name="myBlog">我的博客</string>
   <string name="likedBlogs">赞过的博客</string>
   <plurals name="blogPosts">

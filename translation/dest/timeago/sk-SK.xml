@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="justNow">práve teraz</string>
+  <string name="justNow" comment="This string refers to an event which has not started yet, but will begin in the next few seconds-to-milliseconds, depending on when your browser refreshes. Used in areas with live-refreshing text like this, such as the list of Open Tournaments on the homepage.&#10;&#10;There is a separate string for right after events that have begun, which reads &quot;right now&quot;.">práve teraz</string>
   <plurals name="inNbSeconds">
     <item quantity="one">o %s sekundu</item>
     <item quantity="few">o %s sekundy</item>
@@ -43,7 +43,7 @@
     <item quantity="many">o %s rokov</item>
     <item quantity="other">o %s rokov</item>
   </plurals>
-  <string name="rightNow">práve teraz</string>
+  <string name="rightNow" comment="This string refers to an event that has started in the last few milliseconds-to-seconds, depending on when your browser refreshes. Used in areas with live-refreshing text like this, such as the list of Open Tournaments on the homepage.&#10;&#10;There is a separate string for just before events that have begun, which reads &quot;just now&quot;.">práve teraz</string>
   <plurals name="nbMinutesAgo">
     <item quantity="one">pred %s minútou</item>
     <item quantity="few">pred %s minútami</item>

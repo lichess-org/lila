@@ -27,6 +27,7 @@ final private class JsBotRepo(bots: Coll, assets: Coll)(using Executor):
       .aggregateWith[BotJson](readPreference = ReadPref.sec): framework =>
         import framework.*
         List(
+          // Match($doc("uid" -> "#centipawn")),
           Sort(Descending("version")),
           GroupField("uid")("doc" -> FirstField("$ROOT")),
           ReplaceRootField("doc")
@@ -36,7 +37,7 @@ final private class JsBotRepo(bots: Coll, assets: Coll)(using Executor):
   def putBot(bot: BotJson, author: UserId): Fu[BotJson] = for
     fullBot <- bots.find($uid(bot.uid)).sort($doc("version" -> -1)).one[Bdoc]
     nextVersion = fullBot.flatMap(_.int("version")).getOrElse(-1) + 1 // race condition
-    newBot = bot.withMeta(BotMeta(bot.uid, author, nextVersion))
+    newBot = bot.withMeta(BotMeta(bot.uid, author, nextVersion, nowInstant))
     _ <- bots.insert.one(newBot)
   yield newBot
 

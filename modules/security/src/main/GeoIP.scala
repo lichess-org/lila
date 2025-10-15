@@ -1,6 +1,7 @@
 package lila.security
 
 import com.github.blemale.scaffeine.LoadingCache
+import com.maxmind.db.Reader.FileMode
 import com.maxmind.geoip2.DatabaseReader
 import com.maxmind.geoip2.model.CityResponse
 import play.api.ConfigLoader
@@ -19,7 +20,7 @@ final class GeoIP(config: GeoIP.Config, scheduler: Scheduler)(using Executor):
     if config.file.nonEmpty then
       try
         val time = lila.common.Chronometer.sync:
-          reader = DatabaseReader.Builder(java.io.File(config.file)).build.some
+          reader = DatabaseReader.Builder(java.io.File(config.file)).fileMode(FileMode.MEMORY).build.some
         reader.foreach: r =>
           val meta = r.getMetadata
           val date = isoInstantFormatter.format(millisToInstant(meta.getBuildDate.getTime))
