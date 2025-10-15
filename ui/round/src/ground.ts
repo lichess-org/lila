@@ -9,6 +9,7 @@ import { uciToMove } from '@lichess-org/chessground/util';
 import { ShowResizeHandle, Coords, MoveEvent } from 'lib/prefs';
 import { storage } from 'lib/storage';
 import { Chessground as makeChessground } from '@lichess-org/chessground';
+import { additionalPremoveRequirements } from './premove';
 
 export function makeConfig(ctrl: RoundController): CgConfig {
   const data = ctrl.data,
@@ -69,6 +70,7 @@ export function makeConfig(ctrl: RoundController): CgConfig {
         unset: hooks.onCancelPremove,
       },
       unrestrictedPremoves: data.game.variant.key === 'atomic',
+      additionalPremoveRequirements: additionalPremoveRequirements
     },
     predroppable: {
       enabled: data.pref.enablePremove && data.game.variant.key === 'crazyhouse',
