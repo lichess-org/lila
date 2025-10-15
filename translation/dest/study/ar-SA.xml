@@ -44,7 +44,7 @@
   </plurals>
   <string name="inviteToTheStudy">دعوة الى دراسة</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">يرجى فقط إضافة اشخاص تعرفهم، ويريدون المشاركة في هذه الدراسة</string>
-  <string name="searchByUsername">البحث بواسطة اسم المستخدم</string>
+  <string name="searchByUsername" comment="Appears when adding members to a Lichess Study as placeholder text in a search box.">البحث بواسطة اسم المستخدم</string>
   <string name="spectator">مشاهد</string>
   <string name="contributor">مساهم</string>
   <string name="kick">طرد</string>

@@ -5,7 +5,7 @@
   <string name="byTopic">Nach Thema</string>
   <string name="byLichess">Von Lichess</string>
   <string name="myFriends">Meine Freunde</string>
-  <string name="myLikes">Meine Likes</string>
+  <string name="myLikes" comment="A page which lists blog posts that you have pressed ❤️ Like on: https://lichess.org/blog/liked">Meine Likes</string>
   <string name="myBlog">Mein Blog</string>
   <string name="likedBlogs">Gelikte Blogbeiträge</string>
   <plurals name="blogPosts">

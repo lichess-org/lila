@@ -24,7 +24,7 @@
     <item quantity="one">%s Miyembro</item>
     <item quantity="other">%s mga Miyembro</item>
   </plurals>
-  <string name="searchByUsername">Hanapin gamit ng username</string>
+  <string name="searchByUsername" comment="Appears when adding members to a Lichess Study as placeholder text in a search box.">Hanapin gamit ng username</string>
   <string name="spectator">Manonood</string>
   <string name="contributor">Taga-ambag</string>
   <string name="kick">Paalisin</string>

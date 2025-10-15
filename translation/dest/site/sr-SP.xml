@@ -23,9 +23,9 @@
   <string name="createTheGame">Започни партију</string>
   <string name="whiteIsVictorious">Бели је поебдио</string>
   <string name="blackIsVictorious">Црни је победио</string>
-  <string name="youPlayTheWhitePieces">Играте са белим фигурама</string>
-  <string name="youPlayTheBlackPieces">Играте са црним фигурама</string>
-  <string name="itsYourTurn">Ти си на потезу!</string>
+  <string name="youPlayTheWhitePieces">Играш белим фигурама</string>
+  <string name="youPlayTheBlackPieces">Играш црним фигурама</string>
+  <string name="itsYourTurn">Твој је потез!</string>
   <string name="cheatDetected">Детектована превара</string>
   <string name="kingInTheCenter">Краљ у центру</string>
   <string name="threeChecks">Три шаха</string>
@@ -37,9 +37,9 @@
   <string name="whitePlays">Бели на потезу</string>
   <string name="blackPlays">Црни на потезу</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">Ваш противник је напустио игру. Победа ће Вам бити приписана за %s секунди.</item>
-    <item quantity="few">Ваш противник је напустио игру. Победа ће Вам бити приписана за %s секунди.</item>
-    <item quantity="other">Ваш противник је напустио игру. Победа ће Вам бити приписана за %s секунди.</item>
+    <item quantity="one">Твој противник је напустио партију. Можеш прогласити победу за %s секунд.</item>
+    <item quantity="few">Твој противник је напустио партију. Можеш прогласити победу за %s секунде.</item>
+    <item quantity="other">Твој противник је напустио партију. Можеш прогласити победу за %s секунди.</item>
   </plurals>
   <string name="opponentLeftChoices">Твој противник је изашао из партије. Можеш прогласити победу, прогласити партију ремијем или чекати.</string>
   <string name="forceResignation">Прогласи победу</string>

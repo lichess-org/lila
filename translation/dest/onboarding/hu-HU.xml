@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="logInAsUsername">Bejelentkezés mint %s</string>
-  <string name="welcome">Üdv itt!</string>
+  <string name="welcome">Üdvözlünk!</string>
   <string name="welcomeToLichess">Üdvözlünk a lichess.org-on!</string>
   <string name="thisIsYourProfilePage">Ez a te profilod.</string>
   <string name="enabledKidModeSuggestion">Kiskorú használná a fiókot? Engedélyezd %s-t.</string>

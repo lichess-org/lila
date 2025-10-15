@@ -32,7 +32,7 @@
   </plurals>
   <string name="inviteToTheStudy">Convidar para o estudo</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">Por favor, convida apenas pessoas que conheças e que querem participar ativamente neste estudo.</string>
-  <string name="searchByUsername">Pesquisar por nome de utilizador</string>
+  <string name="searchByUsername" comment="Appears when adding members to a Lichess Study as placeholder text in a search box.">Pesquisar por nome de utilizador</string>
   <string name="spectator">Espectador</string>
   <string name="contributor">Colaborador</string>
   <string name="kick">Expulsar</string>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="challengesX">Utfordringer: %1$s</string>
-  <string name="challengeToPlay">Utfordre til et parti</string>
+  <string name="challengeToPlay" comment="Appears as a button on profiles and on a challenge modal; lets you challenge that player to a game.&#10;&quot;Challenge&quot; is used as a verb.&#10;&#10;This text used to state &quot;Challenge to a game&quot;. Please shorten to just &quot;Challenge&quot; if you see a translation of the old version of the string.">Utfordre til et parti</string>
   <string name="challengeDeclined">Utfordring avslått</string>
   <string name="challengeAccepted">Utfordring godtatt!</string>
   <string name="challengeCanceled">Utfordring avbrutt.</string>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessCoaches">مربیان لیچس</string>
+  <string name="lichessCoaches">مربیان Lichess</string>
   <string name="lichessCoach">مربی Lichess</string>
   <string name="areYouCoach">آیا یک مربی خوب شطرنج با %s هستید؟</string>
   <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">عنوان NM یا FIDE</string>

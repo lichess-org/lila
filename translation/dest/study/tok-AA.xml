@@ -32,7 +32,7 @@
   </plurals>
   <string name="inviteToTheStudy">o pana e wile kama tawa jan ante</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">o pali e ni tawa jan ni taso: sina sona e ona. ona li wile kama.</string>
-  <string name="searchByUsername">o alasa kepeken nimi jan</string>
+  <string name="searchByUsername" comment="Appears when adding members to a Lichess Study as placeholder text in a search box.">o alasa kepeken nimi jan</string>
   <string name="spectator">jan lukin</string>
   <string name="contributor">jan pali</string>
   <string name="kick">o weka e jan</string>
