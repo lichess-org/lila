@@ -97,7 +97,6 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
     )
 
   def search(pag: Paginator[WithChaptersAndLiked], order: Order, text: String)(using Context) =
-    println(s"Search text: '$text'")
     Page(text)
       .css("analyse.study.index")
       .js(infiniteScrollEsmInit):
@@ -106,6 +105,7 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
           main(cls := "page-menu__content study-index box")(
             div(cls := "box__top")(
               searchForm(trans.search.search.txt(), text, order),
+              bits.orderSelect(order, "", url = o => routes.Study.search(text, o, 1)),
               bits.newForm()
             ),
             paginate(pag, routes.Study.search(text, order))
