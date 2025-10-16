@@ -28,9 +28,9 @@ case class PicfitImage(
     // operations on delete. there is no regex or partial query string wildcard support
 )
 
+// presence of the ImageAutomod subdoc indicates an image has been scanned, regardless of flagged
 case class ImageAutomod(
-    flagged: Option[String] = none,
-    processed: Boolean = false
+    flagged: Option[String] = none
 )
 
 case class ImageMetaData(

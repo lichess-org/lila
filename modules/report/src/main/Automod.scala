@@ -87,14 +87,13 @@ final class Automod(
       .byIds(idToUrl.keys.toSeq*)
       .flatMap:
         _.map: pic =>
-          pic.automod match
-            case Some(a) if a.processed => fuccess(pic)
-            case _ =>
-              image(idToUrl.get(pic.id).get).flatMap: verdict =>
-                picfitApi
-                  .setAutomod(pic.id, verdict)
-                  .inject:
-                    pic.copy(automod = lila.memo.ImageAutomod(verdict, true).some)
+          if pic.automod.isDefined then fuccess(pic)
+          else
+            image(idToUrl.get(pic.id).get).flatMap: flagged =>
+              picfitApi
+                .setAutomod(pic.id, flagged)
+                .inject:
+                  pic.copy(automod = lila.memo.ImageAutomod(flagged).some)
         .toSeq.parallel
 
   def image(imageUrl: String): Fu[Option[String]] =
