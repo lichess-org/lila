@@ -60,6 +60,7 @@ final class ChallengeBulkApi(
       _ <- raiseIf(bulks.exists(_.collidesWith(bulk))):
         "A bulk containing the same players is scheduled at the same time"
       _ <- coll.insert.one(bulk)
+      _ <- bulk.pairAt.isAfter(nowInstant).not.so(makePairings(bulk))
     yield bulk
 
   private[challenge] def tick: Funit =
