@@ -24,7 +24,6 @@ final class BoardApiHookStream(
     val channels = List(s"hookRemove:${hook.id}", s"hookRemove:${hook.sri}")
 
     blueprint.mapMaterializedValue: queue =>
-
       val busHandler = scalalib.bus.Tellable:
         case RemoveHook(_) => queue.complete()
 
@@ -49,7 +48,6 @@ final class BoardApiHookStream(
     val channel = s"hookRemove:${member.sri}"
 
     blueprint.mapMaterializedValue: queue =>
-
       val busHandler = scalalib.bus.Tellable:
         // lets the mobile withdraw from pool with `DELETE /api/board/seek
         case RemoveHook(_) => queue.complete()

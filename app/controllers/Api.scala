@@ -11,7 +11,7 @@ import lila.common.Json.given
 import lila.core.chess.MultiPv
 import lila.core.net.IpAddress
 import lila.core.{ LightUser, id }
-import lila.security.Mobile
+import lila.security.{ Mobile, UserAgentParser }
 
 final class Api(env: Env, gameC: => Game) extends LilaController(env):
 
@@ -261,17 +261,21 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
   val cloudEval =
     val rateLimit = env.security.ipTrust.rateLimit(3_000, 1.day, "cloud-eval.api.ip", _.proxyMultiplier(3))
     Anon:
-      rateLimit(rateLimited):
-        get("fen").fold[Fu[Result]](notFoundJson("Missing FEN")): fen =>
-          import chess.variant.Variant
-          env.evalCache.api
-            .getEvalJson(
-              Variant.orDefault(getAs[Variant.LilaKey]("variant")),
-              chess.format.Fen.Full.clean(fen),
-              getIntAs[MultiPv]("multiPv") | MultiPv(1)
-            )
-            .map:
-              _.fold[Result](notFoundJson("No cloud evaluation available for that position"))(JsonOk)
+      WithProxy: proxy ?=>
+        limit.enumeration.cloudEval(rateLimited):
+          val suspUA = UserAgentParser.trust.isSuspicious(req.userAgent)
+          val cost = if ctx.isAuth then 1 else if suspUA then 5 else 2
+          rateLimit(rateLimited, cost = cost):
+            get("fen").fold[Fu[Result]](notFoundJson("Missing FEN")): fen =>
+              import chess.variant.Variant
+              env.evalCache.api
+                .getEvalJson(
+                  Variant.orDefault(getAs[Variant.LilaKey]("variant")),
+                  chess.format.Fen.Full.clean(fen),
+                  getIntAs[MultiPv]("multiPv") | MultiPv(1)
+                )
+                .map:
+                  _.fold[Result](notFoundJson("No cloud evaluation available for that position"))(JsonOk)
 
   val eventStream =
     Scoped(_.Bot.Play, _.Board.Play, _.Challenge.Read) { _ ?=> me ?=>

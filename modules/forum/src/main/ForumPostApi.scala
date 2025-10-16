@@ -1,7 +1,7 @@
 package lila.forum
 
 import lila.common.Bus
-import lila.core.forum.{ BusForum, ForumCateg as _, ForumPost as _, * }
+import lila.core.forum.{ ForumCateg as _, ForumPost as _, * }
 import lila.core.perm.Granter as MasterGranter
 import lila.core.shutup.{ PublicSource, ShutupApi }
 import lila.core.timeline.{ ForumPost as TimelinePost, Propagate }
