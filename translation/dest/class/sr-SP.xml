@@ -7,9 +7,9 @@
   <string name="trackStudentProgress">Прати напредак ученика у партијама и проблемима</string>
   <string name="messageAllStudents">Обавести све ученике о новом наставном садржају</string>
   <string name="freeForAllForever">100% бесплатно за све, заувек, без реклама или праћења</string>
-  <string name="applyToBeLichessTeacher">Пријави се да будеш Lichess учитељ</string>
-  <string name="noClassesYet">Још увек нема часова.</string>
-  <string name="teachersX">Учитељи: %s</string>
+  <string name="applyToBeLichessTeacher">Пријави се да будеш Lichess Наставник</string>
+  <string name="noClassesYet">Још нема часова.</string>
+  <string name="teachersX">Наставници: %s</string>
   <string name="newClass">Нови час</string>
   <string name="closeClass">Затвори час</string>
   <string name="removedByX">Уклоњени од стране %s</string>
