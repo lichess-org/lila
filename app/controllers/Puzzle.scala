@@ -87,7 +87,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
 
   private def onComplete[A](
       form: Form[PuzzleForm.RoundData]
-  )(id: PuzzleId, angle: PuzzleAngle, mobileBc: Boolean)(using ctx: BodyContext[A]): Fu[Result] =
+  )(id: PuzzleId, angle: PuzzleAngle, mobileBc: Boolean)(using BodyContext[A]): Fu[Result] =
     bindForm(form)(
       doubleJsonFormError,
       data =>
@@ -155,14 +155,14 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       )
   }
 
-  def voteTheme(id: PuzzleId, themeStr: String) = AuthBody { _ ?=> me ?=>
+  def voteTheme(id: PuzzleId, themeStr: String) = AuthOrScopedBody(_.Puzzle.Write) { _ ?=> me ?=>
     NoBot:
       PuzzleTheme
         .findDynamic(themeStr)
         .so: theme =>
           bindForm(env.puzzle.forms.themeVote)(
             doubleJsonFormError,
-            vote => env.puzzle.api.theme.vote(me, id, theme.key, vote).inject(jsonOkResult)
+            vote => env.puzzle.api.theme.vote(id, theme.key, vote).inject(jsonOkResult)
           )
   }
 

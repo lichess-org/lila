@@ -55,6 +55,10 @@ final class PuzzleApi(
         )
       colls.round(_.update.one($id(r.id), roundDoc, upsert = true)).void
 
+    def themes(id: PuzzleRound.Id): Fu[List[PuzzleRound.Theme]] =
+      colls.round:
+        _.primitiveOne[List[PuzzleRound.Theme]]($id(id), PuzzleRound.BSONFields.themes).map(~_)
+
   object vote:
 
     private val sequencer = AsyncActorSequencers[PuzzleId](
@@ -125,30 +129,43 @@ final class PuzzleApi(
           cat -> puzzles.map: pt =>
             PuzzleTheme.WithCount(pt, counts.getOrElse(pt.key, 0))
 
-    def vote(user: User, id: PuzzleId, theme: PuzzleTheme.Key, vote: Option[Boolean]): Funit =
-      round.find(user, id).flatMapz { round =>
-        round.themeVote(theme, vote).so { newThemes =>
-          import PuzzleRound.BSONFields as F
-          val update =
-            if newThemes.isEmpty || !PuzzleRound.themesLookSane(newThemes) then
-              fuccess($unset(F.themes, F.puzzle).some)
-            else if vote.isEmpty then fuccess($set(F.themes -> newThemes).some)
-            else
-              trustApi.theme(user).map2 { weight =>
-                $set(
-                  F.themes -> newThemes,
-                  F.puzzle -> id,
-                  F.weight -> weight
-                )
-              }
-          update.flatMapz: up =>
-            lila.mon.puzzle.vote.theme(theme.value, vote, round.win.yes).increment()
-            colls
-              .round(_.update.one($id(round.id), up))
-              .zip(colls.puzzle(_.updateField($id(round.id.puzzleId), Puzzle.BSONFields.dirty, true)))
-              .void
+    private def updateRoundThemes(puzzle: PuzzleId, themes: List[PuzzleRound.Theme], weight: Option[Int]) =
+      import PuzzleRound.BSONFields as F
+      $set(F.themes -> themes, F.puzzle -> puzzle, F.weight -> weight)
+
+    def vote(id: PuzzleId, theme: PuzzleTheme.Key, vote: Option[Boolean])(using me: Me): Funit =
+      if me.is(UserId.lichess) then lichessVote(id, theme, vote)
+      else
+        round.find(me, id).flatMapz { round =>
+          PuzzleRound
+            .themeVote(round.themes)(theme, vote)
+            .so: newThemes =>
+              import PuzzleRound.BSONFields as F
+              val update =
+                if newThemes.isEmpty || !PuzzleRound.themesLookSane(newThemes)
+                then fuccess($unset(F.themes, F.puzzle).some)
+                if vote.isEmpty then fuccess(updateRoundThemes(id, newThemes, none).some)
+                else trustApi.theme(me).map2(t => updateRoundThemes(id, newThemes, t.some))
+              update.flatMapz: up =>
+                lila.mon.puzzle.vote.theme(theme.value, vote, round.win.yes).increment()
+                colls
+                  .round(_.update.one($id(round.id), up))
+                  .zip(colls.puzzle(_.updateField($id(round.id.puzzleId), Puzzle.BSONFields.dirty, true)))
+                  .void
         }
-      }
+
+    private def lichessVote(puzzleId: PuzzleId, theme: PuzzleTheme.Key, vote: Option[Boolean]): Funit =
+      val roundId = PuzzleRound.Id(UserId.lichess, puzzleId)
+      for
+        prev <- round.themes(roundId)
+        _ <- PuzzleRound
+          .themeVote(prev)(theme, vote)
+          .so: newThemes =>
+            for
+              _ <- colls.round(_.update.one($id(roundId), updateRoundThemes(puzzleId, newThemes, none)))
+              _ <- colls.puzzle(_.updateField($id(puzzleId), Puzzle.BSONFields.dirty, true))
+            yield ()
+      yield ()
 
   object casual:
 
