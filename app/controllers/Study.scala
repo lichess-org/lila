@@ -29,7 +29,7 @@ final class Study(
     apiC: => Api
 ) extends LilaController(env):
 
-  def search(text: String, page: Int) = OpenOrScopedBody(parse.anyContent)(_.Study.Read, _.Web.Mobile):
+  def search(text: String, order: Order, page: Int) = OpenOrScopedBody(parse.anyContent)(_.Study.Read, _.Web.Mobile):
     Reasonable(page):
       text.trim.some.filter(_.nonEmpty).filter(_.sizeIs > 2).filter(_.sizeIs < 200) match
         case None =>
@@ -43,12 +43,13 @@ final class Study(
           yield res
         case Some(clean) =>
           env
-            .studySearch(clean.take(100), page)
+            .studySearch(clean.take(100), order, page)
             .flatMap: pag =>
               negotiate(
-                Ok.page(views.study.list.search(pag, text)),
+                Ok.page(views.study.list.search(pag, order, text)),
                 apiStudies(pag)
               )
+  def searchDefault(text: String, page: Int) = search(text, Order.hot, page)
 
   def homeLang = LangPage(routes.Study.allDefault())(allResults(Order.hot, 1))
 

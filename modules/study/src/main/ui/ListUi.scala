@@ -96,7 +96,8 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
       url = routes.Study.minePrivate(_)
     )
 
-  def search(pag: Paginator[WithChaptersAndLiked], text: String)(using Context) =
+  def search(pag: Paginator[WithChaptersAndLiked], order: Order, text: String)(using Context) =
+    println(s"Search text: '$text'")
     Page(text)
       .css("analyse.study.index")
       .js(infiniteScrollEsmInit):
@@ -104,10 +105,10 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
           menu("search", Orders.default),
           main(cls := "page-menu__content study-index box")(
             div(cls := "box__top")(
-              searchForm(trans.search.search.txt(), text),
+              searchForm(trans.search.search.txt(), text, order),
               bits.newForm()
             ),
-            paginate(pag, routes.Study.search(text))
+            paginate(pag, routes.Study.search(text, order))
           )
         )
 
@@ -127,7 +128,7 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
           menu(active, order, topics.so(_.value)),
           main(cls := "page-menu__content study-index box")(
             div(cls := "box__top")(
-              searchForm(title, s"$searchFilter${searchFilter.nonEmpty.so(" ")}"),
+              searchForm(title, s"$searchFilter${searchFilter.nonEmpty.so(" ")}", order),
               bits.orderSelect(order, active, url),
               bits.newForm()
             ),
@@ -171,8 +172,8 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
       )(trs.whatAreStudies())
     )
 
-  def searchForm(placeholder: String, value: String) =
-    form(cls := "search", action := routes.Study.search(), method := "get")(
+  def searchForm(placeholder: String, value: String, order: Order) =
+    form(cls := "search", action := routes.Study.search(order = order), method := "get")(
       input(name := "q", st.placeholder := placeholder, st.value := value, enterkeyhint := "search"),
       submitButton(cls := "button", dataIcon := Icon.Search)
     )
