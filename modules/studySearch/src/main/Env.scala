@@ -35,11 +35,13 @@ final class Env(
     )
 
   extension (x: Order)
-    def toSpec: StudySorting = x match
-      case Order.alphabetical => StudySorting(StudySortField.Name, SpecOrder.Asc)
-      case Order.hot => StudySorting(StudySortField.Hot, SpecOrder.Desc)
-      case Order.newest => StudySorting(StudySortField.CreatedAt, SpecOrder.Desc)
-      case Order.oldest => StudySorting(StudySortField.CreatedAt, SpecOrder.Asc)
-      case Order.popular => StudySorting(StudySortField.Likes, SpecOrder.Desc)
-      case Order.updated => StudySorting(StudySortField.UpdatedAt, SpecOrder.Desc)
-      case Order.mine => StudySorting(StudySortField.Likes, SpecOrder.Asc)
+    def toSpec: Option[StudySorting] =
+      x.match
+        case Order.alphabetical => StudySorting(StudySortField.Name, SpecOrder.Asc)
+        case Order.hot => StudySorting(StudySortField.Hot, SpecOrder.Desc)
+        case Order.newest => StudySorting(StudySortField.CreatedAt, SpecOrder.Desc)
+        case Order.oldest => StudySorting(StudySortField.CreatedAt, SpecOrder.Asc)
+        case Order.popular => StudySorting(StudySortField.Likes, SpecOrder.Desc)
+        case Order.updated => StudySorting(StudySortField.UpdatedAt, SpecOrder.Desc)
+        case Order.mine => StudySorting(StudySortField.Likes, SpecOrder.Asc)
+      .some
