@@ -130,7 +130,9 @@ final class Automod(
             res <- Json.parse(trimmed).asOpt[JsObject]
             if ~res.boolean("flag")
           yield
+            lila.mon.mod.report.automod.imageFlagged.increment()
             ~res.str("reason")
+        .monSuccess(_.mod.report.automod.imageRequest)
 
 private object Automod:
   case class Config(val url: String, val apiKey: Secret)
