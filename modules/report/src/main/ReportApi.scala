@@ -315,26 +315,19 @@ final class ReportApi(
     yield onReportClose()
 
   def automodComms(userText: String, url: String)(using me: Me): Funit =
-    val assessImages = for
-      images <- automodApi.markdownImages(userText)
-      _ <- picfitApi.setContext(url, images.map(_.id))
-    yield images
-    val assessText = automodApi
-      .text(
-        userText,
-        systemPrompt = commsPromptSetting.get(),
-        model = commsModelSetting.get()
-      )
-      .monSuccess(_.mod.report.automod.request)
     for
-      (images, textResponse) <- assessImages.zip(assessText)
+      images <- automodApi.markdownImages(Markdown(userText))
+      _ <- picfitApi.setContext(url, images.map(_.id))
+      textResponse <- automodApi
+        .text(userText, systemPrompt = commsPromptSetting.get(), model = commsModelSetting.get())
+        .monSuccess(_.mod.report.automod.request)
       flaggedImages = images.flatMap(_.automod.flatMap(_.flagged))
       suspectOpt <- getSuspect(me)
       reporter <- automodReporter
     yield for
       res <- textResponse
-      fromLlm <- (res \ "assessment").asOpt[String]
-      hasFlaggedImages = flaggedImages.size > 0
+      fromLlm <- res.str("assessment")
+      hasFlaggedImages = flaggedImages.nonEmpty
       kamonTag = if hasFlaggedImages then "image" else if fromLlm == "pass" then "ok" else fromLlm
       _ = lila.mon.mod.report.automod.assessment(kamonTag).increment()
       reason <- fromLlm match
@@ -342,7 +335,7 @@ final class ReportApi(
         case "other" => Reason("comm") // llm knows "other"
         case r => Reason(r)
       suspect <- suspectOpt
-      summary = (flaggedImages ++ (res \ "reason").asOpt[String]).mkString(", ")
+      summary = (flaggedImages ++ res.str("reason")).mkString(", ")
     yield create(
       Candidate(
         reporter = reporter,

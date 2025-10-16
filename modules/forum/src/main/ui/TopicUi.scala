@@ -218,9 +218,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
       captcha: Captcha,
       text: String,
       plaintext: Boolean
-  )(using
-      Context
-  )(using me: Me) =
+  )(using Context)(using me: Me) =
     Page("Diagnostic report")
       .css("bits.forum")
       .js(Esm("bits.forum") ++ plaintext.not.so(Esm("bits.markdownTextarea")))

@@ -76,9 +76,9 @@ final class Automod(
             case None => fufail(s"${rsp.status} ${(rsp.body: String).take(500)}")
             case Some(res) => fuccess(res)
 
-  def markdownImages(markdown: String): Fu[Seq[lila.memo.PicfitImage]] =
+  def markdownImages(markdown: Markdown): Fu[Seq[lila.memo.PicfitImage]] =
     val idToUrl = imageIdRe
-      .findAllMatchIn(markdown)
+      .findAllMatchIn(markdown.value)
       .map: m =>
         val id = lila.core.id.ImageId(m.group(1))
         // 560x560 containment consumes the minimum 1601 tokens according to the formula here:

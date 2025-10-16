@@ -69,7 +69,8 @@ private final class UblogAutomod(
   private[ublog] def apply(post: UblogPost, temperature: Double = 0): Fu[Option[Assessment]] = post.live.so:
     val assessImages = for
       images <- automod.markdownImages:
-        post.image.so(i => s"![](${picfitUrl.contain(i.id, 560)})\n") + post.allText
+        post.markdown.map: text =>
+          post.image.so(i => s"![](${picfitUrl.contain(i.id, 560)})\n") + text
       _ <- picfitApi.setContext(s"/ublog/${post.id}/redirect", images.map(_.id))
     yield images
     val assessText =
