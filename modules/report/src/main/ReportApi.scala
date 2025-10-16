@@ -315,12 +315,20 @@ final class ReportApi(
     yield onReportClose()
 
   def automodComms(userText: String, url: String)(using me: Me): Funit =
+    val assessImages =
+      for
+        images <- automodApi.markdownImages(Markdown(userText))
+        _ <- picfitApi.setContext(url, images.map(_.id))
+      yield images
+    val assessText = automodApi
+      .text(
+        userText,
+        systemPrompt = commsPromptSetting.get(),
+        model = commsModelSetting.get()
+      )
+      .monSuccess(_.mod.report.automod.request)
     for
-      images <- automodApi.markdownImages(Markdown(userText))
-      _ <- picfitApi.setContext(url, images.map(_.id))
-      textResponse <- automodApi
-        .text(userText, systemPrompt = commsPromptSetting.get(), model = commsModelSetting.get())
-        .monSuccess(_.mod.report.automod.request)
+      (images, textResponse) <- assessImages.zip(assessText)
       flaggedImages = images.flatMap(_.automod.flatMap(_.flagged))
       suspectOpt <- getSuspect(me)
       reporter <- automodReporter
