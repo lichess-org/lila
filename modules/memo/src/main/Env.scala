@@ -10,7 +10,8 @@ import lila.core.config.*
 final class MemoConfig(
     @ConfigName("collection.cache") val cacheColl: CollName,
     @ConfigName("collection.config") val configColl: CollName,
-    val picfit: PicfitConfig
+    val picfit: PicfitConfig,
+    val cloudflare: CloudflareConfig
 )
 
 final class PicfitConfig(
@@ -18,6 +19,11 @@ final class PicfitConfig(
     val endpointGet: String,
     val endpointPost: String,
     val secretKey: Secret
+)
+
+final class CloudflareConfig(
+    @ConfigName("zone_id") val zoneId: String,
+    @ConfigName("api_token") val apiToken: Secret
 )
 
 @Module
@@ -31,7 +37,11 @@ final class Env(
   export net.{ domain, assetDomain }
 
   given ConfigLoader[PicfitConfig] = AutoConfig.loader
+  given ConfigLoader[CloudflareConfig] = AutoConfig.loader
   val config = appConfig.get[MemoConfig]("memo")(using AutoConfig.loader)
+  private val picfitColl = db(config.picfit.collection)
+  private val picfitConfig = config.picfit
+  private val cloudflareConfig = config.cloudflare
 
   val imageGetOrigin = ImageGetOrigin:
     val pathBegin = config.picfit.endpointGet.indexOf('/', 8)
@@ -45,9 +55,11 @@ final class Env(
 
   val mongoRateLimitApi = wire[MongoRateLimitApi]
 
-  val picfitUrl = lila.memo.PicfitUrl(config.picfit)
+  val cloudflareApi = wire[CloudflareApi]
 
-  val picfitApi = PicfitApi(db(config.picfit.collection), picfitUrl, ws, config.picfit)
+  val picfitUrl = wire[PicfitUrl] // PicfitUrl(config.picfit, picfitColl)
+
+  val picfitApi = wire[PicfitApi] // PicfitApi(db(config.picfit.collection), picfitUrl, ws, config.picfit)
 
   val markdown = wire[MarkdownCache]
 

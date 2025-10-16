@@ -2,7 +2,7 @@ package lila.memo
 
 import akka.stream.scaladsl.{ FileIO, Source }
 import akka.util.ByteString
-import com.github.blemale.scaffeine.LoadingCache
+//import com.github.blemale.scaffeine.LoadingCache
 import play.api.libs.ws.DefaultBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 import play.api.mvc.MultipartFormData
@@ -23,9 +23,8 @@ case class PicfitImage(
     size: Int, // in bytes
     createdAt: Instant,
     context: Option[String],
-    automod: Option[ImageAutomod] = none
-    // need a urls array here that tracks generated urls (including sigs) for cf purge
-    // operations on delete. there is no regex or partial query string wildcard support
+    automod: Option[ImageAutomod] = none,
+    urls: List[String] = Nil
 )
 
 // presence of the ImageAutomod subdoc indicates an image has been scanned, regardless of flagged
@@ -39,7 +38,13 @@ case class ImageMetaData(
     height: Int
 )
 
-final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, config: PicfitConfig)(using
+final class PicfitApi(
+    coll: Coll,
+    val url: PicfitUrl,
+    ws: StandaloneWSClient,
+    config: PicfitConfig,
+    cloudflareApi: CloudflareApi
+)(using
     Executor
 ):
 
@@ -148,7 +153,8 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
               .branch("picfit")
               .error(s"deleteFromPicfit ${image.id} ${res.statusText} ${res.body[String].take(200)}")
             funit
-          case _ => funit
+          case _ =>
+            cloudflareApi.purge(image.urls)
 
     lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
       for
@@ -196,7 +202,7 @@ object PicfitApi:
       )(ImageMetaData.apply)(unapply)
     )
 
-final class PicfitUrl(config: PicfitConfig)(using Executor) extends lila.core.misc.PicfitUrl:
+final class PicfitUrl(config: PicfitConfig, coll: Coll)(using Executor) extends lila.core.misc.PicfitUrl:
 
   val origin =
     val pathBegin = config.endpointGet.indexOf('/', 8)
@@ -227,7 +233,9 @@ final class PicfitUrl(config: PicfitConfig)(using Executor) extends lila.core.mi
 
   def raw(id: ImageId): String =
     val queryString = s"op=noop&path=$id"
-    s"${config.endpointGet}/display?${signQueryString(queryString)}"
+    val full = s"${config.endpointGet}/display?${signQueryString(queryString)}"
+    discard { record(id, full) }
+    full
 
   private def display(id: ImageId, operation: "resize" | "thumbnail")(
       width: Int,
@@ -236,11 +244,16 @@ final class PicfitUrl(config: PicfitConfig)(using Executor) extends lila.core.mi
     // parameters must be given in alphabetical order for the signature to work (!)
     val queryString =
       s"fmt=${if id.value.endsWith(".png") then "png" else "webp"}&h=$height&op=$operation&path=$id&w=$width"
-    s"${config.endpointGet}/display?${signQueryString(queryString)}"
+    val full = s"${config.endpointGet}/display?${signQueryString(queryString)}"
+    discard { record(id, full) }
+    full
+
+  private def record(id: ImageId, u: String): Funit =
+    coll.update.one($id(id), $doc("$addToSet" -> $doc("urls" -> u))).void
 
   private object signQueryString:
     private val signer = com.roundeights.hasher.Algo.hmac(config.secretKey.value)
-    private val cache: LoadingCache[String, String] =
+    private val cache: com.github.blemale.scaffeine.LoadingCache[String, String] =
       CacheApi.scaffeineNoScheduler
         .expireAfterWrite(10.minutes)
         .build { qs => signer.sha1(qs.replace(":", "%3A")).hex }
