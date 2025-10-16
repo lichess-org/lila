@@ -106,8 +106,7 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
     coll.update.one($inIds(ids), $set("context" -> context), multi = true).void
 
   def setAutomod(id: ImageId, automod: ImageAutomod): Funit =
-    import toBSONValueOption.given
-    val op = $setsAndUnsets("automod.processed" -> true.some, "automod.flagged" -> automod.flagged)
+    val op = automod.flagged.fold($unset("automod.flagged"))(f => $set("automod.flagged" -> f))
     coll.update.one($id(id), op).void
 
   def byIds(ids: Iterable[ImageId]): Fu[Seq[PicfitImage]] = coll.byIds(ids)
