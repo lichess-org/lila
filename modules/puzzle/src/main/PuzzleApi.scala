@@ -55,9 +55,9 @@ final class PuzzleApi(
         )
       colls.round(_.update.one($id(r.id), roundDoc, upsert = true)).void
 
-    def themes(id: PuzzleRound.Id): Fu[List[PuzzleRound.Theme]] =
+    def themes(id: PuzzleRound.Id): Fu[Option[List[PuzzleRound.Theme]]] =
       colls.round:
-        _.primitiveOne[List[PuzzleRound.Theme]]($id(id), PuzzleRound.BSONFields.themes).map(~_)
+        _.primitiveOne[List[PuzzleRound.Theme]]($id(id), PuzzleRound.BSONFields.themes)
 
   object vote:
 
@@ -133,38 +133,43 @@ final class PuzzleApi(
       import PuzzleRound.BSONFields as F
       $set(F.themes -> themes, F.puzzle -> puzzle, F.weight -> weight)
 
-    def vote(id: PuzzleId, theme: PuzzleTheme.Key, vote: Option[Boolean])(using me: Me): Funit =
-      if me.is(UserId.lichess) then lichessVote(id, theme, vote)
-      else
-        round.find(me, id).flatMapz { round =>
-          PuzzleRound
-            .themeVote(round.themes)(theme, vote)
-            .so: newThemes =>
-              import PuzzleRound.BSONFields as F
-              val update =
+    def vote(id: PuzzleId, themeStr: String, vote: Option[Boolean])(using
+        me: Me
+    ): FuRaise[PuzzleTheme.VoteError, Unit] =
+      import PuzzleRound.BSONFields as F
+      import PuzzleTheme.VoteError.*
+      PuzzleTheme
+        .findDynamic(themeStr)
+        .raiseIfNone(Fail(s"Unknown theme $themeStr"))
+        .flatMap: theme =>
+          if me.is(UserId.lichess) then lichessVote(id, theme.key, vote)
+          else
+            for
+              round <- round.find(me, id)
+              round <- round.raiseIfNone(Fail(s"Puzzle $id not yet played"))
+              newThemes <- PuzzleRound.themeVote(round.themes)(theme.key, vote).raiseIfNone(Unchanged)
+              update <-
                 if newThemes.isEmpty || !PuzzleRound.themesLookSane(newThemes)
                 then fuccess($unset(F.themes, F.puzzle).some)
                 if vote.isEmpty then fuccess(updateRoundThemes(id, newThemes, none).some)
                 else trustApi.theme(me).map2(t => updateRoundThemes(id, newThemes, t.some))
-              update.flatMapz: up =>
-                lila.mon.puzzle.vote.theme(theme.value, vote, round.win.yes).increment()
-                colls
-                  .round(_.update.one($id(round.id), up))
-                  .zip(colls.puzzle(_.updateField($id(round.id.puzzleId), Puzzle.BSONFields.dirty, true)))
-                  .void
-        }
+              _ <- update.so(up => colls.round(_.update.one($id(round.id), up)).void)
+              _ <- update.isDefined.so:
+                colls.puzzle(_.updateField($id(round.id.puzzleId), Puzzle.BSONFields.dirty, true)).void
+            yield lila.mon.puzzle.vote.theme(theme.key.value, vote, round.win.yes).increment()
 
-    private def lichessVote(puzzleId: PuzzleId, theme: PuzzleTheme.Key, vote: Option[Boolean]): Funit =
+    private def lichessVote(
+        puzzleId: PuzzleId,
+        theme: PuzzleTheme.Key,
+        vote: Option[Boolean]
+    ): FuRaise[PuzzleTheme.VoteError, Unit] =
       val roundId = PuzzleRound.Id(UserId.lichess, puzzleId)
       for
         prev <- round.themes(roundId)
-        _ <- PuzzleRound
-          .themeVote(prev)(theme, vote)
-          .so: newThemes =>
-            for
-              _ <- colls.round(_.update.one($id(roundId), updateRoundThemes(puzzleId, newThemes, none)))
-              _ <- colls.puzzle(_.updateField($id(puzzleId), Puzzle.BSONFields.dirty, true))
-            yield ()
+        prev <- prev.raiseIfNone(PuzzleTheme.VoteError.Fail(s"Puzzle $puzzleId not yet tagged by lichess"))
+        newThemes <- PuzzleRound.themeVote(prev)(theme, vote).raiseIfNone(PuzzleTheme.VoteError.Unchanged)
+        _ <- colls.round(_.update.one($id(roundId), updateRoundThemes(puzzleId, newThemes, none)))
+        _ <- colls.puzzle(_.updateField($id(puzzleId), Puzzle.BSONFields.dirty, true))
       yield ()
 
   object casual:
