@@ -72,7 +72,7 @@ final class RelayTourForm(langList: lila.core.i18n.LangList, groupForm: RelayGro
         of(using formatter.stringFormatter[RelayTeamsTextarea](_.sortedText, RelayTeamsTextarea(_)))
       ),
       "spotlight" -> optional(spotlightMapping),
-      "grouping" -> groupForm.mapping,
+      "grouping" -> optional(groupForm.mapping),
       "pinnedStream" -> optional(pinnedStreamMapping),
       "note" -> optional(nonEmptyText(maxLength = 20_000))
     )(Data.apply)(unapply)

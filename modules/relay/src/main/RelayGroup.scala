@@ -2,12 +2,20 @@ package lila.relay
 
 import reactivemongo.api.bson.Macros.Annotations.Key
 import lila.core.config.BaseUrl
+import lila.relay.RelayGroup.ScoreGroup
 
-case class RelayGroup(@Key("_id") id: RelayGroupId, name: RelayGroup.Name, tours: List[RelayTourId])
+case class RelayGroup(
+    @Key("_id") id: RelayGroupId,
+    name: RelayGroup.Name,
+    tours: List[RelayTourId],
+    scoreGroups: List[ScoreGroup]
+)
 
 object RelayGroup:
 
   def makeId = RelayGroupId(scalalib.ThreadLocalRandom.nextString(8))
+
+  case class ScoreGroup(tourIds: Set[RelayTourId])
 
   opaque type Name = String
   object Name extends OpaqueString[Name]:
@@ -26,17 +34,22 @@ object RelayGroup:
         tour.copy(name = group.name.shortTourName(tour.name))
     )
 
-private case class RelayGroupData(name: RelayGroup.Name, tours: List[RelayTour.TourPreview]):
+private case class RelayGroupData(
+    name: RelayGroup.Name,
+    tours: List[RelayTour.TourPreview],
+    scoreGroups: List[ScoreGroup]
+):
   def tourIds = tours.map(_.id)
-  def update(group: RelayGroup): RelayGroup = group.copy(name = name, tours = tourIds)
-  def make: RelayGroup = RelayGroup(RelayGroup.makeId, name, tourIds)
+  def update(group: RelayGroup): RelayGroup =
+    group.copy(name = name, tours = tourIds, scoreGroups = scoreGroups)
+  def make: RelayGroup = RelayGroup(RelayGroup.makeId, name, tourIds, scoreGroups)
 
 private final class RelayGroupForm(baseUrl: BaseUrl):
   import play.api.data.*
   import play.api.data.Forms.*
-  import play.api.data.format.Formatter
-  import lila.common.Form.formatter
-  def data(group: RelayGroup.WithTours) = RelayGroupData(group.group.name, group.tours)
+
+  def data(group: RelayGroup.WithTours) =
+    RelayGroupData(group.group.name, group.tours, group.group.scoreGroups)
   def asText(data: RelayGroupData): String =
     s"${data.name}\n${data.tours.map(t => s"$baseUrl${routes.RelayTour.show(t.name.toSlug, t.id)}").mkString("\n")}"
   def parse(value: String): Option[RelayGroupData] =
@@ -48,7 +61,10 @@ private final class RelayGroupForm(baseUrl: BaseUrl):
           .map(_.trim.takeWhile(' ' != _))
           .flatMap(parseId)
           .map(RelayTour.TourPreview(_, RelayTour.Name(""), active = false, live = none))
-        RelayGroupData(RelayGroup.Name(name.linesIterator.next.trim), tours).some
+        RelayGroupData(RelayGroup.Name(name.linesIterator.next.trim), tours, List.empty).some
+
+  def scoreGroupsAsText(scoreGroups: List[ScoreGroup]): String =
+    scoreGroups.map(_.tourIds.mkString(",")).mkString("\n")
   private def parseId(str: String): Option[RelayTourId] =
     def looksLikeId(id: String): Boolean = id.size == 8 && id.forall(_.isLetterOrDigit)
     if looksLikeId(str) then RelayTourId(str).some
@@ -61,8 +77,62 @@ private final class RelayGroupForm(baseUrl: BaseUrl):
           case _ => none
       yield RelayTourId(id)
 
-  given Formatter[RelayGroupData] = formatter.stringOptionFormatter(asText, parse)
-  val mapping: Mapping[Option[RelayGroupData]] = optional(of[RelayGroupData])
+  private def parseScoreGroups(str: String): List[ScoreGroup] =
+    str
+      .split("\n")
+      .toList
+      .map(_.trim)
+      .filter(_.nonEmpty)
+      .map: line =>
+        val tourIds = line
+          .split(",")
+          .map(_.trim)
+          .filter(_.nonEmpty)
+          .flatMap(parseGroupId)
+          .toSet
+        ScoreGroup(tourIds)
+
+  private def parseGroupId(str: String): Option[RelayTourId] =
+    def looksLikeId(id: String): Boolean = id.size == 8 && id.forall(_.isLetterOrDigit)
+    if looksLikeId(str) then RelayTourId(str).some
+    else
+      for
+        url <- lila.common.url.parse(str).toOption
+        id <- url.path.split('/').filter(_.nonEmpty) match
+          case Array("broadcast", id, "edit") if looksLikeId(id) => id.some
+          case Array("broadcast", _, id) if looksLikeId(id) => id.some
+          case _ => none
+      yield RelayTourId(id)
+
+  private case class RelayGroupFormData(
+      groupDataText: String,
+      scoreGroupsText: String
+  ):
+    def isValidScoreGroup(groupData: RelayGroupData) =
+      val groupTourIds = groupData.tourIds.toSet
+      groupData.scoreGroups.flatMap(_.tourIds).forall(id => groupTourIds.contains(id))
+    def toRelayGroupData: Option[RelayGroupData] =
+      parse(groupDataText).map: groupData =>
+        val scoreGroups = parseScoreGroups(scoreGroupsText)
+        val withScoreGroup = groupData.copy(scoreGroups = scoreGroups)
+        if isValidScoreGroup(withScoreGroup).pp then withScoreGroup else groupData
+
+  val mapping = Forms
+    .mapping(
+      "data" -> nonEmptyText,
+      "scoreGroups" -> nonEmptyText
+    )(RelayGroupFormData.apply)((data: RelayGroupFormData) =>
+      Some((data.groupDataText, data.scoreGroupsText))
+    )
+    .verifying("Bad group data", data => parse(data.groupDataText).isDefined)
+    .verifying(
+      "score groups contain tour IDs not in this group",
+      _.toRelayGroupData.isDefined
+    )
+    .transform[RelayGroupData](
+      _.toRelayGroupData.get,
+      data => RelayGroupFormData(asText(data), scoreGroupsAsText(data.scoreGroups))
+    )
 
 import lila.db.dsl.{ *, given }
 import reactivemongo.api.bson.*
