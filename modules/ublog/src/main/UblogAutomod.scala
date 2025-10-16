@@ -71,7 +71,7 @@ private final class UblogAutomod(
       images <- automod.markdownImages:
         post.markdown.map: text =>
           post.image.so(i => s"![](${picfitUrl.forAutomod(i.id)})\n") + text
-      _ <- picfitApi.setContext(s"/ublog/${post.id}/redirect", images.map(_.id))
+      _ <- picfitApi.setContext(routes.Ublog.redirect(post.id).url, images.map(_.id))
     yield images
     val assessText =
       val userText = post.allText.take(40_000) // match bin/ublog-automod.mjs hash
