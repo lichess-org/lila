@@ -105,9 +105,9 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
   def setContext(context: String, ids: Seq[ImageId]): Funit =
     coll.update.one($inIds(ids), $set("context" -> context), multi = true).void
 
-  def setAutomod(id: ImageId, flagged: Option[String]): Funit =
+  def setAutomod(id: ImageId, automod: ImageAutomod): Funit =
     import toBSONValueOption.given
-    val op = $setsAndUnsets("automod.processed" -> true.some, "automod.flagged" -> flagged)
+    val op = $setsAndUnsets("automod.processed" -> true.some, "automod.flagged" -> automod.flagged)
     coll.update.one($id(id), op).void
 
   def byIds(ids: Iterable[ImageId]): Fu[Seq[PicfitImage]] = coll.byIds(ids)
@@ -228,7 +228,7 @@ final class PicfitUrl(config: PicfitConfig)(using Executor) extends lila.core.mi
     val queryString = s"op=noop&path=$id"
     s"${config.endpointGet}/display?${signQueryString(queryString)}"
 
-  private def display(id: ImageId, operation: String)(
+  private def display(id: ImageId, operation: "resize" | "thumbnail")(
       width: Int,
       height: Int
   ) =

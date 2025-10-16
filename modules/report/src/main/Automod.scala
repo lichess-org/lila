@@ -92,13 +92,13 @@ final class Automod(
           if pic.automod.isDefined then fuccess(pic)
           else
             for
-              flagged <- idToUrl.get(pic.id).so(image)
-              _ <- picfitApi.setAutomod(pic.id, flagged)
-            yield pic.copy(automod = lila.memo.ImageAutomod(flagged).some)
+              flagged <- idToUrl.get(pic.id).so(imageFlagReason)
+              automod = lila.memo.ImageAutomod(flagged)
+              _ <- picfitApi.setAutomod(pic.id, automod)
+            yield pic.copy(automod = automod.some)
         .toSeq.parallel
 
-  private def image(imageUrl: String): Fu[Option[String]] =
-    import play.api.libs.json.Json
+  private def imageFlagReason(imageUrl: String): Fu[Option[String]] =
     (config.apiKey.value.nonEmpty && imagePromptSetting.get().value.nonEmpty).so:
       val body = Json
         .obj(
@@ -128,8 +128,9 @@ final class Automod(
             msg <- (best \ "message" \ "content").asOpt[String]
             trimmed = msg.slice(msg.indexOf('{', msg.indexOf("</think>")), msg.lastIndexOf('}') + 1)
             res <- Json.parse(trimmed).asOpt[JsObject]
-            if ~(res \ "flag").asOpt[Boolean]
-          yield ~(res \ "reason").asOpt[String]
+            if ~res.boolean("flag")
+          yield
+            ~res.str("reason")
 
 private object Automod:
   case class Config(val url: String, val apiKey: Secret)
