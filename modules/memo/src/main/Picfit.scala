@@ -213,7 +213,9 @@ final class PicfitUrl(config: PicfitConfig)(using Executor) extends lila.core.mi
     height = ~size.toOption
   )
 
-  def contain(id: ImageId, size: Int) = display(id, "resize")(width = size, height = size)
+  // 560x560 containment consumes the minimum 1601 tokens according to the formula here:
+  // https://docs.together.ai/docs/vision-overview#pricing
+  def forAutomod(id: ImageId) = display(id, "resize")(width = 560, height = 560)
 
   // Thumbnail scales the image up or down using the specified resample filter,
   // crops it to the specified width and height and returns the transformed image.

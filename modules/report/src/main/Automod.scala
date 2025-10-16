@@ -81,9 +81,7 @@ final class Automod(
       .findAllMatchIn(markdown.value)
       .map: m =>
         val id = lila.core.id.ImageId(m.group(1))
-        // 560x560 containment consumes the minimum 1601 tokens according to the formula here:
-        // https://docs.together.ai/docs/vision-overview#pricing
-        id -> picfitUrl.contain(id, 560)
+        id -> picfitUrl.forAutomod(id)
       .toMap
     picfitApi
       .byIds(idToUrl.keys)
