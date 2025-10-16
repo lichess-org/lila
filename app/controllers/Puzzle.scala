@@ -1,5 +1,6 @@
 package controllers
 
+import cats.mtl.Handle.*
 import play.api.data.Form
 import play.api.libs.json.*
 import play.api.mvc.*
@@ -87,7 +88,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
 
   private def onComplete[A](
       form: Form[PuzzleForm.RoundData]
-  )(id: PuzzleId, angle: PuzzleAngle, mobileBc: Boolean)(using ctx: BodyContext[A]): Fu[Result] =
+  )(id: PuzzleId, angle: PuzzleAngle, mobileBc: Boolean)(using BodyContext[A]): Fu[Result] =
     bindForm(form)(
       doubleJsonFormError,
       data =>
@@ -155,15 +156,18 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       )
   }
 
-  def voteTheme(id: PuzzleId, themeStr: String) = AuthBody { _ ?=> me ?=>
+  def voteTheme(id: PuzzleId, themeStr: String) = AuthOrScopedBody(_.Puzzle.Write) { _ ?=> me ?=>
     NoBot:
-      PuzzleTheme
-        .findDynamic(themeStr)
-        .so: theme =>
-          bindForm(env.puzzle.forms.themeVote)(
-            doubleJsonFormError,
-            vote => env.puzzle.api.theme.vote(me, id, theme.key, vote).inject(jsonOkResult)
-          )
+      import lila.puzzle.PuzzleTheme.VoteError.*
+      bindForm(env.puzzle.forms.themeVote)(
+        doubleJsonFormError,
+        vote =>
+          allow:
+            env.puzzle.api.theme.vote(id, themeStr, vote).inject(jsonOkResult)
+          .rescue:
+            case Fail(msg) => BadRequest(jsonError(msg))
+            case Unchanged => jsonOkResult
+      )
   }
 
   def setDifficulty(theme: String) = AuthBody { _ ?=> me ?=>
