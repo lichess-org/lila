@@ -315,11 +315,10 @@ final class ReportApi(
     yield onReportClose()
 
   def automodComms(userText: String, url: String)(using me: Me): Funit =
-    val assessImages =
-      automodApi
-        .markdownImages(userText)
-        .flatMap: images =>
-          picfitApi.setContext(url, images.map(_.id)*).inject(images)
+    val assessImages = for
+      images <- automodApi.markdownImages(userText)
+      _ <- picfitApi.setContext(url, images.map(_.id))
+    yield images
     val assessText = automodApi
       .text(
         userText,

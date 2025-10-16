@@ -102,19 +102,15 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
       .flatMap { _.result[PicfitImage].so(picfitServer.delete) }
       .void
 
-  def setContext(context: String, ids: ImageId*): Funit =
+  def setContext(context: String, ids: Seq[ImageId]): Funit =
     coll.update.one($inIds(ids), $set("context" -> context), multi = true).void
 
   def setAutomod(id: ImageId, flagged: Option[String]): Funit =
-    val op = flagged.fold($doc($unset("automod.flagged") ++ $set("automod.processed" -> true))): reason =>
-      $set("automod.processed" -> true, "automod.flagged" -> reason)
+    import toBSONValueOption.given
+    val op = $setsAndUnsets("automod.processed" -> true.some, "automod.flagged" -> flagged)
     coll.update.one($id(id), op).void
 
-  def byIds(ids: ImageId*): Fu[Seq[PicfitImage]] =
-    coll
-      .find($inIds(ids))
-      .cursor[PicfitImage]()
-      .list(ids.size)
+  def byIds(ids: Iterable[ImageId]): Fu[Seq[PicfitImage]] = coll.byIds(ids)
 
   object bodyImage:
     def upload(rel: String, image: FilePart, meta: Option[ImageMetaData], widthCap: Option[Int])(using

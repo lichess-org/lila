@@ -67,11 +67,11 @@ private final class UblogAutomod(
   )
 
   private[ublog] def apply(post: UblogPost, temperature: Double = 0): Fu[Option[Assessment]] = post.live.so:
-    val assessImages =
-      automod
-        .markdownImages(~post.image.map(i => s"![](${picfitUrl.contain(i.id, 560)})\n") + post.allText)
-        .flatMap: images =>
-          picfitApi.setContext(s"/ublog/${post.id}/redirect", images.map(_.id)*).inject(images)
+    val assessImages = for
+      images <- automod.markdownImages:
+        post.image.so(i => s"![](${picfitUrl.contain(i.id, 560)})\n") + post.allText
+      _ <- picfitApi.setContext(s"/ublog/${post.id}/redirect", images.map(_.id))
+    yield images
     val assessText =
       val userText = post.allText.take(40_000) // match bin/ublog-automod.mjs hash
       automod

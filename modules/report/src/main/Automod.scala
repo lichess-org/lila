@@ -86,7 +86,7 @@ final class Automod(
         id -> picfitUrl.contain(id, 560)
       .toMap
     picfitApi
-      .byIds(idToUrl.keys.toSeq*)
+      .byIds(idToUrl.keys)
       .flatMap:
         _.map: pic =>
           if pic.automod.isDefined then fuccess(pic)
