@@ -186,11 +186,12 @@ final class ChallengeApi(
       c.userIds.existsM: userId =>
         gameCache.nbPlaying(userId).dmap(lila.core.game.maxPlaying <= _)
 
-  private[challenge] def sweep: Funit =
-    repo
-      .realTimeUnseenSince(nowInstant.minusSeconds(20), max = 50)
-      .flatMap(_.sequentiallyVoid(offline)) >>
-      repo.expired(50).flatMap(_.sequentiallyVoid(remove))
+  private[challenge] def sweep: Funit = for
+    unseen <- repo.realTimeUnseenSince(nowInstant.minusSeconds(20), max = 50)
+    _ <- unseen.sequentiallyVoid(offline)
+    expired <- repo.expired(50)
+    _ <- expired.sequentiallyVoid(remove)
+  yield ()
 
   private def remove(c: Challenge) =
     for _ <- repo.remove(c.id) yield uncacheAndNotify(c)
