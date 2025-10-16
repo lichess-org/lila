@@ -91,14 +91,13 @@ final class Automod(
         _.map: pic =>
           if pic.automod.isDefined then fuccess(pic)
           else
-            image(idToUrl.get(pic.id).get).flatMap: flagged =>
-              picfitApi
-                .setAutomod(pic.id, flagged)
-                .inject:
-                  pic.copy(automod = lila.memo.ImageAutomod(flagged).some)
+            for
+              flagged <- idToUrl.get(pic.id).so(image)
+              _ <- picfitApi.setAutomod(pic.id, flagged)
+            yield pic.copy(automod = lila.memo.ImageAutomod(flagged).some)
         .toSeq.parallel
 
-  def image(imageUrl: String): Fu[Option[String]] =
+  private def image(imageUrl: String): Fu[Option[String]] =
     import play.api.libs.json.Json
     (config.apiKey.value.nonEmpty && imagePromptSetting.get().value.nonEmpty).so:
       val body = Json
