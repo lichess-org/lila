@@ -136,7 +136,7 @@ final class Main(
         Redirect(url)
 
   def uploadImage(rel: String) = AuthBody(parse.multipartFormData) { ctx ?=> _ ?=>
-    limit.imageUpload(ctx.ip, rateLimited):
+    limit.imageUpload(rateLimited):
       ctx.body.body.file("image") match
         case None => JsonBadRequest("Image content only")
         case Some(image) =>

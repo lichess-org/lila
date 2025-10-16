@@ -121,7 +121,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
     AsStreamer: s =>
       ctx.body.body.file("picture") match
         case Some(pic) =>
-          limit.imageUpload(ctx.ip, rateLimited):
+          limit.imageUpload(rateLimited):
             api
               .uploadPicture(s.streamer, pic, me)
               .recoverWith { case _: Exception =>
