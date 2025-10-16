@@ -20,8 +20,9 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
   def form(categ: lila.forum.ForumCateg, form: Form[?], captcha: Captcha)(using Context) =
     Page("New forum topic")
       .csp(_.withInlineIconFont)
+      .markdownTextarea
       .css("bits.forum")
-      .js(Esm("bits.forum") ++ Esm("bits.markdownTextarea"))
+      .js(Esm("bits.forum"))
       .js(captchaEsm):
         main(cls := "forum forum-topic topic-form page-small box box-pad")(
           boxTop(
@@ -95,13 +96,10 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
 
     val teamOnly = categ.team.filterNot(isMyTeamSync)
     val pager = paginationByQuery(routes.ForumTopic.show(categ.id, topic.slug, 1), posts, showPost = true)
-    Page(s"${topic.name} • page ${posts.currentPage}/${posts.nbPages} • ${categ.name}")
+    Page(s"${topic.name} • page ${posts.currentPage}/${posts.nbPages} • ${categ.name}").markdownTextarea
       .css("bits.forum")
       .csp(_.withInlineIconFont.withTwitter)
-      .js(
-        Esm("bits.forum") ++ Esm("bits.expandText") ++ Esm("bits.markdownTextarea")
-          ++ formWithCaptcha.isDefined.so(captchaEsm)
-      )
+      .js(Esm("bits.forum") ++ Esm("bits.expandText") ++ formWithCaptcha.isDefined.so(captchaEsm))
       .graph(
         title = topic.name,
         url = s"$netBaseUrl${routes.ForumTopic.show(categ.id, topic.slug, posts.currentPage).url}",
@@ -221,7 +219,8 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
   )(using Context)(using me: Me) =
     Page("Diagnostic report")
       .css("bits.forum")
-      .js(Esm("bits.forum") ++ plaintext.not.so(Esm("bits.markdownTextarea")))
+      .markdownTextarea
+      .js(Esm("bits.forum"))
       .js(esmInitBit("autoForm", "selector" -> ".post-text-area", "ops" -> "focus begin"))
       .js(captchaEsm):
         main(cls := "forum forum-topic topic-form page-small box box-pad")(

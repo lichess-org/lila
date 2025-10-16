@@ -64,6 +64,8 @@ case class Page(
   def wrap(f: Update[Frag]): Page = transform(f)
   def prepend(prelude: Frag): Page = transform(body => frag(prelude, body))
 
+  def markdownTextarea = css("bits.markdownTextarea").js(Esm("bits.markdownTextarea"))
+
 final class RenderedPage(val html: String)
 
 // when we want to return some random HTML and not a full page,
