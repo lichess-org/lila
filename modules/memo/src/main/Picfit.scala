@@ -172,14 +172,14 @@ final class PicfitApi(
     def delete(image: PicfitImage): Funit =
       ws.url(s"${config.endpointPost}/${image.id}")
         .delete()
-        .flatMap:
-          case res if res.status != 200 =>
+        .addEffect: res =>
+          if res.status / 100 != 2 then
             logger
               .branch("picfit")
               .error(s"deleteFromPicfit ${image.id} ${res.statusText} ${res.body[String].take(200)}")
-            funit
-          case _ =>
-            cloudflareApi.purge(image.urls)
+        .addEffectAnyway:
+          cloudflareApi.purge(image.urls)
+        .void
 
     lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
       for
