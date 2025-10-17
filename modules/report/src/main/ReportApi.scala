@@ -24,7 +24,7 @@ final class ReportApi(
     cacheApi: lila.memo.CacheApi,
     snoozer: lila.memo.Snoozer[Report.SnoozeKey],
     thresholds: Thresholds,
-    automodApi: Automod,
+    automodApi: lila.memo.Automod,
     settingStore: lila.memo.SettingStore.Builder,
     picfitApi: lila.memo.PicfitApi
 )(using Executor, Scheduler, lila.core.config.NetDomain)
@@ -349,9 +349,9 @@ final class ReportApi(
         reporter = reporter,
         suspect = suspect,
         reason = reason,
-        text = s"AUTO " + (hasFlaggedImages.option("IMG") ++ (fromLlm != "pass").option("TXT"))
+        text = s"[AUTO " + (hasFlaggedImages.option("IMG") ++ (fromLlm != "pass").option("TXT"))
           .mkString("/") +
-          s": $summary $url"
+          s"]: $summary $url"
       )
     ).recoverWith: e =>
       logger.warn(s"Comms automod failed for ${me.username}: ${e.getMessage}", e)

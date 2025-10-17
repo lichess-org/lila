@@ -147,13 +147,8 @@ final class Main(
             maxWidth = lila.ui.bits.imageDesignWidth(rel)
             url = meta match
               case Some(info) if maxWidth.exists(dw => info.width > dw) =>
-                maxWidth.map(dw => env.memo.picfitUrl.resize(image.id, Left(dw)))
-              case _ => env.memo.picfitUrl.raw(image.id).some
-            _ = discard:
-              env.report.automod
-                .imageFlagReason(env.memo.picfitUrl.forAutomod(image.id))
-                .map: flagged =>
-                  env.memo.picfitApi.setAutomod(image.id, lila.memo.ImageAutomod(flagged))
+                maxWidth.map(dw => env.memo.picfitApi.resizeUrl(image.id, Left(dw)))
+              case _ => env.memo.picfitApi.rawUrl(image.id).some
           yield JsonOk(Json.obj("imageUrl" -> url))
   }
 
@@ -162,8 +157,8 @@ final class Main(
     else
       JsonOk(
         Json.obj(
-          "imageUrl" -> env.memo.picfitApi.url
-            .resize(id, Left(width.min(lila.ui.bits.imageDesignWidth(id.value).getOrElse(1920))))
+          "imageUrl" -> env.memo.picfitApi
+            .resizeUrl(id, Left(width.min(lila.ui.bits.imageDesignWidth(id.value).getOrElse(1920))))
         )
       )
   }

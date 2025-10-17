@@ -4,6 +4,7 @@ import akka.actor.*
 import com.softwaremill.macwire.*
 
 import lila.core.config.*
+import lila.memo.Automod
 
 @Module
 final class Env(
@@ -18,10 +19,8 @@ final class Env(
     ircApi: lila.core.irc.IrcApi,
     settingStore: lila.memo.SettingStore.Builder,
     cacheApi: lila.memo.CacheApi,
-    appConfig: play.api.Configuration,
-    ws: play.api.libs.ws.StandaloneWSClient,
-    picfitUrl: lila.memo.PicfitUrl,
-    picfitApi: lila.memo.PicfitApi
+    picfitApi: lila.memo.PicfitApi,
+    automod: lila.memo.Automod
 )(using Executor, NetDomain)(using scheduler: Scheduler):
 
   private def lazyPlaybansOf = () => playbansOf
@@ -44,7 +43,6 @@ final class Env(
   private given UserIdOf[Report.SnoozeKey] = _.snoozerId
   private lazy val snoozer = lila.memo.Snoozer[Report.SnoozeKey]("report.snooze", cacheApi)
 
-  lazy val automod = wire[Automod]
   lazy val api = wire[ReportApi]
 
   lazy val modFilters = new ModReportFilter

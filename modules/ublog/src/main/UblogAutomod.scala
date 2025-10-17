@@ -7,6 +7,7 @@ import lila.core.data.Text
 import lila.core.ublog.Quality
 import lila.memo.SettingStore
 import lila.memo.SettingStore.Text.given
+import lila.memo.Automod
 
 // see also:
 //   file://./../../../../bin/ublog-automod.mjs
@@ -46,10 +47,9 @@ object UblogAutomod:
   private given Reads[FuzzyResult] = Json.reads[FuzzyResult]
 
 private final class UblogAutomod(
-    automod: lila.report.Automod,
+    automod: lila.memo.Automod,
     settingStore: lila.memo.SettingStore.Builder,
-    picfitApi: lila.memo.PicfitApi,
-    picfitUrl: lila.memo.PicfitUrl
+    picfitApi: lila.memo.PicfitApi
 )(using Executor):
 
   import UblogAutomod.*
@@ -70,7 +70,7 @@ private final class UblogAutomod(
     val assessImages = for
       images <- automod.markdownImages:
         post.markdown.map: text =>
-          post.image.so(i => s"![](${picfitUrl.forAutomod(i.id)})\n") + text
+          post.image.so(i => s"![](${picfitApi.automodUrl(i.id, none)})\n") + text
       _ <- picfitApi.setContext(routes.Ublog.redirect(post.id).url, images.map(_.id))
     yield images
     val assessText =

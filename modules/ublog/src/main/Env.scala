@@ -19,7 +19,6 @@ final class Env(
     userRepo: lila.core.user.UserRepo,
     userApi: lila.core.user.UserApi,
     picfitApi: lila.memo.PicfitApi,
-    picfitUrl: lila.memo.PicfitUrl,
     ircApi: lila.core.irc.IrcApi,
     relationApi: lila.core.relation.RelationApi,
     shutupApi: lila.core.shutup.ShutupApi,
@@ -31,7 +30,7 @@ final class Env(
     settingStore: lila.memo.SettingStore.Builder,
     client: lila.search.client.SearchClient,
     lightUser: lila.core.LightUser.GetterSync,
-    automod: lila.report.Automod
+    automod: lila.memo.Automod
 )(using Executor, Scheduler, play.api.Mode):
 
   export net.{ assetBaseUrl, baseUrl, domain, assetDomain }

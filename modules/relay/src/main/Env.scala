@@ -38,7 +38,6 @@ final class Env(
     baseUrl: BaseUrl,
     notifyApi: lila.core.notify.NotifyApi,
     picfitApi: lila.memo.PicfitApi,
-    picfitUrl: lila.memo.PicfitUrl,
     lightUserSync: lila.core.LightUser.GetterSync,
     langList: lila.core.i18n.LangList,
     baker: lila.core.security.LilaCookie,

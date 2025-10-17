@@ -6,16 +6,16 @@
 
   img {
     max-width: 100%;
-    max-height: 100%;
+    max-height: 30vh;
   }
   div {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 1rem;
   }
   span {
     display: flex;
     justify-content: end;
-    gap: 1rem;
   }
 }

@@ -5,7 +5,7 @@ import play.api.data.Form
 import lila.app.UiEnv.{ *, given }
 
 lazy val ui = lila.coach.ui.CoachUi(helpers)(
-  picfitUrl,
+  picfitApi,
   lila.user.Profile.flagInfo,
   flagApi,
   netConfig.email,

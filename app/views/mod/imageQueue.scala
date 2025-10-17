@@ -7,7 +7,7 @@ import lila.memo.PicfitImage
 import lila.report.ui.PendingCounts
 import lila.report.Room.Scores
 
-lazy val imageQueueUi = lila.mod.ui.ImageQueueUi(helpers, picfitUrl)
+lazy val imageQueueUi = lila.mod.ui.ImageQueueUi(helpers, picfitApi)
 
 def imageQueue(
     images: Paginator[PicfitImage],

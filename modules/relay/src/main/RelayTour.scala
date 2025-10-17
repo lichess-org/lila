@@ -6,7 +6,7 @@ import java.time.ZoneId
 
 import scalalib.model.Language
 import lila.core.id.ImageId
-import lila.core.misc.PicfitUrl
+import lila.core.misc.PicfitApi
 import lila.core.fide.FideTC
 import lila.core.study.Visibility
 import chess.TournamentClock
@@ -149,7 +149,7 @@ object RelayTour:
       case Small16x9 extends Size(400, 16.0f / 9)
     type SizeSelector = thumbnail.type => Size
 
-    def apply(picfitUrl: PicfitUrl, image: ImageId, size: SizeSelector) =
-      picfitUrl.thumbnail(image, size(thumbnail).width, size(thumbnail).height)
+    def apply(picfitApi: PicfitApi, image: ImageId, size: SizeSelector) =
+      picfitApi.thumbnailUrl(image, size(thumbnail).width, size(thumbnail).height)
 
   def makeId = RelayTourId(scalalib.ThreadLocalRandom.nextString(8))

@@ -6,7 +6,7 @@ import scalalib.paginator.Paginator
 
 import lila.common.Json.{ *, given }
 import lila.core.config.BaseUrl
-import lila.memo.PicfitUrl
+import lila.core.misc.PicfitApi
 import lila.relay.RelayTour.{ WithLastRound, WithRounds }
 import lila.study.ChapterPreview
 import lila.study.Settings
@@ -15,7 +15,7 @@ import lila.core.LightUser.GetterSync
 
 final class JsonView(
     baseUrl: BaseUrl,
-    picfitUrl: PicfitUrl,
+    picfitApi: PicfitApi,
     lightUserSync: GetterSync,
     markdown: RelayMarkdown
 ):
@@ -44,7 +44,7 @@ final class JsonView(
       )
       .add("tier" -> t.tier)
       .add("dates" -> t.dates)
-      .add("image" -> t.image.map(id => RelayTour.thumbnail(picfitUrl, id, _.Size.Large)))
+      .add("image" -> t.image.map(id => RelayTour.thumbnail(picfitApi, id, _.Size.Large)))
 
   given OWrites[RelayTour.TourPreview] = Json.writes
 

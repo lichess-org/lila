@@ -49,7 +49,7 @@ final class Env(
     activityWriteApi: lila.activity.ActivityWriteApi,
     ublogApi: lila.ublog.UblogApi,
     ublogJson: lila.ublog.UblogJsonView,
-    picfitUrl: lila.memo.PicfitUrl,
+    picfitApi: lila.core.misc.PicfitApi,
     cacheApi: lila.memo.CacheApi,
     webConfig: lila.web.WebConfig,
     manifest: lila.web.AssetManifest,

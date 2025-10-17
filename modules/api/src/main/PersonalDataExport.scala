@@ -26,7 +26,7 @@ final class PersonalDataExport(
     modLogApi: lila.mod.ModlogApi,
     reportEnv: lila.report.Env,
     titleEnv: lila.title.Env,
-    picfitUrl: lila.memo.PicfitUrl
+    picfitApi: lila.core.misc.PicfitApi
 )(using Executor, Materializer):
 
   private val lightPerSecond = 60
@@ -69,7 +69,9 @@ final class PersonalDataExport(
             List(textTitle("Streamer profile")) :::
               List(
                 "name" -> s.name,
-                "image" -> s.picture.so(p => picfitUrl.thumbnail(p, Streamer.imageSize, Streamer.imageSize)),
+                "image" -> s.picture.so(p =>
+                  picfitApi.thumbnailUrl(p, Streamer.imageSize, Streamer.imageSize)
+                ),
                 "headline" -> s.headline.so(_.value),
                 "description" -> s.description.so(_.value),
                 "twitch" -> s.twitch.so(_.fullUrl),
@@ -90,7 +92,7 @@ final class PersonalDataExport(
             List(textTitle("Coach profile")) :::
               c.profile.textLines :::
               List(
-                "image" -> c.picture.so(p => picfitUrl.thumbnail(p, Coach.imageSize, Coach.imageSize)),
+                "image" -> c.picture.so(p => picfitApi.thumbnailUrl(p, Coach.imageSize, Coach.imageSize)),
                 "languages" -> c.languages.mkString(", "),
                 "createdAt" -> textDate(c.createdAt),
                 "updatedAt" -> textDate(c.updatedAt)
@@ -179,7 +181,7 @@ final class PersonalDataExport(
               "title" -> post.title,
               "intro" -> post.intro,
               "body" -> post.markdown,
-              "image" -> post.image.so(i => lila.ublog.UblogPost.thumbnail(picfitUrl, i.id, _.Size.Large)),
+              "image" -> post.image.so(i => lila.ublog.UblogPost.thumbnail(picfitApi, i.id, _.Size.Large)),
               "topics" -> post.topics.mkString(", ")
             ).map: (k, v) =>
               s"$k: $v"

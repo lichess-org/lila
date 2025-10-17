@@ -2,7 +2,6 @@ package lila.memo
 
 import akka.stream.scaladsl.{ FileIO, Source }
 import akka.util.ByteString
-//import com.github.blemale.scaffeine.LoadingCache
 import play.api.libs.ws.DefaultBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 import play.api.mvc.MultipartFormData
@@ -11,7 +10,9 @@ import reactivemongo.api.bson.{ BSONDocumentHandler, Macros }
 import scalalib.ThreadLocalRandom
 import scalalib.paginator.AdapterLike
 
+import lila.common.Bus
 import lila.core.id.ImageId
+import lila.core.misc.memo.AutomodImageRequest
 import lila.db.dsl.{ *, given }
 
 case class PicfitImage(
@@ -23,7 +24,7 @@ case class PicfitImage(
     name: String,
     size: Int, // in bytes
     createdAt: Instant,
-    context: Option[String],
+    meta: Option[ImageMetaData] = none,
     automod: Option[ImageAutomod] = none,
     urls: List[String] = Nil
 )
@@ -34,23 +35,33 @@ case class ImageAutomod(
 )
 
 case class ImageMetaData(
-    context: String,
     width: Int,
-    height: Int
+    height: Int,
+    context: Option[String] = none
 )
 
 final class PicfitApi(
     coll: Coll,
-    val url: PicfitUrl,
     ws: StandaloneWSClient,
     config: PicfitConfig,
     cloudflareApi: CloudflareApi
-)(using Executor):
+)(using Executor)
+    extends lila.core.misc.PicfitApi:
 
   import PicfitApi.{ *, given }
   private val uploadMaxBytes = uploadMaxMb * 1024 * 1024
 
   val idSep = ':'
+
+  val origin =
+    val pathBegin = config.endpointGet.indexOf('/', 8)
+    if pathBegin == -1 then config.endpointGet else config.endpointGet.slice(0, pathBegin)
+
+  Bus.sub[lila.core.user.UserDelete]: del =>
+    for
+      ids <- coll.primitive[ImageId]($doc("user" -> del.id), "_id")
+      _ <- deleteByIdsAndUser(ids, del.id)
+    yield ()
 
   def uploadFile(
       rel: String,
@@ -60,39 +71,13 @@ final class PicfitApi(
   ): Fu[PicfitImage] =
     val ref: ByteSource = FileIO.fromPath(uploaded.ref.path)
     val source = uploaded.copy[ByteSource](ref = ref, refToBytes = _ => None)
-    uploadSource(rel, source, userId, meta)
-
-  private def uploadSource(
-      rel: String,
-      part: SourcePart,
-      userId: UserId,
-      meta: Option[ImageMetaData]
-  ): Fu[PicfitImage] =
-    if part.fileSize > uploadMaxBytes
-    then fufail(s"File size must not exceed ${uploadMaxMb}MB.")
-    else
-      part.contentType
-        .collect:
-          case "image/webp" => "webp"
-          case "image/png" => "png"
-          case "image/jpeg" => "jpg"
-        .match
-          case None => fufail(s"Invalid file type: ${part.contentType | "unknown"}")
-          case Some(extension) =>
-            val image = PicfitImage(
-              id = ImageId(s"$rel$idSep${ThreadLocalRandom.nextString(8)}.$extension"),
-              user = userId,
-              rel = rel,
-              name = part.filename,
-              size = part.fileSize.toInt,
-              createdAt = nowInstant,
-              context = meta.map(_.context)
-            )
-            for
-              _ <- picfitServer.store(image, part)
-              _ <- deleteByRel(image.rel)
-              _ <- coll.insert.one(image)
-            yield image
+    for
+      image <- uploadSource(rel, source, userId, meta)
+      (width, height) = meta match
+        case Some(m) => (m.width, m.height)
+        case _ => (560, 560)
+      _ = Bus.pub(AutomodImageRequest(image.id, width, height))
+    yield image
 
   def deleteById(id: ImageId): Funit =
     coll
@@ -113,7 +98,7 @@ final class PicfitApi(
       .void
 
   def setContext(context: String, ids: Seq[ImageId]): Funit =
-    coll.update.one($inIds(ids), $set("context" -> context), multi = true).void
+    coll.update.one($inIds(ids), $set("meta.context" -> context), multi = true).void
 
   def setAutomod(id: ImageId, automod: ImageAutomod): Funit =
     coll.updateOrUnsetField($id(id), "automod.flagged", automod.flagged).void
@@ -141,6 +126,95 @@ final class PicfitApi(
 
   def countFlagged = coll.countSel($doc("automod.flagged" -> $exists(true)))
 
+  // This operation will able you to resize the image to the specified width and height.
+  // Preserves the aspect ratio
+  def resizeUrl(
+      id: ImageId,
+      size: Either[Int, Int] // either the width or the height! the other one will be preserved
+  ): String = displayUrl(id, "resize")(
+    width = ~size.left.toOption,
+    height = ~size.toOption
+  )
+
+  // 560x560 containment consumes the minimum 1601 tokens according to the formula here:
+  // https://docs.together.ai/docs/vision-overview#pricing
+  def automodUrl(id: ImageId, meta: Option[ImageMetaData]) =
+    val (width, height) = meta match
+      case Some(m) if m.width < m.height => (0, 560)
+      case _ => (560, 0)
+    displayUrl(id, "resize")(width, height)
+
+  // Thumbnail scales the image up or down using the specified resample filter,
+  // crops it to the specified width and height and returns the transformed image.
+  // Preserves the aspect ratio
+  def thumbnailUrl(
+      id: ImageId,
+      width: Int,
+      height: Int
+  ): String = displayUrl(id, "thumbnail")(width, height)
+
+  def rawUrl(id: ImageId): String =
+    val queryString = s"op=noop&path=$id"
+    val full = s"${config.endpointGet}/display?${signQueryString(queryString)}"
+    discard { recordUrl(id, full) }
+    full
+
+  private def uploadSource(
+      rel: String,
+      part: SourcePart,
+      userId: UserId,
+      meta: Option[ImageMetaData]
+  ): Fu[PicfitImage] =
+    if part.fileSize > uploadMaxBytes
+    then fufail(s"File size must not exceed ${uploadMaxMb}MB.")
+    else
+      part.contentType
+        .collect:
+          case "image/webp" => "webp"
+          case "image/png" => "png"
+          case "image/jpeg" => "jpg"
+        .match
+          case None => fufail(s"Invalid file type: ${part.contentType | "unknown"}")
+          case Some(extension) =>
+            val image = PicfitImage(
+              id = ImageId(s"$rel$idSep${ThreadLocalRandom.nextString(8)}.$extension"),
+              user = userId,
+              rel = rel,
+              name = part.filename,
+              size = part.fileSize.toInt,
+              createdAt = nowInstant,
+              meta = meta
+            )
+            for
+              _ <- picfitServer.store(image, part)
+              _ <- deleteByRel(image.rel)
+              _ <- coll.insert.one(image)
+            yield image
+
+  private def displayUrl(id: ImageId, operation: "resize" | "thumbnail")(
+      width: Int,
+      height: Int
+  ) =
+    // parameters must be given in alphabetical order for the signature to work (!)
+    val queryString =
+      s"fmt=${if id.value.endsWith(".png") then "png" else "webp"}&h=$height&op=$operation&path=$id&w=$width"
+    val full = s"${config.endpointGet}/display?${signQueryString(queryString)}"
+    discard { recordUrl(id, full) }
+    full
+
+  private def recordUrl(id: ImageId, u: String): Funit =
+    // this method is called a lot. an Map[id, Set[url]] or some scaffeine cache would prevent redundant sets
+    coll.update.one($id(id), $doc("$addToSet" -> $doc("urls" -> u))).void
+
+  private object signQueryString:
+    private val signer = com.roundeights.hasher.Algo.hmac(config.secretKey.value)
+    private val cache: com.github.blemale.scaffeine.LoadingCache[String, String] =
+      CacheApi.scaffeineNoScheduler
+        .expireAfterWrite(10.minutes)
+        .build { qs => signer.sha1(qs.replace(":", "%3A")).hex }
+
+    def apply(qs: String) = s"$qs&sig=${cache.get(qs)}"
+
   private object picfitServer:
 
     def store(image: PicfitImage, part: SourcePart): Funit =
@@ -167,12 +241,6 @@ final class PicfitApi(
           cloudflareApi.purge(image.urls)
         .void
 
-    lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
-      for
-        ids <- coll.primitive[ImageId]($doc("user" -> del.id), "_id")
-        _ <- deleteByIdsAndUser(ids, del.id)
-      yield ()
-
 object PicfitApi:
 
   val uploadMaxMb = 6
@@ -182,6 +250,7 @@ object PicfitApi:
   private type SourcePart = MultipartFormData.FilePart[ByteSource]
 
   private given BSONDocumentHandler[ImageAutomod] = Macros.handler
+  private given BSONDocumentHandler[ImageMetaData] = Macros.handler
   private given BSONDocumentHandler[PicfitImage] = Macros.handler
 
 // from playframework/transport/client/play-ws/src/main/scala/play/api/libs/ws/WSBodyWritables.scala
@@ -207,66 +276,8 @@ object PicfitApi:
     val pixels = number(min = 20, max = 10_000)
     play.api.data.Form(
       mapping(
-        "context" -> text,
         "width" -> pixels,
-        "height" -> pixels
+        "height" -> pixels,
+        "context" -> optional(text)
       )(ImageMetaData.apply)(unapply)
     )
-
-final class PicfitUrl(config: PicfitConfig, coll: Coll)(using Executor) extends lila.core.misc.PicfitUrl:
-
-  val origin =
-    val pathBegin = config.endpointGet.indexOf('/', 8)
-    if pathBegin == -1 then config.endpointGet else config.endpointGet.slice(0, pathBegin)
-
-  // This operation will able you to resize the image to the specified width and height.
-  // Preserves the aspect ratio
-  def resize(
-      id: ImageId,
-      size: Either[Int, Int] // either the width or the height! the other one will be preserved
-  ): String = display(id, "resize")(
-    width = ~size.left.toOption,
-    height = ~size.toOption
-  )
-
-  // 560x560 containment consumes the minimum 1601 tokens according to the formula here:
-  // https://docs.together.ai/docs/vision-overview#pricing
-  def forAutomod(id: ImageId) = display(id, "resize")(width = 560, height = 0)
-
-  // Thumbnail scales the image up or down using the specified resample filter,
-  // crops it to the specified width and height and returns the transformed image.
-  // Preserves the aspect ratio
-  def thumbnail(
-      id: ImageId,
-      width: Int,
-      height: Int
-  ): String = display(id, "thumbnail")(width, height)
-
-  def raw(id: ImageId): String =
-    val queryString = s"op=noop&path=$id"
-    val full = s"${config.endpointGet}/display?${signQueryString(queryString)}"
-    discard { record(id, full) }
-    full
-
-  private def display(id: ImageId, operation: "resize" | "thumbnail")(
-      width: Int,
-      height: Int
-  ) =
-    // parameters must be given in alphabetical order for the signature to work (!)
-    val queryString =
-      s"fmt=${if id.value.endsWith(".png") then "png" else "webp"}&h=$height&op=$operation&path=$id&w=$width"
-    val full = s"${config.endpointGet}/display?${signQueryString(queryString)}"
-    discard { record(id, full) }
-    full
-
-  private def record(id: ImageId, u: String): Funit =
-    coll.update.one($id(id), $doc("$addToSet" -> $doc("urls" -> u))).void
-
-  private object signQueryString:
-    private val signer = com.roundeights.hasher.Algo.hmac(config.secretKey.value)
-    private val cache: com.github.blemale.scaffeine.LoadingCache[String, String] =
-      CacheApi.scaffeineNoScheduler
-        .expireAfterWrite(10.minutes)
-        .build { qs => signer.sha1(qs.replace(":", "%3A")).hex }
-
-    def apply(qs: String) = s"$qs&sig=${cache.get(qs)}"

@@ -3,19 +3,19 @@ package lila.mod.ui
 import scalalib.paginator.Paginator
 
 import lila.ui.*
-import lila.memo.{ PicfitImage, PicfitUrl }
+import lila.memo.{ PicfitImage, PicfitApi }
 
 import ScalatagsTemplate.*
 
-final class ImageQueueUi(helpers: Helpers, picfitUrl: PicfitUrl):
+final class ImageQueueUi(helpers: Helpers, picfitApi: PicfitApi):
   import helpers.*
 
   def show(flagged: Paginator[PicfitImage]) =
     main(cls := "image-queue infinite-scroll")(
       flagged.currentPageResults.map: image =>
         div(
-          a(image.context.map(href := _))(
-            img(src := picfitUrl.forAutomod(image.id))
+          a(image.meta.flatMap(_.context.map(href := _)))(
+            img(src := picfitApi.rawUrl(image.id))
           ),
           image.automod.flatMap(_.flagged),
           span(

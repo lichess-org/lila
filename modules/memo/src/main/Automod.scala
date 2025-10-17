@@ -1,4 +1,4 @@
-package lila.report
+package lila.memo
 
 import play.api.{ ConfigLoader, Configuration }
 import play.api.libs.json.*
@@ -7,26 +7,27 @@ import play.api.libs.ws.JsonBodyWritables.*
 import play.api.libs.ws.JsonBodyReadables.*
 import scala.util.matching.Regex.quote
 
-import lila.core.config.Secret
-import lila.core.data.Text
 import lila.common.autoconfig.AutoConfig
 import lila.common.config.given
-import lila.memo.SettingStore.Text.given
+import lila.core.config.Secret
+import lila.core.data.Text
+import lila.core.misc.memo.AutomodImageRequest
 import lila.core.id.ImageId
+import lila.memo.ImageAutomod
+import SettingStore.Text.given
 
 final class Automod(
     ws: StandaloneWSClient,
     appConfig: Configuration,
-    settingStore: lila.memo.SettingStore.Builder,
-    picfitApi: lila.memo.PicfitApi,
-    picfitUrl: lila.memo.PicfitUrl
+    settingStore: SettingStore.Builder,
+    picfitApi: PicfitApi
 )(using Executor):
 
   private val config = appConfig.get[Automod.Config]("automod")
 
   private val imageIdRe =
     raw"""(?i)!\[(?:[^\n\]]*+)\]\(${quote(
-        picfitUrl.origin
+        picfitApi.origin
       )}[^)\s]+[?&]path=([a-z]\w+:[a-z0-9]{12}:[a-z0-9]{8}\.\w{3,4})[^)]*\)""".r
 
   val imagePromptSetting = settingStore[Text](
@@ -40,6 +41,11 @@ final class Automod(
     text = "Image automod model".some,
     default = "Qwen/Qwen2.5-VL-72B-Instruct"
   )
+
+  lila.common.Bus.sub[AutomodImageRequest]: req =>
+    discard:
+      imageFlagReason(req.id, ImageMetaData(req.width, req.height).some).map: flagged =>
+        picfitApi.setAutomod(req.id, ImageAutomod(flagged))
 
   def text(
       userText: String,
@@ -77,27 +83,27 @@ final class Automod(
             case Some(res) => fuccess(res)
 
   def markdownImages(markdown: Markdown): Fu[Seq[lila.memo.PicfitImage]] =
-    val idToUrl = imageIdRe
+    val ids = imageIdRe
       .findAllMatchIn(markdown.value)
-      .map: m =>
-        val id = lila.core.id.ImageId(m.group(1))
-        id -> picfitUrl.forAutomod(id)
-      .toMap
+      .map(m => lila.core.id.ImageId(m.group(1)))
+      .toSeq
     picfitApi
-      .byIds(idToUrl.keys)
+      .byIds(ids)
       .flatMap:
         _.map: pic =>
           if pic.automod.isDefined then fuccess(pic)
           else
             for
-              flagged <- idToUrl.get(pic.id).so(imageFlagReason)
+              flagged <- imageFlagReason(pic.id, pic.meta)
               automod = lila.memo.ImageAutomod(flagged)
               _ <- picfitApi.setAutomod(pic.id, automod)
             yield pic.copy(automod = automod.some)
         .toSeq.parallel
 
-  def imageFlagReason(imageUrl: String): Fu[Option[String]] =
+  // imageFlagReason is a raw model transaction and should not set any db.picfit_image data
+  private def imageFlagReason(id: ImageId, meta: Option[ImageMetaData]): Fu[Option[String]] =
     (config.apiKey.value.nonEmpty && imagePromptSetting.get().value.nonEmpty).so:
+      val imageUrl = picfitApi.automodUrl(id, meta)
       val body = Json
         .obj(
           "model" -> imageModelSetting.get(),
