@@ -139,13 +139,7 @@ final class PicfitApi(
             image <- doc.asOpt[PicfitImage]
           yield image
 
-  def countFlagged =
-    coll
-      .count(
-        $doc("automod.flagged" -> $exists(true)).some
-          // hint = coll.hint($doc("automod.flagged" -> 1)).some
-      )
-      .map(_.toInt)
+  def countFlagged = coll.countSel($doc("automod.flagged" -> $exists(true)))
 
   object bodyImage:
     def upload(rel: String, image: FilePart, meta: Option[ImageMetaData], widthCap: Option[Int])(using

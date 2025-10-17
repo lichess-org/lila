@@ -596,16 +596,16 @@ final class Mod(
         currentPage = page,
         maxPerPage = MaxPerPage(12)
       )
-      page <- renderPage(views.mod.imageQueue.show(paginator, scores, pending))
+      page <- renderPage(views.mod.imageQueue(paginator, scores, pending))
     yield Ok(page)
   }
 
   def passImage(id: ImageId) = Secure(_.ModerateForum) { _ ?=> me ?=>
     for _ <- env.memo.picfitApi.setAutomod(id, lila.memo.ImageAutomod(none))
-    yield Redirect(routes.Mod.imageQueue(1).url)
+    yield Redirect(routes.Mod.imageQueue())
   }
 
   def purgeImage(id: ImageId) = Secure(_.ModerateForum) { _ ?=> me ?=>
     for _ <- env.memo.picfitApi.deleteById(id)
-    yield Redirect(routes.Mod.imageQueue(1).url)
+    yield Redirect(routes.Mod.imageQueue())
   }

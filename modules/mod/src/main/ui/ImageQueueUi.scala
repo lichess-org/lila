@@ -14,15 +14,15 @@ final class ImageQueueUi(helpers: Helpers):
     main(cls := "image-queue infinite-scroll")(
       flagged.currentPageResults.map: image =>
         div(
-          a(image.context.map(ctx => href := ctx))(
-            image.urls.nonEmpty.option(img(src := image.urls(0)))
+          a(image.context.map(href := _))(
+            image.urls.headOption.map(url => img(src := url))
           ),
           image.automod.flatMap(_.flagged),
           span(
-            form(method := "POST", action := routes.Mod.passImage(image.id).url)(
+            postForm(action := routes.Mod.passImage(image.id).url)(
               button(cls := "button button-empty")("Pass")
             ),
-            form(method := "POST", action := routes.Mod.purgeImage(image.id).url)(
+            postForm(action := routes.Mod.purgeImage(image.id).url)(
               button(cls := "button button-empty button-red")("Purge")
             )
           )
