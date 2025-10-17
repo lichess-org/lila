@@ -30,33 +30,34 @@ final class Study(
     apiC: => Api
 ) extends LilaController(env):
 
-  def search(text: String, order: Order, page: Int) = OpenOrScopedBody(parse.anyContent)(_.Study.Read, _.Web.Mobile):
-    Reasonable(page):
-      WithProxy: proxy ?=>
-        val maxLen =
-          if proxy.isFloodish then 50
-          else if HTTPRequest.isCrawler(req).yes then 80
-          else if ctx.isAnon then 100
-          else 200
-        text.trim.some.filter(_.nonEmpty).filter(_.sizeIs > 2).filter(_.sizeIs < maxLen) match
-          case None =>
-            for
-              pag <- env.study.pager.all(Orders.default, page)
-              _ <- preloadMembers(pag)
-              res <- negotiate(
-                Ok.page(views.study.list.all(pag, Orders.default)),
-                apiStudies(pag)
-              )
-            yield res
-          case Some(clean) =>
-            limit.enumeration.search(rateLimited):
-              env
-                .studySearch(clean.take(100), order, page)
-                .flatMap: pag =>
-                  negotiate(
-                    Ok.page(views.study.list.search(pag, order, text)),
-                    apiStudies(pag)
-                  )
+  def search(text: String, order: Order, page: Int) =
+    OpenOrScopedBody(parse.anyContent)(_.Study.Read, _.Web.Mobile):
+      Reasonable(page):
+        WithProxy: proxy ?=>
+          val maxLen =
+            if proxy.isFloodish then 50
+            else if HTTPRequest.isCrawler(req).yes then 80
+            else if ctx.isAnon then 100
+            else 200
+          text.trim.some.filter(_.nonEmpty).filter(_.sizeIs > 2).filter(_.sizeIs < maxLen) match
+            case None =>
+              for
+                pag <- env.study.pager.all(Orders.default, page)
+                _ <- preloadMembers(pag)
+                res <- negotiate(
+                  Ok.page(views.study.list.all(pag, Orders.default)),
+                  apiStudies(pag)
+                )
+              yield res
+            case Some(clean) =>
+              limit.enumeration.search(rateLimited):
+                env
+                  .studySearch(clean.take(100), order, page)
+                  .flatMap: pag =>
+                    negotiate(
+                      Ok.page(views.study.list.search(pag, order, text)),
+                      apiStudies(pag)
+                    )
 
   def homeLang = LangPage(routes.Study.allDefault())(allResults(Order.hot, 1))
 
