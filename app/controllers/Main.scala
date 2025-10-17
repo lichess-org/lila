@@ -151,13 +151,13 @@ final class Main(
             .recover { case e: Exception => JsonBadRequest(e.getMessage) }
   }
 
-  def imageUrl(rel: String, width: Int) = Auth { _ ?=> _ ?=>
+  def imageUrl(id: ImageId, width: Int) = Auth { _ ?=> _ ?=>
     if width < 1 then JsonBadRequest("Invalid width")
     else
       JsonOk(
         Json.obj(
           "imageUrl" -> env.memo.picfitApi.url
-            .resize(ImageId(rel), Left(width.min(lila.ui.bits.imageDesignWidth(rel).getOrElse(1920))))
+            .resize(id, Left(width.min(lila.ui.bits.imageDesignWidth(id.value).getOrElse(1920))))
         )
       )
   }

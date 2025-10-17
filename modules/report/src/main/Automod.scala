@@ -25,7 +25,7 @@ final class Automod(
   private val config = appConfig.get[Automod.Config]("automod")
 
   private val imageIdRe =
-    raw"""(?i)!\[(?:[^\n]*)\]\(${quote(
+    raw"""(?i)!\[(?:[^\n\]]*+)\]\(${quote(
         picfitUrl.origin
       )}[^)\s]+[?&]path=([a-z]\w+:[a-z0-9]{12}:[a-z0-9]{8}\.\w{3,4})[^)]*\)""".r
 

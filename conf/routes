@@ -632,6 +632,9 @@ GET   /mod/presets/:group              controllers.Mod.presets(group)
 POST  /mod/presets/:group              controllers.Mod.presetsUpdate(group)
 GET   /api/stream/mod                  controllers.Mod.eventStream
 GET   /api/stream/mod-marked-since     controllers.Mod.markedUsersStream
+GET   /mod/image/queue                 controllers.Mod.imageQueue(page: Int ?= 1)
+POST  /mod/image/pass/:id              controllers.Mod.passImage(id: ImageId)
+POST  /mod/image/purge/:id             controllers.Mod.purgeImage(id: ImageId)
 
 # Irwin
 GET   /irwin                           controllers.Irwin.dashboard
@@ -898,7 +901,7 @@ GET   /costs                           controllers.Main.costs
 GET   /InstantChess.com                controllers.Main.instantChess
 GET   /daily-puzzle-slack              controllers.Main.dailyPuzzleSlackApp
 POST  /upload/image/user/:rel          controllers.Main.uploadImage(rel)
-GET   /image-url/:id                   controllers.Main.imageUrl(id: String, width: Int)
+GET   /image-url/:id                   controllers.Main.imageUrl(id: ImageId, width: Int)
 POST  /github/secret-scanning          controllers.Github.secretScanning
 
 GET   /verify-title                    controllers.TitleVerify.index

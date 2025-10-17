@@ -1,0 +1,21 @@
+.image-queue {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+  grid-gap: 3rem;
+  padding: 2rem;
+
+  img {
+    max-width: 100%;
+    max-height: 100%;
+  }
+  div {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  span {
+    display: flex;
+    justify-content: end;
+    gap: 1rem;
+  }
+}

@@ -9,6 +9,7 @@ import play.api.mvc.MultipartFormData
 import reactivemongo.api.bson.Macros.Annotations.Key
 import reactivemongo.api.bson.{ BSONDocumentHandler, Macros }
 import scalalib.ThreadLocalRandom
+import scalalib.paginator.AdapterLike
 
 import lila.core.id.ImageId
 import lila.db.dsl.{ *, given }
@@ -95,6 +96,12 @@ final class PicfitApi(
               _ <- coll.insert.one(image)
             yield image
 
+  def deleteById(id: ImageId): Funit =
+    coll
+      .findAndRemove($id(id))
+      .flatMap:
+        _.result[PicfitImage].so(picfitServer.delete)
+
   def deleteByIdsAndUser(ids: Seq[ImageId], user: UserId): Funit =
     ids.toList.sequentiallyVoid: id =>
       coll
@@ -115,6 +122,33 @@ final class PicfitApi(
     coll.update.one($id(id), op).void
 
   def byIds(ids: Iterable[ImageId]): Fu[Seq[PicfitImage]] = coll.byIds(ids)
+
+  def imageFlagAdapter = new AdapterLike[PicfitImage]:
+    lazy val flagCount = countFlagged
+    def nbResults: Fu[Int] = flagCount
+
+    def slice(offset: Int, length: Int): Fu[Seq[PicfitImage]] =
+      coll
+        .aggregateList(length, _.sec): framework =>
+          import framework.*
+          Match($doc("automod.flagged" -> $exists(true))) -> List(
+            Sort(Descending("createdAt")),
+            Skip(offset),
+            Limit(length)
+          )
+        .map: docs =>
+          for
+            doc <- docs
+            image <- doc.asOpt[PicfitImage]
+          yield image
+
+  def countFlagged =
+    coll
+      .count(
+        $doc("automod.flagged" -> $exists(true)).some
+          // hint = coll.hint($doc("automod.flagged" -> 1)).some
+      )
+      .map(_.toInt)
 
   object bodyImage:
     def upload(rel: String, image: FilePart, meta: Option[ImageMetaData], widthCap: Option[Int])(using

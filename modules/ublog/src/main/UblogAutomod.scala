@@ -92,8 +92,7 @@ private final class UblogAutomod(
       .zip(assessText)
       .map: (imgs, text) =>
         val flags = imgs.flatMap(_.automod.flatMap(_.flagged))
-        if flags.nonEmpty then text.map(t => t.copy(flagged = (t.flagged ++ flags).mkString(", ").some))
-        else text
+        text.map(t => t.copy(flagged = (t.flagged ++ flags).mkString(", ").some))
 
   private def normalize(rsp: JsObject): Option[Assessment] =
     rsp

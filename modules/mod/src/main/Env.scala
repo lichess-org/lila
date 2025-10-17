@@ -34,7 +34,8 @@ final class Env(
     noteApi: lila.user.NoteApi,
     cacheApi: lila.memo.CacheApi,
     ircApi: lila.core.irc.IrcApi,
-    msgApi: lila.core.msg.MsgApi
+    msgApi: lila.core.msg.MsgApi,
+    picfitApi: lila.memo.PicfitApi
 )(using Executor, Scheduler, lila.core.i18n.Translator, akka.stream.Materializer):
 
   private lazy val logRepo = ModlogRepo(db(CollName("modlog")))

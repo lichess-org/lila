@@ -9,7 +9,7 @@ import lila.ui.*
 import ScalatagsTemplate.{ *, given }
 import lila.core.perf.UserWithPerfs
 
-case class PendingCounts(streamers: Int, appeals: Int, titles: Int)
+case class PendingCounts(streamers: Int, appeals: Int, titles: Int, images: Int)
 
 object ReportUi:
 
@@ -188,10 +188,18 @@ final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
 
     private val scoreTag = tag("score")
 
-    def layout(filter: String, scores: Room.Scores, pending: PendingCounts)(using Context, Me) =
+    def layout(
+        filter: String,
+        scores: Room.Scores,
+        pending: PendingCounts,
+        moreCss: Seq[String] = Nil,
+        moreJs: EsmList = Nil
+    )(using Context, Me) =
       Page("Reports")
         .css("mod.report")
+        .css(moreCss*)
         .js(esmInit("mod.autolink"))
+        .js(moreJs)
         .wrap: body =>
           main(cls := "page-menu")(
             menu,
@@ -251,6 +259,13 @@ final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
                     )(
                       countTag(pending.titles),
                       "Titles"
+                    )
+                  ),
+                  Granter(_.ModerateForum).option(
+                    a(
+                      href := routes.Mod.imageQueue(1),
+                      countTag(pending.images),
+                      "Images"
                     )
                   )
                 )
