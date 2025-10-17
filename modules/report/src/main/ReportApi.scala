@@ -329,7 +329,7 @@ final class ReportApi(
       .monSuccess(_.mod.report.automod.request)
     for
       (images, textResponse) <- assessImages.zip(assessText)
-      flaggedImages = images.flatMap(_.automod.flatMap(_.flagged))
+      flaggedImages = images.flatMap(_.automod).flatMap(_.flagged)
       suspectOpt <- getSuspect(me)
       reporter <- automodReporter
     yield for

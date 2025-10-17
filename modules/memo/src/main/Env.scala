@@ -55,11 +55,11 @@ final class Env(
 
   val mongoRateLimitApi = wire[MongoRateLimitApi]
 
-  val cloudflareApi = wire[CloudflareApi]
+  private val cloudflareApi = wire[CloudflareApi]
 
-  val picfitUrl = wire[PicfitUrl] // PicfitUrl(config.picfit, picfitColl)
+  val picfitUrl = wire[PicfitUrl]
 
-  val picfitApi = wire[PicfitApi] // PicfitApi(db(config.picfit.collection), picfitUrl, ws, config.picfit)
+  val picfitApi = wire[PicfitApi]
 
   val markdown = wire[MarkdownCache]
 

@@ -45,9 +45,7 @@ final class PicfitApi(
     ws: StandaloneWSClient,
     config: PicfitConfig,
     cloudflareApi: CloudflareApi
-)(using
-    Executor
-):
+)(using Executor):
 
   import PicfitApi.{ *, given }
   private val uploadMaxBytes = uploadMaxMb * 1024 * 1024

@@ -1,10 +1,11 @@
 package lila.memo
+
 import play.api.libs.ws.DefaultBodyReadables.*
 import play.api.libs.ws.JsonBodyWritables.*
 import play.api.libs.ws.StandaloneWSClient
 import play.api.libs.json.*
 
-final class CloudflareApi(ws: StandaloneWSClient, config: CloudflareConfig)(using Executor):
+private final class CloudflareApi(ws: StandaloneWSClient, config: CloudflareConfig)(using Executor):
 
   def purge(urls: List[String]): Funit =
     if urls.isEmpty || config.zoneId.isEmpty || config.apiToken.value.isEmpty then funit
@@ -20,7 +21,5 @@ final class CloudflareApi(ws: StandaloneWSClient, config: CloudflareConfig)(usin
           case r =>
             logger
               .branch("cloudflare")
-              .warn(
-                s"purge ${urls.mkString(", ")} failed with: ${r.status} ${r.body[String].take(200)}"
-              )
+              .warn(s"purge ${urls.mkString(", ")} failed with: ${r.status} ${r.body[String].take(200)}")
             funit
