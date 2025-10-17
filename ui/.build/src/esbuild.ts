@@ -141,7 +141,7 @@ function splitPath(path: string) {
   return match ? { name: match[1], hash: match[2] } : undefined;
 }
 
-// our html minifier will only process characters between the first two backticks encountered
+// $trim and $html will only process characters between the first two backticks encountered
 // so:
 //   $html`     <div>    ${    x ?      `<- 2nd backtick   ${y}${z}` : ''    }     </div>`
 //
@@ -150,17 +150,17 @@ function splitPath(path: string) {
 //
 // nested template literals in interpolations are unchanged and still work, but they
 // won't be minified.
+//
+// $trim condenses multiline strings formatted for source code readability into the user-friendly format
+// by trimming each line and replacing single newlines
 
 const plugins = [
   {
-    name: '$html',
+    name: 'condenseLiterals',
     setup(build: es.PluginBuild) {
       build.onLoad({ filter: /\.ts$/ }, async (args: es.OnLoadArgs) => ({
         loader: 'ts',
-        contents: (await fs.promises.readFile(args.path, 'utf8')).replace(
-          /\$html`([^`]*)`/g,
-          (_, s) => `\`${s.trim().replace(/\s+/g, ' ')}\``,
-        ),
+        contents: condenseLiterals(await fs.promises.readFile(args.path, 'utf8')),
       }));
     },
   },
@@ -177,3 +177,49 @@ const plugins = [
     },
   },
 ];
+
+// this may look ugly but it's 2-12x faster than regex scanning on V8, plus we can handle
+// escaping correctly when a backtick is preceded by any odd number of backslashes
+function condenseLiterals(text: string) {
+  const backtick = '`'.charCodeAt(0);
+  const nextLiteral = (from: number): [number, boolean] | undefined => {
+    for (let i = text.indexOf('$', from); i >= 0; i = text.indexOf('$', i + 1)) {
+      if (text.charCodeAt(i + 5) !== backtick) continue;
+      if (text.startsWith('html', i + 1)) return [i + 6, true];
+      if (text.startsWith('trim', i + 1)) return [i + 6, false];
+    }
+  };
+  const condense = (str: string, isHtml: boolean) =>
+    isHtml
+      ? str.trim().replace(/\s+/g, ' ').replace(/>\s+</g, '><')
+      : str
+          .trim()
+          .replace(/(?:\n[ \t]*){2,}/g, '\n\n')
+          .replace(/\n[ \t]+/g, ' ');
+
+  const out: string[] = [];
+
+  let cursor = 0;
+  for (let literal = nextLiteral(cursor); literal; literal = nextLiteral(++cursor)) {
+    const [beginLiteral, isHtml] = literal;
+    out.push(text.slice(cursor, beginLiteral - 6));
+
+    for (
+      cursor = text.indexOf('`', beginLiteral);
+      cursor !== -1 && text[cursor - 1] === '\\';
+      cursor = text.indexOf('`', cursor + 1)
+    ) {
+      let backslashes = 1;
+      for (let i = cursor - 2; text[i] === '\\' && i >= beginLiteral; i--) backslashes++;
+      if ((backslashes & 1) === 0) break;
+    }
+    if (cursor === -1) {
+      cursor = beginLiteral - 1; // unterminated template literal, esbuild will report
+      break;
+    }
+    out.push('`', condense(text.slice(beginLiteral, cursor), isHtml), '`');
+  }
+  if (cursor === 0) return text;
+  out.push(text.slice(cursor));
+  return out.join('');
+}

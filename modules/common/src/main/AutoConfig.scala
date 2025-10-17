@@ -48,7 +48,6 @@ object AutoConfig:
         .filter(paramList => paramList.forall(!_.isTypeParam))
         .map { params =>
           params.map { param =>
-
             // parameter name
             val paramName = Expr(param.name)
 

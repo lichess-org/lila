@@ -7,7 +7,7 @@ export function debugCli(play: (game: Game) => void) {
       play(
         new Game({
           id: Game.randomId(),
-          botKey: 'terrence',
+          botKey: '#centipawn',
           pov: 'white',
           initialFen: undefined,
           moves: addMoveTimes(['e4', 'e5', 'Nf3', 'Nf6', 'Ng1', 'Ng8', 'Nf3', 'Nf6', 'Ng1']),
@@ -27,7 +27,7 @@ export function debugCli(play: (game: Game) => void) {
       play(
         new Game({
           id: Game.randomId(),
-          botKey: '#terrence',
+          botKey: '#tal-e',
           pov: 'white',
           initialFen: '5bnk/PPPPpppp/8/8/8/8/pppPPPPP/RNBQKBNR w KQ - 0 1',
           moves: [],

@@ -37,7 +37,7 @@ case class Study(
 
   def canChat(id: UserId) = Settings.UserSelection.allows(settings.chat, this, id.some)
 
-  def canContribute[U: UserIdOf](u: U) =
+  def canContribute[U: UserIdOf](u: U): Boolean =
     isOwner(u) || members.get(u.id).exists(_.canContribute) || u.is(UserId.lichess)
 
   def canView(id: Option[UserId]) = !isPrivate || id.exists(members.contains)
@@ -90,6 +90,13 @@ case class Study(
     copy(
       topics = topics.fold(ts)(_ ++ ts).some
     )
+
+  def configureForOngoingRelay = copy(
+    settings = settings.copy(
+      computer = Settings.UserSelection.Nobody,
+      explorer = Settings.UserSelection.Nobody
+    )
+  )
 
 object Study:
 

@@ -5,7 +5,7 @@
   <string name="byTopic">Aiheen mukaan</string>
   <string name="byLichess">Lichessin kirjoittamat</string>
   <string name="myFriends">Ystävieni blogit</string>
-  <string name="myLikes">Tykkäämäni</string>
+  <string name="myLikes" comment="A page which lists blog posts that you have pressed ❤️ Like on: https://lichess.org/blog/liked">Tykkäämäni</string>
   <string name="myBlog">Oma blogi</string>
   <string name="likedBlogs">Tykätyt blogikirjoitukset</string>
   <plurals name="blogPosts">

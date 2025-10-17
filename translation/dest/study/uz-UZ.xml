@@ -32,7 +32,7 @@
   </plurals>
   <string name="inviteToTheStudy">Ta\'lim uchun chorlash</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">Iltimos faqat o\'zingiz taniydigan odamlarni va haqiqatdan ham qo\'shilishni xohlayotganlarni ta\'limga qo\'shing.</string>
-  <string name="searchByUsername">Foydalanuvchi nomi bo\'yicha qidirish</string>
+  <string name="searchByUsername" comment="Appears when adding members to a Lichess Study as placeholder text in a search box.">Foydalanuvchi nomi bo\'yicha qidirish</string>
   <string name="spectator">Kuzatuvchi</string>
   <string name="contributor">Yordamchi</string>
   <string name="kick">Ro\'yhatdan chiqarish</string>

@@ -5,7 +5,7 @@
   <string name="byTopic">Eftir umræðu</string>
   <string name="byLichess">Eftir Lichess</string>
   <string name="myFriends">Vinir mínir</string>
-  <string name="myLikes">Gildismatið mitt</string>
+  <string name="myLikes" comment="A page which lists blog posts that you have pressed ❤️ Like on: https://lichess.org/blog/liked">Gildismatið mitt</string>
   <string name="myBlog">Bloggið mitt</string>
   <string name="likedBlogs">Metnar bloggfærslur</string>
   <plurals name="blogPosts">

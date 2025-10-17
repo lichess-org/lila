@@ -4,7 +4,7 @@ import chess.Outcome
 import chess.format.UciPath
 import chess.format.pgn.{ Tag, TagType, Tags }
 
-import lila.study.{ MultiPgn, PgnDump }
+import lila.study.{ MultiPgn, PgnDump, StudyPgnImport }
 import lila.tree.{ Root, Clock }
 import lila.tree.Node.Comments
 
@@ -76,7 +76,7 @@ private object RelayGame:
     points = c.tags.points
   )
 
-  def fromStudyImport(res: lila.study.StudyPgnImport.Result): RelayGame =
+  def fromStudyImport(res: StudyPgnImport.Result): RelayGame =
     val fixedTags = cleanOrRemovePlayerNames:
       // remove wrong ongoing result tag if the board has a mate on it
       if res.ending.isDefined && res.tags(_.Result).has("*") then
@@ -88,7 +88,7 @@ private object RelayGame:
           then tag.copy(value = Outcome.showPoints(Outcome.pointsFromResult(tag.value)))
           else tag)
     .pipe(_ - Tag.Date) // trust the chapter date, not the source date
-      .pipe(toggleUnplayedTermination(_, res))
+      .pipe(toggleUnplayedTermination(_, res.ending.isDefined && res.root.mainline.sizeIs < 2))
     RelayGame(
       tags = fixedTags,
       variant = res.variant,
@@ -107,8 +107,8 @@ private object RelayGame:
         Option.when(clean.size > 1 && clean.toLowerCase != "unknown"):
           tag.copy(value = clean)
 
-  private def toggleUnplayedTermination(tags: Tags, res: lila.study.StudyPgnImport.Result) =
-    if res.ending.isDefined && res.root.mainline.sizeIs < 2
+  def toggleUnplayedTermination(tags: Tags, set: Boolean) =
+    if set
     then tags + unplayedTag
     else tags.map(_.filter(_ != unplayedTag))
 

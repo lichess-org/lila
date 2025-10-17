@@ -2,9 +2,9 @@
 <resources>
   <string name="gameSetup">Ujdisje loje</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Sfidoni një shok</string>
-  <string name="playAgainstComputer" comment="Appears on the homepage. Opens the modal to create a game against a chess engine. Please keep your translation short.">Luani kundër kompjuterit</string>
+  <string name="playAgainstComputer">Luani kundër kompjuterit</string>
   <string name="gameMode">Mënyrë loje</string>
-  <string name="createLobbyGame">Krijoni loji holli</string>
+  <string name="createLobbyGame" comment="One of three buttons on the home page. Opens the modal to create a game that goes in the lobby.">Krijoni lojë holli</string>
   <string name="youPlayAs">Ju luani si</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Për të ftuar dikë të luajë, jepni këtë URL</string>
   <string name="gameOver">Loja mbaroi</string>
@@ -319,7 +319,7 @@
   <string name="loginToChat">Që të bisedoni, bëni hyrjen</string>
   <string name="youHaveBeenTimedOut">Ju mbaroi koha.</string>
   <string name="spectatorRoom">Dhoma e shikuesve</string>
-  <string name="composeMessage" comment="Appears as a button on user profiles. Pressing the button will let you send a message to that user. &quot;Message&quot; is used as a verb.&#10;&#10;This text used to state &quot;Compose message&quot;. Please shorten to just &quot;Message&quot; if you see a translation of the old version of the string.">Hartoni mesazh</string>
+  <string name="composeMessage">Hartoni mesazh</string>
   <string name="subject">Subjekti</string>
   <string name="send">Dërgoje</string>
   <string name="incrementInSeconds">Koha shtesë në sekonda</string>

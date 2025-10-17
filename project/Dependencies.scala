@@ -22,14 +22,14 @@ object Dependencies {
   val maxmind = "com.maxmind.geoip2" % "geoip2" % "4.0.1"
   val caffeine = "com.github.ben-manes.caffeine" % "caffeine" % "3.2.2" % "compile"
   val scaffeine = "com.github.blemale" %% "scaffeine" % "5.3.0" % "compile"
-  val googleOAuth = "com.google.auth" % "google-auth-library-oauth2-http" % "1.39.1"
+  val googleOAuth = "com.google.auth" % "google-auth-library-oauth2-http" % "1.40.0"
   val galimatias = "io.mola.galimatias" % "galimatias" % "0.2.2-NF"
   val scalatags = "com.lihaoyi" %% "scalatags" % "0.13.1"
   val lettuce = "io.lettuce" % "lettuce-core" % "6.8.1.RELEASE"
   val nettyTransport =
-    ("io.netty" % s"netty-transport-native-$notifier" % "4.2.6.Final").classifier(s"$os-$arch")
+    ("io.netty" % s"netty-transport-native-$notifier" % "4.2.7.Final").classifier(s"$os-$arch")
   val lilaSearch = "org.lichess.search" %% "client" % "3.2.5-SNAPSHOT"
-  val munit = "org.scalameta" %% "munit" % "1.2.0" % Test
+  val munit = "org.scalameta" %% "munit" % "1.2.1" % Test
   val uaparser = "org.uaparser" %% "uap-scala" % "0.20.0"
   val apacheText = "org.apache.commons" % "commons-text" % "1.14.0"
   val apacheMath = "org.apache.commons" % "commons-math3" % "3.6.1"
@@ -94,7 +94,7 @@ object Dependencies {
 
   object play {
     val playVersion = "2.8.18-lila_3.22"
-    val json = "org.playframework" %% "play-json" % "3.0.5"
+    val json = "org.playframework" %% "play-json" % "3.0.6"
     val api = "com.typesafe.play" %% "play" % playVersion
     val server = "com.typesafe.play" %% "play-server" % playVersion
     val netty = "com.typesafe.play" %% "play-netty-server" % playVersion

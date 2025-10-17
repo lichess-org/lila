@@ -23,7 +23,7 @@ opaque type StudyTopics = List[StudyTopic]
 object StudyTopics extends TotalWrapper[StudyTopics, List[StudyTopic]]:
   extension (e: StudyTopics)
     def diff(other: StudyTopics): StudyTopics = e.toSet.diff(other.value.toSet).toList
-    def ++(other: StudyTopics): StudyTopics = e.toSet.++(other.value.toSet).toList
+    def ++(other: StudyTopics): StudyTopics = (e.value ++ other.value).distinct
 
   val empty: StudyTopics = Nil
   val studyMax = 30

@@ -14,7 +14,7 @@
   <string name="addMembers">Гишүүд нэмэх</string>
   <string name="inviteToTheStudy">Судалгаанд оролцохыг урих</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">Зөвхөн таньдаг хүмүүсээ урьж, энэ судалгаанд нэгдэхийг хүсч буй хүмүүсийг урьж болно.</string>
-  <string name="searchByUsername">Хэрэглэгчийн нэрээр хайх</string>
+  <string name="searchByUsername" comment="Appears when adding members to a Lichess Study as placeholder text in a search box.">Хэрэглэгчийн нэрээр хайх</string>
   <string name="spectator">Үзэгч</string>
   <string name="contributor">Хандивлагчид</string>
   <string name="kick">Хасах</string>

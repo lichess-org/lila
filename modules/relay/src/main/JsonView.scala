@@ -9,7 +9,7 @@ import lila.core.config.BaseUrl
 import lila.memo.PicfitUrl
 import lila.relay.RelayTour.{ WithLastRound, WithRounds }
 import lila.study.ChapterPreview
-import lila.core.fide.FideTC
+import lila.study.Settings
 import lila.core.socket.SocketVersion
 import lila.core.LightUser.GetterSync
 
@@ -24,7 +24,7 @@ final class JsonView(
 
   given Writes[RelayTour.Tier] = writeAs(_.v)
 
-  given Writes[FideTC] = writeAs(_.toString)
+  given Writes[lila.core.fide.FideTC] = writeAs(_.toString)
   given Writes[java.time.ZoneId] = writeAs(_.getId)
 
   given OWrites[RelayTour.Info] = Json.writes
@@ -117,13 +117,26 @@ final class JsonView(
 
   def sync(round: RelayRound) = Json.toJsObject(round.sync)
 
-  def myRound(r: RelayRound.WithTourAndStudy)(using me: Option[Me]) = Json
-    .obj(
+  def myRound(r: RelayRound.WithTourAndStudy)(using me: Option[Me]) =
+
+    def allowed(selection: Settings => Settings.UserSelection): Boolean =
+      Settings.UserSelection.allows(selection(r.study.settings), r.study, me.map(_.userId))
+
+    val cheatable = r.relay.sync.isInternalWithoutDelay && !r.relay.isFinished
+
+    Json.obj(
       "round" -> apply(r.relay)
         .add("url" -> s"$baseUrl${r.path}".some)
         .add("delay" -> r.relay.sync.delay),
       "tour" -> r.tour,
-      "study" -> Json.obj("writeable" -> me.exists(r.study.canContribute))
+      "study" -> Json.obj(
+        "writeable" -> me.exists(r.study.canContribute),
+        "features" -> Json.obj(
+          "chat" -> allowed(_.chat),
+          "computer" -> (!cheatable && allowed(_.computer)),
+          "explorer" -> (!cheatable && allowed(_.explorer))
+        )
+      )
     )
 
   def makeData(

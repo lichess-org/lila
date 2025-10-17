@@ -28,7 +28,7 @@
   </plurals>
   <string name="inviteToTheStudy">अभ्यासात आमंत्रित करा</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">फक्त तुमच्या परिचयाच्या व या अभ्यासाबद्दल उत्सुक असलेल्या लोकांनाच निमंत्रित करा.</string>
-  <string name="searchByUsername">सदस्यनावानुसार शोधा</string>
+  <string name="searchByUsername" comment="Appears when adding members to a Lichess Study as placeholder text in a search box.">सदस्यनावानुसार शोधा</string>
   <string name="spectator">प्रेक्षक</string>
   <string name="contributor">योगदानकर्ता</string>
   <string name="kick">हाकला</string>

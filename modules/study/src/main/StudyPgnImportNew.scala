@@ -68,7 +68,7 @@ object StudyPgnImportNew:
           Result(
             root = commented,
             variant = game.position.variant,
-            tags = PgnTags
+            tags = StudyPgnTags
               .withRelevantTags(parsedPgn.tags, Set(Tag.WhiteClock, Tag.BlackClock)),
             end = gameEnd
           )

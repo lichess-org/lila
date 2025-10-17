@@ -13,8 +13,8 @@ private final class TimelineApi(
 
   private val dedup = scalalib.cache.OnceEvery.hashCode[Atom](10.minutes)
 
-  def apply(propagate: Propagate): Unit =
-    import propagate.*
+  def propagate(p: Propagate): Unit =
+    import p.*
     if dedup(data) then
       doPropagate(propagations)
         .flatMap: users =>

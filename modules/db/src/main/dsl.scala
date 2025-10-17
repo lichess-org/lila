@@ -476,7 +476,7 @@ object dsl extends dsl with Handlers:
           _.flatMap { _.getAsOpt[V](field) }
 
     def primitive[V: BSONReader](selector: Bdoc, sort: Bdoc, nb: Int, field: String): Fu[List[V]] =
-      (nb > 0).so(
+      (nb > 0).so:
         coll
           .find(selector, $doc(field -> true).some)
           .sort(sort)
@@ -484,7 +484,6 @@ object dsl extends dsl with Handlers:
           .list(nb)
           .dmap:
             _.flatMap { _.getAsOpt[V](field) }
-      )
 
     def primitiveOne[V: BSONReader](selector: Bdoc, field: String): Fu[Option[V]] =
       coll

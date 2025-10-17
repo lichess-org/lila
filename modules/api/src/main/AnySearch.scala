@@ -18,7 +18,6 @@ final class AnySearch(
     str.trim.some
       .filter(idRegex.matches)
       .so: id =>
-
         def game = gameEnv.gameRepo.exists(GameId(id)).map(_.option(s"/$id"))
 
         def broadcastRound = relayEnv.api.byIdWithTour(RelayRoundId(id)).map2(_.path)

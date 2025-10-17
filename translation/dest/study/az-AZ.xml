@@ -32,7 +32,7 @@
   </plurals>
   <string name="inviteToTheStudy">Çalışmaya dəvət et</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">Zəhmət olmasa yalnız tanıdığınız və bu çalışmaya aktiv olaraq qoşulmaq istəyən insanları dəvət edin.</string>
-  <string name="searchByUsername">İstifadəçi adına görə axtar</string>
+  <string name="searchByUsername" comment="Appears when adding members to a Lichess Study as placeholder text in a search box.">İstifadəçi adına görə axtar</string>
   <string name="spectator">Tamaşaçı</string>
   <string name="contributor">Töhfə verən</string>
   <string name="kick">Qov</string>

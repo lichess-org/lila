@@ -14,6 +14,7 @@ import lila.tree.Branch
 import lila.tree.Node.{ Comment, Gamebook, Shape, Shapes }
 import lila.tree.Node.minimalNodeJsonWriter
 import lila.core.study.Visibility
+import cats.mtl.Handle.*
 
 final private class StudySocket(
     api: StudyApi,
@@ -131,7 +132,11 @@ final private class StudySocket(
           reading[ChapterMaker.Data](o): data =>
             val sticky = o.obj("d").flatMap(_.boolean("sticky")) | true
             val withRatings = o.obj("d").flatMap(_.boolean("showRatings")) | true
-            applyWho(api.addChapter(studyId, data, sticky = sticky, withRatings = withRatings))
+            who.foreach: w =>
+              allow:
+                api.addChapter(studyId, data, sticky = sticky, withRatings = withRatings)(w)
+              .rescue: err =>
+                fuccess(send.exec(P.Out.tellSri(w.sri, makeMessage("error", err))))
 
         case "setChapter" =>
           o.get[StudyChapterId]("d")

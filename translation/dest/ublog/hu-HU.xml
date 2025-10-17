@@ -5,7 +5,7 @@
   <string name="byTopic">Téma szerint</string>
   <string name="byLichess">Lichess szerint</string>
   <string name="myFriends">Barátaim posztjai</string>
-  <string name="myLikes">Általam kedvelt posztok</string>
+  <string name="myLikes" comment="A page which lists blog posts that you have pressed ❤️ Like on: https://lichess.org/blog/liked">Általam kedvelt posztok</string>
   <string name="myBlog">Az én blogom</string>
   <string name="likedBlogs">Kedvelt blog posztok</string>
   <plurals name="blogPosts">

@@ -20,7 +20,7 @@
   <string name="addMembers">Eik members</string>
   <string name="inviteToTheStudy">Inveet tae the muise</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">Please onny inveet fowk ye ken, an wha ferey want tae jine this muise.</string>
-  <string name="searchByUsername">Sairch by uisername</string>
+  <string name="searchByUsername" comment="Appears when adding members to a Lichess Study as placeholder text in a search box.">Sairch by uisername</string>
   <string name="spectator">Oanleuker</string>
   <string name="contributor">Inpiter</string>
   <string name="kick">Fleme</string>

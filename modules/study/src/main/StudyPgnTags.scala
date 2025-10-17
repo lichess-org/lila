@@ -4,7 +4,12 @@ import chess.format.UciPath
 import chess.format.pgn.{ Tag, TagType, Tags }
 import lila.tree.Clock
 
-object PgnTags:
+private case class SetTag(chapterId: StudyChapterId, name: String, value: String):
+  def validate = StudyPgnTags.validate(name, value)
+
+case class AfterSetTagOnRelayChapter(chapterId: StudyChapterId, tag: Tag)
+
+object StudyPgnTags:
 
   def apply(tags: Tags): Tags =
     tags.pipe(filterRelevant(Set.empty)).pipe(removeContradictingTermination).pipe(sort)
@@ -29,9 +34,24 @@ object PgnTags:
       case Tag(Tag.WhiteFideId | Tag.BlackFideId, "0") => false
       case _ => true
 
+  def validate(name: String, value: String): Option[Tag] = for
+    tpe <- Tag.tagTypesByLowercase.get(name.toLowerCase).filter(relevantTypeSet)
+    cleaned = lila.common.String.fullCleanUp(value)
+    if cleaned.nonEmpty && cleaned.length <= 140
+  yield Tag(tpe, cleaned)
+
+  def validateTagTypes(tags: Tags): Either[String, Tags] =
+    tags.value
+      .collectFirst:
+        case t if !relevantTypeSet(t.name) => s"Unknown tag type: ${t.name}"
+      .match
+        case Some(err) => Left(err)
+        case None => Right(removeContradictingTermination(tags))
+
   private def filterRelevant(extraTypes: Set[TagType])(tags: Tags) =
-    tags.map(_.filter: t =>
-      (relevantTypeSet(t.name) || extraTypes(t.name)) && !unknownValues(t.value))
+    tags.map:
+      _.filter: t =>
+        (relevantTypeSet(t.name) || extraTypes(t.name)) && !unknownValues(t.value)
 
   private def removeContradictingTermination(tags: Tags) =
     if tags.outcome.isDefined then
@@ -55,7 +75,6 @@ object PgnTags:
       BlackTeam,
       BlackFideId,
       TimeControl,
-      Variant,
       Date,
       Result,
       Termination,
@@ -64,7 +83,6 @@ object PgnTags:
       Round,
       Board,
       Annotator,
-      FEN,
       GameId
     )
 

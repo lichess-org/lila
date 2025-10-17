@@ -67,7 +67,7 @@ object forum:
     lila.msg.MsgPreset.forumDeletion.presets
   )
 
-val timeline = lila.timeline.ui.TimelineUi(helpers)(streamer.bits.redirectLink(_))
+val timeline = lila.timeline.ui.TimelineUi(helpers)
 
 object opening:
   val bits = lila.opening.ui.OpeningBits(helpers)

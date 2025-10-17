@@ -20,6 +20,7 @@ import lila.study.{
   StudyMembers,
   StudyRepo,
   StudyTopic,
+  Chapter,
   ChapterPreviewApi
 }
 
@@ -98,13 +99,21 @@ final class RelayApi(
   def withRounds(tour: RelayTour) = roundRepo.byTourOrdered(tour.id).dmap(tour.withRounds)
 
   def denormalizeTour(tourId: RelayTourId): Funit =
-    val unfinished = RelayRoundRepo.selectors.tour(tourId) ++ RelayRoundRepo.selectors.finished(false)
+    val unfinishedSelector = RelayRoundRepo.selectors.tour(tourId) ++ RelayRoundRepo.selectors.finished(false)
     for
-      active <- roundRepo.coll.exists(unfinished)
-      live <- active.so(roundRepo.coll.exists(unfinished ++ $doc("startedAt".$exists(true))))
+      unfinished <- roundRepo.coll.exists(unfinishedSelector)
       dates <- computeDates(tourId)
+      active = unfinished && dates.flatMap(_.end).forall(_.isAfter(nowInstant.minusDays(1)))
+      live <- active.so(roundRepo.coll.exists(unfinishedSelector ++ $doc("startedAt".$exists(true))))
       _ <- tourRepo.denormalize(tourId, active, live, dates)
     yield ()
+
+  private[relay] def denormalizeOldTours(): Funit =
+    tourRepo.oldActiveCursor
+      .documentSource()
+      .mapAsync(1)(t => denormalizeTour(t.id))
+      .runWith(Sink.ignore)
+      .void
 
   private def computeDates(tourId: RelayTourId): Fu[Option[RelayTour.Dates]] =
     roundRepo.coll
@@ -274,6 +283,7 @@ final class RelayApi(
     dates <- computeDates(tour.id)
     _ <- tourRepo.denormalize(tour.id, true, relay.hasStarted, dates)
     _ <- studyApi.addTopics(relay.studyId, List(StudyTopic.broadcast.value))
+    _ <- relay.startsAt.isDefined.so(autoStart(relay.id.some))
   yield relay.withTour(tour).withStudy(study.study)
 
   private def toBdocWithOrder(relay: RelayRound, order: RelayRound.Order): Fu[Bdoc] =
@@ -331,6 +341,8 @@ final class RelayApi(
         _ <- denormalizeTour(round.tourId)
         nextRoundToStart <- round.isFinished.so(nextRoundThatStartsAfterThisOneCompletes(round))
         _ <- nextRoundToStart.so(next => requestPlay(next.id, v = true, "update->nextRoundToStart"))
+        _ <- (!round.isFinished && updated.startsAt != from.startsAt).so:
+          autoStart(round.id.some)
       yield
         round.sync.log.events.lastOption
           .ifTrue(round.sync.log != from.sync.log)
@@ -447,6 +459,15 @@ final class RelayApi(
       .throttle(perSecond.value, 1.second)
       .take(max.fold(9999)(_.value))
 
+  private val isOngoingWithoutDelay = cacheApi[RelayRoundId, Boolean](32, "relay.ongoingWithoutDelay"):
+    _.expireAfterWrite(5.seconds).buildAsyncFuture(roundRepo.isInternalWithoutDelay)
+
+  def reconfigureStudy(study: Study, chapter: Chapter): Fu[Study] =
+    (study.isRelay && chapter.tags.outcome.isEmpty)
+      .so(isOngoingWithoutDelay.get(study.id.into(RelayRoundId)))
+      .map:
+        if _ then study.configureForOngoingRelay else study
+
   export tourRepo.{ isSubscribed, setSubscribed as subscribe, byId as tourById }
   export roundRepo.nextRoundThatStartsAfterThisOneCompletes
 
@@ -469,7 +490,7 @@ final class RelayApi(
       _ <- tourRepo.coll.unsetField($id(t.id), tag.getOrElse("image"))
     yield t.copy(image = none)
 
-  private[relay] def autoStart: Funit =
+  private[relay] def autoStart(only: Option[RelayRoundId] = none): Funit =
     roundRepo.coll
       .list[RelayRound](
         $doc(
@@ -480,7 +501,7 @@ final class RelayApi(
           "startedAt".$exists(false),
           "sync.upstream".$exists(true),
           $or("sync.until".$exists(false), "sync.until".$lt(nowInstant))
-        )
+        ) ++ only.so($id(_))
       )
       .flatMap:
         _.sequentiallyVoid: relay =>

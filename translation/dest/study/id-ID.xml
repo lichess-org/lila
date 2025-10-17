@@ -29,7 +29,7 @@
   </plurals>
   <string name="inviteToTheStudy">Ajak untuk studi</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">Harap hanya mengundang orang yang Anda kenal, dan yang secara aktif ingin bergabung dengan studi ini.</string>
-  <string name="searchByUsername">Cari berdasarkan nama pengguna</string>
+  <string name="searchByUsername" comment="Appears when adding members to a Lichess Study as placeholder text in a search box.">Cari berdasarkan nama pengguna</string>
   <string name="spectator">Penonton</string>
   <string name="contributor">Kontributor</string>
   <string name="kick">Diusir</string>

@@ -23,7 +23,7 @@ final class EntryApi(
     userEntries(userId, nb, since).flatMap(broadcast.interleave(since))
 
   private def userEntries(userId: UserId, max: Max, since: Option[Instant]): Fu[Vector[Entry]] =
-    (max > 0).so(
+    (max > 0).so:
       coll
         .find(
           $doc(
@@ -35,7 +35,6 @@ final class EntryApi(
         .sort($sort.desc("date"))
         .cursor[Entry](ReadPref.sec)
         .vector(max.value)
-    )
 
   def findRecent(typ: String, since: Instant, max: Max) =
     coll
@@ -55,7 +54,7 @@ final class EntryApi(
         "date".$gt(nowInstant.minusDays(7))
       )
 
-  def insert(e: Entry.ForUsers) =
+  private[timeline] def insert(e: Entry.ForUsers) =
     coll.insert.one(bsonWriteObjTry(e.entry).get ++ $doc("users" -> e.userIds)).void
 
   // can't remove from capped collection,

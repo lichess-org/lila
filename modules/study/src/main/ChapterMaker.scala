@@ -143,7 +143,7 @@ final private class ChapterMaker(
           case Orientation.Fixed(color) => color
       ),
       root = root,
-      tags = PgnTags(tags),
+      tags = StudyPgnTags(tags),
       order = order,
       ownerId = userId,
       practice = data.isPractice,
@@ -226,7 +226,7 @@ private[study] object ChapterMaker:
       isDefaultName: Boolean = true
   ) extends ChapterData:
 
-    def manyGames =
+    def manyGames: Option[List[Data]] =
       game
         .so(_.linesIterator.take(Study.maxChapters.value).toList)
         .map(_.trim)

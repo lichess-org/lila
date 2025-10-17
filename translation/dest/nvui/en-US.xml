@@ -35,11 +35,11 @@
   <string name="whiteQueen">white queen</string>
   <string name="blackQueen">black queen</string>
   <string name="rook">rook</string>
-  <string name="whiteRook">White rook</string>
-  <string name="blackRook">Black rook</string>
+  <string name="whiteRook">white rook</string>
+  <string name="blackRook">black rook</string>
   <string name="bishop">bishop</string>
-  <string name="whiteBishop">White bishop</string>
-  <string name="blackBishop">Black bishop</string>
+  <string name="whiteBishop">white bishop</string>
+  <string name="blackBishop">black bishop</string>
   <string name="knight">knight</string>
   <string name="whiteKnight">white knight</string>
   <string name="blackKnight">black knight</string>

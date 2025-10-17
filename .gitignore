@@ -12,6 +12,7 @@
 /bin/ublog-automod
 /project/.bloop/
 /conf/application.conf
+/conf/secrets.conf
 /conf/version.conf
 /translation/js
 logs/
@@ -19,6 +20,8 @@ logs/
 /project/project/
 /project/target/
 /public/compiled/
+/public/data/*
+!/public/data/README.md
 /public/hashed/
 /public/npm/
 /public/css/

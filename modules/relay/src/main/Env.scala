@@ -148,8 +148,11 @@ final class Env(
   // start the sync scheduler
   wire[RelayFetch]
 
-  scheduler.scheduleWithFixedDelay(1.minute, 1.minute): () =>
-    api.autoStart >> api.autoFinishNotSyncing(syncOnlyIds)
+  scheduler.scheduleWithFixedDelay(73.seconds, 1.minute): () =>
+    api.autoStart() >> api.autoFinishNotSyncing(syncOnlyIds)
+
+  scheduler.scheduleWithFixedDelay(49.minutes, 1.hour): () =>
+    api.denormalizeOldTours()
 
   Bus.sub[lila.core.study.RemoveStudy]: s =>
     api.onStudyRemove(s.studyId)

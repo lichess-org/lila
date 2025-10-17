@@ -122,7 +122,7 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi)(
           href := url
         ),
         tag("title")(up.title),
-        tag("content")(tpe := "html")(convertToAbsoluteHrefs(up.rendered))
+        tag("content")(tpe := "html")(convertToAbsoluteHrefs(up.rendered).value)
       )
 
   private def convertToAbsoluteHrefs(html: Html): Html =

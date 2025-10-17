@@ -2,9 +2,9 @@
 <resources>
   <string name="gameSetup">Параметры игры</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Бросить вызов другу</string>
-  <string name="playAgainstComputer" comment="Appears on the homepage. Opens the modal to create a game against a chess engine. Please keep your translation short.">Сыграть с компьютером</string>
+  <string name="playAgainstComputer">Сыграть с компьютером</string>
   <string name="gameMode">Режим игры</string>
-  <string name="createLobbyGame">Создать запрос на игру</string>
+  <string name="createLobbyGame" comment="One of three buttons on the home page. Opens the modal to create a game that goes in the lobby.">Создать запрос на игру</string>
   <string name="youPlayAs">Вы играете за</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Чтобы пригласить друга, отправьте ему эту ссылку</string>
   <string name="gameOver">Партия окончена</string>
@@ -355,7 +355,7 @@
   <string name="loginToChat">Войдите, чтобы общаться в чате</string>
   <string name="youHaveBeenTimedOut">Чат временно недоступен для вас.</string>
   <string name="spectatorRoom">Чат для зрителей</string>
-  <string name="composeMessage" comment="Appears as a button on user profiles. Pressing the button will let you send a message to that user. &quot;Message&quot; is used as a verb.&#10;&#10;This text used to state &quot;Compose message&quot;. Please shorten to just &quot;Message&quot; if you see a translation of the old version of the string.">Написать сообщение</string>
+  <string name="composeMessage">Написать сообщение</string>
   <string name="subject">Тема</string>
   <string name="send">Отправить</string>
   <string name="incrementInSeconds">Добавление секунд на ход</string>

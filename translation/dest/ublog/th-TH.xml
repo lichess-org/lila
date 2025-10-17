@@ -5,7 +5,7 @@
   <string name="byTopic">ตามหัวข้อ</string>
   <string name="byLichess">โดย Lichess</string>
   <string name="myFriends">เพื่อนของฉัน</string>
-  <string name="myLikes">การกดชอบ</string>
+  <string name="myLikes" comment="A page which lists blog posts that you have pressed ❤️ Like on: https://lichess.org/blog/liked">การกดชอบ</string>
   <string name="likedBlogs">ชอบบล็อกโพสต์</string>
   <string name="continueReadingPost">อ่านโพสต์นี้ต่อ</string>
   <string name="lichessBlogPostsFromXYear">บล็อกโพสต์ของ Lichessใน %s</string>

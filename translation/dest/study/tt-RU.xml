@@ -29,7 +29,7 @@
   </plurals>
   <string name="inviteToTheStudy">Өйрәнеш чакырырга</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">Илтимәс, фәкать вә ошбу өйрәнеш колынышка өстәгән әдәмләрне таклиф колу.</string>
-  <string name="searchByUsername">Кулланучынәмә белән табырга</string>
+  <string name="searchByUsername" comment="Appears when adding members to a Lichess Study as placeholder text in a search box.">Кулланучынәмә белән табырга</string>
   <string name="spectator">Тамашачы</string>
   <string name="contributor">Хиссадәрче</string>
   <string name="kick">Бәрү</string>
