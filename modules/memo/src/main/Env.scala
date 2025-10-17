@@ -59,8 +59,6 @@ final class Env(
 
   val picfitApi = wire[PicfitApi]
 
-  val automod = wire[Automod]
-
   val markdown = wire[MarkdownCache]
 
   lila.common.Cli.handle:

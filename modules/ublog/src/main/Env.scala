@@ -6,6 +6,7 @@ import lila.core.config.*
 import lila.db.dsl.Coll
 import lila.common.autoconfig.{ *, given }
 import lila.common.Bus
+import lila.report.Automod
 
 @Module
 final private class UblogConfig(
@@ -30,7 +31,7 @@ final class Env(
     settingStore: lila.memo.SettingStore.Builder,
     client: lila.search.client.SearchClient,
     lightUser: lila.core.LightUser.GetterSync,
-    automod: lila.memo.Automod
+    automod: lila.report.Automod
 )(using Executor, Scheduler, play.api.Mode):
 
   export net.{ assetBaseUrl, baseUrl, domain, assetDomain }

@@ -24,7 +24,7 @@ final class ReportApi(
     cacheApi: lila.memo.CacheApi,
     snoozer: lila.memo.Snoozer[Report.SnoozeKey],
     thresholds: Thresholds,
-    automodApi: lila.memo.Automod,
+    automodApi: Automod,
     settingStore: lila.memo.SettingStore.Builder,
     picfitApi: lila.memo.PicfitApi
 )(using Executor, Scheduler, lila.core.config.NetDomain)

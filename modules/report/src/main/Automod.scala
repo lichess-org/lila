@@ -1,4 +1,4 @@
-package lila.memo
+package lila.report
 
 import play.api.{ ConfigLoader, Configuration }
 import play.api.libs.json.*
@@ -13,14 +13,14 @@ import lila.core.config.Secret
 import lila.core.data.Text
 import lila.core.misc.memo.AutomodImageRequest
 import lila.core.id.ImageId
-import lila.memo.ImageAutomod
-import SettingStore.Text.given
+import lila.memo.{ ImageAutomod, ImageMetaData }
+import lila.memo.SettingStore.Text.given
 
 final class Automod(
     ws: StandaloneWSClient,
     appConfig: Configuration,
-    settingStore: SettingStore.Builder,
-    picfitApi: PicfitApi
+    settingStore: lila.memo.SettingStore.Builder,
+    picfitApi: lila.memo.PicfitApi
 )(using Executor):
 
   private val config = appConfig.get[Automod.Config]("automod")
@@ -100,7 +100,6 @@ final class Automod(
             yield pic.copy(automod = automod.some)
         .toSeq.parallel
 
-  // imageFlagReason is a raw model transaction and should not set any db.picfit_image data
   private def imageFlagReason(id: ImageId, meta: Option[ImageMetaData]): Fu[Option[String]] =
     (config.apiKey.value.nonEmpty && imagePromptSetting.get().value.nonEmpty).so:
       val imageUrl = picfitApi.automodUrl(id, meta)

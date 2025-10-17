@@ -7,7 +7,7 @@ import lila.core.data.Text
 import lila.core.ublog.Quality
 import lila.memo.SettingStore
 import lila.memo.SettingStore.Text.given
-import lila.memo.Automod
+import lila.report.Automod
 
 // see also:
 //   file://./../../../../bin/ublog-automod.mjs
@@ -47,7 +47,7 @@ object UblogAutomod:
   private given Reads[FuzzyResult] = Json.reads[FuzzyResult]
 
 private final class UblogAutomod(
-    automod: lila.memo.Automod,
+    automod: lila.report.Automod,
     settingStore: lila.memo.SettingStore.Builder,
     picfitApi: lila.memo.PicfitApi
 )(using Executor):
