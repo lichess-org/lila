@@ -135,20 +135,26 @@ final class Main(
         then lila.mon.link.external(tag, ctx.isAuth).increment()
         Redirect(url)
 
-  def uploadImage(rel: String) = AuthBody(parse.multipartFormData) { ctx ?=> _ ?=>
+  def uploadImage(rel: String) = AuthBody(parse.multipartFormData) { ctx ?=> me ?=>
     limit.imageUpload(rateLimited):
       ctx.body.body.file("image") match
         case None => JsonBadRequest("Image content only")
         case Some(image) =>
-          env.memo.picfitApi.bodyImage
-            .upload(
-              rel,
-              image,
-              lila.memo.PicfitApi.uploadForm.bindFromRequest().value,
-              lila.ui.bits.imageDesignWidth(rel)
-            )
-            .map(url => JsonOk(Json.obj("imageUrl" -> url)))
-            .recover { case e: Exception => JsonBadRequest(e.getMessage) }
+          val meta = lila.memo.PicfitApi.uploadForm.bindFromRequest().value
+          val moreRel = s"$rel:${scalalib.ThreadLocalRandom.nextString(12)}"
+          for
+            image <- env.memo.picfitApi.uploadFile(moreRel, image, me, meta)
+            maxWidth = lila.ui.bits.imageDesignWidth(rel)
+            url = meta match
+              case Some(info) if maxWidth.exists(dw => info.width > dw) =>
+                maxWidth.map(dw => env.memo.picfitUrl.resize(image.id, Left(dw)))
+              case _ => env.memo.picfitUrl.raw(image.id).some
+            _ = discard:
+              env.report.automod
+                .imageFlagReason(env.memo.picfitUrl.forAutomod(image.id))
+                .map: flagged =>
+                  env.memo.picfitApi.setAutomod(image.id, lila.memo.ImageAutomod(flagged))
+          yield JsonOk(Json.obj("imageUrl" -> url))
   }
 
   def imageUrl(id: ImageId, width: Int) = Auth { _ ?=> _ ?=>

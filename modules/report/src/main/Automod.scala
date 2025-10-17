@@ -96,7 +96,7 @@ final class Automod(
             yield pic.copy(automod = automod.some)
         .toSeq.parallel
 
-  private def imageFlagReason(imageUrl: String): Fu[Option[String]] =
+  def imageFlagReason(imageUrl: String): Fu[Option[String]] =
     (config.apiKey.value.nonEmpty && imagePromptSetting.get().value.nonEmpty).so:
       val body = Json
         .obj(

@@ -141,20 +141,6 @@ final class PicfitApi(
 
   def countFlagged = coll.countSel($doc("automod.flagged" -> $exists(true)))
 
-  object bodyImage:
-    def upload(rel: String, image: FilePart, meta: Option[ImageMetaData], widthCap: Option[Int])(using
-        me: Me
-    ): Fu[Option[String]] =
-      val maxWidth = widthCap.getOrElse(800)
-      if rel.contains(idSep) then fuccess(none)
-      else
-        uploadFile(s"$rel$idSep${scalalib.ThreadLocalRandom.nextString(12)}", image, me, meta)
-          .map: pic =>
-            meta match
-              case Some(info) if info.width > maxWidth =>
-                url.resize(pic.id, Left(maxWidth)).some
-              case _ => url.raw(pic.id).some
-
   private object picfitServer:
 
     def store(image: PicfitImage, part: SourcePart): Funit =
@@ -245,7 +231,7 @@ final class PicfitUrl(config: PicfitConfig, coll: Coll)(using Executor) extends 
 
   // 560x560 containment consumes the minimum 1601 tokens according to the formula here:
   // https://docs.together.ai/docs/vision-overview#pricing
-  def forAutomod(id: ImageId) = display(id, "resize")(width = 560, height = 560)
+  def forAutomod(id: ImageId) = display(id, "resize")(width = 560, height = 0)
 
   // Thumbnail scales the image up or down using the specified resample filter,
   // crops it to the specified width and height and returns the transformed image.
