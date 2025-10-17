@@ -15,7 +15,7 @@
   <string name="removedByX">Уклоњени од стране %s</string>
   <string name="reopen">Поново отвори</string>
   <string name="removeStudent">Уклони ученика</string>
-  <string name="removedStudents">Уклоњен</string>
+  <string name="removedStudents">Уклоњени</string>
   <string name="inviteTheStudentBack">Позови ученика назад</string>
   <string name="sendAMessage">Пошаљи поруку свим ученицима.</string>
   <string name="aLinkToTheClassWillBeAdded">Линк за час ће бити аутоматски додат на крају поруке, нема потребе да га сами укључите.</string>
