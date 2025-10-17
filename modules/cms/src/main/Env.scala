@@ -19,6 +19,7 @@ final class Env(
   lazy val api = wire[CmsApi]
 
   export api.render
-  def renderKey(key: String)(using lila.ui.Context): Future[Option[Render]] = api.render(CmsPageKey(key))
+  def renderKey(key: String, liveCheck: Boolean = false)(using lila.ui.Context): Fu[Option[Render]] =
+    render(CmsPageKey(key), liveCheck)
 
   val form = wire[CmsForm]
