@@ -26,7 +26,7 @@ export async function wireMarkdownImgResizers({
   let rootStyle: CSSStyleDeclaration;
   let rootPadding: number;
   globalImageLinkRe ??= new RegExp(
-    String.raw`!\[([^\n]*)\]\((${regexQuote(origin ?? 'http')}[^)\s]+[?&]path=([a-z]\w+:[a-z0-9]{12}:[a-z0-9]{8}\.\w{3,4})[^)]*)\)`,
+    String.raw`!\[([^\n\]]*)\]\((${regexQuote(origin ?? 'http')}[^)\s]+[?&]path=([a-z]\w+:[a-z0-9]{12}:[a-z0-9]{8}\.\w{3,4})[^)]*)\)`,
     'gi',
   );
 
