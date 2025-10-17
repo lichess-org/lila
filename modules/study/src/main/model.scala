@@ -1,15 +1,9 @@
 package lila.study
 
 import chess.format.UciPath
-import chess.format.pgn.Tag
 import lila.tree.Branch
 
-case class SetTag(chapterId: StudyChapterId, name: String, value: String):
-  def tag = Tag(name, lila.common.String.fullCleanUp(value).take(140))
-
-case class AfterSetTagOnRelayChapter(chapterId: StudyChapterId, tag: Tag)
-
-case class ExplorerGame(ch: StudyChapterId, path: UciPath, gameId: GameId, insert: Boolean):
+private case class ExplorerGame(ch: StudyChapterId, path: UciPath, gameId: GameId, insert: Boolean):
   def chapterId = ch
   val position = Position.Ref(chapterId, path)
 

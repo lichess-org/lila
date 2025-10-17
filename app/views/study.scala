@@ -62,7 +62,7 @@ def show(
             .add("admin", isGranted(_.StudyAdmin))
             .add("showRatings", ctx.pref.showRatings),
           "data" -> data.analysis,
-          "tagTypes" -> lila.study.PgnTags.typesToString,
+          "tagTypes" -> lila.study.StudyPgnTags.typesToString,
           "userId" -> ctx.userId,
           "chat" -> chatOption.map: c =>
             views.chat.json(

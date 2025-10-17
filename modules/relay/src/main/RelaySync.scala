@@ -164,7 +164,7 @@ final private class RelaySync(
       .filterNot: tag =>
         tagManualOverride.exists(chapter.id, tag.name)
       .foldLeft(chapter.tags): (chapterTags, tag) =>
-        PgnTags(chapterTags + tag)
+        StudyPgnTags(chapterTags + tag)
       .pipe: tags =>
         def fewMoves = Seq(chapter.root, game.root).forall(_.mainline.sizeIs < 2)
         RelayGame.toggleUnplayedTermination(tags, tags.points.isDefined && fewMoves)
