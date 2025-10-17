@@ -30,8 +30,9 @@ object PgnTags:
       case _ => true
 
   private def filterRelevant(extraTypes: Set[TagType])(tags: Tags) =
-    tags.map(_.filter: t =>
-      (relevantTypeSet(t.name) || extraTypes(t.name)) && !unknownValues(t.value))
+    tags.map:
+      _.filter: t =>
+        (relevantTypeSet(t.name) || extraTypes(t.name)) && !unknownValues(t.value)
 
   private def removeContradictingTermination(tags: Tags) =
     if tags.outcome.isDefined then
@@ -63,7 +64,6 @@ object PgnTags:
       Round,
       Board,
       Annotator,
-      FEN,
       GameId
     )
 
