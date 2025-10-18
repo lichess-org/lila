@@ -1,5 +1,5 @@
 import { alert } from 'lib/view/dialogs';
-import { wireMarkdownImgResizers, naturalSize } from 'lib/view/markdownImgResizer';
+import { wireMarkdownImgResizers, naturalSize, makePicfitMarkdownRegex } from 'lib/view/markdownImgResizer';
 import { marked } from 'marked';
 import { json as xhrJson } from 'lib/xhr';
 import { frag } from 'lib';
@@ -74,6 +74,11 @@ function wireMarkdownTextarea(markdown: HTMLElement) {
 
   const uploadAndInsert = async (image: File) => {
     try {
+      const count =
+        textarea.value?.match(makePicfitMarkdownRegex(markdown.dataset.imageDownloadOrigin!))?.length ?? 0;
+      if (count >= Number(markdown.dataset.imageCountMax)) {
+        throw `You can only upload ${markdown.dataset.imageCountMax} images per post.`;
+      }
       const { width, height } = await naturalSize(image);
       const body = new FormData();
       body.append('context', markdown.dataset.imageContext ?? location.href);

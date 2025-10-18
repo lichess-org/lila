@@ -85,7 +85,8 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
           div(
             cls := "markdown-toastui",
             attr("data-image-upload-url") := routes.Main.uploadImage("ublogBody"),
-            attr("data-image-download-origin") := imageGetOrigin
+            attr("data-image-download-origin") := imageGetOrigin,
+            attr("data-image-count-max") := 15
           )
         ),
       post.toOption match
