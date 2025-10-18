@@ -153,7 +153,7 @@ final class PicfitApi(
   def rawUrl(id: ImageId): String =
     val queryString = s"op=noop&path=$id"
     val full = s"${config.endpointGet}/display?${signQueryString(queryString)}"
-    discard { recordUrl(id, full) }
+    recordUrl(id, full)
     full
 
   private def uploadSource(
@@ -193,12 +193,13 @@ final class PicfitApi(
     val queryString =
       s"fmt=${if id.value.endsWith(".png") then "png" else "webp"}&h=${dim.height}&op=$operation&path=$id&w=${dim.width}"
     val full = s"${config.endpointGet}/display?${signQueryString(queryString)}"
-    discard { recordUrl(id, full) }
+    recordUrl(id, full)
     full
 
-  private def recordUrl(id: ImageId, u: String): Funit =
-    // this method is called a lot. an Map[id, Set[url]] or some scaffeine cache would prevent redundant sets
-    coll.update.one($id(id), $doc("$addToSet" -> $doc("urls" -> u))).void
+  private object recordUrl:
+    private val once = scalalib.cache.OnceEvery.hashCode[(ImageId, String)](1.day)
+    def apply(id: ImageId, u: String): Unit =
+      if once(id, u) then coll.updateUnchecked($id(id), $addToSet("urls" -> u))
 
   private object signQueryString:
     private val signer = com.roundeights.hasher.Algo.hmac(config.secretKey.value)
