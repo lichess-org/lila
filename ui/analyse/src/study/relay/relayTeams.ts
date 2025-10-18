@@ -59,9 +59,7 @@ export const teamsView = (ctrl: RelayTeams, chapters: StudyChapters, players: Re
         },
       },
     },
-    ctrl.teams
-      ? renderTeams(ctrl.teams, chapters, ctrl.roundPath(), players, ctrl.multiCloudEval?.thisIfShowEval())
-      : [spinner()],
+    ctrl.teams ? renderTeams(ctrl.teams, chapters, ctrl.roundPath(), players, undefined) : [spinner()],
   );
 
 const renderTeams = (
