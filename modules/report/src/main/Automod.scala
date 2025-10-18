@@ -83,7 +83,7 @@ final class Automod(
   def markdownImages(markdown: Markdown): Fu[Seq[lila.memo.PicfitImage]] =
     val ids = imageIdRe
       .findAllMatchIn(markdown.value)
-      .map(m => lila.core.id.ImageId(m.group(1)))
+      .map(m => ImageId(m.group(1)))
       .toSeq
     picfitApi
       .byIds(ids)
@@ -93,7 +93,7 @@ final class Automod(
           else
             for
               flagged <- imageFlagReason(pic.id, pic.meta)
-              automod = lila.memo.ImageAutomod(flagged)
+              automod = ImageAutomod(flagged)
               _ <- picfitApi.setAutomod(pic.id, automod)
             yield pic.copy(automod = automod.some)
         .toSeq.parallel
