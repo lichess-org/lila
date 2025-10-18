@@ -41,13 +41,13 @@ object LilaRouter:
 
   given PathBindable[StudyOrder] = strPath(
     s => StudyOrder.fromString(s),
-    s"Invalid study order ${StudyOrder.values.mkString(", ")}",
+    s"Invalid study order ${StudyOrder.allStrings.mkString(", ")}"
   )
 
   given QueryStringBindable[StudyOrder] = strQueryString(
     StudyOrder.fromString,
-    s"Invalid study order ${StudyOrder.values.mkString(", ")}",
-    _.toString
+    s"Invalid study order ${StudyOrder.allStrings.mkString(", ")}",
+    _.value
   )
 
   private def urlEncode(str: String) = java.net.URLEncoder.encode(str, "utf-8")
@@ -71,4 +71,3 @@ object LilaRouter:
   given QueryStringBindable[BlogsBy] = strQueryString[BlogsBy](BlogsBy.fromName, "Invalid order", _.toString)
   given QueryStringBindable[BlogQualityFilter] =
     strQueryString[BlogQualityFilter](BlogQualityFilter.fromName, "Invalid quality", _.name)
-
