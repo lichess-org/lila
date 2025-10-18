@@ -146,9 +146,10 @@ final class StudyPager(
 object Orders:
   import lila.core.study.Order
   val default = Order.hot
-  val list = Order.values.toList
+  val list = Order.all
   val withoutMine = list.filterNot(_ == Order.mine)
   val withoutSelector = withoutMine.filter(o => o != Order.oldest && o != Order.alphabetical)
+  val search = List(Order.hot, Order.newest, Order.popular, Order.alphabetical)
   private val byKey = list.mapBy(_.toString)
   def apply(key: String): Order = byKey.getOrElse(key, default)
   val name: Order => I18nKey =
