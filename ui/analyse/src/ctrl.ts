@@ -757,13 +757,12 @@ export default class AnalyseCtrl implements CevalHandler {
     const unforcedState = this.cevalEnabledProp() && this.isCevalAllowed() && !this.ceval.isPaused;
 
     if (enable === undefined) return force ? 'force' : unforcedState;
-
     if (!force) {
       this.showCevalProp(enable);
       this.cevalEnabledProp(enable);
     }
-
-    if (enable !== unforcedState || this.ceval.isPaused) {
+    if (enable && this.ceval.isPaused) this.ceval.resume();
+    if (enable !== unforcedState) {
       if (enable) this.startCeval();
       else {
         this.threatMode(false);
@@ -778,7 +777,7 @@ export default class AnalyseCtrl implements CevalHandler {
 
   startCeval = () => {
     if (!this.ceval.download) this.ceval.stop();
-    if (this.node.threefold || this.outcome() || (!this.cevalEnabled() && !this.ceval.isPaused)) return;
+    if (this.node.threefold || this.outcome() || !this.cevalEnabled()) return;
     this.ceval.start(this.path, this.nodeList, undefined, this.threatMode());
     this.evalCache.fetch(this.path, this.ceval.search.multiPv);
   };
