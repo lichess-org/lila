@@ -36,5 +36,18 @@ trait StudyApi:
 case class StartStudy(studyId: StudyId)
 case class RemoveStudy(studyId: StudyId)
 
-enum Order:
-  case hot, newest, oldest, updated, popular, alphabetical, mine
+enum Order(val value: String):
+  case hot extends Order("hot")
+  case newest extends Order("newest")
+  case oldest extends Order("oldest")
+  case updated extends Order("updated")
+  case popular extends Order("popular")
+  case alphabetical extends Order("alphabetical")
+  case mine extends Order("mine")
+  case relevant extends Order("relevant") // only for search
+
+object Order:
+  def all: List[Order] = values.toList
+  def allStrings: List[String] = all.map(_.value)
+  def fromString(s: String): Option[Order] =
+    values.find(_.value == s)

@@ -12,7 +12,8 @@ final class StudyBits(helpers: Helpers):
 
   def orderSelect(order: Order, active: String, url: Order => Call)(using Context) =
     val orders =
-      if active == "all" then Orders.withoutSelector
+      if active == "search" then Orders.search
+      else if active == "all" then Orders.withoutSelector
       else if active.startsWith("topic") then Orders.list
       else Orders.withoutMine
     lila.ui.bits.mselect(

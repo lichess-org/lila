@@ -2456,6 +2456,7 @@ object I18nKey:
     val `recentlyUpdated`: I18nKey = "study:recentlyUpdated"
     val `mostPopular`: I18nKey = "study:mostPopular"
     val `alphabetical`: I18nKey = "study:alphabetical"
+    val `relevant`: I18nKey = "study:relevant"
     val `addNewChapter`: I18nKey = "study:addNewChapter"
     val `addMembers`: I18nKey = "study:addMembers"
     val `inviteToTheStudy`: I18nKey = "study:inviteToTheStudy"
