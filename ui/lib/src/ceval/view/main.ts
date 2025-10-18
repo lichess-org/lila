@@ -260,10 +260,9 @@ export function renderCevalSwitch(ctrl: CevalHandler): VNode | false {
         props: { checked: !ctrl.ceval.isPaused && ctrl.cevalEnabled() },
         hook: onInsert((el: HTMLInputElement) => {
           el.addEventListener('change', () => ctrl.cevalEnabled(el.checked));
-          el.addEventListener(
-            'keydown',
-            e => (e.key === 'Enter' || e.key === ' ') && ctrl.cevalEnabled(!ctrl.cevalEnabled()),
-          );
+          el.addEventListener('keydown', e => {
+            if (e.key === 'Enter' || e.key === ' ') ctrl.cevalEnabled(el.checked);
+          });
         }),
       }),
       hl('label', { attrs: { for: 'analyse-toggle-ceval' } }),

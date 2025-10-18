@@ -68,6 +68,11 @@ export default class CevalCtrl {
     }
   }
 
+  resume(work?: Work): void {
+    this.worker ??= this.engines.make({ variant: this.opts.variant.key });
+    if (work) this.worker.start(work);
+  }
+
   onEmit: (ev: Tree.LocalEval, work: Work) => void = throttle(200, (ev: Tree.LocalEval, work: Work) => {
     this.sortPvsInPlace(ev.pvs, work.ply % 2 === (work.threatMode ? 1 : 0) ? 'white' : 'black');
     this.curEval = ev;
@@ -138,8 +143,7 @@ export default class CevalCtrl {
     // Notify all other tabs to disable ceval.
     storage.fire('ceval.disable');
 
-    if (!this.worker) this.worker = this.engines.make({ variant: this.opts.variant.key });
-    this.worker.start(work);
+    this.resume(work);
 
     this.lastStarted = {
       path,
@@ -166,7 +170,7 @@ export default class CevalCtrl {
   };
 
   start = (path: string, steps: Step[], gameId: string | undefined, threatMode?: boolean): void => {
-    if (!this.available()) return;
+    if (!this.available() || this.isPaused) return;
     this.isDeeper(false);
     this.doStart(path, steps, gameId, !!threatMode);
   };
