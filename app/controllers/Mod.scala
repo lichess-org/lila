@@ -603,15 +603,13 @@ final class Mod(
   def passImage(id: ImageId) = Secure(_.ModerateForum) { _ ?=> me ?=>
     for
       picOpt <- env.memo.picfitApi.setAutomod(id, lila.memo.ImageAutomod(none))
-      _ = picOpt.map: p =>
-        env.mod.logApi.moderateImage(p.user, "pass", p.automod.flatMap(_.flagged), p.meta.flatMap(_.context))
+      _ = picOpt.map(env.mod.logApi.moderateImage(_, "pass"))
     yield Redirect(routes.Mod.imageQueue())
   }
 
   def purgeImage(id: ImageId) = Secure(_.ModerateForum) { _ ?=> me ?=>
     for
       picOpt <- env.memo.picfitApi.deleteById(id)
-      _ = picOpt.map: p =>
-        env.mod.logApi.moderateImage(p.user, "purge", p.automod.flatMap(_.flagged), p.meta.flatMap(_.context))
+      _ = picOpt.map(env.mod.logApi.moderateImage(_, "purge"))
     yield Redirect(routes.Mod.imageQueue())
   }
