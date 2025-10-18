@@ -105,10 +105,10 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
           main(cls := "page-menu__content study-index box")(
             div(cls := "box__top")(
               searchForm(trans.search.search.txt(), text, order),
-              bits.orderSelect(order, "", url = o => routes.Study.search(text, o, 1)),
+              bits.orderSelect(order, "", url = o => routes.Study.search(text, 1, o.some)),
               bits.newForm()
             ),
-            paginate(pag, routes.Study.search(text, order))
+            paginate(pag, routes.Study.search(text, pag.currentPage, order.some))
           )
         )
 
@@ -173,7 +173,7 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
     )
 
   def searchForm(placeholder: String, value: String, order: Order) =
-    form(cls := "search", action := routes.Study.search(order = order), method := "get")(
+    form(cls := "search", action := routes.Study.search(order = order.some), method := "get")(
       input(name := "q", st.placeholder := placeholder, st.value := value, enterkeyhint := "search"),
       submitButton(cls := "button", dataIcon := Icon.Search)
     )

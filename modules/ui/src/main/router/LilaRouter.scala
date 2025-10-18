@@ -38,9 +38,16 @@ object LilaRouter:
   given PathBindable[Color] =
     strPath[Color](Color.fromName, "Invalid chess color, should be white or black", _.name)
   given PathBindable[Uci] = strPath[Uci](Uci.apply, "Invalid UCI move", _.uci)
-  given PathBindable[StudyOrder] = strPath[StudyOrder](
-    s => scala.util.Try(StudyOrder.valueOf(s).some).getOrElse(None),
-    "Invalid study order"
+
+  given PathBindable[StudyOrder] = strPath(
+    s => StudyOrder.fromString(s),
+    s"Invalid study order ${StudyOrder.values.mkString(", ")}",
+  )
+
+  given QueryStringBindable[StudyOrder] = strQueryString(
+    StudyOrder.fromString,
+    s"Invalid study order ${StudyOrder.values.mkString(", ")}",
+    _.toString
   )
 
   private def urlEncode(str: String) = java.net.URLEncoder.encode(str, "utf-8")
@@ -64,3 +71,4 @@ object LilaRouter:
   given QueryStringBindable[BlogsBy] = strQueryString[BlogsBy](BlogsBy.fromName, "Invalid order", _.toString)
   given QueryStringBindable[BlogQualityFilter] =
     strQueryString[BlogQualityFilter](BlogQualityFilter.fromName, "Invalid quality", _.name)
+

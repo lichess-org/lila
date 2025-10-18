@@ -30,7 +30,7 @@ final class Study(
     apiC: => Api
 ) extends LilaController(env):
 
-  def search(text: String, order: Order, page: Int) =
+  def search(text: String, page: Int, order: Option[Order]) =
     OpenOrScopedBody(parse.anyContent)(_.Study.Read, _.Web.Mobile):
       Reasonable(page):
         WithProxy: proxy ?=>
@@ -55,7 +55,7 @@ final class Study(
                   .studySearch(clean.take(100), order, page)
                   .flatMap: pag =>
                     negotiate(
-                      Ok.page(views.study.list.search(pag, order, text)),
+                      Ok.page(views.study.list.search(pag, order.getOrElse(Orders.default), text)),
                       apiStudies(pag)
                     )
 

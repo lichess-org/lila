@@ -38,3 +38,7 @@ case class RemoveStudy(studyId: StudyId)
 
 enum Order:
   case hot, newest, oldest, updated, popular, alphabetical, mine
+
+object Order:
+  def fromString(s: String): Option[Order] =
+    values.find(_.toString == s)

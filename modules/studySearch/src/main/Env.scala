@@ -18,13 +18,13 @@ final class Env(
 
   val api: StudySearchApi = wire[StudySearchApi]
 
-  def apply(text: String, order: Order, page: Int)(using me: Option[Me]) =
+  def apply(text: String, order: Option[Order], page: Int)(using me: Option[Me]) =
     Paginator[Study.WithChaptersAndLiked](
       adapter = new AdapterLike[Study]:
         def query =
           Query.study(
             text.take(100),
-            order.toSpec,
+            order.map(_.toSpec),
             me.map(_.userId.value)
           )
         def nbResults = api.count(query).dmap(_.toInt)
@@ -35,7 +35,7 @@ final class Env(
     )
 
   extension (x: Order)
-    def toSpec: Option[StudySorting] =
+    def toSpec: StudySorting =
       x.match
         case Order.alphabetical => StudySorting(StudySortField.Name, SpecOrder.Asc)
         case Order.hot => StudySorting(StudySortField.Hot, SpecOrder.Desc)
@@ -44,4 +44,3 @@ final class Env(
         case Order.popular => StudySorting(StudySortField.Likes, SpecOrder.Desc)
         case Order.updated => StudySorting(StudySortField.UpdatedAt, SpecOrder.Desc)
         case Order.mine => StudySorting(StudySortField.Likes, SpecOrder.Asc)
-      .some
