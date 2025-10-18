@@ -60,9 +60,4 @@ package oauth:
 package analysis:
   final class MyEnginesAsJson(val get: Option[Me] => Fu[play.api.libs.json.JsObject])
 
-trait PicfitApi:
-  def thumbnailUrl(id: lila.core.id.ImageId, width: Int, height: Int): String
-  def resizeUrl(id: lila.core.id.ImageId, size: Either[Int, Int]): String
-  def rawUrl(id: lila.core.id.ImageId): String
-
 type BookmarkExists = (game.Game, Option[userId.UserId]) => Fu[Boolean]

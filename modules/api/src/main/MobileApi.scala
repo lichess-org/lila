@@ -27,7 +27,7 @@ final class MobileApi(
     activityJsonView: lila.activity.JsonView,
     challengeApi: lila.challenge.ChallengeApi,
     challengeJson: lila.challenge.JsonView,
-    picfitApi: lila.core.misc.PicfitApi,
+    picfitApi: lila.memo.PicfitApi,
     isOnline: lila.core.socket.IsOnline,
     ublogJson: lila.ublog.UblogJsonView,
     ublogApi: lila.ublog.UblogApi

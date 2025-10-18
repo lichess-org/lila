@@ -26,7 +26,7 @@ final class PersonalDataExport(
     modLogApi: lila.mod.ModlogApi,
     reportEnv: lila.report.Env,
     titleEnv: lila.title.Env,
-    picfitApi: lila.core.misc.PicfitApi
+    picfitApi: lila.memo.PicfitApi
 )(using Executor, Materializer):
 
   private val lightPerSecond = 60
@@ -69,9 +69,7 @@ final class PersonalDataExport(
             List(textTitle("Streamer profile")) :::
               List(
                 "name" -> s.name,
-                "image" -> s.picture.so(p =>
-                  picfitApi.thumbnailUrl(p, Streamer.imageSize, Streamer.imageSize)
-                ),
+                "image" -> s.picture.so(p => picfitApi.thumbnailUrl(p)(Streamer.imageDimensions)),
                 "headline" -> s.headline.so(_.value),
                 "description" -> s.description.so(_.value),
                 "twitch" -> s.twitch.so(_.fullUrl),
@@ -92,7 +90,7 @@ final class PersonalDataExport(
             List(textTitle("Coach profile")) :::
               c.profile.textLines :::
               List(
-                "image" -> c.picture.so(p => picfitApi.thumbnailUrl(p, Coach.imageSize, Coach.imageSize)),
+                "image" -> c.picture.so(p => picfitApi.thumbnailUrl(p)(Coach.imageDimensions)),
                 "languages" -> c.languages.mkString(", "),
                 "createdAt" -> textDate(c.createdAt),
                 "updatedAt" -> textDate(c.updatedAt)

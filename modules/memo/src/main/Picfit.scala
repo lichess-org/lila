@@ -28,9 +28,16 @@ case class PicfitImage(
     urls: List[String] = Nil
 )
 
-case class Dimensions(width: Int, height: Int)
+case class Dimensions(width: Int, height: Int):
+  def vertical = height > width
 object Dimensions:
-  val default = Dimensions(560, 560)
+  def square(pixels: Int) = Dimensions(pixels, pixels)
+  // 560x560 containment consumes the minimum 1601 tokens according to the formula here:
+  // https://docs.together.ai/docs/vision-overview#pricing
+  val defaultPixels = 560
+  val default = square(defaultPixels)
+  val defaultWidth = Dimensions(defaultPixels, 0)
+  val defaultHeight = Dimensions(0, defaultPixels)
 
 // presence of the ImageAutomod subdoc indicates an image has been scanned, regardless of flagged
 case class ImageAutomod(flagged: Option[String] = none)
@@ -47,8 +54,7 @@ final class PicfitApi(
     ws: StandaloneWSClient,
     config: PicfitConfig,
     cloudflareApi: CloudflareApi
-)(using Executor)
-    extends lila.core.misc.PicfitApi:
+)(using Executor):
 
   import PicfitApi.{ *, given }
   private val uploadMaxBytes = uploadMaxMb * 1024 * 1024
@@ -131,27 +137,18 @@ final class PicfitApi(
   def resizeUrl(
       id: ImageId,
       size: Either[Int, Int] // either the width or the height! the other one will be preserved
-  ): String = displayUrl(id, "resize")(
-    width = ~size.left.toOption,
-    height = ~size.toOption
-  )
+  ): String =
+    displayUrl(id, "resize"):
+      Dimensions(~size.left.toOption, ~size.toOption)
 
-  // 560x560 containment consumes the minimum 1601 tokens according to the formula here:
-  // https://docs.together.ai/docs/vision-overview#pricing
   def automodUrl(id: ImageId, meta: Option[ImageMetaData]) =
-    val (width, height) = meta match
-      case Some(m) if m.dim.width < m.dim.height => (0, 560)
-      case _ => (560, 0)
-    displayUrl(id, "resize")(width, height)
+    displayUrl(id, "resize"):
+      if meta.exists(_.dim.vertical) then Dimensions.defaultHeight else Dimensions.defaultWidth
 
   // Thumbnail scales the image up or down using the specified resample filter,
   // crops it to the specified width and height and returns the transformed image.
   // Preserves the aspect ratio
-  def thumbnailUrl(
-      id: ImageId,
-      width: Int,
-      height: Int
-  ): String = displayUrl(id, "thumbnail")(width, height)
+  def thumbnailUrl(id: ImageId): Dimensions => String = displayUrl(id, "thumbnail")
 
   def rawUrl(id: ImageId): String =
     val queryString = s"op=noop&path=$id"
@@ -191,13 +188,10 @@ final class PicfitApi(
               _ <- coll.insert.one(image)
             yield image
 
-  private def displayUrl(id: ImageId, operation: "resize" | "thumbnail")(
-      width: Int,
-      height: Int
-  ) =
+  private def displayUrl(id: ImageId, operation: "resize" | "thumbnail")(dim: Dimensions) =
     // parameters must be given in alphabetical order for the signature to work (!)
     val queryString =
-      s"fmt=${if id.value.endsWith(".png") then "png" else "webp"}&h=$height&op=$operation&path=$id&w=$width"
+      s"fmt=${if id.value.endsWith(".png") then "png" else "webp"}&h=${dim.height}&op=$operation&path=$id&w=${dim.width}"
     val full = s"${config.endpointGet}/display?${signQueryString(queryString)}"
     discard { recordUrl(id, full) }
     full

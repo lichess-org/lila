@@ -5,7 +5,7 @@ import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
 
-final class StreamerBits(helpers: Helpers)(picfitApi: lila.core.misc.PicfitApi):
+final class StreamerBits(helpers: Helpers)(picfitApi: lila.memo.PicfitApi):
   import helpers.{ *, given }
   import trans.streamer as trs
 
@@ -89,15 +89,15 @@ final class StreamerBits(helpers: Helpers)(picfitApi: lila.core.misc.PicfitApi):
   object thumbnail:
     def apply(s: Streamer, u: User) =
       img(
-        widthA := Streamer.imageSize,
-        heightA := Streamer.imageSize,
+        widthA := Streamer.imageDimensions.width,
+        heightA := Streamer.imageDimensions.height,
         cls := "picture",
         src := url(s),
         alt := s"${u.titleUsername} Lichess streamer picture"
       )
     def url(s: Streamer) =
       s.picture match
-        case Some(image) => picfitApi.thumbnailUrl(image, Streamer.imageSize, Streamer.imageSize)
+        case Some(image) => picfitApi.thumbnailUrl(image)(Streamer.imageDimensions)
         case _ => assetUrl("images/placeholder.png")
 
   def menu(active: String, s: Option[Streamer.WithContext])(using ctx: Context) =

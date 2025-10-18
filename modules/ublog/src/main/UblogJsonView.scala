@@ -4,7 +4,7 @@ import play.api.libs.json.*
 import lila.core.LightUser
 import lila.common.Json.given
 
-final class UblogJsonView(picfitApi: lila.core.misc.PicfitApi, lightUser: LightUser.GetterSync):
+final class UblogJsonView(picfitApi: lila.memo.PicfitApi, lightUser: LightUser.GetterSync):
 
   given OWrites[UblogPost.PreviewPost] = OWrites: p =>
     Json

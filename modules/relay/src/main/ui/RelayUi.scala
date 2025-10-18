@@ -12,7 +12,7 @@ import lila.core.socket.SocketVersion
 import ScalatagsTemplate.{ *, given }
 
 final class RelayUi(helpers: Helpers)(
-    picfitApi: lila.core.misc.PicfitApi,
+    picfitApi: lila.memo.PicfitApi,
     socketUrl: StudyId => String,
     explorerAndCevalConfig: Context ?=> JsObject
 ):

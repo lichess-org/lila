@@ -10,7 +10,7 @@ import lila.core.ublog.{ BlogsBy, QualityFilter }
 
 import ScalatagsTemplate.{ *, given }
 
-final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitApi: lila.core.misc.PicfitApi):
+final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitApi: lila.memo.PicfitApi):
   import helpers.{ *, given }
 
   def thumbnail(post: UblogPost.BasePost, size: UblogPost.thumbnail.SizeSelector) =
