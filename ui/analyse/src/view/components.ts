@@ -88,7 +88,7 @@ export function viewContext(ctrl: AnalyseCtrl, deps?: typeof studyDeps): ViewCon
 
 export function renderMain(ctx: ViewContext, ...kids: LooseVNodes[]): VNode {
   const { ctrl, playerBars, gaugeOn, gamebookPlayView, needsInnerCoords, hasRelayTour } = ctx;
-  const relayId = ctrl.study?.relay?.data.tour.id;
+  const isRelay = defined(ctrl.study?.relay);
   return hl(
     'main.analyse.variant-' + ctrl.data.game.variant.key,
     {
@@ -116,8 +116,7 @@ export function renderMain(ctx: ViewContext, ...kids: LooseVNodes[]): VNode {
         'has-players': !!playerBars,
         'gamebook-play': !!gamebookPlayView,
         'has-relay-tour': hasRelayTour,
-        'is-relay': !!relayId,
-        ['relay-id-' + relayId]: !!relayId,
+        'is-relay': isRelay,
         'analyse-hunter': ctrl.opts.hunter,
         'analyse--wiki': !!ctrl.wiki && !ctrl.study,
         'relay-in-variation': !!ctrl.study?.isRelayAndInVariation(),

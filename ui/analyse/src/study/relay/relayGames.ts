@@ -11,8 +11,7 @@ import { resultTag } from '../studyView';
 
 export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
   const chapters = study.chapters.list.all();
-  const realtimeTour = study.relay?.data.tour.id == 'xec93ZPP';
-  const cloudEval = realtimeTour ? undefined : study.multiCloudEval?.thisIfShowEval();
+  const cloudEval = study.multiCloudEval?.thisIfShowEval();
   const roundPath = relay.roundPath();
   const showResults = study.multiBoard.showResults();
   return h(
