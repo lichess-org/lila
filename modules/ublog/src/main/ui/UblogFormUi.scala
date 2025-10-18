@@ -4,6 +4,7 @@ package ui
 import play.api.data.Form
 
 import lila.core.captcha.Captcha
+import lila.core.config.ImageGetOrigin
 import lila.core.id.CmsPageKey
 import lila.ui.*
 
@@ -61,7 +62,7 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
       form: Form[UblogForm.UblogPostData],
       post: Either[User, UblogPost],
       captcha: Option[Captcha]
-  )(using Context) =
+  )(using Context)(using imageGetOrigin: ImageGetOrigin) =
     postForm(
       cls := "form3 ublog-post-form__main",
       action := post.fold(u => routes.Ublog.create(u.username), p => routes.Ublog.update(p.id))
@@ -83,7 +84,8 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
           form3.textarea(field)(),
           div(
             cls := "markdown-toastui",
-            attr("data-image-upload-url") := routes.Main.uploadImage("ublogBody")
+            attr("data-image-upload-url") := routes.Main.uploadImage("ublogBody"),
+            attr("data-image-download-origin") := imageGetOrigin
           )
         ),
       post.toOption match

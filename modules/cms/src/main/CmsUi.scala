@@ -4,6 +4,7 @@ package ui
 import play.api.data.Form
 
 import lila.cms.CmsForm.CmsPageData
+import lila.core.config.ImageGetOrigin
 import lila.core.id.{ CmsPageId, CmsPageKey }
 import lila.ui.*
 
@@ -161,7 +162,9 @@ final class CmsUi(helpers: Helpers)(menu: Context ?=> Frag):
           submitButton(cls := "button button-red button-empty yes-no-confirm")("Delete")
       )
 
-  private def inForm(form: Form[CmsPageData], key: Option[CmsPageKey])(using Context) =
+  private def inForm(form: Form[CmsPageData], key: Option[CmsPageKey])(using
+      Context
+  )(using imageGetOrigin: ImageGetOrigin) =
     frag(
       form3.split(
         form3.group(
@@ -203,7 +206,11 @@ final class CmsUi(helpers: Helpers)(menu: Context ?=> Frag):
       ): field =>
         frag(
           form3.textarea(field)(),
-          div(cls := "markdown-toastui", attr("data-image-upload-url") := routes.Main.uploadImage("cmsPage"))
+          div(
+            cls := "markdown-toastui",
+            attr("data-image-upload-url") := routes.Main.uploadImage("cmsPage"),
+            attr("data-image-download-origin") := imageGetOrigin
+          )
         ),
       form3.split(
         form3.checkbox(form("live"), raw("Live"), half = true)
