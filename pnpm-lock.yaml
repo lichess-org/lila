@@ -189,7 +189,7 @@ importers:
         specifier: ^1.5.4
         version: 1.5.4
       shepherd.js:
-        specifier: ^11.2.0
+        specifier: 11.2.0
         version: 11.2.0
       zxcvbn:
         specifier: ^4.4.2
@@ -331,9 +331,6 @@ importers:
 
   ui/lib:
     dependencies:
-      '@badrap/result':
-        specifier: ^0.2.13
-        version: 0.2.13
       '@lichess-org/stockfish-web':
         specifier: 0.0.14
         version: 0.0.14
