@@ -272,6 +272,17 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
   def teamEdit(teamOwner: UserId, teamName: String)(using MyId) = add:
     Modlog(teamOwner.some, Modlog.teamEdit, details = Some(teamName.take(140)))
 
+  def moderateImage(user: UserId, op: "pass" | "purge", details: Option[String], context: Option[String])(
+      using myId: MyId
+  ) = add:
+    Modlog(
+      myId.modId,
+      user = user.some,
+      action = if op == "purge" then Modlog.imagePurge else Modlog.imagePass,
+      context = Modlog.Context(url = context).some,
+      details = details
+    )
+
   def wasUnengined(sus: Suspect) = coll.exists:
     $doc(
       "user" -> sus.user.id,

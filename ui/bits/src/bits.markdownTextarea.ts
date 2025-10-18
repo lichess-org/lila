@@ -77,8 +77,8 @@ function wireMarkdownTextarea(markdown: HTMLElement) {
       const { width, height } = await naturalSize(image);
       const body = new FormData();
       body.append('context', markdown.dataset.imageContext ?? location.href);
-      body.append('width', String(width));
-      body.append('height', String(height));
+      body.append('dim.width', String(width));
+      body.append('dim.height', String(height));
       body.append('image', image);
 
       const { imageUrl } = await xhrJson(markdown.dataset.imageUploadUrl!, { method: 'POST', body });

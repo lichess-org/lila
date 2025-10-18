@@ -85,11 +85,13 @@ final class PicfitApi(
       _ = Bus.pub(ImageAutomodRequest(image.id, dim))
     yield image
 
-  def deleteById(id: ImageId): Funit =
+  def deleteById(id: ImageId): Fu[Option[PicfitImage]] =
     coll
       .findAndRemove($id(id))
-      .flatMap:
-        _.result[PicfitImage].so(picfitServer.delete)
+      .map:
+        _.result[PicfitImage].map: pic =>
+          picfitServer.delete(pic)
+          pic
 
   def deleteByIdsAndUser(ids: Seq[ImageId], user: UserId): Funit =
     ids.toList.sequentiallyVoid: id =>
@@ -106,8 +108,13 @@ final class PicfitApi(
   def setContext(context: String, ids: Seq[ImageId]): Funit =
     coll.update.one($inIds(ids), $set("meta.context" -> context), multi = true).void
 
-  def setAutomod(id: ImageId, automod: ImageAutomod): Funit =
-    coll.updateOrUnsetField($id(id), "automod.flagged", automod.flagged).void
+  def setAutomod(id: ImageId, automod: ImageAutomod): Fu[Option[PicfitImage]] =
+    val op = automod.flagged match
+      case Some(f) => $set("automod.flagged" -> f)
+      case _ => $unset("automod.flagged")
+    coll
+      .findAndUpdate($id(id), op)
+      .map(_.result[PicfitImage])
 
   def byIds(ids: Iterable[ImageId]): Fu[Seq[PicfitImage]] = coll.byIds(ids)
 

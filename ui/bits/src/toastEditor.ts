@@ -148,8 +148,8 @@ function toastImageUploadHook(el: HTMLElement) {
       if (!width || !height) throw `Unsupported image '${name}'`;
       const formData = new FormData();
       formData.append('context', el.dataset.imageContext ?? location.href);
-      formData.append('width', String(width));
-      formData.append('height', String(height));
+      formData.append('dim.width', String(width));
+      formData.append('dim.height', String(height));
       formData.append('image', image);
       const { imageUrl } = await xhrJson(el.dataset.imageUploadUrl!, {
         method: 'POST',
