@@ -18,11 +18,11 @@
   <string name="removedStudents">Уклоњени</string>
   <string name="inviteTheStudentBack">Позови ученика назад</string>
   <string name="sendAMessage">Пошаљи поруку свим ученицима.</string>
-  <string name="aLinkToTheClassWillBeAdded">Линк за час ће бити аутоматски додат на крају поруке, нема потребе да га сами укључите.</string>
+  <string name="aLinkToTheClassWillBeAdded">Линк до часа ће бити аутоматски додат на крају поруке, тако да не мораш сам/а да је убациш.</string>
   <string name="className">Назив часа</string>
   <string name="classDescription">Опис часа</string>
-  <string name="visibleByBothStudentsAndTeachers">Видљиво и учитељима и ученицима овога часа</string>
-  <string name="teachersOfTheClass">Учитељи</string>
+  <string name="visibleByBothStudentsAndTeachers">Видљиво и учитељима и ученицима часа</string>
+  <string name="teachersOfTheClass">Учитељи часа</string>
   <string name="addLichessUsernames">Додајте Lichess корисничка имена да бисте их позвали да буду учитељи. Свако име у новом реду.</string>
   <string name="resetPassword">Обнови лозинку</string>
   <string name="makeSureToCopy">Копирајте или запиђите лозинку. Нећете моћи да је поново видите!</string>
