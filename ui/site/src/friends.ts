@@ -8,7 +8,7 @@ interface Friend {
   name: string;
   title?: string;
   playing: boolean;
-  patronColor?: number;
+  patronColor?: PatronColor;
 }
 
 export default class OnlineFriends {
@@ -33,7 +33,7 @@ export default class OnlineFriends {
     api.events.on('playing', this.playing);
     api.events.on('stopped_playing', this.stopped_playing);
   }
-  receive = (friends: TitleName[], msg: { playing: string[]; patronColors: number[] }) => {
+  receive = (friends: TitleName[], msg: { playing: string[]; patronColors: PatronColor[] }) => {
     this.users.clear();
     friends.forEach((f, i) => {
       const friend = this.insert(f);
@@ -69,7 +69,7 @@ export default class OnlineFriends {
     return `<div><a class="online user-link ulpt" data-pt-pos="nw" href="${url}">${icon}${titleTag}${friend.name}</a>${tvButton}</div>`;
   };
 
-  enters = (titleName: TitleName, msg: { playing: boolean; patronColor?: number }) => {
+  enters = (titleName: TitleName, msg: { playing: boolean; patronColor?: PatronColor }) => {
     const friend = this.insert(titleName);
     friend.playing = msg.playing;
     friend.patronColor = msg.patronColor;
