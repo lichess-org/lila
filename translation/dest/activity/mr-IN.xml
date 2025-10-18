@@ -34,6 +34,10 @@
     <item quantity="one">%s दीर्घकालीन खेळ पूर्ण केले</item>
     <item quantity="other">%s दीर्घकालीन खेळ पूर्ण केले</item>
   </plurals>
+  <plurals name="completedNbVariantGames">
+    <item quantity="one">%1$s %2$s चे पत्रव्यवहार खेळ खेळले</item>
+    <item quantity="other">%1$s %2$s चे पत्रव्यवहार खेळ खेळले</item>
+  </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">%s खेळाडूला फॉलो करणे चालू केले</item>
     <item quantity="other">%s खेळाडूंना फॉलो करणे चालू केले</item>
