@@ -11,9 +11,8 @@ import lila.common.autoconfig.AutoConfig
 import lila.common.config.given
 import lila.core.config.Secret
 import lila.core.data.Text
-import lila.core.misc.memo.AutomodImageRequest
 import lila.core.id.ImageId
-import lila.memo.{ ImageAutomod, ImageMetaData }
+import lila.memo.{ ImageAutomod, ImageAutomodRequest, ImageMetaData }
 import lila.memo.SettingStore.Text.given
 
 final class Automod(
@@ -42,10 +41,9 @@ final class Automod(
     default = "Qwen/Qwen2.5-VL-72B-Instruct"
   )
 
-  lila.common.Bus.sub[AutomodImageRequest]: req =>
-    discard:
-      imageFlagReason(req.id, ImageMetaData(req.width, req.height).some).map: flagged =>
-        picfitApi.setAutomod(req.id, ImageAutomod(flagged))
+  lila.common.Bus.sub[ImageAutomodRequest]: req =>
+    imageFlagReason(req.id, ImageMetaData(req.dim).some).map: flagged =>
+      picfitApi.setAutomod(req.id, ImageAutomod(flagged))
 
   def text(
       userText: String,

@@ -146,7 +146,7 @@ final class Main(
             image <- env.memo.picfitApi.uploadFile(moreRel, image, me, meta)
             maxWidth = lila.ui.bits.imageDesignWidth(rel)
             url = meta match
-              case Some(info) if maxWidth.exists(dw => info.width > dw) =>
+              case Some(info) if maxWidth.exists(dw => info.dim.width > dw) =>
                 maxWidth.map(dw => env.memo.picfitApi.resizeUrl(image.id, Left(dw)))
               case _ => env.memo.picfitApi.rawUrl(image.id).some
           yield JsonOk(Json.obj("imageUrl" -> url))

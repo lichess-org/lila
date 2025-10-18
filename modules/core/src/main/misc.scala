@@ -60,9 +60,6 @@ package oauth:
 package analysis:
   final class MyEnginesAsJson(val get: Option[Me] => Fu[play.api.libs.json.JsObject])
 
-package memo:
-  case class AutomodImageRequest(id: lila.core.id.ImageId, width: Int, height: Int)
-
 trait PicfitApi:
   def thumbnailUrl(id: lila.core.id.ImageId, width: Int, height: Int): String
   def resizeUrl(id: lila.core.id.ImageId, size: Either[Int, Int]): String

@@ -12,7 +12,6 @@ import scalalib.paginator.AdapterLike
 
 import lila.common.Bus
 import lila.core.id.ImageId
-import lila.core.misc.memo.AutomodImageRequest
 import lila.db.dsl.{ *, given }
 
 case class PicfitImage(
@@ -29,14 +28,17 @@ case class PicfitImage(
     urls: List[String] = Nil
 )
 
+case class Dimensions(width: Int, height: Int)
+object Dimensions:
+  val default = Dimensions(560, 560)
+
 // presence of the ImageAutomod subdoc indicates an image has been scanned, regardless of flagged
-case class ImageAutomod(
-    flagged: Option[String] = none
-)
+case class ImageAutomod(flagged: Option[String] = none)
+
+case class ImageAutomodRequest(id: ImageId, dim: Dimensions)
 
 case class ImageMetaData(
-    width: Int,
-    height: Int,
+    dim: Dimensions,
     context: Option[String] = none
 )
 
@@ -73,10 +75,8 @@ final class PicfitApi(
     val source = uploaded.copy[ByteSource](ref = ref, refToBytes = _ => None)
     for
       image <- uploadSource(rel, source, userId, meta)
-      (width, height) = meta match
-        case Some(m) => (m.width, m.height)
-        case _ => (560, 560)
-      _ = Bus.pub(AutomodImageRequest(image.id, width, height))
+      dim = meta.fold(Dimensions.default)(_.dim)
+      _ = Bus.pub(ImageAutomodRequest(image.id, dim))
     yield image
 
   def deleteById(id: ImageId): Funit =
@@ -140,7 +140,7 @@ final class PicfitApi(
   // https://docs.together.ai/docs/vision-overview#pricing
   def automodUrl(id: ImageId, meta: Option[ImageMetaData]) =
     val (width, height) = meta match
-      case Some(m) if m.width < m.height => (0, 560)
+      case Some(m) if m.dim.width < m.dim.height => (0, 560)
       case _ => (560, 0)
     displayUrl(id, "resize")(width, height)
 
@@ -250,6 +250,7 @@ object PicfitApi:
   private type SourcePart = MultipartFormData.FilePart[ByteSource]
 
   private given BSONDocumentHandler[ImageAutomod] = Macros.handler
+  private given BSONDocumentHandler[Dimensions] = Macros.handler
   private given BSONDocumentHandler[ImageMetaData] = Macros.handler
   private given BSONDocumentHandler[PicfitImage] = Macros.handler
 
@@ -274,10 +275,10 @@ object PicfitApi:
   val uploadForm: play.api.data.Form[ImageMetaData] =
     import play.api.data.Forms.*
     val pixels = number(min = 20, max = 10_000)
+    val dimensions = mapping("width" -> pixels, "height" -> pixels)(Dimensions.apply)(unapply)
     play.api.data.Form(
       mapping(
-        "width" -> pixels,
-        "height" -> pixels,
+        "dim" -> dimensions,
         "context" -> optional(text)
       )(ImageMetaData.apply)(unapply)
     )
