@@ -18,7 +18,7 @@
   <string name="removedStudents">Уклоњени</string>
   <string name="inviteTheStudentBack">Позови ученика назад</string>
   <string name="sendAMessage">Пошаљи поруку свим ученицима.</string>
-  <string name="aLinkToTheClassWillBeAdded">Линк до часа ће бити аутоматски додат на крају поруке, тако да не мораш сам/а да је убациш.</string>
+  <string name="aLinkToTheClassWillBeAdded">Линк до часа ће бити аутоматски додат на крају поруке, тако да не мораш сам/а да га убациш.</string>
   <string name="className">Назив часа</string>
   <string name="classDescription">Опис часа</string>
   <string name="visibleByBothStudentsAndTeachers">Видљиво и учитељима и ученицима часа</string>
