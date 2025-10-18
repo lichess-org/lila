@@ -18,13 +18,13 @@ final class Env(
 
   val api: StudySearchApi = wire[StudySearchApi]
 
-  def apply(text: String, order: Option[Order], page: Int)(using me: Option[Me]) =
+  def apply(text: String, order: Order, page: Int)(using me: Option[Me]) =
     Paginator[Study.WithChaptersAndLiked](
       adapter = new AdapterLike[Study]:
         def query =
           Query.study(
             text.take(100),
-            order.map(_.toSpec),
+            order.toSpec,
             me.map(_.userId.value)
           )
         def nbResults = api.count(query).dmap(_.toInt)
@@ -35,12 +35,13 @@ final class Env(
     )
 
   extension (x: Order)
-    def toSpec: StudySorting =
+    def toSpec: Option[StudySorting] =
       x.match
-        case Order.alphabetical => StudySorting(StudySortField.Name, SpecOrder.Asc)
-        case Order.hot => StudySorting(StudySortField.Hot, SpecOrder.Desc)
-        case Order.newest => StudySorting(StudySortField.CreatedAt, SpecOrder.Desc)
-        case Order.oldest => StudySorting(StudySortField.CreatedAt, SpecOrder.Asc)
-        case Order.popular => StudySorting(StudySortField.Likes, SpecOrder.Desc)
-        case Order.updated => StudySorting(StudySortField.UpdatedAt, SpecOrder.Desc)
-        case Order.mine => StudySorting(StudySortField.Likes, SpecOrder.Asc)
+        case Order.alphabetical => StudySorting(StudySortField.Name, SpecOrder.Asc).some
+        case Order.hot => StudySorting(StudySortField.Hot, SpecOrder.Desc).some
+        case Order.newest => StudySorting(StudySortField.CreatedAt, SpecOrder.Desc).some
+        case Order.oldest => StudySorting(StudySortField.CreatedAt, SpecOrder.Asc).some
+        case Order.popular => StudySorting(StudySortField.Likes, SpecOrder.Desc).some
+        case Order.updated => StudySorting(StudySortField.UpdatedAt, SpecOrder.Desc).some
+        case Order.mine => StudySorting(StudySortField.Likes, SpecOrder.Asc).some
+        case Order.relevant => none

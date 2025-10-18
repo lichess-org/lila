@@ -52,10 +52,10 @@ final class Study(
             case Some(clean) =>
               limit.enumeration.search(rateLimited):
                 env
-                  .studySearch(clean.take(100), order, page)
+                  .studySearch(clean.take(100), order.getOrElse(Order.relevant), page)
                   .flatMap: pag =>
                     negotiate(
-                      Ok.page(views.study.list.search(pag, order.getOrElse(Orders.default), text)),
+                      Ok.page(views.study.list.search(pag, order.getOrElse(Order.relevant), text)),
                       apiStudies(pag)
                     )
 

@@ -44,6 +44,7 @@ enum Order(val value: String):
   case popular extends Order("popular")
   case alphabetical extends Order("alphabetical")
   case mine extends Order("mine")
+  case relevant extends Order("relevant") // only for search
 
 object Order:
   def all: List[Order] = values.toList
