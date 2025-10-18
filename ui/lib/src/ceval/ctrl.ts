@@ -12,13 +12,12 @@ import {
   CevalState,
 } from './types';
 import { sanIrreversible, showEngineError, fewerCores } from './util';
-import { defaultPosition, setupPosition } from 'chessops/variant';
+import { setupPosition } from 'chessops/variant';
 import { parseFen } from 'chessops/fen';
 import { lichessRules } from 'chessops/compat';
 import { povChances } from './winningChances';
 import { prop, type Prop, type Toggle, toggle } from '../common';
 import { clamp } from '../algo';
-import { Result } from '@badrap/result';
 import { storedIntProp, storage } from '../storage';
 import type { Rules } from 'chessops';
 
@@ -58,10 +57,9 @@ export default class CevalCtrl {
   init(opts: CevalOpts): void {
     this.opts = opts;
     this.rules = lichessRules(this.opts.variant.key);
-    const pos = this.opts.initialFen
-      ? parseFen(this.opts.initialFen).chain(setup => setupPosition(this.rules, setup))
-      : Result.ok(defaultPosition(this.rules));
-    this.analysable = pos.isOk;
+    this.analysable =
+      !this.opts.initialFen ||
+      parseFen(this.opts.initialFen).chain(setup => setupPosition(this.rules, setup)).isOk;
     if (this.worker?.getInfo().id !== this.engines?.activate()?.id) {
       this.worker?.destroy();
       this.worker = undefined;
