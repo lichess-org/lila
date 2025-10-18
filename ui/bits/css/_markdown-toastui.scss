@@ -1,7 +1,7 @@
 @use '../node_modules/@toast-ui/editor/dist/toastui-editor.css';
 @use '../node_modules/@toast-ui/editor/dist/theme/toastui-editor-dark.css';
 
-.markdown-editor {
+.markdown-toastui {
   height: 60vh;
   .tab-item {
     background: $c-bg-box;

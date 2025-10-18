@@ -476,12 +476,11 @@ final class RelayApi(
       tag.fold(s"relay:${rt.id}")(t => s"relay.$t:${rt.id}")
 
     def upload(
-        user: User,
         t: RelayTour,
         picture: PicfitApi.FilePart,
         tag: Option[String] = None
-    ): Fu[RelayTour] = for
-      image <- picfitApi.uploadFile(rel(t, tag), picture, userId = user.id)
+    )(using me: Me): Fu[RelayTour] = for
+      image <- picfitApi.uploadFile(rel(t, tag), picture, userId = me.userId)
       _ <- tourRepo.coll.updateField($id(t.id), tag.getOrElse("image"), image.id)
     yield t.copy(image = image.id.some)
 

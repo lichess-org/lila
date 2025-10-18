@@ -4,8 +4,7 @@
     "noEmit": true,
     "module": "esnext",
     "target": "es2020",
-    "lib": ["es2020"],
-    "types": ["serviceworker"],
-    "typeRoots": ["node_modules/@types"]
+    "lib": ["es2020", "webworker"],
+    "types": []
   }
 }

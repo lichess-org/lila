@@ -33,7 +33,7 @@ object Coach:
 
   given UserIdOf[Coach] = _.id.userId
 
-  val imageSize = 350
+  val imageDimensions = lila.memo.Dimensions.square(350)
 
   def make(user: UserWithPerfs) =
     Coach(

@@ -20,7 +20,7 @@ type MenuItem = {
 
 site.load.then(() => {
   const containers = Array.from(document.querySelectorAll<HTMLElement>('.dropdown-overflow'));
-  if (containers.length === 0) {
+  if (site.blindMode || containers.length === 0) {
     return;
   }
 

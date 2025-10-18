@@ -47,7 +47,7 @@ object Streamer:
 
   given UserIdOf[Streamer] = _.id.userId
 
-  val imageSize = 350
+  val imageDimensions = lila.memo.Dimensions.square(350)
 
   def make(user: User) =
     Streamer(

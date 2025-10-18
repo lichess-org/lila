@@ -1,15 +1,13 @@
 package lila.ui
 
 import play.api.i18n.Lang
-
 import java.time.YearMonth
-
 import chess.format.Fen
 
 import lila.core.i18n.Translate
 import lila.core.security.HcaptchaForm
-
-import ScalatagsTemplate.{ *, given }
+import lila.core.config.ImageGetOrigin
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 object bits:
 
@@ -159,3 +157,31 @@ object bits:
     )
 
   private def itemCls(active: String, item: String) = if active == item then "active" else ""
+
+  def markdownTextarea(picfitIdPrefix: Option[String])(textareaTag: Tag)(using
+      imageGetOrigin: ImageGetOrigin
+  ) =
+    div(
+      cls := "markdown-textarea",
+      attr("data-image-download-origin") := imageGetOrigin,
+      picfitIdPrefix.map(id => attr("data-image-upload-url") := routes.Main.uploadImage(id)),
+      picfitIdPrefix.flatMap(imageDesignWidth).map(dw => attr("data-image-design-width") := dw)
+    )(
+      div(cls := "comment-header")(
+        button(cls := "header-tab write active", tpe := "button")("Write"),
+        button(cls := "header-tab preview", tpe := "button", title := "Preview and resize images")("Preview"),
+        button(cls := "upload-image", tpe := "button", title := "Upload image")
+      ),
+      div(cls := "comment-content")(
+        textareaTag,
+        div(cls := "comment-preview none")
+      )
+    )
+
+  def imageDesignWidth(rel: String) =
+    if rel.startsWith("forum") then 864.some
+    else if rel.startsWith("ublog") then 800.some
+    else if rel.startsWith("cms") then 800.some
+    else if rel.startsWith("broadcast") then 800.some
+    else if rel.startsWith("team") then 768.some // desc & private desc
+    else none

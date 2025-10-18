@@ -170,7 +170,7 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi)(
       form3.group(
         form("content"),
         "Content",
-        help = markdownAvailable.some
+        help = markdownIsAvailable.some
       )(form3.textarea(_)(rows := 10)),
       form3.group(form("flair"), "Icon", half = false): field =>
         form3

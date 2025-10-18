@@ -294,7 +294,6 @@ export class EditDialog {
       ],
     });
     if (dlg.returnValue !== 'save') return;
-
     this.editing().vision = view.querySelector<HTMLTextAreaElement>('.vision')!.value;
     this.makeEditView();
     this.update();

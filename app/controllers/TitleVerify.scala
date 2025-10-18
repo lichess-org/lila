@@ -89,14 +89,14 @@ final class TitleVerify(env: Env, cmsC: => Cms, reportC: => report.Report, userC
     Found(api.getForMe(id)): req =>
       ctx.body.body.file("image") match
         case Some(image) =>
-          limit.imageUpload(ctx.ip, rateLimited):
+          limit.imageUpload(rateLimited):
             api.image
               .upload(req, image, tag)
               .inject(Ok)
               .recover { case e: Exception =>
                 BadRequest(e.getMessage)
               }
-        case None => api.image.delete(req, tag) >> Ok
+        case None => api.image.delete(req, tag).inject(Ok)
   }
 
   def queue = Secure(_.TitleRequest) { ctx ?=> me ?=>

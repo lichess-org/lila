@@ -278,7 +278,7 @@ final class Ublog(env: Env) extends LilaController(env):
         .file("image")
         .match
           case Some(image) =>
-            limit.imageUpload(ctx.ip, rateLimited):
+            limit.imageUpload(rateLimited):
               env.ublog.api.image.upload(me, post, image)
           case None =>
             env.ublog.api.image

@@ -88,7 +88,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
                 ul(
                   li(trans.clas.newsEdit2()),
                   li(trans.clas.newsEdit3()),
-                  li(markdownAvailable)
+                  li(markdownIsAvailable)
                 )
               ),
               postForm(cls := "form3", action := routes.Clas.wallUpdate(c.id))(

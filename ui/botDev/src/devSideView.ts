@@ -347,7 +347,7 @@ async function report() {
   const text = await env.dev.getTrace();
   if (text.length) {
     site.asset.loadEsm('bits.diagnosticDialog', {
-      init: { text, header: 'Game Info', submit: 'send to lichess' },
+      init: { text, header: 'Game Info', plaintext: true },
     });
   }
 }

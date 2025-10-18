@@ -424,7 +424,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
           )
 
     def create(form: Form[lila.relay.RelayTourForm.Data])(using Context) =
-      page(trb.newBroadcast.txt(), menu = Left("new")):
+      page(trb.newBroadcast.txt(), menu = Left("new")).markdownTextarea:
         frag(
           boxTop(h1(dataIcon := Icon.RadioTower, cls := "text")(trb.newBroadcast())),
           postForm(cls := "form3", action := routes.RelayTour.create)(
@@ -437,7 +437,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
         )
 
     def edit(form: Form[RelayTourForm.Data], nav: FormNavigation)(using Context) =
-      page(nav.tour.name.value, menu = Right(nav)):
+      page(nav.tour.name.value, menu = Right(nav)).markdownTextarea:
         frag(
           boxTop(h1(a(href := routes.RelayTour.show(nav.tour.slug, nav.tour.id))(nav.tour.name))),
           standardFlash,
@@ -551,7 +551,9 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
                 20000.localize
               )
               .some
-          )(form3.textarea(_)(rows := 10))
+          ): field =>
+            lila.ui.bits.markdownTextarea("broadcastDescription".some):
+              form3.textarea(field)(rows := 10)
         ),
         form3
           .fieldset(

@@ -5,7 +5,7 @@ import lila.relay.RelayRound.WithTourAndStudy
 import lila.core.socket.SocketVersion
 
 val ui = lila.relay.ui.RelayUi(helpers)(
-  picfitUrl,
+  picfitApi,
   views.study.socketUrl,
   views.analyse.ui.explorerAndCevalConfig
 )

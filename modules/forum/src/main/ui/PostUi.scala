@@ -119,13 +119,15 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
           .soUse(post.shouldShowEditForm)
           .option(
             postForm(cls := "edit-post-form", action := routes.ForumPost.edit(post.id))(
-              textarea(
-                bits.dataTopic := topic.id,
-                name := "changes",
-                cls := "post-text-area edit-post-box",
-                minlength := 3,
-                required
-              )(post.text),
+              lila.ui.bits.markdownTextarea("forumPostBody".some):
+                textarea(
+                  bits.dataTopic := topic.id,
+                  name := "changes",
+                  cls := "form-control post-text-area edit-post-box",
+                  required,
+                  post.text
+                )
+              ,
               div(cls := "edit-buttons")(
                 a(
                   cls := "edit-post-cancel",

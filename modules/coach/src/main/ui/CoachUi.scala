@@ -13,7 +13,7 @@ import lila.ui.*
 import ScalatagsTemplate.{ *, given }
 
 final class CoachUi(helpers: Helpers)(
-    picfitUrl: lila.core.misc.PicfitUrl,
+    picfitApi: lila.memo.PicfitApi,
     flagInfo: Profile => Option[Flag],
     flagApi: lila.core.user.FlagApi,
     contactEmail: EmailAddress,
@@ -27,10 +27,10 @@ final class CoachUi(helpers: Helpers)(
 
   def thumbnailUrl(c: Coach) =
     c.picture match
-      case Some(image) => picfitUrl.thumbnail(image, Coach.imageSize, Coach.imageSize)
+      case Some(image) => picfitApi.thumbnailUrl(image)(Coach.imageDimensions)
       case _ => assetUrl("images/placeholder.png")
 
-  def thumbnail(c: Coach.WithUser, cssSize: Int = Coach.imageSize) =
+  def thumbnail(c: Coach.WithUser, cssSize: Int = Coach.imageDimensions.width) =
     img(
       widthA := cssSize,
       heightA := cssSize,

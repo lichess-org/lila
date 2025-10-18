@@ -36,7 +36,7 @@
   &__actions {
     @extend %flex-between;
 
-    margin-top: 3rem;
+    margin-top: 1rem;
     margin-bottom: 2rem;
 
     div {
@@ -52,8 +52,13 @@
       }
     }
   }
-
   .reply label[for='form3-text'] {
     display: none;
+  }
+
+  small .space-between {
+    margin-top: 0.5rem;
+    display: flex;
+    justify-content: space-between;
   }
 }

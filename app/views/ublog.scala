@@ -9,7 +9,7 @@ import lila.ublog.UblogPost
 import lila.core.i18n.toLanguage
 import lila.core.ublog.QualityFilter
 
-lazy val ui = lila.ublog.ui.UblogUi(helpers, views.atomUi)(picfitUrl)
+lazy val ui = lila.ublog.ui.UblogUi(helpers, views.atomUi)(picfitApi)
 
 lazy val post = lila.ublog.ui.UblogPostUi(helpers, ui)(connectLinks = views.bits.connectLinks)
 

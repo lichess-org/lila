@@ -20,6 +20,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
   def form(categ: lila.forum.ForumCateg, form: Form[?], captcha: Captcha)(using Context) =
     Page("New forum topic")
       .csp(_.withInlineIconFont)
+      .markdownTextarea
       .css("bits.forum")
       .js(Esm("bits.forum"))
       .js(captchaEsm):
@@ -54,8 +55,8 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
           ),
           postForm(cls := "form3", action := routes.ForumTopic.create(categ.id))(
             form3.group(form("name"), trans.site.subject())(form3.input(_)(autofocus)),
-            form3.group(form("post")("text"), trans.site.message())(
-              form3.textarea(_, klass = "post-text-area")(rows := 10)
+            form3.group(form("post")("text"), trans.site.message(), help = markdownIsAvailable.some)(
+              bits.postTextarea(_)()
             ),
             renderCaptcha(form("post"), captcha),
             form3.actions(
@@ -82,7 +83,8 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
       unsub: Option[Boolean],
       canModCateg: Boolean,
       formText: Option[String] = None,
-      replyBlocked: Boolean = false
+      replyBlocked: Boolean = false,
+      plaintext: Boolean = false
   )(using ctx: Context) =
     val isDiagnostic = categ.isDiagnostic && (canModCateg || ctx.me.exists(topic.isAuthor))
     val headerText = if isDiagnostic then "Diagnostics" else topic.name
@@ -94,7 +96,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
 
     val teamOnly = categ.team.filterNot(isMyTeamSync)
     val pager = paginationByQuery(routes.ForumTopic.show(categ.id, topic.slug, 1), posts, showPost = true)
-    Page(s"${topic.name} • page ${posts.currentPage}/${posts.nbPages} • ${categ.name}")
+    Page(s"${topic.name} • page ${posts.currentPage}/${posts.nbPages} • ${categ.name}").markdownTextarea
       .css("bits.forum")
       .csp(_.withInlineIconFont.withTwitter)
       .js(Esm("bits.forum") ++ Esm("bits.expandText") ++ formWithCaptcha.isDefined.so(captchaEsm))
@@ -179,17 +181,20 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
               form3.group(
                 form("text"),
                 trans.site.message(),
-                help = a(
-                  dataIcon := Icon.InfoCircle,
-                  cls := "text",
-                  href := routes.Cms.lonePage(CmsPageKey("forum-etiquette"))
-                )(
-                  "Forum etiquette"
+                help = span(cls := "space-between")(
+                  plaintext.not.option(span(markdownIsAvailable)),
+                  a(
+                    dataIcon := Icon.InfoCircle,
+                    cls := "text",
+                    href := routes.Cms.lonePage(CmsPageKey("forum-etiquette"))
+                  )("Forum etiquette")
                 ).some
               ): f =>
-                form3.textarea(f, klass = "post-text-area")(rows := 10, bits.dataTopic := topic.id)(
-                  formText
-                ),
+                if plaintext then
+                  form3.textarea(f, klass = "post-text-area")(rows := 10, bits.dataTopic := topic.id)(
+                    formText
+                  )
+                else bits.postTextarea(f)(bits.dataTopic := topic.id, formText),
               renderCaptcha(form, captcha),
               form3.actions(
                 a(href := routes.ForumCateg.show(categ.id))(trans.site.cancel()),
@@ -205,11 +210,16 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
             )
         )
 
-  def makeDiagnostic(categ: lila.forum.ForumCateg, form: Form[?], captcha: Captcha, text: String)(using
-      Context
-  )(using me: Me) =
+  def makeDiagnostic(
+      categ: lila.forum.ForumCateg,
+      form: Form[?],
+      captcha: Captcha,
+      text: String,
+      plaintext: Boolean
+  )(using Context)(using me: Me) =
     Page("Diagnostic report")
       .css("bits.forum")
+      .markdownTextarea
       .js(Esm("bits.forum"))
       .js(esmInitBit("autoForm", "selector" -> ".post-text-area", "ops" -> "focus begin"))
       .js(captchaEsm):
@@ -221,11 +231,10 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
             p("Only you and the Lichess moderators can see this forum.")
           ),
           postForm(cls := "form3", action := routes.ForumTopic.create(categ.id))(
-            form3.group(form("post")("text"), trans.site.message())(
-              form3.textarea(_, klass = "post-text-area")(rows := 10, autofocus := "")(
-                "\n\n\n" +
-                  text
-              )
+            form3.group(form("post")("text"), trans.site.message())(f =>
+              if plaintext then
+                form3.textarea(f, klass = "post-text-area")(rows := 10, autofocus := "")(s"\n\n\n$text")
+              else bits.postTextarea(f)(autofocus := "", maxlength := 200_000, s"\n\n\n$text".some)
             ),
             form3.hidden("name", s"${me.username.value} problem report"),
             renderCaptcha(form("post"), captcha),

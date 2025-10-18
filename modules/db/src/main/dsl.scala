@@ -517,21 +517,22 @@ object dsl extends dsl with Handlers:
                 fieldExtractor(obj).map { id -> _ }
           .toMap
 
+    def updateUnchecked(selector: Bdoc, set: Bdoc): Unit =
+      coll
+        .update(ordered = false, writeConcern = WriteConcern.Unacknowledged)
+        .one(selector, set)
+
     def updateField[V: BSONWriter](selector: Bdoc, field: String, value: V) =
       coll.update.one(selector, $set(field -> value))
 
     def updateFieldUnchecked[V: BSONWriter](selector: Bdoc, field: String, value: V): Unit =
-      coll
-        .update(ordered = false, writeConcern = WriteConcern.Unacknowledged)
-        .one(selector, $set(field -> value))
+      updateUnchecked(selector, $set(field -> value))
 
     def incField(selector: Bdoc, field: String, value: Int = 1) =
       coll.update.one(selector, $inc(field -> value))
 
     def incFieldUnchecked(selector: Bdoc, field: String, value: Int = 1): Unit =
-      coll
-        .update(ordered = false, writeConcern = WriteConcern.Unacknowledged)
-        .one(selector, $inc(field -> value))
+      updateUnchecked(selector, $inc(field -> value))
 
     def unsetField(selector: Bdoc, field: String, multi: Boolean = false) =
       coll.update.one(selector, $unset(field), multi = multi)

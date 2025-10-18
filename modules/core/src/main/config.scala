@@ -61,3 +61,6 @@ object config:
       email: EmailAddress,
       logRequests: Boolean
   )
+
+  opaque type ImageGetOrigin = String
+  object ImageGetOrigin extends OpaqueString[ImageGetOrigin]
