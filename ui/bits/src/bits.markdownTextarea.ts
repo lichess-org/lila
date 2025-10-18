@@ -32,7 +32,7 @@ function wireMarkdownTextarea(markdown: HTMLElement) {
       update: {
         markdown: (text?: string) => (text !== undefined ? (textarea.value = text) : textarea.value),
       },
-      origin: markdown.dataset.imageDownloadOrigin,
+      origin: markdown.dataset.imageDownloadOrigin!,
       designWidth: Number(markdown.dataset.imageDesignWidth),
     });
   });

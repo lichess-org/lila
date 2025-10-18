@@ -12,7 +12,7 @@ export function makeToastEditor(el: HTMLTextAreaElement, text: string = '', heig
       root: document.querySelector<HTMLElement>('.toastui-editor-ww-container .ProseMirror')!,
       update: { url: updateImage },
       designWidth: Number(el.dataset.imageDesignWidth),
-      origin: el.dataset.imageDownloadOrigin,
+      origin: el.dataset.imageDownloadOrigin!,
     });
   const editor = newToast(el, text, rewire, height);
   rewire();
