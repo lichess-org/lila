@@ -506,6 +506,7 @@ object JsonView:
         )
         .add("title" -> user.title)
         .add("flair" -> user.flair)
+        .add("patronColor" -> user.patronAndColor.map(_.color))
         .add("performance" -> player.performance)
         .add("withdraw" -> player.withdraw)
         .add("team" -> player.team)

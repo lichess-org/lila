@@ -27,7 +27,8 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
         case None =>
           for
             (active, past) <- env.relay.top(page)
-            res <- Ok.async(views.relay.tour.index(active, past.currentPageResults))
+            cms <- env.cms.renderKey("broadcast-announcement", liveCheck = true)
+            res <- Ok.async(views.relay.tour.index(active, past.currentPageResults, cms.map(_.html)))
           yield res
 
   def calendarMonth(year: Int, month: Int) = Open:
@@ -36,7 +37,8 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
       .so: at =>
         for
           tours <- env.relay.calendar.atMonth(at)
-          page <- Ok.async(views.relay.tour.calendar(at, tours))
+          cms <- env.cms.renderKey("broadcast-calendar-announcement", liveCheck = true)
+          page <- Ok.async(views.relay.tour.calendar(at, tours, cms.map(_.html)))
         yield page
 
   def calendar = calendarMonth(RelayCalendar.now().getYear, RelayCalendar.now().getMonth.getValue)

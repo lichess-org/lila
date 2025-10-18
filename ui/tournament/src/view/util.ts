@@ -2,7 +2,7 @@ import { h, type VNode, type VNodeChildren } from 'snabbdom';
 import * as licon from 'lib/licon';
 import { numberFormat } from 'lib/i18n';
 import { dataIcon } from 'lib/snabbdom';
-import { fullName, userRating } from 'lib/view/userLink';
+import { fullName, userLine, userRating } from 'lib/view/userLink';
 import type { SimplePlayer } from '../interfaces';
 
 export const ratio2percent = (r: number) => Math.round(100 * r) + '%';
@@ -15,7 +15,7 @@ export const player = (
   leader = false,
 ) =>
   h(
-    'a.ulpt.user-link' + (((p.title || '') + p.name).length > 15 ? '.long' : ''),
+    'a.ulpt.user-link.online' + (((p.title || '') + p.name).length > 15 ? '.long' : ''),
     {
       attrs: asLink || 'ontouchstart' in window ? { href: '/@/' + p.name } : { 'data-href': '/@/' + p.name },
       hook: { destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement) },
@@ -24,7 +24,7 @@ export const player = (
       h(
         'span.name' + (defender ? '.defender' : leader ? '.leader' : ''),
         defender ? { attrs: dataIcon(licon.Shield) } : leader ? { attrs: dataIcon(licon.Crown) } : {},
-        fullName(p),
+        [p.patronColor && userLine({ patronColor: p.patronColor }), ...fullName(p)],
       ),
       withRating ? h('span.rating', userRating({ ...p, brackets: false })) : null,
     ],

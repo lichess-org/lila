@@ -124,7 +124,7 @@ export interface PlayerUser {
   online: boolean;
   username: string;
   patron?: boolean;
-  patronColor?: number;
+  patronColor?: PatronColor;
   title?: string;
   flair?: Flair;
   perfs: {

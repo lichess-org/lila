@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="gameSetup">खेळाची मांडणी</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">एका मित्राला आव्हान करा</string>
+  <string name="playAgainstComputer">संगणक विरुद्ध खेळा</string>
+  <string name="gameMode">खेळाची रीत</string>
+  <string name="createLobbyGame" comment="One of three buttons on the home page. Opens the modal to create a game that goes in the lobby.">प्रेक्षागृहाचा खेळ तयार करा</string>
+  <string name="youPlayAs">तुम्ही खेळाल असे</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">कुणाला आपल्या बरोबर खेळण्याचे निमंत्रण देण्यासाठी हा URL द्या</string>
   <string name="gameOver">डाव समाप्त</string>
   <string name="waitingForOpponent">प्रतिस्पर्ध्याची प्रतीक्षा आहे</string>
@@ -20,6 +26,7 @@
   <string name="asBlack">काळ्या रंगासाठी</string>
   <string name="randomColor">यादृच्छिक बाजू</string>
   <string name="createAGame">डाव मांडा</string>
+  <string name="createTheGame">खेळ बनवा</string>
   <string name="whiteIsVictorious">पांढऱ्याचा विजय झाला</string>
   <string name="blackIsVictorious">काळ्याचा विजय झाला</string>
   <string name="youPlayTheWhitePieces">तुम्ही पांढऱ्या सोंगट्यानी खेळा</string>
@@ -72,6 +79,7 @@
   <string name="expandVariations">भिन्नता दाखवा</string>
   <string name="forceVariation">भिन्नता सक्तीची करा</string>
   <string name="copyVariationPgn">ओळ कॉपी करा</string>
+  <string name="copyMainLinePgn">मुख्यश्रेणीचे PGN प्रत करा</string>
   <string name="move">चाल</string>
   <string name="variantLoss">प्रकार हरला</string>
   <string name="variantWin">या प्रकारातील विजय</string>
@@ -154,6 +162,7 @@
   <string name="flipBoard">पटाला पलटा</string>
   <string name="threefoldRepetition">तीनदा पुनरावृत्ती</string>
   <string name="claimADraw">बरोबरीत सोडवण्याचा दावा करा</string>
+  <string name="drawClaimed">बरोबरी स्वीकार केली आहे</string>
   <string name="offerDraw">बरोबरीत सोडवण्याचा प्रस्ताव पाठवा</string>
   <string name="draw">बरोबरीत सुटला</string>
   <plurals name="nbPlayers">
@@ -163,6 +172,7 @@
   <string name="drawByMutualAgreement">परस्पर कराराने बरोबरी</string>
   <string name="fiftyMovesWithoutProgress">प्रगतीशिवाय पन्नास चाली</string>
   <string name="currentGames">चालू खेळ</string>
+  <string name="joinedX">%s सामील झाले</string>
   <plurals name="nbGames">
     <item quantity="one">%s खेळ</item>
     <item quantity="other">सर्व %s डाव पाहा</item>
@@ -335,6 +345,7 @@
     <item quantity="other">%s खेळतोय</item>
   </plurals>
   <string name="exportGames">खेळ निर्यात करा</string>
+  <string name="ratingFilter">धाऱ्याची पाझरत</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">%s सेकंद द्या</item>
     <item quantity="other">%s सेकंद द्या</item>
@@ -343,7 +354,15 @@
   <string name="openingExplorerAndTablebase">उघडणी अन्वेषक नि साठा</string>
   <string name="takeback">चाल परत घ्या</string>
   <string name="proposeATakeback">चाल मागे घेण्यास विनंती करा</string>
+  <string name="whiteProposesTakeback">पांढऱ्या खेळाडूला आपले डाव मागे घ्याचे आहे</string>
+  <string name="blackProposesTakeback">काळ्या खेळाडूला आपले डाव मागे घ्याचे आहे</string>
   <string name="takebackPropositionSent">चाल मागे घेण्याची विनंती पाठवली</string>
+  <string name="whiteDeclinesTakeback">पांढऱ्या खेळाडूने डाव मागे घेण्यास नाकारले</string>
+  <string name="blackDeclinesTakeback">काळ्या खेळाडूने डाव मागे घेण्यास नाकारले</string>
+  <string name="whiteAcceptsTakeback">पांढऱ्या खेळाडूने डाव मागे घेण्यास स्वीकारले</string>
+  <string name="blackAcceptsTakeback">काळ्या खेळाडूने डाव मागे घेण्यास स्वीकारले</string>
+  <string name="whiteCancelsTakeback">पांढऱ्या खेळाडूने डाव मागे घेण्याच्या विनंतीला हटवले</string>
+  <string name="blackCancelsTakeback">काळ्या खेळाडूने डाव मागे घेण्याच्या विनंतीला हटवले</string>
   <string name="yourOpponentProposesATakeback">प्रतिस्पर्ध्याने चाल मागे घेण्याची विनंती केली आहे</string>
   <string name="bookmarkThisGame">खेळाला चिन्हीत करा</string>
   <string name="tournament">क्रीडासत्र</string>
@@ -356,6 +375,10 @@
   <plurals name="nbStudies">
     <item quantity="one">%s अभ्यास</item>
     <item quantity="other">%s अभ्यास</item>
+  </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s चे साईमुल</item>
+    <item quantity="other">%s चे साईमुल</item>
   </plurals>
   <string name="viewTournament">क्रीडासत्र पहा</string>
   <string name="backToTournament">क्रीडासत्रात परत जा</string>

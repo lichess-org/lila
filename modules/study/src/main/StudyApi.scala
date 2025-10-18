@@ -436,11 +436,12 @@ final class StudyApi(
         fufail(s"Invalid setClock $position $clock")
 
   def setTag(studyId: StudyId, setTag: SetTag)(who: Who) =
-    sequenceStudyWithChapter(studyId, setTag.chapterId):
-      case Study.WithChapter(study, chapter) =>
-        Contribute(who.u, study):
-          for _ <- doSetTags(study, chapter, PgnTags(chapter.tags + setTag.tag), who)
-          yield if study.isRelay then Bus.pub(AfterSetTagOnRelayChapter(setTag.chapterId, setTag.tag))
+    setTag.validate.so: tag =>
+      sequenceStudyWithChapter(studyId, setTag.chapterId):
+        case Study.WithChapter(study, chapter) =>
+          Contribute(who.u, study):
+            for _ <- doSetTags(study, chapter, StudyPgnTags(chapter.tags + tag), who)
+            yield if study.isRelay then Bus.pub(AfterSetTagOnRelayChapter(setTag.chapterId, tag))
 
   def setTagsAndRename(
       studyId: StudyId,
@@ -461,7 +462,7 @@ final class StudyApi(
       val chapter = oldChapter.copy(tags = tags)
       for
         _ <- chapterRepo.setTagsFor(chapter)
-        _ <- PgnTags
+        _ <- StudyPgnTags
           .setRootClockFromTags(chapter)
           .so: c =>
             c.root.clock.so: clock =>

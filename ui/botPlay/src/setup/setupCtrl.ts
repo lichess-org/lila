@@ -6,6 +6,7 @@ import { type TimeControl, timeControlFromStoredValues } from 'lib/setup/timeCon
 import { storedJsonProp } from 'lib/storage';
 import type { ClockConfig } from 'lib/game/clock/clockCtrl';
 import type { ColorChoice, ColorProp } from 'lib/setup/color';
+import type { Dialog } from 'lib/view/dialog';
 
 interface Settings {
   color: ColorChoice;
@@ -24,6 +25,7 @@ export default class SetupCtrl {
     increment: 3,
   }));
   color: ColorProp;
+  dialog?: Dialog;
 
   constructor(
     readonly opts: BotOpts,
@@ -52,11 +54,13 @@ export default class SetupCtrl {
 
   cancel = () => {
     this.selectedBot = undefined;
+    this.dialog?.close();
     this.redraw();
   };
 
   play = () => {
     if (!this.selectedBot) return;
+    this.dialog?.close();
     this.saveSettings();
     this.start(this.selectedBot, this.color(), clockConfig(this.timeControl));
   };

@@ -114,7 +114,7 @@ case class Chapter(
 
   def isOverweight = root.children.countRecursive >= Chapter.maxNodes
 
-  def tagsExport = PgnTags.cleanUpForPublication(tags)
+  def tagsExport = StudyPgnTags.cleanUpForPublication(tags)
 
   def withTags(t: Tags) = copy(tags = t)
 
