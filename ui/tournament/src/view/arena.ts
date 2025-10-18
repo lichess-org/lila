@@ -8,6 +8,7 @@ import type { Pagination, PodiumPlayer, StandingPlayer } from '../interfaces';
 import { joinWithdraw } from './button';
 import { renderPager } from '../pagination';
 import { userLink } from 'lib/view/userLink';
+import { defined } from 'lib';
 
 const renderScoreString = (scoreString: string, streakable: boolean) => {
   const values = scoreString.split('').map(s => parseInt(s));
@@ -91,7 +92,12 @@ export function podium(ctrl: TournamentController) {
     p
       ? h('div.' + pos, [
           h('div.trophy'),
-          userLink({ ...p, line: false, rating: undefined }),
+          userLink({
+            ...p,
+            line: defined(p.patronColor),
+            online: defined(p.patronColor),
+            rating: undefined,
+          }),
           podiumStats(p, ctrl.data.berserkable, ctrl),
         ])
       : undefined;
