@@ -23,12 +23,12 @@
   <string name="classDescription">Опис часа</string>
   <string name="visibleByBothStudentsAndTeachers">Видљиво и учитељима и ученицима часа</string>
   <string name="teachersOfTheClass">Учитељи часа</string>
-  <string name="addLichessUsernames">Додајте Lichess корисничка имена да бисте их позвали да буду учитељи. Свако име у новом реду.</string>
-  <string name="resetPassword">Обнови лозинку</string>
+  <string name="addLichessUsernames">Додај Lichess корисничка имена да их позовеш као учитеље. Једно по линији.</string>
+  <string name="resetPassword">Промени лозинку</string>
   <string name="makeSureToCopy">Копирајте или запиђите лозинку. Нећете моћи да је поново видите!</string>
   <string name="passwordX">Лозинка: %s</string>
-  <string name="generateANewPassword">Направите нову лозинку за ученика</string>
-  <string name="invitedToXByY">Позван на %1$s од стране %2$s</string>
+  <string name="generateANewPassword">Генериши нову лозинку за ученика</string>
+  <string name="invitedToXByY">Позван/а на %1$s од стране %2$s</string>
   <string name="realName">Право име</string>
   <string name="privateWillNeverBeShown">Приватно. Никада неће бити приказано изван учионице. Помаже да се присетите ко је ученик.</string>
   <string name="addStudent">Додајте ученика</string>
