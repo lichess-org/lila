@@ -5,10 +5,6 @@ import lila.core.id.ImageId
 
 final class PicfitUrl(config: PicfitConfig, coll: Coll)(using Executor):
 
-  val origin =
-    val pathBegin = config.endpointGet.indexOf('/', 8)
-    if pathBegin == -1 then config.endpointGet else config.endpointGet.slice(0, pathBegin)
-
   // This operation will able you to resize the image to the specified width and height.
   // Preserves the aspect ratio
   def resize(
