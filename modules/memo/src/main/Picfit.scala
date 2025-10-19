@@ -23,7 +23,8 @@ case class PicfitImage(
     name: String,
     size: Int, // in bytes
     createdAt: Instant,
-    meta: Option[ImageMetaData] = none,
+    dimensions: Option[Dimensions],
+    context: Option[String] = none,
     automod: Option[ImageAutomod] = none,
     urls: List[String] = Nil
 )
@@ -43,11 +44,6 @@ object Dimensions:
 case class ImageAutomod(flagged: Option[String] = none)
 
 case class ImageAutomodRequest(id: ImageId, dim: Dimensions)
-
-case class ImageMetaData(
-    dim: Dimensions,
-    context: Option[String] = none
-)
 
 final class PicfitApi(
     coll: Coll,
@@ -75,7 +71,7 @@ final class PicfitApi(
       rel: String,
       uploaded: FilePart,
       userId: UserId,
-      meta: Option[ImageMetaData] = none
+      meta: Option[form.UploadData] = none
   ): Fu[PicfitImage] =
     val ref: ByteSource = FileIO.fromPath(uploaded.ref.path)
     val source = uploaded.copy[ByteSource](ref = ref, refToBytes = _ => None)
@@ -148,9 +144,9 @@ final class PicfitApi(
     displayUrl(id, "resize"):
       Dimensions(~size.left.toOption, ~size.toOption)
 
-  def automodUrl(id: ImageId, meta: Option[ImageMetaData]) =
+  def automodUrl(id: ImageId, dim: Option[Dimensions]) =
     displayUrl(id, "resize"):
-      if meta.exists(_.dim.vertical) then Dimensions.defaultHeight else Dimensions.defaultWidth
+      if dim.exists(_.vertical) then Dimensions.defaultHeight else Dimensions.defaultWidth
 
   // Thumbnail scales the image up or down using the specified resample filter,
   // crops it to the specified width and height and returns the transformed image.
@@ -167,7 +163,7 @@ final class PicfitApi(
       rel: String,
       part: SourcePart,
       userId: UserId,
-      meta: Option[ImageMetaData]
+      meta: Option[form.UploadData] // #TODO make non-optional
   ): Fu[PicfitImage] =
     if part.fileSize > uploadMaxBytes
     then fufail(s"File size must not exceed ${uploadMaxMb}MB.")
@@ -187,7 +183,8 @@ final class PicfitApi(
               name = part.filename,
               size = part.fileSize.toInt,
               createdAt = nowInstant,
-              meta = meta
+              dimensions = meta.map(_.dim),
+              context = meta.flatMap(_.context)
             )
             for
               _ <- picfitServer.store(image, part)
@@ -253,7 +250,6 @@ object PicfitApi:
 
   private given BSONDocumentHandler[ImageAutomod] = Macros.handler
   private given BSONDocumentHandler[Dimensions] = Macros.handler
-  private given BSONDocumentHandler[ImageMetaData] = Macros.handler
   private given BSONDocumentHandler[PicfitImage] = Macros.handler
 
 // from playframework/transport/client/play-ws/src/main/scala/play/api/libs/ws/WSBodyWritables.scala
@@ -274,13 +270,16 @@ object PicfitApi:
       .map(ImageId(_))
       .toSet
 
-  val uploadForm: play.api.data.Form[ImageMetaData] =
+  object form:
+
+    case class UploadData(dim: Dimensions, context: Option[String] = none)
+
     import play.api.data.Forms.*
     val pixels = number(min = 20, max = 10_000)
     val dimensions = mapping("width" -> pixels, "height" -> pixels)(Dimensions.apply)(unapply)
-    play.api.data.Form(
+
+    val upload = play.api.data.Form[UploadData]:
       mapping(
         "dim" -> dimensions,
         "context" -> optional(text)
-      )(ImageMetaData.apply)(unapply)
-    )
+      )(UploadData.apply)(unapply)

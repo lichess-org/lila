@@ -278,7 +278,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       myId.modId,
       user = image.user.some,
       action = if op == "purge" then Modlog.imagePurge else Modlog.imagePass,
-      context = image.meta.flatMap(_.context).map(url => Modlog.Context(url = url.some)),
+      context = image.context.map(url => Modlog.Context(url = url.some)),
       details = image.automod.flatMap(_.flagged)
     )
 

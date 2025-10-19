@@ -14,7 +14,7 @@ final class ImageQueueUi(helpers: Helpers, picfitApi: PicfitApi):
     main(cls := "image-queue infinite-scroll")(
       flagged.currentPageResults.map: image =>
         div(
-          a(image.meta.flatMap(_.context.map(href := _)))(
+          a(image.context.map(href := _))(
             img(src := picfitApi.rawUrl(image.id))
           ),
           image.automod.flatMap(_.flagged),

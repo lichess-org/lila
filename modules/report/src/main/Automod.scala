@@ -12,7 +12,7 @@ import lila.common.config.given
 import lila.core.config.Secret
 import lila.core.data.Text
 import lila.core.id.ImageId
-import lila.memo.{ ImageAutomod, ImageAutomodRequest, ImageMetaData }
+import lila.memo.{ ImageAutomod, ImageAutomodRequest, Dimensions }
 import lila.memo.SettingStore.Text.given
 
 final class Automod(
@@ -42,7 +42,7 @@ final class Automod(
   )
 
   lila.common.Bus.sub[ImageAutomodRequest]: req =>
-    imageFlagReason(req.id, ImageMetaData(req.dim).some).map: flagged =>
+    imageFlagReason(req.id, req.dim.some).map: flagged =>
       picfitApi.setAutomod(req.id, ImageAutomod(flagged))
 
   def text(
@@ -92,15 +92,15 @@ final class Automod(
           if pic.automod.isDefined then fuccess(pic)
           else
             for
-              flagged <- imageFlagReason(pic.id, pic.meta)
+              flagged <- imageFlagReason(pic.id, pic.dimensions)
               automod = ImageAutomod(flagged)
               _ <- picfitApi.setAutomod(pic.id, automod)
             yield pic.copy(automod = automod.some)
         .toSeq.parallel
 
-  private def imageFlagReason(id: ImageId, meta: Option[ImageMetaData]): Fu[Option[String]] =
+  private def imageFlagReason(id: ImageId, dim: Option[Dimensions]): Fu[Option[String]] =
     (config.apiKey.value.nonEmpty && imagePromptSetting.get().value.nonEmpty).so:
-      val imageUrl = picfitApi.automodUrl(id, meta)
+      val imageUrl = picfitApi.automodUrl(id, dim)
       val body = Json
         .obj(
           "model" -> imageModelSetting.get(),

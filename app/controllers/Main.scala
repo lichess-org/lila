@@ -140,7 +140,7 @@ final class Main(
       ctx.body.body.file("image") match
         case None => JsonBadRequest("Image content only")
         case Some(image) =>
-          val meta = lila.memo.PicfitApi.uploadForm.bindFromRequest().value
+          val meta = lila.memo.PicfitApi.form.upload.bindFromRequest().value
           val moreRel = s"$rel:${scalalib.ThreadLocalRandom.nextString(12)}"
           for
             image <- env.memo.picfitApi.uploadFile(moreRel, image, me, meta)
