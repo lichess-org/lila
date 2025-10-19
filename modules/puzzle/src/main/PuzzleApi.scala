@@ -140,6 +140,8 @@ final class PuzzleApi(
       import PuzzleTheme.VoteError.*
       PuzzleTheme
         .findDynamic(themeStr)
+        .orElse:
+          me.is(UserId.lichess).so(PuzzleTheme.find(themeStr))
         .raiseIfNone(Fail(s"Unknown theme $themeStr"))
         .flatMap: theme =>
           if me.is(UserId.lichess) then lichessVote(id, theme.key, vote)
