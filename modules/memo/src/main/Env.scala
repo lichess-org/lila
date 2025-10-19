@@ -7,6 +7,7 @@ import lila.common.autoconfig.{ *, given }
 import lila.common.config.given
 import lila.core.config.*
 import lila.core.id.ImageId
+import lila.core.data.Url
 
 final class MemoConfig(
     @ConfigName("collection.cache") val cacheColl: CollName,
@@ -58,7 +59,7 @@ final class Env(
 
   private val cloudflareApi = wire[CloudflareApi]
 
-  private val onPicfitUrl: (ImageId, String) => Unit = wire[PicfitApi.OnNewUrl].apply
+  private val onPicfitUrl: (ImageId, Url) => Unit = wire[PicfitApi.OnNewUrl].apply
 
   val picfitUrl = wire[PicfitUrl]
 

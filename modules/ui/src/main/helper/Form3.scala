@@ -263,7 +263,7 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
           st.select(st.id := id(field), name := field.name, cls := "form-control")(
             current.map(f => option(value := f, selected := ""))
           ),
-          img(src := current.fold("")(formHelper.flairSrc(_)))
+          img(src := current.fold(Url(""))(formHelper.flairSrc(_)))
         ),
         div(
           cls := "flair-picker none",

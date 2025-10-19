@@ -5,7 +5,7 @@ import scalalib.paginator.Paginator
 import lila.ui.*
 import lila.memo.{ PicfitImage, PicfitUrl }
 
-import ScalatagsTemplate.*
+import ScalatagsTemplate.{ *, given }
 
 final class ImageQueueUi(helpers: Helpers, picfitUrl: PicfitUrl):
   import helpers.*
@@ -19,10 +19,10 @@ final class ImageQueueUi(helpers: Helpers, picfitUrl: PicfitUrl):
           ),
           image.automod.flatMap(_.flagged),
           span(
-            postForm(action := routes.Mod.imageAccept(image.id, true).url)(
+            postForm(action := routes.Mod.imageAccept(image.id, true))(
               button(cls := "button button-empty")("Pass")
             ),
-            postForm(action := routes.Mod.imageAccept(image.id, false).url)(
+            postForm(action := routes.Mod.imageAccept(image.id, false))(
               button(cls := "button button-empty button-red")("Purge")
             )
           )

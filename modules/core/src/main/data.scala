@@ -35,6 +35,9 @@ object data:
   opaque type SafeJsonStr = String
   object SafeJsonStr extends OpaqueString[SafeJsonStr]
 
+  opaque type Url = String
+  object Url extends OpaqueString[Url]
+
   opaque type Template = String
   object Template extends OpaqueString[Template]
 

@@ -2,14 +2,14 @@ package lila.memo
 
 import lila.core.id.ImageId
 
-final class PicfitUrl(config: PicfitConfig, onNewUrl: (ImageId, String) => Unit)(using Executor):
+final class PicfitUrl(config: PicfitConfig, onNewUrl: (ImageId, Url) => Unit)(using Executor):
 
   // This operation will able you to resize the image to the specified width and height.
   // Preserves the aspect ratio
   def resize(
       id: ImageId,
       size: Either[Int, Int] // either the width or the height! the other one will be preserved
-  ): String =
+  ): Url =
     display(id, "resize"):
       Dimensions(~size.left.toOption, ~size.toOption)
 
@@ -20,11 +20,11 @@ final class PicfitUrl(config: PicfitConfig, onNewUrl: (ImageId, String) => Unit)
   // Thumbnail scales the image up or down using the specified resample filter,
   // crops it to the specified width and height and returns the transformed image.
   // Preserves the aspect ratio
-  def thumbnail(id: ImageId): Dimensions => String = display(id, "thumbnail")
+  def thumbnail(id: ImageId): Dimensions => Url = display(id, "thumbnail")
 
-  def raw(id: ImageId): String =
+  def raw(id: ImageId): Url =
     val queryString = s"op=noop&path=$id"
-    val url = s"${config.endpointGet}/display?${signQueryString(queryString)}"
+    val url = Url(s"${config.endpointGet}/display?${signQueryString(queryString)}")
     onNewUrl(id, url)
     url
 
@@ -32,7 +32,7 @@ final class PicfitUrl(config: PicfitConfig, onNewUrl: (ImageId, String) => Unit)
     // parameters must be given in alphabetical order for the signature to work (!)
     val queryString =
       s"fmt=${if id.value.endsWith(".png") then "png" else "webp"}&h=${dim.height}&op=$operation&path=$id&w=${dim.width}"
-    val url = s"${config.endpointGet}/display?${signQueryString(queryString)}"
+    val url = Url(s"${config.endpointGet}/display?${signQueryString(queryString)}")
     onNewUrl(id, url)
     url
 

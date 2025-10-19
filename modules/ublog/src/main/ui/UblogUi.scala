@@ -21,7 +21,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.memo.Picfi
       alt := post.image.flatMap(_.alt)
     )(src := thumbnailUrl(post, size))
 
-  def thumbnailUrl(post: UblogPost.BasePost, size: UblogPost.thumbnail.SizeSelector) =
+  def thumbnailUrl(post: UblogPost.BasePost, size: UblogPost.thumbnail.SizeSelector): Url =
     post.image match
       case Some(image) => UblogPost.thumbnail(picfitUrl, image.id, size)
       case _ => assetUrl("images/user-blog-default.png")

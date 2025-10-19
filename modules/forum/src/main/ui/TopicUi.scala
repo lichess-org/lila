@@ -102,7 +102,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
       .js(Esm("bits.forum") ++ Esm("bits.expandText") ++ formWithCaptcha.isDefined.so(captchaEsm))
       .graph(
         title = topic.name,
-        url = s"$netBaseUrl${routes.ForumTopic.show(categ.id, topic.slug, posts.currentPage).url}",
+        url = routeUrl(routes.ForumTopic.show(categ.id, topic.slug, posts.currentPage)),
         description = shorten(posts.currentPageResults.headOption.so(_.post.text), 152)
       ):
         main(cls := "forum forum-topic page-small box box-pad")(

@@ -128,7 +128,7 @@ final class CoachUi(helpers: Helpers)(
         OpenGraph(
           title = title,
           description = shorten(~(c.coach.profile.headline), 152),
-          url = s"$netBaseUrl${routes.Coach.show(c.user.username)}",
+          url = routeUrl(routes.Coach.show(c.user.username)),
           `type` = "profile",
           image = c.coach.picture.isDefined.option(thumbnailUrl(c.coach))
         )

@@ -28,7 +28,7 @@ object show:
       .TeamPage(t.name)
       .graph(
         title = s"${t.name} team",
-        url = s"$netBaseUrl${routes.Team.show(t.id).url}",
+        url = routeUrl(routes.Team.show(t.id)),
         description = t.intro.so { shorten(_, 152) }
       )
       .js(

@@ -9,6 +9,7 @@ import scala.util.matching.Regex.quote
 
 import lila.common.autoconfig.AutoConfig
 import lila.common.config.given
+import lila.common.Json.given
 import lila.core.config.Secret
 import lila.core.data.Text
 import lila.core.id.ImageId
