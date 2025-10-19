@@ -3,11 +3,11 @@ package lila.mod.ui
 import scalalib.paginator.Paginator
 
 import lila.ui.*
-import lila.memo.{ PicfitImage, PicfitApi }
+import lila.memo.{ PicfitImage, PicfitUrl }
 
 import ScalatagsTemplate.*
 
-final class ImageQueueUi(helpers: Helpers, picfitApi: PicfitApi):
+final class ImageQueueUi(helpers: Helpers, picfitUrl: PicfitUrl):
   import helpers.*
 
   def show(flagged: Paginator[PicfitImage]) =
@@ -15,7 +15,7 @@ final class ImageQueueUi(helpers: Helpers, picfitApi: PicfitApi):
       flagged.currentPageResults.map: image =>
         div(
           a(image.context.map(href := _))(
-            img(src := picfitApi.rawUrl(image.id))
+            img(src := picfitUrl.raw(image.id))
           ),
           image.automod.flatMap(_.flagged),
           span(

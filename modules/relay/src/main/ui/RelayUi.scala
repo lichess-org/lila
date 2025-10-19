@@ -12,7 +12,7 @@ import lila.core.socket.SocketVersion
 import ScalatagsTemplate.{ *, given }
 
 final class RelayUi(helpers: Helpers)(
-    picfitApi: lila.memo.PicfitApi,
+    picfitUrl: lila.memo.PicfitUrl,
     socketUrl: StudyId => String,
     explorerAndCevalConfig: Context ?=> JsObject
 ):
@@ -96,7 +96,7 @@ final class RelayUi(helpers: Helpers)(
         )
     def fallback = iconTag(Icon.RadioTower)(cls := "relay-image--fallback")
     def url(id: ImageId, size: RelayTour.thumbnail.SizeSelector) =
-      RelayTour.thumbnail(picfitApi, id, size)
+      RelayTour.thumbnail(picfitUrl, id, size)
 
   def spotlight(trs: List[RelayCard])(using ctx: Context): List[Tag] =
     trs

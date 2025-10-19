@@ -5,7 +5,7 @@ import io.mola.galimatias.URL
 import java.time.ZoneId
 
 import scalalib.model.Language
-import lila.memo.{ Dimensions, PicfitApi }
+import lila.memo.{ Dimensions, PicfitUrl }
 import lila.core.id.ImageId
 import lila.core.fide.FideTC
 import lila.core.study.Visibility
@@ -150,7 +150,7 @@ object RelayTour:
       case Small16x9 extends Size(400, 16.0f / 9)
     type SizeSelector = thumbnail.type => Size
 
-    def apply(picfitApi: PicfitApi, image: ImageId, size: SizeSelector) =
-      picfitApi.thumbnailUrl(image)(size(thumbnail).dimensions)
+    def apply(picfitUrl: PicfitUrl, image: ImageId, size: SizeSelector) =
+      picfitUrl.thumbnail(image)(size(thumbnail).dimensions)
 
   def makeId = RelayTourId(scalalib.ThreadLocalRandom.nextString(8))

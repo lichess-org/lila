@@ -109,5 +109,5 @@ object UblogPost:
       case Small extends Size(400)
     type SizeSelector = thumbnail.type => Size
 
-    def apply(picfitApi: lila.memo.PicfitApi, image: ImageId, size: SizeSelector): String =
-      picfitApi.thumbnailUrl(image)(size(thumbnail).dimensions)
+    def apply(picfitUrl: lila.memo.PicfitUrl, image: ImageId, size: SizeSelector): String =
+      picfitUrl.thumbnail(image)(size(thumbnail).dimensions)

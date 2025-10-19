@@ -26,7 +26,7 @@ final class Automod(
 
   private val imageIdRe =
     raw"""(?i)!\[(?:[^\n\]]*+)\]\(${quote(
-        picfitApi.origin
+        picfitApi.url.origin
       )}[^)\s]+[?&]path=([a-z]\w+:[a-z0-9]{12}:[a-z0-9]{8}\.\w{3,4})[^)]*\)""".r
 
   val imagePromptSetting = settingStore[Text](
@@ -100,7 +100,7 @@ final class Automod(
 
   private def imageFlagReason(id: ImageId, dim: Option[Dimensions]): Fu[Option[String]] =
     (config.apiKey.value.nonEmpty && imagePromptSetting.get().value.nonEmpty).so:
-      val imageUrl = picfitApi.automodUrl(id, dim)
+      val imageUrl = picfitApi.url.automod(id, dim)
       val body = Json
         .obj(
           "model" -> imageModelSetting.get(),

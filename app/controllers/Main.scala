@@ -147,8 +147,8 @@ final class Main(
             maxWidth = lila.ui.bits.imageDesignWidth(rel)
             url = meta match
               case Some(info) if maxWidth.exists(dw => info.dim.width > dw) =>
-                maxWidth.map(dw => env.memo.picfitApi.resizeUrl(image.id, Left(dw)))
-              case _ => env.memo.picfitApi.rawUrl(image.id).some
+                maxWidth.map(dw => env.memo.picfitUrl.resize(image.id, Left(dw)))
+              case _ => env.memo.picfitUrl.raw(image.id).some
           yield JsonOk(Json.obj("imageUrl" -> url))
   }
 
@@ -157,8 +157,8 @@ final class Main(
     else
       JsonOk(
         Json.obj(
-          "imageUrl" -> env.memo.picfitApi
-            .resizeUrl(id, Left(width.min(lila.ui.bits.imageDesignWidth(id.value).getOrElse(1920))))
+          "imageUrl" -> env.memo.picfitUrl
+            .resize(id, Left(width.min(lila.ui.bits.imageDesignWidth(id.value).getOrElse(1920))))
         )
       )
   }

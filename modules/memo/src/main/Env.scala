@@ -57,6 +57,8 @@ final class Env(
 
   private val cloudflareApi = wire[CloudflareApi]
 
+  val picfitUrl = wire[PicfitUrl]
+
   val picfitApi = wire[PicfitApi]
 
   val markdown = wire[MarkdownCache]

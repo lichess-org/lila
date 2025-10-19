@@ -9,7 +9,7 @@ import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
 
-final class TitleUi(helpers: Helpers)(picfitApi: lila.memo.PicfitApi):
+final class TitleUi(helpers: Helpers)(picfitUrl: lila.memo.PicfitUrl):
   import helpers.{ *, given }
 
   def index(page: Page, intro: Frag) =
@@ -191,5 +191,5 @@ Today's date is [current date]""")
       image.fold(fallback): id =>
         img(cls := "title-image", src := url(id, height))
     def fallback = iconTag(Icon.UploadCloud)(cls := "title-image--fallback")
-    def url(id: ImageId, height: Int) = picfitApi.resizeUrl(id, Right(height))
-    def raw(id: ImageId) = picfitApi.rawUrl(id)
+    def url(id: ImageId, height: Int) = picfitUrl.resize(id, Right(height))
+    def raw(id: ImageId) = picfitUrl.raw(id)

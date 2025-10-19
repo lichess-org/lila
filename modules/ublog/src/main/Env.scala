@@ -20,6 +20,7 @@ final class Env(
     userRepo: lila.core.user.UserRepo,
     userApi: lila.core.user.UserApi,
     picfitApi: lila.memo.PicfitApi,
+    picfitUrl: lila.memo.PicfitUrl,
     ircApi: lila.core.irc.IrcApi,
     relationApi: lila.core.relation.RelationApi,
     shutupApi: lila.core.shutup.ShutupApi,

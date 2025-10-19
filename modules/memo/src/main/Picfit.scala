@@ -47,6 +47,7 @@ case class ImageAutomodRequest(id: ImageId, dim: Dimensions)
 
 final class PicfitApi(
     coll: Coll,
+    val url: PicfitUrl,
     ws: StandaloneWSClient,
     config: PicfitConfig,
     cloudflareApi: CloudflareApi
@@ -56,10 +57,6 @@ final class PicfitApi(
   private val uploadMaxBytes = uploadMaxMb * 1024 * 1024
 
   val idSep = ':'
-
-  val origin =
-    val pathBegin = config.endpointGet.indexOf('/', 8)
-    if pathBegin == -1 then config.endpointGet else config.endpointGet.slice(0, pathBegin)
 
   Bus.sub[lila.core.user.UserDelete]: del =>
     for
@@ -114,7 +111,7 @@ final class PicfitApi(
 
   def byIds(ids: Iterable[ImageId]): Fu[Seq[PicfitImage]] = coll.byIds(ids)
 
-  def imageFlagAdapter = new AdapterLike[PicfitImage]:
+  def imageFlagAdapter: AdapterLike[PicfitImage] = new:
     lazy val flagCount = countFlagged
     def nbResults: Fu[Int] = flagCount
 
@@ -135,35 +132,11 @@ final class PicfitApi(
 
   def countFlagged = coll.countSel($doc("automod.flagged" -> $exists(true)))
 
-  // This operation will able you to resize the image to the specified width and height.
-  // Preserves the aspect ratio
-  def resizeUrl(
-      id: ImageId,
-      size: Either[Int, Int] // either the width or the height! the other one will be preserved
-  ): String =
-    displayUrl(id, "resize"):
-      Dimensions(~size.left.toOption, ~size.toOption)
-
-  def automodUrl(id: ImageId, dim: Option[Dimensions]) =
-    displayUrl(id, "resize"):
-      if dim.exists(_.vertical) then Dimensions.defaultHeight else Dimensions.defaultWidth
-
-  // Thumbnail scales the image up or down using the specified resample filter,
-  // crops it to the specified width and height and returns the transformed image.
-  // Preserves the aspect ratio
-  def thumbnailUrl(id: ImageId): Dimensions => String = displayUrl(id, "thumbnail")
-
-  def rawUrl(id: ImageId): String =
-    val queryString = s"op=noop&path=$id"
-    val full = s"${config.endpointGet}/display?${signQueryString(queryString)}"
-    recordUrl(id, full)
-    full
-
   private def uploadSource(
       rel: String,
       part: SourcePart,
       userId: UserId,
-      meta: Option[form.UploadData] // #TODO make non-optional
+      meta: Option[form.UploadData]
   ): Fu[PicfitImage] =
     if part.fileSize > uploadMaxBytes
     then fufail(s"File size must not exceed ${uploadMaxMb}MB.")
@@ -191,28 +164,6 @@ final class PicfitApi(
               _ <- deleteByRel(image.rel)
               _ <- coll.insert.one(image)
             yield image
-
-  private def displayUrl(id: ImageId, operation: "resize" | "thumbnail")(dim: Dimensions) =
-    // parameters must be given in alphabetical order for the signature to work (!)
-    val queryString =
-      s"fmt=${if id.value.endsWith(".png") then "png" else "webp"}&h=${dim.height}&op=$operation&path=$id&w=${dim.width}"
-    val full = s"${config.endpointGet}/display?${signQueryString(queryString)}"
-    recordUrl(id, full)
-    full
-
-  private object recordUrl:
-    private val once = scalalib.cache.OnceEvery.hashCode[(ImageId, String)](1.day)
-    def apply(id: ImageId, u: String): Unit =
-      if once(id, u) then coll.updateUnchecked($id(id), $addToSet("urls" -> u))
-
-  private object signQueryString:
-    private val signer = com.roundeights.hasher.Algo.hmac(config.secretKey.value)
-    private val cache: com.github.blemale.scaffeine.LoadingCache[String, String] =
-      CacheApi.scaffeineNoScheduler
-        .expireAfterWrite(10.minutes)
-        .build { qs => signer.sha1(qs.replace(":", "%3A")).hex }
-
-    def apply(qs: String) = s"$qs&sig=${cache.get(qs)}"
 
   private object picfitServer:
 
