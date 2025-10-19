@@ -23,7 +23,6 @@
   <string name="moveToPieceByType">Przejście do pola używając nazw bierek. Np.: podwójne k przenosi do następnego pola ze skoczkiem. Użyj wielkich liter, aby przejść do poprzedniego pola ze skoczkiem.</string>
   <string name="moveToRank">Wykonaj posunięcie do rzędu od 1 do 8.</string>
   <string name="moveToFile">Wykonaj posunięcie do kolumny ad a do h.</string>
-  <string name="announcePieceLocations" comment="This is an instruction for how blind users can use the command form.&#10;&#10;Here, they can type in &quot;p N&quot;, &quot;p k&quot;, or &quot;p A&quot; for the respective commands. Capital letters are for white pieces while lowercase letters are for black pieces.&#10;&#10;Please write out &quot;capital&quot; or &quot;lowercase&quot; to distinguish it for blind users.">Announce locations of pieces. Example: p capital N for white knights, p lowercase k for black king, p capital A for all white pieces.</string>
   <string name="movePiece">Aby przesunąć bierkę, użyj standardowej notacji algebraicznej.</string>
   <string name="promotion" comment="This is meant to be read verbally by a screen reader. Please do NOT use the symbol &quot;=&quot; when translating &quot;equals&quot;. Write it as a full word.">Aby promować piona do innej figury niż hetman, użyj słowa equals. Na przykład a-8-equals-N promuje piona do skoczka.</string>
   <string name="king">król</string>
