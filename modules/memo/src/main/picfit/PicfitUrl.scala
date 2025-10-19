@@ -1,9 +1,8 @@
 package lila.memo
 
-import lila.db.dsl.{ *, given }
 import lila.core.id.ImageId
 
-final class PicfitUrl(config: PicfitConfig, coll: Coll)(using Executor):
+final class PicfitUrl(config: PicfitConfig, onNewUrl: (ImageId, String) => Unit)(using Executor):
 
   // This operation will able you to resize the image to the specified width and height.
   // Preserves the aspect ratio
@@ -25,22 +24,17 @@ final class PicfitUrl(config: PicfitConfig, coll: Coll)(using Executor):
 
   def raw(id: ImageId): String =
     val queryString = s"op=noop&path=$id"
-    val full = s"${config.endpointGet}/display?${signQueryString(queryString)}"
-    recordUrl(id, full)
-    full
+    val url = s"${config.endpointGet}/display?${signQueryString(queryString)}"
+    onNewUrl(id, url)
+    url
 
   private def display(id: ImageId, operation: "resize" | "thumbnail")(dim: Dimensions) =
     // parameters must be given in alphabetical order for the signature to work (!)
     val queryString =
       s"fmt=${if id.value.endsWith(".png") then "png" else "webp"}&h=${dim.height}&op=$operation&path=$id&w=${dim.width}"
-    val full = s"${config.endpointGet}/display?${signQueryString(queryString)}"
-    recordUrl(id, full)
-    full
-
-  private object recordUrl:
-    private val once = scalalib.cache.OnceEvery.hashCode[(ImageId, String)](1.day)
-    def apply(id: ImageId, u: String): Unit =
-      if once(id, u) then coll.updateUnchecked($id(id), $addToSet("urls" -> u))
+    val url = s"${config.endpointGet}/display?${signQueryString(queryString)}"
+    onNewUrl(id, url)
+    url
 
   private object signQueryString:
     private val signer = com.roundeights.hasher.Algo.hmac(config.secretKey.value)

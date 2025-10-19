@@ -163,6 +163,13 @@ final class PicfitApi(
 
 object PicfitApi:
 
+  private[memo] final class OnNewUrl(coll: Coll)(using Executor):
+
+    private val once = scalalib.cache.OnceEvery.hashCode[(ImageId, String)](1.day)
+
+    def apply(id: ImageId, u: String): Unit =
+      if once(id, u) then coll.updateUnchecked($id(id), $addToSet("urls" -> u))
+
   val uploadMaxMb = 6
 
   type FilePart = MultipartFormData.FilePart[play.api.libs.Files.TemporaryFile]

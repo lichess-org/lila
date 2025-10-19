@@ -6,6 +6,7 @@ import play.api.{ ConfigLoader, Configuration }
 import lila.common.autoconfig.{ *, given }
 import lila.common.config.given
 import lila.core.config.*
+import lila.core.id.ImageId
 
 final class MemoConfig(
     @ConfigName("collection.cache") val cacheColl: CollName,
@@ -56,6 +57,8 @@ final class Env(
   val mongoRateLimitApi = wire[MongoRateLimitApi]
 
   private val cloudflareApi = wire[CloudflareApi]
+
+  private val onPicfitUrl: (ImageId, String) => Unit = wire[PicfitApi.OnNewUrl].apply
 
   val picfitUrl = wire[PicfitUrl]
 
