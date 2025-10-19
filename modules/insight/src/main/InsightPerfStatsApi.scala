@@ -74,10 +74,11 @@ final class InsightPerfStatsApi(
           t <- doc.getAsOpt[Centis]("t")
           ids <- doc.getAsOpt[List[String]]("ids")
           gameIds = ids.map(GameId.take)
-          interval = for
-            start <- doc.getAsOpt[Instant]("from")
-            end <- doc.getAsOpt[Instant]("to")
-          yield TimeInterval(start, end)
+          interval =
+            for
+              start <- doc.getAsOpt[Instant]("from")
+              end <- doc.getAsOpt[Instant]("to")
+            yield TimeInterval(start, end)
         yield pt -> InsightPerfStats
           .WithGameIds(
             InsightPerfStats(MeanRating(ra.toInt), ByColor(nw, nb), t.toDuration, interval),

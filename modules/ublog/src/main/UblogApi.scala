@@ -247,13 +247,14 @@ final class UblogApi(
         UnwindField("blog"),
         Project($doc("tier" -> "$blog.tier", "likes" -> $doc("$size" -> "$likers"), "title" -> true))
       )
-    found = for
-      doc <- aggResult
-      id <- doc.getAsOpt[UblogPostId]("_id")
-      likes <- doc.getAsOpt[UblogPost.Likes]("likes")
-      tier <- doc.getAsOpt[Tier]("tier")
-      title <- doc.string("title")
-    yield (id, likes, tier, title)
+    found =
+      for
+        doc <- aggResult
+        id <- doc.getAsOpt[UblogPostId]("_id")
+        likes <- doc.getAsOpt[UblogPost.Likes]("likes")
+        tier <- doc.getAsOpt[Tier]("tier")
+        title <- doc.string("title")
+      yield (id, likes, tier, title)
     likes <- found match
       case None => fuccess(UblogPost.Likes(0))
       case Some(id, likes, tier, title) =>
