@@ -19,7 +19,7 @@ export async function wireMarkdownImgResizers({
   designWidth,
   origin,
 }: ResizeArgs): Promise<void> {
-  const globalImageLinkRe = makePicfitMarkdownRegex(origin);
+  const globalImageLinkRe = markdownPicfitRegex(origin);
   let matching = 0;
 
   for (const img of root.querySelectorAll<HTMLImageElement>('img')) {
@@ -124,7 +124,7 @@ export async function naturalSize(image: Blob): Promise<{ width: number; height:
   }
 }
 
-export function makePicfitMarkdownRegex(origin: string): RegExp {
+export function markdownPicfitRegex(origin: string = ''): RegExp {
   return new RegExp(
     String.raw`!\[([^\n\]]*)\]\((${regexQuote(origin)}[^)\s]+[?&]path=([a-z]\w+:[a-z0-9]{12}:[a-z0-9]{8}\.\w{3,4})[^)]*)\)`,
     'gi',

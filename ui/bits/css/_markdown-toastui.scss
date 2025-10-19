@@ -116,3 +116,10 @@
     }
   }
 }
+.toastui-editor-popup-add-image {
+  padding-top: 20px;
+  &::before {
+    padding-inline: 20px;
+    content: 'Drag an edge to resize your image.';
+  }
+}

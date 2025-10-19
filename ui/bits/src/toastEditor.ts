@@ -144,7 +144,7 @@ function toastImageUploadHook(el: HTMLElement) {
   return async (image: Blob, setUrlCallback: (url: string, name?: string) => void) => {
     try {
       if (el.querySelectorAll('.markdown-img-resizer').length >= Number(el.dataset.imageCountMax)) {
-        throw `You can only upload ${el.dataset.imageCountMax} images per post.`;
+        throw `You can only upload ${el.dataset.imageCountMax} images here.`;
       }
       const name = image instanceof File ? image.name : 'image';
       const { width, height } = await naturalSize(image);

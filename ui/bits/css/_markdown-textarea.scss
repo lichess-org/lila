@@ -85,6 +85,25 @@
     margin: 0 auto;
     height: auto;
   }
+  &:has(.uploading) {
+    .comment-preview {
+      background: $m-bg--alpha-50;
+    }
+    button {
+      pointer-events: none;
+    }
+    .spinner {
+      margin: 24px 0 0;
+    }
+  }
+  .comment-preview .uploading {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 @media (hover: hover) and (pointer: fine) {

@@ -1,8 +1,9 @@
-import { alert } from 'lib/view/dialogs';
-import { wireMarkdownImgResizers, naturalSize, makePicfitMarkdownRegex } from 'lib/view/markdownImgResizer';
+import { alert, info } from 'lib/view/dialogs';
+import { wireMarkdownImgResizers, naturalSize, markdownPicfitRegex } from 'lib/view/markdownImgResizer';
 import { marked } from 'marked';
 import { json as xhrJson } from 'lib/xhr';
 import { frag } from 'lib';
+import { spinnerHtml } from 'lib/view/controls';
 
 site.load.then(() => {
   marked.setOptions({ gfm: true, breaks: true });
@@ -15,8 +16,8 @@ function wireMarkdownTextarea(markdown: HTMLElement) {
   const textarea = markdown.querySelector<HTMLTextAreaElement>('textarea');
   if (!textarea) return;
 
-  const previewTab = markdown.querySelector<HTMLElement>('.preview')!;
-  const writeTab = markdown.querySelector<HTMLElement>('.write')!;
+  const previewTab = markdown.querySelector<HTMLButtonElement>('.preview')!;
+  const writeTab = markdown.querySelector<HTMLButtonElement>('.write')!;
   const uploadBtn = markdown.querySelector<HTMLButtonElement>('.upload-image')!;
   const preview = markdown.querySelector<HTMLElement>('.comment-preview')!;
 
@@ -27,6 +28,10 @@ function wireMarkdownTextarea(markdown: HTMLElement) {
     uploadBtn.classList.add('none');
     writeTab.classList.remove('active');
     previewTab.classList.add('active');
+    if (markdownPicfitRegex().test(textarea.value) && !localStorage.getItem('markdown.rtfm')) {
+      info('Drag a side or bottom edge to resize an image.');
+      localStorage.setItem('markdown.rtfm', '1');
+    }
     wireMarkdownImgResizers({
       root: preview,
       update: {
@@ -75,10 +80,12 @@ function wireMarkdownTextarea(markdown: HTMLElement) {
   const uploadAndInsert = async (image: File) => {
     try {
       const count =
-        textarea.value?.match(makePicfitMarkdownRegex(markdown.dataset.imageDownloadOrigin!))?.length ?? 0;
+        textarea.value?.match(markdownPicfitRegex(markdown.dataset.imageDownloadOrigin))?.length ?? 0;
       if (count >= Number(markdown.dataset.imageCountMax)) {
-        throw `You can only upload ${markdown.dataset.imageCountMax} images per post.`;
+        throw `You can only upload ${markdown.dataset.imageCountMax} images here.`;
       }
+      preview.innerHTML = `<div class="uploading"><span>Uploading image...</span>${spinnerHtml}</div>`;
+      preview.classList.remove('none');
       const { width, height } = await naturalSize(image);
       const body = new FormData();
       body.append('context', markdown.dataset.imageContext ?? location.href);
@@ -97,6 +104,9 @@ function wireMarkdownTextarea(markdown: HTMLElement) {
       textarea.selectionStart = textarea.selectionEnd = textarea.value.length - after.length;
     } catch (e) {
       alert(String(e) || 'Image upload failed.');
+    } finally {
+      preview.classList.add('none');
+      preview.innerHTML = '';
     }
   };
 }
