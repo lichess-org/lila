@@ -69,7 +69,7 @@ final class PicfitApi(
       .void
 
   def setContext(context: String, ids: Seq[ImageId]): Funit =
-    coll.update.one($inIds(ids), $set("meta.context" -> context), multi = true).void
+    coll.update.one($inIds(ids), $set("context" -> context), multi = true).void
 
   def setAutomod(id: ImageId, automod: ImageAutomod): Fu[Option[PicfitImage]] =
     val op = automod.flagged match
