@@ -777,7 +777,7 @@ export default class AnalyseCtrl implements CevalHandler {
 
   startCeval = () => {
     if (!this.ceval.download) this.ceval.stop();
-    if (this.node.threefold || this.outcome() || !this.cevalEnabled()) return;
+    if (this.node.threefold || !this.cevalEnabled() || this.outcome()) return;
     this.ceval.start(this.path, this.nodeList, undefined, this.threatMode());
     this.evalCache.fetch(this.path, this.ceval.search.multiPv);
   };
