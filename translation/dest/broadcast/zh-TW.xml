@@ -5,6 +5,9 @@
   <plurals name="nbBroadcasts">
     <item quantity="other">%s 個直播</item>
   </plurals>
+  <plurals name="nbViewers">
+    <item quantity="other">%s 位觀眾</item>
+  </plurals>
   <string name="liveBroadcasts">錦標賽直播</string>
   <string name="broadcastCalendar">直播時程表</string>
   <string name="newBroadcast">新的現場直播</string>
@@ -75,4 +78,5 @@
   <string name="allBroadcastsByMonth">以月份顯示所有直播</string>
   <string name="backToLiveMove">返回及時走法</string>
   <string name="sinceHideResults">由於您選擇隱藏結果，所有預覽棋盤都是空的，以避免劇透。</string>
+  <string name="liveboard">實時棋局</string>
 </resources>
