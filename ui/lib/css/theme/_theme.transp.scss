@@ -10,7 +10,7 @@ $c-bg-popup: hsla(0, 0%, 0%, 0.6);
 html.transp {
   @include shared-color-defs;
 
-  --c-bg-input: #{$c-bg-low};
+  --c-bg-input: hsla(0, 0%, 0%, 0.7);
   --c-bg-variation: hsla(0, 0%, 0%, 0.25);
   --c-bg-header-dropdown: hsla(0, 0%, 0%, 0.75);
 
