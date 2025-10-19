@@ -603,7 +603,7 @@ final class Mod(
   def passImage(id: ImageId) = Secure(_.ModerateForum) { _ ?=> me ?=>
     for
       picOpt <- env.memo.picfitApi.setAutomod(id, lila.memo.ImageAutomod(none))
-      _ = picOpt.map(env.mod.logApi.moderateImage(_, "pass"))
+      _ <- picOpt.so(env.mod.logApi.moderateImage(_, "pass"))
     yield Redirect(routes.Mod.imageQueue())
   }
 
