@@ -126,5 +126,14 @@ $col2-panel-height: 240px;
     rgba(255, 255, 255, 0) 100%
   );
   overflow: hidden;
+  position: relative;
   cursor: pointer;
+}
+
+.totalGameTime {
+  position: absolute;
+  bottom: 0;
+  right: 1.5em;
+  pointer-events: none;
+  font-family: Roboto, sans-serif;
 }

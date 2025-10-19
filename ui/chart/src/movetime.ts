@@ -206,6 +206,23 @@ export default async function (
       },
     },
   };
+
+  const chart = $(el);
+  let label = chart.next('.totalGameTime');
+  if (!label.length) {
+    label = $('<div class="totalGameTime">').attr('title', 'duration').insertAfter(chart);
+  }
+  const duration = Math.round(moveCentis.reduce((s, v) => s + v, 0) / 100);
+  const h = Math.floor(duration / 3600);
+  const m = Math.floor((duration % 3600) / 60);
+  const s = duration % 60;
+  const arr = [];
+  if (h) arr.push(h.toString().padStart(2, '0'));
+  arr.push(m.toString().padStart(2, '0'));
+  arr.push(s.toString().padStart(2, '0'));
+  const durationText = arr.join(':');
+  label.text(i18n.site.duration + ' ' + durationText);
+
   const movetimeChart = new Chart(el, config) as PlyChart;
   movetimeChart.selectPly = selectPly.bind(movetimeChart);
   pubsub.on('ply', movetimeChart.selectPly);
