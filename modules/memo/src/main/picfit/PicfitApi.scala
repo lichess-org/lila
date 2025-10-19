@@ -5,7 +5,6 @@ import akka.util.ByteString
 import play.api.libs.ws.DefaultBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 import play.api.mvc.MultipartFormData
-import reactivemongo.api.bson.Macros.Annotations.Key
 import reactivemongo.api.bson.{ BSONDocumentHandler, Macros }
 import scalalib.ThreadLocalRandom
 import scalalib.paginator.AdapterLike
@@ -13,37 +12,6 @@ import scalalib.paginator.AdapterLike
 import lila.common.Bus
 import lila.core.id.ImageId
 import lila.db.dsl.{ *, given }
-
-case class PicfitImage(
-    @Key("_id") id: ImageId,
-    user: UserId,
-    // reverse reference like blog:id, streamer:id, coach:id, ...
-    // unique: a new image will delete the previous ones with same rel
-    rel: String,
-    name: String,
-    size: Int, // in bytes
-    createdAt: Instant,
-    dimensions: Option[Dimensions],
-    context: Option[String] = none,
-    automod: Option[ImageAutomod] = none,
-    urls: List[String] = Nil
-)
-
-case class Dimensions(width: Int, height: Int):
-  def vertical = height > width
-object Dimensions:
-  def square(pixels: Int) = Dimensions(pixels, pixels)
-  // 560x560 containment consumes the minimum 1601 tokens according to the formula here:
-  // https://docs.together.ai/docs/vision-overview#pricing
-  val defaultPixels = 560
-  val default = square(defaultPixels)
-  val defaultWidth = Dimensions(defaultPixels, 0)
-  val defaultHeight = Dimensions(0, defaultPixels)
-
-// presence of the ImageAutomod subdoc indicates an image has been scanned, regardless of flagged
-case class ImageAutomod(flagged: Option[String] = none)
-
-case class ImageAutomodRequest(id: ImageId, dim: Dimensions)
 
 final class PicfitApi(
     coll: Coll,
