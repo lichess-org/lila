@@ -600,16 +600,12 @@ final class Mod(
     yield Ok(page)
   }
 
-  def passImage(id: ImageId) = Secure(_.ModerateForum) { _ ?=> me ?=>
+  def imageAccept(id: ImageId, v: Boolean) = Secure(_.ModerateForum) { _ ?=> me ?=>
     for
-      picOpt <- env.memo.picfitApi.setAutomod(id, lila.memo.ImageAutomod(none))
-      _ <- picOpt.so(env.mod.logApi.moderateImage(_, "pass"))
-    yield Redirect(routes.Mod.imageQueue())
-  }
-
-  def purgeImage(id: ImageId) = Secure(_.ModerateForum) { _ ?=> me ?=>
-    for
-      picOpt <- env.memo.picfitApi.deleteById(id)
-      _ = picOpt.map(env.mod.logApi.moderateImage(_, "purge"))
+      picOpt <-
+        if v
+        then env.memo.picfitApi.setAutomod(id, lila.memo.ImageAutomod(none))
+        else env.memo.picfitApi.deleteById(id)
+      _ <- picOpt.so(env.mod.logApi.moderateImage(_, if v then "pass" else "purge"))
     yield Redirect(routes.Mod.imageQueue())
   }

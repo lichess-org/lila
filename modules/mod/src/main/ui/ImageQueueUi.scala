@@ -19,10 +19,10 @@ final class ImageQueueUi(helpers: Helpers, picfitApi: PicfitApi):
           ),
           image.automod.flatMap(_.flagged),
           span(
-            postForm(action := routes.Mod.passImage(image.id).url)(
+            postForm(action := routes.Mod.imageAccept(image.id, true).url)(
               button(cls := "button button-empty")("Pass")
             ),
-            postForm(action := routes.Mod.purgeImage(image.id).url)(
+            postForm(action := routes.Mod.imageAccept(image.id, false).url)(
               button(cls := "button button-empty button-red")("Purge")
             )
           )

@@ -633,8 +633,7 @@ POST  /mod/presets/:group              controllers.Mod.presetsUpdate(group)
 GET   /api/stream/mod                  controllers.Mod.eventStream
 GET   /api/stream/mod-marked-since     controllers.Mod.markedUsersStream
 GET   /mod/image/queue                 controllers.Mod.imageQueue(page: Int ?= 1)
-POST  /mod/image/pass/:id              controllers.Mod.passImage(id: ImageId)
-POST  /mod/image/purge/:id             controllers.Mod.purgeImage(id: ImageId)
+POST  /mod/image/accept/:id            controllers.Mod.imageAccept(id: ImageId, v: Boolean)
 
 # Irwin
 GET   /irwin                           controllers.Irwin.dashboard
