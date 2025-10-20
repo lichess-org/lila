@@ -2895,7 +2895,7 @@ interface I18n {
     analysis: string;
     /** Analysis options */
     analysisOptions: string;
-    /** Press shift+click or right-click to draw circles and arrows on the board. */
+    /** Press right-click (or shift+click) to draw circles and arrows on the board. For other colours, combine the following with right-click: */
     analysisShapesHowTo: string;
     /** and save %s premove lines */
     andSaveNbPremoveLines: I18nPlural;
@@ -3917,6 +3917,8 @@ interface I18n {
     practiceWithComputer: string;
     /** Previously on Lichess TV */
     previouslyOnLichessTV: string;
+    /** Ctrl = red, shift = yellow, command or alt = blue. */
+    primaryColorArrowsHowTo: string;
     /** Privacy */
     privacy: string;
     /** Privacy policy */
@@ -5059,6 +5061,8 @@ interface I18n {
     readMoreAboutEmbedding: string;
     /** Recently updated */
     recentlyUpdated: string;
+    /** Relevant */
+    relevant: string;
     /** Right under the board */
     rightUnderTheBoard: string;
     /** Save */

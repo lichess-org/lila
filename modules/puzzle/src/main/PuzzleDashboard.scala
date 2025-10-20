@@ -130,12 +130,13 @@ final class PuzzleDashboardApi(
           globalDoc <- globalDocs.headOption
           global <- readResults(globalDoc)
           themeDocs <- result.getAsOpt[List[Bdoc]]("byTheme")
-          byTheme = for
-            doc <- themeDocs
-            themeStr <- doc.string("_id")
-            theme <- PuzzleTheme.find(themeStr)
-            results <- readResults(doc)
-          yield theme.key -> results
+          byTheme =
+            for
+              doc <- themeDocs
+              themeStr <- doc.string("_id")
+              theme <- PuzzleTheme.find(themeStr)
+              results <- readResults(doc)
+            yield theme.key -> results
         yield PuzzleDashboard(
           global = global,
           byTheme = byTheme.toMap
