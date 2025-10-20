@@ -96,7 +96,7 @@ class SchedulerTest extends munit.FunSuite:
 
   test("2024-09-05 - thursday, summer"):
     // uncomment to print text for updating snapshot.
-    _printSnapshot(fullDaySchedule(LocalDateTime.of(2024, 9, 5, 0, 0)))
+    // _printSnapshot(fullDaySchedule(LocalDateTime.of(2024, 9, 5, 0, 0)))
     assertEquals(
       fullDaySchedule(LocalDateTime.of(2024, 9, 5, 0, 0)).mkString("\n"),
       List(
@@ -523,7 +523,7 @@ class SchedulerTest extends munit.FunSuite:
 
   test("2024-01-03 - wednesday, winter"):
     // uncomment to print text for updating snapshot.
-    _printSnapshot(fullDaySchedule(LocalDateTime.of(2024, 1, 3, 0, 0)))
+    // _printSnapshot(fullDaySchedule(LocalDateTime.of(2024, 1, 3, 0, 0)))
     assertEquals(
       fullDaySchedule(LocalDateTime.of(2024, 1, 3, 0, 0)).mkString("\n"),
       List(
@@ -952,7 +952,7 @@ class SchedulerTest extends munit.FunSuite:
 
   test("end of year -- unfiltered and with conflicts"):
     // uncomment to print text for updating snapshot.
-    _printSnapshot(allSchedulesAt(LocalDateTime.of(2022, 12, 31, 21, 43)))
+    // _printSnapshot(allSchedulesAt(LocalDateTime.of(2022, 12, 31, 21, 43)))
     assertEquals(
       allSchedulesAt(LocalDateTime.of(2022, 12, 31, 21, 43)).mkString("\n"),
       List(
