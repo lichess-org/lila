@@ -2867,6 +2867,8 @@ interface I18n {
     activePlayers: string;
     /** Add current variation */
     addCurrentVariation: string;
+    /** You can make additional colours by combining said controls. */
+    additionalColorArrowsHowTo: string;
     /** Advanced settings */
     advancedSettings: string;
     /** Advantage */
@@ -3917,7 +3919,7 @@ interface I18n {
     practiceWithComputer: string;
     /** Previously on Lichess TV */
     previouslyOnLichessTV: string;
-    /** Ctrl or shift = red, command or alt = blue, fn = yellow. */
+    /** Ctrl = red, shift = yellow, command or alt = blue. */
     primaryColorArrowsHowTo: string;
     /** Privacy */
     privacy: string;
@@ -4075,8 +4077,6 @@ interface I18n {
     search: string;
     /** Search or start new conversation */
     searchOrStartNewDiscussion: string;
-    /** Combine any two primary colours to make a secondary colour. */
-    secondaryColorArrowsHowTo: string;
     /** Security */
     security: string;
     /** See best move */
