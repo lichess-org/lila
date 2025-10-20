@@ -207,6 +207,16 @@ export default async function (
     },
   };
 
+  if (moveCentis) addGameDuration(el, moveCentis);
+
+  const movetimeChart = new Chart(el, config) as PlyChart;
+  movetimeChart.selectPly = selectPly.bind(movetimeChart);
+  pubsub.on('ply', movetimeChart.selectPly);
+  pubsub.emit('ply.trigger');
+  return movetimeChart;
+}
+
+const addGameDuration = (el: HTMLCanvasElement, moveCentis: number[]) => {
   const chart = $(el);
   let label = chart.next('.game-duration');
   if (!label.length) {
@@ -222,13 +232,7 @@ export default async function (
   arr.push(s.toString().padStart(2, '0'));
   const durationText = arr.join(':');
   label.text(i18n.site.duration + ' ' + durationText);
-
-  const movetimeChart = new Chart(el, config) as PlyChart;
-  movetimeChart.selectPly = selectPly.bind(movetimeChart);
-  pubsub.on('ply', movetimeChart.selectPly);
-  pubsub.emit('ply.trigger');
-  return movetimeChart;
-}
+};
 
 const toBlurArray = (player: Player) =>
   player.blurs && player.blurs.bits ? player.blurs.bits.split('') : [];
