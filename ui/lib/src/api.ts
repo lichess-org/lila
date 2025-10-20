@@ -1,4 +1,4 @@
-import { type PubsubCallback, type PubsubEvent, pubsub } from './pubsub';
+import { type PubsubCallback, type PubsubEventKey, pubsub } from './pubsub';
 import { domDialog } from './view/dialog';
 import { alert, confirm, prompt } from './view/dialogs';
 
@@ -40,11 +40,11 @@ export const api: Api = {
     pubsub.emit('content-loaded', root);
   },
   events: {
-    on(name: PubsubEvent, cb: PubsubCallback): void {
+    on(name: PubsubEventKey, cb: PubsubCallback): void {
       if (!publicEvents.includes(name)) throw 'This event is not part of the public API';
       pubsub.on(name, cb);
     },
-    off(name: PubsubEvent, cb: PubsubCallback): void {
+    off(name: PubsubEventKey, cb: PubsubCallback): void {
       pubsub.off(name, cb);
     },
   },
@@ -52,14 +52,14 @@ export const api: Api = {
     subscribeToMoveLatency: () => pubsub.emit('socket.send', 'moveLat', true),
     events: {
       on(key: string, cb: PubsubCallback): void {
-        if (socketInEvents.includes(key)) pubsub.on(`socket.in.${key}` as PubsubEvent, cb);
-        else if (socketEvents.includes(key)) pubsub.on(`socket.${key}` as PubsubEvent, cb);
+        if (socketInEvents.includes(key)) pubsub.on(`socket.in.${key}` as PubsubEventKey, cb);
+        else if (socketEvents.includes(key)) pubsub.on(`socket.${key}` as PubsubEventKey, cb);
         else throw 'This event is not part of the public API';
       },
       off(key: string, cb: PubsubCallback): void {
         const ev = socketInEvents.includes(key)
-          ? (`socket.in.${key}` as PubsubEvent)
-          : (`socket.${key}` as PubsubEvent);
+          ? (`socket.in.${key}` as PubsubEventKey)
+          : (`socket.${key}` as PubsubEventKey);
         pubsub.off(ev, cb);
       },
     },
@@ -69,10 +69,10 @@ export const api: Api = {
     events: {
       on(key: string, cb: PubsubCallback): void {
         if (!friendsEvents.includes(key)) throw 'This event is not part of the public API';
-        pubsub.on(`socket.in.following_${key}` as PubsubEvent, cb);
+        pubsub.on(`socket.in.following_${key}` as PubsubEventKey, cb);
       },
       off(key: string, cb: PubsubCallback): void {
-        pubsub.off(`socket.in.following_${key}` as PubsubEvent, cb);
+        pubsub.off(`socket.in.following_${key}` as PubsubEventKey, cb);
       },
     },
   },

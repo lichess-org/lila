@@ -53,7 +53,7 @@ type PairOf<T> = [T, T];
 type Flair = string;
 type PatronColor = number;
 type Redraw = () => void;
-type RedirectTo = string | { url: string; cookie: Cookie };
+type RedirectTo = string | { id: string; url: string; cookie?: Cookie };
 
 interface LichessMousetrap {
   // file://./../../site/src/mousetrap.ts

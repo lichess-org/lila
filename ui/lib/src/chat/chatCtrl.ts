@@ -15,7 +15,7 @@ import { noteCtrl } from './note';
 import { moderationCtrl } from './moderation';
 import { prop, type Prop } from '../common';
 import { storedStringProp, storedBooleanProp } from '../storage';
-import { pubsub, type PubsubEvent, type PubsubCallback } from '../pubsub';
+import { pubsub, type PubsubEventKey, type PubsubCallback } from '../pubsub';
 import { alert } from '../view/dialogs';
 import { isContained } from '@/algo';
 
@@ -23,7 +23,7 @@ export class ChatCtrl {
   data: ChatData;
   private maxLines = 200;
   private maxLinesDrop = 50; // how many lines to drop at once
-  private subs: [PubsubEvent, PubsubCallback][];
+  private subs: [PubsubEventKey, PubsubCallback][];
   private storedTabKey: Prop<string>;
   private allTabs: Tab[] = [];
 
