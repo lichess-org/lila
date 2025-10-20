@@ -208,9 +208,9 @@ export default async function (
   };
 
   const chart = $(el);
-  let label = chart.next('.totalGameTime');
+  let label = chart.next('.game-duration');
   if (!label.length) {
-    label = $('<div class="totalGameTime">').attr('title', 'duration').insertAfter(chart);
+    label = $('<div class="game-duration">').attr('title', 'duration').insertAfter(chart);
   }
   const duration = Math.round(moveCentis.reduce((s, v) => s + v, 0) / 100);
   const h = Math.floor(duration / 3600);
