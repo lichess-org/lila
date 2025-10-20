@@ -4,6 +4,7 @@
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Кинути виклик другові</string>
   <string name="playAgainstComputer">Зіграти проти комп\'ютера</string>
   <string name="gameMode">Режим гри</string>
+  <string name="createLobbyGame">Створити запит на гру</string>
   <string name="youPlayAs">Ви граєте за</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Щоб запросити когось до гри, дайте це посилання</string>
   <string name="gameOver">Гру завершено</string>
@@ -850,6 +851,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Прокручуйте коліщатко миші над шахівницею для перегляду ходів у грі.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Прокрутіть коліщатком миші по комп\'ютерних варіаціях для їх попереднього перегляду.</string>
   <string name="analysisShapesHowTo">Натисніть shift+ЛКМ або ПКМ, щоби намалювати кола та стрілки на шахівниці.</string>
+  <string name="primaryColorArrowsHowTo" comment="These are keyboard instructions. By pressing &amp; holding Ctrl or Command/Shift/Alt and right clicking, the user can draw shapes in different colours on the chessboard">Ctrl = червоний, Shift = жовтий, command або alt = синій.</string>
   <string name="letOtherPlayersMessageYou">Дозволити іншим гравцям надсилати Вам повідомлення</string>
   <string name="receiveForumNotifications">Отримувати сповіщення при згадці на форумі</string>
   <string name="shareYourInsightsData">Надавати доступ до вашої шахової аналітики</string>
