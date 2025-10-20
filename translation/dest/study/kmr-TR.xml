@@ -31,7 +31,7 @@
   </plurals>
   <string name="inviteToTheStudy">Vexwîne xebatê</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">Ji kerema xwe tenê nasên xwe, û kesên ku dixwazî bi aktîvî tevlî vê xebatê bibin vexwîne.</string>
-  <string name="searchByUsername">Bi navê bikarhêneriyê lê bigere</string>
+  <string name="searchByUsername" comment="Appears when adding members to a Lichess Study as placeholder text in a search box.">Bi navê bikarhêneriyê lê bigere</string>
   <string name="spectator">Temaşevan</string>
   <string name="contributor">Beşdar</string>
   <string name="kick">Derîne</string>

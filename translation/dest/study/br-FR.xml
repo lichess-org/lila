@@ -40,7 +40,7 @@
   </plurals>
   <string name="inviteToTheStudy">Pediñ d\'ar studiadenn</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">Na bedit nemet tud a anavezit hag o deus c\'hoant da gemer perzh da vat en ho studiadenn.</string>
-  <string name="searchByUsername">Klask dre anv implijer</string>
+  <string name="searchByUsername" comment="Appears when adding members to a Lichess Study as placeholder text in a search box.">Klask dre anv implijer</string>
   <string name="spectator">Arvester</string>
   <string name="contributor">Perzhiad</string>
   <string name="kick">Forbannañ</string>

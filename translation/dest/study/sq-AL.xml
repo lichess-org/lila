@@ -178,6 +178,7 @@
   <string name="commentPositionTitle">Komentoni një pozicion</string>
   <string name="commentPositionText" comment="%s is an icon that will added at runtime">Klikoni mbi butonin %s, ose djathtasklikoni te lista e lëvizjeve në të djathtë.&lt;br&gt;Komentet u tregohen të tjerëve dhe ruhen.</string>
   <string name="annotatePositionTitle">Vini shënim për një pozicion</string>
+  <string name="annotatePositionText">Klikoni butonin !? , ose djathtasklikoni mbi listën e lëvizjeve djathtas.&lt;br&gt;Tregohen shenja shënimi dhe ruhen.</string>
   <string name="conclusionTitle">Faleminderit për kohën që harxhoni</string>
   <string name="conclusionText">&lt;a href=\'/study/mine/hot\'&gt;Ushtrimet tuaja të mëparshme&lt;/a&gt; mund t’i gjeni te faqja e profilit tuaj.&lt;br&gt;Ka edhe një &lt;a href=\'//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way\'&gt;postim blogu rreth ushtrimeve&lt;/a&gt;.&lt;br&gt;Përdoruesit e sprovuar mund të duan të shtypin “?”, që të shohin shkurtore tastiere.&lt;br&gt;Bëfshi qejf!</string>
   <string name="createChapterTitle">Le të krijojmë një kapitull ushtrimi</string>

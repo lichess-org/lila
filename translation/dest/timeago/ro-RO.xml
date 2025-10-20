@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="justNow">chiar acum</string>
+  <string name="justNow" comment="This string refers to an event which has not started yet, but will begin in the next few seconds-to-milliseconds, depending on when your browser refreshes. Used in areas with live-refreshing text like this, such as the list of Open Tournaments on the homepage.&#10;&#10;There is a separate string for right after events that have begun, which reads &quot;right now&quot;.">chiar acum</string>
   <plurals name="inNbSeconds">
     <item quantity="one">într-o secundă</item>
     <item quantity="few">în %s secunde</item>
@@ -36,7 +36,7 @@
     <item quantity="few">în %s ani</item>
     <item quantity="other">în %s de ani</item>
   </plurals>
-  <string name="rightNow">chiar acum</string>
+  <string name="rightNow" comment="This string refers to an event that has started in the last few milliseconds-to-seconds, depending on when your browser refreshes. Used in areas with live-refreshing text like this, such as the list of Open Tournaments on the homepage.&#10;&#10;There is a separate string for just before events that have begun, which reads &quot;just now&quot;.">chiar acum</string>
   <plurals name="nbMinutesAgo">
     <item quantity="one">cu un minut în urmă</item>
     <item quantity="few">cu %s minute în urmă</item>

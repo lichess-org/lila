@@ -2,6 +2,7 @@ import { h, type VNode } from 'snabbdom';
 import type SwissCtrl from '../ctrl';
 import type { PodiumPlayer } from '../interfaces';
 import { userLink } from 'lib/view/userLink';
+import { defined } from 'lib';
 
 const podiumStats = (p: PodiumPlayer, ctrl: SwissCtrl): VNode =>
   h('table.stats', [
@@ -14,9 +15,10 @@ const podiumStats = (p: PodiumPlayer, ctrl: SwissCtrl): VNode =>
 
 function podiumPosition(p: PodiumPlayer, pos: string, ctrl: SwissCtrl): VNode | undefined {
   if (!p) return undefined;
+  const patron = defined(p.user.patronColor);
   return h('div.' + pos, { class: { lame: !!p.lame } }, [
     h('div.trophy'),
-    userLink({ ...p.user, line: false }),
+    userLink({ ...p.user, line: patron, online: patron }),
     podiumStats(p, ctrl),
   ]);
 }

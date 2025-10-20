@@ -41,7 +41,7 @@
   </plurals>
   <string name="inviteToTheStudy">Tabhair cuireadh don staidéar</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">Ná tabhair cuireadh ach do dhaoine a bhfuil aithne agat orthu, agus ar mian leo go gníomhach a bheith páirteach sa staidéar seo.</string>
-  <string name="searchByUsername">Cuardaigh de réir ainm úsáideora</string>
+  <string name="searchByUsername" comment="Appears when adding members to a Lichess Study as placeholder text in a search box.">Cuardaigh de réir ainm úsáideora</string>
   <string name="spectator">Breathnóir</string>
   <string name="contributor">Rannpháirtí</string>
   <string name="kick">Ciceáil</string>

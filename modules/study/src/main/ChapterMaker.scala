@@ -143,7 +143,7 @@ final private class ChapterMaker(
           case Orientation.Fixed(color) => color
       ),
       root = root,
-      tags = PgnTags(tags),
+      tags = StudyPgnTags(tags),
       order = order,
       ownerId = userId,
       practice = data.isPractice,

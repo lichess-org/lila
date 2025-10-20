@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="gameSetup">Game setup</string>
-  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Challenge a friend</string>
+  <string name="gameSetup">Oyun ayarları</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Bir arkadaşınız oynayın</string>
+  <string name="playAgainstComputer">Bilgisayara karsı oyna</string>
+  <string name="gameMode">Oyun modü</string>
+  <string name="createLobbyGame" comment="One of three buttons on the home page. Opens the modal to create a game that goes in the lobby.">Oyun lobisi oluştur</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Oyuna davet etmek için, bu linki gönderin</string>
   <string name="gameOver">Oyun bitti</string>
   <string name="waitingForOpponent">Rakip bekleniyor</string>
@@ -1005,4 +1008,8 @@ Başlangıç pozisyonundan oynamak için boş bırakınız.</string>
   <string name="enableBlindMode">Kör modunu aktifleştir</string>
   <string name="disableBlindMode">Kör modunu devre dışı bırak</string>
   <string name="copyToClipboard">Panoya kopyala</string>
+  <string name="online" comment="status of a user">çevrımıcı</string>
+  <string name="offline" comment="status of a user">çevrimdışı</string>
+  <string name="search">Ara</string>
+  <string name="clearSearch">Aramayı temizle</string>
 </resources>

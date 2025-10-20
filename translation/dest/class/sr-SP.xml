@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessClasses">Часови</string>
-  <string name="teachClassesOfChessStudents">Подучавај шах ученицима са Lichess Classes пакетом.</string>
-  <string name="features">Одлике</string>
+  <string name="teachClassesOfChessStudents">Предавај разредима шаховских ученика са Lichess Часови алаткама.</string>
+  <string name="features">Карактеристике</string>
   <string name="quicklyGenerateSafeUsernames">Брзо генериши безбедно корисничко име и шифру за ученике</string>
-  <string name="trackStudentProgress">Прати развој ученика у партијама и проблемима</string>
-  <string name="messageAllStudents">Обавести све ученике о новим садржајима</string>
-  <string name="freeForAllForever">100% бесплатно за све, заувек, без реклама и праћења</string>
-  <string name="applyToBeLichessTeacher">Пријави се да будеш Lichess учитељ</string>
-  <string name="noClassesYet">Још увек нема часова.</string>
-  <string name="teachersX">Учитељи: %s</string>
+  <string name="trackStudentProgress">Прати напредак ученика у партијама и проблемима</string>
+  <string name="messageAllStudents">Обавести све ученике о новом наставном садржају</string>
+  <string name="freeForAllForever">100% бесплатно за све, заувек, без реклама или праћења</string>
+  <string name="applyToBeLichessTeacher">Пријави се да будеш Lichess Наставник</string>
+  <string name="noClassesYet">Још нема часова.</string>
+  <string name="teachersX">Наставници: %s</string>
   <string name="newClass">Нови час</string>
   <string name="closeClass">Затвори час</string>
   <string name="removedByX">Уклоњени од стране %s</string>
   <string name="reopen">Поново отвори</string>
   <string name="removeStudent">Уклони ученика</string>
-  <string name="removedStudents">Уклоњен</string>
+  <string name="removedStudents">Уклоњени</string>
   <string name="inviteTheStudentBack">Позови ученика назад</string>
   <string name="sendAMessage">Пошаљи поруку свим ученицима.</string>
   <string name="aLinkToTheClassWillBeAdded">Линк за час ће бити аутоматски додат на крају поруке, нема потребе да га сами укључите.</string>

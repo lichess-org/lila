@@ -5,7 +5,7 @@
   <string name="byTopic">După subiect</string>
   <string name="byLichess">De Lichess</string>
   <string name="myFriends">Prietenii mei</string>
-  <string name="myLikes">Aprecierile mele</string>
+  <string name="myLikes" comment="A page which lists blog posts that you have pressed ❤️ Like on: https://lichess.org/blog/liked">Aprecierile mele</string>
   <string name="myBlog">Blogul meu</string>
   <string name="likedBlogs">Postări apreciate pe blog</string>
   <plurals name="blogPosts">

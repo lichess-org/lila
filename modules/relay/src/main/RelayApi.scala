@@ -99,13 +99,21 @@ final class RelayApi(
   def withRounds(tour: RelayTour) = roundRepo.byTourOrdered(tour.id).dmap(tour.withRounds)
 
   def denormalizeTour(tourId: RelayTourId): Funit =
-    val unfinished = RelayRoundRepo.selectors.tour(tourId) ++ RelayRoundRepo.selectors.finished(false)
+    val unfinishedSelector = RelayRoundRepo.selectors.tour(tourId) ++ RelayRoundRepo.selectors.finished(false)
     for
-      active <- roundRepo.coll.exists(unfinished)
-      live <- active.so(roundRepo.coll.exists(unfinished ++ $doc("startedAt".$exists(true))))
+      unfinished <- roundRepo.coll.exists(unfinishedSelector)
       dates <- computeDates(tourId)
+      active = unfinished && dates.flatMap(_.end).forall(_.isAfter(nowInstant.minusDays(1)))
+      live <- active.so(roundRepo.coll.exists(unfinishedSelector ++ $doc("startedAt".$exists(true))))
       _ <- tourRepo.denormalize(tourId, active, live, dates)
     yield ()
+
+  private[relay] def denormalizeOldTours(): Funit =
+    tourRepo.oldActiveCursor
+      .documentSource()
+      .mapAsync(1)(t => denormalizeTour(t.id))
+      .runWith(Sink.ignore)
+      .void
 
   private def computeDates(tourId: RelayTourId): Fu[Option[RelayTour.Dates]] =
     roundRepo.coll

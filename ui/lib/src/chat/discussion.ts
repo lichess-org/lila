@@ -232,7 +232,7 @@ function renderText(t: string, opts?: enhance.EnhanceOpts) {
   return h('t', processedText);
 }
 
-const userThunk = (name: string, title?: string, patronColor?: number, flair?: Flair) =>
+const userThunk = (name: string, title?: string, patronColor?: PatronColor, flair?: Flair) =>
   userLink({ name, title, patronColor, line: !!patronColor, flair, online: !!patronColor });
 
 const actionIcons = (ctrl: ChatCtrl, line: Line): Array<VNode | null> => {

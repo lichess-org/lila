@@ -17,7 +17,7 @@
     "url": "https://github.com/lichess-org/lila/issues"
   },
   "homepage": "https://lichess.org",
-  "packageManager": "pnpm@10.4.1+sha512.c753b6c3ad7afa13af388fa6d808035a008e30ea9993f58c6663e2bc5ff21679aa834db094987129aa4d488b86df57f7b634981b2f827cdcacc698cc0cfb88af",
+  "packageManager": "pnpm@10.18.3+sha512.bbd16e6d7286fd7e01f6b3c0b3c932cda2965c06a908328f74663f10a9aea51f1129eea615134bf992831b009eabe167ecb7008b597f40ff9bc75946aadfb08d",
   "engines": {
     "node": ">=24",
     "pnpm": "10"
@@ -28,8 +28,8 @@
     ]
   },
   "dependencies": {
-    "@lichess-org/chessground": "9.8.1",
-    "@lichess-org/pgn-viewer": "2.4.7",
+    "@lichess-org/chessground": "9.8.3",
+    "@lichess-org/pgn-viewer": "2.5.2",
     "@types/lichess": "workspace:*",
     "@types/web": "^0.0.216",
     "@typescript-eslint/eslint-plugin": "^8.39.1",

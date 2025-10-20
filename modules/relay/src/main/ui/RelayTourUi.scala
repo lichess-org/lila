@@ -17,7 +17,8 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi, card: RelayCardUi, pageMe
 
   def index(
       active: List[RelayCard],
-      past: Seq[WithLastRound]
+      past: Seq[WithLastRound],
+      announcement: Option[Html]
   )(using Context) =
     def nonEmptyTier(selector: RelayTour.Tier.Selector) =
       val tier = RelayTour.Tier(selector)
@@ -27,11 +28,16 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi, card: RelayCardUi, pageMe
           card.render(sel, live = _.display.hasStarted, sel.crowd, alt = sel.alts.headOption))
     Page(trc.liveBroadcasts.txt())
       .css("bits.relay.index")
+      .css(announcement.isDefined.option("bits.page"))
       .hrefLangs(lila.ui.LangPath(routes.RelayTour.index())):
         main(cls := "relay-index page-menu")(
           pageMenu("index"),
           div(cls := "page-menu__content box box-pad")(
             boxTop(h1(trc.liveBroadcasts()), searchForm("")),
+            announcement.map: html =>
+              div(cls := "relay__announcement page"):
+                div(cls := "body expand-text")(html)
+            ,
             Granter.opt(_.StudyAdmin).option(adminIndex(active)),
             nonEmptyTier(_.best),
             nonEmptyTier(_.high),
@@ -122,9 +128,10 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi, card: RelayCardUi, pageMe
       renderPager(pager)(routes.RelayTour.allPrivate)
     )
 
-  def calendar(at: YearMonth, tours: List[WithFirstRound])(using ctx: Context) =
+  def calendar(at: YearMonth, tours: List[WithFirstRound], announcement: Option[Html])(using ctx: Context) =
     Page(s"${trc.broadcastCalendar.txt()} ${showYearMonth(at)}")
-      .css("bits.relay.calendar"):
+      .css("bits.relay.calendar")
+      .css(announcement.isDefined.option("bits.page")):
         def dateForm(id: String) =
           lila.ui.bits.calendarMselect(
             helpers,
@@ -137,6 +144,10 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi, card: RelayCardUi, pageMe
           pageMenu("calendar"),
           div(cls := "page-menu__content box box-pad")(
             boxTop(h1(dataIcon := Icon.RadioTower, cls := "text")(trc.broadcastCalendar()), searchForm("")),
+            announcement.map: html =>
+              div(cls := "relay__announcement page"):
+                div(cls := "body expand-text")(html)
+            ,
             dateForm("top"),
             div(cls := "relay-cards"):
               tours.map(card.renderCalendar)

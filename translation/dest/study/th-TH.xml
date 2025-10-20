@@ -29,7 +29,7 @@
   </plurals>
   <string name="inviteToTheStudy">เชิญเข้าร่วมกรณีศึกษา</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">โปรดเชิญเฉพาะคนที่คุณรู้จักและคนที่ต้องการเข้าร่วมการศึกษานี้จริงๆ</string>
-  <string name="searchByUsername">ค้นหาจากชื่อผู้ใช้</string>
+  <string name="searchByUsername" comment="Appears when adding members to a Lichess Study as placeholder text in a search box.">ค้นหาจากชื่อผู้ใช้</string>
   <string name="spectator">ผู้ชม</string>
   <string name="contributor">ผู้ช่วยเอื้อเฟื้อ</string>
   <string name="kick">เตะ</string>

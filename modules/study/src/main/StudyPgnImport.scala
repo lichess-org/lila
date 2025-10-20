@@ -63,7 +63,7 @@ object StudyPgnImport:
         Result(
           root = commented,
           variant = replay.setup.position.variant,
-          tags = PgnTags
+          tags = StudyPgnTags
             .withRelevantTags(parsed.tags, Set(Tag.WhiteClock, Tag.BlackClock)),
           ending = ending
         )

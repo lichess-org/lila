@@ -15,6 +15,10 @@ object PuzzleTheme:
 
   case class WithCount(theme: PuzzleTheme, count: Int)
 
+  enum VoteError:
+    case Fail(msg: String) extends VoteError
+    case Unchanged extends VoteError
+
   val mix = PuzzleTheme(i.mix, i.mixDescription)
   val advancedPawn = PuzzleTheme(i.advancedPawn, i.advancedPawnDescription)
   val advantage = PuzzleTheme(i.advantage, i.advantageDescription)

@@ -57,7 +57,7 @@ final class RelayUi(helpers: Helpers)(
           "relay" -> data.relay,
           "study" -> data.study.add("admin" -> Granter.opt(_.StudyAdmin)),
           "data" -> data.analysis,
-          "tagTypes" -> lila.study.PgnTags.typesToString,
+          "tagTypes" -> lila.study.StudyPgnTags.typesToString,
           "userId" -> ctx.userId,
           "chat" -> chatOption.map(_._1),
           "socketUrl" -> socketUrl(rt.study.id),

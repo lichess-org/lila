@@ -31,7 +31,7 @@
   </plurals>
   <string name="inviteToTheStudy">Bjóða uppí rannsóknina</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">Bjóða vinaliga bert fólki, tú kennir, og sum vilja taka virknan lut í rannsóknini.</string>
-  <string name="searchByUsername">Leita eftir brúkaranavni</string>
+  <string name="searchByUsername" comment="Appears when adding members to a Lichess Study as placeholder text in a search box.">Leita eftir brúkaranavni</string>
   <string name="spectator">Áskoðari</string>
   <string name="contributor">Gevur íkast</string>
   <string name="kick">Koyr úr</string>

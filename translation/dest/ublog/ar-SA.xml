@@ -5,7 +5,7 @@
   <string name="byTopic">حسب الموضوع</string>
   <string name="byLichess">بواسطة ليشيس</string>
   <string name="myFriends">أصدقائي</string>
-  <string name="myLikes">ما أعجبني</string>
+  <string name="myLikes" comment="A page which lists blog posts that you have pressed ❤️ Like on: https://lichess.org/blog/liked">ما أعجبني</string>
   <string name="myBlog">مدونتي</string>
   <string name="likedBlogs">المنشورات التي أحببتها</string>
   <plurals name="blogPosts">

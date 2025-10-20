@@ -61,6 +61,7 @@
   <string name="studyPgn">PGN de la studo</string>
   <string name="chapterPgn">PGN de la ĉapitro</string>
   <string name="copyChapterPgn">Kopii PGN</string>
+  <string name="copyRawChapterPgn">Kopii PNG sen notoj</string>
   <string name="downloadGame">Elŝuti ludon</string>
   <string name="studyUrl">URL de la studo</string>
   <string name="currentChapterUrl">URL de tiu ĉi ĉapitro</string>
@@ -165,4 +166,6 @@
   <string name="youCompletedThisLesson">Gratulon! Vi kompletigis la lecionon.</string>
   <string name="perPage">Po %s en ĉiu paĝo</string>
   <string name="welcomeToLichessStudyTitle">Bonvenu al Lichess Studo!</string>
+  <string name="commentPositionTitle">Komenti pozicion</string>
+  <string name="fromFenStringTitle">El teksto FEN</string>
 </resources>

@@ -84,7 +84,7 @@ final class ModTimelineUi(helpers: Helpers)(
       else short
 
   private def renderPlayBans(e: PlayBans) =
-    frag(pluralize("Playban", e.list.size), ": ", e.list.map(_.mins).toList.mkString(", "), " minutes")
+    frag(pluralize("Playban", e.list.size), ": ", e.list.toList.mkString("; "))
 
   private def renderReportLineFlag(r: ReportLineFlag)(using Translate) = frag(
     r.openId match

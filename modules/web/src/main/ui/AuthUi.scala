@@ -298,7 +298,7 @@ final class AuthUi(helpers: Helpers):
   def pubOrTor =
     Page("Public proxy"):
       main(cls := "page-small box box-pad")(
-        boxTop(h1(cls := "text", dataIcon := "2")("Ooops")),
+        boxTop(h1(cls := "text")("Ooops")),
         p("Sorry, you can't signup to Lichess through Tor or public proxies!"),
         p("You can play, train and use almost all Lichess features as an anonymous user.")
       )
