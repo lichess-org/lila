@@ -162,14 +162,14 @@ export class InlineView {
         ?.map(g => this.glyphs[g.id - 1])
         .filter(Boolean)
         .forEach(cls => (classes[cls] = true));
-
     return hl('move', { attrs: { p: path }, class: classes }, [
       parentDisclose && this.disclosureBtn(parentNode, parentPath),
       withIndex && renderIndex(node.ply, true),
       renderMoveNodes(
         node,
-        ctrl.showFishnetAnalysis() && isMainline && !this.inline,
+        isMainline && !this.inline,
         (!!ctrl.study && !ctrl.study.relay) || ctrl.showFishnetAnalysis(),
+        ctrl.allowedEval(node) || false,
       ),
     ]);
   }

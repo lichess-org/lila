@@ -48,10 +48,11 @@ final class RelayPgnStream(
       rounds <- roundRepo.byTourOrdered(tour.id)
       studies <- studyRepo.byOrderedIds(rounds.map(_.studyId))
       visible = studies.filter(_.canView(me.map(_.id)))
-      withStudy = for
-        r <- rounds
-        s <- visible.find(_.id == r.studyId)
-      yield r.withTour(tour).withStudy(s)
+      withStudy =
+        for
+          r <- rounds
+          s <- visible.find(_.id == r.studyId)
+        yield r.withTour(tour).withStudy(s)
     yield Source(withStudy).flatMapConcat(ofGames).throttle(20, 1.second)
 
   private val baseFlags = PgnDump.WithFlags(
