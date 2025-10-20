@@ -1,3 +1,5 @@
+import { alert } from 'lib/view/dialogs';
+
 type LinkType = 'youtube';
 
 interface Parsed {
@@ -35,6 +37,9 @@ function toYouTubeEmbedUrl(url: string): string | undefined {
 }
 
 site.load.then(() => {
+  const disclaimer = document.querySelector('i.ublog-post__meta__disclaimer') as HTMLElement;
+  if (disclaimer) disclaimer.addEventListener('click', () => alert(disclaimer.title));
+
   function parseLink(a: HTMLAnchorElement): Parsed | undefined {
     if (a.href.replace(/^https?:\/\//, '') !== a.textContent?.replace(/^https?:\/\//, '')) return;
     const yt = toYouTubeEmbedUrl(a.href);
