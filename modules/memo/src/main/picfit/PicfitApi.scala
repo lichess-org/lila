@@ -26,8 +26,6 @@ final class PicfitApi(
 
   val idSep = ':'
 
-  val origin = lila.common.url.origin(config.endpointGet)
-
   Bus.sub[lila.core.user.UserDelete]: del =>
     for
       ids <- coll.primitive[ImageId]($doc("user" -> del.id), "_id")

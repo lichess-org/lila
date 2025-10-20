@@ -2,6 +2,7 @@ package lila.memo
 
 import reactivemongo.api.bson.Macros.Annotations.Key
 import lila.core.id.ImageId
+import lila.core.config.{ Secret, CollName, ImageGetOrigin }
 
 case class PicfitImage(
     @Key("_id") id: ImageId,
@@ -17,6 +18,14 @@ case class PicfitImage(
     automod: Option[ImageAutomod] = none,
     urls: List[String] = Nil
 )
+
+final class PicfitConfig(
+    val collection: CollName,
+    val endpointGet: Url,
+    val endpointPost: Url,
+    val secretKey: Secret
+):
+  val imageGetOrigin = lila.common.url.origin(endpointGet).into(ImageGetOrigin)
 
 case class Dimensions(width: Int, height: Int):
   def vertical = height > width

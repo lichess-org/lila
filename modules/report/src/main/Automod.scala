@@ -10,7 +10,7 @@ import scala.util.matching.Regex.quote
 import lila.common.autoconfig.AutoConfig
 import lila.common.config.given
 import lila.common.Json.given
-import lila.core.config.Secret
+import lila.core.config.{ Secret, ImageGetOrigin }
 import lila.core.data.Text
 import lila.core.id.ImageId
 import lila.memo.{ ImageAutomod, ImageAutomodRequest, Dimensions }
@@ -20,14 +20,15 @@ final class Automod(
     ws: StandaloneWSClient,
     appConfig: Configuration,
     settingStore: lila.memo.SettingStore.Builder,
-    picfitApi: lila.memo.PicfitApi
+    picfitApi: lila.memo.PicfitApi,
+    imageGetOrigin: ImageGetOrigin
 )(using Executor):
 
   private val config = appConfig.get[Automod.Config]("automod")
 
   private val imageIdRe =
     raw"""(?i)!\[(?:[^\n\]]*+)\]\(${quote(
-        picfitApi.origin
+        imageGetOrigin.value
       )}[^)\s]+[?&]path=([a-z]\w+:[a-z0-9]{12}:[a-z0-9]{8}\.\w{3,4})[^)]*\)""".r
 
   val imagePromptSetting = settingStore[Text](

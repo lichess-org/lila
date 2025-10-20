@@ -10,6 +10,6 @@ object url:
   def parse(str: String): Try[URL] = Try(URL.parse(parser, str))
 
   // https://example.com/path/to/resource -> https://example.com
-  def origin(url: String): String =
-    val pathBegin = url.indexOf('/', 8)
-    if pathBegin == -1 then url else url.slice(0, pathBegin)
+  def origin(url: Url): Url =
+    val pathBegin = url.value.indexOf('/', 8)
+    if pathBegin == -1 then url else url.map(_.slice(0, pathBegin))

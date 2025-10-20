@@ -16,13 +16,6 @@ final class MemoConfig(
     val cloudflare: CloudflareConfig
 )
 
-final class PicfitConfig(
-    val collection: CollName,
-    val endpointGet: String,
-    val endpointPost: String,
-    val secretKey: Secret
-)
-
 final class CloudflareConfig(
     @ConfigName("zone_id") val zoneId: String,
     @ConfigName("api_token") val apiToken: Secret
@@ -45,9 +38,7 @@ final class Env(
   private val picfitConfig = config.picfit
   private val cloudflareConfig = config.cloudflare
 
-  val imageGetOrigin = ImageGetOrigin:
-    val pathBegin = config.picfit.endpointGet.indexOf('/', 8)
-    if pathBegin == -1 then config.picfit.endpointGet else config.picfit.endpointGet.slice(0, pathBegin)
+  export config.picfit.imageGetOrigin
 
   val cacheApi = wire[CacheApi]
 
