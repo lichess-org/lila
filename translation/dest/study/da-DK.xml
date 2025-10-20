@@ -16,6 +16,7 @@
   <string name="recentlyUpdated">Nyligt opdateret</string>
   <string name="mostPopular">Mest populære</string>
   <string name="alphabetical">Alfabetisk</string>
+  <string name="relevant">Relevant</string>
   <string name="addNewChapter">Tilføj et nyt kapitel</string>
   <plurals name="nbChapters">
     <item quantity="one">%s kapitel</item>
