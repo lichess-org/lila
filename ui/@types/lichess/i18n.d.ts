@@ -2867,8 +2867,6 @@ interface I18n {
     activePlayers: string;
     /** Add current variation */
     addCurrentVariation: string;
-    /** You can make additional colours by combining said controls. */
-    additionalColorArrowsHowTo: string;
     /** Advanced settings */
     advancedSettings: string;
     /** Advantage */
@@ -5063,6 +5061,8 @@ interface I18n {
     readMoreAboutEmbedding: string;
     /** Recently updated */
     recentlyUpdated: string;
+    /** Relevant */
+    relevant: string;
     /** Right under the board */
     rightUnderTheBoard: string;
     /** Save */
