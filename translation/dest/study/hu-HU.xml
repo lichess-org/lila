@@ -32,7 +32,7 @@
   </plurals>
   <string name="inviteToTheStudy">Meghívás a tanulmányba</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">Csak olyan ismerőst hívj meg, aki szeretne részt venni a tanulmány készítésében.</string>
-  <string name="searchByUsername" comment="Appears when adding members to a Lichess Study as placeholder text in a search box.">Keresés felhasználónév alapján</string>
+  <string name="searchByUsername">Keresés felhasználónév alapján</string>
   <string name="spectator">Néző</string>
   <string name="contributor">Szerkesztő</string>
   <string name="kick">Eltávolítás</string>
