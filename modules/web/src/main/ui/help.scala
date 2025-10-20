@@ -137,7 +137,12 @@ object help:
               ul(
                 li(trans.site.youCanAlsoScrollOverTheBoardToMoveInTheGame()),
                 li(trans.site.scrollOverComputerVariationsToPreviewThem()),
-                li(trans.site.analysisShapesHowTo())
+                li(
+                  trans.site.analysisShapesHowTo(),
+                  ul(
+                    li(trans.site.primaryColorArrowsHowTo())
+                  )
+                )
               )
             )
           )
