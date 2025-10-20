@@ -149,7 +149,7 @@ object show:
                             momentFromNow(post.post.createdAt)
                           )
                         ),
-                        p(shorten(post.post.text, 200))
+                        p(shorten(Markdown(post.post.text).unlink, 200))
                       )
                     },
                     a(cls := "more", href := teamForumUrl(t.id))(t.name, " ", trans.site.forum(), " »")

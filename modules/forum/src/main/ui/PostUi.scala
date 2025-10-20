@@ -203,7 +203,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                             "#",
                             view.post.number
                           ),
-                          p(shorten(view.post.text, 200))
+                          p(shorten(Markdown(view.post.text).unlink, 200))
                         ),
                         info
                       )
