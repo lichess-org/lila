@@ -219,19 +219,9 @@ export default async function (
 const addGameDuration = (el: HTMLCanvasElement, moveCentis: number[]) => {
   const chart = $(el);
   let label = chart.next('.game-duration');
-  if (!label.length) {
-    label = $('<div class="game-duration">').attr('title', 'duration').insertAfter(chart);
-  }
-  const duration = Math.round(moveCentis.reduce((s, v) => s + v, 0) / 100);
-  const h = Math.floor(duration / 3600);
-  const m = Math.floor((duration % 3600) / 60);
-  const s = duration % 60;
-  const arr = [];
-  if (h) arr.push(h.toString().padStart(2, '0'));
-  arr.push(m.toString().padStart(2, '0'));
-  arr.push(s.toString().padStart(2, '0'));
-  const durationText = arr.join(':');
-  label.text(i18n.site.duration + ' ' + durationText);
+  if (!label.length) label = $('<div class="game-duration">').insertAfter(chart);
+  const duration = moveCentis.reduce((s, v) => s + v, 0);
+  label.text(i18n.site.duration + ' ' + formatClock(duration));
 };
 
 const toBlurArray = (player: Player) =>
