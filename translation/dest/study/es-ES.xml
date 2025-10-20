@@ -16,6 +16,7 @@
   <string name="recentlyUpdated">Actualizados recientemente</string>
   <string name="mostPopular">Más populares</string>
   <string name="alphabetical">Alfabético</string>
+  <string name="relevant">Relevante</string>
   <string name="addNewChapter">Añadir nuevo capítulo</string>
   <plurals name="nbChapters">
     <item quantity="one">%s Capítulo</item>
