@@ -55,8 +55,8 @@
   <string name="blackResigned">Sort opgav</string>
   <string name="whiteLeftTheGame">Hvid forlod partiet</string>
   <string name="blackLeftTheGame">Sort forlod partiet</string>
-  <string name="whiteDidntMove">Hvid flyttede ikke</string>
-  <string name="blackDidntMove">Sort flyttede ikke</string>
+  <string name="whiteDidntMove">Hvid trak ikke</string>
+  <string name="blackDidntMove">Sort trak ikke</string>
   <string name="requestAComputerAnalysis">Anmod om en computeranalyse</string>
   <string name="computerAnalysis">Computeranalyse</string>
   <string name="computerAnalysisAvailable">Computeranalyse tilgængelig</string>
@@ -769,6 +769,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Brug musens scrollhjul på brættet til at skifte mellem træk i partiet.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Scroll over computervarianter for at få en forhåndsvisning af dem.</string>
   <string name="analysisShapesHowTo">Tryk shift + klik eller højreklik for at tegne cirkler og pile på brættet.</string>
+  <string name="primaryColorArrowsHowTo" comment="These are keyboard instructions. By pressing &amp; holding Ctrl or Command/Shift/Alt and right clicking, the user can draw shapes in different colours on the chessboard">Ctrl = rød, shift = gul, command eller alt = blå.</string>
   <string name="letOtherPlayersMessageYou">Lad andre spillere sende en besked til dig</string>
   <string name="receiveForumNotifications">Modtag notifikationer, når du bliver nævnt i forummet</string>
   <string name="shareYourInsightsData">Del din \"insigts\" data</string>
