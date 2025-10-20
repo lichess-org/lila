@@ -25,7 +25,7 @@
       }
       &::before {
         @extend %data-icon;
-        font-size: 1.7em;
+        font-size: 32px;
         color: $c-font-dimmer;
       }
       &--hook.button::before {
