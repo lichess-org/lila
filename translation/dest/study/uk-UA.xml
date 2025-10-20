@@ -16,6 +16,7 @@
   <string name="recentlyUpdated">Нещодавно оновлені</string>
   <string name="mostPopular">Найпопулярніші</string>
   <string name="alphabetical">За алфавітом</string>
+  <string name="relevant">Релевантні</string>
   <string name="addNewChapter">Додати новий розділ</string>
   <plurals name="nbChapters">
     <item quantity="one">%s розділ</item>
