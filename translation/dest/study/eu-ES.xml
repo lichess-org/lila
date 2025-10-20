@@ -32,7 +32,7 @@
   </plurals>
   <string name="inviteToTheStudy">Azterlanera gonbidatu</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">Ezagutzen duzun eta benetan azterlanean interesa duen jendea gonbidatu bakarrik.</string>
-  <string name="searchByUsername" comment="Appears when adding members to a Lichess Study as placeholder text in a search box.">Erabiltzaile izenaren arabera bilatu</string>
+  <string name="searchByUsername">Erabiltzaile izenaren arabera bilatu</string>
   <string name="spectator">Ikuslea</string>
   <string name="contributor">Laguntzailea</string>
   <string name="kick">Kanporatu</string>
