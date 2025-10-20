@@ -140,8 +140,7 @@ object help:
                 li(
                   trans.site.analysisShapesHowTo(),
                   ul(
-                    li(trans.site.primaryColorArrowsHowTo()),
-                    li(trans.site.additionalColorArrowsHowTo())
+                    li(trans.site.primaryColorArrowsHowTo())
                   )
                 )
               )
