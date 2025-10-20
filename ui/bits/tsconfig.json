@@ -4,5 +4,5 @@
     "skipLibCheck": true,
     "noImplicitReturns": false
   },
-  "references": [{ "path": "../lib/tsconfig.json" }, { "path": "../voice/tsconfig.json" }]
+  "references": [{ "path": "../lib/tsconfig.json" }]
 }
