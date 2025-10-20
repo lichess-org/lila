@@ -40,14 +40,14 @@ object LilaRouter:
   given PathBindable[Uci] = strPath[Uci](Uci.apply, "Invalid UCI move", _.uci)
 
   given PathBindable[StudyOrder] = strPath(
-    s => StudyOrder.fromString(s),
-    s"Invalid study order ${StudyOrder.allStrings.mkString(", ")}"
+    StudyOrder.byKey.get,
+    s"Invalid study order ${StudyOrder.all.mkString(", ")}"
   )
 
   given QueryStringBindable[StudyOrder] = strQueryString(
-    StudyOrder.fromString,
-    s"Invalid study order ${StudyOrder.allStrings.mkString(", ")}",
-    _.value
+    StudyOrder.byKey.get,
+    s"Invalid study order ${StudyOrder.all.mkString(", ")}",
+    _.key
   )
 
   private def urlEncode(str: String) = java.net.URLEncoder.encode(str, "utf-8")
