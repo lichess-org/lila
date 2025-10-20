@@ -20,6 +20,7 @@ export async function initModule(opts?: DiagnosticOpts): Promise<void> {
       `Cores: ${navigator.hardwareConcurrency}, ` +
       `Touch: ${isTouchDevice()} ${navigator.maxTouchPoints}, ` +
       `Screen: ${window.screen.width}x${window.screen.height}, ` +
+      ('lichessTools' in window ? 'Extension: Lichess Tools, ' : '') +
       `Page lang: ${site.displayLocale}, ` +
       `Browser lang: ${navigator.language}, ` +
       `Engine: ${storage.get('ceval.engine')}, ` +
