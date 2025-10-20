@@ -164,11 +164,10 @@ object bits:
     div(
       cls := "markdown-textarea",
       attr("data-image-download-origin") := imageGetOrigin,
-      attr("data-image-count-max") :=
-        (picfitIdPrefix match
-          case Some(p) if p.startsWith("forum") => 5
-          case Some(p) if p.startsWith("team") => 2
-          case _ => 1),
+      attr("data-image-count-max") := picfitIdPrefix.match
+        case Some(p) if p.startsWith("forum") => 5
+        case Some(p) if p.startsWith("team") => 2
+        case _ => 1,
       picfitIdPrefix.map(id => attr("data-image-upload-url") := routes.Main.uploadImage(id)),
       picfitIdPrefix.flatMap(imageDesignWidth).map(dw => attr("data-image-design-width") := dw)
     )(
