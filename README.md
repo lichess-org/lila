@@ -59,9 +59,9 @@ Feel free to use the [Lichess API](https://lichess.org/api) in your applications
 
 | Name              | Version | Notes                                             |
 | ----------------- | ------- | ------------------------------------------------- |
-| Firefox           | 115+     | Full support (recommended)                       |
-| Chromium / Chrome | last 10 | Full support                                      |
-| Edge              | 109+     | Full support                                     |
+| Firefox           | 115+    | Full support (recommended)                        |
+| Chromium / Chrome | 112+    | Full support                                      |
+| Edge              | 109+    | Full support                                      |
 | Opera             | 91+     | Reasonable support                                |
 | Safari            | 13.1+   | Reasonable support                                |
 
