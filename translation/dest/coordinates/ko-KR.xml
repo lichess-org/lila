@@ -18,4 +18,5 @@
   <string name="startTraining">훈련 시작</string>
   <string name="findSquare">칸 찾기</string>
   <string name="nameSquare">칸 이름 맞추기</string>
+  <string name="practiceOnlySomeFilesAndRanks" comment="Label for a checkbox, keep it very short">특정 파일(세로줄)과 랭크(가로줄)에서만 연습하기</string>
 </resources>
