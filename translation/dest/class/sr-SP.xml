@@ -38,11 +38,11 @@
 Лозинка: %3$s</string>
   <string name="inviteALichessAccount">Позови Lichess налог</string>
   <string name="inviteDesc1">Ако ученик већ има Lichess налог, можеш га/је позвати у час.</string>
-  <string name="inviteDesc2">Примиће поруку на Lichess са везом да приступе часу.</string>
-  <string name="inviteDesc3">Важно: позовите само ученике које познајете и који активно желе да се придруже часу.</string>
-  <string name="inviteDesc4">Никада не шаљите позивнице насумичним играчима.</string>
-  <string name="createANewLichessAccount">Направите нови налог</string>
-  <string name="createDesc1">Ако ученик још увек нема Lichess налог, овде можете направити јдан за њих.</string>
+  <string name="inviteDesc2">Примиће поруку на Lichess-у са линком да се придруже часу.</string>
+  <string name="inviteDesc3">Важно: само позивај ученике које знаш и који активно желе да се придруже часу.</string>
+  <string name="inviteDesc4">Никада немој слати нежељене позиве насумичним играчима.</string>
+  <string name="createANewLichessAccount">Направи нови Lichess налог</string>
+  <string name="createDesc1">Ако ученик још увек нема Lichess налог, овде можеш направити један за њега/њу.</string>
   <string name="createDesc2">Е-пошта није обавезна. Лозинка ће бити направљена и Ви ћете морати да је проследите ученику, да би они могли да се укључе.</string>
   <string name="createDesc3">Важно: ученик не сме имате више налога.</string>
   <string name="createDesc4">Ако они већ имају један, користите образац за позив.</string>
