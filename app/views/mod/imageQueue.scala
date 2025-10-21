@@ -15,6 +15,6 @@ def imageQueue(
     pending: PendingCounts
 )(using Context, Me) =
   views.report.ui.list.layout("image", scores, pending, Seq("mod.imageQueue"), infiniteScrollEsmInit)(
-    views.mod.ui.reportMenu
+    views.mod.ui.menu("image")
   ):
     imageQueueUi.show(images)

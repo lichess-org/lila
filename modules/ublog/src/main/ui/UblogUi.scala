@@ -10,7 +10,9 @@ import lila.core.ublog.{ BlogsBy, QualityFilter }
 
 import ScalatagsTemplate.{ *, given }
 
-final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.memo.PicfitUrl):
+final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)(
+    picfitUrl: lila.memo.PicfitUrl
+):
   import helpers.{ *, given }
 
   def thumbnail(post: UblogPost.BasePost, size: UblogPost.thumbnail.SizeSelector) =
@@ -314,7 +316,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.memo.Picfi
       .css("bits.ublog")
       .js(Esm("bits.ublog")):
         main(cls := "page-menu")(
-          bits.modMenu("carousel"),
+          modMenu,
           div(cls := "page-menu__content box box-pad column-gap")(
             postForm(action := routes.Ublog.modSetCarouselSize)(
               label("Carousel size: "),

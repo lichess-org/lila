@@ -10,7 +10,6 @@ import lila.mod.IpRender.RenderIp
 import lila.security.IpTrust
 import lila.user.WithPerfsAndEmails
 import lila.mod.ModUserSearchResult
-import lila.ui.bits.modMenu
 
 object search:
 
@@ -19,7 +18,7 @@ object search:
       .css("mod.misc")
       .js(Esm("mod.search")):
         main(cls := "page-menu")(
-          modMenu("search"),
+          views.mod.ui.menu("search"),
           div(cls := "mod-search page-menu__content box")(
             h1(cls := "box__top")("Search users"),
             st.form(cls := "search box__pad", action := routes.Mod.search, method := "GET")(
@@ -48,7 +47,7 @@ object search:
       .css("mod.misc")
       .js(Esm("mod.search")):
         main(cls := "page-menu")(
-          modMenu("search"),
+          views.mod.ui.menu("search"),
           div(cls := "mod-search page-menu__content box")(
             boxTop(
               h1("Fingerprint: ", fh.value),
@@ -87,7 +86,7 @@ object search:
       .css("mod.misc")
       .js(Esm("mod.search")):
         main(cls := "page-menu")(
-          modMenu("search"),
+          views.mod.ui.menu("search"),
           div(cls := "mod-search page-menu__content box")(
             boxTop(
               h1("IP address: ", renderIp(address)),
@@ -123,4 +122,4 @@ object search:
   export views.clas.ui.search.teacher
 
   def notes(query: String, pager: Paginator[lila.user.Note])(using Context) =
-    views.user.noteUi.search(query, pager, modMenu("notes"))
+    views.user.noteUi.search(query, pager, views.mod.ui.menu("notes"))
