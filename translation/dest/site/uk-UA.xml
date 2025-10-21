@@ -851,7 +851,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Прокручуйте коліщатко миші над шахівницею для перегляду ходів у грі.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Прокрутіть коліщатком миші по комп\'ютерних варіаціях для їх попереднього перегляду.</string>
   <string name="analysisShapesHowTo">Натисніть shift+ЛКМ або ПКМ, щоби намалювати кола та стрілки на шахівниці.</string>
-  <string name="primaryColorArrowsHowTo" comment="These are keyboard instructions. By pressing &amp; holding Ctrl or Command/Shift/Alt and right clicking, the user can draw shapes in different colours on the chessboard">Ctrl = червоний, Shift = жовтий, command або alt = синій.</string>
+  <string name="primaryColorArrowsHowTo">Ctrl = червоний, Shift = жовтий, command або alt = синій.</string>
   <string name="letOtherPlayersMessageYou">Дозволити іншим гравцям надсилати Вам повідомлення</string>
   <string name="receiveForumNotifications">Отримувати сповіщення при згадці на форумі</string>
   <string name="shareYourInsightsData">Надавати доступ до вашої шахової аналітики</string>
