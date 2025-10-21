@@ -769,7 +769,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Κάντε κύλιση με τη ροδέλα του ποντικιού πάνω στη σκακιέρα για να μετακινηθείτε στην παρτίδα.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Μετακινήστε το ποντίκι σας πάνω στις βαριάντες του υπολογιστή για την προεπισκόπησή τους.</string>
   <string name="analysisShapesHowTo">Πατήστε Shift + κλικ ή δεξί κλικ για να σχεδιάσετε κύκλους και βέλη στην σκακιέρα.</string>
-  <string name="primaryColorArrowsHowTo" comment="These are keyboard instructions. By pressing &amp; holding Ctrl or Command/Shift/Alt and right clicking, the user can draw shapes in different colours on the chessboard">Ctrl = κόκκινο, shift = κίτρινο, command ή alt = μπλε.</string>
+  <string name="primaryColorArrowsHowTo">Ctrl = κόκκινο, shift = κίτρινο, command ή alt = μπλε.</string>
   <string name="letOtherPlayersMessageYou">Επιτρέψτε άλλους παίκτες να σας στέλνουν μηνύματα</string>
   <string name="receiveForumNotifications">Λήψη ειδοποιήσεων όταν γίνεται αναφορά σας στο φόρουμ</string>
   <string name="shareYourInsightsData">Κοινή χρήση των δεδομένων σας</string>
