@@ -728,6 +728,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">你也可以用鼠标滚轮浏览棋局。</string>
   <string name="scrollOverComputerVariationsToPreviewThem">移到电脑给出的变着上进行预览</string>
   <string name="analysisShapesHowTo">按shift+左键单击或右键单击在棋盘上绘制圆圈和箭头。</string>
+  <string name="primaryColorArrowsHowTo">Ctrl = 红，Shift = 黄，Command 或 Alt = 蓝</string>
   <string name="letOtherPlayersMessageYou">允许其他人给您发私信</string>
   <string name="receiveForumNotifications">在论坛中被提及时接收通知</string>
   <string name="shareYourInsightsData">分享你的对局洞察</string>
