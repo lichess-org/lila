@@ -832,7 +832,7 @@
     <item quantity="other">%s 秒</item>
   </plurals>
   <string name="opening">开局</string>
-  <string name="middlegame">中盘</string>
+  <string name="middlegame">中局</string>
   <string name="endgame">残局</string>
   <string name="conditionalPremoves">条件预先走棋</string>
   <string name="addCurrentVariation">添加当前变着</string>
