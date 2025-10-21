@@ -182,7 +182,7 @@ final class CategUi(helpers: Helpers, bits: ForumBits):
                 tr(cls := "paginated")(
                   td(userIdLink(p.post.userId)),
                   td(a(href := routes.ForumTopic.show(p.categ.id, p.topic.slug))(p.topic.name)),
-                  td(shorten(p.post.text, 400)),
+                  td(shorten(Markdown(p.post.text).unlink, 400)),
                   td(a(href := routes.ForumPost.redirect(p.post.id))(momentFromNow(p.post.createdAt)))
                 ),
               pagerNextTable(posts, np => routes.ForumCateg.modFeed(categ.id, np).url)

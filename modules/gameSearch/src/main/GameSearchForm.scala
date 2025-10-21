@@ -9,7 +9,7 @@ import java.time.LocalDate
 
 import lila.common.Form.*
 import lila.core.i18n.Translate
-import lila.search.spec.{ DateRange, IntRange, Query, Sorting as SpecSorting }
+import lila.search.spec.{ DateRange, IntRange, Query, GameSorting as SpecSorting }
 
 final private[gameSearch] class GameSearchForm:
 

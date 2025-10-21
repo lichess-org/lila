@@ -120,7 +120,7 @@ async function splitConfig(cfgPath: string): Promise<SplitConfig[]> {
     co.noImplicitReturns = false;
     co.noUnusedParameters = false;
   }
-  co.lib = co.lib?.map((lib: string) => /lib\.(.+)\.d\.ts/.exec(lib)?.[1] ?? lib);
+  co.lib = co.lib?.map((lib: string) => lib.match(/lib\.(.+)\.d\.ts/)?.[1] ?? lib);
   co.pathsBasePath = undefined;
   co.incremental = true;
   config.compilerOptions = co;

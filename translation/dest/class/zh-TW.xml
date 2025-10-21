@@ -115,4 +115,5 @@
   <string name="xIsAKidAccountWarning">%1$s 是未成年帳戶，無法接收您的消息。您必須手動給他發送邀請鏈接： %2$s</string>
   <string name="moveToClass">移動到 %s</string>
   <string name="moveToAnotherClass">移動到另一個課程</string>
+  <string name="allowMessagingBetweenStudents">允許學生之間的消息</string>
 </resources>

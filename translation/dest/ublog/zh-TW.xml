@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="community">社群</string>
+  <string name="myFriends">我的朋友</string>
+  <string name="myLikes" comment="A page which lists blog posts that you have pressed ❤️ Like on: https://lichess.org/blog/liked">我的點讚</string>
   <string name="myBlog">我的部落格</string>
   <string name="likedBlogs">已喜歡的部落格</string>
   <plurals name="blogPosts">

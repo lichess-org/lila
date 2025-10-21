@@ -22,6 +22,9 @@ export const highlightSearchTerm = (search: string, selector: string): void => {
   }
   if (ranges.length === 0) return;
   // create a CSS highlight that can be styled with the ::highlight(search) pseudo-element
+
+  if (typeof Highlight !== 'function') throw 'no Highlight support';
+  // eslint-disable-next-line compat/compat
   const highlight = new Highlight(...ranges);
   CSS.highlights.set(highlightName, highlight);
 };

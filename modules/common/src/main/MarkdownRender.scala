@@ -112,6 +112,9 @@ object MarkdownRender:
 
   case class PgnSourceExpand(domain: NetDomain, getPgn: PgnSourceId => Option[LpvEmbed])
 
+  def unlink(text: Markdown): String =
+    text.value.replaceAll(raw"""(?i)!?\[([^\]\n]*)\]\([^)]*\)""", "[$1]")
+
   private val rel = "nofollow noreferrer"
 
   private object WhitelistedImage:

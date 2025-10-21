@@ -11,7 +11,7 @@ object tournaments:
       .graph(
         title = s"${t.name} team tournaments",
         url = routeUrl(routes.Team.tournaments(t.id)),
-        description = shorten(t.description.value, 152)
+        description = shorten(t.description.unlink, 152)
       )
       .css("bits.team")
       .flag(_.fullScreen):
