@@ -769,7 +769,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Usa a roda do rato sobre o taboleiro para moverte pola partida.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Pasa o punteiro sobre as variantes da computadora para visualizalas.</string>
   <string name="analysisShapesHowTo">Preme o botón dereito do rato (ou pulsa Maiúsculas+clic) para debuxar círculos e frechas no taboleiro. Para obter outras cores, combina o seguinte co botón dereito do rato:</string>
-  <string name="primaryColorArrowsHowTo" comment="These are keyboard instructions. By pressing &amp; holding Ctrl or Command/Shift/Alt and right clicking, the user can draw shapes in different colours on the chessboard">Ctrl = vermello, Maiúsculas = amarelo, Comando ou Alt = azul.</string>
+  <string name="primaryColorArrowsHowTo">Ctrl = vermello, Maiúsculas = amarelo, Comando ou Alt = azul.</string>
   <string name="letOtherPlayersMessageYou">Permitir que outros xogadores che envíen mensaxes</string>
   <string name="receiveForumNotifications">Recibe notificacións cando alguén te mencione no foro</string>
   <string name="shareYourInsightsData">Compartir os teus datos estatísticos</string>
