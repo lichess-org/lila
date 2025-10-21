@@ -769,7 +769,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Usa a roda do rato sobre o taboleiro para moverte pola partida.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Pasa o punteiro sobre as variantes da computadora para visualizalas.</string>
   <string name="analysisShapesHowTo">Preme o botón dereito do rato (ou pulsa Maiúsculas+clic) para debuxar círculos e frechas no taboleiro. Para obter outras cores, combina o seguinte co botón dereito do rato:</string>
-  <string name="primaryColorArrowsHowTo">Ctrl = vermello, Maiúsculas = amarelo, Comando ou Alt = azul.</string>
+  <string name="primaryColorArrowsHowTo">(Ctrl ou Maiúsculas) = vermello;  (Comando, Alt ou Meta) = azul;  unha tecla de cada grupo = amarelo.</string>
   <string name="letOtherPlayersMessageYou">Permitir que outros xogadores che envíen mensaxes</string>
   <string name="receiveForumNotifications">Recibe notificacións cando alguén te mencione no foro</string>
   <string name="shareYourInsightsData">Compartir os teus datos estatísticos</string>
