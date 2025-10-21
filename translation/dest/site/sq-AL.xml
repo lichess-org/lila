@@ -767,7 +767,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Ju mund edhe të rrotulloni rrotën mbi fushë për të lëvizur gjatë lojës.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Lëviz tek variacionet e kompjuterit t\'i shikosh paraprakisht.</string>
   <string name="analysisShapesHowTo">Që të vizatoni rrathë dhe shigjeta në fushë, shtypni shift+klikim, ose djathtasklikoni.</string>
-  <string name="primaryColorArrowsHowTo" comment="These are keyboard instructions. By pressing &amp; holding Ctrl or Command/Shift/Alt and right clicking, the user can draw shapes in different colours on the chessboard">Ctrl = e kuqe, shift = e verdhë, command ose alt = blu.</string>
+  <string name="primaryColorArrowsHowTo">Ctrl = e kuqe, shift = e verdhë, command ose alt = blu.</string>
   <string name="letOtherPlayersMessageYou">Lejoni lojtarë të tjerë t’ju dërgojnë mesazh</string>
   <string name="receiveForumNotifications">Merrni njoftime kur përmendeni te forumi</string>
   <string name="shareYourInsightsData">Shpërndani të dhënat tuaja të depërtuara.</string>
