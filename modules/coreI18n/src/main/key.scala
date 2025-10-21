@@ -2061,7 +2061,6 @@ object I18nKey:
     val `scrollOverComputerVariationsToPreviewThem`: I18nKey = "scrollOverComputerVariationsToPreviewThem"
     val `analysisShapesHowTo`: I18nKey = "analysisShapesHowTo"
     val `primaryColorArrowsHowTo`: I18nKey = "primaryColorArrowsHowTo"
-    val `additionalColorArrowsHowTo`: I18nKey = "additionalColorArrowsHowTo"
     val `letOtherPlayersMessageYou`: I18nKey = "letOtherPlayersMessageYou"
     val `receiveForumNotifications`: I18nKey = "receiveForumNotifications"
     val `shareYourInsightsData`: I18nKey = "shareYourInsightsData"
