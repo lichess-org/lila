@@ -16,6 +16,7 @@
   <string name="recentlyUpdated">Încărcate recent</string>
   <string name="mostPopular">Cele mai populare</string>
   <string name="alphabetical">Alfabetic</string>
+  <string name="relevant">Relevant</string>
   <string name="addNewChapter">Adaugă un nou capitol</string>
   <plurals name="nbChapters">
     <item quantity="one">%s capitol</item>
