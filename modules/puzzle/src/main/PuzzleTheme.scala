@@ -176,10 +176,6 @@ object PuzzleTheme:
 
   lazy val visible: List[PuzzleTheme] = categorized.flatMap(_._2)
 
-  lazy val allTranslationKeys = visible.flatMap { t =>
-    List(t.name, t.description)
-  }
-
   private lazy val byKey: Map[Key, PuzzleTheme] = visible.mapBy(_.key)
 
   private lazy val byLowerKey: Map[String, PuzzleTheme] = visible.mapBy(_.key.value.toLowerCase)
