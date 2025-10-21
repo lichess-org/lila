@@ -57,6 +57,8 @@
     <item quantity="one">एक प्रलंबित आमंत्रण</item>
     <item quantity="other">%s प्रलंबित आमंत्रणे</item>
   </plurals>
+  <string name="pending">प्रलंबित</string>
+  <string name="declined">नाकारले</string>
   <string name="onlyVisibleToTeachers">केवळ वर्ग शिक्षकांनाच दृश्यमान</string>
   <string name="lastActiveDate">सक्रिय</string>
   <string name="managed">व्यवस्थापित</string>
@@ -114,4 +116,8 @@
   <string name="anInvitationHasBeenSentToX">%s ला आमंत्रण पाठवले आहे</string>
   <string name="xAlreadyHasAPendingInvitation">%s कडे आधीच प्रलंबित आमंत्रण आहे</string>
   <string name="xIsAKidAccountWarning">%1$s हे लहान मुलांसाठीचे खाते आहे आणि संदेश स्वीकारू शकत नाही. तुम्हाला त्यांना व्यक्तीगतरीत्या आमंत्रण URL द्यावी लागेल: %2$s</string>
+  <string name="moveToClass">%s वर जा</string>
+  <string name="moveToAnotherClass">दुसऱ्या शिकवणीत जा</string>
+  <string name="allowMessagingBetweenStudents">विद्यर्थ्यांमधील गप्पांना परवानगी द्या</string>
+  <string name="allowMessagingBetweenStudentsDesc">हे फक्त तुमच्या विद्यार्थ्यांसाठी बनवलेल्या खात्यांसाठी लागू होते.</string>
 </resources>
