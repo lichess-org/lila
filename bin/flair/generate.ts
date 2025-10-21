@@ -62,7 +62,7 @@ let currentCategory = '';
 const names: string[] = [];
 const wgets: string[] = [];
 
-$('div').each((i, el) => {
+$('div').each((_, el) => {
   const category = $(el)
     .text()
     .split('\n')
@@ -78,7 +78,7 @@ $('div').each((i, el) => {
 
   $(el)
     .find('a')
-    .each((i, el) => {
+    .each((_, el) => {
       let name = $(el).attr('href');
       const url = $(el).attr('data-src');
 

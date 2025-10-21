@@ -28,13 +28,13 @@
     ]
   },
   "dependencies": {
-    "@lichess-org/chessground": "9.8.3",
+    "@lichess-org/chessground": "9.8.4",
     "@lichess-org/pgn-viewer": "2.5.2",
     "@types/lichess": "workspace:*",
     "@typescript-eslint/eslint-plugin": "^8.46.1",
     "@typescript-eslint/parser": "^8.46.1",
     "ab": "github:lichess-org/ab-stub",
-    "chessops": "^0.15.0",
+    "chessops": "^0.15",
     "eslint": "^9.38.0",
     "eslint-plugin-compat": "^6.0.2",
     "lint-staged": "^16.2.4",

@@ -137,7 +137,11 @@ type Composition = { boards: number; squares: Map<number, Map<Color, Map<co.Role
 
 async function makeCover(polyglotBook: OpeningBook, boardSize: number, numMoves?: number): Promise<Blob> {
   const squareSize = boardSize / 8;
+
+  if (typeof OffscreenCanvas !== 'function') throw 'no OffscreenCanvas support';
+  // eslint-disable-next-line compat/compat
   const canvas = new OffscreenCanvas(boardSize, boardSize);
+
   const ctx = canvas.getContext('2d')!;
   const composition: Composition = { boards: 1, squares: new Map() };
 

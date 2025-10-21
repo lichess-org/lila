@@ -648,6 +648,10 @@ export default class AnalyseCtrl implements CevalHandler {
     this.redraw();
   }
 
+  allowedEval(node: Tree.Node = this.node): Tree.ClientEval | Tree.ServerEval | false | undefined {
+    return (this.cevalEnabled() && node.ceval) || (this.showFishnetAnalysis() && node.eval);
+  }
+
   outcome(node?: Tree.Node): Outcome | undefined {
     return this.position(node || this.node).unwrap(
       pos => pos.outcome(),
