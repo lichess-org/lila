@@ -32,7 +32,7 @@ private object BsonHandlers:
       glicko = glicko,
       plays = plays,
       vote = vote,
-      themes = themes.diff(PuzzleTheme.hiddenThemes)
+      themes = themes.diff(PuzzleTheme.hiddenThemesKey)
     )
 
   private[puzzle] given roundIdHandler: BSONHandler[PuzzleRound.Id] = tryHandler[PuzzleRound.Id](
