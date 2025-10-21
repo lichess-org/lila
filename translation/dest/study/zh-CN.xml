@@ -16,6 +16,7 @@
   <string name="recentlyUpdated">最近更新</string>
   <string name="mostPopular">最受欢迎</string>
   <string name="alphabetical">按字母顺序</string>
+  <string name="relevant">相关内容</string>
   <string name="addNewChapter">添加一个新章节</string>
   <plurals name="nbChapters">
     <item quantity="other">共 %s 章</item>
