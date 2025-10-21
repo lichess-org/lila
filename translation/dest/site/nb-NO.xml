@@ -768,8 +768,8 @@
   <string name="crosstable">Krysstabell</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Du kan også skrolle over brettet for å flytte i partiet.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Hold muspekeren over maskinvarianter for å forhåndsvise dem.</string>
-  <string name="analysisShapesHowTo" comment="This text used to say &quot;Press shift+click or right-click to draw circles and arrows on the board.&quot;&#10;&#10;Please update translations as needed, with particular attention to the second sentence which has been added.">Trykk shift+klikk eller høyreklikk for å tegne sirkler og piler på brettet.</string>
-  <string name="primaryColorArrowsHowTo" comment="These are keyboard instructions. By pressing &amp; holding Ctrl or Command/Shift/Alt and right clicking, the user can draw shapes in different colours on the chessboard">Ctrl = rød, Shift = gul, Command eller Alt = blå.</string>
+  <string name="analysisShapesHowTo">Trykk shift+klikk eller høyreklikk for å tegne sirkler og piler på brettet.</string>
+  <string name="primaryColorArrowsHowTo">Ctrl = rød, Shift = gul, Command eller Alt = blå.</string>
   <string name="letOtherPlayersMessageYou">La andre spillere kontakte deg.</string>
   <string name="receiveForumNotifications">Bli varslet når nevnt i forumet</string>
   <string name="shareYourInsightsData">Del dataene dine for sjakkinnsikt</string>
