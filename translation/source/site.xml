@@ -769,7 +769,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Scroll over the board to move in the game.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Scroll over computer variations to preview them.</string>
   <string name="analysisShapesHowTo">Press right-click (or shift+click) to draw circles and arrows on the board. For other colours, combine the following with right-click:</string>
-  <string name="primaryColorArrowsHowTo">Ctrl = red, shift = yellow, command or alt = blue.</string>
+  <string name="primaryColorArrowsHowTo">Ctrl or shift = red; command, alt, or meta = blue; a key from each = yellow.</string>
   <string name="letOtherPlayersMessageYou">Let other players message you</string>
   <string name="receiveForumNotifications">Receive notifications when mentioned in the forum</string>
   <string name="shareYourInsightsData">Share your chess insights data</string>

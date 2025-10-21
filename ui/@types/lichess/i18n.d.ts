@@ -3917,7 +3917,7 @@ interface I18n {
     practiceWithComputer: string;
     /** Previously on Lichess TV */
     previouslyOnLichessTV: string;
-    /** Ctrl = red, shift = yellow, command or alt = blue. */
+    /** Ctrl or shift = red; command, alt, or meta = blue; a key from each = yellow. */
     primaryColorArrowsHowTo: string;
     /** Privacy */
     privacy: string;
