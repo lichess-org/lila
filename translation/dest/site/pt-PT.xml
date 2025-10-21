@@ -770,6 +770,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Também podes rodar a rodinha do rato sobre o tabuleiro para percorreres as jogadas na partida.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Passe o rato sobre as variantes do computador para visualizá-las.</string>
   <string name="analysisShapesHowTo">Pressiona shift+clique ou clica com o botão direito do rato para desenhares círculos e setas no tabuleiro.</string>
+  <string name="primaryColorArrowsHowTo">Ctrl ou shift = vermelho; comand, alt, ou meta = azul; uma tecla de cada = amarelo.</string>
   <string name="letOtherPlayersMessageYou">Permitir que outros jogadores te enviem mensagens</string>
   <string name="receiveForumNotifications">Olá aOlá a todos</string>
   <string name="shareYourInsightsData">Compartilhar os teus dados de \"insights\" de xadrez</string>
