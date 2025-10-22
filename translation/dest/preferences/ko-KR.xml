@@ -20,7 +20,7 @@
   <string name="displayBoardResizeHandle">보드 크기 재조정 핸들 보이기</string>
   <string name="onlyOnInitialPosition">초기 상태에서만</string>
   <string name="inGameOnly">게임 도중에만 적용</string>
-  <string name="exceptInGame" comment="An option regarding when player ratings should be displayed. This will display other players' ratings at all times, EXCEPT during a game. Please see screenshot - text needs to be kept short to fit in the segmented control widget used for settings.">게임 내 제외</string>
+  <string name="exceptInGame" comment="An option regarding when player ratings should be displayed. This will display other players' ratings at all times, EXCEPT during a game. Please see screenshot - text needs to be kept short to fit in the segmented control widget used for settings.">게임 중이 아닐 때에만</string>
   <string name="chessClock">체스 시계</string>
   <string name="tenthsOfSeconds">남은 시간을 0.1초 단위로 표시</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">남은 시간이 10초 미만일 때</string>
@@ -54,7 +54,7 @@
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">패배 또는 무승부 시 자동으로 \"Good game, well played\" 채팅 보내기</string>
   <string name="yourPreferencesHaveBeenSaved">설정이 저장되었습니다.</string>
   <string name="scrollOnTheBoardToReplayMoves">보드에서 스크롤을 해서 수를 앞 뒤로 이동</string>
-  <string name="correspondenceEmailNotification">매일 통신 대국의 목록 이메일 받기</string>
+  <string name="correspondenceEmailNotification">매일 진행중인 통신 대국의 목록을 이메일로 받기</string>
   <string name="notifyStreamStart">스트리머가 생방송 시작</string>
   <string name="notifyInboxMsg">새로운 받은 편지함 메시지</string>
   <string name="notifyForumMention">포럼 댓글에서 당신이 언급됨</string>
