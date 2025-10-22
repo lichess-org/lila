@@ -74,8 +74,8 @@
   <string name="promoteVariation">바리에이션 승격하기</string>
   <string name="makeMainLine">주 라인으로 하기</string>
   <string name="deleteFromHere">여기서부터 삭제</string>
-  <string name="collapseVariations">바리에이션 축소하기</string>
-  <string name="expandVariations">바리에이션 확장하기</string>
+  <string name="collapseVariations">바리에이션 접기</string>
+  <string name="expandVariations">바리에이션 펼치기</string>
   <string name="forceVariation">바리에이션 강제하기</string>
   <string name="copyVariationPgn">바리에이션 PGN 복사</string>
   <string name="copyMainLinePgn">주 라인 PGN 복사</string>
@@ -289,9 +289,9 @@
   <string name="thisGameIsRated">이 대국은 레이팅 대국입니다</string>
   <string name="rematch">재대결</string>
   <string name="rematchOfferSent">재대결 요청 전송됨</string>
-  <string name="rematchOfferAccepted">재대결 요청 승낙됨</string>
+  <string name="rematchOfferAccepted">재대결 요청 수락됨</string>
   <string name="rematchOfferCanceled">재대결 요청 취소됨</string>
-  <string name="rematchOfferDeclined">재대결 요청이 거절됐습니다</string>
+  <string name="rematchOfferDeclined">재대결 요청이 거절되었습니다</string>
   <string name="cancelRematchOffer">재대결 요청 취소</string>
   <string name="viewRematch">재대결 보기</string>
   <string name="confirmMove">수 확인</string>
@@ -594,11 +594,11 @@
   <plurals name="blocks">
     <item quantity="other">차단한 사람 %s명</item>
   </plurals>
-  <string name="listBlockedPlayers">이 플레이어를 차단</string>
+  <string name="listBlockedPlayers">차단한 플레이어 목록</string>
   <string name="human">인간</string>
   <string name="computer">컴퓨터</string>
   <string name="side">색</string>
-  <string name="clock">시계</string>
+  <string name="clock">체스 시계</string>
   <string name="opponent">상대</string>
   <string name="learnMenu">배우기</string>
   <string name="studyMenu">연구</string>
@@ -850,11 +850,11 @@
   <string name="why">왜 그런가요?</string>
   <string name="pleasantChessExperience">우리는 모두에게 즐거운 체스 경험을 제공하는 것을 목표로 합니다.</string>
   <string name="goodPractice">그러기 위해서는, 우리는 모든 플레이어가 좋은 관행을 따르도록 보장해야 합니다.</string>
-  <string name="potentialProblem">잠재적인 문제가 감지되었을 때는, 우리는 이 메시지를 표시합니다.</string>
+  <string name="potentialProblem">잠재적인 문제가 감지되었을 때 우리는 이 메시지를 표시합니다.</string>
   <string name="howToAvoidThis">이것을 어떻게 피할 수 있나요?</string>
   <string name="playEveryGame">시작한 모든 대국을 플레이하세요.</string>
   <string name="tryToWin">플레이하는 모든 대국에서 승리하도록 (적어도 비기도록) 노력하세요.</string>
-  <string name="resignLostGames">벌써 패배한 대국에서는 기권하세요(시간이 흐르게 두지 마세요).</string>
+  <string name="resignLostGames">가망이 없는 대국에서는 기권하세요(수를 두지 않고 고의로 시간을 끌지 마세요).</string>
   <string name="temporaryInconvenience">일시적인 불편에 사과드리며,</string>
   <string name="wishYouGreatGames">그리고 lichess.org에서 좋은 시간을 보내시기 바랍니다.</string>
   <string name="thankYouForReading">읽어 주셔서 감사합니다!</string>
