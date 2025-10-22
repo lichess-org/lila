@@ -42,7 +42,7 @@
   <string name="fideFederations">FIDE 연맹</string>
   <string name="top10Rating">Top 10 레이팅</string>
   <string name="fidePlayers">FIDE 선수</string>
-  <string name="fidePlayerNotFound">FIDE 선수 찾지 못함</string>
+  <string name="fidePlayerNotFound">해당 FIDE 선수를 찾을 수 없음</string>
   <string name="fideProfile">FIDE 프로필</string>
   <string name="federation">연맹</string>
   <string name="ageThisYear">올해 나이</string>
@@ -52,9 +52,9 @@
   <string name="teams">팀</string>
   <string name="boards">보드</string>
   <string name="overview">개요</string>
-  <string name="subscribeTitle">라운드가 시작될 때 알림을 받으려면 구독하세요. 계정 설정에서 방송을 위한 벨이나 알림 푸시를 토글할 수 있습니다.</string>
+  <string name="subscribeTitle">라운드가 시작될 때 알림을 받으려면 구독하세요. 계정 설정에서 방송을 위한 벨이나 알림 푸시를 끄거나 켤 수 있습니다.</string>
   <string name="uploadImage">토너먼트 사진 업로드</string>
-  <string name="noBoardsYet">아직 보드가 없습니다. 게임들이 업로드되면 나타납니다.</string>
+  <string name="noBoardsYet">아직 보드가 없습니다. 게임이 업로드되면 표시됩니다.</string>
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">보드들은 소스나 %s(으)로 로드될 수 있습니다</string>
   <string name="startsAfter">%s 후 시작</string>
   <string name="startVerySoon">방송이 곧 시작됩니다.</string>
@@ -63,19 +63,19 @@
   <string name="officialStandings">공식 순위</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">%s에서 더 많은 정보를 확인하실 수 있습니다</string>
   <string name="webmastersPage">웹마스터 페이지</string>
-  <string name="embedThisBroadcast">이 방송을 웹사이트에 삽입하세요</string>
+  <string name="embedThisBroadcast">웹사이트에 이 방송을 임베딩</string>
   <string name="ratingDiff">레이팅 차이</string>
   <string name="gamesThisTournament">이 토너먼트의 게임들</string>
   <string name="score">점수</string>
   <string name="allTeams">모든 팀</string>
   <string name="tournamentFormat">토너먼트 형식</string>
   <string name="tournamentLocation">토너먼트 장소</string>
-  <string name="topPlayers">상위 플레이어들</string>
+  <string name="topPlayers">상위 플레이어</string>
   <string name="timezone">시간대</string>
   <string name="fideRatingCategory">FIDE 레이팅 범주</string>
   <string name="optionalDetails">선택적 세부 정보</string>
-  <string name="pastBroadcasts">과거 방송들</string>
-  <string name="allBroadcastsByMonth">월별 방송들 모두 보기</string>
+  <string name="pastBroadcasts">과거 방송</string>
+  <string name="allBroadcastsByMonth">월별 방송 모두 보기</string>
   <string name="backToLiveMove">실시간 수로 돌아가기</string>
   <string name="sinceHideResults">결과를 숨기도록 설정하였기에, 스포일러 방지 차원에서 모든 보드 미리보기가 비어 있습니다.</string>
   <string name="liveboard">실시간 체스판</string>
