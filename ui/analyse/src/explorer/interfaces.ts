@@ -76,11 +76,11 @@ export interface TablebaseData extends ExplorerData {
   dtm: number | null;
   dtw: number | null;
   dtc: number | null;
-  checkmate: boolean;
-  stalemate: boolean;
-  variant_win: boolean;
-  variant_loss: boolean;
-  insufficient_material: boolean;
+  checkmate?: boolean;
+  stalemate?: boolean;
+  variant_win?: boolean;
+  variant_loss?: boolean;
+  insufficient_material?: boolean;
   category: TablebaseCategory;
 }
 
@@ -104,12 +104,13 @@ export interface TablebaseMoveStats extends MoveStats {
   dtm: number | null;
   dtw: number | null;
   dtc: number | null;
-  checkmate: boolean;
-  stalemate: boolean;
-  variant_win: boolean;
-  variant_loss: boolean;
-  insufficient_material: boolean;
-  zeroing: boolean;
+  checkmate?: boolean;
+  stalemate?: boolean;
+  variant_win?: boolean;
+  variant_loss?: boolean;
+  insufficient_material?: boolean;
+  zeroing?: boolean;
+  conversion?: boolean;
   category: TablebaseCategory;
 }
 
