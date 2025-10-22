@@ -16,7 +16,7 @@ final class FormUi(helpers: Helpers, bits: TeamUi)(
   import trans.team as trt
   import bits.{ TeamPage, menu }
 
-  def create(form: Form[?], captcha: Captcha)(using Context) =
+  def create(form: Form[?], captcha: Captcha)(using Context, Me) =
     TeamPage(trans.team.newTeam.txt()).markdownTextarea.js(captchaEsm):
       main(cls := "page-menu page-small")(
         menu("form".some),
@@ -36,7 +36,7 @@ final class FormUi(helpers: Helpers, bits: TeamUi)(
         )
       )
 
-  def edit(t: Team, form: Form[?], member: Option[TeamMember])(using ctx: Context) =
+  def edit(t: Team, form: Form[?], member: Option[TeamMember])(using Context, Me) =
     TeamPage(s"Edit Team ${t.name}").markdownTextarea.js(Esm("bits.team")):
       main(cls := "page-menu page-small team-edit")(
         menu(none),
@@ -95,7 +95,7 @@ final class FormUi(helpers: Helpers, bits: TeamUi)(
   private def flairField(form: Form[?])(using Context) =
     form3.flairPickerGroup(form("flair"), Flair.from(form("flair").value))
 
-  private def textFields(form: Form[?])(using Context) = frag(
+  private def textFields(form: Form[?])(using Context, Me) = frag(
     form3.group(
       form("intro"),
       trans.team.introduction(),
@@ -175,6 +175,6 @@ final class FormUi(helpers: Helpers, bits: TeamUi)(
       )(form3.input(_))
     )
 
-  private def teamDescTextarea(field: play.api.data.Field)(modifiers: Modifier*) =
+  private def teamDescTextarea(field: play.api.data.Field)(modifiers: Modifier*)(using Me) =
     lila.ui.bits.markdownTextarea("teamDescription".some):
       form3.textarea(field)(rows := 10)(modifiers)

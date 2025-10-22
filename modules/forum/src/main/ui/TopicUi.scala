@@ -17,7 +17,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
 ):
   import helpers.{ *, given }
 
-  def form(categ: lila.forum.ForumCateg, form: Form[?], captcha: Captcha)(using Context) =
+  def form(categ: lila.forum.ForumCateg, form: Form[?], captcha: Captcha)(using Context, Me) =
     Page("New forum topic")
       .csp(_.withInlineIconFont)
       .markdownTextarea
@@ -172,42 +172,44 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
               canModCateg.option(relocateModal(categ))
             )
           ),
-          formWithCaptcha.map: (form, captcha) =>
-            postForm(
-              cls := "form3 reply",
-              action := s"${routes.ForumPost.create(categ.id, topic.slug, posts.currentPage)}#reply",
-              novalidate
-            )(
-              form3.group(
-                form("text"),
-                trans.site.message(),
-                help = span(cls := "space-between")(
-                  plaintext.not.option(span(markdownIsAvailable)),
-                  a(
-                    dataIcon := Icon.InfoCircle,
-                    cls := "text",
-                    href := routes.Cms.lonePage(CmsPageKey("forum-etiquette"))
-                  )("Forum etiquette")
-                ).some
-              ): f =>
-                if plaintext then
-                  form3.textarea(f, klass = "post-text-area")(rows := 10, bits.dataTopic := topic.id)(
-                    formText
-                  )
-                else bits.postTextarea(f)(bits.dataTopic := topic.id, formText),
-              renderCaptcha(form, captcha),
-              form3.actions(
-                a(href := routes.ForumCateg.show(categ.id))(trans.site.cancel()),
-                (Granter.opt(_.PublicMod) || Granter.opt(_.SeeReport)).option(
-                  form3.submit(
-                    frag(s"Reply as a mod ${(!Granter.opt(_.PublicMod)).so("(anonymously)")}"),
-                    nameValue = (form("modIcon").name, "true").some,
-                    icon = Icon.Agent.some
-                  )
-                ),
-                form3.submit(trans.site.reply())
-              )
+          for
+            given Me <- ctx.me
+            (form, captcha) <- formWithCaptcha
+          yield postForm(
+            cls := "form3 reply",
+            action := s"${routes.ForumPost.create(categ.id, topic.slug, posts.currentPage)}#reply",
+            novalidate
+          )(
+            form3.group(
+              form("text"),
+              trans.site.message(),
+              help = span(cls := "space-between")(
+                plaintext.not.option(span(markdownIsAvailable)),
+                a(
+                  dataIcon := Icon.InfoCircle,
+                  cls := "text",
+                  href := routes.Cms.lonePage(CmsPageKey("forum-etiquette"))
+                )("Forum etiquette")
+              ).some
+            ): f =>
+              if plaintext then
+                form3.textarea(f, klass = "post-text-area")(rows := 10, bits.dataTopic := topic.id)(
+                  formText
+                )
+              else bits.postTextarea(f)(bits.dataTopic := topic.id, formText),
+            renderCaptcha(form, captcha),
+            form3.actions(
+              a(href := routes.ForumCateg.show(categ.id))(trans.site.cancel()),
+              (Granter.opt(_.PublicMod) || Granter.opt(_.SeeReport)).option(
+                form3.submit(
+                  frag(s"Reply as a mod ${(!Granter.opt(_.PublicMod)).so("(anonymously)")}"),
+                  nameValue = (form("modIcon").name, "true").some,
+                  icon = Icon.Agent.some
+                )
+              ),
+              form3.submit(trans.site.reply())
             )
+          )
         )
 
   def makeDiagnostic(

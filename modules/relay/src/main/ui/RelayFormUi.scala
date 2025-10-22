@@ -423,7 +423,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
             div(cls := "page-menu__content box box-pad")(body)
           )
 
-    def create(form: Form[lila.relay.RelayTourForm.Data])(using Context) =
+    def create(form: Form[lila.relay.RelayTourForm.Data])(using Context, Me) =
       page(trb.newBroadcast.txt(), menu = Left("new")).markdownTextarea:
         frag(
           boxTop(h1(dataIcon := Icon.RadioTower, cls := "text")(trb.newBroadcast())),
@@ -436,7 +436,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
           )
         )
 
-    def edit(form: Form[RelayTourForm.Data], nav: FormNavigation)(using Context) =
+    def edit(form: Form[RelayTourForm.Data], nav: FormNavigation)(using Context, Me) =
       page(nav.tour.name.value, menu = Right(nav)).markdownTextarea:
         frag(
           boxTop(h1(a(href := routes.RelayTour.show(nav.tour.slug, nav.tour.id))(nav.tour.name))),
@@ -472,7 +472,10 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
 
     private val sortedTiebreaks = Tiebreak.preset.sortBy(_.extendedCode)
 
-    private def inner(form: Form[RelayTourForm.Data], tg: Option[RelayTour.WithGroupTours])(using Context) =
+    private def inner(form: Form[RelayTourForm.Data], tg: Option[RelayTour.WithGroupTours])(using
+        Context,
+        Me
+    ) =
       frag(
         (!Granter.opt(_.StudyAdmin)).option(div(cls := "form-group")(ui.howToUse)),
         form3.globalError(form),
