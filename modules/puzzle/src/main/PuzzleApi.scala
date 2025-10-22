@@ -141,7 +141,7 @@ final class PuzzleApi(
       PuzzleTheme
         .findDynamic(themeStr)
         .orElse:
-          me.is(UserId.lichess).so(PuzzleTheme.find(themeStr))
+          me.is(UserId.lichess).so(PuzzleTheme.findVisible(themeStr))
         .raiseIfNone(Fail(s"Unknown theme $themeStr"))
         .flatMap: theme =>
           if me.is(UserId.lichess) then lichessVote(id, theme.key, vote)

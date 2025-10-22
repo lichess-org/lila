@@ -136,7 +136,7 @@ final class PuzzleDashboardApi(
             for
               doc <- themeDocs
               themeStr <- doc.string("_id")
-              theme <- PuzzleTheme.find(themeStr)
+              theme <- PuzzleTheme.findVisible(themeStr)
               results <- readResults(doc)
             yield theme.key -> results
         yield PuzzleDashboard(

@@ -241,8 +241,9 @@ object PuzzleTheme:
 
   def apply(key: Key): PuzzleTheme = byKey.getOrElse(key, mix)
 
-  def find(key: String) = byLowerKey.get(key.toLowerCase)
+  def findAny(key: String) = byLowerKey.get(key.toLowerCase)
+  def findVisible(key: String) = findAny(key).filterNot(hiddenThemes.contains)
 
-  def findOrMix(key: String) = find(key) | mix
+  def findOrMix(key: String) = findVisible(key) | mix
 
-  def findDynamic(key: String) = find(key).filterNot(t => staticThemes(t.key))
+  def findDynamic(key: String) = findVisible(key).filterNot(t => staticThemes(t.key))

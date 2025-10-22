@@ -47,7 +47,7 @@ private object BsonHandlers:
   private[puzzle] given BSONHandler[PuzzleRound.Theme] = tryHandler[PuzzleRound.Theme](
     { case BSONString(v) =>
       PuzzleTheme
-        .find(v.tail)
+        .findAny(v.tail)
         .fold[Try[PuzzleRound.Theme]](handlerBadValue(s"Invalid puzzle round theme $v")) { theme =>
           Success(PuzzleRound.Theme(theme.key, v.head == '+'))
         }
