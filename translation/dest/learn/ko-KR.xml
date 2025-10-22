@@ -63,7 +63,7 @@
   <string name="yourPawnReachedTheEndOfTheBoard">폰이 체스판 끝에 도달하였습니다!</string>
   <string name="itNowPromotesToAStrongerPiece">이제 더 강한 기물로 승진합니다.</string>
   <string name="selectThePieceYouWant">원하는 기물을 고르세요!</string>
-  <string name="fundamentals">기본</string>
+  <string name="fundamentals">초급</string>
   <string name="capture">공격</string>
   <string name="takeTheEnemyPieces">상대의 기물을 잡으세요</string>
   <string name="captureIntro">보호되지 않는 기물을 공격하세요!</string>
@@ -96,7 +96,7 @@
 다른 기물로 공격을 막을 수는 있습니다!</string>
   <string name="youCanGetOutOfCheckByTaking">최선의 방어는 공격입니다.
 폐하를 공격하는 기물을 공격하세요!</string>
-  <string name="thisKnightIsCheckingThroughYourDefenses">나이트가 공격합니다!</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">나이트가 방어를 뚫고 공격합니다!</string>
   <string name="escapeOrBlock">폐하를 피신시키거나
 공격을 막으세요!</string>
   <string name="outOfCheckComplete">축하합니다! 체크당하면 꼭 벗어나야 함을 명심하세요!</string>
@@ -200,13 +200,13 @@
   <string name="practice">연습</string>
   <string name="learnCommonChessPositions">유용한 체스 전략들</string>
   <string name="puzzles">퍼즐</string>
-  <string name="exerciseYourTacticalSkills">대처능력 기르기</string>
+  <string name="exerciseYourTacticalSkills">전술 실력 기르기</string>
   <string name="videos">동영상</string>
   <string name="watchInstructiveChessVideos">유익한 체스 동영상을 보세요</string>
   <string name="playPeople">다른 사람들과 플레이</string>
   <string name="opponentsFromAroundTheWorld">전세계인들과 체스를 두세요</string>
   <string name="playMachine">컴퓨터랑 게임하기</string>
-  <string name="testYourSkillsWithTheComputer">컴퓨터로 실력 평가하기</string>
+  <string name="testYourSkillsWithTheComputer">컴퓨터로 실력을 평가하세요</string>
   <string name="letsGo">시작하기</string>
   <string name="stageX">스테이지 %s</string>
   <string name="awesome">좋아요!</string>
