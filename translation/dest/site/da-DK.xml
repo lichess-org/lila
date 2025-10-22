@@ -236,7 +236,7 @@
   <string name="changePassword">Skift adgangskode</string>
   <string name="changeEmail">Skift e-mail</string>
   <string name="email">E-mail</string>
-  <string name="passwordReset">Nulstil adgangskode</string>
+  <string name="passwordReset">Nulstilling af adgangskode</string>
   <string name="forgotPassword">Glemt adgangskode?</string>
   <string name="error.weakPassword">Denne adgangskode er ekstremt almindelig og for let at gætte.</string>
   <string name="error.namePassword">Brug ikke dit brugernavn som din adgangskode.</string>
