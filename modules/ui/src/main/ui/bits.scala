@@ -118,9 +118,6 @@ object bits:
     )
   )
 
-  // #TODO move this where it belongs (?)
-  def canUploadImages(using me: Me) = false && me.createdSinceDays(7) && !me.marks.alt
-
   def markdownTextarea(picfitIdPrefix: Option[String])(textareaTag: Tag)(using
       imageGetOrigin: ImageGetOrigin
   )(using Me) =
@@ -131,7 +128,7 @@ object bits:
         case Some(p) if p.startsWith("forum") => 5
         case Some(p) if p.startsWith("team") => 2
         case _ => 1,
-      canUploadImages
+      lila.core.security.canUploadImages
         .so(picfitIdPrefix)
         .map(id => attr("data-image-upload-url") := routes.Main.uploadImage(id)),
       picfitIdPrefix.flatMap(imageDesignWidth).map(dw => attr("data-image-design-width") := dw)

@@ -6,7 +6,7 @@ import play.api.mvc.RequestHeader
 
 import lila.core.email.EmailAddress
 import lila.core.net.IpAddress
-import lila.core.user.User
+import lila.core.user.{ Me, User }
 import lila.core.userId.{ UserId, UserName }
 
 case class GarbageCollect(userId: UserId)
@@ -116,3 +116,5 @@ trait UserTrustApi:
   def get(id: UserId): Fu[UserTrust]
 
 case class AskAreRelated(users: PairOf[UserId], promise: Promise[Boolean])
+
+def canUploadImages(using me: Me) = me.isVerified || (me.createdSinceDays(7) && !me.marks.alt)
