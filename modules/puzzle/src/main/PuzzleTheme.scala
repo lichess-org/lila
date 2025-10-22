@@ -176,7 +176,7 @@ object PuzzleTheme:
 
   val visible: List[PuzzleTheme] = categorized.flatMap(_._2)
   // themes that can't be viewed by players
-  private val hiddenThemes: List[PuzzleTheme] = List(checkFirst)
+  private[puzzle] val hiddenThemes: List[PuzzleTheme] = List(checkFirst)
 
   private val all: List[PuzzleTheme] = visible ::: hiddenThemes
   val hiddenThemesKey: Set[Key] = hiddenThemes.map(_.key).toSet
