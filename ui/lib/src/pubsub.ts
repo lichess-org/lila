@@ -40,11 +40,17 @@ export interface PubsubEvents {
   'socket.in.endData': (data: any) => void;
   'socket.in.fen': (data: { id: string; fen: FEN; lm: Uci; wc?: number; bc?: number }) => void;
   'socket.in.finish': (data: { id: string; win?: 'b' | 'w' }) => void;
-  'socket.in.following_enters': (data: any) => void;
-  'socket.in.following_leaves': (data: any) => void;
-  'socket.in.following_onlines': (data: any) => void;
-  'socket.in.following_playing': (data: any) => void;
-  'socket.in.following_stopped_playing': (data: any) => void;
+  'socket.in.following_enters': (
+    titleName: string,
+    msg: { playing: boolean; patronColor?: PatronColor },
+  ) => void;
+  'socket.in.following_leaves': (titleName: string) => void;
+  'socket.in.following_onlines': (
+    friends: string[],
+    msg: { playing: string[]; patronColors: PatronColor[] },
+  ) => void;
+  'socket.in.following_playing': (titleName: string) => void;
+  'socket.in.following_stopped_playing': (titleName: string) => void;
   'socket.in.message': (line: Line) => void;
   'socket.in.mlat': (millis: number) => void;
   'socket.in.msgNew': (data: { text: string; user: UserId; date: number }) => void;
