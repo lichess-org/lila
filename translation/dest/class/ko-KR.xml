@@ -114,7 +114,7 @@
   <string name="xAlreadyHasAPendingInvitation">%s은(는) 이미 초대되었습니다</string>
   <string name="xIsAKidAccountWarning">%1$s는 어린이 계정이므로 메시지를 받을 수 없습니다. 초대 링크를 수동으로 보내야 합니다: %2$s.</string>
   <string name="moveToClass">%s로 움직여</string>
-  <string name="moveToAnotherClass">다른 수업으로 움직여</string>
+  <string name="moveToAnotherClass">다른 반으로 이동</string>
   <string name="allowMessagingBetweenStudents">학생들끼리 메세지를 주고받는 것을 허용하기</string>
   <string name="allowMessagingBetweenStudentsDesc">이는 귀하가 학생을 위해 생성한 계정에만 적용됩니다.</string>
 </resources>
