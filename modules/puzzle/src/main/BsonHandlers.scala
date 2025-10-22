@@ -32,7 +32,7 @@ private object BsonHandlers:
       glicko = glicko,
       plays = plays,
       vote = vote,
-      themes = themes.diff(PuzzleTheme.hiddenThemes)
+      themes = themes.diff(PuzzleTheme.hiddenThemesKey)
     )
 
   private[puzzle] given roundIdHandler: BSONHandler[PuzzleRound.Id] = tryHandler[PuzzleRound.Id](
@@ -47,7 +47,7 @@ private object BsonHandlers:
   private[puzzle] given BSONHandler[PuzzleRound.Theme] = tryHandler[PuzzleRound.Theme](
     { case BSONString(v) =>
       PuzzleTheme
-        .find(v.tail)
+        .findAny(v.tail)
         .fold[Try[PuzzleRound.Theme]](handlerBadValue(s"Invalid puzzle round theme $v")) { theme =>
           Success(PuzzleRound.Theme(theme.key, v.head == '+'))
         }
