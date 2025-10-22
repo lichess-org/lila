@@ -5716,6 +5716,44 @@ interface I18n {
     /** You are blocked by the blog author. */
     youBlockedByBlogAuthor: string;
   };
+  variant: {
+    /** Antichess */
+    antichess: string;
+    /** Lose all your pieces (or get stalemated) to win the game. */
+    antichessTitle: string;
+    /** Atomic */
+    atomic: string;
+    /** Nuke your opponent's king to win. */
+    atomicTitle: string;
+    /** Chess960 */
+    chess960: string;
+    /** The starting position of the home rank pieces is randomized. */
+    chess960Title: string;
+    /** Crazyhouse */
+    crazyhouse: string;
+    /** Captured pieces can be dropped back on the board instead of moving a piece. */
+    crazyhouseTitle: string;
+    /** Horde */
+    horde: string;
+    /** One side has a large number of pawns, the other has a normal army. */
+    hordeTitle: string;
+    /** King of the Hill */
+    kingOfTheHill: string;
+    /** Bring your King to the center to win the game. */
+    kingOfTheHillTitle: string;
+    /** Racing Kings */
+    racingKings: string;
+    /** Get your king to the other side of the board to win. */
+    racingKingsTitle: string;
+    /** Standard */
+    standard: string;
+    /** Standard rules of chess (FIDE) */
+    standardTitle: string;
+    /** Three-Check */
+    threeCheck: string;
+    /** Check your opponent 3 times to win the game. */
+    threeCheckTitle: string;
+  };
   video: {
     /** All %s video tags */
     allNbVideoTags: I18nFormat;

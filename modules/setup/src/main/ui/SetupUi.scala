@@ -149,19 +149,11 @@ final class SetupUi(helpers: Helpers):
 
   private def encodeId(v: Variant) = v.id.toString
 
-  private def variantTuple(encode: Variant => String)(variant: Variant) =
-    (encode(variant), variant.name, variant.title.some)
+  private def variantTuple(encode: Variant => String)(variant: Variant)(using Translate): SelectChoice =
+    (encode(variant), variant.variantTrans.txt(), variant.variantTitleTrans.txt().some)
 
-  private def translatedVariantChoices(encode: Variant => String)(using Translate): List[SelectChoice] =
-    List(
-      (encode(chess.variant.Standard), trans.site.standard.txt(), chess.variant.Standard.title.some)
-    )
-
-  def translatedVariantChoicesWithVariantsById(using Translate): List[SelectChoice] =
-    translatedVariantChoicesWithVariants(encodeId)
-
-  def translatedVariantChoicesWithVariants(encode: Variant => String)(using Translate): List[SelectChoice] =
-    translatedVariantChoices(encode) ::: List(
+  private val selectableVariants: List[Variant] = List(
+      chess.variant.Standard,
       chess.variant.Crazyhouse,
       chess.variant.Chess960,
       chess.variant.KingOfTheHill,
@@ -170,7 +162,13 @@ final class SetupUi(helpers: Helpers):
       chess.variant.Atomic,
       chess.variant.Horde,
       chess.variant.RacingKings
-    ).map(variantTuple(encode))
+    )
+
+  def translatedVariantChoicesWithVariantsById(using Translate): List[SelectChoice] =
+    translatedVariantChoicesWithVariants(encodeId)
+
+  def translatedVariantChoicesWithVariants(encode: Variant => String)(using Translate): List[SelectChoice] =
+    selectableVariants.map(variantTuple(encode))
 
   private def translatedSpeedChoices(using Translate) =
     Speed.limited.map: s =>

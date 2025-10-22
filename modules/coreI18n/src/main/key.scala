@@ -2908,6 +2908,26 @@ object I18nKey:
     val `nbViews`: I18nKey = "ublog:nbViews"
     val `viewAllNbPosts`: I18nKey = "ublog:viewAllNbPosts"
 
+  object variant:
+    val `standard`: I18nKey = "variant:standard"
+    val `standardTitle`: I18nKey = "variant:standardTitle"
+    val `chess960`: I18nKey = "variant:chess960"
+    val `chess960Title`: I18nKey = "variant:chess960Title"
+    val `kingOfTheHill`: I18nKey = "variant:kingOfTheHill"
+    val `kingOfTheHillTitle`: I18nKey = "variant:kingOfTheHillTitle"
+    val `threeCheck`: I18nKey = "variant:threeCheck"
+    val `threeCheckTitle`: I18nKey = "variant:threeCheckTitle"
+    val `antichess`: I18nKey = "variant:antichess"
+    val `antichessTitle`: I18nKey = "variant:antichessTitle"
+    val `atomic`: I18nKey = "variant:atomic"
+    val `atomicTitle`: I18nKey = "variant:atomicTitle"
+    val `horde`: I18nKey = "variant:horde"
+    val `hordeTitle`: I18nKey = "variant:hordeTitle"
+    val `racingKings`: I18nKey = "variant:racingKings"
+    val `racingKingsTitle`: I18nKey = "variant:racingKingsTitle"
+    val `crazyhouse`: I18nKey = "variant:crazyhouse"
+    val `crazyhouseTitle`: I18nKey = "variant:crazyhouseTitle"
+
   object video:
     val `chessVideos`: I18nKey = "video:chessVideos"
     val `allVideosAreFree`: I18nKey = "video:allVideosAreFree"
