@@ -80,7 +80,7 @@
   <string name="pointsSum">총합 점수</string>
   <string name="rankAvg">백분위 순위</string>
   <string name="tournamentWinners">토너먼트 우승자</string>
-  <string name="tournamentShields">토너먼트 실드</string>
+  <string name="tournamentShields">토너먼트 방패 트로피</string>
   <string name="onlyTitled">타이틀 플레이어만</string>
   <string name="onlyTitledHelp">토너먼트에 참여하기 위해서는 공식 타이틀이 있어야 합니다.</string>
   <string name="tournamentPairingsAreNowClosed">토너먼트 매칭이 이제 종료되었습니다.</string>
