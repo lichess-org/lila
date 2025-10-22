@@ -14,7 +14,7 @@
     <item quantity="other">%s번 도전</item>
   </plurals>
   <plurals name="playedNbRunsOfPuzzleStorm">
-    <item quantity="other">%2$s 중%1$s개 플레이함</item>
+    <item quantity="other">%2$s 중%1$s개 플레이 함</item>
   </plurals>
   <string name="highscoreX">최고기록: %s</string>
   <string name="score">점수</string>
