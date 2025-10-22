@@ -2,8 +2,8 @@
 <resources>
   <string name="coordinates">좌표</string>
   <string name="coordinateTraining">좌표 훈련</string>
-  <string name="averageScoreAsWhiteX">백색으로 평균 점수: %s</string>
-  <string name="averageScoreAsBlackX">흑색으로 평균 점수: %s</string>
+  <string name="averageScoreAsWhiteX">백으로 평균 점수: %s</string>
+  <string name="averageScoreAsBlackX">흑으로 평균 점수: %s</string>
   <string name="knowingTheChessBoard">체스판 좌표를 아는 것은 아주 중요한 체스 기술입니다:</string>
   <string name="mostChessCourses">대부분의 체스 강좌와 훈련은 \'대수적 표기법\'을 광범위하게 사용합니다.</string>
   <string name="talkToYourChessFriends">기보법을 안다면, 친구와 당신 모두 \'체스의 언어\'를 이해하기 때문에 체스 경기를 이야기하기 쉬워집니다.</string>
