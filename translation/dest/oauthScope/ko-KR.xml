@@ -21,9 +21,9 @@
   <string name="puzzleRead">퍼즐 활동 보기</string>
   <string name="teamRead">비공개 팀 정보 보기</string>
   <string name="teamWrite">팀 가입 및 탈퇴하기</string>
-  <string name="teamLead">팀 관리: PM 보내기, 멤버 내보내기</string>
+  <string name="teamLead">팀 관리: 비공개 메세지 보내기, 멤버 내보내기</string>
   <string name="followRead">팔로우한 플레이어 보기</string>
-  <string name="followWrite">다른 플레이어 팔로우 및 언팔로우하기</string>
+  <string name="followWrite">다른 플레이어 팔로우 및 팔로우 취소하기</string>
   <string name="msgWrite">다른 플레이어에게 비공개 메시지 보내기</string>
   <string name="boardPlay">보드 API로 게임하기</string>
   <string name="botPlay">봇 API로 게임하기</string>
