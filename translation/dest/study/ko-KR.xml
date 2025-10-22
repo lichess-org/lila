@@ -80,7 +80,7 @@
   <string name="pinnedChapterComment">챕터 댓글 고정하기</string>
   <string name="saveChapter">챕터 저장</string>
   <string name="clearAnnotations">주석 지우기</string>
-  <string name="clearVariations">바리에이션 초기화</string>
+  <string name="clearVariations">라인 초기화</string>
   <string name="deleteChapter">챕터 지우기</string>
   <string name="deleteThisChapter">이 챕터를 지울까요? 되돌릴 수 없습니다!</string>
   <string name="clearAllCommentsInThisChapter">이 챕터의 모든 코멘트와 기호를 지울까요?</string>
@@ -189,7 +189,7 @@
   <string name="fromFenStringTitle">FEN으로부터 불러오기</string>
   <string name="fromFenStringText">미리 설정된 포지션으로 챕터를 만들기 위해 FEN 형식을 붙여넣으세요. (예시: 4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w)</string>
   <string name="fromPgnGameTitle">PGN 게임에서 불러오기</string>
-  <string name="fromPgnGameText">수순, 주석, 바리에이션을 불러오려면 PGN 기보를 붙여넣으세요.</string>
+  <string name="fromPgnGameText">수순, 주석, 라인을 불러오려면 PGN 기보를 붙여넣으세요.</string>
   <string name="variantsAreSupportedTitle">연구들은 변형 체스를 지원합니다</string>
   <string name="variantsAreSupportedText">네, 크레이지하우스나 모든 lichess 변형 체스를&lt;br&gt;연구할 수 있어요!</string>
   <string name="chapterConclusionText">챕터는 영원히 저장됩니다.&lt;br&gt;당신의 체스 콘텐츠를 잘 정리하기를 바랍니다!</string>
