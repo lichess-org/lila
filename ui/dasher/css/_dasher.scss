@@ -94,6 +94,7 @@
       padding: 0.7rem 0.7rem 0.7rem 1rem;
 
       &:hover {
+        @extend %box-radius-bottom;
         background: $c-link;
         color: $c-over;
       }
