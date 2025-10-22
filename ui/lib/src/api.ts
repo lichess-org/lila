@@ -29,8 +29,8 @@ export interface Api {
   socket: {
     subscribeToMoveLatency: () => void;
     events: {
-      on<K extends SocketEventKey>(key: K, cb: SocketCallback<K>): void;
-      off<K extends SocketEventKey>(key: K, cb: SocketCallback<K>): void;
+      on<K extends SocketEventKey | SocketInEventKey>(key: K, cb: SocketCallback<K>): void;
+      off<K extends SocketEventKey | SocketInEventKey>(key: K, cb: SocketCallback<K>): void;
     };
   };
   onlineFriends: {
