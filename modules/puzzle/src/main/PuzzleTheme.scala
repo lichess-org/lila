@@ -174,16 +174,16 @@ object PuzzleTheme:
     )
   )
 
-  lazy val visible: List[PuzzleTheme] = categorized.flatMap(_._2)
+  val visible: List[PuzzleTheme] = categorized.flatMap(_._2)
   // themes that can't be viewed by players
   private val hiddenThemes: List[PuzzleTheme] = List(checkFirst)
 
-  private lazy val all: List[PuzzleTheme] = visible ::: hiddenThemes
+  private val all: List[PuzzleTheme] = visible ::: hiddenThemes
   val hiddenThemesKey: Set[Key] = hiddenThemes.map(_.key).toSet
 
-  private lazy val byKey: Map[Key, PuzzleTheme] = all.mapBy(_.key)
+  private val byKey: Map[Key, PuzzleTheme] = all.mapBy(_.key)
 
-  private lazy val byLowerKey: Map[String, PuzzleTheme] = all.mapBy(_.key.value.toLowerCase)
+  private val byLowerKey: Map[String, PuzzleTheme] = all.mapBy(_.key.value.toLowerCase)
 
   // themes that can't be voted by players
   val staticThemes: Set[Key] = Set(
