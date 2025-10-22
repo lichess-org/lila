@@ -3,7 +3,7 @@ import type { Data as WatchersData } from '@/view/watchers';
 
 export type PubsubEventKey = keyof PubsubEvents;
 
-interface PubsubEvents {
+export interface PubsubEvents {
   'ab.rep': (data: 'kbc') => void;
   'analysis.closeAll': () => void;
   'analysis.change': (fen: FEN, path: string) => void;
@@ -37,8 +37,14 @@ interface PubsubEvents {
     streams?: [UserId, { name: string; lang: string }][];
   }) => void;
   'socket.in.announce': (data: { msg?: string; date?: string }) => void;
+  'socket.in.endData': (data: any) => void;
   'socket.in.fen': (data: { id: string; fen: FEN; lm: Uci; wc?: number; bc?: number }) => void;
   'socket.in.finish': (data: { id: string; win?: 'b' | 'w' }) => void;
+  'socket.in.following_enters': (data: any) => void;
+  'socket.in.following_leaves': (data: any) => void;
+  'socket.in.following_onlines': (data: any) => void;
+  'socket.in.following_playing': (data: any) => void;
+  'socket.in.following_stopped_playing': (data: any) => void;
   'socket.in.message': (line: Line) => void;
   'socket.in.mlat': (millis: number) => void;
   'socket.in.msgNew': (data: { text: string; user: UserId; date: number }) => void;
