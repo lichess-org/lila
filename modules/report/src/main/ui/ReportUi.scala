@@ -262,8 +262,7 @@ final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
                     )
                   ),
                   Granter(_.ModerateForum).option(
-                    a(
-                      href := routes.Mod.imageQueue(1),
+                    a(href := routes.Mod.imageQueue(1), cls := List("active" -> (filter == "image")))(
                       countTag(pending.images),
                       "Images"
                     )

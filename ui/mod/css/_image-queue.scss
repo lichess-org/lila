@@ -1,4 +1,5 @@
 .image-queue {
+  border-top: 4px solid $c-brag;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
   grid-gap: 3rem;
