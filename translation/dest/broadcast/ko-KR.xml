@@ -79,4 +79,6 @@
   <string name="backToLiveMove">실시간 수로 돌아가기</string>
   <string name="sinceHideResults">결과를 숨기도록 설정하였기에, 스포일러 방지 차원에서 모든 보드 미리보기가 비어 있습니다.</string>
   <string name="liveboard">실시간 체스판</string>
+  <string name="communityBroadcast">커뮤니티 방송</string>
+  <string name="createdAndManagedBy">%s로부터 생성되고 관리됨.</string>
 </resources>
