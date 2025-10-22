@@ -185,10 +185,10 @@
   <string name="customPositionTitle">사용자 지정 포지션</string>
   <string name="customPositionText">원하는대로 보드를 설정하세요. 엔드게임을 탐색할 때 적합합니다.</string>
   <string name="loadExistingLichessGameTitle">Lichess 게임 불러오기</string>
-  <string name="loadExistingLichessGameText">챕터에 게임 수를 불러오려면&lt;br&gt;lichess 게임 URL을 붙여넣으세요&lt;br&gt;(예시: lichess.org/7fHIU0XI).</string>
+  <string name="loadExistingLichessGameText">챕터에 Lichess에서 진행된 게임 수순을 불러오려면&lt;br&gt;lichess 게임 URL을 붙여넣으세요&lt;br&gt;(예시: lichess.org/7fHIU0XI).</string>
   <string name="fromFenStringTitle">FEN으로부터 불러오기</string>
   <string name="fromFenStringText">미리 설정된 포지션으로 챕터를 만들기 위해 FEN 형식을 붙여넣으세요. (예시: 4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w)</string>
-  <string name="fromPgnGameTitle">PGN 게임에서</string>
+  <string name="fromPgnGameTitle">PGN 게임에서 불러오기</string>
   <string name="fromPgnGameText">수순, 주석, 바리에이션을 불러오려면 PGN 기보를 붙여넣으세요.</string>
   <string name="variantsAreSupportedTitle">연구들은 변형 체스를 지원합니다</string>
   <string name="variantsAreSupportedText">네, 크레이지하우스나 모든 lichess 변형 체스를&lt;br&gt;연구할 수 있어요!</string>
