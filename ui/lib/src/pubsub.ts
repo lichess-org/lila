@@ -77,8 +77,6 @@ export interface PubsubEvents {
 
 export type PubsubOneTimeEvent = 'dialog.polyfill' | 'socket.hasConnected' | 'botdev.images.ready';
 
-export type PubsubCallback = (...data: any[]) => void;
-
 export class Pubsub {
   private allSubs: Map<keyof PubsubEvents, Set<PubsubEvents[keyof PubsubEvents]>> = new Map();
   private oneTimeEvents: Map<PubsubOneTimeEvent, OneTimeHandler> = new Map();
