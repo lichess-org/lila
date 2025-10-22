@@ -45,10 +45,10 @@
   <string name="createDesc1">Ако ученик још увек нема Lichess налог, овде можеш направити један за њега/њу.</string>
   <string name="createDesc2">Е-пошта није обавезна. Лозинка ће бити направљена и Ви ћете морати да је проследите ученику, да би они могли да се укључе.</string>
   <string name="createDesc3">Важно: ученик не сме имате више налога.</string>
-  <string name="createDesc4">Ако они већ имају један, користите образац за позив.</string>
+  <string name="createDesc4">Ако већ има један, уместо овог, користи образац за позив.</string>
   <string name="createStudentWarning">Искључиво правите налоге стварним ученицима. Немојте ово користите да правите више налога за себе. Добићете забрану приступа.</string>
-  <string name="lichessUsername">Личес корисничко име</string>
-  <string name="generateANewUsername">Направите ново корисничко име</string>
+  <string name="lichessUsername">Lichess корисничко име</string>
+  <string name="generateANewUsername">Генериши ново корисничко име</string>
   <string name="welcomeToClass">Добродошли на час: %s.
 Овде је веза за приступ часу.</string>
   <string name="invitationToClass">Позван си да се прикључиш \"%s\" часу као ученик.</string>
@@ -58,7 +58,7 @@
     <item quantity="few">%s позива на чекању</item>
     <item quantity="other">%s позива на чекању</item>
   </plurals>
-  <string name="onlyVisibleToTeachers">Видљиво само за учитеље</string>
+  <string name="onlyVisibleToTeachers">Видљиво само учитељима часа</string>
   <string name="lastActiveDate">Активан</string>
   <string name="managed">Под туђом управом</string>
   <string name="thisStudentAccountIsManaged">Овај ученички налог је под туђом управом</string>
