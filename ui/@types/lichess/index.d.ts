@@ -165,11 +165,6 @@ interface Fipr {
   x64hash128(input: string, seed: number): string;
 }
 
-interface Events {
-  on(key: string, cb: (...args: any[]) => void): void;
-  off(key: string, cb: (...args: any[]) => void): void;
-}
-
 interface Window {
   site: Site;
   fipr: Fipr;

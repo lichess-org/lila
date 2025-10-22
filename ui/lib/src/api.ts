@@ -8,6 +8,11 @@ const socketEvents = ['lag', 'close'] as const;
 const socketInEvents = ['mlat', 'fen', 'notifications', 'endData'] as const;
 const friendsEvents = ['playing', 'stopped_playing', 'onlines', 'enters', 'leaves'] as const;
 
+interface Events {
+  on<K extends keyof PubsubEvents>(name: K, cb: PubsubEvents[K]): void;
+  off<K extends keyof PubsubEvents>(name: K, cb: PubsubEvents[K]): void;
+}
+
 export interface Api {
   initializeDom: (root?: HTMLElement) => void;
   events: Events;
