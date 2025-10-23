@@ -654,18 +654,18 @@
   <string name="noSimulExplanation">존재하지 않는 다면기입니다.</string>
   <string name="returnToSimulHomepage">다면기 홈 화면으로 돌아가기</string>
   <string name="aboutSimul">다면기에서는 1인의 플레이어가 여러 플레이어와 동시에 대국을 진행합니다.</string>
-  <string name="aboutSimulImage">피셔는 50명의 상대 중, 47국을 승리하였고, 2국은 무승부였으며 1국만 패하였습니다.</string>
+  <string name="aboutSimulImage">피셔는 50명의 상대 중, 47국을 승리하였고, 2국은 무승부였으며 1국만 패배했습니다.</string>
   <string name="aboutSimulRealLife">이 컨셉은 실제 이벤트들을 본딴 것입니다. 실제 경기에서는 다면기 주최자가 테이블을 돌아다니며 한 수씩 둡니다.</string>
   <string name="aboutSimulRules">다면기가 시작되면, 모든 플레이어가 주최자와 대국을 합니다. 다면기는 모든 플레이어와 게임이 끝나면 종료됩니다.</string>
   <string name="aboutSimulSettings">다면기는 항상 캐주얼전입니다. 재대결, 무르기, 시간추가를 할 수 없습니다.</string>
   <string name="create">생성</string>
   <string name="whenCreateSimul">다면기를 생성하면 한 번에 여러 명의 플레이어와 게임하게 됩니다.</string>
-  <string name="simulVariantsHint">복수의 게임방식을 선택할 경우, 상대방 측에서 게임 방식을 선택하게 됩니다.</string>
+  <string name="simulVariantsHint">게임 방식을 한 개 이상 선택할 경우, 상대방 측에서 게임 방식을 선택하게 됩니다.</string>
   <string name="simulClockHint">피셔 방식 제한시간 설정: 여러 명의 사람들과 둔다면 더 많은 시간이 필요할 것입니다.</string>
   <string name="simulAddExtraTime">다면기를 위하여 당신에게만 여분의 시간을 더할 수 있습니다.</string>
-  <string name="simulHostExtraTime">다면기 시작 시 주최자의 추가 제한 시간</string>
+  <string name="simulHostExtraTime">다면기 시작 시 주최자의 추가 시간</string>
   <string name="simulAddExtraTimePerPlayer">다면기에 참여하는 각 플레이어에게 기본 시간을 추가합니다.</string>
-  <string name="simulHostExtraTimePerPlayer">플레이어 당 주최자의 추가 제한 시간</string>
+  <string name="simulHostExtraTimePerPlayer">플레이어 당 주최자의 추가 시간</string>
   <string name="lichessTournaments">Lichess 토너먼트</string>
   <string name="tournamentFAQ">아레나 토너먼트 FAQ</string>
   <string name="timeBeforeTournamentStarts">토너먼트 시작까지 시간</string>
@@ -923,7 +923,7 @@
 FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
 비워두면 일반 시작 포지션에서 시작합니다.</string>
   <string name="cancelSimul">다면기 취소하기</string>
-  <string name="simulHostcolor">각 대국에서 호스트의 색</string>
+  <string name="simulHostcolor">주최자의 색</string>
   <string name="estimatedStart">예상 시작 시간</string>
   <string name="simulFeatured">%s에서 공개</string>
   <string name="simulFeaturedHelp">모두가 %s에서 다면기를 볼 수 있습니다. 비공개 대국을 위해서는 비활성화하세요.</string>
