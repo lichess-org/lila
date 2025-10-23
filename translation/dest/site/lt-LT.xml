@@ -463,6 +463,7 @@
     <item quantity="other">Jums reikia sužaisti dar %s vertinamų partijų</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Jūsų %s reitingas yra laikinas</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Reitingo filtrai užrakinti, nes jūsų reitingas nestabilus. Žaidžiant įvertintus žaidimus, padidės stabilumas.</string>
   <string name="yourPerfRatingIsTooHigh">Jūsų „%1$s“ reitingas (%2$s) yra per aukštas</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Jūsų geriausias savaitinis „%1$s“ reitingas (%2$s) yra per aukštas</string>
   <string name="yourPerfRatingIsTooLow">Jūsų „%1$s“ reitingas (%2$s) yra per žemas</string>
@@ -761,6 +762,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="really">tikrai</string>
   <string name="contribute">Prisidėkite</string>
   <string name="termsOfService">Naudojimosi sąlygos</string>
+  <string name="titleVerification">Titulo patvirtinimas</string>
   <string name="sourceCode">Pirminis kodas</string>
   <string name="simultaneousExhibitions">Simultanai</string>
   <string name="host">Šeimininkas</string>
@@ -850,6 +852,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Judėti partijoje taip pat galite naudodamiesi pelės ratuku virš lentos.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Užveskite ant kompiuterio variacijų norėdami jas peržiūrėti.</string>
   <string name="analysisShapesHowTo">Spustelėkite Shift + kairįjį pelės klavišą arba dešinįjį pelės klavišą norėdami piešti ant lentos.</string>
+  <string name="primaryColorArrowsHowTo">Ctrl arba shift = raudona; command, alt arba meta = mėlyna; raktas iš kiekvieno = geltona.</string>
   <string name="letOtherPlayersMessageYou">Leisti kitiems žaidėjams jums parašyti</string>
   <string name="receiveForumNotifications">Gaukite pranešimus, kai esate paminėti forume</string>
   <string name="shareYourInsightsData">Bendrinti jūsų statistiką</string>
@@ -913,6 +916,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="notifications">Pranešimai</string>
   <string name="notificationsX">Pranešimai: %1$s</string>
   <string name="perfRatingX">Reitingas: %s</string>
+  <string name="yourRatingIsX">Jūsų reitingas yra %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekundė atlikti pirmąjį ėjimą</item>
     <item quantity="few">%s sekundės atlikti pirmąjį ėjimą</item>
@@ -968,6 +972,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="playVariationToCreateConditionalPremoves">Sužaiskite variaciją, norėdami sukurti sąlyginius išankstinius ėjimus</string>
   <string name="noConditionalPremoves">Nėra sąlyginių išankstinių ėjimų</string>
   <string name="playX">Žaiskite %s</string>
+  <string name="challengeX">Teikti iššūkį %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">ir sutaupykite %s išankstinio ėjimo liniją</item>
     <item quantity="few">ir sutaupykite %s išankstinio ėjimo linijas</item>
@@ -1098,4 +1103,13 @@ Palikite tuščią norėdami pradėti žaidimą nuo įprastos pradinės pozicijo
 Visos veikimo išlaidos, programavimas ir turinys yra padengti išskirtinai tik vartotojų parama.</string>
   <string name="nothingToSeeHere">Nieko naujo.</string>
   <string name="stats">Statistika</string>
+  <string name="accessibility">Prieinamumas</string>
+  <string name="enableBlindMode">Įjungti akląjį režimą</string>
+  <string name="disableBlindMode">Įšungti akląjį režimą</string>
+  <string name="copyToClipboard">Kopijuoti į iškarpinę</string>
+  <string name="online" comment="status of a user">prisijungęs</string>
+  <string name="offline" comment="status of a user">neprisijungta</string>
+  <string name="search">Ieškoti</string>
+  <string name="clearSearch">Išvalyti paiešką</string>
+  <string name="tags">Žymos</string>
 </resources>
