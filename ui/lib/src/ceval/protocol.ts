@@ -132,7 +132,7 @@ export class Protocol {
           pvs: [pvData],
         };
       } else if (this.currentEval) {
-        this.currentEval.pvs.push(pvData);
+        this.currentEval.pvs[multiPv - 1] = pvData;
         this.currentEval.depth = Math.min(this.currentEval.depth, depth);
       }
 
