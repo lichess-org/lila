@@ -135,10 +135,6 @@ final class SetupUi(helpers: Helpers):
       (d.toString, s"$d days", none)
     }
 
-  
-
-  
-
   private def translatedModeChoices(using Translate) =
     List(
       (Rated.No.id.toString, trans.site.casual.txt(), none),
@@ -151,16 +147,10 @@ final class SetupUi(helpers: Helpers):
       (0, trans.site.no.txt(), none)
     )
 
-  
-
   private def encodeId(v: Variant) = v.id.toString
-
-  
 
   private def variantTuple(encode: Variant => String)(variant: Variant) =
     (encode(variant), variant.name, variant.title.some)
-
-  
 
   private def translatedVariantChoices(encode: Variant => String)(using Translate): List[SelectChoice] =
     List(
@@ -181,12 +171,6 @@ final class SetupUi(helpers: Helpers):
       chess.variant.Horde,
       chess.variant.RacingKings
     ).map(variantTuple(encode))
-
-  
-
-  
-
-  
 
   private def translatedSpeedChoices(using Translate) =
     Speed.limited.map: s =>

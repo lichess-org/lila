@@ -1,8 +1,9 @@
 import type { VNode } from 'snabbdom';
 import * as licon from 'lib/licon';
 import { spinnerVdom as spinner } from 'lib/view/controls';
+import { numberRow } from 'lib/view/util';
 import { bind, dataIcon, hl } from 'lib/snabbdom';
-import { player as renderPlayer, numberRow } from './util';
+import { player as renderPlayer } from './util';
 import type { Pairing } from '../interfaces';
 import { isOutcome } from '../util';
 import type SwissCtrl from '../ctrl';
