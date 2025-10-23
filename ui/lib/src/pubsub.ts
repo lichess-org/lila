@@ -57,8 +57,6 @@ export interface PubsubEvents {
   'socket.in.msgType': (userId: UserId) => void;
   'socket.in.notifications': (data: { notifications: Paginator<any>; unread: number }) => void;
   'socket.in.voiceChat': (uids: UserId[]) => void;
-  'socket.in.voiceChatOff': () => void; // no emit (even in lila-ws)
-  'socket.in.voiceChatPing': () => void; // no emit. It's a clientOut not a clientIn
   'socket.in.redirect': (d: RedirectTo) => void;
   'socket.in.reload': (data: any) => void;
   'socket.in.sk1': (signed: string) => void;
@@ -68,10 +66,7 @@ export interface PubsubEvents {
   'socket.lag': (lag: number) => void;
   'socket.open': () => void;
   'socket.send': (event: string, d?: any, o?: any) => void;
-  'speech.enabled': (enabled: boolean) => void; // no on
-  'study.search.open': () => void; // no emit
   theme: (theme: string) => void;
-  'top.toggle.user_tag': () => void; // no emit
   zen: () => void;
 }
 
