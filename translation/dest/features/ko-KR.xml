@@ -12,7 +12,7 @@
   <string name="studies">연구 (공유할 수 있고 영구적인 분석)</string>
   <string name="chessInsights">체스 통찰 (당신의 경기에 대한 자세한 분석)</string>
   <string name="allChessBasicsLessons">모든 기본적인 체스 레슨</string>
-  <string name="tacticalPuzzlesFromUserGames">유저 경기로부터의 전술 퍼즐</string>
+  <string name="tacticalPuzzlesFromUserGames">사용자 경기로부터의 전술 퍼즐</string>
   <string name="personalOpeningExplorerX">%1$s (%2$s에서도 작동함)</string>
   <string name="personalOpeningExplorer">개인 오프닝 탐색기</string>
   <string name="globalOpeningExplorerInNbGames">전체 오프닝 탐색기 (%s 경기!)</string>
