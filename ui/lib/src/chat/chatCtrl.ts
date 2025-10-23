@@ -19,15 +19,13 @@ import { pubsub, type PubsubEvents } from '../pubsub';
 import { alert } from '../view/dialogs';
 import { isContained } from '@/algo';
 
+type SubPair = { [K in keyof PubsubEvents]: [K, PubsubEvents[K]] }[keyof PubsubEvents];
+
 export class ChatCtrl {
   data: ChatData;
   private maxLines = 200;
   private maxLinesDrop = 50; // how many lines to drop at once
-  private subs: Array<
-    {
-      [K in keyof PubsubEvents]: [K, PubsubEvents[K]];
-    }[keyof PubsubEvents]
-  >;
+  private subs: Array<SubPair>;
   private storedTabKey: Prop<string>;
   private allTabs: Tab[] = [];
 
