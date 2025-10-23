@@ -1,9 +1,10 @@
 import { h, type VNode } from 'snabbdom';
 import * as licon from 'lib/licon';
 import { spinnerVdom as spinner } from 'lib/view/controls';
+import { numberRow } from 'lib/view/util';
 import { bind, dataIcon } from 'lib/snabbdom';
 import type TournamentController from '../ctrl';
-import { numberRow, player as renderPlayer } from './util';
+import { player as renderPlayer } from './util';
 import { teamName } from './battle';
 
 export default function (ctrl: TournamentController): VNode | undefined {

@@ -1,8 +1,9 @@
 import { h, type VNode } from 'snabbdom';
 import * as licon from 'lib/licon';
 import { bind, dataIcon, type MaybeVNodes } from 'lib/snabbdom';
+import { numberRow } from 'lib/view/util';
 import type TournamentController from '../ctrl';
-import { player as renderPlayer, ratio2percent } from './util';
+import { player as renderPlayer } from './util';
 import { teamName } from './battle';
 import type { Pagination, PodiumPlayer, StandingPlayer } from '../interfaces';
 import { joinWithdraw } from './button';
@@ -75,10 +76,8 @@ function podiumStats(p: PodiumPlayer, berserkable: boolean, ctrl: TournamentCont
     h('tr', [h('th', i18n.site.gamesPlayed), h('td', nb.game)]),
     ...(nb.game
       ? [
-          h('tr', [h('th', i18n.site.winRate), h('td', ratio2percent(nb.win / nb.game))]),
-          berserkable
-            ? h('tr', [h('th', i18n.arena.berserkRate), h('td', ratio2percent(nb.berserk / nb.game))])
-            : null,
+          numberRow(i18n.site.winRate, [nb.win, nb.game], 'percent'),
+          berserkable ? numberRow(i18n.arena.berserkRate, [nb.berserk, nb.game], 'percent') : null,
         ]
       : []),
   ]);
