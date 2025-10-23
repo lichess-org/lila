@@ -6,4 +6,5 @@
   <string name="arenaBanned">Via konto estas forbarita de aliĝi al arenoj.</string>
   <string name="prizeBanned">Via konto estas forbarita de turniroj kun realaj premioj.</string>
   <string name="boosterMarked">Via konto estas markita por ranga manipulado.</string>
+  <string name="accountMuted">Via konto estas silentigita.</string>
 </resources>
