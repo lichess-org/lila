@@ -2,6 +2,7 @@
 <resources>
   <string name="gameSetup">게임 설정</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">친구에게 도전</string>
+  <string name="playAgainstComputer">컴퓨터와 대국하기</string>
   <string name="gameMode">게임 모드</string>
   <string name="createLobbyGame" comment="One of three buttons on the home page. Opens the modal to create a game that goes in the lobby.">로비 게임 만들기</string>
   <string name="youPlayAs">당신은 재생</string>
@@ -837,6 +838,7 @@
   <string name="playVariationToCreateConditionalPremoves">기물을 움직여 조건적인 수를 만들기</string>
   <string name="noConditionalPremoves">조건적인 수가 없습니다</string>
   <string name="playX">%s 를 둠</string>
+  <string name="challengeX">%s에게 도전하기</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="other">%s 종류의 조건 수를 설정</item>
   </plurals>
@@ -966,4 +968,7 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="accessibility">접근성</string>
   <string name="enableBlindMode">시각장애 모드 활성화하기</string>
   <string name="disableBlindMode">시각장애 모드 비활성화하기</string>
+  <string name="copyToClipboard">클립보드에 복사</string>
+  <string name="online" comment="status of a user">온라인</string>
+  <string name="offline" comment="status of a user">오프라인</string>
 </resources>

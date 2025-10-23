@@ -72,15 +72,15 @@ export type TablebaseCategory =
 
 export interface TablebaseData extends ExplorerData {
   moves: TablebaseMoveStats[];
-  dtz: number | null;
-  dtm: number | null;
-  dtw: number | null;
-  dtc: number | null;
-  checkmate: boolean;
-  stalemate: boolean;
-  variant_win: boolean;
-  variant_loss: boolean;
-  insufficient_material: boolean;
+  dtz?: number;
+  dtm?: number;
+  dtw?: number;
+  dtc?: number;
+  checkmate?: boolean;
+  stalemate?: boolean;
+  variant_win?: boolean;
+  variant_loss?: boolean;
+  insufficient_material?: boolean;
   category: TablebaseCategory;
 }
 
@@ -100,16 +100,17 @@ export interface OpeningMoveStats extends MoveStats {
   opening?: Opening;
 }
 export interface TablebaseMoveStats extends MoveStats {
-  dtz: number | null;
-  dtm: number | null;
-  dtw: number | null;
-  dtc: number | null;
-  checkmate: boolean;
-  stalemate: boolean;
-  variant_win: boolean;
-  variant_loss: boolean;
-  insufficient_material: boolean;
-  zeroing: boolean;
+  dtz?: number;
+  dtm?: number;
+  dtw?: number;
+  dtc?: number;
+  checkmate?: boolean;
+  stalemate?: boolean;
+  variant_win?: boolean;
+  variant_loss?: boolean;
+  insufficient_material?: boolean;
+  zeroing?: boolean;
+  conversion?: boolean;
   category: TablebaseCategory;
 }
 

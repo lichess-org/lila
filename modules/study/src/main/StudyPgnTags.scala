@@ -37,7 +37,7 @@ object StudyPgnTags:
   def validate(name: String, value: String): Option[Tag] = for
     tpe <- Tag.tagTypesByLowercase.get(name.toLowerCase).filter(relevantTypeSet)
     cleaned = lila.common.String.fullCleanUp(value)
-    if cleaned.nonEmpty && cleaned.length <= 140
+    if cleaned.length <= 140
   yield Tag(tpe, cleaned)
 
   def validateTagTypes(tags: Tags): Either[String, Tags] =

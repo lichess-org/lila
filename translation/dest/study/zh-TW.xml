@@ -58,6 +58,7 @@
   <string name="studyPgn">研究 PGN</string>
   <string name="chapterPgn">章節PGN</string>
   <string name="copyChapterPgn">複製PGN</string>
+  <string name="copyRawChapterPgn">複製純 PGN</string>
   <string name="downloadGame">下載棋局</string>
   <string name="studyUrl">研究連結</string>
   <string name="currentChapterUrl">目前章節連結</string>

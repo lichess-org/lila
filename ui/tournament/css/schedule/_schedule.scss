@@ -9,7 +9,6 @@ $c-tour-weekend: $c-brag;
 $c-tour-marathon: #66558c;
 $c-tour-unique: $c-brag;
 $c-tour-max-rating: #8572ff;
-$c-tour-variant: #7c5133;
 
 .tour-chart {
   @include prevent-select;
@@ -156,10 +155,6 @@ $c-tour-variant: #7c5133;
 
   &-max-rating {
     background-color: $c-tour-max-rating;
-  }
-
-  &-variant {
-    background-color: $c-tour-variant;
   }
 
   &-short.tsht-thematic {

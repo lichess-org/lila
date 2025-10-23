@@ -57,22 +57,24 @@ object PuzzleDashboard:
 
     def canReplay = unfixed > 0
 
-  val irrelevantThemes = List(
-    PuzzleTheme.oneMove,
-    PuzzleTheme.short,
-    PuzzleTheme.long,
-    PuzzleTheme.veryLong,
-    PuzzleTheme.mateIn1,
-    PuzzleTheme.mateIn2,
-    PuzzleTheme.mateIn3,
-    PuzzleTheme.mateIn4,
-    PuzzleTheme.mateIn5,
-    PuzzleTheme.equality,
-    PuzzleTheme.advantage,
-    PuzzleTheme.crushing,
-    PuzzleTheme.master,
-    PuzzleTheme.masterVsMaster
-  ).map(_.key)
+  val irrelevantThemes = {
+    List(
+      PuzzleTheme.oneMove,
+      PuzzleTheme.short,
+      PuzzleTheme.long,
+      PuzzleTheme.veryLong,
+      PuzzleTheme.mateIn1,
+      PuzzleTheme.mateIn2,
+      PuzzleTheme.mateIn3,
+      PuzzleTheme.mateIn4,
+      PuzzleTheme.mateIn5,
+      PuzzleTheme.equality,
+      PuzzleTheme.advantage,
+      PuzzleTheme.crushing,
+      PuzzleTheme.master,
+      PuzzleTheme.masterVsMaster
+    ) ::: PuzzleTheme.hiddenThemes
+  }.map(_.key)
 
   val relevantThemes = PuzzleTheme.visible.collect:
     case t if !irrelevantThemes.contains(t.key) => t.key
@@ -134,7 +136,7 @@ final class PuzzleDashboardApi(
             for
               doc <- themeDocs
               themeStr <- doc.string("_id")
-              theme <- PuzzleTheme.find(themeStr)
+              theme <- PuzzleTheme.findVisible(themeStr)
               results <- readResults(doc)
             yield theme.key -> results
         yield PuzzleDashboard(
