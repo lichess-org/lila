@@ -59,10 +59,10 @@
     <item quantity="other">%s позива на чекању</item>
   </plurals>
   <string name="onlyVisibleToTeachers">Видљиво само учитељима часа</string>
-  <string name="lastActiveDate">Активан</string>
-  <string name="managed">Под туђом управом</string>
-  <string name="thisStudentAccountIsManaged">Овај ученички налог је под туђом управом</string>
-  <string name="upgradeFromManaged">Унапреди са \"под туђом управом\" на \"аутономан\"</string>
+  <string name="lastActiveDate">Активан/на</string>
+  <string name="managed">Вођен</string>
+  <string name="thisStudentAccountIsManaged">Овај налог ученика је вођен</string>
+  <string name="upgradeFromManaged">Унапреди са вођеног на аутономни</string>
   <string name="release">Ослободи</string>
   <string name="releaseTheAccount">Ослободи налог тако да студент може преузети управу.</string>
   <string name="releaseDesc1">Ослобођени налог не може се вратити под управу. Ученици ће сами моћи да угасе \"дете мод\" и да обнове лозинку.</string>
