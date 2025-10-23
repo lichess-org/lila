@@ -451,7 +451,7 @@
   <string name="tournamentCalendar">토너먼트 달력</string>
   <string name="conditionOfEntry">참가조건:</string>
   <string name="advancedSettings">고급 설정</string>
-  <string name="safeTournamentName">토너먼트 이름은 무난한 것으로 정해주십시오.</string>
+  <string name="safeTournamentName">토너먼트 이름은 무난한 것으로 정해주세요.</string>
   <string name="inappropriateNameWarning">조금이라도 부적절한 이름일 경우에는 계정이 정지될 수도 있습니다.</string>
   <string name="emptyTournamentName">토너먼트 이름을 공란으로 두면, 임의의 그랜드마스터 선수 이름으로 선택됩니다.</string>
   <string name="makePrivateTournament">토너먼트를 비공개로 바꾸고, 비밀번호가 있어야만 들어갈 수 있습니다.</string>
@@ -461,7 +461,7 @@
   <string name="wins">승리</string>
   <string name="losses">패배</string>
   <string name="startingIn" comment="Displayed above a timer">대회 시작까지</string>
-  <string name="standByX">%s 님, 현재 매칭중입니다. 준비하십시오!</string>
+  <string name="standByX">%s 님, 현재 매칭중입니다. 준비하세요!</string>
   <string name="pause">일시 중지</string>
   <string name="resume">재개</string>
   <string name="youArePlaying">참가중!</string>
@@ -707,7 +707,7 @@
   <string name="betterThanPercentPlayers">%1$s의 %2$s 플레이어보다 더 뛰어납니다.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">아직 확정된 %s 레이팅을 갖지 않으셨습니다.</string>
   <string name="yourRating">당신의 레이팅</string>
-  <string name="cumulative">누적 유저 비율</string>
+  <string name="cumulative">누적 플레이어 비율</string>
   <string name="glicko2Rating">Glicko-2 레이팅</string>
   <string name="checkYourEmail">메일을 확인해 주세요.</string>
   <string name="weHaveSentYouAnEmailClickTheLink">메일을 보냈습니다. 메일에서 링크를 클릭해서 계정을 활성화해 주세요.</string>
@@ -776,9 +776,9 @@
   <string name="pieceSet">기물 세트</string>
   <string name="embedInYourWebsite">웹사이트에 공유하기</string>
   <string name="usernameAlreadyUsed">이미 사용중인 사용자 이름입니다. 다른 이름을 사용해주세요.</string>
-  <string name="usernamePrefixInvalid">유저 이름의 첫 글자는 알파벳이어야 합니다.</string>
-  <string name="usernameSuffixInvalid">유저 이름의 끝 글자는 알파벳이나 숫자여야 합니다.</string>
-  <string name="usernameCharsInvalid">유저 이름에는 알파벳, 숫자, 언더스코어 ( _ ), 하이픈 ( - ) 만을 사용할 수 있습니다.</string>
+  <string name="usernamePrefixInvalid">사용자 이름의 첫 글자는 알파벳이어야 합니다.</string>
+  <string name="usernameSuffixInvalid">사용자 이름의 끝 글자는 알파벳이나 숫자여야 합니다.</string>
+  <string name="usernameCharsInvalid">사용자 이름에는 알파벳, 숫자, 언더스코어 ( _ ), 하이픈 ( - ) 만을 사용할 수 있습니다.</string>
   <string name="usernameUnacceptable">사용자 이름을 사용할 수 없습니다.</string>
   <string name="playChessInStyle">스타일리시하게 체스하기</string>
   <string name="chessBasics">체스의 기본</string>
@@ -880,7 +880,7 @@
   <string name="important">중요!</string>
   <string name="yourQuestionMayHaveBeenAnswered">%1$s에 원하시는 답변이 있을 수 있습니다.</string>
   <string name="inTheFAQ">F.A.Q</string>
-  <string name="toReportSomeoneForCheatingOrBadBehavior">%1$s에서 엔진 사용이나 부적절한 행동을 신고하십시오.</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">엔진 사용 등 부정 행위나 부적절하게 행동한 사용자는 %1$s에서 신고해주세요.</string>
   <string name="useTheReportForm">사용자 신고</string>
   <string name="toRequestSupport">%1$s에서 문의하실 수 있습니다.</string>
   <string name="tryTheContactPage">연락처</string>
