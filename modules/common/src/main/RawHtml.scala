@@ -165,7 +165,7 @@ object RawHtml:
   private val giphyRegex =
     """https://(?:media\.giphy\.com/media/|giphy\.com/gifs/(?:\w+-)*+)(\w+)(?:/giphy\.gif)?""".r
   private val postimgRegex = """https://(?:i\.)?postimg\.cc/([\w/-]+)(?:\.jpe?g|\.png|\.gif)?""".r
-  private val ibbRegex = """https?://i\.ibb\.co/([\w/-]+(?:\.(?:jpe?g|png|gif|webp))?)""".r
+  private val ibbRegex = """https?://i\.ibb\.co/[^\s"']{1,400}""".r
 
 
   private def imgUrl(url: String): Option[Html] =
