@@ -507,7 +507,7 @@ export default class AnalyseCtrl implements CevalHandler {
       return data;
     } catch (err) {
       this.pgnError = (err as PgnError).message;
-      this.redraw();
+      requestAnimationFrame(this.redraw);
     }
     return undefined;
   }
