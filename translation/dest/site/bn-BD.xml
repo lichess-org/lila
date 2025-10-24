@@ -947,7 +947,6 @@ Markdown links ব্যবহারযোগ্য: [name](https://url)</string
   <string name="simulFeaturedHelp">%s-এ সবার কাছে আপনার সিমুল দেখান। ব্যক্তিগত সিমুল জন্য নিষ্ক্রিয় করুন.</string>
   <string name="simulDescription">সিমুল বর্ণনা</string>
   <string name="simulDescriptionHelp">আপনি অংশগ্রহণকারীদের কিছু বলতে চান?</string>
-  <string name="markdownAvailable">%s আরও উচ্চতর সিনট্যাক্সের জন্য উপলব্ধ.</string>
   <string name="embedsAvailable">এম্বেড করতে একটি গেম URL বা একটি স্টাডি চ্যাপটার URL পেস্ট করুন.</string>
   <string name="inYourLocalTimezone">আপনার স্থানীয় সময়</string>
   <string name="tournChat">টুর্নামেন্ট চ্যাট</string>
