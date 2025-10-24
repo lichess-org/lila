@@ -44,8 +44,10 @@ final class Automod(
   )
 
   lila.common.Bus.sub[ImageAutomodRequest]: req =>
-    imageFlagReason(req.id, req.dim.some).map: flagged =>
-      picfitApi.setAutomod(req.id, ImageAutomod(flagged))
+    imageFlagReason(req.id, req.dim.some)
+      .map: flagged =>
+        picfitApi.setAutomod(req.id, ImageAutomod(flagged))
+      .logFailure(logger)
 
   def text(
       userText: String,
@@ -72,7 +74,7 @@ final class Automod(
         )
         .post(body)
         .map: rsp =>
-          rsp -> extractJsonFromResponse(rsp)
+          rsp -> extractJsonFromResponse(rsp).toOption
         .flatMap:
           case (rsp, None) => fufail(s"${rsp.status} ${(rsp.body: String).take(500)}")
           case (_, Some(res)) => fuccess(res)
@@ -118,24 +120,26 @@ final class Automod(
           "Content-Type" -> "application/json"
         )
         .post(body)
-        .map: rsp =>
-          for
-            maybe <- extractJsonFromResponse(rsp)
-            res <- maybe
-            flagged = ~res.boolean("flag")
-            _ = lila.mon.mod.report.automod.imageFlagged(flagged).increment()
-            if flagged
-          yield res.str("reason") | "No reason provided"
+        .map(extractJsonFromResponse)
+        .map(_.flatMap(_.toRight("No content in response")))
+        .flatMap(_.toFuture)
+        .prefixFailure(s"Automod image $id request failed")
+        .map: res =>
+          val flagged = ~res.boolean("flag")
+          lila.mon.mod.report.automod.imageFlagged(flagged).increment()
+          flagged.option:
+            res.str("reason") | "No reason provided"
         .monSuccess(_.mod.report.automod.imageRequest)
 
-  private def extractJsonFromResponse(rsp: StandaloneWSResponse): Option[Option[JsObject]] =
+  private def extractJsonFromResponse(rsp: StandaloneWSResponse): Either[String, Option[JsObject]] =
     for
-      choices <- (rsp.body \ "choices").asOpt[List[JsObject]]
-      if rsp.status == 200
-      best <- choices.headOption
-      msg <- (best \ "message" \ "content").asOpt[String]
-      trimmed = msg.slice(msg.indexOf('{', msg.indexOf("</think>")), msg.lastIndexOf('}') + 1)
-    yield Json.parse(trimmed).asOpt[JsObject]
+      _ <- Either.cond(rsp.status != 200, (), s"API error ${rsp.status}: ${(rsp.body: String).take(300)}")
+      choices <- (rsp.body \ "choices").asOpt[List[JsObject]].toRight("No choices in response")
+      best <- choices.headOption.toRight("Empty choices in response")
+      msg <- (best \ "message" \ "content").validate[String].asEither.left.map(_.toString)
+    yield
+      val trimmed = msg.slice(msg.indexOf('{', msg.indexOf("</think>")), msg.lastIndexOf('}') + 1)
+      Json.parse(trimmed).asOpt[JsObject]
 
 private object Automod:
   case class Config(val url: String, val apiKey: Secret)
