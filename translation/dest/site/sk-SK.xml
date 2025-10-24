@@ -1064,6 +1064,7 @@ Nechajte prázdne pre začatie partií zo základnej pozície!</string>
   <string name="simulFeaturedHelp">Ukázať vašu simultánnu hru všetkým na %s. Zakázať pre súkromné simultánne hry.</string>
   <string name="simulDescription">Popis simultánky</string>
   <string name="simulDescriptionHelp">Chcete účastníkom niečo povedať?</string>
+  <string name="markdownIsAvailable">%s je k dispozícii na formátovanie.</string>
   <string name="embedsAvailable">Prilepiť URL hry alebo kapitoly štúdia sem.</string>
   <string name="inYourLocalTimezone">Vo vašom miestnom časovom pásme</string>
   <string name="tournChat">Turnajová diskusia</string>
