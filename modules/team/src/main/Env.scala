@@ -16,7 +16,8 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.core.user.LightUserApi,
     userJson: lila.core.user.JsonView,
-    db: lila.db.Db
+    db: lila.db.Db,
+    mongoRateLimitApi: lila.memo.MongoRateLimitApi
 )(using Executor, Scheduler, akka.stream.Materializer):
 
   lazy val teamRepo = TeamRepo(db(CollName("team")))
@@ -42,6 +43,8 @@ final class Env(
   export cached.lightApi as lightTeamApi
 
   export cached.{ async as lightTeam, sync as lightTeamSync }
+
+  lazy val limiter = wire[TeamLimiter]
 
   lazy val security = wire[TeamSecurity]
 
