@@ -10,7 +10,7 @@ import { sharedWasmMemory } from '../util';
 import type StockfishWeb from '@lichess-org/stockfish-web';
 import { bigFileStorage } from '@/bigFileStorage';
 
-window.indexedDB.deleteDatabase('nnue--db'); // clean this up. bigFileStorage has its own fallback idb
+window.indexedDB.deleteDatabase('nnue--db'); // bigFileStorage has its own fallback idb
 
 export class StockfishWebEngine implements CevalEngine {
   failed: Error;
@@ -56,12 +56,12 @@ export class StockfishWebEngine implements CevalEngine {
           nnueFilenames.push(nnueFilename);
         }
       await Promise.all(
-        nnueFilenames.map(async (name, i) => {
+        nnueFilenames.map(async (name, index) => {
           module.setNnueBuffer(
             await bigFileStorage().get(site.asset.url(`lifat/nnue/${name}`), (bytes, total) =>
               this.status?.({ download: { bytes, total } }),
-            )!,
-            i,
+            ),
+            index,
           );
         }),
       );
