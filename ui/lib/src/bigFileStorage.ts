@@ -1,41 +1,25 @@
-import { objectStorage, type ObjectStorage } from './objectStorage';
+import { objectStorage } from './objectStorage';
 import { memoize } from './common';
 import { hasFeature } from './device';
+import { log } from './permalog';
 
-// OPFS -> IDB fallback for large binary assets keyed by assetUrl
+// OPFS over IDB for large binary assets keyed by assetUrl
 
 export const bigFileStorage: () => BigFileStorage = memoize(() => new BigFileStorage());
 
 type U8 = Uint8Array<ArrayBuffer>;
 
-type OnProgress = (loaded: number, total: number) => void;
-
 class BigFileStorage {
-  opfs?: FileSystemDirectoryHandle;
-  idb: () => Promise<ObjectStorage<U8> | undefined> = memoize(async () =>
-    this.opfs ? undefined : objectStorage<U8>({ store: 'big-file' }),
+  private idb = memoize(() => objectStorage<U8>({ store: 'big-file' }));
+  private opfs = memoize(() =>
+    hasFeature('originPrivateFileSystem') ? navigator.storage.getDirectory() : undefined,
   );
 
-  constructor() {
-    if (hasFeature('originPrivateFileSystem'))
-      navigator.storage
-        .getDirectory()
-        .then(h => (this.opfs = h))
-        .catch(() => {});
-  }
+  async get(assetUrl: string, onProgress?: (loaded: number, total: number) => void): Promise<U8> {
+    const stored = await this.readFile(assetUrl).catch(() => undefined);
+    if (stored) return stored;
 
-  opfsName(assetUrl: string): string {
-    return new URL(assetUrl).pathname.replaceAll('/', '_');
-  }
-
-  async get(assetUrl: string, onProgress?: OnProgress): Promise<U8> {
-    const opfsName = this.opfsName(assetUrl);
-    try {
-      const u8 = (await this.readOpfs(opfsName)) ?? (await this.idb().then(idb => idb?.get(assetUrl)));
-      if (u8) return u8;
-    } catch {}
-
-    const u8 = await new Promise<U8>((resolve, reject) => {
+    const fetched = await new Promise<U8>((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       xhr.open('GET', assetUrl, true);
       xhr.responseType = 'arraybuffer';
@@ -47,24 +31,20 @@ class BigFileStorage {
           : reject(new Error(`fetch '${assetUrl}' failed: ${xhr.status}`));
       xhr.send();
     });
-    try {
-      if (this.opfs) {
-        const out = await this.opfs.getFileHandle(opfsName, { create: true }).then(fh => fh.createWritable());
-        await out.write(u8).then(() => out.close());
-      } else await this.idb().then(idb => idb?.put(assetUrl, u8));
-    } catch {}
-
-    return u8;
+    this.writeFile(assetUrl, fetched); // no await
+    return fetched;
   }
 
   async delete(assetUrl: string): Promise<void> {
-    if (this.opfs) await this.opfs.removeEntry(this.opfsName(assetUrl)).catch(() => {});
+    const opfs = await this.opfs();
+    if (opfs) await opfs.removeEntry(opfsName(assetUrl)).catch(() => {});
     else await this.idb().then(idb => idb?.remove(assetUrl));
   }
 
-  private async readOpfs(opfsName: string): Promise<U8 | undefined> {
-    if (!this.opfs) return undefined;
-    const file = await this.opfs.getFileHandle(opfsName, { create: false }).then(fh => fh.getFile());
+  private async readFile(assetUrl: string): Promise<U8 | undefined> {
+    const opfs = await this.opfs();
+    if (!opfs) return this.idb().then(idb => idb?.get(assetUrl));
+    const file = await opfs.getFileHandle(opfsName(assetUrl), { create: false }).then(fh => fh.getFile());
     const buffer = new ArrayBuffer(file.size);
     const u8 = new Uint8Array(buffer);
     let offset = 0;
@@ -77,4 +57,20 @@ class BigFileStorage {
     }
     return offset && offset === file.size ? u8 : undefined;
   }
+
+  private async writeFile(assetUrl: string, u8: U8) {
+    const out = await this.opfs()
+      ?.then(f => f?.getFileHandle(opfsName(assetUrl), { create: true }).then(fh => fh.createWritable()))
+      .catch(() => undefined);
+    try {
+      if (out) await out.write(u8).then(() => out.close());
+      else await this.idb().then(idb => idb?.put(assetUrl, u8));
+    } catch (e) {
+      log(e);
+    }
+  }
+}
+
+function opfsName(assetUrl: string): string {
+  return new URL(assetUrl).pathname.replaceAll('/', '_');
 }
