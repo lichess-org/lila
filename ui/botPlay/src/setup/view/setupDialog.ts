@@ -16,6 +16,7 @@ export const setupDialog = (ctrl: SetupCtrl) => {
     modal: true,
     noScrollable: true,
     onInsert(dialog) {
+      ctrl.dialog = dialog;
       dialog.show();
       pubsub.emit('content-loaded');
     },

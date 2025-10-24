@@ -1,4 +1,4 @@
-useNodeVersion: 24.1.0
+useNodeVersion: 24.10.0
 managePackageManagerVersions: true
 updateNotified: false
 packages:

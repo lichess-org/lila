@@ -74,7 +74,7 @@ final private class StudyMaker(
           orientation = pov.color
         ),
         root = root,
-        tags = PgnTags(tags),
+        tags = StudyPgnTags(tags),
         order = 1,
         ownerId = user.id,
         practice = false,

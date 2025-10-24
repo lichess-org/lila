@@ -117,7 +117,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
               )
             ),
             div(cls := "ublog-post__footer")(
-              (post.live && ~post.discuss).option(
+              (post.live && ~post.discuss && ctx.kid.no).option(
                 a(
                   href := routes.Ublog.discuss(post.id),
                   cls := "button text ublog-post__discuss",

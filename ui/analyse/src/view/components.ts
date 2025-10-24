@@ -298,9 +298,20 @@ export const renderIndexAndMove = (node: Tree.Node, withEval: boolean, withGlyph
 export const renderIndex = (ply: Ply, withDots: boolean): VNode =>
   hl(`index.sbhint${ply}`, plyToTurn(ply) + (withDots ? (ply % 2 === 1 ? '.' : '...') : ''));
 
-export function renderMoveNodes(node: Tree.Node, withEval: boolean, withGlyphs: boolean): LooseVNodes {
-  const ev = node.ceval ?? node.eval;
-  const evalText = ev?.cp !== undefined ? normalizeEval(ev.cp) : ev?.mate !== undefined ? `#${ev.mate}` : '';
+export function renderMoveNodes(
+  node: Tree.Node,
+  withEval: boolean,
+  withGlyphs: boolean,
+  ev?: Tree.ClientEval | Tree.ServerEval | false,
+): LooseVNodes {
+  ev ??= node.ceval ?? node.eval; // ev = false will override withEval
+  const evalText = !ev
+    ? ''
+    : ev?.cp !== undefined
+      ? normalizeEval(ev.cp)
+      : ev?.mate !== undefined
+        ? `#${ev.mate}`
+        : '';
   return [
     hl('san', fixCrazySan(node.san!)),
     withGlyphs && node.glyphs?.map(g => hl('glyph', { attrs: { title: g.name } }, g.symbol)),

@@ -99,7 +99,7 @@ final private class RelayRoundRepo(val coll: Coll, tourRepo: RelayTourRepo)(usin
   yield n
 
   private[relay] def isInternalWithoutDelay(id: RelayRoundId): Fu[Boolean] = coll.exists:
-    $id(id) ++ selectors.started(true) ++ selectors.finished(false) ++
+    $id(id) ++ selectors.finished(false) ++
       $doc(
         "sync.delay".$exists(false) ++ $or(
           $doc("sync.upstream.ids".$exists(true)),

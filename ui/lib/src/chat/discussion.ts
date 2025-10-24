@@ -26,7 +26,8 @@ export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
           insert(vnode) {
             const el = vnode.elm as HTMLElement;
             const $el = $(el).on('click', 'a.jump', (e: Event) => {
-              pubsub.emit('jump', (e.target as HTMLElement).getAttribute('data-ply'));
+              const ply = (e.target as HTMLElement).getAttribute('data-ply');
+              if (ply) pubsub.emit('jump', ply);
             });
             $el.on('click', '.reply', (e: Event) => {
               const el = e.target as HTMLElement;
@@ -232,7 +233,7 @@ function renderText(t: string, opts?: enhance.EnhanceOpts) {
   return h('t', processedText);
 }
 
-const userThunk = (name: string, title?: string, patronColor?: number, flair?: Flair) =>
+const userThunk = (name: string, title?: string, patronColor?: PatronColor, flair?: Flair) =>
   userLink({ name, title, patronColor, line: !!patronColor, flair, online: !!patronColor });
 
 const actionIcons = (ctrl: ChatCtrl, line: Line): Array<VNode | null> => {

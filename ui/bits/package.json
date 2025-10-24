@@ -29,15 +29,15 @@
     "@types/zxcvbn": "^4.4.5",
     "@yaireo/tagify": "4.17.9",
     "canvas-confetti": "^1.9.3",
-    "lib": "workspace:*",
-    "cropperjs": "^1.6.2",
+    "cropperjs": "1.6.2",
     "debounce-promise": "^3.1.2",
     "emoji-mart": "^5.6.0",
     "flatpickr": "^4.6.13",
+    "lib": "workspace:*",
     "peerjs": "^1.5.5",
     "prop-types": "^15.8.1",
     "qrcode": "^1.5.4",
-    "shepherd.js": "^11.2.0",
+    "shepherd.js": "11.2.0",
     "zxcvbn": "^4.4.2"
   },
   "build": {

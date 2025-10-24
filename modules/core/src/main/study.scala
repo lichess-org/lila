@@ -37,4 +37,9 @@ case class StartStudy(studyId: StudyId)
 case class RemoveStudy(studyId: StudyId)
 
 enum Order:
-  case hot, newest, oldest, updated, popular, alphabetical, mine
+  case hot, newest, oldest, updated, popular, alphabetical, mine, relevant
+  def key = toString
+
+object Order:
+  def all: List[Order] = values.toList
+  val byKey = values.mapBy(_.key)

@@ -105,7 +105,11 @@ object StudyForm:
   def chapterTagsForm = Form:
     import chess.format.pgn.{ Tags, Parser }
     given Formatter[Tags] = formatter.stringTryFormatter(
-      pgn => Parser.tags(PgnStr(pgn)).left.map(_.value),
+      pgn =>
+        for
+          raw <- Parser.tags(PgnStr(pgn)).left.map(_.value)
+          validated <- StudyPgnTags.validateTagTypes(raw)
+        yield validated,
       _ => "" // unused, API only
     )
     single("pgn" -> of[Tags])

@@ -36,11 +36,12 @@ private final class RelayStatsApi(colls: RelayColls)(using scheduler: Scheduler)
       Match($inIds(crowds.map(_._1))) -> List(
         Project($doc("last" -> $doc("$arrayElemAt" -> $arr("$d", -1))))
       )
-    lastValues = for
-      doc <- lastValuesDocs
-      last <- doc.getAsOpt[Crowd]("last")
-      id <- doc.getAsOpt[RelayRoundId]("_id")
-    yield (id, last)
+    lastValues =
+      for
+        doc <- lastValuesDocs
+        last <- doc.getAsOpt[Crowd]("last")
+        id <- doc.getAsOpt[RelayRoundId]("_id")
+      yield (id, last)
     lastValuesMap = lastValues.toMap
     update = colls.stats.update(ordered = false)
     elementOpts <- crowds.sequentially: (roundId, crowd) =>

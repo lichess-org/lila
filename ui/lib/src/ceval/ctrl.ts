@@ -12,13 +12,12 @@ import {
   CevalState,
 } from './types';
 import { sanIrreversible, showEngineError, fewerCores } from './util';
-import { defaultPosition, setupPosition } from 'chessops/variant';
+import { setupPosition } from 'chessops/variant';
 import { parseFen } from 'chessops/fen';
 import { lichessRules } from 'chessops/compat';
 import { povChances } from './winningChances';
 import { prop, type Prop, type Toggle, toggle } from '../common';
 import { clamp } from '../algo';
-import { Result } from '@badrap/result';
 import { storedIntProp, storage } from '../storage';
 import type { Rules } from 'chessops';
 
@@ -58,14 +57,19 @@ export default class CevalCtrl {
   init(opts: CevalOpts): void {
     this.opts = opts;
     this.rules = lichessRules(this.opts.variant.key);
-    const pos = this.opts.initialFen
-      ? parseFen(this.opts.initialFen).chain(setup => setupPosition(this.rules, setup))
-      : Result.ok(defaultPosition(this.rules));
-    this.analysable = pos.isOk;
+    this.analysable =
+      !this.opts.initialFen ||
+      parseFen(this.opts.initialFen).chain(setup => setupPosition(this.rules, setup)).isOk;
     if (this.worker?.getInfo().id !== this.engines?.activate()?.id) {
       this.worker?.destroy();
       this.worker = undefined;
+      this.lastStarted = false;
     }
+  }
+
+  resume(work?: Work): void {
+    this.worker ??= this.engines.make({ variant: this.opts.variant.key });
+    if (work) this.worker.start(work);
   }
 
   onEmit: (ev: Tree.LocalEval, work: Work) => void = throttle(200, (ev: Tree.LocalEval, work: Work) => {
@@ -138,8 +142,7 @@ export default class CevalCtrl {
     // Notify all other tabs to disable ceval.
     storage.fire('ceval.disable');
 
-    if (!this.worker) this.worker = this.engines.make({ variant: this.opts.variant.key });
-    this.worker.start(work);
+    this.resume(work);
 
     this.lastStarted = {
       path,
@@ -166,7 +169,7 @@ export default class CevalCtrl {
   };
 
   start = (path: string, steps: Step[], gameId: string | undefined, threatMode?: boolean): void => {
-    if (!this.available()) return;
+    if (!this.available() || this.isPaused) return;
     this.isDeeper(false);
     this.doStart(path, steps, gameId, !!threatMode);
   };

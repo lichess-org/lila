@@ -1,4 +1,5 @@
 package lila.gameSearch
+
 import lila.core.i18n.{ I18nKey as trans, Translate }
 
 case class Sorting(f: String, order: String)

@@ -107,7 +107,8 @@
       content: $licon-X;
     }
     [data-mode='ceval']::after {
-      content: $licon-Cpu;
+      content: $licon-Cogs;
+      color: $c-font-dimmer;
       padding-inline-end: 10px;
     }
     [data-mode='ceval']:has(eval)::after {

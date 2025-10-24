@@ -31,11 +31,12 @@ final class CmsApi(coll: Coll, markdown: lila.memo.MarkdownCache, langList: Lang
       .list[CmsPage]($doc("key" -> key))
       .map(_.sortLike(langList.popularLanguages.toVector, _.language))
 
-  def render(key: CmsPageKey)(using Context): Fu[Option[Render]] =
-    getBestFor(key).flatMapz: page =>
-      markdown
-        .toHtml(s"cms:${page.id}", page.markdown, lila.cms.markdownOptions)
-        .map(Render(page, _).some)
+  def render(key: CmsPageKey, liveCheck: Boolean = false)(using Context): Fu[Option[Render]] =
+    getBestFor(key).flatMap:
+      _.filter(_.live || !liveCheck).so: page =>
+        markdown
+          .toHtml(s"cms:${page.id}", page.markdown, lila.cms.markdownOptions)
+          .map(Render(page, _).some)
 
   def renderOpt(key: CmsPageKey)(using Context): Fu[RenderOpt] =
     render(key).map(RenderOpt(key, _))

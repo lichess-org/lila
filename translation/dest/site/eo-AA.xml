@@ -4,6 +4,7 @@
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Defii geamikon</string>
   <string name="playAgainstComputer">Ludi kontraŭ komputilo</string>
   <string name="gameMode">Tipo de ludo</string>
+  <string name="createLobbyGame" comment="One of three buttons on the home page. Opens the modal to create a game that goes in the lobby.">Krei ludon en atendejo</string>
   <string name="youPlayAs">Koloro de viaj pecoj</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Por inviti iun al ludo, donu ĉi tiun ligilon</string>
   <string name="gameOver">Ludo finiĝis</string>
@@ -1001,7 +1002,10 @@ Lasi ĝin malplena por komenci ludojn de la norma komenca pozicio.</string>
   <string name="lichessPatronInfo">Lichess estas almoza kaj tute libera malfermitkoda programaro.
 Ĉiu funkciada elspezo, ellaborado, kaj enhavo estas financita sole de uzantajn donacojn.</string>
   <string name="nothingToSeeHere">Nenio videbla ĉi tie nuntempe.</string>
+  <string name="stats">Statistikoj</string>
   <string name="accessibility">Alireblo</string>
+  <string name="enableBlindMode">Aktivigi blindulan reĝimon</string>
+  <string name="disableBlindMode">Malaktivigi blindulan reĝimon</string>
   <string name="copyToClipboard">Kopii al tondujo</string>
   <string name="online" comment="status of a user">konektita</string>
   <string name="offline" comment="status of a user">konektita</string>
