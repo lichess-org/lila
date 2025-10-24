@@ -1,6 +1,6 @@
 import { objectStorage } from './objectStorage';
 import { memoize } from './common';
-import { hasFeature } from './device';
+import { randomToken } from './algo';
 import { log } from './permalog';
 
 // url keyed storage for very large assets
@@ -11,9 +11,7 @@ type U8 = Uint8Array<ArrayBuffer>;
 
 class BigFileStorage {
   private idb = memoize(() => objectStorage<U8>({ store: 'big-file' }));
-  private opfs = memoize(() =>
-    hasFeature('originPrivateFileSystem') ? navigator.storage.getDirectory() : undefined,
-  );
+  private opfs = memoize(() => directoryHandleIfAvailable());
 
   async get(assetUrl: string, onProgress?: (loaded: number, total: number) => void): Promise<U8> {
     const stored = await this.readFile(assetUrl).catch(() => undefined);
@@ -72,4 +70,20 @@ class BigFileStorage {
 
 function opfsName(assetUrl: string): string {
   return new URL(assetUrl).pathname.replaceAll('/', '_');
+}
+
+async function directoryHandleIfAvailable(): Promise<FileSystemDirectoryHandle | undefined> {
+  if (!('storage' in navigator)) return undefined;
+  try {
+    const dirHandle = await navigator.storage?.getDirectory?.();
+    const filename = `_${randomToken()}`;
+    const out = await dirHandle.getFileHandle(filename, { create: true }).then(f => f.createWritable());
+    await out
+      .write(new Uint8Array(1))
+      .then(() => out.close())
+      .then(() => dirHandle.removeEntry(filename));
+    return dirHandle;
+  } catch {
+    return undefined;
+  }
 }

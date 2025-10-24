@@ -2,7 +2,6 @@ import { type Hooks } from 'snabbdom';
 import { memoize } from './common';
 import { bind } from './snabbdom';
 import * as licon from './licon';
-import { randomToken } from './algo';
 
 export function isBrowserSupported(): boolean {
   // when feature detection is not enough
@@ -87,11 +86,9 @@ export type Feature =
   | 'simd'
   | 'dynamicImportFromWorker'
   | 'bigint'
-  | 'structuredClone'
-  | 'originPrivateFileSystem';
+  | 'structuredClone';
 
-export const hasFeature = (feat?: Feature): boolean =>
-  !feat || features().includes(feat) || asyncFeatures.includes(feat);
+export const hasFeature = (feat?: Feature): boolean => !feat || features().includes(feat);
 
 export const features: () => readonly Feature[] = memoize<readonly Feature[]>(() => {
   const features: Feature[] = [];
@@ -122,23 +119,6 @@ export const features: () => readonly Feature[] = memoize<readonly Feature[]>(()
   } catch {}
   return Object.freeze(features);
 });
-
-const asyncFeatures: Feature[] = []; // there's only one async feature detect, but it feels good to be fancy
-
-(async () =>
-  'storage' in navigator &&
-  (await navigator.storage
-    ?.getDirectory?.()
-    .then(async fh => {
-      const filename = `_${randomToken()}`;
-      const out = await fh.getFileHandle(filename, { create: true }).then(f => f.createWritable());
-      await out
-        .write(new Uint8Array(1))
-        .then(() => out.close())
-        .then(() => fh.removeEntry(filename));
-      asyncFeatures.push('originPrivateFileSystem');
-    })
-    .catch(() => {})))();
 
 const hasMouse = memoize<boolean>(() => window.matchMedia('(hover: hover) and (pointer: fine)').matches);
 
