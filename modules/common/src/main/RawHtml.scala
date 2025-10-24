@@ -167,7 +167,6 @@ object RawHtml:
   private val postimgRegex = """https://(?:i\.)?postimg\.cc/([\w/-]+)(?:\.jpe?g|\.png|\.gif)?""".r
   private val ibbRegex = """https?://i\.ibb\.co/([\w]+/[\w]+\.(?:jpe?g|png|gif|webp))""".r
 
-
   private def imgUrl(url: String): Option[Html] =
     url
       .match
