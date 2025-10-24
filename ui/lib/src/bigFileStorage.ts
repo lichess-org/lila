@@ -3,7 +3,7 @@ import { memoize } from './common';
 import { hasFeature } from './device';
 import { log } from './permalog';
 
-// OPFS over IDB for large binary assets keyed by assetUrl
+// url keyed storage for very large assets
 
 export const bigFileStorage: () => BigFileStorage = memoize(() => new BigFileStorage());
 
@@ -31,7 +31,7 @@ class BigFileStorage {
           : reject(new Error(`fetch '${assetUrl}' failed: ${xhr.status}`));
       xhr.send();
     });
-    this.writeFile(assetUrl, fetched); // no await
+    this.writeFile(assetUrl, fetched);
     return fetched;
   }
 
@@ -44,11 +44,13 @@ class BigFileStorage {
   private async readFile(assetUrl: string): Promise<U8 | undefined> {
     const opfs = await this.opfs();
     if (!opfs) return this.idb().then(idb => idb.get(assetUrl));
+
     const file = await opfs.getFileHandle(opfsName(assetUrl), { create: false }).then(fh => fh.getFile());
     const buffer = new ArrayBuffer(file.size);
     const u8 = new Uint8Array(buffer);
-    let offset = 0;
     const reader = file.stream().getReader();
+    let offset = 0;
+
     while (true) {
       const { value, done } = await reader.read();
       if (done) break;
@@ -62,12 +64,9 @@ class BigFileStorage {
     const out = await this.opfs()
       ?.then(f => f?.getFileHandle(opfsName(assetUrl), { create: true }).then(fh => fh.createWritable()))
       .catch(() => undefined);
-    try {
-      if (out) await out.write(u8).then(() => out.close());
-      else await this.idb().then(idb => idb.put(assetUrl, u8));
-    } catch (e) {
-      log(e);
-    }
+    (out ? out.write(u8).then(() => out.close()) : this.idb().then(idb => idb.put(assetUrl, u8))).catch(e =>
+      log(e),
+    );
   }
 }
 
