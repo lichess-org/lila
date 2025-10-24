@@ -42,7 +42,7 @@
   </head>
   <body>
     <script>
-      fetch('/flair/list.txt?nocache=' + Math.random())
+      fetch('../flair/list.txt?nocache=' + Math.random())
         .then(r => r.text())
         .then(text => {
            let categs = {};
