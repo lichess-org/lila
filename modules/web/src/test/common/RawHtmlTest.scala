@@ -95,8 +95,9 @@ class RawHtmlTest extends munit.FunSuite:
     val url = "https://i.ibb.co/DH1h40Wc/4d1c3ca94244.png"
     assertEquals(
       addLinks(s"""img to "$url" here"""),
-      s"""img to &quot;<a rel="nofollow noreferrer" href="$url" target="_blank">$url</a>&quot; here"""
+      s"""img to &quot;<a rel="nofollow noreferrer" href="$url" target="_blank">i.ibb.co/DH1h40Wc/4d1c3ca94244.png</a>&quot; here"""
     )
+
   test("internal links"):
     assertEquals(
       addLinks("lichess.org/@/foo/games"),
