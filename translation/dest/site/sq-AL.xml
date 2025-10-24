@@ -971,7 +971,6 @@ Që lojërat të fillojnë nga pozicioni fillestar normal, lëreni të zbrazët.
   <string name="simulFeaturedHelp">Shfaqeni simultanen tuaj për këdo, në %s. Për simultane private, çaktivizojeni.</string>
   <string name="simulDescription">Përshkrim simultaneje</string>
   <string name="simulDescriptionHelp">Ndonjë gjë që doni t’u thoni pjesëmarrësve?</string>
-  <string name="markdownAvailable">Për sintaksë më të thelluar mund të përdoret %s-i.</string>
   <string name="embedsAvailable">Ngjitni një URL loje ose URL kapitulli mësimi, për ta trupëzuar.</string>
   <string name="inYourLocalTimezone">Në zonën tuaj kohore vendore</string>
   <string name="tournChat">Fjalosje turneu</string>
