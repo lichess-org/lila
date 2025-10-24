@@ -88,7 +88,7 @@ export type Feature =
   | 'bigint'
   | 'structuredClone';
 
-export const hasFeature = (feat?: Feature): boolean => !feat || features().includes(feat);
+export const hasFeature = (feat: Feature): boolean => features().includes(feat);
 
 export const features: () => readonly Feature[] = memoize<readonly Feature[]>(() => {
   const features: Feature[] = [];
