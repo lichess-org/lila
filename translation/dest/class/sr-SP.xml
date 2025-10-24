@@ -85,9 +85,9 @@
   </plurals>
   <string name="students">Ученици</string>
   <string name="progress">Напредак</string>
-  <string name="noStudents">Још увек нема ученика на часу.</string>
+  <string name="noStudents">Нема ученика у часу тренутно.</string>
   <string name="noRemovedStudents">Нема уклоњених ученика.</string>
-  <string name="overDays">Прекорачени дани</string>
+  <string name="overDays">Преко дана</string>
   <string name="timePlaying">Време играња</string>
   <string name="variantXOverLastY">%1$s током претходних %2$s</string>
   <string name="winrate">Проценат победа</string>
