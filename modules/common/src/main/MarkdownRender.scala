@@ -141,7 +141,9 @@ object MarkdownRender:
       url <- lila.common.url.parse(src).toOption
       if url.scheme == "http" || url.scheme == "https"
       host <- Option(url.host).map(_.toHostString)
-      if (assetDomain.toList ::: whitelist).exists(h => host == h.value || host.endsWith(s".$h"))
+      if (assetDomain.toList ::: whitelist).exists(h =>
+        host == h.value.split(":").head || host.endsWith(s".$h")
+      )
     yield url.toString
 
     def create(assetDomain: Option[AssetDomain]) = new HtmlRenderer.HtmlRendererExtension:
