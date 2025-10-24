@@ -38,12 +38,12 @@ class BigFileStorage {
   async delete(assetUrl: string): Promise<void> {
     const opfs = await this.opfs();
     if (opfs) await opfs.removeEntry(opfsName(assetUrl)).catch(() => {});
-    else await this.idb().then(idb => idb?.remove(assetUrl));
+    else await this.idb().then(idb => idb.remove(assetUrl));
   }
 
   private async readFile(assetUrl: string): Promise<U8 | undefined> {
     const opfs = await this.opfs();
-    if (!opfs) return this.idb().then(idb => idb?.get(assetUrl));
+    if (!opfs) return this.idb().then(idb => idb.get(assetUrl));
     const file = await opfs.getFileHandle(opfsName(assetUrl), { create: false }).then(fh => fh.getFile());
     const buffer = new ArrayBuffer(file.size);
     const u8 = new Uint8Array(buffer);
@@ -64,7 +64,7 @@ class BigFileStorage {
       .catch(() => undefined);
     try {
       if (out) await out.write(u8).then(() => out.close());
-      else await this.idb().then(idb => idb?.put(assetUrl, u8));
+      else await this.idb().then(idb => idb.put(assetUrl, u8));
     } catch (e) {
       log(e);
     }
