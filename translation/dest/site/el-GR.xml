@@ -974,6 +974,7 @@
   <string name="simulFeaturedHelp">Να εμφανίζεται το σιμουλτανέ σε όλους στο %s. Απενεργοποιήστε αυτήν την επιλογή για ιδιωτικά σιμουλτανέ.</string>
   <string name="simulDescription">Περιγραφή σιμουλτανέ</string>
   <string name="simulDescriptionHelp">Θέλετε να πείτε κάτι στους συμμετέχοντες;</string>
+  <string name="markdownIsAvailable">Το %s είναι διαθέσιμο για μορφοποίηση.</string>
   <string name="embedsAvailable">Επικολλήστε μια διεύθυνση URL παρτίδας ή ένα κεφάλαιο μελέτης για να το ενσωματώσετε.</string>
   <string name="inYourLocalTimezone">Στη δική σας ζώνη ώρας</string>
   <string name="tournChat">Δωμάτιο συνομιλίας τουρνουά</string>
