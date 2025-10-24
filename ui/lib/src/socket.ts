@@ -1,7 +1,7 @@
 import * as xhr from './xhr';
 import { idleTimer, browserTaskQueueMonitor } from './event';
 import { storage, once, type LichessStorage } from './storage';
-import { pubsub, type PubsubEvent } from './pubsub';
+import { pubsub, type PubsubEventKey } from './pubsub';
 import { myUserId } from './common';
 import { log } from './permalog';
 
@@ -298,7 +298,7 @@ class WsSocket {
         // return true in a receive handler to prevent pubsub and events
         if (!(this.settings.receive && this.settings.receive(m.t, m.d))) {
           const sentAsEvent = this.settings.events[m.t] && this.settings.events[m.t](m.d || null, m);
-          if (!sentAsEvent) pubsub.emit(('socket.in.' + m.t) as PubsubEvent, m.d, m);
+          if (!sentAsEvent) pubsub.emit(('socket.in.' + m.t) as PubsubEventKey, m.d as any, m as any);
         }
     }
   };

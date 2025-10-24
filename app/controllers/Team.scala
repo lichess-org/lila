@@ -430,7 +430,7 @@ final class Team(env: Env) extends LilaController(env):
   private def renderPmAll(team: TeamModel, form: Form[?])(using Context) = for
     tours <- env.tournament.api.visibleByTeam(team.id, 0, 20).dmap(_.next)
     unsubs <- env.team.cached.unsubs.get(team.id)
-    limiter <- env.teamInfo.pmAll.status(team.id)
+    limiter <- env.team.limiter.pmAll.status(team.id)
     page <- renderPage(views.team.admin.pmAll(team, form, tours, unsubs, limiter))
   yield Ok(page)
 
@@ -441,26 +441,21 @@ final class Team(env: Env) extends LilaController(env):
         Left(_),
         msg =>
           val normalized = msg.replaceAll("\r\n?", "\n")
-          if env.teamInfo.pmAll.dedup(team.id, normalized) then
-            Right:
-              env.teamInfo.pmAll.limiter[LimitResult](
-                team.id,
-                if me.isVerifiedOrAdmin then 1 else mashup.TeamInfo.pmAllCost
-              ) {
-                val url = s"${env.net.baseUrl}${routes.Team.show(team.id)}"
-                val full = s"""$normalized
+          env.team.limiter.pmAll
+            .dedupAndLimit(team.id, normalized): () =>
+              val url = s"${env.net.baseUrl}${routes.Team.show(team.id)}"
+              val full = s"""$normalized
   ---
   You received this because you are subscribed to messages of the team $url."""
-                env.msg.api
-                  .multiPost(
-                    env.team.memberStream.subscribedIds(team, MaxPerSecond(50)),
-                    full
-                  )
-                  .addEffect(lila.mon.msg.teamBulk.record(_))
-                // we don't wait for the stream to complete, it would make lichess time out
-                fuccess(LimitResult.Through)
-              }(LimitResult.Limited)
-          else Left(forms.pmAll.withError("duplicate", "You already sent this message recently"))
+              env.msg.api
+                .multiPost(
+                  env.team.memberStream.subscribedIds(team, MaxPerSecond(50)),
+                  full
+                )
+                .addEffect(lila.mon.msg.teamBulk.record(_))
+                .void
+            .left
+            .map(forms.pmAll.withError("duplicate", _))
       )
         .fold(
           err => negotiate(renderPmAll(team, err), BadRequest(errorsAsJson(err))),

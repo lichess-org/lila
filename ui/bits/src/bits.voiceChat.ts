@@ -186,7 +186,6 @@ export function initModule(opts: VoiceChatOpts): VoiceChat | undefined {
   }
 
   pubsub.on('socket.in.voiceChat', uids => uids.forEach(call));
-  pubsub.on('socket.in.voiceChatOff', site.reload); // remote disconnection
   pubsub.on('voiceChat.toggle', v => {
     if (!v) stop();
   });

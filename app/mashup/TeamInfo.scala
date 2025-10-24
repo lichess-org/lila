@@ -27,9 +27,6 @@ case class TeamInfo(
   def userIds = forum.so(_.flatMap(_.post.userId))
 
 object TeamInfo:
-  val pmAllCost = 5
-  val pmAllCredits = 7
-  val pmAllDays = 7
   opaque type AnyTour = Tournament | Swiss
   object AnyTour extends TotalWrapper[AnyTour, Tournament | Swiss]:
     extension (e: AnyTour)
@@ -50,24 +47,10 @@ final class TeamInfoApi(
     tourApi: TournamentApi,
     swissApi: SwissApi,
     simulApi: SimulApi,
-    requestRepo: TeamRequestRepo,
-    mongoRateLimitApi: lila.memo.MongoRateLimitApi
-)(using Executor, Scheduler):
+    requestRepo: TeamRequestRepo
+)(using Executor):
 
   import TeamInfo.*
-
-  object pmAll:
-    val dedup = scalalib.cache.OnceEvery.hashCode[(TeamId, String)](10.minutes)
-    val limiter = mongoRateLimitApi[TeamId](
-      "team.pm.all",
-      credits = pmAllCredits * pmAllCost,
-      duration = pmAllDays.days
-    )
-    def status(id: TeamId): Fu[(Int, Instant)] =
-      limiter
-        .getSpent(id)
-        .map: entry =>
-          (pmAllCredits - entry.v / pmAllCost, entry.until)
 
   def apply(
       team: Team.WithLeaders,
