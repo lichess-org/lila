@@ -930,7 +930,6 @@ Bỏ trống để bắt đầu tất cả ván đấu bằng thế trận ban �
   <string name="simulFeaturedHelp">Hiển thị sự kiện cờ đồng loạt của bạn trên %s. Không áp dụng cho các sự kiện riêng tư.</string>
   <string name="simulDescription">Mô tả sự kiện cờ đồng loạt</string>
   <string name="simulDescriptionHelp">Bạn có muốn nói điều gì với những người tham gia không?</string>
-  <string name="markdownAvailable">%s khả dụng cho những cấu trúc nâng cao hơn.</string>
   <string name="embedsAvailable">Dán URL ván đấu hoặc URL chương nghiên cứu để nhúng.</string>
   <string name="inYourLocalTimezone">Tại múi giờ địa phương của bạn</string>
   <string name="tournChat">Trò chuyện trong giải đấu</string>
