@@ -967,7 +967,6 @@ Lasi ĝin malplena por komenci ludojn de la norma komenca pozicio.</string>
   <string name="simulFeaturedHelp">Montri vian samtempludon al ĉiuj en %s. Malaktivigi por privataj samtempludoj.</string>
   <string name="simulDescription">Priskribo de la samtempludo</string>
   <string name="simulDescriptionHelp">Ĉu vi volas diri ion al la partoprenantoj?</string>
-  <string name="markdownAvailable">%s estas havebla por pli progresinta sintakso.</string>
   <string name="embedsAvailable">Algui luda URL aŭ studa ĉapitro URL enkorpigi ĝin.</string>
   <string name="inYourLocalTimezone">En via loka horzono</string>
   <string name="tournChat">Babilejo de turnira</string>
