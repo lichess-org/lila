@@ -482,6 +482,7 @@
   <string name="openTournaments">Enireblaj turniroj</string>
   <string name="duration">Daŭro</string>
   <string name="winner">Venkinto</string>
+  <string name="standings">Pozicioj</string>
   <string name="createANewTournament">Krei novan turniron</string>
   <string name="tournamentCalendar">Turnira kalendaro</string>
   <string name="conditionOfEntry">Kondiĉo de eniro:</string>
@@ -575,6 +576,9 @@
   <string name="cheat">Trompo</string>
   <string name="troll">Trolo</string>
   <string name="other">Io alia</string>
+  <string name="reportCheatBoostHelp">Algluu ligilon al la ludo(j) kaj klarigu, kio malĝustas pri la konduto de tiu ĉi uzanto. Ne simple diru \"ili filudis\", sed klarigu kiel vi atingis tiun konkludon.</string>
+  <string name="reportUsernameHelp">Klarigu kio estas ofenda en la nomo de tiu ĉi uzanto. Ne simple diru \"ĝi estas ofenda/maldeca\" sed rakontu al ni kiel vi atingis tiun konkludon, ĉefe se temas kaŝita ofendo, se ĝi ne estas en la angla, se ĝi apartenas al nenorma lingvaĵo aŭ se ĝi referas ion kulturan aŭ historian.</string>
+  <string name="reportProcessedFasterInEnglish">Via raporto estos pritraktita pli rapide se vi ĝin skribas en la angla.</string>
   <string name="error.provideOneCheatedGameLink">Bonvolu doni almenaŭ unu ligilon al ludo en kiu oni friponis.</string>
   <string name="by">de %s</string>
   <string name="importedByX">Importita de %s</string>
@@ -677,6 +681,7 @@
   <string name="really">vere</string>
   <string name="contribute">Kontribui</string>
   <string name="termsOfService">Uzkondiĉojn</string>
+  <string name="titleVerification">Kontrolo de titolo</string>
   <string name="sourceCode">Fontkodo</string>
   <string name="simultaneousExhibitions">Samtempludaj ekspozicioj</string>
   <string name="host">Gastiganto</string>
