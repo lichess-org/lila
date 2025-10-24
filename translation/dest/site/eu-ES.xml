@@ -973,7 +973,6 @@ Utzi hutsik partidak ohiko posizioarekin hasteko.</string>
   <string name="simulFeaturedHelp">Erakutsi zure aldi-berekoa mundu guztiari %s helbideak. Desaktibatu aldi-bereko pribatuentzat.</string>
   <string name="simulDescription">Aldi-berekoaren deskribapena</string>
   <string name="simulDescriptionHelp">Parte-hartzaileei zerbait esan nahi diezu?</string>
-  <string name="markdownAvailable">%s erabili dezakezu.</string>
   <string name="embedsAvailable">Itsatsi partida baten URL helbidea, azterlan baten atal baten URL helbidea hemen erakusteko.</string>
   <string name="inYourLocalTimezone">Zure ordu-zonan</string>
   <string name="tournChat">Txapelketaren txata</string>
