@@ -753,7 +753,9 @@
   <string name="checkYourEmail">Kontrolu vian retpoŝton</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Ni sendis al vi retmesaĝon . Klaku la ligilon en la poŝto por aktivigi vian konton.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Se vi ne vidas la retpoŝton , kontrolu aliajn lokojn kie ĝi povas esti, kiel via rubo , spam, socia , aŭ aliaj dosierujoj.</string>
+  <string name="ifYouDoNotGetTheEmail">Se vi ne ricevas retpoŝton post 5 minutoj:</string>
   <string name="checkAllEmailFolders">Kontroli ĉiujn dosierujojn, trudmesaĝojn kaj rubujon</string>
+  <string name="verifyYourAddress">Konfirmu ke %s estas via retpoŝta adreso</string>
   <string name="weHaveSentYouAnEmailTo">Ni sendis retmesaĝon al %s. Klaku la ligilon en la poŝto por rekomencigi vian pasvorton.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">De registranta , vi konsentas al esti ligita de nia %s.</string>
   <string name="readAboutOur">Legu pri nia %s.</string>
@@ -987,6 +989,7 @@ Lasi ĝin malplena por komenci ludojn de la norma komenca pozicio.</string>
   <string name="focusChat">Babilejo de fokuso</string>
   <string name="showHelpDialog">Montri ĉi tiun help-dialogujon</string>
   <string name="reopenYourAccount">Remalfermi vian konton</string>
+  <string name="reopenYourAccountDescription">Se vi fermis vian konton sed poste ŝanĝis de ideo, vi havas la eblon rehavi vian konton.</string>
   <string name="emailAssociatedToaccount">Retpoŝtadreso, ke asociitas al la konto</string>
   <string name="sentEmailWithLink">Ni sendis retmesaĝon kun ligilo al vi.</string>
   <string name="tournamentEntryCode">Turnira enirkodo</string>
