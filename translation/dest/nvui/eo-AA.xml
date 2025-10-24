@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="moveList">Listo de movoj</string>
+  <string name="gameInfo">Informo pri ludo</string>
+  <string name="pieces">Pecoj</string>
+  <string name="lastMove">Lasta movo</string>
+  <string name="actions">Agoj</string>
+  <string name="yourClock">Via horloĝo</string>
+  <string name="opponentClock">Kontraŭula horloĝo</string>
   <string name="movePiece">Por movi pecon, uzu normalan algebran notadon.</string>
+  <string name="king">reĝo</string>
+  <string name="whiteKing">blanka reĝo</string>
+  <string name="blackKing">nigra reĝo</string>
+  <string name="queen">reĝino</string>
+  <string name="whiteQueen">blanka reĝino</string>
+  <string name="blackQueen">nigra reĝino</string>
+  <string name="rook">turo</string>
+  <string name="whiteRook">blanka turo</string>
+  <string name="blackRook">nigra turo</string>
+  <string name="bishop">kuriero</string>
+  <string name="whiteBishop">blanka kuriero</string>
+  <string name="blackBishop">nigra kuriero</string>
   <string name="knight">ĉevalo</string>
   <string name="whiteKnight">blanka ĉevalo</string>
   <string name="blackKnight">nigra ĉevalo</string>
