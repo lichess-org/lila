@@ -930,7 +930,6 @@
   <string name="simulFeaturedHelp">在 %s 上向所有人展示你主持的车轮战，对私人车轮战无效。</string>
   <string name="simulDescription">车轮战描述</string>
   <string name="simulDescriptionHelp">写下你想要告诉参与者的任何内容</string>
-  <string name="markdownAvailable">%s 可用于更高级的格式。</string>
   <string name="embedsAvailable">粘贴对局 URL 或学习章节 URL 来嵌入。</string>
   <string name="inYourLocalTimezone">在你的本地时区</string>
   <string name="tournChat">比赛聊天</string>
