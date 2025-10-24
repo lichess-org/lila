@@ -12,7 +12,7 @@ type OnProgress = (loaded: number, total: number) => void;
 
 class BigFileStorage {
   opfs?: FileSystemDirectoryHandle;
-  idbMemo: () => Promise<ObjectStorage<U8> | undefined> = memoize(async () =>
+  idb: () => Promise<ObjectStorage<U8> | undefined> = memoize(async () =>
     this.opfs ? undefined : objectStorage<U8>({ store: 'big-file' }),
   );
 
@@ -31,7 +31,7 @@ class BigFileStorage {
   async get(assetUrl: string, onProgress?: OnProgress): Promise<U8> {
     const opfsName = this.opfsName(assetUrl);
     try {
-      const u8 = (await this.readOpfs(opfsName)) ?? (await this.idb.then(idb => idb?.get(assetUrl)));
+      const u8 = (await this.readOpfs(opfsName)) ?? (await this.idb().then(idb => idb?.get(assetUrl)));
       if (u8) return u8;
     } catch {}
 
@@ -51,7 +51,7 @@ class BigFileStorage {
       if (this.opfs) {
         const out = await this.opfs.getFileHandle(opfsName, { create: true }).then(fh => fh.createWritable());
         await out.write(u8).then(() => out.close());
-      } else await this.idb.then(idb => idb?.put(assetUrl, u8));
+      } else await this.idb().then(idb => idb?.put(assetUrl, u8));
     } catch {}
 
     return u8;
@@ -59,11 +59,7 @@ class BigFileStorage {
 
   async delete(assetUrl: string): Promise<void> {
     if (this.opfs) await this.opfs.removeEntry(this.opfsName(assetUrl)).catch(() => {});
-    else await this.idb.then(idb => idb?.remove(assetUrl));
-  }
-
-  get idb(): Promise<ObjectStorage<U8> | undefined> {
-    return this.idbMemo();
+    else await this.idb().then(idb => idb?.remove(assetUrl));
   }
 
   private async readOpfs(opfsName: string): Promise<U8 | undefined> {
