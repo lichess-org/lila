@@ -16,7 +16,10 @@ final class Practice(
 
   private val api = env.practice.api
 
-  def index = OpenOrScoped(_.Web.Mobile):
+  def indexLang = LangPage(routes.Practice.index)(serveIndex)
+  def index = OpenOrScoped(_.Web.Mobile)(serveIndex)
+
+  private def serveIndex(using ctx: Context) = NoBot:
     negotiate(
       html =
         pageHit

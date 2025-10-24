@@ -64,7 +64,7 @@ final class ActivityUi(helpers: Helpers)(
       )
     )
 
-  private def renderPractice(p: Map[lila.core.practice.Study, Int])(using Context) =
+  private def renderPractice(p: Map[lila.ui.practice.Study, Int])(using Context) =
     val ps = p.toSeq.sortBy(-_._2)
     entryTag(
       iconTag(Icon.Bullseye),
@@ -76,11 +76,11 @@ final class ActivityUi(helpers: Helpers)(
       )
     )
 
-  private def onePractice(tup: (lila.core.practice.Study, Int))(using Context) =
+  private def onePractice(tup: (lila.ui.practice.Study, Int))(using Context) =
     val (study, nb) = tup
     val href = routes.Practice.show("-", study.slug, study.id)
     frag(
-      trans.activity.practicedNbPositions.plural(nb, nb, a(st.href := href)(study.name)),
+      trans.activity.practicedNbPositions.plural(nb, nb, a(st.href := href)(study.name())),
       br
     )
 
