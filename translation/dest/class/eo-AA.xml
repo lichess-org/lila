@@ -117,4 +117,6 @@ Jen la ligo por aliri la klason.</string>
   <string name="xAlreadyHasAPendingInvitation">%s jam havas pritraktota invito</string>
   <string name="xIsAKidAccountWarning">%1$s estas infana kono kaj ne povas ricevi vian mesaĝo. Vi devas aldoni al ili la invita URL permane: %2$s</string>
   <string name="moveToClass">Movi al %s</string>
+  <string name="moveToAnotherClass">Movi al alia klaso</string>
+  <string name="allowMessagingBetweenStudents">Permesi mesaĝojn inter studentoj</string>
 </resources>
