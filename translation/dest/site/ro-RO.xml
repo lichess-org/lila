@@ -1020,7 +1020,6 @@ Lăsați gol pentru a începe jocurile din poziția inițială normală.</string
   <string name="simulFeaturedHelp">Arătați-vă simul-ul tuturor de pe %s. Dezactivați pentru simul-uri private.</string>
   <string name="simulDescription">Descriere Simul</string>
   <string name="simulDescriptionHelp">Ce vrei să spui participanţilor?</string>
-  <string name="markdownAvailable">%s este disponibil pentru sintaxă mai avansată.</string>
   <string name="embedsAvailable">Lipește un URL al jocului sau un URL de capitol de studiu pentru a-l încorpora.</string>
   <string name="inYourLocalTimezone">În fusul orar local</string>
   <string name="tournChat">Conversație</string>
