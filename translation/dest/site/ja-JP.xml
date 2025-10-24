@@ -930,7 +930,6 @@
   <string name="simulFeaturedHelp">%s 上の全員に表示します。非公開の同時対局では無効にしてください。</string>
   <string name="simulDescription">同時対局の説明</string>
   <string name="simulDescriptionHelp">参加者に伝えたいことがあればどうぞ</string>
-  <string name="markdownAvailable">高度な修飾方法として %s も使えます。</string>
   <string name="embedsAvailable">棋譜の URL、研究の章の URL をペーストすると埋め込みできます。</string>
   <string name="inYourLocalTimezone">自分のタイムゾーンで</string>
   <string name="tournChat">トーナメント チャット</string>
