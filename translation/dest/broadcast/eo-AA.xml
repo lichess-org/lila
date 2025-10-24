@@ -51,5 +51,6 @@
   <string name="officialWebsite">Oficiala retejo</string>
   <string name="ratingDiff">Ranga malsamo</string>
   <string name="allTeams">Ĉiuj teamoj</string>
+  <string name="timezone">Horzono</string>
   <string name="fideRatingCategory">Kategorio de rango de FIDE</string>
 </resources>
