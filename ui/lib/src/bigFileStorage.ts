@@ -64,9 +64,9 @@ class BigFileStorage {
     const out = await this.opfs()
       ?.then(f => f?.getFileHandle(opfsName(assetUrl), { create: true }).then(fh => fh.createWritable()))
       .catch(() => undefined);
-    (out ? out.write(u8).then(() => out.close()) : this.idb().then(idb => idb.put(assetUrl, u8))).catch(e =>
-      log(e),
-    );
+    return (
+      out ? out.write(u8).then(() => out.close()) : this.idb().then(idb => idb.put(assetUrl, u8))
+    ).catch(e => log(e));
   }
 }
 
