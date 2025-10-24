@@ -142,7 +142,7 @@ object MarkdownRender:
       if url.scheme == "http" || url.scheme == "https"
       host <- Option(url.host).map(_.toHostString)
       if (assetDomain.toList ::: whitelist).exists(h =>
-        host == h.value.split(":").head || host.endsWith(s".$h")
+        h.value.split(":").headOption.contains(host) || host.endsWith(s".$h")
       )
     yield url.toString
 
