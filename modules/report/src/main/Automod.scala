@@ -131,10 +131,10 @@ final class Automod(
             msg <- (best \ "message" \ "content").asOpt[String]
             trimmed = msg.slice(msg.indexOf('{', msg.indexOf("</think>")), msg.lastIndexOf('}') + 1)
             res <- Json.parse(trimmed).asOpt[JsObject]
-            if ~res.boolean("flag")
-          yield
-            lila.mon.mod.report.automod.imageFlagged.increment()
-            ~res.str("reason")
+            flagged = ~res.boolean("flag")
+            _ = lila.mon.mod.report.automod.imageFlagged(flagged).increment()
+            if flagged
+          yield res.str("reason") | "No reason provided"
         .monSuccess(_.mod.report.automod.imageRequest)
 
 private object Automod:
