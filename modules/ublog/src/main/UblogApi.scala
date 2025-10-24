@@ -22,7 +22,7 @@ final class UblogApi(
     picfitApi: PicfitApi,
     shutupApi: ShutupApi,
     irc: lila.core.irc.IrcApi,
-    automod: UblogAutomod,
+    ublogAutomod: UblogAutomod,
     config: UblogConfig,
     settingStore: lila.memo.SettingStore.Builder,
     cacheApi: lila.memo.CacheApi
@@ -194,7 +194,7 @@ final class UblogApi(
   def triggerAutomod(post: UblogPost): Fu[Option[UblogAutomod.Assessment]] =
     val retries = 5 // 30s, 1m, 2m, 4m, 8m
     def attempt(n: Int): Fu[Option[UblogAutomod.Assessment]] =
-      automod(post, n * 0.1)
+      ublogAutomod(post, n * 0.1)
         .flatMapz: llm =>
           val result = post.automod.foldLeft(llm)(_.updateByLLM(_))
           for _ <- colls.post.updateField($id(post.id), "automod", result)

@@ -24,7 +24,7 @@ final class PlanPages(helpers: Helpers)(fishnetPerDay: Int):
       .css("bits.feature")
       .graph(
         title = title,
-        url = s"$netBaseUrl${routes.Plan.features.url}",
+        url = routeUrl(routes.Plan.features),
         description = "All of Lichess features are free for all and forever. We do it for the chess!"
       ):
         main(cls := "box box-pad features")(

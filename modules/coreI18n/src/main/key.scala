@@ -2246,7 +2246,7 @@ object I18nKey:
     val `simulFeaturedHelp`: I18nKey = "simulFeaturedHelp"
     val `simulDescription`: I18nKey = "simulDescription"
     val `simulDescriptionHelp`: I18nKey = "simulDescriptionHelp"
-    val `markdownAvailable`: I18nKey = "markdownAvailable"
+    val `markdownIsAvailable`: I18nKey = "markdownIsAvailable"
     val `embedsAvailable`: I18nKey = "embedsAvailable"
     val `inYourLocalTimezone`: I18nKey = "inYourLocalTimezone"
     val `tournChat`: I18nKey = "tournChat"

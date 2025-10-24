@@ -5,6 +5,8 @@
 }
 
 .tagify {
+  background: $c-bg-input;
+
   // SCSS "default" allows overriding variables BEFORE they are set in the below lines of code
   $self: &;
   $tags-border-color: $c-border !default;

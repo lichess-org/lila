@@ -365,7 +365,7 @@ lazy val study = module("study",
 ).dependsOn(common % "test->test")
 
 lazy val relay = module("relay",
-  Seq(study, game),
+  Seq(study, game, report),
   Seq(chess.tiebreak) ++ tests.bundle
 )
 
@@ -430,7 +430,7 @@ lazy val msg = module("msg",
 )
 
 lazy val forum = module("forum",
-  Seq(memo, ui),
+  Seq(memo, ui, report),
   Seq()
 )
 
@@ -440,7 +440,7 @@ lazy val forumSearch = module("forumSearch",
 )
 
 lazy val team = module("team",
-  Seq(memo, room, ui),
+  Seq(memo, room, ui, report),
   Seq()
 )
 

@@ -115,17 +115,18 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
           else postFrag
         ,
         (!post.erased).option(reactions(post, canReact)),
-        ctx.me
-          .soUse(post.shouldShowEditForm)
-          .option(
+        ctx.me.soUse[Option[Tag]]: me ?=>
+          post.shouldShowEditForm.option:
             postForm(cls := "edit-post-form", action := routes.ForumPost.edit(post.id))(
-              textarea(
-                bits.dataTopic := topic.id,
-                name := "changes",
-                cls := "post-text-area edit-post-box",
-                minlength := 3,
-                required
-              )(post.text),
+              lila.ui.bits.markdownTextarea("forumPostBody".some):
+                textarea(
+                  bits.dataTopic := topic.id,
+                  name := "changes",
+                  cls := "form-control post-text-area edit-post-box",
+                  required,
+                  post.text
+                )
+              ,
               div(cls := "edit-buttons")(
                 a(
                   cls := "edit-post-cancel",
@@ -137,7 +138,6 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                 submitButton(cls := "button")(trans.site.apply())
               )
             )
-          )
       )
 
   def reactions(post: ForumPost, canReact: Boolean)(using ctx: Context) =
@@ -201,7 +201,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                             "#",
                             view.post.number
                           ),
-                          p(shorten(view.post.text, 200))
+                          p(shorten(Markdown(view.post.text).unlink, 200))
                         ),
                         info
                       )

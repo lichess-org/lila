@@ -86,7 +86,7 @@ def show(
     .csp(views.analyse.ui.bits.cspExternalEngine.compose(_.withPeer.withExternalAnalysisApis))
     .graph(
       title = s.name.value,
-      url = s"$netBaseUrl${routes.Study.show(s.id).url}",
+      url = routeUrl(routes.Study.show(s.id)),
       description = s"A chess study by ${titleNameOrId(s.ownerId)}"
     ):
       frag(

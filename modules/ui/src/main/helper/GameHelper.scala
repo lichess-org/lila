@@ -3,7 +3,6 @@ package lila.ui
 import chess.{ Clock, Color, Rated, Outcome }
 
 import lila.core.LightUser
-import lila.core.config.BaseUrl
 import lila.core.game.{ Game, LightPlayer, Namer, Player }
 import lila.ui.ScalatagsTemplate.{ *, given }
 
@@ -11,7 +10,6 @@ trait GameHelper:
   self: I18nHelper & StringHelper & AssetHelper & UserHelper =>
 
   protected val namer: Namer
-  def netBaseUrl: BaseUrl
 
   def titleGame(g: Game) =
     val speed = chess.Speed(g.clock.map(_.config)).name

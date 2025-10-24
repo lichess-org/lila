@@ -92,6 +92,8 @@ case class Modlog(
     case Modlog.blankedPassword => "log in with blanked password"
     case Modlog.giftPatronMonth => "gift patron month"
     case Modlog.setCarouselSize => "set blog carousel size"
+    case Modlog.imagePass => "approve flagged image"
+    case Modlog.imagePurge => "purge flagged image"
     case a => a
 
   override def toString = s"$mod $showAction $user $details"
@@ -238,6 +240,8 @@ object Modlog:
   val blankedPassword = "blankedPassword"
   val giftPatronMonth = "giftPatronMonth"
   val setCarouselSize = "setCarouselSize"
+  val imagePass = "imagePass"
+  val imagePurge = "imagePurge"
 
   private val explainRegex = """^[\w-]{3,}+: (.++)$""".r
   def explain(e: Modlog) = e.index.has("team").so(~e.details) match

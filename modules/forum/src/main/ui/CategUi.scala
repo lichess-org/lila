@@ -16,7 +16,7 @@ final class CategUi(helpers: Helpers, bits: ForumBits):
       .csp(_.withInlineIconFont)
       .graph(
         title = "Lichess community forum",
-        url = s"$netBaseUrl${routes.ForumCateg.index.url}",
+        url = routeUrl(routes.ForumCateg.index),
         description = "Chess discussions and feedback about Lichess development"
       ):
         val (teamCategs, globalCategs) = categs.partition(_.categ.isTeam)
@@ -65,7 +65,7 @@ final class CategUi(helpers: Helpers, bits: ForumBits):
       .js(infiniteScrollEsmInit)
       .graph(
         title = s"Forum: ${categ.name}",
-        url = s"$netBaseUrl${routes.ForumCateg.show(categ.id).url}",
+        url = routeUrl(routes.ForumCateg.show(categ.id)),
         description = categ.desc
       ):
         main(cls := "forum forum-categ box")(
@@ -182,7 +182,7 @@ final class CategUi(helpers: Helpers, bits: ForumBits):
                 tr(cls := "paginated")(
                   td(userIdLink(p.post.userId)),
                   td(a(href := routes.ForumTopic.show(p.categ.id, p.topic.slug))(p.topic.name)),
-                  td(shorten(p.post.text, 400)),
+                  td(shorten(Markdown(p.post.text).unlink, 400)),
                   td(a(href := routes.ForumPost.redirect(p.post.id))(momentFromNow(p.post.createdAt)))
                 ),
               pagerNextTable(posts, np => routes.ForumCateg.modFeed(categ.id, np).url)

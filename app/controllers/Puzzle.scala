@@ -221,7 +221,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
             .flatMap:
               _.fold(redirectNoPuzzle) { renderShow(_, angle, langPath = langPath) }
         case _ =>
-          lila.puzzle.Puzzle.toId(angleOrId) match
+          Puz.toId(angleOrId) match
             case Some(id) =>
               Found(env.puzzle.api.puzzle.find(id)): puzzle =>
                 ctx.me.so { env.puzzle.api.casual.setCasualIfNotYetPlayed(_, puzzle) } >>

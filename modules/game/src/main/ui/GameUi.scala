@@ -207,7 +207,7 @@ final class GameUi(helpers: Helpers):
         .js(esmInitBit("importer"))
         .graph(
           title = "Paste PGN chess game",
-          url = s"$netBaseUrl${routes.Importer.importGame.url}",
+          url = routeUrl(routes.Importer.importGame),
           description = trans.site.importGameExplanation.txt()
         ):
           main(cls := "importer page-small box box-pad")(

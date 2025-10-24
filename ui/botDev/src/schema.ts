@@ -241,7 +241,7 @@ export const schema: Schema = deepFreeze<Schema>({
       value: { range: { min: 0, max: 100 }, by: 'max' },
       requires: 'bot_filters_cplTarget',
       title: $trim`
-        cpl stdev, if given, describes the standard deviation of the folder normal
+        cpl stdev, if given, describes the standard deviation of the folded normal
         distribution from which each move's random cpl target is chosen. if not given, it defaults
         to 50. cpl stdev participates in the cpl target
         weight calculation. it does not assign its own weight.`,
@@ -313,7 +313,7 @@ export const schema: Schema = deepFreeze<Schema>({
         
         move quality decay is engine independent and can be used to resolve between
         scored stockfish and unscored lc0 moves.
-        it operates on the full list provided by engine behavior and pairs well
+        it operates on the full list provided by both engines and pairs well
         with the think time facet and a crisp chardonnay.`,
     },
   },
