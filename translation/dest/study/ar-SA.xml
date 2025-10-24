@@ -16,6 +16,7 @@
   <string name="recentlyUpdated">تم تحديثه مؤخرا</string>
   <string name="mostPopular">الاكثر شعبية</string>
   <string name="alphabetical">أبجدي</string>
+  <string name="relevant">ذات صلة</string>
   <string name="addNewChapter">أضف فصلاً جديدا</string>
   <plurals name="nbChapters">
     <item quantity="zero">%s فصل</item>
