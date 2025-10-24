@@ -2,7 +2,7 @@ package lila.report
 
 import play.api.{ ConfigLoader, Configuration }
 import play.api.libs.json.*
-import play.api.libs.ws.StandaloneWSClient
+import play.api.libs.ws.{ StandaloneWSClient, StandaloneWSResponse }
 import play.api.libs.ws.JsonBodyWritables.*
 import play.api.libs.ws.JsonBodyReadables.*
 import scala.util.matching.Regex.quote
@@ -71,16 +71,11 @@ final class Automod(
           "Content-Type" -> "application/json"
         )
         .post(body)
-        .flatMap: rsp =>
-          (for
-            choices <- (rsp.body \ "choices").asOpt[List[JsObject]]
-            if rsp.status == 200
-            best <- choices.headOption
-            msg <- (best \ "message" \ "content").asOpt[String]
-            trimmed = msg.slice(msg.indexOf('{', msg.indexOf("</think>")), msg.lastIndexOf('}') + 1)
-          yield Json.parse(trimmed).asOpt[JsObject]) match
-            case None => fufail(s"${rsp.status} ${(rsp.body: String).take(500)}")
-            case Some(res) => fuccess(res)
+        .map: rsp =>
+          rsp -> extractJsonFromResponse(rsp)
+        .flatMap:
+          case (rsp, None) => fufail(s"${rsp.status} ${(rsp.body: String).take(500)}")
+          case (_, Some(res)) => fuccess(res)
 
   def markdownImages(markdown: Markdown): Fu[Seq[lila.memo.PicfitImage]] =
     val ids = imageIdRe
@@ -125,17 +120,22 @@ final class Automod(
         .post(body)
         .map: rsp =>
           for
-            choices <- (rsp.body \ "choices").asOpt[List[JsObject]]
-            if rsp.status == 200
-            best <- choices.headOption
-            msg <- (best \ "message" \ "content").asOpt[String]
-            trimmed = msg.slice(msg.indexOf('{', msg.indexOf("</think>")), msg.lastIndexOf('}') + 1)
-            res <- Json.parse(trimmed).asOpt[JsObject]
+            maybe <- extractJsonFromResponse(rsp)
+            res <- maybe
             flagged = ~res.boolean("flag")
             _ = lila.mon.mod.report.automod.imageFlagged(flagged).increment()
             if flagged
           yield res.str("reason") | "No reason provided"
         .monSuccess(_.mod.report.automod.imageRequest)
+
+  private def extractJsonFromResponse(rsp: StandaloneWSResponse): Option[Option[JsObject]] =
+    for
+      choices <- (rsp.body \ "choices").asOpt[List[JsObject]]
+      if rsp.status == 200
+      best <- choices.headOption
+      msg <- (best \ "message" \ "content").asOpt[String]
+      trimmed = msg.slice(msg.indexOf('{', msg.indexOf("</think>")), msg.lastIndexOf('}') + 1)
+    yield Json.parse(trimmed).asOpt[JsObject]
 
 private object Automod:
   case class Config(val url: String, val apiKey: Secret)
