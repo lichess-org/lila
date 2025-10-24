@@ -974,6 +974,7 @@ Deixa en branco para comezar as partidas dende a posición inicial normal.</stri
   <string name="simulFeaturedHelp">Amosar as simultáneas publicamente en %s. Desactivar nas simultáneas privadas.</string>
   <string name="simulDescription">Descrición das simultáneas</string>
   <string name="simulDescriptionHelp">Queres dicirlle algo ós participantes?</string>
+  <string name="markdownIsAvailable">%s está dispoñible para dar formato.</string>
   <string name="embedsAvailable">Pega a ligazón dunha partida ou dun capítulo dun estudo para incrustala.</string>
   <string name="inYourLocalTimezone">Na túa zona horaria</string>
   <string name="tournChat">Sala de conversa do torneo</string>
