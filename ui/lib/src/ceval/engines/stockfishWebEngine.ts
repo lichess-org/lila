@@ -10,7 +10,7 @@ import { sharedWasmMemory } from '../util';
 import type StockfishWeb from '@lichess-org/stockfish-web';
 import { bigFileStorage } from '@/bigFileStorage';
 
-indexedDB.deleteDatabase('nnue--db'); // clean this up. bigFileStorage has its own fallback idb
+window.indexedDB.deleteDatabase('nnue--db'); // clean this up. bigFileStorage has its own fallback idb
 
 export class StockfishWebEngine implements CevalEngine {
   failed: Error;
