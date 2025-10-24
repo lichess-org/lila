@@ -975,6 +975,7 @@ Lad stå tomt for at starte partier fra den normale udgangsstilling.</string>
   <string name="simulFeaturedHelp">Vis din simultan til alle på %s. Deaktivér for private simultaner.</string>
   <string name="simulDescription">Simultanbeskrivelse</string>
   <string name="simulDescriptionHelp">Noget du ønsker at fortælle deltagerne?</string>
+  <string name="markdownIsAvailable">%s er tilgængelig til formatering.</string>
   <string name="embedsAvailable">Indsæt URL på et parti eller på et studiekaptitel for at indlejre det.</string>
   <string name="inYourLocalTimezone">I din egen lokale tidszone</string>
   <string name="tournChat">Turneringschat</string>
