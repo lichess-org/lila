@@ -3,16 +3,11 @@
   <string name="chessVideos">فيديوهات شطرنج</string>
   <string name="allVideosAreFree">كل الفيديوهات مجانية للجميع</string>
   <string name="selectTagsToFilter">أدخل تصنيفات لتصفية الفيديوهات </string>
-  <string name="weHaveCarefullySelectedX" comment="%s is the number of videos.&#10;&#10;Appears on https://lichess.org/video">تم بدقة تحديد الفيديوهات لحد الآن </string>
   <string name="freeChessVideos">فيديوهات شطرنج مجانية</string>
-  <string name="xWithTagsY" comment="%1$s is the number of videos found.&#10;&#10;%2$s is a list of tags.&#10;&#10;Appears when filtering for videos by tag.">بالتصنيفات</string>
   <string name="freeForAll" comment="Appears in social media embeds (i.e. OpenGraph information) when linking Lichess videos. Part of a longer piece of text.&#10;&#10;The full text will be something like &quot;%s carefully curated chess videos • free for all&quot;">مجاني للجميع</string>
   <string name="noVideosForTheseTags">لا يوجد فيديوهات لهذا التصنيف</string>
   <string name="thatsAllWeGotForTheseTags">هذا كل شيئ لهذا التصنيف </string>
-  <string name="thatsAllWeGotForThisSearchX" comment="%s is the search term that the user entered.&#10;&#10;Appears at the end of a list of search results on https://lichess.org/video">هذا كل شيئ لهذا البحث</string>
-  <string name="thereAreNoResultsForX" comment="%s is the search term that the user entered.">لا توجد نتائج ل</string>
   <string name="viewMoreTags" comment="Appears as a link on https://lichess.org/video&#10;&#10;The link leads to https://lichess.org/video/tags">رؤية المزيد من التصنيفات</string>
   <string name="videoNotFound">الفيديو غير متاح</string>
-  <string name="xByY" comment="%1$s is the video's title.&#10;&#10;%2$s is the video's author. This will be the author's display name on YouTube.&#10;&#10;Appears in embeds on social media platform, when a Lichess video is linked.&#10;&#10;Examples:&#10;&quot;Chess Fundamentals #1: Undefended Pieces by IM John Bartholomew&quot;&#10;&quot;Chess Traps: Halosar Trap by thechesswebsite&quot;">ب</string>
   <string name="allNbVideoTags" comment="%s is the number of video tags. Appears on https://lichess.org/video/tags">%sكل </string>
 </resources>
