@@ -65,10 +65,31 @@ class MarkdownTest extends munit.FunSuite:
         s"""<p>prefix <div data-pgn="$gamePgn" class="lpv--autostart is2d" data-ply="1">$gameUrl#1</div> suffix</p>
 """
     )
-  test("markdown image whitelist pass"):
+  test("markdown image whitelist pass - exact domain match to AssetDomain conf"):
     assertEquals(
       render(Markdown("![image](https://lichess1.org/image.png)")),
       Html("""<p><img src="https://lichess1.org/image.png" alt="image" /></p>
+""")
+    )
+  test("markdown image whitelist pass - exact domain match to one from list"):
+    assertEquals(
+      render(Markdown("![image](https://wikimedia.org/image.png)")),
+      Html("""<p><img src="https://wikimedia.org/image.png" alt="image" /></p>
+""")
+    )
+  test("markdown image whitelist pass - subdomain match"):
+    assertEquals(
+      render(Markdown("![image](https://foo.wikimedia.org/image.png)")),
+      Html("""<p><img src="https://foo.wikimedia.org/image.png" alt="image" /></p>
+""")
+    )
+  test("markdown image whitelist pass - local dev site with port"):
+    val render: Markdown => Html =
+      new MarkdownRender(assetDomain = AssetDomain("localhost:8080").some, header = true)("test")
+
+    assertEquals(
+      render(Markdown("![image](http://localhost:8080/image.png)")),
+      Html("""<p><img src="http://localhost:8080/image.png" alt="image" /></p>
 """)
     )
   test("markdown image whitelist block"):
@@ -76,6 +97,14 @@ class MarkdownTest extends munit.FunSuite:
       render(Markdown("![image](https://evil.com/image.png)")),
       Html(
         """<p><a href="https://evil.com/image.png" target="_blank" rel="nofollow noreferrer">image</a></p>
+"""
+      )
+    )
+  test("markdown image whitelist block - with substring of whitelisted domain"):
+    assertEquals(
+      render(Markdown("![image](https://evil-wikimedia.org/image.png)")),
+      Html(
+        """<p><a href="https://evil-wikimedia.org/image.png" target="_blank" rel="nofollow noreferrer">image</a></p>
 """
       )
     )
