@@ -1,10 +1,10 @@
 package lila.team
 
-import play.api.libs.json.{ JsSuccess, Json, Reads }
-import play.api.mvc.RequestHeader
-
 import java.time.Period
 import scala.util.Try
+import scalalib.actor.AsyncActorSequencers
+import play.api.libs.json.{ JsSuccess, Json, Reads }
+import play.api.mvc.RequestHeader
 
 import lila.common.Bus
 import lila.core.perm.Granter
@@ -22,12 +22,20 @@ final class TeamApi(
     cached: Cached,
     notifier: Notifier,
     chatApi: lila.core.chat.ChatApi
-)(using Executor)
+)(using Executor, Scheduler)
     extends lila.core.team.TeamApi:
 
   import BSONHandlers.given
 
   export teamRepo.{ filterHideForum, onUserDelete, deleteNewlyCreatedBy }
+
+  private val workQueue = AsyncActorSequencers[TeamId](
+    maxSize = Max(8),
+    expiration = 30.seconds,
+    timeout = 5.seconds,
+    name = "team",
+    lila.log.asyncActorMonitor.highCardinality
+  )
 
   def team(id: TeamId) = teamRepo.byId(id)
 
@@ -144,15 +152,16 @@ final class TeamApi(
         RequestWithUser.combine(requests, users.filter(_.enabled.yes))
 
   def join(team: Team, request: Option[String], password: Option[String])(using me: Me): Fu[Requesting] =
-    blocklist
-      .has(team, me.userId)
-      .flatMap:
-        if _ then fuccess(Requesting.Blocklist)
-        else if team.open then
-          if team.passwordMatches(~password)
-          then doJoin(team).inject(Requesting.Joined)
-          else fuccess(Requesting.NeedPassword)
-        else motivateOrJoin(team, request)
+    workQueue(team.id):
+      blocklist
+        .has(team, me.userId)
+        .flatMap:
+          if _ then fuccess(Requesting.Blocklist)
+          else if team.open then
+            if team.passwordMatches(~password)
+            then doJoin(team).inject(Requesting.Joined)
+            else fuccess(Requesting.NeedPassword)
+          else motivateOrJoin(team, request)
 
   private def motivateOrJoin(team: Team, msg: Option[String])(using Me) =
     msg.fold(fuccess[Requesting](Requesting.NeedRequest)): txt =>
@@ -184,7 +193,7 @@ final class TeamApi(
         if _ then funit
         else quit(team, me)
 
-  def processRequest(team: Team, request: TeamRequest, decision: String): Funit = {
+  def processRequest(team: Team, request: TeamRequest, decision: String): Funit = workQueue(team.id) {
     if decision == "decline"
     then requestRepo.coll.updateField($id(request.id), "declined", true).void
     else if decision == "accept"
@@ -241,13 +250,14 @@ final class TeamApi(
   def teamsByIds(ids: List[TeamId]) =
     teamRepo.coll.byIds[Team, TeamId](ids, _.sec)
 
-  def quit(team: Team, userId: UserId): Funit = for
-    res <- memberRepo.remove(team.id, userId)
-    _ <- (res.n == 1).so:
-      teamRepo.incMembers(team.id, -1)
-  yield
-    Bus.pub(LeaveTeam(teamId = team.id, userId = userId))
-    cached.invalidateTeamIds(userId)
+  def quit(team: Team, userId: UserId): Funit = workQueue(team.id):
+    for
+      res <- memberRepo.remove(team.id, userId)
+      _ <- (res.n == 1).so:
+        teamRepo.incMembers(team.id, -1)
+    yield
+      Bus.pub(LeaveTeam(teamId = team.id, userId = userId))
+      cached.invalidateTeamIds(userId)
 
   def quitAllOnAccountClosure(userId: UserId): Fu[List[TeamId]] = for
     teamIds <- cached.teamIdsList(userId)
@@ -268,20 +278,21 @@ final class TeamApi(
           field = "user"
         )
 
-  def kick(team: Team, userId: UserId)(using me: Me): Funit = for
-    kicked <- memberRepo.get(team.id, userId)
-    myself <- memberRepo.get(team.id, me)
-    allowed = userId.isnt(team.createdBy) && kicked.exists: kicked =>
-      myself.exists: myself =>
-        kicked.perms.isEmpty || myself.hasPerm(_.Admin) || Granter(_.ManageTeam)
-    _ <- allowed.so:
-      // create a request to set declined in order to prevent kicked use to rejoin
-      val request = TeamRequest.make(team.id, userId, "Kicked from team", declined = true)
-      for
-        _ <- requestRepo.coll.insert.one(request)
-        _ <- quit(team, userId)
-      yield Bus.pub(KickFromTeam(teamId = team.id, teamName = team.name, userId = userId))
-  yield ()
+  def kick(team: Team, userId: UserId)(using me: Me): Funit = workQueue(team.id):
+    for
+      kicked <- memberRepo.get(team.id, userId)
+      myself <- memberRepo.get(team.id, me)
+      allowed = userId.isnt(team.createdBy) && kicked.exists: kicked =>
+        myself.exists: myself =>
+          kicked.perms.isEmpty || myself.hasPerm(_.Admin) || Granter(_.ManageTeam)
+      _ <- allowed.so:
+        // create a request to set declined in order to prevent kicked use to rejoin
+        val request = TeamRequest.make(team.id, userId, "Kicked from team", declined = true)
+        for
+          _ <- requestRepo.coll.insert.one(request)
+          _ <- quit(team, userId)
+        yield Bus.pub(KickFromTeam(teamId = team.id, teamName = team.name, userId = userId))
+    yield ()
 
   def kickMembers(team: Team, json: String)(using me: Me, req: RequestHeader): Funit =
     val users = parseTagifyInput(json).toList

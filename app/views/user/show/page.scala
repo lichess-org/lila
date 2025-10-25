@@ -28,7 +28,7 @@ object page:
         OpenGraph(
           image = staticAssetUrl("logo/lichess-tile-wide.png").some,
           title = u.titleUsernameWithBestRating,
-          url = s"$netBaseUrl${routes.User.show(u.username).url}",
+          url = routeUrl(routes.User.show(u.username)),
           description = ui.describeUser(u)
         )
       )

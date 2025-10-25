@@ -6,7 +6,7 @@ import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
 
-final class PublicChatUi(helpers: Helpers)(highlightBad: String => Frag):
+final class PublicChatUi(helpers: Helpers)(modMenu: Context ?=> Frag, highlightBad: String => Frag):
   import helpers.{ *, given }
 
   def apply(
@@ -18,7 +18,7 @@ final class PublicChatUi(helpers: Helpers)(highlightBad: String => Frag):
       .css("mod.publicChats")
       .js(Esm("bits.publicChats")):
         main(cls := "page-menu")(
-          bits.modMenu("public-chat"),
+          modMenu,
           div(id := "comm-wrap")(
             div(id := "communication", cls := "page-menu__content public-chat box box-pad")(
               div(

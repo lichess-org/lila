@@ -19,7 +19,7 @@ final class CoordinateUi(helpers: Helpers):
       .csp(_.withPeer.withWebAssembly)
       .graph(
         title = "Chess board coordinates trainer",
-        url = s"$netBaseUrl${routes.Coordinate.home.url}",
+        url = routeUrl(routes.Coordinate.home),
         description =
           "Knowing the chessboard coordinates is a very important chess skill. A square name appears on the board and you must click on the correct square."
       )

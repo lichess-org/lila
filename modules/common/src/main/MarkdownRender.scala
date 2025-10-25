@@ -112,6 +112,9 @@ object MarkdownRender:
 
   case class PgnSourceExpand(domain: NetDomain, getPgn: PgnSourceId => Option[LpvEmbed])
 
+  def unlink(text: Markdown): String =
+    text.value.replaceAll(raw"""(?i)!?\[([^\]\n]*)\]\([^)]*\)""", "[$1]")
+
   private val rel = "nofollow noreferrer"
 
   private object WhitelistedImage:
@@ -133,15 +136,16 @@ object MarkdownRender:
         "i.postimg.cc",
         "imgs.xkcd.com",
         "image.lichess1.org",
-        "pic.lichess.org",
-        "127.0.0.1"
+        "pic.lichess.org"
       )
 
     private def whitelistedSrc(src: String, assetDomain: Option[AssetDomain]): Option[String] = for
       url <- lila.common.url.parse(src).toOption
       if url.scheme == "http" || url.scheme == "https"
       host <- Option(url.host).map(_.toHostString)
-      if (assetDomain.toList ::: whitelist).exists(h => host == h.value || host.endsWith(s".$h"))
+      if (assetDomain.toList ::: whitelist).exists(h =>
+        h.value.split(":").headOption.contains(host) || host.endsWith(s".$h")
+      )
     yield url.toString
 
     def create(assetDomain: Option[AssetDomain]) = new HtmlRenderer.HtmlRendererExtension:

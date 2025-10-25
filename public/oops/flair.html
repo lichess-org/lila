@@ -42,7 +42,8 @@
   </head>
   <body>
     <script>
-      fetch('/flair/list.txt?nocache=' + Math.random())
+      const flairBaseUrl = '/assets/______4/flair';
+      fetch(`${flairBaseUrl}/list.txt?nocache=${Math.random()}`)
         .then(r => r.text())
         .then(text => {
            let categs = {};
@@ -71,7 +72,7 @@
                a.textContent = flair;
                const i = document.createElement('img');
                i.loading = 'lazy';
-               i.src = '/assets/______4/flair/img/' + flair + '.webp';
+               i.src = `${flairBaseUrl}/img/${flair}.webp`;
                i.title = flair;
                a.appendChild(i);
                flairsDiv.appendChild(a);

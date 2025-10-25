@@ -30,7 +30,7 @@ final class LearnUi(helpers: Helpers):
       .graph(
         title = "Learn chess by playing",
         description = "You don't know much about chess? Excellent! Let's have fun and learn to play chess!",
-        url = s"$netBaseUrl${routes.Learn.index}"
+        url = routeUrl(routes.Learn.index)
       )
       .hrefLangs(lila.ui.LangPath(routes.Learn.index))
       .flag(_.zoom):

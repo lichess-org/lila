@@ -5,7 +5,6 @@ import { h, type VNode } from 'snabbdom';
 import { header } from './util';
 import { bind, dataIcon } from 'lib/snabbdom';
 import { type DasherCtrl, PaneCtrl } from './interfaces';
-import { pubsub } from 'lib/pubsub';
 import { isSafari } from 'lib/device';
 import { snabDialog } from 'lib/view/dialog';
 
@@ -154,7 +153,6 @@ export class SoundCtrl extends PaneCtrl {
       site.sound.play('genericNotify');
       this.postSet(k);
     }
-    pubsub.emit('speech.enabled', site.sound.speech());
     this.redraw();
   };
 

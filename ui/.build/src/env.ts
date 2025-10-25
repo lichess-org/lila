@@ -108,9 +108,7 @@ export const env = new (class {
     if (this.manifestOk() && taskOk()) {
       if (this.startTime) {
         const doneMsg = `Done in ${c.green((Date.now() - this.startTime) / 1000 + '')}s`;
-        this.log(
-          doneMsg + (this.stdin ? `. Press ${c.grey('<space>')} to clean, ${c.grey('<esc>')} to exit` : ''),
-        );
+        this.log(doneMsg + (this.stdin ? `. Press ${c.grey('<space>')} to clean and rebuild` : ''));
       }
       updateManifest();
       this.startTime = undefined;

@@ -112,7 +112,7 @@ final class StreamerUi(helpers: Helpers, bits: StreamerBits)(using netDomain: Ne
           title = s"${s.titleName} streams chess",
           description =
             shorten(~(s.streamer.headline.map(_.value).orElse(s.streamer.description.map(_.value))), 152),
-          url = s"$netBaseUrl${routes.Streamer.show(s.user.username)}",
+          url = routeUrl(routes.Streamer.show(s.user.username)),
           `type` = "video",
           image = s.streamer.hasPicture.option(bits.thumbnail.url(s.streamer))
         )

@@ -27,7 +27,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
           `type` = "article",
           image = post.image.isDefined.option(ui.thumbnailUrl(post, _.Size.Large)),
           title = post.title,
-          url = s"$netBaseUrl${routes.Ublog.post(user.username, post.slug, post.id)}",
+          url = routeUrl(routes.Ublog.post(user.username, post.slug, post.id)),
           description = post.intro
         )
       )

@@ -19,7 +19,7 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
             s"${routes.Export.fenThumbnail(page.query.fen.value, none, none, none, ctx.pref.theme.some, ctx.pref.pieceSet.some).url}"
           ).some,
           title = "Chess openings",
-          url = s"$netBaseUrl${routes.Opening.index()}",
+          url = routeUrl(routes.Opening.index()),
           description = "Explore the chess openings"
         )
       ):
@@ -63,7 +63,7 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
             s"${routes.Export.fenThumbnail(page.query.fen.value, none, page.query.uci.lastOption, None, ctx.pref.theme.some, ctx.pref.pieceSet.some).url}"
           ).some,
           title = page.name,
-          url = s"$netBaseUrl${bits.queryUrl(page.query)}",
+          url = routeUrl(bits.queryUrl(page.query)),
           description = page.query.pgnString.value
         )
       )

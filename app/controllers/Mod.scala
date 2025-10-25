@@ -8,6 +8,7 @@ import scala.annotation.nowarn
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
+import lila.core.id.ImageId
 import lila.core.net.IpAddress
 import lila.core.perm.Permission
 import lila.core.security.FingerHash
@@ -586,3 +587,25 @@ final class Mod(
     if HTTPRequest.isSynchronousHttp(ctx.req)
     then redirect(username)
     else userC.renderModZoneActions(username)
+
+  def imageQueue(page: Int) = Secure(_.ModerateForum) { _ ?=> _ ?=>
+    for
+      (scores, pending) <- reportC.getScores
+      paginator <- scalalib.paginator.Paginator(
+        env.memo.picfitApi.imageFlagAdapter,
+        currentPage = page,
+        maxPerPage = MaxPerPage(12)
+      )
+      page <- renderPage(views.mod.imageQueue(paginator, scores, pending))
+    yield Ok(page)
+  }
+
+  def imageAccept(id: ImageId, v: Boolean) = Secure(_.ModerateForum) { _ ?=> me ?=>
+    for
+      picOpt <-
+        if v
+        then env.memo.picfitApi.setAutomod(id, lila.memo.ImageAutomod(none))
+        else env.memo.picfitApi.deleteById(id)
+      _ <- picOpt.so(env.mod.logApi.moderateImage(_, if v then "pass" else "purge"))
+    yield Redirect(routes.Mod.imageQueue())
+  }

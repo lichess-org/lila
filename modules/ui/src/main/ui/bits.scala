@@ -1,15 +1,13 @@
 package lila.ui
 
 import play.api.i18n.Lang
-
 import java.time.YearMonth
-
 import chess.format.Fen
 
 import lila.core.i18n.Translate
 import lila.core.security.HcaptchaForm
-
-import ScalatagsTemplate.{ *, given }
+import lila.core.config.ImageGetOrigin
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 object bits:
 
@@ -120,42 +118,36 @@ object bits:
     )
   )
 
-  def modMenu(active: String)(using ctx: Context): Frag = ctx.me.foldUse(emptyFrag): me ?=>
-    pageMenuSubnav(
-      Granter(_.SeeReport)
-        .option(a(cls := itemCls(active, "report"), href := routes.Report.list)("Reports")),
-      Granter(_.PublicChatView)
-        .option(a(cls := itemCls(active, "public-chat"), href := routes.Mod.publicChat)("Public Chats")),
-      Granter(_.GamifyView)
-        .option(a(cls := itemCls(active, "activity"), href := routes.Mod.activity)("Mod activity")),
-      Granter(_.GamifyView)
-        .option(a(cls := itemCls(active, "queues"), href := routes.Mod.queues("month"))("Queues stats")),
-      Granter(_.GamifyView)
-        .option(a(cls := itemCls(active, "gamify"), href := routes.Mod.gamify)("Hall of fame")),
-      Granter(_.GamifyView)
-        .option(a(cls := itemCls(active, "log"), href := routes.Mod.log(me.username.some))("Mod logs")),
-      Granter(_.UserSearch)
-        .option(a(cls := itemCls(active, "search"), href := routes.Mod.search)("Search users")),
-      Granter(_.Admin).option(a(cls := itemCls(active, "notes"), href := routes.Mod.notes())("Mod notes")),
-      Granter(_.SetEmail)
-        .option(a(cls := itemCls(active, "email"), href := routes.Mod.emailConfirm)("Email confirm")),
-      Granter(_.Pages).option(a(cls := itemCls(active, "cms"), href := routes.Cms.index)("Pages")),
-      Granter(_.ManageTournament)
-        .option(a(cls := itemCls(active, "tour"), href := routes.TournamentCrud.index(1))("Tournaments")),
-      Granter(_.ManageEvent)
-        .option(a(cls := itemCls(active, "event"), href := routes.Event.manager)("Events")),
-      Granter(_.ModerateBlog)
-        .option(a(cls := itemCls(active, "carousel"), href := routes.Ublog.modShowCarousel)("Blog carousel")),
-      Granter(_.MarkEngine)
-        .option(a(cls := itemCls(active, "irwin"), href := routes.Irwin.dashboard)("Irwin dashboard")),
-      Granter(_.MarkEngine)
-        .option(a(cls := itemCls(active, "kaladin"), href := routes.Irwin.kaladin)("Kaladin dashboard")),
-      Granter(_.Admin).option(a(cls := itemCls(active, "mods"), href := routes.Mod.table)("Mods")),
-      Granter(_.Presets)
-        .option(a(cls := itemCls(active, "presets"), href := routes.Mod.presets("PM"))("Msg presets")),
-      Granter(_.Settings)
-        .option(a(cls := itemCls(active, "setting"), href := routes.Dev.settings)("Settings")),
-      Granter(_.Cli).option(a(cls := itemCls(active, "cli"), href := routes.Dev.cli)("CLI"))
+  def markdownTextarea(picfitIdPrefix: Option[String])(textareaTag: Tag)(using
+      imageGetOrigin: ImageGetOrigin
+  )(using Me) =
+    div(
+      cls := "markdown-textarea",
+      attr("data-image-download-origin") := imageGetOrigin,
+      attr("data-image-count-max") := picfitIdPrefix.match
+        case Some(p) if p.startsWith("forum") => 5
+        case Some(p) if p.startsWith("team") => 2
+        case _ => 1,
+      lila.core.security.canUploadImages
+        .so(picfitIdPrefix)
+        .map(id => attr("data-image-upload-url") := routes.Main.uploadImage(id)),
+      picfitIdPrefix.flatMap(imageDesignWidth).map(dw => attr("data-image-design-width") := dw)
+    )(
+      div(cls := "comment-header")(
+        button(cls := "header-tab write active", tpe := "button")("Write"),
+        button(cls := "header-tab preview", tpe := "button", title := "Preview and resize images")("Preview"),
+        button(cls := "upload-image", tpe := "button", title := "Upload image")
+      ),
+      div(cls := "comment-content")(
+        textareaTag,
+        div(cls := "comment-preview none")
+      )
     )
 
-  private def itemCls(active: String, item: String) = if active == item then "active" else ""
+  def imageDesignWidth(rel: String) =
+    if rel.startsWith("forum") then 864.some
+    else if rel.startsWith("ublog") then 800.some
+    else if rel.startsWith("cms") then 800.some
+    else if rel.startsWith("broadcast") then 800.some
+    else if rel.startsWith("team") then 768.some // desc & private desc
+    else none

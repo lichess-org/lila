@@ -23,7 +23,7 @@ final class UserList(helpers: Helpers, bits: UserBits):
       .flag(_.fullScreen)
       .graph(
         title = "Chess players and leaderboards",
-        url = s"$netBaseUrl${routes.User.list.url}",
+        url = routeUrl(routes.User.list),
         description =
           "Best chess players in bullet, blitz, rapid, classical, Chess960 and more chess variants"
       ):
@@ -98,7 +98,7 @@ final class UserList(helpers: Helpers, bits: UserBits):
       .js(infiniteScrollEsmInit)
       .graph(
         title = s"Leaderboard of ${perf.trans}",
-        url = s"$netBaseUrl${routes.User.top(perf.key).url}?page=$page",
+        url = routeUrl(routes.User.top(perf.key)),
         description = s"The top rated players in ${perf.trans}, sorted by rating"
       ):
         main(cls := "page-small box")(

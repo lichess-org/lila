@@ -266,6 +266,8 @@ object mon:
       object automod:
         val request = future("mod.report.automod.request")
         def assessment(a: String) = counter("mod.report.automod.assessment").withTag("assessment", a)
+        val imageRequest = future("mod.report.automod.image.request")
+        def imageFlagged(v: Boolean) = counter("mod.report.automod.image.flagged").withTag("flagged", v)
     object log:
       val create = counter("mod.log.create").withoutTags()
     object irwin:

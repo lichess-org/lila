@@ -1,7 +1,7 @@
 @use '../node_modules/@toast-ui/editor/dist/toastui-editor.css';
 @use '../node_modules/@toast-ui/editor/dist/theme/toastui-editor-dark.css';
 
-.markdown-editor {
+.markdown-toastui {
   height: 60vh;
   .tab-item {
     background: $c-bg-box;
@@ -114,5 +114,12 @@
         display: none;
       }
     }
+  }
+}
+.toastui-editor-popup-add-image {
+  padding-top: 20px;
+  &::before {
+    padding-inline: 20px;
+    content: 'Drag an edge to resize your image.';
   }
 }
