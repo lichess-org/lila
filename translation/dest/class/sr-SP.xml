@@ -88,14 +88,14 @@
   <string name="noStudents">Нема ученика у часу тренутно.</string>
   <string name="noRemovedStudents">Нема уклоњених ученика.</string>
   <string name="overDays">Преко дана</string>
-  <string name="timePlaying">Време играња</string>
+  <string name="timePlaying">Време играјући</string>
   <string name="variantXOverLastY">%1$s током претходних %2$s</string>
   <string name="winrate">Проценат победа</string>
-  <string name="na">Није применљиво</string>
+  <string name="na">Недоступно</string>
   <string name="overview">Преглед</string>
   <string name="news">Вести</string>
   <string name="classNews">Новости са часа</string>
-  <string name="editNews">Промени вести</string>
+  <string name="editNews">Уреди вести</string>
   <string name="notifyAllStudents">Обавести све ученике</string>
   <string name="nothingHere">Овде нема ничега, још увек.</string>
   <string name="newsEdit1">Све вести о часовима на једном месту.</string>
