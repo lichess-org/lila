@@ -29,7 +29,9 @@ final class JsonView(getLightUser: LightUser.GetterSync):
   given Writes[PlayStreak] = Json.writes
   given Writes[ResultStreak] = Json.writes
   given Writes[Count] = Json.writes
-  given (using Translate): Writes[PerfStat] = Json.writes
+
+  given (using Translate): OWrites[PerfStat] = Json.writes.transform:
+    _ - "id" - "userId" - "perfType"
 
   def apply(data: PerfStatData)(using Translate) =
     Json.obj(
