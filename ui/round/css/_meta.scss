@@ -72,6 +72,24 @@
   }
 }
 
+.chess960-preview {
+  display: block;
+
+  .board-part {
+    display: none;
+  }
+
+  .text-part {
+    &:hover {
+      color: $c-link-hover;
+    }
+  }
+
+  .text-part:hover + .board-part {
+    display: block;
+  }
+}
+
 .game__tournament {
   .clock {
     @extend %roboto;
