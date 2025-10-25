@@ -51,9 +51,7 @@ final class Env(
 
   val compat = wire[MsgCompat]
 
-  val twoFactorReminder = wire[TwoFactorReminder]
-
-  val emailReminder = wire[EmailReminder]
+  val systemMsg = wire[MsgByLichess]
 
   lila.common.Cli.handle:
     case "msg" :: "multi" :: orig :: dests :: words =>

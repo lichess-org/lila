@@ -89,7 +89,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
     WithClassAny(id)(
       forTeacher = WithClass(id): clas =>
         for
-          _ <- env.msg.twoFactorReminder(me)
+          _ <- env.msg.systemMsg.twoFactorReminder(me)
           students <- env.clas.api.student.activeWithUsers(clas)
           _ = preloadStudentUsers(students)
           students <- env.clas.api.student.withPerfs(students)
