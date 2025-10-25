@@ -3,7 +3,7 @@
   <string name="standard">Standard</string>
   <string name="standardTitle">Standard rules of chess (FIDE)</string>
   <string name="chess960">Chess960</string>
-  <string name="chess960Title">The starting position of the home rank pieces is randomized.</string>
+  <string name="chess960Title">The starting position of the home rank pieces is randomised.</string>
   <string name="kingOfTheHill">King of the Hill</string>
   <string name="kingOfTheHillTitle">Bring your King to the center to win the game.</string>
   <string name="threeCheck">Three-Check</string>
