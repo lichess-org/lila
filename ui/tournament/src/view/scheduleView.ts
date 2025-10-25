@@ -122,6 +122,7 @@ function tournamentClass(tour: Tournament): Classes {
       'tsht-thematic': !!tour.position,
       'tsht-short': tour.minutes <= 30,
       'tsht-max-rating': !userCreated && tour.hasMaxRating,
+      'tsht-variant': tour.variant.key !== 'standard' && tour.variant.key !== 'fromPosition',
     } as Classes;
   if (tour.schedule) classes['tsht-' + tour.schedule.freq] = true;
   return classes;
