@@ -201,9 +201,9 @@ trait GameHelper:
             s"""${routes.Editor.index}?fen=${initialFen.so(_.value.replace(' ', '_'))}"""
           case v => routes.Cms.variant(v.key).url
         ,
-        title = variant.title,
+        title = variant.variantTitleTrans.txt(),
         name = (if shortName && variant == chess.variant.KingOfTheHill then variant.shortName
-                else variant.name).toUpperCase
+                else variant.variantTrans.txt()).toUpperCase
       )
     else if pk == PerfKey.correspondence then
       link(
