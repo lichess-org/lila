@@ -32,7 +32,7 @@ final class MsgByLichess(
 
   object emailReminder:
     def apply(userId: UserId) = cache.get(userId)
-    private val emailReminderMsg = s"""No email associated with your account
+    private val text = s"""No email associated with your account
 
   Hello, as you have an early Lichess account, no email was required when you registered.
 
@@ -50,10 +50,13 @@ final class MsgByLichess(
                 .enabledById(userId)
                 .flatMap:
                   _.filterNot(_.hasEmail).fold(fuccess(true)): user =>
-                    for _ <- api.systemPost(user.id, emailReminderMsg) yield false
+                    for _ <- api.systemPost(user.id, text) yield false
 
   object chatTimeout:
     def apply(userId: UserId) = cache.get(userId)
+    private val text = s"""Chat rules violation resulted in timeout
+
+Please review the chat rules on ${lila.core.chat.etiquetteUrl}."""
     private val cache = mongoCache[UserId, Boolean](1024, "chat:timeout:msg", 1.day, _.value): loader =>
       _.expireAfterWrite(1.hour).buildAsyncFuture:
         loader: userId =>
@@ -61,4 +64,4 @@ final class MsgByLichess(
             .isTroll(userId)
             .not
             .flatMapz:
-              api.systemPost(userId, "Chat rules violation resulted in timeout").inject(true)
+              api.systemPost(userId, text).inject(true)

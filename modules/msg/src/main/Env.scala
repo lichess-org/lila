@@ -75,6 +75,9 @@ final class Env(
         text <- obj.str("text")
       yield api.post(userId, dest, text)
 
+  Bus.sub[lila.core.mod.ChatTimeout]: to =>
+    systemMsg.chatTimeout(to.user)
+
   import play.api.data.Forms.*
   val textForm = play.api.data.Form(single("text" -> nonEmptyText))
 
