@@ -49,7 +49,7 @@ import * as poolRangeStorage from 'lib/poolRangeStorage';
 import { pubsub } from 'lib/pubsub';
 import { readFen, almostSanOf, speakable } from 'lib/game/sanWriter';
 import { plyToTurn } from 'lib/game/chess';
-import { wsDestroy } from 'lib/socket';
+import { wsDestroy, type RoundOutEvent } from 'lib/socket';
 import Server from './server';
 
 type GoneBerserk = Partial<ByColor<boolean>>;
@@ -297,7 +297,7 @@ export default class RoundController implements MoveRootCtrl {
 
   setTitle = (): void => title.set(this);
 
-  actualSendMove = (tpe: string, data: any, meta: MoveMetadata = { premove: false }): void => {
+  actualSendMove = (tpe: RoundOutEvent, data: any, meta: MoveMetadata = { premove: false }): void => {
     const socketOpts: SocketOpts = {
       sign: this.sign,
       ackable: true,
@@ -696,7 +696,7 @@ export default class RoundController implements MoveRootCtrl {
     else return false;
   };
 
-  opponentRequest(req: string, text: string): void {
+  opponentRequest(req: 'takeback' | 'rematch' | 'draw', text: string): void {
     this.voiceMove?.listenForResponse(req, (v: boolean) =>
       this.socket.sendLoading(`${req}-${v ? 'yes' : 'no'}`),
     );

@@ -51,14 +51,30 @@ export type StudySocketEvent =
   | 'relaySync'
   | 'leave';
 export type RacerEvent = 'racerJoin' | 'racerStart' | 'racerScore';
+type YesNo = 'yes' | 'no';
+type Replyable = 'rematch' | 'takeback' | 'draw' | 'blindfold';
+export type RoundOutEvent =
+  | `${Replyable}-${YesNo}`
+  | 'rep'
+  | 'moretime'
+  | 'flag'
+  | 'berserk'
+  | 'draw-force'
+  | 'resign-force'
+  | 'draw-claim'
+  | 'resign'
+  | 'move'
+  | 'drop'
+  | 'bye2'
+  | 'abort';
 export type ClientOutEvent =
   | StudySocketEvent
   | RacerEvent
+  | RoundOutEvent
   | 'move'
   | 'moveLat'
   | 'notified'
   | 'ping'
-  | 'rep'
   | 'startWatching'
   | 'sk1';
 interface MsgBase {

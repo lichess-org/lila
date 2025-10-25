@@ -61,7 +61,12 @@ async function boot(
       round.socketReceive(t, d);
     },
     events: {
-      tvSelect(o: any) {
+      tvSelect(o: {
+        channel: string;
+        gameId: string;
+        color: Color;
+        player?: { title?: string; name: string; rating?: number };
+      }) {
         if (data.tv && data.tv.channel == o.channel) site.reload();
         else
           $('.tv-channels .' + o.channel + ' .champion').html(

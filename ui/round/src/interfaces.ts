@@ -5,7 +5,7 @@ import type { CorresClockData } from './corresClock/corresClockCtrl';
 import type { ChatOpts as BaseChatOpts, ChatCtrl, ChatPlugin } from 'lib/chat/interfaces';
 import * as Prefs from 'lib/prefs';
 import type { EnhanceOpts } from 'lib/richText';
-import type { RoundSocket } from './socket';
+import type { RoundSocket, RoundSocketSend } from './socket';
 import type { MoveMetadata as CgMoveMetadata } from '@lichess-org/chessground/types';
 
 export { type RoundSocket } from './socket';
@@ -82,7 +82,7 @@ export interface RoundOpts {
   data: RoundData;
   userId?: string;
   noab?: boolean;
-  socketSend?: SocketSend;
+  socketSend?: RoundSocketSend;
   onChange(d: RoundData): void;
   element?: HTMLElement;
   crosstableEl?: HTMLElement;

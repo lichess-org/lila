@@ -9,6 +9,7 @@ import type { ClockData } from 'lib/game/clock/clockCtrl';
 import type RoundController from '../ctrl';
 import { type LooseVNodes, type LooseVNode, hl, bind, onInsert } from 'lib/snabbdom';
 import { pubsub } from 'lib/pubsub';
+import type { RoundOutEvent } from 'lib/socket';
 
 export interface ButtonState {
   enabled: boolean;
@@ -105,7 +106,7 @@ export function standard(
   condition: ((d: RoundData) => ButtonState) | undefined,
   icon: string,
   hint: string,
-  socketMsg: string,
+  socketMsg: RoundOutEvent,
   onclick?: () => void,
 ): VNode {
   // disabled if condition callback is provided and is falsy
