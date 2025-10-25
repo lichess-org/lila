@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="standard" comment="As in standard chess (not a variant)">Standard</string>
+  <string name="standardTitle" comment="Description for standard chess (it has to have a description, just like all variants of the game).">Standardregler for skak (FIDE)</string>
+  <string name="chess960" comment="A chess variant where the setup of the back rank is randomised into up to 960 positions. Also known as Fischerandom and freestyle chess.&#10;&#10;Consider checking for already accepted names for this variant in your language through Wikidata: https://w.wiki/FkdK">Skak960</string>
+  <string name="chess960Title" comment="Description for the Chess960 variant.&#10;&#10;The &quot;home rank&quot; here is the back rank of each side (1 for white and 8 for blank) - which has the rooks, knights, bishops, king and queen.">Startopstillingen af den bageste rækkes brikker er tilfældig.</string>
+  <string name="antichessTitle" comment="Description for the Antichess variant">Du vinder partiet ved at miste alle dine brikker (eller blive pat).</string>
+  <string name="atomicTitle" comment="Description for the Atomic Chess variant">Udslet modstanderens konge for at vinde.</string>
+  <string name="hordeTitle" comment="Description for the Horde chess variant">Den ene side har et stort antal bønder, den anden har en normal hær.</string>
+  <string name="racingKingsTitle" comment="Description for the Racing Kings chess variant">Få din konge til den anden side af brættet for at vinde.</string>
+  <string name="crazyhouseTitle" comment="Description for the Crazyhouse chess variant">Erobrede brikker kan genindsættes på brættet i stedet for at foretage et træk.</string>
+</resources>
