@@ -964,7 +964,6 @@ Normal boshlang‘ich holatdan boshlash uchun uni bo‘sh qoldiring.</string>
   <string name="simulFeaturedHelp">%s dagi hammaga sizning seansingizni ko‘rsatish. Shaxsiy seanslaringiz uchun uni o‘chirib qo‘ying.</string>
   <string name="simulDescription">Seans izohi</string>
   <string name="simulDescriptionHelp">Ishtirokchilarga nimadir aytmoqchimisiz?</string>
-  <string name="markdownAvailable">%s yanada kengroq sintaksisga ega.</string>
   <string name="embedsAvailable">O‘yin yoki o‘rganish URL ini ulashish uchun ishlating.</string>
   <string name="inYourLocalTimezone">Sizning mahalliy vaqt hududingizda</string>
   <string name="tournChat">Turnir suhbati</string>

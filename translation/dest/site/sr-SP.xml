@@ -959,7 +959,6 @@
   <string name="simulFeaturedHelp">Покажи своју симултанку свима на %s. Онемогући за приватне симултанке.</string>
   <string name="simulDescription">Опис симултанке</string>
   <string name="simulDescriptionHelp">Желиш ли нешто да саопштиш учесницима?</string>
-  <string name="markdownAvailable">%s је на располагању за напреднију синтаксу.</string>
   <string name="embedsAvailable">Убаци URL партије или поглавља студије.</string>
   <string name="inYourLocalTimezone">Према твојој локалној временској зони</string>
   <string name="tournChat">Чет на турниру</string>

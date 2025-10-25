@@ -26,7 +26,7 @@
   <string name="evaluation">평가</string>
   <string name="maxNumber">최대 개수</string>
   <string name="maxNumberExplanation">반환할 최대 게임 수</string>
-  <string name="include">포함</string>
+  <string name="include">다음을 포함</string>
   <string name="descending">내림차순</string>
   <string name="ascending">오름차순</string>
   <plurals name="gamesFound">

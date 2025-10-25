@@ -4,7 +4,7 @@
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Desafiar a unha amizade</string>
   <string name="playAgainstComputer">Xogar contra a máquina</string>
   <string name="gameMode">Modo de xogo</string>
-  <string name="createLobbyGame" comment="One of three buttons on the home page. Opens the modal to create a game that goes in the lobby.">Crear unha partida na sala de espera</string>
+  <string name="createLobbyGame">Crear unha partida na sala de espera</string>
   <string name="youPlayAs">Xogas coas</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Para invitar a alguén a xogar, dálle este URL</string>
   <string name="gameOver">Partida rematada</string>
@@ -768,7 +768,8 @@
   <string name="crosstable">Táboa de cruces</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Usa a roda do rato sobre o taboleiro para moverte pola partida.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Pasa o punteiro sobre as variantes da computadora para visualizalas.</string>
-  <string name="analysisShapesHowTo">Pulsa Maiúsculas+clic ou preme o botón dereito do rato para debuxar círculos e frechas no taboleiro.</string>
+  <string name="analysisShapesHowTo">Preme o botón dereito do rato (ou pulsa Maiúsculas+clic) para debuxar círculos e frechas no taboleiro. Para obter outras cores, combina o seguinte co botón dereito do rato:</string>
+  <string name="primaryColorArrowsHowTo">(Ctrl ou Maiúsculas) = vermello;  (Comando, Alt ou Meta) = azul;  unha tecla de cada grupo = amarelo.</string>
   <string name="letOtherPlayersMessageYou">Permitir que outros xogadores che envíen mensaxes</string>
   <string name="receiveForumNotifications">Recibe notificacións cando alguén te mencione no foro</string>
   <string name="shareYourInsightsData">Compartir os teus datos estatísticos</string>
@@ -973,7 +974,7 @@ Deixa en branco para comezar as partidas dende a posición inicial normal.</stri
   <string name="simulFeaturedHelp">Amosar as simultáneas publicamente en %s. Desactivar nas simultáneas privadas.</string>
   <string name="simulDescription">Descrición das simultáneas</string>
   <string name="simulDescriptionHelp">Queres dicirlle algo ós participantes?</string>
-  <string name="markdownAvailable">%s está dispoñíbel para unha sintaxe máis avanzada.</string>
+  <string name="markdownIsAvailable">%s está dispoñible para dar formato.</string>
   <string name="embedsAvailable">Pega a ligazón dunha partida ou dun capítulo dun estudo para incrustala.</string>
   <string name="inYourLocalTimezone">Na túa zona horaria</string>
   <string name="tournChat">Sala de conversa do torneo</string>

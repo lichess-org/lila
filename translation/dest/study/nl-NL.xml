@@ -16,6 +16,7 @@
   <string name="recentlyUpdated">Recent bijgewerkt</string>
   <string name="mostPopular">Meest populair</string>
   <string name="alphabetical">Alfabetisch</string>
+  <string name="relevant">Relevant</string>
   <string name="addNewChapter">Nieuw hoofdstuk toevoegen</string>
   <plurals name="nbChapters">
     <item quantity="one">%s hoofdstuk</item>
@@ -32,7 +33,7 @@
   </plurals>
   <string name="inviteToTheStudy">Uitnodigen voor de studie</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">Nodig alleen deelnemers uit die jou kennen en actief mee willen doen aan deze studie.</string>
-  <string name="searchByUsername" comment="Appears when adding members to a Lichess Study as placeholder text in a search box.">Zoeken op gebruikersnaam</string>
+  <string name="searchByUsername">Zoeken op gebruikersnaam</string>
   <string name="spectator">Kijker</string>
   <string name="contributor">Bijdrager</string>
   <string name="kick">Verwijder</string>

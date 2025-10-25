@@ -12,13 +12,13 @@
   <string name="teachersX">교사: %s</string>
   <string name="newClass">새 클래스</string>
   <string name="closeClass">클래스 닫기</string>
-  <string name="removedByX">%s가 제거함</string>
+  <string name="removedByX">%s에 의해 제거됨</string>
   <string name="reopen">다시 열기</string>
   <string name="removeStudent">학생 삭제</string>
   <string name="removedStudents">삭제됨</string>
   <string name="inviteTheStudentBack">학생을 다시 초대</string>
   <string name="sendAMessage">모든 학생에게 메시지 보내기</string>
-  <string name="aLinkToTheClassWillBeAdded">수업 링크는 메시지 끝에 자동으로 추가되므로 직접 포함 할 필요가 없습니다.</string>
+  <string name="aLinkToTheClassWillBeAdded">수업 링크는 메시지 끝에 자동으로 추가되므로 직접 포함할 필요가 없습니다.</string>
   <string name="className">클래스 이름</string>
   <string name="classDescription">수업 설명</string>
   <string name="visibleByBothStudentsAndTeachers">수업의 교사와 학생 모두에게 표시됩니다</string>
@@ -34,7 +34,7 @@
   <string name="addStudent">학생 추가</string>
   <string name="lichessProfileXCreatedForY">%2$s를 위해 생성된 Lichess 프로필 %1$s</string>
   <string name="studentCredentials">학생:  %1$s
-유저이름: %2$s
+사용자 명: %2$s
 비밀번호: %3$s</string>
   <string name="inviteALichessAccount">Lichess 계정을 초대</string>
   <string name="inviteDesc1">학생이 이미 Lichess 계정이 있는 경우 수업에 초대 할 수 있습니다.</string>
@@ -48,7 +48,7 @@
   <string name="createDesc4">이미 계정이 있다면 초대 양식을 사용해주세요.</string>
   <string name="createStudentWarning">계정 생성은 실제 학생을 위해서만 해야 합니다. 다중 계정 운용을 위해 사용할 경우 차단될 수 있습니다.</string>
   <string name="lichessUsername">Lichess 유저이름</string>
-  <string name="generateANewUsername">새 유저이름 생성</string>
+  <string name="generateANewUsername">새 사용자명 만들기</string>
   <string name="welcomeToClass">%s, 수업에 오신 것을 환영합니다.
 수업에 참여할 수 있는 링크입니다.</string>
   <string name="invitationToClass">클래스 \"%s\"에 학생으로 초대받았습니다.</string>
@@ -57,7 +57,7 @@
     <item quantity="other">%s개의 대기중인 초대</item>
   </plurals>
   <string name="pending">보류 중</string>
-  <string name="declined">거절한다</string>
+  <string name="declined">거절됨</string>
   <string name="onlyVisibleToTeachers">클래스 선생님에게만 보입니다</string>
   <string name="lastActiveDate">활성화</string>
   <string name="managed">관리</string>
@@ -114,5 +114,7 @@
   <string name="xAlreadyHasAPendingInvitation">%s은(는) 이미 초대되었습니다</string>
   <string name="xIsAKidAccountWarning">%1$s는 어린이 계정이므로 메시지를 받을 수 없습니다. 초대 링크를 수동으로 보내야 합니다: %2$s.</string>
   <string name="moveToClass">%s로 움직여</string>
-  <string name="moveToAnotherClass">다른 수업으로 움직여</string>
+  <string name="moveToAnotherClass">다른 반으로 이동</string>
+  <string name="allowMessagingBetweenStudents">학생들끼리 메세지를 주고받는 것을 허용하기</string>
+  <string name="allowMessagingBetweenStudentsDesc">이는 귀하가 학생을 위해 생성한 계정에만 적용됩니다.</string>
 </resources>

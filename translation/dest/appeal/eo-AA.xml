@@ -6,4 +6,10 @@
   <string name="arenaBanned">Via konto estas forbarita de aliĝi al arenoj.</string>
   <string name="prizeBanned">Via konto estas forbarita de turniroj kun realaj premioj.</string>
   <string name="boosterMarked">Via konto estas markita por ranga manipulado.</string>
+  <string name="accountMuted">Via konto estas silentigita.</string>
+  <string name="closedByModerators">Via konto estis fermita de administrantoj.</string>
+  <string name="hiddenBlog">Viaj blogoj estis kaŝitaj de administrantoj.</string>
+  <string name="hiddenBlogInfo" comment="%s is &quot;blog rules&quot;, a separately translateable string (key: blogRules).&#10;&#10;Full sentence: &quot;Make sure to read again our blog rules.&quot;">Bonvolu relegi niajn %s.</string>
+  <string name="blogRules" comment="This text links to https://lichess.org/page/blog-etiquette&#10;&#10;Part of longer sentence, &quot;Make sure to read again our blog rules.&quot; (key: hiddenBlogInfo)">blogajn regulojn</string>
+  <string name="fairPlay">Honesta ludo</string>
 </resources>

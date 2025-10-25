@@ -611,7 +611,6 @@
 Вы можете хосновати %s для учиненя позіції FEN, а пак вписати ї туй. 
 Лишіт поле пустым, бы бавкы зачинали ся из простої позіції.</string>
   <string name="simulFeaturedHelp">Указовати ваш сеанс на %s. Выключіт для личных сеансув.</string>
-  <string name="markdownAvailable">%s приступный для росшыреного форматованя.</string>
   <string name="inYourLocalTimezone">У вашому часовому поясі</string>
   <string name="tournChat">Турнірный чет</string>
   <string name="noChat">Без чета</string>

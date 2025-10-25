@@ -14,7 +14,7 @@
     <item quantity="other">%s번 도전</item>
   </plurals>
   <plurals name="playedNbRunsOfPuzzleStorm">
-    <item quantity="other">%2$s 중%1$s개 플레이함</item>
+    <item quantity="other">%2$s 중%1$s개 플레이 함</item>
   </plurals>
   <string name="highscoreX">최고기록: %s</string>
   <string name="score">점수</string>
@@ -27,7 +27,7 @@
   <string name="puzzlesPlayed">플레이한 퍼즐</string>
   <string name="newRun">새로 시작(단축키: 스페이스바)</string>
   <string name="endRun">끝내기(단축키: 엔터)</string>
-  <string name="highscores">하이스코어</string>
+  <string name="highscores">최고 기록</string>
   <string name="viewBestRuns">최고 기록 보기</string>
   <string name="bestRunOfDay">일일 최고기록</string>
   <string name="runs">도전 횟수</string>

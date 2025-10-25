@@ -4,7 +4,7 @@
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Ismerős kihívása</string>
   <string name="playAgainstComputer">Játék a gép ellen</string>
   <string name="gameMode">Játékmód</string>
-  <string name="createLobbyGame" comment="One of three buttons on the home page. Opens the modal to create a game that goes in the lobby.">Játék létrehozása</string>
+  <string name="createLobbyGame">Játék létrehozása</string>
   <string name="youPlayAs">Úgy játszol, mint</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Küldd el ezt a linket annak, akivel játszani szeretnél</string>
   <string name="gameOver">Játszma vége</string>
@@ -975,7 +975,6 @@ Hagyd üresen és a játszmák a kezdőállásból indulnak.</string>
   <string name="simulFeaturedHelp">Szimultán közzététele %s oldalon. Kapcsold ki privát szimultánhoz.</string>
   <string name="simulDescription">Szimultán leírása</string>
   <string name="simulDescriptionHelp">Van bármi amit elmondanál a résztvevőknek?</string>
-  <string name="markdownAvailable">%s is elérhető a haladó szerkesztéshez.</string>
   <string name="embedsAvailable">Illeszd be a játék vagy a tanulmány URL-jét a beágyazáshoz.</string>
   <string name="inYourLocalTimezone">Saját időzónád szerint</string>
   <string name="tournChat">Verseny csevegő</string>

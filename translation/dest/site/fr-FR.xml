@@ -4,7 +4,7 @@
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Défi</string>
   <string name="playAgainstComputer">Jouer contre l\'ordinateur</string>
   <string name="gameMode">Mode de la partie</string>
-  <string name="createLobbyGame" comment="One of three buttons on the home page. Opens the modal to create a game that goes in the lobby.">Créer une partie dans le salon</string>
+  <string name="createLobbyGame">Créer une partie dans le salon</string>
   <string name="youPlayAs">Couleur</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Pour inviter quelqu\'un à jouer, donnez-lui ce lien</string>
   <string name="gameOver">Partie terminée</string>
@@ -597,8 +597,8 @@
   <string name="newPasswordAgain">Nouveau mot de passe (encore)</string>
   <string name="newPasswordsDontMatch">Les nouveaux mots de passe ne correspondent pas</string>
   <string name="newPasswordStrength">Robustesse du mot de passe</string>
-  <string name="clockInitialTime">Temps initial à la pendule</string>
-  <string name="clockIncrement">Incrément de la pendule</string>
+  <string name="clockInitialTime">Temps initial</string>
+  <string name="clockIncrement">Incrément</string>
   <string name="privacy">Confidentialité</string>
   <string name="privacyPolicy">Politique de confidentialité</string>
   <string name="letOtherPlayersFollowYou">Autoriser les autres joueurs à vous suivre</string>
@@ -974,7 +974,7 @@ Laissez vide pour commencer les parties à partir de la position initiale normal
   <string name="simulFeaturedHelp">Montrez votre simultanée à tout le monde sur %s. Désactivez cette option pour les simultanées privées.</string>
   <string name="simulDescription">Description de la simultanée</string>
   <string name="simulDescriptionHelp">Voulez-vous dire quelque chose aux participants ?</string>
-  <string name="markdownAvailable">%s offre des options de formatage supplémentaires.</string>
+  <string name="markdownIsAvailable" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text.">%s est disponible pour aider au formatage.</string>
   <string name="embedsAvailable">Collez l\'URL d\'une partie ou d\'un chapitre d\'étude pour l\'intégrer.</string>
   <string name="inYourLocalTimezone">Dans votre fuseau horaire</string>
   <string name="tournChat">Salon de discussion du tournoi</string>

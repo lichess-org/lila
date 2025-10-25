@@ -32,7 +32,7 @@
   </plurals>
   <string name="inviteToTheStudy">Зерттеуге шақыру</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">Тек таныстарды әрі зерттеуге қосылуға шын ниетті адамдарды ғана шықырыңыз.</string>
-  <string name="searchByUsername" comment="Appears when adding members to a Lichess Study as placeholder text in a search box.">Тіркеулі атымен іздеу</string>
+  <string name="searchByUsername">Тіркеулі атымен іздеу</string>
   <string name="spectator">Көрермен</string>
   <string name="contributor">Қолдаушы</string>
   <string name="kick">Шығару</string>

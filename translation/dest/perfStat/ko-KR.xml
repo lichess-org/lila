@@ -27,6 +27,6 @@
   <string name="bestRated">최고 레이팅 승리</string>
   <string name="gamesInARow">연속 대국</string>
   <string name="lessThanOneHour">게임 사이가 1시간 미만인 경우</string>
-  <string name="maxTimePlaying">게임을 한 최대 시간</string>
+  <string name="maxTimePlaying">최장 플레이 시간</string>
   <string name="now">지금</string>
 </resources>

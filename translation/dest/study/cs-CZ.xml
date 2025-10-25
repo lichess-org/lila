@@ -38,7 +38,7 @@
   </plurals>
   <string name="inviteToTheStudy">Pozvat do studie</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">Prosím zvěte pouze lidi, které znáte a kteří se chtějí aktivně připojit k této studii.</string>
-  <string name="searchByUsername" comment="Appears when adding members to a Lichess Study as placeholder text in a search box.">Hledat podle uživatelského jména</string>
+  <string name="searchByUsername">Hledat podle uživatelského jména</string>
   <string name="spectator">Divák</string>
   <string name="contributor">Přispívající</string>
   <string name="kick">Vyhodit</string>

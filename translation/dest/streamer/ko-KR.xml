@@ -2,7 +2,7 @@
 <resources>
   <string name="lichessStreamers">Lichess 스트리머</string>
   <string name="lichessStreamer">Lichess 스트리머</string>
-  <string name="live">지금 라이브!</string>
+  <string name="live">라이브 중!</string>
   <string name="offline">오프라인</string>
   <string name="currentlyStreaming">현재 스트리밍 중: %s</string>
   <string name="lastStream">최근 스트리밍 %s</string>
@@ -16,32 +16,32 @@
   <string name="xIsStreaming">%s가 스트리밍 중입니다</string>
   <string name="rules">스트리밍 규칙</string>
   <string name="rule1">Lichess에 스트리밍을 할 경우 스트리밍 제목에 \"lichess.org\" 키워드를 포함하고 카테고리를 \"Chess\"로 설정하세요.</string>
-  <string name="rule2">Lichess를 이용하지 않는 경우 키워드를 삭제합니다.</string>
-  <string name="rule3">Lichess는 스트림을 자동으로 감지하고 다음 특전을 활성화합니다:</string>
+  <string name="rule2">Lichess가 아닌 콘텐츠를 스트리밍할 때는 lichess.org 키워드를 제거하세요.</string>
+  <string name="rule3">Lichess는 스트리밍을 자동으로 감지하고 다음 특전을 활성화합니다:</string>
   <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">스트리밍하는 동안 모두에게 공정한 플레이를 보장하려면 %s를 읽어보세요.</string>
   <string name="streamingFairplayFAQ">스트리밍 페어플레이 FAQ</string>
   <string name="perks">키워드를 넣을 경우 혜택</string>
   <string name="perk1">Lichess 프로필에 스트리머 아이콘을 얻습니다.</string>
   <string name="perk2">스트리머 목록의 맨 위로 올라갑니다.</string>
-  <string name="perk3">Lichess 팔로워들에게 알림</string>
+  <string name="perk3">Lichess 팔로워들에게 알림을 보냅니다.</string>
   <string name="perk4">당신의 게임, 대회, 연구를 스트리밍할 수 있습니다.</string>
   <string name="approved">스트리밍이 승인되었습니다.</string>
   <string name="pendingReview">운영진이 스트리밍을 검토하고 있습니다.</string>
   <string name="pleaseFillIn">스트리머 정보를 채우고 사진을 업로드해주세요.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Lichess 스트리머가 될 준비가 되셨다면, %s</string>
-  <string name="submitForReview" comment="Appears on a button when editing the page which lets you be listed as a streamer: https://lichess.org/streamer/edit&#10;&#10;As this is public, any changes to a streamer page are first sent to the Lichess team for review.">검토를 위해 제출</string>
+  <string name="submitForReview" comment="Appears on a button when editing the page which lets you be listed as a streamer: https://lichess.org/streamer/edit&#10;&#10;As this is public, any changes to a streamer page are first sent to the Lichess team for review.">검토를 위해 제출하기</string>
   <string name="streamerLanguageSettings">Lichess 스트리머 페이지에서는 내 스트리밍 플랫폼에서 제공하는 언어로 시청자를 타겟팅합니다. 생방송에 사용하는 앱 또는 서비스에서 체스 스트림의 기본 언어를 올바르게 설정하세요.</string>
-  <string name="twitchUsername">트위치 유저네임 또는 URL</string>
-  <string name="twitchOrYouTubeRequired" comment="A notice when creating/editing your streamer page (https://lichess.org/streamer/edit), denoting that you can only be listed if you stream from a Twitch or YouTube channel.">트위츠 아니면 유튜브 필요합니다</string>
-  <string name="twitchOrYouTubeMustBeVerified" comment="For background: The &quot;streamer badge&quot; refers to the microphone icon on the streamer's profile (https://lichess.org/@/Lichess).&#10;The listing is the streamer's page that appears at https://lichess.org/streamer">트위츠 및 유튜브 변경사항을 확인해야 합니다.
+  <string name="twitchUsername">트위치 사용자 이름 또는 URL</string>
+  <string name="twitchOrYouTubeRequired" comment="A notice when creating/editing your streamer page (https://lichess.org/streamer/edit), denoting that you can only be listed if you stream from a Twitch or YouTube channel.">트위치 또는 유튜브 중 하나는 반드시 필요합니다</string>
+  <string name="twitchOrYouTubeMustBeVerified" comment="For background: The &quot;streamer badge&quot; refers to the microphone icon on the streamer's profile (https://lichess.org/@/Lichess).&#10;The listing is the streamer's page that appears at https://lichess.org/streamer">트위치 및 유튜브 변경 사항은 반드시 검증되어야 합니다.
   
-  검토가 진행되는 동안 스트리머 배지와 목록이 일시 중지됩니다. 최대 72시간이 걸릴 수 있습니다.</string>
-  <string name="youTubeChannelId">당신의 YouTube 채널ID</string>
-  <string name="streamerName">Lichess의 스트리머 이름</string>
+  검토가 진행되는 동안 스트리머 배지와 목록이 일시 중지됩니다. 최대 72시간이 소요 될 수 있습니다.</string>
+  <string name="youTubeChannelId">YouTube 채널 ID</string>
+  <string name="streamerName">Lichess에서의 스트리머 이름</string>
   <plurals name="keepItShort">
     <item quantity="other">짧게 유지하세요: 최대 %s자</item>
   </plurals>
-  <string name="visibility">스트리머 페이지에 표시합니다</string>
+  <string name="visibility">스트리머 페이지에 표시할까요?</string>
   <string name="whenApproved">운영진이 승인한 경우</string>
   <string name="headline">헤드라인</string>
   <string name="tellUsAboutTheStream">당신의 스트리밍을 한 문장으로 요약해주세요</string>

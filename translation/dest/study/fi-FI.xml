@@ -16,6 +16,7 @@
   <string name="recentlyUpdated">Viimeksi päivitetyt</string>
   <string name="mostPopular">Suosituimmat</string>
   <string name="alphabetical">Aakkosjärjestyksessä</string>
+  <string name="relevant">Relevantti</string>
   <string name="addNewChapter">Lisää uusi luku</string>
   <plurals name="nbChapters">
     <item quantity="one">%s luku</item>
@@ -32,7 +33,7 @@
   </plurals>
   <string name="inviteToTheStudy">Kutsu tutkielmaan</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">Kutsu vain ihmisiä, jotka tunnet ja jotka haluavat osallistua aktiivisesti.</string>
-  <string name="searchByUsername" comment="Appears when adding members to a Lichess Study as placeholder text in a search box.">Hae käyttäjätunnuksella</string>
+  <string name="searchByUsername">Hae käyttäjätunnuksella</string>
   <string name="spectator">Katsoja</string>
   <string name="contributor">Osallistuja</string>
   <string name="kick">Poista</string>

@@ -4,7 +4,7 @@
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Teikite iššūkį draugui</string>
   <string name="playAgainstComputer">Žaiskite prieš kompiuterį</string>
   <string name="gameMode">Žaidimo režimas</string>
-  <string name="createLobbyGame" comment="One of three buttons on the home page. Opens the modal to create a game that goes in the lobby.">Sukurti žaidimą laukimo salėje</string>
+  <string name="createLobbyGame">Sukurti žaidimą laukimo salėje</string>
   <string name="youPlayAs">Jūs žaidžiate kaip</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Norėdami pakviesti varžovą, pasidalinkite šiuo adresu</string>
   <string name="gameOver">Partija baigta</string>
@@ -403,7 +403,14 @@
   <string name="takeback">Atsiimti ėjimą</string>
   <string name="proposeATakeback">Prašyti leidimo atšaukti ėjimą</string>
   <string name="whiteProposesTakeback">Baltieji siūlo atstatyti</string>
+  <string name="blackProposesTakeback">Juodieji siūlo atstatyti ėjimą</string>
   <string name="takebackPropositionSent">Ėjimo atšaukimo prašymas išsiųstas</string>
+  <string name="whiteDeclinesTakeback">Baltieji atmeta ėjimo atstatymą</string>
+  <string name="blackDeclinesTakeback">Juodieji atmeta ėjimo atstatymą</string>
+  <string name="whiteAcceptsTakeback">Baltieji priima ėjimo atstatymą</string>
+  <string name="blackAcceptsTakeback">Juodieji priima ėjimo atstatymą</string>
+  <string name="whiteCancelsTakeback">Baltieji atšaukia ėjimo atstatymą</string>
+  <string name="blackCancelsTakeback">Juodieji atšaukia ėjimo atstatymą</string>
   <string name="yourOpponentProposesATakeback">Varžovas prašo atšaukti ėjimą</string>
   <string name="bookmarkThisGame">Pasižymėti šią partiją</string>
   <string name="tournament">Turnyras</string>
@@ -456,6 +463,7 @@
     <item quantity="other">Jums reikia sužaisti dar %s vertinamų partijų</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Jūsų %s reitingas yra laikinas</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Reitingo filtrai užrakinti, nes jūsų reitingas nestabilus. Žaidžiant įvertintus žaidimus, padidės stabilumas.</string>
   <string name="yourPerfRatingIsTooHigh">Jūsų „%1$s“ reitingas (%2$s) yra per aukštas</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Jūsų geriausias savaitinis „%1$s“ reitingas (%2$s) yra per aukštas</string>
   <string name="yourPerfRatingIsTooLow">Jūsų „%1$s“ reitingas (%2$s) yra per žemas</string>
@@ -754,6 +762,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="really">tikrai</string>
   <string name="contribute">Prisidėkite</string>
   <string name="termsOfService">Naudojimosi sąlygos</string>
+  <string name="titleVerification">Titulo patvirtinimas</string>
   <string name="sourceCode">Pirminis kodas</string>
   <string name="simultaneousExhibitions">Simultanai</string>
   <string name="host">Šeimininkas</string>
@@ -843,6 +852,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Judėti partijoje taip pat galite naudodamiesi pelės ratuku virš lentos.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Užveskite ant kompiuterio variacijų norėdami jas peržiūrėti.</string>
   <string name="analysisShapesHowTo">Spustelėkite Shift + kairįjį pelės klavišą arba dešinįjį pelės klavišą norėdami piešti ant lentos.</string>
+  <string name="primaryColorArrowsHowTo">Ctrl arba shift = raudona; command, alt arba meta = mėlyna; raktas iš kiekvieno = geltona.</string>
   <string name="letOtherPlayersMessageYou">Leisti kitiems žaidėjams jums parašyti</string>
   <string name="receiveForumNotifications">Gaukite pranešimus, kai esate paminėti forume</string>
   <string name="shareYourInsightsData">Bendrinti jūsų statistiką</string>
@@ -906,6 +916,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="notifications">Pranešimai</string>
   <string name="notificationsX">Pranešimai: %1$s</string>
   <string name="perfRatingX">Reitingas: %s</string>
+  <string name="yourRatingIsX">Jūsų reitingas yra %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekundė atlikti pirmąjį ėjimą</item>
     <item quantity="few">%s sekundės atlikti pirmąjį ėjimą</item>
@@ -961,6 +972,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="playVariationToCreateConditionalPremoves">Sužaiskite variaciją, norėdami sukurti sąlyginius išankstinius ėjimus</string>
   <string name="noConditionalPremoves">Nėra sąlyginių išankstinių ėjimų</string>
   <string name="playX">Žaiskite %s</string>
+  <string name="challengeX">Teikti iššūkį %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">ir sutaupykite %s išankstinio ėjimo liniją</item>
     <item quantity="few">ir sutaupykite %s išankstinio ėjimo linijas</item>
@@ -1054,7 +1066,6 @@ Palikite tuščią norėdami pradėti žaidimą nuo įprastos pradinės pozicijo
   <string name="simulFeaturedHelp">Rodyti simultaną visiems %s. Neįjungta privatiems simultanams.</string>
   <string name="simulDescription">Simultano aprašymas</string>
   <string name="simulDescriptionHelp">Ar norite ką nors pranešti dalyviams?</string>
-  <string name="markdownAvailable">%s prieinama norint naudoti sudėtingesnę sintaksę.</string>
   <string name="embedsAvailable">Įklijuokite partijos adresą arba studijos skyriaus adresą norėdami juos įterpti.</string>
   <string name="inYourLocalTimezone">Jūsų laiko zonoje</string>
   <string name="tournChat">Turnyro pokalbis</string>
@@ -1091,4 +1102,13 @@ Palikite tuščią norėdami pradėti žaidimą nuo įprastos pradinės pozicijo
 Visos veikimo išlaidos, programavimas ir turinys yra padengti išskirtinai tik vartotojų parama.</string>
   <string name="nothingToSeeHere">Nieko naujo.</string>
   <string name="stats">Statistika</string>
+  <string name="accessibility">Prieinamumas</string>
+  <string name="enableBlindMode">Įjungti akląjį režimą</string>
+  <string name="disableBlindMode">Įšungti akląjį režimą</string>
+  <string name="copyToClipboard">Kopijuoti į iškarpinę</string>
+  <string name="online" comment="status of a user">prisijungęs</string>
+  <string name="offline" comment="status of a user">neprisijungta</string>
+  <string name="search">Ieškoti</string>
+  <string name="clearSearch">Išvalyti paiešką</string>
+  <string name="tags">Žymos</string>
 </resources>

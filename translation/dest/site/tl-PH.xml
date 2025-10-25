@@ -916,7 +916,6 @@ Mag-iwan ng walang laman upang magsimula ng mga laro mula sa normal na paunang p
   <string name="simulFeaturedHelp">Ipakita ang iyong simul sa lahat sa %s. Huwag paganahin para sa mga pribadong simul.</string>
   <string name="simulDescription">Simul Paglalarawan</string>
   <string name="simulDescriptionHelp">Anumang nais mong sabihin sa mga kalahok?</string>
-  <string name="markdownAvailable">%s ay magagamit para sa mas advanced na syntax.</string>
   <string name="embedsAvailable">I-paste ang isang URL ng laro o isang URL ng kabanata ng pag-aaral upang mai-embed ito.</string>
   <string name="inYourLocalTimezone">Sa iyong sariling lokal na timezone</string>
   <string name="tournChat">Chat sa paligsahan</string>

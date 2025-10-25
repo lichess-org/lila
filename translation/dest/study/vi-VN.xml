@@ -16,6 +16,7 @@
   <string name="recentlyUpdated">Được cập nhật gần đây</string>
   <string name="mostPopular">Phổ biến nhất</string>
   <string name="alphabetical">Theo thứ tự chữ cái</string>
+  <string name="relevant">Liên quan</string>
   <string name="addNewChapter">Thêm một chương mới</string>
   <plurals name="nbChapters">
     <item quantity="other">%s Chương</item>
@@ -29,7 +30,7 @@
   </plurals>
   <string name="inviteToTheStudy">Mời vào nghiên cứu</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">Vui lòng chỉ mời những người bạn biết và những người tích cực muốn tham gia nghiên cứu này.</string>
-  <string name="searchByUsername" comment="Appears when adding members to a Lichess Study as placeholder text in a search box.">Tìm kiếm theo tên người dùng</string>
+  <string name="searchByUsername">Tìm kiếm theo tên người dùng</string>
   <string name="spectator">Khán giả</string>
   <string name="contributor">Người đóng góp</string>
   <string name="kick">Đuổi</string>

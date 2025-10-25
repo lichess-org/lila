@@ -982,7 +982,6 @@ Atstājiet tukšu, lai spēles sāktos no parastās pozīcijas.</string>
   <string name="simulFeaturedHelp">Visiem rādīt simultānseansu %s. Atspējojiet šo opciju privātiem simultānseansiem.</string>
   <string name="simulDescription">Simultānseansa apraksts</string>
   <string name="simulDescriptionHelp">Vai vēlaties ko teikt dalībniekiem?</string>
-  <string name="markdownAvailable">Papildu formatējumam pieejams %s.</string>
   <string name="embedsAvailable">Ievietojiet spēles vai izpētes nodaļas URL lai to iegultu.</string>
   <string name="inYourLocalTimezone">Jūsu vietējā laika zonā</string>
   <string name="tournChat">Turnīra saruna</string>

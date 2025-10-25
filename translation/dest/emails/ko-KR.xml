@@ -16,7 +16,7 @@
 
 언제나 상대편 왕으로 갈 길을 찾기를 응원합니다!</string>
   <string name="logInToLichess">%s 님, lichess.org에 로그인 하십시오.</string>
-  <string name="common_orPaste">(링크를 눌러도 되지 않으면 브라우저에 붙여넣기를 하십시오.)</string>
+  <string name="common_orPaste">(링크를 눌러도 작동하지 않으면, 위 링크를 브라우저에 붙여넣으세요.)</string>
   <string name="common_note">이 이메일은 귀하의 %s 사용에 관련된 서비스 이메일입니다.</string>
   <string name="common_contact">도움이 필요하시면, %s 에 접속해주세요.</string>
 </resources>

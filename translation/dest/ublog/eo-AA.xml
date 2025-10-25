@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="community">Komunumo</string>
+  <string name="byMonth">Laŭ monato</string>
+  <string name="byTopic">Laŭ temo</string>
+  <string name="byLichess">Laŭ Lichess</string>
+  <string name="myFriends">Miaj geamikoj</string>
+  <string name="myLikes" comment="A page which lists blog posts that you have pressed ❤️ Like on: https://lichess.org/blog/liked">Miaj ŝatoj</string>
+  <string name="myBlog">Mia blogo</string>
   <string name="likedBlogs">Ŝatitaj blogafiŝoj</string>
   <string name="continueReadingPost">Daŭri legi ĉi tiun afiŝon</string>
   <string name="lichessBlogPostsFromXYear">Lichess blogafiŝojn en %s</string>
@@ -17,6 +24,7 @@
   <string name="createBlogDiscussionHelp">Foruma temo estos kreita por homoj komenti vian afiŝon</string>
   <string name="publishOnYourBlog">Eldoni en via blogo</string>
   <string name="publishHelp">Se markita, la afiŝo estos listigita en via blogo. Se ne, ĝi estos privata, en via malnetaj afiŝoj</string>
+  <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Alpinglita artikolo</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">Eldonigis blogafiŝon</item>
     <item quantity="other">Eldonigis %s blogafiŝojn</item>
@@ -46,4 +54,5 @@
   <string name="inappropriateContentAccountClosed">Io malkonvena povus fermigi vian konton.</string>
   <string name="blogTips">Niaj facilaj konsiloj por verki bonegajn blogafiŝojn</string>
   <string name="discussThisBlogPostInTheForum">Diskuti ĉi tiun blogafiŝojn en la forumo</string>
+  <string name="youBlockedByBlogAuthor">Vi estas blokita de la aŭtoro de la blogo.</string>
 </resources>

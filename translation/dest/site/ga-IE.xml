@@ -1012,7 +1012,6 @@ Fág folamh chun cluichí a thosú ón ngnáthshuíomh tosaigh.</string>
   <string name="simulFeaturedHelp">Taispeáin do thaispeántas comhuaineach do gach duine ar %s. Díchumasaithe do thaispeántais chomhuaineacha phríobháideacha.</string>
   <string name="simulDescription">Tuairisc ar thaispeántas comhuaineach</string>
   <string name="simulDescriptionHelp">Rud ar bith is mian leat a rá leis na rannpháirtithe?</string>
-  <string name="markdownAvailable">Tá %s ar fáil le haghaidh comhréir níos airde.</string>
   <string name="embedsAvailable">Greamaigh URL cluiche nó URL caibidil staidéir chun é a leabú.</string>
   <string name="inYourLocalTimezone">I do chrios ama áitiúil féin</string>
   <string name="tournChat">Comhrá comórtais</string>

@@ -942,7 +942,6 @@ Laat dit leeg om elke spel vanaf die normale posisie te begin.</string>
   <string name="simulFeaturedHelp">Wys jou simul aan almal op %s. Deaktiveer vir private simuls.</string>
   <string name="simulDescription">Simul beskrywing</string>
   <string name="simulDescriptionHelp">Enige iets wat jy vir die deelnemers wil vertel?</string>
-  <string name="markdownAvailable">%s is beskikbaar vir meer ingewikkelde sintaks.</string>
   <string name="embedsAvailable">Plak \'n spel URL of a studie hoofstuk URL om dit in te bed.</string>
   <string name="inYourLocalTimezone">In you eie plaaslike tydsone</string>
   <string name="tournChat">Toernooi klets</string>

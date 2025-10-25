@@ -16,6 +16,7 @@
   <string name="recentlyUpdated">Nedávno aktualizované</string>
   <string name="mostPopular">Najpopulárnejšie</string>
   <string name="alphabetical">Abecedne</string>
+  <string name="relevant">Relevantné</string>
   <string name="addNewChapter">Pridať novú kapitolu</string>
   <plurals name="nbChapters">
     <item quantity="one">%s Kapitola</item>
@@ -38,7 +39,7 @@
   </plurals>
   <string name="inviteToTheStudy">Pozvať k štúdii</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">Prosím pozývajte iba ľudí ktorých poznáte a o ktorých viete, že chcú túto štúdiu vidieť.</string>
-  <string name="searchByUsername" comment="Appears when adding members to a Lichess Study as placeholder text in a search box.">Hľadať podľa použív. mena</string>
+  <string name="searchByUsername">Hľadať podľa použív. mena</string>
   <string name="spectator">Divák</string>
   <string name="contributor">Prispievateľ</string>
   <string name="kick">Vyhodiť</string>

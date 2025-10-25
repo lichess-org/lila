@@ -904,7 +904,6 @@
   <string name="simulFeaturedHelp">აჩვენეთ თქვენი სიმული ყველას %s -ზე. გამორთეთ პირადი სიმულებისთვის.</string>
   <string name="simulDescription">სიმულის აღწერა</string>
   <string name="simulDescriptionHelp">რისი თქმა გსურთ მონაწილეებისთვის?</string>
-  <string name="markdownAvailable">%s ხელმისაწვდომია უფრო რთული სინტაქსისთვის.</string>
   <string name="embedsAvailable">ჩასვით თამაშის ლინკი ან კვლევის ლინკი მის ჩასაშენებლად.</string>
   <string name="inYourLocalTimezone">თქვენს ადგილობრივ სასაათო სარტყელში</string>
   <string name="tournChat">ტურნირის ჩატი</string>

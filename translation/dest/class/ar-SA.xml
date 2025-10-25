@@ -130,4 +130,6 @@
   <string name="xIsAKidAccountWarning">%1$s حساب طفل ولا يمكنه استلام رسالتك. يجب أن تعطيهم عنوان URL للدعوة يدوياً: %2$s</string>
   <string name="moveToClass">نقل إلى %s</string>
   <string name="moveToAnotherClass">نقل إلى صف آخر</string>
+  <string name="allowMessagingBetweenStudents">السماح بالرسائل بين التلاميذ</string>
+  <string name="allowMessagingBetweenStudentsDesc">هذا ينطبق على الحسابات التي أنشأنها من أجل الدراسة فقط</string>
 </resources>

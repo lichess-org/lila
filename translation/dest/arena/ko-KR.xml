@@ -8,12 +8,12 @@
   <string name="isNotRated">이 토너먼트는 레이팅이 적용되지 않으며 당신의 레이팅에 영향을 끼치지 않을 것입니다.</string>
   <string name="someRated">몇몇 토너먼트는 레이팅이 적용되며 당신의 레이팅에 영향을 끼칠 것입니다.</string>
   <string name="howAreScoresCalculated">점수는 어떻게 계산되나요?</string>
-  <string name="howAreScoresCalculatedAnswer">승리하면 기본 점수 2점, 비기면 1점, 패할 시 0점을 얻습니다.
-두개의 대국을 연속적으로 이기면 불꽃 모양의 아이콘을 얻으며, 더블 포인트 기록을 시작합니다.
-다음 대국들에서는 패배할 때까지 두 배의 점수를 얻습니다.
-말인 즉슨, 승리시 4점, 무승부시 2점, 패배시는 전과 같이 0점으로 취급됩니다.
+  <string name="howAreScoresCalculatedAnswer">승리하면 기본 점수 2점, 비기면 1점, 패배할 시 0점을 얻습니다.
+두 개의 대국을 연속해서 이기면 불꽃 모양의 아이콘을 얻으며, 더블 포인트 기록을 시작합니다.
+다음 대국에서는 패배할 때까지 두 배의 점수를 얻습니다.
+즉, 승리 시 4점, 무승부 시 2점, 패배 시 0점을 얻습니다.
 
-예를 들어, 두 번 승리 후 한 번 비길 경우에는 6점을 얻습니다: 2 + 2 (2 x 1)</string>
+예를 들어, 두 번 승리 후 한 번 비길 경우에는 6점을 얻습니다: 2 + 2 + (2 x 1)</string>
   <string name="berserk">버서크（Berserk）</string>
   <string name="berserkAnswer">대국을 시작할 때, 옆의 \"버서크 (berserk)\" 버튼을 클릭하면, 가진 시간이 절반으로 깎이는 대신에 이길 경우 1점의 보너스 점수를 얻을 수 있습니다.
 
@@ -48,7 +48,7 @@
     <item quantity="other">모두 %s개 팀 보기</item>
   </plurals>
   <string name="newTeamBattle">새 팀 배틀</string>
-  <string name="customStartDate">시작시간 설정</string>
+  <string name="customStartDate">시작 시간 설정</string>
   <string name="customStartDateHelp">당신의 현지 시간대입니다. \"토너먼트 시작까지 시간\" 설정을 덮어씁니다.</string>
   <string name="allowBerserk">버서크 모드 허용</string>
   <string name="allowBerserkHelp">플레이어는 자신의 시간을 절반으로 줄이며 대신 추가 승점을 얻습니다</string>
@@ -64,10 +64,10 @@
   <string name="editTeamBattle">팀 배틀 편집하기</string>
   <string name="defender">타이틀 보유자</string>
   <string name="pickYourTeam">팀을 고르세요</string>
-  <string name="whichTeamWillYouRepresentInThisBattle">이 경기에서 어떤 팀을 대표하실건가요?</string>
+  <string name="whichTeamWillYouRepresentInThisBattle">이 경기에서 어떤 팀을 대표하시나요?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">참여하기 위해서는 이 팀 중 하나에 가입해야 합니다!</string>
   <string name="created">생성됨</string>
-  <string name="recentlyPlayed">최근에 플레이함</string>
+  <string name="recentlyPlayed">최근에 플레이 함</string>
   <string name="bestResults">최선의 결과</string>
   <string name="tournamentStats">토너먼트 통계</string>
   <string name="rankAvgHelp">백분위 순위는 말 그대로 순위의 백분율입니다. 즉, 백분위 순위는 낮을수록 더 높은 순위를 의미합니다. 
@@ -80,7 +80,7 @@
   <string name="pointsSum">총합 점수</string>
   <string name="rankAvg">백분위 순위</string>
   <string name="tournamentWinners">토너먼트 우승자</string>
-  <string name="tournamentShields">토너먼트 실드</string>
+  <string name="tournamentShields">토너먼트 방패 트로피</string>
   <string name="onlyTitled">타이틀 플레이어만</string>
   <string name="onlyTitledHelp">토너먼트에 참여하기 위해서는 공식 타이틀이 있어야 합니다.</string>
   <string name="tournamentPairingsAreNowClosed">토너먼트 매칭이 이제 종료되었습니다.</string>

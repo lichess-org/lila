@@ -56,7 +56,7 @@
   <string name="uploadImage">上传锦标赛图像</string>
   <string name="noBoardsYet">尚无看板。这些游戏一旦上传就会出现。</string>
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">可以通过 %s加载看板</string>
-  <string name="startsAfter">从 %s 开始</string>
+  <string name="startsAfter">%s 后开始</string>
   <string name="startVerySoon">转播将很快开始。</string>
   <string name="notYetStarted">转播尚未开始。</string>
   <string name="officialWebsite">官网</string>

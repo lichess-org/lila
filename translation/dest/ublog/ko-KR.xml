@@ -1,26 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="community">커뮤니티</string>
+  <string name="byMonth">월별</string>
+  <string name="byTopic">주제별</string>
+  <string name="byLichess">Lichess 소식</string>
+  <string name="myFriends">친구의 블로그</string>
+  <string name="myLikes" comment="A page which lists blog posts that you have pressed ❤️ Like on: https://lichess.org/blog/liked">좋아요한 블로그</string>
   <string name="myBlog">내 블로그</string>
   <string name="likedBlogs">좋아요 표시한 블로그 글</string>
   <plurals name="blogPosts">
     <item quantity="other">블로그 %s개</item>
   </plurals>
-  <string name="continueReadingPost">이 게시글 계속 읽기</string>
-  <string name="lichessBlogPostsFromXYear">%s년 블로그 게시글</string>
-  <string name="previousBlogPosts">이전 블로그 게시글</string>
+  <string name="continueReadingPost">이 게시물 계속 읽기</string>
+  <string name="lichessBlogPostsFromXYear">%s년 블로그 게시물</string>
+  <string name="previousBlogPosts">이전 블로그 게시물</string>
   <string name="xBlog">%s의 블로그</string>
   <string name="newPost">새 글 쓰기</string>
-  <string name="editYourBlogPost">블로그 게시글 편집</string>
+  <string name="editYourBlogPost">블로그 게시물 편집</string>
   <string name="saveDraft">임시 저장</string>
   <string name="postTitle">제목</string>
-  <string name="postIntro">게시물 서론</string>
+  <string name="postIntro">서론</string>
   <string name="postBody">본문</string>
   <string name="drafts">임시 보관 글</string>
   <string name="published">게시된 글</string>
   <string name="createBlogDiscussion">댓글 허용하기</string>
   <string name="createBlogDiscussionHelp">다른 사람들이 댓글을 남길 수 있는 게시물이 생성됩니다.</string>
   <string name="publishOnYourBlog">블로그에 게시하기</string>
-  <string name="publishHelp">선택시 게시물이 블로그에 게시됩니다. 미선택시 비공개로 초안에 보관됩니다.</string>
+  <string name="publishHelp">선택 시 게시물이 블로그에 게시됩니다. 미선택 시 비공개로 초안에 보관됩니다.</string>
+  <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">고정 게시물</string>
+  <string name="stickyPostHelp">선택 시 이 게시물이 프로필의 최근 게시물 목록과 블로그에서 가장 먼저 표시됩니다.</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="other">님이 %s개의 블로그 게시물을 올렸습니다.</item>
   </plurals>

@@ -1011,7 +1011,6 @@ Ostavite prazno za početak igre sa normalne početne pozicije.</string>
   <string name="simulFeaturedHelp">Pokažite svoju simulaciju svima na %s. Onemogući za privatne simulacije.</string>
   <string name="simulDescription">Opis simultanke</string>
   <string name="simulDescriptionHelp">Želite li nešto reći učesnicima?</string>
-  <string name="markdownAvailable">%s je dostupan za više napredniju sintaksu.</string>
   <string name="embedsAvailable">Zalijepite URL igre ili URL poglavlja studije da biste ga ugradili.</string>
   <string name="inYourLocalTimezone">U vlastitoj vremenskoj zoni</string>
   <string name="tournChat">Turnirski razgovor</string>

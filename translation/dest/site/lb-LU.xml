@@ -955,7 +955,6 @@ Looss et eidel, fir Partie aus der normaler Ausgangspositioun ze starten.</strin
   <string name="simulFeaturedHelp">Jidderengem op %s Simul uweisen. Desaktivéieren fir privat Simuls.</string>
   <string name="simulDescription">Simul Beschreiwung</string>
   <string name="simulDescriptionHelp">Wëlls du den Participanten eppes matdeelen?</string>
-  <string name="markdownAvailable">%s ass fir erweidert Formatéierung disponibel.</string>
   <string name="embedsAvailable">Füg eng Partien-URL oder eng Etüdenkapitel-URL an, fir se anzebetten.</string>
   <string name="inYourLocalTimezone">An denger lokaler Zäitzon</string>
   <string name="tournChat">Turnéier Chat</string>
