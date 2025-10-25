@@ -131,7 +131,7 @@ export class Protocol {
           mate: isMate ? ev : undefined,
           pvs: [pvData],
         };
-      } else if (this.currentEval) {
+      } else if (this.currentEval && this.currentEval.pvs.length < multiPv) {
         this.currentEval.pvs.push(pvData);
         this.currentEval.depth = Math.min(this.currentEval.depth, depth);
       }
