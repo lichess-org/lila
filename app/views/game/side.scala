@@ -104,6 +104,8 @@ def meta(
           .map: number =>
             st.section(trans.site.chess960StartPosition(strong(number)))
       ,
+      st.section:
+        chessgroundMini((initialFen | chess.format.Fen.initial).board)(span),
       userTv.map: u =>
         st.section(cls := "game__tv"):
           h2(cls := "top user-tv text", dataUserTv := u.id, dataIcon := Icon.AnalogTv)(u.titleUsername)
