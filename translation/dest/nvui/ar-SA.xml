@@ -58,6 +58,4 @@
   <string name="premoveCancelled">تم إلغاء النقلة المسبقة</string>
   <string name="premoveRecorded">تم تسجيل النقلة المسبقة: %s. إضغط على Enter للإلغاء</string>
   <string name="pockets" comment="Pockets in Crazyhouse, which hold captured pieces and let players place them again">جيوب</string>
-  <string name="copyToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">نسخ للحافظة</string>
-  <string name="copiedToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">تم النسخ للحافظة</string>
 </resources>
