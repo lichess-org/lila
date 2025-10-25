@@ -1001,7 +1001,6 @@ https://lichess. org/report.</string>
   <string name="notifications">إشعارات</string>
   <string name="notificationsX">الإشعارات %1$s</string>
   <string name="perfRatingX">التقييم: %s</string>
-  <string name="yourRatingIsX">تصنيفك هو:</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="zero">%s ثانية متبقية لاتمام النقلة الأولى</item>
     <item quantity="one">%s ثانية متبقية لإتمام النقلة الأولى</item>
@@ -1061,7 +1060,6 @@ https://lichess. org/report.</string>
   <string name="playVariationToCreateConditionalPremoves">إلعب تفريع لإنشاء نقلة مسبقة مشروطة</string>
   <string name="noConditionalPremoves">لا توجد نقلات استباقية مشروطة</string>
   <string name="playX">إلعب %s</string>
-  <string name="challengeX">تحدي</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="zero">واحفظ تفريع النقلة المسبقة</item>
     <item quantity="one">واحفظ تفريع النقلة المسبقة</item>
