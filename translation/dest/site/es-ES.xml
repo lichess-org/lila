@@ -769,6 +769,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">También puedes usar la rueda del ratón para desplazarte por la partida.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Mantén pulsado sobre las variantes del análisis para previsualizarlas.</string>
   <string name="analysisShapesHowTo">Haz clic con el botón derecho o Máyus+clic para dibujar círculos y flechas en el tablero.</string>
+  <string name="primaryColorArrowsHowTo">Ctrl o mayúsculas = rojo; comando, alt, o meta = azul; una tecla de cada = amarillo.</string>
   <string name="letOtherPlayersMessageYou">Permitir que otras personas te envíen mensajes</string>
   <string name="receiveForumNotifications">Recibir notificaciones cuando alguien te mencione en el foro</string>
   <string name="shareYourInsightsData">Comparte tus datos estadísticos</string>
