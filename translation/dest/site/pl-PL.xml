@@ -1064,6 +1064,7 @@ Pozostaw puste, aby rozpoczynać partie z normalnej pozycji początkowej.</strin
   <string name="simulFeaturedHelp">Pokaż symultanę wszystkim na %s. Wyłącz dla prywatnych symultan.</string>
   <string name="simulDescription">Opis symultany</string>
   <string name="simulDescriptionHelp">Wiadomość do przekazania uczestnikom</string>
+  <string name="markdownIsAvailable" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text.">%s jest dostępny do formatowania.</string>
   <string name="embedsAvailable">Wklej adres URL partii lub adres URL rozdziału opracowania, aby go osadzć.</string>
   <string name="inYourLocalTimezone">W Twojej lokalnej strefie czasowej</string>
   <string name="tournChat">Czat turniejowy</string>
