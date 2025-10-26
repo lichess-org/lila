@@ -3,5 +3,11 @@
   <string name="standard" comment="As in standard chess (not a variant)">Tiêu chuẩn</string>
   <string name="standardTitle" comment="Description for standard chess (it has to have a description, just like all variants of the game).">Luật cờ vua tiêu chuẩn (FIDE)</string>
   <string name="chess960" comment="A chess variant where the setup of the back rank is randomised into up to 960 positions. Also known as Fischerandom and freestyle chess.&#10;&#10;Consider checking for already accepted names for this variant in your language through Wikidata: https://w.wiki/FkdK">Chess960</string>
+  <string name="chess960Title" comment="Description for the Chess960 variant.&#10;&#10;The &quot;home rank&quot; here is the back rank of each side (1 for white and 8 for blank) - which has the rooks, knights, bishops, king and queen.">Vị trí bắt đầu của quân cờ đầu tiên được sắp xếp ngẫu nhiên.</string>
   <string name="kingOfTheHill" comment="The name of a chess variant which follows standard rule, with the additional option that you can bring your king to the centre to win the game.&#10;&#10;The four centre tiles (e4, d4, e5, d5) appear to be visually elevated, like a hill.">Vua lên đồi</string>
+  <string name="kingOfTheHillTitle" comment="Description for the King of the Hill chess variant">Mang quân Vua của bạn vào 4 ô trung tâm để chiến thắng.</string>
+  <string name="threeCheck" comment="The name of a chess variant. The rules are the same as standard chess, with one addition: you may also win by checking the opponent's king three times.">3-Chiếu</string>
+  <string name="threeCheckTitle" comment="Description for the Three-Check Chess variant">Chiếu vua đối thủ 3 lần để giành chiến thắng.</string>
+  <string name="antichess" comment="The name of a chess variant where you must lose your pieces or get stalemated to win. Basically, the opposite of chess (hence being &quot;anti&quot; chess).">Phản cờ vua</string>
+  <string name="antichessTitle" comment="Description for the Antichess variant">Để mất toàn bộ quân cờ của bạn (bao gồm cả vua hoặc làm bị hết nước đi) để chiến thắng.</string>
 </resources>
