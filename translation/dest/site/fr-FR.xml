@@ -79,7 +79,7 @@
   <string name="expandVariations">Afficher les variantes</string>
   <string name="forceVariation">Forcer la variante</string>
   <string name="copyVariationPgn">Copier le PGN de la variante</string>
-  <string name="copyMainLinePgn">Copier la ligne principale (PGN)</string>
+  <string name="copyMainLinePgn">Copier la ligne principale en tant que PGN</string>
   <string name="move">Coup</string>
   <string name="variantLoss">Perte (variante)</string>
   <string name="variantWin">Gain (variante)</string>
