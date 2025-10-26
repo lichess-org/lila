@@ -3,7 +3,7 @@
   <string name="gameSetup">Paramètres de la partie</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Défi</string>
   <string name="playAgainstComputer">Jouer contre l\'ordinateur</string>
-  <string name="gameMode">Mode de la partie</string>
+  <string name="gameMode">Mode de jeu</string>
   <string name="createLobbyGame">Créer une partie dans le salon</string>
   <string name="youPlayAs">Couleur</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Pour inviter quelqu\'un à jouer, donnez-lui ce lien</string>
@@ -769,6 +769,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Vous pouvez aussi utiliser la molette sur l\'échiquier pour faire défiler la partie.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Survolez les variantes du moteur d\'analyse avec la souris pour les visualiser.</string>
   <string name="analysisShapesHowTo">Utilisez maj+clic ou clic-droit pour dessiner des cercles et des flèches sur l\'échiquier.</string>
+  <string name="primaryColorArrowsHowTo">Ctrl ou Maj = rouge ; Commande, Alt, ou Windows = bleu ; Les deux touches en même temps = jaune.</string>
   <string name="letOtherPlayersMessageYou">Permettre à d\'autres joueurs de vous envoyer des messages</string>
   <string name="receiveForumNotifications">Recevoir une notification lorsque votre nom est mentionné dans le forum</string>
   <string name="shareYourInsightsData">Partager les statistiques de vos parties générées par lichess</string>
