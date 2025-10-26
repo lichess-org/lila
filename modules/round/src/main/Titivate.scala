@@ -39,22 +39,24 @@ final private class Titivate(
       throw new RuntimeException(msg)
 
     case Run =>
-      gameRepo
-        .countSec(_.checkable)
-        .foreach: total =>
-          lila.mon.round.titivate.total.record(total)
-          gameRepo
-            .docCursor(Query.checkable)
-            .documentSource(100)
-            .via(gameRead)
-            .via(gameFlow)
-            .toMat(LilaStream.sinkCount)(Keep.right)
-            .run()
-            .addEffect(lila.mon.round.titivate.game.record(_))
-            .>>(gameRepo.countSec(_.checkableOld).dmap(lila.mon.round.titivate.old.record(_)))
-            .monSuccess(_.round.titivate.time)
-            .logFailure(logBranch)
-            .addEffectAnyway(scheduleNext())
+      val run = for
+        total <- gameRepo.countSec(_.checkable)
+        _ = lila.mon.round.titivate.total.record(total)
+        done <- gameRepo
+          .docCursor(Query.checkable)
+          .documentSource(100)
+          .via(gameRead)
+          .via(gameFlow)
+          .toMat(LilaStream.sinkCount)(Keep.right)
+          .run()
+        _ = lila.mon.round.titivate.game.record(done)
+        old <- gameRepo.countSec(_.checkableOld)
+      yield lila.mon.round.titivate.old.record(old)
+
+      run
+        .monSuccess(_.round.titivate.time)
+        .logFailure(logBranch)
+        .addEffectAnyway(scheduleNext())
 
   private val logBranch = logger.branch("titivate")
 
@@ -68,7 +70,7 @@ final private class Titivate(
 
   private val unplayedHours = 24
   private def unplayedDate = nowInstant.minusHours(unplayedHours)
-  private def unplayed(g: Game) = !g.bothPlayersHaveMoved && (g.createdAt.isBefore(unplayedDate))
+  private def unplayed(g: Game) = !g.bothPlayersHaveMoved && g.createdAt.isBefore(unplayedDate)
 
   private val gameFlow: Flow[GameOrFail, Unit, ?] = Flow[GameOrFail].mapAsyncUnordered(8):
 
@@ -104,8 +106,7 @@ final private class Titivate(
               gameRepo.setCheckAt(game, nowInstant.plusMinutes(minutes)).void
 
             case Some(_) =>
-              val hours = unplayedHours
-              gameRepo.setCheckAt(game, nowInstant.plusHours(hours)).void
+              gameRepo.setCheckAt(game, nowInstant.plusHours(unplayedHours)).void
 
             case None =>
               val days = game.daysPerTurn | lila.game.Game.abandonedDays
