@@ -3,7 +3,7 @@
   <string name="lichessClasses">Часови</string>
   <string name="teachClassesOfChessStudents">Предавај разредима шаховских ученика са Lichess Часови алаткама.</string>
   <string name="features">Карактеристике</string>
-  <string name="quicklyGenerateSafeUsernames">Брзо генериши безбедно корисничко име и шифру за ученике</string>
+  <string name="quicklyGenerateSafeUsernames">Брзо генериши безбедна корисничка имена и лозинке за ученике</string>
   <string name="trackStudentProgress">Прати напредак ученика у партијама и проблемима</string>
   <string name="messageAllStudents">Обавести све ученике о новом наставном садржају</string>
   <string name="freeForAllForever">100% бесплатно за све, заувек, без реклама или праћења</string>
@@ -97,9 +97,9 @@
   <string name="classNews">Новости са часа</string>
   <string name="editNews">Уреди вести</string>
   <string name="notifyAllStudents">Обавести све ученике</string>
-  <string name="nothingHere">Овде нема ничега, још увек.</string>
-  <string name="newsEdit1">Све вести о часовима на једном месту.</string>
-  <string name="newsEdit2">Додајте нове вести на врх. Не бришите претходне вести.</string>
+  <string name="nothingHere">Овде нема ничега тренутно.</string>
+  <string name="newsEdit1">Све вести о часовима у једном пољу.</string>
+  <string name="newsEdit2">Додај нове вести на врх. Немој брисати претходне вести.</string>
   <string name="newsEdit3">Одвојите вести са ---
 Биће приказано као хоризонтална линија.</string>
   <string name="invite">Позовите</string>
