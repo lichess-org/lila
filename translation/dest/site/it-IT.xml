@@ -4,6 +4,7 @@
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Lancia una sfida</string>
   <string name="playAgainstComputer">Gioca contro il computer</string>
   <string name="gameMode">Modalità di gioco</string>
+  <string name="createLobbyGame">Crea una partita nella lobby</string>
   <string name="youPlayAs">Giochi come</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Per invitare qualcuno a giocare, dagli questo URL</string>
   <string name="gameOver">Partita terminata</string>
@@ -769,6 +770,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">È inoltre possibile scorrere sopra il bordo per entrare nel gioco.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Scorri sulle varianti del computer per vederle in anteprima.</string>
   <string name="analysisShapesHowTo">Premere MAIUSC+click o tasto destro del mouse per disegnare cerchi e frecce sulla scacchiera.</string>
+  <string name="primaryColorArrowsHowTo">Ctrl o shift = rosso; comand, alt, o meta = blu; un tasto da ogni combinazione = giallo.</string>
   <string name="letOtherPlayersMessageYou">Lascia che gli altri giocatori ti inviino messaggi</string>
   <string name="receiveForumNotifications">Ricevi notifiche quando vieni menzionato nel forum</string>
   <string name="shareYourInsightsData">Condividi i tuoi dati Insights</string>
@@ -974,6 +976,7 @@ Lascia vuoto per avviare le partite dalla posizione iniziale normale.</string>
   <string name="simulFeaturedHelp">Mostra la tua simulazione a tutti su %s. Disabilita per le simulazioni private.</string>
   <string name="simulDescription">Descrizione della simulazione</string>
   <string name="simulDescriptionHelp">Vuoi dire qualcosa ai partecipanti?</string>
+  <string name="markdownIsAvailable" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text.">%s è disponibile per la formattazione.</string>
   <string name="embedsAvailable">Incolla l\'URL di un gioco o l\'URL di un capitolo di studio per incorporarlo.</string>
   <string name="inYourLocalTimezone">Nel tuo fuso orario locale</string>
   <string name="tournChat">Chat del torneo</string>
