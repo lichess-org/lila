@@ -16,6 +16,6 @@
   <string name="hordeTitle" comment="Description for the Horde chess variant">Um lado tem um grande número de peões; o outro tem um exército normal.</string>
   <string name="racingKings" comment="The name of a chess variant where both sides start on the same rank, and need to reach the other side of the board win.&#10;&#10;No need to translate literally. Focus on making it fun, capturing the spirit of the variant.">Corrida dos Reis</string>
   <string name="racingKingsTitle" comment="Description for the Racing Kings chess variant">Leve seu rei para o outro lado do tabuleiro para vencer.</string>
-  <string name="crazyhouse" comment="The name of a chess variant where pieces you capture can be put on the board (similar to shogi).">Xadrez Maluco</string>
+  <string name="crazyhouse" comment="The name of a chess variant where pieces you capture can be put on the board (similar to shogi).">Crazyhouse</string>
   <string name="crazyhouseTitle" comment="Description for the Crazyhouse chess variant">As peças capturadas podem ser devolvidas ao tabuleiro em vez de mover uma peça.</string>
 </resources>
