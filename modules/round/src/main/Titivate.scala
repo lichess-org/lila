@@ -68,8 +68,8 @@ final private class Titivate(
         Right.apply
       )
 
-  private val unplayedHours = 24
-  private def unplayedDate = nowInstant.minusHours(unplayedHours)
+  private val unplayedDays = 3
+  private def unplayedDate = nowInstant.minusDays(unplayedDays)
   private def unplayed(g: Game) = !g.bothPlayersHaveMoved && g.createdAt.isBefore(unplayedDate)
 
   private val gameFlow: Flow[GameOrFail, Unit, ?] = Flow[GameOrFail].mapAsyncUnordered(8):
@@ -106,7 +106,7 @@ final private class Titivate(
               gameRepo.setCheckAt(game, nowInstant.plusMinutes(minutes)).void
 
             case Some(_) =>
-              gameRepo.setCheckAt(game, nowInstant.plusHours(unplayedHours)).void
+              gameRepo.setCheckAt(game, nowInstant.plusDays(unplayedDays)).void
 
             case None =>
               val days = game.daysPerTurn | lila.game.Game.abandonedDays
