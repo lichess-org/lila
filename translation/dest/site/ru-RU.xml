@@ -851,6 +851,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Для перелистывания ходов можно использовать колёсико мыши над доской.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Пролистывайте варианты для их просмотра.</string>
   <string name="analysisShapesHowTo">Чтобы рисовать на доске кружки и стрелки, используйте Shift+левую кнопку мыши или правую кнопку.</string>
+  <string name="primaryColorArrowsHowTo">Ctrl или Shif = красный; Command, Alt, или meta = синий; каждая вышеперечисленная = желтый.</string>
   <string name="letOtherPlayersMessageYou">Разрешить присылать вам сообщения</string>
   <string name="receiveForumNotifications">Получать уведомления при упоминании на форуме</string>
   <string name="shareYourInsightsData">Делиться вашей шахматной аналитикой</string>
