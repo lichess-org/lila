@@ -71,7 +71,6 @@ export type ClientOutEvent =
   | StudySocketEvent
   | RacerEvent
   | RoundOutEvent
-  | 'move'
   | 'moveLat'
   | 'notified'
   | 'ping'
