@@ -974,6 +974,7 @@ Deixa-ho en blanc per començar els jocs de la posició inicial.</string>
   <string name="simulFeaturedHelp">Mostra la teva simultània a tothom a %s. Desactiva-ho per a simultànies privades.</string>
   <string name="simulDescription">Descripció de la simultània</string>
   <string name="simulDescriptionHelp">Cap cosa per mencionar als participants?</string>
+  <string name="markdownIsAvailable" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text.">Es pot utilitzar %s per descriure el format.</string>
   <string name="embedsAvailable">Enganxa un URL d\'un joc o d\'un capítol d\'estudi per incrustar-ho.</string>
   <string name="inYourLocalTimezone">El la teva zona horària</string>
   <string name="tournChat">Xat del tornament</string>
