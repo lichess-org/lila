@@ -769,6 +769,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Je kunt ook over het bord scrollen om je zetten uit te voeren.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Beweeg de muis over computervarianten om ze te bekijken.</string>
   <string name="analysisShapesHowTo">Druk op shift+linkermuisknop of rechtermuisknop om cirkels en pijlen op het bord te tekenen.</string>
+  <string name="primaryColorArrowsHowTo">Ctrl of shift = rood; command, alt, of meta-toets = blauw; allen tegelijk = geel.</string>
   <string name="letOtherPlayersMessageYou">Andere spelers mogen je berichten zenden</string>
   <string name="receiveForumNotifications">Ontvang meldingen wanneer je genoemd wordt op het forum</string>
   <string name="shareYourInsightsData">Deel de data van je partijen</string>
@@ -882,6 +883,7 @@
   <string name="playVariationToCreateConditionalPremoves">Speel een variant om voorwaardelijke zetten vooruit te maken</string>
   <string name="noConditionalPremoves">Geen voorwaardelijke zetten vooruit</string>
   <string name="playX">Speel %s</string>
+  <string name="challengeX">%s uitdagen</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">en bewaar %s premove-variant</item>
     <item quantity="other">en bewaar %s premove-varianten</item>
@@ -973,7 +975,7 @@ Laat leeg om partijen te starten vanaf de normale beginstelling.</string>
   <string name="simulFeaturedHelp">De simultaan voor iedereen weergeven op %s. Schakel dit uit voor privésimultaans.</string>
   <string name="simulDescription">Omschrijving van de simultaan</string>
   <string name="simulDescriptionHelp">Is er nog iets wat de deelnemers moeten weten?</string>
-  <string name="markdownIsAvailable">%s is beschikbaar voor opmaak.</string>
+  <string name="markdownIsAvailable" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text.">%s is beschikbaar voor opmaak.</string>
   <string name="embedsAvailable">Plak de URL van een partij of een studie om deze in te voegen.</string>
   <string name="inYourLocalTimezone">In je eigen lokale tijdzone</string>
   <string name="tournChat">Toernooichat</string>
