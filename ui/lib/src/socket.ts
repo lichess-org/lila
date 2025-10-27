@@ -2,7 +2,7 @@ import * as xhr from './xhr';
 import { idleTimer, browserTaskQueueMonitor } from './event';
 import { storage, once, type LichessStorage } from './storage';
 import { pubsub, type PubsubEventKey } from './pubsub';
-import { myUserId } from './common';
+import { defined, myUserId } from './common';
 import { log } from './permalog';
 
 let siteSocket: WsSocket | undefined;
@@ -248,7 +248,7 @@ class WsSocket {
     const msg: Partial<MsgOut> = { t };
     if (d !== undefined) {
       if (o.withLag) d.l = Math.round(this.averageLag);
-      if (o.millis >= 0) d.s = Math.round(o.millis * 0.1).toString(36);
+      if (defined(o.millis) && o.millis >= 0) d.s = Math.round(o.millis * 0.1).toString(36);
       msg.d = d;
     }
     if (o.ackable) {
