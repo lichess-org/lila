@@ -5727,7 +5727,7 @@ interface I18n {
     atomicTitle: string;
     /** Chess960 */
     chess960: string;
-    /** The starting position of the home rank pieces is randomized. */
+    /** The starting position of the home rank pieces is randomised. */
     chess960Title: string;
     /** Crazyhouse */
     crazyhouse: string;
