@@ -207,12 +207,42 @@ export function view(ctrl: StudyCtrl): VNode {
             update(vnode);
           },
           postpatch(old, vnode) {
-            const scrollTop = (old.elm as HTMLElement).scrollTop;
+
+            const activeChapter = (v: VNode) => {
+              const kids = (v.children as any[]) || [];
+              const activeVnode = kids.find(c => c?.data?.class?.active);
+              return activeVnode?.elm as HTMLElement | undefined;
+            }
+
+            const el = vnode.elm as HTMLElement; // .study-list (the scroll container)
+            const prevScroll = (old.elm as HTMLElement).scrollTop;
+
+            // todos:
+              // scroll to target chapter on page load too
+              // review staged code, is the order of stuff fine? e.g., el.getBoundingClientRect after el.scrollTop assignment,
+              // etc.
+
             vnode.data!.li = old.data!.li;
             update(vnode);
-            if (old.children?.length === vnode.children?.length)
-              (vnode.elm as HTMLElement).scrollTop = scrollTop;
-          },
+
+            const target = activeChapter(vnode);
+            const targetO = activeChapter(old);
+
+            if (old.children?.length !== vnode.children?.length) return;
+
+            el.scrollTop = prevScroll;
+
+            if (!target?.dataset.id || target.dataset.id === targetO?.dataset.id) return;
+
+            // Compute deltas *relative to the container’s viewport*
+            const t = target.getBoundingClientRect();
+            const c = el.getBoundingClientRect();
+            const dyTop = t.top - c.top;
+            const dyBottom = t.bottom - c.bottom;
+
+            if (dyTop < 0) el.scrollTop += dyTop;
+            else if (dyBottom > 0) el.scrollTop += dyBottom;
+          },          
           destroy: vnode => {
             const sortable: Sortable = vnode.data!.li!.sortable;
             if (sortable) sortable.destroy();
