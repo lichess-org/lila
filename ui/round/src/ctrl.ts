@@ -49,7 +49,7 @@ import * as poolRangeStorage from 'lib/poolRangeStorage';
 import { pubsub } from 'lib/pubsub';
 import { readFen, almostSanOf, speakable } from 'lib/game/sanWriter';
 import { plyToTurn } from 'lib/game/chess';
-import { wsDestroy, type RoundOutEvent } from 'lib/socket';
+import { wsDestroy } from 'lib/socket';
 import Server from './server';
 
 type GoneBerserk = Partial<ByColor<boolean>>;
@@ -297,7 +297,11 @@ export default class RoundController implements MoveRootCtrl {
 
   setTitle = (): void => title.set(this);
 
-  actualSendMove = (tpe: RoundOutEvent, data: any, meta: MoveMetadata = { premove: false }): void => {
+  actualSendMove = <moveOrDrop extends 'move' | 'drop'>(
+    tpe: moveOrDrop,
+    data: moveOrDrop extends 'move' ? SocketMove : SocketDrop,
+    meta: MoveMetadata = { premove: false },
+  ): void => {
     const socketOpts: SocketOpts = {
       sign: this.sign,
       ackable: true,
@@ -856,7 +860,7 @@ export default class RoundController implements MoveRootCtrl {
 
   private doOfferDraw = () => {
     this.data.player.lastDrawOfferAtPly = this.lastPly();
-    this.socket.sendLoading('draw-yes', null);
+    this.socket.sendLoading('draw-yes');
   };
 
   setChessground = (cg: CgApi): void => {

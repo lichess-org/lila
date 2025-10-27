@@ -5,7 +5,8 @@ import type RoundController from './ctrl';
 import { defined } from 'lib';
 import { domDialog } from 'lib/view/dialog';
 import { pubsub } from 'lib/pubsub';
-import { wsSign, wsVersion, type RoundOutEvent } from 'lib/socket';
+import { wsSign, wsVersion } from 'lib/socket';
+import type { RoundSocketSend, RoundOutEvents } from './interfaces';
 
 export interface RoundSocket {
   send: RoundSocketSend;
@@ -13,7 +14,7 @@ export interface RoundSocket {
   moreTime(): void;
   outoftime(): void;
   berserk(): void;
-  sendLoading(typ: RoundOutEvent, data?: any): void;
+  sendLoading<K extends keyof RoundOutEvents>(typ: K, data?: Parameters<RoundOutEvents[K]>[0]): void;
   receive(typ: string, data: any): boolean;
   reload(o?: Incoming, isRetry?: boolean): void;
 }
@@ -24,8 +25,6 @@ interface Incoming {
 }
 
 type Callback = (...args: any[]) => void;
-
-export type RoundSocketSend = (type: RoundOutEvent, data?: any, opts?: any, noRetry?: boolean) => void;
 
 function backoff(delay: number, factor: number, callback: Callback): Callback {
   let timer: number | undefined;
@@ -165,8 +164,8 @@ export function make(send: RoundSocketSend, ctrl: RoundController): RoundSocket 
     handlers,
     moreTime: throttle(300, () => send('moretime')),
     outoftime: backoff(500, 1.1, () => send('flag', ctrl.data.game.player)),
-    berserk: throttle(200, () => send('berserk', null, { ackable: true })),
-    sendLoading(typ: RoundOutEvent, data?: any) {
+    berserk: throttle(200, () => send('berserk', undefined, { ackable: true })),
+    sendLoading<K extends keyof RoundOutEvents>(typ: K, data?: Parameters<RoundOutEvents[K]>[0]) {
       ctrl.setLoading(true);
       send(typ, data);
     },

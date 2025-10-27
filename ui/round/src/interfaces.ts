@@ -5,7 +5,7 @@ import type { CorresClockData } from './corresClock/corresClockCtrl';
 import type { ChatOpts as BaseChatOpts, ChatCtrl, ChatPlugin } from 'lib/chat/interfaces';
 import * as Prefs from 'lib/prefs';
 import type { EnhanceOpts } from 'lib/richText';
-import type { RoundSocket, RoundSocketSend } from './socket';
+import type { RoundSocket } from './socket';
 import type { MoveMetadata as CgMoveMetadata } from '@lichess-org/chessground/types';
 
 export { type RoundSocket } from './socket';
@@ -37,6 +37,36 @@ export interface SocketDrop {
   pos: Key;
   b?: 1;
 }
+
+export interface RoundOutEvents {
+  rep: (d: { n: string }) => void;
+  moretime: () => void;
+  flag: (d: Color) => void;
+  berserk: () => void;
+  'rematch-yes': () => void;
+  'rematch-no': () => void;
+  'takeback-yes': () => void;
+  'takeback-no': () => void;
+  'draw-yes': () => void;
+  'draw-no': () => void;
+  'blindfold-yes': () => void;
+  'blindfold-no': () => void;
+  'draw-force': () => void;
+  bye2: () => void;
+  'resign-force': () => void;
+  'draw-claim': () => void;
+  resign: () => void;
+  move: (d: SocketMove) => void;
+  drop: (d: SocketDrop) => void;
+  abort: () => void;
+}
+
+export type RoundSocketSend = <K extends keyof RoundOutEvents>(
+  type: K,
+  data?: Parameters<RoundOutEvents[K]>[0],
+  opts?: { ackable?: boolean },
+  noRetry?: boolean,
+) => void;
 
 export type EncodedDests =
   | string

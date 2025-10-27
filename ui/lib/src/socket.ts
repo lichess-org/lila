@@ -237,7 +237,12 @@ class WsSocket {
     this.scheduleConnect();
   };
 
-  send = (t: ClientOutEvent, d: any, o: any = {}, noRetry = false): void => {
+  send = (
+    t: ClientOutEvent,
+    d: any,
+    o: { withLag?: boolean; millis?: number; ackable?: boolean; sign?: string } = {},
+    noRetry = false,
+  ): void => {
     const msg: Partial<MsgOut> = { t };
     if (d !== undefined) {
       if (o.withLag) d.l = Math.round(this.averageLag);
