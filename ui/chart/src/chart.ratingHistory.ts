@@ -3,6 +3,7 @@ import {
   type Point,
   type ChartConfiguration,
   type PointStyle,
+  type TooltipItem,
   Chart,
   PointElement,
   LinearScale,
@@ -186,6 +187,7 @@ export function initModule({ data, singlePerfName }: Opts): void {
           yAlign: 'center',
           caretPadding: 10,
           rtl: document.dir === 'rtl',
+          itemSort: (a: TooltipItem<'line'>, b: TooltipItem<'line'>) => b.parsed.y - a.parsed.y,
           callbacks: {
             title: items => dateFormat()(dayjs.utc(items[0].parsed.x).valueOf()),
           },
