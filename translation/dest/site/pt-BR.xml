@@ -397,7 +397,7 @@
     <item quantity="other">Você precisa jogar mais %1$s partidas de %2$s valendo pontos</item>
   </plurals>
   <plurals name="needNbMoreGames">
-    <item quantity="one">Você precisa jogar ainda %s partidas valendo pontos</item>
+    <item quantity="one">Você precisa jogar ainda %s partida valendo pontos</item>
     <item quantity="other">Você precisa jogar ainda %s partidas valendo pontos</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Seu rating %s é provisório</string>
