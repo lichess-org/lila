@@ -36,7 +36,6 @@ import type {
   RoundData,
   SocketMove,
   SocketDrop,
-  SocketOpts,
   MoveMetadata,
   NvuiPlugin,
   RoundTour,
@@ -49,7 +48,7 @@ import * as poolRangeStorage from 'lib/poolRangeStorage';
 import { pubsub } from 'lib/pubsub';
 import { readFen, almostSanOf, speakable } from 'lib/game/sanWriter';
 import { plyToTurn } from 'lib/game/chess';
-import { wsDestroy } from 'lib/socket';
+import { wsDestroy, type SocketSendOpts } from 'lib/socket';
 import Server from './server';
 
 type GoneBerserk = Partial<ByColor<boolean>>;
@@ -302,7 +301,7 @@ export default class RoundController implements MoveRootCtrl {
     data: moveOrDrop extends 'move' ? SocketMove : SocketDrop,
     meta: MoveMetadata = { premove: false },
   ): void => {
-    const socketOpts: SocketOpts = {
+    const socketOpts: SocketSendOpts = {
       sign: this.sign,
       ackable: true,
     };

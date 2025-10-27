@@ -21,13 +21,6 @@ export interface NvuiPlugin {
   render(): VNode;
 }
 
-export interface SocketOpts {
-  sign: string;
-  ackable: boolean;
-  withLag?: boolean;
-  millis?: number;
-}
-
 export interface SocketMove {
   u: Uci;
   b?: 1;

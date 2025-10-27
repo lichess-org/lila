@@ -115,6 +115,13 @@ interface Settings {
   options?: Partial<Options>;
 }
 
+export interface SocketSendOpts {
+  sign: string;
+  ackable: boolean;
+  withLag?: boolean;
+  millis?: number;
+}
+
 export function wsConnect(url: string, version: number | false, settings: Partial<Settings> = {}): WsSocket {
   return (siteSocket = new WsSocket(url, version, settings));
 }
@@ -237,12 +244,7 @@ class WsSocket {
     this.scheduleConnect();
   };
 
-  send = (
-    t: ClientOutEvent,
-    d: any,
-    o: { withLag?: boolean; millis?: number; ackable?: boolean; sign?: string } = {},
-    noRetry = false,
-  ): void => {
+  send = (t: ClientOutEvent, d: any, o: Partial<SocketSendOpts> = {}, noRetry = false): void => {
     const msg: Partial<MsgOut> = { t };
     if (d !== undefined) {
       if (o.withLag) d.l = Math.round(this.averageLag);
