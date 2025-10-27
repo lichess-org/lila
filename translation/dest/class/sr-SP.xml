@@ -63,10 +63,10 @@
   <string name="managed">Вођен</string>
   <string name="thisStudentAccountIsManaged">Овај налог ученика је вођен</string>
   <string name="upgradeFromManaged">Унапреди са вођеног на аутономни</string>
-  <string name="release">Ослободи</string>
-  <string name="releaseTheAccount">Ослободи налог тако да студент може преузети управу.</string>
+  <string name="release">Дипломирај</string>
+  <string name="releaseTheAccount">Дипломирај налог како би ученик могао самостално управљати њим.</string>
   <string name="releaseDesc1">Ослобођени налог не може се вратити под управу. Ученици ће сами моћи да угасе \"дете мод\" и да обнове лозинку.</string>
-  <string name="releaseDesc2">Ученик ће и даље остати на часу након што им је налог ослобођен.</string>
+  <string name="releaseDesc2">Ученик ће остати у часу након што му/јој је налог дипломиран.</string>
   <string name="realUniqueEmail">Стварна, јединствена е-пошта ученика. Послаћемо поруку потврде на њу, са везом за ослобађање налога.</string>
   <string name="closeStudent">Затворите налог</string>
   <string name="closeTheAccount">Трајно затворите налог ученика.</string>
@@ -100,8 +100,8 @@
   <string name="nothingHere">Овде нема ничега тренутно.</string>
   <string name="newsEdit1">Све вести о часовима у једном пољу.</string>
   <string name="newsEdit2">Додај нове вести на врх. Немој брисати претходне вести.</string>
-  <string name="newsEdit3">Одвојите вести са ---
-Биће приказано као хоризонтална линија.</string>
+  <string name="newsEdit3">Одвоји вести са ---
+Приказаће хоризонталну линију.</string>
   <string name="invite">Позовите</string>
   <string name="youHaveBeenInvitedByX">Позвани сте од стране %s.</string>
   <string name="youAcceptedThisInvitation">Прихватили сте ову позивиницу.</string>
