@@ -1,10 +1,16 @@
 package lila.jsBot
 
 import lila.memo.CacheApi
-import lila.memo.CacheApi.buildAsyncTimeout
+import lila.memo.CacheApi.{ buildAsyncTimeout, invalidateAll }
 import lila.core.perm.Granter
 
 final private class JsBotApi(repo: JsBotRepo, cacheApi: CacheApi)(using Executor, Scheduler):
+
+  def put(bot: BotJson)(using me: Me): Fu[BotJson] =
+    repo
+      .putBot(bot, me.userId)
+      .andDo:
+        playable.all.invalidateAll()
 
   object playable:
 
@@ -16,7 +22,7 @@ final private class JsBotApi(repo: JsBotRepo, cacheApi: CacheApi)(using Executor
           .map:
             if _ then betaBotKeys else publicBotKeys
 
-    private val all = cacheApi.unit[List[BotJson]]:
+    private[JsBotApi] val all = cacheApi.unit[List[BotJson]]:
       _.refreshAfterWrite(1.minute).buildAsyncTimeout(): _ =>
         repo.getLatestBots()
 
