@@ -166,7 +166,7 @@ export const gameLinksListener = (select: ChapterSelect) => (vnode: VNode) =>
 export function view(ctrl: StudyCtrl): VNode {
   const canContribute = ctrl.members.canContribute(),
     current = ctrl.currentChapter();
-  function update(vnode: VNode) {
+  function update(vnode: VNode, pageJustLoaded: boolean) {
     const newCount = ctrl.chapters.list.size(),
       vData = vnode.data!.li!,
       el = vnode.elm as HTMLElement;
@@ -177,6 +177,7 @@ export function view(ctrl: StudyCtrl): VNode {
       scrollToInnerSelector(el, '.active');
     }
     vData.count = newCount;
+    vData.pageJustLoaded = pageJustLoaded;
     if (canContribute && newCount > 1 && !vData.sortable) {
       site.asset.loadEsm<typeof Sortable>('sortable.esm', { npm: true }).then(s => {
         vData.sortable = s.create(el, {
@@ -204,37 +205,34 @@ export function view(ctrl: StudyCtrl): VNode {
               } else ctrl.setChapter(id);
             });
             vnode.data!.li = {};
-            update(vnode);
+            update(vnode, true);
           },
           postpatch(old, vnode) {
             const activeChapter = (v: VNode) => {
               const kids = (v.children as any[]) ?? [];
               const activeVnode = kids.find(c => c?.data?.class?.active);
               return activeVnode?.elm as HTMLElement | undefined;
-            }
+            };
 
             const el = vnode.elm as HTMLElement;
-
+            const pageJustLoaded = old.data?.li?.pageJustLoaded;
             const prevScrollTop = (old.elm as HTMLElement).scrollTop;
             const prevActiveChapterId = activeChapter(old)?.dataset.id;
 
             vnode.data!.li = old.data!.li;
-            update(vnode);
+            update(vnode, false);
             if (old.children?.length !== vnode.children?.length) return;
             const target = activeChapter(vnode);
             el.scrollTop = prevScrollTop;
 
-            // todo: scroll to target chapter on page load too
-
-            if (!target?.dataset.id || target.dataset.id === prevActiveChapterId) return;
-
+            if (!target?.dataset.id || (target.dataset.id === prevActiveChapterId && !pageJustLoaded)) return;
             const t = target.getBoundingClientRect();
             const c = el.getBoundingClientRect();
             const dyTop = t.top - c.top;
             const dyBottom = t.bottom - c.bottom;
             if (dyTop < 0) el.scrollTop += dyTop;
             else if (dyBottom > 0) el.scrollTop += dyBottom;
-          },          
+          },
           destroy: vnode => {
             const sortable: Sortable = vnode.data!.li!.sortable;
             if (sortable) sortable.destroy();
