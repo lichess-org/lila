@@ -14,6 +14,7 @@
   <string name="atomicTitle" comment="Description for the Atomic Chess variant. Alternatives to nuke could be &quot;blow up&quot; or &quot;explode&quot;.">Cho nổ vua đối phương để giành chiến thắng.</string>
   <string name="horde" comment="The name of a chess variant where one side has a regular chess army but the other has dozens of pawns, resembling a horde.">Đội quân tốt</string>
   <string name="hordeTitle" comment="Description for the Horde chess variant">Một bên có số lượng quân tốt lớn, bên kia chỉ có quân đội bình thường.</string>
+  <string name="racingKings" comment="The name of a chess variant where both sides start on the same rank, and need to reach the other side of the board win.&#10;&#10;No need to translate literally. Focus on making it fun, capturing the spirit of the variant.">Vua chạy đua</string>
   <string name="racingKingsTitle" comment="Description for the Racing Kings chess variant">Đưa vua của bạn sang phía bên kia của bàn cờ để giành chiến thắng.</string>
   <string name="crazyhouse" comment="The name of a chess variant where pieces you capture can be put on the board (similar to shogi).">Cờ đặt quân</string>
   <string name="crazyhouseTitle" comment="Description for the Crazyhouse chess variant">Các quân cờ bắt được có thể được thả lại vào bàn cờ thay vì chỉ di chuyển một quân cờ.</string>
