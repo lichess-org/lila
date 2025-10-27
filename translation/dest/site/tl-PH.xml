@@ -462,7 +462,7 @@
   <string name="points">Punto</string>
   <string name="wins">Mga Panalo</string>
   <string name="losses">Mga Talo</string>
-  <string name="startingIn" comment="Displayed above a timer">Nagsisimula sa</string>
+  <string name="startingIn" comment="Displayed above a timer">Magsisimula sa</string>
   <string name="standByX">Tumayo sa %s, pagpares-pares ng mga manlalaro, humanda!</string>
   <string name="pause">I-hinto</string>
   <string name="resume">Ipatuloy</string>
