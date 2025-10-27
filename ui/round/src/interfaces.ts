@@ -32,31 +32,31 @@ export interface SocketDrop {
 }
 
 export interface RoundOutEvents {
-  rep: (d: { n: string }) => void;
-  moretime: () => void;
-  flag: (d: Color) => void;
-  berserk: () => void;
-  'rematch-yes': () => void;
-  'rematch-no': () => void;
-  'takeback-yes': () => void;
-  'takeback-no': () => void;
-  'draw-yes': () => void;
-  'draw-no': () => void;
-  'blindfold-yes': () => void;
-  'blindfold-no': () => void;
-  'draw-force': () => void;
-  bye2: () => void;
-  'resign-force': () => void;
-  'draw-claim': () => void;
-  resign: () => void;
-  move: (d: SocketMove) => void;
-  drop: (d: SocketDrop) => void;
-  abort: () => void;
+  rep: { n: string };
+  moretime: undefined;
+  flag: Color;
+  berserk: undefined;
+  'rematch-yes': undefined;
+  'rematch-no': undefined;
+  'takeback-yes': undefined;
+  'takeback-no': undefined;
+  'draw-yes': undefined;
+  'draw-no': undefined;
+  'blindfold-yes': undefined;
+  'blindfold-no': undefined;
+  'draw-force': undefined;
+  bye2: undefined;
+  'resign-force': undefined;
+  'draw-claim': undefined;
+  resign: undefined;
+  move: SocketMove;
+  drop: SocketDrop;
+  abort: undefined;
 }
 
 export type RoundSocketSend = <K extends keyof RoundOutEvents>(
   type: K,
-  data?: Parameters<RoundOutEvents[K]>[0],
+  data?: RoundOutEvents[K],
   opts?: { ackable?: boolean },
   noRetry?: boolean,
 ) => void;

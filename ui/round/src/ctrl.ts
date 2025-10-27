@@ -41,6 +41,7 @@ import type {
   RoundTour,
   ApiMove,
   ApiEnd,
+  RoundOutEvents,
 } from './interfaces';
 import { defined, type Toggle, type Prop, toggle, requestIdleCallback, memoize } from 'lib';
 import { storage, once, storedBooleanProp, type LichessBooleanStorage } from 'lib/storage';
@@ -298,7 +299,7 @@ export default class RoundController implements MoveRootCtrl {
 
   actualSendMove = <moveOrDrop extends 'move' | 'drop'>(
     tpe: moveOrDrop,
-    data: moveOrDrop extends 'move' ? SocketMove : SocketDrop,
+    data: RoundOutEvents[moveOrDrop],
     meta: MoveMetadata = { premove: false },
   ): void => {
     const socketOpts: SocketSendOpts = {
