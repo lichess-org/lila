@@ -49,7 +49,7 @@ db.relay_tour.createIndex({ syncedAt: -1 }, { partialFilterExpression: { tier: {
 db.relay_tour.createIndex(
   { _fts: 'text', _ftsx: 1 },
   {
-    weights: { description: 1, name: 3 },
+    weights: { description: 1, name: 3, 'info.players': 1, 'info.location': 1 },
     partialFilterExpression: { tier: { $exists: true } },
     default_language: 'english',
     language_override: 'language',
