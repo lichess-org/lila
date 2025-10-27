@@ -270,7 +270,8 @@ export default class RacerCtrl implements PuzCtrl {
     this.redraw();
   };
 
-  private socketSend = (tpe: RacerEvent, data?: any) => wsSend(tpe, data, { sign: this.sign });
+  private socketSend = (tpe: RacerEvent, data?: any) =>
+    wsSend(tpe, data, { sign: this.sign, ackable: false });
 
   private setZen = throttlePromiseDelay(
     () => 1000,

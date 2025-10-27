@@ -130,7 +130,7 @@ export function wsDestroy(): void {
   siteSocket = undefined;
 }
 
-export function wsSend(t: ClientOutEvent, d?: any, o?: any, noRetry?: boolean): void {
+export function wsSend(t: ClientOutEvent, d?: any, o?: SocketSendOpts, noRetry?: boolean): void {
   siteSocket?.send(t, d, o, noRetry);
 }
 
