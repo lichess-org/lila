@@ -77,10 +77,16 @@ export const scrollToInnerSelector = (el: HTMLElement, selector: string, horiz: 
   scrollTo(el, el.querySelector(selector), horiz);
 
 export const scrollTo = (el: HTMLElement, target: HTMLElement | null, horiz: boolean = false): void => {
-  if (target)
-    horiz
-      ? (el.scrollLeft = target.offsetLeft - el.offsetWidth / 2 + target.offsetWidth / 2)
-      : (el.scrollTop = target.offsetTop - el.offsetHeight / 2 + target.offsetHeight / 2);
+  if (!target) return;
+  if (horiz) {
+    const delta = target.getBoundingClientRect().left - el.getBoundingClientRect().left;
+    const desired = el.scrollLeft + delta - (el.clientWidth - target.clientWidth) / 2;
+    el.scrollLeft = Math.max(0, Math.min(desired, (el.scrollWidth - el.clientWidth)));
+  } else {
+    const delta = target.getBoundingClientRect().top - el.getBoundingClientRect().top;
+    const desired = el.scrollTop + delta - (el.clientHeight - target.clientHeight) / 2;
+    el.scrollTop = Math.max(0, Math.min(desired, (el.scrollHeight - el.clientHeight)));
+  }
 };
 
 export const onClickAway =
