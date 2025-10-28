@@ -56,28 +56,30 @@ final class Automod(
       temperature: Double = 0,
       maxTokens: Int = 4096
   ): Fu[Option[JsObject]] =
-    (config.apiKey.value.nonEmpty && systemPrompt.value.nonEmpty && userText.nonEmpty).so:
-      val body = Json
-        .obj(
-          "model" -> model,
-          "temperature" -> temperature,
-          "max_tokens" -> maxTokens,
-          "messages" -> Json.arr(
-            Json.obj("role" -> "system", "content" -> systemPrompt.value),
-            Json.obj("role" -> "user", "content" -> userText)
+    List(config.apiKey.value, systemPrompt.value, userText)
+      .forall(_.nonEmpty)
+      .so:
+        val body = Json
+          .obj(
+            "model" -> model,
+            "temperature" -> temperature,
+            "max_tokens" -> maxTokens,
+            "messages" -> Json.arr(
+              Json.obj("role" -> "system", "content" -> systemPrompt.value),
+              Json.obj("role" -> "user", "content" -> userText)
+            )
           )
-        )
-      ws.url(config.url)
-        .withHttpHeaders(
-          "Authorization" -> s"Bearer ${config.apiKey.value}",
-          "Content-Type" -> "application/json"
-        )
-        .post(body)
-        .map: rsp =>
-          rsp -> extractJsonFromResponse(rsp)
-        .flatMap:
-          case (rsp, Left(err)) => fufail(s"${rsp.status} $err ${(rsp.body: String).take(500)}")
-          case (_, Right(res)) => fuccess(res)
+        ws.url(config.url)
+          .withHttpHeaders(
+            "Authorization" -> s"Bearer ${config.apiKey.value}",
+            "Content-Type" -> "application/json"
+          )
+          .post(body)
+          .map: rsp =>
+            rsp -> extractJsonFromResponse(rsp)
+          .flatMap:
+            case (rsp, Left(err)) => fufail(s"${rsp.status} $err ${(rsp.body: String).take(500)}")
+            case (_, Right(res)) => fuccess(res)
 
   def markdownImages(markdown: Markdown): Fu[Seq[lila.memo.PicfitImage]] =
     val ids = imageIdRe
