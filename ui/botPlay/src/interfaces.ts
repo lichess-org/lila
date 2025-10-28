@@ -39,6 +39,7 @@ export interface Bot extends BotInfo {
 export interface BotOpts {
   bots: Bot[];
   pref: Pref;
+  devBots?: BotKey[];
 }
 
 export interface Pref {

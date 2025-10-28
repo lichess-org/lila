@@ -34,8 +34,6 @@ const viewBotList = (ctrl: SetupCtrl) => {
   );
 };
 
-const devBots = new Set(['terrence', 'howard', 'professor', 'lila']);
-
 const viewBotCard = (ctrl: SetupCtrl, bot: Bot, ongoing: boolean) =>
   hl(
     'div.bot-card.bot-color--' + bot.key,
@@ -43,7 +41,7 @@ const viewBotCard = (ctrl: SetupCtrl, bot: Bot, ongoing: boolean) =>
       hook: bind('click', () => ctrl.select(bot)),
       class: {
         'bot-card--ongoing': ongoing,
-        'bot-card--dev': !!devBots.has(bot.key),
+        'bot-card--dev': !!ctrl.opts.devBots?.includes(bot.key),
       },
     },
     [

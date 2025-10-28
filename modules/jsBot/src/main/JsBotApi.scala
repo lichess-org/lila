@@ -15,12 +15,11 @@ final private class JsBotApi(repo: JsBotRepo, cacheApi: CacheApi)(using Executor
   object playable:
 
     private def forMe(isInBetaTeam: Me => Fu[Boolean])(using me: Option[Me]): Fu[List[BotKey]] =
-      if Granter.opt(_.BotEditor) then fuccess(devBotKeys)
-      else if Granter.opt(_.Beta) then fuccess(betaBotKeys)
+      if Granter.opt(_.BotEditor) then fuccess(publicBotKeys ::: betaBotKeys ::: devBotKeys)
+      else if Granter.opt(_.Beta) then fuccess(publicBotKeys ::: betaBotKeys)
       else
-        me.so(isInBetaTeam)
-          .map:
-            if _ then betaBotKeys else publicBotKeys
+        for beta <- me.so(isInBetaTeam)
+        yield publicBotKeys ::: beta.so(betaBotKeys)
 
     private[JsBotApi] val all = cacheApi.unit[List[BotJson]]:
       _.refreshAfterWrite(1.minute).buildAsyncTimeout(): _ =>
