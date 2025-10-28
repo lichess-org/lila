@@ -26,7 +26,8 @@ export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
           insert(vnode) {
             const el = vnode.elm as HTMLElement;
             const $el = $(el).on('click', 'a.jump', (e: Event) => {
-              pubsub.emit('jump', (e.target as HTMLElement).getAttribute('data-ply'));
+              const ply = (e.target as HTMLElement).getAttribute('data-ply');
+              if (ply) pubsub.emit('jump', ply);
             });
             $el.on('click', '.reply', (e: Event) => {
               const el = e.target as HTMLElement;

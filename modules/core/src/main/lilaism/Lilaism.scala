@@ -18,7 +18,7 @@ object Lilaism extends LilaLibraryExtensions:
     RoomId
   }
   export lila.core.userId.{ UserId, UserName, UserStr, MyId, UserIdOf }
-  export lila.core.data.{ Markdown, Html, JsonStr }
+  export lila.core.data.{ Markdown, Html, JsonStr, Url }
   export lila.core.perf.{ PerfKey, Perf }
   export lila.core.email.EmailAddress
   export lila.core.user.{ User, Me }

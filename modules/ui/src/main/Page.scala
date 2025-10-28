@@ -10,9 +10,9 @@ object LangPath extends OpaqueString[LangPath]:
 case class OpenGraph(
     title: String,
     description: String,
-    url: String,
+    url: Url,
     `type`: String = "website",
-    image: Option[String] = None,
+    image: Option[Url] = None,
     siteName: String = "lichess.org"
 )
 
@@ -48,7 +48,7 @@ case class Page(
   def i18nOpt(cond: Boolean, mods: => I18nModule.Selector*): Page =
     if cond then copy(i18nModules = i18nModules.appendedAll(mods)) else this
   def graph(og: OpenGraph): Page = copy(openGraph = og.some)
-  def graph(title: String, description: String, url: String): Page = graph(OpenGraph(title, description, url))
+  def graph(title: String, description: String, url: Url): Page = graph(OpenGraph(title, description, url))
   def flag(f: PageFlags.type => PageFlags, v: Boolean = true): Page =
     copy(flags = if v then flags + f(PageFlags) else flags - f(PageFlags))
   def css(keys: String*): Page = copy(cssKeys = cssKeys ::: keys.toList)
@@ -63,6 +63,8 @@ case class Page(
   def transform(f: Update[Frag]): Page = copy(transform = transform.compose(f))
   def wrap(f: Update[Frag]): Page = transform(f)
   def prepend(prelude: Frag): Page = transform(body => frag(prelude, body))
+
+  def markdownTextarea = css("bits.markdownTextarea").js(Esm("bits.markdownTextarea"))
 
 final class RenderedPage(val html: String)
 

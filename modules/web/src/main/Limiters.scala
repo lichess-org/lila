@@ -87,12 +87,18 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
     ("slow", 150, 1.hour)
   )
 
-  val imageUpload = RateLimit.composite[IpAddress](
-    key = "image.upload.ip"
-  )(
-    ("fast", 10, 2.minutes),
-    ("slow", 60, 1.day)
+  private val imageUploadLimiter: RateLimiter[(IpAddress, UserId)] = combine(
+    RateLimit.composite[IpAddress](key = "image.upload.ip")(
+      ("fast", 10, 2.minutes),
+      ("slow", 60, 1.day)
+    ),
+    RateLimit.composite[UserId](key = "image.upload.user")(
+      ("fast", 10, 5.minutes),
+      ("slow", 30, 1.day)
+    )
   )
+  def imageUpload[A](limited: => Fu[A])(using ctx: lila.ui.Context, me: Me) =
+    imageUploadLimiter(ctx.ip -> me.userId, limited)
 
   val oauthTokenTest = RateLimit[IpAddress](credits = 10_000, duration = 10.minutes, key = "api.token.test")
 

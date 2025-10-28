@@ -4,7 +4,8 @@ import play.api.mvc.*
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
-import lila.core.id.GameFullId
+import lila.common.Json.given
+import lila.core.id.{ GameFullId, ImageId }
 import lila.web.{ StaticContent, WebForms }
 
 final class Main(
@@ -135,14 +136,31 @@ final class Main(
         then lila.mon.link.external(tag, ctx.isAuth).increment()
         Redirect(url)
 
-  def uploadImage(rel: String) = AuthBody(parse.multipartFormData) { ctx ?=> _ ?=>
-    ctx.body.body.file("image") match
-      case Some(image) =>
-        limit.imageUpload(ctx.ip, rateLimited):
-          env.memo.picfitApi.bodyImage
-            .upload(rel, image)
-            .map(url => JsonOk(Json.obj("imageUrl" -> url)))
-            .recover:
-              case e: Exception => JsonBadRequest(jsonError(e.getMessage))
-      case None => JsonBadRequest(jsonError("Image content only"))
+  def uploadImage(rel: String) = AuthBody(parse.multipartFormData) { ctx ?=> me ?=>
+    lila.core.security.canUploadImages.so:
+      limit.imageUpload(rateLimited):
+        ctx.body.body.file("image") match
+          case None => JsonBadRequest("Image content only")
+          case Some(image) =>
+            val meta = lila.memo.PicfitApi.form.upload.bindFromRequest().value
+            val moreRel = s"$rel:${scalalib.ThreadLocalRandom.nextString(12)}"
+            for
+              image <- env.memo.picfitApi.uploadFile(moreRel, image, me, meta)
+              maxWidth = lila.ui.bits.imageDesignWidth(rel)
+              url = meta match
+                case Some(info) if maxWidth.exists(dw => info.dim.width > dw) =>
+                  maxWidth.map(dw => env.memo.picfitUrl.resize(image.id, Left(dw)))
+                case _ => env.memo.picfitUrl.raw(image.id).some
+            yield JsonOk(Json.obj("imageUrl" -> url))
+  }
+
+  def imageUrl(id: ImageId, width: Int) = Auth { _ ?=> _ ?=>
+    if width < 1 then JsonBadRequest("Invalid width")
+    else
+      JsonOk(
+        Json.obj(
+          "imageUrl" -> env.memo.picfitUrl
+            .resize(id, Left(width.min(lila.ui.bits.imageDesignWidth(id.value).getOrElse(1920))))
+        )
+      )
   }

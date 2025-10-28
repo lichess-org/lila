@@ -108,7 +108,7 @@ const pathAttrs = [
 ];
 
 export const spinnerHtml: string = $html`
-  <div class="spinner aria-label="loading">
+  <div class="spinner" aria-label="loading">
     <svg viewBox="-2 -2 54 54">
       <g mask="url(#mask)" fill="none">
         ${pathAttrs.map(

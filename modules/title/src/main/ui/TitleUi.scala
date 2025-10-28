@@ -9,7 +9,7 @@ import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
 
-final class TitleUi(helpers: Helpers)(picfitUrl: lila.core.misc.PicfitUrl):
+final class TitleUi(helpers: Helpers)(picfitUrl: lila.memo.PicfitUrl):
   import helpers.{ *, given }
 
   def index(page: Page, intro: Frag) =

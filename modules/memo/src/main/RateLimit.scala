@@ -82,7 +82,7 @@ object RateLimit:
 
   val logger = lila.log("ratelimit")
 
-  def combine[A, B](limitA: RateLimit[A], limitB: RateLimit[B]): RateLimiter[(A, B)] = new:
+  def combine[A, B](limitA: RateLimiter[A], limitB: RateLimiter[B]): RateLimiter[(A, B)] = new:
     def apply[T](k: (A, B), default: => T, cost: Cost = 1, msg: => String = "")(op: => T): T =
       limitA(k._1, default, cost, msg)(limitB(k._2, default, cost, msg)(op))
     def chargeable[T](k: (A, B), default: => T, cost: Cost = 1, msg: => String = "")(op: ChargeWith => T): T =

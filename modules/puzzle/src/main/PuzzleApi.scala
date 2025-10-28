@@ -141,24 +141,24 @@ final class PuzzleApi(
       PuzzleTheme
         .findDynamic(themeStr)
         .orElse:
-          me.is(UserId.lichess).so(PuzzleTheme.find(themeStr))
+          me.is(UserId.lichess).so(PuzzleTheme.findVisible(themeStr))
         .raiseIfNone(Fail(s"Unknown theme $themeStr"))
         .flatMap: theme =>
           if me.is(UserId.lichess) then lichessVote(id, theme.key, vote)
           else
             for
-              round <- round.find(me, id)
-              round <- round.raiseIfNone(Fail(s"Puzzle $id not yet played"))
-              newThemes <- PuzzleRound.themeVote(round.themes)(theme.key, vote).raiseIfNone(Unchanged)
+              puzRound <- round.find(me, id)
+              puzRound <- puzRound.raiseIfNone(Fail(s"Puzzle $id not yet played"))
+              newThemes <- PuzzleRound.themeVote(puzRound.themes)(theme.key, vote).raiseIfNone(Unchanged)
               update <-
                 if newThemes.isEmpty || !PuzzleRound.themesLookSane(newThemes)
                 then fuccess($unset(F.themes, F.puzzle).some)
                 if vote.isEmpty then fuccess(updateRoundThemes(id, newThemes, none).some)
                 else trustApi.theme(me).map2(t => updateRoundThemes(id, newThemes, t.some))
-              _ <- update.so(up => colls.round(_.update.one($id(round.id), up)).void)
+              _ <- update.so(up => colls.round(_.update.one($id(puzRound.id), up)).void)
               _ <- update.isDefined.so:
-                colls.puzzle(_.updateField($id(round.id.puzzleId), Puzzle.BSONFields.dirty, true)).void
-            yield lila.mon.puzzle.vote.theme(theme.key.value, vote, round.win.yes).increment()
+                colls.puzzle(_.updateField($id(puzRound.id.puzzleId), Puzzle.BSONFields.dirty, true)).void
+            yield lila.mon.puzzle.vote.theme(theme.key.value, vote, puzRound.win.yes).increment()
 
     private def lichessVote(
         puzzleId: PuzzleId,

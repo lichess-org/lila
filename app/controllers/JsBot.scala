@@ -52,7 +52,7 @@ final class JsBot(env: Env) extends LilaController(env):
       .validate[JsObject]
       .fold(
         err => BadRequest(jsonError(err.toString)),
-        bot => env.jsBot.repo.putBot(BotJson(bot), me.userId).map(JsonOk)
+        bot => JsonOk(env.jsBot.api.put(BotJson(bot)))
       )
   }
 

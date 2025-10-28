@@ -3,7 +3,6 @@ package lila.ui
 import chess.{ Clock, Color, Rated, Outcome }
 
 import lila.core.LightUser
-import lila.core.config.BaseUrl
 import lila.core.game.{ Game, LightPlayer, Namer, Player }
 import lila.ui.ScalatagsTemplate.{ *, given }
 
@@ -11,7 +10,6 @@ trait GameHelper:
   self: I18nHelper & StringHelper & AssetHelper & UserHelper =>
 
   protected val namer: Namer
-  def netBaseUrl: BaseUrl
 
   def titleGame(g: Game) =
     val speed = chess.Speed(g.clock.map(_.config)).name
@@ -203,9 +201,9 @@ trait GameHelper:
             s"""${routes.Editor.index}?fen=${initialFen.so(_.value.replace(' ', '_'))}"""
           case v => routes.Cms.variant(v.key).url
         ,
-        title = variant.title,
+        title = variant.variantTitleTrans.txt(),
         name = (if shortName && variant == chess.variant.KingOfTheHill then variant.shortName
-                else variant.name).toUpperCase
+                else variant.variantTrans.txt()).toUpperCase
       )
     else if pk == PerfKey.correspondence then
       link(

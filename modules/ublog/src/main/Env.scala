@@ -6,6 +6,7 @@ import lila.core.config.*
 import lila.db.dsl.Coll
 import lila.common.autoconfig.{ *, given }
 import lila.common.Bus
+import lila.report.Automod
 
 @Module
 final private class UblogConfig(
@@ -30,8 +31,8 @@ final class Env(
     appConfig: Configuration,
     settingStore: lila.memo.SettingStore.Builder,
     client: lila.search.client.SearchClient,
-    reportApi: lila.report.ReportApi,
-    lightUser: lila.core.LightUser.GetterSync
+    lightUser: lila.core.LightUser.GetterSync,
+    automod: lila.report.Automod
 )(using Executor, Scheduler, play.api.Mode):
 
   export net.{ assetBaseUrl, baseUrl, domain, assetDomain }
@@ -41,7 +42,7 @@ final class Env(
 
   val topic = wire[UblogTopicApi]
 
-  val automod = wire[UblogAutomod]
+  val ublogAutomod = wire[UblogAutomod]
 
   val api: UblogApi = wire[UblogApi]
 

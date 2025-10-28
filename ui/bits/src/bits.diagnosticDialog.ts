@@ -9,6 +9,7 @@ interface DiagnosticOpts {
   text: string;
   header?: string;
   submit?: string;
+  plaintext?: boolean;
 }
 
 export async function initModule(opts?: DiagnosticOpts): Promise<void> {
@@ -34,6 +35,7 @@ export async function initModule(opts?: DiagnosticOpts): Promise<void> {
     ? $html`
       <form method="post" action="/diagnostic">
         <input type="hidden" name="text" value="${escaped}"/>
+        <input type="hidden" name="plaintext" value="${opts?.plaintext ?? false}"/>
         <button type="submit" class="button">${opts?.submit ?? 'send to lichess'}</button>
       </form>`
     : '';

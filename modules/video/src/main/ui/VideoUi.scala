@@ -29,7 +29,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
         OpenGraph(
           title = trv.xByY.txt(video.title, video.author),
           description = shorten(~video.metadata.description, 152),
-          url = s"$netBaseUrl${langHref(routes.Video.show(video.id))}",
+          url = pathUrl(langHref(routes.Video.show(video.id))),
           `type` = "video"
         )
       ):
@@ -80,7 +80,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
             if tagString.nonEmpty then trv.xWithTagsY(" ", tagString)
             else " • "
           }${trv.freeForAll.txt()}",
-        url = s"$netBaseUrl${langHref(routes.Video.index)}?${control.queryString}"
+        url = pathUrl(s"${langHref(routes.Video.index)}?${control.queryString}")
       ):
         frag(
           boxTop(

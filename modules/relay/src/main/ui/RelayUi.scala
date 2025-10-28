@@ -12,7 +12,7 @@ import lila.core.socket.SocketVersion
 import ScalatagsTemplate.{ *, given }
 
 final class RelayUi(helpers: Helpers)(
-    picfitUrl: lila.core.misc.PicfitUrl,
+    picfitUrl: lila.memo.PicfitUrl,
     socketUrl: StudyId => String,
     explorerAndCevalConfig: Context ?=> JsObject
 ):
@@ -36,7 +36,7 @@ final class RelayUi(helpers: Helpers)(
       .graph(
         OpenGraph(
           title = rt.fullName,
-          url = s"$netBaseUrl${rt.path}",
+          url = pathUrl(rt.path),
           description = shorten(rt.tour.info.toString, 152),
           image = rt.tour.image.map(thumbnail.url(_, _.Size.Large))
         )

@@ -17,6 +17,7 @@ private case class Contact(
 ):
   def isKid = ~kid
   def isTroll = marks.exists(_.troll)
+  def isAlt = marks.exists(_.alt)
   def isVerified = Granter.ofDbKeys(_.Verified, ~roles)
   def isApiHog = Granter.ofDbKeys(_.ApiHog, ~roles)
   def isBroadcastManager = Granter.ofDbKeys(_.Relay, ~roles)

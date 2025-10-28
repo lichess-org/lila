@@ -24,6 +24,7 @@ object UiEnv
 
   def netConfig = env.net
   def picfitUrl = env.memo.picfitUrl
+  def imageGetOrigin = env.memo.imageGetOrigin
 
   given lila.core.config.NetDomain = env.net.domain
   given (using ctx: PageContext): Option[Nonce] = ctx.nonce

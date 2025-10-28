@@ -2,17 +2,21 @@ package lila.ui
 
 import play.api.libs.json.*
 
-import lila.core.config.AssetBaseUrl
+import lila.core.config.{ BaseUrl, AssetBaseUrl, ImageGetOrigin }
 import lila.core.data.SafeJsonStr
-import lila.ui.ScalatagsTemplate.*
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 trait AssetHelper:
 
   export lila.ui.Esm
 
+  def netBaseUrl: BaseUrl
   def assetBaseUrl: AssetBaseUrl
-  def assetUrl(path: String): String
+  def assetUrl(path: String): Url
   def safeJsonValue(jsValue: JsValue): SafeJsonStr
+  def imageGetOrigin: ImageGetOrigin
+
+  given ImageGetOrigin = imageGetOrigin
 
   private val load = "site.asset.loadEsm"
 
@@ -40,7 +44,7 @@ trait AssetHelper:
   val captchaEsm: Esm = Esm("bits.captcha")
 
   // load iife scripts in <head> and defer
-  def iifeModule(path: String): Frag = script(deferAttr, src := assetUrl(path))
+  def iifeModule(path: String): Frag = script(deferAttr, src := assetUrl(path).value)
 
   def embedJsUnsafe(js: String): WithNonce[Frag] = nonce =>
     raw:
@@ -52,11 +56,11 @@ trait AssetHelper:
   // bump flairs version if a flair is changed only (not added or removed)
   val flairVersion = "______4"
 
-  def staticAssetUrl(path: String): String = s"$assetBaseUrl/assets/$path"
+  def staticAssetUrl(path: String): Url = Url(s"$assetBaseUrl/assets/$path")
 
-  def cdnUrl(path: String) = s"$assetBaseUrl$path"
+  def cdnUrl(path: String) = Url(s"$assetBaseUrl$path")
 
-  def flairSrc(flair: Flair): String = staticAssetUrl(s"$flairVersion/flair/img/$flair.webp")
+  def flairSrc(flair: Flair): Url = staticAssetUrl(s"$flairVersion/flair/img/$flair.webp")
 
   def iconFlair(flair: Flair): Tag = decorativeImg(cls := "icon-flair", src := flairSrc(flair))
 
@@ -66,3 +70,6 @@ trait AssetHelper:
     re.enabled.so(esmInitBit("hcaptcha"))
 
   def analyseNvuiTag(using ctx: Context) = ctx.blind.option(Esm("analyse.nvui"))
+
+  def routeUrl(call: Call): Url = Url(s"${netBaseUrl}${call.url}")
+  def pathUrl(path: String): Url = Url(s"${netBaseUrl}$path")

@@ -1,7 +1,7 @@
 import * as licon from 'lib/licon';
 import { spinnerVdom as spinner } from 'lib/view/controls';
 import { type VNode, dataIcon, bind, onInsert, type LooseVNodes, hl } from 'lib/snabbdom';
-import { numberRow } from './util';
+import { numberRow } from 'lib/view/util';
 import type SwissCtrl from '../ctrl';
 import { players, renderPager } from '../pagination';
 import type { SwissData, Pager } from '../interfaces';

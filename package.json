@@ -28,7 +28,7 @@
     ]
   },
   "dependencies": {
-    "@lichess-org/chessground": "9.8.3",
+    "@lichess-org/chessground": "9.8.4",
     "@lichess-org/pgn-viewer": "2.5.2",
     "@types/lichess": "workspace:*",
     "@typescript-eslint/eslint-plugin": "^8.46.1",
@@ -66,10 +66,10 @@
     "multilog": "pnpm serverlog & ui/build -w"
   },
   "browserslist": [
-    "Chrome >= 98",
-    "Firefox >= 128",
-    "Edge >= 98",
-    "Opera >= 84",
-    "Safari >= 15.6"
+    "Chrome >= 112",
+    "Firefox >= 115",
+    "Edge >= 109",
+    "Opera >= 91",
+    "Safari >= 13.1"
   ]
 }
