@@ -975,6 +975,7 @@ La feltet stå tomt for å begynne partiene fra den normale utgangsstillingen.</
   <string name="simulFeaturedHelp">Vis simultanen din til alle på %s. Skru av for private simultaner.</string>
   <string name="simulDescription">Beskrivelse av simultanen</string>
   <string name="simulDescriptionHelp">Er det noe du vil si til deltakerne?</string>
+  <string name="markdownIsAvailable" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text.">%s er tilgjengelig for formatering.</string>
   <string name="embedsAvailable">Lim inn en URL til et parti eller et kapittel i en studie for å bygge det inn.</string>
   <string name="inYourLocalTimezone">I tidssonen din</string>
   <string name="tournChat">Turneringssamtale</string>
