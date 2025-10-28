@@ -74,10 +74,10 @@ final class Automod(
         )
         .post(body)
         .map: rsp =>
-          rsp -> extractJsonFromResponse(rsp).toOption
+          rsp -> extractJsonFromResponse(rsp)
         .flatMap:
-          case (rsp, None) => fufail(s"${rsp.status} ${(rsp.body: String).take(500)}")
-          case (_, Some(res)) => fuccess(res)
+          case (rsp, Left(err)) => fufail(s"${rsp.status} $err ${(rsp.body: String).take(500)}")
+          case (_, Right(res)) => fuccess(res)
 
   def markdownImages(markdown: Markdown): Fu[Seq[lila.memo.PicfitImage]] =
     val ids = imageIdRe
