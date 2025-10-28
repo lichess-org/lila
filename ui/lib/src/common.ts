@@ -81,11 +81,11 @@ export const scrollTo = (el: HTMLElement, target: HTMLElement | null, horiz: boo
   if (horiz) {
     const delta = target.getBoundingClientRect().left - el.getBoundingClientRect().left;
     const desired = el.scrollLeft + delta - (el.clientWidth - target.clientWidth) / 2;
-    el.scrollLeft = Math.max(0, Math.min(desired, (el.scrollWidth - el.clientWidth)));
+    el.scrollLeft = Math.max(0, Math.min(desired, el.scrollWidth - el.clientWidth));
   } else {
     const delta = target.getBoundingClientRect().top - el.getBoundingClientRect().top;
     const desired = el.scrollTop + delta - (el.clientHeight - target.clientHeight) / 2;
-    el.scrollTop = Math.max(0, Math.min(desired, (el.scrollHeight - el.clientHeight)));
+    el.scrollTop = Math.max(0, Math.min(desired, el.scrollHeight - el.clientHeight));
   }
 };
 
