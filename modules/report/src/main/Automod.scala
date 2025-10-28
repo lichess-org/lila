@@ -98,38 +98,42 @@ final class Automod(
         .toSeq.parallel
 
   private def imageFlagReason(id: ImageId, dim: Option[Dimensions]): Fu[Option[String]] =
-    (config.apiKey.value.nonEmpty && imagePromptSetting.get().value.nonEmpty).so:
-      val imageUrl = picfitApi.url.automod(id, dim)
-      val body = Json
-        .obj(
-          "model" -> imageModelSetting.get(),
-          "temperature" -> 0,
-          "messages" -> Json.arr(
-            Json.obj(
-              "role" -> "user",
-              "content" -> Json.arr(
-                Json.obj("type" -> "text", "text" -> imagePromptSetting.get().value),
-                Json.obj("type" -> "image_url", "image_url" -> Json.obj("url" -> imageUrl))
+    val (apiKey, model, prompt) =
+      (config.apiKey.value, imageModelSetting.get(), imagePromptSetting.get().value)
+    List(apiKey, model, prompt)
+      .forall(_.nonEmpty)
+      .so:
+        val imageUrl = picfitApi.url.automod(id, dim)
+        val body = Json
+          .obj(
+            "model" -> model,
+            "temperature" -> 0,
+            "messages" -> Json.arr(
+              Json.obj(
+                "role" -> "user",
+                "content" -> Json.arr(
+                  Json.obj("type" -> "text", "text" -> prompt),
+                  Json.obj("type" -> "image_url", "image_url" -> Json.obj("url" -> imageUrl))
+                )
               )
             )
           )
-        )
-      ws.url(config.url)
-        .withHttpHeaders(
-          "Authorization" -> s"Bearer ${config.apiKey.value}",
-          "Content-Type" -> "application/json"
-        )
-        .post(body)
-        .map(extractJsonFromResponse)
-        .map(_.flatMap(_.toRight("No content in response")))
-        .flatMap(_.toFuture)
-        .prefixFailure(s"Automod image $id request failed")
-        .map: res =>
-          val flagged = ~res.boolean("flag")
-          lila.mon.mod.report.automod.imageFlagged(flagged).increment()
-          flagged.option:
-            res.str("reason") | "No reason provided"
-        .monSuccess(_.mod.report.automod.imageRequest)
+        ws.url(config.url)
+          .withHttpHeaders(
+            "Authorization" -> s"Bearer $apiKey",
+            "Content-Type" -> "application/json"
+          )
+          .post(body)
+          .map(extractJsonFromResponse)
+          .map(_.flatMap(_.toRight("No content in response")))
+          .flatMap(_.toFuture)
+          .prefixFailure(s"Automod image $id request failed")
+          .map: res =>
+            val flagged = ~res.boolean("flag")
+            lila.mon.mod.report.automod.imageFlagged(flagged).increment()
+            flagged.option:
+              res.str("reason") | "No reason provided"
+          .monSuccess(_.mod.report.automod.imageRequest)
 
   private def extractJsonFromResponse(rsp: StandaloneWSResponse): Either[String, Option[JsObject]] =
     for
