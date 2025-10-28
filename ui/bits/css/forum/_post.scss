@@ -161,13 +161,30 @@
   font-size: 1.1rem;
 }
 .forum-post__message,
-.comment-preview {
-  @include rendered-markdown(1em, 1600px);
+.forum-topic .comment-preview {
+  @include rendered-markdown(1em, 1600px, $h1: false, $h2: false);
   @include rendered-markdown--code;
   @include rendered-markdown--quote;
   @include rendered-markdown--img;
   @include rendered-markdown--embed;
-
+  h1,
+  h2 {
+    font-size: 1.5em;
+    line-height: 1.5em;
+    font-weight: bold;
+    margin-block: 0.5em;
+    border-bottom: 1px solid $m-border--fade-20;
+    padding-bottom: 0.3em;
+  }
+  h2 {
+    font-size: 1.4em;
+    line-height: 1.4em;
+    border-bottom: 1px solid $m-border--fade-40;
+  }
+  h3,
+  h4 {
+    font-size: 1.3em;
+  }
   blockquote {
     padding: 0.3em 0.7em;
     border-left: 0.3em solid;
