@@ -107,7 +107,7 @@ final class FormUi(helpers: Helpers, bits: TeamUi)(
       form("description"),
       trans.site.description(),
       help = frag(trans.team.teamDescriptionHelp(), br, markdownIsAvailable).some
-    )(f => teamDescTextarea(f)(minlength := 30, f.value)),
+    )(f => teamDescTextarea(f)(minlength := 30)),
     form3.group(
       form("descPrivate"),
       trans.site.descPrivate(),
@@ -116,7 +116,7 @@ final class FormUi(helpers: Helpers, bits: TeamUi)(
         br,
         markdownIsAvailable
       ).some
-    )(f => teamDescTextarea(f)(f.value))
+    )(f => teamDescTextarea(f)())
   )
 
   private def accessFields(form: Form[?])(using Context) =
@@ -176,5 +176,5 @@ final class FormUi(helpers: Helpers, bits: TeamUi)(
     )
 
   private def teamDescTextarea(field: play.api.data.Field)(modifiers: Modifier*)(using Me) =
-    lila.ui.bits.markdownTextarea("teamDescription".some):
+    lila.ui.bits.markdownTextarea(s"team${field.name.capitalize}".some):
       form3.textarea(field)(rows := 10)(modifiers)
