@@ -139,7 +139,7 @@ final class Automod(
 
   private def extractJsonFromResponse(rsp: StandaloneWSResponse): Either[String, Option[JsObject]] =
     for
-      _ <- Either.cond(rsp.status != 200, (), s"API error ${rsp.status}: ${(rsp.body: String).take(300)}")
+      _ <- Either.cond(rsp.status == 200, (), s"API error ${rsp.status}: ${(rsp.body: String).take(300)}")
       choices <- (rsp.body \ "choices").asOpt[List[JsObject]].toRight("No choices in response")
       best <- choices.headOption.toRight("Empty choices in response")
       msg <- (best \ "message" \ "content").validate[String].asEither.left.map(_.toString)
