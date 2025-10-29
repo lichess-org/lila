@@ -4,7 +4,7 @@
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Erronka jo lagun bati</string>
   <string name="playAgainstComputer">Jokatu ordenagailuaren aurka</string>
   <string name="gameMode">Jokuaren modua</string>
-  <string name="createLobbyGame" comment="One of three buttons on the home page. Opens the modal to create a game that goes in the lobby.">Sortu egongelako partida</string>
+  <string name="createLobbyGame">Sortu egongelako partida</string>
   <string name="youPlayAs">Kolore hau izango duzu</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Norbait jokatzera gonbidatzeko, URL hau bidali iezaiozu</string>
   <string name="gameOver">Partida amaitu da</string>
@@ -973,7 +973,6 @@ Utzi hutsik partidak ohiko posizioarekin hasteko.</string>
   <string name="simulFeaturedHelp">Erakutsi zure aldi-berekoa mundu guztiari %s helbideak. Desaktibatu aldi-bereko pribatuentzat.</string>
   <string name="simulDescription">Aldi-berekoaren deskribapena</string>
   <string name="simulDescriptionHelp">Parte-hartzaileei zerbait esan nahi diezu?</string>
-  <string name="markdownAvailable">%s erabili dezakezu.</string>
   <string name="embedsAvailable">Itsatsi partida baten URL helbidea, azterlan baten atal baten URL helbidea hemen erakusteko.</string>
   <string name="inYourLocalTimezone">Zure ordu-zonan</string>
   <string name="tournChat">Txapelketaren txata</string>

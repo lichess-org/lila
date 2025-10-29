@@ -1054,7 +1054,6 @@ Nechte toto pole prázdné, pokud chcete začínat z běžného základního pos
   <string name="simulFeaturedHelp">Zobrazit vaši simultánní hru všem na %s. Vypnout pro soukromé simultánní hry.</string>
   <string name="simulDescription">Popis simultánky</string>
   <string name="simulDescriptionHelp">Je tu něco co by jste chtěli sdělit účastníkům?</string>
-  <string name="markdownAvailable">%s je k dispozici pro pokročilé formátování.</string>
   <string name="embedsAvailable">Vložte URL hry nebo kapitoly studie pro zobrazení.</string>
   <string name="inYourLocalTimezone">Ve vašem časovém pásmu</string>
   <string name="tournChat">Turnajový chat</string>

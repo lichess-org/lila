@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="gameSetup">ترتيب اللعبة</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">تحدي صديق</string>
+  <string name="playAgainstComputer">لعب ضد الحاسوب</string>
+  <string name="gameMode">نمط اللعب</string>
+  <string name="createLobbyGame">إنشاء ساحة لعب</string>
+  <string name="youPlayAs">لعب ك</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">لدعوة شخص ما للعب، أرسل له هذا الرابط</string>
   <string name="gameOver">انتهت المباراة</string>
-  <string name="waitingForOpponent">في إنتظار الخصم</string>
+  <string name="waitingForOpponent">في انتظار المنافس</string>
   <string name="orLetYourOpponentScanQrCode">أو أجعل خصمك يمسح رمز QR هذا</string>
   <string name="waiting">قيد الانتظار</string>
   <string name="yourTurn">دورك</string>
@@ -431,6 +437,7 @@
     <item quantity="other">%s لعبت</item>
   </plurals>
   <string name="exportGames">تصدير المباريات</string>
+  <string name="ratingFilter">تصفية التصنيف </string>
   <plurals name="giveNbSeconds">
     <item quantity="zero">منح %s ثانية</item>
     <item quantity="one">منح %s ثانية</item>
@@ -518,6 +525,7 @@
     <item quantity="other">يجب أن تلعب %s مباراة مقيمة أخرى</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">تقييمك في %s مؤقت</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">تصفية اللعب مغلق حاليا لأن تصنيفك غير مستقر، لعب مباريات مصنفة سوف يزيد من ثبات تصنيفك</string>
   <string name="yourPerfRatingIsTooHigh">تقييمك في %1$s وقدره %2$s عالي جدًا</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">تقييمك الأسبوعي في %1$s وقدره %2$s عالي جدًا</string>
   <string name="yourPerfRatingIsTooLow">تقييمك في %1$s وقدره %2$s منخفض جدًا</string>
@@ -1147,7 +1155,6 @@ https://lichess. org/report.</string>
   <string name="simulFeaturedHelp">إظهار التبسيط الخاص بك للجميع في %s. تعطيل للمحاكاة الخاصة.</string>
   <string name="simulDescription">وصف المباراة الجماعية</string>
   <string name="simulDescriptionHelp">أي شيء تريد أن تخبره للمشاركين؟</string>
-  <string name="markdownAvailable">%s متاح لتركيبات الأكثر تطوراً.</string>
   <string name="embedsAvailable">أضف رابط المباراة أو رابط الدراسة لإضافتها هنا.</string>
   <string name="inYourLocalTimezone">في منطقتك الزمنية المحلية</string>
   <string name="tournChat">دردشة البطولة</string>
@@ -1187,4 +1194,10 @@ https://lichess. org/report.</string>
   <string name="accessibility">إمكانية الوصول</string>
   <string name="enableBlindMode">تفعيل الوضع الأعمى</string>
   <string name="disableBlindMode">تعطيل الوضع الأعمى</string>
+  <string name="copyToClipboard">نسخ للحافظة</string>
+  <string name="online" comment="status of a user">متصل</string>
+  <string name="offline" comment="status of a user">غير متصل </string>
+  <string name="search">بحث</string>
+  <string name="clearSearch">مسح البحث</string>
+  <string name="tags">تصنيفات</string>
 </resources>

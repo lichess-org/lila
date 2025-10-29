@@ -16,6 +16,7 @@
   <string name="recentlyUpdated">Kürzlich aktualisiert</string>
   <string name="mostPopular">Beliebteste</string>
   <string name="alphabetical">Alphabetisch</string>
+  <string name="relevant">Relevant</string>
   <string name="addNewChapter">Neues Kapitel hinzufügen</string>
   <plurals name="nbChapters">
     <item quantity="one">%s Kapitel</item>
@@ -32,7 +33,7 @@
   </plurals>
   <string name="inviteToTheStudy">Zur Studie einladen</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">Bitte lade nur Leute ein, die dich kennen und die aktiv an dieser Studie teilnehmen möchten.</string>
-  <string name="searchByUsername" comment="Appears when adding members to a Lichess Study as placeholder text in a search box.">Suche nach Benutzernamen</string>
+  <string name="searchByUsername">Suche nach Benutzernamen</string>
   <string name="spectator">Zuschauer</string>
   <string name="contributor">Mitwirkender</string>
   <string name="kick">Rauswerfen</string>

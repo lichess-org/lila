@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="gameSetup">Configurare joc</string>
+  <string name="gameSetup">Configurație joc</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Provoacă un prieten</string>
   <string name="playAgainstComputer">Joacă împotriva calculatorului</string>
   <string name="gameMode">Mod joc</string>
+  <string name="createLobbyGame">Creează un joc nou</string>
   <string name="youPlayAs">Tu joci ca</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Pentru a invita pe cineva să joace, folosiți acest URL</string>
   <string name="gameOver">Partidă încheiată</string>
@@ -14,7 +15,7 @@
   <string name="aiNameLevelAiLevel">%1$s nivelul %2$s</string>
   <string name="level">Nivel</string>
   <string name="strength">Putere</string>
-  <string name="toggleTheChat">Arată/Ascunde discuția</string>
+  <string name="toggleTheChat">Comută conversația</string>
   <string name="chat">Discuție</string>
   <string name="resign">Renunță</string>
   <string name="checkmate">Șah mat</string>
@@ -809,6 +810,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Derulează peste tablă pentru a te deplasa în joc.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Derulați variantele calculatorului pentru a le previzualiza.</string>
   <string name="analysisShapesHowTo">Apasă shift+click sau click-dreapta pentru a desena cercuri și săgeți pe tablă.</string>
+  <string name="primaryColorArrowsHowTo">Ctrl sau shift = roșu; comandă, alt, sau meta = albastru; o cheie pentru fiecare = galben.</string>
   <string name="letOtherPlayersMessageYou">Permite altor jucători să îți trimită mesaje</string>
   <string name="receiveForumNotifications">Primește notificări atunci când ești menționat în forum</string>
   <string name="shareYourInsightsData">Partajează statisticile tale în jocuri</string>
@@ -1018,7 +1020,6 @@ Lăsați gol pentru a începe jocurile din poziția inițială normală.</string
   <string name="simulFeaturedHelp">Arătați-vă simul-ul tuturor de pe %s. Dezactivați pentru simul-uri private.</string>
   <string name="simulDescription">Descriere Simul</string>
   <string name="simulDescriptionHelp">Ce vrei să spui participanţilor?</string>
-  <string name="markdownAvailable">%s este disponibil pentru sintaxă mai avansată.</string>
   <string name="embedsAvailable">Lipește un URL al jocului sau un URL de capitol de studiu pentru a-l încorpora.</string>
   <string name="inYourLocalTimezone">În fusul orar local</string>
   <string name="tournChat">Conversație</string>

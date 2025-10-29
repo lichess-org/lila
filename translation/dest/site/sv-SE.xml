@@ -963,7 +963,6 @@ Lämna tomt för att starta spel från den normala startpositionen.</string>
   <string name="simulFeaturedHelp">Visa din simultan för alla på %s. Inaktivera för privata simultaner.</string>
   <string name="simulDescription">Simultan-beskrivning</string>
   <string name="simulDescriptionHelp">Något du vill berätta för deltagarna?</string>
-  <string name="markdownAvailable">%s är tillgängligt för mer avancerad syntax.</string>
   <string name="embedsAvailable">Klistra in en spel-länk eller en studiekapitel-länk för att infoga den.</string>
   <string name="inYourLocalTimezone">I din egen lokala tidszon</string>
   <string name="tournChat">Turneringschatt</string>
