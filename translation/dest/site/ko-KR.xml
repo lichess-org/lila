@@ -789,7 +789,7 @@
   <string name="notifications">알림</string>
   <string name="notificationsX">알림: %1$s</string>
   <string name="perfRatingX">레이팅: %s</string>
-  <string name="yourRatingIsX">귀하의 레이팅: %s</string>
+  <string name="yourRatingIsX">%s 귀하의 평가는</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">%s 초 안에 첫 수를 두십시오.</item>
   </plurals>
