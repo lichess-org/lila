@@ -13,8 +13,10 @@ final class JsBotUi(helpers: Helpers):
   def play(
       bots: List[BotJson],
       prefs: JsObject
-  ): Page =
-    val data = Json.obj("pref" -> prefs, "bots" -> bots)
+  )(using Option[Me]): Page =
+    val data = Json
+      .obj("pref" -> prefs, "bots" -> bots)
+      .add("devBots" -> Option.when(Granter.opt(_.BotEditor))(lila.jsBot.devBotKeys))
     Page("Lichess bots")
       .css("botPlay")
       .js(PageModule("botPlay.main", data))

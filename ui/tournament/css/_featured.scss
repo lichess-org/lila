@@ -4,7 +4,7 @@
   .mini-game__player {
     @extend %flex-center-nowrap;
 
-    & i {
+    & i.berserk {
       flex: 0 0 auto;
 
       &::before {

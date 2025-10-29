@@ -128,7 +128,7 @@ final class JsonView(
       "round" -> apply(r.relay)
         .add("url" -> s"$baseUrl${r.path}".some)
         .add("delay" -> r.relay.sync.delay),
-      "tour" -> r.tour,
+      "tour" -> fullTour(r.tour)(using Config(html = false)),
       "study" -> Json.obj(
         "writeable" -> me.exists(r.study.canContribute),
         "features" -> Json.obj(

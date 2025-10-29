@@ -3,12 +3,7 @@ import { wsDestroy } from 'lib/socket';
 
 let redirectInProgress: false | string = false;
 
-interface Opts {
-  url: string;
-  cookie: Cookie;
-}
-
-export const redirect = async (opts: string | Opts, beep?: boolean) => {
+export const redirect = async (opts: RedirectTo, beep?: boolean) => {
   try {
     if (beep) await promiseTimeout(site.sound.play('genericNotify'), 1000);
   } catch (e) {

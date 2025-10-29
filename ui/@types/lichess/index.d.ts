@@ -53,7 +53,7 @@ type PairOf<T> = [T, T];
 type Flair = string;
 type PatronColor = number;
 type Redraw = () => void;
-type RedirectTo = string | { url: string; cookie: Cookie };
+type RedirectTo = string | { id: string; url: string; cookie?: Cookie };
 
 interface LichessMousetrap {
   // file://./../../site/src/mousetrap.ts
@@ -163,11 +163,6 @@ type Nvui = (redraw: () => void) => {
 interface Fipr {
   get(cb: (c: { value: string }[]) => void): void;
   x64hash128(input: string, seed: number): string;
-}
-
-interface Events {
-  on(key: string, cb: (...args: any[]) => void): void;
-  off(key: string, cb: (...args: any[]) => void): void;
 }
 
 interface Window {

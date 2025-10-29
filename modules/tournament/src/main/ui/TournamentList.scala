@@ -29,7 +29,7 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
       .hrefLangs(LangPath(routes.Tournament.home))
       .flag(_.fullScreen)
       .graph(
-        url = s"$netBaseUrl${routes.Tournament.home.url}",
+        url = routeUrl(routes.Tournament.home),
         title = trans.site.tournamentHomeTitle.txt(),
         description = trans.site.tournamentHomeDescription.txt()
       ):

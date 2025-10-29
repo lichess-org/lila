@@ -19,9 +19,9 @@ object HtmlHelper:
     if blind then t.addChild(StringFrag(v))
     else t.setAttr("title", Builder.GenericAttrValueSource(v))
 
-  def copyMeLink(url: String, name: Frag): Tag = copyMe(a(targetBlank, href := url)(name))
+  def copyMeLink(url: Url, name: Frag): Tag = copyMe(a(targetBlank, href := url)(name))
 
-  def copyMeContent(url: String, name: Frag): Tag = copyMeLink(url, name)(cls := "fetch-content")
+  def copyMeContent(url: Url, name: Frag): Tag = copyMeLink(url, name)(cls := "fetch-content")
 
   def copyMeInput(content: String): Tag =
     copyMe(input(spellcheck := "false", readonly, value := content))

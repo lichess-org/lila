@@ -18,14 +18,15 @@ function primer() {
 }
 
 function acquire() {
-  navigator.wakeLock
-    ?.request('screen')
-    .then(sentinel => {
-      wakeLock = sentinel;
-      primerEvents.forEach(e => window.removeEventListener(e, primer, { capture: true }));
-      primerEvents = [];
-    })
-    .catch(() => (wakeLock = null));
+  if ('wakeLock' in navigator)
+    navigator.wakeLock
+      ?.request('screen')
+      .then(sentinel => {
+        wakeLock = sentinel;
+        primerEvents.forEach(e => window.removeEventListener(e, primer, { capture: true }));
+        primerEvents = [];
+      })
+      .catch(() => (wakeLock = null));
 }
 
 // safari will only grant wakeLock on a user interaction, and without that initial grant

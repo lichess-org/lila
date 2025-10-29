@@ -22,7 +22,7 @@ final class ChallengeUi(helpers: Helpers):
     Page(title)
       .graph(
         title = title,
-        url = s"$netBaseUrl${routes.Round.watcher(c.gameId, Color.white).url}",
+        url = routeUrl(routes.Round.watcher(c.gameId, Color.white)),
         description = "Join the challenge or watch the game here."
       )
       .js(Esm("bits.qrcode"))

@@ -23,7 +23,7 @@ private lazy val showUi = TournamentShow(helpers, views.gathering)(
 export showUi.faq.page as faq
 
 lazy val form = TournamentForm(helpers, showUi)(
-  modMenu = lila.ui.bits.modMenu("tour"),
+  modMenu = views.mod.ui.menu("tour"),
   views.setup.translatedVariantChoicesWithVariantsById
 )
 

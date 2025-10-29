@@ -223,7 +223,6 @@ final class Signup(
   ) =
     lila.mon.user.register
       .count(
-        data.email.domain,
         confirm = confirm.toString,
         captcha = captcha.toString,
         ipSusp = ipSusp,

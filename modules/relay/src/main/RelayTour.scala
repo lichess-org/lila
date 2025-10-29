@@ -5,8 +5,8 @@ import io.mola.galimatias.URL
 import java.time.ZoneId
 
 import scalalib.model.Language
+import lila.memo.{ Dimensions, PicfitUrl }
 import lila.core.id.ImageId
-import lila.core.misc.PicfitUrl
 import lila.core.fide.FideTC
 import lila.core.study.Visibility
 import chess.TournamentClock
@@ -144,12 +144,13 @@ object RelayTour:
   object thumbnail:
     enum Size(val width: Int, aspectRatio: Float = 2.0f):
       def height: Int = (width / aspectRatio).toInt
+      def dimensions = Dimensions(width, height)
       case Large extends Size(800)
       case Small extends Size(400)
       case Small16x9 extends Size(400, 16.0f / 9)
     type SizeSelector = thumbnail.type => Size
 
     def apply(picfitUrl: PicfitUrl, image: ImageId, size: SizeSelector) =
-      picfitUrl.thumbnail(image, size(thumbnail).width, size(thumbnail).height)
+      picfitUrl.thumbnail(image)(size(thumbnail).dimensions)
 
   def makeId = RelayTourId(scalalib.ThreadLocalRandom.nextString(8))

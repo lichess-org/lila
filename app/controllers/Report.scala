@@ -32,9 +32,10 @@ final class Report(env: Env, userC: => User, modC: => Mod) extends LilaControlle
     api.maxScores,
     env.streamer.api.approval.countRequests,
     env.appeal.api.countUnread,
-    env.title.api.countPending
-  ).mapN: (scores, streamers, appeals, titles) =>
-    (scores, PendingCounts(streamers, appeals, titles))
+    env.title.api.countPending,
+    env.memo.picfitApi.countFlagged
+  ).mapN: (scores, streamers, appeals, titles, images) =>
+    (scores, PendingCounts(streamers, appeals, titles, images))
 
   private def renderList(room: String)(using Context, Me) =
     api.openAndRecentWithFilter(12, Room(room)).zip(getScores).flatMap { case (reports, (scores, pending)) =>

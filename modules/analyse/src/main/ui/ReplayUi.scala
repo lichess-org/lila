@@ -88,10 +88,10 @@ final class ReplayUi(helpers: Helpers)(analyseUi: AnalyseUi):
       copyMeInput(s"${netBaseUrl}${routes.Round.watcher(pov.gameId, pov.color)}")
     )
     val pgnLinks = frag(
-      copyMeContent(s"${routes.Game.exportOne(game.id)}?literate=1", trans.site.downloadAnnotated()),
-      copyMeContent(s"${routes.Game.exportOne(game.id)}?evals=0&clocks=0", trans.site.downloadRaw()),
+      copyMeContent(pathUrl(s"${routes.Game.exportOne(game.id)}?literate=1"), trans.site.downloadAnnotated()),
+      copyMeContent(pathUrl(s"${routes.Game.exportOne(game.id)}?evals=0&clocks=0"), trans.site.downloadRaw()),
       game.isPgnImport.option:
-        copyMeContent(s"${routes.Game.exportOne(game.id)}?imported=1", trans.site.downloadImported())
+        copyMeContent(pathUrl(s"${routes.Game.exportOne(game.id)}?imported=1"), trans.site.downloadImported())
     )
 
     analyseUi.bits

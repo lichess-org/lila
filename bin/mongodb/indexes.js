@@ -1,5 +1,9 @@
 db.event.createIndex({ startsAt: 1 });
 db.picfit_image.createIndex({ rel: 1 }, { unique: true });
+db.picfit_image.createIndex(
+  { 'automod.flagged': 1 },
+  { partialFilterExpression: { 'automod.flagged': { $exists: true } } },
+);
 db.tutor_report.createIndex({ at: -1 });
 db.swiss_pairing.createIndex({ s: 1, p: 1, r: 1 });
 db.swiss_pairing.createIndex({ t: 1 }, { partialFilterExpression: { t: true } });
@@ -45,7 +49,7 @@ db.relay_tour.createIndex({ syncedAt: -1 }, { partialFilterExpression: { tier: {
 db.relay_tour.createIndex(
   { _fts: 'text', _ftsx: 1 },
   {
-    weights: { description: 1, name: 3 },
+    weights: { description: 1, name: 3, 'info.players': 1, 'info.location': 1 },
     partialFilterExpression: { tier: { $exists: true } },
     default_language: 'english',
     language_override: 'language',

@@ -35,7 +35,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     )(nonce)
   val noTranslate = raw("""<meta name="google" content="notranslate">""")
 
-  def preload(href: String, as: String, crossorigin: Boolean, tpe: Option[String] = None) =
+  def preload(href: Url, as: String, crossorigin: Boolean, tpe: Option[String] = None) =
     val linkType = tpe.so(t => s"""type="$t" """)
     raw:
       s"""<link rel="preload" href="$href" as="$as" $linkType${crossorigin.so("crossorigin")}>"""

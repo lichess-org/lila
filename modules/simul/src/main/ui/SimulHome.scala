@@ -21,7 +21,7 @@ final class SimulHome(helpers: Helpers, ui: SimulUi):
       .js(Esm("simul.home"))
       .graph(
         title = trans.site.simultaneousExhibitions.txt(),
-        url = s"$netBaseUrl${routes.Simul.home}",
+        url = routeUrl(routes.Simul.home),
         description = trans.site.aboutSimul.txt()
       )
       .hrefLangs(lila.ui.LangPath(routes.Simul.home)):

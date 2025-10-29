@@ -63,6 +63,7 @@ export default class CevalCtrl {
     if (this.worker?.getInfo().id !== this.engines?.activate()?.id) {
       this.worker?.destroy();
       this.worker = undefined;
+      this.lastStarted = false;
     }
   }
 

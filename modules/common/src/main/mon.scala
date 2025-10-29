@@ -211,7 +211,6 @@ object mon:
     val online = gauge("user.online").withoutTags()
     object register:
       def count(
-          emailDomain: Option[Domain],
           confirm: String,
           captcha: String,
           ipSusp: Boolean,
@@ -223,7 +222,6 @@ object mon:
       ) =
         counter("user.register.count").withTags:
           tags(
-            "email" -> emailDomain.fold("?")(_.value),
             "confirm" -> confirm,
             "captcha" -> captcha,
             "ipSusp" -> ipSusp,
@@ -266,6 +264,8 @@ object mon:
       object automod:
         val request = future("mod.report.automod.request")
         def assessment(a: String) = counter("mod.report.automod.assessment").withTag("assessment", a)
+        val imageRequest = future("mod.report.automod.image.request")
+        def imageFlagged(v: Boolean) = counter("mod.report.automod.image.flagged").withTag("flagged", v)
     object log:
       val create = counter("mod.log.create").withoutTags()
     object irwin:

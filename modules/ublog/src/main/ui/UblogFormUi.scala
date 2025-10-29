@@ -4,6 +4,7 @@ package ui
 import play.api.data.Form
 
 import lila.core.captcha.Captcha
+import lila.core.config.ImageGetOrigin
 import lila.core.id.CmsPageKey
 import lila.ui.*
 
@@ -61,7 +62,7 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
       form: Form[UblogForm.UblogPostData],
       post: Either[User, UblogPost],
       captcha: Option[Captcha]
-  )(using Context) =
+  )(using Context)(using imageGetOrigin: ImageGetOrigin) =
     postForm(
       cls := "form3 ublog-post-form__main",
       action := post.fold(u => routes.Ublog.create(u.username), p => routes.Ublog.update(p.id))
@@ -81,7 +82,12 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
       ): field =>
         frag(
           form3.textarea(field)(),
-          div(cls := "markdown-editor", attr("data-image-upload-url") := routes.Main.uploadImage("ublogBody"))
+          div(
+            cls := "markdown-toastui",
+            attr("data-image-upload-url") := routes.Main.uploadImage("ublogBody"),
+            attr("data-image-download-origin") := imageGetOrigin,
+            attr("data-image-count-max") := 10
+          )
         ),
       post.toOption match
         case None =>
@@ -115,12 +121,14 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
               form3.checkbox(
                 form("sticky"),
                 trans.ublog.stickyPost(),
-                help = trans.ublog.stickyPostHelp().some
+                help = trans.ublog.stickyPostHelp().some,
+                half = true
               ),
               form3.checkbox(
                 form("ads"),
                 "Includes promoted/sponsored content or referral links",
-                help = ads.some
+                help = ads.some,
+                half = true
               )
             )
           )
