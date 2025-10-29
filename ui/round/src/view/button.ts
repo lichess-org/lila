@@ -4,12 +4,11 @@ import { spinnerVdom as spinner } from 'lib/view/controls';
 import { justIcon } from '../util';
 import { finished, aborted, replayable, rematchable, moretimeable, type PlayerUser } from 'lib/game/game';
 import { game as gameRoute } from 'lib/game/router';
-import type { RoundData } from '../interfaces';
+import type { EventsWithoutPayload, RoundData } from '../interfaces';
 import type { ClockData } from 'lib/game/clock/clockCtrl';
 import type RoundController from '../ctrl';
 import { type LooseVNodes, type LooseVNode, hl, bind, onInsert } from 'lib/snabbdom';
 import { pubsub } from 'lib/pubsub';
-import type { RoundOutEvent } from 'lib/socket';
 
 export interface ButtonState {
   enabled: boolean;
@@ -106,7 +105,7 @@ export function standard(
   condition: ((d: RoundData) => ButtonState) | undefined,
   icon: string,
   hint: string,
-  socketMsg: RoundOutEvent,
+  socketMsg: EventsWithoutPayload,
   onclick?: () => void,
 ): VNode {
   // disabled if condition callback is provided and is falsy

@@ -31,35 +31,45 @@ export interface SocketDrop {
   b?: 1;
 }
 
-export interface RoundOutEvents {
+export interface EventsWithPayload {
   rep: { n: string };
-  moretime: undefined;
   flag: Color;
-  berserk: undefined;
-  'rematch-yes': undefined;
-  'rematch-no': undefined;
-  'takeback-yes': undefined;
-  'takeback-no': undefined;
-  'draw-yes': undefined;
-  'draw-no': undefined;
-  'blindfold-yes': undefined;
-  'blindfold-no': undefined;
-  'draw-force': undefined;
-  bye2: undefined;
-  'resign-force': undefined;
-  'draw-claim': undefined;
-  resign: undefined;
   move: SocketMove;
   drop: SocketDrop;
-  abort: undefined;
 }
 
-export type RoundSocketSend = <K extends keyof RoundOutEvents>(
-  type: K,
-  data?: RoundOutEvents[K],
-  opts?: { ackable?: boolean },
-  noRetry?: boolean,
-) => void;
+export type EventsWithoutPayload =
+  | 'moretime'
+  | 'berserk'
+  | 'rematch-yes'
+  | 'rematch-no'
+  | 'takeback-yes'
+  | 'takeback-no'
+  | 'draw-yes'
+  | 'draw-no'
+  | 'blindfold-yes'
+  | 'blindfold-no'
+  | 'draw-force'
+  | 'bye2'
+  | 'resign-force'
+  | 'draw-claim'
+  | 'resign'
+  | 'abort';
+
+export interface RoundSocketSend {
+  <K extends keyof EventsWithPayload>(
+    type: K,
+    data: EventsWithPayload[K],
+    opts?: { ackable?: boolean },
+    noRetry?: boolean,
+  ): void;
+  <K extends EventsWithoutPayload>(
+    type: K,
+    data?: undefined,
+    opts?: { ackable?: boolean },
+    noRetry?: boolean,
+  ): void;
+}
 
 export type EncodedDests =
   | string

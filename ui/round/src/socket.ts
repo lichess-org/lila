@@ -6,7 +6,7 @@ import { defined } from 'lib';
 import { domDialog } from 'lib/view/dialog';
 import { pubsub } from 'lib/pubsub';
 import { wsSign, wsVersion } from 'lib/socket';
-import type { RoundSocketSend, RoundOutEvents } from './interfaces';
+import type { RoundSocketSend, EventsWithoutPayload } from './interfaces';
 
 export interface RoundSocket {
   send: RoundSocketSend;
@@ -14,7 +14,7 @@ export interface RoundSocket {
   moreTime(): void;
   outoftime(): void;
   berserk(): void;
-  sendLoading<K extends keyof RoundOutEvents>(typ: K): void;
+  sendLoading(typ: EventsWithoutPayload): void;
   receive(typ: string, data: any): boolean;
   reload(o?: Incoming, isRetry?: boolean): void;
 }
@@ -165,7 +165,7 @@ export function make(send: RoundSocketSend, ctrl: RoundController): RoundSocket 
     moreTime: throttle(300, () => send('moretime')),
     outoftime: backoff(500, 1.1, () => send('flag', ctrl.data.game.player)),
     berserk: throttle(200, () => send('berserk', undefined, { ackable: true })),
-    sendLoading<K extends keyof RoundOutEvents>(typ: K) {
+    sendLoading(typ: EventsWithoutPayload) {
       ctrl.setLoading(true);
       send(typ);
     },
