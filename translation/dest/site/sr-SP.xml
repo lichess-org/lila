@@ -911,7 +911,7 @@
   <string name="agreementNice">Слажем се да ћу увек бити поштен према другим играчима.</string>
   <string name="agreementPolicy">Слажем се да ћу поштовати све Lichess полисе.</string>
   <string name="searchOrStartNewDiscussion">Претражи или започни нови разговор</string>
-  <string name="edit">Промени</string>
+  <string name="edit">Уреди</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Муњевити</string>
   <string name="rapid">Брзопотез</string>
   <string name="classical">Класична</string>
