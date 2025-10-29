@@ -7,7 +7,7 @@
   <string name="iCantLogIn">로그인이 되지 않아요</string>
   <string name="noConfirmationEmail">확인 이메일을 받지 못했어요</string>
   <string name="forgotPassword">비밀번호를 잊어버렸어요</string>
-  <string name="forgotUsername">유저네임을 잊어버렸어요</string>
+  <string name="forgotUsername">사용자명을 잊어버렸어요</string>
   <string name="youCanLoginWithEmail">당신이 회원가입한 이메일 주소로 로그인할 수 있습니다</string>
   <string name="lost2FA">2단계 인증 코드로 접속할 수 없습니다</string>
   <string name="doPasswordReset">2단계 로그인을 해제하려면 비밀번호 재설정을 하세요</string>
@@ -21,7 +21,7 @@
   <string name="reopenOnThisPage">이 페이지에서 계정을 복구할 수 있습니다. 한 번만 작동합니다.</string>
   <string name="doNotAskByEmailToReopen">이메일을 보내 계정 복구를 요청하지 마십시오.</string>
   <string name="wantChangeUsername">사용자명을 변경하고 싶습니다</string>
-  <string name="changeUsernameCase">사용자 이름의 대소문자를 변경하려면 이 페이지를 방문하세요</string>
+  <string name="changeUsernameCase">사용자명의 대소문자를 변경하려면 이 페이지를 방문하세요</string>
   <string name="cantChangeMore">기술적인 이유로 완전히 불가능합니다. 대소문자만 변경할 수 있습니다.</string>
   <string name="orCloseAccount">그러나 현재 계정을 폐쇄하고 새 계정을 만들 수 있습니다.</string>
   <string name="wantClearHistory">레이팅과 기록을 초기화하고 싶습니다</string>

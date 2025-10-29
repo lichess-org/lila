@@ -38,7 +38,7 @@
   </plurals>
   <string name="inviteToTheStudy">Povabi na študijo</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">Prosimo, povabite samo tiste ljudi, ki jih poznate in ki bi se želeli pridružiti tej študiji.</string>
-  <string name="searchByUsername" comment="Appears when adding members to a Lichess Study as placeholder text in a search box.">Iskanje po uporabniškem imenu</string>
+  <string name="searchByUsername">Iskanje po uporabniškem imenu</string>
   <string name="spectator">Opazovalec</string>
   <string name="contributor">Sodelovalec</string>
   <string name="kick">Odstrani</string>
@@ -202,7 +202,7 @@
   <string name="fromPgnGameTitle">Iz PGN igre</string>
   <string name="fromPgnGameText">Prilepite igro v formatu PGN.&lt;br&gt;da naložite poteze, komentarje in različice v poglavju.</string>
   <string name="variantsAreSupportedTitle">Študije podpirajo variante</string>
-  <string name="variantsAreSupportedText">Da, lahko študiraš Crazyhouse&lt;br&gt;in vse različice Lichessa!</string>
+  <string name="variantsAreSupportedText">Da, lahko študiraš Crazyhouse&lt;br&gt;in vse Lichess različice!</string>
   <string name="chapterConclusionText">Poglavja so shranjena za vedno.&lt;br&gt;Zabavajte se z organiziranjem svoje šahovske vsebine!</string>
   <string name="doubleDefeat">Dvojni poraz</string>
   <string name="blackDefeatWhiteCanNotWin">Črni poraz, beli pa ne more zmagati</string>
