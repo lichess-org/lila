@@ -92,6 +92,17 @@ final class RelayRound(
         )
   }
 
+  def patch(id: RelayRoundId) = AuthOrScopedBody(_.Study.Write) { ctx ?=> me ?=>
+    Found(env.relay.api.byIdWithTour(id)): rt =>
+      patchForm(env.relay.roundForm.edit(rt.tour, rt.round))(
+        jsonFormError,
+        data =>
+          env.relay.api
+            .update(rt.round)(data.update(rt.tour.official))
+            .inject(NoContent)
+      )
+  }
+
   def reset(id: RelayRoundId) = AuthOrScoped(_.Study.Write) { ctx ?=> me ?=>
     Found(env.relay.api.byIdAndContributor(id)): rt =>
       env.relay.api.reset(rt.round) >> negotiate(Redirect(rt.path), jsonOkResult)

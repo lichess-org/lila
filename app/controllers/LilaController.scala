@@ -370,3 +370,16 @@ abstract private[controllers] class LilaController(val env: Env)
 
   def bindForm[T, R](form: Form[T])(error: Form[T] => R, success: T => R)(using Request[?], FormBinding): R =
     form.bindFromRequest().fold(error, success)
+
+  def patchForm[T, R](
+      form: Form[T]
+  )(error: Form[T] => R, success: T => R)(using req: Request[?], formBinding: FormBinding): R =
+    // copied from Form.bindFromRequest
+    val reqData = formBinding(req).foldLeft(Map.empty[String, String]) { case (s, (key, values)) =>
+      if key.endsWith("[]") then
+        val k = key.dropRight(2)
+        s ++ values.zipWithIndex.map { (v, i) => s"$k[$i]" -> v }
+      else s + (key -> ~values.headOption)
+    }
+    // combine db data with request data to make a complete form
+    form.bind(form.data ++ reqData).fold(error, success)
