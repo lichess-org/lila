@@ -137,7 +137,7 @@ final class Main(
         Redirect(url)
 
   def uploadImage(rel: String) = AuthBody(parse.multipartFormData) { ctx ?=> me ?=>
-    lila.core.security.canUploadImages.so:
+    (rel == "ublogBody" || lila.core.security.canUploadImages).so:
       limit.imageUpload(rateLimited):
         ctx.body.body.file("image") match
           case None => JsonBadRequest("Image content only")

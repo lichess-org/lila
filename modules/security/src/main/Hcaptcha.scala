@@ -93,47 +93,51 @@ final class HcaptchaReal(
   def verify(response: String)(using req: RequestHeader): Fu[Result] =
     val client = HTTPRequest.clientName(req)
     given Conversion[Result, Fu[Result]] = fuccess
-    ws.url(config.endpoint)
-      .post(
-        Map(
-          "secret" -> config.privateKey.value,
-          "response" -> response,
-          "remoteip" -> HTTPRequest.ipAddress(req).value,
-          "sitekey" -> config.publicKey
+    def missingResponse: Fu[Result] =
+      if HTTPRequest.apiVersion(req).isDefined then
+        lila.mon.security.hCaptcha.hit(client, "api").increment()
+        Result.Mobile
+      else
+        skipIp.get.map:
+          if _
+          then
+            lila.mon.security.hCaptcha.hit(client, "skip").increment()
+            skipIp.record
+            Result.IpFirst
+          else
+            logger.info(s"hcaptcha missing ${HTTPRequest.printClient(req)}")
+            lila.mon.security.hCaptcha.hit(client, "missing").increment()
+            Result.Fail
+    if response.isEmpty then missingResponse
+    else
+      ws.url(config.endpoint)
+        .post(
+          Map(
+            "secret" -> config.privateKey.value,
+            "response" -> response,
+            "remoteip" -> HTTPRequest.ipAddress(req).value,
+            "sitekey" -> config.publicKey
+          )
         )
-      )
-      .flatMap:
-        case res if res.status == 200 =>
-          res.body[JsValue].validate[GoodResponse] match
-            case JsSuccess(res, _) =>
-              lila.mon.security.hCaptcha.hit(client, "success").increment()
-              if res.success && res.hostname == netDomain.value then Result.Valid
-              else Result.Fail
-            case JsError(err) =>
-              res.body[JsValue].validate[BadResponse].asOpt match
-                case Some(err) if err.missingInput =>
-                  if HTTPRequest.apiVersion(req).isDefined then
-                    lila.mon.security.hCaptcha.hit(client, "api").increment()
-                    Result.Mobile
-                  else
-                    skipIp.get.map:
-                      if _
-                      then
-                        lila.mon.security.hCaptcha.hit(client, "skip").increment()
-                        skipIp.record
-                        Result.IpFirst
-                      else
-                        logger.info(s"hcaptcha missing ${HTTPRequest.printClient(req)}")
-                        lila.mon.security.hCaptcha.hit(client, "missing").increment()
-                        Result.Fail
-                case Some(err) =>
-                  lila.mon.security.hCaptcha.hit(client, err.toString).increment()
-                  Result.Fail
-                case _ =>
-                  lila.mon.security.hCaptcha.hit(client, "error").increment()
-                  logger.info(s"hcaptcha $err ${res.body}")
-                  Result.Fail
-        case res =>
-          lila.mon.security.hCaptcha.hit(client, res.status.toString).increment()
-          logger.info(s"hcaptcha ${res.status} ${res.body}")
-          Result.Fail
+        .flatMap:
+          case res if res.status == 200 =>
+            res.body[JsValue].validate[GoodResponse] match
+              case JsSuccess(res, _) =>
+                lila.mon.security.hCaptcha.hit(client, "success").increment()
+                if res.success && res.hostname == netDomain.value then Result.Valid
+                else Result.Fail
+              case JsError(err) =>
+                res.body[JsValue].validate[BadResponse].asOpt match
+                  case Some(err) if err.missingInput =>
+                    missingResponse
+                  case Some(err) =>
+                    lila.mon.security.hCaptcha.hit(client, err.toString).increment()
+                    Result.Fail
+                  case _ =>
+                    lila.mon.security.hCaptcha.hit(client, "error").increment()
+                    logger.info(s"hcaptcha $err ${res.body}")
+                    Result.Fail
+          case res =>
+            lila.mon.security.hCaptcha.hit(client, res.status.toString).increment()
+            logger.info(s"hcaptcha ${res.status} ${res.body}")
+            Result.Fail

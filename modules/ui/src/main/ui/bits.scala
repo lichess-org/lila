@@ -121,6 +121,7 @@ object bits:
   def markdownTextarea(picfitIdPrefix: Option[String])(textareaTag: Tag)(using
       imageGetOrigin: ImageGetOrigin
   )(using Me) =
+    import lila.core.security.canUploadImages
     div(
       cls := "markdown-textarea",
       attr("data-image-download-origin") := imageGetOrigin,
@@ -128,15 +129,19 @@ object bits:
         case Some(p) if p.startsWith("forum") => 5
         case Some(p) if p.startsWith("team") => 2
         case _ => 1,
-      lila.core.security.canUploadImages
+      canUploadImages
         .so(picfitIdPrefix)
         .map(id => attr("data-image-upload-url") := routes.Main.uploadImage(id)),
       picfitIdPrefix.flatMap(imageDesignWidth).map(dw => attr("data-image-design-width") := dw)
     )(
       div(cls := "comment-header")(
         button(cls := "header-tab write active", tpe := "button")("Write"),
-        button(cls := "header-tab preview", tpe := "button", title := "Preview and resize images")("Preview"),
-        button(cls := "upload-image", tpe := "button", title := "Upload image")
+        button(
+          cls := "header-tab preview",
+          tpe := "button",
+          canUploadImages.option(title := "Preview and resize images")
+        )("Preview"),
+        canUploadImages.option(button(cls := "upload-image", tpe := "button", title := "Upload image"))
       ),
       div(cls := "comment-content")(
         textareaTag,

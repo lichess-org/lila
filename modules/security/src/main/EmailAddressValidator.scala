@@ -36,7 +36,7 @@ final class EmailAddressValidator(
       else Valid
 
   // make sure the cache is warmed up, so next call can be synchronous
-  def preloadDns(e: EmailAddress): Funit = apply(e).void
+  private[security] def preloadDns(e: EmailAddress): Funit = apply(e).void
 
   // only compute valid and non-whitelisted email domains
   private[security] def apply(e: EmailAddress): Fu[Result] =

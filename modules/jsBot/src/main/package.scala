@@ -12,4 +12,4 @@ val betaBotKeys = BotKey.from:
   List("centipawn", "tal-e")
 
 val devBotKeys = BotKey.from:
-  List("centipawn", "tal-e", "terrence", "howard", "professor", "lila")
+  List("terrence", "howard", "professor", "lila")
