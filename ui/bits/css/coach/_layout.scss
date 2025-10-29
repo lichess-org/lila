@@ -6,6 +6,12 @@
 
 main {
   .coach-main {
+    .box__top {
+      &__actions {
+        row-gap: 1rem;
+      }
+    }
+
     grid-area: main;
   }
 
