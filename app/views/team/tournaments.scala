@@ -10,8 +10,8 @@ object tournaments:
     Page(s"${t.name} • ${trans.site.tournaments.txt()}")
       .graph(
         title = s"${t.name} team tournaments",
-        url = s"$netBaseUrl${routes.Team.tournaments(t.id)}",
-        description = shorten(t.description.value, 152)
+        url = routeUrl(routes.Team.tournaments(t.id)),
+        description = shorten(t.description.unlink, 152)
       )
       .css("bits.team")
       .flag(_.fullScreen):

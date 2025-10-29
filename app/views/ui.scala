@@ -1,7 +1,6 @@
 package views
 
 import lila.app.UiEnv.{ *, given }
-import lila.ui.bits.modMenu
 export lila.web.ui.bits
 
 val captcha = lila.web.ui.CaptchaUi(helpers)
@@ -20,7 +19,7 @@ val coordinate = lila.coordinate.ui.CoordinateUi(helpers)
 
 val atomUi = lila.ui.AtomUi(netConfig.baseUrl)
 
-val irwin = lila.irwin.IrwinUi(helpers)(menu = modMenu)
+val irwin = lila.irwin.IrwinUi(helpers)(menu = views.mod.ui.menu)
 
 val dgt = lila.web.ui.DgtUi(helpers)
 
@@ -39,9 +38,9 @@ val feed =
     env.executor
   )
 
-val cms = lila.cms.ui.CmsUi(helpers)(modMenu("cms"))
+val cms = lila.cms.ui.CmsUi(helpers)(views.mod.ui.menu("cms"))
 
-val event = lila.event.ui.EventUi(helpers)(modMenu("event"))
+val event = lila.event.ui.EventUi(helpers)(views.mod.ui.menu("event"))
 
 val userTournament = lila.tournament.ui.UserTournament(helpers, tournament.ui)
 
@@ -86,7 +85,7 @@ val racer = lila.racer.ui.RacerUi(helpers)
 
 val challenge = lila.challenge.ui.ChallengeUi(helpers)
 
-val dev = lila.web.ui.DevUi(helpers)(modMenu)
+val dev = lila.web.ui.DevUi(helpers)(views.mod.ui.menu)
 
 val jsBot = lila.jsBot.ui.JsBotUi(helpers)
 

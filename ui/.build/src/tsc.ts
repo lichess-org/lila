@@ -123,7 +123,6 @@ async function splitConfig(cfgPath: string): Promise<SplitConfig[]> {
   co.lib = co.lib?.map((lib: string) => lib.match(/lib\.(.+)\.d\.ts/)?.[1] ?? lib);
   co.pathsBasePath = undefined;
   co.incremental = true;
-
   config.compilerOptions = co;
   config.size = await folderSize(join(root, 'src'));
   config.include = fixGlobs(config.include) ?? [co.rootDir ? `${co.rootDir}/**/*` : `${root}/src/**/*`];
@@ -137,7 +136,6 @@ async function splitConfig(cfgPath: string): Promise<SplitConfig[]> {
   const checkPath = join(env.buildTempDir, 'noEmit', `${pkgName}.tsconfig.json`);
   checkCfg.compilerOptions.noEmit = true;
   checkCfg.compilerOptions.tsBuildInfoFile = join(env.buildTempDir, 'noEmit', `${pkgName}.tsbuildinfo`);
-
   io.push(fs.promises.writeFile(checkPath, JSON.stringify(checkCfg, undefined, 2)));
 
   const res: SplitConfig[] = [{ type: 'noEmit', configFile: checkPath, pkgName, size: config.size }];

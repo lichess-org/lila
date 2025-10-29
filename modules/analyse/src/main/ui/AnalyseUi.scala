@@ -54,7 +54,7 @@ final class AnalyseUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
       .i18nOpt(ctx.blind, _.keyboardMove, _.nvui)
       .graph(
         title = "Chess analysis board",
-        url = s"$netBaseUrl${routes.UserAnalysis.index.url}",
+        url = routeUrl(routes.UserAnalysis.index),
         description = "Analyse chess positions and variations on an interactive chess board"
       )
       .flag(_.zoom):

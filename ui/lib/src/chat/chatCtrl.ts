@@ -15,15 +15,17 @@ import { noteCtrl } from './note';
 import { moderationCtrl } from './moderation';
 import { prop, type Prop } from '../common';
 import { storedStringProp, storedBooleanProp } from '../storage';
-import { pubsub, type PubsubEvent, type PubsubCallback } from '../pubsub';
+import { pubsub, type PubsubEvents } from '../pubsub';
 import { alert } from '../view/dialogs';
 import { isContained } from '@/algo';
+
+type SubPair = { [K in keyof PubsubEvents]: [K, PubsubEvents[K]] }[keyof PubsubEvents];
 
 export class ChatCtrl {
   data: ChatData;
   private maxLines = 200;
   private maxLinesDrop = 50; // how many lines to drop at once
-  private subs: [PubsubEvent, PubsubCallback][];
+  private subs: Array<SubPair>;
   private storedTabKey: Prop<string>;
   private allTabs: Tab[] = [];
 
@@ -158,9 +160,9 @@ export class ChatCtrl {
     this.vm.writeable = v;
   };
 
-  private onPermissions = (obj: Permissions): void => {
-    if (isContained(this.opts.permissions, obj)) return;
-    Object.assign(this.opts.permissions, obj);
+  private onPermissions = (perms: Permissions): void => {
+    if (isContained(this.opts.permissions, perms)) return;
+    Object.assign(this.opts.permissions, perms);
     this.instanciateModeration();
   };
 

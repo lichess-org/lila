@@ -56,7 +56,7 @@ final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
           title =
             if isStreak then "Puzzle Streak"
             else s"Chess tactic #${puzzle.id} - ${puzzle.color.name.capitalize} to play",
-          url = s"$netBaseUrl${routes.Puzzle.show(puzzle.id.value).url}",
+          url = routeUrl(routes.Puzzle.show(puzzle.id.value)),
           description =
             if isStreak then trans.puzzle.streakDescription.txt()
             else

@@ -51,9 +51,7 @@ final class Env(
 
   val compat = wire[MsgCompat]
 
-  val twoFactorReminder = wire[TwoFactorReminder]
-
-  val emailReminder = wire[EmailReminder]
+  val systemMsg = wire[MsgByLichess]
 
   lila.common.Cli.handle:
     case "msg" :: "multi" :: orig :: dests :: words =>
@@ -76,6 +74,9 @@ final class Env(
         dest <- obj.get[UserId]("dest")
         text <- obj.str("text")
       yield api.post(userId, dest, text)
+
+  Bus.sub[lila.core.mod.ChatTimeout]: to =>
+    systemMsg.chatTimeout(to.user)
 
   import play.api.data.Forms.*
   val textForm = play.api.data.Form(single("text" -> nonEmptyText))
