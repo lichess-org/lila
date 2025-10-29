@@ -86,7 +86,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
 
   val warnNoAutoplay =
     div(id := "warn-no-autoplay")(
-      a(dataIcon := Icon.Mute, target := "_blank", href := s"${routes.Main.faq}#autoplay")
+      a(dataIcon := Icon.Mute, targetBlank, href := s"${routes.Main.faq}#autoplay")
     )
 
   def botImage = img(
