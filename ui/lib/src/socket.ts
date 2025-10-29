@@ -167,7 +167,7 @@ class WsSocket {
   private tryOtherUrl = false;
   private storage: LichessStorage = storage.make('surl17', 30 * 60 * 1000);
   private _sign?: string;
-  private resendWhenOpen: [ClientOutEvent, any, any][] = [];
+  private resendWhenOpen: [ClientOutEvent, Payload, Partial<SocketSendOpts>][] = [];
   private baseUrls = document.body.dataset.socketDomains!.split(',');
 
   private lastUrl?: string;
@@ -243,7 +243,7 @@ class WsSocket {
     this.scheduleConnect();
   };
 
-  send = (t: ClientOutEvent, d: any, o: Partial<SocketSendOpts> = {}, noRetry = false): void => {
+  send = (t: ClientOutEvent, d: Payload, o: Partial<SocketSendOpts> = {}, noRetry = false): void => {
     const msg: Partial<MsgOut> = { t };
     if (d !== undefined) {
       if (o.withLag) d.l = Math.round(this.averageLag);
