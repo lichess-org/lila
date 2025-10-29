@@ -369,9 +369,16 @@ abstract private[controllers] class LilaController(val env: Env)
   def anyCaptcha = env.game.captcha.any
 
   def bindForm[T, R](form: Form[T])(error: Form[T] => R, success: T => R)(using Request[?], FormBinding): R =
+    if getBool("patch")
+    then bindPatchForm(form)(error, success)
+    else bindPostForm(form)(error, success)
+
+  def bindPostForm[T, R](
+      form: Form[T]
+  )(error: Form[T] => R, success: T => R)(using Request[?], FormBinding): R =
     form.bindFromRequest().fold(error, success)
 
-  def patchForm[T, R](
+  def bindPatchForm[T, R](
       form: Form[T]
   )(error: Form[T] => R, success: T => R)(using req: Request[?], formBinding: FormBinding): R =
     // copied from Form.bindFromRequest

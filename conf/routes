@@ -299,7 +299,6 @@ GET   /embed/broadcast/:ts/:rs/$roundId<\w{8}> controllers.RelayRound.embedShow(
 GET   /broadcast/:ts/:rs/$roundId<\w{8}>/$chapterId<\w{8}> controllers.RelayRound.chapter(ts, rs, roundId: RelayRoundId, chapterId: StudyChapterId)
 GET   /broadcast/round/$roundId<\w{8}>/edit   controllers.RelayRound.edit(roundId: RelayRoundId)
 POST  /broadcast/round/$roundId<\w{8}>/edit   controllers.RelayRound.update(roundId: RelayRoundId)
-PATCH /broadcast/round/$roundId<\w{8}>/edit   controllers.RelayRound.patch(roundId: RelayRoundId)
 POST  /broadcast/round/$roundId<\w{8}>/reset  controllers.RelayRound.reset(roundId: RelayRoundId)
 POST  /api/broadcast/round/$roundId<\w{8}>/reset  controllers.RelayRound.reset(roundId: RelayRoundId)
 GET   /broadcast/round/$roundId<\w{8}>/stats  controllers.RelayRound.stats(roundId: RelayRoundId)
