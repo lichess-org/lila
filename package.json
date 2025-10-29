@@ -66,10 +66,6 @@
     "multilog": "pnpm serverlog & ui/build -w"
   },
   "browserslist": [
-    "Chrome >= 112",
-    "Firefox >= 115",
-    "Edge >= 109",
-    "Opera >= 91",
-    "Safari >= 13.1"
+    "defaults"
   ]
 }
