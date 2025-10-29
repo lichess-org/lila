@@ -24,6 +24,7 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
     val likes = "likes"
     val topics = "topics"
     val createdAt = "createdAt"
+    val updatedAt = "updatedAt"
 
   private[study] val projection = $doc(
     F.uids -> false,
@@ -280,7 +281,11 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
         c.update
           .one(
             $id(studyId),
-            $set(F.likes -> likes, F.rank -> Study.Rank.compute(likes, createdAt))
+            $set(
+              F.likes -> likes,
+              F.rank -> Study.Rank.compute(likes, createdAt),
+              F.updatedAt -> nowInstant.some
+            )
           )
           .inject(likes)
   yield updated
