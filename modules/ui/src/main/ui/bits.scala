@@ -121,7 +121,7 @@ object bits:
   def markdownTextarea(picfitIdPrefix: Option[String])(textareaTag: Tag)(using
       imageGetOrigin: ImageGetOrigin
   )(using Me) =
-    import lila.core.security.canUploadImages
+    val canUploadImages = lila.core.security.canUploadImages(~picfitIdPrefix)
     div(
       cls := "markdown-textarea",
       attr("data-image-download-origin") := imageGetOrigin,
