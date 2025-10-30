@@ -2,9 +2,9 @@
 <resources>
   <string name="contact">Контакт</string>
   <string name="contactLichess">Контактирај Lichess</string>
-  <string name="whatCanWeHelpYouWith">Како Вам можемо помоћи?</string>
-  <string name="visitThisPage">Посетите ову страницу да решите проблем</string>
-  <string name="iCantLogIn">Логовање није успело</string>
+  <string name="whatCanWeHelpYouWith">Са чиме ти моћемо помоћи?</string>
+  <string name="visitThisPage">Посети ову страницу да решиш проблем</string>
+  <string name="iCantLogIn">Не могу се пријавити</string>
   <string name="noConfirmationEmail">Нисам примио е-пошту потврде</string>
   <string name="forgotPassword">Заборавио/ла сам лозинку</string>
   <string name="forgotUsername">Заборавио/ла сам корисничко име</string>
