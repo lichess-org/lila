@@ -167,10 +167,10 @@ export function view(ctrl: StudyCtrl): VNode {
   const canContribute = ctrl.members.canContribute(),
     current = ctrl.currentChapter();
   function update(vnode: VNode) {
-    const isChapterObscured = (study_list: HTMLElement, chapter: HTMLElement): boolean => {
+    const isChapterFullyVisible = (listOfChapters: HTMLElement, chapter: HTMLElement): boolean => {
       const c = chapter.getBoundingClientRect(),
-        l = study_list.getBoundingClientRect();
-      return c.top < l.top || c.bottom > l.bottom;
+        l = listOfChapters.getBoundingClientRect();
+      return c.top >= l.top && c.bottom <= l.bottom;
     };
     const newCount = ctrl.chapters.list.size(),
       vData = vnode.data!.li!,
@@ -179,7 +179,7 @@ export function view(ctrl: StudyCtrl): VNode {
       if (current.id !== ctrl.chapters.list.first().id) scrollToInnerSelector(el, '.active');
     } else if (vData.currentId !== ctrl.data.chapter.id) {
       vData.currentId = ctrl.data.chapter.id;
-      if (isChapterObscured(el, el.querySelector('.active')!)) scrollToInnerSelector(el, '.active');
+      if (!isChapterFullyVisible(el, el.querySelector('.active')!)) scrollToInnerSelector(el, '.active');
     }
     vData.count = newCount;
     if (canContribute && newCount > 1 && !vData.sortable) {
