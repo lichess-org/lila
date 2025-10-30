@@ -17,65 +17,6 @@ type Sri = string;
 type Tpe = string;
 type Payload = any;
 type Version = number;
-export type StudySocketEvent =
-  | 'setPath'
-  | 'deleteNode'
-  | 'promote'
-  | 'forceVariation'
-  | 'shapes'
-  | 'setComment'
-  | 'deleteComment'
-  | 'setGamebook'
-  | 'toggleGlyph'
-  | 'explorerGame'
-  | 'setChapter'
-  | 'setRole'
-  | 'addChapter'
-  | 'editChapter'
-  | 'descStudy'
-  | 'descChapter'
-  | 'deleteChapter'
-  | 'clearAnnotations'
-  | 'clearVariations'
-  | 'sortChapters'
-  | 'setTag'
-  | 'anaMove'
-  | 'anaDrop'
-  | 'anaDests'
-  | 'like'
-  | 'kick'
-  | 'editStudy'
-  | 'setTopics'
-  | 'requestAnalysis'
-  | 'invite'
-  | 'relaySync'
-  | 'leave';
-export type RacerEvent = 'racerJoin' | 'racerStart' | 'racerScore';
-type YesNo = 'yes' | 'no';
-type Replyable = 'rematch' | 'takeback' | 'draw' | 'blindfold';
-export type RoundOutEvent =
-  | `${Replyable}-${YesNo}`
-  | 'rep'
-  | 'moretime'
-  | 'flag'
-  | 'berserk'
-  | 'draw-force'
-  | 'resign-force'
-  | 'draw-claim'
-  | 'resign'
-  | 'move'
-  | 'drop'
-  | 'bye2'
-  | 'abort';
-export type ClientOutEvent =
-  | StudySocketEvent
-  | RacerEvent
-  | RoundOutEvent
-  | 'moveLat'
-  | 'notified'
-  | 'ping'
-  | 'startWatching'
-  | 'sk1';
 interface MsgBase {
   t: Tpe;
   d?: Payload;
@@ -83,9 +24,7 @@ interface MsgBase {
 interface MsgIn extends MsgBase {
   v?: Version;
 }
-interface MsgOut extends MsgBase {
-  t: ClientOutEvent;
-}
+interface MsgOut extends MsgBase {}
 interface MsgAck extends MsgOut {
   at: number;
 }
@@ -130,7 +69,7 @@ export function wsDestroy(): void {
   siteSocket = undefined;
 }
 
-export function wsSend(t: ClientOutEvent, d?: any, o?: SocketSendOpts, noRetry?: boolean): void {
+export function wsSend(t: string, d?: any, o?: SocketSendOpts, noRetry?: boolean): void {
   siteSocket?.send(t, d, o, noRetry);
 }
 
@@ -167,7 +106,7 @@ class WsSocket {
   private tryOtherUrl = false;
   private storage: LichessStorage = storage.make('surl17', 30 * 60 * 1000);
   private _sign?: string;
-  private resendWhenOpen: [ClientOutEvent, Payload, Partial<SocketSendOpts>][] = [];
+  private resendWhenOpen: [string, Payload, Partial<SocketSendOpts>][] = [];
   private baseUrls = document.body.dataset.socketDomains!.split(',');
 
   private lastUrl?: string;
@@ -243,7 +182,7 @@ class WsSocket {
     this.scheduleConnect();
   };
 
-  send = (t: ClientOutEvent, d: Payload, o: Partial<SocketSendOpts> = {}, noRetry = false): void => {
+  send = (t: string, d: Payload, o: Partial<SocketSendOpts> = {}, noRetry = false): void => {
     const msg: Partial<MsgOut> = { t };
     if (d !== undefined) {
       if (o.withLag) d.l = Math.round(this.averageLag);
@@ -461,7 +400,7 @@ class Ackable {
   messages: MsgAck[] = [];
   private _sign: string;
 
-  constructor(readonly send: (t: ClientOutEvent, d: Payload, o?: any) => void) {
+  constructor(readonly send: (t: string, d: Payload, o?: any) => void) {
     setInterval(this.resend, 1200);
   }
 
@@ -474,7 +413,7 @@ class Ackable {
     });
   };
 
-  register = (t: ClientOutEvent, d: Payload): void => {
+  register = (t: string, d: Payload): void => {
     d.a = this.currentId++;
     this.messages.push({
       t: t,

@@ -24,7 +24,7 @@ import type {
 } from './interfaces';
 import { storedBooleanProp } from 'lib/storage';
 import { PromotionCtrl } from 'lib/game/promotion';
-import { wsConnect, wsSend, type RacerEvent } from 'lib/socket';
+import { wsConnect, wsSend } from 'lib/socket';
 import { pubsub } from 'lib/pubsub';
 import { type WithGround } from 'lib/game/ground';
 
@@ -270,8 +270,10 @@ export default class RacerCtrl implements PuzCtrl {
     this.redraw();
   };
 
-  private socketSend = <K extends RacerEvent>(tpe: K, data: K extends 'racerScore' ? number : undefined) =>
-    wsSend(tpe, data, { sign: this.sign, ackable: false });
+  private socketSend = <K extends 'racerScore' | 'racerStart' | 'racerJoin'>(
+    tpe: K,
+    data: K extends 'racerScore' ? number : undefined,
+  ) => wsSend(tpe, data, { sign: this.sign, ackable: false });
 
   private setZen = throttlePromiseDelay(
     () => 1000,
