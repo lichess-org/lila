@@ -52,18 +52,18 @@ final class ModInquiryUi(helpers: Helpers)(
           placeholder := "Write a mod note"
         ),
         div(cls := "submission")(
-          submitButton(cls := "button thin", name := "noteType", value := "mod")("SEND"),
+          submitButton(cls := "button", name := "noteType", value := "mod")("Save"),
           button(
-            cls := "button thin",
+            cls := "button",
             name := "noteType",
             value := "copy-url",
             title := "copy current URL to note"
-          )("ADD URL"),
+          )("Add URL"),
           Granter
             .opt(_.Admin)
             .option:
-              submitButton(cls := "button thin", name := "noteType", value := "dox"):
-                "SEND DOX"
+              submitButton(cls := "button", name := "noteType", value := "dox"):
+                "Save dox"
         )
       ),
       notes.map: note =>

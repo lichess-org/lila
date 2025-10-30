@@ -417,10 +417,8 @@ body.no-inquiry {
 
     .submission {
       display: flex;
-
-      button:not(:first-child) {
-        margin-inline-start: 1.5em;
-      }
+      margin-top: 0.5em;
+      gap: 1em;
     }
   }
 }
