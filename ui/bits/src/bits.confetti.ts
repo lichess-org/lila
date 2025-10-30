@@ -37,7 +37,7 @@ export function initModule(): void {
       });
 
     // left cannon
-    for (let _ in [0, 1])
+    for (const _ in [0, 1])
       fire({
         angle: randomInRange(50, 70),
         drift: randomInRange(0, 1),
@@ -45,7 +45,7 @@ export function initModule(): void {
       });
 
     // right cannon
-    for (let _ in [0, 1])
+    for (const _ in [0, 1])
       fire({
         angle: randomInRange(110, 130),
         drift: randomInRange(-1, 0),
