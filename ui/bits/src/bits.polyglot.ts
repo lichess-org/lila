@@ -139,7 +139,7 @@ async function makeCover(polyglotBook: OpeningBook, boardSize: number, numMoves?
   const squareSize = boardSize / 8;
 
   if (typeof OffscreenCanvas !== 'function') throw 'no OffscreenCanvas support';
-   
+
   const canvas = new OffscreenCanvas(boardSize, boardSize);
 
   const ctx = canvas.getContext('2d')!;
