@@ -8,13 +8,13 @@
   <string name="noConfirmationEmail">Нисам примио е-пошту потврде</string>
   <string name="forgotPassword">Заборавио/ла сам лозинку</string>
   <string name="forgotUsername">Заборавио/ла сам корисничко име</string>
-  <string name="youCanLoginWithEmail">Можете се улоговати са адресом е-поште са којом сте се пријавили</string>
+  <string name="youCanLoginWithEmail">Можеш се пријавити са имејл адресом којом си се регистровао/ла</string>
   <string name="lost2FA">Изгубио/ла сам приступ мојим кодовима за дво-степену аутентикацију</string>
   <string name="doPasswordReset">Приведите крају мењање шифре да бисте уклонили други корак</string>
-  <string name="accountSupport">Потребна ми је подршка око налога</string>
-  <string name="wantTitle">Желим да се моје звање види на Lichess</string>
+  <string name="accountSupport">Потребна ми је подршка за налог</string>
+  <string name="wantTitle">Желим моје звање приказано на Lichess-у</string>
   <string name="visitTitleConfirmation">Да би се Ваше звање видело на Lichess налогу, и да бисте учествовали на Titled Arenas (аренама са звањем), посетите страницу за потврђивање</string>
-  <string name="wantCloseAccount">Желим затворити свој налог</string>
+  <string name="wantCloseAccount">Желим да затворим мој налог</string>
   <string name="closeYourAccount">Можете затворити ваш налог на овој страници</string>
   <string name="doNotAskByEmail">Не тражите да Вам затворимо налог путем е-поште, нећемо то урадити.</string>
   <string name="wantReopen">Желим да поново отворим свој налог</string>
