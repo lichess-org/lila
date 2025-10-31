@@ -121,12 +121,14 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
               form3.checkbox(
                 form("sticky"),
                 trans.ublog.stickyPost(),
-                help = trans.ublog.stickyPostHelp().some
+                help = trans.ublog.stickyPostHelp().some,
+                half = true
               ),
               form3.checkbox(
                 form("ads"),
                 "Includes promoted/sponsored content or referral links",
-                help = ads.some
+                help = ads.some,
+                half = true
               )
             )
           )

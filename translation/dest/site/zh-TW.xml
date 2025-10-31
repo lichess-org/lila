@@ -916,7 +916,6 @@
   <string name="simulFeaturedHelp">在 %s 上向所有人展示您主持的車輪戰，對私人車輪戰無效。</string>
   <string name="simulDescription">車輪戰描述</string>
   <string name="simulDescriptionHelp">有甚麼要告訴參賽者的嗎？</string>
-  <string name="markdownAvailable">%s 可用於更高級的格式。</string>
   <string name="embedsAvailable">貼上對局或學習章節網址來嵌入。</string>
   <string name="inYourLocalTimezone">在您的時區內</string>
   <string name="tournChat">錦標賽聊天室</string>

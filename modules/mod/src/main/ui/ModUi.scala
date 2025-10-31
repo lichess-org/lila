@@ -91,7 +91,7 @@ final class ModUi(helpers: Helpers):
                       val shortText = c.text.map(t => frag(" " + shorten(t, 40)))
                       frag(
                         c.url
-                          .map(u => a(href := u, target := "_blank")(shortText | frag(" " + u).some))
+                          .map(u => a(href := u, targetBlank)(shortText | frag(" " + u).some))
                           .orElse(shortText),
                         c.id.map(id => frag(s" #$id "))
                       )

@@ -18,14 +18,14 @@ function wireMarkdownTextarea(markdown: HTMLElement) {
 
   const previewTab = markdown.querySelector<HTMLButtonElement>('.preview')!;
   const writeTab = markdown.querySelector<HTMLButtonElement>('.write')!;
-  const uploadBtn = markdown.querySelector<HTMLButtonElement>('.upload-image')!;
+  const uploadBtn = markdown.querySelector<HTMLButtonElement>('.upload-image');
   const preview = markdown.querySelector<HTMLElement>('.comment-preview')!;
 
   previewTab.addEventListener('click', async () => {
     const html = await marked.parse(textarea.value ?? '');
     preview.innerHTML = html;
     preview.classList.remove('none');
-    uploadBtn.classList.add('none');
+    uploadBtn?.classList.add('none');
     writeTab.classList.remove('active');
     previewTab.classList.add('active');
     if (markdownPicfitRegex().test(textarea.value) && !localStorage.getItem('markdown.rtfm')) {
@@ -46,14 +46,11 @@ function wireMarkdownTextarea(markdown: HTMLElement) {
     previewTab.classList.remove('active');
     writeTab.classList.add('active');
     preview.classList.add('none');
-    uploadBtn.classList.remove('none');
+    uploadBtn?.classList.remove('none');
     preview.innerHTML = '';
     textarea.focus();
   });
-  if (!markdown.dataset.imageUploadUrl) {
-    uploadBtn.classList.add('none');
-    return;
-  }
+  if (!markdown.dataset.imageUploadUrl) return;
 
   markdown.querySelector<HTMLElement>('.upload-image')?.addEventListener('click', () => {
     const input = frag<HTMLInputElement>('<input type="file" accept="image/*" multiple />');

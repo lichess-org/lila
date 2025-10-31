@@ -56,28 +56,30 @@ final class Automod(
       temperature: Double = 0,
       maxTokens: Int = 4096
   ): Fu[Option[JsObject]] =
-    (config.apiKey.value.nonEmpty && systemPrompt.value.nonEmpty && userText.nonEmpty).so:
-      val body = Json
-        .obj(
-          "model" -> model,
-          "temperature" -> temperature,
-          "max_tokens" -> maxTokens,
-          "messages" -> Json.arr(
-            Json.obj("role" -> "system", "content" -> systemPrompt.value),
-            Json.obj("role" -> "user", "content" -> userText)
+    List(config.apiKey.value, systemPrompt.value, userText)
+      .forall(_.nonEmpty)
+      .so:
+        val body = Json
+          .obj(
+            "model" -> model,
+            "temperature" -> temperature,
+            "max_tokens" -> maxTokens,
+            "messages" -> Json.arr(
+              Json.obj("role" -> "system", "content" -> systemPrompt.value),
+              Json.obj("role" -> "user", "content" -> userText)
+            )
           )
-        )
-      ws.url(config.url)
-        .withHttpHeaders(
-          "Authorization" -> s"Bearer ${config.apiKey.value}",
-          "Content-Type" -> "application/json"
-        )
-        .post(body)
-        .map: rsp =>
-          rsp -> extractJsonFromResponse(rsp).toOption
-        .flatMap:
-          case (rsp, None) => fufail(s"${rsp.status} ${(rsp.body: String).take(500)}")
-          case (_, Some(res)) => fuccess(res)
+        ws.url(config.url)
+          .withHttpHeaders(
+            "Authorization" -> s"Bearer ${config.apiKey.value}",
+            "Content-Type" -> "application/json"
+          )
+          .post(body)
+          .map: rsp =>
+            rsp -> extractJsonFromResponse(rsp)
+          .flatMap:
+            case (rsp, Left(err)) => fufail(s"${rsp.status} $err ${(rsp.body: String).take(500)}")
+            case (_, Right(res)) => fuccess(res)
 
   def markdownImages(markdown: Markdown): Fu[Seq[lila.memo.PicfitImage]] =
     val ids = imageIdRe
@@ -98,42 +100,47 @@ final class Automod(
         .toSeq.parallel
 
   private def imageFlagReason(id: ImageId, dim: Option[Dimensions]): Fu[Option[String]] =
-    (config.apiKey.value.nonEmpty && imagePromptSetting.get().value.nonEmpty).so:
-      val imageUrl = picfitApi.url.automod(id, dim)
-      val body = Json
-        .obj(
-          "model" -> imageModelSetting.get(),
-          "temperature" -> 0,
-          "messages" -> Json.arr(
-            Json.obj(
-              "role" -> "user",
-              "content" -> Json.arr(
-                Json.obj("type" -> "text", "text" -> imagePromptSetting.get().value),
-                Json.obj("type" -> "image_url", "image_url" -> Json.obj("url" -> imageUrl))
+    val (apiKey, model, prompt) =
+      (config.apiKey.value, imageModelSetting.get(), imagePromptSetting.get().value)
+    List(apiKey, model, prompt)
+      .forall(_.nonEmpty)
+      .so:
+        val imageUrl = picfitApi.url.automod(id, dim)
+        val body = Json
+          .obj(
+            "model" -> model,
+            "temperature" -> 0,
+            "messages" -> Json.arr(
+              Json.obj(
+                "role" -> "user",
+                "content" -> Json.arr(
+                  Json.obj("type" -> "text", "text" -> prompt),
+                  Json.obj("type" -> "image_url", "image_url" -> Json.obj("url" -> imageUrl))
+                )
               )
             )
           )
-        )
-      ws.url(config.url)
-        .withHttpHeaders(
-          "Authorization" -> s"Bearer ${config.apiKey.value}",
-          "Content-Type" -> "application/json"
-        )
-        .post(body)
-        .map(extractJsonFromResponse)
-        .map(_.flatMap(_.toRight("No content in response")))
-        .flatMap(_.toFuture)
-        .prefixFailure(s"Automod image $id request failed")
-        .map: res =>
-          val flagged = ~res.boolean("flag")
-          lila.mon.mod.report.automod.imageFlagged(flagged).increment()
-          flagged.option:
-            res.str("reason") | "No reason provided"
-        .monSuccess(_.mod.report.automod.imageRequest)
+        ws.url(config.url)
+          .withHttpHeaders(
+            "Authorization" -> s"Bearer $apiKey",
+            "Content-Type" -> "application/json"
+          )
+          .withRequestTimeout(10.minutes) // I saw it timeout with the default 5min
+          .post(body)
+          .map(extractJsonFromResponse)
+          .map(_.flatMap(_.toRight("No content in response")))
+          .flatMap(_.toFuture)
+          .prefixFailure(s"Automod image $id request failed")
+          .map: res =>
+            val flagged = ~res.boolean("flag")
+            lila.mon.mod.report.automod.imageFlagged(flagged).increment()
+            flagged.option:
+              res.str("reason") | "No reason provided"
+          .monSuccess(_.mod.report.automod.imageRequest)
 
   private def extractJsonFromResponse(rsp: StandaloneWSResponse): Either[String, Option[JsObject]] =
     for
-      _ <- Either.cond(rsp.status != 200, (), s"API error ${rsp.status}: ${(rsp.body: String).take(300)}")
+      _ <- Either.cond(rsp.status == 200, (), s"API error ${rsp.status}: ${(rsp.body: String).take(300)}")
       choices <- (rsp.body \ "choices").asOpt[List[JsObject]].toRight("No choices in response")
       best <- choices.headOption.toRight("Empty choices in response")
       msg <- (best \ "message" \ "content").validate[String].asEither.left.map(_.toString)

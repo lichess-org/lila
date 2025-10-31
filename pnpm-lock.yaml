@@ -152,7 +152,7 @@ importers:
         specifier: 4.17.9
         version: 4.17.9(prop-types@15.8.1)
       canvas-confetti:
-        specifier: ^1.9.3
+        specifier: ^1.9
         version: 1.9.3
       cropperjs:
         specifier: 1.6.2

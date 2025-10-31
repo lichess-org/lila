@@ -39,7 +39,10 @@ const viewBotCard = (ctrl: SetupCtrl, bot: Bot, ongoing: boolean) =>
     'div.bot-card.bot-color--' + bot.key,
     {
       hook: bind('click', () => ctrl.select(bot)),
-      class: { 'bot-card--ongoing': ongoing },
+      class: {
+        'bot-card--ongoing': ongoing,
+        'bot-card--dev': !!ctrl.opts.devBots?.includes(bot.key),
+      },
     },
     [
       hl('img.bot-card__image', {

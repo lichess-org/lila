@@ -4,7 +4,7 @@
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">双人对弈</string>
   <string name="playAgainstComputer">人机对弈</string>
   <string name="gameMode">游戏模式</string>
-  <string name="createLobbyGame" comment="One of three buttons on the home page. Opens the modal to create a game that goes in the lobby.">创建对局</string>
+  <string name="createLobbyGame">创建对局</string>
   <string name="youPlayAs">你执</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">分享这个网址以邀请好友下棋</string>
   <string name="gameOver">棋局结束</string>
@@ -82,7 +82,7 @@
   <string name="move">着法</string>
   <string name="variantLoss">变种输棋</string>
   <string name="variantWin">变种胜利</string>
-  <string name="insufficientMaterial">棋子不足</string>
+  <string name="insufficientMaterial">子力不足</string>
   <string name="pawnMove">走兵</string>
   <string name="capture">吃子</string>
   <string name="close">关闭</string>
@@ -91,7 +91,7 @@
   <string name="drawn">和棋</string>
   <string name="unknown">未知</string>
   <string name="database">数据库</string>
-  <string name="whiteDrawBlack">白胜／和棋／黑胜</string>
+  <string name="whiteDrawBlack">白胜 / 和棋 / 黑胜</string>
   <string name="averageRatingX">平均等级分：%s</string>
   <string name="recentGames">最近棋局</string>
   <string name="topGames">名局</string>
@@ -197,7 +197,7 @@
   <string name="realTime">实时棋局</string>
   <string name="correspondence">通讯棋</string>
   <string name="daysPerTurn">每步允许天数</string>
-  <string name="oneDay">1天</string>
+  <string name="oneDay">1 天</string>
   <plurals name="nbDays">
     <item quantity="other">%s 天</item>
   </plurals>
@@ -728,6 +728,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">你也可以用鼠标滚轮浏览棋局。</string>
   <string name="scrollOverComputerVariationsToPreviewThem">移到电脑给出的变着上进行预览</string>
   <string name="analysisShapesHowTo">按shift+左键单击或右键单击在棋盘上绘制圆圈和箭头。</string>
+  <string name="primaryColorArrowsHowTo">Ctrl = 红，Shift = 黄，Command 或 Alt = 蓝</string>
   <string name="letOtherPlayersMessageYou">允许其他人给您发私信</string>
   <string name="receiveForumNotifications">在论坛中被提及时接收通知</string>
   <string name="shareYourInsightsData">分享你的对局洞察</string>
@@ -831,7 +832,7 @@
     <item quantity="other">%s 秒</item>
   </plurals>
   <string name="opening">开局</string>
-  <string name="middlegame">中盘</string>
+  <string name="middlegame">中局</string>
   <string name="endgame">残局</string>
   <string name="conditionalPremoves">条件预先走棋</string>
   <string name="addCurrentVariation">添加当前变着</string>
@@ -929,7 +930,6 @@
   <string name="simulFeaturedHelp">在 %s 上向所有人展示你主持的车轮战，对私人车轮战无效。</string>
   <string name="simulDescription">车轮战描述</string>
   <string name="simulDescriptionHelp">写下你想要告诉参与者的任何内容</string>
-  <string name="markdownAvailable">%s 可用于更高级的格式。</string>
   <string name="embedsAvailable">粘贴对局 URL 或学习章节 URL 来嵌入。</string>
   <string name="inYourLocalTimezone">在你的本地时区</string>
   <string name="tournChat">比赛聊天</string>

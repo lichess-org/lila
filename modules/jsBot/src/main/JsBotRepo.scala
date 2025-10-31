@@ -34,7 +34,7 @@ final private class JsBotRepo(bots: Coll, assets: Coll)(using Executor):
         )
       .list(Int.MaxValue)
 
-  def putBot(bot: BotJson, author: UserId): Fu[BotJson] = for
+  private[jsBot] def putBot(bot: BotJson, author: UserId): Fu[BotJson] = for
     fullBot <- bots.find($uid(bot.uid)).sort($doc("version" -> -1)).one[Bdoc]
     nextVersion = fullBot.flatMap(_.int("version")).getOrElse(-1) + 1 // race condition
     newBot = bot.withMeta(BotMeta(bot.uid, author, nextVersion, nowInstant))

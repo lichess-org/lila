@@ -40,11 +40,6 @@ export default function table(ctrl: LobbyController) {
       gameType: 'bots',
       label: 'play bot',
     });
-  if (opts.botEditor)
-    lobbyButtons.push({
-      gameType: 'dev',
-      label: 'bot development',
-    });
 
   return hl('div.lobby__table', [
     hl('div.lobby__start', [site.blindMode && hl('h2', i18n.site.play), lobbyButtons.map(makeLobbyButton)]),

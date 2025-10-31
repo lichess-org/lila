@@ -16,6 +16,7 @@
   <string name="recentlyUpdated">最近更新</string>
   <string name="mostPopular">最受欢迎</string>
   <string name="alphabetical">按字母顺序</string>
+  <string name="relevant">相关内容</string>
   <string name="addNewChapter">添加一个新章节</string>
   <plurals name="nbChapters">
     <item quantity="other">共 %s 章</item>
@@ -29,7 +30,7 @@
   </plurals>
   <string name="inviteToTheStudy">邀请参加研讨</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">请仅邀请你认识的并且积极希望参与这个研讨的成员</string>
-  <string name="searchByUsername" comment="Appears when adding members to a Lichess Study as placeholder text in a search box.">按用户名搜索</string>
+  <string name="searchByUsername">按用户名搜索</string>
   <string name="spectator">旁观者</string>
   <string name="contributor">贡献者</string>
   <string name="kick">踢出</string>

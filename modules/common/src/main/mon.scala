@@ -211,7 +211,6 @@ object mon:
     val online = gauge("user.online").withoutTags()
     object register:
       def count(
-          emailDomain: Option[Domain],
           confirm: String,
           captcha: String,
           ipSusp: Boolean,
@@ -223,7 +222,6 @@ object mon:
       ) =
         counter("user.register.count").withTags:
           tags(
-            "email" -> emailDomain.fold("?")(_.value),
             "confirm" -> confirm,
             "captcha" -> captcha,
             "ipSusp" -> ipSusp,

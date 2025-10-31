@@ -902,7 +902,6 @@
   <string name="simulFeaturedHelp">%s पर अपने समकालिक खेल को प्रदर्शित करें। निजी समकालिक खेलों के लिए निष्क्रिय।</string>
   <string name="simulDescription">समकालिक खेल का विवरण</string>
   <string name="simulDescriptionHelp">क्या आप प्रतिभागियों को कुछ बताना चाहते हैं?</string>
-  <string name="markdownAvailable">%s अत्याधुनिक स्वरूपण के लिए उपलब्ध है।</string>
   <string name="embedsAvailable">खेल अथवा अध्ययन का URL paste करे एमबेड करने के लिये|</string>
   <string name="inYourLocalTimezone">आपके अपने क्षेत्रीय समयानुसार</string>
   <string name="tournChat">प्रतियोगिता वार्ता</string>

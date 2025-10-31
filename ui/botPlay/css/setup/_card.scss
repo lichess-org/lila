@@ -15,6 +15,10 @@
       0 0 20px $c-brag;
   }
 
+  &--dev {
+    filter: saturate(0);
+  }
+
   &:hover {
     box-shadow:
       0 0 5px var(--bot-color),

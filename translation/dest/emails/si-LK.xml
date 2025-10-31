@@ -2,6 +2,7 @@
 <resources>
   <string name="emailConfirm_subject">ඔබගේ lichess.org ගිණුම තහවුරු කරන්න, %s</string>
   <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">ඔබගේ lichess ගිණුම සක්‍රීය කිරීමට සබැඳිය ක්ලික් කරන්න:</string>
+  <string name="emailConfirm_justIgnore" comment="This text is included in the registration email for new users.">ඔබ Lichess වෙත ලියාපදිංචි වී නැතිනම් මෙම පණිවිඩය මඟහරින්න. තහවුරු නොකළ ගිණුම් සහ ඊ-තැපෑලෙහි සලකුණු ඔබේ පද්ධතියෙන් පැය 48ක් තුල මැකි යනු ඇත.</string>
   <string name="passwordReset_subject">ඔබගේ lichess ගිණුමෙහි මුරපදය නැවත සකසන්න, %s</string>
   <string name="passwordReset_intro">ඔබගේ ගිණුමේ මුරපදය නැවත සැකසීමට අපට ඉල්ලීමක් ලැබුණි.</string>
   <string name="passwordReset_clickOrIgnore">ඔබ මෙම ඉල්ලීම කළේ නම්, පහත සබැඳිය ක්ලික් කරන්න. එසේ නොවේ නම්, ඔබට මෙම විද්‍යුත් තැපෑල නොසලකා හැරිය හැකිය.</string>

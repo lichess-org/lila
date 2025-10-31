@@ -20,7 +20,7 @@ object Dependencies {
   val hasher = "com.roundeights" %% "hasher" % "1.3.1"
   val compression = "com.github.lichess-org" % "compression" % "3.1.1"
   val maxmind = "com.maxmind.geoip2" % "geoip2" % "4.0.1"
-  val caffeine = "com.github.ben-manes.caffeine" % "caffeine" % "3.2.2" % "compile"
+  val caffeine = "com.github.ben-manes.caffeine" % "caffeine" % "3.2.3" % "compile"
   val scaffeine = "com.github.blemale" %% "scaffeine" % "5.3.0" % "compile"
   val googleOAuth = "com.google.auth" % "google-auth-library-oauth2-http" % "1.40.0"
   val galimatias = "io.mola.galimatias" % "galimatias" % "0.2.2-NF"
@@ -103,7 +103,7 @@ object Dependencies {
   }
 
   object playWs {
-    val version = "2.2.12"
+    val version = "2.2.13"
     val ahc = "com.typesafe.play" %% "play-ahc-ws-standalone" % version
     val json = "com.typesafe.play" %% "play-ws-standalone-json" % version
     val bundle = Seq(ahc, json)

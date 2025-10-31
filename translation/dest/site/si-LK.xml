@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="gameSetup">ක්‍රීඩාව සූදානම් කරන්න</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">මිතුරෙකුට ආභියෝග කරන්න</string>
+  <string name="playAgainstComputer">පරිගණකයට එරෙහිව ක්‍රීඩා කරන්න</string>
+  <string name="gameMode">ක්‍රීඩා විධිය</string>
+  <string name="createLobbyGame">ලොබි ක්‍රීඩාවක් සාදන්න</string>
+  <string name="youPlayAs">ඔබ ක්‍රීඩා කරනුයේ</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">ක්‍රීඩා කිරීමට යමෙකුට ආරාධනා කිරීමට, මෙම URL එක දෙන්න</string>
   <string name="gameOver">තරගය අවසන්</string>
   <string name="waitingForOpponent">ප්‍රතිවාදියා වෙනුවෙන් බලාසිටිමින්</string>
@@ -20,8 +26,11 @@
   <string name="asBlack">කලු ලෙස</string>
   <string name="randomColor">අහඹු පැත්ත</string>
   <string name="createAGame">ක්‍රීඩාවක් නිර්මාණය කරන්න</string>
+  <string name="createTheGame">ක්‍රීඩාව සාදන්න</string>
   <string name="whiteIsVictorious">සුදු ජයග්‍රාහී වේ</string>
   <string name="blackIsVictorious">කළු ජයග්‍රාහී වේ</string>
+  <string name="youPlayTheWhitePieces">සුදු ඉත්තන්ගෙන් ක්‍රීඩා කරන්න</string>
+  <string name="youPlayTheBlackPieces">කළු ඉත්තන්ගෙන් ක්‍රීඩා කරන්න</string>
   <string name="itsYourTurn">ඔබගේ වාරය!</string>
   <string name="cheatDetected">වංචා කර ඇත</string>
   <string name="kingInTheCenter">රජු කෙන්ද්‍රයේය</string>
@@ -70,6 +79,7 @@
   <string name="expandVariations">විචලනය පුළුල් කරන්න</string>
   <string name="forceVariation">බලෙන්ම ලබාගත් විචලනය</string>
   <string name="copyVariationPgn">The variaty</string>
+  <string name="copyMainLinePgn">ප්‍රධාන මඟ PGN පිටපත් කරන්න</string>
   <string name="move">ඇදීම</string>
   <string name="variantLoss">පරාදවෙන ඇදීමක්</string>
   <string name="variantWin">දිනන ඇදීමක්</string>
@@ -93,11 +103,13 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' වටකුරු සහිත, ඊළඟ අල්ලන්න හෝ උකස් චලනය වන තෙක් අර්ධ චලනයන් ගණන මත පදනම්ව</string>
   <string name="noGameFound">සෙල්ලමක් හමුවුන්නෑ</string>
+  <string name="maxDepthReached">උපරිම ගැඹුරට ළඟාවිය!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">මනාප ලැයිස්තුවේ තවත් සෙල්ලම් තිබිය හැක?</string>
   <string name="openings">චෙස් විවෘත කිරීම්</string>
   <string name="openingExplorer">පටන්ගැනීම් ගවේෂකය</string>
   <string name="openingEndgameExplorer">විවෘත කිරීම/අවසන් ක්‍රීඩා ගවේෂක</string>
   <string name="xOpeningExplorer">%sපටන්ගැනීම් ගවේෂකය</string>
+  <string name="playFirstOpeningEndgameExplorerMove">ප්‍රථම ආරම්භක පියවර</string>
   <string name="winPreventedBy50MoveRule">ඇදීම් 50 නීතීයෙන් ජයග්‍රහණය නැතිවුණා</string>
   <string name="lossSavedBy50MoveRule">ඇදීම් 50 නීතියෙන් පරාජය නැතිවුණා</string>
   <string name="winOr50MovesByPriorMistake">පෙර වැරදීමකින් ජයග්‍රහණය හෝ චලනයන් 50 ක්</string>
@@ -160,6 +172,7 @@
   <string name="drawByMutualAgreement">අන්යොන්ය එකඟතාවයෙන් ඇඳීම</string>
   <string name="fiftyMovesWithoutProgress">ප්‍රගතියක් නොමැතිව චලනයන් පනහක්</string>
   <string name="currentGames">වර්තමාන තරඟ</string>
+  <string name="joinedX">%s එකතු විය</string>
   <plurals name="nbGames">
     <item quantity="one">%sතරගය</item>
     <item quantity="other">%sතරඟ</item>
@@ -181,6 +194,7 @@
   <string name="computersAreNotAllowedToPlay">පරිගණක සහ පරිගණක ආධාරක ක්‍රීඩකයින්ට ක්‍රීඩා කිරීමට අවසර නැත. කරුණාකර චෙස් එන්ජින්, දත්ත සමුදායන් හෝ වෙනත් ක්‍රීඩකයන්ගෙන් සහය ලබා නොගන්න. බහුවිධ ගිණුම් සෑදීම දැඩි ලෙස තහනම් කර ඇති අතර අධික එය සදාකාලික තහනම් කිරීමක් හේතු වනු ඇති බව සලකන්න.</string>
   <string name="games">තරඟ</string>
   <string name="forum">සාකච්ඡා මණ්ඩපය</string>
+  <string name="xPostedInForumY">%2$s මාතෘකාවෙන් %1$s පල කලා</string>
   <string name="latestForumPosts">නවතම පෝරම සටහන්</string>
   <string name="players">ක්‍රීඩකයන්</string>
   <string name="friends">යහළුවන්</string>
@@ -283,6 +297,7 @@
   <string name="abortGame">තරඟය නවත්වන්න</string>
   <string name="gameAborted">තරගය අත්හැර දැමුනි</string>
   <string name="standard">සම්මත</string>
+  <string name="customPosition">අවශ්‍ය පරිදි ස්ථානගත කල</string>
   <string name="unlimited">සිමාරහිත</string>
   <string name="mode">ප්‍රකාරය</string>
   <string name="casual">සාමාන්‍ය</string>
@@ -302,6 +317,7 @@
   <string name="inbox">එන ලිපි</string>
   <string name="chatRoom">කතාබස් පුවරුව</string>
   <string name="loginToChat">කතාබස් කිරීමට පුරනය වන්න</string>
+  <string name="youHaveBeenTimedOut">ඔබව කාල ඉවත් කර ඇත.</string>
   <string name="spectatorRoom">ප්‍රේක්ෂක කාමරය</string>
   <string name="composeMessage">පණිවිඩය රචනා කරන්න</string>
   <string name="subject">විෂයය</string>
@@ -329,6 +345,7 @@
     <item quantity="other">කරන %s</item>
   </plurals>
   <string name="exportGames">තරග ආනයනය කරන්න</string>
+  <string name="ratingFilter">ඇගයිම් පෙරනය</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">තප්පර %s දීම</item>
     <item quantity="other">තප්පර %s දීම</item>
@@ -337,7 +354,15 @@
   <string name="openingExplorerAndTablebase">Opening explorer &amp; වගු පදනම</string>
   <string name="takeback">ආපසු ගැනීම</string>
   <string name="proposeATakeback">ආපසු ගැනීමක් යෝජනා කරන්න</string>
+  <string name="whiteProposesTakeback">සුදු නැවත ගැනුමක් යෝජනා කරයි</string>
+  <string name="blackProposesTakeback">කළු නැවත ගැනුමක් යෝජනා කරයි</string>
   <string name="takebackPropositionSent">ආපසු ගැනීම යවන ලදී</string>
+  <string name="whiteDeclinesTakeback">සුදු නැවත ගැනුම ප්‍රතික්ෂේප කරයි</string>
+  <string name="blackDeclinesTakeback">කළු නැවත ගැනුම ප්‍රතික්ෂේප කරයි</string>
+  <string name="whiteAcceptsTakeback">සුදු නැවත ගැනුම පිළිගනියි</string>
+  <string name="blackAcceptsTakeback">කළු නැවත ගැනුම පිළිගනියි</string>
+  <string name="whiteCancelsTakeback">සුදු නැවත ගැනුම අවලංගු කලා</string>
+  <string name="blackCancelsTakeback">කළු නැවත ගැනුම අවලංගු කලා</string>
   <string name="yourOpponentProposesATakeback">ඔබේ විරුද්ධවාදියා ආපසු හැරීමක් යෝජනා කරයි</string>
   <string name="bookmarkThisGame">මෙම ක්‍රීඩාව පිටු සලකුණු කරන්න</string>
   <string name="tournament">තරඟාවලිය</string>
@@ -359,11 +384,24 @@
   <string name="backToTournament">තරඟාවලිය වෙත ආපසු</string>
   <string name="noDrawBeforeSwissLimit">ඇදීම් 30ක් සම්පූර්ණ වන තුරු ඔබට Draw කර නොහැක.</string>
   <string name="thematic">තේමාත්මක</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ %s ඇගයූ ක්‍රීඩාව</item>
+    <item quantity="other">≥ %s ඇගයූ ක්‍රීඩා</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s %2$s ඇගයූ ක්‍රීඩාව</item>
+    <item quantity="other">≥ %1$s %2$s ඇගයූ ක්‍රීඩා</item>
+  </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">ඔබ තව %1$s %2$s අගයන ලද ක්‍රීඩාවක් ක්‍රීඩා කිරීමට අවශ්‍යයි</item>
     <item quantity="other">ඔබ තව %1$s %2$s අගයන ලද ක්‍රීඩාවක් ක්‍රීඩා කිරීමට අවශ්‍යයි</item>
   </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">ඔබ ඇගයූ ක්‍රීඩා %sක් තව ක්‍රීඩා කලයුතුය</item>
+    <item quantity="other">ඔබ ඇගයූ ක්‍රීඩා %sක් තව ක්‍රීඩා කලයුතුය</item>
+  </plurals>
   <string name="yourPerfRatingIsProvisional">ඔබගේ %s ශ්‍රේණිගත කිරීම තාවකාලිකයි</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">ඔබේ ඇගයුම් අස්ථාවර බැවින් ඇගයිම් පෙරනය අගුළු වැටී ඇත. ඇගයූ ක්‍රීඩා ක්‍රීඩාකිරීම ස්ථාවර බක ඇති කරයි.</string>
   <string name="yourPerfRatingIsTooHigh">ඔබේ %1$s ඇගයීම (%2$s) ඉතා ඉහළයි</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">ඔබේ ඉහළම සතිපතා %1$s ඇගයීම (%2$s) ඉතා ඉහළය</string>
   <string name="yourPerfRatingIsTooLow">ඔබගේ %1$s ඇගයීම (%2$s) ඉතා අඩුය</string>
@@ -383,6 +421,7 @@
   <string name="reset">යළි පිහිටුවන්න</string>
   <string name="apply">ඉදිරිපත් කරන්න</string>
   <string name="save">සුරකින්න</string>
+  <string name="leaderboard">ප්‍රමුඛ පුවරුව</string>
   <string name="screenshotCurrentPosition">තිර රුව වත්මන් ස්ථානය</string>
   <string name="gameAsGIF">GIF ලෙස ක්‍රීඩාව</string>
   <string name="pasteTheFenStringHere">FEN පෙළ මෙහි අලවන්න</string>
@@ -407,6 +446,7 @@
   <string name="blackCheckmatesInOneMove">කළුට එක ඇදීමකින් චෙක්මේට් කිරීමට</string>
   <string name="retry">නැවත උත්සාහ කරන්න</string>
   <string name="reconnecting">නැවත සම්බන්ධ වෙමින්</string>
+  <string name="noNetwork">මාර්ග ගත නොමැත</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s යහළුවන් සජීවීව සිටියි</item>
     <item quantity="other">%s යාළුවන් සජීවීව සිටියි</item>
@@ -443,6 +483,7 @@
   <string name="openTournaments">විවෘත තරඟාවලි</string>
   <string name="duration">කාල සීමාව</string>
   <string name="winner">ජයග්‍රාහකයා</string>
+  <string name="standings">ස්ථාවරයන්</string>
   <string name="createANewTournament">නව තරඟාවලියක් නිර්මාණය කරන්න</string>
   <string name="tournamentCalendar">තරඟාවලි දින දර්ශනය</string>
   <string name="conditionOfEntry">පිවිසුම් අවශ්‍යතා:</string>
@@ -456,6 +497,7 @@
   <string name="points">ලකුණු</string>
   <string name="wins">ජය ලබයි</string>
   <string name="losses">Losses</string>
+  <string name="startingIn" comment="Displayed above a timer">ආරම්භයට තව</string>
   <string name="standByX">%s ළඟ සිටින්න, ක්‍රීඩකයන් යුගල කරන්න, සූදානම් වන්න!</string>
   <string name="pause">විරාමය</string>
   <string name="resume">යලි අරඹන්න</string>
@@ -471,10 +513,12 @@
   <string name="averageOpponent">Average ප්රතිවාදියා</string>
   <string name="boardEditor">Board සංස්කාරක</string>
   <string name="setTheBoard">පුවරුව සකසන්න</string>
+  <string name="popularOpenings">ජනප්‍රිය ඇරඹුම්</string>
   <string name="endgamePositions">අවසන් ක්‍රීඩා තනතුරු</string>
   <string name="chess960StartPosition">Chess960 ආරම්භක ස්ථානය%s</string>
   <string name="startPosition">ආරම්භක ස්ථානය</string>
   <string name="clearBoard">පුවරුව පැහැදිලි කරන්න​</string>
+  <string name="loadPosition">ස්ථාන පටවන්න</string>
   <string name="isPrivate">පෞද්ගලික</string>
   <string name="reportXToModerators">පරිපාලකයින්ට %s වාර්තා කරන්න</string>
   <string name="profileCompletion">පැතිකඩ සම්පූර්ණ කිරීම%s</string>
@@ -533,6 +577,7 @@
   <string name="reportUsernameHelp">මෙම පරිශීලක නාමය අවමානාත්මක යැයි සනාථ කළේ කෙසේද යන්න විස්තර කරන්න. \'මේක අවමානාත්මකයි/නරකයි\' යන්න පමණක් නොකිය, නමුත් එය කුමක් නිසාදැයි පැහැදිලි කරන්න. විශේෂයෙන්ම එය සෘජුවෙන් නොපෙනෙන එකක් නම්, අභ්‍යන්තර අර්ථය නොපෙනෙන ඉංග්‍රීසියෙන් නොවූ, එකකින් හෝ ඉතිහාසය/සංස්කෘතික නියෝගයක් මත පදනම් වූ එකක් නම් එය සනාථ කරන්න.\".</string>
   <string name="reportProcessedFasterInEnglish">ඉංග්‍රීසියන් ලීයූ දෑ ඉක්මනට සෝදිසි කරයි.</string>
   <string name="error.provideOneCheatedGameLink">වංචා කළ ක්‍රීඩාව සඳහා එක් සබැඳියක්වත් දීමට කාරුණික වන්න​.</string>
+  <string name="by">%s වෙතින්</string>
   <string name="blog">බ්ලොග්</string>
   <string name="privacyPolicy">Privacy Policy</string>
   <string name="letOtherPlayersFollowYou">අනෙක් ක්‍රීඩකයන්ට ඔබව Follow කරන්න ඉඩ දෙන්න</string>

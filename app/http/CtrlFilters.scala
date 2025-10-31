@@ -33,11 +33,11 @@ trait CtrlFilters(using Executor) extends ControllerHelpers with ResponseBuilder
     if isGrantedOpt(perm) then f
     else negotiate(authorizationFailed, authorizationFailed)
 
-  def Firewall[A <: Result](a: => Fu[A])(using ctx: Context): Fu[Result] =
+  def Firewall(a: => Fu[Result])(using ctx: Context): Fu[Result] =
     if env.security.firewall.accepts(ctx.req) then a
     else keyPages.blacklisted
 
-  def WithProxy(res: IsProxy ?=> Fu[Result])(using req: RequestHeader): Fu[Result] =
+  def WithProxy[A](res: IsProxy ?=> Fu[A])(using req: RequestHeader): Fu[A] =
     env.security.ip2proxy.ofIp(req.ipAddress).flatMap(res(using _))
 
   def NoTor(res: => Fu[Result])(using ctx: Context): Fu[Result] =

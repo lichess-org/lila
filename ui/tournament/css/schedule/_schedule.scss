@@ -9,6 +9,7 @@ $c-tour-weekend: $c-brag;
 $c-tour-marathon: #66558c;
 $c-tour-unique: $c-brag;
 $c-tour-max-rating: #8572ff;
+$c-tour-variant: #7c5133;
 
 .tour-chart {
   @include prevent-select;
@@ -96,10 +97,6 @@ $c-tour-max-rating: #8572ff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3) inset;
   }
 
-  &-user-created {
-    background-color: $c-primary;
-  }
-
   &-hourly {
     background-color: $c-tour-hourly;
   }
@@ -155,6 +152,14 @@ $c-tour-max-rating: #8572ff;
 
   &-max-rating {
     background-color: $c-tour-max-rating;
+  }
+
+  &-variant {
+    background-color: $c-tour-variant;
+  }
+
+  &-user-created {
+    background-color: $c-primary;
   }
 
   &-short.tsht-thematic {

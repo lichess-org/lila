@@ -1,6 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="newPost">नवीन पोस्ट</string>
+  <string name="community">समुदाय</string>
+  <string name="byMonth">महिन्यानुसार</string>
+  <string name="byTopic">विषयानुसार</string>
+  <string name="byLichess">Lichess द्वारे</string>
+  <string name="myFriends">माझे मित्र</string>
+  <string name="myLikes" comment="A page which lists blog posts that you have pressed ❤️ Like on: https://lichess.org/blog/liked">माझ्या आवडी</string>
+  <string name="myBlog">माझे अनुदिनी</string>
+  <string name="likedBlogs">आवडलेले अनुदिन्या</string>
+  <plurals name="blogPosts">
+    <item quantity="one">%s अनुदिनी</item>
+    <item quantity="other">%s अनुदिन्या</item>
+  </plurals>
+  <string name="continueReadingPost">ह्या अनुदिनीला वाचणे सुरू ठेवा</string>
+  <string name="lichessBlogPostsFromXYear">Lichess चे अनुदिन्या %s मध्ये</string>
+  <string name="previousBlogPosts">पूर्वीच्या अनुदिन्या</string>
+  <string name="xBlog">%s चि अनुदिनी</string>
+  <string name="newPost">नवीन नेमणी</string>
   <string name="editYourBlogPost">आपली ब्लॉग पोस्ट संपादित करा</string>
   <string name="saveDraft">मसुदा वाचवा</string>
+  <string name="postTitle">नेमणीचे शीर्षक</string>
+  <string name="postIntro">नेमणीचे परिचय</string>
+  <string name="postBody">नेमणीचे मुख्य भाग</string>
+  <string name="drafts">मसुदे</string>
+  <string name="published">प्रकाशित</string>
+  <string name="createBlogDiscussion">टिप्पण्यांना सक्षम करा</string>
+  <string name="createBlogDiscussionHelp">तुमच्या अनुदिनीवर लोकांच्या टिप्पण्यांसाठी एक सार्वजनिक विषय बनवले जाईल</string>
+  <string name="publishOnYourBlog">तुमच्या अनुदिनीवर प्रकाशित करा</string>
+  <string name="publishHelp">जर तपासले गेले तर तुमची नेमणी तुमच्या अनुदिनीवर सूचिबद्ध केले जाईल. जर नाही, ते गुप्त राहील, तुमच्या मसुद्या नेमण्यांमध्ये</string>
+  <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">क्षणिक नेमणी</string>
+  <string name="stickyPostHelp">जर तपासले गेले तर ही नेमणी तुमच्या पार्शवचित्रातील नुकते नेमन्यांमध्ये व अनुदिनीत सूचीबद्ध केले जाईल.</string>
+  <plurals name="publishedNbBlogPosts">
+    <item quantity="one">एक अनुदिनी प्रकाशित केली</item>
+    <item quantity="other">%s अनुदिनी प्रकाशित केली</item>
+  </plurals>
+  <plurals name="nbViews">
+    <item quantity="one">एक दृश्य</item>
+    <item quantity="other">%s दृश्ये</item>
+  </plurals>
 </resources>
