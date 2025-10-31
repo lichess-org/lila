@@ -21,13 +21,6 @@ export interface NvuiPlugin {
   render(): VNode;
 }
 
-export interface SocketOpts {
-  sign: string;
-  ackable: boolean;
-  withLag?: boolean;
-  millis?: number;
-}
-
 export interface SocketMove {
   u: Uci;
   b?: 1;
@@ -36,6 +29,46 @@ export interface SocketDrop {
   role: Role;
   pos: Key;
   b?: 1;
+}
+
+export interface EventsWithPayload {
+  rep: { n: string };
+  flag: Color;
+  move: SocketMove;
+  drop: SocketDrop;
+}
+
+export type EventsWithoutPayload =
+  | 'moretime'
+  | 'berserk'
+  | 'rematch-yes'
+  | 'rematch-no'
+  | 'takeback-yes'
+  | 'takeback-no'
+  | 'draw-yes'
+  | 'draw-no'
+  | 'blindfold-yes'
+  | 'blindfold-no'
+  | 'draw-force'
+  | 'bye2'
+  | 'resign-force'
+  | 'draw-claim'
+  | 'resign'
+  | 'abort';
+
+export interface RoundSocketSend {
+  <K extends keyof EventsWithPayload>(
+    type: K,
+    data: EventsWithPayload[K],
+    opts?: { ackable?: boolean },
+    noRetry?: boolean,
+  ): void;
+  <K extends EventsWithoutPayload>(
+    type: K,
+    data?: undefined,
+    opts?: { ackable?: boolean },
+    noRetry?: boolean,
+  ): void;
 }
 
 export type EncodedDests =
@@ -82,7 +115,7 @@ export interface RoundOpts {
   data: RoundData;
   userId?: string;
   noab?: boolean;
-  socketSend?: SocketSend;
+  socketSend?: RoundSocketSend;
   onChange(d: RoundData): void;
   element?: HTMLElement;
   crosstableEl?: HTMLElement;
