@@ -9,7 +9,7 @@
   <string name="forgotPassword">Заборавио/ла сам лозинку</string>
   <string name="forgotUsername">Заборавио/ла сам корисничко име</string>
   <string name="youCanLoginWithEmail">Можеш се пријавити са имејл адресом којом си се регистровао/ла</string>
-  <string name="lost2FA">Изгубио/ла сам приступ мојим кодовима за дво-степену аутентикацију</string>
+  <string name="lost2FA">Изгубио/ла сам приступ мојим кодовима за двофакторску аутентикацију</string>
   <string name="doPasswordReset">Приведите крају мењање шифре да бисте уклонили други корак</string>
   <string name="accountSupport">Потребна ми је подршка за налог</string>
   <string name="wantTitle">Желим моје звање приказано на Lichess-у</string>
