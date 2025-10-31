@@ -4,6 +4,8 @@ declare namespace Tree {
   export type Path = string;
 
   interface ClientEvalBase extends EvalScore {
+    bestmove?: Uci;
+    ponder?: Uci;
     fen: FEN;
     depth: number;
     nodes: number;
