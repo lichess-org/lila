@@ -4,7 +4,6 @@
   }
   .flag {
     height: 1em;
-    aspect-ratio: 134/100;
   }
   &__search {
     &-form {
@@ -61,7 +60,6 @@
     height: 1.5em;
     margin-right: 1em;
     vertical-align: middle;
-    aspect-ratio: 134/100;
   }
   a {
     font-weight: bold;
@@ -74,7 +72,6 @@
     .flag {
       @extend %box-radius;
       height: 5em;
-      aspect-ratio: 134/100;
     }
   }
   &__cards {
