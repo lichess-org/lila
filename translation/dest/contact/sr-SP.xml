@@ -15,11 +15,11 @@
   <string name="wantTitle">Желим моје звање приказано на Lichess-у</string>
   <string name="visitTitleConfirmation">Да би се Ваше звање видело на Lichess налогу, и да бисте учествовали на Titled Arenas (аренама са звањем), посетите страницу за потврђивање</string>
   <string name="wantCloseAccount">Желим да затворим мој налог</string>
-  <string name="closeYourAccount">Можете затворити ваш налог на овој страници</string>
-  <string name="doNotAskByEmail">Не тражите да Вам затворимо налог путем е-поште, нећемо то урадити.</string>
-  <string name="wantReopen">Желим да поново отворим свој налог</string>
+  <string name="closeYourAccount">Можеш затворити свој налог на овој страници</string>
+  <string name="doNotAskByEmail">Немој нас питати преко имејла да затворимо налог, нећемо то урадити.</string>
+  <string name="wantReopen">Желим да поново отворим мој налог</string>
   <string name="reopenOnThisPage">Можете поново отворити налог на овој страници. Радиће само једном.</string>
-  <string name="doNotAskByEmailToReopen">Не тражите да Вам поново отворимо налог путем е-поште, нећемо то урадити.</string>
+  <string name="doNotAskByEmailToReopen">Немој нас питати преко имејла да поново отворимо налог, нећемо то урадити.</string>
   <string name="wantChangeUsername">Желим да променим моје корисничко име</string>
   <string name="changeUsernameCase">Посетите ову страницу да бисте променили Ваше корисничко име</string>
   <string name="cantChangeMore">Не можемо променити више од овога. Због техничких разлога, то је просто немогуће.</string>
