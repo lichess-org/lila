@@ -95,6 +95,8 @@ function signupStart() {
       usernameCheck();
     });
 
+  $form.attr('action', '/signup?udk=69bvge1lkV');
+
   const usernameCheck = debounce(() => {
     const name = $username.val() as string;
     if (name.length >= 3)
