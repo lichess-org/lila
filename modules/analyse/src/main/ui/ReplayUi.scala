@@ -67,18 +67,7 @@ final class ReplayUi(helpers: Helpers)(analyseUi: AnalyseUi):
         trans.site.gameAsGIF()
       )(cls := "game-gif"),
       copyMeLink(
-        cdnUrl(
-          routes.Export
-            .fenThumbnail(
-              Fen.write(pov.game.position).value,
-              pov.color.some,
-              None,
-              pov.game.variant.key.some,
-              ctx.pref.theme.some,
-              ctx.pref.pieceSet.some
-            )
-            .url
-        ),
+        fenThumbnailUrl(Fen.write(pov.game.position).opening, pov.color.some, pov.game.variant),
         trans.site.screenshotCurrentPosition()
       )(cls := "position-gif")
     )
