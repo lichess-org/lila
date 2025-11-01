@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="voiceCommands">Komandos balsu</string>
+  <string name="watchTheVideoTutorial">Žiūrėkite vaizdo pamoką</string>
+  <string name="instructions1">Balso atpažinimui įjungti ir išjungti naudokite mygtuką %1$s, šiam pagalbos dialogo langui atidaryti – mygtuką %2$s, o kalbos nustatymams pakeisti – meniu %3$s.</string>
+  <string name="instructions2">Rodome rodykles keliems ėjimams, kai nesame tikri. Norėdami pasirinkti ėjimo rodyklę, ištarkite jos spalvą arba numerį.</string>
   <string name="thisBlogPost">Šis tinklaraščio įrašas</string>
   <string name="moveToE4OrSelectE4Piece">Eiti į e4 arba pasirinkti figūrą e4 langelyje</string>
   <string name="selectOrCaptureABishop">Pasirinkti arba kirsti rikį</string>
