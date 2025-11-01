@@ -53,7 +53,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
           .map:
             views.relay.tour.byOwner(_, owner)
 
-  def apiBy(owner: UserStr, page: Int) = Open:
+  def apiBy(owner: UserStr, page: Int) = AnonOrScoped(_.Study.Read, _.Web.Mobile):
     Reasonable(page, Max(20)):
       Found(env.user.lightUser(owner.id)): owner =>
         env.relay.pager
