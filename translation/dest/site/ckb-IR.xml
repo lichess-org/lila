@@ -958,7 +958,6 @@
   <string name="simulFeaturedHelp">یارییە بە کۆمەڵەکەت \"سیمۆڵ\" بەشێوەی گشتی نیشانبدە لە %s. بۆ یاری بەکۆمەڵە تایبەتەکان لەکاربخە.</string>
   <string name="simulDescription">باسێکی یاری بەکۆمەڵەکەت بکە</string>
   <string name="simulDescriptionHelp">دەتەوێت شتێک بە بەشداربووان بڵێیت?</string>
-  <string name="markdownAvailable">%s بۆ ڕستەسازی پێشکەوتووتر بەردەستە.</string>
   <string name="embedsAvailable">URLی یارییەک یان URLی بابەتی خوێندن لێبدە بۆ جێگیرکردنی.</string>
   <string name="inYourLocalTimezone">لە ناوچەی کاتی ناوخۆیی خۆتدا</string>
   <string name="tournChat">گفتوگۆی پاڵەوانیەتیەکە</string>

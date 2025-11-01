@@ -66,6 +66,8 @@
     "multilog": "pnpm serverlog & ui/build -w"
   },
   "browserslist": [
-    "defaults"
+    "defaults",
+    "not op_mini all",
+    "not kaios <= 4"
   ]
 }

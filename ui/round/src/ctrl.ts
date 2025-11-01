@@ -36,12 +36,12 @@ import type {
   RoundData,
   SocketMove,
   SocketDrop,
-  SocketOpts,
   MoveMetadata,
   NvuiPlugin,
   RoundTour,
   ApiMove,
   ApiEnd,
+  EventsWithPayload,
 } from './interfaces';
 import { defined, type Toggle, type Prop, toggle, requestIdleCallback, memoize } from 'lib';
 import { storage, once, storedBooleanProp, type LichessBooleanStorage } from 'lib/storage';
@@ -49,7 +49,7 @@ import * as poolRangeStorage from 'lib/poolRangeStorage';
 import { pubsub } from 'lib/pubsub';
 import { readFen, almostSanOf, speakable } from 'lib/game/sanWriter';
 import { plyToTurn } from 'lib/game/chess';
-import { wsDestroy } from 'lib/socket';
+import { wsDestroy, type SocketSendOpts } from 'lib/socket';
 import Server from './server';
 
 type GoneBerserk = Partial<ByColor<boolean>>;
@@ -297,8 +297,12 @@ export default class RoundController implements MoveRootCtrl {
 
   setTitle = (): void => title.set(this);
 
-  actualSendMove = (tpe: string, data: any, meta: MoveMetadata = { premove: false }): void => {
-    const socketOpts: SocketOpts = {
+  actualSendMove = <moveOrDrop extends 'move' | 'drop'>(
+    tpe: moveOrDrop,
+    data: EventsWithPayload[moveOrDrop],
+    meta: MoveMetadata = { premove: false },
+  ): void => {
+    const socketOpts: SocketSendOpts = {
       sign: this.sign,
       ackable: true,
     };
@@ -696,7 +700,7 @@ export default class RoundController implements MoveRootCtrl {
     else return false;
   };
 
-  opponentRequest(req: string, text: string): void {
+  opponentRequest(req: 'takeback' | 'rematch' | 'draw', text: string): void {
     this.voiceMove?.listenForResponse(req, (v: boolean) =>
       this.socket.sendLoading(`${req}-${v ? 'yes' : 'no'}`),
     );
@@ -856,7 +860,7 @@ export default class RoundController implements MoveRootCtrl {
 
   private doOfferDraw = () => {
     this.data.player.lastDrawOfferAtPly = this.lastPly();
-    this.socket.sendLoading('draw-yes', null);
+    this.socket.sendLoading('draw-yes');
   };
 
   setChessground = (cg: CgApi): void => {

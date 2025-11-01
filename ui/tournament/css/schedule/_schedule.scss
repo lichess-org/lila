@@ -97,10 +97,6 @@ $c-tour-variant: #7c5133;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3) inset;
   }
 
-  &-user-created {
-    background-color: $c-primary;
-  }
-
   &-hourly {
     background-color: $c-tour-hourly;
   }
@@ -160,6 +156,10 @@ $c-tour-variant: #7c5133;
 
   &-variant {
     background-color: $c-tour-variant;
+  }
+
+  &-user-created {
+    background-color: $c-primary;
   }
 
   &-short.tsht-thematic {

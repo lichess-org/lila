@@ -38,7 +38,10 @@ export class Protocol {
   }
 
   disconnected(): void {
-    if (this.work && this.currentEval) this.work.emit(this.currentEval);
+    if (this.work && this.currentEval) {
+      this.currentEval.bestmove ??= '(none)';
+      this.work.emit(this.currentEval);
+    }
     this.work = undefined;
     this.send = undefined;
   }
@@ -61,7 +64,12 @@ export class Protocol {
     else if (parts[0] === 'bestmove') {
       const work = this.work;
       this.work = undefined;
-      if (work && this.currentEval) work.emit(this.currentEval);
+      if (work) {
+        const ceval = this.currentEval ?? { millis: 0, fen: work.currentFen, depth: 0, nodes: 0, pvs: [] };
+        ceval.bestmove = parts[1];
+        if (parts[2] === 'ponder') ceval.ponder = parts[3];
+        work.emit(ceval);
+      }
       this.swapWork();
       return;
     } else if (this.work && !this.work.stopRequested && parts[0] === 'info') {
@@ -122,23 +130,26 @@ export class Protocol {
       };
 
       if (multiPv === 1) {
-        this.currentEval = {
-          fen: this.work.currentFen,
-          depth,
-          nodes,
-          millis,
-          cp: isMate ? undefined : ev,
-          mate: isMate ? ev : undefined,
-          pvs: [pvData],
-        };
+        if (depth === (this.currentEval?.depth ?? 0) + 1) {
+          // ignore skipped depth info lines before bestmove.
+          this.currentEval = {
+            fen: this.work.currentFen,
+            depth,
+            nodes,
+            millis,
+            cp: isMate ? undefined : ev,
+            mate: isMate ? ev : undefined,
+            pvs: [pvData],
+          };
+        }
       } else if (this.currentEval) {
-        this.currentEval.pvs.push(pvData);
+        if (this.currentEval.pvs.length < multiPv) this.currentEval.pvs.push(pvData);
+        else this.currentEval.pvs[multiPv - 1] = pvData;
         this.currentEval.depth = Math.min(this.currentEval.depth, depth);
       }
 
       if (multiPv === this.expectedPvs && this.currentEval) {
         this.work.emit(this.currentEval);
-        if (depth >= 99) this.stop();
       }
     } else if (
       command &&

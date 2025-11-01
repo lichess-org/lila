@@ -158,7 +158,7 @@ final class StreamerApi(
 
   def uploadPicture(s: Streamer, picture: PicfitApi.FilePart, by: User): Funit =
     picfitApi
-      .uploadFile(s"streamer:${s.id}", picture, userId = by.id)
+      .uploadFile(s"streamer:${s.id}", picture, userId = by.id, requestAutomod = false)
       .flatMap: pic =>
         coll.update.one($id(s.id), $set("picture" -> pic.id)).void
 

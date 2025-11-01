@@ -4,7 +4,7 @@
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Desafía a un amigo</string>
   <string name="playAgainstComputer">Jugar contra el ordenador</string>
   <string name="gameMode">Tipo de partida</string>
-  <string name="createLobbyGame" comment="One of three buttons on the home page. Opens the modal to create a game that goes in the lobby.">Crear partida en la sala de espera</string>
+  <string name="createLobbyGame">Crear partida en la sala de espera</string>
   <string name="youPlayAs">Juegas con</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Para invitar a alguien a jugar, comparte este enlace</string>
   <string name="gameOver">Fin de la partida</string>
@@ -769,6 +769,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">También puedes usar la rueda del ratón para desplazarte por la partida.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Mantén pulsado sobre las variantes del análisis para previsualizarlas.</string>
   <string name="analysisShapesHowTo">Haz clic con el botón derecho o Máyus+clic para dibujar círculos y flechas en el tablero.</string>
+  <string name="primaryColorArrowsHowTo">Ctrl o mayúsculas = rojo; comando, alt, o meta = azul; una tecla de cada = amarillo.</string>
   <string name="letOtherPlayersMessageYou">Permitir que otras personas te envíen mensajes</string>
   <string name="receiveForumNotifications">Recibir notificaciones cuando alguien te mencione en el foro</string>
   <string name="shareYourInsightsData">Comparte tus datos estadísticos</string>
@@ -974,7 +975,7 @@ Déjalo vacío para empezar las partidas desde la posición inicial habitual.</s
   <string name="simulFeaturedHelp">Muestra la simultánea públicamente en %s. Deshabilitado para simultáneas privadas.</string>
   <string name="simulDescription">Descripción de la simultánea</string>
   <string name="simulDescriptionHelp">¿Quieres decirle algo a los participantes?</string>
-  <string name="markdownAvailable">Se puede usar %s para formatear el texto.</string>
+  <string name="markdownIsAvailable" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text.">El formato de %s está disponible.</string>
   <string name="embedsAvailable">Pega el enlace de una partida o de un capítulo de estudio para insertarlo.</string>
   <string name="inYourLocalTimezone">En tu zona horaria local</string>
   <string name="tournChat">Chat del torneo</string>

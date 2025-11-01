@@ -42,6 +42,7 @@ def create(
 
 def show(
     s: lila.study.Study,
+    chapter: lila.study.Chapter,
     data: lila.study.JsonView.JsData,
     chatOption: Option[lila.chat.UserChat.Mine],
     socketVersion: SocketVersion,
@@ -85,9 +86,16 @@ def show(
     .flag(_.zoom)
     .csp(views.analyse.ui.bits.cspExternalEngine.compose(_.withPeer.withExternalAnalysisApis))
     .graph(
-      title = s.name.value,
-      url = routeUrl(routes.Study.show(s.id)),
-      description = s"A chess study by ${titleNameOrId(s.ownerId)}"
+      OpenGraph(
+        title = s.name.value,
+        url = routeUrl(routes.Study.show(s.id)),
+        description = s"A chess study by ${titleNameOrId(s.ownerId)}",
+        image = fenThumbnailUrl(
+          chapter.root.fen.opening,
+          chapter.setup.orientation.some,
+          chapter.setup.variant
+        ).some
+      )
     ):
       frag(
         main(cls := "analyse"),

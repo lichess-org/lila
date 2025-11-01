@@ -4,7 +4,7 @@
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Bir arkadaşınız oynayın</string>
   <string name="playAgainstComputer">Bilgisayara karsı oyna</string>
   <string name="gameMode">Oyun modü</string>
-  <string name="createLobbyGame" comment="One of three buttons on the home page. Opens the modal to create a game that goes in the lobby.">Oyun lobisi oluştur</string>
+  <string name="createLobbyGame">Oyun lobisi oluştur</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Oyuna davet etmek için, bu linki gönderin</string>
   <string name="gameOver">Oyun bitti</string>
   <string name="waitingForOpponent">Rakip bekleniyor</string>
@@ -968,7 +968,6 @@ Başlangıç pozisyonundan oynamak için boş bırakınız.</string>
   <string name="simulFeaturedHelp">Eş zamanlı gösteriyi %s adresinden herkese görünür kılar. Özel gösteriler için devre dışı bırakın.</string>
   <string name="simulDescription">Eş zamanlı gösterinin açıklaması</string>
   <string name="simulDescriptionHelp">Katılımcılara söylemek istediğiniz bir şey var mı?</string>
-  <string name="markdownAvailable">%s kullanarak metni daha ayrıntılı bir şekilde biçimlendirebilirsiniz.</string>
   <string name="embedsAvailable">Bir maç veya çalışma bölümü eklemek için bağlantıyı buraya yapıştırın.</string>
   <string name="inYourLocalTimezone">Yerel zaman diliminizde</string>
   <string name="tournChat">Turnuva sohbeti</string>

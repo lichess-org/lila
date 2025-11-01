@@ -932,7 +932,6 @@
   <string name="simulFeaturedHelp">എല്ലാവർക്കും എന്റെ ഒരേവേളകളികൾ %s-ൽ കാണിക്കുക. സ്വകാര്യമായ ഒരേവേളകളികൾക്കു് ഇതു ചെയ്യരുതു്.</string>
   <string name="simulDescription">ഒരേവേളകളി കുറിച്ചു്</string>
   <string name="simulDescriptionHelp">കളിക്കാരേ എന്തെങ്കിലും പറയാനുണ്ടോ?</string>
-  <string name="markdownAvailable">പുരോഗമിച്ച വാക്യഘടനയിനു് %s ലഭ്യമാണു്.</string>
   <string name="embedsAvailable">ഉൾപെടുത്തുകാൻ ഒരു കളിയുടെ കണ്ണി അതോ ഒരു പാഠം കണ്ണി ഒട്ടിക്കുക.</string>
   <string name="inYourLocalTimezone">താങ്ങളുടെ സ്വന്തം സമയപദ്ധതിയിൽ</string>
   <string name="tournChat">മത്സരസല്ലാപമുറി</string>

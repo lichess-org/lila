@@ -4,7 +4,7 @@
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Defii geamikon</string>
   <string name="playAgainstComputer">Ludi kontraŭ komputilo</string>
   <string name="gameMode">Tipo de ludo</string>
-  <string name="createLobbyGame" comment="One of three buttons on the home page. Opens the modal to create a game that goes in the lobby.">Krei ludon en atendejo</string>
+  <string name="createLobbyGame">Krei ludon en atendejo</string>
   <string name="youPlayAs">Koloro de viaj pecoj</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Por inviti iun al ludo, donu ĉi tiun ligilon</string>
   <string name="gameOver">Ludo finiĝis</string>
@@ -482,6 +482,7 @@
   <string name="openTournaments">Enireblaj turniroj</string>
   <string name="duration">Daŭro</string>
   <string name="winner">Venkinto</string>
+  <string name="standings">Pozicioj</string>
   <string name="createANewTournament">Krei novan turniron</string>
   <string name="tournamentCalendar">Turnira kalendaro</string>
   <string name="conditionOfEntry">Kondiĉo de eniro:</string>
@@ -575,6 +576,9 @@
   <string name="cheat">Trompo</string>
   <string name="troll">Trolo</string>
   <string name="other">Io alia</string>
+  <string name="reportCheatBoostHelp">Algluu ligilon al la ludo(j) kaj klarigu, kio malĝustas pri la konduto de tiu ĉi uzanto. Ne simple diru \"ili filudis\", sed klarigu kiel vi atingis tiun konkludon.</string>
+  <string name="reportUsernameHelp">Klarigu kio estas ofenda en la nomo de tiu ĉi uzanto. Ne simple diru \"ĝi estas ofenda/maldeca\" sed rakontu al ni kiel vi atingis tiun konkludon, ĉefe se temas kaŝita ofendo, se ĝi ne estas en la angla, se ĝi apartenas al nenorma lingvaĵo aŭ se ĝi referas ion kulturan aŭ historian.</string>
+  <string name="reportProcessedFasterInEnglish">Via raporto estos pritraktita pli rapide se vi ĝin skribas en la angla.</string>
   <string name="error.provideOneCheatedGameLink">Bonvolu doni almenaŭ unu ligilon al ludo en kiu oni friponis.</string>
   <string name="by">de %s</string>
   <string name="importedByX">Importita de %s</string>
@@ -677,6 +681,7 @@
   <string name="really">vere</string>
   <string name="contribute">Kontribui</string>
   <string name="termsOfService">Uzkondiĉojn</string>
+  <string name="titleVerification">Kontrolo de titolo</string>
   <string name="sourceCode">Fontkodo</string>
   <string name="simultaneousExhibitions">Samtempludaj ekspozicioj</string>
   <string name="host">Gastiganto</string>
@@ -748,7 +753,9 @@
   <string name="checkYourEmail">Kontrolu vian retpoŝton</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Ni sendis al vi retmesaĝon . Klaku la ligilon en la poŝto por aktivigi vian konton.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Se vi ne vidas la retpoŝton , kontrolu aliajn lokojn kie ĝi povas esti, kiel via rubo , spam, socia , aŭ aliaj dosierujoj.</string>
+  <string name="ifYouDoNotGetTheEmail">Se vi ne ricevas retpoŝton post 5 minutoj:</string>
   <string name="checkAllEmailFolders">Kontroli ĉiujn dosierujojn, trudmesaĝojn kaj rubujon</string>
+  <string name="verifyYourAddress">Konfirmu ke %s estas via retpoŝta adreso</string>
   <string name="weHaveSentYouAnEmailTo">Ni sendis retmesaĝon al %s. Klaku la ligilon en la poŝto por rekomencigi vian pasvorton.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">De registranta , vi konsentas al esti ligita de nia %s.</string>
   <string name="readAboutOur">Legu pri nia %s.</string>
@@ -967,7 +974,6 @@ Lasi ĝin malplena por komenci ludojn de la norma komenca pozicio.</string>
   <string name="simulFeaturedHelp">Montri vian samtempludon al ĉiuj en %s. Malaktivigi por privataj samtempludoj.</string>
   <string name="simulDescription">Priskribo de la samtempludo</string>
   <string name="simulDescriptionHelp">Ĉu vi volas diri ion al la partoprenantoj?</string>
-  <string name="markdownAvailable">%s estas havebla por pli progresinta sintakso.</string>
   <string name="embedsAvailable">Algui luda URL aŭ studa ĉapitro URL enkorpigi ĝin.</string>
   <string name="inYourLocalTimezone">En via loka horzono</string>
   <string name="tournChat">Babilejo de turnira</string>
@@ -983,6 +989,7 @@ Lasi ĝin malplena por komenci ludojn de la norma komenca pozicio.</string>
   <string name="focusChat">Babilejo de fokuso</string>
   <string name="showHelpDialog">Montri ĉi tiun help-dialogujon</string>
   <string name="reopenYourAccount">Remalfermi vian konton</string>
+  <string name="reopenYourAccountDescription">Se vi fermis vian konton sed poste ŝanĝis de ideo, vi havas la eblon rehavi vian konton.</string>
   <string name="emailAssociatedToaccount">Retpoŝtadreso, ke asociitas al la konto</string>
   <string name="sentEmailWithLink">Ni sendis retmesaĝon kun ligilo al vi.</string>
   <string name="tournamentEntryCode">Turnira enirkodo</string>

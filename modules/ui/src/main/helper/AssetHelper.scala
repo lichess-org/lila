@@ -73,3 +73,19 @@ trait AssetHelper:
 
   def routeUrl(call: Call): Url = Url(s"${netBaseUrl}${call.url}")
   def pathUrl(path: String): Url = Url(s"${netBaseUrl}$path")
+
+  def fenThumbnailUrl(
+      fen: chess.format.StandardFen,
+      color: Option[chess.Color] = None,
+      variant: chess.variant.Variant = chess.variant.Standard
+  )(using ctx: Context): Url = cdnUrl:
+    routes.Export
+      .fenThumbnail(
+        fen.value,
+        color,
+        none,
+        Option.when(variant.exotic)(variant.key),
+        ctx.pref.theme.some,
+        ctx.pref.pieceSet.some
+      )
+      .url

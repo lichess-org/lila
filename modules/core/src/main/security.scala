@@ -117,7 +117,7 @@ trait UserTrustApi:
 
 case class AskAreRelated(users: PairOf[UserId], promise: Promise[Boolean])
 
-def canUploadImages(using me: Me) = me.isVerified || (
-  lila.core.perm.Granter.ofUser(_.Beta)(me) &&
+def canUploadImages(toRel: String)(using me: Me) =
+  me.isVerified ||
+    toRel == "ublogBody" ||
     (me.createdSinceDays(7) && !me.marks.alt)
-)

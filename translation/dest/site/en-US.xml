@@ -4,7 +4,7 @@
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Challenge a friend</string>
   <string name="playAgainstComputer">Play against computer</string>
   <string name="gameMode">Game mode</string>
-  <string name="createLobbyGame" comment="One of three buttons on the home page. Opens the modal to create a game that goes in the lobby.">Create lobby game</string>
+  <string name="createLobbyGame">Create lobby game</string>
   <string name="youPlayAs">You play as</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">To invite someone to play, give this URL</string>
   <string name="gameOver">Game Over</string>
@@ -973,7 +973,7 @@ Leave empty to start games from the normal initial position.</string>
   <string name="simulFeaturedHelp">Show your simul to everyone on %s. Disable for private simuls.</string>
   <string name="simulDescription">Simul description</string>
   <string name="simulDescriptionHelp">Anything you want to tell the participants?</string>
-  <string name="markdownAvailable">%s is available for more advanced syntax.</string>
+  <string name="markdownIsAvailable" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text.">%s is available for formatting.</string>
   <string name="embedsAvailable">Paste a game URL or a study chapter URL to embed it.</string>
   <string name="inYourLocalTimezone">In your own local timezone</string>
   <string name="tournChat">Tournament chat</string>

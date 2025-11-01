@@ -16,6 +16,7 @@
   <string name="recentlyUpdated">Недавно обновлённые</string>
   <string name="mostPopular">Самые популярные</string>
   <string name="alphabetical">По алфавиту</string>
+  <string name="relevant">Соответствующий</string>
   <string name="addNewChapter">Добавить новую главу</string>
   <plurals name="nbChapters">
     <item quantity="one">%s глава</item>
@@ -38,7 +39,7 @@
   </plurals>
   <string name="inviteToTheStudy">Пригласить в студию</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">Приглашайте только тех участников, которых вы знаете, и кто активно желает участвовать в этой студии.</string>
-  <string name="searchByUsername" comment="Appears when adding members to a Lichess Study as placeholder text in a search box.">Поиск по имени</string>
+  <string name="searchByUsername">Поиск по имени</string>
   <string name="spectator">Зритель</string>
   <string name="contributor">Редактор</string>
   <string name="kick">Выгнать</string>
