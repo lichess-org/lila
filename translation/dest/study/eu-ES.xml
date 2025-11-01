@@ -16,6 +16,7 @@
   <string name="recentlyUpdated">Eguneratutako azkenak</string>
   <string name="mostPopular">Arrakasta gehien duena</string>
   <string name="alphabetical">Alfabetikoa</string>
+  <string name="relevant">Garrantzitsua</string>
   <string name="addNewChapter">Kapitulu berria gehitu</string>
   <plurals name="nbChapters">
     <item quantity="one">Kapitulu %s</item>
