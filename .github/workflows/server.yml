@@ -52,8 +52,9 @@ jobs:
         env:
           ZSTD_LEVEL: 1 # most files are already zipped
       - uses: actions/upload-artifact@v4
+        if: ${{ matrix.java-version == 21 }}
         with:
-          name: lila-server-jdk${{ matrix.java-version }}
+          name: lila-server
           path: lila-3.0.tar.zst
           compression-level: 0 # already compressed
 
