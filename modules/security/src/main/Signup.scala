@@ -17,7 +17,6 @@ final class Signup(
     api: SecurityApi,
     ip2proxy: lila.core.security.Ip2ProxyApi,
     ipTrust: IpTrust,
-    mobileSignupProxy: SettingStore[lila.core.data.Strings] @@ MobileSignupProxy,
     canSendEmails: SettingStore[Boolean] @@ lila.mailer.CanSendEmails,
     forms: SecurityForm,
     emailConfirm: EmailConfirm,
@@ -153,7 +152,7 @@ final class Signup(
     ip2proxy
       .ofReq(req)
       .flatMap: proxy =>
-        if !proxy.name.forall(mobileSignupProxy.get().value.contains)
+        if proxy.yes
         then fuccess(Signup.Result.ForbiddenNetwork)
         else
           forms.signup.mobile

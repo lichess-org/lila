@@ -132,11 +132,11 @@ export default class RacerCtrl implements PuzCtrl {
   };
 
   join = throttle(1000, () => {
-    if (!this.isPlayer()) this.socketSend('racerJoin');
+    if (!this.isPlayer()) this.socketSend('racerJoin', undefined);
   });
 
   start = throttle(1000, () => {
-    if (this.isOwner()) this.socketSend('racerStart');
+    if (this.isOwner()) this.socketSend('racerStart', undefined);
   });
 
   countdownSeconds = (): number | undefined =>
@@ -270,7 +270,10 @@ export default class RacerCtrl implements PuzCtrl {
     this.redraw();
   };
 
-  private socketSend = (tpe: string, data?: any) => wsSend(tpe, data, { sign: this.sign });
+  private socketSend = <K extends 'racerScore' | 'racerStart' | 'racerJoin'>(
+    tpe: K,
+    data: K extends 'racerScore' ? number : undefined,
+  ) => wsSend(tpe, data, { sign: this.sign, ackable: false });
 
   private setZen = throttlePromiseDelay(
     () => 1000,

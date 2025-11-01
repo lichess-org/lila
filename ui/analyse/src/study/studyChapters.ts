@@ -167,6 +167,11 @@ export function view(ctrl: StudyCtrl): VNode {
   const canContribute = ctrl.members.canContribute(),
     current = ctrl.currentChapter();
   function update(vnode: VNode) {
+    const isChapterFullyVisible = (listOfChapters: HTMLElement, chapter: HTMLElement): boolean => {
+      const c = chapter.getBoundingClientRect(),
+        l = listOfChapters.getBoundingClientRect();
+      return c.top >= l.top && c.bottom <= l.bottom;
+    };
     const newCount = ctrl.chapters.list.size(),
       vData = vnode.data!.li!,
       el = vnode.elm as HTMLElement;
@@ -174,7 +179,7 @@ export function view(ctrl: StudyCtrl): VNode {
       if (current.id !== ctrl.chapters.list.first().id) scrollToInnerSelector(el, '.active');
     } else if (vData.currentId !== ctrl.data.chapter.id) {
       vData.currentId = ctrl.data.chapter.id;
-      scrollToInnerSelector(el, '.active');
+      if (!isChapterFullyVisible(el, el.querySelector('.active')!)) scrollToInnerSelector(el, '.active');
     }
     vData.count = newCount;
     if (canContribute && newCount > 1 && !vData.sortable) {
@@ -207,11 +212,8 @@ export function view(ctrl: StudyCtrl): VNode {
             update(vnode);
           },
           postpatch(old, vnode) {
-            const scrollTop = (old.elm as HTMLElement).scrollTop;
             vnode.data!.li = old.data!.li;
             update(vnode);
-            if (old.children?.length === vnode.children?.length)
-              (vnode.elm as HTMLElement).scrollTop = scrollTop;
           },
           destroy: vnode => {
             const sortable: Sortable = vnode.data!.li!.sortable;
