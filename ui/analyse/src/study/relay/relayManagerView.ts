@@ -62,7 +62,7 @@ function stateOn(ctrl: RelayCtrl) {
         sync && [
           !!sync.delay && `with ${sync.delay}s delay `,
           sync.url
-            ? ['to single URL source']
+            ? ['to', hl('br'), 'single URL source']
             : sync.ids
               ? ['to', hl('br'), sync.ids.length, ' game(s)']
               : sync.users
