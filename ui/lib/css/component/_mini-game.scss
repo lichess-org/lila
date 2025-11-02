@@ -29,8 +29,10 @@
     height: 1.2em;
     vertical-align: middle;
     opacity: 0.85;
-    margin-inline-end: .75ch;
-    .mini-game:hover &, .relay-game--current &, .mini-game.active & {
+    margin-inline-end: 0.75ch;
+    .mini-game:hover &,
+    .relay-game--current &,
+    .mini-game.active & {
       opacity: 1;
     }
   }
