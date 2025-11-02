@@ -1065,7 +1065,7 @@
   <string name="simulFeaturedHelp">Показывать сеанс на %s. Отключите для частных сеансов.</string>
   <string name="simulDescription">Описание сеанса</string>
   <string name="simulDescriptionHelp">Хотите что-нибудь сказать участникам?</string>
-  <string name="markdownIsAvailable" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text.">%s доступен для форматирования.</string>
+  <string name="markdownIsAvailable">%s доступен для форматирования.</string>
   <string name="embedsAvailable">Вставьте URL игры или ссылку на студию, чтобы встроить её.</string>
   <string name="inYourLocalTimezone">В вашем часовом поясе</string>
   <string name="tournChat">Чат турнира</string>
