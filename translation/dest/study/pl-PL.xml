@@ -68,6 +68,7 @@
   <string name="studyPgn">PGN opracowania</string>
   <string name="chapterPgn">PGN rozdziału</string>
   <string name="copyChapterPgn">Kopiuj PGN</string>
+  <string name="copyRawChapterPgn">Skopiuj PGN</string>
   <string name="downloadGame">Pobierz partię</string>
   <string name="studyUrl">Link do opracowania</string>
   <string name="currentChapterUrl">URL bieżącego rozdziału</string>
