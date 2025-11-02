@@ -974,7 +974,7 @@ Skildu eftir autt til að tefla útfrá hefðbundinni upphafsstöðu.</string>
   <string name="simulFeaturedHelp">Sýna öllum á %s fjöltefli þitt. Afvirktu ef um persónuleg fjöltefli er um að ræða.</string>
   <string name="simulDescription">Lýsing fjölteflis</string>
   <string name="simulDescriptionHelp">Er nokkuð eitthvað sem óskað er eftir að upplýsa þátttakendur um?</string>
-  <string name="markdownIsAvailable" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text.">%s er tiltækt til sniðmótunar.</string>
+  <string name="markdownIsAvailable">%s er tiltækt til sniðmótunar.</string>
   <string name="embedsAvailable">Límdu vefslóð skákar eða vefslóð stúderingarkafla til þess að ívefja það.</string>
   <string name="inYourLocalTimezone">Samkvæmt þínum staðbundna tíma</string>
   <string name="tournChat">Spjall móts</string>
