@@ -6,7 +6,7 @@
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess는 live/light/libre와 chess의 합성어입니다. %1$s라고 발음합니다.</string>
   <string name="leechess">리체스</string>
   <string name="hearItPronouncedBySpecialist">전문가의 발음을 들어보세요.</string>
-  <string name="whyLiveLightLibre">Live - 게임을 연중무휴 실시간으로 플레이하고 볼 수 있기 때문입니다. Light와 Libre는 Lichess가 다른 웹사이트를 오염시키는 정크로부터 자유로운 오픈소스라는 사실에 기반합니다.</string>
+  <string name="whyLiveLightLibre">Live - 게임을 연중무휴 실시간으로 플레이하고 볼 수 있기 때문입니다. Light와 Libre는 Lichess가 다른 웹사이트를 괴롭히는 쓰레기로부터 자유로운 오픈소스라는 사실에 기반합니다.</string>
   <string name="whyIsLilaCalledLila">비슷하게, Lichess의 소스코드인 %1$s는 li[chess in sca]la의 약자입니다. Lichess는 대부분 직관적인 프로그래밍 언어인 %2$s로 작성되어 있습니다.</string>
   <string name="howCanIContributeToLichess">Lichess에 어떻게 기여할 수 있나요?</string>
   <string name="lichessPoweredByDonationsAndVolunteers">Lichess는 후원자들의 기부와 자원봉사자들의 노력으로 운영됩니다.</string>
@@ -24,8 +24,8 @@
   (예를 들어, 이 게임 이후에 레이팅이 크게 올랐다면, 환급을 받지 못하거나 일부만 받습니다.) 환급은 150포인트를 초과하지 않습니다.</string>
   <string name="preventLeavingGameWithoutResigning">플레이어가 기권하지 않고 게임을 나가면 어떻게 되나요?</string>
   <string name="leavingGameWithoutResigningExplanation">상대가 게임을 자주 중단/탈주하면 \"플레이 금지\" 처분을 받습니다. 이는 일시적으로 게임을 할 수 없다는 의미입니다. 이것은 프로필에 공개적으로 표시되지 않습니다. 이러한 행동이 계속된다면 금지 기간은 계속 증가하고 계정 폐쇄로 이어질 수 있습니다.</string>
-  <string name="howCanIBecomeModerator">모더레이터가 되려면 어떻게 하나요?</string>
-  <string name="youCannotApply">모더레이터 신청은 받지 않습니다. 저희가 보기에 모더레이터로 알맞은 사람이라고 생각될 경우 직접 연락을 드릴 것 입니다.</string>
+  <string name="howCanIBecomeModerator">운영자가 되려면 어떻게 하나요?</string>
+  <string name="youCannotApply">운영자 신청은 받지 않습니다. 저희가 보기에 운영자로 알맞은 사람이라고 생각될 경우 직접 연락을 드릴 것 입니다.</string>
   <string name="isCorrespondenceDifferent">통신 체스는 일반 체스와 다른점이 있나요?</string>
   <string name="pleaseReadFairPlayPage">더 자세한 정보는 %s를 읽어주세요.</string>
   <string name="fairPlayPage">공정한 경기 페이지</string>
@@ -97,7 +97,7 @@ LM 타이틀에 대해 문의하지 마세요.</string>
   <string name="usernamesNotOffensive">일반적으로, 사용자 이름으로 불쾌감을 주거나, 다른 사람을 사칭하거나, 광고를 해서는 안됩니다. 이것에 대해서는 %1$s을 읽어주세요.</string>
   <string name="guidelines">가이드라인</string>
   <string name="canIChangeMyUsername">사용자 이름을 변경할 수 있나요?</string>
-  <string name="usernamesCannotBeChanged">아뇨. 사용자명은 기술적, 실질적인 이유로 변경할 수 없습니다. 사용자 이름은 테이터베이스, 내보내기, 로그, 사람들의 마음 속 등 여러 위치에서 사용됩니다. 대소문자만 한 번 변경할 수 있습니다.</string>
+  <string name="usernamesCannotBeChanged">아니오. 사용자명은 기술적, 실질적인 이유로 변경할 수 없습니다. 사용자 이름은 테이터베이스, 내보내기, 로그, 사람들의 마음 속 등 여러 위치에서 사용됩니다. 대소문자만 한 번 변경할 수 있습니다.</string>
   <string name="uniqueTrophies">하나뿐인 트로피</string>
   <string name="ownerUniqueTrophies">이 트로피는 Lichess 역사에서 단 하나 뿐입니다. 오직 %1$s만이 가지고 있습니다.</string>
   <string name="aHourlyBulletTournament">hourly 불렛 토너먼트</string>
@@ -108,9 +108,9 @@ LM 타이틀에 대해 문의하지 마세요.</string>
 
 기본적으로 Glicko 레이팅은 레이팅을 계산하고 나타낼 때 \"신뢰 구간\"을 사용합니다. 사이트를 처음 시작할 때 레이팅은 1500 ± 1000에서 시작됩니다. 1500은 레이팅을 나타내고 1000은 신뢰 구간을 나타냅니다.
 
-기본적으로 이 시스템은 당신의 레이팅이 95% 확률로 500에서 2500 사이에 있다고 가정합니다. 이것은 매우 불확실하죠. 그래서 플레이어들이 처음 시작하면 그들의 레이팅은 매우 크게, 심하면 수백 포인트씩 변화합니다. 하지만 기존 플레이어들과 게임을 하면서 신뢰 구간은 점점 좁아지고 게임의 결과로 얻고/잃는 포인트가 감소하게 됩니다.
+기본적으로 이 시스템은 당신의 레이팅이 95% 확률로 500에서 2500 사이에 있다고 가정합니다. 이것은 매우 불확실하죠. 그래서 플레이어들이 처음 시작하면 그들의 레이팅은 매우 크게, 심하면 수백 포인트씩 변화합니다. 하지만 기존 플레이어들과 게임을 하면서 신뢰 구간은 점점 좁아지고, 게임의 결과로 얻거나 잃는 포인트가 감소하게 됩니다.
 
-주목해야 할 또 다른 점은 시간이 지남에 따라 신뢰 구간이 점점 증가한다는 점입니다. 이것은 시간이 지남에 따라 변화하는 실력만큼 더 빠르게 점수를 얻고/잃게 됩니다.</string>
+주목해야 할 또 다른 점은 시간이 지남에 따라 신뢰 구간이 점점 증가한다는 점입니다. 이는 시간이 지남에 따라 변화하는 실력만큼 더 빠르게 점수를 얻거나 잃도록 합니다.</string>
   <string name="whatIsProvisionalRating">레이팅 옆에 물음표(?)는 무엇인가요?</string>
   <string name="provisionalRatingExplanation">레이팅 옆에 물음표는 임시 레이팅을 의미합니다. 이유는 다음과 같습니다.</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">플레이어가 아직 %1$s와 충분한 레이팅 게임을 하지 않았습니다.</string>
@@ -129,7 +129,7 @@ LM 타이틀에 대해 문의하지 마세요.</string>
   <string name="whyAreRatingHigherExplanation">레이팅을 절대적인 숫자로 생각하지 마시고 이를 다른 단체와 비교하지 않는 것이 가장 좋습니다. 플레이어의 레벨, 사용하는 레이팅 시스템(Elo, Glicko, Glicko-2 등)은 단체마다 서로 다릅니다. 이러한 원인들이 레이팅의 절대값에 영향을 줄 수 있습니다.
 
 레이팅을 상대적인 수치로 생각하세요. 레이팅은 플레이어 집단 내에서 대략 얼마 정도의 승/무/패를 기록할지 예측할 수 있는 값일 뿐입니다. \"내 레이팅은 X야\"라는 말은 비교할 다른 플레이어가 없는 한 아무 의미가 없습니다.</string>
-  <string name="howToHideRatingWhilePlaying">플레이하는 동안 레이팅을 안 볼 수 있나요?</string>
+  <string name="howToHideRatingWhilePlaying">플레이하는 동안 레이팅을 숨길 수 있나요?</string>
   <string name="enableZenMode">%1$s에서 젠모드를 켜세요. 게임 중에 %2$s를 누르셔도 됩니다.</string>
   <string name="displayPreferences">게임 화면 설정</string>
   <string name="connexionLostCanIGetMyRatingBack">랙/끊김으로 게임에서 졌어요. 레이팅을 돌려받을 수 있나요?</string>

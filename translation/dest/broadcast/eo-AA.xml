@@ -6,6 +6,10 @@
     <item quantity="one">%s elsendo</item>
     <item quantity="other">%s elsendoj</item>
   </plurals>
+  <plurals name="nbViewers">
+    <item quantity="one">%s spektanto</item>
+    <item quantity="other">%s spektantoj</item>
+  </plurals>
   <string name="liveBroadcasts">Nuntempaj turniraj elsendoj</string>
   <string name="newBroadcast">Nova viva elsendo</string>
   <string name="subscribedBroadcasts">Abonitaj elsendoj</string>
@@ -20,6 +24,7 @@
   <string name="tournamentDescription">Mallonga turnira priskribo</string>
   <string name="fullDescription">Plena eventa priskribo</string>
   <string name="fullDescriptionHelp">Laŭvola longa priskribo de la elsendo. %1$s haveblas. Longeco devas esti malpli ol %2$s literoj.</string>
+  <string name="sourceSingleUrl">Retadreso de PNG</string>
   <string name="sourceUrlHelp">URL kiun Lichess kontrolos por akiri PGN ĝisdatigojn. Ĝi devas esti publike alirebla en interreto.</string>
   <string name="startDateHelp">Laŭvola, se vi scias, kiam komenciĝas la evento</string>
   <string name="currentGameUrl">Nuna luda URL</string>
@@ -33,7 +38,19 @@
   <string name="definitivelyDeleteTournament">Sendube forigi la tuta turniro, kaj ĝiajn raŭndojn kaj ĉiujn ĝiajn ludojn.</string>
   <string name="replacePlayerTags">Nedeviga: anstataŭigi nomojn de ludantoj, rangojn kaj titolojn</string>
   <string name="top10Rating">La 10 plej bonaj</string>
+  <string name="fideProfile">Profilo FIDE</string>
+  <string name="federation">Federacio</string>
+  <string name="ageThisYear">Ĉi jara aĝo</string>
   <string name="unrated">Sen rango</string>
+  <string name="recentTournaments">Ĵusaj turniroj</string>
+  <string name="openLichess">Malfermi en Lichess</string>
+  <string name="teams">Teamoj</string>
+  <string name="boards">Tabuloj</string>
+  <string name="overview">Superrigardo</string>
+  <string name="startsAfter">Komenciĝo post %s</string>
+  <string name="officialWebsite">Oficiala retejo</string>
   <string name="ratingDiff">Ranga malsamo</string>
+  <string name="allTeams">Ĉiuj teamoj</string>
+  <string name="timezone">Horzono</string>
   <string name="fideRatingCategory">Kategorio de rango de FIDE</string>
 </resources>

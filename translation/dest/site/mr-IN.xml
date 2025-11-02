@@ -4,7 +4,7 @@
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">एका मित्राला आव्हान करा</string>
   <string name="playAgainstComputer">संगणक विरुद्ध खेळा</string>
   <string name="gameMode">खेळाची रीत</string>
-  <string name="createLobbyGame" comment="One of three buttons on the home page. Opens the modal to create a game that goes in the lobby.">प्रेक्षागृहाचा खेळ तयार करा</string>
+  <string name="createLobbyGame">प्रेक्षागृहाचा खेळ तयार करा</string>
   <string name="youPlayAs">तुम्ही खेळाल असे</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">कुणाला आपल्या बरोबर खेळण्याचे निमंत्रण देण्यासाठी हा URL द्या</string>
   <string name="gameOver">डाव समाप्त</string>
@@ -481,6 +481,7 @@
   <string name="openTournaments">खुली क्रीडासत्रे</string>
   <string name="duration">कालावधी</string>
   <string name="winner">विजेता</string>
+  <string name="standings">स्थिती</string>
   <string name="createANewTournament">नवीन क्रीडासत्र तयार करा</string>
   <string name="tournamentCalendar">क्रीडासत्र दिनदर्शिका</string>
   <string name="conditionOfEntry">प्रवेशाच्या आवश्यकता:</string>
@@ -494,6 +495,7 @@
   <string name="points">गुण</string>
   <string name="wins">एकूण  विजय</string>
   <string name="losses">एकूण  पराभव</string>
+  <string name="startingIn" comment="Displayed above a timer">चालू होत आहे</string>
   <string name="standByX">जरा थांबा %s, खेळाडूंच्या जोड्या लागत आहेत, तयार रहा!</string>
   <string name="pause">विराम</string>
   <string name="resume">परत सुरू करा</string>
@@ -583,6 +585,8 @@
   <string name="blog">स्व: मत</string>
   <string name="notes">नोंदी</string>
   <string name="typePrivateNotesHere">गुप्त नोंदी इथे लिहा</string>
+  <string name="writeAPrivateNoteAboutThisUser">ह्या खेळाडूबद्दल एक गुप्त नोंद लिहा</string>
+  <string name="noNoteYet">आतापर्यंत एकही नोंद नाही</string>
   <string name="invalidUsernameOrPassword">चुकीचे नाव किंवा गुप्त शब्द</string>
   <string name="incorrectPassword">चुकीचा गुप्त शब्द</string>
   <string name="invalidAuthenticationCode">अवैध प्रमाणीकरण कोड</string>
@@ -606,6 +610,7 @@
   <string name="slow">संथ</string>
   <string name="insideTheBoard">पटाच्या आतमध्ये</string>
   <string name="outsideTheBoard">पटाच्या बाहेर</string>
+  <string name="allSquaresOfTheBoard">फळ्याचे सर्व चौरसे</string>
   <string name="onSlowGames">संथ खेळामध्ये</string>
   <string name="always">नेहमी</string>
   <string name="never">अजिबात नाही</string>
@@ -675,12 +680,15 @@
   <string name="really">खरंच</string>
   <string name="contribute">हातभार लावा</string>
   <string name="termsOfService">सेवा अटी</string>
+  <string name="titleVerification">शीर्षकाचे पडताळणी</string>
   <string name="sourceCode">सोर्स कोड</string>
   <string name="simultaneousExhibitions">अनेकांविरूद्ध प्रदर्शने</string>
   <string name="host">यजमान</string>
   <string name="hostColorX">यजमानाचा रंग: %s</string>
+  <string name="yourPendingSimuls">तुमचे प्रलंबित समुळे</string>
   <string name="createdSimuls">नवीन प्रदर्शन तयार</string>
   <string name="hostANewSimul">नवीन अनेकांविरूद्ध प्रदर्शन</string>
+  <string name="signUpToHostOrJoinASimul">समुळात भाग घेण्यासाठी व बनवण्यासाठी साइन अप करा</string>
   <string name="noSimulFound">एकाचवेळी प्रदर्शन सापडल नाही</string>
   <string name="noSimulExplanation">हे \"एक बिरूद्ध अनेक\" प्रदर्शन अस्तित्त्वात नाही.</string>
   <string name="returnToSimulHomepage">अनेकांविरुद्ध प्रदर्शनाच्या मुखपृष्ठाकडे परत जा</string>
@@ -695,6 +703,7 @@
   <string name="simulClockHint">फिशर क्लॉक सेटअप. आपण जितके अधिक खेळाडू घेता, तितके आपल्याला अधिक वेळ लागेल.</string>
   <string name="simulAddExtraTime">एकाच वेळी अनेकांचा सामना करण्यास सोपे व्हावे म्हणून आपण आपल्या घड्याळात अतिरिक्त वेळ घालवू शकता.</string>
   <string name="simulHostExtraTime">यजमानाचा जास्त वेळ</string>
+  <string name="simulAddExtraTimePerPlayer">तुमच्या घड्याळात प्रत्येक नवीन खेळाडूसाठी प्रारंभिक वेळ जोडा.</string>
   <string name="simulHostExtraTimePerPlayer">प्रती खेळाडूनुसार यजमानासाठी जादा वेळ</string>
   <string name="lichessTournaments">लीचेस क्रीडासत्र</string>
   <string name="tournamentFAQ">क्रीडासत्राचे सामान्य प्रश्न</string>
@@ -704,6 +713,7 @@
   <string name="keyboardShortcuts">कीबोर्ड शॉर्टकट</string>
   <string name="keyMoveBackwardOrForward">मागे/पुढे चला</string>
   <string name="keyGoToStartOrEnd">सुरवातीला/शेवटी जा</string>
+  <string name="keyCycleSelectedVariation">निवडलेल्या भिन्नतेचे रुपांतर करा</string>
   <string name="keyShowOrHideComments">प्रतिक्रिया दाखवा/लपवा</string>
   <string name="keyEnterOrExitVariation">variation च्या आत/बाहेर</string>
   <string name="keyRequestComputerAnalysis">संगणक विश्लेषणासाठी विनतंती करा, तुमच्या चुकांपासून शिका</string>
@@ -713,6 +723,7 @@
   <string name="keyNextInaccuracy">पुढील अयोग्य चाल</string>
   <string name="keyPreviousBranch">मागील शाखा</string>
   <string name="keyNextBranch">पुढील शाखा</string>
+  <string name="toggleVariationArrows">भिन्नतेंचे बाण निवडा</string>
   <string name="playSelectedMove">निवडलेली चाल खेळा</string>
   <string name="newTournament">नविन क्रीडासत्र</string>
   <string name="tournamentHomeTitle">विविध वेळ नियंत्रणे आणि प्रकार दर्शविणारे बुद्धीबळ क्रीडासत्र</string>
@@ -937,7 +948,6 @@
 खाजगी प्रदर्शनासाठी बंद करा.</string>
   <string name="simulDescription">प्रदर्शनाचे वर्णन</string>
   <string name="simulDescriptionHelp">सदस्यांना काही सांगावेसे वाटते काय?</string>
-  <string name="markdownAvailable">%s हे जास्त प्रगत मांडणी साठी उपलब्ध आहे.</string>
   <string name="embedsAvailable">एम्बेड करण्यासाठी खेळाचा URL Paste करावा किंवा अभ्यासातील अध्यायाचा URL Paste करावा.</string>
   <string name="inYourLocalTimezone">आपल्या स्थानिक वेळेप्रमाणे</string>
   <string name="tournChat">स्पर्धेतील गप्पा</string>

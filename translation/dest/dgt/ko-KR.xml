@@ -39,8 +39,8 @@
   <string name="moveFormatDescription">SAN은 \"Nf6\"과 같은, Lichess에서 쓰이는 표준 표기법입니다. UCI는 \"g8f6\"과 같은, 체스 엔진에서 흔이 쓰이는 표기법입니다.</string>
   <string name="keywords">키워드</string>
   <string name="keywordFormatDescription">키워드는 JSON 형식입니다. 이동 및 결과를 언어로 변환하는 데 사용됩니다. 기본값은 영어이지만, 자유롭게 변경하셔도 좋습니다.</string>
-  <string name="debug">디버그</string>
-  <string name="verboseLogging">상세 로깅</string>
+  <string name="debug">디버깅</string>
+  <string name="verboseLogging">자세한 로그</string>
   <string name="toSeeConsoleMessage">콘솔 메시지를 보려면 Command + Option + C(Mac) 또는 Control + Shift + C(Windows, Linux, Chrome OS) 를 누르세요.</string>
   <string name="playWithDgtBoard">DGT 보드로 게임하기</string>
   <string name="configure">설정</string>

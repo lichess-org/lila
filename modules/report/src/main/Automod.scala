@@ -125,6 +125,7 @@ final class Automod(
             "Authorization" -> s"Bearer $apiKey",
             "Content-Type" -> "application/json"
           )
+          .withRequestTimeout(10.minutes) // I saw it timeout with the default 5min
           .post(body)
           .map(extractJsonFromResponse)
           .map(_.flatMap(_.toRight("No content in response")))

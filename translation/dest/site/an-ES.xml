@@ -941,7 +941,6 @@
   <string name="simulFeaturedHelp">Amuestra las tuyas simultanias a toz en %s. Desactiva-lo si quiers simultanias privadas.</string>
   <string name="simulDescription">Descripción d\'as simultanias</string>
   <string name="simulDescriptionHelp">Tiens bella cosa a decir a los participants?</string>
-  <string name="markdownAvailable">Lo formato %s ye disponibles pa una sintaxi mas abanzada.</string>
   <string name="embedsAvailable">Apega la URL d\'una partida u d\'un capitol d\'estudio pa incrustar-lo.</string>
   <string name="inYourLocalTimezone">En a tuya zona horaria local</string>
   <string name="tournChat">Conversa d\'o torneyo</string>

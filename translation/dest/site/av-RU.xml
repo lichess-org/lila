@@ -912,7 +912,6 @@
   <string name="simulFeaturedHelp">Дур сеанс %s-алда киназдаго бихьизе. Рахчарал сеансазе свинабизе.</string>
   <string name="simulDescription">Сеансалъул бицин</string>
   <string name="simulDescriptionHelp">Щибниги гӀахьалчагӀазда абизе бокьун бугищ?</string>
-  <string name="markdownAvailable">%s рагьараб буго жеги цебетӀураб синтаксисалде.</string>
   <string name="embedsAvailable">ЦӀех-рех гъезе, гьелъул яги хӀаялъул бухьен лъе.</string>
   <string name="inYourLocalTimezone">Дурго бакӀалъулаб сагӀтил рачелалда</string>
   <string name="tournChat">Турниралъул чат</string>

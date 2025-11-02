@@ -965,7 +965,6 @@ Dexar vacíu de mano les partíes dende la posición inicial normal.</string>
   <string name="simulFeaturedHelp">Amuesa la simultánea públicamente en %s. Deshabilitao pa simultánees privaes.</string>
   <string name="simulDescription">Descripción de la simultánea</string>
   <string name="simulDescriptionHelp">¿Quies dicir dalgo a los participantes?</string>
-  <string name="markdownAvailable">Pue usase %s para formatear el testu.</string>
   <string name="embedsAvailable">Pega l\'enllaz d\'una partida o d\'un capítulu d\'estudiu para ensertalo.</string>
   <string name="inYourLocalTimezone">Na to zona horaria local</string>
   <string name="tournChat">Chat d\'tornéu</string>

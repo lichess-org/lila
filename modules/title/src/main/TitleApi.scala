@@ -149,7 +149,7 @@ $baseUrl/verify-title
       if !Set("idDocument", "selfie").contains(tag) then fufail(s"Invalid tag $tag")
       else
         for
-          image <- picfitApi.uploadFile(rel(req, tag), picture, userId = me.userId)
+          image <- picfitApi.uploadFile(rel(req, tag), picture, userId = me.userId, requestAutomod = false)
           _ <- coll.updateField($id(req.id), tag, image.id)
         yield req.focusImage(tag).replace(image.id.some)
 

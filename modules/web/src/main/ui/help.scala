@@ -181,7 +181,7 @@ object help:
               ul(
                 li(
                   ifTheAboveMoveNotationIsUnfamiliar(),
-                  a(target := "_blank", href := "https://en.wikipedia.org/wiki/Algebraic_notation_(chess)")(
+                  a(targetBlank, href := "https://en.wikipedia.org/wiki/Algebraic_notation_(chess)")(
                     "Algebraic notation"
                   )
                 ),

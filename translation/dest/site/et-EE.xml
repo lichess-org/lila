@@ -882,7 +882,6 @@ Jäta tühjaks, et alustada mänge tavalisest algpositsioonist.</string>
   <string name="simulFeaturedHelp">Näita oma simultaan kõigile %s-s. Lülita välja privaatseks simultaaniks.</string>
   <string name="simulDescription">Simultaani kirjeldus</string>
   <string name="simulDescriptionHelp">Tahad osalejatele midagi öelda?</string>
-  <string name="markdownAvailable">%s on saadaval täiendavate vormindusvõimaluste jaoks.</string>
   <string name="embedsAvailable">Aseta mängu URL või uuringu peatüki URL et seda sängitada.</string>
   <string name="inYourLocalTimezone">Kohalikus ajavööndis</string>
   <string name="tournChat">Turniiri vestlus</string>

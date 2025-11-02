@@ -901,7 +901,6 @@
   <string name="simulFeaturedHelp">ನಿಮ್ಮ ಸೈಮಲ್ ಅನ್ನು ಎಲ್ಲರಿಗೂ %s ದಲ್ಲಿ ತೋರಿಸಿ. ಖಾಸಗಿ ಸೈಮಲ್ ಗಳ ಸಮಯದಲ್ಲಿ ಇದನ್ನು ಆಫ್ ಮಾಡಿ.</string>
   <string name="simulDescription">ಸೈಮಲ್ ನ ವಿವರಣೆ</string>
   <string name="simulDescriptionHelp">ಸ್ಪರ್ಧಾರ್ಥಿಗಳಿಗೆ ಏನಾದರೂ ಹೇಳಬಯಸುತ್ತೀರಾ?</string>
-  <string name="markdownAvailable">ಹೆಚ್ಚಿನ ಅಕ್ಷರ ಅಲಂಕಾರಕ್ಕಾಗಿ %s ಲಭ್ಯವಿದೆ.</string>
   <string name="embedsAvailable">ಒಂದು ಆಟದ URL ಅನ್ನು ಅಂಟಿಸಿ ಅಥವಾ ಒಂದು ಅಧ್ಯಯನದ ಯಾವುದೇ ಅಧ್ಯಾಯದ URL ಅನ್ನು ಸೇರಿಸಿ.</string>
   <string name="inYourLocalTimezone">ನಿಮ್ಮ ಸ್ಥಳೀಯ ಸಮಯ-ವಲಯದಲ್ಲಿ</string>
   <string name="tournChat">ಪಂದ್ಯಾವಳಿಯ ಹರಟೆ ಕೋಣೆ</string>

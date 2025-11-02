@@ -291,9 +291,12 @@ export default class StudyCtrl {
     this.ctrl.withCg(cg => cg.setShapes(last.slice() as DrawShape[]));
   };
 
-  makeChange = (...args: StudySocketSendParams): boolean => {
+  makeChange = <K extends keyof StudySocketSendParams>(
+    event: K,
+    ...args: Parameters<StudySocketSendParams[K]>
+  ): boolean => {
     if (this.isWriting()) {
-      this.send(...args);
+      this.send(event, ...args);
       return true;
     }
     return (this.vm.mode.sticky = false);

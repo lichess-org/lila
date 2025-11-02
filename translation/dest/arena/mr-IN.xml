@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arena">आखाडा</string>
   <string name="arenaTournaments">आखाडे</string>
   <string name="isItRated">ही स्पर्धा गुणांकित आहे का?</string>
   <string name="willBeNotified">स्पर्धा सुरू झाल्यावर तुम्हाला सुचित करण्यात येईल, तोवर दुसऱ्या टॅबमध्ये तुम्ही काहीही खेळू शकता.</string>
@@ -61,4 +62,30 @@
   <string name="averagePerformance">सरासरी कामगिरी</string>
   <string name="averageScore">सरासरी गुण</string>
   <string name="myTournaments">माझ्या स्पर्धा</string>
+  <string name="editTournament">आखाड्यात संपादने आणा</string>
+  <string name="editTeamBattle">सांघिक लढाईत संपादने आणा</string>
+  <string name="defender">रक्षक</string>
+  <string name="pickYourTeam">तुमचा संघ निवडा</string>
+  <string name="whichTeamWillYouRepresentInThisBattle">तुम्ही ह्या लढाईत कोणत्या संघाच्या बाजूने खेळाल?</string>
+  <string name="youMustJoinOneOfTheseTeamsToParticipate">तुम्हाला खेळण्यासाठी ह्यांमधून एका संघाला निवडावे लागेल!</string>
+  <string name="created">बनवले</string>
+  <string name="recentlyPlayed">नुकतेच खेळले गेले</string>
+  <string name="bestResults">सर्वोत्तम निकाल</string>
+  <string name="tournamentStats">आखाड्याची आकडेवारी</string>
+  <string name="rankAvgHelp">पदांची सरासरी तुमच्या पदाचा काही टक्का आहे.
+जेवढे कमी असेल तेवढे चांगले.
+
+उदाहरण, एका आखाड्यात 100 लोकांमधून जर तुमचे 3rd स्थान आले तर सरासरी = 3%. एका आखाड्यात 1000 लोकांमधून जर तुमचे 10th स्थान आले तर सरासरी = 1%.</string>
+  <string name="medians">मध्यवर्ती</string>
+  <string name="allAveragesAreX">ह्या पानावरचे सर्व सरासरी %s आहेत.</string>
+  <string name="total">एकूण</string>
+  <string name="pointsAvg">गुणांची सरासरी</string>
+  <string name="pointsSum">गुणांचे एकूण</string>
+  <string name="rankAvg">पदांची सरासरी</string>
+  <string name="tournamentWinners">आखाड्याचे विजेते</string>
+  <string name="tournamentShields">आखाड्याची ढाल</string>
+  <string name="onlyTitled">फक्त शीर्षक खेळाडू</string>
+  <string name="onlyTitledHelp">आखाड्यात भाग घेण्यासाठी अधिकृत शीर्षकाची गरज आहे</string>
+  <string name="tournamentPairingsAreNowClosed">आखाड्याचे जोड्या बंद झाल्या आहेत.</string>
+  <string name="berserkRate">बेभानीचा दार</string>
 </resources>

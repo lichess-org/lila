@@ -27,9 +27,7 @@ $vp-max-width: 1200px;
         @extend %flex-center;
       }
 
-      > :not(:first-child) {
-        margin-inline-start: 1rem;
-      }
+      gap: 1rem;
     }
   }
 
