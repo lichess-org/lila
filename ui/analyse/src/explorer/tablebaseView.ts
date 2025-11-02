@@ -42,7 +42,11 @@ function showDtm(fen: FEN, move: TablebaseMoveStats) {
 
 function showDtw(fen: FEN, move: TablebaseMoveStats) {
   return move.dtw
-    ? h('result.' + winnerOf(fen, move), { attrs: { title: 'Half-moves to win (Depth To Win)' } }, 'DTW ' + Math.abs(move.dtw))
+    ? h(
+        'result.' + winnerOf(fen, move),
+        { attrs: { title: 'Half-moves to win (Depth To Win)' } },
+        'DTW ' + Math.abs(move.dtw),
+      )
     : undefined;
 }
 
