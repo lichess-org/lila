@@ -115,8 +115,10 @@ $player-height: 1.6rem;
   }
   .mini-game__flag {
     height: 1em;
+    width: 1em;
     margin-inline-end: 1ch;
     margin-top: unset;
+    opacity: 1;
   }
 
   .elo {

@@ -25,11 +25,12 @@
   }
 
   &__flag {
-    width: 1.3em;
+    width: 1.2em;
+    height: 1.2em;
     vertical-align: middle;
-    opacity: 0.7;
-    margin-inline-end: 1ch;
-    .mini-game:hover & {
+    opacity: 0.85;
+    margin-inline-end: .75ch;
+    .mini-game:hover &, .relay-game--current &, .mini-game.active & {
       opacity: 1;
     }
   }

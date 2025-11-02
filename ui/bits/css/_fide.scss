@@ -4,6 +4,7 @@
   }
   .flag {
     height: 1em;
+    width: 1em;
   }
   &__search {
     &-form {
@@ -58,6 +59,7 @@
 .fide-federations {
   .flag {
     height: 1.5em;
+    width: 1.5em;
     margin-right: 1em;
     vertical-align: middle;
   }
@@ -72,6 +74,7 @@
     .flag {
       @extend %box-radius;
       height: 5em;
+      width: 5em;
     }
   }
   &__cards {
@@ -118,6 +121,7 @@
     @extend %flex-center-nowrap;
     .flag {
       height: 1em;
+      width: 1em;
       margin-right: 1ch;
       vertical-align: middle;
     }

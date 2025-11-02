@@ -470,6 +470,7 @@ $hover-bg: $m-primary_bg--mix-30;
     }
     .mini-game__flag {
       height: 1em;
+      width: 1em;
     }
     &__fed-team {
       @extend %flex-center;
@@ -547,6 +548,9 @@ $hover-bg: $m-primary_bg--mix-30;
     .mini-game__user .name {
       @extend %nowrap-ellipsis;
     }
+  }
+  &__players &__player:not(:last-child) {
+    margin-bottom: 0.3em;
   }
   .mini-game__gauge {
     order: 0;
