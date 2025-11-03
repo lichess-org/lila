@@ -14,11 +14,11 @@ import { isTouchDevice } from '@/device';
 import { blurIfPrimaryClick, defined, notNull, requestIdleCallbackSafe } from '@/index';
 import * as licon from '@/licon';
 import type { ClientEval, LocalEval, PvData } from '@/tree/types';
-import { type VNode, type LooseVNodes, bind, hl, iconCls } from '@/view';
+import { type LooseVNode, type LooseVNodes, bind, hl, iconCls, type VNode } from '@/view';
 import { cmnToggle } from '@/view/cmn-toggle';
 import stepwiseScroll from '@/view/stepwiseScroll';
 
-import type CevalCtrl from '../ctrl';
+import type { CevalCtrl } from '../ctrl';
 import { type CevalHandler, type NodeEvals, CevalState } from '../types';
 import { renderEval } from '../util';
 import { povChances } from '../winningChances';
@@ -97,7 +97,7 @@ const threatButton = (ctrl: CevalHandler): VNode | null =>
       });
 
 function engineName(ctrl: CevalCtrl): VNode[] {
-  const engine = ctrl.engines.active;
+  const engine = ctrl.engines.current();
   if (!engine) return [];
   const [good, title] = ctrl.engines.isExternalEngineInfo(engine)
     ? [true, 'Engine running outside of the browser']
@@ -117,7 +117,7 @@ function engineName(ctrl: CevalCtrl): VNode[] {
 }
 
 export const getBestEval = (ctrl: CevalHandler): EvalScore | undefined => {
-  return ctrl.getNode().ceval ?? (ctrl.showFishnetAnalysis?.() ? ctrl.getNode().eval : undefined);
+  return ctrl.getNode().ceval ?? (ctrl.showStaticAnalysis?.() ? ctrl.getNode().eval : undefined);
 };
 
 let gaugeLast = 0;
@@ -152,7 +152,7 @@ export function renderCeval(ctrl: CevalHandler): VNode[] {
     bestEv = threat || getBestEval(ctrl),
     search = ceval.search,
     download = ceval.download;
-  let pearl: VNode | undefined,
+  let pearl: LooseVNode,
     percent = 0;
 
   if (client) {

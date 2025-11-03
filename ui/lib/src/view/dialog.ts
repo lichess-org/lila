@@ -2,7 +2,7 @@
 
 import { isTouchDevice } from '@/device';
 import { Janitor } from '@/event';
-import { blurIfPrimaryClick, frag } from '@/index';
+import { frag } from '@/index';
 import * as licon from '@/licon';
 import { pubsub } from '@/pubsub';
 import * as xhr from '@/xhr';
@@ -161,36 +161,32 @@ class DialogWrapper implements Dialog {
     readonly o: DialogOpts,
     readonly isSnab: boolean,
   ) {
-    const justThen = Date.now();
-    const cancelOnInterval = (e: PointerEvent) => {
-      if (!this.dialog.isConnected) console.trace('likely zombie dialog. Always Be Close()ing');
-      if (Date.now() - justThen >= 200 && !dialog.contains(e.target as Node | null)) this.close('cancel');
+    const maybeCancel = (e: PointerEvent) => {
+      if (!this.dialog.isConnected) console.trace('zombie dialog! snab clients should call close()');
+      const r = dialog.getBoundingClientRect();
+      // dialog.contains is not right here because a modal dialog is still the target of outside clicks
+      if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom)
+        this.close('cancel');
     };
     this.observer.observe(document.body, { childList: true, subtree: true });
     document.body.style.setProperty('---viewport-height', `${window.innerHeight}px`);
     this.dialogEvents.addListener(view, 'click', e => e.stopPropagation());
-
     this.dialogEvents.addListener(dialog, 'cancel', e => {
       if (o.noClickAway && o.noCloseButton && o.class !== 'alert') return e.preventDefault();
-      this.returnValue ||= 'cancel';
+      if (!this.returnValue) this.returnValue = 'cancel';
     });
     this.dialogEvents.addListener(dialog, 'close', this.onRemove);
     if (!o.noCloseButton)
       this.dialogEvents.addListener(
         dialog.querySelector<HTMLButtonElement>('.close-button-anchor > .close-button')!,
         'click',
-        e => {
-          this.close('cancel');
-          // If closed with a primary click, blur the element that was used to open the dialog before
-          blurIfPrimaryClick(e);
-        },
+        () => this.close('cancel'),
       );
-
     if (!o.noClickAway)
       setTimeout(() => {
-        this.dialogEvents.addListener(document.body, 'pointerdown', cancelOnInterval);
-        this.dialogEvents.addListener(dialog, 'pointerdown', cancelOnInterval);
-      });
+        this.dialogEvents.addListener(document.body, 'pointerdown', maybeCancel);
+        this.dialogEvents.addListener(dialog, 'pointerdown', maybeCancel);
+      }, 200);
     for (const app of o.append ?? []) {
       if (app.node === view) break;
       const where = (app.where ? view.querySelector(app.where) : view)!;
@@ -232,7 +228,6 @@ class DialogWrapper implements Dialog {
     this.dialog.close(v || this.returnValue || 'ok');
   };
 
-  // attach/reattach existing listeners or provide a set of new ones
   updateActions = (actions = this.o.actions) => {
     this.actionEvents.cleanup();
     if (!actions) return;

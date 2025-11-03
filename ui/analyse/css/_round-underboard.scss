@@ -75,13 +75,17 @@ $col2-panel-height: 240px;
     }
   }
 
-  .computer-analysis {
+  .computer-analysis.active {
+    display: flex;
+    justify-content: center;
+    align-content: start;
+    align-items: start;
     position: relative;
-  }
+    gap: 2em;
 
-  .future-game-analysis {
-    text-align: center;
-    margin-top: 2em;
+    button {
+      margin-top: 2em;
+    }
   }
 
   .fen-pgn {

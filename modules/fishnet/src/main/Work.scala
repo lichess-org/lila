@@ -85,7 +85,7 @@ object Work:
       acquired: Option[Acquired],
       skipPositions: List[Int],
       createdAt: Instant,
-      origin: Option[Origin] // remove Option after initial deploy
+      origin: Origin
   ) extends Work:
 
     def skill = Client.Skill.Analysis
@@ -109,8 +109,6 @@ object Work:
     def abort = copy(acquired = none)
 
     def nbMoves = game.moves.count(' ' ==) + 1
-
-    def nodesPerMove = origin.getOrElse(Origin.manualRequest).nodesPerMove
 
     override def toString =
       s"id:$id game:${game.id} variant:${game.variant} plies: ${game.moves.count(' ' ==)} tries:$tries requestedBy:$sender acquired:$acquired"

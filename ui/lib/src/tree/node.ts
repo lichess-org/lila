@@ -5,12 +5,12 @@ import { setupPosition } from 'chessops/variant';
 
 import { memoize } from '@/common';
 
-import type { PositionResult, TreeNode, TreeNodeIncomplete } from './types';
+import type { PositionResult, TreeNode, TreeNodeBase } from './types';
 
 // mutates and returns the node
 export const completeNode =
   (variant: VariantKey) =>
-  (from: TreeNodeIncomplete): TreeNode => {
+  (from: TreeNodeBase): TreeNode => {
     const node = from as TreeNode;
     node.id ||= node.uci ? scalachessCharPair(parseUci(node.uci)!) : '';
     node.children ||= [];

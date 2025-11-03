@@ -50,7 +50,7 @@ import ExplorerCtrl from './explorer/explorerCtrl';
 import ForecastCtrl from './forecast/forecastCtrl';
 import { ForkCtrl } from './fork';
 import { IdbTree } from './idbTree';
-import type { AnalyseOpts, AnalyseData, ServerEvalData, JustCaptured, NvuiPlugin } from './interfaces';
+import type { AnalyseOpts, AnalyseData, StaticAnalysisData, JustCaptured, NvuiPlugin } from './interfaces';
 import * as keyboard from './keyboard';
 import MotifCtrl from './motif/motifCtrl';
 import Navigate from './navigate';
@@ -63,7 +63,7 @@ import type GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
 import type { AnaMove } from './study/interfaces';
 import type StudyCtrl from './study/studyCtrl';
 import { TreeView } from './treeView/treeView';
-import { treeReconstruct, addCrazyData } from './util';
+import { treeReconstruct, addCrazyData, mergeLocalEval } from './util';
 import { plural } from './view/util';
 import wikiTheory, { wikiClear, type WikiTheory } from './wiki';
 
@@ -120,7 +120,7 @@ export default class AnalyseCtrl implements CevalHandler {
     'analyse.show-engine',
     !!this.cevalEnabledProp(),
   );
-  showFishnetAnalysis = storedBooleanProp('analyse.show-computer', true);
+  showStaticAnalysis = storedBooleanProp('analyse.show-computer', true);
   possiblyShowMoveAnnotationsOnBoard = storedBooleanProp('analyse.show-move-annotation', true);
   keyboardHelp: boolean = location.hash === '#keyboard';
   threatMode: Prop<boolean> = prop(false);
@@ -217,7 +217,7 @@ export default class AnalyseCtrl implements CevalHandler {
     const urlEngine = new URLSearchParams(location.search).get('engine');
     if (urlEngine) {
       try {
-        this.ceval.engines.select(urlEngine);
+        this.ceval.selectEngine(urlEngine);
         this.cevalEnabled(true);
         this.threatMode(false);
       } catch (e) {
@@ -677,7 +677,7 @@ export default class AnalyseCtrl implements CevalHandler {
   }
 
   allowedEval(node: TreeNode = this.node): ClientEval | ServerEval | false | undefined {
-    return (this.cevalEnabled() && node.ceval) || (this.showFishnetAnalysis() && node.eval);
+    return (this.cevalEnabled() && node.ceval) || (this.showStaticAnalysis() && node.eval);
   }
 
   motifAllowed = (): boolean => this.study?.isCevalAllowed() !== false;
@@ -699,7 +699,7 @@ export default class AnalyseCtrl implements CevalHandler {
     return node.children.filter(
       kid =>
         !kid.comp ||
-        (this.showFishnetAnalysis() && !this.retro?.hideComputerLine(kid)) ||
+        (this.showStaticAnalysis() && !this.retro?.hideComputerLine(kid)) ||
         (treeOps.contains(kid, this.node) && !this.retro?.forceCeval()),
     );
   }
@@ -752,7 +752,7 @@ export default class AnalyseCtrl implements CevalHandler {
     });
   };
 
-  private initCeval(): void {
+  initCeval(mergeOpts?: Partial<CevalOpts>): void {
     const opts: CevalOpts = {
       variant: this.data.game.variant,
       initialFen: this.data.game.initialFen,
@@ -768,6 +768,7 @@ export default class AnalyseCtrl implements CevalHandler {
         this.initCeval();
         this.redraw();
       },
+      ...mergeOpts,
     };
     if (this.ceval) this.ceval.init(opts);
     else this.ceval = new CevalCtrl(opts);
@@ -818,14 +819,14 @@ export default class AnalyseCtrl implements CevalHandler {
   showVariationArrows() {
     if (!this.allowLines()) return false;
     const kids = this.variationArrowOpacity() ? this.node.children : [];
-    return Boolean(kids.filter(x => !x.comp || this.showFishnetAnalysis()).length);
+    return Boolean(kids.filter(x => !x.comp || this.showStaticAnalysis()).length);
   }
 
-  showAnalysis() {
-    return this.showFishnetAnalysis() || (this.cevalEnabled() && this.isCevalAllowed());
+  showEvaluation() {
+    return this.showStaticAnalysis() || (this.cevalEnabled() && this.isCevalAllowed());
   }
 
-  showMoveGlyphs = (): boolean => (this.study && !this.study.relay) || this.showFishnetAnalysis();
+  showMoveGlyphs = (): boolean => (this.study && !this.study.relay) || this.showStaticAnalysis();
 
   showMoveAnnotationsOnBoard = (): boolean =>
     this.possiblyShowMoveAnnotationsOnBoard() && this.showMoveGlyphs();
@@ -834,7 +835,7 @@ export default class AnalyseCtrl implements CevalHandler {
     return (
       this.showGauge() &&
       displayColumns() > 1 &&
-      this.showAnalysis() &&
+      this.showEvaluation() &&
       this.isCevalAllowed() &&
       (this.cevalEnabled() || !!this.node.eval || !!this.node.ceval) &&
       !this.node.outcome()
@@ -880,7 +881,7 @@ export default class AnalyseCtrl implements CevalHandler {
 
   toggleThreatMode = (v = !this.threatMode()) => {
     if (v === this.threatMode()) return;
-    if (this.node.check() || !this.showAnalysis()) return;
+    if (this.node.check() || !this.showEvaluation()) return;
     if (!this.cevalEnabled()) return;
     this.threatMode(v);
     if (this.threatMode() && this.practice) this.togglePractice();
@@ -894,10 +895,10 @@ export default class AnalyseCtrl implements CevalHandler {
     this.resetAutoShapes();
   };
 
-  toggleFishnetAnalysis = () => {
-    this.showFishnetAnalysis(!this.showFishnetAnalysis());
+  toggleStaticAnalysis = () => {
+    this.showStaticAnalysis(!this.showStaticAnalysis());
     this.resetAutoShapes();
-    pubsub.emit('analysis.comp.toggle', this.showFishnetAnalysis());
+    pubsub.emit('analysis.comp.toggle', this.showStaticAnalysis());
   };
 
   toggleActionMenu = () => {
@@ -961,14 +962,23 @@ export default class AnalyseCtrl implements CevalHandler {
     return Object.keys(this.mainline[0].eval || {}).length > 0;
   };
 
-  mergeAnalysisData(data: ServerEvalData) {
+  mergeAnalysisData(data: StaticAnalysisData, isServer = true) {
     if (this.study && this.study.data.chapter.id !== data.ch) return;
-    const tree = completeNode(this.variantKey)(data.tree);
-    this.tree.merge(tree);
-    this.data.analysis = data.analysis;
-    if (data.analysis) data.analysis.partial = !!treeOps.findInMainline(tree, this.partialAnalysisCallback);
+    const dataTree = completeNode(this.variantKey)(data.tree);
+    if (isServer) this.tree.merge(dataTree);
+    else mergeLocalEval(this.tree.root, dataTree, !!this.study);
+
+    if (isServer || !data.analysis) {
+      this.data.analysis = data.analysis;
+    } else {
+      // this local eval is not yet uploaded. preserve the engine spec of the server eval
+      this.data.analysis = { ...data.analysis, engine: this.data.analysis?.engine };
+    }
+    if (data.analysis)
+      data.analysis.partial = isServer && !!treeOps.findInMainline(dataTree, this.partialAnalysisCallback);
     if (data.division) this.data.game.division = data.division;
     if (this.retro) this.retro.onMergeAnalysisData();
+
     pubsub.emit('analysis.server.progress', this.data);
     this.redraw();
   }

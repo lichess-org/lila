@@ -46,7 +46,7 @@ export default class ServerEval {
 export function view(ctrl: ServerEval): VNode {
   const analysis = ctrl.root.data.analysis;
 
-  if (!ctrl.root.showFishnetAnalysis()) return disabled();
+  if (!ctrl.root.showStaticAnalysis()) return disabled();
   if (!analysis) return ctrl.requested ? requested() : requestButton(ctrl);
   const mainline = ctrl.requested ? ctrl.root.data.treeParts : ctrl.analysedMainline();
   const chart = h('canvas.study__server-eval.ready.' + analysis.id, {
@@ -71,21 +71,32 @@ const requested = () => h('div.study__server-eval.requested.padded', spinnerVdom
 function requestButton(ctrl: ServerEval) {
   const root = ctrl.root;
   return h(
-    'div.study__message',
+    'div.study__analysis',
     root.mainline.length < 5
       ? h('p', i18n.study.theChapterIsTooShortToBeAnalysed)
-      : !root.study!.members.canContribute()
-        ? [i18n.study.onlyContributorsCanRequestAnalysis]
-        : [
-            h('p', [i18n.study.getAFullComputerAnalysis, h('br'), i18n.study.makeSureTheChapterIsComplete]),
-            h(
-              'a.button.text',
-              {
-                attrs: { 'data-icon': licon.BarChart, disabled: root.mainline.length < 5 },
-                hook: bind('click', ctrl.request, root.redraw),
-              },
-              i18n.site.requestAComputerAnalysis,
-            ),
-          ],
+      : [
+          !root.study!.members.canContribute()
+            ? i18n.study.onlyContributorsCanRequestAnalysis
+            : h(
+                'button.button.text',
+                {
+                  attrs: {
+                    'data-icon': licon.BarChart,
+                    title: i18n.study.makeSureTheChapterIsComplete,
+                    disabled: root.mainline.length < 5,
+                  },
+                  hook: bind('click', ctrl.request, root.redraw),
+                },
+                i18n.site.requestAServerAnalysis,
+              ),
+          h(
+            'button.button.text',
+            {
+              attrs: { 'data-icon': licon.Cogs },
+              on: { click: () => site.asset.loadEsm('analyse.local', { init: root }) },
+            },
+            i18n.site.deviceLocalAnalysis,
+          ),
+        ],
   );
 }

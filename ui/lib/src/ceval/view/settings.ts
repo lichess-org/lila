@@ -5,7 +5,7 @@ import { onClickAway } from '@/index';
 import * as Licon from '@/licon';
 import { type VNode, onInsert, bind, dataIcon, hl, rangeConfig, confirm } from '@/view';
 
-import type CevalCtrl from '../ctrl';
+import type { CevalCtrl } from '../ctrl';
 import { fewerCores } from '../util';
 
 const allSearchTicks: number[] = [2, 4, 6, 8, 10, 12, 15, 20, 30, Number.POSITIVE_INFINITY];
@@ -17,10 +17,10 @@ export function renderCevalSettings(ctrl: CevalHandler): VNode | null {
     return null;
   }
 
-  const minThreads = ceval.engines.active?.minThreads ?? 1;
+  const minThreads = ceval.engines.current()?.minThreads ?? 1;
   const maxThreads = ceval.maxThreads;
   const engCtrl = ceval.engines;
-  const searchTicks = allSearchTicks.filter(x => x * 1000 <= ceval.engines.maxMovetime);
+  const searchTicks = allSearchTicks.filter(x => x * 1000 <= ceval.engines.maxMovetime());
 
   let observer: ResizeObserver;
 
@@ -151,7 +151,7 @@ export function renderCevalSettings(ctrl: CevalHandler): VNode | null {
               attrs: {
                 type: 'range',
                 min: 4,
-                max: Math.floor(Math.log2(engCtrl.active?.maxHash ?? 4)),
+                max: Math.floor(Math.log2(engCtrl.current()?.maxHash ?? 4)),
                 step: 1,
                 disabled: ceval.maxHash <= 16,
                 'aria-valuetext': formatHashSize(ceval.hashSize),
@@ -180,7 +180,7 @@ function formatHashSize(v: number) {
 function setupTick(v: VNode, ceval: CevalCtrl) {
   const tick = v.elm as HTMLElement;
   const parentSpan = tick.parentElement!;
-  const minThreads = ceval.engines.active?.minThreads ?? 1;
+  const minThreads = ceval.engines.current()?.minThreads ?? 1;
   const thumbWidth = isChrome() ? 17 : 19; // it is what it is
   const trackWidth = parentSpan.querySelector('input')!.offsetWidth - thumbWidth;
   const tickRatio = (ceval.recommendedThreads - minThreads) / (ceval.maxThreads - minThreads);
@@ -191,9 +191,9 @@ function setupTick(v: VNode, ceval: CevalCtrl) {
 }
 
 function engineSelection({ ceval }: CevalHandler) {
-  const active = ceval.engines.active;
+  const active = ceval.engines.current();
   const engines = ceval.engines.supporting(ceval.opts.variant.key);
-  const external = ceval.engines.external;
+  const external = ceval.engines.external();
 
   return hl('div.setting', [
     hl('label', { attrs: { for: 'select-engine' } }, 'Engine:'),

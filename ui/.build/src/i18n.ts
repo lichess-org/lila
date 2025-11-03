@@ -202,8 +202,10 @@ export async function i18nManifest(): Promise<void> {
         ['window.site.manifest.i18n={'] +
         cats
           .map(cat => {
-            const hash = (i18n[`i18n/${cat}.${locale}`] ?? i18n[`i18n/${cat}.en-GB`]).hash;
-            return `${cat}:'${hash}'`;
+            const isCatalogLocalized = !!i18n[`i18n/${cat}.${locale}`];
+            const safeLocale = isCatalogLocalized ? locale : 'en-GB';
+            const hash = i18n[`i18n/${cat}.${safeLocale}`].hash;
+            return `${cat}:'${safeLocale}.${hash}'`;
           })
           .join(',') +
         '}';
@@ -227,6 +229,8 @@ interface I18nPlural {
   asArray: <T>(quantity: number, ...args: T[]) => (T | string)[]; // vdomPlural / plural
 }
 interface I18n {
+  /** fetch i18n dynamically */
+  load(catalog: string): Promise<void>;
   /** global noarg key lookup */
   (key: string): string;
   quantity: (count: number) => 'zero' | 'one' | 'two' | 'few' | 'many' | 'other';\n\n`;
@@ -269,6 +273,15 @@ const siteInit = await minify(`
       if (v[k]) return v[k];
       return k;
     }
+  };
+  window.i18n.load = function(category) {
+    let s = window.site;
+    return import(document.body.dataset.i18nCatalog).then(
+      function() {
+        let localeAndHash = s.manifest.i18n[category];
+        return import(s.asset.url('compiled/i18n/' + category + '.' + localeAndHash + '.js'));
+      }
+    );
   };`);
 
 const jsQuantity = [

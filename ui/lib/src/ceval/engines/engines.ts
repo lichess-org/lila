@@ -1,12 +1,12 @@
 import { lichessRules } from 'chessops/compat';
 
-import type { BrowserEngineInfo, ExternalEngineInfo, EngineInfo, CevalEngine } from '@/ceval';
+import type { BrowserEngineInfo, ExternalEngineInfo, EngineInfo, EngineTrust, CevalEngine } from '@/ceval';
 import { isAndroid, isIos, isIPad, features as browserSupport } from '@/device';
 import { log } from '@/permalog';
 import { storedStringProp, type StoredProp } from '@/storage';
 import { xhrHeader } from '@/xhr';
 
-import type CevalCtrl from '../ctrl';
+import type { CevalCtrl } from '../ctrl';
 import { ExternalEngine } from './externalEngine';
 import { SimpleEngine } from './simpleEngine';
 import { StockfishWebEngine } from './stockfishWebEngine';
@@ -14,16 +14,17 @@ import { ThreadedEngine } from './threadedEngine';
 
 export class Engines {
   private activeEngine: EngineInfo | undefined = undefined;
-  localEngines: BrowserEngineInfo[];
   localEngineMap: Map<string, WithMake>;
   externalEngines: ExternalEngineInfo[];
   selectProp: StoredProp<string>;
 
-  constructor(private ctrl: CevalCtrl) {
+  constructor(private readonly ctrl: CevalCtrl) {
     this.localEngineMap = this.makeEngineMap();
-    this.localEngines = [...this.localEngineMap.values()].map(e => e.info);
     this.externalEngines = this.ctrl.opts.externalEngines?.map(e => ({ tech: 'EXTERNAL', ...e })) ?? [];
-    this.selectProp = storedStringProp('ceval.engine', this.localEngines[0].id);
+    this.selectProp = storedStringProp(
+      'ceval.selected-engine',
+      this.localEngineMap.keys().next().value ?? ''
+    );
   }
 
   status = (status: { download?: { bytes: number; total: number }; error?: string } = {}): void => {
@@ -39,23 +40,6 @@ export class Engines {
     type Hash = string;
     type Variant = [VariantKey, Hash];
     const variantMap = (v: VariantKey): string => (v === 'threeCheck' ? '3check' : v.toLowerCase());
-    const makeVariant = ([key, nnue]: Variant): WithMake => ({
-      info: {
-        id: `__fsfnnue-${key === 'kingOfTheHill' ? 'koth' : variantMap(key)}`,
-        name: 'Fairy Stockfish 14+ NNUE',
-        short: 'FSF 14+',
-        tech: 'NNUE',
-        requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
-        variants: [key],
-        cloudEval: true,
-        assets: {
-          root: 'npm/stockfish-web',
-          nnue: [`${variantMap(key)}-${nnue}.nnue`],
-          js: 'fsf_14.js',
-        },
-      },
-      make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.status, variantMap),
-    });
     const variants: Variant[] = [
       ['antichess', 'dd3cbe53cd4e'],
       ['atomic', '2cf13ff256cc'],
@@ -86,7 +70,7 @@ export class Engines {
           tech: 'NNUE',
           requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
           minMem: 1536,
-          cloudEval: true,
+          capabilities: ['cloudEval', 'puzzleReport'],
           assets: {
             root: 'npm/stockfish-web',
             nnue: ['nn-4ca89e4b3abf.nnue'],
@@ -103,7 +87,7 @@ export class Engines {
           tech: 'NNUE',
           requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
           minMem: 2560,
-          cloudEval: true,
+          capabilities: ['cloudEval', 'staticAnalysis', 'puzzleReport'],
           assets: {
             root: 'npm/stockfish-web',
             js: 'sf_dev.js',
@@ -119,7 +103,6 @@ export class Engines {
           tech: 'NNUE',
           requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
           minMem: 2560,
-          cloudEval: true,
           assets: {
             root: 'npm/stockfish-web',
             js: 'sf_18.js',
@@ -145,7 +128,25 @@ export class Engines {
         },
         make: (e: BrowserEngineInfo) => new ThreadedEngine(e, this.status),
       },
-      ...variants.map(makeVariant),
+      ...variants.map(
+        ([key, nnue]: Variant): WithMake => ({
+          info: {
+            id: `__fsfnnue-${key === 'kingOfTheHill' ? 'koth' : variantMap(key)}`,
+            name: 'Fairy Stockfish 14+ NNUE',
+            short: 'FSF 14+',
+            tech: 'NNUE',
+            requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
+            variants: [key],
+            capabilities: ['cloudEval', 'staticAnalysis'],
+            assets: {
+              root: 'npm/stockfish-web',
+              nnue: [`${variantMap(key)}-${nnue}.nnue`],
+              js: 'fsf14.js',
+            },
+          },
+          make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.status, variantMap),
+        })
+      ),
       {
         info: {
           id: '__fsfhce',
@@ -180,7 +181,7 @@ export class Engines {
         },
         make: (e: BrowserEngineInfo) =>
           new ThreadedEngine(e, undefined, (v: VariantKey) =>
-            v === 'antichess' ? 'giveaway' : lichessRules(v),
+            v === 'antichess' ? 'giveaway' : lichessRules(v)
           ),
       },
       {
@@ -242,32 +243,48 @@ export class Engines {
         .filter(
           e =>
             e.info.requires.every(req => browserSupport().includes(req)) &&
-            !(e.info.obsoletedBy && browserSupport().includes(e.info.obsoletedBy)),
+            !(e.info.obsoletedBy && browserSupport().includes(e.info.obsoletedBy))
         )
-        .map(e => [e.info.id, { info: withDefaults(e.info), make: e.make }]),
+        .map(e => [e.info.id, { info: withDefaults(e.info), make: e.make }])
     );
   }
 
-  get active(): EngineInfo | undefined {
-    return this.activeEngine ?? this.activate();
+  getEngine(selector?: {
+    id?: string;
+    variant?: VariantKey;
+    capability?: EngineTrust;
+  }): EngineInfo | undefined {
+    const id = selector?.id || this.ctrl.storedEngine();
+    const variant = selector?.variant || 'standard';
+    const localEngines = [...this.localEngineMap.values()]
+      .filter(e => !selector?.capability || e.info.capabilities?.includes(selector.capability))
+      .map(e => e.info);
+    return (
+      this.externalEngines.find(e => e.id === id && externalEngineSupports(e, variant)) ??
+      localEngines.find(e => e.id === id && e.variants?.includes(variant)) ??
+      localEngines.find(e => e.variants?.includes(variant)) ??
+      this.externalEngines.find(e => externalEngineSupports(e, variant))
+    );
   }
 
-  activate(): EngineInfo | undefined {
-    this.activeEngine = this.getEngine({ id: this.selectProp(), variant: this.ctrl.opts.variant.key });
+  getExact(id: string): EngineInfo | undefined {
+    return this.externalEngines.find(e => e.id === id) ?? this.localEngineMap.get(id)?.info;
+  }
+
+  current(id?: string): EngineInfo | undefined {
+    if (!this.activeEngine || (id && id !== this.activeEngine.id)) {
+      this.activeEngine = this.getEngine({ id, variant: this.ctrl.opts.variant.key });
+    }
     return this.activeEngine;
   }
 
-  select(id: string): void {
-    this.selectProp(id);
-    this.activate();
+  external(): ExternalEngineInfo | undefined {
+    const e = this.current();
+    return e?.tech === 'EXTERNAL' ? e : undefined;
   }
 
-  get external(): ExternalEngineInfo | undefined {
-    return this.active && this.isExternalEngineInfo(this.active) ? this.active : undefined;
-  }
-
-  get maxMovetime(): number {
-    return this.external ? 30 * 1000 : Number.POSITIVE_INFINITY; // broker timeouts prevent long search
+  maxMovetime(): number {
+    return this.external() ? 30 * 1000 : Number.POSITIVE_INFINITY; // broker timeouts prevent long search
   }
 
   async deleteExternal(id: string): Promise<boolean> {
@@ -275,51 +292,41 @@ export class Engines {
     const r = await fetch(`/api/external-engine/${id}`, { method: 'DELETE', headers: xhrHeader });
     if (!r.ok) return false;
     this.externalEngines = this.externalEngines.filter(e => e.id !== id);
-    this.activate();
+    this.current();
     return true;
   }
 
-  updateCevalCtrl(ctrl: CevalCtrl): void {
-    this.ctrl = ctrl;
-  }
-
-  supporting(variant: VariantKey): EngineInfo[] {
+  supporting(variant: VariantKey, capability?: EngineTrust): EngineInfo[] {
+    const localEngines = [...this.localEngineMap.values()].map(e => e.info);
     return [
-      ...this.localEngines.filter(e => e.variants?.includes(variant)),
+      ...localEngines.filter(
+        e => e.variants?.includes(variant) && (!capability || e.capabilities?.includes(capability))
+      ),
       ...this.externalEngines.filter(e => externalEngineSupports(e, variant)),
     ];
   }
 
-  getEngine(selector?: { id?: string; variant?: VariantKey }): EngineInfo | undefined {
-    const id = selector?.id || this.selectProp();
-    const variant = selector?.variant || 'standard';
-    return (
-      this.externalEngines.find(e => e.id === id && externalEngineSupports(e, variant)) ??
-      this.localEngines.find(e => e.id === id && e.variants?.includes(variant)) ??
-      this.localEngines.find(e => e.variants?.includes(variant)) ??
-      this.externalEngines.find(e => externalEngineSupports(e, variant))
-    );
-  }
-
-  make(selector?: { id?: string; variant?: VariantKey }): CevalEngine {
+  makeEngine(selector?: { id?: string; variant?: VariantKey }): CevalEngine {
     const e = (this.activeEngine = this.getEngine(selector));
-    if (!e) throw Error(`Engine not found ${selector?.id ?? selector?.variant ?? this.selectProp()}`);
+    if (!e) throw Error(`Engine not found ${selector?.id ?? selector?.variant ?? this.ctrl.storedEngine()}}`);
 
-    return !this.isExternalEngineInfo(e)
-      ? this.localEngineMap.get(e.id)!.make(e)
-      : new ExternalEngine(e, this.status);
+    return this.isExternalEngineInfo(e)
+      ? new ExternalEngine(e, this.status)
+      : this.localEngineMap.get(e.id)!.make(e);
   }
 
-  isExternalEngineInfo(e: EngineInfo): e is ExternalEngineInfo {
-    return e.tech === 'EXTERNAL';
+  isExternalEngineInfo(e: EngineInfo | undefined): e is ExternalEngineInfo {
+    return e?.tech === 'EXTERNAL';
+  }
+
+  get defaultId(): string {
+    return this.localEngineMap.values().next().value!.info.id;
   }
 }
 
 function maxHashMB() {
-  if (isAndroid())
-    return 64; // budget androids are easy to crash @ 128
-  else if (isIPad())
-    return 64; // iPadOS safari pretends to be desktop but acts more like iphone
+  if (isAndroid()) return 64; // budget androids are easy to crash @ 128
+  else if (isIPad()) return 64; // iPadOS safari pretends to be desktop but acts more like iphone
   else if (isIos()) return 32;
   return 512; // allocating 1024 often fails and offers little benefit over 512, or 16 for that matter
 }

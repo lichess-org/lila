@@ -18,6 +18,20 @@
   }
 }
 
+.study__analysis {
+  display: flex;
+  justify-content: center;
+  align-content: start;
+  align-items: start;
+  position: relative;
+  gap: 2em;
+
+  button,
+  p {
+    margin-top: 2em;
+  }
+}
+
 .advice-summary table:first-child {
   margin-bottom: 1em;
 }

@@ -38,8 +38,8 @@ final class AssetManifest(getFile: GetRelativeFile):
       case jsKeyRe(k, _) => k
       case _ => path
     jsMap.get(key) match
-      case Some(info) if !visited.contains(key) =>
-        info.imports.flatMap: importName =>
+      case Some(asset) if !visited.contains(key) =>
+        asset.imports.flatMap: importName =>
           importName :: closure(importName, jsMap, visited + path)
       case _ => Nil
 

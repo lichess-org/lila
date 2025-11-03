@@ -22,11 +22,13 @@ final class AnalysisRepo(val coll: Coll)(using Executor):
         game -> analysis
       }
 
-  private[analyse] def save(analysis: Analysis) = coll.insert.one(analysis).void
+  private[analyse] def save(analysis: Analysis) =
+    coll.update.one($id(analysis.id), analysis, upsert = true).void
 
   def remove(id: GameId) = coll.delete.one($id(Analysis.Id(id)))
 
   def remove(ids: List[GameId]) = coll.delete.one($inIds(ids.map(Analysis.Id(_))))
 
   def exists(id: GameId) = coll.exists($id(Analysis.Id(id)))
+  def exists(id: Analysis.Id) = coll.exists($id(id))
   def chapterExists(id: StudyChapterId) = coll.exists($id(id.value))
