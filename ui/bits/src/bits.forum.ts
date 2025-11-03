@@ -214,7 +214,7 @@ site.load.then(() => {
 });
 
 function quotedMarkdown(postEl: HTMLElement | null): string | undefined {
-  const selection = getSelection();
+  const selection = window.getSelection();
   if (!postEl || !selection || selection.rangeCount === 0) return undefined;
 
   const r = selection.getRangeAt(0);
