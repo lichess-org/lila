@@ -120,6 +120,9 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     ($menuCt.length ? $menuCt : $menu.children(':first-child')).trigger('click');
   }
   if (!data.analysis) {
+    document
+      .querySelector<HTMLElement>('button.local-analysis')
+      ?.addEventListener('click', () => site.asset.loadEsm('analyse.local', { init: ctrl }));
     $panels.find('form.future-game-analysis').on('submit', function (this: HTMLFormElement) {
       if ($(this).hasClass('must-login')) {
         confirm(i18n.site.youNeedAnAccountToDoThat, i18n.site.signIn, i18n.site.cancel).then(yes => {

@@ -16,6 +16,7 @@ import type {
 
 import type { ExplorerOpts } from './explorer/interfaces';
 import type { ForecastData } from './forecast/interfaces';
+import type { AnalysisEngineInfo } from './local/localAnalysisEngine';
 import type { AnalyseSocketSend } from './socket';
 import type { StudyDataFromServer } from './study/interfaces';
 import type { StudyPracticeData, Goal as PracticeGoal } from './study/practice/interfaces';
@@ -47,7 +48,7 @@ export interface AnalyseData {
   spectator?: boolean; // for compat with GameData, for game functions
   takebackable: boolean;
   moretimeable: boolean;
-  analysis?: Analysis;
+  analysis?: AnalysisMeta;
   userAnalysis: boolean;
   forecast?: ForecastData;
   sidelines?: TreeNode[][];
@@ -75,11 +76,12 @@ export interface AnalysePref {
   moveEvent: MoveEvent;
 }
 
-export interface ServerEvalData {
+export interface StaticAnalysisData {
   ch: string;
-  analysis?: Analysis;
+  analysis?: AnalysisMeta;
   tree: TreeNodeLite;
   division?: Division;
+  engine: AnalysisEngineInfo;
 }
 
 export interface EvalHit {
@@ -131,14 +133,15 @@ export interface Division {
   end?: number;
 }
 
-export interface Analysis {
+export interface AnalysisMeta {
   id: string;
-  white: AnalysisSide;
-  black: AnalysisSide;
+  white: AnalysisMetaSide;
+  black: AnalysisMetaSide;
   partial?: boolean;
+  engine?: AnalysisEngineInfo;
 }
 
-export interface AnalysisSide {
+export interface AnalysisMetaSide {
   acpl: number;
   inaccuracy: number;
   mistake: number;

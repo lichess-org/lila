@@ -66,6 +66,7 @@ export class CevalCtrl {
 
     // another tab has started ceval, we should stop:
     storage.make('ceval.fen').listen(() => {
+      if (this.isBackground) return;
       this.worker?.destroy();
       this.worker = undefined; // release memory
       this.opts.redraw();
@@ -76,6 +77,7 @@ export class CevalCtrl {
       if (this.curEval?.bestmove) return;
       if (!this.lastStarted) return;
       if (!this.analysable) return;
+      if (this.isBackground) return;
 
       if (document.hidden) this.worker?.stop();
       else if (this.curEval) this.doStart(this.lastStarted);
@@ -94,7 +96,7 @@ export class CevalCtrl {
   }
 
   available(): boolean {
-    return !document.hidden && this.analysable;
+    return (this.isBackground || !document.hidden) && this.analysable;
   }
 
   goDeeper = (): void => {
@@ -188,6 +190,10 @@ export class CevalCtrl {
     return !!this.engines.active().capabilities?.includes('cloudEval');
   }
 
+  get isBackground(): boolean {
+    return this.opts.custom?.canBackground === true;
+  }
+
   get wasUnloaded(): boolean {
     return !this.worker && !!this.lastStarted; // another tab started ceval
   }
@@ -242,7 +248,6 @@ export class CevalCtrl {
       threatMode: s.threatMode,
       emit: this.makeThrottledEmitter(),
     };
-
     if (s.threatMode) {
       const c = step.ply % 2 === 1 ? 'w' : 'b';
       const fen = step.fen.replace(/ (w|b) /, ' ' + c + ' ');
@@ -276,6 +281,7 @@ export class CevalCtrl {
       started: this.lastStarted!,
       fen: undefined as string | undefined,
       emit: this.opts.emit,
+      background: this.isBackground,
       movetime: 'movetime' in this.search.by && this.search.by.movetime,
       dontStop: Boolean(this.engines.external || this.opts.custom || this.isDeeper() || this.isInfinite),
     };
@@ -284,7 +290,7 @@ export class CevalCtrl {
 
       this.curEval = ev;
 
-      if (!working.fen) {
+      if (!working.fen && !working.background) {
         working.fen = this.curEval.fen;
         storage.fire('ceval.fen', this.curEval.fen); // will pause other tabs
       }

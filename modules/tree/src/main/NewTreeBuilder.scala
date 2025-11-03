@@ -86,6 +86,7 @@ object NewTreeBuilder:
       chess.Node(
         NewBranch(
           move = Uci.WithSan(move.toUci, move.toSanStr),
+          comp = true,
           metas = Metas(
             ply = ply,
             fen = fen,
@@ -98,7 +99,7 @@ object NewTreeBuilder:
     val (tree, error) =
       position.buildTree(info.variation.take(20), ply)(step => makeBranch(step.move, step.ply))
     error.foreach(e => logChessError(formatError(id, e)))
-    tree.map(_.updateValue(_.setComp).toVariation)
+    tree.map(_.toVariation)
 
   private def formatError(id: GameId, err: chess.ErrorStr) =
     s"TreeBuilder https://lichess.org/$id $err"
