@@ -21,11 +21,11 @@
   <string name="reopenOnThisPage">Можете поново отворити налог на овој страници. Радиће само једном.</string>
   <string name="doNotAskByEmailToReopen">Немој нас питати преко имејла да поново отворимо налог, нећемо то урадити.</string>
   <string name="wantChangeUsername">Желим да променим моје корисничко име</string>
-  <string name="changeUsernameCase">Посетите ову страницу да бисте променили Ваше корисничко име</string>
-  <string name="cantChangeMore">Не можемо променити више од овога. Због техничких разлога, то је просто немогуће.</string>
-  <string name="orCloseAccount">Било како било, Ви можете затворити тренутни налог и отворити нови.</string>
-  <string name="wantClearHistory">Желим да избришем своју историју и рејтинг</string>
-  <string name="cantClearHistory">Није могуће избрисати вашу историју парија ни проблема, као ни рејтинг.</string>
+  <string name="changeUsernameCase">Посети ову страницу да промениш врсту слова твог корисничког имена</string>
+  <string name="cantChangeMore">Не можемо променити више од врсте слова. Због техничких разлога, просто је немогуће.</string>
+  <string name="orCloseAccount">Међутим, можеш затворити свој тренутни налог и направити нови.</string>
+  <string name="wantClearHistory">Желим да обришем своју историју или рејтинг</string>
+  <string name="cantClearHistory">Није могуће обрисати твоју историју партија, историју проблема или рејтинге.</string>
   <string name="wantReport">Желим пријавити играча</string>
   <string name="toReportAPlayerUseForm">Да бисте пријавили играча, користите форму за пријављивање</string>
   <string name="youCanAlsoReachReportPage">Такође можете доћи до те странице ако притиснете на %s пријави дугме на страници налога.</string>
