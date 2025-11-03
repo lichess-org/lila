@@ -25,12 +25,14 @@
   }
 
   &__flag {
-    width: 1.3em;
-    aspect-ratio: 134/100;
+    width: 1.2em;
+    aspect-ratio: 1;
     vertical-align: middle;
-    opacity: 0.7;
-    margin-inline-end: 1ch;
-    .mini-game:hover & {
+    opacity: 0.75;
+    margin-inline-end: 0.75ch;
+    .mini-game:hover &,
+    .relay-game--current &,
+    .mini-game.active & {
       opacity: 1;
     }
   }
