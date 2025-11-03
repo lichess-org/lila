@@ -227,6 +227,8 @@ GET   /analysis/pgn/*pgn               controllers.UserAnalysis.pgn(pgn)
 GET   /analysis/*something             controllers.UserAnalysis.parseArg(something)
 GET   /analysis                        controllers.UserAnalysis.index
 GET   /embed/analysis                  controllers.UserAnalysis.embed
+POST  /analysis/local                  controllers.Analyse.postLocalAnalysis
+
 
 # Study
 GET   /study                           controllers.Study.allDefault(page: Int ?= 1)
@@ -655,6 +657,7 @@ GET   /api/stream/mod                  controllers.Mod.eventStream
 GET   /api/stream/mod-marked-since     controllers.Mod.markedUsersStream
 GET   /mod/image/queue                 controllers.Mod.imageQueue(page: Int ?= 1)
 POST  /mod/image/accept/:id            controllers.Mod.imageAccept(id: ImageId, v: Boolean)
+POST  /mod/delete-analysis/:id         controllers.Mod.deleteGameAnalysis(id: GameId)
 
 # Irwin
 GET   /irwin                           controllers.Irwin.dashboard

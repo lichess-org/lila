@@ -4,6 +4,8 @@ import { cont as contRoute } from 'lib/game/router';
 import { licon } from 'lib/licon';
 import { domDialog, bind, dataIcon, hl, type VNode, type MaybeVNodes } from 'lib/view';
 
+import { canLocalAnalyse } from '@/local/localAnalysisEngine';
+
 import type { AutoplayDelay } from '../autoplay';
 import type AnalyseCtrl from '../ctrl';
 import * as pgnExport from '../pgnExport';
@@ -148,17 +150,32 @@ export function view(ctrl: AnalyseCtrl): VNode {
           i18n.site.continueFromHere,
         ),
       studyButton(ctrl),
-      ctrl.idbTree.movesDirty &&
+      canLocalAnalyse(ctrl) &&
+        hl(
+          'a',
+          {
+            attrs: { 'data-icon': licon.Cogs },
+            on: {
+              click: () => {
+                site.asset.loadEsm('analyse.local', { init: ctrl });
+                ctrl.actionMenu(false);
+                ctrl.redraw();
+              },
+            },
+          },
+          i18n.site.justTheWordAnalysis,
+        ),
+      (ctrl.idbTree.movesDirty || ctrl.idbTree.hasLocalAnalysis) &&
         hl(
           'a',
           {
             attrs: {
-              title: i18n.site.clearSavedMoves,
+              title: i18n.site.clearLocalData,
               'data-icon': licon.Trash,
             },
-            hook: bind('click', () => ctrl.idbTree.clear('moves')),
+            hook: bind('click', () => ctrl.idbTree.clear()),
           },
-          i18n.site.clearSavedMoves,
+          i18n.site.clearLocalData,
         ),
       hl(
         'button',

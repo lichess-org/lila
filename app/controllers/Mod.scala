@@ -617,3 +617,9 @@ final class Mod(
       _ <- picOpt.so(env.mod.logApi.moderateImage(_, if v then "pass" else "purge"))
     yield Redirect(routes.Mod.imageQueue())
   }
+
+  def deleteGameAnalysis(id: GameId) = Secure(_.ViewBlurs) { _ ?=> _ ?=>
+    // maybe _.ModNote would be better? not sure this needs a new perm
+    for _ <- env.analyse.repo.remove(id)
+    yield Redirect(routes.Round.watcher(id, chess.White))
+  }

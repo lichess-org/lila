@@ -18,3 +18,4 @@ object Node:
     val clock = "l"
     val crazy = "z"
     val forceVariation = "fv"
+    val comp = "sf"

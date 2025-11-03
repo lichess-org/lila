@@ -1,6 +1,4 @@
-type UciChar = Record<string, Key>;
-
-export const uciChar: UciChar = {
+export const destCharToKey: Record<string, Key> = {
   a: 'a1',
   b: 'b1',
   c: 'c1',
