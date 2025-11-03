@@ -96,6 +96,7 @@
     [data-mode='retro']::before {
       font-size: 1.5em;
       content: $licon-GraduateCap;
+      padding-inline-end: 8px;
     }
     [data-mode='practice'].active::after,
     [data-mode='retro'].active::after {

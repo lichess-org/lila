@@ -2,12 +2,15 @@
   @extend %box-neat;
 
   background: $c-bg-box;
-  padding: 3em;
+  padding: 1em;
   text-align: center;
 
+  p {
+    margin-top: 1em;
+  }
   .button {
     display: inline-block;
-    margin: 1em auto;
+    margin: 0.5em auto;
   }
 
   .spinner {

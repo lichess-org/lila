@@ -1,8 +1,4 @@
-interface UciChar {
-  [p: string]: Key;
-}
-
-export const uciChar: UciChar = {
+export const destCharToKey: { [p: string]: Key } = {
   a: 'a1',
   b: 'b1',
   c: 'c1',

@@ -40,7 +40,6 @@ export class BotLoader {
     for (const b of [...bots].filter(Bot.isValid)) {
       this.bots.set(b.uid, new Bot(b, this));
     }
-    this.reset();
     return this;
   }
 

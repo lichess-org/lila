@@ -4,7 +4,7 @@ import chess.{ Position, Ply }
 import chess.format.Uci
 import chess.format.pgn.SanStr
 
-import lila.tree.{ Analysis, Eval, Info }
+import lila.tree.{ Analysis, Eval, Engine, Info }
 
 import JsonApi.Request.Evaluation
 import Evaluation.EvalOrSkip
@@ -43,7 +43,7 @@ final private class AnalysisBuilder(evalCache: IFishnetEvalCache)(using Executor
                 startPly = work.startPly,
                 fk = (!client.lichess).option(client.key.value),
                 date = nowInstant,
-                nodesPerMove = work.origin.map(_.nodesPerMove)
+                engine = Engine(work.origin.map(_.nodesPerMove).getOrElse(1_000_000))
               )
             )
             errors.foreach(e => logger.debug(s"[UciToPgn] $debug $e"))
