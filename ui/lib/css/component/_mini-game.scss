@@ -26,9 +26,9 @@
 
   &__flag {
     width: 1.2em;
-    height: 1.2em;
+    aspect-ratio: 1;
     vertical-align: middle;
-    opacity: 0.85;
+    opacity: 0.75;
     margin-inline-end: 0.75ch;
     .mini-game:hover &,
     .relay-game--current &,
