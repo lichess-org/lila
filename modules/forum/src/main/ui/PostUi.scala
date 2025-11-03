@@ -19,6 +19,10 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
       canReact: Boolean
   )(using ctx: Context) = postWithFrag match
     case ForumPost.WithFrag(post, body, hide) =>
+      val postFrag = div(cls := s"forum-post__message expand-text")(
+        if post.erased then "<Comment deleted by user>"
+        else body
+      )
       st.article(cls := List("forum-post" -> true, "erased" -> post.erased), id := post.number)(
         div(cls := "forum-post__metas")(
           (!post.erased || canModCateg).option(
@@ -100,31 +104,25 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
           ctx.blind.not.option:
             a(cls := "anchor", href := url)(s"#${post.number}")
         ),
-        frag:
-          val postFrag = div(cls := s"forum-post__message expand-text")(
-            if post.erased then "<Comment deleted by user>"
-            else body
-          )
-          if hide then
-            div(cls := "forum-post__blocked")(
-              postFrag,
-              button(cls := "button button-empty", tpe := "button")(
-                "Show blocked message"
-              )
+        if hide then
+          div(cls := "forum-post__blocked")(
+            postFrag,
+            button(cls := "button button-empty", tpe := "button")(
+              "Show blocked message"
             )
-          else postFrag
-        ,
-        (!post.erased).option(reactions(post, canReact)),
+          )
+        else postFrag,
+        (!post.erased)
+          .option(frag(div(cls := "forum-post__message-source")(post.text), reactions(post, canReact))),
         ctx.me.soUse[Option[Tag]]: me ?=>
           post.shouldShowEditForm.option:
-            postForm(cls := "edit-post-form", action := routes.ForumPost.edit(post.id))(
+            postForm(cls := "edit-post-form none", action := routes.ForumPost.edit(post.id))(
               lila.ui.bits.markdownTextarea("forumPostBody".some):
                 textarea(
                   bits.dataTopic := topic.id,
                   name := "changes",
                   cls := "form-control post-text-area edit-post-box",
-                  required,
-                  post.text
+                  required
                 )
               ,
               div(cls := "edit-buttons")(
