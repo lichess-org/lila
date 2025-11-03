@@ -43,9 +43,6 @@
     "shepherd.js": "11.2.0",
     "zxcvbn": "^4.4.2"
   },
-  "scarfSettings": {
-    "enabled": false
-  },
   "build": {
     "bundle": [
       "src/bits!(*.inline).ts",
