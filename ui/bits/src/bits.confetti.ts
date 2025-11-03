@@ -19,12 +19,12 @@ export function initModule(): void {
   const interval = setInterval(function () {
     const timeLeft = endAt - Date.now();
     if (timeLeft <= 0) clearInterval(interval);
-    else canons();
+    else cannons();
   }, 250);
 
   [50, 1200, 2700].forEach(delay => setTimeout(() => fireworks(), delay));
 
-  const canons = () => {
+  const cannons = () => {
     const fire = (custom: confetti.Options) =>
       party({
         scalar: 0.9,

@@ -152,8 +152,8 @@ importers:
         specifier: 4.17.9
         version: 4.17.9(prop-types@15.8.1)
       canvas-confetti:
-        specifier: ^1.9
-        version: 1.9.3
+        specifier: ^1.9.4
+        version: 1.9.4
       cropperjs:
         specifier: 1.6.2
         version: 1.6.2
@@ -1260,8 +1260,8 @@ packages:
   caniuse-lite@1.0.30001751:
     resolution: {integrity: sha512-A0QJhug0Ly64Ii3eIqHu5X51ebln3k4yTUkY1j8drqpWHVreg/VLijN48cZ1bYPiqOQuqpkIKnzr/Ul8V+p6Cw==}
 
-  canvas-confetti@1.9.3:
-    resolution: {integrity: sha512-rFfTURMvmVEX1gyXFgn5QMn81bYk70qa0HLzcIOSVEyl57n6o9ItHeBtUSWdvKAPY0xlvBHno4/v3QPrT83q9g==}
+  canvas-confetti@1.9.4:
+    resolution: {integrity: sha512-yxQbJkAVrFXWNbTUjPqjF7G+g6pDotOUHGbkZq2NELZUMDpiJ85rIEazVb8GTaAptNW2miJAXbs1BtioA251Pw==}
 
   chai@5.3.3:
     resolution: {integrity: sha512-4zNhdJD/iOjSH0A05ea+Ke6MU5mmpQcbQsSOkgdaUMJ9zTlDTD/GYlwohmIE2u0gaxHYiVHEn1Fw9mZ/ktJWgw==}
@@ -3099,7 +3099,7 @@ snapshots:
 
   caniuse-lite@1.0.30001751: {}
 
-  canvas-confetti@1.9.3: {}
+  canvas-confetti@1.9.4: {}
 
   chai@5.3.3:
     dependencies:
