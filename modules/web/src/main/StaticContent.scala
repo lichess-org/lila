@@ -51,9 +51,28 @@ Allow: /game/export/gif/thumbnail/
   def appStoreUrl(using req: RequestHeader) =
     if HTTPRequest.isAndroid(req) then mobileAndroidUrl else mobileIosUrl
 
-  val swagUrlUs = "https://lichess.myspreadshop.com/"
-  val swagUrlEu = "https://lichess.myspreadshop.net/"
-  def swagUrl(countryCode: Option[String]) = if countryCode.has("US") then swagUrlUs else swagUrlEu
+  def swagUrlMaker(tld: String) = s"https://lichess.myspreadshop.$tld/"
+  def swagUrl(countryCode: Option[String]) =
+    countryCode match
+      case Some("US") => swagUrlMaker("com")
+      case Some("CA") => swagUrlMaker("ca")
+      case Some("DE") => swagUrlMaker("de")
+      case Some("FR") => swagUrlMaker("fr")
+      case Some("UK") => swagUrlMaker("co.uk")
+      case Some("IT") => swagUrlMaker("it")
+      case Some("ES") => swagUrlMaker("es")
+      case Some("NL") => swagUrlMaker("nl")
+      case Some("PL") => swagUrlMaker("pl")
+      case Some("BE") => swagUrlMaker("be")
+      case Some("DK") => swagUrlMaker("dk")
+      case Some("AU") => swagUrlMaker("com.au")
+      case Some("IE") => swagUrlMaker("ie")
+      case Some("NO") => swagUrlMaker("no")
+      case Some("CH") => swagUrlMaker("ch")
+      case Some("FI") => swagUrlMaker("fi")
+      case Some("SE") => swagUrlMaker("se")
+      case Some("AT") => swagUrlMaker("at")
+      case _ => swagUrlMaker("net") // EU store as default
 
   val variantsJson =
     JsArray(chess.variant.Variant.list.all.map { v =>
