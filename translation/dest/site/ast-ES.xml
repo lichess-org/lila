@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="gameSetup">Configuración de la partida</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Desafía a un amigu</string>
+  <string name="playAgainstComputer">Xugar contra l\'ordenador</string>
+  <string name="gameMode">Tipu de partida</string>
+  <string name="createLobbyGame">Crear partida na sala d\'espera</string>
+  <string name="youPlayAs">Xuegues con</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Para convidar a daquién a xugar, da-y esti enllaz</string>
   <string name="gameOver">Xuegu termináu</string>
   <string name="waitingForOpponent">Esperando al oponente</string>
@@ -191,7 +197,7 @@
   <string name="xPostedInForumY">%1$s escribió na tema %2$s</string>
   <string name="latestForumPosts">Últimos mensaxes del foru</string>
   <string name="players">Xugadores</string>
-  <string name="friends">Collacios</string>
+  <string name="friends">Amigos</string>
   <string name="otherPlayers">otros xugadores</string>
   <string name="discussions">Conversaciones</string>
   <string name="today">Güei</string>
@@ -339,6 +345,7 @@
     <item quantity="other">%s en xuego</item>
   </plurals>
   <string name="exportGames">Esportar partíes</string>
+  <string name="ratingFilter">Filtru de valoración</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Dar %s segundu</item>
     <item quantity="other">Dar %s segundos</item>
@@ -394,6 +401,7 @@
     <item quantity="other">Necesites xugar %s partíes por puntos más</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">La to puntuación de %s ye provisional</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Los filtros de valoración tán bloquiaos porque la to puntuación nun ye estable. Xugar partíes valoraes va aumentar la estabilidá.</string>
   <string name="yourPerfRatingIsTooHigh">La to puntuación de %1$s (%2$s) ye demasiáu alta</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">La to máxima puntación selmanal de %1$s (%2$s) ye demasiáu alta</string>
   <string name="yourPerfRatingIsTooLow">La to puntuación de %1$s (%2$s) ye demasiáu baxa</string>
@@ -439,8 +447,8 @@
   <string name="reconnecting">Reconectando</string>
   <string name="noNetwork">Ensin conexón</string>
   <plurals name="nbFriendsOnline">
-    <item quantity="one">%s collaciu conectáu</item>
-    <item quantity="other">%s collacios conectaos</item>
+    <item quantity="one">%s amigu conectáu</item>
+    <item quantity="other">%s amigos conectaos</item>
   </plurals>
   <string name="favoriteOpponents">Oponentes favoritos</string>
   <string name="follow">Siguir</string>
@@ -650,7 +658,7 @@
   <string name="ifRatingIsPlusMinusX">Si la puntuación ye ± %s</string>
   <string name="ifRegistered">Si ta rexistráu</string>
   <string name="onlyExistingConversations">Solo conversaciones esistentes</string>
-  <string name="onlyFriends">Solo collacios</string>
+  <string name="onlyFriends">Solo amigos</string>
   <string name="menu">Menú</string>
   <string name="castling">Enroque</string>
   <string name="whiteCastlingKingside">Blanques O-O</string>
@@ -727,7 +735,7 @@
   <string name="tournamentHomeDescription">¡Xuega torneos d\'axedrez rápidu! Xúnite a un tornéu oficial programáu o crea\'l tuyu propiu. Bala, Rellámpagu, Clásicu, Axedrez960, Rei de la Colina, Tres xaques y más opciones disponibles pa una diversión ensin fin n\'axedrez.</string>
   <string name="tournamentNotFound">Nun s\'atopó\'l tornéu</string>
   <string name="tournamentDoesNotExist">Esti tornéu nun esiste.</string>
-  <string name="tournamentMayHaveBeenCanceled">Pue que háyase canceláu, si toos los xugadores fuéronse primero qu\'empezara el tornéu.</string>
+  <string name="tournamentMayHaveBeenCanceled">Pue que háyase canceláu, si tolos xugadores fuéronse primero qu\'empezara el tornéu.</string>
   <string name="returnToTournamentsHomepage">Volver a la páxina principal de torneos</string>
   <string name="weeklyPerfTypeRatingDistribution">Distribución mensual de puntos en %s</string>
   <plurals name="nbPerfTypePlayersThisWeek">
@@ -761,11 +769,12 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Tamién pues usar la rueda del ratón pa movete pola partida.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Mantén pulsiáu sobro les variantes del análisis pa previsualizarlas.</string>
   <string name="analysisShapesHowTo">Fai clic col botón derechu o Máyus+clic para dibuxar círculos y fleches nel tableru.</string>
+  <string name="primaryColorArrowsHowTo">Ctrl o mayúscules = coloráu; comandu, alt, o meta = azul; xuna tecla de cada = mariellu.</string>
   <string name="letOtherPlayersMessageYou">Dexar qu\'otres persones te unvien mensaxes</string>
   <string name="receiveForumNotifications">Recibir notificaciones cuando daquién te mente nel foru</string>
   <string name="shareYourInsightsData">Comparte los tos datos estadísticos</string>
   <string name="withNobody">Con naide</string>
-  <string name="withFriends">Con collacios</string>
+  <string name="withFriends">Con amigos</string>
   <string name="withEverybody">Con tol mundu</string>
   <string name="kidMode">Mou infantil</string>
   <string name="kidModeIsEnabled">Mou infantil ta activáu.</string>
@@ -822,6 +831,7 @@
   <string name="notifications">Notificaciones</string>
   <string name="notificationsX">Notificaciones: %1$s</string>
   <string name="perfRatingX">Rating: %s</string>
+  <string name="yourRatingIsX">La to valoración ye %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s segundu pa facer el primer movimientu</item>
     <item quantity="other">%s segundos para facer el primer movimientu</item>
@@ -873,6 +883,7 @@
   <string name="playVariationToCreateConditionalPremoves">Xuega una variante pa crear movimientos condicionales</string>
   <string name="noConditionalPremoves">Ensin movimientos condicionales</string>
   <string name="playX">Xugar %s</string>
+  <string name="challengeX">Desafía a %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">y aforra %s llínea de premovimiento</item>
     <item quantity="other">y aforra %s llíneas de premovimientos</item>
@@ -883,7 +894,7 @@
   <string name="weHadToTimeYouOutForAWhile">Tuvimos que suspendete temporalmente.</string>
   <string name="why">¿Por qué?</string>
   <string name="pleasantChessExperience">El nuesu oxetivu ye apurrir una esperiencia prestosa a tol mundu.</string>
-  <string name="goodPractice">Pa ello, tenemos d\'aseguranos de que toos los xugadores pórtense bien.</string>
+  <string name="goodPractice">Pa ello, tenemos d\'aseguranos de que tolos xugadores pórtense bien.</string>
   <string name="potentialProblem">Cuando detectamos un posible problema, amosemos esti mensaxe.</string>
   <string name="howToAvoidThis">¿Cómo evitar esto?</string>
   <string name="playEveryGame">Xuega toles partíes qu\'empieces.</string>
@@ -965,6 +976,7 @@ Dexar vacíu de mano les partíes dende la posición inicial normal.</string>
   <string name="simulFeaturedHelp">Amuesa la simultánea públicamente en %s. Deshabilitao pa simultánees privaes.</string>
   <string name="simulDescription">Descripción de la simultánea</string>
   <string name="simulDescriptionHelp">¿Quies dicir dalgo a los participantes?</string>
+  <string name="markdownIsAvailable">El formatu de %s ta disponible.</string>
   <string name="embedsAvailable">Pega l\'enllaz d\'una partida o d\'un capítulu d\'estudiu para ensertalo.</string>
   <string name="inYourLocalTimezone">Na to zona horaria local</string>
   <string name="tournChat">Chat d\'tornéu</string>
@@ -1004,4 +1016,10 @@ Tolos gastos de funcionamientu, desenvolvimientu y conteníos finánciense puram
   <string name="accessibility">Accesibilidá</string>
   <string name="enableBlindMode">Activar mou a la ciega</string>
   <string name="disableBlindMode">Desactivar mou a la ciega</string>
+  <string name="copyToClipboard">Copiar al portapapeles</string>
+  <string name="online" comment="status of a user">conectáu</string>
+  <string name="offline" comment="status of a user">desconectáu</string>
+  <string name="search">Buscar</string>
+  <string name="clearSearch">Borrar busca</string>
+  <string name="tags">Etiquetes</string>
 </resources>
