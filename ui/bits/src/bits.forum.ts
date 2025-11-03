@@ -228,11 +228,9 @@ function quotedMarkdown(postEl: HTMLElement | null): string | undefined {
   const endCap = Number(endEl?.closest<HTMLElement>('[data-me]')?.dataset.me);
   const markdown = postEl.querySelector('.forum-post__message-source')?.textContent;
 
-  console.log(startCap, endCap, markdown?.slice(startCap, endCap));
   if (isNaN(startCap) || isNaN(endCap) || !markdown) return undefined;
 
   const plaintextLines = selection.toString().trim().split('\n');
-  console.log(plaintextLines);
   const [firstLine, lastLine] = [plaintextLines[0].trim(), plaintextLines[plaintextLines.length - 1].trim()];
 
   return markdown?.slice(
