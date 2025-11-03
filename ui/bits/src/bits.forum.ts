@@ -233,8 +233,8 @@ function quotedMarkdown(postEl: HTMLElement | null): string | undefined {
   const plaintextLines = selection.toString().trim().split('\n');
   const [firstLine, lastLine] = [plaintextLines[0].trim(), plaintextLines[plaintextLines.length - 1].trim()];
 
-  return markdown?.slice(
-    markdown?.indexOf(firstLine, startCap),
-    markdown?.lastIndexOf(lastLine, endCap) + lastLine.length,
+  return markdown.slice(
+    markdown.indexOf(firstLine, startCap),
+    markdown.lastIndexOf(lastLine, endCap) + lastLine.length,
   );
 }
