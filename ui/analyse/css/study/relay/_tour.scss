@@ -522,6 +522,7 @@ $hover-bg: $m-primary_bg--mix-30;
   }
   &__players {
     @extend %flex-column;
+    gap: 0.3em;
     flex: 1;
     overflow: hidden;
   }
@@ -548,9 +549,6 @@ $hover-bg: $m-primary_bg--mix-30;
     .mini-game__user .name {
       @extend %nowrap-ellipsis;
     }
-  }
-  &__players &__player:not(:last-child) {
-    margin-bottom: 0.3em;
   }
   .mini-game__gauge {
     order: 0;
