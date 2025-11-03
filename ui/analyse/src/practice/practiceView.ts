@@ -114,7 +114,7 @@ export default function (root: AnalyseCtrl): VNode | undefined {
     hl('div.title', i18n.site.practiceWithComputer),
     hl(
       'div.feedback',
-      !running ? renderOffTrack(ctrl) : end ? renderEnd(root, end) : renderRunning(root, ctrl),
+      end ? renderEnd(root, end) : running ? renderRunning(root, ctrl) : renderOffTrack(ctrl),
     ),
     running
       ? hl(

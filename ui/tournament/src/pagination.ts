@@ -21,8 +21,8 @@ function button(
 }
 
 function scrollToMeButton(ctrl: TournamentController): VNode | undefined {
-  if (ctrl.data.me)
-    return h('button.fbt' + (ctrl.focusOnMe ? '.active' : ''), {
+  if (ctrl.data.me && myPage(ctrl) !== ctrl.page)
+    return h('button.fbt', {
       attrs: { 'data-icon': licon.Target, title: 'Scroll to your player' },
       hook: bind('mousedown', ctrl.toggleFocusOnMe, ctrl.redraw),
     });

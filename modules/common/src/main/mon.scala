@@ -19,7 +19,7 @@ object mon:
     def escape: String =
       val builder = java.lang.StringBuilder(s.length)
       for c <- s.toCharArray do
-        if c != '"' & c != '\n' && c != '\\'
+        if c != '"' && c != '\n' && c != '\\'
         then builder.append(c)
       builder.toString
 
