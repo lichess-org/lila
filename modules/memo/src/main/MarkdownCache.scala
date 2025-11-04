@@ -15,7 +15,8 @@ case class MarkdownOptions(
     blockQuote: Boolean = false,
     code: Boolean = false,
     maxPgns: Max = Max(0),
-    toastUi: Boolean = false
+    toastUi: Boolean = false,
+    sourceMap: Boolean = false
 )
 
 object MarkdownOptions:
@@ -94,6 +95,7 @@ final class MarkdownCache(
         blockQuote = opts.blockQuote,
         code = opts.code,
         table = opts.table,
+        sourceMap = opts.sourceMap,
         pgnExpand = pgnCache.expand.some,
         assetDomain.some
       )

@@ -3,6 +3,7 @@ import { domDialog } from 'lib/view/dialog';
 import { Textcomplete } from '@textcomplete/core';
 import { TextareaEditor } from '@textcomplete/textarea';
 import { tempStorage } from 'lib/storage';
+import { setMode } from './markdownTextarea';
 
 site.load.then(() => {
   $('.forum')
@@ -74,45 +75,50 @@ site.load.then(() => {
     .on('click', function (this: HTMLButtonElement, e) {
       e.preventDefault();
 
-      const $post = $(this).closest('.forum-post'),
-        $form = $post.find('form.edit-post-form').toggle();
-      const $textarea = $form.find('textarea.edit-post-box');
-      $textarea.get(0)!.scrollIntoView();
-
-      ($form[0] as HTMLFormElement).reset();
+      const post = this.closest('.forum-post')!;
+      const form = post.querySelector<HTMLFormElement>('form.edit-post-form')!;
+      if (!form.classList.contains('none')) {
+        form.classList.add('none');
+        form.reset();
+        return;
+      }
+      const textarea = post.querySelector<HTMLTextAreaElement>('textarea.edit-post-box')!;
+      textarea.value = post.querySelector('.forum-post__message-source')!.textContent;
+      form.classList.remove('none');
+      setMode(textarea, 'write');
     });
 
   const quoted = new Set<string>();
 
   $('.quote.button').on('click', function (this: HTMLButtonElement) {
-    const $post = $(this).closest('.forum-post'),
-      authorUsername = $post.find('.author').attr('href')?.substring(3),
-      author = authorUsername ? '@' + authorUsername : $post.find('.author').text(),
-      anchor = $post.find('.anchor').text(),
-      message = $post.find('.forum-post__message'),
-      response = $('.reply .post-text-area')[0] as HTMLTextAreaElement;
+    const post = this.closest('.forum-post')!,
+      authorUsername = $(post).find('.author').attr('href')?.substring(3),
+      author = authorUsername ? '@' + authorUsername : $(post).find('.author').text(),
+      anchor = $(post).find('.anchor').text(),
+      reply = document.querySelector<HTMLTextAreaElement>('.reply .post-text-area')!;
 
-    let messageText = message[0]?.innerText;
-    const selection = window.getSelection();
-    if (selection && selection.anchorNode?.parentElement === message[0]) messageText = selection.toString();
+    const lines = (
+      quotedMarkdown(this.closest('article')) ??
+      post.querySelector('.forum-post__message-source')!.textContent
+    ).split('\n');
+    if (lines[0].match(/^(?:> )*@.+ said in #\d+:$/)) lines.shift();
 
-    message.children('.lpv').each((_, c) => {
-      messageText = messageText?.replace(c.innerText ?? '', '');
-    });
-    let quote = messageText
-      ?.replace(/^(?:>.*)\n?|(?:@.+ said in #\d+:\n?)/gm, '')
-      .trim()
-      .split('\n')
-      .map(line => '> ' + line)
-      .join('\n');
-    quote = `${author} said in ${anchor}:\n${quote}\n`;
-    if (!quoted.has(quote)) {
-      quoted.add(quote);
-      response.value =
-        response.value.substring(0, response.selectionStart) +
-        quote +
-        response.value.substring(response.selectionEnd);
-    }
+    if (lines.length === 0) return;
+
+    const quote =
+      `${author} said in ${anchor}:\n` +
+      lines
+        .map(line => `> ${line}\n`)
+        .join('')
+        .trim() +
+      '\n\n';
+
+    if (quoted.has(quote)) return;
+    quoted.add(quote);
+    setMode(reply, 'write');
+    reply.value = reply.value.slice(0, reply.selectionStart) + quote + reply.value.slice(reply.selectionEnd);
+    const caretOffset = reply.selectionStart + quote.length;
+    reply.setSelectionRange(caretOffset, caretOffset);
   });
 
   $('.post-text-area').one('focus', function (this: HTMLTextAreaElement) {
@@ -203,3 +209,40 @@ site.load.then(() => {
   });
   if (replyEl?.value) replyEl.scrollIntoView(); // scrollto if pre-populated
 });
+
+function quotedMarkdown(postEl: HTMLElement | null): string | undefined {
+  const selection = window.getSelection();
+  if (!postEl || !selection || selection.rangeCount === 0) return undefined;
+
+  const r = selection.getRangeAt(0);
+  if (!postEl?.contains(r.startContainer) || !postEl.contains(r.endContainer)) return undefined;
+
+  const startEl =
+    r.startContainer.nodeType === 3 ? r.startContainer.parentElement : (r.startContainer as Element);
+  const endEl = r.endContainer.nodeType === 3 ? r.endContainer.parentElement : (r.endContainer as Element);
+
+  const startCap = Number(startEl?.closest<HTMLElement>('[data-ms]')?.dataset.ms);
+  const endCap = Number(endEl?.closest<HTMLElement>('[data-me]')?.dataset.me);
+  const source = postEl.querySelector('.forum-post__message-source')?.textContent;
+
+  if (isNaN(startCap) || isNaN(endCap) || !source) return undefined;
+
+  const sourceLines = selection.toString().trim().split('\n');
+  const lastLine = sourceLines[sourceLines.length - 1].trim();
+
+  const startSource = source.indexOf(sourceLines[0].trim(), startCap);
+  const endSource = source.lastIndexOf(lastLine, endCap) + lastLine.length;
+
+  return prefixQuote(source, startCap) + source.slice(startSource, endSource);
+}
+
+function prefixQuote(text: string, offset: number) {
+  let prefix = '';
+  while (offset-- > 1) {
+    const char = text.slice(offset, offset + 1);
+    if (char === '\n') break;
+    else if (char === '>') prefix += '> ';
+    else if (char.trim().length) return '';
+  }
+  return prefix;
+}
