@@ -182,7 +182,7 @@ export default function () {
       },
     });
     $wrap.on('mouseenter', () => {
-      if ($input[0] !== document.activeElement) $input[0]!.focus()
+      if ($input[0] !== document.activeElement) $input[0]!.focus();
     });
     $wrap.on('mouseleave', () => {
       if (!$input.val()) $input[0]!.blur();
