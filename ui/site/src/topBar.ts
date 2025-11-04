@@ -181,7 +181,9 @@ export default function () {
         $('body').hasClass('clinput') ? $input[0]!.blur() : $input[0]!.focus();
       },
     });
-    $wrap.on('mouseenter', () => $input[0]!.focus());
+    $wrap.on('mouseenter', () => {
+      if ($input[0] !== document.activeElement) $input[0]!.focus()
+    });
     $wrap.on('mouseleave', () => {
       if (!$input.val()) $input[0]!.blur();
     });
