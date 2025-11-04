@@ -3,6 +3,7 @@ import { domDialog } from 'lib/view/dialog';
 import { Textcomplete } from '@textcomplete/core';
 import { TextareaEditor } from '@textcomplete/textarea';
 import { tempStorage } from 'lib/storage';
+import { setMode } from './markdownTextarea';
 
 site.load.then(() => {
   $('.forum')
@@ -84,9 +85,7 @@ site.load.then(() => {
       const textarea = post.querySelector<HTMLTextAreaElement>('textarea.edit-post-box')!;
       textarea.value = post.querySelector('.forum-post__message-source')!.textContent;
       form.classList.remove('none');
-      textarea.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      textarea.setSelectionRange(textarea.value.length, textarea.value.length);
-      textarea.focus();
+      setMode(textarea, 'write');
     });
 
   const quoted = new Set<string>();
@@ -116,12 +115,10 @@ site.load.then(() => {
 
     if (quoted.has(quote)) return;
     quoted.add(quote);
-
+    setMode(reply, 'write');
     reply.value = reply.value.slice(0, reply.selectionStart) + quote + reply.value.slice(reply.selectionEnd);
-    reply.scrollIntoView({ behavior: 'smooth', block: 'end' });
     const caretOffset = reply.selectionStart + quote.length;
     reply.setSelectionRange(caretOffset, caretOffset);
-    reply.focus();
   });
 
   $('.post-text-area').one('focus', function (this: HTMLTextAreaElement) {
