@@ -54,8 +54,6 @@ import Server from './server';
 
 type GoneBerserk = Partial<ByColor<boolean>>;
 
-type Timeout = number;
-
 export default class RoundController implements MoveRootCtrl {
   data: RoundData;
   socket: RoundSocket;
