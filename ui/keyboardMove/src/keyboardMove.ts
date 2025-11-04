@@ -1,6 +1,6 @@
 import { sanWriter, destsToUcis } from 'lib/game/chess';
-import type { KeyboardMoveHandler, Opts, ArrowKey } from './exports';
-import { type Submit, makeSubmit } from './keyboardSubmit';
+import type { KeyboardMoveHandler, Opts, ArrowKey } from '@/exports';
+import { type Submit, makeSubmit } from '@/keyboardSubmit';
 
 export function initModule(opts: Opts): KeyboardMoveHandler | undefined {
   if (opts.input.classList.contains('ready')) return;

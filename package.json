@@ -25,11 +25,14 @@
   "pnpm": {
     "onlyBuiltDependencies": [
       "esbuild"
-    ]
+    ],
+    "patchedDependencies": {
+      "@toast-ui/editor": "ui/bits/patches/@toast-ui__editor.patch"
+    }
   },
   "dependencies": {
     "@lichess-org/chessground": "9.8.4",
-    "@lichess-org/pgn-viewer": "2.5.2",
+    "@lichess-org/pgn-viewer": "../pgn-viewer",
     "@types/lichess": "workspace:*",
     "@typescript-eslint/eslint-plugin": "^8.46.1",
     "@typescript-eslint/parser": "^8.46.1",

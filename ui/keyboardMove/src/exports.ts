@@ -1,7 +1,7 @@
 import type { SanToUci } from 'lib/game/chess';
 import { type Prop, propWithEffect } from 'lib';
 import type { MoveRootCtrl, MoveUpdate } from 'lib/game/moveRootCtrl';
-import KeyboardChecker from './keyboardChecker';
+import KeyboardChecker from '@/keyboardChecker';
 import { h, type VNode } from 'snabbdom';
 import { onInsert } from 'lib/snabbdom';
 import { snabDialog } from 'lib/view/dialog';
