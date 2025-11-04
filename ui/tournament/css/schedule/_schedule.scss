@@ -146,10 +146,6 @@ $c-tour-variant: #7c5133;
     background-color: $c-tour-marathon;
   }
 
-  &-unique {
-    background-color: $c-tour-unique;
-  }
-
   &-max-rating {
     background-color: $c-tour-max-rating;
   }
@@ -160,6 +156,10 @@ $c-tour-variant: #7c5133;
 
   &-user-created {
     background-color: $c-primary;
+  }
+
+  &-unique {
+    background-color: $c-tour-unique;
   }
 
   &-short.tsht-thematic {
