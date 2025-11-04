@@ -38,7 +38,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
             iframe(
               id := "ytplayer",
               tpe := "text/html",
-              src := s"https://www.youtube.com/embed/${video.id}?autoplay=1&origin=https://lichess.org&start=${video.startTime}",
+              src := s"https://www.youtube-nocookie.com/embed/${video.id}?autoplay=1&origin=https://lichess.org&start=${video.startTime}",
               st.frameborder := "0",
               frame.allowfullscreen,
               frame.credentialless

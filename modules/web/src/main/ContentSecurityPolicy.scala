@@ -9,7 +9,14 @@ object ContentSecurityPolicy:
       defaultSrc = List("'self'", assetDomain.value),
       connectSrc = "'self'" :: "blob:" :: "data:" :: connectSrcs,
       styleSrc = List("'self'", "'unsafe-inline'", assetDomain.value),
-      frameSrc = List("'self'", assetDomain.value, "www.youtube.com", "player.twitch.tv", "player.vimeo.com"),
+      frameSrc = List(
+        "'self'",
+        assetDomain.value,
+        "www.youtube.com",
+        "www.youtube-nocookie.com",
+        "player.twitch.tv",
+        "player.vimeo.com"
+      ),
       workerSrc = List("'self'", assetDomain.value, "blob:"),
       imgSrc = List("'self'", "blob:", "data:", "*"),
       mediaSrc = List("'self'", "blob:", assetDomain.value),
