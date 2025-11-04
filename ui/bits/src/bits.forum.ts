@@ -226,15 +226,26 @@ function quotedMarkdown(postEl: HTMLElement | null): string | undefined {
 
   const startCap = Number(startEl?.closest<HTMLElement>('[data-ms]')?.dataset.ms);
   const endCap = Number(endEl?.closest<HTMLElement>('[data-me]')?.dataset.me);
-  const markdown = postEl.querySelector('.forum-post__message-source')?.textContent;
+  const source = postEl.querySelector('.forum-post__message-source')?.textContent;
 
-  if (isNaN(startCap) || isNaN(endCap) || !markdown) return undefined;
+  if (isNaN(startCap) || isNaN(endCap) || !source) return undefined;
 
-  const plaintextLines = selection.toString().trim().split('\n');
-  const [firstLine, lastLine] = [plaintextLines[0].trim(), plaintextLines[plaintextLines.length - 1].trim()];
+  const sourceLines = selection.toString().trim().split('\n');
+  const lastLine = sourceLines[sourceLines.length - 1].trim();
 
-  return markdown.slice(
-    markdown.indexOf(firstLine, startCap),
-    markdown.lastIndexOf(lastLine, endCap) + lastLine.length,
-  );
+  const startSource = source.indexOf(sourceLines[0].trim(), startCap);
+  const endSource = source.lastIndexOf(lastLine, endCap) + lastLine.length;
+
+  return prefixQuote(source, startCap) + source.slice(startSource, endSource);
+}
+
+function prefixQuote(text: string, offset: number) {
+  let prefix = '';
+  while (offset-- > 1) {
+    const char = text.slice(offset, offset + 1);
+    if (char === '\n') break;
+    else if (char === '>') prefix += '> ';
+    else if (char.trim().length) return '';
+  }
+  return prefix;
 }
