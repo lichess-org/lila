@@ -173,10 +173,13 @@
     max-width: 100%;
   }
   /* image caption */
+  img + br:has(+ em) {
+    display: none;
+  }
   img + em,
   img + br + em {
     color: $c-font-dim;
-    margin-top: -20px;
+    margin-top: 10px;
     display: block;
     font-size: 0.8em;
     text-align: center;
