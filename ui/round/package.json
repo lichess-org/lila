@@ -10,7 +10,7 @@
     "lib": "workspace:*",
     "keyboardMove": "workspace:*",
     "voice": "workspace:*",
-    "shepherd.js": "^11.2.0"
+    "shepherd.js": "11.2.0"
   },
   "build": {
     "bundle": "src/**/round.*ts"

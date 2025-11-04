@@ -111,7 +111,6 @@
   }
 
   .edit-post-form {
-    display: none;
     margin-top: 1.5em;
 
     textarea {
@@ -157,11 +156,17 @@
     max-width: 100%;
   }
 }
+
+.forum-post__message-source {
+  display: none;
+}
+
 .comment-preview {
   font-size: 1.1rem;
 }
-.forum-post__message,
-.comment-preview {
+
+.forum-topic .forum-post__message,
+.forum-topic .comment-preview {
   @include rendered-markdown(1em, 1600px);
   @include rendered-markdown--code;
   @include rendered-markdown--quote;
@@ -169,7 +174,7 @@
   @include rendered-markdown--embed;
 
   blockquote {
-    padding: 0.3em 0.7em;
+    padding: 0 0.7em;
     border-left: 0.3em solid;
     unicode-bidi: plaintext;
     position: relative;
