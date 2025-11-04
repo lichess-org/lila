@@ -35,7 +35,7 @@ final class ForumPostApi(
       val post = ForumPost.make(
         topicId = topic.id,
         userId = (!anonMod).option(me),
-        text = spam.replace(data.text.replace("\r\n", "\n").replace('\r', '\n')),
+        text = spam.replace(data.text),
         number = topic.nbPosts + 1,
         lang = lang.map(_.language),
         troll = me.marks.troll,
@@ -84,8 +84,7 @@ final class ForumPostApi(
         case (_, post) if !post.canStillBeEdited =>
           fufail("Post can no longer be edited")
         case (_, post) =>
-          val newPost =
-            post.editPost(nowInstant, spam.replace(newText.replace("\r\n", "\n").replace('\r', '\n')))
+          val newPost = post.editPost(nowInstant, spam.replace(newText))
           val save = (newPost.text != post.text).so:
             for
               _ <- postRepo.coll.update.one($id(post.id), newPost)
