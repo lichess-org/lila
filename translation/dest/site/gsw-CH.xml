@@ -984,7 +984,7 @@ Fäld leer lah und all Schpiel normal schtarte.</string>
   <string name="simulFeaturedHelp">Zeig allne uf %s dis Simultanschach. Privats Simultanschach deaktiviert.</string>
   <string name="simulDescription">Simultanschach Beschribig</string>
   <string name="simulDescriptionHelp">Wottsch de Teilnehmer öppis mitteile?</string>
-  <string name="markdownIsAvailable" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text.">%s isch zur Formatierig verfüegbar.</string>
+  <string name="markdownIsAvailable">%s isch zur Formatierig verfüegbar.</string>
   <string name="embedsAvailable">Füeg zum Ibette e Schpil-URL oder e Schtudiekapitel-URL i.</string>
   <string name="inYourLocalTimezone">I dinere lokale Zitzone</string>
   <string name="tournChat">Turnier Chat</string>

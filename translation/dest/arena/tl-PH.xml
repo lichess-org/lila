@@ -34,19 +34,28 @@ Maglaro ng mabilis at bumalik sa lobby para makapaglaro ng maraming mga laro at 
   <string name="thisIsPrivate">Ito ay isang pribadong paligsahan</string>
   <string name="shareUrl">Ibahagi ang URL para makasali ang mga tao: %s</string>
   <string name="history">Historya ng Arena</string>
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+    <item quantity="one">Tingnan ang koponan</item>
+    <item quantity="other">Tingnan lahat ng %s (na) koponan</item>
+  </plurals>
   <string name="newTeamBattle">Bagong Laban ng Grupo</string>
   <string name="customStartDate">Pasadyang panimulang petsa</string>
   <string name="customStartDateHelp">Sa sarili mong lokal na timezone. Ino-override nito ang setting na \"Oras bago magsimula ang tournament.\"</string>
-  <string name="allowBerserk">Payagan ang Berserk</string>
+  <string name="allowBerserk">I-allow ang Berserk</string>
   <string name="allowBerserkHelp">Hayaan ang mga manlalaro na hatiin ang kanilang clock time para makakuha ng extrang puntos</string>
   <string name="allowChatHelp">Hayaan ang mga manlalaro na mag-usap sa isang chat room</string>
-  <string name="arenaStreaks">Streaks ng arena</string>
+  <string name="arenaStreaks">Mga arena streak</string>
   <string name="arenaStreaksHelp">Pagkatapos ng dalawang panalo, ang sunod-sunod na pagkapanalo ay magbibigay ng apat na puntos sa halip na dalawa.</string>
   <string name="noBerserkAllowed">Bawal magberserk</string>
+  <string name="noArenaStreaks">Walang arena streak</string>
   <string name="averagePerformance">Karaniwang pagganap</string>
   <string name="averageScore">Karaniwang puntos</string>
+  <string name="myTournaments">Aking mga paligsahan</string>
+  <string name="editTournament">I-edit ang paligsahan</string>
+  <string name="editTeamBattle">I-edit ang labang koponan</string>
   <string name="defender">Tagapagtanggol</string>
   <string name="pickYourTeam">Piliin ang iyong koponan</string>
+  <string name="youMustJoinOneOfTheseTeamsToParticipate">Kailangan mong sumali sa isa sa mga koponan upang sumali!</string>
   <string name="bestResults">Mga pinakamagandang resulta</string>
   <string name="total">Kabuuan</string>
   <string name="onlyTitled">Mga titulong manlalaro lamang</string>

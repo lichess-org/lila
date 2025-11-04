@@ -975,7 +975,7 @@ Laissez vide pour commencer les parties à partir de la position initiale normal
   <string name="simulFeaturedHelp">Montrez votre simultanée à tout le monde sur %s. Désactivez cette option pour les simultanées privées.</string>
   <string name="simulDescription">Description de la simultanée</string>
   <string name="simulDescriptionHelp">Voulez-vous dire quelque chose aux participants ?</string>
-  <string name="markdownIsAvailable" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text.">%s est disponible pour aider au formatage.</string>
+  <string name="markdownIsAvailable">%s est disponible pour aider au formatage.</string>
   <string name="embedsAvailable">Collez l\'URL d\'une partie ou d\'un chapitre d\'étude pour l\'intégrer.</string>
   <string name="inYourLocalTimezone">Dans votre fuseau horaire</string>
   <string name="tournChat">Salon de discussion du tournoi</string>

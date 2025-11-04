@@ -971,7 +971,7 @@ Që lojërat të fillojnë nga pozicioni fillestar normal, lëreni të zbrazët.
   <string name="simulFeaturedHelp">Shfaqeni simultanen tuaj për këdo, në %s. Për simultane private, çaktivizojeni.</string>
   <string name="simulDescription">Përshkrim simultaneje</string>
   <string name="simulDescriptionHelp">Ndonjë gjë që doni t’u thoni pjesëmarrësve?</string>
-  <string name="markdownIsAvailable" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text.">Për formatim mund të përdorni %s.</string>
+  <string name="markdownIsAvailable">Për formatim mund të përdorni %s.</string>
   <string name="embedsAvailable">Ngjitni një URL loje ose URL kapitulli mësimi, për ta trupëzuar.</string>
   <string name="inYourLocalTimezone">Në zonën tuaj kohore vendore</string>
   <string name="tournChat">Fjalosje turneu</string>

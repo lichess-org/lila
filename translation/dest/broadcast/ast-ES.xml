@@ -6,6 +6,10 @@
     <item quantity="one">%s tresmisión</item>
     <item quantity="other">%s tresmisiones</item>
   </plurals>
+  <plurals name="nbViewers">
+    <item quantity="one">%s espectador</item>
+    <item quantity="other">%s espectadores</item>
+  </plurals>
   <string name="liveBroadcasts">Emisiones de torneos en directu</string>
   <string name="broadcastCalendar">Calendariu de tresmisiones</string>
   <string name="newBroadcast">Nueva emisión en directu</string>
@@ -77,4 +81,6 @@
   <string name="backToLiveMove">Volver al movimientu en directu</string>
   <string name="sinceHideResults">Como escoyisti esconder los resultaos, tolos tableros de vista previa tán vacíos.</string>
   <string name="liveboard">Tableru en directu</string>
+  <string name="communityBroadcast">Tresmisión de la comunidá</string>
+  <string name="createdAndManagedBy">Creada y alministrada por %s.</string>
 </resources>

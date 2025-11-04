@@ -4,7 +4,7 @@
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Thách đấu một người bạn</string>
   <string name="playAgainstComputer">Chơi với máy</string>
   <string name="gameMode">Chế độ chơi</string>
-  <string name="createLobbyGame">Tạo ván đấu sảnh</string>
+  <string name="createLobbyGame">Tạo ván đấu tại sảnh</string>
   <string name="youPlayAs">Bạn cầm quân</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Để mời ai đó chơi, hãy gửi URL này</string>
   <string name="gameOver">Ván cờ kết thúc</string>
@@ -19,7 +19,7 @@
   <string name="chat">Trò chuyện</string>
   <string name="resign">Chịu thua</string>
   <string name="checkmate">Chiếu hết</string>
-  <string name="stalemate">Hết nước đi</string>
+  <string name="stalemate">Hết nước đi hợp lệ</string>
   <string name="white">Quân Trắng</string>
   <string name="black">Quân Đen</string>
   <string name="asWhite">khi chơi quân trắng</string>
@@ -65,7 +65,7 @@
   <string name="usingServerAnalysis">Sử dụng phân tích nhờ máy chủ</string>
   <string name="loadingEngine">Đang tải động cơ máy tính...</string>
   <string name="calculatingMoves">Đang tính nước đi...</string>
-  <string name="engineFailed">Lỗi khi đang tải động cơ</string>
+  <string name="engineFailed">Lỗi khi đang tải máy cờ vua</string>
   <string name="cloudAnalysis">Phân tích đám mây</string>
   <string name="goDeeper">Phân tích sâu hơn</string>
   <string name="showThreat">Hiện các mối đe dọa</string>
@@ -89,7 +89,7 @@
   <string name="winning">Đang thắng dần</string>
   <string name="losing">Đang thua dần</string>
   <string name="drawn">Hòa cờ</string>
-  <string name="unknown">Không chắc</string>
+  <string name="unknown">Không biết</string>
   <string name="database">Cơ sở dữ liệu</string>
   <string name="whiteDrawBlack">Trắng thắng / Hòa / Đen thắng</string>
   <string name="averageRatingX">Hệ số bình quân: %s</string>
@@ -930,7 +930,7 @@ Bỏ trống để bắt đầu tất cả ván đấu bằng thế trận ban �
   <string name="simulFeaturedHelp">Hiển thị sự kiện cờ đồng loạt của bạn trên %s. Không áp dụng cho các sự kiện riêng tư.</string>
   <string name="simulDescription">Mô tả sự kiện cờ đồng loạt</string>
   <string name="simulDescriptionHelp">Bạn có muốn nói điều gì với những người tham gia không?</string>
-  <string name="markdownIsAvailable" comment="%s is &quot;Markdown&quot;, a proper noun. As such, the word is intentionally kept as a variable.&#10;&#10;Markdown is a markup language - a type of code that lets you format text (e.g. to create bold text).&#10;&#10;The text links to a reference guide for using Markdown to format text.">%s có thể dùng để định dạng.</string>
+  <string name="markdownIsAvailable">%s có thể dùng để định dạng.</string>
   <string name="embedsAvailable">Dán URL ván đấu hoặc URL chương nghiên cứu để nhúng.</string>
   <string name="inYourLocalTimezone">Tại múi giờ địa phương của bạn</string>
   <string name="tournChat">Trò chuyện trong giải đấu</string>

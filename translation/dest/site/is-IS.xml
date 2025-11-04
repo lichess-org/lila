@@ -4,6 +4,7 @@
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Skora á vin</string>
   <string name="playAgainstComputer">Tefla á móti tölvu</string>
   <string name="gameMode">Gerð</string>
+  <string name="createLobbyGame">Hefja skák í salnum</string>
   <string name="youPlayAs">Þú ert</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Gefðu upp þessa vefslóð til að bjóða einhverjum að tefla</string>
   <string name="gameOver">Búið spil</string>
@@ -297,7 +298,7 @@
   <string name="gameAborted">Hætt við skák</string>
   <string name="standard">Hefðbundið</string>
   <string name="customPosition">Sérsniðin staða</string>
-  <string name="unlimited">Ótarkmarkað</string>
+  <string name="unlimited">Ótímabundin</string>
   <string name="mode">Tegund</string>
   <string name="casual">Æfingaskák</string>
   <string name="rated">Stigaskák</string>
@@ -768,6 +769,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Skrunaðu yfir taflborðið til þess að gera leik í skákinni.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Skrunaðu yfir tölvuafbrigði til að forskoða þau.</string>
   <string name="analysisShapesHowTo">Ýttu á skiptilykil og smelltu eða hægrismelltu til að teikna hringi og örvar á borðið.</string>
+  <string name="primaryColorArrowsHowTo">Ctrl eða shift = rauður; command, alt, eða meta = blár; lykill úr hvorum hópi = gulur.</string>
   <string name="letOtherPlayersMessageYou">Leyfa öðrum notendum að senda þér skilaboð</string>
   <string name="receiveForumNotifications">Fá tilkynningar þegar minnst er á mann á umræðukorkinum</string>
   <string name="shareYourInsightsData">Deila greiningum</string>
@@ -972,6 +974,7 @@ Skildu eftir autt til að tefla útfrá hefðbundinni upphafsstöðu.</string>
   <string name="simulFeaturedHelp">Sýna öllum á %s fjöltefli þitt. Afvirktu ef um persónuleg fjöltefli er um að ræða.</string>
   <string name="simulDescription">Lýsing fjölteflis</string>
   <string name="simulDescriptionHelp">Er nokkuð eitthvað sem óskað er eftir að upplýsa þátttakendur um?</string>
+  <string name="markdownIsAvailable">%s er tiltækt til sniðmótunar.</string>
   <string name="embedsAvailable">Límdu vefslóð skákar eða vefslóð stúderingarkafla til þess að ívefja það.</string>
   <string name="inYourLocalTimezone">Samkvæmt þínum staðbundna tíma</string>
   <string name="tournChat">Spjall móts</string>

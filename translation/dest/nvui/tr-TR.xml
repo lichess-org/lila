@@ -45,7 +45,7 @@
   <string name="whitePawn">beyaz piyon</string>
   <string name="blackPawn">siyah piyon</string>
   <string name="sanSymbols" comment="Keep this order: king queen rook bishop knight takes">Ş V K F A x</string>
-  <string name="sanTakes" comment="Indicates a piece captured another piece as part of a longer sentence.&#10;Examples:&#10;&quot;knight takes f 3&quot;&#10;&quot;e takes f 3&quot;&#10;The exact format can vary depending on the user's preferences. See the screenshot for the options as of 2025-08-23.&#10;&#10;Used only in blind mode when the screen reader verbally announces a move.&#10;&#10;'Takes' corresponds to &quot;x&quot; in Standard Algebraic Notation, for pieces being captured.">alır</string>
+  <string name="sanTakes" comment="Indicates a piece captured another piece as part of a longer sentence.&#10;Examples:&#10;&quot;knight takes f 3&quot;&#10;&quot;e takes f 3&quot;&#10;The exact format can vary depending on the user's preferences.&#10;&#10;Used only in blind mode when the screen reader verbally announces a move.&#10;&#10;&quot;Takes&quot; corresponds to &quot;x&quot; in Standard Algebraic Notation, for pieces being captured.">alır</string>
   <string name="sanCheck" comment="+ in standard notation">şah</string>
   <string name="sanCheckmate" comment="# in standard notation">şah mat</string>
   <string name="sanShortCastling" comment="O-O in standard notation; also known as kingside castling">kısa rok</string>
@@ -53,5 +53,6 @@
   <string name="invalidMove">Geçersiz hamle</string>
   <string name="premoveCancelled">Ön hamle iptal edildi</string>
   <string name="premoveRecorded">Ön hamle kaydedildi: %s. İptal etmek için gir tuşuna bas</string>
+  <string name="copiedToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">%s panoya kopyalandı</string>
   <string name="pgnAndFen" comment="Will be a heading read out over text-to-speech for blind users looking to share a PGN or FEN of a game.">PGN ve FEN</string>
 </resources>
