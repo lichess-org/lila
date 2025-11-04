@@ -30,7 +30,6 @@ import com.vladsch.flexmark.util.html.MutableAttributes
 import com.vladsch.flexmark.util.misc.Extension
 
 import java.util.Arrays
-import scala.annotation.unused
 import scala.collection.Set
 import scala.jdk.CollectionConverters.*
 import scala.util.matching.Regex
@@ -343,15 +342,15 @@ object MarkdownRender:
             html.tag("/code").tag("/pre")
 
           override def getNodeRenderingHandlers() = Set(
-            NodeRenderingHandler(classOf[Text], (node, ctx, html) => text(node, ctx, html)),
-            NodeRenderingHandler(classOf[Code], (node, ctx, html) => inlineCode(node, ctx, html)),
-            NodeRenderingHandler(classOf[FencedCodeBlock], (node, ctx, html) => blockCode(node, ctx, html)),
-            NodeRenderingHandler(classOf[IndentedCodeBlock], (node, ctx, html) => blockCode(node, ctx, html)),
+            NodeRenderingHandler(classOf[Text], (node, _, html) => text(node, html)),
+            NodeRenderingHandler(classOf[Code], (node, _, html) => inlineCode(node, html)),
+            NodeRenderingHandler(classOf[FencedCodeBlock], (node, _, html) => blockCode(node, html)),
+            NodeRenderingHandler(classOf[IndentedCodeBlock], (node, _, html) => blockCode(node, html)),
             NodeRenderingHandler(classOf[SoftLineBreak], (node, ctx, html) => softBreak(node, ctx, html)),
-            NodeRenderingHandler(classOf[HardLineBreak], (node, ctx, html) => hardBreak(node, ctx, html))
+            NodeRenderingHandler(classOf[HardLineBreak], (node, _, html) => hardBreak(node, html))
           ).asJava
 
-          private def text(node: Text, @unused ctx: NodeRendererContext, html: HtmlWriter): Unit =
+          private def text(node: Text, html: HtmlWriter): Unit =
             val base = node.getBaseSequence
             val end = node.getEndOffset
 
@@ -375,22 +374,18 @@ object MarkdownRender:
 
             if cursor < end then span(html, cursor, end)(html.text(base.subSequence(cursor, end)))
 
-          private def inlineCode(node: Code, @unused ctx: NodeRendererContext, html: HtmlWriter): Unit =
+          private def inlineCode(node: Code, html: HtmlWriter): Unit =
             html.withAttr().tag("code")
             span(html, node.getStartOffset(), node.getEndOffset())(html.text(node.getChars()))
             html.tag("/code")
 
-          private def blockCode(node: Block, @unused ctx: NodeRendererContext, html: HtmlWriter): Unit =
+          private def blockCode(node: Block, html: HtmlWriter): Unit =
             preCode(html)(span(html, node.getStartOffset(), node.getEndOffset())(html.text(node.getChars())))
 
           private def softBreak(node: SoftLineBreak, ctx: NodeRendererContext, html: HtmlWriter): Unit =
             span(html, node.getStartOffset(), node.getEndOffset())(())
             html.raw(ctx.getHtmlOptions().softBreak)
 
-          private def hardBreak(
-              node: HardLineBreak,
-              @unused ctx: NodeRendererContext,
-              html: HtmlWriter
-          ): Unit =
+          private def hardBreak(node: HardLineBreak, html: HtmlWriter): Unit =
             span(html, node.getStartOffset(), node.getEndOffset())(())
             html.tagVoid("br")
