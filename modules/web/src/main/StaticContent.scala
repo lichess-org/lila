@@ -51,9 +51,29 @@ Allow: /game/export/gif/thumbnail/
   def appStoreUrl(using req: RequestHeader) =
     if HTTPRequest.isAndroid(req) then mobileAndroidUrl else mobileIosUrl
 
-  val swagUrlUs = "https://lichess.myspreadshop.com/"
-  val swagUrlEu = "https://lichess.myspreadshop.net/"
-  def swagUrl(countryCode: Option[String]) = if countryCode.has("US") then swagUrlUs else swagUrlEu
+  val swagStoreTlds = Map(
+    "US" -> "com",
+    "CA" -> "ca",
+    "DE" -> "de",
+    "FR" -> "fr",
+    "UK" -> "co.uk",
+    "IT" -> "it",
+    "ES" -> "es",
+    "NL" -> "nl",
+    "PL" -> "pl",
+    "BE" -> "be",
+    "DK" -> "dk",
+    "AU" -> "com.au",
+    "IE" -> "ie",
+    "NO" -> "no",
+    "CH" -> "ch",
+    "FI" -> "fi",
+    "SE" -> "se",
+    "AT" -> "at"
+  )
+  def swagUrl(countryCode: Option[String]) =
+    val tld = swagStoreTlds.getOrElse(~countryCode, "net")
+    s"https://lichess.myspreadshop.$tld/"
 
   val variantsJson =
     JsArray(chess.variant.Variant.list.all.map { v =>
