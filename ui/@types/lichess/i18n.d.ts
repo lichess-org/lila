@@ -3251,7 +3251,7 @@ interface I18n {
     draws: string;
     /** %1$s vs %2$s in %3$s */
     drawVsYInZ: I18nFormat;
-    /** DTZ50'' with rounding, based on number of half-moves until next capture or pawn move */
+    /** DTZ50'' with rounding, based on number of half-moves until next capture, pawn move, or checkmate */
     dtzWithRounding: string;
     /** Duration */
     duration: string;

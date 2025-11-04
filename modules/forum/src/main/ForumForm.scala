@@ -51,6 +51,8 @@ final private[forum] class ForumForm(
         "You have reached the daily maximum for links in forum posts.",
         t => inOwnTeam || promotion.test(me, t, previousText)
       )
+      .transform(_.replace("\r\n", "\n").replace('\r', '\n'), identity)
+
   val diagnostic = Form(
     mapping(
       "text" -> nonEmptyText(maxLength = 5_000_000), // high cap only used for bot move dumps
