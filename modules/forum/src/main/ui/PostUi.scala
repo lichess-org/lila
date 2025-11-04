@@ -19,7 +19,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
       canReact: Boolean
   )(using ctx: Context) = postWithFrag match
     case ForumPost.WithFrag(post, body, hide) =>
-      val postFrag = div(cls := s"forum-post__message expand-text")(
+      val postFrag = div(cls := "forum-post__message expand-text")(
         if post.erased then "<Comment deleted by user>"
         else body
       )
@@ -112,9 +112,10 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
             )
           )
         else postFrag,
-        (!post.erased)
-          .option(frag(div(cls := "forum-post__message-source")(post.text), reactions(post, canReact))),
-        ctx.me.soUse[Option[Tag]]: me ?=>
+        (!post.erased).option:
+          frag(div(cls := "forum-post__message-source")(post.text), reactions(post, canReact))
+        ,
+        ctx.me.soUse[Option[Tag]]: _ ?=>
           post.shouldShowEditForm.option:
             postForm(cls := "edit-post-form none", action := routes.ForumPost.edit(post.id))(
               lila.ui.bits.markdownTextarea("forumPostBody".some):
