@@ -168,23 +168,18 @@
 }
 
 @mixin rendered-markdown--img {
-  .img-container {
-    text-align: center;
-    color: $c-font-dim;
-    line-height: 1.2em;
-    font-size: 0.9em;
+  img {
+    @extend %box-neat;
     max-width: 100%;
-    img {
-      @extend %box-neat;
-      max-width: 100%;
-    }
-    /* image caption */
-    & + p > em:first-child {
-      margin-top: -20px;
-      display: block;
-      font-size: 0.8em;
-      text-align: center;
-    }
+  }
+  /* image caption */
+  img + em,
+  img + br + em {
+    color: $c-font-dim;
+    margin-top: -20px;
+    display: block;
+    font-size: 0.8em;
+    text-align: center;
   }
 }
 
