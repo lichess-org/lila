@@ -332,10 +332,10 @@ object MarkdownRender:
     override def extend(builder: HtmlRenderer.Builder, rendererType: String) = builder.nodeRendererFactory:
       new NodeRendererFactory:
         override def apply(options: DataHolder) = new NodeRenderer:
-          private inline def span(html: HtmlWriter, from: Int, to: Int)(body: => Unit): Unit =
+          private inline def span(html: HtmlWriter, mdStart: Int, mdEnd: Int)(body: => Unit): Unit =
             html
-              .attr("data-ms", from.toString.pp("from"))
-              .attr("data-me", to.toString.pp("to"))
+              .attr("data-ms", mdStart)
+              .attr("data-me", mdEnd)
               .withAttr()
               .tag("span")
             body
@@ -361,9 +361,9 @@ object MarkdownRender:
 
             def emitSpan(sliceStart: Int, sliceEnd: Int): Unit =
               if sliceEnd > sliceStart then
-                val sourceStart = node.getStartOffset() + sliceStart
-                val sourceEnd = node.getStartOffset() + sliceEnd
-                span(html, sourceStart, sourceEnd)(html.text(base.subSequence(sourceStart, sourceEnd)))
+                val mdStart = node.getStartOffset() + sliceStart
+                val mdEnd = node.getStartOffset() + sliceEnd
+                span(html, mdStart, mdEnd)(html.text(base.subSequence(mdStart, mdEnd)))
 
             val finalFrom =
               RawHtml.atUsernameRegex
