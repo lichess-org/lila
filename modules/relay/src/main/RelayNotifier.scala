@@ -13,14 +13,16 @@ final private class RelayNotifier(
 
   private object notifyPlayerFollowers:
 
-    private val dedupNotif = OnceEvery[(StudyChapterId, Color)](1.day)
+    private val dedupByChapterColor = OnceEvery[(StudyChapterId, Color)](1.day)
+    private val dedupByRoundFideId = OnceEvery[(RelayRoundId, chess.FideId)](1.day)
 
     def ofColor(rt: RelayRound.WithTour, chapter: Chapter)(color: Color): Funit =
       chapter.tags
         .fideIds(color)
         .zip(chapter.tags.names(color))
         .so: (fideId, name) =>
-          dedupNotif(chapter.id -> color).so:
+          val unique = dedupByChapterColor(chapter.id -> color) && dedupByRoundFideId(rt.round.id -> fideId)
+          unique.so:
             for
               followers <- getPlayerFollowers(fideId)
               opponent = chapter.tags.names(!color).map(name => s" against ${name} ").getOrElse(" ")
