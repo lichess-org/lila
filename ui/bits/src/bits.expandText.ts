@@ -31,7 +31,7 @@ function toYouTubeEmbedUrl(url: string): string | undefined {
     }
   });
   const params = 'modestbranding=1&rel=0&controls=2&iv_load_policy=3&start=' + start;
-  return 'https://www.youtube.com/embed/' + videoId + '?' + params;
+  return 'https://www.youtube-nocookie.com/embed/' + videoId + '?' + params;
 }
 
 site.load.then(() => {
