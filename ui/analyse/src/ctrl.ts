@@ -48,6 +48,7 @@ import { confirm } from 'lib/view/dialogs';
 import api from './api';
 import type { CevalHandler } from 'lib/ceval/types';
 import { displayColumns } from 'lib/device';
+import { validUci } from 'lib/game/chess';
 
 export default class AnalyseCtrl implements CevalHandler {
   data: AnalyseData;
@@ -695,7 +696,7 @@ export default class AnalyseCtrl implements CevalHandler {
   }
 
   nextNodeBest() {
-    return treeOps.withMainlineChild(this.node, (n: Tree.Node) => n.eval?.best);
+    return treeOps.withMainlineChild(this.node, (n: Tree.Node) => validUci(n.eval?.best));
   }
 
   setAutoShapes = (): void => {
