@@ -1,4 +1,4 @@
-import { fenToEpd, readDests, readDrops } from 'lib/game/chess';
+import { fenToEpd, readDests, readDrops, validUci } from 'lib/game/chess';
 import { playable, playedTurns } from 'lib/game/game';
 import * as keyboard from './keyboard';
 import { treeReconstruct, plyColor } from './util';
@@ -48,7 +48,6 @@ import { confirm } from 'lib/view/dialogs';
 import api from './api';
 import type { CevalHandler } from 'lib/ceval/types';
 import { displayColumns } from 'lib/device';
-import { validUci } from 'lib/game/chess';
 
 export default class AnalyseCtrl implements CevalHandler {
   data: AnalyseData;
