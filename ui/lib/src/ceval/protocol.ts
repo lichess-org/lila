@@ -1,4 +1,4 @@
-import { defined } from '../common';
+import { defined } from '../index';
 import type { Work } from './types';
 
 export class Protocol {

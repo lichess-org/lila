@@ -1,23 +1,7 @@
 {
   "name": "lib",
-  "version": "2.0.0",
   "private": true,
-  "description": "lichess.org common code",
-  "author": "Thibault Duplessis",
-  "license": "AGPL-3.0-or-later",
   "type": "module",
-  "typings": "common",
-  "typesVersions": {
-    "*": {
-      "*": [
-        "dist/*"
-      ]
-    }
-  },
-  "exports": {
-    ".": "./src/common.ts",
-    "./*": "./src/*.ts"
-  },
   "dependencies": {
     "@lichess-org/stockfish-web": "0.0.14",
     "@lichess-org/zerofish": "^0.0.40",
@@ -49,5 +33,21 @@
       "/public/piece/**",
       "/public/sound/**/*.mp3"
     ]
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": {
+        "source": "./src/index.ts",
+        "default": "./dist/index.js"
+      }
+    },
+    "./*": {
+      "types": "./*.d.ts",
+      "import": {
+        "source": "./src/*.ts",
+        "default": "./dist/*.js"
+      }
+    }
   }
 }

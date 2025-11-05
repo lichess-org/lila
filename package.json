@@ -1,22 +1,6 @@
 {
   "name": "lila",
-  "version": "2.0.0",
   "private": true,
-  "description": "lichess.org: the forever free, adless and open source chess server",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/lichess-org/lila.git"
-  },
-  "keywords": [
-    "chess",
-    "lichess"
-  ],
-  "author": "Thibault Duplessis and the gang",
-  "license": "AGPL-3.0-or-later",
-  "bugs": {
-    "url": "https://github.com/lichess-org/lila/issues"
-  },
-  "homepage": "https://lichess.org",
   "packageManager": "pnpm@10.18.3+sha512.bbd16e6d7286fd7e01f6b3c0b3c932cda2965c06a908328f74663f10a9aea51f1129eea615134bf992831b009eabe167ecb7008b597f40ff9bc75946aadfb08d",
   "engines": {
     "node": ">=24",
@@ -32,20 +16,22 @@
   },
   "dependencies": {
     "@lichess-org/chessground": "9.8.4",
-    "@lichess-org/pgn-viewer": "../pgn-viewer",
+    "@lichess-org/pgn-viewer": "2.5.3",
     "@types/lichess": "workspace:*",
-    "@typescript-eslint/eslint-plugin": "^8.46.1",
-    "@typescript-eslint/parser": "^8.46.1",
+    "@types/node": "^24.10.0",
+    "@typescript-eslint/eslint-plugin": "^8.46.3",
+    "@typescript-eslint/parser": "^8.46.3",
     "ab": "github:lichess-org/ab-stub",
     "chessops": "^0.15",
-    "eslint": "^9.38.0",
+    "eslint": "^9.39.1",
     "eslint-plugin-compat": "^6.0.2",
-    "lint-staged": "^16.2.4",
+    "jsdom": "^27.1.0",
+    "lint-staged": "^16.2.6",
     "onchange": "^7.1.0",
     "prettier": "^3.6.2",
     "snabbdom": "3.5.1",
-    "typescript": "^5.9.3",
-    "vitest": "^3.2.4"
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
   },
   "//": [
     "snabbdom pinned to 3.5.1 until https://github.com/snabbdom/snabbdom/issues/1114 is resolved",
@@ -64,8 +50,6 @@
     "serverlog": "pnpm journal & pnpm metals",
     "kill-build": "[ -f ui/.build/instance.lock ] && kill \"$(cat ui/.build/instance.lock)\" 2>/dev/null || true",
     "i18n-file-gen": "pnpx tsx bin/i18n-file-gen.ts",
-    "test": "vitest run --config=ui/vitest.config.mts",
-    "test:watch": "vitest --config=ui/vitest.config.mts",
     "multilog": "pnpm serverlog & ui/build -w"
   },
   "browserslist": [

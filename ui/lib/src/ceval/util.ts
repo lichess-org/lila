@@ -1,5 +1,5 @@
 import { isMobile } from '../device';
-import { memoize, escapeHtml } from '../common';
+import { memoize, escapeHtml } from '../index';
 import { domDialog } from '../view/dialog';
 
 export function isEvalBetter(a: Tree.ClientEval, b: Tree.ClientEval): boolean {

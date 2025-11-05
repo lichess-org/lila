@@ -5,7 +5,7 @@ import { rangeConfig } from '../../view/controls';
 import { isChrome } from '../../device';
 import { type VNode, onInsert, bind, dataIcon, hl } from '../../snabbdom';
 import * as Licon from '../../licon';
-import { onClickAway } from '../../common';
+import { onClickAway } from '../../index';
 import { clamp } from '../../algo';
 import { confirm } from '../../view/dialogs';
 

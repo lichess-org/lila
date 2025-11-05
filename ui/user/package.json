@@ -1,10 +1,7 @@
 {
   "name": "user",
-  "version": "2.0.0",
   "private": true,
-  "description": "account & profile ui",
-  "author": "Thibault Duplessis",
-  "license": "AGPL-3.0-or-later",
+  "type": "module",
   "dependencies": {
     "bits": "workspace:*",
     "lib": "workspace:*"

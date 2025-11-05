@@ -1,5 +1,5 @@
 import { renderEval, view as cevalView } from 'lib/ceval/ceval';
-import { repeater } from 'lib';
+import { repeater, myUserId } from 'lib';
 import * as licon from 'lib/licon';
 import { type VNode, type LooseVNode, onInsert, hl } from 'lib/snabbdom';
 import { displayColumns, isTouchDevice } from 'lib/device';
@@ -7,7 +7,6 @@ import { addPointerListeners } from 'lib/pointer';
 import * as control from '../control';
 import type AnalyseCtrl from '../ctrl';
 import { domDialog } from 'lib/view/dialog';
-import { myUserId } from 'lib/common';
 
 type Action =
   | 'first'

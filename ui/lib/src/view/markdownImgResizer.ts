@@ -1,4 +1,4 @@
-import { frag, type Prop } from '@/common';
+import { type Prop, frag } from '@/index';
 import { clamp } from '@/algo';
 import { json as xhrJson } from '@/xhr';
 

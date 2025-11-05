@@ -24,7 +24,7 @@ import {
   whiteFill,
   axisOpts,
   resizePolyfill,
-} from './common';
+} from './index';
 import division from './division';
 import type { AcplChart, AnalyseData, Player } from './interface';
 import ChartDataLabels from 'chartjs-plugin-datalabels';

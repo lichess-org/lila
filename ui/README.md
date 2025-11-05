@@ -12,12 +12,17 @@ When changes compile successfully, a new manifest is created and your dev lila s
 
 # Testing
 
-The frontend uses the [Vitest](https://vitest.dev/) testing framework.
+Use the [/ui/test](./.test/runner.mjs) script. It's a simple wrapper for node test runner.
 
 ```bash
-pnpm test
+ui/test
 ## or
-pnpm test:watch
+ui/test -w # watch
+
+## more exmaples
+ui/test winning # partial glob ui/*/tests/**/$1*.ts -> ui/lib/tests/winningChances.test.ts
+
+ui/test mod # matches ui/mod/tests/**/*.ts
 ```
 
 # About packages
@@ -36,46 +41,55 @@ That tells [pnpm](https://pnpm.io) and our build script to resolve the dependenc
 We do not use devDependencies because no package artifacts are published to npm. There is no useful distinction between dependencies and devDependencies when we're always building assets for the lila server.
 
 ## tsc import resolution
-tsc type checking uses package.json properties to resolve static import declarations in external sources to the correct declaration (\*.d.ts) files in the imported package. When a single declaration barrel describes all package types, we can use the "types" property as shown in this example from [/ui/voice/package.json](./voice/package.json):
-
-```json
-  "types": "dist/voice.d.ts",
-```
-
-When more granular access to the imported package is needed, we use the "typesVersion" property to expose selective imports within the dist folder along with an optional "typings" property to identify a main barrel within the "typesVersion" mapping.
-
-```json
-  "typings": "common",
-  "typesVersions": {
-    "*": {
-      "*": [
-        "dist/*"
-      ]
-    }
-  },
-```
-
-## esbuild import resolution
-The [esbuild bundler](https://esbuild.github.io/getting-started/#your-first-bundle) does things a bit differently. It uses an "exports" object to resolve static workspace imports directly to the imported package's typescript source files. Declaration (*.d.ts) files are not used.
-
-In this example from [/ui/opening/src/opening.ts](./opening/src/opening.ts):
-
-```typescript
-import { initMiniBoards } from 'lib/view/miniBoard';
-import { requestIdleCallback } from 'lib';
-```
-
-The above 'lib/view/miniBoard' and 'lib' import declarations are mapped to the typescript sources by this snippet from [/ui/lib/package.json](./lib/package.json):
+tsc type checking uses package.json's **exports** property [(node reference)](https://nodejs.org/api/packages.html#packages_exports) to resolve static import declarations in external sources to the correct declaration (\*.d.ts) files in the imported package.
 
 ```json
   "exports": {
-    ".": "./src/common.ts",
-    "./*": "./src/*.ts"
-  },
+    ".": {
+      "types": "./dist/index.d.ts"
+      "import": {
+        "source": "./src/index.ts"
+        "default": "./dist/index.js"
+      }
+    }
+  }
 ```
-That maps `from 'lib'` to `src/common.ts` and `from 'lib/view/miniBoard'` to `src/miniBoard.ts`.
+tsc needs both "types" and "import" -> "default" to point to .d.ts and .js products during the typechecking (--noEmit) phase. tsc does not care about "source"
 
-While esbuild may bundle imported code directly into the entry point module, it may also split imported code into "lib" chunk modules that are shared and imported by other workspace modules. This chunked approach is called code splitting and reduces the overall footprint of asset transfers over the wire and within the browser cache.
+The "exports" object [(typescript reference)](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-7.html#packagejson-exports-imports-and-self-referencing) allows per directory remaps for barrel exports. With the following [/ui/lib/package.json](./ui/lib/package.json):
+```json
+  "exports": {
+
+    ...
+
+    "./ceval": {
+      "types": "./dist/ceval/index.d.ts"
+      "import": {
+        "source": "./src/ceval/index.ts",
+        "default": "./dist/ceval/index.js"
+      }
+    }
+  }
+```
+An external package can import from the bot/index.ts barrel with:
+
+```typescript
+import { type X, Y, Z } from 'lib/bot';
+```
+
+## esbuild import resolution
+The [esbuild bundler](https://esbuild.github.io/getting-started/#your-first-bundle) uses "exports" as well but ignores "types", *.d.ts, and *.js files. It consumes only the "source" property within any "import" object. The value should always be a package relative path to the typescript source.
+
+```json
+  "exports": {
+    "./boo/*": {
+      "import": {
+        "source": "./src/boo/*.ts"
+      }
+    }
+  }
+```
+##### Note - While esbuild may bundle imported code directly into an entry point module, it may also split imported code into "lib" chunk modules that are shared and imported by other workspace modules. This chunked approach is called code splitting and reduces the overall footprint of asset transfers over the wire and within cache.
 
 ## "build" property (top-level in package.json)
 

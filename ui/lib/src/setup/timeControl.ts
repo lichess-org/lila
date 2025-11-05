@@ -1,4 +1,4 @@
-import { propWithEffect, type Prop } from '@/common';
+import { propWithEffect, type Prop } from '@/index';
 import type { InputValue, RealValue } from './interfaces';
 import { clockToSpeed } from '@/game/game';
 

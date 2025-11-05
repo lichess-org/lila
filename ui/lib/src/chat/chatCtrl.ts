@@ -13,7 +13,7 @@ import type {
 import { type PresetCtrl, presetCtrl } from './preset';
 import { noteCtrl } from './note';
 import { moderationCtrl } from './moderation';
-import { prop, type Prop } from '../common';
+import { prop, type Prop } from '../index';
 import { storedStringProp, storedBooleanProp } from '../storage';
 import { pubsub, type PubsubEvents } from '../pubsub';
 import { alert } from '../view/dialogs';

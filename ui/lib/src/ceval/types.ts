@@ -1,5 +1,5 @@
 import type { Outcome } from 'chessops/types';
-import type { Prop } from '../common';
+import type { Prop } from '../index';
 import type { Feature } from '../device';
 import type CevalCtrl from './ctrl';
 import type { VNode } from 'snabbdom';

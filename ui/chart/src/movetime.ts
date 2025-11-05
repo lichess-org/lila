@@ -24,7 +24,7 @@ import {
   whiteFill,
   axisOpts,
   resizePolyfill,
-} from './common';
+} from './index';
 import type { AnalyseData, Player, PlyChart } from './interface';
 import division from './division';
 import { pubsub } from 'lib/pubsub';
