@@ -77,11 +77,11 @@ final class Env(
   lila.common.Cli.handle:
     case "patron" :: "lifetime" :: user :: Nil =>
       userApi.byId(UserStr(user)).flatMapz(api.setLifetime).inject("ok")
-    case "patron" :: "month" :: user :: Nil =>
+    case "patron" :: "gift-month" :: user :: Nil =>
       userApi.byId(UserStr(user)).flatMapz(api.freeMonth).inject("ok")
     case "patron" :: "remove" :: user :: Nil =>
       userApi.byId(UserStr(user)).flatMapz(api.remove).inject("ok")
-    case "patron" :: "duration" :: user :: months :: Nil =>
-      userApi.byId(UserStr(user)).flatMapz(api.setDuration(_, months.toInt)).inject("ok")
+    case "patron" :: "set-months" :: user :: months :: Nil =>
+      userApi.byId(UserStr(user)).flatMapz(api.setMonths(_, months.toInt)).inject("ok")
 
 final private class PlanMongo(val patron: Coll, val charge: Coll)
