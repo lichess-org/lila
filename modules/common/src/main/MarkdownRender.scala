@@ -334,8 +334,8 @@ object MarkdownRender:
         override def apply(options: DataHolder) = new NodeRenderer:
           private inline def span(html: HtmlWriter, mdStart: Int, mdEnd: Int)(body: => Unit): Unit =
             html
-              .attr("data-ms", mdStart)
-              .attr("data-me", mdEnd)
+              .attr("data-ms", mdStart.toString())
+              .attr("data-me", mdEnd.toString())
               .withAttr()
               .tag("span")
             body
