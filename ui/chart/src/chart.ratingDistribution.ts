@@ -1,10 +1,10 @@
-import type { Point } from 'chart.js';
 import { animation, fontFamily, gridColor, hoverBorderColor, resizePolyfill } from './index';
 import type { DistributionData } from './interface';
 import {
   type ChartConfiguration,
   type ChartData,
   type ChartDataset,
+  type Point,
   Chart,
   Filler,
   LineController,
