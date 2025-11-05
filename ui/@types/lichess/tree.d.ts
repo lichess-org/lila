@@ -22,7 +22,7 @@ declare namespace Tree {
   export type ClientEval = CloudEval | LocalEval;
 
   export interface ServerEval extends EvalScore {
-    best?: Uci;
+    best?: Uci | '(none)';
     fen: FEN;
     knodes: number;
     depth: number;
