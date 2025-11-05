@@ -238,7 +238,10 @@ export const pieceStr = (role: Role, color: Color): string => transPieceStr(role
 export const transPieceStr = (role: Role, color: Color, i18n: I18n): string =>
   i18n.nvui[`${color}${role.charAt(0).toUpperCase()}${role.slice(1)}` as keyof typeof i18n.nvui] as string;
 
-const renderPiecesByColorAsString = (pieces: Pieces, style: MoveStyle, color: Color): string => {
+const getPiecesByColor = (
+  pieces: Pieces,
+  color: Color,
+): { role: 'pawn' | 'knight' | 'bishop' | 'rook' | 'queen' | 'king'; keys: Key[] }[] => {
   return ROLES.slice()
     .reverse()
     .reduce<{ role: Role; keys: Key[] }[]>(
@@ -249,24 +252,19 @@ const renderPiecesByColorAsString = (pieces: Pieces, style: MoveStyle, color: Co
         }),
       [],
     )
-    .filter(l => l.keys.length)
+    .filter(l => l.keys.length);
+};
+
+const renderPiecesByColorAsString = (pieces: Pieces, style: MoveStyle, color: Color): string => {
+  return getPiecesByColor(pieces, color)
     .map(l => `${transRole(l.role)}: ${l.keys.map(k => renderKey(k, style)).join(', ')}`)
     .join(', ');
 };
 
 const renderPiecesByColorAsVNodes = (pieces: Pieces, style: MoveStyle, color: Color): VNode[] => {
-  return ROLES.slice()
-    .reverse()
-    .reduce<{ role: Role; keys: Key[] }[]>(
-      (lists, role) =>
-        lists.concat({
-          role,
-          keys: keysWithPiece(pieces, role, color),
-        }),
-      [],
-    )
-    .filter(l => l.keys.length)
-    .map(l => h('p', `${transRole(l.role)}: ${l.keys.map(k => renderKey(k, style)).join(', ')}`));
+  return getPiecesByColor(pieces, color).map(l =>
+    h('p', `${transRole(l.role)}: ${l.keys.map(k => renderKey(k, style)).join(', ')}`),
+  );
 };
 
 const keysWithPiece = (pieces: Pieces, role?: Role, color?: Color): Key[] =>
