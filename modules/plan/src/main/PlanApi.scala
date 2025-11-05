@@ -549,6 +549,10 @@ final class PlanApi(
         )
     yield lightUserApi.invalidate(user.id)
 
+  def setDuration(user: User, months: Int): Funit =
+    for _ <- userApi.setPlan(user, user.plan.copy(months = months).some)
+    yield lightUserApi.invalidate(user.id)
+
   def freeMonth(user: User): Funit =
     for _ <- mongo.patron.update
         .one(

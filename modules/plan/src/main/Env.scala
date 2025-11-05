@@ -81,5 +81,7 @@ final class Env(
       userApi.byId(UserStr(user)).flatMapz(api.freeMonth).inject("ok")
     case "patron" :: "remove" :: user :: Nil =>
       userApi.byId(UserStr(user)).flatMapz(api.remove).inject("ok")
+    case "patron" :: "duration" :: user :: months :: Nil =>
+      userApi.byId(UserStr(user)).flatMapz(api.setDuration(_, months.toInt)).inject("ok")
 
 final private class PlanMongo(val patron: Coll, val charge: Coll)
