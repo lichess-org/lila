@@ -331,8 +331,12 @@ object MarkdownRender:
     override def extend(builder: HtmlRenderer.Builder, rendererType: String) = builder.nodeRendererFactory:
       new NodeRendererFactory:
         override def apply(options: DataHolder) = new NodeRenderer:
-          private inline def span(html: HtmlWriter, start: Int, `end`: Int)(body: => Unit): Unit =
-            html.attr("data-ms", start.toString).attr("data-me", `end`.toString).withAttr().tag("span")
+          private inline def span(html: HtmlWriter, markdownFrom: Int, markdownTo: Int)(body: => Unit): Unit =
+            html
+              .attr("data-ms", markdownFrom.toString)
+              .attr("data-me", markdownTo.toString)
+              .withAttr()
+              .tag("span")
             body
             html.tag("/span")
 
@@ -352,27 +356,33 @@ object MarkdownRender:
 
           private def text(node: Text, html: HtmlWriter): Unit =
             val base = node.getBaseSequence
-            val end = node.getEndOffset
+            val slice = base.subSequence(node.getStartOffset, node.getEndOffset).toString
+            val matches = RawHtml.atUsernameRegex.findAllMatchIn(slice).toList
 
-            // link mentions here rather than as a preprocessor to preserve source map offsets
-            var cursor = node.getStartOffset
-            for offsets <- RawHtml.atUsernameRegex.findAllMatchIn(base.subSequence(cursor, end).toString) do
-              val markdownStart = cursor + offsets.start
-              val markdownEnd = cursor + offsets.end
+            def emitPlain(from: Int, to: Int): Unit =
+              if to > from then
+                val markdownFrom = node.getStartOffset + from
+                val markdownTo = node.getStartOffset + to
+                span(html, markdownFrom, markdownTo)(html.text(base.subSequence(markdownFrom, markdownTo)))
 
-              if markdownStart > cursor then
-                span(html, cursor, markdownStart)(html.text(base.subSequence(cursor, markdownStart)))
+            emitPlain(
+              matches.foldLeft(0) { (cursor, offsets) =>
+                emitPlain(cursor, offsets.start)
 
-              html
-                .attr("href", s"/@/${offsets.group(1)}")
-                .attr("rel", "nofollow noreferrer")
-                .attr("target", "_blank")
-              html.withAttr().tag("a")
-              span(html, markdownStart, markdownEnd)(html.text(base.subSequence(markdownStart, markdownEnd)))
-              html.tag("/a")
-              cursor = markdownEnd
+                val markdownFrom = node.getStartOffset + offsets.start
+                val markdownTo = node.getStartOffset + offsets.end
+                html
+                  .attr("href", s"/@/${offsets.group(1)}")
+                  .attr("rel", "nofollow noreferrer")
+                  .attr("target", "_blank")
+                html.withAttr().tag("a")
+                span(html, markdownFrom, markdownTo)(html.text(base.subSequence(markdownFrom, markdownTo)))
+                html.tag("/a")
 
-            if cursor < end then span(html, cursor, end)(html.text(base.subSequence(cursor, end)))
+                offsets.end
+              },
+              slice.length
+            )
 
           private def inlineCode(node: Code, html: HtmlWriter): Unit =
             html.withAttr().tag("code")
