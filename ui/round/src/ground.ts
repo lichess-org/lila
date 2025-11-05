@@ -16,7 +16,7 @@ export function makeConfig(ctrl: RoundController): CgConfig {
     hooks = ctrl.makeCgHooks(),
     step = plyStep(data, ctrl.ply),
     playing = ctrl.isPlaying(),
-    premoveFuncs = new PremoveFuncs();
+    premoveFuncs = new PremoveFuncs(data.game.variant.key === 'atomic');
   return {
     fen: step.fen,
     orientation: boardOrientation(data, ctrl.flip),
@@ -70,7 +70,6 @@ export function makeConfig(ctrl: RoundController): CgConfig {
         set: hooks.onPremove,
         unset: hooks.onCancelPremove,
       },
-      unrestrictedPremoves: data.game.variant.key === 'atomic',
       additionalPremoveRequirements: premoveFuncs.additionalPremoveRequirements,
     },
     predroppable: {

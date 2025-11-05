@@ -2,6 +2,12 @@ import * as util from '@lichess-org/chessground/util';
 import * as cg from '@lichess-org/chessground/types';
 
 export class PremoveFuncs {
+  private unrestrictedPremoves: boolean;
+
+  constructor(unrestrictedPremoves: boolean) {
+    this.unrestrictedPremoves = unrestrictedPremoves;
+  }
+
   private isDestOccupiedByFriendly = (ctx: cg.MobilityContext): boolean => ctx.friendlies.has(ctx.dest.key);
 
   private isDestOccupiedByEnemy = (ctx: cg.MobilityContext): boolean => ctx.enemies.has(ctx.dest.key);
@@ -95,7 +101,7 @@ export class PremoveFuncs {
     ctx: cg.MobilityContext,
     isPawnAdvance: boolean,
   ): boolean => {
-    if (ctx.unrestrictedPremoves) return true;
+    if (this.unrestrictedPremoves) return true;
     const squaresBetween = util.squaresBetween(...ctx.orig.pos, ...ctx.dest.pos);
     if (isPawnAdvance) squaresBetween.push(ctx.dest.key);
     const squaresOfFriendliesBetween = squaresBetween.filter(s => ctx.friendlies.has(s));
@@ -122,7 +128,7 @@ export class PremoveFuncs {
     ctx: cg.MobilityContext,
     isPawnAdvance: boolean,
   ): boolean => {
-    if (ctx.unrestrictedPremoves) return true;
+    if (this.unrestrictedPremoves) return true;
     const squaresBetween = util.squaresBetween(...ctx.orig.pos, ...ctx.dest.pos);
     if (isPawnAdvance) squaresBetween.push(ctx.dest.key);
     const squaresOfEnemiesBetween = squaresBetween.filter(s => ctx.enemies.has(s));
@@ -161,7 +167,7 @@ export class PremoveFuncs {
         this.isPathClearEnoughForPremove(ctx, true)
       );
     if (ctx.dest.pos[1] !== ctx.orig.pos[1] + step) return false;
-    if (ctx.unrestrictedPremoves || this.isDestOccupiedByEnemy(ctx)) return true;
+    if (this.unrestrictedPremoves || this.isDestOccupiedByEnemy(ctx)) return true;
     if (this.isDestOccupiedByFriendly(ctx)) return this.isDestControlledByEnemy(ctx);
     else
       return (
@@ -178,21 +184,21 @@ export class PremoveFuncs {
 
   private knight: cg.Mobility = (ctx: cg.MobilityContext) =>
     util.knightDir(...ctx.orig.pos, ...ctx.dest.pos) &&
-    (ctx.unrestrictedPremoves ||
+    (this.unrestrictedPremoves ||
       !this.isDestOccupiedByFriendly(ctx) ||
       this.isFriendlyOnDestAndAttacked(ctx));
 
   private bishop: cg.Mobility = (ctx: cg.MobilityContext) =>
     util.bishopDir(...ctx.orig.pos, ...ctx.dest.pos) &&
     this.isPathClearEnoughForPremove(ctx, false) &&
-    (ctx.unrestrictedPremoves ||
+    (this.unrestrictedPremoves ||
       !this.isDestOccupiedByFriendly(ctx) ||
       this.isFriendlyOnDestAndAttacked(ctx));
 
   private rook: cg.Mobility = (ctx: cg.MobilityContext) =>
     util.rookDir(...ctx.orig.pos, ...ctx.dest.pos) &&
     this.isPathClearEnoughForPremove(ctx, false) &&
-    (ctx.unrestrictedPremoves ||
+    (this.unrestrictedPremoves ||
       !this.isDestOccupiedByFriendly(ctx) ||
       this.isFriendlyOnDestAndAttacked(ctx));
 
@@ -200,7 +206,7 @@ export class PremoveFuncs {
 
   private king: cg.Mobility = (ctx: cg.MobilityContext) =>
     (util.kingDirNonCastling(...ctx.orig.pos, ...ctx.dest.pos) &&
-      (ctx.unrestrictedPremoves ||
+      (this.unrestrictedPremoves ||
         !this.isDestOccupiedByFriendly(ctx) ||
         this.isFriendlyOnDestAndAttacked(ctx))) ||
     (ctx.canCastle &&
@@ -210,7 +216,7 @@ export class PremoveFuncs {
         ((ctx.dest.pos[0] === 2 && ctx.rookFilesFriendlies.includes(0)) ||
           (ctx.dest.pos[0] === 6 && ctx.rookFilesFriendlies.includes(7)))) ||
         ctx.rookFilesFriendlies.includes(ctx.dest.pos[0])) &&
-      (ctx.unrestrictedPremoves ||
+      (this.unrestrictedPremoves ||
         /* The following checks if no non-rook friendly piece is in the way between the king and its castling destination.
          Note that for the Chess960 edge case of Kb1 "long castling", the check passes even if there is a piece in the way
          on c1. But this is fine, since premoving from b1 to a1 as a normal move would have already returned true. */
