@@ -28,6 +28,7 @@ import com.vladsch.flexmark.util.ast.{ Node, TextCollectingVisitor, Block }
 import com.vladsch.flexmark.util.data.{ DataHolder, MutableDataHolder, MutableDataSet }
 import com.vladsch.flexmark.util.html.MutableAttributes
 import com.vladsch.flexmark.util.misc.Extension
+import com.vladsch.flexmark.util.sequence.BasedSequence
 
 import java.util.Arrays
 import scala.collection.Set
@@ -331,10 +332,10 @@ object MarkdownRender:
     override def extend(builder: HtmlRenderer.Builder, rendererType: String) = builder.nodeRendererFactory:
       new NodeRendererFactory:
         override def apply(options: DataHolder) = new NodeRenderer:
-          private inline def span(html: HtmlWriter, markdownFrom: Int, markdownTo: Int)(body: => Unit): Unit =
+          private inline def span(html: HtmlWriter, from: Int, to: Int)(body: => Unit): Unit =
             html
-              .attr("data-ms", markdownFrom.toString)
-              .attr("data-me", markdownTo.toString)
+              .attr("data-ms", from.toString.pp("from"))
+              .attr("data-me", to.toString.pp("to"))
               .withAttr()
               .tag("span")
             body
@@ -355,42 +356,44 @@ object MarkdownRender:
           ).asJava
 
           private def text(node: Text, html: HtmlWriter): Unit =
-            val base = node.getBaseSequence
-            val slice = base.subSequence(node.getStartOffset, node.getEndOffset).toString
-            val matches = RawHtml.atUsernameRegex.findAllMatchIn(slice).toList
+            val base = node.getBaseSequence()
+            val slice = base.subSequence(node.getStartOffset(), node.getEndOffset()).toString()
 
-            def emitPlain(from: Int, to: Int): Unit =
-              if to > from then
-                val markdownFrom = node.getStartOffset + from
-                val markdownTo = node.getStartOffset + to
-                span(html, markdownFrom, markdownTo)(html.text(base.subSequence(markdownFrom, markdownTo)))
+            def emitSpan(sliceStart: Int, sliceEnd: Int): Unit =
+              if sliceEnd > sliceStart then
+                val sourceStart = node.getStartOffset() + sliceStart
+                val sourceEnd = node.getStartOffset() + sliceEnd
+                span(html, sourceStart, sourceEnd)(html.text(base.subSequence(sourceStart, sourceEnd)))
 
-            emitPlain(
-              matches.foldLeft(0) { (cursor, offsets) =>
-                emitPlain(cursor, offsets.start)
+            val finalFrom =
+              RawHtml.atUsernameRegex
+                .findAllMatchIn(slice)
+                .toList
+                .foldLeft(0): (cursor, offsets) =>
+                  emitSpan(cursor, offsets.start)
+                  html
+                    .attr("href", s"/@/${offsets.group(1)}")
+                    .attr("rel", "nofollow noreferrer")
+                    .attr("target", "_blank")
+                  html.withAttr().tag("a")
+                  emitSpan(offsets.start, offsets.end)
+                  html.tag("/a")
+                  offsets.end
 
-                val markdownFrom = node.getStartOffset + offsets.start
-                val markdownTo = node.getStartOffset + offsets.end
-                html
-                  .attr("href", s"/@/${offsets.group(1)}")
-                  .attr("rel", "nofollow noreferrer")
-                  .attr("target", "_blank")
-                html.withAttr().tag("a")
-                span(html, markdownFrom, markdownTo)(html.text(base.subSequence(markdownFrom, markdownTo)))
-                html.tag("/a")
-
-                offsets.end
-              },
-              slice.length
-            )
+            emitSpan(finalFrom, slice.length)
 
           private def inlineCode(node: Code, html: HtmlWriter): Unit =
             html.withAttr().tag("code")
-            span(html, node.getStartOffset(), node.getEndOffset())(html.text(node.getChars()))
+            span(html, node.getStartOffset(), node.getEndOffset())(html.text(node.getText()))
             html.tag("/code")
 
           private def blockCode(node: Block, html: HtmlWriter): Unit =
-            preCode(html)(span(html, node.getStartOffset(), node.getEndOffset())(html.text(node.getChars())))
+            val content: BasedSequence =
+              node match
+                case f: FencedCodeBlock => f.getContentChars()
+                case i: IndentedCodeBlock => i.getContentChars()
+                case _ => node.getChars()
+            preCode(html)(span(html, content.getStartOffset, content.getEndOffset)(html.text(content)))
 
           private def softBreak(node: SoftLineBreak, ctx: NodeRendererContext, html: HtmlWriter): Unit =
             span(html, node.getStartOffset(), node.getEndOffset())(())
