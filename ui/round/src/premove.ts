@@ -2,11 +2,7 @@ import * as util from '@lichess-org/chessground/util';
 import * as cg from '@lichess-org/chessground/types';
 
 export class PremoveFuncs {
-  private unrestrictedPremoves: boolean;
-
-  constructor(unrestrictedPremoves: boolean) {
-    this.unrestrictedPremoves = unrestrictedPremoves;
-  }
+  constructor(readonly unrestrictedPremoves: boolean) {}
 
   private isDestOccupiedByFriendly = (ctx: cg.MobilityContext): boolean => ctx.friendlies.has(ctx.dest.key);
 
