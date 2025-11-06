@@ -14,15 +14,6 @@ const classes = () => {
   };
 };
 
-(globalThis as any).document = {
-  createElement(tag: string) {
-    return { tagName: tag.toUpperCase(), classList: classes() };
-  },
-} as Document;
-
-(globalThis as any).window = globalThis;
-(globalThis as any).navigator = { userAgent: 'node' };
-
 function spy() {
   const f: any = (...args: any[]) => {
     f.calls.push(args);

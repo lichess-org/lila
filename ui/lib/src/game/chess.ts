@@ -63,6 +63,6 @@ export function isUci(maybeUci: string | undefined | null): maybeUci is Uci {
   return !!parseUci(maybeUci ?? '');
 }
 
-export function validUci(maybeUci: string | undefined | null): string | undefined {
+export function validUci(maybeUci: string | undefined | null): Uci | undefined {
   return isUci(maybeUci) ? maybeUci : undefined;
 }
