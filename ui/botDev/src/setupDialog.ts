@@ -1,6 +1,6 @@
 import { handOfCards, type HandOfCards } from './handOfCards';
 import * as co from 'chessops';
-import { domDialog, type Dialog } from 'lib/view/dialog';
+import { domDialog, type Dialog } from 'lib/view';
 import { fen960 } from 'lib/game/chess';
 import { pubsub } from 'lib/pubsub';
 import { definedMap, clamp } from 'lib/algo';

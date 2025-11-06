@@ -7,7 +7,7 @@ import { renderSetting } from 'lib/nvui/setting';
 import type { PuzzleNvuiContext } from '../puzzle.nvui';
 import { commands, boardCommands, addBreaks } from 'lib/nvui/command';
 import { next as controlNext, prev } from '../control';
-import { bind, onInsert } from 'lib/snabbdom';
+import { bind, onInsert } from 'lib/view';
 import { throttle } from 'lib/async';
 import type PuzzleCtrl from '../ctrl';
 import { Chessground as makeChessground } from '@lichess-org/chessground';

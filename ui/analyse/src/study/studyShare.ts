@@ -1,7 +1,7 @@
 import { prop } from 'lib';
 import * as licon from 'lib/licon';
-import { type VNode, bind, dataIcon, hl } from 'lib/snabbdom';
-import { copyMeInput } from 'lib/view/controls';
+import { type VNode, bind, dataIcon, hl } from 'lib/view';
+import { copyMeInput } from 'lib/view';
 import { text as xhrText, url as xhrUrl } from 'lib/xhr';
 import { renderIndexAndMove } from '../view/components';
 import { baseUrl } from '../view/util';

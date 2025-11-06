@@ -1,5 +1,5 @@
 import * as licon from 'lib/licon';
-import { hl, bind, onInsert, dataIcon, type MaybeVNode } from 'lib/snabbdom';
+import { hl, bind, onInsert, dataIcon, type MaybeVNode } from 'lib/view';
 import type { LogEvent } from './interfaces';
 import type RelayCtrl from './relayCtrl';
 import { memoize } from 'lib';

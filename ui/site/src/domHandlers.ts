@@ -2,7 +2,7 @@ import * as licon from 'lib/licon';
 import { text as xhrText } from 'lib/xhr';
 import topBar from './topBar';
 import { userComplete } from 'lib/view/userComplete';
-import { confirm } from 'lib/view/dialogs';
+import { confirm } from 'lib/view';
 
 export function attachDomHandlers() {
   topBar();

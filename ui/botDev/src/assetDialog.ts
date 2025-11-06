@@ -1,5 +1,5 @@
-import { domDialog, type Dialog } from 'lib/view/dialog';
-import { alert, confirm } from 'lib/view/dialogs';
+import { domDialog, type Dialog } from 'lib/view';
+import { alert, confirm } from 'lib/view';
 import { frag } from 'lib';
 import * as licon from 'lib/licon';
 import { renderRemoveButton } from './devUtil';

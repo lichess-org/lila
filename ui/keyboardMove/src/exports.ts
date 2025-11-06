@@ -3,8 +3,7 @@ import { type Prop, propWithEffect } from 'lib';
 import type { MoveRootCtrl, MoveUpdate } from 'lib/game/moveRootCtrl';
 import KeyboardChecker from '@/keyboardChecker';
 import { h, type VNode } from 'snabbdom';
-import { onInsert } from 'lib/snabbdom';
-import { snabDialog } from 'lib/view/dialog';
+import { onInsert, snabDialog } from 'lib/view';
 import { promote } from 'lib/game/promotion';
 import { charToRole } from 'chessops';
 

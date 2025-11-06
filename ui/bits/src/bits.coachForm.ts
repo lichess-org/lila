@@ -4,7 +4,7 @@ import { isSafari } from 'lib/device';
 import { notNull } from 'lib';
 import Tagify from '@yaireo/tagify';
 import { wireCropDialog } from './crop';
-import { spinnerHtml } from 'lib/view/controls';
+import { spinnerHtml } from 'lib/view';
 
 if (isSafari()) wireCropDialog(); // preload
 

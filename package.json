@@ -25,6 +25,7 @@
     "chessops": "^0.15",
     "eslint": "^9.39.1",
     "eslint-plugin-compat": "^6.0.2",
+    "eslint-plugin-import": "^2.32.0",
     "jsdom": "^27.1.0",
     "lint-staged": "^16.2.6",
     "onchange": "^7.1.0",

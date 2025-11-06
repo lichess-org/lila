@@ -1,6 +1,6 @@
 import { h, type VNode } from 'snabbdom';
 import * as licon from '../licon';
-import { bind } from '../snabbdom';
+import { bind, confirm } from '@/view';
 import { userLink } from '../view/userLink';
 import type {
   ModerationCtrl,
@@ -12,7 +12,6 @@ import type {
 import { numberFormat } from '../i18n';
 import { userModInfo, flag, timeout } from './xhr';
 import { pubsub } from '../pubsub';
-import { confirm } from '../view/dialogs';
 
 export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {
   let data: ModerationData | undefined;

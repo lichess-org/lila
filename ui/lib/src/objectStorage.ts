@@ -1,3 +1,5 @@
+/* eslint no-restricted-syntax:"error" */ // no side effects allowed due to re-export by index.ts
+
 /** promisify [indexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API) and add nothing
  * ### basic usage:
  * ```ts
@@ -51,6 +53,7 @@
  * other needs can be met by raw idb calls on the `txn` function result
  * @see https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API
  */
+
 export async function objectStorage<V, K extends IDBValidKey = IDBValidKey>(
   dbInfo: DbInfo,
 ): Promise<ObjectStorage<V, K>> {

@@ -1,4 +1,4 @@
-import { bind, type MaybeVNode } from 'lib/snabbdom';
+import { bind, type MaybeVNode } from 'lib/view';
 import { h, type VNode } from 'snabbdom';
 import afterView from './after';
 import type PuzzleCtrl from '../ctrl';

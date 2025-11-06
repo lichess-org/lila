@@ -11,7 +11,7 @@ import info from './info';
 import boards from './boards';
 import type Ctrl from './ctrl';
 import type { ViewTab } from './interfaces';
-import { bind, hl } from 'lib/snabbdom';
+import { bind, hl } from 'lib/view';
 
 let forceRender = false;
 
