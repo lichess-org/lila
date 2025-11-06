@@ -6,9 +6,7 @@ import * as cg from '@lichess-org/chessground/types';
 import { defaults, type HeadlessState } from '@lichess-org/chessground/state';
 import * as fen from '@lichess-org/chessground/fen';
 import * as util from '@lichess-org/chessground/util';
-import { expect, test } from 'vitest';
 import { PremoveFuncs } from '../src/premove';
-import { additionalPremoveRequirements } from '../src/premove';
 
 const diagonallyOpposite = (square: cg.Key): cg.Key =>
   util.pos2keyUnsafe(util.key2pos(square).map(n => 7 - n) as cg.Pos);
