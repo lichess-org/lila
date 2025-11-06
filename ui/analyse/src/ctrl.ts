@@ -1,4 +1,3 @@
-
 import { fenToEpd, readDests, readDrops, validUci } from 'lib/game/chess';
 import { playable, playedTurns } from 'lib/game';
 import * as keyboard from './keyboard';
