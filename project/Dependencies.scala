@@ -85,7 +85,7 @@ object Dependencies {
   }
 
   object reactivemongo {
-    val driver = ("org.reactivemongo" %% "reactivemongo" % "1.1.0-RC19")
+    val driver = "org.reactivemongo" %% "reactivemongo" % "1.1.0-RC19"
     val stream = "org.reactivemongo" %% "reactivemongo-akkastream" % "1.1.0-RC19"
     val shaded = "org.reactivemongo" % s"reactivemongo-shaded-native-$os-$dashArch" % "1.1.0-RC19"
     // val kamon  = "org.reactivemongo" %% "reactivemongo-kamon"         % "1.0.8"
