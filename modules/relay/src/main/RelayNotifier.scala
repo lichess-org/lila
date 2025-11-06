@@ -38,7 +38,7 @@ final private class RelayNotifier(
 
   private object notifyTournamentSubscribers:
 
-    private val dedupDbReq = OnceEvery[RelayRoundId](5.minutes)
+    private val dedupDbReq = OnceEvery[RelayRoundId](3.hours)
 
     def apply(rt: RelayRound.WithTour): Funit =
       dedupDbReq(rt.round.id).so:
@@ -60,10 +60,12 @@ final private class RelayNotifier(
                 )
             yield ()
 
-  def onCreate(rt: RelayRound.WithTour, chapter: Chapter): Funit = for
-    _ <- notifyTournamentSubscribers(rt)
-    _ <- (rt.tour.isPublic && rt.tour.official).so:
-      Color.all.traverse(notifyPlayerFollowers.ofColor(rt, chapter))
-  yield ()
+  def onCreate(rt: RelayRound.WithTour, chapter: Chapter): Funit =
+    (!rt.round.isFinished && chapter.tags.outcome.isEmpty).so:
+      for
+        _ <- notifyTournamentSubscribers(rt)
+        _ <- (rt.tour.isPublic && rt.tour.official).so:
+          Color.all.traverse(notifyPlayerFollowers.ofColor(rt, chapter))
+      yield ()
 
   def onUpdate = onCreate
