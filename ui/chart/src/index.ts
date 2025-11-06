@@ -6,6 +6,8 @@ export interface MovePoint {
   x: number;
 }
 
+export type * from './interface';
+
 // Add a slight offset so the graph doesn't get cutoff when eval = mate.
 export const chartYMax = 1.05;
 export const chartYMin: number = -chartYMax;

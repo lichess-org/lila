@@ -5,7 +5,7 @@ import { player as renderPlayer } from './util';
 import { fullName } from 'lib/view/userLink';
 import { numberRow } from 'lib/view/util';
 import { teamName } from './battle';
-import { status } from 'lib/game/game';
+import { status } from 'lib/game';
 import type TournamentController from '../ctrl';
 import type { Player } from '../interfaces';
 

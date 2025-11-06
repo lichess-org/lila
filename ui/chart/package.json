@@ -1,25 +1,34 @@
 {
   "name": "chart",
-  "version": "2.0.0",
   "private": true,
-  "description": "lichess.org chart",
-  "author": "Thibault Duplessis",
-  "license": "AGPL-3.0-or-later",
-  "types": "dist/chart.game.d.ts",
-  "exports": {
-    ".": "./src/chart.game.ts"
-  },
+  "type": "module",
   "dependencies": {
     "@juggle/resize-observer": "^3.4.0",
     "chart.js": "4.4.8",
     "chartjs-adapter-dayjs-4": "^1.0.4",
     "chartjs-plugin-datalabels": "^2.2.0",
     "chartjs-plugin-zoom": "^2.2.0",
+    "dayjs": "^1.11.19",
     "lib": "workspace:*",
-    "dayjs": "^1.11.13",
     "nouislider": "^15.8.1"
   },
   "build": {
     "bundle": "src/chart.*ts"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": {
+        "source": "./src/index.ts",
+        "default": "./dist/index.js"
+      }
+    },
+    "./*": {
+      "types": "./dist/*.d.ts",
+      "import": {
+        "source": "./src/*.ts",
+        "default": "./dist/*.js"
+      }
+    }
   }
 }

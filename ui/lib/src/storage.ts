@@ -1,4 +1,4 @@
-import { defined, notNull, type Prop, withEffect } from './common';
+import { defined, notNull, type Prop, withEffect } from './index';
 
 export const storage: LichessStorageHelper = builder(window.localStorage);
 export const tempStorage: LichessStorageHelper = builder(window.sessionStorage);

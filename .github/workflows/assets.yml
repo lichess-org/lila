@@ -57,7 +57,7 @@ jobs:
       - name: Build
         run: ./ui/build --no-install -p
       - name: Tests
-        run: pnpm test
+        run: ./ui/test
       - name: Prepare asset dir
         run: |
           mkdir -p assets/public

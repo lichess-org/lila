@@ -1,7 +1,10 @@
 import type { GameData, Player } from './interfaces';
 import { finished, aborted, status } from './status';
 
-export * from './interfaces';
+export type * from './interfaces';
+
+export type { StatusName, Status, StatusId } from './status';
+export { status, statusOf, started, finished, aborted, playing } from './status';
 
 export const playable = (data: GameData): boolean => data.game.status.id < status.aborted && !imported(data);
 

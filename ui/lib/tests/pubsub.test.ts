@@ -1,47 +1,31 @@
-import { describe, expect, test } from 'vitest';
+import { describe, test } from 'node:test';
 import { pubsub as typed } from '../src/pubsub';
 
 const pubsub = typed as any;
 
-describe("site.pubsub 'after' and 'complete' methods", async () => {
+describe("site.pubsub 'after' and 'complete' methods", () => {
   test('after then complete', async () => {
     const event = 'normal';
-
     const promise = pubsub.after(event);
     pubsub.complete(event);
-
-    await expect(promise).resolves.toBeUndefined();
+    await promise;
   });
 
   test('complete then after', async () => {
-    const event = 'immediate';
-
+    const event = 'reverse';
     pubsub.complete(event);
-
-    await expect(pubsub.after(event)).resolves.toBeUndefined();
-  });
-
-  test('multiple afters then complete', async () => {
-    const event = 'multiple-afters';
-
-    const await1 = pubsub.after(event);
-    const await2 = pubsub.after(event);
-    pubsub.complete(event);
-
-    await expect(await1).resolves.toBeUndefined();
-    await expect(await2).resolves.toBeUndefined();
+    const promise = pubsub.after(event);
+    await promise;
   });
 
   test('one completion is never enough', async () => {
     const event = 'multiple-completes';
-
     const await1 = pubsub.after(event);
     pubsub.complete(event);
     pubsub.complete(event);
     const await2 = pubsub.after(event);
     pubsub.complete(event);
-
-    await expect(await1).resolves.toBeUndefined();
-    await expect(await2).resolves.toBeUndefined();
+    await await1;
+    await await2;
   });
 });

@@ -1,7 +1,7 @@
 import { sparkline } from '@fnando/sparkline';
 import { text as xhrText, form as xhrForm } from 'lib/xhr';
 import { throttlePromiseDelay } from 'lib/async';
-import { myUserId, withEffect } from 'lib';
+import { type Prop, myUserId, withEffect } from 'lib';
 import { makeVoice, type VoiceCtrl } from 'voice';
 import { storedBooleanProp, storedProp } from 'lib/storage';
 import type { Api as CgApi } from '@lichess-org/chessground/api';
@@ -105,7 +105,7 @@ export default class CoordinateTrainerCtrl {
     });
   }
 
-  colorChoice = withEffect<ColorChoice>(
+  colorChoice: Prop<ColorChoice> = withEffect<ColorChoice>(
     storedProp<ColorChoice>(
       'coordinateTrainer.colorChoice',
       'random',
@@ -123,7 +123,7 @@ export default class CoordinateTrainerCtrl {
     this.redraw();
   };
 
-  mode = withEffect<Mode>(
+  mode: Prop<Mode> = withEffect<Mode>(
     storedProp<Mode>(
       'coordinateTrainer.mode',
       window.location.hash === '#name' ? 'nameSquare' : 'findSquare',
@@ -139,7 +139,7 @@ export default class CoordinateTrainerCtrl {
     window.location.hash = `#${this.mode().substring(0, 4)}`;
   };
 
-  selectionEnabled = withEffect<boolean>(
+  selectionEnabled: Prop<boolean> = withEffect<boolean>(
     storedBooleanProp('coordinateTrainer.selectionEnabled', false),
     this.redraw,
   );
@@ -157,7 +157,7 @@ export default class CoordinateTrainerCtrl {
     else this.selectedRanks.delete(rank);
   };
 
-  timeControl = withEffect(
+  timeControl: Prop<TimeControl> = withEffect(
     storedProp<TimeControl>(
       'coordinateTrainer.timeControl',
       document.body.classList.contains('kid') ? 'untimed' : 'thirtySeconds',
@@ -169,7 +169,7 @@ export default class CoordinateTrainerCtrl {
 
   timeDisabled = () => this.timeControl() === 'untimed';
 
-  showCoordinates = withEffect<boolean>(
+  showCoordinates: Prop<boolean> = withEffect<boolean>(
     storedBooleanProp('coordinateTrainer.showCoordinates', document.body.classList.contains('kid')),
     (show: boolean) => this.onShowCoordinatesChange(show),
   );
@@ -179,7 +179,7 @@ export default class CoordinateTrainerCtrl {
     this.chessground?.redrawAll();
   };
 
-  showCoordsOnAllSquares = withEffect<boolean>(
+  showCoordsOnAllSquares: Prop<boolean> = withEffect<boolean>(
     storedBooleanProp('coordinateTrainer.showCoordsOnAllSquares', document.body.classList.contains('kid')),
     (show: boolean) => this.onShowCoordsOnAllSquaresChange(show),
   );
@@ -189,8 +189,9 @@ export default class CoordinateTrainerCtrl {
     this.chessground?.redrawAll();
   };
 
-  showPieces = withEffect<boolean>(storedBooleanProp('coordinateTrainer.showPieces', true), () =>
-    this.onShowPiecesChange(),
+  showPieces: Prop<boolean> = withEffect<boolean>(
+    storedBooleanProp('coordinateTrainer.showPieces', true),
+    () => this.onShowPiecesChange(),
   );
 
   onShowPiecesChange = () => {
@@ -200,7 +201,7 @@ export default class CoordinateTrainerCtrl {
 
   boardFEN = () => (this.showPieces() ? 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR' : '8/8/8/8/8/8/8/8');
 
-  coordinateInputMethod = withEffect(
+  coordinateInputMethod: Prop<InputMethod> = withEffect(
     storedProp<InputMethod>(
       'coordinateTrainer.coordinateInputMethod',
       window.innerWidth >= 980 ? 'text' : 'buttons',

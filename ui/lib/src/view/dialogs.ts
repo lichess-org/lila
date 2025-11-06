@@ -1,5 +1,5 @@
 import { type Dialog, domDialog } from './dialog';
-import { escapeHtml } from '../common';
+import { escapeHtml } from '../index';
 
 // non-blocking window.alert-alike
 export async function alert(msg: string): Promise<void> {

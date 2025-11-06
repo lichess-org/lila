@@ -1,11 +1,11 @@
 import { h } from 'snabbdom';
-import type LobbyController from '../../ctrl';
+import type LobbyController from '@/ctrl';
 import * as licon from 'lib/licon';
 import { bind } from 'lib/snabbdom';
 import { tds, perfNames } from '../util';
 import perfIcons from 'lib/game/perfIcons';
-import * as hookRepo from '../../hookRepo';
-import type { Hook } from '../../interfaces';
+import * as hookRepo from '@/hookRepo';
+import type { Hook } from '@/interfaces';
 
 function renderHook(ctrl: LobbyController, hook: Hook) {
   return h(

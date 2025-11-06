@@ -3,7 +3,7 @@ import type RoundController from './ctrl';
 import type { ApiMove, RoundData } from './interfaces';
 import { text as xhrText } from 'lib/xhr';
 import { storage } from 'lib/storage';
-import { playedTurns } from 'lib/game/game';
+import { playedTurns } from 'lib/game';
 
 let found = false;
 

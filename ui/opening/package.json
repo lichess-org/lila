@@ -1,17 +1,14 @@
 {
   "name": "opening",
-  "version": "2.0.0",
   "private": true,
-  "description": "lichess.org opening",
-  "author": "Thibault Duplessis",
-  "license": "AGPL-3.0-or-later",
+  "type": "module",
   "dependencies": {
     "@types/debounce-promise": "^3.1.9",
     "chart.js": "4.4.8",
     "chartjs-adapter-dayjs-4": "^1.0.4",
-    "lib": "workspace:*",
-    "dayjs": "^1.11.13",
-    "debounce-promise": "^3.1.2"
+    "dayjs": "^1.11.19",
+    "debounce-promise": "^3.1.2",
+    "lib": "workspace:*"
   },
   "build": {
     "bundle": "src/opening.ts"

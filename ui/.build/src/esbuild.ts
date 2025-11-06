@@ -25,6 +25,7 @@ export async function esbuild(): Promise<any> {
     outdir: env.jsOutDir,
     entryNames: '[name].[hash]',
     chunkNames: 'lib.[hash]',
+    conditions: ['source'],
     plugins,
   };
 

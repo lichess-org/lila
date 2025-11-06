@@ -181,7 +181,7 @@ private object RelayTourRepo:
     "teams" -> false
   )
 
-  def readToursWithRoundAndGroup[A](
+  private[relay] def readToursWithRoundAndGroup[A](
       as: (RelayTour, RelayRound, Option[RelayGroup.Name]) => A
   )(docs: List[Bdoc]): List[A] = for
     doc <- docs

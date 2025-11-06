@@ -1,4 +1,4 @@
-import { toggle, type Toggle } from '../common';
+import { toggle, type Toggle } from '../index';
 
 export class PuzFilters {
   fail: Toggle;

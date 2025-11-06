@@ -1,9 +1,5 @@
 {
   "name": "build",
-  "version": "2.0.0",
-  "private": true,
-  "author": "Thibault Duplessis",
-  "license": "AGPL-3.0-or-later",
   "type": "module",
   "optionalDependencies": {
     "sass-embedded-darwin-arm64": "1.93.2",

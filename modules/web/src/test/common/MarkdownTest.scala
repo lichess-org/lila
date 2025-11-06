@@ -122,3 +122,8 @@ class MarkdownTest extends munit.FunSuite:
       Html("""<h1><a href="#heading" id="heading"></a>heading</h1>
 """)
     )
+
+  test("prod forum exception"):
+    val text = """@Betcomcpiey @QuieroAprender"""
+    val render = MarkdownRender(sourceMap = true)("test")
+    assert(render(Markdown(text)).value.contains("QuieroAprender"))

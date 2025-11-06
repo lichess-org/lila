@@ -4,11 +4,11 @@ import { SimpleEngine } from './simpleEngine';
 import { StockfishWebEngine } from './stockfishWebEngine';
 import { ThreadedEngine } from './threadedEngine';
 import { ExternalEngine } from './externalEngine';
-import { storedStringProp, type StoredProp } from '../../storage';
-import { isAndroid, isIos, isIPad, features as browserSupport } from '../../device';
-import { xhrHeader } from '../../xhr';
+import { storedStringProp, type StoredProp } from '@/storage';
+import { isAndroid, isIos, isIPad, features as browserSupport } from '@/device';
+import { xhrHeader } from '@/xhr';
 import { lichessRules } from 'chessops/compat';
-import { log } from '../../permalog';
+import { log } from '@/permalog';
 
 export class Engines {
   private activeEngine: EngineInfo | undefined = undefined;

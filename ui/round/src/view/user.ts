@@ -1,6 +1,6 @@
 import { hl, type VNode } from 'lib/snabbdom';
 import * as licon from 'lib/licon';
-import type { Player, TopOrBottom } from 'lib/game/game';
+import type { Player, TopOrBottom } from 'lib/game';
 import type RoundController from '../ctrl';
 import { ratingDiff, userLink } from 'lib/view/userLink';
 import { wsAverageLag } from 'lib/socket';

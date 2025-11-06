@@ -57,7 +57,7 @@ export function renderNvui({
         nv.renderMainline(ctrl.mainline, ctrl.path, moveStyle.get()),
       ),
       h('h2', 'Pieces'),
-      h('div.pieces', nv.renderPieces(ground.state.pieces, moveStyle.get())),
+      nv.renderPieces(ground.state.pieces, moveStyle.get()),
       h('h2', 'Puzzle status'),
       h(
         'div.status',

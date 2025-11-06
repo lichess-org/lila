@@ -1,9 +1,9 @@
-import { view as cevalView } from 'lib/ceval/ceval';
+import { view as cevalView } from 'lib/ceval';
 import { onClickAway } from 'lib';
 import { bind, dataIcon, hl, onInsert, type VNode } from 'lib/snabbdom';
 import * as licon from 'lib/licon';
-import type AnalyseCtrl from '../../ctrl';
-import { view as keyboardView } from '../../keyboard';
+import type AnalyseCtrl from '@/ctrl';
+import { view as keyboardView } from '@/keyboard';
 import type * as studyDeps from '../studyDeps';
 import { tourSide, renderRelayTour } from './relayTourView';
 import {
@@ -13,10 +13,10 @@ import {
   renderMain,
   renderTools,
   renderUnderboard,
-} from '../../view/components';
+} from '@/view/components';
 import { displayColumns, isTouchDevice } from 'lib/device';
 import type RelayCtrl from './relayCtrl';
-import { renderControls } from '../../view/controls';
+import { renderControls } from '@/view/controls';
 
 export function relayView(
   ctrl: AnalyseCtrl,

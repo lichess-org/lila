@@ -2,7 +2,7 @@ import * as xhr from './xhr';
 import { idleTimer, browserTaskQueueMonitor } from './event';
 import { storage, once, type LichessStorage } from './storage';
 import { pubsub, type PubsubEventKey } from './pubsub';
-import { defined, myUserId } from './common';
+import { defined, myUserId } from './index';
 import { log } from './permalog';
 
 let siteSocket: WsSocket | undefined;

@@ -1,10 +1,11 @@
 import { parseUci, makeSquare } from 'chessops/util';
 import { isDrop } from 'chessops/types';
-import { winningChances } from 'lib/ceval/ceval';
+import { winningChances } from 'lib/ceval';
 import { opposite } from '@lichess-org/chessground/util';
 import type { DrawModifiers, DrawShape } from '@lichess-org/chessground/draw';
 import { annotationShapes } from 'lib/game/glyphs';
 import type AnalyseCtrl from './ctrl';
+import { isUci } from 'lib/game/chess';
 
 const pieceDrop = (key: Key, role: Role, color: Color): DrawShape => ({
   orig: key,
@@ -76,7 +77,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
   ctrl.fork.hover(hovering?.uci);
 
   if (ctrl.showBestMoveArrows() && ctrl.showAnalysis()) {
-    if (nEval.best) shapes = shapes.concat(makeShapesFromUci(rcolor, nEval.best, 'paleGreen'));
+    if (isUci(nEval.best)) shapes = shapes.concat(makeShapesFromUci(rcolor, nEval.best, 'paleGreen'));
     if (!hovering && ctrl.ceval.search.multiPv) {
       const nextBest = ctrl.isCevalAllowed() && nCeval ? nCeval.pvs[0].moves[0] : ctrl.nextNodeBest();
       if (nextBest) shapes = shapes.concat(makeShapesFromUci(color, nextBest, 'paleBlue'));

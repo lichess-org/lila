@@ -1,4 +1,4 @@
-import { winningChances } from 'lib/ceval/ceval';
+import { winningChances } from 'lib/ceval';
 import {
   type ChartConfiguration,
   type ChartDataset,
@@ -24,7 +24,7 @@ import {
   whiteFill,
   axisOpts,
   resizePolyfill,
-} from './common';
+} from './index';
 import division from './division';
 import type { AcplChart, AnalyseData, Player } from './interface';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
