@@ -2,7 +2,6 @@
   "name": "botDev",
   "private": true,
   "author": "T-Bone Duplexus",
-  "license": "AGPL-3.0-or-later",
   "typings": "devTypes",
   "typesVersions": {
     "*": {

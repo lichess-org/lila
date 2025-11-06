@@ -1,5 +1,5 @@
 import { h, type VNode } from 'snabbdom';
-import { type Toggle, myUserId, onClickAway } from '@/common';
+import { type Toggle, myUserId, onClickAway } from '@/index';
 import { addPointerListeners } from '@/pointer';
 import * as licon from '@/licon';
 import { type MaybeVNode, type MaybeVNodes, dataIcon, onInsert } from '@/snabbdom';

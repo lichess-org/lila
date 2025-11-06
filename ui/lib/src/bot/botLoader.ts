@@ -5,7 +5,7 @@ import type { BotInfo, MoveSource, LocalSpeed, AssetType } from './types';
 import * as xhr from '../xhr';
 import { definedMap } from '../algo';
 import { makeLichessBook } from './lichessBook';
-import { myUserId, myUsername } from '../common';
+import { myUserId, myUsername } from '../index';
 
 export { makeZerofish, type Zerofish };
 

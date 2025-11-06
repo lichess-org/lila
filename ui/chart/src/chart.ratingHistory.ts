@@ -12,7 +12,7 @@ import {
   LineElement,
 } from 'chart.js';
 import type { PerfRatingHistory } from './interface';
-import { fontColor, fontFamily, gridColor, hoverBorderColor, tooltipBgColor, resizePolyfill } from './common';
+import { fontColor, fontFamily, gridColor, hoverBorderColor, tooltipBgColor, resizePolyfill } from './index';
 import 'chartjs-adapter-dayjs-4';
 import zoomPlugin from 'chartjs-plugin-zoom';
 import noUiSlider, { type Options, PipsMode } from 'nouislider';

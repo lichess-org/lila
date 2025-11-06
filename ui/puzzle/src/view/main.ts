@@ -10,7 +10,7 @@ import { type VNode, h } from 'snabbdom';
 import { onInsert, bindNonPassive, hl } from 'lib/snabbdom';
 import { addPointerListeners } from 'lib/pointer';
 import { render as treeView } from './tree';
-import { view as cevalView } from 'lib/ceval/ceval';
+import { view as cevalView } from 'lib/ceval';
 import { renderVoiceBar } from 'voice';
 import { render as renderKeyboardMove } from 'keyboardMove';
 import { toggleButton as boardMenuToggleButton } from 'lib/view/boardMenu';

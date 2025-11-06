@@ -1,3 +1,6 @@
+// this file and everything exported from it must be side-effect free.
+// no top level code aside from static, non-iife assignments.
+
 export const defined = <T>(value: T | undefined): value is T => value !== undefined;
 
 export const notNull = <T>(value: T | null | undefined): value is T => value !== null && value !== undefined;
@@ -144,3 +147,8 @@ export function repeater(f: () => void, additionalStopCond?: () => boolean): voi
   repeat();
   document.addEventListener('pointerup', () => clearTimeout(timeout), { once: true });
 }
+
+export * from './async';
+export * from './objectStorage';
+export * from './snabbdom';
+export * from './richText';

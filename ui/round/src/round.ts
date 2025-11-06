@@ -5,7 +5,7 @@ import RoundController from './ctrl';
 import { main as view } from './view/main';
 import { text as xhrText } from 'lib/xhr';
 import type MoveOn from './moveOn';
-import type { TourPlayer } from 'lib/game/game';
+import type { TourPlayer } from 'lib/game';
 import { tourStandingCtrl, type TourStandingCtrl } from './tourStanding';
 import { wsConnect, wsDestroy } from 'lib/socket';
 import { storage } from 'lib/storage';

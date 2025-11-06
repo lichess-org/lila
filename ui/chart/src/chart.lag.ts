@@ -8,7 +8,7 @@ import {
   Title,
 } from 'chart.js';
 import dataLabels from 'chartjs-plugin-datalabels';
-import { fontColor, fontFamily, resizePolyfill } from './common';
+import { fontColor, fontFamily, resizePolyfill } from './index';
 import { pubsub } from 'lib/pubsub';
 import { wsSend, wsAverageLag } from 'lib/socket';
 

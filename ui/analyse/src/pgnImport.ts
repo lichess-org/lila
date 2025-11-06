@@ -11,7 +11,7 @@ import {
   type PgnNodeData,
 } from 'chessops/pgn';
 import { IllegalSetup, type Position } from 'chessops/chess';
-import type { Player } from 'lib/game/game';
+import type { Player } from 'lib/game';
 import { scalachessCharPair } from 'chessops/compat';
 import { makeSquare } from 'chessops/util';
 

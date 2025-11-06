@@ -1,4 +1,4 @@
-import { winningChances } from 'lib/ceval/ceval';
+import { winningChances } from 'lib/ceval';
 import { fenToEpd } from 'lib/game/chess';
 import { defined } from 'lib';
 import { zip } from 'lib/algo';

@@ -1,4 +1,4 @@
-import type { Prop } from '@/common';
+import type { Prop } from '@/index';
 import { hl, type VNode } from '@/snabbdom';
 import type { InputValue } from '../interfaces';
 import {

@@ -1,5 +1,5 @@
 import { h, type VNode, type VNodeData } from 'snabbdom';
-import { requestIdleCallback } from '../common';
+import { requestIdleCallback } from '../index';
 import { isMac } from '../device';
 
 export class Notify {
