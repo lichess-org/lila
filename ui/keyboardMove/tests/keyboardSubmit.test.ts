@@ -4,25 +4,6 @@ import { type Prop, propWithEffect } from 'lib/index';
 import { makeSubmit } from '../src/keyboardSubmit.js';
 import { destsToUcis, sanWriter } from 'lib/game/chess';
 
-const classes = () => {
-  const set = new Set<string>();
-  return {
-    add: (...xs: string[]) => xs.forEach(x => set.add(x)),
-    remove: (...xs: string[]) => xs.forEach(x => set.delete(x)),
-    toggle: (...xs: string[]) => xs.forEach(x => (set.has(x) ? set.delete(x) : set.add(x))),
-    contains: (x: string) => set.has(x),
-  };
-};
-
-(globalThis as any).document = {
-  createElement(tag: string) {
-    return { tagName: tag.toUpperCase(), classList: classes() };
-  },
-} as Document;
-
-(globalThis as any).window = globalThis;
-(globalThis as any).navigator = { userAgent: 'node' };
-
 function spy() {
   const f: any = (...args: any[]) => {
     f.calls.push(args);
