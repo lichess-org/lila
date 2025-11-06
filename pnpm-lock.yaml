@@ -17,8 +17,8 @@ importers:
         specifier: 9.8.4
         version: 9.8.4
       '@lichess-org/pgn-viewer':
-        specifier: ../pgn-viewer
-        version: link:../pgn-viewer
+        specifier: 2.5.3
+        version: 2.5.3
       '@types/lichess':
         specifier: workspace:*
         version: link:ui/@types/lichess
@@ -853,6 +853,12 @@ packages:
 
   '@lichess-org/chessground@9.8.4':
     resolution: {integrity: sha512-bVPXvR1EWXAAYsuvT7LBmAuwMgIW18RwfFCgwLFT6+g6Ou0mXIJNhq9eczQKTxKnGHTKDbj55AyzmVpIxogYXg==}
+
+  '@lichess-org/chessground@9.8.5':
+    resolution: {integrity: sha512-jCY7JIM3sWtKjGWlIA20kG/TZ7zSp9/GVhfhvS8Hp5/VcQTnPfhdtYLa8wBK5iy5CiOTDcJ5IA1YPWO9M3Y1hw==}
+
+  '@lichess-org/pgn-viewer@2.5.3':
+    resolution: {integrity: sha512-ot0susW0NNktQ+wN45NZRzaDADFCHhyQwMo+IiVO+YMfQbPwgJHR4iHKMEcyqxJ1P3LQ6oQuaIUO21uehccw5g==}
 
   '@lichess-org/stockfish-web@0.0.14':
     resolution: {integrity: sha512-GBXBdQ3Sbg7KecFzaq4VnppK7NVwDcvqfVxOKmDonEUNMJ9FyiLfe2yeWUmbGWUnbnWXBCgYjX8QSDLP3OVe3Q==}
@@ -2400,6 +2406,14 @@ snapshots:
   '@kurkle/color@0.3.4': {}
 
   '@lichess-org/chessground@9.8.4': {}
+
+  '@lichess-org/chessground@9.8.5': {}
+
+  '@lichess-org/pgn-viewer@2.5.3':
+    dependencies:
+      '@lichess-org/chessground': 9.8.5
+      chessops: 0.15.0
+      snabbdom: 3.5.1
 
   '@lichess-org/stockfish-web@0.0.14': {}
 
