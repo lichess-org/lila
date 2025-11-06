@@ -40,7 +40,9 @@ final class Dev(env: Env) extends LilaController(env):
     env.report.api.commsModelSetting,
     env.report.api.commsPromptSetting,
     env.ublog.ublogAutomod.modelSetting,
-    env.ublog.ublogAutomod.promptSetting
+    env.ublog.ublogAutomod.promptSetting,
+    env.web.mobile.androidVersion,
+    env.web.mobile.iosVersion
   )
 
   def settings = Secure(_.Settings) { _ ?=> _ ?=>

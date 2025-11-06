@@ -55,7 +55,8 @@ final class Env(
     tokenApi: lila.oauth.AccessTokenApi,
     tv: lila.tv.Tv,
     activityRead: lila.activity.ActivityReadApi,
-    activityJson: lila.activity.JsonView
+    activityJson: lila.activity.JsonView,
+    webMobile: lila.web.Mobile
 )(using scheduler: Scheduler)(using
     Mode,
     Executor,
