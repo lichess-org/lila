@@ -86,6 +86,8 @@ export async function objectStorage<V, K extends IDBValidKey = IDBValidKey>(
         });
       }
     },
+    deleteDb: () =>
+      'deleteDatabase' in window.indexedDB && window.indexedDB.deleteDatabase(dbInfo.db ?? dbInfo.store),
   };
 
   function objectStore(mode: IDBTransactionMode) {
@@ -131,6 +133,12 @@ export function range<K extends IDBValidKey>(range: {
   if (lower !== undefined) return IDBKeyRange.lowerBound(lower, lowerOpen);
   if (upper !== undefined) return IDBKeyRange.upperBound(upper, upperOpen);
   return undefined;
+}
+
+export function deleteObjectStorage(info: DbInfo): IDBOpenDBRequest | undefined {
+  return 'indexedDB' in window && 'deleteDatabase' in window.indexedDB
+    ? window.indexedDB.deleteDatabase(info.db ?? info.store)
+    : undefined;
 }
 
 export async function nonEmptyStore(info: DbInfo): Promise<boolean> {
@@ -224,12 +232,15 @@ export interface ObjectStorage<V, K extends IDBValidKey = IDBValidKey> {
   readCursor(o: CursorOpts, it: (v: V) => any): Promise<void>;
   /** read, write, or delete records via cursor callback. promise resolves when iteration is done */
   writeCursor(o: CursorOpts, it: WriteCursorCallback<V>): Promise<void>;
+  /** delete this database from browser storage */
+  deleteDb(): void;
 }
 
 async function dbConnect(info: DbInfo): Promise<IDBDatabase> {
   const dbName = info.db ?? info.store;
 
   return new Promise<IDBDatabase>((resolve, reject) => {
+    if (!('indexedDB' in window) || !('open' in window.indexedDB)) reject('no indexedDB');
     const result = window.indexedDB.open(dbName, info?.version ?? 1);
 
     result.onsuccess = (e: Event) => resolve((e.target as IDBOpenDBRequest).result);
