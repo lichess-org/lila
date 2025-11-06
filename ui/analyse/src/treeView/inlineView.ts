@@ -5,7 +5,7 @@ import { ops as treeOps, path as treePath } from 'lib/tree/tree';
 import { isSafari } from 'lib/device';
 import { enrichText, innerHTML } from 'lib/richText';
 import { authorText } from '../study/studyComments';
-import { playable } from 'lib/game/game';
+import { playable } from 'lib/game';
 import type { Conceal } from '../interfaces';
 import type { DiscloseState } from '../idbTree';
 import { renderMoveNodes, renderIndex } from '../view/components';

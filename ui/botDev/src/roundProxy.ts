@@ -1,7 +1,7 @@
 import * as co from 'chessops';
 import { showSetupDialog } from './setupDialog';
 import { LocalGame } from './localGame';
-import { type Player, clockToSpeed } from 'lib/game/game';
+import { type Player, clockToSpeed } from 'lib/game';
 import type { RoundProxy as RoundProxyType, RoundData, RoundOpts } from 'round';
 import { analyse } from './analyse';
 import { env } from './devEnv';

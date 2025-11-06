@@ -1,4 +1,4 @@
-import { renderEval, view as cevalView } from 'lib/ceval/ceval';
+import { renderEval, view as cevalView } from 'lib/ceval';
 import { repeater, myUserId } from 'lib';
 import * as licon from 'lib/licon';
 import { type VNode, type LooseVNode, onInsert, hl } from 'lib/snabbdom';

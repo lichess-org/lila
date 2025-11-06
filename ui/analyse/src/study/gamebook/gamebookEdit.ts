@@ -1,5 +1,5 @@
-import { prev } from '../../control';
-import type AnalyseCtrl from '../../ctrl';
+import { prev } from '@/control';
+import type AnalyseCtrl from '@/ctrl';
 import { requestIdleCallback } from 'lib';
 import * as licon from 'lib/licon';
 import { throttle } from 'lib/async';

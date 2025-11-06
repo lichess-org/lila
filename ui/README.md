@@ -6,23 +6,22 @@ Use the [/ui/build](./build) script.
 ui/build --help
 ```
 
-Start it up in watch mode with `ui/build -w` to continuously rebuild when changes are detected. Keep an eye on stdout for build errors or new manifests. Manifests list public javascript and css assets that browsers must fetch independently. 
+Start it up in watch mode with `ui/build -w` to continuously rebuild when changes are detected.
 
-When changes compile successfully, a new manifest is created and your dev lila server will list those updated assets in any subsequent responses. Just reload your browser to see the results.
+When changes compile successfully, stdout will report creation of a new manifest. Manifests list public javascript and css assets that browsers must fetch independently. The server communicates those updated URLs in subsequent responses. Just reload your browser to see the results.
 
 # Testing
 
-Use the [/ui/test](./.test/runner.mjs) script. It's a simple wrapper for node test runner.
+Use the [/ui/test](./.test/runner.mjs) script. It's a simple wrapper for node's test runner.
 
 ```bash
-ui/test
-## or
-ui/test -w # watch
+ui/test            # build ui/*/tests/**/*.ts
 
-## more exmaples
-ui/test winning # partial glob ui/*/tests/**/$1*.ts -> ui/lib/tests/winningChances.test.ts
+ui/test -w         # watch ui/*/tests/**/*.ts
 
-ui/test mod # matches ui/mod/tests/**/*.ts
+ui/test winning    # ui/lib/tests/winningChances.test.ts
+
+ui/test mod once   # ui/mod/tests/**/*.ts ui/lib/tests/once.test.ts
 ```
 
 # About packages
@@ -41,7 +40,7 @@ That tells [pnpm](https://pnpm.io) and our build script to resolve the dependenc
 We do not use devDependencies because no package artifacts are published to npm. There is no useful distinction between dependencies and devDependencies when we're always building assets for the lila server.
 
 ## tsc import resolution
-tsc type checking uses package.json's **exports** property [(node reference)](https://nodejs.org/api/packages.html#packages_exports) to resolve static import declarations in external sources to the correct declaration (\*.d.ts) files in the imported package.
+tsc type checking uses package.json's `exports` property [(node)](https://nodejs.org/api/packages.html#packages_exports) to resolve static import declarations in external sources to the correct declaration (\*.d.ts) files in the imported package.
 
 ```json
   "exports": {
@@ -54,9 +53,9 @@ tsc type checking uses package.json's **exports** property [(node reference)](ht
     }
   }
 ```
-tsc needs both "types" and "import" -> "default" to point to .d.ts and .js products during the typechecking (--noEmit) phase. tsc does not care about "source"
+tsc needs both `types` and `import` -> `default` to point to .d.ts and .js products during the typechecking (--noEmit) phase. tsc does not care about "source"
 
-The "exports" object [(typescript reference)](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-7.html#packagejson-exports-imports-and-self-referencing) allows per directory remaps for barrel exports. With the following [/ui/lib/package.json](./ui/lib/package.json):
+The `exports` object [(typescript)](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-7.html#packagejson-exports-imports-and-self-referencing) allows per directory remaps for barrel exports. With the following [/ui/lib/package.json](./ui/lib/package.json):
 ```json
   "exports": {
 
@@ -71,14 +70,14 @@ The "exports" object [(typescript reference)](https://www.typescriptlang.org/doc
     }
   }
 ```
-An external package can import from the bot/index.ts barrel with:
+An external package can import from the lib/ceval/index.ts barrel with:
 
 ```typescript
-import { type X, Y, Z } from 'lib/bot';
+import { type X, Y, Z } from 'lib/ceval';
 ```
 
 ## esbuild import resolution
-The [esbuild bundler](https://esbuild.github.io/getting-started/#your-first-bundle) uses "exports" as well but ignores "types", *.d.ts, and *.js files. It consumes only the "source" property within any "import" object. The value should always be a package relative path to the typescript source.
+The [esbuild bundler](https://esbuild.github.io/getting-started/#your-first-bundle) uses `exports` as well but ignores "types", *.d.ts, and *.js files. It consumes only the `source` value within an `import` property. The value must be package relative to the typescript source(s).
 
 ```json
   "exports": {

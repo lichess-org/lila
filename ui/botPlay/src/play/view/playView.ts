@@ -3,7 +3,7 @@ import { bind, hl, onInsert, type LooseVNodes, dataIcon, type VNode } from 'lib/
 import { Chessground } from '@lichess-org/chessground';
 import { stepwiseScroll } from 'lib/view/controls';
 import type PlayCtrl from '../playCtrl';
-import { initialGround } from '../../ground';
+import { initialGround } from '@/ground';
 import { botAssetUrl } from 'lib/bot/botLoader';
 import { type BotInfo, Bot } from 'lib/bot/bot';
 import { autoScroll } from './autoScroll';
@@ -13,7 +13,7 @@ import { type StatusData, statusOf as viewStatus } from 'lib/game/view/status';
 import { toggleButton as boardMenuToggleButton } from 'lib/view/boardMenu';
 import boardMenu from './boardMenu';
 import { renderMaterialDiffs } from 'lib/game/view/material';
-import { type TopOrBottom } from 'lib/game/game';
+import { type TopOrBottom } from 'lib/game';
 import { renderClock } from 'lib/game/clock/clockView';
 
 export const playView = (ctrl: PlayCtrl) =>

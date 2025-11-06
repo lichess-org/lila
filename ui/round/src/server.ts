@@ -1,6 +1,6 @@
 import { pubsub } from 'lib/pubsub';
 import * as xhr from './xhr';
-import { isPlayerPlaying, isPlayerTurn } from 'lib/game/game';
+import { isPlayerPlaying, isPlayerTurn } from 'lib/game';
 import type { RoundData } from './interfaces';
 
 export default class Server {

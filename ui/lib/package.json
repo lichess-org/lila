@@ -42,6 +42,20 @@
         "default": "./dist/index.js"
       }
     },
+    "./ceval": {
+      "types": "./dist/ceval/index.dts",
+      "import": {
+        "source": "./src/ceval/index.ts",
+        "default": "./dist/ceval/index.js"
+      }
+    },
+    "./game": {
+      "types": "./dist/game/index.dts",
+      "import": {
+        "source": "./src/game/index.ts",
+        "default": "./dist/game/index.js"
+      }
+    },
     "./*": {
       "types": "./*.d.ts",
       "import": {

@@ -17,7 +17,7 @@ import type {
 import { build as treeBuild, ops as treeOps, path as treePath, type TreeWrapper } from 'lib/tree/tree';
 import { Chess, normalizeMove } from 'chessops/chess';
 import { chessgroundDests, scalachessCharPair } from 'chessops/compat';
-import { CevalCtrl } from 'lib/ceval/ceval';
+import { CevalCtrl } from 'lib/ceval';
 import { makeVoiceMove, type VoiceMove } from 'voice';
 import { ctrl as makeKeyboardMove, type KeyboardMove, type KeyboardMoveRootCtrl } from 'keyboardMove';
 import { defined, prop, type Prop, propWithEffect, type Toggle, toggle, requestIdleCallback } from 'lib';

@@ -7,7 +7,7 @@ import { renderNodesHtml } from '../pgnExport';
 import { spinnerVdom as spinner } from 'lib/view/controls';
 import { fixCrazySan } from 'lib/game/chess';
 import type ForecastCtrl from './forecastCtrl';
-import { playable } from 'lib/game/game';
+import { playable } from 'lib/game';
 
 function onMyTurn(fctrl: ForecastCtrl, cNodes: ForecastStep[]): VNode | undefined {
   const firstNode = cNodes[0];

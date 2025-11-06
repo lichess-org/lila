@@ -1,5 +1,5 @@
 import { fenToEpd, readDests, readDrops } from 'lib/game/chess';
-import { playable, playedTurns } from 'lib/game/game';
+import { playable, playedTurns } from 'lib/game';
 import * as keyboard from './keyboard';
 import { treeReconstruct, plyColor } from './util';
 import { plural } from './view/util';
@@ -12,7 +12,7 @@ import { Autoplay, type AutoplayDelay } from './autoplay';
 import { build as makeTree, path as treePath, ops as treeOps, type TreeWrapper } from 'lib/tree/tree';
 import { compute as computeAutoShapes } from './autoShape';
 import type { Config as ChessgroundConfig } from '@lichess-org/chessground/config';
-import { CevalCtrl, isEvalBetter, sanIrreversible, type EvalMeta, type CevalOpts } from 'lib/ceval/ceval';
+import { CevalCtrl, isEvalBetter, sanIrreversible, type EvalMeta, type CevalOpts } from 'lib/ceval';
 import { TreeView } from './treeView/treeView';
 import { defined, prop, type Prop, toggle, type Toggle, requestIdleCallback, propWithEffect } from 'lib';
 import { pubsub } from 'lib/pubsub';

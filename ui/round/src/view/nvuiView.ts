@@ -2,7 +2,7 @@ import type { RoundNvuiContext } from '../round.nvui';
 import type RoundController from '../ctrl';
 import { type LooseVNodes, type VNode, bind, hl, noTrans, onInsert } from 'lib/snabbdom';
 import { renderClock } from 'lib/game/clock/clockView';
-import { type Player, type TopOrBottom, playable } from 'lib/game/game';
+import { type Player, type TopOrBottom, playable } from 'lib/game';
 import { renderTableWatch, renderTablePlay, renderTableEnd } from './table';
 import { scanDirectionsHandler } from 'lib/nvui/directionScan';
 import { commands, boardCommands } from 'lib/nvui/command';

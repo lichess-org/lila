@@ -1,4 +1,4 @@
-import { type Simul, setOnGame, isPlayerTurn } from 'lib/game/game';
+import { type Simul, setOnGame, isPlayerTurn } from 'lib/game';
 import { throttle } from 'lib/async';
 import { reload as xhrReload } from './xhr';
 import type RoundController from './ctrl';

@@ -1,7 +1,7 @@
 /// <reference types="../types/ab" />
 
 import * as ab from 'ab';
-import * as game from 'lib/game/game';
+import * as game from 'lib/game';
 import { game as gameRoute } from 'lib/game/router';
 import { playing } from 'lib/game/status';
 import { boardOrientation, reload as groundReload } from './ground';

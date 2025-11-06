@@ -1,4 +1,4 @@
-import { beforeEach, describe, test } from 'node:test';
+import { describe, test } from 'node:test';
 import assert from 'node:assert/strict';
 import { freshImport } from '../../.test/helpers.mts';
 

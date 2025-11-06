@@ -8,7 +8,7 @@ import { render as renderGround } from '../ground';
 import { renderTable } from './table';
 import { renderMaterialDiffs } from 'lib/game/view/material';
 import { renderVoiceBar } from 'voice';
-import { playable } from 'lib/game/game';
+import { playable } from 'lib/game';
 import { storage } from 'lib/storage';
 import { displayColumns, isTouchDevice } from 'lib/device';
 

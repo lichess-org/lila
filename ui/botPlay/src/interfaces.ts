@@ -1,5 +1,5 @@
 import type { BotInfo, MoveSource, SoundEvent } from 'lib/bot/types';
-import type { StatusName } from 'lib/game/game';
+import type { StatusName } from 'lib/game';
 import * as Prefs from 'lib/prefs';
 import type { ClockConfig } from 'lib/game/clock/clockCtrl';
 

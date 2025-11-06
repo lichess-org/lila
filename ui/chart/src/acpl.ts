@@ -1,4 +1,4 @@
-import { winningChances } from 'lib/ceval/ceval';
+import { winningChances } from 'lib/ceval';
 import {
   type ChartConfiguration,
   type ChartDataset,

@@ -1,4 +1,4 @@
-import { describe, test } from 'node:test';
+import { describe } from 'node:test';
 import assert from 'node:assert/strict';
 import * as winningChances from '../src/ceval/winningChances';
 import { each } from '../../.test/helpers.mts';

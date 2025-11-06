@@ -40,8 +40,6 @@ export declare type GameRule = 'noAbort' | 'noRematch' | 'noGiveTime' | 'noClaim
 
 export type TopOrBottom = 'top' | 'bottom';
 
-export * from './status';
-
 export interface Player {
   id: string;
   name: string | null;
