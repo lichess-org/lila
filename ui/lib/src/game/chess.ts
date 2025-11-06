@@ -58,3 +58,11 @@ export function normalMove(chess: Chess, uci: Uci): { uci: Uci; move: NormalMove
     bareMove && 'from' in bareMove ? { ...bareMove, ...normalizeMove(chess, bareMove) } : undefined;
   return move && chess.isLegal(move) ? { uci: makeUci(move), move } : undefined;
 }
+
+export function isUci(maybeUci: string | undefined | null): maybeUci is Uci {
+  return !!parseUci(maybeUci ?? '');
+}
+
+export function validUci(maybeUci: string | undefined | null): string | undefined {
+  return isUci(maybeUci) ? maybeUci : undefined;
+}

@@ -217,8 +217,10 @@ final class UblogApi(
     _ <- image.deleteAll(post)
   yield ()
 
-  def setTierIfBlogExists(blog: UblogBlog.Id, tier: Tier): Funit =
-    colls.blog.update.one($id(blog), $set("tier" -> tier)).void
+  private def setTierIfBlogExists(blog: UblogBlog.Id, tier: Tier): Funit = for
+    _ <- colls.blog.updateField($id(blog), "tier", tier)
+    _ <- onTierChange(blog, tier)
+  yield ()
 
   def onAccountClose(user: User) = setTierIfBlogExists(UblogBlog.Id.User(user.id), Tier.HIDDEN)
 
@@ -271,7 +273,11 @@ final class UblogApi(
       ++ note.filter(_ != "").so(n => $doc("modNote" -> n))
     val unsets = note.exists(_ == "").so($unset("modNote")) // "" is unset, none to ignore
     mod.foreach(m => irc.ublogBlog(blogger, m.username, tier.map(Tier.name), note))
-    colls.blog.update.one($id(UblogBlog.Id.User(blogger)), $set(setFields) ++ unsets, upsert = true).void
+    val id = UblogBlog.Id.User(blogger)
+    for
+      _ <- colls.blog.update.one($id(id), $set(setFields) ++ unsets, upsert = true)
+      _ <- tier.so(onTierChange(id, _))
+    yield ()
 
   def modPost(
       post: UblogPost,
@@ -308,6 +314,12 @@ final class UblogApi(
         )
       for _ <- colls.post.updateOrUnsetField($id(post.id), "featured", featured)
       yield featured
+
+  private def onTierChange(blog: UblogBlog.Id, tier: Tier): Funit =
+    (tier <= Tier.LOW).so(unfeatureAllOf(blog))
+
+  private def unfeatureAllOf(blog: UblogBlog.Id): Funit =
+    colls.post.unsetField($doc("blog" -> blog), "featured").void
 
   private[ublog] def setShadowban(userId: UserId, v: Boolean) = {
     if v then fuccess(Tier.HIDDEN)

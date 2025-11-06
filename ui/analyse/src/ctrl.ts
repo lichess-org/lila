@@ -1,4 +1,5 @@
-import { fenToEpd, readDests, readDrops } from 'lib/game/chess';
+
+import { fenToEpd, readDests, readDrops, validUci } from 'lib/game/chess';
 import { playable, playedTurns } from 'lib/game';
 import * as keyboard from './keyboard';
 import { treeReconstruct, plyColor } from './util';
@@ -695,7 +696,7 @@ export default class AnalyseCtrl implements CevalHandler {
   }
 
   nextNodeBest() {
-    return treeOps.withMainlineChild(this.node, (n: Tree.Node) => n.eval?.best);
+    return treeOps.withMainlineChild(this.node, (n: Tree.Node) => validUci(n.eval?.best));
   }
 
   setAutoShapes = (): void => {

@@ -63,11 +63,10 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
 
   def subscribed(page: Int) = Auth { ctx ?=> me ?=>
     Reasonable(page, Max(20)):
-      env.relay.pager
-        .subscribedBy(me.userId, page)
-        .flatMap: pager =>
-          Ok.async:
-            views.relay.tour.subscribed(pager)
+      for
+        pager <- env.relay.pager.subscribedBy(me.userId, page)
+        page <- Ok.async(views.relay.tour.subscribed(pager))
+      yield page
   }
 
   def allPrivate(page: Int) = Secure(_.StudyAdmin) { _ ?=> _ ?=>
