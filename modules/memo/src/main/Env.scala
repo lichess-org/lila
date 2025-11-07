@@ -27,7 +27,7 @@ final class Env(
     db: lila.db.Db,
     ws: play.api.libs.ws.StandaloneWSClient,
     net: NetConfig
-)(using Executor, Scheduler, play.api.Mode):
+)(using Executor, Scheduler, play.api.Mode, akka.stream.Materializer):
 
   export net.{ domain, assetDomain }
 

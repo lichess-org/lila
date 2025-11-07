@@ -145,9 +145,8 @@ final class Main(
             case None => JsonBadRequest("Image content only")
             case Some(image) =>
               val meta = lila.memo.PicfitApi.form.upload.bindFromRequest().value
-              val moreRel = s"$rel:${scalalib.ThreadLocalRandom.nextString(12)}"
               for
-                image <- env.memo.picfitApi.uploadFile(moreRel, image, me, meta)
+                image <- env.memo.picfitApi.uploadFile(rel, image, me, meta)
                 maxWidth = lila.ui.bits.imageDesignWidth(rel)
                 url = meta match
                   case Some(info) if maxWidth.exists(dw => info.dim.width > dw) =>

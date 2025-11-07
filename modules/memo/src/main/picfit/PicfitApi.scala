@@ -1,12 +1,14 @@
 package lila.memo
 
-import akka.stream.scaladsl.{ FileIO, Source }
+import akka.stream.scaladsl.{ FileIO, Source, Sink }
 import akka.util.ByteString
+import java.security.MessageDigest
 import play.api.libs.ws.DefaultBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 import play.api.mvc.MultipartFormData
 import reactivemongo.api.bson.{ BSONDocumentHandler, Macros }
-import scalalib.ThreadLocalRandom
+import reactivemongo.core.errors.DatabaseException
+import scala.util.{ Success, Failure }
 import scalalib.paginator.AdapterLike
 
 import lila.common.Bus
@@ -19,7 +21,7 @@ final class PicfitApi(
     ws: StandaloneWSClient,
     config: PicfitConfig,
     cloudflareApi: CloudflareApi
-)(using Executor):
+)(using Executor, akka.stream.Materializer):
 
   import PicfitApi.{ *, given }
   private val uploadMaxBytes = uploadMaxMb * 1024 * 1024
@@ -39,13 +41,18 @@ final class PicfitApi(
       meta: Option[form.UploadData] = none,
       requestAutomod: Boolean = true
   ): Fu[PicfitImage] =
-    val ref: ByteSource = FileIO.fromPath(uploaded.ref.path)
-    val source = uploaded.copy[ByteSource](ref = ref, refToBytes = _ => None)
     for
-      image <- uploadSource(rel, source, userId, meta)
+      hash <- FileIO
+        .fromPath(uploaded.ref.path)
+        .runWith(hashSink)
+        .map: bytes =>
+          java.util.Base64.getUrlEncoder().withoutPadding().encodeToString(bytes).take(12)
+      ref = FileIO.fromPath(uploaded.ref.path)
+      source = uploaded.copy[ByteSource](ref = ref, refToBytes = _ => None)
+      uploaded <- uploadSource(rel, hash, source, userId, meta)
       dim = meta.fold(Dimensions.default)(_.dim)
-      _ = if requestAutomod then Bus.pub(ImageAutomodRequest(image.id, dim))
-    yield image
+      _ = if requestAutomod && uploaded.fresh then Bus.pub(ImageAutomodRequest(uploaded.image.id, dim))
+    yield uploaded.image
 
   def deleteById(id: ImageId): Fu[Option[PicfitImage]] =
     coll
@@ -62,10 +69,12 @@ final class PicfitApi(
         .flatMap { _.result[PicfitImage].so(picfitServer.delete) }
 
   def deleteByRel(rel: String): Funit =
-    coll
-      .findAndRemove($doc("rel" -> rel))
-      .flatMap { _.result[PicfitImage].so(picfitServer.delete) }
-      .void
+    if !rel.contains(":") then fuccess(s"PicFitApi.deleteByRel not gonna delete $rel")
+    else
+      coll
+        .findAndRemove($doc("rel" -> rel))
+        .flatMap { _.result[PicfitImage].so(picfitServer.delete) }
+        .void
 
   def setContext(context: String, ids: Seq[ImageId]): Funit =
     coll.update.one($inIds(ids), $set("context" -> context), multi = true).void
@@ -101,12 +110,20 @@ final class PicfitApi(
 
   def countFlagged = coll.countSel($doc("automod.flagged" -> $exists(true)))
 
+  private val hashSink: Sink[ByteString, Future[Array[Byte]]] =
+    Sink
+      .fold(MessageDigest.getInstance("SHA-256")): (hasher, bytes: ByteString) =>
+        hasher.update(bytes.asByteBuffer)
+        hasher
+      .mapMaterializedValue(_.map(_.digest()))
+
   private def uploadSource(
       rel: String,
+      hash: String,
       part: SourcePart,
       userId: UserId,
       meta: Option[form.UploadData]
-  ): Fu[PicfitImage] =
+  ): Fu[ImageFresh] =
     if part.fileSize > uploadMaxBytes
     then fufail(s"File size must not exceed ${uploadMaxMb}MB.")
     else
@@ -119,7 +136,7 @@ final class PicfitApi(
           case None => fufail(s"Invalid file type: ${part.contentType | "unknown"}")
           case Some(extension) =>
             val image = PicfitImage(
-              id = ImageId(s"$rel$idSep${ThreadLocalRandom.nextString(8)}.$extension"),
+              id = ImageId(s"$rel$idSep$hash.$extension"),
               user = userId,
               rel = rel,
               name = part.filename,
@@ -128,11 +145,19 @@ final class PicfitApi(
               dimensions = meta.map(_.dim),
               context = meta.flatMap(_.context)
             )
-            for
-              _ <- picfitServer.store(image, part)
-              _ <- deleteByRel(image.rel)
-              _ <- coll.insert.one(image)
-            yield image
+            coll.insert
+              .one(image)
+              .flatMap: _ =>
+                picfitServer
+                  .store(image, part)
+                  .transformWith:
+                    case Success(_) =>
+                      deleteByRel(image.rel).map(_ => ImageFresh(image, true))
+                    case Failure(err) =>
+                      coll.delete.one($id(image.id)).transform(_ => Failure(err))
+              .recoverWith:
+                case e: DatabaseException if e.code.contains(11000) =>
+                  fuccess(ImageFresh(image, false)) // it's a dup
 
   private object picfitServer:
 
@@ -161,6 +186,7 @@ final class PicfitApi(
         .void
 
 object PicfitApi:
+  case class ImageFresh(image: PicfitImage, fresh: Boolean)
 
   private[memo] final class OnNewUrl(coll: Coll)(using Executor):
 
@@ -189,8 +215,8 @@ object PicfitApi:
     BodyWritable(b => SourceBody(Multipart.transform(b, boundary)), contentType)
 
   def findInMarkdown(md: Markdown): Set[ImageId] =
-    // path=ublogBody:mdTLUTfzboGg:wVo9Pqru.jpg
-    val regex = """(?i)[\?&]path=([a-z]\w+:[a-z0-9]{12}:[a-z0-9]{8}\.\w{3,4})&""".r
+    // path=ublogBody:mdTLU-fz_oGg.jpg
+    val regex = """(?i)[\?&]path=([a-z]\w+:[a-z0-9_-]{12}\.\w{3,4})&""".r
     regex
       .findAllMatchIn(md.value)
       .map(_.group(1))
