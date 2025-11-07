@@ -8,7 +8,6 @@ import play.api.libs.ws.StandaloneWSClient
 import play.api.mvc.MultipartFormData
 import reactivemongo.api.bson.{ BSONDocumentHandler, Macros }
 import reactivemongo.core.errors.DatabaseException
-import scala.util.{ Success, Failure }
 import scalalib.paginator.AdapterLike
 
 import lila.common.Bus
