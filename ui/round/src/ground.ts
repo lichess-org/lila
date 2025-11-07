@@ -9,13 +9,14 @@ import { uciToMove } from '@lichess-org/chessground/util';
 import { ShowResizeHandle, Coords, MoveEvent } from 'lib/prefs';
 import { storage } from 'lib/storage';
 import { Chessground as makeChessground } from '@lichess-org/chessground';
-import { additionalPremoveRequirements } from './premove';
+import { Premove } from './premove';
 
 export function makeConfig(ctrl: RoundController): CgConfig {
   const data = ctrl.data,
     hooks = ctrl.makeCgHooks(),
     step = plyStep(data, ctrl.ply),
-    playing = ctrl.isPlaying();
+    playing = ctrl.isPlaying(),
+    premove = new Premove(data.game.variant.key === 'atomic');
   return {
     fen: step.fen,
     orientation: boardOrientation(data, ctrl.flip),
@@ -69,8 +70,7 @@ export function makeConfig(ctrl: RoundController): CgConfig {
         set: hooks.onPremove,
         unset: hooks.onCancelPremove,
       },
-      unrestrictedPremoves: data.game.variant.key === 'atomic',
-      additionalPremoveRequirements: additionalPremoveRequirements,
+      additionalPremoveRequirements: premove.additionalPremoveRequirements,
     },
     predroppable: {
       enabled: data.pref.enablePremove && data.game.variant.key === 'crazyhouse',
