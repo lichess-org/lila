@@ -94,6 +94,7 @@ object PrefForm:
         "tenths" -> checkedNumber(Pref.ClockTenths.choices),
         "bar" -> booleanNumber,
         "sound" -> booleanNumber,
+        "flash" -> booleanNumber,
         fields.moretime
       )(ClockData.apply)(unapply),
       fields.follow,
@@ -136,6 +137,7 @@ object PrefForm:
       tenths: Int,
       bar: Int,
       sound: Int,
+      flash: Int,
       moretime: Int
   )
 
@@ -161,6 +163,7 @@ object PrefForm:
         clockTenths = clock.tenths,
         clockBar = clock.bar == 1,
         clockSound = clock.sound == 1,
+        clockFlash = clock.flash == 1,
         follow = follow == 1,
         highlight = display.highlight == 1,
         destination = display.destination == 1,
@@ -218,6 +221,7 @@ object PrefForm:
           tenths = pref.clockTenths,
           bar = if pref.clockBar then 1 else 0,
           sound = if pref.clockSound then 1 else 0,
+          flash = if pref.clockFlash then 1 else 0,
           moretime = pref.moretime
         ),
         follow = if pref.follow then 1 else 0,

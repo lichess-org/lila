@@ -174,6 +174,21 @@
     color: $c-font-clearer;
   }
 
+  // Visual low-time warning for accessibility
+  &.flash .time {
+    animation: clock-flash 1s ease-in-out infinite;
+  }
+
+  @keyframes clock-flash {
+    0%,
+    100% {
+      box-shadow: 0 0 0 rgba(255, 193, 7, 0);
+    }
+    50% {
+      box-shadow: 0 0 20px rgba(255, 193, 7, 0.8), 0 0 30px rgba(255, 193, 7, 0.6);
+    }
+  }
+
   .go-berserk {
     font-size: 2.2em;
     padding: 0 0.3em;

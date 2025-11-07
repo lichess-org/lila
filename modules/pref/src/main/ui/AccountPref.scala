@@ -105,6 +105,11 @@ final class AccountPref(helpers: Helpers, helper: PrefHelper, bits: AccountUi):
               "soundWhenTimeGetsCritical"
             ),
             setting(
+              trp.visualLowTimeWarning(),
+              radios(form("clock.flash"), booleanChoices),
+              "visualLowTimeWarning"
+            ),
+            setting(
               trp.giveMoreTime(),
               radios(form("clock.moretime"), translatedMoretimeChoices),
               "giveMoreTime"

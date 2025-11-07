@@ -19,6 +19,7 @@ def toJson(p: Pref, lichobileCompat: Boolean) = Json.obj(
   "clockTenths" -> p.clockTenths,
   "clockBar" -> p.clockBar,
   "clockSound" -> p.clockSound,
+  "clockFlash" -> p.clockFlash,
   "premove" -> p.premove,
   "animation" -> p.animation,
   "pieceNotation" -> p.pieceNotation,

@@ -24,6 +24,7 @@ export interface ClockData extends ClockConfig {
 export interface ClockPref {
   clockTenths: ShowClockTenths;
   clockBar: boolean;
+  clockFlash: boolean;
 }
 
 interface Times {
@@ -74,6 +75,7 @@ export class ClockCtrl {
   barTime: number;
   timeRatioDivisor: number;
   emergMs: Millis;
+  showFlash: boolean;
   alarmAction?: { seconds: Seconds; fire: () => void };
 
   elements: ByColor<ClockElements> = { white: {}, black: {} };
@@ -98,6 +100,7 @@ export class ClockCtrl {
     this.timeRatioDivisor = 1 / this.barTime;
 
     this.emergMs = 1000 * Math.min(60, Math.max(10, data.initial * 0.125));
+    this.showFlash = pref.clockFlash;
 
     this.setClock({
       white: data.white,

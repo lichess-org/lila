@@ -28,7 +28,7 @@ export function renderClock(
     // the player.color class ensures that when the board is flipped, the clock is redrawn. solves bug where clock
     // would be incorrectly latched to red color: https://github.com/lichess-org/lila/issues/10774
     `div.rclock.rclock-${position}.rclock-${color}`,
-    { class: { outoftime: millis <= 0, running: isRunning, emerg: millis < ctrl.emergMs } },
+    { class: { outoftime: millis <= 0, running: isRunning, emerg: millis < ctrl.emergMs, flash: ctrl.showFlash && millis < ctrl.emergMs } },
     site.blindMode
       ? [hl('div.time', { attrs: { role: 'timer' }, hook: timeHook })]
       : [
@@ -132,5 +132,7 @@ export function updateElements(clock: ClockCtrl, els: ClockElements, millis: Mil
     const cl = els.clock.classList;
     if (millis < clock.emergMs) cl.add('emerg');
     else if (cl.contains('emerg')) cl.remove('emerg');
+    if (clock.showFlash && millis < clock.emergMs) cl.add('flash');
+    else if (cl.contains('flash')) cl.remove('flash');
   }
 }

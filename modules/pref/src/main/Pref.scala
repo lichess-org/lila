@@ -20,6 +20,7 @@ case class Pref(
     clockTenths: Int,
     clockBar: Boolean,
     clockSound: Boolean,
+    clockFlash: Boolean,
     premove: Boolean,
     animation: Int,
     captured: Boolean,
@@ -374,6 +375,7 @@ object Pref:
       ALWAYS -> "Always"
     )
 
+
   object Challenge:
     import lila.core.pref.Challenge.*
 
@@ -484,6 +486,7 @@ object Pref:
     moretime = Moretime.ALWAYS,
     clockBar = true,
     clockSound = true,
+    clockFlash = false,
     premove = true,
     animation = Animation.NORMAL,
     captured = true,

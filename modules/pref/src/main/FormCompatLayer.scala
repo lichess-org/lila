@@ -17,6 +17,7 @@ object FormCompatLayer:
             "clockTenths" -> "tenths",
             "clockBar" -> "bar",
             "clockSound" -> "sound",
+            "clockFlash" -> "flash",
             "moretime" -> "moretime"
           )
         )
