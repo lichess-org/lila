@@ -23,28 +23,26 @@ type ResolveContext = { parentURL?: string; conditions: string[] };
 type ResolveResult = { url: string; shortCircuit?: boolean; format?: string };
 type NextResolver = (specifier: string, context: ResolveContext) => Promise<ResolveResult>;
 
-type PkgInfo = { href: string; name: string } | false;
-const pkgInfoCache = new Map<string, PkgInfo>();
+const pkgNameCache = new Map<string, string | undefined>();
 
-function findPkg(parent: string): PkgInfo | false {
+function findPkg(parent: string): string | undefined {
   const start = dirname(fileURLToPath(parent));
-  if (pkgInfoCache.has(start)) return pkgInfoCache.get(start)!;
+  if (pkgNameCache.has(start)) return pkgNameCache.get(start)!;
 
   let dir = start;
   while (true) {
     const pkgJsonFile = join(dir, 'package.json');
     if (existsSync(pkgJsonFile)) {
       const { name } = JSON.parse(readFileSync(pkgJsonFile, 'utf8')) as { name?: string };
-      const info: PkgInfo = name ? { href: pathToFileURL(dir + '/').href, name } : false;
-      pkgInfoCache.set(start, info);
-      return info;
+      pkgNameCache.set(start, name);
+      return name;
     }
-    const up = dirname(dir);
-    if (up === dir) {
-      pkgInfoCache.set(start, false);
-      return false;
+    const parent = dirname(dir);
+    if (parent === dir) {
+      pkgNameCache.set(start, undefined);
+      return undefined;
     }
-    dir = up;
+    dir = parent;
   }
 }
 
@@ -54,12 +52,10 @@ export async function resolve(
   next: NextResolver,
 ): Promise<ResolveResult> {
   if (specifier.startsWith('@/')) {
-    const base = context.parentURL ?? import.meta.url;
-    const info = findPkg(base);
-    if (info && info.name) {
-      const sub = specifier.slice(2).replace(/^\/+/, '');
+    const name = findPkg(context.parentURL ?? import.meta.url);
+    if (name) {
       // rewrite to a self-reference so tsx applies "exports" conditions
-      const rewritten = `${info.name}/${sub}`;
+      const rewritten = `${name}/${specifier.slice(2).replace(/^\/+/, '')}`;
       return next(rewritten, context);
     }
   }
