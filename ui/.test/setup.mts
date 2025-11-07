@@ -10,7 +10,7 @@ const define = (k: any, v: any) => {
   try {
     Object.defineProperty(globalThis, k, { value: v, configurable: true, writable: true });
   } catch {
-    delete globalThis[k];
+    delete (globalThis as any)[k];
     Object.defineProperty(globalThis, k, { value: v, configurable: true, writable: true });
   }
 };
@@ -28,7 +28,7 @@ define('sessionStorage', window.sessionStorage);
 
 if (!('requestAnimationFrame' in globalThis))
   define('requestAnimationFrame', (cb: any) => setTimeout(() => cb(Date.now()), 0));
-if (!('cancelAnimationFrame' in globalThis)) define('cancelAnimationFrame', id => clearTimeout(id));
+if (!('cancelAnimationFrame' in globalThis)) define('cancelAnimationFrame', (id: any) => clearTimeout(id));
 if (!('matchMedia' in globalThis))
   define('matchMedia', (q: any) => ({
     matches: false,

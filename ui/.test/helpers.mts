@@ -1,5 +1,5 @@
 import { test } from 'node:test';
-import { existsSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
@@ -20,46 +20,32 @@ export async function freshImport<T = any>(specifier: string): Promise<T> {
 // this next bit defines a loader to map "@/..." to "lib/src/..." when importing using @ alias
 
 type ResolveContext = { parentURL?: string; conditions: string[] };
-
 type ResolveResult = { url: string; shortCircuit?: boolean; format?: string };
 type NextResolver = (specifier: string, context: ResolveContext) => Promise<ResolveResult>;
-const pkgRootCache = new Map<string, string | null>();
 
-function findPkgRoot(parent: string): string | null {
+type PkgInfo = { href: string; name: string } | false;
+const pkgInfoCache = new Map<string, PkgInfo>();
+
+function findPkg(parent: string): PkgInfo | false {
   const start = dirname(fileURLToPath(parent));
-  if (pkgRootCache.has(start)) return pkgRootCache.get(start)!;
+  if (pkgInfoCache.has(start)) return pkgInfoCache.get(start)!;
+
   let dir = start;
   while (true) {
-    if (existsSync(join(dir, 'package.json'))) {
-      const href = pathToFileURL(dir + '/').href;
-      pkgRootCache.set(dir, href);
-      return href;
+    const pkgJsonFile = join(dir, 'package.json');
+    if (existsSync(pkgJsonFile)) {
+      const { name } = JSON.parse(readFileSync(pkgJsonFile, 'utf8')) as { name?: string };
+      const info: PkgInfo = name ? { href: pathToFileURL(dir + '/').href, name } : false;
+      pkgInfoCache.set(start, info);
+      return info;
     }
-    const parent = dirname(dir);
-    if (parent === dir) {
-      pkgRootCache.set(start, null);
-      return null;
+    const up = dirname(dir);
+    if (up === dir) {
+      pkgInfoCache.set(start, false);
+      return false;
     }
-    dir = parent;
+    dir = up;
   }
-}
-
-function hasExt(spec: string): boolean {
-  return /\.[a-zA-Z0-9]+$/.test(spec);
-}
-
-function candidateUrls(baseHref: string, subpath: string): URL[] {
-  // Map "@/foo/bar" -> "src/foo/bar[.ext]" within the package root
-  const root = new URL(baseHref);
-  const p = `src/${subpath.replace(/^\/+/, '')}`;
-  const list: string[] = [];
-
-  if (hasExt(p)) {
-    list.push(p);
-  } else {
-    list.push(`${p}.ts`, `${p}.mts`);
-  }
-  return list.map(rel => new URL(rel, root));
 }
 
 export async function resolve(
@@ -68,16 +54,14 @@ export async function resolve(
   next: NextResolver,
 ): Promise<ResolveResult> {
   if (specifier.startsWith('@/')) {
-    const base = findPkgRoot(context.parentURL ?? import.meta.url);
-    if (base) {
-      const sub = specifier.slice(2);
-      for (const url of candidateUrls(base, sub)) {
-        if (existsSync(fileURLToPath(url))) {
-          return { url: url.href, shortCircuit: true };
-        }
-      }
+    const base = context.parentURL ?? import.meta.url;
+    const info = findPkg(base);
+    if (info && info.name) {
+      const sub = specifier.slice(2).replace(/^\/+/, '');
+      // rewrite to a self-reference so tsx applies "exports" conditions
+      const rewritten = `${info.name}/${sub}`;
+      return next(rewritten, context);
     }
   }
-
   return next(specifier, context);
 }
