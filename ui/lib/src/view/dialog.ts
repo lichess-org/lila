@@ -6,6 +6,7 @@ import { frag } from '@/index';
 import { Janitor } from '@/event';
 import * as xhr from '@/xhr';
 import * as licon from '@/licon';
+import { pubsub } from '@/pubsub';
 
 export interface Dialog {
   readonly view: HTMLElement; // your content div
@@ -161,7 +162,7 @@ class DialogWrapper implements Dialog {
     readonly o: DialogOpts,
     readonly isSnab: boolean,
   ) {
-    site.polyfill.dialog?.(dialog); // ios < 15.4
+    site.polyfill.registerDialog?.(dialog); // ios < 15.4
 
     const justThen = Date.now();
     const cancelOnInterval = (e: PointerEvent) => {
@@ -215,7 +216,8 @@ class DialogWrapper implements Dialog {
     this.dialog.returnValue = v;
   }
 
-  show = (): Promise<Dialog> => {
+  show = async (): Promise<Dialog> => {
+    await pubsub.after('polyfill.dialog');
     if (this.o.modal) this.view.scrollTop = 0;
     if (this.isSnab) {
       if (this.dialog.parentElement === this.dialog.closest('.snab-modal-mask'))

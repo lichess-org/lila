@@ -31,7 +31,7 @@ import crazyView from '../crazy/crazyView';
 import { watchers } from 'lib/view/watchers';
 import type StudyCtrl from './studyCtrl';
 import { verticalResize } from 'lib/view/verticalResize';
-import { isTouchDevice, displayColumns, shareIcon } from 'lib/device';
+import { isTouchDevice, shareIcon } from 'lib/device';
 import { viewContext, renderBoard, renderMain, renderTools, renderUnderboard } from '../view/components';
 import { renderControls } from '../view/controls';
 
@@ -103,10 +103,7 @@ export function studySideNodes(ctrl: StudyCtrl, withSearch: boolean): LooseVNode
 
   const content = (activeTab === 'members' ? memberView : chapterView)(ctrl);
   const trailer = withSearch && sideTrailerNodes(ctrl);
-  return [
-    hl('div.study__side', [tabs, content, displayColumns() > 2 && trailer]),
-    displayColumns() < 3 && trailer,
-  ];
+  return [hl('div.study__side', [tabs, content, site.columns > 2 && trailer]), site.columns < 3 && trailer];
 }
 
 export function contextMenu(ctrl: StudyCtrl, path: Tree.Path, node: Tree.Node): VNode[] {
@@ -322,7 +319,7 @@ function metadata(ctrl: StudyCtrl): VNode {
 
 function sideTrailerNodes(study: StudyCtrl): LooseVNodes {
   const showChat = study.ctrl.chatCtrl && study?.data.settings.chat !== 'nobody';
-  const resizeId = !isTouchDevice() && displayColumns() > 2 && `studySide/${study?.data.id}`;
+  const resizeId = !isTouchDevice() && site.columns > 2 && `studySide/${study?.data.id}`;
   return [
     resizeId &&
       verticalResize({

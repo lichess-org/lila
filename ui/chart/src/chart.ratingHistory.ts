@@ -12,7 +12,7 @@ import {
   LineElement,
 } from 'chart.js';
 import type { PerfRatingHistory } from './interface';
-import { fontColor, fontFamily, gridColor, hoverBorderColor, tooltipBgColor, resizePolyfill } from './index';
+import { fontColor, fontFamily, gridColor, hoverBorderColor, tooltipBgColor } from './index';
 import 'chartjs-adapter-dayjs-4';
 import zoomPlugin from 'chartjs-plugin-zoom';
 import noUiSlider, { type Options, PipsMode } from 'nouislider';
@@ -39,7 +39,6 @@ type ChartPerf = {
 
 type TimeButton = 'all' | '1y' | 'YTD' | '6m' | '3m' | '1m';
 
-resizePolyfill();
 Chart.register(PointElement, LinearScale, TimeScale, Tooltip, LineController, LineElement, zoomPlugin);
 Chart.defaults.font = fontFamily();
 dayjs.extend(duration);
@@ -72,7 +71,7 @@ const oneDay = 24 * 60 * 60 * 1000;
 
 const dateFormat = memoize(() =>
   window.Intl && Intl.DateTimeFormat
-    ? new Intl.DateTimeFormat(site.displayLocale, {
+    ? new Intl.DateTimeFormat(site.locale, {
         month: 'short',
         day: '2-digit',
         year: 'numeric',

@@ -1,7 +1,6 @@
 import * as licon from 'lib/licon';
 import { finished, aborted, userAnalysable, playable } from 'lib/game';
 import * as util from '../util';
-import { displayColumns } from 'lib/device';
 import type RoundController from '../ctrl';
 import { throttle } from 'lib/async';
 import viewStatus from 'lib/game/view/status';
@@ -31,13 +30,13 @@ const autoScroll = throttle(100, (movesEl: HTMLElement, ctrl: RoundController) =
       const plyEl = movesEl.querySelector('.a1t') as HTMLElement | undefined;
       if (plyEl)
         st =
-          displayColumns() === 1
+          site.columns === 1
             ? plyEl.offsetLeft - movesEl.offsetWidth / 2 + plyEl.offsetWidth / 2
             : plyEl.offsetTop - movesEl.offsetHeight / 2 + plyEl.offsetHeight / 2;
     }
     if (typeof st === 'number') {
       if (st === scrollMax) movesEl.scrollLeft = movesEl.scrollTop = st;
-      else if (displayColumns() === 1) movesEl.scrollLeft = st;
+      else if (site.columns === 1) movesEl.scrollLeft = st;
       else movesEl.scrollTop = st;
     }
   }),
@@ -170,7 +169,7 @@ function renderButtons(ctrl: RoundController) {
 function initMessage(ctrl: RoundController) {
   const d = ctrl.data;
   return (
-    (ctrl.replayEnabledByPref() || displayColumns() > 1) &&
+    (ctrl.replayEnabledByPref() || site.columns > 1) &&
     playable(d) &&
     d.game.turns === 0 &&
     !d.player.spectator &&
@@ -213,7 +212,7 @@ export function render(ctrl: RoundController): LooseVNode {
             ctrl.autoScroll = () => autoScroll(el, ctrl);
             if (ctrl.ply > 2) {
               ctrl.autoScroll();
-              if (displayColumns() === 1) ctrl.autoScroll();
+              if (site.columns === 1) ctrl.autoScroll();
               /* On a phone, the first `autoScroll()` sometimes doesn't fully show the current move. It's possible this
                is due to some needed data not loading in time. The second `autoScroll()` fixes the issue, since the throttle
                ensures a min wait of 100ms. */
@@ -229,7 +228,7 @@ export function render(ctrl: RoundController): LooseVNode {
       renderButtons(ctrl),
       boardMenu(ctrl),
       initMessage(ctrl) ||
-        (displayColumns() === 1
+        (site.columns === 1
           ? hl('div.col1-moves', [
               col1Button(ctrl, -1, licon.JumpPrev, ctrl.ply === util.firstPly(d)),
               renderMovesOrResult,

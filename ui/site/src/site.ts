@@ -8,7 +8,8 @@ import { display as announceDisplay } from './announce';
 import { displayLocale } from 'lib/i18n';
 import sound from './sound';
 import { api } from 'lib/api';
-import { loadPolyfills } from './loadPolyfills';
+import { loadPolyfills } from './polyfill';
+import { addWindowHandlers } from './domHandlers';
 
 const site = window.site;
 // site.load is initialized in site.inline.ts (body script)
@@ -17,7 +18,7 @@ const site = window.site;
 // site.quietMode is set elsewhere
 // window.lichess is initialized in ui/api/src/api.ts
 site.sri = randomToken();
-site.displayLocale = displayLocale;
+site.locale = displayLocale;
 site.blindMode = document.body.classList.contains('blind-mode');
 site.mousetrap = new Mousetrap(document);
 site.powertip = powertip;
@@ -28,4 +29,6 @@ site.reload = reload;
 site.announce = announceDisplay;
 site.sound = sound;
 (window as any).lichess = api;
-loadPolyfills().then(() => site.load.then(boot));
+loadPolyfills(); // site.polyfill
+addWindowHandlers(); // site.columns
+site.load.then(boot);

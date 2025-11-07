@@ -14,7 +14,7 @@ import {
   renderTools,
   renderUnderboard,
 } from '@/view/components';
-import { displayColumns, isTouchDevice } from 'lib/device';
+import { isTouchDevice } from 'lib/device';
 import type RelayCtrl from './relayCtrl';
 import { renderControls } from '@/view/controls';
 
@@ -27,7 +27,7 @@ export function relayView(
   const ctx: RelayViewContext = { ...viewContext(ctrl, deps), study, deps, relay, allowVideo: allowVideo() };
 
   const renderTourView = () => {
-    const resizable = displayColumns() > (ctx.hasRelayTour ? 1 : 2);
+    const resizable = site.columns > (ctx.hasRelayTour ? 1 : 2);
 
     return [
       renderRelayTour(ctx),
@@ -97,7 +97,7 @@ export function allowVideo(): boolean {
 
 function renderBoardView(ctx: RelayViewContext) {
   const { ctrl, deps, study, gaugeOn, relay } = ctx;
-  const resizable = !isTouchDevice() && displayColumns() > 2;
+  const resizable = !isTouchDevice() && site.columns > 2;
   return [
     renderBoard(ctx),
     gaugeOn && cevalView.renderGauge(ctrl),

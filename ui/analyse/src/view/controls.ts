@@ -2,7 +2,7 @@ import { renderEval, view as cevalView } from 'lib/ceval';
 import { repeater, myUserId } from 'lib';
 import * as licon from 'lib/licon';
 import { type VNode, type LooseVNode, onInsert, hl } from 'lib/view';
-import { displayColumns, isTouchDevice } from 'lib/device';
+import { isTouchDevice } from 'lib/device';
 import { addPointerListeners } from 'lib/pointer';
 import * as control from '../control';
 import type AnalyseCtrl from '../ctrl';
@@ -44,7 +44,7 @@ export function renderControls(ctrl: AnalyseCtrl) {
             }),
           ]
         : [
-            displayColumns() === 1 && ctrl.isCevalAllowed() && renderMobileCevalTab(ctrl),
+            site.columns === 1 && ctrl.isCevalAllowed() && renderMobileCevalTab(ctrl),
             hl('button.fbt', {
               attrs: {
                 title: i18n.site.openingExplorerAndTablebase,
@@ -56,7 +56,7 @@ export function renderControls(ctrl: AnalyseCtrl) {
                 active: ctrl.activeControlBarTool() === 'opening-explorer',
               },
             }),
-            displayColumns() > 1 && !ctrl.retro && !ctrl.ongoing && renderPracticeTab(ctrl),
+            site.columns > 1 && !ctrl.retro && !ctrl.ongoing && renderPracticeTab(ctrl),
           ],
       hl('div.jumps', [
         (!isMobileUi() || ctrl.study?.practice) && jumpButton(licon.JumpFirst, 'first', canJumpPrev),
@@ -179,7 +179,7 @@ const jumpButton = (icon: string, effect: string, enabled: boolean): VNode =>
   hl('button.fbt.move', { class: { disabled: !enabled }, attrs: { 'data-act': effect, 'data-icon': icon } });
 
 function isMobileUi() {
-  return displayColumns() === 1 && isTouchDevice();
+  return site.columns === 1 && isTouchDevice();
 }
 
 function scrubHelp(ctrl: AnalyseCtrl) {

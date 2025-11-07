@@ -4,7 +4,37 @@ import topBar from './topBar';
 import { userComplete } from 'lib/view/userComplete';
 import { confirm } from 'lib/view';
 
-export function attachDomHandlers() {
+export function addWindowHandlers() {
+  window.addEventListener('resize', onResize);
+
+  let colCache: number | undefined;
+  let animFrame: number | undefined;
+
+  Object.defineProperties(site, {
+    displayColumns: {
+      get: () => {
+        if (colCache === undefined)
+          colCache = Number(window.getComputedStyle(document.body).getPropertyValue('---display-columns'));
+        return colCache;
+      },
+    },
+  });
+
+  function onResize() {
+    colCache = undefined;
+    if (!animFrame) animFrame = requestAnimationFrame(setViewportHeight);
+  }
+
+  function setViewportHeight() {
+    animFrame = undefined;
+    // ios safari vh behavior workaround
+    for (const el of document.querySelectorAll<HTMLElement>('dialog > div.scrollable')) {
+      el.attributeStyleMap.set('---viewport-height', `${window.innerHeight}px`);
+    }
+  }
+}
+
+export function addDomHandlers() {
   topBar();
 
   $('#main-wrap').on('click', '.copy-me__button', function (this: HTMLElement) {

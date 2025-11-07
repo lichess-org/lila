@@ -1,7 +1,6 @@
 import type { ClockElements, ClockCtrl } from './clockCtrl';
 import { hl, type VNode, type LooseVNodes, type Hooks } from '@/view';
 import type { TopOrBottom } from '../index';
-import { displayColumns } from '@/device';
 
 export function renderClock(
   ctrl: ClockCtrl,
@@ -112,7 +111,7 @@ function showBar(ctrl: ClockCtrl, color: Color) {
       el.style.transform = 'scale(' + ctrl.timeRatio(ctrl.millisOf(color)) + ',1)';
     }
   };
-  return displayColumns() === 1
+  return site.columns === 1
     ? undefined
     : hl('div.bar', {
         class: { berserk: ctrl.opts.hasGoneBerserk(color) },

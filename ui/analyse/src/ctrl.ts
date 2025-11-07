@@ -46,7 +46,6 @@ import type { PgnError } from 'chessops/pgn';
 import { ChatCtrl } from 'lib/chat/chatCtrl';
 import { confirm } from 'lib/view';
 import api from './api';
-import { displayColumns } from 'lib/device';
 
 export default class AnalyseCtrl implements CevalHandler {
   data: AnalyseData;
@@ -803,17 +802,13 @@ export default class AnalyseCtrl implements CevalHandler {
 
   showEvalGauge(): boolean {
     return (
-      this.showGauge() &&
-      displayColumns() > 1 &&
-      this.showAnalysis() &&
-      this.isCevalAllowed() &&
-      !this.outcome()
+      this.showGauge() && site.columns > 1 && this.showAnalysis() && this.isCevalAllowed() && !this.outcome()
     );
   }
 
   showCeval = (show?: boolean) => {
     const barMode = this.activeControlMode();
-    if (show === undefined) return displayColumns() > 1 || barMode === 'ceval' || barMode === 'practice';
+    if (show === undefined) return site.columns > 1 || barMode === 'ceval' || barMode === 'practice';
     this.ceval.showEnginePrefs(false);
     this.showCevalProp(show);
     if (show) this.cevalEnabled(true);

@@ -101,7 +101,7 @@ const statePush = (ctrl: RelayCtrl) =>
 
 const dateFormatter = memoize(
   () =>
-    new Intl.DateTimeFormat(site.displayLocale, {
+    new Intl.DateTimeFormat(site.locale, {
       month: 'short',
       day: 'numeric',
       hour: 'numeric',

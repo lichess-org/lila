@@ -16,7 +16,6 @@ import { viewContext, renderBoard, renderMain, renderTools, renderUnderboard } f
 import { wikiToggleBox } from '../wiki';
 import { watchers } from 'lib/view/watchers';
 import { renderChat } from 'lib/chat/renderChat';
-import { displayColumns } from 'lib/device';
 import { renderControls } from './controls';
 
 let resizeCache: {
@@ -86,15 +85,15 @@ function analyseView(ctrl: AnalyseCtrl, deps?: typeof studyDeps): VNode {
 
 function resizeHandler(ctrl: AnalyseCtrl) {
   window.addEventListener('resize', () => {
-    if (resizeCache.columns !== displayColumns()) ctrl.redraw();
-    resizeCache.columns = displayColumns();
+    if (resizeCache.columns !== site.columns) ctrl.redraw();
+    resizeCache.columns = site.columns;
 
     if (ctrl.study || resizeCache.columns < 3) return;
 
     resizeCache.chat ??= document.querySelector<HTMLElement>('.mchat');
     fixChatHeight(resizeCache.chat);
   });
-  return { columns: displayColumns(), chat: null, board: null, meta: null };
+  return { columns: site.columns, chat: null, board: null, meta: null };
 }
 
 function fixChatHeight(el: Node | null | undefined) {

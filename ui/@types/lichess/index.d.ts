@@ -33,7 +33,8 @@ interface Site {
   reload(err?: any): void;
   announce(d: LichessAnnouncement): void;
   sound: SoundI; // file://./../../site/src/sound.ts
-  displayLocale: string; // file://./../../common/src/i18n.ts
+  locale: string; // file://./../../common/src/i18n.ts
+  columns: number; // file://./../../site/src/domHandlers.ts
   blindMode: boolean;
   load: Promise<void>; // DOMContentLoaded promise
   quantity(n: number): 'zero' | 'one' | 'two' | 'few' | 'many' | 'other';
@@ -42,7 +43,7 @@ interface Site {
   // file://./../../.build/src/manifest.ts
   manifest: { css: Record<string, string>; js: Record<string, string>; hashed: Record<string, string> };
   polyfill: {
-    dialog?: (dialog: HTMLDialogElement) => void;
+    registerDialog?: (dialog: HTMLDialogElement) => void;
   };
 }
 

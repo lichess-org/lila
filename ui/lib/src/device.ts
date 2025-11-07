@@ -21,15 +21,6 @@ export const currentTheme = (): 'light' | 'dark' => {
   else return 'dark';
 };
 
-let colCache: number | undefined;
-window.addEventListener('resize', () => (colCache = undefined));
-
-export function displayColumns(): number {
-  if (colCache === undefined)
-    colCache = Number(window.getComputedStyle(document.body).getPropertyValue('---display-columns'));
-  return colCache;
-}
-
 const lowerAgent = navigator.userAgent.toLowerCase();
 
 export const isTouchDevice = (): boolean => !hasMouse(); // prefer isTouchDevice() to below matches

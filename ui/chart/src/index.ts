@@ -116,9 +116,6 @@ export function animation(duration: number): ChartOptions<'line'>['animations'] 
   };
 }
 
-export function resizePolyfill(): void {
-  if ('ResizeObserver' in window === false) site.asset.loadEsm('chart.resizePolyfill');
-}
 export const colorSeries: string[] = [
   '#2b908f',
   '#90ee7e',

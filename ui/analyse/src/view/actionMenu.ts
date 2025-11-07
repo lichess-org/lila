@@ -1,6 +1,5 @@
 import { isEmpty } from 'lib';
 import * as licon from 'lib/licon';
-import { displayColumns } from 'lib/device';
 import type { VNode, LooseVNodes, MaybeVNodes, ToggleSettings } from 'lib/view';
 import { domDialog, bind, dataIcon, hl, toggle } from 'lib/view';
 import type { AutoplayDelay } from '../autoplay';
@@ -120,7 +119,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
           },
           i18n.site.boardEditor,
         ),
-      displayColumns() === 1 &&
+      site.columns === 1 &&
         canPractice &&
         hl(
           'a',
@@ -162,7 +161,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
   ];
 
   const cevalConfig: LooseVNodes = ctrl.study?.isCevalAllowed() !== false && [
-    displayColumns() > 1 && hl('h2', i18n.site.computerAnalysis),
+    site.columns > 1 && hl('h2', i18n.site.computerAnalysis),
     ctrlToggle(
       {
         name: 'Show fishnet analysis',
@@ -183,7 +182,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
       },
       ctrl,
     ),
-    displayColumns() > 1 &&
+    site.columns > 1 &&
       ctrlToggle(
         {
           name: i18n.site.evaluationGauge,
@@ -196,7 +195,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
   ];
 
   const displayConfig = [
-    displayColumns() > 1 && hl('h2', 'Display'),
+    site.columns > 1 && hl('h2', 'Display'),
     ctrlToggle(
       {
         name: i18n.site.inlineNotation,
@@ -236,9 +235,9 @@ export function view(ctrl: AnalyseCtrl): VNode {
   return hl('div.action-menu', [
     tools,
     displayConfig,
-    displayColumns() > 1 && renderVariationOpacitySlider(ctrl),
+    site.columns > 1 && renderVariationOpacitySlider(ctrl),
     cevalConfig,
-    displayColumns() === 1 && renderVariationOpacitySlider(ctrl),
+    site.columns === 1 && renderVariationOpacitySlider(ctrl),
     ctrl.mainline.length > 4 && [hl('h2', i18n.site.replayMode), autoplayButtons(ctrl)],
     canContinue &&
       hl('div.continue-with.none.g_' + d.game.id, [

@@ -25,7 +25,7 @@ interface RelayChart extends chart.Chart {
 
 const dateFormat = memoize(() =>
   window.Intl && Intl.DateTimeFormat
-    ? new Intl.DateTimeFormat(site.displayLocale, {
+    ? new Intl.DateTimeFormat(site.locale, {
         year: 'numeric',
         month: 'short',
         day: '2-digit',

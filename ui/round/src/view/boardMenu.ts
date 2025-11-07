@@ -2,14 +2,14 @@ import { hl, type LooseVNode } from 'lib/view';
 import type RoundController from '../ctrl';
 import { boardMenu as menuDropdown, toggle as cmnToggle, boolPrefXhrToggle } from 'lib/view';
 import { toggle } from 'lib';
-import { displayColumns, isTouchDevice } from 'lib/device';
+import { isTouchDevice } from 'lib/device';
 import { storage } from 'lib/storage';
 
 export default function (ctrl: RoundController): LooseVNode {
   return menuDropdown(ctrl.redraw, ctrl.menu, menu => {
     const d = ctrl.data,
       spectator = d.player.spectator,
-      portraitMobile = displayColumns() === 1 && isTouchDevice(),
+      portraitMobile = site.columns === 1 && isTouchDevice(),
       swapClockStorage = storage.boolean('swapClock');
     return [
       hl('section', [

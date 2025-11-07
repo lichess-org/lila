@@ -10,7 +10,7 @@ import { renderMaterialDiffs } from 'lib/game/view/material';
 import { renderVoiceBar } from 'voice';
 import { playable } from 'lib/game';
 import { storage } from 'lib/storage';
-import { displayColumns, isTouchDevice } from 'lib/device';
+import { isTouchDevice } from 'lib/device';
 
 export function main(ctrl: RoundController): VNode {
   const d = ctrl.data,
@@ -31,7 +31,7 @@ export function main(ctrl: RoundController): VNode {
         'div.round__app.variant-' + d.game.variant.key,
         {
           class: {
-            'swap-clock': isTouchDevice() && displayColumns() === 1 && storage.boolean('swapClock').get(),
+            'swap-clock': isTouchDevice() && site.columns === 1 && storage.boolean('swapClock').get(),
           },
         },
         [
