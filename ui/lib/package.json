@@ -56,6 +56,20 @@
         "default": "./dist/game/index.js"
       }
     },
+    "./view": {
+      "types": "./dist/view/index.dts",
+      "import": {
+        "source": "./src/view/index.ts",
+        "default": "./dist/view/index.js"
+      }
+    },
+    "./tree": {
+      "types": "./dist/tree/index.dts",
+      "import": {
+        "source": "./src/tree/index.ts",
+        "default": "./dist/tree/index.js"
+      }
+    },
     "./*": {
       "types": "./*.d.ts",
       "import": {

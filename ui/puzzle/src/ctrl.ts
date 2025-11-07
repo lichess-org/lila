@@ -14,7 +14,7 @@ import type {
   PuzzleRound,
   RoundThemes,
 } from './interfaces';
-import { build as treeBuild, ops as treeOps, path as treePath, type TreeWrapper } from 'lib/tree/tree';
+import { makeTree, treeOps, treePath, type TreeWrapper } from 'lib/tree';
 import { Chess, normalizeMove } from 'chessops/chess';
 import { chessgroundDests, scalachessCharPair } from 'chessops/compat';
 import { CevalCtrl } from 'lib/ceval';
@@ -28,13 +28,12 @@ import { pgnToTree, mergeSolution, nextCorrectMove } from './moveTree';
 import { PromotionCtrl } from 'lib/game/promotion';
 import type { Role, Move, Outcome } from 'chessops/types';
 import { type StoredProp, storedBooleanProp, storedBooleanPropWithEffect, storage } from 'lib/storage';
-import { fromNodeList } from 'lib/tree/path';
 import Report from './report';
 import { last } from 'lib/tree/ops';
 import { uciToMove } from '@lichess-org/chessground/util';
 import type { CevalHandler } from 'lib/ceval/types';
 import { pubsub } from 'lib/pubsub';
-import { alert } from 'lib/view/dialogs';
+import { alert } from 'lib/view';
 import { type WithGround } from 'lib/game/ground';
 
 export default class PuzzleCtrl implements CevalHandler {
@@ -212,7 +211,7 @@ export default class PuzzleCtrl implements CevalHandler {
 
   initiate = (fromData: PuzzleData): void => {
     this.data = fromData;
-    this.tree = treeBuild(pgnToTree(this.data.game.pgn.split(' ')));
+    this.tree = makeTree(pgnToTree(this.data.game.pgn.split(' ')));
     const initialPath = treePath.fromNodeList(treeOps.mainlineNodeList(this.tree.root));
     this.mode = 'play';
     this.next = defer();
@@ -590,7 +589,7 @@ export default class PuzzleCtrl implements CevalHandler {
     let maxValidPly = this.mainline.length - 1;
     if (last(this.mainline)?.puzzle === 'fail' && this.mode != 'view') maxValidPly -= 1;
     const newPly = Math.min(Math.max(this.node.ply + plyDelta, 0), maxValidPly);
-    this.userJump(fromNodeList(this.mainline.slice(0, newPly + 1)));
+    this.userJump(treePath.fromNodeList(this.mainline.slice(0, newPly + 1)));
   };
 
   toggleHint = (): void => {

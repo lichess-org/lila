@@ -1,7 +1,7 @@
-import { type VNode, bind, dataIcon, hl, onInsert } from 'lib/snabbdom';
+import { type VNode, bind, dataIcon, hl, onInsert } from 'lib/view';
 import { json as xhrJson } from 'lib/xhr';
 import * as licon from 'lib/licon';
-import { spinnerVdom as spinner } from 'lib/view/controls';
+import { spinnerVdom as spinner } from 'lib/view';
 import type { RelayTour, RoundId, TourId } from './interfaces';
 import { playerFed } from '../playerBars';
 import { userTitle } from 'lib/view/userLink';

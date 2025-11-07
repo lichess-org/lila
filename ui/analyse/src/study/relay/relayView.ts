@@ -1,6 +1,6 @@
 import { view as cevalView } from 'lib/ceval';
 import { onClickAway } from 'lib';
-import { bind, dataIcon, hl, onInsert, type VNode } from 'lib/snabbdom';
+import { bind, dataIcon, hl, onInsert, type VNode } from 'lib/view';
 import * as licon from 'lib/licon';
 import type AnalyseCtrl from '@/ctrl';
 import { view as keyboardView } from '@/keyboard';

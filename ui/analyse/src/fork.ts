@@ -1,5 +1,5 @@
 import { defined } from 'lib';
-import { onInsert, hl } from 'lib/snabbdom';
+import { onInsert, hl } from 'lib/view';
 import type AnalyseCtrl from './ctrl';
 import type { ConcealOf } from './interfaces';
 import { renderIndexAndMove } from './view/components';

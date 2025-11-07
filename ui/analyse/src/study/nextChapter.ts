@@ -1,6 +1,6 @@
 import { h } from 'snabbdom';
 import * as licon from 'lib/licon';
-import { bind } from 'lib/snabbdom';
+import { bind } from 'lib/view';
 import type AnalyseCtrl from '../ctrl';
 import { ops as treeOps } from 'lib/tree/tree';
 

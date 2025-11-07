@@ -4,7 +4,7 @@ import type { PuzzleId, ThemeKey } from './interfaces';
 import { winningChances } from 'lib/ceval';
 import * as licon from 'lib/licon';
 import { type StoredProp, storedIntProp } from 'lib/storage';
-import { domDialog } from 'lib/view/dialog';
+import { domDialog } from 'lib/view';
 import { plyToTurn, pieceCount } from 'lib/game/chess';
 
 // bump when logic is changed, to distinguish cached clients from new ones

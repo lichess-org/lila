@@ -1,8 +1,10 @@
-import { h, type VNode } from 'snabbdom';
+/* eslint no-restricted-syntax:"error" */ // no side effects allowed due to re-export by index.ts
+
+import { h } from 'snabbdom';
 import { type Toggle, myUserId, onClickAway } from '@/index';
 import { addPointerListeners } from '@/pointer';
 import * as licon from '@/licon';
-import { type MaybeVNode, type MaybeVNodes, dataIcon, onInsert } from '@/snabbdom';
+import { type MaybeVNode, type MaybeVNodes, type VNode, dataIcon, onInsert } from './snabbdom';
 import { type ToggleSettings, toggle } from '@/view/controls';
 import { pubsub } from '@/pubsub';
 

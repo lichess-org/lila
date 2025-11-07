@@ -1,5 +1,5 @@
 import { h, type VNode } from 'snabbdom';
-import { onInsert, type MaybeVNodes } from 'lib/snabbdom';
+import { onInsert, type MaybeVNodes } from 'lib/view';
 import * as created from './created';
 import * as started from './started';
 import * as finished from './finished';

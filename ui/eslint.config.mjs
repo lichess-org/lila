@@ -1,47 +1,51 @@
 import typescriptEslint from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
 import compat from 'eslint-plugin-compat';
+import imports from 'eslint-plugin-import';
+
+const barrelHint = 'This script must remain side-effect free.';
+
+function sideEffects(action) {
+  return {
+    'no-restricted-syntax': [
+      action,
+      {
+        selector: 'Program > ImportDeclaration[importKind!="type"][specifiers.length=0]',
+        message: `${barrelHint} No side-effect imports`,
+      },
+      {
+        selector: 'Program > ExpressionStatement:not([directive])',
+        message: `${barrelHint} No top-level expressions in index.ts`,
+      },
+      {
+        selector: 'Program > ExpressionStatement > CallExpression',
+        message: `${barrelHint} No top-level calls in index.ts`,
+      },
+      {
+        selector: 'Program > ExpressionStatement > NewExpression',
+        message: `${barrelHint} No top-level new in index.ts`,
+      },
+      {
+        selector: 'Program > ExpressionStatement > AwaitExpression',
+        message: `${barrelHint} No top-level await in index.ts`,
+      },
+      {
+        selector:
+          'Program > VariableDeclaration > VariableDeclarator[init.type=/^(CallExpression|NewExpression|UpdateExpression|AssignmentExpression|AwaitExpression|TaggedTemplateExpression)$/]',
+        message: `${barrelHint} No side-effectful initializers in index.ts`,
+      },
+    ],
+  };
+}
 
 export default [
   { ignores: ['*', '!ui/', '!bin/', '**/dist/'] },
   {
-    files: ['**/index.ts'],
-    rules: {
-      'no-restricted-syntax': [
-        'error',
-        {
-          selector: 'Program > ImportDeclaration[importKind!="type"][specifiers.length=0]',
-          message: 'No side-effect imports in index.ts',
-        },
-        {
-          selector: 'Program > ExpressionStatement:not([directive])',
-          message: 'No top-level expressions in index.ts',
-        },
-        {
-          selector: 'Program > ExpressionStatement > CallExpression',
-          message: 'No top-level calls in index.ts',
-        },
-        {
-          selector: 'Program > ExpressionStatement > NewExpression',
-          message: 'No top-level new in index.ts',
-        },
-        {
-          selector: 'Program > ExpressionStatement > AwaitExpression',
-          message: 'No top-level await in index.ts',
-        },
-        {
-          selector:
-            'Program > VariableDeclaration > VariableDeclarator[init.type=/^(CallExpression|NewExpression|UpdateExpression|AssignmentExpression|AwaitExpression|TaggedTemplateExpression)$/]',
-          message: 'No side-effectful initializers in index.ts',
-        },
-      ],
-    },
-  },
-  {
-    files: ['**/*.{ts,mts}'],
-    plugins: { '@typescript-eslint': typescriptEslint, compat },
+    files: ['**/*.{ts,mts,mjs}'],
+    plugins: { '@typescript-eslint': typescriptEslint, compat, imports },
     languageOptions: { parser: tsParser, ecmaVersion: 5, sourceType: 'module' },
     rules: {
+      ...sideEffects('off'),
       'compat/compat': 'warn',
       '@typescript-eslint/no-empty-interface': 'off',
       '@typescript-eslint/explicit-module-boundary-types': 'off',
@@ -49,6 +53,7 @@ export default [
       '@typescript-eslint/no-non-null-assertion': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-this-alias': 'off',
+      'imports/no-duplicates': ['error'],
       '@typescript-eslint/no-unused-vars': [
         'warn',
         { varsIgnorePattern: '^_', argsIgnorePattern: '^_', caughtErrorsIgnorePattern: '^_' },
@@ -57,7 +62,6 @@ export default [
       'prefer-const': 'error',
       'prefer-spread': 'off',
       'prefer-rest-params': 'off',
-      'no-duplicate-imports': 'error',
       'no-useless-escape': 'off',
       'no-var': 'warn',
       'no-async-promise-executor': 'warn',
@@ -234,6 +238,12 @@ export default [
         'webkitResolveLocalFileSystemURL',
         'webkitStorageInfo',
       ],
+    },
+  },
+  {
+    files: ['**/index.ts'],
+    rules: {
+      ...sideEffects('error'),
     },
   },
 ];

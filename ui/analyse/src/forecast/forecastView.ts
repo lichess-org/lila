@@ -1,10 +1,9 @@
 import { h, type VNode } from 'snabbdom';
 import * as licon from 'lib/licon';
-import { bind, dataIcon } from 'lib/snabbdom';
+import { bind, dataIcon, spinnerVdom as spinner } from 'lib/view';
 import type { ForecastStep } from './interfaces';
 import type AnalyseCtrl from '../ctrl';
 import { renderNodesHtml } from '../pgnExport';
-import { spinnerVdom as spinner } from 'lib/view/controls';
 import { fixCrazySan } from 'lib/game/chess';
 import type ForecastCtrl from './forecastCtrl';
 import { playable } from 'lib/game';

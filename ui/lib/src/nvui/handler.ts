@@ -3,7 +3,7 @@ import { parseFen } from 'chessops/fen';
 import { chessgroundDests, lichessRules } from 'chessops/compat';
 import { setupPosition } from 'chessops/variant';
 import { charToRole, opposite, parseUci } from 'chessops/util';
-import { destsToUcis, sanToUci, sanWriter } from '../game/chess';
+import { destsToUcis, sanToUci, sanWriter } from '@/game/index';
 import { renderPieceStr, keyFromAttrs, isKey, pieceStr } from './render';
 import type { PieceStyle, PrefixStyle } from './setting';
 

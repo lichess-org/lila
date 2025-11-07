@@ -1,8 +1,7 @@
-import { hl } from 'lib/snabbdom';
+import { hl, alert } from 'lib/view';
 import * as licon from 'lib/licon';
 import Peer from 'peerjs';
 import { pubsub } from 'lib/pubsub';
-import { alert } from 'lib/view/dialogs';
 import type { VoiceChat } from 'lib/chat/interfaces';
 
 type State =

@@ -1,6 +1,6 @@
 import { view as cevalView } from 'lib/ceval';
 import * as licon from 'lib/licon';
-import { type VNode, onInsert, hl } from 'lib/snabbdom';
+import { type VNode, onInsert, hl } from 'lib/view';
 import { playable } from 'lib/game';
 import * as router from 'lib/game/router';
 import { render as trainingView } from './roundTraining';
