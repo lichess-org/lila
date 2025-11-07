@@ -70,7 +70,7 @@ export interface PubsubEvents {
   zen: () => void;
 }
 
-export type PubsubOneTimeEvent = 'dialog.polyfill' | 'socket.hasConnected' | 'botdev.images.ready';
+export type PubsubOneTimeEvent = 'polyfill.dialog' | 'socket.hasConnected' | 'botdev.images.ready';
 
 export class Pubsub {
   private allSubs: Map<keyof PubsubEvents, Set<PubsubEvents[keyof PubsubEvents]>> = new Map();

@@ -1,7 +1,7 @@
 import { type VNode, type VNodeChildren, h } from 'snabbdom';
 import { renderPieceKeys, renderPiecesOn, type MoveStyle } from './chess';
 import type { Pieces } from '@lichess-org/chessground/types';
-import { memoize } from '../index';
+import { memoize } from '@/common';
 
 interface Command {
   help: VNode | string;

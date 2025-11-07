@@ -2,6 +2,8 @@ import type { GameData, Player } from './interfaces';
 import { finished, aborted, status } from './status';
 
 export type * from './interfaces';
+export * from './sanWriter';
+export * from './chess';
 
 export type { StatusName, Status, StatusId } from './status';
 export { status, statusOf, started, finished, aborted, playing } from './status';

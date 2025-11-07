@@ -5,7 +5,7 @@ import { type BotInfo } from 'lib/bot/types';
 import { BotLoader } from 'lib/bot/botLoader';
 import { setupView } from './setup/view/setupView';
 import { playView } from './play/view/playView';
-import { alert } from 'lib/view/dialogs';
+import { alert } from 'lib/view';
 import { opposite } from 'chessops';
 import { Game } from './game';
 import { debugCli } from './debug';

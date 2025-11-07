@@ -1,20 +1,20 @@
-import { fenToEpd, readDests, readDrops, validUci } from 'lib/game/chess';
-import { playable, playedTurns } from 'lib/game';
+import { playable, playedTurns, fenToEpd, readDests, readDrops, validUci } from 'lib/game';
 import * as keyboard from './keyboard';
 import { treeReconstruct, plyColor } from './util';
 import { plural } from './view/util';
-import { debounce, throttle } from 'lib/async';
 import type GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
 import type StudyCtrl from './study/studyCtrl';
 import type { AnalyseOpts, AnalyseData, ServerEvalData, JustCaptured, NvuiPlugin } from './interfaces';
 import type { Api as ChessgroundApi } from '@lichess-org/chessground/api';
 import { Autoplay, type AutoplayDelay } from './autoplay';
-import { build as makeTree, path as treePath, ops as treeOps, type TreeWrapper } from 'lib/tree/tree';
+import { makeTree, treePath, treeOps, type TreeWrapper } from 'lib/tree';
 import { compute as computeAutoShapes } from './autoShape';
 import type { Config as ChessgroundConfig } from '@lichess-org/chessground/config';
-import { CevalCtrl, isEvalBetter, sanIrreversible, type EvalMeta, type CevalOpts } from 'lib/ceval';
+import type { CevalHandler, EvalMeta, CevalOpts } from 'lib/ceval';
+import { CevalCtrl, isEvalBetter, sanIrreversible } from 'lib/ceval';
 import { TreeView } from './treeView/treeView';
-import { defined, prop, type Prop, toggle, type Toggle, requestIdleCallback, propWithEffect } from 'lib';
+import type { Prop, Toggle } from 'lib';
+import { defined, prop, toggle, debounce, throttle, requestIdleCallback, propWithEffect } from 'lib';
 import { pubsub } from 'lib/pubsub';
 import type { DrawShape } from '@lichess-org/chessground/draw';
 import { lichessRules } from 'chessops/compat';
@@ -44,9 +44,8 @@ import { type ArrowKey, type KeyboardMove, ctrl as makeKeyboardMove } from 'keyb
 import * as control from './control';
 import type { PgnError } from 'chessops/pgn';
 import { ChatCtrl } from 'lib/chat/chatCtrl';
-import { confirm } from 'lib/view/dialogs';
+import { confirm } from 'lib/view';
 import api from './api';
-import type { CevalHandler } from 'lib/ceval/types';
 import { displayColumns } from 'lib/device';
 
 export default class AnalyseCtrl implements CevalHandler {

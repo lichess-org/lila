@@ -2,10 +2,9 @@ import { assetUrl } from './util';
 import { categs } from './stage/list';
 import type { SideCtrl } from './sideCtrl';
 import { h } from 'snabbdom';
-import { bind } from 'lib/snabbdom';
+import { bind, confirm } from 'lib/view';
 import { BASE_LEARN_PATH, hashHref } from './hashRouting';
 import type { LearnCtrl } from './ctrl';
-import { confirm } from 'lib/view/dialogs';
 
 export function mapSideView(ctrl: LearnCtrl) {
   if (ctrl.inStage()) return renderInStage(ctrl.sideCtrl);

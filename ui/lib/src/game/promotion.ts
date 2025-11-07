@@ -1,6 +1,6 @@
 import { h } from 'snabbdom';
 import { AutoQueen } from '../prefs';
-import { type MaybeVNode, bind, onInsert } from '../snabbdom';
+import { type MaybeVNode, bind, onInsert } from '@/view';
 import type { DrawShape } from '@lichess-org/chessground/draw';
 import { opposite, key2pos } from '@lichess-org/chessground/util';
 import type { MoveMetadata } from '@lichess-org/chessground/types';

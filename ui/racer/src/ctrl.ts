@@ -41,7 +41,7 @@ export default class RacerCtrl implements PuzCtrl {
   countdown: Countdown;
   boost: Boost = new Boost();
   skipAvailable = true;
-  knowsSkip = storedBooleanProp('racer.skip', false);
+  knowsSkip: Prop<boolean> = storedBooleanProp('racer.skip', false);
   ground: Prop<CgApi | false> = prop<CgApi | false>(false);
   flipped = false;
   redrawInterval: Timeout;

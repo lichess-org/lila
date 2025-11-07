@@ -1,5 +1,5 @@
 import { h, type VNode } from 'snabbdom';
-import { spinnerVdom as spinner } from 'lib/view/controls';
+import { spinnerVdom as spinner } from 'lib/view';
 import type MsgCtrl from '../ctrl';
 import renderConvo from './convo';
 import renderContact from './contact';

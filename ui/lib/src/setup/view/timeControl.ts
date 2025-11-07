@@ -1,5 +1,5 @@
 import type { Prop } from '@/index';
-import { hl, type VNode } from '@/snabbdom';
+import { hl, type VNode } from '@/view';
 import type { InputValue } from '../interfaces';
 import {
   timeModes,

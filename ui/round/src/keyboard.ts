@@ -1,6 +1,6 @@
 import type RoundController from './ctrl';
 import type { VNode } from 'snabbdom';
-import { snabDialog } from 'lib/view/dialog';
+import { snabDialog } from 'lib/view';
 import { pubsub } from 'lib/pubsub';
 
 export const prev = (ctrl: RoundController): void => ctrl.userJump(ctrl.ply - 1);

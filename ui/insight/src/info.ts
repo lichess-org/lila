@@ -1,11 +1,10 @@
 import * as licon from 'lib/licon';
-import { onInsert } from 'lib/snabbdom';
+import { onInsert, spinnerHtml } from 'lib/view';
 import { numberFormat } from 'lib/i18n';
 import { userLink } from 'lib/view/userLink';
 import { h } from 'snabbdom';
 import type Ctrl from './ctrl';
 import { registerFormHandler } from './insight';
-import { spinnerHtml } from 'lib/view/controls';
 
 const shareStates = ['nobody', 'friends only', 'everybody'];
 

@@ -41,7 +41,7 @@ export interface TreeWrapper {
   ): boolean;
 }
 
-export function build(root: Tree.Node): TreeWrapper {
+export function makeTree(root: Tree.Node): TreeWrapper {
   const lastNode = (): MaybeNode => ops.findInMainline(root, (node: Tree.Node) => !node.children.length);
 
   const nodeAtPath = (path: Tree.Path): Tree.Node => nodeAtPathFrom(root, path);

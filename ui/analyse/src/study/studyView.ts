@@ -5,7 +5,7 @@ import * as licon from 'lib/licon';
 import type * as studyDeps from '../study/studyDeps';
 import type AnalyseCtrl from '../ctrl';
 import type { Tab, ToolTab } from './interfaces';
-import { type VNode, iconTag, bind, dataIcon, type LooseVNodes, onInsert, hl } from 'lib/snabbdom';
+import { type VNode, iconTag, bind, dataIcon, type LooseVNodes, onInsert, hl } from 'lib/view';
 import { playButtons as gbPlayButtons, overrideButton as gbOverrideButton } from './gamebook/gamebookButtons';
 import { view as chapterEditFormView } from './chapterEditForm';
 import { view as chapterNewFormView } from './chapterNewForm';
