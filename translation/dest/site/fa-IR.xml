@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">برای دعوت یک نفر به بازی، این آدرس را به او بدهید</string>
+  <string name="gameSetup">بَرپایشِ بازی</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">دعوت به بازی</string>
+  <string name="playAgainstComputer">بازی با رایانه</string>
+  <string name="gameMode">حالتِ بازی</string>
+  <string name="createLobbyGame">ایجاد بازی در سَرسَرا</string>
+  <string name="youPlayAs">رنگِ مُهرهٔ شما</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">برای دعوت کسی به بازی، این وب‌نشانی را دهید</string>
   <string name="gameOver">پایان بازی</string>
   <string name="waitingForOpponent">انتطار برای حریف</string>
   <string name="orLetYourOpponentScanQrCode">یا از حریفتان بخواهید این کد QR را اسکن کندl</string>
@@ -16,8 +22,8 @@
   <string name="stalemate">پات</string>
   <string name="white">سفید</string>
   <string name="black">سیاه</string>
-  <string name="asWhite">به عنوان سفید</string>
-  <string name="asBlack">به عنوان سیاه</string>
+  <string name="asWhite">با مهرهٔ سفید</string>
+  <string name="asBlack">با مهرهٔ سیاه</string>
   <string name="randomColor">رنگ تصادفی</string>
   <string name="createAGame">ایجاد بازی</string>
   <string name="createTheGame">ایجاد بازی</string>
@@ -339,6 +345,7 @@
     <item quantity="other">%s بازیِ اکنونی</item>
   </plurals>
   <string name="exportGames">برون‏بُرد بازی‌ها</string>
+  <string name="ratingFilter">پالاگرِ درجه‌بندی</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">%s ثانیه اضافه کن</item>
     <item quantity="other">%s ثانیه اضافه کن</item>
@@ -394,6 +401,7 @@
     <item quantity="other">شما باید%s بازی رسمی دیگر انجام دهید.</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">درجه‌بندی %s شما موقتی است</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">پالاگرهای درجه‌بندی قفل شده‌اند زیرا درجه‌بندی‌تان پایدار نیست. انجامِ بازی‌های رسمی، پایداری را می‌اَفزایند.</string>
   <string name="yourPerfRatingIsTooHigh">درجه‌بندی %1$s شما (%2$s) بیش از حد بالاست</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">درجه‌بندی %1$s هفتگی‌تان (%2$s) بیش از حد بالاست</string>
   <string name="yourPerfRatingIsTooLow">درجه‌بندی %1$s شما (%2$s) بیش از حد پایین است</string>
@@ -409,7 +417,7 @@
   <string name="xStartedStreaming">%s جریان‌سازی را آغازید</string>
   <string name="averageElo">میانگین درجه‌بندی</string>
   <string name="location">محل</string>
-  <string name="filterGames">پالابش بازی‌ها</string>
+  <string name="filterGames">پالاگرِ بازی‌ها</string>
   <string name="reset">بازنشانی</string>
   <string name="apply">تایید</string>
   <string name="save">ذخیره</string>
@@ -822,6 +830,7 @@
   <string name="notifications">اعلان</string>
   <string name="notificationsX">اعلان: %1$s</string>
   <string name="perfRatingX">درجه‌بندی: %s</string>
+  <string name="yourRatingIsX">درجه‌بندی‌تان %s است</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s ثانیه برای شروع اولین حرکت</item>
     <item quantity="other">%s ثانیه برای شروع اولین حرکت</item>
