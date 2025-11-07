@@ -71,7 +71,7 @@ function knightMovesTo(s: number) {
 
 const ROOK_DELTAS = [8, 1, -8, -1];
 const BISHOP_DELTAS = [9, -9, 7, -7];
-const QUEEN_DELTAS = ROOK_DELTAS.concat(BISHOP_DELTAS);
+const QUEEN_DELTAS = [...ROOK_DELTAS, ...BISHOP_DELTAS];
 
 function slidingMovesTo(s: number, deltas: number[], board: Board): number[] {
   const result: number[] = [];
