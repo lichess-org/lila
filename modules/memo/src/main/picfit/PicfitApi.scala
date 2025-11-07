@@ -68,7 +68,7 @@ final class PicfitApi(
         .flatMap { _.result[PicfitImage].so(picfitServer.delete) }
 
   def deleteByRel(rel: String): Funit =
-    if !rel.has(':') then fuccess(s"PicFitApi.deleteByRel not gonna delete $rel")
+    if !rel.has(':') then fufail(s"PicFitApi.deleteByRel not gonna delete $rel")
     else
       coll
         .findAndRemove($doc("rel" -> rel))
