@@ -882,6 +882,7 @@
   <string name="playVariationToCreateConditionalPremoves">بازی کردن یک وَرتِش، برای ایجاد پیش‌حرکت‌های شرطی</string>
   <string name="noConditionalPremoves">بدون پیش‌حرکت‌های شرطی</string>
   <string name="playX">%s را انجام دهید</string>
+  <string name="challengeX">پیشنهادِ بازی با %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">و پیش حرکت %s را حفظ کنید</item>
     <item quantity="other">و پیش حرکت های %s را حفظ کنید</item>
@@ -974,6 +975,7 @@
   <string name="simulFeaturedHelp">بازی هم‌زمان خود را برای همه بر روی لینک %s نشان بدهید. برای دسترسی خصوصی آن را غیرفعال نمایید.</string>
   <string name="simulDescription">توصیف بازی هم‌زمان</string>
   <string name="simulDescriptionHelp">آیا می‌خواهید مطلبی را به شرکت‌کنندگان بگویید؟</string>
+  <string name="markdownIsAvailable">امکان %s برای قالب‌دِهی وجود دارد.</string>
   <string name="embedsAvailable">وب‌نشانی بازی یا وب‌نشانی بخشی از مطالعه را، برای جاسازی آن، جایگذاری کنید.</string>
   <string name="inYourLocalTimezone">ذر منطقه زمانی شما</string>
   <string name="tournChat">چت مسابقه</string>
@@ -1013,4 +1015,9 @@
   <string name="enableBlindMode">فعال‌سازی حالت نابینایی</string>
   <string name="disableBlindMode">غیرفعال سازی حالت نابینایی</string>
   <string name="copyToClipboard">کپی در کلیپ‌بورد</string>
+  <string name="online" comment="status of a user">بَرخط</string>
+  <string name="offline" comment="status of a user">بُرون‌خط</string>
+  <string name="search">جستجو</string>
+  <string name="clearSearch">پاکیدنِ جستجو</string>
+  <string name="tags">برچسب‌ها</string>
 </resources>
