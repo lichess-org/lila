@@ -1,9 +1,9 @@
+/* eslint no-restricted-syntax:"error" */ // no side effects allowed due to re-export by index.ts
+
 import { uciChar } from './uciChar';
 import { shuffle } from '../algo';
 import { normalizeMove } from 'chessops/chess';
 import { type Chess, type NormalMove, parseUci, makeUci } from 'chessops';
-
-export * from './sanWriter';
 
 export const fixCrazySan = (san: San): San => (san[0] === 'P' ? san.slice(1) : san);
 

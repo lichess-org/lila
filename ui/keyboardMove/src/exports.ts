@@ -1,4 +1,4 @@
-import type { SanToUci } from 'lib/game/chess';
+import type { SanToUci } from 'lib/game';
 import { type Prop, propWithEffect } from 'lib';
 import type { MoveRootCtrl, MoveUpdate } from 'lib/game/moveRootCtrl';
 import KeyboardChecker from '@/keyboardChecker';
