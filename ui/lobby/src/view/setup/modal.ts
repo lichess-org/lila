@@ -70,7 +70,7 @@ const views = {
   ],
   ai: (ctrl: LobbyController): LooseVNodes => [
     hl('div.config-group', [variantPicker(ctrl), fenInput(ctrl)]),
-    timePickerAndSliders(ctrl.setupCtrl.timeControl),
+    timePickerAndSliders(ctrl.setupCtrl.timeControl, ctrl.setupCtrl.minimumTimeIfReal()),
     levelButtons(ctrl),
     colorButtons(ctrl),
   ],

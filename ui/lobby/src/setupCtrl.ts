@@ -253,7 +253,10 @@ export default class SetupController {
     });
 
   validFen = (): boolean => this.variant() !== 'fromPosition' || (!this.fenError && !!this.fen());
-  valid = (): boolean => this.validFen() && this.timeControl.valid();
+
+  valid = (): boolean => this.validFen() && this.timeControl.valid(this.minimumTimeIfReal());
+
+  minimumTimeIfReal = (): number => this.gameType === 'ai' && this.variant() === 'fromPosition' ? 1 : 0;
 
   submit = async () => {
     const color = this.color();
