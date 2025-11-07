@@ -1,2 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="selectTagsToFilter">برچسب‌ها را برای پالایشِ فیلم‌ها برگزینید.</string>
+  <string name="xWithTagsY" comment="%1$s is the number of videos found.&#10;&#10;%2$s is a list of tags.&#10;&#10;Appears when filtering for videos by tag.">%1$s تا با برچسب‌های %2$s</string>
+</resources>
