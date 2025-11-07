@@ -189,6 +189,7 @@ export interface Pref {
   clockBar: boolean;
   clockSound: boolean;
   clockTenths: Prefs.ShowClockTenths;
+  clockFlash: boolean;
   confirmResign: boolean;
   coords: Prefs.Coords;
   destination: boolean;
