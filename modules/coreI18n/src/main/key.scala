@@ -1165,6 +1165,7 @@ object I18nKey:
     val `whenTimeRemainingLessThanTenSeconds`: I18nKey = "preferences:whenTimeRemainingLessThanTenSeconds"
     val `horizontalGreenProgressBars`: I18nKey = "preferences:horizontalGreenProgressBars"
     val `soundWhenTimeGetsCritical`: I18nKey = "preferences:soundWhenTimeGetsCritical"
+    val `visualLowTimeWarning`: I18nKey = "preferences:visualLowTimeWarning"
     val `giveMoreTime`: I18nKey = "preferences:giveMoreTime"
     val `gameBehavior`: I18nKey = "preferences:gameBehavior"
     val `howDoYouMovePieces`: I18nKey = "preferences:howDoYouMovePieces"

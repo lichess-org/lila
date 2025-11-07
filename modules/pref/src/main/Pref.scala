@@ -375,7 +375,6 @@ object Pref:
       ALWAYS -> "Always"
     )
 
-
   object Challenge:
     import lila.core.pref.Challenge.*
 
