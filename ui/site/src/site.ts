@@ -27,5 +27,5 @@ site.redirect = redirect;
 site.reload = reload;
 site.announce = announceDisplay;
 site.sound = sound;
-site.load.then(() => Promise.all([boot, loadPolyfills]));
 (window as any).lichess = api;
+loadPolyfills().then(() => site.load.then(boot));
