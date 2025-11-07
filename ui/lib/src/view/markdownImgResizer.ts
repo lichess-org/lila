@@ -126,12 +126,12 @@ export async function naturalSize(image: Blob): Promise<{ width: number; height:
 
 export function markdownPicfitRegex(origin: string = ''): RegExp {
   return new RegExp(
-    String.raw`!\[([^\n\]]*)\]\((${regexQuote(origin)}[^)\s]+[?&]path=([a-z]\w+:[a-z0-9_-]{12}\.\w{3,4})[^)]*)\)`,
+    String.raw`!\[([^\n\]]*)\]\((${regexQuote(origin)}[^)\s]+[?&]path=([a-z]\w+:[-_a-z0-9]{12}\.\w{3,4})[^)]*)\)`,
     'gi',
   );
 }
 
-const imageIdRe = /&path=([a-z]\w+:[a-z0-9]{12}:[a-z0-9]{8}\.\w{3,4})&/i;
+const imageIdRe = /&path=([a-z]\w+:[-_a-z0-9]{12}\.\w{3,4})&/i;
 
 async function urlUpdate(img: HTMLImageElement, update: Extract<UpdateImageHook, { url: unknown }>) {
   const imageId = img.src.match(imageIdRe)?.[1];

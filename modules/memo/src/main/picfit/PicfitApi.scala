@@ -69,7 +69,7 @@ final class PicfitApi(
         .flatMap { _.result[PicfitImage].so(picfitServer.delete) }
 
   def deleteByRel(rel: String): Funit =
-    if !rel.contains(":") then fuccess(s"PicFitApi.deleteByRel not gonna delete $rel")
+    if !rel.has(':') then fuccess(s"PicFitApi.deleteByRel not gonna delete $rel")
     else
       coll
         .findAndRemove($doc("rel" -> rel))
@@ -149,12 +149,10 @@ final class PicfitApi(
               .one(image)
               .flatMap: _ =>
                 picfitServer
-                  .store(image, part)
-                  .transformWith:
-                    case Success(_) =>
-                      deleteByRel(image.rel).map(_ => ImageFresh(image, true))
-                    case Failure(err) =>
-                      coll.delete.one($id(image.id)).transform(_ => Failure(err))
+                  .store(image, part).inject(ImageFresh(image, true))
+                  .recoverWith: e =>
+                      coll.delete.one($id(image.id))
+                      fufail(e)
               .recoverWith:
                 case e: DatabaseException if e.code.contains(11000) =>
                   fuccess(ImageFresh(image, false)) // it's a dup
@@ -216,7 +214,7 @@ object PicfitApi:
 
   def findInMarkdown(md: Markdown): Set[ImageId] =
     // path=ublogBody:mdTLU-fz_oGg.jpg
-    val regex = """(?i)[\?&]path=([a-z]\w+:[a-z0-9_-]{12}\.\w{3,4})&""".r
+    val regex = """(?i)[\?&]path=([a-z]\w+:[-_a-z0-9]{12}\.\w{3,4})&""".r
     regex
       .findAllMatchIn(md.value)
       .map(_.group(1))
