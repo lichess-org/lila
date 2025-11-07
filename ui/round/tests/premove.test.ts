@@ -6,7 +6,7 @@ import * as cg from '@lichess-org/chessground/types';
 import { defaults, type HeadlessState } from '@lichess-org/chessground/state';
 import * as fen from '@lichess-org/chessground/fen';
 import * as util from '@lichess-org/chessground/util';
-import { additionalPremoveRequirements } from '../src/premove';
+import { Premove } from '../src/premove';
 
 const diagonallyOpposite = (square: cg.Key): cg.Key =>
   util.pos2keyUnsafe(util.key2pos(square).map(n => 7 - n) as cg.Pos);
@@ -25,12 +25,12 @@ const makeState = (
   lastMove: cg.Key[] | undefined,
   turnColor: cg.Color,
 ): HeadlessState => {
+  const premoveFuncs = new Premove(!trimPremoves);
   const state = defaults();
   state.pieces = pieces;
-  if (!trimPremoves) state.premovable.unrestrictedPremoves = true;
   state.lastMove = lastMove;
   state.turnColor = turnColor;
-  state.premovable.additionalPremoveRequirements = additionalPremoveRequirements;
+  state.premovable.additionalPremoveRequirements = premoveFuncs.additionalPremoveRequirements;
   return state;
 };
 
