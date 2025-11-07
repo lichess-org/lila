@@ -22,11 +22,11 @@ export class TimeControl {
 
   isRealTime = (): boolean => this.mode() === 'realTime';
 
-  realTimeValid = (minimumTime: number = 0): boolean => this.time() >= minimumTime && (
-    this.time() > 0 || this.increment() > 0
-  );
+  realTimeValid = (minimumTime: number = 0): boolean =>
+    this.time() >= minimumTime && (this.time() > 0 || this.increment() > 0);
 
-  valid = (minimumTimeIfReal: number = 0): boolean => !this.isRealTime() || this.realTimeValid(minimumTimeIfReal);
+  valid = (minimumTimeIfReal: number = 0): boolean =>
+    !this.isRealTime() || this.realTimeValid(minimumTimeIfReal);
 
   initialSeconds = (): Seconds => this.time() * 60;
 

@@ -256,7 +256,7 @@ export default class SetupController {
 
   valid = (): boolean => this.validFen() && this.timeControl.valid(this.minimumTimeIfReal());
 
-  minimumTimeIfReal = (): number => this.gameType === 'ai' && this.variant() === 'fromPosition' ? 1 : 0;
+  minimumTimeIfReal = (): number => (this.gameType === 'ai' && this.variant() === 'fromPosition' ? 1 : 0);
 
   submit = async () => {
     const color = this.color();
