@@ -59,6 +59,7 @@ export interface Pref {
   resizeHandle: Prefs.ShowResizeHandle;
   clockTenths: Prefs.ShowClockTenths;
   clockBar: boolean;
+  clockFlash: boolean;
 }
 
 export interface LocalBridge extends MoveSource {
