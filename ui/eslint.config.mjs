@@ -41,7 +41,7 @@ function sideEffects(action) {
 export default [
   { ignores: ['*', '!ui/', '!bin/', '**/dist/'] },
   {
-    files: ['**/*.{ts,mts}'],
+    files: ['**/*.{ts,mts,mjs}'],
     plugins: { '@typescript-eslint': typescriptEslint, compat, imports },
     languageOptions: { parser: tsParser, ecmaVersion: 5, sourceType: 'module' },
     rules: {
