@@ -1,8 +1,7 @@
 import { h, type VNode } from 'snabbdom';
 import * as licon from 'lib/licon';
-import { spinnerVdom as spinner } from 'lib/view/controls';
+import { spinnerVdom, bind, dataIcon } from 'lib/view';
 import { numberRow } from 'lib/view/util';
-import { bind, dataIcon } from 'lib/snabbdom';
 import type TournamentController from '../ctrl';
 import { player as renderPlayer } from './util';
 import { teamName } from './battle';
@@ -14,7 +13,7 @@ export default function (ctrl: TournamentController): VNode | undefined {
   const teamTag = ctrl.teamInfo.requested ? teamName(battle, ctrl.teamInfo.requested) : null;
   const tag = 'div.tour__team-info.tour__actor-info';
   if (!data || data.id !== ctrl.teamInfo.requested)
-    return h(tag, [h('div.stats', [h('h2', [teamTag]), spinner()])]);
+    return h(tag, [h('div.stats', [h('h2', [teamTag]), spinnerVdom()])]);
   const nbLeaders = ctrl.data.teamStanding?.find(s => s.id === data.id)?.players.length || 0;
 
   const setup = (vnode: VNode) => {

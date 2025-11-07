@@ -1,4 +1,4 @@
-import { onInsert } from 'lib/snabbdom';
+import { onInsert } from 'lib/view';
 import { h } from 'snabbdom';
 import type LobbyController from '@/ctrl';
 import { variants, variantsForGameType } from '@/options';

@@ -1,7 +1,6 @@
 import { prop } from 'lib';
-import { bind } from 'lib/snabbdom';
+import { bind, spinnerVdom } from 'lib/view';
 import { throttle } from 'lib/async';
-import { spinnerVdom as spinner } from 'lib/view/controls';
 import { h, type VNode } from 'snabbdom';
 import type AnalyseCtrl from '../ctrl';
 import { glyphs as xhrGlyphs } from './studyXhr';
@@ -57,6 +56,6 @@ export function view(ctrl: GlyphForm): VNode {
           h('div.position', all.position.map(renderGlyph(ctrl, node))),
           h('div.observation', all.observation.map(renderGlyph(ctrl, node))),
         ]
-      : [h('div.study__message', spinner())],
+      : [h('div.study__message', spinnerVdom())],
   );
 }

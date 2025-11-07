@@ -50,7 +50,7 @@ import type { GamebookOverride } from './gamebook/interfaces';
 import type { EvalHitMulti, EvalHitMultiArray } from '../interfaces';
 import { MultiCloudEval } from './multiCloudEval';
 import { pubsub } from 'lib/pubsub';
-import { alert } from 'lib/view/dialogs';
+import { alert } from 'lib/view';
 import { displayColumns } from 'lib/device';
 
 interface Handlers {

@@ -6,7 +6,7 @@ import { type TimeControl, timeControlFromStoredValues } from 'lib/setup/timeCon
 import { storedJsonProp } from 'lib/storage';
 import type { ClockConfig } from 'lib/game/clock/clockCtrl';
 import type { ColorChoice, ColorProp } from 'lib/setup/color';
-import type { Dialog } from 'lib/view/dialog';
+import type { Dialog } from 'lib/view';
 
 interface Settings {
   color: ColorChoice;

@@ -20,10 +20,12 @@ const args = [
   ...dashArgs,
   '--experimental-test-module-mocks',
   '--no-warnings',
+  '--loader',
+  './.test/helpers.mts',
   '--import',
   'tsx',
   '--import',
-  './.test/jsdomSetup.mts',
+  './.test/setup.mts',
   '--conditions=source',
   ...globs,
 ];

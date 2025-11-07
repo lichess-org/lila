@@ -1,7 +1,7 @@
 import * as licon from 'lib/licon';
 import { otbClockIsRunning, formatMs } from 'lib/game/clock/clockWidget';
 import { fenColor } from 'lib/game/chess';
-import { type MaybeVNode, type VNode, bind, dataIcon, onInsert } from 'lib/snabbdom';
+import { type MaybeVNode, type VNode, bind, dataIcon, onInsert } from 'lib/view';
 import { opposite as cgOpposite, uciToMove } from '@lichess-org/chessground/util';
 import type { ChapterId, ChapterPreview, StudyPlayer } from './interfaces';
 import type StudyCtrl from './studyCtrl';

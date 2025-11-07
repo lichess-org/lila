@@ -1,3 +1,5 @@
+/* eslint no-restricted-syntax:"error" */ // no side effects allowed due to re-export by index.ts
+
 // Rich Text helper functions
 // Refactored for https://github.com/lichess-org/lila/issues/7342 request
 import type { VNode, Hooks } from 'snabbdom';

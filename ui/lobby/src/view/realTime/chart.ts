@@ -1,6 +1,6 @@
 import type LobbyController from '@/ctrl';
 import * as licon from 'lib/licon';
-import { bind } from 'lib/snabbdom';
+import { bind } from 'lib/view';
 import { h, type VNode } from 'snabbdom';
 import type { Hook } from '@/interfaces';
 import perfIcons from 'lib/game/perfIcons';

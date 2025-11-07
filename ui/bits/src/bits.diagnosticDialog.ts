@@ -1,5 +1,5 @@
 import { isTouchDevice } from 'lib/device';
-import { domDialog } from 'lib/view/dialog';
+import { domDialog } from 'lib/view';
 import * as licon from 'lib/licon';
 import { escapeHtml, myUserId } from 'lib';
 import { storage } from 'lib/storage';

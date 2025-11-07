@@ -13,7 +13,7 @@ import { setClockWidget } from 'lib/game/clock/clockWidget';
 import standaloneChat from 'lib/chat/standalone';
 import { pubsub } from 'lib/pubsub';
 import { myUserId } from 'lib';
-import { alert } from 'lib/view/dialogs';
+import { alert } from 'lib/view';
 
 const patch = init([classModule, attributesModule]);
 

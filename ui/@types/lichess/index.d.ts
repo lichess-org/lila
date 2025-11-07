@@ -41,6 +41,9 @@ interface Site {
   analysis?: any; // expose the analysis ctrl
   // file://./../../.build/src/manifest.ts
   manifest: { css: Record<string, string>; js: Record<string, string>; hashed: Record<string, string> };
+  polyfill: {
+    dialog?: (dialog: HTMLDialogElement) => void;
+  };
 }
 
 interface EsmModuleOpts extends AssetUrlOpts {
