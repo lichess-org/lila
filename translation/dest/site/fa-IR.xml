@@ -8,8 +8,8 @@
   <string name="youPlayAs">رنگِ مُهرهٔ شما</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">برای دعوت کسی به بازی، این وب‌نشانی را دهید</string>
   <string name="gameOver">پایان بازی</string>
-  <string name="waitingForOpponent">انتطار برای حریف</string>
-  <string name="orLetYourOpponentScanQrCode">یا از حریفتان بخواهید این کد QR را اسکن کندl</string>
+  <string name="waitingForOpponent">در انتظار حریف</string>
+  <string name="orLetYourOpponentScanQrCode">یا از حریف‌تان بخواهید این کدِ QR را بِپویَد</string>
   <string name="waiting">در حال انتظار</string>
   <string name="yourTurn">نوبت شماست</string>
   <string name="aiNameLevelAiLevel">%1$s سطح %2$s</string>
@@ -27,9 +27,9 @@
   <string name="randomColor">رنگ تصادفی</string>
   <string name="createAGame">ایجاد بازی</string>
   <string name="createTheGame">ایجاد بازی</string>
-  <string name="whiteIsVictorious">سفید برنده شد</string>
-  <string name="blackIsVictorious">سیاه برنده شد</string>
-  <string name="youPlayTheWhitePieces">شما با مهره سفید بازی میکنید</string>
+  <string name="whiteIsVictorious">سفید برنده است</string>
+  <string name="blackIsVictorious">سیاه برنده است</string>
+  <string name="youPlayTheWhitePieces">شما با مهره سفید بازی می‌کنید</string>
   <string name="youPlayTheBlackPieces">شما با مهره سیاه بازی می‌کنید</string>
   <string name="itsYourTurn">نوبت شماست!</string>
   <string name="cheatDetected">تقلب تشخیص داده شد</string>
@@ -769,6 +769,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">برای حرکت، روی صفحه بازی بِنَوَردید.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">برای پیش‌نمایش آن‌ها، روی وَرتِش‌های رایانه‌ای بِغَرالید.</string>
   <string name="analysisShapesHowTo">برای رسم دایره و پیکان روی تخته، shift+click یا راست-تِلیک را بفشارید.</string>
+  <string name="primaryColorArrowsHowTo">Ctrl یا shift = قرمز؛ command، alt یا meta = آبی؛ یک کلید از هر کدام = زرد.</string>
   <string name="letOtherPlayersMessageYou">ارسال پیام توسط بقیه به شما</string>
   <string name="receiveForumNotifications">دریافت اعلان هنگام نام‌بَری در انجمن</string>
   <string name="shareYourInsightsData">اشتراک گذاشتن داده های شما</string>
