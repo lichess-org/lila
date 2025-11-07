@@ -1,8 +1,9 @@
 import * as licon from 'lib/licon';
 import { prop } from 'lib';
-import { snabDialog, confirm, prompt } from 'lib/view';
+import { snabDialog } from 'lib/view/dialog';
+import { confirm, prompt } from 'lib/view/dialogs';
 import flairPickerLoader from 'bits/flairPicker';
-import { type VNode, bindSubmit, bindNonPassive, onInsert, hl } from 'lib/view';
+import { type VNode, bindSubmit, bindNonPassive, onInsert, hl } from 'lib/snabbdom';
 import { emptyRedButton } from '../view/util';
 import type { StudyData } from './interfaces';
 import type RelayCtrl from './relay/relayCtrl';

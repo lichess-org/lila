@@ -5,19 +5,15 @@ import theme from './theme';
 import chessground from './chessground';
 import feedbackView from './feedback';
 import * as licon from 'lib/licon';
-import {
-  stepwiseScroll,
-  toggleButton as boardMenuToggleButton,
-  onInsert,
-  bindNonPassive,
-  hl,
-} from 'lib/view';
+import { stepwiseScroll } from 'lib/view/controls';
 import { type VNode, h } from 'snabbdom';
+import { onInsert, bindNonPassive, hl } from 'lib/snabbdom';
 import { addPointerListeners } from 'lib/pointer';
 import { render as treeView } from './tree';
 import { view as cevalView } from 'lib/ceval';
 import { renderVoiceBar } from 'voice';
 import { render as renderKeyboardMove } from 'keyboardMove';
+import { toggleButton as boardMenuToggleButton } from 'lib/view/boardMenu';
 import boardMenu from './boardMenu';
 import { Coords } from 'lib/prefs';
 import type PuzzleCtrl from '../ctrl';

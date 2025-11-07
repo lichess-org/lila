@@ -1,4 +1,4 @@
-import { onInsert } from 'lib/view';
+import { onInsert } from 'lib/snabbdom';
 import { throttle } from 'lib/async';
 import { type Attrs, h, thunk, type VNode } from 'snabbdom';
 import { option } from '../view/util';

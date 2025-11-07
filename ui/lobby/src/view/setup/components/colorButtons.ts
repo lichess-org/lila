@@ -1,4 +1,4 @@
-import { hl } from 'lib/view';
+import { hl } from 'lib/snabbdom';
 import type LobbyController from '@/ctrl';
 import { variantsWhereWhiteIsBetter } from '@/options';
 import { blindModeColorPicker, colorButtons as renderButtons } from 'lib/setup/view/color';

@@ -1,5 +1,5 @@
 import * as xhr from 'lib/xhr';
-import { domDialog } from 'lib/view';
+import { domDialog } from 'lib/view/dialog';
 import { Textcomplete } from '@textcomplete/core';
 import { TextareaEditor } from '@textcomplete/textarea';
 import { tempStorage } from 'lib/storage';

@@ -1,10 +1,11 @@
 import { h, type VNode } from 'snabbdom';
 import * as licon from 'lib/licon';
-import { spinnerVdom, bind, dataIcon } from 'lib/view';
+import { spinnerVdom as spinner } from 'lib/view/controls';
+import { bind, dataIcon } from 'lib/snabbdom';
 import type TournamentController from '../ctrl';
 
 function orJoinSpinner(ctrl: TournamentController, f: () => VNode): VNode {
-  return ctrl.joinSpinner ? spinnerVdom() : f();
+  return ctrl.joinSpinner ? spinner() : f();
 }
 
 export function withdraw(ctrl: TournamentController): VNode {

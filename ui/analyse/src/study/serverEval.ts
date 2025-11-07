@@ -1,5 +1,6 @@
 import * as licon from 'lib/licon';
-import { bind, onInsert, spinnerVdom } from 'lib/view';
+import { bind, onInsert } from 'lib/snabbdom';
+import { spinnerVdom } from 'lib/view/controls';
 import { requestIdleCallback } from 'lib';
 import { h, type VNode } from 'snabbdom';
 import type AnalyseCtrl from '../ctrl';

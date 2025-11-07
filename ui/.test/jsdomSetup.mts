@@ -15,9 +15,6 @@ const define = (k: any, v: any) => {
   }
 };
 
-// minimal stubs
-define('$html', (s: TemplateStringsArray, ..._: any[]) => s[0]);
-define('$trim', (s: TemplateStringsArray, ..._: any[]) => s[0]);
 define('window', window);
 define('document', window.document);
 define('navigator', window.navigator);

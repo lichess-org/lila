@@ -1,4 +1,4 @@
-import { hl, type VNode, onInsert } from 'lib/view';
+import { hl, type VNode, onInsert } from 'lib/snabbdom';
 import { allowVideo } from './relayView';
 
 export class VideoPlayer {

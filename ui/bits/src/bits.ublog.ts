@@ -1,7 +1,9 @@
 import * as xhr from 'lib/xhr';
-import { alert, prompt, domDialog, spinnerHtml } from 'lib/view';
+import { alert, prompt } from 'lib/view/dialogs';
 import { throttlePromiseDelay } from 'lib/async';
+import { domDialog } from 'lib/view/dialog';
 import { escapeHtml } from 'lib';
+import { spinnerHtml } from 'lib/view/controls';
 
 site.load.then(() => {
   $('.flash').addClass('fade');

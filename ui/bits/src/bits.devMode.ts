@@ -1,4 +1,4 @@
-import { initMiniBoard } from 'lib/view';
+import { initMiniBoard } from 'lib/view/miniBoard';
 import { frag } from 'lib';
 
 export function initModule(): void {

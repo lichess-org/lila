@@ -1,6 +1,9 @@
 import type { VNode } from 'snabbdom';
 import * as licon from 'lib/licon';
-import { domDialog, confirm, bind, hl } from 'lib/view';
+import { domDialog } from 'lib/view/dialog';
+import { confirm } from 'lib/view/dialogs';
+
+import { bind, hl } from 'lib/snabbdom';
 import type SimulCtrl from '../ctrl';
 import type { Applicant } from '../interfaces';
 import xhr from '../xhr';

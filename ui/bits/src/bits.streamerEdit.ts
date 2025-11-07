@@ -1,5 +1,5 @@
 import { wireCropDialog } from './crop';
-import { confirm, prompt } from 'lib/view';
+import { confirm, prompt } from 'lib/view/dialogs';
 
 export function initModule(old: { youtube: string; twitch: string }): any {
   const userSubmitEl = document.querySelector<HTMLButtonElement>('.approval-request-submit')!,

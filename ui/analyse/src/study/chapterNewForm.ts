@@ -1,12 +1,14 @@
 import { parseFen } from 'chessops/fen';
 import { defined, prop, type Prop, toggle } from 'lib';
-import type { Dialog, VNode } from 'lib/view';
-import { snabDialog, alert, bind, bindSubmit, onInsert, hl, dataIcon, spinnerVdom } from 'lib/view';
+import { type Dialog, snabDialog } from 'lib/view/dialog';
+import { alert } from 'lib/view/dialogs';
 import * as licon from 'lib/licon';
+import { bind, bindSubmit, onInsert, hl, dataIcon, type VNode } from 'lib/snabbdom';
 import { storedProp } from 'lib/storage';
 import { json as xhrJson, text as xhrText } from 'lib/xhr';
 import type AnalyseCtrl from '../ctrl';
 import type { StudySocketSend } from '../socket';
+import { spinnerVdom as spinner } from 'lib/view/controls';
 import { option } from '../view/util';
 import type { ChapterData, ChapterMode, ChapterTab, Orientation, StudyTour } from './interfaces';
 import { importPgn, variants as xhrVariants } from './studyXhr';
@@ -230,7 +232,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
                   destroy: () => (ctrl.editor = null),
                 },
               },
-              [spinnerVdom()],
+              [spinner()],
             ),
           activeTab === 'game' &&
             hl('div.form-group', [

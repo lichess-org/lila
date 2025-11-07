@@ -1,7 +1,8 @@
-import { hl, type LooseVNode } from 'lib/view';
+import { hl, type LooseVNode } from 'lib/snabbdom';
 import type RoundController from '../ctrl';
-import { boardMenu as menuDropdown, toggle as cmnToggle, boolPrefXhrToggle } from 'lib/view';
+import { boardMenu as menuDropdown } from 'lib/view/boardMenu';
 import { toggle } from 'lib';
+import { toggle as cmnToggle, boolPrefXhrToggle } from 'lib/view/controls';
 import { displayColumns, isTouchDevice } from 'lib/device';
 import { storage } from 'lib/storage';
 

@@ -1,6 +1,7 @@
 import { h, type Hooks } from 'snabbdom';
-import { spinnerVdom, onInsert } from 'lib/view';
+import { spinnerVdom as spinner } from 'lib/view/controls';
 import type LobbyController from '../ctrl';
+import { onInsert } from 'lib/snabbdom';
 
 const createHandler = (ctrl: LobbyController) => (e: Event) => {
   if (ctrl.redirecting) return;
@@ -43,7 +44,7 @@ export function render(ctrl: LobbyController) {
           active
             ? member.range && ctrl.opts.showRatings
               ? h('div.range', member.range.replace('-', '–'))
-              : spinnerVdom()
+              : spinner()
             : h('div.perf', pool.perf),
         ],
       );

@@ -1,7 +1,8 @@
 import type { VNode } from 'snabbdom';
 import * as licon from 'lib/licon';
-import { spinnerVdom, bind, dataIcon, hl } from 'lib/view';
+import { spinnerVdom as spinner } from 'lib/view/controls';
 import { numberRow } from 'lib/view/util';
+import { bind, dataIcon, hl } from 'lib/snabbdom';
 import { player as renderPlayer } from './util';
 import type { Pairing } from '../interfaces';
 import { isOutcome } from '../util';
@@ -13,7 +14,7 @@ export default function (ctrl: SwissCtrl): VNode | undefined {
   const data = ctrl.data.playerInfo;
   const tag = 'div.swiss__player-info.swiss__table';
   if (data?.user.id !== ctrl.playerInfoId)
-    return hl(tag, [hl('div.stats', [hl('h2', ctrl.playerInfoId), spinnerVdom()])]);
+    return hl(tag, [hl('div.stats', [hl('h2', ctrl.playerInfoId), spinner()])]);
   const games = data.sheet.filter(p => !isOutcome(p) && p.g).length;
   const wins = data.sheet.filter(p => !isOutcome(p) && p.w).length;
   const avgOp: number | undefined = games

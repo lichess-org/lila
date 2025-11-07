@@ -1,6 +1,6 @@
 import { text, formToXhr } from 'lib/xhr';
 import flairPickerLoader from './flairPicker';
-import { spinnerHtml } from 'lib/view';
+import { spinnerHtml } from 'lib/view/controls';
 import { wireCropDialog } from './crop';
 import { debounce } from 'lib/async';
 

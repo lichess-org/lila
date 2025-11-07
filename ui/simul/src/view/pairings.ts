@@ -1,5 +1,6 @@
 import { h } from 'snabbdom';
-import { onInsert, renderClock } from 'lib/view';
+import { onInsert } from 'lib/snabbdom';
+import { renderClock } from 'lib/view/miniBoard';
 import type SimulCtrl from '../ctrl';
 import type { Pairing } from '../interfaces';
 import { opposite } from '@lichess-org/chessground/util';

@@ -1,6 +1,6 @@
 import type { Opts, Recap } from './interfaces';
 import { type VNode } from 'snabbdom';
-import { hl } from 'lib/view';
+import { hl } from 'lib/snabbdom';
 import * as slides from './slides';
 
 export function awaiter(user: LightUser): VNode {

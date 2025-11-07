@@ -1,5 +1,6 @@
 import { defined } from 'lib';
-import { domDialog, spinnerHtml } from 'lib/view';
+import { domDialog } from 'lib/view/dialog';
+import { spinnerHtml } from 'lib/view/controls';
 import Cropper from 'cropperjs';
 import { supported, mimeAccept } from './crop';
 

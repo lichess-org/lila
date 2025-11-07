@@ -1,5 +1,5 @@
 import * as util from './util';
-import { onInsert } from 'lib/view';
+import { onInsert } from 'lib/snabbdom';
 import resizeHandle from 'lib/chessgroundResize';
 import type RoundController from './ctrl';
 import { h, type VNode } from 'snabbdom';

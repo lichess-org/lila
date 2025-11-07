@@ -1,5 +1,5 @@
 import { h, type VNode } from 'snabbdom';
-import { bind } from '@/view';
+import { bind } from '../snabbdom';
 
 export interface PresetCtrl {
   group(): string | undefined;

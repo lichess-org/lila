@@ -1,5 +1,3 @@
-/* eslint no-restricted-syntax:"error" */ // no side effects allowed due to re-export by index.ts
-
 export const root: Tree.Path = '';
 
 export const size = (path: Tree.Path): number => path.length / 2;

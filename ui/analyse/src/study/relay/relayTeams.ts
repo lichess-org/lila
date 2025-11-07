@@ -1,9 +1,9 @@
-import { type MaybeVNodes, type VNode, onInsert, hl } from 'lib/view';
+import { type MaybeVNodes, type VNode, onInsert, hl } from 'lib/snabbdom';
 import { json as xhrJson } from 'lib/xhr';
 import type { RoundId } from './interfaces';
 import type { ChapterId, ChapterPreview, StudyPlayer, ChapterSelect, StatusStr } from '../interfaces';
 import { type MultiCloudEval, renderScore } from '../multiCloudEval';
-import { spinnerVdom as spinner } from 'lib/view';
+import { spinnerVdom as spinner } from 'lib/view/controls';
 import { playerFed } from '../playerBars';
 import { gameLinkAttrs, gameLinksListener, StudyChapters } from '../studyChapters';
 import { userTitle } from 'lib/view/userLink';

@@ -1,8 +1,9 @@
-import { alert, info, spinnerHtml } from 'lib/view';
+import { alert, info } from 'lib/view/dialogs';
 import { wireMarkdownImgResizers, naturalSize, markdownPicfitRegex } from 'lib/view/markdownImgResizer';
 import { marked } from 'marked';
 import { json as xhrJson } from 'lib/xhr';
 import { frag } from 'lib';
+import { spinnerHtml } from 'lib/view/controls';
 
 // also see markdownTextarea.ts
 

@@ -1,8 +1,8 @@
 import * as licon from 'lib/licon';
-import { type VNode, bind, onInsert, hl } from 'lib/view';
+import { type VNode, bind, onInsert, hl } from 'lib/snabbdom';
 import { richHTML } from 'lib/richText';
 import type StudyCtrl from './studyCtrl';
-import { confirm } from 'lib/view';
+import { confirm } from 'lib/view/dialogs';
 
 export type Save = (t: string) => void;
 

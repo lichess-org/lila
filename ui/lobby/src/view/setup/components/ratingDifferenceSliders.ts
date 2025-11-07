@@ -1,4 +1,4 @@
-import { hl } from 'lib/view';
+import { hl } from 'lib/snabbdom';
 import type LobbyController from '@/ctrl';
 
 export const ratingDifferenceSliders = (ctrl: LobbyController) => {

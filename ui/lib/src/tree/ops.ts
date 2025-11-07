@@ -1,5 +1,3 @@
-/* eslint no-restricted-syntax:"error" */ // no side effects allowed due to re-export by index.ts
-
 export function withMainlineChild<T>(node: Tree.Node, f: (node: Tree.Node) => T): T | undefined {
   const next = node.children[0];
   return next ? f(next) : undefined;

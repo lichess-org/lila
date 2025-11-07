@@ -1,7 +1,7 @@
 import { jsonSimple } from 'lib/xhr';
 import { storedIntProp, storedBooleanPropWithEffect, storedIntPropWithEffect } from 'lib/storage';
 import * as licon from 'lib/licon';
-import { readFen, destsToUcis, square, type Board } from 'lib/game';
+import { readFen, destsToUcis, square, type Board } from 'lib/game/chess';
 import { charToRole } from 'chessops';
 import { type PromotionCtrl, promote } from 'lib/game/promotion';
 import type { MoveRootCtrl, MoveUpdate } from 'lib/game/moveRootCtrl';
@@ -9,8 +9,9 @@ import type { VoiceMove, VoiceCtrl, Entry, Match } from '../voice';
 import { coloredArrows, numberedArrows, brushes } from './arrows';
 import { settingNodes } from './view';
 import type { MsgType } from '../interfaces';
-import type { Transform, SparseMap } from '../util';
 import {
+  type Transform,
+  type SparseMap,
   spread,
   spreadMap,
   getSpread,
@@ -33,8 +34,6 @@ export function initModule({
   voice: VoiceCtrl;
   initial: MoveUpdate;
 }): VoiceMove {
-  // act like everything here is prefixed by this. if implicit this is ever a thing, VoiceMove becomes a class
-
   const DEBUG = { emptyMatches: false, buildMoves: false, buildSquares: false, collapse: true };
   let cg: CgApi;
   let entries: Entry[] = [];

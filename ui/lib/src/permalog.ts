@@ -1,4 +1,4 @@
-import { objectStorage, deleteObjectStorage, type ObjectStorage, type DbInfo } from './objectStorage';
+import { objectStorage, type ObjectStorage, type DbInfo } from './objectStorage';
 
 export interface PermaLog {
   (...args: any[]): Promise<number | void>;
@@ -35,7 +35,7 @@ export function makeLog(dbInfo: DbInfo, windowSize: number): PermaLog {
     })
     .catch(e => {
       console.error(e);
-      deleteObjectStorage(dbInfo);
+      window.indexedDB.deleteDatabase(dbInfo.db ?? dbInfo.store);
       resolveReady();
     });
 
@@ -75,7 +75,7 @@ export function makeLog(dbInfo: DbInfo, windowSize: number): PermaLog {
     } catch (e) {
       console.error(e);
       store.clear();
-      deleteObjectStorage(dbInfo);
+      window.indexedDB.deleteDatabase(dbInfo.db ?? dbInfo.store);
       return '';
     }
     const [keys, vals] = await Promise.all([store.list(), store.getMany()]);

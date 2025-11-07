@@ -1,5 +1,6 @@
-import { snabDialog, bind, hl } from 'lib/view';
+import { snabDialog } from 'lib/view/dialog';
 import type SetupCtrl from '../setupCtrl';
+import { bind, hl } from 'lib/snabbdom';
 import { botAssetUrl } from 'lib/bot/botLoader';
 import { colorButtons } from 'lib/setup/view/color';
 import { colors } from 'lib/setup/color';

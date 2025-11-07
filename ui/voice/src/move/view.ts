@@ -1,6 +1,7 @@
 import { h, type VNode } from 'snabbdom';
 import type { Prop } from 'lib';
-import { bind, rangeConfig } from 'lib/view';
+import { bind } from 'lib/snabbdom';
+import { rangeConfig } from 'lib/view/controls';
 
 export function settingNodes(
   colors: Prop<boolean>,

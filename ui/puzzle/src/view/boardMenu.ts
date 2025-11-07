@@ -1,6 +1,7 @@
 import { h } from 'snabbdom';
 import { toggle } from 'lib';
-import { boardMenu as menuDropdown, boolPrefXhrToggle } from 'lib/view';
+import { boardMenu as menuDropdown } from 'lib/view/boardMenu';
+import { boolPrefXhrToggle } from 'lib/view/controls';
 import type PuzzleCtrl from '../ctrl';
 
 export default function (ctrl: PuzzleCtrl) {

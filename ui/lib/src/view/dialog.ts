@@ -1,11 +1,12 @@
-/* eslint no-restricted-syntax:"error" */ // no side effects allowed due to re-export by index.ts
-
-import { onInsert, hl, type VNode, type Attrs, type LooseVNodes } from './snabbdom';
+import { onInsert, hl, type VNode, type Attrs, type LooseVNodes } from '@/snabbdom';
 import { isTouchDevice } from '@/device';
 import { frag } from '@/index';
 import { Janitor } from '@/event';
 import * as xhr from '@/xhr';
 import * as licon from '@/licon';
+import { pubsub } from '@/pubsub';
+
+let dialogPolyfill: { registerDialog: (dialog: HTMLDialogElement) => void };
 
 export interface Dialog {
   readonly view: HTMLElement; // your content div
@@ -54,6 +55,15 @@ export type ActionListener = (e: Event, dialog: Dialog, action: Action) => void;
 export type Action =
   | { selector?: string; event?: string | string[]; listener: ActionListener }
   | { selector?: string; event?: string | string[]; result: string };
+
+// Safari versions before 15.4 need a polyfill for dialog
+site.load.then(async () => {
+  window.addEventListener('resize', onResize);
+  if (!window.HTMLDialogElement)
+    dialogPolyfill = (await import(site.asset.url('npm/dialog-polyfill.esm.js')).catch(() => undefined))
+      ?.default;
+  pubsub.complete('dialog.polyfill');
+});
 
 // when opts contains 'show', domDialog function's result promise resolves on dialog closure.
 // otherwise, the promise resolves once assets are loaded and it is safe to call show
@@ -150,10 +160,6 @@ class DialogWrapper implements Dialog {
           }
         }
   });
-  private focusQuery = ['button', 'input', 'select', 'textarea']
-    .map(sel => `${sel}:not(:disabled)`)
-    .concat(['[href]', '[tabindex]', '[role="tab"]'])
-    .join(',');
 
   constructor(
     readonly dialog: HTMLDialogElement,
@@ -161,7 +167,7 @@ class DialogWrapper implements Dialog {
     readonly o: DialogOpts,
     readonly isSnab: boolean,
   ) {
-    site.polyfill.dialog?.(dialog); // ios < 15.4
+    if (dialogPolyfill) dialogPolyfill.registerDialog(dialog); // ios < 15.4
 
     const justThen = Date.now();
     const cancelOnInterval = (e: PointerEvent) => {
@@ -251,7 +257,7 @@ class DialogWrapper implements Dialog {
       this.close('cancel');
       e.preventDefault();
     } else if (e.key === 'Tab') {
-      const focii = [...this.dialog.querySelectorAll<HTMLElement>(this.focusQuery)].filter(
+      const focii = [...this.dialog.querySelectorAll<HTMLElement>(focusQuery)].filter(
         el => el.getAttribute('tabindex') !== '-1',
       );
       focii.sort((a, b) => {
@@ -276,7 +282,7 @@ class DialogWrapper implements Dialog {
   private autoFocus() {
     const focus =
       (this.o.focus ? this.view.querySelector(this.o.focus) : this.view.querySelector('input[autofocus]')) ??
-      this.view.querySelector(this.focusQuery);
+      this.view.querySelector(focusQuery);
 
     if (!(focus instanceof HTMLElement)) return;
     focus.focus();
@@ -309,3 +315,13 @@ function loadAssets(o: DialogOpts) {
     ),
   ]);
 }
+
+function onResize() {
+  // ios safari vh behavior workaround
+  $('dialog > div.scrollable').css('---viewport-height', `${window.innerHeight}px`);
+}
+
+const focusQuery = ['button', 'input', 'select', 'textarea']
+  .map(sel => `${sel}:not(:disabled)`)
+  .concat(['[href]', '[tabindex]', '[role="tab"]'])
+  .join(',');

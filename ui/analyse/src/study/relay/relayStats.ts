@@ -1,4 +1,4 @@
-import { spinnerVdom as spinner } from 'lib/view';
+import { spinnerVdom as spinner } from 'lib/view/controls';
 import type { RelayRound } from './interfaces';
 import { json as xhrJson } from 'lib/xhr';
 import { h } from 'snabbdom';

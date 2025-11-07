@@ -1,7 +1,8 @@
 import { h, type VNode } from 'snabbdom';
 import { myUsername, type Prop, prop } from 'lib';
 import * as licon from 'lib/licon';
-import { type Dialog, snabDialog, bind, dataIcon, iconTag, onInsert } from 'lib/view';
+import { type Dialog, snabDialog } from 'lib/view/dialog';
+import { bind, dataIcon, iconTag, onInsert } from 'lib/snabbdom';
 import { storedProp, storedJsonProp, type StoredProp, storedStringProp } from 'lib/storage';
 import type { ExplorerDb, ExplorerSpeed, ExplorerMode } from './interfaces';
 import AnalyseCtrl from '../ctrl';

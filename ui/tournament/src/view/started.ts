@@ -7,7 +7,7 @@ import playerInfo from './playerInfo';
 import teamInfo from './teamInfo';
 import { players } from '../pagination';
 import type TournamentController from '../ctrl';
-import type { MaybeVNodes } from 'lib/view';
+import type { MaybeVNodes } from 'lib/snabbdom';
 
 function joinTheGame(gameId: string) {
   return h('a.tour__ur-playing.button.is.is-after', { attrs: { href: '/' + gameId } }, [

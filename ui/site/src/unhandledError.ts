@@ -1,5 +1,5 @@
 import { log } from 'lib/permalog';
-import { domDialog } from 'lib/view';
+import { domDialog } from 'lib/view/dialog';
 import { escapeHtml } from 'lib';
 
 function terseHref(): string {
