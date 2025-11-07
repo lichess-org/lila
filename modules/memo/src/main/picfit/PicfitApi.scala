@@ -148,10 +148,11 @@ final class PicfitApi(
               .one(image)
               .flatMap: _ =>
                 picfitServer
-                  .store(image, part).inject(ImageFresh(image, true))
+                  .store(image, part)
+                  .inject(ImageFresh(image, true))
                   .recoverWith: e =>
-                      coll.delete.one($id(image.id))
-                      fufail(e)
+                    coll.delete.one($id(image.id))
+                    fufail(e)
               .recoverWith:
                 case e: DatabaseException if e.code.contains(11000) =>
                   fuccess(ImageFresh(image, false)) // it's a dup
