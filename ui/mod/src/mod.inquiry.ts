@@ -1,7 +1,7 @@
 import { formToXhr } from 'lib/xhr';
 
 import { storage } from 'lib/storage';
-import { alert } from 'lib/view/dialogs';
+import { alert } from 'lib/view';
 import { highlightSearchTerm } from 'lib/highlight';
 import { pubsub } from 'lib/pubsub';
 import { autolinkAtoms } from './mod.autolink';

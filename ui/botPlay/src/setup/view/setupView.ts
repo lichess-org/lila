@@ -1,5 +1,5 @@
 import { botAssetUrl } from 'lib/bot/botLoader';
-import { bind, hl } from 'lib/snabbdom';
+import { bind, hl } from 'lib/view';
 import type SetupCtrl from '../setupCtrl';
 import { miniBoard } from '@/ground';
 import { type Bot } from '@/interfaces';

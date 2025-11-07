@@ -9,7 +9,7 @@ import header from './header';
 import playerInfo from './playerInfo';
 import teamInfo from './teamInfo';
 import { numberRow } from 'lib/view/util';
-import { type MaybeVNodes } from 'lib/snabbdom';
+import { type MaybeVNodes } from 'lib/view';
 import { once } from 'lib/storage';
 
 function confetti(data: TournamentData): VNode | undefined {

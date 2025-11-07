@@ -6,7 +6,7 @@ import { makeFen } from 'chessops/fen';
 import { chessgroundDests, chessgroundMove } from 'chessops/compat';
 import type { Board } from './chess';
 import { h } from 'snabbdom';
-import { initMiniBoard } from 'lib/view/miniBoard';
+import { initMiniBoard } from 'lib/view';
 import { makeUci } from 'chessops';
 import type { Game } from './game';
 

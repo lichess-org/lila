@@ -1,5 +1,5 @@
 import * as licon from 'lib/licon';
-import { bind, dataIcon, type VNode, hl } from 'lib/snabbdom';
+import { bind, dataIcon, type VNode, hl } from 'lib/view';
 import type AnalyseCtrl from '@/ctrl';
 import type StudyCtrl from '../studyCtrl';
 

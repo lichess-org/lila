@@ -2,7 +2,7 @@ import { type Prop, propWithEffect } from 'lib';
 import { debounce } from 'lib/async';
 import * as xhr from 'lib/xhr';
 import { storedJsonProp } from 'lib/storage';
-import { alert } from 'lib/view/dialogs';
+import { alert } from 'lib/view';
 import { INITIAL_FEN } from 'chessops/fen';
 import type LobbyController from './ctrl';
 import type { ForceSetupOptions, GameMode, GameType, PoolMember, SetupStore } from './interfaces';

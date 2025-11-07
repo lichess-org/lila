@@ -1,5 +1,5 @@
 import type { VNode } from 'snabbdom';
-import { hl } from 'lib/snabbdom';
+import { hl } from 'lib/view';
 import renderClocks from '../view/clocks';
 import type AnalyseCtrl from '../ctrl';
 import { renderMaterialDiffs } from '../view/components';

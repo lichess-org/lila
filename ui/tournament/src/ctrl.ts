@@ -13,7 +13,7 @@ import type {
 } from './interfaces';
 import { storage, storedMapAsProp } from 'lib/storage';
 import { pubsub } from 'lib/pubsub';
-import { alerts, prompt } from 'lib/view/dialogs';
+import { alerts, prompt } from 'lib/view';
 import type { Prop } from 'lib';
 
 interface CtrlTeamInfo {

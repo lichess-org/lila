@@ -1,5 +1,5 @@
 import type AnalyseCtrl from '../ctrl';
-import { type VNode, type LooseVNodes, hl } from 'lib/snabbdom';
+import { type VNode, type LooseVNodes, hl } from 'lib/view';
 import type { Classes, Hooks } from 'snabbdom';
 import { ops as treeOps, path as treePath } from 'lib/tree/tree';
 import { isSafari } from 'lib/device';
