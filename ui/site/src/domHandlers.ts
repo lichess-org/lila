@@ -11,10 +11,12 @@ export function addWindowHandlers() {
   let animFrame: number | undefined;
 
   Object.defineProperties(site, {
-    displayColumns: {
+    columns: {
       get: () => {
-        if (colCache === undefined)
+        if (colCache === undefined) {
+          // file://./../../lib/css/layout/_vars.scss
           colCache = Number(window.getComputedStyle(document.body).getPropertyValue('---display-columns'));
+        }
         return colCache;
       },
     },
