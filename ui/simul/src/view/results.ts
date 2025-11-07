@@ -1,5 +1,5 @@
 import { h } from 'snabbdom';
-import { status } from 'lib/game/game';
+import { status } from 'lib/game';
 import type { Pairing } from '../interfaces';
 import { opposite } from '@lichess-org/chessground/util';
 import type SimulCtrl from '../ctrl';

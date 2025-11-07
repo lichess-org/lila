@@ -1,8 +1,8 @@
 import { povChances } from '../winningChances';
-import * as licon from '../../licon';
-import { stepwiseScroll } from '../../view/controls';
-import { type VNode, type LooseVNodes, onInsert, bind, hl } from '../../snabbdom';
-import { defined, notNull, requestIdleCallback } from '../../common';
+import * as licon from '@/licon';
+import { stepwiseScroll } from '@/view/controls';
+import { type VNode, type LooseVNodes, onInsert, bind, hl } from '@/snabbdom';
+import { defined, notNull, requestIdleCallback } from '@/index';
 import { type CevalHandler, type NodeEvals, CevalState } from '../types';
 import type { Position } from 'chessops/chess';
 import { lichessRules } from 'chessops/compat';
@@ -15,7 +15,7 @@ import { uciToMove } from '@lichess-org/chessground/util';
 import { renderCevalSettings } from './settings';
 import type CevalCtrl from '../ctrl';
 import { Chessground as makeChessground } from '@lichess-org/chessground';
-import { isTouchDevice } from '../../device';
+import { isTouchDevice } from '@/device';
 
 type EvalInfo = { knps: number; npsText: string; depthText: string };
 

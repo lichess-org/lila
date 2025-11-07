@@ -1,6 +1,6 @@
 import * as licon from 'lib/licon';
 import { bind, dataIcon, type VNode, hl } from 'lib/snabbdom';
-import type AnalyseCtrl from '../../ctrl';
+import type AnalyseCtrl from '@/ctrl';
 import type StudyCtrl from '../studyCtrl';
 
 export function playButtons(root: AnalyseCtrl): VNode | undefined {

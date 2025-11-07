@@ -2,7 +2,7 @@ import type { VNode, Hooks } from 'snabbdom';
 import * as licon from 'lib/licon';
 import { spinnerVdom as spinner } from 'lib/view/controls';
 import { justIcon } from '../util';
-import { finished, aborted, replayable, rematchable, moretimeable, type PlayerUser } from 'lib/game/game';
+import { finished, aborted, replayable, rematchable, moretimeable, type PlayerUser } from 'lib/game';
 import { game as gameRoute } from 'lib/game/router';
 import type { EventsWithoutPayload, RoundData } from '../interfaces';
 import type { ClockData } from 'lib/game/clock/clockCtrl';

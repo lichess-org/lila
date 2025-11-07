@@ -1,6 +1,6 @@
 import { opposite } from '@lichess-org/chessground/util';
 import { evalSwings } from '../nodeFinder';
-import { winningChances } from 'lib/ceval/ceval';
+import { winningChances } from 'lib/ceval';
 import { path as treePath } from 'lib/tree/tree';
 import { isEmpty, type Prop, prop } from 'lib';
 import type { OpeningData } from '../explorer/interfaces';

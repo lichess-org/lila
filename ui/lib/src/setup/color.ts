@@ -1,4 +1,4 @@
-import type { Prop } from '@/common';
+import type { Prop } from '@/index';
 
 export type ColorChoice = Color | 'random';
 

@@ -1,6 +1,6 @@
 import { onInsert, hl, type VNode, type Attrs, type LooseVNodes } from '@/snabbdom';
 import { isTouchDevice } from '@/device';
-import { frag } from '@/common';
+import { frag } from '@/index';
 import { Janitor } from '@/event';
 import * as xhr from '@/xhr';
 import * as licon from '@/licon';

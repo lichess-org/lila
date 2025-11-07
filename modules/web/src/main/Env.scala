@@ -20,6 +20,8 @@ final class Env(
   val analyseEndpoints = WebConfig.analyseEndpoints(appConfig)
   lazy val lilaVersion = WebConfig.lilaVersion(appConfig)
 
+  lazy val mobile = wire[Mobile]
+
   val manifest = wire[AssetManifest]
 
   val referrerRedirect = wire[ReferrerRedirect]

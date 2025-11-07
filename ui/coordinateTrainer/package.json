@@ -4,7 +4,6 @@
   "private": true,
   "description": "lichess.org coordinate trainer",
   "author": "Thibault Duplessis",
-  "license": "AGPL-3.0-or-later",
   "dependencies": {
     "@fnando/sparkline": "^0.3.10",
     "@types/fnando__sparkline": "^0.3.7",

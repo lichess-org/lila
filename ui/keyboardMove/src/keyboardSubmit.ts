@@ -1,6 +1,6 @@
 import { files } from '@lichess-org/chessground/types';
 import { sanToUci, type SanToUci } from 'lib/game/chess';
-import type { Opts } from './exports';
+import type { Opts } from '@/exports';
 
 const keyRegex = /^[a-h][1-8]$/;
 const fileRegex = /^[a-h]$/;

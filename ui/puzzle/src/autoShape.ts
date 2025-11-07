@@ -1,4 +1,4 @@
-import { winningChances } from 'lib/ceval/ceval';
+import { winningChances } from 'lib/ceval';
 import { annotationShapes } from 'lib/game/glyphs';
 import type { DrawModifiers, DrawShape } from '@lichess-org/chessground/draw';
 import { opposite, parseUci, makeSquare } from 'chessops/util';

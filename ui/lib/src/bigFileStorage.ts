@@ -1,5 +1,5 @@
 import { objectStorage } from './objectStorage';
-import { memoize } from './common';
+import { memoize } from './index';
 import { randomToken } from './algo';
 import { log } from './permalog';
 

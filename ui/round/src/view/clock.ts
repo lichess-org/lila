@@ -12,7 +12,7 @@ import {
   playable,
   type TopOrBottom,
   type TournamentRanks,
-} from 'lib/game/game';
+} from 'lib/game';
 import { justIcon } from '../util';
 
 export const anyClockView = (ctrl: RoundController, position: TopOrBottom): LooseVNode => {

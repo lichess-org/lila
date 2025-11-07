@@ -1,5 +1,5 @@
 import * as licon from 'lib/licon';
-import { finished, aborted, userAnalysable, playable } from 'lib/game/game';
+import { finished, aborted, userAnalysable, playable } from 'lib/game';
 import * as util from '../util';
 import { displayColumns } from 'lib/device';
 import type RoundController from '../ctrl';

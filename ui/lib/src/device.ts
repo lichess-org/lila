@@ -1,5 +1,5 @@
 import { type Hooks } from 'snabbdom';
-import { memoize } from './common';
+import { memoize } from './index';
 import { bind } from './snabbdom';
 import * as licon from './licon';
 

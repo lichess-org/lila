@@ -42,7 +42,7 @@ object variant:
       title = s"${variant.name} • ${variant.title}",
       klass = "box-pad page variant",
       active = perfType.key.some
-    ):
+    ).csp(_.withInlineIconFont):
       frag(
         boxTop(h1(cls := "text", dataIcon := perfType.icon)(variant.name)),
         h2(cls := "headline")(variant.title),

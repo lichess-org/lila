@@ -1,6 +1,6 @@
 import * as co from 'chessops';
 import { zip, clamp } from '../algo';
-import { clockToSpeed } from '../game/game';
+import { clockToSpeed } from '@/game';
 import { quantizeFilter, evaluateFilter, filterFacets, combine, type FilterValue } from './filter';
 import { pawnStructure } from './filters';
 import type { SearchResult } from '@lichess-org/zerofish';

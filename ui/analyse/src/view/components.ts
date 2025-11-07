@@ -1,4 +1,4 @@
-import { view as cevalView, renderEval as normalizeEval } from 'lib/ceval/ceval';
+import { view as cevalView, renderEval as normalizeEval } from 'lib/ceval';
 import { parseFen } from 'chessops/fen';
 import { defined } from 'lib';
 import * as licon from 'lib/licon';
@@ -12,7 +12,7 @@ import {
   dataIcon,
   hl,
 } from 'lib/snabbdom';
-import { playable } from 'lib/game/game';
+import { playable } from 'lib/game';
 import { isMobile } from 'lib/device';
 import * as materialView from 'lib/game/view/material';
 import { path as treePath } from 'lib/tree/tree';

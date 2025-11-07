@@ -1,4 +1,4 @@
-import { defined } from './common';
+import { defined } from './index';
 
 export const jsonHeader = {
   Accept: 'application/web.lichess+json',

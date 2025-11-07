@@ -1,4 +1,4 @@
-import { defined } from '../../common';
+import { defined } from '@/index';
 import { getNow } from '../util';
 import { h, type VNode } from 'snabbdom';
 import type { Run, TimeMod } from '../interfaces';

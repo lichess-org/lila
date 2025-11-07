@@ -1,14 +1,18 @@
-import { beforeEach, describe, expect, test, vi } from 'vitest';
-import { type Prop, propWithEffect } from 'lib';
-import { makeSubmit } from '../src/keyboardSubmit';
+import { beforeEach, describe, test } from 'node:test';
+import assert from 'node:assert/strict';
+import { type Prop, propWithEffect } from 'lib/index';
+import { makeSubmit } from '../src/keyboardSubmit.js';
 import { destsToUcis, sanWriter } from 'lib/game/chess';
 
-// Tips for working with this file:
-// - tests will often require a FEN position and a map of legal moves, e.g.:
-//     legalSans: fenDestsToSans(startingFen, { e2: ['e4'] }),
-// - you need not actually supply all of the legal moves, just a relevant subset for the test
-// - use https://lichess.org/editor to create positions and get their FENs
-// - use https://lichess.org/editor/<FEN> to check what FENs look like
+function spy() {
+  const f: any = (...args: any[]) => {
+    f.calls.push(args);
+  };
+  f.calls = [] as any[];
+  f.calledTimes = (n: number) => assert.equal(f.calls.length, n);
+  f.calledWith = (...args: any[]) => assert.deepEqual(f.calls[0], args);
+  return f as any;
+}
 
 const startingFen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
 const toDestsMap = (obj: object) => new Map(Object.entries(obj)) as Dests;
@@ -26,7 +30,7 @@ const defaultCtrl = {
   next: unexpectedErrorThrower('next'),
   vote: unexpectedErrorThrower('vote'),
   drop: unexpectedErrorThrower('drop'),
-  hasSelected: () => undefined,
+  hasSelected: () => undefined as any,
   arrowNavigate: unexpectedErrorThrower('arrowNavigate'),
   justSelected: () => true,
   promote: unexpectedErrorThrower('promote'),
@@ -43,210 +47,136 @@ const defaultCtrl = {
 const defaultClear = unexpectedErrorThrower('clear');
 
 describe('keyboardSubmit', () => {
-  let mockClear = vi.fn();
+  let mockClear = spy();
 
   beforeEach(() => {
-    mockClear = vi.fn();
+    mockClear = spy();
   });
 
   test('resigns game', () => {
-    const mockResign = vi.fn();
+    const mockResign = spy();
     const submit = makeSubmit(
-      {
-        input: document.createElement('input'),
-        ctrl: {
-          ...defaultCtrl,
-          resign: mockResign,
-        },
-      },
+      { input: document.createElement('input'), ctrl: { ...defaultCtrl, resign: mockResign } },
       mockClear,
     );
-
-    submit('resign', { isTrusted: true });
-
-    expect(mockResign).toHaveBeenCalledTimes(1);
-    expect(mockClear).toHaveBeenCalledTimes(1);
+    submit('resign', { isTrusted: true } as any);
+    mockResign.calledTimes(1);
+    mockClear.calledTimes(1);
   });
 
   test('draws game', () => {
-    const mockDraw = vi.fn();
+    const mockDraw = spy();
     const submit = makeSubmit(
-      {
-        input: document.createElement('input'),
-        ctrl: {
-          ...defaultCtrl,
-          draw: mockDraw,
-        },
-      },
+      { input: document.createElement('input'), ctrl: { ...defaultCtrl, draw: mockDraw } },
       mockClear,
     );
-
-    submit('draw', { isTrusted: true });
-
-    expect(mockDraw).toHaveBeenCalledTimes(1);
-    expect(mockClear).toHaveBeenCalledTimes(1);
+    submit('draw', { isTrusted: true } as any);
+    mockDraw.calledTimes(1);
+    mockClear.calledTimes(1);
   });
 
   test('goes to next puzzle', () => {
-    const mockNext = vi.fn();
+    const mockNext = spy();
     const submit = makeSubmit(
-      {
-        input: document.createElement('input'),
-        ctrl: {
-          ...defaultCtrl,
-          next: mockNext,
-        },
-      },
+      { input: document.createElement('input'), ctrl: { ...defaultCtrl, next: mockNext } },
       mockClear,
     );
-
-    submit('next', { isTrusted: true });
-
-    expect(mockNext).toHaveBeenCalledTimes(1);
-    expect(mockClear).toHaveBeenCalledTimes(1);
+    submit('next', { isTrusted: true } as any);
+    mockNext.calledTimes(1);
+    mockClear.calledTimes(1);
   });
 
   test('up votes puzzle', () => {
-    const mockVote = vi.fn();
+    const mockVote = spy();
     const submit = makeSubmit(
-      {
-        input: document.createElement('input'),
-        ctrl: {
-          ...defaultCtrl,
-          vote: mockVote,
-        },
-      },
+      { input: document.createElement('input'), ctrl: { ...defaultCtrl, vote: mockVote } },
       mockClear,
     );
-
-    submit('upv', { isTrusted: true });
-
-    expect(mockVote).toHaveBeenCalledTimes(1);
-    expect(mockVote).toBeCalledWith(true);
-    expect(mockClear).toHaveBeenCalledTimes(1);
+    submit('upv', { isTrusted: true } as any);
+    mockVote.calledTimes(1);
+    mockVote.calledWith(true);
+    mockClear.calledTimes(1);
   });
 
   test('down votes puzzle', () => {
-    const mockVote = vi.fn();
+    const mockVote = spy();
     const submit = makeSubmit(
-      {
-        input: document.createElement('input'),
-        ctrl: {
-          ...defaultCtrl,
-          vote: mockVote,
-        },
-      },
+      { input: document.createElement('input'), ctrl: { ...defaultCtrl, vote: mockVote } },
       mockClear,
     );
-
-    submit('downv', { isTrusted: true });
-
-    expect(mockVote).toHaveBeenCalledTimes(1);
-    expect(mockVote).toBeCalledWith(false);
-    expect(mockClear).toHaveBeenCalledTimes(1);
+    submit('downv', { isTrusted: true } as any);
+    mockVote.calledTimes(1);
+    mockVote.calledWith(false);
+    mockClear.calledTimes(1);
   });
 
   test('reads out clock', () => {
-    const mockSpeakClock = vi.fn();
+    const mockSpeakClock = spy();
     const submit = makeSubmit(
-      {
-        input: document.createElement('input'),
-        ctrl: {
-          ...defaultCtrl,
-          speakClock: mockSpeakClock,
-        },
-      },
+      { input: document.createElement('input'), ctrl: { ...defaultCtrl, speakClock: mockSpeakClock } },
       mockClear,
     );
-
-    submit('clock', { isTrusted: true });
-
-    expect(mockSpeakClock).toHaveBeenCalledTimes(1);
-    expect(mockClear).toHaveBeenCalledTimes(1);
+    submit('clock', { isTrusted: true } as any);
+    mockSpeakClock.calledTimes(1);
+    mockClear.calledTimes(1);
   });
 
   test('berserks a game', () => {
-    const mockGoBerserk = vi.fn();
+    const mockGoBerserk = spy();
     const submit = makeSubmit(
-      {
-        input: document.createElement('input'),
-        ctrl: {
-          ...defaultCtrl,
-          goBerserk: mockGoBerserk,
-        },
-      },
+      { input: document.createElement('input'), ctrl: { ...defaultCtrl, goBerserk: mockGoBerserk } },
       mockClear,
     );
-
-    submit('zerk', { isTrusted: true });
-
-    expect(mockGoBerserk).toHaveBeenCalledTimes(1);
-    expect(mockClear).toHaveBeenCalledTimes(1);
+    submit('zerk', { isTrusted: true } as any);
+    mockGoBerserk.calledTimes(1);
+    mockClear.calledTimes(1);
   });
 
   test('speaks opponent name', () => {
-    vi.stubGlobal('site', { sound: { say: vi.fn() } });
-
+    const say = spy();
+    (globalThis as any).site = { sound: { say } };
     const submit = makeSubmit(
-      {
-        input: document.createElement('input'),
-        ctrl: {
-          ...defaultCtrl,
-          opponent: 'opponent-name',
-        },
-      },
+      { input: document.createElement('input'), ctrl: { ...defaultCtrl, opponent: 'opponent-name' } },
       mockClear,
     );
-
-    submit('who', { isTrusted: true });
-    expect(site.sound.say).toHaveBeenCalledTimes(1);
-    expect(site.sound.say).toBeCalledWith('opponent-name', false, true);
+    submit('who', { isTrusted: true } as any);
+    say.calledTimes(1);
+    say.calledWith('opponent-name', false, true);
   });
 
   test('opens help modal with ?', () => {
-    const mockSetHelpModalOpen = vi.fn();
+    const mockSetHelpModalOpen = spy();
     const submit = makeSubmit(
       {
         input: document.createElement('input'),
-        ctrl: {
-          ...defaultCtrl,
-          helpModalOpen: mockSetHelpModalOpen as Prop<boolean>,
-        },
+        ctrl: { ...defaultCtrl, helpModalOpen: mockSetHelpModalOpen as unknown as Prop<boolean> },
       },
       mockClear,
     );
-
-    submit('?', { isTrusted: true });
-
-    expect(mockSetHelpModalOpen).toHaveBeenCalledTimes(1);
-    expect(mockSetHelpModalOpen).toBeCalledWith(true);
-    expect(mockClear).toHaveBeenCalledTimes(1);
+    submit('?', { isTrusted: true } as any);
+    mockSetHelpModalOpen.calledTimes(1);
+    mockSetHelpModalOpen.calledWith(true);
+    mockClear.calledTimes(1);
   });
 
   describe('from starting position', () => {
     test('plays e4 via SAN', () => {
-      const mockSan = vi.fn();
+      const mockSan = spy();
       const submit = makeSubmit(
         {
           input: document.createElement('input'),
-          ctrl: {
-            ...defaultCtrl,
-            legalSans: fenDestsToSans(startingFen, { e2: ['e4'] }),
-            san: mockSan,
-          },
+          ctrl: { ...defaultCtrl, legalSans: fenDestsToSans(startingFen, { e2: ['e4'] }), san: mockSan },
         },
         mockClear,
       );
-
-      submit('e4', { isTrusted: true });
-
-      expect(mockSan).toHaveBeenCalledTimes(1);
-      expect(mockSan).toBeCalledWith('e2', 'e4');
-      expect(mockClear).toHaveBeenCalledTimes(1);
+      submit('e4', { isTrusted: true } as any);
+      mockSan.calledTimes(1);
+      mockSan.calledWith('e2', 'e4');
+      mockClear.calledTimes(1);
     });
 
     test('selects e2 via UCI', () => {
-      const mockSelect = vi.fn();
+      const mockSelect = spy();
       const submit = makeSubmit(
         {
           input: document.createElement('input'),
@@ -258,17 +188,15 @@ describe('keyboardSubmit', () => {
         },
         mockClear,
       );
-
-      submit('e2', { isTrusted: true });
-
-      expect(mockSelect).toHaveBeenCalledTimes(1);
-      expect(mockSelect).toBeCalledWith('e2');
-      expect(mockClear).toHaveBeenCalledTimes(1);
+      submit('e2', { isTrusted: true } as any);
+      mockSelect.calledTimes(1);
+      mockSelect.calledWith('e2');
+      mockClear.calledTimes(1);
     });
 
     test('with e2 selected, plays e4 via UCI', () => {
-      const mockSan = vi.fn();
-      const mockSelect = vi.fn();
+      const mockSan = spy(),
+        mockSelect = spy();
       const submit = makeSubmit(
         {
           input: document.createElement('input'),
@@ -282,19 +210,16 @@ describe('keyboardSubmit', () => {
         },
         mockClear,
       );
-
-      submit('e4', { isTrusted: true });
-
-      // is it intended behavior to call both select and san?
-      expect(mockSelect).toHaveBeenCalledTimes(1);
-      expect(mockSelect).toBeCalledWith('e4');
-      expect(mockSan).toHaveBeenCalledTimes(1);
-      expect(mockSan).toBeCalledWith('e2', 'e4');
-      expect(mockClear).toHaveBeenCalledTimes(1);
+      submit('e4', { isTrusted: true } as any);
+      mockSelect.calledTimes(1);
+      mockSelect.calledWith('e4');
+      mockSan.calledTimes(1);
+      mockSan.calledWith('e2', 'e4');
+      mockClear.calledTimes(1);
     });
 
     test('selects e2 via ICCF', () => {
-      const mockSelect = vi.fn();
+      const mockSelect = spy();
       const submit = makeSubmit(
         {
           input: document.createElement('input'),
@@ -306,17 +231,15 @@ describe('keyboardSubmit', () => {
         },
         mockClear,
       );
-
-      submit('52', { isTrusted: true });
-
-      expect(mockSelect).toHaveBeenCalledTimes(1);
-      expect(mockSelect).toBeCalledWith('e2');
-      expect(mockClear).toHaveBeenCalledTimes(1);
+      submit('52', { isTrusted: true } as any);
+      mockSelect.calledTimes(1);
+      mockSelect.calledWith('e2');
+      mockClear.calledTimes(1);
     });
 
     test('with e2 selected, plays e4 via ICCF', () => {
-      const mockSan = vi.fn();
-      const mockSelect = vi.fn();
+      const mockSan = spy(),
+        mockSelect = spy();
       const submit = makeSubmit(
         {
           input: document.createElement('input'),
@@ -330,15 +253,12 @@ describe('keyboardSubmit', () => {
         },
         mockClear,
       );
-
-      submit('54', { isTrusted: true });
-
-      // is it intended behavior to call both select and san?
-      expect(mockSelect).toHaveBeenCalledTimes(1);
-      expect(mockSelect).toBeCalledWith('e4');
-      expect(mockSan).toHaveBeenCalledTimes(1);
-      expect(mockSan).toBeCalledWith('e2', 'e4');
-      expect(mockClear).toHaveBeenCalledTimes(1);
+      submit('54', { isTrusted: true } as any);
+      mockSelect.calledTimes(1);
+      mockSelect.calledWith('e4');
+      mockSan.calledTimes(1);
+      mockSan.calledWith('e2', 'e4');
+      mockClear.calledTimes(1);
     });
   });
 
@@ -346,7 +266,7 @@ describe('keyboardSubmit', () => {
     const ambiguousPawnBishopCapture = '4k3/8/8/8/8/2r5/1P1B4/4K3 w - - 0 1';
 
     test('does pawn capture', () => {
-      const mockSan = vi.fn();
+      const mockSan = spy();
       const submit = makeSubmit(
         {
           input: document.createElement('input'),
@@ -359,16 +279,14 @@ describe('keyboardSubmit', () => {
         },
         mockClear,
       );
-
-      submit('bc3', { isTrusted: true });
-
-      expect(mockSan).toHaveBeenCalledTimes(1);
-      expect(mockSan).toBeCalledWith('b2', 'c3');
-      expect(mockClear).toHaveBeenCalledTimes(1);
+      submit('bc3', { isTrusted: true } as any);
+      mockSan.calledTimes(1);
+      mockSan.calledWith('b2', 'c3');
+      mockClear.calledTimes(1);
     });
 
     test('does bishop capture', () => {
-      const mockSan = vi.fn();
+      const mockSan = spy();
       const submit = makeSubmit(
         {
           input: document.createElement('input'),
@@ -380,12 +298,10 @@ describe('keyboardSubmit', () => {
         },
         mockClear,
       );
-
-      submit('Bc3', { isTrusted: true });
-
-      expect(mockSan).toHaveBeenCalledTimes(1);
-      expect(mockSan).toBeCalledWith('d2', 'c3');
-      expect(mockClear).toHaveBeenCalledTimes(1);
+      submit('Bc3', { isTrusted: true } as any);
+      mockSan.calledTimes(1);
+      mockSan.calledWith('d2', 'c3');
+      mockClear.calledTimes(1);
     });
   });
 
@@ -396,21 +312,16 @@ describe('keyboardSubmit', () => {
       const submit = makeSubmit(
         {
           input: document.createElement('input'),
-          ctrl: {
-            ...defaultCtrl,
-            legalSans: fenDestsToSans(ambiguousCastlingFen, { e1: ['c1', 'g1'] }),
-          },
+          ctrl: { ...defaultCtrl, legalSans: fenDestsToSans(ambiguousCastlingFen, { e1: ['c1', 'g1'] }) },
         },
         mockClear,
       );
-
-      submit('o-o', { isTrusted: true });
-
-      expect(mockClear).toHaveBeenCalledTimes(0);
+      submit('o-o', { isTrusted: true } as any);
+      assert.equal(mockClear.calls.length, 0);
     });
 
     test('does castle long', () => {
-      const mockSan = vi.fn();
+      const mockSan = spy();
       const submit = makeSubmit(
         {
           input: document.createElement('input'),
@@ -422,12 +333,10 @@ describe('keyboardSubmit', () => {
         },
         mockClear,
       );
-
-      submit('o-o-o', { isTrusted: true });
-
-      expect(mockSan).toHaveBeenCalledTimes(1);
-      expect(mockSan).toBeCalledWith('e1', 'c1');
-      expect(mockClear).toHaveBeenCalledTimes(1);
+      submit('o-o-o', { isTrusted: true } as any);
+      mockSan.calledTimes(1);
+      mockSan.calledWith('e1', 'c1');
+      mockClear.calledTimes(1);
     });
   });
 
@@ -435,7 +344,7 @@ describe('keyboardSubmit', () => {
     const promotablePawnFen = 'r3k3/1P6/8/8/8/8/8/4K3 w - - 0 1';
 
     test('with no piece specified does not promote by advancing', () => {
-      const mockPromote = vi.fn();
+      const mockPromote = spy();
       const submit = makeSubmit(
         {
           input: document.createElement('input'),
@@ -447,15 +356,13 @@ describe('keyboardSubmit', () => {
         },
         mockClear,
       );
-
-      submit('b8', { isTrusted: true });
-
-      expect(mockPromote).toHaveBeenCalledTimes(0);
-      expect(mockClear).toHaveBeenCalledTimes(0);
+      submit('b8', { isTrusted: true } as any);
+      mockPromote.calledTimes(0);
+      assert.equal(mockClear.calls.length, 0);
     });
 
     test('with piece specified does promote by advancing', () => {
-      const mockPromote = vi.fn();
+      const mockPromote = spy();
       const submit = makeSubmit(
         {
           input: document.createElement('input'),
@@ -467,15 +374,13 @@ describe('keyboardSubmit', () => {
         },
         mockClear,
       );
-
-      submit('b8=q', { isTrusted: true });
-
-      expect(mockPromote).toHaveBeenCalledTimes(1);
-      expect(mockClear).toHaveBeenCalledTimes(1);
+      submit('b8=q', { isTrusted: true } as any);
+      mockPromote.calledTimes(1);
+      mockClear.calledTimes(1);
     });
 
     test('with no piece specified does not promote by capturing', () => {
-      const mockPromote = vi.fn();
+      const mockPromote = spy();
       const submit = makeSubmit(
         {
           input: document.createElement('input'),
@@ -487,15 +392,13 @@ describe('keyboardSubmit', () => {
         },
         mockClear,
       );
-
-      submit('ba8', { isTrusted: true });
-
-      expect(mockPromote).toHaveBeenCalledTimes(0);
-      expect(mockClear).toHaveBeenCalledTimes(0);
+      submit('ba8', { isTrusted: true } as any);
+      mockPromote.calledTimes(0);
+      assert.equal(mockClear.calls.length, 0);
     });
 
     test('with piece specified does promote by capturing', () => {
-      const mockPromote = vi.fn();
+      const mockPromote = spy();
       const submit = makeSubmit(
         {
           input: document.createElement('input'),
@@ -507,16 +410,14 @@ describe('keyboardSubmit', () => {
         },
         mockClear,
       );
-
-      submit('ba8=b', { isTrusted: true });
-
-      expect(mockPromote).toHaveBeenCalledTimes(1);
-      expect(mockClear).toHaveBeenCalledTimes(1);
+      submit('ba8=b', { isTrusted: true } as any);
+      mockPromote.calledTimes(1);
+      mockClear.calledTimes(1);
     });
 
     describe('with pawn selected', () => {
       test('with no piece specified does not promote by advancing', () => {
-        const mockPromote = vi.fn();
+        const mockPromote = spy();
         const submit = makeSubmit(
           {
             input: document.createElement('input'),
@@ -529,15 +430,13 @@ describe('keyboardSubmit', () => {
           },
           mockClear,
         );
-
-        submit('b8', { isTrusted: true });
-
-        expect(mockPromote).toHaveBeenCalledTimes(0);
-        expect(mockClear).toHaveBeenCalledTimes(0);
+        submit('b8', { isTrusted: true } as any);
+        mockPromote.calledTimes(0);
+        assert.equal(mockClear.calls.length, 0);
       });
 
       test('with piece specified does promote by advancing', () => {
-        const mockPromote = vi.fn();
+        const mockPromote = spy();
         const submit = makeSubmit(
           {
             input: document.createElement('input'),
@@ -550,15 +449,13 @@ describe('keyboardSubmit', () => {
           },
           mockClear,
         );
-
-        submit('b8=r', { isTrusted: true });
-
-        expect(mockPromote).toHaveBeenCalledTimes(1);
-        expect(mockClear).toHaveBeenCalledTimes(1);
+        submit('b8=r', { isTrusted: true } as any);
+        mockPromote.calledTimes(1);
+        mockClear.calledTimes(1);
       });
 
       test('with no piece specified does not promote by capturing', () => {
-        const mockPromote = vi.fn();
+        const mockPromote = spy();
         const submit = makeSubmit(
           {
             input: document.createElement('input'),
@@ -571,15 +468,13 @@ describe('keyboardSubmit', () => {
           },
           mockClear,
         );
-
-        submit('ba8', { isTrusted: true });
-
-        expect(mockPromote).toHaveBeenCalledTimes(0);
-        expect(mockClear).toHaveBeenCalledTimes(0);
+        submit('ba8', { isTrusted: true } as any);
+        mockPromote.calledTimes(0);
+        assert.equal(mockClear.calls.length, 0);
       });
 
       test('with piece specified does promote by capturing', () => {
-        const mockPromote = vi.fn();
+        const mockPromote = spy();
         const submit = makeSubmit(
           {
             input: document.createElement('input'),
@@ -592,76 +487,54 @@ describe('keyboardSubmit', () => {
           },
           mockClear,
         );
-
-        submit('a8=n', { isTrusted: true });
-
-        expect(mockPromote).toHaveBeenCalledTimes(1);
-        expect(mockClear).toHaveBeenCalledTimes(1);
+        submit('a8=n', { isTrusted: true } as any);
+        mockPromote.calledTimes(1);
+        mockClear.calledTimes(1);
       });
     });
   });
 
   describe('in crazyhouse variant', () => {
     test('with incomplete crazyhouse entry does nothing', () => {
-      const mockDrop = vi.fn();
+      const mockDrop = spy();
       const submit = makeSubmit(
         {
           input: document.createElement('input'),
-          ctrl: {
-            ...defaultCtrl,
-            legalSans: fenDestsToSans(startingFen, { e2: ['e4'] }),
-            drop: mockDrop,
-          },
+          ctrl: { ...defaultCtrl, legalSans: fenDestsToSans(startingFen, { e2: ['e4'] }), drop: mockDrop },
         },
         mockClear,
       );
-
-      submit('Q@a', { isTrusted: true });
-
-      expect(mockDrop).toHaveBeenCalledTimes(0);
-      expect(mockClear).toHaveBeenCalledTimes(0);
+      submit('Q@a', { isTrusted: true } as any);
+      mockDrop.calledTimes(0);
+      assert.equal(mockClear.calls.length, 0);
     });
 
     test('with complete crazyhouse entry does a drop', () => {
-      const mockDrop = vi.fn();
+      const mockDrop = spy();
       const submit = makeSubmit(
         {
           input: document.createElement('input'),
-          ctrl: {
-            ...defaultCtrl,
-            legalSans: fenDestsToSans(startingFen, { e2: ['e4'] }),
-            drop: mockDrop,
-          },
+          ctrl: { ...defaultCtrl, legalSans: fenDestsToSans(startingFen, { e2: ['e4'] }), drop: mockDrop },
         },
         mockClear,
       );
-
-      submit('Q@a5', { isTrusted: true });
-
-      expect(mockDrop).toHaveBeenCalledTimes(1);
-      expect(mockClear).toHaveBeenCalledTimes(1);
+      submit('Q@a5', { isTrusted: true } as any);
+      mockDrop.calledTimes(1);
+      mockClear.calledTimes(1);
     });
   });
 
   test('with incorrect entry marks it wrong', () => {
-    vi.stubGlobal('site', { sound: { play: vi.fn() } });
-
+    const play = spy();
+    (globalThis as any).site = { sound: { play } };
     const input = document.createElement('input');
     const submit = makeSubmit(
-      {
-        input,
-        ctrl: {
-          ...defaultCtrl,
-          legalSans: fenDestsToSans(startingFen, { e2: ['e4'] }),
-        },
-      },
+      { input, ctrl: { ...defaultCtrl, legalSans: fenDestsToSans(startingFen, { e2: ['e4'] }) } },
       defaultClear,
     );
-
     submit('j4', { isTrusted: true });
-
-    expect(input.classList.contains('wrong')).toBe(true);
-    expect(site.sound.play).toHaveBeenCalledTimes(1);
-    expect(site.sound.play).toBeCalledWith('error');
+    assert.equal(input.classList.contains('wrong'), true);
+    play.calledTimes(1);
+    play.calledWith('error');
   });
 });

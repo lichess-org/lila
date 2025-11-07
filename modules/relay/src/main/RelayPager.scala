@@ -68,22 +68,23 @@ final class RelayPager(
   def subscribedBy(userId: UserId, page: Int): Fu[Paginator[RelayTour | WithLastRound]] = Paginator(
     adapter = new:
       def nbResults: Fu[Int] = tourRepo.countBySubscriberId(userId)
-      def slice(offset: Int, length: Int): Fu[List[WithLastRound]] =
+      def slice(offset: Int, length: Int): Fu[List[RelayTour | WithLastRound]] =
         tourRepo.coll
           .aggregateList(length, _.sec): framework =>
             import framework.*
             Match(selectors.subscriberId(userId)) -> {
               List(Project(unsetHeavyOptionalFields), Sort(Descending("createdAt"))) ::: tourRepo
-                .aggregateRoundAndUnwind(
+                .aggregateRound(
                   colls,
                   framework,
+                  onlyKeepGroupFirst = false,
                   roundPipeline = roundPipelineFirstUnfinished.some
                 ) ::: List(
                 Skip(offset),
                 Limit(length)
               )
             }
-          .map(readToursWithRoundAndGroup(RelayTour.WithLastRound.apply))
+          .map(readTours)
     ,
     currentPage = page,
     maxPerPage = maxPerPage

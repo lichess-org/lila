@@ -1,6 +1,6 @@
 import { h } from 'snabbdom';
 import type RoundController from '../ctrl';
-import { isPlayerTurn, playable } from 'lib/game/game';
+import { isPlayerTurn, playable } from 'lib/game';
 import type { MaybeVNode } from 'lib/snabbdom';
 
 let rang = false;

@@ -1,7 +1,7 @@
 import { hl, type VNode } from '@/snabbdom';
 import { clamp } from '@/algo';
 import { storedMap } from '@/storage';
-import { myUserId } from '@/common';
+import { myUserId } from '@/index';
 
 interface Opts {
   selector?: string; // selector for element to resize, defaults to the previous sibling

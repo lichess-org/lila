@@ -5,6 +5,39 @@ import compat from 'eslint-plugin-compat';
 export default [
   { ignores: ['*', '!ui/', '!bin/', '**/dist/'] },
   {
+    files: ['**/index.ts'],
+    rules: {
+      'no-restricted-syntax': [
+        'error',
+        {
+          selector: 'Program > ImportDeclaration[importKind!="type"][specifiers.length=0]',
+          message: 'No side-effect imports in index.ts',
+        },
+        {
+          selector: 'Program > ExpressionStatement:not([directive])',
+          message: 'No top-level expressions in index.ts',
+        },
+        {
+          selector: 'Program > ExpressionStatement > CallExpression',
+          message: 'No top-level calls in index.ts',
+        },
+        {
+          selector: 'Program > ExpressionStatement > NewExpression',
+          message: 'No top-level new in index.ts',
+        },
+        {
+          selector: 'Program > ExpressionStatement > AwaitExpression',
+          message: 'No top-level await in index.ts',
+        },
+        {
+          selector:
+            'Program > VariableDeclaration > VariableDeclarator[init.type=/^(CallExpression|NewExpression|UpdateExpression|AssignmentExpression|AwaitExpression|TaggedTemplateExpression)$/]',
+          message: 'No side-effectful initializers in index.ts',
+        },
+      ],
+    },
+  },
+  {
     files: ['**/*.{ts,mts}'],
     plugins: { '@typescript-eslint': typescriptEslint, compat },
     languageOptions: { parser: tsParser, ecmaVersion: 5, sourceType: 'module' },
@@ -20,7 +53,6 @@ export default [
         'warn',
         { varsIgnorePattern: '^_', argsIgnorePattern: '^_', caughtErrorsIgnorePattern: '^_' },
       ],
-
       'linebreak-style': ['error', 'unix'],
       'prefer-const': 'error',
       'prefer-spread': 'off',

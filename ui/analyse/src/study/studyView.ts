@@ -22,7 +22,7 @@ import { view as tagsView } from './studyTags';
 import { view as topicsView, formView as topicsFormView } from './topics';
 import { view as searchView } from './studySearch';
 import { view as keyboardView } from '../keyboard';
-import { view as cevalView } from 'lib/ceval/ceval';
+import { view as cevalView } from 'lib/ceval';
 import { render as trainingView } from '../view/roundTraining';
 import { render as renderKeyboardMove } from 'keyboardMove';
 import { renderChat } from 'lib/chat/renderChat';

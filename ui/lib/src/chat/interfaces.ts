@@ -1,5 +1,5 @@
 import type { VNode } from 'snabbdom';
-import type { Prop } from '@/common';
+import type { Prop } from '@/index';
 
 import type { EnhanceOpts } from '@/richText';
 export type { ChatCtrl } from './chatCtrl';
