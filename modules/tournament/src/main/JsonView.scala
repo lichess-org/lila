@@ -36,7 +36,8 @@ final class JsonView(
     duelStore: DuelStore,
     standingApi: TournamentStandingApi,
     pause: Pause,
-    reloadEndpointSetting: SettingStore[String] @@ TournamentReloadEndpoint
+    reloadEndpointSetting: SettingStore[String] @@ TournamentReloadEndpoint,
+    isOnline: lila.core.socket.IsOnline
 )(using Executor, lila.core.i18n.Translator):
 
   import JsonView.{ *, given }
@@ -334,6 +335,7 @@ final class JsonView(
                     sheet <- cached.sheet(tour, rp.player.userId)
                     json <- playerJson(
                       lightUserApi,
+                      isOnline,
                       none,
                       rp,
                       streakable = tour.streakable,
@@ -514,12 +516,14 @@ object JsonView:
 
   def playerJson(
       lightUserApi: LightUserApi,
+      isOnline: lila.core.socket.IsOnline,
       sheets: Map[UserId, arena.Sheet],
       streakable: Boolean,
       withScores: Boolean
   )(rankedPlayer: RankedPlayer)(using Executor): Fu[JsObject] =
     playerJson(
       lightUserApi,
+      isOnline,
       sheets.get(rankedPlayer.player.userId),
       rankedPlayer,
       streakable = streakable,
@@ -528,6 +532,7 @@ object JsonView:
 
   private[tournament] def playerJson(
       lightUserApi: LightUserApi,
+      isOnline: lila.core.socket.IsOnline,
       sheet: Option[arena.Sheet],
       rankedPlayer: RankedPlayer,
       streakable: Boolean,
@@ -548,6 +553,7 @@ object JsonView:
             .add("provisional" -> p.provisional)
             .add("withdraw" -> p.withdraw)
             .add("team" -> p.team)
+            .add("offline" -> !isOnline.exec(p.userId))
 
   private[tournament] def sheetJson(streakFire: Boolean, withScores: Boolean)(s: arena.Sheet) =
     Json

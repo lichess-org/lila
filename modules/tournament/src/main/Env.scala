@@ -7,7 +7,7 @@ import io.lettuce.core.{ RedisClient, RedisURI }
 import play.api.Configuration
 
 import lila.core.config.*
-import lila.core.socket.{ GetVersion, SocketVersion }
+import lila.core.socket.{ GetVersion, SocketVersion, IsOnline }
 
 @Module
 final class Env(
@@ -27,7 +27,8 @@ final class Env(
     historyApi: lila.core.history.HistoryApi,
     trophyApi: lila.core.user.TrophyApi,
     socketKit: lila.core.socket.SocketKit,
-    settingStore: lila.memo.SettingStore.Builder
+    settingStore: lila.memo.SettingStore.Builder,
+    isOnline: IsOnline
 )(using scheduler: Scheduler)(using
     Executor,
     ActorSystem,

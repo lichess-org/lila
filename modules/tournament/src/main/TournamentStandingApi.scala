@@ -14,6 +14,7 @@ import lila.memo.CacheApi.*
  */
 final class TournamentStandingApi(
     playerRepo: PlayerRepo,
+    isOnline: lila.core.socket.IsOnline,
     cached: TournamentCache,
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.core.user.LightUserApi
@@ -31,6 +32,7 @@ final class TournamentStandingApi(
           sheet <- cached.sheet(tour, player.userId)
           json <- JsonView.playerJson(
             lightUserApi,
+            isOnline,
             sheet.some,
             RankedPlayer(Rank(index.toInt + 1), player),
             streakable = tour.streakable,
@@ -78,7 +80,10 @@ final class TournamentStandingApi(
         .parallel
         .dmap(_.toMap)
       players <- rankedPlayers
-        .map(JsonView.playerJson(lightUserApi, sheets, streakable = tour.streakable, withScores = withScores))
+        .map(
+          JsonView
+            .playerJson(lightUserApi, isOnline, sheets, streakable = tour.streakable, withScores = withScores)
+        )
         .parallel
     yield Json.obj(
       "page" -> page,

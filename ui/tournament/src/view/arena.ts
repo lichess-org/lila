@@ -49,7 +49,7 @@ function playerTr(ctrl: TournamentController, player: StandingPlayer) {
     [
       h(
         'td.rank',
-        player.withdraw
+        player.withdraw || player.offline
           ? h('i', { attrs: { 'data-icon': licon.Pause, title: i18n.site.pause } })
           : player.rank,
       ),

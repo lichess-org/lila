@@ -118,6 +118,7 @@ export interface SimplePlayer {
   flair?: string;
   provisional?: boolean;
   patronColor?: PatronColor;
+  offline?: boolean;
 }
 
 interface FeaturedPlayer extends SimplePlayer {
