@@ -72,7 +72,7 @@ export interface PubsubEvents {
 
 export interface OneTimeEvents {
   'polyfill.dialog': ((dialog: HTMLElement) => void) | undefined;
-  'socket.hasConnected': boolean;
+  'socket.hasConnected': void;
   'botdev.images.ready': void;
 }
 
