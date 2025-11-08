@@ -1,16 +1,18 @@
 import { pubsub } from 'lib/pubsub';
 
 export async function loadPolyfills(): Promise<void> {
-  site.polyfill = {} as typeof site.polyfill;
   await Promise.all([dialogPolyfill(), resizePolyfill()]);
 }
 
 async function dialogPolyfill() {
-  site.polyfill.registerDialog =
-    typeof window.HTMLDialogElement === 'undefined'
-      ? () => {}
-      : (await import(site.asset.url('npm/dialog-polyfill.esm.js')).catch(() => undefined))?.registerDialog;
-  pubsub.complete('polyfill.dialog');
+  let registerDialog = undefined;
+  try {
+    if (typeof window.HTMLDialogElement === 'undefined') {
+      registerDialog = (await import(site.asset.url('npm/dialog-polyfill.esm.js'))).default.registerDialog;
+    }
+  } finally {
+    pubsub.complete('polyfill.dialog', registerDialog);
+  }
 }
 
 async function resizePolyfill() {

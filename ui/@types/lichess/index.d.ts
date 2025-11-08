@@ -42,9 +42,6 @@ interface Site {
   analysis?: any; // expose the analysis ctrl
   // file://./../../.build/src/manifest.ts
   manifest: { css: Record<string, string>; js: Record<string, string>; hashed: Record<string, string> };
-  polyfill: {
-    registerDialog?: (dialog: HTMLDialogElement) => void;
-  };
 }
 
 interface EsmModuleOpts extends AssetUrlOpts {
@@ -173,7 +170,6 @@ interface Window {
   site: Site;
   fipr: Fipr;
   i18n: I18n;
-  $as<T>(cash: Cash): T;
   readonly chrome?: unknown;
   readonly moment: any;
   readonly stripeHandler: any;

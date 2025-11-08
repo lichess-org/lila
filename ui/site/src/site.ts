@@ -29,6 +29,6 @@ site.reload = reload;
 site.announce = announceDisplay;
 site.sound = sound;
 (window as any).lichess = api;
-loadPolyfills(); // site.polyfill
+loadPolyfills();
 addWindowHandlers(); // site.columns
 site.load.then(boot);

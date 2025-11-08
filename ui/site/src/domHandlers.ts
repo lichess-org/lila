@@ -31,7 +31,7 @@ export function addWindowHandlers() {
     animFrame = undefined;
     // ios safari vh behavior workaround
     for (const el of document.querySelectorAll<HTMLElement>('dialog > div.scrollable')) {
-      el.attributeStyleMap.set('---viewport-height', `${window.innerHeight}px`);
+      el.style.setProperty('---viewport-height', `${window.innerHeight}px`);
     }
   }
 }

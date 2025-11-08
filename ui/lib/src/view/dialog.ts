@@ -162,8 +162,6 @@ class DialogWrapper implements Dialog {
     readonly o: DialogOpts,
     readonly isSnab: boolean,
   ) {
-    site.polyfill.registerDialog?.(dialog); // ios < 15.4
-
     const justThen = Date.now();
     const cancelOnInterval = (e: PointerEvent) => {
       if (!this.dialog.isConnected) console.trace('likely zombie dialog. Always Be Close()ing');
@@ -217,7 +215,8 @@ class DialogWrapper implements Dialog {
   }
 
   show = async (): Promise<Dialog> => {
-    await pubsub.after('polyfill.dialog');
+    (await pubsub.after('polyfill.dialog'))?.(this.dialog);
+
     if (this.o.modal) this.view.scrollTop = 0;
     if (this.isSnab) {
       if (this.dialog.parentElement === this.dialog.closest('.snab-modal-mask'))
