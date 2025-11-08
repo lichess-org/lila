@@ -1,12 +1,11 @@
 import * as co from 'chessops';
-import { zip, clamp } from '../algo';
+import { zip } from '../algo';
 import { clockToSpeed } from '@/game';
-import { quantizeFilter, evaluateFilter, filterFacets, combine, type FilterValue } from './filter';
-import { pawnStructure } from './filters';
+import type { FilterValue } from './filter';
+import { quantizeFilter, evaluateFilter, filterFacets, combine } from './filter';
 import type { SearchResult } from '@lichess-org/zerofish';
 import type { OpeningBook } from '../game/polyglot';
 import { movetime as getMovetime } from './movetime';
-import { normalMove } from '../game/chess';
 import type { BotLoader } from './botLoader';
 import type {
   BotInfo,
@@ -14,10 +13,12 @@ import type {
   ZeroSearch,
   Filters,
   FilterType,
+  FilterSpec,
   Book,
   MoveSource,
   MoveArgs,
   MoveResult,
+  SearchMove,
   LocalSpeed,
   SoundEvent,
   SoundEvents,
@@ -27,6 +28,7 @@ import type {
 export type * from './types';
 
 export class Bot implements BotInfo, MoveSource {
+  private static filterRegistry: Map<string, FilterSpec>;
   private openings: Promise<OpeningBook[]>;
   private stats: { cplMoves: number; cpl: number };
   private traces: string[];
@@ -53,6 +55,14 @@ export class Bot implements BotInfo, MoveSource {
 
   static isValid(maybeBot: any): boolean {
     return Boolean(maybeBot?.zero || maybeBot?.fish);
+  }
+
+  static registerFilter(name: string, spec: FilterSpec): void {
+    Bot.registry.set(name, spec);
+  }
+
+  static filterEntries(): [string, FilterSpec][] {
+    return [...Bot.registry.entries()];
   }
 
   constructor(info: BotInfo, ctrl: BotLoader) {
@@ -138,6 +148,11 @@ export class Bot implements BotInfo, MoveSource {
     return 1;
   }
 
+  private static get registry(): Map<string, FilterSpec> {
+    Bot.filterRegistry ??= new Map();
+    return Bot.filterRegistry;
+  }
+
   private hasFilter(op: FilterType): boolean {
     const f = this.filters?.[op];
     return Boolean(f && (f.move?.length || f.score?.length || f.time?.length));
@@ -201,20 +216,12 @@ export class Bot implements BotInfo, MoveSource {
     args: MoveArgs,
   ): { uci: Uci; cpl?: number; movetime: number } {
     const moves = this.parseMoves(fishResults, fishDepth, zeroResults, args);
-    this.trace(`[chooseMove] - parsed = ${stringify(moves)}`);
     const movetime = args.movetime ?? 0;
-    if (this.hasFilter('cplTarget')) {
-      this.scoreByCpl(moves, args);
-      this.trace(`[chooseMove] - cpl scored = ${stringify(moves)}`);
-    }
-    if (this.hasFilter('aggression')) {
-      this.scoreByAggression(moves, args);
-      this.trace(`[chooseMove] - aggression scored = ${stringify(moves)}`);
-    }
-    if (this.hasFilter('pawnStructure')) {
-      this.scoreByPawnStructure(moves, args);
-      this.trace(`[chooseMove] - pawn structure scored = ${stringify(moves)}`);
-    }
+
+    this.trace(`[chooseMove] - parsed = ${stringify(moves)}`);
+
+    this.scoreByFilters(moves, args);
+
     moves.sort(weightSort);
     if (args.pos.moves?.length) {
       const last = args.pos.moves[args.pos.moves.length - 1].slice(2, 4);
@@ -290,35 +297,23 @@ export class Bot implements BotInfo, MoveSource {
     }
   }
 
-  private scoreByAggression(sorted: SearchMove[], args: MoveArgs) {
-    const aggression = this.applyFilter('aggression', args) ?? 0;
-    for (const mv of sorted) {
-      const chess = args.chess.clone();
-      const normal = normalMove(chess, mv.uci)!.move;
-      mv.weights.aggressionBias = co.san.makeSan(chess, normal).includes('x') ? aggression : 0;
+  private scoreByFilters(sorted: SearchMove[], args: MoveArgs) {
+    if (this.hasFilter('cplTarget')) {
+      this.scoreByCpl(sorted, args);
+      this.trace(`[chooseMove] - cpl scored = ${stringify(sorted)}`);
     }
-  }
-
-  private scoreByPawnStructure(sorted: SearchMove[], args: MoveArgs) {
-    const pawnScore = this.applyFilter('pawnStructure', args) ?? 0;
-    for (const mv of sorted) {
-      const chess = args.chess.clone();
-      chess.play(normalMove(chess, mv.uci)!.move);
-      const score = pawnStructure(chess);
-      mv.weights.pawnStructure = clamp(score * pawnScore, { min: 0, max: 1 });
-    }
-    const grouped = sorted.reduce((groups, mv) => {
-      const group = groups.get(mv.weights.pawnStructure!) ?? [];
-      group.push(mv);
-      groups.set(mv.weights.pawnStructure!, group);
-      return groups;
-    }, new Map<number, SearchMove[]>());
-    const vals = [...grouped.keys()].sort((a, b) => b - a);
-    vals.forEach((val, i) => {
-      for (const mv of grouped.get(val)!) {
-        mv.weights.pawnStructure = (vals.length - i) / vals.length;
+    const filterKeys = Object.keys(this.filters ?? {}).filter(
+      (f): f is FilterType => !['cplTarget', 'cplStdev', 'lc0bias', 'moveDecay'].includes(f),
+    );
+    for (const key of filterKeys) {
+      const spec = Bot.registry.get(key);
+      if (!spec) {
+        console.error(`is ${key} a filter?`, stringify(Bot.registry));
+        continue;
       }
-    });
+      spec.score?.(sorted, args, this.applyFilter(key, args) ?? 0);
+      this.trace(`[scoreByFilters] - ${spec.info.label ?? key} scored = ${stringify(sorted)}`);
+    }
   }
 
   private scoreByMoveQualityDecay(sorted: SearchMove[], decay: number) {
@@ -334,16 +329,6 @@ export class Bot implements BotInfo, MoveSource {
     if (Array.isArray(msg)) this.traces = msg;
     else this.traces.push('      ' + msg);
   }
-}
-
-type Weights = 'lc0bias' | 'cplBias' | 'aggressionBias' | 'pawnStructure';
-
-interface SearchMove {
-  uci: Uci;
-  score?: number;
-  cpl?: number;
-  weights: { [key in Weights]?: number };
-  P?: number;
 }
 
 function weightSort(a: SearchMove, b: SearchMove) {

@@ -1,4 +1,6 @@
 import type { Schema, InfoKey, PropertyValue } from './devTypes';
+import { memoize } from 'lib';
+import { type FilterSpec, Bot } from 'lib/bot/bot';
 import { deepFreeze } from 'lib/algo';
 
 // describe dialog content, define constraints, maps to Bot instance data
@@ -24,7 +26,7 @@ export const infoKeys: InfoKey[] = [
 
 export const requiresOpRe: RegExp = /==|>=|>|<<=|<=|<|!=/; // <<= means startsWith
 
-export const schema: Schema = deepFreeze<Schema>({
+const base: Schema = {
   info: {
     description: {
       type: 'textarea',
@@ -246,45 +248,13 @@ export const schema: Schema = deepFreeze<Schema>({
         to 50. cpl stdev participates in the cpl target
         weight calculation. it does not assign its own weight.`,
     },
-    aggression: {
-      label: 'aggression',
-      type: 'filter',
-      class: ['filter'],
-      value: { range: { min: -1, max: 1 }, by: 'avg' },
-      requires: {
-        some: [
-          'behavior_fish_multipv > 1',
-          'behavior_zero_multipv > 1',
-          { every: ['behavior_zero', 'behavior_fish'] },
-        ],
-      },
-      title: $trim`
-        aggression assigns weights to moves that remove opponent material from the board.
+  },
+};
 
-        a value of 1 will increase the likelihood of captures, 0 is neutral, and -1 will avoid
-        captures.
-        
-        this one should be combined with other filters.`,
-    },
-    pawnStructure: {
-      label: 'pawn structure',
-      type: 'filter',
-      class: ['filter'],
-      value: { range: { min: 0, max: 1 }, by: 'avg' },
-      requires: {
-        some: [
-          'behavior_fish_multipv > 1',
-          'behavior_zero_multipv > 1',
-          { every: ['behavior_zero', 'behavior_fish'] },
-        ],
-      },
-      title: $trim`
-        pawn structure assigns weights up to the graph value for pawns that support each other, control the center,
-        and are not doubled or isolated.
-        
-        This filter assigns a weight between 0 and 1.`,
-    },
-    moveDecay: {
+const moveDecay: [string, FilterSpec] = [
+  'moveDecay',
+  {
+    info: {
       label: 'move quality decay',
       type: 'filter',
       class: ['filter'],
@@ -317,9 +287,21 @@ export const schema: Schema = deepFreeze<Schema>({
         with the think time facet and a crisp chardonnay.`,
     },
   },
+];
+
+export const schema: () => Schema = memoize(() => {
+  const withFilters = structuredClone(base);
+  const filterEntries = [...Bot.filterEntries(), moveDecay]; // moveDecay is applied last so it appears last
+  Object.defineProperties(
+    withFilters.bot_filters,
+    Object.fromEntries(
+      filterEntries.map(([key, { info }]) => [key, { enumerable: true, value: structuredClone(info) }]),
+    ),
+  );
+  return deepFreeze<Schema>(withFilters);
 });
 
 export function getSchemaDefault(id: string): PropertyValue {
-  const setting = schema[id] ?? id.split('_').reduce((obj, key) => obj[key], schema);
+  const setting = schema()[id] ?? id.split('_').reduce((obj, key) => obj[key], schema());
   return typeof setting === 'object' && 'value' in setting ? setting.value : undefined;
 }

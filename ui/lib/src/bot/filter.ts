@@ -4,7 +4,8 @@ export type Point = [number, number];
 export type FilterFacet = keyof typeof filterData;
 export type FilterBy = 'max' | 'min' | 'avg';
 export type FilterValue = { [key in FilterFacet]?: number };
-export type Filters = { [key: string]: Filter };
+export type FilterType = 'cplTarget' | 'cplStdev' | 'lc0bias' | 'moveDecay';
+export type Filters = Record<string, Filter>;
 export interface Filter {
   readonly range: { min: number; max: number };
   by: FilterBy;
@@ -19,6 +20,25 @@ export const filterData = {
 } as const;
 export const filterFacets = Object.keys(filterData) as FilterFacet[];
 export const filterBys: FilterBy[] = ['max', 'min', 'avg'];
+
+// necessary leakage from ui/botDev/schema.ts
+export type Requirement = string | { every: Requirement[] } | { some: Requirement[] };
+
+export interface FilterInfo {
+  type: 'filter';
+  value: Filter;
+  class?: string[]; // ['filter']
+  label?: string;
+  title?: string;
+  requires?: Requirement;
+  // example requires: {
+  //   some: [
+  //     'behavior_fish_multipv > 1',
+  //     'behavior_zero_multipv > 1',
+  //     { every: ['behavior_zero', 'behavior_fish'] },
+  //   ],
+  // },
+}
 
 export function addPoint(f: Filter, facet: FilterFacet, add: Point): void {
   // TODO functional
