@@ -8,7 +8,8 @@ import { display as announceDisplay } from './announce';
 import { displayLocale } from 'lib/i18n';
 import sound from './sound';
 import { api } from 'lib/api';
-import { loadPolyfills } from './loadPolyfills';
+import { loadPolyfills } from './polyfill';
+import { addWindowHandlers } from './domHandlers';
 
 const site = window.site;
 // site.load is initialized in site.inline.ts (body script)
@@ -28,4 +29,6 @@ site.reload = reload;
 site.announce = announceDisplay;
 site.sound = sound;
 (window as any).lichess = api;
-loadPolyfills().then(() => site.load.then(boot));
+loadPolyfills();
+addWindowHandlers();
+site.load.then(boot);

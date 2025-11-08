@@ -16,7 +16,7 @@ import { watchers } from 'lib/view/watchers';
 import { isIos, isWebkit, prefersLightThemeQuery } from 'lib/device';
 import { scrollToInnerSelector, requestIdleCallback } from 'lib';
 import { dispatchChessgroundResize } from 'lib/chessgroundResize';
-import { attachDomHandlers } from './domHandlers';
+import { addDomHandlers } from './domHandlers';
 import { updateTimeAgo, renderTimeAgo } from './renderTimeAgo';
 import { pubsub } from 'lib/pubsub';
 import { once } from 'lib/storage';
@@ -51,7 +51,7 @@ export function boot() {
 
     powertip.watchMouse();
 
-    attachDomHandlers();
+    addDomHandlers();
 
     // prevent zoom when keyboard shows on iOS
     if (isIos() && !('MSStream' in window)) {

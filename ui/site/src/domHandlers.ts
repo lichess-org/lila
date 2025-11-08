@@ -4,7 +4,21 @@ import topBar from './topBar';
 import { userComplete } from 'lib/view/userComplete';
 import { confirm } from 'lib/view';
 
-export function attachDomHandlers() {
+export function addWindowHandlers() {
+  let animFrame: number;
+
+  window.addEventListener('resize', () => {
+    cancelAnimationFrame(animFrame);
+    animFrame = requestAnimationFrame(setViewportHeight);
+  });
+
+  // ios safari vh correction
+  function setViewportHeight() {
+    document.body.style.setProperty('---viewport-height', `${window.innerHeight}px`);
+  }
+}
+
+export function addDomHandlers() {
   topBar();
 
   $('#main-wrap').on('click', '.copy-me__button', function (this: HTMLElement) {
