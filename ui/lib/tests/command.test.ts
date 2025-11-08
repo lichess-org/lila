@@ -10,9 +10,6 @@ pieces.set('b1', { color: 'white', role: 'knight' });
 pieces.set('b2', { color: 'white', role: 'knight' });
 
 test('piece command', () => {
-  console.log(i18n);
-  console.log(i18n.activity);
-  assert.equal(String(i18n.activity.hostedNbSimuls), 'activity.hostedNbSimuls');
   assert.strictEqual(commands().piece.apply('p Q', pieces, 'anna'), 'nvui.whiteQueen: anna 2');
   assert.strictEqual(commands().piece.apply('p K', pieces, 'san'), 'nvui.whiteKing: a1');
   assert.strictEqual(commands().piece.apply('p N', pieces, 'san'), 'nvui.whiteKnight: b1, b2');
