@@ -26,8 +26,28 @@ define('matchMedia', (q: any) => ({
   onchange: null,
   dispatchEvent: () => false,
 }));
+define(
+  'i18n',
+  new Proxy(Object.create(null), {
+    get(_root, ns: string) {
+      return new Proxy(Object.create(null), {
+        get(_nsObj, key: string) {
+          const path = `${ns}.${key}`;
+          const fn = ((...args: unknown[]) =>
+            `${path}(${args.map(a => JSON.stringify(a)).join(', ')})`) as I18nFormat;
+          fn.asArray = (...args: any[]) => [path, ...args.map(arg => JSON.stringify(arg))];
+          (fn as any).toString = () => path;
+          return fn as string & I18nFormat;
+        },
+      });
+    },
+  }),
+);
+define('site', {
+  sri: '_test_sri_',
+});
 
 function define(k: any, v: any) {
-  delete globalThis[k];
+  delete (globalThis as any)[k];
   Object.defineProperty(globalThis, k, { value: v, configurable: true, writable: true });
 }
