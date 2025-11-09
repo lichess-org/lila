@@ -171,13 +171,11 @@ export function view(ctrl: StudyCtrl): VNode {
       el = vnode.elm as HTMLElement;
     if (ctrl.vm.revealActiveChapter) {
       ctrl.vm.revealActiveChapter = false;
-
       const active = el.querySelector('.active') as HTMLElement | null;
       if (active) {
+        const c = el.getBoundingClientRect(),
+          l = active.getBoundingClientRect();
         requestAnimationFrame(() => {
-          const c = el.getBoundingClientRect(),
-            l = active.getBoundingClientRect();
-
           if (c.top < l.top || c.bottom > l.bottom) scrollToInnerSelector(el, '.active');
         });
       }
@@ -213,7 +211,7 @@ export function view(ctrl: StudyCtrl): VNode {
           },
           postpatch(old, vnode) {
             vnode.data!.li = old.data!.li;
-            if (ctrl.vm.revealActiveChapter) update(vnode);
+            update(vnode);
           },
           destroy: vnode => {
             const sortable: Sortable = vnode.data!.li!.sortable;
