@@ -206,7 +206,7 @@ function lastMove(ctrl: PuzzleCtrl, style: nv.MoveStyle): string {
   return node.ply === 0
     ? 'Initial position'
     : // make sure consecutive moves are different so that they get re-read
-      nv.renderSan(node.san || '', node.uci, style) + (node.ply % 2 === 0 ? '' : '|');
+      nv.renderSan(node.san || '', node.uci, style) + (node.ply % 2 === 0 ? '' : '\u00A0');
 }
 
 function onSubmit(
