@@ -15,12 +15,11 @@ import {
   type ChartOptions,
 } from 'chart.js';
 import { currentTheme } from 'lib/device';
-import { gridColor, tooltipBgColor, fontFamily, maybeChart, resizePolyfill, colorSeries } from 'chart';
+import { gridColor, tooltipBgColor, fontFamily, maybeChart, colorSeries } from 'chart';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { formatNumber } from './table';
 import { spinnerHtml } from 'lib/view';
 
-resizePolyfill();
 Chart.register(BarController, CategoryScale, LinearScale, BarElement, Tooltip, Legend, ChartDataLabels);
 Chart.defaults.font = fontFamily();
 

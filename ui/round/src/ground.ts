@@ -16,7 +16,7 @@ export function makeConfig(ctrl: RoundController): CgConfig {
     hooks = ctrl.makeCgHooks(),
     step = plyStep(data, ctrl.ply),
     playing = ctrl.isPlaying(),
-    premove = new Premove(data.game.variant.key === 'atomic');
+    premove = new Premove(['atomic', 'crazyhouse'].includes(data.game.variant.key));
   return {
     fen: step.fen,
     orientation: boardOrientation(data, ctrl.flip),

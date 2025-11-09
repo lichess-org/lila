@@ -252,9 +252,6 @@ importers:
 
   ui/chart:
     dependencies:
-      '@juggle/resize-observer':
-        specifier: ^3.4.0
-        version: 3.4.0
       chart.js:
         specifier: 4.4.8
         version: 4.4.8
@@ -356,9 +353,6 @@ importers:
       debounce-promise:
         specifier: ^3.1.2
         version: 3.1.2
-      dialog-polyfill:
-        specifier: 0.5.6
-        version: 0.5.6
       idb-keyval:
         specifier: ^6.2.1
         version: 6.2.2
@@ -505,9 +499,15 @@ importers:
 
   ui/site:
     dependencies:
+      '@juggle/resize-observer':
+        specifier: ^3.4.0
+        version: 3.4.0
       bits:
         specifier: workspace:*
         version: link:../bits
+      dialog-polyfill:
+        specifier: 0.5.6
+        version: 0.5.6
       lib:
         specifier: workspace:*
         version: link:../lib

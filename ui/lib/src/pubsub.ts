@@ -70,11 +70,15 @@ export interface PubsubEvents {
   zen: () => void;
 }
 
-export type PubsubOneTimeEvent = 'polyfill.dialog' | 'socket.hasConnected' | 'botdev.images.ready';
+export interface OneTimeEvents {
+  'polyfill.dialog': ((dialog: HTMLElement) => void) | undefined;
+  'socket.hasConnected': void;
+  'botdev.images.ready': void;
+}
 
 export class Pubsub {
   private allSubs: Map<keyof PubsubEvents, Set<PubsubEvents[keyof PubsubEvents]>> = new Map();
-  private oneTimeEvents: Map<PubsubOneTimeEvent, OneTimeHandler> = new Map();
+  private oneTimeEvents: Map<OneTimeKey, OneTimeHandler<OneTimeEvents[OneTimeKey]>> = new Map();
 
   on<K extends keyof PubsubEvents>(name: K, cb: PubsubEvents[K]): void {
     const subs = this.allSubs.get(name);
@@ -95,18 +99,18 @@ export class Pubsub {
     }
   }
 
-  after<T>(event: PubsubOneTimeEvent): Promise<T> {
+  after<K extends OneTimeKey>(event: K): Promise<OneTimeEvents[K]> {
     const found = this.oneTimeEvents.get(event);
-    if (found) return found.promise;
+    if (found) return found.promise as Promise<OneTimeEvents[K]>;
 
-    const handler = {} as OneTimeHandler<T>;
-    handler.promise = new Promise<T>(resolve => (handler!.resolve = resolve));
+    const handler = {} as OneTimeHandler<OneTimeEvents[K]>;
+    handler.promise = new Promise<OneTimeEvents[K]>(resolve => (handler!.resolve = resolve));
     this.oneTimeEvents.set(event, handler);
 
     return handler.promise;
   }
 
-  complete<T>(event: PubsubOneTimeEvent, value?: T): void {
+  complete<K extends OneTimeKey>(event: K, value?: OneTimeEvents[K]): void {
     const found = this.oneTimeEvents.get(event);
     if (found) {
       found.resolve?.(value);
@@ -114,13 +118,14 @@ export class Pubsub {
     } else this.oneTimeEvents.set(event, { promise: Promise.resolve(value) });
   }
 
-  past(event: PubsubOneTimeEvent): boolean {
+  past(event: OneTimeKey): boolean {
     return this.oneTimeEvents.has(event) && !this.oneTimeEvents.get(event)?.resolve;
   }
 }
 
 export const pubsub: Pubsub = new Pubsub();
 
+type OneTimeKey = keyof OneTimeEvents;
 interface OneTimeHandler<T = any> {
   promise: Promise<T>;
   resolve?: (value: T) => void;
