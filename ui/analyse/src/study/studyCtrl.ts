@@ -1,5 +1,5 @@
 import type { DrawShape } from '@lichess-org/chessground/draw';
-import { prop, defined, propWithEffect } from 'lib';
+import { prop, defined } from 'lib';
 import { debounce, throttle, throttlePromiseDelay } from 'lib/async';
 import type AnalyseCtrl from '../ctrl';
 import { StudyMemberCtrl } from './studyMembers';
@@ -122,10 +122,7 @@ export default class StudyCtrl {
     const sticked = data.features.sticky && !ctrl.initialPath && !isManualChapter && !practiceData;
     this.vm = {
       loading: false,
-      tab: propWithEffect<Tab>(!relayData && data.chapters?.[1] ? 'chapters' : 'members', tab => {
-        if (tab === 'chapters') this.vm.revealActiveChapter = true;
-        this.redraw();
-      }),
+      tab: prop<Tab>(!relayData && data.chapters?.[1] ? 'chapters' : 'members'),
       toolTab: prop<ToolTab>(relayData ? 'multiBoard' : 'tags'),
       chapterId: sticked ? data.position.chapterId : data.chapter.id,
       // path is at ctrl.path
@@ -265,7 +262,11 @@ export default class StudyCtrl {
     tour.study(this.ctrl);
   };
 
-  setTab = (tab: Tab) => this.vm.tab(tab);
+  setTab = (tab: Tab) => {
+    if (tab === 'chapters') this.vm.revealActiveChapter = true;
+    this.vm.tab(tab);
+    this.redraw();
+  };
 
   currentChapter = (): ChapterPreview => this.chapters.list.get(this.vm.chapterId)!;
 
