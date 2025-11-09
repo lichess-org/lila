@@ -167,6 +167,7 @@ export function view(ctrl: StudyCtrl): VNode {
   const canContribute = ctrl.members.canContribute(),
     current = ctrl.currentChapter();
   function update(vnode: VNode) {
+    ctrl.vm.revealActiveChapter = false;
     const isChapterFullyVisible = (listOfChapters: HTMLElement, chapter: HTMLElement): boolean => {
       const c = chapter.getBoundingClientRect(),
         l = listOfChapters.getBoundingClientRect();
@@ -209,7 +210,7 @@ export function view(ctrl: StudyCtrl): VNode {
           },
           postpatch(old, vnode) {
             vnode.data!.li = old.data!.li;
-            update(vnode);
+            if (ctrl.vm.revealActiveChapter) update(vnode);
           },
           destroy: vnode => {
             const sortable: Sortable = vnode.data!.li!.sortable;
