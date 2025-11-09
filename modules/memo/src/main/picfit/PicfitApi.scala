@@ -7,6 +7,7 @@ import play.api.libs.ws.StandaloneWSClient
 import play.api.mvc.MultipartFormData
 import reactivemongo.api.bson.{ BSONDocumentHandler, Macros }
 import reactivemongo.core.errors.DatabaseException
+import scalalib.ThreadLocalRandom
 import scalalib.paginator.AdapterLike
 
 import lila.common.Bus
@@ -129,18 +130,25 @@ final class PicfitApi(
               dimensions = meta.map(_.dim),
               context = meta.flatMap(_.context)
             )
-            coll.insert
-              .one(image)
-              .flatMap: _ =>
-                picfitServer
-                  .store(image, file)
-                  .inject(ImageFresh(image, true))
-                  .recoverWith: e =>
-                    coll.delete.one($id(image.id))
-                    fufail(e)
-              .recoverWith:
-                case e: DatabaseException if e.code.contains(11000) =>
-                  fuccess(ImageFresh(image, false)) // it's a dup
+            if rel.has(idSep) then
+              for
+                _ <- picfitServer.store(image, file)
+                _ <- deleteByRel(image.rel)
+                _ <- coll.insert.one(image)
+              yield ImageFresh(image, true)
+            else
+              coll.insert
+                .one(image.copy(rel = s"${image.rel}${idSep}${ThreadLocalRandom.nextString(8)}"))
+                .flatMap: _ =>
+                  picfitServer
+                    .store(image, file)
+                    .inject(ImageFresh(image, true))
+                    .recoverWith: e =>
+                      coll.delete.one($id(image.id))
+                      fufail(e)
+                .recoverWith:
+                  case e: DatabaseException if e.code.contains(11000) =>
+                    fuccess(ImageFresh(image, false)) // it's a dup
 
   private object picfitServer:
 
