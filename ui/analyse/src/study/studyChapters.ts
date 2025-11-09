@@ -169,13 +169,15 @@ export function view(ctrl: StudyCtrl): VNode {
   function update(vnode: VNode) {
     const vData = vnode.data!.li!,
       el = vnode.elm as HTMLElement;
-    if (ctrl.vm.revealActiveChapter) {
-      ctrl.vm.revealActiveChapter = false;
+    if (ctrl.vm.scrollToActiveChapter) {
+      const behavior = ctrl.vm.scrollToActiveChapter;
+      ctrl.vm.scrollToActiveChapter = false;
       const active = el.querySelector('.active') as HTMLElement | null;
       if (active) {
         const [c, l] = [el.getBoundingClientRect(), active.getBoundingClientRect()];
-        if (c.top < l.top || c.bottom > l.bottom)
-          requestAnimationFrame(() => scrollToInnerSelector(el, '.active'));
+        if (c.top < l.top || c.bottom > l.bottom) {
+          requestAnimationFrame(() => scrollToInnerSelector(el, '.active', false, behavior));
+        }
       }
     }
     if (canContribute && ctrl.chapters.list.size() > 1 && !vData.sortable) {
