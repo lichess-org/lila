@@ -136,7 +136,7 @@ final class Main(
         then lila.mon.link.external(tag, ctx.isAuth).increment()
         Redirect(url)
 
-  def uploadImage(rel: String) = AuthBody(parse.multipartFormData) { ctx ?=> me ?=>
+  def uploadImage(rel: String) = AuthBody(lila.memo.HashedMultiPart.parser(parse)) { ctx ?=> me ?=>
     lila.core.security
       .canUploadImages(rel)
       .so:

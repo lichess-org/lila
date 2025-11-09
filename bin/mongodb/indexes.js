@@ -1,8 +1,8 @@
 db.event.createIndex({ startsAt: 1 });
-db.picfit_image.createIndex({ rel: 1 }, { unique: true });
+db.picfit_image.createIndex({ rel: 1 });
 db.picfit_image.createIndex(
   { 'automod.flagged': 1 },
-  { partialFilterExpression: { 'automod.flagged': { $exists: true } } },
+  { partialFilterExpression: { 'automod.flagged': { $exists: true } } }
 );
 db.tutor_report.createIndex({ at: -1 });
 db.swiss_pairing.createIndex({ s: 1, p: 1, r: 1 });
@@ -25,7 +25,7 @@ db.ublog_post.createIndex({ prismicId: 1 }, { partialFilterExpression: { prismic
 db.report2.createIndex({ room: 1, score: -1 }, { partialFilterExpression: { open: true } });
 db.report2.createIndex(
   { 'inquiry.mod': 1 },
-  { partialFilterExpression: { 'inquiry.mod': { $exists: true } } },
+  { partialFilterExpression: { 'inquiry.mod': { $exists: true } } }
 );
 db.report2.createIndex({ user: 1 });
 db.report2.createIndex({ 'atoms.by': 1 });
@@ -43,7 +43,7 @@ db.tournament_pairing.createIndex({ tid: 1 }, { partialFilterExpression: { s: { 
 db.round_history.createIndex({ d: 1 }, { expireAfterSeconds: 3600 });
 db.relay_tour.createIndex(
   { active: 1, tier: 1 },
-  { partialFilterExpression: { active: true, tier: { $exists: true } } },
+  { partialFilterExpression: { active: true, tier: { $exists: true } } }
 );
 db.relay_tour.createIndex({ syncedAt: -1 }, { partialFilterExpression: { tier: { $exists: true } } });
 db.relay_tour.createIndex(
@@ -54,7 +54,7 @@ db.relay_tour.createIndex(
     default_language: 'english',
     language_override: 'language',
     textIndexVersion: 3,
-  },
+  }
 );
 db.relay_tour.createIndex({ ownerIds: 1, syncedAt: -1 });
 db.relay_tour.createIndex({ ownerIds: 1, createdAt: -1 });
@@ -71,11 +71,11 @@ db.tournament2.createIndex({ 'schedule.freq': 1, startsAt: -1 });
 db.tournament2.createIndex({ status: 1, startsAt: 1 }, { partialFilterExpression: { status: 10 } });
 db.tournament2.createIndex(
   { forTeams: 1, startsAt: -1 },
-  { partialFilterExpression: { forTeams: { $exists: 1 } } },
+  { partialFilterExpression: { forTeams: { $exists: 1 } } }
 );
 db.tournament2.createIndex(
   { createdBy: 1, startsAt: -1, status: 1 },
-  { partialFilterExpression: { createdBy: { $exists: true } } },
+  { partialFilterExpression: { createdBy: { $exists: true } } }
 );
 db.relation.createIndex({ u1: 1 });
 db.relation.createIndex({ u2: 1 });
@@ -86,7 +86,7 @@ db.fide_player.createIndex({ fed: 1, blitz: -1 });
 db.fide_player.createIndex({ standard: -1 });
 db.fide_player.createIndex(
   { _fts: 'text', _ftsx: 1, standard: -1 },
-  { weights: { token: 1 }, default_language: 'english', language_override: 'language', textIndexVersion: 3 },
+  { weights: { token: 1 }, default_language: 'english', language_override: 'language', textIndexVersion: 3 }
 );
 db.note.createIndex({ to: 1, date: -1 });
 db.note.createIndex({ from: 1 }, { partialFilterExpression: { mod: false } });
@@ -98,7 +98,7 @@ db.note.createIndex(
     default_language: 'english',
     language_override: 'language',
     textIndexVersion: 3,
-  },
+  }
 );
 db.irwin_report.createIndex({ date: -1 });
 db.user4.createIndex({ 'count.game': -1 });
@@ -108,11 +108,11 @@ db.user4.createIndex({ roles: 1 }, { partialFilterExpression: { roles: { $exists
 db.user4.createIndex({ prevEmail: 1 }, { sparse: 1 });
 db.user4.createIndex(
   { 'delete.requested': 1 },
-  { partialFilterExpression: { 'delete.requested': { $exists: 1 }, 'delete.done': false } },
+  { partialFilterExpression: { 'delete.requested': { $exists: 1 }, 'delete.done': false } }
 );
 db.user4.createIndex(
   { mustConfirmEmail: 1 },
-  { partialFilterExpression: { mustConfirmEmail: { $exists: 1 } }, expireAfterSeconds: 3600 * 24 * 3 },
+  { partialFilterExpression: { mustConfirmEmail: { $exists: 1 } }, expireAfterSeconds: 3600 * 24 * 3 }
 );
 db.f_topic.createIndex({ categId: 1, troll: 1 });
 db.f_topic.createIndex({ categId: 1, updatedAt: -1, troll: 1 });
@@ -128,7 +128,7 @@ db.challenge.createIndex({ status: 1, 'destUser.id': 1, createdAt: 1 });
 db.challenge.createIndex({ expiresAt: 1 });
 db.challenge.createIndex(
   { seenAt: 1 },
-  { partialFilterExpression: { status: 10, 'timeControl.l': { $exists: true } } },
+  { partialFilterExpression: { status: 10, 'timeControl.l': { $exists: true } } }
 );
 db.cms_page.createIndex({ key: 1 });
 db.cms_page.createIndex({ key: 1, language: 1 }, { unique: true });
@@ -145,7 +145,7 @@ db.fishnet_analysis.createIndex({ 'sender.ip': 1 });
 db.fishnet_analysis.createIndex({ 'sender.system': 1 });
 db.fishnet_analysis.createIndex(
   { acquired: 1 },
-  { partialFilterExpression: { acquired: { $exists: true } } },
+  { partialFilterExpression: { acquired: { $exists: true } } }
 );
 db.bookmark.createIndex({ g: 1 });
 db.bookmark.createIndex({ u: 1 });
@@ -162,23 +162,23 @@ db.swiss.createIndex({ teamId: 1, startsAt: 1 });
 db.swiss.createIndex({ nextRoundAt: 1 }, { partialFilterExpression: { nextRoundAt: { $exists: true } } });
 db.swiss.createIndex(
   { featurable: 1 },
-  { partialFilterExpression: { featurable: true, 'settings.i': { $lte: 600 } } },
+  { partialFilterExpression: { featurable: true, 'settings.i': { $lte: 600 } } }
 );
 db.coach_review.createIndex({ coachId: 1 });
 db.analysis_requester.createIndex({ total: -1 });
 db.plan_patron.createIndex(
   { 'stripe.customerId': 1 },
-  { partialFilterExpression: { 'stripe.customerId': { $exists: true } } },
+  { partialFilterExpression: { 'stripe.customerId': { $exists: true } } }
 );
 db.plan_patron.createIndex({ 'free.by': 1 }, { partialFilterExpression: { 'free.by': { $exists: true } } });
 db.plan_patron.createIndex({ expiresAt: 1 }, { partialFilterExpression: { expiresAt: { $exists: true } } });
 db.plan_patron.createIndex(
   { 'payPalCheckout.subscriptionId': 1 },
-  { partialFilterExpression: { 'payPalCheckout.subscriptionId': { $exists: true } } },
+  { partialFilterExpression: { 'payPalCheckout.subscriptionId': { $exists: true } } }
 );
 db.notify_pref.createIndex(
   { correspondenceEmail: 1 },
-  { partialFilterExpression: { correspondenceEmail: true } },
+  { partialFilterExpression: { correspondenceEmail: true } }
 );
 db.modlog.createIndex({ user: 1, date: -1 });
 db.modlog.createIndex({ date: -1 });
@@ -187,7 +187,7 @@ db.modlog.createIndex({ index: 1, details: 1 }, { partialFilterExpression: { ind
 db.chat_timeout.createIndex({ expiresAt: -1 }, { partialFilterExpression: { expiresAt: { $exists: 1 } } });
 db.chat_timeout.createIndex(
   { chat: 1, expiresAt: -1 },
-  { partialFilterExpression: { expiresAt: { $exists: 1 } } },
+  { partialFilterExpression: { expiresAt: { $exists: 1 } } }
 );
 db.chat_timeout.createIndex({ user: 1, createdAt: -1 });
 db.daily_feed.createIndex({ at: -1 });
@@ -200,11 +200,11 @@ db.coach.createIndex({ nvReviews: -1 });
 db.streamer.createIndex({ liveAt: -1 });
 db.streamer.createIndex(
   { 'approval.granted': 1, listed: 1 },
-  { partialFilterExpression: { 'approval.granted': true, listed: true } },
+  { partialFilterExpression: { 'approval.granted': true, listed: true } }
 );
 db.streamer.createIndex(
   { 'approval.requested': 1 },
-  { partialFilterExpression: { 'approval.requested': true, 'approval.ignored': false } },
+  { partialFilterExpression: { 'approval.requested': true, 'approval.ignored': false } }
 );
 db.relay.createIndex({ startsAt: 1 }, { partialFilterExpression: { startsAt: { $exists: 1 } } });
 db.relay.createIndex({ startedAt: 1 }, { partialFilterExpression: { startedAt: { $exists: 1 } } });
@@ -212,7 +212,7 @@ db.relay.createIndex({ 'sync.until': 1 }, { partialFilterExpression: { 'sync.unt
 db.relay.createIndex({ tourId: 1 });
 db.relay.createIndex(
   { 'sync.upstream.roundIds': 1 },
-  { partialFilterExpression: { 'sync.upstream.roundIds': { $exists: 1 } } },
+  { partialFilterExpression: { 'sync.upstream.roundIds': { $exists: 1 } } }
 );
 db.oauth2_access_token.createIndex({ userId: 1 });
 db.oauth2_access_token.createIndex({ expires: 1 }, { expireAfterSeconds: 0 });
@@ -231,7 +231,7 @@ db.video.createIndex(
     default_language: 'english',
     language_override: 'language',
     textIndexVersion: 2,
-  },
+  }
 );
 db.team_request.createIndex({ team: 1 });
 db.team_request.createIndex({ user: 1 });
@@ -240,7 +240,7 @@ db.team_request.createIndex({ date: 1 }, { expireAfterSeconds: 31536000 });
 db.tournament_player.createIndex({ tid: 1, m: -1 });
 db.tournament_player.createIndex(
   { tid: 1, t: 1, m: -1 },
-  { partialFilterExpression: { t: { $exists: true } } },
+  { partialFilterExpression: { t: { $exists: true } } }
 );
 db.tournament_player.createIndex({ tid: 1, uid: 1 }, { unique: true });
 db.push_device.createIndex({ userId: 1, seenAt: -1 });
@@ -249,7 +249,7 @@ db.plan_charge.createIndex({ userId: 1, date: -1 });
 db.plan_charge.createIndex({ date: -1 });
 db.plan_charge.createIndex(
   { giftTo: 1, date: -1 },
-  { partialFilterExpression: { giftTo: { $exists: true } } },
+  { partialFilterExpression: { giftTo: { $exists: true } } }
 );
 db.f_post.createIndex({ topicId: 1, troll: 1 });
 db.f_post.createIndex({ createdAt: -1, troll: 1 });
@@ -266,7 +266,7 @@ db.clas_login.createIndex({ 'created.at': 1 }, { expireAfterSeconds: 60 * 15 });
 db.challenge_bulk.createIndex({ pairAt: 1 });
 db.challenge_bulk.createIndex(
   { startClocksAt: 1 },
-  { partialFilterExpression: { startClocksAt: { $exists: true } } },
+  { partialFilterExpression: { startClocksAt: { $exists: true } } }
 );
 db.challenge_bulk.createIndex({ by: 1, pairAt: -1 });
 db.push_subscription.createIndex({ userId: 1 });
@@ -301,13 +301,13 @@ db.study.createIndex({ uids: 1, rank: -1 }, { partialFilterExpression: { topics:
 db.study_chapter_flat.createIndex({ studyId: 1, order: 1 });
 db.study_chapter_flat.createIndex(
   { 'relay.fideIds': 1 },
-  { partialFilterExpression: { 'relay.fideIds': { $exists: true } } },
+  { partialFilterExpression: { 'relay.fideIds': { $exists: true } } }
 );
 db.title_request.createIndex({ userId: 1 });
 db.title_request.createIndex({ 'history.0.status.n': 1, 'history.0.at': 1 });
 db.title_request.createIndex(
   { 'data.fideId': 1, 'history.0.at': -1 },
-  { partialFilterExpression: { 'history.0.status.n': 'approved', 'data.fideId': { $exists: 1 } } },
+  { partialFilterExpression: { 'history.0.status.n': 'approved', 'data.fideId': { $exists: 1 } } }
 );
 
 // you may want to run these on the insight database
@@ -317,7 +317,7 @@ db.insight.createIndex({ mr: 1, a: 1 }, { partialFilterExpression: { mr: { $exis
 db.insight.createIndex({ u: 1, d: -1 });
 db.kaladin_queue.createIndex(
   { 'response.at': 1, 'response.read': 1 },
-  { partialFilterExpression: { 'response.at': { $exists: true } } },
+  { partialFilterExpression: { 'response.at': { $exists: true } } }
 );
 
 // you may want to run these on the puzzle database
@@ -329,7 +329,7 @@ db.puzzle2_puzzle.createIndex({ themes: 1 });
 db.puzzle2_puzzle.createIndex({ users: 1 });
 db.puzzle2_puzzle.createIndex(
   { opening: 1, votes: -1 },
-  { partialFilterExpression: { opening: { $exists: 1 } } },
+  { partialFilterExpression: { opening: { $exists: 1 } } }
 );
 db.puzzle2_puzzle.createIndex({ tagMe: 1 }, { partialFilterExpression: { tagMe: true } });
 db.puzzle2_path.createIndex({ min: 1, max: -1 });

@@ -1,8 +1,7 @@
 package lila.memo
 
-import akka.stream.scaladsl.{ FileIO, Source, Sink }
+import akka.stream.scaladsl.Source
 import akka.util.ByteString
-import java.security.MessageDigest
 import play.api.libs.ws.DefaultBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 import play.api.mvc.MultipartFormData
@@ -20,7 +19,7 @@ final class PicfitApi(
     ws: StandaloneWSClient,
     config: PicfitConfig,
     cloudflareApi: CloudflareApi
-)(using Executor, akka.stream.Materializer):
+)(using Executor):
 
   import PicfitApi.{ *, given }
   private val uploadMaxBytes = uploadMaxMb * 1024 * 1024
@@ -35,23 +34,16 @@ final class PicfitApi(
 
   def uploadFile(
       rel: String,
-      uploaded: FilePart,
+      part: FilePart,
       userId: UserId,
       meta: Option[form.UploadData] = none,
       requestAutomod: Boolean = true
   ): Fu[PicfitImage] =
-    for
-      hash <- FileIO
-        .fromPath(uploaded.ref.path)
-        .runWith(hashSink)
-        .map: bytes =>
-          java.util.Base64.getUrlEncoder().withoutPadding().encodeToString(bytes).take(12)
-      ref = FileIO.fromPath(uploaded.ref.path)
-      source = uploaded.copy[ByteSource](ref = ref, refToBytes = _ => None)
-      uploaded <- uploadSource(rel, hash, source, userId, meta)
-      dim = meta.fold(Dimensions.default)(_.dim)
-      _ = if requestAutomod && uploaded.fresh then Bus.pub(ImageAutomodRequest(uploaded.image.id, dim))
-    yield uploaded.image
+    val hash = java.util.Base64.getUrlEncoder().withoutPadding().encodeToString(part.ref.sha256).take(12)
+    uploadSource(rel, hash, part, userId, meta = meta).map: uploaded =>
+      if requestAutomod && uploaded.fresh then
+        Bus.pub(ImageAutomodRequest(uploaded.image.id, meta.fold(Dimensions.default)(_.dim)))
+      uploaded.image
 
   def deleteById(id: ImageId): Fu[Option[PicfitImage]] =
     coll
@@ -109,37 +101,30 @@ final class PicfitApi(
 
   def countFlagged = coll.countSel($doc("automod.flagged" -> $exists(true)))
 
-  private val hashSink: Sink[ByteString, Future[Array[Byte]]] =
-    Sink
-      .fold(MessageDigest.getInstance("SHA-256")): (hasher, bytes: ByteString) =>
-        hasher.update(bytes.asByteBuffer)
-        hasher
-      .mapMaterializedValue(_.map(_.digest()))
-
   private def uploadSource(
       rel: String,
       hash: String,
-      part: SourcePart,
+      file: FilePart,
       userId: UserId,
       meta: Option[form.UploadData]
   ): Fu[ImageFresh] =
-    if part.fileSize > uploadMaxBytes
+    if file.fileSize > uploadMaxBytes
     then fufail(s"File size must not exceed ${uploadMaxMb}MB.")
     else
-      part.contentType
+      file.contentType
         .collect:
           case "image/webp" => "webp"
           case "image/png" => "png"
           case "image/jpeg" => "jpg"
         .match
-          case None => fufail(s"Invalid file type: ${part.contentType | "unknown"}")
+          case None => fufail(s"Invalid file type: ${file.contentType | "unknown"}")
           case Some(extension) =>
             val image = PicfitImage(
               id = ImageId(s"$rel$idSep$hash.$extension"),
               user = userId,
               rel = rel,
-              name = part.filename,
-              size = part.fileSize.toInt,
+              name = file.filename,
+              size = file.fileSize.toInt,
               createdAt = nowInstant,
               dimensions = meta.map(_.dim),
               context = meta.flatMap(_.context)
@@ -148,7 +133,7 @@ final class PicfitApi(
               .one(image)
               .flatMap: _ =>
                 picfitServer
-                  .store(image, part)
+                  .store(image, file)
                   .inject(ImageFresh(image, true))
                   .recoverWith: e =>
                     coll.delete.one($id(image.id))
@@ -159,16 +144,26 @@ final class PicfitApi(
 
   private object picfitServer:
 
-    def store(image: PicfitImage, part: SourcePart): Funit =
-      ws
-        .url(s"${config.endpointPost}/upload")
-        .post(Source(part.copy[ByteSource](filename = image.id.value, key = "data") :: Nil))
-        .flatMap:
-          case res if res.status != 200 => fufail(s"${res.statusText} ${res.body[String].take(200)}")
+    def store(image: PicfitImage, file: FilePart): Funit =
+      val sourcePart = MultipartFormData.FilePart[ByteSource](
+        key = "data",
+        filename = image.id.value,
+        contentType = file.contentType,
+        ref = file.ref.source,
+        fileSize = file.fileSize,
+        dispositionType = file.dispositionType,
+        refToBytes = _ => None
+      )
+
+      ws.url(s"${config.endpointPost}/upload")
+        .post(Source.single(sourcePart))
+        .flatMap {
+          case res if res.status != 200 =>
+            fufail(s"${res.statusText} ${res.body[String].take(200)}")
           case _ =>
             if image.size > 0 then lila.mon.picfit.uploadSize(image.user).record(image.size)
-            // else logger.warn(s"Unknown image size: ${image.id} by ${image.user}")
             funit
+        }
         .monSuccess(_.picfit.uploadTime(image.user))
 
     def delete(image: PicfitImage): Funit =
@@ -195,9 +190,8 @@ object PicfitApi:
 
   val uploadMaxMb = 6
 
-  type FilePart = MultipartFormData.FilePart[play.api.libs.Files.TemporaryFile]
-  private type ByteSource = Source[ByteString, ?]
-  private type SourcePart = MultipartFormData.FilePart[ByteSource]
+  type FilePart = MultipartFormData.FilePart[HashedMultiPart.HashedSource]
+  type ByteSource = Source[ByteString, ?]
 
   private given BSONDocumentHandler[ImageAutomod] = Macros.handler
   private given BSONDocumentHandler[Dimensions] = Macros.handler
