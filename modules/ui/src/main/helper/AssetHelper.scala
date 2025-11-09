@@ -56,7 +56,7 @@ trait AssetHelper:
   // bump flairs version if a flair is changed only (not added or removed)
   val flairVersion = "______4"
 
-  // bump fide fed version if anything changes (not added or removed)
+  // bump fide fed version if a fide fed is changed only (not added or removed)
   val fideFedVersion = "______2"
 
   def staticAssetUrl(path: String): Url = Url(s"$assetBaseUrl/assets/$path")
