@@ -7,14 +7,14 @@ import lila.core.config.{ Secret, CollName, ImageGetOrigin }
 case class PicfitImage(
     @Key("_id") id: ImageId,
     user: UserId,
-    // reverse reference like blog:id, streamer:id, coach:id, ...
-    // unique: a new image will delete the previous ones with same rel
-    rel: String,
     name: String,
     size: Int, // in bytes
     createdAt: Instant,
+    // reverse reference like blog:id, streamer:id, coach:id, ...
+    // unique: a new image will delete the previous ones with same rel
+    rel: Option[String],
     dimensions: Option[Dimensions],
-    context: Option[String] = none,
+    context: Option[String],
     automod: Option[ImageAutomod] = none,
     urls: List[String] = Nil
 )

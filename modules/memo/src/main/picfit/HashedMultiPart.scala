@@ -9,7 +9,7 @@ import play.core.parsers.Multipart
 import java.security.MessageDigest
 
 object HashedMultiPart:
-  private val maxLength: Long = 12 * 1024 * 1024
+  private val maxLength: Long = PicfitApi.uploadMaxMb * 1024 * 1024
 
   case class HashedSource(
       source: Source[ByteString, ?],

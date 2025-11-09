@@ -7,7 +7,6 @@ import play.api.libs.ws.StandaloneWSClient
 import play.api.mvc.MultipartFormData
 import reactivemongo.api.bson.{ BSONDocumentHandler, Macros }
 import reactivemongo.core.errors.DatabaseException
-import scalalib.ThreadLocalRandom
 import scalalib.paginator.AdapterLike
 
 import lila.common.Bus
@@ -23,9 +22,6 @@ final class PicfitApi(
 )(using Executor):
 
   import PicfitApi.{ *, given }
-  private val uploadMaxBytes = uploadMaxMb * 1024 * 1024
-
-  val idSep = ':'
 
   Bus.sub[lila.core.user.UserDelete]: del =>
     for
@@ -109,46 +105,46 @@ final class PicfitApi(
       userId: UserId,
       meta: Option[form.UploadData]
   ): Fu[ImageFresh] =
-    if file.fileSize > uploadMaxBytes
-    then fufail(s"File size must not exceed ${uploadMaxMb}MB.")
-    else
-      file.contentType
-        .collect:
-          case "image/webp" => "webp"
-          case "image/png" => "png"
-          case "image/jpeg" => "jpg"
-        .match
-          case None => fufail(s"Invalid file type: ${file.contentType | "unknown"}")
-          case Some(extension) =>
-            val image = PicfitImage(
-              id = ImageId(s"$rel$idSep$hash.$extension"),
-              user = userId,
-              rel = rel,
-              name = file.filename,
-              size = file.fileSize.toInt,
-              createdAt = nowInstant,
-              dimensions = meta.map(_.dim),
-              context = meta.flatMap(_.context)
-            )
-            if rel.has(idSep) then
-              for
-                _ <- picfitServer.store(image, file)
-                _ <- deleteByRel(image.rel)
-                _ <- coll.insert.one(image)
-              yield ImageFresh(image, true)
-            else
-              coll.insert
-                .one(image.copy(rel = s"${image.rel}${idSep}${ThreadLocalRandom.nextString(8)}"))
-                .flatMap: _ =>
-                  picfitServer
-                    .store(image, file)
-                    .inject(ImageFresh(image, true))
-                    .recoverWith: e =>
-                      coll.delete.one($id(image.id))
-                      fufail(e)
-                .recoverWith:
-                  case e: DatabaseException if e.code.contains(11000) =>
-                    fuccess(ImageFresh(image, false)) // it's a dup
+    file.contentType
+      .collect:
+        case "image/webp" => "webp"
+        case "image/png" => "png"
+        case "image/jpeg" => "jpg"
+      .match
+        case None => fufail(s"Invalid file type: ${file.contentType | "unknown"}")
+        case Some(extension) =>
+          val image = PicfitImage(
+            id = ImageId(s"$rel$idSep$hash.$extension"),
+            user = userId,
+            name = file.filename,
+            size = file.fileSize.toInt,
+            createdAt = nowInstant,
+            rel = rel.has(idSep).option(rel),
+            dimensions = meta.map(_.dim),
+            context = meta.flatMap(_.context)
+          )
+          updateColl(image).flatMap: imageFresh =>
+            picfitServer
+              .store(image, file)
+              .inject(imageFresh)
+              .recoverWith: e =>
+                coll.delete.one($id(image.id))
+                fufail(e)
+
+  private def updateColl(image: PicfitImage): Fu[ImageFresh] =
+    image.rel match
+      case Some(rel) =>
+        for
+          _ <- deleteByRel(rel)
+          _ <- coll.insert.one(image)
+        yield ImageFresh(image, true)
+      case _ =>
+        coll.insert
+          .one(image)
+          .inject(ImageFresh(image, true))
+          .recoverWith:
+            case e: DatabaseException if e.code.contains(11000) =>
+              fuccess(ImageFresh(image, false))
 
   private object picfitServer:
 
@@ -197,6 +193,7 @@ object PicfitApi:
       if once(id, u) then coll.updateUnchecked($id(id), $addToSet("urls" -> u))
 
   val uploadMaxMb = 6
+  val idSep = ':'
 
   type FilePart = MultipartFormData.FilePart[HashedMultiPart.HashedSource]
   type ByteSource = Source[ByteString, ?]
