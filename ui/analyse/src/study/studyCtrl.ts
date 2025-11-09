@@ -124,6 +124,7 @@ export default class StudyCtrl {
       loading: false,
       tab: propWithEffect<Tab>(!relayData && data.chapters?.[1] ? 'chapters' : 'members', tab => {
         if (tab === 'chapters') this.vm.revealActiveChapter = true;
+        this.redraw();
       }),
       toolTab: prop<ToolTab>(relayData ? 'multiBoard' : 'tags'),
       chapterId: sticked ? data.position.chapterId : data.chapter.id,
@@ -137,7 +138,7 @@ export default class StudyCtrl {
       // how stale is the study
       updatedAt: Date.now() - data.secondsSinceUpdate * 1000,
       gamebookOverride: undefined,
-      revealActiveChapter: false,
+      revealActiveChapter: true,
     };
 
     this.members = new StudyMemberCtrl({
@@ -264,10 +265,7 @@ export default class StudyCtrl {
     tour.study(this.ctrl);
   };
 
-  setTab = (tab: Tab) => {
-    this.vm.tab(tab);
-    this.redraw();
-  };
+  setTab = (tab: Tab) => this.vm.tab(tab);
 
   currentChapter = (): ChapterPreview => this.chapters.list.get(this.vm.chapterId)!;
 
@@ -484,6 +482,7 @@ export default class StudyCtrl {
       this.redraw();
       return true;
     }
+    this.vm.revealActiveChapter = true;
     this.vm.nextChapterId = id;
     this.vm.justSetChapterId = id;
     if (this.vm.mode.sticky && this.makeChange('setChapter', id)) {

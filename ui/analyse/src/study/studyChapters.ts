@@ -167,18 +167,21 @@ export function view(ctrl: StudyCtrl): VNode {
   const canContribute = ctrl.members.canContribute(),
     current = ctrl.currentChapter();
   function update(vnode: VNode) {
-    ctrl.vm.revealActiveChapter = false;
-    const isChapterFullyVisible = (listOfChapters: HTMLElement, chapter: HTMLElement): boolean => {
-      const c = chapter.getBoundingClientRect(),
-        l = listOfChapters.getBoundingClientRect();
-      return c.top >= l.top && c.bottom <= l.bottom;
-    };
     const vData = vnode.data!.li!,
       el = vnode.elm as HTMLElement;
-    requestAnimationFrame(() => {
+    if (ctrl.vm.revealActiveChapter) {
+      ctrl.vm.revealActiveChapter = false;
+
       const active = el.querySelector('.active') as HTMLElement | null;
-      if (active && !isChapterFullyVisible(el, active)) scrollToInnerSelector(el, '.active');
-    });
+      if (active) {
+        requestAnimationFrame(() => {
+          const c = el.getBoundingClientRect(),
+            l = active.getBoundingClientRect();
+
+          if (c.top < l.top || c.bottom > l.bottom) scrollToInnerSelector(el, '.active');
+        });
+      }
+    }
     if (canContribute && ctrl.chapters.list.size() > 1 && !vData.sortable) {
       site.asset.loadEsm<typeof Sortable>('sortable.esm', { npm: true }).then(s => {
         vData.sortable = s.create(el, {
