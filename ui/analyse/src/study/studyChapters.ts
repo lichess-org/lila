@@ -173,11 +173,9 @@ export function view(ctrl: StudyCtrl): VNode {
       ctrl.vm.revealActiveChapter = false;
       const active = el.querySelector('.active') as HTMLElement | null;
       if (active) {
-        const c = el.getBoundingClientRect(),
-          l = active.getBoundingClientRect();
-        requestAnimationFrame(() => {
-          if (c.top < l.top || c.bottom > l.bottom) scrollToInnerSelector(el, '.active');
-        });
+        const [c, l] = [el.getBoundingClientRect(), active.getBoundingClientRect()];
+        if (c.top < l.top || c.bottom > l.bottom)
+          requestAnimationFrame(() => scrollToInnerSelector(el, '.active'));
       }
     }
     if (canContribute && ctrl.chapters.list.size() > 1 && !vData.sortable) {
