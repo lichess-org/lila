@@ -26,7 +26,8 @@ function asHashed(path: string, hash: string) {
 export const flairSrc = (flair: Flair) => url(`flair/img/${flair}.webp`, { pathVersion: '_____4' });
 
 // bump fide fed version if anything changes (not added or removed)
-export const fideFedSrc = (fideFed: FideFed) => url(`fide/fed-webp/${fideFed}.webp`, { pathVersion: '_____2' });
+export const fideFedSrc = (fideFed: FideFed) =>
+  url(`fide/fed-webp/${fideFed}.webp`, { pathVersion: '_____2' });
 
 export const loadCss = (href: string, key?: string): Promise<void> => {
   return new Promise(resolve => {
