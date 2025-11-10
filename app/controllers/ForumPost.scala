@@ -58,10 +58,12 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
                     data =>
                       CategGrantWrite(categId, tryingToPostAsMod = ~data.modIcon):
                         limit.forumPost(ctx.ip, rateLimited):
-                          postApi.makePost(categ, topic, data).map { post =>
-                            discard { maybeAutomod(post) }
-                            Redirect(routes.ForumPost.redirect(post.id))
-                          }
+                          for
+                            post <- postApi.makePost(categ, topic, data)
+                            url = routes.ForumPost.redirect(post.id).url
+                            _ <- env.memo.picfitApi.addContext(Markdown(post.text), url, ref(post.id))
+                            _ = discard { maybeAutomod(post) }
+                          yield Redirect(url)
                   )
                 }
           yield res
@@ -76,10 +78,12 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
           _ => Redirect(routes.ForumPost.redirect(postId)).toFuccess,
           data =>
             limit.forumPost(ctx.ip, rateLimited):
-              postApi.editPost(postId, data.changes).map { post =>
-                discard { maybeAutomod(post) }
-                Redirect(routes.ForumPost.redirect(post.id))
-              }
+              for
+                post <- postApi.editPost(postId, data.changes)
+                url = routes.ForumPost.redirect(post.id).url
+                _ <- env.memo.picfitApi.addContext(Markdown(post.text), url, ref(post.id))
+                _ = discard { maybeAutomod(post) }
+              yield Redirect(url)
         )
       yield res
   }
@@ -137,10 +141,12 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
         val call = routes.ForumTopic.show(categ, topic, page)
         Redirect(s"$call#$number").withCanonical(call)
 
+  private def ref(id: ForumPostId) = s"forumPost:$id".some
+
   private def maybeAutomod(post: lila.forum.ForumPost)(using me: Me) = for
     teamId <- env.forum.postApi.teamIdOfPost(post)
-    shouldAutomod <- teamId.fold(fuccess(true)): teamId =>
-      env.team.api.forumAccessOf(teamId).map(_ == lila.core.team.Access.Everyone)
-    _ <- shouldAutomod.so:
-      env.report.api.automodComms(post.text, routes.ForumPost.redirect(post.id).url)
+    onlyIfFlaggedImages <- teamId.fold(fuccess(false)): teamId =>
+      env.team.api.forumAccessOf(teamId).map(_ != lila.core.team.Access.Everyone)
+    url = routes.ForumPost.redirect(post.id).url
+    _ <- env.report.api.automodComms(post.text, url, onlyIfFlaggedImages)
   yield ()

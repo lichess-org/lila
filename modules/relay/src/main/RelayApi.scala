@@ -484,8 +484,8 @@ final class RelayApi(
       _ <- tourRepo.coll.updateField($id(t.id), tag.getOrElse("image"), image.id)
     yield t.copy(image = image.id.some)
 
-    def delete(t: RelayTour, tag: Option[String] = None): Fu[RelayTour] = for
-      _ <- picfitApi.deleteByRel(rel(t, tag))
+    def delete(t: RelayTour, tag: Option[String] = None)(using me: Me): Fu[RelayTour] = for
+      _ <- picfitApi.deleteRef(rel(t, tag), me.userId.some)
       _ <- tourRepo.coll.unsetField($id(t.id), tag.getOrElse("image"))
     yield t.copy(image = none)
 

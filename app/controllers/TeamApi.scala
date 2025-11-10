@@ -99,10 +99,12 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
           bindForm(change.form)(
             form => fuccess(ApiResult.ClientError(form.errors.flatMap(_.messages).mkString("\n"))),
             v =>
-              for automodText <- api.update(change.update(v)(team))
+              for
+                automodText <- api.update(change.update(v)(team))
+                url = routes.Team.show(team.id).url
+                _ <- env.memo.picfitApi.addContext(Markdown(automodText), url, s"team:${team.id}".some)
               yield
-                discard:
-                  env.report.api.automodComms(automodText, routes.Team.show(team.id).url)
+                discard { env.report.api.automodComms(automodText, url) }
                 ApiResult.Done
           )
   }

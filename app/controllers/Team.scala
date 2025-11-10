@@ -122,10 +122,12 @@ final class Team(env: Env) extends LilaController(env):
       bindForm(forms.edit(team))(
         err => BadRequest.async(renderEdit(team, err)),
         data =>
-          for automodText <- api.update(team, data)
+          for
+            automodText <- api.update(team, data)
+            url = routes.Team.show(team.id).url
+            _ <- env.memo.picfitApi.addContext(Markdown(automodText), url, ref(team.id))
           yield
-            val url = routes.Team.show(team.id)
-            discard { env.report.api.automodComms(automodText, url.url) }
+            discard { env.report.api.automodComms(team.automodText, url) }
             Redirect(url).flashSuccess
       )
   }
@@ -258,6 +260,9 @@ final class Team(env: Env) extends LilaController(env):
     ttl = 10.minutes,
     maxConcurrency = 1
   )
+
+  private def ref(id: TeamId) = s"team:$id".some
+
   def create = AuthBody { ctx ?=> me ?=>
     OneAtATime(me, rateLimited):
       LimitPerWeek:
@@ -265,10 +270,12 @@ final class Team(env: Env) extends LilaController(env):
           bindForm(forms.create)(
             err => BadRequest.page(views.team.form.create(err, anyCaptcha)),
             data =>
-              for team <- api.create(data, me)
+              for
+                team <- api.create(data, me)
+                url = routes.Team.show(team.id).url
+                _ <- env.memo.picfitApi.addContext(Markdown(team.automodText), url, ref(team.id))
               yield
-                val url = routes.Team.show(team.id)
-                discard { env.report.api.automodComms(team.automodText, url.url) }
+                discard { env.report.api.automodComms(team.automodText, url) }
                 Redirect(url)
           )
   }

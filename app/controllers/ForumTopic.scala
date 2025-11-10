@@ -28,11 +28,13 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
               err => BadRequest.page(views.forum.topic.form(categ, err, anyCaptcha)),
               data =>
                 limit.forumTopic(ctx.ip, rateLimited):
-                  topicApi.makeTopic(categ, data).map { topic =>
-                    val url = routes.ForumTopic.show(categ.id, topic.slug, 1).url
-                    discard { env.report.api.automodComms(data.automodText, url) }
-                    Redirect(url)
-                  }
+                  for
+                    topic <- topicApi.makeTopic(categ, data)
+                    url = routes.ForumTopic.show(categ.id, topic.slug, 1).url
+                    ref = s"forumPost:${topic.lastPostId}".some
+                    _ <- env.memo.picfitApi.addContext(Markdown(data.post.text), url, ref)
+                    _ = discard { env.report.api.automodComms(data.automodText, url) }
+                  yield Redirect(url)
             )
           }
   }

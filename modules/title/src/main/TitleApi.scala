@@ -153,8 +153,8 @@ $baseUrl/verify-title
           _ <- coll.updateField($id(req.id), tag, image.id)
         yield req.focusImage(tag).replace(image.id.some)
 
-    def delete(req: TitleRequest, tag: String): Fu[TitleRequest] = for
-      _ <- picfitApi.deleteByRel(rel(req, tag))
+    def delete(req: TitleRequest, tag: String, me: Option[Me]): Fu[TitleRequest] = for
+      _ <- picfitApi.deleteRef(rel(req, tag), me.map(_.userId))
       _ <- coll.unsetField($id(req.id), tag)
     yield req.focusImage(tag).replace(none)
 
@@ -168,6 +168,6 @@ $baseUrl/verify-title
       .sort($sort.asc(updatedAtField))
       .cursor[TitleRequest]()
       .list(20)
-    _ <- oldPics.sequentiallyVoid(image.delete(_, "idDocument"))
-    _ <- oldPics.sequentiallyVoid(image.delete(_, "selfie"))
+    _ <- oldPics.sequentiallyVoid(image.delete(_, "idDocument", none))
+    _ <- oldPics.sequentiallyVoid(image.delete(_, "selfie", none))
   yield ()
