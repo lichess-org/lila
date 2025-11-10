@@ -45,12 +45,12 @@
   <string name="illegalCastling">Неправилно или немогуће рокадирање</string>
   <string name="castlingPrevented">Рокадиранје је једино спречено ако краљ пролази кроз контролисано поље.</string>
   <string name="castlingRules">Побрини се да разумеш правила рокадирања</string>
-  <string name="tryCastling">Пробај ову малу интерактивну игру како би увежбао рокаду у шаху</string>
-  <string name="castlingImported">Ако сте увезли партију или сте је почели из позиције, проверите да ли сте добро наместили право за рокаду.</string>
+  <string name="tryCastling">Пробај ову малу интеркативну игру да вежбаш рокадирање у шаху</string>
+  <string name="castlingImported">Ако си увезао/ла партију или си је почео/ла са позиције, побрини се да си добро наместио/ла права за рокадирање.</string>
   <string name="insufficientMaterial">Недовољно материјала за мат</string>
-  <string name="fideMate">По FIDE Laws of Chess §6.9, ако је мат могућ са било којим редоследом легалних потеза, партија није реми</string>
+  <string name="fideMate">По ФИДЕ Правилима о Шаху §6.9, ако је шах-мат могућ са било којом легалном секвенцом потеза, партија није реми</string>
   <string name="knightMate">Могуће је матирати уз помоћ само коња или ловца, ако противник има фигура сем краља.</string>
-  <string name="noRatingPoints">Рејтинг поени нису додељени</string>
+  <string name="noRatingPoints">Нису додељени рејтинг бодови</string>
   <string name="ratedGame">Проверите да ли сте одиграли рангирану партију. Неформалне партије не мењају рејтинг играча.</string>
   <string name="errorPage">Страница са грешком</string>
   <string name="reportErrorPage">Ако вам је приказана страница са грешком, можете је пријавити:</string>
