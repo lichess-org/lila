@@ -177,7 +177,6 @@ function renderTournament(tour: Tournament) {
         h('span.infos', [
           h('span.text', [
             displayClock(tour.clock) + ' ',
-            tour.variant.key === 'standard' ? null : tour.variant.name + ' ',
             tour.position ? 'Thematic ' : null,
             i18n.site[tour.rated ? 'ratedTournament' : 'casualTournament'],
           ]),

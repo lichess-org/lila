@@ -75,14 +75,25 @@ export const memoize = <A>(compute: () => A): (() => A) => {
   };
 };
 
-export const scrollToInnerSelector = (el: HTMLElement, selector: string, horiz: boolean = false): void =>
-  scrollTo(el, el.querySelector(selector), horiz);
+export const scrollToInnerSelector = (
+  el: HTMLElement,
+  selector: string,
+  horiz: boolean = false,
+  behavior: ScrollBehavior = 'instant',
+): void => scrollTo(el, el.querySelector(selector), horiz, behavior);
 
-export const scrollTo = (el: HTMLElement, target: HTMLElement | null, horiz: boolean = false): void => {
-  if (target)
+export const scrollTo = (
+  el: HTMLElement,
+  target: HTMLElement | null,
+  horiz: boolean = false,
+  behavior: ScrollBehavior = 'instant',
+): void => {
+  if (!target) return;
+  el.scrollTo(
     horiz
-      ? (el.scrollLeft = target.offsetLeft - el.offsetWidth / 2 + target.offsetWidth / 2)
-      : (el.scrollTop = target.offsetTop - el.offsetHeight / 2 + target.offsetHeight / 2);
+      ? { behavior, left: target.offsetLeft - el.offsetWidth / 2 + target.offsetWidth / 2 }
+      : { behavior, top: target.offsetTop - el.offsetHeight / 2 + target.offsetHeight / 2 },
+  );
 };
 
 export const onClickAway =
