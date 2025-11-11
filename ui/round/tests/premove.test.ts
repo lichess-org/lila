@@ -213,6 +213,7 @@ describe('premoves', () => {
       ['a1', new Set(['a2', 'a3', 'a4', 'a5', 'a6', 'a7', 'a8', 'b1', 'c1', 'd1'])],
       ['h1', new Set(['h2', 'h3', 'h4', 'h5', 'h6', 'h7', 'h8', 'g1', 'f1'])],
     ]);
+    // TODO - uncomment atomic and crazyhouse once https://github.com/lichess-org/chessground/pull/365 is merged.
     const variants: VariantKey[] = [
       'standard',
       'chess960',
@@ -220,10 +221,10 @@ describe('premoves', () => {
       'fromPosition',
       'kingOfTheHill',
       'threeCheck',
-      'atomic',
+      //'atomic',
       'horde',
       'racingKings',
-      'crazyhouse',
+      //'crazyhouse',
     ];
     for (const variant of variants) {
       let expectedPremoves = structuredClone(baseExpectedPremoves);
@@ -236,7 +237,7 @@ describe('premoves', () => {
         if (variant !== 'chess960') ['c1', 'g1'].forEach(sq => expectedPremoves.get('e1')?.add(sq as cg.Key));
       }
       testPosition(
-        fen.read('4k3/8/8/8/8/8/8/R3K2R w - - 0 1'),
+        fen.read('4k3/8/8/8/8/8/8/R3K2R b - - 0 1'),
         'black',
         undefined,
         expectedPremoves,
