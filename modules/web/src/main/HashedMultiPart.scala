@@ -1,4 +1,4 @@
-package lila.memo
+package lila.web
 
 import akka.stream.scaladsl.{ Source, Sink }
 import akka.util.ByteString
@@ -8,15 +8,12 @@ import play.api.mvc.{ BodyParser, PlayBodyParsers }
 import play.core.parsers.Multipart
 import java.security.MessageDigest
 
+import lila.memo.{ PicfitApi, HashedSource }
+
 object HashedMultiPart:
   private val maxLength: Long = PicfitApi.uploadMaxMb * 1024 * 1024
 
-  case class HashedSource(
-      source: Source[ByteString, ?],
-      sha256: Array[Byte]
-  )
-
-  def parser(
+  def apply(
       parse: PlayBodyParsers,
       maxLength: Long = maxLength
   )(using Executor): BodyParser[MultipartFormData[HashedSource]] =

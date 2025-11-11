@@ -1,6 +1,8 @@
 package lila.memo
 
+import akka.stream.scaladsl.Source
 import reactivemongo.api.bson.Macros.Annotations.Key
+
 import lila.core.id.ImageId
 import lila.core.config.{ Secret, CollName, ImageGetOrigin }
 
@@ -42,3 +44,5 @@ object Dimensions:
 case class ImageAutomod(flagged: Option[String] = none)
 
 case class ImageAutomodRequest(id: ImageId, dim: Dimensions)
+
+case class HashedSource(source: Source[akka.util.ByteString, ?], sha256: Array[Byte])

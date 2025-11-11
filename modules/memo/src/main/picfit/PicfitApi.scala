@@ -234,7 +234,7 @@ object PicfitApi:
   val uploadMaxMb = 6
   val idSep = ':'
 
-  type FilePart = MultipartFormData.FilePart[HashedMultiPart.HashedSource]
+  type FilePart = MultipartFormData.FilePart[HashedSource]
   type ByteSource = Source[ByteString, ?]
 
   private given BSONDocumentHandler[ImageAutomod] = Macros.handler

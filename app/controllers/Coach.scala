@@ -58,7 +58,7 @@ final class Coach(env: Env) extends LilaController(env):
       )
   }
 
-  def pictureApply = SecureBody(lila.memo.HashedMultiPart.parser(parse))(_.Coach) { ctx ?=> me ?=>
+  def pictureApply = SecureBody(lila.web.HashedMultiPart(parse))(_.Coach) { ctx ?=> me ?=>
     Found(api.findOrInit): c =>
       ctx.body.body.file("picture") match
         case Some(pic) =>
