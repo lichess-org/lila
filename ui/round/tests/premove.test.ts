@@ -13,8 +13,8 @@ const diagonallyOpposite = (square: cg.Key): cg.Key =>
 
 const verticallyOpposite = (square: cg.Key): cg.Key => {
   const asPos = util.key2pos(square);
-  return util.pos2keyUnsafe(([asPos[0], 7 - asPos[1]] as cg.Pos));
-}
+  return util.pos2keyUnsafe([asPos[0], 7 - asPos[1]] as cg.Pos);
+};
 
 const invertPiecesVertically = (pieces: cg.Pieces): cg.Pieces =>
   new Map(
@@ -244,8 +244,8 @@ describe('premoves', () => {
         expectedPremoves,
         true,
         false,
-        variant
-      )
+        variant,
+      );
     }
   });
 });
