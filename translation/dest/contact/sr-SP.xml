@@ -51,10 +51,11 @@
   <string name="fideMate">По ФИДЕ Правилима о Шаху §6.9, ако је шах-мат могућ са било којом легалном секвенцом потеза, партија није реми</string>
   <string name="knightMate">Могуће је матирати уз помоћ само коња или ловца, ако противник има фигура сем краља.</string>
   <string name="noRatingPoints">Нису додељени рејтинг бодови</string>
-  <string name="ratedGame">Проверите да ли сте одиграли рангирану партију. Неформалне партије не мењају рејтинг играча.</string>
-  <string name="errorPage">Страница са грешком</string>
-  <string name="reportErrorPage">Ако вам је приказана страница са грешком, можете је пријавити:</string>
-  <string name="banAppeal">Жалба у вези бана или ИП рестрикције</string>
+  <string name="ratedGame">Провери да си одиграо/ла рангирану партију. Нерангиране партије не утичу на играчев рејтинг.</string>
+  <string name="errorPage">Страница грешке</string>
+  <string name="reportErrorPage">Ако си видео/ла страницу грешке, можеш је пријавити:</string>
+  <string name="banAppeal">Жалба на забрану или IP ограничење</string>
+  <string name="engineAppeal">Ознака рачунара или варања</string>
   <string name="sendAppealTo">Можеш послати жалбу %s.</string>
   <string name="falsePositives">Грешке се могу дешавати понекад, и нама је жао због тога.</string>
   <string name="ifLegit">Ако је твоја жалба легитимна, уклонићемо забрану што пре.</string>
