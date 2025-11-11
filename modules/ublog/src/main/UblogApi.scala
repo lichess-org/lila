@@ -394,7 +394,7 @@ final class UblogApi(
     )
 
   object image:
-    private def ref(post: UblogPost) = s"ublog:${post.id}"
+    private def ref(post: UblogPost) = s"ublogHead:${post.id}"
 
     def upload(user: User, post: UblogPost, picture: PicfitApi.FilePart): Fu[UblogPost] = for
       pic <- picfitApi.uploadFile(picture, userId = user.id, ref(post).some)
@@ -404,7 +404,7 @@ final class UblogApi(
 
     def deleteAll(post: UblogPost): Funit = for
       _ <- deleteImage(post)
-      _ <- picfitApi.pullRefByIds(post.markdown, ref(post))
+      _ <- picfitApi.pullRefByIds(post.markdown, s"ublog:${post.id}") // not ublogHead
     yield ()
 
     def delete(post: UblogPost): Fu[UblogPost] = for
