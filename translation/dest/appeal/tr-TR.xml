@@ -13,9 +13,9 @@
   <string name="excludedFromLeaderboardsInfo">Bunu, liderlik panosuna çıkmak için adil olmayan bir yol kullanmak olarak tanımlıyoruz.</string>
   <string name="closedByModerators">Hesabınız moderatörler tarafından kapatılmıştır.</string>
   <string name="hiddenBlog">Bloglarınız moderatörler tarafından görünmeze alınmıştır.</string>
-  <string name="hiddenBlogInfo">%s bölümümüzü tekrar okuduğunuzdan emin olun.</string>
+  <string name="hiddenBlogInfo" comment="%s is &quot;blog rules&quot;, a separately translateable string (key: blogRules).&#10;&#10;Full sentence: &quot;Make sure to read again our blog rules.&quot;">%s bölümümüzü tekrar okuduğunuzdan emin olun.</string>
   <string name="playTimeout">Uzaklaştırma cezanız var.</string>
   <string name="communicationGuidelines">iletişim kuralları</string>
-  <string name="blogRules">blog kuralları</string>
+  <string name="blogRules" comment="This text links to https://lichess.org/page/blog-etiquette&#10;&#10;Part of longer sentence, &quot;Make sure to read again our blog rules.&quot; (key: hiddenBlogInfo)">blog kuralları</string>
   <string name="fairPlay">Fair Play</string>
 </resources>
