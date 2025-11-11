@@ -232,6 +232,7 @@ describe('premoves', () => {
         ['e1', 'f1', 'g1', 'h1'].forEach(sq => expectedPremoves.get('a1')?.add(sq as cg.Key));
         ['e1', 'd1', 'c1', 'b1', 'a1'].forEach(sq => expectedPremoves.get('h1')?.add(sq as cg.Key));
       }
+      // technically no castling in racing kings as well, but not even worth dealing with that case
       if (variant !== 'antichess') {
         ['a1', 'h1'].forEach(sq => expectedPremoves.get('e1')?.add(sq as cg.Key));
         if (variant !== 'chess960') ['c1', 'g1'].forEach(sq => expectedPremoves.get('e1')?.add(sq as cg.Key));
