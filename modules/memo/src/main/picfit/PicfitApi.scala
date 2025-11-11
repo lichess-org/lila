@@ -27,90 +27,64 @@ final class PicfitApi(
   Bus.sub[lila.core.user.UserDelete]: del =>
     for
       ids <- coll.primitive[ImageId]($doc("user" -> del.id), "_id")
-      _ <- cleanupMany(ids, del.id, none)
+      _ <- deleteByIds(ids)
     yield ()
 
   def uploadFile(
-      rel: String,
-      part: FilePart,
+      file: FilePart,
       userId: UserId,
+      ref: Option[String] = none,
       meta: Option[form.UploadData] = none,
       requestAutomod: Boolean = true
   ): Fu[PicfitImage] =
-    val hash = java.util.Base64.getUrlEncoder().withoutPadding().encodeToString(part.ref.sha256).take(12)
-    uploadSource(rel, hash, part, userId, meta = meta).map: uploaded =>
+    val hash = java.util.Base64.getUrlEncoder().withoutPadding().encodeToString(file.ref.sha256).take(12)
+    uploadSource(file, hash, userId, ref, meta = meta).map: uploaded =>
       if requestAutomod && uploaded.fresh then
         Bus.pub(ImageAutomodRequest(uploaded.image.id, meta.fold(Dimensions.default)(_.dim)))
       uploaded.image
 
-  def bodyImageIds(markdown: Markdown): Seq[ImageId] =
-    bodyImageIdRe.findAllMatchIn(markdown.value).map(m => ImageId(m.group(1))).toSeq
+  def addRef(markdown: Markdown, ref: String, context: Option[String] = none): Funit =
+    addRef(imageIds(markdown), ref, context)
 
-  def addContext(markdown: Markdown, context: String, refOpt: Option[String]): Funit =
-    addContext(bodyImageIds(markdown), context, refOpt)
-
-  def addContext(ids: Seq[ImageId], context: String, refOpt: Option[String]): Funit =
-    val u = List(
-      new coll.AggregationFramework.PipelineOperator:
-        val makePipe = refOpt match
-          case Some(ref) =>
-            $set(
-              "context" -> $doc("$ifNull" -> $arr("$context", context)),
-              "refs" -> $doc("$setUnion" -> $arr($doc("$ifNull" -> $arr("$refs", $arr())), $arr(ref)))
-            )
-          case _ => $set("context" -> $doc("$ifNull" -> $arr("$context", context)))
-    )
-    coll
-      .update(ordered = false)
-      .one(q = $inIds(ids), u = u, upsert = false, multi = true, collation = none, arrayFilters = Seq.empty)
-      .void
-
-  def deleteRef(ref: String, userOpt: Option[UserId]): Funit =
-    if !ref.has(':') then fufail(s"PicfitApi.deleteRef invalid ref '$ref'")
+  def pullRef(ref: String): Funit =
+    if !ref.has(':') then fufail(s"PicfitApi.pullRef cant pull '$ref'")
     else
       for
         ids <-
           coll
-            .find(userOpt.fold($doc())(user => $doc("user" -> user)) ++ $doc("refs" -> ref))
-            .cursor[PicfitImage]()
+            .find($doc("refs" -> ref))
+            .projection($doc("_id" -> 1))
+            .cursor[Bdoc]()
             .list(Int.MaxValue)
-            .map(_.map(_.id))
-        if ids.nonEmpty
-        _ <- coll.update.one($inIds(ids), $pull("refs" -> ref), multi = true)
-        _ <- coll.delete.one($inIds(ids) ++ $doc("refs" -> $doc("$size" -> 0)))
+            .map(_.flatMap(_.getAsOpt[ImageId]("_id")))
+        _ <-
+          if ids.nonEmpty then
+            coll.update(ordered = false).one($inIds(ids), $pull("refs" -> ref), multi = true) >>
+              coll.delete.one($inIds(ids) ++ $doc("refs" -> $doc("$size" -> 0))).void
+          else funit
       yield ()
 
-  def cleanupOne(id: ImageId, refOpt: Option[String]): Fu[Option[PicfitImage]] =
-    refOpt match
-      case Some(ref) if ref.has(':') =>
-        coll
-          .findAndUpdateSimplified[PicfitImage]($id(id), $pull("refs" -> ref), fetchNewObject = true)
-          .flatMap:
-            case Some(image) if image.refs.isEmpty => deleteById(image.id).inject(image.some)
-            case other => fuccess(other)
-      case Some(ref) => fufail(s"PicfitApi.cleanupOne invalid ref '$ref'")
-      case _ =>
-        deleteById(id)
-
-  def cleanupMany(ids: Seq[ImageId], user: UserId, refOpt: Option[String]): Funit =
-    val query = $inIds(ids) ++ $doc("user" -> user)
-    refOpt match
-      case Some(ref) if ref.has(':') =>
-        for
-          _ <- coll.update.one(query, $pull("refs" -> ref), multi = true).void
-          empties <-
-            coll
-              .find(query ++ $doc("refs" -> $doc("$size" -> 0)))
-              .cursor[PicfitImage]()
-              .list(Int.MaxValue)
-          _ <- coll.delete.one($inIds(empties.map(_.id)))
-        yield empties.toList.sequentiallyVoid(picfitServer.delete(_))
-      case Some(ref) => fufail(s"PicfitApi.cleanupMany invalid ref '$ref'")
-      case _ =>
-        ids.toList.sequentiallyVoid: id =>
+  def pullRefByIds(markdown: Markdown, ref: String): Funit =
+    val ids = imageIds(markdown)
+    if !ref.has(':') then fufail(s"PicfitApi.pullRefFromIds cant pull $ref")
+    else
+      for
+        _ <- coll.update(ordered = false).one($inIds(ids), $pull("refs" -> ref), multi = true)
+        empties <-
           coll
-            .findAndRemove($id(id) ++ $doc("user" -> user))
-            .flatMap { _.result[PicfitImage].so(picfitServer.delete) }
+            .find($inIds(ids) ++ $doc("refs" -> $doc("$size" -> 0)))
+            .cursor[PicfitImage]()
+            .list(Int.MaxValue)
+        _ <- coll.delete.one($inIds(empties.map(_.id)))
+      yield empties.toList.sequentiallyVoid(picfitServer.delete(_))
+
+  def deleteById(id: ImageId): Fu[Option[PicfitImage]] =
+    coll
+      .findAndRemove($id(id))
+      .map:
+        _.result[PicfitImage].map: pic =>
+          picfitServer.delete(pic)
+          pic
 
   def setAutomod(id: ImageId, automod: ImageAutomod): Fu[Option[PicfitImage]] =
     val op = automod.flagged match
@@ -119,6 +93,9 @@ final class PicfitApi(
     coll
       .findAndUpdate($id(id), op)
       .map(_.result[PicfitImage])
+
+  def imageIds(markdown: Markdown): Seq[ImageId] =
+    imageIdRe.findAllMatchIn(markdown.value).map(m => ImageId(m.group(1))).toSeq
 
   def byIds(ids: Iterable[ImageId]): Fu[Seq[PicfitImage]] = coll.byIds(ids)
 
@@ -144,10 +121,10 @@ final class PicfitApi(
   def countFlagged = coll.countSel($doc("automod.flagged" -> $exists(true)))
 
   private def uploadSource(
-      rel: String,
-      hash: String,
       file: FilePart,
+      hash: String,
       userId: UserId,
+      ref: Option[String],
       meta: Option[form.UploadData]
   ): Fu[ImageFresh] =
     file.contentType
@@ -159,50 +136,54 @@ final class PicfitApi(
         case None => fufail(s"Invalid file type: ${file.contentType | "unknown"}")
         case Some(extension) =>
           val image = PicfitImage(
-            id = ImageId(s"$rel$idSep$hash.$extension"),
+            id = ImageId(s"$hash.$extension"),
             user = userId,
             name = file.filename,
             size = file.fileSize.toInt,
             createdAt = nowInstant,
-            refs = rel.has(':').option(rel).toList,
+            refs = ref.toList,
             dimensions = meta.map(_.dim),
             context = meta.flatMap(_.context)
           )
-          updateColl(image).flatMap: imageFresh =>
-            picfitServer
-              .store(image, file)
-              .inject(imageFresh)
-              .recoverWith: e =>
-                coll.delete.one($id(image.id))
-                fufail(e)
+          for
+            _ <- ref.fold(funit)(pullRef)
+            imageFresh <- updateColl(image)
+            _ <- if imageFresh.fresh then picfitServer.store(image, file) else funit
+          yield imageFresh
 
   private def updateColl(image: PicfitImage): Fu[ImageFresh] =
-    image.refs match
-      case List(rel) =>
-        for
-          _ <- cleanupOne(image.id, rel.some)
-          _ <- coll.insert.one(image)
-        yield ImageFresh(image, true)
-      case _ =>
-        coll.insert
-          .one(image)
-          .inject(ImageFresh(image, true))
-          .recoverWith:
-            case e: DatabaseException if e.code.contains(11000) =>
-              fuccess(ImageFresh(image, false))
+    coll.insert
+      .one(image)
+      .inject(ImageFresh(image, true))
+      .recoverWith:
+        case e: DatabaseException if e.code.contains(11000) =>
+          if image.refs.nonEmpty then
+            for _ <- coll.update.one($id(image.id), $addToSet("refs" -> image.refs))
+            yield ImageFresh(image, false)
+          else fuccess(ImageFresh(image, false))
 
-  private def deleteById(id: ImageId): Fu[Option[PicfitImage]] =
-    coll
-      .findAndRemove($id(id))
-      .map:
-        _.result[PicfitImage].map: pic =>
-          picfitServer.delete(pic)
-          pic
+  private def addRef(ids: Seq[ImageId], ref: String, context: Option[String]): Funit =
+    if ids.isEmpty then funit
+    else
+      coll
+        .update(ordered = false)
+        .one(
+          $inIds(ids),
+          $addToSet("refs" -> ref) ++ context.fold($doc())(ctx => $set("context" -> ctx)),
+          multi = true
+        )
+        .void
 
-  private val bodyImageIdRe =
+  private def deleteByIds(ids: Seq[ImageId]): Funit =
+    ids.toList.sequentiallyVoid: id =>
+      coll
+        .findAndRemove($id(id))
+        .flatMap { _.result[PicfitImage].so(picfitServer.delete) }
+
+  private val imageIdRe =
     raw"""(?i)!\[(?:[^\n\]]*+)\]\(${quote(
         lila.common.url.origin(config.endpointGet).value
-      )}[^)\s]+[?&]path=([a-z]\w+:[-_a-z0-9]{12}\.\w{3,4})[^)]*\)""".r
+      )}[^)\s]+[?&]path=((?:[a-z]\w+:)?[-_a-z0-9]{12}\.\w{3,4})[^)]*\)""".r
 
   private object picfitServer:
 
@@ -259,22 +240,6 @@ object PicfitApi:
   private given BSONDocumentHandler[ImageAutomod] = Macros.handler
   private given BSONDocumentHandler[Dimensions] = Macros.handler
   private given BSONDocumentHandler[PicfitImage] = Macros.handler
-  private given BSONDocumentReader[PicfitImage] with
-    def readDocument(doc: Bdoc) = for
-      id <- doc.getAsTry[ImageId]("_id")
-      user <- doc.getAsTry[UserId]("user")
-      name <- doc.getAsTry[String]("name")
-      size <- doc.getAsTry[Int]("size")
-      createdAt <- doc.getAsTry[Instant]("createdAt")
-      dimensions = doc.getAsOpt[Dimensions]("dimensions")
-      context = doc.getAsOpt[String]("context")
-      automod = doc.getAsOpt[ImageAutomod]("automod")
-      urls = doc.getAsOpt[List[String]]("urls").getOrElse(Nil)
-      refs = doc
-        .getAsOpt[List[String]]("refs")
-        .orElse(doc.getAsOpt[String]("rel").map(List(_))) // compat, or blow this away and do migration
-        .getOrElse(Nil)
-    yield PicfitImage(id, user, name, size, createdAt, dimensions, context, automod, urls, refs)
 
 // from playframework/transport/client/play-ws/src/main/scala/play/api/libs/ws/WSBodyWritables.scala
   import play.api.libs.ws.BodyWritable
@@ -284,15 +249,6 @@ object PicfitApi:
     val boundary = Multipart.randomBoundary()
     val contentType = s"multipart/form-data; boundary=$boundary"
     BodyWritable(b => SourceBody(Multipart.transform(b, boundary)), contentType)
-
-  def findInMarkdown(md: Markdown): Set[ImageId] =
-    // path=ublogBody:mdTLU-fz_oGg.jpg
-    val regex = """(?i)[\?&]path=([a-z]\w+:[-_a-z0-9]{12}\.\w{3,4})&""".r
-    regex
-      .findAllMatchIn(md.value)
-      .map(_.group(1))
-      .map(ImageId(_))
-      .toSet
 
   object form:
 

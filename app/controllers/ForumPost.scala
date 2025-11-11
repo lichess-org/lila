@@ -61,7 +61,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
                           for
                             post <- postApi.makePost(categ, topic, data)
                             url = routes.ForumPost.redirect(post.id).url
-                            _ <- env.memo.picfitApi.addContext(Markdown(post.text), url, ref(post.id))
+                            _ <- env.memo.picfitApi.addRef(Markdown(post.text), ref(post.id), url.some)
                             _ = discard { maybeAutomod(post) }
                           yield Redirect(url)
                   )
@@ -81,7 +81,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
               for
                 post <- postApi.editPost(postId, data.changes)
                 url = routes.ForumPost.redirect(post.id).url
-                _ <- env.memo.picfitApi.addContext(Markdown(post.text), url, ref(post.id))
+                _ <- env.memo.picfitApi.addRef(Markdown(post.text), ref(post.id), url.some)
                 _ = discard { maybeAutomod(post) }
               yield Redirect(url)
         )
@@ -141,7 +141,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
         val call = routes.ForumTopic.show(categ, topic, page)
         Redirect(s"$call#$number").withCanonical(call)
 
-  private def ref(id: ForumPostId) = s"forumPost:$id".some
+  private def ref(id: ForumPostId) = s"forum:$id"
 
   private def maybeAutomod(post: lila.forum.ForumPost)(using me: Me) = for
     teamId <- env.forum.postApi.teamIdOfPost(post)

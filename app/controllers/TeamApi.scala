@@ -102,7 +102,7 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
               for
                 automodText <- api.update(change.update(v)(team))
                 url = routes.Team.show(team.id).url
-                _ <- env.memo.picfitApi.addContext(Markdown(automodText), url, s"team:${team.id}".some)
+                _ <- env.memo.picfitApi.addRef(Markdown(automodText), s"team:${team.id}", url.some)
               yield
                 discard { env.report.api.automodComms(automodText, url) }
                 ApiResult.Done

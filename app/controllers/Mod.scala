@@ -605,7 +605,7 @@ final class Mod(
       picOpt <-
         if v
         then env.memo.picfitApi.setAutomod(id, lila.memo.ImageAutomod(none))
-        else env.memo.picfitApi.cleanupOne(id, none)
+        else env.memo.picfitApi.deleteById(id)
       _ <- picOpt.so(env.mod.logApi.moderateImage(_, if v then "pass" else "purge"))
     yield Redirect(routes.Mod.imageQueue())
   }

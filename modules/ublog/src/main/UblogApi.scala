@@ -46,9 +46,10 @@ final class UblogApi(
 
   def create(data: UblogForm.UblogPostData, author: User): Fu[UblogPost] =
     val post = data.create(author)
-    colls.post.insert
-      .one(bsonWriteObjTry[UblogPost](post).get ++ $doc("likers" -> List(author.id)))
-      .inject(post)
+    for
+      _ <- colls.post.insert.one(bsonWriteObjTry[UblogPost](post).get ++ $doc("likers" -> List(author.id)))
+      _ <- picfitApi.addRef(post.markdown, s"ublog:${post.id}", routes.Ublog.redirect(post.id).url.some)
+    yield post
 
   def getByPrismicId(id: String): Fu[Option[UblogPost]] = colls.post.one[UblogPost]($doc("prismicId" -> id))
 
@@ -58,6 +59,7 @@ final class UblogApi(
     post = data.update(me.value, prev)
     isFirstPublish = prev.lived.isEmpty && post.live
     _ <- colls.post.update.one($id(prev.id), $set(bsonWriteObjTry[UblogPost](post).get))
+    _ <- picfitApi.addRef(post.markdown, s"ublog:${post.id}", routes.Ublog.redirect(post.id).url.some)
     _ = if isFirstPublish then onFirstPublish(author.light, blog, post)
   yield
     triggerAutomod(post).foreach: res =>
@@ -392,21 +394,17 @@ final class UblogApi(
     )
 
   object image:
-    private def rel(post: UblogPost) = s"ublog:${post.id}"
+    private def ref(post: UblogPost) = s"ublog:${post.id}"
 
     def upload(user: User, post: UblogPost, picture: PicfitApi.FilePart): Fu[UblogPost] = for
-      pic <- picfitApi.uploadFile(rel(post), picture, userId = user.id)
+      pic <- picfitApi.uploadFile(picture, userId = user.id, ref(post).some)
       image = post.image.fold(UblogImage(pic.id))(_.copy(id = pic.id))
       _ <- colls.post.updateField($id(post.id), "image", image)
     yield post.copy(image = image.some)
 
     def deleteAll(post: UblogPost): Funit = for
       _ <- deleteImage(post)
-      _ <- picfitApi.cleanupMany(
-        PicfitApi.findInMarkdown(post.markdown).toSeq,
-        post.created.by,
-        rel(post).some
-      )
+      _ <- picfitApi.pullRefByIds(post.markdown, ref(post))
     yield ()
 
     def delete(post: UblogPost): Fu[UblogPost] = for
@@ -414,4 +412,4 @@ final class UblogApi(
       _ <- colls.post.unsetField($id(post.id), "image")
     yield post.copy(image = none)
 
-    def deleteImage(post: UblogPost): Funit = picfitApi.deleteRef(rel(post), post.created.by.some)
+    def deleteImage(post: UblogPost): Funit = picfitApi.pullRef(ref(post))

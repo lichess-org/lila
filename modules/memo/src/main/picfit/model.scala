@@ -10,13 +10,12 @@ case class PicfitImage(
     name: String,
     size: Int, // in bytes
     createdAt: Instant,
-    // reverse reference like blog:id, streamer:id, coach:id, ...
-    // unique: a new image will delete the previous ones with same rel
-    // rel: Option[String], // dead, replaced by refs
     dimensions: Option[Dimensions],
     context: Option[String],
     automod: Option[ImageAutomod] = none,
     urls: List[String] = Nil,
+    // reverse references like ublog:id, streamer:id, coach:id, forum:id...
+    // when refs is empty, this image may be culled
     refs: List[String] = Nil
 )
 

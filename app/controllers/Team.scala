@@ -125,7 +125,7 @@ final class Team(env: Env) extends LilaController(env):
           for
             automodText <- api.update(team, data)
             url = routes.Team.show(team.id).url
-            _ <- env.memo.picfitApi.addContext(Markdown(automodText), url, ref(team.id))
+            _ <- env.memo.picfitApi.addRef(Markdown(automodText), ref(team.id), url.some)
           yield
             discard { env.report.api.automodComms(team.automodText, url) }
             Redirect(url).flashSuccess
@@ -261,7 +261,7 @@ final class Team(env: Env) extends LilaController(env):
     maxConcurrency = 1
   )
 
-  private def ref(id: TeamId) = s"team:$id".some
+  private def ref(id: TeamId) = s"team:$id"
 
   def create = AuthBody { ctx ?=> me ?=>
     OneAtATime(me, rateLimited):
@@ -273,7 +273,7 @@ final class Team(env: Env) extends LilaController(env):
               for
                 team <- api.create(data, me)
                 url = routes.Team.show(team.id).url
-                _ <- env.memo.picfitApi.addContext(Markdown(team.automodText), url, ref(team.id))
+                _ <- env.memo.picfitApi.addRef(Markdown(team.automodText), ref(team.id), url.some)
               yield
                 discard { env.report.api.automodComms(team.automodText, url) }
                 Redirect(url)

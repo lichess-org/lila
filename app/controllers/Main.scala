@@ -146,7 +146,7 @@ final class Main(
             case Some(image) =>
               val meta = lila.memo.PicfitApi.form.upload.bindFromRequest().value
               for
-                image <- env.memo.picfitApi.uploadFile(rel, image, me, meta)
+                image <- env.memo.picfitApi.uploadFile(image, me, none, meta)
                 maxWidth = lila.ui.bits.imageDesignWidth(rel)
                 url = meta match
                   case Some(info) if maxWidth.exists(dw => info.dim.width > dw) =>

@@ -75,7 +75,7 @@ final class Automod(
             case (_, Right(res)) => fuccess(res)
 
   def markdownImages(markdown: Markdown): Fu[Seq[lila.memo.PicfitImage]] =
-    val ids = picfitApi.bodyImageIds(markdown)
+    val ids = picfitApi.imageIds(markdown)
     picfitApi
       .byIds(ids)
       .flatMap:

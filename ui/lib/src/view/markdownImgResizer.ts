@@ -126,7 +126,9 @@ export async function naturalSize(image: Blob): Promise<{ width: number; height:
 
 export function markdownPicfitRegex(origin: string = ''): RegExp {
   return new RegExp(
-    String.raw`!\[([^\n\]]*)\]\((${regexQuote(origin)}[^)\s]+[?&]path=([a-z]\w+:[-_a-z0-9]{12}\.\w{3,4})[^)]*)\)`,
+    String.raw`!\[([^\n\]]*)\]\((${regexQuote(
+      origin,
+    )}[^)\s]+[?&]path=((?:[a-z]\w+:)?[-_a-z0-9]{12}\.\w{3,4})[^)]*)\)`,
     'gi',
   );
 }
