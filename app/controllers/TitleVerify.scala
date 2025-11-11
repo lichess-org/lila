@@ -97,7 +97,7 @@ final class TitleVerify(env: Env, cmsC: => Cms, reportC: => report.Report, userC
                 .recover { case e: Exception =>
                   BadRequest(e.getMessage)
                 }
-          case None => api.image.delete(req, tag, me.some).inject(Ok)
+        case None => api.image.delete(req, tag).inject(Ok)
   }
 
   def queue = Secure(_.TitleRequest) { ctx ?=> me ?=>
