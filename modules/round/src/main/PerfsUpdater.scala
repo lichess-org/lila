@@ -3,6 +3,7 @@ package lila.round
 import chess.{ ByColor, IntRating }
 import chess.rating.{ IntRatingDiff, RatingProvisional }
 import chess.rating.glicko.{ Glicko, Player }
+import chess.variant.Variant
 
 import lila.core.perf.{ UserPerfs, UserWithPerfs }
 import lila.rating.PerfExt.addOrReset
@@ -38,7 +39,7 @@ final class PerfsUpdater(
     if !users.exists(_.user.lame)
     prevPerfs = users.map(_.perfs)
     prevPlayers = prevPerfs.map(_(perfKey).toGlickoPlayer)
-    computedPlayers <- computeGlicko(game.id, prevPlayers, outcome)
+    computedPlayers <- computeGlicko(game, prevPlayers, outcome)
   yield
     val newGlickos = RatingRegulator(
       perfKey,
@@ -54,8 +55,11 @@ final class PerfsUpdater(
     lila.common.Bus.pub(lila.core.game.PerfsUpdate(game, newUsers))
     (ratingDiffs, newUsers, perfKey)
 
-  private def computeGlicko(gameId: GameId, prevPlayers: ByColor[Player], outcome: chess.Outcome) =
-    lila.rating.Glicko.calculator
+  private def computeGlicko(game: Game, prevPlayers: ByColor[Player], outcome: chess.Outcome) =
+    val gameId = game.id
+    // uses crazyhouse or standard ColorAdvantage, except for From Position games
+    PerfsUpdater
+      .withCalculator(game.variant)
       .computeGame(chess.rating.glicko.Game(prevPlayers, outcome), skipDeviationIncrease = true)
       .onError: err =>
         scala.util.Success(lila.log("rating").warn(s"Error computing Glicko2 for game $gameId", err))
@@ -100,3 +104,9 @@ final class PerfsUpdater(
           )
         }
     )
+
+object PerfsUpdater:
+  def withCalculator(variant: Variant) =
+    if variant.standard then lila.rating.Glicko.calculatorWithAdvantage
+    else if variant.crazyhouse then lila.rating.Glicko.calculatorWithCrazyhouseAdvantage
+    else lila.rating.Glicko.calculator
