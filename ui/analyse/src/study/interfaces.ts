@@ -36,6 +36,7 @@ export interface StudyVm {
   behind: number;
   updatedAt: number;
   gamebookOverride: GamebookOverride;
+  scrollToActiveChapter: ScrollBehavior | false;
 }
 
 export type Federations = { [key: string]: string };
