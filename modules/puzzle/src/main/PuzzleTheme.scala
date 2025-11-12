@@ -138,7 +138,9 @@ object PuzzleTheme:
       mateIn2,
       mateIn3,
       mateIn4,
-      mateIn5,
+      mateIn5
+    ),
+    I18nKey.puzzle.mateThemes -> List(
       anastasiaMate,
       arabianMate,
       backRankMate,

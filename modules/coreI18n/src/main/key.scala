@@ -1218,6 +1218,7 @@ object I18nKey:
     val `advanced`: I18nKey = "puzzle:advanced"
     val `lengths`: I18nKey = "puzzle:lengths"
     val `mates`: I18nKey = "puzzle:mates"
+    val `mateThemes`: I18nKey = "puzzle:mateThemes"
     val `goals`: I18nKey = "puzzle:goals"
     val `origin`: I18nKey = "puzzle:origin"
     val `specialMoves`: I18nKey = "puzzle:specialMoves"
