@@ -2413,6 +2413,8 @@ interface I18n {
     lookupOfPlayer: string;
     /** Mates */
     mates: string;
+    /** Mate themes */
+    mateThemes: string;
     /** Motifs */
     motifs: string;
     /** %s played */
