@@ -56,12 +56,12 @@
   <string name="reportErrorPage">Ако си видео/ла страницу грешке, можеш је пријавити:</string>
   <string name="banAppeal">Жалба на забрану или IP ограничење</string>
   <string name="engineAppeal">Ознака рачунара или варања</string>
-  <string name="sendAppealTo">Можеш послати жалбу %s.</string>
-  <string name="falsePositives">Грешке се могу дешавати понекад, и нама је жао због тога.</string>
+  <string name="sendAppealTo">Можеш послати жалбу на %s.</string>
+  <string name="falsePositives">Лажно позитивни резултати се десе понекад и нама је жао због тога.</string>
   <string name="ifLegit">Ако је твоја жалба легитимна, уклонићемо забрану што пре.</string>
-  <string name="accountLost">Ипак, ако сте заиста користили асистенцију рачунара, чак и само једном, ваш налог ће, нажалост, бити изгубљен.</string>
-  <string name="doNotDeny">Немојте порицати да сте варали. Ако желиш дозволу да направиш нови налог, само признај шта си починио и покажи да си разумео да је то била грешка.</string>
-  <string name="otherRestriction">Остале забране</string>
+  <string name="accountLost">Међутим, ако си ипак користио/ла рачунарску помоћ, макар једном, онда је твој налог нажалост изгубљен.</string>
+  <string name="doNotDeny">Немој порицати варање. Ако желиш да ти буде дозвољено да направиш нови налог, само признај шта си урадио/ла и покажи да разумеш да је то била грешка.</string>
+  <string name="otherRestriction">Друго ограничење</string>
   <string name="collaboration">Колаборације, легално, комерцијално</string>
   <string name="monetizing">Монетизација Личеса</string>
   <string name="buyingLichess">Куповина Личеса</string>
