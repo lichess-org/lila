@@ -272,7 +272,7 @@ final class TeamApi(
       val canSee = fuccess(team.publicMembers) >>| me.so(me => cached.teamIds(me).map(_.contains(teamId)))
       canSee.flatMapz:
         memberRepo.coll.primitive[UserId](
-          selector = memberRepo.teamQuery(teamId) ++ $doc("user".$startsWith(term.value)),
+          selector = memberRepo.teamQuery(teamId) ++ $doc("user".$regex(term.value)),
           sort = $sort.desc("user"),
           nb = nb,
           field = "user"

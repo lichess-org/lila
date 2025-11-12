@@ -310,7 +310,7 @@ final class SwissApi(
       mongo.player.primitive[UserId](
         selector = $doc(
           f.swissId -> id,
-          f.userId.$startsWith(term.value)
+          f.userId.$regex(term.value)
         ),
         sort = $sort.desc(f.score),
         nb = nb,

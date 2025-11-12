@@ -310,7 +310,7 @@ final class PlayerRepo(private[tournament] val coll: Coll)(using Executor):
     coll.primitive[UserId](
       selector = $doc(
         "tid" -> tourId,
-        "uid".$startsWith(term.value)
+        "uid".$regex(term.value)
       ),
       sort = $sort.desc("m"),
       nb = nb,

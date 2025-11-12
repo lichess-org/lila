@@ -245,6 +245,7 @@ trait dsl:
     def $regex(value: String, options: String = ""): SimpleExpression[BSONRegex] =
       SimpleExpression(field, BSONRegex(value, options))
 
+    // TODO - find more usages where we'd prefer a general contains check (calling $regex directly).
     def $startsWith(value: String, options: String = ""): SimpleExpression[BSONRegex] =
       $regex(s"^$value", options)
 
