@@ -27,6 +27,7 @@ object PuzzleTheme:
   val attackingF2F7 = PuzzleTheme(i.attackingF2F7, i.attackingF2F7Description)
   val attraction = PuzzleTheme(i.attraction, i.attractionDescription)
   val backRankMate = PuzzleTheme(i.backRankMate, i.backRankMateDescription)
+  val balestraMate = PuzzleTheme(i.balestraMate, i.balestraMateDescription)
   val bishopEndgame = PuzzleTheme(i.bishopEndgame, i.bishopEndgameDescription)
   val bodenMate = PuzzleTheme(i.bodenMate, i.bodenMateDescription)
   val capturingDefender =
@@ -141,6 +142,7 @@ object PuzzleTheme:
       anastasiaMate,
       arabianMate,
       backRankMate,
+      balestraMate,
       bodenMate,
       doubleBishopMate,
       dovetailMate,
