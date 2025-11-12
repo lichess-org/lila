@@ -8,7 +8,7 @@ case class RelayGroup(
     @Key("_id") id: RelayGroupId,
     name: RelayGroup.Name,
     tours: List[RelayTourId],
-    scoreGroups: List[ScoreGroup]
+    scoreGroups: Option[List[ScoreGroup]]
 )
 
 object RelayGroup:
@@ -37,7 +37,7 @@ object RelayGroup:
 private case class RelayGroupData(
     name: RelayGroup.Name,
     tours: List[RelayTour.TourPreview],
-    scoreGroups: List[ScoreGroup]
+    scoreGroups: Option[List[ScoreGroup]]
 ):
   def tourIds = tours.map(_.id)
   def update(group: RelayGroup): RelayGroup =
@@ -50,21 +50,7 @@ private final class RelayGroupForm(baseUrl: BaseUrl):
 
   def data(group: RelayGroup.WithTours) =
     RelayGroupData(group.group.name, group.tours, group.group.scoreGroups)
-  def asText(data: RelayGroupData): String =
-    s"${data.name}\n${data.tours.map(t => s"$baseUrl${routes.RelayTour.show(t.name.toSlug, t.id)}").mkString("\n")}"
-  def parse(value: String): Option[RelayGroupData] =
-    value.split("\n").toList match
-      case Nil => none
-      case name :: tourIds =>
-        val tours = tourIds
-          .take(50)
-          .map(_.trim.takeWhile(' ' != _))
-          .flatMap(parseId)
-          .map(RelayTour.TourPreview(_, RelayTour.Name(""), active = false, live = none))
-        RelayGroupData(RelayGroup.Name(name.linesIterator.next.trim), tours, List.empty).some
 
-  def scoreGroupsAsText(scoreGroups: List[ScoreGroup]): String =
-    scoreGroups.map(_.tourIds.mkString(",")).mkString("\n")
   private def parseId(str: String): Option[RelayTourId] =
     def looksLikeId(id: String): Boolean = id.size == 8 && id.forall(_.isLetterOrDigit)
     if looksLikeId(str) then RelayTourId(str).some
@@ -77,61 +63,53 @@ private final class RelayGroupForm(baseUrl: BaseUrl):
           case _ => none
       yield RelayTourId(id)
 
-  private def parseScoreGroups(str: String): List[ScoreGroup] =
-    str
-      .split("\n")
-      .toList
-      .map(_.trim)
-      .filter(_.nonEmpty)
-      .map: line =>
-        val tourIds = line
-          .split(",")
-          .map(_.trim)
-          .filter(_.nonEmpty)
-          .flatMap(parseGroupId)
-          .toSet
-        ScoreGroup(tourIds)
+  private val tourIdsMapping = nonEmptyText.transform[List[RelayTourId]](
+    str =>
+      str
+        .split("\n")
+        .toList
+        .take(50)
+        .map(_.trim.takeWhile(' ' != _))
+        .flatMap(parseId),
+    tourIds => tourIds.map(id => s"$baseUrl${routes.RelayTour.show("-", id)}").mkString("\n")
+  )
 
-  private def parseGroupId(str: String): Option[RelayTourId] =
-    def looksLikeId(id: String): Boolean = id.size == 8 && id.forall(_.isLetterOrDigit)
-    if looksLikeId(str) then RelayTourId(str).some
-    else
-      for
-        url <- lila.common.url.parse(str).toOption
-        id <- url.path.split('/').filter(_.nonEmpty) match
-          case Array("broadcast", id, "edit") if looksLikeId(id) => id.some
-          case Array("broadcast", _, id) if looksLikeId(id) => id.some
-          case _ => none
-      yield RelayTourId(id)
+  private val scoreGroupsMapping = nonEmptyText.transform[List[ScoreGroup]](
+    str =>
+      str
+        .split("\n")
+        .toList
+        .map(_.trim)
+        .filter(_.nonEmpty)
+        .map: line =>
+          val tourIds = line
+            .split(",")
+            .map(_.trim)
+            .filter(_.nonEmpty)
+            .flatMap(parseId)
+            .toSet
+          ScoreGroup(tourIds)
+    ,
+    scoreGroups => scoreGroups.map(_.tourIds.mkString(",")).mkString("\n")
+  )
 
-  private case class RelayGroupFormData(
-      groupDataText: String,
-      scoreGroupsText: String
-  ):
-    def isValidScoreGroup(groupData: RelayGroupData) =
-      val groupTourIds = groupData.tourIds.toSet
-      groupData.scoreGroups.flatMap(_.tourIds).forall(id => groupTourIds.contains(id))
-    def toRelayGroupData: Option[RelayGroupData] =
-      parse(groupDataText).map: groupData =>
-        val scoreGroups = parseScoreGroups(scoreGroupsText)
-        val withScoreGroup = groupData.copy(scoreGroups = scoreGroups)
-        if isValidScoreGroup(withScoreGroup).pp then withScoreGroup else groupData
+  private def isValidScoreGroup(tourIds: List[RelayTourId], scoreGroups: List[ScoreGroup]): Boolean =
+    val groupTourIds = tourIds.toSet
+    scoreGroups.flatMap(_.tourIds).forall(id => groupTourIds.contains(id))
 
   val mapping = Forms
     .mapping(
-      "data" -> nonEmptyText,
-      "scoreGroups" -> nonEmptyText
-    )(RelayGroupFormData.apply)((data: RelayGroupFormData) =>
-      Some((data.groupDataText, data.scoreGroupsText))
-    )
-    .verifying("Bad group data", data => parse(data.groupDataText).isDefined)
+      "name" -> lila.common.Form.cleanNonEmptyText,
+      "tourIds" -> tourIdsMapping,
+      "scoreGroups" -> optional(scoreGroupsMapping)
+    )((name: String, tourIds: List[RelayTourId], scoreGroups: Option[List[ScoreGroup]]) =>
+      val tours = tourIds.map(RelayTour.TourPreview(_, RelayTour.Name(""), active = false, live = none))
+      RelayGroupData(RelayGroup.Name(name), tours, scoreGroups)
+    )((data: RelayGroupData) => Some((data.name.value, data.tourIds, data.scoreGroups)))
+    .verifying("Tour IDs cannot be empty", data => data.tourIds.nonEmpty)
     .verifying(
-      "score groups contain tour IDs not in this group",
-      _.toRelayGroupData.isDefined
-    )
-    .transform[RelayGroupData](
-      _.toRelayGroupData.get,
-      data => RelayGroupFormData(asText(data), scoreGroupsAsText(data.scoreGroups))
+      "scoregroups cannot contain broadcasts not present in this group",
+      data => data.scoreGroups.forall(isValidScoreGroup(data.tourIds, _))
     )
 
 import lila.db.dsl.{ *, given }
