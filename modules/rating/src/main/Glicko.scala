@@ -73,14 +73,14 @@ object Glicko:
     ratingPeriodsPerDay = RatingPeriodsPerDay(0.21436d)
   )
 
-  val calculatorWithAdvantage = GlickoCalculator(
-    ratingPeriodsPerDay = RatingPeriodsPerDay(0.21436d),
-    colorAdvantage = ColorAdvantage.standard
-  )
-
   val calculatorWithCrazyhouseAdvantage = GlickoCalculator(
     ratingPeriodsPerDay = RatingPeriodsPerDay(0.21436d),
     colorAdvantage = ColorAdvantage.crazyhouse
+  )
+
+  val calculatorWithStandardAdvantage = GlickoCalculator(
+    ratingPeriodsPerDay = RatingPeriodsPerDay(0.21436d),
+    colorAdvantage = ColorAdvantage.standard
   )
 
   def liveDeviation(p: Perf, reverse: Boolean): Double = {

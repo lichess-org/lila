@@ -107,6 +107,6 @@ final class PerfsUpdater(
 
 object PerfsUpdater:
   def withCalculator(variant: Variant) =
-    if variant.standard then lila.rating.Glicko.calculatorWithAdvantage
+    if variant.standard then lila.rating.Glicko.calculatorWithStandardAdvantage
     else if variant.crazyhouse then lila.rating.Glicko.calculatorWithCrazyhouseAdvantage
     else lila.rating.Glicko.calculator
