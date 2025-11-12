@@ -15,7 +15,7 @@
   <string name="backRankMate">Mate do corredor</string>
   <string name="backRankMateDescription">Xaque mate na última fila, onde o rei está atrapado polas súas propias pezas.</string>
   <string name="balestraMate">Mate da bésta</string>
-  <string name="balestraMateDescription">Un bispo dá o xaque mate mentres unha dama bloquea o resto das casas de escape</string>
+  <string name="balestraMateDescription">O bispo dá xaque mate mentres a dama bloquea as casas de escape</string>
   <string name="bishopEndgame">Final de alfís</string>
   <string name="bishopEndgameDescription">Final con só alfís e peóns.</string>
   <string name="bodenMate">Mate de Boden</string>
