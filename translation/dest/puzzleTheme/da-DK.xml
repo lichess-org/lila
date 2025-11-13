@@ -14,6 +14,8 @@
   <string name="attractionDescription">En udveksling eller et offer som lokker eller tvinger en af modstanderens brikker til et felt, der giver mulighed for en opfølgende taktik.</string>
   <string name="backRankMate">Baglinjemat</string>
   <string name="backRankMateDescription">Sæt kongen skakmat på baglinjen, når den er fanget der af sine egne brikker.</string>
+  <string name="balestraMate">Balestra-mat</string>
+  <string name="balestraMateDescription">En biskop sætter mat, mens en dronning blokerer de resterende flugtfelter</string>
   <string name="bishopEndgame">Løberslutspil</string>
   <string name="bishopEndgameDescription">Et slutspil med kun løbere og bønder.</string>
   <string name="bodenMate">Bodens mat</string>
