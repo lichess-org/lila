@@ -3,7 +3,7 @@ import { getStageRank } from '../score';
 import { numberSpread } from 'lib/i18n';
 import type { RunCtrl } from './runCtrl';
 import { h } from 'snabbdom';
-import { bind } from 'lib/snabbdom';
+import { bind } from 'lib/view';
 import { hashNavigate } from '../hashRouting';
 import * as licon from 'lib/licon';
 

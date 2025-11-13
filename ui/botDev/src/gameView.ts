@@ -1,4 +1,4 @@
-import { hl, type VNode } from 'lib/snabbdom';
+import { hl, type VNode } from 'lib/view';
 
 export function renderGameView(side?: VNode): VNode {
   return hl('main.round', [

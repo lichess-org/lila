@@ -1,5 +1,5 @@
 import { prop } from 'lib';
-import { onInsert } from 'lib/snabbdom';
+import { onInsert } from 'lib/view';
 import { throttle } from 'lib/async';
 import { h, type VNode } from 'snabbdom';
 import type AnalyseCtrl from '../ctrl';

@@ -1,10 +1,10 @@
 import { pieceGrams, totalGames } from './constants';
 import type { ByColor, Counted, Opening, Recap, Sources, RecapPerf } from './interfaces';
-import { onInsert, hl, type LooseVNodes, type VNode, dataIcon } from 'lib/snabbdom';
+import { onInsert, hl, type LooseVNodes, type VNode, dataIcon } from 'lib/view';
 import { formatNumber, loadOpeningLpv } from './ui';
 import { shuffle } from 'lib/algo';
 import { fullName, userFlair, userTitle } from 'lib/view/userLink';
-import { spinnerVdom } from 'lib/view/controls';
+import { spinnerVdom } from 'lib/view';
 import { formatDuration, perfLabel, perfNames } from './util';
 import perfIcons from 'lib/game/perfIcons';
 

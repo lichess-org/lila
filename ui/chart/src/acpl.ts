@@ -23,7 +23,6 @@ import {
   tooltipBgColor,
   whiteFill,
   axisOpts,
-  resizePolyfill,
 } from './index';
 import division from './division';
 import type { AcplChart, AnalyseData, Player } from './interface';
@@ -31,7 +30,6 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { pubsub } from 'lib/pubsub';
 import { plyToTurn } from 'lib/game/chess';
 
-resizePolyfill();
 Chart.register(LineController, LinearScale, PointElement, LineElement, Tooltip, Filler, ChartDataLabels);
 export default async function (
   el: HTMLCanvasElement,

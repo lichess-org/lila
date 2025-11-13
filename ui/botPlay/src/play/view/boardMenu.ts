@@ -1,9 +1,9 @@
 import { h } from 'snabbdom';
-import type { LooseVNode } from 'lib/snabbdom';
+import type { LooseVNode } from 'lib/view';
 import type PlayCtrl from '../playCtrl';
-import { boardMenu as menuDropdown } from 'lib/view/boardMenu';
+import { boardMenu as menuDropdown } from 'lib/view';
 // import { toggle } from 'lib';
-// import { boolPrefXhrToggle } from 'lib/view/controls';
+// import { boolPrefXhrToggle } from 'lib/view';
 
 export default function (ctrl: PlayCtrl): LooseVNode {
   return menuDropdown(ctrl.opts.redraw, ctrl.menu, menu => [

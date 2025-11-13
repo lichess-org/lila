@@ -1,4 +1,4 @@
-import { animation, fontFamily, gridColor, hoverBorderColor, resizePolyfill } from './index';
+import { animation, fontFamily, gridColor, hoverBorderColor } from './index';
 import type { DistributionData } from './interface';
 import {
   type ChartConfiguration,
@@ -15,7 +15,6 @@ import {
 } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 
-resizePolyfill();
 Chart.register(LineController, LinearScale, PointElement, LineElement, Tooltip, Filler, ChartDataLabels);
 
 export async function initModule(data: DistributionData): Promise<void> {

@@ -1,4 +1,4 @@
-import { type LooseVNode, hl, bind } from 'lib/snabbdom';
+import { type LooseVNode, hl, bind } from 'lib/view';
 import * as licon from 'lib/licon';
 import { renderClock } from 'lib/game/clock/clockView';
 import RoundController from '../ctrl';

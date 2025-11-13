@@ -1,10 +1,14 @@
+#settings .toggle-box {
+  > div > div {
+    @extend %flex-column;
+    gap: 1.5em;
+    padding-bottom: 2em;
+  }
+}
 #settings form {
-  margin-top: 1rem;
-  border-top: 1px dotted $c-border;
-  padding-top: 1rem;
-  display: flex;
+  @extend %flex-center;
 
-  p,
+  label,
   input,
   textarea,
   > div {

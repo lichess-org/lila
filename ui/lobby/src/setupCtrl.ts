@@ -2,7 +2,7 @@ import { type Prop, propWithEffect } from 'lib';
 import { debounce } from 'lib/async';
 import * as xhr from 'lib/xhr';
 import { storedJsonProp } from 'lib/storage';
-import { alert } from 'lib/view/dialogs';
+import { alert } from 'lib/view';
 import { INITIAL_FEN } from 'chessops/fen';
 import type LobbyController from './ctrl';
 import type { ForceSetupOptions, GameMode, GameType, PoolMember, SetupStore } from './interfaces';
@@ -253,7 +253,10 @@ export default class SetupController {
     });
 
   validFen = (): boolean => this.variant() !== 'fromPosition' || (!this.fenError && !!this.fen());
-  valid = (): boolean => this.validFen() && this.timeControl.valid();
+
+  valid = (): boolean => this.validFen() && this.timeControl.valid(this.minimumTimeIfReal());
+
+  minimumTimeIfReal = (): number => (this.gameType === 'ai' && this.variant() === 'fromPosition' ? 1 : 0);
 
   submit = async () => {
     const color = this.color();

@@ -3,7 +3,7 @@ import { throttle } from 'lib/async';
 import { reload as xhrReload } from './xhr';
 import type RoundController from './ctrl';
 import { defined } from 'lib';
-import { domDialog } from 'lib/view/dialog';
+import { domDialog } from 'lib/view';
 import { pubsub } from 'lib/pubsub';
 import { wsSign, wsVersion } from 'lib/socket';
 import type { RoundSocketSend, EventsWithoutPayload } from './interfaces';

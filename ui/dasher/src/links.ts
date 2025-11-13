@@ -1,4 +1,4 @@
-import { type Attrs, hl, type VNode, bind } from 'lib/snabbdom';
+import { type Attrs, hl, type VNode, bind } from 'lib/view';
 import * as licon from 'lib/licon';
 import { type Mode, type DasherCtrl, PaneCtrl } from './interfaces';
 import { pubsub } from 'lib/pubsub';

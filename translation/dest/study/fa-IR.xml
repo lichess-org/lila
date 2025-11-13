@@ -16,6 +16,7 @@
   <string name="recentlyUpdated">تازگی به‌روزشده</string>
   <string name="mostPopular">محبوب‌ترین‌</string>
   <string name="alphabetical">براساس حروف الفبا</string>
+  <string name="relevant">ربطمَند</string>
   <string name="addNewChapter">بخش جدیدی اضافه کن</string>
   <plurals name="nbChapters">
     <item quantity="one">%s بخش</item>
@@ -61,6 +62,7 @@
   <string name="studyPgn">PGN مطالعه</string>
   <string name="chapterPgn">PGN ِ بخش</string>
   <string name="copyChapterPgn">رونوشت‌گیری PGN</string>
+  <string name="copyRawChapterPgn">رونوشتِ PGN خام</string>
   <string name="downloadGame">بارگیری بازی</string>
   <string name="studyUrl">وب‌نشانی مطالعه</string>
   <string name="currentChapterUrl">وب‌نشانی بخش جاری</string>
