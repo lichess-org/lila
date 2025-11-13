@@ -14,6 +14,8 @@
   <string name="attractionDescription">An exchange or sacrifice encouraging or forcing an opponent piece to a square that allows a follow-up tactic.</string>
   <string name="backRankMate">Back rank mate</string>
   <string name="backRankMateDescription">Checkmate the king on the home rank, when it is trapped there by its own pieces.</string>
+  <string name="balestraMate">Balestra mate</string>
+  <string name="balestraMateDescription">A bishop delivers the checkmate, while a queen blocks the remaining escape squares</string>
   <string name="bishopEndgame">Bishop endgame</string>
   <string name="bishopEndgameDescription">An endgame with only bishops and pawns.</string>
   <string name="bodenMate">Boden's mate</string>

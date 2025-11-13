@@ -14,6 +14,8 @@
   <string name="attractionDescription">Një shkëmbim ose sakrificë që e nxit ose e detyron një gur të kundërshtarit të shkojë në një kuadrat që lejon më pas një lëvizje taktike.</string>
   <string name="backRankMate">Mat në rreshtin e fundit</string>
   <string name="backRankMateDescription">Jepini mat mbretin në rreshtin e tij, kur ai është bllokuar atje nga gurë të vetët.</string>
+  <string name="balestraMate">Mat Balestra</string>
+  <string name="balestraMateDescription">Një oficer jep shahmat, teksa një mbretëreshë bllokon kuadratet e ikjes</string>
   <string name="bishopEndgame">Fund loje me oficer</string>
   <string name="bishopEndgameDescription">Fund loje me vetëm oficerë dhe ushtarë.</string>
   <string name="bodenMate">Mati i Bodenit</string>
