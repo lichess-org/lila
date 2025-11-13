@@ -49,8 +49,7 @@ import * as poolRangeStorage from 'lib/poolRangeStorage';
 import { pubsub } from 'lib/pubsub';
 import { readFen, almostSanOf, speakable } from 'lib/game/sanWriter';
 import { plyToTurn } from 'lib/game/chess';
-// @ts-ignore - wsDestroy is used in setTimeout callback (line 958)
-import { wsDestroy, type SocketSendOpts } from 'lib/socket';
+import { type SocketSendOpts } from 'lib/socket';
 import Server from './server';
 
 type GoneBerserk = Partial<ByColor<boolean>>;
