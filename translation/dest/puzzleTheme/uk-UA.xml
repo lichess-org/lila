@@ -14,6 +14,8 @@
   <string name="attractionDescription">Обмін або жертва, що заманює або примушує суперника зробити хід, що дозволяє проводити подальшу тактику.</string>
   <string name="backRankMate">Мат по останній горизонталі</string>
   <string name="backRankMateDescription">Мат королю в домашньому ряду, коли він у пастці між власними фігурами.</string>
+  <string name="balestraMate">Мат Балестри</string>
+  <string name="balestraMateDescription">Слон ставить мат королю, а ферзь блокує решта полів для відступу</string>
   <string name="bishopEndgame">Слоновий ендшпіль</string>
   <string name="bishopEndgameDescription">Ендшпіль лише зі слонами та пішаками.</string>
   <string name="bodenMate">Мат Бодена</string>

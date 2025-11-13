@@ -118,4 +118,6 @@
   <string name="xIsAKidAccountWarning">%1$s حساب کودک است و نمی‌تواند پیام‌تان را دریافت کند. شما باید وب‌نشانی دعوت را، دستی به آن‌ها دهید: %2$s</string>
   <string name="moveToClass">حرکت به %s</string>
   <string name="moveToAnotherClass">حرکت به کلاس دیگر</string>
+  <string name="allowMessagingBetweenStudents">اِجازهٔ پیامیدنِ میانِ شطرنج‌آموزان</string>
+  <string name="allowMessagingBetweenStudentsDesc">این فقط مربوط به حساب‌هایی‌ست که برای شطرنج‌آموزان‌تان ایجاد کرده‌اید.</string>
 </resources>

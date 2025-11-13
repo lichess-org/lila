@@ -18,8 +18,9 @@ interface Bundle {
 }
 
 interface Hash {
-  glob: string; // glob for assets
-  update?: string; // file to update with hashed filenames
+  path: string; // glob for assets
+  catalog?: string; // file to update with hashed filenames
+  omit?: boolean; // omit from client manifest, default false
 }
 
 interface Sync {
@@ -123,7 +124,7 @@ async function parsePackage(root: string): Promise<Package> {
   if ('hash' in build)
     pkgInfo.hash = []
       .concat(build.hash)
-      .map(g => (typeof g === 'string' ? { glob: normalize(g) } : normalizeObject(g))) as Hash[];
+      .map(g => (typeof g === 'string' ? { path: normalize(g) } : normalizeObject(g))) as Hash[];
 
   if ('sync' in build)
     pkgInfo.sync = Object.entries<string>(build.sync).map(x => ({

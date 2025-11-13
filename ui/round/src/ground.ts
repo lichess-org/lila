@@ -16,7 +16,7 @@ export function makeConfig(ctrl: RoundController): CgConfig {
     hooks = ctrl.makeCgHooks(),
     step = plyStep(data, ctrl.ply),
     playing = ctrl.isPlaying(),
-    premove = new Premove(data.game.variant.key === 'atomic');
+    premove = new Premove(data.game.variant.key);
   return {
     fen: step.fen,
     orientation: boardOrientation(data, ctrl.flip),
@@ -65,7 +65,6 @@ export function makeConfig(ctrl: RoundController): CgConfig {
     premovable: {
       enabled: data.pref.enablePremove,
       showDests: data.pref.destination && !ctrl.blindfold(),
-      castle: data.game.variant.key !== 'antichess',
       events: {
         set: hooks.onPremove,
         unset: hooks.onCancelPremove,
