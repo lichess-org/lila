@@ -43,16 +43,15 @@ Flykt og beseire stjernene!</string>
   <string name="thePawn">Bonden</string>
   <string name="itMovesForwardOnly">Den går bare fremover</string>
   <string name="pawnIntro">Bonder er svake, men de innehar en masse potensial.</string>
-  <string name="pawnsMoveOneSquareOnly">Bønder beveger seg kun én rute av gangen,
-men når de når den andre siden av brettet,
-blir de en sterkere brikke!</string>
+  <string name="pawnsMoveOneSquareOnly">Bønder flytter bare ett felt om gangen.
+Men når de når den andre siden av brettet, blir de til en sterkere brikke!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">Vanligvis er det best å gjøre den om til en dronning,
 men noen ganger kan en springer være fin å ha!</string>
   <string name="pawnsMoveForward">Bønder går fremover, men fanger andre brikker diagonalt!</string>
   <string name="captureThenPromote">Slå ut, så forvandle!</string>
   <string name="useAllThePawns">Bruk alle bøndene!
 Ingen grunn til å forvandle.</string>
-  <string name="aPawnOnTheSecondRank">En bonde på andreraden kan flytte 2 ruter samtidig!</string>
+  <string name="aPawnOnTheSecondRank">En bonde på andreraden kan flytte 2 felt samtidig!</string>
   <string name="grabAllTheStarsNoNeedToPromote">Ta alle stjernene!
 Ingen grunn til å forvandle.</string>
   <string name="pawnComplete">Gratulerer! Bøndene holder ingen hemmeligheter for deg.</string>
@@ -125,7 +124,7 @@ men du kan forsvare!</string>
   <string name="castlingComplete">Gratulerer! Du bør nesten alltid rokere.</string>
   <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">Det spesielle bondetrekket</string>
-  <string name="enPassantIntro">Når motspillerens bonde hoppa to felt fram, kan du ta den på samme måte som om den flytta ett felt.</string>
+  <string name="enPassantIntro">Når motstanderens bonde flytter to felt, kan du ta den som om den bare hadde flyttet ett felt.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Svart flytta bonden to felt fram! Ta den en passant (i forbifarta).</string>
   <string name="enPassantOnlyWorksImmediately">En passant kan bare brukes i det første trekket etter at motspilleren flyttet bonden to felt.</string>
   <string name="enPassantOnlyWorksOnFifthRank">En passant er bare tillatt om bonden din står på den femte raden.</string>

@@ -1,4 +1,4 @@
-import { squareDist, type Board } from 'lib/game/chess';
+import { squareDist, type Board } from 'lib/game';
 import { charToRole } from 'chessops';
 
 // findTransforms & validOps also found in .build/src/makeGrammar.ts

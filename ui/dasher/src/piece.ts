@@ -1,7 +1,7 @@
 import { h, type VNode } from 'snabbdom';
 import { text as xhrText, form as xhrForm } from 'lib/xhr';
 import { header, elementScrollBarWidthSlowGuess, moreButton } from './util';
-import { bind } from 'lib/snabbdom';
+import { bind } from 'lib/view';
 import { type DasherCtrl, PaneCtrl } from './interfaces';
 import { pubsub } from 'lib/pubsub';
 import { type Toggle, toggle } from 'lib';

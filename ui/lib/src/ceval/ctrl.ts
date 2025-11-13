@@ -1,3 +1,5 @@
+/* eslint no-restricted-syntax:"error" */ // no side effects allowed due to re-export by index.ts
+
 import { throttle } from '../async';
 import { Engines } from './engines/engines';
 import {

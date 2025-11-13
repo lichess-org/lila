@@ -2,7 +2,7 @@ import { beforeEach, describe, test } from 'node:test';
 import assert from 'node:assert/strict';
 import { type Prop, propWithEffect } from 'lib/index';
 import { makeSubmit } from '../src/keyboardSubmit.js';
-import { destsToUcis, sanWriter } from 'lib/game/chess';
+import { destsToUcis, sanWriter } from 'lib/game';
 
 function spy() {
   const f: any = (...args: any[]) => {

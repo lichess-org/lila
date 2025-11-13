@@ -1,4 +1,4 @@
-import { hl, type VNode } from 'lib/snabbdom';
+import { hl, type VNode } from 'lib/view';
 import * as licon from 'lib/licon';
 import type { Player, TopOrBottom } from 'lib/game';
 import type RoundController from '../ctrl';

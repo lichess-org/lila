@@ -13,9 +13,9 @@
   <string name="excludedFromLeaderboardsInfo">Ho definim com fer servir alguna forma bruta per pujar a la clarificació.</string>
   <string name="closedByModerators">El vostre compte ha estat tancat pels moderadors.</string>
   <string name="hiddenBlog">Les vostres entrades del blog han estat amagades pels moderadors.</string>
-  <string name="hiddenBlogInfo">Assegureu-vos de llegir de nou la nostra %s.</string>
+  <string name="hiddenBlogInfo" comment="%s is &quot;blog rules&quot;, a separately translateable string (key: blogRules).&#10;&#10;Full sentence: &quot;Make sure to read again our blog rules.&quot;">Assegureu-vos de llegir de nou la nostra %s.</string>
   <string name="playTimeout">Teniu un temps d\'espera per jugar.</string>
   <string name="communicationGuidelines">guia de comunicació</string>
-  <string name="blogRules">normes del blog</string>
+  <string name="blogRules" comment="This text links to https://lichess.org/page/blog-etiquette&#10;&#10;Part of longer sentence, &quot;Make sure to read again our blog rules.&quot; (key: hiddenBlogInfo)">normes del blog</string>
   <string name="fairPlay">Joc net</string>
 </resources>

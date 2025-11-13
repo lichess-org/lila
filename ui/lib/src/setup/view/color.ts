@@ -1,4 +1,4 @@
-import { hl, type VNode } from '@/snabbdom';
+import { hl, type VNode } from '@/view';
 import { option } from '../option';
 import { colors, type ColorChoice, type ColorProp } from '../color';
 

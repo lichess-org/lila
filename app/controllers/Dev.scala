@@ -4,45 +4,67 @@ import lila.app.*
 
 final class Dev(env: Env) extends LilaController(env):
 
-  private lazy val settingsList = List[lila.memo.SettingStore[?]](
-    env.security.ugcArmedSetting,
-    env.security.spamKeywordsSetting,
-    env.security.proxy2faSetting,
-    env.security.alwaysCaptcha,
-    env.oAuth.originBlocklistSetting,
-    env.mailer.mailerSecondaryPermilleSetting,
-    env.mailer.canSendEmailsSetting,
-    env.irwin.irwinApi.thresholds,
-    env.irwin.kaladinApi.thresholds,
-    env.report.scoreThresholdsSetting,
-    env.report.discordScoreThresholdSetting,
-    env.round.selfReportEndGame,
-    env.round.selfReportMarkUser,
-    env.bot.boardReport.domainSetting,
-    env.streamer.homepageMaxSetting,
-    env.streamer.alwaysFeaturedSetting,
-    env.plan.donationGoalSetting,
-    env.fishnet.openingBookDepth,
-    env.web.settings.apiTimeline,
-    env.web.settings.apiExplorerGamesPerSecond,
-    env.web.settings.noDelaySecret,
-    env.web.settings.prizeTournamentMakers,
-    env.web.settings.sitewideCoepCredentiallessHeader,
-    env.tournament.reloadEndpointSetting,
-    env.tutor.nbAnalysisSetting,
-    env.tutor.parallelismSetting,
-    env.recap.parallelismSetting,
-    env.relay.proxyDomainRegex,
-    env.relay.proxyHostPort,
-    env.relay.proxyCredentials,
-    env.report.automod.imageModelSetting,
-    env.report.automod.imagePromptSetting,
-    env.report.api.commsModelSetting,
-    env.report.api.commsPromptSetting,
-    env.ublog.ublogAutomod.modelSetting,
-    env.ublog.ublogAutomod.promptSetting,
-    env.web.mobile.androidVersion,
-    env.web.mobile.iosVersion
+  private lazy val settingsList = List[(String, List[lila.memo.SettingStore[?]])](
+    "Moderation" -> List(
+      env.security.ugcArmedSetting,
+      env.security.spamKeywordsSetting,
+      env.irwin.irwinApi.thresholds,
+      env.irwin.kaladinApi.thresholds,
+      env.report.scoreThresholdsSetting,
+      env.report.discordScoreThresholdSetting
+    ),
+    "Cheat" -> List(
+      env.round.selfReportEndGame,
+      env.round.selfReportMarkUser,
+      env.bot.boardReport.domainSetting
+    ),
+    "Security" -> List(
+      env.oAuth.originBlocklistSetting,
+      env.security.proxy2faSetting,
+      env.security.alwaysCaptcha,
+      env.web.settings.sitewideCoepCredentiallessHeader
+    ),
+    "Mailing" -> List(
+      env.mailer.mailerSecondaryPermilleSetting,
+      env.mailer.canSendEmailsSetting
+    ),
+    "Streamer" -> List(
+      env.streamer.homepageMaxSetting,
+      env.streamer.alwaysFeaturedSetting
+    ),
+    "Permissions" -> List(
+      env.web.settings.noDelaySecret,
+      env.web.settings.prizeTournamentMakers
+    ),
+    "Limits" -> List(
+      env.web.settings.apiTimeline,
+      env.web.settings.apiExplorerGamesPerSecond,
+      env.tutor.nbAnalysisSetting,
+      env.tutor.parallelismSetting,
+      env.recap.parallelismSetting,
+      env.fishnet.openingBookDepth
+    ),
+    "Broadcast" -> List(
+      env.relay.proxyDomainRegex,
+      env.relay.proxyHostPort,
+      env.relay.proxyCredentials
+    ),
+    "Automod" -> List(
+      env.report.automod.imageModelSetting,
+      env.report.automod.imagePromptSetting,
+      env.report.api.commsModelSetting,
+      env.report.api.commsPromptSetting,
+      env.ublog.ublogAutomod.modelSetting,
+      env.ublog.ublogAutomod.promptSetting
+    ),
+    "Mobile" -> List(
+      env.web.mobile.androidVersion,
+      env.web.mobile.iosVersion
+    ),
+    "Config" -> List(
+      env.plan.donationGoalSetting,
+      env.tournament.reloadEndpointSetting
+    )
   )
 
   def settings = Secure(_.Settings) { _ ?=> _ ?=>
@@ -51,7 +73,7 @@ final class Dev(env: Env) extends LilaController(env):
   }
 
   def settingsPost(id: String) = SecureBody(_.Settings) { _ ?=> me ?=>
-    settingsList.find(_.id == id).so { setting =>
+    settingsList.flatMap(_._2).find(_.id == id).so { setting =>
       bindForm(setting.form)(
         _ => BadRequest.page(views.dev.settings(settingsList)),
         v =>

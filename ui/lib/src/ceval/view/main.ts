@@ -1,7 +1,8 @@
+/* eslint no-restricted-syntax:"error" */ // no side effects allowed due to re-export by index.ts
+
 import { povChances } from '../winningChances';
 import * as licon from '@/licon';
-import { stepwiseScroll } from '@/view/controls';
-import { type VNode, type LooseVNodes, onInsert, bind, hl } from '@/snabbdom';
+import { stepwiseScroll, type VNode, type LooseVNodes, onInsert, bind, hl } from '@/view';
 import { defined, notNull, requestIdleCallback } from '@/index';
 import { type CevalHandler, type NodeEvals, CevalState } from '../types';
 import type { Position } from 'chessops/chess';
@@ -18,11 +19,6 @@ import { Chessground as makeChessground } from '@lichess-org/chessground';
 import { isTouchDevice } from '@/device';
 
 type EvalInfo = { knps: number; npsText: string; depthText: string };
-
-let gaugeLast = 0;
-const gaugeTicks: VNode[] = [...Array(8).keys()].map(i =>
-  hl(i === 3 ? 'tick.zero' : 'tick', { attrs: { style: `height: ${(i + 1) * 12.5}%` } }),
-);
 
 function localEvalNodes(ctrl: CevalHandler, evs: NodeEvals): Array<VNode | string> {
   const ceval = ctrl.ceval,
@@ -122,8 +118,14 @@ export const getBestEval = (ctrl: CevalHandler): EvalScore | undefined => {
   return ctrl.getNode().ceval ?? (ctrl.showFishnetAnalysis?.() ? ctrl.getNode().eval : undefined);
 };
 
+let gaugeLast = 0;
+let gaugeTicks: VNode[];
+
 export function renderGauge(ctrl: CevalHandler): VNode | undefined {
   if (ctrl.ongoing || !ctrl.showEvalGauge()) return;
+  gaugeTicks ??= [...Array(8).keys()].map(i =>
+    hl(i === 3 ? 'tick.zero' : 'tick', { attrs: { style: `height: ${(i + 1) * 12.5}%` } }),
+  );
   const bestEv = getBestEval(ctrl);
   let ev;
   if (bestEv) {

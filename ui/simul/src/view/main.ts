@@ -1,11 +1,10 @@
-import { onInsert, hl } from 'lib/snabbdom';
+import { onInsert, hl, initMiniGames } from 'lib/view';
 import type SimulCtrl from '../ctrl';
 import { title } from './util';
 import created from './created';
 import { richHTML } from 'lib/richText';
 import results from './results';
 import pairings from './pairings';
-import { initMiniGames } from 'lib/view/miniBoard';
 import { watchers } from 'lib/view/watchers';
 import standaloneChat from 'lib/chat/standalone';
 

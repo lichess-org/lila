@@ -50,7 +50,7 @@ import type { GamebookOverride } from './gamebook/interfaces';
 import type { EvalHitMulti, EvalHitMultiArray } from '../interfaces';
 import { MultiCloudEval } from './multiCloudEval';
 import { pubsub } from 'lib/pubsub';
-import { alert } from 'lib/view/dialogs';
+import { alert } from 'lib/view';
 import { displayColumns } from 'lib/device';
 
 interface Handlers {
@@ -135,6 +135,7 @@ export default class StudyCtrl {
       // how stale is the study
       updatedAt: Date.now() - data.secondsSinceUpdate * 1000,
       gamebookOverride: undefined,
+      scrollToActiveChapter: 'instant',
     };
 
     this.members = new StudyMemberCtrl({
@@ -262,6 +263,7 @@ export default class StudyCtrl {
   };
 
   setTab = (tab: Tab) => {
+    if (tab === 'chapters') this.vm.scrollToActiveChapter = 'instant';
     this.vm.tab(tab);
     this.redraw();
   };
@@ -481,6 +483,7 @@ export default class StudyCtrl {
       this.redraw();
       return true;
     }
+    this.vm.scrollToActiveChapter = 'smooth';
     this.vm.nextChapterId = id;
     this.vm.justSetChapterId = id;
     if (this.vm.mode.sticky && this.makeChange('setChapter', id)) {

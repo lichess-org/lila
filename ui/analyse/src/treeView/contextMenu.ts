@@ -1,5 +1,5 @@
 import * as licon from 'lib/licon';
-import { type VNode, onInsert, hl } from 'lib/snabbdom';
+import { type VNode, onInsert, hl } from 'lib/view';
 import type AnalyseCtrl from '../ctrl';
 import * as studyView from '../study/studyView';
 import { patch, nodeFullName } from '../view/util';

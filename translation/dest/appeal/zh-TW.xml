@@ -13,9 +13,9 @@
   <string name="excludedFromLeaderboardsInfo">我們認為您使用不公平的方式進入排行榜。</string>
   <string name="closedByModerators">您的帳號已被管理者關閉。</string>
   <string name="hiddenBlog">您的部落格已被管理者隱藏。</string>
-  <string name="hiddenBlogInfo">請再次閱讀我們的%s。</string>
+  <string name="hiddenBlogInfo" comment="%s is &quot;blog rules&quot;, a separately translateable string (key: blogRules).&#10;&#10;Full sentence: &quot;Make sure to read again our blog rules.&quot;">請再次閱讀我們的%s。</string>
   <string name="playTimeout">您目前暫時無法參加對局。</string>
   <string name="communicationGuidelines">溝通指南</string>
-  <string name="blogRules">部落格規則</string>
+  <string name="blogRules" comment="This text links to https://lichess.org/page/blog-etiquette&#10;&#10;Part of longer sentence, &quot;Make sure to read again our blog rules.&quot; (key: hiddenBlogInfo)">部落格規則</string>
   <string name="fairPlay">公平競爭</string>
 </resources>

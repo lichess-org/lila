@@ -1,5 +1,5 @@
 import { storage } from 'lib/storage';
-import { confirm } from 'lib/view/dialogs';
+import { confirm } from 'lib/view';
 
 const variantConfirms: Record<string, string> = {
   chess960:

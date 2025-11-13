@@ -1,5 +1,5 @@
 import * as licon from '../licon';
-import { type VNode, hl, bind } from '../snabbdom';
+import { type VNode, hl, bind } from '@/view';
 import type { Tab, VoiceChat } from './interfaces';
 import discussionView from './discussion';
 import { noteView } from './note';

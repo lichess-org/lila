@@ -228,7 +228,6 @@ final class Signup(
         fp = data.fp.isDefined,
         proxy = ipData.proxy.name,
         country = ipData.location.shortCountry,
-        dispAttempts = disposableEmailAttempt.count(data.username.id),
         api
       )
       .increment()

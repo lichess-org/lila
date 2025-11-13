@@ -1,4 +1,4 @@
-import type { VNode } from 'lib/snabbdom';
+import type { VNode } from 'lib/view';
 import type { GameData, Status, RoundStep } from 'lib/game';
 import type { ClockData } from 'lib/game/clock/clockCtrl';
 import type { CorresClockData } from './corresClock/corresClockCtrl';
