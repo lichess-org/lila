@@ -165,24 +165,24 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
               .checkStreamStatus(s.streamer, keyword, env.streamer.twitchApi)
               .map:
                 _.fold(ServiceUnavailable(Json.obj("error" -> "Could not check stream status"))): status =>
-                  Json.obj(
-                    "service" -> status.service,
-                    "isLive" -> status.isLive,
-                    "hasKeyword" -> status.hasKeyword,
-                    "isChess" -> status.isChess,
-                    "title" -> status.title,
-                    "category" -> status.category,
-                    "issues" -> Json
-                      .arr(
-                        (!status.isLive).option("You are not currently live"),
-                        (!status.hasKeyword).option("Your stream title does not have lichess.org"),
-                        (!status.isChess && status.service == "twitch")
-                          .option("Your stream category is not Chess")
-                      )
-                      .flatten,
-                    "approved" -> (status.isLive && status.hasKeyword && (status.isChess || status.service == "youtube"))
+                  val issues = List(
+                    (!status.isLive).option("You are not currently live"),
+                    (!status.hasKeyword).option("Your stream title does not have lichess.org"),
+                    (!status.isChess && status.service == "twitch")
+                      .option("Your stream category is not Chess")
+                  ).flatten
+                  JsonOk(
+                    Json.obj(
+                      "service" -> status.service,
+                      "isLive" -> status.isLive,
+                      "hasKeyword" -> status.hasKeyword,
+                      "isChess" -> status.isChess,
+                      "title" -> status.title,
+                      "category" -> status.category,
+                      "issues" -> Json.arr(issues*),
+                      "approved" -> (status.isLive && status.hasKeyword && (status.isChess || status.service == "youtube"))
+                    )
                   )
-              .map(JsonOk(_))
     else Unauthorized
   }
 
