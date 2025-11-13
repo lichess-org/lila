@@ -948,8 +948,6 @@ export default class AnalyseCtrl implements CevalHandler {
   }
 
   private canEvalGet = (): boolean => {
-    if (this.node.ply >= 15 && !this.opts.study) return false;
-
     // cloud eval does not support threefold repetition
     const fens = new Set();
     for (let i = this.nodeList.length - 1; i >= 0; i--) {
