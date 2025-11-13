@@ -62,12 +62,13 @@
   <string name="accountLost">Међутим, ако си ипак користио/ла рачунарску помоћ, макар једном, онда је твој налог нажалост изгубљен.</string>
   <string name="doNotDeny">Немој порицати варање. Ако желиш да ти буде дозвољено да направиш нови налог, само признај шта си урадио/ла и покажи да разумеш да је то била грешка.</string>
   <string name="otherRestriction">Друго ограничење</string>
-  <string name="collaboration">Колаборације, легално, комерцијално</string>
+  <string name="collaboration">Сарадња, легално, комерцијално</string>
   <string name="monetizing">Монетизација Личеса</string>
-  <string name="buyingLichess">Куповина Личеса</string>
+  <string name="buyingLichess">Куповина Lichess-а</string>
   <string name="authorizationToUse">Ауторизација за коришћење Личеса</string>
-  <string name="welcomeToUse">Добродошли сте користити Личес за своје активности, чак и комерцијалне.</string>
-  <string name="videosAndBooks">Можеш га приказивати у својим снимцима, или штампати слике Личеса у својим књигама.</string>
+  <string name="welcomeToUse">Дозвољено ти је да користиш Lichess за твоју активност, чак и комерцијалну.</string>
+  <string name="videosAndBooks">Можеш га приказивати у својим снимцима, или штампати слике екрана Lichess-а у својим књигама.</string>
+  <string name="creditAppreciated">Признање је добродошло али није обавезно.</string>
   <string name="noneOfTheAbove">Ништа од наведеног</string>
   <string name="sendEmailAt">Пошаљите нам мејл на адресу %s.</string>
   <string name="explainYourRequest">Молимо објасните ваш захтев јасно и темељно. Напишите своје Lichess корисничко име и било које информације које нам могу помоћи да вам помогнемо.</string>
