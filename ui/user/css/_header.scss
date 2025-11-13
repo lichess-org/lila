@@ -1,4 +1,5 @@
 .user-show__header {
+  position: relative;
   background: $c-bg-zebra;
   padding: 2em 1.5em 2em 1.5em;
   flex-flow: row nowrap;
@@ -21,5 +22,36 @@
 
   .line {
     vertical-align: top;
+  }
+
+  .streamer-icon {
+    position: absolute;
+    top: 35px;
+    @include inline-end(1.5em);
+    width: 40px;
+    height: 40px;
+    font-size: 39px;
+    color: $c-font-dimmer;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    transition: transform 0.2s;
+
+    @media (min-width: at-least($small)) {
+      // On desktop, position it to the left of trophies
+      @include inline-end(calc(1.5em + 50px));
+    }
+
+    &.streaming {
+      @extend %fire-trophy-shadow;
+      color: $c-brag;
+      animation: fire-trophy 1.25s ease-in-out infinite alternate;
+    }
+
+    &:hover {
+      transform: translateY(-3px);
+    }
   }
 }

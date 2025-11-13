@@ -80,6 +80,16 @@ object header:
             )(patronIconChar)
           )
         ),
+        (info.isStreamer && ctx.kid.no).option {
+          val streaming = isStreaming(u.id)
+          views.streamer.bits.redirectLink(u.username, streaming.some)(
+            cls := List(
+              "streamer-icon" -> true,
+              "streaming" -> streaming
+            ),
+            ariaTitle(if streaming then "Live now!" else "Lichess Streamer")
+          )(Icon.Mic)
+        },
         u.enabled.no.option(span(cls := "closed")("CLOSED"))
       ),
       div(cls := "user-show__social")(
