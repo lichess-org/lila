@@ -5,14 +5,14 @@
   <string name="menu">نام‌چین</string>
   <string name="progressX">پیشرفت: %s</string>
   <string name="resetMyProgress">پیشروی را از نو می‌آغازم</string>
-  <string name="youWillLoseAllYourProgress">شما همه پیشرفت خود را از دست خواهید داد!</string>
+  <string name="youWillLoseAllYourProgress">پیشروی‌تان صفر خواهد شد!</string>
   <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">بازی کن!</string>
   <string name="chessPieces">مُهره‌های شطرنج</string>
   <string name="theRook">رُخ</string>
   <string name="itMovesInStraightLines">در خط‌های راست حرکت می‌کند</string>
   <string name="rookIntro">رُخ مهره نیرومندیست. آماده‌اید که به آن دستور دهید؟</string>
-  <string name="rookGoal">روی رخ کلیک کن
-تا روی ستاره ببریش!</string>
+  <string name="rookGoal">روی رُخ بِتِلیکید
+تا آن را به ستاره بَرید!</string>
   <string name="grabAllTheStars">همه ستاره‌ها را بگیرید!</string>
   <string name="theFewerMoves">هر چه تعداد حرکت‌ها کمتر،
 امتیاز بیشتر!</string>
@@ -111,7 +111,7 @@
 طوری که نتواند دفاع کند!</string>
   <string name="mateInOneComplete">شادباش! اینگونه بازی شطرنج را می‌برید!</string>
   <string name="intermediate">متوسط</string>
-  <string name="boardSetup">چیدمان صفحه</string>
+  <string name="boardSetup">بَرپایِشِ صفحه</string>
   <string name="howTheGameStarts">بازی چگونه می‌آغازد</string>
   <string name="boardSetupIntro">دو لشکر باهم رودررو می‌شوند و آماده نبرد هستند.</string>
   <string name="thisIsTheInitialPosition">این وضعیت آغازینِ هر
