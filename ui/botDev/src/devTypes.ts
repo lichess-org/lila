@@ -1,9 +1,12 @@
-import type { Filter, Book, SoundEvent, Sound as NamedSound } from 'lib/bot/types';
+import type { Book, SoundEvent, Sound as NamedSound } from 'lib/bot/types';
+import type { Requirement, Filter } from 'lib/bot/filter';
 import type { Pane } from './pane';
 import type { AssetType } from './devAssets';
 import type { EditDialog } from './editDialog';
 
 export type Sound = Omit<NamedSound, 'key'>;
+
+export type { Requirement };
 
 export interface Template<T extends object = any> {
   min: Record<keyof T, number>;
@@ -116,5 +119,3 @@ export interface Schema extends PaneInfo {
 export type PaneArgs = { host: EditDialog; info: PaneInfo & Record<string, any>; parent?: Pane };
 
 export type PropertySource = 'scratch' | 'local' | 'server' | 'schema';
-
-export type Requirement = string | { every: Requirement[] } | { some: Requirement[] };
