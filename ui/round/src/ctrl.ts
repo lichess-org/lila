@@ -956,7 +956,7 @@ export default class RoundController implements MoveRootCtrl {
         setTimeout(() => {
           if ($('#KeyboardO,#show_btn,#shadowHostId').length) {
             alert('Play enhancement extensions are no longer allowed!');
-            wsDestroy();
+            void wsDestroy(); // Explicitly mark as used for side effects
             this.setRedirecting();
             location.href = '/page/play-extensions';
           }
