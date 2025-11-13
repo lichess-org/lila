@@ -1,10 +1,10 @@
 import { Pane } from './pane';
 import { Chart, PointElement, LinearScale, LineController, LineElement } from 'chart.js';
-import { type FilterBy, addPoint, asData, filterData, filterFacets, filterBys } from 'lib/bot/filter';
+import type { Filter, FilterBy, FilterFacetKey } from 'lib/bot/filter';
+import { addPoint, asData, filterFacetKeys, filterFacets, filterBys } from 'lib/bot/filter';
 import { frag } from 'lib';
 import { clamp } from 'lib/algo';
 import type { PaneArgs, FilterInfo } from './devTypes';
-import type { Filter, FilterFacet } from 'lib/bot/types';
 
 type FacetToggle = { el: HTMLElement; input: HTMLInputElement };
 
@@ -12,7 +12,7 @@ export class FilterPane extends Pane {
   info: FilterInfo;
   graphEl: HTMLElement;
   graph: Chart;
-  facets = {} as { [key in FilterFacet]: FacetToggle };
+  facets = {} as { [key in FilterFacetKey]: FacetToggle };
 
   constructor(p: PaneArgs) {
     super(p);
@@ -32,7 +32,7 @@ export class FilterPane extends Pane {
     });
     this.label?.append(this.input);
     const tabs = frag<HTMLElement>(`<div class="btn-rack"></div>`);
-    for (const facet of filterFacets) {
+    for (const facet of filterFacetKeys) {
       this.facets[facet] = this.makeFacet(facet);
       tabs.append(this.facets[facet].el);
     }
@@ -56,7 +56,7 @@ export class FilterPane extends Pane {
     return enabled;
   }
 
-  private toggleFacet = (facet: FilterFacet, checked?: boolean): boolean => {
+  private toggleFacet = (facet: FilterFacetKey, checked?: boolean): boolean => {
     if (checked) this.facets[facet].input.checked = checked;
     else checked = this.facets[facet].input.checked;
     if (checked) {
@@ -66,7 +66,7 @@ export class FilterPane extends Pane {
     return checked;
   };
 
-  private makeFacet(facet: FilterFacet): { input: HTMLInputElement; el: HTMLElement } {
+  private makeFacet(facet: FilterFacetKey): { input: HTMLInputElement; el: HTMLElement } {
     const input = frag<HTMLInputElement>(`<input type="checkbox">`);
     const el = frag<HTMLElement>(
       `<div data-facet="${facet}" class="${this.viewing === facet ? 'active ' : ''}facet" title="${
@@ -112,7 +112,7 @@ export class FilterPane extends Pane {
       const graphX = this.graph.scales.x.getValueForPixel(e.clientX - rect.left);
       const graphY = this.graph.scales.y.getValueForPixel(e.clientY - rect.top);
       if (!graphX || !graphY) return;
-      addPoint(f, this.viewing, [clamp(graphX, filterData[this.viewing].domain), clamp(graphY, f.range)]);
+      addPoint(f, this.viewing, [clamp(graphX, filterFacets[this.viewing].domain), clamp(graphY, f.range)]);
     }
     this.graph.data.datasets[0].data = asData(f, this.viewing);
     this.graph.update();
@@ -122,11 +122,11 @@ export class FilterPane extends Pane {
     return this.getProperty() as Filter;
   }
 
-  get viewing(): FilterFacet | undefined {
-    return this.host.editing().viewing?.get(this.id) as FilterFacet | undefined;
+  get viewing(): FilterFacetKey | undefined {
+    return this.host.editing().viewing?.get(this.id) as FilterFacetKey | undefined;
   }
 
-  set viewing(f: FilterFacet | undefined) {
+  set viewing(f: FilterFacetKey | undefined) {
     if (f) this.host.editing().viewing.set(this.id, f);
     else this.host.editing().viewing.delete(this.id);
   }
@@ -163,8 +163,8 @@ export class FilterPane extends Pane {
         scales: {
           x: {
             type: 'linear',
-            min: filterData[this.viewing].domain.min,
-            max: filterData[this.viewing].domain.max,
+            min: filterFacets[this.viewing].domain.min,
+            max: filterFacets[this.viewing].domain.max,
             //reverse: this.viewing === 'time',
             ticks: getTicks(this.viewing),
             title: {
@@ -193,7 +193,7 @@ export class FilterPane extends Pane {
   }
 }
 
-function getTicks(facet: FilterFacet) {
+function getTicks(facet: FilterFacetKey) {
   return facet === 'time'
     ? {
         callback: (value: number) => ticks[value] ?? '',
@@ -217,7 +217,7 @@ const ticks: Record<number, string> = {
   8: '4m',
 };
 
-const tooltips: { [key in FilterFacet]: string } = {
+const tooltips: { [key in FilterFacetKey]: string } = {
   move: 'vary the filter parameter by number of full moves since start of game',
   score: `vary the filter parameter by current outcome expectancy for bot`,
   time: 'vary the filter parameter by think time in seconds per move',

@@ -1,15 +1,14 @@
 import type { Challenge, ChallengeData, ChallengeDirection, ChallengeUser, TimeControl } from './interfaces';
 import { h, type VNode } from 'snabbdom';
 import * as licon from 'lib/licon';
-import { spinnerVdom as spinner } from 'lib/view/controls';
+import { spinnerVdom, initMiniBoard } from 'lib/view';
 import { userLink } from 'lib/view/userLink';
-import { initMiniBoard } from 'lib/view/miniBoard';
 import { opposite } from '@lichess-org/chessground/util';
 import type ChallengeCtrl from './ctrl';
 
 export const loaded = (ctrl: ChallengeCtrl): VNode =>
   ctrl.redirecting
-    ? h('div#challenge-app.dropdown', h('div.initiating', spinner()))
+    ? h('div#challenge-app.dropdown', h('div.initiating', spinnerVdom()))
     : h('div#challenge-app.links.dropdown.rendered', renderContent(ctrl));
 
 export const loading = (): VNode =>

@@ -1,10 +1,17 @@
 import { clamp, quantize } from '../algo';
+import type { SearchMove, MoveArgs } from './types';
 
-export type Point = [number, number];
-export type FilterFacet = keyof typeof filterData;
+type Point = [number, number];
+export type FilterFacetKey = keyof typeof filterFacets;
 export type FilterBy = 'max' | 'min' | 'avg';
-export type FilterValue = { [key in FilterFacet]?: number };
-export type Filters = { [key: string]: Filter };
+export type FilterFacetValue = { [key in FilterFacetKey]?: number };
+export type FilterName = 'cplTarget' | 'cplStdev' | 'lc0bias' | 'moveDecay' | string;
+export type Filters = Record<string, Filter>;
+export type FilterResult<T = any> = Record<Uci, { weight: number } & T>;
+export type FilterFunction = (moves: SearchMove[], args: MoveArgs, limiter: number) => FilterResult;
+export type FilterSpec = { info: FilterInfo; score: FilterFunction };
+export type Requirement = string | { every: Requirement[] } | { some: Requirement[] };
+
 export interface Filter {
   readonly range: { min: number; max: number };
   by: FilterBy;
@@ -12,18 +19,27 @@ export interface Filter {
   score?: Point[];
   time?: Point[];
 }
-export const filterData = {
+export interface FilterInfo {
+  type: 'filter';
+  value: Filter;
+  class?: string[]; // ['filter']
+  label?: string;
+  title?: string;
+  requires?: Requirement; // leakage from file://./../../../botDev/src/schema.ts
+}
+
+export const filterFacets = {
   move: { domain: { min: 1, max: 60 }, quantum: 1 },
   score: { domain: { min: 0, max: 1 }, quantum: 0.01 },
   time: { domain: { min: -2, max: 8 }, quantum: 1 },
 } as const;
-export const filterFacets = Object.keys(filterData) as FilterFacet[];
+export const filterFacetKeys = Object.keys(filterFacets) as FilterFacetKey[];
 export const filterBys: FilterBy[] = ['max', 'min', 'avg'];
 
-export function addPoint(f: Filter, facet: FilterFacet, add: Point): void {
+export function addPoint(f: Filter, facet: FilterFacetKey, add: Point): void {
   // TODO functional
   quantizeFilter(f);
-  const qX = quantize(add[0], filterData[facet].quantum);
+  const qX = quantize(add[0], filterFacets[facet].quantum);
   const data = (f[facet] ??= []);
   const i = data.findIndex(p => p[0] >= qX);
   if (i >= 0) {
@@ -32,9 +48,9 @@ export function addPoint(f: Filter, facet: FilterFacet, add: Point): void {
   } else data.push([qX, add[1]]);
 }
 
-export function asData(f: Filter, facet: FilterFacet): { x: number; y: number }[] {
+export function asData(f: Filter, facet: FilterFacetKey): { x: number; y: number }[] {
   const pts = f[facet]?.slice() ?? [];
-  const xs = filterData[facet].domain;
+  const xs = filterFacets[facet].domain;
   const defaultVal = (f.range.max - f.range.min) / 2;
   if (pts.length === 0)
     return [
@@ -48,10 +64,10 @@ export function asData(f: Filter, facet: FilterFacet): { x: number; y: number }[
 
 export function quantizeFilter(f: Filter): void {
   // TODO functional
-  for (const facet of filterFacets) {
+  for (const facet of filterFacetKeys) {
     if (!f[facet]) continue;
     const newData = f[facet].reduce((acc: Point[], p) => {
-      const x = quantize(p[0], filterData[facet].quantum);
+      const x = quantize(p[0], filterFacets[facet].quantum);
       const i = acc.findIndex(q => q[0] === x);
       if (i >= 0) acc[i] = [x, p[1]];
       else acc.push([x, p[1]]);
@@ -62,9 +78,9 @@ export function quantizeFilter(f: Filter): void {
   }
 }
 
-export function evaluateFilter(f: Filter, x: FilterValue): FilterValue {
-  const value: FilterValue = {};
-  facetIteration: for (const facet of filterFacets) {
+export function evaluateFilter(f: Filter, x: FilterFacetValue): FilterFacetValue {
+  const value: FilterFacetValue = {};
+  facetIteration: for (const facet of filterFacetKeys) {
     if (!f[facet] || !x[facet]) continue;
     const to = (f[facet] ??= []);
 
@@ -86,7 +102,7 @@ export function evaluateFilter(f: Filter, x: FilterValue): FilterValue {
   return value;
 }
 
-export function combine(v: FilterValue, by: FilterBy): number {
+export function combine(v: FilterFacetValue, by: FilterBy): number {
   switch (by) {
     case 'max':
       return Math.max(...Object.values(v));

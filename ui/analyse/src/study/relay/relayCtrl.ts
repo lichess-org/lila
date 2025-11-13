@@ -34,7 +34,9 @@ export default class RelayCtrl {
     public readonly data: RelayData,
   ) {
     this.round = this.data.rounds.find(r => r.id === this.study.data.id)!;
-    this.tourShow = toggle((location.pathname.split('/broadcast/')[1].match(/\//g) || []).length < 3);
+    this.tourShow = toggle((location.pathname.split('/broadcast/')[1].match(/\//g) || []).length < 3, v =>
+      v ? study.ctrl.ceval.stop() : study.ctrl.startCeval(),
+    );
     if (study.ctrl.opts.chat) {
       const showLiveboard = () => this.tourShow() || !study.multiBoard.showResults();
       this.liveboardPlugin = new LiveboardPlugin(study.ctrl, showLiveboard, study.chapterSelect.get());

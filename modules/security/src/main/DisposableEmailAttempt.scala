@@ -42,8 +42,6 @@ final class DisposableEmailAttempt(
         .branch("disposableEmailAttempt")
         .info(s"User ${user.username} signed up with $email after trying ${dispEmails.mkString(", ")}")
 
-  def count(id: UserId): Int = byId.getIfPresent(id).so(_.size)
-
 private object DisposableEmailAttempt:
 
   case class Attempt(id: UserId, email: EmailAddress, ip: IpAddress)

@@ -1,7 +1,7 @@
 import * as control from './control';
 import type AnalyseCtrl from './ctrl';
 import * as xhr from 'lib/xhr';
-import { snabDialog } from 'lib/view/dialog';
+import { snabDialog } from 'lib/view';
 import type { VNode } from 'snabbdom';
 import { pubsub } from 'lib/pubsub';
 

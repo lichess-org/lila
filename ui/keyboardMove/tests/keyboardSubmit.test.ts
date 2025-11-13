@@ -2,17 +2,7 @@ import { beforeEach, describe, test } from 'node:test';
 import assert from 'node:assert/strict';
 import { type Prop, propWithEffect } from 'lib/index';
 import { makeSubmit } from '../src/keyboardSubmit.js';
-import { destsToUcis, sanWriter } from 'lib/game/chess';
-
-const classes = () => {
-  const set = new Set<string>();
-  return {
-    add: (...xs: string[]) => xs.forEach(x => set.add(x)),
-    remove: (...xs: string[]) => xs.forEach(x => set.delete(x)),
-    toggle: (...xs: string[]) => xs.forEach(x => (set.has(x) ? set.delete(x) : set.add(x))),
-    contains: (x: string) => set.has(x),
-  };
-};
+import { destsToUcis, sanWriter } from 'lib/game';
 
 function spy() {
   const f: any = (...args: any[]) => {

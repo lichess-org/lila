@@ -27,6 +27,7 @@ final class MobileApi(
     activityJsonView: lila.activity.JsonView,
     challengeApi: lila.challenge.ChallengeApi,
     challengeJson: lila.challenge.JsonView,
+    webMobile: lila.web.Mobile,
     picfitUrl: lila.memo.PicfitUrl,
     isOnline: lila.core.socket.IsOnline
 )(using Executor):
@@ -44,7 +45,7 @@ final class MobileApi(
       inbox <- me.traverse(unreadCount.mobile)
       challenges <- me.traverse(challengeApi.allFor(_))
     yield Json
-      .obj("tournaments" -> tours)
+      .obj("tournaments" -> tours, "version" -> webMobile.json)
       .add("account", account)
       .add("recentGames", recentGames)
       .add("ongoingGames", ongoingGames)

@@ -1,2 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="freeForAll" comment="Appears in social media embeds (i.e. OpenGraph information) when linking Lichess videos. Part of a longer piece of text.&#10;&#10;The full text will be something like &quot;%s carefully curated chess videos • free for all&quot;">zadarmo pre všetkých</string>
+</resources>

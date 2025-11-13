@@ -1,7 +1,7 @@
 import type Ctrl from './ctrl';
 import { h } from 'snabbdom';
 import type { Game } from './interfaces';
-import { initMiniBoard } from 'lib/view/miniBoard';
+import { initMiniBoard } from 'lib/view';
 
 const miniGame = (game: Game) =>
   h('a', { attrs: { key: game.id, href: `/${game.id}/${game.color}` } }, [

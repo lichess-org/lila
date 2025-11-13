@@ -1,5 +1,7 @@
+/* eslint no-restricted-syntax:"error" */ // no side effects allowed due to re-export by index.ts
+
 import { h, type Hooks, type VNode, type Attrs } from 'snabbdom';
-import { bind } from '@/snabbdom';
+import { bind } from './snabbdom';
 import { toggle as baseToggle, type Toggle } from '@/index';
 import * as xhr from '@/xhr';
 import * as licon from '@/licon';

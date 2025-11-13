@@ -1,6 +1,6 @@
 import Lpv from '@lichess-org/pgn-viewer';
 import type { Opts } from '@lichess-org/pgn-viewer/interfaces';
-import { initMiniBoards } from 'lib/view/miniBoard';
+import { initMiniBoards } from 'lib/view';
 import { requestIdleCallback } from 'lib';
 import type { OpeningPage } from './interfaces';
 import { renderHistoryChart } from './chart';

@@ -1,7 +1,7 @@
 import { withLinebreaks } from '../util';
 import type { RunCtrl } from './runCtrl';
 import { h } from 'snabbdom';
-import { bind } from 'lib/snabbdom';
+import { bind } from 'lib/view';
 
 export default function (ctrl: RunCtrl) {
   return h(

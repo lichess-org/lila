@@ -3,7 +3,7 @@ import { hyphenToCamel, type Toggle, toggle } from 'lib';
 import { debounce } from 'lib/async';
 import * as licon from 'lib/licon';
 import { text as xhrText, form as xhrForm } from 'lib/xhr';
-import { bind, hl, type VNode } from 'lib/snabbdom';
+import { bind, hl, type VNode } from 'lib/view';
 import { type DasherCtrl, PaneCtrl } from './interfaces';
 import { pubsub } from 'lib/pubsub';
 

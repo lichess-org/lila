@@ -1,6 +1,5 @@
-import { type Hooks } from 'snabbdom';
 import { memoize } from './index';
-import { bind } from './snabbdom';
+import { bind, type Hooks } from './view';
 import * as licon from './licon';
 
 export function isBrowserSupported(): boolean {

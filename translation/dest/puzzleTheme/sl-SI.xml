@@ -16,6 +16,8 @@ Eden od vaših kmetov je globoko na nasprotnikovem področju in ima morda možno
   <string name="attractionDescription">Izmenjava ali žrtvovanje, ki spodbuja ali sili nasprotnika na polje, ki omogoča nadaljevanje taktike.</string>
   <string name="backRankMate">Mat zadnje vrste</string>
   <string name="backRankMateDescription">Matiranje kralja, ko je še na začetni vrsti, ujet s svojimi figurami.</string>
+  <string name="balestraMate">Balestra mat</string>
+  <string name="balestraMateDescription">Lovec da šah-mat, medtem ko dama blokira preostala polja za pobeg</string>
   <string name="bishopEndgame">Končnica lovcev</string>
   <string name="bishopEndgameDescription">Končnica s samo lovci in kmeti.</string>
   <string name="bodenMate">Bodenov mat</string>

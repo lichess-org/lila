@@ -1,5 +1,5 @@
 import * as xhr from 'lib/xhr';
-import { alert, makeLinkPopups } from 'lib/view/dialogs';
+import { alert, makeLinkPopups } from 'lib/view';
 import { pubsub } from 'lib/pubsub';
 
 const gamesAngle = document.querySelector<HTMLElement>('.games');

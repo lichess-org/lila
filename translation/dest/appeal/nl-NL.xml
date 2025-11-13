@@ -13,9 +13,9 @@
   <string name="excludedFromLeaderboardsInfo">We definiëren dit als een onrechtvaardige manier om op de ranglijst te komen.</string>
   <string name="closedByModerators">Uw account is gesloten door moderators.</string>
   <string name="hiddenBlog">Jouw blogs zijn verborgen door moderators.</string>
-  <string name="hiddenBlogInfo">Zorg ervoor dat u onze %s opnieuw leest.</string>
+  <string name="hiddenBlogInfo" comment="%s is &quot;blog rules&quot;, a separately translateable string (key: blogRules).&#10;&#10;Full sentence: &quot;Make sure to read again our blog rules.&quot;">Zorg ervoor dat u onze %s opnieuw leest.</string>
   <string name="playTimeout">Je hebt een speeltime-out.</string>
   <string name="communicationGuidelines">communicatierichtlijnen</string>
-  <string name="blogRules">blogregels</string>
+  <string name="blogRules" comment="This text links to https://lichess.org/page/blog-etiquette&#10;&#10;Part of longer sentence, &quot;Make sure to read again our blog rules.&quot; (key: hiddenBlogInfo)">blogregels</string>
   <string name="fairPlay">Eerlijk spel</string>
 </resources>

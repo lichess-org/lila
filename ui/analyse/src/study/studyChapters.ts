@@ -1,6 +1,6 @@
 import { defined, prop, type Prop, scrollToInnerSelector } from 'lib';
 import * as licon from 'lib/licon';
-import { type VNode, bind, dataIcon, iconTag, hl } from 'lib/snabbdom';
+import { type VNode, bind, dataIcon, iconTag, hl } from 'lib/view';
 import type AnalyseCtrl from '../ctrl';
 import type { StudySocketSend } from '../socket';
 import { StudyChapterEditForm } from './chapterEditForm';
@@ -24,7 +24,7 @@ import type StudyCtrl from './studyCtrl';
 import { opposite } from 'chessops/util';
 import { fenColor } from 'lib/game/chess';
 import type Sortable from 'sortablejs';
-import { alert } from 'lib/view/dialogs';
+import { alert } from 'lib/view';
 import { INITIAL_FEN } from 'chessops/fen';
 
 /* read-only interface for external use */
@@ -167,17 +167,19 @@ export function view(ctrl: StudyCtrl): VNode {
   const canContribute = ctrl.members.canContribute(),
     current = ctrl.currentChapter();
   function update(vnode: VNode) {
-    const isChapterFullyVisible = (listOfChapters: HTMLElement, chapter: HTMLElement): boolean => {
-      const c = chapter.getBoundingClientRect(),
-        l = listOfChapters.getBoundingClientRect();
-      return c.top >= l.top && c.bottom <= l.bottom;
-    };
     const vData = vnode.data!.li!,
       el = vnode.elm as HTMLElement;
-    requestAnimationFrame(() => {
+    if (ctrl.vm.scrollToActiveChapter) {
+      const behavior = ctrl.vm.scrollToActiveChapter;
+      ctrl.vm.scrollToActiveChapter = false;
       const active = el.querySelector('.active') as HTMLElement | null;
-      if (active && !isChapterFullyVisible(el, active)) scrollToInnerSelector(el, '.active');
-    });
+      if (active) {
+        const [c, l] = [el.getBoundingClientRect(), active.getBoundingClientRect()];
+        if (c.top < l.top || c.bottom > l.bottom) {
+          requestAnimationFrame(() => scrollToInnerSelector(el, '.active', false, behavior));
+        }
+      }
+    }
     if (canContribute && ctrl.chapters.list.size() > 1 && !vData.sortable) {
       site.asset.loadEsm<typeof Sortable>('sortable.esm', { npm: true }).then(s => {
         vData.sortable = s.create(el, {
