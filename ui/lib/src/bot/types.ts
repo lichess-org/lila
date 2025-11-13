@@ -1,39 +1,15 @@
 import type { Position } from '@lichess-org/zerofish';
 import type { Chess } from 'chessops';
-import type { Filter, FilterFacet, Filters, Point } from './filter';
-import type { BotLoader } from './botLoader';
-
-export type { Filter, FilterFacet, Filters, Point, BotLoader };
-
-export type SoundEvent =
-  | 'greeting'
-  | 'playerWin'
-  | 'botWin'
-  | 'playerCheck'
-  | 'botCheck'
-  | 'botCapture'
-  | 'playerCapture'
-  | 'playerMove'
-  | 'botMove';
+import type { Filters } from './filter';
 
 export type Sound = { key: string; chance: number; delay: Seconds; mix: number };
-
 export type SoundEvents = { [key in SoundEvent]?: Sound[] };
-
 export type ZeroSearch = { multipv: number; net: string; nodes?: number };
-
 export type FishSearch = { multipv: number; depth: number };
-
 export type Book = { key: string; weight: number; color?: Color };
-
 export type LocalSpeed = Exclude<Speed, 'correspondence'>;
-
 export type Ratings = { [speed in LocalSpeed]?: number };
-
-export type FilterType = 'cplTarget' | 'cplStdev' | 'aggression' | 'lc0bias' | 'moveDecay' | 'pawnStructure';
-
 export type AssetType = 'image' | 'book' | 'sound' | 'net';
-
 export type BotUid = string;
 
 export interface BotInfo {
@@ -67,7 +43,18 @@ export interface MoveArgs {
   movetime?: Seconds;
 }
 
-export type MoveResult = { uci: string; movetime: Seconds };
+export interface MoveResult {
+  uci: string;
+  movetime: Seconds;
+}
+
+export interface SearchMove {
+  uci: Uci;
+  score?: number;
+  cpl?: number;
+  weights: Record<string, number>;
+  P?: number;
+}
 
 export interface LocalPlayOpts {
   pref: any;
@@ -82,3 +69,14 @@ export interface LocalSetup {
   initial?: Seconds;
   increment?: Seconds;
 }
+
+export type SoundEvent =
+  | 'greeting'
+  | 'playerWin'
+  | 'botWin'
+  | 'playerCheck'
+  | 'botCheck'
+  | 'botCapture'
+  | 'playerCapture'
+  | 'playerMove'
+  | 'botMove';
