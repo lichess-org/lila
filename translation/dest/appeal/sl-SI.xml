@@ -13,9 +13,9 @@
   <string name="excludedFromLeaderboardsInfo">Vaš račun je bil izključen iz lestvic najboljših.</string>
   <string name="closedByModerators">Vaš račun so zaprli moderatorji.</string>
   <string name="hiddenBlog">Moderatorji so skrili vaše bloge.</string>
-  <string name="hiddenBlogInfo">Ponovno preberite naše %s.</string>
+  <string name="hiddenBlogInfo" comment="%s is &quot;blog rules&quot;, a separately translateable string (key: blogRules).&#10;&#10;Full sentence: &quot;Make sure to read again our blog rules.&quot;">Ponovno preberite naše %s.</string>
   <string name="playTimeout">Imate časovno omejitev za igranje.</string>
   <string name="communicationGuidelines">komunikacijske smernice</string>
-  <string name="blogRules">pravila bloga</string>
+  <string name="blogRules" comment="This text links to https://lichess.org/page/blog-etiquette&#10;&#10;Part of longer sentence, &quot;Make sure to read again our blog rules.&quot; (key: hiddenBlogInfo)">pravila bloga</string>
   <string name="fairPlay">Poštena igra</string>
 </resources>
