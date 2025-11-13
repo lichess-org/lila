@@ -50,13 +50,7 @@ final class PicfitApi(
     if !ref.has(':') then fufail(s"PicfitApi.pullRef cant pull '$ref'")
     else
       for
-        ids <-
-          coll
-            .find($doc("refs" -> ref))
-            .projection($doc("_id" -> 1))
-            .cursor[Bdoc]()
-            .list(Int.MaxValue)
-            .map(_.flatMap(_.getAsOpt[ImageId]("_id")))
+        ids <- coll.primitive[ImageId]($doc("refs" -> ref), "_id")
         _ <-
           if ids.nonEmpty then
             coll.update(ordered = false).one($inIds(ids), $pull("refs" -> ref), multi = true) >>

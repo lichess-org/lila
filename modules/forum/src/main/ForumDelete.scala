@@ -27,7 +27,7 @@ final class ForumDelete(
   def deleteTopic(view: PostView)(using Me): Funit =
     for
       ids <- postRepo.idsByTopicId(view.topic.id)
-      _ <- ids.map(id => picfitApi.pullRef(s"forum:$id")).sequence
+      _ <- ids.traverse(id => picfitApi.pullRef(s"forum:$id"))
       _ <- postRepo.removeByTopic(view.topic.id)
       _ <- topicRepo.remove(view.topic)
       _ <- categApi.denormalize(view.categ)
