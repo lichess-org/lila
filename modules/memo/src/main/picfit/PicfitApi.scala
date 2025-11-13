@@ -57,20 +57,6 @@ final class PicfitApi(
           coll.delete.one($inIds(ids) ++ $doc("refs" -> $doc("$size" -> 0))).void
       yield ()
 
-  def pullRefByIds(markdown: Markdown, ref: String): Funit =
-    val ids = imageIds(markdown)
-    if !ref.has(':') then fufail(s"PicfitApi.pullRefFromIds cant pull $ref")
-    else
-      for
-        _ <- coll.update(ordered = false).one($inIds(ids), $pull("refs" -> ref), multi = true)
-        empties <-
-          coll
-            .find($inIds(ids) ++ $doc("refs" -> $doc("$size" -> 0)))
-            .cursor[PicfitImage]()
-            .list(Int.MaxValue)
-        _ <- coll.delete.one($inIds(empties.map(_.id)))
-      yield empties.toList.sequentiallyVoid(picfitServer.delete(_))
-
   def deleteById(id: ImageId): Fu[Option[PicfitImage]] =
     coll
       .findAndRemove($id(id))

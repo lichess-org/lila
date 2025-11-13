@@ -404,7 +404,7 @@ final class UblogApi(
 
     def deleteAll(post: UblogPost): Funit = for
       _ <- deleteImage(post)
-      _ <- picfitApi.pullRefByIds(post.markdown, s"ublog:${post.id}") // not ublogHead
+      _ <- picfitApi.pullRef("ublog:${post.id}") // not ublogHead
     yield ()
 
     def delete(post: UblogPost): Fu[UblogPost] = for
