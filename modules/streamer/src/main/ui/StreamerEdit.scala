@@ -55,7 +55,9 @@ final class StreamerEdit(helpers: Helpers, bits: StreamerBits):
                 case (false, false, true) => ("status is-red", Icon.X)
                 case (false, false, false) => ("status is", Icon.InfoCircle)
               frag(
-                (ctx.is(s.user) && s.streamer.listed.value && (s.streamer.twitch.isDefined || s.streamer.youTube.isDefined))
+                (ctx.is(
+                  s.user
+                ) && s.streamer.listed.value && (s.streamer.twitch.isDefined || s.streamer.youTube.isDefined))
                   .option(
                     div(cls := "stream-status-check")(
                       button(

@@ -127,7 +127,9 @@ final private class YouTubeApi(
                     videoId = vid.some
                   )
               case JsError(err) =>
-                logger.warn(s"YouTube checkStreamStatus ERROR: ${rsp.status} $err ${rsp.body[String].take(200)}")
+                logger.warn(
+                  s"YouTube checkStreamStatus ERROR: ${rsp.status} $err ${rsp.body[String].take(200)}"
+                )
                 none
           }
           .recover { case e: Exception =>

@@ -65,9 +65,11 @@ final private class TwitchApi(ws: StandaloneWSClient, config: TwitchConfig)(usin
           .get()
           .flatMap:
             case res if res.status == 200 =>
-              res.body[JsValue].asOpt[JsObject].flatMap: obj =>
-                (obj \ "data").asOpt[JsArray].flatMap(_.value.headOption.map(_.as[JsObject]))
-              match
+              res
+                .body[JsValue]
+                .asOpt[JsObject]
+                .flatMap: obj =>
+                  (obj \ "data").asOpt[JsArray].flatMap(_.value.headOption.map(_.as[JsObject])) match
                 case Some(streamJson) =>
                   val isLive = (streamJson \ "type").asOpt[String].contains("live")
                   val title = (streamJson \ "title").asOpt[String].getOrElse("")
@@ -85,7 +87,15 @@ final private class TwitchApi(ws: StandaloneWSClient, config: TwitchConfig)(usin
                     ).some
                   )
                 case None =>
-                  fuccess(TwitchStreamStatus(isLive = false, hasKeyword = false, isChess = false, title = none, category = none).some)
+                  fuccess(
+                    TwitchStreamStatus(
+                      isLive = false,
+                      hasKeyword = false,
+                      isChess = false,
+                      title = none,
+                      category = none
+                    ).some
+                  )
             case res if res.status == 401 && res.body.contains("Invalid OAuth token") =>
               logger.warn("Renewing twitch API token for checkStreamStatus")
               renewToken >> checkStreamStatus(userId, keyword)

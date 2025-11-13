@@ -97,7 +97,8 @@ export function initModule(old: { youtube: string; twitch: string; username: str
             if (res.status === 404) {
               div.textContent = 'Streamer not found.';
             } else if (res.status === 503) {
-              div.textContent = 'Could not check stream status. The streaming service may be temporarily unavailable.';
+              div.textContent =
+                'Could not check stream status. The streaming service may be temporarily unavailable.';
             } else {
               div.textContent = `Error: HTTP ${res.status}`;
             }

@@ -72,12 +72,13 @@ final class StreamerBits(helpers: Helpers)(picfitUrl: lila.memo.PicfitUrl):
                 )
               )
           ),
-          ((s.streamer.youTube.isDefined || s.streamer.twitch.isDefined) && s.stream.isEmpty && (isMe || isMod)).option(
-            form(
-              action := routes.Streamer.checkOnline(s.streamer.userId).url,
-              method := "post"
-            )(input(cls := "button online-check", tpe := "submit", value := "force online check"))
-          )
+          ((s.streamer.youTube.isDefined || s.streamer.twitch.isDefined) && s.stream.isEmpty && (isMe || isMod))
+            .option(
+              form(
+                action := routes.Streamer.checkOnline(s.streamer.userId).url,
+                method := "post"
+              )(input(cls := "button online-check", tpe := "submit", value := "force online check"))
+            )
         ),
         div(cls := "streamer-footer")(
           (!modView).option(subscribeButtonFor(s)),

@@ -172,11 +172,14 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
                     "isChess" -> status.isChess,
                     "title" -> status.title,
                     "category" -> status.category,
-                    "issues" -> Json.arr(
-                      (!status.isLive).option("You are not currently live"),
-                      (!status.hasKeyword).option("Your stream title does not have lichess.org"),
-                      (!status.isChess && status.service == "twitch").option("Your stream category is not Chess")
-                    ).flatten,
+                    "issues" -> Json
+                      .arr(
+                        (!status.isLive).option("You are not currently live"),
+                        (!status.hasKeyword).option("Your stream title does not have lichess.org"),
+                        (!status.isChess && status.service == "twitch")
+                          .option("Your stream category is not Chess")
+                      )
+                      .flatten,
                     "approved" -> (status.isLive && status.hasKeyword && (status.isChess || status.service == "youtube"))
                   )
               .map(JsonOk(_))
