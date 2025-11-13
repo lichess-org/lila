@@ -51,11 +51,10 @@ final class PicfitApi(
     else
       for
         ids <- coll.primitive[ImageId]($doc("refs" -> ref), "_id")
-        _ <-
-          if ids.nonEmpty then
-            coll.update(ordered = false).one($inIds(ids), $pull("refs" -> ref), multi = true) >>
-              coll.delete.one($inIds(ids) ++ $doc("refs" -> $doc("$size" -> 0))).void
-          else funit
+        _ <- ids.nonEmpty.so:
+          coll.update(ordered = false).one($inIds(ids), $pull("refs" -> ref), multi = true).void
+        _ <- ids.nonEmpty.so:
+          coll.delete.one($inIds(ids) ++ $doc("refs" -> $doc("$size" -> 0))).void
       yield ()
 
   def pullRefByIds(markdown: Markdown, ref: String): Funit =
