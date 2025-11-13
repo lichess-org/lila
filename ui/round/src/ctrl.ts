@@ -945,21 +945,6 @@ export default class RoundController implements MoveRootCtrl {
           this.blindfold(this.blindfoldStorage.get());
         }
         if (!d.local && d.game.speed !== 'correspondence') wakeLock.request();
-
-        // temporary: migrate local `courtesy` to server `sayGG`
-        if (storage.boolean('courtesy').get()) {
-          xhr.setPreference('sayGG', '2');
-          storage.remove('courtesy');
-        }
-
-        setTimeout(() => {
-          if ($('#KeyboardO,#show_btn,#shadowHostId').length) {
-            alert('Play enhancement extensions are no longer allowed!');
-            wsDestroy();
-            this.setRedirecting();
-            location.href = '/page/play-extensions';
-          }
-        }, 1000);
       },
 
       800,
