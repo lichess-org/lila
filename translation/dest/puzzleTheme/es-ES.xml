@@ -14,8 +14,8 @@
   <string name="attractionDescription">Un cambio o sacrificio que invita o fuerza al oponente a colocar una pieza en una casilla que propicia una oportunidad táctica.</string>
   <string name="backRankMate">Mate del pasillo</string>
   <string name="backRankMateDescription">Jaque mate en la última fila, cuando el rey se encuentra atrapado por sus propias piezas.</string>
-  <string name="balestraMate">Mate de Balestra</string>
-  <string name="balestraMateDescription">El alfil da jaque mate mientras la dama bloquea las casillas de escape</string>
+  <string name="balestraMate" comment="&quot;Balestra&quot; does not refer to a person. It comes from the Italian word &quot;balestra&quot;, which means &quot;crossbow&quot;.&#10;This is because an annotated board showing this checkmating pattern will visually resemble a crossbow.&#10;It is valid to treat &quot;balestra&quot; as a proper noun in your language just like in English, if you believe that is the best localisation.&#10;&#10;Description of this mate: A bishop delivers the checkmate, while a queen blocks the remaining escape squares">Mate de alfil y dama</string>
+  <string name="balestraMateDescription" comment="Description for balestra mate">El alfil da jaque mate mientras la dama bloquea las casillas de escape</string>
   <string name="bishopEndgame">Final de alfiles</string>
   <string name="bishopEndgameDescription">Un final con sólo alfiles y peones.</string>
   <string name="bodenMate">Mate de Boden</string>
