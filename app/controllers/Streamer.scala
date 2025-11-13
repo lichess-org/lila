@@ -158,7 +158,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
       api
         .find(uid)
         .flatMap:
-          _.fold(NotFound(Json.obj("error" -> "Streamer not found"))): s =>
+          _.fold(fuccess(NotFound(Json.obj("error" -> "Streamer not found")))): s =>
             // Get keyword from config - it's "lichess.org" by default
             val keyword = Stream.Keyword("lichess.org")
             env.streamer.api
@@ -179,7 +179,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
                       "isChess" -> status.isChess,
                       "title" -> status.title,
                       "category" -> status.category,
-                      "issues" -> Json.arr(issues*),
+                      "issues" -> Json.arr(issues.map(JsString.apply)*),
                       "approved" -> (status.isLive && status.hasKeyword && (status.isChess || status.service == "youtube"))
                     )
                   )
