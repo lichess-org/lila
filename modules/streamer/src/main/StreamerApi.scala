@@ -88,6 +88,42 @@ final class StreamerApi(
     byId(uid.into(Streamer.Id)).map:
       _.filter(_.approval.granted).so: s =>
         s.youTube.foreach(ytApi.forceCheckWithHtmlScraping)
+        // Twitch streams are checked automatically via the streaming scheduler
+
+  def checkStreamStatus(streamer: Streamer, keyword: Stream.Keyword, twitchApi: TwitchApi): Fu[Option[StreamStatus]] =
+    (streamer.twitch, streamer.youTube) match
+      case (Some(twitch), _) =>
+        twitchApi.checkStreamStatus(twitch.userId, keyword).map:
+          _.map: status =>
+            StreamStatus(
+              service = "twitch",
+              isLive = status.isLive,
+              hasKeyword = status.hasKeyword,
+              isChess = status.isChess,
+              title = status.title,
+              category = status.category
+            )
+      case (_, Some(youTube)) =>
+        ytApi.checkStreamStatus(youTube).map:
+          _.map: status =>
+            StreamStatus(
+              service = "youtube",
+              isLive = status.isLive,
+              hasKeyword = status.hasKeyword,
+              isChess = true, // YouTube doesn't have categories like Twitch
+              title = status.title,
+              category = none
+            )
+      case _ => fuccess(none)
+
+  case class StreamStatus(
+      service: String,
+      isLive: Boolean,
+      hasKeyword: Boolean,
+      isChess: Boolean,
+      title: Option[String],
+      category: Option[String]
+  )
 
   private def modChange(prev: Streamer, current: Streamer): Streamer.ModChange =
     val (prevRequested, prevGranted, currRequested, currGranted) =

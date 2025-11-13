@@ -22,7 +22,8 @@ final class StreamerEdit(helpers: Helpers, bits: StreamerBits):
         esmInitObj(
           "bits.streamerEdit",
           "youtube" -> wasListed.so(s.streamer.youTube).so[String](_.channelId),
-          "twitch" -> wasListed.so(s.streamer.twitch).so[String](_.userId)
+          "twitch" -> wasListed.so(s.streamer.twitch).so[String](_.userId),
+          "username" -> s.user.username.value
         )
       ):
         main(cls := "page-menu")(
@@ -54,6 +55,17 @@ final class StreamerEdit(helpers: Helpers, bits: StreamerBits):
                 case (false, false, true) => ("status is-red", Icon.X)
                 case (false, false, false) => ("status is", Icon.InfoCircle)
               frag(
+                (ctx.is(s.user) && s.streamer.listed.value && (s.streamer.twitch.isDefined || s.streamer.youTube.isDefined))
+                  .option(
+                    div(cls := "stream-status-check")(
+                      button(
+                        cls := "button text",
+                        id := "check-stream-status",
+                        dataIcon := Icon.Search
+                      )("Check my channel status"),
+                      div(cls := "stream-status-results", style := "display: none")
+                    )
+                  ),
                 (ctx.is(s.user) && s.streamer.listed.value)
                   .option(
                     div(cls := clas, dataIcon := icon)(

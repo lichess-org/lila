@@ -67,7 +67,7 @@ final class Env(
 
   lazy val pager = wire[StreamerPager]
 
-  private lazy val twitchApi: TwitchApi = wire[TwitchApi]
+  lazy val twitchApi: TwitchApi = wire[TwitchApi]
 
   private val streaming = Streaming(
     api = api,

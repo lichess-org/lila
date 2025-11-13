@@ -101,6 +101,47 @@ final private class YouTubeApi(
           fuccess:
             logger.info(s"YouTube: UNAPPROVED vid:$videoId ch:$channelId")
 
+  def checkStreamStatus(tuber: Streamer.YouTube): Fu[Option[YouTubeStreamStatus]] =
+    cfg.googleApiKey.value.nonEmpty.so:
+      val videoId = tuber.liveVideoId.orElse(tuber.pubsubVideoId)
+      videoId.fold(fuccess(none)): vid =>
+        ws
+          .url("https://youtube.googleapis.com/youtube/v3/videos")
+          .withQueryStringParameters(
+            "part" -> "snippet",
+            "id" -> vid,
+            "key" -> cfg.googleApiKey.value
+          )
+          .get()
+          .map { rsp =>
+            rsp.body[JsValue].validate[YouTube.Result] match
+              case JsSuccess(data, _) =>
+                data.items.headOption.map: item =>
+                  val isLive = item.snippet.liveBroadcastContent == "live"
+                  val title = item.snippet.title.value
+                  val hasKeyword = title.toLowerCase.contains(keyword.toLowerCase)
+                  YouTubeStreamStatus(
+                    isLive = isLive,
+                    hasKeyword = hasKeyword,
+                    title = title.some,
+                    videoId = vid.some
+                  )
+              case JsError(err) =>
+                logger.warn(s"YouTube checkStreamStatus ERROR: ${rsp.status} $err ${rsp.body[String].take(200)}")
+                none
+          }
+          .recover { case e: Exception =>
+            logger.warn(s"YouTube checkStreamStatus error: ${e.getMessage}")
+            none
+          }
+
+  case class YouTubeStreamStatus(
+      isLive: Boolean,
+      hasKeyword: Boolean,
+      title: Option[String],
+      videoId: Option[String]
+  )
+
   private def isLiveStream(videoId: String): Fu[Boolean] =
     cfg.googleApiKey.value.nonEmpty.so(
       ws

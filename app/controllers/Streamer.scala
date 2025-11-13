@@ -5,7 +5,7 @@ import play.api.mvc.*
 
 import lila.app.{ *, given }
 import lila.common.Json.given
-import lila.streamer.{ Streamer as StreamerModel, StreamerForm }
+import lila.streamer.{ Streamer as StreamerModel, StreamerForm, Stream }
 
 final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
 
@@ -148,6 +148,38 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
           Redirect(routes.Streamer.show(uid).url)
             .flashSuccess(s"Please wait one minute while we check, then reload the page.")
         )
+    else Unauthorized
+  }
+
+  def checkStatus(streamer: UserStr) = Auth { _ ?=> me ?=>
+    val uid = streamer.id
+    val isMod = isGranted(_.ModLog)
+    if ctx.is(uid) || isMod then
+      api
+        .find(uid)
+        .flatMap:
+          _.fold(NotFound(Json.obj("error" -> "Streamer not found"))): s =>
+            // Get keyword from config - it's "lichess.org" by default
+            val keyword = Stream.Keyword("lichess.org")
+            env.streamer.api
+              .checkStreamStatus(s.streamer, keyword, env.streamer.twitchApi)
+              .map:
+                _.fold(ServiceUnavailable(Json.obj("error" -> "Could not check stream status"))): status =>
+                  Json.obj(
+                    "service" -> status.service,
+                    "isLive" -> status.isLive,
+                    "hasKeyword" -> status.hasKeyword,
+                    "isChess" -> status.isChess,
+                    "title" -> status.title,
+                    "category" -> status.category,
+                    "issues" -> Json.arr(
+                      (!status.isLive).option("You are not currently live"),
+                      (!status.hasKeyword).option("Your stream title does not have lichess.org"),
+                      (!status.isChess && status.service == "twitch").option("Your stream category is not Chess")
+                    ).flatten,
+                    "approved" -> (status.isLive && status.hasKeyword && (status.isChess || status.service == "youtube"))
+                  )
+              .map(JsonOk(_))
     else Unauthorized
   }
 
