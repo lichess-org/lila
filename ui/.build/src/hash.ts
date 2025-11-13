@@ -10,27 +10,29 @@ import { isEquivalent } from './algo.ts';
 export async function hash(): Promise<void> {
   if (!env.begin('hash')) return;
   const hashed: Manifest = {};
-  const pathOnly: { glob: string[] } = { glob: [] };
-  const hashRuns: { glob: string | string[]; update?: string; pkg?: Package }[] = [];
+  const withClient: { globs: string[] } = { globs: [] };
+  const serverOnly: { globs: string[] } = { globs: [] };
+  const hashRuns: { globs: string[]; omit: boolean; catalog?: string; pkg?: Package }[] = [];
 
-  for (const [pkg, { glob, update, ...rest }] of env.tasks('hash')) {
-    update ? hashRuns.push({ glob, update, pkg, ...rest }) : pathOnly.glob.push(glob);
-    hashLog(glob, '', pkg?.name);
+  for (const [pkg, { path, catalog, omit }] of env.tasks('hash')) {
+    if (catalog) hashRuns.push({ globs: [path], catalog, pkg, omit: omit ?? true });
+    else if (omit) serverOnly.globs.push(path);
+    else withClient.globs.push(path);
+    hashLog(path, '', pkg?.name);
   }
-  if (pathOnly.glob.length) hashRuns.push(pathOnly);
+  if (withClient.globs.length) hashRuns.push({ globs: withClient.globs, omit: false });
+  if (serverOnly.globs.length) hashRuns.push({ globs: serverOnly.globs, omit: true });
 
   await fs.promises.mkdir(env.hashOutDir).catch(() => {});
   const symlinkHashes = await symlinkTargetHashes();
   await Promise.all(
-    hashRuns.map(({ glob, update, pkg }) =>
+    hashRuns.map(({ globs, catalog, omit, pkg }) =>
       makeTask({
         pkg,
         ctx: 'hash',
         debounce: 300,
         root: env.rootDir,
-        includes: Array<string>()
-          .concat(glob)
-          .map(path => ({ cwd: env.rootDir, path })),
+        includes: globs.map(path => ({ cwd: env.rootDir, path })),
         execute: async (files, fullList) => {
           const shouldLog = !isEquivalent(files, fullList);
           await Promise.all(
@@ -40,16 +42,16 @@ export async function hash(): Promise<void> {
                 symlinkHashes[name] && !(await isLinkStale(hashedBasename(name, symlinkHashes[name])))
                   ? symlinkHashes[name]
                   : await hashAndLink(name);
-              hashed[name] = { hash };
+              hashed[name] = omit ? { hash, omit } : { hash };
               if (shouldLog) hashLog(src, hashedBasename(name, hash), pkg?.name);
             }),
           );
-          if (update && pkg?.root) {
+          if (catalog && pkg?.root) {
             const replacements: Record<string, string> = {};
             for (const src of fullList.map(f => relative(env.outDir, f))) {
               replacements[src] = `hashed/${hashedBasename(src, hashed[src].hash!)}`;
             }
-            const { name, hash } = await replaceAllWithHashUrls(update, replacements);
+            const { name, hash } = await replaceAllWithHashUrls(catalog, replacements);
             hashed[name] = { hash };
             if (shouldLog) hashLog(name, hashedBasename(name, hash), pkg.name);
           }

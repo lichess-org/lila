@@ -14,6 +14,8 @@
   <string name="attractionDescription">Việc đổi quân hoặc thí quân thu hút hoặc ép buộc một quân đối phương đến một ô nhằm tạo một đòn chiến thuật.</string>
   <string name="backRankMate">Chiếu hết hàng cuối</string>
   <string name="backRankMateDescription">Chiếu hết trên hàng cuối, khi vua bị mắc kẹt bởi chính quân của nó.</string>
+  <string name="balestraMate">Chiếu hết kiểu Balestra</string>
+  <string name="balestraMateDescription">Một tượng đưa ra nước chiếu hết, trong khi một hậu chặn các ô thoát còn lại</string>
   <string name="bishopEndgame">Cờ tàn tượng</string>
   <string name="bishopEndgameDescription">Một thế cờ tàn chỉ có tượng và tốt.</string>
   <string name="bodenMate">Chiếu hết kiểu Boden</string>

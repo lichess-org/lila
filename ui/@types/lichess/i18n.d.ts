@@ -2413,6 +2413,8 @@ interface I18n {
     lookupOfPlayer: string;
     /** Mates */
     mates: string;
+    /** Mate themes */
+    mateThemes: string;
     /** Motifs */
     motifs: string;
     /** %s played */
@@ -2527,6 +2529,10 @@ interface I18n {
     backRankMate: string;
     /** Checkmate the king on the home rank, when it is trapped there by its own pieces. */
     backRankMateDescription: string;
+    /** Balestra mate */
+    balestraMate: string;
+    /** A bishop delivers the checkmate, while a queen blocks the remaining escape squares */
+    balestraMateDescription: string;
     /** Bishop endgame */
     bishopEndgame: string;
     /** An endgame with only bishops and pawns. */

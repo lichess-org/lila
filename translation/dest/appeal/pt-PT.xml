@@ -13,9 +13,9 @@
   <string name="excludedFromLeaderboardsInfo">Definimos isto como a utilização de qualquer forma injusta para entrar na tabela de liderança.</string>
   <string name="closedByModerators">A tua conta foi encerrada pelos moderadores.</string>
   <string name="hiddenBlog">Os teus blogues foram ocultados pelos moderadores.</string>
-  <string name="hiddenBlogInfo">Certifica que leias novamente as nossas %s.</string>
+  <string name="hiddenBlogInfo" comment="%s is &quot;blog rules&quot;, a separately translateable string (key: blogRules).&#10;&#10;Full sentence: &quot;Make sure to read again our blog rules.&quot;">Certifica que leias novamente as nossas %s.</string>
   <string name="playTimeout">Estás temporariamente impedido de jogar.</string>
   <string name="communicationGuidelines">diretrizes de comunicação</string>
-  <string name="blogRules">regras do blogue</string>
+  <string name="blogRules" comment="This text links to https://lichess.org/page/blog-etiquette&#10;&#10;Part of longer sentence, &quot;Make sure to read again our blog rules.&quot; (key: hiddenBlogInfo)">regras do blogue</string>
   <string name="fairPlay">Jogo Justo</string>
 </resources>
