@@ -363,7 +363,7 @@ POST  /upload/image/streamer           controllers.Streamer.pictureApply
 GET   /streamer/:username              controllers.Streamer.show(username: UserStr)
 GET   /streamer/:username/redirect     controllers.Streamer.redirect(username: UserStr)
 POST  /streamer/:username/check        controllers.Streamer.checkOnline(username: UserStr)
-GET   /streamer/:username/checkStatus controllers.Streamer.checkStatus(username: UserStr)
+GET   /streamer/:username/check-status controllers.Streamer.checkStatus(username: UserStr)
 
 # Private Play
 
