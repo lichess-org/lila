@@ -11,6 +11,7 @@ import { StudyCtrl } from './studyDeps';
 import { intersection } from 'lib/tree/path';
 import { defined } from 'lib';
 import { resultTag } from './studyView';
+import { isAcceptableElo } from '@/util';
 
 export default function (ctrl: AnalyseCtrl): VNode[] | undefined {
   const study = ctrl.study;
@@ -65,11 +66,12 @@ function renderPlayer(
     team = findTag(tags, `${color}team`),
     result = showResult && resultOf(tags, color === 'white'),
     top = ctrl.bottomColor() !== color,
+    eloTag = findTag(tags, `${color}elo`),
     player: StudyPlayer = {
       ...players?.[color],
       name: findTag(tags, color),
       title: findTag(tags, `${color}title`),
-      rating: (showRatings && Number(findTag(tags, `${color}elo`))) || undefined,
+      rating: showRatings && eloTag && isAcceptableElo(eloTag) ? Number(eloTag) : undefined,
     };
   return hl(`div.study__player.study__player-${top ? 'top' : 'bot'}`, { class: { ticking } }, [
     hl('div.left', [
