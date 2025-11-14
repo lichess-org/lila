@@ -3,10 +3,10 @@ import { hl } from 'lib/view';
 import renderClocks from '../view/clocks';
 import type AnalyseCtrl from '../ctrl';
 import { renderMaterialDiffs } from '../view/components';
-import type { StudyPlayers, Federation, TagArray } from './interfaces';
+import type { StudyPlayers, Federation, TagArray, StudyPlayer } from './interfaces';
 import { findTag, looksLikeLichessGame, resultOf } from './studyChapters';
 import { userTitle } from 'lib/view/userLink';
-import RelayPlayers, { fidePageLinkAttrs } from './relay/relayPlayers';
+import RelayPlayers, { fidePageLinkAttrs, playerId } from './relay/relayPlayers';
 import { StudyCtrl } from './studyDeps';
 import { intersection } from 'lib/tree/path';
 import { defined } from 'lib';
@@ -61,20 +61,24 @@ function renderPlayer(
       !defined(ctrl.study?.relay) ||
       ctrl.study?.multiBoard.showResults() ||
       ctrl.node.ply == ctrl.tree.lastPly(),
-    player = players?.[color],
     fideId = parseInt(findTag(tags, `${color}fideid`) || ''),
     team = findTag(tags, `${color}team`),
-    rating = showRatings && player?.rating,
     result = showResult && resultOf(tags, color === 'white'),
-    top = ctrl.bottomColor() !== color;
+    top = ctrl.bottomColor() !== color,
+    player: StudyPlayer = {
+      ...players?.[color],
+      name: findTag(tags, color),
+      title: findTag(tags, `${color}title`),
+      rating: (showRatings && Number(findTag(tags, `${color}elo`))) || undefined,
+    };
   return hl(`div.study__player.study__player-${top ? 'top' : 'bot'}`, { class: { ticking } }, [
     hl('div.left', [
       result && hl(`${resultTag(result)}.result`, result),
       hl('span.info', [
         team ? hl('span.team', team) : undefined,
         playerFed(player?.fed),
-        player && userTitle(player),
-        player &&
+        userTitle(player),
+        playerId(player) &&
           (relayPlayers
             ? hl(`a.name.relay-player-${color}`, relayPlayers.playerLinkConfig(player), player.name)
             : hl(
@@ -82,7 +86,7 @@ function renderPlayer(
                 { attrs: fidePageLinkAttrs(player, ctrl.isEmbed) },
                 player.name,
               )),
-        rating && hl('span.elo', `${rating}`),
+        player.rating && hl('span.elo', `${player.rating}`),
       ]),
     ]),
     materialDiffs[top ? 0 : 1],
