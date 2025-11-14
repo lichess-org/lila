@@ -97,7 +97,9 @@ export class ClockCtrl {
     this.barTime = 1000 * (Math.max(data.initial, 2) + 5 * data.increment);
     this.timeRatioDivisor = 1 / this.barTime;
 
-    this.emergMs = 1000 * Math.min(60, Math.max(10, data.initial * 0.125));
+    this.emergMs =
+      1000 *
+      Math.min(60, data.initial < 60 ? Math.max(2, data.initial * 0.2) : Math.max(10, data.initial * 0.125));
 
     this.setClock({
       white: data.white,

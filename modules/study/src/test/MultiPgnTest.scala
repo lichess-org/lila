@@ -19,7 +19,7 @@ class MultiPgnTest extends munit.FunSuite:
 
   val games = List(PgnFixtures.pgn3, PgnFixtures.pgn4, PgnFixtures.pgn5, PgnFixtures.pgn6, PgnFixtures.pgn7)
     .map(PgnStr(_))
-  test("split mutitple games"):
+  test("split mutiple games"):
     val pgn = PgnStr(games.mkString("\n\n"))
     val multi = MultiPgn.split(pgn, max)
     assertEquals(multi.value.size, games.size)

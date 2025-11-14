@@ -14,6 +14,7 @@
   <string name="attractionDescription">Un intercanvi o sacrifici encoratjant o forçant la peça d’un oponent a una posició que permet la continuació d’una tàctica.</string>
   <string name="backRankMate">Mat del passadís</string>
   <string name="backRankMateDescription">Fes escac i mat al rei a la primera fila, quan està atrapat per les seves pròpies peces.</string>
+  <string name="balestraMate">Mat de la balestra</string>
   <string name="bishopEndgame">Final d’alfils</string>
   <string name="bishopEndgameDescription">Un final d\'alfils i peons.</string>
   <string name="bodenMate">Mat de Boden</string>

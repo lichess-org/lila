@@ -14,6 +14,8 @@
   <string name="attractionDescription">Ein Abtausch oder Opfer, der eine gegnerische Figur auf ein Feld einlädt oder zwingt, was eine Folgetaktik erlaubt.</string>
   <string name="backRankMate">Grundreihenmatt</string>
   <string name="backRankMateDescription">Setze den König auf der Grundreihe matt, wenn er dort durch seine eigenen Figuren blockiert wird.</string>
+  <string name="balestraMate">Balestra-Matt</string>
+  <string name="balestraMateDescription">Ein Läufer setzt Matt während die Dame die verbleibenden Fluchtfelder blockiert</string>
   <string name="bishopEndgame">Läuferendspiel</string>
   <string name="bishopEndgameDescription">Ein Endspiel nur mit Läufern und Bauern.</string>
   <string name="bodenMate">Boden-Matt</string>
