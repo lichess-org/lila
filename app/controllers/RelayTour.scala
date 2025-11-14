@@ -218,7 +218,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
     page <- Ok.page(views.relay.tour.showEmpty(tour, owner, html))
   yield page
 
-  def apiShow(id: RelayTourId) = OpenOrScoped(): ctx ?=>
+  def apiShow(id: RelayTourId) = OpenOrScoped():
     Found(env.relay.api.tourById(id)): tour =>
       if !tour.canView
       then Unauthorized(jsonError("This tournament is private"))
