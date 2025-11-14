@@ -118,7 +118,7 @@ trait UserTrustApi:
 
 case class AskAreRelated(users: PairOf[UserId], promise: Promise[Boolean])
 
-def canUploadImages(toRel: String)(using me: Me) = !me.marks.troll && {
+def canUploadImages(toRel: String)(using me: Me) = !me.marks.troll && me.kid.no && {
   me.isVerified ||
   toRel == "ublogBody" ||
   (me.createdSinceDays(7) && !me.marks.alt)
