@@ -31,7 +31,9 @@ export class PieceCtrl extends PaneCtrl {
     const pieceImage = (t: string) =>
       this.is3d
         ? `images/staunton/piece/${t}/White-Knight${t === 'Staunton' ? '-Preview' : ''}.png`
-        : `piece/${t}/wN.svg`;
+        : site.manifest.hashed[`piece/${t}/wN.webp`]
+          ? `piece/${t}/wN.webp`
+          : `piece/${t}/wN.svg`;
 
     return h('div.sub.piece.' + this.dimension, [
       header(i18n.site.pieceSet, () => this.close()),
@@ -94,8 +96,9 @@ const pieceVars = [
 ];
 
 function pieceVarRules(theme: string) {
+  const ext = site.manifest.hashed[`piece/${theme}/wP.webp`] ? 'webp' : 'svg';
   for (const [varName, fileName] of pieceVars) {
-    const url = site.asset.url(`piece/${theme}/${fileName}.svg`, { pathOnly: true });
+    const url = site.asset.url(`piece/${theme}/${fileName}.${ext}`, { pathOnly: true });
     document.body.style.setProperty(varName, `url(${url})`);
   }
 }
