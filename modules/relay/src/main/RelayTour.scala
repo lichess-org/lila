@@ -62,8 +62,7 @@ case class RelayTour(
   def isPublic = visibility == Visibility.public
   def isPrivate = visibility == Visibility.`private`
 
-  def canView(using me: Option[Me]) =
-    !isPrivate || me.exists(me => ownerIds.exists(_.is(me)))
+  def canView(using me: Option[Me]) = !isPrivate || me.so(isOwnedBy)
 
 object RelayTour:
 
