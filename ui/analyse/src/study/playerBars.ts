@@ -11,7 +11,7 @@ import { StudyCtrl } from './studyDeps';
 import { intersection } from 'lib/tree/path';
 import { defined } from 'lib';
 import { resultTag } from './studyView';
-import { isAcceptableElo } from '@/util';
+import { isAcceptableElo, isAcceptableFideId } from '@/util';
 
 export default function (ctrl: AnalyseCtrl): VNode[] | undefined {
   const study = ctrl.study;
@@ -62,16 +62,17 @@ function renderPlayer(
       !defined(ctrl.study?.relay) ||
       ctrl.study?.multiBoard.showResults() ||
       ctrl.node.ply == ctrl.tree.lastPly(),
-    fideId = parseInt(findTag(tags, `${color}fideid`) || ''),
     team = findTag(tags, `${color}team`),
     result = showResult && resultOf(tags, color === 'white'),
     top = ctrl.bottomColor() !== color,
     eloTag = findTag(tags, `${color}elo`),
+    fideIdTag = findTag(tags, `${color}fideid`),
     player: StudyPlayer = {
       ...players?.[color],
       name: findTag(tags, color),
       title: findTag(tags, `${color}title`),
       rating: showRatings && eloTag && isAcceptableElo(eloTag) ? Number(eloTag) : undefined,
+      fideId: fideIdTag && isAcceptableFideId(fideIdTag) ? parseInt(fideIdTag) : undefined,
     };
   return hl(`div.study__player.study__player-${top ? 'top' : 'bot'}`, { class: { ticking } }, [
     hl('div.left', [
@@ -84,7 +85,7 @@ function renderPlayer(
           (relayPlayers
             ? hl(`a.name.relay-player-${color}`, relayPlayers.playerLinkConfig(player), player.name)
             : hl(
-                fideId ? 'a.name' : 'span.name',
+                player.fideId ? 'a.name' : 'span.name',
                 { attrs: fidePageLinkAttrs(player, ctrl.isEmbed) },
                 player.name,
               )),
