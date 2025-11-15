@@ -127,13 +127,10 @@ export const convertPlayerFromServer = <A extends StudyPlayerFromServer>(
 
 export function isFinished(c: StudyChapter) {
   const result = findTag(c.tags, 'result');
-  return result && result !== '*';
+  return !!result && result !== '*';
 }
 
-export function findTag(tags: TagArray[], name: string): string | undefined {
-  const t = tags.find(t => t[0].toLowerCase() === name);
-  return t && t[1];
-}
+export const findTag = (tags: TagArray[], name: string) => tags.find(t => t[0].toLowerCase() === name)?.[1];
 
 export const looksLikeLichessGame = (tags: TagArray[]) =>
   !!findTag(tags, 'site')?.match(new RegExp(location.hostname + '/\\w{8}$'));

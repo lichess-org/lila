@@ -5,6 +5,7 @@ import { option } from '../view/util';
 import { looksLikeLichessGame } from './studyChapters';
 import { prop } from 'lib';
 import type StudyCtrl from './studyCtrl';
+import { acceptableEloPattern, acceptableFideIdPattern } from '@/util';
 
 export class TagsForm {
   selectedType = prop<string | undefined>(undefined);
@@ -54,8 +55,8 @@ const editable = (
   });
 
 const inputAttrs: { [name: string]: Attrs } = (() => {
-  const elo = { pattern: '\\d{3,4}' };
-  const fideId = { pattern: '\\d{2,9}' };
+  const elo = { pattern: acceptableEloPattern };
+  const fideId = { pattern: acceptableFideIdPattern };
   return {
     Date: {
       pattern:

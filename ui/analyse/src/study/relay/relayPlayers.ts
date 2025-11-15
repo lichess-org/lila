@@ -63,7 +63,7 @@ interface PlayerToShow {
   player?: RelayPlayerWithGames;
 }
 
-const playerId = (p: StudyPlayer) => p.fideId || p.name;
+export const playerId = (p: StudyPlayer) => p.fideId || p.name;
 
 export default class RelayPlayers {
   loading = false;

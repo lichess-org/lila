@@ -163,14 +163,6 @@ export interface StudyMemberMap {
   [id: string]: StudyMember;
 }
 
-export interface StudyPlayer {
-  name?: string;
-  title?: string;
-  rating?: number;
-  fideId?: FideId;
-  fed?: Federation;
-}
-
 export type TagTypes = string[];
 export type TagArray = [string, string];
 

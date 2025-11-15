@@ -21,3 +21,13 @@ export function treeReconstruct(parts: Tree.Node[], sidelines?: Tree.Node[][]): 
   node.children = node.children || [];
   return root;
 }
+
+export const acceptableEloPattern = '\\d{3,4}';
+
+export const isAcceptableElo = (value: string): boolean =>
+  new RegExp(`^${acceptableEloPattern}$`).test(value);
+
+export const acceptableFideIdPattern = '\\d{2,9}';
+
+export const isAcceptableFideId = (value: string): boolean =>
+  new RegExp(`^${acceptableFideIdPattern}$`).test(value);
