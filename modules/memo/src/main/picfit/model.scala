@@ -1,22 +1,24 @@
 package lila.memo
 
+import akka.stream.scaladsl.Source
 import reactivemongo.api.bson.Macros.Annotations.Key
+
 import lila.core.id.ImageId
 import lila.core.config.{ Secret, CollName, ImageGetOrigin }
 
 case class PicfitImage(
     @Key("_id") id: ImageId,
     user: UserId,
-    // reverse reference like blog:id, streamer:id, coach:id, ...
-    // unique: a new image will delete the previous ones with same rel
-    rel: String,
     name: String,
     size: Int, // in bytes
     createdAt: Instant,
     dimensions: Option[Dimensions],
-    context: Option[String] = none,
+    context: Option[String],
     automod: Option[ImageAutomod] = none,
-    urls: List[String] = Nil
+    urls: List[String] = Nil,
+    // reverse references like ublog:id, streamer:id, coach:id, forum:id...
+    // when refs is empty, this image may be culled
+    refs: List[String] = Nil
 )
 
 final class PicfitConfig(
@@ -42,3 +44,5 @@ object Dimensions:
 case class ImageAutomod(flagged: Option[String] = none)
 
 case class ImageAutomodRequest(id: ImageId, dim: Dimensions)
+
+case class HashedSource(source: Source[akka.util.ByteString, ?], sha256: Array[Byte])

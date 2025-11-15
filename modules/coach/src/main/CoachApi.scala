@@ -65,7 +65,7 @@ final class CoachApi(
 
   def uploadPicture(c: Coach.WithUser, picture: PicfitApi.FilePart): Funit =
     picfitApi
-      .uploadFile(s"coach:${c.coach.id}", picture, userId = c.user.id, requestAutomod = false)
+      .uploadFile(picture, userId = c.user.id, s"coach:${c.coach.id}".some, requestAutomod = false)
       .flatMap { pic =>
         coll.update.one($id(c.coach.id), $set("picture" -> pic.id)).void
       }

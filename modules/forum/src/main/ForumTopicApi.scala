@@ -122,7 +122,7 @@ final private class ForumTopicApi(
             lila.mon.forum.post.create.increment()
             mentionNotifier.notifyMentionedUsers(post, topic)
             Bus.pub(CreatePost(post.mini))
-            topic
+            topic.withPost(post)
     }
 
   def makeUblogDiscuss(

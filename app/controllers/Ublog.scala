@@ -272,7 +272,7 @@ final class Ublog(env: Env) extends LilaController(env):
       )
   }
 
-  def image(id: UblogPostId) = AuthBody(parse.multipartFormData) { ctx ?=> me ?=>
+  def image(id: UblogPostId) = AuthBody(lila.web.HashedMultiPart(parse)) { ctx ?=> me ?=>
     Found(env.ublog.api.findEditableByMe(id)): post =>
       ctx.body.body
         .file("image")
