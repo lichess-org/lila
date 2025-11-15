@@ -14,7 +14,7 @@
   <string name="attractionDescription">Размен или жертва, вынуждающая или подталкивающая фигуру противника занять поле, после чего становится возможен последующий тактический приём.</string>
   <string name="backRankMate">Мат на последней горизонтали</string>
   <string name="backRankMateDescription">Матование короля на его горизонтали, когда он заблокирован своими же фигурами.</string>
-  <string name="balestraMate" comment="&quot;Balestra&quot; does not refer to a person. It comes from the Italian word &quot;balestra&quot;, which means &quot;crossbow&quot;.">Мат Балестра</string>
+  <string name="balestraMate">Мат Балестра</string>
   <string name="bishopEndgame">Слоновый эндшпиль</string>
   <string name="bishopEndgameDescription">Эндшпиль, где присутствуют лишь слоны и пешки.</string>
   <string name="bodenMate">Мат Бодена</string>
