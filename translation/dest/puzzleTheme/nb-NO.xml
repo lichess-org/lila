@@ -14,8 +14,8 @@
   <string name="attractionDescription">Et bytte eller offer som lokker eller tvinger motstanderens brikke til et felt som gjør en oppfølgingstaktikk mulig.</string>
   <string name="backRankMate">Sekkematt</string>
   <string name="backRankMateDescription">Sett kongen sjakk matt på sisteraden, når den er fanget der av egne brikker.</string>
-  <string name="balestraMate" comment="&quot;Balestra&quot; does not refer to a person. It comes from the Italian word &quot;balestra&quot;, which means &quot;crossbow&quot;.">Armbrøstmatt</string>
-  <string name="balestraMateDescription" comment="Description for balestra mate">Løper setter matt, mens dronning blokkerer fluktfeltene</string>
+  <string name="balestraMate">Armbrøstmatt</string>
+  <string name="balestraMateDescription">Løper setter matt, mens dronning blokkerer fluktfeltene</string>
   <string name="bishopEndgame">Løpersluttspill</string>
   <string name="bishopEndgameDescription">Et sluttspill med kun løpere og bønder.</string>
   <string name="bodenMate">Bodens matt</string>
