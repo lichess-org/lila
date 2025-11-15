@@ -28,7 +28,6 @@
     "eslint-plugin-import": "^2.32.0",
     "jsdom": "^27.1.0",
     "lint-staged": "^16.2.6",
-    "onchange": "^7.1.0",
     "prettier": "^3.6.2",
     "snabbdom": "3.5.1",
     "tsx": "^4.20.6",
@@ -41,7 +40,6 @@
   "scripts": {
     "format": "prettier --config=ui/.prettierrc.json --cache --write --log-level=warn .",
     "check-format": "prettier --config=ui/.prettierrc.json --cache --check --log-level=warn .",
-    "watch-format": "onchange \"**/*\" -- prettier --config=ui/.prettierrc.json --cache --write --log-level=warn {{changed}}",
     "add-hooks": "git config get --all core.hooksPath | grep -Fxq bin/git-hooks || git config set --append core.hooksPath bin/git-hooks",
     "remove-hooks": "git config unset --value=bin/git-hooks core.hooksPath || true",
     "lint": "eslint --config=ui/eslint.config.mjs --cache --cache-location=ui/.eslintcache",
