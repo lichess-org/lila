@@ -14,8 +14,8 @@
   <string name="attractionDescription">交換か捨て駒によって相手の駒を不利なマスに誘い込む。</string>
   <string name="backRankMate">バックランク・メイト</string>
   <string name="backRankMateDescription">一番下のランクで、上を自分の駒に塞がれたキングをメイトする。</string>
-  <string name="balestraMate" comment="&quot;Balestra&quot; does not refer to a person. It comes from the Italian word &quot;balestra&quot;, which means &quot;crossbow&quot;.">バレストラ（クロスボウ）のメイト</string>
-  <string name="balestraMateDescription" comment="Description for balestra mate">ビショップがチェックし、クイーンが残りの逃げ道をおさえる</string>
+  <string name="balestraMate">バレストラ（クロスボウ）のメイト</string>
+  <string name="balestraMateDescription">ビショップがチェックし、クイーンが残りの逃げ道をおさえる</string>
   <string name="bishopEndgame">ビショップ・エンドゲーム</string>
   <string name="bishopEndgameDescription">ビショップとポーンだけの終盤。</string>
   <string name="bodenMate">ボーデンのメイト</string>
