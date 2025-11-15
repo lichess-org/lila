@@ -154,7 +154,11 @@ final class ActivityUi(helpers: Helpers)(
                 ),
               subTag(
                 posts.map: post =>
-                  div(cls := "line")(a(href := routes.ForumPost.redirect(post.id))(shorten(post.text, 120)))
+                  div(cls := "line")(
+                    a(href := routes.ForumPost.redirect(post.id))(
+                      shorten(Markdown(post.text).unlink, 120)
+                    )
+                  )
               )
             )
         )

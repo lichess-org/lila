@@ -57,7 +57,6 @@ Jogadores que não gostem de receber suas mensagens podem deixar a equipe.</stri
   <string name="completedTourns">Torneios concluídos</string>
   <string name="declinedRequests">Pedidos recusados</string>
   <string name="joinLichessVariantTeam">Junte-se à equipe oficial do %s e fique por dentro das novidades e eventos</string>
-  <string name="teamPage">Página da equipe</string>
   <string name="thisTeamBattleIsOver">Este torneio acabou, e as equipes não podem mais ser atualizadas.</string>
   <string name="listTheTeamsThatWillCompete">Liste as equipes que vão competir nesta batalha.</string>
   <string name="oneTeamPerLine">Uma equipe por linha. Use o preenchimento automático.</string>

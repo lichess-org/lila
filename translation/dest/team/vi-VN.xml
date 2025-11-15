@@ -54,7 +54,6 @@ Những kỳ thủ không muốn nhận tin nhắn của bạn có thể sẽ r�
   <string name="completedTourns">Các giải đấu đã hoàn thành</string>
   <string name="declinedRequests">Yêu cầu bị từ chối</string>
   <string name="joinLichessVariantTeam">Tham gia đội %s chính thức để cập nhật tin tức và các sự kiện</string>
-  <string name="teamPage">Trang đội</string>
   <string name="thisTeamBattleIsOver">Giải đấu này đã kết thúc và không thể được cập nhật các đội nữa.</string>
   <string name="listTheTeamsThatWillCompete">Liệt kê các đội sẽ thi đấu trong trận chiến này.</string>
   <string name="oneTeamPerLine">Một đội mỗi dòng. Sử dụng tính năng tự động hoàn thành.</string>

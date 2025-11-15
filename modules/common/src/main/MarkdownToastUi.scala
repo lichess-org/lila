@@ -9,10 +9,6 @@ object MarkdownToastUi:
     private val regex = """\${2,}+([^\$]++)\${2,}+""".r
     def removeFrom(markdown: Markdown) = markdown.map(regex.replaceAllIn(_, """\$\$ $1 \$\$"""))
 
-  // put images into a container for styling
-  def imageParagraph(markup: Html) =
-    markup.map(_.replace("""<p><img src=""", """<p class="img-container"><img src="""))
-
   private def unescape(txt: String) = txt.replace("""\_""", "_")
 
   // https://github.com/lichess-org/lila/issues/9767

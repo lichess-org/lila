@@ -1,7 +1,7 @@
 import { finallyDelay, throttlePromiseDelay } from 'lib/async';
 import * as xhr from 'lib/xhr';
 import type TournamentController from './ctrl';
-import { alert } from 'lib/view/dialogs';
+import { alert } from 'lib/view';
 
 // when the tournament no longer exists
 // randomly delay reloads in case of massive tournament to avoid ddos
@@ -60,8 +60,8 @@ const reloadEndpointFallback = (ctrl: TournamentController) => `/tournament/${ct
 // don't use xhr.json to avoid getting the X-Requested-With header
 // that causes a CORS preflight check
 export const reloadNow: (ctrl: TournamentController) => Promise<void> = finallyDelay(
-  ctrl => Math.floor(ctrl.nbWatchers / 2) * (ctrl.data.me ? 1 : 3),
-  ctrl =>
+  (ctrl: TournamentController) => Math.floor(ctrl.nbWatchers / 2) * (ctrl.data.me ? 1 : 3),
+  (ctrl: TournamentController) =>
     fetch(
       xhr.url(ctrl.data.reloadEndpoint, {
         page: ctrl.focusOnMe ? undefined : ctrl.page,

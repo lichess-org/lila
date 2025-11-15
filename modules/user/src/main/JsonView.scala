@@ -49,7 +49,7 @@ final class JsonView(isOnline: lila.core.socket.IsOnline) extends lila.core.user
       .add("flair" -> u.flair)
       .add("tosViolation" -> u.lame)
       .add("patron" -> u.isPatron)
-      .add("patronTier" -> u.patronTier)
+      .add("patronColor" -> u.patronAndColor.map(_.color))
       .add("verified" -> u.isVerified)
 
   def lightPerfIsOnline(lp: LightPerf) =
@@ -79,6 +79,7 @@ object JsonView:
       )
       .add("title" -> l.user.title)
       .add("patron" -> l.user.isPatron)
+      .add("patronColor" -> l.user.patronAndColor.map(_.color))
 
   given perfWrites: OWrites[Perf] = OWrites: o =>
     Json

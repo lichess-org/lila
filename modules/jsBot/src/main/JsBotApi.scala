@@ -1,67 +1,32 @@
 package lila.jsBot
 
-import java.nio.file.Files as NioFiles
-import play.api.libs.json.*
-import play.api.libs.Files
-import play.api.mvc.*
-import akka.stream.scaladsl.FileIO
-import lila.common.config.GetRelativeFile
+import lila.memo.CacheApi
+import lila.memo.CacheApi.{ buildAsyncTimeout, invalidateAll }
+import lila.core.perm.Granter
 
-// this stuff is for bot devs
+final private class JsBotApi(repo: JsBotRepo, cacheApi: CacheApi)(using Executor, Scheduler):
 
-final private class JsBotApi(config: JsBotConfig, repo: JsBotRepo, getFile: GetRelativeFile)(using
-    Executor,
-    akka.stream.Materializer
-):
+  def put(bot: BotJson)(using me: Me): Fu[BotJson] =
+    repo
+      .putBot(bot, me.userId)
+      .andDo:
+        playable.all.invalidateAll()
 
-  type AlmostFileName = String
-  type JsBotAssets = Map[AssetType, List[AlmostFileName]]
+  object playable:
 
-  @volatile private var cachedAssets: Option[(JsBotAssets, JsonStr)] = None
+    private def forMe(isInBetaTeam: Me => Fu[Boolean])(using me: Option[Me]): Fu[List[BotKey]] =
+      if Granter.opt(_.BotEditor) then fuccess(publicBotKeys ::: betaBotKeys ::: devBotKeys)
+      else if Granter.opt(_.Beta) then fuccess(publicBotKeys ::: betaBotKeys)
+      else
+        for beta <- me.so(isInBetaTeam)
+        yield publicBotKeys ::: beta.so(betaBotKeys)
 
-  def storeAsset(
-      tpe: AssetType,
-      fileName: String,
-      file: MultipartFormData.FilePart[Files.TemporaryFile]
-  ): Fu[Either[String, (JsBotAssets, JsonStr)]] =
-    FileIO
-      .fromPath(file.ref.path)
-      .runWith(FileIO.toPath(getFile.exec(s"${config.assetPath}/${tpe}/$fileName").toPath))
-      .map(_ => Right(updateAssets))
-      .recover:
-        case e: Exception => Left(s"Exception: ${e.getMessage}")
+    private[JsBotApi] val all = cacheApi.unit[List[BotJson]]:
+      _.refreshAfterWrite(1.minute).buildAsyncTimeout(): _ =>
+        repo.getLatestBots()
 
-  def getBoth: (JsBotAssets, JsonStr) = cachedAssets.getOrElse(updateAssets)
-  def getAssets: JsBotAssets = getBoth._1
-  def getJson: JsonStr = getBoth._2
-
-  def devGetAssets: Fu[JsObject] =
-    repo.getAssets.map: m =>
-      Json.toJsObject:
-        getAssets.map: (categ, keys) =>
-          categ -> (for
-            key <- keys
-            name <- m.get(key)
-          yield Json.obj("key" -> key, "name" -> name))
-
-  private def listFiles(tpe: AssetType, ext: String): List[AlmostFileName] =
-    val path = getFile.exec(s"${config.assetPath}/${tpe}")
-    if !path.exists() then
-      NioFiles.createDirectories(path.toPath)
-      Nil
-    else
-      path
-        .listFiles(_.getName.endsWith(s".${ext}"))
-        .toList
-        .map(_.getName)
-
-  def updateAssets: (JsBotAssets, JsonStr) =
-    val data: JsBotAssets = Map(
-      "image" -> listFiles("image", "webp"),
-      "net" -> listFiles("net", "pb"),
-      "sound" -> listFiles("sound", "mp3"),
-      "book" -> listFiles("book", "png").map(_.dropRight(4))
-    )
-    val newAssets = (data, JsonStr(Json.stringify(Json.toJson(data))))
-    cachedAssets = newAssets.some
-    newAssets
+    def get(isInBetaTeam: Me => Fu[Boolean])(using Option[Me]): Fu[List[BotJson]] = for
+      myKeys <- forMe(isInBetaTeam)
+      allBots <- all.get({})
+      myBots = allBots.filter(b => myKeys.contains(b.key)).sortLike(myKeys, _.key)
+    yield myBots

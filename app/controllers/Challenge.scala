@@ -10,6 +10,7 @@ import lila.core.net.Bearer
 import lila.game.AnonCookie
 import lila.oauth.{ EndpointScopes, OAuthScope, OAuthServer }
 import lila.setup.ApiConfig
+import lila.memo.RateLimit.Limited
 
 final class Challenge(env: Env) extends LilaController(env):
   def api = env.challenge.api
@@ -89,10 +90,9 @@ final class Challenge(env: Env) extends LilaController(env):
       !challenge.challengerUserId.so(orig => me.exists(_.is(orig)))
 
   import cats.mtl.Handle.*
-  import cats.mtl.implicits.*
   def accept(id: ChallengeId, color: Option[Color]) = Open:
     Found(api.byId(id)): c =>
-      isForMe(c).so(
+      isForMe(c).so:
         allow:
           api
             .accept(c, ctx.req.sid, color)
@@ -108,7 +108,13 @@ final class Challenge(env: Env) extends LilaController(env):
             Redirect(routes.Round.watcher(c.gameId, color | Color.white)),
             notFoundJson(err)
           )
-      )
+
+  private def eitherBotLimitResponse(l: lila.bot.EitherBotLimit) = fuccess:
+    l match
+      case l: Limited => JsonLimited(l)
+      case l: lila.bot.OpponentLimit =>
+        import lila.bot.BotLimit.given
+        BadRequest(Json.toJson(l))
 
   def apiAccept(id: ChallengeId, color: Option[Color]) =
     AnonOrScoped(_.Challenge.Write, _.Bot.Play, _.Board.Play, _.Web.Mobile) { ctx ?=>
@@ -116,8 +122,8 @@ final class Challenge(env: Env) extends LilaController(env):
         env.bot.player
           .rematchAccept(id.into(GameId))
           .flatMap:
-            if _ then jsonOkResult
-            else notFoundJson()
+            case l: lila.bot.EitherBotLimit => eitherBotLimitResponse(l)
+            case res: Boolean => if res then jsonOkResult else notFoundJson()
       api
         .byId(id)
         .flatMap:
@@ -125,10 +131,14 @@ final class Challenge(env: Env) extends LilaController(env):
             case None => tryRematch
             case Some(c) if c.accepted => tryRematch
             case Some(c) =>
-              allow:
-                api.accept(c, none, color).as(jsonOkResult)
-              .rescue: err =>
-                fuccess(BadRequest(jsonError(err)))
+              ctx.me
+                .soUse(c.challengerUserId.so(env.bot.limit.acceptLimitError))
+                .map(eitherBotLimitResponse)
+                .getOrElse:
+                  allow:
+                    api.accept(c, none, color).inject(jsonOkResult)
+                  .rescue: err =>
+                    fuccess(BadRequest(jsonError(err)))
     }
 
   private def withChallengeAnonCookie(cond: Boolean, c: ChallengeModel, owner: Boolean)(
@@ -199,9 +209,8 @@ final class Challenge(env: Env) extends LilaController(env):
                     .game(id.into(GameId))
                     .dmap:
                       _.flatMap { Pov(_, me) }
-                    .flatMapz { p =>
+                    .flatMapz: p =>
                       env.round.proxyRepo.upgradeIfPresent(p).dmap(some)
-                    }
                     .flatMap:
                       case Some(pov) if pov.game.abortableByUser =>
                         lila.common.Bus.pub(Tell(pov.gameId, RoundBus.Abort(pov.playerId)))
@@ -210,14 +219,16 @@ final class Challenge(env: Env) extends LilaController(env):
                         Bearer.from(get("opponentToken")) match
                           case Some(bearer) =>
                             val required = OAuthScope.select(_.Challenge.Write).into(EndpointScopes)
-                            env.oAuth.server
-                              .auth(bearer, required, ctx.req.some)
-                              .map:
-                                case Right(access) if pov.opponent.isUser(access.me) =>
-                                  lila.common.Bus.pub(Tell(pov.gameId, RoundBus.AbortForce))
-                                  jsonOkResult
-                                case Right(_) => BadRequest(jsonError("Not the opponent token"))
-                                case Left(err) => BadRequest(jsonError(err.message))
+                            allow:
+                              for
+                                access <- env.oAuth.server.auth(bearer, required, ctx.req.some)
+                                _ <- raiseIf(!pov.opponent.isUser(access.me)):
+                                  OAuthServer.AuthError("Not the opponent token")
+                              yield
+                                lila.common.Bus.pub(Tell(pov.gameId, RoundBus.AbortForce))
+                                jsonOkResult
+                            .rescue: err =>
+                              BadRequest(jsonError(err.message))
                           case None if api.isOpenBy(id, me) =>
                             if pov.game.abortable then
                               lila.common.Bus.pub(Tell(pov.gameId, RoundBus.AbortForce))
@@ -232,23 +243,23 @@ final class Challenge(env: Env) extends LilaController(env):
       def startNow =
         env.round.roundApi.tell(game.id, lila.core.round.StartClock)
         jsonOkResult
-      if game.hasAi
-      then
-        getAs[Bearer]("token1")
-          .traverse(env.oAuth.server.auth(_, accepted, req.some))
-          .mapz:
-            case Left(e) => handleScopedFail(accepted, e).some
-            case Right(a) if game.hasUserId(a.scoped.user.id) => startNow.some
-            case _ => none
-          .getOrElse(notFoundJson())
-      else
-        (getAs[Bearer]("token1"), getAs[Bearer]("token2"))
-          .mapN(env.oAuth.server.authBoth(accepted, req))
-          .so:
-            _.map:
-              case Left(e) => handleScopedFail(accepted, e)
-              case Right((u1, u2)) if game.hasUserIds(u1.id, u2.id) => startNow
-              case _ => notFoundJson()
+      allow:
+        for res <-
+            if game.hasAi
+            then
+              getAs[Bearer]("token1")
+                .traverse(env.oAuth.server.auth(_, accepted, req.some))
+                .map:
+                  _.exists(a => game.hasUserId(a.scoped.user.id)).option(startNow)
+            else
+              (getAs[Bearer]("token1"), getAs[Bearer]("token2"))
+                .mapN(env.oAuth.server.authBoth(accepted, req))
+                .so:
+                  _.map: (u1, u2) =>
+                    game.hasUserIds(u1.id, u2.id).option(startNow)
+        yield res | notFoundJson()
+      .rescue: err =>
+        handleScopedFail(accepted, err)
 
   def toFriend(id: ChallengeId) = AuthBody { ctx ?=> _ ?=>
     Found(api.byId(id)): c =>
@@ -274,57 +285,47 @@ final class Challenge(env: Env) extends LilaController(env):
 
   def apiCreate(username: UserStr) =
     ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play, _.Web.Mobile) { ctx ?=> me ?=>
-      me.isnt(username).so {
-        bindForm(env.setup.forms.api.user)(
-          doubleJsonFormError,
-          config =>
-            limit.challenge(req.ipAddress, rateLimited, cost = if me.isApiHog then 0 else 1):
-              env.user.repo.enabledById(username).flatMap {
-                case None => JsonBadRequest(jsonError(s"No such user: $username"))
-                case Some(destUser) if destUser.isBot && !config.rules.isEmpty =>
-                  JsonBadRequest(jsonError("Rules not applicable for bots"))
-                case Some(destUser) =>
-                  env.relation.api
-                    .fetchFollows(destUser.id, me.userId)
-                    .flatMap: isFriend =>
-                      if config.onlyIfOpponentFollowsMe && !isFriend
-                      then JsonBadRequest(jsonError(s"$username does not follow you"))
-                      else
-                        val cost = if isFriend || me.isApiHog then 0 else if destUser.isBot then 1 else 5
-                        limit.challengeBot(req.ipAddress, rateLimited, cost = if me.isBot then 1 else 0):
-                          limit.challengeUser(me, rateLimited, cost = cost):
-                            for
-                              challenge <- makeOauthChallenge(config, me, destUser)
-                              grant <- env.challenge.granter.isDenied(destUser, config.perfKey.some)
-                              res <- grant match
-                                case Some(denied) =>
-                                  fuccess:
-                                    JsonBadRequest:
-                                      jsonError(lila.challenge.ChallengeDenied.translated(denied))
-                                case _ =>
-                                  env.challenge.api.delayedCreate(challenge).flatMap {
-                                    case None => JsonBadRequest(jsonError("Challenge not created")).toFuccess
-                                    case Some(createNow) =>
-                                      for
-                                        socket <- ctx.isMobileOauth
-                                          .optionFu(env.challenge.version(challenge.id))
-                                        json = env.challenge.jsonView.apiAndMobile(
-                                          challenge,
-                                          socket,
-                                          lila.challenge.Direction.Out.some
-                                        )
-                                        res <-
-                                          if config.keepAliveStream then
-                                            val stream =
-                                              env.challenge.keepAliveStream(challenge, json)(createNow)
-                                            jsOptToNdJson(ndJson.addKeepAlive(stream)).toFuccess
-                                          else for _ <- createNow() yield JsonOk(json)
-                                      yield res
-                                  }
-                            yield res
-              }
-        )
-      }
+      bindForm(env.setup.forms.api.user)(
+        doubleJsonFormError,
+        config =>
+          limit.challenge(req.ipAddress, rateLimited, cost = if me.isApiHog then 0 else 1):
+            allow:
+              for
+                destUser <- env.user.repo.enabledById(username)
+                destUser <- destUser.raiseIfNone(s"No such user: $username")
+                _ <- raiseIf(me.is(destUser))("You cannot challenge yourself")
+                _ <- raiseIf(destUser.isBot && !config.rules.isEmpty)("Rules not applicable for bots")
+                isFriend <- env.relation.api.fetchFollows(destUser.id, me.userId)
+                restricted = config.onlyIfOpponentFollowsMe && !isFriend
+                _ <- raiseIf(restricted)(s"$username does not follow you")
+                cost = if isFriend || me.isApiHog then 0 else if destUser.isBot then 1 else 5
+                res <- limit.challengeUser(me, rateLimited, cost = cost):
+                  env.bot.limit
+                    .challengeLimitError(me.light, destUser.light)
+                    .map(eitherBotLimitResponse)
+                    .getOrElse:
+                      for
+                        challenge <- makeOauthChallenge(config, me, destUser)
+                        denied <- env.challenge.granter.isDenied(destUser, config.perfKey.some)
+                        _ <- raiseIfSome(denied.map(lila.challenge.ChallengeDenied.translated))(funit)
+                        createNow <- env.challenge.api.delayedCreate(challenge)
+                        createNow <- createNow.raiseIfNone("Challenge not created")
+                        socket <- ctx.isMobileOauth.optionFu(env.challenge.version(challenge.id))
+                        json = env.challenge.jsonView.apiAndMobile(
+                          challenge,
+                          socket,
+                          lila.challenge.Direction.Out.some
+                        )
+                        res <-
+                          if config.keepAliveStream then
+                            val stream = env.challenge.keepAliveStream(challenge, json)(createNow)
+                            jsOptToNdJson(ndJson.addKeepAlive(stream)).toFuccess
+                          else createNow().inject(JsonOk(json))
+                      yield res
+              yield res
+            .rescue: err =>
+              BadRequest(jsonError(err))
+      )
     }
 
   private def makeOauthChallenge(config: ApiConfig, orig: lila.user.User, dest: lila.user.User) =

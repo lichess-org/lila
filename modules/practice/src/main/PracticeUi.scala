@@ -40,7 +40,7 @@ final class PracticeUi(helpers: Helpers)(
       .graph(
         title = "Practice your chess",
         description = "Learn how to master the most common chess positions",
-        url = s"$netBaseUrl${routes.Practice.index}"
+        url = routeUrl(routes.Practice.index)
       ):
         main(cls := "page-menu force-ltr")(
           st.aside(cls := "page-menu__menu practice-side")(

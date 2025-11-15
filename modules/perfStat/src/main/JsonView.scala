@@ -7,18 +7,12 @@ import lila.core.LightUser
 import lila.core.i18n.Translate
 import lila.rating.{ Glicko, PerfType }
 
-final class JsonView(getLightUser: LightUser.GetterSync):
+final class JsonView(getLightUser: LightUser.GetterSyncFallback):
 
   import JsonView.given
 
-  private given userIdWriter: OWrites[UserId] = OWrites { u =>
-    val light = getLightUser(u)
-    Json.obj(
-      "id" -> u.value,
-      "name" -> light.fold(u.into(UserName))(_.name),
-      "title" -> light.flatMap(_.title)
-    )
-  }
+  private given OWrites[UserId] = OWrites: u =>
+    Json.toJsObject(getLightUser(u))
 
   given Writes[RatingAt] = Json.writes
   given Writes[GameAt] = Json.writes
@@ -29,7 +23,9 @@ final class JsonView(getLightUser: LightUser.GetterSync):
   given Writes[PlayStreak] = Json.writes
   given Writes[ResultStreak] = Json.writes
   given Writes[Count] = Json.writes
-  given (using Translate): Writes[PerfStat] = Json.writes
+
+  given (using Translate): OWrites[PerfStat] = Json.writes.transform:
+    _ - "id" - "userId" - "perfType"
 
   def apply(data: PerfStatData)(using Translate) =
     Json.obj(

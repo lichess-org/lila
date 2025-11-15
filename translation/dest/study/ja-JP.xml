@@ -58,7 +58,7 @@
   <string name="studyPgn">研究の PGN</string>
   <string name="chapterPgn">章の PGN</string>
   <string name="copyChapterPgn">PGN をコピー</string>
-  <string name="copyRawChapterPgn" comment="Appears as a button on individual study chapters. Lets you copy a PGN without any annotations, commentary or analysis">コメント抜きの PGN をコピー</string>
+  <string name="copyRawChapterPgn">コメント抜きの PGN をコピー</string>
   <string name="downloadGame">1 局をダウンロード</string>
   <string name="studyUrl">研究の URL</string>
   <string name="currentChapterUrl">現在の章の URL</string>
@@ -101,7 +101,6 @@
     <item quantity="other">ここに PGN をペースト（%s 局まで）</item>
   </plurals>
   <string name="urlOfTheGame">棋譜の URL</string>
-  <string name="loadAGameFromXOrY">%1$s か %2$s から棋譜を読み込み</string>
   <string name="createChapter">章を作成</string>
   <string name="createStudy">研究を作成</string>
   <string name="editStudy">研究を編集</string>

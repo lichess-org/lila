@@ -106,7 +106,6 @@
     <item quantity="other">Ielīmējiet PGN tekstu šeit, ne vairāk kā %s spēles</item>
   </plurals>
   <string name="urlOfTheGame">Spēles URL</string>
-  <string name="loadAGameFromXOrY">Ielādēt spēli no %1$s vai %2$s</string>
   <string name="createChapter">Izveidot nodaļu</string>
   <string name="createStudy">Izveidot izpēti</string>
   <string name="editStudy">Rediģēt izpēti</string>

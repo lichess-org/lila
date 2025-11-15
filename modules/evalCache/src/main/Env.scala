@@ -18,10 +18,9 @@ final class Env(
 
   def getSinglePvEval: lila.tree.CloudEval.GetSinglePvEval = api.getSinglePvEval
 
-  def cli = new lila.common.Cli:
-    def process = { case "eval-cache" :: "drop" :: variantKey :: fenParts =>
+  lila.common.Cli.handle:
+    case "eval-cache" :: "drop" :: variantKey :: fenParts =>
       Variant(Variant.LilaKey(variantKey)).fold(fufail("Invalid variant")): variant =>
         api
           .drop(variant, chess.format.Fen.Full(fenParts.mkString(" ")))
           .inject("Done, but the eval can stay in cache for up to 5 minutes")
-    }

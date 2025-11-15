@@ -16,6 +16,7 @@
   <string name="recentlyUpdated">Data di aggiornamento (dalla più recente)</string>
   <string name="mostPopular">Più popolari</string>
   <string name="alphabetical">Alfabetico</string>
+  <string name="relevant">Pertinenti</string>
   <string name="addNewChapter">Aggiungi un nuovo capitolo</string>
   <plurals name="nbChapters">
     <item quantity="one">%s capitolo</item>
@@ -61,6 +62,7 @@
   <string name="studyPgn">PGN dello studio</string>
   <string name="chapterPgn">PGN del capitolo</string>
   <string name="copyChapterPgn">Copia in PGN</string>
+  <string name="copyRawChapterPgn">Copia PGN grezzo</string>
   <string name="downloadGame">Scarica partita</string>
   <string name="studyUrl">URL dello studio</string>
   <string name="currentChapterUrl">URL del capitolo corrente</string>
@@ -104,7 +106,6 @@
     <item quantity="other">Incolla qui i testi PGN, massimo %s partite</item>
   </plurals>
   <string name="urlOfTheGame">URL della partita</string>
-  <string name="loadAGameFromXOrY">Carica una partita da %1$s o %2$s</string>
   <string name="createChapter">Crea capitolo</string>
   <string name="createStudy">Crea studio</string>
   <string name="editStudy">Modifica studio</string>

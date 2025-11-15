@@ -7,10 +7,9 @@ import lila.db.dsl.{ *, given }
 import lila.core.user.UserRepo
 import lila.ui.Icon
 
-final private class NotifyCli(api: NotifyApi, userRepo: UserRepo)(using Materializer, Executor)
-    extends lila.common.Cli:
+final private class NotifyCli(api: NotifyApi, userRepo: UserRepo)(using Materializer, Executor):
 
-  def process =
+  lila.common.Cli.handle:
     case "notify" :: "url" :: "users" :: users :: url :: words =>
       val userIds = users.split(',').flatMap(UserStr.read).map(_.id).toIndexedSeq
       notifyUrlTo(Source(userIds), url, words)

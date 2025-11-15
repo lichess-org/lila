@@ -1,5 +1,5 @@
 import * as xhr from 'lib/xhr';
-import { alert } from 'lib/view/dialogs';
+import { alert } from 'lib/view';
 import { log } from 'lib/permalog';
 
 const showError = (error: string) => alert(error);

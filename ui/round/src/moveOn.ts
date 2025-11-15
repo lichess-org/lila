@@ -1,4 +1,4 @@
-import { isSwitchable, isPlayerTurn } from 'lib/game/game';
+import { isSwitchable, isPlayerTurn } from 'lib/game';
 import { whatsNext } from './xhr';
 import type RoundController from './ctrl';
 import { storage } from 'lib/storage';

@@ -25,7 +25,6 @@
   <string name="ongoing">V teku</string>
   <string name="upcoming">Prihajajoči</string>
   <string name="roundName">Ime kroga</string>
-  <string name="roundNumber">Številka kroga</string>
   <string name="tournamentName">Turnirsko ime</string>
   <string name="tournamentDescription">Kratek opis turnirja</string>
   <string name="fullDescription">Polni opis dogodka</string>

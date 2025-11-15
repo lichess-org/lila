@@ -1,9 +1,8 @@
 import * as licon from 'lib/licon';
 import * as xhr from 'lib/xhr';
 import { storage } from 'lib/storage';
-import { addPasswordVisibilityToggleListener } from 'lib/view/controls';
+import { addPasswordVisibilityToggleListener, confirm } from 'lib/view';
 import flairPickerLoader from 'bits/flairPicker';
-import { confirm } from 'lib/view/dialogs';
 
 site.load.then(() => {
   $('.emoji-details').each(function (this: HTMLElement) {
@@ -13,6 +12,7 @@ site.load.then(() => {
   addPasswordVisibilityToggleListener();
 
   const localPrefs: [string, string, string, boolean][] = [
+    ['clock', 'swapClock', 'swapClock', false],
     ['behavior', 'arrowSnap', 'arrow.snap', true],
     ['behavior', 'scrollMoves', 'scrollMoves', true],
     ['notification', 'playBellSound', 'playBellSound', true],

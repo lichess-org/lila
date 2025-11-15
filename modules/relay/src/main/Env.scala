@@ -41,7 +41,8 @@ final class Env(
     picfitUrl: lila.memo.PicfitUrl,
     lightUserSync: lila.core.LightUser.GetterSync,
     langList: lila.core.i18n.LangList,
-    baker: lila.core.security.LilaCookie
+    baker: lila.core.security.LilaCookie,
+    markdownCache: lila.memo.MarkdownCache
 )(using Executor, akka.stream.Materializer, play.api.Mode)(using scheduler: Scheduler):
 
   lazy val roundForm = wire[RelayRoundForm]
@@ -68,6 +69,8 @@ final class Env(
 
   private lazy val tagManualOverride = wire[RelayTagManualOverride]
 
+  lazy val markdown = wire[RelayMarkdown]
+
   lazy val jsonView = wire[JsonView]
 
   lazy val listing = wire[RelayListing]
@@ -81,8 +84,6 @@ final class Env(
   lazy val calendar = wire[RelayCalendar]
 
   lazy val push = wire[RelayPush]
-
-  lazy val markup = wire[RelayMarkup]
 
   lazy val pgnStream = wire[RelayPgnStream]
 
@@ -147,8 +148,11 @@ final class Env(
   // start the sync scheduler
   wire[RelayFetch]
 
-  scheduler.scheduleWithFixedDelay(1.minute, 1.minute): () =>
-    api.autoStart >> api.autoFinishNotSyncing(syncOnlyIds)
+  scheduler.scheduleWithFixedDelay(73.seconds, 1.minute): () =>
+    api.autoStart() >> api.autoFinishNotSyncing(syncOnlyIds)
+
+  scheduler.scheduleWithFixedDelay(49.minutes, 1.hour): () =>
+    api.denormalizeOldTours()
 
   Bus.sub[lila.core.study.RemoveStudy]: s =>
     api.onStudyRemove(s.studyId)
@@ -175,9 +179,12 @@ final class Env(
   Bus.sub[lila.study.StudyMembers.OnChange]: change =>
     studyPropagation.onStudyMembersChange(change.study)
 
-  Bus.sub[lila.core.study.GetRelayCrowd]:
-    case lila.core.study.GetRelayCrowd(studyId, promise) =>
+  Bus.sub[lila.core.relay.GetCrowd]:
+    case lila.core.relay.GetCrowd(studyId, promise) =>
       roundRepo.currentCrowd(studyId.into(RelayRoundId)).map(_.orZero).foreach(promise.success)
+
+  Bus.sub[lila.core.relay.GetActiveRounds]:
+    _.promise.completeWith(listing.active.map(_.map(_.asIdName)))
 
 private final class RelayColls(mainDb: lila.db.Db, yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb):
   val round = mainDb(CollName("relay"))

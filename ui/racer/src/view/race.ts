@@ -20,7 +20,7 @@ export const renderRace = (ctrl: RacerCtrl) => {
   const tracks: VNodes = [];
   players.forEach((p, i) => {
     const isMe = p.name === myName;
-    const track = renderTrack(relative, isMe, bestScore, ctrl.boost, p, i);
+    const track = renderTrack(relative, isMe, bestScore, ctrl.boost, p, i, ctrl.vehicle[i]);
     if (isMe) tracks.unshift(track);
     else tracks.push(track);
   });
@@ -38,6 +38,7 @@ const renderTrack = (
   boost: Boost,
   player: PlayerWithScore,
   index: number,
+  vehicle: number,
 ) => {
   return h(
     'div.racer__race__track',
@@ -59,7 +60,7 @@ const renderTrack = (
           },
         },
         [
-          h(`div.racer__race__player__car.car-${index}`, [0]),
+          h(`div.racer__race__player__car.car-${index}.vehicle${vehicle}`, [vehicle]),
           h('span.racer__race__player__name', playerLink(player, isMe)),
         ],
       ),

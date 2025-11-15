@@ -66,7 +66,6 @@ final class Cached(
 
   export teamIdsCache.{ async as teamIds, invalidate as invalidateTeamIds, sync as syncTeamIds }
   def teamIdsList[U: UserIdOf](user: U): Fu[List[TeamId]] = teamIds(user.id).dmap(_.toList)
-  def teamIdsSet(user: UserId): Fu[Set[TeamId]] = teamIds(user.id).dmap(_.toSet)
 
   val nbRequests = cacheApi[UserId, Int](32_768, "team.nbRequests"):
     _.expireAfterAccess(40.minutes)

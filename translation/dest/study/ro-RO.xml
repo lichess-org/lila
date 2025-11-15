@@ -16,6 +16,7 @@
   <string name="recentlyUpdated">Încărcate recent</string>
   <string name="mostPopular">Cele mai populare</string>
   <string name="alphabetical">Alfabetic</string>
+  <string name="relevant">Relevant</string>
   <string name="addNewChapter">Adaugă un nou capitol</string>
   <plurals name="nbChapters">
     <item quantity="one">%s capitol</item>
@@ -54,17 +55,17 @@
   <string name="getAFullComputerAnalysis">Obțineți o întreagă analiză server-side a computerului a variației principale.</string>
   <string name="makeSureTheChapterIsComplete">Asigurați-vă că acest capitol este complet. Puteți solicita o analiză doar o singură dată.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Toți membrii sincronizați rămân la aceeași poziție</string>
-  <string name="shareChanges">Împărtășește modificările cu spectatorii și salvează-le pe server</string>
+  <string name="shareChanges">Împarte modificările cu spectatorii și salvează-le pe server</string>
   <string name="playing">În desfășurare</string>
   <string name="showResults">Rezultate</string>
   <string name="showEvalBar">Bară de evaluare</string>
   <string name="next">Următoarea</string>
-  <string name="shareAndExport">Împărtășește și exportă</string>
+  <string name="shareAndExport">Distribuie și exportă</string>
   <string name="cloneStudy">Clonează</string>
   <string name="studyPgn">PGN-ul studiului</string>
   <string name="chapterPgn">PGN-ul capitolului</string>
   <string name="copyChapterPgn">Copiază PGN</string>
-  <string name="copyRawChapterPgn" comment="Appears as a button on individual study chapters. Lets you copy a PGN without any annotations, commentary or analysis">Copiază PGN simplu</string>
+  <string name="copyRawChapterPgn">Copiază PGN simplu</string>
   <string name="downloadGame">Descarcă partida</string>
   <string name="studyUrl">URL-ul studiului</string>
   <string name="currentChapterUrl">URL-ul capitolului curent</string>
@@ -109,7 +110,6 @@
     <item quantity="other">Lipiți textul PGN aici, până la %s meciuri. Pentru fiecare joc se creează un nou capitol.</item>
   </plurals>
   <string name="urlOfTheGame">URL-urile jocurilor, câte unul pe linie</string>
-  <string name="loadAGameFromXOrY">Încărcați un joc de pe %1$s sau %2$s</string>
   <string name="createChapter">Creați capitolul</string>
   <string name="createStudy">Creați studiul</string>
   <string name="editStudy">Editați studiul</string>

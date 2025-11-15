@@ -71,29 +71,32 @@ final class User(
       case _ => notFound
 
   private def renderShow(u: UserModel, status: Results.Status = Results.Ok)(using Context): Fu[Result] =
-    if HTTPRequest.isSynchronousHttp(ctx.req)
-    then
-      val cost =
-        if isGrantedOpt(_.UserModView) then 0
-        else if env.socket.isOnline.exec(u.id) then 1
-        else 2
-      userShowHtmlRateLimit(rateLimited, cost = cost):
-        for
-          as <- env.activity.read.recentAndPreload(u)
-          nbs <- env.userNbGames(u, withCrosstable = false)
-          info <- env.userInfo(u, nbs)
-          _ <- env.userInfo.preloadTeams(info)
-          social <- env.socialInfo(u)
-          page <- renderPage:
-            lila.mon.chronoSync(_.user.segment("renderSync")):
-              views.user.show.page.activity(as, info, social)
-        yield status(page).withCanonical(routes.User.show(u.username))
-    else
-      for
-        withPerfs <- env.user.perfsRepo.withPerfs(u)
-        as <- env.activity.read.recentAndPreload(u)
-        snip = lila.ui.Snippet(views.activity(withPerfs, as))
-      yield status(snip)
+    WithProxy: proxy ?=>
+      limit.enumeration.userProfile(rateLimited):
+        def fetchActivity = (ctx.isAuth || !proxy.isFloodish).so(env.activity.read.recentAndPreload(u))
+        if HTTPRequest.isSynchronousHttp(ctx.req)
+        then
+          val cost =
+            if isGrantedOpt(_.UserModView) then 0
+            else if env.socket.isOnline.exec(u.id) then 1
+            else 2
+          userShowHtmlRateLimit(rateLimited, cost = cost):
+            for
+              as <- fetchActivity
+              nbs <- env.userNbGames(u, withCrosstable = false)
+              info <- env.userInfo.fetch(u, nbs)
+              _ <- env.userInfo.preloadTeams(info)
+              social <- env.socialInfo(u)
+              page <- renderPage:
+                lila.mon.chronoSync(_.user.segment("renderSync")):
+                  views.user.show.page.activity(as, info, social)
+            yield status(page).withCanonical(routes.User.show(u.username))
+        else
+          for
+            withPerfs <- env.user.perfsRepo.withPerfs(u)
+            as <- fetchActivity
+            snip = lila.ui.Snippet(views.activity(withPerfs, as))
+          yield status(snip)
 
   def download(username: UserStr) = OpenBody:
     val user =
@@ -105,47 +108,49 @@ final class User(
 
   def games(username: UserStr, filter: String, page: Int) = OpenBody:
     Reasonable(page):
-      EnabledUser(username): u =>
-        if filter == "search" && ctx.isAnon
-        then
-          negotiate(
-            Unauthorized.page(views.gameSearch.login(u.count.game)),
-            Unauthorized(jsonError("Login required"))
-          )
-        else
-          negotiate(
-            html = for
-              nbs <- env.userNbGames(u, withCrosstable = true)
-              filters = lila.app.mashup.GameFilterMenu(u, nbs, filter, ctx.isAuth)
-              pag <- env.gamePaginator(
-                user = u,
-                nbs = nbs.some,
-                filter = filters.current,
-                me = ctx.me,
-                page = page
+      WithProxy: proxy ?=>
+        limit.enumeration.userProfile(rateLimited):
+          EnabledUser(username): u =>
+            if filter == "search" && ctx.isAnon
+            then
+              negotiate(
+                Unauthorized.page(views.gameSearch.login(u.count.game)),
+                Unauthorized(jsonError("Login required"))
               )
-              _ <- lightUserApi.preloadMany(pag.currentPageResults.flatMap(_.userIds))
-              _ <- env.tournament.cached.nameCache.preloadMany {
-                pag.currentPageResults.flatMap((_: GameModel).tournamentId).map(tid => tid -> ctx.lang)
-              }
-              notes <- ctx.me.so: me =>
-                env.round.noteApi.byGameIds(pag.currentPageResults.map(_.id), me)
-              res <-
-                if HTTPRequest.isSynchronousHttp(ctx.req) then
-                  for
-                    info <- env.userInfo(u, nbs, withUblog = true)
-                    _ <- env.team.cached.lightCache.preloadMany(info.teamIds)
-                    social <- env.socialInfo(u)
-                    searchForm = (filters.current == GameFilter.Search).option(
-                      lila.app.mashup.GameFilterMenu.searchForm(userGameSearch, filters.current)
-                    )
-                    res <- Ok.page:
-                      views.user.show.page.games(info, pag, filters, searchForm, social, notes)
-                  yield res
-                else Ok.snip(views.user.show.gamesContent(u, nbs, pag, filters, filter, notes)).toFuccess
-            yield res.withCanonical(routes.User.games(u.username, filters.current.name)),
-            json = apiGames(u, filter, page)
-          )
+            else
+              negotiate(
+                html = for
+                  nbs <- env.userNbGames(u, withCrosstable = true)
+                  filters = lila.app.mashup.GameFilterMenu(u, nbs, filter, ctx.isAuth)
+                  pag <- env.gamePaginator(
+                    user = u,
+                    nbs = nbs.some,
+                    filter = filters.current,
+                    me = ctx.me,
+                    page = page
+                  )
+                  _ <- lightUserApi.preloadMany(pag.currentPageResults.flatMap(_.userIds))
+                  _ <- env.tournament.cached.nameCache.preloadMany {
+                    pag.currentPageResults.flatMap((_: GameModel).tournamentId).map(tid => tid -> ctx.lang)
+                  }
+                  notes <- ctx.me.so: me =>
+                    env.round.noteApi.byGameIds(pag.currentPageResults.map(_.id), me)
+                  res <-
+                    if HTTPRequest.isSynchronousHttp(ctx.req) then
+                      for
+                        info <- env.userInfo.fetch(u, nbs, withUblog = true)
+                        _ <- env.team.cached.lightCache.preloadMany(info.teamIds)
+                        social <- env.socialInfo(u)
+                        searchForm = (filters.current == GameFilter.Search).option(
+                          lila.app.mashup.GameFilterMenu.searchForm(userGameSearch, filters.current)
+                        )
+                        res <- Ok.page:
+                          views.user.show.page.games(info, pag, filters, searchForm, social, notes)
+                      yield res
+                    else Ok.snip(views.user.show.gamesContent(u, nbs, pag, filters, filter, notes)).toFuccess
+                yield res.withCanonical(routes.User.games(u.username, filters.current.name)),
+                json = apiGames(u, filter, page)
+              )
 
   private def EnabledUser(username: UserStr)(f: UserModel => Fu[Result])(using ctx: Context): Fu[Result] =
     if username.id.isGhost
@@ -588,7 +593,11 @@ final class User(
                     }
                   case None if getBool("teacher") =>
                     env.user.repo.userIdsLikeWithRole(term, lila.core.perm.Permission.Teacher.dbKey)
-                  case None => env.user.cached.userIdsLike(term)
+                  case None =>
+                    for
+                      found <- env.user.cached.userIdsLike(term)
+                      closed <- isGrantedOpt(_.AccountInfo).so(env.user.repo.userIdsLikeClosed(term))
+                    yield found ::: closed
           }.flatMap { userIds =>
             if getBool("names") then
               lightUserApi

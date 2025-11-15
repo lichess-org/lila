@@ -81,48 +81,36 @@ final class FishnetApi(
       workId: Work.Id,
       client: Client,
       data: JsonApi.Request.PostAnalysis
-  ): Fu[PostAnalysisResult] =
-    repo
-      .getAnalysis(workId)
-      .flatMap:
-        case None =>
-          Monitor.notFound(workId, client)
-          fufail(WorkNotFound)
-        case Some(work) if work.isAcquiredBy(client) =>
-          data.completeOrPartial match
-            case complete: CompleteAnalysis =>
-              {
-                analysisBuilder(client, work, complete.analysis).flatMap { analysis =>
-                  monitor.analysis(work, client, complete)
-                  repo.deleteAnalysis(work).inject(PostAnalysisResult.Complete(analysis))
-                }
-              }.recoverWith { case e: Exception =>
-                Monitor.failure(work, client, e)
-                repo.updateOrGiveUpAnalysis(work, _.invalid) >> fufail(e)
-              }
-            case partial: PartialAnalysis =>
-              {
-                fuccess(work.game.studyId.isDefined) >>| socketExists(GameId(work.game.id))
-              }.flatMap:
-                if _ then
-                  analysisBuilder.partial(client, work, partial.analysis).map { analysis =>
-                    PostAnalysisResult.Partial(analysis)
-                  }
-                else fuccess(PostAnalysisResult.UnusedPartial)
-          : Fu[PostAnalysisResult]
-        case Some(work) =>
-          Monitor.notAcquired(work, client)
-          fufail(NotAcquired)
-      .chronometer
-      .logIfSlow(200, logger):
-        case PostAnalysisResult.Complete(res) => s"post analysis for ${res.id}"
-        case PostAnalysisResult.Partial(res) => s"partial analysis for ${res.id}"
-        case PostAnalysisResult.UnusedPartial => s"unused partial analysis"
-      .result
-      .flatMap:
-        case r @ PostAnalysisResult.Complete(res) => sink.save(res).inject(r)
-        case r @ PostAnalysisResult.Partial(res) => sink.progress(res).inject(r)
-        case r @ PostAnalysisResult.UnusedPartial => fuccess(r)
+  ): FuRaise[Error, PostAnalysisResult] = for
+    work <- repo.getAnalysis(workId)
+    work <- work.raiseIfNone:
+      Monitor.notFound(workId, client)
+      Error.WorkNotFound
+    _ <- raiseIf(!work.isAcquiredBy(client)):
+      Monitor.notAcquired(work, client)
+      Error.NotAcquired
+    res <- data.completeOrPartial match
+      case complete: CompleteAnalysis =>
+        analysisBuilder(client, work, complete.analysis)
+          .flatMap: analysis =>
+            monitor.analysis(work, client, complete)
+            repo.deleteAnalysis(work).inject(PostAnalysisResult.Complete(analysis))
+          .recoverWith { case e: Exception =>
+            Monitor.failure(work, client, e)
+            repo.updateOrGiveUpAnalysis(work, _.invalid) >> fufail(e)
+          }
+      case partial: PartialAnalysis =>
+        (fuccess(work.game.studyId.isDefined) >>| socketExists(GameId(work.game.id))).flatMap:
+          if _ then
+            analysisBuilder.partial(client, work, partial.analysis).map { analysis =>
+              PostAnalysisResult.Partial(analysis)
+            }
+          else fuccess(PostAnalysisResult.UnusedPartial)
+    res <- res match
+      case r @ PostAnalysisResult.Complete(res) => sink.save(res).inject(r)
+      case r @ PostAnalysisResult.Partial(res) => sink.progress(res).inject(r)
+      case r @ PostAnalysisResult.UnusedPartial => fuccess(r)
+  yield res
 
   def abort(workId: Work.Id, client: Client): Funit =
     workQueue:
@@ -154,18 +142,10 @@ final class FishnetApi(
 
 object FishnetApi:
 
-  import lila.core.lilaism.LilaException
-
   case class Config(offlineMode: Boolean)
 
-  case object WorkNotFound extends LilaException:
-    val message = "The work has disappeared"
-
-  case object GameNotFound extends LilaException:
-    val message = "The game has disappeared"
-
-  case object NotAcquired extends LilaException:
-    val message = "The work was distributed to someone else"
+  enum Error:
+    case WorkNotFound, GameNotFound, NotAcquired
 
   enum PostAnalysisResult:
     case Complete(analysis: lila.analyse.Analysis)

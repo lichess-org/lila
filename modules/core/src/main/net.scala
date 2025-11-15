@@ -61,7 +61,10 @@ object net:
       osVersion: String,
       device: String
   )
-  case class LichessMobileVersion(major: Int, minor: Int)
+  case class LichessMobileVersion(major: Int, minor: Int):
+    def gte(maj: Int, min: Int) =
+      import scala.math.Ordered.orderingToOrdered
+      this >= LichessMobileVersion(maj, min)
   object LichessMobileVersion:
     val zero = LichessMobileVersion(0, 0)
     given Ordering[LichessMobileVersion] with

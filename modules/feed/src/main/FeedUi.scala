@@ -57,7 +57,7 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi)(
             a(cls := "daily-feed__update__day", href := s"${routes.Feed.index(1)}#${update.id}"):
               momentFromNow(update.at)
             ,
-            rawHtml(update.rendered)
+            update.rendered
           )
         ),
       div(cls := "daily-feed__update")(
@@ -122,7 +122,7 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi)(
           href := url
         ),
         tag("title")(up.title),
-        tag("content")(tpe := "html")(convertToAbsoluteHrefs(up.rendered))
+        tag("content")(tpe := "html")(convertToAbsoluteHrefs(up.rendered).value)
       )
 
   private def convertToAbsoluteHrefs(html: Html): Html =
@@ -150,7 +150,7 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi)(
                   )
                 )
               ),
-              div(cls := "daily-feed__update__markup")(rawHtml(update.rendered))
+              div(cls := "daily-feed__update__markup")(update.rendered)
             )
           ),
       pagerNext(ups, np => routes.Feed.index(np).url)
@@ -170,7 +170,7 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi)(
       form3.group(
         form("content"),
         "Content",
-        help = markdownAvailable.some
+        help = markdownIsAvailable.some
       )(form3.textarea(_)(rows := 10)),
       form3.group(form("flair"), "Icon", half = false): field =>
         form3

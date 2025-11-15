@@ -2,9 +2,9 @@
 <resources>
   <string name="gameSetup">Spieleinstellungen</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Einen Freund herausfordern</string>
-  <string name="playAgainstAI">Gegen KI spielen</string>
+  <string name="playAgainstComputer">Gegen den Computer spielen</string>
   <string name="gameMode">Spielmodus</string>
-  <string name="createLobbyGame">Neue Partie erstellen</string>
+  <string name="createLobbyGame" comment="One of three buttons on the home page. Opens the modal to create a game that goes in the lobby.">Neue Partie erstellen</string>
   <string name="youPlayAs">Du spielst als</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Versende diese URL, um jemanden zum Spiel einzuladen</string>
   <string name="gameOver">Partie beendet</string>
@@ -345,7 +345,7 @@
     <item quantity="other">%s laufende Partien</item>
   </plurals>
   <string name="exportGames">Partien exportieren</string>
-  <string name="ratingFilter">Wertungsfilter</string>
+  <string name="ratingFilter">Bewertungsfilter</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Dem Gegner %s Sekunde geben</item>
     <item quantity="other">Dem Gegner %s Sekunden geben</item>
@@ -724,11 +724,11 @@
   <string name="keyNextInaccuracy">Die nächste Ungenauigkeit</string>
   <string name="keyPreviousBranch">Vorherige Verzweigung</string>
   <string name="keyNextBranch">Nächste Verzweigung</string>
-  <string name="toggleVariationArrows">Variantenpfeile ein-/auschalten</string>
+  <string name="toggleVariationArrows">Varianten-Pfeile ein-/auschalten</string>
   <string name="cyclePreviousOrNextVariation">Durch vorherige/nächste Variante schalten</string>
   <string name="toggleGlyphAnnotations">Schalten der Zeichen-Anmerkungen</string>
   <string name="togglePositionAnnotations">Positionsanmerkungen umschalten</string>
-  <string name="variationArrowsInfo">Mit Variantenpfeilen navigierst du durch die Zugliste.</string>
+  <string name="variationArrowsInfo">Mit Varianten-Pfeilen navigierst du durch die Zugliste.</string>
   <string name="playSelectedMove">den ausgewählten Zug ausführen</string>
   <string name="newTournament">Neues Turnier</string>
   <string name="tournamentHomeTitle">Schachturnier mit verschiedenen Zeitkontrollen und Schachvarianten</string>
@@ -929,7 +929,7 @@
   <string name="toRequestSupport">Um Hilfe zu erhalten, %1$s</string>
   <string name="tryTheContactPage">probiere die Kontaktseite aus</string>
   <string name="makeSureToRead">Bitte lies unbedingt: %1$s</string>
-  <string name="theForumEtiquette">die Forumsetikette</string>
+  <string name="theForumEtiquette">Die Forums-Etikette</string>
   <string name="thisTopicIsArchived">Dieses Thema wurde archiviert und kann nicht mehr beantwortet werden.</string>
   <string name="joinTheTeamXToPost">Tritt %1$s bei, um in diesem Forum schreiben zu können</string>
   <string name="teamNamedX">%1$s Team</string>
@@ -946,7 +946,7 @@
   <string name="congratsYouWon">Glückwunsch, du hast gewonnen!</string>
   <string name="gameVsX">Partie gegen %1$s</string>
   <string name="resVsX">%1$s gegen %2$s</string>
-  <string name="lostAgainstTOSViolator">Du hast Elo an jemanden verloren, der gegen die Lichess-AGB verstoßen hat</string>
+  <string name="lostAgainstTOSViolator">Du hast Elo an jemanden verloren, der gegen die Lichess -AGB verstoßen hat</string>
   <string name="refundXpointsTimeControlY">Rückerstattung: %1$s %2$s Wertungspunkte.</string>
   <string name="timeAlmostUp">Deine Zeit ist fast abgelaufen!</string>
   <string name="clickToRevealEmailAddress">[Klicke, um die E-Mail-Adresse anzuzeigen]</string>
@@ -974,7 +974,7 @@ Leer lassen, um Partien von der normalen Ausgangsstellung aus zu starten.</strin
   <string name="simulFeaturedHelp">Zeige allen auf %s deine Simultan-Veranstaltung. Für private Simultan-Veranstaltungen deaktivieren.</string>
   <string name="simulDescription">Simultan Beschreibung</string>
   <string name="simulDescriptionHelp">Möchtest du den Teilnehmern etwas mitteilen?</string>
-  <string name="markdownAvailable">%s ist für erweiterte Formatierung verfügbar.</string>
+  <string name="markdownIsAvailable">%s ist zur Formatierung verfügbar.</string>
   <string name="embedsAvailable">Füge eine Partie-URL oder eine Studienkapitel-URL ein, um sie einzubetten.</string>
   <string name="inYourLocalTimezone">In deiner eigenen lokalen Zeitzone</string>
   <string name="tournChat">Turnierchat</string>

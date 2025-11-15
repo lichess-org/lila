@@ -8,7 +8,6 @@ import lila.core.perf.UserWithPerfs
 import lila.core.perm.Permission
 import lila.mod.ModActivity.{ Period, Who }
 import lila.ui.*
-import lila.ui.bits.modMenu
 
 import lila.report.Mod
 
@@ -47,7 +46,7 @@ final class ModUi(helpers: Helpers):
   ) =
     Page("Mod logs").css("mod.misc"):
       main(cls := "page-menu modMenu")(
-        modMenu("log"),
+        menu("log"),
         div(id := "modlog_table", cls := "page-menu__content box")(
           boxTop(cls := "box__top")(
             h1(mod.fold(frag("All logs"))(of => span("Logs of ", userLink(of.user)))),
@@ -92,7 +91,7 @@ final class ModUi(helpers: Helpers):
                       val shortText = c.text.map(t => frag(" " + shorten(t, 40)))
                       frag(
                         c.url
-                          .map(u => a(href := u, target := "_blank")(shortText | frag(" " + u).some))
+                          .map(u => a(href := u, targetBlank)(shortText | frag(" " + u).some))
                           .orElse(shortText),
                         c.id.map(id => frag(s" #$id "))
                       )
@@ -153,7 +152,7 @@ final class ModUi(helpers: Helpers):
   def presets(group: String, form: Form[?])(using Context) =
     Page(s"$group presets").css("mod.misc", "bits.form3"):
       main(cls := "page-menu modMenu")(
-        modMenu("presets"),
+        menu("presets"),
         div(cls := "page-menu__content box box-pad mod-presets")(
           boxTop(
             h1(
@@ -187,7 +186,7 @@ final class ModUi(helpers: Helpers):
       .css("mod.misc")
       .js(Esm("mod.emailConfirmation")):
         main(cls := "page-menu modMenu")(
-          modMenu("email"),
+          menu("email"),
           div(cls := "mod-confirm page-menu__content box box-pad")(
             h1(cls := "box__top")("Confirm a user email"),
             p(
@@ -239,7 +238,7 @@ final class ModUi(helpers: Helpers):
       .css("mod.activity")
       .js(PageModule("mod.activity", Json.obj("op" -> "queues", "data" -> p.json))):
         main(cls := "page-menu modMenu")(
-          modMenu("queues"),
+          menu("queues"),
           div(cls := "page-menu__content index box mod-queues")(
             boxTop(
               h1(
@@ -288,7 +287,7 @@ final class ModUi(helpers: Helpers):
       .css("mod.activity")
       .js(PageModule("mod.activity", Json.obj("op" -> "activity", "data" -> ModActivity.json(p)))):
         main(cls := "page-menu")(
-          modMenu("activity"),
+          menu("activity"),
           div(cls := "page-menu__content index box mod-activity")(
             boxTop(h1(whoSelector, " activity this ", periodSelector)),
             div(cls := "chart chart-reports"),
@@ -296,7 +295,47 @@ final class ModUi(helpers: Helpers):
           )
         )
 
-  def reportMenu(using Context) = modMenu("report")
+  def reportMenu(using Context) = menu("report")
+
+  def menu(active: String)(using ctx: Context): Frag = ctx.me.foldUse(emptyFrag): me ?=>
+    bits.pageMenuSubnav(
+      Granter(_.SeeReport)
+        .option(a(cls := itemCls(active, "report"), href := routes.Report.list)("Reports")),
+      Granter(_.PublicChatView)
+        .option(a(cls := itemCls(active, "public-chat"), href := routes.Mod.publicChat)("Public Chats")),
+      Granter(_.GamifyView)
+        .option(a(cls := itemCls(active, "activity"), href := routes.Mod.activity)("Mod activity")),
+      Granter(_.GamifyView)
+        .option(a(cls := itemCls(active, "queues"), href := routes.Mod.queues("month"))("Queues stats")),
+      Granter(_.GamifyView)
+        .option(a(cls := itemCls(active, "gamify"), href := routes.Mod.gamify)("Hall of fame")),
+      Granter(_.GamifyView)
+        .option(a(cls := itemCls(active, "log"), href := routes.Mod.log(me.username.some))("Mod logs")),
+      Granter(_.UserSearch)
+        .option(a(cls := itemCls(active, "search"), href := routes.Mod.search)("Search users")),
+      Granter(_.Admin).option(a(cls := itemCls(active, "notes"), href := routes.Mod.notes())("Mod notes")),
+      Granter(_.SetEmail)
+        .option(a(cls := itemCls(active, "email"), href := routes.Mod.emailConfirm)("Email confirm")),
+      Granter(_.Pages).option(a(cls := itemCls(active, "cms"), href := routes.Cms.index)("Pages")),
+      Granter(_.ManageTournament)
+        .option(a(cls := itemCls(active, "tour"), href := routes.TournamentCrud.index(1))("Tournaments")),
+      Granter(_.ManageEvent)
+        .option(a(cls := itemCls(active, "event"), href := routes.Event.manager)("Events")),
+      Granter(_.ModerateBlog)
+        .option(a(cls := itemCls(active, "carousel"), href := routes.Ublog.modShowCarousel)("Blog carousel")),
+      Granter(_.MarkEngine)
+        .option(a(cls := itemCls(active, "irwin"), href := routes.Irwin.dashboard)("Irwin dashboard")),
+      Granter(_.MarkEngine)
+        .option(a(cls := itemCls(active, "kaladin"), href := routes.Irwin.kaladin)("Kaladin dashboard")),
+      Granter(_.Admin).option(a(cls := itemCls(active, "mods"), href := routes.Mod.table)("Mods")),
+      Granter(_.Presets)
+        .option(a(cls := itemCls(active, "presets"), href := routes.Mod.presets("PM"))("Msg presets")),
+      Granter(_.Settings)
+        .option(a(cls := itemCls(active, "setting"), href := routes.Dev.settings)("Settings")),
+      Granter(_.Cli).option(a(cls := itemCls(active, "cli"), href := routes.Dev.cli)("CLI"))
+    )
+
+  private def itemCls(active: String, item: String) = if active == item then "active" else ""
 
   def modUserSearchResult(r: ModUserSearchResult) =
     div(cls := "box__pad")(

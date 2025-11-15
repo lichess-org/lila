@@ -10,6 +10,7 @@ import lila.core.msg.MsgApi
 import lila.core.playban.RageSit as RageSitCounter
 import lila.db.dsl.{ *, given }
 import scalalib.cache.OnceEvery
+import scalalib.model.Seconds
 
 final class PlaybanApi(
     coll: Coll,
@@ -72,7 +73,7 @@ final class PlaybanApi(
 
   def flag(game: Game, flaggerColor: Color): Funit =
 
-    def unreasonableTime =
+    def unreasonableTime = Seconds.from:
       game.clock.map: c =>
         (c.estimateTotalSeconds / 10).atLeast(30).atMost(3 * 60)
 
@@ -80,7 +81,7 @@ final class PlaybanApi(
     def sitting: Option[Funit] =
       for
         userId <- game.player(flaggerColor).userId
-        seconds = nowSeconds - game.movedAt.toSeconds
+        seconds = Seconds(nowSeconds - game.movedAt.toSeconds)
         if unreasonableTime.exists(seconds >= _)
       yield for
         _ <- save(Outcome.Sitting, userId, RageSit.imbalanceInc(game, flaggerColor), game.source)

@@ -96,7 +96,7 @@ final class StudyPager(
       page: Int,
       nbResults: Option[Fu[Int]] = none,
       hint: Option[Bdoc] = none
-  )(using me: Option[Me]): Fu[Paginator[Study.WithChaptersAndLiked]] = studyRepo.coll: coll =>
+  )(using Option[Me]): Fu[Paginator[Study.WithChaptersAndLiked]] = studyRepo.coll: coll =>
     val adapter = Adapter[Study](
       collection = coll,
       selector = selector,
@@ -110,6 +110,8 @@ final class StudyPager(
         case Order.alphabetical => $sort.asc("name")
         // mine filter for topic view
         case Order.mine => $sort.desc("rank")
+        // relevant not used here
+        case Order.relevant => $sort.desc("rank")
       ,
       hint = hint
     ).mapFutureList(withChaptersAndLiking())
@@ -129,11 +131,9 @@ final class StudyPager(
       studies: Seq[Study],
       nbChaptersPerStudy: Int
   ): Fu[Seq[Study.WithChapters]] =
-    chapterRepo.idNamesByStudyIds(studies.map(_.id), nbChaptersPerStudy).map { chapters =>
-      studies.map { study =>
-        Study.WithChapters(study, (chapters.get(study.id)).so(_.map(_.name)))
-      }
-    }
+    for chapters <- chapterRepo.idNamesByStudyIds(studies.map(_.id), nbChaptersPerStudy)
+    yield studies.map: study =>
+      Study.WithChapters(study, chapters.get(study.id).so(_.map(_.name)))
 
   private def withLiking(
       studies: Seq[Study.WithChapters]
@@ -148,9 +148,10 @@ final class StudyPager(
 object Orders:
   import lila.core.study.Order
   val default = Order.hot
-  val list = Order.values.toList
+  val list = Order.all.filter(_ != Order.relevant)
   val withoutMine = list.filterNot(_ == Order.mine)
   val withoutSelector = withoutMine.filter(o => o != Order.oldest && o != Order.alphabetical)
+  val search = List(Order.hot, Order.newest, Order.popular, Order.alphabetical, Order.relevant)
   private val byKey = list.mapBy(_.toString)
   def apply(key: String): Order = byKey.getOrElse(key, default)
   val name: Order => I18nKey =
@@ -161,3 +162,4 @@ object Orders:
     case Order.popular => I18nKey.study.mostPopular
     case Order.alphabetical => I18nKey.study.alphabetical
     case Order.mine => I18nKey.study.myStudies
+    case Order.relevant => I18nKey.study.relevant

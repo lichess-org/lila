@@ -13,8 +13,10 @@ final class JsBotUi(helpers: Helpers):
   def play(
       bots: List[BotJson],
       prefs: JsObject
-  ): Page =
-    val data = Json.obj("pref" -> prefs, "bots" -> bots)
+  )(using Option[Me]): Page =
+    val data = Json
+      .obj("pref" -> prefs, "bots" -> bots)
+      .add("devBots" -> Option.when(Granter.opt(_.BotEditor))(lila.jsBot.devBotKeys))
     Page("Lichess bots")
       .css("botPlay")
       .js(PageModule("botPlay.main", data))
@@ -23,18 +25,6 @@ final class JsBotUi(helpers: Helpers):
       .csp(_.withWebAssembly)
       .flag(_.zoom):
         main(cls := "bot-play")
-
-  // def testPlay(prefJson: JsObject)(using ctx: Context): Page =
-  //   Page("Lichess bots")
-  //     .css("botDev")
-  //     .css("round")
-  //     .css(ctx.pref.hasKeyboardMove.option("keyboardMove"))
-  //     .css(ctx.pref.hasVoice.option("voice"))
-  //     .js(lila.ui.PageModule("botDev.user", Json.obj("pref" -> prefJson)))
-  //     .js(lila.ui.Esm("round"))
-  //     .flag(_.playing)
-  //     .csp(_.withWebAssembly)
-  //     .flag(_.zoom)(main)
 
   def dev(
       bots: List[BotJson],

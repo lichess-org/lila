@@ -1,4 +1,6 @@
-import { Status } from './status';
+/* eslint no-restricted-syntax:"error" */ // no side effects allowed due to re-export by index.ts
+
+import type { Status } from './status';
 
 export interface GameData {
   game: Game;
@@ -39,8 +41,6 @@ export interface Game {
 export declare type GameRule = 'noAbort' | 'noRematch' | 'noGiveTime' | 'noClaimWin';
 
 export type TopOrBottom = 'top' | 'bottom';
-
-export * from './status';
 
 export interface Player {
   id: string;
@@ -124,6 +124,7 @@ export interface PlayerUser {
   online: boolean;
   username: string;
   patron?: boolean;
+  patronColor?: PatronColor;
   title?: string;
   flair?: Flair;
   perfs: {

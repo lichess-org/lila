@@ -57,7 +57,6 @@ Spillere som ikke bryder sig om at modtage dine beskeder forlader måske holdet.
   <string name="completedTourns">Afsluttede turneringer</string>
   <string name="declinedRequests">Afviste anmodninger</string>
   <string name="joinLichessVariantTeam">Meld dig til det officielle %s hold for nyheder og begivenheder</string>
-  <string name="teamPage">Holdside</string>
   <string name="thisTeamBattleIsOver">Turneringen er slut, og holdene kan ikke længere opdateres.</string>
   <string name="listTheTeamsThatWillCompete">Oplist de hold, der skal konkurrere i denne kamp.</string>
   <string name="oneTeamPerLine">Et hold pr. linje. Brug den automatiske udfyldning.</string>

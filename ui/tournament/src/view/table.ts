@@ -1,11 +1,11 @@
 import { opposite } from '@lichess-org/chessground/util';
 import * as licon from 'lib/licon';
-import { type VNode, bind, onInsert, hl } from 'lib/snabbdom';
+import { type VNode, bind, onInsert, hl } from 'lib/view';
 import { player as renderPlayer } from './util';
 import type { Duel, DuelPlayer, FeaturedGame, TournamentOpts } from '../interfaces';
 import { teamName } from './battle';
 import type TournamentController from '../ctrl';
-import { initMiniGames } from 'lib/view/miniBoard';
+import { initMiniGames } from 'lib/view';
 
 function featuredPlayer(game: FeaturedGame, color: Color, opts: TournamentOpts) {
   const player = game[color];
@@ -13,7 +13,7 @@ function featuredPlayer(game: FeaturedGame, color: Color, opts: TournamentOpts) 
     hl('span.mini-game__user', [
       hl('strong', '#' + player.rank),
       renderPlayer(player, true, opts.showRatings, false),
-      player.berserk && hl('i', { attrs: { 'data-icon': licon.Berserk, title: 'Berserk' } }),
+      player.berserk && hl('i.berserk', { attrs: { 'data-icon': licon.Berserk, title: 'Berserk' } }),
     ]),
     game.c
       ? hl(`span.mini-game__clock.mini-game__clock--${color}`, {
@@ -53,7 +53,10 @@ function renderDuel(ctrl: TournamentController) {
         duelTeams &&
         hl(
           'line.t',
-          [0, 1].map(i => teamName(battle, duelTeams[d.p[i].n.toLowerCase()])),
+          d.p.map(p => {
+            const teamId = duelTeams[p.n.toLowerCase()];
+            return teamId && teamName(battle, teamId);
+          }),
         ),
       hl('line.a', [hl('strong', d.p[0].n), hl('span', duelPlayerMeta(d.p[1], ctrl).reverse())]),
       hl('line.b', [hl('span', duelPlayerMeta(d.p[0], ctrl)), hl('strong', d.p[1].n)]),

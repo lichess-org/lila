@@ -57,7 +57,6 @@ Spillere som ikke liker å motta meldinger fra deg, kan komme til å forlate lag
   <string name="completedTourns">Fullførte turneringer</string>
   <string name="declinedRequests">Avslåtte ønsker</string>
   <string name="joinLichessVariantTeam">Bli med i det offisielle laget for %s for nyheter og hendelser</string>
-  <string name="teamPage">Lagside</string>
   <string name="thisTeamBattleIsOver">Turneringen er avsluttet, og lagene kan ikke oppdateres lenger.</string>
   <string name="listTheTeamsThatWillCompete">List opp lagene som deltar i denne kampen.</string>
   <string name="oneTeamPerLine">Ett lag per linje. Bruk autofullføring.</string>

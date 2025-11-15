@@ -62,7 +62,7 @@ final class PuzzleBits(helpers: Helpers):
     title := trans.puzzle.clickToSolve.txt()
   )(
     span(cls := "text")(trans.puzzle.puzzleOfTheDay()),
-    rawHtml(daily.html),
+    daily.html,
     span(cls := "text")(daily.puzzle.color.fold(trans.site.whitePlays(), trans.site.blackPlays()))
   )
 

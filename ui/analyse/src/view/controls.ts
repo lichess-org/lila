@@ -1,13 +1,12 @@
-import { renderEval, view as cevalView } from 'lib/ceval/ceval';
-import { repeater } from 'lib';
+import { renderEval, view as cevalView } from 'lib/ceval';
+import { repeater, myUserId } from 'lib';
 import * as licon from 'lib/licon';
-import { type VNode, type LooseVNode, onInsert, hl } from 'lib/snabbdom';
+import { type VNode, type LooseVNode, onInsert, hl } from 'lib/view';
 import { displayColumns, isTouchDevice } from 'lib/device';
 import { addPointerListeners } from 'lib/pointer';
 import * as control from '../control';
 import type AnalyseCtrl from '../ctrl';
-import { domDialog } from 'lib/view/dialog';
-import { myUserId } from 'lib/common';
+import { domDialog } from 'lib/view';
 
 type Action =
   | 'first'
@@ -99,7 +98,7 @@ function renderPracticeTab(ctrl: AnalyseCtrl): LooseVNode {
 
 function renderMobileCevalTab(ctrl: AnalyseCtrl): LooseVNode {
   const engineMode = ctrl.activeControlMode() || 'ceval',
-    ev = ctrl.node.ceval ?? (ctrl.showFishnetAnalysis() ? ctrl.node.eval : undefined),
+    ev = ctrl.allowedEval() || undefined,
     evalstr = ev?.cp !== undefined ? renderEval(ev.cp) : ev?.mate ? '#' + ev.mate : '',
     active = ctrl.activeControlMode() && !ctrl.activeControlBarTool(),
     latent = ctrl.activeControlMode() && !!ctrl.activeControlBarTool();

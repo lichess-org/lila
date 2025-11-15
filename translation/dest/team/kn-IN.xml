@@ -54,7 +54,6 @@
   <string name="completedTourns">ಪಂದ್ಯಾವಳಿಗಳನ್ನು ಪೂರ್ಣಗೊಳಿಸಿದೆ</string>
   <string name="declinedRequests">ನಿರಾಕರಿಸಿದ ವಿನಂತಿಗಳು</string>
   <string name="joinLichessVariantTeam">ಸುದ್ದಿ ಮತ್ತು ಈವೆಂಟ್‌ಗಳಿಗಾಗಿ ಅಧಿಕೃತ %s ತಂಡವನ್ನು ಸೇರಿ</string>
-  <string name="teamPage">ತಂಡದ ಪುಟ</string>
   <string name="thisTeamBattleIsOver">ಈ ಪಂದ್ಯಾವಳಿ ಮುಗಿದಿದೆ ಮತ್ತು ತಂಡಗಳನ್ನು ಇನ್ನು ಮುಂದೆ ನವೀಕರಿಸಲಾಗುವುದಿಲ್ಲ.</string>
   <string name="listTheTeamsThatWillCompete">ಈ ಯುದ್ಧದಲ್ಲಿ ಸ್ಪರ್ಧಿಸುವ ತಂಡಗಳನ್ನು ಪಟ್ಟಿ ಮಾಡಿ.</string>
   <string name="oneTeamPerLine">ಪ್ರತಿ ಸಾಲಿಗೆ ಒಂದು ತಂಡ. ಸ್ವಯಂ ಪೂರ್ಣಗೊಳಿಸುವಿಕೆಯನ್ನು ಬಳಸಿ.</string>

@@ -10,7 +10,7 @@
   <string name="instructions6">%s esplica refechamente la configuración de movimientu de voz.</string>
   <string name="thisBlogPost">Esta entrada de blog</string>
   <string name="moveToE4OrSelectE4Piece">Mover a e4 o escoyer la pieza en e4</string>
-  <string name="selectOrCaptureABishop">Escoyer o prindar un alfil</string>
+  <string name="selectOrCaptureABishop">Escoyer o tomar un alfil</string>
   <string name="takeRookWithQueen">Prindar la torre cola dama</string>
   <string name="castle" comment="Castle is used as a verb here, referring to castling.">Enroque (cualquier lado)</string>
   <string name="phoneticAlphabetIsBest">L\'alfabetu fonéticu ye meyor</string>

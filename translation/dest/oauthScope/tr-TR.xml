@@ -8,47 +8,46 @@
   <string name="whatTheTokenCanDo">Jeton senin adına neler yapabilir:</string>
   <string name="doNotShareIt">Jeton, hesabınıza erişim sağlayacaktır. Kimseyle PAYLAŞMAYIN!</string>
   <string name="copyTokenNow">Yeni kişisel erişim jetonunuzu şimdi kopyaladığınızdan emin olun. Bir daha göremeyeceksin!</string>
-  <string name="preferenceRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's preferences.&#10;&#10;There is a separate setting to let applications write (edit) preferences.">Oyun tercihleri ​​oku</string>
-  <string name="preferenceWrite" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to edit/change the user's preferences.&#10;&#10;There is a separate setting to let applications only read preferences, but not to write (edit) them.">Oyun tercihlerini değiştir</string>
-  <string name="emailRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's registered email address.">E-posta adresini oku</string>
-  <string name="challengeRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view game challenges from other players.&#10;&#10;There is a separate setting to let applications send, accept or reject challenges.">Gelen oyun tekliflerini oku</string>
-  <string name="challengeWrite" comment="challengeWrite&#10;&#10;In the context of an authentication token, a setting that permits third party software to send, accept and reject challenges on behalf of the player.">Maç teklifleri gönder, kabul et veya reddet</string>
+  <string name="preferenceRead">Oyun tercihleri ​​oku</string>
+  <string name="preferenceWrite">Oyun tercihlerini değiştir</string>
+  <string name="emailRead">E-posta adresini oku</string>
+  <string name="challengeRead">Gelen oyun tekliflerini oku</string>
+  <string name="challengeWrite">Maç teklifleri gönder, kabul et veya reddet</string>
   <string name="challengeBulk">Diğer oyuncular için aynı anda birçok oyun oluştur</string>
-  <string name="studyRead" comment="Gives permission to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Özel çalışmaları ve yayınları okuyun</string>
-  <string name="studyWrite" comment="In the context of an access token, a setting that enables third party software to create, update or delete studies and broadcasts.">Çalışmaları ve yayınları oluşturun, güncelleyin, silin</string>
-  <string name="tournamentWrite" comment="In the context of an access token, a setting that permits third party software to create, update or delete studies and join tournaments.">Turnuvalar oluşturun, güncelleyin ve katılın</string>
-  <string name="racerWrite" comment="In the context of an access token, a setting which permits third party software to create, and join puzzle races (this is for the activity/minigame Puzzle Racer: https://lichess.org/racer)">Bulmaca yarışları oluşturun ve katılın</string>
-  <string name="puzzleRead" comment="In the context of an access token, a setting which permits third-party software to view the user's puzzle solving history.">Bulmaca etkinliğini okuyun</string>
-  <string name="teamRead" comment="Gives permission to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Özel ekip bilgilerini okuyun</string>
-  <string name="teamWrite" comment="In the context of an access token, a setting that permits the third party software to join or leave teams on your behalf.">Takımlara katıl ve ayrıl</string>
+  <string name="studyRead">Özel çalışmaları ve yayınları okuyun</string>
+  <string name="studyWrite">Çalışmaları ve yayınları oluşturun, güncelleyin, silin</string>
+  <string name="tournamentWrite">Turnuvalar oluşturun, güncelleyin ve katılın</string>
+  <string name="racerWrite">Bulmaca yarışları oluşturun ve katılın</string>
+  <string name="puzzleRead">Bulmaca etkinliğini okuyun</string>
+  <string name="teamRead">Özel ekip bilgilerini okuyun</string>
+  <string name="teamWrite">Takımlara katıl ve ayrıl</string>
   <string name="teamLead">Liderlik ettiğiniz ekipleri yönetin: PM\'ler gönderin, üyeleri atın</string>
-  <string name="followRead" comment="In the context of an access token, a setting which permits third-party software to view (read) which players you are following.">Takip edilen oyuncuları oku</string>
-  <string name="followWrite" comment="In the context of an access token, a setting which permits third-party software to follow and unfollow other players on your behalf.">Diğer oyuncuları takip edin ve takibi bırakın</string>
-  <string name="msgWrite" comment="In the context of an access token, a setting which permits third-party software to send messages on your behalf.">Diğer oyunculara özel mesajlar gönderin</string>
-  <string name="boardPlay" comment="In the context of an access token, a setting which permits third-party software to play games using e-boards like DGT, through Lichess's board API.">Tahta API\'si ile oyunlar oynayın</string>
-  <string name="botPlay" comment="In the context of an access token, a setting which permits third-party software to play games over the bot API. This is intended mainly for having an engine account e.g. the accounts featured on https://lichess.org/player/bots">Bot API\'si ile oyunlar oynayın</string>
+  <string name="followRead">Takip edilen oyuncuları oku</string>
+  <string name="followWrite">Diğer oyuncuları takip edin ve takibi bırakın</string>
+  <string name="msgWrite">Diğer oyunculara özel mesajlar gönderin</string>
+  <string name="boardPlay">Tahta API\'si ile oyunlar oynayın</string>
+  <string name="botPlay">Bot API\'si ile oyunlar oynayın</string>
   <string name="engineRead">Harici motorlarınızı görüntüleyin ve kullanın</string>
   <string name="engineWrite">Harici motorlar oluşturun ve güncelleyin</string>
-  <string name="webLogin" comment="In the context of an access token, a setting which permits third-party software to create authenticated sessions - meaning effectively unlimited access to your account, using it as if it is you, instead of a third party program. It will be unable to view your password but it will be able to do almost everything else.">Kimliği doğrulanmış web sitesi oturumları oluşturun (tam erişim sağlar!)</string>
-  <string name="webMod" comment="In the context of an access token, this is a setting which permits third-party software to use moderator tools on your behalf. Most players will not be able to see this option.">Moderatör araçlarını kullanın (izniniz dahilinde)</string>
+  <string name="webLogin">Kimliği doğrulanmış web sitesi oturumları oluşturun (tam erişim sağlar!)</string>
+  <string name="webMod">Moderatör araçlarını kullanın (izniniz dahilinde)</string>
   <string name="personalAccessTokens">Kişisel API erişim jetonları</string>
-  <string name="canMakeOauthRequests" comment="%s is 'authorisation code flow' (flow, as in a process).">OAuth isteklerini %s üzerinden geçmeden yapabilirsiniz.</string>
-  <string name="authorizationCodeFlow" comment="Part of longer string canMakeOauthRequests:&#10;You can make OAuth requests without going through the authorisation code flow.&#10;&#10;This text is also a link which directs to https://lichess.org/api#section/Introduction/Authentication.&#10;&#10;In this context, 'flow' means a process. Technical information explaining this concept here: https://oauth.net/2/grant-types/authorization-code/ - its formal name is &quot;authorisation code grant type&quot;.&#10;&#10;If you are not comfortable in translating this, we recommend leaving it untranslated.">yetkilendirme kodu akışı</string>
-  <string name="insteadGenerateToken" comment="%s is 'generate a personal access token'.">Bunun yerine, API isteklerinde doğrudan kullanabileceğiniz %s.</string>
-  <string name="generatePersonalToken" comment="Part of longer string insteadGenerateToken:&#10;'Instead, generate a personal access token you can directly use in API requests.'&#10;&#10;It is a link, which links to https://lichess.org/account/oauth/token/create and appears after you have created at least one token.">kişisel erişim jetonu oluşturun</string>
+  <string name="canMakeOauthRequests">OAuth isteklerini %s üzerinden geçmeden yapabilirsiniz.</string>
+  <string name="authorizationCodeFlow">yetkilendirme kodu akışı</string>
+  <string name="insteadGenerateToken" comment="The parameter is a link to generate a token a personal access token">Bunun yerine, API isteklerinde doğrudan kullanabileceğiniz %s.</string>
+  <string name="generatePersonalToken">kişisel erişim jetonu oluşturun</string>
   <string name="guardTokensCarefully">Bu jetonları dikkatlice koruyun! Bunlar şifreler gibidir. Bir kod bloğunda şifrenizi kullanmak yerine jetonları kullanmanın avantajı, jetonların iptal edilebilmesi ve çok sayıda jeton oluşturabilmenizdir.</string>
-  <string name="apiDocumentationLinks" comment="%1$s links to a personal token app example (string: personalTokenAppExample).&#10;&#10;%2$s links to the API documentation (string: apiDocumentation).&#10;&#10;Full sentence after %1$s and %2$s have been substituted:&#10;&quot;Here's a personal app token example and the API documentation.&quot;&#10;&#10;personalTokenAppExample and apiDocumentation can both be translated separately.">İşte bir %1$s ve %2$s.</string>
-  <string name="personalTokenAppExample" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'&#10;&#10;This text is also a link which directs to https://github.com/lichess-org/api/tree/master/example/oauth-personal-token.">kişisel jeton uygulama örneği</string>
-  <string name="apiDocumentation" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'&#10;&#10;This text is also a link which directs to https://lichess.org/api.">API dökümantasyonu</string>
+  <string name="apiDocumentationLinks" comment="The first parameter links to a personal token app example. The second parameter links to the API documentation">İşte bir %1$s ve %2$s.</string>
+  <string name="personalTokenAppExample">kişisel jeton uygulama örneği</string>
+  <string name="apiDocumentation">API dökümantasyonu</string>
   <string name="newToken">Yeni erişim jetonu</string>
   <string name="apiAccessTokens">API erişim jetonları</string>
-  <string name="created" comment="%s is relative time, e.g. 2 hours ago.">Oluşturuldu: %s</string>
-  <string name="lastUsed" comment="%s is relative time, e.g. 2 hours ago. 'Last used' in this context means 'You used this most recently %s time ago'.">Son kullanım: %s</string>
+  <string name="created">Oluşturuldu: %s</string>
+  <string name="lastUsed">Son kullanım: %s</string>
   <string name="alreadyHavePlayedGames">Zaten oyun oynadınız!</string>
   <string name="attentionOfDevelopers">Sadece geliştiriciler için not:</string>
   <string name="possibleToPrefill">Bu formu, URL\'nin sorgu parametrelerini değiştirerek önceden doldurmak mümkündür.</string>
-  <string name="forExample" comment="%s is an example URL.&#10;&#10;Please note the sentence continues on the next line. The complete sentence is:&#10;'For example: https://lichess.org/account/oauth/token/create?scopes[]=challenge:write&amp;scopes[]=puzzle:read&amp;description=Prefilled+token+example&#10;ticks the challenge:create and puzzle:read scopes, and sets the token description.'">Örnek olarak: %s</string>
-  <string name="ticksTheScopes" comment="Part of a longer sentence, this is the second line:&#10;&#10;'For example: https://lichess.org/account/oauth/token/create?scopes[]=challenge:write&amp;scopes[]=puzzle:read&amp;description=Prefilled+token+example&#10;ticks the challenge:create and puzzle:read scopes, and sets the token description.'&#10;&#10;%1$s is 'challenge:create', %2$s is 'puzzle:read' which are both used as technical examples. These should not be translated which is why they are included as substituted strings.">%1$s ve %2$s kapsamlarını işaretler ve belirteç açıklamasını ayarlar.</string>
-  <string name="scopesCanBeFound" comment="scopesCanBeFound&#10;&#10;For this page in particular, developers can link to it so that some options are pre-ticked when a user follows the URL.&#10;&#10;To pre-tick those options, developers need the scope codes, which they can find by inspecting the source code of the page itself.">Kapsam kodları formun HTML kodunda bulunabilir.</string>
+  <string name="forExample">Örnek olarak: %s</string>
+  <string name="ticksTheScopes">%1$s ve %2$s kapsamlarını işaretler ve belirteç açıklamasını ayarlar.</string>
   <string name="givingPrefilledUrls">Kullanıcılarınıza bu önceden doldurulmuş URL\'leri vermek, doğru belirteç kapsamlarını elde etmelerine yardımcı olacaktır.</string>
 </resources>

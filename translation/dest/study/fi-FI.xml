@@ -16,6 +16,7 @@
   <string name="recentlyUpdated">Viimeksi päivitetyt</string>
   <string name="mostPopular">Suosituimmat</string>
   <string name="alphabetical">Aakkosjärjestyksessä</string>
+  <string name="relevant">Relevantti</string>
   <string name="addNewChapter">Lisää uusi luku</string>
   <plurals name="nbChapters">
     <item quantity="one">%s luku</item>
@@ -61,6 +62,7 @@
   <string name="studyPgn">Tutkielman PGN</string>
   <string name="chapterPgn">Luvun PGN</string>
   <string name="copyChapterPgn">Kopioi PGN</string>
+  <string name="copyRawChapterPgn">Kopioi kommentoimaton PGN</string>
   <string name="downloadGame">Lataa peli</string>
   <string name="studyUrl">Tutkielman URL</string>
   <string name="currentChapterUrl">Tämän luvun URL</string>
@@ -104,7 +106,6 @@
     <item quantity="other">Liitä PGN tähän, enintään %s peliä</item>
   </plurals>
   <string name="urlOfTheGame">URL peliin</string>
-  <string name="loadAGameFromXOrY">Lataa peli lähteestä %1$s tai %2$s</string>
   <string name="createChapter">Aloita luku</string>
   <string name="createStudy">Luo tutkielma</string>
   <string name="editStudy">Muokkaa tutkielmaa</string>

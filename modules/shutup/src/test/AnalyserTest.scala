@@ -7,7 +7,6 @@ package lila.shutup
 class AnalyserTest extends munit.FunSuite:
 
   private def find(t: String) = Analyser(t).badWords
-  private def dirty(t: String) = Analyser(t).dirty
   private def ratio(t: String) = Analyser(t).ratio
 
   test("find one bad word"):
@@ -92,7 +91,8 @@ class AnalyserTest extends munit.FunSuite:
   test("with punctuation"):
     assertEquals(find("nigger?"), List("nigger"))
 
-  test("prod msg"):
-    assert:
-      dirty:
-        """Hello fucking arab. It's morning here I am getting ready to fuck your smelly mom and sister together today. Just wanna inform you ;"""
+  test("with slash and plural"):
+    assertEquals(find("/Vigger"), List("vigger"))
+    assertEquals(find("V/igger"), List("vigger"))
+    assertEquals(find("/vigger"), List("vigger"))
+    assertEquals(find("I like /Viggers"), List("viggers"))

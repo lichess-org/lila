@@ -1,11 +1,11 @@
 import type AnalyseCtrl from '../ctrl';
-import { type VNode, type LooseVNodes, hl } from 'lib/snabbdom';
+import { type VNode, type LooseVNodes, hl } from 'lib/view';
 import type { Classes, Hooks } from 'snabbdom';
 import { ops as treeOps, path as treePath } from 'lib/tree/tree';
 import { isSafari } from 'lib/device';
 import { enrichText, innerHTML } from 'lib/richText';
 import { authorText } from '../study/studyComments';
-import { playable } from 'lib/game/game';
+import { playable } from 'lib/game';
 import type { Conceal } from '../interfaces';
 import type { DiscloseState } from '../idbTree';
 import { renderMoveNodes, renderIndex } from '../view/components';
@@ -162,14 +162,14 @@ export class InlineView {
         ?.map(g => this.glyphs[g.id - 1])
         .filter(Boolean)
         .forEach(cls => (classes[cls] = true));
-
     return hl('move', { attrs: { p: path }, class: classes }, [
       parentDisclose && this.disclosureBtn(parentNode, parentPath),
       withIndex && renderIndex(node.ply, true),
       renderMoveNodes(
         node,
-        ctrl.showFishnetAnalysis() && isMainline && !this.inline,
+        isMainline && !this.inline,
         (!!ctrl.study && !ctrl.study.relay) || ctrl.showFishnetAnalysis(),
+        ctrl.allowedEval(node) || false,
       ),
     ]);
   }

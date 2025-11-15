@@ -257,7 +257,7 @@ final class ClasApi(
         teacher: User
     ): Fu[Student.WithPassword] =
       val email = EmailAddress(s"noreply.class.${clas.id}.${data.username}@lichess.org")
-      val password = Student.password.generate
+      val password = Student.password.generate()
       lila.mon.clas.student.create(teacher.id.value).increment()
       for
         user <- userRepo
@@ -311,7 +311,7 @@ final class ClasApi(
               create(clas, data, teacher)
 
     def resetPassword(s: Student): Fu[ClearPassword] =
-      val password = Student.password.generate
+      val password = Student.password.generate()
       authenticator.setPassword(s.userId, password).inject(password)
 
     def archive(sId: StudentId, v: Boolean)(using me: Me): Fu[Option[Student]] =

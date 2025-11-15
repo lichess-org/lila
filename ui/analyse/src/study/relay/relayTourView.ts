@@ -1,23 +1,30 @@
-import type AnalyseCtrl from '../../ctrl';
+import type AnalyseCtrl from '@/ctrl';
 import RelayCtrl, { type RelayTab } from './relayCtrl';
 import * as licon from 'lib/licon';
-import { bind, dataIcon, onInsert, hl, type LooseVNode } from 'lib/snabbdom';
+import { bind, dataIcon, onInsert, hl, type LooseVNode } from 'lib/view';
 import type { VNode } from 'snabbdom';
 import { innerHTML, richHTML } from 'lib/richText';
-import type { RelayData, RelayGroup, RelayRound, RelayTourDates, RelayTourInfo } from './interfaces';
+import type {
+  RelayData,
+  RelayGroup,
+  RelayRound,
+  RelayTourDates,
+  RelayTourInfo,
+  RelayTourPreview,
+} from './interfaces';
 import { view as multiBoardView } from '../multiBoard';
 import { defined, memoize } from 'lib';
 import type StudyCtrl from '../studyCtrl';
-import { toggle, copyMeInput } from 'lib/view/controls';
+import { toggle, copyMeInput } from 'lib/view';
 import { text as xhrText } from 'lib/xhr';
 import { teamsView } from './relayTeams';
 import { statsView } from './relayStats';
-import { type RelayViewContext } from '../../view/components';
+import { type RelayViewContext } from '@/view/components';
 import { gamesList } from './relayGames';
 import { renderStreamerMenu } from './relayView';
 import { playersView } from './relayPlayers';
 import { gameLinksListener } from '../studyChapters';
-import { baseUrl } from '../../view/util';
+import { baseUrl } from '@/view/util';
 import { commonDateFormat, timeago } from 'lib/i18n';
 import { renderChat } from 'lib/chat/renderChat';
 import { displayColumns, isTouchDevice } from 'lib/device';
@@ -46,7 +53,10 @@ export const tourSide = (ctx: RelayViewContext, kid: LooseVNode) => {
   const { ctrl, study, relay } = ctx;
   const empty = study.chapters.list.looksNew();
   const resizeId =
-    !isTouchDevice() && displayColumns() > (ctx.hasRelayTour ? 1 : 2) && `relayTour/${relay.data.tour.id}`;
+    !ctrl.isEmbed &&
+    !isTouchDevice() &&
+    displayColumns() > (ctx.hasRelayTour ? 1 : 2) &&
+    `relayTour/${relay.data.tour.id}`;
   return hl(
     'aside.relay-tour__side',
     {
@@ -287,16 +297,11 @@ const groupSelect = (ctx: RelayViewContext, group: RelayGroup) => {
                 class: {
                   current: tour.id === ctx.relay.data.tour.id,
                   ['ongoing-tour']: !!tour.live,
+                  ['finished-tour']: !!tour.live,
                 },
                 attrs: { href: ctx.study.embeddablePath(`/broadcast/-/${tour.id}`) },
               },
-              [
-                tour.name,
-                tour.live &&
-                  hl('span.tour-state.ongoing', {
-                    attrs: { ...dataIcon(licon.DiscBig), title: i18n.broadcast.ongoing },
-                  }),
-              ],
+              [tour.name, tourStateIcon(tour, false)],
             ),
           ),
         ),
@@ -304,6 +309,19 @@ const groupSelect = (ctx: RelayViewContext, group: RelayGroup) => {
     ],
   );
 };
+
+const tourStateIcon = (tour: RelayTourPreview, titleAsText: boolean) =>
+  tour.live
+    ? hl('span.tour-state.ongoing', {
+        attrs: { ...dataIcon(licon.DiscBig), title: i18n.broadcast.ongoing },
+      })
+    : tour.active === false
+      ? hl(
+          'span.tour-state.finished',
+          { attrs: { ...dataIcon(licon.Checkmark), title: !titleAsText && i18n.site.finished } },
+          titleAsText && i18n.site.finished,
+        )
+      : undefined;
 
 const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
   const toggle = relay.roundSelectShow;

@@ -2,7 +2,7 @@ package lila.core
 package game
 
 import _root_.chess.Color.White
-import _root_.chess.format.Uci
+import _root_.chess.format.UciDump
 import _root_.chess.format.pgn.SanStr
 import _root_.chess.opening.{ Opening, OpeningDb }
 import _root_.chess.variant.{ Standard, Variant }
@@ -106,10 +106,9 @@ case class Game(
     sans.zipWithIndex.collect:
       case (e, i) if (i % 2) == pivot => e
 
+  // not UCI. Only for lastMove display purposes.
   def lastMoveKeys: Option[String] =
-    history.lastMove.map:
-      case d: Uci.Drop => d.square.key * 2
-      case m: Uci.Move => m.keys
+    history.lastMove.map(UciDump.lastMove(_, variant))
 
   def updatePlayer(color: Color, f: Player => Player) =
     copy(players = players.update(color, f))
@@ -241,7 +240,7 @@ case class Game(
 
   def userIds: List[UserId] = players.flatMap(_.userId)
 
-  def twoUserIds: Option[(UserId, UserId)] = for
+  def twoUserIds: Option[PairOf[UserId]] = for
     w <- whitePlayer.userId
     b <- blackPlayer.userId
     if w != b

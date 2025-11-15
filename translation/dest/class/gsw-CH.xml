@@ -118,6 +118,6 @@ Es wird als horizontali Linie azeigt.</string>
   <string name="xIsAKidAccountWarning">%1$s isch es Chinder Konto, es chann dini Nachricht nöd empfange. Du muesch e Iladigs-URL manuell übermittle: %2$s</string>
   <string name="moveToClass">Gang zu %s</string>
   <string name="moveToAnotherClass">Gang ine anderi Klass</string>
-  <string name="allowMessagingBetweenStudents" comment="An option that a class's teacher can select. Has the extended description &quot;This only applies to the accounts you have created for your students.&quot;">Kontaktustusch zwüsche de Schüeler erlaube</string>
-  <string name="allowMessagingBetweenStudentsDesc" comment="Description for the option &quot;Allow messages between students&quot;.">Das gilt nur für d\'Konte, wo du für dini Schüeler erschtellt häsch.</string>
+  <string name="allowMessagingBetweenStudents">Kontaktustusch zwüsche de Schüeler erlaube</string>
+  <string name="allowMessagingBetweenStudentsDesc">Das gilt nur für d\'Konte, wo du für dini Schüeler erschtellt häsch.</string>
 </resources>

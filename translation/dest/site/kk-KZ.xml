@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="playAgainstComputer">Компьютермен ойнау</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Ойынға біреуді шақыру үшін бұл сілтемені жіберіңіз</string>
   <string name="gameOver">Ойын аяқталды</string>
   <string name="waitingForOpponent">Қарсыласты тосып тұрмыз</string>
@@ -409,7 +410,7 @@
   <string name="pasteTheFenStringHere">FEN мәтінін осы жерге қойыңыз</string>
   <string name="pasteThePgnStringHere">PGN мәтінін осы жерге қойыңыз</string>
   <string name="orUploadPgnFile">Не PGN файлын жүктеп салыңыз</string>
-  <string name="fromPosition">Күйден бастап</string>
+  <string name="fromPosition">Бір күйден бастап</string>
   <string name="continueFromHere">Осы жерден жалғастыру</string>
   <string name="toStudy">Зертхана</string>
   <string name="importGame">Ойынды жүктеп салу</string>
@@ -953,7 +954,6 @@
   <string name="simulFeaturedHelp">Қалың ойынды %s-те баршаға көрсету. Оңаша ойындарда өшірулі.</string>
   <string name="simulDescription">Қалың ойын сипаттамасы</string>
   <string name="simulDescriptionHelp">Қатысушыларға тағы айтар сөзіңіз бар ма?</string>
-  <string name="markdownAvailable">Кеңейтілген синтаксис үшін %s.</string>
   <string name="embedsAvailable">Еңгізу үшін ойынның не зерттеу бөлімінің URL-ын қойыңыз.</string>
   <string name="inYourLocalTimezone">Жергілікті уақыт белдеуіңізде</string>
   <string name="tournChat">Жарыстың сұхбат бөлмесі</string>

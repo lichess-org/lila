@@ -1,9 +1,12 @@
 package lila.core.lilaism
 
+import cats.mtl.Raise
+
 trait CoreExports:
 
   type Fu[A] = Future[A]
   type Funit = Fu[Unit]
+  type FuRaise[E, +A] = Raise[Fu, E] ?=> Fu[A]
   type PairOf[A] = (A, A)
   type Update[A] = A => A
 
@@ -23,5 +26,7 @@ trait CoreExports:
   export cats.syntax.all.*
   export cats.{ Eq, Show }
   export cats.data.NonEmptyList
+
+  export cats.mtl.syntax.raise.*
 
 object Core extends CoreExports

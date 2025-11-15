@@ -69,8 +69,8 @@ final class Env(
   Bus.sub[lila.core.challenge.PositiveEvent]:
     case lila.core.challenge.PositiveEvent.Create(c) =>
       logUnit { pushApi.challengeCreate(c) }
-    case lila.core.challenge.PositiveEvent.Accept(c, joinerId) =>
-      logUnit { pushApi.challengeAccept(c, joinerId) }
+    case lila.core.challenge.PositiveEvent.Accept(c, game, joinerId) =>
+      logUnit { pushApi.challengeAccept(c, game, joinerId) }
 
   Bus.sub[lila.core.game.CorresAlarmEvent]: e =>
     logUnit { pushApi.corresAlarm(e.pov) }

@@ -24,8 +24,6 @@ final class Round(
 ) extends LilaController(env)
     with lila.web.TheftPrevention:
 
-  import env.user.flairApi.given
-
   private def renderPlayer(pov: Pov)(using ctx: Context): Fu[Result] =
     pov.game.playableByAi.so(env.fishnet.player(pov.game))
     for
@@ -68,7 +66,7 @@ final class Round(
             for
               data <- env.api.roundApi.player(pov, Preload(users), tour)
               chat <- getPlayerChat(pov.game, none)
-              jsChat <- chat.flatMap(_.game).map(_.chat).traverse(lila.chat.JsonView.asyncLines)
+              jsChat <- chat.flatMap(_.game).map(_.chat).traverse(env.chat.json.asyncLines)
             yield Ok(data.add("chat", jsChat)).noCache
       )
     yield res.enforceCrossSiteIsolation
@@ -190,7 +188,7 @@ final class Round(
                   data <- env.api.roundApi.watcher(pov, users, tour, tv = none)
                   analysis <- env.analyse.analyser.get(pov.game)
                   chat <- getWatcherChat(pov.game)
-                  jsChat <- chat.map(_.chat).traverse(lila.chat.JsonView.asyncLines)
+                  jsChat <- chat.map(_.chat).traverse(env.chat.json.asyncLines)
                 yield Ok:
                   data
                     .add("chat" -> jsChat)
@@ -238,7 +236,7 @@ final class Round(
         game.hasChat.so:
           for
             chat <- env.chat.api.playerChat.findIf(game.id.into(ChatId), !game.justCreated)
-            lines <- lila.chat.JsonView.asyncLines(chat)
+            lines <- env.chat.json.asyncLines(chat)
           yield Chat
             .GameOrEvent:
               Left:

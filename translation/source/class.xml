@@ -85,7 +85,7 @@ Here is the link to access the class.</string>
   <string name="students">Students</string>
   <string name="progress">Progress</string>
   <string name="noStudents">No students in the class, yet.</string>
-  <string name="noRemovedStudents">No removed students.</string>
+  <string name="noRemovedStudents">No removed students</string>
   <string name="overDays">Over days</string>
   <string name="timePlaying">Time playing</string>
   <string name="variantXOverLastY">%1$s over last %2$s</string>

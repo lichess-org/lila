@@ -1,7 +1,6 @@
 package lila.app
 package mashup
 
-import com.github.blemale.scaffeine.AsyncLoadingCache
 import play.api.libs.json.*
 
 import lila.core.game.Game
@@ -29,7 +28,7 @@ final class Preload(
     roundProxy: lila.round.GameProxyRepo,
     simulIsFeaturable: SimulIsFeaturable,
     getLastUpdates: lila.feed.Feed.GetLastUpdates,
-    lastPostsCache: AsyncLoadingCache[Unit, List[UblogPost.PreviewPost]],
+    ublogApi: lila.ublog.UblogApi,
     unreadCount: lila.msg.MsgUnreadCount,
     relayListing: lila.relay.RelayListing,
     notifyApi: lila.notify.NotifyApi
@@ -62,7 +61,7 @@ final class Preload(
         ublogPosts
       ),
       lichessMsg
-    ) <- lobbyApi.apply
+    ) <- lobbyApi.get
       .mon(_.lobby.segment("lobbyApi"))
       .zip(tours.mon(_.lobby.segment("tours")))
       .zip(events.mon(_.lobby.segment("events")))
@@ -70,22 +69,19 @@ final class Preload(
       .zip(tv.getBestGame.mon(_.lobby.segment("tvBestGame")))
       .zip((ctx.userId.so(timelineApi.userEntries)).mon(_.lobby.segment("timeline")))
       .zip((ctx.noBot.so(dailyPuzzle())).mon(_.lobby.segment("puzzle")))
-      .zip(
-        ctx.kid.no.so(
+      .zip:
+        ctx.kid.no.so:
           liveStreamApi.all
             .dmap(_.homepage(streamerSpots, ctx.acceptLanguages).withTitles(lightUserApi))
             .mon(_.lobby.segment("streams"))
-        )
-      )
       .zip((ctx.userId.so(playbanApi.currentBan)).mon(_.lobby.segment("playban")))
       .zip(ctx.blind.so(ctx.me).so(roundProxy.urgentGames))
-      .zip(lastPostsCache.get {})
-      .zip(
+      .zip(ublogApi.myCarousel)
+      .zip:
         ctx.userId
           .ifTrue(nbNotifications > 0)
           .filterNot(liveStreamApi.isStreaming)
           .so(unreadCount.hasLichessMsg)
-      )
     (currentGame, _) <- (ctx.me
       .soUse(currentGameMyTurn(povs, lightUserApi.sync)))
       .mon(_.lobby.segment("currentGame"))

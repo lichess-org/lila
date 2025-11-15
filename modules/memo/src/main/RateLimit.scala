@@ -53,14 +53,27 @@ final class RateLimit[K](
   def zero[A](k: K, cost: Cost = 1, msg: => String = "")(op: => A)(using default: Zero[A]): A =
     apply[A](k, default.zero, cost, msg)(op)
 
+  def isLimited(k: K): Option[Instant] =
+    enforce.yes
+      .so(storage.getIfPresent(k))
+      .flatMap:
+        case (a, _) if a < credits => none
+        case (_, clearAt) if nowMillis > clearAt => none
+        case (_, clearAt) =>
+          if log then logger.info(s"$credits/$duration $k")
+          monitor.increment()
+          millisToInstant(clearAt).some
+
 object RateLimit:
 
   type ChargeWith = Cost => Unit
   type Charge = () => Unit
   type Cost = Int
 
-  enum Result:
+  enum LimitResult:
     case Through, Limited
+
+  case class Limited(key: String, msg: String, until: Instant)
 
   trait RateLimiter[K]:
     def apply[A](k: K, default: => A, cost: Cost = 1, msg: => String = "")(op: => A): A
@@ -69,7 +82,7 @@ object RateLimit:
 
   val logger = lila.log("ratelimit")
 
-  def combine[A, B](limitA: RateLimit[A], limitB: RateLimit[B]): RateLimiter[(A, B)] = new:
+  def combine[A, B](limitA: RateLimiter[A], limitB: RateLimiter[B]): RateLimiter[(A, B)] = new:
     def apply[T](k: (A, B), default: => T, cost: Cost = 1, msg: => String = "")(op: => T): T =
       limitA(k._1, default, cost, msg)(limitB(k._2, default, cost, msg)(op))
     def chargeable[T](k: (A, B), default: => T, cost: Cost = 1, msg: => String = "")(op: ChargeWith => T): T =

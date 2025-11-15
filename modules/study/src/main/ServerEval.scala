@@ -5,7 +5,7 @@ import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import play.api.libs.json.*
 
 import lila.core.perm.Granter
-import lila.core.study.GetRelayCrowd
+import lila.core.relay.GetCrowd
 import lila.db.dsl.bsonWriteOpt
 import lila.tree.Node.Comment
 import lila.tree.{ Advice, Analysis, Branch, Info, Node, Root }
@@ -39,8 +39,7 @@ object ServerEval:
                 .UciDump(
                   moves = chapter.root.mainline.map(_.move.san),
                   initialFen = chapter.root.fen.some,
-                  variant = chapter.setup.variant,
-                  force960Notation = true
+                  variant = chapter.setup.variant
                 )
                 .toOption
                 .map(_.flatMap(chess.format.Uci.apply)) | List.empty,
@@ -177,7 +176,7 @@ object ServerEval:
       then fuTrue
       else
         lila.common.Bus
-          .ask[Int, GetRelayCrowd](GetRelayCrowd(studyId, _))
+          .ask[Int, GetCrowd](GetCrowd(studyId, _))
           .map(_ < 5000)
 
     def divisionOf(chapter: Chapter) =

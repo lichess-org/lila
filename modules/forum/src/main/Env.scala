@@ -30,6 +30,7 @@ final class Env(
     userApi: lila.core.user.UserApi,
     teamApi: lila.core.team.TeamApi,
     cacheApi: lila.memo.CacheApi,
+    markdown: lila.memo.MarkdownCache,
     ws: StandaloneWSClient
 )(using Executor, Scheduler, akka.stream.Materializer):
 

@@ -1,8 +1,8 @@
 import * as co from 'chessops';
-import { type VNode, hl, onInsert, bind } from 'lib/snabbdom';
+import { type VNode, hl, onInsert, bind } from 'lib/view';
 import * as licon from 'lib/licon';
 import { storedBooleanProp, storedIntProp } from 'lib/storage';
-import { domDialog } from 'lib/view/dialog';
+import { domDialog } from 'lib/view';
 import { EditDialog } from './editDialog';
 import { Bot } from 'lib/bot/bot';
 import { resultsString, playersWithResults, rangeTicks } from './devUtil';
@@ -24,7 +24,7 @@ export function renderDevSide(): VNode {
 
 function player(color: Color): VNode {
   const p = env.bot[color] as Bot | undefined;
-  const imgUrl = env.bot.imageUrl(p) ?? `/assets/lifat/bots/image/${color}-torso.webp`;
+  const imgUrl = env.bot.imageUrl(p) ?? `/${env.assets.path}/image/gray-torso.webp`;
   const isLight = document.documentElement.classList.contains('light');
   const buttonClass = {
     white: isLight ? '.button-metal' : '.button-inverse',
@@ -347,7 +347,7 @@ async function report() {
   const text = await env.dev.getTrace();
   if (text.length) {
     site.asset.loadEsm('bits.diagnosticDialog', {
-      init: { text, header: 'Game Info', submit: 'send to lichess' },
+      init: { text, header: 'Game Info', plaintext: true },
     });
   }
 }

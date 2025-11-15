@@ -118,4 +118,6 @@ Do të shfaqë një vijë horizontale.</string>
   <string name="xIsAKidAccountWarning">%1$s është llogari fëmijësh dhe s’mund të marrë mesazhin tuaj. Duhet t’u jepni dorazin URL-në e ftesës: %2$s</string>
   <string name="moveToClass">Kalo te %s</string>
   <string name="moveToAnotherClass">Kalo te një klasë tjetër</string>
+  <string name="allowMessagingBetweenStudents">Lejo mesazhe mes nxënësish</string>
+  <string name="allowMessagingBetweenStudentsDesc">Kjo vlen vetëm për llogari që keni krijuar për nxënësit tuaj.</string>
 </resources>

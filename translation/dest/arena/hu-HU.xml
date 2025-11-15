@@ -10,7 +10,7 @@
   <string name="howAreScoresCalculated">Hogyan történik a pontszámítás?</string>
   <string name="howAreScoresCalculatedAnswer">Egy győzelem alapból 2 pont, egy döntetlen 1 pont, a vereség pedig nem ér pontot.
 Ha egymás után két játszmát nyersz, beindul a pontduplázási sorozatod, amit egy láng ikon jelez.
-A következő játszmákért egészen addig dupla pontot kapsz, ameddig nem veszítesz.
+A sorozat akkor ér véget, ha egy partit nem nyersz meg.
 Vagyis egy győzelem 4 pontot, egy döntetlen 2 pontot, és a vereség továbbra is nulla pontot ér.
 
 Például két győzelem után egy döntetlen, az összesen 6 pont: 2 + 2 + (2 x 1)</string>
@@ -61,7 +61,7 @@ Játssz gyorsan, térj vissza a lobbiba további játszmákért, hogy több pont
   <string name="averageScore">Átlagos pontszám</string>
   <string name="myTournaments">Versenyeim</string>
   <string name="editTournament">Verseny megtervezése</string>
-  <string name="editTeamBattle">Csapatverseny megtervezése</string>
+  <string name="editTeamBattle">Csapatverseny módosítása</string>
   <string name="defender">Védő</string>
   <string name="pickYourTeam">Válaszd ki a csapatodat</string>
   <string name="whichTeamWillYouRepresentInThisBattle">Melyik csapatot fogod képviselni ebben a versenyben?</string>

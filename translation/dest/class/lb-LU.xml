@@ -110,4 +110,6 @@ Doduerch gëtt eng hotizontal Linn ugewisen.</string>
   <string name="xisNowAStudentOfTheClass">De Benotzer %s ass lo ee Schüler vum Cours</string>
   <string name="anInvitationHasBeenSentToX">Et gouf eng Invitatioun geschéckt un de Benotzer %s</string>
   <string name="xIsAKidAccountWarning">%1$s ass ee Kannerkont a kann däi Message net empfänken. Du muss him d\'Invitatiouns-URL manuell ginn: %2$s</string>
+  <string name="allowMessagingBetweenStudents">Messagen tëscht Schüler erlaben</string>
+  <string name="allowMessagingBetweenStudentsDesc">Dat gëllt nëmme fir Konten, déi s du fir deng Schüler ugeluecht hues.</string>
 </resources>

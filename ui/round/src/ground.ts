@@ -1,5 +1,5 @@
 import * as util from './util';
-import { onInsert } from 'lib/snabbdom';
+import { onInsert } from 'lib/view';
 import resizeHandle from 'lib/chessgroundResize';
 import type RoundController from './ctrl';
 import { h, type VNode } from 'snabbdom';
@@ -9,12 +9,14 @@ import { uciToMove } from '@lichess-org/chessground/util';
 import { ShowResizeHandle, Coords, MoveEvent } from 'lib/prefs';
 import { storage } from 'lib/storage';
 import { Chessground as makeChessground } from '@lichess-org/chessground';
+import { Premove } from './premove';
 
 export function makeConfig(ctrl: RoundController): CgConfig {
   const data = ctrl.data,
     hooks = ctrl.makeCgHooks(),
     step = plyStep(data, ctrl.ply),
-    playing = ctrl.isPlaying();
+    playing = ctrl.isPlaying(),
+    premove = new Premove(data.game.variant.key);
   return {
     fen: step.fen,
     orientation: boardOrientation(data, ctrl.flip),
@@ -63,12 +65,11 @@ export function makeConfig(ctrl: RoundController): CgConfig {
     premovable: {
       enabled: data.pref.enablePremove,
       showDests: data.pref.destination && !ctrl.blindfold(),
-      castle: data.game.variant.key !== 'antichess',
       events: {
         set: hooks.onPremove,
         unset: hooks.onCancelPremove,
       },
-      unrestrictedPremoves: data.game.variant.key === 'atomic',
+      additionalPremoveRequirements: premove.additionalPremoveRequirements,
     },
     predroppable: {
       enabled: data.pref.enablePremove && data.game.variant.key === 'crazyhouse',

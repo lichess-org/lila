@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="gameSetup">Partidaren konfigurazioa</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Erronka jo lagun bati</string>
+  <string name="playAgainstComputer">Jokatu ordenagailuaren aurka</string>
+  <string name="gameMode">Jokuaren modua</string>
+  <string name="createLobbyGame" comment="One of three buttons on the home page. Opens the modal to create a game that goes in the lobby.">Sortu egongelako partida</string>
+  <string name="youPlayAs">Kolore hau izango duzu</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Norbait jokatzera gonbidatzeko, URL hau bidali iezaiozu</string>
   <string name="gameOver">Partida amaitu da</string>
   <string name="waitingForOpponent">Aurkariaren zain</string>
@@ -339,6 +345,7 @@
     <item quantity="other">%s jokatzen</item>
   </plurals>
   <string name="exportGames">Partidak esportatu</string>
+  <string name="ratingFilter">Puntuazioaren filtroa</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Segundo %s eman</item>
     <item quantity="other">%s segundo eman</item>
@@ -762,6 +769,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Partidan aurrera-atzera egiteko, korritze-barra ere erabili ahal duzu.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Jarri sagua ordenagailuaren aukeren gainean berauek ikusteko.</string>
   <string name="analysisShapesHowTo">Zirkuluak eta geziak marrazteko, egizu shift+klik edo eskuin-klik.</string>
+  <string name="primaryColorArrowsHowTo">Ctrl edo Maius = gorria; komando, alt edo meta = urdina; bietako bana = horia.</string>
   <string name="letOtherPlayersMessageYou">Utzi beste jokalariei zuri mezuak bidaltzen</string>
   <string name="receiveForumNotifications">Jaso jakinarazpenak foroan aipatzen zaituztenean</string>
   <string name="shareYourInsightsData">Zure partiden analitika partekatu</string>
@@ -823,6 +831,7 @@
   <string name="notifications">Jakinarazpenak</string>
   <string name="notificationsX">Jakinarazpenak: %1$s</string>
   <string name="perfRatingX">Sailkapena: %s</string>
+  <string name="yourRatingIsX">Zure puntuazioa %s da</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">Segundo %s lehenengo jokaldia egiteko</item>
     <item quantity="other">%s segundo lehenengo jokaldia egiteko</item>
@@ -874,6 +883,7 @@
   <string name="playVariationToCreateConditionalPremoves">Aldaera bat jokatu baldintzadun aurre-jokaldiak sortzeko</string>
   <string name="noConditionalPremoves">Ez dago baldintzadun aurrejokaldirik</string>
   <string name="playX">%s jokatu</string>
+  <string name="challengeX">Jo erronda %s erabiltzaileari</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">eta aurrejokaldi linea %s gorde</item>
     <item quantity="other">eta %s aurrejokaldi linea gorde</item>
@@ -964,7 +974,7 @@ Utzi hutsik partidak ohiko posizioarekin hasteko.</string>
   <string name="simulFeaturedHelp">Erakutsi zure aldi-berekoa mundu guztiari %s helbideak. Desaktibatu aldi-bereko pribatuentzat.</string>
   <string name="simulDescription">Aldi-berekoaren deskribapena</string>
   <string name="simulDescriptionHelp">Parte-hartzaileei zerbait esan nahi diezu?</string>
-  <string name="markdownAvailable">%s erabili dezakezu.</string>
+  <string name="markdownIsAvailable">%s erabili dezakezu formatua emateko.</string>
   <string name="embedsAvailable">Itsatsi partida baten URL helbidea, azterlan baten atal baten URL helbidea hemen erakusteko.</string>
   <string name="inYourLocalTimezone">Zure ordu-zonan</string>
   <string name="tournChat">Txapelketaren txata</string>

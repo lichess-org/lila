@@ -127,10 +127,19 @@ $c-bg-position-y: 2px;
         &::before {
           content: 'A';
           position: absolute;
-          left: -0.9em;
           bottom: 0.3em;
           font-size: 0.4em;
           animation: boost 0.1s ease-in infinite;
+        }
+        &.vehicle3::before {
+          left: -0.1em;
+        }
+        &.vehicle2::before {
+          left: -0.6em;
+        }
+        &.vehicle0::before,
+        &.vehicle1::before {
+          left: -0.9em;
         }
       }
     }

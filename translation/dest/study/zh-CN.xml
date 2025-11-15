@@ -16,6 +16,7 @@
   <string name="recentlyUpdated">最近更新</string>
   <string name="mostPopular">最受欢迎</string>
   <string name="alphabetical">按字母顺序</string>
+  <string name="relevant">相关内容</string>
   <string name="addNewChapter">添加一个新章节</string>
   <plurals name="nbChapters">
     <item quantity="other">共 %s 章</item>
@@ -58,6 +59,7 @@
   <string name="studyPgn">研究 PGN</string>
   <string name="chapterPgn">章节 PGN</string>
   <string name="copyChapterPgn">复制 PGN</string>
+  <string name="copyRawChapterPgn">复制纯 PGN</string>
   <string name="downloadGame">下载棋局</string>
   <string name="studyUrl">研究链接</string>
   <string name="currentChapterUrl">当前章节链接</string>
@@ -100,7 +102,6 @@
     <item quantity="other">在此粘贴你的 PGN 文本，最多支持 %s 个游戏</item>
   </plurals>
   <string name="urlOfTheGame">游戏的 URL</string>
-  <string name="loadAGameFromXOrY">从 %1$s 或 %2$s 加载游戏</string>
   <string name="createChapter">创建章节</string>
   <string name="createStudy">创建课程</string>
   <string name="editStudy">编辑课程</string>

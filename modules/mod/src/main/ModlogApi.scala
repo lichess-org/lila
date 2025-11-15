@@ -14,6 +14,7 @@ import lila.core.chat.TimeoutReason
 import lila.core.user.KidMode
 import lila.core.LightUser
 import lila.core.id.ForumTopicSlug
+import lila.memo.PicfitImage
 
 final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, presetsApi: ModPresetsApi)(using
     Executor
@@ -271,6 +272,15 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
 
   def teamEdit(teamOwner: UserId, teamName: String)(using MyId) = add:
     Modlog(teamOwner.some, Modlog.teamEdit, details = Some(teamName.take(140)))
+
+  def moderateImage(image: PicfitImage, op: "pass" | "purge")(using myId: MyId) = add:
+    Modlog(
+      myId.modId,
+      user = image.user.some,
+      action = if op == "purge" then Modlog.imagePurge else Modlog.imagePass,
+      context = image.context.map(url => Modlog.Context(url = url.some)),
+      details = image.automod.flatMap(_.flagged)
+    )
 
   def wasUnengined(sus: Suspect) = coll.exists:
     $doc(

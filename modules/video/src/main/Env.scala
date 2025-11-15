@@ -47,10 +47,9 @@ final class Env(
     api = api
   )
 
-  def cli: lila.common.Cli = new:
-    def process =
-      case "video" :: "sheet" :: Nil =>
-        sheet.fetchAll.map { nb => s"Processed $nb videos" }
+  lila.common.Cli.handle:
+    case "video" :: "sheet" :: Nil =>
+      sheet.fetchAll.map { nb => s"Processed $nb videos" }
 
   if mode.isProd then
     scheduler.scheduleWithFixedDelay(config.sheetDelay, config.sheetDelay): () =>

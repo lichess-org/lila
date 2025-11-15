@@ -1,6 +1,9 @@
-db.clas_clas.createIndex({ teachers: 1, viewedAt: -1 });
 db.event.createIndex({ startsAt: 1 });
 db.picfit_image.createIndex({ rel: 1 }, { unique: true });
+db.picfit_image.createIndex(
+  { 'automod.flagged': 1 },
+  { partialFilterExpression: { 'automod.flagged': { $exists: true } } },
+);
 db.tutor_report.createIndex({ at: -1 });
 db.swiss_pairing.createIndex({ s: 1, p: 1, r: 1 });
 db.swiss_pairing.createIndex({ t: 1 }, { partialFilterExpression: { t: true } });
@@ -46,15 +49,15 @@ db.relay_tour.createIndex({ syncedAt: -1 }, { partialFilterExpression: { tier: {
 db.relay_tour.createIndex(
   { _fts: 'text', _ftsx: 1 },
   {
-    weights: { description: 1, name: 3 },
+    weights: { description: 1, name: 3, 'info.players': 1, 'info.location': 1 },
     partialFilterExpression: { tier: { $exists: true } },
     default_language: 'english',
     language_override: 'language',
     textIndexVersion: 3,
   },
 );
-db.relay_tour.createIndex({ ownerId: 1, syncedAt: -1 });
-db.relay_tour.createIndex({ ownerId: 1, createdAt: -1 });
+db.relay_tour.createIndex({ ownerIds: 1, syncedAt: -1 });
+db.relay_tour.createIndex({ ownerIds: 1, createdAt: -1 });
 db.relay_tour.createIndex({ subscribers: 1, createdAt: -1 });
 db.relation_subs.createIndex({ s: 1 });
 db.round_alarm.createIndex({ ringsAt: 1 });
@@ -256,8 +259,10 @@ db.f_post.createIndex({ topicId: 1, createdAt: -1 });
 db.external_engine.createIndex({ userId: 1 });
 db.external_engine.createIndex({ oauthToken: 1 });
 db.tutor_queue.createIndex({ requestedAt: 1 });
+db.clas_clas.createIndex({ teachers: 1, viewedAt: -1 });
 db.clas_student.createIndex({ clasId: 1, userId: 1 });
 db.clas_student.createIndex({ userId: 1 });
+db.clas_login.createIndex({ 'created.at': 1 }, { expireAfterSeconds: 60 * 15 });
 db.challenge_bulk.createIndex({ pairAt: 1 });
 db.challenge_bulk.createIndex(
   { startClocksAt: 1 },

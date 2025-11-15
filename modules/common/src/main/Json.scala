@@ -21,7 +21,7 @@ object Json:
 
   given Writes[chess.PlayerTitle] = writeAs(_.value)
 
-  given Writes[lila.core.plan.PatronTier] = writeAs(_.key)
+  given Writes[lila.core.plan.PatronColorResolved] = writeAs(_.value.id)
 
   given [A: Writes]: OWrites[chess.ByColor[A]] = PlayJson.writes
 
@@ -36,6 +36,6 @@ object Json:
       .add("title", u.title)
       .add("flair", u.flair)
       .add("patron", u.isPatron)
-      .add("patronTier", u.patronTier)
+      .add("patronColor", u.patronAndColor.map(_.color))
 
   trait OpaqueJson[A](using A =:= JsObject) extends TotalWrapper[A, JsObject]

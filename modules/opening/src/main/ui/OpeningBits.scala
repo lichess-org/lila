@@ -5,19 +5,22 @@ import chess.opening.{ Opening, OpeningKey }
 import play.api.libs.json.*
 
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class OpeningBits(helpers: Helpers):
   import helpers.{ *, given }
 
-  def pageModule(page: Option[OpeningPage]) =
-    PageModule(
-      "opening",
-      page.fold(JsNull): p =>
-        import lila.common.Json.given
-        Json.obj("history" -> p.exploredOption.so[List[Float]](_.history), "sans" -> p.query.sans)
-    )
+  private[ui] def openingPage(title: String, about: Option[OpeningPage]) =
+    Page(title)
+      .css("opening")
+      .csp(_.withInlineIconFont) // because opening.scss imports pgn-viewer
+      .js:
+        PageModule(
+          "opening",
+          about.fold(JsNull): p =>
+            import lila.common.Json.given
+            Json.obj("history" -> p.exploredOption.so[List[Float]](_.history), "sans" -> p.query.sans)
+        )
 
   def whatsNext(page: OpeningPage): Option[Tag] =
     page.exploredOption.map: explored =>

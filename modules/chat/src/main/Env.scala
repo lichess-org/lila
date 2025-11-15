@@ -5,7 +5,7 @@ import play.api.Configuration
 
 import lila.common.autoconfig.{ *, given }
 import lila.core.config.*
-import lila.core.user.{ FlairGet, FlairGetMap }
+import lila.core.user.LightUserApi
 
 private case class ChatConfig(
     @ConfigName("collection.chat") chatColl: CollName,
@@ -19,13 +19,14 @@ final class Env(
     appConfig: Configuration,
     netDomain: NetDomain,
     userApi: lila.core.user.UserApi,
+    lightUserApi: LightUserApi,
     userRepo: lila.core.user.UserRepo,
     db: lila.db.Db,
     flood: lila.core.security.FloodApi,
     spam: lila.core.security.SpamApi,
     shutupApi: lila.core.shutup.ShutupApi,
     cacheApi: lila.memo.CacheApi
-)(using Executor, FlairGet, FlairGetMap)(using scheduler: Scheduler):
+)(using Executor)(using scheduler: Scheduler):
 
   private val config = appConfig.get[ChatConfig]("chat")(using AutoConfig.loader)
   import config.*
@@ -36,6 +37,8 @@ final class Env(
   )
 
   lazy val coll = db(chatColl)
+
+  lazy val json = wire[ChatJsonView]
 
   lazy val api = wire[ChatApi]
 

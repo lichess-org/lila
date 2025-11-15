@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="gameSetup">Nastavitev igre</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Izzovite prijatelja</string>
+  <string name="playAgainstComputer">Igraj proti računalniku</string>
+  <string name="gameMode">Igralni način</string>
+  <string name="createLobbyGame" comment="One of three buttons on the home page. Opens the modal to create a game that goes in the lobby.">Ustvari igro v preddverju</string>
+  <string name="youPlayAs">Igraš kot</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Kopiraj URL in povabi prijatelja k igri</string>
   <string name="gameOver">Konec igre</string>
   <string name="waitingForOpponent">Čakam nasprotnika</string>
@@ -385,6 +391,7 @@
     <item quantity="other">%s v teku</item>
   </plurals>
   <string name="exportGames">Izvozi igre</string>
+  <string name="ratingFilter">Filter rejtinga</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Dodaj %s sekundo</item>
     <item quantity="two">Dodaj %s sekundi</item>
@@ -456,6 +463,7 @@
     <item quantity="other">Morate odigrati še %s rangiranih partij</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Vaš %s rating je začasen</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Filtri rangiranja so zaklenjeni, ker vaša ocena ni stabilna. Igranje rangiranih iger bo povečalo stabilnost.</string>
   <string name="yourPerfRatingIsTooHigh">Vaš %1$s rating (%2$s) je previsok</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Vaš najvišji %1$s rating (%2$s) v tem tednu, je previsok</string>
   <string name="yourPerfRatingIsTooLow">Vaš %1$s rating (%2$s) je prenizek</string>
@@ -906,6 +914,7 @@
   <string name="notifications">Obvestila</string>
   <string name="notificationsX">Obvestila: %1$s</string>
   <string name="perfRatingX">Rating: %s</string>
+  <string name="yourRatingIsX">Vaš rejting je %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekund za prvo potezo</item>
     <item quantity="two">%s sekundi za prvo potezo</item>
@@ -961,6 +970,7 @@
   <string name="playVariationToCreateConditionalPremoves">Igrajte varianto, za ustvarjanje pogojnih predpotez</string>
   <string name="noConditionalPremoves">Ni pogojnih predpotez</string>
   <string name="playX">Odigrajte %s</string>
+  <string name="challengeX">Izziv %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">in shranite %s predpotezno varianto</item>
     <item quantity="two">in shranite %s predpotezni varianti</item>
@@ -1054,7 +1064,6 @@ Pustite prazno, da začnete igre iz običajnega začetnega položaja.</string>
   <string name="simulFeaturedHelp">Pokažite svojo simultanko vsem na %s. Onemogoči za zasebne simulacije.</string>
   <string name="simulDescription">Opis simultanke</string>
   <string name="simulDescriptionHelp">Kaj želite povedati udeležencem?</string>
-  <string name="markdownAvailable">%s je na voljo za naprednejšo skladnjo.</string>
   <string name="embedsAvailable">Prilepite URL igre ali URL poglavja študije, da ga vdelate.</string>
   <string name="inYourLocalTimezone">V svojem lokalnem časovnem pasu</string>
   <string name="tournChat">Turnirski klepet</string>
@@ -1095,6 +1104,8 @@ Vsi operativni stroški, razvoj in vsebina se financirajo izključno iz donacij 
   <string name="enableBlindMode">Vključite slepi način</string>
   <string name="disableBlindMode">Izključite slepi način</string>
   <string name="copyToClipboard">Kopiraj v odložišče</string>
+  <string name="online" comment="status of a user">online</string>
+  <string name="offline" comment="status of a user">brez povezave</string>
   <string name="search">Išči</string>
   <string name="clearSearch">Počisti iskanje</string>
   <string name="tags">Oznake</string>

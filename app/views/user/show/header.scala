@@ -6,6 +6,7 @@ import lila.app.mashup.UserInfo
 import lila.user.Plan.sinceDate
 import lila.user.PlayTime.*
 import lila.user.Profile.*
+import lila.web.ui.bits.splitNumber
 
 object header:
 
@@ -56,10 +57,10 @@ object header:
     val showLinks = !possibleSeoBot(u) || isGranted(_.Shadowban)
     frag(
       div(cls := "box__top user-show__header")(
-        u.patronTier.match
-          case Some(tier) =>
+        u.patronAndColor.match
+          case Some(p) =>
             h1(cls := s"user-link ${if isOnline.exec(u.id) then "online" else "offline"}")(
-              a(href := routes.Plan.index())(patronIcon(tier)),
+              a(href := routes.Plan.index())(patronIcon(p)),
               userDom(u)
             )
           case None => h1(userDom(u)),
@@ -172,7 +173,7 @@ object header:
                   },
                   profile.flagInfo.map: c =>
                     span(cls := "flag")(
-                      img(src := assetUrl(s"images/flags/${c.code}.png")),
+                      img(src := assetUrl(s"flags/${c.code}.png")),
                       " ",
                       c.name
                     ),

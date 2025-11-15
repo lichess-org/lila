@@ -14,10 +14,9 @@ final class WikiUi(helpers: Helpers, bits: OpeningBits):
         page.wiki
           .flatMap(_.markupForMove(page.query.sans.lastOption.so(_.value)))
           .fold(
-            div(cls := "opening__wiki__markup__placeholder")(
-              "No description of the opening, yet. We're working on it!"
-            )
-          )(rawHtml)
+            div(cls := "opening__wiki__markup__placeholder"):
+              "No description of the opening, yet."
+          )(_.frag)
       ),
       (page.query.openingAndExtraMoves._1.isDefined && Granter.opt(_.OpeningWiki)).option {
         details(cls := "opening__wiki__editor")(

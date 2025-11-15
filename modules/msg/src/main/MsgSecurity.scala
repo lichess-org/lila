@@ -67,9 +67,10 @@ final private class MsgSecurity(
             case false => fuccess(Block)
             case _ =>
               isLimited(contacts, isNew, unlimited, text)
-                .orElse(isFakeTeamMessage(rawText, unlimited))
-                .orElse(isSpam(text))
-                .orElse(isTroll(contacts))
+                .map(_ orElse isFakeTeamMessage(rawText, unlimited))
+                .map(_ orElse isSpam(text))
+                .map(_ orElse isTroll(contacts))
+                .map(_ orElse isAlt(contacts))
                 .orElse(isDirt(contacts.orig, text, isNew))
                 .getOrElse(fuccess(Ok))
           .flatMap:
@@ -114,15 +115,18 @@ final private class MsgSecurity(
           else limitWith(CreateLimitPerUser)
       else fuccess(limitWith(ReplyLimitPerUser))
 
-    private def isFakeTeamMessage(text: String, unlimited: Boolean): Fu[Option[Verdict]] =
+    private def isFakeTeamMessage(text: String, unlimited: Boolean): Option[Verdict] =
       (!unlimited && text.contains("You received this because you are subscribed to messages of the team"))
-        .so(fuccess(FakeTeamMessage.some))
+        .option(FakeTeamMessage)
 
-    private def isSpam(text: String): Fu[Option[Verdict]] =
-      spam.detect(text).so(fuccess(Spam.some))
+    private def isSpam(text: String): Option[Verdict] =
+      spam.detect(text).option(Spam)
 
-    private def isTroll(contacts: Contacts): Fu[Option[Verdict]] =
-      contacts.orig.isTroll.so(fuccess(Troll.some))
+    private def isTroll(contacts: Contacts): Option[Verdict] =
+      contacts.orig.isTroll.option(Troll)
+
+    private def isAlt(contacts: Contacts): Option[Verdict] =
+      (contacts.orig.isAlt && !contacts.dest.isAlt).option(Alt)
 
     private def isDirt(user: Contact, text: String, isNew: Boolean): Fu[Option[Verdict]] =
       (isNew && textAnalyser(text).dirty)
@@ -196,6 +200,7 @@ private object MsgSecurity:
   case object Ok extends Send(mute = false)
   case object TrollFriend extends Send(mute = false)
   case object Troll extends Mute
+  case object Alt extends Mute
   case object Spam extends Mute
   case object Dirt extends Mute
   case object FakeTeamMessage extends Reject

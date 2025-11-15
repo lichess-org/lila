@@ -1,23 +1,7 @@
 {
   "name": "lila",
-  "version": "2.0.0",
   "private": true,
-  "description": "lichess.org: the forever free, adless and open source chess server",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/lichess-org/lila.git"
-  },
-  "keywords": [
-    "chess",
-    "lichess"
-  ],
-  "author": "Thibault Duplessis and the gang",
-  "license": "AGPL-3.0-or-later",
-  "bugs": {
-    "url": "https://github.com/lichess-org/lila/issues"
-  },
-  "homepage": "https://lichess.org",
-  "packageManager": "pnpm@10.4.1+sha512.c753b6c3ad7afa13af388fa6d808035a008e30ea9993f58c6663e2bc5ff21679aa834db094987129aa4d488b86df57f7b634981b2f827cdcacc698cc0cfb88af",
+  "packageManager": "pnpm@10.20.0+sha512.cf9998222162dd85864d0a8102e7892e7ba4ceadebbf5a31f9c2fce48dfce317a9c53b9f6464d1ef9042cba2e02ae02a9f7c143a2b438cd93c91840f0192b9dd",
   "engines": {
     "node": ">=24",
     "pnpm": "10"
@@ -25,25 +9,30 @@
   "pnpm": {
     "onlyBuiltDependencies": [
       "esbuild"
-    ]
+    ],
+    "patchedDependencies": {
+      "@toast-ui/editor": "ui/bits/patches/@toast-ui__editor.patch"
+    }
   },
   "dependencies": {
-    "@lichess-org/chessground": "9.7.1",
-    "@lichess-org/pgn-viewer": "2.4.7",
+    "@lichess-org/chessground": "9.8.4",
+    "@lichess-org/pgn-viewer": "2.5.3",
     "@types/lichess": "workspace:*",
-    "@types/web": "^0.0.216",
-    "@typescript-eslint/eslint-plugin": "^8.39.1",
-    "@typescript-eslint/parser": "^8.39.1",
+    "@types/node": "^24.10.0",
+    "@typescript-eslint/eslint-plugin": "^8.46.3",
+    "@typescript-eslint/parser": "^8.46.3",
     "ab": "github:lichess-org/ab-stub",
-    "chessops": "^0.14.2",
-    "eslint": "^9.33.0",
+    "chessops": "^0.15",
+    "eslint": "^9.39.1",
     "eslint-plugin-compat": "^6.0.2",
-    "lint-staged": "^15.5.2",
+    "eslint-plugin-import": "^2.32.0",
+    "jsdom": "^27.1.0",
+    "lint-staged": "^16.2.6",
     "onchange": "^7.1.0",
     "prettier": "^3.6.2",
     "snabbdom": "3.5.1",
-    "typescript": "^5.9.2",
-    "vitest": "^3.2.4"
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
   },
   "//": [
     "snabbdom pinned to 3.5.1 until https://github.com/snabbdom/snabbdom/issues/1114 is resolved",
@@ -60,21 +49,12 @@
     "journal": "journalctl --user -fu lila -o cat",
     "metals": "tail -F .metals/metals.log | stdbuf -oL cut -c 21- | rg -v '(notification for request|handleCancellation)'",
     "serverlog": "pnpm journal & pnpm metals",
-    "piece-css": "pnpx tsx bin/gen/piece-css.ts",
-    "kill-build": "[ -f ui/.build/instance.lock ] && kill \"$(cat ui/.build/instance.lock)\" 2>/dev/null || true",
     "i18n-file-gen": "pnpx tsx bin/i18n-file-gen.ts",
-    "test": "vitest run --config=ui/vitest.config.mts",
-    "test:watch": "vitest --config=ui/vitest.config.mts",
     "multilog": "pnpm serverlog & ui/build -w"
   },
   "browserslist": [
-    "Chrome >= 98",
-    "Firefox >= 128",
-    "Edge >= 98",
-    "Opera >= 84",
-    "Safari >= 15.6"
-  ],
-  "devDependencies": {
-    "jsdom": "^26.1.0"
-  }
+    "defaults",
+    "not op_mini all",
+    "not kaios <= 4"
+  ]
 }

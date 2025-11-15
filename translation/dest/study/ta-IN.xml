@@ -104,7 +104,6 @@
     <item quantity="other">%s ஆட்டங்கள்வரை உங்கள் PGN உரையை இங்கே ஒட்டவும்</item>
   </plurals>
   <string name="urlOfTheGame">ஆட்டங்களின் URL, ஒரு வரிக்கு ஒன்று</string>
-  <string name="loadAGameFromXOrY">%1$s அல்லது %2$s இலிருந்து ஆட்டங்களை ஏற்றவும்</string>
   <string name="createChapter">அத்தியாயத்தை உருவாக்கவும்</string>
   <string name="createStudy">கற்கையை உருவாக்குங்கள்</string>
   <string name="editStudy">கற்கையத் திருத்தவும்</string>

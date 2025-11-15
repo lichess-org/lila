@@ -1,5 +1,5 @@
 import type { VNode } from 'snabbdom';
-import type { Prop } from '@/common';
+import type { Prop } from '@/index';
 
 import type { EnhanceOpts } from '@/richText';
 export type { ChatCtrl } from './chatCtrl';
@@ -48,9 +48,9 @@ export interface Line {
   u?: string; // username
   t: string; // text
   d: boolean; // deleted
-  c?: string; // color
+  c?: Color;
   r?: boolean; // troll
-  p?: boolean; // patron
+  pc?: PatronColor;
   f?: Flair;
   title?: string;
 }

@@ -7,7 +7,9 @@ final class Event(env: Env) extends LilaController(env):
   import env.event.api
 
   def show(id: String) = Open:
-    FoundPage(api.oneEnabled(id))(views.event.show)
+    FoundPage(api.oneEnabled(id)): event =>
+      for html <- env.event.markdown.of(event)
+      yield views.event.show(event, html)
 
   def manager = Secure(_.ManageEvent) { ctx ?=> _ ?=>
     Ok.async:

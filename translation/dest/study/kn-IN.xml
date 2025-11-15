@@ -102,7 +102,6 @@
     <item quantity="other">ನಿಮ್ಮ PGN ಪಠ್ಯವನ್ನು ಇಲ್ಲಿ ಅಂಟಿಸಿ, %s ಆಟಗಳವರೆಗೆ</item>
   </plurals>
   <string name="urlOfTheGame">ಆಟಗಳ URL, ಪ್ರತಿ ಸಾಲಿಗೆ ಒಂದು</string>
-  <string name="loadAGameFromXOrY">%1$s ಅಥವಾ %2$s ನಿಂದ ಆಟಗಳನ್ನು ಲೋಡ್ ಮಾಡಿ</string>
   <string name="createChapter">ಅಧ್ಯಾಯವನ್ನು ರಚಿಸಿ</string>
   <string name="createStudy">ಅಧ್ಯಯನವನ್ನು ರಚಿಸಿ</string>
   <string name="editStudy">ಅಧ್ಯಯನವನ್ನು ಸಂಪಾದಿಸಿ</string>

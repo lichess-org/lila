@@ -19,7 +19,6 @@
   <string name="ongoing">配信中</string>
   <string name="upcoming">予定</string>
   <string name="roundName">ラウンド名</string>
-  <string name="roundNumber">ラウンド</string>
   <string name="tournamentName">大会名</string>
   <string name="tournamentDescription">大会の短い説明</string>
   <string name="fullDescription">長い説明</string>

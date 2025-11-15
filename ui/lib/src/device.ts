@@ -1,6 +1,5 @@
-import { type Hooks } from 'snabbdom';
-import { memoize } from './common';
-import { bind } from './snabbdom';
+import { memoize } from './index';
+import { bind, type Hooks } from './view';
 import * as licon from './licon';
 
 export function isBrowserSupported(): boolean {
@@ -88,7 +87,7 @@ export type Feature =
   | 'bigint'
   | 'structuredClone';
 
-export const hasFeature = (feat?: Feature): boolean => !feat || features().includes(feat as Feature);
+export const hasFeature = (feat: Feature): boolean => features().includes(feat);
 
 export const features: () => readonly Feature[] = memoize<readonly Feature[]>(() => {
   const features: Feature[] = [];

@@ -3,7 +3,7 @@ import { view, awaiter } from './view';
 import { makeSwiper } from './swiper';
 import { json } from 'lib/xhr';
 import { isMobile } from 'lib/device';
-import { Opts } from './interfaces';
+import type { Opts } from './interfaces';
 
 const patch = init([classModule, attributesModule]);
 

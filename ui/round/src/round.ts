@@ -5,7 +5,7 @@ import RoundController from './ctrl';
 import { main as view } from './view/main';
 import { text as xhrText } from 'lib/xhr';
 import type MoveOn from './moveOn';
-import type { TourPlayer } from 'lib/game/game';
+import type { TourPlayer } from 'lib/game';
 import { tourStandingCtrl, type TourStandingCtrl } from './tourStanding';
 import { wsConnect, wsDestroy } from 'lib/socket';
 import { storage } from 'lib/storage';
@@ -13,11 +13,12 @@ import { setClockWidget } from 'lib/game/clock/clockWidget';
 import standaloneChat from 'lib/chat/standalone';
 import { pubsub } from 'lib/pubsub';
 import { myUserId } from 'lib';
-import { alert } from 'lib/view/dialogs';
+import { alert } from 'lib/view';
 
 const patch = init([classModule, attributesModule]);
 
 export async function initModule(opts: RoundOpts): Promise<RoundController> {
+  await site.asset.loadPieces;
   return opts.data.local ? app(opts) : boot(opts, app);
 }
 
@@ -60,7 +61,12 @@ async function boot(
       round.socketReceive(t, d);
     },
     events: {
-      tvSelect(o: any) {
+      tvSelect(o: {
+        channel: string;
+        gameId: string;
+        color: Color;
+        player?: { title?: string; name: string; rating?: number };
+      }) {
         if (data.tv && data.tv.channel == o.channel) site.reload();
         else
           $('.tv-channels .' + o.channel + ' .champion').html(

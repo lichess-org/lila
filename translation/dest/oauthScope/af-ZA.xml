@@ -8,27 +8,27 @@
   <string name="whatTheTokenCanDo">Wat hierdie munt kan doen namens jou:</string>
   <string name="doNotShareIt">Die munt sal toegang gee tot jou rekening. MoeNIE dit met enigiemand deel NIE!</string>
   <string name="copyTokenNow">Maak seker om jou nuwe persoonlike toegangsmunt nou te kopieer. Jy sal nie dit weer kan sien nie!</string>
-  <string name="preferenceRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's preferences.&#10;&#10;There is a separate setting to let applications write (edit) preferences.">Lees voorkeure</string>
-  <string name="preferenceWrite" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to edit/change the user's preferences.&#10;&#10;There is a separate setting to let applications only read preferences, but not to write (edit) them.">Skryf voorkeure</string>
-  <string name="emailRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's registered email address.">Lees e-pos adres</string>
-  <string name="challengeRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view game challenges from other players.&#10;&#10;There is a separate setting to let applications send, accept or reject challenges.">Lees aankomende uitdagings</string>
-  <string name="challengeWrite" comment="challengeWrite&#10;&#10;In the context of an authentication token, a setting that permits third party software to send, accept and reject challenges on behalf of the player.">Stuur, aanvaar en weier uitdagings</string>
+  <string name="preferenceRead">Lees voorkeure</string>
+  <string name="preferenceWrite">Skryf voorkeure</string>
+  <string name="emailRead">Lees e-pos adres</string>
+  <string name="challengeRead">Lees aankomende uitdagings</string>
+  <string name="challengeWrite">Stuur, aanvaar en weier uitdagings</string>
   <string name="challengeBulk">Skep vele spelle op een slag vir ander spelers</string>
-  <string name="studyRead" comment="Gives permission to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Lees privaat studies en uitsaaiings</string>
-  <string name="studyWrite" comment="In the context of an access token, a setting that enables third party software to create, update or delete studies and broadcasts.">Skep, opdateer, skrap studies en uitsaaiings</string>
-  <string name="tournamentWrite" comment="In the context of an access token, a setting that permits third party software to create, update or delete studies and join tournaments.">Skep, opdateer, en sluit aan toernooie</string>
-  <string name="racerWrite" comment="In the context of an access token, a setting which permits third party software to create, and join puzzle races (this is for the activity/minigame Puzzle Racer: https://lichess.org/racer)">Skep en sluit aan by raaisel reisies</string>
-  <string name="puzzleRead" comment="In the context of an access token, a setting which permits third-party software to view the user's puzzle solving history.">Lees raaisel bedrywighede</string>
-  <string name="teamRead" comment="Gives permission to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Lees privaat span inligting</string>
-  <string name="teamWrite" comment="In the context of an access token, a setting that permits the third party software to join or leave teams on your behalf.">Sluit aan en verlaat spanne</string>
+  <string name="studyRead">Lees privaat studies en uitsaaiings</string>
+  <string name="studyWrite">Skep, opdateer, skrap studies en uitsaaiings</string>
+  <string name="tournamentWrite">Skep, opdateer, en sluit aan toernooie</string>
+  <string name="racerWrite">Skep en sluit aan by raaisel reisies</string>
+  <string name="puzzleRead">Lees raaisel bedrywighede</string>
+  <string name="teamRead">Lees privaat span inligting</string>
+  <string name="teamWrite">Sluit aan en verlaat spanne</string>
   <string name="teamLead">Beheer spanne wat jy ly: stuur privaat boodskappe, skop lede</string>
-  <string name="followRead" comment="In the context of an access token, a setting which permits third-party software to view (read) which players you are following.">Lees gevolgde spelers</string>
-  <string name="followWrite" comment="In the context of an access token, a setting which permits third-party software to follow and unfollow other players on your behalf.">Volg en ontvolg ander spelers</string>
-  <string name="msgWrite" comment="In the context of an access token, a setting which permits third-party software to send messages on your behalf.">Stuur privaat boodskappe aan ander spelers</string>
-  <string name="boardPlay" comment="In the context of an access token, a setting which permits third-party software to play games using e-boards like DGT, through Lichess's board API.">Speel speletjies met bord API</string>
-  <string name="botPlay" comment="In the context of an access token, a setting which permits third-party software to play games over the bot API. This is intended mainly for having an engine account e.g. the accounts featured on https://lichess.org/player/bots">Speel spelle met die robot api</string>
+  <string name="followRead">Lees gevolgde spelers</string>
+  <string name="followWrite">Volg en ontvolg ander spelers</string>
+  <string name="msgWrite">Stuur privaat boodskappe aan ander spelers</string>
+  <string name="boardPlay">Speel speletjies met bord API</string>
+  <string name="botPlay">Speel spelle met die robot api</string>
   <string name="engineRead">Wys en gebruik you eksterne enjins</string>
   <string name="engineWrite">Skep en opdateer eksterne enjins</string>
-  <string name="webLogin" comment="In the context of an access token, a setting which permits third-party software to create authenticated sessions - meaning effectively unlimited access to your account, using it as if it is you, instead of a third party program. It will be unable to view your password but it will be able to do almost everything else.">Skep geverifieered webwerf sessies (staan volle toegaan af!)</string>
-  <string name="webMod" comment="In the context of an access token, this is a setting which permits third-party software to use moderator tools on your behalf. Most players will not be able to see this option.">Gebruik moderator gereedskap (binne die perke van jou toestemming)</string>
+  <string name="webLogin">Skep geverifieered webwerf sessies (staan volle toegaan af!)</string>
+  <string name="webMod">Gebruik moderator gereedskap (binne die perke van jou toestemming)</string>
 </resources>

@@ -1,3 +1,5 @@
+@import '../../lib/css/setup/colorChoice';
+
 $c-setup: $c-secondary;
 $c-slider: $c-setup;
 
@@ -69,62 +71,32 @@ $c-slider: $c-setup;
 
   .footer {
     @extend %flex-center;
+    position: relative;
     justify-content: center;
-    padding: 1.1rem;
+    padding: 1.5rem;
   }
+
   .lobby__start__button {
     height: 3rem;
     padding-inline: 1rem 1.2rem;
     gap: 0.8rem;
     color: $c-font;
-    border: 2px solid $c-setup;
+    border: $border;
     &::before {
       color: $c-setup !important;
     }
+  }
+
+  .footer .spinner {
+    position: absolute;
+    width: 56px;
+    height: 56px;
   }
 
   .radio-pane {
     @extend %flex-center-nowrap;
     justify-content: center;
     gap: 0.8rem;
-  }
-
-  --color-button-size: 40px;
-  --color-king-size: 32px;
-
-  .color-picker {
-    &__button {
-      width: 50px;
-      height: var(--color-button-size);
-      padding: 4px 8px;
-
-      i {
-        display: block;
-        width: var(--color-king-size);
-        height: var(--color-king-size);
-        background-size: var(--color-king-size) var(--color-king-size);
-      }
-
-      &.white i {
-        background-image: url(../piece/cburnett/wK.svg);
-      }
-
-      &.black i {
-        background-image: url(../piece/cburnett/bK.svg);
-      }
-
-      &.random i {
-        background-image: url(../images/wbK.svg);
-      }
-    }
-
-    .spinner {
-      position: absolute;
-      width: 64px;
-      height: 64px;
-      right: calc(50% - 32px);
-      bottom: 6px;
-    }
   }
 
   .range {
@@ -192,6 +164,9 @@ $c-slider: $c-setup;
     h2 {
       margin-block: 1.1rem;
     }
+    .footer {
+      padding: 1.1rem;
+    }
     .setup-content {
       padding: 1.25rem 0.75rem;
     }
@@ -207,5 +182,8 @@ $c-slider: $c-setup;
 @media (pointer: coarse) {
   .game-setup select {
     font-size: 1.2rem;
+  }
+  .game-setup .lobby__start__button {
+    border: 2px solid $c-setup;
   }
 }

@@ -8,7 +8,7 @@ import lila.db.ByteArray
 
 private object PgnStorage:
 
-  case object OldBin:
+  object OldBin:
 
     def encode(sans: Vector[SanStr]) =
       ByteArray:
@@ -19,7 +19,7 @@ private object PgnStorage:
       monitor(_.game.pgn.decode("old")):
         format.pgn.Binary.readMoves(bytes.value.toList, plies.value).get.toVector
 
-  case object Huffman:
+  object Huffman:
 
     import org.lichess.compression.game.{ Encoder, Board as JavaBoard }
 

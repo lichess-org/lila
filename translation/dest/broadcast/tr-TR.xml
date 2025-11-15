@@ -21,7 +21,6 @@
   <string name="ongoing">Devam eden turnuvalar</string>
   <string name="upcoming">Yaklaşan turnuvalar</string>
   <string name="roundName">Tur ismi</string>
-  <string name="roundNumber">Tur sayısı</string>
   <string name="tournamentName">Turnuva ismi</string>
   <string name="tournamentDescription">Turnuvanın kısa tanımı</string>
   <string name="fullDescription">Etkinliğin detaylıca açıklaması</string>

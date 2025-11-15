@@ -19,7 +19,7 @@ object mon:
     def escape: String =
       val builder = java.lang.StringBuilder(s.length)
       for c <- s.toCharArray do
-        if c != '"' & c != '\n' && c != '\\'
+        if c != '"' && c != '\n' && c != '\\'
         then builder.append(c)
       builder.toString
 
@@ -77,7 +77,6 @@ object mon:
       timer("caffeine.loadTime.penalty").withTag("name", name).record(stats.averageLoadPenalty.toLong)
     gauge("caffeine.eviction.count").withTag("name", name).update(stats.evictionCount.toDouble)
     gauge("caffeine.entry.count").withTag("name", name).update(cache.estimatedSize.toDouble)
-    ()
   object mongoCache:
     def request(name: String, hit: Boolean) =
       counter("mongocache.request").withTags:
@@ -212,26 +211,22 @@ object mon:
     val online = gauge("user.online").withoutTags()
     object register:
       def count(
-          emailDomain: Option[Domain],
           confirm: String,
           captcha: String,
           ipSusp: Boolean,
           fp: Boolean,
           proxy: Option[String],
           country: String,
-          dispAttempts: Int,
           api: Option[ApiVersion]
       ) =
         counter("user.register.count").withTags:
           tags(
-            "email" -> emailDomain.fold("?")(_.value),
             "confirm" -> confirm,
             "captcha" -> captcha,
             "ipSusp" -> ipSusp,
             "fp" -> fp,
             "proxy" -> proxy.getOrElse("no"),
             "country" -> country.escape,
-            "dispAttempts" -> dispAttempts,
             "api" -> apiTag(api)
           )
       def mustConfirmEmail(v: String) = counter("user.register.mustConfirmEmail").withTag("type", v)
@@ -267,6 +262,8 @@ object mon:
       object automod:
         val request = future("mod.report.automod.request")
         def assessment(a: String) = counter("mod.report.automod.assessment").withTag("assessment", a)
+        val imageRequest = future("mod.report.automod.image.request")
+        def imageFlagged(v: Boolean) = counter("mod.report.automod.image.flagged").withTag("flagged", v)
     object log:
       val create = counter("mod.log.create").withoutTags()
     object irwin:
@@ -306,10 +303,14 @@ object mon:
           "proxy" -> proxy.getOrElse("none")
         )
     val dedup = counter("relay.fetch.dedup").withoutTags()
-    def push(name: String, user: UserName, client: String)(moves: Int, errors: Int) =
-      val ts = tags("name" -> name.escape, "user" -> user, "client" -> client.escape)
-      histogram("relay.push.moves").withTags(ts).record(moves)
-      histogram("relay.push.errors").withTags(ts).record(errors)
+    def push(name: String, user: UserName, client: String)(games: Int, moves: Int, errors: Int) =
+      val histogramTags = tags("name" -> name.escape, "user" -> user, "client" -> client.escape)
+      val counterTags = tags("name" -> name.escape, "user" -> user)
+      histogram("relay.push.games").withTags(histogramTags).record(games)
+      histogram("relay.push.moves").withTags(histogramTags).record(moves)
+      histogram("relay.push.errors").withTags(histogramTags).record(errors)
+      counter("relay.push.games.nb").withTags(counterTags).increment(games)
+      counter("relay.push.moves.nb").withTags(counterTags).increment(moves)
 
   object bot:
     def moves(username: String) = counter("bot.moves").withTag("name", username)
@@ -363,6 +364,9 @@ object mon:
         counter("hcaptcha.form").withTags(tags("client" -> client, "result" -> result))
     object pwned:
       def get(res: Boolean) = timer("security.pwned.result").withTag("res", res)
+    object geoip:
+      val epoch = gauge("security.geoip.epoch").withoutTags()
+      val loadTime = gauge("security.geoip.loadTime").withoutTags()
     object login:
       def attempt(byEmail: Boolean, stuffing: String, pwned: Boolean, result: Boolean) =
         counter("security.login.attempt").withTags:
@@ -687,6 +691,7 @@ object mon:
     val computeTimeout = counter("parallelQueue.buildTimeout").withTag("name", name)
   object markdown:
     val time = timer("markdown.time").withoutTags()
+    def pgnsFromText = future("markdown.pgnsFromText")
   object ublog:
     def create(user: UserId) = counter("ublog.create").withTag("user", user)
     def view = counter("ublog.view").withoutTags()

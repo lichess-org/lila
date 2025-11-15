@@ -78,7 +78,7 @@ Kíktu á %3$s varðandi þetta leikbragð til þess að ná tökum á því.</s
   <string name="accounts">Aðgangar</string>
   <string name="titlesAvailableOnLichess">Hvaða titlar eru á Lichess?</string>
   <string name="lichessRecognizeAllOTBtitles">Lichess viðurkennir alla FIDE-titla sem áunnust í atvinnumannaskákum (e. OTB), auk %1$s. Hér er listi yfir FIDE-titla:</string>
-  <string name="showYourTitle">Ef þú ert með OTB-titil geturðu óskað eftir því að fá hann birtan á aðganginum þínum með því að fylla út %1$s, þar sem skýr mynd af skilríkjum og sjálfsmynd af þér að halda á skilríkjunum eiga að fylgja með.
+  <string name="showYourTitle">Ef þú ert með raunsannan atvinnumannstitil (OTB-titill) geturðu óskað eftir því að fá hann birtan á aðganginum þínum með því að fylla út %1$s, þar sem skýr mynd af skilríkjum og sjálfsmynd af þér að halda á skilríkjunum eiga að fylgja með.
 
 Að staðfesta sig sem skákmann með titil á Lichess veitir aðgang að þátttöku í mótum titilhafa.
 
@@ -119,7 +119,7 @@ Annað sem þarf að athuga er að með tímanum mun bilið á vissustuðlinum s
   <string name="howDoLeaderoardsWork">Hvernig virka sæti og stigatöflur?</string>
   <string name="inOrderToAppearsYouMust">Til þess að komast á %1$s verður þú að:</string>
   <string name="ratingLeaderboards">skákstigatöfluna</string>
-  <string name="havePlayedMoreThanThirtyGamesInThatRating">hafa teflt a.m.k. 30 stigaskákir innan tiltekins skákstyrkaflokks,</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">hafa teflt a.m.k. 30 stigaskákir innan tiltekins skákstyrkjaflokks,</string>
   <string name="havePlayedARatedGameAtLeastOneWeekAgo">hafa teflt með stigagjöf síðustu vikuna fyrir skákstigin,</string>
   <string name="ratingDeviationLowerThanXinChessYinVariants">hafa skákstigafrávik lægra en %1$s, í hefðbundinni skák, og lægra en %2$s í afbrigðaskákum,</string>
   <string name="beInTopTen">vera meðal efstu 10 í þessum skákstigum.</string>

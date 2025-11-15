@@ -77,6 +77,10 @@
   <string name="searchPuzzles">Buscar exercicios</string>
   <string name="fromMyGamesNone">Nun tienes exercicios na base de datos, pero Lichess entá te quier un montón.
 ¡Xuega partíes rápides y clásiques pa tener más posibilidaes de que s\'añedan los tos exercicios!</string>
+  <plurals name="puzzlesFoundInUserGames">
+    <item quantity="one">Un exerciciu atopáu nes partíes de %2$s</item>
+    <item quantity="other">%1$s exercicios atopaos nes partíes de %2$s</item>
+  </plurals>
   <string name="puzzleDashboardDescription">Entrena, analiza, meyora</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s exerciciu</item>

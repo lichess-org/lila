@@ -93,7 +93,7 @@ final class EventStream(
           queue.offer(None) // prevents the client and intermediate proxies from closing the idle stream
           self ! SetOnline
 
-        case StartGame(game) => queue.offer(gameJson(game, "gameStart"))
+        case StartGame(game, _) => queue.offer(gameJson(game, "gameStart"))
 
         case FinishGame(game, _) => queue.offer(gameJson(game, "gameFinish"))
 

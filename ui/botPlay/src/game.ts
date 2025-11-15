@@ -1,40 +1,16 @@
-import { Chess, Move as ChessMove, opposite } from 'chessops';
+import { Chess, type Move as ChessMove, opposite } from 'chessops';
 import { makeFen, parseFen } from 'chessops/fen';
 import { defaultGame, parsePgn, type PgnNodeData, type Game as PgnGame } from 'chessops/pgn';
-import { randomId } from 'lib/algo';
-import { StatusName } from 'lib/game/game';
 import type { ClockConfig, SetData as ClockState } from 'lib/game/clock/clockCtrl';
-import { type BotId } from 'lib/bot/types';
-import { DateMillis } from './interfaces';
-import { Board } from './chess';
+import type { BotKey, GameData, GameEnd, GameId, Move } from './interfaces';
+import type { Board } from './chess';
 import { makeSan, parseSan } from 'chessops/san';
 import { normalizeMove } from 'chessops/chess';
+import { randomId } from 'lib/algo';
 import { computeClockState } from './clock';
 
-export interface Move {
-  san: San;
-  at: DateMillis;
-}
-
-interface GameEnd {
-  winner?: Color;
-  status: StatusName;
-  fen: FEN;
-}
-
 export class Game {
-  id: string;
-  end?: GameEnd;
-
-  constructor(
-    readonly botId: BotId,
-    readonly pov: Color,
-    readonly clockConfig?: ClockConfig,
-    readonly initialFen?: FEN,
-    public moves: Move[] = [],
-    id?: string,
-  ) {
-    this.id = id || 'b-' + randomId(10);
+  constructor(readonly data: GameData) {
     this.computeEnd();
   }
 
@@ -43,11 +19,10 @@ export class Game {
 
   isClockTicking = (): Color | undefined => (this.end || this.moves.length < 2 ? undefined : this.turn());
 
-  clockState = (): ClockState | undefined =>
-    this.clockConfig && computeClockState(this.clockConfig, this.moves, this.isClockTicking());
+  clockState = (): ClockState | undefined => computeClockState(this);
 
   rewindToPly = (ply: Ply): void => {
-    this.moves = this.moves.slice(0, ply);
+    this.data.moves = this.moves.slice(0, ply);
   };
 
   playMoveAtPly = (chessMove: ChessMove, ply: Ply): Move => {
@@ -65,15 +40,15 @@ export class Game {
   copyAtPly = (ply: Ply): Game => {
     if (ply >= this.ply()) return this;
     const moves = this.moves.slice(0, ply);
-    return new Game(this.botId, this.pov, this.clockConfig, this.initialFen, moves);
+    return new Game({ ...this.data, moves, end: undefined });
   };
 
   toPgn = (): [PgnGame<PgnNodeData>, Chess] => {
     const headers = new Map<string, string>();
-    if (this.initialFen) headers.set('FEN', this.initialFen);
+    if (this.data.initialFen) headers.set('FEN', this.data.initialFen);
     const pgn = parsePgn(this.moves.map(m => m.san).join(' '), () => headers)[0] || defaultGame();
-    const chess: Chess = this.initialFen
-      ? parseFen(this.initialFen)
+    const chess: Chess = this.data.initialFen
+      ? parseFen(this.data.initialFen)
           .chain(setup => Chess.fromSetup(setup))
           .unwrap(
             i => i,
@@ -103,8 +78,9 @@ export class Game {
   };
 
   computeEnd = (): GameEnd | undefined => {
+    if (this.end) return this.end;
     const chess = this.lastBoard().chess;
-    this.end = endOnTheBoard(chess);
+    this.data.end = endOnTheBoard(chess);
     if (this.end) return this.end;
     const clock = this.clockState();
     if (!clock) return;
@@ -112,11 +88,35 @@ export class Game {
       winner: opposite(color),
       status: 'outoftime',
       fen: makeFen(chess.toSetup()),
+      at: Date.now(),
     });
-    if (clock?.white <= 0) this.end = flag('white');
-    else if (clock?.black <= 0) this.end = flag('black');
-    return this.end;
+    if (clock?.white <= 0) this.data.end = flag('white');
+    else if (clock?.black <= 0) this.data.end = flag('black');
+    return this.data.end;
   };
+
+  worthResuming = () => this.moves.length > 1 && !this.end;
+
+  get id(): GameId {
+    return this.data.id;
+  }
+  get botKey(): BotKey {
+    return this.data.botKey;
+  }
+  get pov(): Color {
+    return this.data.pov;
+  }
+  get clockConfig(): ClockConfig | undefined {
+    return this.data.clockConfig;
+  }
+  get moves(): Move[] {
+    return this.data.moves;
+  }
+  get end(): GameEnd | undefined {
+    return this.data.end;
+  }
+
+  static randomId = () => 'b-' + randomId(10);
 }
 
 const endOnTheBoard = (chess: Chess): GameEnd | undefined => {
@@ -125,5 +125,6 @@ const endOnTheBoard = (chess: Chess): GameEnd | undefined => {
     winner: chess.outcome()?.winner,
     status: chess.isCheckmate() ? 'mate' : chess.isStalemate() ? 'stalemate' : 'draw',
     fen: makeFen(chess.toSetup()),
+    at: Date.now(),
   };
 };

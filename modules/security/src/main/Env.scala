@@ -161,12 +161,6 @@ final class Env(
     text = "Types of proxy that require 2FA to login".some
   ).taggedWith[Proxy2faSetting]
 
-  val mobileSignupProxy = settingStore[Strings](
-    "mobileSignupProxy",
-    default = Strings(List("VPN", "CPN")),
-    text = "Types of proxy that can signup using the legacy mobile API".some
-  ).taggedWith[MobileSignupProxy]
-
   val alwaysCaptcha = settingStore[Boolean](
     "alwaysCaptcha",
     default = false,
@@ -177,7 +171,7 @@ final class Env(
 
   lazy val csrfRequestHandler = wire[CSRFRequestHandler]
 
-  lazy val cli = wire[Cli]
+  wire[Cli]
 
   lazy val coreApi = new lila.core.security.SecurityApi:
     export api.shareAnIpOrFp
@@ -187,5 +181,4 @@ final class Env(
     ask.promise.completeWith(api.shareAnIpOrFp.tupled(ask.users))
 
 private trait Proxy2faSetting
-private trait MobileSignupProxy
 private trait AlwaysCaptcha

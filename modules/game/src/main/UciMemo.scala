@@ -16,7 +16,7 @@ final class UciMemo(gameRepo: GameRepo)(using Executor) extends lila.core.game.U
   private val hardLimit = 300
 
   def add(game: Game, move: chess.MoveOrDrop): Unit =
-    add(game, UciDump.move(game.variant, force960Notation = true)(move))
+    add(game, UciDump.move(move))
 
   private def add(game: Game, uciMove: String): Unit =
     val current = ~cache.getIfPresent(game.id)
@@ -45,5 +45,5 @@ final class UciMemo(gameRepo: GameRepo)(using Executor) extends lila.core.game.U
   private def compute(game: Game, max: Int): Fu[UciVector] =
     for
       fen <- gameRepo.initialFen(game)
-      uciMoves <- UciDump(game.sans.take(max), fen, game.variant, force960Notation = true).toFuture
+      uciMoves <- UciDump(game.sans.take(max), fen, game.variant).toFuture
     yield uciMoves.toVector

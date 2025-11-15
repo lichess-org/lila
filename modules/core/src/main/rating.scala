@@ -6,7 +6,7 @@ import _root_.chess.rating.IntRatingDiff
 
 case class RatingProg(before: IntRating, after: IntRating):
   def diff = IntRatingDiff(after.value - before.value)
-  def isEmpty = diff == IntRatingDiff(0)
+  def isEmpty = diff.isZero
 case class Score(win: Int, loss: Int, draw: Int, rp: Option[RatingProg]):
   def size = win + loss + draw
 

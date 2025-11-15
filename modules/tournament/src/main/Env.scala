@@ -137,16 +137,14 @@ final class Env(
   def hasUser(tourId: TourId, userId: UserId): Fu[Boolean] =
     fuccess(socket.hasUser(tourId, userId)) >>| pairingRepo.isRecentPlayer(tourId, userId)
 
-  def cli =
-    new lila.common.Cli:
-      def process =
-        // case "tournament" :: "leaderboard" :: "generate" :: Nil =>
-        //   leaderboardIndexer.generateAll inject "Done!"
-        case "tournament" :: "feature" :: id :: Nil =>
-          api.toggleFeaturing(TourId(id), true).inject("Done!")
-        case "tournament" :: "unfeature" :: id :: Nil =>
-          api.toggleFeaturing(TourId(id), false).inject("Done!")
-        case "tournament" :: "recompute" :: id :: Nil =>
-          api.recomputeEntireTournament(TourId(id)).inject("Done!")
+  lila.common.Cli.handle:
+    // case "tournament" :: "leaderboard" :: "generate" :: Nil =>
+    //   leaderboardIndexer.generateAll inject "Done!"
+    case "tournament" :: "feature" :: id :: Nil =>
+      api.toggleFeaturing(TourId(id), true).inject("Done!")
+    case "tournament" :: "unfeature" :: id :: Nil =>
+      api.toggleFeaturing(TourId(id), false).inject("Done!")
+    case "tournament" :: "recompute" :: id :: Nil =>
+      api.recomputeEntireTournament(TourId(id)).inject("Done!")
 
 trait TournamentReloadEndpoint

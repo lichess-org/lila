@@ -19,9 +19,12 @@ trait LilaLibraryExtensions extends CoreExports:
   def fuccess[A](a: A): Fu[A] = Future.successful(a)
   def fufail[X](t: Throwable): Fu[X] = Future.failed(t)
   def fufail[X](s: String): Fu[X] = fufail(LilaException(s))
-  val funit = Future.unit
-  val fuTrue = fuccess(true)
-  val fuFalse = fuccess(false)
+  val funit: Future[Unit] = Future.unit
+  val fuTrue: Future[Boolean] = fuccess(true)
+  val fuFalse: Future[Boolean] = fuccess(false)
+
+  inline def raiseIf[E](cond: Boolean)(e: => E): FuRaise[E, Unit] =
+    if cond then e.raise else funit
 
   /* library-agnostic way to run a future after a delay */
   given (using sched: Scheduler, ec: Executor): FutureAfter =
@@ -35,6 +38,12 @@ trait LilaLibraryExtensions extends CoreExports:
     def toTry(err: => String): Try[A] = toTryWith(LilaException(err))
 
     def err(message: => String): A = self.getOrElse(sys.error(message))
+
+    inline def raiseIfNone[E](err: => E): FuRaise[E, A] =
+      self.fold(err.raise)(fuccess)
+
+    inline def raiseIfSome[B](f: => Fu[B]): FuRaise[A, B] =
+      self.fold(f)(_.raise)
 
   extension (self: Boolean)
     def not: Boolean = !self
@@ -55,6 +64,8 @@ trait LilaLibraryExtensions extends CoreExports:
         err match
           case e: Exception => Future.failed(e)
           case _ => fufail(err.toString)
+
+    inline def raiseIfLeft: FuRaise[A, B] = v.fold(_.raise, fuccess)
 
   extension [A, B](v: (A, B)) def map2[C](f: B => C): (A, C) = (v._1, f(v._2))
 
@@ -83,11 +94,32 @@ trait LilaLibraryExtensions extends CoreExports:
           acc.flatMap: bs =>
             f(a).map(_ :: bs)
         .map(_.reverse)
+
     def sequentiallyVoid(f: A => Fu[?])(using Executor): Funit =
       list
         .foldLeft(funit): (acc, a) =>
           acc.flatMap: _ =>
             f(a).void
+
+    /** traverse the list sequentially, short-circuiting on the first error.
+      *
+      * returning the first error if there is and the successfully processed elements
+      */
+    def sequentiallyRaise[E, B](f: A => FuRaise[E, B])(using EC): Fu[(List[B], Option[E])] =
+      import cats.mtl.Handle.*
+      list
+        .foldLeft(fuccess((List.empty[B], none[E]))): (facc, a) =>
+          facc.flatMap:
+            case acc @ (bs, err) =>
+              err match
+                case Some(_) => fuccess(acc) // short-circuit on first error
+                case None =>
+                  allow:
+                    f(a).map(b => (b :: bs) -> none)
+                  .rescue: e =>
+                    fuccess((bs, e.some))
+        .dmap: (xs, err) =>
+          (xs.reverse, err)
 
   extension [A, M[A] <: IterableOnce[A]](list: M[A])
     def parallel[B](f: A => Fu[B])(using Executor, BuildFrom[M[A], B, M[B]]): Fu[M[B]] =
@@ -95,7 +127,7 @@ trait LilaLibraryExtensions extends CoreExports:
 
     def parallelVoid[B](f: A => Fu[B])(using Executor): Fu[Unit] =
       list.iterator
-        .foldLeft(fuccess(()))((fr, a) => fr.zipWith(f(a))((_, _) => ()))
+        .foldLeft(funit)((fr, a) => fr.zipWith(f(a))((_, _) => ()))
 
   extension [A, M[A] <: IterableOnce[A]](list: M[Fu[A]])
 
@@ -104,7 +136,7 @@ trait LilaLibraryExtensions extends CoreExports:
 
     def parallelVoid(using Executor): Fu[Unit] =
       list.iterator
-        .foldLeft(fuccess(()))((fr, fa) => fr.zipWith(fa)((_, _) => ()))
+        .foldLeft(funit)((fr, fa) => fr.zipWith(fa)((_, _) => ()))
 
   extension [A](fua: Fu[A])
 
@@ -150,6 +182,7 @@ trait LilaLibraryExtensions extends CoreExports:
 
     infix def flatMapz[B](fub: => Fu[B])(using zero: Zero[B]): Fu[B] =
       fua.flatMap { if _ then fub else fuccess(zero.zero) }(using EC.parasitic)
+
     def mapz[B](fb: => B)(using zero: Zero[B]): Fu[B] =
       fua.map { if _ then fb else zero.zero }(using EC.parasitic)
 

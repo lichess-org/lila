@@ -1,7 +1,6 @@
 package views
 
 import lila.app.UiEnv.{ *, given }
-import lila.ui.bits.modMenu
 export lila.web.ui.bits
 
 val captcha = lila.web.ui.CaptchaUi(helpers)
@@ -20,7 +19,7 @@ val coordinate = lila.coordinate.ui.CoordinateUi(helpers)
 
 val atomUi = lila.ui.AtomUi(netConfig.baseUrl)
 
-val irwin = lila.irwin.IrwinUi(helpers)(menu = modMenu)
+val irwin = lila.irwin.IrwinUi(helpers)(menu = views.mod.ui.menu)
 
 val dgt = lila.web.ui.DgtUi(helpers)
 
@@ -30,7 +29,8 @@ object oAuth:
   val token = lila.oauth.ui.TokenUi(helpers)(account.ui.AccountPage, env.mode)
   val authorize = lila.oauth.ui.AuthorizeUi(helpers)(lightUserFallback)
 
-val plan = lila.plan.ui.PlanUi(helpers)(netConfig.email)
+val style = lila.plan.ui.PlanStyle(helpers)
+val plan = lila.plan.ui.PlanUi(helpers)(style, netConfig.email)
 val planPages = lila.plan.ui.PlanPages(helpers)(lila.fishnet.FishnetLimiter.maxPerDay)
 
 val feed =
@@ -38,9 +38,9 @@ val feed =
     env.executor
   )
 
-val cms = lila.cms.ui.CmsUi(helpers)(modMenu("cms"))
+val cms = lila.cms.ui.CmsUi(helpers)(views.mod.ui.menu("cms"))
 
-val event = lila.event.ui.EventUi(helpers)(modMenu("event"))(using env.executor)
+val event = lila.event.ui.EventUi(helpers)(views.mod.ui.menu("event"))
 
 val userTournament = lila.tournament.ui.UserTournament(helpers, tournament.ui)
 
@@ -66,7 +66,7 @@ object forum:
     lila.msg.MsgPreset.forumDeletion.presets
   )
 
-val timeline = lila.timeline.ui.TimelineUi(helpers)(streamer.bits.redirectLink(_))
+val timeline = lila.timeline.ui.TimelineUi(helpers)
 
 object opening:
   val bits = lila.opening.ui.OpeningBits(helpers)
@@ -85,7 +85,7 @@ val racer = lila.racer.ui.RacerUi(helpers)
 
 val challenge = lila.challenge.ui.ChallengeUi(helpers)
 
-val dev = lila.web.ui.DevUi(helpers)(modMenu)
+val dev = lila.web.ui.DevUi(helpers)(views.mod.ui.menu)
 
 val jsBot = lila.jsBot.ui.JsBotUi(helpers)
 

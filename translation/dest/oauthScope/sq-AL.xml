@@ -8,45 +8,45 @@
   <string name="whatTheTokenCanDo">Çfarë mund të bëjë token në emrin tuaj:</string>
   <string name="doNotShareIt">Shenja do të japë akses në llogarinë tuaj. MOS e ndani me askënd!</string>
   <string name="copyTokenNow">Sigurohuni që të kopjoni shenjën tuaj të re personale të aksesit tani. Nuk do të mund ta shihni më!</string>
-  <string name="preferenceRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's preferences.&#10;&#10;There is a separate setting to let applications write (edit) preferences.">Lexoni preferencat</string>
-  <string name="preferenceWrite" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to edit/change the user's preferences.&#10;&#10;There is a separate setting to let applications only read preferences, but not to write (edit) them.">Shkruani preferencat</string>
-  <string name="emailRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's registered email address.">Lexoni adresën e emailit</string>
-  <string name="challengeRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view game challenges from other players.&#10;&#10;There is a separate setting to let applications send, accept or reject challenges.">Lexoni sfidat e ardhshme</string>
-  <string name="challengeWrite" comment="challengeWrite&#10;&#10;In the context of an authentication token, a setting that permits third party software to send, accept and reject challenges on behalf of the player.">Dërgoni, pranoni dhe refuzoni sfidat</string>
+  <string name="preferenceRead">Lexoni preferencat</string>
+  <string name="preferenceWrite">Shkruani preferencat</string>
+  <string name="emailRead">Lexoni adresën e emailit</string>
+  <string name="challengeRead">Lexoni sfidat e ardhshme</string>
+  <string name="challengeWrite">Dërgoni, pranoni dhe refuzoni sfidat</string>
   <string name="challengeBulk">Krijo shumë lojëra në të njëjtën kohë për lojtarët e tjerë</string>
-  <string name="studyRead" comment="Gives permission to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Lexoni studime dhe transmetime private</string>
-  <string name="studyWrite" comment="In the context of an access token, a setting that enables third party software to create, update or delete studies and broadcasts.">Krijoni, përditësoni, fshini studime dhe transmetime</string>
-  <string name="tournamentWrite" comment="In the context of an access token, a setting that permits third party software to create, update or delete studies and join tournaments.">Krijoni, përditësoni dhe bashkohuni në turne</string>
-  <string name="racerWrite" comment="In the context of an access token, a setting which permits third party software to create, and join puzzle races (this is for the activity/minigame Puzzle Racer: https://lichess.org/racer)">Krijoni dhe bashkohuni me garat e enigmës</string>
-  <string name="puzzleRead" comment="In the context of an access token, a setting which permits third-party software to view the user's puzzle solving history.">Lexoni aktivitetin e enigmës</string>
-  <string name="teamRead" comment="Gives permission to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Lexoni informacionin e ekipit privat</string>
-  <string name="teamWrite" comment="In the context of an access token, a setting that permits the third party software to join or leave teams on your behalf.">Bashkohuni dhe largohuni nga ekipet</string>
+  <string name="studyRead">Lexoni studime dhe transmetime private</string>
+  <string name="studyWrite">Krijoni, përditësoni, fshini studime dhe transmetime</string>
+  <string name="tournamentWrite">Krijoni, përditësoni dhe bashkohuni në turne</string>
+  <string name="racerWrite">Krijoni dhe bashkohuni me garat e enigmës</string>
+  <string name="puzzleRead">Lexoni aktivitetin e enigmës</string>
+  <string name="teamRead">Lexoni informacionin e ekipit privat</string>
+  <string name="teamWrite">Bashkohuni dhe largohuni nga ekipet</string>
   <string name="teamLead">Menaxhoni skuadrat që drejtoni: dërgoni PM, goditni anëtarët</string>
-  <string name="followRead" comment="In the context of an access token, a setting which permits third-party software to view (read) which players you are following.">Lexoni lojtarët e ndjekur</string>
-  <string name="followWrite" comment="In the context of an access token, a setting which permits third-party software to follow and unfollow other players on your behalf.">Ndiqni dhe anuloni lojtarët e tjerë</string>
-  <string name="msgWrite" comment="In the context of an access token, a setting which permits third-party software to send messages on your behalf.">Dërgoni mesazhe private te lojtarët e tjerë</string>
-  <string name="boardPlay" comment="In the context of an access token, a setting which permits third-party software to play games using e-boards like DGT, through Lichess's board API.">Luaj lojëra me API të tabelës</string>
-  <string name="botPlay" comment="In the context of an access token, a setting which permits third-party software to play games over the bot API. This is intended mainly for having an engine account e.g. the accounts featured on https://lichess.org/player/bots">Luaj lojëra me API-në e robotëve</string>
+  <string name="followRead">Lexoni lojtarët e ndjekur</string>
+  <string name="followWrite">Ndiqni dhe anuloni lojtarët e tjerë</string>
+  <string name="msgWrite">Dërgoni mesazhe private te lojtarët e tjerë</string>
+  <string name="boardPlay">Luaj lojëra me API të tabelës</string>
+  <string name="botPlay">Luaj lojëra me API-në e robotëve</string>
   <string name="engineRead">Shikoni dhe përdorni motorët tuaj të jashtëm</string>
   <string name="engineWrite">Krijoni dhe përditësoni motorë të jashtëm</string>
-  <string name="webLogin" comment="In the context of an access token, a setting which permits third-party software to create authenticated sessions - meaning effectively unlimited access to your account, using it as if it is you, instead of a third party program. It will be unable to view your password but it will be able to do almost everything else.">Krijoni sesione të vërtetuara në websajt (ju jep hyrje të plotë!)</string>
-  <string name="webMod" comment="In the context of an access token, this is a setting which permits third-party software to use moderator tools on your behalf. Most players will not be able to see this option.">Përdorni mjetet e moderatorit (brenda kufijve të lejes suaj)</string>
+  <string name="webLogin">Krijoni sesione të vërtetuara në websajt (ju jep hyrje të plotë!)</string>
+  <string name="webMod">Përdorni mjetet e moderatorit (brenda kufijve të lejes suaj)</string>
   <string name="personalAccessTokens">Token-ë personalë përdorimi API</string>
-  <string name="canMakeOauthRequests" comment="%s is 'authorisation code flow' (flow, as in a process).">Mund të kryeni kërkessa OAuth pa kaluar nëpër %s.</string>
-  <string name="authorizationCodeFlow" comment="Part of longer string canMakeOauthRequests:&#10;You can make OAuth requests without going through the authorisation code flow.&#10;&#10;This text is also a link which directs to https://lichess.org/api#section/Introduction/Authentication.&#10;&#10;In this context, 'flow' means a process. Technical information explaining this concept here: https://oauth.net/2/grant-types/authorization-code/ - its formal name is &quot;authorisation code grant type&quot;.&#10;&#10;If you are not comfortable in translating this, we recommend leaving it untranslated.">rrjedhën e kodeve të autorizimit</string>
-  <string name="insteadGenerateToken" comment="%s is 'generate a personal access token'.">Në vend të kësaj, %s mund të përdoret drejtpërsëdrejti në kërkesa ndaj API-t.</string>
-  <string name="generatePersonalToken" comment="Part of longer string insteadGenerateToken:&#10;'Instead, generate a personal access token you can directly use in API requests.'&#10;&#10;It is a link, which links to https://lichess.org/account/oauth/token/create and appears after you have created at least one token.">prodho një token përdorimi personal</string>
+  <string name="canMakeOauthRequests">Mund të kryeni kërkessa OAuth pa kaluar nëpër %s.</string>
+  <string name="authorizationCodeFlow">rrjedhën e kodeve të autorizimit</string>
+  <string name="insteadGenerateToken" comment="The parameter is a link to generate a token a personal access token">Në vend të kësaj, %s mund të përdoret drejtpërsëdrejti në kërkesa ndaj API-t.</string>
+  <string name="generatePersonalToken">prodho një token përdorimi personal</string>
   <string name="guardTokensCarefully">Ruajini me kujdes këto kode! Janë si fjalëkalimet. Avantazhi i përdorimit të kodeve kundrejt dhënies së fjalëkalimit në një programth është fakti se kodet mund të shfuqizohen dhe mund të prodhoni sa të doni të tillë.</string>
-  <string name="apiDocumentationLinks" comment="%1$s links to a personal token app example (string: personalTokenAppExample).&#10;&#10;%2$s links to the API documentation (string: apiDocumentation).&#10;&#10;Full sentence after %1$s and %2$s have been substituted:&#10;&quot;Here's a personal app token example and the API documentation.&quot;&#10;&#10;personalTokenAppExample and apiDocumentation can both be translated separately.">Ja një %1$s dhe %2$s.</string>
-  <string name="personalTokenAppExample" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'&#10;&#10;This text is also a link which directs to https://github.com/lichess-org/api/tree/master/example/oauth-personal-token.">shembull aplikacioni token-i personal</string>
-  <string name="apiDocumentation" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'&#10;&#10;This text is also a link which directs to https://lichess.org/api.">Dokumentim API</string>
+  <string name="apiDocumentationLinks" comment="The first parameter links to a personal token app example. The second parameter links to the API documentation">Ja një %1$s dhe %2$s.</string>
+  <string name="personalTokenAppExample">shembull aplikacioni token-i personal</string>
+  <string name="apiDocumentation">Dokumentim API</string>
   <string name="newToken">Token i ri përdorimi</string>
   <string name="apiAccessTokens">Token-ë përdorimi API</string>
-  <string name="created" comment="%s is relative time, e.g. 2 hours ago.">Krijuar më %s</string>
-  <string name="lastUsed" comment="%s is relative time, e.g. 2 hours ago. 'Last used' in this context means 'You used this most recently %s time ago'.">Përdorur së fundi më %s</string>
+  <string name="created">Krijuar më %s</string>
+  <string name="lastUsed">Përdorur së fundi më %s</string>
   <string name="alreadyHavePlayedGames">Keni luajtur lojëra tashmë!</string>
   <string name="attentionOfDevelopers">Shënim vetëm për zhvilluesit:</string>
   <string name="possibleToPrefill">Është e mundur të plotësohet paraprakisht ky formula duke ndryshuar parametra kërkese te URL.</string>
-  <string name="forExample" comment="%s is an example URL.&#10;&#10;Please note the sentence continues on the next line. The complete sentence is:&#10;'For example: https://lichess.org/account/oauth/token/create?scopes[]=challenge:write&amp;scopes[]=puzzle:read&amp;description=Prefilled+token+example&#10;ticks the challenge:create and puzzle:read scopes, and sets the token description.'">Për shembull: %s</string>
+  <string name="forExample">Për shembull: %s</string>
   <string name="givingPrefilledUrls">Dhënia përdoruesve tuaj e këtyre URL-ve të plotësuara paraprakisht do t’i ndihmojë ata të kenë fushëveprim të saktë për token-ët.</string>
 </resources>

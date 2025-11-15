@@ -30,7 +30,7 @@
   <string name="webSocketUrl">%s WebSocket URL</string>
   <string name="useWebSocketUrl">Használd \"%1$s\", hacsak a %2$s nem fut egy másik gépen vagy másik porton.</string>
   <string name="textToSpeech">Szövegfelolvasás</string>
-  <string name="configureVoiceNarration">A lépések narrációjának beállításával a tektintetedet a táblán tarthatod.</string>
+  <string name="configureVoiceNarration">Beállíthatod, hogy a lépéseket felolvassa, így közben a nézheted a táblát.</string>
   <string name="enableSpeechSynthesis">Szövegfelolvasás bekapcsolása</string>
   <string name="speechSynthesisVoice">Beszédszintetizátor</string>
   <string name="announceAllMoves">Összes lépés bejelentése</string>

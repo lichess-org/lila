@@ -8,30 +8,30 @@
   <string name="whatTheTokenCanDo">टोकन आपकी ओर से क्या कर सकता है:</string>
   <string name="doNotShareIt">टोकन आपके खाते तक पहुंच प्रदान करेगा। इसे किसी के साथ साझा न करें!</string>
   <string name="copyTokenNow">अपने नए व्यक्तिगत एक्सेस टोकन को अभी कॉपी करना सुनिश्चित करें। आप इसे दोबारा नहीं देख पाएंगे!</string>
-  <string name="preferenceRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's preferences.&#10;&#10;There is a separate setting to let applications write (edit) preferences.">प्राथमिकताएँ पढ़ें</string>
-  <string name="preferenceWrite" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to edit/change the user's preferences.&#10;&#10;There is a separate setting to let applications only read preferences, but not to write (edit) them.">प्राथमिकता लिखें</string>
-  <string name="emailRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's registered email address.">ईमेल पता पढ़ें</string>
-  <string name="challengeRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view game challenges from other players.&#10;&#10;There is a separate setting to let applications send, accept or reject challenges.">आने वाली चुनौतियाँ पढ़ें</string>
-  <string name="challengeWrite" comment="challengeWrite&#10;&#10;In the context of an authentication token, a setting that permits third party software to send, accept and reject challenges on behalf of the player.">चुनौतियाँ भेजें, स्वीकार करें और अस्वीकार करें</string>
+  <string name="preferenceRead">प्राथमिकताएँ पढ़ें</string>
+  <string name="preferenceWrite">प्राथमिकता लिखें</string>
+  <string name="emailRead">ईमेल पता पढ़ें</string>
+  <string name="challengeRead">आने वाली चुनौतियाँ पढ़ें</string>
+  <string name="challengeWrite">चुनौतियाँ भेजें, स्वीकार करें और अस्वीकार करें</string>
   <string name="challengeBulk">अन्य खिलाड़ियों के लिए एक साथ कई गेम बनाएं</string>
-  <string name="studyRead" comment="Gives permission to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">निजी अध्ययन और प्रसारण पढ़ें</string>
-  <string name="studyWrite" comment="In the context of an access token, a setting that enables third party software to create, update or delete studies and broadcasts.">अध्ययन और प्रसारण बनाएं, अपडेट करें, हटाएं</string>
-  <string name="tournamentWrite" comment="In the context of an access token, a setting that permits third party software to create, update or delete studies and join tournaments.">टूर्नामेंट बनाएं, अपडेट करें और शामिल हों</string>
-  <string name="racerWrite" comment="In the context of an access token, a setting which permits third party software to create, and join puzzle races (this is for the activity/minigame Puzzle Racer: https://lichess.org/racer)">पहेली दौड़ बनाएं और उसमें शामिल हों</string>
-  <string name="puzzleRead" comment="In the context of an access token, a setting which permits third-party software to view the user's puzzle solving history.">पहेली गतिविधि पढ़ें</string>
-  <string name="teamRead" comment="Gives permission to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">निजी टीम की जानकारी पढ़ें</string>
-  <string name="teamWrite" comment="In the context of an access token, a setting that permits the third party software to join or leave teams on your behalf.">टीमों में शामिल हों और छोड़ें</string>
+  <string name="studyRead">निजी अध्ययन और प्रसारण पढ़ें</string>
+  <string name="studyWrite">अध्ययन और प्रसारण बनाएं, अपडेट करें, हटाएं</string>
+  <string name="tournamentWrite">टूर्नामेंट बनाएं, अपडेट करें और शामिल हों</string>
+  <string name="racerWrite">पहेली दौड़ बनाएं और उसमें शामिल हों</string>
+  <string name="puzzleRead">पहेली गतिविधि पढ़ें</string>
+  <string name="teamRead">निजी टीम की जानकारी पढ़ें</string>
+  <string name="teamWrite">टीमों में शामिल हों और छोड़ें</string>
   <string name="teamLead">जिन टीमों का आप नेतृत्व करते हैं उन्हें प्रबंधित करें: पीएम भेजें, सदस्यों को बाहर निकालें</string>
-  <string name="followRead" comment="In the context of an access token, a setting which permits third-party software to view (read) which players you are following.">फ़ॉलो किए गए खिलाड़ियों को पढ़ें</string>
-  <string name="followWrite" comment="In the context of an access token, a setting which permits third-party software to follow and unfollow other players on your behalf.">अन्य खिलाड़ियों को फ़ॉलो करें और अनफ़ॉलो करें</string>
-  <string name="msgWrite" comment="In the context of an access token, a setting which permits third-party software to send messages on your behalf.">अन्य खिलाड़ियों को निजी संदेश भेजें</string>
-  <string name="boardPlay" comment="In the context of an access token, a setting which permits third-party software to play games using e-boards like DGT, through Lichess's board API.">बोर्ड एपीआई के साथ गेम खेलें</string>
-  <string name="botPlay" comment="In the context of an access token, a setting which permits third-party software to play games over the bot API. This is intended mainly for having an engine account e.g. the accounts featured on https://lichess.org/player/bots">बॉट एपीआई के साथ गेम खेलें</string>
+  <string name="followRead">फ़ॉलो किए गए खिलाड़ियों को पढ़ें</string>
+  <string name="followWrite">अन्य खिलाड़ियों को फ़ॉलो करें और अनफ़ॉलो करें</string>
+  <string name="msgWrite">अन्य खिलाड़ियों को निजी संदेश भेजें</string>
+  <string name="boardPlay">बोर्ड एपीआई के साथ गेम खेलें</string>
+  <string name="botPlay">बॉट एपीआई के साथ गेम खेलें</string>
   <string name="engineRead">अपने बाहरी इंजन देखें और उपयोग करें</string>
   <string name="engineWrite">बाहरी इंजन बनाएं और अपडेट करें</string>
-  <string name="webLogin" comment="In the context of an access token, a setting which permits third-party software to create authenticated sessions - meaning effectively unlimited access to your account, using it as if it is you, instead of a third party program. It will be unable to view your password but it will be able to do almost everything else.">प्रमाणित वेबसाइट सत्र बनाएँ (पूर्ण पहुँच प्रदान करता है!)</string>
-  <string name="webMod" comment="In the context of an access token, this is a setting which permits third-party software to use moderator tools on your behalf. Most players will not be able to see this option.">मॉडरेटर टूल का उपयोग करें (आपकी अनुमति की सीमा के भीतर)</string>
+  <string name="webLogin">प्रमाणित वेबसाइट सत्र बनाएँ (पूर्ण पहुँच प्रदान करता है!)</string>
+  <string name="webMod">मॉडरेटर टूल का उपयोग करें (आपकी अनुमति की सीमा के भीतर)</string>
   <string name="personalAccessTokens">व्यक्तिगत एपीआई एक्सेस टोकन</string>
-  <string name="canMakeOauthRequests" comment="%s is 'authorisation code flow' (flow, as in a process).">आप %s से गुजरे बिना OAuth अनुरोध कर सकते हैं।</string>
-  <string name="authorizationCodeFlow" comment="Part of longer string canMakeOauthRequests:&#10;You can make OAuth requests without going through the authorisation code flow.&#10;&#10;This text is also a link which directs to https://lichess.org/api#section/Introduction/Authentication.&#10;&#10;In this context, 'flow' means a process. Technical information explaining this concept here: https://oauth.net/2/grant-types/authorization-code/ - its formal name is &quot;authorisation code grant type&quot;.&#10;&#10;If you are not comfortable in translating this, we recommend leaving it untranslated.">प्राधिकरण कोड प्रवाह</string>
+  <string name="canMakeOauthRequests">आप %s से गुजरे बिना OAuth अनुरोध कर सकते हैं।</string>
+  <string name="authorizationCodeFlow">प्राधिकरण कोड प्रवाह</string>
 </resources>

@@ -35,7 +35,7 @@
   <string name="twitchOrYouTubeRequired" comment="A notice when creating/editing your streamer page (https://lichess.org/streamer/edit), denoting that you can only be listed if you stream from a Twitch or YouTube channel.">Potreben je Twitch ali YouTube</string>
   <string name="twitchOrYouTubeMustBeVerified" comment="For background: The &quot;streamer badge&quot; refers to the microphone icon on the streamer's profile (https://lichess.org/@/Lichess).&#10;The listing is the streamer's page that appears at https://lichess.org/streamer">Spremembe Twitch in YouTube je treba preveriti.
 
- Med pregledom bosta vaša značka in seznam pretakal cev onemogočena. To lahko traja do 72 ur.</string>
+ Med pregledom bosta vaša značka in seznam pretakal cev onemogočena. To lahko traja do dvainsedemdeset ur.</string>
   <string name="youTubeChannelId">ID vašega kanala YouTube</string>
   <string name="streamerName">Vaše ime kot voditelj prenosa na Lichess</string>
   <plurals name="keepItShort">

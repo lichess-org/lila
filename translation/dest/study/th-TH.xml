@@ -100,7 +100,6 @@
     <item quantity="other">วางข้อความ PGN ของคุณที่นี่, ได้ถึง %s เกม</item>
   </plurals>
   <string name="urlOfTheGame">URL ของเกม</string>
-  <string name="loadAGameFromXOrY">โหลดเกมจาก %1$s หรือ %2$s</string>
   <string name="createChapter">สร้างบท</string>
   <string name="createStudy">สร้างกรณีศึกษา</string>
   <string name="editStudy">แก้ไขกรณีศึกษา</string>

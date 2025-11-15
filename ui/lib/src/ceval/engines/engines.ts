@@ -4,11 +4,11 @@ import { SimpleEngine } from './simpleEngine';
 import { StockfishWebEngine } from './stockfishWebEngine';
 import { ThreadedEngine } from './threadedEngine';
 import { ExternalEngine } from './externalEngine';
-import { storedStringProp, StoredProp } from '../../storage';
-import { isAndroid, isIos, isIPad, features as browserSupport } from '../../device';
-import { xhrHeader } from '../../xhr';
+import { storedStringProp, type StoredProp } from '@/storage';
+import { isAndroid, isIos, isIPad, features as browserSupport } from '@/device';
+import { xhrHeader } from '@/xhr';
 import { lichessRules } from 'chessops/compat';
-import { log } from '../../permalog';
+import { log } from '@/permalog';
 
 export class Engines {
   private activeEngine: EngineInfo | undefined = undefined;
@@ -47,7 +47,7 @@ export class Engines {
         variants: [key],
         cloudEval: true,
         assets: {
-          root: 'npm/@lichess-org/stockfish-web',
+          root: 'npm/stockfish-web',
           nnue: [`${variantMap(key)}-${nnue}.nnue`],
           js: 'fsf14.js',
         },
@@ -66,16 +66,16 @@ export class Engines {
     const browserEngines: WithMake[] = [
       {
         info: {
-          id: '__sf16nnue7',
-          name: 'Stockfish 16 NNUE · 7MB',
-          short: 'SF 16 · 7MB',
+          id: '__sf17_1nnue7',
+          name: 'Stockfish 17.1 NNUE · 7MB',
+          short: 'SF 17.1 · 7MB',
           tech: 'NNUE',
           requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
           minMem: 1536,
           cloudEval: true,
           assets: {
-            root: 'npm/@lichess-org/stockfish-web',
-            js: 'sf16-7.js',
+            root: 'npm/stockfish-web',
+            js: 'sf171-7.js',
           },
         },
         make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.status),
@@ -90,7 +90,7 @@ export class Engines {
           minMem: 2560,
           cloudEval: true,
           assets: {
-            root: 'npm/@lichess-org/stockfish-web',
+            root: 'npm/stockfish-web',
             js: 'sf171-79.js',
           },
         },
@@ -124,7 +124,7 @@ export class Engines {
           requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
           variants: variants.map(v => v[0]),
           assets: {
-            root: 'npm/@lichess-org/stockfish-web',
+            root: 'npm/stockfish-web',
             js: 'fsf14.js',
           },
         },

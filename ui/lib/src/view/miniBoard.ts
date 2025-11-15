@@ -1,3 +1,5 @@
+/* eslint no-restricted-syntax:"error" */ // no side effects allowed due to re-export by index.ts
+
 import { h, type VNode } from 'snabbdom';
 import * as domData from '@/data';
 import { lichessClockIsRunning, setClockWidget } from '@/game/clock/clockWidget';
@@ -91,8 +93,8 @@ export const updateMiniGame = (node: HTMLElement, data: MiniGameUpdateData): voi
   updateClock(data.bc, 'black');
 };
 
-export const finishMiniGame = (node: HTMLElement, win?: 'black' | 'white'): void =>
-  ['white', 'black'].forEach(color => {
+export const finishMiniGame = (node: HTMLElement, win?: 'b' | 'w'): void =>
+  ['white', 'black'].forEach((color: Color) => {
     const clock: HTMLElement | null = node.querySelector('.mini-game__clock--' + color);
     // don't interfere with snabbdom clocks
     if (clock && !clock.dataset['managed'])

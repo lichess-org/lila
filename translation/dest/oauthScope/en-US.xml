@@ -8,47 +8,46 @@
   <string name="whatTheTokenCanDo">What the token can do on your behalf:</string>
   <string name="doNotShareIt">The token will grant access to your account. Do NOT share it with anyone!</string>
   <string name="copyTokenNow">Make sure to copy your new personal access token now. You won’t be able to see it again!</string>
-  <string name="preferenceRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's preferences.&#10;&#10;There is a separate setting to let applications write (edit) preferences.">Read preferences</string>
-  <string name="preferenceWrite" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to edit/change the user's preferences.&#10;&#10;There is a separate setting to let applications only read preferences, but not to write (edit) them.">Write preference</string>
-  <string name="emailRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's registered email address.">Read email address</string>
-  <string name="challengeRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view game challenges from other players.&#10;&#10;There is a separate setting to let applications send, accept or reject challenges.">Read incoming challenges</string>
-  <string name="challengeWrite" comment="challengeWrite&#10;&#10;In the context of an authentication token, a setting that permits third party software to send, accept and reject challenges on behalf of the player.">Send, accept and reject challenges</string>
+  <string name="preferenceRead">Read preferences</string>
+  <string name="preferenceWrite">Write preference</string>
+  <string name="emailRead">Read email address</string>
+  <string name="challengeRead">Read incoming challenges</string>
+  <string name="challengeWrite">Send, accept and reject challenges</string>
   <string name="challengeBulk">Create many games at once for other players</string>
-  <string name="studyRead" comment="Gives permission to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Read private studies and broadcasts</string>
-  <string name="studyWrite" comment="In the context of an access token, a setting that enables third party software to create, update or delete studies and broadcasts.">Create, update, delete studies and broadcasts</string>
-  <string name="tournamentWrite" comment="In the context of an access token, a setting that permits third party software to create, update or delete studies and join tournaments.">Create, update, and join tournaments</string>
-  <string name="racerWrite" comment="In the context of an access token, a setting which permits third party software to create, and join puzzle races (this is for the activity/minigame Puzzle Racer: https://lichess.org/racer)">Create and join puzzle races</string>
-  <string name="puzzleRead" comment="In the context of an access token, a setting which permits third-party software to view the user's puzzle solving history.">Read puzzle activity</string>
-  <string name="teamRead" comment="Gives permission to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Read private team information</string>
-  <string name="teamWrite" comment="In the context of an access token, a setting that permits the third party software to join or leave teams on your behalf.">Join and leave teams</string>
+  <string name="studyRead">Read private studies and broadcasts</string>
+  <string name="studyWrite">Create, update, delete studies and broadcasts</string>
+  <string name="tournamentWrite">Create, update, and join tournaments</string>
+  <string name="racerWrite">Create and join puzzle races</string>
+  <string name="puzzleRead">Read puzzle activity</string>
+  <string name="teamRead">Read private team information</string>
+  <string name="teamWrite">Join and leave teams</string>
   <string name="teamLead">Manage teams you lead: send PMs, kick members</string>
-  <string name="followRead" comment="In the context of an access token, a setting which permits third-party software to view (read) which players you are following.">Read followed players</string>
-  <string name="followWrite" comment="In the context of an access token, a setting which permits third-party software to follow and unfollow other players on your behalf.">Follow and unfollow other players</string>
-  <string name="msgWrite" comment="In the context of an access token, a setting which permits third-party software to send messages on your behalf.">Send private messages to other players</string>
-  <string name="boardPlay" comment="In the context of an access token, a setting which permits third-party software to play games using e-boards like DGT, through Lichess's board API.">Play games with board API</string>
-  <string name="botPlay" comment="In the context of an access token, a setting which permits third-party software to play games over the bot API. This is intended mainly for having an engine account e.g. the accounts featured on https://lichess.org/player/bots">Play games with the bot API</string>
+  <string name="followRead">Read followed players</string>
+  <string name="followWrite">Follow and unfollow other players</string>
+  <string name="msgWrite">Send private messages to other players</string>
+  <string name="boardPlay">Play games with board API</string>
+  <string name="botPlay">Play games with the bot API</string>
   <string name="engineRead">View and use your external engines</string>
   <string name="engineWrite">Create and update external engines</string>
-  <string name="webLogin" comment="In the context of an access token, a setting which permits third-party software to create authenticated sessions - meaning effectively unlimited access to your account, using it as if it is you, instead of a third party program. It will be unable to view your password but it will be able to do almost everything else.">Create authenticated website sessions (grants full access!)</string>
-  <string name="webMod" comment="In the context of an access token, this is a setting which permits third-party software to use moderator tools on your behalf. Most players will not be able to see this option.">Use moderator tools (within bounds of your permission)</string>
+  <string name="webLogin">Create authenticated website sessions (grants full access!)</string>
+  <string name="webMod">Use moderator tools (within bounds of your permission)</string>
   <string name="personalAccessTokens">Personal API access tokens</string>
-  <string name="canMakeOauthRequests" comment="%s is 'authorisation code flow' (flow, as in a process).">You can make OAuth requests without going through the %s.</string>
-  <string name="authorizationCodeFlow" comment="Part of longer string canMakeOauthRequests:&#10;You can make OAuth requests without going through the authorisation code flow.&#10;&#10;This text is also a link which directs to https://lichess.org/api#section/Introduction/Authentication.&#10;&#10;In this context, 'flow' means a process. Technical information explaining this concept here: https://oauth.net/2/grant-types/authorization-code/ - its formal name is &quot;authorisation code grant type&quot;.&#10;&#10;If you are not comfortable in translating this, we recommend leaving it untranslated.">authorization code flow</string>
-  <string name="insteadGenerateToken" comment="%s is 'generate a personal access token'.">Instead, %s that you can directly use in API requests.</string>
-  <string name="generatePersonalToken" comment="Part of longer string insteadGenerateToken:&#10;'Instead, generate a personal access token you can directly use in API requests.'&#10;&#10;It is a link, which links to https://lichess.org/account/oauth/token/create and appears after you have created at least one token.">generate a personal access token</string>
+  <string name="canMakeOauthRequests">You can make OAuth requests without going through the %s.</string>
+  <string name="authorizationCodeFlow">authorization code flow</string>
+  <string name="insteadGenerateToken" comment="The parameter is a link to generate a token a personal access token">Instead, %s that you can directly use in API requests.</string>
+  <string name="generatePersonalToken">generate a personal access token</string>
   <string name="guardTokensCarefully">Guard these tokens carefully! They are like passwords. The advantage to using tokens over putting your password into a script is that tokens can be revoked, and you can generate lots of them.</string>
-  <string name="apiDocumentationLinks" comment="%1$s links to a personal token app example (string: personalTokenAppExample).&#10;&#10;%2$s links to the API documentation (string: apiDocumentation).&#10;&#10;Full sentence after %1$s and %2$s have been substituted:&#10;&quot;Here's a personal app token example and the API documentation.&quot;&#10;&#10;personalTokenAppExample and apiDocumentation can both be translated separately.">Here is a %1$s and the %2$s.</string>
-  <string name="personalTokenAppExample" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'&#10;&#10;This text is also a link which directs to https://github.com/lichess-org/api/tree/master/example/oauth-personal-token.">personal token app example</string>
-  <string name="apiDocumentation" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'&#10;&#10;This text is also a link which directs to https://lichess.org/api.">API documentation</string>
+  <string name="apiDocumentationLinks" comment="The first parameter links to a personal token app example. The second parameter links to the API documentation">Here is a %1$s and the %2$s.</string>
+  <string name="personalTokenAppExample">personal token app example</string>
+  <string name="apiDocumentation">API documentation</string>
   <string name="newToken">New access token</string>
   <string name="apiAccessTokens">API access tokens</string>
-  <string name="created" comment="%s is relative time, e.g. 2 hours ago.">Created %s</string>
-  <string name="lastUsed" comment="%s is relative time, e.g. 2 hours ago. 'Last used' in this context means 'You used this most recently %s time ago'.">Last used %s</string>
+  <string name="created">Created %s</string>
+  <string name="lastUsed">Last used %s</string>
   <string name="alreadyHavePlayedGames">You have already played games!</string>
   <string name="attentionOfDevelopers">Note for the attention of developers only:</string>
   <string name="possibleToPrefill">It is possible to pre-fill this form by tweaking the query parameters of the URL.</string>
-  <string name="forExample" comment="%s is an example URL.&#10;&#10;Please note the sentence continues on the next line. The complete sentence is:&#10;'For example: https://lichess.org/account/oauth/token/create?scopes[]=challenge:write&amp;scopes[]=puzzle:read&amp;description=Prefilled+token+example&#10;ticks the challenge:create and puzzle:read scopes, and sets the token description.'">For example: %s</string>
-  <string name="ticksTheScopes" comment="Part of a longer sentence, this is the second line:&#10;&#10;'For example: https://lichess.org/account/oauth/token/create?scopes[]=challenge:write&amp;scopes[]=puzzle:read&amp;description=Prefilled+token+example&#10;ticks the challenge:create and puzzle:read scopes, and sets the token description.'&#10;&#10;%1$s is 'challenge:create', %2$s is 'puzzle:read' which are both used as technical examples. These should not be translated which is why they are included as substituted strings.">ticks the %1$s and %2$s scopes, and sets the token description.</string>
-  <string name="scopesCanBeFound" comment="scopesCanBeFound&#10;&#10;For this page in particular, developers can link to it so that some options are pre-ticked when a user follows the URL.&#10;&#10;To pre-tick those options, developers need the scope codes, which they can find by inspecting the source code of the page itself.">The scope codes can be found in the HTML code of the form.</string>
+  <string name="forExample">For example: %s</string>
+  <string name="ticksTheScopes">ticks the %1$s and %2$s scopes, and sets the token description.</string>
   <string name="givingPrefilledUrls">Giving these pre-filled URLs to your users will help them get the right token scopes.</string>
 </resources>

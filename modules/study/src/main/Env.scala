@@ -57,8 +57,6 @@ final class Env(
 
   lazy val jsonView = wire[JsonView]
 
-  private lazy val pgnFetch = wire[PgnFetch]
-
   private lazy val chapterMaker = wire[ChapterMaker]
 
   private lazy val explorerGame = wire[ExplorerGameApi]
@@ -97,11 +95,10 @@ final class Env(
                 isConnected(studyId, streamer).dmap(_.option(streamer))
               .dmap(_.flatten)
 
-  def cli: lila.common.Cli = new:
-    def process = { case "study" :: "rank" :: "reset" :: Nil =>
+  lila.common.Cli.handle:
+    case "study" :: "rank" :: "reset" :: Nil =>
       studyRepo.resetAllRanks.map: count =>
         s"$count done"
-    }
 
   lila.common.Bus.sub[lila.tree.StudyAnalysisProgress]:
     case lila.tree.StudyAnalysisProgress(analysis, complete) => serverEvalMerger(analysis, complete)

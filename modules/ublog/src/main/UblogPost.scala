@@ -104,9 +104,10 @@ object UblogPost:
   object thumbnail:
     enum Size(val width: Int):
       def height = width * 10 / 16
+      def dimensions = lila.memo.Dimensions(width, height)
       case Large extends Size(880)
       case Small extends Size(400)
     type SizeSelector = thumbnail.type => Size
 
-    def apply(picfitUrl: lila.core.misc.PicfitUrl, image: ImageId, size: SizeSelector): String =
-      picfitUrl.thumbnail(image, size(thumbnail).width, size(thumbnail).height)
+    def apply(picfitUrl: lila.memo.PicfitUrl, image: ImageId, size: SizeSelector): Url =
+      picfitUrl.thumbnail(image)(size(thumbnail).dimensions)

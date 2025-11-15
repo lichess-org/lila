@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="gameSetup">Configuració de la partida</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Repta un amic</string>
+  <string name="playAgainstComputer">Juga contra l\'ordinador</string>
+  <string name="gameMode">Tipus de partida</string>
+  <string name="createLobbyGame" comment="One of three buttons on the home page. Opens the modal to create a game that goes in the lobby.">Crea una sala de joc</string>
+  <string name="youPlayAs">Juga com a</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Per convidar algú a jugar, envia-li aquest enllaç</string>
   <string name="gameOver">Partida finalitzada</string>
   <string name="waitingForOpponent">Esperant a l\'oponent</string>
@@ -339,6 +345,7 @@
     <item quantity="other">%s en joc</item>
   </plurals>
   <string name="exportGames">Exporta les partides</string>
+  <string name="ratingFilter">Filtre de puntuació</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Dona %s segon</item>
     <item quantity="other">Dona %s segons</item>
@@ -823,6 +830,7 @@
   <string name="notifications">Avisos</string>
   <string name="notificationsX">Notificacions: %1$s</string>
   <string name="perfRatingX">Classificació: %s</string>
+  <string name="yourRatingIsX">La teva puntuació és de %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s segon per jugar el primer moviment</item>
     <item quantity="other">%s segons per jugar el primer moviment</item>
@@ -874,6 +882,7 @@
   <string name="playVariationToCreateConditionalPremoves">Jugar una variació per crear premoviments condicionals</string>
   <string name="noConditionalPremoves">Sense moviments anticipats condicionals</string>
   <string name="playX">Jugar %s</string>
+  <string name="challengeX">Desafia %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">i guardar %s línia anticipada</item>
     <item quantity="other">i guardar %s línies anticipades</item>
@@ -965,7 +974,7 @@ Deixa-ho en blanc per començar els jocs de la posició inicial.</string>
   <string name="simulFeaturedHelp">Mostra la teva simultània a tothom a %s. Desactiva-ho per a simultànies privades.</string>
   <string name="simulDescription">Descripció de la simultània</string>
   <string name="simulDescriptionHelp">Cap cosa per mencionar als participants?</string>
-  <string name="markdownAvailable">%s és disponible per a formats més avançats.</string>
+  <string name="markdownIsAvailable">Es pot utilitzar %s per descriure el format.</string>
   <string name="embedsAvailable">Enganxa un URL d\'un joc o d\'un capítol d\'estudi per incrustar-ho.</string>
   <string name="inYourLocalTimezone">El la teva zona horària</string>
   <string name="tournChat">Xat del tornament</string>

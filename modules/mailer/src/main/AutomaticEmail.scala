@@ -166,7 +166,7 @@ To make a new donation, head to $baseUrl/patron"""
       .map:
         _.foreach: (from, to) =>
           val wings =
-            if lifetime then "lifetime Patron wings"
+            if lifetime then "Lifetime Patron wings"
             else "Patron wings for one month"
           alsoSendAsPrivateMessage(from): _ =>
             s"""You gifted @${to.username} $wings. Thank you so much!"""

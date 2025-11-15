@@ -1,5 +1,6 @@
 import { frag } from 'lib';
 import { json as xhrJson } from 'lib/xhr';
+import { isTouchDevice } from 'lib/device';
 
 type HttpMethod = 'GET' | 'POST';
 
@@ -77,13 +78,11 @@ function renderMenu(container: HTMLElement): void {
   const initialWidth = container.offsetWidth;
 
   const menuContainer = document.createElement('div');
-  menuContainer.className = 'menu-container';
-  menuContainer.classList.add('btn-rack');
+  menuContainer.classList = 'menu-container btn-rack';
   container.appendChild(menuContainer);
 
   const dropdownDiv = document.createElement('div');
-  dropdownDiv.className = 'dropdown';
-  dropdownDiv.classList.add('btn-rack__btn');
+  dropdownDiv.classList = 'dropdown btn-rack__btn';
   menuContainer.appendChild(dropdownDiv);
 
   const moreButton = document.createElement('a');
@@ -117,7 +116,7 @@ function renderMenu(container: HTMLElement): void {
     const button = createMenuButton('btn-rack__btn', item);
     menuContainer.insertBefore(button, dropdownDiv);
 
-    if (container.offsetWidth > initialWidth) {
+    if (container.offsetWidth > initialWidth && !site.blindMode) {
       menuContainer.removeChild(button);
       break;
     }
@@ -141,24 +140,16 @@ function renderMenu(container: HTMLElement): void {
     dropdownDiv.tabIndex = 0;
     dropdownDiv.role = 'button';
 
-    const showDropdownWindow = () => {
-      dropdownWindow.style.visibility = 'visible';
+    const closeListener = (e: Event) => dropdownDiv.contains(e.target as Node) || showDropdownWindow(false);
+
+    const showDropdownWindow = (show?: boolean) => {
+      if (show ?? !dropdownDiv.classList.contains('visible'))
+        document.addEventListener('click', closeListener);
+      else document.removeEventListener('click', closeListener);
+      dropdownDiv.classList.toggle('visible', show);
     };
 
-    dropdownDiv.onclick = showDropdownWindow;
-    dropdownDiv.onkeydown = event => {
-      if (event.key === 'Enter') {
-        showDropdownWindow();
-      }
-    };
-
-    dropdownWindow.addEventListener('focusout', () => {
-      setTimeout(() => {
-        if (!dropdownWindow.contains(document.activeElement)) {
-          dropdownWindow.style.visibility = 'hidden';
-        }
-      }, 0);
-    });
+    if (isTouchDevice() && !site.blindMode) dropdownDiv.onclick = () => showDropdownWindow();
 
     for (let i = displayedItemCount; i < items.length; i++) {
       const button = createMenuButton('text', items[i]);

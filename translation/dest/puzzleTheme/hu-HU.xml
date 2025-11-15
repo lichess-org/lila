@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advancedPawn">Előretört gyalog</string>
-  <string name="advancedPawnDescription">Egy gyalogod előretört az ellenfél térfelére, és át is változhat.</string>
+  <string name="advancedPawnDescription">Egy gyalogod betört az ellenfél állásába, talán átváltozással fenyegetve.</string>
   <string name="advantage">Előny</string>
   <string name="advantageDescription">Ragadd meg a lehetőséget a döntő előny megszerzéséhez. (200cp ≤ eval ≤ 600cp)</string>
-  <string name="anastasiaMate">Anasztázia mattja</string>
+  <string name="anastasiaMate">Anasztázia-matt</string>
   <string name="anastasiaMateDescription">Egy huszár és egy bástya vagy a vezér közösen csapdába ejtik az ellenfél királyát a tábla széle és egy figurája között.</string>
   <string name="arabianMate">Arab matt</string>
   <string name="arabianMateDescription">Egy huszár és egy bástya közösen sarokba szorítják az ellenfél királyát.</string>
@@ -14,7 +14,7 @@
   <string name="attractionDescription">Csere vagy áldozat ami elmozdítja az ellenfél figuráját egy olyan mezőre ahol újabb taktika alkalmazható.</string>
   <string name="backRankMate">Alapsori matt</string>
   <string name="backRankMateDescription">Adj mattot az alapsoron ragadt királynak, mikor a saját figurái ejtik csapdába.</string>
-  <string name="bishopEndgame">Futó végjáték</string>
+  <string name="bishopEndgame">Futóvégjáték</string>
   <string name="bishopEndgameDescription">Végjáték csak futókkal és gyalogokkal.</string>
   <string name="bodenMate">Boden mattja</string>
   <string name="bodenMateDescription">Két támadó futó az átlókat keresztezve adnak mattot a saját figurái által akadályozott királynak.</string>
@@ -29,22 +29,22 @@
   <string name="dovetailMate">Fecskefark matt</string>
   <string name="dovetailMateDescription">A vezér mattot ad a szomszédos mezőn álló királynak, aminek mindkét menekülési útját saját figurái foglalják el.</string>
   <string name="equality">Egyenlőség</string>
-  <string name="equalityDescription">Visszatérés egy rosszabb állásból és a döntetlen vagy kiegyensúlyozott állás bebiztosítása.</string>
-  <string name="kingsideAttack">Királyszárnytámadás</string>
+  <string name="equalityDescription">Visszatérés egy vesztő állásból, és döntetlen vagy kiegyensúlyozott állás bebiztosítása (eval ≤ 200cp)</string>
+  <string name="kingsideAttack">Királyszárnyi támadás</string>
   <string name="kingsideAttackDescription">Királyszárnyra sáncolt király ellen indított támadás.</string>
   <string name="clearance">Felszabadítás</string>
   <string name="clearanceDescription">Egy lépés, általában tempóval, amely felszabadít egy mezőt, vonalat vagy átlót egy taktika kedvéért.</string>
   <string name="defensiveMove">Védekező lépés</string>
-  <string name="defensiveMoveDescription">Olyan precíz lépés vagy lépéssorozat amivel elkerülhető anyagveszteség vagy más hátrányos helyzet.</string>
+  <string name="defensiveMoveDescription">Olyan precíz lépés vagy lépéssorozat amivel elkerülhető az anyagveszteség vagy más hátrányos helyzet.</string>
   <string name="deflection">Elterelés</string>
   <string name="deflectionDescription">Egy lépés amivel az ellenfél figurája kimozdítható aktuális feladatából, például egy kulcsmező felügyelete.</string>
   <string name="discoveredAttack">Felfedett támadás</string>
-  <string name="discoveredAttackDescription">Egy figura mozgatása ami előzőleg egy másik figura tűzvonalában állt, például huszár elléptetése a bástya útjából.</string>
+  <string name="discoveredAttackDescription">Egy figura mozgatása, ami előzőleg egy másik figura tűzvonalában állt, például huszár elléptetése a bástya útjából.</string>
   <string name="doubleCheck">Kettős sakk</string>
   <string name="doubleCheckDescription">Két figurával történő egyidejű sakkadás amikor felfedés után az elmozdított és a korábban akadályozott figura is támadja az ellenfél királyát.</string>
   <string name="endgame">Végjáték</string>
   <string name="endgameDescription">Taktikák a játszma utolsó fázisában.</string>
-  <string name="enPassantDescription">Az en passant szabályt kihasználó taktika, mikor egy gyalog leütheti a mellette elhaladó, alapállásból kettőt lépő ellenfél gyalogját.</string>
+  <string name="enPassantDescription">Az en passant szabályt használó taktika, mikor egy gyalog leütheti a mellette elhaladó, alapállásból kettőt lépő ellenfél gyalogját.</string>
   <string name="exposedKing">Kiszolgáltatott király</string>
   <string name="exposedKingDescription">Olyan taktika, ami kihasználja a király körüli kevés védőt, gyakran matthoz vezet.</string>
   <string name="fork">Villa</string>

@@ -1,23 +1,21 @@
 import * as co from 'chessops';
-import { zip, clamp } from '../algo';
-import { clockToSpeed } from '../game/game';
-import { quantizeFilter, evaluateFilter, filterFacets, combine, type FilterValue } from './filter';
-import { pawnStructure } from './filters';
-import type { SearchResult } from 'zerofish';
+import { zip } from '../algo';
+import { clockToSpeed } from '@/game';
+import type { FilterFacetValue, FilterSpec, FilterName, Filters } from './filter';
+import { quantizeFilter, evaluateFilter, filterFacetKeys, combine } from './filter';
+import type { SearchResult } from '@lichess-org/zerofish';
 import type { OpeningBook } from '../game/polyglot';
 import { movetime as getMovetime } from './movetime';
-import { normalMove } from '../game/chess';
 import type { BotLoader } from './botLoader';
 import type {
   BotInfo,
   FishSearch,
   ZeroSearch,
-  Filters,
-  FilterType,
   Book,
   MoveSource,
   MoveArgs,
   MoveResult,
+  SearchMove,
   LocalSpeed,
   SoundEvent,
   SoundEvents,
@@ -27,17 +25,30 @@ import type {
 export type * from './types';
 
 export class Bot implements BotInfo, MoveSource {
-  private openings: Promise<OpeningBook[]>;
-  private stats: { cplMoves: number; cpl: number };
-  private traces: string[];
-  private cp: number;
-  private ctrl: BotLoader;
+  private static filterRegistryMap: Map<string, FilterSpec>;
+  static rating(bot: BotInfo | undefined, speed: LocalSpeed): number {
+    return bot?.ratings?.[speed] ?? bot?.ratings?.classical ?? 1500;
+  }
+  static isValid(maybeBot: any): boolean {
+    return Boolean(maybeBot?.zero || maybeBot?.fish);
+  }
+  static registerFilter(name: string, spec: FilterSpec): void {
+    Bot.filterRegistry.set(name, spec); // TODO move this
+  }
+  static registeredFilters(): [string, FilterSpec][] {
+    return [...Bot.filterRegistry.entries()]; // TODO move this
+  }
+  private static get filterRegistry(): Map<string, FilterSpec> {
+    Bot.filterRegistryMap ??= new Map(); // TODO move this
+    return Bot.filterRegistryMap;
+  }
 
   readonly uid: string;
   readonly version: number = 0;
 
   name: string;
   description: string;
+  vision: string;
   image: string;
   ratings: Ratings;
   books?: Book[];
@@ -46,13 +57,11 @@ export class Bot implements BotInfo, MoveSource {
   zero?: ZeroSearch;
   fish?: FishSearch;
 
-  static rating(bot: BotInfo | undefined, speed: LocalSpeed): number {
-    return bot?.ratings?.[speed] ?? bot?.ratings?.classical ?? 1500;
-  }
-
-  static isValid(maybeBot: any): boolean {
-    return Boolean(maybeBot?.zero || maybeBot?.fish);
-  }
+  private openings: Promise<OpeningBook[]>;
+  private stats: { cplMoves: number; cpl: number };
+  private traces: string[];
+  private cp: number;
+  private ctrl: BotLoader;
 
   constructor(info: BotInfo, ctrl: BotLoader) {
     Object.assign(this, structuredClone(info));
@@ -76,10 +85,6 @@ export class Bot implements BotInfo, MoveSource {
 
   get statsText(): string {
     return this.stats.cplMoves ? `acpl ${Math.round(this.stats.cpl / this.stats.cplMoves)}` : '';
-  }
-
-  get needsScore(): boolean {
-    return Object.values(this.filters ?? {}).some(o => o.score?.length);
   }
 
   async move(args: MoveArgs): Promise<MoveResult> {
@@ -137,16 +142,16 @@ export class Bot implements BotInfo, MoveSource {
     return 1;
   }
 
-  private hasFilter(op: FilterType): boolean {
+  private hasFilter(op: FilterName): boolean {
     const f = this.filters?.[op];
     return Boolean(f && (f.move?.length || f.score?.length || f.time?.length));
   }
 
-  private applyFilter(op: FilterType, { chess, movetime }: MoveArgs): number | undefined {
+  private facetWeight(op: FilterName, { chess, movetime }: MoveArgs): number | undefined {
     if (!this.hasFilter(op)) return undefined;
     const f = this.filters![op];
-    const x: FilterValue = Object.fromEntries(
-      filterFacets
+    const x: FilterFacetValue = Object.fromEntries(
+      filterFacetKeys
         .filter(k => f[k])
         .map(k => {
           if (k === 'move') return [k, chess.fullmoves];
@@ -200,21 +205,14 @@ export class Bot implements BotInfo, MoveSource {
     args: MoveArgs,
   ): { uci: Uci; cpl?: number; movetime: number } {
     const moves = this.parseMoves(fishResults, fishDepth, zeroResults, args);
-    this.trace(`[chooseMove] - parsed = ${stringify(moves)}`);
     const movetime = args.movetime ?? 0;
-    if (this.hasFilter('cplTarget')) {
-      this.scoreByCpl(moves, args);
-      this.trace(`[chooseMove] - cpl scored = ${stringify(moves)}`);
-    }
-    if (this.hasFilter('aggression')) {
-      this.scoreByAggression(moves, args);
-      this.trace(`[chooseMove] - aggression scored = ${stringify(moves)}`);
-    }
-    if (this.hasFilter('pawnStructure')) {
-      this.scoreByPawnStructure(moves, args);
-      this.trace(`[chooseMove] - pawn structure scored = ${stringify(moves)}`);
-    }
+
+    this.trace(`[chooseMove] - parsed = ${stringify(moves)}`);
+
+    this.scoreByFilters(moves, args);
+
     moves.sort(weightSort);
+
     if (args.pos.moves?.length) {
       const last = args.pos.moves[args.pos.moves.length - 1].slice(2, 4);
       // if the current favorite is a capture of the opponent's last moved piece,
@@ -227,7 +225,7 @@ export class Bot implements BotInfo, MoveSource {
     const filtered = moves.filter(mv => !args.avoid.includes(mv.uci));
     this.trace(`[chooseMove] - sorted & filtered = ${stringify(filtered)}`);
     const decayed =
-      this.scoreByMoveQualityDecay(filtered, this.applyFilter('moveDecay', args) ?? 0) ??
+      this.scoreByMoveQualityDecay(filtered, this.facetWeight('moveDecay', args) ?? 0) ??
       filtered[0] ??
       moves[0];
     return { ...decayed, movetime };
@@ -247,7 +245,7 @@ export class Bot implements BotInfo, MoveSource {
       return [{ uci: '0000', weights: {} }];
     }
     const parsed: SearchMove[] = [];
-    const lc0bias = this.applyFilter('lc0bias', args) ?? 0;
+    const lc0bias = this.facetWeight('lc0bias', args) ?? 0;
     const cp = fishDepth ? fish.lines[fishDepth - 1][0].score : this.cp;
     this.trace(`[parseMoves] - cp = ${cp.toFixed(2)}, lc0bias = ${lc0bias.toFixed(2)}`);
     if (fishDepth)
@@ -275,8 +273,8 @@ export class Bot implements BotInfo, MoveSource {
 
   private scoreByCpl(sorted: SearchMove[], args: MoveArgs) {
     if (!this.filters?.cplTarget) return;
-    const mean = this.applyFilter('cplTarget', args)!;
-    const stdev = this.applyFilter('cplStdev', args) ?? 80;
+    const mean = this.facetWeight('cplTarget', args)!;
+    const stdev = this.facetWeight('cplStdev', args) ?? 80;
     const cplTarget = Math.abs(mean + stdev * getNormal());
     // folding the normal at zero skews the distribution mean a bit further from the target
     const gain = 0.06;
@@ -289,35 +287,25 @@ export class Bot implements BotInfo, MoveSource {
     }
   }
 
-  private scoreByAggression(sorted: SearchMove[], args: MoveArgs) {
-    const aggression = this.applyFilter('aggression', args) ?? 0;
-    for (const mv of sorted) {
-      const chess = args.chess.clone();
-      const normal = normalMove(chess, mv.uci)!.move;
-      mv.weights.aggressionBias = co.san.makeSan(chess, normal).includes('x') ? aggression : 0;
+  private scoreByFilters(sorted: SearchMove[], args: MoveArgs) {
+    if (this.hasFilter('cplTarget')) {
+      this.scoreByCpl(sorted, args);
+      this.trace(`[chooseMove] - cpl scored = ${stringify(sorted)}`);
     }
-  }
-
-  private scoreByPawnStructure(sorted: SearchMove[], args: MoveArgs) {
-    const pawnScore = this.applyFilter('pawnStructure', args) ?? 0;
-    for (const mv of sorted) {
-      const chess = args.chess.clone();
-      chess.play(normalMove(chess, mv.uci)!.move);
-      const score = pawnStructure(chess);
-      mv.weights.pawnStructure = clamp(score * pawnScore, { min: 0, max: 1 });
-    }
-    const grouped = sorted.reduce((groups, mv) => {
-      const group = groups.get(mv.weights.pawnStructure!) ?? [];
-      group.push(mv);
-      groups.set(mv.weights.pawnStructure!, group);
-      return groups;
-    }, new Map<number, SearchMove[]>());
-    const vals = [...grouped.keys()].sort((a, b) => b - a);
-    vals.forEach((val, i) => {
-      for (const mv of grouped.get(val)!) {
-        mv.weights.pawnStructure = (vals.length - i) / vals.length;
+    const customFilterKeys = Object.keys(this.filters ?? {}).filter(
+      key => this.hasFilter(key) && !['cplTarget', 'cplStdev', 'lc0bias', 'moveDecay'].includes(key),
+    );
+    for (const key of customFilterKeys) {
+      const { info, score } = Bot.filterRegistry.get(key) ?? {};
+      if (!info || !score) {
+        throw new Error(`undefined filter: ${key}, registry: ${stringify(Bot.filterRegistry)}`);
       }
-    });
+      const filterResult = score(sorted, args, this.facetWeight(key, args)!);
+      for (const [uci, result] of Object.entries(filterResult)) {
+        sorted.find(mv => mv.uci === uci)!.weights[key] = result.weight; // no need for map, n^2 is fine
+      }
+      this.trace(`[scoreByFilters] - ${info.label ?? key} scored = ${stringify(sorted)}`);
+    }
   }
 
   private scoreByMoveQualityDecay(sorted: SearchMove[], decay: number) {
@@ -333,16 +321,6 @@ export class Bot implements BotInfo, MoveSource {
     if (Array.isArray(msg)) this.traces = msg;
     else this.traces.push('      ' + msg);
   }
-}
-
-type Weights = 'lc0bias' | 'cplBias' | 'aggressionBias' | 'pawnStructure';
-
-interface SearchMove {
-  uci: Uci;
-  score?: number;
-  cpl?: number;
-  weights: { [key in Weights]?: number };
-  P?: number;
 }
 
 function weightSort(a: SearchMove, b: SearchMove) {

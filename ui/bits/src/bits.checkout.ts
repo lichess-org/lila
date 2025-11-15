@@ -1,7 +1,6 @@
 import * as xhr from 'lib/xhr';
-import { spinnerHtml } from 'lib/view/controls';
+import { spinnerHtml, prompt } from 'lib/view';
 import { contactEmail } from './bits';
-import { prompt } from 'lib/view/dialogs';
 import { myUserId } from 'lib';
 
 export interface Pricing {
@@ -67,7 +66,7 @@ export function initModule({
     if (isGift) {
       if ($monthly.is(':checked')) $('#freq_onetime').trigger('click');
       $checkout.find('.gift input').trigger('focus');
-    }
+    } else if (hasLifetime && $lifetime.is(':checked')) $('#freq_monthly').trigger('click');
     toggleCheckout();
   });
 

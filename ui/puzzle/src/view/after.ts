@@ -1,5 +1,5 @@
 import * as licon from 'lib/licon';
-import { type VNode, type MaybeVNodes, bind, dataIcon, hl } from 'lib/snabbdom';
+import { type VNode, type MaybeVNodes, bind, dataIcon, hl } from 'lib/view';
 import type PuzzleCtrl from '../ctrl';
 
 const renderVote = (ctrl: PuzzleCtrl): VNode =>
@@ -54,7 +54,7 @@ export default function (ctrl: PuzzleCtrl): VNode {
                   attrs: {
                     'data-icon': licon.Bullseye,
                     href: `/analysis/${ctrl.node.fen.replace(/ /g, '_')}?color=${ctrl.pov}#practice`,
-                    title: i18n.site.playAgainstAI,
+                    title: i18n.site.playAgainstComputer,
                     target: '_blank',
                   },
                 })

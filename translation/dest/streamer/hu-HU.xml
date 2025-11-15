@@ -6,12 +6,12 @@
   <string name="offline">NINCS ADÁS</string>
   <string name="currentlyStreaming">Jelenlegi közvetítés: %s</string>
   <string name="lastStream">Utolsó közvetítés %s</string>
-  <string name="becomeStreamer">Legyél Te is Lichess streamer</string>
+  <string name="becomeStreamer">Legyél te is Lichess-közvetítő</string>
   <string name="doYouHaveStream">Van már Twitch vagy YouTube csatornád?</string>
   <string name="hereWeGo">Lássunk neki!</string>
   <string name="allStreamers">Összes streamer</string>
-  <string name="editPage">Streamer oldal szerkesztése</string>
-  <string name="yourPage">Streamer oldalad</string>
+  <string name="editPage">Közvetítő oldal szerkesztése</string>
+  <string name="yourPage">Közvetítő oldalad</string>
   <string name="downloadKit">Streamer csomag letöltése</string>
   <string name="xIsStreaming">%s éppen közvetít</string>
   <string name="rules">Közvetítés szabályai</string>
@@ -22,13 +22,13 @@
   <string name="streamingFairplayFAQ">sportszerű közvetítés GYIK</string>
   <string name="perks">A kulcsszóval történő közvetítés előnyei</string>
   <string name="perk1">Kapsz egy izzó streamer ikont a Lichess profilodra.</string>
-  <string name="perk2">A streamerek listájának elejére kerülsz.</string>
+  <string name="perk2">A közvetítők listájának elejére kerülsz.</string>
   <string name="perk3">Lichess követőid értesítése.</string>
   <string name="perk4">A közvetítésed mutatása a játszmáid, versenyeid és tanulmányaidnál.</string>
   <string name="approved">A közvetítés jóváhagyva.</string>
   <string name="pendingReview">A közvetítésed épp moderátoraink vizsgálják.</string>
-  <string name="pleaseFillIn">Kérjük add meg a streamer adataidat és tölts fel egy képet.</string>
-  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Amikor készen állsz, hogy megjelenj a Lichess streamerei között, %s</string>
+  <string name="pleaseFillIn">Kérjük, add meg a közvetítői adataidat, és tölts fel egy képet.</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Amikor készen állsz, hogy megjelenj a Lichess közvetítői között, %s</string>
   <string name="submitForReview" comment="Appears on a button when editing the page which lets you be listed as a streamer: https://lichess.org/streamer/edit&#10;&#10;As this is public, any changes to a streamer page are first sent to the Lichess team for review.">Ellenőrzésre beküldés</string>
   <string name="streamerLanguageSettings">A Lichess streamer oldala a streamer platformod nyelvi beállításait használja, ezért a közvetítésed alapértelmezett nyelvét ott tudod beállítani.</string>
   <string name="twitchUsername">Twitch felhasználóneved vagy URL</string>
@@ -37,17 +37,17 @@
 
 A felülvizsgálat ideje alatt közvetítői jelvényed és a listázásod felfüggesztésre kerülhet. Ez maximum 72 óra.</string>
   <string name="youTubeChannelId">YouTube csatornád azonosítója</string>
-  <string name="streamerName">Streamer neved a Lichess-en</string>
+  <string name="streamerName">A közvetítői neved a Lichess-en</string>
   <plurals name="keepItShort">
     <item quantity="one">Legyen rövid: legfeljebb %s karakter</item>
     <item quantity="other">Legyen rövid: legfeljebb %s karakter</item>
   </plurals>
-  <string name="visibility">Megjelenik a streamerek oldalán</string>
+  <string name="visibility">Megjelenik a közvetítők oldalán</string>
   <string name="whenApproved">Ha a moderátorok jóvá hagyták</string>
   <string name="headline">Főcím</string>
   <string name="tellUsAboutTheStream">A közvetítés jellemzése egy mondatban</string>
   <string name="longDescription">Bővebb leírás</string>
-  <string name="xStreamerPicture">%s streamer képe</string>
+  <string name="xStreamerPicture">%s közvetítő képe</string>
   <string name="changePicture">Kép szerkesztése/törlése</string>
   <string name="uploadPicture">Kép feltöltése</string>
   <string name="maxSize">Maximális méret: %s</string>

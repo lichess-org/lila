@@ -207,7 +207,7 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
             )
           ),
           cms.map: content =>
-            frag(br, div(cls := "box box-pad page")(div(cls := "body expand-text")(rawHtml(content))))
+            frag(br, div(cls := "box box-pad page")(div(cls := "body expand-text")(content)))
         )
 
   def password(form: Form[?])(using Context) =

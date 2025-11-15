@@ -15,7 +15,7 @@
   <string name="castle" comment="Castle is used as a verb here, referring to castling.">Sáncolj (bármelyik oldalra)</string>
   <string name="phoneticAlphabetIsBest">Fonetikus ábécé a legjobb</string>
   <string name="cancelTimerOrDenyARequest">Érvénytelenítsd az időzítőt, vagy utasítsd el a kérést</string>
-  <string name="playPreferredMoveOrConfirmSomething">Játsszd le a választott lépést, vagy erősíts meg valamit</string>
+  <string name="playPreferredMoveOrConfirmSomething">Játszd le a választott lépést, vagy erősíts meg valamit</string>
   <string name="sleep">Alvó mód (ha éber módban van)</string>
   <string name="turnOffVoiceRecognition">Kapcsold ki a hangfelismerést</string>
   <string name="showPuzzleSolution">Mutasd a feladvány megoldását</string>

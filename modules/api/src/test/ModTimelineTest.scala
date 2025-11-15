@@ -19,9 +19,9 @@ class ModTimelineTest extends munit.FunSuite:
   val l3 = line("linguine", "relay/bbb")
   val l4 = line("bucatini", "study/ccc")
   val l5 = line("rigatoni", "study/ccc")
-  val ban1 = TempBan(now.minusDays(10), 5)
-  val ban2 = TempBan(now.minusDays(5), 10)
-  val ban3 = TempBan(now.minusDays(1), 15)
+  val ban1 = TempBan(now.minusDays(10), 5, none)
+  val ban2 = TempBan(now.minusDays(5), 10, none)
+  val ban3 = TempBan(now.minusDays(1), 15, none)
   def bans(bs: TempBan*) = PlayBans(NonEmptyList.fromListUnsafe(bs.toList))
   given Conversion[TempBan, Event] = bans(_)
 

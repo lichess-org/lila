@@ -6,7 +6,7 @@ import {
   eventListenersModule,
   init,
   h,
-  VNodeData,
+  type VNodeData,
 } from 'snabbdom';
 
 export const patch = init([classModule, attributesModule, propsModule, eventListenersModule]);

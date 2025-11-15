@@ -3,9 +3,13 @@ package lila.plan
 import play.api.data.*
 import play.api.data.Forms.*
 
-import lila.common.Form.into
+import lila.common.Form.{ numberIn, into }
+import lila.core.plan.PatronColor
 
 object PlanForm:
+
+  val style = Form:
+    single("color" -> numberIn(PatronColor.values.map(_.id).toSet))
 
   private val txnTypes = Set("express_checkout", "web_accept", "recurring_payment", "subscr_payment")
   // ignored types = subscr_cancel, ...

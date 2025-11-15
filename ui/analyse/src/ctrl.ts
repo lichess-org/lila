@@ -1,20 +1,20 @@
-import { fenToEpd, readDests, readDrops } from 'lib/game/chess';
-import { playable, playedTurns } from 'lib/game/game';
+import { playable, playedTurns, fenToEpd, readDests, readDrops, validUci } from 'lib/game';
 import * as keyboard from './keyboard';
 import { treeReconstruct, plyColor } from './util';
 import { plural } from './view/util';
-import { debounce, throttle } from 'lib/async';
 import type GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
 import type StudyCtrl from './study/studyCtrl';
 import type { AnalyseOpts, AnalyseData, ServerEvalData, JustCaptured, NvuiPlugin } from './interfaces';
 import type { Api as ChessgroundApi } from '@lichess-org/chessground/api';
-import { Autoplay, AutoplayDelay } from './autoplay';
-import { build as makeTree, path as treePath, ops as treeOps, type TreeWrapper } from 'lib/tree/tree';
+import { Autoplay, type AutoplayDelay } from './autoplay';
+import { makeTree, treePath, treeOps, type TreeWrapper } from 'lib/tree';
 import { compute as computeAutoShapes } from './autoShape';
 import type { Config as ChessgroundConfig } from '@lichess-org/chessground/config';
-import { CevalCtrl, isEvalBetter, sanIrreversible, type EvalMeta, type CevalOpts } from 'lib/ceval/ceval';
+import type { CevalHandler, EvalMeta, CevalOpts } from 'lib/ceval';
+import { CevalCtrl, isEvalBetter, sanIrreversible } from 'lib/ceval';
 import { TreeView } from './treeView/treeView';
-import { defined, prop, type Prop, toggle, type Toggle, requestIdleCallback, propWithEffect } from 'lib';
+import type { Prop, Toggle } from 'lib';
+import { defined, prop, toggle, debounce, throttle, requestIdleCallback, propWithEffect } from 'lib';
 import { pubsub } from 'lib/pubsub';
 import type { DrawShape } from '@lichess-org/chessground/draw';
 import { lichessRules } from 'chessops/compat';
@@ -44,9 +44,8 @@ import { type ArrowKey, type KeyboardMove, ctrl as makeKeyboardMove } from 'keyb
 import * as control from './control';
 import type { PgnError } from 'chessops/pgn';
 import { ChatCtrl } from 'lib/chat/chatCtrl';
-import { confirm } from 'lib/view/dialogs';
+import { confirm } from 'lib/view';
 import api from './api';
-import type { CevalHandler } from 'lib/ceval/types';
 import { displayColumns } from 'lib/device';
 
 export default class AnalyseCtrl implements CevalHandler {
@@ -507,7 +506,7 @@ export default class AnalyseCtrl implements CevalHandler {
       return data;
     } catch (err) {
       this.pgnError = (err as PgnError).message;
-      this.redraw();
+      requestAnimationFrame(this.redraw);
     }
     return undefined;
   }
@@ -607,7 +606,7 @@ export default class AnalyseCtrl implements CevalHandler {
     }
 
     const relayPath = this.study?.data.chapter.relayPath;
-    if (relayPath && relayPath !== newPath) this.forceVariation(newPath, true);
+    if (relayPath && relayPath === path) this.forceVariation(newPath, true);
     else this.jump(newPath);
 
     this.redraw();
@@ -646,6 +645,10 @@ export default class AnalyseCtrl implements CevalHandler {
     else this.jump(this.path);
     if (this.study) this.study.deleteNode(path);
     this.redraw();
+  }
+
+  allowedEval(node: Tree.Node = this.node): Tree.ClientEval | Tree.ServerEval | false | undefined {
+    return (this.cevalEnabled() && node.ceval) || (this.showFishnetAnalysis() && node.eval);
   }
 
   outcome(node?: Tree.Node): Outcome | undefined {
@@ -691,7 +694,7 @@ export default class AnalyseCtrl implements CevalHandler {
   }
 
   nextNodeBest() {
-    return treeOps.withMainlineChild(this.node, (n: Tree.Node) => n.eval?.best);
+    return treeOps.withMainlineChild(this.node, (n: Tree.Node) => validUci(n.eval?.best));
   }
 
   setAutoShapes = (): void => {
@@ -757,13 +760,12 @@ export default class AnalyseCtrl implements CevalHandler {
     const unforcedState = this.cevalEnabledProp() && this.isCevalAllowed() && !this.ceval.isPaused;
 
     if (enable === undefined) return force ? 'force' : unforcedState;
-
     if (!force) {
       this.showCevalProp(enable);
       this.cevalEnabledProp(enable);
     }
-
-    if (enable !== unforcedState || this.ceval.isPaused) {
+    if (enable && this.ceval.isPaused) this.ceval.resume();
+    if (enable !== unforcedState) {
       if (enable) this.startCeval();
       else {
         this.threatMode(false);
@@ -776,12 +778,12 @@ export default class AnalyseCtrl implements CevalHandler {
     return force ? 'force' : enable;
   };
 
-  startCeval = throttle(700, () => {
+  startCeval = () => {
     if (!this.ceval.download) this.ceval.stop();
-    if (this.node.threefold || this.outcome() || (!this.cevalEnabled() && !this.ceval.isPaused)) return;
+    if (this.node.threefold || !this.cevalEnabled() || this.outcome()) return;
     this.ceval.start(this.path, this.nodeList, undefined, this.threatMode());
     this.evalCache.fetch(this.path, this.ceval.search.multiPv);
-  });
+  };
 
   clearCeval(): void {
     this.tree.removeCeval();
@@ -883,6 +885,7 @@ export default class AnalyseCtrl implements CevalHandler {
   };
 
   toggleExplorer = (): void => {
+    if (!this.explorer.allowed()) return;
     if (!this.explorer.enabled()) {
       this.retro = undefined;
       this.actionMenu(false);
@@ -1060,7 +1063,7 @@ export default class AnalyseCtrl implements CevalHandler {
     this.keyboardMove?.update({ fen, canMove: true });
   };
 
-  showBestMoveArrows = () => this.showBestMoveArrowsProp() && !this.retro;
+  showBestMoveArrows = () => this.showBestMoveArrowsProp() && !this.retro?.hideComputerLine(this.node);
 
   private resetAutoShapes = () => {
     if (this.showBestMoveArrows() || this.showMoveAnnotation() || this.variationArrowOpacity())

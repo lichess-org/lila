@@ -40,22 +40,17 @@ object String:
 
   object html:
 
-    inline def raw(inline html: Html) = scalatags.Text.all.raw(html.value)
-
     def richText(rawText: String, nl2br: Boolean = true, expandImg: Boolean = true)(using NetDomain): Frag =
-      raw:
-        val withLinks = RawHtml.addLinks(rawText, expandImg)
-        if nl2br then RawHtml.nl2br(withLinks.value) else withLinks
+      val withLinks = RawHtml.addLinks(rawText, expandImg)
+      if nl2br then RawHtml.nl2br(withLinks.value).frag else withLinks.frag
 
     def nl2brUnsafe(text: String): Frag =
-      raw:
-        RawHtml.nl2br(text)
+      RawHtml.nl2br(text).frag
 
     def nl2br(text: String): Frag = nl2brUnsafe(escapeHtmlRaw(text))
 
     def escapeHtml(h: Html): RawFrag =
-      raw:
-        Html(escapeHtmlRaw(h.value))
+      Html(escapeHtmlRaw(h.value)).frag
 
     def unescapeHtml(html: Html): Html =
       html.map(org.apache.commons.text.StringEscapeUtils.unescapeHtml4)

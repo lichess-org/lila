@@ -5,7 +5,6 @@
   <string name="newBroadcast">নতুন সরাসরি সম্প্রচার</string>
   <string name="ongoing">চলমান</string>
   <string name="upcoming">আসন্ন</string>
-  <string name="roundNumber">গোল নম্বর</string>
   <string name="fullDescription">ইভেন্টের সম্পূর্ণ বিবরণ</string>
   <string name="sourceUrlHelp">ইউআরএল যা লাইসেন্সেস পিজিএন আপডেট পেতে চেক করবে। এটি অবশ্যই ইন্টারনেট থেকে সর্বজনীনভাবে অ্যাক্সেসযোগ্য।.</string>
 </resources>

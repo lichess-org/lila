@@ -43,7 +43,7 @@
   <string name="moveConfirmation">Staðfesta leik</string>
   <string name="explainCanThenBeTemporarilyDisabled">Hægt er að slökkva á þessu á meðan teflt er útfrá borðsvalmyndinni</string>
   <string name="inCorrespondenceGames">Bréfskákir</string>
-  <string name="correspondenceAndUnlimited">Bréfaskipti og ótakmarkað</string>
+  <string name="correspondenceAndUnlimited">Bréfaskipti og án tíma</string>
   <string name="confirmResignationAndDrawOffers">Staðfesta uppgjöf og boð um jafntefli</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Hrókunaraðferð</string>
   <string name="castleByMovingTwoSquares">Færa kóng um tvo reiti</string>

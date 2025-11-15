@@ -16,6 +16,7 @@
   <string name="recentlyUpdated">Actualizados recentemente</string>
   <string name="mostPopular">Máis populares</string>
   <string name="alphabetical">Alfabeticamente</string>
+  <string name="relevant">Relevante</string>
   <string name="addNewChapter">Engadir un novo capítulo</string>
   <plurals name="nbChapters">
     <item quantity="one">%s Capítulo</item>
@@ -105,7 +106,6 @@
     <item quantity="other">Pega aquí o PGN das partidas: por cada unha créase un novo capítulo. O estudo pode conter ata %s capítulos.</item>
   </plurals>
   <string name="urlOfTheGame">Ligazóns das partidas, unha por liña</string>
-  <string name="loadAGameFromXOrY">Cargar partidas dende %1$s ou %2$s</string>
   <string name="createChapter">Crear capítulo</string>
   <string name="createStudy">Crear estudo</string>
   <string name="editStudy">Editar estudo</string>

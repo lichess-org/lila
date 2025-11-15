@@ -84,7 +84,7 @@ final private[simul] class SimulRepo(val coll: Coll, gameRepo: GameRepo)(using E
   def hostId(id: SimulId): Fu[Option[UserId]] =
     coll.primitiveOne[UserId]($id(id), "hostId")
 
-  def countByHost(hostId: UserId) = coll.countSel($doc("hostId" -> hostId))
+  def countByHost(hostId: UserId) = coll.secondary.countSel($doc("hostId" -> hostId))
 
   private val featurableSelect = $doc("featurable" -> true)
 

@@ -2,7 +2,7 @@ import { get, set } from '@/data';
 import * as licon from '@/licon';
 import { pubsub } from '@/pubsub';
 
-interface Data {
+export interface Data {
   nb: number;
   users?: string[];
   anons?: number;

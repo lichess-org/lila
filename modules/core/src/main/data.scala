@@ -1,6 +1,6 @@
 package lila.core
 
-import scalalib.newtypes.OpaqueString
+import scalalib.newtypes.{ OpaqueString, TotalWrapper }
 
 import lila.core.userId.UserId
 import lila.core.lilaism.Lilaism.StringValue
@@ -20,11 +20,15 @@ object data:
   object RichText extends OpaqueString[RichText]
 
   opaque type Markdown = String
-  object Markdown extends OpaqueString[Markdown]
+  object Markdown extends OpaqueString[Markdown]:
+    extension (md: Markdown)
+      def unlink: String = md.value.replaceAll(raw"""(?i)!?\[([^\]\n]*)\]\([^)]*\)""", "[$1]")
 
   opaque type Html = String
-  object Html extends OpaqueString[Html]:
+  // not an OpaqueString, because we don't want the default Render[Html]
+  object Html extends TotalWrapper[Html, String]:
     def apply(frag: scalatags.Text.Frag): Html = frag.render
+    extension (a: Html) def frag = scalatags.Text.all.raw(a.value)
 
   opaque type JsonStr = String
   object JsonStr extends OpaqueString[JsonStr]
@@ -33,8 +37,14 @@ object data:
   opaque type SafeJsonStr = String
   object SafeJsonStr extends OpaqueString[SafeJsonStr]
 
+  opaque type Url = String
+  object Url extends OpaqueString[Url]
+
   opaque type Template = String
   object Template extends OpaqueString[Template]
+
+  opaque type ErrorMsg = String
+  object ErrorMsg extends OpaqueString[ErrorMsg]
 
   final class CircularDep[A](val resolve: () => A)
   final class LazyDep[A](val resolve: () => A)

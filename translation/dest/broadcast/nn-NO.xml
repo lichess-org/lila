@@ -21,7 +21,6 @@
   <string name="ongoing">Pågåande</string>
   <string name="upcoming">Kommande</string>
   <string name="roundName">Rundenamn</string>
-  <string name="roundNumber">Rundenummer</string>
   <string name="tournamentName">Turneringsnamn</string>
   <string name="tournamentDescription">Kortfatta skildring av turneringa</string>
   <string name="fullDescription">Full omtale av arrangementet</string>

@@ -16,6 +16,7 @@
   <string name="recentlyUpdated">Kürzlich aktualisiert</string>
   <string name="mostPopular">Beliebteste</string>
   <string name="alphabetical">Alphabetisch</string>
+  <string name="relevant">Relevant</string>
   <string name="addNewChapter">Neues Kapitel hinzufügen</string>
   <plurals name="nbChapters">
     <item quantity="one">%s Kapitel</item>
@@ -61,7 +62,7 @@
   <string name="studyPgn">Studien PGN</string>
   <string name="chapterPgn">Kapitel PGN</string>
   <string name="copyChapterPgn">PGN kopieren</string>
-  <string name="copyRawChapterPgn">PGN-Rohdaten kopieren</string>
+  <string name="copyRawChapterPgn">PGN -Rohdaten kopieren</string>
   <string name="downloadGame">Lade die Partie herunter</string>
   <string name="studyUrl">Studien URL</string>
   <string name="currentChapterUrl">URL des aktuellen Kapitels</string>
@@ -105,7 +106,6 @@
     <item quantity="other">Füge dein PGN Text hier ein, bis zu %s Partien</item>
   </plurals>
   <string name="urlOfTheGame">URL der Partie</string>
-  <string name="loadAGameFromXOrY">Partie von %1$s oder %2$s laden</string>
   <string name="createChapter">Kapitel erstellen</string>
   <string name="createStudy">Studie erstellen</string>
   <string name="editStudy">Studie bearbeiten</string>
@@ -167,19 +167,19 @@
   <string name="youCompletedThisLesson">Gratulation! Du hast diese Lektion abgeschlossen.</string>
   <string name="perPage">%s pro Seite</string>
   <string name="getTheTour">Brauchst du Hilfe? Hol dir die Tour!</string>
-  <string name="welcomeToLichessStudyTitle">Willkommen bei den Lichess-Studien!</string>
+  <string name="welcomeToLichessStudyTitle">Willkommen bei den Lichess -Studien!</string>
   <string name="welcomeToLichessStudyText">Dies ist ein geteiltes Analysebrett.&lt;br&gt;&lt;br&gt;Verwende es, um Spiele zu analysieren und zu kommentieren,&lt;br&gt;diskutiere Stellungen mit Freunden,&lt;br&gt;und verwende es natürlich für den Schachunterricht!&lt;br&gt;&lt;br&gt;Es ist ein mächtiges Werkzeug, nehmen wir uns etwas Zeit, um zu sehen, wie es funktioniert.</string>
   <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Geteilt und gespeichert</string>
-  <string name="sharedAndSavedText">Andere Mitglieder können deine Züge in Echtzeit sehen!&lt;br&gt;Zusätzlich wird alles für immer gespeichert.</string>
+  <string name="sharedAndSavedText">Andere Mitglieder können deine Züge in Echtzeit sehen!&lt;br&gt; Zusätzlich wird alles für immer gespeichert.</string>
   <string name="studyMembersTitle">Studienmitglieder</string>
   <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s Zuschauer können die Studie ansehen und im Chat miteinander sprechen.&lt;br&gt;&lt;br&gt;%2$s Mitwirkende können Züge ausführen und die Studie aktualisieren.</string>
-  <string name="addMembersText" comment="%s is an icon that will added at runtime">Klicke auf den %s Knopf.&lt;br&gt;Entscheide dann, wer oder wer nicht beitragen darf.</string>
+  <string name="addMembersText" comment="%s is an icon that will added at runtime">Klicke auf den %s Knopf.&lt;br&gt; Entscheide dann, wer oder wer nicht beitragen darf.</string>
   <string name="studyChaptersTitle">Studienkapitel</string>
-  <string name="studyChaptersText">Eine Studie kann mehrere Kapitel beinhalten.&lt;br&gt;Jedes Kapitel hat eine vordefinierte Ausgangsstellung und Zugbaum.</string>
+  <string name="studyChaptersText">Eine Studie kann mehrere Kapitel beinhalten.&lt;br&gt; Jedes Kapitel hat eine vordefinierte Ausgangsstellung und Zugbaum.</string>
   <string name="commentPositionTitle">Kommentiere diese Stellung</string>
-  <string name="commentPositionText" comment="%s is an icon that will added at runtime">Klicke auf den %s Knopf oder rechtsklicke auf die Zugliste auf der rechten Seite.&lt;br&gt;Kommentare werden geteilt und gespeichert.</string>
+  <string name="commentPositionText" comment="%s is an icon that will added at runtime">Klicke auf den %s Knopf oder rechts-klicke auf die Zugliste auf der rechten Seite.&lt;br&gt; Kommentare werden geteilt und gespeichert.</string>
   <string name="annotatePositionTitle">Kommentiere die Stellung</string>
-  <string name="annotatePositionText">Klicke auf den !? Knopf oder rechtsklicke auf die Zugliste auf der rechten Seite.&lt;br&gt;Kommentarsymbole werden geteilt und gespeichert.</string>
+  <string name="annotatePositionText">Klicke auf den !? Knopf oder rechts-klicke auf die Zugliste auf der rechten Seite.&lt;br&gt; Kommentar-Symbole werden geteilt und gespeichert.</string>
   <string name="conclusionTitle">Danke für Deine Zeit</string>
   <string name="conclusionText">Du findest deine &lt;a href=\'/study/mine/hot\'&gt;früheren Studien&lt;/a&gt; auf deiner Profilseite.&lt;br&gt;Es gibt auch einen &lt;a href=\'//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way\'&gt;Blogbeitrag über Studien&lt;/a&gt;.&lt;br&gt;Power-Benutzer möchten vielleicht \"?\" drücken, um Tastaturkürzel zu sehen.&lt;br&gt;Viel Spaß!</string>
   <string name="createChapterTitle">Lass uns ein Studienkapitel erstellen</string>
@@ -195,8 +195,8 @@
   <string name="fromPgnGameTitle">Aus einer PGN</string>
   <string name="fromPgnGameText">Füge eine Partie im PGN-Format ein,&lt;br&gt;um Züge, Kommentare und Varianten in das Kapitel zu laden.</string>
   <string name="variantsAreSupportedTitle">Studien unterstützen Schachvarianten</string>
-  <string name="variantsAreSupportedText">Ja, du kannst Crazyhouse&lt;br&gt;und alle Lichess-Varianten studieren!</string>
-  <string name="chapterConclusionText">Kapitel werden für immer gespeichert.&lt;br&gt;Viel Spaß beim Organisieren deines Schachinhalts!</string>
+  <string name="variantsAreSupportedText">Ja, du kannst Crazyhouse&lt;br&gt;und alle Lichess -Varianten studieren!</string>
+  <string name="chapterConclusionText">Kapitel werden für immer gespeichert.&lt;br&gt; Viel Spaß beim Organisieren deines Schachinhalts!</string>
   <string name="doubleDefeat">Doppelte Niederlage</string>
   <string name="blackDefeatWhiteCanNotWin">Niederlage von Schwarz, aber Weiß kann nicht gewinnen</string>
   <string name="whiteDefeatBlackCanNotWin">Niederlage von Weiß, aber Schwarz kann nicht gewinnen</string>

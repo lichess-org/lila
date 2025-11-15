@@ -16,6 +16,7 @@
   <string name="recentlyUpdated">تم تحديثه مؤخرا</string>
   <string name="mostPopular">الاكثر شعبية</string>
   <string name="alphabetical">أبجدي</string>
+  <string name="relevant">ذات صلة</string>
   <string name="addNewChapter">أضف فصلاً جديدا</string>
   <plurals name="nbChapters">
     <item quantity="zero">%s فصل</item>
@@ -120,7 +121,6 @@
     <item quantity="other">الصق الPGN هنا، حتى %s العاب</item>
   </plurals>
   <string name="urlOfTheGame">رابط اللعبة</string>
-  <string name="loadAGameFromXOrY">استيراد لعبة من %1$s او %2$s</string>
   <string name="createChapter">أنشئ الفصل</string>
   <string name="createStudy">أنشى الدراسة</string>
   <string name="editStudy">حرر الدراسة</string>

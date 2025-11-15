@@ -1,7 +1,7 @@
 import * as licon from 'lib/licon';
 import { otbClockIsRunning, formatMs } from 'lib/game/clock/clockWidget';
 import { fenColor } from 'lib/game/chess';
-import { type MaybeVNode, type VNode, bind, dataIcon, onInsert } from 'lib/snabbdom';
+import { type MaybeVNode, type VNode, bind, dataIcon, onInsert } from 'lib/view';
 import { opposite as cgOpposite, uciToMove } from '@lichess-org/chessground/util';
 import type { ChapterId, ChapterPreview, StudyPlayer } from './interfaces';
 import type StudyCtrl from './studyCtrl';
@@ -28,23 +28,13 @@ export class MultiBoardCtrl {
     readonly chapters: StudyChapters,
     readonly isRelay: boolean,
     readonly multiCloudEval: MultiCloudEval | undefined,
-    private readonly initialTeamSelect: ChapterId | undefined,
     readonly redraw: () => void,
   ) {
     this.playing = toggle(false, this.redraw);
     this.showResults = this.isRelay ? storedBooleanProp('study.showResults', true) : toggle(true);
-    if (this.initialTeamSelect) this.onChapterChange(this.initialTeamSelect);
   }
 
   gameTeam = (id: ChapterId): string | undefined => this.chapters.get(id)?.players?.white.team;
-
-  onChapterChange = (id: ChapterId) => {
-    const players = this.chapters.get(id)?.players;
-    if (players) {
-      const teams = [players.white.team, players.black.team].filter(t => !!t);
-      if (!teams.includes(this.teamSelect())) this.teamSelect(teams[0] || '');
-    }
-  };
 
   maxPerPage = () => Math.min(32, parseInt(this.maxPerPageStorage.get() || '12'));
 

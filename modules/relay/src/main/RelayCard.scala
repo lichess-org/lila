@@ -23,3 +23,5 @@ case class RelayCard(
         round.looksStalled.option:
           List("No updates in a while")
       .orZero
+
+  def asIdName = lila.core.relay.RoundIdName(display.id, fullName)

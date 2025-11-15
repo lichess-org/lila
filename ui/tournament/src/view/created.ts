@@ -1,5 +1,5 @@
 import { h, type VNode } from 'snabbdom';
-import { type MaybeVNodes, onInsert } from 'lib/snabbdom';
+import { type MaybeVNodes, onInsert } from 'lib/view';
 import type TournamentController from '../ctrl';
 import { players } from '../pagination';
 import { controls, standing } from './arena';

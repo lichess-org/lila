@@ -1,6 +1,6 @@
-import { defined, prop, Prop, scrollToInnerSelector } from 'lib';
+import { defined, prop, type Prop, scrollToInnerSelector } from 'lib';
 import * as licon from 'lib/licon';
-import { type VNode, bind, dataIcon, iconTag, hl } from 'lib/snabbdom';
+import { type VNode, bind, dataIcon, iconTag, hl } from 'lib/view';
 import type AnalyseCtrl from '../ctrl';
 import type { StudySocketSend } from '../socket';
 import { StudyChapterEditForm } from './chapterEditForm';
@@ -24,7 +24,7 @@ import type StudyCtrl from './studyCtrl';
 import { opposite } from 'chessops/util';
 import { fenColor } from 'lib/game/chess';
 import type Sortable from 'sortablejs';
-import { alert } from 'lib/view/dialogs';
+import { alert } from 'lib/view';
 import { INITIAL_FEN } from 'chessops/fen';
 
 /* read-only interface for external use */
@@ -167,17 +167,20 @@ export function view(ctrl: StudyCtrl): VNode {
   const canContribute = ctrl.members.canContribute(),
     current = ctrl.currentChapter();
   function update(vnode: VNode) {
-    const newCount = ctrl.chapters.list.size(),
-      vData = vnode.data!.li!,
+    const vData = vnode.data!.li!,
       el = vnode.elm as HTMLElement;
-    if (vData.count !== newCount) {
-      if (current.id !== ctrl.chapters.list.first().id) scrollToInnerSelector(el, '.active');
-    } else if (vData.currentId !== ctrl.data.chapter.id) {
-      vData.currentId = ctrl.data.chapter.id;
-      scrollToInnerSelector(el, '.active');
+    if (ctrl.vm.scrollToActiveChapter) {
+      const behavior = ctrl.vm.scrollToActiveChapter;
+      ctrl.vm.scrollToActiveChapter = false;
+      const active = el.querySelector('.active') as HTMLElement | null;
+      if (active) {
+        const [c, l] = [el.getBoundingClientRect(), active.getBoundingClientRect()];
+        if (c.top < l.top || c.bottom > l.bottom) {
+          requestAnimationFrame(() => scrollToInnerSelector(el, '.active', false, behavior));
+        }
+      }
     }
-    vData.count = newCount;
-    if (canContribute && newCount > 1 && !vData.sortable) {
+    if (canContribute && ctrl.chapters.list.size() > 1 && !vData.sortable) {
       site.asset.loadEsm<typeof Sortable>('sortable.esm', { npm: true }).then(s => {
         vData.sortable = s.create(el, {
           draggable: '.draggable',
@@ -207,11 +210,8 @@ export function view(ctrl: StudyCtrl): VNode {
             update(vnode);
           },
           postpatch(old, vnode) {
-            const scrollTop = (old.elm as HTMLElement).scrollTop;
             vnode.data!.li = old.data!.li;
             update(vnode);
-            if (old.children?.length === vnode.children?.length)
-              (vnode.elm as HTMLElement).scrollTop = scrollTop;
           },
           destroy: vnode => {
             const sortable: Sortable = vnode.data!.li!.sortable;

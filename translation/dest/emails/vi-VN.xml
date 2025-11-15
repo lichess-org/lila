@@ -2,7 +2,7 @@
 <resources>
   <string name="emailConfirm_subject">Xác nhận tài khoản lichess.org của bạn, %s</string>
   <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Nhấn vào liên kết để kích hoạt tài khoản Lichess của bạn:</string>
-  <string name="emailConfirm_justIgnore" comment="This text is included in the registration email for new users.">Nếu bạn không đăng ký với Lichess, bạn có thể bỏ qua tin nhắn này một cách an toàn. Tài khoản chưa được xác nhận và tất cả các dấu vết địa chỉ email của bạn sẽ bị xóa khỏi hệ thống của chúng tôi sau 48 giờ.</string>
+  <string name="emailConfirm_justIgnore" comment="This text is included in the registration email for new users.">Nếu bạn không đăng ký với Lichess, bạn có thể bỏ qua tin nhắn này một cách an toàn. Tài khoản chưa được xác nhận và tất cả các dấu vết địa chỉ thư điện tử của bạn sẽ bị xóa khỏi hệ thống của chúng tôi sau 48 giờ.</string>
   <string name="passwordReset_subject">Đặt lại mật khẩu lichess.org, %s</string>
   <string name="passwordReset_intro">Chúng tôi nhận được yêu cầu đặt lại mật khẩu cho tài khoản của bạn.</string>
   <string name="passwordReset_clickOrIgnore">Nếu bạn đã tạo yêu cầu này, nhấn vào liên kết dưới đây. Nếu không, hãy bỏ qua email này.</string>

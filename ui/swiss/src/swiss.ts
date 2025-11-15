@@ -1,4 +1,4 @@
-import { init, VNode, classModule, attributesModule } from 'snabbdom';
+import { init, type VNode, classModule, attributesModule } from 'snabbdom';
 import type { SwissOpts } from './interfaces';
 import SwissCtrl from './ctrl';
 import { wsConnect } from 'lib/socket';

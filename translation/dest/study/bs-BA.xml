@@ -108,7 +108,6 @@
     <item quantity="other">Ovdje zalijepite svoj PGN tekst, do %s partija</item>
   </plurals>
   <string name="urlOfTheGame">Link partije</string>
-  <string name="loadAGameFromXOrY">Učitajte partiju sa %1$s ili %2$s</string>
   <string name="createChapter">Kreirajte poglavlje</string>
   <string name="createStudy">Kreirajte studiju</string>
   <string name="editStudy">Uredite studiju</string>

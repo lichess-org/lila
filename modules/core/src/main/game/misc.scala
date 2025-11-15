@@ -32,8 +32,8 @@ enum GameRule:
 object GameRule:
   val byKey = values.mapBy(_.toString)
 
-opaque type OnStart = GameId => Unit
-object OnStart extends FunctionWrapper[OnStart, GameId => Unit]
+opaque type OnStart = GameId => Funit
+object OnStart extends FunctionWrapper[OnStart, GameId => Funit]
 
 case class GameStart(id: GameId)
 case class PerfsUpdate(game: Game, perfs: ByColor[UserWithPerfs])
@@ -41,7 +41,7 @@ case class PerfsUpdate(game: Game, perfs: ByColor[UserWithPerfs])
 case class TvSelect(gameId: GameId, speed: Speed, channel: String, data: JsObject)
 case class ChangeFeatured(mgs: JsObject)
 
-case class StartGame(game: Game)
+case class StartGame(game: Game, users: ByColor[Option[LightUser]])
 case class FinishGame(
     game: Game,
     // users and perfs BEFORE the game result is applied

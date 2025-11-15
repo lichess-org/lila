@@ -6,35 +6,40 @@ import scala.concurrent.ExecutionContext
 
 import lila.core.id.Flair
 import lila.core.userId.*
-import lila.core.plan.PatronMonths
+import lila.core.plan.{ PatronMonths, PatronTier, PatronColorChoice }
 
 case class LightUser(
     id: UserId,
     name: UserName,
     title: Option[PlayerTitle],
     flair: Option[Flair],
-    patronMonths: PatronMonths
+    patronMonths: PatronMonths,
+    patronColor: Option[PatronColorChoice]
 ):
   def titleName: String = title.fold(name.value)(_.value + " " + name)
   def isBot = title.contains(PlayerTitle.BOT)
   def isPatron = patronMonths.isOngoing
   def isPatronLifetime = patronMonths.isLifetime
   def patronTier = patronMonths.tier
+  def patronAndColor = patronTier.map(t => PatronTier.AndColor(t, patronColor))
 
 object LightUser:
 
   type Ghost = LightUser
 
-  val ghost: Ghost = LightUser(UserId("ghost"), UserName("ghost"), None, None, PatronMonths.zero)
+  val ghost: Ghost = LightUser(UserId("ghost"), UserName("ghost"), None, None, PatronMonths.zero, None)
 
   given UserIdOf[LightUser] = _.id
+
+  type IdMap = Map[UserId, LightUser]
 
   def fallback(name: UserName) = LightUser(
     id = name.id,
     name = name,
     title = None,
     flair = None,
-    patronMonths = PatronMonths.zero
+    patronMonths = PatronMonths.zero,
+    patronColor = None
   )
 
   opaque type Me = LightUser

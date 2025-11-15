@@ -63,7 +63,6 @@
   <string name="completedTourns">Завершені турніри</string>
   <string name="declinedRequests">Відхилені запити</string>
   <string name="joinLichessVariantTeam">Приєднатися до офіційної команди %s, щоб отримувати інформацію про новини та події</string>
-  <string name="teamPage">Сторінка команди</string>
   <string name="thisTeamBattleIsOver">Цей турнір завершено, а команди більше не можуть бути оновлені.</string>
   <string name="listTheTeamsThatWillCompete">Список команд, які будуть змагатись в цій битві.</string>
   <string name="oneTeamPerLine">Одна команда на рядок. Використовуйте автозавершення.</string>

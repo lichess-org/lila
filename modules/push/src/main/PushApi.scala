@@ -260,7 +260,7 @@ final private class PushApi(
                 )
             )
 
-  def challengeAccept(c: Challenge, joinerId: Option[UserId]): Funit =
+  def challengeAccept(c: Challenge, game: Game, joinerId: Option[UserId]): Funit =
     c.challengerUser
       .ifTrue(c.finalColor.white && c.clock.isEmpty)
       .so: challenger =>
@@ -280,7 +280,8 @@ final private class PushApi(
                   mobileCompatible = LichessMobileVersion(0, 18).some,
                   payload = payload(challenger.id)(
                     "type" -> "challengeAccept",
-                    "challengeId" -> c.id.value
+                    "challengeId" -> c.id.value,
+                    "fullId" -> game.fullIdOf(c.finalColor).value
                   )
                 )
             )

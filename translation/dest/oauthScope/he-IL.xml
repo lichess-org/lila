@@ -8,47 +8,46 @@
   <string name="whatTheTokenCanDo">מה ניתן לעשות עם התו בשמך:</string>
   <string name="doNotShareIt">התו יתן גישה לחשבונך. בשום אופן אל תשתפו אותו עם אחרים!</string>
   <string name="copyTokenNow">זכרו להעתיק את תו הגישה האישי שלכם עכשיו. לא תראו אותו שוב!</string>
-  <string name="preferenceRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's preferences.&#10;&#10;There is a separate setting to let applications write (edit) preferences.">קריאת העדפות</string>
-  <string name="preferenceWrite" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to edit/change the user's preferences.&#10;&#10;There is a separate setting to let applications only read preferences, but not to write (edit) them.">כתיבת העדפה</string>
-  <string name="emailRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's registered email address.">קריאת כתובת אימייל</string>
-  <string name="challengeRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view game challenges from other players.&#10;&#10;There is a separate setting to let applications send, accept or reject challenges.">קריאת הזמנות ממתינות</string>
-  <string name="challengeWrite" comment="challengeWrite&#10;&#10;In the context of an authentication token, a setting that permits third party software to send, accept and reject challenges on behalf of the player.">שליחה, אישור ודחייה של הזמנות למשחק</string>
+  <string name="preferenceRead">קריאת העדפות</string>
+  <string name="preferenceWrite">כתיבת העדפה</string>
+  <string name="emailRead">קריאת כתובת אימייל</string>
+  <string name="challengeRead">קריאת הזמנות ממתינות</string>
+  <string name="challengeWrite">שליחה, אישור ודחייה של הזמנות למשחק</string>
   <string name="challengeBulk">יצירת מספר משחקים במקביל עבור שחקנים אחרים</string>
-  <string name="studyRead" comment="Gives permission to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">קריאת לוחות למידה פרטיים והקרנות</string>
-  <string name="studyWrite" comment="In the context of an access token, a setting that enables third party software to create, update or delete studies and broadcasts.">יצירה, עדכון ומחיקה של לוחות למידה והקרנות</string>
-  <string name="tournamentWrite" comment="In the context of an access token, a setting that permits third party software to create, update or delete studies and join tournaments.">יצירה, עדכון והצטרפות לטורנירים</string>
-  <string name="racerWrite" comment="In the context of an access token, a setting which permits third party software to create, and join puzzle races (this is for the activity/minigame Puzzle Racer: https://lichess.org/racer)">יצירה והצטרפות למרוצי חידות</string>
-  <string name="puzzleRead" comment="In the context of an access token, a setting which permits third-party software to view the user's puzzle solving history.">קריאה של פעילות החידות</string>
-  <string name="teamRead" comment="Gives permission to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">קריאת מידע על קבוצות פרטיות</string>
-  <string name="teamWrite" comment="In the context of an access token, a setting that permits the third party software to join or leave teams on your behalf.">הצטרפות, יצירה וניהול של קבוצות</string>
+  <string name="studyRead">קריאת לוחות למידה פרטיים והקרנות</string>
+  <string name="studyWrite">יצירה, עדכון ומחיקה של לוחות למידה והקרנות</string>
+  <string name="tournamentWrite">יצירה, עדכון והצטרפות לטורנירים</string>
+  <string name="racerWrite">יצירה והצטרפות למרוצי חידות</string>
+  <string name="puzzleRead">קריאה של פעילות החידות</string>
+  <string name="teamRead">קריאת מידע על קבוצות פרטיות</string>
+  <string name="teamWrite">הצטרפות, יצירה וניהול של קבוצות</string>
   <string name="teamLead">ניהול קבוצות בהובלתך: שליחת הודעות פרטיות, העפת חברים</string>
-  <string name="followRead" comment="In the context of an access token, a setting which permits third-party software to view (read) which players you are following.">קריאה של השחקנים ברשימת המעקב</string>
-  <string name="followWrite" comment="In the context of an access token, a setting which permits third-party software to follow and unfollow other players on your behalf.">מעקב וביטול מעקב אחר שחקנים אחרים</string>
-  <string name="msgWrite" comment="In the context of an access token, a setting which permits third-party software to send messages on your behalf.">שליחת הודעה פרטית לשחקנים אחרים</string>
-  <string name="boardPlay" comment="In the context of an access token, a setting which permits third-party software to play games using e-boards like DGT, through Lichess's board API.">יצירת משחקים עם ה־API של הלוח</string>
-  <string name="botPlay" comment="In the context of an access token, a setting which permits third-party software to play games over the bot API. This is intended mainly for having an engine account e.g. the accounts featured on https://lichess.org/player/bots">יצירת משחקים עם ה־API של הבוטים</string>
+  <string name="followRead">קריאה של השחקנים ברשימת המעקב</string>
+  <string name="followWrite">מעקב וביטול מעקב אחר שחקנים אחרים</string>
+  <string name="msgWrite">שליחת הודעה פרטית לשחקנים אחרים</string>
+  <string name="boardPlay">יצירת משחקים עם ה־API של הלוח</string>
+  <string name="botPlay">יצירת משחקים עם ה־API של הבוטים</string>
   <string name="engineRead">צפייה ושימוש במנוע החיצוני שלך</string>
   <string name="engineWrite">יצירה ועדכון של מנוע חיצוני</string>
-  <string name="webLogin" comment="In the context of an access token, a setting which permits third-party software to create authenticated sessions - meaning effectively unlimited access to your account, using it as if it is you, instead of a third party program. It will be unable to view your password but it will be able to do almost everything else.">יצירה של התחברות מאובטחת לאתרים (עם גישה מלאה)!</string>
-  <string name="webMod" comment="In the context of an access token, this is a setting which permits third-party software to use moderator tools on your behalf. Most players will not be able to see this option.">שימוש בכלים של מנהלים (במסגרת ההרשאות שלך)</string>
+  <string name="webLogin">יצירה של התחברות מאובטחת לאתרים (עם גישה מלאה)!</string>
+  <string name="webMod">שימוש בכלים של מנהלים (במסגרת ההרשאות שלך)</string>
   <string name="personalAccessTokens">תווי גישה אישיים ל־API</string>
-  <string name="canMakeOauthRequests" comment="%s is 'authorisation code flow' (flow, as in a process).">ניתן לבקש בקשות OAuth מבלי לעבור %s.</string>
-  <string name="authorizationCodeFlow" comment="Part of longer string canMakeOauthRequests:&#10;You can make OAuth requests without going through the authorisation code flow.&#10;&#10;This text is also a link which directs to https://lichess.org/api#section/Introduction/Authentication.&#10;&#10;In this context, 'flow' means a process. Technical information explaining this concept here: https://oauth.net/2/grant-types/authorization-code/ - its formal name is &quot;authorisation code grant type&quot;.&#10;&#10;If you are not comfortable in translating this, we recommend leaving it untranslated.">authorization code flow</string>
-  <string name="insteadGenerateToken" comment="%s is 'generate a personal access token'.">לחלופין, %s שתוכלו להשתמש בו ישירות לצורך בקשות API.</string>
-  <string name="generatePersonalToken" comment="Part of longer string insteadGenerateToken:&#10;'Instead, generate a personal access token you can directly use in API requests.'&#10;&#10;It is a link, which links to https://lichess.org/account/oauth/token/create and appears after you have created at least one token.">צרו תו גישה אישי</string>
+  <string name="canMakeOauthRequests">ניתן לבקש בקשות OAuth מבלי לעבור %s.</string>
+  <string name="authorizationCodeFlow">authorization code flow</string>
+  <string name="insteadGenerateToken" comment="The parameter is a link to generate a token a personal access token">לחלופין, %s שתוכלו להשתמש בו ישירות לצורך בקשות API.</string>
+  <string name="generatePersonalToken">צרו תו גישה אישי</string>
   <string name="guardTokensCarefully">שמרו על התווים האלה בזהירות רבה! הם כמו סיסמאות. היתרון בשימוש בתווים על פני סיסמאות הוא שניתן לבטל אותם או לייצר רבים מהם.</string>
-  <string name="apiDocumentationLinks" comment="%1$s links to a personal token app example (string: personalTokenAppExample).&#10;&#10;%2$s links to the API documentation (string: apiDocumentation).&#10;&#10;Full sentence after %1$s and %2$s have been substituted:&#10;&quot;Here's a personal app token example and the API documentation.&quot;&#10;&#10;personalTokenAppExample and apiDocumentation can both be translated separately.">הנה %1$s ופה ניתן למצוא %2$s.</string>
-  <string name="personalTokenAppExample" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'&#10;&#10;This text is also a link which directs to https://github.com/lichess-org/api/tree/master/example/oauth-personal-token.">דוגמה ליישומון של תווים אישיים</string>
-  <string name="apiDocumentation" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'&#10;&#10;This text is also a link which directs to https://lichess.org/api.">תיעוד ה־API</string>
+  <string name="apiDocumentationLinks" comment="The first parameter links to a personal token app example. The second parameter links to the API documentation">הנה %1$s ופה ניתן למצוא %2$s.</string>
+  <string name="personalTokenAppExample">דוגמה ליישומון של תווים אישיים</string>
+  <string name="apiDocumentation">תיעוד ה־API</string>
   <string name="newToken">תו גישה חדש</string>
   <string name="apiAccessTokens">תווי גישה ל־API</string>
-  <string name="created" comment="%s is relative time, e.g. 2 hours ago.">נוצר %s</string>
-  <string name="lastUsed" comment="%s is relative time, e.g. 2 hours ago. 'Last used' in this context means 'You used this most recently %s time ago'.">היה בשימוש לאחרונה %s</string>
+  <string name="created">נוצר %s</string>
+  <string name="lastUsed">היה בשימוש לאחרונה %s</string>
   <string name="alreadyHavePlayedGames">כבר שיחקת משחקים!</string>
   <string name="attentionOfDevelopers">הערה לשימוש מתכנתים בלבד:</string>
   <string name="possibleToPrefill">ניתן למלא מראש את הטופס הזה על ידי שינויי ה־query parameters של הקישור (URL).</string>
-  <string name="forExample" comment="%s is an example URL.&#10;&#10;Please note the sentence continues on the next line. The complete sentence is:&#10;'For example: https://lichess.org/account/oauth/token/create?scopes[]=challenge:write&amp;scopes[]=puzzle:read&amp;description=Prefilled+token+example&#10;ticks the challenge:create and puzzle:read scopes, and sets the token description.'">לדוגמה: %s</string>
-  <string name="ticksTheScopes" comment="Part of a longer sentence, this is the second line:&#10;&#10;'For example: https://lichess.org/account/oauth/token/create?scopes[]=challenge:write&amp;scopes[]=puzzle:read&amp;description=Prefilled+token+example&#10;ticks the challenge:create and puzzle:read scopes, and sets the token description.'&#10;&#10;%1$s is 'challenge:create', %2$s is 'puzzle:read' which are both used as technical examples. These should not be translated which is why they are included as substituted strings.">מגדיר את ההיקף (scope) של %1$s ושל %2$s ויוצר תיאור לתו הגישה.</string>
-  <string name="scopesCanBeFound" comment="scopesCanBeFound&#10;&#10;For this page in particular, developers can link to it so that some options are pre-ticked when a user follows the URL.&#10;&#10;To pre-tick those options, developers need the scope codes, which they can find by inspecting the source code of the page itself.">ניתן למצוא את קטעי הקוד של הגדרות ההיקף (scope codes) בקוד ה־HTML של הטופס.</string>
+  <string name="forExample">לדוגמה: %s</string>
+  <string name="ticksTheScopes">מגדיר את ההיקף (scope) של %1$s ושל %2$s ויוצר תיאור לתו הגישה.</string>
   <string name="givingPrefilledUrls">תוכלו לתת למשתמשים שלכם את הקישורים האלה שמולאו מראש כדי לעזור להם לקבל את התווים בהיקף המתאים.</string>
 </resources>

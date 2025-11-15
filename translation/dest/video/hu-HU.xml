@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="chessVideos">Sakkvideók</string>
-  <string name="allVideosAreFree">A videók ingyenesek mindenkinek.</string>
+  <string name="allVideosAreFree">Az összes videó ingyenes mindenkinek.</string>
   <string name="selectTagsToFilter">Szűrés címkékkel.</string>
   <string name="weHaveCarefullySelectedX" comment="%s is the number of videos.&#10;&#10;Appears on https://lichess.org/video">Idáig %s igényesen válogatott videó!</string>
   <string name="freeChessVideos">Ingyenes sakkvideók</string>

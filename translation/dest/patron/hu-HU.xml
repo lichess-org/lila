@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="donate">Adakozz</string>
+  <string name="donate">Támogatás</string>
   <string name="donateAsX">Adakozás mint %s</string>
   <string name="lichessPatron">Lichess Patron</string>
-  <string name="patronSince" comment="%s is a date e.g. &quot;21 Jan 2025&quot;,&#10;meaning the final text would be something like &quot;Patron since 21 Jan 2025&quot;.">Támogató: %s</string>
+  <string name="patronSince" comment="%s is a date e.g. &quot;21 Jan 2025&quot;,&#10;meaning the final text would be something like &quot;Patron since 21 Jan 2025&quot;.">Támogató: %s óta</string>
   <string name="freeAccount">Ingyenes fiók</string>
   <string name="becomePatron">Támogasd a Lichesst</string>
   <string name="xBecamePatron">%s már Lichess támogató</string>
@@ -15,7 +15,7 @@
   <string name="freeChess">Ingyen sakk mindig, mindenkinek!</string>
   <string name="noAdsNoSubs">Se reklám, se fizetős részek; csak nyílt forrás és elhivatottság.</string>
   <string name="thankYou">Köszönjük, hogy támogatsz minket!</string>
-  <string name="youHaveLifetime">Neked életreszóló támogató fiókod van. Ez azért elég vagány!</string>
+  <string name="youHaveLifetime">Életre szóló támogató fiókod van. Ez azért elég vagány!</string>
   <string name="patronUntil">Támogató fiókod van eddig a napig: %s.</string>
   <string name="ifNotRenewedThenAccountWillRevert">Megújítás nélkül a fiókod majd visszaváltozik hagyományos fiókká.</string>
   <string name="weAreNonProfit">Non-profit szervezet vagyunk, mert hiszünk egy mindenki számára elérhető, ingyenes és világszínvonalú sakk platformban.</string>
@@ -35,7 +35,7 @@
   <string name="celebratedPatrons">Az ünnepelt Patronok, akik nélkül nincs Lichess</string>
   <string name="whereMoneyGoes">Mire megy el a pénz?</string>
   <string name="serversAndDeveloper">Először is, komoly szerverekre.
-Ezen kívül fizetünk egy főállású fejlesztőt: %s, a Lichess alapítóját.</string>
+Ezen kívül fizetünk egy főállású fejlesztőt: ő %s, a Lichess alapítója.</string>
   <string name="costBreakdown">Lásd a részletes költséglebontást</string>
   <string name="officialNonProfit">A Lichess hivatalosan non-profit?</string>
   <string name="actOfCreation">Igen, itt találod az alapító okiratot (franciául)</string>

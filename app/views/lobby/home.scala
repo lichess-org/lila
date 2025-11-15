@@ -21,8 +21,7 @@ object home:
               "showRatings" -> ctx.pref.showRatings,
               "hasUnreadLichessMessage" -> hasUnreadLichessMessage
             )
-            .add("bots", /* Granter.opt(_.Beta) || */ Granter.opt(_.BotEditor))
-            .add("botEditor", Granter.opt(_.BotEditor))
+            .add("bots", Granter.opt(_.Beta))
             .add(
               "playban",
               playban.map: pb =>
@@ -35,7 +34,7 @@ object home:
         OpenGraph(
           image = staticAssetUrl("logo/lichess-tile-wide.png").some,
           title = "The best free, adless Chess server",
-          url = netBaseUrl.value,
+          url = netBaseUrl.into(Url),
           description = trans.site.siteDescription.txt()
         )
       )
@@ -56,7 +55,7 @@ object home:
                 trans.site.challengeAFriend()
               ),
               button(cls := "button button-metal lobby__start__button lobby__start__button--ai")(
-                trans.site.playAgainstAI()
+                trans.site.playAgainstComputer()
               )
             )
           ),
@@ -132,12 +131,9 @@ object home:
           puzzle.map: p =>
             views.puzzle.bits.dailyLink(p)(cls := "lobby__puzzle"),
           div(cls := "lobby__blog carousel")(
-            ublogPosts
-              .filter(_.isLichess || ctx.kid.no)
-              .take(env.ublog.api.carouselSizeSetting.get())
-              .map:
-                views.ublog.ui
-                  .card(_, showAuthor = views.ublog.ui.ShowAt.bottom, showIntro = false, strictDate = false)
+            ublogPosts.map:
+              views.ublog.ui
+                .card(_, showAuthor = views.ublog.ui.ShowAt.bottom, showIntro = false, strictDate = false)
           ),
           ctx.noBot.option(bits.underboards(tours, simuls)),
           div(cls := "lobby__feed"):

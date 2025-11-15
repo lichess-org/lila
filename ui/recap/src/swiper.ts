@@ -1,13 +1,11 @@
 import Swiper from 'swiper';
-import { SwiperOptions } from 'swiper/types';
+import type { SwiperOptions } from 'swiper/types';
 import * as mod from 'swiper/modules';
-import 'swiper/css';
-import 'swiper/css/bundle';
 import { animateNumber } from './ui';
 import { get } from 'lib/data';
 import { formatDuration } from './util';
 import { defined } from 'lib';
-import { Opts } from './interfaces';
+import type { Opts } from './interfaces';
 
 export const makeSwiper =
   (opts: Opts) =>

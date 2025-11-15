@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="gameSetup">Skipulag skákar</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Skora á vin</string>
+  <string name="playAgainstComputer">Tefla á móti tölvu</string>
+  <string name="gameMode">Gerð</string>
+  <string name="createLobbyGame" comment="One of three buttons on the home page. Opens the modal to create a game that goes in the lobby.">Hefja skák í salnum</string>
+  <string name="youPlayAs">Þú ert</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Gefðu upp þessa vefslóð til að bjóða einhverjum að tefla</string>
   <string name="gameOver">Búið spil</string>
   <string name="waitingForOpponent">Bið eftir andstæðingi</string>
@@ -9,7 +15,7 @@
   <string name="aiNameLevelAiLevel">%1$s erfiðleikastig %2$s</string>
   <string name="level">Stig</string>
   <string name="strength">Styrkleiki</string>
-  <string name="toggleTheChat">Víxla spjalli</string>
+  <string name="toggleTheChat">Víxla sýnileika spjallsins</string>
   <string name="chat">Spjalla</string>
   <string name="resign">Gefast upp</string>
   <string name="checkmate">Skák og mát</string>
@@ -44,7 +50,7 @@
   <string name="forceResignation">Krefjast sigurs</string>
   <string name="forceDraw">Þvinga jafntefli</string>
   <string name="talkInChat">Vinsamlegast verið vinaleg í spjalli!</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Fyrsti einstaklingur sem kemur á þessa vefslóð teflir við þig.</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Sá fyrsti sem fer á þessa vefslóð mun tefla við þig.</string>
   <string name="whiteResigned">Hvítur gefst upp</string>
   <string name="blackResigned">Svartur gefst upp</string>
   <string name="whiteLeftTheGame">Hvítur yfirgaf leikinn</string>
@@ -65,7 +71,7 @@
   <string name="goDeeper">Fara dýpra</string>
   <string name="showThreat">Sýna hótun</string>
   <string name="inLocalBrowser">í vafra</string>
-  <string name="toggleLocalEvaluation">Kveikja á greiningu</string>
+  <string name="toggleLocalEvaluation">Kveikja á greiningu í vafra</string>
   <string name="promoteVariation">Upp með afbrigði</string>
   <string name="makeMainLine">Gera að höfuðafbrigði</string>
   <string name="deleteFromHere">Eyða héðan</string>
@@ -73,7 +79,7 @@
   <string name="expandVariations">Fella sundur afbrigði</string>
   <string name="forceVariation">Þvinga í tilbrigði</string>
   <string name="copyVariationPgn">Afrita PGN-afbrigði</string>
-  <string name="copyMainLinePgn">Afrita PGN meginleikja</string>
+  <string name="copyMainLinePgn">Afrita PGN-höfuðafbrigði</string>
   <string name="move">Leikur</string>
   <string name="variantLoss">Afbrigði tapar</string>
   <string name="variantWin">Afbrigði vinnur</string>
@@ -84,13 +90,13 @@
   <string name="winning">Vinnur</string>
   <string name="losing">Tapar</string>
   <string name="drawn">Jafntefli</string>
-  <string name="unknown">Óþekktur</string>
+  <string name="unknown">Óþekkt útkoma</string>
   <string name="database">Gagnagrunnur</string>
   <string name="whiteDrawBlack">Hvitur / Jafntefli / Svartur</string>
-  <string name="averageRatingX">Meðal Elo: %s</string>
+  <string name="averageRatingX">Meðalskákstyrkur: %s</string>
   <string name="recentGames">Síðustu skákir</string>
   <string name="topGames">Bestu skákir</string>
-  <string name="masterDbExplanation">Staðarskákir með skákmönnum sem hafa %1$s+ í skákstigum frá árinu %2$s til %3$s</string>
+  <string name="masterDbExplanation">Viðveruskákir (e. OTB) með skákmönnum sem hafa %1$s+ í skákstigum frá árinu %2$s til %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Mát í %s hálfleik</item>
     <item quantity="other">Mát í %s hálfleikum</item>
@@ -292,7 +298,7 @@
   <string name="gameAborted">Hætt við skák</string>
   <string name="standard">Hefðbundið</string>
   <string name="customPosition">Sérsniðin staða</string>
-  <string name="unlimited">Ótarkmarkað</string>
+  <string name="unlimited">Ótímabundin</string>
   <string name="mode">Tegund</string>
   <string name="casual">Æfingaskák</string>
   <string name="rated">Stigaskák</string>
@@ -339,6 +345,7 @@
     <item quantity="other">%s í gangi</item>
   </plurals>
   <string name="exportGames">Flytja út skákir</string>
+  <string name="ratingFilter">Skákstyrkjasía</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Gefa %s sekúndu</item>
     <item quantity="other">Gefa %s sekúndur</item>
@@ -394,6 +401,7 @@
     <item quantity="other">Þú verður að tefla %s skákir með stigagjöf í viðbót</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Stig þín í %s eru tímabundin</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Skákstyrkjasían er ekki þér aðgengileg vegna þess að skákstigatala þín er ekki stöðug. Að tefla stigaskákir mun auka stöðugleika.</string>
   <string name="yourPerfRatingIsTooHigh">Stig þín í %1$s (%2$s) eru of há</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Hæstu vikulegu stig þín í %1$s (%2$s) eru of há</string>
   <string name="yourPerfRatingIsTooLow">Stig þín í %1$s (%2$s) eru of lág</string>
@@ -417,8 +425,8 @@
   <string name="screenshotCurrentPosition">Taka skjáskot af núverandi stöðu</string>
   <string name="gameAsGIF">Skák sem GIF-snið</string>
   <string name="pasteTheFenStringHere">Límdu FEN strenginn hér</string>
-  <string name="pasteThePgnStringHere">Límdu PGN strenginn hér</string>
-  <string name="orUploadPgnFile">Eða hlaða upp PGN skrá</string>
+  <string name="pasteThePgnStringHere">Límdu inn PGN-strenginn hér</string>
+  <string name="orUploadPgnFile">Eða hlaða upp PGN-skrá</string>
   <string name="fromPosition">Frá stöðu</string>
   <string name="continueFromHere">Halda áfram héðan</string>
   <string name="toStudy">Stúdera</string>
@@ -761,6 +769,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Skrunaðu yfir taflborðið til þess að gera leik í skákinni.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Skrunaðu yfir tölvuafbrigði til að forskoða þau.</string>
   <string name="analysisShapesHowTo">Ýttu á skiptilykil og smelltu eða hægrismelltu til að teikna hringi og örvar á borðið.</string>
+  <string name="primaryColorArrowsHowTo">Ctrl eða shift = rauður; command, alt, eða meta = blár; lykill úr hvorum hópi = gulur.</string>
   <string name="letOtherPlayersMessageYou">Leyfa öðrum notendum að senda þér skilaboð</string>
   <string name="receiveForumNotifications">Fá tilkynningar þegar minnst er á mann á umræðukorkinum</string>
   <string name="shareYourInsightsData">Deila greiningum</string>
@@ -822,6 +831,7 @@
   <string name="notifications">Tilkynningar</string>
   <string name="notificationsX">Tilkynningar: %1$s</string>
   <string name="perfRatingX">Skákstig: %s</string>
+  <string name="yourRatingIsX">Skákstigin þín eru %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekúnda til að gera fyrsta leik</item>
     <item quantity="other">%s sekúndur til að gera fyrsta leik</item>
@@ -873,6 +883,7 @@
   <string name="playVariationToCreateConditionalPremoves">Veldu afbrigði til þess að búa til skilyrta forleiki</string>
   <string name="noConditionalPremoves">Engir skilyrtir forleikir</string>
   <string name="playX">Leika %s</string>
+  <string name="challengeX">Skora á %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">og vista %s forleikfléttu</item>
     <item quantity="other">og vista %s forleikfléttur</item>
@@ -963,7 +974,7 @@ Skildu eftir autt til að tefla útfrá hefðbundinni upphafsstöðu.</string>
   <string name="simulFeaturedHelp">Sýna öllum á %s fjöltefli þitt. Afvirktu ef um persónuleg fjöltefli er um að ræða.</string>
   <string name="simulDescription">Lýsing fjölteflis</string>
   <string name="simulDescriptionHelp">Er nokkuð eitthvað sem óskað er eftir að upplýsa þátttakendur um?</string>
-  <string name="markdownAvailable">%s er tiltækt fyrir flóknari málskipan.</string>
+  <string name="markdownIsAvailable">%s er tiltækt til sniðmótunar.</string>
   <string name="embedsAvailable">Límdu vefslóð skákar eða vefslóð stúderingarkafla til þess að ívefja það.</string>
   <string name="inYourLocalTimezone">Samkvæmt þínum staðbundna tíma</string>
   <string name="tournChat">Spjall móts</string>
@@ -1004,4 +1015,9 @@ Allur rekstrarkostnaður, þróun og efniviður er fjármagnaður eingöngu með
   <string name="enableBlindMode">Virkja blindingaham</string>
   <string name="disableBlindMode">Afvirkja blindingaham</string>
   <string name="copyToClipboard">Afrita á klippiborð</string>
+  <string name="online" comment="status of a user">álínis</string>
+  <string name="offline" comment="status of a user">aflínis</string>
+  <string name="search">Leita</string>
+  <string name="clearSearch">Stroka út leit</string>
+  <string name="tags">Merkimiðar</string>
 </resources>

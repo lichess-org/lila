@@ -1,90 +1,116 @@
-export type PubsubEvent =
-  | 'ab.rep'
-  | 'analysis.closeAll'
-  | 'analysis.change'
-  | 'analysis.chart.click'
-  | 'analysis.comp.toggle'
-  | 'analysis.server.progress'
-  | 'board.change'
-  | 'challenge-app.open'
-  | 'chart.panning'
-  | 'chat.permissions'
-  | 'chat.writeable'
-  | 'content-loaded'
-  | 'flip'
-  | 'jump'
-  | 'botdev.import.book'
-  | 'notify-app.set-read'
-  | 'voiceChat.toggle'
-  | 'ply'
-  | 'ply.trigger'
-  | 'round.suggestion'
-  | 'socket.close'
-  | 'socket.in.blockedBy'
-  | 'socket.in.challenges'
-  | 'socket.in.chat_reinstate'
-  | 'socket.in.chat_timeout'
-  | 'socket.in.crowd'
-  | 'socket.in.announce'
-  | 'socket.in.fen'
-  | 'socket.in.finish'
-  | 'socket.in.message'
-  | 'socket.in.mlat'
-  | 'socket.in.msgNew'
-  | 'socket.in.msgType'
-  | 'socket.in.notifications'
-  | 'socket.in.voiceChat'
-  | 'socket.in.voiceChatOff'
-  | 'socket.in.voiceChatPing'
-  | 'socket.in.redirect'
-  | 'socket.in.reload'
-  | 'socket.in.sk1'
-  | 'socket.in.tournamentReminder'
-  | 'socket.in.unblockedBy'
-  | 'socket.in.serverRestart'
-  | 'socket.lag'
-  | 'socket.open'
-  | 'socket.send'
-  | 'speech.enabled'
-  | 'study.search.open'
-  | 'theme'
-  | 'top.toggle.user_tag'
-  | 'zen';
+import type { Line } from '@/chat/interfaces';
+import type { Data as WatchersData } from '@/view/watchers';
 
-export type PubsubOneTimeEvent = 'dialog.polyfill' | 'socket.hasConnected' | 'botdev.images.ready';
+export type PubsubEventKey = keyof PubsubEvents;
 
-export type PubsubCallback = (...data: any[]) => void;
+export interface PubsubEvents {
+  'ab.rep': (data: 'kbc') => void;
+  'analysis.closeAll': () => void;
+  'analysis.change': (fen: FEN, path: string) => void;
+  'analysis.chart.click': (index: number) => void;
+  'analysis.comp.toggle': (enabled: boolean) => void;
+  'analysis.server.progress': (analyseData: any) => void;
+  'board.change': (is3d: boolean) => void;
+  'challenge-app.open': () => void;
+  'chart.panning': () => void;
+  'chat.permissions': (perms: { local: boolean }) => void;
+  'chat.writeable': (writeable: boolean) => void;
+  'content-loaded': (el?: HTMLElement) => void;
+  flip: (flip: boolean) => void;
+  jump: (ply: string) => void;
+  'botdev.import.book': (key: string, oldKey?: string) => void;
+  'notify-app.set-read': (user: string) => void;
+  'voiceChat.toggle': (enabled: boolean) => void;
+  ply: (ply: number, isMainline?: boolean) => void;
+  'ply.trigger': () => void;
+  'round.suggestion': (text: string | null) => void;
+  'socket.close': () => void;
+  'socket.in.blockedBy': (userId: string) => void;
+  'socket.in.challenges': (data: any) => void;
+  'socket.in.chat_reinstate': (userId: string) => void;
+  'socket.in.chat_timeout': (userId: string) => void;
+  'socket.in.crowd': (data: {
+    nb: number;
+    users?: string[];
+    anons?: number;
+    watchers?: WatchersData;
+    streams?: [UserId, { name: string; lang: string }][];
+  }) => void;
+  'socket.in.announce': (data: { msg?: string; date?: string }) => void;
+  'socket.in.endData': (data: any) => void;
+  'socket.in.fen': (data: { id: string; fen: FEN; lm: Uci; wc?: number; bc?: number }) => void;
+  'socket.in.finish': (data: { id: string; win?: 'b' | 'w' }) => void;
+  'socket.in.following_enters': (
+    titleName: string,
+    msg: { playing: boolean; patronColor?: PatronColor },
+  ) => void;
+  'socket.in.following_leaves': (titleName: string) => void;
+  'socket.in.following_onlines': (
+    friends: string[],
+    msg: { playing: string[]; patronColors: PatronColor[] },
+  ) => void;
+  'socket.in.following_playing': (titleName: string) => void;
+  'socket.in.following_stopped_playing': (titleName: string) => void;
+  'socket.in.message': (line: Line) => void;
+  'socket.in.mlat': (millis: number) => void;
+  'socket.in.msgNew': (data: { text: string; user: UserId; date: number }) => void;
+  'socket.in.msgType': (userId: UserId) => void;
+  'socket.in.notifications': (data: { notifications: Paginator<any>; unread: number }) => void;
+  'socket.in.voiceChat': (uids: UserId[]) => void;
+  'socket.in.redirect': (d: RedirectTo) => void;
+  'socket.in.reload': (data: any) => void;
+  'socket.in.sk1': (signed: string) => void;
+  'socket.in.tournamentReminder': (data: { id: string; name: string }) => void;
+  'socket.in.unblockedBy': (userId: string) => void;
+  'socket.in.serverRestart': () => void;
+  'socket.lag': (lag: number) => void;
+  'socket.open': () => void;
+  'socket.send': (event: string, d?: any, o?: any) => void;
+  theme: (theme: string) => void;
+  zen: () => void;
+}
+
+export interface OneTimeEvents {
+  'polyfill.dialog': ((dialog: HTMLElement) => void) | undefined;
+  'socket.hasConnected': void;
+  'botdev.images.ready': void;
+}
 
 export class Pubsub {
-  private allSubs: Map<PubsubEvent, Set<() => void>> = new Map();
-  private oneTimeEvents: Map<PubsubOneTimeEvent, OneTimeHandler> = new Map();
+  private allSubs: Map<keyof PubsubEvents, Set<PubsubEvents[keyof PubsubEvents]>> = new Map();
+  private oneTimeEvents: Map<OneTimeKey, OneTimeHandler<OneTimeEvents[OneTimeKey]>> = new Map();
 
-  on(name: PubsubEvent, cb: PubsubCallback): void {
+  on<K extends keyof PubsubEvents>(name: K, cb: PubsubEvents[K]): void {
     const subs = this.allSubs.get(name);
     if (subs) subs.add(cb);
     else this.allSubs.set(name, new Set([cb]));
   }
 
-  off(name: PubsubEvent, cb: PubsubCallback): void {
+  off<K extends keyof PubsubEvents>(name: K, cb: PubsubEvents[K]): void {
     this.allSubs.get(name)?.delete(cb);
   }
 
-  emit(name: PubsubEvent, ...args: any[]): void {
-    for (const fn of this.allSubs.get(name) || []) fn.apply(null, args);
+  emit<K extends keyof PubsubEvents>(name: K, ...args: Parameters<PubsubEvents[K]>): void {
+    const callbacks = this.allSubs.get(name);
+    if (callbacks) {
+      for (const cb of callbacks) {
+        (cb as (...args: Parameters<PubsubEvents[K]>) => void)(...args);
+      }
+    }
   }
 
-  after<T>(event: PubsubOneTimeEvent): Promise<T> {
+  after<K extends OneTimeKey>(event: K): Promise<OneTimeEvents[K]> {
     const found = this.oneTimeEvents.get(event);
-    if (found) return found.promise;
+    if (found) return found.promise as Promise<OneTimeEvents[K]>;
 
-    const handler = {} as OneTimeHandler<T>;
-    handler.promise = new Promise<T>(resolve => (handler!.resolve = resolve));
+    const handler = {} as OneTimeHandler<OneTimeEvents[K]>;
+    handler.promise = new Promise<OneTimeEvents[K]>(resolve => (handler!.resolve = resolve));
     this.oneTimeEvents.set(event, handler);
 
     return handler.promise;
   }
 
-  complete<T>(event: PubsubOneTimeEvent, value?: T): void {
+  complete<K extends OneTimeKey>(event: K, value?: OneTimeEvents[K]): void {
     const found = this.oneTimeEvents.get(event);
     if (found) {
       found.resolve?.(value);
@@ -92,13 +118,14 @@ export class Pubsub {
     } else this.oneTimeEvents.set(event, { promise: Promise.resolve(value) });
   }
 
-  past(event: PubsubOneTimeEvent): boolean {
+  past(event: OneTimeKey): boolean {
     return this.oneTimeEvents.has(event) && !this.oneTimeEvents.get(event)?.resolve;
   }
 }
 
 export const pubsub: Pubsub = new Pubsub();
 
+type OneTimeKey = keyof OneTimeEvents;
 interface OneTimeHandler<T = any> {
   promise: Promise<T>;
   resolve?: (value: T) => void;

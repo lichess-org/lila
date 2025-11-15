@@ -11,28 +11,6 @@ final class ClasPages(helpers: Helpers, clasUi: ClasUi, dashUi: DashboardUi):
   import helpers.{ *, given }
   import clasUi.ClasPage
 
-  def home(using Context) =
-    Page(trans.clas.lichessClasses.txt())
-      .css("bits.page", "bits.clas"):
-        main(cls := "page-small box box-pad page clas-home")(
-          h1(cls := "box__top")(trans.clas.lichessClasses()),
-          div(cls := "clas-home__doc body")(
-            p(trans.clas.teachClassesOfChessStudents()),
-            h2(trans.clas.features()),
-            ul(
-              li(trans.clas.quicklyGenerateSafeUsernames()),
-              li(trans.clas.trackStudentProgress()),
-              li(trans.clas.messageAllStudents()),
-              li(trans.clas.freeForAllForever())
-            )
-          ),
-          div(cls := "clas-home__onboard")(
-            postForm(action := routes.Clas.becomeTeacher)(
-              submitButton(cls := "button button-fat")(trans.clas.applyToBeLichessTeacher())
-            )
-          )
-        )
-
   def teacherIndex(classes: List[Clas], closed: Boolean)(using Context) =
     val (active, archived) = classes.partition(_.isActive)
     val (current, others) = if closed then (archived, active) else (active, archived)

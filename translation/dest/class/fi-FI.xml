@@ -118,4 +118,6 @@ Se luo vaakasuoran erotinviivan.</string>
   <string name="xIsAKidAccountWarning">%1$s on lapsitunnus eikä voi vastaanottaa viestiäsi. Sinun on annettava kutsun URL-osoite oppilaalle käsin: %2$s</string>
   <string name="moveToClass">Siirrä luokalle %s</string>
   <string name="moveToAnotherClass">Siirrä toiselle luokalle</string>
+  <string name="allowMessagingBetweenStudents">Salli oppilaiden väliset viestit</string>
+  <string name="allowMessagingBetweenStudentsDesc">Tämä koskee vain käyttäjätunnuksia, jotka olet luonut oppilaillesi.</string>
 </resources>

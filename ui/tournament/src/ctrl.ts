@@ -13,8 +13,8 @@ import type {
 } from './interfaces';
 import { storage, storedMapAsProp } from 'lib/storage';
 import { pubsub } from 'lib/pubsub';
-import { alerts, prompt } from 'lib/view/dialogs';
-import { Prop } from 'lib';
+import { alerts, prompt } from 'lib/view';
+import type { Prop } from 'lib';
 
 interface CtrlTeamInfo {
   requested?: string;
@@ -59,7 +59,7 @@ export default class TournamentController {
     this.scrollToMe();
     sound.end(this.data);
     sound.countDown(this.data);
-    this.recountTeams();
+    this.setupBattle();
     this.redirectToMyGame();
     pubsub.on('socket.in.crowd', data => {
       this.nbWatchers = data.nb;
@@ -72,6 +72,7 @@ export default class TournamentController {
   };
 
   reload = (data: TournamentData): void => {
+    const willChangeJoinStatus = !!this.data.me !== !!data.me || this.data.me?.withdraw !== data.me?.withdraw;
     // we joined a private tournament! Reload the page to load the chat
     if (!this.data.me && data.me && this.data.private) site.reload();
     this.data = { ...this.data, ...data, ...{ me: data.me } }; // to account for removal on withdraw
@@ -80,7 +81,7 @@ export default class TournamentController {
     if (this.focusOnMe) this.scrollToMe();
     sound.end(data);
     sound.countDown(data);
-    this.joinSpinner = false;
+    if (willChangeJoinStatus) this.joinSpinner = false;
     this.recountTeams();
     this.redirectToMyGame();
   };
@@ -90,6 +91,14 @@ export default class TournamentController {
   private recountTeams() {
     if (this.data.teamBattle)
       this.data.teamBattle.hasMoreThanTenTeams = Object.keys(this.data.teamBattle.teams).length > 10;
+  }
+
+  private setupBattle() {
+    if (this.data.teamBattle) {
+      this.recountTeams();
+      const locationTeam = location.hash.startsWith('#team/') && location.hash.slice(6);
+      if (locationTeam) this.showTeamInfo(locationTeam);
+    }
   }
 
   private redirectToMyGame() {

@@ -10,7 +10,7 @@ import lila.ui.*
 import lila.core.LightUser
 import lila.plan.PlanPricingApi.pricingWrites
 
-final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
+final class PlanUi(helpers: Helpers)(style: PlanStyle, contactEmail: EmailAddress):
   import helpers.{ *, given }
   import trans.patron as trp
 
@@ -55,7 +55,7 @@ final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
       .js(infiniteScrollEsmInit)
       .graph(
         title = trans.patron.becomePatron.txt(),
-        url = s"$netBaseUrl${routes.Plan.index().url}",
+        url = routeUrl(routes.Plan.index()),
         description = trans.patron.freeChess.txt()
       )
       .csp(paymentCsp):
@@ -68,26 +68,27 @@ final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
             )
           ),
           div(cls := "page-menu__content box")(
-            patron
-              .ifTrue(ctx.me.so(_.isPatron))
-              .map { p =>
-                div(cls := "banner one_time_active")(
-                  iconTag(patronIconChar),
-                  div(
-                    h1(cls := "box__top")(trp.thankYou()),
-                    if ctx.me.exists(_.plan.lifetime) then trp.youHaveLifetime()
-                    else
-                      p.expiresAt.map: expires =>
-                        frag(
-                          trp.patronUntil(showDate(expires)),
-                          br,
-                          trp.ifNotRenewedThenAccountWillRevert()
-                        )
+            patron.match
+              case Some(patron) =>
+                frag(
+                  div(cls := "banner one_time_active")(
+                    iconTag(patronIconChar),
+                    div(
+                      h1(cls := "box__top")(trp.thankYou()),
+                      if ctx.me.exists(_.plan.lifetime) then trp.youHaveLifetime()
+                      else
+                        patron.expiresAt.map: expires =>
+                          frag(
+                            trp.patronUntil(showDate(expires)),
+                            br,
+                            trp.ifNotRenewedThenAccountWillRevert()
+                          )
+                    ),
+                    iconTag(patronIconChar)
                   ),
-                  iconTag(patronIconChar)
+                  style.selector.map(_(cls := "box__pad"))
                 )
-              }
-              .getOrElse(
+              case None =>
                 div(cls := "banner moto")(
                   iconTag(patronIconChar),
                   div(
@@ -95,8 +96,7 @@ final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
                     p(trp.noAdsNoSubs())
                   ),
                   iconTag(patronIconChar)
-                )
-              ),
+                ),
             div(cls := "box__pad")(
               div(cls := "wrapper")(
                 div(cls := "text")(
@@ -334,6 +334,7 @@ final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
               else trp.patronForMonths(me.plan.months)
             )
           ),
+          style.selector,
           table(cls := "all")(
             tbody(
               tr(
@@ -415,6 +416,7 @@ final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
               else trp.patronForMonths(me.plan.months)
             )
           ),
+          style.selector,
           table(cls := "all")(
             tbody(
               tr(

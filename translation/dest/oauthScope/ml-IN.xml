@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="boardPlay" comment="In the context of an access token, a setting which permits third-party software to play games using e-boards like DGT, through Lichess's board API.">കളിക്കളം API കൂടെ കളികൾ കളിക്കുക</string>
+  <string name="boardPlay">കളിക്കളം API കൂടെ കളികൾ കളിക്കുക</string>
 </resources>

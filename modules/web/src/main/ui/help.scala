@@ -137,7 +137,12 @@ object help:
               ul(
                 li(trans.site.youCanAlsoScrollOverTheBoardToMoveInTheGame()),
                 li(trans.site.scrollOverComputerVariationsToPreviewThem()),
-                li(trans.site.analysisShapesHowTo())
+                li(
+                  trans.site.analysisShapesHowTo(),
+                  ul(
+                    li(trans.site.primaryColorArrowsHowTo())
+                  )
+                )
               )
             )
           )
@@ -176,7 +181,7 @@ object help:
               ul(
                 li(
                   ifTheAboveMoveNotationIsUnfamiliar(),
-                  a(target := "_blank", href := "https://en.wikipedia.org/wiki/Algebraic_notation_(chess)")(
+                  a(targetBlank, href := "https://en.wikipedia.org/wiki/Algebraic_notation_(chess)")(
                     "Algebraic notation"
                   )
                 ),

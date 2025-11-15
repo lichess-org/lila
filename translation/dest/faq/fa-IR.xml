@@ -36,7 +36,7 @@
   <string name="durationFormula">(زمان اولیه به ثانیه) + (40 × پاداش زمانی به ازای هر حرکت)</string>
   <string name="inferiorThanXsEqualYtimeControl">≤ %1$s = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≤ %1$s = %2$s</string>
-  <string name="whatVariantsCanIplay">چه وَرتاهایی را می‌توانم در لیچس بازی کنم؟</string>
+  <string name="whatVariantsCanIplay">چه وَرتاهایی را می‌توانم در Lichess بازی کنم؟</string>
   <string name="lichessSupportChessAnd">وبگاه لیچس از شطرنج استاندارد و %1$s پشتیبانی می‌کند.</string>
   <string name="eightVariants">۸ وَرتای شطرنج</string>
   <string name="whatIsACPL">میانگین باخت صدم ‌پیاده چیست؟</string>

@@ -1,4 +1,4 @@
-import * as emojis from 'emoji-mart';
+import { Picker } from 'emoji-mart';
 
 type Config = {
   element: HTMLElement;
@@ -26,7 +26,7 @@ export async function initModule(cfg: Config): Promise<void> {
     theme,
     exceptEmojis: cfg.element.dataset.exceptEmojis?.split(' '),
   };
-  const picker = new emojis.Picker(opts);
+  const picker = new Picker(opts);
 
   cfg.element.prepend(picker as unknown as HTMLElement);
   cfg.element.classList.add('emoji-done');

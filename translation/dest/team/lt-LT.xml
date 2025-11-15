@@ -60,7 +60,6 @@ Taip galite pakviesti žaidėjus prisijungti į turnyrą ar komandos kovą.
   <string name="completedTourns">Baigti turnyrai</string>
   <string name="declinedRequests">Atsisakytos užklausos</string>
   <string name="joinLichessVariantTeam">Prisijunkite prie oficialios %s komandos ir gaukite naujienas bei pranešimus apie renginius</string>
-  <string name="teamPage">Komandos puslapis</string>
   <string name="thisTeamBattleIsOver">Šis turnyras baigėsi, ir komandos nebegali būti atnaujinamos.</string>
   <string name="listTheTeamsThatWillCompete">Komandų, kurios varžysis šiame mūšyje, sąrašas.</string>
   <string name="oneTeamPerLine">Viena komanda eilutėje. Naudokite automatinį užbaigimą.</string>

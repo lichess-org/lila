@@ -123,6 +123,6 @@ Oto link do klasy.</string>
   <string name="xIsAKidAccountWarning">%1$s jest kontem dziecka i dlatego nie może otrzymać Twojej wiadomości. Musisz podać mu adres URL zaproszenia w inny sposób: %2$s</string>
   <string name="moveToClass">Przenieś do %s</string>
   <string name="moveToAnotherClass">Przenieś do innej klasy</string>
-  <string name="allowMessagingBetweenStudents" comment="An option that a class's teacher can select. Has the extended description &quot;This only applies to the accounts you have created for your students.&quot;">Zezwól na wiadomości między uczniami</string>
-  <string name="allowMessagingBetweenStudentsDesc" comment="Description for the option &quot;Allow messages between students&quot;.">Dotyczy to tylko kont, które utworzyłeś dla swoich uczniów.</string>
+  <string name="allowMessagingBetweenStudents">Zezwól na wiadomości między uczniami</string>
+  <string name="allowMessagingBetweenStudentsDesc">Dotyczy to tylko kont, które utworzyłeś dla swoich uczniów.</string>
 </resources>

@@ -30,6 +30,8 @@ $c-border: hsl(0, 0%, 85%);
 $c-dimmer: #fff;
 $c-clearer: #000;
 
+$patron-colors: $patron-colors-light;
+
 html.light {
   @include shared-color-defs;
 

@@ -1,4 +1,4 @@
-import { prop, notEmpty, Prop } from 'lib';
+import { prop, notEmpty, type Prop } from 'lib';
 import { json as xhrJson } from 'lib/xhr';
 import type { ForecastData, ForecastList, ForecastStep } from './interfaces';
 import type { AnalyseData } from '../interfaces';

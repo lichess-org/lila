@@ -1,7 +1,7 @@
 import { stageIdToCategId, byKey as stageByKey, list as stageList } from './stage/list';
 import * as scoring from './score';
-import { Prop, propWithEffect } from 'lib';
-import { LearnProgress, LearnOpts } from './learn';
+import { type Prop, propWithEffect } from 'lib';
+import type { LearnProgress, LearnOpts } from './learn';
 import { LearnCtrl } from './ctrl';
 
 export class SideCtrl {

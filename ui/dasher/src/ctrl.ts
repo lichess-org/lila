@@ -5,10 +5,9 @@ import { BackgroundCtrl } from './background';
 import { BoardCtrl } from './board';
 import { PieceCtrl } from './piece';
 import { LinksCtrl } from './links';
-import type { MaybeVNode } from 'lib/snabbdom';
+import type { MaybeVNode } from 'lib/view';
 import type { DasherData, Mode, PaneCtrl } from './interfaces';
 import { type Prop, prop } from 'lib';
-import { pubsub } from 'lib/pubsub';
 
 const defaultMode: Mode = 'links';
 
@@ -39,7 +38,6 @@ export class DasherCtrl implements ModeIndexed {
     this.board = new BoardCtrl(this);
     this.piece = new PieceCtrl(this);
     this.links = new LinksCtrl(this);
-    pubsub.on('top.toggle.user_tag', () => this.setMode(defaultMode));
   }
 
   mode: Prop<Mode> = prop(defaultMode);

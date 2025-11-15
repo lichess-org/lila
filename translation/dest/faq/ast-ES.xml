@@ -56,12 +56,12 @@ En rares ocasiones esto pue ser malo de decidir automáticamente (llínees forza
 Ten en cuenta que ye posible dar mate con un solu caballu o alfil, siempres que l\'oponente tenga una pieza que pueda bloquiar al rei.</string>
   <string name="fideHandbook">Manual de la FIDE</string>
   <string name="fideHandbookX">%s del manual de la FIDE</string>
-  <string name="discoveringEnPassant">¿Por qué un peón pue prindar otru peón cuando yá ta pasáu ? (en passant)</string>
-  <string name="explainingEnPassant">Esti movimientu ye llegal, y llámase \"captura al pasu\". L\'artículu de Wikipedia da una %1$s al mesmu.
+  <string name="discoveringEnPassant">¿Por qué un peón puede tomar otru peón cuando yá ta pasáu? (en passant)</string>
+  <string name="explainingEnPassant">Esti movimientu ye llegal, y llámase \"tomar al pasu\". L\'artículu de Wikipedia da una %1$s al mesmu.
 
 Describese na sección 3.7.3.1 y 3.7.3.2 de les %2$s:
 
-\"Un peón qu\'ocupa una casiella na mesma fila y nuna columna axacente al peón d\'un oponente qu\'acaba d\'avanzar dos casielles nun movimientu de la so casiella orixinal puede prindar el peón d\'esti oponente como si esti solu fuera movíu una casiella. Esta captura namás ye llegal nel movimientu posterior a esta, denominese captura “al pasu”.
+\"Un peón qu\'ocupa una casiella na mesma fila y nuna columna axacente al peón d\'un oponente qu\'acaba d\'avanzar dos casielles nun movimientu de la so casiella orixinal puede tomarr el peón d\'esti oponente como si esti solu fuera movíu una casiella. Esta captura namás ye llegal nel movimientu posterior a esta, denominese tomar “al pasu”.
 
 Mira el capítulu del %3$s sobro esti movimientu pa practicar un pocu con él.</string>
   <string name="goodIntroduction">bona introducción</string>

@@ -8,6 +8,7 @@ import scala.annotation.nowarn
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
+import lila.core.id.ImageId
 import lila.core.net.IpAddress
 import lila.core.perm.Permission
 import lila.core.security.FingerHash
@@ -56,8 +57,10 @@ final class Mod(
     }(reportC.onModAction)
 
   def publicChat = Secure(_.PublicChatView) { ctx ?=> _ ?=>
-    env.mod.publicChat.all.flatMap: (tournamentsAndChats, swissesAndChats) =>
-      Ok.page(views.mod.publicChat(tournamentsAndChats, swissesAndChats))
+    for
+      (t, s, r) <- env.mod.publicChat.all
+      page <- Ok.page(views.mod.publicChat(t, s, r))
+    yield page
   }
 
   def publicChatTimeout = SecureOrScopedBody(_.ChatTimeout) { _ ?=> me ?=>
@@ -461,9 +464,7 @@ final class Mod(
 
   def chatUser(username: UserStr) = SecureOrScoped(_.ChatTimeout) { _ ?=> _ ?=>
     JsonOptionOk:
-      env.chat.api.userChat
-        .userModInfo(username)
-        .map2(lila.chat.JsonView.userModInfo(using env.user.lightUserSync))
+      env.chat.api.userChat.userModInfo(username).map2(env.chat.json.userModInfo)
   }
 
   def permissions(username: UserStr) = Secure(_.ChangePermission) { _ ?=> _ ?=>
@@ -586,3 +587,25 @@ final class Mod(
     if HTTPRequest.isSynchronousHttp(ctx.req)
     then redirect(username)
     else userC.renderModZoneActions(username)
+
+  def imageQueue(page: Int) = Secure(_.ModerateForum) { _ ?=> _ ?=>
+    for
+      (scores, pending) <- reportC.getScores
+      paginator <- scalalib.paginator.Paginator(
+        env.memo.picfitApi.imageFlagAdapter,
+        currentPage = page,
+        maxPerPage = MaxPerPage(12)
+      )
+      page <- renderPage(views.mod.imageQueue(paginator, scores, pending))
+    yield Ok(page)
+  }
+
+  def imageAccept(id: ImageId, v: Boolean) = Secure(_.ModerateForum) { _ ?=> me ?=>
+    for
+      picOpt <-
+        if v
+        then env.memo.picfitApi.setAutomod(id, lila.memo.ImageAutomod(none))
+        else env.memo.picfitApi.deleteById(id)
+      _ <- picOpt.so(env.mod.logApi.moderateImage(_, if v then "pass" else "purge"))
+    yield Redirect(routes.Mod.imageQueue())
+  }

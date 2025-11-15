@@ -1,7 +1,7 @@
 import * as licon from 'lib/licon';
 import { text as xhrText } from 'lib/xhr';
 import { requestIdleCallback } from 'lib';
-import { spinnerHtml } from 'lib/view/controls';
+import { spinnerHtml } from 'lib/view';
 import { pubsub } from 'lib/pubsub';
 
 // Thanks Steven Benner! - adapted from https://github.com/stevenbenner/jquery-powertip
@@ -326,6 +326,8 @@ function placementCalculator() {
       tipHeight: number,
       offset: number,
     ) {
+      placement = site.powertip.forcePlacementHook?.(element[0]!) ?? placement;
+
       const placementBase = placement.split('-')[0], // ignore 'alt' for corners
         coords = cssCoordinates(),
         position = getHtmlPlacement(element, placementBase);

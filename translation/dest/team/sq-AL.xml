@@ -57,7 +57,6 @@ Lojtarët të cilëve s’u pëlqen të marrin mesazhe nga ju, mund të dalin ng
   <string name="completedTourns">Turne të plotësuar</string>
   <string name="declinedRequests">Kërkesa të Hedhura Poshtë</string>
   <string name="joinLichessVariantTeam">Bëhuni pjesë e ekipit zyrtar %s, për lajme dhe veprimtari</string>
-  <string name="teamPage">Faqe ekipi</string>
   <string name="thisTeamBattleIsOver">Ky turne ka përfunduar dhe ekipet s’mund të përditësohen më.</string>
   <string name="listTheTeamsThatWillCompete">Radhitni ekipet që do të ndeshen në këtë ndeshje.</string>
   <string name="oneTeamPerLine">Një ekip për rresht. Përdorni vetëplotësimin.</string>

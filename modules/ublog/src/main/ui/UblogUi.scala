@@ -10,7 +10,9 @@ import lila.core.ublog.{ BlogsBy, QualityFilter }
 
 import ScalatagsTemplate.{ *, given }
 
-final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.PicfitUrl):
+final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)(
+    picfitUrl: lila.memo.PicfitUrl
+):
   import helpers.{ *, given }
 
   def thumbnail(post: UblogPost.BasePost, size: UblogPost.thumbnail.SizeSelector) =
@@ -21,7 +23,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
       alt := post.image.flatMap(_.alt)
     )(src := thumbnailUrl(post, size))
 
-  def thumbnailUrl(post: UblogPost.BasePost, size: UblogPost.thumbnail.SizeSelector) =
+  def thumbnailUrl(post: UblogPost.BasePost, size: UblogPost.thumbnail.SizeSelector): Url =
     post.image match
       case Some(image) => UblogPost.thumbnail(picfitUrl, image.id, size)
       case _ => assetUrl("images/user-blog-default.png")
@@ -41,8 +43,9 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
       href := makeUrl(post)
     )(
       span(
-        cls := s"ublog-post-card__top" + post.image.isEmpty.so(
-          s" ublog-generic-bg${1 + Math.floorMod(post.created.at.hashCode, 28)}"
+        cls := s"ublog-post-card__top",
+        post.image.isEmpty.option(
+          style := s"---thumb-backdrop-url:url(${assetUrl(f"lifat/background/gallery/bg${1 + Math.floorMod(post.created.at.hashCode, 28)}%02d-thumb.webp")})"
         )
       )(
         thumbnail(post, _.Size.Small)(cls := "ublog-post-card__image"),
@@ -313,7 +316,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
       .css("bits.ublog")
       .js(Esm("bits.ublog")):
         main(cls := "page-menu")(
-          bits.modMenu("carousel"),
+          modMenu,
           div(cls := "page-menu__content box box-pad column-gap")(
             postForm(action := routes.Ublog.modSetCarouselSize)(
               label("Carousel size: "),

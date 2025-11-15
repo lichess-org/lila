@@ -1,4 +1,4 @@
-import { Chess, Move as ChessMove } from 'chessops';
+import { Chess, type Move as ChessMove } from 'chessops';
 import { makeSanAndPlay } from 'chessops/san';
 import { normalizeMove } from 'chessops/chess';
 

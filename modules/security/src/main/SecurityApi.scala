@@ -160,16 +160,12 @@ final class SecurityApi(
         : Fu[Option[AppealOrUser]]
       }
 
-  def oauthScoped(
-      req: RequestHeader,
-      required: lila.oauth.EndpointScopes
-  ): Fu[OAuthServer.AuthResult] =
+  def oauthScoped(req: RequestHeader, required: lila.oauth.EndpointScopes): OAuthServer.AuthFu =
     oAuthServer
-      .auth(req, required)
-      .addEffect:
-        case Right(access) => upsertOauth(access, req)
-        case _ => ()
-      .map(_.map(access => stripRolesOfOAuthUser(access.scoped)))
+      .authReq(req, required)
+      .map: access =>
+        upsertOauth(access, req)
+        stripRolesOfOAuthUser(access.scoped)
 
   private object upsertOauth:
     private val sometimes = scalalib.cache.OnceEvery.hashCode[AccessTokenId](1.hour)

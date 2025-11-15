@@ -3,10 +3,13 @@ package lila.memo
 import com.github.benmanes.caffeine
 import com.github.blemale.scaffeine.*
 import alleycats.Zero
+import scala.collection.mutable.WeakHashMap
 
 final class CacheApi(using Executor, Scheduler)(using mode: play.api.Mode):
 
   import CacheApi.*
+
+  private val namedCaches = WeakHashMap[String, caffeine.cache.Cache[?, ?]]()
 
   // AsyncLoadingCache with monitoring
   def apply[K, V](initialCapacity: Int, name: String)(
@@ -14,7 +17,7 @@ final class CacheApi(using Executor, Scheduler)(using mode: play.api.Mode):
   ): AsyncLoadingCache[K, V] =
     val cache = build:
       scaffeine.recordStats().initialCapacity(actualCapacity(initialCapacity))
-    monitor(name, cache)
+    register(name, cache)
     cache
 
   // AsyncLoadingCache for a single entry
@@ -34,7 +37,7 @@ final class CacheApi(using Executor, Scheduler)(using mode: play.api.Mode):
       if mode.isProd then initialCapacity
       else math.sqrt(initialCapacity.toDouble).toInt.atLeast(1)
     val cache = new Syncache(name, actualCapacity, compute, default, strategy, expireAfter)
-    monitor(name, cache.cache)
+    register(name, cache.cache)
     cache
 
   def notLoading[K, V](initialCapacity: Int, name: String)(
@@ -42,7 +45,7 @@ final class CacheApi(using Executor, Scheduler)(using mode: play.api.Mode):
   ): AsyncCache[K, V] =
     val cache = build:
       scaffeine.recordStats().initialCapacity(actualCapacity(initialCapacity))
-    monitor(name, cache)
+    register(name, cache)
     cache
 
   def notLoadingSync[K, V](initialCapacity: Int, name: String)(
@@ -50,20 +53,31 @@ final class CacheApi(using Executor, Scheduler)(using mode: play.api.Mode):
   ): Cache[K, V] =
     val cache = build:
       scaffeine.recordStats().initialCapacity(actualCapacity(initialCapacity))
-    monitor(name, cache)
+    register(name, cache)
     cache
 
-  def monitor(name: String, cache: AsyncCache[?, ?]): Unit =
-    monitor(name, cache.underlying.synchronous)
+  def clearByName(name: String): Option[Int] =
+    namedCaches
+      .get(name)
+      .map: cache =>
+        val size = cache.estimatedSize().toInt
+        cache.invalidateAll()
+        size
 
-  def monitor(name: String, cache: Cache[?, ?]): Unit =
-    monitor(name, cache.underlying)
+  def register(name: String, cache: AsyncCache[?, ?]): Unit =
+    register(name, cache.underlying.synchronous)
 
-  def monitor(name: String, cache: caffeine.cache.Cache[?, ?]): Unit =
+  private def register(name: String, cache: Cache[?, ?]): Unit =
+    register(name, cache.underlying)
+
+  private def register(name: String, cache: caffeine.cache.Cache[?, ?]): Unit =
     startMonitor(name, cache)
+    if namedCaches.contains(name) then logger.error(s"CacheApi: duplicate cache name '$name'")
+    namedCaches.addOne(name, cache)
 
-  def actualCapacity(c: Int) =
-    if mode.isProd then c else math.sqrt(c.toDouble).toInt.atLeast(1)
+  def actualCapacity(c: Int): Int =
+    if mode.isProd then c
+    else math.sqrt(c.toDouble).toInt.atLeast(1)
 
 object CacheApi:
 
@@ -101,7 +115,7 @@ object CacheApi:
       builder.buildAsyncFuture: k =>
         loader(k).withTimeoutDefault(loaderTimeout, zero.zero)
 
-  private[memo] def startMonitor(
+  private def startMonitor(
       name: String,
       cache: caffeine.cache.Cache[?, ?]
   )(using ec: Executor, scheduler: Scheduler): Unit =

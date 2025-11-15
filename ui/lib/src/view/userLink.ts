@@ -1,5 +1,5 @@
 import { type Attrs, h, type VNode } from 'snabbdom';
-import { type MaybeVNode } from '@/snabbdom';
+import { type MaybeVNode } from './snabbdom';
 
 export interface HasRating {
   rating?: number;
@@ -21,7 +21,7 @@ export interface HasTitle {
 
 export interface HasLine {
   line?: boolean; // display i.line, true by default
-  patron?: boolean; // turn i.line into a patron wing
+  patronColor?: PatronColor; // turn i.line into a patron wing
   moderator?: boolean; // turn i.line into a mod icon
 }
 
@@ -48,8 +48,12 @@ export const userFlair = (u: HasFlair): VNode | undefined =>
 export const userLine = (u: HasLine): VNode | undefined =>
   u.line !== false
     ? h('i.line', {
-        class: { patron: !!u.patron, moderator: !!u.moderator },
-        attrs: u.patron ? { title: 'Lichess Patron' } : {},
+        class: {
+          patron: !!u.patronColor,
+          moderator: !!u.moderator,
+          ...(u.patronColor ? { [`paco${u.patronColor}`]: true } : {}),
+        },
+        attrs: u.patronColor ? { title: 'Lichess Patron' } : {},
       })
     : undefined;
 

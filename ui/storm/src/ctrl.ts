@@ -2,7 +2,7 @@ import * as xhr from './xhr';
 import config from './config';
 import CurrentPuzzle from 'lib/puz/current';
 import sign from 'lib/puz/sign';
-import { Api as CgApi } from '@lichess-org/chessground/api';
+import type { Api as CgApi } from '@lichess-org/chessground/api';
 import { Clock } from 'lib/puz/clock';
 import { Combo } from 'lib/puz/combo';
 import { getNow, puzzlePov, sound } from 'lib/puz/util';

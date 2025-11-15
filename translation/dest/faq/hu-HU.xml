@@ -3,7 +3,7 @@
   <string name="faqAbbreviation">GYIK</string>
   <string name="frequentlyAskedQuestions">Gyakran ismételt kérdések</string>
   <string name="whyIsLichessCalledLichess">Miért hívják Lichess-nek a Lichess-t?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced">A Lichess a \"live/light/libre\" (élő/könnyed/szabad) és \"chess\" (sakk) szavakból ered. Ìgy ejtsd ki: %1$s.</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">A Lichess a \"live/light/libre\" (élő/könnyed/szabad) és \"chess\" (sakk) szavak kombinációja. Így ejtsd ki: %1$s.</string>
   <string name="leechess">lí-csessz</string>
   <string name="hearItPronouncedBySpecialist">Így ejti egy hozzáértő.</string>
   <string name="whyLiveLightLibre">Élő, mert a játszmák valós időben játszhatók és követhetők 24/7; könnyed és szabad, mert nyílt forráskódra épül és mentes a többi weboldalon pestisként terjedő jogvédett szeméttől.</string>
@@ -35,7 +35,7 @@
   <string name="basedOnGameDuration">A Lichess-en ez a játszma hozzávetőleges hossza alapján történik = %1$s
 Például egy 5+3 játszma körülbelül 5 × 60 + 40 × 3 = 420 másodpercig tart.</string>
   <string name="durationFormula">(kiindulási idő) + 40 × (növekmény)</string>
-  <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
+  <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Milyen variánsokat játszhatok a Lichess-en?</string>
   <string name="lichessSupportChessAnd">Lichess-en a hagyományos sakk mellett %1$s támogatott.</string>
@@ -61,9 +61,9 @@ Megjegyzendő, hogy lehetséges csupán egy futóval vagy huszárral is mattot a
 
 A %2$s a 3.7 (d) pontban tárgyalja:
 
-\"[...] Csak abban az esetben kerülhet rá sor, ha valamelyik gyalog az alapállásból kiindulva két mezőt lép előre és ezáltal közvetlenül az ellenfél egyik gyalogja mellé kerül, vagyis, áthalad az ellenfél egyik gyalogjának ütőkörén. Ekkor a két mezővel előrelépett gyalogot úgy lehet kiütni, mintha ez csak egy mezőt lépett volna előre. Ez az ütés nem kötelező. Fontos szabály, hogy az ilyen ütés jogával az ellenfél csak közvetlen válaszként, tehát csak a rákövetkező lépésben élhet. [...]\"
+\"[...] Csak abban az esetben kerülhet rá sor, ha valamelyik gyalog az alapállásból kiindulva két mezőt lép előre és ezáltal közvetlenül az ellenfél egyik gyalogja mellé kerül, vagyis áthalad az ellenfél egyik gyalogjának ütőkörén. Ekkor a két mezővel előrelépett gyalogot úgy lehet kiütni, mintha ez csak egy mezőt lépett volna előre. Ez az ütés nem kötelező. Fontos szabály, hogy az ilyen ütés jogával az ellenfél csak közvetlen válaszként, tehát csak a rákövetkező lépésben élhet. [...]\"
 
-Lásd még az erről készült %3$s-t.</string>
+Lásd még az erről készült %3$s-t, hogy gyakorolhass.</string>
   <string name="goodIntroduction">jó bevezetés</string>
   <string name="lichessTraining">Lichess gyakorlás</string>
   <string name="watchIMRosenCheckmate">Tekintsd meg Eric Rosen Nemzetközi Mester %s mattját.</string>

@@ -1,7 +1,6 @@
 import type { ClockElements, ClockCtrl } from './clockCtrl';
-import type { Hooks } from 'snabbdom';
-import { hl, type VNode, LooseVNodes } from '@/snabbdom';
-import { TopOrBottom } from '../game';
+import { hl, type VNode, type LooseVNodes, type Hooks } from '@/view';
+import type { TopOrBottom } from '../index';
 import { displayColumns } from '@/device';
 
 export function renderClock(

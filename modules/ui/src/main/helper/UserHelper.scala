@@ -63,7 +63,7 @@ trait UserHelper:
         userIdNameLink(
           userId = user.id,
           username = user.name,
-          patronTier = user.patronTier,
+          patron = user.patronAndColor,
           title = user.title.ifTrue(withTitle),
           flair = if withFlair then user.flair else none,
           cssClass = cssClass,
@@ -85,7 +85,7 @@ trait UserHelper:
     userIdNameLink(
       userId = user.id,
       username = user.name,
-      patronTier = user.patronTier,
+      patron = user.patronAndColor,
       title = user.title.ifTrue(withTitle),
       flair = user.flair,
       cssClass = cssClass,
@@ -104,7 +104,7 @@ trait UserHelper:
       cls := userClass(user.id, cssClass, withOnline),
       dataHref := userUrl(user.name)
     )(
-      withOnline.so(lineIcon(user.patronTier)),
+      withOnline.so(lineIcon(user.patronAndColor)),
       titleTag(user.title),
       user.name,
       user.flair.map(userFlair)
@@ -157,7 +157,7 @@ trait UserHelper:
   def userIdNameLink(
       userId: UserId,
       username: UserName,
-      patronTier: Option[PatronTier],
+      patron: Option[PatronTier.AndColor],
       cssClass: Option[String],
       withOnline: Boolean,
       truncate: Option[Int],
@@ -171,7 +171,7 @@ trait UserHelper:
       cls := userClass(userId, cssClass, withOnline, withPowerTip),
       href := userUrl(username, params = params)
     )(
-      withOnline.so(if modIcon then moderatorIcon else lineIcon(patronTier)),
+      withOnline.so(if modIcon then moderatorIcon else lineIcon(patron)),
       titleTag(title),
       truncate.fold(username.value)(username.value.take),
       flair.map(userFlair)
@@ -256,16 +256,19 @@ trait UserHelper:
 
   val lineIcon: Frag = i(cls := "line")
 
-  def patronIcon(tier: PatronTier)(using Translate): Frag =
-    i(cls := s"line patron ${tier.key}", title := s"${trans.patron.lichessPatron.txt()} (${tier.name})")
+  def patronIcon(p: PatronTier.AndColor)(using Translate): Frag =
+    i(
+      cls := s"line patron ${p.color.value.cssClass}",
+      title := s"${trans.patron.lichessPatron.txt()} (${p.tier.name})"
+    )
 
   val moderatorIcon: Frag = i(cls := "line moderator", title := "Lichess Mod")
   @targetName("lineIconPatron")
-  private def lineIcon(patronTier: Option[PatronTier])(using Translate): Frag =
-    patronTier.fold(lineIcon)(patronIcon)
+  private def lineIcon(p: Option[PatronTier.AndColor])(using Translate): Frag =
+    p.fold(lineIcon)(patronIcon)
   @targetName("lineIconUser")
   private def lineIcon(user: Option[LightUser])(using Translate): Frag =
-    lineIcon(user.flatMap(_.patronTier))
-  def lineIcon(user: LightUser)(using Translate): Frag = lineIcon(user.patronTier)
-  def lineIcon(user: User)(using Translate): Frag = lineIcon(user.patronTier)
+    lineIcon(user.flatMap(_.patronAndColor))
+  def lineIcon(user: LightUser)(using Translate): Frag = lineIcon(user.patronAndColor)
+  def lineIcon(user: User)(using Translate): Frag = lineIcon(user.patronAndColor)
   def lineIconChar(user: User): Icon = if user.isPatron then patronIconChar else lineIconChar

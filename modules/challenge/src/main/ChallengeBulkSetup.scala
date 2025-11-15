@@ -1,5 +1,6 @@
 package lila.challenge
 
+import cats.mtl.Handle.*
 import akka.stream.scaladsl.*
 import chess.format.Fen
 import chess.variant.{ FromPosition, Variant }
@@ -88,30 +89,30 @@ final class ChallengeBulkSetupApi(
 
   import ChallengeBulkSetup.*
 
-  type Result = Either[ScheduleError, ScheduledBulk]
-
   private val rateLimit = lila.memo.RateLimit[UserId](
     credits = maxGames * 3,
     duration = 10.minutes,
     key = "challenge.bulk"
   )
 
-  def apply(data: BulkFormData, me: User): Fu[Result] =
+  def apply(data: BulkFormData, me: User): FuRaise[ScheduleError, ScheduledBulk] =
     Source(extractTokenPairs(data.tokens))
       .mapConcat: (whiteToken, blackToken) =>
         List(whiteToken, blackToken) // flatten now, re-pair later!
       .mapAsync(8): token =>
-        oauthServer
-          .auth(token, OAuthScope.select(_.Challenge.Write).into(EndpointScopes), none)
-          .map:
-            _.left.map { BadToken(token, _) }
+        allow:
+          oauthServer
+            .auth(token, OAuthScope.select(_.Challenge.Write).into(EndpointScopes), none)
+            .map(Right(_))
+        .rescue: err =>
+          fuccess(Left(BadToken(token, err)))
       .runFold[Either[List[BadToken], List[UserId]]](Right(Nil)):
         case (Left(bads), Left(bad)) => Left(bad :: bads)
         case (Left(bads), _) => Left(bads)
         case (Right(_), Left(bad)) => Left(bad :: Nil)
         case (Right(users), Right(scoped)) => Right(scoped.me.userId :: users)
       .flatMap:
-        case Left(errors) => fuccess(Left(ScheduleError.BadTokens(errors.reverse)))
+        case Left(errors) => ScheduleError.BadTokens(errors.reverse).raise
         case Right(allPlayers) =>
           lazy val dups = allPlayers
             .groupBy(identity)
@@ -121,7 +122,7 @@ final class ChallengeBulkSetupApi(
               case (u, nb) if nb > 1 => u
             .toList
           if !data.allowMultiplePairingsPerUser && dups.nonEmpty
-          then fuccess(Left(ScheduleError.DuplicateUsers(dups)))
+          then ScheduleError.DuplicateUsers(dups).raise
           else
             val pairs = allPlayers.reverse
               .grouped(2)
@@ -129,12 +130,11 @@ final class ChallengeBulkSetupApi(
               .toList
             val nbGames = pairs.size
             val cost = nbGames * (if me.isVerifiedOrChallengeAdmin || me.isApiHog then 1 else 3)
-            rateLimit(me.id, fuccess(Left(ScheduleError.RateLimited)), cost = cost):
+            rateLimit(me.id, ScheduleError.RateLimited.raise, cost = cost):
               lila.mon.api.challenge.bulk.scheduleNb(me.id).increment(nbGames)
               idGenerator
                 .games(nbGames)
-                .map:
-                  _.toList.zip(pairs)
+                .map(_.toList.zip(pairs))
                 .map:
                   _.map:
                     case (id, (w, b)) => ScheduledGame(id, w, b)
@@ -153,7 +153,6 @@ final class ChallengeBulkSetupApi(
                     scheduledAt = nowInstant,
                     fen = data.fen.filterNot(_.isInitial)
                   )
-                .dmap(Right.apply)
 
 object ChallengeBulkSetup:
 

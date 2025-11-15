@@ -1,8 +1,12 @@
 package lila.web
 
+import play.api.mvc.RequestHeader
+
 import lila.core.net.{ IpAddress, Bearer }
 import lila.core.socket.Sri
+import lila.core.security.IsProxy
 import lila.memo.RateLimit
+import lila.common.HTTPRequest
 
 final class Limiters(using Executor, lila.core.config.RateLimit):
 
@@ -17,7 +21,7 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
     ("slow", 300, 1.day)
   )
 
-  val setupBotAi = RateLimit[UserId](50, 1.day, key = "setup.post.bot.ai")
+  val setupBotAi = RateLimit[UserId](20, 1.day, key = "setup.post.bot.ai")
 
   val boardApiConcurrency = ConcurrencyLimit[Either[Sri, UserId]](
     name = "Board API hook Stream API concurrency per user",
@@ -64,11 +68,6 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
     10.minute,
     key = "challenge.create.ip"
   )
-  val challengeBot = RateLimit[IpAddress](
-    400,
-    1.day,
-    key = "challenge.bot.create.ip"
-  )
   val challengeUser = RateLimit.composite[UserId](
     key = "challenge.create.user"
   )(
@@ -88,12 +87,18 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
     ("slow", 150, 1.hour)
   )
 
-  val imageUpload = RateLimit.composite[IpAddress](
-    key = "image.upload.ip"
-  )(
-    ("fast", 10, 2.minutes),
-    ("slow", 60, 1.day)
+  private val imageUploadLimiter: RateLimiter[(IpAddress, UserId)] = combine(
+    RateLimit.composite[IpAddress](key = "image.upload.ip")(
+      ("fast", 10, 2.minutes),
+      ("slow", 60, 1.day)
+    ),
+    RateLimit.composite[UserId](key = "image.upload.user")(
+      ("fast", 10, 5.minutes),
+      ("slow", 30, 1.day)
+    )
   )
+  def imageUpload[A](limited: => Fu[A])(using ctx: lila.ui.Context, me: Me) =
+    imageUploadLimiter(ctx.ip -> me.userId, limited)
 
   val oauthTokenTest = RateLimit[IpAddress](credits = 10_000, duration = 10.minutes, key = "api.token.test")
 
@@ -143,9 +148,41 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
   val teamKick =
     RateLimit.composite[IpAddress](key = "team.kick.api.ip")(("fast", 10, 2.minutes), ("slow", 50, 1.day))
 
-  val openingStatsProxy = RateLimit.composite[UserId](
-    key = "opening.stats.proxy.user"
-  )(
-    ("fast", 30, 10.minutes),
-    ("slow", 100, 1.day)
-  )
+  object enumeration:
+
+    private val maxCost = 3
+
+    private val openingLimiter = RateLimit[IsProxy](15 * maxCost, 1.minute, "opening.byKeyAndMoves.proxy")
+    def opening[A]: ProxyLimit[A] = proxyLimit(openingLimiter)
+
+    private val userProfileLimiter = RateLimit[IsProxy](60 * maxCost, 1.minute, "user.profile.page.proxy")
+    def userProfile[A]: ProxyLimit[A] = proxyLimit(userProfileLimiter)
+
+    private val searchLimiter = RateLimit[IsProxy](15 * maxCost, 1.minute, "search.proxy")
+    def search[A]: ProxyLimit[A] = proxyLimit(searchLimiter)
+
+    private val cloudEvalLimiter = RateLimit[IsProxy](30 * maxCost, 1.minute, "cloudEval.proxy")
+    def cloudEval[A]: ProxyLimit[A] = proxyLimit(cloudEvalLimiter)
+
+    private val signupLimiter = RateLimit[IsProxy](20 * maxCost, 1.minute, "user.signup.proxy")
+    def signup[A]: ProxyLimit[A] = proxyLimit(signupLimiter, flatCost(maxCost))
+
+    private type ProxyLimit[A] = (IsProxy, RequestHeader, Option[Me]) ?=> (=> Fu[A]) => (=> Fu[A]) => Fu[A]
+
+    private def proxyLimit[A](
+        limiter: RateLimiter[IsProxy],
+        cost: IsProxy ?=> Int = defaultCost
+    ): ProxyLimit[A] =
+      (proxy, req, me) ?=>
+        default =>
+          f =>
+            if proxy.no || me.isDefined then f
+            else limiter(proxy, default, cost, msg = HTTPRequest.ipAddressStr(req))(f)
+
+    private def defaultCost(using proxy: IsProxy): Int =
+      if proxy.isFloodish then maxCost
+      else if proxy.isVpn then 1
+      else 0
+
+    private def flatCost(cost: Int)(using proxy: IsProxy): Int =
+      if proxy.yes then cost else 0

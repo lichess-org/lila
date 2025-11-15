@@ -16,6 +16,7 @@
   <string name="recentlyUpdated">Recently updated</string>
   <string name="mostPopular">Most popular</string>
   <string name="alphabetical">Alphabetical</string>
+  <string name="relevant">Relevant</string>
   <string name="addNewChapter">Add a new chapter</string>
   <plurals name="nbChapters">
     <item quantity="one">%s Chapter</item>
@@ -105,7 +106,6 @@
     <item quantity="other">Paste games as PGN text here. For each game, a new chapter is created. The study can have up to %s chapters.</item>
   </plurals>
   <string name="urlOfTheGame">URL of the games, one per line</string>
-  <string name="loadAGameFromXOrY">Load games from %1$s or %2$s</string>
   <string name="createChapter">Create chapter</string>
   <string name="createStudy">Create study</string>
   <string name="editStudy">Edit study</string>

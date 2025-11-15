@@ -210,7 +210,7 @@ final class JsonView(
 
   private def fetchCurrentGameId(tour: Tournament, user: User): Fu[Option[GameId]] =
     if Uptime.startedSinceSeconds(60)
-    then fuccess(duelStore.find(tour, user))
+    then fuccess(duelStore.find(tour, user.id))
     else pairingRepo.playingByTourAndUserId(tour.id, user.id)
 
   private def fetchFeaturedGame(tour: Tournament): Fu[Option[FeaturedGame]] =
@@ -401,7 +401,7 @@ final class JsonView(
       "score" -> rt.score,
       "players" -> rt.leaders.map: p =>
         Json.obj(
-          "user" -> lightUserApi.sync(p.userId),
+          "user" -> lightUserApi.syncFallback(p.userId),
           "score" -> p.score
         )
     )
@@ -445,8 +445,10 @@ final class JsonView(
                               .add("fire" -> p.fire)
                   )
 
-  def teamInfo(tour: Tournament, teamId: TeamId): Fu[Option[JsObject]] =
-    tour.isTeamBattle.optionFu(teamInfoCache.get(tour.id -> teamId))
+  def teamInfo(tour: Tournament, teamId: TeamId, joined: Boolean): Fu[Option[JsObject]] =
+    tour.isTeamBattle
+      .optionFu(teamInfoCache.get(tour.id -> teamId))
+      .map2(_.add("joined", joined))
 
   private[tournament] def commonTournamentJson(
       tour: Tournament,
@@ -504,6 +506,7 @@ object JsonView:
         )
         .add("title" -> user.title)
         .add("flair" -> user.flair)
+        .add("patronColor" -> user.patronAndColor.map(_.color))
         .add("performance" -> player.performance)
         .add("withdraw" -> player.withdraw)
         .add("team" -> player.team)

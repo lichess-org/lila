@@ -61,5 +61,5 @@ object Student:
     private val nbChars = chars.length
     private def secureChar = chars(scalalib.SecureRandom.nextInt(nbChars))
 
-    def generate = ClearPassword:
-      String(Array.fill(7)(secureChar))
+    def generate(length: Int = 7) = ClearPassword:
+      String(Array.fill(length)(secureChar))

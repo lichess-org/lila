@@ -108,6 +108,11 @@ final class AccountPref(helpers: Helpers, helper: PrefHelper, bits: AccountUi):
               trp.giveMoreTime(),
               radios(form("clock.moretime"), translatedMoretimeChoices),
               "giveMoreTime"
+            ),
+            setting(
+              "Show on the left of mobile devices",
+              radios(form("clock.swapClock"), booleanChoices),
+              "swapClock"
             )
           ),
           categFieldset(PrefCateg.GameBehavior, categ)(

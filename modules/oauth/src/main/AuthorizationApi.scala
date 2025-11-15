@@ -25,19 +25,19 @@ final class AuthorizationApi(val coll: Coll)(using Executor):
       )
       .inject(code)
 
-  def consume(
-      request: AccessTokenRequest.Prepared
-  ): Fu[Either[Protocol.Error, AccessTokenRequest.Granted]] =
-    coll.findAndModify($doc(F.hashedCode -> request.code.hashed), coll.removeModifier).map { doc =>
-      for
-        pending <- doc
-          .result[PendingAuthorization]
-          .toRight(Protocol.Error.AuthorizationCodeInvalid)
-          .ensure(Protocol.Error.AuthorizationCodeExpired)(_.expires.isAfter(nowInstant))
-          .ensure(Protocol.Error.MismatchingRedirectUri(request.redirectUri.value)):
-            _.redirectUri.matches(request.redirectUri)
-          .ensure(Protocol.Error.MismatchingClient(request.clientId))(_.clientId == request.clientId)
-        _ <- pending.challenge match
+  def consume(request: AccessTokenRequest.Prepared): FuRaise[Protocol.Error, AccessTokenRequest.Granted] =
+    for
+      doc <- coll.findAndModify($doc(F.hashedCode -> request.code.hashed), coll.removeModifier)
+      pending <- doc
+        .result[PendingAuthorization]
+        .toRight(Protocol.Error.AuthorizationCodeInvalid)
+        .ensure(Protocol.Error.AuthorizationCodeExpired)(_.expires.isAfter(nowInstant))
+        .ensure(Protocol.Error.MismatchingRedirectUri(request.redirectUri.value)):
+          _.redirectUri.matches(request.redirectUri)
+        .ensure(Protocol.Error.MismatchingClient(request.clientId))(_.clientId == request.clientId)
+        .raiseIfLeft
+      _ <- pending.challenge
+        .match
           case Left(hashedClientSecret) =>
             request.clientSecret
               .toRight(LegacyClientApi.ClientSecretIgnored)
@@ -46,8 +46,8 @@ final class AuthorizationApi(val coll: Coll)(using Executor):
             request.codeVerifier
               .toRight(LegacyClientApi.CodeVerifierIgnored)
               .ensure(Protocol.Error.MismatchingCodeVerifier)(_.matches(codeChallenge))
-      yield AccessTokenRequest.Granted(pending.userId, pending.scopes.into(TokenScopes), pending.redirectUri)
-    }
+        .raiseIfLeft
+    yield AccessTokenRequest.Granted(pending.userId, pending.scopes.into(TokenScopes), pending.redirectUri)
 
 private object AuthorizationApi:
   object BSONFields:

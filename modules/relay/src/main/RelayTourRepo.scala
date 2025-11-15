@@ -1,5 +1,6 @@
 package lila.relay
 
+import reactivemongo.akkastream.cursorProducer
 import java.time.YearMonth
 
 import lila.db.dsl.{ *, given }
@@ -7,6 +8,7 @@ import lila.relay.BSONHandlers.given
 import lila.core.study.Visibility
 
 final private class RelayTourRepo(val coll: Coll)(using Executor):
+
   import RelayTourRepo.*
   import RelayTour.TourPreview
 
@@ -23,6 +25,11 @@ final private class RelayTourRepo(val coll: Coll)(using Executor):
   ): Funit =
     coll.update.one($id(tourId), $set("active" -> active, "live" -> live, "dates" -> dates)).void
 
+  def oldActiveCursor =
+    coll
+      .find($doc("active" -> true, "dates.end".$lt(nowInstant.minusDays(1))))
+      .cursor[RelayTour]()
+
   def lookup(local: String) =
     $lookup.simple(
       coll,
@@ -33,7 +40,7 @@ final private class RelayTourRepo(val coll: Coll)(using Executor):
     )
 
   def countByOwner(owner: UserId, publicOnly: Boolean): Fu[Int] =
-    coll.countSel(selectors.ownerId(owner) ++ publicOnly.so(selectors.vis.public))
+    coll.secondary.countSel(selectors.ownerId(owner) ++ publicOnly.so(selectors.vis.public))
 
   def subscribers(tid: RelayTourId): Fu[Set[UserId]] =
     coll.distinctEasy[UserId, Set]("subscribers", $id(tid))
@@ -59,7 +66,10 @@ final private class RelayTourRepo(val coll: Coll)(using Executor):
     coll.delete.one($id(tour.id)).void
 
   def previews(ids: List[RelayTourId]): Fu[List[TourPreview]] =
-    coll.byOrderedIds[TourPreview, RelayTourId](ids, $doc("name" -> true, "live" -> true).some)(_.id)
+    coll.byOrderedIds[TourPreview, RelayTourId](
+      ids,
+      $doc("name" -> true, "live" -> true, "active" -> true).some
+    )(_.id)
 
   def byIds(ids: List[RelayTourId]): Fu[List[RelayTour]] =
     coll.byOrderedIds[RelayTour, RelayTourId](ids, unsetHeavyOptionalFields.some)(_.id)
@@ -171,7 +181,7 @@ private object RelayTourRepo:
     "teams" -> false
   )
 
-  def readToursWithRoundAndGroup[A](
+  private[relay] def readToursWithRoundAndGroup[A](
       as: (RelayTour, RelayRound, Option[RelayGroup.Name]) => A
   )(docs: List[Bdoc]): List[A] = for
     doc <- docs

@@ -5,6 +5,8 @@ import io.mola.galimatias.URL
 import scala.util.Try
 
 import lila.core.config.BaseUrl
+import play.api.mvc.RequestHeader
+import lila.common.HTTPRequest
 
 final class ReferrerRedirect(baseUrl: BaseUrl):
 
@@ -28,7 +30,7 @@ final class ReferrerRedirect(baseUrl: BaseUrl):
 
   // allow relative and absolute redirects only to the same domain or
   // subdomains, excluding /mobile (which is shown after logout)
-  def valid(referrer: String): Option[String] =
+  private[web] def valid(referrer: String): Option[String] =
     (!sillyLoginReferrers(referrer) && validCharsRegex.matches(referrer)).so:
       Try {
         URL.parse(parsedBaseUrl, referrer)
@@ -37,3 +39,6 @@ final class ReferrerRedirect(baseUrl: BaseUrl):
         .filter(_.host == parsedBaseUrl.host)
         .filterNot(url => isForbiddenPath(url.path))
         .map(_.toString)
+
+  def fromReq(using req: RequestHeader) =
+    HTTPRequest.queryStringGet(req, "referrer").flatMap(valid)

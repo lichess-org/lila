@@ -1043,7 +1043,6 @@
   <string name="simulFeaturedHelp">גרום למשחק להיות פומבי ב־%s. בטל בשביל משחק סימולטני פרטי.</string>
   <string name="simulDescription">תיאור המשחק הסימולטני</string>
   <string name="simulDescriptionHelp">משהו שאת/ה רוצה להגיד למשתתפים?</string>
-  <string name="markdownAvailable">%s זמין לתחביר מתקדם יותר.</string>
   <string name="embedsAvailable">הדביקו כתובת משחק (URL) או כתובת של פרק לוח למידה כדי להטמיע אותם.</string>
   <string name="inYourLocalTimezone">באזור הזמן שלך</string>
   <string name="tournChat">שליחת הודעה</string>

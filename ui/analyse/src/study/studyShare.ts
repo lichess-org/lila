@@ -1,7 +1,7 @@
 import { prop } from 'lib';
 import * as licon from 'lib/licon';
-import { type VNode, bind, dataIcon, hl } from 'lib/snabbdom';
-import { copyMeInput } from 'lib/view/controls';
+import { type VNode, bind, dataIcon, hl } from 'lib/view';
+import { copyMeInput } from 'lib/view';
 import { text as xhrText, url as xhrUrl } from 'lib/xhr';
 import { renderIndexAndMove } from '../view/components';
 import { baseUrl } from '../view/util';
@@ -81,11 +81,14 @@ export function view(ctrl: StudyShare): VNode {
         attrs: {
           ...dataIcon(licon.Clipboard),
           tabindex: '0',
+          'data-url': url,
         },
         hook: bind('click', async event => {
+          const target = event.target as HTMLElement;
+          const url = target.dataset['url']!;
           const iconFeedback = (success: boolean) => {
-            (event.target as HTMLElement).setAttribute('data-icon', success ? licon.Checkmark : licon.X);
-            setTimeout(() => (event.target as HTMLElement).setAttribute('data-icon', licon.Clipboard), 1000);
+            target.setAttribute('data-icon', success ? licon.Checkmark : licon.X);
+            setTimeout(() => target.setAttribute('data-icon', licon.Clipboard), 1000);
           };
           writePgnClipboard(url).then(
             () => iconFeedback(true),

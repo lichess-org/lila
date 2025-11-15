@@ -331,8 +331,6 @@ interface I18n {
     resetRound: string;
     /** Round name */
     roundName: string;
-    /** Round number */
-    roundNumber: string;
     /** Score */
     score: string;
     /** Show players scores based on game results */
@@ -553,7 +551,7 @@ interface I18n {
     newsEdit3: string;
     /** No classes yet. */
     noClassesYet: string;
-    /** No removed students. */
+    /** No removed students */
     noRemovedStudents: string;
     /** No students in the class, yet. */
     noStudents: string;
@@ -1939,8 +1937,6 @@ interface I18n {
     racerWrite: string;
     /** So you remember what this token is for */
     rememberTokenUse: string;
-    /** The scope codes can be found in the HTML code of the form. */
-    scopesCanBeFound: string;
     /** Read private studies and broadcasts */
     studyRead: string;
     /** Create, update, delete studies and broadcasts */
@@ -2559,6 +2555,8 @@ interface I18n {
     lookupOfPlayer: string;
     /** Mates */
     mates: string;
+    /** Mate themes */
+    mateThemes: string;
     /** Motifs */
     motifs: string;
     /** %s played */
@@ -2673,6 +2671,10 @@ interface I18n {
     backRankMate: string;
     /** Checkmate the king on the home rank, when it is trapped there by its own pieces. */
     backRankMateDescription: string;
+    /** Balestra mate */
+    balestraMate: string;
+    /** A bishop delivers the checkmate, while a queen blocks the remaining escape squares */
+    balestraMateDescription: string;
     /** Bishop endgame */
     bishopEndgame: string;
     /** An endgame with only bishops and pawns. */
@@ -3041,7 +3043,7 @@ interface I18n {
     analysis: string;
     /** Analysis options */
     analysisOptions: string;
-    /** Press shift+click or right-click to draw circles and arrows on the board. */
+    /** Press right-click (or shift+click) to draw circles and arrows on the board. For other colours, combine the following with right-click: */
     analysisShapesHowTo: string;
     /** and save %s premove lines */
     andSaveNbPremoveLines: I18nPlural;
@@ -3397,7 +3399,7 @@ interface I18n {
     draws: string;
     /** %1$s vs %2$s in %3$s */
     drawVsYInZ: I18nFormat;
-    /** DTZ50'' with rounding, based on number of half-moves until next capture or pawn move */
+    /** DTZ50'' with rounding, based on number of half-moves until next capture, pawn move, or checkmate */
     dtzWithRounding: string;
     /** Duration */
     duration: string;
@@ -3751,8 +3753,8 @@ interface I18n {
     makePrivateTournament: string;
     /** Make sure to read %1$s */
     makeSureToRead: I18nFormat;
-    /** %s is available for more advanced syntax. */
-    markdownAvailable: I18nFormat;
+    /** %s is available for formatting. */
+    markdownIsAvailable: I18nFormat;
     /** OTB games of %1$s+ FIDE-rated players from %2$s to %3$s */
     masterDbExplanation: I18nFormat;
     /** Mate in %s half-moves */
@@ -4021,8 +4023,8 @@ interface I18n {
     pieceSet: string;
     /** Play */
     play: string;
-    /** Play against AI */
-    playAgainstAI: string;
+    /** Play against computer */
+    playAgainstComputer: string;
     /** Play chess everywhere */
     playChessEverywhere: string;
     /** Play chess in style */
@@ -4063,6 +4065,8 @@ interface I18n {
     practiceWithComputer: string;
     /** Previously on Lichess TV */
     previouslyOnLichessTV: string;
+    /** Ctrl or shift = red; command, alt, or meta = blue; a key from each = yellow. */
+    primaryColorArrowsHowTo: string;
     /** Privacy */
     privacy: string;
     /** Privacy policy */
@@ -4493,7 +4497,7 @@ interface I18n {
     user: string;
     /** %1$s is better than %2$s of %3$s players. */
     userIsBetterThanPercentOfPerfTypePlayers: I18nFormat;
-    /** User name */
+    /** Username */
     username: string;
     /** This username is already in use, please try another one. */
     usernameAlreadyUsed: string;
@@ -4503,7 +4507,7 @@ interface I18n {
     usernameCharsInvalid: string;
     /** We couldn't find any user by this name: %s. */
     usernameNotFound: I18nFormat;
-    /** User name or email */
+    /** Username or email */
     usernameOrEmail: string;
     /** The username must start with a letter. */
     usernamePrefixInvalid: string;
@@ -5113,8 +5117,6 @@ interface I18n {
     loadAGameByUrl: string;
     /** Load games from PGN */
     loadAGameFromPgn: string;
-    /** Load games from %1$s or %2$s */
-    loadAGameFromXOrY: I18nFormat;
     /** Load a position from FEN */
     loadAPositionFromFen: string;
     /** Paste a lichess game URL<br>(like lichess.org/7fHIU0XI)<br>to load the game moves in the chapter. */
@@ -5207,6 +5209,8 @@ interface I18n {
     readMoreAboutEmbedding: string;
     /** Recently updated */
     recentlyUpdated: string;
+    /** Relevant */
+    relevant: string;
     /** Right under the board */
     rightUnderTheBoard: string;
     /** Save */
@@ -5581,8 +5585,6 @@ interface I18n {
     teamIntroductionHelp: string;
     /** Team leaders */
     teamLeaders: I18nPlural;
-    /** Team page */
-    teamPage: string;
     /** Recent members */
     teamRecentMembers: string;
     /** Teams */
@@ -5861,6 +5863,44 @@ interface I18n {
     xPublishedY: I18nFormat;
     /** You are blocked by the blog author. */
     youBlockedByBlogAuthor: string;
+  };
+  variant: {
+    /** Antichess */
+    antichess: string;
+    /** Lose all your pieces (or get stalemated) to win the game. */
+    antichessTitle: string;
+    /** Atomic */
+    atomic: string;
+    /** Nuke your opponent's king to win. */
+    atomicTitle: string;
+    /** Chess960 */
+    chess960: string;
+    /** The starting position of the home rank pieces is randomised. */
+    chess960Title: string;
+    /** Crazyhouse */
+    crazyhouse: string;
+    /** Captured pieces can be dropped back on the board instead of moving a piece. */
+    crazyhouseTitle: string;
+    /** Horde */
+    horde: string;
+    /** One side has a large number of pawns, the other has a normal army. */
+    hordeTitle: string;
+    /** King of the Hill */
+    kingOfTheHill: string;
+    /** Bring your King to the center to win the game. */
+    kingOfTheHillTitle: string;
+    /** Racing Kings */
+    racingKings: string;
+    /** Get your king to the other side of the board to win. */
+    racingKingsTitle: string;
+    /** Standard */
+    standard: string;
+    /** Standard rules of chess (FIDE) */
+    standardTitle: string;
+    /** Three-Check */
+    threeCheck: string;
+    /** Check your opponent 3 times to win the game. */
+    threeCheckTitle: string;
   };
   video: {
     /** All %s video tags */

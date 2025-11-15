@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="gameSetup">Játék beállítás</string>
-  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Hívj ki egy ismerőst</string>
-  <string name="playAgainstAI">Játssz az AI ellen</string>
+  <string name="gameSetup">Játékbeállítás</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Ismerős kihívása</string>
+  <string name="playAgainstComputer">Játék a gép ellen</string>
   <string name="gameMode">Játékmód</string>
-  <string name="createLobbyGame">Hozz létre egy játszmaajánlatot</string>
+  <string name="createLobbyGame" comment="One of three buttons on the home page. Opens the modal to create a game that goes in the lobby.">Játék létrehozása</string>
   <string name="youPlayAs">Úgy játszol, mint</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Küldd el ezt a linket annak, akivel játszani szeretnél</string>
   <string name="gameOver">Játszma vége</string>
@@ -26,7 +26,7 @@
   <string name="asBlack">sötéttel</string>
   <string name="randomColor">Véletlen szín</string>
   <string name="createAGame">Játék létrehozása</string>
-  <string name="createTheGame">Játék</string>
+  <string name="createTheGame">Create the game</string>
   <string name="whiteIsVictorious">Világos nyert</string>
   <string name="blackIsVictorious">Sötét nyert</string>
   <string name="youPlayTheWhitePieces">Világossal fogsz játszani</string>
@@ -46,11 +46,11 @@
     <item quantity="one">Az ellenfeled elhagyta a játékot, %s másodperc múlva győzelmet igényelhetsz.</item>
     <item quantity="other">Az ellenfeled elhagyta a játékot, %s másodperc múlva győzelmet igényelhetsz.</item>
   </plurals>
-  <string name="opponentLeftChoices">Úgy tűnik, az ellenfeled kilépett. Győzelmet vagy döntetlent igényelhetsz, esetleg várhatsz rá.</string>
+  <string name="opponentLeftChoices">Úgy tűnik, az ellenfeled kilépett. Győzelmet vagy döntetlent igényelhetsz, vagy várhatsz rá.</string>
   <string name="forceResignation">Győzelem igénylése</string>
   <string name="forceDraw">Döntetlen felajánlása</string>
   <string name="talkInChat">Légy udvarias másokkal!</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Az első ember, aki felkeresi ezt a címet, az lesz az ellenfeled.</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Az első ember aki felkeresi ezt a linket, lesz az ellenfeled.</string>
   <string name="whiteResigned">Világos feladta</string>
   <string name="blackResigned">Sötét feladta</string>
   <string name="whiteLeftTheGame">Világos elhagyta a játékot</string>
@@ -855,8 +855,8 @@ Jelszavad megváltoztatásához kattints az üzenetben lévő linkre.</string>
   <string name="skipThisMove">Lépés kihagyása</string>
   <string name="next">Tovább</string>
   <string name="xWasPlayed">lépés: %s</string>
-  <string name="findBetterMoveForWhite">Találj egy jobb lépést világosnak</string>
-  <string name="findBetterMoveForBlack">Találj egy jobb lépést sötétnek</string>
+  <string name="findBetterMoveForWhite">Találj egy jobb lépést világossal</string>
+  <string name="findBetterMoveForBlack">Találj egy jobb lépést sötéttel</string>
   <string name="resumeLearning">Tanulás folytatása</string>
   <string name="youCanDoBetter">Van jobb lépés is</string>
   <string name="tryAnotherMoveForWhite">Próbálj mást lépni világossal</string>
@@ -883,7 +883,7 @@ Jelszavad megváltoztatásához kattints az üzenetben lévő linkre.</string>
   <string name="playVariationToCreateConditionalPremoves">Egy változat megjátszásával, hozzáadható feltételes előre megadott lépés</string>
   <string name="noConditionalPremoves">Nincs feltételes előre megadott lépés</string>
   <string name="playX">%s megjátszása</string>
-  <string name="challengeX">Kihívás %s</string>
+  <string name="challengeX">%s kihívása</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">és %s változat mentése</item>
     <item quantity="other">és %s változat mentése</item>
@@ -975,7 +975,6 @@ Hagyd üresen és a játszmák a kezdőállásból indulnak.</string>
   <string name="simulFeaturedHelp">Szimultán közzététele %s oldalon. Kapcsold ki privát szimultánhoz.</string>
   <string name="simulDescription">Szimultán leírása</string>
   <string name="simulDescriptionHelp">Van bármi amit elmondanál a résztvevőknek?</string>
-  <string name="markdownAvailable">%s is elérhető a haladó szerkesztéshez.</string>
   <string name="embedsAvailable">Illeszd be a játék vagy a tanulmány URL-jét a beágyazáshoz.</string>
   <string name="inYourLocalTimezone">Saját időzónád szerint</string>
   <string name="tournChat">Verseny csevegő</string>

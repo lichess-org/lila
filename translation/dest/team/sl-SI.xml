@@ -61,7 +61,6 @@
   <string name="completedTourns">Končani turnirji</string>
   <string name="declinedRequests">Zavrnjene zahteve</string>
   <string name="joinLichessVariantTeam">Pridružite se uradnim %s ali novicam in dogodkom</string>
-  <string name="teamPage">Ekipna stran</string>
   <string name="thisTeamBattleIsOver">Ta turnir je končan in ekip ni več mogoče posodobiti.</string>
   <string name="listTheTeamsThatWillCompete">Naštej ekipe, ki bodo tekmovale v tej bitki.</string>
   <string name="oneTeamPerLine">Ena ekipa na linijo. Uporabite samodejno dokončanje.</string>

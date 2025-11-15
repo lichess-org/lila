@@ -61,6 +61,7 @@
   <string name="studyPgn">Studioni PGN</string>
   <string name="chapterPgn">PGN e kapitullit</string>
   <string name="copyChapterPgn">Kopjo PGN</string>
+  <string name="copyRawChapterPgn">Kopjo PNG të Papërpunuar</string>
   <string name="downloadGame">Shkarko lojën</string>
   <string name="studyUrl">URL Mësimi</string>
   <string name="currentChapterUrl">URL e Kapitullit Aktual</string>
@@ -104,7 +105,6 @@
     <item quantity="other">Hidhni këtu tekstin e PGN-s tuaj, deri në %s lojëra</item>
   </plurals>
   <string name="urlOfTheGame">URL e lojërave, një për rresht</string>
-  <string name="loadAGameFromXOrY">Ngarko lojëra nga %1$s ose %2$s</string>
   <string name="createChapter">Krijo kapitull</string>
   <string name="createStudy">Krijoni mësim</string>
   <string name="editStudy">Përpunoni mësimin</string>
@@ -178,6 +178,7 @@
   <string name="commentPositionTitle">Komentoni një pozicion</string>
   <string name="commentPositionText" comment="%s is an icon that will added at runtime">Klikoni mbi butonin %s, ose djathtasklikoni te lista e lëvizjeve në të djathtë.&lt;br&gt;Komentet u tregohen të tjerëve dhe ruhen.</string>
   <string name="annotatePositionTitle">Vini shënim për një pozicion</string>
+  <string name="annotatePositionText">Klikoni butonin !? , ose djathtasklikoni mbi listën e lëvizjeve djathtas.&lt;br&gt;Tregohen shenja shënimi dhe ruhen.</string>
   <string name="conclusionTitle">Faleminderit për kohën që harxhoni</string>
   <string name="conclusionText">&lt;a href=\'/study/mine/hot\'&gt;Ushtrimet tuaja të mëparshme&lt;/a&gt; mund t’i gjeni te faqja e profilit tuaj.&lt;br&gt;Ka edhe një &lt;a href=\'//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way\'&gt;postim blogu rreth ushtrimeve&lt;/a&gt;.&lt;br&gt;Përdoruesit e sprovuar mund të duan të shtypin “?”, që të shohin shkurtore tastiere.&lt;br&gt;Bëfshi qejf!</string>
   <string name="createChapterTitle">Le të krijojmë një kapitull ushtrimi</string>

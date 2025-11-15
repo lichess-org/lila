@@ -5,8 +5,8 @@ import play.api.data.{ Form, Mapping }
 import play.api.mvc.RequestHeader
 
 import lila.core.email.EmailAddress
-import lila.core.net.IpAddress
-import lila.core.user.User
+import lila.core.net.{ ApiVersion, IpAddress }
+import lila.core.user.{ Me, User }
 import lila.core.userId.{ UserId, UserName }
 
 case class GarbageCollect(userId: UserId)
@@ -56,7 +56,8 @@ case class UserSignup(
     email: EmailAddress,
     req: RequestHeader,
     fingerPrint: Option[FingerHash],
-    suspIp: Boolean
+    suspIp: Boolean,
+    apiVersion: Option[ApiVersion]
 )
 
 case class ClearPassword(value: String) extends AnyVal:
@@ -84,9 +85,13 @@ trait PromotionApi:
 opaque type IsProxy = String
 object IsProxy extends OpaqueString[IsProxy]:
   extension (a: IsProxy)
-    def is = a.value.nonEmpty
+    def yes = a.value.nonEmpty
+    def no = !yes
     def in(any: (IsProxy.type => IsProxy)*) = any.exists(f => f(IsProxy) == a)
-    def isSafeish: Boolean = in(_.empty, _.vpn, _.privacy)
+    def isVpn: Boolean = in(_.vpn, _.privacy, _.enterprise)
+    def isSafeish: Boolean = a == empty || isVpn
+    def isFloodish: Boolean = in(_.public, _.web, _.tor, _.server)
+    def isCrawler: Boolean = a == search
     def name = a.value.nonEmpty.option(a.value)
   def unapply(a: IsProxy): Option[String] = a.name
   // https://blog.ip2location.com/knowledge-base/what-are-the-proxy-types-supported-in-ip2proxy/
@@ -112,3 +117,9 @@ trait UserTrustApi:
   def get(id: UserId): Fu[UserTrust]
 
 case class AskAreRelated(users: PairOf[UserId], promise: Promise[Boolean])
+
+def canUploadImages(toRel: String)(using me: Me) = !me.marks.troll && me.kid.no && {
+  me.isVerified ||
+  toRel == "ublogBody" ||
+  (me.createdSinceDays(7) && !me.marks.alt)
+}

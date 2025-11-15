@@ -1,21 +1,22 @@
-const searchParams = new URL(self.location.href).searchParams;
-const assetBase = new URL(searchParams.get('asset-url')!, self.location.href).href;
+const sw = self as unknown as ServiceWorkerGlobalScope;
+const searchParams = new URL(sw.location.href).searchParams;
+const assetBase = new URL(searchParams.get('asset-url')!, sw.location.href).href;
 //let hasLocalCache = caches.has('local');
 
 function assetUrl(path: string): string {
   return `${assetBase}assets/${path}`;
 }
 
-self.addEventListener('install', () => self.skipWaiting());
+sw.addEventListener('install', () => sw.skipWaiting());
 
-self.addEventListener('activate', (e: ExtendableEvent) => {
-  e.waitUntil(clients.claim());
+sw.addEventListener('activate', (e: ExtendableEvent) => {
+  e.waitUntil(sw.clients.claim());
 });
 
-self.addEventListener('push', (event: PushEvent) => {
+sw.addEventListener('push', (event: PushEvent) => {
   const data = event.data!.json();
   return event.waitUntil(
-    self.registration.showNotification(data.title, {
+    sw.registration.showNotification(data.title, {
       badge: assetUrl('logo/lichess-mono-128.png'),
       icon: assetUrl('logo/lichess-favicon-192.png'),
       body: data.body,
@@ -27,10 +28,10 @@ self.addEventListener('push', (event: PushEvent) => {
 });
 
 async function handleNotificationClick(e: NotificationEvent) {
-  const notifications = await self.registration.getNotifications();
+  const notifications = await sw.registration.getNotifications();
   notifications.forEach(notification => notification.close());
 
-  const windowClients = (await self.clients.matchAll({
+  const windowClients = (await sw.clients.matchAll({
     type: 'window',
     includeUncontrolled: true,
   })) as ReadonlyArray<WindowClient>;
@@ -47,25 +48,25 @@ async function handleNotificationClick(e: NotificationEvent) {
 
   // focus open window with same url
   for (const client of windowClients) {
-    const clientUrl = new URL(client.url, self.location.href);
+    const clientUrl = new URL(client.url, sw.location.href);
     if (clientUrl.pathname === url && 'focus' in client) return await client.focus();
   }
 
   // navigate from open homepage to url
   for (const client of windowClients) {
-    const clientUrl = new URL(client.url, self.location.href);
+    const clientUrl = new URL(client.url, sw.location.href);
     if (clientUrl.pathname === '/') return await client.navigate(url);
   }
 
   // open new window
-  return await self.clients.openWindow(url);
+  return await sw.clients.openWindow(url);
 }
 
-self.addEventListener('notificationclick', (e: NotificationEvent) => e.waitUntil(handleNotificationClick(e)));
+sw.addEventListener('notificationclick', (e: NotificationEvent) => e.waitUntil(handleNotificationClick(e)));
 
 // experimental stuff below
 
-// self.addEventListener('message', async (e: ExtendableMessageEvent) => {
+// sw.addEventListener('message', async (e: ExtendableMessageEvent) => {
 //   if (e.data && e.data.type !== 'cache') return;
 //   if (e.data.value) {
 //     const cache = await caches.open('local');
@@ -77,7 +78,7 @@ self.addEventListener('notificationclick', (e: NotificationEvent) => e.waitUntil
 //   }
 // });
 
-// self.addEventListener('fetch', (e: FetchEvent) => {
+// sw.addEventListener('fetch', (e: FetchEvent) => {
 //   if (e.request.method !== 'GET') return;
 //   const path = new URL(e.request.url).pathname.match(
 //     /^\/local(?:[/?#]?.*)?$|^\/assets\/lifat\/bots\/.+$|\/assets\/npm\/zerofish.+$/,
@@ -90,7 +91,7 @@ self.addEventListener('notificationclick', (e: NotificationEvent) => e.waitUntil
 //   const cache = await caches.open('local');
 
 //   try {
-//     if (!self.navigator.onLine) throw new Response('offline', { status: 503 });
+//     if (!sw.navigator.onLine) throw new Response('offline', { status: 503 });
 //     if (path.startsWith('/assets')) {
 //       const rsp = await cache.match(e.request);
 //       if (rsp) return rsp;
@@ -127,8 +128,8 @@ self.addEventListener('notificationclick', (e: NotificationEvent) => e.waitUntil
 //     for (const key of list) {
 //       assetPaths.push(
 //         ...(type === 'book'
-//           ? [`lifat/bots/book/${key}.bin`, `lifat/bots/book/${key}.png`]
-//           : [`lifat/bots/${type}/${key}`]),
+//           ? [`data/bot/book/${key}.bin`, `lifat/bots/book/${key}.png`]
+//           : [`data/bot/${type}/${key}`]),
 //       );
 //     }
 //   }

@@ -117,7 +117,7 @@ final class PlayApi(env: Env) extends LilaController(env):
   }
 
   private def getChat(pov: Pov) =
-    env.chat.api.userChat.find(pov.game.id.into(ChatId)).map(lila.chat.JsonView.boardApi).map(JsonOk)
+    JsonOk(env.chat.api.userChat.find(pov.game.id.into(ChatId)).map(env.chat.json.boardApi))
 
   // utils
 

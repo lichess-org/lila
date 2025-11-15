@@ -1,4 +1,4 @@
-import { view as cevalView, renderEval as normalizeEval } from 'lib/ceval/ceval';
+import { view as cevalView, renderEval as normalizeEval } from 'lib/ceval';
 import { parseFen } from 'chessops/fen';
 import { defined } from 'lib';
 import * as licon from 'lib/licon';
@@ -11,8 +11,8 @@ import {
   onInsert,
   dataIcon,
   hl,
-} from 'lib/snabbdom';
-import { playable } from 'lib/game/game';
+} from 'lib/view';
+import { playable } from 'lib/game';
 import { isMobile } from 'lib/device';
 import * as materialView from 'lib/game/view/material';
 import { path as treePath } from 'lib/tree/tree';
@@ -27,7 +27,7 @@ import * as chessground from '../ground';
 import type AnalyseCtrl from '../ctrl';
 import type { ConcealOf } from '../interfaces';
 import * as pgnExport from '../pgnExport';
-import { spinnerVdom as spinner, stepwiseScroll } from 'lib/view/controls';
+import { spinnerVdom as spinner, stepwiseScroll } from 'lib/view';
 import * as Prefs from 'lib/prefs';
 import statusView from 'lib/game/view/status';
 import { renderNextChapter } from '../study/nextChapter';
@@ -298,9 +298,20 @@ export const renderIndexAndMove = (node: Tree.Node, withEval: boolean, withGlyph
 export const renderIndex = (ply: Ply, withDots: boolean): VNode =>
   hl(`index.sbhint${ply}`, plyToTurn(ply) + (withDots ? (ply % 2 === 1 ? '.' : '...') : ''));
 
-export function renderMoveNodes(node: Tree.Node, withEval: boolean, withGlyphs: boolean): LooseVNodes {
-  const ev = node.ceval ?? node.eval;
-  const evalText = ev?.cp !== undefined ? normalizeEval(ev.cp) : ev?.mate !== undefined ? `#${ev.mate}` : '';
+export function renderMoveNodes(
+  node: Tree.Node,
+  withEval: boolean,
+  withGlyphs: boolean,
+  ev?: Tree.ClientEval | Tree.ServerEval | false,
+): LooseVNodes {
+  ev ??= node.ceval ?? node.eval; // ev = false will override withEval
+  const evalText = !ev
+    ? ''
+    : ev?.cp !== undefined
+      ? normalizeEval(ev.cp)
+      : ev?.mate !== undefined
+        ? `#${ev.mate}`
+        : '';
   return [
     hl('san', fixCrazySan(node.san!)),
     withGlyphs && node.glyphs?.map(g => hl('glyph', { attrs: { title: g.name } }, g.symbol)),

@@ -1,4 +1,4 @@
-import { type Zerofish } from 'zerofish';
+import { type Zerofish } from '@lichess-org/zerofish';
 import { Bot } from 'lib/bot/bot';
 import { RateBot } from './rateBot';
 import { BotLoader, botAssetUrl } from 'lib/bot/botLoader';

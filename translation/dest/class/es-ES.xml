@@ -118,6 +118,6 @@ Mostrará una línea separadora horizontal.</string>
   <string name="xIsAKidAccountWarning">%1$s es una cuenta infantil y no puede recibir tu mensaje. Debes proporcionarles el enlace de invitación manualmente: %2$s</string>
   <string name="moveToClass">Mover a %s</string>
   <string name="moveToAnotherClass">Mover a otra clase</string>
-  <string name="allowMessagingBetweenStudents" comment="An option that a class's teacher can select. Has the extended description &quot;This only applies to the accounts you have created for your students.&quot;">Permitir mensajes entre estudiantes</string>
-  <string name="allowMessagingBetweenStudentsDesc" comment="Description for the option &quot;Allow messages between students&quot;.">Esto solo se aplica en las cuentas que has creado para tus estudiantes.</string>
+  <string name="allowMessagingBetweenStudents">Permitir mensajes entre estudiantes</string>
+  <string name="allowMessagingBetweenStudentsDesc">Esto solo se aplica en las cuentas que has creado para tus estudiantes.</string>
 </resources>

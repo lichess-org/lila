@@ -16,6 +16,7 @@
   <string name="recentlyUpdated">Πρόσφατα ενημερωμένες</string>
   <string name="mostPopular">Οι πιο δημοφιλείς</string>
   <string name="alphabetical">Αλφαβητικά</string>
+  <string name="relevant">Συναφή</string>
   <string name="addNewChapter">Προσθήκη νέου κεφαλαίου</string>
   <plurals name="nbChapters">
     <item quantity="one">%s Κεφάλαιο</item>
@@ -105,7 +106,6 @@
     <item quantity="other">Επικολλήστε το PGN εδώ. Για κάθε παρτίδα θα δημιουργηθεί νέο κεφάλαιο. Μια μελέτη μπορεί να έχει μέχρι %s κεφάλαια.</item>
   </plurals>
   <string name="urlOfTheGame">Διεύθύνσεις URL παρτίδων (μία σε κάθε γραμμή)</string>
-  <string name="loadAGameFromXOrY">Φόρτωση παρτίδων από %1$s ή %2$s</string>
   <string name="createChapter">Δημιουργία κεφαλαίου</string>
   <string name="createStudy">Δημιουργία μελέτης</string>
   <string name="editStudy">Επεξεργασία μελέτης</string>

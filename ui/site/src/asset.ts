@@ -23,7 +23,11 @@ function asHashed(path: string, hash: string) {
 }
 
 // bump flairs version if a flair is changed only (not added or removed)
-export const flairSrc = (flair: Flair) => url(`flair/img/${flair}.webp`, { pathVersion: '_____3' });
+export const flairSrc = (flair: Flair) => url(`flair/img/${flair}.webp`, { pathVersion: '_____4' });
+
+// bump fide fed version if a fide fed is changed only (not added or removed)
+export const fideFedSrc = (fideFed: FideFed) =>
+  url(`fide/fed-webp/${fideFed}.webp`, { pathVersion: '_____2' });
 
 export const loadCss = (href: string, key?: string): Promise<void> => {
   return new Promise(resolve => {
@@ -79,3 +83,30 @@ export const loadEsmPage = async (name: string) => {
 export function embedChessground() {
   return import(url('npm/chessground.min.js'));
 }
+
+export const loadPieces = new Promise<void>((resolve, reject) => {
+  if (document.getElementById('main-wrap')?.classList.contains('is3d')) return resolve();
+  const style = window.getComputedStyle(document.body);
+  const urls = ['white', 'black']
+    .flatMap(c => ['pawn', 'knight', 'bishop', 'rook', 'queen', 'king'].map(r => `---${c}-${r}`))
+    .map(
+      u =>
+        style
+          .getPropertyValue(u)
+          .slice(4, -1) // strip 'url(' + ... + ')'
+          .replace(/\\([:/.])/g, '$1'), // webkit escapes
+    )
+    .filter(x => x);
+  let assetsToDecode = urls.length;
+  if (assetsToDecode === 0) return resolve();
+  urls.forEach(url => {
+    const img = new Image();
+    img.src = url;
+    img
+      .decode()
+      .then(() => {
+        if (--assetsToDecode === 0) resolve();
+      })
+      .catch(reject);
+  });
+});

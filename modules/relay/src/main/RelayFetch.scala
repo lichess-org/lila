@@ -90,7 +90,7 @@ final private class RelayFetch(
         limited = sliced.take(RelayFetch.maxChaptersToShow.value)
         _ <- (sliced.sizeCompare(limited) != 0 && rt.tour.official)
           .so(notifyAdmin.tooManyGames(rt, sliced.size, RelayFetch.maxChaptersToShow))
-        withPlayers <- playerEnrich.enrichAndReportAmbiguous(rt)(limited)
+        withPlayers = playerEnrich.enrichAndReportAmbiguous(rt)(limited)
         withFide <- fidePlayers.enrichGames(rt.tour)(withPlayers)
         withTeams = rt.tour.teams.fold(withFide)(_.update(withFide))
         res <- sync
@@ -161,7 +161,7 @@ final private class RelayFetch(
         _.withSync:
           _.copy(
             nextAt = nowInstant.plusSeconds {
-              seconds.atLeast(if round.sync.log.justTimedOut then 10 else 2).value
+              seconds.value.atLeast(if round.sync.log.justTimedOut then 10 else 2)
             }.some
           )
 
@@ -412,10 +412,8 @@ private object RelayFetch:
         .expireAfterAccess(2.minutes)
         .initialCapacity(1024)
         .maximumSize(4096)
-        .build(compute)
-
-    private def compute(pgn: PgnStr): Either[LilaInvalid, RelayGame] =
-      StudyPgnImport
-        .result(pgn, Nil)
-        .leftMap(err => LilaInvalid(err.value))
-        .map(RelayGame.fromStudyImport)
+        .build: pgn =>
+          StudyPgnImport
+            .result(pgn, Nil)
+            .leftMap(err => LilaInvalid(err.value))
+            .map(RelayGame.fromStudyImport)

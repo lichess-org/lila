@@ -57,7 +57,6 @@
   <string name="completedTourns">Ολοκληρωμένα τουρνουά</string>
   <string name="declinedRequests">Απορριφθέντα αιτήματα</string>
   <string name="joinLichessVariantTeam">Γίνετε μέλος της επίσημης ομάδας %s για να ενημερώνεστε και να συμμετέχετε σε διάφορες εκδηλώσεις</string>
-  <string name="teamPage">Σελίδα ομάδας</string>
   <string name="thisTeamBattleIsOver">Αυτό το τουρνουά έχει ολοκληρωθεί και οι ομάδες δεν μπορούν πλέον να ενημερώνονται.</string>
   <string name="listTheTeamsThatWillCompete">Συμπληρώστε τις ομάδες που θα διαγωνιστούν σε αυτήν τη μάχη.</string>
   <string name="oneTeamPerLine">Μία ομάδα ανά γραμμή. Χρησιμοποιήστε την αυτόματη συμπλήρωση.</string>

@@ -16,6 +16,7 @@
   <string name="recentlyUpdated">Actualitzat darrerament</string>
   <string name="mostPopular">Més popular</string>
   <string name="alphabetical">Alfabètic</string>
+  <string name="relevant">Rellevant</string>
   <string name="addNewChapter">Afegir un nou capítol</string>
   <plurals name="nbChapters">
     <item quantity="one">%s Capítol</item>
@@ -105,7 +106,6 @@
     <item quantity="other">Enganxa el teu PGN aquí, fins a %s partides</item>
   </plurals>
   <string name="urlOfTheGame">URL del joc</string>
-  <string name="loadAGameFromXOrY">Carregar una partida desde %1$s o %2$s</string>
   <string name="createChapter">Crear capítol</string>
   <string name="createStudy">Crear estudi</string>
   <string name="editStudy">Editar estudi</string>

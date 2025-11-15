@@ -28,6 +28,10 @@ final class Ublog(env: Env) extends LilaController(env):
           posts <- canViewBlogOf(user, blog).so(env.ublog.paginator.byUser(user, true, page))
         yield views.ublog.ui.blogPage(user, blog, posts)
 
+  def apiCarousel = AnonOrScoped():
+    import env.ublog.jsonView.given
+    JsonOk(env.ublog.api.myCarousel)
+
   def drafts(username: UserStr, page: Int) = Auth { ctx ?=> me ?=>
     NotForKids:
       WithBlogOf(username, _.draft): (user, blog) =>
@@ -59,14 +63,14 @@ final class Ublog(env: Env) extends LilaController(env):
             isInCarousel <- isGrantedOpt(_.ModerateBlog)
               .so(env.ublog.api.fetchCarouselFromDb().map(_.has(post.id)))
             followable = prefFollowable && !blocked
-            markup <- env.ublog.markup(post)
+            html <- env.memo.markdown.toHtml(s"blog:${post.id}", post.markdown, lila.ublog.markdownOptions)
             viewedPost = env.ublog.viewCounter(post, ctx.ip)
             page <- renderPage:
               views.ublog.post.page(
                 user,
                 blog,
                 viewedPost,
-                markup,
+                html,
                 otherPosts,
                 liked,
                 followable,
@@ -274,7 +278,7 @@ final class Ublog(env: Env) extends LilaController(env):
         .file("image")
         .match
           case Some(image) =>
-            limit.imageUpload(ctx.ip, rateLimited):
+            limit.imageUpload(rateLimited):
               env.ublog.api.image.upload(me, post, image)
           case None =>
             env.ublog.api.image

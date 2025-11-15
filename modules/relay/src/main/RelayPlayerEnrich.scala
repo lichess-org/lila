@@ -162,16 +162,15 @@ private final class RelayPlayerEnrich(
 
   private val once = scalalib.cache.OnceEvery.hashCode[List[RelayPlayerLine.Ambiguous]](1.hour)
 
-  def enrichAndReportAmbiguous(rt: RelayRound.WithTour)(games: RelayGames): Fu[RelayGames] =
-    rt.tour.players.fold(fuccess(games)): txt =>
+  def enrichAndReportAmbiguous(rt: RelayRound.WithTour)(games: RelayGames): RelayGames =
+    rt.tour.players.fold(games): txt =>
       val (updated, ambiguous) = txt.parse.update(games)
-      (ambiguous.nonEmpty && rt.tour.official && once(ambiguous))
-        .so:
-          def show(p: RelayPlayerLine): String = p.fideId.map(_.toString) | p.name.fold("?")(_.value)
-          val players = ambiguous.map: a =>
-            (a.name.value, a.players.map(show))
-          irc.broadcastAmbiguousPlayers(rt.round.id, rt.fullName, players)
-        .inject(updated)
+      if ambiguous.nonEmpty && rt.tour.official && once(ambiguous) then
+        def show(p: RelayPlayerLine): String = p.fideId.map(_.toString) | p.name.fold("?")(_.value)
+        val players = ambiguous.map: a =>
+          (a.name.value, a.players.map(show))
+        irc.broadcastAmbiguousPlayers(rt.round.id, rt.fullName, players)
+      updated
 
   /* When the players replacement text of a tournament is updated,
    * we go through all rounds of the tournament and immediately apply

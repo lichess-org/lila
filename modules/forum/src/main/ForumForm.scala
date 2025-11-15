@@ -46,12 +46,19 @@ final private[forum] class ForumForm(
     single("categ" -> nonEmptyText.into[ForumCategId])
 
   private def userTextMapping(inOwnTeam: Boolean, previousText: Option[String] = None)(using me: Me) =
-    cleanText(minLength = 3, 10_000_000) // bot move dumps
+    cleanText(minLength = 3, 5_000_000) // high cap only used for bot move dumps
       .verifying(
         "You have reached the daily maximum for links in forum posts.",
         t => inOwnTeam || promotion.test(me, t, previousText)
       )
-  val diagnostic = Form(single("text" -> nonEmptyText(maxLength = 10_000_000))) // bot move dumps
+      .transform(_.replace("\r\n", "\n").replace('\r', '\n'), identity)
+
+  val diagnostic = Form(
+    mapping(
+      "text" -> nonEmptyText(maxLength = 5_000_000), // high cap only used for bot move dumps
+      "plaintext" -> optional(boolean)
+    )(DiagnosticData.apply)(unapply)
+  )
 
 object ForumForm:
 
@@ -69,3 +76,4 @@ object ForumForm:
     def automodText = s"$name\n${post.text}"
 
   case class PostEdit(changes: String)
+  case class DiagnosticData(text: String, plaintext: Option[Boolean])

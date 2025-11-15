@@ -27,7 +27,8 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
         case None =>
           for
             (active, past) <- env.relay.top(page)
-            res <- Ok.async(views.relay.tour.index(active, past.currentPageResults))
+            cms <- env.cms.renderKey("broadcast-announcement", liveCheck = true)
+            res <- Ok.async(views.relay.tour.index(active, past.currentPageResults, cms.map(_.html)))
           yield res
 
   def calendarMonth(year: Int, month: Int) = Open:
@@ -36,7 +37,8 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
       .so: at =>
         for
           tours <- env.relay.calendar.atMonth(at)
-          page <- Ok.async(views.relay.tour.calendar(at, tours))
+          cms <- env.cms.renderKey("broadcast-calendar-announcement", liveCheck = true)
+          page <- Ok.async(views.relay.tour.calendar(at, tours, cms.map(_.html)))
         yield page
 
   def calendar = calendarMonth(RelayCalendar.now().getYear, RelayCalendar.now().getMonth.getValue)
@@ -51,7 +53,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
           .map:
             views.relay.tour.byOwner(_, owner)
 
-  def apiBy(owner: UserStr, page: Int) = Open:
+  def apiBy(owner: UserStr, page: Int) = AnonOrScoped(_.Study.Read, _.Web.Mobile):
     Reasonable(page, Max(20)):
       Found(env.user.lightUser(owner.id)): owner =>
         env.relay.pager
@@ -61,11 +63,10 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
 
   def subscribed(page: Int) = Auth { ctx ?=> me ?=>
     Reasonable(page, Max(20)):
-      env.relay.pager
-        .subscribedBy(me.userId, page)
-        .flatMap: pager =>
-          Ok.async:
-            views.relay.tour.subscribed(pager)
+      for
+        pager <- env.relay.pager.subscribedBy(me.userId, page)
+        page <- Ok.async(views.relay.tour.subscribed(pager))
+      yield page
   }
 
   def allPrivate(page: Int) = Secure(_.StudyAdmin) { _ ?=> _ ?=>
@@ -137,14 +138,12 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
       yield Redirect(routes.RelayTour.by(me.username)).flashSuccess
   }
 
-  def image(id: RelayTourId, tag: Option[String]) = AuthBody(parse.multipartFormData) { ctx ?=> me ?=>
+  def image(id: RelayTourId, tag: Option[String]) = AuthBody(parse.multipartFormData) { ctx ?=> _ ?=>
     WithTourCanUpdate(id): nav =>
       ctx.body.body.file("image") match
         case Some(image) =>
-          limit.imageUpload(ctx.ip, rateLimited):
-            (env.relay.api.image.upload(me, nav.tour, image, tag) >> {
-              Ok
-            }).recover { case e: Exception =>
+          limit.imageUpload(rateLimited):
+            env.relay.api.image.upload(nav.tour, image, tag).inject(Ok).recover { case e: Exception =>
               BadRequest(e.getMessage)
             }
         case None => env.relay.api.image.delete(nav.tour, tag) >> Ok
@@ -215,13 +214,13 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
 
   private def emptyBroadcastPage(tour: TourModel)(using Context) = for
     owner <- env.user.lightUser(tour.ownerIds.head)
-    markup = tour.markup.map(env.relay.markup(tour))
-    page <- Ok.page(views.relay.tour.showEmpty(tour, owner, markup))
+    html = env.relay.markdown.of(tour)
+    page <- Ok.page(views.relay.tour.showEmpty(tour, owner, html))
   yield page
 
-  def apiShow(id: RelayTourId) = Open:
+  def apiShow(id: RelayTourId) = OpenOrScoped(_.Study.Read, _.Web.Mobile):
     Found(env.relay.api.tourById(id)): tour =>
-      if tour.isPrivate && ctx.isAnon
+      if !tour.canView
       then Unauthorized(jsonError("This tournament is private"))
       else
         for

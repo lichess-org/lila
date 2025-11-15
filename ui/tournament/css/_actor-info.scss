@@ -26,20 +26,19 @@
 
   .stats {
     @extend %flex-column;
-
+    gap: 1em;
+    padding-bottom: 1em;
     justify-content: center;
+    align-items: center;
 
     h2 {
       @extend %metal;
+      align-self: stretch;
 
       direction: ltr;
       font-size: 1.4em;
       padding: 0.6rem 1rem;
       border-bottom: $border;
-    }
-
-    table {
-      margin: 1em auto;
     }
 
     td {

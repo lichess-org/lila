@@ -114,6 +114,6 @@
   <string name="xIsAKidAccountWarning">%1$s は子供のアカウントで、あなたのメッセージを受信できません。招待 URL を手動で伝えてください： %2$s</string>
   <string name="moveToClass">%s へ移動</string>
   <string name="moveToAnotherClass">別のクラスに移動</string>
-  <string name="allowMessagingBetweenStudents" comment="An option that a class's teacher can select. Has the extended description &quot;This only applies to the accounts you have created for your students.&quot;">生徒どうしのメッセージを許可</string>
-  <string name="allowMessagingBetweenStudentsDesc" comment="Description for the option &quot;Allow messages between students&quot;.">これはあなたが生徒のために作成したアカウントにのみ適用されます。</string>
+  <string name="allowMessagingBetweenStudents">生徒どうしのメッセージを許可</string>
+  <string name="allowMessagingBetweenStudentsDesc">これはあなたが生徒のために作成したアカウントにのみ適用されます。</string>
 </resources>

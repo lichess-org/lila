@@ -43,24 +43,23 @@ final class BotJsonView(
 
   def gameState(wf: WithInitialFen): Fu[JsObject] =
     import wf.*
-    chess.format.UciDump(game.sans, fen, game.variant).toFuture.map { uciMoves =>
-      Json
-        .obj(
-          "type" -> "gameState",
-          "moves" -> uciMoves.mkString(" "),
-          "wtime" -> millisRemaining(game, Color.white),
-          "btime" -> millisRemaining(game, Color.black),
-          "winc" -> game.clock.so[Long](_.config.increment.millis),
-          "binc" -> game.clock.so[Long](_.config.increment.millis),
-          "status" -> game.status.name
-        )
-        .add("wdraw" -> game.whitePlayer.isOfferingDraw)
-        .add("bdraw" -> game.blackPlayer.isOfferingDraw)
-        .add("wtakeback" -> game.whitePlayer.isProposingTakeback)
-        .add("btakeback" -> game.blackPlayer.isProposingTakeback)
-        .add("winner" -> game.winnerColor)
-        .add("rematch" -> rematches.getAcceptedId(game.id))
-    }
+    for uciMoves <- chess.format.UciDump(game.sans, fen, game.variant, legacyStandardCastling = true).toFuture
+    yield Json
+      .obj(
+        "type" -> "gameState",
+        "moves" -> uciMoves.mkString(" "),
+        "wtime" -> millisRemaining(game, Color.white),
+        "btime" -> millisRemaining(game, Color.black),
+        "winc" -> game.clock.so[Long](_.config.increment.millis),
+        "binc" -> game.clock.so[Long](_.config.increment.millis),
+        "status" -> game.status.name
+      )
+      .add("wdraw" -> game.whitePlayer.isOfferingDraw)
+      .add("bdraw" -> game.blackPlayer.isOfferingDraw)
+      .add("wtakeback" -> game.whitePlayer.isProposingTakeback)
+      .add("btakeback" -> game.blackPlayer.isProposingTakeback)
+      .add("winner" -> game.winnerColor)
+      .add("rematch" -> rematches.getAcceptedId(game.id))
 
   private def millisRemaining(game: Game, color: Color): Int =
     game.clock

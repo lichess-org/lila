@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="gameSetup">Paramètres de la partie</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Défi</string>
+  <string name="playAgainstComputer">Jouer contre l\'ordinateur</string>
+  <string name="gameMode">Mode de jeu</string>
+  <string name="createLobbyGame" comment="One of three buttons on the home page. Opens the modal to create a game that goes in the lobby.">Créer une partie dans le salon</string>
+  <string name="youPlayAs">Couleur</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Pour inviter quelqu\'un à jouer, donnez-lui ce lien</string>
   <string name="gameOver">Partie terminée</string>
   <string name="waitingForOpponent">En attente de votre adversaire</string>
@@ -73,7 +79,7 @@
   <string name="expandVariations">Afficher les variantes</string>
   <string name="forceVariation">Forcer la variante</string>
   <string name="copyVariationPgn">Copier le PGN de la variante</string>
-  <string name="copyMainLinePgn">Copier la ligne principale (PGN)</string>
+  <string name="copyMainLinePgn">Copier la ligne principale en tant que PGN</string>
   <string name="move">Coup</string>
   <string name="variantLoss">Perte (variante)</string>
   <string name="variantWin">Gain (variante)</string>
@@ -339,6 +345,7 @@
     <item quantity="other">%s en cours</item>
   </plurals>
   <string name="exportGames">Exporter les parties</string>
+  <string name="ratingFilter">Filtre de classement</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Rajouter %s seconde</item>
     <item quantity="other">Rajouter %s secondes</item>
@@ -590,8 +597,8 @@
   <string name="newPasswordAgain">Nouveau mot de passe (encore)</string>
   <string name="newPasswordsDontMatch">Les nouveaux mots de passe ne correspondent pas</string>
   <string name="newPasswordStrength">Robustesse du mot de passe</string>
-  <string name="clockInitialTime">Temps initial à la pendule</string>
-  <string name="clockIncrement">Incrément de la pendule</string>
+  <string name="clockInitialTime">Temps initial</string>
+  <string name="clockIncrement">Incrément</string>
   <string name="privacy">Confidentialité</string>
   <string name="privacyPolicy">Politique de confidentialité</string>
   <string name="letOtherPlayersFollowYou">Autoriser les autres joueurs à vous suivre</string>
@@ -762,6 +769,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Vous pouvez aussi utiliser la molette sur l\'échiquier pour faire défiler la partie.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Survolez les variantes du moteur d\'analyse avec la souris pour les visualiser.</string>
   <string name="analysisShapesHowTo">Utilisez maj+clic ou clic-droit pour dessiner des cercles et des flèches sur l\'échiquier.</string>
+  <string name="primaryColorArrowsHowTo">Ctrl ou Maj = rouge ; Commande, Alt, ou Windows = bleu ; Les deux touches en même temps = jaune.</string>
   <string name="letOtherPlayersMessageYou">Permettre à d\'autres joueurs de vous envoyer des messages</string>
   <string name="receiveForumNotifications">Recevoir une notification lorsque votre nom est mentionné dans le forum</string>
   <string name="shareYourInsightsData">Partager les statistiques de vos parties générées par lichess</string>
@@ -823,6 +831,7 @@
   <string name="notifications">Notifications</string>
   <string name="notificationsX">Notifications : %1$s</string>
   <string name="perfRatingX">Classement : %s</string>
+  <string name="yourRatingIsX">Votre classement : %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s seconde pour jouer le premier coup</item>
     <item quantity="other">%s secondes pour jouer le premier coup</item>
@@ -874,6 +883,7 @@
   <string name="playVariationToCreateConditionalPremoves">Jouer une variante pour créer des précoups conditionnels</string>
   <string name="noConditionalPremoves">Pas de précoups conditionnels</string>
   <string name="playX">Jouer %s</string>
+  <string name="challengeX">Défier %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">et enregistrer %s variante de précoups</item>
     <item quantity="other">et enregistrer %s variantes de précoups</item>
@@ -965,7 +975,7 @@ Laissez vide pour commencer les parties à partir de la position initiale normal
   <string name="simulFeaturedHelp">Montrez votre simultanée à tout le monde sur %s. Désactivez cette option pour les simultanées privées.</string>
   <string name="simulDescription">Description de la simultanée</string>
   <string name="simulDescriptionHelp">Voulez-vous dire quelque chose aux participants ?</string>
-  <string name="markdownAvailable">%s offre des options de formatage supplémentaires.</string>
+  <string name="markdownIsAvailable">%s est disponible pour aider au formatage.</string>
   <string name="embedsAvailable">Collez l\'URL d\'une partie ou d\'un chapitre d\'étude pour l\'intégrer.</string>
   <string name="inYourLocalTimezone">Dans votre fuseau horaire</string>
   <string name="tournChat">Salon de discussion du tournoi</string>

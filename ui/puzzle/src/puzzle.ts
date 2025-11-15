@@ -7,6 +7,7 @@ import type { PuzzleOpts, NvuiPlugin } from './interfaces';
 const patch = init([classModule, attributesModule]);
 
 export async function initModule(opts: PuzzleOpts) {
+  await site.asset.loadPieces;
   const element = document.querySelector('main.puzzle') as HTMLElement;
   const ctrl = new PuzzleCtrl(opts, redraw);
   const nvui = site.blindMode && (await site.asset.loadEsm<NvuiPlugin>('puzzle.nvui', { init: ctrl }));

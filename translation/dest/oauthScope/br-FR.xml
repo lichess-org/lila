@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="emailRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's registered email address.">Lenn ar chomlec\'h postel</string>
-  <string name="challengeWrite" comment="challengeWrite&#10;&#10;In the context of an authentication token, a setting that permits third party software to send, accept and reject challenges on behalf of the player.">Kas, asantiñ ha nac\'hañ daeoù</string>
-  <string name="tournamentWrite" comment="In the context of an access token, a setting that permits third party software to create, update or delete studies and join tournaments.">Krouiñ, hizivaat ha kemer perzh e tournamantoù</string>
-  <string name="teamRead" comment="Gives permission to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Lenn titouroù ar skipailhoù prevez</string>
-  <string name="teamWrite" comment="In the context of an access token, a setting that permits the third party software to join or leave teams on your behalf.">Emezelañ ha kuitaat ur skipailh</string>
-  <string name="botPlay" comment="In the context of an access token, a setting which permits third-party software to play games over the bot API. This is intended mainly for having an engine account e.g. the accounts featured on https://lichess.org/player/bots">C\'hoari krogadoù a-enep ar robot API</string>
-  <string name="created" comment="%s is relative time, e.g. 2 hours ago.">Krouet %s</string>
-  <string name="lastUsed" comment="%s is relative time, e.g. 2 hours ago. 'Last used' in this context means 'You used this most recently %s time ago'.">Implij diwezhañ %s</string>
+  <string name="emailRead">Lenn ar chomlec\'h postel</string>
+  <string name="challengeWrite">Kas, asantiñ ha nac\'hañ daeoù</string>
+  <string name="tournamentWrite">Krouiñ, hizivaat ha kemer perzh e tournamantoù</string>
+  <string name="teamRead">Lenn titouroù ar skipailhoù prevez</string>
+  <string name="teamWrite">Emezelañ ha kuitaat ur skipailh</string>
+  <string name="botPlay">C\'hoari krogadoù a-enep ar robot API</string>
+  <string name="created">Krouet %s</string>
+  <string name="lastUsed">Implij diwezhañ %s</string>
 </resources>

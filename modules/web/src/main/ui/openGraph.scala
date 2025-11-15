@@ -16,7 +16,7 @@ def openGraph(graph: OpenGraph): List[Frag] =
   List(
     "title" -> title,
     "description" -> description,
-    "url" -> url,
+    "url" -> url.value,
     "type" -> `type`,
     "site_name" -> siteName
-  ).map(tag) ::: image.map { tag("image", _) }.toList
+  ).map(tag) ::: image.map(i => tag("image", i.value)).toList

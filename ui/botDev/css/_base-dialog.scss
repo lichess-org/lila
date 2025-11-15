@@ -5,8 +5,6 @@ html.transp dialog::before {
 }
 
 .base-view {
-  ---white-image-url: url(../lifat/bots/image/white-torso.webp);
-  ---black-image-url: url(../lifat/bots/image/black-torso.webp);
   ---scale-factor: 1; // ---scale-factor adjusted in javascript
 
   @extend %flex-column;
@@ -49,19 +47,14 @@ dialog .with-cards {
       background-size: contain;
       background-repeat: no-repeat;
       background-position: center;
+      background-image: url(../data/bot/image/gray-torso.webp);
     }
 
     &[data-color='white'] {
       background-color: hsl(37, 12%, 92%);
-      &::before {
-        background-image: var(---white-image-url);
-      }
     }
     &[data-color='black'] {
       background-color: hsl(37, 5%, 23%);
-      &::before {
-        background-image: var(---black-image-url);
-      }
     }
   }
 

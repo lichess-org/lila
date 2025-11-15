@@ -7,7 +7,7 @@ import lila.ui.{ RenderedPage, PageFlags }
 
 object page:
 
-  val pieceSetImages = lila.web.ui.PieceSetImages(env.web.settings.useSvgFiles, assetHelper)
+  val pieceSetImages = lila.web.ui.PieceSetImages(assetHelper)
 
   val ui = lila.web.ui.layout(helpers, assetHelper)(
     popularAlternateLanguages = lila.i18n.LangList.popularAlternateLanguages,

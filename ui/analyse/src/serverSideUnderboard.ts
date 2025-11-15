@@ -4,9 +4,7 @@ import * as licon from 'lib/licon';
 import { url as xhrUrl, textRaw as xhrTextRaw } from 'lib/xhr';
 import type { AnalyseData } from './interfaces';
 import type { ChartGame, AcplChart } from 'chart';
-import { spinnerHtml } from 'lib/view/controls';
-import { domDialog } from 'lib/view/dialog';
-import { alert, confirm } from 'lib/view/dialogs';
+import { spinnerHtml, domDialog, alert, confirm } from 'lib/view';
 import { escapeHtml } from 'lib';
 import { storage } from 'lib/storage';
 import { pubsub } from 'lib/pubsub';
@@ -18,40 +16,42 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   const data = ctrl.data,
     $panels = $('.analyse__underboard__panels > div'),
     $menu = $('.analyse__underboard__menu'),
-    inputFen = document.querySelector('.analyse__underboard__fen input') as HTMLInputElement,
-    gameGifLink = document.querySelector('.game-gif a') as HTMLAnchorElement,
-    positionGifLink = document.querySelector('.position-gif a') as HTMLAnchorElement;
+    inputFen = document.querySelector<HTMLInputElement>('.analyse__underboard__fen input'),
+    gameGifLink = document.querySelector<HTMLAnchorElement>('.game-gif a'),
+    positionGifLink = document.querySelector<HTMLAnchorElement>('.position-gif a');
   let lastInputHash: string;
   let advChart: AcplChart;
   let timeChartLoaded = false;
 
   const updateGifLinks = (fen: FEN) => {
     const ds = document.body.dataset;
-    positionGifLink.href = xhrUrl(ds.assetUrl + '/export/fen.gif', {
-      fen,
-      color: ctrl.bottomColor(),
-      lastMove: ctrl.node.uci,
-      variant: ctrl.data.game.variant.key,
-      theme: ds.board,
-      piece: ds.pieceSet,
-    });
-    gameGifLink.href = xhrUrl(ds.assetUrl + `/game/export/gif/${ctrl.bottomColor()}/${data.game.id}.gif`, {
-      theme: ds.board,
-      piece: ds.pieceSet,
-    });
+    if (positionGifLink)
+      positionGifLink.href = xhrUrl(ds.assetUrl + '/export/fen.gif', {
+        fen,
+        color: ctrl.bottomColor(),
+        lastMove: ctrl.node.uci,
+        variant: ctrl.data.game.variant.key,
+        theme: ds.board,
+        piece: ds.pieceSet,
+      });
+    if (gameGifLink)
+      gameGifLink.href = xhrUrl(ds.assetUrl + `/game/export/gif/${ctrl.bottomColor()}/${data.game.id}.gif`, {
+        theme: ds.board,
+        piece: ds.pieceSet,
+      });
   };
 
   pubsub.on('analysis.change', (fen: FEN, _) => {
     const nextInputHash = `${fen}${ctrl.bottomColor()}`;
     if (fen && nextInputHash !== lastInputHash) {
-      inputFen.value = fen;
+      if (inputFen) inputFen.value = fen;
       if (!site.blindMode) updateGifLinks(fen);
       lastInputHash = nextInputHash;
     }
   });
 
   if (!site.blindMode) {
-    pubsub.on('board.change', () => updateGifLinks(inputFen.value));
+    pubsub.on('board.change', () => inputFen && updateGifLinks(inputFen.value));
     pubsub.on('analysis.comp.toggle', (v: boolean) => {
       if (v) {
         setTimeout(() => $menu.find('.computer-analysis').first().trigger('mousedown'), 50);

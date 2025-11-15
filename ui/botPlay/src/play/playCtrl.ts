@@ -1,23 +1,22 @@
 import { opposite, parseSquare } from 'chessops';
-import { LocalBridge, Pref } from '../interfaces';
+import type { Bot, LocalBridge, Move, Pref } from '../interfaces';
 import { normalizeMove } from 'chessops/chess';
-import { type BotInfo } from 'lib/bot/types';
-import { Board } from '../chess';
+import type { Board } from '../chess';
 import { requestBotMove } from './botMove';
 import keyboard from './keyboard';
 import { initialGround, updateGround } from '../ground';
-import { Game, Move } from '../game';
-import { prop, toggle, Toggle } from 'lib';
+import { Game } from '../game';
+import { prop, toggle, type Toggle } from 'lib';
 import { playMoveSounds } from './sound';
 import { PromotionCtrl } from 'lib/game/promotion';
 import type { WithGround } from 'lib/game/ground';
-import { ClockCtrl, ClockOpts } from 'lib/game/clock/clockCtrl';
-import { TopOrBottom } from 'lib/game/game';
+import { ClockCtrl, type ClockOpts } from 'lib/game/clock/clockCtrl';
+import type { TopOrBottom } from 'lib/game';
 
 export interface PlayOpts {
   pref: Pref;
   game: Game;
-  bot: BotInfo;
+  bot: Bot;
   bridge: Promise<LocalBridge>;
   redraw: () => void;
   save: (game: Game) => void;
@@ -26,8 +25,8 @@ export interface PlayOpts {
 }
 
 export default class PlayCtrl {
-  game: Game;
-  board: Board; // the state of the board being displayed
+  game: Game; // the entire game with moves and ending info
+  board: Board; // the state of the board being displayed on `ground`
   clock?: ClockCtrl;
   promotion: PromotionCtrl;
   menu: Toggle;
@@ -86,6 +85,7 @@ export default class PlayCtrl {
     this.game.computeEnd();
     if (this.game.end?.status == 'outoftime') {
       this.recomputeAndSetClock();
+      this.updateGround();
       this.opts.redraw();
     }
   };
@@ -94,10 +94,14 @@ export default class PlayCtrl {
     const newPly = Math.max(0, Math.min(this.game.ply(), ply));
     if (newPly === this.board.onPly) return;
     this.board = this.opts.game.copyAtPly(newPly).lastBoard();
-    this.withGround(cg => cg.set(updateGround(this.board)));
+    this.updateGround();
     this.opts.redraw();
     this.autoScroll();
     this.safelyRequestBotMove();
+  };
+
+  private updateGround = () => {
+    this.withGround(cg => cg.set(updateGround(this.game, this.board)));
   };
 
   goDiff = (plyDiff: number) => this.goTo(this.board.onPly + plyDiff);

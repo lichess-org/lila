@@ -98,7 +98,6 @@
     <item quantity="other">Tempelkan PGN kamu disini, lebih dari %s permainan</item>
   </plurals>
   <string name="urlOfTheGame">URL permainan</string>
-  <string name="loadAGameFromXOrY">Muat permainan dari %1$s atau %2$s</string>
   <string name="createChapter">Buat bab</string>
   <string name="createStudy">Buat studi</string>
   <string name="editStudy">Ubah studi</string>

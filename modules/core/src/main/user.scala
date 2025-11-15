@@ -15,7 +15,7 @@ import lila.core.id.Flair
 import lila.core.perf.{ KeyedPerf, Perf, PerfKey, UserPerfs, UserWithPerfs }
 import lila.core.userId.*
 import lila.core.misc.AtInstant
-import lila.core.plan.PatronMonths
+import lila.core.plan.{ PatronMonths, PatronTier, PatronColorChoice }
 
 object user:
 
@@ -58,7 +58,7 @@ object user:
 
     def hasTitle: Boolean = title.exists(PlayerTitle.BOT != _)
 
-    def light = LightUser(id, username, title, flair, patronMonths)
+    def light = LightUser(id, username, title, flair, patronMonths, plan.color)
 
     def profileOrDefault = profile | Profile.default
 
@@ -79,6 +79,7 @@ object user:
       else if isPatron then PatronMonths(plan.months)
       else PatronMonths.zero
     def patronTier = patronMonths.tier
+    def patronAndColor = patronTier.map(t => PatronTier.AndColor(t, plan.color))
 
     def isBot = title.contains(PlayerTitle.BOT)
     def noBot = !isBot
@@ -107,9 +108,20 @@ object user:
   opaque type UserEnabled = Boolean
   object UserEnabled extends YesNo[UserEnabled]
 
-  case class PlayTime(total: Int, tv: Int)
+  // in seconds
+  case class PlayTime(
+      total: Int,
+      tv: Int,
+      human: Option[Int] // only for bots, in games vs humans
+  )
 
-  case class Plan(months: Int, active: Boolean, lifetime: Boolean, since: Option[Instant]):
+  case class Plan(
+      months: Int,
+      active: Boolean,
+      lifetime: Boolean,
+      since: Option[Instant],
+      color: Option[PatronColorChoice] = None
+  ):
     def isEmpty: Boolean = months == 0
     def nonEmpty: Option[Plan] = Option.when(!isEmpty)(this)
 
@@ -152,15 +164,11 @@ object user:
     given AtInstant[User] = _.createdAt
 
   case class Count(
-      ai: Int,
       draw: Int,
-      drawH: Int, // only against human opponents
       game: Int,
       loss: Int,
-      lossH: Int, // only against human opponents
       rated: Int,
-      win: Int,
-      winH: Int // only against human opponents
+      win: Int
   )
 
   case class WithPerf(user: User, perf: Perf):
@@ -243,6 +251,7 @@ object user:
     val asyncFallback: LightUser.GetterFallback
     def asyncMany(ids: List[UserId]): Fu[List[Option[LightUser]]]
     def asyncManyFallback(ids: Seq[UserId]): Fu[Seq[LightUser]]
+    def asyncIdMapFallback(ids: Set[UserId]): Fu[LightUser.IdMap]
     def preloadMany(ids: Seq[UserId]): Funit
     def preloadUser(user: User): Unit
     def invalidate(id: UserId): Unit
@@ -314,12 +323,7 @@ object user:
 
   abstract class RankingRepo(val coll: lila.core.db.AsyncCollFailingSilently)
 
-  type FlairMap = Map[UserId, Flair]
-  type FlairGet = UserId => Fu[Option[Flair]]
-  type FlairGetMap = List[UserId] => Fu[FlairMap]
   trait FlairApi:
-    given flairOf: FlairGet
-    given flairsOf: FlairGetMap
     val adminFlairs: Set[Flair]
     def formField(anyFlair: Boolean = false, asAdmin: Boolean = false): play.api.data.Mapping[Option[Flair]]
     def find(name: String): Option[Flair]

@@ -115,4 +115,6 @@
   <string name="xIsAKidAccountWarning">%1$s 是儿童账户，无法接收你的消息。你必须手动给他发送邀请链接： %2$s</string>
   <string name="moveToClass">移动至 %s</string>
   <string name="moveToAnotherClass">移到另一个班级</string>
+  <string name="allowMessagingBetweenStudents">允许学生之间的消息</string>
+  <string name="allowMessagingBetweenStudentsDesc">这只适用于你为学生创建的帐户。</string>
 </resources>

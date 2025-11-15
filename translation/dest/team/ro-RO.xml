@@ -60,7 +60,6 @@ Jucatorii carora nu le place să primească mesaje de la tine pot ieși din echi
   <string name="completedTourns">Turnee finalizate</string>
   <string name="declinedRequests">Cereri refuzate</string>
   <string name="joinLichessVariantTeam">Alătură-te echipei oficiale %s pentru știri și evenimente</string>
-  <string name="teamPage">Pagina Echipei</string>
   <string name="thisTeamBattleIsOver">Acest turneu s-a terminat, iar echipele nu mai pot fi actualizate.</string>
   <string name="listTheTeamsThatWillCompete">Listează echipele care vor concura în această luptă.</string>
   <string name="oneTeamPerLine">O echipă pe linie. Utilizează completarea automată.</string>

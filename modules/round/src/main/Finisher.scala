@@ -150,11 +150,11 @@ final private class Finisher(
         .map(ByColor.fromPair)
         .so: users =>
           crosstableApi.add(game).zip(perfsUpdater.save(game, users)).dmap(_._2)
-        .zip(users.white.so(incNbGames(game)))
-        .zip(users.black.so(incNbGames(game)))
+        .zip(users.white.so(incNbGames(game, users.black)))
+        .zip(users.black.so(incNbGames(game, users.white)))
         .dmap(_._1._1)
 
-  private def incNbGames(game: Game)(user: UserWithPerfs): Funit =
+  private def incNbGames(game: Game, opponent: Option[UserWithPerfs])(user: UserWithPerfs): Funit =
     (game.finished && (user.noBot || game.nonAi)).so:
       val totalTime = (game.hasClock && user.playTime.isDefined).so(game.durationSeconds)
       val tvTime = totalTime.ifTrue(recentTvGames.get(game.id))
@@ -165,10 +165,10 @@ final private class Finisher(
       userRepo
         .incNbGames(
           user.id,
-          game.rated.yes,
-          game.hasAi,
+          game.rated,
           result = result,
           totalTime = totalTime,
-          tvTime = tvTime
+          tvTime = tvTime,
+          botVsHuman = user.isBot && opponent.exists(_.noBot)
         )
         .void

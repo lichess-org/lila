@@ -45,6 +45,7 @@ final class TextLpvExpand(
               div(
                 cls := "lpv--autostart is2d",
                 attr("data-pgn") := pgn.value,
+                attr("data-url") := url,
                 plyRe.findFirstIn(url).map(_.substring(1)).map(ply => attr("data-ply") := ply),
                 (url.contains("/black")).option(attr("data-orientation") := "black")
               )
@@ -52,7 +53,7 @@ final class TextLpvExpand(
   // used by blogs & ublogs to build game|chapter id -> pgn maps
   // the substitution happens later in blog/BlogApi or common/MarkdownRender
   def allPgnsFromText(text: String, max: Max): Fu[Map[String, LpvEmbed]] =
-    regex.blogPgnCandidatesRe
+    regex.markdownPgnCandidatesRe
       .findAllMatchIn(text)
       .map(_.group(1))
       .toList
@@ -118,13 +119,13 @@ final class TextLpvExpand(
         else if s.isRelay then relayPgnDump.ofFirstChapter(s).map2(LpvEmbed.PublicPgn.apply)
         else studyPgnDump.ofFirstChapter(s, fullFlags).map2(LpvEmbed.PublicPgn.apply)
 
-final class LpvGameRegex(domain: NetDomain):
+private final class LpvGameRegex(domain: NetDomain):
 
   private val quotedDomain = java.util.regex.Pattern.quote(domain.value)
 
   val pgnCandidates = raw"""(?:https?://)?(?:lichess\.org|$quotedDomain)(/[/\w#]{8,})\b"""
 
-  val blogPgnCandidatesRe = pgnCandidates.r
+  val markdownPgnCandidatesRe = pgnCandidates.r
   val forumPgnCandidatesRe = raw"(?m)^$pgnCandidates".r
 
   val params = raw"""(?:#(?:last|\d{1,4}))?"""

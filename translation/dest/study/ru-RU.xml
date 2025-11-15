@@ -16,6 +16,7 @@
   <string name="recentlyUpdated">Недавно обновлённые</string>
   <string name="mostPopular">Самые популярные</string>
   <string name="alphabetical">По алфавиту</string>
+  <string name="relevant">Соответствующий</string>
   <string name="addNewChapter">Добавить новую главу</string>
   <plurals name="nbChapters">
     <item quantity="one">%s глава</item>
@@ -67,7 +68,7 @@
   <string name="studyPgn">PGN студии</string>
   <string name="chapterPgn">PGN главы</string>
   <string name="copyChapterPgn">Копировать PGN</string>
-  <string name="copyRawChapterPgn" comment="Appears as a button on individual study chapters. Lets you copy a PGN without any annotations, commentary or analysis">Копировать чистый PGN</string>
+  <string name="copyRawChapterPgn">Копировать исходный PGN</string>
   <string name="downloadGame">Скачать партию</string>
   <string name="studyUrl">Ссылка на студию</string>
   <string name="currentChapterUrl">Ссылка на эту главу</string>
@@ -113,7 +114,6 @@
     <item quantity="other">Вставьте текст в формате PGN, не больше %s игр</item>
   </plurals>
   <string name="urlOfTheGame">URL игры</string>
-  <string name="loadAGameFromXOrY">Загрузить игру из %1$s или %2$s</string>
   <string name="createChapter">Создать главу</string>
   <string name="createStudy">Создать студию</string>
   <string name="editStudy">Изменить студию</string>

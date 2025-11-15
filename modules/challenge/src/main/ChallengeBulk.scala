@@ -52,16 +52,16 @@ final class ChallengeBulkApi(
       .updateField($doc("_id" -> id, "by" -> me.id, "pairedAt".$exists(true)), "startClocksAt", nowInstant)
       .map(_.n == 1)
 
-  def schedule(bulk: ScheduledBulk): Fu[Either[String, ScheduledBulk]] = workQueue(bulk.by):
-    coll
-      .list[ScheduledBulk]($doc("by" -> bulk.by, "pairedAt".$exists(false)))
-      .flatMap: bulks =>
-        if bulks.sizeIs >= maxBulks then fuccess(Left("Already too many bulks queued"))
-        else if bulks.map(_.games.size).sum >= 1000
-        then fuccess(Left("Already too many games queued"))
-        else if bulks.exists(_.collidesWith(bulk))
-        then fuccess(Left("A bulk containing the same players is scheduled at the same time"))
-        else coll.insert.one(bulk).inject(Right(bulk))
+  def schedule(bulk: ScheduledBulk): FuRaise[String, ScheduledBulk] = workQueue(bulk.by):
+    for
+      bulks <- coll.list[ScheduledBulk]($doc("by" -> bulk.by, "pairedAt".$exists(false)))
+      _ <- raiseIf(bulks.sizeIs >= maxBulks)("Already too many bulks queued")
+      _ <- raiseIf(bulks.map(_.games.size).sum >= 1000)("Already too many games queued")
+      _ <- raiseIf(bulks.exists(_.collidesWith(bulk))):
+        "A bulk containing the same players is scheduled at the same time"
+      _ <- coll.insert.one(bulk)
+      _ <- bulk.pairAt.isAfter(nowInstant).not.so(makePairings(bulk))
+    yield bulk
 
   private[challenge] def tick: Funit =
     checkForPairing >> checkForClocks

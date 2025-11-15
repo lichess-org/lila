@@ -1,4 +1,4 @@
-import { winningChances } from 'lib/ceval/ceval';
+import { winningChances } from 'lib/ceval';
 import { annotationShapes } from 'lib/game/glyphs';
 import type { DrawModifiers, DrawShape } from '@lichess-org/chessground/draw';
 import { opposite, parseUci, makeSquare } from 'chessops/util';
@@ -32,7 +32,7 @@ export default function (ctrl: PuzzleCtrl): DrawShape[] {
     if (n.eval) shapes = shapes.concat(makeAutoShapesFromUci(color, n.eval.best!, 'paleGreen'));
     if (!hovering) {
       let nextBest: Uci | undefined = ctrl.nextNodeBest();
-      if (!nextBest && ctrl.cevalEnabled() && n.ceval) nextBest = n.ceval.pvs[0].moves[0];
+      if (!nextBest && ctrl.cevalEnabled() && n.ceval) nextBest = n.ceval.pvs[0]?.moves[0];
       if (nextBest) shapes = shapes.concat(makeAutoShapesFromUci(color, nextBest, 'paleBlue'));
       if (ctrl.cevalEnabled() && n.ceval?.pvs?.[1] && !(ctrl.threatMode() && n.threat?.pvs[2])) {
         n.ceval.pvs.forEach(pv => {

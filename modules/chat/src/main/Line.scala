@@ -1,17 +1,9 @@
 package lila.chat
 
-import chess.{ Color, PlayerTitle }
+import chess.Color
 import reactivemongo.api.bson.*
 
-case class UserLine(
-    username: UserName,
-    title: Option[PlayerTitle],
-    patron: Boolean,
-    flair: Boolean,
-    text: String,
-    troll: Boolean,
-    deleted: Boolean
-) extends Line:
+case class UserLine(username: UserName, text: String, troll: Boolean, deleted: Boolean) extends Line:
 
   def author = username.value
 
@@ -40,10 +32,9 @@ case class PlayerLine(color: Color, text: String) extends Line:
 object Line:
 
   val textMaxSize = 140
-  val titleSep = '~'
 
   private[chat] val invalidLine =
-    UserLine(UserName(""), None, false, false, "[invalid character]", troll = false, deleted = true)
+    UserLine(UserName(""), "[invalid character]", troll = false, deleted = true)
 
   private[chat] given lineHandler: BSONHandler[lila.core.chat.Line] =
     BSONStringHandler.as[lila.core.chat.Line](
@@ -54,10 +45,11 @@ object Line:
   private val baseChar = " "
   private val trollChar = "!"
   private val deletedChar = "?"
-  private val patronChar = "&"
-  private val flairChar = ":"
-  private val patronFlairChar = ";"
-  private[chat] val separatorChars =
+  private val patronChar = "&" // BC for DB data
+  private val flairChar = ":" // BC for DB data
+  private val patronFlairChar = ";" // BC for DB data
+  private val titleSep = '~' // BC for DB data
+  private[chat] val separatorChars = // keep historical BC fields for DB data
     List(baseChar, trollChar, deletedChar, patronChar, flairChar, patronFlairChar)
   private val UserLineRegex = {
     """(?s)([\w-~]{2,}+)([""" + separatorChars.mkString("") + """])(.++)"""
@@ -66,27 +58,22 @@ object Line:
     case UserLineRegex(username, sep, text) =>
       val troll = sep == trollChar
       val deleted = sep == deletedChar
-      val patron = sep == patronChar || sep == patronFlairChar
-      val flair = sep == flairChar || sep == patronFlairChar
-      val (title, name) = username.split(titleSep) match
-        case Array(title, name) => (PlayerTitle.get(title), UserName(name))
-        case _ => (none, UserName(username))
-      UserLine(name, title, patron, flair, text, troll = troll, deleted = deleted).some
+      val name = username.split(titleSep) match
+        case Array(_, name) => UserName(name)
+        case _ => UserName(username)
+      UserLine(name, text, troll = troll, deleted = deleted).some
     case _ => none
   def userLineToStr(x: UserLine): String =
     val sep =
       if x.troll then trollChar
       else if x.deleted then deletedChar
-      else if x.patron then if x.flair then patronFlairChar else patronChar
-      else if x.flair then flairChar
       else " "
-    val tit = x.title.so(_.value + titleSep)
-    s"$tit${x.username}$sep${x.text}"
+    s"${x.username}$sep${x.text}"
 
   def strToLine(str: String): Option[Line] =
     strToUserLine(str).orElse:
-      str.headOption.flatMap(Color.apply).map { color =>
-        PlayerLine(color, str.drop(2))
+      str.headOption.flatMap(Color.apply).map {
+        PlayerLine(_, str.drop(2))
       }
   def lineToStr(x: Line) =
     x match

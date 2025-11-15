@@ -6,26 +6,35 @@ import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
 
-final class PublicChatUi(helpers: Helpers)(highlightBad: String => Frag):
+final class PublicChatUi(helpers: Helpers)(modMenu: Context ?=> Frag, highlightBad: String => Frag):
   import helpers.{ *, given }
 
   def apply(
-      tourChats: List[(lila.core.tournament.Tournament, UserChat)],
-      swissChats: List[(lila.core.swiss.IdName, UserChat)]
+      tourChats: PublicChats[lila.core.tournament.Tournament],
+      swissChats: PublicChats[lila.core.swiss.IdName],
+      relayChats: PublicChats[lila.core.relay.RoundIdName]
   )(using Context) =
     Page("Public Chats")
       .css("mod.publicChats")
       .js(Esm("bits.publicChats")):
         main(cls := "page-menu")(
-          bits.modMenu("public-chat"),
+          modMenu,
           div(id := "comm-wrap")(
             div(id := "communication", cls := "page-menu__content public-chat box box-pad")(
-              h2("Tournament Chats"),
-              div(cls := "player_chats"):
-                tourChats.map: (tournament, chat) =>
-                  div(cls := "game", dataChan := "tournament", dataRoom := tournament.id):
-                    chatOf(tournamentTitle(tournament), chat)
-              ,
+              div(
+                h2("Tournament Chats"),
+                div(cls := "player_chats"):
+                  tourChats.map: (tournament, chat) =>
+                    div(cls := "game", dataChan := "tournament", dataRoom := tournament.id):
+                      chatOf(tournamentTitle(tournament), chat)
+              ),
+              div(
+                h2("Broadcast Chats"),
+                div(cls := "player_chats"):
+                  relayChats.map: (relay, chat) =>
+                    div(cls := "game", dataChan := "study", dataRoom := relay.id):
+                      chatOf(relayTitle(relay), chat)
+              ),
               div(
                 h2("Swiss Chats"),
                 div(cls := "player_chats"):
@@ -68,6 +77,9 @@ final class PublicChatUi(helpers: Helpers)(highlightBad: String => Frag):
 
   private def swissTitle(swiss: lila.core.swiss.IdName) =
     a(cls := "title", href := routes.Swiss.show(swiss.id))(swiss.name)
+
+  private def relayTitle(relay: lila.core.relay.RoundIdName) =
+    a(cls := "title", href := routes.RelayRound.show("-", "-", relay.id))(relay.name)
 
   private def tournamentTitle(tournament: lila.core.tournament.Tournament) =
     div(cls := "title-time")(

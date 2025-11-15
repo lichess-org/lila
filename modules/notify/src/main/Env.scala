@@ -42,6 +42,6 @@ final class Env(
         .map: subs =>
           api.notifyMany(subs, NotificationContent.StreamStart(userId, streamerName))
 
-  lazy val cli = wire[NotifyCli]
+  wire[NotifyCli]
 
 final class NotifyColls(val notif: Coll, val pref: Coll)

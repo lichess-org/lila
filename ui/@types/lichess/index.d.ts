@@ -19,6 +19,7 @@ interface Site {
     baseUrl(): string;
     url(url: string, opts?: AssetUrlOpts): string;
     flairSrc(flair: Flair): string;
+    fideFedSrc(fideFed: FideFed): string;
     loadCss(href: string, key?: string): Promise<void>;
     loadCssPath(key: string): Promise<void>;
     removeCss(href: string): void;
@@ -26,6 +27,7 @@ interface Site {
     jsModule(name: string): string;
     loadIife(path: string, opts?: AssetUrlOpts): Promise<void>;
     loadEsm<T>(key: string, opts?: EsmModuleOpts): Promise<T>;
+    loadPieces: Promise<void>;
   };
   unload: { expected: boolean };
   redirect(o: RedirectTo, beep?: boolean): void;
@@ -50,8 +52,10 @@ interface EsmModuleOpts extends AssetUrlOpts {
 type PairOf<T> = [T, T];
 
 type Flair = string;
+type FideFed = string;
+type PatronColor = number;
 type Redraw = () => void;
-type RedirectTo = string | { url: string; cookie: Cookie };
+type RedirectTo = string | { id: string; url: string; cookie?: Cookie };
 
 interface LichessMousetrap {
   // file://./../../site/src/mousetrap.ts
@@ -71,6 +75,7 @@ interface LichessPowertip {
   manualGame(el: HTMLElement): void;
   manualUser(el: HTMLElement): void;
   manualUserIn(parent: HTMLElement): void;
+  forcePlacementHook?: (el: HTMLElement) => PowerTip.Placement | null;
 }
 
 interface QuestionChoice {
@@ -162,16 +167,10 @@ interface Fipr {
   x64hash128(input: string, seed: number): string;
 }
 
-interface Events {
-  on(key: string, cb: (...args: any[]) => void): void;
-  off(key: string, cb: (...args: any[]) => void): void;
-}
-
 interface Window {
   site: Site;
   fipr: Fipr;
   i18n: I18n;
-  $as<T>(cash: Cash): T;
   readonly chrome?: unknown;
   readonly moment: any;
   readonly stripeHandler: any;
@@ -197,6 +196,7 @@ interface LightUserNoId {
   title?: string;
   flair?: Flair;
   patron?: boolean;
+  patronColor?: PatronColor;
 }
 
 interface LightUser extends LightUserNoId {
@@ -231,6 +231,7 @@ type UserId = string;
 type Uci = string;
 type San = string;
 type Ply = number;
+type Minutes = number;
 type Seconds = number;
 type Centis = number;
 type Millis = number;
@@ -305,3 +306,4 @@ declare const fipr: Fipr;
 declare const i18n: I18n;
 declare module 'tablesort';
 declare const $html: (s: TemplateStringsArray, ...k: any[]) => string; // file://./../../.build/src/esbuild.ts
+declare const $trim: (s: TemplateStringsArray, ...k: any[]) => string; // file://./../../.build/src/esbuild.ts

@@ -117,6 +117,6 @@ Hemen dago bertara sartzeko lotura.</string>
   <string name="xIsAKidAccountWarning">%1$s erabiltzaileak haurren kontu bat du eta ezin du zure mezurik jaso. Gonbidapenaren helbidea eskuz eman behar diozu: %2$s</string>
   <string name="moveToClass">%s-ra mugitu</string>
   <string name="moveToAnotherClass">Beste klase batera mugitu</string>
-  <string name="allowMessagingBetweenStudents" comment="An option that a class's teacher can select. Has the extended description &quot;This only applies to the accounts you have created for your students.&quot;">Baimendu ikasleen arteko mezuak</string>
-  <string name="allowMessagingBetweenStudentsDesc" comment="Description for the option &quot;Allow messages between students&quot;.">Hau zure ikasleentzat sortutako kontuen artekoa da bakarrik.</string>
+  <string name="allowMessagingBetweenStudents">Baimendu ikasleen arteko mezuak</string>
+  <string name="allowMessagingBetweenStudentsDesc">Hau zure ikasleentzat sortutako kontuen artekoa da bakarrik.</string>
 </resources>

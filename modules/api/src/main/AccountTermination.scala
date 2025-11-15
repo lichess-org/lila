@@ -63,6 +63,8 @@ final class AccountTermination(
 )(using Executor, Scheduler, akka.stream.Materializer):
 
   def disable(u: User, forever: Boolean)(using me: Me): Funit = for
+    _ <- isEssential(u.id).so:
+      fufail[Unit](s"Cannot disable essential account ${u.username}")
     playbanned <- playbanApi.hasCurrentPlayban(u.id)
     selfClose = me.is(u)
     teacherClose = !selfClose && !Granter(_.CloseAccount) && Granter(_.Teacher)
@@ -120,6 +122,8 @@ final class AccountTermination(
       else doDeleteNow(user).inject(user.some)
 
   private def doDeleteNow(u: User): Funit = for
+    _ <- isEssential(u.id).so:
+      fufail[Unit](s"Cannot delete essential account ${u.username}")
     playbanned <- playbanApi.hasCurrentPlayban(u.id)
     tos = u.marks.dirty || playbanned
     _ = logger.info(s"Deleting user ${u.username} tos=$tos")
@@ -147,3 +151,15 @@ final class AccountTermination(
     .grouped(100)
     .mapAsync(1)(ids => chatApi.userChat.removeMessagesBy(ids, u.id))
     .runWith(Sink.ignore)
+
+  private val isEssential: Set[UserId] =
+    Set(
+      UserId.lichess,
+      UserId.broadcaster,
+      UserId.irwin,
+      UserId.kaladin,
+      UserId.explorer,
+      UserId.ai,
+      UserId.lichess4545,
+      UserId.watcherbot
+    )

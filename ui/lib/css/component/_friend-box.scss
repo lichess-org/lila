@@ -62,11 +62,6 @@
         @extend %ellipsis;
 
         max-width: 150px;
-
-        .line::before {
-          color: $c-good;
-          content: $licon-Disc;
-        }
       }
 
       &.tv {
@@ -78,10 +73,6 @@
         flex: 0 0 auto;
         padding: 2px 5px 0 5px;
       }
-    }
-
-    i.line {
-      opacity: 0.6;
     }
   }
 

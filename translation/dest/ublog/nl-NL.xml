@@ -5,12 +5,12 @@
   <string name="byTopic">Per onderwerp</string>
   <string name="byLichess">Door Lichess</string>
   <string name="myFriends">Mijn vrienden</string>
-  <string name="myLikes">Mijn vind-ik-leuks</string>
+  <string name="myLikes" comment="A page which lists blog posts that you have pressed ❤️ Like on: https://lichess.org/blog/liked">Mijn vind-ik-leuks</string>
   <string name="myBlog">Mijn blog</string>
   <string name="likedBlogs">Blogberichten leuk gevonden</string>
   <plurals name="blogPosts">
-    <item quantity="one">%s blogberichten</item>
-    <item quantity="other">%s Deze blogposts</item>
+    <item quantity="one">%s blogbericht</item>
+    <item quantity="other">%s blogberichten</item>
   </plurals>
   <string name="continueReadingPost">Doorgaan met lezen van dit bericht</string>
   <string name="lichessBlogPostsFromXYear">Lichess blogberichten uit %s</string>

@@ -5,7 +5,7 @@
   <string name="byTopic">Nach Thema</string>
   <string name="byLichess">Vu Lichess</string>
   <string name="myFriends">Mini Fründ*inne</string>
-  <string name="myLikes">Mini Bevorzugte</string>
+  <string name="myLikes" comment="A page which lists blog posts that you have pressed ❤️ Like on: https://lichess.org/blog/liked">Mini Bevorzugte</string>
   <string name="myBlog">Min Blog</string>
   <string name="likedBlogs">Bevorzugti Blog-Biträg</string>
   <plurals name="blogPosts">

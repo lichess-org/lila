@@ -16,6 +16,7 @@
   <string name="recentlyUpdated">frisch aktualisiert</string>
   <string name="mostPopular">beliebtschti</string>
   <string name="alphabetical">alphabetisch</string>
+  <string name="relevant">Bedütend</string>
   <string name="addNewChapter">Neus Kapitel zuefüege</string>
   <plurals name="nbChapters">
     <item quantity="one">%s Kapitel</item>
@@ -61,6 +62,7 @@
   <string name="studyPgn">Schtudie PGN</string>
   <string name="chapterPgn">Kapitel PGN</string>
   <string name="copyChapterPgn">PGN kopiere</string>
+  <string name="copyRawChapterPgn">Kopier PGN</string>
   <string name="downloadGame">Das Schpiel abelade</string>
   <string name="studyUrl">Schtudie URL</string>
   <string name="currentChapterUrl">URL aktuells Kapitel</string>
@@ -104,7 +106,6 @@
     <item quantity="other">Füeg din PGN Tegscht da i, bis zu %s Schpiel</item>
   </plurals>
   <string name="urlOfTheGame">URL vu de Schpiel</string>
-  <string name="loadAGameFromXOrY">Lad es Schpiel vo %1$s oder %2$s</string>
   <string name="createChapter">Kapitäl ärschtelä</string>
   <string name="createStudy">Schtudie erschtelle</string>
   <string name="editStudy">Schtudie bearbeite</string>

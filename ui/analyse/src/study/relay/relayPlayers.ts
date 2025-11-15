@@ -1,7 +1,7 @@
-import { type VNode, bind, dataIcon, hl, onInsert } from 'lib/snabbdom';
+import { type VNode, bind, dataIcon, hl, onInsert } from 'lib/view';
 import { json as xhrJson } from 'lib/xhr';
 import * as licon from 'lib/licon';
-import { spinnerVdom as spinner } from 'lib/view/controls';
+import { spinnerVdom as spinner } from 'lib/view';
 import type { RelayTour, RoundId, TourId } from './interfaces';
 import { playerFed } from '../playerBars';
 import { userTitle } from 'lib/view/userLink';
@@ -176,7 +176,7 @@ const playerView = (ctrl: RelayPlayers, show: PlayerToShow, tour: RelayTour): VN
                 hl('em', i18n.broadcast.federation),
                 hl('a.relay-tour__player__fed', { attrs: { href: `/fide/federation/${p.fed.name}` } }, [
                   hl('img.mini-game__flag', {
-                    attrs: { src: site.asset.url(`images/fide-fed-webp/${p.fed.id}.webp`) },
+                    attrs: { src: site.asset.fideFedSrc(p.fed.id) },
                   }),
                   p.fed.name,
                 ]),

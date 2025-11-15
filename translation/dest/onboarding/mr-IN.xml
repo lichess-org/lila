@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="logInAsUsername">%s असे लॉग इन करा</string>
   <string name="welcome">सुस्वागतम!</string>
   <string name="welcomeToLichess">Lichess.org वर स्वागत!</string>
   <string name="thisIsYourProfilePage">हे तुमचे प्रोफाइल पेज आहे.</string>

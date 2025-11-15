@@ -1,9 +1,9 @@
 import type { AnalyseSocketSend } from '../socket';
 import * as licon from 'lib/licon';
-import { type VNode, iconTag, bind, onInsert, dataIcon, bindNonPassive, hl } from 'lib/snabbdom';
+import { type VNode, iconTag, bind, onInsert, dataIcon, bindNonPassive, hl } from 'lib/view';
 import { makeCtrl as inviteFormCtrl, type StudyInviteFormCtrl } from './inviteForm';
 import type { NotifCtrl } from './notif';
-import { prop, Prop, scrollTo } from 'lib';
+import { prop, type Prop, scrollTo } from 'lib';
 import { titleNameToId } from '../view/util';
 import type { StudyMember, StudyMemberMap, Tab } from './interfaces';
 import { textRaw as xhrTextRaw } from 'lib/xhr';

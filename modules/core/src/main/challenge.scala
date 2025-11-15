@@ -9,6 +9,7 @@ import scalalib.model.Days
 
 import lila.core.id.ChallengeId
 import lila.core.userId.UserId
+import lila.core.game.Game
 
 trait Challenge:
   import Challenge.*
@@ -52,4 +53,4 @@ object Challenge:
 // would be a pain to move in core
 enum PositiveEvent:
   case Create(c: Challenge)
-  case Accept(c: Challenge, joinerId: Option[UserId])
+  case Accept(c: Challenge, game: Game, joinerId: Option[UserId])

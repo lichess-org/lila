@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="playAgainstComputer">Géint de Computer spillen</string>
+  <string name="gameMode">Spillmodus</string>
+  <string name="youPlayAs">Du spills mat</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Fir een an dës Partie z\'invitéieren, gëff ëm dëse Link</string>
   <string name="gameOver">Game Over</string>
   <string name="waitingForOpponent">Op de Géigner waarden</string>
@@ -952,7 +955,6 @@ Looss et eidel, fir Partie aus der normaler Ausgangspositioun ze starten.</strin
   <string name="simulFeaturedHelp">Jidderengem op %s Simul uweisen. Desaktivéieren fir privat Simuls.</string>
   <string name="simulDescription">Simul Beschreiwung</string>
   <string name="simulDescriptionHelp">Wëlls du den Participanten eppes matdeelen?</string>
-  <string name="markdownAvailable">%s ass fir erweidert Formatéierung disponibel.</string>
   <string name="embedsAvailable">Füg eng Partien-URL oder eng Etüdenkapitel-URL an, fir se anzebetten.</string>
   <string name="inYourLocalTimezone">An denger lokaler Zäitzon</string>
   <string name="tournChat">Turnéier Chat</string>

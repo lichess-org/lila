@@ -1,7 +1,7 @@
 import { type ObjectStorage, objectStorage } from 'lib/objectStorage';
-import { makeBookFromPolyglot, makeBookFromPgn, PgnProgress, PgnFilter } from 'lib/game/polyglot';
+import { makeBookFromPolyglot, makeBookFromPgn, type PgnProgress, type PgnFilter } from 'lib/game/polyglot';
 import { botAssetUrl } from 'lib/bot/botLoader';
-import { alert } from 'lib/view/dialogs';
+import { alert } from 'lib/view';
 import { zip } from 'lib/algo';
 import { env } from './devEnv';
 import { pubsub } from 'lib/pubsub';
@@ -21,6 +21,7 @@ const assetTypes = ['image', 'sound', 'book', 'bookCover', 'net'] as const;
 const urlTypes = ['image', 'sound', 'bookCover'] as const;
 
 export class DevAssets {
+  path = 'assets/data/bot';
   server: Record<AssetType, Map<string, string>> = assetTypes.reduce(
     (obj, type) => ({ ...obj, [type]: new Map() }),
     {} as Record<AssetType, Map<string, string>>,

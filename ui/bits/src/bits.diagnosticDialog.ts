@@ -1,5 +1,5 @@
 import { isTouchDevice } from 'lib/device';
-import { domDialog } from 'lib/view/dialog';
+import { domDialog } from 'lib/view';
 import * as licon from 'lib/licon';
 import { escapeHtml, myUserId } from 'lib';
 import { storage } from 'lib/storage';
@@ -9,6 +9,7 @@ interface DiagnosticOpts {
   text: string;
   header?: string;
   submit?: string;
+  plaintext?: boolean;
 }
 
 export async function initModule(opts?: DiagnosticOpts): Promise<void> {
@@ -20,6 +21,7 @@ export async function initModule(opts?: DiagnosticOpts): Promise<void> {
       `Cores: ${navigator.hardwareConcurrency}, ` +
       `Touch: ${isTouchDevice()} ${navigator.maxTouchPoints}, ` +
       `Screen: ${window.screen.width}x${window.screen.height}, ` +
+      ('lichessTools' in window ? 'Extension: Lichess Tools, ' : '') +
       `Page lang: ${site.displayLocale}, ` +
       `Browser lang: ${navigator.language}, ` +
       `Engine: ${storage.get('ceval.engine')}, ` +
@@ -33,6 +35,7 @@ export async function initModule(opts?: DiagnosticOpts): Promise<void> {
     ? $html`
       <form method="post" action="/diagnostic">
         <input type="hidden" name="text" value="${escaped}"/>
+        <input type="hidden" name="plaintext" value="${opts?.plaintext ?? false}"/>
         <button type="submit" class="button">${opts?.submit ?? 'send to lichess'}</button>
       </form>`
     : '';

@@ -1,13 +1,12 @@
 package lila.ublog
 
-import com.github.blemale.scaffeine.AsyncLoadingCache
 import com.softwaremill.macwire.*
 import play.api.{ ConfigLoader, Configuration }
 import lila.core.config.*
 import lila.db.dsl.Coll
 import lila.common.autoconfig.{ *, given }
 import lila.common.Bus
-import lila.memo.CacheApi.buildAsyncTimeout
+import lila.report.Automod
 
 @Module
 final private class UblogConfig(
@@ -21,6 +20,7 @@ final class Env(
     userRepo: lila.core.user.UserRepo,
     userApi: lila.core.user.UserApi,
     picfitApi: lila.memo.PicfitApi,
+    picfitUrl: lila.memo.PicfitUrl,
     ircApi: lila.core.irc.IrcApi,
     relationApi: lila.core.relation.RelationApi,
     shutupApi: lila.core.shutup.ShutupApi,
@@ -31,7 +31,8 @@ final class Env(
     appConfig: Configuration,
     settingStore: lila.memo.SettingStore.Builder,
     client: lila.search.client.SearchClient,
-    reportApi: lila.report.ReportApi
+    lightUser: lila.core.LightUser.GetterSync,
+    automod: lila.report.Automod
 )(using Executor, Scheduler, play.api.Mode):
 
   export net.{ assetBaseUrl, baseUrl, domain, assetDomain }
@@ -41,7 +42,7 @@ final class Env(
 
   val topic = wire[UblogTopicApi]
 
-  val automod = wire[UblogAutomod]
+  val ublogAutomod = wire[UblogAutomod]
 
   val api: UblogApi = wire[UblogApi]
 
@@ -49,16 +50,11 @@ final class Env(
 
   val paginator = wire[UblogPaginator]
 
-  val markup = wire[UblogMarkup]
-
   val form = wire[UblogForm]
 
   val viewCounter = wire[UblogViewCounter]
 
-  val lastPostsCache: AsyncLoadingCache[Unit, List[UblogPost.PreviewPost]] =
-    cacheApi.unit[List[UblogPost.PreviewPost]]:
-      _.refreshAfterWrite(10.seconds).buildAsyncTimeout(): _ =>
-        api.fetchCarouselFromDb().map(_.shuffled)
+  val jsonView = wire[UblogJsonView]
 
   Bus.sub[lila.core.mod.Shadowban]:
     case lila.core.mod.Shadowban(userId, v) =>

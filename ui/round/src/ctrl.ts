@@ -1,7 +1,7 @@
 /// <reference types="../types/ab" />
 
 import * as ab from 'ab';
-import * as game from 'lib/game/game';
+import * as game from 'lib/game';
 import { game as gameRoute } from 'lib/game/router';
 import { playing } from 'lib/game/status';
 import { boardOrientation, reload as groundReload } from './ground';
@@ -11,7 +11,7 @@ import { make as makeSocket, type RoundSocket } from './socket';
 import * as title from './title';
 import * as blur from './blur';
 import viewStatus from 'lib/game/view/status';
-import { ClockCtrl, ClockOpts } from 'lib/game/clock/clockCtrl';
+import { ClockCtrl, type ClockOpts } from 'lib/game/clock/clockCtrl';
 import { CorresClockController } from './corresClock/corresClockCtrl';
 import MoveOn from './moveOn';
 import TransientMove from './transientMove';
@@ -36,12 +36,12 @@ import type {
   RoundData,
   SocketMove,
   SocketDrop,
-  SocketOpts,
   MoveMetadata,
   NvuiPlugin,
   RoundTour,
   ApiMove,
   ApiEnd,
+  EventsWithPayload,
 } from './interfaces';
 import { defined, type Toggle, type Prop, toggle, requestIdleCallback, memoize } from 'lib';
 import { storage, once, storedBooleanProp, type LichessBooleanStorage } from 'lib/storage';
@@ -49,12 +49,10 @@ import * as poolRangeStorage from 'lib/poolRangeStorage';
 import { pubsub } from 'lib/pubsub';
 import { readFen, almostSanOf, speakable } from 'lib/game/sanWriter';
 import { plyToTurn } from 'lib/game/chess';
-import { wsDestroy } from 'lib/socket';
+import { type SocketSendOpts } from 'lib/socket';
 import Server from './server';
 
 type GoneBerserk = Partial<ByColor<boolean>>;
-
-type Timeout = number;
 
 export default class RoundController implements MoveRootCtrl {
   data: RoundData;
@@ -297,8 +295,12 @@ export default class RoundController implements MoveRootCtrl {
 
   setTitle = (): void => title.set(this);
 
-  actualSendMove = (tpe: string, data: any, meta: MoveMetadata = { premove: false }): void => {
-    const socketOpts: SocketOpts = {
+  actualSendMove = <moveOrDrop extends 'move' | 'drop'>(
+    tpe: moveOrDrop,
+    data: EventsWithPayload[moveOrDrop],
+    meta: MoveMetadata = { premove: false },
+  ): void => {
+    const socketOpts: SocketSendOpts = {
       sign: this.sign,
       ackable: true,
     };
@@ -566,7 +568,6 @@ export default class RoundController implements MoveRootCtrl {
     }
     this.promotion.cancel();
     this.chessground.stop();
-    this.chessground.state.touchIgnoreRadius = 1;
     if (o.ratingDiff) {
       d.player.ratingDiff = o.ratingDiff[d.player.color];
       d.opponent.ratingDiff = o.ratingDiff[d.opponent.color];
@@ -578,6 +579,7 @@ export default class RoundController implements MoveRootCtrl {
       if (o.status.name === 'mate') site.sound.playAndDelayMateResultIfNecessary(key);
       else site.sound.play(key);
     }
+    this.onTimeTrouble(false);
     endGameView();
     if (d.crazyhouse) crazyEndHook();
     this.clearJust();
@@ -629,7 +631,7 @@ export default class RoundController implements MoveRootCtrl {
       this.clock ??= new ClockCtrl(d.clock, d.pref, this.tickingClockColor(), this.makeClockOpts());
       this.clock.alarmAction = {
         seconds: 60,
-        fire: () => (this.chessground.state.touchIgnoreRadius = Math.SQRT2),
+        fire: () => this.onTimeTrouble(true),
       };
     } else {
       this.clock = undefined;
@@ -696,7 +698,7 @@ export default class RoundController implements MoveRootCtrl {
     else return false;
   };
 
-  opponentRequest(req: string, text: string): void {
+  opponentRequest(req: 'takeback' | 'rematch' | 'draw', text: string): void {
     this.voiceMove?.listenForResponse(req, (v: boolean) =>
       this.socket.sendLoading(`${req}-${v ? 'yes' : 'no'}`),
     );
@@ -856,7 +858,7 @@ export default class RoundController implements MoveRootCtrl {
 
   private doOfferDraw = () => {
     this.data.player.lastDrawOfferAtPly = this.lastPly();
-    this.socket.sendLoading('draw-yes', null);
+    this.socket.sendLoading('draw-yes');
   };
 
   setChessground = (cg: CgApi): void => {
@@ -891,6 +893,12 @@ export default class RoundController implements MoveRootCtrl {
     this.socket.send(`blindfold-${v ? 'yes' : 'no'}`);
     this.redraw();
     return v;
+  };
+
+  onTimeTrouble = (t: boolean): void => {
+    if (this.data.player.spectator) return;
+    site.powertip.forcePlacementHook = t ? (el: HTMLElement) => el.closest('.crosstable') && 's' : undefined;
+    this.chessground.state.touchIgnoreRadius = t ? Math.SQRT2 : 1;
   };
 
   yeet = (): void => {
@@ -937,21 +945,6 @@ export default class RoundController implements MoveRootCtrl {
           this.blindfold(this.blindfoldStorage.get());
         }
         if (!d.local && d.game.speed !== 'correspondence') wakeLock.request();
-
-        // temporary: migrate local `courtesy` to server `sayGG`
-        if (storage.boolean('courtesy').get()) {
-          xhr.setPreference('sayGG', '2');
-          storage.remove('courtesy');
-        }
-
-        setTimeout(() => {
-          if ($('#KeyboardO,#show_btn,#shadowHostId').length) {
-            alert('Play enhancement extensions are no longer allowed!');
-            wsDestroy();
-            this.setRedirecting();
-            location.href = '/page/play-extensions';
-          }
-        }, 1000);
       },
 
       800,

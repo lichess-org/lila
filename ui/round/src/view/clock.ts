@@ -1,4 +1,4 @@
-import { type LooseVNode, hl, bind } from 'lib/snabbdom';
+import { type LooseVNode, hl, bind } from 'lib/view';
 import * as licon from 'lib/licon';
 import { renderClock } from 'lib/game/clock/clockView';
 import RoundController from '../ctrl';
@@ -10,9 +10,9 @@ import {
   bothPlayersHavePlayed,
   finished,
   playable,
-  TopOrBottom,
-  TournamentRanks,
-} from 'lib/game/game';
+  type TopOrBottom,
+  type TournamentRanks,
+} from 'lib/game';
 import { justIcon } from '../util';
 
 export const anyClockView = (ctrl: RoundController, position: TopOrBottom): LooseVNode => {

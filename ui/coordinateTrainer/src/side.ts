@@ -1,14 +1,8 @@
 import { h, type VNode, type VNodes } from 'snabbdom';
-import { bind } from 'lib/snabbdom';
+import { bind, toggle } from 'lib/view';
 import type CoordinateTrainerCtrl from './ctrl';
-import type { ColorChoice, TimeControl, Mode } from './interfaces';
-import { toggle } from 'lib/view/controls';
-
-const colors: [ColorChoice, string][] = [
-  ['black', i18n.site.asBlack],
-  ['random', i18n.site.randomColor],
-  ['white', i18n.site.asWhite],
-];
+import type { TimeControl, Mode } from './interfaces';
+import { colors, type ColorChoice } from 'lib/setup/color';
 
 const timeControls: [TimeControl, string][] = [
   ['untimed', '∞'],
@@ -160,7 +154,7 @@ const configurationButtons = (ctrl: CoordinateTrainerCtrl): VNodes => [
   h('form.color.buttons', [
     h(
       'group.radio',
-      colors.map(([key, text]) =>
+      colors.map(({ key, name }) =>
         h('div', [
           h('input', {
             attrs: {
@@ -178,7 +172,7 @@ const configurationButtons = (ctrl: CoordinateTrainerCtrl): VNodes => [
               keyup: ctrl.onRadioInputKeyUp,
             },
           }),
-          h(`label.color_${key}`, { attrs: { for: `coord_color_${key}`, title: text } }, h('i')),
+          h(`label.color_${key}`, { attrs: { for: `coord_color_${key}`, title: name } }, h('i')),
         ]),
       ),
     ),

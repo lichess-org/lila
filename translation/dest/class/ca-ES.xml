@@ -118,6 +118,6 @@ Mostrarà una línia separadora horitzontal.</string>
   <string name="xIsAKidAccountWarning">%1$s és un compte de menors i no pot rebre el teu missatge. Li heu de fer arribar l\'URL manualment: %2$s</string>
   <string name="moveToClass">Moure a %s</string>
   <string name="moveToAnotherClass">Moure a una altra classe</string>
-  <string name="allowMessagingBetweenStudents" comment="An option that a class's teacher can select. Has the extended description &quot;This only applies to the accounts you have created for your students.&quot;">Permetre missatges entre estudiants</string>
-  <string name="allowMessagingBetweenStudentsDesc" comment="Description for the option &quot;Allow messages between students&quot;.">Això només aplica pels comptes que heu creat pels vostres estudiants.</string>
+  <string name="allowMessagingBetweenStudents">Permetre missatges entre estudiants</string>
+  <string name="allowMessagingBetweenStudentsDesc">Això només aplica pels comptes que heu creat pels vostres estudiants.</string>
 </resources>

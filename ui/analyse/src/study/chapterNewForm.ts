@@ -1,14 +1,12 @@
 import { parseFen } from 'chessops/fen';
 import { defined, prop, type Prop, toggle } from 'lib';
-import { type Dialog, snabDialog } from 'lib/view/dialog';
-import { alert } from 'lib/view/dialogs';
+import type { Dialog, VNode } from 'lib/view';
+import { snabDialog, alert, bind, bindSubmit, onInsert, hl, dataIcon, spinnerVdom } from 'lib/view';
 import * as licon from 'lib/licon';
-import { bind, bindSubmit, onInsert, hl, dataIcon, type VNode } from 'lib/snabbdom';
 import { storedProp } from 'lib/storage';
 import { json as xhrJson, text as xhrText } from 'lib/xhr';
 import type AnalyseCtrl from '../ctrl';
 import type { StudySocketSend } from '../socket';
-import { spinnerVdom as spinner } from 'lib/view/controls';
 import { option } from '../view/util';
 import type { ChapterData, ChapterMode, ChapterTab, Orientation, StudyTour } from './interfaces';
 import { importPgn, variants as xhrVariants } from './studyXhr';
@@ -93,6 +91,8 @@ export class StudyChapterNewForm {
     else
       importPgn(study.data.id, dd).catch(e => {
         if (e.message === 'Too many requests') alert('Limit of 1000 pgn imports every 24 hours');
+        if (e.message === 'Too many chapters')
+          alert('You have reached the maximum number of chapters (64). Some of the games were not imported.');
         throw e;
       });
     this.isOpen(false);
@@ -230,15 +230,11 @@ export function view(ctrl: StudyChapterNewForm): VNode {
                   destroy: () => (ctrl.editor = null),
                 },
               },
-              [spinner()],
+              [spinnerVdom()],
             ),
           activeTab === 'game' &&
             hl('div.form-group', [
-              hl(
-                'label.form-label',
-                { attrs: { for: 'chapter-game' } },
-                i18n.study.loadAGameFromXOrY('lichess.org', 'chessgames.com'),
-              ),
+              hl('label.form-label', { attrs: { for: 'chapter-game' } }, 'Load Lichess games'),
               hl('textarea#chapter-game.form-control', {
                 attrs: { placeholder: i18n.study.urlOfTheGame },
                 hook: onInsert((el: HTMLTextAreaElement) => {

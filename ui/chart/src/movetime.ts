@@ -23,13 +23,11 @@ import {
   tooltipBgColor,
   whiteFill,
   axisOpts,
-  resizePolyfill,
-} from './common';
+} from './index';
 import type { AnalyseData, Player, PlyChart } from './interface';
 import division from './division';
 import { pubsub } from 'lib/pubsub';
 
-resizePolyfill();
 Chart.register(LineController, LinearScale, PointElement, LineElement, Tooltip, BarElement, BarController);
 
 export default async function (
@@ -206,12 +204,23 @@ export default async function (
       },
     },
   };
+
+  if (moveCentis) addGameDuration(el, moveCentis);
+
   const movetimeChart = new Chart(el, config) as PlyChart;
   movetimeChart.selectPly = selectPly.bind(movetimeChart);
   pubsub.on('ply', movetimeChart.selectPly);
   pubsub.emit('ply.trigger');
   return movetimeChart;
 }
+
+const addGameDuration = (el: HTMLCanvasElement, moveCentis: number[]) => {
+  const chart = $(el);
+  let label = chart.next('.game-duration');
+  if (!label.length) label = $('<div class="game-duration">').insertAfter(chart);
+  const duration = moveCentis.reduce((s, v) => s + v, 0);
+  label.text(i18n.site.duration + ' ' + formatClock(duration));
+};
 
 const toBlurArray = (player: Player) =>
   player.blurs && player.blurs.bits ? player.blurs.bits.split('') : [];

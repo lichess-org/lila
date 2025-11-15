@@ -16,6 +16,7 @@
   <string name="recentlyUpdated">Nýlega uppfært</string>
   <string name="mostPopular">Vinsælast</string>
   <string name="alphabetical">Stafrófsröð</string>
+  <string name="relevant">Markvert</string>
   <string name="addNewChapter">Bæta nýjum kafla við</string>
   <plurals name="nbChapters">
     <item quantity="one">%s kafli</item>
@@ -48,7 +49,7 @@
   <string name="annotateWithGlyphs">Skýra með stafbrigðum</string>
   <string name="theChapterIsTooShortToBeAnalysed">Kaflinn er of stuttur til að hægt sé að greina hann.</string>
   <string name="onlyContributorsCanRequestAnalysis">Aðeins þátttakendur í stúderingu geta beðið um tölvugreiningu.</string>
-  <string name="getAFullComputerAnalysis">Fáðu ýtarlega tölvugreiningu á netþjóni á meginleikjunum.</string>
+  <string name="getAFullComputerAnalysis">Fáðu ýtarlega tölvugreiningu á netþjóni á höfuðafbrigðinu.</string>
   <string name="makeSureTheChapterIsComplete">Gakktu úr skugga um að kaflanum sé lokið. Þú getur aðeins beðið um greiningu einu sinni.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Allir samstilltir meðlimir halda sama stað</string>
   <string name="shareChanges">Deila breytingum með áhorfendum og vista þær á netþjóninum</string>
@@ -61,6 +62,7 @@
   <string name="studyPgn">Stúdera PGN</string>
   <string name="chapterPgn">PGN kafla</string>
   <string name="copyChapterPgn">Afrita PGN</string>
+  <string name="copyRawChapterPgn">Afrita óunna PGN-skák</string>
   <string name="downloadGame">Hlaða niður skák</string>
   <string name="studyUrl">Stúdera slóð</string>
   <string name="currentChapterUrl">Núverandi slóð kafla</string>
@@ -104,7 +106,6 @@
     <item quantity="other">Límdu inn skákir sem PGN-texta hér. Fyrir hverja skák er nýr kafli búinn til. Stúdering getur haft allt að %s kafla.</item>
   </plurals>
   <string name="urlOfTheGame">Vefslóð skákanna, ein í hverri línu</string>
-  <string name="loadAGameFromXOrY">Hlaða inn skákum frá %1$s eða %2$s</string>
   <string name="createChapter">Búa til kafla</string>
   <string name="createStudy">Búa til stúderingu</string>
   <string name="editStudy">Breyta stúderingu</string>
@@ -194,7 +195,7 @@
   <string name="fromPgnGameTitle">Úr skák í formi PGN</string>
   <string name="fromPgnGameText">Límdu inn skák í formi PGN.&lt;br&gt;til að hlaða inn leikjum, athugasemdum og afbrigðum í kaflanum.</string>
   <string name="variantsAreSupportedTitle">Stúderingar styðja afbrigði</string>
-  <string name="variantsAreSupportedText">Já, þú getur stúderað crazyhouse&lt;br&gt; og öll Lichess-afbrigði!</string>
+  <string name="variantsAreSupportedText">Já, þú getur stúderað geðveikraskákar-afbrigðið&lt;br&gt; og öll Lichess-afbrigði!</string>
   <string name="chapterConclusionText">Kaflar vistast að eilífu.&lt;br&gt;Góða skemmtun við að skipuleggja skákefnið þitt!</string>
   <string name="doubleDefeat">Tvöfalt tap</string>
   <string name="blackDefeatWhiteCanNotWin">Svartur tapar, en hvítur getur ekki unnið</string>

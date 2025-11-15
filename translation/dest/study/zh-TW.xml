@@ -58,6 +58,7 @@
   <string name="studyPgn">研究 PGN</string>
   <string name="chapterPgn">章節PGN</string>
   <string name="copyChapterPgn">複製PGN</string>
+  <string name="copyRawChapterPgn">複製純 PGN</string>
   <string name="downloadGame">下載棋局</string>
   <string name="studyUrl">研究連結</string>
   <string name="currentChapterUrl">目前章節連結</string>
@@ -100,7 +101,6 @@
     <item quantity="other">在此貼上PGN文本，最多可導入%s個棋局</item>
   </plurals>
   <string name="urlOfTheGame">棋局連結，一行一個</string>
-  <string name="loadAGameFromXOrY">從%1$s或%2$s載入棋局</string>
   <string name="createChapter">建立章節</string>
   <string name="createStudy">建立研究</string>
   <string name="editStudy">編輯此研究</string>
@@ -163,4 +163,5 @@
   <string name="perPage">%s 每頁</string>
   <string name="getTheTour">需要幫助？查看導覽！</string>
   <string name="welcomeToLichessStudyTitle">歡迎來到 Lichess 研究區！</string>
+  <string name="blackDefeatWhiteCanNotWin">黑敗，但白無法取勝</string>
 </resources>

@@ -13,6 +13,7 @@ import lila.core.misc.lpv.LpvEmbed
 import lila.core.net.IpAddress
 import lila.core.socket.Sri
 import lila.core.study.Order
+import lila.core.data.ErrorMsg
 import lila.study.JsonView.JsData
 import lila.study.PgnDump.WithFlags
 import lila.study.Study.WithChapter
@@ -29,28 +30,34 @@ final class Study(
     apiC: => Api
 ) extends LilaController(env):
 
-  import env.user.flairApi.given
-
-  def search(text: String, page: Int) = OpenOrScopedBody(parse.anyContent)(_.Study.Read, _.Web.Mobile):
-    Reasonable(page):
-      text.trim.some.filter(_.nonEmpty).filter(_.sizeIs > 2).filter(_.sizeIs < 200) match
-        case None =>
-          for
-            pag <- env.study.pager.all(Orders.default, page)
-            _ <- preloadMembers(pag)
-            res <- negotiate(
-              Ok.page(views.study.list.all(pag, Orders.default)),
-              apiStudies(pag)
-            )
-          yield res
-        case Some(clean) =>
-          env
-            .studySearch(clean.take(100), page)
-            .flatMap: pag =>
-              negotiate(
-                Ok.page(views.study.list.search(pag, text)),
-                apiStudies(pag)
-              )
+  def search(text: String, page: Int, order: Option[Order]) =
+    OpenOrScopedBody(parse.anyContent)(_.Study.Read, _.Web.Mobile):
+      Reasonable(page):
+        WithProxy: proxy ?=>
+          val maxLen =
+            if proxy.isFloodish then 50
+            else if HTTPRequest.isCrawler(req).yes then 80
+            else if ctx.isAnon then 100
+            else 200
+          text.trim.some.filter(_.nonEmpty).filter(_.sizeIs > 2).filter(_.sizeIs < maxLen) match
+            case None =>
+              for
+                pag <- env.study.pager.all(Orders.default, page)
+                _ <- preloadMembers(pag)
+                res <- negotiate(
+                  Ok.page(views.study.list.all(pag, Orders.default)),
+                  apiStudies(pag)
+                )
+              yield res
+            case Some(clean) =>
+              limit.enumeration.search(rateLimited):
+                env
+                  .studySearch(clean.take(100), order | Order.relevant, page)
+                  .flatMap: pag =>
+                    negotiate(
+                      Ok.page(views.study.list.search(pag, order | Order.relevant, text)),
+                      apiStudies(pag)
+                    )
 
   def homeLang = LangPage(routes.Study.allDefault())(allResults(Order.hot, 1))
 
@@ -153,7 +160,7 @@ final class Study(
             Redirect(chapterId.fold(rt.path)(rt.path))
     else f
 
-  private def showQuery(query: Fu[Option[WithChapter]])(using ctx: Context): Fu[Result] =
+  private def showQuery(query: Option[WithChapter])(using ctx: Context): Fu[Result] =
     Found(query): oldSc =>
       CanView(oldSc.study) {
         if !oldSc.study.notable && HTTPRequest.isCrawler(req).yes
@@ -167,7 +174,7 @@ final class Study(
                 chat <- noCrawler.so(chatOf(sc.study))
                 sVersion <- noCrawler.so(env.study.version(sc.study.id))
                 streamers <- noCrawler.so(streamerCache.get(sc.study.id))
-                page <- renderPage(views.study.show(sc.study, data, chat, sVersion, streamers))
+                page <- renderPage(views.study.show(sc.study, sc.chapter, data, chat, sVersion, streamers))
               yield Ok(page)
                 .withCanonical(routes.Study.chapter(sc.study.id, sc.chapter.id))
                 .enforceCrossSiteIsolation
@@ -180,7 +187,7 @@ final class Study(
               loadChat = !HTTPRequest.isXhr(ctx.req)
               chatOpt <- loadChat.so(chatOf(sc.study))
               jsChat <- chatOpt.traverse: c =>
-                lila.chat.JsonView.mobile(c.chat, writeable = ctx.userId.so(sc.study.canChat))
+                env.chat.json.mobile(c.chat, writeable = ctx.userId.so(sc.study.canChat))
             yield Ok:
               Json.obj(
                 "study" -> data.study.add("chat" -> jsChat),
@@ -194,7 +201,8 @@ final class Study(
       ctx: Context
   ): Fu[(WithChapter, JsData)] =
     for
-      (study, chapter) <- env.study.api.maybeResetAndGetChapter(sc.study, sc.chapter)
+      (studyFromDb, chapter) <- env.study.api.maybeResetAndGetChapter(sc.study, sc.chapter)
+      study <- env.relay.api.reconfigureStudy(studyFromDb, chapter)
       previews <- withChapters.optionFu(env.study.preview.jsonList(study.id))
       _ <- env.user.lightUserApi.preloadMany(study.members.ids.toList)
       fedNames <- env.study.preview.federations.get(sc.study.id)
@@ -228,7 +236,7 @@ final class Study(
 
   def show(id: StudyId) = OpenOrScoped(_.Study.Read, _.Web.Mobile):
     orRelayRedirect(id):
-      showQuery(env.study.api.byIdWithChapter(id))
+      env.study.api.byIdWithChapter(id).flatMap(showQuery)
 
   def chapter(id: StudyId, chapterId: StudyChapterId) = OpenOrScoped(_.Study.Read, _.Web.Mobile):
     orRelayRedirect(id, chapterId.some):
@@ -240,8 +248,8 @@ final class Study(
               .exists(id)
               .flatMap:
                 if _ then negotiate(Redirect(routes.Study.show(id)), notFoundJson())
-                else showQuery(fuccess(none))
-          case sc => showQuery(fuccess(sc))
+                else showQuery(none)
+          case sc => showQuery(sc)
 
   def chapterConfig(id: StudyId, chapterId: StudyChapterId) = Open:
     Found(env.study.chapterRepo.byIdAndStudy(chapterId, id)): chapter =>
@@ -309,19 +317,21 @@ final class Study(
   }
 
   private def doImportPgn(id: StudyId, data: StudyForm.importPgn.Data, sri: Sri)(
-      f: List[Chapter] => Result
+      f: (List[Chapter], Option[ErrorMsg]) => Result
   )(using ctx: Context, me: Me): Future[Result] =
     val chapterDatas = data.toChapterDatas
     limit.studyPgnImport(me, rateLimited, cost = chapterDatas.size):
       env.study.api
         .importPgns(id, chapterDatas, sticky = data.sticky, ctx.pref.showRatings)(Who(me, sri))
-        .map(f)
+        .map(f.tupled)
 
   def importPgn(id: StudyId) = AuthBody { ctx ?=> me ?=>
     get("sri").so: sri =>
       bindForm(StudyForm.importPgn.form)(
         doubleJsonFormError,
-        data => doImportPgn(id, data, Sri(sri))(_ => NoContent)
+        data =>
+          doImportPgn(id, data, Sri(sri)): (_, errors) =>
+            errors.fold(NoContent)(BadRequest(_))
       )
   }
 
@@ -329,10 +339,10 @@ final class Study(
     bindForm(StudyForm.importPgn.form)(
       jsonFormError,
       data =>
-        doImportPgn(id, data, Sri("api")): chapters =>
+        doImportPgn(id, data, Sri("api")): (chapters, errors) =>
           import lila.study.ChapterPreview.json.given
           val previews = chapters.map(env.study.preview.fromChapter(_))
-          JsonOk(Json.obj("chapters" -> previews))
+          JsonOk(Json.obj("chapters" -> previews, "error" -> errors))
     )
   }
 
@@ -490,7 +500,7 @@ final class Study(
         }(privateUnauthorizedFu(study), privateForbiddenFu(study))
 
   def apiChapterTagsUpdate(studyId: StudyId, chapterId: StudyChapterId) =
-    ScopedBody(_.Study.Write) { _ ?=> _ ?=>
+    AuthOrScopedBody(_.Study.Write) { _ ?=> _ ?=>
       bindForm(StudyForm.chapterTagsForm)(
         jsonFormError,
         pgn => env.study.api.updateChapterTags(studyId, chapterId, pgn).inject(NoContent)

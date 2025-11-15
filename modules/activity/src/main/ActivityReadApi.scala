@@ -69,12 +69,13 @@ final class ActivityReadApi(
             .liveLightsByIds(p.value)
             .mon(_.user.segment("activity.ublogs"))
         .dmap(_.filter(_.nonEmpty))
-      practice = for
-        p <- a.practice
-        studies <- practiceStudies
-      yield p.value.flatMap { (studyId, nb) =>
-        studies(studyId).map(_ -> nb)
-      }.toMap
+      practice =
+        for
+          p <- a.practice
+          studies <- practiceStudies
+        yield p.value.flatMap { (studyId, nb) =>
+          studies(studyId).map(_ -> nb)
+        }.toMap
       forumPostView = forumPosts
         .map: p =>
           p.groupBy(_.topic)

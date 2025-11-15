@@ -20,6 +20,8 @@ final class Env(
   val analyseEndpoints = WebConfig.analyseEndpoints(appConfig)
   lazy val lilaVersion = WebConfig.lilaVersion(appConfig)
 
+  lazy val mobile = wire[Mobile]
+
   val manifest = wire[AssetManifest]
 
   val referrerRedirect = wire[ReferrerRedirect]
@@ -51,8 +53,7 @@ final class Env(
     val noDelaySecret = settingStore[Strings](
       "noDelaySecrets",
       default = Strings(Nil),
-      text =
-        "Secret tokens that allows fetching ongoing games without the 3-moves delay. Separated by commas.".some
+      text = "Secret tokens that allows fetching ongoing games without the delay. Separated by commas.".some
     )
     val prizeTournamentMakers = settingStore[UserIds](
       "prizeTournamentMakers",
@@ -69,10 +70,4 @@ final class Env(
       "sitewideCoepCredentiallessHeader",
       default = true,
       text = "Enable COEP:credentialless header site-wide in supported browsers (Chromium)".some
-    )
-
-    val useSvgFiles = settingStore[Boolean](
-      "usePieceSvgFiles",
-      default = false,
-      text = "Load each piece image from an SVG file".some
     )

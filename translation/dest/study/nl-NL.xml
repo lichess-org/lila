@@ -16,6 +16,7 @@
   <string name="recentlyUpdated">Recent bijgewerkt</string>
   <string name="mostPopular">Meest populair</string>
   <string name="alphabetical">Alfabetisch</string>
+  <string name="relevant">Relevant</string>
   <string name="addNewChapter">Nieuw hoofdstuk toevoegen</string>
   <plurals name="nbChapters">
     <item quantity="one">%s hoofdstuk</item>
@@ -61,7 +62,7 @@
   <string name="studyPgn">PGN bestuderen</string>
   <string name="chapterPgn">Hoofdstuk PGN</string>
   <string name="copyChapterPgn">PGN kopiëren</string>
-  <string name="copyRawChapterPgn" comment="Appears as a button on individual study chapters. Lets you copy a PGN without any annotations, commentary or analysis">Kale pgn kopiëren</string>
+  <string name="copyRawChapterPgn">Kale pgn kopiëren</string>
   <string name="downloadGame">Partij downloaden</string>
   <string name="studyUrl">Studie URL</string>
   <string name="currentChapterUrl">Huidige hoofdstuk URL</string>
@@ -105,7 +106,6 @@
     <item quantity="other">Plak hier spellen als PGN-tekst. Voor elk spel wordt een nieuw hoofdstuk gemaakt. De studie kan maximaal %s hoofdstukken hebben.</item>
   </plurals>
   <string name="urlOfTheGame">URL van de partijen, één per regel</string>
-  <string name="loadAGameFromXOrY">Laad partijen van %1$s of %2$s</string>
   <string name="createChapter">Creëer hoofdstuk</string>
   <string name="createStudy">Maak studie</string>
   <string name="editStudy">Bewerk studie</string>

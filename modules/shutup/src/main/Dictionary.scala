@@ -100,11 +100,12 @@ mother(fuc?k(er|)|)
 mthrfckr
 nazi
 nigg?
-nigg?a[hr]?
+[nv]igg?[ae][hr]?
 nonce
 noo++b
 nutsac?k
 pa?edo((f|ph)ile|)
+pajeet
 paki
 pathetic
 pa?ederast
@@ -157,6 +158,7 @@ subhuman
 suicided?
 suc?ker
 suck(e?d|) m[ey]
+sybau
 terrorist
 tit(t?ies|ty|)(fuc?k|)
 tosser
@@ -193,6 +195,7 @@ uebok
 аутист(|ам?и?|у|ов|е|ы)
 бля(|дь?|ди|де|динам?и?|дине?|дство|ть?)
 вшив(ый|ая|ое|ые|ыми?)
+с+(ы|цы|ци)кун
 г[ао]ндон(|ам?и?|у|ов|е|ы)
 г[оа]вн(а|е|у|ом?)
 г[оа]вн[оа]ед(|ам?и?|е|у|ом|ов|ами|ах|ы)
@@ -268,6 +271,7 @@ madre
 malparid[ao]
 maric[oó]na?
 maric[ao]
+m[aá]tate
 mierda
 moduler[ao]
 payas[ao]
@@ -374,7 +378,7 @@ yar+ak kafa(l[iı]|s[iı])
 cancer (for|to)
 gas the
 g?kys
-get bombed
+get (bombed|shot)
 k y s
 ky5
 (l|1|ı|\|)<ys

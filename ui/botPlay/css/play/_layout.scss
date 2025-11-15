@@ -1,15 +1,17 @@
 $col1-player-clock-height: 50px;
-$col1-user-height: $col1-player-clock-height * 3 / 5;
-$col1-mat-height: $col1-player-clock-height * 2 / 5;
+$col1-user-height: $col1-player-clock-height;
+$col1-mat-height: 20px;
 $col1-moves-height: 4em;
 
 #main-wrap {
   ---main-max-width: auto;
 
-  @include mq-is-col1 {
-    ---main-max-width: calc(
-      100vh - #{$site-header-outer-height} - #{$col1-player-clock-height * 2} - #{$col1-moves-height}
-    );
+  &.bot-play {
+    @include mq-is-col1 {
+      ---main-max-width: calc(
+        100vh - #{$site-header-outer-height} - #{$col1-player-clock-height * 2} - #{$col1-moves-height}
+      );
+    }
   }
 }
 
@@ -18,29 +20,71 @@ $col1-moves-height: 4em;
   display: grid;
 
   @include mq-is-col1 {
-    // TODO
-    // grid-template-rows: $col1-user-height $col1-mat-height auto auto $col1-mat-height auto auto auto 0;
-    // grid-template-areas: 'user-top' 'mat-top' 'board' 'mat-bot' 'user-bot' 'controls' 'moves' 'voice' 'kb-move';
+    grid-template-rows: 3vh $col1-mat-height $col1-player-clock-height auto $col1-player-clock-height auto auto $col1-moves-height 0 0;
+    grid-template-columns: auto min-content;
+    grid-template-areas:
+      'opponent .'
+      'opponent mat-top'
+      'opponent clock-top'
+      'board board'
+      'mat-bottom clock-bottom'
+      'nav nav'
+      'actions actions'
+      'moves moves'
+      'voice voice'
+      'kb-move kb-move';
+    &__opponent {
+      display: flex;
+      align-items: flex-end;
+      &__header {
+        flex: 1;
+      }
+      &__image {
+        max-height: calc($col1-player-clock-height + 6vh) !important;
+        margin-right: $block-gap !important;
+      }
+    }
+    &__clock--top {
+      min-width: 30vw;
+    }
+    &__mat--bottom {
+      padding: 0.3em 0 0 1em;
+    }
+    &__table {
+      display: none;
+    }
   }
 
   @include mq-at-least-col2 {
     grid-template-areas:
       'board voice'
       'board .'
-      'board clock-mat-top'
+      'board mat-top'
+      'board clock-top'
       'board opponent'
-      'board moves'
       'board nav'
+      'board moves'
       'board actions'
-      'board clock-mat-bottom'
+      'board clock-bottom'
+      'board mat-bottom'
       'board .'
       'kb-move .';
     grid-template-columns: var(---col2-uniboard-width) $col2-uniboard-table;
     grid-template-rows: 0 auto; // 0 to prevent `voice` from moving the table off center
     grid-column-gap: $block-gap;
 
+    &__opponent {
+      position: relative;
+
+      &__image {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+      }
+    }
+
     &__table {
-      grid-area: 4 / 2 / 8 / 3;
+      grid-area: 5 / 2 / 9 / 3;
     }
 
     .keyboard-move {
@@ -78,9 +122,15 @@ $col1-moves-height: 4em;
 .bot-game__board {
   grid-area: board;
 }
-.bot-game__clock-mat--top {
-  grid-area: clock-mat-top;
+.bot-game__mat--top {
+  grid-area: mat-top;
 }
-.bot-game__clock-mat--bottom {
-  grid-area: clock-mat-bottom;
+.bot-game__clock--top {
+  grid-area: clock-top;
+}
+.bot-game__clock--bottom {
+  grid-area: clock-bottom;
+}
+.bot-game__mat--bottom {
+  grid-area: mat-bottom;
 }

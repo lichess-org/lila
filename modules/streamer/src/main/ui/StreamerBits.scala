@@ -5,7 +5,7 @@ import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
 
-final class StreamerBits(helpers: Helpers)(picfitUrl: lila.core.misc.PicfitUrl):
+final class StreamerBits(helpers: Helpers)(picfitUrl: lila.memo.PicfitUrl):
   import helpers.{ *, given }
   import trans.streamer as trs
 
@@ -89,15 +89,15 @@ final class StreamerBits(helpers: Helpers)(picfitUrl: lila.core.misc.PicfitUrl):
   object thumbnail:
     def apply(s: Streamer, u: User) =
       img(
-        widthA := Streamer.imageSize,
-        heightA := Streamer.imageSize,
+        widthA := Streamer.imageDimensions.width,
+        heightA := Streamer.imageDimensions.height,
         cls := "picture",
         src := url(s),
         alt := s"${u.titleUsername} Lichess streamer picture"
       )
     def url(s: Streamer) =
       s.picture match
-        case Some(image) => picfitUrl.thumbnail(image, Streamer.imageSize, Streamer.imageSize)
+        case Some(image) => picfitUrl.thumbnail(image)(Streamer.imageDimensions)
         case _ => assetUrl("images/placeholder.png")
 
   def menu(active: String, s: Option[Streamer.WithContext])(using ctx: Context) =
@@ -140,10 +140,7 @@ final class StreamerBits(helpers: Helpers)(picfitUrl: lila.core.misc.PicfitUrl):
 
   def liveStreams(l: LiveStreams.WithTitles): Frag =
     l.live.streams.map { s =>
-      redirectLink(s.streamer.id.into(UserStr))(
-        cls := "stream highlight",
-        title := s.status
-      )(
+      redirectLink(s.streamer.id.into(UserStr))(cls := "stream highlight")(
         strong(cls := "text", dataIcon := Icon.Mic)(l.titleName(s)),
         " ",
         s.cleanStatus

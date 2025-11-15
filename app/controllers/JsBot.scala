@@ -5,40 +5,44 @@ import play.api.mvc.*
 
 import lila.app.{ given, * }
 import lila.common.Json.given
-import lila.jsBot.{ AssetType, BotJson }
+import lila.jsBot.{ BotUid, AssetType, BotJson }
 
 final class JsBot(env: Env) extends LilaController(env):
 
-  def index = Secure(_.Beta) { _ ?=> _ ?=>
+  private val betaTeamId = TeamId("lichess-beta-testers")
+
+  def index = Open:
     for
-      bots <- env.jsBot.repo.getLatestBots()
-      res <- negotiate(
-        html =
-          for page <- renderPage(views.jsBot.play(bots, prefJson))
-          yield Ok(page).withServiceWorker,
-        json = JsonOk(Json.obj("bots" -> bots))
-      )
+      bots <- env.jsBot.api.playable.get(env.team.api.belongsTo(betaTeamId, _))
+      res <-
+        if bots.isEmpty then notFound
+        else
+          negotiate(
+            html =
+              for page <- renderPage(views.jsBot.play(bots, prefJson))
+              yield Ok(page).withServiceWorker,
+            json = JsonOk(Json.obj("bots" -> bots))
+          )
     yield res
-  }
 
   def assetKeys = Anon: // for service worker
-    JsonOk(env.jsBot.api.getJson)
+    JsonOk(env.jsBot.assets.getJson)
 
   def devIndex = Secure(_.BotEditor) { _ ?=> _ ?=>
     for
       bots <- env.jsBot.repo.getLatestBots()
-      assets <- env.jsBot.api.devGetAssets
+      assets <- env.jsBot.assets.devGetAssets
       page <- renderPage(views.jsBot.dev(bots, prefJson, assets))
     yield Ok(page).withServiceWorker
   }
 
   def devAssets = Secure(_.BotEditor) { _ ?=> _ ?=>
-    env.jsBot.api.devGetAssets.map(JsonOk)
+    env.jsBot.assets.devGetAssets.map(JsonOk)
   }
 
-  def devBotHistory(botId: Option[UserStr]) = Secure(_.BotEditor) { _ ?=> _ ?=>
+  def devBotHistory(botId: Option[String]) = Secure(_.BotEditor) { _ ?=> _ ?=>
     env.jsBot.repo
-      .getVersions(botId.map(_.id))
+      .getVersions(BotUid.from(botId))
       .map: history =>
         JsonOk(Json.obj("bots" -> history))
   }
@@ -48,19 +52,19 @@ final class JsBot(env: Env) extends LilaController(env):
       .validate[JsObject]
       .fold(
         err => BadRequest(jsonError(err.toString)),
-        bot => env.jsBot.repo.putBot(BotJson(bot), me.userId).map(JsonOk)
+        bot => JsonOk(env.jsBot.api.put(BotJson(bot)))
       )
   }
 
   def devNameAsset(key: String, name: String) = Secure(_.BotEditor): _ ?=>
     env.jsBot.repo
       .nameAsset(none, key, name, none)
-      .flatMap(_ => env.jsBot.api.devGetAssets.map(JsonOk))
+      .flatMap(_ => env.jsBot.assets.devGetAssets.map(JsonOk))
 
   def devDeleteAsset(key: String) = Secure(_.BotEditor): _ ?=>
     env.jsBot.repo
       .deleteAsset(key)
-      .flatMap(_ => env.jsBot.api.devGetAssets.map(JsonOk))
+      .flatMap(_ => env.jsBot.assets.devGetAssets.map(JsonOk))
 
   def devPostAsset(tpe: String, key: String) = SecureBody(parse.multipartFormData)(_.BotEditor) { ctx ?=>
     AssetType
@@ -71,15 +75,11 @@ final class JsBot(env: Env) extends LilaController(env):
         val name = formValue("name").getOrElse(key)
         ctx.body.body
           .file("file")
-          .map: file =>
-            env.jsBot.api
-              .storeAsset(tpe, key, file)
-              .flatMap:
-                case Left(error) => InternalServerError(jsonError(error)).as(JSON)
-                case Right(_) =>
-                  for _ <- env.jsBot.repo.nameAsset(tpe.some, key, name, author)
-                  yield JsonOk(Json.obj("key" -> key, "name" -> name))
-          .getOrElse(BadRequest(jsonError("missing file")).as(JSON))
+          .fold(BadRequest(jsonError("missing file")).as(JSON).toFuccess): file =>
+            for
+              _ <- env.jsBot.assets.storeAsset(tpe, key, file)
+              _ <- env.jsBot.repo.nameAsset(tpe.some, key, name, author)
+            yield JsonOk(Json.obj("key" -> key, "name" -> name))
   }
 
   // def test = Open:

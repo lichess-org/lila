@@ -23,7 +23,8 @@ case class ForumPost(
     updatedAt: Option[Instant] = None,
     erasedAt: Option[Instant] = None,
     modIcon: Option[Boolean],
-    reactions: Option[ForumPost.Reactions] = None
+    reactions: Option[ForumPost.Reactions] = None,
+    version: Option[Int] = 1.some
 ) extends lila.core.forum.ForumPost:
 
   private def showAuthor: String =
@@ -84,6 +85,8 @@ case class ForumPost(
     troll = troll,
     createdAt = createdAt
   )
+
+  def hasMarkdown = version.exists(_ >= 1)
 
   override def toString = s"Post($categId/$topicId/$id)"
 

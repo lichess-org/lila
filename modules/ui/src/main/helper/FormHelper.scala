@@ -34,10 +34,10 @@ trait FormHelper:
   val postForm = form(method := "post")
   val submitButton = button(tpe := "submit")
 
-  def markdownAvailable(using Translate): Frag =
-    trans.site.markdownAvailable:
+  def markdownIsAvailable(using Translate): Frag =
+    trans.site.markdownIsAvailable:
       a(
-        href := "https://guides.github.com/features/mastering-markdown/",
+        href := "https://www.markdownguide.org/cheat-sheet/",
         targetBlank
       )("Markdown")
 

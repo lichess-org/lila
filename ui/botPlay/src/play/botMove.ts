@@ -13,7 +13,7 @@ export const requestBotMove = async (source: MoveSource, game: Game): Promise<Mo
   const threefoldMoves = makeThreefoldMoves(chess, hashes);
 
   const moveRequest: MoveArgs = {
-    pos: { fen: game.initialFen || INITIAL_FEN, moves: ucis },
+    pos: { fen: game.data.initialFen || INITIAL_FEN, moves: ucis },
     chess: chess,
     avoid: threefoldMoves,
     initial: Infinity,

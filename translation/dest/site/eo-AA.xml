@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="gameSetup">Agordoj de ludo</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Defii geamikon</string>
+  <string name="playAgainstComputer">Ludi kontraŭ komputilo</string>
+  <string name="gameMode">Tipo de ludo</string>
+  <string name="createLobbyGame" comment="One of three buttons on the home page. Opens the modal to create a game that goes in the lobby.">Krei ludon en atendejo</string>
+  <string name="youPlayAs">Koloro de viaj pecoj</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Por inviti iun al ludo, donu ĉi tiun ligilon</string>
   <string name="gameOver">Ludo finiĝis</string>
   <string name="waitingForOpponent">Atendante kontraŭulon</string>
@@ -20,6 +26,7 @@
   <string name="asBlack">kiel nigro</string>
   <string name="randomColor">Hazarda koloro</string>
   <string name="createAGame">Krei ludon</string>
+  <string name="createTheGame">Krei ludon</string>
   <string name="whiteIsVictorious">Blanko venkis</string>
   <string name="blackIsVictorious">Nigro venkis</string>
   <string name="youPlayTheWhitePieces">Vi ludas per la blankaj pecoj</string>
@@ -72,6 +79,7 @@
   <string name="expandVariations">Etendi variaĵojn</string>
   <string name="forceVariation">Devigi variaĵon</string>
   <string name="copyVariationPgn">Kopi varianto PGN</string>
+  <string name="copyMainLinePgn">Kopii la ĉefan linion kiel PNG</string>
   <string name="move">Movo</string>
   <string name="variantLoss">Malvenka variaĵo</string>
   <string name="variantWin">Venka variaĵo</string>
@@ -154,6 +162,7 @@
   <string name="flipBoard">Rotacii tabulon</string>
   <string name="threefoldRepetition">Triobla ripeto</string>
   <string name="claimADraw">Postuli egalvenkon</string>
+  <string name="drawClaimed">Egalvenko petita</string>
   <string name="offerDraw">Proponi egalvenkon</string>
   <string name="draw">Egalvenko</string>
   <plurals name="nbPlayers">
@@ -163,6 +172,7 @@
   <string name="drawByMutualAgreement">Egalvenko per interkonsento</string>
   <string name="fiftyMovesWithoutProgress">Kvindek movoj sen progreso</string>
   <string name="currentGames">Ludataj ludoj</string>
+  <string name="joinedX">Aliĝinta %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s ludo</item>
     <item quantity="other">%s ludoj</item>
@@ -335,6 +345,7 @@
     <item quantity="other">%s aktualaj</item>
   </plurals>
   <string name="exportGames">Eksporti ludojn</string>
+  <string name="ratingFilter">Filtrilo de rango</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Doni %s sekundojn</item>
     <item quantity="other">Doni %s sekundojn</item>
@@ -343,7 +354,15 @@
   <string name="openingExplorerAndTablebase">Esplorilo de malfermoj &amp; tablobazo</string>
   <string name="takeback">Repreno</string>
   <string name="proposeATakeback">Proponi reprenon</string>
+  <string name="whiteProposesTakeback">Blanko proponas nuligi la lastan movon</string>
+  <string name="blackProposesTakeback">Nigro proponas nuligi la lastan movon</string>
   <string name="takebackPropositionSent">Reprena propono estis sendita</string>
+  <string name="whiteDeclinesTakeback">Blanko rifuzas nuligon de la lasta movo</string>
+  <string name="blackDeclinesTakeback">Nigro rifuzas nuligon de la lasta movo</string>
+  <string name="whiteAcceptsTakeback">Blanko akceptas nuligon de la lasta movo</string>
+  <string name="blackAcceptsTakeback">Nigro akceptas nuligon de la lasta movo</string>
+  <string name="whiteCancelsTakeback">Blanko nuligas la proponon nuligi movon</string>
+  <string name="blackCancelsTakeback">Nigro nuligas la proponon nuligi movon</string>
   <string name="yourOpponentProposesATakeback">Via kontraŭulo proponas nuligi la movon</string>
   <string name="bookmarkThisGame">Paĝmarki ĉi tiun ludon</string>
   <string name="tournament">Turniro</string>
@@ -382,6 +401,7 @@
     <item quantity="other">Vi devas ludi %s pli de taksaj ludoj</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Via rango de %s estas provizora</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">La rangaj filtriloj estas blokitaj ĉar via rango ne estas stabila. Ju pli da rangaj ludoj vi ludas des pli stabila estos via rango.</string>
   <string name="yourPerfRatingIsTooHigh">Via rango %1$s (%2$s) estas tro alta</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Via plej alta semajna rango en %1$s (%2$s) estas tro alta</string>
   <string name="yourPerfRatingIsTooLow">Via rango %1$s (%2$s) estas tro malalta</string>
@@ -462,6 +482,7 @@
   <string name="openTournaments">Enireblaj turniroj</string>
   <string name="duration">Daŭro</string>
   <string name="winner">Venkinto</string>
+  <string name="standings">Pozicioj</string>
   <string name="createANewTournament">Krei novan turniron</string>
   <string name="tournamentCalendar">Turnira kalendaro</string>
   <string name="conditionOfEntry">Kondiĉo de eniro:</string>
@@ -475,6 +496,7 @@
   <string name="points">Poentoj</string>
   <string name="wins">Venkoj</string>
   <string name="losses">Malvenkoj</string>
+  <string name="startingIn" comment="Displayed above a timer">Komenciĝo post</string>
   <string name="standByX">Atentu %s, parigante ludantojn, pretiĝu!</string>
   <string name="pause">Paŭzu</string>
   <string name="resume">Daŭrigu</string>
@@ -535,6 +557,7 @@
   <string name="no">Ne</string>
   <string name="yes">Jes</string>
   <string name="website">Retejo</string>
+  <string name="mobile">Poŝaparato</string>
   <string name="help">Helpo:</string>
   <string name="createANewTopic">Krei novan temon</string>
   <string name="topics">Temoj</string>
@@ -553,6 +576,9 @@
   <string name="cheat">Trompo</string>
   <string name="troll">Trolo</string>
   <string name="other">Io alia</string>
+  <string name="reportCheatBoostHelp">Algluu ligilon al la ludo(j) kaj klarigu, kio malĝustas pri la konduto de tiu ĉi uzanto. Ne simple diru \"ili filudis\", sed klarigu kiel vi atingis tiun konkludon.</string>
+  <string name="reportUsernameHelp">Klarigu kio estas ofenda en la nomo de tiu ĉi uzanto. Ne simple diru \"ĝi estas ofenda/maldeca\" sed rakontu al ni kiel vi atingis tiun konkludon, ĉefe se temas kaŝita ofendo, se ĝi ne estas en la angla, se ĝi apartenas al nenorma lingvaĵo aŭ se ĝi referas ion kulturan aŭ historian.</string>
+  <string name="reportProcessedFasterInEnglish">Via raporto estos pritraktita pli rapide se vi ĝin skribas en la angla.</string>
   <string name="error.provideOneCheatedGameLink">Bonvolu doni almenaŭ unu ligilon al ludo en kiu oni friponis.</string>
   <string name="by">de %s</string>
   <string name="importedByX">Importita de %s</string>
@@ -655,6 +681,7 @@
   <string name="really">vere</string>
   <string name="contribute">Kontribui</string>
   <string name="termsOfService">Uzkondiĉojn</string>
+  <string name="titleVerification">Kontrolo de titolo</string>
   <string name="sourceCode">Fontkodo</string>
   <string name="simultaneousExhibitions">Samtempludaj ekspozicioj</string>
   <string name="host">Gastiganto</string>
@@ -726,6 +753,9 @@
   <string name="checkYourEmail">Kontrolu vian retpoŝton</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Ni sendis al vi retmesaĝon . Klaku la ligilon en la poŝto por aktivigi vian konton.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Se vi ne vidas la retpoŝton , kontrolu aliajn lokojn kie ĝi povas esti, kiel via rubo , spam, socia , aŭ aliaj dosierujoj.</string>
+  <string name="ifYouDoNotGetTheEmail">Se vi ne ricevas retpoŝton post 5 minutoj:</string>
+  <string name="checkAllEmailFolders">Kontroli ĉiujn dosierujojn, trudmesaĝojn kaj rubujon</string>
+  <string name="verifyYourAddress">Konfirmu ke %s estas via retpoŝta adreso</string>
   <string name="weHaveSentYouAnEmailTo">Ni sendis retmesaĝon al %s. Klaku la ligilon en la poŝto por rekomencigi vian pasvorton.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">De registranta , vi konsentas al esti ligita de nia %s.</string>
   <string name="readAboutOur">Legu pri nia %s.</string>
@@ -734,6 +764,7 @@
   <string name="downloadAnnotated">Elŝutu prinotitan</string>
   <string name="downloadRaw">Elŝutu krudaj</string>
   <string name="downloadImported">Elŝutu importitan</string>
+  <string name="downloadAllGames">Elŝuti ĉiujn ludojn</string>
   <string name="crosstable">Kructabelo</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Vi povas ankaŭ rulumi sur la tabulo por movi en la ludo.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Tuŝadi sur komputilaj varioj por antaŭrigardi ilin.</string>
@@ -757,6 +788,7 @@
   <string name="playChessEverywhere">Ludi ŝakon ĉie</string>
   <string name="everybodyGetsAllFeaturesForFree">Ĉiuj ricevas ĉiujn trajtojn senpage</string>
   <string name="viewTheSolution">Vidi la solvon</string>
+  <string name="noChallenges">Sen defioj.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Havebla en %s lingvo!</item>
     <item quantity="other">Havebla en %s lingvoj!</item>
@@ -765,10 +797,11 @@
   <string name="xJoinsY">%1$s kuplas %2$s</string>
   <string name="xLikesY">%1$s ŝatas %2$s</string>
   <string name="quickPairing">Rapida parado</string>
-  <string name="lobby">Lobio</string>
+  <string name="lobby">Atendejo</string>
   <string name="anonymous">Sennoma</string>
   <string name="yourScore">Via poentaro: %s</string>
   <string name="language">Lingvo</string>
+  <string name="allLanguages">Ĉiuj lingvoj</string>
   <string name="background">Fono</string>
   <string name="light">Hela</string>
   <string name="dark">Malhela</string>
@@ -797,6 +830,7 @@
   <string name="notifications">Sciigoj</string>
   <string name="notificationsX">Sciigoj: %1$s</string>
   <string name="perfRatingX">Rango: %s</string>
+  <string name="yourRatingIsX">Via rango estas %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekundo por ludi la unuan movon</item>
     <item quantity="other">%s sekundoj por ludi la unuan movon</item>
@@ -848,6 +882,7 @@
   <string name="playVariationToCreateConditionalPremoves">Ludi variaĵo por krei kondiĉajn antaŭmovojn</string>
   <string name="noConditionalPremoves">Ne kondiĉaj antaŭmovoj</string>
   <string name="playX">Ludu %s</string>
+  <string name="challengeX">Defii %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">kaj savi %s antaŭmovan vicon</item>
     <item quantity="other">kaj savi %s antaŭmovajn vicojn</item>
@@ -939,7 +974,6 @@ Lasi ĝin malplena por komenci ludojn de la norma komenca pozicio.</string>
   <string name="simulFeaturedHelp">Montri vian samtempludon al ĉiuj en %s. Malaktivigi por privataj samtempludoj.</string>
   <string name="simulDescription">Priskribo de la samtempludo</string>
   <string name="simulDescriptionHelp">Ĉu vi volas diri ion al la partoprenantoj?</string>
-  <string name="markdownAvailable">%s estas havebla por pli progresinta sintakso.</string>
   <string name="embedsAvailable">Algui luda URL aŭ studa ĉapitro URL enkorpigi ĝin.</string>
   <string name="inYourLocalTimezone">En via loka horzono</string>
   <string name="tournChat">Babilejo de turnira</string>
@@ -955,6 +989,7 @@ Lasi ĝin malplena por komenci ludojn de la norma komenca pozicio.</string>
   <string name="focusChat">Babilejo de fokuso</string>
   <string name="showHelpDialog">Montri ĉi tiun help-dialogujon</string>
   <string name="reopenYourAccount">Remalfermi vian konton</string>
+  <string name="reopenYourAccountDescription">Se vi fermis vian konton sed poste ŝanĝis de ideo, vi havas la eblon rehavi vian konton.</string>
   <string name="emailAssociatedToaccount">Retpoŝtadreso, ke asociitas al la konto</string>
   <string name="sentEmailWithLink">Ni sendis retmesaĝon kun ligilo al vi.</string>
   <string name="tournamentEntryCode">Turnira enirkodo</string>
@@ -974,4 +1009,14 @@ Lasi ĝin malplena por komenci ludojn de la norma komenca pozicio.</string>
   <string name="lichessPatronInfo">Lichess estas almoza kaj tute libera malfermitkoda programaro.
 Ĉiu funkciada elspezo, ellaborado, kaj enhavo estas financita sole de uzantajn donacojn.</string>
   <string name="nothingToSeeHere">Nenio videbla ĉi tie nuntempe.</string>
+  <string name="stats">Statistikoj</string>
+  <string name="accessibility">Alireblo</string>
+  <string name="enableBlindMode">Aktivigi blindulan reĝimon</string>
+  <string name="disableBlindMode">Malaktivigi blindulan reĝimon</string>
+  <string name="copyToClipboard">Kopii al tondujo</string>
+  <string name="online" comment="status of a user">konektita</string>
+  <string name="offline" comment="status of a user">konektita</string>
+  <string name="search">Serĉi</string>
+  <string name="clearSearch">Viŝi serĉon</string>
+  <string name="tags">Etikedoj</string>
 </resources>

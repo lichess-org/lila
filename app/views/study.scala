@@ -42,6 +42,7 @@ def create(
 
 def show(
     s: lila.study.Study,
+    chapter: lila.study.Chapter,
     data: lila.study.JsonView.JsData,
     chatOption: Option[lila.chat.UserChat.Mine],
     socketVersion: SocketVersion,
@@ -62,7 +63,7 @@ def show(
             .add("admin", isGranted(_.StudyAdmin))
             .add("showRatings", ctx.pref.showRatings),
           "data" -> data.analysis,
-          "tagTypes" -> lila.study.PgnTags.typesToString,
+          "tagTypes" -> lila.study.StudyPgnTags.typesToString,
           "userId" -> ctx.userId,
           "chat" -> chatOption.map: c =>
             views.chat.json(
@@ -85,9 +86,16 @@ def show(
     .flag(_.zoom)
     .csp(views.analyse.ui.bits.cspExternalEngine.compose(_.withPeer.withExternalAnalysisApis))
     .graph(
-      title = s.name.value,
-      url = s"$netBaseUrl${routes.Study.show(s.id).url}",
-      description = s"A chess study by ${titleNameOrId(s.ownerId)}"
+      OpenGraph(
+        title = s.name.value,
+        url = routeUrl(routes.Study.show(s.id)),
+        description = s"A chess study by ${titleNameOrId(s.ownerId)}",
+        image = fenThumbnailUrl(
+          chapter.root.fen.opening,
+          chapter.setup.orientation.some,
+          chapter.setup.variant
+        ).some
+      )
     ):
       frag(
         main(cls := "analyse"),

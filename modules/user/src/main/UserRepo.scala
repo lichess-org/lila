@@ -208,31 +208,25 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
 
   def incNbGames(
       id: UserId,
-      rated: Boolean,
-      ai: Boolean,
+      rated: chess.Rated,
       result: Int,
       totalTime: Option[Int],
-      tvTime: Option[Int]
+      tvTime: Option[Int],
+      botVsHuman: Boolean
   ) =
     val incs: List[BSONElement] = List(
       "count.game".some,
-      rated.option("count.rated"),
-      ai.option("count.ai"),
+      rated.yes.option("count.rated"),
       (result match
         case -1 => "count.loss".some
         case 1 => "count.win".some
         case 0 => "count.draw".some
         case _ => none
-      ),
-      (result match
-        case -1 => "count.lossH".some
-        case 1 => "count.winH".some
-        case 0 => "count.drawH".some
-        case _ => none
-      ).ifFalse(ai)
+      )
     ).flatten.map(k => BSONElement(k, BSONInteger(1))) ::: List(
       totalTime.map(v => BSONElement(s"${F.playTime}.total", BSONInteger(v + 2))),
-      tvTime.map(v => BSONElement(s"${F.playTime}.tv", BSONInteger(v + 2)))
+      tvTime.map(v => BSONElement(s"${F.playTime}.tv", BSONInteger(v + 2))),
+      totalTime.ifTrue(botVsHuman).map(v => BSONElement(s"${F.playTime}.human", BSONInteger(v + 2)))
     ).flatten
 
     coll.update.one($id(id), $inc($doc(incs*)))
@@ -262,6 +256,9 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
 
   def userIdsLikeWithRole(text: UserSearch, role: RoleDbKey, max: Int = 10): Fu[List[UserId]] =
     userIdsLikeFilter(text, $doc(F.roles -> role), max)
+
+  def userIdsLikeClosed(text: UserSearch, max: Int = 10): Fu[List[UserId]] =
+    userIdsLikeFilter(text, $doc(F.enabled -> false), max)
 
   private[user] def userIdsLikeFilter(text: UserSearch, filter: Bdoc, max: Int): Fu[List[UserId]] =
     coll
@@ -314,7 +311,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
     coll.exists($id(id) ++ $doc(F.createdAt.$lt(since)))
 
   def setRoles(id: UserId, roles: List[RoleDbKey]): Funit =
-    coll.updateField($id(id), F.roles, roles).void
+    coll.updateOrUnsetField($id(id), F.roles, Option.when(roles.nonEmpty)(roles)).void
 
   def getRoles[U: UserIdOf](u: U): Fu[List[RoleDbKey]] =
     coll.primitiveOne[List[RoleDbKey]]($id(u.id), BSONFields.roles).dmap(_.orZero)
@@ -569,7 +566,10 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
   def filterClosedOrInactiveIds(since: Instant)(ids: Iterable[UserId]): Fu[List[UserId]] =
     coll.distinctEasy[UserId, List](F.id, $inIds(ids) ++ $or(disabledSelect, F.seenAt.$lt(since)), _.sec)
 
-  private val defaultCount = lila.core.user.Count(0, 0, 0, 0, 0, 0, 0, 0, 0)
+  def createdWithApiVersion(userId: UserId) =
+    coll.primitiveOne[ApiVersion]($id(userId), F.createdWithApiVersion)
+
+  private val defaultCount = lila.core.user.Count(0, 0, 0, 0, 0)
 
   private def newUser(
       name: UserName,
@@ -593,7 +593,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
       F.createdAt -> now,
       F.createdWithApiVersion -> mobileApiVersion,
       F.seenAt -> now,
-      F.playTime -> PlayTime(0, 0),
+      F.playTime -> PlayTime(0, 0, none),
       F.lang -> lang
     ) ++ {
       (email.value != normalizedEmail.value).so($doc(F.verbatimEmail -> email))

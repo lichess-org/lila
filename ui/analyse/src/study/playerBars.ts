@@ -1,5 +1,5 @@
 import type { VNode } from 'snabbdom';
-import { hl } from 'lib/snabbdom';
+import { hl } from 'lib/view';
 import renderClocks from '../view/clocks';
 import type AnalyseCtrl from '../ctrl';
 import { renderMaterialDiffs } from '../view/components';
@@ -94,7 +94,7 @@ export const playerFed = (fed?: Federation): VNode | undefined =>
   fed &&
   hl('img.mini-game__flag', {
     attrs: {
-      src: site.asset.url(`images/fide-fed-webp/${fed.id}.webp`),
+      src: site.asset.fideFedSrc(fed.id),
       title: `Federation: ${fed.name}`,
     },
   });

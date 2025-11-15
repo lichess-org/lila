@@ -16,6 +16,7 @@
   <string name="recentlyUpdated">Được cập nhật gần đây</string>
   <string name="mostPopular">Phổ biến nhất</string>
   <string name="alphabetical">Theo thứ tự chữ cái</string>
+  <string name="relevant">Liên quan</string>
   <string name="addNewChapter">Thêm một chương mới</string>
   <plurals name="nbChapters">
     <item quantity="other">%s Chương</item>
@@ -58,7 +59,7 @@
   <string name="studyPgn">PGN nghiên cứu</string>
   <string name="chapterPgn">PGN chương</string>
   <string name="copyChapterPgn">Sao chép PGN</string>
-  <string name="copyRawChapterPgn" comment="Appears as a button on individual study chapters. Lets you copy a PGN without any annotations, commentary or analysis">Sao chép bản PGN thô</string>
+  <string name="copyRawChapterPgn">Sao chép bản PGN thô</string>
   <string name="downloadGame">Tải về ván cờ</string>
   <string name="studyUrl">URL nghiên cứu</string>
   <string name="currentChapterUrl">URL chương hiện tại</string>
@@ -101,7 +102,6 @@
     <item quantity="other">Dán PGN ở đây, tối đa %s ván</item>
   </plurals>
   <string name="urlOfTheGame">URL của các ván, một URL mỗi dòng</string>
-  <string name="loadAGameFromXOrY">Tải ván cờ từ %1$s hoặc %2$s</string>
   <string name="createChapter">Tạo chương</string>
   <string name="createStudy">Tạo nghiên cứu</string>
   <string name="editStudy">Chỉnh sửa nghiên cứu</string>

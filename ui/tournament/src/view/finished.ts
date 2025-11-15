@@ -8,8 +8,8 @@ import { teamStanding } from './battle';
 import header from './header';
 import playerInfo from './playerInfo';
 import teamInfo from './teamInfo';
-import { numberRow } from './util';
-import { type MaybeVNodes } from 'lib/snabbdom';
+import { numberRow } from 'lib/view/util';
+import { type MaybeVNodes } from 'lib/view';
 import { once } from 'lib/storage';
 
 function confetti(data: TournamentData): VNode | undefined {
@@ -99,11 +99,8 @@ export const name = 'finished';
 
 export function main(ctrl: TournamentController): MaybeVNodes {
   const pag = players(ctrl);
-  const teamS = teamStanding(ctrl, 'finished');
   return [
-    ...(teamS
-      ? [header(ctrl), teamS]
-      : [h('div.podium-wrap', [confetti(ctrl.data), header(ctrl), podium(ctrl)])]),
+    h('div.podium-wrap', [confetti(ctrl.data), header(ctrl), teamStanding(ctrl, 'finished') || podium(ctrl)]),
     controls(ctrl, pag),
     standing(ctrl, pag),
   ];

@@ -16,8 +16,8 @@ final class FormUi(helpers: Helpers, bits: TeamUi)(
   import trans.team as trt
   import bits.{ TeamPage, menu }
 
-  def create(form: Form[?], captcha: Captcha)(using Context) =
-    TeamPage(trans.team.newTeam.txt()).js(captchaEsm):
+  def create(form: Form[?], captcha: Captcha)(using Context, Me) =
+    TeamPage(trans.team.newTeam.txt()).markdownTextarea.js(captchaEsm):
       main(cls := "page-menu page-small")(
         menu("form".some),
         div(cls := "page-menu__content box box-pad")(
@@ -36,8 +36,8 @@ final class FormUi(helpers: Helpers, bits: TeamUi)(
         )
       )
 
-  def edit(t: Team, form: Form[?], member: Option[TeamMember])(using ctx: Context) =
-    TeamPage(s"Edit Team ${t.name}").js(Esm("bits.team")):
+  def edit(t: Team, form: Form[?], member: Option[TeamMember])(using Context, Me) =
+    TeamPage(s"Edit Team ${t.name}").markdownTextarea.js(Esm("bits.team")):
       main(cls := "page-menu page-small team-edit")(
         menu(none),
         div(cls := "page-menu__content box box-pad")(
@@ -95,7 +95,7 @@ final class FormUi(helpers: Helpers, bits: TeamUi)(
   private def flairField(form: Form[?])(using Context) =
     form3.flairPickerGroup(form("flair"), Flair.from(form("flair").value))
 
-  private def textFields(form: Form[?])(using Context) = frag(
+  private def textFields(form: Form[?])(using Context, Me) = frag(
     form3.group(
       form("intro"),
       trans.team.introduction(),
@@ -106,21 +106,17 @@ final class FormUi(helpers: Helpers, bits: TeamUi)(
     form3.group(
       form("description"),
       trans.site.description(),
-      help = frag(trans.team.teamDescriptionHelp(), br, markdownAvailable).some
-    )(
-      form3.textarea(_)(rows := 10)
-    ),
+      help = frag(trans.team.teamDescriptionHelp(), br, markdownIsAvailable).some
+    )(f => teamDescTextarea(f)(minlength := 30)),
     form3.group(
       form("descPrivate"),
       trans.site.descPrivate(),
       help = frag(
         trans.site.descPrivateHelp(),
         br,
-        markdownAvailable
+        markdownIsAvailable
       ).some
-    )(
-      form3.textarea(_)(rows := 10)
-    )
+    )(f => teamDescTextarea(f)())
   )
 
   private def accessFields(form: Form[?])(using Context) =
@@ -178,3 +174,7 @@ final class FormUi(helpers: Helpers, bits: TeamUi)(
         half = true
       )(form3.input(_))
     )
+
+  private def teamDescTextarea(field: play.api.data.Field)(modifiers: Modifier*)(using Me) =
+    lila.ui.bits.markdownTextarea(s"team${field.name.capitalize}".some):
+      form3.textarea(field)(rows := 10)(modifiers)

@@ -55,7 +55,6 @@
   <string name="completedTourns">Beendete Turniere</string>
   <string name="declinedRequests">Abgelehnte Anfragen</string>
   <string name="joinLichessVariantTeam">Tritt dem offiziellen %s-Team für Neuigkeiten und Ereignisse bei</string>
-  <string name="teamPage">Teamseite</string>
   <string name="thisTeamBattleIsOver">Dieses Turnier ist vorbei und die Teams können nicht mehr aktualisiert werden.</string>
   <string name="listTheTeamsThatWillCompete">Liste die Teams auf, die in diesem Kampf antreten werden.</string>
   <string name="oneTeamPerLine">Ein Team pro Zeile. Verwende die Auto-Vervollständigung.</string>

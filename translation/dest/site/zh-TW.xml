@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="gameSetup">棋局設置</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">挑戰一位朋友</string>
+  <string name="playAgainstComputer">與電腦對局</string>
+  <string name="gameMode">遊戲模式</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">請分享此網址以邀人下棋</string>
   <string name="gameOver">遊戲結束</string>
   <string name="waitingForOpponent">正在等待對手</string>
@@ -20,6 +24,7 @@
   <string name="asBlack">作為黑方</string>
   <string name="randomColor">隨機選色</string>
   <string name="createAGame">開始對局</string>
+  <string name="createTheGame">創建對局</string>
   <string name="whiteIsVictorious">白方勝</string>
   <string name="blackIsVictorious">黑方勝</string>
   <string name="youPlayTheWhitePieces">您執白棋</string>
@@ -154,6 +159,7 @@
   <string name="drawByMutualAgreement">雙方同意和局</string>
   <string name="fiftyMovesWithoutProgress">50步規則和局</string>
   <string name="currentGames">當前對局</string>
+  <string name="joinedX">於 %s 加入</string>
   <plurals name="nbGames">
     <item quantity="other">查看所有%s盤棋</item>
   </plurals>
@@ -319,7 +325,15 @@
   <string name="openingExplorerAndTablebase">開局瀏覽器 &amp; 總局資料庫</string>
   <string name="takeback">悔棋</string>
   <string name="proposeATakeback">請求悔棋</string>
+  <string name="whiteProposesTakeback">白方提議悔棋</string>
+  <string name="blackProposesTakeback">黑方提議悔棋</string>
   <string name="takebackPropositionSent">悔棋請求已發送</string>
+  <string name="whiteDeclinesTakeback">白方拒絕悔棋</string>
+  <string name="blackDeclinesTakeback">黑方拒絕悔棋</string>
+  <string name="whiteAcceptsTakeback">白方同意悔棋</string>
+  <string name="blackAcceptsTakeback">黑方同意悔棋</string>
+  <string name="whiteCancelsTakeback">白方取消悔棋</string>
+  <string name="blackCancelsTakeback">黑方取消悔棋</string>
   <string name="yourOpponentProposesATakeback">對手請求悔棋</string>
   <string name="bookmarkThisGame">收藏該棋局</string>
   <string name="tournament">錦標賽</string>
@@ -698,6 +712,7 @@
   <string name="downloadAnnotated">下載含有棋子走動方向的棋局</string>
   <string name="downloadRaw">下載純文字</string>
   <string name="downloadImported">下載導入的棋局</string>
+  <string name="downloadAllGames">下載所有棋局</string>
   <string name="crosstable">歷程表</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">您也可以捲動棋盤以移動。</string>
   <string name="scrollOverComputerVariationsToPreviewThem">將鼠標移到電腦分析變種上進行預覽</string>
@@ -733,6 +748,7 @@
   <string name="anonymous">匿名用户</string>
   <string name="yourScore">您的分數:%s</string>
   <string name="language">語言</string>
+  <string name="allLanguages">所有語言</string>
   <string name="background">背景</string>
   <string name="light">亮</string>
   <string name="dark">暗</string>
@@ -900,7 +916,6 @@
   <string name="simulFeaturedHelp">在 %s 上向所有人展示您主持的車輪戰，對私人車輪戰無效。</string>
   <string name="simulDescription">車輪戰描述</string>
   <string name="simulDescriptionHelp">有甚麼要告訴參賽者的嗎？</string>
-  <string name="markdownAvailable">%s 可用於更高級的格式。</string>
   <string name="embedsAvailable">貼上對局或學習章節網址來嵌入。</string>
   <string name="inYourLocalTimezone">在您的時區內</string>
   <string name="tournChat">錦標賽聊天室</string>
@@ -937,4 +952,10 @@
 一切營運成本、開發和內容皆來自用戶之捐贈。</string>
   <string name="nothingToSeeHere">目前這裡沒有什麼好看的。</string>
   <string name="stats">統計</string>
+  <string name="copyToClipboard">複製到剪貼簿</string>
+  <string name="online" comment="status of a user">在線</string>
+  <string name="offline" comment="status of a user">離線</string>
+  <string name="search">搜索</string>
+  <string name="clearSearch">清除搜索</string>
+  <string name="tags">標籤</string>
 </resources>

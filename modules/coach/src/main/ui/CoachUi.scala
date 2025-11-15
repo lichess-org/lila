@@ -13,7 +13,7 @@ import lila.ui.*
 import ScalatagsTemplate.{ *, given }
 
 final class CoachUi(helpers: Helpers)(
-    picfitUrl: lila.core.misc.PicfitUrl,
+    picfitUrl: lila.memo.PicfitUrl,
     flagInfo: Profile => Option[Flag],
     flagApi: lila.core.user.FlagApi,
     contactEmail: EmailAddress,
@@ -27,10 +27,10 @@ final class CoachUi(helpers: Helpers)(
 
   def thumbnailUrl(c: Coach) =
     c.picture match
-      case Some(image) => picfitUrl.thumbnail(image, Coach.imageSize, Coach.imageSize)
+      case Some(image) => picfitUrl.thumbnail(image)(Coach.imageDimensions)
       case _ => assetUrl("images/placeholder.png")
 
-  def thumbnail(c: Coach.WithUser, cssSize: Int = Coach.imageSize) =
+  def thumbnail(c: Coach.WithUser, cssSize: Int = Coach.imageDimensions.width) =
     img(
       widthA := cssSize,
       heightA := cssSize,
@@ -63,7 +63,7 @@ final class CoachUi(helpers: Helpers)(
                 flagInfo(profile).map: c =>
                   frag(
                     span(cls := "flag")(
-                      img(src := assetUrl(s"images/flags/${c.code}.png")),
+                      img(src := assetUrl(s"flags/${c.code}.png")),
                       " ",
                       c.name
                     )
@@ -128,7 +128,7 @@ final class CoachUi(helpers: Helpers)(
         OpenGraph(
           title = title,
           description = shorten(~(c.coach.profile.headline), 152),
-          url = s"$netBaseUrl${routes.Coach.show(c.user.username)}",
+          url = routeUrl(routes.Coach.show(c.user.username)),
           `type` = "profile",
           image = c.coach.picture.isDefined.option(thumbnailUrl(c.coach))
         )

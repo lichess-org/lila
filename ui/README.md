@@ -6,18 +6,22 @@ Use the [/ui/build](./build) script.
 ui/build --help
 ```
 
-Start it up in watch mode with `ui/build -w` to continuously rebuild when changes are detected. Keep an eye on stdout for build errors or new manifests. Manifests list public javascript and css assets that browsers must fetch independently. 
+Start it up in watch mode with `ui/build -w` to continuously rebuild when changes are detected.
 
-When changes compile successfully, a new manifest is created and your dev lila server will list those updated assets in any subsequent responses. Just reload your browser to see the results.
+When changes compile successfully, stdout will report creation of a new manifest. Manifests list public javascript and css assets that browsers must fetch independently. The server communicates those updated URLs in subsequent responses. Just reload your browser to see the results.
 
 # Testing
 
-The frontend uses the [Vitest](https://vitest.dev/) testing framework.
+Use the [/ui/test](./.test/runner.mjs) script. It's a simple wrapper for node's test runner.
 
 ```bash
-pnpm test
-## or
-pnpm test:watch
+ui/test            # build ui/*/tests/**/*.ts
+
+ui/test -w         # watch ui/*/tests/**/*.ts
+
+ui/test winning    # ui/lib/tests/winningChances.test.ts
+
+ui/test mod once   # ui/mod/tests/**/*.ts ui/lib/tests/once.test.ts
 ```
 
 # About packages
@@ -36,46 +40,55 @@ That tells [pnpm](https://pnpm.io) and our build script to resolve the dependenc
 We do not use devDependencies because no package artifacts are published to npm. There is no useful distinction between dependencies and devDependencies when we're always building assets for the lila server.
 
 ## tsc import resolution
-tsc type checking uses package.json properties to resolve static import declarations in external sources to the correct declaration (\*.d.ts) files in the imported package. When a single declaration barrel describes all package types, we can use the "types" property as shown in this example from [/ui/voice/package.json](./voice/package.json):
-
-```json
-  "types": "dist/voice.d.ts",
-```
-
-When more granular access to the imported package is needed, we use the "typesVersion" property to expose selective imports within the dist folder along with an optional "typings" property to identify a main barrel within the "typesVersion" mapping.
-
-```json
-  "typings": "common",
-  "typesVersions": {
-    "*": {
-      "*": [
-        "dist/*"
-      ]
-    }
-  },
-```
-
-## esbuild import resolution
-The [esbuild bundler](https://esbuild.github.io/getting-started/#your-first-bundle) does things a bit differently. It uses an "exports" object to resolve static workspace imports directly to the imported package's typescript source files. Declaration (*.d.ts) files are not used.
-
-In this example from [/ui/opening/src/opening.ts](./opening/src/opening.ts):
-
-```typescript
-import { initMiniBoards } from 'lib/view/miniBoard';
-import { requestIdleCallback } from 'lib';
-```
-
-The above 'lib/view/miniBoard' and 'lib' import declarations are mapped to the typescript sources by this snippet from [/ui/lib/package.json](./lib/package.json):
+tsc type checking uses package.json's `exports` property [(node)](https://nodejs.org/api/packages.html#packages_exports) to resolve static import declarations in external sources to the correct declaration (\*.d.ts) files in the imported package.
 
 ```json
   "exports": {
-    ".": "./src/common.ts",
-    "./*": "./src/*.ts"
-  },
+    ".": {
+      "types": "./dist/index.d.ts"
+      "import": {
+        "source": "./src/index.ts"
+        "default": "./dist/index.js"
+      }
+    }
+  }
 ```
-That maps `from 'lib'` to `src/common.ts` and `from 'lib/view/miniBoard'` to `src/miniBoard.ts`.
+tsc needs both `types` and `import` -> `default` to point to .d.ts and .js products during the typechecking (--noEmit) phase. tsc does not care about "source"
 
-While esbuild may bundle imported code directly into the entry point module, it may also split imported code into "lib" chunk modules that are shared and imported by other workspace modules. This chunked approach is called code splitting and reduces the overall footprint of asset transfers over the wire and within the browser cache.
+The `exports` object [(typescript)](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-7.html#packagejson-exports-imports-and-self-referencing) allows per directory remaps for barrel exports. With the following [/ui/lib/package.json](./ui/lib/package.json):
+```json
+  "exports": {
+
+    ...
+
+    "./ceval": {
+      "types": "./dist/ceval/index.d.ts"
+      "import": {
+        "source": "./src/ceval/index.ts",
+        "default": "./dist/ceval/index.js"
+      }
+    }
+  }
+```
+An external package can import from the lib/ceval/index.ts barrel with:
+
+```typescript
+import { type X, Y, Z } from 'lib/ceval';
+```
+
+## esbuild import resolution
+The [esbuild bundler](https://esbuild.github.io/getting-started/#your-first-bundle) uses `exports` as well but ignores "types", *.d.ts, and *.js files. It consumes only the `source` value within an `import` property. The value must be package relative to the typescript source(s).
+
+```json
+  "exports": {
+    "./boo/*": {
+      "import": {
+        "source": "./src/boo/*.ts"
+      }
+    }
+  }
+```
+##### Note - While esbuild may bundle imported code directly into an entry point module, it may also split imported code into "lib" chunk modules that are shared and imported by other workspace modules. This chunked approach is called code splitting and reduces the overall footprint of asset transfers over the wire and within cache.
 
 ## "build" property (top-level in package.json)
 
@@ -154,11 +167,14 @@ Hash entries identify files for which a symlink named with their content hash wi
 ```
 Entries may also take object form:
 ```json
-    "hash": { "glob": "<pattern>", "update": "<package-relative-path>" }
+    "hash": { "path": "<pattern>", "omit": true, "catalog": "<path-to-catalog>" }
 ```
-When the object form is processed, symlinks for globbed files are created in /public/hashed same as before. Then the "update" file is processed and all occurrence of those globbed filenames are replaced with their hashed symlink URLs. The modified "update" file contents are also content-hashed and written to /public/hashed. This is useful when an asset references other files by name and those references must be updated to reflect the hashed URLs. Any asset mapping within a static json or text file can be kept current in this way.
+When the object form is processed, symlinks for files globbed by the "path" pattern are created in /public/hashed same as before.
 
-* "hash" sources must begin with `/public` to resolve correctly on production deployments.
-* "update" files may not begin with `/` and are always package relative.
+Setting the optional "omit" field to true will omit all "path" globbed items from the client manifest. They will stil appear in the server manifest.
+
+The optional "catalog" field may identifies a mapping file to be transformed. All occurrences of filenames globbed by the "path" pattern within the catalog file are replaced with their hashed symlink URLs. The modified catalog file contents are also content-hashed and written to /public/hashed. This is useful when an asset references other files by name and those references must be updated to reflect the hashed URLs. Any asset mapping within a static json or text file can be kept current in this way.
+
+* hash paths must begin with `/public` to resolve correctly on production deployments.
 
 The node sources for ui/build are in the [/ui/.build](./.build) folder.

@@ -57,7 +57,6 @@ I giocatori a cui non piace ricevere i tuoi messaggi potrebbero lasciare la squa
   <string name="completedTourns">Tornei completati</string>
   <string name="declinedRequests">Richieste Rifiutate</string>
   <string name="joinLichessVariantTeam">Unisciti al team ufficiale di %s per novità ed eventi</string>
-  <string name="teamPage">Pagina della squadra</string>
   <string name="thisTeamBattleIsOver">Questo torneo è terminato e le squadre non possono più essere aggiornate.</string>
   <string name="listTheTeamsThatWillCompete">Elenca le squadre che competeranno in questa battaglia.</string>
   <string name="oneTeamPerLine">Un team per riga. Usa il completamento automatico.</string>

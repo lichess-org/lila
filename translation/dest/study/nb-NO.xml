@@ -16,6 +16,7 @@
   <string name="recentlyUpdated">Nylig oppdatert</string>
   <string name="mostPopular">Mest populære</string>
   <string name="alphabetical">Alfabetisk</string>
+  <string name="relevant">Relevant</string>
   <string name="addNewChapter">Legg til kapittel</string>
   <plurals name="nbChapters">
     <item quantity="one">%s kapittel</item>
@@ -61,6 +62,7 @@
   <string name="studyPgn">Studie-PGN</string>
   <string name="chapterPgn">Kapittel-PGN</string>
   <string name="copyChapterPgn">Kopier PGN</string>
+  <string name="copyRawChapterPgn">Kopier rå PGN</string>
   <string name="downloadGame">Last ned partiet</string>
   <string name="studyUrl">Studie-URL</string>
   <string name="currentChapterUrl">Kapittel-URL</string>
@@ -104,7 +106,6 @@
     <item quantity="other">Sett inn PGN-teksten din her, maksimum %s partier</item>
   </plurals>
   <string name="urlOfTheGame">URL for partiene, én pr. linje</string>
-  <string name="loadAGameFromXOrY">Last inn partier fra %1$s eller %2$s</string>
   <string name="createChapter">Opprett kapittel</string>
   <string name="createStudy">Opprett en studie</string>
   <string name="editStudy">Rediger studie</string>

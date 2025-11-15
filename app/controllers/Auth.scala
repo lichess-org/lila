@@ -28,7 +28,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
     )
 
   private def getReferrerOption(using ctx: Context): Option[String] =
-    get("referrer").flatMap(env.web.referrerRedirect.valid).orElse(ctx.req.session.get(api.AccessUri))
+    env.web.referrerRedirect.fromReq.orElse(ctx.req.session.get(api.AccessUri))
 
   private def getReferrer(using Context): String = getReferrerOption | routes.Lobby.home.url
 
@@ -76,7 +76,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
   def loginLang = LangPage(routes.Auth.login)(serveLogin)
 
   private def serveLogin(using ctx: Context) = NoBot:
-    val referrer = get("referrer").flatMap(env.web.referrerRedirect.valid)
+    val referrer = env.web.referrerRedirect.fromReq
     val switch = get("switch").orElse(get("as"))
     referrer.ifTrue(ctx.isAuth).ifTrue(switch.isEmpty) match
       case Some(url) => Redirect(url) // redirect immediately if already logged in
@@ -149,17 +149,32 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
                   }
         )
 
+  private val clasLoginRateLimit =
+    env.security.ipTrust.rateLimit(300, 1.hour, "clas.login")
+
+  def clasLogin = OpenBody:
+    Firewall:
+      val failRedir = Redirect(routes.Clas.index).flashFailure("Invalid or expired login code")
+      bindForm(lila.clas.ClasForm.login)(
+        _ => failRedir,
+        code =>
+          clasLoginRateLimit(rateLimited):
+            for
+              found <- env.clas.login.login(code)
+              res <- found.fold(failRedir.toFuccess): (user, clsId) =>
+                val redir = Redirect(routes.Clas.show(clsId)).flashSuccess:
+                  lila.core.i18n.I18nKey.emails.welcome_subject.txt(user.username)
+                authenticateUser(user, IsPwned.No, false, Some(_ => redir))
+            yield res
+      )
+
   def logout = Open:
-    env.security.api
-      .reqSessionId(ctx.req)
-      .so: currentSessionId =>
-        env.security.store.delete(currentSessionId) >>
-          env.push.webSubscriptionApi.unsubscribeBySession(currentSessionId)
-    >>
-      negotiate(
-        Redirect(routes.Auth.login),
-        jsonOkResult
-      ).dmap(_.withCookies(env.security.lilaCookie.newSession))
+    val sid = env.security.api.reqSessionId(ctx.req)
+    for
+      _ <- sid.so(env.security.store.delete)
+      _ <- sid.so(env.push.webSubscriptionApi.unsubscribeBySession)
+      res <- negotiate(Redirect(routes.Auth.login), jsonOkResult)
+    yield res.withCookies(env.security.lilaCookie.newSession)
 
   // mobile app BC logout with GET
   def logoutGet = Auth { ctx ?=> _ ?=>
@@ -176,46 +191,50 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
     forms.signup.website.flatMap: form =>
       Ok.page(views.auth.signup(form))
 
-  private def authLog(user: UserName, email: Option[EmailAddress], msg: String)(using ctx: Context) =
-    env.security.ip2proxy
-      .ofReq(ctx.req)
-      .foreach: proxy =>
-        lila.log("auth").info(s"$proxy $user ${email.fold("-")(_.value)} $msg")
+  private def authLog(user: UserName, email: Option[EmailAddress], msg: String)(using ctx: Context) = for
+    proxy <- env.security.ip2proxy.ofReq(ctx.req)
+    creationApi <- env.user.repo.createdWithApiVersion(user.id)
+    cav = creationApi.fold("-")(_.toString)
+  do lila.log("auth").info(s"$proxy $user ${email.fold("-")(_.value)} cav:$cav $msg")
 
   def signupPost = OpenBody:
     NoTor:
       Firewall:
-        forms.preloadEmailDns() >> negotiateApi(
-          html = env.security.signup
-            .website(ctx.blind)
-            .flatMap:
-              case Signup.Result.RateLimited | Signup.Result.ForbiddenNetwork => rateLimited
-              case Signup.Result.MissingCaptcha =>
-                forms.signup.website.flatMap: form =>
-                  BadRequest.page(views.auth.signup(form))
-              case Signup.Result.Bad(err) =>
-                forms.signup.website.flatMap: baseForm =>
-                  BadRequest.page(views.auth.signup(baseForm.withForm(err)))
-              case Signup.Result.ConfirmEmail(user, email) =>
-                Redirect(routes.Auth.checkYourEmail).withCookies:
-                  EmailConfirm.cookie.make(env.security.lilaCookie, user, email)(using ctx.req)
-              case Signup.Result.AllSet(user, email) =>
-                welcome(user, email, sendWelcomeEmail = true) >> redirectNewUser(user)
-          ,
-          api = apiVersion =>
-            env.security.signup
-              .mobile(apiVersion)
-              .flatMap:
-                case Signup.Result.RateLimited => rateLimited
-                case Signup.Result.ForbiddenNetwork =>
-                  BadRequest(jsonError("This network cannot create new accounts."))
-                case Signup.Result.MissingCaptcha => BadRequest(jsonError("Missing captcha?!"))
-                case Signup.Result.Bad(err) => doubleJsonFormError(err)
-                case Signup.Result.ConfirmEmail(_, _) => Ok(Json.obj("email_confirm" -> true))
-                case Signup.Result.AllSet(user, email) =>
-                  welcome(user, email, sendWelcomeEmail = true) >>
-                    authenticateUser(user, remember = true, pwned = IsPwned.No)
-        )
+        WithProxy: proxy ?=>
+          limit.enumeration.signup(rateLimited):
+            proxy.no.so(forms.preloadEmailDns()) >>
+              HTTPRequest
+                .apiVersion(ctx.req)
+                .match
+                  case None =>
+                    env.security.signup
+                      .website(ctx.blind)
+                      .flatMap:
+                        case Signup.Result.RateLimited | Signup.Result.ForbiddenNetwork => rateLimited
+                        case Signup.Result.MissingCaptcha =>
+                          forms.signup.website.flatMap: form =>
+                            BadRequest.page(views.auth.signup(form))
+                        case Signup.Result.Bad(err) =>
+                          forms.signup.website.flatMap: baseForm =>
+                            BadRequest.page(views.auth.signup(baseForm.withForm(err)))
+                        case Signup.Result.ConfirmEmail(user, email) =>
+                          Redirect(routes.Auth.checkYourEmail).withCookies:
+                            EmailConfirm.cookie.make(env.security.lilaCookie, user, email)(using ctx.req)
+                        case Signup.Result.AllSet(user, email) =>
+                          welcome(user, email, sendWelcomeEmail = true) >> redirectNewUser(user)
+                  case Some(apiVersion) =>
+                    env.security.signup
+                      .mobile(apiVersion)
+                      .flatMap:
+                        case Signup.Result.RateLimited => rateLimited
+                        case Signup.Result.ForbiddenNetwork =>
+                          BadRequest(jsonError("This network cannot create new accounts."))
+                        case Signup.Result.MissingCaptcha => BadRequest(jsonError("Missing captcha?!"))
+                        case Signup.Result.Bad(err) => doubleJsonFormError(err)
+                        case Signup.Result.ConfirmEmail(_, _) => Ok(Json.obj("email_confirm" -> true))
+                        case Signup.Result.AllSet(user, email) =>
+                          welcome(user, email, sendWelcomeEmail = true) >>
+                            authenticateUser(user, remember = true, pwned = IsPwned.No)
 
   private def welcome(user: UserModel, email: EmailAddress, sendWelcomeEmail: Boolean)(using
       ctx: Context

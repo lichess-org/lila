@@ -8,6 +8,15 @@ import lila.core.i18n.{ I18nKey, Translate }
 
 trait CtrlErrors extends ControllerHelpers:
 
+  given Writes[lila.memo.RateLimit.Limited] = Writes: l =>
+    Json.obj(
+      "error" -> l.msg,
+      "ratelimit" -> Json.obj(
+        "key" -> l.key,
+        "seconds" -> (l.until.toSeconds - nowSeconds).toInt.atLeast(0)
+      )
+    )
+
   def jsonError[A: Writes](err: A): JsObject = Json.obj("error" -> err)
 
   def notFoundJson(msg: String = "Not found"): Result = NotFound(jsonError(msg)).as(JSON)

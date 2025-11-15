@@ -21,7 +21,6 @@
   <string name="ongoing">Käynnissä</string>
   <string name="upcoming">Tulossa</string>
   <string name="roundName">Kierroksen nimi</string>
-  <string name="roundNumber">Kierroksen numero</string>
   <string name="tournamentName">Turnauksen nimi</string>
   <string name="tournamentDescription">Turnauksen lyhyt kuvaus</string>
   <string name="fullDescription">Täysimittainen kuvaus tapahtumasta</string>

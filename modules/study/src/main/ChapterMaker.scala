@@ -13,7 +13,6 @@ final private class ChapterMaker(
     lightUser: lila.core.user.LightUserApi,
     chatApi: lila.core.chat.ChatApi,
     gameRepo: lila.core.game.GameRepo,
-    pgnFetch: PgnFetch,
     pgnDump: lila.core.game.PgnDump,
     namer: lila.core.game.Namer
 )(using Executor):
@@ -24,12 +23,7 @@ final private class ChapterMaker(
     data.game
       .so(parseGame)
       .flatMap:
-        case None =>
-          data.game
-            .so(pgnFetch.fromUrl)
-            .flatMap:
-              case Some(pgn) => fromFenOrPgnOrBlank(study, data.copy(pgn = pgn.some), order, userId)
-              case _ => fromFenOrPgnOrBlank(study, data, order, userId)
+        case None => fromFenOrPgnOrBlank(study, data, order, userId)
         case Some(game) => fromGame(study, game, data, order, userId, withRatings)
       .map: c =>
         if c.name.value.isEmpty then c.copy(name = Chapter.defaultName(order)) else c
@@ -149,7 +143,7 @@ final private class ChapterMaker(
           case Orientation.Fixed(color) => color
       ),
       root = root,
-      tags = PgnTags(tags),
+      tags = StudyPgnTags(tags),
       order = order,
       ownerId = userId,
       practice = data.isPractice,
@@ -232,7 +226,7 @@ private[study] object ChapterMaker:
       isDefaultName: Boolean = true
   ) extends ChapterData:
 
-    def manyGames =
+    def manyGames: Option[List[Data]] =
       game
         .so(_.linesIterator.take(Study.maxChapters.value).toList)
         .map(_.trim)

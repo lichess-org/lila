@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="logInAsUsername">Prisijungti kaip %s</string>
+  <string name="logInAsUsername">Prisijungimo vardas %s</string>
   <string name="welcome">Sveiki!</string>
   <string name="welcomeToLichess">Sveiki atvykę į lichess.org!</string>
   <string name="thisIsYourProfilePage">Tai jūsų profilio puslapis.</string>
@@ -14,5 +14,5 @@
   <string name="playInTournaments">Žaiskite turnyruose.</string>
   <string name="learnFromXAndY">Mokykitės iš %1$s ir %2$s.</string>
   <string name="configureLichess">Pritaikykite Lichess sau.</string>
-  <string name="exploreTheSiteAndHaveFun">Tyrinėkite svetainę ir sėkmės :)</string>
+  <string name="exploreTheSiteAndHaveFun">Tyrinėkite svetainę ir linksminkitės :)</string>
 </resources>

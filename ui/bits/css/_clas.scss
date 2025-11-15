@@ -154,11 +154,20 @@ $c-bg-clas-over-dim: $m-clas_white--mix-20;
   &__archived {
     @extend %archived;
   }
+
+  &__body {
+    @extend %box-padding, %flex-column;
+    gap: 3em;
+  }
+
+  &__actions {
+    @extend %flex-between;
+  }
 }
 
 .dashboard {
   .flash {
-    margin: 2em 2em 0 2em;
+    margin: 2em;
 
     &__content {
       padding: 2em var(---box-padding);
@@ -347,10 +356,6 @@ $c-bg-clas-over-dim: $m-clas_white--mix-20;
     }
 
     .students {
-      &__empty {
-        margin: 4em 0;
-      }
-
       td:first-child {
         font-weight: bold;
       }
@@ -362,10 +367,6 @@ $c-bg-clas-over-dim: $m-clas_white--mix-20;
       &::before {
         margin-inline-end: 0.2em;
       }
-    }
-
-    &-students h2 {
-      margin: 2em 0 1em 0;
     }
   }
 }
@@ -589,6 +590,69 @@ $c-bg-clas-over-dim: $m-clas_white--mix-20;
       margin-bottom: 2em;
       display: inline-block;
       background: $c-clas-light;
+    }
+  }
+
+  &__login {
+    @extend %flex-center;
+    justify-content: center;
+    form {
+      @extend %flex-center;
+      align-items: stretch;
+      input {
+        @extend %box-radius-inline-start;
+
+        font-size: 1.3em;
+        font-family: monospace;
+      }
+
+      .button {
+        @extend %box-radius-inline-end;
+        background: $c-clas-light;
+        padding: 0 1.5em;
+        border-inline-start: 0;
+      }
+
+      @media (min-width: at-least($x-small)) {
+        font-size: 1.5em;
+      }
+    }
+  }
+}
+
+.clas-login {
+  @extend %flex-column;
+  gap: 2em;
+  &__cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-gap: 1em;
+  }
+  &__card {
+    @extend %box-neat, %flex-column;
+    padding: 1em;
+    background: $c-bg-zebra;
+    border: $border;
+    font-size: 1.5em;
+    h3 {
+      color: $c-font-clear;
+    }
+    a {
+      font-size: 0.7em;
+      color: $c-font-dim;
+    }
+    code {
+      font-size: 1.8em;
+      text-align: center;
+      font-weight: bold;
+      margin-top: 1rem;
+      color: $c-font-dim;
+    }
+    i {
+      font-size: 0.8em;
+      color: $c-bad;
+      text-align: center;
+      margin-top: 1rem;
     }
   }
 }

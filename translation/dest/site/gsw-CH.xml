@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="gameSetup">Schpielischtellige</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">En Fründ usefordere</string>
+  <string name="playAgainstComputer">Schpill gäge de Computer</string>
+  <string name="gameMode">Schpielart</string>
+  <string name="createLobbyGame" comment="One of three buttons on the home page. Opens the modal to create a game that goes in the lobby.">Es Schpiel erschtelle</string>
+  <string name="youPlayAs">Du schpillsch mit</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Wottsch öpper zum Schpille ilade - schick die URL</string>
   <string name="gameOver">Schpiel verbi</string>
   <string name="waitingForOpponent">Uf de Gägner warte</string>
@@ -166,7 +172,7 @@
   <string name="drawByMutualAgreement">Remis dur Einigung</string>
   <string name="fiftyMovesWithoutProgress">50 Züg ohni Fortschritt</string>
   <string name="currentGames">Laufendi Schpiel</string>
-  <string name="joinedX">Biträte am %s</string>
+  <string name="joinedX">Biträte %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s Schpiel</item>
     <item quantity="other">%s Schpiel</item>
@@ -340,6 +346,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
     <item quantity="other">%s am Schpille</item>
   </plurals>
   <string name="exportGames">Schpiel exportiere</string>
+  <string name="ratingFilter">Wertigsfilter</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Gib dim Gägner %s Sekunde</item>
     <item quantity="other">Gib dim Gägner %s Sekunde</item>
@@ -832,6 +839,7 @@ gits nöd und es isch nie g\'wertet.</string>
   <string name="notifications">Benachrichtigunge</string>
   <string name="notificationsX">Benachrichtigunge: %1$s</string>
   <string name="perfRatingX">Wertig: %s</string>
+  <string name="yourRatingIsX">Dini Wertig: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s Sekunde für de 1. Zug</item>
     <item quantity="other">%s Sekunde für de 1. Zug</item>
@@ -883,6 +891,7 @@ gits nöd und es isch nie g\'wertet.</string>
   <string name="playVariationToCreateConditionalPremoves">Schpill e Variante, um bedingti Voruszüg z\'kreiere</string>
   <string name="noConditionalPremoves">Kei bedingti Voruszüg</string>
   <string name="playX">Schpill %s</string>
+  <string name="challengeX">Gforderet wird: %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">und speicher %s Voruszug Zile</item>
     <item quantity="other">und speicher %s Voruszug Zile</item>
@@ -975,7 +984,7 @@ Fäld leer lah und all Schpiel normal schtarte.</string>
   <string name="simulFeaturedHelp">Zeig allne uf %s dis Simultanschach. Privats Simultanschach deaktiviert.</string>
   <string name="simulDescription">Simultanschach Beschribig</string>
   <string name="simulDescriptionHelp">Wottsch de Teilnehmer öppis mitteile?</string>
-  <string name="markdownAvailable">%s isch für erwitereti Syntax verfüegbar.</string>
+  <string name="markdownIsAvailable">%s isch zur Formatierig verfüegbar.</string>
   <string name="embedsAvailable">Füeg zum Ibette e Schpil-URL oder e Schtudiekapitel-URL i.</string>
   <string name="inYourLocalTimezone">I dinere lokale Zitzone</string>
   <string name="tournChat">Turnier Chat</string>

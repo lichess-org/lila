@@ -21,7 +21,6 @@
   <string name="ongoing">Em andamento</string>
   <string name="upcoming">Próximos</string>
   <string name="roundName">Nome da rodada</string>
-  <string name="roundNumber">Número da rodada</string>
   <string name="tournamentName">Nome do torneio</string>
   <string name="tournamentDescription">Descrição curta do torneio</string>
   <string name="fullDescription">Descrição completa do evento</string>

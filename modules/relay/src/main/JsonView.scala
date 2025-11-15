@@ -9,17 +9,22 @@ import lila.core.config.BaseUrl
 import lila.memo.PicfitUrl
 import lila.relay.RelayTour.{ WithLastRound, WithRounds }
 import lila.study.ChapterPreview
-import lila.core.fide.FideTC
+import lila.study.Settings
 import lila.core.socket.SocketVersion
 import lila.core.LightUser.GetterSync
 
-final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, picfitUrl: PicfitUrl, lightUserSync: GetterSync):
+final class JsonView(
+    baseUrl: BaseUrl,
+    picfitUrl: PicfitUrl,
+    lightUserSync: GetterSync,
+    markdown: RelayMarkdown
+):
 
   import JsonView.{ Config, given }
 
   given Writes[RelayTour.Tier] = writeAs(_.v)
 
-  given Writes[FideTC] = writeAs(_.toString)
+  given Writes[lila.core.fide.FideTC] = writeAs(_.toString)
   given Writes[java.time.ZoneId] = writeAs(_.getId)
 
   given OWrites[RelayTour.Info] = Json.writes
@@ -54,9 +59,9 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, picfitUrl: PicfitUrl
   def fullTour(tour: RelayTour)(using config: Config): JsObject =
     Json
       .toJsObject(tour)
-      .add("description" -> tour.markup.map: md =>
-        if config.html then markup(tour)(md).value
-        else md.value)
+      .add("description" -> {
+        if config.html then markdown.of(tour).map(_.value) else tour.markup.map(_.value)
+      })
       .add("teamTable" -> tour.teamTable)
       .add("communityOwner" -> tour.communityOwner.map(lightUserSync))
 
@@ -112,13 +117,26 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, picfitUrl: PicfitUrl
 
   def sync(round: RelayRound) = Json.toJsObject(round.sync)
 
-  def myRound(r: RelayRound.WithTourAndStudy)(using me: Option[Me]) = Json
-    .obj(
+  def myRound(r: RelayRound.WithTourAndStudy)(using me: Option[Me]) =
+
+    def allowed(selection: Settings => Settings.UserSelection): Boolean =
+      Settings.UserSelection.allows(selection(r.study.settings), r.study, me.map(_.userId))
+
+    val cheatable = r.relay.sync.isInternalWithoutDelay && !r.relay.isFinished
+
+    Json.obj(
       "round" -> apply(r.relay)
         .add("url" -> s"$baseUrl${r.path}".some)
         .add("delay" -> r.relay.sync.delay),
-      "tour" -> r.tour,
-      "study" -> Json.obj("writeable" -> me.exists(r.study.canContribute))
+      "tour" -> fullTour(r.tour)(using Config(html = false)),
+      "study" -> Json.obj(
+        "writeable" -> me.exists(r.study.canContribute),
+        "features" -> Json.obj(
+          "chat" -> allowed(_.chat),
+          "computer" -> (!cheatable && allowed(_.computer)),
+          "explorer" -> (!cheatable && allowed(_.explorer))
+        )
+      )
     )
 
   def makeData(

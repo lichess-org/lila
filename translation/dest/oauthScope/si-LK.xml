@@ -8,23 +8,23 @@
   <string name="whatTheTokenCanDo">ටෝකනයට ඔබ වෙනුවෙන් කළ හැකි දේ:</string>
   <string name="doNotShareIt">ටෝකනය ඔබගේ ගිණුමට ප්‍රවේශය ලබා දෙනු ඇත. එය කිසිවෙකු සමඟ බෙදා නොගන්න!</string>
   <string name="copyTokenNow">ඔබගේ නව පුද්ගලික ප්‍රවේශ ටෝකනය දැන් පිටපත් කිරීමට වග බලා ගන්න. ඔබට එය නැවත දැකීමට නොහැකි වනු ඇත!</string>
-  <string name="preferenceRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's preferences.&#10;&#10;There is a separate setting to let applications write (edit) preferences.">මනාප කියවන්න</string>
-  <string name="preferenceWrite" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to edit/change the user's preferences.&#10;&#10;There is a separate setting to let applications only read preferences, but not to write (edit) them.">මනාප ලියන්න</string>
-  <string name="emailRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's registered email address.">ඊමේල් ලිපිනය කියවන්න</string>
-  <string name="challengeRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view game challenges from other players.&#10;&#10;There is a separate setting to let applications send, accept or reject challenges.">එන අභියෝග කියවන්න</string>
-  <string name="challengeWrite" comment="challengeWrite&#10;&#10;In the context of an authentication token, a setting that permits third party software to send, accept and reject challenges on behalf of the player.">අභියෝග යැවීම, භාර ගැනීම සහ ප්‍රතික්ෂේප කිරීම</string>
+  <string name="preferenceRead">මනාප කියවන්න</string>
+  <string name="preferenceWrite">මනාප ලියන්න</string>
+  <string name="emailRead">ඊමේල් ලිපිනය කියවන්න</string>
+  <string name="challengeRead">එන අභියෝග කියවන්න</string>
+  <string name="challengeWrite">අභියෝග යැවීම, භාර ගැනීම සහ ප්‍රතික්ෂේප කිරීම</string>
   <string name="challengeBulk">අනෙකුත් ක්‍රීඩකයින් සඳහා එකවර ක්‍රීඩා බොහොමයක් සාදන්න</string>
-  <string name="studyRead" comment="Gives permission to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">පුද්ගලික අධ්‍යයන සහ විකාශන කියවන්න</string>
-  <string name="studyWrite" comment="In the context of an access token, a setting that enables third party software to create, update or delete studies and broadcasts.">අධ්‍යයන සහ විකාශන සාදන්න, යාවත්කාලීන කරන්න, මකන්න</string>
-  <string name="tournamentWrite" comment="In the context of an access token, a setting that permits third party software to create, update or delete studies and join tournaments.">තරඟාවලි සාදන්න, යාවත්කාලීන කරන්න සහ සම්බන්ධ වන්න</string>
-  <string name="racerWrite" comment="In the context of an access token, a setting which permits third party software to create, and join puzzle races (this is for the activity/minigame Puzzle Racer: https://lichess.org/racer)">ප්‍රහේලිකා ධාවන තරඟ නිර්මාණය කර සම්බන්ධ වන්න</string>
-  <string name="puzzleRead" comment="In the context of an access token, a setting which permits third-party software to view the user's puzzle solving history.">ප්‍රහේලිකා ක්‍රියාකාරකම් කියවන්න</string>
-  <string name="teamRead" comment="Gives permission to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">පුද්ගලික කණ්ඩායම් තොරතුරු කියවන්න</string>
-  <string name="teamWrite" comment="In the context of an access token, a setting that permits the third party software to join or leave teams on your behalf.">කණ්ඩායම් වලට එකතු වන්න සහ ඉවත් වන්න​</string>
+  <string name="studyRead">පුද්ගලික අධ්‍යයන සහ විකාශන කියවන්න</string>
+  <string name="studyWrite">අධ්‍යයන සහ විකාශන සාදන්න, යාවත්කාලීන කරන්න, මකන්න</string>
+  <string name="tournamentWrite">තරඟාවලි සාදන්න, යාවත්කාලීන කරන්න සහ සම්බන්ධ වන්න</string>
+  <string name="racerWrite">ප්‍රහේලිකා ධාවන තරඟ නිර්මාණය කර සම්බන්ධ වන්න</string>
+  <string name="puzzleRead">ප්‍රහේලිකා ක්‍රියාකාරකම් කියවන්න</string>
+  <string name="teamRead">පුද්ගලික කණ්ඩායම් තොරතුරු කියවන්න</string>
+  <string name="teamWrite">කණ්ඩායම් වලට එකතු වන්න සහ ඉවත් වන්න​</string>
   <string name="teamLead">ඔබ නායකත්වය දෙන කණ්ඩායම් කළමනාකරණය කරන්න: PM යවන්න, සාමාජිකයින්ට පයින් ගසන්න</string>
-  <string name="followRead" comment="In the context of an access token, a setting which permits third-party software to view (read) which players you are following.">අනුගමනය කරන ක්‍රීඩකයින් කියවන්න</string>
-  <string name="followWrite" comment="In the context of an access token, a setting which permits third-party software to follow and unfollow other players on your behalf.">අනෙකුත් ක්‍රීඩකයින් අනුගමනය කරන්න සහ අනුගමනය නොකරන්න</string>
-  <string name="msgWrite" comment="In the context of an access token, a setting which permits third-party software to send messages on your behalf.">වෙනත් ක්‍රීඩකයින්ට පුද්ගලික පණිවිඩ යවන්න</string>
-  <string name="boardPlay" comment="In the context of an access token, a setting which permits third-party software to play games using e-boards like DGT, through Lichess's board API.">පුවරු API සමඟ ක්‍රීඩා කරන්න</string>
-  <string name="botPlay" comment="In the context of an access token, a setting which permits third-party software to play games over the bot API. This is intended mainly for having an engine account e.g. the accounts featured on https://lichess.org/player/bots">Bot API සමඟ ක්‍රීඩා කරන්න</string>
+  <string name="followRead">අනුගමනය කරන ක්‍රීඩකයින් කියවන්න</string>
+  <string name="followWrite">අනෙකුත් ක්‍රීඩකයින් අනුගමනය කරන්න සහ අනුගමනය නොකරන්න</string>
+  <string name="msgWrite">වෙනත් ක්‍රීඩකයින්ට පුද්ගලික පණිවිඩ යවන්න</string>
+  <string name="boardPlay">පුවරු API සමඟ ක්‍රීඩා කරන්න</string>
+  <string name="botPlay">Bot API සමඟ ක්‍රීඩා කරන්න</string>
 </resources>

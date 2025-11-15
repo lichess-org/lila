@@ -1,4 +1,5 @@
 @import 'gen/mix';
+@import '../abstract/patron-colors';
 
 @function _clear($color, $weight: 20%) {
   @return mix(#fff, $color, $weight);
@@ -41,6 +42,8 @@ $c-dimmer: #000;
 $c-clearer: #fff;
 $c-mv-branch-white: #fff;
 $c-mv-branch-black: #000;
+
+$patron-colors: $patron-colors-dark;
 
 // shared-color-defs lists theme colors that share definitions. the assigned values usually depend on
 // sass variables from the including scope and can differ between themes.
@@ -130,4 +133,15 @@ $c-mv-branch-black: #000;
   --c-mv-branch-black: #{$c-mv-branch-black};
   --c-pool-button: #{hsla($site-hue, 7%, 19%, 66%)};
   --c-paper: #{$c-paper};
+
+  --c-paco1: #{map-get($patron-colors, 1)};
+  --c-paco2: #{map-get($patron-colors, 2)};
+  --c-paco3: #{map-get($patron-colors, 3)};
+  --c-paco4: #{map-get($patron-colors, 4)};
+  --c-paco5: #{map-get($patron-colors, 5)};
+  --c-paco6: #{map-get($patron-colors, 6)};
+  --c-paco7: #{map-get($patron-colors, 7)};
+  --c-paco8: #{map-get($patron-colors, 8)};
+  --c-paco9: #{map-get($patron-colors, 9)};
+  --c-paco10: #{map-get($patron-colors, 10)};
 }

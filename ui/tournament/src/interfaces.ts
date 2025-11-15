@@ -117,6 +117,7 @@ export interface SimplePlayer {
   title?: string;
   flair?: string;
   provisional?: boolean;
+  patronColor?: PatronColor;
 }
 
 interface FeaturedPlayer extends SimplePlayer {
@@ -193,6 +194,7 @@ export interface TeamInfo {
   perf: number;
   score: number;
   topPlayers: TeamPlayer[];
+  joined?: boolean;
 }
 
 export interface TeamPlayer {

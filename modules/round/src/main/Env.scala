@@ -10,7 +10,6 @@ import lila.common.autoconfig.{ *, given }
 import lila.common.{ Bus, Uptime }
 import lila.core.config.*
 import lila.core.round.{ RoundBus, CurrentlyPlaying }
-import lila.core.user.FlairGetMap
 import lila.game.GameRepo
 import lila.memo.SettingStore
 import lila.round.RoundGame.*
@@ -29,7 +28,9 @@ final class Env(
     gameRepo: GameRepo,
     userRepo: lila.user.UserRepo,
     userApi: lila.user.UserApi,
+    lightUser: lila.user.LightUserApi,
     chatApi: lila.chat.ChatApi,
+    chatJson: lila.chat.ChatJsonView,
     crosstableApi: lila.game.CrosstableApi,
     playban: lila.playban.PlaybanApi,
     userJsonView: lila.user.JsonView,
@@ -43,14 +44,12 @@ final class Env(
     prefApi: lila.pref.PrefApi,
     socketKit: lila.core.socket.ParallelSocketKit,
     userLagPut: lila.core.socket.userLag.Put,
-    lightUserApi: lila.user.LightUserApi,
     bookmarkExists: lila.core.misc.BookmarkExists,
     simulApiCircularDep: => lila.core.simul.SimulApi,
     tourApiCircularDep: => lila.core.tournament.TournamentApi,
     settingStore: lila.memo.SettingStore.Builder,
     shutdown: akka.actor.CoordinatedShutdown
 )(using system: ActorSystem, scheduler: Scheduler)(using
-    FlairGetMap,
     Executor,
     akka.stream.Materializer,
     lila.core.i18n.Translator,
@@ -58,7 +57,7 @@ final class Env(
     lila.game.IdGenerator
 ):
 
-  private val (botSync, async) = (lightUserApi.isBotSync, lightUserApi.async)
+  private val (botSync, async) = (lightUser.isBotSync, lightUser.async)
 
   private val config = appConfig.get[RoundConfig]("round")(using AutoConfig.loader)
 
@@ -105,11 +104,12 @@ final class Env(
   lazy val onStart = lila.core.game.OnStart: gameId =>
     proxyRepo
       .game(gameId)
-      .foreach:
-        _.foreach: game =>
-          for _ <- lightUserApi.preloadMany(game.userIds)
+      .flatMap:
+        case None => fufail(s"Could not find game $gameId on start")
+        case Some(game) =>
+          for users <- game.players.map(_.userId).traverse(_.so(lightUser.async))
           yield
-            val sg = lila.core.game.StartGame(game)
+            val sg = lila.core.game.StartGame(game, users)
             Bus.pub(sg)
             game.userIds.foreach: userId =>
               Bus.publishDyn(sg, s"userStartGame:$userId")
@@ -207,7 +207,7 @@ final class Env(
 
   MoveLatMonitor.start(scheduler)
 
-  CorresAlarm(db(config.alarmColl), isUserPresent, proxyRepo.game, lightUserApi)
+  CorresAlarm(db(config.alarmColl), isUserPresent, proxyRepo.game, lightUser)
 
   system.actorOf(Props(wire[Titivate]), name = "titivate")
 

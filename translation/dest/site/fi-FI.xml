@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="gameSetup">Pelin luonti</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Haasta kaveri</string>
+  <string name="playAgainstComputer">Pelaa tietokonetta vastaan</string>
+  <string name="gameMode">Pelityyppi</string>
+  <string name="createLobbyGame" comment="One of three buttons on the home page. Opens the modal to create a game that goes in the lobby.">Luo peli</string>
+  <string name="youPlayAs">Nappuloidesi väri</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Lähetä tämä linkki kaverillesi, jonka haluat kutsua pelaamaan</string>
   <string name="gameOver">Peli ohi</string>
   <string name="waitingForOpponent">Odotetaan vastustajaa</string>
@@ -339,6 +345,7 @@
     <item quantity="other">%s meneillään</item>
   </plurals>
   <string name="exportGames">Vie pelejä</string>
+  <string name="ratingFilter">Vahvuuslukusuodatin</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Anna %s sekuntia</item>
     <item quantity="other">Anna %s sekuntia</item>
@@ -394,6 +401,7 @@
     <item quantity="other">Sinun täytyy pelata vielä %s pisteytettyä peliä</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Vahvuuslukusi %s on tilapäinen</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Vahvuuslukusuodatin ei ole käytettävissäsi, koska vahvuuslukusi ei ole vakaa. Voit vakauttaa sitä pelaamalla pisteytettyjä pelejä.</string>
   <string name="yourPerfRatingIsTooHigh">%1$s-vahvuuslukusi (%2$s) on liian suuri</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Viikon korkein %1$s-vahvuuslukusi (%2$s) on liian suuri</string>
   <string name="yourPerfRatingIsTooLow">%1$s-vahvuuslukusi (%2$s) ei riitä</string>
@@ -761,6 +769,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Voit kelata siirtoja myös hiiren vieritysrullalla.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Esikatsele tietokoneen muunnelmia viemällä hiiren osoitin niiden päälle.</string>
   <string name="analysisShapesHowTo">Käytä hiiren kakkospainiketta (tai shiftiä ja ykköspainiketta) piirtääksesi ympyröitä ja nuolia laudalle.</string>
+  <string name="primaryColorArrowsHowTo">Ctrl tai Shift = punainen; Command, Alt tai Meta = sininen; näppäinyhdistelmä (yksi näppäin kustakin ryhmästä edellä) = keltainen.</string>
   <string name="letOtherPlayersMessageYou">Anna muiden käyttäjien lähettää sinulle viestejä</string>
   <string name="receiveForumNotifications">Lähetä ilmoitus, kun minut mainitaan foorumissa</string>
   <string name="shareYourInsightsData">Jaa Insights-tietosi</string>
@@ -822,6 +831,7 @@
   <string name="notifications">Ilmoitukset</string>
   <string name="notificationsX">Ilmoitukset: %1$s</string>
   <string name="perfRatingX">Vahvuusluku: %s</string>
+  <string name="yourRatingIsX">Vahvuuslukusi on %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekuntia aikaa pelata ensimmäinen siirto</item>
     <item quantity="other">%s sekuntia aikaa pelata ensimmäinen siirto</item>
@@ -873,6 +883,7 @@
   <string name="playVariationToCreateConditionalPremoves">Luo ehdollisia esisiirtoja pelaamalla muunnelma</string>
   <string name="noConditionalPremoves">Ei ehdollisia esisiirtoja</string>
   <string name="playX">Siirrä %s</string>
+  <string name="challengeX">Haasta %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">ja tallenna %s esisiirtolinja</item>
     <item quantity="other">ja tallenna %s esisiirtolinjaa</item>
@@ -964,7 +975,6 @@ Jätä kenttä tyhjäksi, jos haluat pelien alkavan normaalista alkuasemasta.</s
   <string name="simulFeaturedHelp">Näytä simultaanisi kaikille %slla. Poista valinta pitääksesi simultaanin yksityisenä.</string>
   <string name="simulDescription">Simultaanin kuvaus</string>
   <string name="simulDescriptionHelp">Haluatko kertoa osallistujille jotain?</string>
-  <string name="markdownAvailable">Tekstin yksityiskohtaisempaan muotoiluun voit käyttää %s-kieltä.</string>
   <string name="embedsAvailable">Voit upottaa pelin tai tutkielman kappaleen liittämällä sen URL-osoitteen.</string>
   <string name="inYourLocalTimezone">Omalla aikavyöhykkeelläsi</string>
   <string name="tournChat">Turnauksen keskusteluhuone</string>
@@ -1005,6 +1015,8 @@ Kaikki toimintakustannukset, kehitystyö ja sisältö rahoitetaan yksinomaan kä
   <string name="enableBlindMode">Siirry sokean käyttäjän tilaan</string>
   <string name="disableBlindMode">Poistu sokean käyttäjän tilasta</string>
   <string name="copyToClipboard">Kopioi leikepöydälle</string>
+  <string name="online" comment="status of a user">online-tilassa</string>
+  <string name="offline" comment="status of a user">offline-tilassa</string>
   <string name="search">Hae</string>
   <string name="clearSearch">Tyhjennä haku</string>
   <string name="tags">Tunnisteet</string>

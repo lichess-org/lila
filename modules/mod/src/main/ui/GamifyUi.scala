@@ -6,7 +6,7 @@ import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
 
-final class GamifyUi(helpers: Helpers):
+final class GamifyUi(helpers: Helpers)(modMenu: Context ?=> Frag):
   import helpers.{ *, given }
 
   def index(leaderboards: Gamify.Leaderboards, history: List[Gamify.HistoryMonth])(using ctx: Context) =
@@ -22,7 +22,7 @@ final class GamifyUi(helpers: Helpers):
 
     Page(title).css("mod.gamify"):
       main(cls := "page-menu")(
-        bits.modMenu("gamify"),
+        modMenu,
         div(id := "mod-gamify", cls := "page-menu__content index box")(
           h1(cls := "box__top")(title),
           div(cls := "champs")(
@@ -56,7 +56,7 @@ final class GamifyUi(helpers: Helpers):
     val title = s"Moderators of the ${period.name}"
     Page(title).css("mod.gamify"):
       main(cls := "page-menu")(
-        bits.modMenu("gamify"),
+        modMenu,
         div(id := "mod-gamify", cls := "page-menu__content box")(
           boxTop(
             h1(

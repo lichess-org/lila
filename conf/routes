@@ -114,6 +114,7 @@ GET   /blog/topic/:topic               controllers.Ublog.topic(topic, filter: Op
 GET   /blog/monthly                    controllers.Ublog.thisMonth(filter: Option[BlogQualityFilter] ?= None, by: BlogsBy ?= BlogsBy.newest, page: Int ?= 1)
 GET   /blog/monthly/:year/:month       controllers.Ublog.byMonth(year: Int, month: Int, filter: Option[BlogQualityFilter] ?= None, by: BlogsBy ?= BlogsBy.newest, page: Int ?= 1)
 GET   /blog.atom                       controllers.Main.movedPermanently(to = "/@/Lichess/blog.atom")
+GET   /api/blog/carousel               controllers.Ublog.apiCarousel
 GET   /blog/friends                    controllers.Ublog.friends(page: Int ?= 1)
 GET   /blog/liked                      controllers.Ublog.liked(page: Int ?= 1)
 GET   /blog/search                     controllers.Ublog.search(text ?= "", by: BlogsBy ?= BlogsBy.score, page: Int ?= 1)
@@ -237,7 +238,7 @@ GET   /study/likes/:order              controllers.Study.mineLikes(order: StudyO
 GET   /study/by/:username              controllers.Study.byOwnerDefault(username: UserStr, page: Int ?= 1)
 GET   /study/by/:username/export.pgn   controllers.Study.exportPgn(username: UserStr)
 GET   /study/by/:username/:order       controllers.Study.byOwner(username: UserStr, order: StudyOrder, page: Int ?= 1)
-GET   /study/search                    controllers.Study.search(q ?= "", page: Int ?= 1)
+GET   /study/search                    controllers.Study.search(q ?= "", page: Int ?= 1, order: Option[StudyOrder] ?= None)
 GET   /study/$id<\w{8}>                controllers.Study.show(id: StudyId)
 POST  /study                           controllers.Study.create
 POST  /study/as                        controllers.Study.createAs
@@ -322,6 +323,7 @@ GET   /$lang<\w\w\w?>/learn            controllers.Learn.indexLang(lang: Languag
 GET   /patron                          controllers.Plan.index(page: Int ?= 1)
 GET   /patron/thanks                   controllers.Plan.thanks
 GET   /patron/list                     controllers.Plan.list
+POST  /patron/style                    controllers.Plan.style
 POST  /patron/switch                   controllers.Plan.switch
 POST  /patron/cancel                   controllers.Plan.cancel
 POST  /patron/webhook                  controllers.Plan.webhook
@@ -369,7 +371,7 @@ GET   /bots                           controllers.JsBot.index
 GET   /bots/assets                    controllers.JsBot.assetKeys
 # GET   /bots/test                      controllers.JsBot.test
 GET   /bots/dev                       controllers.JsBot.devIndex
-GET   /bots/dev/history               controllers.JsBot.devBotHistory(id: Option[UserStr])
+GET   /bots/dev/history               controllers.JsBot.devBotHistory(id: Option[String])
 POST  /bots/dev/bot                   controllers.JsBot.devPostBot
 GET   /bots/dev/assets                controllers.JsBot.devAssets
 POST  /bots/dev/asset/$tpe<sound|image|book>/$key<\w{12}(\.\w{2,4})?> controllers.JsBot.devPostAsset(tpe: String, key: String)
@@ -551,6 +553,7 @@ POST  /translation/select              controllers.I18n.select
 # Authentication
 GET   /login                           controllers.Auth.login
 POST  /login                           controllers.Auth.authenticate
+POST  /login/class                     controllers.Auth.clasLogin
 GET   /$lang<\w\w\w?>/login            controllers.Auth.loginLang(lang: Language)
 GET   /logout                          controllers.Auth.logoutGet
 POST  /logout                          controllers.Auth.logout
@@ -630,6 +633,8 @@ GET   /mod/presets/:group              controllers.Mod.presets(group)
 POST  /mod/presets/:group              controllers.Mod.presetsUpdate(group)
 GET   /api/stream/mod                  controllers.Mod.eventStream
 GET   /api/stream/mod-marked-since     controllers.Mod.markedUsersStream
+GET   /mod/image/queue                 controllers.Mod.imageQueue(page: Int ?= 1)
+POST  /mod/image/accept/:id            controllers.Mod.imageAccept(id: ImageId, v: Boolean)
 
 # Irwin
 GET   /irwin                           controllers.Irwin.dashboard
@@ -896,6 +901,7 @@ GET   /costs                           controllers.Main.costs
 GET   /InstantChess.com                controllers.Main.instantChess
 GET   /daily-puzzle-slack              controllers.Main.dailyPuzzleSlackApp
 POST  /upload/image/user/:rel          controllers.Main.uploadImage(rel)
+GET   /image-url/:id                   controllers.Main.imageUrl(id: ImageId, width: Int)
 POST  /github/secret-scanning          controllers.Github.secretScanning
 
 GET   /verify-title                    controllers.TitleVerify.index

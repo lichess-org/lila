@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="community">Bashkësi</string>
+  <string name="byMonth">Sipas muajsh</string>
+  <string name="byTopic">Sipas subjektesh</string>
+  <string name="byLichess">Nga Lichess</string>
+  <string name="myFriends">Shokët e mi</string>
+  <string name="myLikes" comment="A page which lists blog posts that you have pressed ❤️ Like on: https://lichess.org/blog/liked">Pëlqimet e mia</string>
   <string name="myBlog">Blogu im</string>
   <string name="likedBlogs">Postime të pëlqyer në blogje</string>
   <plurals name="blogPosts">

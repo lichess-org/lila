@@ -159,8 +159,6 @@ final class TokenUi(helpers: Helpers)(
                   "puzzle:read"
                 ),
                 br,
-                ot.scopesCanBeFound(),
-                br,
                 ot.givingPrefilledUrls()
               )
             )

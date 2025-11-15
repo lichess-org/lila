@@ -1,11 +1,14 @@
-import makeZerofish, { type Zerofish } from 'zerofish';
+import makeZerofish, { type Zerofish } from '@lichess-org/zerofish';
 import { type OpeningBook, makeBookFromPolyglot } from '../game/polyglot';
 import { Bot } from './bot';
 import type { BotInfo, MoveSource, LocalSpeed, AssetType } from './types';
 import * as xhr from '../xhr';
 import { definedMap } from '../algo';
 import { makeLichessBook } from './lichessBook';
-import { myUserId, myUsername } from '../common';
+import { myUserId, myUsername } from '../index';
+import './filters';
+
+export { makeZerofish, type Zerofish };
 
 export class BotLoader {
   zerofish: Zerofish;
@@ -127,5 +130,5 @@ export function botAssetUrl(type: AssetType, path: string): string {
     ? path
     : path.includes('/')
       ? `${site.asset.baseUrl()}/assets/${path}`
-      : site.asset.url(`lifat/bots/${type}/${encodeURIComponent(path)}`);
+      : site.asset.url(`data/bot/${type}/${encodeURIComponent(path)}`);
 }

@@ -16,6 +16,7 @@
   <string name="recentlyUpdated">Нещодавно оновлені</string>
   <string name="mostPopular">Найпопулярніші</string>
   <string name="alphabetical">За алфавітом</string>
+  <string name="relevant">Релевантні</string>
   <string name="addNewChapter">Додати новий розділ</string>
   <plurals name="nbChapters">
     <item quantity="one">%s розділ</item>
@@ -67,7 +68,7 @@
   <string name="studyPgn">PGN дослідження</string>
   <string name="chapterPgn">PGN розділу</string>
   <string name="copyChapterPgn">Скопіювати PGN</string>
-  <string name="copyRawChapterPgn" comment="Appears as a button. Lets you copy a PGN without any annotations, commentary or analysis">Скопіювати чистий PGN</string>
+  <string name="copyRawChapterPgn">Скопіювати чистий PGN</string>
   <string name="downloadGame">Завантажити гру</string>
   <string name="studyUrl">Посилання на дослідження</string>
   <string name="currentChapterUrl">Посилання на цей розділ</string>
@@ -113,7 +114,6 @@
     <item quantity="other">Вставте ваш PGN текст тут, до %s ігор</item>
   </plurals>
   <string name="urlOfTheGame">Посилання на гру</string>
-  <string name="loadAGameFromXOrY">Завантажити гру з %1$s або %2$s</string>
   <string name="createChapter">Створити розділ</string>
   <string name="createStudy">Створити дослідження</string>
   <string name="editStudy">Редагування дослідження</string>

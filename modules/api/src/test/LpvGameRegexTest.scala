@@ -19,7 +19,7 @@ class LpvGameRegexTest extends munit.FunSuite:
     forumMatch(text, regex).isDefined
 
   def blogMatch(text: String, regex: Regex): Option[String] =
-    chainMatch(text, re.blogPgnCandidatesRe, regex)
+    chainMatch(text, re.markdownPgnCandidatesRe, regex)
 
   def blogMatches(text: String, regex: Regex): Boolean =
     blogMatch(text, regex).isDefined

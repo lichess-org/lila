@@ -29,7 +29,7 @@ final class TvUi(helpers: lila.ui.Helpers)(
         title = s"Watch the best ${channel.name.toLowerCase} games of lichess.org",
         description =
           s"Sit back, relax, and watch the best ${channel.name.toLowerCase} Lichess players compete on Lichess TV",
-        url = s"$netBaseUrl${routes.Tv.onChannel(channel.key)}"
+        url = routeUrl(routes.Tv.onChannel(channel.key))
       )
       .flag(_.zen)
       .hrefLangs(lila.ui.LangPath(routes.Tv.index)):

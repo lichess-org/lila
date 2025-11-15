@@ -1,6 +1,6 @@
-import { hl, type VNode } from 'lib/snabbdom';
+import { hl, type VNode } from 'lib/view';
 import * as licon from 'lib/licon';
-import type { Player, TopOrBottom } from 'lib/game/game';
+import type { Player, TopOrBottom } from 'lib/game';
 import type RoundController from '../ctrl';
 import { ratingDiff, userLink } from 'lib/view/userLink';
 import { wsAverageLag } from 'lib/socket';
@@ -33,7 +33,13 @@ export function userHtml(ctrl: RoundController, player: Player, position: TopOrB
         },
       },
       [
-        hl('i.line' + (user.patron ? '.patron' : ''), {
+        hl('i.line', {
+          class: user.patron
+            ? {
+                patron: true,
+                ...(user.patronColor ? { [`paco${user.patronColor}`]: true } : {}),
+              }
+            : {},
           attrs: {
             title: connecting
               ? 'Connecting to the game'

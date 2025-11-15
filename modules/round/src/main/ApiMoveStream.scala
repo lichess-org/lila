@@ -1,7 +1,7 @@
 package lila.round
 
 import akka.stream.scaladsl.*
-import chess.format.Fen
+import chess.format.{ Uci, UciDump, Fen }
 import chess.{ ByColor, Centis, Ply, Position }
 import play.api.libs.json.*
 
@@ -10,6 +10,7 @@ import lila.common.Json.given
 import lila.core.game.FinishGame
 import lila.game.GameRepo
 import lila.game.actorApi.MoveGameEvent
+import chess.variant.Variant
 
 final class ApiMoveStream(
     gameRepo: GameRepo,
@@ -54,8 +55,9 @@ final class ApiMoveStream(
                     yield ByColor(white, black)
                     queue.offer(
                       toJson(
+                        game.variant,
                         Fen.write(s, (game.startedAtPly + index).fullMoveNumber),
-                        s.history.lastMove.map(_.uci),
+                        s.history.lastMove,
                         clk
                       )
                     )
@@ -91,18 +93,24 @@ final class ApiMoveStream(
         (clock.config.estimateTotalSeconds / 60).atLeast(3).atMost(60)
       .seconds
 
-  private def toJson(game: Game, fen: Fen.Full, lastMoveUci: Option[String]): JsObject =
+  private def toJson(game: Game, fen: Fen.Full, lastMove: Option[Uci]): JsObject =
     toJson(
+      game.variant,
       fen,
-      lastMoveUci,
+      lastMove,
       game.clock.map: clk =>
         ByColor(clk.remainingTime)
     )
 
-  private def toJson(fen: Fen.Full, lastMoveUci: Option[String], clock: Option[ByColor[Centis]]): JsObject =
+  private def toJson(
+      variant: Variant,
+      fen: Fen.Full,
+      lastMove: Option[Uci],
+      clock: Option[ByColor[Centis]]
+  ): JsObject =
     clock.foldLeft(
       Json
         .obj("fen" -> fen)
-        .add("lm" -> lastMoveUci)
+        .add("lm" -> lastMove.map(UciDump.lastMove(_, variant)))
     ): (js, clk) =>
       js ++ Json.obj("wc" -> clk.white.roundSeconds, "bc" -> clk.black.roundSeconds)

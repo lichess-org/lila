@@ -9,7 +9,8 @@ export { patch };
 
 const start = makeStart(patch, studyDeps);
 
-export function initModule(cfg: AnalyseOpts) {
+export async function initModule(cfg: AnalyseOpts) {
+  await site.asset.loadPieces;
   cfg.socketSend = wsConnect(cfg.socketUrl || '/analysis/socket/v5', cfg.socketVersion ?? false, {
     options: { reloadOnResume: true },
     receive: (t: string, d: any) => analyse.socketReceive(t, d),

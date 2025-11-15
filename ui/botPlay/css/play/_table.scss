@@ -61,12 +61,14 @@
 
     &:hover {
       background: $c-primary;
-      color: #fff;
+      background: hsl(from var(--bot-color) h s calc(l - 10) / 0.8);
+      color: $c-over;
     }
 
     &.current {
       font-weight: bold;
       background: $m-primary_bg--mix-20;
+      background: hsl(from var(--bot-color) h calc(s - 20) calc(l - 10) / 0.5);
       color: $c-font-clear;
     }
   }
@@ -111,12 +113,9 @@
   }
 }
 
-.bot-game__clock-mat {
-  @extend %flex-between;
-}
-
 .bot-game .material {
   padding-inline-end: 1px;
+  padding-block-start: 3px;
 
   mpiece {
     width: 20px;

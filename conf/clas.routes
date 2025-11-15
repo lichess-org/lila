@@ -34,3 +34,4 @@ POST  /class/$id<\w{8}>/student/:username/close controllers.clas.Clas.studentClo
 POST  /class/$id<\w{8}>/invitation/revoke controllers.clas.Clas.invitationRevoke(id: ClasInviteId)
 GET   /class/$id<\w{8}>/student/:username/move controllers.clas.Clas.studentMove(id: ClasId, username: UserStr)
 POST  /class/$id<\w{8}>/student/:username/move/$to<\w{8}> controllers.clas.Clas.studentMovePost(id: ClasId, username: UserStr, to: ClasId)
+POST  /class/$id<\w{8}>/login          controllers.clas.Clas.loginCreate(id: ClasId)

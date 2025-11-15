@@ -109,7 +109,7 @@ final class Team(env: Env) extends LilaController(env):
 
   private def renderEdit(team: TeamModel, form: Form[?])(using me: Me, ctx: Context) = for
     member <- env.team.memberRepo.get(team.id, me)
-    _ <- env.msg.twoFactorReminder(me)
+    _ <- env.msg.systemMsg.twoFactorReminder(me)
   yield views.team.form.edit(team, form, member)
 
   def edit(id: TeamId) = Auth { ctx ?=> me ?=>
@@ -346,11 +346,15 @@ final class Team(env: Env) extends LilaController(env):
           )
   }
 
-  private def webJoin(team: TeamModel, request: Option[String], password: Option[String])(using Me) =
+  private def webJoin(team: TeamModel, request: Option[String], password: Option[String])(using
+      Me,
+      RequestHeader
+  ) =
     api
       .join(team, request = request, password = password)
       .flatMap:
-        case Requesting.Joined => Redirect(routes.Team.show(team.id)).flashSuccess
+        case Requesting.Joined =>
+          Redirect(env.web.referrerRedirect.fromReq | routes.Team.show(team.id).url).flashSuccess
         case Requesting.NeedRequest | Requesting.NeedPassword =>
           Redirect(routes.Team.requestForm(team.id)).flashSuccess
         case Requesting.Blocklist =>
@@ -426,37 +430,32 @@ final class Team(env: Env) extends LilaController(env):
   private def renderPmAll(team: TeamModel, form: Form[?])(using Context) = for
     tours <- env.tournament.api.visibleByTeam(team.id, 0, 20).dmap(_.next)
     unsubs <- env.team.cached.unsubs.get(team.id)
-    limiter <- env.teamInfo.pmAll.status(team.id)
+    limiter <- env.team.limiter.pmAll.status(team.id)
     page <- renderPage(views.team.admin.pmAll(team, form, tours, unsubs, limiter))
   yield Ok(page)
 
   def pmAllSubmit(id: TeamId) = AuthOrScopedBody(_.Team.Lead) { ctx ?=> me ?=>
     WithOwnedTeamEnabled(id, _.PmAll): team =>
-      import lila.memo.RateLimit.Result
+      import lila.memo.RateLimit.LimitResult
       bindForm(forms.pmAll)(
         Left(_),
         msg =>
           val normalized = msg.replaceAll("\r\n?", "\n")
-          if env.teamInfo.pmAll.dedup(team.id, normalized) then
-            Right:
-              env.teamInfo.pmAll.limiter[Result](
-                team.id,
-                if me.isVerifiedOrAdmin then 1 else mashup.TeamInfo.pmAllCost
-              ) {
-                val url = s"${env.net.baseUrl}${routes.Team.show(team.id)}"
-                val full = s"""$normalized
+          env.team.limiter.pmAll
+            .dedupAndLimit(team.id, normalized): () =>
+              val url = s"${env.net.baseUrl}${routes.Team.show(team.id)}"
+              val full = s"""$normalized
   ---
   You received this because you are subscribed to messages of the team $url."""
-                env.msg.api
-                  .multiPost(
-                    env.team.memberStream.subscribedIds(team, MaxPerSecond(50)),
-                    full
-                  )
-                  .addEffect(lila.mon.msg.teamBulk.record(_))
-                // we don't wait for the stream to complete, it would make lichess time out
-                fuccess(Result.Through)
-              }(Result.Limited)
-          else Left(forms.pmAll.withError("duplicate", "You already sent this message recently"))
+              env.msg.api
+                .multiPost(
+                  env.team.memberStream.subscribedIds(team, MaxPerSecond(50)),
+                  full
+                )
+                .addEffect(lila.mon.msg.teamBulk.record(_))
+                .void
+            .left
+            .map(forms.pmAll.withError("duplicate", _))
       )
         .fold(
           err => negotiate(renderPmAll(team, err), BadRequest(errorsAsJson(err))),
@@ -464,12 +463,12 @@ final class Team(env: Env) extends LilaController(env):
             negotiate(
               Redirect(routes.Team.show(team.id)).flashing:
                 res match
-                  case Result.Through => "success" -> ""
-                  case Result.Limited => "failure" -> rateLimitedMsg
+                  case LimitResult.Through => "success" -> ""
+                  case LimitResult.Limited => "failure" -> rateLimitedMsg
               ,
               res match
-                case Result.Through => jsonOkResult
-                case Result.Limited => rateLimitedJson
+                case LimitResult.Through => jsonOkResult
+                case LimitResult.Limited => rateLimitedJson
             )
         )
   }

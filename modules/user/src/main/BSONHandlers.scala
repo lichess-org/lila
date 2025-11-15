@@ -17,6 +17,7 @@ import lila.core.user.{
 }
 import lila.db.BSON
 import lila.db.dsl.{ *, given }
+import lila.core.plan.{ PatronColor, PatronColorChoice }
 
 object BSONFields:
   export lila.core.user.BSONFields.*
@@ -52,44 +53,42 @@ object BSONHandlers:
     { case v: BSONBinary => new TotpSecret(v.byteArray) },
     v => BSONBinary(v.secret, Subtype.GenericBinarySubtype)
   )
+  val colorHandler = summon[BSONHandler[PatronColor]]
+  given colorChoiceHandler: BSONHandler[PatronColorChoice] =
+    isoHandler[PatronColorChoice, PatronColor](_.value, PatronColorChoice.apply)(using colorHandler)
+
   given planHandler: BSONDocumentHandler[Plan] = new BSON[Plan]:
     def reads(r: BSON.Reader) = Plan(
       months = r.int("months"),
       active = r.bool("active"),
       lifetime = r.boolD("lifetime"),
-      since = r.dateO("since")
+      since = r.dateO("since"),
+      color = r.intO("color").flatMap(PatronColor.map.get).map(PatronColorChoice.apply)
     )
     def writes(w: BSON.Writer, o: Plan) = $doc(
       "months" -> w.int(o.months),
       "active" -> o.active,
       "lifetime" -> w.boolO(o.lifetime),
-      "since" -> o.since
+      "since" -> o.since,
+      "color" -> o.color
     )
 
   private[user] given BSONDocumentHandler[Count] = new BSON[Count]:
     def reads(r: BSON.Reader): Count =
       lila.core.user.Count(
-        ai = r.nInt("ai"),
         draw = r.nInt("draw"),
-        drawH = r.nInt("drawH"),
         game = r.nInt("game"),
         loss = r.nInt("loss"),
-        lossH = r.nInt("lossH"),
         rated = r.nInt("rated"),
-        win = r.nInt("win"),
-        winH = r.nInt("winH")
+        win = r.nInt("win")
       )
     def writes(w: BSON.Writer, o: Count) =
       $doc(
-        "ai" -> w.int(o.ai),
         "draw" -> w.int(o.draw),
-        "drawH" -> w.int(o.drawH),
         "game" -> w.int(o.game),
         "loss" -> w.int(o.loss),
-        "lossH" -> w.int(o.lossH),
         "rated" -> w.int(o.rated),
-        "win" -> w.int(o.win),
-        "winH" -> w.int(o.winH)
+        "win" -> w.int(o.win)
       )
 
   private[user] given BSONHandler[HashedPassword] = quickHandler[HashedPassword](
@@ -146,6 +145,11 @@ object BSONHandlers:
         flair -> o.flair,
         marks -> o.marks.value.nonEmpty.option(o.marks)
       )
+
+  given BSONHandler[PatronColor] = lila.db.dsl.tryHandler[PatronColor](
+    { case BSONInteger(id) => PatronColor.map.get(id).toTry(s"Invalid patron color id: $id") },
+    s => BSONInteger(s.id)
+  )
 
   // This LightUser handler is only used to store light users in other documents
   // not to read light users from the user collection

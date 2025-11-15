@@ -27,18 +27,16 @@ case class TeamInfo(
   def userIds = forum.so(_.flatMap(_.post.userId))
 
 object TeamInfo:
-  val pmAllCost = 5
-  val pmAllCredits = 7
-  val pmAllDays = 7
-  opaque type AnyTour = Either[Tournament, Swiss]
-  object AnyTour extends TotalWrapper[AnyTour, Either[Tournament, Swiss]]:
+  opaque type AnyTour = Tournament | Swiss
+  object AnyTour extends TotalWrapper[AnyTour, Tournament | Swiss]:
     extension (e: AnyTour)
       def isEnterable = e.fold(_.isEnterable, _.isEnterable)
       def startsAt = e.fold(_.startsAt, _.startsAt)
       def isNowOrSoon = e.fold(_.isNowOrSoon, _.isNowOrSoon)
       def nbPlayers = e.fold(_.nbPlayers, _.nbPlayers)
-    def apply(tour: Tournament): AnyTour = Left(tour)
-    def apply(swiss: Swiss): AnyTour = Right(swiss)
+      inline def fold[A](ft: Tournament => A, fs: Swiss => A): A = e match
+        case t: Tournament => ft(t)
+        case s: Swiss => fs(s)
 
   case class PastAndNext(past: List[AnyTour], next: List[AnyTour]):
     def nonEmpty = past.nonEmpty || next.nonEmpty
@@ -49,24 +47,10 @@ final class TeamInfoApi(
     tourApi: TournamentApi,
     swissApi: SwissApi,
     simulApi: SimulApi,
-    requestRepo: TeamRequestRepo,
-    mongoRateLimitApi: lila.memo.MongoRateLimitApi
-)(using Executor, Scheduler):
+    requestRepo: TeamRequestRepo
+)(using Executor):
 
   import TeamInfo.*
-
-  object pmAll:
-    val dedup = scalalib.cache.OnceEvery.hashCode[(TeamId, String)](10.minutes)
-    val limiter = mongoRateLimitApi[TeamId](
-      "team.pm.all",
-      credits = pmAllCredits * pmAllCost,
-      duration = pmAllDays.days
-    )
-    def status(id: TeamId): Fu[(Int, Instant)] =
-      limiter
-        .getSpent(id)
-        .map: entry =>
-          (pmAllCredits - entry.v / pmAllCost, entry.until)
 
   def apply(
       team: Team.WithLeaders,

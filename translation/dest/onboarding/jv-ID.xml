@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="logInAsUsername">Log ing minangka %s</string>
   <string name="welcome">Sugeng rawuh!</string>
   <string name="welcomeToLichess">Sugeng rawuh lichess.org!</string>
   <string name="thisIsYourProfilePage">Iki kaca profilmu.</string>

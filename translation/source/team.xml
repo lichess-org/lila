@@ -57,7 +57,6 @@ Players who don't like receiving your messages might leave the team.</string>
   <string name="completedTourns">Completed tournaments</string>
   <string name="declinedRequests">Declined Requests</string>
   <string name="joinLichessVariantTeam">Join the official %s team for news and events</string>
-  <string name="teamPage">Team page</string>
   <string name="thisTeamBattleIsOver">This tournament is over, and the teams can no longer be updated.</string>
   <string name="listTheTeamsThatWillCompete">List the teams that will compete in this battle.</string>
   <string name="oneTeamPerLine">One team per line. Use the auto-completion.</string>

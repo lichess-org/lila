@@ -2,13 +2,6 @@
   "name": "voice",
   "version": "1.0.0",
   "private": true,
-  "description": "lichess.org voice rec",
-  "author": "T-Bone Duplexus",
-  "license": "AGPL-3.0-or-later",
-  "types": "dist/voice.d.ts",
-  "exports": {
-    ".": "./src/voice.ts"
-  },
   "dependencies": {
     "lib": "workspace:*",
     "@lichess-org/vosk-browser": "0.0.3"
@@ -20,11 +13,18 @@
     "bundle": "src/**/voice.*.ts",
     "sync": {
       "grammar/**": "/public/compiled/grammar",
-      "node_modules/@lichess-org/vosk-browser/dist/**/*.{js,wasm}": "/public/npm/vosk"
+      "node_modules/@lichess-org/vosk-browser/dist/*.{js,wasm}": "/public/npm/vosk"
     },
     "hash": [
       "/public/compiled/grammar/*",
       "/public/npm/vosk/*.{js,wasm}"
     ]
+  },
+  "exports": {
+    "types": "./dist/voice.d.ts",
+    "import": {
+      "source": "./src/voice.ts",
+      "default": "./dist/voice.js"
+    }
   }
 }

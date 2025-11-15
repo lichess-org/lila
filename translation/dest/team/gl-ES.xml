@@ -57,7 +57,6 @@ Os xogadores que non gosten de recibiren mensaxes poden abandonar o equipo.</str
   <string name="completedTourns">Torneos finalizados</string>
   <string name="declinedRequests">Solicitudes rexeitadas</string>
   <string name="joinLichessVariantTeam">Únete ó equipo oficial de %s para novidades e eventos</string>
-  <string name="teamPage">Páxina do equipo</string>
   <string name="thisTeamBattleIsOver">Este torneo rematou e os equipos xa non poden ser actualizados.</string>
   <string name="listTheTeamsThatWillCompete">Enumera os equipos que competirán nesta batalla.</string>
   <string name="oneTeamPerLine">Un equipo por liña. Usar o autocompletado.</string>

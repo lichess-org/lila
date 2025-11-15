@@ -1,0 +1,301 @@
+.plan {
+  grid-gap: $block-gap;
+
+  .all {
+    margin-top: 20px;
+    font-size: 1.2em;
+    width: 100%;
+
+    td,
+    th {
+      border-top: $border;
+    }
+
+    td {
+      padding: 30px;
+      line-height: 1.7em;
+    }
+
+    th {
+      opacity: 0.8;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .switch.up {
+      color: #639b24;
+    }
+
+    .switch.down {
+      color: #ac524f;
+    }
+
+    .id {
+      font-family: monospace;
+      font-size: 10px;
+    }
+
+    .change form {
+      display: none;
+      margin-top: 1em;
+      padding: 1em;
+      background: $c-bg-zebra;
+    }
+
+    .change form input {
+      width: 5em;
+      padding: 3px 5px;
+    }
+
+    .change form p {
+      margin-bottom: 1em;
+    }
+
+    .change form button,
+    .change form a {
+      margin-inline-start: 10px;
+    }
+
+    .thanks {
+      color: $c-good;
+      display: block;
+    }
+  }
+
+  .gifts {
+    font-size: 0.9em;
+    width: auto;
+
+    td {
+      padding: 0.4em 1em;
+      border: 0;
+    }
+  }
+
+  .banner {
+    @extend %box-radius-top, %flex-center-nowrap;
+
+    margin-bottom: 2.5em;
+    background: $c-good;
+    color: $c-over;
+    text-align: center;
+    font-size: 1.3em;
+    min-height: 200px;
+    padding: 1em 0;
+    justify-content: space-between;
+
+    > i {
+      @include fluid-size('font-size', 40px, 120px);
+
+      margin: 0 0.4em;
+    }
+
+    > i:last-child {
+      transform: scale(-1, 1);
+    }
+
+    h1 {
+      font-size: 2em;
+      margin: 0 0 0.5em 0;
+      padding: 0;
+    }
+  }
+
+  .wrapper {
+    @extend %flex-center;
+
+    justify-content: space-between;
+    align-items: flex-start;
+    font-size: 1.3em;
+  }
+
+  .text,
+  .content {
+    @extend %flex-center;
+
+    flex: 1 1 50%;
+  }
+
+  .text {
+    flex: 1 1 45%;
+    margin-inline-end: 1em;
+    flex-flow: column nowrap;
+  }
+
+  .plan_checkout {
+    width: 100%;
+
+    h3 {
+      @extend %roboto;
+
+      display: block;
+      text-transform: uppercase;
+      margin: 0;
+    }
+
+    group {
+      margin-bottom: 2em;
+      overflow: visible;
+    }
+
+    @media (min-width: at-least($large)) {
+      group div:first-child label {
+        border-radius: $box-radius-size 0 0 $box-radius-size;
+      }
+      group div:last-child label {
+        border-radius: 0 $box-radius-size $box-radius-size 0;
+      }
+    }
+
+    group input:checked + label,
+    .amount_fixed label,
+    .lifetime-check + label {
+      background: $c-good;
+      border-color: $c-border;
+      box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15) inset !important;
+      color: $c-over;
+      text-shadow: 0 1px 0 #000 !important;
+    }
+
+    group input:disabled + label {
+      opacity: 0.5;
+      cursor: default;
+    }
+
+    group.freq input:checked + label::before,
+    group .lifetime-check input + label::before {
+      content: '✓';
+      padding-inline-end: 5px;
+    }
+
+    group .lifetime-check input + label {
+      background: $c-brag !important;
+      opacity: 0.8;
+      cursor: default;
+    }
+
+    .service {
+      .buttons {
+        @extend %flex-between;
+        font-size: 1.1em;
+
+        $button-height: 55px;
+
+        .button {
+          flex: 1 1 auto;
+          font-weight: normal;
+          height: $button-height;
+        }
+
+        .paypal {
+          display: flex;
+          height: $button-height;
+          overflow: hidden;
+          margin-inline-start: 1em;
+
+          iframe {
+            color-scheme: normal;
+          }
+        }
+      }
+
+      .other-choices {
+        margin-top: 1em;
+        font-size: 1rem;
+      }
+      .currency {
+        font-size: 1rem;
+        margin-top: 1em;
+      }
+    }
+
+    .gift {
+      @extend %flex-center;
+      justify-content: center;
+      margin: -1em 0 1em 0;
+    }
+  }
+
+  .small_team {
+    text-align: center;
+    font-style: italic;
+    font-size: 1.3em;
+    margin-top: 40px;
+  }
+
+  .faq {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: flex-start;
+    margin: 50px 0 40px 0;
+    padding: 30px 0;
+    border-top: $border;
+    border-bottom: $border;
+    justify-content: space-between;
+
+    dl {
+      flex: 1 0 200px;
+      margin: 0 0.2em 1em 0.2em;
+    }
+
+    dt {
+      font-size: 1.3em;
+      margin-bottom: 1em;
+    }
+
+    dt:nth-of-type(2) {
+      margin-top: 1.5em;
+    }
+
+    dd {
+      margin: 0;
+    }
+
+    code {
+      font-size: 0.9em;
+    }
+  }
+
+  .best_patrons {
+    h2 {
+      display: block;
+      text-align: center;
+      font-size: 1.5em;
+      margin-bottom: 30px;
+    }
+
+    .list {
+      @extend %flex-center;
+
+      font-size: 1.1em;
+    }
+
+    .list div {
+      flex: 1 1 25%;
+      min-width: 17ch;
+      padding: 0.5em 0;
+    }
+  }
+
+  .recent-patrons {
+    display: none;
+
+    @include mq-topnav-visible {
+      display: block;
+    }
+
+    h2 {
+      font-size: 1.5em;
+      margin: 300px 0 0.4em 0;
+      border-bottom: $border;
+    }
+
+    .list div {
+      padding: 0.5em 0;
+    }
+
+    a {
+      color: $c-font-page;
+    }
+  }
+}

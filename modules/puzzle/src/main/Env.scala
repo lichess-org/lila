@@ -93,16 +93,15 @@ final class Env(
         none
       }
 
-  def cli = new lila.common.Cli:
-    def process =
-      case "puzzle" :: "opening" :: "recompute" :: "all" :: Nil =>
-        opening.recomputeAll
-        fuccess("started in background")
-      case "puzzle" :: "issue" :: id :: issue :: Nil =>
-        api.puzzle
-          .setIssue(PuzzleId(id), issue)
-          .map: res =>
-            if res then "done" else "not found"
+  lila.common.Cli.handle:
+    case "puzzle" :: "opening" :: "recompute" :: "all" :: Nil =>
+      opening.recomputeAll
+      fuccess("started in background")
+    case "puzzle" :: "issue" :: id :: issue :: Nil =>
+      api.puzzle
+        .setIssue(PuzzleId(id), issue)
+        .map: res =>
+          if res then "done" else "not found"
 
   scheduler.scheduleAtFixedRate(10.minutes, 1.day): () =>
     tagger.addAllMissing

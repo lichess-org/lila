@@ -82,7 +82,7 @@ object MongoCache:
           ),
         coll
       )
-      cacheApi.monitor(name, cache.cache)
+      cacheApi.register(name, cache.cache)
       cache
 
     // no in-heap cache

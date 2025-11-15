@@ -10,3 +10,5 @@ private object BsonHandlers:
   given BSONDocumentHandler[Clas] = Macros.handler
   given BSONDocumentHandler[Student] = Macros.handler
   given BSONDocumentHandler[ClasInvite] = Macros.handler
+  given BSONDocumentHandler[ClasUserCode] = Macros.handler
+  given BSONDocumentHandler[ClasLogin] = Macros.handler

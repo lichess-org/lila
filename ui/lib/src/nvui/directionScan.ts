@@ -1,6 +1,6 @@
-import { Pieces, Pos } from '@lichess-org/chessground/types';
+import type { Pieces, Pos } from '@lichess-org/chessground/types';
 import { key2pos, pos2key } from '@lichess-org/chessground/util';
-import { keyFromAttrs, MoveStyle, renderKey, transPieceStr } from './chess';
+import { keyFromAttrs, type MoveStyle, renderKey, transPieceStr } from './chess';
 
 const directions = ['top', 'topRight', 'right', 'bottomRight', 'bottom', 'bottomLeft', 'left', 'topLeft'];
 type Direction = (typeof directions)[number];
@@ -12,35 +12,35 @@ function getKeysOnRay(originKey: Key, direction: Direction, pov: Color): Key[] {
   const result = [] as Key[];
 
   for (let d = 1; d < 8; d++) {
-    let possibleKey = [-1, -1];
+    let pos: Pos = [-1, -1];
     switch (direction) {
       case 'top':
-        possibleKey = asWhite ? [fileIndex, rankIndex + d] : [fileIndex, rankIndex - d];
+        pos = asWhite ? [fileIndex, rankIndex + d] : [fileIndex, rankIndex - d];
         break;
       case 'topRight':
-        possibleKey = asWhite ? [fileIndex + d, rankIndex + d] : [fileIndex - d, rankIndex - d];
+        pos = asWhite ? [fileIndex + d, rankIndex + d] : [fileIndex - d, rankIndex - d];
         break;
       case 'right':
-        possibleKey = asWhite ? [fileIndex + d, rankIndex] : [fileIndex - d, rankIndex];
+        pos = asWhite ? [fileIndex + d, rankIndex] : [fileIndex - d, rankIndex];
         break;
       case 'bottomRight':
-        possibleKey = asWhite ? [fileIndex + d, rankIndex - d] : [fileIndex - d, rankIndex + d];
+        pos = asWhite ? [fileIndex + d, rankIndex - d] : [fileIndex - d, rankIndex + d];
         break;
       case 'bottom':
-        possibleKey = asWhite ? [fileIndex, rankIndex - d] : [fileIndex, rankIndex + d];
+        pos = asWhite ? [fileIndex, rankIndex - d] : [fileIndex, rankIndex + d];
         break;
       case 'bottomLeft':
-        possibleKey = asWhite ? [fileIndex - d, rankIndex - d] : [fileIndex + d, rankIndex + d];
+        pos = asWhite ? [fileIndex - d, rankIndex - d] : [fileIndex + d, rankIndex + d];
         break;
       case 'left':
-        possibleKey = asWhite ? [fileIndex - d, rankIndex] : [fileIndex + d, rankIndex];
+        pos = asWhite ? [fileIndex - d, rankIndex] : [fileIndex + d, rankIndex];
         break;
       case 'topLeft':
-        possibleKey = asWhite ? [fileIndex - d, rankIndex + d] : [fileIndex + d, rankIndex - d];
+        pos = asWhite ? [fileIndex - d, rankIndex + d] : [fileIndex + d, rankIndex - d];
         break;
     }
-    if (possibleKey[0] > -1 && possibleKey[0] < 8 && possibleKey[1] > -1 && possibleKey[1] < 8)
-      result.push(pos2key(possibleKey as Pos));
+    const key = pos2key(pos);
+    if (key) result.push(key);
     else break;
   }
   return result;

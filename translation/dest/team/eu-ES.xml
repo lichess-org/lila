@@ -57,7 +57,6 @@ Kontuz, agian mezurik jaso nahi ez duten erabiltzaileek taldea utziko dute-eta.<
   <string name="completedTourns">Amaitutako txapelketak</string>
   <string name="declinedRequests">Ukatutako eskaerak</string>
   <string name="joinLichessVariantTeam">Sartu %s talde ofizialera, albiste eta txapelketen berri izateko</string>
-  <string name="teamPage">Taldearen orria</string>
   <string name="thisTeamBattleIsOver">Txapelketa hau amaituta dago eta taldeak ezin dira eguneratu.</string>
   <string name="listTheTeamsThatWillCompete">Zerrendatu txapelketa honetan parte hartuko duten taldeak.</string>
   <string name="oneTeamPerLine">Talde bat lerro bakoitzean. Erabili izena berez-betetzea.</string>

@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="gameSetup">Configurar partida</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Desafie um amigo</string>
+  <string name="playAgainstComputer">Jogar contra o computador</string>
+  <string name="gameMode">Tipo de partida</string>
+  <string name="createLobbyGame" comment="One of three buttons on the home page. Opens the modal to create a game that goes in the lobby.">Criar partida na sala de espera</string>
+  <string name="youPlayAs">Você joga com as</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Para convidar alguém para jogar, envie este URL</string>
   <string name="gameOver">Fim da partida</string>
   <string name="waitingForOpponent">Aguardando oponente</string>
@@ -339,6 +345,7 @@
     <item quantity="other">%s jogando</item>
   </plurals>
   <string name="exportGames">Exportar partidas</string>
+  <string name="ratingFilter">Filtro de Rating</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Dar %s segundos</item>
     <item quantity="other">Dar %s segundos</item>
@@ -390,11 +397,11 @@
     <item quantity="other">Você precisa jogar mais %1$s partidas de %2$s valendo pontos</item>
   </plurals>
   <plurals name="needNbMoreGames">
-    <item quantity="one">Você precisa jogar ainda %s partidas valendo pontos</item>
+    <item quantity="one">Você precisa jogar ainda %s partida valendo pontos</item>
     <item quantity="other">Você precisa jogar ainda %s partidas valendo pontos</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Seu rating %s é provisório</string>
-  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Filtros de rating bloqueados, pois seu rating não é estável. Partidas valendo rating aumentarão a estabilidade.</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Filtros de rating bloqueados, pois seu rating não está estável. Partidas valendo rating aumentarão a estabilidade.</string>
   <string name="yourPerfRatingIsTooHigh">Seu %1$s rating (%2$s) é muito alta</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Seu melhor rating %1$s da semana (%2$s) é muito alto</string>
   <string name="yourPerfRatingIsTooLow">Sua %1$s pontuação (%2$s) é muito baixa</string>
@@ -823,6 +830,7 @@
   <string name="notifications">Notificações</string>
   <string name="notificationsX">Notificações: %1$s</string>
   <string name="perfRatingX">Rating: %s</string>
+  <string name="yourRatingIsX">Seu rating é %s </string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s segundo para fazer o primeiro lance</item>
     <item quantity="other">%s segundos para fazer o primeiro lance</item>
@@ -874,6 +882,7 @@
   <string name="playVariationToCreateConditionalPremoves">Jogar uma variação para criar pré-lances condicionais</string>
   <string name="noConditionalPremoves">Sem pré-lances condicionais</string>
   <string name="playX">Jogar %s</string>
+  <string name="challengeX">Desafiar %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">e salvar a linha de pré-lance de %s</item>
     <item quantity="other">e salvar as linhas de pré-lance de %s</item>
@@ -965,7 +974,7 @@ Deixe em branco para começar as partidas na posição inicial padrão.</string>
   <string name="simulFeaturedHelp">Compartilhar a simultânia com todos em %s. Desative para jogos privados.</string>
   <string name="simulDescription">Descrição da simultânea</string>
   <string name="simulDescriptionHelp">Você gostaria de dizer algo aos participantes?</string>
-  <string name="markdownAvailable">%s está disponível para opções de formatação adicionais.</string>
+  <string name="markdownIsAvailable">%s está disponível para formatação.</string>
   <string name="embedsAvailable">Cole a URL de uma partida ou de um capítulo de estudo para incorporá-lo.</string>
   <string name="inYourLocalTimezone">No seu próprio fuso horário</string>
   <string name="tournChat">Chat do torneio</string>

@@ -1,25 +1,26 @@
-import { expect, test, vi } from 'vitest';
-import { selfReport } from '../src/chat/spam';
-import * as xhr from '../src/xhr';
+import { test, mock, before } from 'node:test';
+import assert from 'node:assert/strict';
 
-test('self report', () => {
-  vi.stubGlobal('window', { location: { href: 'https://lichess.org/abcdef123456' } });
+const spamUrl = new URL('../src/chat/spam.ts', import.meta.url).href;
+const xhrUrl = new URL('../src/xhr.ts', import.meta.url).href;
 
-  vi.stubGlobal('site', {
-    storage: {
-      set: (key: string, value: string) => {
-        expect(key).toBe('chat-spam');
-        expect(value).toBe('1');
-      },
-      get: () => '0',
-    },
+test('self report', async () => {
+  const textMock = mock.fn(async (url: string) => {
+    assert.equal(url, '/jslog/lichess.org/?n=spam');
+    return 'ok';
   });
 
-  const spy = vi.spyOn(xhr, 'text').mockImplementation((url: string) => {
-    expect(url).toBe('/jslog/abcdef123456?n=spam');
-    return Promise.resolve('ok');
+  let selfReport: (msg: string) => Promise<unknown>;
+
+  before(async () => {
+    const xhr = await import(xhrUrl);
+    mock.module(xhrUrl, { namedExports: { ...xhr, text: textMock } });
+
+    ({ selfReport } = await import(spamUrl));
   });
 
-  selfReport('check out bit.ly/spam');
-  expect(spy).toHaveBeenCalled();
+  test('self report', async () => {
+    await selfReport('check out bit.ly/spam');
+    assert.equal(textMock.mock.callCount(), 1);
+  });
 });

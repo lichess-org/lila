@@ -57,7 +57,6 @@ Notendur sem vilja ekki fá skilaboð frá þér gætu yfirgefið liðið.</stri
   <string name="completedTourns">Lokin mót</string>
   <string name="declinedRequests">Hafnaðar beiðnir</string>
   <string name="joinLichessVariantTeam">Skráðu þig í opinbera liðið fyrir %s til þess að nálgast fréttir og viðburði</string>
-  <string name="teamPage">Liðssíða</string>
   <string name="thisTeamBattleIsOver">Þessu móti er lokið, og ekki er lengur hægt að uppfæra liðin.</string>
   <string name="listTheTeamsThatWillCompete">Skráðu liðin sem munu keppa í þessari orrustu.</string>
   <string name="oneTeamPerLine">Eitt lið á línu. Notfærðu þér sjálfvirka útfyllinguna.</string>

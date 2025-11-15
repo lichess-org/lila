@@ -7,6 +7,13 @@
 @import 'activity';
 @import 'games';
 
+@mixin hamburger-visible {
+  border-radius: $box-radius-size $box-radius-size 0 0;
+  background: $c-bg-header-dropdown;
+  color: $c-font-clear;
+  box-shadow: -1px 5px 6px rgba(0, 0, 0, 0.3);
+}
+
 .page-menu {
   /* for the trophies. This glorious hack bypasses the .user-show overflow: hidden */
   position: relative;
@@ -23,12 +30,11 @@
 
   &__social {
     @extend %flex-between-nowrap;
-    gap: 2em;
+    gap: 1vw;
 
     background: $c-bg-zebra;
 
     .number-menu {
-      flex: 0 0 auto;
       overflow-x: auto;
       margin: 0 0 0.2em 1em;
     }
@@ -63,18 +69,8 @@
         color: $c-font-dim;
         padding: 0 0.7em;
       }
-      .dropdown:not(.btn-rack__btn) {
-        &:hover > a {
-          @extend %box-radius-top, %dropdown-shadow;
-          @extend %box-radius-top;
-          background: $c-bg-header-dropdown;
-          color: $c-font-clear;
-          box-shadow: -1px 5px 6px rgba(0, 0, 0, 0.3);
-        }
-
-        .dropdown-window {
-          top: 3rem;
-        }
+      .dropdown:not(.btn-rack__btn) .dropdown-window {
+        top: 3rem;
       }
 
       .dropdown {
@@ -107,13 +103,6 @@
               margin-inline: 0 1rem;
               font-size: 1.4em;
             }
-            &:hover {
-              background: $c-primary;
-              &,
-              &::after {
-                color: $c-over;
-              }
-            }
           }
           > a {
             &:first-child {
@@ -125,10 +114,30 @@
             }
           }
         }
-        &:hover {
-          .dropdown-window {
-            visibility: visible;
+      }
+      .dropdown.visible {
+        .dropdown-window {
+          visibility: visible;
+        }
+        > a {
+          @include hamburger-visible;
+        }
+      }
+      @media (hover: hover) and (pointer: fine) {
+        .dropdown:not(.btn-rack__btn):hover > a {
+          @include hamburger-visible;
+        }
+        .dropdown .dropdown-window a:hover,
+        .dropdown .dropdown-window button:hover {
+          background: $c-primary;
+          &,
+          &::after {
+            color: $c-over;
           }
+        }
+        .dropdown:hover .dropdown-window,
+        .dropdown:focus-within .dropdown-window {
+          visibility: visible;
         }
       }
     }

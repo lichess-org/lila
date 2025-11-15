@@ -57,7 +57,6 @@ Mesajlarınızı almayı sevmeyen oyuncular takımdan ayrılabilir.</string>
   <string name="completedTourns">Tamamlanan turnuvalar</string>
   <string name="declinedRequests">Geri çevrilen istekler</string>
   <string name="joinLichessVariantTeam">Haber ve etkinlikler için resmî %s takımına katılın</string>
-  <string name="teamPage">Takım sayfası</string>
   <string name="thisTeamBattleIsOver">Bu turnuva sona erdi ve takımlar artık güncellenemez.</string>
   <string name="listTheTeamsThatWillCompete">Bu çarpışmada yarışacak takımları listeleyin.</string>
   <string name="oneTeamPerLine">Her satırda bir takım kullanın. Otomatik tamamlayıcıyı kullanabilirsiniz.</string>

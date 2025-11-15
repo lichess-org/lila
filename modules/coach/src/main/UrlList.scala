@@ -6,9 +6,6 @@ object UrlList:
 
     val max = 6
 
-    opaque type Url = String
-    object Url extends OpaqueString[Url]
-
     def apply(text: String): List[Url] =
       text.linesIterator.toList.view.map(_.trim).filter(_.nonEmpty).flatMap(toUrl).take(max) to List
 
@@ -17,10 +14,11 @@ object UrlList:
     /*
      * https://www.youtube.com/watch?v=wEwoyYp_iw8
      * https://www.youtube.com/embed/wEwoyYp_iw8
+     * https://www.youtube-nocookie.com/embed/wEwoyYp_iw8
      */
     private def toUrl(line: String): Option[Url] =
       line match
-        case UrlRegex(id) => Url(s"https://www.youtube.com/embed/$id").some
+        case UrlRegex(id) => Url(s"https://www.youtube-nocookie.com/embed/$id").some
         case _ => none
 
   object study:

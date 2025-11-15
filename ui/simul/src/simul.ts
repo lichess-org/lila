@@ -1,4 +1,4 @@
-import { init, VNode, classModule, attributesModule } from 'snabbdom';
+import { init, type VNode, classModule, attributesModule } from 'snabbdom';
 import type { SimulOpts } from './interfaces';
 import SimulCtrl from './ctrl';
 import { wsConnect } from 'lib/socket';

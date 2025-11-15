@@ -16,6 +16,7 @@
   <string name="recentlyUpdated">Eguneratutako azkenak</string>
   <string name="mostPopular">Arrakasta gehien duena</string>
   <string name="alphabetical">Alfabetikoa</string>
+  <string name="relevant">Garrantzitsua</string>
   <string name="addNewChapter">Kapitulu berria gehitu</string>
   <plurals name="nbChapters">
     <item quantity="one">Kapitulu %s</item>
@@ -61,7 +62,7 @@
   <string name="studyPgn">Azterlanaren PGNa</string>
   <string name="chapterPgn">Kapituluaren PGNa</string>
   <string name="copyChapterPgn">Kopiatu PGNa</string>
-  <string name="copyRawChapterPgn" comment="Appears as a button on individual study chapters. Lets you copy a PGN without any annotations, commentary or analysis">Kopiatu jatorrizko PGNa</string>
+  <string name="copyRawChapterPgn">Kopiatu jatorrizko PGNa</string>
   <string name="downloadGame">Partida deskargatu</string>
   <string name="studyUrl">Azterlanaren helbidea</string>
   <string name="currentChapterUrl">Uneko kapituluaren helbidea</string>
@@ -105,7 +106,6 @@
     <item quantity="other">Itsatsi hemen zure PGNa, gehienez %s partida</item>
   </plurals>
   <string name="urlOfTheGame">Partidaren URLa</string>
-  <string name="loadAGameFromXOrY">Hemendik kargatu partida bat: %1$s edo %2$s</string>
   <string name="createChapter">Kapitulua sortu</string>
   <string name="createStudy">Azterlana sortu</string>
   <string name="editStudy">Azterlana aldatu</string>

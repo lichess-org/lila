@@ -4,16 +4,14 @@ import lila.core.net.Domain
 import lila.user.{ User, UserRepo }
 import lila.core.user.RoleDbKey
 
-final private[security] class Cli(
+final private class Cli(
     userRepo: UserRepo,
     emailValidator: EmailAddressValidator,
     verifyMail: VerifyMail,
     gc: GarbageCollector
-)(using ec: Executor)
-    extends lila.common.Cli:
+)(using Executor):
 
-  def process =
-
+  lila.common.Cli.handle:
     case "security" :: "roles" :: uid :: Nil =>
       userRepo
         .byId(UserStr(uid))

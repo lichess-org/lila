@@ -16,8 +16,9 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.core.user.LightUserApi,
     userJson: lila.core.user.JsonView,
-    db: lila.db.Db
-)(using Executor, akka.stream.Materializer):
+    db: lila.db.Db,
+    mongoRateLimitApi: lila.memo.MongoRateLimitApi
+)(using Executor, Scheduler, akka.stream.Materializer):
 
   lazy val teamRepo = TeamRepo(db(CollName("team")))
   lazy val memberRepo = TeamMemberRepo(db(CollName("team_member")))
@@ -43,18 +44,19 @@ final class Env(
 
   export cached.{ async as lightTeam, sync as lightTeamSync }
 
+  lazy val limiter = wire[TeamLimiter]
+
   lazy val security = wire[TeamSecurity]
 
   lazy val api = wire[TeamApi]
 
-  def cli: lila.common.Cli = new:
-    def process =
-      case "team" :: "members" :: "add" :: teamId :: members :: Nil =>
-        for
-          team <- teamRepo.byId(TeamId(teamId)).orFail(s"Team $teamId not found")
-          userIds = members.split(',').flatMap(UserStr.read).map(_.id).toList
-          _ <- api.addMembers(team, userIds)
-        yield s"Added ${userIds.size} members to team ${team.name}"
+  lila.common.Cli.handle:
+    case "team" :: "members" :: "add" :: teamId :: members :: Nil =>
+      for
+        team <- teamRepo.byId(TeamId(teamId)).orFail(s"Team $teamId not found")
+        userIds = members.split(',').flatMap(UserStr.read).map(_.id).toList
+        _ <- api.addMembers(team, userIds)
+      yield s"Added ${userIds.size} members to team ${team.name}"
 
   lila.common.Bus.sub[lila.core.mod.Shadowban]:
     case lila.core.mod.Shadowban(userId, true) =>

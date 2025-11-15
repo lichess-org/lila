@@ -33,11 +33,7 @@ enum RoundBus extends NotBuseable:
 case class Tell(id: GameId, msg: RoundBus)
 case class TellMany(ids: Seq[GameId], msg: StartClock.type | RoundBus.QuietFlagCheck.type)
 
-case class MoveEvent(
-    gameId: GameId,
-    fen: Fen.Full,
-    move: String
-)
+case class MoveEvent(gameId: GameId, fen: Fen.Full, move: Uci)
 case class CorresMoveEvent(
     move: MoveEvent,
     playerUserId: Option[UserId],

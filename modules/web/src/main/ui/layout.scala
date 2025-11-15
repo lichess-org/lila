@@ -35,7 +35,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     )(nonce)
   val noTranslate = raw("""<meta name="google" content="notranslate">""")
 
-  def preload(href: String, as: String, crossorigin: Boolean, tpe: Option[String] = None) =
+  def preload(href: Url, as: String, crossorigin: Boolean, tpe: Option[String] = None) =
     val linkType = tpe.so(t => s"""type="$t" """)
     raw:
       s"""<link rel="preload" href="$href" as="$as" $linkType${crossorigin.so("crossorigin")}>"""
@@ -86,7 +86,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
 
   val warnNoAutoplay =
     div(id := "warn-no-autoplay")(
-      a(dataIcon := Icon.Mute, target := "_blank", href := s"${routes.Main.faq}#autoplay")
+      a(dataIcon := Icon.Mute, targetBlank, href := s"${routes.Main.faq}#autoplay")
     )
 
   def botImage = img(

@@ -2,7 +2,7 @@ import { json as xhrJson, form as xhrForm, text as xhrText } from 'lib/xhr';
 import type PuzzleStreak from './streak';
 import { throttlePromiseDelay } from 'lib/async';
 import { defined } from 'lib';
-import { PuzzleReplay, PuzzleResult, ThemeKey } from './interfaces';
+import type { PuzzleReplay, PuzzleResult, ThemeKey } from './interfaces';
 
 export const complete = (
   puzzleId: string,
