@@ -62,7 +62,7 @@
   <string name="killBoxMate">Kill box mate</string>
   <string name="killBoxMateDescription">A rook is next to the enemy king and supported by a queen that also blocks the king's escape squares. The rook and the queen catch the enemy king in a 3 by 3 "kill box".</string>
   <string name="triangleMate">Triangle mate</string>
-  <string name="triangleMateDescription">A Triangle Mate is delivered by a queen attacking an enemy king, while it is supported by a rook. The queen and rook are one square away from the enemy king. They are on the same rank or file, separated by one square, with the enemy king being between them one square away, forming a triangle.</string>
+  <string name="triangleMateDescription">The queen and rook, one square away from the enemy king, are on the same rank or file, separated by one square, forming a triangle.</string>
   <string name="vukovicMate">Vukovic mate</string>
   <string name="vukovicMateDescription">A rook and knight team up to mate the king. The rook delivers mate while supported by a third piece, and the knight is used to block the king's escape squares.</string>
   <string name="knightEndgame">Knight endgame</string>
