@@ -752,7 +752,7 @@
   <string name="glicko2Rating">درجه‌بندی Glicko-2</string>
   <string name="checkYourEmail">به رایانامه‌تان سر زنید</string>
   <string name="weHaveSentYouAnEmailClickTheLink">ما به شما ایمیل فرستادیم. روی لینکی که در ایمیل است کلیک کنید</string>
-  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">اگر رایانامه را نمی‌بینید، مکان‌های دیگری مانند پوشه‌های ناخواسته، هرزنامه، اجتماعی یا سایر موردها را بررسی کنید.</string>
+  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">اگر رایانامه را نمی‌بینید، جاهای دیگری مانند پوشه‌های ناخواسته، هرزنامه، اجتماعی یا سایر موردها را بررسی کنید.</string>
   <string name="ifYouDoNotGetTheEmail">اگر ایمیل را در 5 دقیقه دریافت نکرده اید</string>
   <string name="checkAllEmailFolders">فولدر های junk, spam و دیگر را چک کنید</string>
   <string name="verifyYourAddress">تائید کنید که %s ایمیل شما هست</string>
