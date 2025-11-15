@@ -14,8 +14,8 @@
   <string name="attractionDescription">تبادل یا فداکاری یک مهره برای تشویق یا وادار کردن حریف به حرکتی که امکان تاکتیک بعدی را فراهم میکند.</string>
   <string name="backRankMate">مات عرض آخر</string>
   <string name="backRankMateDescription">به دام انداختن شاه حریف در عرض اولیه خود زمانی که با مهره های خودی به دام افتاده است.</string>
-  <string name="balestraMate" comment="&quot;Balestra&quot; does not refer to a person. It comes from the Italian word &quot;balestra&quot;, which means &quot;crossbow&quot;.">ماتِ کمان‌فَنگ</string>
-  <string name="balestraMateDescription" comment="Description for balestra mate">فیل مات را می‌انجامد و وزیر خانه‌های فرارِ باقی‌مانده را می‌بندد</string>
+  <string name="balestraMate">ماتِ کمان‌فَنگ</string>
+  <string name="balestraMateDescription">فیل مات را می‌انجامد و وزیر خانه‌های فرارِ باقی‌مانده را می‌بندد</string>
   <string name="bishopEndgame">آخربازی فیل</string>
   <string name="bishopEndgameDescription">آخربازی، تنها با فیل‌ها و پیاده‌ها.</string>
   <string name="bodenMate">مات بودِن یا دوشمشیر</string>
