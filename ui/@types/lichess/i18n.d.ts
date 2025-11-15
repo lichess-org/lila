@@ -2743,7 +2743,7 @@ interface I18n {
     trappedPieceDescription: string;
     /** Triangle mate */
     triangleMate: string;
-    /** A Triangle Mate is delivered by a queen attacking an enemy king, while it is supported by a rook. The queen and rook are one square away from the enemy king. They are on the same rank or file, separated by one square, with the enemy king being between them one square away, forming a triangle. */
+    /** The queen and rook, one square away from the enemy king, are on the same rank or file, separated by one square, forming a triangle. */
     triangleMateDescription: string;
     /** Underpromotion */
     underPromotion: string;
