@@ -10,6 +10,8 @@ import { readNdJson } from '@/xhr';
 import { throttle } from '@/async';
 
 interface ExternalEngineOutput {
+  bestmove?: Uci;
+  ponder?: Uci;
   time: number;
   depth: number;
   nodes: number;
@@ -78,6 +80,8 @@ export class ExternalEngine implements CevalEngine {
       await readNdJson<ExternalEngineOutput>(res, line => {
         this.state = CevalState.Computing;
         work.emit({
+          bestmove: line.bestmove, // always communicate final result
+          ponder: line.ponder,
           fen: work.currentFen,
           depth: line.pvs[0]?.depth || 0,
           millis: Math.max(line.time, 1),

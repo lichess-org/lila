@@ -38,6 +38,7 @@ final private class StudySocket(
 
   def onServerEval(studyId: StudyId, eval: ServerEval.Progress): Unit =
     import eval.*
+    import lila.tree.Analysis.given
     send.exec(
       RP.Out.tellRoom(
         studyId,
@@ -47,7 +48,8 @@ final private class StudySocket(
             "analysis" -> analysis,
             "ch" -> chapterId,
             "tree" -> lila.tree.Node.defaultNodeJsonWriter.writes(tree),
-            "division" -> division
+            "division" -> division,
+            "engine" -> engine
           )
         )
       )
