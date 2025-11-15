@@ -2741,6 +2741,10 @@ interface I18n {
     trappedPiece: string;
     /** A piece is unable to escape capture as it has limited moves. */
     trappedPieceDescription: string;
+    /** Triangle mate */
+    triangleMate: string;
+    /** The queen and rook, one square away from the enemy king, are on the same rank or file, separated by one square, forming a triangle. */
+    triangleMateDescription: string;
     /** Underpromotion */
     underPromotion: string;
     /** Promotion to a knight, bishop, or rook. */
