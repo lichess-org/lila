@@ -28,6 +28,7 @@ object PuzzleTheme:
   val attraction = PuzzleTheme(i.attraction, i.attractionDescription)
   val backRankMate = PuzzleTheme(i.backRankMate, i.backRankMateDescription)
   val balestraMate = PuzzleTheme(i.balestraMate, i.balestraMateDescription)
+  val triangleMate = PuzzleTheme(i.triangleMate, i.triangleMateDescription)
   val bishopEndgame = PuzzleTheme(i.bishopEndgame, i.bishopEndgameDescription)
   val bodenMate = PuzzleTheme(i.bodenMate, i.bodenMateDescription)
   val capturingDefender =
@@ -150,6 +151,7 @@ object PuzzleTheme:
       dovetailMate,
       hookMate,
       killBoxMate,
+      triangleMate,
       vukovicMate,
       smotheredMate
     ),
