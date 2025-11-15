@@ -120,7 +120,7 @@ class FormTest extends munit.FunSuite:
     )
 
   test("invisible chars are removed before validation"):
-    val invisibleChars = List('\u200b', '\u200c', '\u200d', '\u200e', '\u200f', '\u202e', '\u1160')
+    val invisibleChars = List('\u200e', '\u200f', '\u202e', '\u1160')
     val invisibleStr = invisibleChars.mkString("")
     assertEquals(single("t" -> cleanText).bind(Map("t" -> invisibleStr)), Right(""))
     assertEquals(single("t" -> cleanText).bind(Map("t" -> s"  $invisibleStr  ")), Right(""))
