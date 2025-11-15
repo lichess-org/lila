@@ -14,6 +14,8 @@
   <string name="attractionDescription">희생이나 교환을 통해 상대 기물을 후속 전술이 있는 칸으로 끌어냅니다.</string>
   <string name="backRankMate">백 랭크 메이트</string>
   <string name="backRankMateDescription">킹이 자신의 기물들에게 막혀 마지막 랭크에서 체크메이트 당합니다.</string>
+  <string name="balestraMate" comment="&quot;Balestra&quot; does not refer to a person. It comes from the Italian word &quot;balestra&quot;, which means &quot;crossbow&quot;.">발레스트라 메이트</string>
+  <string name="balestraMateDescription" comment="Description for balestra mate">퀸이 남은 퇴로를 차단하고, 비숍이 체크메이트를 가합니다.</string>
   <string name="bishopEndgame">비숍 엔드게임</string>
   <string name="bishopEndgameDescription">비숍과 폰만 있는 엔드게임</string>
   <string name="bodenMate">보든 메이트</string>

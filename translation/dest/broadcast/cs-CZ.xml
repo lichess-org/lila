@@ -85,4 +85,6 @@
   <string name="backToLiveMove">Zpět k přímému tahu</string>
   <string name="sinceHideResults">Vzhledem k tomu, že jste se rozhodli skrýt výsledky, všechny náhledy jsou prázdné, abyste se vyhnuli spoilerům.</string>
   <string name="liveboard">Živá deska</string>
+  <string name="communityBroadcast">Komunitní vysílání</string>
+  <string name="createdAndManagedBy">Vytvořeno a spravováno %s.</string>
 </resources>
