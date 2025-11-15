@@ -14,8 +14,8 @@
   <string name="attractionDescription">Việc đổi quân hoặc thí quân thu hút hoặc ép buộc một quân đối phương đến một ô nhằm tạo một đòn chiến thuật.</string>
   <string name="backRankMate">Chiếu hết hàng cuối</string>
   <string name="backRankMateDescription">Chiếu hết trên hàng cuối, khi vua bị mắc kẹt bởi chính quân của nó.</string>
-  <string name="balestraMate" comment="&quot;Balestra&quot; does not refer to a person. It comes from the Italian word &quot;balestra&quot;, which means &quot;crossbow&quot;.&#10;This is because an annotated board showing this checkmating pattern will visually resemble a crossbow.&#10;It is valid to treat &quot;balestra&quot; as a proper noun in your language just like in English, if you believe that is the best localisation.&#10;&#10;Description of this mate: A bishop delivers the checkmate, while a queen blocks the remaining escape squares">Chiếu hết kiểu Nỏ thần</string>
-  <string name="balestraMateDescription" comment="Description for balestra mate">Một tượng đưa ra nước chiếu hết, trong khi một hậu chặn các ô thoát còn lại</string>
+  <string name="balestraMate">Chiếu hết kiểu Nỏ thần</string>
+  <string name="balestraMateDescription">Một tượng đưa ra nước chiếu hết, trong khi một hậu chặn các ô thoát còn lại</string>
   <string name="bishopEndgame">Cờ tàn tượng</string>
   <string name="bishopEndgameDescription">Một thế cờ tàn chỉ có tượng và tốt.</string>
   <string name="bodenMate">Chiếu hết kiểu Boden</string>
