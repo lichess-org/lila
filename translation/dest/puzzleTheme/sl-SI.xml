@@ -16,8 +16,8 @@ Eden od vaših kmetov je globoko na nasprotnikovem področju in ima morda možno
   <string name="attractionDescription">Izmenjava ali žrtvovanje, ki spodbuja ali sili nasprotnika na polje, ki omogoča nadaljevanje taktike.</string>
   <string name="backRankMate">Mat zadnje vrste</string>
   <string name="backRankMateDescription">Matiranje kralja, ko je še na začetni vrsti, ujet s svojimi figurami.</string>
-  <string name="balestraMate" comment="&quot;Balestra&quot; does not refer to a person. It comes from the Italian word &quot;balestra&quot;, which means &quot;crossbow&quot;.&#10;This is because an annotated board showing this checkmating pattern will visually resemble a crossbow.&#10;It is valid to treat &quot;balestra&quot; as a proper noun in your language just like in English, if you believe that is the best localisation.&#10;&#10;Description of this mate: A bishop delivers the checkmate, while a queen blocks the remaining escape squares">Mat dan z lovcem</string>
-  <string name="balestraMateDescription" comment="Description for balestra mate">Lovec da šah-mat, medtem ko dama blokira preostala polja za pobeg</string>
+  <string name="balestraMate">Mat dan z lovcem</string>
+  <string name="balestraMateDescription">Lovec da šah-mat, medtem ko dama blokira preostala polja za pobeg</string>
   <string name="bishopEndgame">Končnica lovcev</string>
   <string name="bishopEndgameDescription">Končnica s samo lovci in kmeti.</string>
   <string name="bodenMate">Bodenov mat</string>
