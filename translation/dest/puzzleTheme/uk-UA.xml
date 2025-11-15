@@ -14,8 +14,8 @@
   <string name="attractionDescription">Обмін або жертва, що заманює або примушує суперника зробити хід, що дозволяє проводити подальшу тактику.</string>
   <string name="backRankMate">Мат по останній горизонталі</string>
   <string name="backRankMateDescription">Мат королю в домашньому ряду, коли він у пастці між власними фігурами.</string>
-  <string name="balestraMate" comment="&quot;Balestra&quot; does not refer to a person. It comes from the Italian word &quot;balestra&quot;, which means &quot;crossbow&quot;.&#10;This is because an annotated board showing this checkmating pattern will visually resemble a crossbow.&#10;It is valid to treat &quot;balestra&quot; as a proper noun in your language just like in English, if you believe that is the best localisation.&#10;&#10;Description of this mate: A bishop delivers the checkmate, while a queen blocks the remaining escape squares">Арбалетний мат</string>
-  <string name="balestraMateDescription" comment="Description for balestra mate">Слон ставить мат королю, а ферзь блокує решта полів для відступу</string>
+  <string name="balestraMate">Арбалетний мат</string>
+  <string name="balestraMateDescription">Слон ставить мат королю, а ферзь блокує решта полів для відступу</string>
   <string name="bishopEndgame">Слоновий ендшпіль</string>
   <string name="bishopEndgameDescription">Ендшпіль лише зі слонами та пішаками.</string>
   <string name="bodenMate">Мат Бодена</string>
