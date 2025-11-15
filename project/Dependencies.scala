@@ -44,7 +44,7 @@ object Dependencies {
   }
 
   object chess {
-    val version = "17.12.3"
+    val version = "17.12.4"
     val org = "com.github.lichess-org.scalachess"
     // val org = "org.lichess" // for publishLocal
     val core = org %% "scalachess" % version
@@ -56,7 +56,7 @@ object Dependencies {
   }
 
   object scalalib {
-    val version = "11.9.4"
+    val version = "11.9.5"
     val org = "com.github.lichess-org.scalalib"
     // val org = "org.lichess" // for publishLocal
     val core = org %% "scalalib-core" % version

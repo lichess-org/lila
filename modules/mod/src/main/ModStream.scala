@@ -31,12 +31,12 @@ final class ModStream(logRepo: ModlogRepo, userRepo: UserRepo)(using akka.stream
 
   object events:
 
-    private val blueprint =
-      Source
-        .queue[UserSignup | TeamCreate](32, akka.stream.OverflowStrategy.dropHead)
-        .map {
-          case UserSignup(user, email, req, fp, suspIp) =>
-            Json.obj(
+    private val blueprint = Source
+      .queue[UserSignup | TeamCreate](32, akka.stream.OverflowStrategy.dropHead)
+      .map:
+        case UserSignup(user, email, req, fp, suspIp, apiVersion) =>
+          Json
+            .obj(
               "t" -> "signup",
               "username" -> user.username,
               "email" -> email.value,
@@ -45,25 +45,28 @@ final class ModStream(logRepo: ModlogRepo, userRepo: UserRepo)(using akka.stream
               "userAgent" -> HTTPRequest.userAgent(req),
               "fingerPrint" -> fp
             )
-          case TeamCreate(team) =>
-            Json.obj(
-              "t" -> "teamCreate",
-              "teamId" -> team.id,
-              "name" -> team.name,
-              "description" -> team.description,
-              "creator" -> team.userId
+            .add(
+              "apiVersion" -> apiVersion
             )
-        }
-        .map: js =>
-          s"${Json.stringify(js)}\n"
+        case TeamCreate(team) =>
+          Json.obj(
+            "t" -> "teamCreate",
+            "teamId" -> team.id,
+            "name" -> team.name,
+            "description" -> team.description,
+            "creator" -> team.userId
+          )
+      .map: js =>
+        s"${Json.stringify(js)}\n"
 
     def apply()(using Executor): Source[String, ?] =
       blueprint.mapMaterializedValue: queue =>
-        val subUser = Bus.sub[UserSignup](queue.offer(_))
+        val userDedup = scalalib.cache.OnceEvery[UserId](15.minutes)
+        val subUser = Bus.sub[UserSignup]: s =>
+          if userDedup(s.user.id) then queue.offer(s)
         val subTeam = Bus.sub[TeamCreate](queue.offer(_))
         queue
           .watchCompletion()
-          .addEffectAnyway {
+          .addEffectAnyway:
             Bus.unsub[UserSignup](subUser)
             Bus.unsub[TeamCreate](subTeam)
-          }

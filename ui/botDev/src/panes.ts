@@ -57,7 +57,7 @@ export class Panes {
 
 export function buildFromSchema(host: EditDialog, path: string[], parent?: Pane): Pane {
   const id = path.join('_');
-  const iter = path.reduce<any>((acc, key) => acc[key], schema);
+  const iter = path.reduce<any>((acc, key) => acc[key], schema());
   const s = makePane(host, { id, ...iter }, parent);
   for (const key of Object.keys(iter).filter(k => !infoKeys.includes(k as InfoKey))) {
     s.el.appendChild(buildFromSchema(host, [...path, key], s).el);

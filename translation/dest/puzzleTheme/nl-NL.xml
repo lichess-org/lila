@@ -14,6 +14,8 @@
   <string name="attractionDescription">Een afruil of offer om een vijandelijk stuk naar een veld te lokken of te dwingen waardoor een tactisch vervolg mogelijk wordt gemaakt.</string>
   <string name="backRankMate">Mat op de achterste rij</string>
   <string name="backRankMateDescription">Zet de koning mat op de achterste rij, ingesloten door zijn eigen stukken.</string>
+  <string name="balestraMate">Kruisboogmat</string>
+  <string name="balestraMateDescription">Een loper zet mat waarbij een dame de resterende vluchtvelden blokkeert</string>
   <string name="bishopEndgame">Lopereindspel</string>
   <string name="bishopEndgameDescription">Een eindspel met alleen lopers en pionnen.</string>
   <string name="bodenMate">Mat van Boden</string>

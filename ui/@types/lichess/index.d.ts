@@ -19,6 +19,7 @@ interface Site {
     baseUrl(): string;
     url(url: string, opts?: AssetUrlOpts): string;
     flairSrc(flair: Flair): string;
+    fideFedSrc(fideFed: FideFed): string;
     loadCss(href: string, key?: string): Promise<void>;
     loadCssPath(key: string): Promise<void>;
     removeCss(href: string): void;
@@ -41,9 +42,6 @@ interface Site {
   analysis?: any; // expose the analysis ctrl
   // file://./../../.build/src/manifest.ts
   manifest: { css: Record<string, string>; js: Record<string, string>; hashed: Record<string, string> };
-  polyfill: {
-    dialog?: (dialog: HTMLDialogElement) => void;
-  };
 }
 
 interface EsmModuleOpts extends AssetUrlOpts {
@@ -54,6 +52,7 @@ interface EsmModuleOpts extends AssetUrlOpts {
 type PairOf<T> = [T, T];
 
 type Flair = string;
+type FideFed = string;
 type PatronColor = number;
 type Redraw = () => void;
 type RedirectTo = string | { id: string; url: string; cookie?: Cookie };
@@ -172,7 +171,6 @@ interface Window {
   site: Site;
   fipr: Fipr;
   i18n: I18n;
-  $as<T>(cash: Cash): T;
   readonly chrome?: unknown;
   readonly moment: any;
   readonly stripeHandler: any;

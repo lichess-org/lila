@@ -167,11 +167,14 @@ Hash entries identify files for which a symlink named with their content hash wi
 ```
 Entries may also take object form:
 ```json
-    "hash": { "glob": "<pattern>", "update": "<package-relative-path>" }
+    "hash": { "path": "<pattern>", "omit": true, "catalog": "<path-to-catalog>" }
 ```
-When the object form is processed, symlinks for globbed files are created in /public/hashed same as before. Then the "update" file is processed and all occurrence of those globbed filenames are replaced with their hashed symlink URLs. The modified "update" file contents are also content-hashed and written to /public/hashed. This is useful when an asset references other files by name and those references must be updated to reflect the hashed URLs. Any asset mapping within a static json or text file can be kept current in this way.
+When the object form is processed, symlinks for files globbed by the "path" pattern are created in /public/hashed same as before.
 
-* "hash" sources must begin with `/public` to resolve correctly on production deployments.
-* "update" files may not begin with `/` and are always package relative.
+Setting the optional "omit" field to true will omit all "path" globbed items from the client manifest. They will stil appear in the server manifest.
+
+The optional "catalog" field may identifies a mapping file to be transformed. All occurrences of filenames globbed by the "path" pattern within the catalog file are replaced with their hashed symlink URLs. The modified catalog file contents are also content-hashed and written to /public/hashed. This is useful when an asset references other files by name and those references must be updated to reflect the hashed URLs. Any asset mapping within a static json or text file can be kept current in this way.
+
+* hash paths must begin with `/public` to resolve correctly on production deployments.
 
 The node sources for ui/build are in the [/ui/.build](./.build) folder.

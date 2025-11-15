@@ -1,7 +1,7 @@
 {
   "name": "lila",
   "private": true,
-  "packageManager": "pnpm@10.18.3+sha512.bbd16e6d7286fd7e01f6b3c0b3c932cda2965c06a908328f74663f10a9aea51f1129eea615134bf992831b009eabe167ecb7008b597f40ff9bc75946aadfb08d",
+  "packageManager": "pnpm@10.20.0+sha512.cf9998222162dd85864d0a8102e7892e7ba4ceadebbf5a31f9c2fce48dfce317a9c53b9f6464d1ef9042cba2e02ae02a9f7c143a2b438cd93c91840f0192b9dd",
   "engines": {
     "node": ">=24",
     "pnpm": "10"
@@ -49,7 +49,6 @@
     "journal": "journalctl --user -fu lila -o cat",
     "metals": "tail -F .metals/metals.log | stdbuf -oL cut -c 21- | rg -v '(notification for request|handleCancellation)'",
     "serverlog": "pnpm journal & pnpm metals",
-    "kill-build": "[ -f ui/.build/instance.lock ] && kill \"$(cat ui/.build/instance.lock)\" 2>/dev/null || true",
     "i18n-file-gen": "pnpx tsx bin/i18n-file-gen.ts",
     "multilog": "pnpm serverlog & ui/build -w"
   },

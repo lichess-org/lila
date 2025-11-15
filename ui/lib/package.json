@@ -7,7 +7,6 @@
     "@lichess-org/zerofish": "0.0.40",
     "@types/debounce-promise": "^3.1.9",
     "debounce-promise": "^3.1.2",
-    "dialog-polyfill": "0.5.6",
     "idb-keyval": "^6.2.1",
     "stockfish-mv.wasm": "^0.6.1",
     "stockfish-nnue.wasm": "1.0.0-1946a675.smolnet",
@@ -18,7 +17,6 @@
   "build": {
     "sync": {
       "node_modules/stockfish*/*.{js,wasm}": "/public/npm",
-      "node_modules/dialog-polyfill/dist/dialog-polyfill.esm.js": "/public/npm",
       "node_modules/@lichess-org/stockfish-web/*.{js,wasm}": "/public/npm/stockfish-web",
       "node_modules/@lichess-org/zerofish/dist/zerofishEngine*.{js,wasm}": "/public/npm",
       "/node_modules/@lichess-org/chessground/dist/chessground.min.js": "/public/npm"

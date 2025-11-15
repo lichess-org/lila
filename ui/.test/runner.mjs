@@ -21,7 +21,7 @@ const args = [
   '--experimental-test-module-mocks',
   '--no-warnings',
   '--loader',
-  './.test/helpers.mts',
+  './.test/resolve.mts',
   '--import',
   'tsx',
   '--import',

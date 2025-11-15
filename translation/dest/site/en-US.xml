@@ -4,7 +4,7 @@
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Challenge a friend</string>
   <string name="playAgainstComputer">Play against computer</string>
   <string name="gameMode">Game mode</string>
-  <string name="createLobbyGame">Create lobby game</string>
+  <string name="createLobbyGame" comment="One of three buttons on the home page. Opens the modal to create a game that goes in the lobby.">Create lobby game</string>
   <string name="youPlayAs">You play as</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">To invite someone to play, give this URL</string>
   <string name="gameOver">Game Over</string>

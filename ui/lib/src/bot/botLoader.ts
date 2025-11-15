@@ -6,6 +6,7 @@ import * as xhr from '../xhr';
 import { definedMap } from '../algo';
 import { makeLichessBook } from './lichessBook';
 import { myUserId, myUsername } from '../index';
+import './filters';
 
 export { makeZerofish, type Zerofish };
 
