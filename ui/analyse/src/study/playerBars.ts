@@ -67,10 +67,11 @@ function renderPlayer(
     top = ctrl.bottomColor() !== color,
     eloTag = findTag(tags, `${color}elo`),
     fideIdTag = findTag(tags, `${color}fideid`),
+    titleTag = findTag(tags, `${color}title`),
     player: StudyPlayer = {
       ...players?.[color],
       name: findTag(tags, color),
-      title: findTag(tags, `${color}title`)?.toUpperCase(),
+      title: titleTag && isAcceptableTitle(titleTag) ? titleTag.toUpperCase() : undefined,
       rating: showRatings && eloTag && isAcceptableElo(eloTag) ? Number(eloTag) : undefined,
       fideId: fideIdTag && isAcceptableFideId(fideIdTag) ? parseInt(fideIdTag) : undefined,
     };
@@ -80,7 +81,7 @@ function renderPlayer(
       hl('span.info', [
         team ? hl('span.team', team) : undefined,
         playerFed(player?.fed),
-        !!player.title && isAcceptableTitle(player.title) && userTitle(player),
+        !!player.title && userTitle(player),
         playerId(player) &&
           (relayPlayers
             ? hl(`a.name.relay-player-${color}`, relayPlayers.playerLinkConfig(player), player.name)
