@@ -33,16 +33,9 @@ export const isAcceptableFideId = (value: string): boolean =>
   new RegExp(`^${acceptableFideIdPattern}$`).test(value);
 
 // Set of titles derived from scalachess' PlayerTitle.scala.
-const titles = ['GM', 'WGM', 'IM', 'WIM', 'FM', 'WFM', 'CM', 'WCM', 'NM', 'WNM', 'LM', 'BOT'];
+const titles = 'GM|WGM|IM|WIM|FM|WFM|CM|WCM|NM|WNM|LM|BOT';
 
-export const acceptableTitlePattern = `(?:${titles
-  .map((token: string): string =>
-    token
-      .split('')
-      .map(ch => `[${ch.toUpperCase()}${ch.toLowerCase()}]`)
-      .join(''),
-  )
-  .join('|')})`;
+export const acceptableTitlePattern = `${titles}|${titles.toLowerCase()}`;
 
 export const isAcceptableTitle = (value: string): boolean =>
   new RegExp(`^${acceptableTitlePattern}$`).test(value);
