@@ -270,6 +270,7 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
                 freqWinners(winners.superblitz, PerfType.Blitz, "SuperBlitz"),
                 freqWinners(winners.blitz, PerfType.Blitz, "Blitz"),
                 freqWinners(winners.rapid, PerfType.Rapid, "Rapid"),
+                freqWinners(winners.classical, PerfType.Classical, "Classical"),
                 marathonWinners,
                 lila.tournament.WinnersApi.variants.map: v =>
                   PerfKey.byVariant(v).map { pk =>
