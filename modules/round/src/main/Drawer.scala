@@ -64,7 +64,10 @@ final private[round] class Drawer(
             _ <- proxy.save(progress)
             _ = publishDrawOffer(progress.game)
           yield List(Event.DrawOffer(by = color.some))
-      case _ => fuccess(List(Event.ReloadOwner))
+      case Pov(g, color) if g.playerHasOfferedDrawRecently(color) =>
+        fufail(lila.core.lilaism.LilaInvalid("Draw offer not allowed. Please wait before offering again."))
+      case _ =>
+        fufail(lila.core.lilaism.LilaInvalid("Draw offer not allowed"))
 
   def no(pov: Pov)(using proxy: GameProxy): Fu[Events] = pov.game.drawable.so:
     pov match
