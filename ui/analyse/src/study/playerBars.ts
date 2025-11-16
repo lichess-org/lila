@@ -71,7 +71,7 @@ function renderPlayer(
       ...players?.[color],
       name: findTag(tags, color),
       title: titleTag && isAcceptableTitle(titleTag) ? titleTag.toUpperCase() : undefined,
-      rating: showRatings && eloTag && isAcceptableElo(eloTag) ? Number(eloTag) : undefined,
+      rating: showRatings && eloTag ? readElo(eloTag) : undefined,
       fideId: fideIdTag && isAcceptableFideId(fideIdTag) ? parseInt(fideIdTag) : undefined,
     };
   return hl(`div.study__player.study__player-${top ? 'top' : 'bot'}`, { class: { ticking } }, [
@@ -106,9 +106,10 @@ export const playerFed = (fed?: Federation): VNode | undefined =>
     },
   });
 
-const acceptableEloPattern = '\\d{3,4}';
-
-const isAcceptableElo = (value: string): boolean => new RegExp(`^${acceptableEloPattern}$`).test(value);
+const readElo = (str: string): number | undefined => {
+  const elo = parseInt(str);
+  return elo && elo > 0 && elo < 5000 ? elo : undefined;
+};
 
 const acceptableFideIdPattern = '\\d{2,9}';
 
