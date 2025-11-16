@@ -124,7 +124,7 @@ object Chapter:
 
   // I've seen chapters with 35,000 nodes on prod.
   // It works but could be used for DoS.
-  val maxNodes = 3000
+  val maxNodes = 10_000
 
   trait Like:
     val id: StudyChapterId
