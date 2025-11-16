@@ -79,7 +79,7 @@
   <string name="expandVariations">Ανάπτυξη βαριάντων</string>
   <string name="forceVariation">Θέσε σε βαριάντα</string>
   <string name="copyVariationPgn">Αντιγραφή βαριάντας ως PGN</string>
-  <string name="copyMainLinePgn">PGN</string>
+  <string name="copyMainLinePgn">Αντιγραφή κύριας βαριάντας ως PGN</string>
   <string name="move">Κίνηση</string>
   <string name="variantLoss">Ήττα εκδοχής</string>
   <string name="variantWin">Νίκη εκδοχής</string>
