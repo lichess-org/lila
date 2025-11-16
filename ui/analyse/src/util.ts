@@ -14,11 +14,9 @@ export function treeReconstruct(parts: Tree.Node[], sidelines?: Tree.Node[][]): 
   for (let i = 1; i < nb; i++) {
     const n = parts[i];
     const variations = sidelines ? sidelines[i] : [];
-    if (node.children) node.children.unshift(n, ...variations);
-    else node.children = [n, ...variations];
+    node.children.unshift(n, ...variations);
     node = n;
   }
-  node.children = node.children || [];
   return root;
 }
 
