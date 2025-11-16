@@ -11,7 +11,7 @@ import { StudyCtrl } from './studyDeps';
 import { intersection } from 'lib/tree/path';
 import { defined } from 'lib';
 import { resultTag } from './studyView';
-import { isAcceptableElo, isAcceptableFideId } from '@/util';
+import { isAcceptableElo, isAcceptableFideId, isAcceptableTitle } from '@/util';
 
 export default function (ctrl: AnalyseCtrl): VNode[] | undefined {
   const study = ctrl.study;
@@ -70,7 +70,7 @@ function renderPlayer(
     player: StudyPlayer = {
       ...players?.[color],
       name: findTag(tags, color),
-      title: findTag(tags, `${color}title`),
+      title: findTag(tags, `${color}title`)?.toUpperCase(),
       rating: showRatings && eloTag && isAcceptableElo(eloTag) ? Number(eloTag) : undefined,
       fideId: fideIdTag && isAcceptableFideId(fideIdTag) ? parseInt(fideIdTag) : undefined,
     };
@@ -80,7 +80,7 @@ function renderPlayer(
       hl('span.info', [
         team ? hl('span.team', team) : undefined,
         playerFed(player?.fed),
-        userTitle(player),
+        !!player.title && isAcceptableTitle(player.title) && userTitle(player),
         playerId(player) &&
           (relayPlayers
             ? hl(`a.name.relay-player-${color}`, relayPlayers.playerLinkConfig(player), player.name)
