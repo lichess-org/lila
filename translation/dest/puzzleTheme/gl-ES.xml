@@ -62,6 +62,7 @@
   <string name="killBoxMate">Mate da caixa</string>
   <string name="killBoxMateDescription">Unha torre canda o rei do adversario, defendida por unha dama que tamén bloquea as casas de escape do rei. A torre e a dama apreixan ao rei nun curruncho de 3 por 3.</string>
   <string name="triangleMate" comment="Description (translatable separately):&#10;&#10;The queen and rook, one square away from the enemy king, are on the same rank or file, separated by one square, forming a triangle.">Mate do triángulo</string>
+  <string name="triangleMateDescription" comment="Description for &quot;triangle mate&quot;">Un triángulo fórmase do seguinte xeito: a dama e a torre atópanse na mesma fila ou columna, a unha casa de distancia entre si e do rei do opoñente.</string>
   <string name="vukovicMate">Mate de Vuković</string>
   <string name="vukovicMateDescription">Unha torre e un cabalo xúntanse para darlle mate ao rei. A torre dá o mate apoiada por unha terceira peza e o cabalo é usado para bloquear as casas de escape do rei.</string>
   <string name="knightEndgame">Final de cabalos</string>
