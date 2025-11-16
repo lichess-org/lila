@@ -11,7 +11,6 @@ import { StudyCtrl } from './studyDeps';
 import { intersection } from 'lib/tree/path';
 import { defined } from 'lib';
 import { resultTag } from './studyView';
-import { isAcceptableElo, isAcceptableFideId, isAcceptableTitle } from '@/util';
 
 export default function (ctrl: AnalyseCtrl): VNode[] | undefined {
   const study = ctrl.study;
@@ -106,3 +105,18 @@ export const playerFed = (fed?: Federation): VNode | undefined =>
       title: `Federation: ${fed.name}`,
     },
   });
+
+const acceptableEloPattern = '\\d{3,4}';
+
+const isAcceptableElo = (value: string): boolean => new RegExp(`^${acceptableEloPattern}$`).test(value);
+
+const acceptableFideIdPattern = '\\d{2,9}';
+
+const isAcceptableFideId = (value: string): boolean => new RegExp(`^${acceptableFideIdPattern}$`).test(value);
+
+// Set of titles derived from scalachess' PlayerTitle.scala.
+const titles = 'GM|WGM|IM|WIM|FM|WFM|CM|WCM|NM|WNM|LM|BOT';
+
+const acceptableTitlePattern = `${titles}|${titles.toLowerCase()}`;
+
+const isAcceptableTitle = (value: string): boolean => new RegExp(`^${acceptableTitlePattern}$`).test(value);
