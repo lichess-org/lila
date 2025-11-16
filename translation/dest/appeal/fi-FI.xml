@@ -13,9 +13,9 @@
   <string name="excludedFromLeaderboardsInfo">Määritelmämme mukaan tämä tarkoittaa mitä tahansa epäreilua keinoa, jolla tavoitellaan pistetaulukkoon pääsyä.</string>
   <string name="closedByModerators">Moderaattorit ovat sulkeneet tunnuksesi.</string>
   <string name="hiddenBlog">Moderaattorit ovat piilottaneet blogisi.</string>
-  <string name="hiddenBlogInfo">Ole hyvä ja lue uudelleen %s.</string>
+  <string name="hiddenBlogInfo" comment="%s is &quot;blog rules&quot;, a separately translateable string (key: blogRules).&#10;&#10;Full sentence: &quot;Make sure to read again our blog rules.&quot;">Ole hyvä ja lue uudelleen %s.</string>
   <string name="playTimeout">Sinulle on asetettu pelitauko.</string>
   <string name="communicationGuidelines">viestintäsääntömme</string>
-  <string name="blogRules">blogisäännöt</string>
+  <string name="blogRules" comment="This text links to https://lichess.org/page/blog-etiquette&#10;&#10;Part of longer sentence, &quot;Make sure to read again our blog rules.&quot; (key: hiddenBlogInfo)">blogisäännöt</string>
   <string name="fairPlay">Reilu peli</string>
 </resources>

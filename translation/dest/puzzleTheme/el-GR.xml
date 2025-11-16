@@ -14,6 +14,8 @@
   <string name="attractionDescription">Μια αλλαγή ή θυσία ελκύει ή αναγκάζει ένα αντίπαλο κομμάτι να μετακινηθεί σε ένα τετράγωνο και οδηγεί σε τακτικό.</string>
   <string name="backRankMate">Ματ τελευταίας γραμμής</string>
   <string name="backRankMateDescription">Κάντε ματ στον βασιλιά στην τελευταία γραμμή όταν είναι παγιδευμένος εκεί από τα κομμάτια του.</string>
+  <string name="balestraMate">Ματ-βαλλίστρα</string>
+  <string name="balestraMateDescription">Ένας αξιωματικός κάνει ματ στον αντίπαλο βασιλιά, ενώ η βασίλισσα εμποδίζει τη διαφυγή του στα γειτονικά τετράγωνα</string>
   <string name="bishopEndgame">Φινάλε αξιωματικών</string>
   <string name="bishopEndgameDescription">Φινάλε μόνο με αξιωματικούς και πιόνια.</string>
   <string name="bodenMate">Ματ του Boden</string>

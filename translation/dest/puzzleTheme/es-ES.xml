@@ -14,6 +14,8 @@
   <string name="attractionDescription">Un cambio o sacrificio que invita o fuerza al oponente a colocar una pieza en una casilla que propicia una oportunidad táctica.</string>
   <string name="backRankMate">Mate del pasillo</string>
   <string name="backRankMateDescription">Jaque mate en la última fila, cuando el rey se encuentra atrapado por sus propias piezas.</string>
+  <string name="balestraMate">Mate de Balestra</string>
+  <string name="balestraMateDescription">El alfil da jaque mate mientras la dama bloquea las casillas de escape</string>
   <string name="bishopEndgame">Final de alfiles</string>
   <string name="bishopEndgameDescription">Un final con sólo alfiles y peones.</string>
   <string name="bodenMate">Mate de Boden</string>

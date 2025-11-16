@@ -4,7 +4,7 @@
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Desafía a un amigu</string>
   <string name="playAgainstComputer">Xugar contra l\'ordenador</string>
   <string name="gameMode">Tipu de partida</string>
-  <string name="createLobbyGame">Crear partida na sala d\'espera</string>
+  <string name="createLobbyGame" comment="One of three buttons on the home page. Opens the modal to create a game that goes in the lobby.">Crear partida na sala d\'espera</string>
   <string name="youPlayAs">Xuegues con</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Para convidar a daquién a xugar, da-y esti enllaz</string>
   <string name="gameOver">Xuegu termináu</string>
