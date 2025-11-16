@@ -32,8 +32,17 @@ export const acceptableFideIdPattern = '\\d{2,9}';
 export const isAcceptableFideId = (value: string): boolean =>
   new RegExp(`^${acceptableFideIdPattern}$`).test(value);
 
+// Set of titles derived from scalachess' PlayerTitle.scala.
+const titles = ['GM', 'WGM', 'IM', 'WIM', 'FM', 'WFM', 'CM', 'WCM', 'NM', 'WNM', 'LM', 'BOT'];
+
+export const acceptableTitlePattern = `(?:${titles
+  .map((token: string): string =>
+    token
+      .split('')
+      .map(ch => `[${ch.toUpperCase()}${ch.toLowerCase()}]`)
+      .join(''),
+  )
+  .join('|')})`;
+
 export const isAcceptableTitle = (value: string): boolean =>
-  // Set of titles derived from scalachess' PlayerTitle.scala.
-  ['GM', 'WGM', 'IM', 'WIM', 'FM', 'WFM', 'CM', 'WCM', 'NM', 'WNM', 'LM', 'BOT'].includes(
-    value.toUpperCase()
-  );
+  new RegExp(`^${acceptableTitlePattern}$`).test(value);
