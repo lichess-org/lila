@@ -62,7 +62,7 @@
   <string name="killBoxMate">Mate del recuadro mortal</string>
   <string name="killBoxMateDescription">Una torre está cerca del rey enemigo apoyada por una dama que también bloquea las casillas de escape del rey. La torre y la dama capturan al rey enemigo en un recuadro mortal de 3 por 3.</string>
   <string name="triangleMate" comment="Description (translatable separately):&#10;&#10;The queen and rook, one square away from the enemy king, are on the same rank or file, separated by one square, forming a triangle.">Mate del triángulo</string>
-  <string name="triangleMateDescription">La dama y la torre, a una casilla de distancia del rey enemigo, están en la misma fila o columna separadas por una casilla, formando un triángulo.</string>
+  <string name="triangleMateDescription" comment="Description for &quot;triangle mate&quot;">La dama y la torre, a una casilla de distancia del rey rival, están en la misma fila o columna, separadas por una casilla, formando un triángulo.</string>
   <string name="vukovicMate">Mate de Vukovic</string>
   <string name="vukovicMateDescription">Una torre y un caballo se unen para dar mate al rey. La torre da mate apoyada por una tercera pieza y el caballo se utiliza para bloquear las casillas de escape del rey.</string>
   <string name="knightEndgame">Final de caballos</string>
