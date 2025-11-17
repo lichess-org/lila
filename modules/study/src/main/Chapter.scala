@@ -122,9 +122,10 @@ object Chapter:
 
   type Order = Int
 
-  // I've seen chapters with 35,000 nodes on prod.
-  // It works but could be used for DoS.
-  val maxNodes = 10_000
+  // This limit is usually reached is when someone looks for it,
+  // by making a chapter as big as possible.
+  // Increasing it would not improve the experience on legit use cases.
+  val maxNodes = 3_000
 
   trait Like:
     val id: StudyChapterId
