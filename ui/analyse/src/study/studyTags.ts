@@ -5,7 +5,6 @@ import { option } from '../view/util';
 import { looksLikeLichessGame } from './studyChapters';
 import { prop } from 'lib';
 import type StudyCtrl from './studyCtrl';
-import { acceptableEloPattern, acceptableFideIdPattern, acceptableTitlePattern } from '@/util';
 
 export class TagsForm {
   selectedType = prop<string | undefined>(undefined);
@@ -54,9 +53,13 @@ const editable = (
     }),
   });
 
+// Set of titles derived from scalachess' PlayerTitle.scala.
+const titles = 'GM|WGM|IM|WIM|FM|WFM|CM|WCM|NM|WNM|LM|BOT';
+const acceptableTitlePattern = `${titles}|${titles.toLowerCase()}`;
+
 const inputAttrs: { [name: string]: Attrs } = (() => {
-  const elo = { pattern: acceptableEloPattern };
-  const fideId = { pattern: acceptableFideIdPattern };
+  const elo = { pattern: '\\d{3,4}' };
+  const fideId = { pattern: '\\d{2,9}' };
   const title = { pattern: acceptableTitlePattern };
   return {
     Date: {

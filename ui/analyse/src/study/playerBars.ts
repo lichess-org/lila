@@ -66,13 +66,12 @@ function renderPlayer(
     top = ctrl.bottomColor() !== color,
     eloTag = findTag(tags, `${color}elo`),
     fideIdTag = findTag(tags, `${color}fideid`),
-    titleTag = findTag(tags, `${color}title`),
     player: StudyPlayer = {
       ...players?.[color],
       name: findTag(tags, color),
-      title: titleTag && isAcceptableTitle(titleTag) ? titleTag.toUpperCase() : undefined,
-      rating: showRatings && eloTag ? readElo(eloTag) : undefined,
-      fideId: fideIdTag && isAcceptableFideId(fideIdTag) ? parseInt(fideIdTag) : undefined,
+      title: findTag(tags, `${color}title`),
+      rating: showRatings && eloTag ? parseInt(eloTag) : undefined,
+      fideId: fideIdTag ? parseInt(fideIdTag) : undefined,
     };
   return hl(`div.study__player.study__player-${top ? 'top' : 'bot'}`, { class: { ticking } }, [
     hl('div.left', [
@@ -105,19 +104,3 @@ export const playerFed = (fed?: Federation): VNode | undefined =>
       title: `Federation: ${fed.name}`,
     },
   });
-
-const readElo = (str: string): number | undefined => {
-  const elo = parseInt(str);
-  return elo && elo > 0 && elo < 5000 ? elo : undefined;
-};
-
-const acceptableFideIdPattern = '\\d{2,9}';
-
-const isAcceptableFideId = (value: string): boolean => new RegExp(`^${acceptableFideIdPattern}$`).test(value);
-
-// Set of titles derived from scalachess' PlayerTitle.scala.
-const titles = 'GM|WGM|IM|WIM|FM|WFM|CM|WCM|NM|WNM|LM|BOT';
-
-const acceptableTitlePattern = `${titles}|${titles.toLowerCase()}`;
-
-const isAcceptableTitle = (value: string): boolean => new RegExp(`^${acceptableTitlePattern}$`).test(value);
