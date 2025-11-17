@@ -224,7 +224,7 @@ final class ForumPostApi(
 
   def erasePost(post: ForumPost) =
     for
-      _ <- picfitApi.pullRef(s"forum:${post.id}")
+      _ <- picfitApi.pullRef(picRef(post.id))
       _ <- postRepo.coll.update.one($id(post.id), post.erase)
     yield ()
 

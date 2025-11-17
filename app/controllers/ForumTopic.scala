@@ -31,7 +31,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
                   for
                     topic <- topicApi.makeTopic(categ, data)
                     url = routes.ForumTopic.show(categ.id, topic.slug, 1).url
-                    ref = s"forum:${topic.lastPostId}"
+                    ref = lila.forum.picRef(topic.lastPostId)
                     _ <- env.memo.picfitApi.addRef(Markdown(data.post.text), ref, url.some)
                     _ = discard { env.report.api.automodComms(data.automodText, url) }
                   yield Redirect(url)
