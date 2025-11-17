@@ -13,6 +13,7 @@ import lila.core.game.{ AbortedBy, FinishGame, WithInitialFen }
 import lila.core.round.{ Tell, RoundBus }
 import lila.core.user.KidMode
 import lila.core.net.UserAgent
+import lila.round.actorApi.{ GetSocketStatus, SocketStatus }
 import lila.game.actorApi.{
   BoardDrawOffer,
   BoardGone,
@@ -105,6 +106,25 @@ final class GameStateStream(
       lila.mon.bot.gameStream("stop").increment()
 
     def receive =
+      case SyncOpponentPresence =>
+        // Query the current socket status to sync opponent presence state
+        val opponentColor = !as
+        Bus
+          .ask[SocketStatus](Tell(id, GetSocketStatus(_)))
+          .foreach: status =>
+            if status.isGone(opponentColor) then
+              // Opponent is gone long enough to claim - calculate remaining time
+              // We need to find the actual Player instance to get showMillisToGone
+              // Since we can't access RoundAsyncActor's private Player directly,
+              // we rely on the fact that if isGone=true, a BoardGone event should fire soon
+              // For immediate sync, we send a conservative estimate
+              // The periodic check will correct with precise timing
+              opponentGone(Some(1)) // Will be corrected by next QuietFlagCheck
+            else if status.onGame(opponentColor) then
+              // Opponent is present - explicitly send gone=false to clear stale state
+              opponentGone(None)
+            // else: opponent offline but not long-gone yet, wait for timeout event
+            
       case MoveGameEvent(g, _, _) if g.id == id && !g.finished => pushState(g)
       case lila.chat.ChatLine(chatId, UserLine(username, text, false, false), _) =>
         pushChatLine(username, text, chatId.value.lengthIs == GameId.size)
@@ -141,3 +161,6 @@ final class GameStateStream(
 private object GameStateStream:
 
   private case class User(id: UserId, isBot: Boolean, kid: KidMode)
+  private case object SyncOpponentPresence
+  private case object SetOnline
+  private case object CheckOnline
