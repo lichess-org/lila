@@ -13,7 +13,7 @@ import lila.core.game.{ AbortedBy, FinishGame, WithInitialFen }
 import lila.core.round.{ Tell, RoundBus }
 import lila.core.user.KidMode
 import lila.core.net.UserAgent
-import lila.round.actorApi.{ GetSocketStatus, SocketStatus }
+import lila.core.round.actorApi.{ GetSocketStatus, SocketStatus }
 import lila.game.actorApi.{
   BoardDrawOffer,
   BoardGone,
