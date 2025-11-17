@@ -2,6 +2,7 @@ package lila.tree
 
 import scala.util.matching.Regex
 
+import scala.annotation.tailrec
 import alleycats.Zero
 import chess.format.pgn.{ Glyph, Glyphs, Comment as CommentStr }
 import chess.format.{ Fen, Uci, UciCharPair, UciPath }
@@ -329,7 +330,20 @@ case class Branch(
 
   // NOT `Branches` as it does not represent one mainline move and variations
   // but only mainline moves
-  def mainline: List[Branch] = this :: children.first.so(_.mainline)
+  def mainline: List[Branch] =
+    mainlineReverse.reverse
+
+  /*
+   * Return all nodes in the mainline but in reverse order
+   * Could be useful as a building block for other operations
+   */
+  final def mainlineReverse: List[Branch] =
+    @tailrec
+    def loop(tree: Branch, acc: List[Branch]): List[Branch] =
+      tree.children.first match
+        case Some(child) => loop(child, tree :: acc)
+        case None => tree :: acc
+    loop(this, Nil)
 
   def withChildren(f: Branches => Option[Branches]) =
     f(children).map { newChildren =>

@@ -7,7 +7,7 @@
     <item quantity="other">%s μεταδόσεις</item>
   </plurals>
   <plurals name="nbViewers">
-    <item quantity="one">%s θεατής</item>
+    <item quantity="one">%s θεατής </item>
     <item quantity="other">%s θεατές</item>
   </plurals>
   <string name="liveBroadcasts">Ζωντανές μεταδόσεις τουρνουά</string>
