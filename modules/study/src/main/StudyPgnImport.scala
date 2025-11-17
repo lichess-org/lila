@@ -18,7 +18,16 @@ object StudyPgnImport:
   )
 
   def result(pgn: PgnStr, contributors: List[LightUser]): Either[ErrorStr, Result] =
-    ParseImport.full(pgn).map(result(_, contributors))
+    if pgn.value.sizeIs > 100_000 then Left(ErrorStr("PGN too large"))
+    else
+      for
+        parsed <- ParseImport.full(pgn)
+        full = result(parsed, contributors)
+        valid <-
+          if full.root.children.countRecursive > Chapter.maxNodes
+          then Left(ErrorStr("PGN has too many moves/nodes"))
+          else Right(full)
+      yield valid
 
   def result(importResult: ImportResult, contributors: List[LightUser]): Result =
     import importResult.{ replay, initialFen, parsed }
