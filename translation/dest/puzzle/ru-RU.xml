@@ -8,6 +8,7 @@
   <string name="advanced">Продвинутый</string>
   <string name="lengths">Количество ходов</string>
   <string name="mates">Маты</string>
+  <string name="mateThemes">Разновидности матов</string>
   <string name="goals">Цели</string>
   <string name="origin">Из партий</string>
   <string name="specialMoves">Особые ходы</string>
