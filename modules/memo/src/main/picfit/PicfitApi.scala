@@ -137,7 +137,7 @@ final class PicfitApi(
       .recoverWith:
         case e: DatabaseException if e.code.contains(11000) =>
           if image.refs.nonEmpty then
-            for _ <- coll.update.one($id(image.id), $addToSet("refs" -> image.refs))
+            for _ <- coll.update.one($id(image.id), $addToSet("refs" -> $doc("$each" -> image.refs)))
             yield ImageFresh(image, false)
           else fuccess(ImageFresh(image, false))
 
