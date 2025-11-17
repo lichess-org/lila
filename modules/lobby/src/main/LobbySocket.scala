@@ -24,7 +24,8 @@ final class LobbySocket(
     lobby: LobbySyncActor,
     relationApi: lila.core.relation.RelationApi,
     poolApi: lila.core.pool.PoolApi,
-    userTrustApi: UserTrustApi
+    userTrustApi: UserTrustApi,
+    prefApi: lila.core.pref.PrefApi
 )(using ec: Executor, scheduler: Scheduler)(using lila.core.config.RateLimit):
 
   import LobbySocket.*
@@ -199,6 +200,7 @@ final class LobbySocket(
             glicko <- userApi.glicko(user.id, perf)
             trust <-
               if glicko.exists(_.established) then fuccess(UserTrust.Yes) else userTrustApi.get(user.id)
+            wantsChat <- prefApi.getWantsChat(user.id)
           do
             poolApi.join(
               PoolConfigId(id),
@@ -210,7 +212,8 @@ final class LobbySocket(
                 provisional = glicko.forall(_.provisional.yes),
                 ratingRange = ratingRange,
                 lame = user.lame,
-                blocking = user.blocking.map(_ ++ blocking)
+                blocking = user.blocking.map(_ ++ blocking),
+                wantsChat = wantsChat
               )
             )
     // leaving a pool

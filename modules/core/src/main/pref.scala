@@ -9,6 +9,7 @@ trait Pref:
   val coords: Int
   val keyboardMove: Int
   val voice: Option[Int]
+  val wantsChat: Int
   val rookCastle: Int
   val animation: Int
   val destination: Boolean
@@ -24,6 +25,7 @@ trait Pref:
   def hasKeyboardMove: Boolean
   def hasVoice: Boolean
   def hasSpeech: Boolean
+  def wantsToChat: Boolean
   def hideRatingsInGame: Boolean
   def showRatings: Boolean
   def animationMillis: Int
@@ -38,6 +40,7 @@ trait PrefApi:
   def getInsightShare(userId: UserId): Future[Int]
   def getChallenge(userId: UserId): Future[Int]
   def getStudyInvite(userId: UserId): Future[Int]
+  def getWantsChat(userId: UserId): Future[Boolean]
   def isolate(user: User): Funit
 
 object Message:

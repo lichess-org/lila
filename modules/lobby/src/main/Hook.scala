@@ -121,7 +121,7 @@ object Hook:
     )
 
   import lila.core.pool.{ PoolFrom, PoolMember }
-  def asPoolMember(h: Hook, from: PoolFrom) = h.user.map: u =>
+  def asPoolMember(h: Hook, from: PoolFrom, wantsChat: Boolean = false) = h.user.map: u =>
     PoolMember(
       userId = u.id,
       sri = h.sri,
@@ -131,6 +131,7 @@ object Hook:
       ratingRange = h.manualRatingRange,
       lame = h.user.so(_.lame),
       blocking = h.user.so(_.blocking),
+      wantsChat = wantsChat,
       rageSitCounter = 0
     )
 

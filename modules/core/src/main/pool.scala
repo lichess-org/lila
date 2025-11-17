@@ -35,6 +35,7 @@ case class PoolMember(
     ratingRange: Option[RatingRange],
     lame: Boolean,
     blocking: Blocking,
+    wantsChat: Boolean = false,
     rageSitCounter: Int = 0,
     misses: Int = 0 // how many waves they missed
 )

@@ -31,6 +31,7 @@ case class Pref(
     challenge: Int,
     message: Int,
     studyInvite: Int,
+    wantsChat: Int,
     submitMove: Int,
     confirmResign: Int,
     insightShare: Int,
@@ -105,6 +106,7 @@ case class Pref(
   def hasKeyboardMove = keyboardMove == KeyboardMove.YES
   def hasVoice = voice.has(Voice.YES)
   def hasSpeech = soundSet == SoundSet.speech.toString
+  def wantsToChat = wantsChat == WantsChat.YES
 
   def isUsingAltSocket = usingAltSocket.has(true)
 
@@ -256,6 +258,7 @@ object Pref:
 
   object KeyboardMove extends BooleanPref
   object Voice extends BooleanPref
+  object WantsChat extends BooleanPref
 
   object RookCastle:
     val NO = 0
@@ -496,6 +499,7 @@ object Pref:
     challenge = lila.core.pref.Challenge.REGISTERED,
     message = lila.core.pref.Message.ALWAYS,
     studyInvite = lila.core.pref.StudyInvite.ALWAYS,
+    wantsChat = WantsChat.NO,
     submitMove = SubmitMove.CORRESPONDENCE,
     confirmResign = ConfirmResign.YES,
     insightShare = lila.core.pref.InsightShare.FRIENDS,

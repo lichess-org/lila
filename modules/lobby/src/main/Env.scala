@@ -18,6 +18,7 @@ final class Env(
     poolApi: lila.core.pool.PoolApi,
     cacheApi: lila.memo.CacheApi,
     userTrustApi: lila.core.security.UserTrustApi,
+    prefApi: lila.core.pref.PrefApi,
     socketKit: lila.core.socket.SocketKit
 )(using
     Executor,

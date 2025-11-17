@@ -47,7 +47,8 @@ object MatchMaking:
           ratingRangeConflict(a, b) ||
           ratingRangeConflict(b, a) ||
           blockList(a, b) ||
-          blockList(b, a)
+          blockList(b, a) ||
+          chatMismatch(a, b)
       if conflict then none
       else
         val score =
@@ -78,6 +79,10 @@ object MatchMaking:
     // if players block each other
     private def blockList(a: PoolMember, b: PoolMember): Boolean =
       a.blocking.value contains b.userId
+
+    // if one player wants chat and the other doesn't
+    private def chatMismatch(a: PoolMember, b: PoolMember): Boolean =
+      (a.wantsChat && !b.wantsChat) || (!a.wantsChat && b.wantsChat)
 
     // bonus if the two players both have a good sit counter
     // bonus if the two players both have a bad sit counter

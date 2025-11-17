@@ -67,6 +67,7 @@ final class PrefApi(
   def getInsightShare(userId: UserId): Future[Int] = get(userId, _.insightShare)
   def getChallenge(userId: UserId): Future[Int] = get(userId, _.challenge)
   def getStudyInvite(userId: UserId): Future[Int] = get(userId, _.studyInvite)
+  def getWantsChat(userId: UserId): Future[Boolean] = get(userId, _.wantsToChat)
 
   def followable(userId: UserId): Fu[Boolean] =
     coll.primitiveOne[Boolean]($id(userId), "follow").map(_ | Pref.default.follow)
