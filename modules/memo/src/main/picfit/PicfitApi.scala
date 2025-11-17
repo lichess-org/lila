@@ -125,9 +125,9 @@ final class PicfitApi(
             context = meta.flatMap(_.context)
           )
           for
-            _ <- ref.fold(funit)(pullRef)
+            _ <- ref.so(pullRef)
             imageFresh <- updateColl(image)
-            _ <- if imageFresh.fresh then picfitServer.store(image, file) else funit
+            _ <- imageFresh.fresh so picfitServer.store(image, file)
           yield imageFresh
 
   private def updateColl(image: PicfitImage): Fu[ImageFresh] =
