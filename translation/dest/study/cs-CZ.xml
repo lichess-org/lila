@@ -16,6 +16,7 @@
   <string name="recentlyUpdated">Nedávno aktualizované</string>
   <string name="mostPopular">Nejoblíbenější</string>
   <string name="alphabetical">Abecedně</string>
+  <string name="relevant">Relevantní</string>
   <string name="addNewChapter">Přidat novou kapitolu</string>
   <plurals name="nbChapters">
     <item quantity="one">%s kapitola</item>
@@ -67,6 +68,7 @@
   <string name="studyPgn">PGN studie</string>
   <string name="chapterPgn">PGN kapitoly</string>
   <string name="copyChapterPgn">Kopírovat PGN</string>
+  <string name="copyRawChapterPgn">Kopírovat čisté PGN</string>
   <string name="downloadGame">Stáhnout hru</string>
   <string name="studyUrl">URL studie</string>
   <string name="currentChapterUrl">URL aktuální kapitoly</string>

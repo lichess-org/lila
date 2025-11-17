@@ -67,7 +67,7 @@ interface Handlers {
   clock(d: ServerClockMsg): void;
   forceVariation(d: WithWhoAndPos & { force: boolean }): void;
   chapters(d: ChapterPreviewFromServer[]): void;
-  reload(): void;
+  reload(d: { reason?: 'overweight' }): void;
   changeChapter(d: WithWhoAndPos): void;
   updateChapter(d: WithWhoAndChap): void;
   descChapter(d: WithWhoAndChap & { desc?: string }): void;
@@ -327,7 +327,9 @@ export default class StudyCtrl {
   };
 
   isCevalAllowed = () =>
-    !this.isGamebookPlay() && !!(this.data.chapter.features.computer || this.data.chapter.practice);
+    !this.relay?.tourShow() &&
+    !this.isGamebookPlay() &&
+    !!(this.data.chapter.features.computer || this.data.chapter.practice);
 
   canMergeAnalysisCleanly() {
     return !this.data.chapter.serverEval || Number(this.data.chapter.serverEval?.version) > 0;
@@ -618,6 +620,7 @@ export default class StudyCtrl {
     this.configureAnalysis();
     this.ctrl.userJump(this.ctrl.path);
     if (!o) this.xhrReload();
+    else if (o === 'analyse') this.ctrl.startCeval();
   };
   explorerGame = (gameId: string, insert: boolean) =>
     this.makeChange('explorerGame', this.withPosition({ gameId, insert }));
@@ -727,7 +730,10 @@ export default class StudyCtrl {
       else if (this.relay) this.ctrl.jump(d.p.path);
       return this.redraw();
     },
-    reload: () => this.xhrReload(),
+    reload: d => {
+      if (d?.reason === 'overweight') alert('This chapter is too big to add moves.');
+      this.xhrReload();
+    },
     changeChapter: d => {
       this.setMemberActive(d.w);
       if (!this.vm.mode.sticky) this.vm.behind++;

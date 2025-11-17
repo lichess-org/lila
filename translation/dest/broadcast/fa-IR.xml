@@ -8,7 +8,7 @@
   </plurals>
   <plurals name="nbViewers">
     <item quantity="one">%s تماشاگر</item>
-    <item quantity="other">%s تماشاگرها</item>
+    <item quantity="other">%s تماشاگر</item>
   </plurals>
   <string name="liveBroadcasts">پخش زنده مسابقات</string>
   <string name="broadcastCalendar">تقویم پخش</string>
