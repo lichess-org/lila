@@ -53,9 +53,14 @@ const editable = (
     }),
   });
 
+// Set of titles derived from scalachess' PlayerTitle.scala.
+const titles = 'GM|WGM|IM|WIM|FM|WFM|CM|WCM|NM|WNM|LM|BOT';
+const acceptableTitlePattern = `${titles}|${titles.toLowerCase()}`;
+
 const inputAttrs: { [name: string]: Attrs } = (() => {
   const elo = { pattern: '\\d{3,4}' };
   const fideId = { pattern: '\\d{2,9}' };
+  const title = { pattern: acceptableTitlePattern };
   return {
     Date: {
       pattern:
@@ -82,6 +87,8 @@ const inputAttrs: { [name: string]: Attrs } = (() => {
     BlackElo: elo,
     WhiteFideId: fideId,
     BlackFideId: fideId,
+    WhiteTitle: title,
+    BlackTitle: title,
   };
 })();
 

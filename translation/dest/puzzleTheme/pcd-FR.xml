@@ -14,6 +14,8 @@
   <string name="attractionDescription">Un échange ou un sacrifice encourageant ou forçant une pièce adverse à bouger sur une case, permettant une tactique.</string>
   <string name="backRankMate">Mat du couloir</string>
   <string name="backRankMateDescription">Matez le Roi sur la dernière rangée, lorsqu\'il est piégé par ses propres pièces.</string>
+  <string name="balestraMate">Mat de l\'arbalète</string>
+  <string name="balestraMateDescription">Un fou fait échec tandis que la dame contrôle les cases de fuite.</string>
   <string name="bishopEndgame">Finale de Fous</string>
   <string name="bishopEndgameDescription">Une finale avec seulement des Fous et des pions.</string>
   <string name="bodenMate">Mat de Boden</string>
