@@ -14,6 +14,8 @@
   <string name="attractionDescription">Wymiana bądź poświęcenie zachęcające lub zmuszające bierkę przeciwnika do zajęcia pola, na którym będzie ona celem kolejnych taktyk.</string>
   <string name="backRankMate">Mat na ostatniej linii</string>
   <string name="backRankMateDescription">Zamatuj króla uwięzionego w ostatnim rzędzie przez własne bierki.</string>
+  <string name="balestraMate">Mat Balestra</string>
+  <string name="balestraMateDescription">Goniec daje mata, a hetman znajduje się jedno pole z tyłu i z boku matowanego króla i blokuje mu drogę ucieczki</string>
   <string name="bishopEndgame">Końcówka gońcowa</string>
   <string name="bishopEndgameDescription">Gra końcowa wyłącznie z gońcami i pionami.</string>
   <string name="bodenMate">Mat Bodena</string>

@@ -9,7 +9,7 @@ export class Notify {
   constructor(public redraw: Redraw | undefined = undefined) {}
 
   set = (msg: string): void => {
-    this.text = msg + (this.text === msg ? ' ' : '');
+    this.text = msg + (this.text === msg ? '\u00A0' : '');
     this.date = new Date();
 
     requestIdleCallback(() => this.redraw?.(), 500);

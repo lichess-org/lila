@@ -13,9 +13,9 @@
   <string name="excludedFromLeaderboardsInfo">லீடர்போர்டில் இடம் பெறுவதற்கு ஏதேனும் நியாயமற்ற வழியைப் பயன்படுத்துவதாக நாங்கள் வரையறுக்கிறோம்.</string>
   <string name="closedByModerators">உங்கள் கணக்கு மதிப்பீட்டாளர்களால் மூடப்பட்டது.</string>
   <string name="hiddenBlog">உங்கள் வலைப்பதிவுகள் மதிப்பீட்டாளர்களால் மறைக்கப்பட்டுள்ளன.</string>
-  <string name="hiddenBlogInfo">எங்கள் %s ஐ மீண்டும் படிக்க உறுதி செய்யவும்.</string>
+  <string name="hiddenBlogInfo" comment="%s is &quot;blog rules&quot;, a separately translateable string (key: blogRules).&#10;&#10;Full sentence: &quot;Make sure to read again our blog rules.&quot;">எங்கள் %s ஐ மீண்டும் படிக்க உறுதி செய்யவும்.</string>
   <string name="playTimeout">உங்களுக்கு விளையாட்டு நேரம் முடிந்தது.</string>
   <string name="communicationGuidelines">தொடர்பு விதிகள்</string>
-  <string name="blogRules">வலைப்பதிவு விதிகள்</string>
+  <string name="blogRules" comment="This text links to https://lichess.org/page/blog-etiquette&#10;&#10;Part of longer sentence, &quot;Make sure to read again our blog rules.&quot; (key: hiddenBlogInfo)">வலைப்பதிவு விதிகள்</string>
   <string name="fairPlay">நியாயமான விளையாட்டு</string>
 </resources>
