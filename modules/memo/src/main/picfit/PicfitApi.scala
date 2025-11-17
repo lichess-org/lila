@@ -33,12 +33,12 @@ final class PicfitApi(
   def uploadFile(
       file: FilePart,
       userId: UserId,
-      ref: Option[String] = none,
+      uniqueRef: Option[String] = none,
       meta: Option[form.UploadData] = none,
       requestAutomod: Boolean = true
   ): Fu[PicfitImage] =
     val hash = java.util.Base64.getUrlEncoder().withoutPadding().encodeToString(file.ref.sha256).take(12)
-    uploadSource(file, hash, userId, ref, meta = meta).map: uploaded =>
+    uploadSource(file, hash, userId, uniqueRef, meta = meta).map: uploaded =>
       if requestAutomod && uploaded.fresh then
         Bus.pub(ImageAutomodRequest(uploaded.image.id, meta.fold(Dimensions.default)(_.dim)))
       uploaded.image
@@ -103,7 +103,7 @@ final class PicfitApi(
       file: FilePart,
       hash: String,
       userId: UserId,
-      ref: Option[String],
+      uniqueRef: Option[String],
       meta: Option[form.UploadData]
   ): Fu[ImageFresh] =
     file.contentType
@@ -120,12 +120,12 @@ final class PicfitApi(
             name = file.filename,
             size = file.fileSize.toInt,
             createdAt = nowInstant,
-            refs = ref.toList,
+            refs = uniqueRef.toList,
             dimensions = meta.map(_.dim),
             context = meta.flatMap(_.context)
           )
           for
-            _ <- ref.so(pullRef)
+            _ <- uniqueRef.so(pullRef)
             imageFresh <- updateColl(image)
             _ <- imageFresh.fresh so picfitServer.store(image, file)
           yield imageFresh
