@@ -204,6 +204,7 @@ export function render(ctrl: RoundController): LooseVNode {
               while ((node = node.previousSibling as HTMLElement)) {
                 offset++;
                 if (node.tagName === indexTagUC) {
+                  if (ctrl.toSubmit) ctrl.submitMove(false);
                   ctrl.userJump(2 * parseInt(node.textContent || '') + offset);
                   ctrl.redraw();
                   break;

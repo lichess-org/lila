@@ -13,9 +13,9 @@
   <string name="excludedFromLeaderboardsInfo">Αυτό ορίζεται ως χρήση οποιουδήποτε άδικου τρόπου ένταξης στους πίνακες κατάταξης.</string>
   <string name="closedByModerators">Ο λογαριασμός σας έκλεισε από τους διαχειριστές.</string>
   <string name="hiddenBlog">Έχει γίνει απόκρυψη των ιστολογίων σας από τους διαχειριστές.</string>
-  <string name="hiddenBlogInfo">Προτείνουμε να διαβάσετε ξανά τους %s.</string>
+  <string name="hiddenBlogInfo" comment="%s is &quot;blog rules&quot;, a separately translateable string (key: blogRules).&#10;&#10;Full sentence: &quot;Make sure to read again our blog rules.&quot;">Προτείνουμε να διαβάσετε ξανά τους %s.</string>
   <string name="playTimeout">Δεν μπορείτε να παίξετε αυτή τη στιγμή λόγω timeout.</string>
   <string name="communicationGuidelines">οδηγίες επικοινωνίας με άλλους χρήστες</string>
-  <string name="blogRules">κανόνες που διέπουν τη λειτουργία των ιστολογίων</string>
+  <string name="blogRules" comment="This text links to https://lichess.org/page/blog-etiquette&#10;&#10;Part of longer sentence, &quot;Make sure to read again our blog rules.&quot; (key: hiddenBlogInfo)">κανόνες που διέπουν τη λειτουργία των ιστολογίων</string>
   <string name="fairPlay">ευγενής άμιλλα</string>
 </resources>

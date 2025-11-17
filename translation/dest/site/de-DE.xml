@@ -4,7 +4,7 @@
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Einen Freund herausfordern</string>
   <string name="playAgainstComputer">Gegen den Computer spielen</string>
   <string name="gameMode">Spielmodus</string>
-  <string name="createLobbyGame">Neue Partie erstellen</string>
+  <string name="createLobbyGame" comment="One of three buttons on the home page. Opens the modal to create a game that goes in the lobby.">Neue Partie erstellen</string>
   <string name="youPlayAs">Du spielst als</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Versende diese URL, um jemanden zum Spiel einzuladen</string>
   <string name="gameOver">Partie beendet</string>
@@ -769,6 +769,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Du kannst auch auf dem Brett scrollen, um die Partie durchzugehen.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Bewege den Mauszeiger über Computervarianten, um eine Vorschau zu erhalten.</string>
   <string name="analysisShapesHowTo">Drücke Shift+Mausklick oder Rechtsklick, um Kreise und Pfeile auf dem Brett zu zeichnen.</string>
+  <string name="primaryColorArrowsHowTo">Strg oder Shift = rot; Befehl, Alt oder Meta = Blau; von beiden eine Taste = Gelb.</string>
   <string name="letOtherPlayersMessageYou">Erlaube anderen Spielern dich zu kontaktieren</string>
   <string name="receiveForumNotifications">Benachrichtigungen erhalten, wenn du im Forum erwähnt wirst</string>
   <string name="shareYourInsightsData">Deine persönlichen Spielerstatistiken teilen</string>
