@@ -14,6 +14,8 @@
   <string name="attractionDescription">交換か捨て駒によって相手の駒を不利なマスに誘い込む。</string>
   <string name="backRankMate">バックランク・メイト</string>
   <string name="backRankMateDescription">一番下のランクで、上を自分の駒に塞がれたキングをメイトする。</string>
+  <string name="balestraMate">バレストラ（クロスボウ）のメイト</string>
+  <string name="balestraMateDescription">ビショップがチェックし、クイーンが残りの逃げ道をおさえる</string>
   <string name="bishopEndgame">ビショップ・エンドゲーム</string>
   <string name="bishopEndgameDescription">ビショップとポーンだけの終盤。</string>
   <string name="bodenMate">ボーデンのメイト</string>
@@ -59,6 +61,8 @@
   <string name="intermezzoDescription">当然に見える手を指す代わりに、いったん相手が受けざるを得ない別の手をはさむ問題。</string>
   <string name="killBoxMate">キルボックスのメイト</string>
   <string name="killBoxMateDescription">ルークが敵キングの隣にあり、クイーンがルークを守ると同時にキングの逃げ道をふさいでいる。ルークとクイーンが 3 × 3 の「キルボックス」に敵キングを捕えた形。</string>
+  <string name="triangleMate" comment="Description (translatable separately):&#10;&#10;The queen and rook, one square away from the enemy king, are on the same rank or file, separated by one square, forming a triangle.">三角のメイト</string>
+  <string name="triangleMateDescription" comment="Description for &quot;triangle mate&quot;">同じランクかファイル上で空きマスを挟んだクイーンとルーク、そして相手のキングが三角形を作るメイト。</string>
   <string name="vukovicMate">ヴコヴィッチのメイト</string>
   <string name="vukovicMateDescription">ルークとナイトでのメイト。別の駒で守られた ルークがチェックをかけ、ナイトがキングの逃げ道を抑える。</string>
   <string name="knightEndgame">ナイト・エンドゲーム</string>

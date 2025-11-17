@@ -66,7 +66,7 @@ export function initModule({
     if (isGift) {
       if ($monthly.is(':checked')) $('#freq_onetime').trigger('click');
       $checkout.find('.gift input').trigger('focus');
-    }
+    } else if (hasLifetime && $lifetime.is(':checked')) $('#freq_monthly').trigger('click');
     toggleCheckout();
   });
 

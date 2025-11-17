@@ -426,8 +426,8 @@ final private class StudySocket(
       )
     )
   def reloadSri(sri: Sri) = notifySri(sri, "reload", JsNull)
-  def reloadSriBecauseOf(sri: Sri, chapterId: StudyChapterId) =
-    notifySri(sri, "reload", Json.obj("chapterId" -> chapterId))
+  def reloadSriBecauseOf(sri: Sri, chapterId: StudyChapterId, reason: Option["overweight"]) =
+    notifySri(sri, "reload", Json.obj("chapterId" -> chapterId).add("reason" -> reason))
   def validationError(error: String, sri: Sri) = notifySri(sri, "validationError", Json.obj("error" -> error))
 
   api.registerSocket(this)

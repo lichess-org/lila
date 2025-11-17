@@ -14,6 +14,8 @@
   <string name="attractionDescription">Ein Abtausch oder Opfer, der eine gegnerische Figur auf ein Feld einlädt oder zwingt, was eine Folgetaktik erlaubt.</string>
   <string name="backRankMate">Grundreihenmatt</string>
   <string name="backRankMateDescription">Setze den König auf der Grundreihe matt, wenn er dort durch seine eigenen Figuren blockiert wird.</string>
+  <string name="balestraMate">Balestra-Matt</string>
+  <string name="balestraMateDescription">Ein Läufer setzt Matt während die Dame die verbleibenden Fluchtfelder blockiert</string>
   <string name="bishopEndgame">Läuferendspiel</string>
   <string name="bishopEndgameDescription">Ein Endspiel nur mit Läufern und Bauern.</string>
   <string name="bodenMate">Boden-Matt</string>
@@ -59,6 +61,8 @@
   <string name="intermezzoDescription">Anstatt den erwarteten Zug zu spielen, schiebe einen anderen Zug dazwischen, der eine sofortige Drohung aufstellt, welche der Gegner beantworten muss.</string>
   <string name="killBoxMate">Killbox Matt</string>
   <string name="killBoxMateDescription">Ein Turm befindet sich neben dem gegnerischen König und wird durch die Dame unterstützt, welche ebenfalls die Fluchtfelder des Königs blockiert. Der Turm und die Dame halten den gegnerischen König in einer 3x3 \"Killbox\".</string>
+  <string name="triangleMate" comment="Description (translatable separately):&#10;&#10;The queen and rook, one square away from the enemy king, are on the same rank or file, separated by one square, forming a triangle.">Dreiecks-Matt</string>
+  <string name="triangleMateDescription">Die Dame und der Turm bilden auf derselben Reihe oder Linie und im Abstand von einem Feld mit dem gegnerischen König ein Dreieck.</string>
   <string name="vukovicMate">Vukovic-Matt</string>
   <string name="vukovicMateDescription">Ein Turm und ein Springer arbeiten zusammen, den König matt zu setzen. Der Turm setzt matt zusammen mit einer dritten Figur, und der Springer nimmt dem König die Fluchtfelder.</string>
   <string name="knightEndgame">Springerendspiel</string>

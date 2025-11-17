@@ -1,7 +1,6 @@
 package lila.study
 
 import chess.format.pgn.{ PgnStr, Tags }
-import chess.{ Node as PgnNode, Tree }
 import monocle.syntax.all.*
 import alleycats.Zero
 
@@ -122,5 +121,3 @@ object Helpers:
         .replace(none)
         .focus(_.metas.comments)
         .modify(_.cleanup)
-
-  def sanStr(node: Tree[NewBranch]): String = node.value.move.san.value

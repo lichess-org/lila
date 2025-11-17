@@ -98,7 +98,7 @@
   <string name="startingSoon">بزودی شروع می‌شود</string>
   <string name="comparison">مقایسه</string>
   <string name="tournDuration">مدت زمان مسابقه</string>
-  <string name="predefinedDuration">مدت زمان از پیش تعریف شده به دقیقه</string>
+  <string name="predefinedDuration">مدتِ پیش‌تعریفیده به دقیقه</string>
   <string name="durationUnknown">حداکثر تعداد دورها از قبل تعیین شده، ولی زمان نا مشخص است</string>
   <string name="numberOfGames">تعداد بازی‌ها</string>
   <string name="numberOfGamesAsManyAsPossible">هر تعداد که می توان در مدت زمان تعیین شده بازی کرد</string>
