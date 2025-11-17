@@ -327,7 +327,9 @@ export default class StudyCtrl {
   };
 
   isCevalAllowed = () =>
-    !this.isGamebookPlay() && !!(this.data.chapter.features.computer || this.data.chapter.practice);
+    !this.relay?.tourShow() &&
+    !this.isGamebookPlay() &&
+    !!(this.data.chapter.features.computer || this.data.chapter.practice);
 
   configurePractice = () => {
     if (!this.data.chapter.practice && this.ctrl.practice) this.ctrl.togglePractice();
