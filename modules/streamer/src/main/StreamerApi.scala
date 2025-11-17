@@ -84,6 +84,9 @@ final class StreamerApi(
           streamer.youTube.foreach(tuber => ytApi.channelSubscribe(tuber.channelId, true))
           modChange(prev, streamer)
 
+  def updateTwitchLogin(id: Streamer.Id, login: String): Funit =
+    coll.update.one($id(id), $set("twitch.login" -> login)).void
+
   def forceCheck(uid: UserId): Funit =
     byId(uid.into(Streamer.Id)).map:
       _.filter(_.approval.granted).so: s =>
@@ -179,6 +182,32 @@ final class StreamerApi(
       )
       .void
 
+  def oauthUnlink(streamer: Streamer, platformCaseSensitive: "twitch" | "youTube"): Funit =
+    for _ <- coll.update
+        .one($id(streamer.id), $unset(platformCaseSensitive) ++ $set("updatedAt" -> nowInstant))
+    yield cache.listedIds.invalidateUnit()
+
+  def linkTwitch(streamer: Streamer, id: String, login: String): Fu[String] =
+    val clearQuery = $or($doc("twitch.id" -> id), $doc("twitch.login" -> login))
+    for
+      _ <- coll
+        .update(ordered = false)
+        .one(clearQuery, $unset("twitch"), upsert = false, multi = true)
+      _ <- coll.update
+        .one($id(streamer.id), $set("twitch" -> Streamer.Twitch(id, login), "updatedAt" -> nowInstant))
+    yield lila.streamer.Streamer.Twitch(id, login).fullUrl
+
+  def linkYoutube(streamer: Streamer, channelId: String): Fu[String] =
+    val newYoutube =
+      streamer.youTube.fold(Streamer.YouTube(channelId, none, none))(_.copy(channelId = channelId))
+    for
+      _ <- coll
+        .update(ordered = false)
+        .one($doc("youTube.channelId" -> channelId), $unset("youTube"), upsert = false, multi = true)
+      _ <- coll.update
+        .one($id(streamer.id), $set("youTube" -> newYoutube, "updatedAt" -> nowInstant))
+    yield newYoutube.fullUrl
+
   object approval:
 
     def request(user: User) =
@@ -198,7 +227,7 @@ final class StreamerApi(
       .find(
         $doc(
           "$or" -> List(
-            streamer.twitch.map(_.userId).map { t =>
+            streamer.twitch.map(_.login).map { t =>
               $doc("twitch.userId" -> t)
             },
             streamer.youTube.map(_.channelId).map { t =>

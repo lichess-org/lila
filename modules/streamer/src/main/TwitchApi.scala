@@ -12,7 +12,9 @@ final private class TwitchApi(ws: StandaloneWSClient, config: TwitchConfig)(usin
   import Stream.Twitch
   import Twitch.given
 
+  private val authBase = "https://id.twitch.tv/oauth2"
   private var tmpToken = Secret("init")
+  private val helixBase = "https://api.twitch.tv/helix"
 
   def fetchStreams(
       streamers: List[Streamer],
@@ -53,6 +55,46 @@ final private class TwitchApi(ws: StandaloneWSClient, config: TwitchConfig)(usin
           else fuccess(Nil)
         }
 
+  def authorizeUrl(redirectUri: String, state: String, forceVerify: Boolean): String =
+    import java.net.URLEncoder.encode
+    val params = List(
+      "client_id" -> config.clientId,
+      "redirect_uri" -> redirectUri,
+      "response_type" -> "code",
+      "scope" -> "", // ?
+      "state" -> state,
+      "force_verify" -> forceVerify.toString
+    )
+    s"$authBase/authorize?" + params.map { case (k, v) => s"$k=${encode(v, "UTF-8")}" }.mkString("&")
+
+  def codeForUser(code: String, redirectUri: String): Fu[(String, String)] =
+    val body = Map(
+      "client_id" -> config.clientId,
+      "client_secret" -> config.secret.value,
+      "code" -> code,
+      "grant_type" -> "authorization_code",
+      "redirect_uri" -> redirectUri
+    )
+    ws.url(s"$authBase/token").post(body).flatMap { rsp =>
+      if rsp.status != 200 then fufail(s"twitch.codeForUser ${lila.log.http(rsp.status, rsp.body)}}")
+      else
+        val accessToken = (rsp.body[JsValue] \ "access_token").as[String]
+        ws.url(s"$helixBase/users")
+          .withHttpHeaders(
+            "Client-ID" -> config.clientId,
+            "Authorization" -> s"Bearer $accessToken"
+          )
+          .get()
+          .flatMap { userRsp =>
+            if userRsp.status != 200 then
+              fufail(s"twitch.codeForUser ${lila.log.http(rsp.status, rsp.body)}}")
+            else
+              val data = (userRsp.body[JsValue] \ "data")(0)
+              val id = (data \ "id").as[String]
+              val login = (data \ "login").as[String]
+              fuccess(id -> login)
+          }
+    }
   private def renewToken: Funit =
     ws.url("https://id.twitch.tv/oauth2/token")
       .withQueryStringParameters(

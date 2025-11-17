@@ -23,6 +23,7 @@ final class AssetManifest(getFile: GetRelativeFile):
 
   def css(key: String): String = maps.css.getOrElse(key, key)
   def hashed(path: String): Option[String] = maps.hashed.get(path)
+  def js(key: String): Option[String] = maps.js.get(key).flatMap(_.path)
   def jsAndDeps(keys: List[String]): List[String] = keys.flatMap { key =>
     maps.js.get(key).so(_.allModules)
   }.distinct

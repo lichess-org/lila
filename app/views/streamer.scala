@@ -1,6 +1,7 @@
 package views.streamer
 
 import scalalib.paginator.Paginator
+import play.api.libs.json.*
 
 import lila.app.UiEnv.{ *, given }
 import lila.core.perf.{ UserPerfs, UserWithPerfs }
@@ -27,6 +28,28 @@ def create(using Context) =
       icon = Some(Icon.Mic)
     )
     .css("bits.streamer.form")(bits.create)
+
+object oauth:
+  def apply(platform: String, href: String, result: Either[String, Map[String, String]]) =
+    val assetUrl = staticAssetUrl(s"compiled/${~assetHelper.manifest.js("bits.oauthPopup")}")
+    val jsonResult = Json
+      .obj(
+        "platform" -> platform,
+        "href" -> href,
+        "result" -> (result match
+          case Left(url) => url
+          case Right(idsMap) => Json.toJson(idsMap).as[JsObject])
+      )
+    frag(
+      views.base.page.ui.doctype,
+      html(
+        st.body(
+          script(tpe := "text/javascript")(
+            raw(s"import('$assetUrl').then(m => m.initModule(${safeJsonValue(jsonResult).value}));")
+          )
+        )
+      )
+    )
 
 object edit:
 

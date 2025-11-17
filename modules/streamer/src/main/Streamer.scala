@@ -85,16 +85,16 @@ object Streamer:
       reason: Option[String]
   )
 
-  case class Twitch(userId: String) derives Eq:
-    def fullUrl = s"https://www.twitch.tv/$userId"
-    def minUrl = s"twitch.tv/$userId"
+  case class Twitch(id: String, login: String) derives Eq:
+    def fullUrl = s"https://www.twitch.tv/$login"
+    def minUrl = s"twitch.tv/$login"
   object Twitch:
-    private val UserIdRegex = """([a-zA-Z0-9](?:\w{2,24}+))""".r
-    private val UrlRegex = ("""twitch\.tv/""" + UserIdRegex + "").r.unanchored
+    private val LoginRegex = """([a-zA-Z0-9](?:\w{2,24}+))""".r
+    private val UrlRegex = ("""twitch\.tv/""" + LoginRegex + "").r.unanchored
     // https://www.twitch.tv/chessnetwork
-    def parseUserId(str: String): Option[String] =
+    def parseLogin(str: String): Option[String] =
       str match
-        case UserIdRegex(u) => u.some
+        case LoginRegex(u) => u.some
         case UrlRegex(u) => u.some
         case _ => none
 

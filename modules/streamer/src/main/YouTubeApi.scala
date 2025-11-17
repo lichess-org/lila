@@ -7,20 +7,28 @@ import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 import reactivemongo.api.bson.*
 
-import lila.core.config.NetConfig
+import lila.common.autoconfig.ConfigName
+import lila.core.config.{ NetConfig, Secret }
 import lila.db.dsl.{ *, given }
 
 import Stream.YouTube
+
+private class YoutubeConfig(
+    @ConfigName("api_key") val apiKey: Secret,
+    @ConfigName("client_id") val clientId: String,
+    @ConfigName("client_secret") val clientSecret: Secret
+)
 
 final private class YouTubeApi(
     ws: StandaloneWSClient,
     coll: lila.db.dsl.Coll,
     keyword: Stream.Keyword,
-    cfg: StreamerConfig,
+    cfg: YoutubeConfig,
     net: NetConfig
 )(using Executor, akka.stream.Materializer):
 
   private var lastResults: List[YouTube.Stream] = Nil
+  private val apiBase = "https://youtube.googleapis.com/youtube/v3"
 
   private case class Tuber(streamer: Streamer, youTube: Streamer.YouTube)
 
@@ -31,15 +39,15 @@ final private class YouTubeApi(
       .flatMap(tb => Seq(tb.youTube.pubsubVideoId, tb.youTube.liveVideoId).flatten)
       .distinct
       .grouped(maxResults)
-    cfg.googleApiKey.value.nonEmpty
+    cfg.apiKey.value.nonEmpty
       .so:
         idPages.toList.sequentially: idPage =>
-          ws.url("https://youtube.googleapis.com/youtube/v3/videos")
+          ws.url(s"$apiBase/videos")
             .withQueryStringParameters(
               "part" -> "snippet",
               "id" -> idPage.mkString(","),
               "maxResults" -> s"$maxResults",
-              "key" -> cfg.googleApiKey.value
+              "key" -> cfg.apiKey.value
             )
             .get()
             .map: rsp =>
@@ -102,13 +110,13 @@ final private class YouTubeApi(
             logger.info(s"YouTube: UNAPPROVED vid:$videoId ch:$channelId")
 
   private def isLiveStream(videoId: String): Fu[Boolean] =
-    cfg.googleApiKey.value.nonEmpty.so(
+    cfg.apiKey.value.nonEmpty.so(
       ws
-        .url("https://youtube.googleapis.com/youtube/v3/videos")
+        .url(s"$apiBase/videos")
         .withQueryStringParameters(
           "part" -> "snippet",
           "id" -> videoId,
-          "key" -> cfg.googleApiKey.value
+          "key" -> cfg.apiKey.value
         )
         .get()
         .map { rsp =>
@@ -143,7 +151,52 @@ final private class YouTubeApi(
         logger.info(
           s"WebSub: FAILED ${if subscribe then "subscribe" else "unsubscribe"} on $channelId ${res.status}"
         )
-        fufail(s"YouTubeApi.channelSubscribe $channelId failed ${res.status} ${res.body[String].take(200)}")
+        fufail(s"YouTubeApi.channelSubscribe $channelId failed ${lila.log.http(res.status, res.body)}")
+
+  def authorizeUrl(redirectUri: String, state: String, forceVerify: Boolean): String =
+    import java.net.URLEncoder.encode
+    val params = List(
+      "client_id" -> cfg.clientId,
+      "redirect_uri" -> redirectUri,
+      "response_type" -> "code",
+      "scope" -> "https://www.googleapis.com/auth/youtube.readonly",
+      "access_type" -> "offline",
+      "include_granted_scopes" -> "true",
+      "state" -> state
+    ) ++ forceVerify.option("prompt" -> "consent")
+    "https://accounts.google.com/o/oauth2/v2/auth?" + params
+      .map { case (k, v) => s"$k=${encode(v, "UTF-8")}" }
+      .mkString("&")
+
+  def codeForChannelMap(code: String, redirectUri: String): Fu[Map[String, String]] =
+    val body = Map(
+      "client_id" -> cfg.clientId,
+      "client_secret" -> cfg.clientSecret.value,
+      "code" -> code,
+      "grant_type" -> "authorization_code",
+      "redirect_uri" -> redirectUri
+    )
+    ws.url("https://oauth2.googleapis.com/token")
+      .post(body)
+      .flatMap: rsp =>
+        if rsp.status != 200 then
+          fufail(s"YouTube token exchange failed: ${rsp.status} ${lila.log.http(rsp.status, rsp.body)}")
+        else
+          val accessToken = (rsp.body[JsValue] \ "access_token").as[String]
+          ws.url(s"$apiBase/channels")
+            .withQueryStringParameters("part" -> "id,snippet", "mine" -> "true")
+            .withHttpHeaders("Authorization" -> s"Bearer $accessToken")
+            .get()
+            .flatMap: chRsp =>
+              if chRsp.status != 200 then
+                fufail(s"bad response: ${chRsp.status} ${lila.log.http(chRsp.status, chRsp.body)}")
+              else
+                val items = (chRsp.body[JsValue] \ "items").as[JsArray]
+                val idsMap = items.value.iterator
+                  .map(it => (it \ "id").as[String] -> (it \ "snippet" \ "title").as[String].trim())
+                  .toMap
+                if idsMap.nonEmpty then fuccess(idsMap)
+                else fufail(s"no channels ${lila.log.http(chRsp.status, chRsp.body)}")
 
   private def asFormBody(params: (String, String)*): String =
     params.map((key, value) => s"$key=${java.net.URLEncoder.encode(value, "UTF-8")}").mkString("&")
@@ -163,7 +216,7 @@ final private class YouTubeApi(
         )
       .map(bulk.many(_))
 
-  private[streamer] def subscribeAll: Funit = cfg.googleApiKey.value.nonEmpty.so:
+  private[streamer] def subscribeAll: Funit = cfg.apiKey.value.nonEmpty.so:
     import akka.stream.scaladsl.*
     import reactivemongo.akkastream.cursorProducer
     coll

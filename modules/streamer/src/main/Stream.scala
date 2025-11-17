@@ -32,18 +32,24 @@ object Stream:
     def toPair(domain: NetDomain) = (embed(domain), redirect)
 
   object Twitch:
-    case class TwitchStream(user_name: String, title: Html, `type`: String, language: String):
-      def name = user_name
+    case class TwitchStream(
+        user_id: String,
+        user_login: String,
+        title: Html,
+        `type`: String,
+        language: String
+    ):
+      def name = user_login
       def isLive = `type` == "live"
     case class Pagination(cursor: Option[String])
     case class Result(data: Option[List[TwitchStream]], pagination: Option[Pagination]):
       def liveStreams = (~data).filter(_.isLive)
-    case class Stream(userId: String, status: Html, streamer: Streamer, lang: Lang)
+    case class Stream(login: String, status: Html, streamer: Streamer, lang: Lang)
         extends lila.streamer.Stream:
       def serviceName = "twitch"
       def urls = Urls(
-        embed = parent => s"https://player.twitch.tv/?channel=${userId}&parent=${parent}",
-        redirect = s"https://www.twitch.tv/${userId}"
+        embed = parent => s"https://player.twitch.tv/?channel=${login}&parent=${parent}",
+        redirect = s"https://www.twitch.tv/${login}"
       )
     private given Reads[TwitchStream] = Json.reads
     private given Reads[Pagination] = Json.reads

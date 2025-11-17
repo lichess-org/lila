@@ -136,7 +136,7 @@ final class StreamerUi(helpers: Helpers, bits: StreamerBits)(using netDomain: Ne
                         frame.credentialless,
                         st.frameborder := "0",
                         frame.scrolling := "yes",
-                        src := s"https://twitch.tv/embed/${twitch.userId}/chat?${darkChat}parent=$netDomain"
+                        src := s"https://twitch.tv/embed/${twitch.login}/chat?${darkChat}parent=$netDomain"
                       )
               )
             ),
@@ -158,7 +158,7 @@ final class StreamerUi(helpers: Helpers, bits: StreamerBits)(using netDomain: Ne
                   .map: twitch =>
                     div(cls := "box embed twitch")(
                       iframe(
-                        src := s"https://player.twitch.tv/?channel=${twitch.userId}&parent=$netDomain",
+                        src := s"https://player.twitch.tv/?channel=${twitch.login}&parent=$netDomain",
                         frame.allowfullscreen,
                         frame.credentialless
                       )

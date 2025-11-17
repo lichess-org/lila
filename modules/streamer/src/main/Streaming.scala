@@ -32,15 +32,18 @@ final private class Streaming(
         twitchApi
           .fetchStreams(streamers, 0, None)
           .map:
-            _.collect { case Twitch.TwitchStream(name, title, _, langStr) =>
+            _.collect { case Twitch.TwitchStream(id, login, title, _, langStr) =>
               streamers
-                .find { s =>
-                  s.twitch.exists(_.userId.toLowerCase == name.toLowerCase) && {
+                .find: s =>
+                  (s.twitch.exists(_.id == id)) && {
                     title.value.toLowerCase.contains(keyword.toLowerCase) ||
                     alwaysFeatured().value.contains(s.userId)
                   }
-                }
-                .map { Twitch.Stream(name, title, _, Lang.get(langStr) | lila.core.i18n.defaultLang) }
+                .map: streamer =>
+                  if streamer.twitch.exists(_.login != login)
+                  then discard { api.updateTwitchLogin(streamer.id, login) } // rare and not critical
+                  val lang = Lang.get(langStr) | lila.core.i18n.defaultLang
+                  Twitch.Stream(login = login, status = title, streamer = streamer, lang = lang)
             }.flatten
           .zip(ytApi.fetchStreams(streamers))
       streams = LiveStreams:
@@ -75,7 +78,7 @@ final private class Streaming(
     streamers.foreach: streamer =>
       streamer.twitch.foreach: t =>
         if liveStreams.streams.exists(s => s.serviceName == "twitch" && s.is(streamer)) then
-          lila.mon.tv.streamer.present(s"${t.userId}@twitch").increment()
+          lila.mon.tv.streamer.present(s"${t.login}@twitch").increment()
       streamer.youTube.foreach: t =>
         if liveStreams.streams.exists(s => s.serviceName == "youTube" && s.is(streamer)) then
           lila.mon.tv.streamer.present(s"${t.channelId}@youtube").increment()

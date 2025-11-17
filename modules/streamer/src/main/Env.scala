@@ -14,7 +14,7 @@ private class StreamerConfig(
     @ConfigName("collection.streamer") val streamerColl: CollName,
     @ConfigName("paginator.max_per_page") val paginatorMaxPerPage: MaxPerPage,
     @ConfigName("streaming.keyword") val keyword: Stream.Keyword,
-    @ConfigName("streaming.google.api_key") val googleApiKey: Secret,
+    @ConfigName("streaming.youtube") val youtubeConfig: YoutubeConfig,
     @ConfigName("streaming.twitch") val twitchConfig: TwitchConfig
 )
 private class TwitchConfig(
@@ -41,6 +41,7 @@ final class Env(
 )(using scheduler: Scheduler)(using Executor, akka.stream.Materializer):
 
   private given ConfigLoader[TwitchConfig] = AutoConfig.loader[TwitchConfig]
+  private given ConfigLoader[YoutubeConfig] = AutoConfig.loader[YoutubeConfig]
   private given ConfigLoader[Stream.Keyword] = strLoader(Stream.Keyword.apply)
   private val config = appConfig.get[StreamerConfig]("streamer")(using AutoConfig.loader)
 
@@ -67,7 +68,7 @@ final class Env(
 
   lazy val pager = wire[StreamerPager]
 
-  private lazy val twitchApi: TwitchApi = wire[TwitchApi]
+  lazy val twitchApi: TwitchApi = wire[TwitchApi]
 
   private val streaming = Streaming(
     api = api,
