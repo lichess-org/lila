@@ -42,7 +42,7 @@ final private class AnalysisBuilder(evalCache: IFishnetEvalCache)(using Executor
                 infos = makeInfos(mergeEvalsAndCached(work, evals, cached), work.game.uciList, work.startPly),
                 startPly = work.startPly,
                 date = nowInstant,
-                engine = Engine(work.origin.nodesPerMove, userId = client.userId.some)
+                engine = Engine(work.origin.nodesPerMove, Analysis.EngineId.fishnet, client.userId)
               )
             )
             errors.foreach(e => logger.debug(s"[UciToPgn] $debug $e"))

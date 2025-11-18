@@ -7,7 +7,7 @@ import Analysis.EngineId
 
 case class AnalysisProgress(gameId: GameId, payload: () => JsObject)
 case class StudyAnalysisProgress(analysis: Analysis, complete: Boolean)
-case class Engine(nodesPerMove: Int, id: EngineId = EngineId("fishnet"), userId: Option[UserId] = none)
+case class Engine(nodesPerMove: Int, id: EngineId, userId: UserId)
 
 trait Analyser:
   def byId(id: Analysis.Id): Fu[Option[Analysis]]
@@ -53,7 +53,8 @@ case class Analysis(
 object Analysis:
 
   opaque type EngineId = String
-  object EngineId extends OpaqueString[EngineId]
+  object EngineId extends OpaqueString[EngineId]:
+    val fishnet: EngineId = "fishnet"
 
   enum Id:
     case Game(id: GameId)
