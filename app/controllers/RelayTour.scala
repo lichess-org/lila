@@ -100,12 +100,13 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
           ),
         setup =>
           rateLimitCreation(whenRateLimited):
-            env.relay.api.tourCreate(setup).flatMap { tour =>
-              negotiate(
+            for
+              tour <- env.relay.api.tourCreate(setup)
+              result <- negotiate(
                 Redirect(routes.RelayRound.form(tour.id)).flashSuccess,
                 JsonOk(env.relay.jsonView.fullTourWithRounds(tour.withRounds(Nil), group = none))
               )
-            }
+            yield result
       )
   }
 
@@ -125,20 +126,17 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
           ),
         setup =>
           env.relay.api.tourUpdate(nav.tour, setup) >>
-            negotiate(
-              Redirect(routes.RelayTour.edit(nav.tour.id)).flashSuccess,
-              jsonOkResult
-            )
+            negotiate(Redirect(routes.RelayRound.form(nav.tour.id)).flashSuccess, jsonOkResult)
       )
   }
 
   def delete(id: RelayTourId) = AuthOrScoped(_.Study.Write) { _ ?=> me ?=>
     WithTour(id): tour =>
-      for _ <- env.relay.api.deleteTourIfOwner(tour)
-      yield Redirect(routes.RelayTour.by(me.username)).flashSuccess
+      env.relay.api.deleteTourIfOwner(tour) >>
+        Redirect(routes.RelayTour.by(me.username)).flashSuccess
   }
 
-  def image(id: RelayTourId, tag: Option[String]) = AuthBody(parse.multipartFormData) { ctx ?=> _ ?=>
+  def image(id: RelayTourId, tag: Option[String]) = AuthBody(lila.web.HashedMultiPart(parse)) { ctx ?=> _ ?=>
     WithTourCanUpdate(id): nav =>
       ctx.body.body.file("image") match
         case Some(image) =>

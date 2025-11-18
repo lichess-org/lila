@@ -85,7 +85,7 @@ final class TitleVerify(env: Env, cmsC: => Cms, reportC: => report.Report, userC
           Redirect(routes.TitleVerify.index).flashSuccess
   }
 
-  def image(id: TitleRequestId, tag: String) = AuthBody(parse.multipartFormData) { ctx ?=> me ?=>
+  def image(id: TitleRequestId, tag: String) = AuthBody(lila.web.HashedMultiPart(parse)) { ctx ?=> me ?=>
     Found(api.getForMe(id)): req =>
       ctx.body.body.file("image") match
         case Some(image) =>

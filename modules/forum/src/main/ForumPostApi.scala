@@ -17,7 +17,8 @@ final class ForumPostApi(
     spam: lila.core.security.SpamApi,
     promotion: lila.core.security.PromotionApi,
     shutupApi: lila.core.shutup.ShutupApi,
-    detectLanguage: DetectLanguage
+    detectLanguage: DetectLanguage,
+    picfitApi: lila.memo.PicfitApi
 )(using Executor)(using scheduler: Scheduler)
     extends lila.core.forum.ForumPostApi:
 
@@ -222,9 +223,10 @@ final class ForumPostApi(
       )
 
   def erasePost(post: ForumPost) =
-    postRepo.coll.update
-      .one($id(post.id), post.erase)
-      .void
+    for
+      _ <- picfitApi.pullRef(picRef(post.id))
+      _ <- postRepo.coll.update.one($id(post.id), post.erase)
+    yield ()
 
   def teamIdOfPost(post: ForumPost): Fu[Option[TeamId]] =
     categRepo.coll.primitiveOne[TeamId]($id(post.categId), "team")
