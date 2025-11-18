@@ -277,9 +277,8 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
       val commentFields =
         chapter.root.children
           .nodesOn(chapter.root.mainlinePath)
-          .map(_._2)
-          .map(path => s"${path.toDbField}.${lila.study.Node.BsonFields.comments}")
-      val commentPulls = $doc(commentFields.map(f => f -> $doc("by" -> "l")))
+          .map((_, path) => s"${path.toDbField}.${F.comments}")
+      val commentPulls = $doc(commentFields.map(_ -> $doc("by" -> "l")))
       coll(_.update.one($id(chapter.id), $doc($unset(engineNodeFields), $pull(commentPulls)))).void
 
   private def engineOnlySubtreeFields(node: lila.tree.Node, path: UciPath): List[String] =

@@ -27,7 +27,6 @@ object AnalyseBsonHandlers:
         infos = Info.decodeList(raw, startPly).err(s"Invalid analysis data $raw"),
         startPly = startPly,
         date = r.date("date"),
-        fk = r.strO("fk"),
         engine = r.getO[Engine]("engine").getOrElse(Engine(nodesPerMove.getOrElse(1_000_000)))
       )
     def writes(w: BSON.Writer, a: Analysis) =
@@ -37,7 +36,6 @@ object AnalyseBsonHandlers:
         "data" -> Info.encodeList(a.infos),
         "ply" -> w.intO(a.startPly.value),
         "date" -> w.date(a.date),
-        "fk" -> a.fk,
         "engine" -> a.engine
       )
 

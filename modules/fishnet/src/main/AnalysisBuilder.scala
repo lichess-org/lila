@@ -41,9 +41,8 @@ final private class AnalysisBuilder(evalCache: IFishnetEvalCache)(using Executor
                 id = Analysis.Id(work.game.studyId, work.game.id),
                 infos = makeInfos(mergeEvalsAndCached(work, evals, cached), work.game.uciList, work.startPly),
                 startPly = work.startPly,
-                fk = (!client.lichess).option(client.key.value),
                 date = nowInstant,
-                engine = Engine(work.origin.map(_.nodesPerMove).getOrElse(1_000_000))
+                engine = Engine(work.origin.nodesPerMove, userId = client.userId.some)
               )
             )
             errors.foreach(e => logger.debug(s"[UciToPgn] $debug $e"))

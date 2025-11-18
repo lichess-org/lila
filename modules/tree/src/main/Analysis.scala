@@ -24,7 +24,6 @@ case class Analysis(
     infos: List[Info],
     startPly: Ply,
     date: Instant,
-    fk: Option[Analysis.FishnetKey],
     engine: Engine
 ):
   lazy val infoAdvices: InfoAdvices =
@@ -107,6 +106,5 @@ object Analysis:
       infos = infos,
       startPly = startPly,
       date = date,
-      fk = None,
       engine = engine
     )

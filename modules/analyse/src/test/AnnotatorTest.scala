@@ -26,7 +26,7 @@ class AnnotatorTest extends munit.FunSuite:
   val emptyPgn = Pgn(Tags.empty, InitialComments.empty, None, Ply.initial)
   def withAnnotator(pgn: Pgn) = pgn.copy(tags = pgn.tags + Tag(name = "Annotator", value = "l.org"))
   val emptyAnalysis =
-    Analysis(Analysis.Id(GameId("abcd")), Nil, Ply.initial, nowInstant, None, Engine(1_000_000))
+    Analysis(Analysis.Id(GameId("abcd")), Nil, Ply.initial, nowInstant, Engine(1_000_000))
   val emptyEval = Eval(none, none, none)
 
   val pgnStr = PgnStr("""1. a3 g6?! 2. g4""")
