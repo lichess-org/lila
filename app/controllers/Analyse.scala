@@ -44,15 +44,12 @@ final class Analyse(
             .exists(npm => uploaded.engine.nodesPerMove < npm + 200_000)
 
         def markAnalysed =
-          uploaded.id.gameId.fold(funit): gid =>
+          uploaded.id.either.left.toOption.so: gid =>
             env.round.proxyRepo.updateIfPresent(gid): game =>
               game.copy(metadata = game.metadata.copy(analysed = true))
 
-        val maybeGameMaybeChapterId =
-          uploaded.id.gameId.getOrElse(GameId(uploaded.id.chapterId.get.value))
-
         env.fishnet.api
-          .userAnalysisExists(maybeGameMaybeChapterId)
+          .userAnalysisExists(uploaded.id.either)
           .flatMap: requested =>
             if requested then Locked
             else
@@ -77,7 +74,7 @@ final class Analyse(
         res <- RedirectAtFen(pov, initialFen):
           (
             env.analyse.analyser.get(pov.game),
-            (!pov.game.metadata.analysed).so(env.fishnet.api.userAnalysisExists(pov.gameId)),
+            pov.game.metadata.analysed.not.so(env.fishnet.api.userAnalysisExists(Left(pov.gameId))),
             pov.game.simulId.so(env.simul.repo.find),
             roundC.getWatcherChat(pov.game),
             ctx.noBlind.so(env.game.crosstableApi.withMatchup(pov.game)),

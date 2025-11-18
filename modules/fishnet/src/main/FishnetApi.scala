@@ -119,13 +119,12 @@ final class FishnetApi(
         repo.updateAnalysis(work.abort)
       }
 
-  def userAnalysisExists(gameId: GameId) =
-    analysisColl.exists(
+  def userAnalysisExists(id: Either[GameId, StudyChapterId]) =
+    analysisColl.exists:
       $doc(
-        "game.id" -> gameId,
+        "game.id" -> id.fold(_.value, _.value),
         "sender.system" -> false
       )
-    )
 
   def status: Fu[JsonStr] = monitor.statusCache.get {}.map(_.json)
 

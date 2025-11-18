@@ -60,29 +60,21 @@ object Analysis:
     case Game(id: GameId)
     case Study(study: StudyId, id: StudyChapterId)
 
+    def either: Either[GameId, StudyChapterId] = this match
+      case Game(gameId) => Left(gameId)
+      case Study(_, chapterId) => Right(chapterId)
+
+    def studyId: Option[StudyId] = this match
+      case Study(studyId, _) => Some(studyId)
+      case _ => None
+
+    def value: String = either.fold(_.value, _.value)
+
   object Id:
     def apply(gameId: GameId): Id = Game(gameId)
     def apply(study: StudyId, chapter: StudyChapterId): Id = Study(study, chapter)
     def apply(study: Option[StudyId], id: String): Id =
       study.fold(Game(GameId(id)))(Study(_, StudyChapterId(id)))
-
-    extension (id: Id)
-
-      def value: String = id match
-        case Game(gameId) => gameId.value
-        case Study(_, id) => id.value
-
-      def gameId: Option[GameId] = id match
-        case Game(gameId) => Some(gameId)
-        case _ => None
-
-      def chapterId: Option[StudyChapterId] = id match
-        case Study(_, chapterId) => Some(chapterId)
-        case _ => None
-
-      def studyId: Option[StudyId] = id match
-        case Study(studyId, _) => Some(studyId)
-        case _ => None
 
   type FishnetKey = String
 
