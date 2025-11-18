@@ -1,5 +1,5 @@
 db.event.createIndex({ startsAt: 1 });
-db.picfit_image.createIndex({ rel: 1 }, { unique: true });
+db.picfit_image.createIndex({ refs: 1 });
 db.picfit_image.createIndex(
   { 'automod.flagged': 1 },
   { partialFilterExpression: { 'automod.flagged': { $exists: true } } },

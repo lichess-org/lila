@@ -472,20 +472,21 @@ final class RelayApi(
   export roundRepo.nextRoundThatStartsAfterThisOneCompletes
 
   object image:
-    def rel(rt: RelayTour, tag: Option[String]) =
-      tag.fold(s"relay:${rt.id}")(t => s"relay.$t:${rt.id}")
+    def markdownRef(rt: RelayTour) = s"relay:${rt.id}"
+    def headRef(rt: RelayTour, tag: Option[String]) =
+      tag.fold(s"relayHead:${rt.id}")(t => s"relayHead.$t:${rt.id}")
 
     def upload(
         t: RelayTour,
         picture: PicfitApi.FilePart,
         tag: Option[String] = None
     )(using me: Me): Fu[RelayTour] = for
-      image <- picfitApi.uploadFile(rel(t, tag), picture, userId = me.userId)
+      image <- picfitApi.uploadFile(picture, userId = me.userId, headRef(t, tag).some)
       _ <- tourRepo.coll.updateField($id(t.id), tag.getOrElse("image"), image.id)
     yield t.copy(image = image.id.some)
 
-    def delete(t: RelayTour, tag: Option[String] = None): Fu[RelayTour] = for
-      _ <- picfitApi.deleteByRel(rel(t, tag))
+    def delete(t: RelayTour, tag: Option[String] = None)(using me: Me): Fu[RelayTour] = for
+      _ <- picfitApi.pullRef(headRef(t, tag))
       _ <- tourRepo.coll.unsetField($id(t.id), tag.getOrElse("image"))
     yield t.copy(image = none)
 

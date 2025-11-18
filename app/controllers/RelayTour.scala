@@ -101,10 +101,14 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
         setup =>
           rateLimitCreation(whenRateLimited):
             env.relay.api.tourCreate(setup).flatMap { tour =>
-              negotiate(
-                Redirect(routes.RelayRound.form(tour.id)).flashSuccess,
+              val context = routes.RelayRound.form(tour.id)
+              val success = negotiate(
+                Redirect(context).flashSuccess,
                 JsonOk(env.relay.jsonView.fullTourWithRounds(tour.withRounds(Nil), group = none))
               )
+              tour.markup.so(markdown =>
+                env.memo.picfitApi.addRef(markdown, env.relay.api.image.markdownRef(tour), context.url.some)
+              ) >> success
             }
       )
   }
@@ -125,20 +129,27 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
           ),
         setup =>
           env.relay.api.tourUpdate(nav.tour, setup) >>
-            negotiate(
-              Redirect(routes.RelayTour.edit(nav.tour.id)).flashSuccess,
-              jsonOkResult
-            )
+          val context = routes.RelayRound.form(nav.tour.id)
+          val success = negotiate(
+            Redirect(context).flashSuccess,
+            jsonOkResult
+          )
+          nav.tour.markup.so(markdown =>
+            env.memo.picfitApi.addRef(markdown, env.relay.api.image.markdownRef(nav.tour), context.url.some)
+          ) >> success
       )
   }
 
   def delete(id: RelayTourId) = AuthOrScoped(_.Study.Write) { _ ?=> me ?=>
     WithTour(id): tour =>
-      for _ <- env.relay.api.deleteTourIfOwner(tour)
+      for
+        _ <- env.relay.api.deleteTourIfOwner(tour)
+        _ <- env.memo.picfitApi.pullRef(env.relay.api.image.markdownRef(tour))
+        _ <- env.memo.picfitApi.pullRef(env.relay.api.image.headRef(tour, none))
       yield Redirect(routes.RelayTour.by(me.username)).flashSuccess
   }
 
-  def image(id: RelayTourId, tag: Option[String]) = AuthBody(parse.multipartFormData) { ctx ?=> _ ?=>
+  def image(id: RelayTourId, tag: Option[String]) = AuthBody(lila.web.HashedMultiPart(parse)) { ctx ?=> _ ?=>
     WithTourCanUpdate(id): nav =>
       ctx.body.body.file("image") match
         case Some(image) =>
