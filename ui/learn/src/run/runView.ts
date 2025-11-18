@@ -8,7 +8,7 @@ import type { RunCtrl } from './runCtrl';
 import { mapSideView } from '../mapSideView';
 import type { LearnCtrl } from '../ctrl';
 import { h, type VNode } from 'snabbdom';
-import { bind } from 'lib/snabbdom';
+import { bind } from 'lib/view';
 import { makeStars, progressView } from '../progressView';
 import { promotionView } from '../promotionView';
 

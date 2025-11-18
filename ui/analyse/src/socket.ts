@@ -34,49 +34,57 @@ interface GameUpdate {
   bc?: number;
 }
 
-export type StudySocketSendParams =
-  | [t: 'setPath', d: ReqPosition]
-  | [t: 'deleteNode', d: ReqPosition & { jumpTo: string }]
-  | [t: 'promote', d: ReqPosition & { toMainline: boolean }]
-  | [t: 'forceVariation', d: ReqPosition & { force: boolean }]
-  | [t: 'shapes', d: ReqPosition & { shapes: Tree.Shape[] }]
-  | [t: 'setComment', d: ReqPosition & { text: string }]
-  | [t: 'deleteComment', d: ReqPosition & { id: string }]
-  | [t: 'setGamebook', d: ReqPosition & { gamebook: { deviation?: string; hint?: string } }]
-  | [t: 'toggleGlyph', d: ReqPosition & { id: number }]
-  | [t: 'explorerGame', d: ReqPosition & { gameId: string; insert: boolean }]
-  | [t: 'setChapter', chapterId: string]
-  | [t: 'setRole', d: { userId: string; role: string }]
-  | [t: 'addChapter', d: ChapterData & { sticky?: boolean; showRatings?: boolean }]
-  | [t: 'editChapter', d: EditChapterData]
-  | [t: 'descStudy', desc: string]
-  | [t: 'descChapter', d: { id: string; desc: string }]
-  | [t: 'deleteChapter', chapterId: string]
-  | [t: 'clearAnnotations', chapterId: string]
-  | [t: 'clearVariations', chapterId: string]
-  | [t: 'sortChapters', chapterIds: string[]]
-  | [t: 'setTag', d: { chapterId: string; name: string; value: string }]
-  | [t: 'anaMove', d: AnaMove & MoveOpts]
-  | [t: 'anaDrop', d: AnaDrop & MoveOpts]
-  | [t: 'anaDests', d: AnaDestsReq]
-  | [t: 'like', d: { liked: boolean }]
-  | [t: 'kick', username: string]
-  | [t: 'editStudy', d: StudyFormData]
-  | [t: 'setTopics', topics: string[]]
-  | [t: 'requestAnalysis', chapterId: string]
-  | [t: 'invite', username: string]
-  | [t: 'relaySync', sync: boolean]
-  | [t: 'leave'];
+export interface StudySocketSendParams {
+  setPath: (d: ReqPosition) => void;
+  deleteNode: (d: ReqPosition & { jumpTo: string }) => void;
+  promote: (d: ReqPosition & { toMainline: boolean }) => void;
+  forceVariation: (d: ReqPosition & { force: boolean }) => void;
+  shapes: (d: ReqPosition & { shapes: Tree.Shape[] }) => void;
+  setComment: (d: ReqPosition & { text: string }) => void;
+  deleteComment: (d: ReqPosition & { id: string }) => void;
+  setGamebook: (d: ReqPosition & { gamebook: { deviation?: string; hint?: string } }) => void;
+  toggleGlyph: (d: ReqPosition & { id: number }) => void;
+  explorerGame: (d: ReqPosition & { gameId: string; insert: boolean }) => void;
+  setChapter: (chapterId: string) => void;
+  setRole: (d: { userId: string; role: string }) => void;
+  addChapter: (d: ChapterData & { sticky?: boolean; showRatings?: boolean }) => void;
+  editChapter: (d: EditChapterData) => void;
+  descStudy: (desc: string) => void;
+  descChapter: (d: { id: string; desc: string }) => void;
+  deleteChapter: (chapterId: string) => void;
+  clearAnnotations: (chapterId: string) => void;
+  clearVariations: (chapterId: string) => void;
+  sortChapters: (chapterIds: string[]) => void;
+  setTag: (d: { chapterId: string; name: string; value: string }) => void;
+  anaMove: (d: AnaMove & MoveOpts) => void;
+  anaDrop: (d: AnaDrop & MoveOpts) => void;
+  anaDests: (d: AnaDestsReq) => void;
+  like: (d: { liked: boolean }) => void;
+  kick: (username: string) => void;
+  editStudy: (d: StudyFormData) => void;
+  setTopics: (topics: string[]) => void;
+  requestAnalysis: (chapterId: string) => void;
+  invite: (username: string) => void;
+  relaySync: (sync: boolean) => void;
+  leave: () => void;
+}
 
-export type EvalCacheSocketParams = [t: 'evalPut', d: EvalPutData] | [t: 'evalGet', d: EvalGetData];
+export interface EvalCacheSocketParams {
+  evalPut: (d: EvalPutData) => void;
+  evalGet: (d: EvalGetData) => void;
+}
 
-export type AnalyseSocketSendParams =
-  | StudySocketSendParams
-  | EvalCacheSocketParams
-  | [t: 'startWatching', gameId: string];
+export type AnalyseSocketSendParams = StudySocketSendParams &
+  EvalCacheSocketParams & { startWatching: (gameId: string) => void };
 
-export type StudySocketSend = (...[d, t]: StudySocketSendParams) => void;
-export type AnalyseSocketSend = (...[d, t]: AnalyseSocketSendParams) => void;
+export type StudySocketSend = <K extends keyof StudySocketSendParams>(
+  event: K,
+  ...args: Parameters<StudySocketSendParams[K]>
+) => void;
+export type AnalyseSocketSend = <K extends keyof AnalyseSocketSendParams>(
+  event: K,
+  ...args: Parameters<AnalyseSocketSendParams[K]>
+) => void;
 
 export interface Socket {
   send: AnalyseSocketSend;

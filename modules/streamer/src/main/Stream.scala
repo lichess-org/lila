@@ -83,7 +83,7 @@ object Stream:
     ) extends lila.streamer.Stream:
       def serviceName = "youTube"
       def urls = Urls(
-        embed = _ => s"https://www.youtube.com/embed/${videoId}?autoplay=1&disablekb=1&color=white",
+        embed = _ => s"https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&disablekb=1&color=white",
         redirect = s"https://www.youtube.com/watch?v=${videoId}"
       )
 

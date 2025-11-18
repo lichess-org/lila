@@ -2,7 +2,7 @@ import * as xhr from './xhr';
 import { idleTimer, browserTaskQueueMonitor } from './event';
 import { storage, once, type LichessStorage } from './storage';
 import { pubsub, type PubsubEventKey } from './pubsub';
-import { myUserId } from './common';
+import { defined, myUserId } from './index';
 import { log } from './permalog';
 
 let siteSocket: WsSocket | undefined;
@@ -53,6 +53,13 @@ interface Settings {
   options?: Partial<Options>;
 }
 
+export interface SocketSendOpts {
+  sign: string;
+  ackable: boolean;
+  withLag?: boolean;
+  millis?: number;
+}
+
 export function wsConnect(url: string, version: number | false, settings: Partial<Settings> = {}): WsSocket {
   return (siteSocket = new WsSocket(url, version, settings));
 }
@@ -62,7 +69,7 @@ export function wsDestroy(): void {
   siteSocket = undefined;
 }
 
-export function wsSend(t: string, d?: any, o?: any, noRetry?: boolean): void {
+export function wsSend(t: string, d?: any, o?: SocketSendOpts, noRetry?: boolean): void {
   siteSocket?.send(t, d, o, noRetry);
 }
 
@@ -99,7 +106,7 @@ class WsSocket {
   private tryOtherUrl = false;
   private storage: LichessStorage = storage.make('surl17', 30 * 60 * 1000);
   private _sign?: string;
-  private resendWhenOpen: [string, any, any][] = [];
+  private resendWhenOpen: [string, Payload, Partial<SocketSendOpts>][] = [];
   private baseUrls = document.body.dataset.socketDomains!.split(',');
 
   private lastUrl?: string;
@@ -175,11 +182,11 @@ class WsSocket {
     this.scheduleConnect();
   };
 
-  send = (t: string, d: any, o: any = {}, noRetry = false): void => {
+  send = (t: string, d: Payload, o: Partial<SocketSendOpts> = {}, noRetry = false): void => {
     const msg: Partial<MsgOut> = { t };
     if (d !== undefined) {
       if (o.withLag) d.l = Math.round(this.averageLag);
-      if (o.millis >= 0) d.s = Math.round(o.millis * 0.1).toString(36);
+      if (defined(o.millis) && o.millis >= 0) d.s = Math.round(o.millis * 0.1).toString(36);
       msg.d = d;
     }
     if (o.ackable) {
@@ -393,7 +400,7 @@ class Ackable {
   messages: MsgAck[] = [];
   private _sign: string;
 
-  constructor(readonly send: (t: Tpe, d: Payload, o?: any) => void) {
+  constructor(readonly send: (t: string, d: Payload, o?: any) => void) {
     setInterval(this.resend, 1200);
   }
 
@@ -406,7 +413,7 @@ class Ackable {
     });
   };
 
-  register = (t: Tpe, d: Payload): void => {
+  register = (t: string, d: Payload): void => {
     d.a = this.currentId++;
     this.messages.push({
       t: t,

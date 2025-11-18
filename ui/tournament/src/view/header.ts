@@ -1,6 +1,6 @@
 import { h, type Hooks, type VNode } from 'snabbdom';
 import * as licon from 'lib/licon';
-import { dataIcon } from 'lib/snabbdom';
+import { dataIcon } from 'lib/view';
 import type TournamentController from '../ctrl';
 import perfIcons from 'lib/game/perfIcons';
 import type { TournamentData } from '../interfaces';

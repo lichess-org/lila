@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="gameSetup">Параметры гульні</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Запрасіць сябра</string>
+  <string name="playAgainstComputer">Гуляць з камп\'ютарам</string>
+  <string name="gameMode">Рэжым гульні</string>
+  <string name="createLobbyGame" comment="One of three buttons on the home page. Opens the modal to create a game that goes in the lobby.">Стварыць запыт на гульню</string>
+  <string name="youPlayAs">Вы гуляеце за</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Выкарыстайце гэтую спасылку каб запрасіць кагосьці да гульні</string>
   <string name="gameOver">Гульня скончана</string>
   <string name="waitingForOpponent">Чакаем апанента</string>
@@ -20,6 +26,7 @@
   <string name="asBlack">за чорных</string>
   <string name="randomColor">Выпадковая старана</string>
   <string name="createAGame">Стварыць гульню</string>
+  <string name="createTheGame">Стварыць гульню</string>
   <string name="whiteIsVictorious">Белыя перамаглі</string>
   <string name="blackIsVictorious">Чорныя перамаглі</string>
   <string name="youPlayTheWhitePieces">Вы гуляеце белымі фігурамі</string>
@@ -71,8 +78,10 @@
   <string name="makeMainLine">Зрабіць асноўным варыянтам</string>
   <string name="deleteFromHere">Выдаліць з гэтага месца</string>
   <string name="collapseVariations">Ачысціць варыянты</string>
+  <string name="expandVariations">Разгарнуць варыянты</string>
   <string name="forceVariation">Прасунуць варыянт</string>
   <string name="copyVariationPgn">Скап\'яваць варыянт у фармаце PGN</string>
+  <string name="copyMainLinePgn">Скапіраваць PGN асноўнай лініі</string>
   <string name="move">Ход</string>
   <string name="variantLoss">Пройгрышны варыянт</string>
   <string name="variantWin">Пераможны варыянт</string>

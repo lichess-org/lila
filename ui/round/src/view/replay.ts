@@ -1,5 +1,5 @@
 import * as licon from 'lib/licon';
-import { finished, aborted, userAnalysable, playable } from 'lib/game/game';
+import { finished, aborted, userAnalysable, playable } from 'lib/game';
 import * as util from '../util';
 import { displayColumns } from 'lib/device';
 import type RoundController from '../ctrl';
@@ -7,8 +7,8 @@ import { throttle } from 'lib/async';
 import viewStatus from 'lib/game/view/status';
 import { game as gameRoute } from 'lib/game/router';
 import type { Step } from '../interfaces';
-import { toggleButton as boardMenuToggleButton } from 'lib/view/boardMenu';
-import { type VNode, type LooseVNodes, type LooseVNode, hl, onInsert } from 'lib/snabbdom';
+import { toggleButton as boardMenuToggleButton } from 'lib/view';
+import { type VNode, type LooseVNodes, type LooseVNode, hl, onInsert } from 'lib/view';
 import boardMenu from './boardMenu';
 import { repeater } from 'lib';
 import { addPointerListeners } from 'lib/pointer';
@@ -204,6 +204,7 @@ export function render(ctrl: RoundController): LooseVNode {
               while ((node = node.previousSibling as HTMLElement)) {
                 offset++;
                 if (node.tagName === indexTagUC) {
+                  if (ctrl.toSubmit) ctrl.submitMove(false);
                   ctrl.userJump(2 * parseInt(node.textContent || '') + offset);
                   ctrl.redraw();
                   break;

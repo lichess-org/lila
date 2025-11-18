@@ -1,3 +1,5 @@
+/* eslint no-restricted-syntax:"error" */ // no side effects allowed due to re-export by index.ts
+
 import { defined, notNull, type Prop, withEffect } from './common';
 
 export const storage: LichessStorageHelper = builder(window.localStorage);

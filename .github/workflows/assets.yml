@@ -32,7 +32,7 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v4
       - name: Setup node and restore pnpm cache
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         with:
           node-version-file: .node-version
           cache: 'pnpm'
@@ -57,7 +57,7 @@ jobs:
       - name: Build
         run: ./ui/build --no-install -p
       - name: Tests
-        run: pnpm test
+        run: ./ui/test
       - name: Prepare asset dir
         run: |
           mkdir -p assets/public
@@ -67,7 +67,7 @@ jobs:
       - name: Tar assets
         run: cd assets && tar --zstd -cvpf ../assets.tar.zst . && cd -
       - name: Upload artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: lila-assets
           path: assets.tar.zst

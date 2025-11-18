@@ -1,6 +1,6 @@
-import { propWithEffect, type Prop } from '@/common';
+import { propWithEffect, type Prop } from '@/index';
 import type { InputValue, RealValue } from './interfaces';
-import { clockToSpeed } from '@/game/game';
+import { clockToSpeed } from '@/game';
 
 export type TimeMode = 'realTime' | 'correspondence' | 'unlimited';
 
@@ -22,9 +22,11 @@ export class TimeControl {
 
   isRealTime = (): boolean => this.mode() === 'realTime';
 
-  realTimeValid = (): boolean => this.time() > 0 || this.increment() > 0;
+  realTimeValid = (minimumTime: number = 0): boolean =>
+    this.time() >= minimumTime && (this.time() > 0 || this.increment() > 0);
 
-  valid = (): boolean => !this.isRealTime() || this.realTimeValid();
+  valid = (minimumTimeIfReal: number = 0): boolean =>
+    !this.isRealTime() || this.realTimeValid(minimumTimeIfReal);
 
   initialSeconds = (): Seconds => this.time() * 60;
 

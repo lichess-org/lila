@@ -1,3 +1,5 @@
+/* eslint no-restricted-syntax:"error" */ // no side effects allowed due to re-export by index.ts
+
 import { throttle } from '../async';
 import { Engines } from './engines/engines';
 import {
@@ -16,7 +18,7 @@ import { setupPosition } from 'chessops/variant';
 import { parseFen } from 'chessops/fen';
 import { lichessRules } from 'chessops/compat';
 import { povChances } from './winningChances';
-import { prop, type Prop, type Toggle, toggle } from '../common';
+import { prop, type Prop, type Toggle, toggle } from '../index';
 import { clamp } from '../algo';
 import { storedIntProp, storage } from '../storage';
 import type { Rules } from 'chessops';

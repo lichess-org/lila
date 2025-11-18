@@ -51,33 +51,43 @@ final private class PayPalClient(
       getPlans().flatMap:
         _.find(_.currency.has(cur)).fold(createPlan(cur))(fuccess)
 
-  def createOrder(data: CreatePayPalOrder): Fu[PayPalOrderCreated] = postOne[PayPalOrderCreated](
-    path.orders,
-    Json.obj(
-      "intent" -> "CAPTURE",
-      "purchase_units" -> List(
-        Json.obj(
-          "custom_id" -> data.makeCustomId,
-          "amount" -> {
-            moneyWrites.writes(data.checkout.money) ++ Json.obj(
-              "breakdown" -> Json.obj(
-                "item_total" -> data.checkout.money
+  def createOrder(data: CreatePayPalOrder): Fu[PayPalOrderCreated] =
+    val (itemName, itemDesc) =
+      if data.isLifetime then
+        (
+          "Lifetime Patron",
+          "Support Lichess and get the Patron wings permanently. One-time lifetime contribution."
+        )
+      else
+        (
+          "One-time Patron",
+          "Support Lichess and get the Patron wings for one month. Will not renew automatically."
+        )
+    postOne[PayPalOrderCreated](
+      path.orders,
+      Json.obj(
+        "intent" -> "CAPTURE",
+        "purchase_units" -> List(
+          Json.obj(
+            "custom_id" -> data.makeCustomId,
+            "amount" -> {
+              moneyWrites.writes(data.checkout.money) ++ Json.obj(
+                "breakdown" -> Json.obj("item_total" -> data.checkout.money)
               )
-            )
-          },
-          "items" -> List(
-            // TODO replace with product?
-            Json.obj(
-              "name" -> "One-time Patron",
-              "description" -> "Support Lichess and get the Patron wings for one month. Will not renew automatically.",
-              "unit_amount" -> data.checkout.money,
-              "quantity" -> 1
+            },
+            "items" -> List(
+              // TODO replace with product?
+              Json.obj(
+                "name" -> itemName,
+                "description" -> itemDesc,
+                "unit_amount" -> data.checkout.money,
+                "quantity" -> 1
+              )
             )
           )
         )
       )
     )
-  )
 
   // actually triggers the payment for a onetime order
   def captureOrder(id: PayPalOrderId): Fu[PayPalOrder] =

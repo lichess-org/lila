@@ -45,7 +45,10 @@ export const renderPieces = (pieces: Pieces, style: MoveStyle): VNode =>
   h(
     'div.pieces',
     COLORS.map(color =>
-      h(`div.${color}-pieces`, [h('h3', i18n.site[color]), renderPiecesByColor(pieces, style, color)]),
+      h(`div.${color}-pieces`, [
+        h('h3', i18n.site[color]),
+        ...renderPiecesByColorAsVNodes(pieces, style, color),
+      ]),
     ),
   );
 
@@ -64,7 +67,7 @@ export const pocketsStr = (pocket: Tree.CrazyPocket): string =>
 
 export function renderPieceKeys(pieces: Pieces, p: string, style: MoveStyle): string {
   const color: Color = p === p.toUpperCase() ? 'white' : 'black';
-  if (p.toLowerCase() == 'a') return renderPiecesByColor(pieces, style, color);
+  if (p.toLowerCase() == 'a') return renderPiecesByColorAsString(pieces, style, color);
   const role = charToRole(p)!;
   const keys = keysWithPiece(pieces, role, color);
   let pieceStr = transPieceStr(role, color, i18n);
@@ -235,7 +238,10 @@ export const pieceStr = (role: Role, color: Color): string => transPieceStr(role
 export const transPieceStr = (role: Role, color: Color, i18n: I18n): string =>
   i18n.nvui[`${color}${role.charAt(0).toUpperCase()}${role.slice(1)}` as keyof typeof i18n.nvui] as string;
 
-const renderPiecesByColor = (pieces: Pieces, style: MoveStyle, color: Color): string => {
+const getPiecesByColor = (
+  pieces: Pieces,
+  color: Color,
+): { role: 'pawn' | 'knight' | 'bishop' | 'rook' | 'queen' | 'king'; keys: Key[] }[] => {
   return ROLES.slice()
     .reverse()
     .reduce<{ role: Role; keys: Key[] }[]>(
@@ -246,9 +252,19 @@ const renderPiecesByColor = (pieces: Pieces, style: MoveStyle, color: Color): st
         }),
       [],
     )
-    .filter(l => l.keys.length)
+    .filter(l => l.keys.length);
+};
+
+const renderPiecesByColorAsString = (pieces: Pieces, style: MoveStyle, color: Color): string => {
+  return getPiecesByColor(pieces, color)
     .map(l => `${transRole(l.role)}: ${l.keys.map(k => renderKey(k, style)).join(', ')}`)
     .join(', ');
+};
+
+const renderPiecesByColorAsVNodes = (pieces: Pieces, style: MoveStyle, color: Color): VNode[] => {
+  return getPiecesByColor(pieces, color).map(l =>
+    h('p', `${transRole(l.role)}: ${l.keys.map(k => renderKey(k, style)).join(', ')}`),
+  );
 };
 
 const keysWithPiece = (pieces: Pieces, role?: Role, color?: Color): Key[] =>

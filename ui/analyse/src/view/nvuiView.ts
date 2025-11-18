@@ -1,10 +1,10 @@
-import { type VNode, type LooseVNodes, type VNodeChildren, hl, bind, noTrans } from 'lib/snabbdom';
+import { type VNode, type LooseVNodes, type VNodeChildren, hl, bind, noTrans } from 'lib/view';
 import { defined } from 'lib';
 import { text as xhrText } from 'lib/xhr';
 import type AnalyseCtrl from '../ctrl';
 import { makeConfig as makeCgConfig } from '../ground';
 import type { AnalyseData } from '../interfaces';
-import type { Player } from 'lib/game/game';
+import type { Player } from 'lib/game';
 import {
   renderSan,
   renderPieces,
@@ -30,7 +30,7 @@ import { renderSetting } from 'lib/nvui/setting';
 import { commands, boardCommands, addBreaks } from 'lib/nvui/command';
 import explorerView from '../explorer/explorerView';
 import { ops, path as treePath } from 'lib/tree/tree';
-import { view as cevalView, renderEval } from 'lib/ceval/ceval';
+import { view as cevalView, renderEval } from 'lib/ceval';
 import { next, prev } from '../control';
 import { lichessRules } from 'chessops/compat';
 import { makeSan } from 'chessops/san';

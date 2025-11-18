@@ -1,6 +1,6 @@
 import { defined, prop, type Prop, scrollToInnerSelector } from 'lib';
 import * as licon from 'lib/licon';
-import { type VNode, bind, dataIcon, iconTag, hl } from 'lib/snabbdom';
+import { type VNode, bind, dataIcon, iconTag, hl } from 'lib/view';
 import type AnalyseCtrl from '../ctrl';
 import type { StudySocketSend } from '../socket';
 import { StudyChapterEditForm } from './chapterEditForm';
@@ -24,7 +24,7 @@ import type StudyCtrl from './studyCtrl';
 import { opposite } from 'chessops/util';
 import { fenColor } from 'lib/game/chess';
 import type Sortable from 'sortablejs';
-import { alert } from 'lib/view/dialogs';
+import { alert } from 'lib/view';
 import { INITIAL_FEN } from 'chessops/fen';
 
 /* read-only interface for external use */
@@ -127,13 +127,10 @@ export const convertPlayerFromServer = <A extends StudyPlayerFromServer>(
 
 export function isFinished(c: StudyChapter) {
   const result = findTag(c.tags, 'result');
-  return result && result !== '*';
+  return !!result && result !== '*';
 }
 
-export function findTag(tags: TagArray[], name: string): string | undefined {
-  const t = tags.find(t => t[0].toLowerCase() === name);
-  return t && t[1];
-}
+export const findTag = (tags: TagArray[], name: string) => tags.find(t => t[0].toLowerCase() === name)?.[1];
 
 export const looksLikeLichessGame = (tags: TagArray[]) =>
   !!findTag(tags, 'site')?.match(new RegExp(location.hostname + '/\\w{8}$'));
@@ -167,22 +164,20 @@ export function view(ctrl: StudyCtrl): VNode {
   const canContribute = ctrl.members.canContribute(),
     current = ctrl.currentChapter();
   function update(vnode: VNode) {
-    const isChapterFullyVisible = (listOfChapters: HTMLElement, chapter: HTMLElement): boolean => {
-      const c = chapter.getBoundingClientRect(),
-        l = listOfChapters.getBoundingClientRect();
-      return c.top >= l.top && c.bottom <= l.bottom;
-    };
-    const newCount = ctrl.chapters.list.size(),
-      vData = vnode.data!.li!,
+    const vData = vnode.data!.li!,
       el = vnode.elm as HTMLElement;
-    if (vData.count !== newCount) {
-      if (current.id !== ctrl.chapters.list.first().id) scrollToInnerSelector(el, '.active');
-    } else if (vData.currentId !== ctrl.data.chapter.id) {
-      vData.currentId = ctrl.data.chapter.id;
-      if (!isChapterFullyVisible(el, el.querySelector('.active')!)) scrollToInnerSelector(el, '.active');
+    if (ctrl.vm.scrollToActiveChapter) {
+      const behavior = ctrl.vm.scrollToActiveChapter;
+      ctrl.vm.scrollToActiveChapter = false;
+      const active = el.querySelector('.active') as HTMLElement | null;
+      if (active) {
+        const [c, l] = [el.getBoundingClientRect(), active.getBoundingClientRect()];
+        if (c.top < l.top || c.bottom > l.bottom) {
+          requestAnimationFrame(() => scrollToInnerSelector(el, '.active', false, behavior));
+        }
+      }
     }
-    vData.count = newCount;
-    if (canContribute && newCount > 1 && !vData.sortable) {
+    if (canContribute && ctrl.chapters.list.size() > 1 && !vData.sortable) {
       site.asset.loadEsm<typeof Sortable>('sortable.esm', { npm: true }).then(s => {
         vData.sortable = s.create(el, {
           draggable: '.draggable',

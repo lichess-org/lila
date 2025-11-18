@@ -1,7 +1,7 @@
 package lila.common
 
 import chess.format.pgn.PgnStr
-import com.vladsch.flexmark.ast.{ AutoLink, Image, Link, LinkNode }
+import com.vladsch.flexmark.ast.*
 import com.vladsch.flexmark.ext.anchorlink.AnchorLinkExtension
 import com.vladsch.flexmark.ext.autolink.AutolinkExtension
 import com.vladsch.flexmark.ext.gfm.strikethrough.StrikethroughExtension
@@ -24,10 +24,11 @@ import com.vladsch.flexmark.html.{
   IndependentAttributeProviderFactory
 }
 import com.vladsch.flexmark.parser.Parser
-import com.vladsch.flexmark.util.ast.{ Node, TextCollectingVisitor }
+import com.vladsch.flexmark.util.ast.{ Node, TextCollectingVisitor, Block }
 import com.vladsch.flexmark.util.data.{ DataHolder, MutableDataHolder, MutableDataSet }
 import com.vladsch.flexmark.util.html.MutableAttributes
 import com.vladsch.flexmark.util.misc.Extension
+import com.vladsch.flexmark.util.sequence.BasedSequence
 
 import java.util.Arrays
 import scala.collection.Set
@@ -45,6 +46,7 @@ final class MarkdownRender(
     blockQuote: Boolean = false,
     list: Boolean = false,
     code: Boolean = false,
+    sourceMap: Boolean = false,
     pgnExpand: Option[MarkdownRender.PgnSourceExpand] = None,
     assetDomain: Option[AssetDomain] = None
 ):
@@ -61,6 +63,7 @@ final class MarkdownRender(
   extensions.add(
     pgnExpand.fold[Extension](MarkdownRender.LilaLinkExtension) { MarkdownRender.PgnEmbedExtension(_) }
   )
+  if sourceMap then extensions.add(MarkdownRender.SourceMapExtension)
 
   private val options = MutableDataSet()
     .set(Parser.EXTENSIONS, extensions)
@@ -96,7 +99,9 @@ final class MarkdownRender(
   def apply(key: MarkdownRender.Key)(text: Markdown): Html = Html:
     Chronometer
       .sync:
-        try renderer.render(parser.parse(mentionsToLinks(preventStackOverflow(text)).value))
+        try
+          val saferText = preventStackOverflow(text)
+          renderer.render(parser.parse((if sourceMap then saferText else mentionsToLinks(saferText)).value))
         catch
           case e: StackOverflowError =>
             logger.branch(key).error("StackOverflowError", e)
@@ -319,3 +324,81 @@ object MarkdownRender:
                 html.tag("/div")
             )
           ).asJava
+
+  // matching a rendered html selection to its source markdown is difficult due to edge cases.
+  // it's cleanest to cheat and do a source map back to original markdown in the DOM
+  object SourceMapExtension extends HtmlRenderer.HtmlRendererExtension:
+    override def rendererOptions(options: MutableDataHolder) = ()
+    override def extend(builder: HtmlRenderer.Builder, rendererType: String) = builder.nodeRendererFactory:
+      new NodeRendererFactory:
+        override def apply(options: DataHolder) = new NodeRenderer:
+          private inline def span(html: HtmlWriter, mdStart: Int, mdEnd: Int)(body: => Unit): Unit =
+            html
+              .attr("data-ms", mdStart.toString())
+              .attr("data-me", mdEnd.toString())
+              .withAttr()
+              .tag("span")
+            body
+            html.tag("/span")
+
+          private inline def preCode(html: HtmlWriter)(body: => Unit): Unit =
+            html.withAttr().tag("pre").tag("code")
+            body
+            html.tag("/code").tag("/pre")
+
+          override def getNodeRenderingHandlers() = Set(
+            NodeRenderingHandler(classOf[Text], (node, _, html) => text(node, html)),
+            NodeRenderingHandler(classOf[Code], (node, _, html) => inlineCode(node, html)),
+            NodeRenderingHandler(classOf[FencedCodeBlock], (node, _, html) => blockCode(node, html)),
+            NodeRenderingHandler(classOf[IndentedCodeBlock], (node, _, html) => blockCode(node, html)),
+            NodeRenderingHandler(classOf[SoftLineBreak], (node, ctx, html) => softBreak(node, ctx, html)),
+            NodeRenderingHandler(classOf[HardLineBreak], (node, _, html) => hardBreak(node, html))
+          ).asJava
+
+          private def text(node: Text, html: HtmlWriter): Unit =
+            val base = node.getBaseSequence()
+            val slice = base.subSequence(node.getStartOffset(), node.getEndOffset()).toString()
+
+            def emitSpan(sliceStart: Int, sliceEnd: Int): Unit =
+              if sliceEnd > sliceStart then
+                val mdStart = node.getStartOffset() + sliceStart
+                val mdEnd = node.getStartOffset() + sliceEnd
+                span(html, mdStart, mdEnd)(html.text(base.subSequence(mdStart, mdEnd)))
+
+            val finalFrom =
+              RawHtml.atUsernameRegex
+                .findAllMatchIn(slice)
+                .toList
+                .foldLeft(0): (cursor, offsets) =>
+                  emitSpan(cursor, offsets.start)
+                  html
+                    .attr("href", s"/@/${offsets.group(1)}")
+                    .attr("rel", "nofollow noreferrer")
+                    .attr("target", "_blank")
+                  html.withAttr().tag("a")
+                  emitSpan(offsets.start, offsets.end)
+                  html.tag("/a")
+                  offsets.end
+
+            emitSpan(finalFrom, slice.length)
+
+          private def inlineCode(node: Code, html: HtmlWriter): Unit =
+            html.withAttr().tag("code")
+            span(html, node.getStartOffset(), node.getEndOffset())(html.text(node.getText()))
+            html.tag("/code")
+
+          private def blockCode(node: Block, html: HtmlWriter): Unit =
+            val content: BasedSequence =
+              node match
+                case f: FencedCodeBlock => f.getContentChars()
+                case i: IndentedCodeBlock => i.getContentChars()
+                case _ => node.getChars()
+            preCode(html)(span(html, content.getStartOffset, content.getEndOffset)(html.text(content)))
+
+          private def softBreak(node: SoftLineBreak, ctx: NodeRendererContext, html: HtmlWriter): Unit =
+            span(html, node.getStartOffset(), node.getEndOffset())(())
+            html.raw(ctx.getHtmlOptions().softBreak)
+
+          private def hardBreak(node: HardLineBreak, html: HtmlWriter): Unit =
+            span(html, node.getStartOffset(), node.getEndOffset())(())
+            html.tagVoid("br")

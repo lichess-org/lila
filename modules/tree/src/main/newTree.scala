@@ -134,11 +134,22 @@ object NewTree:
     )
 
   def fromBranch(branch: Branch, variations: List[Branch] = Nil): NewTree =
-    NewTree(
-      value = fromBranch(branch),
-      child = branch.children.first.map(fromBranch(_, branch.children.variations)),
-      variations = variations.map(toVariation)
-    )
+    @scala.annotation.tailrec
+    def loop(current: Branch, variations: List[Branch], buildTree: NewTree => NewTree): NewTree =
+      val result = NewTree(
+        value = fromBranch(current),
+        child = None,
+        variations = variations.map(toVariation)
+      )
+      current.children.first match
+        case None => buildTree(result)
+        case Some(next) =>
+          loop(
+            next,
+            current.children.variations,
+            tree => buildTree(result.copy(child = Some(tree)))
+          )
+    loop(branch, variations, identity)
 
   def fromBranch(branch: Branch): NewBranch =
     NewBranch(

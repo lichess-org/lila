@@ -13,9 +13,9 @@
   <string name="excludedFromLeaderboardsInfo">Liderren zerrendan agertzeko onartzen ez diren moduak erabiltzeagatik.</string>
   <string name="closedByModerators">Moderatzaileek zure kontua itxi egin dute.</string>
   <string name="hiddenBlog">Moderatzaileek zure blogak ezkutatu egin dituzte.</string>
-  <string name="hiddenBlogInfo">Irakurri ezazu berriz gure %s.</string>
+  <string name="hiddenBlogInfo" comment="%s is &quot;blog rules&quot;, a separately translateable string (key: blogRules).&#10;&#10;Full sentence: &quot;Make sure to read again our blog rules.&quot;">Irakurri ezazu berriz gure %s.</string>
   <string name="playTimeout">Denbora-tarte batez ezin duzu jokatu.</string>
   <string name="communicationGuidelines">komunikazio-gidalerroak</string>
-  <string name="blogRules">blogen arauak</string>
+  <string name="blogRules" comment="This text links to https://lichess.org/page/blog-etiquette&#10;&#10;Part of longer sentence, &quot;Make sure to read again our blog rules.&quot; (key: hiddenBlogInfo)">blogen arauak</string>
   <string name="fairPlay">Joko garbia</string>
 </resources>

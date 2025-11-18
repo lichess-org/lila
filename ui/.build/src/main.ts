@@ -25,6 +25,7 @@ const args: Record<string, string> = {
   '--clean': 'c',
   '--no-install': 'n',
   '--log': 'l',
+  '--kill': 'k',
 };
 
 const usage = `Usage:
@@ -34,6 +35,7 @@ Options:
   -h, --help          show this help and exit
   -w, --watch         build and watch for changes
   -c, --clean         clean all build artifacts and build fresh
+  -k, --kill          if another ui/build instance is running, kill it rather than bail
   -p, --prod          build minified assets (prod builds)
   -n, --no-install    don't run pnpm install
   -d, --debug         disable noUnusedLocals, noImplicitReturns, noUnusedParameters in tsc and build
@@ -66,12 +68,6 @@ Other Examples:
 
 const argv = ps.argv.slice(2);
 const oneDashRe = /^-([a-z]+)(?:=[a-zA-Z0-9-_:./]+)?$/;
-
-const stringArg = (arg: string): string | boolean => {
-  const it = argv.find(x => x.startsWith(arg) || (args[arg] && oneDashRe.exec(x)?.[1]?.includes(args[arg])));
-  return it?.split('=')[1] ?? (it ? true : false);
-};
-
 const oneDashArgs = argv
   .flatMap(x => oneDashRe.exec(x)?.[1] ?? '')
   .join('')
@@ -85,34 +81,36 @@ argv
 
 if (['--tsc', '--sass', '--esbuild', '--i18n'].filter(x => argv.includes(x)).length) {
   // including one or more of these disables the others
-  env.begin('sass', argv.includes('--sass'));
-  env.begin('tsc', argv.includes('--tsc'));
-  env.begin('esbuild', argv.includes('--esbuild'));
-  env.begin('i18n', argv.includes('--i18n'));
+  env.begin('sass', boolArg('--sass'));
+  env.begin('tsc', boolArg('--tsc'));
+  env.begin('esbuild', boolArg('--esbuild'));
+  env.begin('i18n', boolArg('--i18n'));
   env.begin('sync', false);
   env.begin('hash', false);
 }
 
-env.logTime = !argv.includes('--no-time');
-env.logCtx = !argv.includes('--no-context');
-env.logColor = !argv.includes('--no-color');
-env.watch = argv.includes('--watch') || oneDashArgs.includes('w');
-env.prod = argv.includes('--prod') || oneDashArgs.includes('p');
-env.debug = argv.includes('--debug') || oneDashArgs.includes('d');
+env.logTime = !boolArg('--no-time');
+env.logCtx = !boolArg('--no-context');
+env.logColor = !boolArg('--no-color');
+env.watch = boolArg('--watch');
+env.prod = boolArg('--prod');
+env.debug = boolArg('--debug');
 env.remoteLog = stringArg('--log');
-env.clean = argv.some(x => x.startsWith('--clean')) || oneDashArgs.includes('c');
-env.install = !argv.includes('--no-install') && !oneDashArgs.includes('n');
+env.clean = boolArg('--clean');
+env.install = !boolArg('--no-install');
 
-if (argv.includes('--help') || oneDashArgs.includes('h')) {
+if (boolArg('--help')) {
   console.log(usage);
   ps.exit(0);
 }
 
-if (!env.instanceLock()) env.exit(`${errorMark} - Another instance is already running`);
+if (!env.instanceLock(boolArg('--kill') ? 'kill' : 'check')) {
+  env.exit(`${errorMark} - Another instance is already running`);
+}
 
 if (env.clean) {
   await deepClean();
-  if (argv.includes('--clean-exit')) ps.exit(0);
+  if (boolArg('--clean-exit')) ps.exit(0);
 }
 
 startConsole();
@@ -131,3 +129,17 @@ if (env.watch && 'setRawMode' in ps.stdin) {
 }
 
 build(argv.filter(x => !x.startsWith('-')));
+
+function getArg(longForm: string) {
+  return argv.find(
+    arg => arg.startsWith(longForm) || (args[longForm] && oneDashRe.exec(arg)?.[1]?.includes(args[longForm])),
+  );
+}
+function stringArg(longForm: string): string | boolean {
+  const it = getArg(longForm);
+  return it?.split('=')[1] ?? (it ? true : false);
+}
+
+function boolArg(longForm: string): boolean {
+  return getArg(longForm) !== undefined;
+}

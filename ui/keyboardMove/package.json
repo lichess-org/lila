@@ -1,18 +1,14 @@
 {
   "name": "keyboardMove",
-  "version": "1.0.0",
   "private": true,
-  "description": "lichess.org keyboard move",
-  "author": "Thibault Duplessis",
-  "license": "AGPL-3.0-or-later",
-  "types": "dist/exports.d.ts",
-  "exports": {
-    ".": "./src/exports.ts"
-  },
+  "type": "module",
   "dependencies": {
     "lib": "workspace:*"
   },
   "build": {
     "bundle": "src/keyboardMove.ts"
+  },
+  "exports": {
+    ".": "./src/exports.ts"
   }
 }

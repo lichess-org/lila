@@ -3,8 +3,8 @@
     font-weight: bold;
   }
   .flag {
-    height: 1em;
-    aspect-ratio: 134/100;
+    height: 1.2em;
+    width: 1.2em;
   }
   &__search {
     &-form {
@@ -59,9 +59,9 @@
 .fide-federations {
   .flag {
     height: 1.5em;
+    width: 1.5em;
     margin-right: 1em;
     vertical-align: middle;
-    aspect-ratio: 134/100;
   }
   a {
     font-weight: bold;
@@ -74,7 +74,7 @@
     .flag {
       @extend %box-radius;
       height: 5em;
-      aspect-ratio: 134/100;
+      width: 5em;
     }
   }
   &__cards {
@@ -121,6 +121,7 @@
     @extend %flex-center-nowrap;
     .flag {
       height: 1em;
+      width: 1em;
       margin-right: 1ch;
       vertical-align: middle;
     }

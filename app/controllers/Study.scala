@@ -174,7 +174,7 @@ final class Study(
                 chat <- noCrawler.so(chatOf(sc.study))
                 sVersion <- noCrawler.so(env.study.version(sc.study.id))
                 streamers <- noCrawler.so(streamerCache.get(sc.study.id))
-                page <- renderPage(views.study.show(sc.study, data, chat, sVersion, streamers))
+                page <- renderPage(views.study.show(sc.study, sc.chapter, data, chat, sVersion, streamers))
               yield Ok(page)
                 .withCanonical(routes.Study.chapter(sc.study.id, sc.chapter.id))
                 .enforceCrossSiteIsolation

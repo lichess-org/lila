@@ -55,12 +55,12 @@
   <string name="getAFullComputerAnalysis">Obțineți o întreagă analiză server-side a computerului a variației principale.</string>
   <string name="makeSureTheChapterIsComplete">Asigurați-vă că acest capitol este complet. Puteți solicita o analiză doar o singură dată.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Toți membrii sincronizați rămân la aceeași poziție</string>
-  <string name="shareChanges">Împărtășește modificările cu spectatorii și salvează-le pe server</string>
+  <string name="shareChanges">Împarte modificările cu spectatorii și salvează-le pe server</string>
   <string name="playing">În desfășurare</string>
   <string name="showResults">Rezultate</string>
   <string name="showEvalBar">Bară de evaluare</string>
   <string name="next">Următoarea</string>
-  <string name="shareAndExport">Împărtășește și exportă</string>
+  <string name="shareAndExport">Distribuie și exportă</string>
   <string name="cloneStudy">Clonează</string>
   <string name="studyPgn">PGN-ul studiului</string>
   <string name="chapterPgn">PGN-ul capitolului</string>

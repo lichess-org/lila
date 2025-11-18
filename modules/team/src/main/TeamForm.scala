@@ -22,7 +22,7 @@ final private[team] class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi, flai
 ):
   import TeamForm.Fields
 
-  def create = Form:
+  def create(using Me) = Form:
     mapping(
       Fields.name,
       Fields.password,
@@ -37,7 +37,7 @@ final private[team] class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi, flai
       .verifying("team:teamAlreadyExists", d => !teamExists(d).await(2.seconds, "teamExists"))
       .verifying(lila.core.captcha.failMessage, captcha.validateSync)
 
-  def edit(team: Team) = Form(
+  def edit(team: Team)(using Me) = Form(
     mapping(
       Fields.password,
       Fields.intro,
@@ -90,7 +90,7 @@ final private[team] class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi, flai
     single:
       "userId" -> lila.common.Form.username.historicalField
 
-  def createWithCaptcha = create -> captcha.any
+  def createWithCaptcha(using Me) = create -> captcha.any
 
   val pmAll = Form:
     single("message" -> cleanTextWithSymbols(minLength = 3, maxLength = 9000))
@@ -155,7 +155,8 @@ private[team] case class RequestSetup(
 
 object TeamForm:
   object Fields:
-    val name = "name" -> cleanText(minLength = 3, maxLength = 60).verifying(mustNotContainLichess(false))
+    def name(using me: Me) =
+      "name" -> cleanText(minLength = 3, maxLength = 60).verifying(mustNotContainLichess(me.isVerified))
     val password = "password" -> optional(cleanText(maxLength = 60))
     def passwordCheck(team: Team) = "password" -> optional(text).verifying(
       "team:incorrectEntryCode",

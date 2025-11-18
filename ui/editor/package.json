@@ -1,15 +1,14 @@
 {
   "name": "editor",
-  "version": "2.0.0",
   "private": true,
-  "description": "lichess.org board editor",
-  "author": "Thibault Duplessis",
-  "license": "AGPL-3.0-or-later",
-  "types": "dist/editor.d.ts",
+  "type": "module",
   "dependencies": {
     "lib": "workspace:*"
   },
   "build": {
     "bundle": "src/editor.ts"
+  },
+  "exports": {
+    ".": "./dist/editor.d.ts"
   }
 }

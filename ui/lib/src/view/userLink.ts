@@ -1,5 +1,5 @@
 import { type Attrs, h, type VNode } from 'snabbdom';
-import { type MaybeVNode } from '@/snabbdom';
+import { type MaybeVNode } from './snabbdom';
 
 export interface HasRating {
   rating?: number;

@@ -1,4 +1,4 @@
-import { chartYMax, chartYMin } from './common';
+import { chartYMax, chartYMin } from './index';
 import type { Division } from './interface';
 import type { ChartDataset, Point } from 'chart.js';
 

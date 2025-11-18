@@ -1,4 +1,4 @@
-import { type LooseVNodes, hl, type VNode } from 'lib/snabbdom';
+import { type LooseVNodes, hl, type VNode } from 'lib/view';
 import type AnalyseCtrl from '../ctrl';
 import type { ConcealOf } from '../interfaces';
 import { renderIndex } from '../view/components';

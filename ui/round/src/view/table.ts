@@ -1,19 +1,12 @@
 import * as licon from 'lib/licon';
-import {
-  abortable,
-  playable,
-  drawableSwiss,
-  resignable,
-  takebackable,
-  type TopOrBottom,
-} from 'lib/game/game';
+import { abortable, playable, drawableSwiss, resignable, takebackable, type TopOrBottom } from 'lib/game';
 import { render as renderReplay, analysisButton } from './replay';
 import renderExpiration from './expiration';
 import { userHtml } from './user';
 import * as button from './button';
 import type RoundController from '../ctrl';
-import { type LooseVNodes, hl, bind } from 'lib/snabbdom';
-import { toggleButton as boardMenuToggleButton } from 'lib/view/boardMenu';
+import { type LooseVNodes, hl, bind } from 'lib/view';
+import { toggleButton as boardMenuToggleButton } from 'lib/view';
 import { anyClockView } from './clock';
 
 function renderPlayer(ctrl: RoundController, position: TopOrBottom) {

@@ -6,6 +6,8 @@ export interface MovePoint {
   x: number;
 }
 
+export type * from './interface';
+
 // Add a slight offset so the graph doesn't get cutoff when eval = mate.
 export const chartYMax = 1.05;
 export const chartYMin: number = -chartYMax;
@@ -114,9 +116,6 @@ export function animation(duration: number): ChartOptions<'line'>['animations'] 
   };
 }
 
-export function resizePolyfill(): void {
-  if ('ResizeObserver' in window === false) site.asset.loadEsm('chart.resizePolyfill');
-}
 export const colorSeries: string[] = [
   '#2b908f',
   '#90ee7e',

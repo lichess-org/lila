@@ -3,10 +3,9 @@ import { text as xhrText, form as xhrForm } from 'lib/xhr';
 import { throttle, throttlePromiseDelay } from 'lib/async';
 import { h, type VNode } from 'snabbdom';
 import { header } from './util';
-import { bind, dataIcon } from 'lib/snabbdom';
+import { bind, dataIcon, snabDialog } from 'lib/view';
 import { type DasherCtrl, PaneCtrl } from './interfaces';
 import { isSafari } from 'lib/device';
-import { snabDialog } from 'lib/view/dialog';
 
 type Key = string;
 

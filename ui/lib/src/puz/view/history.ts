@@ -1,12 +1,11 @@
-import { initMiniBoardWith } from '@/view/miniBoard';
+import { initMiniBoardWith, onInsert } from '@/view';
 import { uciToMove } from '@/game/chess';
 import type { PuzCtrl } from '@/puz/interfaces';
 import { Chess } from 'chessops/chess';
 import { h, type VNode } from 'snabbdom';
 import { parseFen, makeFen } from 'chessops/fen';
 import { parseUci } from 'chessops/util';
-import { onInsert } from '@/snabbdom';
-import type { Toggle } from '@/common';
+import type { Toggle } from '@/index';
 
 const slowPuzzleIds = (ctrl: PuzCtrl): Set<string> | undefined => {
   if (!ctrl.filters.slow() || !ctrl.run.history.length) return undefined;

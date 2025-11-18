@@ -1,5 +1,12 @@
 import * as licon from 'lib/licon';
-import { initMiniBoards, initMiniGames, updateMiniGame, finishMiniGame } from 'lib/view/miniBoard';
+import {
+  initMiniBoards,
+  initMiniGames,
+  updateMiniGame,
+  finishMiniGame,
+  toggleBoxInit,
+  alert,
+} from 'lib/view';
 import { text as xhrText } from 'lib/xhr';
 import { display as announceDisplay } from './announce';
 import OnlineFriends from './friends';
@@ -9,14 +16,12 @@ import { watchers } from 'lib/view/watchers';
 import { isIos, isWebkit, prefersLightThemeQuery } from 'lib/device';
 import { scrollToInnerSelector, requestIdleCallback } from 'lib';
 import { dispatchChessgroundResize } from 'lib/chessgroundResize';
-import { attachDomHandlers } from './domHandlers';
+import { addDomHandlers } from './domHandlers';
 import { updateTimeAgo, renderTimeAgo } from './renderTimeAgo';
 import { pubsub } from 'lib/pubsub';
 import { once } from 'lib/storage';
-import { toggleBoxInit } from 'lib/view/controls';
 import { addExceptionListeners } from './unhandledError';
 import { eventuallySetupDefaultConnection } from 'lib/socket';
-import { alert } from 'lib/view/dialogs';
 
 export function boot() {
   addExceptionListeners();
@@ -46,7 +51,7 @@ export function boot() {
 
     powertip.watchMouse();
 
-    attachDomHandlers();
+    addDomHandlers();
 
     // prevent zoom when keyboard shows on iOS
     if (isIos() && !('MSStream' in window)) {
@@ -72,7 +77,7 @@ export function boot() {
 
     if (isUnsupportedBrowser() && once('upgrade.nag', { days: 14 })) {
       pubsub
-        .after('dialog.polyfill')
+        .after('polyfill.dialog')
         .then(() => alert('Your browser is out of date.\nLichess may not work properly.'));
     }
 

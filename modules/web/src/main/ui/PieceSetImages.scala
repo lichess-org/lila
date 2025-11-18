@@ -13,11 +13,12 @@ final class PieceSetImages(assets: AssetFullHelper):
   def load(pieceSet: String): Frag = raw:
     cache.getOrElseUpdate(
       pieceSet, {
+        val ext = if assets.manifest.hashed(s"piece/$pieceSet/wP.webp").isDefined then "webp" else "svg"
         val vars =
           for
             (c, color) <- chess.Color.all.map(c => c.letter -> c.name)
             (r, role) <- chess.Role.all.map(r => r.forsythUpper -> r.name)
-          yield s"piece/$pieceSet/$c$r.svg" -> s"---$color-$role"
+          yield s"piece/$pieceSet/$c$r.$ext" -> s"---$color-$role"
         val css = s"<style>:root{"
           + vars.map { (path, name) => s"$name:url(${assets.assetUrl(path)});" }.mkString
           + "}</style>" + vars.map { (path, _) =>

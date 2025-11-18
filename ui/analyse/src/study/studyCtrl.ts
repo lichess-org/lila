@@ -50,7 +50,7 @@ import type { GamebookOverride } from './gamebook/interfaces';
 import type { EvalHitMulti, EvalHitMultiArray } from '../interfaces';
 import { MultiCloudEval } from './multiCloudEval';
 import { pubsub } from 'lib/pubsub';
-import { alert } from 'lib/view/dialogs';
+import { alert } from 'lib/view';
 import { displayColumns } from 'lib/device';
 
 interface Handlers {
@@ -67,7 +67,7 @@ interface Handlers {
   clock(d: ServerClockMsg): void;
   forceVariation(d: WithWhoAndPos & { force: boolean }): void;
   chapters(d: ChapterPreviewFromServer[]): void;
-  reload(): void;
+  reload(d: { reason?: 'overweight' }): void;
   changeChapter(d: WithWhoAndPos): void;
   updateChapter(d: WithWhoAndChap): void;
   descChapter(d: WithWhoAndChap & { desc?: string }): void;
@@ -135,6 +135,7 @@ export default class StudyCtrl {
       // how stale is the study
       updatedAt: Date.now() - data.secondsSinceUpdate * 1000,
       gamebookOverride: undefined,
+      scrollToActiveChapter: 'instant',
     };
 
     this.members = new StudyMemberCtrl({
@@ -262,6 +263,7 @@ export default class StudyCtrl {
   };
 
   setTab = (tab: Tab) => {
+    if (tab === 'chapters') this.vm.scrollToActiveChapter = 'instant';
     this.vm.tab(tab);
     this.redraw();
   };
@@ -291,9 +293,12 @@ export default class StudyCtrl {
     this.ctrl.withCg(cg => cg.setShapes(last.slice() as DrawShape[]));
   };
 
-  makeChange = (...args: StudySocketSendParams): boolean => {
+  makeChange = <K extends keyof StudySocketSendParams>(
+    event: K,
+    ...args: Parameters<StudySocketSendParams[K]>
+  ): boolean => {
     if (this.isWriting()) {
-      this.send(...args);
+      this.send(event, ...args);
       return true;
     }
     return (this.vm.mode.sticky = false);
@@ -322,7 +327,9 @@ export default class StudyCtrl {
   };
 
   isCevalAllowed = () =>
-    !this.isGamebookPlay() && !!(this.data.chapter.features.computer || this.data.chapter.practice);
+    !this.relay?.tourShow() &&
+    !this.isGamebookPlay() &&
+    !!(this.data.chapter.features.computer || this.data.chapter.practice);
 
   configurePractice = () => {
     if (!this.data.chapter.practice && this.ctrl.practice) this.ctrl.togglePractice();
@@ -478,6 +485,7 @@ export default class StudyCtrl {
       this.redraw();
       return true;
     }
+    this.vm.scrollToActiveChapter = 'smooth';
     this.vm.nextChapterId = id;
     this.vm.justSetChapterId = id;
     if (this.vm.mode.sticky && this.makeChange('setChapter', id)) {
@@ -608,6 +616,7 @@ export default class StudyCtrl {
     this.configureAnalysis();
     this.ctrl.userJump(this.ctrl.path);
     if (!o) this.xhrReload();
+    else if (o === 'analyse') this.ctrl.startCeval();
   };
   explorerGame = (gameId: string, insert: boolean) =>
     this.makeChange('explorerGame', this.withPosition({ gameId, insert }));
@@ -717,7 +726,10 @@ export default class StudyCtrl {
       else if (this.relay) this.ctrl.jump(d.p.path);
       return this.redraw();
     },
-    reload: () => this.xhrReload(),
+    reload: d => {
+      if (d?.reason === 'overweight') alert('This chapter is too big to add moves.');
+      this.xhrReload();
+    },
     changeChapter: d => {
       this.setMemberActive(d.w);
       if (!this.vm.mode.sticky) this.vm.behind++;

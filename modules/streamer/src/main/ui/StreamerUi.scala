@@ -147,7 +147,7 @@ final class StreamerUi(helpers: Helpers, bits: StreamerBits)(using netDomain: Ne
               case Some(Stream.YouTube.Stream(_, _, videoId, _, _)) =>
                 div(cls := "box embed youTube")(
                   iframe(
-                    src := s"https://www.youtube.com/embed/$videoId?autoplay=1",
+                    src := s"https://www.youtube-nocookie.com/embed/$videoId?autoplay=1",
                     st.frameborder := "0",
                     frame.allowfullscreen,
                     frame.credentialless

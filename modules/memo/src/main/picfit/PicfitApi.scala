@@ -36,14 +36,15 @@ final class PicfitApi(
       rel: String,
       uploaded: FilePart,
       userId: UserId,
-      meta: Option[form.UploadData] = none
+      meta: Option[form.UploadData] = none,
+      requestAutomod: Boolean = true
   ): Fu[PicfitImage] =
     val ref: ByteSource = FileIO.fromPath(uploaded.ref.path)
     val source = uploaded.copy[ByteSource](ref = ref, refToBytes = _ => None)
     for
       image <- uploadSource(rel, source, userId, meta)
       dim = meta.fold(Dimensions.default)(_.dim)
-      _ = Bus.pub(ImageAutomodRequest(image.id, dim))
+      _ = if requestAutomod then Bus.pub(ImageAutomodRequest(image.id, dim))
     yield image
 
   def deleteById(id: ImageId): Fu[Option[PicfitImage]] =

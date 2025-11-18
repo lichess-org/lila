@@ -1,7 +1,7 @@
 import type { RoundStats } from './interface';
 import * as chart from 'chart.js';
 import 'chartjs-adapter-dayjs-4';
-import { hoverBorderColor, gridColor, tooltipBgColor, fontColor, fontFamily, animation } from './common';
+import { hoverBorderColor, gridColor, tooltipBgColor, fontColor, fontFamily, animation } from './index';
 import { memoize } from 'lib';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 

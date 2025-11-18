@@ -19,7 +19,7 @@ object mon:
     def escape: String =
       val builder = java.lang.StringBuilder(s.length)
       for c <- s.toCharArray do
-        if c != '"' & c != '\n' && c != '\\'
+        if c != '"' && c != '\n' && c != '\\'
         then builder.append(c)
       builder.toString
 
@@ -217,7 +217,6 @@ object mon:
           fp: Boolean,
           proxy: Option[String],
           country: String,
-          dispAttempts: Int,
           api: Option[ApiVersion]
       ) =
         counter("user.register.count").withTags:
@@ -228,7 +227,6 @@ object mon:
             "fp" -> fp,
             "proxy" -> proxy.getOrElse("no"),
             "country" -> country.escape,
-            "dispAttempts" -> dispAttempts,
             "api" -> apiTag(api)
           )
       def mustConfirmEmail(v: String) = counter("user.register.mustConfirmEmail").withTag("type", v)

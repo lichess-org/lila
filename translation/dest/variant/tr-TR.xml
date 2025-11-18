@@ -1,2 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="kingOfTheHillTitle" comment="Description for the King of the Hill chess variant">Oyunu kazanmak içim şahını ortaya getir.</string>
+</resources>

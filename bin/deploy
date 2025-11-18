@@ -43,7 +43,6 @@ ASSETS_FILES = [
     "ui",
     "package.json",
     "pnpm-lock.yaml",
-    "bin/download-lifat",
 ]
 
 SERVER_FILES = [
@@ -288,7 +287,6 @@ def deploy_script(profile, session, run, url):
     ]
 
     if profile["artifact_name"] == "lila-assets":
-        timestamp = datetime.datetime.now().strftime("%Y-%m-%d-at-%H-%M-%S")
         commands += [
             f"echo '\n# git -c {deploy_dir} fetch origin {commit}'",
             f"git -C {deploy_dir} fetch origin {commit}",

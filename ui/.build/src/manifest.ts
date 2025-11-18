@@ -16,7 +16,7 @@ const manifest = {
 };
 let writeTimer: NodeJS.Timeout;
 
-type SplitAsset = { hash?: string; path?: string; imports?: string[]; inline?: string };
+type SplitAsset = { hash?: string; path?: string; imports?: string[]; inline?: string; omit?: boolean };
 
 export type Manifest = { [key: string]: SplitAsset };
 export type ManifestUpdate = Partial<Omit<typeof manifest, 'dirty'>>;
@@ -75,8 +75,10 @@ async function writeManifest() {
     .map(pairLine)
     .join(',');
   const cssLines = Object.entries(manifest.css).map(pairLine).join(',');
-  const hashedLines = Object.entries(manifest.hashed).map(pairLine).join(',');
-
+  const hashedLines = Object.entries(manifest.hashed)
+    .filter(([, { omit }]) => !omit)
+    .map(([name, { hash }]) => pairLine([name, { hash }]))
+    .join(',');
   clientJs.push(`s.manifest={\ncss:{${cssLines}},\njs:{${jsLines}},\nhashed:{${hashedLines}}\n};`);
 
   const hashable = clientJs.join('\n');

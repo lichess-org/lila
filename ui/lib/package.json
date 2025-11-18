@@ -1,29 +1,12 @@
 {
   "name": "lib",
-  "version": "2.0.0",
   "private": true,
-  "description": "lichess.org common code",
-  "author": "Thibault Duplessis",
-  "license": "AGPL-3.0-or-later",
   "type": "module",
-  "typings": "common",
-  "typesVersions": {
-    "*": {
-      "*": [
-        "dist/*"
-      ]
-    }
-  },
-  "exports": {
-    ".": "./src/common.ts",
-    "./*": "./src/*.ts"
-  },
   "dependencies": {
     "@lichess-org/stockfish-web": "0.0.14",
     "@lichess-org/zerofish": "^0.0.40",
     "@types/debounce-promise": "^3.1.9",
     "debounce-promise": "^3.1.2",
-    "dialog-polyfill": "0.5.6",
     "idb-keyval": "^6.2.1",
     "stockfish-mv.wasm": "^0.6.1",
     "stockfish-nnue.wasm": "1.0.0-1946a675.smolnet",
@@ -34,7 +17,6 @@
   "build": {
     "sync": {
       "node_modules/stockfish*/*.{js,wasm}": "/public/npm",
-      "node_modules/dialog-polyfill/dist/dialog-polyfill.esm.js": "/public/npm",
       "node_modules/@lichess-org/stockfish-web/*.{js,wasm}": "/public/npm/stockfish-web",
       "node_modules/@lichess-org/zerofish/dist/zerofishEngine*.{js,wasm}": "/public/npm",
       "/node_modules/@lichess-org/chessground/dist/chessground.min.js": "/public/npm"
@@ -49,5 +31,49 @@
       "/public/piece/**",
       "/public/sound/**/*.mp3"
     ]
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": {
+        "source": "./src/index.ts",
+        "default": "./dist/index.js"
+      }
+    },
+    "./ceval": {
+      "types": "./dist/ceval/index.dts",
+      "import": {
+        "source": "./src/ceval/index.ts",
+        "default": "./dist/ceval/index.js"
+      }
+    },
+    "./game": {
+      "types": "./dist/game/index.dts",
+      "import": {
+        "source": "./src/game/index.ts",
+        "default": "./dist/game/index.js"
+      }
+    },
+    "./view": {
+      "types": "./dist/view/index.dts",
+      "import": {
+        "source": "./src/view/index.ts",
+        "default": "./dist/view/index.js"
+      }
+    },
+    "./tree": {
+      "types": "./dist/tree/index.dts",
+      "import": {
+        "source": "./src/tree/index.ts",
+        "default": "./dist/tree/index.js"
+      }
+    },
+    "./*": {
+      "types": "./*.d.ts",
+      "import": {
+        "source": "./src/*.ts",
+        "default": "./dist/*.js"
+      }
+    }
   }
 }

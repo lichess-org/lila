@@ -13,7 +13,7 @@ import type {
 import { type PresetCtrl, presetCtrl } from './preset';
 import { noteCtrl } from './note';
 import { moderationCtrl } from './moderation';
-import { prop, type Prop } from '../common';
+import { prop, type Prop } from '../index';
 import { storedStringProp, storedBooleanProp } from '../storage';
 import { pubsub, type PubsubEvents } from '../pubsub';
 import { alert } from '../view/dialogs';
@@ -25,7 +25,6 @@ export class ChatCtrl {
   data: ChatData;
   private maxLines = 200;
   private maxLinesDrop = 50; // how many lines to drop at once
-  private subs: Array<SubPair>;
   private storedTabKey: Prop<string>;
   private allTabs: Tab[] = [];
 
@@ -79,7 +78,7 @@ export class ChatCtrl {
 
     this.instanciateModeration();
 
-    this.subs = [
+    const subs: SubPair[] = [
       ['socket.in.message', this.onMessage],
       ['socket.in.chat_timeout', this.onTimeout],
       ['socket.in.chat_reinstate', this.onReinstate],
@@ -87,8 +86,7 @@ export class ChatCtrl {
       ['chat.permissions', this.onPermissions],
       ['voiceChat.toggle', this.voiceChat.enabled],
     ];
-
-    this.subs.forEach(([eventName, callback]) => pubsub.on(eventName, callback));
+    subs.forEach(([eventName, callback]) => pubsub.on(eventName, callback));
   }
 
   get isOptional(): boolean {
@@ -178,10 +176,6 @@ export class ChatCtrl {
       });
       site.asset.loadCssPath('lib.chat.mod');
     }
-  };
-
-  destroy = (): void => {
-    this.subs.forEach(([eventName, callback]) => pubsub.off(eventName, callback));
   };
 
   setTab = (tab: Tab = this.getTab()): Tab => {

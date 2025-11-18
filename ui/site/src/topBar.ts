@@ -1,6 +1,6 @@
 import { loadCssPath, loadEsm } from './asset';
 import { memoize } from 'lib';
-import { spinnerHtml } from 'lib/view/controls';
+import { spinnerHtml } from 'lib/view';
 import { clamp } from 'lib/algo';
 import { pubsub } from 'lib/pubsub';
 import { wsSend } from 'lib/socket';
@@ -180,6 +180,12 @@ export default function () {
       click() {
         $('body').hasClass('clinput') ? $input[0]!.blur() : $input[0]!.focus();
       },
+    });
+    $wrap.on('mouseenter', () => {
+      if ($input[0] !== document.activeElement) $input[0]!.focus();
+    });
+    $wrap.on('mouseleave', () => {
+      if (!$input.val()) $input[0]!.blur();
     });
     site.mousetrap
       .bind('/', () => {

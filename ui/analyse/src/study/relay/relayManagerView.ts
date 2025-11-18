@@ -1,5 +1,5 @@
 import * as licon from 'lib/licon';
-import { hl, bind, onInsert, dataIcon, type MaybeVNode } from 'lib/snabbdom';
+import { hl, bind, onInsert, dataIcon, type MaybeVNode } from 'lib/view';
 import type { LogEvent } from './interfaces';
 import type RelayCtrl from './relayCtrl';
 import { memoize } from 'lib';
@@ -62,7 +62,7 @@ function stateOn(ctrl: RelayCtrl) {
         sync && [
           !!sync.delay && `with ${sync.delay}s delay `,
           sync.url
-            ? ['to source', hl('br'), sync.url.replace(/https?:\/\//, '')]
+            ? ['to', hl('br'), 'single URL source']
             : sync.ids
               ? ['to', hl('br'), sync.ids.length, ' game(s)']
               : sync.users

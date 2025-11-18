@@ -5,9 +5,9 @@ import {
   type EngineNotifier,
   CevalState,
 } from '../types';
-import { randomToken } from '../../algo';
-import { readNdJson } from '../../xhr';
-import { throttle } from '../../async';
+import { randomToken } from '@/algo';
+import { readNdJson } from '@/xhr';
+import { throttle } from '@/async';
 
 interface ExternalEngineOutput {
   time: number;

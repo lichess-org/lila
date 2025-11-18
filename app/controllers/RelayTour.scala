@@ -53,7 +53,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
           .map:
             views.relay.tour.byOwner(_, owner)
 
-  def apiBy(owner: UserStr, page: Int) = Open:
+  def apiBy(owner: UserStr, page: Int) = AnonOrScoped(_.Study.Read, _.Web.Mobile):
     Reasonable(page, Max(20)):
       Found(env.user.lightUser(owner.id)): owner =>
         env.relay.pager
@@ -63,11 +63,10 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
 
   def subscribed(page: Int) = Auth { ctx ?=> me ?=>
     Reasonable(page, Max(20)):
-      env.relay.pager
-        .subscribedBy(me.userId, page)
-        .flatMap: pager =>
-          Ok.async:
-            views.relay.tour.subscribed(pager)
+      for
+        pager <- env.relay.pager.subscribedBy(me.userId, page)
+        page <- Ok.async(views.relay.tour.subscribed(pager))
+      yield page
   }
 
   def allPrivate(page: Int) = Secure(_.StudyAdmin) { _ ?=> _ ?=>
@@ -219,9 +218,9 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
     page <- Ok.page(views.relay.tour.showEmpty(tour, owner, html))
   yield page
 
-  def apiShow(id: RelayTourId) = Open:
+  def apiShow(id: RelayTourId) = OpenOrScoped(_.Study.Read, _.Web.Mobile):
     Found(env.relay.api.tourById(id)): tour =>
-      if tour.isPrivate && ctx.isAnon
+      if !tour.canView
       then Unauthorized(jsonError("This tournament is private"))
       else
         for

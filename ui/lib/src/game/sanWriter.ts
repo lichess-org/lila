@@ -1,13 +1,12 @@
+/* eslint no-restricted-syntax:"error" */ // no side effects allowed due to re-export by index.ts
+
 import { charToRole, type Square } from 'chessops';
+import { fixCrazySan } from './chess';
 
 type AlmostSan = string;
 
 export type Board = { pieces: { [key: number]: string }; turn: boolean };
 export type SanToUci = { [key: AlmostSan]: Uci };
-
-function fixCrazySan(san: string) {
-  return san[0] === 'P' ? san.slice(1) : san;
-}
 
 function decomposeUci(uci: string) {
   return [uci.slice(0, 2), uci.slice(2, 4), uci.slice(4, 5)];
@@ -69,7 +68,7 @@ function knightMovesTo(s: number) {
 
 const ROOK_DELTAS = [8, 1, -8, -1];
 const BISHOP_DELTAS = [9, -9, 7, -7];
-const QUEEN_DELTAS = ROOK_DELTAS.concat(BISHOP_DELTAS);
+const QUEEN_DELTAS = [...ROOK_DELTAS, ...BISHOP_DELTAS];
 
 function slidingMovesTo(s: number, deltas: number[], board: Board): number[] {
   const result: number[] = [];

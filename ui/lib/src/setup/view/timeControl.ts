@@ -1,5 +1,5 @@
-import type { Prop } from '@/common';
-import { hl, type VNode } from '@/snabbdom';
+import type { Prop } from '@/index';
+import { hl, type VNode } from '@/view';
 import type { InputValue } from '../interfaces';
 import {
   timeModes,
@@ -98,8 +98,8 @@ const inputRange = (min: number, max: number, prop: Prop<InputValue>, classes?: 
     on: { input: (e: Event) => prop(parseFloat((e.target as HTMLInputElement).value)) },
   });
 
-export const timePickerAndSliders = (tc: TimeControl): VNode => {
-  return hl(
+export const timePickerAndSliders = (tc: TimeControl, minimumTimeRequiredIfReal: number = 0): VNode =>
+  hl(
     'div.config-group',
     site.blindMode
       ? blindModeTimePickers(tc)
@@ -110,14 +110,14 @@ export const timePickerAndSliders = (tc: TimeControl): VNode => {
               `${i18n.site.minutesPerSide}: `,
               hl('span', showTime(tc.time())),
               inputRange(0, 38, tc.timeV, {
-                failure: !tc.realTimeValid(),
+                failure: !tc.realTimeValid(minimumTimeRequiredIfReal),
               }),
             ]),
           tc.mode() === 'realTime'
             ? hl('div.increment-choice.range', [
                 `${i18n.site.incrementInSeconds}: `,
                 hl('span', `${tc.increment()}`),
-                inputRange(0, 30, tc.incrementV, { failure: !tc.realTimeValid() }),
+                inputRange(0, 30, tc.incrementV, { failure: !tc.realTimeValid(minimumTimeRequiredIfReal) }),
               ])
             : tc.mode() === 'correspondence' &&
               hl('div.days-choice.range', [
@@ -127,4 +127,3 @@ export const timePickerAndSliders = (tc: TimeControl): VNode => {
               ]),
         ],
   );
-};
