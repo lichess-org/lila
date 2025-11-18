@@ -125,13 +125,8 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
             jsonFormError(err)
           ),
         setup =>
-          for
-            tour <- env.relay.api.tourUpdate(nav.tour, setup)
-            context = routes.RelayTour.show("-", tour.id)
-            _ <- tour.markup.so:
-              env.memo.picfitApi.addRef(_, env.relay.api.image.markdownRef(tour), context.url.some)
-            result <- negotiate(Redirect(routes.RelayRound.form(tour.id)).flashSuccess, jsonOkResult)
-          yield result
+          env.relay.api.tourUpdate(nav.tour, setup) >>
+            negotiate(Redirect(routes.RelayRound.form(nav.tour.id)).flashSuccess, jsonOkResult)
       )
   }
 
