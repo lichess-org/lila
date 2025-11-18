@@ -3767,8 +3767,8 @@ interface I18n {
     noConditionalPremoves: string;
     /** You cannot draw before 30 moves are played in a Swiss tournament. */
     noDrawBeforeSwissLimit: string;
-    /** No game found */
-    noGameFound: string;
+    /** No games found */
+    noGamesFound: string;
     /** No mistakes found for black */
     noMistakesFoundForBlack: string;
     /** No mistakes found for white */

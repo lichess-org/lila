@@ -40,7 +40,7 @@ object gamesContent:
                 pagerNext(pager, np => routes.User.games(u.username, filterName, np).url)
               )
             )
-          else div(cls := "search__status")(strong(trans.site.noGameFound.txt()))
+          else div(cls := "search__status")(strong(trans.site.noGamesFound.txt()))
         else
           div(
             cls := List(

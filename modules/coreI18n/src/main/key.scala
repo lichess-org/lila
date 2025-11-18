@@ -1554,7 +1554,7 @@ object I18nKey:
     val `topGames`: I18nKey = "topGames"
     val `masterDbExplanation`: I18nKey = "masterDbExplanation"
     val `dtzWithRounding`: I18nKey = "dtzWithRounding"
-    val `noGameFound`: I18nKey = "noGameFound"
+    val `noGamesFound`: I18nKey = "noGamesFound"
     val `maxDepthReached`: I18nKey = "maxDepthReached"
     val `maybeIncludeMoreGamesFromThePreferencesMenu`: I18nKey = "maybeIncludeMoreGamesFromThePreferencesMenu"
     val `openings`: I18nKey = "openings"
