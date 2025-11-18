@@ -132,11 +132,8 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
 
   def delete(id: RelayTourId) = AuthOrScoped(_.Study.Write) { _ ?=> me ?=>
     WithTour(id): tour =>
-      for
-        _ <- env.relay.api.deleteTourIfOwner(tour)
-        _ <- env.memo.picfitApi.pullRef(env.relay.api.image.markdownRef(tour))
-        _ <- env.memo.picfitApi.pullRef(env.relay.api.image.headRef(tour, none))
-      yield Redirect(routes.RelayTour.by(me.username)).flashSuccess
+      env.relay.api.deleteTourIfOwner(tour) >>
+        Redirect(routes.RelayTour.by(me.username)).flashSuccess
   }
 
   def image(id: RelayTourId, tag: Option[String]) = AuthBody(lila.web.HashedMultiPart(parse)) { ctx ?=> _ ?=>

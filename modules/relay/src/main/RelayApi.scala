@@ -399,6 +399,8 @@ final class RelayApi(
         rounds <- roundRepo.idsByTourOrdered(tour.id)
         _ <- roundRepo.deleteByTour(tour)
         _ <- rounds.map(_.into(StudyId)).sequentiallyVoid(studyApi.deleteById)
+        _ <- picfitApi.pullRef(image.markdownRef(tour))
+        _ <- picfitApi.pullRef(image.headRef(tour, none))
       yield true
 
   def canUpdate(tour: RelayTour)(using me: Me): Fu[Boolean] =
@@ -478,8 +480,8 @@ final class RelayApi(
   export roundRepo.nextRoundThatStartsAfterThisOneCompletes
 
   object image:
-    def markdownRef(rt: RelayTour) = s"relay:${rt.id}"
-    def headRef(rt: RelayTour, tag: Option[String]) =
+    private[RelayApi] def markdownRef(rt: RelayTour) = s"relay:${rt.id}"
+    private[RelayApi] def headRef(rt: RelayTour, tag: Option[String]) =
       tag.fold(s"relayHead:${rt.id}")(t => s"relayHead.$t:${rt.id}")
 
     def upload(
