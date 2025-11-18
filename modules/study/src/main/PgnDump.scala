@@ -126,9 +126,9 @@ object PgnDump:
     rootToPgn(NewRoot(root), tags)
 
   def rootToPgn(root: NewRoot, tags: Tags)(using flags: WithFlags): Pgn =
-    val comments = flags.comments match
-      case true => InitialComments(root.metas.commentWithShapes)
-      case _ => InitialComments.empty
+    val comments =
+      if flags.comments then InitialComments(root.metas.commentWithShapes)
+      else InitialComments.empty
     rootToPgn(root, tags, comments)
 
   def rootToPgn(root: NewRoot, tags: Tags, comments: InitialComments)(using WithFlags): Pgn =
