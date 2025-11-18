@@ -14,6 +14,7 @@
   <string name="attractionDescription">Výměna nebo obětování figur, která podpoří nebo vynutí figuru protihráče postoupit na pole, jenž umožňuje další taktický postup.</string>
   <string name="backRankMate">Mat na poslední řadě</string>
   <string name="backRankMateDescription">Mat krále na poslední řadě, kde je uvězněn vlastními figurami.</string>
+  <string name="balestraMateDescription">Střelec dává mat, zatímco královna blokuje zbylé únikové pole</string>
   <string name="bishopEndgame">Střelcové koncovky</string>
   <string name="bishopEndgameDescription">Koncovka jen se střelci a pěšci.</string>
   <string name="bodenMate">Bodenův mat</string>

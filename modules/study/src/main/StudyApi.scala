@@ -243,15 +243,14 @@ final class StudyApi(
   ): Fu[Option[() => Funit]] =
     import args.{ *, given }
     val singleNode = args.node.withoutChildren
-    def failReload() = reloadSriBecauseOf(study, who.sri, position.chapter.id)
     if position.chapter.isOverweight then
       logger.info(s"Overweight chapter ${study.id}/${position.chapter.id}")
-      failReload()
+      reloadSriBecauseOf(study, who.sri, position.chapter.id, "overweight".some)
       fuccess(none)
     else
       position.chapter.addNode(singleNode, position.path, relay) match
         case None =>
-          failReload()
+          reloadSriBecauseOf(study, who.sri, position.chapter.id)
           fufail(s"Invalid addNode ${study.id} ${position.ref} $singleNode")
         case Some(chapter) =>
           chapter.root.nodeAt(position.path).so { parent =>
@@ -835,8 +834,13 @@ final class StudyApi(
       for _ <- inviter.becomeAdmin(me)(study)
       yield Bus.pub(StudyMembers.OnChange(study))
 
-  private def reloadSriBecauseOf(study: Study, sri: Sri, chapterId: StudyChapterId) =
-    sendTo(study.id)(_.reloadSriBecauseOf(sri, chapterId))
+  private def reloadSriBecauseOf(
+      study: Study,
+      sri: Sri,
+      chapterId: StudyChapterId,
+      reason: Option["overweight"] = none
+  ) =
+    sendTo(study.id)(_.reloadSriBecauseOf(sri, chapterId, reason))
 
   def reloadChapters(study: Study) =
     preview

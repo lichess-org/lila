@@ -15,7 +15,7 @@
     }
   },
   "dependencies": {
-    "@lichess-org/chessground": "9.8.4",
+    "@lichess-org/chessground": "9.9.0",
     "@lichess-org/pgn-viewer": "2.5.3",
     "@types/lichess": "workspace:*",
     "@types/node": "^24.10.0",

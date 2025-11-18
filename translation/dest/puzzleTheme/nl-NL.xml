@@ -61,6 +61,7 @@
   <string name="intermezzoDescription">In plaats van de verwachte zet, eerst een andere zet doen met een directe dreiging die de tegenstander eerst moet beantwoorden. Ook wel bekend als \"Zwischenzug\" of \"In between\".</string>
   <string name="killBoxMate">Mat in dodelijk vierkant</string>
   <string name="killBoxMateDescription">Een toren staat naast de vijandelijke koning en wordt gedekt door een dame die ook de ontsnappingsvelden van de koning blokkeert. De toren en de dame vangen de vijandelijke koning in een dodelijk 3x3-vierkant.</string>
+  <string name="triangleMate" comment="Description (translatable separately):&#10;&#10;The queen and rook, one square away from the enemy king, are on the same rank or file, separated by one square, forming a triangle.">Driehoeksmat</string>
   <string name="vukovicMate">Vukovic-mat</string>
   <string name="vukovicMateDescription">Een toren en een paard werken samen om de koning mat te zetten. De toren zet mat terwijl hij door een ander stuk wordt ondersteund; het paard wordt gebruikt om ontsnappingsvelden van de koning te blokkeren.</string>
   <string name="knightEndgame">Paardeneindspel</string>
