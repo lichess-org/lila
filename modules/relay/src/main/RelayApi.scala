@@ -214,7 +214,7 @@ final class RelayApi(
         picfitApi.addRef(_, image.markdownRef(tour), routes.RelayTour.show("-", tour.id).url.some)
     yield tour
 
-  def tourUpdate(prev: RelayTour, data: RelayTourForm.Data)(using Me): Funit =
+  def tourUpdate(prev: RelayTour, data: RelayTourForm.Data)(using Me): Fu[RelayTour] =
     val tour = data.update(prev)
     import toBSONValueOption.given
     for
@@ -246,6 +246,7 @@ final class RelayApi(
       players.invalidate(tour.id)
       studyIds.foreach(preview.invalidate)
       (tour.id :: data.grouping.so(_.tourIds)).foreach(withTours.invalidate)
+      tour
 
   private def updateGrouping(tour: RelayTour, data: RelayGroupData)(using me: Me): Funit =
     (Granter(_.Relay) || !tour.official).so:
