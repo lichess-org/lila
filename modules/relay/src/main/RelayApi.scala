@@ -208,7 +208,11 @@ final class RelayApi(
 
   def tourCreate(data: RelayTourForm.Data)(using Me): Fu[RelayTour] =
     val tour = data.make
-    tourRepo.coll.insert.one(tour).inject(tour)
+    for
+      _ <- tourRepo.coll.insert.one(tour)
+      _ <- tour.markup.so:
+        picfitApi.addRef(_, image.markdownRef(tour), routes.RelayTour.show("-", tour.id).url.some)
+    yield tour
 
   def tourUpdate(prev: RelayTour, data: RelayTourForm.Data)(using Me): Funit =
     val tour = data.update(prev)

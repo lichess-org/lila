@@ -100,16 +100,13 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
           ),
         setup =>
           rateLimitCreation(whenRateLimited):
-            env.relay.api.tourCreate(setup).flatMap { tour =>
-              val context = routes.RelayRound.form(tour.id)
-              val success = negotiate(
-                Redirect(context).flashSuccess,
+            for
+              tour <- env.relay.api.tourCreate(setup)
+              result <- negotiate(
+                Redirect(routes.RelayRound.form(tour.id)).flashSuccess,
                 JsonOk(env.relay.jsonView.fullTourWithRounds(tour.withRounds(Nil), group = none))
               )
-              tour.markup.so(markdown =>
-                env.memo.picfitApi.addRef(markdown, env.relay.api.image.markdownRef(tour), context.url.some)
-              ) >> success
-            }
+            yield result
       )
   }
 
