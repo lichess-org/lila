@@ -59,8 +59,8 @@
   <string name="interferenceDescription">Lëvizja e një guri mes dy gurësh të kundërshtarit për të lënë të pambrojtur një ose të dy gurët e kundërshtarit, bie fjala, një kalë në një kuadrat mes dy torresh.</string>
   <string name="intermezzo">Ndërmjetësim</string>
   <string name="intermezzoDescription">Në vend që të luhet lëvizja e pritshme, së pari ndërhyni një lëvizje tjetër që paraqet një kërcënim të menjëhershëm, që kundërshtari duhet t\'i përgjigjet. Njihet gjithashtu si \"Zwischenzug\" ose \"Në mes\".</string>
-  <string name="triangleMate" comment="Description (translatable separately):&#10;&#10;The queen and rook, one square away from the enemy king, are on the same rank or file, separated by one square, forming a triangle.">Mat trekëndësh</string>
-  <string name="triangleMateDescription" comment="Description for &quot;triangle mate&quot;">Mbretëresha dhe torra, një kuadrat larg nga mbreti armik, gjenden në të njëjtin rresht ose shtyllë, një kuadrat larg njëri-tjetrit, duke formuar një trekëndësh.</string>
+  <string name="triangleMate">Mat trekëndësh</string>
+  <string name="triangleMateDescription">Mbretëresha dhe torra, një kuadrat larg nga mbreti armik, gjenden në të njëjtin rresht ose shtyllë, një kuadrat larg njëri-tjetrit, duke formuar një trekëndësh.</string>
   <string name="vukovicMate">Mat Vukoviç</string>
   <string name="vukovicMateDescription">Një torre dhe një kalë bëhen tok për ta kapur mbretin mat. Torrja kryen matin teksa mbështetet nga një gur i tretë dhe kali përdoret për të bllokuar kuti shpëtimi të mbretit.</string>
   <string name="knightEndgame">Fund loje me kalë</string>
