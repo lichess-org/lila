@@ -16,6 +16,8 @@
   <string name="backRankMateDescription">Xaque mate na última fila, onde o rei está atrapado polas súas propias pezas.</string>
   <string name="balestraMate">Mate da bésta</string>
   <string name="balestraMateDescription">O bispo dá xaque mate mentres a dama bloquea as casas de escape</string>
+  <string name="blindSwineMate">Mate do porco cego</string>
+  <string name="blindSwineMateDescription">Dúas torres colaboran para dar mate ó rei nunha área de 2 x 2 casas.</string>
   <string name="bishopEndgame">Final de alfís</string>
   <string name="bishopEndgameDescription">Final con só alfís e peóns.</string>
   <string name="bodenMate">Mate de Boden</string>
