@@ -16,6 +16,8 @@
   <string name="backRankMateDescription">Sæt kongen skakmat på baglinjen, når den er fanget der af sine egne brikker.</string>
   <string name="balestraMate">Balestra-mat</string>
   <string name="balestraMateDescription">En biskop sætter mat, mens en dronning blokerer de resterende flugtfelter</string>
+  <string name="blindSwineMate" comment="Description (translatable separately):&#10;&#10;Two rooks team up to mate the king in an area of 2 by 2 squares.">Blindt svin-mat</string>
+  <string name="blindSwineMateDescription" comment="Description for the Blind Swine checkmate pattern.">To tårne går sammen om at sætte kongen mat i et område på 2 x 2 felter.</string>
   <string name="bishopEndgame">Løberslutspil</string>
   <string name="bishopEndgameDescription">Et slutspil med kun løbere og bønder.</string>
   <string name="bodenMate">Bodens mat</string>
