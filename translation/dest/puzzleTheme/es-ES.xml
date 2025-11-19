@@ -16,6 +16,8 @@
   <string name="backRankMateDescription">Jaque mate en la última fila, cuando el rey se encuentra atrapado por sus propias piezas.</string>
   <string name="balestraMate">Mate de alfil y dama</string>
   <string name="balestraMateDescription">El alfil da jaque mate mientras la dama bloquea las casillas de escape</string>
+  <string name="blindSwineMate">Mate del cerdo ciego</string>
+  <string name="blindSwineMateDescription">Dos torres se unen para dar mate al rey en un área de 2 por 2 casillas.</string>
   <string name="bishopEndgame">Final de alfiles</string>
   <string name="bishopEndgameDescription">Un final con sólo alfiles y peones.</string>
   <string name="bodenMate">Mate de Boden</string>
