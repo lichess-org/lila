@@ -275,7 +275,7 @@ class LocalAnalysisDialog {
 
     return $html`
       ${this.separator(i18n.study.currentGame)}
-      <label>${i18n.study.has}:</label>
+      <label>${i18n.study.using}:</label>
       <p class="row-val">${this.ctrl.idbTree.hasLocalAnalysis ? i18n.study.localAnalysis : i18n.study.serverAnalysis}
         <span class="note">(${engineName ?? 'Fishnet'})</span>
       </p>

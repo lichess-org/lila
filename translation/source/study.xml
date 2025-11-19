@@ -207,7 +207,7 @@
   <string name="cannotBePublished">Cannot be published</string>
   <string name="projected">Projected</string>
   <string name="xNodesPerMove">%s nodes per move</string>
-  <string name="has">Has</string>
+  <string name="using">Using</string>
   <string name="willUse">Will use</string>
   <string name="quality">Quality</string>
   <string name="standardQuality">Same as normal Lichess server analysis</string>

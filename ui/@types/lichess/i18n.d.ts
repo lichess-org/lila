@@ -4969,8 +4969,6 @@ interface I18n {
     getTheTour: string;
     /** Good move */
     goodMove: string;
-    /** Has */
-    has: string;
     /** Hide next moves */
     hideNextMoves: string;
     /** Hot */
@@ -5195,6 +5193,8 @@ interface I18n {
     urlOfTheGame: string;
     /** Use theirs */
     useTheirs: string;
+    /** Using */
+    using: string;
     /** Yes, you can study crazyhouse<br>and all lichess variants! */
     variantsAreSupportedText: string;
     /** Studies support variants */

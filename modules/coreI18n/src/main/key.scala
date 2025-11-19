@@ -2640,7 +2640,7 @@ object I18nKey:
     val `cannotBePublished`: I18nKey = "study:cannotBePublished"
     val `projected`: I18nKey = "study:projected"
     val `xNodesPerMove`: I18nKey = "study:xNodesPerMove"
-    val `has`: I18nKey = "study:has"
+    val `using`: I18nKey = "study:using"
     val `willUse`: I18nKey = "study:willUse"
     val `quality`: I18nKey = "study:quality"
     val `standardQuality`: I18nKey = "study:standardQuality"
