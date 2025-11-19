@@ -16,6 +16,8 @@
   <string name="backRankMateDescription">Setze den König auf der Grundreihe matt, wenn er dort durch seine eigenen Figuren blockiert wird.</string>
   <string name="balestraMate">Balestra-Matt</string>
   <string name="balestraMateDescription">Ein Läufer setzt Matt während die Dame die verbleibenden Fluchtfelder blockiert</string>
+  <string name="blindSwineMate">Blinder-Säue-Matt</string>
+  <string name="blindSwineMateDescription">Zwei Türme arbeiten zusammen, um den König auf einer Fläche von 2x2 Feldern Matt zu setzen.</string>
   <string name="bishopEndgame">Läuferendspiel</string>
   <string name="bishopEndgameDescription">Ein Endspiel nur mit Läufern und Bauern.</string>
   <string name="bodenMate">Boden-Matt</string>
