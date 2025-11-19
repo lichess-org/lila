@@ -16,6 +16,8 @@
   <string name="backRankMateDescription">De König uf de Grundreihe matt setze, wänn er dur sini eigene Figure blockiert isch.</string>
   <string name="balestraMate">Balestra Matt</string>
   <string name="balestraMateDescription">En Läufer setzt Matt, wobi d\'Königin die mögliche Fluchtfälder blockiert</string>
+  <string name="blindSwineMate">Blinde-Schweine-Matt</string>
+  <string name="blindSwineMateDescription">Zwei Türm, uf de sibete - oder zweite - Reihe, setzed de König matt.</string>
   <string name="bishopEndgame">Läufer Ändschpil</string>
   <string name="bishopEndgameDescription">Es Ändschpil, nur mit Läufer und Pure.</string>
   <string name="bodenMate">Boden Matt</string>
