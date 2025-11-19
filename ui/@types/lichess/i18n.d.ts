@@ -2533,6 +2533,10 @@ interface I18n {
     balestraMate: string;
     /** A bishop delivers the checkmate, while a queen blocks the remaining escape squares */
     balestraMateDescription: string;
+    /** Blind Swine mate */
+    blindswineMate: string;
+    /** Two rooks team up to mate the king in an area of 2 by 2 squares. */
+    blindswineMateDescription: string;
     /** Bishop endgame */
     bishopEndgame: string;
     /** An endgame with only bishops and pawns. */

@@ -146,6 +146,7 @@ object PuzzleTheme:
       arabianMate,
       backRankMate,
       balestraMate,
+      blindswineMate,
       bodenMate,
       doubleBishopMate,
       dovetailMate,

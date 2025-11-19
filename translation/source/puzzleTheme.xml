@@ -16,6 +16,8 @@
   <string name="backRankMateDescription">Checkmate the king on the home rank, when it is trapped there by its own pieces.</string>
   <string name="balestraMate">Balestra mate</string>
   <string name="balestraMateDescription">A bishop delivers the checkmate, while a queen blocks the remaining escape squares</string>
+  <string name="blindswineMate">Blind Swine mate</string>
+  <string name="blindswineMateDescription">Two rooks team up to mate the king in an area of 2 by 2 squares.</string>
   <string name="bishopEndgame">Bishop endgame</string>
   <string name="bishopEndgameDescription">An endgame with only bishops and pawns.</string>
   <string name="bodenMate">Boden's mate</string>
