@@ -1304,6 +1304,8 @@ object I18nKey:
     val `backRankMateDescription`: I18nKey = "puzzleTheme:backRankMateDescription"
     val `balestraMate`: I18nKey = "puzzleTheme:balestraMate"
     val `balestraMateDescription`: I18nKey = "puzzleTheme:balestraMateDescription"
+    val `blindSwineMate`: I18nKey = "puzzleTheme:blindSwineMate"
+    val `blindSwineMateDescription`: I18nKey = "puzzleTheme:blindSwineMateDescription"
     val `bishopEndgame`: I18nKey = "puzzleTheme:bishopEndgame"
     val `bishopEndgameDescription`: I18nKey = "puzzleTheme:bishopEndgameDescription"
     val `bodenMate`: I18nKey = "puzzleTheme:bodenMate"

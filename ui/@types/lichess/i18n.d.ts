@@ -2537,6 +2537,10 @@ interface I18n {
     bishopEndgame: string;
     /** An endgame with only bishops and pawns. */
     bishopEndgameDescription: string;
+    /** Blind Swine mate */
+    blindSwineMate: string;
+    /** Two rooks team up to mate the king in an area of 2 by 2 squares. */
+    blindSwineMateDescription: string;
     /** Boden's mate */
     bodenMate: string;
     /** Two attacking bishops on criss-crossing diagonals deliver mate to a king obstructed by friendly pieces. */
