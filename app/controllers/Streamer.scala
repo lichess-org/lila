@@ -118,7 +118,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
       }
   }
 
-  def pictureApply = AuthBody(parse.multipartFormData) { ctx ?=> me ?=>
+  def pictureApply = AuthBody(lila.web.HashedMultiPart(parse)) { ctx ?=> me ?=>
     AsStreamer: s =>
       ctx.body.body.file("picture") match
         case Some(pic) =>

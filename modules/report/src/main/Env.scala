@@ -20,8 +20,7 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     appConfig: play.api.Configuration,
     ws: play.api.libs.ws.StandaloneWSClient,
-    picfitApi: lila.memo.PicfitApi,
-    imageGetOrigin: lila.core.config.ImageGetOrigin
+    picfitApi: lila.memo.PicfitApi
 )(using Executor, NetDomain)(using scheduler: Scheduler):
 
   private def lazyPlaybansOf = () => playbansOf

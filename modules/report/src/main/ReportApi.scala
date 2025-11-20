@@ -25,8 +25,7 @@ final class ReportApi(
     snoozer: lila.memo.Snoozer[Report.SnoozeKey],
     thresholds: Thresholds,
     automodApi: Automod,
-    settingStore: lila.memo.SettingStore.Builder,
-    picfitApi: lila.memo.PicfitApi
+    settingStore: lila.memo.SettingStore.Builder
 )(using Executor, Scheduler, lila.core.config.NetDomain)
     extends lila.core.report.ReportApi:
 
@@ -314,12 +313,13 @@ final class ReportApi(
     for _ <- doProcessReport(selector, unsetInquiry = true)
     yield onReportClose()
 
-  def automodComms(userText: String, url: String)(using me: Me): Funit =
-    val assessImages =
-      for
-        images <- automodApi.markdownImages(Markdown(userText))
-        _ <- picfitApi.setContext(url, images.map(_.id))
-      yield images
+  def automodComms(
+      userText: String,
+      url: String,
+      onlyIfFlaggedImages: Boolean = false // if true, will not create an automod report based on text alone
+  )(using
+      me: Me
+  ): Funit =
     val assessText = automodApi
       .text(
         userText,
@@ -328,7 +328,7 @@ final class ReportApi(
       )
       .monSuccess(_.mod.report.automod.request)
     for
-      (images, textResponse) <- assessImages.zip(assessText)
+      (images, textResponse) <- automodApi.markdownImages(Markdown(userText)).zip(assessText)
       flaggedImages = images.flatMap(_.automod).flatMap(_.flagged)
       suspectOpt <- getSuspect(me)
       reporter <- automodReporter
@@ -344,6 +344,7 @@ final class ReportApi(
         case r => Reason(r)
       suspect <- suspectOpt
       summary = (flaggedImages ++ res.str("reason")).mkString(", ")
+      if hasFlaggedImages || !onlyIfFlaggedImages
     yield create(
       Candidate(
         reporter = reporter,
