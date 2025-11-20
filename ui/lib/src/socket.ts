@@ -104,7 +104,7 @@ class WsSocket {
   private lastPingTime: number = performance.now();
   private pongCount = 0;
   private tryOtherUrl = false;
-  private storage: LichessStorage = storage.make('surl17', 30 * 60 * 1000);
+  private storage: LichessStorage = storage.make('surl18', 30 * 60 * 1000);
   private _sign?: string;
   private resendWhenOpen: [string, Payload, Partial<SocketSendOpts>][] = [];
   private baseUrls = document.body.dataset.socketDomains!.split(',');
