@@ -276,17 +276,10 @@ final private class TwitchApi(
     seq.grouped(n).toList.sequentially { g => Future.traverse(g)(f) }.void
 
 object Twitch:
-  case class HelixStream(
-      user_id: String,
-      user_login: String,
-      title: Html,
-      language: String = "en",
-      `type`: String = "live"
-  ):
-    def isLive = `type` == "live"
+  case class HelixStream(user_id: String, user_login: String, title: Html, language: String, `type`: String)
   case class Pagination(cursor: Option[String])
   case class Result(data: Option[List[HelixStream]], pagination: Option[Pagination]):
-    def liveStreams = (~data).filter(_.isLive)
+    def liveStreams = (~data).filter(_.`type` == "live")
   case class TwitchStream(id: String, login: String, status: Html, streamer: Streamer, lang: Lang)
       extends lila.streamer.Stream:
     def platform = "twitch"
