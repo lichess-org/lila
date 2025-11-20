@@ -18,6 +18,9 @@ object PuzzleTheme:
   enum VoteError:
     case Fail(msg: String) extends VoteError
     case Unchanged extends VoteError
+    def message: String = this match
+      case Fail(msg) => msg
+      case Unchanged => "unchanged"
 
   val mix = PuzzleTheme(i.mix, i.mixDescription)
   val advancedPawn = PuzzleTheme(i.advancedPawn, i.advancedPawnDescription)

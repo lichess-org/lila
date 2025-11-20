@@ -156,6 +156,36 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       )
   }
 
+  def apiBatchVoteThemes = ScopedBody(_.Puzzle.Write) { _ ?=> me ?=>
+    NoBot:
+      bindForm(env.puzzle.forms.batchVotes)(
+        jsonFormError,
+        batch =>
+          batch.votes
+            .sequentially(puzzleVotes =>
+              puzzleVotes.themes
+                .sequentially: themeVote =>
+                  allow:
+                    env.puzzle.api.theme
+                      .vote(PuzzleId(puzzleVotes.puzzleId), themeVote.theme, themeVote.vote)
+                      .inject(none)
+                  .rescue: err =>
+                    fuccess(Json.obj("theme" -> themeVote.theme, "msg" -> err.message).some)
+                .map(
+                  _.flatten.some
+                    .filter(_.nonEmpty)
+                    .map(errors => Json.obj("puzzleId" -> puzzleVotes.puzzleId, "errors" -> errors))
+                )
+            )
+            .map:
+              _.flatten match
+                case x if x.isEmpty => jsonOkResult
+                case errors =>
+                  BadRequest(jsonError(errors))
+      )
+
+  }
+
   def voteTheme(id: PuzzleId, themeStr: String) = AuthOrScopedBody(_.Puzzle.Write) { _ ?=> me ?=>
     NoBot:
       import lila.puzzle.PuzzleTheme.VoteError.*
