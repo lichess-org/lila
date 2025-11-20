@@ -165,7 +165,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
         .debug(s"WebSub: CONFIRMED ${~get("hub.mode")}${~days}${~channelId}")
       Ok(challenge)
 
-  private def WithVisibleStreamer(s: StreamerModel.WithContext)(f: Fu[Result])(using ctx: Context) =
+  private def WithVisibleStreamer(s: StreamerModel.WithContext)(f: => Fu[Result])(using ctx: Context) =
     ctx.kid.no.so:
       if s.streamer.isListed || ctx.me.exists(_.is(s.streamer)) || isGrantedOpt(_.Admin)
       then f
