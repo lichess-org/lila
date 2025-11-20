@@ -6,7 +6,7 @@ import play.api.mvc.*
 
 import lila.app.{ *, given }
 import lila.common.Json.given
-import lila.streamer.{ Streamer as StreamerModel, StreamerForm }
+import lila.streamer.{ Streamer as StreamerModel, StreamerForm, Platform }
 
 final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
 
@@ -167,7 +167,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
 
   private def WithVisibleStreamer(s: StreamerModel.WithContext)(f: => Fu[Result])(using ctx: Context) =
     ctx.kid.no.so:
-      if s.streamer.isListed || ctx.me.exists(_.is(s.streamer)) || isGrantedOpt(_.Admin)
+      if s.streamer.isListed || ctx.is(s.streamer) || isGrantedOpt(_.Admin)
       then f
       else notFound
 
@@ -183,31 +183,22 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
           views.site.message("Too soon"):
             scalatags.Text.all.raw("You are not yet allowed to create a streamer profile.")
 
-  private def oauthCookie(platform: "twitch" | "youtube") = s"${platform}_oauth_state"
+  private def oauthCookie(platform: Platform) = s"${platform}_oauth_state"
 
-  private def oauthMakeCookie(platform: "twitch" | "youtube", value: String) = Cookie(
-    oauthCookie(platform),
-    value = value,
-    path = "/",
-    secure = true,
-    httpOnly = true,
-    sameSite = Cookie.SameSite.Lax.some
-  )
+  private def oauthMakeCookie(platform: Platform, value: String) =
+    env.security.lilaCookie.cookie(oauthCookie(platform), value)
 
-  private def oauthGetCookie(platform: "twitch" | "youtube")(using ctx: Context) =
+  private def oauthGetCookie(platform: Platform)(using ctx: Context) =
     ctx.req.cookies.get(oauthCookie(platform)).map(_.value)
 
-  private def oauthUnsetCookie(platform: "twitch" | "youtube") =
+  private def oauthUnsetCookie(platform: Platform) =
     DiscardingCookie(oauthCookie(platform), path = "/")
 
   def oauthUnlink(platform: String, user: Option[UserStr]) = Auth { _ ?=> me ?=>
     env.streamer.api
-      .byId(lila.streamer.Streamer.Id(user.flatMap(_.validateId).getOrElse(me.userId).value))
-      .flatMap:
-        _.fold(notFound): streamer =>
-          env.streamer.api
-            .oauthUnlink(streamer, if platform == "youtube" then "youTube" else "twitch")
-            .map(_ => Ok)
+      .byId(StreamerModel.Id(user.flatMap(_.validateId).getOrElse(me.userId).value))
+      .flatMapz: streamer =>
+        env.streamer.api.oauthUnlink(streamer, platform).inject(Ok)
   }
 
   def oauthLinkTwitch = Auth { _ ?=> me ?=>

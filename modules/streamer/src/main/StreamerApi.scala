@@ -182,9 +182,12 @@ final class StreamerApi(
       )
       .void
 
-  def oauthUnlink(streamer: Streamer, platformCaseSensitive: "twitch" | "youTube"): Funit =
+  private def dbKey(platform: Platform): String =
+    if platform == "youtube" then "youTube" else "twitch"
+
+  def oauthUnlink(streamer: Streamer, platform: Platform): Funit =
     for _ <- coll.update
-        .one($id(streamer.id), $unset(platformCaseSensitive) ++ $set("updatedAt" -> nowInstant))
+        .one($id(streamer.id), $unset(dbKey(platform)) ++ $set("updatedAt" -> nowInstant))
     yield cache.listedIds.invalidateUnit()
 
   def linkTwitch(streamer: Streamer, id: String, login: String): Fu[String] =

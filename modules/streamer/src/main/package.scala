@@ -3,6 +3,8 @@ package lila.streamer
 export lila.core.lilaism.Lilaism.{ *, given }
 export lila.common.extensions.*
 
+type Platform = "twitch" | "youtube"
+
 private val logger = lila.log("streamer")
 
 private val streamerPageActivationRoute =
