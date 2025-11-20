@@ -196,14 +196,15 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
 
   private def myStreamer(using me: Me) = api.byId(me.userId.into(StreamerModel.Id))
 
-  def oauthUnlink(platform: String, user: Option[UserStr]) = Auth { _ ?=> me ?=>
-    api
-      .byId(StreamerModel.Id(user.flatMap(_.validateId).getOrElse(me.userId).value))
-      .flatMapz: streamer =>
-        api.oauthUnlink(streamer, platform).inject(Ok)
+  def oauthUnlink(platformStr: String, user: Option[UserStr]) = Auth { _ ?=> me ?=>
+    Found(api.byId(StreamerModel.Id(user.flatMap(_.validateId).getOrElse(me.userId).value))): streamer =>
+      lila.streamer
+        .platform(platformStr)
+        .fold(notFound): platform =>
+          api.oauthUnlink(streamer, platform).inject(Ok)
   }
 
-  def oauthLinkTwitch = Auth { _ ?=> me ?=>
+  def oauthLinkTwitch = Auth { _ ?=> _ ?=>
     Found(myStreamer): _ =>
       val state = scalalib.ThreadLocalRandom.nextString(32)
       val redirectUri = routes.Streamer.oauthTwitchRedirect.absoluteURL()
@@ -211,7 +212,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
         .withCookies(oauthMakeCookie("twitch", state))
   }
 
-  def oauthTwitchRedirect = Auth { _ ?=> me ?=>
+  def oauthTwitchRedirect = Auth { _ ?=> _ ?=>
     (get("code"), get("state"), oauthGetCookie("twitch")) match
       case (Some(code), Some(state), Some(expected)) if expected == state =>
         Found(myStreamer): streamer =>
@@ -225,7 +226,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
       case _ => fuccess(BadRequest)
   }
 
-  def oauthLinkYoutube = Auth { _ ?=> me ?=>
+  def oauthLinkYoutube = Auth { _ ?=> _ ?=>
     Found(myStreamer): _ =>
       val state = scalalib.ThreadLocalRandom.nextString(32)
       val redirectUri = routes.Streamer.oauthYoutubeRedirect.absoluteURL()

@@ -4,6 +4,10 @@ export lila.core.lilaism.Lilaism.{ *, given }
 export lila.common.extensions.*
 
 type Platform = "twitch" | "youtube"
+def platform(str: String): Option[Platform] = str.toLowerCase match
+  case "twitch" => Some("twitch")
+  case "youtube" => Some("youtube")
+  case _ => None
 
 private val logger = lila.log("streamer")
 
