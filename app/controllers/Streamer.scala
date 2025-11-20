@@ -1,11 +1,13 @@
 package controllers
 
+import com.github.blemale.scaffeine.Scaffeine
 import play.api.libs.json.*
 import play.api.mvc.*
 
 import lila.app.{ *, given }
 import lila.common.Json.given
-import lila.streamer.{ Streamer as StreamerModel, StreamerForm }
+import lila.core.perm.Granter
+import lila.streamer.{ Streamer as StreamerModel, StreamerForm, Platform }
 
 final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
 
@@ -17,14 +19,14 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
       ctx.kid.no.so:
         val requests = getBool("requests") && isGrantedOpt(_.Streamers)
         for
-          liveStreams <- env.streamer.liveStreamApi.all
+          liveStreams <- env.streamer.liveApi.all
           live <- api.withUsers(liveStreams)
           pager <- env.streamer.pager.get(page, liveStreams, requests)
           page <- renderPage(views.streamer.index(live, pager, requests))
         yield Ok(page)
 
   def featured = Anon: ctx ?=>
-    env.streamer.liveStreamApi.all.map: streams =>
+    env.streamer.liveApi.all.map: streams =>
       val max = env.streamer.homepageMaxSetting.get()
       val featured = streams.homepage(max, ctx.acceptLanguages).withTitles(env.user.lightUserApi)
       JsonOk:
@@ -47,7 +49,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
     Found(api.forSubscriber(username)): s =>
       WithVisibleStreamer(s):
         for
-          sws <- env.streamer.liveStreamApi.of(s)
+          sws <- env.streamer.liveApi.of(s)
           activity <- env.activity.read.recentAndPreload(sws.user)
           perfs <- env.user.perfsRepo.perfsOf(sws.user)
           page <- renderPage(views.streamer.show(sws, perfs, activity))
@@ -56,17 +58,17 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
   def redirect(username: UserStr) = Open:
     Found(api.forSubscriber(username)): s =>
       WithVisibleStreamer(s):
-        env.streamer.liveStreamApi.of(s).map { sws =>
+        env.streamer.liveApi.of(s).map { sws =>
           Redirect(sws.redirectToLiveUrl | routes.Streamer.show(username).url)
         }
 
   def create = AuthBody { _ ?=> me ?=>
     ctx.kid.no.so:
       NoLameOrBot:
-        api
+        env.streamer.repo
           .find(me)
           .flatMap:
-            case None => api.create(me).inject(Redirect(routes.Streamer.edit))
+            case None => env.streamer.repo.create(me).inject(Redirect(routes.Streamer.edit))
             case _ => Redirect(routes.Streamer.edit)
   }
 
@@ -75,13 +77,12 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
       logApi
         .userHistory(streamer.userId)
         .zip(env.user.noteApi.toUserForMod(streamer.userId))
-        .zip(env.streamer.api.sameChannels(streamer))
 
   def edit = Auth { ctx ?=> _ ?=>
     AsStreamer: s =>
       for
         _ <- env.msg.systemMsg.twoFactorReminder(s.user.id)
-        sws <- env.streamer.liveStreamApi.of(s)
+        sws <- env.streamer.liveApi.of(s)
         forMod <- modData(s.streamer)
         page <- renderPage(views.streamer.edit(sws, StreamerForm.userForm(sws.streamer), forMod))
       yield Ok(page).noCache
@@ -89,7 +90,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
 
   def editApply = AuthBody { _ ?=> me ?=>
     AsStreamer: s =>
-      env.streamer.liveStreamApi.of(s).flatMap { sws =>
+      env.streamer.liveApi.of(s).flatMap { sws =>
         bindForm(StreamerForm.userForm(sws.streamer))(
           error =>
             modData(s.streamer).flatMap: forMod =>
@@ -143,13 +144,19 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
     val isMod = isGranted(_.ModLog)
     if ctx.is(uid) || isMod then
       limit
-        .streamerOnlineCheck(uid, rateLimited)(env.streamer.api.forceCheck(uid))
+        .streamerOnlineCheck(uid, rateLimited)(api.forceCheck(uid))
         .inject(
           Redirect(routes.Streamer.show(uid).url)
             .flashSuccess(s"Please wait one minute while we check, then reload the page.")
         )
     else Unauthorized
   }
+
+  def onTwitchEventSub = AnonBodyOf(parse.tolerantText): body =>
+    env.streamer.twitchApi.onMessage(body, req.headers).map {
+      case Some(challenge) => Ok(challenge)
+      case _ => NoContent
+    }
 
   def onYouTubeVideo = AnonBodyOf(parse.tolerantXml): body =>
     env.streamer.ytApi.onVideoXml(body)
@@ -164,10 +171,16 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
         .debug(s"WebSub: CONFIRMED ${~get("hub.mode")}${~days}${~channelId}")
       Ok(challenge)
 
+  private def WithVisibleStreamer(s: StreamerModel.WithContext)(f: => Fu[Result])(using ctx: Context) =
+    ctx.kid.no.so:
+      if s.streamer.isListed || ctx.is(s.streamer) || isGrantedOpt(_.Admin)
+      then f
+      else notFound
+
   private def AsStreamer(f: StreamerModel.WithContext => Fu[Result])(using ctx: Context): Fu[Result] =
     ctx.me.foldUse(notFound): me ?=>
       if StreamerModel.canApply(me) || isGranted(_.Streamers) then
-        api
+        env.streamer.repo
           .find(getUserStr("u").ifTrue(isGranted(_.Streamers)).map(_.id) | me.userId)
           .flatMap:
             _.fold(Ok.page(views.streamer.create))(f)
@@ -176,8 +189,85 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
           views.site.message("Too soon"):
             scalatags.Text.all.raw("You are not yet allowed to create a streamer profile.")
 
-  private def WithVisibleStreamer(s: StreamerModel.WithContext)(f: Fu[Result])(using ctx: Context) =
-    ctx.kid.no.so:
-      if s.streamer.isListed || ctx.me.exists(_.is(s.streamer)) || isGrantedOpt(_.Admin)
-      then f
-      else notFound
+  private def oauthCookie(platform: Platform) = s"${platform}_oauth_state"
+
+  private def oauthMakeCookie(platform: Platform, value: String) =
+    env.security.lilaCookie.cookie(oauthCookie(platform), value)
+
+  private def oauthGetCookie(platform: Platform)(using ctx: Context) =
+    ctx.req.cookies.get(oauthCookie(platform)).map(_.value)
+
+  private def oauthUnsetCookie(platform: Platform) =
+    DiscardingCookie(oauthCookie(platform), path = "/")
+
+  private def myStreamer(using me: Me) = env.streamer.repo.byId(me.userId.into(StreamerModel.Id))
+
+  def oauthUnlink(platformStr: String, user: Option[UserStr]) = Auth { _ ?=> me ?=>
+    val targetUserId = Granter(_.Streamers).so(user.map(_.id)).getOrElse(me.userId)
+    Found(env.streamer.repo.byId(targetUserId.into(StreamerModel.Id))): streamer =>
+      lila.streamer
+        .platform(platformStr)
+        .fold(notFound): platform =>
+          api.oauthUnlink(streamer, platform).inject(Ok)
+  }
+
+  def oauthLinkTwitch = Auth { _ ?=> _ ?=>
+    Found(myStreamer): _ =>
+      val state = scalalib.ThreadLocalRandom.nextString(32)
+      val redirectUri = routes.Streamer.oauthTwitchRedirect.absoluteURL()
+      Redirect(env.streamer.twitchApi.authorizeUrl(redirectUri, state, getBool("force_verify")))
+        .withCookies(oauthMakeCookie("twitch", state))
+  }
+
+  def oauthTwitchRedirect = Auth { _ ?=> _ ?=>
+    (get("code"), get("state"), oauthGetCookie("twitch")) match
+      case (Some(code), Some(state), Some(expected)) if expected == state =>
+        Found(myStreamer): streamer =>
+          val redirectUri = routes.Streamer.oauthTwitchRedirect.absoluteURL()
+          for
+            (twitchId, login) <- env.streamer.twitchApi.oauthFetchUser(code, redirectUri)
+            result <- env.streamer.repo.oauth.linkTwitch(streamer, twitchId, login)
+          yield Ok
+            .snip(views.streamer.oauth("twitch", redirectUri, Left(result)))
+            .discardingCookies(oauthUnsetCookie("twitch"))
+      case _ => fuccess(BadRequest)
+  }
+
+  def oauthLinkYoutube = Auth { _ ?=> _ ?=>
+    Found(myStreamer): _ =>
+      val state = scalalib.ThreadLocalRandom.nextString(32)
+      val redirectUri = routes.Streamer.oauthYoutubeRedirect.absoluteURL()
+      val url = env.streamer.ytApi.authorizeUrl(redirectUri, state, getBool("force_verify"))
+      Redirect(url).withCookies(oauthMakeCookie("youtube", state))
+  }
+
+  def oauthYoutubeRedirect = Auth { _ ?=> me ?=>
+    (get("code"), get("state"), oauthGetCookie("youtube")) match
+      case (Some(code), Some(state), Some(expected)) if expected == state =>
+        Found(myStreamer): streamer =>
+          val redirectUri = routes.Streamer.oauthYoutubeRedirect.absoluteURL()
+          for
+            idsMap <- env.streamer.ytApi.oauthFetchChannels(code, redirectUri)
+            result <- idsMap.keys.toList match
+              case id :: Nil => env.streamer.repo.oauth.linkYoutube(streamer, id).dmap(Left(_))
+              case _ =>
+                if idsMap.nonEmpty then oauthYoutubeChannelCache.put(state, (me.userId, idsMap))
+                fuccess(Right(idsMap))
+            page = Ok.snip(views.streamer.oauth("youtube", redirectUri, result))
+          // oauth won't pick the channel, if there's more than one, leave the cookie to do that securely
+          yield if result.isLeft then page.discardingCookies(oauthUnsetCookie("youtube")) else page
+      case _ => fuccess(BadRequest)
+  }
+
+  private val oauthYoutubeChannelCache =
+    Scaffeine().expireAfterWrite(5.minutes).build[String, (UserId, Map[String, String])]()
+
+  def oauthYoutubeChannel(channelId: String) = AuthBody { _ ?=> me ?=>
+    Found(myStreamer): streamer =>
+      oauthGetCookie("youtube")
+        .flatMap(oauthYoutubeChannelCache.getIfPresent)
+        .filter((userId, idsMap) => me.is(userId) && idsMap.contains(channelId))
+        .so: _ =>
+          env.streamer.repo.oauth.linkYoutube(streamer, channelId).map(Ok(_))
+        .map(_.discardingCookies(oauthUnsetCookie("youtube")))
+  }

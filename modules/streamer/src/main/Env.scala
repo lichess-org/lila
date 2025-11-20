@@ -14,7 +14,7 @@ private class StreamerConfig(
     @ConfigName("collection.streamer") val streamerColl: CollName,
     @ConfigName("paginator.max_per_page") val paginatorMaxPerPage: MaxPerPage,
     @ConfigName("streaming.keyword") val keyword: Stream.Keyword,
-    @ConfigName("streaming.google.api_key") val googleApiKey: Secret,
+    @ConfigName("streaming.youtube") val youtubeConfig: YoutubeConfig,
     @ConfigName("streaming.twitch") val twitchConfig: TwitchConfig
 )
 private class TwitchConfig(
@@ -41,6 +41,7 @@ final class Env(
 )(using scheduler: Scheduler)(using Executor, akka.stream.Materializer):
 
   private given ConfigLoader[TwitchConfig] = AutoConfig.loader[TwitchConfig]
+  private given ConfigLoader[YoutubeConfig] = AutoConfig.loader[YoutubeConfig]
   private given ConfigLoader[Stream.Keyword] = strLoader(Stream.Keyword.apply)
   private val config = appConfig.get[StreamerConfig]("streamer")(using AutoConfig.loader)
 
@@ -62,15 +63,17 @@ final class Env(
       text = "Max streamers on homepage".some
     )
 
-  lazy val ytApi: YouTubeApi = wire[YouTubeApi]
+  lazy val repo = wire[StreamerRepo]
+  lazy val ytApi: YoutubeApi = wire[YoutubeApi]
   lazy val api: StreamerApi = wire[StreamerApi]
 
   lazy val pager = wire[StreamerPager]
 
-  private lazy val twitchApi: TwitchApi = wire[TwitchApi]
+  lazy val twitchApi: TwitchApi = wire[TwitchApi]
 
-  private val streaming = Streaming(
+  private val publisher = Publisher(
     api = api,
+    repo = repo,
     isOnline = isOnline,
     keyword = config.keyword,
     alwaysFeatured = (() => alwaysFeaturedSetting.get()),
@@ -79,7 +82,7 @@ final class Env(
     langList = langList
   )
 
-  lazy val liveStreamApi = wire[LiveStreamApi]
+  lazy val liveApi = wire[LiveApi]
 
   Bus.sub[lila.core.mod.MarkCheater]:
     case lila.core.mod.MarkCheater(userId, true) => api.demote(userId)
@@ -87,9 +90,13 @@ final class Env(
     api.demote(m.userId)
   Bus.sub[lila.core.mod.Shadowban]:
     case lila.core.mod.Shadowban(userId, true) => api.demote(userId)
-    case lila.core.mod.Shadowban(userId, false) => api.unignore(userId)
+    case lila.core.mod.Shadowban(userId, false) => repo.unignore(userId)
 
   scheduler.scheduleWithFixedDelay(1.hour, 1.day): () =>
-    api.autoDemoteFakes
+    repo.autoDemoteFakes
   scheduler.scheduleWithFixedDelay(21.minutes, 8.days): () =>
     ytApi.subscribeAll
+  scheduler.scheduleWithFixedDelay(10.seconds, 1.day): () =>
+    twitchApi.syncAll
+  scheduler.scheduleWithFixedDelay(10.seconds, 8.days): () =>
+    twitchApi.subscribeAll

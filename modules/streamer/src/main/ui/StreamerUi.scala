@@ -122,7 +122,7 @@ final class StreamerUi(helpers: Helpers, bits: StreamerBits)(using netDomain: Ne
             s.streamer.approval.chatEnabled.option(
               div(cls := "streamer-chat")(
                 s.stream match
-                  case Some(Stream.YouTube.Stream(_, _, videoId, _, _)) =>
+                  case Some(Youtube.YoutubeStream(_, _, videoId, _, _)) =>
                     iframe(
                       frame.credentialless,
                       st.frameborder := "0",
@@ -136,7 +136,7 @@ final class StreamerUi(helpers: Helpers, bits: StreamerBits)(using netDomain: Ne
                         frame.credentialless,
                         st.frameborder := "0",
                         frame.scrolling := "yes",
-                        src := s"https://twitch.tv/embed/${twitch.userId}/chat?${darkChat}parent=$netDomain"
+                        src := s"https://twitch.tv/embed/${twitch.login}/chat?${darkChat}parent=$netDomain"
                       )
               )
             ),
@@ -144,7 +144,7 @@ final class StreamerUi(helpers: Helpers, bits: StreamerBits)(using netDomain: Ne
           ),
           div(cls := "page-menu__content")(
             s.stream match
-              case Some(Stream.YouTube.Stream(_, _, videoId, _, _)) =>
+              case Some(Youtube.YoutubeStream(_, _, videoId, _, _)) =>
                 div(cls := "box embed youTube")(
                   iframe(
                     src := s"https://www.youtube-nocookie.com/embed/$videoId?autoplay=1",
@@ -158,7 +158,7 @@ final class StreamerUi(helpers: Helpers, bits: StreamerBits)(using netDomain: Ne
                   .map: twitch =>
                     div(cls := "box embed twitch")(
                       iframe(
-                        src := s"https://player.twitch.tv/?channel=${twitch.userId}&parent=$netDomain",
+                        src := s"https://player.twitch.tv/?channel=${twitch.login}&parent=$netDomain",
                         frame.allowfullscreen,
                         frame.credentialless
                       )
