@@ -353,7 +353,7 @@ GET   /api/streamer/featured           controllers.Streamer.featured
 GET   /api/streamer/live               controllers.Streamer.live
 POST  /api/x/streamer/youtube-pubsub   controllers.Streamer.onYouTubeVideo
 GET   /api/x/streamer/youtube-pubsub   controllers.Streamer.youTubePubSubChallenge
-POST  /api/x/streamer/twitch-eventsub  controllers.Streamer.onTwitchEventSub
+POST  /api/streamer/twitch-eventsub    controllers.Streamer.onTwitchEventSub
 GET   /streamer/live                   controllers.Main.movedPermanently(to = "/api/streamer/live")
 GET   /streamer/edit                   controllers.Streamer.edit
 POST  /streamer/new                    controllers.Streamer.create

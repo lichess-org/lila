@@ -22,7 +22,7 @@ final private class TwitchApi(
 )(using Executor):
   import Twitch.{ given, * }
 
-  private val webhook = s"https://${net.domain}/api/x/streamer/twitch-eventsub"
+  private val webhook = s"https://${net.domain}/api/streamer/twitch-eventsub"
   private val helixEndpoint = "https://api.twitch.tv/helix"
   private val eventSubEndpoint = s"$helixEndpoint/eventsub/subscriptions"
   private val authEndpoint = "https://id.twitch.tv/oauth2"
