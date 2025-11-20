@@ -7,7 +7,7 @@ const twitchClientId = '';
 const twitchClientSecret = '';
 
 const client = new MongoClient(
-  'mongodb://127.0.0.1/lichess?directConnection=true&serverSelectionTimeoutMS=2000&appName=streamer-oauth-migrate'
+  'mongodb://127.0.0.1/lichess?directConnection=true&serverSelectionTimeoutMS=2000&appName=streamer-oauth-migrate',
 );
 
 // ===========================================================================================================
