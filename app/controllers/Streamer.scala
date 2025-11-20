@@ -6,6 +6,7 @@ import play.api.mvc.*
 
 import lila.app.{ *, given }
 import lila.common.Json.given
+import lila.core.perm.Granter
 import lila.streamer.{ Streamer as StreamerModel, StreamerForm, Platform }
 
 final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
@@ -197,7 +198,8 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
   private def myStreamer(using me: Me) = api.byId(me.userId.into(StreamerModel.Id))
 
   def oauthUnlink(platformStr: String, user: Option[UserStr]) = Auth { _ ?=> me ?=>
-    Found(api.byId(StreamerModel.Id(user.flatMap(_.validateId).getOrElse(me.userId).value))): streamer =>
+    val targetUserId = Granter(_.Streamers).so(user.map(_.id)).getOrElse(me.userId)
+    Found(api.byId(targetUserId.into(StreamerModel.Id))): streamer =>
       lila.streamer
         .platform(platformStr)
         .fold(notFound): platform =>
