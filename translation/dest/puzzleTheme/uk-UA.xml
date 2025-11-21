@@ -14,6 +14,8 @@
   <string name="attractionDescription">Обмін або жертва, що заманює або примушує суперника зробити хід, що дозволяє проводити подальшу тактику.</string>
   <string name="backRankMate">Мат по останній горизонталі</string>
   <string name="backRankMateDescription">Мат королю в домашньому ряду, коли він у пастці між власними фігурами.</string>
+  <string name="balestraMate">Арбалетний мат</string>
+  <string name="balestraMateDescription">Слон ставить мат королю, а ферзь блокує решта полів для відступу</string>
   <string name="bishopEndgame">Слоновий ендшпіль</string>
   <string name="bishopEndgameDescription">Ендшпіль лише зі слонами та пішаками.</string>
   <string name="bodenMate">Мат Бодена</string>
@@ -59,6 +61,7 @@
   <string name="intermezzoDescription">Замість очікуваного ходу, спочатку робиться інший хід з безпосередньою атакою, на яку суперник має відповісти. Також відомий як \"Zwischenzug\" або \"In between\".</string>
   <string name="killBoxMate">Мат: Смертельна коробка</string>
   <string name="killBoxMateDescription">Тура стає біля ворожого короля під захистом ферзя. Ферзь у той самий час блокує всі поля, через які король може втекти. Тура й ферзь ловлять ворожого короля у «смертельну коробку» розміру 3 на 3.</string>
+  <string name="triangleMate" comment="Description (translatable separately):&#10;&#10;The queen and rook, one square away from the enemy king, are on the same rank or file, separated by one square, forming a triangle.">Трикутний мат</string>
   <string name="vukovicMate">Мат Вуковіча</string>
   <string name="vukovicMateDescription">Тура й кінь об\'єднуються, аби поставити мат королю. Тура, яку захищає третя фігура, ставить мат, а кінь блокує всі поля, через які король може втекти.</string>
   <string name="knightEndgame">Коньовий ендшпіль</string>

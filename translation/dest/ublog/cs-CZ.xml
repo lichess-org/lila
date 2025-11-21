@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="community">Komunita</string>
+  <string name="byMonth">Podle měsíce</string>
+  <string name="byTopic">Podle tématu</string>
+  <string name="byLichess">Od Lichessu</string>
   <string name="myBlog">Můj blog</string>
   <string name="likedBlogs">Oblíbené příspěvky blogu</string>
   <plurals name="blogPosts">

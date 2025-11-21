@@ -10,6 +10,12 @@ class RelayPlayerTest extends munit.FunSuite:
     assertEquals(RelayPlayerLine.tokenize("Prof. Pieper Thomas"), "pieper thomas")
     assertEquals(RelayPlayerLine.tokenize("Prof. Pieper Thomas Dr."), "pieper thomas")
 
+  test("chess title"):
+    assertEquals(RelayPlayerLine.tokenize("GM Pieper Thomas"), "pieper thomas")
+    assertEquals(RelayPlayerLine.tokenize("WIM Allahverdiyeva, Ayan"), "allahverdiyeva ayan")
+    assertEquals(RelayPlayerLine.tokenize("Alice the BOT"), "alice bot the")
+    assertEquals(RelayPlayerLine.tokenize("Some IM name"), "im name some")
+
   test("comma"):
     assertEquals(RelayPlayerLine.tokenize("Zimmer, Gerald"), "gerald zimmer")
     assertEquals(RelayPlayerLine.tokenize("Zimmer,Gerald"), "gerald zimmer")

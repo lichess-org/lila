@@ -2,7 +2,11 @@ import * as util from '@lichess-org/chessground/util';
 import * as cg from '@lichess-org/chessground/types';
 
 export class Premove {
-  constructor(readonly unrestrictedPremoves: boolean) {}
+  readonly unrestrictedPremoves: boolean;
+
+  constructor(readonly variant: VariantKey) {
+    this.unrestrictedPremoves = ['atomic', 'crazyhouse'].includes(variant);
+  }
 
   private isDestOccupiedByFriendly = (ctx: cg.MobilityContext): boolean => ctx.friendlies.has(ctx.dest.key);
 
@@ -205,10 +209,11 @@ export class Premove {
       (this.unrestrictedPremoves ||
         !this.isDestOccupiedByFriendly(ctx) ||
         this.isFriendlyOnDestAndAttacked(ctx))) ||
-    (ctx.canCastle &&
+    (this.variant !== 'antichess' &&
       ctx.orig.pos[1] === ctx.dest.pos[1] &&
       ctx.orig.pos[1] === (ctx.color === 'white' ? 0 : 7) &&
       ((ctx.orig.pos[0] === 4 &&
+        this.variant !== 'chess960' &&
         ((ctx.dest.pos[0] === 2 && ctx.rookFilesFriendlies.includes(0)) ||
           (ctx.dest.pos[0] === 6 && ctx.rookFilesFriendlies.includes(7)))) ||
         ctx.rookFilesFriendlies.includes(ctx.dest.pos[0])) &&
