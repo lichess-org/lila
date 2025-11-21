@@ -14,6 +14,31 @@ import lila.core.config.Secret
 import lila.core.config.NetConfig
 import lila.core.data.Html
 
+private[streamer] object Twitch:
+  case class HelixStream(user_id: String, user_login: String, title: Html, language: String, `type`: String)
+  case class Pagination(cursor: Option[String])
+  case class Result(data: Option[List[HelixStream]], pagination: Option[Pagination]):
+    def liveStreams = (~data).filter(_.`type` == "live")
+  case class TwitchStream(id: String, login: String, status: Html, streamer: Streamer, lang: Lang)
+      extends lila.streamer.Stream:
+    def platform = "twitch"
+    def urls = Stream.Urls(
+      embed = parent => s"https://player.twitch.tv/?channel=${login}&parent=${parent}",
+      redirect = s"https://www.twitch.tv/${login}"
+    )
+  object TwitchStream:
+    def apply(helix: HelixStream, streamer: Streamer): TwitchStream =
+      TwitchStream(
+        id = helix.user_id,
+        login = helix.user_login,
+        streamer = streamer,
+        status = helix.title,
+        lang = Lang.get(helix.language) | lila.core.i18n.defaultLang
+      )
+  given Reads[HelixStream] = Json.reads
+  given Reads[Result] = Json.reads
+  given Reads[Pagination] = Json.reads
+
 final private class TwitchApi(ws: StandaloneWSClient, repo: StreamerRepo, cfg: TwitchConfig, net: NetConfig)(
     using Executor
 ):
@@ -91,25 +116,26 @@ final private class TwitchApi(ws: StandaloneWSClient, repo: StreamerRepo, cfg: T
       "grant_type" -> "authorization_code",
       "redirect_uri" -> redirectUri
     )
-    ws.url(s"$authEndpoint/token").post(body).flatMap { rsp =>
-      if rsp.status != 200 then fufail(s"twitch.codeForUser ${lila.log.http(rsp.status, rsp.body)}}")
-      else
-        val accessToken = (rsp.body[JsValue] \ "access_token").as[String]
-        ws.url(s"$helixEndpoint/users")
-          .withHttpHeaders(
-            "Client-ID" -> cfg.clientId,
-            "Authorization" -> s"Bearer $accessToken"
-          )
-          .get()
-          .flatMap: userRsp =>
-            if userRsp.status != 200 then
-              fufail(s"twitch.codeForUser ${lila.log.http(rsp.status, rsp.body)}}")
-            else
-              val data = (userRsp.body[JsValue] \ "data")(0)
-              val id = (data \ "id").as[String]
-              val login = (data \ "login").as[String]
-              fuccess(id -> login)
-    }
+    ws.url(s"$authEndpoint/token")
+      .post(body)
+      .flatMap: rsp =>
+        if rsp.status != 200 then fufail(s"twitch.codeForUser ${lila.log.http(rsp.status, rsp.body)}}")
+        else
+          val accessToken = (rsp.body[JsValue] \ "access_token").as[String]
+          ws.url(s"$helixEndpoint/users")
+            .withHttpHeaders(
+              "Client-ID" -> cfg.clientId,
+              "Authorization" -> s"Bearer $accessToken"
+            )
+            .get()
+            .flatMap: userRsp =>
+              if userRsp.status != 200 then
+                fufail(s"twitch.codeForUser ${lila.log.http(rsp.status, rsp.body)}}")
+              else
+                val data = (userRsp.body[JsValue] \ "data")(0)
+                val id = (data \ "id").as[String]
+                val login = (data \ "login").as[String]
+                fuccess(id -> login)
 
   private[streamer] def subscribeAll: Funit = cfg.clientId.nonEmpty.so:
     for
@@ -220,7 +246,7 @@ final private class TwitchApi(ws: StandaloneWSClient, repo: StreamerRepo, cfg: T
     if ids.isEmpty then fuccess(Nil)
     else
       ensureToken() >>
-        ws.url("https://api.twitch.tv/helix/streams")
+        ws.url(s"$helixEndpoint/streams")
           .withQueryStringParameters(ids.map(l => "user_id" -> l)*)
           .withHttpHeaders(headersAuth*)
           .get()
@@ -246,7 +272,7 @@ final private class TwitchApi(ws: StandaloneWSClient, repo: StreamerRepo, cfg: T
     if tmpToken.value == "init" then renewToken() else funit
 
   private def renewToken(): Funit =
-    ws.url("https://id.twitch.tv/oauth2/token")
+    ws.url(s"$authEndpoint/token")
       .withQueryStringParameters(
         "client_id" -> cfg.clientId,
         "client_secret" -> cfg.secret.value,
@@ -268,28 +294,3 @@ final private class TwitchApi(ws: StandaloneWSClient, repo: StreamerRepo, cfg: T
       "Authorization" -> s"Bearer ${tmpToken.value}",
       "Content-Type" -> "application/json"
     )
-
-object Twitch:
-  case class HelixStream(user_id: String, user_login: String, title: Html, language: String, `type`: String)
-  case class Pagination(cursor: Option[String])
-  case class Result(data: Option[List[HelixStream]], pagination: Option[Pagination]):
-    def liveStreams = (~data).filter(_.`type` == "live")
-  case class TwitchStream(id: String, login: String, status: Html, streamer: Streamer, lang: Lang)
-      extends lila.streamer.Stream:
-    def platform = "twitch"
-    def urls = Stream.Urls(
-      embed = parent => s"https://player.twitch.tv/?channel=${login}&parent=${parent}",
-      redirect = s"https://www.twitch.tv/${login}"
-    )
-  object TwitchStream:
-    def apply(helix: HelixStream, streamer: Streamer): TwitchStream =
-      TwitchStream(
-        id = helix.user_id,
-        login = helix.user_login,
-        streamer = streamer,
-        status = helix.title,
-        lang = Lang.get(helix.language) | lila.core.i18n.defaultLang
-      )
-  private[streamer] given Reads[HelixStream] = Json.reads
-  private[streamer] given Reads[Result] = Json.reads
-  private given Reads[Pagination] = Json.reads

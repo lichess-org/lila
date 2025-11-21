@@ -18,6 +18,50 @@ private class YoutubeConfig(
     @ConfigName("client_secret") val clientSecret: Secret
 )
 
+private[streamer] object Youtube:
+  case class Snippet(
+      channelId: String,
+      title: Html,
+      liveBroadcastContent: String,
+      defaultAudioLanguage: Option[String]
+  )
+  case class Item(id: String, snippet: Snippet)
+  case class Result(items: List[Item]):
+    def streams(keyword: Stream.Keyword, streamers: List[Streamer]): List[YoutubeStream] =
+      items
+        .withFilter: item =>
+          item.snippet.liveBroadcastContent == "live" &&
+            item.snippet.title.value.toLowerCase.contains(keyword.toLowerCase)
+        .flatMap: item =>
+          streamers
+            .find(s => s.youTube.exists(_.channelId == item.snippet.channelId))
+            .map:
+              YoutubeStream(
+                item.snippet.channelId,
+                unescapeHtml(item.snippet.title),
+                item.id,
+                _,
+                item.snippet.defaultAudioLanguage.flatMap(Lang.get) | lila.core.i18n.defaultLang
+              )
+  case class YoutubeStream(
+      channelId: String,
+      status: Html,
+      videoId: String,
+      streamer: Streamer,
+      lang: Lang
+  ) extends lila.streamer.Stream:
+    def platform = "youTube"
+    def urls = Stream.Urls(
+      embed = _ => s"https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&disablekb=1&color=white",
+      redirect = s"https://www.youtube.com/watch?v=${videoId}"
+    )
+
+  case class StreamerWithYoutube(streamer: Streamer, youtube: Streamer.YouTube)
+
+  given Reads[Snippet] = Json.reads
+  given Reads[Item] = Json.reads
+  given Reads[Result] = Json.reads
+
 final private class YoutubeApi(
     ws: StandaloneWSClient,
     repo: StreamerRepo,
@@ -27,7 +71,7 @@ final private class YoutubeApi(
 )(using Executor):
 
   private var lastResults: List[Youtube.YoutubeStream] = Nil
-  private val endpoint = "https://youtube.googleapis.com/youtube/v3"
+  private val v3Endpoint = "https://youtube.googleapis.com/youtube/v3"
 
   def onVideoXml(xml: scala.xml.NodeSeq): Funit =
     val channel = (xml \ "entry" \ "channelId").text
@@ -67,7 +111,7 @@ final private class YoutubeApi(
           fufail(s"YouTube token exchange failed: ${rsp.status} ${lila.log.http(rsp.status, rsp.body)}")
         else
           val accessToken = (rsp.body[JsValue] \ "access_token").as[String]
-          ws.url(s"$endpoint/channels")
+          ws.url(s"$v3Endpoint/channels")
             .withQueryStringParameters("part" -> "id,snippet", "mine" -> "true")
             .withHttpHeaders("Authorization" -> s"Bearer $accessToken")
             .get()
@@ -89,7 +133,7 @@ final private class YoutubeApi(
     cfg.apiKey.value.nonEmpty
       .so:
         idPages.toList.sequentially: idPage =>
-          ws.url(s"$endpoint/videos")
+          ws.url(s"$v3Endpoint/videos")
             .withQueryStringParameters(
               "part" -> "snippet",
               "id" -> idPage.mkString(","),
@@ -172,7 +216,7 @@ final private class YoutubeApi(
   private def isLiveStream(videoId: String): Fu[Boolean] =
     cfg.apiKey.value.nonEmpty.so(
       ws
-        .url(s"$endpoint/videos")
+        .url(s"$v3Endpoint/videos")
         .withQueryStringParameters(
           "part" -> "snippet",
           "id" -> videoId,
@@ -193,47 +237,3 @@ final private class YoutubeApi(
 
   private def asFormBody(params: (String, String)*): String =
     params.map((key, value) => s"$key=${java.net.URLEncoder.encode(value, "UTF-8")}").mkString("&")
-
-object Youtube:
-  case class Snippet(
-      channelId: String,
-      title: Html,
-      liveBroadcastContent: String,
-      defaultAudioLanguage: Option[String]
-  )
-  case class Item(id: String, snippet: Snippet)
-  case class Result(items: List[Item]):
-    def streams(keyword: Stream.Keyword, streamers: List[Streamer]): List[YoutubeStream] =
-      items
-        .withFilter: item =>
-          item.snippet.liveBroadcastContent == "live" &&
-            item.snippet.title.value.toLowerCase.contains(keyword.toLowerCase)
-        .flatMap: item =>
-          streamers
-            .find(s => s.youTube.exists(_.channelId == item.snippet.channelId))
-            .map:
-              YoutubeStream(
-                item.snippet.channelId,
-                unescapeHtml(item.snippet.title),
-                item.id,
-                _,
-                item.snippet.defaultAudioLanguage.flatMap(Lang.get) | lila.core.i18n.defaultLang
-              )
-  case class YoutubeStream(
-      channelId: String,
-      status: Html,
-      videoId: String,
-      streamer: Streamer,
-      lang: Lang
-  ) extends lila.streamer.Stream:
-    def platform = "youTube"
-    def urls = Stream.Urls(
-      embed = _ => s"https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&disablekb=1&color=white",
-      redirect = s"https://www.youtube.com/watch?v=${videoId}"
-    )
-
-  case class StreamerWithYoutube(streamer: Streamer, youtube: Streamer.YouTube)
-
-  private given Reads[Snippet] = Json.reads
-  private given Reads[Item] = Json.reads
-  given Reads[Result] = Json.reads
