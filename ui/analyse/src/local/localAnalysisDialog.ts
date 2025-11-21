@@ -27,11 +27,15 @@ class LocalAnalysisDialog {
   constructor(readonly ctrl: AnalyseCtrl) {
     this.engine = new LocalAnalysisEngine(ctrl, this.updateEngineStatus, this.updateChartData);
     this.presets = {
-      standard: { label: i18n.site.standard, title: i18n.study.standardQuality, nodes: 1_000_000 },
-      broadcast: { label: i18n.study.broadcast, title: i18n.study.broadcastQuality, nodes: 5_000_000 },
+      standard: { label: i18n.site.standard, title: i18n.localAnalysis.standardQuality, nodes: 1_000_000 },
+      broadcast: {
+        label: i18n.localAnalysis.broadcast,
+        title: i18n.localAnalysis.broadcastQuality,
+        nodes: 5_000_000,
+      },
       ultra: {
-        label: i18n.study.ultra,
-        title: i18n.study.ultraQualityXSeconds(ctrl.ceval.threads < 5 ? 4 : 2),
+        label: i18n.localAnalysis.ultra,
+        title: i18n.localAnalysis.ultraQualityXSeconds(ctrl.ceval.threads < 5 ? 4 : 2),
       },
     };
     this.selectPreset();
@@ -55,7 +59,7 @@ class LocalAnalysisDialog {
         </div>
         <span class="footer">
           <button class="button button-empty button-red cancel-btn none">${i18n.site.cancel}</button>
-          <button class="button button-empty button-clas publish-btn none">${i18n.study.publish}</button>
+          <button class="button button-empty button-clas publish-btn none">${i18n.localAnalysis.publish}</button>
           <p class="status"></p>
           <button class="button analyse-btn">${i18n.site.analyse}</button>
           <button class="button ok-btn none">${i18n.site.ok}</button>
@@ -96,7 +100,7 @@ class LocalAnalysisDialog {
       this.el(`.preset-info[data-preset="${this.mode.preset}"]`)?.classList.remove('none');
     }
     if (this.canUpload.showButton && this.ctrl.idbTree.localAnalysisIsBetter) {
-      this.status(i18n.study.youCanPublish);
+      this.status(i18n.localAnalysis.youCanPublish);
       this.showButtons({ publish: true });
     } else {
       this.status('');
@@ -112,7 +116,7 @@ class LocalAnalysisDialog {
       );
     }
     if (this.serverNpm >= Number(this.presets[this.mode.preset].nodes) && !this.justPublished) {
-      this.status(i18n.study.serverAlreadyHas);
+      this.status(i18n.localAnalysis.serverAlreadyHas);
     }
   };
 
@@ -126,7 +130,7 @@ class LocalAnalysisDialog {
     try {
       const result = await this.engine.analyse(this.mode.custom);
       await this.ctrl.idbTree.saveAnalysis(result);
-      this.status(i18n.study.doneInX(`${((performance.now() - then) / 1000).toFixed(1)}`));
+      this.status(i18n.localAnalysis.doneInX(`${((performance.now() - then) / 1000).toFixed(1)}`));
       this.showButtons({ ok: true, publish: this.canUpload.showButton, cancel: false });
       this.ctrl.mergeAnalysisData(result.localAnalysis, false);
     } catch (e) {
@@ -142,21 +146,21 @@ class LocalAnalysisDialog {
       return await alert(this.canUpload.whyNot);
     }
     if (this.serverNpm && this.ctrl.study && !this.ctrl.study.canMergeAnalysisCleanly()) {
-      if (!(await confirm(i18n.study.whenUpgradingOldChapters, i18n.study.publish))) return;
+      if (!(await confirm(i18n.localAnalysis.whenUpgradingOldChapters, i18n.localAnalysis.publish))) return;
     }
 
     const result = await uploadAnalysis(await this.ctrl.idbTree.serverDocument());
 
     if (result.status === 'locked') {
-      await alert(i18n.study.serverAnalysisInProgress);
+      await alert(i18n.localAnalysis.serverAnalysisInProgress);
     } else if (result.status === 'error') {
       if (result.errorText) log('analysis upload error', result.errorText);
-      this.status(i18n.study.analysisUploadFailed);
+      this.status(i18n.localAnalysis.analysisUploadFailed);
     } else if (result.status === 'conflict') {
       const useTheirs = await confirm(
-        i18n.study.looksLikeASimilar,
-        i18n.study.useTheirs,
-        i18n.study.keepMine,
+        i18n.localAnalysis.looksLikeASimilar,
+        i18n.localAnalysis.useTheirs,
+        i18n.localAnalysis.keepMine,
       );
       if (useTheirs) {
         await this.ctrl.idbTree.clear('analysis');
@@ -193,7 +197,10 @@ class LocalAnalysisDialog {
   }
 
   updateEngineStatus = (nodeIndex: number, totalNodes: number, nodesPerMove: number) => {
-    let html = nodeIndex === 0 ? i18n.study.startingPosition : i18n.study.moveXOfY(nodeIndex, totalNodes - 1);
+    let html =
+      nodeIndex === 0
+        ? i18n.localAnalysis.startingPosition
+        : i18n.localAnalysis.moveXOfY(nodeIndex, totalNodes - 1);
 
     if (this.mode.preset === 'ultra' && isFinite(nodesPerMove)) {
       for (const fasterThan of [this.presets.broadcast, this.presets.standard]) {
@@ -203,7 +210,7 @@ class LocalAnalysisDialog {
           nodesPerMove / presetNodes < 5
             ? Math.round(10 * (nodesPerMove / presetNodes)) / 10
             : Math.round(nodesPerMove / presetNodes);
-        html += `<br>(${i18n.study.xTimesYQuality(multiplier, fasterThan.label.toLocaleLowerCase())})`;
+        html += `<br>(${i18n.localAnalysis.xTimesYQuality(multiplier, fasterThan.label.toLocaleLowerCase())})`;
         break;
       }
     }
@@ -230,8 +237,8 @@ class LocalAnalysisDialog {
       let multiplier = Math.round((balancedCores * info.search.by.movetime) / 300) / 10;
       if (multiplier > 10) multiplier = Math.round(multiplier);
       return param(
-        i18n.study.projected,
-        i18n.study.xTimesYQuality(multiplier, i18n.site.standard.toLocaleLowerCase()),
+        i18n.localAnalysis.projected,
+        i18n.localAnalysis.xTimesYQuality(multiplier, i18n.site.standard.toLocaleLowerCase()),
       );
     };
 
@@ -239,14 +246,14 @@ class LocalAnalysisDialog {
       'movetime' in info.search.by
         ? param(i18n.site.time, i18n.site.nbSeconds(Math.round(info.search.by.movetime / 1000)))
         : 'nodes' in info.search.by
-          ? param(i18n.study.nodes, numberFormat(info.search.by.nodes))
+          ? param(i18n.localAnalysis.nodes, numberFormat(info.search.by.nodes))
           : '';
     const engineNameParam = param(
-      i18n.study.willUse,
+      i18n.localAnalysis.willUse,
       info.engine?.name ?? '',
       info.engine?.trustedFor?.includes('staticAnalysis')
         ? ''
-        : `<span class="note">(${i18n.study.cannotBePublished})</span>`,
+        : `<span class="note">(${i18n.localAnalysis.cannotBePublished})</span>`,
     );
 
     return $html`
@@ -270,18 +277,25 @@ class LocalAnalysisDialog {
       npm === 1_000_000
         ? i18n.site.standard
         : npm === 5_000_000
-          ? i18n.study.broadcast
-          : i18n.study.xTimesYQuality(Math.round(npm / 100_000) / 10, i18n.site.standard.toLocaleLowerCase());
+          ? i18n.localAnalysis.broadcast
+          : i18n.localAnalysis.xTimesYQuality(
+              Math.round(npm / 100_000) / 10,
+              i18n.site.standard.toLocaleLowerCase(),
+            );
 
     return $html`
-      ${this.separator(i18n.study.currentGame)}
-      <label>${i18n.study.using}:</label>
-      <p class="row-val">${this.ctrl.idbTree.hasLocalAnalysis ? i18n.study.localAnalysis : i18n.study.serverAnalysis}
+      ${this.separator(i18n.localAnalysis.currentGame)}
+      <label>${i18n.localAnalysis.using}:</label>
+      <p class="row-val">${
+        this.ctrl.idbTree.hasLocalAnalysis
+          ? i18n.localAnalysis.localAnalysis
+          : i18n.localAnalysis.serverAnalysis
+      }
         <span class="note">(${engineName ?? 'Fishnet'})</span>
       </p>
-      <label>${i18n.study.quality}:</label>
+      <label>${i18n.localAnalysis.quality}:</label>
       <p>${quality}</p>
-      <label>${i18n.study.nodes}:</label>
+      <label>${i18n.localAnalysis.nodes}:</label>
       <p>${numberFormat(info.nodesPerMove)}</p>`;
   }
 
@@ -324,7 +338,7 @@ class LocalAnalysisDialog {
         (this.mode.preset == 'ultra' ||
           this.ctrl.idbTree.localAnalysisNpm === this.presets[this.mode.preset].nodes));
 
-    return { showButton, whyNot: reason === 'rec' ? i18n.study.turnOnRec : reason };
+    return { showButton, whyNot: reason === 'rec' ? i18n.localAnalysis.turnOnRec : reason };
   }
 
   get selectedEngine() {

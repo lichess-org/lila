@@ -160,7 +160,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
               },
             },
           },
-          i18n.study.localAnalysis,
+          i18n.localAnalysis.localAnalysis,
         ),
       (ctrl.idbTree.movesDirty || ctrl.idbTree.hasLocalAnalysis) &&
         hl(
