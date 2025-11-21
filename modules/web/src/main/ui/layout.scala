@@ -145,10 +145,10 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     val i18nModules = i18nMods.map(mod => s"i18n/${mod(I18nModule)}.${ctx.lang.code}")
     scriptsPreload(i18nModules ::: "site" :: modules.map(_.map(_.key)).flatten)
 
-  def scriptsPreload(keys: List[String]) =
+  def scriptsPreload(keys: List[String])(using lang: Lang) =
     frag(
       cashTag,
-      assetHelper.manifest.jsAndDeps("manifest" :: keys).map(jsTag)
+      assetHelper.manifest.jsAndDeps("manifest" :: s"i18n/${lang.locale}" :: keys).map(jsTag)
     )
 
   private def jsTag(name: String): Frag =
