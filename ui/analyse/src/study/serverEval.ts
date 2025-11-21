@@ -91,7 +91,7 @@ function requestButton(ctrl: ServerEval) {
             h(
               'a.button.text',
               { on: { click: () => site.asset.loadEsm('analyse.local', { init: root }) } },
-              i18n.localAnalysis.localAnalysis,
+              i18n.site.localAnalysis,
             ),
           ],
   );

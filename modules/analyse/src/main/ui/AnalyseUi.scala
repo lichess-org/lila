@@ -50,7 +50,7 @@ final class AnalyseUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
             .add("inlinePgn", inlinePgn) ++
             explorerAndCevalConfig
         )
-      .i18n(_.puzzle, _.study, _.localAnalysis)
+      .i18n(_.puzzle, _.study)
       .i18nOpt(ctx.blind, _.keyboardMove, _.nvui)
       .graph(
         title = "Chess analysis board",

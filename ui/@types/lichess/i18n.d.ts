@@ -1753,8 +1753,6 @@ interface I18n {
     doneInX: I18nFormat;
     /** Keep mine */
     keepMine: string;
-    /** Local analysis */
-    localAnalysis: string;
     /** Looks like a similar or better analysis already exists. */
     looksLikeASimilar: string;
     /** Move %1$s of %2$s */
@@ -3659,6 +3657,8 @@ interface I18n {
     loadPosition: string;
     /** Lobby */
     lobby: string;
+    /** Local analysis */
+    localAnalysis: string;
     /** Location */
     location: string;
     /** Sign in to chat */

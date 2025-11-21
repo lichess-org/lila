@@ -1021,4 +1021,5 @@ All operating costs, development, and content are funded solely by user donation
   <string name="clearSearch">Clear search</string>
   <string name="tags">Tags</string>
   <string name="analyse">Analyse</string>
+  <string name="localAnalysis">Local analysis</string>
 </resources>

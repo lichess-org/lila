@@ -89,7 +89,7 @@ final class ReplayUi(helpers: Helpers)(analyseUi: AnalyseUi):
       .css((pov.game.variant == Crazyhouse).option("analyse.zh"))
       .css(ctx.blind.option("round.nvui"))
       .css(ctx.pref.hasKeyboardMove.option("keyboardMove"))
-      .i18n(_.puzzle, _.study, _.localAnalysis)
+      .i18n(_.puzzle, _.study)
       .i18nOpt(ctx.blind, _.keyboardMove, _.nvui)
       .js(analyseNvuiTag)
       .js:

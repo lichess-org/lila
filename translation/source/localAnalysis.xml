@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="localAnalysis">Local analysis</string>
   <string name="serverAnalysis">Server analysis</string>
   <string name="currentGame">Current game</string>
   <string name="cannotBePublished">Cannot be published</string>
