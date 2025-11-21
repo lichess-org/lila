@@ -15,13 +15,6 @@ final class StreamerRepo(
   def byId(id: Streamer.Id): Fu[Option[Streamer]] = coll.byId[Streamer](id)
   def byIds(ids: Iterable[Streamer.Id]): Fu[List[Streamer]] = coll.byIds[Streamer, Streamer.Id](ids)
 
-  def byChannelId(channelId: String): Fu[Option[Streamer]] =
-    coll
-      .find($doc("youTube.channelId" -> channelId, "approval.granted" -> true))
-      .sort($sort.desc("seenAt"))
-      .cursor[Streamer]()
-      .uno
-
   def delete(user: User): Funit =
     coll.delete.one($id(user.id)).void
 
@@ -63,6 +56,13 @@ final class StreamerRepo(
       .cursor[Bdoc]()
       .list(limit)
       .map(_.flatMap(_.getAsOpt[Bdoc](docType).flatMap(_.string(id))))
+
+  private[streamer] def approvedByChannelId(channelId: String): Fu[Option[Streamer]] =
+    coll
+      .find($doc("youTube.channelId" -> channelId, "approval.granted" -> true))
+      .sort($sort.desc("seenAt"))
+      .cursor[Streamer]()
+      .uno
 
   private[streamer] def demote(userId: UserId): Fu[Option[Streamer]] =
     coll

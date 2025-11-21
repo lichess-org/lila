@@ -156,7 +156,7 @@ final private class YoutubeApi(
 
   private def onVideo(channelId: String, videoId: String): Funit =
     repo
-      .byChannelId(channelId)
+      .approvedByChannelId(channelId)
       .flatMap:
         case Some(s) =>
           isLiveStream(videoId).map: isLive =>
