@@ -7,7 +7,7 @@ const twitchClientId = '';
 const twitchClientSecret = '';
 
 const client = new MongoClient(
-  'mongodb://127.0.0.1/lichess?directConnection=true&serverSelectionTimeoutMS=2000&appName=streamer-oauth-migrate'
+  'mongodb://127.0.0.1/lichess?directConnection=true&serverSelectionTimeoutMS=2000&appName=streamer-oauth-migrate',
 );
 
 // ===========================================================================================================
@@ -47,7 +47,7 @@ try {
   console.log('on deployment, during systemctl stop:\n');
   console.log(`mongoimport --db=lichess --collection=streamer --mode=merge --file='${outputPath}'`);
   console.log(
-    `mongosh lichess --eval 'db.streamer.updateMany({ youTube: { $exists:true } },{ $unset: { youTube: "" } })'`
+    `mongosh lichess --eval 'db.streamer.updateMany({ youTube: { $exists:true } },{ $unset: { youTube: "" } })'`,
   );
 } catch (err) {
   console.error(err);
