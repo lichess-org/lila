@@ -296,8 +296,6 @@ const groupSelect = (ctx: RelayViewContext, group: RelayGroup) => {
               {
                 class: {
                   current: tour.id === ctx.relay.data.tour.id,
-                  ['ongoing-tour']: !!tour.live,
-                  ['finished-tour']: !!tour.live,
                 },
                 attrs: { href: ctx.study.embeddablePath(`/broadcast/-/${tour.id}`) },
               },
