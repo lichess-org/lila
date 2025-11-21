@@ -62,7 +62,7 @@ final private class TwitchApi(ws: StandaloneWSClient, repo: StreamerRepo, cfg: T
             subType <- (js \ "subscription" \ "type").asOpt[String]
           do
             subType match
-              case "stream.online" => fetchOne(id).map(_.foreach(l => lives.update(l.user_id, l)))
+              case "stream.online" => fetchStream(id).map(_.foreach(l => lives.update(l.user_id, l)))
               case "stream.offline" => lives.remove(id)
               case "channel.update" =>
                 val title = ~(event \ "title").asOpt[String]
@@ -71,13 +71,6 @@ final private class TwitchApi(ws: StandaloneWSClient, repo: StreamerRepo, cfg: T
               case _ => ()
           fuccess(none)
         case _ => fuccess(none)
-
-  def pubsubSubscribe(id: String, subscribe: Boolean): Funit =
-    if subscribe then eventVersions.keys.map(event => subscribeOne(id, event)).parallel.void
-    else fetchSubs(id).map(deleteSubs)
-
-  def forceCheck(s: Streamer.Twitch): Funit =
-    fetchOne(s.id).map(helix => lives.updateWith(s.id)(_ => helix))
 
   def authorizeUrl(redirectUri: String, state: String, forceVerify: Boolean): String =
     val params = Map(
@@ -108,7 +101,7 @@ final private class TwitchApi(ws: StandaloneWSClient, repo: StreamerRepo, cfg: T
             "Authorization" -> s"Bearer $accessToken"
           )
           .get()
-          .flatMap { userRsp =>
+          .flatMap: userRsp =>
             if userRsp.status != 200 then
               fufail(s"twitch.codeForUser ${lila.log.http(rsp.status, rsp.body)}}")
             else
@@ -116,7 +109,6 @@ final private class TwitchApi(ws: StandaloneWSClient, repo: StreamerRepo, cfg: T
               val id = (data \ "id").as[String]
               val login = (data \ "login").as[String]
               fuccess(id -> login)
-          }
     }
 
   private[streamer] def subscribeAll: Funit = cfg.clientId.nonEmpty.so:
@@ -131,10 +123,10 @@ final private class TwitchApi(ws: StandaloneWSClient, repo: StreamerRepo, cfg: T
           .map(event => (id, event))
       _ <- deleteSubs(subs.filter { case EventSub(_, id, _) => !approved(id) }.toList)
       _ <- wanted.parallelN(8):
-        case (id, event) => subscribeOne(id, event)
+        case (id, event) => subscribeEvent(id, event)
     yield ()
 
-  private[streamer] def syncAll: Funit =
+  private[streamer] def syncAll: Funit = cfg.clientId.nonEmpty.so:
     repo
       .approvedIds("twitch")
       .map: ids =>
@@ -149,7 +141,14 @@ final private class TwitchApi(ws: StandaloneWSClient, repo: StreamerRepo, cfg: T
             ids.iterator.filterNot(freshIds).foreach(lives.remove)
             newLives.foreach { case (id, live) => lives.update(id, live) }
 
-  private def subscribeOne(id: String, event: String) =
+  private[streamer] def forceCheck(s: Streamer.Twitch): Funit =
+    fetchStream(s.id).map(helix => lives.updateWith(s.id)(_ => helix))
+
+  private[streamer] def pubsubSubscribe(id: String, subscribe: Boolean): Funit =
+    if subscribe then eventVersions.keys.map(event => subscribeEvent(id, event)).parallel.void
+    else fetchStreamSubs(id).map(deleteSubs)
+
+  private def subscribeEvent(id: String, event: String) =
     val body = Json
       .obj(
         "type" -> event,
@@ -166,10 +165,10 @@ final private class TwitchApi(ws: StandaloneWSClient, repo: StreamerRepo, cfg: T
         .withHttpHeaders(headersAuth*)
         .post(body)
 
-  private def fetchOne(id: String): Fu[Option[HelixStream]] =
+  private def fetchStream(id: String): Fu[Option[HelixStream]] =
     fetchStreams(Seq(id)).map(_.headOption)
 
-  private def fetchSubs(id: String): Fu[Seq[EventSub]] =
+  private def fetchStreamSubs(id: String): Fu[Seq[EventSub]] =
     ws.url(eventSubEndpoint)
       .withQueryStringParameters("user_id" -> id)
       .withHttpHeaders(headersAuth*)
@@ -195,19 +194,18 @@ final private class TwitchApi(ws: StandaloneWSClient, repo: StreamerRepo, cfg: T
           val js = res.body[JsValue]
           val data = (js \ "data").asOpt[List[JsValue]].getOrElse(Nil)
           val pageSet = data.flatMap: d =>
-            (for
+            for
               subId <- (d \ "id").asOpt[String]
               broadcasterId <- (d \ "condition" \ "broadcaster_user_id").asOpt[String]
               event <- (d \ "type").asOpt[String]
               hook <- (d \ "transport" \ "callback").asOpt[String]
               if hook == webhook
-            yield EventSub(subId, broadcasterId, event)).toList
+            yield EventSub(subId, broadcasterId, event)
 
           val result = soFar ++ pageSet.toSet
           (js \ "pagination" \ "cursor")
             .asOpt[String]
-            .map(next => listSubs(result, next.some))
-            .getOrElse(fuccess(result))
+            .fold(fuccess(result))(after => listSubs(result, after.some))
 
   private def deleteSubs(subs: Seq[EventSub]): Funit =
     ensureToken() >>

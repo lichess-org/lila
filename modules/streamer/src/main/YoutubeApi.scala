@@ -29,53 +29,6 @@ final private class YoutubeApi(
   private var lastResults: List[Youtube.YoutubeStream] = Nil
   private val endpoint = "https://youtube.googleapis.com/youtube/v3"
 
-  def liveMatching(streamers: List[Streamer]): Fu[List[Youtube.YoutubeStream]] =
-    val maxResults = 50
-    val tubers = streamers.flatMap { s => s.youTube.map(Youtube.StreamerWithYoutube(s, _)) }
-    val idPages = tubers
-      .flatMap(tb => Seq(tb.youtube.pubsubVideoId, tb.youtube.liveVideoId).flatten)
-      .distinct
-      .grouped(maxResults)
-    cfg.apiKey.value.nonEmpty
-      .so:
-        idPages.toList.sequentially: idPage =>
-          ws.url(s"$endpoint/videos")
-            .withQueryStringParameters(
-              "part" -> "snippet",
-              "id" -> idPage.mkString(","),
-              "maxResults" -> s"$maxResults",
-              "key" -> cfg.apiKey.value
-            )
-            .get()
-            .map: rsp =>
-              rsp.body[JsValue].validate[Youtube.Result] match
-                case JsSuccess(data, _) =>
-                  data.streams(keyword, tubers.map(_.streamer))
-                case JsError(err) =>
-                  logger.warn(s"youtube ${rsp.status} $err ${rsp.body[String].take(200)}")
-                  Nil
-      .map(_.flatten)
-      .addEffect: streams =>
-        if streams != lastResults then
-          val newStreams = streams.filterNot(s => lastResults.exists(_.videoId == s.videoId))
-          val goneStreams = lastResults.filterNot(s => streams.exists(_.videoId == s.videoId))
-          if newStreams.nonEmpty then
-            logger.info(s"fetchStreams NEW ${newStreams.map(_.channelId).mkString(" ")}")
-          if goneStreams.nonEmpty then
-            logger.info(s"fetchStreams GONE ${goneStreams.map(_.channelId).mkString(" ")}")
-          repo.updateYoutubeChannels(tubers, streams)
-          lastResults = streams
-
-  // youtube does not provide a low quota API to check for videos on a known channel id
-  // and they don't provide the rss feed to non-browsers, so we're left to scrape the html.
-  def forceCheckWithHtmlScraping(tuber: Streamer.YouTube) =
-    ws.url(s"https://www.youtube.com/channel/${tuber.channelId}")
-      .get()
-      .map: rsp =>
-        raw""""videoId":"(\S{11})"""".r
-          .findFirstMatchIn(rsp.body)
-          .foreach(m => onVideo(tuber.channelId, m.group(1)))
-
   def onVideoXml(xml: scala.xml.NodeSeq): Funit =
     val channel = (xml \ "entry" \ "channelId").text
     val video = (xml \ "entry" \ "videoId").text
@@ -86,28 +39,6 @@ final private class YoutubeApi(
       if deleted.nonEmpty
       then logger.debug(s"onYouTubeVideo deleted-entry $deleted")
       funit
-
-  def channelSubscribe(channelId: String, subscribe: Boolean): Funit = ws
-    .url("https://pubsubhubbub.appspot.com/subscribe")
-    .addHttpHeaders("content-type" -> "application/x-www-form-urlencoded")
-    .post(
-      asFormBody(
-        "hub.callback" -> s"https://${net.domain}/api/x/streamer/youtube-pubsub",
-        "hub.topic" -> s"https://www.youtube.com/xml/feeds/videos.xml?channel_id=$channelId",
-        "hub.verify" -> "async",
-        "hub.mode" -> (if subscribe then "subscribe" else "unsubscribe"),
-        "hub.lease_seconds" -> s"${3600 * 24 * 10}" // 10 days seems to be the max
-      )
-    )
-    .flatMap:
-      case res if res.status / 100 == 2 =>
-        logger.info(s"WebSub: REQUESTED ${if subscribe then "subscribe" else "unsubscribe"} on $channelId")
-        funit
-      case res =>
-        logger.info(
-          s"WebSub: FAILED ${if subscribe then "subscribe" else "unsubscribe"} on $channelId ${res.status}"
-        )
-        fufail(s"YouTubeApi.channelSubscribe $channelId failed ${lila.log.http(res.status, res.body)}")
 
   def authorizeUrl(redirectUri: String, state: String, forceVerify: Boolean): String =
     val params = Map(
@@ -147,6 +78,75 @@ final private class YoutubeApi(
                   items.value.iterator
                     .map(it => (it \ "id").as[String] -> (it \ "snippet" \ "title").as[String].trim())
                     .toMap
+
+  private[streamer] def liveMatching(streamers: List[Streamer]): Fu[List[Youtube.YoutubeStream]] =
+    val maxResults = 50
+    val tubers = streamers.flatMap { s => s.youTube.map(Youtube.StreamerWithYoutube(s, _)) }
+    val idPages = tubers
+      .flatMap(tb => Seq(tb.youtube.pubsubVideoId, tb.youtube.liveVideoId).flatten)
+      .distinct
+      .grouped(maxResults)
+    cfg.apiKey.value.nonEmpty
+      .so:
+        idPages.toList.sequentially: idPage =>
+          ws.url(s"$endpoint/videos")
+            .withQueryStringParameters(
+              "part" -> "snippet",
+              "id" -> idPage.mkString(","),
+              "maxResults" -> s"$maxResults",
+              "key" -> cfg.apiKey.value
+            )
+            .get()
+            .map: rsp =>
+              rsp.body[JsValue].validate[Youtube.Result] match
+                case JsSuccess(data, _) =>
+                  data.streams(keyword, tubers.map(_.streamer))
+                case JsError(err) =>
+                  logger.warn(s"youtube ${rsp.status} $err ${rsp.body[String].take(200)}")
+                  Nil
+      .map(_.flatten)
+      .addEffect: streams =>
+        if streams != lastResults then
+          val newStreams = streams.filterNot(s => lastResults.exists(_.videoId == s.videoId))
+          val goneStreams = lastResults.filterNot(s => streams.exists(_.videoId == s.videoId))
+          if newStreams.nonEmpty then
+            logger.info(s"fetchStreams NEW ${newStreams.map(_.channelId).mkString(" ")}")
+          if goneStreams.nonEmpty then
+            logger.info(s"fetchStreams GONE ${goneStreams.map(_.channelId).mkString(" ")}")
+          repo.updateYoutubeChannels(tubers, streams)
+          lastResults = streams
+
+  private[streamer] def channelSubscribe(channelId: String, subscribe: Boolean): Funit = ws
+    .url("https://pubsubhubbub.appspot.com/subscribe")
+    .addHttpHeaders("content-type" -> "application/x-www-form-urlencoded")
+    .post(
+      asFormBody(
+        "hub.callback" -> s"https://${net.domain}/api/x/streamer/youtube-pubsub",
+        "hub.topic" -> s"https://www.youtube.com/xml/feeds/videos.xml?channel_id=$channelId",
+        "hub.verify" -> "async",
+        "hub.mode" -> (if subscribe then "subscribe" else "unsubscribe"),
+        "hub.lease_seconds" -> s"${3600 * 24 * 10}" // 10 days seems to be the max
+      )
+    )
+    .flatMap:
+      case res if res.status / 100 == 2 =>
+        logger.info(s"WebSub: REQUESTED ${if subscribe then "subscribe" else "unsubscribe"} on $channelId")
+        funit
+      case res =>
+        logger.info(
+          s"WebSub: FAILED ${if subscribe then "subscribe" else "unsubscribe"} on $channelId ${res.status}"
+        )
+        fufail(s"YouTubeApi.channelSubscribe $channelId failed ${lila.log.http(res.status, res.body)}")
+
+  // youtube does not provide a low quota API to check for videos on a known channel id
+  // and they don't provide the rss feed to non-browsers, so we're left to scrape the html.
+  private[streamer] def forceCheckWithHtmlScraping(tuber: Streamer.YouTube) =
+    ws.url(s"https://www.youtube.com/channel/${tuber.channelId}")
+      .get()
+      .map: rsp =>
+        raw""""videoId":"(\S{11})"""".r
+          .findFirstMatchIn(rsp.body)
+          .foreach(m => onVideo(tuber.channelId, m.group(1)))
 
   private[streamer] def subscribeAll: Funit = cfg.apiKey.value.nonEmpty.so:
     for
