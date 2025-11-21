@@ -61,6 +61,8 @@ trait AssetHelper:
 
   def staticAssetUrl(path: String): Url = Url(s"$assetBaseUrl/assets/$path")
 
+  def staticCompiledUrl(path: String): Url = staticAssetUrl(s"compiled/$path")
+
   def cdnUrl(path: String) = Url(s"$assetBaseUrl$path")
 
   def flairSrc(flair: Flair): Url = staticAssetUrl(s"$flairVersion/flair/img/$flair.webp")

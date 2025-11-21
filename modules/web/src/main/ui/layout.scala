@@ -152,7 +152,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     )
 
   private def jsTag(name: String): Frag =
-    script(tpe := "module", src := staticAssetUrl(s"compiled/$name"))
+    script(tpe := "module", src := staticCompiledUrl(name))
 
   def modulesInit(modules: EsmList, nonce: Optionce) =
     modules.flatMap(_.map(_.init(nonce))) // in body
