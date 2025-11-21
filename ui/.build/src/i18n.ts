@@ -184,20 +184,35 @@ export async function i18nManifest(): Promise<void> {
 
   await Promise.all(
     (await fg.glob('*.js', { cwd: env.i18nJsDir, absolute: true })).map(async file => {
-      const name = `i18n/${basename(file, '.js')}`;
+      const name = basename(file, '.js');
+      const tail = name.slice(name.lastIndexOf('.') + 1);
+      const path = `i18n/${name}`;
       const content = await fs.promises.readFile(file, 'utf-8');
       const hash = crypto.createHash('md5').update(content).digest('hex').slice(0, 12);
-      const destPath = join(env.jsOutDir, `${name}.${hash}.js`);
+      const destPath = join(env.jsOutDir, `${path}.${hash}.js`);
 
-      i18n[name] = { hash };
+      i18n[path] = { hash: `${tail}.${hash}` };
 
       if (!(await readable(destPath))) await fs.promises.writeFile(destPath, content);
     }),
   );
   await Promise.all(
     cats.map(cat => {
-      const path = `i18n/${cat}.en-GB.${i18n[`i18n/${cat}.en-GB`].hash}.js`;
-      return Promise.all(locales.map(locale => (i18n[`i18n/${cat}.${locale}`] ??= { path })));
+      const hash = i18n[`i18n/${cat}.en-GB`].hash;
+      return Promise.all(locales.map(locale => (i18n[`i18n/${cat}.${locale}`] ??= { hash })));
+    }),
+  );
+  await Promise.all(
+    ['en-GB', ...locales].map(async locale => {
+      const path = `i18n/${locale}`;
+      const content =
+        ['window.site.manifest.i18n={'] +
+        cats.map(cat => `${cat}:'${i18n['i18n/' + cat + '.' + locale].hash}'`).join(',') +
+        '}';
+      const hash = crypto.createHash('md5').update(content).digest('hex').slice(0, 12);
+      const destPath = join(env.jsOutDir, `${path}.${hash}.js`);
+      i18n[path] = { hash };
+      if (!(await readable(destPath))) await fs.promises.writeFile(destPath, content);
     }),
   );
   updateManifest({ i18n });
@@ -213,12 +228,14 @@ interface I18nPlural {
   asArray: <T>(quantity: number, ...args: T[]) => (T | string)[]; // vdomPlural / plural
 }
 interface I18n {
-  /** Global noarg key lookup (only if absolutely necessary). */
+  /** fetch i18n dynamically */
+  load(category: string): Promise<void>;
+  /** global noarg key lookup */
   (key: string): string;
   quantity: (count: number) => 'zero' | 'one' | 'two' | 'few' | 'many' | 'other';\n\n`;
 
 const jsPrelude =
-  '"use strict";(()=>{' +
+  '"use strict";(function(){' +
   (await minify(
     // s(...) is the standard format function, p(...) is the plural format function.
     // both have an asArray method for vdom.
@@ -248,14 +265,16 @@ const jsPrelude =
       }`,
   ));
 
-const siteInit = await minify(
-  `window.i18n = function(k) {
-      for (let v of Object.values(window.i18n)) {
-        if (v[k]) return v[k];
-        return k;
-      }
-  }`,
-);
+const siteInit = await minify(`
+  window.i18n = function(k) {
+    for (let v of Object.values(window.i18n)) {
+      if (v[k]) return v[k];
+      return k;
+    }
+  };
+  window.i18n.load = function(c) {
+    return import(site.asset.url('compiled/i18n/' + c + '.' + site.manifest.i18n[c] + '.js'));
+  };`);
 
 const jsQuantity = [
   {

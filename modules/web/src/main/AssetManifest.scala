@@ -23,6 +23,7 @@ final class AssetManifest(getFile: GetRelativeFile):
 
   def css(key: String): String = maps.css.getOrElse(key, key)
   def hashed(path: String): Option[String] = maps.hashed.get(path)
+  def js(key: String): Option[String] = maps.js.get(key).flatMap(_.path)
   def jsAndDeps(keys: List[String]): List[String] = keys.flatMap { key =>
     maps.js.get(key).so(_.allModules)
   }.distinct
@@ -65,7 +66,7 @@ final class AssetManifest(getFile: GetRelativeFile):
         case (k, value) =>
           val path = (value \ "hash")
             .asOpt[String]
-            .map(h => s"$k.$h.js")
+            .map(h => s"$k.${h.split("\\.", 2).lift(1).getOrElse(h)}.js") // ignore locales in i18n hashes
             .orElse((value \ "path").asOpt[String])
           val imports = (value \ "imports").asOpt[List[String]].getOrElse(Nil)
           val inlineJs = (value \ "inline").asOpt[String]

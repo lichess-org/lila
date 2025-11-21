@@ -126,7 +126,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
           ),
         setup =>
           env.relay.api.tourUpdate(nav.tour, setup) >>
-            negotiate(Redirect(routes.RelayRound.form(nav.tour.id)).flashSuccess, jsonOkResult)
+            negotiate(Redirect(routes.RelayTour.edit(nav.tour.id)).flashSuccess, jsonOkResult)
       )
   }
 

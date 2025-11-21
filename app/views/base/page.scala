@@ -40,7 +40,7 @@ object page:
 
   def apply(p: Page)(using ctx: PageContext): RenderedPage =
     import ctx.pref
-    val allModules = p.modules ++
+    val allModules = p.modules ++ i18nCatalog(ctx.lang.code) ++
       p.pageModule.so(module => esmPage(module.name)) ++
       ctx.needsFp.so(fingerprintTag)
     val zenable = p.flags(PageFlags.zen)
