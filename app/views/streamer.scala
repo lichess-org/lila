@@ -6,7 +6,7 @@ import play.api.libs.json.*
 import lila.app.UiEnv.{ *, given }
 import lila.core.perf.{ UserPerfs, UserWithPerfs }
 import lila.rating.UserPerfsExt.best6Perfs
-import lila.streamer.Streamer
+import lila.streamer.{ Streamer, Platform }
 
 lazy val bits = lila.streamer.ui.StreamerBits(helpers)(picfitUrl)
 private lazy val ui = lila.streamer.ui.StreamerUi(helpers, bits)
@@ -30,16 +30,13 @@ def create(using Context) =
     .css("bits.streamer.form")(bits.create)
 
 object oauth:
-  def apply(platform: String, href: String, result: Either[String, Map[String, String]]) =
-    val assetUrl = staticAssetUrl(s"compiled/${~assetHelper.manifest.js("bits.oauthPopup")}")
-    val jsonResult = Json
-      .obj(
-        "platform" -> platform,
-        "href" -> href,
-        "result" -> (result match
-          case Left(url) => url
-          case Right(idsMap) => Json.toJson(idsMap).as[JsObject])
-      )
+  def apply(platform: Platform, href: String, result: Either[String, Map[String, String]]) =
+    val assetUrl = staticCompiledUrl(~assetHelper.manifest.js("bits.oauthPopup"))
+    val jsonResult = Json.obj(
+      "platform" -> platform,
+      "href" -> href,
+      "result" -> result.fold(identity, Json.toJsObject)
+    )
     frag(
       views.base.page.ui.doctype,
       html(
