@@ -29,6 +29,13 @@ final class StreamerRepo(
       val s = Streamer.WithUser(Streamer.make(user), user)
       coll.insert.one(s.streamer).inject(s.some)
 
+  def byChannelId(channelId: String): Fu[Option[Streamer]] =
+    coll
+      .find($doc("youTube.channelId" -> channelId, "approval.granted" -> true))
+      .sort($sort.desc("seenAt"))
+      .cursor[Streamer]()
+      .uno
+
   def delete(user: User): Funit =
     coll.delete.one($id(user.id)).void
 
@@ -38,17 +45,15 @@ final class StreamerRepo(
   def update(streamer: Streamer): Funit =
     coll.update.one($id(streamer.id), streamer).void
 
-  def withUsers(live: LiveStreams)(using me: Option[MyId]): Fu[List[Streamer.WithUserAndStream]] = for
-    users <- userApi.byIds(live.streams.map(_.streamer.userId))
-    subs <- me.so(subsRepo.filterSubscribed(_, users.map(_.id)))
-  yield live.streams.flatMap: s =>
-    users
-      .find(_.is(s.streamer))
-      .map:
-        Streamer.WithUserAndStream(s.streamer, _, s.some, subs(s.streamer.userId))
-
-  def setTwitchLogin(id: Streamer.Id, login: String): Funit =
-    coll.update.one($id(id), $set("twitch.login" -> login)).void
+  def withUsers(live: LiveStreams)(using me: Option[MyId]): Fu[List[Streamer.WithUserAndStream]] =
+    for
+      users <- userApi.byIds(live.streams.map(_.streamer.userId))
+      subs <- me.so(subsRepo.filterSubscribed(_, users.map(_.id)))
+    yield live.streams.flatMap: s =>
+      users
+        .find(_.is(s.streamer))
+        .map:
+          Streamer.WithUserAndStream(s.streamer, _, s.some, subs(s.streamer.userId))
 
   def setSeenAt(user: User): Funit =
     coll.update.one($id(user.id), $set("seenAt" -> nowInstant)).void
@@ -66,6 +71,19 @@ final class StreamerRepo(
         )
       _ <- elements.nonEmpty.so(update.many(elements).void)
     yield ()
+
+  def approvedIds(platform: Platform, limit: Int = 1000): Fu[Seq[String]] =
+    val field = if platform == "youtube" then "youTube.channelId" else "twitch.id"
+    val Array(docType, id) = field.split("\\.", 2)
+    coll
+      .find(
+        $doc(field.$exists(true), "approval.granted" -> true),
+        $doc(field -> true).some
+      )
+      .sort($doc("lastSeenAt" -> -1))
+      .cursor[Bdoc]()
+      .list(limit)
+      .map(_.flatMap(_.getAsOpt[Bdoc](docType).flatMap(_.string(id))))
 
   def demote(userId: UserId): Fu[Option[Streamer]] =
     coll
@@ -96,16 +114,43 @@ final class StreamerRepo(
       )
       .void
 
-  def approvedTwitchIds(): Fu[Seq[String]] =
-    coll
-      .find(
-        $doc("twitch.id".$exists(true), "approval.granted" -> true),
-        $doc("twitch.id" -> true).some
-      )
-      .sort($doc("lastSeenAt" -> -1))
-      .cursor[Bdoc]()
-      .list(limit = 3200) // 3200 is not arbitrary. we have 3 subs per streamer and the limit is 10k
-      .map(_.flatMap(_.getAsOpt[Bdoc]("twitch").flatMap(_.string("id"))))
+  private[streamer] def updateYoutubeChannels(
+      tubers: List[Youtube.StreamerWithYoutube],
+      results: List[Youtube.YoutubeStream]
+  ): Funit =
+    val bulk = coll.update(ordered = false)
+    tubers
+      .parallel: tuber =>
+        val liveVid = results.find(_.channelId == tuber.youtube.channelId)
+        bulk.element(
+          q = $id(tuber.streamer.id),
+          u = $doc(
+            liveVid match
+              case Some(v) => $set("youTube.liveVideoId" -> v.videoId) ++ $unset("youTube.pubsubVideoId")
+              case None => $unset("youTube.liveVideoId", "youTube.pubsubVideoId")
+          )
+        )
+      .map(bulk.many(_))
+
+  private[streamer] def setTwitchLogin(id: Streamer.Id, login: String): Funit =
+    coll.update.one($id(id), $set("twitch.login" -> login)).void
+
+  private[streamer] def setYoutubePubsubVideo(id: Streamer.Id, videoId: String): Funit =
+    coll.update.one($doc("_id" -> id), $set("youTube.pubsubVideoId" -> videoId)).void
+
+  private[streamer] def unignore(userId: UserId): Funit =
+    coll.updateField($id(userId), "approval.ignored", false).void
+
+  private[streamer] def makeCaches =
+    val selectListedApproved = $doc("listed" -> true, "approval.granted" -> true)
+    val listedIds = cacheApi.unit[Set[Streamer.Id]]:
+      _.refreshAfterWrite(1.hour).buildAsyncTimeout(): _ =>
+        coll.secondary.distinctEasy[Streamer.Id, Set]("_id", selectListedApproved)
+    val candidateIds = cacheApi.unit[Set[Streamer.Id]]:
+      _.refreshAfterWrite(1.hour).buildAsyncTimeout(): _ =>
+        coll.secondary
+          .distinctEasy[Streamer.Id, Set]("_id", selectListedApproved ++ $doc("liveAt".$exists(false)))
+    (listedIds, candidateIds)
 
   object oauth:
     private def dbKey(platform: Platform): String =
@@ -134,17 +179,3 @@ final class StreamerRepo(
         _ <- coll.update
           .one($id(streamer.id), $set("youTube" -> newYoutube, "updatedAt" -> nowInstant))
       yield newYoutube.fullUrl
-
-  private[streamer] def unignore(userId: UserId): Funit =
-    coll.updateField($id(userId), "approval.ignored", false).void
-
-  private[streamer] def makeCaches =
-    val selectListedApproved = $doc("listed" -> true, "approval.granted" -> true)
-    val listedIds = cacheApi.unit[Set[Streamer.Id]]:
-      _.refreshAfterWrite(1.hour).buildAsyncTimeout(): _ =>
-        coll.secondary.distinctEasy[Streamer.Id, Set]("_id", selectListedApproved)
-    val candidateIds = cacheApi.unit[Set[Streamer.Id]]:
-      _.refreshAfterWrite(1.hour).buildAsyncTimeout(): _ =>
-        coll.secondary
-          .distinctEasy[Streamer.Id, Set]("_id", selectListedApproved ++ $doc("liveAt".$exists(false)))
-    (listedIds, candidateIds)

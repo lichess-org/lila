@@ -122,12 +122,12 @@ final class StreamerUi(helpers: Helpers, bits: StreamerBits)(using netDomain: Ne
             s.streamer.approval.chatEnabled.option(
               div(cls := "streamer-chat")(
                 s.stream match
-                  case Some(Youtube.YoutubeStream(_, _, videoId, _, _)) =>
+                  case Some(yt: Youtube.YoutubeStream) =>
                     iframe(
                       frame.credentialless,
                       st.frameborder := "0",
                       frame.scrolling := "no",
-                      src := s"https://www.youtube.com/live_chat?v=$videoId&embed_domain=$netDomain"
+                      src := s"https://www.youtube.com/live_chat?v=${yt.videoId}&embed_domain=$netDomain"
                     )
                   case _ =>
                     s.streamer.twitch.map: twitch =>
@@ -144,10 +144,10 @@ final class StreamerUi(helpers: Helpers, bits: StreamerBits)(using netDomain: Ne
           ),
           div(cls := "page-menu__content")(
             s.stream match
-              case Some(Youtube.YoutubeStream(_, _, videoId, _, _)) =>
+              case Some(yt: Youtube.YoutubeStream) =>
                 div(cls := "box embed youTube")(
                   iframe(
-                    src := s"https://www.youtube-nocookie.com/embed/$videoId?autoplay=1",
+                    src := s"https://www.youtube-nocookie.com/embed/${yt.videoId}?autoplay=1",
                     st.frameborder := "0",
                     frame.allowfullscreen,
                     frame.credentialless

@@ -6,13 +6,11 @@ import play.api.libs.ws.DefaultBodyReadables.*
 import play.api.libs.ws.DefaultBodyWritables.*
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
-import reactivemongo.api.bson.*
 
 import lila.common.Json.given
 import lila.common.String.html.unescapeHtml
 import lila.common.autoconfig.ConfigName
 import lila.core.config.{ NetConfig, Secret }
-import lila.db.dsl.{ *, given }
 
 private class YoutubeConfig(
     @ConfigName("api_key") val apiKey: Secret,
@@ -22,22 +20,20 @@ private class YoutubeConfig(
 
 final private class YoutubeApi(
     ws: StandaloneWSClient,
-    coll: lila.db.dsl.Coll,
+    repo: StreamerRepo,
     keyword: Stream.Keyword,
     cfg: YoutubeConfig,
     net: NetConfig
-)(using Executor, akka.stream.Materializer):
+)(using Executor):
 
   private var lastResults: List[Youtube.YoutubeStream] = Nil
   private val endpoint = "https://youtube.googleapis.com/youtube/v3"
 
-  private case class Tuber(streamer: Streamer, youTube: Streamer.YouTube)
-
   def liveMatching(streamers: List[Streamer]): Fu[List[Youtube.YoutubeStream]] =
     val maxResults = 50
-    val tubers = streamers.flatMap { s => s.youTube.map(Tuber(s, _)) }
+    val tubers = streamers.flatMap { s => s.youTube.map(Youtube.StreamerWithYoutube(s, _)) }
     val idPages = tubers
-      .flatMap(tb => Seq(tb.youTube.pubsubVideoId, tb.youTube.liveVideoId).flatten)
+      .flatMap(tb => Seq(tb.youtube.pubsubVideoId, tb.youtube.liveVideoId).flatten)
       .distinct
       .grouped(maxResults)
     cfg.apiKey.value.nonEmpty
@@ -67,7 +63,7 @@ final private class YoutubeApi(
             logger.info(s"fetchStreams NEW ${newStreams.map(_.channelId).mkString(" ")}")
           if goneStreams.nonEmpty then
             logger.info(s"fetchStreams GONE ${goneStreams.map(_.channelId).mkString(" ")}")
-          syncDb(tubers, streams)
+          repo.updateYoutubeChannels(tubers, streams)
           lastResults = streams
 
   // youtube does not provide a low quota API to check for videos on a known channel id
@@ -114,8 +110,7 @@ final private class YoutubeApi(
         fufail(s"YouTubeApi.channelSubscribe $channelId failed ${lila.log.http(res.status, res.body)}")
 
   def authorizeUrl(redirectUri: String, state: String, forceVerify: Boolean): String =
-    import java.net.URLEncoder.encode
-    val params = List(
+    val params = Map(
       "client_id" -> cfg.clientId,
       "redirect_uri" -> redirectUri,
       "response_type" -> "code",
@@ -124,9 +119,7 @@ final private class YoutubeApi(
       "include_granted_scopes" -> "true",
       "state" -> state
     ) ++ forceVerify.option("prompt" -> "consent")
-    "https://accounts.google.com/o/oauth2/v2/auth?" + params
-      .map { case (k, v) => s"$k=${encode(v, "UTF-8")}" }
-      .mkString("&")
+    "https://accounts.google.com/o/oauth2/v2/auth?" + lila.common.url.queryString(params)
 
   def oauthFetchChannels(code: String, redirectUri: String): Fu[Map[String, String]] =
     val body = Map(
@@ -156,35 +149,21 @@ final private class YoutubeApi(
                     .toMap
 
   private[streamer] def subscribeAll: Funit = cfg.apiKey.value.nonEmpty.so:
-    import akka.stream.scaladsl.*
-    import reactivemongo.akkastream.cursorProducer
-    coll
-      .find(
-        $doc("youTube.channelId".$exists(true), "approval.granted" -> true),
-        $doc("youTube.channelId" -> true).some
-      )
-      .cursor[Bdoc]()
-      .documentSource()
-      .mapConcat(_.getAsOpt[Bdoc]("youTube").flatMap(_.string("channelId")).toList)
-      .mapAsyncUnordered(1) { channelSubscribe(_, true) }
-      .toMat(lila.common.LilaStream.sinkCount)(Keep.right)
-      .run()
-      .map(nb => logger.info(s"YouTubeApi.subscribeAll: done $nb"))
+    for
+      channelIds <- repo.approvedIds("youtube")
+      _ <- channelIds.parallelN(8) { channelSubscribe(_, true) }
+    yield logger.info(s"YouTubeApi.subscribeAll: done ${channelIds.size}")
 
   private def onVideo(channelId: String, videoId: String): Funit =
-    import BsonHandlers.given
-    coll
-      .find($doc("youTube.channelId" -> channelId, "approval.granted" -> true))
-      .sort($sort.desc("seenAt"))
-      .cursor[Streamer]()
-      .uno
+    repo
+      .byChannelId(channelId)
       .flatMap:
         case Some(s) =>
           isLiveStream(videoId).map: isLive =>
             // this is the only notification we'll get, so don't filter offline users here.
             if isLive then
+              repo.setYoutubePubsubVideo(s.id, videoId)
               logger.info(s"YouTube: LIVE ${s.id} vid:$videoId ch:$channelId")
-              coll.update.one($doc("_id" -> s.id), $set("youTube.pubsubVideoId" -> videoId))
             else logger.debug(s"YouTube: IGNORED ${s.id} vid:$videoId ch:$channelId")
         case None =>
           fuccess:
@@ -214,21 +193,6 @@ final private class YoutubeApi(
 
   private def asFormBody(params: (String, String)*): String =
     params.map((key, value) => s"$key=${java.net.URLEncoder.encode(value, "UTF-8")}").mkString("&")
-
-  private def syncDb(tubers: List[Tuber], results: List[Youtube.YoutubeStream]): Funit =
-    val bulk = coll.update(ordered = false)
-    tubers
-      .parallel: tuber =>
-        val liveVid = results.find(_.channelId == tuber.youTube.channelId)
-        bulk.element(
-          q = $id(tuber.streamer.id),
-          u = $doc(
-            liveVid match
-              case Some(v) => $set("youTube.liveVideoId" -> v.videoId) ++ $unset("youTube.pubsubVideoId")
-              case None => $unset("youTube.liveVideoId", "youTube.pubsubVideoId")
-          )
-        )
-      .map(bulk.many(_))
 
 object Youtube:
   case class Snippet(
@@ -267,6 +231,8 @@ object Youtube:
       embed = _ => s"https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&disablekb=1&color=white",
       redirect = s"https://www.youtube.com/watch?v=${videoId}"
     )
+
+  case class StreamerWithYoutube(streamer: Streamer, youtube: Streamer.YouTube)
 
   private given Reads[Snippet] = Json.reads
   private given Reads[Item] = Json.reads

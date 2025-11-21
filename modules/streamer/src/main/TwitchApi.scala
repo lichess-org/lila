@@ -14,23 +14,22 @@ import lila.core.config.Secret
 import lila.core.config.NetConfig
 import lila.core.data.Html
 
-final private class TwitchApi(
-    ws: StandaloneWSClient,
-    repo: StreamerRepo,
-    config: TwitchConfig,
-    net: NetConfig
-)(using Executor):
+final private class TwitchApi(ws: StandaloneWSClient, repo: StreamerRepo, cfg: TwitchConfig, net: NetConfig)(
+    using Executor
+):
+
   import Twitch.{ given, * }
 
   private val webhook = s"https://${net.domain}/api/streamer/twitch-eventsub"
   private val helixEndpoint = "https://api.twitch.tv/helix"
   private val eventSubEndpoint = s"$helixEndpoint/eventsub/subscriptions"
   private val authEndpoint = "https://id.twitch.tv/oauth2"
-  private val eventTypes = List(("stream.online", "1"), ("stream.offline", "1"), ("channel.update", "2"))
+  private val eventVersions =
+    Map("stream.online" -> "1", "stream.offline" -> "1", "channel.update" -> "2")
   private var tmpToken = Secret("init")
   private val lives = TrieMap.empty[String, HelixStream]
 
-  private case class EventSub(subId: String, broadcasterId: String, tpe: String)
+  private case class EventSub(subId: String, broadcasterId: String, event: String)
 
   def liveMatching(
       streamers: List[Streamer],
@@ -74,28 +73,27 @@ final private class TwitchApi(
         case _ => fuccess(none)
 
   def pubsubSubscribe(id: String, subscribe: Boolean): Funit =
-    if subscribe then eventTypes.map((tpe, version) => subscribeOne(id, tpe, version)).parallel.void
+    if subscribe then eventVersions.keys.map(event => subscribeOne(id, event)).parallel.void
     else fetchSubs(id).map(deleteSubs)
 
   def forceCheck(s: Streamer.Twitch): Funit =
     fetchOne(s.id).map(helix => lives.updateWith(s.id)(_ => helix))
 
   def authorizeUrl(redirectUri: String, state: String, forceVerify: Boolean): String =
-    import java.net.URLEncoder.encode
-    val params = List(
-      "client_id" -> config.clientId,
+    val params = Map(
+      "client_id" -> cfg.clientId,
       "redirect_uri" -> redirectUri,
       "response_type" -> "code",
       "scope" -> "", // ?
       "state" -> state,
       "force_verify" -> forceVerify.toString
     )
-    s"$authEndpoint/authorize?" + params.map { case (k, v) => s"$k=${encode(v, "UTF-8")}" }.mkString("&")
+    s"$authEndpoint/authorize?" + lila.common.url.queryString(params)
 
   def oauthFetchUser(code: String, redirectUri: String): Fu[(String, String)] =
     val body = Map(
-      "client_id" -> config.clientId,
-      "client_secret" -> config.secret.value,
+      "client_id" -> cfg.clientId,
+      "client_secret" -> cfg.secret.value,
       "code" -> code,
       "grant_type" -> "authorization_code",
       "redirect_uri" -> redirectUri
@@ -106,7 +104,7 @@ final private class TwitchApi(
         val accessToken = (rsp.body[JsValue] \ "access_token").as[String]
         ws.url(s"$helixEndpoint/users")
           .withHttpHeaders(
-            "Client-ID" -> config.clientId,
+            "Client-ID" -> cfg.clientId,
             "Authorization" -> s"Bearer $accessToken"
           )
           .get()
@@ -121,24 +119,24 @@ final private class TwitchApi(
           }
     }
 
-  private[streamer] def subscribeAll: Funit =
+  private[streamer] def subscribeAll: Funit = cfg.clientId.nonEmpty.so:
     for
-      ids <- repo.approvedTwitchIds()
+      ids <- repo.approvedIds("twitch")
       subs <- listSubs(Set.empty, none)
-      existing = subs.map(s => (s.broadcasterId, s.tpe)).toSet
+      existing = subs.map(sub => (sub.broadcasterId, sub.event)).toSet
       approved = ids.toSet
       wanted = ids.flatMap: id =>
-        eventTypes
-          .filterNot { case (tpe, _) => existing((id, tpe)) }
-          .map { case (tpe, version) => (id, tpe, version) }
+        eventVersions.keys
+          .filterNot(event => existing(id, event))
+          .map(event => (id, event))
       _ <- deleteSubs(subs.filter { case EventSub(_, id, _) => !approved(id) }.toList)
-      _ <- parallelN(wanted, 8):
-        case (id, tpe, version) => subscribeOne(id, tpe, version)
+      _ <- wanted.parallelN(8):
+        case (id, event) => subscribeOne(id, event)
     yield ()
 
   private[streamer] def syncAll: Funit =
     repo
-      .approvedTwitchIds()
+      .approvedIds("twitch")
       .map: ids =>
         ids
           .grouped(100)
@@ -151,17 +149,18 @@ final private class TwitchApi(
             ids.iterator.filterNot(freshIds).foreach(lives.remove)
             newLives.foreach { case (id, live) => lives.update(id, live) }
 
-  private def subscribeOne(id: String, tpe: String, version: String) =
-    val body = Json.obj(
-      "type" -> tpe,
-      "version" -> version,
-      "condition" -> Json.obj("broadcaster_user_id" -> id),
-      "transport" -> Json.obj(
-        "method" -> "webhook",
-        "callback" -> webhook,
-        "secret" -> config.secret.value
+  private def subscribeOne(id: String, event: String) =
+    val body = Json
+      .obj(
+        "type" -> event,
+        "condition" -> Json.obj("broadcaster_user_id" -> id),
+        "transport" -> Json.obj(
+          "method" -> "webhook",
+          "callback" -> webhook,
+          "secret" -> cfg.secret.value
+        )
       )
-    )
+      .add("version" -> eventVersions.get(event))
     ensureToken() >>
       ws.url(eventSubEndpoint)
         .withHttpHeaders(headersAuth*)
@@ -181,10 +180,10 @@ final private class TwitchApi(
         data.flatMap: sub =>
           for
             subId <- (sub \ "id").asOpt[String]
-            tpe <- (sub \ "type").asOpt[String]
+            event <- (sub \ "type").asOpt[String]
             hook <- (sub \ "transport" \ "callback").asOpt[String]
             if hook == webhook
-          yield EventSub(subId, id, tpe)
+          yield EventSub(subId, id, event)
 
   private def listSubs(soFar: Set[EventSub], after: Option[String]): Fu[Set[EventSub]] =
     val request = ws.url(eventSubEndpoint).withHttpHeaders(headersAuth*)
@@ -199,10 +198,10 @@ final private class TwitchApi(
             (for
               subId <- (d \ "id").asOpt[String]
               broadcasterId <- (d \ "condition" \ "broadcaster_user_id").asOpt[String]
-              tpe <- (d \ "type").asOpt[String]
+              event <- (d \ "type").asOpt[String]
               hook <- (d \ "transport" \ "callback").asOpt[String]
               if hook == webhook
-            yield EventSub(subId, broadcasterId, tpe)).toList
+            yield EventSub(subId, broadcasterId, event)).toList
 
           val result = soFar ++ pageSet.toSet
           (js \ "pagination" \ "cursor")
@@ -212,7 +211,7 @@ final private class TwitchApi(
 
   private def deleteSubs(subs: Seq[EventSub]): Funit =
     ensureToken() >>
-      parallelN(subs, 8):
+      subs.parallelN(8):
         case EventSub(subId, _, _) =>
           ws.url(s"$eventSubEndpoint?id=$subId")
             .withHttpHeaders(headersAuth*)
@@ -237,7 +236,7 @@ final private class TwitchApi(
     def header(name: String): Option[String] = headers.get(s"Twitch-Eventsub-Message-$name")
 
     val expected = javax.crypto.Mac.getInstance("HmacSHA256")
-    expected.init(new javax.crypto.spec.SecretKeySpec(config.secret.value.getBytes("UTF-8"), "HmacSHA256"))
+    expected.init(new javax.crypto.spec.SecretKeySpec(cfg.secret.value.getBytes("UTF-8"), "HmacSHA256"))
     val mac = expected
       .doFinal(((header("Id") ++ header("Timestamp")).mkString + rawBody).getBytes())
       .map("%02x".format(_))
@@ -251,8 +250,8 @@ final private class TwitchApi(
   private def renewToken(): Funit =
     ws.url("https://id.twitch.tv/oauth2/token")
       .withQueryStringParameters(
-        "client_id" -> config.clientId,
-        "client_secret" -> config.secret.value,
+        "client_id" -> cfg.clientId,
+        "client_secret" -> cfg.secret.value,
         "grant_type" -> "client_credentials"
       )
       .post(Map.empty[String, String])
@@ -267,13 +266,10 @@ final private class TwitchApi(
 
   private def headersAuth =
     Seq(
-      "Client-ID" -> config.clientId,
+      "Client-ID" -> cfg.clientId,
       "Authorization" -> s"Bearer ${tmpToken.value}",
       "Content-Type" -> "application/json"
     )
-
-  private def parallelN[A](seq: Seq[A], n: Int)(f: A => Fu[?]): Funit =
-    seq.grouped(n).toList.sequentially { g => Future.traverse(g)(f) }.void
 
 object Twitch:
   case class HelixStream(user_id: String, user_login: String, title: Html, language: String, `type`: String)
