@@ -45,7 +45,7 @@ final class StreamerRepo(
     yield ()
 
   private[streamer] def approvedIds(platform: Platform, limit: Int = 1000): Fu[Seq[String]] =
-    val field = if platform == "youtube" then "youTube.channelId" else "twitch.id"
+    val field = if platform == "youtube" then "youtube.channelId" else "twitch.id"
     val Array(docType, id) = field.split("\\.", 2)
     coll
       .find(
@@ -59,7 +59,7 @@ final class StreamerRepo(
 
   private[streamer] def approvedByChannelId(channelId: String): Fu[Option[Streamer]] =
     coll
-      .find($doc("youTube.channelId" -> channelId, "approval.granted" -> true))
+      .find($doc("youtube.channelId" -> channelId, "approval.granted" -> true))
       .sort($sort.desc("seenAt"))
       .cursor[Streamer]()
       .uno
@@ -99,8 +99,8 @@ final class StreamerRepo(
           q = $id(tuber.streamer.id),
           u = $doc(
             liveVid match
-              case Some(v) => $set("youTube.liveVideoId" -> v.videoId) ++ $unset("youTube.pubsubVideoId")
-              case None => $unset("youTube.liveVideoId", "youTube.pubsubVideoId")
+              case Some(v) => $set("youtube.liveVideoId" -> v.videoId) ++ $unset("youtube.pubsubVideoId")
+              case None => $unset("youtube.liveVideoId", "youtube.pubsubVideoId")
           )
         )
       .map(bulk.many(_))
@@ -109,7 +109,7 @@ final class StreamerRepo(
     coll.update.one($id(id), $set("twitch.login" -> login)).void
 
   private[streamer] def setYoutubePubsubVideo(id: Streamer.Id, videoId: String): Funit =
-    coll.update.one($doc("_id" -> id), $set("youTube.pubsubVideoId" -> videoId)).void
+    coll.update.one($doc("_id" -> id), $set("youtube.pubsubVideoId" -> videoId)).void
 
   private[streamer] def unignore(userId: UserId): Funit =
     coll.updateField($id(userId), "approval.ignored", false).void
@@ -127,7 +127,7 @@ final class StreamerRepo(
 
   object oauth:
     private def dbKey(platform: Platform): String =
-      if platform == "youtube" then "youTube" else "twitch"
+      if platform == "youtube" then "youtube" else "twitch"
 
     def unlink(streamer: Streamer, platform: Platform): Funit =
       coll.update.one($id(streamer.id), $unset(dbKey(platform)) ++ $set("updatedAt" -> nowInstant)).void
@@ -144,11 +144,11 @@ final class StreamerRepo(
 
     def linkYoutube(streamer: Streamer, channelId: String): Fu[String] =
       val newYoutube =
-        streamer.youTube.fold(Streamer.YouTube(channelId, none, none))(_.copy(channelId = channelId))
+        streamer.youtube.fold(Streamer.Youtube(channelId, none, none))(_.copy(channelId = channelId))
       for
         _ <- coll
           .update(ordered = false)
-          .one($doc("youTube.channelId" -> channelId), $unset("youTube"), upsert = false, multi = true)
+          .one($doc("youtube.channelId" -> channelId), $unset("youtube"), upsert = false, multi = true)
         _ <- coll.update
-          .one($id(streamer.id), $set("youTube" -> newYoutube, "updatedAt" -> nowInstant))
+          .one($id(streamer.id), $set("youtube" -> newYoutube, "updatedAt" -> nowInstant))
       yield newYoutube.fullUrl

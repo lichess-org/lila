@@ -47,8 +47,8 @@ final class StreamerUi(helpers: Helpers, bits: StreamerBits)(using netDomain: Ne
           div(cls := "services")(
             s.streamer.twitch.map: twitch =>
               div(cls := "service twitch")(twitch.minUrl),
-            s.streamer.youTube.map: youTube =>
-              div(cls := "service youTube")(youTube.minUrl)
+            s.streamer.youtube.map: youtube =>
+              div(cls := "service youtube")(youtube.minUrl)
           ),
           div(cls := "ats"):
             stream
@@ -145,7 +145,7 @@ final class StreamerUi(helpers: Helpers, bits: StreamerBits)(using netDomain: Ne
           div(cls := "page-menu__content")(
             s.stream match
               case Some(yt: Youtube.YoutubeStream) =>
-                div(cls := "box embed youTube")(
+                div(cls := "box embed youtube")(
                   iframe(
                     src := s"https://www.youtube-nocookie.com/embed/${yt.videoId}?autoplay=1",
                     st.frameborder := "0",

@@ -351,8 +351,8 @@ POST  /practice/complete/:chapterId/:moves        controllers.Practice.complete(
 GET   /streamer                        controllers.Streamer.index(page: Int ?= 1)
 GET   /api/streamer/featured           controllers.Streamer.featured
 GET   /api/streamer/live               controllers.Streamer.live
-POST  /api/x/streamer/youtube-pubsub   controllers.Streamer.onYouTubeVideo
-GET   /api/x/streamer/youtube-pubsub   controllers.Streamer.youTubePubSubChallenge
+POST  /api/x/streamer/youtube-pubsub   controllers.Streamer.onYoutubeVideo
+GET   /api/x/streamer/youtube-pubsub   controllers.Streamer.youtubePubSubChallenge
 POST  /api/streamer/twitch-eventsub    controllers.Streamer.onTwitchEventSub
 GET   /streamer/live                   controllers.Main.movedPermanently(to = "/api/streamer/live")
 GET   /streamer/edit                   controllers.Streamer.edit

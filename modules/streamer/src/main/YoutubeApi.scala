@@ -34,7 +34,7 @@ private[streamer] object Youtube:
             item.snippet.title.value.toLowerCase.contains(keyword.toLowerCase)
         .flatMap: item =>
           streamers
-            .find(s => s.youTube.exists(_.channelId == item.snippet.channelId))
+            .find(s => s.youtube.exists(_.channelId == item.snippet.channelId))
             .map:
               YoutubeStream(
                 item.snippet.channelId,
@@ -50,13 +50,13 @@ private[streamer] object Youtube:
       streamer: Streamer,
       lang: Lang
   ) extends lila.streamer.Stream:
-    def platform = "youTube"
+    def platform = "youtube"
     def urls = Stream.Urls(
       embed = _ => s"https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&disablekb=1&color=white",
       redirect = s"https://www.youtube.com/watch?v=${videoId}"
     )
 
-  case class StreamerWithYoutube(streamer: Streamer, youtube: Streamer.YouTube)
+  case class StreamerWithYoutube(streamer: Streamer, youtube: Streamer.Youtube)
 
   given Reads[Snippet] = Json.reads
   given Reads[Item] = Json.reads
@@ -81,7 +81,7 @@ final private class YoutubeApi(
     else
       val deleted = (xml \ "deleted-entry" \@ "ref")
       if deleted.nonEmpty
-      then logger.debug(s"onYouTubeVideo deleted-entry $deleted")
+      then logger.debug(s"onYoutubeVideo deleted-entry $deleted")
       funit
 
   def authorizeUrl(redirectUri: String, state: String, forceVerify: Boolean): String =
@@ -108,7 +108,7 @@ final private class YoutubeApi(
       .post(body)
       .flatMap: rsp =>
         if rsp.status != 200 then
-          fufail(s"YouTube token exchange failed: ${rsp.status} ${lila.log.http(rsp.status, rsp.body)}")
+          fufail(s"Youtube token exchange failed: ${rsp.status} ${lila.log.http(rsp.status, rsp.body)}")
         else
           val accessToken = (rsp.body[JsValue] \ "access_token").as[String]
           ws.url(s"$v3Endpoint/channels")
@@ -125,7 +125,7 @@ final private class YoutubeApi(
 
   private[streamer] def liveMatching(streamers: List[Streamer]): Fu[List[Youtube.YoutubeStream]] =
     val maxResults = 50
-    val tubers = streamers.flatMap { s => s.youTube.map(Youtube.StreamerWithYoutube(s, _)) }
+    val tubers = streamers.flatMap { s => s.youtube.map(Youtube.StreamerWithYoutube(s, _)) }
     val idPages = tubers
       .flatMap(tb => Seq(tb.youtube.pubsubVideoId, tb.youtube.liveVideoId).flatten)
       .distinct
@@ -180,11 +180,11 @@ final private class YoutubeApi(
         logger.info(
           s"WebSub: FAILED ${if subscribe then "subscribe" else "unsubscribe"} on $channelId ${res.status}"
         )
-        fufail(s"YouTubeApi.channelSubscribe $channelId failed ${lila.log.http(res.status, res.body)}")
+        fufail(s"YoutubeApi.channelSubscribe $channelId failed ${lila.log.http(res.status, res.body)}")
 
   // youtube does not provide a low quota API to check for videos on a known channel id
   // and they don't provide the rss feed to non-browsers, so we're left to scrape the html.
-  private[streamer] def forceCheckWithHtmlScraping(tuber: Streamer.YouTube) =
+  private[streamer] def forceCheckWithHtmlScraping(tuber: Streamer.Youtube) =
     ws.url(s"https://www.youtube.com/channel/${tuber.channelId}")
       .get()
       .map: rsp =>
@@ -196,7 +196,7 @@ final private class YoutubeApi(
     for
       channelIds <- repo.approvedIds("youtube")
       _ <- channelIds.parallelN(8) { channelSubscribe(_, true) }
-    yield logger.info(s"YouTubeApi.subscribeAll: done ${channelIds.size}")
+    yield logger.info(s"YoutubeApi.subscribeAll: done ${channelIds.size}")
 
   private def onVideo(channelId: String, videoId: String): Funit =
     repo
@@ -207,11 +207,11 @@ final private class YoutubeApi(
             // this is the only notification we'll get, so don't filter offline users here.
             if isLive then
               repo.setYoutubePubsubVideo(s.id, videoId)
-              logger.info(s"YouTube: LIVE ${s.id} vid:$videoId ch:$channelId")
-            else logger.debug(s"YouTube: IGNORED ${s.id} vid:$videoId ch:$channelId")
+              logger.info(s"Youtube: LIVE ${s.id} vid:$videoId ch:$channelId")
+            else logger.debug(s"Youtube: IGNORED ${s.id} vid:$videoId ch:$channelId")
         case None =>
           fuccess:
-            logger.info(s"YouTube: UNAPPROVED vid:$videoId ch:$channelId")
+            logger.info(s"Youtube: UNAPPROVED vid:$videoId ch:$channelId")
 
   private def isLiveStream(videoId: String): Fu[Boolean] =
     cfg.apiKey.value.nonEmpty.so(
@@ -230,7 +230,7 @@ final private class YoutubeApi(
                 item.snippet.liveBroadcastContent == "live" && item.snippet.title.value.toLowerCase
                   .contains(keyword.toLowerCase)
             case JsError(err) =>
-              logger.warn(s"YouTube ERROR: ${rsp.status} $err ${rsp.body[String].take(200)}")
+              logger.warn(s"Youtube ERROR: ${rsp.status} $err ${rsp.body[String].take(200)}")
               false
         }
     )

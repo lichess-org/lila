@@ -15,7 +15,7 @@ import lila.core.i18n.toLanguage
 import lila.db.dsl.given
 
 trait Stream:
-  def platform: String
+  def platform: Platform
   val status: Html
   val streamer: Streamer
   val lang: Lang
@@ -23,7 +23,7 @@ trait Stream:
 
   def is[U: UserIdOf](u: U): Boolean = streamer.is(u)
   def twitch = platform == "twitch"
-  def youTube = platform == "youTube"
+  def youtube = platform == "youtube"
   def language = toLanguage(lang)
 
   lazy val cleanStatus = status.map(s => removeMultibyteSymbols(s).trim)
@@ -47,7 +47,7 @@ object Stream:
       .add("headline" -> stream.streamer.headline)
       .add("description" -> stream.streamer.description)
       .add("twitch" -> stream.streamer.twitch.map(_.fullUrl))
-      .add("youTube" -> stream.streamer.youTube.map(_.fullUrl))
+      .add("youtube" -> stream.streamer.youtube.map(_.fullUrl))
       .add("image" -> stream.streamer.picture.map: pic =>
         picfit.thumbnail(pic)(Streamer.imageDimensions))
   )
@@ -61,7 +61,7 @@ case class Streamer(
     headline: Option[Streamer.Headline],
     description: Option[Streamer.Description],
     twitch: Option[Streamer.Twitch],
-    youTube: Option[Streamer.YouTube],
+    youtube: Option[Streamer.Youtube],
     seenAt: Instant, // last seen online
     liveAt: Option[Instant], // last seen streaming
     createdAt: Instant,
@@ -75,7 +75,7 @@ case class Streamer(
   def isListed = listed.value && approval.granted
 
   def completeEnough = {
-    twitch.isDefined || youTube.isDefined
+    twitch.isDefined || youtube.isDefined
   } && name.value.length > 2 && hasPicture
 
 object Streamer:
@@ -113,7 +113,7 @@ object Streamer:
       headline = none,
       description = none,
       twitch = none,
-      youTube = none,
+      youtube = none,
       seenAt = nowInstant,
       liveAt = none,
       createdAt = nowInstant,
@@ -144,11 +144,11 @@ object Streamer:
         case UrlRegex(u) => u.some
         case _ => none
 
-  case class YouTube(channelId: String, liveVideoId: Option[String], pubsubVideoId: Option[String])
+  case class Youtube(channelId: String, liveVideoId: Option[String], pubsubVideoId: Option[String])
       derives Eq:
     def fullUrl = s"https://www.youtube.com/channel/$channelId/live"
     def minUrl = s"youtube.com/channel/$channelId/live"
-  object YouTube:
+  object Youtube:
     private val ChannelIdRegex = """^([\w-]{24})$""".r
     def parseChannelId(str: String): Option[String] =
       str match
@@ -173,7 +173,7 @@ object Streamer:
         streamer.twitch
           .ifTrue(s.twitch)
           .map(_.fullUrl)
-          .orElse(streamer.youTube.ifTrue(s.youTube).map(_.fullUrl))
+          .orElse(streamer.youtube.ifTrue(s.youtube).map(_.fullUrl))
 
   case class ModChange(list: Option[Boolean], tier: Option[Int], decline: Boolean, reason: Option[String])
 
@@ -185,7 +185,7 @@ object Streamer:
 
 private object BsonHandlers:
 
-  given BSONDocumentHandler[Streamer.YouTube] = Macros.handler
+  given BSONDocumentHandler[Streamer.Youtube] = Macros.handler
   given BSONDocumentHandler[Streamer.Twitch] = Macros.handler
   given BSONDocumentHandler[Streamer.Approval] = Macros.handler
   given BSONDocumentHandler[Streamer] = Macros.handler

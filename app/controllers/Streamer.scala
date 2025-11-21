@@ -158,11 +158,11 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
       case _ => NoContent
     }
 
-  def onYouTubeVideo = AnonBodyOf(parse.tolerantXml): body =>
+  def onYoutubeVideo = AnonBodyOf(parse.tolerantXml): body =>
     env.streamer.ytApi.onVideoXml(body)
     NoContent
 
-  def youTubePubSubChallenge = Anon:
+  def youtubePubSubChallenge = Anon:
     get("hub.challenge").fold(BadRequest): challenge =>
       val days = get("hub.lease_seconds").map(s => f" for ${s.toFloat / (60 * 60 * 24)}%.1f days")
       val channelId = get("hub.topic").map(t => s" on ${t.split("=").last}")

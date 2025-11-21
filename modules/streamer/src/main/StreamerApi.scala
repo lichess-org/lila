@@ -60,7 +60,7 @@ final class StreamerApi(
       .map: _ =>
         asMod.option:
           cache.listedIds.invalidateUnit()
-          streamer.youTube.foreach(tuber => ytApi.channelSubscribe(tuber.channelId, true))
+          streamer.youtube.foreach(tuber => ytApi.channelSubscribe(tuber.channelId, true))
           modChange(prev, streamer)
 
   def forceCheck(uid: UserId): Funit =
@@ -68,7 +68,7 @@ final class StreamerApi(
       .byId(uid.into(Streamer.Id))
       .map:
         _.filter(_.approval.granted).so: s =>
-          s.youTube.foreach(ytApi.forceCheckWithHtmlScraping)
+          s.youtube.foreach(ytApi.forceCheckWithHtmlScraping)
           s.twitch.foreach(twitchApi.forceCheck)
 
   def demote(userId: UserId): Funit =
@@ -82,7 +82,7 @@ final class StreamerApi(
       .byId(userId.into(Streamer.Id))
       .collect:
         case Some(s) =>
-          s.youTube.fold(funit)(tuber => ytApi.channelSubscribe(tuber.channelId, subscribe))
+          s.youtube.fold(funit)(tuber => ytApi.channelSubscribe(tuber.channelId, subscribe))
           s.twitch.fold(funit)(twitcher => twitchApi.pubsubSubscribe(twitcher.id, subscribe))
 
   def oauthUnlink(streamer: Streamer, platform: Platform): Funit =

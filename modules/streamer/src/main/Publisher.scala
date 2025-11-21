@@ -26,7 +26,7 @@ final private class Publisher(
         liveStreams.has(id) || isOnline.exec(id.userId)
       }
       streamers <- repo.byIds(activeIds)
-      (twitchStreams, youTubeStreams) <-
+      (twitchStreams, youtubeStreams) <-
         twitchApi
           .liveMatching(
             streamers,
@@ -37,7 +37,7 @@ final private class Publisher(
           .zip(ytApi.liveMatching(streamers))
       streams = LiveStreams:
         ThreadLocalRandom.shuffle:
-          (youTubeStreams ::: twitchStreams).pipe(dedupStreamers)
+          (youtubeStreams ::: twitchStreams).pipe(dedupStreamers)
       _ <- api.setLangLiveNow(streams.streams)
     yield publishStreams(streamers, streams)
 
@@ -68,8 +68,8 @@ final private class Publisher(
       streamer.twitch.foreach: t =>
         if liveStreams.streams.exists(s => s.platform == "twitch" && s.is(streamer)) then
           lila.mon.tv.streamer.present(s"${t.login}@twitch").increment()
-      streamer.youTube.foreach: t =>
-        if liveStreams.streams.exists(s => s.platform == "youTube" && s.is(streamer)) then
+      streamer.youtube.foreach: t =>
+        if liveStreams.streams.exists(s => s.platform == "youtube" && s.is(streamer)) then
           lila.mon.tv.streamer.present(s"${t.channelId}@youtube").increment()
 
   private def dedupStreamers(streams: List[Stream]): List[Stream] =

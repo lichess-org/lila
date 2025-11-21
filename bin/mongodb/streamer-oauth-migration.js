@@ -7,7 +7,7 @@ const twitchClientId = '';
 const twitchClientSecret = '';
 
 const client = new MongoClient(
-  'mongodb://127.0.0.1/lichess?directConnection=true&serverSelectionTimeoutMS=2000&appName=streamer-oauth-migrate',
+  'mongodb://127.0.0.1/lichess?directConnection=true&serverSelectionTimeoutMS=2000&appName=streamer-oauth-migrate'
 );
 
 // ===========================================================================================================
@@ -19,26 +19,36 @@ try {
   await client.connect();
   const db = client.db();
   const coll = db.collection('streamer');
+  const updates = [];
+  for (const doc of await coll
+    .find({ youTube: { $exists: true } }, { projection: { _id: 1, youTube: 1 } })
+    .toArray()) {
+    updates.push({ _id: doc._id, youtube: doc.youTube });
+  }
   const loginToStreamerId = new Map();
   for (const doc of await coll
     .find({ 'twitch.userId': { $exists: true } }, { projection: { _id: 1, 'twitch.userId': 1 } })
     .toArray()) {
     loginToStreamerId.set(doc.twitch.userId, doc._id);
   }
-  if (loginToStreamerId.size === 0) throw 'nothing to do!';
-
-  const token = await tokenFromClientCreds();
-  const updates = [];
-  for (const logins of chunk([...loginToStreamerId.keys()])) {
-    for (const { login, id } of await fetchTwitchUsers(logins, token)) {
-      updates.push({ _id: loginToStreamerId.get(login), twitch: { login, id } });
+  if (loginToStreamerId.size > 0) {
+    const token = await tokenFromClientCreds();
+    for (const logins of chunk([...loginToStreamerId.keys()])) {
+      for (const { login, id } of await fetchTwitchUsers(logins, token)) {
+        updates.push({ _id: loginToStreamerId.get(login), twitch: { login, id } });
+      }
     }
   }
-
+  if (updates.length === 0) throw 'nothing to do!';
   const ndjson = updates.map(op => JSON.stringify(op)).join('\n') + '\n';
   writeFileSync(outputPath, ndjson);
 
   console.log(`wrote ${updates.length} updates`);
+  console.log('on deployment, during systemctl stop:\n');
+  console.log(`mongoimport --db=lichess --collection=streamer --mode=merge --file='${outputPath}'`);
+  console.log(
+    `mongosh lichess --eval 'db.streamer.updateMany({ youTube: { $exists:true } },{ $unset: { youTube: "" } })'`
+  );
 } catch (err) {
   console.error(err);
   process.exit(1);

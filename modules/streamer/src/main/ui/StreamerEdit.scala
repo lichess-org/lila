@@ -159,7 +159,7 @@ final class StreamerEdit(helpers: Helpers, bits: StreamerBits):
                       )
                     form3.split(
                       box("Twitch", s.streamer.twitch.map(t => (t.fullUrl, t.minUrl)), oauthLinkTwitch),
-                      box("YouTube", s.streamer.youTube.map(y => (y.fullUrl, y.minUrl)), oauthLinkYoutube)
+                      box("YouTube", s.streamer.youtube.map(y => (y.fullUrl, y.minUrl)), oauthLinkYoutube)
                     )
 
                   },

@@ -135,7 +135,7 @@ final class UserApi(
                         )
                         .add(
                           "youTube",
-                          s.youTube.map: y =>
+                          s.youtube.map: y =>
                             Json.obj("channel" -> y.fullUrl)
                         )
                   ) ++
