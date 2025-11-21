@@ -16,6 +16,8 @@
   <string name="backRankMateDescription">De König uf de Grundreihe matt setze, wänn er dur sini eigene Figure blockiert isch.</string>
   <string name="balestraMate">Balestra Matt</string>
   <string name="balestraMateDescription">En Läufer setzt Matt, wobi d\'Königin die mögliche Fluchtfälder blockiert</string>
+  <string name="blindSwineMate">Blinde-Schweine-Matt</string>
+  <string name="blindSwineMateDescription">Zwei Türm, uf de sibete - oder zweite - Reihe, setzed de König matt.</string>
   <string name="bishopEndgame">Läufer Ändschpil</string>
   <string name="bishopEndgameDescription">Es Ändschpil, nur mit Läufer und Pure.</string>
   <string name="bodenMate">Boden Matt</string>
@@ -61,7 +63,7 @@
   <string name="intermezzoDescription">Anstatt de erwarteti Zug, zerscht en Andere mache, wo diräkt droht, so dass de Gägner muess reagiere. Isch au bekannt als \"Zwüschezug\".</string>
   <string name="killBoxMate">Kill Box Matt</string>
   <string name="killBoxMateDescription">En Turm staht näbem gegnerische König und wird vu de Dame unterschtützt, wo au d\'Fluchtfälder vum König blockiert. De Turm und d\'Dame fanged so de König inere 3x3 Fälder grosse, sogenannte „Killbox“.</string>
-  <string name="triangleMate" comment="Description (translatable separately):&#10;&#10;The queen and rook, one square away from the enemy king, are on the same rank or file, separated by one square, forming a triangle.">Drüeck-Matt</string>
+  <string name="triangleMate">Drüeck-Matt</string>
   <string name="triangleMateDescription">Es Matt vu Turm und Dame, wo zämme mit em gägnerische König es Drüegg bilded.</string>
   <string name="vukovicMate">Vuković-Matt</string>
   <string name="vukovicMateDescription">En Turm und es Rössli schpanned zämme, zum de König matt setze: De Turm setzt de König mit Hilf vunere dritte Figur matt und s\'Rössli blockiert em König d\'Fluchtfälder.</string>

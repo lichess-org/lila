@@ -59,6 +59,8 @@
   <string name="intermezzoDescription">Tee odotetun siirron sijaan ensin toinen siirto, jonka synnyttämään välittömään uhkaan vastustajasi täytyy vastata. Tunnetaan myös nimellä \"Zwischenzug\".</string>
   <string name="killBoxMate">Tapponeliömatti</string>
   <string name="killBoxMateDescription">Torni on vastustajan kuninkaan vieressä, ja sitä suojelee daami, joka myös vie kuninkaalta pakoruudut. Vastustajan kuningas jää kiinni tornin ja daamin muodostamaan 3x3-ruudun \"tapponeliöön\".</string>
+  <string name="triangleMate">Kolmiomatti</string>
+  <string name="triangleMateDescription">Daami ja torni ovat kumpikin ruudun päässä vastustajan kuninkaasta sekä samalla rivillä tai linjalla siten, että niiden väliin jää yksi tyhjä ruutu, ja ne muodostavat yhdessä kuninkaan kanssa kolmion.</string>
   <string name="vukovicMate">Vukovićin matti</string>
   <string name="vukovicMateDescription">Torni ja ratsu matittavat kuninkaan yhdessä. Torni tekee matin kolmannen nappulan suojaamana, ja ratsua käytetään kuninkaan pakoruutujen tilkitsemiseen.</string>
   <string name="knightEndgame">Ratsuloppupeli</string>

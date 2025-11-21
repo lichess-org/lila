@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Донирај</string>
-  <string name="lichessPatron">Личес Патрон</string>
+  <string name="lichessPatron">Lichess Покровитељ</string>
   <string name="freeAccount">Бесплатан налог</string>
-  <string name="becomePatron">Постани Личес Патрон</string>
-  <string name="xBecamePatron">%s је постао Личес Патрон</string>
+  <string name="becomePatron">Постани Lichess Покровитељ</string>
+  <string name="xBecamePatron">%s је постао/ла Lichess Покровитељ</string>
   <string name="newPatrons">Нови Патрони</string>
   <string name="freeChess">Бесплатан шах за све, заувек!</string>
   <string name="thankYou">Хвала на донацији!</string>
