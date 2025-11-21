@@ -65,7 +65,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
   def create = AuthBody { _ ?=> me ?=>
     ctx.kid.no.so:
       NoLameOrBot:
-        env.streamer.repo
+        env.streamer.api
           .find(me)
           .flatMap:
             case None => env.streamer.repo.create(me).inject(Redirect(routes.Streamer.edit))
@@ -180,7 +180,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
   private def AsStreamer(f: StreamerModel.WithContext => Fu[Result])(using ctx: Context): Fu[Result] =
     ctx.me.foldUse(notFound): me ?=>
       if StreamerModel.canApply(me) || isGranted(_.Streamers) then
-        env.streamer.repo
+        env.streamer.api
           .find(getUserStr("u").ifTrue(isGranted(_.Streamers)).map(_.id) | me.userId)
           .flatMap:
             _.fold(Ok.page(views.streamer.create))(f)

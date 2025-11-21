@@ -38,7 +38,7 @@ final class Env(
     db: lila.db.Db,
     net: lila.core.config.NetConfig,
     langList: lila.core.i18n.LangList
-)(using scheduler: Scheduler)(using Executor, akka.stream.Materializer):
+)(using scheduler: Scheduler)(using Executor):
 
   private given ConfigLoader[TwitchConfig] = AutoConfig.loader[TwitchConfig]
   private given ConfigLoader[YoutubeConfig] = AutoConfig.loader[YoutubeConfig]

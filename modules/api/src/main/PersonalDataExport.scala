@@ -62,7 +62,7 @@ final class PersonalDataExport(
       }
 
     val streamer = Source.futureSource:
-      streamerApi.repo
+      streamerApi
         .find(user)
         .map:
           _.map(_.streamer).so: s =>

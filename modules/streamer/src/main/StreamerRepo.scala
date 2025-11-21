@@ -5,29 +5,15 @@ import lila.memo.CacheApi.*
 
 final class StreamerRepo(
     coll: Coll,
-    cacheApi: lila.memo.CacheApi,
-    userApi: lila.core.user.UserApi,
-    subsRepo: lila.core.relation.SubscriptionRepo
+    cacheApi: lila.memo.CacheApi
 )(using Executor, Scheduler):
 
   import BsonHandlers.given
 
-  def withColl[A](f: Coll => A): A = f(coll)
+  private[streamer] def withColl[A](f: Coll => A): A = f(coll)
 
   def byId(id: Streamer.Id): Fu[Option[Streamer]] = coll.byId[Streamer](id)
   def byIds(ids: Iterable[Streamer.Id]): Fu[List[Streamer]] = coll.byIds[Streamer, Streamer.Id](ids)
-
-  def find(username: UserStr): Fu[Option[Streamer.WithUser]] =
-    userApi.byId(username).flatMapz(find)
-
-  def find(user: User): Fu[Option[Streamer.WithUser]] =
-    byId(user.id.into(Streamer.Id)).mapz: streamer =>
-      Streamer.WithUser(streamer, user).some
-
-  def findOrInit(user: User): Fu[Option[Streamer.WithUser]] =
-    find(user).orElse:
-      val s = Streamer.WithUser(Streamer.make(user), user)
-      coll.insert.one(s.streamer).inject(s.some)
 
   def byChannelId(channelId: String): Fu[Option[Streamer]] =
     coll
@@ -45,20 +31,13 @@ final class StreamerRepo(
   def update(streamer: Streamer): Funit =
     coll.update.one($id(streamer.id), streamer).void
 
-  def withUsers(live: LiveStreams)(using me: Option[MyId]): Fu[List[Streamer.WithUserAndStream]] =
-    for
-      users <- userApi.byIds(live.streams.map(_.streamer.userId))
-      subs <- me.so(subsRepo.filterSubscribed(_, users.map(_.id)))
-    yield live.streams.flatMap: s =>
-      users
-        .find(_.is(s.streamer))
-        .map:
-          Streamer.WithUserAndStream(s.streamer, _, s.some, subs(s.streamer.userId))
+  def countRequests: Fu[Int] =
+    coll.countSel($doc("approval.requested" -> true, "approval.ignored" -> false))
 
-  def setSeenAt(user: User): Funit =
-    coll.update.one($id(user.id), $set("seenAt" -> nowInstant)).void
+  private[streamer] def setSeenAt(userId: UserId): Funit =
+    coll.update.one($id(userId), $set("seenAt" -> nowInstant)).void
 
-  def setLangLiveNow(streams: List[Stream]): Funit =
+  private[streamer] def setLangLiveNow(streams: List[Stream]): Funit =
     val update: coll.UpdateBuilder = coll.update(ordered = false)
     for
       elements <- streams.parallel: s =>
@@ -72,7 +51,7 @@ final class StreamerRepo(
       _ <- elements.nonEmpty.so(update.many(elements).void)
     yield ()
 
-  def approvedIds(platform: Platform, limit: Int = 1000): Fu[Seq[String]] =
+  private[streamer] def approvedIds(platform: Platform, limit: Int = 1000): Fu[Seq[String]] =
     val field = if platform == "youtube" then "youTube.channelId" else "twitch.id"
     val Array(docType, id) = field.split("\\.", 2)
     coll
@@ -85,7 +64,7 @@ final class StreamerRepo(
       .list(limit)
       .map(_.flatMap(_.getAsOpt[Bdoc](docType).flatMap(_.string(id))))
 
-  def demote(userId: UserId): Fu[Option[Streamer]] =
+  private[streamer] def demote(userId: UserId): Fu[Option[Streamer]] =
     coll
       .findAndUpdate(
         $id(userId),
@@ -94,14 +73,8 @@ final class StreamerRepo(
       )
       .map(_.value.flatMap(_.asOpt[Streamer]))
 
-  def countRequests: Fu[Int] = coll.countSel:
-    $doc(
-      "approval.requested" -> true,
-      "approval.ignored" -> false
-    )
-
   // unapprove after 6 weeks if you never streamed (was originally 1 week)
-  def autoDemoteFakes: Funit =
+  private[streamer] def autoDemoteFakes: Funit =
     coll.update
       .one(
         $doc(

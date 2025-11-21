@@ -15,7 +15,7 @@ final class StreamerApi(
 )(using Executor):
 
   def forSubscriber(streamerName: UserStr)(using me: Option[MyId]): Fu[Option[Streamer.WithContext]] =
-    me.foldLeft(repo.find(streamerName)): (streamerFu, me) =>
+    me.foldLeft(find(streamerName)): (streamerFu, me) =>
       streamerFu.flatMapz: s =>
         subsRepo.isSubscribed(me.id, s.streamer).map { sub => s.copy(subscribed = sub).some }
 
@@ -28,6 +28,15 @@ final class StreamerApi(
       .map:
         Streamer.WithUserAndStream(s.streamer, _, s.some, subs(s.streamer.userId))
 
+  def find(username: UserStr): Fu[Option[Streamer.WithUser]] =
+    userApi.byId(username).flatMapz(find)
+
+  def find(user: User): Fu[Option[Streamer.WithUser]] =
+    repo
+      .byId(user.id.into(Streamer.Id))
+      .mapz: streamer =>
+        Streamer.WithUser(streamer, user).some
+
   def allListedIds: Fu[Set[Streamer.Id]] =
     cache.listedIds.getUnit
 
@@ -36,7 +45,7 @@ final class StreamerApi(
     cache.isListed(id).flatMapz(repo.byId(id))
 
   def setSeenAt(user: User): Funit =
-    cache.listedIds.getUnit.flatMap(_.contains(user.id.into(Streamer.Id)).so(repo.setSeenAt(user)))
+    cache.listedIds.getUnit.flatMap(_.contains(user.id.into(Streamer.Id)).so(repo.setSeenAt(user.id)))
 
   def setLangLiveNow(streams: List[Stream]): Funit =
     for

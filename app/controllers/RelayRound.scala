@@ -270,7 +270,7 @@ final class RelayRound(
         delayedUntil <- env.relay.delayedUntil(rt.round)
         videoUrls <- embed match
           case VideoEmbed.Stream(userId) =>
-            env.streamer.repo
+            env.streamer.api
               .find(userId)
               .flatMapz(s => env.streamer.liveApi.of(s).dmap(some))
               .map:
