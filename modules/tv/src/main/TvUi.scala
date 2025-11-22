@@ -55,7 +55,7 @@ final class TvUi(helpers: lila.ui.Helpers)(
       .js(Esm("bits.tvGames")):
         main(
           cls := "page-menu tv-games",
-          dataRel := s"$netBaseUrl${routes.Tv.gameChannelReplacement(channel.key, GameId("gameId"), Nil)}"
+          dataRel := routeUrl(routes.Tv.gameChannelReplacement(channel.key, GameId("gameId"), Nil))
         )(
           st.aside(cls := "page-menu__menu"):
             side.channels(channel, champions, "/games")
