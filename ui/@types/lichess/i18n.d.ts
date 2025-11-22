@@ -2573,6 +2573,10 @@ interface I18n {
     discoveredAttack: string;
     /** Moving a piece (such as a knight), that previously blocked an attack by a long range piece (such as a rook), out of the way of that piece. */
     discoveredAttackDescription: string;
+    /** Discovered check */
+    discoveredCheck: string;
+    /** Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage. */
+    discoveredCheckDescription: string;
     /** Double bishop mate */
     doubleBishopMate: string;
     /** Two attacking bishops on adjacent diagonals deliver mate to a king obstructed by friendly pieces. */
