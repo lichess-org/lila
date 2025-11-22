@@ -5,27 +5,15 @@ import play.api.libs.json.{ JsObject, JsValue, Json, JsString }
 
 import lila.common.config.GetRelativeFile
 
-case class SplitAsset(path: Option[String], imports: List[String], inlineJs: Option[String]):
-  val allModules = path.toList ++ imports
-
-case class AssetMaps(
-    js: Map[String, SplitAsset],
-    css: Map[String, String],
-    hashed: Map[String, String],
-    modified: Instant
-)
-
-case object AssetManifestUpdate
-
 final class AssetManifest(getFile: GetRelativeFile):
 
   private var maps: AssetMaps = AssetMaps(Map.empty, Map.empty, Map.empty, java.time.Instant.MIN)
 
   def css(key: String): String = maps.css.getOrElse(key, key)
   def hashed(path: String): Option[String] = maps.hashed.get(path)
-  def js(key: String): Option[String] = maps.js.get(key).flatMap(_.path)
+  def js(key: String): Option[String] = maps.jsGet(key).flatMap(_.path)
   def jsAndDeps(keys: List[String]): List[String] = keys.flatMap { key =>
-    maps.js.get(key).so(_.allModules)
+    maps.jsGet(key).so(_.allModules)
   }.distinct
   def inlineJs(key: String): Option[String] = maps.js.get(key).flatMap(_.inlineJs)
   def lastUpdate: Instant = maps.modified
@@ -63,10 +51,10 @@ final class AssetManifest(getFile: GetRelativeFile):
       .value
       .map:
         case (key, JsString(hash)) =>
-          val resolved =
-            if key.startsWith("i18n") && key.contains('.') then key.slice(0, key.lastIndexOf("."))
-            else key // ignore the language from the key, resolve to the one in the hash
-          (key, SplitAsset(s"$resolved.$hash.js".some, Nil, None))
+          // val resolved =
+          //   if key.startsWith("i18n") && key.contains('.') then key.slice(0, key.lastIndexOf("."))
+          //   else key // ignore the language from the key, resolve to the one in the hash
+          (key, SplitAsset(s"$key.$hash.js".some, Nil, None))
         case (key, info) =>
           val path = (info \ "hash")
             .asOpt[String]
@@ -104,3 +92,23 @@ final class AssetManifest(getFile: GetRelativeFile):
     AssetMaps(js, css, hashed, nowInstant)
 
   update()
+
+  private case class SplitAsset(path: Option[String], imports: List[String], inlineJs: Option[String]):
+    val allModules = path.toList ++ imports
+
+  private case class AssetMaps(
+      js: Map[String, SplitAsset],
+      css: Map[String, String],
+      hashed: Map[String, String],
+      modified: Instant
+  ):
+    def jsGet(key: String): Option[SplitAsset] =
+      js.get(key)
+        .orElse:
+          if !key.startsWith("i18n/") then none
+          else
+            val dot = key.lastIndexOf('.')
+            if dot > 0 then js.get(key.slice(0, dot) + ".en-GB")
+            else none
+
+private case object AssetManifestUpdate
