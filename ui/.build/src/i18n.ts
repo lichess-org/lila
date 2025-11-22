@@ -233,7 +233,7 @@ interface I18nPlural {
 }
 interface I18n {
   /** fetch i18n dynamically */
-  load(category: string): Promise<void>;
+  load(catalog: string): Promise<void>;
   /** global noarg key lookup */
   (key: string): string;
   quantity: (count: number) => 'zero' | 'one' | 'two' | 'few' | 'many' | 'other';\n\n`;
