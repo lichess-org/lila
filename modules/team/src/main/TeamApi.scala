@@ -251,6 +251,9 @@ final class TeamApi(
     teamRepo.coll.byIds[Team, TeamId](ids, _.sec)
 
   def quit(team: Team, userId: UserId): Funit = workQueue(team.id):
+    doQuit(team, userId)
+
+  private def doQuit(team: Team, userId: UserId): Funit =
     for
       res <- memberRepo.remove(team.id, userId)
       _ <- (res.n == 1).so:
@@ -290,7 +293,7 @@ final class TeamApi(
         val request = TeamRequest.make(team.id, userId, "Kicked from team", declined = true)
         for
           _ <- requestRepo.coll.insert.one(request)
-          _ <- quit(team, userId)
+          _ <- doQuit(team, userId)
         yield Bus.pub(KickFromTeam(teamId = team.id, teamName = team.name, userId = userId))
     yield ()
 

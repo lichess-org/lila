@@ -16,6 +16,7 @@
   <string name="backRankMateDescription">Κάντε ματ στον βασιλιά στην τελευταία γραμμή όταν είναι παγιδευμένος εκεί από τα κομμάτια του.</string>
   <string name="balestraMate">Ματ-βαλλίστρα</string>
   <string name="balestraMateDescription">Ένας αξιωματικός κάνει ματ στον αντίπαλο βασιλιά, ενώ η βασίλισσα εμποδίζει τη διαφυγή του στα γειτονικά τετράγωνα</string>
+  <string name="blindSwineMateDescription">Δύο πύργοι συνεργάζονται προκειμένου να κάνουν ματ στον αντίπαλο βασιλιά παγιδεύοντάς τον σε μία περιοχή 2 επί 2 τετραγώνων της σκακιέρας.</string>
   <string name="bishopEndgame">Φινάλε αξιωματικών</string>
   <string name="bishopEndgameDescription">Φινάλε μόνο με αξιωματικούς και πιόνια.</string>
   <string name="bodenMate">Ματ του Boden</string>
@@ -61,8 +62,8 @@
   <string name="intermezzoDescription">Αντί για την αναμενόμενη κίνηση παίζεται πρώτα κάποια ενδιάμεση κίνηση που δημιουργεί μια απειλή την οποία ο αντίπαλος πρέπει να αντιμετωπίσει αμέσως. Επίσης γνωστό ως \"Zwischenzug\" ή \"Intermezzo\".</string>
   <string name="killBoxMate">Ματ του κουτιού εξόντωσης</string>
   <string name="killBoxMateDescription">Ένας πύργος βρίσκεται δίπλα από τον αντίπαλο βασιλιά και υποστηρίζεται από τη βασίλισσα η οποία εμποδίζει τα τετράγωνα διαφυγής του βασιλιά. Ο πύργος και η βασίλισσα εγκλωβίζουν τον αντίπαλο βασιλιά σε ένα 3 επί 3 «κουτί εξόντωσης».</string>
-  <string name="triangleMate" comment="Description (translatable separately):&#10;&#10;The queen and rook, one square away from the enemy king, are on the same rank or file, separated by one square, forming a triangle.">Τριγωνικό ματ</string>
-  <string name="triangleMateDescription" comment="Description for &quot;triangle mate&quot;">Η βασίλισσα και ο πύργος βρίσκονται ένα τετράγωνο μακριά από στον αντίπαλο βασιλιά και είναι στην ίδια γραμμή ή στην ίδια στήλη, ενώ χωρίζονται μεταξύ τους από ένα τετράγωνο, σχηματίζοντας κατά τον τρόπο αυτό ένα τρίγωνο.</string>
+  <string name="triangleMate">Τριγωνικό ματ</string>
+  <string name="triangleMateDescription">Η βασίλισσα και ο πύργος βρίσκονται ένα τετράγωνο μακριά από στον αντίπαλο βασιλιά και είναι στην ίδια γραμμή ή στην ίδια στήλη, ενώ χωρίζονται μεταξύ τους από ένα τετράγωνο, σχηματίζοντας κατά τον τρόπο αυτό ένα τρίγωνο.</string>
   <string name="vukovicMate">Ματ του Vukovic</string>
   <string name="vukovicMateDescription">Ένας πύργος και ένας ίππος συνεργάζονται για να κάνουν ματ στην άκρη της σκακιέρας. Ο πύργος κάνει ματ υποστηριζόμενος από κάποιο άλλο κομμάτι, ενώ ο ίππος ελέγχει όλα τα υπόλοιπα πιθανά τετράγωνα διαφυγής του αντίπαλου βασιλιά.</string>
   <string name="knightEndgame">Φινάλε ίππων</string>

@@ -59,8 +59,8 @@
   <string name="intermezzoDescription">Namiesto očakávaného ťahu, zahranie ťahu znamenajúceho okamžitú hrozbu, na ktorú musí protihráč reagovať. Nazývaný tiež \"Zwischenzug\".</string>
   <string name="killBoxMate">Mat na poli smrti</string>
   <string name="killBoxMateDescription">Veža je vedľa súperovho kráľa a podporuje ju dáma, ktorá zároveň blokuje kráľove únikové polia. Veža a dáma chytia súperovho kráľa do pasce na 3 x 3 „poli smrti“.</string>
-  <string name="triangleMate" comment="Description (translatable separately):&#10;&#10;The queen and rook, one square away from the enemy king, are on the same rank or file, separated by one square, forming a triangle.">Trojuholníkový mat</string>
-  <string name="triangleMateDescription" comment="Description for &quot;triangle mate&quot;">Dáma a veža, vzdialené jedno políčko od súperovho kráľa, sú na rovnakom rade alebo stĺpci, oddelené jedným políčkom, a tvoria trojuholník.</string>
+  <string name="triangleMate">Trojuholníkový mat</string>
+  <string name="triangleMateDescription">Dáma a veža, vzdialené jedno políčko od súperovho kráľa, sú na rovnakom rade alebo stĺpci, oddelené jedným políčkom, a tvoria trojuholník.</string>
   <string name="vukovicMate">Vukovičov mat</string>
   <string name="vukovicMateDescription">Veža a jazdec sa spoja, aby zmatovali kráľa. Veža je tá, ktorá dáva mat, pričom je podporovaná treťou figúrkou. Jazdec sa využíva na blokovanie kráľových únikových polí.</string>
   <string name="knightEndgame">Jazdcová koncovka</string>

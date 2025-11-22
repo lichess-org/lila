@@ -60,23 +60,28 @@
 
   &__body {
     @extend %flex-column;
-    padding: 0.6em 0.5em 0.6em 1em;
+    padding: 0.6em 0 0.6em 1em;
   }
 
   &__info {
-    @extend %flex-center-nowrap;
+    @extend %flex-between;
+    margin-right: 1rem;
+    align-self: stretch;
     color: $c-font-dim;
     gap: 1ch;
   }
   &__live {
     @extend %flex-between;
-    flex: 1;
     color: $c-live;
+    font-weight: bold;
+  }
+  &__finished {
+    color: $c-good;
     font-weight: bold;
   }
   &__title {
     @include line-clamp(2);
-    margin: 0.2em 0 0.3em 0;
+    margin: 0.2em 0.3rem 0.3em 0;
     font-weight: normal;
     color: $c-font-clearer;
     font-size: 1.3em;
