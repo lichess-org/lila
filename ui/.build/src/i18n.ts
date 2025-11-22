@@ -207,7 +207,12 @@ export async function i18nManifest(): Promise<void> {
       const path = `i18n/${locale}`;
       const content =
         ['window.site.manifest.i18n={'] +
-        cats.map(cat => `${cat}:'${i18n['i18n/' + cat + '.' + locale].hash}'`).join(',') +
+        cats
+          .map(cat => {
+            const hash = i18n[`i18n/${cat}.${locale}`].hash;
+            return `${cat}:'${hash}'`;
+          })
+          .join(',') +
         '}';
       const hash = crypto.createHash('md5').update(content).digest('hex').slice(0, 12);
       const destPath = join(env.jsOutDir, `${path}.${hash}.js`);
