@@ -106,7 +106,7 @@ final private class TwitchApi(ws: StandaloneWSClient, repo: StreamerRepo, cfg: T
       "state" -> state,
       "force_verify" -> forceVerify.toString
     )
-    s"$authEndpoint/authorize?" + lila.common.url.queryString(params).pp
+    s"$authEndpoint/authorize?" + lila.common.url.queryString(params)
 
   def oauthFetchUser(code: String, redirectUri: Url): Fu[(String, String)] =
     val body = Map(
@@ -115,7 +115,7 @@ final private class TwitchApi(ws: StandaloneWSClient, repo: StreamerRepo, cfg: T
       "code" -> code,
       "grant_type" -> "authorization_code",
       "redirect_uri" -> redirectUri.value
-    ).pp
+    )
     ws.url(s"$authEndpoint/token")
       .post(body)
       .flatMap: rsp =>
