@@ -84,10 +84,10 @@ final private class YoutubeApi(
       then logger.debug(s"onYoutubeVideo deleted-entry $deleted")
       funit
 
-  def authorizeUrl(redirectUri: String, state: String, forceVerify: Boolean): String =
+  def authorizeUrl(redirectUri: Url, state: String, forceVerify: Boolean): String =
     val params = Map(
       "client_id" -> cfg.clientId,
-      "redirect_uri" -> redirectUri,
+      "redirect_uri" -> redirectUri.value,
       "response_type" -> "code",
       "scope" -> "https://www.googleapis.com/auth/youtube.readonly",
       "access_type" -> "offline",
@@ -96,13 +96,13 @@ final private class YoutubeApi(
     ) ++ forceVerify.option("prompt" -> "consent")
     "https://accounts.google.com/o/oauth2/v2/auth?" + lila.common.url.queryString(params)
 
-  def oauthFetchChannels(code: String, redirectUri: String): Fu[Map[String, String]] =
+  def oauthFetchChannels(code: String, redirectUri: Url): Fu[Map[String, String]] =
     val body = Map(
       "client_id" -> cfg.clientId,
       "client_secret" -> cfg.clientSecret.value,
       "code" -> code,
       "grant_type" -> "authorization_code",
-      "redirect_uri" -> redirectUri
+      "redirect_uri" -> redirectUri.value
     )
     ws.url("https://oauth2.googleapis.com/token")
       .post(body)

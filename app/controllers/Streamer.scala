@@ -32,7 +32,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
       JsonOk:
         featured.live.streams.map: s =>
           Json.obj(
-            "url" -> routes.Streamer.redirect(s.streamer.userId).absoluteURL(),
+            "url" -> routeUrl(routes.Streamer.redirect(s.streamer.userId)),
             "status" -> s.status,
             "user" -> Json
               .obj(
@@ -214,7 +214,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
   def oauthLinkTwitch = Auth { _ ?=> _ ?=>
     Found(myStreamer): _ =>
       val state = scalalib.ThreadLocalRandom.nextString(32)
-      val redirectUri = routes.Streamer.oauthTwitchRedirect.absoluteURL()
+      val redirectUri = routeUrl(routes.Streamer.oauthTwitchRedirect)
       Redirect(env.streamer.twitchApi.authorizeUrl(redirectUri, state, getBool("force_verify")))
         .withCookies(oauthMakeCookie("twitch", state))
   }
@@ -223,7 +223,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
     (get("code"), get("state"), oauthGetCookie("twitch")) match
       case (Some(code), Some(state), Some(expected)) if expected == state =>
         Found(myStreamer): streamer =>
-          val redirectUri = routes.Streamer.oauthTwitchRedirect.absoluteURL()
+          val redirectUri = routeUrl(routes.Streamer.oauthTwitchRedirect)
           for
             (twitchId, login) <- env.streamer.twitchApi.oauthFetchUser(code, redirectUri)
             result <- env.streamer.repo.oauth.linkTwitch(streamer, twitchId, login)
@@ -236,7 +236,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
   def oauthLinkYoutube = Auth { _ ?=> _ ?=>
     Found(myStreamer): _ =>
       val state = scalalib.ThreadLocalRandom.nextString(32)
-      val redirectUri = routes.Streamer.oauthYoutubeRedirect.absoluteURL()
+      val redirectUri = routeUrl(routes.Streamer.oauthYoutubeRedirect)
       val url = env.streamer.ytApi.authorizeUrl(redirectUri, state, getBool("force_verify"))
       Redirect(url).withCookies(oauthMakeCookie("youtube", state))
   }
@@ -245,7 +245,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
     (get("code"), get("state"), oauthGetCookie("youtube")) match
       case (Some(code), Some(state), Some(expected)) if expected == state =>
         Found(myStreamer): streamer =>
-          val redirectUri = routes.Streamer.oauthYoutubeRedirect.absoluteURL()
+          val redirectUri = routeUrl(routes.Streamer.oauthYoutubeRedirect)
           for
             idsMap <- env.streamer.ytApi.oauthFetchChannels(code, redirectUri)
             result <- idsMap.keys.toList match

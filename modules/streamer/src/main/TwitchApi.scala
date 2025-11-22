@@ -97,10 +97,10 @@ final private class TwitchApi(ws: StandaloneWSClient, repo: StreamerRepo, cfg: T
           fuccess(none)
         case _ => fuccess(none)
 
-  def authorizeUrl(redirectUri: String, state: String, forceVerify: Boolean): String =
+  def authorizeUrl(redirectUri: Url, state: String, forceVerify: Boolean): String =
     val params = Map(
       "client_id" -> cfg.clientId,
-      "redirect_uri" -> redirectUri,
+      "redirect_uri" -> redirectUri.value,
       "response_type" -> "code",
       "scope" -> "", // ?
       "state" -> state,
@@ -108,13 +108,13 @@ final private class TwitchApi(ws: StandaloneWSClient, repo: StreamerRepo, cfg: T
     )
     s"$authEndpoint/authorize?" + lila.common.url.queryString(params).pp
 
-  def oauthFetchUser(code: String, redirectUri: String): Fu[(String, String)] =
+  def oauthFetchUser(code: String, redirectUri: Url): Fu[(String, String)] =
     val body = Map(
       "client_id" -> cfg.clientId,
       "client_secret" -> cfg.secret.value,
       "code" -> code,
       "grant_type" -> "authorization_code",
-      "redirect_uri" -> redirectUri
+      "redirect_uri" -> redirectUri.value
     ).pp
     ws.url(s"$authEndpoint/token")
       .post(body)

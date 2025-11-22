@@ -1,6 +1,7 @@
 package lila.plan
 
 import play.api.i18n.Lang
+import play.api.mvc.Call
 import reactivemongo.api.*
 
 import lila.common.Bus
@@ -12,7 +13,6 @@ import scalalib.paginator.Paginator
 import lila.core.LightUser
 import lila.db.paginator.Adapter
 import lila.ui.Context
-import lila.core.config.BaseUrl
 import lila.core.plan.{ PatronColor, PatronColorChoice }
 
 final class PlanApi(
@@ -184,17 +184,14 @@ final class PlanApi(
         checkout: PlanCheckout,
         customerId: StripeCustomerId,
         giftTo: Option[User],
-        baseUrl: BaseUrl
+        routeUrl: Call => Url
     )(using ctx: Context, me: Me, lang: Lang) =
       for
         isLifetime <- pricingApi.isLifetime(checkout.money)
         data = CreateStripeSession(
           customerId,
           checkout,
-          NextUrls(
-            cancel = s"${baseUrl}${routes.Plan.index()}",
-            success = s"${baseUrl}${routes.Plan.thanks}"
-          ),
+          NextUrls(cancel = routeUrl(routes.Plan.index()), success = routeUrl(routes.Plan.thanks)),
           giftTo = giftTo,
           isLifetime = isLifetime,
           ip = ctx.ip
