@@ -9,7 +9,7 @@
   <string name="threeCheck" comment="The name of a chess variant. The rules are the same as standard chess, with one addition: you may also win by checking the opponent's king three times.">三将棋</string>
   <string name="threeCheckTitle" comment="Description for the Three-Check Chess variant">将军你的对手三次来赢得游戏。</string>
   <string name="antichess" comment="The name of a chess variant where you must lose your pieces or get stalemated to win. Basically, the opposite of chess (hence being &quot;anti&quot; chess).">自杀象棋</string>
-  <string name="antichessTitle" comment="Description for the Antichess variant">丢弃你所有的棋子（或者陷入僵局）以赢得游戏。</string>
+  <string name="antichessTitle" comment="Description for the Antichess variant">丢弃你所有的棋子（或被困毙）以赢得游戏。</string>
   <string name="atomic" comment="The name of a chess variant where pieces explode when captured. Named after nuclear explosions.">原子棋</string>
   <string name="atomicTitle" comment="Description for the Atomic Chess variant. Alternatives to nuke could be &quot;blow up&quot; or &quot;explode&quot;.">把对手的王核爆以胜利。</string>
   <string name="horde" comment="The name of a chess variant where one side has a regular chess army but the other has dozens of pawns, resembling a horde.">部落象棋</string>

@@ -16,6 +16,7 @@
   <string name="recentlyUpdated">Rezent aktualiséiert</string>
   <string name="mostPopular">Am Beléiftsten</string>
   <string name="alphabetical">Alphabetesch</string>
+  <string name="relevant">Relevant</string>
   <string name="addNewChapter">Neit Kapitel bäifügen</string>
   <plurals name="nbChapters">
     <item quantity="one">%s Kapitel</item>
@@ -171,6 +172,7 @@
   <string name="studyChaptersTitle">Etüdekapitel</string>
   <string name="studyChaptersText">Eng Etüd kann aus méi Kapitelen opgebaut sinn.&lt;br&gt;Jiddwer Kapitel huet eng eegen Ausgangsstellung an en eegene Variantebam.</string>
   <string name="commentPositionTitle">Eng Stellung kommentéieren</string>
+  <string name="annotatePositionTitle">Eng Stellung annotéieren</string>
   <string name="conclusionTitle">Merci fir deng Zäit</string>
   <string name="conclusionText">Du fënns deng &lt;a href=\'/study/mine/hot\'&gt;vireg Etüden&lt;/a&gt; op denger Profilsäit.&lt;br&gt;Et gëtt och e &lt;a href=\'//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way\'&gt;Blog-Bäitrag iwwer Etüden&lt;/a&gt;.&lt;br&gt;Power-Benotzer wëlle villäicht op „?“ drécke fir d\'Tastatur-Ofkierzungen ze gesinn.&lt;br&gt;Vill Spaass!</string>
   <string name="createChapterTitle">Looss eis en Etüdekapitel uleeën</string>

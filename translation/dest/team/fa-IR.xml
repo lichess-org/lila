@@ -21,8 +21,8 @@
     <item quantity="other">رهبران گروه</item>
   </plurals>
   <string name="teamRecentMembers">اعضای اخیر</string>
-  <string name="kickSomeone">آیا می خواهید {0} را از تیم اخراج کنید</string>
-  <string name="whoToKick">چه کسی را می خواهید از تیم اخراج کنید?</string>
+  <string name="kickSomeone">اخراج کردنِ کسی از تیم</string>
+  <string name="whoToKick">چه کسی را می خواهید از تیم اخراج کنید؟</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s درخواست پیوستن</item>
     <item quantity="other">%s درخواست پیوستن</item>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">E Kolleeg erausfuerderen</string>
   <string name="playAgainstComputer">Géint de Computer spillen</string>
   <string name="gameMode">Spillmodus</string>
   <string name="youPlayAs">Du spills mat</string>
@@ -404,7 +405,7 @@
   <string name="ratedLessThanInPerf">Wäertung ≤ %1$s an %2$s an der leschter Woch</string>
   <string name="mustBeInTeam">Muss Member vun %s sin</string>
   <string name="youAreNotInTeam">Du bass net Member vun %s</string>
-  <string name="backToGame">Zeréck bei Partie</string>
+  <string name="backToGame">Zeréck bei d\'Partie</string>
   <string name="siteDescription">Gratis Online Schach Server. Spill Schach an engem propperen Interface. Keng Registratioun, keng Reklammen, keen Plugin néideg. Spill Schach géint Computer, Frënn oder zoufälleg Géigner.</string>
   <string name="xJoinedTeamY">%1$s ass Ekipp %2$s beigetrueden</string>
   <string name="xCreatedTeamY">%1$s huet Ekipp %2$s gegrënnt</string>
@@ -813,6 +814,7 @@
   <string name="notifications">Notificatiounen</string>
   <string name="notificationsX">Notifikatiounen: %1$s</string>
   <string name="perfRatingX">Wäertung: %s</string>
+  <string name="yourRatingIsX">Deng Wäertung ass %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s Sekonn fir den éischten Zuch ze maachen</item>
     <item quantity="other">%s Sekonne fir den éischten Zuch ze maachen</item>
