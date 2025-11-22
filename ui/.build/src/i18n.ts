@@ -185,20 +185,13 @@ export async function i18nManifest(): Promise<void> {
   await Promise.all(
     (await fg.glob('*.js', { cwd: env.i18nJsDir, absolute: true })).map(async file => {
       const name = basename(file, '.js');
-      const tail = name.slice(name.lastIndexOf('.') + 1);
       const content = await fs.promises.readFile(file, 'utf-8');
       const hash = crypto.createHash('md5').update(content).digest('hex').slice(0, 12);
       const manifestPath = `i18n/${name}`;
       const destPath = join(env.jsOutDir, `${manifestPath}.${hash}.js`);
-      i18n[manifestPath] = { hash: `${tail}.${hash}` };
+      i18n[manifestPath] = { hash };
 
       if (!(await readable(destPath))) await fs.promises.writeFile(destPath, content);
-    }),
-  );
-  await Promise.all(
-    cats.map(cat => {
-      const hash = i18n[`i18n/${cat}.en-GB`].hash;
-      return Promise.all(locales.map(locale => (i18n[`i18n/${cat}.${locale}`] ??= { hash })));
     }),
   );
   await Promise.all(
@@ -207,7 +200,7 @@ export async function i18nManifest(): Promise<void> {
         ['window.site.manifest.i18n={'] +
         cats
           .map(cat => {
-            const hash = i18n[`i18n/${cat}.${locale}`].hash;
+            const hash = (i18n[`i18n/${cat}.${locale}`] ?? i18n[`i18n/${cat}.en-GB`]).hash;
             return `${cat}:'${hash}'`;
           })
           .join(',') +
@@ -243,30 +236,31 @@ const jsPrelude =
   (await minify(
     // s(...) is the standard format function, p(...) is the plural format function.
     // both have an asArray method for vdom.
-    `function p(t) {
-        let r = (n, ...e) => l(o(t, n), n, ...e).join('');
-        return (r.asArray = (n, ...e) => l(o(t, n), ...e)), r;
+    `
+    function p(t) {
+      let r = (n, ...e) => l(o(t, n), n, ...e).join('');
+      return (r.asArray = (n, ...e) => l(o(t, n), ...e)), r;
+    }
+    function s(t) {
+      let r = (...n) => l(t, ...n).join('');
+      return (r.asArray = (...n) => l(t, ...n)), r;
+    }
+    function o(t, n) {
+      return t[i18n.quantity(n)] || t.other || t.one || '';
+    }
+    function l(t, ...r) {
+      let n = t.split(/(%(?:\\d\\$)?s)/);
+      if (r.length) {
+        let e = n.indexOf('%s');
+        if (e != -1) n[e] = r[0];
+        else
+          for (let i = 0; i < r.length; i++) {
+            let s = n.indexOf('%' + (i + 1) + '$s');
+            s != -1 && (n[s] = r[i]);
+          }
       }
-      function s(t) {
-        let r = (...n) => l(t, ...n).join('');
-        return (r.asArray = (...n) => l(t, ...n)), r;
-      }
-      function o(t, n) {
-        return t[i18n.quantity(n)] || t.other || t.one || '';
-      }
-      function l(t, ...r) {
-        let n = t.split(/(%(?:\\d\\$)?s)/);
-        if (r.length) {
-          let e = n.indexOf('%s');
-          if (e != -1) n[e] = r[0];
-          else
-            for (let i = 0; i < r.length; i++) {
-              let s = n.indexOf('%' + (i + 1) + '$s');
-              s != -1 && (n[s] = r[i]);
-            }
-        }
-        return n;
-      }`,
+      return n;
+    }`,
   ));
 
 const siteInit = await minify(`
@@ -280,7 +274,8 @@ const siteInit = await minify(`
     let s = window.site;
     return import(document.body.dataset.i18nCatalog).then(
       function() {
-        return import(s.asset.url('compiled/i18n/' + c + '.' + s.manifest.i18n[c] + '.js'));
+        let p = 'compiled/i18n/' + c + '.' + s.displayLocale + '.' + s.manifest.i18n[c] + '.js';
+        return import(s.asset.url(p));
       }
     );
   };`);
