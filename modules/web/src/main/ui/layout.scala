@@ -148,7 +148,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
   def scriptsPreload(keys: List[String])(using lang: Lang) =
     frag(
       cashTag,
-      assetHelper.manifest.jsAndDeps("manifest" :: s"i18n/${lang.locale}" :: keys).map(jsTag)
+      assetHelper.manifest.jsAndDeps("manifest" :: keys).map(jsTag)
     )
 
   private def jsTag(name: String): Frag =

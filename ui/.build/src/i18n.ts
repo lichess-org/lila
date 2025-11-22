@@ -186,12 +186,11 @@ export async function i18nManifest(): Promise<void> {
     (await fg.glob('*.js', { cwd: env.i18nJsDir, absolute: true })).map(async file => {
       const name = basename(file, '.js');
       const tail = name.slice(name.lastIndexOf('.') + 1);
-      const path = `i18n/${name}`;
       const content = await fs.promises.readFile(file, 'utf-8');
       const hash = crypto.createHash('md5').update(content).digest('hex').slice(0, 12);
-      const destPath = join(env.jsOutDir, `${path}.${hash}.js`);
-
-      i18n[path] = { hash: `${tail}.${hash}` };
+      const manifestPath = `i18n/${name}`;
+      const destPath = join(env.jsOutDir, `${manifestPath}.${hash}.js`);
+      i18n[manifestPath] = { hash: `${tail}.${hash}` };
 
       if (!(await readable(destPath))) await fs.promises.writeFile(destPath, content);
     }),
@@ -204,14 +203,19 @@ export async function i18nManifest(): Promise<void> {
   );
   await Promise.all(
     ['en-GB', ...locales].map(async locale => {
-      const path = `i18n/${locale}`;
       const content =
         ['window.site.manifest.i18n={'] +
-        cats.map(cat => `${cat}:'${i18n['i18n/' + cat + '.' + locale].hash}'`).join(',') +
+        cats
+          .map(cat => {
+            const hash = i18n[`i18n/${cat}.${locale}`].hash;
+            return `${cat}:'${hash}'`;
+          })
+          .join(',') +
         '}';
       const hash = crypto.createHash('md5').update(content).digest('hex').slice(0, 12);
-      const destPath = join(env.jsOutDir, `${path}.${hash}.js`);
-      i18n[path] = { hash };
+      const manifestPath = `i18n/${locale}`;
+      const destPath = join(env.jsOutDir, `${manifestPath}.${hash}.js`);
+      i18n[manifestPath] = { hash };
       if (!(await readable(destPath))) await fs.promises.writeFile(destPath, content);
     }),
   );
@@ -229,7 +233,7 @@ interface I18nPlural {
 }
 interface I18n {
   /** fetch i18n dynamically */
-  load(category: string): Promise<void>;
+  load(catalog: string): Promise<void>;
   /** global noarg key lookup */
   (key: string): string;
   quantity: (count: number) => 'zero' | 'one' | 'two' | 'few' | 'many' | 'other';\n\n`;
@@ -273,7 +277,12 @@ const siteInit = await minify(`
     }
   };
   window.i18n.load = function(c) {
-    return import(site.asset.url('compiled/i18n/' + c + '.' + site.manifest.i18n[c] + '.js'));
+    let s = window.site;
+    return import(document.body.dataset.i18nCatalog).then(
+      function() {
+        return import(s.asset.url('compiled/i18n/' + c + '.' + s.manifest.i18n[c] + '.js'));
+      }
+    );
   };`);
 
 const jsQuantity = [

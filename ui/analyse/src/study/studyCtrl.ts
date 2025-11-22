@@ -773,6 +773,8 @@ export default class StudyCtrl {
       if (d.w?.s === site.sri) {
         this.vm.mode.write = this.relay ? this.relayRecProp() : this.nonRelayRecMapProp(this.data.id);
         this.vm.chapterId = d.p.chapterId;
+        this.vm.nextChapterId = d.p.chapterId;
+        this.vm.scrollToActiveChapter = 'smooth';
       }
       this.xhrReload(true);
     },
