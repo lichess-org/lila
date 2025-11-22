@@ -166,10 +166,7 @@ export function view(ctrl: StudyCtrl): VNode {
   function update(vnode: VNode) {
     const vData = vnode.data!.li!,
       el = vnode.elm as HTMLElement;
-    if (
-      ctrl.vm.scrollToActiveChapter &&
-      (!ctrl.vm.nextChapterId || ctrl.currentChapter().id === ctrl.vm.nextChapterId)
-    ) {
+    if (ctrl.vm.scrollToActiveChapter) {
       const behavior = ctrl.vm.scrollToActiveChapter;
       const active = el.querySelector('.active');
       if (active) {
