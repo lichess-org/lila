@@ -46,11 +46,11 @@ final class AssetManifest(getFile: GetRelativeFile):
       jsMap: Map[String, SplitAsset],
       visited: Set[String] = Set.empty
   ): List[String] =
-    val k = path match
+    val key = path match
       case jsKeyRe(k, _) => k
       case _ => path
-    jsMap.get(k) match
-      case Some(asset) if !visited.contains(k) =>
+    jsMap.get(key) match
+      case Some(asset) if !visited.contains(key) =>
         asset.imports.flatMap: importName =>
           importName :: closure(importName, jsMap, visited + path)
       case _ => Nil
@@ -62,15 +62,19 @@ final class AssetManifest(getFile: GetRelativeFile):
       .as[JsObject]
       .value
       .map:
-        case (k, JsString(h)) => (k, SplitAsset(s"$k.$h.js".some, Nil, None))
-        case (k, value) =>
-          val path = (value \ "hash")
+        case (key, JsString(hash)) =>
+          val resolved =
+            if key.startsWith("i18n") && key.contains('.') then key.slice(0, key.lastIndexOf("."))
+            else key // ignore the language from the key, resolve to the one in the hash
+          (key, SplitAsset(s"$resolved.$hash.js".some, Nil, None))
+        case (key, info) =>
+          val path = (info \ "hash")
             .asOpt[String]
-            .map(h => s"$k.${h.split("\\.", 2).lift(1).getOrElse(h)}.js") // ignore locales in i18n hashes
-            .orElse((value \ "path").asOpt[String])
-          val imports = (value \ "imports").asOpt[List[String]].getOrElse(Nil)
-          val inlineJs = (value \ "inline").asOpt[String]
-          (k, SplitAsset(path, imports, inlineJs))
+            .map(hash => s"$key.$hash.js")
+            .orElse((info \ "path").asOpt[String])
+          val imports = (info \ "imports").asOpt[List[String]].getOrElse(Nil)
+          val inlineJs = (info \ "inline").asOpt[String]
+          (key, SplitAsset(path, imports, inlineJs))
       .toMap
 
     val js: Map[String, SplitAsset] = splits.map: (key, asset) =>
@@ -79,23 +83,22 @@ final class AssetManifest(getFile: GetRelativeFile):
     val css = (manifest \ "css")
       .as[JsObject]
       .value
-      .map: (k, asset) =>
-        val hash = (asset \ "hash").as[String]
-        (k, s"$k.$hash.css")
+      .map:
+        case (key, JsString(h)) => (key, s"$key.$h.css")
+        case (key, info) => (key, s"$key.${(info \ "hash").as[String]}.css")
       .toMap
 
     val hashed = (manifest \ "hashed")
       .as[JsObject]
       .value
-      .map { (k, asset) =>
-        val hash = (asset \ "hash").as[String]
-        val name = k.substring(k.lastIndexOf('/') + 1)
+      .map: (key, info) =>
+        val hash = info.asOpt[String].getOrElse((info \ "hash").as[String])
+        val name = key.substring(key.lastIndexOf('/') + 1)
         val extPos = name.lastIndexOf('.')
         val hashedName =
           if extPos < 0 then s"${name}.$hash"
           else s"${name.slice(0, extPos)}.$hash${name.substring(extPos)}"
-        (k, s"hashed/$hashedName")
-      }
+        (key, s"hashed/$hashedName")
       .toMap
 
     AssetMaps(js, css, hashed, nowInstant)
