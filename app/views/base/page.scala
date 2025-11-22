@@ -40,7 +40,7 @@ object page:
 
   def apply(p: Page)(using ctx: PageContext): RenderedPage =
     import ctx.pref
-    val allModules = p.modules ++ i18nCatalog(ctx.lang.code) ++
+    val allModules = p.modules ++
       p.pageModule.so(module => esmPage(module.name)) ++
       ctx.needsFp.so(fingerprintTag)
     val zenable = p.flags(PageFlags.zen)
@@ -130,6 +130,9 @@ object page:
           dataBoard3d := pref.currentTheme3d.name,
           dataPieceSet3d := pref.currentPieceSet3d.name,
           dataAnnounce := lila.web.AnnounceApi.get.map(a => safeJsonValue(a.json)),
+          attr("data-i18n-catalog") := assetHelper.manifest
+            .js(s"i18n/${ctx.lang.code}")
+            .map(name => staticAssetUrl(s"compiled/$name")),
           style := boardStyle(p.flags(PageFlags.zoom))
         )(
           blindModeForm,

@@ -71,8 +71,6 @@ trait AssetHelper:
 
   def fingerprintTag: EsmList = Esm("bits.fipr")
 
-  def i18nCatalog(locale: String): EsmList = Esm(s"i18n/${locale}")
-
   def hcaptchaScript(re: lila.core.security.HcaptchaForm[?]): EsmList =
     re.enabled.so(esmInitBit("hcaptcha"))
 
