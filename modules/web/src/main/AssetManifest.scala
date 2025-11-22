@@ -51,9 +51,6 @@ final class AssetManifest(getFile: GetRelativeFile):
       .value
       .map:
         case (key, JsString(hash)) =>
-          // val resolved =
-          //   if key.startsWith("i18n") && key.contains('.') then key.slice(0, key.lastIndexOf("."))
-          //   else key // ignore the language from the key, resolve to the one in the hash
           (key, SplitAsset(s"$key.$hash.js".some, Nil, None))
         case (key, info) =>
           val path = (info \ "hash")
