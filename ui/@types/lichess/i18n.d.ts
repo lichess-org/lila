@@ -2557,6 +2557,10 @@ interface I18n {
     clearance: string;
     /** A move, often with tempo, that clears a square, file or diagonal for a follow-up tactical idea. */
     clearanceDescription: string;
+    /** Corner mate */
+    cornerMate: string;
+    /** Confine the king to the corner using a rook or queen and a knight to engage the checkmate. */
+    cornerMateDescription: string;
     /** Crushing */
     crushing: string;
     /** Spot the opponent blunder to obtain a crushing advantage. (eval ≥ 600cp) */
