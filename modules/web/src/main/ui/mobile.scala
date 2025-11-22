@@ -44,7 +44,7 @@ def mobile(helpers: Helpers)(renderedCmsPage: Frag) =
                 appleStoreButton
               ),
               renderedCmsPage,
-              qrcode(s"$netBaseUrl${routes.Main.redirectToAppStore}", 300),
+              qrcode(routeUrl(routes.Main.redirectToAppStore), 300),
               div("All releases ", a(href := "https://github.com/lichess-org/mobile/releases")("on GitHub"))
             ),
             div(cls := "right-side")(
