@@ -282,5 +282,5 @@ final class Swiss(
       _.refreshAfterWrite(15.seconds)
         .maximumSize(64)
         .buildAsyncFuture: id =>
-          env.streamer.liveStreamApi.all.flatMap: streams =>
+          env.streamer.liveApi.all.flatMap: streams =>
             env.swiss.api.filterPlaying(id, streams.streams.map(_.streamer.userId))

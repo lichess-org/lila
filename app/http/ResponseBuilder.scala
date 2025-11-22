@@ -20,6 +20,8 @@ trait ResponseBuilder(using Executor)
 
   given (using Context): Zero[Fu[Result]] = Zero(notFound)
 
+  def routeUrl(call: Call): Url = Url(s"${env.net.baseUrl}${call.url}")
+
   def Found[A](a: Fu[Option[A]])(f: A => Fu[Result])(using Context): Fu[Result] =
     a.flatMap(_.fold(notFound)(f))
 

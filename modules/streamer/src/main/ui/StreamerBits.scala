@@ -25,6 +25,7 @@ final class StreamerBits(helpers: Helpers)(picfitUrl: lila.memo.PicfitUrl):
   def header(s: Streamer.WithUserAndStream, modView: Boolean = false)(using ctx: Context) =
     val isMe = ctx.is(s.streamer)
     val isMod = Granter.opt(_.ModLog)
+    val hasStream = (s.streamer.youtube.isDefined || s.streamer.twitch.isDefined)
     div(cls := "streamer-header")(
       thumbnail(s.streamer, s.user),
       div(cls := "overview")(
@@ -45,15 +46,15 @@ final class StreamerBits(helpers: Helpers)(picfitUrl: lila.memo.PicfitUrl):
               )(twitch.minUrl)
             )
           },
-          s.streamer.youTube.map { youTube =>
+          s.streamer.youtube.map { youtube =>
             li(
               a(
                 cls := List(
-                  "service youTube" -> true,
-                  "live" -> s.stream.exists(_.youTube)
+                  "service youtube" -> true,
+                  "live" -> s.stream.exists(_.youtube)
                 ),
-                href := youTube.fullUrl
-              )(youTube.minUrl)
+                href := youtube.fullUrl
+              )(youtube.minUrl)
             )
           }
         ),
@@ -72,7 +73,7 @@ final class StreamerBits(helpers: Helpers)(picfitUrl: lila.memo.PicfitUrl):
                 )
               )
           ),
-          (s.streamer.youTube.isDefined && s.stream.isEmpty && (isMe || isMod)).option(
+          (hasStream && s.stream.isEmpty && (isMe || isMod)).option(
             form(
               action := routes.Streamer.checkOnline(s.streamer.userId).url,
               method := "post"

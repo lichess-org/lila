@@ -464,7 +464,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
         .map: token =>
           Json.obj(
             "userId" -> me.userId,
-            "url" -> s"${env.net.baseUrl}${routes.Auth.loginWithToken(token).url}"
+            "url" -> routeUrl(routes.Auth.loginWithToken(token))
           )
   }
 

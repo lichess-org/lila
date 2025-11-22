@@ -1,7 +1,6 @@
 package lila.msg
 
 import lila.core.LightUser
-import lila.core.config.BaseUrl
 import lila.core.id.ForumCategId
 import lila.core.team.LightTeam
 
@@ -46,10 +45,10 @@ Thank you for your understanding."""
 $forumPost
     """
 
-  def newPermissions(by: LightUser, team: LightTeam, perms: Iterable[String], baseUrl: BaseUrl) =
+  def newPermissions(by: LightUser, team: LightTeam, perms: Iterable[String], teamUrl: Url) =
     s"""@${by.name} has changed your leader permissions in the team "${team.name}".
 Your new permissions are: ${perms.mkString(", ")}.
-$baseUrl/team/${team.id}"""
+${teamUrl}"""
 
   def apiTokenRevoked(url: String) =
     s"""Your Lichess API token has been found on GitHub

@@ -12,7 +12,7 @@ interface Candidate {
   src: string;
 }
 
-function toYouTubeEmbedUrl(url: string): string | undefined {
+function toYoutubeEmbedUrl(url: string): string | undefined {
   const m = url?.match(
     /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(watch|embed)?(?:\?v=|\/)?([^"&?/ ]{11})(?:\?|&|)(\S*)/i,
   );
@@ -37,7 +37,7 @@ function toYouTubeEmbedUrl(url: string): string | undefined {
 site.load.then(() => {
   function parseLink(a: HTMLAnchorElement): Parsed | undefined {
     if (a.href.replace(/^https?:\/\//, '') !== a.textContent?.replace(/^https?:\/\//, '')) return;
-    const yt = toYouTubeEmbedUrl(a.href);
+    const yt = toYoutubeEmbedUrl(a.href);
     if (yt)
       return {
         type: 'youtube',

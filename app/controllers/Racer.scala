@@ -5,6 +5,7 @@ import play.api.mvc.*
 
 import lila.app.{ *, given }
 import lila.racer.{ RacerPlayer, RacerRace }
+import lila.common.Json.given
 
 final class Racer(env: Env) extends LilaController(env):
 
@@ -29,8 +30,8 @@ final class Racer(env: Env) extends LilaController(env):
         .map: raceId =>
           JsonOk:
             Json.obj(
-              "id" -> raceId.value,
-              "url" -> s"${env.net.baseUrl}${routes.Racer.show(raceId.value)}"
+              "id" -> raceId,
+              "url" -> routeUrl(routes.Racer.show(raceId.value))
             )
   }
 

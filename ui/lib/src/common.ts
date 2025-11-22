@@ -134,6 +134,10 @@ export function frag<T extends Node = Node>(html: string): T {
   return (fragment.childElementCount === 1 ? fragment.firstElementChild : fragment) as unknown as T;
 }
 
+export function scopedQuery(scope: Element): <T extends Element = HTMLElement>(sel: string) => T | null {
+  return <T extends Element = HTMLElement>(sel: string) => scope.querySelector<T>(sel);
+}
+
 // The username with all characters lowercase
 export function myUserId(): string | undefined {
   return document.body.dataset.user;

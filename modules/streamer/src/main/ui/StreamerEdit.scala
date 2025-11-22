@@ -11,20 +11,13 @@ final class StreamerEdit(helpers: Helpers, bits: StreamerBits):
   import helpers.{ *, given }
   import trans.streamer as trs
 
-  def apply(s: Streamer.WithUserAndStream, form: Form[?], modZone: Option[(Frag, List[Streamer])])(using
+  def apply(s: Streamer.WithUserAndStream, form: Form[?], modZone: Option[Frag])(using
       ctx: Context
   ) =
-    val wasListed = s.streamer.approval.lastGrantedAt.isDefined
     Page(s"${s.user.titleUsername} ${trs.lichessStreamer.txt()}")
       .css("bits.streamer.form")
       .i18n(_.streamer)
-      .js(
-        esmInitObj(
-          "bits.streamerEdit",
-          "youtube" -> wasListed.so(s.streamer.youTube).so[String](_.channelId),
-          "twitch" -> wasListed.so(s.streamer.twitch).so[String](_.userId)
-        )
-      ):
+      .js(esmInit("bits.streamerEdit")):
         main(cls := "page-menu")(
           bits.menu("edit", s.some),
           div(cls := "page-menu__content box streamer-edit")(
@@ -85,32 +78,7 @@ final class StreamerEdit(helpers: Helpers, bits: StreamerBits):
                     )
                   ),
                 ctx.is(s.user).option(div(cls := "status")(trs.streamerLanguageSettings())),
-                modZone.map: (modFrag, same) =>
-                  frag(
-                    modFrag,
-                    div(cls := "status")(
-                      strong(cls := "text", dataIcon := Icon.CautionTriangle)(
-                        "Streamers with same Twitch or YouTube",
-                        same.isEmpty.option(": nothing to show.")
-                      ),
-                      same.nonEmpty.option(
-                        table(cls := "slist")(
-                          same.map: s =>
-                            tr(
-                              td(userIdLink(s.userId.some)),
-                              td(s.name),
-                              td(s.twitch.map(t => a(href := s"https://twitch.tv/${t.userId}")(t.userId))),
-                              td(
-                                s.youTube.map(t =>
-                                  a(href := s"https://youtube.com/channel/${t.channelId}")(t.channelId)
-                                )
-                              ),
-                              td(momentFromNow(s.createdAt))
-                            )
-                        )
-                      )
-                    )
-                  ),
+                modZone,
                 postForm(
                   cls := "form3",
                   action := s"${routes.Streamer.edit}${ctx.isnt(s.user).so(s"?u=${s.user.id}")}"
@@ -171,20 +139,30 @@ final class StreamerEdit(helpers: Helpers, bits: StreamerBits):
                       )
                     ),
                   form3.globalError(form),
-                  form3.split(
-                    form3.group(
-                      form("twitch"),
-                      trs.twitchUsername(),
-                      help = trs.twitchOrYouTubeRequired().some,
-                      half = true
-                    )(form3.input(_)),
-                    form3.group(
-                      form("youTube"),
-                      trs.youTubeChannelId(),
-                      help = trs.twitchOrYouTubeRequired().some,
-                      half = true
-                    )(form3.input(_))
-                  ),
+                  frag {
+                    import routes.Streamer.*
+                    val isUser = ctx.is(s.user)
+
+                    def box(platformLabel: String, urls: Option[(String, String)], call: Call) =
+                      val platform = platformLabel.toLowerCase()
+                      val linked = urls.nonEmpty
+                      def btn(clas: String, href: Call) =
+                        button(cls := s"button $clas", tpe := "button", attr("data-href") := href)
+
+                      div(cls := s"form-group form-half ${platform}-link-box${~linked.option(" linked")}")(
+                        platformLabel,
+                        isUser.option(btn("link", call)(trs.connect())),
+                        btn("unlink", oauthUnlink(platform, (!isUser).option(s.user.username)))(
+                          trs.disconnect()
+                        ),
+                        urls.map((full, text) => a(href := full)(text))
+                      )
+                    form3.split(
+                      box("Twitch", s.streamer.twitch.map(t => (t.fullUrl, t.minUrl)), oauthLinkTwitch),
+                      box("YouTube", s.streamer.youtube.map(y => (y.fullUrl, y.minUrl)), oauthLinkYoutube)
+                    )
+
+                  },
                   form3.split(
                     form3.group(
                       form("name"),
@@ -210,7 +188,7 @@ final class StreamerEdit(helpers: Helpers, bits: StreamerBits):
                     button(
                       tpe := "submit",
                       cls := "submit button text approval-request-submit",
-                      title := "You must provide an image, a streamer name, and a Twitch or YouTube channel."
+                      title := "You must provide an image, a streamer name, and connect with Twitch or YouTube."
                     )(trs.submitForReview())
                   )
                 )

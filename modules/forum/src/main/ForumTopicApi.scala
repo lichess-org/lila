@@ -128,7 +128,7 @@ final private class ForumTopicApi(
   def makeUblogDiscuss(
       slug: ForumTopicSlug,
       name: String,
-      url: String,
+      url: Url,
       ublogId: UblogPostId,
       authorId: UserId
   ): Funit =

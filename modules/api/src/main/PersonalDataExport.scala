@@ -73,7 +73,7 @@ final class PersonalDataExport(
                 "headline" -> s.headline.so(_.value),
                 "description" -> s.description.so(_.value),
                 "twitch" -> s.twitch.so(_.fullUrl),
-                "youTube" -> s.youTube.so(_.fullUrl),
+                "youtube" -> s.youtube.so(_.fullUrl),
                 "createdAt" -> textDate(s.createdAt),
                 "updatedAt" -> textDate(s.updatedAt),
                 "seenAt" -> textDate(s.seenAt),

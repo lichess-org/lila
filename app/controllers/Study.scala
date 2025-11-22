@@ -566,7 +566,7 @@ final class Study(
   private val streamerCache =
     env.memo.cacheApi[StudyId, List[UserId]](64, "study.streamers"):
       _.expireAfterWrite(10.seconds).buildAsyncFuture: studyId =>
-        env.study.findConnectedUsersIn(studyId)(env.streamer.liveStreamApi.streamerUserIds)
+        env.study.findConnectedUsersIn(studyId)(env.streamer.liveApi.streamerUserIds)
 
   def glyphs(lang: String) = Anon:
     Found(play.api.i18n.Lang.get(lang)): lang =>

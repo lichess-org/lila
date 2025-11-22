@@ -20,7 +20,7 @@ final class Preload(
     gameRepo: lila.game.GameRepo,
     perfsRepo: lila.user.UserPerfsRepo,
     timelineApi: lila.timeline.EntryApi,
-    liveStreamApi: lila.streamer.LiveStreamApi,
+    liveStreamApi: lila.streamer.LiveApi,
     dailyPuzzle: lila.puzzle.DailyPuzzle.Try,
     lobbyApi: lila.api.LobbyApi,
     playbanApi: lila.playban.PlaybanApi,

@@ -351,9 +351,9 @@ POST  /practice/complete/:chapterId/:moves        controllers.Practice.complete(
 GET   /streamer                        controllers.Streamer.index(page: Int ?= 1)
 GET   /api/streamer/featured           controllers.Streamer.featured
 GET   /api/streamer/live               controllers.Streamer.live
- # /api/x indicates xml request payload (PubSubHubub)
-POST  /api/x/streamer/youtube-pubsub   controllers.Streamer.onYouTubeVideo
-GET   /api/x/streamer/youtube-pubsub   controllers.Streamer.youTubePubSubChallenge
+POST  /api/x/streamer/youtube-pubsub   controllers.Streamer.onYoutubeVideo
+GET   /api/x/streamer/youtube-pubsub   controllers.Streamer.youtubePubSubChallenge
+POST  /api/streamer/twitch-eventsub    controllers.Streamer.onTwitchEventSub
 GET   /streamer/live                   controllers.Main.movedPermanently(to = "/api/streamer/live")
 GET   /streamer/edit                   controllers.Streamer.edit
 POST  /streamer/new                    controllers.Streamer.create
@@ -363,6 +363,12 @@ POST  /upload/image/streamer           controllers.Streamer.pictureApply
 GET   /streamer/:username              controllers.Streamer.show(username: UserStr)
 GET   /streamer/:username/redirect     controllers.Streamer.redirect(username: UserStr)
 POST  /streamer/:username/check        controllers.Streamer.checkOnline(username: UserStr)
+GET   /streamer/twitch/oauth/link      controllers.Streamer.oauthLinkTwitch
+GET   /streamer/twitch/oauth/redirect  controllers.Streamer.oauthTwitchRedirect
+GET   /streamer/youtube/oauth/link     controllers.Streamer.oauthLinkYoutube
+GET   /streamer/youtube/oauth/redirect controllers.Streamer.oauthYoutubeRedirect
+POST  /streamer/youtube/oauth/choose/:channelId controllers.Streamer.oauthYoutubeChannel(channelId: String)
+POST  /streamer/$platform<youtube|twitch>/oauth/unlink controllers.Streamer.oauthUnlink(platform: String, user: Option[UserStr] ?= None)
 
 # Private Play
 
