@@ -814,6 +814,7 @@
   <string name="notifications">Notificatiounen</string>
   <string name="notificationsX">Notifikatiounen: %1$s</string>
   <string name="perfRatingX">Wäertung: %s</string>
+  <string name="yourRatingIsX">Deng Wäertung ass %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s Sekonn fir den éischten Zuch ze maachen</item>
     <item quantity="other">%s Sekonne fir den éischten Zuch ze maachen</item>
