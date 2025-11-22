@@ -5,4 +5,4 @@ JOURNALCTL_PID=$!
 
 trap "kill $JOURNALCTL_PID" EXIT SIGINT SIGTERM
 
-"$(dirname "${BASH_SOURCE[0]:-$0}")/../ui/build" -${1:-'wd'}
+"$(dirname "${BASH_SOURCE[0]:-$0}")/../ui/build" -${1:-'wdk'}

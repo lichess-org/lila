@@ -128,6 +128,7 @@ export interface StudyChapter {
 export interface StudyChapterServerEval {
   done: boolean;
   path: string;
+  version?: number;
 }
 
 export interface StudyChapterRelay {
@@ -269,7 +270,7 @@ export interface AnaDrop {
   ch?: string;
 }
 export interface ServerNodeMsg extends WithWhoAndPos {
-  n: Tree.NodeFromServer;
+  n: Tree.NodeBase;
   o: Opening;
   s: boolean;
   relayPath?: Tree.Path;

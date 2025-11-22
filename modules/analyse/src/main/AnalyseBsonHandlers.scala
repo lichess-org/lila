@@ -5,11 +5,15 @@ import reactivemongo.api.bson.*
 
 import lila.db.BSON
 import lila.db.dsl.given
-import lila.tree.{ Analysis, Info }
+import lila.tree.{ Analysis, Info, Engine }
+import lila.tree.Analysis.EngineId
 
 object AnalyseBsonHandlers:
 
   given BSONWriter[Analysis.Id] = BSONWriter(id => BSONString(id.value))
+  given BSONDocumentHandler[Engine] = Macros.handler
+
+  private val defaultEngine = Engine(1_000_000, EngineId.fishnet, UserId.lichess)
 
   given BSON[Analysis] with
     def reads(r: BSON.Reader) =
@@ -20,13 +24,14 @@ object AnalyseBsonHandlers:
         r.getO[StudyId]("studyId") match
           case Some(studyId) => Analysis.Id(studyId, getId[StudyChapterId])
           case None => Analysis.Id(getId[GameId])
+      val engine =
+        r.getO[Engine]("engine") | r.intO("npm").foldLeft(defaultEngine)((e, n) => e.copy(nodesPerMove = n))
       Analysis(
         id = id,
         infos = Info.decodeList(raw, startPly).err(s"Invalid analysis data $raw"),
         startPly = startPly,
         date = r.date("date"),
-        fk = r.strO("fk"),
-        nodesPerMove = r.intO("npm")
+        engine = engine
       )
     def writes(w: BSON.Writer, a: Analysis) =
       BSONDocument(
@@ -35,8 +40,7 @@ object AnalyseBsonHandlers:
         "data" -> Info.encodeList(a.infos),
         "ply" -> w.intO(a.startPly.value),
         "date" -> w.date(a.date),
-        "fk" -> a.fk,
-        "npm" -> a.nodesPerMove
+        "engine" -> a.engine
       )
 
   given engineHandler: BSONDocumentHandler[ExternalEngine] = Macros.handler

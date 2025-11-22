@@ -1,7 +1,7 @@
 package controllers
 
 import chess.format.Fen
-import play.api.libs.json.{ Json, JsArray }
+import play.api.libs.json.*
 import play.api.mvc.*
 
 import lila.app.{ *, given }
@@ -33,6 +33,37 @@ final class Analyse(
           _.error.fold(NoContent)(BadRequest(_))
   }
 
+  def postLocalAnalysis = AuthBody(parse.json) { ctx ?=> me ?=>
+    ctx.body.body.validate[lila.analyse.Analysis] match
+      case JsError(errs) => fuccess(BadRequest(errs.mkString("\n")))
+      case JsSuccess(uploaded, _) =>
+
+        def isConflict(existing: Option[lila.analyse.Analysis]) =
+          existing
+            .map(_.engine.nodesPerMove)
+            .exists(npm => uploaded.engine.nodesPerMove < npm + 200_000)
+
+        def markAnalysed =
+          uploaded.id.either.left.toOption.so: gid =>
+            env.round.proxyRepo.updateIfPresent(gid): game =>
+              game.copy(metadata = game.metadata.copy(analysed = true))
+
+        env.fishnet.api
+          .userAnalysisExists(uploaded.id.either)
+          .flatMap: requested =>
+            if requested then Locked
+            else
+              env.analyse.analysisRepo
+                .byId(uploaded.id)
+                .flatMap: existing =>
+                  if isConflict(existing) then Conflict
+                  else
+                    for
+                      _ <- env.analyse.analyser.save(uploaded)
+                      _ <- markAnalysed
+                    yield Ok
+  }
+
   def replay(pov: Pov, userTv: Option[lila.user.User])(using ctx: Context) =
     if HTTPRequest.isCrawler(ctx.req).yes then replayForCrawler(pov)
     else
@@ -43,7 +74,7 @@ final class Analyse(
         res <- RedirectAtFen(pov, initialFen):
           (
             env.analyse.analyser.get(pov.game),
-            (!pov.game.metadata.analysed).so(env.fishnet.api.userAnalysisExists(pov.gameId)),
+            pov.game.metadata.analysed.not.so(env.fishnet.api.userAnalysisExists(Left(pov.gameId))),
             pov.game.simulId.so(env.simul.repo.find),
             roundC.getWatcherChat(pov.game),
             ctx.noBlind.so(env.game.crosstableApi.withMatchup(pov.game)),
