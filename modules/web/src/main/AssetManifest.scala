@@ -27,7 +27,7 @@ final class AssetManifest(getFile: GetRelativeFile):
         lila.common.Bus.pub(AssetManifestUpdate)
     catch case e: Throwable => lila.log("assetManifest").warn(s"Error reading $pathname", e)
 
-  private val jsKeyRe = """^(?!common\.)(\S+)\.([A-Z0-9]{8})\.js""".r
+  private val jsKeyRe = """^(?!lib\.)(\S+)\.([A-Z0-9]{8})\.js""".r
 
   private def closure(
       path: String,
@@ -38,8 +38,8 @@ final class AssetManifest(getFile: GetRelativeFile):
       case jsKeyRe(k, _) => k
       case _ => path
     jsMap.get(key) match
-      case Some(asset) if !visited.contains(key) =>
-        asset.imports.flatMap: importName =>
+      case Some(info) if !visited.contains(key) =>
+        info.imports.flatMap: importName =>
           importName :: closure(importName, jsMap, visited + path)
       case _ => Nil
 
@@ -69,7 +69,7 @@ final class AssetManifest(getFile: GetRelativeFile):
       .as[JsObject]
       .value
       .map:
-        case (key, JsString(h)) => (key, s"$key.$h.css")
+        case (key, JsString(hash)) => (key, s"$key.$hash.css")
         case (key, info) => (key, s"$key.${(info \ "hash").as[String]}.css")
       .toMap
 
