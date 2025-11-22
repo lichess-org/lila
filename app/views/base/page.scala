@@ -130,6 +130,9 @@ object page:
           dataBoard3d := pref.currentTheme3d.name,
           dataPieceSet3d := pref.currentPieceSet3d.name,
           dataAnnounce := lila.web.AnnounceApi.get.map(a => safeJsonValue(a.json)),
+          attr("data-i18n-catalog") := assetHelper.manifest
+            .js(s"i18n/${ctx.lang.code}")
+            .map(name => staticAssetUrl(s"compiled/$name")),
           style := boardStyle(p.flags(PageFlags.zoom))
         )(
           blindModeForm,

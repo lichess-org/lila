@@ -184,20 +184,32 @@ export async function i18nManifest(): Promise<void> {
 
   await Promise.all(
     (await fg.glob('*.js', { cwd: env.i18nJsDir, absolute: true })).map(async file => {
-      const name = `i18n/${basename(file, '.js')}`;
+      const name = basename(file, '.js');
       const content = await fs.promises.readFile(file, 'utf-8');
       const hash = crypto.createHash('md5').update(content).digest('hex').slice(0, 12);
-      const destPath = join(env.jsOutDir, `${name}.${hash}.js`);
-
-      i18n[name] = { hash };
+      const manifestPath = `i18n/${name}`;
+      const destPath = join(env.jsOutDir, `${manifestPath}.${hash}.js`);
+      i18n[manifestPath] = { hash };
 
       if (!(await readable(destPath))) await fs.promises.writeFile(destPath, content);
     }),
   );
   await Promise.all(
-    cats.map(cat => {
-      const path = `i18n/${cat}.en-GB.${i18n[`i18n/${cat}.en-GB`].hash}.js`;
-      return Promise.all(locales.map(locale => (i18n[`i18n/${cat}.${locale}`] ??= { path })));
+    ['en-GB', ...locales].map(async locale => {
+      const content =
+        ['window.site.manifest.i18n={'] +
+        cats
+          .map(cat => {
+            const hash = (i18n[`i18n/${cat}.${locale}`] ?? i18n[`i18n/${cat}.en-GB`]).hash;
+            return `${cat}:'${hash}'`;
+          })
+          .join(',') +
+        '}';
+      const hash = crypto.createHash('md5').update(content).digest('hex').slice(0, 12);
+      const manifestPath = `i18n/${locale}`;
+      const destPath = join(env.jsOutDir, `${manifestPath}.${hash}.js`);
+      i18n[manifestPath] = { hash };
+      if (!(await readable(destPath))) await fs.promises.writeFile(destPath, content);
     }),
   );
   updateManifest({ i18n });
@@ -213,49 +225,60 @@ interface I18nPlural {
   asArray: <T>(quantity: number, ...args: T[]) => (T | string)[]; // vdomPlural / plural
 }
 interface I18n {
-  /** Global noarg key lookup (only if absolutely necessary). */
+  /** fetch i18n dynamically */
+  load(catalog: string): Promise<void>;
+  /** global noarg key lookup */
   (key: string): string;
   quantity: (count: number) => 'zero' | 'one' | 'two' | 'few' | 'many' | 'other';\n\n`;
 
 const jsPrelude =
-  '"use strict";(()=>{' +
+  '"use strict";(function(){' +
   (await minify(
     // s(...) is the standard format function, p(...) is the plural format function.
     // both have an asArray method for vdom.
-    `function p(t) {
-        let r = (n, ...e) => l(o(t, n), n, ...e).join('');
-        return (r.asArray = (n, ...e) => l(o(t, n), ...e)), r;
+    `
+    function p(t) {
+      let r = (n, ...e) => l(o(t, n), n, ...e).join('');
+      return (r.asArray = (n, ...e) => l(o(t, n), ...e)), r;
+    }
+    function s(t) {
+      let r = (...n) => l(t, ...n).join('');
+      return (r.asArray = (...n) => l(t, ...n)), r;
+    }
+    function o(t, n) {
+      return t[i18n.quantity(n)] || t.other || t.one || '';
+    }
+    function l(t, ...r) {
+      let n = t.split(/(%(?:\\d\\$)?s)/);
+      if (r.length) {
+        let e = n.indexOf('%s');
+        if (e != -1) n[e] = r[0];
+        else
+          for (let i = 0; i < r.length; i++) {
+            let s = n.indexOf('%' + (i + 1) + '$s');
+            s != -1 && (n[s] = r[i]);
+          }
       }
-      function s(t) {
-        let r = (...n) => l(t, ...n).join('');
-        return (r.asArray = (...n) => l(t, ...n)), r;
-      }
-      function o(t, n) {
-        return t[i18n.quantity(n)] || t.other || t.one || '';
-      }
-      function l(t, ...r) {
-        let n = t.split(/(%(?:\\d\\$)?s)/);
-        if (r.length) {
-          let e = n.indexOf('%s');
-          if (e != -1) n[e] = r[0];
-          else
-            for (let i = 0; i < r.length; i++) {
-              let s = n.indexOf('%' + (i + 1) + '$s');
-              s != -1 && (n[s] = r[i]);
-            }
-        }
-        return n;
-      }`,
+      return n;
+    }`,
   ));
 
-const siteInit = await minify(
-  `window.i18n = function(k) {
-      for (let v of Object.values(window.i18n)) {
-        if (v[k]) return v[k];
-        return k;
+const siteInit = await minify(`
+  window.i18n = function(k) {
+    for (let v of Object.values(window.i18n)) {
+      if (v[k]) return v[k];
+      return k;
+    }
+  };
+  window.i18n.load = function(c) {
+    let s = window.site;
+    return import(document.body.dataset.i18nCatalog).then(
+      function() {
+        let p = 'compiled/i18n/' + c + '.' + s.displayLocale + '.' + s.manifest.i18n[c] + '.js';
+        return import(s.asset.url(p));
       }
-  }`,
-);
+    );
+  };`);
 
 const jsQuantity = [
   {
