@@ -1,6 +1,7 @@
 package lila.ui
 
 import play.api.libs.json.*
+import play.api.i18n.Lang
 
 import lila.core.config.{ BaseUrl, AssetBaseUrl, ImageGetOrigin }
 import lila.core.data.SafeJsonStr
@@ -71,7 +72,7 @@ trait AssetHelper:
 
   def fingerprintTag: EsmList = Esm("bits.fipr")
 
-  def i18nCatalog(locale: String): EsmList = Esm(s"i18n/${locale}")
+  def i18nCatalog(lang: Lang): EsmList = Esm(s"i18n/${lang.code}")
 
   def hcaptchaScript(re: lila.core.security.HcaptchaForm[?]): EsmList =
     re.enabled.so(esmInitBit("hcaptcha"))
