@@ -17,7 +17,7 @@ val learn = lila.web.ui.LearnUi(helpers)
 
 val coordinate = lila.coordinate.ui.CoordinateUi(helpers)
 
-val atomUi = lila.ui.AtomUi(netConfig.baseUrl)
+val atomUi = lila.ui.AtomUi(helpers.routeUrl)
 
 val irwin = lila.irwin.IrwinUi(helpers)(menu = views.mod.ui.menu)
 

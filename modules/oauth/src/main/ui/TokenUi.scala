@@ -146,7 +146,7 @@ final class TokenUi(helpers: Helpers)(
           br,
           div(cls := "force-ltr") {
             val url =
-              s"${netBaseUrl}${routes.OAuthToken.create}?scopes[]=challenge:write&scopes[]=puzzle:read&description=Prefilled+token+example"
+              s"${routeUrl(routes.OAuthToken.create)}?scopes[]=challenge:write&scopes[]=puzzle:read&description=Prefilled+token+example"
             frag(
               h2(ot.attentionOfDevelopers()),
               p(

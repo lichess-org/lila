@@ -16,6 +16,8 @@
   <string name="backRankMateDescription">킹이 자신의 기물들에게 막혀 마지막 랭크에서 체크메이트 당합니다.</string>
   <string name="balestraMate">발레스트라 메이트</string>
   <string name="balestraMateDescription">퀸이 남은 퇴로를 차단하고, 비숍이 체크메이트를 가합니다.</string>
+  <string name="blindSwineMate">블라인드 스와인 메이트</string>
+  <string name="blindSwineMateDescription">두 룩이 협력해서 2x2 사각형 영역 안에서 상대 킹을 메이트합니다.</string>
   <string name="bishopEndgame">비숍 엔드게임</string>
   <string name="bishopEndgameDescription">비숍과 폰만 있는 엔드게임</string>
   <string name="bodenMate">보든 메이트</string>
@@ -61,6 +63,8 @@
   <string name="intermezzoDescription">예상되는 플레이를 하는 대신, 먼저 상대가 즉시 해결해야 하는 또 다른 위협을 끼워 넣습니다. \"Zwischenzug\"나 \"In between\"이라고도 합니다.</string>
   <string name="killBoxMate">킬 박스 체크메이트</string>
   <string name="killBoxMateDescription">킹 옆에서는 룩이 체크를 넣고, 퀸이 그 룩을 지켜주면서 킹의 도주로를 차단하는 체크메이트 패턴입니다. 룩과 퀸이 3 x 3 \"킬 박스\" 안에서 킹을 공격합니다.</string>
+  <string name="triangleMate">트라이앵글 메이트</string>
+  <string name="triangleMateDescription">퀸과 룩이 적 킹과 한 칸 떨어진 상태에서, 같은 랭크 혹은 파일에 있으며, 서로 한 칸을 사이에 두어 세 기물이 삼각형을 형성합니다.</string>
   <string name="vukovicMate">부코비치 메이트</string>
   <string name="vukovicMateDescription">룩과 나이트가 협력하여 왕에게 체크메이트를 겁니다. 룩은 세 번째 기물의 지원을 받아 메이트를 완성하고, 나이트는 왕의 도주로를 차단하는 역할을 합니다.</string>
   <string name="knightEndgame">나이트 엔딩</string>

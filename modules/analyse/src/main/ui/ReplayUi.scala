@@ -74,7 +74,7 @@ final class ReplayUi(helpers: Helpers)(analyseUi: AnalyseUi):
 
     val shareLinks = frag(
       a(dataIcon := Icon.Expand, cls := "text embed-howto")(trans.site.embedInYourWebsite()),
-      copyMeInput(s"${netBaseUrl}${routes.Round.watcher(pov.gameId, pov.color)}")
+      copyMeInput(routeUrl(routes.Round.watcher(pov.gameId, pov.color)).value)
     )
     val pgnLinks = frag(
       copyMeContent(pathUrl(s"${routes.Game.exportOne(game.id)}?literate=1"), trans.site.downloadAnnotated()),

@@ -156,7 +156,7 @@ final class JsonView(
         .add("lcc", trs.rounds.find(_.id == currentRoundId).map(_.sync.upstream.exists(_.hasLcc)))
         .add("isSubscribed" -> isSubscribed)
         .add("videoUrls" -> videoUrls)
-        .add("note" -> trs.tour.note.ifTrue(canContribute))
+        .add("note" -> canContribute.so(trs.tour.note))
         .add("delayedUntil" -> delayedUntil)
         .add("pinned" -> pinned.map: p =>
           Json
