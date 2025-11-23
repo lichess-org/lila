@@ -1314,6 +1314,8 @@ object I18nKey:
     val `castlingDescription`: I18nKey = "puzzleTheme:castlingDescription"
     val `capturingDefender`: I18nKey = "puzzleTheme:capturingDefender"
     val `capturingDefenderDescription`: I18nKey = "puzzleTheme:capturingDefenderDescription"
+    val `cornerMate`: I18nKey = "puzzleTheme:cornerMate"
+    val `cornerMateDescription`: I18nKey = "puzzleTheme:cornerMateDescription"
     val `crushing`: I18nKey = "puzzleTheme:crushing"
     val `crushingDescription`: I18nKey = "puzzleTheme:crushingDescription"
     val `doubleBishopMate`: I18nKey = "puzzleTheme:doubleBishopMate"
