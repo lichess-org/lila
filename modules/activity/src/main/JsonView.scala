@@ -5,6 +5,7 @@ import play.api.libs.json.*
 
 import lila.activity.activities.*
 import lila.common.Json.{ *, given }
+import lila.core.config.BaseUrl
 import lila.core.game.LightPov
 import lila.core.rating.{ RatingProg, Score }
 import lila.core.simul.Simul
@@ -13,7 +14,8 @@ import lila.rating.PerfType
 
 final class JsonView(
     getTourName: lila.core.tournament.GetTourName,
-    getLightTeam: lila.core.team.LightTeam.GetterSync
+    getLightTeam: lila.core.team.LightTeam.GetterSync,
+    baseUrl: BaseUrl
 ):
 
   private object Writers:
@@ -73,14 +75,14 @@ final class JsonView(
       Json.obj(
         "id" -> p.game.id,
         "color" -> p.color,
-        "url" -> s"/${p.game.id}/${p.color.name}",
+        "url" -> s"$baseUrl/${p.game.id}/${p.color.name}",
         "opponent" -> p.opponent
       )
     given Writes[FollowList] = Json.writes
     given Writes[Follows] = Json.writes
     given Writes[Teams] = Writes: s =>
       JsArray(s.value.flatMap(getLightTeam(_)).map { team =>
-        Json.obj("url" -> s"/team/${team.id}", "name" -> team.name).add("flair" -> team.flair)
+        Json.obj("url" -> s"$baseUrl/team/${team.id}", "name" -> team.name).add("flair" -> team.flair)
       })
     given Writes[Patron] = Json.writes
   import Writers.{ *, given }
@@ -100,7 +102,7 @@ final class JsonView(
           "practice",
           a.practice.map(_.toList.sortBy(-_._2).map { (study, nb) =>
             Json.obj(
-              "url" -> s"/practice/-/${study.slug}/${study.id}",
+              "url" -> s"$baseUrl/practice/-/${study.slug}/${study.id}",
               "name" -> study.name,
               "nbPositions" -> nb
             )
@@ -124,11 +126,11 @@ final class JsonView(
         .add("teams" -> a.teams)
         .add("posts" -> a.forumPosts.map(_.map { (topic, posts) =>
           Json.obj(
-            "topicUrl" -> s"/forum/${topic.categId}/${topic.slug}",
+            "topicUrl" -> s"$baseUrl/forum/${topic.categId}/${topic.slug}",
             "topicName" -> topic.name,
             "posts" -> posts.map { p =>
               Json.obj(
-                "url" -> s"/forum/redirect/post/${p.id}",
+                "url" -> s"$baseUrl/forum/redirect/post/${p.id}",
                 "text" -> p.text.take(500)
               )
             }
