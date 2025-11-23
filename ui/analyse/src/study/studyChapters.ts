@@ -167,15 +167,18 @@ export function view(ctrl: StudyCtrl): VNode {
     const vData = vnode.data!.li!,
       el = vnode.elm as HTMLElement;
     if (ctrl.vm.scrollToActiveChapter) {
-      const behavior = ctrl.vm.scrollToActiveChapter;
       const active = el.querySelector('.active');
       if (active) {
         const [c, l] = [el.getBoundingClientRect(), active.getBoundingClientRect()];
         if (c.top < l.top || c.bottom > l.bottom) {
-          requestAnimationFrame(() => scrollToInnerSelector(el, '.active', false, behavior));
+          cancelAnimationFrame(ctrl.vm.scrollToActiveChapter?.rafId ?? 0);
+          ctrl.vm.scrollToActiveChapter.rafId = requestAnimationFrame(() => {
+            if (!ctrl.vm.scrollToActiveChapter) return;
+            scrollToInnerSelector(el, '.active', false, ctrl.vm.scrollToActiveChapter.behavior);
+            ctrl.vm.scrollToActiveChapter = false;
+          });
         }
       }
-      ctrl.vm.scrollToActiveChapter = false;
     }
     if (canContribute && ctrl.chapters.list.size() > 1 && !vData.sortable) {
       site.asset.loadEsm<typeof Sortable>('sortable.esm', { npm: true }).then(s => {

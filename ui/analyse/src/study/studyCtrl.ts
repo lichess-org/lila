@@ -135,7 +135,7 @@ export default class StudyCtrl {
       // how stale is the study
       updatedAt: Date.now() - data.secondsSinceUpdate * 1000,
       gamebookOverride: undefined,
-      scrollToActiveChapter: 'instant',
+      scrollToActiveChapter: { behavior: 'instant' },
     };
 
     this.members = new StudyMemberCtrl({
@@ -263,7 +263,7 @@ export default class StudyCtrl {
   };
 
   setTab = (tab: Tab) => {
-    if (tab === 'chapters') this.vm.scrollToActiveChapter = 'instant';
+    if (tab === 'chapters') this.vm.scrollToActiveChapter = { behavior: 'instant' };
     this.vm.tab(tab);
     this.redraw();
   };
@@ -485,7 +485,7 @@ export default class StudyCtrl {
       this.redraw();
       return true;
     }
-    this.vm.scrollToActiveChapter = 'smooth';
+    this.vm.scrollToActiveChapter = { behavior: 'smooth' };
     this.vm.nextChapterId = id;
     this.vm.justSetChapterId = id;
     if (this.vm.mode.sticky && this.makeChange('setChapter', id)) {
@@ -770,7 +770,7 @@ export default class StudyCtrl {
         this.vm.mode.write = this.relay ? this.relayRecProp() : this.nonRelayRecMapProp(this.data.id);
         this.vm.chapterId = d.p.chapterId;
         this.vm.nextChapterId = d.p.chapterId;
-        this.vm.scrollToActiveChapter = 'smooth';
+        this.vm.scrollToActiveChapter = { behavior: 'instant' };
       }
       this.xhrReload(true);
     },
