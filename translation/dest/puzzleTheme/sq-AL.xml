@@ -26,6 +26,8 @@
   <string name="castlingDescription">Siguroni mbretin dhe futeni torrën në sulm.</string>
   <string name="capturingDefender">Merrni mbrojtësin</string>
   <string name="capturingDefenderDescription">Heqja e një pjese që është kritike për mbrojtjen e një pjese tjetër, çka tani lejon që pjesa e pambrojtur të merret me një lëvizje vijuese.</string>
+  <string name="cornerMate">Mat qosheje</string>
+  <string name="cornerMateDescription">Mbërthejeni mbretin në qoshe, duke përdorur një torre, ose një mbretëreshë dhe një kalë, për të dhënë shah-mat.</string>
   <string name="crushing">Shkatërrim</string>
   <string name="crushingDescription">Shfrytëzoni gafën e kundërshtarit për të përfituar një avantazh shkatërrues. (vlera ≥ 600 cp)</string>
   <string name="doubleBishopMate">Mat me dy oficerë</string>
