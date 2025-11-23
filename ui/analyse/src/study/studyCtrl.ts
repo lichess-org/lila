@@ -250,6 +250,11 @@ export default class StudyCtrl {
     window.addEventListener('popstate', () => window.location.reload());
   }
 
+  chapterScroll(behavior: ScrollBehavior) {
+    if (!this.vm.scrollToActiveChapter) this.vm.scrollToActiveChapter = { behavior };
+    else this.vm.scrollToActiveChapter.behavior = behavior;
+  }
+
   send = this.ctrl.socket.send;
   redraw = this.ctrl.redraw;
 
@@ -263,7 +268,7 @@ export default class StudyCtrl {
   };
 
   setTab = (tab: Tab) => {
-    if (tab === 'chapters') this.vm.scrollToActiveChapter = { behavior: 'instant' };
+    if (tab === 'chapters') this.chapterScroll('instant');
     this.vm.tab(tab);
     this.redraw();
   };
@@ -485,7 +490,7 @@ export default class StudyCtrl {
       this.redraw();
       return true;
     }
-    this.vm.scrollToActiveChapter = { behavior: 'smooth' };
+    this.chapterScroll('smooth');
     this.vm.nextChapterId = id;
     this.vm.justSetChapterId = id;
     if (this.vm.mode.sticky && this.makeChange('setChapter', id)) {
@@ -770,7 +775,7 @@ export default class StudyCtrl {
         this.vm.mode.write = this.relay ? this.relayRecProp() : this.nonRelayRecMapProp(this.data.id);
         this.vm.chapterId = d.p.chapterId;
         this.vm.nextChapterId = d.p.chapterId;
-        this.vm.scrollToActiveChapter = { behavior: 'instant' };
+        this.chapterScroll('instant');
       }
       this.xhrReload(true);
     },
