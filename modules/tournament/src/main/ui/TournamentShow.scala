@@ -222,7 +222,7 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
         privateId.map: id =>
           frag(
             h2(trans.arena.thisIsPrivate()),
-            p(trans.arena.shareUrl(s"$netBaseUrl${routes.Tournament.show(id)}"))
+            p(trans.arena.shareUrl(routeUrl(routes.Tournament.show(id))))
           ),
         p(trans.arena.willBeNotified()),
         h2(trans.arena.isItRated()),
