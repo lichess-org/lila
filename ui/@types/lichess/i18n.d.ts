@@ -1738,6 +1738,64 @@ interface I18n {
     /** You will lose all your progress! */
     youWillLoseAllYourProgress: string;
   };
+  localAnalysis: {
+    /** Analysis upload failed. Try again later. */
+    analysisUploadFailed: string;
+    /** Broadcast */
+    broadcast: string;
+    /** Same as official broadcast tournaments. Five times stronger than standard. */
+    broadcastQuality: string;
+    /** Cannot be published */
+    cannotBePublished: string;
+    /** Current game */
+    currentGame: string;
+    /** Done in %s seconds */
+    doneInX: I18nFormat;
+    /** Keep mine */
+    keepMine: string;
+    /** Looks like a similar or better analysis already exists. */
+    looksLikeASimilar: string;
+    /** Move %1$s of %2$s */
+    moveXOfY: I18nFormat;
+    /** Nodes */
+    nodes: string;
+    /** Projected */
+    projected: string;
+    /** Publish */
+    publish: string;
+    /** Quality */
+    quality: string;
+    /** The server already has analysis of this strength. */
+    serverAlreadyHas: string;
+    /** Server analysis */
+    serverAnalysis: string;
+    /** There is a server analysis in progress for this game. You can try again when that's done. */
+    serverAnalysisInProgress: string;
+    /** Same as normal Lichess server analysis */
+    standardQuality: string;
+    /** Starting position */
+    startingPosition: string;
+    /** You must enable REC before you can share local analysis to a study. */
+    turnOnRec: string;
+    /** Ultra */
+    ultra: string;
+    /** Use your own engine settings. Your device should outperform broadcast quality at %s seconds per move. */
+    ultraQualityXSeconds: I18nFormat;
+    /** Use theirs */
+    useTheirs: string;
+    /** Using */
+    using: string;
+    /** Server analysis on chapters created before local analysis was introduced cannot be upgraded cleanly. Older engine lines and comments will remain unless you remove them first. */
+    whenUpgradingOldChapters: string;
+    /** Will use */
+    willUse: string;
+    /** %s nodes per move */
+    xNodesPerMove: I18nFormat;
+    /** %1$sx %2$s quality */
+    xTimesYQuality: I18nFormat;
+    /** Your current local analysis can be published */
+    youCanPublish: string;
+  };
   nvui: {
     /** Actions */
     actions: string;
@@ -2911,6 +2969,8 @@ interface I18n {
     allSquaresOfTheBoard: string;
     /** Always */
     always: string;
+    /** Analyse */
+    analyse: string;
     /** Analysis board */
     analysis: string;
     /** Analysis options */
@@ -3097,8 +3157,8 @@ interface I18n {
     classicalDesc: string;
     /** Clear board */
     clearBoard: string;
-    /** Clear moves */
-    clearSavedMoves: string;
+    /** Clear local data */
+    clearLocalData: string;
     /** Clear search */
     clearSearch: string;
     /** Click here to read it */
@@ -3601,6 +3661,8 @@ interface I18n {
     loadPosition: string;
     /** Lobby */
     lobby: string;
+    /** Local analysis */
+    localAnalysis: string;
     /** Location */
     location: string;
     /** Sign in to chat */
@@ -4957,8 +5019,6 @@ interface I18n {
     fromPgnGameText: string;
     /** From a PGN game */
     fromPgnGameTitle: string;
-    /** Get a full server-side computer analysis of the mainline. */
-    getAFullComputerAnalysis: string;
     /** Need help? Get the tour! */
     getTheTour: string;
     /** Good move */
@@ -5053,6 +5113,8 @@ interface I18n {
     open: string;
     /** Orientation */
     orientation: string;
+    /** Or perform a stronger one on your device. */
+    orPerformAStrongerOne: string;
     /** Paste games as PGN text here. For each game, a new chapter is created. The study can have up to %s chapters. */
     pasteYourPgnTextHereUpToNbGames: I18nPlural;
     /** %s per page */
@@ -5083,6 +5145,8 @@ interface I18n {
     recentlyUpdated: string;
     /** Relevant */
     relevant: string;
+    /** Request a server analysis of the mainline. */
+    requestAServerAnalysis: string;
     /** Right under the board */
     rightUnderTheBoard: string;
     /** Save */

@@ -12,7 +12,7 @@ const rawWinningChances = (cp: number): WinningChances => {
   return 2 / (1 + Math.exp(MULTIPLIER * cp)) - 1;
 };
 
-const cpWinningChances = (cp: number): WinningChances =>
+export const cpWinningChances = (cp: number): WinningChances =>
   rawWinningChances(Math.min(Math.max(-1000, cp), 1000));
 
 const mateWinningChances = (mate: number): WinningChances => {
@@ -21,7 +21,7 @@ const mateWinningChances = (mate: number): WinningChances => {
   return rawWinningChances(signed);
 };
 
-const evalWinningChances = (ev: EvalScore): WinningChances =>
+export const evalWinningChances = (ev: EvalScore): WinningChances =>
   typeof ev.mate !== 'undefined' ? mateWinningChances(ev.mate) : cpWinningChances(ev.cp!);
 
 // winning chances for a color

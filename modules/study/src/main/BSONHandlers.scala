@@ -142,6 +142,7 @@ object BSONHandlers:
       clock = doc.getAsOpt[Clock](F.clock)
       crazyData = doc.getAsOpt[Crazyhouse.Data](F.crazy)
       forceVariation = ~doc.getAsOpt[Boolean](F.forceVariation)
+      comp = ~doc.getAsOpt[Boolean](F.comp)
     yield Branch(
       id = id,
       ply = ply,
@@ -156,7 +157,8 @@ object BSONHandlers:
       clock = clock,
       crazyData = crazyData,
       children = Branches.empty,
-      forceVariation = forceVariation
+      forceVariation = forceVariation,
+      comp = comp
     )
 
   // shallow read, as not reading children
@@ -212,7 +214,8 @@ object BSONHandlers:
       F.score -> n.eval.flatMap(_.score), // BC stored as score (maybe its better to keep this way?)
       F.clock -> n.clock,
       F.crazy -> n.crazyData,
-      F.forceVariation -> w.boolO(n.forceVariation)
+      F.forceVariation -> w.boolO(n.forceVariation),
+      F.comp -> w.boolO(n.comp)
     )
 
   private[study] def writeNewBranch(n: NewBranch) =
@@ -231,7 +234,8 @@ object BSONHandlers:
       F.score -> n.metas.eval.flatMap(_.score), // BC stored as score (maybe its better to keep this way?)
       F.clock -> n.metas.clock,
       F.crazy -> n.metas.crazyData,
-      F.forceVariation -> w.boolO(n.forceVariation)
+      F.forceVariation -> w.boolO(n.forceVariation),
+      F.comp -> w.boolO(n.comp)
     )
 
   private[study] given BSON[Root] with
@@ -264,7 +268,8 @@ object BSONHandlers:
           F.glyphs -> r.glyphs.nonEmpty,
           F.score -> r.eval.flatMap(_.score), // BC stored as score (maybe its better to keep this way?)
           F.clock -> r.clock,
-          F.crazy -> r.crazyData
+          F.crazy -> r.crazyData,
+          F.comp -> r.comp
         )
       }
     )

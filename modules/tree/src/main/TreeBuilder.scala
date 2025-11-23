@@ -121,7 +121,8 @@ object TreeBuilder:
         check = m.after.position.check,
         opening = openingOf(fen),
         crazyData = m.after.position.crazyData,
-        eval = none
+        eval = none,
+        comp = true
       )
 
     val (result, error) = position
@@ -133,7 +134,7 @@ object TreeBuilder:
       )
 
     error.foreach(e => logChessError(formatError(id, e)))
-    result.fold(root)(b => root.addChild(b.setComp))
+    result.fold(root)(b => root.addChild(b))
 
   private def formatError(id: GameId, err: chess.ErrorStr) =
     s"TreeBuilder https://lichess.org/$id ${err.value.linesIterator.toList.headOption}"

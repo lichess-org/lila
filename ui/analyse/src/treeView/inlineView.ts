@@ -65,7 +65,7 @@ export class InlineView {
       .map(comment =>
         this.ctrl.retro?.hideComputerLine(node)
           ? hl('comment', i18n.site.learnFromThisMistake)
-          : (comment.by !== 'lichess' || this.ctrl.showFishnetAnalysis()) &&
+          : (String(comment.by).toLowerCase() !== 'lichess' || this.ctrl.showStaticAnalysis()) &&
             hl('comment', {
               class: {
                 inaccuracy: comment.text.startsWith('Inaccuracy.'),
@@ -157,7 +157,7 @@ export class InlineView {
       'pending-deletion': path.startsWith(ctrl.pendingDeletionPath() || ' '),
       'pending-copy': !!ctrl.pendingCopyPath()?.startsWith(path),
     };
-    if ((!!ctrl.study && !ctrl.study?.relay) || ctrl.showFishnetAnalysis())
+    if ((!!ctrl.study && !ctrl.study?.relay) || ctrl.showStaticAnalysis())
       node.glyphs
         ?.map(g => this.glyphs[g.id - 1])
         .filter(Boolean)
@@ -168,7 +168,7 @@ export class InlineView {
       renderMoveNodes(
         node,
         isMainline && !this.inline,
-        (!!ctrl.study && !ctrl.study.relay) || ctrl.showFishnetAnalysis(),
+        (!!ctrl.study && !ctrl.study.relay) || ctrl.showStaticAnalysis(),
         ctrl.allowedEval(node) || false,
       ),
     ]);

@@ -58,11 +58,8 @@ export const jsModule = (name: string, prefix: string = 'compiled/') => {
   return `${prefix}${name}${hash ? `.${hash}` : ''}.js`;
 };
 
-const scriptCache = new Map<string, Promise<void>>();
-
 export const loadIife = (u: string, opts: AssetUrlOpts = {}): Promise<void> => {
-  if (!scriptCache.has(u)) scriptCache.set(u, xhrScript(url(u, opts)));
-  return scriptCache.get(u)!;
+  return xhrScript(url(u, opts));
 };
 
 export async function loadEsm<T>(name: string, opts: EsmModuleOpts = {}): Promise<T> {

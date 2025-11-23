@@ -78,6 +78,10 @@ $col2-panel-height: 240px;
 
   .computer-analysis {
     position: relative;
+    text-align: center;
+    p {
+      margin-top: 1.5em;
+    }
   }
   .future-game-analysis {
     text-align: center;
