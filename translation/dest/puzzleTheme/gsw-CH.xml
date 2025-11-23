@@ -26,6 +26,8 @@
   <string name="castlingDescription">Bring de König in Sicherheit und schick de Turm in Agriff.</string>
   <string name="capturingDefender">Schlag de Verteidiger</string>
   <string name="capturingDefenderDescription">Schlag e Figur, wo e Anderi entscheidend deckt, dass die Ungschützti im nächschte Zug gschlage werde chann.</string>
+  <string name="cornerMate">Arabischs Matt (Eck-Matt)</string>
+  <string name="cornerMateDescription">De König wird mit Turm - oder Dame - und Springer, imeme Egge, Matt gsetzt.</string>
   <string name="crushing">Vernichtend</string>
   <string name="crushingDescription">Find de gägnerisch Patzer und chumm zume vernichtende Vorteil. (Bewertig ≥ 600 Hundertschtel-Pure)</string>
   <string name="doubleBishopMate">Läuferpaar Matt</string>
