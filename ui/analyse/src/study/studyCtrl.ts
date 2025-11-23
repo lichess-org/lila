@@ -251,8 +251,7 @@ export default class StudyCtrl {
   }
 
   chapterScroll(behavior: ScrollBehavior) {
-    if (!this.vm.scrollToActiveChapter) this.vm.scrollToActiveChapter = { behavior };
-    else this.vm.scrollToActiveChapter.behavior = behavior;
+    this.vm.scrollToActiveChapter = { ...this.vm.scrollToActiveChapter, behavior };
   }
 
   send = this.ctrl.socket.send;
