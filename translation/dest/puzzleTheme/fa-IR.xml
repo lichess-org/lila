@@ -16,6 +16,8 @@
   <string name="backRankMateDescription">به دام انداختن شاه حریف در عرض اولیه خود زمانی که با مهره های خودی به دام افتاده است.</string>
   <string name="balestraMate">ماتِ کمان‌فَنگ</string>
   <string name="balestraMateDescription">فیل مات را می‌انجامد و وزیر خانه‌های فرارِ باقی‌مانده را می‌بندد</string>
+  <string name="blindSwineMate">ماتِ دورُخ‌کُنج</string>
+  <string name="blindSwineMateDescription">دو رخ با برای ماتِ شاه در ناحیه‌ای ۲ در ۲، همکاری می‌کنند.</string>
   <string name="bishopEndgame">آخربازی فیل</string>
   <string name="bishopEndgameDescription">آخربازی، تنها با فیل‌ها و پیاده‌ها.</string>
   <string name="bodenMate">مات بودِن یا دوشمشیر</string>
@@ -62,6 +64,7 @@
   <string name="killBoxMate">مات جعبه مرگ</string>
   <string name="killBoxMateDescription">رُخ در کنار شاه دشمن قرار دارد و توسط یک وزیر حمایت می‌شود که همچنین مسیرهای فرار شاه را مسدود کرده است. رُخ و وزیر شاه دشمن را در یک \"جعبه مرگ\" ۳ در ۳ گیر انداخته‌اند.</string>
   <string name="triangleMate">ماتِ مثلث</string>
+  <string name="triangleMateDescription">وزیر و رخ، در خانهٔ اُریبِ شاه حریف، روی عرض یا ستونِ یکسان و با یک خانه فاصله از یکدیگر، مثلثی تشکیل می‌دهند.</string>
   <string name="vukovicMate">مات ووکویچ</string>
   <string name="vukovicMateDescription">یک رخ و یک اسب برای مات کردن شاه همکاری می‌کنند. رخ در حالی که توسط مهرهٔ سومی پشتیبانی می‌شود، مات می‌کند و اسب برای مسدود کردن خانه‌های فرار شاه استفاده می‌شود.</string>
   <string name="knightEndgame">آخربازی اسب</string>
