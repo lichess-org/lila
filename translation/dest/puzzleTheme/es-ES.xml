@@ -26,6 +26,8 @@
   <string name="castlingDescription">Lleva al rey a un lugar seguro y despliega la torre para atacar.</string>
   <string name="capturingDefender">Capturar al defensor</string>
   <string name="capturingDefenderDescription">Eliminar una pieza fundamental para la defensa de otra, permitiendo capturar la pieza, ahora indefensa, en el futuro.</string>
+  <string name="cornerMate">Mate de la esquina</string>
+  <string name="cornerMateDescription">Encierra al rey en una esquina usando una torre o dama y un caballo para dar mate.</string>
   <string name="crushing">Aplastante</string>
   <string name="crushingDescription">Detecta el error del oponente para obtener una ventaja ganadora. (eval ≥ 600cp)</string>
   <string name="doubleBishopMate">Mate de los dos alfiles</string>
