@@ -8,7 +8,9 @@ interface I18nPlural {
   asArray: <T>(quantity: number, ...args: T[]) => (T | string)[]; // vdomPlural / plural
 }
 interface I18n {
-  /** Global noarg key lookup (only if absolutely necessary). */
+  /** fetch i18n dynamically */
+  load(catalog: string): Promise<void>;
+  /** global noarg key lookup */
   (key: string): string;
   quantity: (count: number) => 'zero' | 'one' | 'two' | 'few' | 'many' | 'other';
 
@@ -2557,6 +2559,10 @@ interface I18n {
     clearance: string;
     /** A move, often with tempo, that clears a square, file or diagonal for a follow-up tactical idea. */
     clearanceDescription: string;
+    /** Corner mate */
+    cornerMate: string;
+    /** Confine the king to the corner using a rook or queen and a knight to engage the checkmate. */
+    cornerMateDescription: string;
     /** Crushing */
     crushing: string;
     /** Spot the opponent blunder to obtain a crushing advantage. (eval ≥ 600cp) */

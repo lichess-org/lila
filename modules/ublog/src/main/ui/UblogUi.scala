@@ -527,20 +527,20 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
 
     private def renderPost(post: UblogPost.PreviewPost, authorName: String) =
       frag(
-        tag("id")(s"$netBaseUrl${urlOfPost(post)}"),
+        tag("id")(routeUrl(urlOfPost(post))),
         tag("published")(post.lived.map(_.at).map(atomUi.atomDate)),
         tag("updated")(post.updated.orElse(post.lived).map(_.at).map(atomUi.atomDate)),
         link(
           rel := "alternate",
           tpe := "text/html",
-          href := s"$netBaseUrl${urlOfPost(post)}"
+          href := routeUrl(urlOfPost(post))
         ),
         tag("title")(post.title),
         post.topics.map { topic =>
           atomUi.category(
             term = topic.url,
             label = topic.value,
-            scheme = s"$netBaseUrl${routes.Ublog.topic(topic.url)}".some
+            scheme = routeUrl(routes.Ublog.topic(topic.url)).some
           )
         },
         tag("content")(tpe := "html")(
