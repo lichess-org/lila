@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="gameSetup">રમત સેટઅપ</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">મિત્રને પડકાર આપો</string>
+  <string name="playAgainstComputer">કમ્પ્યુટર સામે રમો</string>
+  <string name="gameMode">ગેમ મોડ</string>
+  <string name="createLobbyGame" comment="One of three buttons on the home page. Opens the modal to create a game that goes in the lobby.">રમત બનાવો</string>
+  <string name="youPlayAs">તમે રમો છો</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">રમવા માટે કોઈને આમંત્રણ આપવા, આ URL આપો</string>
   <string name="gameOver">રમત પુરી</string>
   <string name="waitingForOpponent">વિરોધિ માટે રાહ જુએ છે</string>
@@ -20,11 +26,15 @@
   <string name="asBlack">કાળા તરફથી</string>
   <string name="randomColor">કોઇ પણ બાજુ</string>
   <string name="createAGame">રમત બનાવો</string>
+  <string name="createTheGame">રમત બનાવો</string>
   <string name="whiteIsVictorious">સફેદ વિજય રહ્યો</string>
   <string name="blackIsVictorious">કાળો વિજય રહ્યો</string>
   <string name="youPlayTheWhitePieces">તમે સફેદ ટુકડાઓ સાથે રમસો</string>
   <string name="youPlayTheBlackPieces">તમે કાળા ટુકડાઓ સાથે રમસો</string>
   <string name="itsYourTurn">તમારો વારો!</string>
+  <string name="cheatDetected">આ રમત સમાપ્તિની સ્થિતિ છે, જો રમત ચાલુ હોય ત્યારે કોઈ ખેલાડી છેતરપિંડી કરે છે. રમત તરત જ સમાપ્ત થાય છે.
+
+ અનુવાદ નિષ્ક્રિય અવાજમાં હોવો જોઈએ કારણ કે ખેલાડીઓ અને દર્શકો બંને તેને જુએ છે. કૃપા કરીને શક્ય તેટલું ટૂંકું રાખો.</string>
   <string name="kingInTheCenter">મધ્યમાં રાજા</string>
   <string name="threeChecks">ત્રણ ચેક</string>
   <string name="raceFinished">રેસ પુરી થઇ ગઇ</string>
@@ -72,6 +82,7 @@
   <string name="collapseVariations">વિભ્કતો બંધ</string>
   <string name="forceVariation">ફોર્સ વેરિએશન</string>
   <string name="copyVariationPgn">PGN ની વિવિધતા ની નકલ કરો</string>
+  <string name="copyMainLinePgn">માઈનલીને પજ્ઞ ને કોપી કરો </string>
   <string name="move">ચાલ</string>
   <string name="variantLoss">Variant હાર</string>
   <string name="variantWin">Variant જીત</string>
@@ -239,6 +250,7 @@
     <item quantity="one">%s રમત રમ્યા તમારી સાથે</item>
     <item quantity="other">%s રમતો રમ્યા તમારી સાથે</item>
   </plurals>
+  <string name="ok">OK</string>
   <string name="cancel">રદ કરો</string>
   <string name="whiteTimeOut">સફેદની સમય મર્યાદા પૂરી</string>
   <string name="blackTimeOut">કાળાની સમય મર્યાદા પૂરી</string>
@@ -305,7 +317,15 @@
   <string name="openingExplorerAndTablebase">ઓપનિંગ એક્સપ્લોરર &amp; ટેબલબેઝ</string>
   <string name="takeback">ચાલ પાછી લો</string>
   <string name="proposeATakeback">ચાલ પાછી લેવાનો પ્રસ્તાવ મોકલો</string>
+  <string name="whiteProposesTakeback">વ્હાઇટે ટેકબેકનો પ્રસ્તાવ મૂક્યો</string>
+  <string name="blackProposesTakeback">બ્લેક ટેકબેકનો પ્રસ્તાવ મૂકે છે</string>
   <string name="takebackPropositionSent">ચાલ પાછી લેવાનો પ્રસ્તાવ મોકલ્યો</string>
+  <string name="whiteDeclinesTakeback">વ્હાઇટે ટેકબેકનો ઇનકાર કર્યો</string>
+  <string name="blackDeclinesTakeback">બ્લેક ટેકબેકનો ઇનકાર કર્યો</string>
+  <string name="whiteAcceptsTakeback">વ્હાઇટ ટેકબેક સ્વીકારે છે</string>
+  <string name="blackAcceptsTakeback">બ્લેક ટેકબેક સ્વીકારે છે</string>
+  <string name="whiteCancelsTakeback">વ્હાઇટે ટેકબેકનો ઇનકાર કર્યો</string>
+  <string name="blackCancelsTakeback">બ્લેક ટેકબેકનો ઇનકાર કર્યો</string>
   <string name="yourOpponentProposesATakeback">તમારા પ્રતિદ્વંદીએ ચાલ પાછી લેવાનો પ્રસ્તાવ કર્યો</string>
   <string name="bookmarkThisGame">આ રમત સ્મૃતિમાં સાચવો</string>
   <string name="tournament">પ્રતિયોગિતા</string>
@@ -332,6 +352,7 @@
     <item quantity="other">તમારે હજી %s ક્રમિત રમત રમવી પડશે</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">તમારી રેટિંગ %s કામચલાઉ છે</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">રેટિંગ ફિલ્ટર્સ લૉક કરેલા છે કારણ કે તમારું રેટિંગ સ્થિર નથી. રેટેડ રમતો રમવાથી સ્થિરતા વધશે.</string>
   <string name="yourPerfRatingIsTooHigh">તમારું %1$s રેટિંગ (%2$s) ખૂબ ઊંચું છે</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">તમારું ટોચનું સાપ્તાહિક %1$s રેટિંગ (%2$s) ખૂબ ઊંચું છે</string>
   <string name="yourPerfRatingIsTooLow">તમારું %1$s રેટિંગ (%2$s) ખૂબ ઓછું છે</string>
@@ -362,8 +383,14 @@
   <string name="toStudy">અભ્યાસ</string>
   <string name="importGame">રમત દાખલ કરો</string>
   <string name="importGameExplanation">બ્રાઉઝ કરી શકાય તેવું રીપ્લે, કમ્પ્યુટર વિશ્લેષણ, ગેમ ચેટ અને સાર્વજનિક શેર કરી શકાય તેવું URL મેળવવા માટે રમત PGN પેસ્ટ કરો.</string>
+  <string name="thisIsAChessCaptcha">આ શતરંજ કૅપચ્ચા છે </string>
+  <string name="captcha.fail">શતરંજ કૅપચ્ચા નો પ્રયત્ન કરો </string>
+  <string name="notACheckmate">ચેકમેટ નથી</string>
+  <string name="whiteCheckmatesInOneMove">સફેદ એક જ ચાલમાં ચેકમેટ કરશે</string>
+  <string name="blackCheckmatesInOneMove">કાળા એક જ ચાલમાં ચેકમેટ કરશે</string>
   <string name="retry">ફરી પ્રયાસ કરો</string>
   <string name="reconnecting">ફરીથી કનેક્ટ કરી રહ્યું છે</string>
+  <string name="noNetwork">ઑફલાઇન</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s મિત્ર ઓનલાઇન</item>
     <item quantity="other">%s મિત્રો ઓનલાઇન</item>
@@ -372,6 +399,8 @@
   <string name="follow">અનુસરો</string>
   <string name="following">ફોલોવિંગ</string>
   <string name="unfollow">અનફોલો</string>
+  <string name="followX">ફોલ્લૉ </string>
+  <string name="unfollowX">ઉનફૉલલૉ </string>
   <string name="block">બ્લોક</string>
   <string name="blocked">બ્લોકડ</string>
   <string name="unblock">અનબ્લોક</string>
@@ -394,17 +423,37 @@
   <string name="conditionOfEntry">પ્રવેશ માટેની જરૂરિયાતો:</string>
   <string name="advancedSettings">વિગતવાર સેટિંગ્સ</string>
   <string name="safeTournamentName">પ્રતિયોગિતા માટે યોગ્ય નામ પસંદ કરો.</string>
+  <string name="inappropriateNameWarning">સહેજ પણ ખોટી વસ્તુ તમારું ખાતું બંધ કરી શકે છે.</string>
+  <string name="makePrivateTournament">ટુર્નામેન્ટને ખાનગી બનાવો, અને પાસવર્ડ વડે ઍક્સેસ પ્રતિબંધિત કરો</string>
   <string name="join">ભાગ લો</string>
   <string name="withdraw">છોડી દો</string>
   <string name="points">અંકો</string>
   <string name="wins">જીત</string>
   <string name="losses">હાર</string>
+  <string name="startingIn" comment="Displayed above a timer">શરૂઆતથી</string>
+  <string name="pause">થોભો</string>
+  <string name="resume">શરૂ કરો</string>
+  <string name="youArePlaying">તમે રમો છો!</string>
+  <string name="winRate">જીતવાનો આંકડો </string>
+  <string name="performance">પ્રદર્શન</string>
   <string name="tournamentComplete">પ્રતિયોગિતા પૂર્ણ</string>
   <string name="movesPlayed">ચાલ રમ્યા</string>
   <string name="whiteWins">સફેદ ની જીત</string>
   <string name="blackWins">કાળા ની જીત</string>
+  <string name="drawRate">ડ્રો નંબર</string>
   <string name="draws">ડ્રો</string>
+  <string name="averageOpponent">સરેરાશ ખેલાડી</string>
+  <string name="boardEditor">બોર્ડ એડિટર</string>
+  <string name="setTheBoard">બોર્ડ સેટ કરો</string>
+  <string name="popularOpenings">લોકપ્રિય ઓપેનિન્ગ્સ </string>
+  <string name="endgamePositions">અંતિમ સ્થિતિ</string>
+  <string name="startPosition">શરૂઆતની સ્થિતિ</string>
+  <string name="clearBoard">બોર્ડ સાફ કરો</string>
+  <string name="loadPosition">સ્થિતિ લોડ કરો</string>
+  <string name="isPrivate">અંગત</string>
+  <string name="profile">પ્રોફાઇલ</string>
   <string name="editProfile">પ્રોફાઇલ સંપાદિત કરો</string>
+  <string name="realName">સાચું નામ</string>
   <string name="setFlair">તમારો સ્વભાવ સેટ કરો</string>
   <string name="flair">સ્વભાવ અન્યથા દેખાવ</string>
   <string name="youCanHideFlair">આખી સાઈટ પર તમામ યુઝર ફ્લેર્સને છુપાવવા માટે એક સેટિંગ છે.</string>
@@ -431,6 +480,8 @@
   <string name="descPrivateHelp">લેખિત શબ્દો કે જે ફક્ત ટીમના સભ્યો જ જોશે. જો સેટ હોય, તો ટીમના સભ્યો માટે સાર્વજનિક વર્ણનને બદલે છે.</string>
   <string name="no">નહીં</string>
   <string name="yes">હા</string>
+  <string name="website">વેબસાઇટ</string>
+  <string name="mobile">મોબાઇલ</string>
   <string name="help">સહાયતા:</string>
   <string name="createANewTopic">નવો વિષય બનાવો</string>
   <string name="topics">વિષયો</string>
@@ -449,6 +500,8 @@
   <string name="cheat">છેતરપિંડી</string>
   <string name="troll">મજાક</string>
   <string name="other">અન્ય</string>
+  <string name="reportUsernameHelp">આ વપરાશકર્તાનામ વિશે શું વાંધાજનક છે તે સમજાવો. ફક્ત \"તે વાંધાજનક/અયોગ્ય છે\" એમ ન કહો, પરંતુ અમને જણાવો કે તમે આ નિષ્કર્ષ પર કેવી રીતે આવ્યા, ખાસ કરીને જો અપમાન અસ્પષ્ટ હોય, અંગ્રેજીમાં ન હોય, અપશબ્દોમાં હોય, અથવા ઐતિહાસિક/સાંસ્કૃતિક સંદર્ભ હોય.</string>
+  <string name="reportProcessedFasterInEnglish">જો તમારો રિપોર્ટ અંગ્રેજીમાં લખાયેલો હશે તો તે ઝડપથી પ્રક્રિયા કરવામાં આવશે.</string>
   <string name="error.provideOneCheatedGameLink">કૃપા કરીને છેતરાયેલી રમતની ઓછામાં ઓછી એક લિંક પ્રદાન કરો.</string>
   <string name="by">%s દ્વારા</string>
   <string name="importedByX">%s દ્વારા આયાત કરેલ</string>
@@ -462,6 +515,17 @@
   <string name="incorrectPassword">ખોટો પાસવર્ડ</string>
   <string name="invalidAuthenticationCode">અમાન્ય પ્રમાણીકરણ કોડ</string>
   <string name="emailMeALink">મને એક લિંક ઈમેલ કરો</string>
+  <string name="currentPassword">હાલનો પાસવર્ડ</string>
+  <string name="newPassword">નવો પાસવર્ડ</string>
+  <string name="newPasswordAgain">નવો પાસવર્ડ (ફરીથી)</string>
+  <string name="newPasswordsDontMatch">નવો પાસવર્ડ મેળ થતો નથી.</string>
+  <string name="newPasswordStrength">પાસવર્ડની મજબૂતાઈ</string>
+  <string name="clockIncrement">ઘડિયાળનો વધારો</string>
+  <string name="privacy">પ્રિવાસી </string>
+  <string name="privacyPolicy">પ્રિવાસી પોલિસી </string>
+  <string name="letOtherPlayersFollowYou">અન્ય ખેલાડીઓને તમારું અનુસરણ કરવા દો.</string>
+  <string name="letOtherPlayersChallengeYou">અન્ય ખેલાડીઓને તમને પડકારવા દો</string>
+  <string name="letOtherPlayersInviteYouToStudy">અન્ય ખેલાડીઓને તમને અભ્યાસ માટે આમંત્રિત કરવા દો</string>
   <string name="sound">ધ્વનિ</string>
   <string name="fast">ઝડપી</string>
   <string name="normal">સામાન્ય</string>
