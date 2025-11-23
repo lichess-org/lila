@@ -8,7 +8,9 @@ interface I18nPlural {
   asArray: <T>(quantity: number, ...args: T[]) => (T | string)[]; // vdomPlural / plural
 }
 interface I18n {
-  /** Global noarg key lookup (only if absolutely necessary). */
+  /** fetch i18n dynamically */
+  load(catalog: string): Promise<void>;
+  /** global noarg key lookup */
   (key: string): string;
   quantity: (count: number) => 'zero' | 'one' | 'two' | 'few' | 'many' | 'other';
 
