@@ -7,6 +7,7 @@
   <string name="resetMyProgress">મારી પ્રગતિ રીસેટ કરો</string>
   <string name="youWillLoseAllYourProgress">તમે તમારી બધી જ પ્રગતિ ખોઇ દેશો!</string>
   <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">ચાલો!</string>
+  <string name="chessPieces">ચેસના ટુકડાઓ</string>
   <string name="theRook">હાથી</string>
   <string name="itMovesInStraightLines">તે સીધી રેખામાં ચાલે છે</string>
   <string name="rookIntro">હાથી એક શક્તિશાળી પાત્ર છે. શું તમે એને હુકમ આપવા તૈયાર છો?</string>
@@ -19,8 +20,41 @@
 ઝડપથી કરવા માટે!</string>
   <string name="rookComplete">અભિનંદન! તમે હાથી કાબૂ કરતા સફળતાપૂર્વક શીખી ગયા.</string>
   <string name="theBishop">ઊંટ</string>
+  <string name="itMovesDiagonally">તે ત્રાંસા રીતે ફરે છે</string>
+  <string name="bishopIntro">આગળ આપણે શીખીશું કે બિશપને કેવી રીતે ચલાવવું!</string>
+  <string name="youNeedBothBishops">એક પ્રકાશ-ચોરસ બિશપ,
+એક ઘેરા-ચોરસ બિશપ.
+તમને બંનેની જરૂર છે!</string>
+  <string name="bishopComplete">અભિનંદન! તમે બિશપને આદેશ આપી શકો છો.</string>
+  <string name="theQueen">રાણી</string>
+  <string name="queenCombinesRookAndBishop">રાણી = ઊંટ ​​+ હાથી</string>
+  <string name="queenIntro">સૌથી શક્તિશાળી શતરંજનો ટુકડો પ્રવેશ કરે છે. મહારાણી!</string>
+  <string name="queenComplete">અભિનંદન! રાણીઓ પાસે તમારા માટે કોઈ રહસ્ય નથી.</string>
+  <string name="theKing">રાજા</string>
+  <string name="theMostImportantPiece">સૌથી મહત્વપૂર્ણ ભાગ</string>
+  <string name="kingIntro">તમે રાજા છો. જો તમે યુદ્ધમાં પડો છો, તો રમત હારી જશે.</string>
+  <string name="theKingIsSlow">રાજા ધીમો છે.</string>
+  <string name="lastOne">છેલ્લું!</string>
+  <string name="kingComplete">હવે તમે કમાન્ડરને આદેશ આપી શકો છો!</string>
   <string name="theKnight">ઘોડો</string>
+  <string name="itMovesInAnLShape">તે L આકારમાં ફરે છે</string>
+  <string name="knightIntro">અહીં તમારા માટે એક પડકાર છે. ઘોડો... એક મુશ્કેલ ભાગ છે.</string>
+  <string name="knightsHaveAFancyWay">ઘોડાઓ પાસે કૂદવાની એક વિચિત્ર રીત હોય છે!</string>
+  <string name="knightsCanJumpOverObstacles">ઘોડા અવરોધો પાર કરી શકે છે!
+ભાગી જાઓ અને તારાઓને હરાવો!</string>
+  <string name="knightComplete">અભિનંદન! તમે ઘોડા પર નિપુણતા મેળવી લીધી છે.</string>
   <string name="thePawn">પ્યાદું</string>
+  <string name="itMovesForwardOnly">તે ફક્ત આગળ વધે છે</string>
+  <string name="pawnIntro">પ્યાદા નબળા હોય છે, પરંતુ તેમાં ઘણી બધી ક્ષમતાઓ રહેલી હોય છે.</string>
+  <string name="pawnsMoveOneSquareOnly">પ્યાદાઓ ફક્ત એક ચોરસ જ ખસેડે છે.
+પરંતુ જ્યારે તેઓ બોર્ડની બીજી બાજુ પહોંચે છે, ત્યારે તેઓ વધુ મજબૂત ટુકડો બની જાય છે!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">મોટાભાગે રાણીને બઢતી આપવી એ શ્રેષ્ઠ હોય છે.
+પણ ક્યારેક ઘોડો પણ કામમાં આવી શકે છે!</string>
+  <string name="pawnsMoveForward">પ્યાદા આગળ વધે છે,
+પણ ત્રાંસા રીતે પકડે છે!</string>
+  <string name="captureThenPromote">કેપ્ચર કરો, પછી પ્રમોટ કરો!</string>
+  <string name="useAllThePawns">બધા પ્યાદાઓનો ઉપયોગ કરો!
+પ્રમોશન આપવાની જરૂર નથી.</string>
   <string name="puzzles">કોયડા</string>
   <string name="exerciseYourTacticalSkills">તમારી વ્યૂહાત્મક કુશળતા વાપરો</string>
   <string name="greatJob">સરસ!</string>
