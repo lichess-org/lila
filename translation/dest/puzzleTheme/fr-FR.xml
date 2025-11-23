@@ -16,8 +16,8 @@
   <string name="backRankMateDescription">Matez le Roi sur la dernière rangée, lorsqu\'il est piégé par ses propres pièces.</string>
   <string name="balestraMate">Mat de l\'arbalète</string>
   <string name="balestraMateDescription">Un fou fait échec tandis que la dame contrôle les cases de fuite.</string>
-  <string name="blindSwineMate" comment="Description (translatable separately):&#10;&#10;Two rooks team up to mate the king in an area of 2 by 2 squares.">Mat des deux tours</string>
-  <string name="blindSwineMateDescription" comment="Description for the Blind Swine checkmate pattern.">Deux tours matent le roi adverse dans un espace de deux cases par deux cases.</string>
+  <string name="blindSwineMate">Mat des deux tours</string>
+  <string name="blindSwineMateDescription">Deux tours matent le roi adverse dans un espace de deux cases par deux cases.</string>
   <string name="bishopEndgame">Finale de Fous</string>
   <string name="bishopEndgameDescription">Une finale avec seulement des Fous et des pions.</string>
   <string name="bodenMate">Mat de Boden</string>
