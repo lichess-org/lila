@@ -2,6 +2,7 @@
 <resources>
   <string name="emailConfirm_subject">તમારું લિચેસ એકાઉન્ટ %s</string>
   <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">લિંક પર ક્લીક કરો ચાલુ કરવા માટે:</string>
+  <string name="emailConfirm_justIgnore" comment="This text is included in the registration email for new users.">જો તમે Lichess સાથે નોંધણી કરાવી નથી, તો તમે આ સંદેશને સુરક્ષિત રીતે અવગણી શકો છો. પુષ્ટિ ન થયેલ એકાઉન્ટ અને તમારા ઇમેઇલ સરનામાંના બધા નિશાન 48 કલાક પછી અમારી સિસ્ટમમાંથી કાઢી નાખવામાં આવશે.</string>
   <string name="passwordReset_subject">રીસેટ કરો %s</string>
   <string name="passwordReset_intro">અમને પાસવર્ડ રીસેટ માટે માહિતી મળી છે.</string>
   <string name="passwordReset_clickOrIgnore">જો તમે આ વિનંતી કરી હોય, તો નીચે આપેલી લિંકને ક્લિક કરો. જો નહીં, તો તમે આ ઇમેઇલને અવગણી શકો છો.</string>
