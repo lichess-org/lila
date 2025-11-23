@@ -4729,8 +4729,14 @@ interface I18n {
     becomeStreamer: string;
     /** Change/delete your picture */
     changePicture: string;
+    /** Choose the YouTube channel you will use on Lichess. */
+    chooseYoutubeChannel: string;
+    /** Connect */
+    connect: string;
     /** Currently streaming: %s */
     currentlyStreaming: I18nFormat;
+    /** Disconnect */
+    disconnect: string;
     /** Download streamer kit */
     downloadKit: string;
     /** Do you have a Twitch or YouTube channel? */
@@ -4769,6 +4775,8 @@ interface I18n {
     perk4: string;
     /** Benefits of streaming with the keyword */
     perks: string;
+    /** Please allow up to 72 hours before your streamer badge and listing are approved. */
+    pleaseAllow: string;
     /** Please fill in your streamer information, and upload a picture. */
     pleaseFillIn: string;
     /** Include the keyword "lichess.org" in your stream title and use the category "Chess" when you stream on Lichess. */
@@ -4791,12 +4799,6 @@ interface I18n {
     submitForReview: string;
     /** Tell us about your stream in one sentence */
     tellUsAboutTheStream: string;
-    /** Twitch and YouTube changes must be verified. */
-    twitchOrYouTubeMustBeVerified: string;
-    /** Either Twitch or YouTube is required */
-    twitchOrYouTubeRequired: string;
-    /** Your Twitch username or URL */
-    twitchUsername: string;
     /** Upload a picture */
     uploadPicture: string;
     /** Visible on the streamers page */
@@ -4811,8 +4813,6 @@ interface I18n {
     xStreamerPicture: I18nFormat;
     /** Your streamer page */
     yourPage: string;
-    /** Your YouTube channel ID */
-    youTubeChannelId: string;
   };
   study: {
     /** Add members */

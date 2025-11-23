@@ -47,9 +47,9 @@ object LiveStreams:
 
   given alleycats.Zero[WithTitles] = alleycats.Zero(WithTitles(LiveStreams(Nil), Map.empty))
 
-final class LiveStreamApi(
+final class LiveApi(
     cacheApi: lila.memo.CacheApi,
-    streaming: Streaming
+    streaming: Publisher
 )(using Executor):
 
   private val cache = cacheApi.unit[LiveStreams]:
