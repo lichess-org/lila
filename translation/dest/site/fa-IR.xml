@@ -225,9 +225,9 @@
   <string name="time">زمان</string>
   <string name="rating">درجه‌بندی</string>
   <string name="ratingStats">آماره‌های درجه‌بندی</string>
-  <string name="username">نام کاربری</string>
-  <string name="usernameOrEmail">نام کاربری یا رایانامه</string>
-  <string name="changeUsername">تغییر نام کاربری</string>
+  <string name="username">نام کاربر</string>
+  <string name="usernameOrEmail">نام کاربر یا رایانامه</string>
+  <string name="changeUsername">تغییر نام کاربر</string>
   <string name="changeUsernameNotSame">تنها اندازه حروف میتوانند تغییر کنند. برای مثال \"johndoe\" به \"JohnDoe\".</string>
   <string name="changeUsernameDescription">نام کاربری خود را تغییر دهید. این تنها یک بار انجام پذیر است و شما تنها مجازید اندازه حروف نام کاربری‌تان را تغییر دهید.</string>
   <string name="signupUsernameHint">مطمئن شوید که یک نام کاربری مناسب انتخاب میکنید. بعداً نمی توانید آن را تغییر دهید و هر حسابی با نام کاربری نامناسب بسته می شود!</string>

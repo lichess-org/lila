@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Šachové úlohy</string>
-  <string name="puzzleThemes">Kategórie úloh</string>
+  <string name="puzzleThemes">Okruhy úloh</string>
   <string name="recommended">Odporúčané</string>
   <string name="phases">Fázy</string>
   <string name="motifs">Motívy</string>
   <string name="advanced">Pokročilé</string>
   <string name="lengths">Dĺžka</string>
   <string name="mates">Mat</string>
+  <string name="mateThemes">Matové okruhy</string>
   <string name="goals">Cieľ</string>
   <string name="origin">Pôvod</string>
   <string name="specialMoves">Špeciálne ťahy</string>
@@ -44,7 +45,7 @@
     <item quantity="other">Hrané %s-krát</item>
   </plurals>
   <string name="fromGameLink">Z hry %s</string>
-  <string name="continueTraining">Trénujte ďalej</string>
+  <string name="continueTraining">Pokračovať v tréningu</string>
   <string name="difficultyLevel">Obtiažnosť</string>
   <string name="normal">Normálna</string>
   <string name="easier">Ľahšia</string>
@@ -64,7 +65,7 @@
     <item quantity="other">O %s bodov vyššia ako Váš rating úloh</item>
   </plurals>
   <string name="example">Príklad</string>
-  <string name="addAnotherTheme">Pridať ďalšiu kategóriu</string>
+  <string name="addAnotherTheme">Pridať ďalší okruh</string>
   <string name="nextPuzzle">Ďalšia úloha</string>
   <string name="jumpToNextPuzzleImmediately">Automaticky prejsť na ďalšiu úlohu</string>
   <string name="puzzleDashboard">Nástenka šachových úloh</string>
@@ -106,5 +107,5 @@ Hrajte rapid a klasické partie, aby ste zvýšili svoje šance na pridanie úlo
   <string name="percentSolved">%s vyriešených</string>
   <string name="noPuzzlesToShow">Niet čo zobraziť, vyriešte najprv zopár úloh!</string>
   <string name="improvementAreasDescription">Precvičujte tieto úlohy aby ste napredovali čo najrýchlejšie!</string>
-  <string name="strengthDescription">Tieto témy Vám idú najlepšie</string>
+  <string name="strengthDescription">Tieto okruhy Vám idú najlepšie</string>
 </resources>
