@@ -25,6 +25,7 @@
   <string name="castlingDescription">Ασφαλίστε τον βασιλιά και αναπτύξτε τον πύργο για επίθεση.</string>
   <string name="capturingDefender">Αιχμαλώτιση αμυνόμενου κομματιού</string>
   <string name="capturingDefenderDescription">Απομάκρυνση κομματιού που είναι σημαντικό για την υπεράσπιση άλλου κομματιού, επιτρέποντας την αιχμαλώτιση του πλέον ανυπεράσπιστου κομματιού στην επόμενη κίνηση.</string>
+  <string name="cornerMate">Ματ στη γωνία</string>
   <string name="crushing">Σαρωτική επίθεση</string>
   <string name="crushingDescription">Εντοπίστε το σοβαρό λάθος του αντιπάλου και αποκτήστε καθοριστικό πλεονέκτημα. (eval ≥ 600cp)</string>
   <string name="doubleBishopMate">Ματ με δύο αξιωματικούς</string>
