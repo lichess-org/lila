@@ -17,10 +17,10 @@
   <string name="payLifetimeOnce">Плати %s једном. Буди Lichess Покровитељ заувек!</string>
   <string name="lifetimePatron">Доживотни Личес Патрон</string>
   <string name="monthly">Месечно</string>
-  <string name="recurringBilling">Поновно наплаћивање, обнављајући твоја Патрон крила сваког месеца.</string>
-  <string name="onetime">Једноктратно</string>
+  <string name="recurringBilling">Месечна наплата, обнављаш своја Покровитељ крила сваког месеца.</string>
+  <string name="onetime">Једнократно</string>
   <string name="singleDonation">Једнократна донација која ти даје Патрон крила један месец.</string>
-  <string name="otherAmount">Остало</string>
+  <string name="otherAmount">Остале</string>
   <string name="withCreditCard">Кредитна Картица</string>
   <string name="weAreSmallTeam">Ми смо мали тим, па твоја подршка прави велику разлику!</string>
   <string name="whereMoneyGoes">Куда сав новац иде?</string>
