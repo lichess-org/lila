@@ -18,4 +18,27 @@
   <string name="otherRules">અન્ય મહત્વના નિયમો</string>
   <string name="thisIsPrivate">આ એક ખાનગી ટુર્નામેન્ટ છે</string>
   <string name="shareUrl">લોકોને જોડાવા માટે આ URL ને શેર કરો:%s</string>
+  <string name="editTeamBattle">ટીમ યુદ્ધ સંપાદિત કરો</string>
+  <string name="defender">ડિફેન્ડર</string>
+  <string name="pickYourTeam">તમારી ટીમ પસંદ કરો</string>
+  <string name="whichTeamWillYouRepresentInThisBattle">આ યુદ્ધમાં તમે કઈ ટીમનું પ્રતિનિધિત્વ કરશો?</string>
+  <string name="youMustJoinOneOfTheseTeamsToParticipate">ભાગ લેવા માટે તમારે આમાંથી કોઈ એક ટીમમાં જોડાવું પડશે!</string>
+  <string name="created">બનાવ્યું</string>
+  <string name="recentlyPlayed">તાજેતરમાં રમાયેલ</string>
+  <string name="bestResults">શ્રેષ્ઠ પરિણામો</string>
+  <string name="tournamentStats">ટુર્નામેન્ટ નંબર</string>
+  <string name="rankAvgHelp">રેન્ક એવરેજ એ તમારા રેન્કિંગનો ટકાવારી છે. નીચું રેન્કિંગ વધુ સારું છે.
+
+ઉદાહરણ તરીકે, 100 ખેલાડીઓની ટુર્નામેન્ટમાં 3મું રેન્ક મેળવવું = 3%. 1000 ખેલાડીઓની ટુર્નામેન્ટમાં 10મું રેન્ક મેળવવું = 1%.</string>
+  <string name="medians">મધ્યક</string>
+  <string name="allAveragesAreX">આ પૃષ્ઠ પરના બધા સરેરાશ છે</string>
+  <string name="total">કુલ</string>
+  <string name="pointsAvg">પોઈન્ટ સરેરાશ</string>
+  <string name="pointsSum">પોઈન્ટનો સરવાળો</string>
+  <string name="rankAvg">રેન્ક સરેરાશ</string>
+  <string name="tournamentWinners">ટુર્નામેન્ટ વિજેતાઓ</string>
+  <string name="tournamentShields">ટુર્નામેન્ટ શિલ્ડ્સ</string>
+  <string name="onlyTitled">ફક્ત ટાઇટલ ધરાવતા ખેલાડીઓ</string>
+  <string name="onlyTitledHelp">ટુર્નામેન્ટમાં જોડાવા માટે સત્તાવાર ટાઇટલ જરૂરી છે</string>
+  <string name="tournamentPairingsAreNowClosed">ટુર્નામેન્ટની જોડી હવે બંધ થઈ ગઈ છે.</string>
 </resources>
