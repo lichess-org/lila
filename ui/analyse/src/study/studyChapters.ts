@@ -161,23 +161,24 @@ export const gameLinksListener = (select: ChapterSelect) => (vnode: VNode) =>
     { passive: false },
   );
 
+function onListUpdate(ctrl: StudyCtrl, vnode: VNode) {
+  const vData = vnode.data!.li!,
+    el = vnode.elm as HTMLElement;
+  ctrl.chapters.scroller.scrollIfNeeded(el);
+  if (ctrl.members.canContribute() && ctrl.chapters.list.size() > 1 && !vData.sortable) {
+    site.asset.loadEsm<typeof Sortable>('sortable.esm', { npm: true }).then(s => {
+      vData.sortable = s.create(el, {
+        draggable: '.draggable',
+        handle: 'ontouchstart' in window ? 'span' : undefined,
+        onSort: () => ctrl.chapters.sort(vData.sortable.toArray()),
+      });
+    });
+  }
+}
+
 export function view(ctrl: StudyCtrl): VNode {
   const canContribute = ctrl.members.canContribute(),
     current = ctrl.currentChapter();
-  function update(vnode: VNode) {
-    const vData = vnode.data!.li!,
-      el = vnode.elm as HTMLElement;
-    ctrl.chapters.scroller.scrollIfNeeded(el);
-    if (canContribute && ctrl.chapters.list.size() > 1 && !vData.sortable) {
-      site.asset.loadEsm<typeof Sortable>('sortable.esm', { npm: true }).then(s => {
-        vData.sortable = s.create(el, {
-          draggable: '.draggable',
-          handle: 'ontouchstart' in window ? 'span' : undefined,
-          onSort: () => ctrl.chapters.sort(vData.sortable.toArray()),
-        });
-      });
-    }
-  }
 
   return hl('div.study__chapters', [
     hl(
@@ -195,11 +196,11 @@ export function view(ctrl: StudyCtrl): VNode {
               } else ctrl.setChapter(id);
             });
             vnode.data!.li = {};
-            update(vnode);
+            onListUpdate(ctrl, vnode);
           },
           postpatch(old, vnode) {
             vnode.data!.li = old.data!.li;
-            update(vnode);
+            onListUpdate(ctrl, vnode);
           },
           destroy: vnode => {
             const sortable: Sortable = vnode.data!.li!.sortable;
