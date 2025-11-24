@@ -44,7 +44,7 @@ import { MultiBoardCtrl } from './multiBoard';
 import type { StudySocketSendParams } from '../socket';
 import { storedMap } from 'lib/storage';
 import { opposite } from 'chessops/util';
-import StudyChaptersCtrl, { isFinished, StudyChapterScroller } from './studyChapters';
+import StudyChaptersCtrl, { isFinished } from './studyChapters';
 import { SearchCtrl } from './studySearch';
 import type { GamebookOverride } from './gamebook/interfaces';
 import type { EvalHitMulti, EvalHitMultiArray } from '../interfaces';
@@ -135,7 +135,6 @@ export default class StudyCtrl {
       // how stale is the study
       updatedAt: Date.now() - data.secondsSinceUpdate * 1000,
       gamebookOverride: undefined,
-      chapterScroller: new StudyChapterScroller(),
     };
 
     this.members = new StudyMemberCtrl({
@@ -263,7 +262,7 @@ export default class StudyCtrl {
   };
 
   setTab = (tab: Tab) => {
-    if (tab === 'chapters') this.vm.chapterScroller.request = 'instant';
+    if (tab === 'chapters') this.chapters.scroller.request = 'instant';
     this.vm.tab(tab);
     this.redraw();
   };
@@ -485,7 +484,7 @@ export default class StudyCtrl {
       this.redraw();
       return true;
     }
-    this.vm.chapterScroller.request = 'smooth';
+    this.chapters.scroller.request = 'smooth';
     this.vm.nextChapterId = id;
     this.vm.justSetChapterId = id;
     if (this.vm.mode.sticky && this.makeChange('setChapter', id)) {
@@ -770,7 +769,7 @@ export default class StudyCtrl {
         this.vm.mode.write = this.relay ? this.relayRecProp() : this.nonRelayRecMapProp(this.data.id);
         this.vm.chapterId = d.p.chapterId;
         this.vm.nextChapterId = d.p.chapterId;
-        this.vm.chapterScroller.request = 'instant';
+        this.chapters.scroller.request = 'instant';
       }
       this.xhrReload(true);
     },

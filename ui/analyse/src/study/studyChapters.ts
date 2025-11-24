@@ -50,6 +50,7 @@ export default class StudyChaptersCtrl {
   newForm: StudyChapterNewForm;
   editForm: StudyChapterEditForm;
   localPaths: LocalPaths = {};
+  scroller = new StudyChapterScroller();
 
   constructor(
     initChapters: ChapterPreviewFromServer[],
@@ -166,7 +167,7 @@ export function view(ctrl: StudyCtrl): VNode {
   function update(vnode: VNode) {
     const vData = vnode.data!.li!,
       el = vnode.elm as HTMLElement;
-    ctrl.vm.chapterScroller.scrollIfNeeded(el);
+    ctrl.chapters.scroller.scrollIfNeeded(el);
     if (canContribute && ctrl.chapters.list.size() > 1 && !vData.sortable) {
       site.asset.loadEsm<typeof Sortable>('sortable.esm', { npm: true }).then(s => {
         vData.sortable = s.create(el, {
