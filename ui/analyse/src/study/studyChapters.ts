@@ -240,17 +240,18 @@ export class StudyChapterScroller {
     public rafId?: number,
   ) {}
 
-  scrollIfNeeded(el: HTMLElement) {
+  scrollIfNeeded(list: HTMLElement) {
     if (!this.request) return;
-    const active = el.querySelector('.active');
+    const request = this.request;
+    this.request = undefined;
+    const active = list.querySelector('.active');
     if (active) {
-      const [c, l] = [el.getBoundingClientRect(), active.getBoundingClientRect()];
+      const [c, l] = [list.getBoundingClientRect(), active.getBoundingClientRect()];
       if (c.top < l.top || c.bottom > l.bottom) {
         cancelAnimationFrame(this.rafId ?? 0);
         this.rafId = requestAnimationFrame(() => {
-          if (!this.request) return;
-          scrollToInnerSelector(el, '.active', false, this.request);
-          this.request = undefined;
+          scrollToInnerSelector(list, '.active', false, request);
+          this.rafId = undefined;
         });
       }
     }
