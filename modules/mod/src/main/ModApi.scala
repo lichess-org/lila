@@ -50,7 +50,8 @@ final class ModApi(
     for
       sus <- reportApi.getSuspect(suspectId.value).orFail(s"No such suspect $suspectId")
       unengined <- logApi.wasUnengined(sus)
-      _ <- (!sus.user.isBot && !sus.user.marks.engine && !unengined).so:
+      closedReports <- reportApi.countClosedAutoCheatReport(sus.user.id)
+      _ <- (!sus.user.isBot && !sus.user.marks.engine && !unengined && closedReports < 2).so:
         lila.mon.cheat.autoMark.increment()
         setEngine(sus, v = true) >>
           noteApi.lichessWrite(sus.user, note) >>

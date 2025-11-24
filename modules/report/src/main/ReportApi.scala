@@ -125,11 +125,13 @@ final class ReportApi(
   def getLichessReporter: Fu[Reporter] =
     getLichessMod.map: l =>
       Reporter(l.user)
+
   lazy val automodReporter: Fu[Reporter] =
     userApi
       .byId(UserId.ai.into(ReporterId))
       .dmap2(Reporter.apply)
       .orFail("User ai is missing")
+
   def autoAltPrintReport(userId: UserId): Funit =
     coll
       .exists(
@@ -171,6 +173,15 @@ final class ReportApi(
             )
           )
         case _ => funit
+
+  def countClosedAutoCheatReport(userId: UserId): Fu[Int] =
+    coll.secondary.countSel:
+      $doc(
+        "user" -> userId,
+        "room" -> Room.Cheat.key,
+        "open" -> false,
+        "atoms.by" -> UserId.lichess
+      )
 
   def autoCheatDetectedReport(userId: UserId, cheatedGames: Int): Funit =
     userApi
