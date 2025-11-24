@@ -255,6 +255,8 @@ interface I18n {
     createdAndManagedBy: I18nFormat;
     /** Current game URL */
     currentGameUrl: string;
+    /** Keeping the default name will automatically translate it to all other languages. */
+    defaultRoundNameHelp: string;
     /** Definitively delete the round and all its games. */
     definitivelyDeleteRound: string;
     /** Definitively delete the entire tournament, all its rounds and all its games. */

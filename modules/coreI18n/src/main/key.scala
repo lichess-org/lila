@@ -206,6 +206,7 @@ object I18nKey:
     val `communityBroadcast`: I18nKey = "broadcast:communityBroadcast"
     val `createdAndManagedBy`: I18nKey = "broadcast:createdAndManagedBy"
     val `roundX`: I18nKey = "broadcast:roundX"
+    val `defaultRoundNameHelp`: I18nKey = "broadcast:defaultRoundNameHelp"
     val `nbBroadcasts`: I18nKey = "broadcast:nbBroadcasts"
     val `nbViewers`: I18nKey = "broadcast:nbViewers"
 
