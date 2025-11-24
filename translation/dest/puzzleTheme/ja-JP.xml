@@ -16,6 +16,8 @@
   <string name="backRankMateDescription">一番下のランクで、上を自分の駒に塞がれたキングをメイトする。</string>
   <string name="balestraMate">バレストラ（クロスボウ）のメイト</string>
   <string name="balestraMateDescription">ビショップがチェックし、クイーンが残りの逃げ道をおさえる</string>
+  <string name="blindSwineMate">ブラインド・スワイン・メイト</string>
+  <string name="blindSwineMateDescription">2 つのルークが協力して 2 マス四方の空間でキングをメイトする。</string>
   <string name="bishopEndgame">ビショップ・エンドゲーム</string>
   <string name="bishopEndgameDescription">ビショップとポーンだけの終盤。</string>
   <string name="bodenMate">ボーデンのメイト</string>
