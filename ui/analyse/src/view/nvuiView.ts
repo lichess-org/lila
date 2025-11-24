@@ -684,7 +684,7 @@ function studyDetails(ctrl: AnalyseCtrl) {
                       url: `/broadcast/${tour.slug}/${r.slug}/${r.id}#round-select`,
                     },
                   },
-                  r.name,
+                  study.relay?.i18nRoundName(r),
                 ),
               ),
             ),

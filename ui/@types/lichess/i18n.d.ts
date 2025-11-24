@@ -333,6 +333,8 @@ interface I18n {
     resetRound: string;
     /** Round name */
     roundName: string;
+    /** Round %s */
+    roundX: I18nFormat;
     /** Score */
     score: string;
     /** Show players scores based on game results */
