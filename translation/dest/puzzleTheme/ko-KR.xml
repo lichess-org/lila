@@ -26,6 +26,8 @@
   <string name="castlingDescription">왕을 안전하게 피신시키고, 룩을 이용해 공격 태세를 갖춥니다.</string>
   <string name="capturingDefender">보호하는 기물을 제거하세요.</string>
   <string name="capturingDefenderDescription">다른 기물을 방어중인 기물을 잡아서 다음 수에 더 이상 지켜지지 않는 기물을 잡을 수 있게 됩니다.</string>
+  <string name="cornerMate">코너 메이트</string>
+  <string name="cornerMateDescription">킹을 룩이나 퀸으로 구석에 가두고, 나이트로 체크메이트를 가합니다.</string>
   <string name="crushing">박살내기</string>
   <string name="crushingDescription">상대의 블런더를 포착하고 박살내어 이득을 얻으세요. (eval ≥ 600cp)</string>
   <string name="doubleBishopMate">2비숍 메이트</string>
