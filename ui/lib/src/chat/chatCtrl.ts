@@ -18,6 +18,7 @@ import { storedStringProp, storedBooleanProp } from '../storage';
 import { pubsub, type PubsubEvents } from '../pubsub';
 import { alert } from '../view/dialogs';
 import { isContained } from '@/algo';
+import { isMobile } from '@/device';
 
 type SubPair = { [K in keyof PubsubEvents]: [K, PubsubEvents[K]] }[keyof PubsubEvents];
 
@@ -179,7 +180,7 @@ export class ChatCtrl {
   };
 
   setTab = (tab: Tab = this.getTab()): Tab => {
-    this.vm.autofocus = true;
+    this.vm.autofocus = !isMobile();
     this.storedTabKey(tab.key);
     return tab;
   };
