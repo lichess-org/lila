@@ -146,8 +146,7 @@ export function isVersionCompatible(version: string | undefined | false, vc?: Ve
       .concat([0, 0, 0, 0]);
   }
   function isGreaterThan(left: number[], right: number[]): boolean {
-    for (let i = 0; i < 4; i++)
-      if (left[i] !== right[i]) return left[i] > right[i];
+    for (let i = 0; i < 4; i++) if (left[i] !== right[i]) return left[i] > right[i];
     return false;
   }
 }
