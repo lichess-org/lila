@@ -139,7 +139,7 @@ final class RelationApi(
             yield
               countFollowingCache.update(u1.id, prev => (prev + 1).atMost(config.maxFollow.value))
               lila.mon.relation.follow.increment()
-              if !u1.marks.alt then
+              if !u1.marks.alt && !u1.marks.isolate then
                 lila.common.Bus.pub(Propagate(FollowUser(u1.id, u2)).toFriendsOf(u1.id))
                 Bus.pub(lila.core.relation.Follow(u1.id, u2))
         }
