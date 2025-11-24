@@ -48,7 +48,11 @@ final class PerfStatIndexer(
             case Some(perfStat) => storage.update(perfStat, perfStat.agg(pov))
             case None =>
               val newStat = PerfStat.init(userId, perf).agg(pov)
-              storage.insert(newStat).recoverWith(recoverDuplicateKey { _ =>
-                storage.find(userId, perf).flatMapz: perfStat =>
-                  storage.update(perfStat, perfStat.agg(pov))
-              })
+              storage
+                .insert(newStat)
+                .recoverWith(recoverDuplicateKey { _ =>
+                  storage
+                    .find(userId, perf)
+                    .flatMapz: perfStat =>
+                      storage.update(perfStat, perfStat.agg(pov))
+                })
