@@ -3,7 +3,12 @@ package lila.relay
 import reactivemongo.api.bson.Macros.Annotations.Key
 import lila.core.config.BaseUrl
 
-case class RelayGroup(@Key("_id") id: RelayGroupId, name: RelayGroup.Name, tours: List[RelayTourId])
+case class RelayGroup(
+    @Key("_id") id: RelayGroupId,
+    name: RelayGroup.Name,
+    tours: List[RelayTourId],
+    dates: Option[RelayTour.Dates] = None // denormalized from tour dates
+)
 
 object RelayGroup:
 
@@ -97,6 +102,47 @@ final private class RelayGroupRepo(coll: Coll)(using Executor):
           coll.update.one($doc("_id".$ne(id), "tours" -> tourId), $pull("tours" -> tourId), multi = true)
         }
     yield ()
+
+  def denormalizeGroupOfTour(tourId: RelayTourId, tourColl: Coll) = for
+    group <- byTour(tourId)
+    _ <- group.so(g => computeAndDenormalizeDates(g.id, tourColl))
+  yield ()
+
+  private def computeAndDenormalizeDates(groupId: RelayGroupId, tourColl: Coll): Funit =
+    coll
+      .aggregateOne(_.sec): framework =>
+        import framework.*
+        Match($doc("_id" -> groupId)) ->
+          List(
+            PipelineOperator(
+              $lookup.simple(
+                from = tourColl,
+                as = "tour",
+                local = "tours",
+                foreign = "_id",
+                pipe = List(
+                  $doc("$match" -> $doc("dates".$exists(true))),
+                  $doc("$project" -> $doc("dates" -> 1, "_id" -> 0))
+                )
+              )
+            ),
+            Project($doc("tour" -> 1)),
+            Unwind("tour"),
+            Group(BSONNull)(
+              "start" -> MinField("tour.dates.start"),
+              "end" -> Max(
+                $doc("$max" -> $arr("$tour.dates.end", "$tour.dates.start"))
+              )
+            )
+          )
+      .map: res =>
+        for
+          doc <- res.headOption.map(_.ppAs(lila.db.BSON.debug))
+          start <- doc.getAsOpt[Instant]("start")
+          end <- doc.getAsOpt[Instant]("end")
+        yield RelayTour.Dates(start, end.some).pp
+      .flatMap: dates =>
+        coll.updateOrUnsetField($id(groupId), "dates", dates).void
 
 final class RelayGroupCrowdSumCache(
     colls: RelayColls,

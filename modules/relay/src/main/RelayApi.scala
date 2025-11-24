@@ -106,6 +106,7 @@ final class RelayApi(
       active = unfinished && dates.flatMap(_.end).forall(_.isAfter(nowInstant.minusDays(1)))
       live <- active.so(roundRepo.coll.exists(unfinishedSelector ++ $doc("startedAt".$exists(true))))
       _ <- tourRepo.denormalize(tourId, active, live, dates)
+      _ <- groupRepo.denormalizeGroupOfTour(tourId, tourRepo.coll)
     yield ()
 
   private[relay] def denormalizeOldTours(): Funit =
@@ -288,6 +289,7 @@ final class RelayApi(
     _ <- roundRepo.coll.insert.one(bdoc)
     dates <- computeDates(tour.id)
     _ <- tourRepo.denormalize(tour.id, true, relay.hasStarted, dates)
+    _ <- groupRepo.denormalizeGroupOfTour(tour.id, tourRepo.coll)
     _ <- studyApi.addTopics(relay.studyId, List(StudyTopic.broadcast.value))
     _ <- relay.startsAt.isDefined.so(autoStart(relay.id.some))
   yield relay.withTour(tour).withStudy(study.study)
