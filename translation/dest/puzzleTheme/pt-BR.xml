@@ -26,6 +26,8 @@
   <string name="castlingDescription">Traga o seu rei para a segurança, e prepare sua torre para o ataque.</string>
   <string name="capturingDefender">Capture o defensor</string>
   <string name="capturingDefenderDescription">Remover uma peça que seja importante na defesa de outra, permitindo que agora a peça indefesa seja capturada na jogada seguinte.</string>
+  <string name="cornerMate">Mate de canto</string>
+  <string name="cornerMateDescription">Confine o rei ao canto usando uma torre ou dama e um cavalo para executar o xeque-mate.</string>
   <string name="crushing">Punindo</string>
   <string name="crushingDescription">Perceba a capivarada do oponente para obter uma vantagem decisiva. (vantagem ≥ 600cp)</string>
   <string name="doubleBishopMate">Mate de dois bispos</string>
@@ -63,6 +65,8 @@
   <string name="intermezzoDescription">Em vez de jogar o movimento esperado, primeiro realiza outro movimento criando uma ameaça imediata a que o oponente deve responder. Também conhecido como \"Zwischenzug\" ou \"In between\".</string>
   <string name="killBoxMate">Mate de torre e dama</string>
   <string name="killBoxMateDescription">Uma torre fica perto do rei inimigo e é defendida por uma dama que também bloqueia as casas de fuga. A torre e a dama capturam o rei inimigo em uma \"caixa mortal\" de 3 por 3.</string>
+  <string name="triangleMate">Mate do triângulo</string>
+  <string name="triangleMateDescription">A dama e a torre, há uma casa de distância do rei inimigo, estão na mesma fila ou coluna, separadas por uma casa, formando um triângulo.</string>
   <string name="vukovicMate">Mate de Vukovic</string>
   <string name="vukovicMateDescription">Uma torre e um cavalo colocam o rei em xeque. A torre dá xeque-mate protegida por outra peça, e o cavalo bloqueia as casas de fuga do rei.</string>
   <string name="knightEndgame">Finais de Cavalo</string>
