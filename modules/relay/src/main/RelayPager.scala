@@ -34,7 +34,7 @@ final class RelayPager(
                   tourRepo.aggregateRound(
                     colls,
                     framework,
-                    onlyKeepGroupLast = false,
+                    onlyKeepGroupFirst = false,
                     roundPipeline = roundPipelineFirstUnfinished.some
                   ) :::
                   List(Skip(offset), Limit(length))
@@ -77,7 +77,7 @@ final class RelayPager(
                 .aggregateRound(
                   colls,
                   framework,
-                  onlyKeepGroupLast = false,
+                  onlyKeepGroupFirst = false,
                   roundPipeline = roundPipelineFirstUnfinished.some
                 ) ::: List(
                 Skip(offset),
