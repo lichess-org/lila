@@ -44,7 +44,7 @@ import { MultiBoardCtrl } from './multiBoard';
 import type { StudySocketSendParams } from '../socket';
 import { storedMap } from 'lib/storage';
 import { opposite } from 'chessops/util';
-import StudyChaptersCtrl, { isFinished } from './studyChapters';
+import StudyChaptersCtrl, { isFinished, StudyChapterScroller } from './studyChapters';
 import { SearchCtrl } from './studySearch';
 import type { GamebookOverride } from './gamebook/interfaces';
 import type { EvalHitMulti, EvalHitMultiArray } from '../interfaces';
@@ -135,7 +135,7 @@ export default class StudyCtrl {
       // how stale is the study
       updatedAt: Date.now() - data.secondsSinceUpdate * 1000,
       gamebookOverride: undefined,
-      scrollToActiveChapter: { behavior: 'instant' },
+      chapterScroller: new StudyChapterScroller(),
     };
 
     this.members = new StudyMemberCtrl({
@@ -250,10 +250,6 @@ export default class StudyCtrl {
     window.addEventListener('popstate', () => window.location.reload());
   }
 
-  chapterScroll(behavior: ScrollBehavior) {
-    this.vm.scrollToActiveChapter = { ...this.vm.scrollToActiveChapter, behavior };
-  }
-
   send = this.ctrl.socket.send;
   redraw = this.ctrl.redraw;
 
@@ -267,7 +263,7 @@ export default class StudyCtrl {
   };
 
   setTab = (tab: Tab) => {
-    if (tab === 'chapters') this.chapterScroll('instant');
+    if (tab === 'chapters') this.vm.chapterScroller.request = 'instant';
     this.vm.tab(tab);
     this.redraw();
   };
@@ -489,7 +485,7 @@ export default class StudyCtrl {
       this.redraw();
       return true;
     }
-    this.chapterScroll('smooth');
+    this.vm.chapterScroller.request = 'smooth';
     this.vm.nextChapterId = id;
     this.vm.justSetChapterId = id;
     if (this.vm.mode.sticky && this.makeChange('setChapter', id)) {
@@ -774,7 +770,7 @@ export default class StudyCtrl {
         this.vm.mode.write = this.relay ? this.relayRecProp() : this.nonRelayRecMapProp(this.data.id);
         this.vm.chapterId = d.p.chapterId;
         this.vm.nextChapterId = d.p.chapterId;
-        this.chapterScroll('instant');
+        this.vm.chapterScroller.request = 'instant';
       }
       this.xhrReload(true);
     },

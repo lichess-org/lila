@@ -166,20 +166,7 @@ export function view(ctrl: StudyCtrl): VNode {
   function update(vnode: VNode) {
     const vData = vnode.data!.li!,
       el = vnode.elm as HTMLElement;
-    if (ctrl.vm.scrollToActiveChapter) {
-      const active = el.querySelector('.active');
-      if (active) {
-        const [c, l] = [el.getBoundingClientRect(), active.getBoundingClientRect()];
-        if (c.top < l.top || c.bottom > l.bottom) {
-          cancelAnimationFrame(ctrl.vm.scrollToActiveChapter?.rafId ?? 0);
-          ctrl.vm.scrollToActiveChapter.rafId = requestAnimationFrame(() => {
-            if (!ctrl.vm.scrollToActiveChapter) return;
-            scrollToInnerSelector(el, '.active', false, ctrl.vm.scrollToActiveChapter.behavior);
-            ctrl.vm.scrollToActiveChapter = false;
-          });
-        }
-      }
-    }
+    ctrl.vm.chapterScroller.scrollIfNeeded(el);
     if (canContribute && ctrl.chapters.list.size() > 1 && !vData.sortable) {
       site.asset.loadEsm<typeof Sortable>('sortable.esm', { npm: true }).then(s => {
         vData.sortable = s.create(el, {
@@ -245,4 +232,27 @@ export function view(ctrl: StudyCtrl): VNode {
         hl('h3', i18n.study.addNewChapter),
       ]),
   ]);
+}
+
+export class StudyChapterScroller {
+  constructor(
+    public request: ScrollBehavior | undefined = 'instant',
+    public rafId?: number,
+  ) {}
+
+  scrollIfNeeded(el: HTMLElement) {
+    if (!this.request) return;
+    const active = el.querySelector('.active');
+    if (active) {
+      const [c, l] = [el.getBoundingClientRect(), active.getBoundingClientRect()];
+      if (c.top < l.top || c.bottom > l.bottom) {
+        cancelAnimationFrame(this.rafId ?? 0);
+        this.rafId = requestAnimationFrame(() => {
+          if (!this.request) return;
+          scrollToInnerSelector(el, '.active', false, this.request);
+          this.request = undefined;
+        });
+      }
+    }
+  }
 }

@@ -3,6 +3,7 @@ import type { AnalyseData } from '../interfaces';
 import type { GamebookOverride } from './gamebook/interfaces';
 import type { Opening } from '../explorer/interfaces';
 import type AnalyseCtrl from '../ctrl';
+import type { StudyChapterScroller } from './studyChapters';
 
 export type Tab = 'intro' | 'members' | 'chapters';
 export type ChapterTab = 'init' | 'edit' | 'game' | 'fen' | 'pgn';
@@ -36,7 +37,7 @@ export interface StudyVm {
   behind: number;
   updatedAt: number;
   gamebookOverride: GamebookOverride;
-  scrollToActiveChapter: { behavior: ScrollBehavior; rafId?: number } | false;
+  chapterScroller: StudyChapterScroller;
 }
 
 export type Federations = { [key: string]: string };
