@@ -245,10 +245,6 @@
   <string name="accountRegisteredWithoutEmail">એકાઉન્ટ %s ઇમેઇલ વિના નોંધાયેલું હતું.</string>
   <string name="rank">શ્રેણી</string>
   <string name="rankX">શ્રેણી %s</string>
-  <plurals name="rankIsUpdatedEveryNbMinutes">
-    <item quantity="one">દર મિનિટે રેન્ક અપડેટ થાય છે</item>
-    <item quantity="other">દર મિનિટે રેન્ક અપડેટ થાય છે</item>
-  </plurals>
   <string name="gamesPlayed">રમતો રમ્યા</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s રમત રમ્યા તમારી સાથે</item>
@@ -403,8 +399,8 @@
   <string name="follow">અનુસરો</string>
   <string name="following">ફોલોવિંગ</string>
   <string name="unfollow">અનફોલો</string>
-  <string name="followX">ફોલ્લૉ </string>
-  <string name="unfollowX">ઉનફૉલલૉ </string>
+  <string name="followX">ફોલ્લૉ %s</string>
+  <string name="unfollowX">ઉનફૉલલૉ %s</string>
   <string name="block">બ્લોક</string>
   <string name="blocked">બ્લોકડ</string>
   <string name="unblock">અનબ્લોક</string>
@@ -758,13 +754,13 @@
   <string name="correspondenceDesc">પત્રવ્યવહાર રમતો: દરેક ચાલ માટે એક કે ઘણા દિવસો</string>
   <string name="puzzleDesc">શતરંજના વ્યૂહની તાલીમ</string>
   <string name="important">મહત્વપૂર્ણ</string>
-  <string name="yourQuestionMayHaveBeenAnswered">તમારા પ્રશ્નનો જવાબ પહેલેથી જ મળી ગયો હશે</string>
+  <string name="yourQuestionMayHaveBeenAnswered">તમારા પ્રશ્નનો જવાબ પહેલેથી જ મળી ગયો હશે %1$s</string>
   <string name="inTheFAQ">વારંવાર પૂછાતા પ્રશ્નોમાં</string>
-  <string name="toReportSomeoneForCheatingOrBadBehavior">છેતરપિંડી અથવા ખરાબ વર્તન માટે વપરાશકર્તાની જાણ કરવી</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">છેતરપિંડી અથવા ખરાબ વર્તન માટે વપરાશકર્તાની જાણ કરવી, %1$s</string>
   <string name="useTheReportForm">રિપોર્ટ ફોર્મનો ઉપયોગ કરો</string>
-  <string name="toRequestSupport">સમર્થનની વિનંતી કરવા માટે,</string>
+  <string name="toRequestSupport">સમર્થનની વિનંતી કરવા માટે, %1$s</string>
   <string name="tryTheContactPage">સંપર્ક પૃષ્ઠનો પ્રયાસ કરો</string>
-  <string name="makeSureToRead">વાંચવાની ખાતરી કરો</string>
+  <string name="makeSureToRead">વાંચવાની ખાતરી કરો %1$s</string>
   <string name="theForumEtiquette">ફોરમ શિષ્ટાચાર</string>
   <string name="thisTopicIsArchived">આ વિષય આર્કાઇવ કરવામાં આવ્યો છે અને હવે તેનો જવાબ આપી શકાતો નથી.</string>
   <string name="youCannotPostYetPlaySomeGames">તમે હજુ સુધી ફોરમમાં પોસ્ટ કરી શકતા નથી. કેટલીક રમતો રમો!</string>
@@ -790,7 +786,7 @@
   <string name="maximumWeeklyRating">મહત્તમ સાપ્તાહિક રેટિંગ</string>
   <string name="positionInputHelp">આપેલ સ્થાનથી દરેક રમત શરૂ કરવા માટે માન્ય FEN પેસ્ટ કરો.
 તે ફક્ત પ્રમાણભૂત રમતો માટે જ કામ કરે છે, વેરિઅન્ટ્સ સાથે નહીં.
-તમે FEN પોઝિશન જનરેટ કરવા માટે {} નો ઉપયોગ કરી શકો છો, પછી તેને અહીં પેસ્ટ કરો.
+તમે FEN પોઝિશન જનરેટ કરવા માટે %s નો ઉપયોગ કરી શકો છો, પછી તેને અહીં પેસ્ટ કરો.
 સામાન્ય પ્રારંભિકથી રમતો શરૂ કરવા માટે ખાલી છોડી દો.</string>
   <string name="simulHostcolor">દરેક રમત માટે યજમાનનો રંગ</string>
   <string name="estimatedStart">અંદાજિત શરૂઆત સમય</string>
@@ -814,7 +810,7 @@
   <string name="sentEmailWithLink">અમે તમને એક લિંક સાથે એક ઇમેઇલ મોકલ્યો છે.</string>
   <string name="tournamentEntryCode">ટુર્નામેન્ટ એન્ટ્રી કોડ</string>
   <string name="hangOn">રાહ જુઓ!</string>
-  <string name="gameInProgress">તમારી સાથે એક રમત ચાલી રહી છે</string>
+  <string name="gameInProgress">તમારી એક રમત ચાલી રહી છે %s.</string>
   <string name="abortTheGame">રમત રદ કરો</string>
   <string name="resignTheGame">રમત છોડી દો</string>
   <string name="youCantStartNewGame">આ રમત પૂરી ન થાય ત્યાં સુધી તમે નવી રમત શરૂ કરી શકતા નથી.</string>
