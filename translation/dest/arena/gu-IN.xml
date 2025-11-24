@@ -31,7 +31,7 @@
 
 ઉદાહરણ તરીકે, 100 ખેલાડીઓની ટુર્નામેન્ટમાં 3મું રેન્ક મેળવવું = 3%. 1000 ખેલાડીઓની ટુર્નામેન્ટમાં 10મું રેન્ક મેળવવું = 1%.</string>
   <string name="medians">મધ્યક</string>
-  <string name="allAveragesAreX">આ પૃષ્ઠ પરના બધા સરેરાશ છે</string>
+  <string name="allAveragesAreX">આ પૃષ્ઠ પરના બધા સરેરાશ %s છે.</string>
   <string name="total">કુલ</string>
   <string name="pointsAvg">પોઈન્ટ સરેરાશ</string>
   <string name="pointsSum">પોઈન્ટનો સરવાળો</string>
