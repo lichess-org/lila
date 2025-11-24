@@ -2,6 +2,7 @@ package lila.perfStat
 
 import lila.rating.PerfType
 import lila.rating.PerfType.GamePerf
+import lila.db.recoverDuplicateKey
 
 final class PerfStatIndexer(
     gameRepo: lila.core.game.GameRepo,
@@ -43,5 +44,11 @@ final class PerfStatIndexer(
       .so: (perf: GamePerf) =>
         storage
           .find(userId, perf)
-          .flatMapz: perfStat =>
-            storage.update(perfStat, perfStat.agg(pov))
+          .flatMap:
+            case Some(perfStat) => storage.update(perfStat, perfStat.agg(pov))
+            case None =>
+              val newStat = PerfStat.init(userId, perf).agg(pov)
+              storage.insert(newStat).recoverWith(recoverDuplicateKey { _ =>
+                storage.find(userId, perf).flatMapz: perfStat =>
+                  storage.update(perfStat, perfStat.agg(pov))
+              })
