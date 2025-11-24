@@ -80,22 +80,22 @@ final private class RelayTourRepo(val coll: Coll)(using Executor):
   def aggregateRoundAndUnwind(
       otherColls: RelayColls,
       framework: coll.AggregationFramework.type,
-      onlyKeepGroupFirst: Boolean = true,
+      onlyKeepGroupLast: Boolean = true,
       roundPipeline: Option[List[Bdoc]] = None
   ) =
-    aggregateRound(otherColls, framework, onlyKeepGroupFirst, roundPipeline) :::
+    aggregateRound(otherColls, framework, onlyKeepGroupLast, roundPipeline) :::
       List(framework.UnwindField("round"))
 
   def aggregateRound(
       otherColls: RelayColls,
       framework: coll.AggregationFramework.type,
-      onlyKeepGroupFirst: Boolean = true,
+      onlyKeepGroupLast: Boolean = true,
       roundPipeline: Option[List[Bdoc]] = None
   ) =
-    onlyKeepGroupFirst.so(
+    onlyKeepGroupLast.so(
       List(
-        framework.PipelineOperator(group.firstLookup(otherColls.group)),
-        framework.Match(group.firstFilter)
+        framework.PipelineOperator(group.lastLookup(otherColls.group)),
+        framework.Match(group.lastFilter)
       )
     ) ::: List(
       framework.PipelineOperator:
@@ -119,7 +119,7 @@ private object RelayTourRepo:
     // look at the groups where the tour appears.
     // only keep the tour if there is no group,
     // or if the tour is the first in the group.
-    def firstLookup(groupColl: Coll) = $lookup.pipelineFull(
+    def lastLookup(groupColl: Coll) = $lookup.pipelineFull(
       from = groupColl.name,
       as = "group",
       let = $doc("tourId" -> "$_id"),
@@ -129,11 +129,11 @@ private object RelayTourRepo:
           "$project" -> $doc(
             "_id" -> false,
             "name" -> true,
-            "isFirst" -> $doc("$eq" -> $arr("$$tourId", $doc("$first" -> "$tours")))
+            "isLast" -> $doc("$eq" -> $arr("$$tourId", $doc("$last" -> "$tours")))
           )
       )
     )
-    val firstFilter = $doc("group.0.isFirst".$ne(false))
+    val lastFilter = $doc("group.0.isLast".$ne(false))
 
     def readFrom(doc: Bdoc): Option[RelayGroup.Name] = for
       garr <- doc.getAsOpt[Barr]("group")
