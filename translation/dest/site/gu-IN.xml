@@ -157,11 +157,13 @@
   <string name="flipBoard">બોર્ડ ફેરવો</string>
   <string name="threefoldRepetition">ત્રણગણું નકલ</string>
   <string name="claimADraw">ડ્રો માગણું</string>
+  <string name="drawClaimed">દાવો કરેલ ડ્રો</string>
   <string name="offerDraw">ડ્રો પ્રસ્તાવો</string>
   <string name="draw">ડ્રો</string>
   <string name="drawByMutualAgreement">પરસ્પર કરાર દ્વારા દોરો</string>
   <string name="fiftyMovesWithoutProgress">પ્રગતિ વિના પચાસ ચાલ</string>
   <string name="currentGames">વર્તમાન રમતો</string>
+  <string name="joinedX">જોડાયા %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s રમત</item>
     <item quantity="other">%s રમતો</item>
@@ -179,6 +181,7 @@
   <string name="latestForumPosts">તાજેતરની ફોરમ પોસ્ટ</string>
   <string name="players">ખેલાડીઓ</string>
   <string name="friends">મિત્રો</string>
+  <string name="otherPlayers">અન્ય ખેલાડીઓ</string>
   <string name="discussions">સંવાદો</string>
   <string name="today">આજે</string>
   <string name="yesterday">ગઇકાલે</string>
@@ -245,6 +248,10 @@
   <string name="accountRegisteredWithoutEmail">એકાઉન્ટ %s ઇમેઇલ વિના નોંધાયેલું હતું.</string>
   <string name="rank">શ્રેણી</string>
   <string name="rankX">શ્રેણી %s</string>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s કોયડા</item>
+    <item quantity="other">%s કોયડા</item>
+  </plurals>
   <string name="gamesPlayed">રમતો રમ્યા</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s રમત રમ્યા તમારી સાથે</item>
@@ -309,6 +316,7 @@
     <item quantity="other">%s રમતમાં</item>
   </plurals>
   <string name="exportGames">રમતોનો નિકાસ કરો</string>
+  <string name="ratingFilter">રેટિંગ ફિલ્ટર</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">%s સેકંડ આપો</item>
     <item quantity="other">%s સેકંડો આપો</item>
@@ -383,7 +391,9 @@
   <string name="toStudy">અભ્યાસ</string>
   <string name="importGame">રમત દાખલ કરો</string>
   <string name="importGameExplanation">બ્રાઉઝ કરી શકાય તેવું રીપ્લે, કમ્પ્યુટર વિશ્લેષણ, ગેમ ચેટ અને સાર્વજનિક શેર કરી શકાય તેવું URL મેળવવા માટે રમત PGN પેસ્ટ કરો.</string>
+  <string name="importGameDataPrivacyWarning">આ PGN જાહેર જનતા દ્વારા ઍક્સેસ કરી શકાય છે. ખાનગી રીતે રમત આયાત કરવા માટે, અભ્યાસનો ઉપયોગ કરો.</string>
   <string name="thisIsAChessCaptcha">આ શતરંજ કૅપચ્ચા છે </string>
+  <string name="clickOnTheBoardToMakeYourMove">તમારી ચાલ કરવા માટે બોર્ડ પર ક્લિક કરો, અને સાબિત કરો કે તમે માનવ છો.</string>
   <string name="captcha.fail">શતરંજ કૅપચ્ચા નો પ્રયત્ન કરો </string>
   <string name="notACheckmate">ચેકમેટ નથી</string>
   <string name="whiteCheckmatesInOneMove">સફેદ એક જ ચાલમાં ચેકમેટ કરશે</string>
@@ -404,6 +414,7 @@
   <string name="block">બ્લોક</string>
   <string name="blocked">બ્લોકડ</string>
   <string name="unblock">અનબ્લોક</string>
+  <string name="xStartedFollowingY">%1$s એ %2$s ને અનુસરવાનું શરૂ કર્યું</string>
   <string name="more">વધુ</string>
   <string name="memberSince">સભ્ય બનવાની તારીખ</string>
   <string name="lastSeenActive">%s સક્રિય</string>
@@ -418,12 +429,14 @@
   <string name="openTournaments">ખુલ્લી પ્રતિયોગિતા</string>
   <string name="duration">અવધિ</string>
   <string name="winner">વિજેતા</string>
+  <string name="standings">ક્રમ</string>
   <string name="createANewTournament">નવી પ્રતિયોગિતા બનાવો</string>
   <string name="tournamentCalendar">પ્રતિયોગિતા કૅલેન્ડર</string>
   <string name="conditionOfEntry">પ્રવેશ માટેની જરૂરિયાતો:</string>
   <string name="advancedSettings">વિગતવાર સેટિંગ્સ</string>
   <string name="safeTournamentName">પ્રતિયોગિતા માટે યોગ્ય નામ પસંદ કરો.</string>
   <string name="inappropriateNameWarning">સહેજ પણ ખોટી વસ્તુ તમારું ખાતું બંધ કરી શકે છે.</string>
+  <string name="emptyTournamentName">ટુર્નામેન્ટનું નામ કોઈ પ્રખ્યાત ચેસ ખેલાડીના નામ પર રાખવા માટે ખાલી જગ્યા છોડી દો.</string>
   <string name="makePrivateTournament">ટુર્નામેન્ટને ખાનગી બનાવો, અને પાસવર્ડ વડે ઍક્સેસ પ્રતિબંધિત કરો</string>
   <string name="join">ભાગ લો</string>
   <string name="withdraw">છોડી દો</string>
@@ -431,6 +444,7 @@
   <string name="wins">જીત</string>
   <string name="losses">હાર</string>
   <string name="startingIn" comment="Displayed above a timer">શરૂઆતથી</string>
+  <string name="standByX">%s ની સાથે ઉભા રહો, ખેલાડીઓની જોડી બનાવો, તૈયાર થઈ જાઓ!</string>
   <string name="pause">થોભો</string>
   <string name="resume">શરૂ કરો</string>
   <string name="youArePlaying">તમે રમો છો!</string>
@@ -447,10 +461,15 @@
   <string name="setTheBoard">બોર્ડ સેટ કરો</string>
   <string name="popularOpenings">લોકપ્રિય ઓપેનિન્ગ્સ </string>
   <string name="endgamePositions">અંતિમ સ્થિતિ</string>
+  <string name="chess960StartPosition">ચેસ960 શરૂઆતની સ્થિતિ: %s</string>
   <string name="startPosition">શરૂઆતની સ્થિતિ</string>
   <string name="clearBoard">બોર્ડ સાફ કરો</string>
   <string name="loadPosition">સ્થિતિ લોડ કરો</string>
   <string name="isPrivate">અંગત</string>
+  <string name="reportXToModerators">%s ને મધ્યસ્થીઓને રિપોર્ટ કરો</string>
+  <string name="profileCompletion">પ્રોફાઇલ પૂર્ણતા: %s</string>
+  <string name="xRating">%s ક્રમ</string>
+  <string name="ifNoneLeaveEmpty">જો કોઈ ન હોય, તો ખાલી છોડી દો</string>
   <string name="profile">પ્રોફાઇલ</string>
   <string name="editProfile">પ્રોફાઇલ સંપાદિત કરો</string>
   <string name="realName">સાચું નામ</string>
@@ -500,6 +519,7 @@
   <string name="cheat">છેતરપિંડી</string>
   <string name="troll">મજાક</string>
   <string name="other">અન્ય</string>
+  <string name="reportCheatBoostHelp">રમત(ઓ) ની લિંક પેસ્ટ કરો અને આ વપરાશકર્તાના વર્તનમાં શું ખોટું છે તે સમજાવો. ફક્ત \"તેઓ છેતરપિંડી કરે છે\" એમ ન કહો, પરંતુ તમે આ નિષ્કર્ષ પર કેવી રીતે આવ્યા તે અમને જણાવો.</string>
   <string name="reportUsernameHelp">આ વપરાશકર્તાનામ વિશે શું વાંધાજનક છે તે સમજાવો. ફક્ત \"તે વાંધાજનક/અયોગ્ય છે\" એમ ન કહો, પરંતુ અમને જણાવો કે તમે આ નિષ્કર્ષ પર કેવી રીતે આવ્યા, ખાસ કરીને જો અપમાન અસ્પષ્ટ હોય, અંગ્રેજીમાં ન હોય, અપશબ્દોમાં હોય, અથવા ઐતિહાસિક/સાંસ્કૃતિક સંદર્ભ હોય.</string>
   <string name="reportProcessedFasterInEnglish">જો તમારો રિપોર્ટ અંગ્રેજીમાં લખાયેલો હશે તો તે ઝડપથી પ્રક્રિયા કરવામાં આવશે.</string>
   <string name="error.provideOneCheatedGameLink">કૃપા કરીને છેતરાયેલી રમતની ઓછામાં ઓછી એક લિંક પ્રદાન કરો.</string>
@@ -520,6 +540,7 @@
   <string name="newPasswordAgain">નવો પાસવર્ડ (ફરીથી)</string>
   <string name="newPasswordsDontMatch">નવો પાસવર્ડ મેળ થતો નથી.</string>
   <string name="newPasswordStrength">પાસવર્ડની મજબૂતાઈ</string>
+  <string name="clockInitialTime">ઘડિયાળનો પ્રારંભિક સમય</string>
   <string name="clockIncrement">ઘડિયાળનો વધારો</string>
   <string name="privacy">પ્રિવાસી </string>
   <string name="privacyPolicy">પ્રિવાસી પોલિસી </string>
@@ -527,9 +548,26 @@
   <string name="letOtherPlayersChallengeYou">અન્ય ખેલાડીઓને તમને પડકારવા દો</string>
   <string name="letOtherPlayersInviteYouToStudy">અન્ય ખેલાડીઓને તમને અભ્યાસ માટે આમંત્રિત કરવા દો</string>
   <string name="sound">ધ્વનિ</string>
+  <string name="none">કોઈ નહીં</string>
   <string name="fast">ઝડપી</string>
   <string name="normal">સામાન્ય</string>
   <string name="slow">ધીમું</string>
+  <string name="insideTheBoard">બોર્ડની અંદર</string>
+  <string name="outsideTheBoard">બોર્ડની બહાર</string>
+  <string name="allSquaresOfTheBoard">બોર્ડના બધા ચોરસ</string>
+  <string name="onSlowGames">ધીમી રમતો પર</string>
+  <string name="always">હંમેશા</string>
+  <string name="never">ક્યારેય નહીં</string>
+  <string name="xCompetesInY">%1$s %2$s માં સ્પર્ધા કરે છે</string>
+  <string name="victory">વિજય</string>
+  <string name="defeat">હાર</string>
+  <string name="victoryVsYInZ">%1$s વિરુદ્ધ %2$s માં %3$s</string>
+  <string name="defeatVsYInZ">%1$s વિરુદ્ધ %2$s માં %3$s</string>
+  <string name="drawVsYInZ">%1$s વિરુદ્ધ %2$s માં %3$s</string>
+  <string name="timeline">સમયરેખા</string>
+  <string name="starting">શરૂઆત:</string>
+  <string name="allInformationIsPublicAndOptional">બધી માહિતી સાર્વજનિક અને વૈકલ્પિક છે.</string>
+  <string name="biographyDescription">તમારા વિશે, તમારી રુચિઓ વિશે, ચેસમાં તમને શું ગમે છે, તમારા મનપસંદ ઓપનિંગ, ખેલાડીઓ વિશે વાત કરો, ...</string>
   <string name="listBlockedPlayers">તમે જે ખેલાડીઓને બ્લોક કર્યા છે તેમની યાદી બનાવો.</string>
   <string name="human">મનુષ્ય </string>
   <string name="computer">કમ્પ્યુટર</string>
@@ -548,6 +586,10 @@
   <string name="error.email_acceptable">આ ઇમેઇલ સરનામું સ્વીકાર્ય નથી. કૃપા કરીને તેને બે વાર તપાસો અને ફરી પ્રયાસ કરો.</string>
   <string name="error.email_unique">ઇમેઇલ સરનામું ખોટું છે અથવા પહેલેથી જ લેવામાં આવ્યું છે</string>
   <string name="error.email_different">આ પહેલેથી જ તમારું ઇમેઇલ સરનામું છે.</string>
+  <string name="error.minLength">ઓછામાં ઓછા %s અક્ષરો લાંબા હોવા જોઈએ.</string>
+  <string name="error.maxLength">વધુમાં વધુ %s અક્ષરો હોવા જોઈએ.</string>
+  <string name="error.min">ઓછામાં ઓછું %s હોવું જોઈએ</string>
+  <string name="error.max">વધુમાં વધુ %s હોવું જોઈએ</string>
   <string name="ifRatingIsPlusMinusX">જો રેટિંગ ± %s છે</string>
   <string name="ifRegistered">જો નોંધાયેલ છે</string>
   <string name="onlyExistingConversations">માત્ર હાલની વાતચીતો</string>
@@ -626,6 +668,24 @@
   <string name="tournamentDoesNotExist">આ ટુર્નામેન્ટ અસ્તિત્વમાં નથી.</string>
   <string name="tournamentMayHaveBeenCanceled">જો બધા ખેલાડીઓ શરૂ થાય તે પહેલાં જ ટુર્નામેન્ટ છોડી દેત તો કદાચ ટુર્નામેન્ટ રદ થઈ હોત.</string>
   <string name="returnToTournamentsHomepage">ટુર્નામેન્ટના હોમપેજ પર પાછા ફરો</string>
+  <string name="weeklyPerfTypeRatingDistribution">સાપ્તાહિક %s રેટિંગ વિતરણ</string>
+  <string name="yourPerfTypeRatingIsRating">તમારું %1$s રેટિંગ %2$s છે.</string>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers">તમે %2$s ના %1$s ખેલાડીઓ કરતા સારા છો.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s, %3$s ખેલાડીઓમાંથી %2$s કરતાં વધુ સારું છે.</string>
+  <string name="betterThanPercentPlayers">%2$s ખેલાડીઓમાંથી %1$s કરતાં વધુ સારા</string>
+  <string name="youDoNotHaveAnEstablishedPerfTypeRating">તમારી પાસે સ્થાપિત %s રેટિંગ નથી.</string>
+  <string name="yourRating">તમારું રેટિંગ</string>
+  <string name="cumulative">સંચિત</string>
+  <string name="glicko2Rating">ગ્લિકો-2 રેટિંગ</string>
+  <string name="checkYourEmail">તમારું ઇમેઇલ તપાસો</string>
+  <string name="weHaveSentYouAnEmailClickTheLink">અમે તમને એક ઇમેઇલ મોકલ્યો છે. તમારું એકાઉન્ટ સક્રિય કરવા માટે ઇમેઇલમાં આપેલી લિંક પર ક્લિક કરો.</string>
+  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">જો તમને ઇમેઇલ ન દેખાય, તો તે અન્ય સ્થળોએ તપાસો, જેમ કે તમારા જંક, સ્પામ, સોશિયલ મીડિયા અથવા અન્ય ફોલ્ડર્સ.</string>
+  <string name="ifYouDoNotGetTheEmail">જો તમને 5 મિનિટમાં ઇમેઇલ ન મળે તો:</string>
+  <string name="checkAllEmailFolders">બધા જંક, સ્પામ અને અન્ય ફોલ્ડર્સ તપાસો</string>
+  <string name="verifyYourAddress">તપાસો કે %s તમારું ઇમેઇલ સરનામું છે.</string>
+  <string name="weHaveSentYouAnEmailTo">અમે તમને %s પર એક ઇમેઇલ મોકલ્યો છે. તમારો પાસવર્ડ રીસેટ કરવા માટે ઇમેઇલમાં આપેલી લિંક પર ક્લિક કરો.</string>
+  <string name="byRegisteringYouAgreeToBeBoundByOur">નોંધણી કરાવીને, તમે %s સાથે સંમત થાઓ છો.</string>
+  <string name="readAboutOur">અમારા %s વિશે વાંચો.</string>
   <string name="networkLagBetweenYouAndLichess">તમારા અને Lichess વચ્ચે નેટવર્ક વિલંબ છે</string>
   <string name="timeToProcessAMoveOnLichessServer">Lichess ના સર્વર પર એક ચાલની પ્રક્રિયા માટેનો સમય</string>
   <string name="downloadAnnotated">ડાઉનલોડ ટિપ્પણી કરેલ</string>
@@ -694,7 +754,14 @@
   <string name="notifications">સૂચનાઓ</string>
   <string name="notificationsX">સૂચનાઓ: %1$s</string>
   <string name="perfRatingX">રેટિંગ: %s</string>
+  <string name="yourRatingIsX">તમારું રેટિંગ %s છે</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">પહેલી ચાલ રમવા માટે %s સેકન્ડ</item>
+    <item quantity="other">પહેલી ચાલ રમવા માટે %s સેકન્ડ બાકી છે.</item>
+  </plurals>
   <string name="practiceWithComputer">કમ્પ્યુટર સાથે પ્રેક્ટિસ કરો</string>
+  <string name="anotherWasX">બીજું %s હતું</string>
+  <string name="bestWasX">શ્રેષ્ઠ %s હતું</string>
   <string name="youBrowsedAway">તમે બ્રાઉઝ કરી લીધું</string>
   <string name="resumePractice">પ્રેક્ટિસ ફરી શરૂ કરો</string>
   <string name="drawByFiftyMoves">આ રમત પચાસ ચાલના નિયમ દ્વારા ડ્રો કરવામાં આવી છે.</string>
@@ -710,6 +777,7 @@
   <string name="learnFromThisMistake">આ ભૂલમાંથી શીખો</string>
   <string name="skipThisMove">આ ચાલ છોડી દો</string>
   <string name="next">આગળ</string>
+  <string name="xWasPlayed">%s રમી ગયું હતું </string>
   <string name="findBetterMoveForWhite">સેફડ માટે વધુ સારી ચાલ શોધો</string>
   <string name="findBetterMoveForBlack">કાડા માટે વધુ સારી ચાલ શોધો</string>
   <string name="resumeLearning">શીખવાનું ફરી શરૂ કરો</string>
@@ -720,10 +788,16 @@
   <string name="waitingForAnalysis">વિશ્લેષણની રાહ જોઈ રહ્યા છીએ</string>
   <string name="noMistakesFoundForWhite">સાફેડ માટે કોઈ ભૂલો મળી નથી.</string>
   <string name="noMistakesFoundForBlack">કાડા માટે કોઈ ભૂલ મળી નથી.</string>
+  <string name="doneReviewingWhiteMistakes">સફેદ ભૂલોની સમીક્ષા પૂર્ણ થઈ</string>
+  <string name="doneReviewingBlackMistakes">કાળી ભૂલોની સમીક્ષા પૂર્ણ થઈ</string>
   <string name="doItAgain">ફરીથી કરો</string>
   <string name="reviewWhiteMistakes">સાફેડ ભૂલ જુઓ</string>
   <string name="reviewBlackMistakes">જુઓ કાડા ભૂલ</string>
   <string name="advantage">ફાયદો</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s સેકન્ડ</item>
+    <item quantity="other">%s સેકન્ડ</item>
+  </plurals>
   <string name="opening">શરૂઆત</string>
   <string name="middlegame">મિડલગેમ</string>
   <string name="endgame">એન્ડગેમ</string>
@@ -732,6 +806,12 @@
   <string name="playVariationToCreateConditionalPremoves">શરતી પ્રીમૂવ્સ બનાવવા માટે એક ભિન્નતા રમો.</string>
   <string name="noConditionalPremoves">કોઈ શરતી પ્રીમવ્સ નથી</string>
   <string name="playX">%s ચાલો</string>
+  <string name="challengeX">પડકાર %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">અને %s પ્રીમોવ લાઇન સાચવો</item>
+    <item quantity="other">અને %s પ્રીમોવ લાઇનઓ સાચવો</item>
+  </plurals>
+  <string name="showUnreadLichessMessage">તમને લાઇચેસ તરફથી એક ખાનગી સંદેશ મળ્યો છે.</string>
   <string name="clickHereToReadIt">તે વાંચવા માટે અહીં ક્લિક કરો.</string>
   <string name="sorry">માફ કરશો :(</string>
   <string name="weHadToTimeYouOutForAWhile">અમારે તમને થોડા સમય માટે બહાર કાઢવો પડ્યો.</string>
@@ -749,6 +829,18 @@
   <string name="lifetimeScore">લાઇફટાઇમ સ્કોર</string>
   <string name="currentMatchScore">વર્તમાન મેચનો સ્કોર</string>
   <string name="agreementAssistance">હું સંમત છું કે મને મારી રમતો દરમિયાન (ચેસ કમ્પ્યુટર, પુસ્તક, ડેટાબેઝ અથવા અન્ય કોઈ વ્યક્તિ તરફથી) ક્યારેય સહાય મળશે નહીં.</string>
+  <string name="agreementNice">હું સંમત છું કે હું હંમેશા અન્ય ખેલાડીઓ પ્રત્યે આદર રાખીશ.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">હું સંમત છું કે હું બહુવિધ એકાઉન્ટ્સ બનાવીશ નહીં (%s માં દર્શાવેલ કારણો સિવાય).</string>
+  <string name="agreementPolicy">હું સંમત છું કે હું લાઇચેસની બધી નીતિઓનું પાલન કરીશ.</string>
+  <string name="searchOrStartNewDiscussion">નવી વાતચીત શોધો અથવા શરૂ કરો</string>
+  <string name="edit">ફેરફાર કરો</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">બુલેટ</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">બ્લિટ્ઝ</string>
+  <string name="rapid">રેપિડ</string>
+  <string name="classical">કલાસિકલ</string>
+  <string name="ultraBulletDesc">ખૂબ જ ઝડપી રમતો: ૩૦ સેકન્ડથી ઓછી</string>
+  <string name="bulletDesc">ખૂબ જ ઝડપી રમતો: 3 મિનિટથી ઓછી</string>
+  <string name="blitzDesc">ઝડપી રમતો: ૩ થી ૮ મિનિટ</string>
   <string name="rapidDesc">ઝડપી રમતો: 8 થી 25 મિનિટ</string>
   <string name="classicalDesc">ક્લાસિકલ રમતો: 25 મિનિટ અને તેથી વધુ</string>
   <string name="correspondenceDesc">પત્રવ્યવહાર રમતો: દરેક ચાલ માટે એક કે ઘણા દિવસો</string>
@@ -763,13 +855,23 @@
   <string name="makeSureToRead">વાંચવાની ખાતરી કરો %1$s</string>
   <string name="theForumEtiquette">ફોરમ શિષ્ટાચાર</string>
   <string name="thisTopicIsArchived">આ વિષય આર્કાઇવ કરવામાં આવ્યો છે અને હવે તેનો જવાબ આપી શકાતો નથી.</string>
+  <string name="joinTheTeamXToPost">આ ફોરમમાં પોસ્ટ કરવા માટે %1$s માં જોડાઓ</string>
+  <string name="teamNamedX">%1$s ટીમ</string>
   <string name="youCannotPostYetPlaySomeGames">તમે હજુ સુધી ફોરમમાં પોસ્ટ કરી શકતા નથી. કેટલીક રમતો રમો!</string>
   <string name="subscribe">સબ્સ્ક્રાઇબ કરો</string>
   <string name="unsubscribe">અનસબ્સ્ક્રાઇબ કરો</string>
+  <string name="mentionedYouInX">\"%1$s\" માં તમારો ઉલ્લેખ કર્યો છે.</string>
+  <string name="xMentionedYouInY">%1$s એ \"%2$s\" માં તમારો ઉલ્લેખ કર્યો.</string>
+  <string name="invitedYouToX">તમને \"%1$s\" માં આમંત્રિત કર્યા છે.</string>
+  <string name="xInvitedYouToY">%1$s એ તમને \"%2$s\" માં આમંત્રિત કર્યા છે.</string>
   <string name="youAreNowPartOfTeam">તમે હવે ટીમનો ભાગ છો.</string>
+  <string name="youHaveJoinedTeamX">તમે \"%1$s\" માં જોડાયા છો.</string>
   <string name="someoneYouReportedWasBanned">તમે જાણ કરેલી કોઈ વ્યક્તિ પર પ્રતિબંધ મૂકવામાં આવ્યો હતો</string>
   <string name="congratsYouWon">અભિનંદન, તમે જીતી ગયા!</string>
+  <string name="gameVsX">રમત વિરુદ્ધ \"%1$s\"</string>
+  <string name="resVsX">\"%1$s\" ની સામે \"%2$s\"</string>
   <string name="lostAgainstTOSViolator">તમે Lichess TOS નું ઉલ્લંઘન કરનાર વ્યક્તિ સામે રેટિંગ પોઈન્ટ ગુમાવ્યા છે.</string>
+  <string name="refundXpointsTimeControlY">રિફંડ: %1$s %2$s રેટિંગ પોઈન્ટ.</string>
   <string name="timeAlmostUp">સમય લગભગ પૂરો થઈ ગયો છે!</string>
   <string name="clickToRevealEmailAddress">[ઇમેઇલ સરનામું જાહેર કરવા માટે ક્લિક કરો]</string>
   <string name="download">ડાઉનલોડ કરો</string>
@@ -788,8 +890,14 @@
 તે ફક્ત પ્રમાણભૂત રમતો માટે જ કામ કરે છે, વેરિઅન્ટ્સ સાથે નહીં.
 તમે FEN પોઝિશન જનરેટ કરવા માટે %s નો ઉપયોગ કરી શકો છો, પછી તેને અહીં પેસ્ટ કરો.
 સામાન્ય પ્રારંભિકથી રમતો શરૂ કરવા માટે ખાલી છોડી દો.</string>
+  <string name="cancelSimul">સિમ્યુલ રદ કરો</string>
   <string name="simulHostcolor">દરેક રમત માટે યજમાનનો રંગ</string>
   <string name="estimatedStart">અંદાજિત શરૂઆત સમય</string>
+  <string name="simulFeatured">%s પર સુવિધા</string>
+  <string name="simulFeaturedHelp">%s પર દરેકને તમારું સિમ્યુલ બતાવો. ખાનગી સિમ્યુલ માટે અક્ષમ કરો.</string>
+  <string name="simulDescription">સિમુલ વર્ણન</string>
+  <string name="simulDescriptionHelp">સહભાગીઓને તમે કંઈ કહેવા માંગો છો?</string>
+  <string name="markdownIsAvailable">%s ફોર્મેટિંગ માટે ઉપલબ્ધ છે.</string>
   <string name="embedsAvailable">રમતનું URL અથવા અભ્યાસ પ્રકરણનું URL એમ્બેડ કરવા માટે તેને પેસ્ટ કરો.</string>
   <string name="inYourLocalTimezone">તમારા પોતાના સ્થાનિક સમય ઝોનમાં</string>
   <string name="tournChat">ટુર્નામેન્ટ ચેટ</string>
@@ -825,4 +933,14 @@
   <string name="lichessPatronInfo">લાઇચેસ એક ચેરિટી અને સંપૂર્ણપણે મફત/મુક્ત ઓપન સોર્સ સોફ્ટવેર છે.
 બધા સંચાલન ખર્ચ, વિકાસ અને સામગ્રી ફક્ત વપરાશકર્તાના દાન દ્વારા ભંડોળ પૂરું પાડવામાં આવે છે.</string>
   <string name="nothingToSeeHere">અત્યારે અહીં જોવા માટે કંઈ નથી.</string>
+  <string name="stats">આંકડા</string>
+  <string name="accessibility">ઉપલ્બધતા</string>
+  <string name="enableBlindMode">બ્લાઇન્ડ મોડ સક્ષમ કરો</string>
+  <string name="disableBlindMode">બ્લાઇન્ડ મોડ અક્ષમ કરો</string>
+  <string name="copyToClipboard">ક્લિપબોર્ડ પર કૉપિ</string>
+  <string name="online" comment="status of a user">ઓનલાઇન</string>
+  <string name="offline" comment="status of a user">ઑફલાઇન</string>
+  <string name="search">શોધો</string>
+  <string name="clearSearch">શોધ સાફ કરો</string>
+  <string name="tags">ટૅગ્સ</string>
 </resources>
