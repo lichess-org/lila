@@ -163,7 +163,7 @@ final class ModTimelineUi(helpers: Helpers)(
                 .replaceAllIn(
                   str,
                   m =>
-                    s"$netBaseUrl${routes.Round.watcher(GameId(m.group(1)), Color.white).url}?pov=${e.user.so(_.value)}"
+                    s"${routeUrl(routes.Round.watcher(GameId(m.group(1)), Color.white))}?pov=${e.user.so(_.value)}"
                 )
           else frag(str)
     )

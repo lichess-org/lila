@@ -45,7 +45,8 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
           name,
           withFollows = userWithFollows,
           withTrophies = getBool("trophies"),
-          withCanChallenge = getBool("challenge")
+          withCanChallenge = getBool("challenge"),
+          withRanks = getBool("rank")
         )
         .map(toApiResult)
         .map(toHttp)
@@ -56,12 +57,19 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
   def usersByIds = AnonOrScopedBody(parse.tolerantText)(): ctx ?=>
     val usernames = ctx.body.body.replace("\n", "").split(',').take(300).flatMap(UserStr.read).toList
     val cost = usernames.size / (if ctx.me.exists(_.isVerified) then 20 else 4)
+    val withRanks = getBool("rank")
     limit.apiUsers(req.ipAddress, rateLimited, cost = cost.atLeast(1)):
       lila.mon.api.users.increment(cost.toLong)
       env.user.api
         .listWithPerfs(usernames)
         .map:
-          _.map { u => env.user.jsonView.full(u.user, u.perfs.some, withProfile = true) }
+          _.map: u =>
+            env.user.jsonView.full(
+              u.user,
+              u.perfs.some,
+              withProfile = getBool("profile"),
+              rankMap = withRanks.option(env.user.rankingsOf(u.user.id))
+            )
         .map(toApiResult)
         .map(toHttp)
 
@@ -280,7 +288,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
   val eventStream =
     Scoped(_.Bot.Play, _.Board.Play, _.Challenge.Read) { _ ?=> me ?=>
       def limited = rateLimited:
-        "Please don't poll this endpoint, it is intended to be streamed. See https://lichess.org/api#tag/Board/operation/apiStreamEvent."
+        "Please don't poll this endpoint, it is intended to be streamed. See https://lichess.org/api#tag/board/get/api/board/game/stream/{gameId}."
       HTTPRequest.bearer(ctx.req).so { bearer =>
         limit.eventStream(bearer, limited, msg = s"${me.username} ${HTTPRequest.printClient(req)}"):
           for

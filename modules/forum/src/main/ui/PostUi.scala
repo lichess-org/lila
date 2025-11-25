@@ -77,7 +77,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                       )
                     else
                       post.userId.map: userId =>
-                        val postUrl = s"${netBaseUrl}${routes.ForumPost.redirect(post.id)}"
+                        val postUrl = routeUrl(routes.ForumPost.redirect(post.id))
                         frag(
                           nbsp,
                           a(
@@ -85,7 +85,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                             cls := "mod report button button-empty",
                             href := addQueryParams(
                               routes.Report.form.url,
-                              Map("username" -> userId.value, "postUrl" -> postUrl, "from" -> "forum")
+                              Map("username" -> userId.value, "postUrl" -> postUrl.value, "from" -> "forum")
                             ),
                             dataIcon := Icon.CautionTriangle
                           )

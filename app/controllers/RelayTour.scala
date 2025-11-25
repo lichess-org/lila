@@ -126,7 +126,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
           ),
         setup =>
           env.relay.api.tourUpdate(nav.tour, setup) >>
-            negotiate(Redirect(routes.RelayRound.form(nav.tour.id)).flashSuccess, jsonOkResult)
+            negotiate(Redirect(routes.RelayTour.edit(nav.tour.id)).flashSuccess, jsonOkResult)
       )
   }
 
@@ -255,7 +255,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
           yield res
         case None => JsonBadRequest("Search query cannot be empty")
 
-  def player(tourId: RelayTourId, id: String) = AnonOrScoped(_.Web.Mobile): ctx ?=>
+  def player(tourId: RelayTourId, id: String) = AnonOrScoped(_.Study.Read, _.Web.Mobile): ctx ?=>
     Found(env.relay.api.tourById(tourId)): tour =>
       val decoded = lila.common.String.decodeUriPathSegment(id) | id
       val json =

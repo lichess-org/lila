@@ -110,7 +110,7 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi)(
       title = "Lichess updates feed",
       updated = ups.headOption.map(_.at)
     ): up =>
-      val url = s"$netBaseUrl${routes.Feed.index(1)}#${up.id}"
+      val url = s"${routeUrl(routes.Feed.index(1))}#${up.id}"
       frag(
         tag("id")(url),
         tag("author")(tag("name")("Lichess")),

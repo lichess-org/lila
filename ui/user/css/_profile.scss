@@ -110,5 +110,9 @@
       max-width: 100%;
       max-height: 300px;
     }
+
+    &.muted {
+      color: $c-font-dimmer;
+    }
   }
 }

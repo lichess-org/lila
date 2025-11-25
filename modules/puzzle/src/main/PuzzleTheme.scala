@@ -39,6 +39,7 @@ object PuzzleTheme:
     PuzzleTheme(i.capturingDefender, i.capturingDefenderDescription)
   val castling = PuzzleTheme(i.castling, i.castlingDescription)
   val clearance = PuzzleTheme(i.clearance, i.clearanceDescription)
+  val cornerMate = PuzzleTheme(i.cornerMate, i.cornerMateDescription)
   val crushing = PuzzleTheme(i.crushing, i.crushingDescription)
   val defensiveMove = PuzzleTheme(i.defensiveMove, i.defensiveMoveDescription)
   val deflection = PuzzleTheme(i.deflection, i.deflectionDescription)
@@ -152,6 +153,7 @@ object PuzzleTheme:
       balestraMate,
       blindSwineMate,
       bodenMate,
+      cornerMate,
       doubleBishopMate,
       dovetailMate,
       hookMate,
