@@ -62,6 +62,10 @@ body {
   color: hsl(37, 82%, 58%);
 }
 
+.recap img.uflair {
+  filter: drop-shadow(0 0 5px $gradient-end);
+}
+
 .swiper {
   height: 100%;
   opacity: 0;
