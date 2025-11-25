@@ -45,7 +45,8 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
           name,
           withFollows = userWithFollows,
           withTrophies = getBool("trophies"),
-          withCanChallenge = getBool("challenge")
+          withCanChallenge = getBool("challenge"),
+          withRanks = getBool("rank")
         )
         .map(toApiResult)
         .map(toHttp)
