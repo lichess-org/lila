@@ -1,7 +1,7 @@
 package lila.user
 package ui
 
-import lila.core.perf.PuzPerf
+import lila.core.perf.{ PuzPerf, UserWithPerfs }
 import lila.rating.UserWithPerfs.hasVariantRating
 import lila.ui.*
 
@@ -12,8 +12,8 @@ final class UserShowSide(helpers: Helpers):
   import helpers.{ *, given }
 
   def apply(
-      u: lila.core.perf.UserWithPerfs,
-      rankMap: lila.rating.UserRankMap,
+      u: UserWithPerfs,
+      rankMap: lila.core.rating.UserRankMap,
       active: Option[PerfKey]
   )(using ctx: Context) =
 

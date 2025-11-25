@@ -7,7 +7,7 @@ import lila.common.Json.given
 import lila.core.LightUser
 import lila.core.config.*
 import lila.core.perf.UserWithPerfs
-import lila.rating.{ PerfType, UserRankMap }
+import lila.rating.PerfType
 import lila.user.Trophy
 
 final class UserApi(
@@ -202,7 +202,7 @@ final class UserApi(
 
 object UserApi:
   case class TrophiesAndAwards(
-      ranks: UserRankMap,
+      ranks: lila.core.rating.UserRankMap,
       trophies: List[Trophy],
       shields: List[lila.tournament.TournamentShield.Award],
       revolutions: List[lila.tournament.Revolution.Award]
