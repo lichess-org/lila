@@ -19,7 +19,6 @@ import lila.core.security.{ ClearPassword, FingerHash, Ip2ProxyApi, IsProxy }
 import lila.db.dsl.{ *, given }
 import lila.oauth.{ OAuthScope, OAuthServer }
 import lila.security.LoginCandidate.Result
-import lila.core.user.RoleDbKey
 
 final class SecurityApi(
     userRepo: lila.user.UserRepo,
@@ -174,8 +173,6 @@ final class SecurityApi(
         val mobile = Mobile.LichessMobileUa.parse(req)
         store.upsertOAuth(access.me.userId, access.tokenId, mobile, req)
 
-  private lazy val nonModRoles: Set[RoleDbKey] = lila.core.perm.Permission.nonModPermissions.map(_.dbKey)
-
   private def stripRolesOfOAuthUser(scoped: OAuthScope.Scoped) =
     if scoped.scopes.has(_.Web.Mod) then scoped
     else scoped.copy(me = stripRolesOf(scoped.me))
@@ -186,7 +183,7 @@ final class SecurityApi(
 
   private def stripRolesOf(me: Me) =
     if me.roles.nonEmpty
-    then me.map(_.copy(roles = me.roles.filter(nonModRoles.contains)))
+    then me.map(_.copy(roles = lila.core.perm.Permission.stripModRoles(me.roles)))
     else me
 
   def locatedOpenSessions(userId: UserId, nb: Int): Fu[List[LocatedSession]] =

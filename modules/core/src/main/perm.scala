@@ -31,6 +31,9 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
   def this(key: String, name: String) = this(key, Nil, name)
   def dbKey = RoleDbKey(s"ROLE_$key")
   final def grants(p: Permission): Boolean = this == p || alsoGrants.exists(_.grants(p))
+  final def stripModPerms: List[Permission] =
+    if Permission.nonModPermissions.contains(this) then this :: alsoGrants.flatMap(_.stripModPerms)
+    else alsoGrants.flatMap(_.stripModPerms)
 
   case ViewBlurs extends Permission("VIEW_BLURS", "View blurs")
   case StickyPosts extends Permission("STICKY_POSTS", "Sticky forum posts")
@@ -280,3 +283,5 @@ object Permission:
   def apply(u: User): Set[Permission] = ofDbKeys(u.roles)
   def ofDbKey(dbKey: RoleDbKey): Option[Permission] = allByDbKey.get(dbKey)
   def ofDbKeys(dbKeys: Seq[RoleDbKey]): Set[Permission] = dbKeys.flatMap(allByDbKey.get).toSet
+  def stripModRoles(roles: Seq[RoleDbKey]): List[RoleDbKey] =
+    ofDbKeys(roles).flatMap(_.stripModPerms).toSet.map(_.dbKey).toList
