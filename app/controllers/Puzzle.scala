@@ -171,9 +171,10 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
               .rescue: err =>
                 fuccess(Json.obj("theme" -> themeVote.theme, "msg" -> err.message).some)
             .map:
-              _.collect:
-                case Some(errors) => Json.obj("puzzleId" -> puzzleVotes.puzzleId, "errors" -> errors)
+              _.flatten.map: errors =>
+                Json.obj("puzzleId" -> puzzleVotes.puzzleId, "errors" -> errors)
         )
+        .map(_.flatten)
         .map:
           case Nil => jsonOkResult
           case errors => BadRequest(jsonError(errors))
