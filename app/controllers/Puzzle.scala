@@ -156,7 +156,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       )
   }
 
-  def apiBatchVoteThemes = ScopedBody(_.Puzzle.Write) { _ ?=> me ?=>
+  def apiBatchVoteThemes = SecuredScopedBody(_.PuzzleCurator, _.Puzzle.Write) { _ ?=> me ?=>
     NoBot:
       bindForm(env.puzzle.forms.batchVotes)(
         jsonFormError,
