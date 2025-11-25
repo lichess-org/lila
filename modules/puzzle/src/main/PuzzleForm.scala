@@ -29,7 +29,7 @@ object PuzzleForm:
   )
 
   case class ThemesVote(
-      puzzleId: String,
+      puzzleId: PuzzleId,
       themes: List[ThemeVote]
   )
 
@@ -58,25 +58,21 @@ object PuzzleForm:
     single("vote" -> optional(boolean))
   )
 
-  val batchVotes = Form(
+  lazy val batchVotes = Form:
     mapping(
       "votes" -> list(
         mapping(
-          "puzzleId" -> nonEmptyText,
+          "puzzleId" -> nonEmptyText.into[PuzzleId],
           "themes" -> list(
             mapping(
               "theme" -> nonEmptyText,
               "vote" -> optional(boolean)
             )(ThemeVote.apply)(unapply)
-          )
+          ).verifying("At least one theme", _.nonEmpty)
+            .verifying("No more than 500", _.sizeIs <= 500)
         )(ThemesVote.apply)(unapply)
       )
     )(BatchThemesVotes.apply)(_.votes.some)
-      .verifying(
-        "At least one puzzle, but not more than 500",
-        data => data.votes.nonEmpty && data.votes.size <= 500
-      )
-  )
 
   val difficulty = Form(
     single("difficulty" -> stringIn(PuzzleDifficulty.all.map(_.key).toSet))

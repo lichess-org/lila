@@ -22,6 +22,7 @@ import lila.rating.PerfType
 import lila.ui.LangPath
 import scalalib.model.Days
 import lila.common.HTTPRequest
+import lila.common.Json.given
 
 final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
 
@@ -167,7 +168,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
                 .sequentially: themeVote =>
                   allow:
                     env.puzzle.api.theme
-                      .vote(PuzzleId(puzzleVotes.puzzleId), themeVote.theme, themeVote.vote)
+                      .vote(puzzleVotes.puzzleId, themeVote.theme, themeVote.vote)
                       .inject(none)
                   .rescue: err =>
                     fuccess(Json.obj("theme" -> themeVote.theme, "msg" -> err.message).some)
