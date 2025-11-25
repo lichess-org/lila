@@ -1,7 +1,9 @@
+$gradient-start: #667eea;
+$gradient-end: #764ba2;
+
 // dark theme is forced on this page
 body {
-  // background-image: linear-gradient(to right, #fa709a 0%, #fee140 100%);
-  background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background-image: linear-gradient(135deg, $gradient-start 0%, $gradient-end 100%);
   --c-font-page: #fff;
   --c-font-shadow: hsla(0, 0, 0%, 0);
   &,
