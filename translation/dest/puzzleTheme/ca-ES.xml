@@ -25,6 +25,8 @@
   <string name="castlingDescription">Assegura el rei, i prepara la torre per l\'atac.</string>
   <string name="capturingDefender">Captura el defensor</string>
   <string name="capturingDefenderDescription">Menjar una peça que és vital per defensar una altra, fent que es pugui menjar la peça que ara ja no està defensada.</string>
+  <string name="cornerMate">Mat de la cantonada</string>
+  <string name="cornerMateDescription">Confina el rei a una cantonada utilitzant una torre o una dama i donar li mat amb un cavall.</string>
   <string name="crushing">Fort avantatge</string>
   <string name="crushingDescription">Veure l\'error de l\'adversari per a obtenir un gran avantatge (aval ≥ 600cp)</string>
   <string name="doubleBishopMate">Mat dels dos alfils</string>

@@ -28,6 +28,7 @@ export default class RelayCtrl {
   showStreamerMenu = toggle(false);
   videoPlayer?: VideoPlayer;
   liveboardPlugin?: LiveboardPlugin;
+  private i18nRoundNameCache = new Map<string, string>();
 
   constructor(
     private readonly study: StudyCtrl,
@@ -122,6 +123,14 @@ export default class RelayCtrl {
   };
 
   fullRoundName = () => `${this.data.tour.name} - ${this.round.name}`;
+  i18nRoundName = (round: RelayRound): string => {
+    const cached = this.i18nRoundNameCache.get(round.id);
+    if (cached) return cached;
+    const engMatch = round.name.match(/^round (\d+)$/i);
+    const result = engMatch ? i18n.broadcast.roundX(engMatch[1]) : round.name;
+    this.i18nRoundNameCache.set(round.id, result);
+    return result;
+  };
 
   tourPath = () => `/broadcast/${this.data.tour.slug}/${this.data.tour.id}`;
   roundPath = (round?: RelayRound) => {

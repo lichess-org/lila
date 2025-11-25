@@ -88,9 +88,9 @@ final class RelayCardUi(helpers: Helpers, ui: RelayUi):
       span(cls := "relay-card__info")(
         t.dates.map: dates =>
           span(showDate(dates.start)),
-        if ~t.live then span(cls := "relay-card__live", dataIcon := Icon.Disc)("LIVE")
+        if ~t.live then span(cls := "relay-card__live text", dataIcon := Icon.Disc)("LIVE")
         else if !t.active then
-          span(cls := "relay-card__finished", dataIcon := Icon.Checkmark)(trans.site.finished())
+          span(cls := "relay-card__finished text", dataIcon := Icon.Checkmark)(trans.site.finished())
         else emptyFrag
       ),
       h3(cls := "relay-card__title")(name),

@@ -255,6 +255,8 @@ interface I18n {
     createdAndManagedBy: I18nFormat;
     /** Current game URL */
     currentGameUrl: string;
+    /** Keeping the default name will automatically translate it to all other languages. */
+    defaultRoundNameHelp: string;
     /** Definitively delete the round and all its games. */
     definitivelyDeleteRound: string;
     /** Definitively delete the entire tournament, all its rounds and all its games. */
@@ -333,6 +335,8 @@ interface I18n {
     resetRound: string;
     /** Round name */
     roundName: string;
+    /** Round %s */
+    roundX: I18nFormat;
     /** Score */
     score: string;
     /** Show players scores based on game results */
@@ -3777,7 +3781,7 @@ interface I18n {
     noConditionalPremoves: string;
     /** You cannot draw before 30 moves are played in a Swiss tournament. */
     noDrawBeforeSwissLimit: string;
-    /** No game found */
+    /** No games found */
     noGameFound: string;
     /** No mistakes found for black */
     noMistakesFoundForBlack: string;

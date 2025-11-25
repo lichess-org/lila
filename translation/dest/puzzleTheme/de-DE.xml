@@ -26,6 +26,8 @@
   <string name="castlingDescription">Bringe deinen König in Sicherheit und den Turm in Angriffsposition.</string>
   <string name="capturingDefender">Schlage den Verteidiger</string>
   <string name="capturingDefenderDescription">Ein Verteidiger einer Figur (oder eines Feldes) wird geschlagen, wodurch das eigentliche Ziel die Deckung verliert.</string>
+  <string name="cornerMate">Eck-Matt</string>
+  <string name="cornerMateDescription">Sperrt den König in einer Ecke des Bretts ein, um dann mit Turm oder Dame und einem Springer Matt zu setzen.</string>
   <string name="crushing">Vernichtend</string>
   <string name="crushingDescription">Finde den gegnerischen Patzer, um einen vernichtenden Vorteil zu erhalten. (Bewertung ≥ 600 Hundertstel-Bauern)</string>
   <string name="doubleBishopMate">Läuferpaarmatt</string>
