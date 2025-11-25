@@ -276,10 +276,10 @@ abstract private[controllers] class LilaController(val env: Env)
     }
 
   /* OAuth requests requiring certain permissions, with a body */
-  def SecuredScopedBody(perm: Permission.Selector, scope: OAuthScope.Selector)(
+  def SecuredScopedBody(perm: Permission.Selector)(scopes: OAuthScope.Selector*)(
       f: BodyContext[?] ?=> Me ?=> Fu[Result]
   ) =
-    ScopedBody(scope) { _ ?=> _ ?=>
+    ScopedBody(scopes*) { _ ?=> _ ?=>
       IfGranted(perm)(f)
     }
 
