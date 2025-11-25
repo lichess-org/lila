@@ -265,11 +265,11 @@ export const lichessGames = (r: Recap): VNode => {
   ]);
 };
 
-export const thanks = (): VNode =>
+export const thanks = (r: Recap): VNode =>
   slideTag('thanks')([
     hl('div.recap--massive', 'Thank you for playing on Lichess!'),
     hl('img.recap__logo', { attrs: { src: site.asset.url('logo/lichess-white.svg') } }),
-    hl('div', "We're glad you're here. Have a great 2025!"),
+    hl('div', `We're glad you're here. Have a great ${r.year + 1}!`),
   ]);
 
 const renderPerf = (perf: RecapPerf): VNode => {
@@ -286,7 +286,7 @@ export const shareable = (r: Recap): VNode =>
   slideTag('shareable')([
     hl('div.recap__shareable', [
       hl('img.logo', { attrs: { src: site.asset.url('logo/logo-with-name-dark.png') } }),
-      hl('h2', 'My 2024 Recap'),
+      hl('h2', `My ${r.year} Recap`),
       hl('div.grid', [
         stat(formatNumber(r.games.nbs.total), 'games played'),
         stat(formatNumber(r.games.moves), 'moves played'),
