@@ -66,6 +66,7 @@ export interface Player {
   version: number;
   image?: string;
   blindfold?: boolean;
+  zen?: boolean;
 }
 
 export type TournamentRanks = ByColor<number>;

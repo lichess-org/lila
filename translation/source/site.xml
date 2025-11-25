@@ -50,6 +50,7 @@
   <string name="forceResignation">Claim victory</string>
   <string name="forceDraw">Call draw</string>
   <string name="talkInChat">Please be nice in the chat!</string>
+  <string name="opponentIsZen">Opponent is in Zen mode.</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">The first person to come to this URL will play with you.</string>
   <string name="whiteResigned">White resigned</string>
   <string name="blackResigned">Black resigned</string>

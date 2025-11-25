@@ -15,7 +15,7 @@ import lila.core.perf.KeyedPerf
 import lila.core.user.{ GameUser, GameUsers, WithPerf }
 import lila.game.GameExt.moveTimes
 import lila.game.JsonView.given
-import lila.pref.Pref
+import lila.pref.Pref 
 import lila.round.RoundGame.*
 
 final class JsonView(
@@ -90,6 +90,7 @@ final class JsonView(
             .add("ai" -> opponent.aiLevel)
             .add("isGone" -> (pov.game.forceDrawable && socket.isGone(opponent.color)))
             .add("onGame" -> (opponent.isAi || socket.onGame(opponent.color)))
+            .add("zen" -> (prefs(opponent.color).zen != Pref.Zen.NO))
         },
         "url" -> flags.lichobileCompat.option:
           Json.obj(

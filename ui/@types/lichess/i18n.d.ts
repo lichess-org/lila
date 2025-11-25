@@ -3861,6 +3861,8 @@ interface I18n {
     openTournaments: string;
     /** Opponent */
     opponent: string;
+    /** Opponent is in Zen mode. */
+    opponentIsZen: string;
     /** Your opponent left the game. You can claim victory, call the game a draw, or wait. */
     opponentLeftChoices: string;
     /** Your opponent left the game. You can claim victory in %s seconds. */

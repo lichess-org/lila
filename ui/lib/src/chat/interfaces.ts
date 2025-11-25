@@ -20,6 +20,7 @@ export interface ChatOpts {
   plugin?: ChatPlugin;
   kidMode: boolean;
   persistent?: boolean;
+  opponentZen?: boolean;
 }
 
 export type Tab = { key: string; isDisabled?: () => boolean };

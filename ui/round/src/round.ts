@@ -122,6 +122,7 @@ async function boot(
       chatOpts.enhance = { plies: true };
     }
     if (chatOpts.noteId && (chatOpts.noteAge || 0) < 10) chatOpts.noteText = '';
+    if (opts.data.opponent.zen) chatOpts.opponentZen = true;
     chatOpts.instance = standaloneChat(chatOpts);
     if (!data.tournament && !data.simul && !data.swiss) {
       opts.onChange = (d: RoundData) => chatOpts.instance!.preset.setGroup(getPresetGroup(d));

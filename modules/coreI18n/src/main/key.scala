@@ -1512,6 +1512,7 @@ object I18nKey:
     val `forceResignation`: I18nKey = "forceResignation"
     val `forceDraw`: I18nKey = "forceDraw"
     val `talkInChat`: I18nKey = "talkInChat"
+    val `opponentIsZen`: I18nKey = "opponentIsZen"
     val `theFirstPersonToComeOnThisUrlWillPlayWithYou`: I18nKey = "theFirstPersonToComeOnThisUrlWillPlayWithYou"
     val `whiteResigned`: I18nKey = "whiteResigned"
     val `blackResigned`: I18nKey = "blackResigned"

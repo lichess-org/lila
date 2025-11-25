@@ -82,6 +82,7 @@ function renderInput(ctrl: ChatCtrl): VNode | undefined {
   let placeholder: string;
   if (ctrl.vm.timeout) placeholder = i18n.site.youHaveBeenTimedOut;
   else if (ctrl.opts.blind) placeholder = 'Chat';
+  else if (ctrl.opts.opponentZen) placeholder = i18n.site.opponentIsZen;
   else placeholder = i18n.site.talkInChat;
   return h('input.mchat__say', {
     attrs: {
