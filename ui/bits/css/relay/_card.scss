@@ -64,14 +64,14 @@
   }
 
   &__info {
-    @extend %flex-between;
+    @extend %flex-center-nowrap;
     margin-right: 1rem;
-    align-self: stretch;
     color: $c-font-dim;
     gap: 1ch;
   }
   &__live {
     @extend %flex-between;
+    flex: 1;
     color: $c-live;
     font-weight: bold;
   }
