@@ -9,7 +9,7 @@ export function readOnlyProp<A>(value: A): () => A {
 const ensureChildren = (node: Tree.NodeOptionalChildren): Tree.Node => {
   node.children ||= [];
   return node as Tree.Node;
-}
+};
 
 export function treeReconstruct(parts: Tree.NodeOptionalChildren[], sidelines?: Tree.Node[][]): Tree.Node {
   const root = ensureChildren(parts[0]);
