@@ -46,12 +46,14 @@ final class UserApi(
       username: UserStr,
       withFollows: Boolean,
       withTrophies: Boolean,
-      withCanChallenge: Boolean
+      withCanChallenge: Boolean,
+      withProfile: Boolean,
+      withRank: Boolean
   )(using Option[Me], Lang): Fu[Option[JsObject]] =
     userApi
       .withPerfs(username)
       .flatMapz:
-        extended(_, withFollows, withTrophies, withCanChallenge).dmap(some)
+        extended(_, withFollows, withTrophies, withCanChallenge, withProfile, withRank).dmap(some)
 
   def extended(
       u: User | UserWithPerfs,
