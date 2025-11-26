@@ -15,7 +15,7 @@ import lila.core.perf.KeyedPerf
 import lila.core.user.{ GameUser, GameUsers, WithPerf }
 import lila.game.GameExt.moveTimes
 import lila.game.JsonView.given
-import lila.pref.Pref 
+import lila.pref.Pref
 import lila.round.RoundGame.*
 
 final class JsonView(
