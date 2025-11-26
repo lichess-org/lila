@@ -80,7 +80,7 @@ final private[video] class VideoApi(
           collection = videoColl,
           selector = $empty,
           projection = none,
-          sort = $doc("metadata.likes" -> -1),
+          sort = $doc("metadata.refreshedAt" -> -1),
           _.sec
         ).mapFutureList(videoViews(user)),
         currentPage = page,
@@ -95,7 +95,7 @@ final private[video] class VideoApi(
             collection = videoColl,
             selector = $doc("tags".$all(tags)),
             projection = none,
-            sort = $doc("metadata.likes" -> -1),
+            sort = $doc("metadata.refreshedAt" -> -1),
             _.sec
           ).mapFutureList(videoViews(user)),
           currentPage = page,
@@ -108,7 +108,7 @@ final private[video] class VideoApi(
           collection = videoColl,
           selector = $doc("author" -> author),
           projection = none,
-          sort = $doc("metadata.likes" -> -1),
+          sort = $doc("metadata.publishedAt" -> -1),
           _.sec
         ).mapFutureList(videoViews(user)),
         currentPage = page,
@@ -136,7 +136,7 @@ final private[video] class VideoApi(
             ,
             Sort(
               Descending("int"),
-              Descending("metadata.likes")
+              Descending("metadata.refreshedAt")
             ),
             Limit(max)
           )
