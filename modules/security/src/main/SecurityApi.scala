@@ -13,6 +13,7 @@ import lila.common.HTTPRequest
 import lila.core.id.SessionId
 import lila.core.mod.{ LoginWithBlankedPassword, LoginWithWeakPassword }
 import lila.core.email.UserStrOrEmail
+import lila.core.perm.Permission
 import lila.core.net.{ ApiVersion, IpAddress }
 import lila.core.misc.oauth.AccessTokenId
 import lila.core.security.{ ClearPassword, FingerHash, Ip2ProxyApi, IsProxy }
@@ -183,7 +184,12 @@ final class SecurityApi(
 
   private def stripRolesOf(me: Me) =
     if me.roles.nonEmpty
-    then me.map(_.copy(roles = lila.core.perm.Permission.stripModRoles(me.roles)))
+    then
+      def expandWithoutModPerms(perm: Permission): List[Permission] =
+        if Permission.nonModPermissions.contains(perm)
+        then perm :: perm.alsoGrants.flatMap(expandWithoutModPerms)
+        else perm.alsoGrants.flatMap(expandWithoutModPerms)
+      me.map(_.copy(roles = Permission(me).flatMap(expandWithoutModPerms).toSet.map(_.dbKey).toList))
     else me
 
   def locatedOpenSessions(userId: UserId, nb: Int): Fu[List[LocatedSession]] =
