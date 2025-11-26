@@ -1,3 +1,5 @@
+Run with `cloudflared tunnel --protocol http2 --edge-ip-version 4 --url http://127.0.0.1:9663 --http-host-header localhost:9663`
+
 # [lichess.org](https://lichess.org)
 
 [![Build server](https://github.com/lichess-org/lila/actions/workflows/server.yml/badge.svg)](https://github.com/lichess-org/lila/actions/workflows/server.yml)
