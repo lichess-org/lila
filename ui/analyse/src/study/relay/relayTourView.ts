@@ -78,7 +78,7 @@ export const tourSide = (ctx: RelayViewContext, kid: LooseVNode) => {
               hl(
                 'button.relay-tour__side__name',
                 { hook: bind('mousedown', relay.tourShow.toggle, relay.redraw) },
-                relay.round.name,
+                relay.i18nRoundName(relay.round),
               ),
               !ctrl.isEmbed &&
                 hl('button.streamer-show.data-count', {
@@ -130,7 +130,7 @@ const startCountdown = (relay: RelayCtrl) => {
     startsAt = defined(round.startsAt) && new Date(round.startsAt),
     date = startsAt && hl('time', commonDateFormat(startsAt));
   return hl('div.relay-tour__side__empty', { attrs: dataIcon(licon.RadioTower) }, [
-    hl('strong', round.name),
+    hl('strong', relay.i18nRoundName(round)),
     startsAt
       ? startsAt.getTime() < Date.now() + 1000 * 10 * 60 // in the last 10 minutes, only say it's soon.
         ? [i18n.broadcast.startVerySoon, date]
@@ -240,7 +240,7 @@ const share = (ctx: RelayViewContext) => {
           'To synchronize ongoing games, use ',
           hl(
             'a',
-            { attrs: { href: '/api#tag/Broadcasts/operation/broadcastStreamRoundPgn' } },
+            { attrs: { href: '/api#tag/broadcasts/get/api/stream/broadcast/round/{broadcastRoundId}.pgn' } },
             'our free streaming API',
           ),
           ' for stupendous speed and efficiency.',
@@ -333,7 +333,7 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
     },
     [
       hl('label.mselect__label.relay-tour__round-select__label', clickHook, [
-        hl('span.relay-tour__round-select__name', round.name),
+        hl('span.relay-tour__round-select__name', relay.i18nRoundName(round)),
         hl('span.relay-tour__round-select__status', icon || (!!round.startsAt && timeago(round.startsAt))),
       ]),
       toggle() && [
@@ -373,7 +373,7 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
                       hl(
                         'a',
                         { attrs: { href: study.embeddablePath(relay.roundUrlWithHash(round)) } },
-                        round.name,
+                        relay.i18nRoundName(round),
                       ),
                     ),
                     hl(
@@ -382,7 +382,9 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
                         ? commonDateFormat(new Date(round.startsAt))
                         : round.startsAfterPrevious &&
                             i18n.broadcast.startsAfter(
-                              relay.data.rounds[i - 1]?.name || 'the previous round',
+                              relay.data.rounds[i - 1]
+                                ? relay.i18nRoundName(relay.data.rounds[i - 1])
+                                : 'the previous round',
                             ),
                     ),
                     hl(

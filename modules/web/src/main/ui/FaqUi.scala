@@ -241,7 +241,7 @@ final class FaqUi(helpers: Helpers, sitePages: SitePages)(
             trf.whatUsernameCanIchoose.txt(),
             p(
               trf.usernamesNotOffensive(
-                a(href := "https://github.com/lichess-org/lila/wiki/Username-policy")(trf.guidelines())
+                a(href := "https://lichess.org/page/username-policy")(trf.guidelines())
               )
             )
           ),

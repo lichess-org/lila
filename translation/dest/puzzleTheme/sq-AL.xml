@@ -16,8 +16,8 @@
   <string name="backRankMateDescription">Jepini mat mbretin në rreshtin e tij, kur ai është bllokuar atje nga gurë të vetët.</string>
   <string name="balestraMate">Mat Balestra</string>
   <string name="balestraMateDescription">Një oficer jep shahmat, teksa një mbretëreshë bllokon kuadratet e ikjes</string>
-  <string name="blindSwineMate" comment="Description (translatable separately):&#10;&#10;Two rooks team up to mate the king in an area of 2 by 2 squares.">Mat Derri Qorr</string>
-  <string name="blindSwineMateDescription" comment="Description for the Blind Swine checkmate pattern.">Dy torre bëhen tok për t’i dhënë mat mbretit në një zonë prej 2 herë 2 kuadratesh.</string>
+  <string name="blindSwineMate">Mat Derri Qorr</string>
+  <string name="blindSwineMateDescription">Dy torre bëhen tok për t’i dhënë mat mbretit në një zonë prej 2 herë 2 kuadratesh.</string>
   <string name="bishopEndgame">Fund loje me oficer</string>
   <string name="bishopEndgameDescription">Fund loje me vetëm oficerë dhe ushtarë.</string>
   <string name="bodenMate">Mati i Bodenit</string>
@@ -26,6 +26,8 @@
   <string name="castlingDescription">Siguroni mbretin dhe futeni torrën në sulm.</string>
   <string name="capturingDefender">Merrni mbrojtësin</string>
   <string name="capturingDefenderDescription">Heqja e një pjese që është kritike për mbrojtjen e një pjese tjetër, çka tani lejon që pjesa e pambrojtur të merret me një lëvizje vijuese.</string>
+  <string name="cornerMate">Mat qosheje</string>
+  <string name="cornerMateDescription">Mbërthejeni mbretin në qoshe, duke përdorur një torre, ose një mbretëreshë dhe një kalë, për të dhënë shah-mat.</string>
   <string name="crushing">Shkatërrim</string>
   <string name="crushingDescription">Shfrytëzoni gafën e kundërshtarit për të përfituar një avantazh shkatërrues. (vlera ≥ 600 cp)</string>
   <string name="doubleBishopMate">Mat me dy oficerë</string>

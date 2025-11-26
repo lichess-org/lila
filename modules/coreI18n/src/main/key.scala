@@ -205,6 +205,8 @@ object I18nKey:
     val `liveboard`: I18nKey = "broadcast:liveboard"
     val `communityBroadcast`: I18nKey = "broadcast:communityBroadcast"
     val `createdAndManagedBy`: I18nKey = "broadcast:createdAndManagedBy"
+    val `roundX`: I18nKey = "broadcast:roundX"
+    val `defaultRoundNameHelp`: I18nKey = "broadcast:defaultRoundNameHelp"
     val `nbBroadcasts`: I18nKey = "broadcast:nbBroadcasts"
     val `nbViewers`: I18nKey = "broadcast:nbViewers"
 
@@ -1314,6 +1316,8 @@ object I18nKey:
     val `castlingDescription`: I18nKey = "puzzleTheme:castlingDescription"
     val `capturingDefender`: I18nKey = "puzzleTheme:capturingDefender"
     val `capturingDefenderDescription`: I18nKey = "puzzleTheme:capturingDefenderDescription"
+    val `cornerMate`: I18nKey = "puzzleTheme:cornerMate"
+    val `cornerMateDescription`: I18nKey = "puzzleTheme:cornerMateDescription"
     val `crushing`: I18nKey = "puzzleTheme:crushing"
     val `crushingDescription`: I18nKey = "puzzleTheme:crushingDescription"
     val `doubleBishopMate`: I18nKey = "puzzleTheme:doubleBishopMate"

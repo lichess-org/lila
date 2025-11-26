@@ -8,7 +8,9 @@ interface I18nPlural {
   asArray: <T>(quantity: number, ...args: T[]) => (T | string)[]; // vdomPlural / plural
 }
 interface I18n {
-  /** Global noarg key lookup (only if absolutely necessary). */
+  /** fetch i18n dynamically */
+  load(catalog: string): Promise<void>;
+  /** global noarg key lookup */
   (key: string): string;
   quantity: (count: number) => 'zero' | 'one' | 'two' | 'few' | 'many' | 'other';
 
@@ -253,6 +255,8 @@ interface I18n {
     createdAndManagedBy: I18nFormat;
     /** Current game URL */
     currentGameUrl: string;
+    /** Keeping the default name will automatically translate it to all other languages. */
+    defaultRoundNameHelp: string;
     /** Definitively delete the round and all its games. */
     definitivelyDeleteRound: string;
     /** Definitively delete the entire tournament, all its rounds and all its games. */
@@ -331,6 +335,8 @@ interface I18n {
     resetRound: string;
     /** Round name */
     roundName: string;
+    /** Round %s */
+    roundX: I18nFormat;
     /** Score */
     score: string;
     /** Show players scores based on game results */
@@ -2557,6 +2563,10 @@ interface I18n {
     clearance: string;
     /** A move, often with tempo, that clears a square, file or diagonal for a follow-up tactical idea. */
     clearanceDescription: string;
+    /** Corner mate */
+    cornerMate: string;
+    /** Confine the king to the corner using a rook or queen and a knight to engage the checkmate. */
+    cornerMateDescription: string;
     /** Crushing */
     crushing: string;
     /** Spot the opponent blunder to obtain a crushing advantage. (eval ≥ 600cp) */
@@ -3771,7 +3781,7 @@ interface I18n {
     noConditionalPremoves: string;
     /** You cannot draw before 30 moves are played in a Swiss tournament. */
     noDrawBeforeSwissLimit: string;
-    /** No game found */
+    /** No games found */
     noGameFound: string;
     /** No mistakes found for black */
     noMistakesFoundForBlack: string;

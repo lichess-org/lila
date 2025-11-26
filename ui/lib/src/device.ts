@@ -2,12 +2,6 @@ import { memoize } from './index';
 import { bind, type Hooks } from './view';
 import * as licon from './licon';
 
-export function isBrowserSupported(): boolean {
-  // when feature detection is not enough
-  if (isSafari({ below: '15.4' })) return false;
-  return true; // TODO add unsupported browsers
-}
-
 export const hookMobileMousedown = (f: (e: Event) => any): Hooks =>
   bind('ontouchstart' in window ? 'click' : 'mousedown', f);
 
@@ -17,8 +11,7 @@ export const prefersLightThemeQuery = (): MediaQueryList =>
 export const currentTheme = (): 'light' | 'dark' => {
   const dataTheme = document.body.dataset.theme!;
   if (dataTheme === 'system') return prefersLightThemeQuery().matches ? 'light' : 'dark';
-  else if (dataTheme === 'light') return 'light';
-  else return 'dark';
+  return dataTheme === 'light' ? 'light' : 'dark';
 };
 
 let colCache: number | undefined;
@@ -51,15 +44,10 @@ export const isFirefox = (constraint?: VersionConstraint): boolean =>
   isVersionCompatible(lowerAgent.match(/firefox\/(.*)/)?.[1], constraint);
 
 export const isSafari = (constraint?: VersionConstraint): boolean =>
-  lowerAgent.includes('version/') && isVersionCompatible(webkitVersion(), constraint);
-
-export const isIosSafari = (constraint?: VersionConstraint): boolean => isIos() && isSafari(constraint);
+  lowerAgent.includes('version/') && isWebkit(constraint);
 
 export const isWebkit = (constraint?: VersionConstraint): boolean =>
   isVersionCompatible(webkitVersion(), constraint);
-
-export const isIosChrome = (constraint?: VersionConstraint): boolean =>
-  lowerAgent.includes('crios/') && isVersionCompatible(webkitVersion(), constraint);
 
 export const isApple: () => boolean = memoize<boolean>(() => /macintosh|iphone|ipad|ipod/.test(lowerAgent));
 
@@ -126,19 +114,17 @@ export const reducedMotion: () => boolean = memoize<boolean>(
 );
 
 function sharedMemoryTest(): boolean {
-  if (typeof Atomics !== 'object') return false;
-  if (typeof SharedArrayBuffer !== 'function') return false;
+  if (typeof Atomics !== 'object' || typeof SharedArrayBuffer !== 'function') return false;
 
   let mem;
   try {
     mem = new WebAssembly.Memory({ shared: true, initial: 1, maximum: 2 });
     if (!(mem.buffer instanceof SharedArrayBuffer)) return false;
-
     window.postMessage(mem.buffer, '*');
+    return true;
   } catch {
     return false;
   }
-  return true;
 }
 
 export function isVersionCompatible(version: string | undefined | false, vc?: VersionConstraint): boolean {
@@ -148,8 +134,7 @@ export function isVersionCompatible(version: string | undefined | false, vc?: Ve
   const v = split(version);
 
   if (vc.atLeast && isGreaterThan(split(vc.atLeast), v)) return false; // atLeast is an inclusive min
-
-  return vc.below ? isGreaterThan(split(vc.below), v) : true; // below is an exclusive max
+  return !vc.below || isGreaterThan(split(vc.below), v); // below is an exclusive max
 
   function split(v: string): number[] {
     return v
@@ -158,9 +143,7 @@ export function isVersionCompatible(version: string | undefined | false, vc?: Ve
       .concat([0, 0, 0, 0]);
   }
   function isGreaterThan(left: number[], right: number[]): boolean {
-    for (let i = 0; i < 4; i++)
-      if (left[i] > right[i]) return true;
-      else if (left[i] < right[i]) return false;
+    for (let i = 0; i < 4; i++) if (left[i] !== right[i]) return left[i] > right[i];
     return false;
   }
 }

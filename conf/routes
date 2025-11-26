@@ -722,6 +722,7 @@ GET   /api/puzzle/activity             controllers.Puzzle.activity
 GET   /api/puzzle/dashboard/$days<\d+> controllers.Puzzle.apiDashboard(days: Days)
 GET   /api/puzzle/$id<\w{5}>           controllers.Puzzle.apiShow(id: PuzzleId)
 GET   /api/puzzle/next                 controllers.Puzzle.apiNext
+POST  /api/puzzle/vote-themes          controllers.Puzzle.apiBatchVoteThemes
 GET   /api/puzzle/batch/:angle         controllers.Puzzle.apiBatchSelect(angle)
 POST  /api/puzzle/batch/:angle         controllers.Puzzle.apiBatchSolve(angle)
 GET   /api/puzzle/replay/$days<\d+>/:theme controllers.Puzzle.apiReplay(days: Days, theme)
