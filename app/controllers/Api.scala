@@ -68,7 +68,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
             env.user.jsonView.full(
               u.user,
               u.perfs.some,
-              withProfile = getBool("profile"),
+              withProfile = getBoolOpt("profile") | true,
               rankMap = withRanks.option(env.user.rankingsOf(u.user.id))
             )
         .map(toApiResult)
