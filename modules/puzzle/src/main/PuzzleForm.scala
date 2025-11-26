@@ -23,6 +23,18 @@ object PuzzleForm:
   ):
     def streakPuzzleId = streakId.flatMap(Puzzle.toId)
 
+  case class ThemeVote(
+      theme: String,
+      vote: Option[Boolean]
+  )
+
+  case class ThemesVote(
+      puzzleId: PuzzleId,
+      themes: List[ThemeVote]
+  )
+
+  case class BatchThemesVotes(votes: List[ThemesVote])
+
   val round = Form(
     mapping(
       "win" -> of[PuzzleWin],
@@ -45,6 +57,22 @@ object PuzzleForm:
   val themeVote = Form(
     single("vote" -> optional(boolean))
   )
+
+  lazy val batchVotes = Form:
+    mapping(
+      "votes" -> list(
+        mapping(
+          "puzzleId" -> nonEmptyText.into[PuzzleId],
+          "themes" -> list(
+            mapping(
+              "theme" -> nonEmptyText,
+              "vote" -> optional(boolean)
+            )(ThemeVote.apply)(unapply)
+          ).verifying("At least one theme", _.nonEmpty)
+            .verifying("No more than 500", _.sizeIs <= 500)
+        )(ThemesVote.apply)(unapply)
+      )
+    )(BatchThemesVotes.apply)(_.votes.some)
 
   val difficulty = Form(
     single("difficulty" -> stringIn(PuzzleDifficulty.all.map(_.key).toSet))
