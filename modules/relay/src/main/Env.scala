@@ -93,7 +93,7 @@ final class Env(
 
   lazy val videoEmbed = wire[lila.relay.RelayVideoEmbedStore]
 
-  lazy val home = wire[lila.relay.RelayHome]
+  lazy val home = wire[lila.relay.RelayHomeApi]
 
   private lazy val sync = wire[RelaySync]
 

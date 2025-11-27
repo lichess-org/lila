@@ -168,14 +168,13 @@ final class RelayJsonView(
       group = group.map(_.group.name)
     )
 
-  def top(
-      active: List[RelayCard],
-      past: Paginator[WithLastRound]
-  )(using Config) =
+  def home(h: RelayHome)(using Config) = top(h.ongoing ::: h.recent, h.past)
+
+  def top(active: List[RelayCard | WithLastRound], tours: Paginator[WithLastRound])(using Config) =
     Json.obj(
-      "active" -> active.map(tourWithAnyRound(_)),
+      "active" -> active.map(tourWithAnyRound),
       "upcoming" -> Json.arr(), // BC
-      "past" -> paginatorWriteNoNbResults.writes(past.map(tourWithAnyRound(_)))
+      "past" -> paginatorWriteNoNbResults.writes(tours.map(tourWithAnyRound))
     )
 
   def search(tours: Paginator[WithLastRound])(using Config) =
