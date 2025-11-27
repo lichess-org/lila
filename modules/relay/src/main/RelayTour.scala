@@ -153,3 +153,5 @@ object RelayTour:
       picfitUrl.thumbnail(image)(size(thumbnail).dimensions)
 
   def makeId = RelayTourId(scalalib.ThreadLocalRandom.nextString(8))
+
+  private[relay] def tierPriority(t: RelayTour) = -t.tier.so(_.v)

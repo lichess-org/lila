@@ -22,7 +22,7 @@ final class RelayUi(helpers: Helpers)(
 
   def show(
       rt: WithTourAndStudy,
-      data: lila.relay.JsonView.JsData,
+      data: lila.relay.RelayJsonView.JsData,
       chatOption: Option[(JsObject, Frag)],
       socketVersion: SocketVersion
   )(using ctx: Context) =
@@ -45,7 +45,7 @@ final class RelayUi(helpers: Helpers)(
 
   def pageModule(
       rt: WithTourAndStudy,
-      data: lila.relay.JsonView.JsData,
+      data: lila.relay.RelayJsonView.JsData,
       chatOption: Option[(JsObject, Frag)],
       socketVersion: SocketVersion,
       embed: Boolean = false
@@ -66,7 +66,7 @@ final class RelayUi(helpers: Helpers)(
         .add("embed" -> embed) ++ explorerAndCevalConfig
     )
 
-  def showPreload(rt: WithTourAndStudy, data: lila.relay.JsonView.JsData): Tag =
+  def showPreload(rt: WithTourAndStudy, data: lila.relay.RelayJsonView.JsData): Tag =
     main(cls := "analyse is-relay has-relay-tour")(
       div(cls := "box relay-tour")(
         div(cls := "relay-tour__header")(
