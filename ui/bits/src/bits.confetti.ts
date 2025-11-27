@@ -23,7 +23,6 @@ export function initModule(
     resize: true,
   });
 
-
   if (opts.cannons) {
     const durationMs = 18 * 1000;
     const endAt = Date.now() + durationMs;
