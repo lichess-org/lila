@@ -26,7 +26,7 @@
   <string name="castlingDescription">Захистіть свого короля й виведіть у бій туру.</string>
   <string name="capturingDefender">Захоплення захисника</string>
   <string name="capturingDefenderDescription">Захоплення фігури, що захищає іншу фігуру, дозволяє захопити незахищену фігуру наступним ходом.</string>
-  <string name="cornerMate" comment="Description (translatable separately):&#10;&#10;Confine the king to the corner using a rook or queen and a knight to engage the checkmate.">Кутовий мат</string>
+  <string name="cornerMate">Кутовий мат</string>
   <string name="crushing">Руйнування</string>
   <string name="crushingDescription">Знайдіть грубу помилку суперника, щоб отримати нищівну перевагу. (eval ≥ 600 cp)</string>
   <string name="doubleBishopMate">Мат двома слонами</string>
