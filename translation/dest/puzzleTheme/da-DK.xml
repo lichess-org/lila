@@ -30,6 +30,8 @@
   <string name="cornerMateDescription">Træng kongen op i hjørnet ved hjælp af et tårn eller dronning og en springer til at udføre skakmat.</string>
   <string name="crushing">Knusende</string>
   <string name="crushingDescription">Spot modstanderens brøler for at opnå en knusende fordel. (eval ≥ 600cb)</string>
+  <string name="discoveredCheck" comment="Description (translatable separately):&#10;&#10;Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage.">Afdækkertræk</string>
+  <string name="discoveredCheckDescription" comment="Description for the &quot;Discovered check&quot; puzzle theme.">Flyt en brik for at afsløre en skak fra en skjult angribende brik, hvilket ofte fører til en afgørende fordel.</string>
   <string name="doubleBishopMate">Dobbelt løbermat</string>
   <string name="doubleBishopMateDescription">To angribende løbere på tilstødende diagonaler giver mat til en konge, som er blokeret af egne brikker.</string>
   <string name="dovetailMate">Duehale-mat</string>
