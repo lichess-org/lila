@@ -56,19 +56,29 @@ body {
   right: 1vw;
   height: 100%;
   text-align: center;
-}
 
-.recap a {
-  color: #fff;
-  border-bottom: 1px dotted #ddd;
-}
+  canvas#confetti {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    pointer-events: none;
+  }
 
-.recap .utitle {
-  color: hsl(37, 82%, 58%);
-}
+  a {
+    color: #fff;
+    border-bottom: 1px dotted #ddd;
+  }
 
-.recap img.uflair {
-  filter: drop-shadow(0 0 5px $gradient-end);
+  .utitle {
+    color: hsl(37, 82%, 58%);
+  }
+
+  img.uflair {
+    filter: drop-shadow(0 0 5px $gradient-end);
+  }
 }
 
 .swiper {

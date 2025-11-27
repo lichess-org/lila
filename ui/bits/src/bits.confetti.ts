@@ -4,7 +4,17 @@ function randomInRange(min: number, max: number): number {
   return Math.random() * (max - min) + min;
 }
 
-export function initModule(): void {
+interface ConfettiOpts {
+  cannons?: boolean;
+  fireworks?: boolean;
+}
+
+export function initModule(
+  opts: ConfettiOpts = {
+    cannons: true,
+    fireworks: true,
+  },
+): void {
   const canvas = document.querySelector('canvas#confetti') as HTMLCanvasElement;
 
   const party = confetti.create(canvas, {
@@ -13,16 +23,21 @@ export function initModule(): void {
     resize: true,
   });
 
-  const durationMs = 18 * 1000;
-  const endAt = Date.now() + durationMs;
 
-  const interval = setInterval(function () {
-    const timeLeft = endAt - Date.now();
-    if (timeLeft <= 0) clearInterval(interval);
-    else cannons();
-  }, 250);
+  if (opts.cannons) {
+    const durationMs = 18 * 1000;
+    const endAt = Date.now() + durationMs;
 
-  [50, 1200, 2700].forEach(delay => setTimeout(() => fireworks(), delay));
+    const interval = setInterval(function () {
+      const timeLeft = endAt - Date.now();
+      if (timeLeft <= 0) clearInterval(interval);
+      else cannons();
+    }, 250);
+  }
+
+  if (opts.fireworks) {
+    [50, 1200, 2700].forEach(delay => setTimeout(() => fireworks(), delay));
+  }
 
   const cannons = () => {
     const fire = (custom: confetti.Options) =>

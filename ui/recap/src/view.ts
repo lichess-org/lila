@@ -7,8 +7,22 @@ export function awaiter(user: LightUser): VNode {
   return hl('div#recap-swiper.swiper.swiper-initialized', [hl('div.swiper-wrapper', [slides.loading(user)])]);
 }
 
+const confettiCanvas = (): VNode =>
+  hl('canvas#confetti', {
+    hook: {
+      insert: _ =>
+        site.asset.loadEsm('bits.confetti', {
+          init: {
+            cannons: false,
+            fireworks: true,
+          },
+        }),
+    },
+  });
+
 export function view(r: Recap, opts: Opts): VNode {
   return hl('div#recap-swiper.swiper', [
+    confettiCanvas(),
     hl('div.swiper-wrapper', [
       slides.init(opts.user),
       r.games.nbs.total
