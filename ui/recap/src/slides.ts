@@ -14,7 +14,7 @@ export const loading = (user: LightUser): VNode =>
   slideTag('await')([hi(user), hl('p', 'What have you been up to this year?'), spinnerVdom()]);
 
 export const init = (user: LightUser): VNode =>
-  slideTag('intro')([
+  slideTag('init')([
     hi(user),
     hl('img.recap__logo', { attrs: { src: site.asset.url('logo/lichess-white.svg') } }),
     hl('h2', 'What a chess year you had!'),
