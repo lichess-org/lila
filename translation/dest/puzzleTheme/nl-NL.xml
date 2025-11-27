@@ -26,8 +26,8 @@
   <string name="castlingDescription">Breng de koning in veiligheid en zet de toren in voor een aanval.</string>
   <string name="capturingDefender">De verdediger slaan</string>
   <string name="capturingDefenderDescription">Een stuk slaan dat essentieel is voor de verdediging van een ander stuk, waardoor vervolgens het nu onverdedigde stuk een volgende zet kan worden geslagen.</string>
-  <string name="cornerMate" comment="Description (translatable separately):&#10;&#10;Confine the king to the corner using a rook or queen and a knight to engage the checkmate.">Mat in een hoek</string>
-  <string name="cornerMateDescription" comment="Description for the &quot;Corner mate&quot; puzzle theme.">Dring de koning met behulp van een toren of dame en een paard een hoek in om hem schaakmat te zetten.</string>
+  <string name="cornerMate">Mat in een hoek</string>
+  <string name="cornerMateDescription">Dring de koning met behulp van een toren of dame en een paard een hoek in om hem schaakmat te zetten.</string>
   <string name="crushing">Verpletteren</string>
   <string name="crushingDescription">Zie de blunder van de tegenstander om een verpletterend voordeel te verkrijgen. (eval ≥ 600cp)</string>
   <string name="doubleBishopMate">Mat met twee lopers</string>
