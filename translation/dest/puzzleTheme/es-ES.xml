@@ -30,6 +30,8 @@
   <string name="cornerMateDescription">Encierra al rey en una esquina usando una torre o dama y un caballo para dar mate.</string>
   <string name="crushing">Aplastante</string>
   <string name="crushingDescription">Detecta el error del oponente para obtener una ventaja ganadora. (eval ≥ 600cp)</string>
+  <string name="discoveredCheck" comment="Description (translatable separately):&#10;&#10;Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage.">Jaque a la descubierta</string>
+  <string name="discoveredCheckDescription" comment="Description for the &quot;Discovered check&quot; puzzle theme.">Mueve una pieza para dar jaque con otra que se encuentra detrás, lo que a menudo conduce a una ventaja decisiva.</string>
   <string name="doubleBishopMate">Mate de los dos alfiles</string>
   <string name="doubleBishopMateDescription">Dos alfiles atacantes en diagonales adyacentes dan mate al rey obstruido por piezas de su bando.</string>
   <string name="dovetailMate">Mate de Cozio</string>
