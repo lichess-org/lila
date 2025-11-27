@@ -48,7 +48,7 @@ final class Storm(env: Env) extends LilaController(env):
   yield Ok(page)
 
   def apiDashboardOf(username: UserStr, days: Int) = Open:
-    username.validateId.so: userId =>
+    WithEnabledUserId(username): userId =>
       if days < 0 || days > 365 then notFoundJson("Invalid days parameter")
       else
         for

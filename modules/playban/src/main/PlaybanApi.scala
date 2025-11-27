@@ -83,10 +83,11 @@ final class PlaybanApi(
         userId <- game.player(flaggerColor).userId
         seconds = Seconds(nowSeconds - game.movedAt.toSeconds)
         if unreasonableTime.exists(seconds >= _)
-      yield for
-        _ <- save(Outcome.Sitting, userId, RageSit.imbalanceInc(game, flaggerColor), game.source)
-        _ <- propagateSitting(game, userId)
-      yield feedback.sitting(Pov(game, flaggerColor))
+      yield
+        for
+          _ <- save(Outcome.Sitting, userId, RageSit.imbalanceInc(game, flaggerColor), game.source)
+          _ <- propagateSitting(game, userId)
+        yield feedback.sitting(Pov(game, flaggerColor))
 
     // flagged after waiting a short time;
     // but the previous move used a long time.

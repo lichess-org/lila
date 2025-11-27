@@ -45,7 +45,7 @@ final class Env(
   lazy val rankingApi = wire[RankingApi]
 
   lazy val cached: Cached = wire[Cached]
-  def rankingsOf: UserId => lila.rating.UserRankMap = cached.rankingsOf
+  def rankingsOf: UserId => lila.core.rating.UserRankMap = cached.rankingsOf
 
   lazy val forms = wire[UserForm]
 

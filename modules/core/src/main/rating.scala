@@ -4,6 +4,11 @@ package rating
 import _root_.chess.IntRating
 import _root_.chess.rating.IntRatingDiff
 
+import lila.core.perf.PerfKey
+
+type UserRank = Int
+type UserRankMap = Map[PerfKey, UserRank]
+
 case class RatingProg(before: IntRating, after: IntRating):
   def diff = IntRatingDiff(after.value - before.value)
   def isEmpty = diff.isZero

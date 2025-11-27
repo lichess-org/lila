@@ -7,7 +7,7 @@ import lila.common.Json.given
 import lila.core.LightUser
 import lila.core.config.*
 import lila.core.perf.UserWithPerfs
-import lila.rating.{ PerfType, UserRankMap }
+import lila.rating.PerfType
 import lila.user.Trophy
 
 final class UserApi(
@@ -28,6 +28,7 @@ final class UserApi(
     revolutionApi: lila.tournament.RevolutionApi,
     challengeGranter: lila.challenge.ChallengeGranter,
     playbanApi: lila.playban.PlaybanApi,
+    rankingsOf: UserId => lila.core.rating.UserRankMap,
     net: NetConfig
 )(using Executor, lila.core.i18n.Translator):
 
@@ -45,18 +46,22 @@ final class UserApi(
       username: UserStr,
       withFollows: Boolean,
       withTrophies: Boolean,
-      withCanChallenge: Boolean
+      withCanChallenge: Boolean,
+      withProfile: Boolean,
+      withRank: Boolean
   )(using Option[Me], Lang): Fu[Option[JsObject]] =
     userApi
       .withPerfs(username)
       .flatMapz:
-        extended(_, withFollows, withTrophies, withCanChallenge).dmap(some)
+        extended(_, withFollows, withTrophies, withCanChallenge, withProfile, withRank).dmap(some)
 
   def extended(
       u: User | UserWithPerfs,
       withFollows: Boolean,
       withTrophies: Boolean,
       withCanChallenge: Boolean,
+      withProfile: Boolean = true,
+      withRank: Boolean = false,
       withPlayban: Boolean = false,
       forWiki: Boolean = false
   )(using as: Option[Me], lang: Lang): Fu[JsObject] =
@@ -97,7 +102,8 @@ final class UserApi(
                 email,
                 playban
             ) =>
-              jsonView.full(u.user, u.perfs.some, withProfile = true) ++ {
+              val rankMap = withRank.option(rankingsOf(u.id))
+              jsonView.full(u.user, u.perfs.some, withProfile = withProfile, rankMap) ++ {
                 Json
                   .obj(
                     "url" -> makeUrl(s"@/${u.username}"), // for app BC
@@ -202,7 +208,7 @@ final class UserApi(
 
 object UserApi:
   case class TrophiesAndAwards(
-      ranks: UserRankMap,
+      ranks: lila.core.rating.UserRankMap,
       trophies: List[Trophy],
       shields: List[lila.tournament.TournamentShield.Award],
       revolutions: List[lila.tournament.Revolution.Award]

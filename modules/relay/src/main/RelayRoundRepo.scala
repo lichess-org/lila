@@ -91,12 +91,13 @@ final private class RelayRoundRepo(val coll: Coll, tourRepo: RelayTourRepo)(usin
       .uno
     nextOrder <- next.traverse(n => orderOf(n.id))
     curOrder <- next.isDefined.optionFu(orderOf(round.id))
-  yield for
-    n <- next
-    no <- nextOrder
-    co <- curOrder
-    if no == co.map(_ + 1)
-  yield n
+  yield
+    for
+      n <- next
+      no <- nextOrder
+      co <- curOrder
+      if no == co.map(_ + 1)
+    yield n
 
   private[relay] def isInternalWithoutDelay(id: RelayRoundId): Fu[Boolean] = coll.exists:
     $id(id) ++ selectors.finished(false) ++

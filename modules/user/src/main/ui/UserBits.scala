@@ -83,7 +83,7 @@ final class UserBits(helpers: Helpers):
         Some(("trophy perf", s"${perf.trans} Top 100 player!", "images/trophy/Gold-Cup.png"))
       case _ => None
 
-  def perfTrophies(u: User, rankMap: lila.rating.UserRankMap)(using Translate) = (!u.lame).so:
+  def perfTrophies(u: User, rankMap: lila.core.rating.UserRankMap)(using Translate) = u.lame.not.so:
     rankMap.toList
       .sortBy(_._2)
       .map: (perf, rank) =>

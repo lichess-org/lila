@@ -151,7 +151,7 @@ const teamSelector = (ctrl: MultiBoardCtrl) => {
         {
           hook: bind('change', e => ctrl.teamSelect((e.target as HTMLOptionElement).value), ctrl.redraw),
         },
-        [i18n.broadcast.allTeams, ...allTeams].map((t, i) =>
+        [i18n.broadcast?.allTeams || 'All teams', ...allTeams].map((t, i) =>
           h('option', { attrs: { value: i ? t : '', selected: i && t === currentTeam } }, t),
         ),
       )
