@@ -116,4 +116,8 @@
   <string name="anInvitationHasBeenSentToX">%s ને આમંત્રણ મોકલવામાં આવ્યું છે.</string>
   <string name="xAlreadyHasAPendingInvitation">%s પાસે પહેલેથી જ એક આમંત્રણ બાકી છે.</string>
   <string name="xIsAKidAccountWarning">%1$s એક બાળકનું એકાઉન્ટ છે અને તમારો સંદેશ પ્રાપ્ત કરી શકતું નથી. તમારે તેમને આમંત્રણ URL મેન્યુઅલી આપવું પડશે: %2$s</string>
+  <string name="moveToClass">%s પર ખસેડો</string>
+  <string name="moveToAnotherClass">બીજા વર્ગમાં ખસેડો</string>
+  <string name="allowMessagingBetweenStudents">વિદ્યાર્થીઓ વચ્ચે સંદેશાઓની મંજૂરી આપો</string>
+  <string name="allowMessagingBetweenStudentsDesc">આ ફક્ત તમારા વિદ્યાર્થીઓ માટે બનાવેલા ખાતાઓને જ લાગુ પડે છે.</string>
 </resources>
