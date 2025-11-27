@@ -53,6 +53,10 @@
 વર્ગને ઍક્સેસ કરવા માટેની લિંક અહીં છે.</string>
   <string name="invitationToClass">તમને \"%s\" વર્ગમાં વિદ્યાર્થી તરીકે જોડાવા માટે આમંત્રણ છે.</string>
   <string name="clickToViewInvitation">આમંત્રણ પત્રિકા જોવા માટે લિંક પર ક્લિક કરો:</string>
+  <plurals name="nbPendingInvitations">
+    <item quantity="one">એક બાકી આમંત્રણ</item>
+    <item quantity="other">%s બાકી આમંત્રણ</item>
+  </plurals>
   <string name="pending">બાકી</string>
   <string name="declined">નકાર્યું</string>
   <string name="onlyVisibleToTeachers">ફક્ત વર્ગ શિક્ષકો જ જોઈ શકે છે</string>
