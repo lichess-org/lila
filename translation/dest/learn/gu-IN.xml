@@ -200,9 +200,21 @@
   <string name="playMachine">મશીન સાથે રમો</string>
   <string name="testYourSkillsWithTheComputer">કમ્પ્યુટર સાથે તમારી કુશળતાનું પરીક્ષણ કરો</string>
   <string name="letsGo">ચાલો જઈએ!</string>
+  <string name="stageX">સ્ટેજ %s</string>
+  <string name="awesome">અદ્ભુત!</string>
+  <string name="excellent">ઉત્તમ</string>
   <string name="greatJob">સરસ!</string>
+  <string name="perfect">પરફેક્ટ!</string>
+  <string name="outstanding">ઉત્કૃષ્ટ!</string>
+  <string name="wayToGo">અદ્ભુત!</string>
   <string name="yesYesYes">હા!</string>
+  <string name="youreGoodAtThis">તમે આમાં સારો છે!</string>
+  <string name="nailedIt">ખૂબ જ સારી રીતે કરી.</string>
+  <string name="rightOn">બરાબર!</string>
+  <string name="stageXComplete">સ્ટેજ %s પૂર્ણ</string>
   <string name="next">આગલુ</string>
+  <string name="nextX">આગળ: %s</string>
+  <string name="backToMenu">મેનુ પર પાછા જાઓ</string>
   <string name="puzzleFailed">કોયડાનો ખોટો જવાબ!</string>
   <string name="retry">ફરી પ્રયાસ કરો</string>
 </resources>
