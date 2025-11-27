@@ -589,12 +589,12 @@
   <string name="writeAPrivateNoteAboutThisUser">Γράψτε μια ιδιωτική σημείωση για αυτόν το χρήστη</string>
   <string name="noNoteYet">Καμία σημείωση ακόμη</string>
   <string name="invalidUsernameOrPassword">Άκυρο όνομα χρήστη ή κωδικός</string>
-  <string name="incorrectPassword">Εσφαλμένος κωδικός</string>
+  <string name="incorrectPassword">Εσφαλμένος κωδικός πρόσβασης</string>
   <string name="invalidAuthenticationCode">Μη έγκυρος κωδικός επαλήθευσης</string>
   <string name="emailMeALink">Στείλτε μου σύνδεσμο μέσω ηλ. ταχυδρομείου</string>
-  <string name="currentPassword">Τρέχων κωδικός</string>
-  <string name="newPassword">Νέος κωδικός</string>
-  <string name="newPasswordAgain">Νέος κωδικός (επαλήθευση)</string>
+  <string name="currentPassword">Τρέχων κωδικός πρόσβασης</string>
+  <string name="newPassword">Νέος κωδικός πρόσβασης</string>
+  <string name="newPasswordAgain">Νέος κωδικός πρόσβασης (επαλήθευση)</string>
   <string name="newPasswordsDontMatch">Οι νέοι κωδικοί πρόσβασης δεν ταιριάζουν</string>
   <string name="newPasswordStrength">Ισχύς κωδικού πρόσβασης</string>
   <string name="clockInitialTime">Αρχικός χρόνος</string>
