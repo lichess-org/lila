@@ -51,7 +51,7 @@ object oauth:
 
 object edit:
 
-  private lazy val ui = lila.streamer.ui.StreamerEdit(helpers, bits)
+  private val ui = lila.streamer.ui.StreamerEdit(helpers, bits)
 
   def apply(
       s: Streamer.WithUserAndStream,
