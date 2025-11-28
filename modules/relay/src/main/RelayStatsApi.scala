@@ -26,7 +26,7 @@ private final class RelayStatsApi(colls: RelayColls)(using scheduler: Scheduler)
           .toList
       .map(RoundStats.apply)
 
-  def getJson(id: RelayRoundId) = get(id).map(JsonView.statsJson)
+  def getJson(id: RelayRoundId) = get(id).map(RelayJsonView.statsJson)
 
   private def record(): Funit = for
     crowds <- fetchRoundCrowds

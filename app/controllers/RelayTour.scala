@@ -6,7 +6,7 @@ import scalalib.Json.given
 
 import lila.app.{ *, given }
 import lila.core.id.{ RelayTourId, RelayGroupId }
-import lila.relay.{ JsonView, RelayCalendar, RelayTour as TourModel, RelayGroup, RelayPlayer }
+import lila.relay.{ RelayJsonView, RelayCalendar, RelayTour as TourModel, RelayGroup, RelayPlayer }
 import lila.relay.ui.FormNavigation
 
 final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends LilaController(env):
@@ -26,9 +26,9 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
               Ok.page(views.relay.tour.search(pager, query))
         case None =>
           for
-            (active, past) <- env.relay.top(page)
+            data <- env.relay.home.get(page)
             cms <- env.cms.renderKey("broadcast-announcement", liveCheck = true)
-            res <- Ok.async(views.relay.tour.index(active, past.currentPageResults, cms.map(_.html)))
+            res <- Ok.async(views.relay.tour.index(data, cms.map(_.html)))
           yield res
 
   def calendarMonth(year: Int, month: Int) = Open:
@@ -175,7 +175,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
           if tour.isPrivate && ctx.isAnon
           then Unauthorized.page(views.site.message.relayPrivate)
           else
-            env.relay.listing.defaultRoundToLink
+            env.relay.defaults.roundToLink
               .get(tour.id)
               .flatMap:
                 case None =>
@@ -203,9 +203,9 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
         env.relay.api
           .tourById(id)
           .orElse:
-            env.relay.listing.defaultTourOfGroup.get(id.into(RelayGroupId))
+            env.relay.defaults.tourOfGroup.get(id.into(RelayGroupId))
       FoundEmbed(tourFu.map(_.filterNot(_.isPrivate))): tour =>
-        env.relay.listing.defaultRoundToLink
+        env.relay.defaults.roundToLink
           .get(tour.id)
           .flatMap:
             _.map(_.withTour(tour)).fold(emptyBroadcastPage(tour))(roundC.embedShow)
@@ -243,7 +243,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
 
   def apiTop(page: Int) = Anon:
     Reasonable(page, Max(20)):
-      JsonOk(env.relay.topJson(page))
+      JsonOk(env.relay.home.getJson(page))
 
   def apiSearch(page: Int, q: String) = Anon:
     Reasonable(page, Max(20)):
@@ -267,7 +267,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
         yield player.map(RelayPlayer.json.full(tour)(_, fidePlayer, isFollowing))
       Found(json)(JsonOk)
 
-  private given (using RequestHeader): JsonView.Config = JsonView.Config(html = getBool("html"))
+  private given (using RequestHeader): RelayJsonView.Config = RelayJsonView.Config(html = getBool("html"))
 
   private def WithTour(id: RelayTourId)(f: TourModel => Fu[Result])(using Context): Fu[Result] =
     Found(env.relay.api.tourById(id))(f)

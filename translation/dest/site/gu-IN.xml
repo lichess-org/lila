@@ -80,6 +80,7 @@
   <string name="makeMainLine">મેઈન લાઈન બનાવો</string>
   <string name="deleteFromHere">અહીંથી ડિલીટ કરો</string>
   <string name="collapseVariations">વિભ્કતો બંધ</string>
+  <string name="expandVariations">વિવિધતાઓ વિસ્તૃત કરો</string>
   <string name="forceVariation">ફોર્સ વેરિએશન</string>
   <string name="copyVariationPgn">PGN ની વિવિધતા ની નકલ કરો</string>
   <string name="copyMainLinePgn">માઈનલીને પજ્ઞ ને કોપી કરો </string>
@@ -137,6 +138,14 @@
   <string name="blunder">મોટી ભૂલ</string>
   <string name="mistake">ભૂલ</string>
   <string name="inaccuracy">ચૂક</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s મોટી ભૂલ</item>
+    <item quantity="other">%s મોટી  ભૂલો</item>
+  </plurals>
+  <plurals name="numberBlunders">
+    <item quantity="one">%s મોટી ભૂલ</item>
+    <item quantity="other">%s મોટી  ભૂલો</item>
+  </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s ભૂલ</item>
     <item quantity="other">%s ભૂલો</item>
@@ -160,6 +169,10 @@
   <string name="drawClaimed">દાવો કરેલ ડ્રો</string>
   <string name="offerDraw">ડ્રો પ્રસ્તાવો</string>
   <string name="draw">ડ્રો</string>
+  <plurals name="nbPlayers">
+    <item quantity="one">%s ખેલાડી</item>
+    <item quantity="other">%s ખેલાડિઓ</item>
+  </plurals>
   <string name="drawByMutualAgreement">પરસ્પર કરાર દ્વારા દોરો</string>
   <string name="fiftyMovesWithoutProgress">પ્રગતિ વિના પચાસ ચાલ</string>
   <string name="currentGames">વર્તમાન રમતો</string>
@@ -167,6 +180,17 @@
   <plurals name="nbGames">
     <item quantity="one">%s રમત</item>
     <item quantity="other">%s રમતો</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">એક
+%2$s ગેમ કરતાં %1$s રેટિંગ
+અન્ય
+%2$s રમતો પર %1$s રેટિંગ</item>
+    <item quantity="other">%2$s રમતો કરતાં %1$s રેટિંગ</item>
+  </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="one">%s બુકમાર્ક</item>
+    <item quantity="other">%s બુકમાર્ક્સ</item>
   </plurals>
   <string name="viewInFullSize">પૂર્ણ કદ જુઓ</string>
   <string name="logOut">સાઇન આઉટ કરો</string>
@@ -248,6 +272,10 @@
   <string name="accountRegisteredWithoutEmail">એકાઉન્ટ %s ઇમેઇલ વિના નોંધાયેલું હતું.</string>
   <string name="rank">શ્રેણી</string>
   <string name="rankX">શ્રેણી %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">દર %s મિનિટે રેન્ક અપડેટ થાય છે</item>
+    <item quantity="other">દર %s મિનિટે રેન્ક અપડેટ થાય છે.</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s કોયડા</item>
     <item quantity="other">%s કોયડા</item>
@@ -303,6 +331,10 @@
   <string name="send">મોકલો</string>
   <string name="incrementInSeconds">સેકંડોમાં વૃદ્ધિ</string>
   <string name="freeOnlineChess">મફત ઓનલાઇન શતરંજ</string>
+  <plurals name="nbRated">
+    <item quantity="one">%s રેટ કર્યું</item>
+    <item quantity="other">%s રેટ કર્યું</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s જીત</item>
     <item quantity="other">%s જીત</item>
@@ -310,6 +342,10 @@
   <plurals name="nbLosses">
     <item quantity="one">%s હાર</item>
     <item quantity="other">%s હાર</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="one">%s ડ્રાંઉં </item>
+    <item quantity="other">%s ડ્રો</item>
   </plurals>
   <plurals name="nbPlaying">
     <item quantity="one">%s રમતમાં</item>
@@ -347,10 +383,25 @@
     <item quantity="one">%sઅભ્યાસ</item>
     <item quantity="other">%s અભ્યાસ</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">એક
+%s સિમુલ</item>
+    <item quantity="other">%s સિમ્યુલ્સ</item>
+  </plurals>
   <string name="viewTournament">Pratiyogita જુઓ</string>
   <string name="backToTournament">પ્રતિયોગિતામાં પાછા જાઓ</string>
   <string name="noDrawBeforeSwissLimit">સ્વિસ ટુર્નામેન્ટમાં 30 મૂવ રમાય તે પહેલાં તમે ડ્રો કરી શકતા નથી.</string>
   <string name="thematic">વિષયલક્ષી</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">એક
+≥ %s રેટેડ ગેમ</item>
+    <item quantity="other">≥ %s રેટેડ રમતો</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">એક
+≥ %1$s %2$s રેટ કરેલ રમત</item>
+    <item quantity="other">≥ %1$s %2$s રેટ કરેલ રમતો</item>
+  </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">તમારે હજી %1$s %2$s ક્રમિત રમત રમવી પડશે</item>
     <item quantity="other">તમારે હજી %1$s %2$s ક્રમિત રમત રમવી પડશે</item>
@@ -392,6 +443,10 @@
   <string name="importGame">રમત દાખલ કરો</string>
   <string name="importGameExplanation">બ્રાઉઝ કરી શકાય તેવું રીપ્લે, કમ્પ્યુટર વિશ્લેષણ, ગેમ ચેટ અને સાર્વજનિક શેર કરી શકાય તેવું URL મેળવવા માટે રમત PGN પેસ્ટ કરો.</string>
   <string name="importGameDataPrivacyWarning">આ PGN જાહેર જનતા દ્વારા ઍક્સેસ કરી શકાય છે. ખાનગી રીતે રમત આયાત કરવા માટે, અભ્યાસનો ઉપયોગ કરો.</string>
+  <plurals name="nbImportedGames">
+    <item quantity="one">%s આયાતી રમત</item>
+    <item quantity="other">%s આયાત કરેલી રમતો</item>
+  </plurals>
   <string name="thisIsAChessCaptcha">આ શતરંજ કૅપચ્ચા છે </string>
   <string name="clickOnTheBoardToMakeYourMove">તમારી ચાલ કરવા માટે બોર્ડ પર ક્લિક કરો, અને સાબિત કરો કે તમે માનવ છો.</string>
   <string name="captcha.fail">શતરંજ કૅપચ્ચા નો પ્રયત્ન કરો </string>
@@ -415,6 +470,14 @@
   <string name="blocked">બ્લોકડ</string>
   <string name="unblock">અનબ્લોક</string>
   <string name="xStartedFollowingY">%1$s એ %2$s ને અનુસરવાનું શરૂ કર્યું</string>
+  <plurals name="nbFollowers">
+    <item quantity="one">%s અનુયાયી</item>
+    <item quantity="other">%s અનુયાયીઓ</item>
+  </plurals>
+  <plurals name="nbFollowing">
+    <item quantity="one">%s નીચેના</item>
+    <item quantity="other">%s નીચેના</item>
+  </plurals>
   <string name="more">વધુ</string>
   <string name="memberSince">સભ્ય બનવાની તારીખ</string>
   <string name="lastSeenActive">%s સક્રિય</string>
@@ -489,6 +552,11 @@
   <string name="activePlayers">સક્રિય ખેલાડીઓ</string>
   <string name="bewareTheGameIsRatedButHasNoClock">સાવચેત રહો, રમત રેટ કરવામાં આવી છે પરંતુ કોઈ ઘડિયાળ નથી!</string>
   <string name="success">સફળતા</string>
+  <plurals name="nbGamesInPlay">
+    <item quantity="one">એક
+%s રમત ચાલુ છે</item>
+    <item quantity="other">%s રમતો ચાલી રહી છે</item>
+  </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">ખસેડ્યા પછી આપમેળે આગલી રમત પર આગળ વધો</string>
   <string name="autoSwitch">સ્વયંસંચાલિત ફેરફાર</string>
   <string name="puzzles">કોયડા</string>
@@ -568,6 +636,14 @@
   <string name="starting">શરૂઆત:</string>
   <string name="allInformationIsPublicAndOptional">બધી માહિતી સાર્વજનિક અને વૈકલ્પિક છે.</string>
   <string name="biographyDescription">તમારા વિશે, તમારી રુચિઓ વિશે, ચેસમાં તમને શું ગમે છે, તમારા મનપસંદ ઓપનિંગ, ખેલાડીઓ વિશે વાત કરો, ...</string>
+  <plurals name="maximumNbCharacters">
+    <item quantity="one">મહત્તમ: %s અક્ષર.</item>
+    <item quantity="other">મહત્તમ: %s અક્ષરો.</item>
+  </plurals>
+  <plurals name="blocks">
+    <item quantity="one">%s બ્લોક</item>
+    <item quantity="other">%s બ્લોક્સ</item>
+  </plurals>
   <string name="listBlockedPlayers">તમે જે ખેલાડીઓને બ્લોક કર્યા છે તેમની યાદી બનાવો.</string>
   <string name="human">મનુષ્ય </string>
   <string name="computer">કમ્પ્યુટર</string>
@@ -598,6 +674,11 @@
   <string name="castling">કેસલિંગ</string>
   <string name="whiteCastlingKingside">સફેદ O-O</string>
   <string name="blackCastlingKingside">કાળો O-O</string>
+  <plurals name="nbForumPosts">
+    <item quantity="one">એક
+%s ફોરમ પોસ્ટ</item>
+    <item quantity="other">%s ફોરમ પોસ્ટ્સ</item>
+  </plurals>
   <string name="tpTimeSpentPlaying">રમવામાં વિતાવેલો સમય: %s</string>
   <string name="watchGames">રમતો જુઓ</string>
   <string name="tpTimeSpentOnTV">ટીવી પર દર્શાવવામાં આવેલ સમય: %s</string>
@@ -669,6 +750,10 @@
   <string name="tournamentMayHaveBeenCanceled">જો બધા ખેલાડીઓ શરૂ થાય તે પહેલાં જ ટુર્નામેન્ટ છોડી દેત તો કદાચ ટુર્નામેન્ટ રદ થઈ હોત.</string>
   <string name="returnToTournamentsHomepage">ટુર્નામેન્ટના હોમપેજ પર પાછા ફરો</string>
   <string name="weeklyPerfTypeRatingDistribution">સાપ્તાહિક %s રેટિંગ વિતરણ</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="one">આ અઠવાડિયે %1$s %2$s ખેલાડી.</item>
+    <item quantity="other">આ અઠવાડિયે %1$s %2$s ખેલાડીઓ.</item>
+  </plurals>
   <string name="yourPerfTypeRatingIsRating">તમારું %1$s રેટિંગ %2$s છે.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">તમે %2$s ના %1$s ખેલાડીઓ કરતા સારા છો.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s, %3$s ખેલાડીઓમાંથી %2$s કરતાં વધુ સારું છે.</string>
@@ -717,6 +802,10 @@
   <string name="everybodyGetsAllFeaturesForFree">દરેકને તમામ સુવિધાઓ મફતમાં મળે છે</string>
   <string name="viewTheSolution">ઉકેલ જુઓ</string>
   <string name="noChallenges">કોઈ પડકારો નથી.</string>
+  <plurals name="availableInNbLanguages">
+    <item quantity="one">%s ભાષામાં ઉપલબ્ધ છે!</item>
+    <item quantity="other">%s ભાષાઓમાં ઉપલબ્ધ!</item>
+  </plurals>
   <string name="xHostsY">%1$s હોસ્ટ્સ %2$s</string>
   <string name="xJoinsY">%1$s %2$s માં જોડાય છે</string>
   <string name="xLikesY">%1$s ને %2$s પસંદ</string>

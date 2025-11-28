@@ -30,6 +30,8 @@
   <string name="cornerMateDescription">Confine the king to the corner using a rook or queen and a knight to engage the checkmate.</string>
   <string name="crushing">Crushing</string>
   <string name="crushingDescription">Spot the opponent blunder to obtain a crushing advantage. (eval ≥ 600cp)</string>
+  <string name="discoveredCheck">Discovered check</string>
+  <string name="discoveredCheckDescription">Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage.</string>
   <string name="doubleBishopMate">Double bishop mate</string>
   <string name="doubleBishopMateDescription">Two attacking bishops on adjacent diagonals deliver mate to a king obstructed by friendly pieces.</string>
   <string name="dovetailMate">Dovetail mate</string>

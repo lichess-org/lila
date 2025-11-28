@@ -215,7 +215,7 @@ final class RelayRound(
     Found(env.relay.api.byIdWithTourAndStudy(id)): rt =>
       if !rt.study.canContribute(me) then forbiddenJson()
       else
-        import lila.relay.JsonView.given
+        import lila.relay.RelayJsonView.given
         env.relay
           .push(rt.withTour, PgnStr(ctx.body.body))
           .map(JsonOk)

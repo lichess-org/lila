@@ -42,7 +42,7 @@ export interface AnalyseData {
   userAnalysis: boolean;
   forecast?: ForecastData;
   sidelines?: Tree.Node[][];
-  treeParts: Tree.Node[];
+  treeParts: Tree.NodeOptionalChildren[];
   practiceGoal?: PracticeGoal;
   clock?: Clock;
   pref: AnalysePref;

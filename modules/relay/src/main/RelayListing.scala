@@ -1,37 +1,24 @@
 package lila.relay
 
-import reactivemongo.api.bson.*
 import monocle.syntax.all.*
 import java.time.temporal.ChronoUnit
 import lila.memo.CacheApi.buildAsyncTimeout
 
-import lila.db.dsl.{ *, given }
+import lila.db.dsl.*
 
-final class RelayListing(
-    colls: RelayColls,
+private final class RelayListing(
     groupRepo: RelayGroupRepo,
     tourRepo: RelayTourRepo,
-    cacheApi: lila.memo.CacheApi,
-    groupCrowd: RelayGroupCrowdSumCache
+    roundRepo: RelayRoundRepo,
+    groupCrowd: RelayGroupCrowdSumCache,
+    cacheApi: lila.memo.CacheApi
 )(using Executor, Scheduler):
 
-  import BSONHandlers.given
-  import RelayListing.tierPriority
-
-  def spotlight: List[RelayCard] = spotlightCache
-
-  val defaultRoundToLink = cacheApi[RelayTourId, Option[RelayRound]](32, "relay.defaultRoundToLink"):
-    _.expireAfterWrite(5.seconds).buildAsyncFuture: tourId =>
-      tourWithRounds(tourId).mapz(RelayListing.defaultRoundToLink)
-
-  val defaultTourOfGroup = cacheApi[RelayGroupId, Option[RelayTour]](8, "relay.defaultTourOfGroup"):
-    _.expireAfterWrite(10.seconds).buildAsyncFuture: groupId =>
-      groupRepo
-        .byId(groupId)
-        .flatMapz: group =>
-          tourRepo.byIds(group.tours).map(RelayListing.defaultTourOfGroup)
+  import RelayTour.tierPriority
 
   def active: Fu[List[RelayCard]] = activeCache.get({}).recoverDefault
+
+  val activeCacheTtl = 5.seconds
 
   private enum Spot:
     case UngroupedTour(tour: RelayTour.WithRounds) extends Spot
@@ -39,10 +26,8 @@ final class RelayListing(
 
   private case class Selected(t: RelayTour.WithRounds, round: RelayRound, group: Option[RelayGroup.Name])
 
-  private var spotlightCache: List[RelayCard] = Nil
-
   private val activeCache = cacheApi.unit[List[RelayCard]]:
-    _.expireAfterWrite(5.seconds).buildAsyncTimeout(): _ =>
+    _.expireAfterWrite(activeCacheTtl).buildAsyncTimeout(): _ =>
       for
         spots <- getSpots
         selected = spots.flatMap:
@@ -64,12 +49,7 @@ final class RelayListing(
             crowdRelevant.so(0 - t.crowd.value), // then by viewers
             startAt.fold(Long.MaxValue)(_.toMillis) // then by next round date
           )
-      yield
-        spotlightCache = sorted
-          .filter(_.tour.spotlight.exists(_.enabled))
-          .filter: tr =>
-            tr.display.hasStarted || tr.display.startsAtTime.exists(_.isBefore(nowInstant.plusMinutes(30)))
-        sorted
+      yield sorted
 
   private def toRelayCard(s: NonEmptyList[Selected]): Fu[RelayCard] =
     val main = s.head
@@ -79,7 +59,7 @@ final class RelayListing(
         RelayCard(
           tour = main.t.tour,
           display = main.round,
-          link = RelayListing.defaultRoundToLink(main.t) | main.round,
+          link = RelayDefaults.defaultRoundToLink(main.t) | main.round,
           crowd = crowd,
           group = main.group,
           alts = s.tail.filter(_.round.hasStarted).map(s => s.round.withTour(s.t.tour))
@@ -145,66 +125,13 @@ final class RelayListing(
 
   private def toursWithRounds: Fu[List[RelayTour.WithRounds]] =
     val max = 200
-    colls.tour
+    tourRepo.coll
       .aggregateList(max): framework =>
         import framework.*
         Match(RelayTourRepo.selectors.officialActive) -> List(
           Project(RelayTourRepo.unsetHeavyOptionalFields),
           Sort(Descending("tier")),
           Limit(max),
-          PipelineOperator(tourRoundPipeline)
+          PipelineOperator(roundRepo.tourRoundPipeline)
         )
-      .map(_.flatMap(readTourRound))
-
-  private def tourWithRounds(id: RelayTourId): Fu[Option[RelayTour.WithRounds]] =
-    colls.tour
-      .aggregateOne(): framework =>
-        import framework.*
-        Match($id(id)) -> List(
-          Project(RelayTourRepo.unsetHeavyOptionalFields),
-          PipelineOperator(tourRoundPipeline)
-        )
-      .map(_.flatMap(readTourRound))
-
-  private val tourRoundPipeline: Bdoc =
-    $lookup.simple(
-      from = colls.round,
-      as = "rounds",
-      local = "_id",
-      foreign = "tourId",
-      pipe = List($doc("$sort" -> RelayRoundRepo.sort.asc))
-    )
-
-  private def readTourRound(doc: Bdoc): Option[RelayTour.WithRounds] = for
-    tour <- doc.asOpt[RelayTour]
-    rounds <- doc.getAsOpt[List[RelayRound]]("rounds")
-    if rounds.nonEmpty
-  yield tour.withRounds(rounds)
-
-private object RelayListing:
-
-  private def tierPriority(t: RelayTour) = -t.tier.so(_.v)
-
-  def defaultRoundToLink(trs: RelayTour.WithRounds): Option[RelayRound] =
-    if !trs.tour.active then trs.rounds.headOption
-    else
-      trs.rounds
-        .flatMap: round =>
-          round.startedAt.map(_ -> round)
-        .sortBy(-_._1.getEpochSecond)
-        .headOption
-        .match
-          case None => trs.rounds.headOption
-          case Some(_, last) =>
-            trs.rounds.find(!_.isFinished) match
-              case None => last.some
-              case Some(next) =>
-                if next.startsAtTime.exists(_.isBefore(nowInstant.plusHours(1)))
-                then next.some
-                else last.some
-
-  def defaultTourOfGroup(tours: List[RelayTour]): Option[RelayTour] =
-    val active = tours.filter(_.active)
-    val filtered = if active.nonEmpty then active else tours
-    // sorted preserves the original ordering while adding its own
-    filtered.sorted(using Ordering.by(tierPriority)).headOption
+      .map(_.flatMap(RelayTourRepo.readTourWithRounds))
