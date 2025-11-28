@@ -26,8 +26,8 @@
   <string name="castlingDescription">Chuyển quân vua đến vị trí an toàn và triển khai quân xe để tấn công.</string>
   <string name="capturingDefender">Ăn quân phòng thủ</string>
   <string name="capturingDefenderDescription">Loại bỏ một quân cực kỳ quan trọng đối với việc bảo vệ một quân cờ khác, khiến cho quân cờ hiện không được bảo vệ có thể bị ăn vào một nước sau đó.</string>
-  <string name="cornerMate" comment="Description (translatable separately):&#10;&#10;Confine the king to the corner using a rook or queen and a knight to engage the checkmate.">Góc chiếu hết chết chóc</string>
-  <string name="cornerMateDescription" comment="Description for the &quot;Corner mate&quot; puzzle theme.">Kìm hãm vua ở góc bằng cách sử dụng một xe hoặc hậu và một mã để chiếu hết.</string>
+  <string name="cornerMate">Góc chiếu hết chết chóc</string>
+  <string name="cornerMateDescription">Kìm hãm vua ở góc bằng cách sử dụng một xe hoặc hậu và một mã để chiếu hết.</string>
   <string name="crushing">Áp đảo</string>
   <string name="crushingDescription">Phát hiện sai lầm nghiêm trọng của đối phương để giành được lợi thế áp đảo. (đánh giá ≥ 600cp)</string>
   <string name="doubleBishopMate">Chiếu hết bằng cặp Tượng</string>

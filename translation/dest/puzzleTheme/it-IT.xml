@@ -25,8 +25,8 @@
   <string name="castlingDescription">Porta il re al sicuro, e sviluppa la torre per attaccare.</string>
   <string name="capturingDefender">Cattura del difensore</string>
   <string name="capturingDefenderDescription">Rimozione di un pezzo essenziale per la difesa di un altro pezzo, che permette al pezzo ora indifeso di essere catturato con una mossa successiva.</string>
-  <string name="cornerMate" comment="Description (translatable separately):&#10;&#10;Confine the king to the corner using a rook or queen and a knight to engage the checkmate.">Matto nell\'angolo</string>
-  <string name="cornerMateDescription" comment="Description for the &quot;Corner mate&quot; puzzle theme.">Restringi il re nell\'angolo usando una torre o una regina, e usa un cavallo per dare scacco matto.</string>
+  <string name="cornerMate">Matto nell\'angolo</string>
+  <string name="cornerMateDescription">Restringi il re nell\'angolo usando una torre o una regina, e usa un cavallo per dare scacco matto.</string>
   <string name="crushing">Posizione schiacciante</string>
   <string name="crushingDescription">Trova l\'errore grave del tuo avversario per ottenere un vantaggio schiacciante. (valutazione ≥ 600cp)</string>
   <string name="doubleBishopMate">Matto dei due alfieri</string>
