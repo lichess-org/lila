@@ -26,10 +26,12 @@
   <string name="castlingDescription">Traga o seu rei para a segurança, e prepare sua torre para o ataque.</string>
   <string name="capturingDefender">Capture o defensor</string>
   <string name="capturingDefenderDescription">Remover uma peça que seja importante na defesa de outra, permitindo que agora a peça indefesa seja capturada na jogada seguinte.</string>
-  <string name="cornerMate" comment="Description (translatable separately):&#10;&#10;Confine the king to the corner using a rook or queen and a knight to engage the checkmate.">Mate de canto</string>
-  <string name="cornerMateDescription" comment="Description for the &quot;Corner mate&quot; puzzle theme.">Confine o rei no canto usando uma torre ou dama e um cavalo para executar o xeque-mate.</string>
+  <string name="cornerMate">Mate de canto</string>
+  <string name="cornerMateDescription">Confine o rei no canto usando uma torre ou dama e um cavalo para executar o xeque-mate.</string>
   <string name="crushing">Punindo</string>
   <string name="crushingDescription">Perceba a capivarada do oponente para obter uma vantagem decisiva. (vantagem ≥ 600cp)</string>
+  <string name="discoveredCheck" comment="Description (translatable separately):&#10;&#10;Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage.">Xeque Descoberto</string>
+  <string name="discoveredCheckDescription" comment="Description for the &quot;Discovered check&quot; puzzle theme.">Movimente uma peça para revelar um xeque de uma peça atacante escondida, que costuma levar a uma vantagem decisiva.</string>
   <string name="doubleBishopMate">Mate de dois bispos</string>
   <string name="doubleBishopMateDescription">Dois bispos atacantes em diagonais adjacentes dão um mate em um rei obstruído por peças amigas.</string>
   <string name="dovetailMate">Mate da cauda de andorinha</string>
