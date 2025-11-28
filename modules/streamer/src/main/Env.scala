@@ -13,9 +13,9 @@ import lila.core.config.*
 private class StreamerConfig(
     @ConfigName("collection.streamer") val streamerColl: CollName,
     @ConfigName("paginator.max_per_page") val paginatorMaxPerPage: MaxPerPage,
-    @ConfigName("streaming.keyword") val keyword: Stream.Keyword,
-    @ConfigName("streaming.youtube") val youtubeConfig: YoutubeConfig,
-    @ConfigName("streaming.twitch") val twitchConfig: TwitchConfig
+    @ConfigName("keyword") val keyword: Stream.Keyword,
+    @ConfigName("youtube") val youtubeConfig: YoutubeConfig,
+    @ConfigName("twitch") val twitchConfig: TwitchConfig
 )
 
 @Module
