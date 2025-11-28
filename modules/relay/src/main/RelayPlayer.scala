@@ -252,7 +252,9 @@ private final class RelayPlayerApi(
           withRatingDiff <-
             if tour.showRatingDiffs then computeRatingDiffs(tour.info.fideTcOrGuess, withScore)
             else fuccess(withScore)
-          withTiebreaks = tour.tiebreaks.foldLeft(withRatingDiff)(computeTiebreaks)
+          withTiebreaks = tour.tiebreaks.foldLeft(withRatingDiff)(
+            computeTiebreaks(_, _, lastRoundId = rounds.lastOption.map(_.id))
+          )
         yield withTiebreaks
 
   type StudyPlayers = SeqMap[StudyPlayer.Id, StudyPlayer.WithFed]
@@ -293,14 +295,18 @@ private final class RelayPlayerApi(
             id -> (newPlayer | player)
       .map(_.to(SeqMap))
 
-  private def computeTiebreaks(players: RelayPlayers, tiebreaks: Seq[Tiebreak]): RelayPlayers =
+  private def computeTiebreaks(
+      players: RelayPlayers,
+      tiebreaks: Seq[Tiebreak],
+      lastRoundId: Option[RelayRoundId]
+  ): RelayPlayers =
     val tbGames: Map[String, Tiebreak.PlayerWithGames] =
       players.view.values
         .flatMap: p =>
           p.toTieBreakPlayer.map: tbPlayer =>
             tbPlayer.id -> Tiebreak.PlayerWithGames(tbPlayer, p.games.flatMap(_.toTiebreakGame))
         .toMap
-    val result = Tiebreak.compute(tbGames, tiebreaks.toList, lastRoundId = none)
+    val result = Tiebreak.compute(tbGames, tiebreaks.toList, lastRoundId = lastRoundId.map(_.value))
     players
       .map: (id, rp) =>
         val found = result.find(p => p.player.id == id.toString)
