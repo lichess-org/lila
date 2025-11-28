@@ -81,6 +81,11 @@ export function initModule(): any {
     },
   });
 
+  $('.youtube-link-box button')
+    .prop('disabled', true)
+    .addClass('disabled')
+    .attr('title', 'Not yet available, please try again soon!'); // until google validates our token
+
   window.addEventListener('message', async ev => {
     if (ev.origin !== location.origin || !ev.data || !ev.data.ok) return;
     try {
