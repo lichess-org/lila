@@ -31,6 +31,10 @@
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Khi bạn sẵn sàng trờ thành Streamer của Lichess, %s</string>
   <string name="submitForReview">Gửi để xem xét</string>
   <string name="streamerLanguageSettings">Trang Streamer Lichess hướng đến người xem là những người dùng ngôn ngữ bằng ngôn ngữ do nền tảng phát trực tuyến của bạn cung cấp. Đặt ngôn ngữ mặc định chính xác cho luồng cờ vua của bạn trong ứng dụng hoặc dịch vụ mà bạn sử dụng để phát sóng.</string>
+  <string name="pleaseAllow">Vui lòng chờ tối đa 72 giờ trước khi huy hiệu streamer và danh sách của bạn được chấp thuận.</string>
+  <string name="chooseYoutubeChannel">Chọn kênh YouTube bạn sẽ sử dụng trên Lichess.</string>
+  <string name="connect" comment="This button appears for streamers who wish to connect a Twitch or YouTube account, to their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Kết nối</string>
+  <string name="disconnect" comment="This button appears for streamers who wish to disconnect an already-linked Twitch or YouTube account, from their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Ngắt kết nối</string>
   <string name="streamerName">Tên luồng của bạn trên Lichess</string>
   <plurals name="keepItShort">
     <item quantity="other">Để tên ngắn gọn: tối đa %s ký tự</item>
