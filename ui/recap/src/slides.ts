@@ -8,6 +8,19 @@ import { spinnerVdom } from 'lib/view';
 import { formatDuration, perfLabel, perfNames } from './util';
 import perfIcons from 'lib/game/perfIcons';
 
+const confettiCanvas = (): VNode =>
+  hl('canvas#confetti', {
+    hook: {
+      insert: _ =>
+        site.asset.loadEsm('bits.confetti', {
+          init: {
+            cannons: false,
+            fireworks: true,
+          },
+        }),
+    },
+  });
+
 const hi = (user: LightUser): VNode => hl('h2', ['Hi, ', hl('span.recap__user', fullName(user))]);
 
 export const loading = (user: LightUser): VNode =>
@@ -15,6 +28,7 @@ export const loading = (user: LightUser): VNode =>
 
 export const init = (user: LightUser): VNode =>
   slideTag('init')([
+    confettiCanvas(),
     hi(user),
     hl('img.recap__logo', { attrs: { src: site.asset.url('logo/lichess-white.svg') } }),
     hl('h2', 'What a chess year you had!'),
