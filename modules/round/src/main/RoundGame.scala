@@ -47,7 +47,7 @@ object RoundGame:
               case Blitz => 25
               case Rapid => 30
               case _ => 35
-        if g.variant.chess960 then base * 5 / 4
+        if g.variant.chess960 then base * 3 / 2
         else base
 
     def expirable =
