@@ -17,11 +17,6 @@ private class StreamerConfig(
     @ConfigName("streaming.youtube") val youtubeConfig: YoutubeConfig,
     @ConfigName("streaming.twitch") val twitchConfig: TwitchConfig
 )
-private class TwitchConfig(
-    val endpoint: String,
-    @ConfigName("client_id") val clientId: String,
-    val secret: Secret
-)
 
 @Module
 final class Env(
@@ -68,6 +63,8 @@ final class Env(
   lazy val api: StreamerApi = wire[StreamerApi]
 
   lazy val pager = wire[StreamerPager]
+
+  lazy val oauth = wire[StreamerOauth]
 
   lazy val twitchApi: TwitchApi = wire[TwitchApi]
 

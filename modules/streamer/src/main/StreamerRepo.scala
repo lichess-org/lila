@@ -132,15 +132,18 @@ final class StreamerRepo(
     def unlink(streamer: Streamer, platform: Platform): Funit =
       coll.update.one($id(streamer.id), $unset(dbKey(platform)) ++ $set("updatedAt" -> nowInstant)).void
 
-    def linkTwitch(streamer: Streamer, id: String, login: String): Fu[String] =
-      val clearQuery = $or($doc("twitch.id" -> id), $doc("twitch.login" -> login))
+    def linkTwitch(streamer: Streamer, tu: Streamer.Twitch): Fu[String] =
+      val clearQuery = $or($doc("twitch.id" -> tu.id), $doc("twitch.login" -> tu.login))
       for
         _ <- coll
           .update(ordered = false)
           .one(clearQuery, $unset("twitch"), upsert = false, multi = true)
         _ <- coll.update
-          .one($id(streamer.id), $set("twitch" -> Streamer.Twitch(id, login), "updatedAt" -> nowInstant))
-      yield lila.streamer.Streamer.Twitch(id, login).fullUrl
+          .one(
+            $id(streamer.id),
+            $set("twitch" -> tu, "updatedAt" -> nowInstant)
+          )
+      yield tu.fullUrl
 
     def linkYoutube(streamer: Streamer, channelId: String): Fu[String] =
       val newYoutube =

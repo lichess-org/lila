@@ -1,6 +1,5 @@
 package controllers
 
-import com.github.blemale.scaffeine.Scaffeine
 import play.api.libs.json.*
 import play.api.mvc.*
 
@@ -189,18 +188,12 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
           views.site.message("Too soon"):
             scalatags.Text.all.raw("You are not yet allowed to create a streamer profile.")
 
-  private def oauthCookie(platform: Platform) = s"${platform}_oauth_state"
+  private def myStreamer(using me: Me) = env.streamer.repo.byId(me.userId.into(StreamerModel.Id))
+
+  private def oauth = env.streamer.oauth
 
   private def oauthMakeCookie(platform: Platform, value: String) =
-    env.security.lilaCookie.cookie(oauthCookie(platform), value)
-
-  private def oauthGetCookie(platform: Platform)(using ctx: Context) =
-    ctx.req.cookies.get(oauthCookie(platform)).map(_.value)
-
-  private def oauthUnsetCookie(platform: Platform) =
-    DiscardingCookie(oauthCookie(platform), path = "/")
-
-  private def myStreamer(using me: Me) = env.streamer.repo.byId(me.userId.into(StreamerModel.Id))
+    env.security.lilaCookie.cookie(oauth.cookie.name(platform), value)
 
   def oauthUnlink(platformStr: String, user: Option[UserStr]) = Auth { _ ?=> me ?=>
     val targetUserId = Granter(_.Streamers).so(user.map(_.id)).getOrElse(me.userId)
@@ -213,61 +206,57 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
 
   def oauthLinkTwitch = Auth { _ ?=> _ ?=>
     Found(myStreamer): _ =>
-      val state = scalalib.ThreadLocalRandom.nextString(32)
+      val state = oauth.makeState()
       val redirectUri = routeUrl(routes.Streamer.oauthTwitchRedirect)
-      Redirect(env.streamer.twitchApi.authorizeUrl(redirectUri, state, getBool("force_verify")))
+      Redirect(oauth.authorizeUrl.twitch(redirectUri, state, getBool("force_verify")))
         .withCookies(oauthMakeCookie("twitch", state))
   }
 
   def oauthTwitchRedirect = Auth { _ ?=> _ ?=>
-    (get("code"), get("state"), oauthGetCookie("twitch")) match
+    (get("code"), get("state"), oauth.cookie.get("twitch")) match
       case (Some(code), Some(state), Some(expected)) if expected == state =>
         Found(myStreamer): streamer =>
           val redirectUri = routeUrl(routes.Streamer.oauthTwitchRedirect)
           for
-            (twitchId, login) <- env.streamer.twitchApi.oauthFetchUser(code, redirectUri)
-            result <- env.streamer.repo.oauth.linkTwitch(streamer, twitchId, login)
+            twitchUser <- oauth.twitchUser(code, redirectUri)
+            result <- env.streamer.repo.oauth.linkTwitch(streamer, twitchUser)
           yield Ok
             .snip(views.streamer.oauth("twitch", redirectUri, Left(result)))
-            .discardingCookies(oauthUnsetCookie("twitch"))
+            .discardingCookies(oauth.cookie.unset("twitch"))
       case _ => fuccess(BadRequest)
   }
 
   def oauthLinkYoutube = Auth { _ ?=> _ ?=>
     Found(myStreamer): _ =>
-      val state = scalalib.ThreadLocalRandom.nextString(32)
-      val redirectUri = routeUrl(routes.Streamer.oauthYoutubeRedirect)
-      val url = env.streamer.ytApi.authorizeUrl(redirectUri, state, getBool("force_verify"))
+      val state = oauth.makeState()
+      val redirectUri = routeUrl(routes.Streamer.oauthYoutubeRedirect).pp
+      val url = oauth.authorizeUrl.youtube(redirectUri, state, getBool("force_verify"))
       Redirect(url).withCookies(oauthMakeCookie("youtube", state))
   }
 
   def oauthYoutubeRedirect = Auth { _ ?=> me ?=>
-    (get("code"), get("state"), oauthGetCookie("youtube")) match
+    (get("code"), get("state"), oauth.cookie.get("youtube")) match
       case (Some(code), Some(state), Some(expected)) if expected == state =>
         Found(myStreamer): streamer =>
           val redirectUri = routeUrl(routes.Streamer.oauthYoutubeRedirect)
           for
-            idsMap <- env.streamer.ytApi.oauthFetchChannels(code, redirectUri)
+            idsMap <- oauth.youtubeChannels(code, redirectUri)
             result <- idsMap.keys.toList match
               case id :: Nil => env.streamer.repo.oauth.linkYoutube(streamer, id).dmap(Left(_))
               case _ =>
-                if idsMap.nonEmpty then oauthYoutubeChannelCache.put(state, (me.userId, idsMap))
+                oauth.youtubeChannelCache.put(state, idsMap)
                 fuccess(Right(idsMap))
             page = Ok.snip(views.streamer.oauth("youtube", redirectUri, result))
           // oauth won't pick the channel, if there's more than one, leave the cookie to do that securely
-          yield if result.isLeft then page.discardingCookies(oauthUnsetCookie("youtube")) else page
+          yield if result.isLeft then page.discardingCookies(oauth.cookie.unset("youtube")) else page
       case _ => fuccess(BadRequest)
   }
 
-  private val oauthYoutubeChannelCache =
-    Scaffeine().expireAfterWrite(5.minutes).build[String, (UserId, Map[String, String])]()
-
   def oauthYoutubeChannel(channelId: String) = AuthBody { _ ?=> me ?=>
     Found(myStreamer): streamer =>
-      oauthGetCookie("youtube")
-        .flatMap(oauthYoutubeChannelCache.getIfPresent)
-        .filter((userId, idsMap) => me.is(userId) && idsMap.contains(channelId))
+      oauth.youtubeChannelCache
+        .find(channelId)
         .so: _ =>
           env.streamer.repo.oauth.linkYoutube(streamer, channelId).map(Ok(_))
-        .map(_.discardingCookies(oauthUnsetCookie("youtube")))
+        .map(_.discardingCookies(oauth.cookie.unset("youtube")))
   }

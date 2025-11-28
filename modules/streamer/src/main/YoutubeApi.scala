@@ -16,7 +16,8 @@ private class YoutubeConfig(
     @ConfigName("api_key") val apiKey: Secret,
     @ConfigName("client_id") val clientId: String,
     @ConfigName("client_secret") val clientSecret: Secret
-)
+):
+  val v3Endpoint = "https://youtube.googleapis.com/youtube/v3"
 
 private[streamer] object Youtube:
   case class Snippet(
@@ -71,7 +72,6 @@ final private class YoutubeApi(
 )(using Executor):
 
   private var lastResults: List[Youtube.YoutubeStream] = Nil
-  private val v3Endpoint = "https://youtube.googleapis.com/youtube/v3"
 
   def onVideoXml(xml: scala.xml.NodeSeq): Funit =
     val channel = (xml \ "entry" \ "channelId").text
@@ -84,45 +84,6 @@ final private class YoutubeApi(
       then logger.debug(s"onYoutubeVideo deleted-entry $deleted")
       funit
 
-  def authorizeUrl(redirectUri: Url, state: String, forceVerify: Boolean): String =
-    val params = Map(
-      "client_id" -> cfg.clientId,
-      "redirect_uri" -> redirectUri.value,
-      "response_type" -> "code",
-      "scope" -> "https://www.googleapis.com/auth/youtube.readonly",
-      "access_type" -> "offline",
-      "include_granted_scopes" -> "true",
-      "state" -> state
-    ) ++ forceVerify.option("prompt" -> "consent")
-    "https://accounts.google.com/o/oauth2/v2/auth?" + lila.common.url.queryString(params)
-
-  def oauthFetchChannels(code: String, redirectUri: Url): Fu[Map[String, String]] =
-    val body = Map(
-      "client_id" -> cfg.clientId,
-      "client_secret" -> cfg.clientSecret.value,
-      "code" -> code,
-      "grant_type" -> "authorization_code",
-      "redirect_uri" -> redirectUri.value
-    )
-    ws.url("https://oauth2.googleapis.com/token")
-      .post(body)
-      .flatMap: rsp =>
-        if rsp.status != 200 then
-          fufail(s"Youtube token exchange failed: ${rsp.status} ${lila.log.http(rsp.status, rsp.body)}")
-        else
-          val accessToken = (rsp.body[JsValue] \ "access_token").as[String]
-          ws.url(s"$v3Endpoint/channels")
-            .withQueryStringParameters("part" -> "id,snippet", "mine" -> "true")
-            .withHttpHeaders("Authorization" -> s"Bearer $accessToken")
-            .get()
-            .map: chRsp =>
-              (chRsp.body[JsValue] \ "items")
-                .asOpt[JsArray]
-                .so: items =>
-                  items.value.iterator
-                    .map(it => (it \ "id").as[String] -> (it \ "snippet" \ "title").as[String].trim())
-                    .toMap
-
   private[streamer] def liveMatching(streamers: List[Streamer]): Fu[List[Youtube.YoutubeStream]] =
     val maxResults = 50
     val tubers = streamers.flatMap { s => s.youtube.map(Youtube.StreamerWithYoutube(s, _)) }
@@ -133,7 +94,7 @@ final private class YoutubeApi(
     cfg.apiKey.value.nonEmpty
       .so:
         idPages.toList.sequentially: idPage =>
-          ws.url(s"$v3Endpoint/videos")
+          ws.url(s"${cfg.v3Endpoint}/videos")
             .withQueryStringParameters(
               "part" -> "snippet",
               "id" -> idPage.mkString(","),
@@ -216,7 +177,7 @@ final private class YoutubeApi(
   private def isLiveStream(videoId: String): Fu[Boolean] =
     cfg.apiKey.value.nonEmpty.so(
       ws
-        .url(s"$v3Endpoint/videos")
+        .url(s"${cfg.v3Endpoint}/videos")
         .withQueryStringParameters(
           "part" -> "snippet",
           "id" -> videoId,

@@ -138,6 +138,7 @@ object Streamer:
   object Twitch:
     private val LoginRegex = """([a-zA-Z0-9](?:\w{2,24}+))""".r
     private val UrlRegex = ("""twitch\.tv/""" + LoginRegex + "").r.unanchored
+    given Reads[Twitch] = Json.reads
     // https://www.twitch.tv/chessnetwork
     def parseLogin(str: String): Option[String] =
       str match

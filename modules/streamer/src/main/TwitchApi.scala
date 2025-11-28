@@ -39,6 +39,14 @@ private[streamer] object Twitch:
   given Reads[Result] = Json.reads
   given Reads[Pagination] = Json.reads
 
+private class TwitchConfig(
+    val endpoint: String,
+    @lila.common.autoconfig.ConfigName("client_id") val clientId: String,
+    val secret: Secret
+):
+  val authEndpoint = "https://id.twitch.tv/oauth2"
+  val helixEndpoint = "https://api.twitch.tv/helix"
+
 final private class TwitchApi(ws: StandaloneWSClient, repo: StreamerRepo, cfg: TwitchConfig, net: NetConfig)(
     using Executor
 ):
@@ -46,9 +54,7 @@ final private class TwitchApi(ws: StandaloneWSClient, repo: StreamerRepo, cfg: T
   import Twitch.{ given, * }
 
   private val webhook = s"https://${net.domain}/api/streamer/twitch-eventsub"
-  private val helixEndpoint = "https://api.twitch.tv/helix"
-  private val eventSubEndpoint = s"$helixEndpoint/eventsub/subscriptions"
-  private val authEndpoint = "https://id.twitch.tv/oauth2"
+  private val eventSubEndpoint = s"${cfg.helixEndpoint}/eventsub/subscriptions"
   private val eventVersions =
     Map("stream.online" -> "1", "stream.offline" -> "1", "channel.update" -> "2")
   private var tmpToken = Secret("init")
@@ -96,46 +102,6 @@ final private class TwitchApi(ws: StandaloneWSClient, repo: StreamerRepo, cfg: T
               case _ => ()
           fuccess(none)
         case _ => fuccess(none)
-
-  def authorizeUrl(redirectUri: Url, state: String, forceVerify: Boolean): String =
-    val params = Map(
-      "client_id" -> cfg.clientId,
-      "redirect_uri" -> redirectUri.value,
-      "response_type" -> "code",
-      "scope" -> "", // ?
-      "state" -> state,
-      "force_verify" -> forceVerify.toString
-    )
-    s"$authEndpoint/authorize?" + lila.common.url.queryString(params)
-
-  def oauthFetchUser(code: String, redirectUri: Url): Fu[(String, String)] =
-    val body = Map(
-      "client_id" -> cfg.clientId,
-      "client_secret" -> cfg.secret.value,
-      "code" -> code,
-      "grant_type" -> "authorization_code",
-      "redirect_uri" -> redirectUri.value
-    )
-    ws.url(s"$authEndpoint/token")
-      .post(body)
-      .flatMap: rsp =>
-        if rsp.status != 200 then fufail(s"twitch.codeForUser ${lila.log.http(rsp.status, rsp.body)}}")
-        else
-          val accessToken = (rsp.body[JsValue] \ "access_token").as[String]
-          ws.url(s"$helixEndpoint/users")
-            .withHttpHeaders(
-              "Client-ID" -> cfg.clientId,
-              "Authorization" -> s"Bearer $accessToken"
-            )
-            .get()
-            .flatMap: userRsp =>
-              if userRsp.status != 200 then
-                fufail(s"twitch.codeForUser ${lila.log.http(rsp.status, rsp.body)}}")
-              else
-                val data = (userRsp.body[JsValue] \ "data")(0)
-                val id = (data \ "id").as[String]
-                val login = (data \ "login").as[String]
-                fuccess(id -> login)
 
   private[streamer] def subscribeAll: Funit = cfg.clientId.nonEmpty.so:
     for
@@ -246,7 +212,7 @@ final private class TwitchApi(ws: StandaloneWSClient, repo: StreamerRepo, cfg: T
     if ids.isEmpty then fuccess(Nil)
     else
       ensureToken() >>
-        ws.url(s"$helixEndpoint/streams")
+        ws.url(s"${cfg.helixEndpoint}/streams")
           .withQueryStringParameters(ids.map(l => "user_id" -> l)*)
           .withHttpHeaders(headersAuth*)
           .get()
@@ -272,7 +238,7 @@ final private class TwitchApi(ws: StandaloneWSClient, repo: StreamerRepo, cfg: T
     if tmpToken.value == "init" then renewToken() else funit
 
   private def renewToken(): Funit =
-    ws.url(s"$authEndpoint/token")
+    ws.url(s"${cfg.authEndpoint}/token")
       .withQueryStringParameters(
         "client_id" -> cfg.clientId,
         "client_secret" -> cfg.secret.value,
