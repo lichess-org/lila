@@ -20,7 +20,7 @@ final class MobileApi(
     teamCached: lila.team.Cached,
     tourFeaturing: lila.tournament.TournamentFeaturing,
     tourApiJson: lila.tournament.ApiJsonView,
-    topRelay: Int => lila.relay.RelayJsonView.Config ?=> Fu[JsObject],
+    relayHome: lila.relay.RelayHomeApi,
     tv: lila.tv.Tv,
     liveStreamApi: lila.streamer.LiveStreamApi,
     activityRead: lila.activity.ActivityReadApi,
@@ -64,7 +64,7 @@ final class MobileApi(
 
   def watch: Fu[JsObject] =
     for
-      relay <- topRelay(1)(using lila.relay.RelayJsonView.Config(html = false))
+      relay <- relayHome.getJson(1)(using lila.relay.RelayJsonView.Config(html = false))
       champs <- tv.getChampions
       tvChannels = champs.channels.mapKeys(_.key)
       streamers <- featuredStreamers

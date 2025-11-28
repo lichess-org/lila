@@ -18,6 +18,8 @@ private final class RelayListing(
 
   def active: Fu[List[RelayCard]] = activeCache.get({}).recoverDefault
 
+  val activeCacheTtl = 5.seconds
+
   private enum Spot:
     case UngroupedTour(tour: RelayTour.WithRounds) extends Spot
     case GroupWithTours(group: RelayGroup, tours: NonEmptyList[RelayTour.WithRounds]) extends Spot
@@ -25,7 +27,7 @@ private final class RelayListing(
   private case class Selected(t: RelayTour.WithRounds, round: RelayRound, group: Option[RelayGroup.Name])
 
   private val activeCache = cacheApi.unit[List[RelayCard]]:
-    _.expireAfterWrite(5.seconds).buildAsyncTimeout(): _ =>
+    _.expireAfterWrite(activeCacheTtl).buildAsyncTimeout(): _ =>
       for
         spots <- getSpots
         selected = spots.flatMap:

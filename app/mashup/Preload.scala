@@ -30,7 +30,7 @@ final class Preload(
     getLastUpdates: lila.feed.Feed.GetLastUpdates,
     ublogApi: lila.ublog.UblogApi,
     unreadCount: lila.msg.MsgUnreadCount,
-    relayHome: lila.relay.RelayHome,
+    relayHome: lila.relay.RelayHomeApi,
     notifyApi: lila.notify.NotifyApi
 )(using Executor):
 
