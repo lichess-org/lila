@@ -29,14 +29,8 @@
   <string name="pendingReview">您的直播正在被版主審核</string>
   <string name="pleaseFillIn">請填入您的直播資訊並上傳一張圖片</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">當您準備好要成為Lichess實況主時, %s</string>
-  <string name="submitForReview" comment="Appears on a button when editing the page which lets you be listed as a streamer: https://lichess.org/streamer/edit&#10;&#10;As this is public, any changes to a streamer page are first sent to the Lichess team for review.">提交以待審核</string>
+  <string name="submitForReview">提交以待審核</string>
   <string name="streamerLanguageSettings">Lichess 實況主的頁面透過直播平台能自動針對同樣語言的觀眾推薦您的內容。請在應用程式內設定您的直播或服務的正確預設語言。</string>
-  <string name="twitchUsername">您的Twitch用戶名或是網址</string>
-  <string name="twitchOrYouTubeRequired" comment="A notice when creating/editing your streamer page (https://lichess.org/streamer/edit), denoting that you can only be listed if you stream from a Twitch or YouTube channel.">需要 Twitch 或 YouTube 其中之一</string>
-  <string name="twitchOrYouTubeMustBeVerified" comment="For background: The &quot;streamer badge&quot; refers to the microphone icon on the streamer's profile (https://lichess.org/@/Lichess).&#10;The listing is the streamer's page that appears at https://lichess.org/streamer">Twitch 和 YouTube 的更改必須通過驗證。
-
-在審核過程中，您的實況主徽章和列表將被暫時停用。此過程可能需要長達 72 小時。</string>
-  <string name="youTubeChannelId">你的 YouTube 頻道 ID</string>
   <string name="streamerName">您在Lichess上的直播名稱</string>
   <plurals name="keepItShort">
     <item quantity="other">請保持簡短: 最多%s個字</item>
