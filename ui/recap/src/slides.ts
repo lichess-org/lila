@@ -8,16 +8,27 @@ import { spinnerVdom } from 'lib/view';
 import { formatDuration, perfLabel, perfNames } from './util';
 import perfIcons from 'lib/game/perfIcons';
 
+const confettiCanvas = (): VNode =>
+  hl('canvas#confetti', {
+    hook: {
+      insert: _ =>
+        site.asset.loadEsm('bits.confetti', {
+          init: {
+            cannons: false,
+            fireworks: true,
+          },
+        }),
+    },
+  });
+
 const hi = (user: LightUser): VNode => hl('h2', ['Hi, ', hl('span.recap__user', fullName(user))]);
 
 export const loading = (user: LightUser): VNode =>
   slideTag('await')([hi(user), hl('p', 'What have you been up to this year?'), spinnerVdom()]);
 
 export const init = (user: LightUser): VNode =>
-  slideTag(
-    'init',
-    3000,
-  )([
+  slideTag('init')([
+    confettiCanvas(),
     hi(user),
     hl('img.recap__logo', { attrs: { src: site.asset.url('logo/lichess-white.svg') } }),
     hl('h2', 'What a chess year you had!'),
@@ -265,11 +276,11 @@ export const lichessGames = (r: Recap): VNode => {
   ]);
 };
 
-export const thanks = (): VNode =>
+export const thanks = (r: Recap): VNode =>
   slideTag('thanks')([
     hl('div.recap--massive', 'Thank you for playing on Lichess!'),
     hl('img.recap__logo', { attrs: { src: site.asset.url('logo/lichess-white.svg') } }),
-    hl('div', "We're glad you're here. Have a great 2025!"),
+    hl('div', `We're glad you're here. Have a great ${r.year + 1}!`),
   ]);
 
 const renderPerf = (perf: RecapPerf): VNode => {
@@ -286,7 +297,7 @@ export const shareable = (r: Recap): VNode =>
   slideTag('shareable')([
     hl('div.recap__shareable', [
       hl('img.logo', { attrs: { src: site.asset.url('logo/logo-with-name-dark.png') } }),
-      hl('h2', 'My 2024 Recap'),
+      hl('h2', `My ${r.year} Recap`),
       hl('div.grid', [
         stat(formatNumber(r.games.nbs.total), 'games played'),
         stat(formatNumber(r.games.moves), 'moves played'),

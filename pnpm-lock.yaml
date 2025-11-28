@@ -468,8 +468,8 @@ importers:
         specifier: workspace:*
         version: link:../lib
       swiper:
-        specifier: ^11.2.4
-        version: 11.2.10
+        specifier: ^12.0.3
+        version: 12.0.3
 
   ui/round:
     dependencies:
@@ -2405,8 +2405,8 @@ packages:
     resolution: {integrity: sha512-h5IS/hKkuVCbKSieR9uQCj9w+zLHoPh+ce19bBYyqF53g6mnPB8sAtIbe1s9dh2S2fCmYX2xel1Ln3PJBbK4kw==}
     engines: {node: '>= 0.8.0'}
 
-  swiper@11.2.10:
-    resolution: {integrity: sha512-RMeVUUjTQH+6N3ckimK93oxz6Sn5la4aDlgPzB+rBrG/smPdCTicXyhxa+woIpopz+jewEloiEE3lKo1h9w2YQ==}
+  swiper@12.0.3:
+    resolution: {integrity: sha512-BHd6U1VPEIksrXlyXjMmRWO0onmdNPaTAFduzqR3pgjvi7KfmUCAm/0cj49u2D7B0zNjMw02TSeXfinC1hDCXg==}
     engines: {node: '>= 4.7.0'}
 
   symbol-tree@3.2.4:
@@ -4604,7 +4604,7 @@ snapshots:
     dependencies:
       svg.js: 2.7.1
 
-  swiper@11.2.10: {}
+  swiper@12.0.3: {}
 
   symbol-tree@3.2.4: {}
 
