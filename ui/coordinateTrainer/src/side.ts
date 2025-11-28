@@ -272,8 +272,8 @@ const side = (ctrl: CoordinateTrainerCtrl): VNode =>
       ? [
           scoreBox(ctrl),
           !ctrl.timeDisabled() ? timeBox(ctrl) : null,
-          ctrl.isAuth && ctrl.hasModeScores() ? scoreCharts(ctrl) : null,
           playingAs(ctrl),
+          ctrl.isAuth && ctrl.hasModeScores() ? scoreCharts(ctrl) : null,
           ctrl.timeDisabled() ? backButton(ctrl) : null,
         ]
       : [
