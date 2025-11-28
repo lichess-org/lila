@@ -2,13 +2,13 @@ package lila.fide
 
 import akka.stream.contrib.ZipInputStreamSource
 import akka.stream.scaladsl.*
-import chess.{ FideId, PlayerName, PlayerTitle }
+import chess.{ FideId, FideTC, PlayerName, PlayerTitle }
 import chess.rating.{ Elo, KFactor }
 import play.api.libs.ws.StandaloneWSClient
 import reactivemongo.api.bson.*
 import java.util.zip.ZipInputStream
 
-import lila.core.fide.{ Federation, FideTC }
+import lila.core.fide.Federation
 import lila.db.dsl.{ *, given }
 
 final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using

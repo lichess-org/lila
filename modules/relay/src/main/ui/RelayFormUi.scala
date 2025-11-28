@@ -526,7 +526,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
             ):
               form3.select(
                 _,
-                lila.core.fide.FideTC.values.map: tc =>
+                chess.FideTC.values.map: tc =>
                   tc.toString -> tc.toString.capitalize
               )
           ),

@@ -5,12 +5,12 @@ import play.api.data.Forms.*
 import play.api.data.format.Formatter
 import io.mola.galimatias.URL
 import java.time.ZoneId
+import chess.tiebreak.Tiebreak
+import chess.FideTC
 
 import lila.common.Form.{ cleanText, cleanNonEmptyText, formatter, into, typeIn, url }
 import lila.core.perm.Granter
-import lila.core.fide.FideTC
 import lila.core.study.Visibility
-import chess.tiebreak.Tiebreak
 
 final class RelayTourForm(langList: lila.core.i18n.LangList, groupForm: RelayGroupForm):
 
