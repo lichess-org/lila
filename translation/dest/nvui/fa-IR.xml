@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="featuredEvents">رویدادهای ویژه</string>
-  <string name="moveList">لیست حرکات</string>
+  <string name="moveList">فِهرست‌حرکت</string>
   <string name="gameInfo">اطلاعات بازی</string>
   <string name="pieces">مهره</string>
   <string name="gameStatus">وضعیت بازی</string>
@@ -11,7 +11,7 @@
   <string name="yourClock">ساعت شما</string>
   <string name="opponentClock">ساعت حریف</string>
   <string name="gameStart">شروع بازی</string>
-  <string name="boardCommandList">لیست دستورها وقتی تخته فعال است</string>
+  <string name="boardCommandList">فهرستِ دستور وقتی تخته فعال است</string>
   <string name="inputFormCommandList">این دستورها را در کادر دستور تایپ کنید.</string>
   <string name="goToInputForm">رفتن به کادر دستور</string>
   <string name="announceCurrentSquare">اعلام نام خانهٔ فعلی</string>
