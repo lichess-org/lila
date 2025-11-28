@@ -449,7 +449,15 @@ const header = (ctx: RelayViewContext) => {
     d.tour.communityOwner &&
       renderNote(
         hl('div', i18n.broadcast.communityBroadcast),
-        hl('small', i18n.broadcast.createdAndManagedBy.asArray(userLink(d.tour.communityOwner))),
+        hl(
+          'small',
+          i18n.broadcast.createdAndManagedBy.asArray(
+            userLink({
+              ...d.tour.communityOwner,
+              flair: undefined,
+            }),
+          ),
+        ),
       ),
     d.note &&
       renderNote(
