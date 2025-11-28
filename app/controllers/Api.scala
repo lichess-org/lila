@@ -80,7 +80,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
     else
       val withSignal = getBool("withSignal")
       env.user.lightUserApi.asyncMany(ids).dmap(_.flatten).flatMap { users =>
-        val streamingIds = env.streamer.liveStreamApi.userIds
+        val streamingIds = env.streamer.liveApi.userIds
         def toJson(u: LightUser) =
           lila.common.Json.lightUser
             .write(u)

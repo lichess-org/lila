@@ -33,7 +33,7 @@ final class PlayApi(env: Env) extends LilaController(env):
                 _ <- env.swiss.api.withdrawAll(me, teamIds)
                 _ <- env.user.api.setBot(me)
                 _ <- env.pref.api.setBot(me)
-                _ <- env.streamer.api.delete(me)
+                _ <- env.streamer.repo.delete(me)
               yield env.user.lightUserApi.invalidate(me)
             }.pipe(toResult).recover { case lila.core.lilaism.LilaInvalid(msg) =>
               BadRequest(jsonError(msg))

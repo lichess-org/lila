@@ -1,10 +1,56 @@
 package lila.streamer
 
+import play.api.i18n.Lang
+import play.api.libs.json.*
 import cats.derived.*
+import reactivemongo.api.bson.*
 import reactivemongo.api.bson.Macros.Annotations.Key
-
 import scalalib.model.Language
+
 import lila.core.id.ImageId
+import lila.common.Json.given
+import lila.common.String.removeMultibyteSymbols
+import lila.core.config.NetDomain
+import lila.core.i18n.toLanguage
+import lila.db.dsl.given
+
+trait Stream:
+  def platform: Platform
+  val status: Html
+  val streamer: Streamer
+  val lang: Lang
+  def urls: Stream.Urls
+
+  def is[U: UserIdOf](u: U): Boolean = streamer.is(u)
+  def twitch = platform == "twitch"
+  def youtube = platform == "youtube"
+  def language = toLanguage(lang)
+
+  lazy val cleanStatus = status.map(s => removeMultibyteSymbols(s).trim)
+
+object Stream:
+
+  case class Keyword(value: String) extends AnyRef with StringValue:
+    def toLowerCase = value.toLowerCase
+
+  case class Urls(embed: NetDomain => String, redirect: String):
+    def toPair(domain: NetDomain) = (embed(domain), redirect)
+
+  def toLichessJson(picfit: lila.memo.PicfitUrl, stream: Stream) = Json.obj(
+    "stream" -> Json.obj(
+      "service" -> stream.platform,
+      "status" -> stream.status,
+      "lang" -> stream.lang
+    ),
+    "streamer" -> Json
+      .obj("name" -> stream.streamer.name.value)
+      .add("headline" -> stream.streamer.headline)
+      .add("description" -> stream.streamer.description)
+      .add("twitch" -> stream.streamer.twitch.map(_.fullUrl))
+      .add("youtube" -> stream.streamer.youtube.map(_.fullUrl))
+      .add("image" -> stream.streamer.picture.map: pic =>
+        picfit.thumbnail(pic)(Streamer.imageDimensions))
+  )
 
 case class Streamer(
     @Key("_id") id: Streamer.Id,
@@ -15,7 +61,7 @@ case class Streamer(
     headline: Option[Streamer.Headline],
     description: Option[Streamer.Description],
     twitch: Option[Streamer.Twitch],
-    youTube: Option[Streamer.YouTube],
+    youtube: Option[Streamer.Youtube],
     seenAt: Instant, // last seen online
     liveAt: Option[Instant], // last seen streaming
     createdAt: Instant,
@@ -29,7 +75,7 @@ case class Streamer(
   def isListed = listed.value && approval.granted
 
   def completeEnough = {
-    twitch.isDefined || youTube.isDefined
+    twitch.isDefined || youtube.isDefined
   } && name.value.length > 2 && hasPicture
 
 object Streamer:
@@ -68,7 +114,7 @@ object Streamer:
       headline = none,
       description = none,
       twitch = none,
-      youTube = none,
+      youtube = none,
       seenAt = nowInstant,
       liveAt = none,
       createdAt = nowInstant,
@@ -86,24 +132,25 @@ object Streamer:
       reason: Option[String]
   )
 
-  case class Twitch(userId: String) derives Eq:
-    def fullUrl = s"https://www.twitch.tv/$userId"
-    def minUrl = s"twitch.tv/$userId"
+  case class Twitch(id: String, login: String) derives Eq:
+    def fullUrl = s"https://www.twitch.tv/$login"
+    def minUrl = s"twitch.tv/$login"
   object Twitch:
-    private val UserIdRegex = """([a-zA-Z0-9](?:\w{2,24}+))""".r
-    private val UrlRegex = ("""twitch\.tv/""" + UserIdRegex + "").r.unanchored
+    private val LoginRegex = """([a-zA-Z0-9](?:\w{2,24}+))""".r
+    private val UrlRegex = ("""twitch\.tv/""" + LoginRegex + "").r.unanchored
+    given Reads[Twitch] = Json.reads
     // https://www.twitch.tv/chessnetwork
-    def parseUserId(str: String): Option[String] =
+    def parseLogin(str: String): Option[String] =
       str match
-        case UserIdRegex(u) => u.some
+        case LoginRegex(u) => u.some
         case UrlRegex(u) => u.some
         case _ => none
 
-  case class YouTube(channelId: String, liveVideoId: Option[String], pubsubVideoId: Option[String])
+  case class Youtube(channelId: String, liveVideoId: Option[String], pubsubVideoId: Option[String])
       derives Eq:
     def fullUrl = s"https://www.youtube.com/channel/$channelId/live"
     def minUrl = s"youtube.com/channel/$channelId/live"
-  object YouTube:
+  object Youtube:
     private val ChannelIdRegex = """^([\w-]{24})$""".r
     def parseChannelId(str: String): Option[String] =
       str match
@@ -128,7 +175,7 @@ object Streamer:
         streamer.twitch
           .ifTrue(s.twitch)
           .map(_.fullUrl)
-          .orElse(streamer.youTube.ifTrue(s.youTube).map(_.fullUrl))
+          .orElse(streamer.youtube.ifTrue(s.youtube).map(_.fullUrl))
 
   case class ModChange(list: Option[Boolean], tier: Option[Int], decline: Boolean, reason: Option[String])
 
@@ -137,3 +184,10 @@ object Streamer:
   val tierChoices = (0 to maxTier).map(t => t -> t.toString)
 
   def canApply(u: User) = (u.count.game >= 15 && u.createdSinceDays(2)) || u.hasTitle || u.isVerified
+
+private object BsonHandlers:
+
+  given BSONDocumentHandler[Streamer.Youtube] = Macros.handler
+  given BSONDocumentHandler[Streamer.Twitch] = Macros.handler
+  given BSONDocumentHandler[Streamer.Approval] = Macros.handler
+  given BSONDocumentHandler[Streamer] = Macros.handler

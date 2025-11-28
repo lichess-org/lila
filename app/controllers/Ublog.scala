@@ -95,7 +95,7 @@ final class Ublog(env: Env) extends LilaController(env):
                 env.forum.topicApi.makeUblogDiscuss(
                   slug = topicSlug,
                   name = post.title,
-                  url = s"${env.net.baseUrl}${routes.Ublog.post(post.created.by, post.slug, id)}",
+                  url = routeUrl(routes.Ublog.post(post.created.by, post.slug, id)),
                   ublogId = id,
                   authorId = post.created.by
                 )

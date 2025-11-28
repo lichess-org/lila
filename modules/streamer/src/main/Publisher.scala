@@ -1,51 +1,43 @@
 package lila.streamer
 
-import play.api.i18n.Lang
 import scalalib.ThreadLocalRandom
 
 import lila.common.{ Bus, LilaScheduler }
 
-final private class Streaming(
+final private class Publisher(
     api: StreamerApi,
+    repo: StreamerRepo,
     isOnline: lila.core.socket.IsOnline,
     keyword: Stream.Keyword,
     alwaysFeatured: () => lila.core.data.UserIds,
     twitchApi: TwitchApi,
-    ytApi: YouTubeApi,
+    ytApi: YoutubeApi,
     langList: lila.core.i18n.LangList
 )(using Executor, Scheduler):
-
-  import Stream.*
 
   private var liveStreams = LiveStreams(Nil)
 
   def getLiveStreams: LiveStreams = liveStreams
 
-  LilaScheduler("Streaming", _.Every(15.seconds), _.AtMost(10.seconds), _.Delay(20.seconds)):
+  LilaScheduler("OnlinePublisher", _.Every(15.seconds), _.AtMost(10.seconds), _.Delay(20.seconds)):
     for
       streamerIds <- api.allListedIds
       activeIds = streamerIds.filter { id =>
         liveStreams.has(id) || isOnline.exec(id.userId)
       }
-      streamers <- api.byIds(activeIds)
-      (twitchStreams, youTubeStreams) <-
+      streamers <- repo.byIds(activeIds)
+      (twitchStreams, youtubeStreams) <-
         twitchApi
-          .fetchStreams(streamers, 0, None)
-          .map:
-            _.collect { case Twitch.TwitchStream(name, title, _, langStr) =>
-              streamers
-                .find { s =>
-                  s.twitch.exists(_.userId.toLowerCase == name.toLowerCase) && {
-                    title.value.toLowerCase.contains(keyword.toLowerCase) ||
-                    alwaysFeatured().value.contains(s.userId)
-                  }
-                }
-                .map { Twitch.Stream(name, title, _, Lang.get(langStr) | lila.core.i18n.defaultLang) }
-            }.flatten
-          .zip(ytApi.fetchStreams(streamers))
+          .liveMatching(
+            streamers,
+            (s: Twitch.TwitchStream) =>
+              s.status.value.toLowerCase.contains(keyword.toLowerCase) ||
+                alwaysFeatured().value.contains(s.streamer.id)
+          )
+          .zip(ytApi.liveMatching(streamers))
       streams = LiveStreams:
         ThreadLocalRandom.shuffle:
-          (youTubeStreams ::: twitchStreams).pipe(dedupStreamers)
+          (youtubeStreams ::: twitchStreams).pipe(dedupStreamers)
       _ <- api.setLangLiveNow(streams.streams)
     yield publishStreams(streamers, streams)
 
@@ -74,10 +66,10 @@ final private class Streaming(
     liveStreams = newStreams
     streamers.foreach: streamer =>
       streamer.twitch.foreach: t =>
-        if liveStreams.streams.exists(s => s.serviceName == "twitch" && s.is(streamer)) then
-          lila.mon.tv.streamer.present(s"${t.userId}@twitch").increment()
-      streamer.youTube.foreach: t =>
-        if liveStreams.streams.exists(s => s.serviceName == "youTube" && s.is(streamer)) then
+        if liveStreams.streams.exists(s => s.platform == "twitch" && s.is(streamer)) then
+          lila.mon.tv.streamer.present(s"${t.login}@twitch").increment()
+      streamer.youtube.foreach: t =>
+        if liveStreams.streams.exists(s => s.platform == "youtube" && s.is(streamer)) then
           lila.mon.tv.streamer.present(s"${t.channelId}@youtube").increment()
 
   private def dedupStreamers(streams: List[Stream]): List[Stream] =

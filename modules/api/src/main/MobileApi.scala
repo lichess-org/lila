@@ -22,7 +22,7 @@ final class MobileApi(
     tourApiJson: lila.tournament.ApiJsonView,
     relayHome: lila.relay.RelayHomeApi,
     tv: lila.tv.Tv,
-    liveStreamApi: lila.streamer.LiveStreamApi,
+    liveStreamApi: lila.streamer.LiveApi,
     activityRead: lila.activity.ActivityReadApi,
     activityJsonView: lila.activity.JsonView,
     challengeApi: lila.challenge.ChallengeApi,
@@ -81,7 +81,7 @@ final class MobileApi(
     .zip(users)
     .map: (stream, user) =>
       Json.toJsObject(user) ++
-        lila.streamer.Stream.toJson(picfitUrl, stream)
+        lila.streamer.Stream.toLichessJson(picfitUrl, stream)
 
   def profile(user: User)(using me: Option[Me])(using Lang): Fu[JsObject] =
     for

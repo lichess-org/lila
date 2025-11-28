@@ -21,7 +21,7 @@ final class UserApi(
     userCache: lila.user.Cached,
     prefApi: lila.pref.PrefApi,
     streamerApi: lila.streamer.StreamerApi,
-    liveStreamApi: lila.streamer.LiveStreamApi,
+    liveStreamApi: lila.streamer.LiveApi,
     gameProxyRepo: lila.round.GameProxyRepo,
     trophyApi: lila.user.TrophyApi,
     shieldApi: lila.tournament.TournamentShieldApi,
@@ -141,7 +141,7 @@ final class UserApi(
                         )
                         .add(
                           "youTube",
-                          s.youTube.map: y =>
+                          s.youtube.map: y =>
                             Json.obj("channel" -> y.fullUrl)
                         )
                   ) ++
