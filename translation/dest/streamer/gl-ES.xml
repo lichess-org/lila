@@ -31,6 +31,10 @@
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Cando esteas preparado para seres un presentador de Lichess, %s</string>
   <string name="submitForReview">Enviar á revisión</string>
   <string name="streamerLanguageSettings">A páxina de presentador de Lichess diríxese á túa audiencia co idioma proporcionado pola túa plataforma de transmisións. Establece o idioma predeterminado axeitado para as túas transmisións de xadrez na aplicación ou no servizo que uses para retransmitir.</string>
+  <string name="pleaseAllow">Por favor agarda ata 72 horas antes de que o teu emblema de presentador e a túa presenza na lista de presentadores sexan aceptados.</string>
+  <string name="chooseYoutubeChannel">Elixe a canle de YouTube que vas usar en Lichess.</string>
+  <string name="connect" comment="This button appears for streamers who wish to connect a Twitch or YouTube account, to their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Conectar</string>
+  <string name="disconnect" comment="This button appears for streamers who wish to disconnect an already-linked Twitch or YouTube account, from their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Desconectar</string>
   <string name="streamerName">O teu nome de presentador en Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Sé breve: máximo %s carácter</item>
