@@ -25,12 +25,12 @@ final class RelayCardUi(helpers: Helpers, ui: RelayUi):
 
   def render[A <: RelayRound.AndTourAndGroup](
       tr: A,
-      live: A => Boolean,
+      live: Boolean,
       crowd: Crowd,
       alt: Option[RelayRound.WithTour] = None,
       errors: List[String] = Nil
   )(using Context) =
-    link(tr.tour, tr.path, live(tr))(
+    link(tr.tour, tr.path, live)(
       image(tr.tour),
       span(cls := "relay-card__body")(
         span(cls := "relay-card__info")(
@@ -41,7 +41,7 @@ final class RelayCardUi(helpers: Helpers, ui: RelayUi):
                 frag(" & ", group.shortTourName(alt.tour.name))
             )
           ,
-          if live(tr)
+          if live
           then
             span(cls := "relay-card__live")(
               "LIVE",

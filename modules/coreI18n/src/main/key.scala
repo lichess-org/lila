@@ -1320,6 +1320,8 @@ object I18nKey:
     val `cornerMateDescription`: I18nKey = "puzzleTheme:cornerMateDescription"
     val `crushing`: I18nKey = "puzzleTheme:crushing"
     val `crushingDescription`: I18nKey = "puzzleTheme:crushingDescription"
+    val `discoveredCheck`: I18nKey = "puzzleTheme:discoveredCheck"
+    val `discoveredCheckDescription`: I18nKey = "puzzleTheme:discoveredCheckDescription"
     val `doubleBishopMate`: I18nKey = "puzzleTheme:doubleBishopMate"
     val `doubleBishopMateDescription`: I18nKey = "puzzleTheme:doubleBishopMateDescription"
     val `dovetailMate`: I18nKey = "puzzleTheme:dovetailMate"

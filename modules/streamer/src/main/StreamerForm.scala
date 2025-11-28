@@ -100,5 +100,5 @@ object StreamerForm:
 
   private def nameField = of[Name].verifying(
     constraint.minLength[Name](_.value)(3),
-    constraint.maxLength[Name](_.value)(30)
+    constraint.maxLength[Name](_.value)(Streamer.maxNameLength)
   )

@@ -17,7 +17,7 @@ val group = lila.relay.ui.RelayGroupUi(ui, card, menu)
 
 def show(
     rt: WithTourAndStudy,
-    data: lila.relay.JsonView.JsData,
+    data: lila.relay.RelayJsonView.JsData,
     chatOption: Option[lila.chat.UserChat.Mine],
     socketVersion: SocketVersion,
     crossSiteIsolation: Boolean = true
@@ -41,7 +41,7 @@ def show(
 
 def embed(
     rt: WithTourAndStudy,
-    data: lila.relay.JsonView.JsData,
+    data: lila.relay.RelayJsonView.JsData,
     socketVersion: SocketVersion
 )(using ctx: EmbedContext) =
   views.base.embed.site(

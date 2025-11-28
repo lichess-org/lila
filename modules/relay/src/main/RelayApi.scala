@@ -31,7 +31,7 @@ final class RelayApi(
     playerEnrich: RelayPlayerEnrich,
     studyApi: StudyApi,
     studyRepo: StudyRepo,
-    jsonView: JsonView,
+    jsonView: RelayJsonView,
     formatApi: RelayFormatApi,
     cacheApi: CacheApi,
     players: RelayPlayerApi,
@@ -41,7 +41,7 @@ final class RelayApi(
 )(using Executor, akka.stream.Materializer):
 
   import BSONHandlers.{ readRoundWithTour, given }
-  import JsonView.given
+  import RelayJsonView.given
 
   export groupRepo.byId as groupById
   export tourRepo.byIds as toursByIds

@@ -6,18 +6,20 @@ export function readOnlyProp<A>(value: A): () => A {
   };
 }
 
-export function treeReconstruct(parts: Tree.Node[], sidelines?: Tree.Node[][]): Tree.Node {
-  const root = parts[0],
-    nb = parts.length;
-  let node = root;
+const ensureChildren = (node: Tree.NodeOptionalChildren): Tree.Node => {
+  node.children ||= [];
+  return node as Tree.Node;
+};
+
+export function treeReconstruct(parts: Tree.NodeOptionalChildren[], sidelines?: Tree.Node[][]): Tree.Node {
+  const root = ensureChildren(parts[0]);
   root.id = '';
-  for (let i = 1; i < nb; i++) {
-    const n = parts[i];
+  let node = root;
+  for (let i = 1; i < parts.length; i++) {
+    const n = ensureChildren(parts[i]);
     const variations = sidelines ? sidelines[i] : [];
-    if (node.children) node.children.unshift(n, ...variations);
-    else node.children = [n, ...variations];
+    node.children.unshift(n, ...variations);
     node = n;
   }
-  node.children = node.children || [];
   return root;
 }

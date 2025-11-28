@@ -30,7 +30,7 @@ final class Preload(
     getLastUpdates: lila.feed.Feed.GetLastUpdates,
     ublogApi: lila.ublog.UblogApi,
     unreadCount: lila.msg.MsgUnreadCount,
-    relayListing: lila.relay.RelayListing,
+    relayHome: lila.relay.RelayHomeApi,
     notifyApi: lila.notify.NotifyApi
 )(using Executor):
 
@@ -95,7 +95,7 @@ final class Preload(
     tours,
     swiss,
     events,
-    relayListing.spotlight,
+    relayHome.spotlight.get,
     simuls,
     feat,
     puzzle,

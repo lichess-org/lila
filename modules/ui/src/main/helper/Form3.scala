@@ -215,7 +215,7 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
     div(cls := "password-complexity")(
       label(cls := "password-complexity-label")(labelContent),
       div(cls := "password-complexity-meter"):
-        for (_ <- 1 to 4) yield span
+        for _ <- 1 to 4 yield span
     )
 
   def globalError(form: Form[?])(using Translate): Option[Frag] =
