@@ -55,7 +55,6 @@ POST  /rel/unfollow/:user              controllers.Relation.unfollowBc(user: Use
 POST  /rel/follow/:user                controllers.Relation.followBc(user: UserStr)
 # end lichobile BC
 GET   /@/:username/following           controllers.Relation.following(username: UserStr, page: Int ?= 1)
-GET   /@/:username/followers           controllers.Relation.followers(username: UserStr, page: Int ?= 1)
 GET   /rel/blocks                      controllers.Relation.blocks(page: Int ?= 1)
 POST  /rel/:action/:user               controllers.Relation.bcAction(action: String, user: UserStr)
 

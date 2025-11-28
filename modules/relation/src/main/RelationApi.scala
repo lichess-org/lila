@@ -110,14 +110,6 @@ final class RelationApi(
     ).withNbResults(countFollowing(userId))
       .map(_.userId)
 
-  def followersPaginatorAdapter(userId: UserId) =
-    Adapter[Follower](
-      collection = coll,
-      selector = $doc("u2" -> userId, "r" -> Follow),
-      projection = $doc("u1" -> true, "_id" -> false).some,
-      sort = $empty
-    ).map(_.userId)
-
   def blockingPaginatorAdapter(userId: UserId) =
     Adapter[Blocked](
       collection = coll,
