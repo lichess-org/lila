@@ -67,6 +67,7 @@ final class SwissApi(
       settings = Swiss.Settings(
         nbRounds = data.nbRounds,
         rated = chess.Rated(data.isRated && data.realPosition.isEmpty),
+        flexible = data.flexible,
         description = data.description,
         position = data.realPosition,
         chatFor = data.realChatFor,

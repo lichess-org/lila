@@ -93,6 +93,7 @@ object BsonHandlers:
       Swiss.Settings(
         nbRounds = r.get[Int]("n"),
         rated = chess.Rated(r.boolO("r") | true),
+        flexible = r.boolO("fl"),
         description = r.strO("d"),
         position = r.getO[Fen.Full]("f"),
         chatFor = r.intO("c") | Swiss.ChatFor.default,
@@ -106,6 +107,7 @@ object BsonHandlers:
       $doc(
         "n" -> s.nbRounds,
         "r" -> s.rated.no.option(false),
+        "fl" -> s.flexible,
         "d" -> s.description,
         "f" -> s.position,
         "c" -> (s.chatFor != Swiss.ChatFor.default).option(s.chatFor),
