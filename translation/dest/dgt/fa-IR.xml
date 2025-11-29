@@ -36,7 +36,7 @@
   <string name="announceAllMoves">اعلام تمام حرکات</string>
   <string name="selectAnnouncePreference">با انتخاب «بله»، حرکت‌های شما و حریفتان اعلام می‌شود. با انتخاب «خیر»، فقط حرکت‌های حریفتان اعلام خواهد شد.</string>
   <string name="announceMoveFormat">فرمت اعلام حرکت</string>
-  <string name="moveFormatDescription">SAN استانداردی در Lichess مانند «Nf6» است. UCI در موتورهایی مانند «g8f6» رایج است.</string>
+  <string name="moveFormatDescription">آغازواژهٔ SAN اِستانده‌ای در Lichess مانند «Nf6» است. UCI در موتورهایی مانند «g8f6» رایج است.</string>
   <string name="keywords">کلیدواژه‌ها</string>
   <string name="keywordFormatDescription">کلیدواژه‌ها در دیسارِ JSON اَند. آن‌ها برای ترجمهٔ حرکات و نتایج به زبان شما استفاده می‌شوند. پیش‌فرض انگلیسی است، اما آزادید آن را تغییر دهید.</string>
   <string name="debug">اشکال‌یابی</string>
