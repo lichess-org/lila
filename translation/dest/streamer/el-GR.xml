@@ -33,8 +33,8 @@
   <string name="streamerLanguageSettings">Η σελίδα Lichess streamer στοχεύει το κοινό σας με τη γλώσσα που παρέχεται από την πλατφόρμα ροής σας. Ορίστε τη σωστή προεπιλεγμένη γλώσσα για τις ροές σκακιού στην εφαρμογή ή την υπηρεσία που χρησιμοποιείτε για να μεταδώσετε.</string>
   <string name="pleaseAllow">Παρακαλούμε περιμένετε έως 72 ώρες για να εγκριθεί το σήμα streamer και η καταχώρησή σας.</string>
   <string name="chooseYoutubeChannel">Επιλέξτε το κανάλι YouTube που θα χρησιμοποιήσετε στο Lichess.</string>
-  <string name="connect" comment="This button appears for streamers who wish to connect a Twitch or YouTube account, to their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Συνδεθείτε</string>
-  <string name="disconnect" comment="This button appears for streamers who wish to disconnect an already-linked Twitch or YouTube account, from their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Αποσυνδεθείτε</string>
+  <string name="connect" comment="This button appears for streamers who wish to connect a Twitch or YouTube account, to their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Σύνδεση</string>
+  <string name="disconnect" comment="This button appears for streamers who wish to disconnect an already-linked Twitch or YouTube account, from their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Αποσύνδεση</string>
   <string name="streamerName">Το όνομα σας ως streamer στο Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Σύντομη περιγραφή: %s χαρακτήρας το πολύ</item>
