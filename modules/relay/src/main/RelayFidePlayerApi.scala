@@ -1,9 +1,9 @@
 package lila.relay
 
-import chess.{ ByColor, FideId, PlayerTitle }
+import chess.{ ByColor, FideId, FideTC, PlayerTitle }
 import chess.format.pgn.{ Tag, Tags }
 
-import lila.core.fide.{ FideTC, Player }
+import lila.core.fide.Player
 
 final private class RelayFidePlayerApi(guessPlayer: lila.core.fide.GuessPlayer)(using Executor):
 
