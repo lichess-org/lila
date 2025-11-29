@@ -4,7 +4,7 @@ import scala.collection.immutable.SeqMap
 import play.api.libs.json.*
 import scalalib.Json.writeAs
 import scalalib.Debouncer
-import chess.{ ByColor, Color, FideId, Outcome, PlayerName, IntRating }
+import chess.{ ByColor, Color, FideId, FideTC, Outcome, PlayerName, IntRating }
 import chess.rating.{ Elo, IntRatingDiff }
 
 import lila.study.{ ChapterPreviewApi, StudyPlayer }
@@ -12,7 +12,6 @@ import lila.study.StudyPlayer.json.given
 import lila.memo.CacheApi
 import lila.core.fide.Player as FidePlayer
 import lila.common.Json.given
-import lila.core.fide.FideTC
 import chess.tiebreak.{ Tiebreak, TiebreakPoint }
 
 // Player in a tournament with current performance rating and list of games
@@ -146,7 +145,7 @@ object RelayPlayer:
       val gamesJson = p.games.map: g =>
         val rd = tour.showRatingDiffs.so:
           (eloPlayer, g.eloGame).tupled.map: (ep, eg) =>
-            Elo.computeRatingDiff(ep, List(eg))
+            Elo.computeRatingDiff(tc)(ep, List(eg))
         Json
           .obj(
             "round" -> g.round,
@@ -253,7 +252,9 @@ private final class RelayPlayerApi(
           withRatingDiff <-
             if tour.showRatingDiffs then computeRatingDiffs(tour.info.fideTcOrGuess, withScore)
             else fuccess(withScore)
-          withTiebreaks = tour.tiebreaks.foldLeft(withRatingDiff)(computeTiebreaks)
+          withTiebreaks = tour.tiebreaks.foldLeft(withRatingDiff)(
+            computeTiebreaks(_, _, lastRoundId = rounds.lastOption.map(_.id))
+          )
         yield withTiebreaks
 
   type StudyPlayers = SeqMap[StudyPlayer.Id, StudyPlayer.WithFed]
@@ -289,19 +290,23 @@ private final class RelayPlayerApi(
               r <- player.rating.map(_.into(Elo)).orElse(fidePlayer.ratingOf(tc))
               p = Elo.Player(r, fidePlayer.kFactorOf(tc))
               games = player.eloGames
-            yield player.copy(ratingDiff = games.nonEmpty.option(Elo.computeRatingDiff(p, games)))
+            yield player.copy(ratingDiff = games.nonEmpty.option(Elo.computeRatingDiff(tc)(p, games)))
           .map: newPlayer =>
             id -> (newPlayer | player)
       .map(_.to(SeqMap))
 
-  private def computeTiebreaks(players: RelayPlayers, tiebreaks: Seq[Tiebreak]): RelayPlayers =
+  private def computeTiebreaks(
+      players: RelayPlayers,
+      tiebreaks: Seq[Tiebreak],
+      lastRoundId: Option[RelayRoundId]
+  ): RelayPlayers =
     val tbGames: Map[String, Tiebreak.PlayerWithGames] =
       players.view.values
         .flatMap: p =>
           p.toTieBreakPlayer.map: tbPlayer =>
             tbPlayer.id -> Tiebreak.PlayerWithGames(tbPlayer, p.games.flatMap(_.toTiebreakGame))
         .toMap
-    val result = Tiebreak.compute(tbGames, tiebreaks.toList)
+    val result = Tiebreak.compute(tbGames, tiebreaks.toList, lastRoundId = lastRoundId.map(_.value))
     players
       .map: (id, rp) =>
         val found = result.find(p => p.player.id == id.toString)

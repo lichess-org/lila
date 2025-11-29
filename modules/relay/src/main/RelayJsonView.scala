@@ -24,7 +24,7 @@ final class RelayJsonView(
 
   given Writes[RelayTour.Tier] = writeAs(_.v)
 
-  given Writes[lila.core.fide.FideTC] = writeAs(_.toString)
+  given Writes[chess.FideTC] = writeAs(_.toString)
   given Writes[java.time.ZoneId] = writeAs(_.getId)
 
   given OWrites[RelayTour.Info] = Json.writes

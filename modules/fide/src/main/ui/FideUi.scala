@@ -2,8 +2,8 @@ package lila.fide
 package ui
 
 import scalalib.paginator.Paginator
+import chess.FideTC
 
-import lila.core.fide.FideTC
 import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
