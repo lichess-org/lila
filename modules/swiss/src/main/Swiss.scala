@@ -97,6 +97,7 @@ object Swiss:
   case class Settings(
       nbRounds: Int,
       rated: Rated,
+      flexible: Option[Boolean] = None,
       description: Option[String] = None,
       position: Option[Fen.Full],
       chatFor: ChatFor = ChatFor.default,

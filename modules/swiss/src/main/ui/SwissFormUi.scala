@@ -211,6 +211,12 @@ final class SwissFormUi(helpers: Helpers)(
             help = trans.site.ratedFormHelp().some,
             half = true
           ),
+          form3.checkbox(
+            form("flexible"),
+            "Flexible",
+            help = frag("Paired users can agree when they start their game").some,
+            half = true
+          ),
           form3.hidden(form("rated"), "false".some) // hack allow disabling rated
         )
       )
