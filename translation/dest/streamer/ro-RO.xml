@@ -31,6 +31,8 @@
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Când ești gata să fii listat ca și Lichess streamer, %s</string>
   <string name="submitForReview">Trimite spre verificare</string>
   <string name="streamerLanguageSettings">Pagina de streamer Lichess țintește publicul tău cu limba furnizată de platforma ta de streaming. Setați limba implicită corectă pentru fluxurile de șah din aplicația sau serviciul pe care îl utilizați pentru difuzare.</string>
+  <string name="pleaseAllow">Vă rugăm să permiteți până la 72 de ore înainte ca insigna de streamer și listarea să fie aprobate.</string>
+  <string name="chooseYoutubeChannel">Alege canalul YouTube pe care îl vei folosi pe Lichess.</string>
   <string name="streamerName">Numele tău de streamer pe Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Ține-o scurt: maxim %s caracter</item>
