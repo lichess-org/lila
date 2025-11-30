@@ -29,14 +29,12 @@
   <string name="pendingReview">Din Stream wird vo Moderatorä überprüäft.</string>
   <string name="pleaseFillIn">Bitte füll dini Streamer-Informatione us und lad es Bild ufe.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Wänn du parat bisch, als Streamer azeigt z\'werde, %s</string>
-  <string name="submitForReview" comment="Appears on a button when editing the page which lets you be listed as a streamer: https://lichess.org/streamer/edit&#10;&#10;As this is public, any changes to a streamer page are first sent to the Lichess team for review.">Zur Prüefig schicke</string>
+  <string name="submitForReview">Zur Prüefig schicke</string>
   <string name="streamerLanguageSettings">D\'Lichess-Streamer-Site richtet sich a ihres Publikum mit dere Schprach, wo vu dinere Streaming-Platform bereit gschtellt wird. Wähl die richtig Schtandard-Schprach, für dini Schach-Streams, i de App oder i dem Dienscht, wo du für d\'Überträgig verwändsch.</string>
-  <string name="twitchUsername">Din Twitch-Benutzername oder d\'URL</string>
-  <string name="twitchOrYouTubeRequired" comment="A notice when creating/editing your streamer page (https://lichess.org/streamer/edit), denoting that you can only be listed if you stream from a Twitch or YouTube channel.">Es brucht Twitch oder Youtube</string>
-  <string name="twitchOrYouTubeMustBeVerified" comment="For background: The &quot;streamer badge&quot; refers to the microphone icon on the streamer's profile (https://lichess.org/@/Lichess).&#10;The listing is the streamer's page that appears at https://lichess.org/streamer">Änderige uf Twitch und YouTube müend überprüeft werde.
-
-Din Streamer-Badge und dini Uflischtig werded usgsetzt, so lang die Überprüefig lauft. Das chann bis zu 72 Stunde gah!</string>
-  <string name="youTubeChannelId">Dini YouTube-Kanal-ID</string>
+  <string name="pleaseAllow">Du muesch mit bis zu 72 Schtund Bearbeitigszit rächne, bis din Streamer-Badge und din Itrag genehmigt werded.</string>
+  <string name="chooseYoutubeChannel">Wähl de YouTube-Kanal, wo du uf Lichess verwände wotsch.</string>
+  <string name="connect" comment="This button appears for streamers who wish to connect a Twitch or YouTube account, to their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Verbinde</string>
+  <string name="disconnect" comment="This button appears for streamers who wish to disconnect an already-linked Twitch or YouTube account, from their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Verbindig tränne</string>
   <string name="streamerName">Din Streamername uf Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Churz fasse: Maximal %s Zeiche</item>

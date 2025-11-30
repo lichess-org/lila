@@ -30,8 +30,6 @@
   <string name="pleaseFillIn">Bonvolu plenigi via filmprezentista informo kaj alŝutu bildon.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Kiam vi pretas por listiĝi kiel Lichess filmprezentisto, %s</string>
   <string name="streamerLanguageSettings">La Lichess filprezentista paĝo celas vian spektantaron kun la lingvo provizita per via elsenda platformo. Agordu la ĝustan defaŭltlingvon por viaj ŝakaj elsendoj en la apo aŭ servo, kiun vi uzi por elsendi.</string>
-  <string name="twitchUsername">Via uzantnomo aŭ URL de Twitch</string>
-  <string name="youTubeChannelId">La ID de via YouTube kanalo</string>
   <string name="streamerName">Via filmprezentista nomo ĉe Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Estu mallonga: maksimume %s presliteroj</item>

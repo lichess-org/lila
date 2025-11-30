@@ -29,14 +29,12 @@
   <string name="pendingReview">Je stream wordt beoordeeld door de toezichthouders.</string>
   <string name="pleaseFillIn">Vul je streamer informatie in en upload een foto.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Wanneer u klaar bent om als Lichess stream vermeld te worden, %s</string>
-  <string name="submitForReview" comment="Appears on a button when editing the page which lets you be listed as a streamer: https://lichess.org/streamer/edit&#10;&#10;As this is public, any changes to a streamer page are first sent to the Lichess team for review.">Indienen voor beoordeling</string>
+  <string name="submitForReview">Indienen voor beoordeling</string>
   <string name="streamerLanguageSettings">De Lichess streamerpagina toont je publiek de taal die wordt verstrekt door je streamingplatform. Stel de juiste standaardtaal in voor je schaakstreams in de app of service die je gebruikt om te streamen.</string>
-  <string name="twitchUsername">Je Twitch gebruikersnaam of website</string>
-  <string name="twitchOrYouTubeRequired" comment="A notice when creating/editing your streamer page (https://lichess.org/streamer/edit), denoting that you can only be listed if you stream from a Twitch or YouTube channel.">Twitch of YouTube is vereist</string>
-  <string name="twitchOrYouTubeMustBeVerified" comment="For background: The &quot;streamer badge&quot; refers to the microphone icon on the streamer's profile (https://lichess.org/@/Lichess).&#10;The listing is the streamer's page that appears at https://lichess.org/streamer">Wijzigingen op Twitch en YouTube moeten worden geverifieerd.
-  
-  Je streamerbadge en -klassement worden opgeschort voor de duur van de beoordeling. Dit kan tot 72 uur duren.</string>
-  <string name="youTubeChannelId">Jouw YouTubekanaal-ID</string>
+  <string name="pleaseAllow">Wacht tot 72 uur voordat je streamer-badge en vermelding worden goedgekeurd.</string>
+  <string name="chooseYoutubeChannel">Kies het YouTube-kanaal dat je wilt gebruiken op Lichess.</string>
+  <string name="connect" comment="This button appears for streamers who wish to connect a Twitch or YouTube account, to their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Verbinden</string>
+  <string name="disconnect" comment="This button appears for streamers who wish to disconnect an already-linked Twitch or YouTube account, from their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Verbinding verbreken</string>
   <string name="streamerName">Je streamer naam op Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Houd het kort: maximaal %s tekens</item>

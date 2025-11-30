@@ -29,7 +29,6 @@
   <string name="pendingReview">आपकी स्ट्रीम की समीक्षा मॉडरेटर्स द्वारा की जा रही है।</string>
   <string name="pleaseFillIn">कृपया अपनी स्ट्रीमर जानकारी भरें, और एक तस्वीर अपलोड करें।</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">जब आप लिचेस स्ट्रीमर के रूप में सूचीबद्ध होने के लिए तैयार हैं, तो %s</string>
-  <string name="twitchUsername">आपका Twitch उपयोगकर्ता नाम या URL</string>
   <string name="streamerName">लिचेस पर आपका स्ट्रीमर नाम</string>
   <plurals name="keepItShort">
     <item quantity="one">इसे छोटा रखें:%s अक्षर अधिकतम</item>

@@ -27,7 +27,6 @@
   <string name="pendingReview">Yayımınız moderatorlar tərəfindən nəzərdən keçirilir.</string>
   <string name="pleaseFillIn">Lütfən yayımçı məlumatlarını doldurun və bir şəkil yükləyin.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Lichess yayımçısı kimi siyahıya alınmağa hazır olanda, %s</string>
-  <string name="twitchUsername">Twitch istifadəçi adınız və ya URL-niz</string>
   <string name="streamerName">Lichess yayımçı adınız</string>
   <plurals name="keepItShort">
     <item quantity="one">Qısa saxlayın: ən çox %s simvol</item>

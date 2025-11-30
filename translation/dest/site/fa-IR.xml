@@ -240,7 +240,7 @@
   <string name="forgotPassword">گذرواژه را فراموش کرده‌اید?</string>
   <string name="error.weakPassword">این گذرواژه بسیار رایج و آسان‌حدس است.</string>
   <string name="error.namePassword">خواهشانه از نام کاربری‌تان برای گذرواژه‌تان استفاده نکنید.</string>
-  <string name="blankedPassword">شما از گذرواژهٔ یکسانی در وبگاه دیگری بهراییده‌اید و آن وبگاه به خطر افتاده است. برای اطمینان از ایمنی حساب لیچس‌تان، به شما نیاز داریم تا گذرواژهٔ نویی را تعیین کنید. از درک‌تان سپاسگزاریم.</string>
+  <string name="blankedPassword">شما از گذرواژهٔ یکسانی در وبگاه دیگری بهریده‌اید و آن وبگاه به خطر افتاده است. برای اطمینان از ایمنی حساب Lichessتان، به شما نیاز داریم تا گذرواژهٔ نویی را تعیین کنید. از درک‌تان سپاسگزاریم.</string>
   <string name="youAreLeavingLichess">در حال ترک lichess هستید</string>
   <string name="neverTypeYourPassword">هرگز گذرواژهٔ Lichessتان را در وبگاه دیگری ننویسید!</string>
   <string name="proceedToX">بروید به %s</string>
@@ -296,7 +296,7 @@
   <string name="finished">تمام شده</string>
   <string name="abortGame">انصراف از بازی</string>
   <string name="gameAborted">بازی لغو شد</string>
-  <string name="standard">استاندارد</string>
+  <string name="standard">معیار</string>
   <string name="customPosition">وضعیت به‌دلخواه</string>
   <string name="unlimited">نامحدود</string>
   <string name="mode">حالت</string>
@@ -967,7 +967,7 @@
   <string name="maximumWeeklyRating">حداکثر درجه‌بندی هفتگی</string>
   <string name="positionInputHelp">برای آغاز هر بازی از یک وضعیت مشخص، یک FEN معتبر جای‌گذارید.
 تنها برای شطرنج معیار کار می‌کند، نه با وَرتاها.
-می‌توانید از %s برای آزانیدن وضعیت FEN بهرایید، سپس آن را اینجا جای‌گذارید.
+می‌توانید از %s برای آزانیدن وضعیت FEN بَهرید، سپس آن را اینجا جای‌گذارید.
 برای آغاز بازی از وضعیت نخستین معمولی، خالی بگذارید.</string>
   <string name="cancelSimul">بازی هم‌زمان (سیمولتانه) را لغو نمایید</string>
   <string name="simulHostcolor">رنگ مربوط به نمایش‌دهنده یا میزبان برای هر بازی</string>

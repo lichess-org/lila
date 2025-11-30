@@ -14,6 +14,10 @@
   <string name="attractionDescription">Un schimb sau sacrificiu care încurajează sau forțează o piesă adversară pe un pătrat care permite o tactică ulterioară.</string>
   <string name="backRankMate">Mat pe rândul din spate</string>
   <string name="backRankMateDescription">Dă șah mat regelui pe rândul inițial, când e blocat acolo de propriele lui piese.</string>
+  <string name="balestraMate">Mat Balestra</string>
+  <string name="balestraMateDescription">Un nebun dă matul, în timp ce regina blochează pătratele rămase pentru scăpare</string>
+  <string name="blindSwineMate">Mat Blind Swine</string>
+  <string name="blindSwineMateDescription">Două ture se alătură pentru a da mat regelui pe o arie de 2x2 pătrate.</string>
   <string name="bishopEndgame">Final cu nebuni</string>
   <string name="bishopEndgameDescription">Un final de partidă doar cu nebuni și pioni.</string>
   <string name="bodenMate">Mat-ul lui Boden</string>
@@ -22,8 +26,12 @@
   <string name="castlingDescription">Adu regele în siguranță și mută tura pentru atac.</string>
   <string name="capturingDefender">Capturează apărătorul</string>
   <string name="capturingDefenderDescription">Capturarea unei piese esențiale apărării alteia, permițând captura piesei acum neapărată la o mutare ulterioară.</string>
+  <string name="cornerMate">Mat în colț</string>
+  <string name="cornerMateDescription">Restrânge regele spre colț folosind o tură sau regină și un nebun pentru a duce la mat.</string>
   <string name="crushing">Zdrobitor</string>
   <string name="crushingDescription">Observă gafa adversarului pentru a obține un avantaj zdrobitor. (eval ≥ 600cp)</string>
+  <string name="discoveredCheck" comment="Description (translatable separately):&#10;&#10;Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage.">Șah prin descoperire</string>
+  <string name="discoveredCheckDescription" comment="Description for the &quot;Discovered check&quot; puzzle theme.">Mută o piesă pentru a descoperi un șah de la o piesă de atac ascunsă, ceea ce duce adesea la un avantaj decisiv.</string>
   <string name="doubleBishopMate">Mat-ul cu doi nebuni</string>
   <string name="doubleBishopMateDescription">Doi nebuni care atacă pe diagonale adiacente livrează mat-ul unui rege blocat de piese aliate.</string>
   <string name="dovetailMate">Mat-ul dovertail</string>
@@ -59,6 +67,8 @@
   <string name="intermezzoDescription">În loc să faci mutarea așteptată, mai întâi intervii cu o altă mutare care e o amenințare imediată, căreia adversarul trebuie să-i răspundă. Cunoscut și ca \"Zwischenzug\" sau \"In between\".</string>
   <string name="killBoxMate">Mat în casetă mortală</string>
   <string name="killBoxMateDescription">O tură este lingă regele inamic și susținută de o regină care de asemenea blochează pătratele pe unde ar putea evada regele. Tura și regina îl prind pe rege într-o \"casetă mortală\" de 3x3.</string>
+  <string name="triangleMate">Mat în triunghi</string>
+  <string name="triangleMateDescription">Regina și tura, la un pătrat de regele inamic, sunt pe același linie sau coloană, separate de un singur pătrat, formând un triunghi.</string>
   <string name="vukovicMate">Mat Vukovic</string>
   <string name="vukovicMateDescription">O tură și un cal fac echipă pentru a da șah mat regelui. Tura dă mat fiind apărată de o a treia piesă iar calul blochează toate căile de scăpare ale regelui.</string>
   <string name="knightEndgame">Final cu cai</string>

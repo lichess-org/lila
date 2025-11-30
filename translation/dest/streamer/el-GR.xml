@@ -29,14 +29,12 @@
   <string name="pendingReview">Η μετάδοσή σας αξιολογείται από τους διαχειριστές.</string>
   <string name="pleaseFillIn">Παρακαλώ συμπληρώστε τις πληροφορίες σας και μεταφορτώστε μια εικόνα.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Όταν είσαστε έτοιμος να εμφανιστείτε ως Lichess streamer, %s</string>
-  <string name="submitForReview" comment="Appears on a button when editing the page which lets you be listed as a streamer: https://lichess.org/streamer/edit&#10;&#10;As this is public, any changes to a streamer page are first sent to the Lichess team for review.">Υποβολή για εξέταση</string>
+  <string name="submitForReview">Υποβολή για εξέταση</string>
   <string name="streamerLanguageSettings">Η σελίδα Lichess streamer στοχεύει το κοινό σας με τη γλώσσα που παρέχεται από την πλατφόρμα ροής σας. Ορίστε τη σωστή προεπιλεγμένη γλώσσα για τις ροές σκακιού στην εφαρμογή ή την υπηρεσία που χρησιμοποιείτε για να μεταδώσετε.</string>
-  <string name="twitchUsername">Το όνομα χρήστη σας στο Twitch ή η διεύθυνση URL του προφίλ σας</string>
-  <string name="twitchOrYouTubeRequired" comment="A notice when creating/editing your streamer page (https://lichess.org/streamer/edit), denoting that you can only be listed if you stream from a Twitch or YouTube channel.">Απαιτείται είτε το Twitch είτε το YouTube</string>
-  <string name="twitchOrYouTubeMustBeVerified" comment="For background: The &quot;streamer badge&quot; refers to the microphone icon on the streamer's profile (https://lichess.org/@/Lichess).&#10;The listing is the streamer's page that appears at https://lichess.org/streamer">Οι αλλαγές στο Twitch και στο YouTube πρέπει να επαληθευτούν.
-  
-  Το έμβλημα του streamer και η καταχώρισή σας θα ανασταλεί για όσο διάστημα εξετάζουμε την αίτησή σας. Αυτό μπορεί να διαρκέσει έως και 72 ώρες.</string>
-  <string name="youTubeChannelId">Το αναγνωριστικό του καναλιού σας στο YouTube</string>
+  <string name="pleaseAllow">Παρακαλούμε περιμένετε έως 72 ώρες για να εγκριθεί το σήμα streamer και η καταχώρησή σας.</string>
+  <string name="chooseYoutubeChannel">Επιλέξτε το κανάλι YouTube που θα χρησιμοποιήσετε στο Lichess.</string>
+  <string name="connect" comment="This button appears for streamers who wish to connect a Twitch or YouTube account, to their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Σύνδεση</string>
+  <string name="disconnect" comment="This button appears for streamers who wish to disconnect an already-linked Twitch or YouTube account, from their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Αποσύνδεση</string>
   <string name="streamerName">Το όνομα σας ως streamer στο Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Σύντομη περιγραφή: %s χαρακτήρας το πολύ</item>

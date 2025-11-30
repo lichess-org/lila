@@ -16,8 +16,6 @@
   <string name="xIsStreaming">Emañ %s o skignañ ur stream</string>
   <string name="rules">Reolennoù ar streaming</string>
   <string name="rule1">Ensilit ar ger-alc\'hwez \"lichess.org\" en tilt ho stream ha grit gant ar rummad \"Echedoù\" pa streamit war Lichess.</string>
-  <string name="twitchUsername">Hoc\'h anv-implijer Twitch pe URL</string>
-  <string name="youTubeChannelId">ID ho chadenn YouTube</string>
   <string name="streamerName">Hoc\'h anv streamer war Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">E berr gomzoù: %s arouezenn d\'ar muiañ</item>

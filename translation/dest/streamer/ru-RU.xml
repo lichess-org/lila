@@ -29,14 +29,8 @@
   <string name="pendingReview">Ваш стрим на проверке у модераторов.</string>
   <string name="pleaseFillIn">Пожалуйста, заполните информацию о стриме и загрузите изображение.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Когда вы будете готовы оказаться в списке стримеров Lichess, %s</string>
-  <string name="submitForReview" comment="Appears on a button when editing the page which lets you be listed as a streamer: https://lichess.org/streamer/edit&#10;&#10;As this is public, any changes to a streamer page are first sent to the Lichess team for review.">Отправить на проверку</string>
+  <string name="submitForReview">Отправить на проверку</string>
   <string name="streamerLanguageSettings">Страница стримера Lichess ориентирована на ту аудиторию, язык которой предоставлен вашей платформой. Установите для ваших шахматных стримов правильный язык по умолчанию в приложении или сервисе, который вы используете для трансляции.</string>
-  <string name="twitchUsername">Ваше имя пользователя или URL на Twitch</string>
-  <string name="twitchOrYouTubeRequired" comment="A notice when creating/editing your streamer page (https://lichess.org/streamer/edit), denoting that you can only be listed if you stream from a Twitch or YouTube channel.">Требуется Twitch или YouTube</string>
-  <string name="twitchOrYouTubeMustBeVerified" comment="For background: The &quot;streamer badge&quot; refers to the microphone icon on the streamer's profile (https://lichess.org/@/Lichess).&#10;The listing is the streamer's page that appears at https://lichess.org/streamer">Необходимо проверить изменения на Twitch и YouTube.
-  
-  Ваш значок стримера и отображение в списке будут приостановлены на время рассмотрения. Это может занять до 72 часов.</string>
-  <string name="youTubeChannelId">ID вашего YouTube-канала</string>
   <string name="streamerName">Ваше имя стримера на Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Сократите: максимум %s символ</item>

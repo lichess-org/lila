@@ -15,9 +15,9 @@
   <string name="breakdownOfOurCosts">جزئیات مخارج ما</string>
   <string name="otherWaysToHelp">راه دیگر برای کمک</string>
   <string name="areThereWebsitesBasedOnLichess">آیا وب‌سایتهایی که بر اساس Lichess ساخته شده باشند، وجود دارد؟</string>
-  <string name="yesLichessInspiredOtherOpenSourceWebsites">بله. Lichess در واقع الهام‌بخش دیگر وبگاه‌های متن‌باز است که از %1$s، %2$s، یا %3$s ما می‌بهرایند.</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">بله. Lichess در واقع الهام‌بخش دیگر وبگاه‌های متن‌باز است که از %1$s، %2$s، یا %3$s ما می‌بَهرند.</string>
   <string name="keyboardShortcuts">چه میانبرهای صفحه کلیدی وجود دارند؟</string>
-  <string name="keyboardShortcutsExplanation">برخی از صفحات لیچس دارای کلیدهای میانبر هستند که می‌توانید از آنها استفاده کنید. برای مشاهده کلیدهای میانبر موجود در صفحات مطالعه، تجزیه و تحلیل، معما یا بازی، کلید «؟» را فشار دهید.</string>
+  <string name="keyboardShortcutsExplanation">برخی از صفحاتِ Lichess دارای کلید‌های میانبرَند که می‌توانید از آنها بَهرایید. برای دیدن فهرست کلید‌های میانبر، در صفحاتِ مطالعه، تحلیل، معما یا بازی، کلید «؟» را بفشارید.</string>
   <string name="fairPlay">بازی منصفانه</string>
   <string name="whenAmIEligibleRatinRefund">چه زمانی برای پس‌گیری خودکار درجه‌بندی‌ام از تقلب‌کارها، واجد شرایط‌ هستم؟</string>
   <string name="ratingRefundExplanation">یک دقیقه پس از تشخیص بازیکن تقلب‌کار، ۴۰ بازی رسمی اخیرش در ۳ روز گذشته انتخاب می‌شود. اگر در یکی از آن بازی‌ها حریفشان بوده‌اید و امتیاز از دست داده‌اید (به دلیل باخت یا تساوی)، و درجه‌بندی‌تان هم موقتی نبوده، مقداری امتیاز به شما پس داده می‌شود. امتیاز پس‌دهی بر اساس بیشینه درجه‌بندی‌تان و پیشرفت درجه‌بندی‌تان پس از بازی، محدود می‌شود. (مثلاً اگر درجه‌بندی‌تان بعد از آن بازی بسیار افزایش یابد، ممکن است هیچ امتیازی دریافت نکنید یا فقط مقداری جزئی دریافت کنید.) مقدار پس‌دهی هرگز بیشتر از ۱۵۰ امتیاز نخواهد شد.</string>
@@ -37,7 +37,7 @@
   <string name="inferiorThanXsEqualYtimeControl">≤ %1$s = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≤ %1$s = %2$s</string>
   <string name="whatVariantsCanIplay">چه وَرتاهایی را می‌توانم در Lichess بازی کنم؟</string>
-  <string name="lichessSupportChessAnd">وبگاه لیچس از شطرنج استاندارد و %1$s پشتیبانی می‌کند.</string>
+  <string name="lichessSupportChessAnd">وبگاه Lichess از شطرنج معیار و %1$s پشتیبانی می‌کند.</string>
   <string name="eightVariants">۸ وَرتای شطرنج</string>
   <string name="whatIsACPL">میانگین باخت صدم ‌پیاده چیست؟</string>
   <string name="acplExplanation">صدم‌پیاده واحد اندازه‌گیری‌ایست که در شطرنج برای نمایش برتری به کار می‌رود. یک صدم‌پیاده برابر است با ۱/۱۰۰ پیاده. بنابراین: ۱۰۰ صدم‌پیاده = ۱ پیاده. این ارزش‌ها هیچ نقش رسمی‌ای در بازی ندارند، ولی برای بازیکنان سودمندند و در شطرنج رایانه‌ای برای ارزیابی وضعیت‌ها ضروری‌اند.
@@ -120,7 +120,7 @@
   <string name="ratingLeaderboards">جدول رده‌بندی</string>
   <string name="havePlayedMoreThanThirtyGamesInThatRating">حداقل 30 بازی رسمی کرده باشید،</string>
   <string name="havePlayedARatedGameAtLeastOneWeekAgo">در هفته گذشته، در جدول مربوطه یک بازی رسمی کرده باشید،</string>
-  <string name="ratingDeviationLowerThanXinChessYinVariants">داشتن «انحراف درجه‌بندی» کمتر از %1$s در شطرنج استاندارد، و کمتر از %2$s در وَرتاها،</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">داشتن «انحراف درجه‌بندی» کمتر از %1$s در شطرنج معیار، و کمتر از %2$s در وَرتاها،</string>
   <string name="beInTopTen">جز ۱۰ نفر برتر جدول مربوطه باشید.</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">شرط دوم برای این است که از پر کردن جداول رده‌بندی با بازیکنانی که دیگر بازی نمی‌کنند، جلوگیری کند.</string>
   <string name="whyAreRatingHigher">چرا مقدار درجه‌بندی‌های Lichess در مقایسه با دیگر وبگاه‌ها و نهادها، مانند FIDE, USCF و ICC بالاتر است؟</string>

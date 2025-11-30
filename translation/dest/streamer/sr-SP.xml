@@ -21,7 +21,6 @@
   <string name="pendingReview">Твој стрим проверавају модератори.</string>
   <string name="pleaseFillIn">Молимо попуните стримерске информације и поставите слику.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Када будете спремни да постанете Личес стример, %s</string>
-  <string name="twitchUsername">Твоје Твич корисничко име или УРЛ</string>
   <string name="headline">Наслов</string>
   <string name="tellUsAboutTheStream">Реци нам нешто о свом стриму у једној реченици</string>
   <string name="longDescription">Дужи опис</string>

@@ -30,8 +30,6 @@
   <string name="pleaseFillIn">Streamer হতে অনুগ্রহপূর্বক নিজের ছবি ও তথ্যের ঘর পুরন করুন.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">লিচেস যখন আপনি স্ট্রিমার হিসেবে লিচেসে তালিকাভুক্ত হবেন, %s</string>
   <string name="streamerLanguageSettings">যে ভাষা নির্বাচন করবেন, লিচেস সেই ভাষার সদস্যদের কাছে আপনার স্ট্রিমিং পৌছে দেবে । তাই ব্রডকাষ্ট করার সময় অবশ্যই নিজের মাতৃভাষা ব্যাবহার করুন।.</string>
-  <string name="twitchUsername">আপনার Twitch ইউজারনেম অথবা URL</string>
-  <string name="youTubeChannelId">আপনার ইউটিউব চ্যানেল আইডি</string>
   <string name="streamerName">লিচেসে আপনার স্ট্রিমার নাম</string>
   <plurals name="keepItShort">
     <item quantity="one">এটি সংক্ষিপ্ত রাখুন: %s অক্ষর সর্বাধিক</item>

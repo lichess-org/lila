@@ -107,8 +107,8 @@
   <string name="youDeclinedThisInvitation">دعوتنامه را رد کردید.</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">یا</string>
   <string name="createMultipleAccounts">ایجاد همزمان چند حساب Lichess</string>
-  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">همچنین می‌توانید %s کنید برای ایجاد چندین حساب Lichess از فهرست نام‌های دانش‌آموزان.</string>
-  <string name="useThisForm" comment="Link text in multipleAccsFromDescription">از این فرم استفاده کنید</string>
+  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">همچنین می‌توانید با %s، حساب‌های Lichess چندگانه از فهرستِ نامِ شطرنج‌آموزان ایجاد کنید.</string>
+  <string name="useThisForm" comment="Link text in multipleAccsFromDescription">استفاده از این برگه</string>
   <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">توجه داشته باشید که یک کلاس می‌تواند تا %1$s دانش‌آموز داشته باشد. برای مدیریت دانش‌آموزان بیشتر، %2$s.</string>
   <string name="createMoreClasses" comment="Link text in maxStudentsNote">کلاس های بیشتری ایجاد کنید</string>
   <string name="studentsRealNamesOnePerLine">نام واقعی دانش آموزان، یکی در هر خط</string>

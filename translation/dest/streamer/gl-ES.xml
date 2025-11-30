@@ -29,14 +29,12 @@
   <string name="pendingReview">A túa transmisión está sendo revisada polos moderadores.</string>
   <string name="pleaseFillIn">Por favor, cubre a túa información de presentador e sube unha foto.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Cando esteas preparado para seres un presentador de Lichess, %s</string>
-  <string name="submitForReview" comment="Appears on a button when editing the page which lets you be listed as a streamer: https://lichess.org/streamer/edit&#10;&#10;As this is public, any changes to a streamer page are first sent to the Lichess team for review.">Enviar á revisión</string>
+  <string name="submitForReview">Enviar á revisión</string>
   <string name="streamerLanguageSettings">A páxina de presentador de Lichess diríxese á túa audiencia co idioma proporcionado pola túa plataforma de transmisións. Establece o idioma predeterminado axeitado para as túas transmisións de xadrez na aplicación ou no servizo que uses para retransmitir.</string>
-  <string name="twitchUsername">O teu usuario de Twitch ou URL</string>
-  <string name="twitchOrYouTubeRequired" comment="A notice when creating/editing your streamer page (https://lichess.org/streamer/edit), denoting that you can only be listed if you stream from a Twitch or YouTube channel.">Requírese Twitch ou YouTube</string>
-  <string name="twitchOrYouTubeMustBeVerified" comment="For background: The &quot;streamer badge&quot; refers to the microphone icon on the streamer's profile (https://lichess.org/@/Lichess).&#10;The listing is the streamer's page that appears at https://lichess.org/streamer">Os cambios en Twitch e YouTube deben ser verificados.
-  
-  Tanto o teu emblema de  presentador coma a túa presenza na lista de presentadores vanse suspender durante a revisión. Este proceso pode durar ata 72 horas.</string>
-  <string name="youTubeChannelId">O ID da túa canle de YouTube</string>
+  <string name="pleaseAllow">Por favor agarda ata 72 horas antes de que o teu emblema de presentador e a túa presenza na lista de presentadores sexan aceptados.</string>
+  <string name="chooseYoutubeChannel">Elixe a canle de YouTube que vas usar en Lichess.</string>
+  <string name="connect" comment="This button appears for streamers who wish to connect a Twitch or YouTube account, to their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Conectar</string>
+  <string name="disconnect" comment="This button appears for streamers who wish to disconnect an already-linked Twitch or YouTube account, from their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Desconectar</string>
   <string name="streamerName">O teu nome de presentador en Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Sé breve: máximo %s carácter</item>
