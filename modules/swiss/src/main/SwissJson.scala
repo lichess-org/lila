@@ -91,7 +91,7 @@ final class SwissJson(
               rankingApi(swiss)
                 .dmap(_.get(player.userId))
                 .map2:
-                  MyInfo(_, gameId, me, player)
+                  MyInfo(_, if swiss.settings.flexible.getOrElse(false) then None else gameId, me, player)
     }
 
   private def updatePlayerRating(swiss: Swiss, player: SwissPlayer, user: User): Funit =

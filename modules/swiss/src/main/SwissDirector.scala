@@ -63,7 +63,9 @@ final private class SwissDirector(
                 .void
             }
             _ <- mongo.pairing.insert.many(pairings).void
-            games = pairings.map(makeGame(swiss, players.mapBy(_.userId)))
+            games =
+              if swiss.settings.flexible.getOrElse(false) then Nil
+              else pairings.map(makeGame(swiss, players.mapBy(_.userId)))
             _ <- games.sequentiallyVoid: game =>
               for _ <- gameRepo.insertDenormalized(game) yield onStart.exec(game.id)
           yield swiss.some
