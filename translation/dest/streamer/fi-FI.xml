@@ -31,6 +31,10 @@
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Kun haluat Lichess-striimaajien listalle, %s</string>
   <string name="submitForReview">Lähetä tarkistettavaksi</string>
   <string name="streamerLanguageSettings">Lichessin striimaajasivu on suunnattu yleisölle striimialustasi kielellä. Aseta shakkistriimeillesi sopiva kieli niiden lähetykseen käyttämässäsi sovelluksessa tai palvelussa.</string>
+  <string name="pleaseAllow">Striimaajatunnuksesi ja listautumisesi hyväksynnässä voi kestää 72 tuntia.</string>
+  <string name="chooseYoutubeChannel">Valitse YouTube-kanava, jota käytät Lichessissä.</string>
+  <string name="connect" comment="This button appears for streamers who wish to connect a Twitch or YouTube account, to their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Yhdistä</string>
+  <string name="disconnect" comment="This button appears for streamers who wish to disconnect an already-linked Twitch or YouTube account, from their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Katkaise yhteys</string>
   <string name="streamerName">Striimaajanimesi Lichessissä</string>
   <plurals name="keepItShort">
     <item quantity="one">Pidä se lyhyenä: %s merkki enintään</item>
