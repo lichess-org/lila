@@ -33,6 +33,8 @@
   <string name="streamerLanguageSettings">Pagina de streamer Lichess țintește publicul tău cu limba furnizată de platforma ta de streaming. Setați limba implicită corectă pentru fluxurile de șah din aplicația sau serviciul pe care îl utilizați pentru difuzare.</string>
   <string name="pleaseAllow">Vă rugăm să permiteți până la 72 de ore înainte ca insigna de streamer și listarea să fie aprobate.</string>
   <string name="chooseYoutubeChannel">Alege canalul YouTube pe care îl vei folosi pe Lichess.</string>
+  <string name="connect" comment="This button appears for streamers who wish to connect a Twitch or YouTube account, to their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Conectare</string>
+  <string name="disconnect" comment="This button appears for streamers who wish to disconnect an already-linked Twitch or YouTube account, from their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Deconectare</string>
   <string name="streamerName">Numele tău de streamer pe Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Ține-o scurt: maxim %s caracter</item>
