@@ -205,7 +205,7 @@ lazy val history = module("history",
 )
 
 lazy val search = module("search",
-  Seq(common),
+  Seq(common, memo),
   Seq(playWs.ahc, lilaSearch)
 )
 
