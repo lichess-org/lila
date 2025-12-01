@@ -13,7 +13,7 @@ final class Fide(env: Env) extends LilaController(env):
       env.fide
         .search(q, page)
         .flatMap:
-          case Left(player) => Redirect(routes.Fide.show(player.id, player.slug))
+          case Left(p) => Redirect(routes.Fide.show(p.player.id, p.player.slug))
           case Right(pager) => renderPage(views.fide.player.index(pager, q.so(_.trim))).map(Ok(_))
 
   def show(id: chess.FideId, slug: String, page: Int) = Open:
@@ -27,7 +27,7 @@ final class Fide(env: Env) extends LilaController(env):
             for
               user <- env.title.api.publicUserOf(player.id)
               tours <- env.relay.playerTour.playerTours(player, page)
-              isFollowing <- ctx.userId.traverse(env.fide.repo.follower.isFollowing(_, id))
+              isFollowing <- ctx.userId.so(env.fide.repo.follower.isFollowing(_, id))
               rendered <- renderPage(views.fide.player.show(player, user, tours, isFollowing))
             yield Ok(rendered)
 

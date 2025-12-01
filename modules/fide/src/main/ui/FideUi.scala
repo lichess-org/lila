@@ -60,7 +60,7 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
         )
       )
 
-    def show(fed: Federation, players: Paginator[FidePlayer])(using Context) =
+    def show(fed: Federation, players: Paginator[FidePlayer.WithFollow])(using Context) =
       page(s"${fed.name} - FIDE federation", "federations")(
         cls := "fide-federation",
         div(cls := "box__top fide-federation__head")(
@@ -80,11 +80,7 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
               )
             )
         ),
-        player.playerList(
-          players,
-          np => routes.Fide.federation(fed.slug, np),
-          withFlag = false
-        )
+        player.playerList(players, routes.Fide.federation(fed.slug, _), withFlag = false)
       )
 
     private val kosovoText =
@@ -101,7 +97,7 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
 
   object player:
 
-    def index(players: Paginator[FidePlayer], query: String)(using Context) =
+    def index(players: Paginator[FidePlayer.WithFollow], query: String)(using Context) =
       page("FIDE players", "players")(
         cls := "fide-players",
         boxTop(
@@ -151,10 +147,10 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
       )
 
     def playerList(
-        players: Paginator[FidePlayer],
+        players: Paginator[FidePlayer.WithFollow],
         url: Int => Call,
         withFlag: Boolean = true
-    )(using Context) =
+    )(using ctx: Context) =
       table(cls := "slist slist-pad")(
         thead:
           tr(
@@ -163,11 +159,13 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
             th(trs.classical()),
             th(trs.rapid()),
             th(trs.blitz()),
-            th(trb.ageThisYear())
+            th(trb.ageThisYear()),
+            ctx.isAuth.option(th("Follow"))
           )
         ,
         tbody(cls := "infinite-scroll")(
-          players.currentPageResults.map: player =>
+          players.currentPageResults.map: p =>
+            val player = p.player
             tr(cls := "paginated")(
               td(a(href := routes.Fide.show(player.id, player.slug))(titleTag(player.title), player.name)),
               withFlag.option(td:
@@ -177,8 +175,10 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
               td(player.standard),
               td(player.rapid),
               td(player.blitz),
-              td(player.age)
-            ),
+              td(player.age),
+              ctx.isAuth.option(td(followButton(p)))
+            )
+          ,
           pagerNextTable(players, np => url(np).url)
         )
       )
@@ -186,20 +186,19 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
     private def card(name: Frag, value: Frag) =
       div(cls := "fide-card fide-player__card")(em(name), strong(value))
 
-    private def followButton(player: FidePlayer, isFollowing: Boolean)(using Context) =
-      val id = "fide-player-follow"
+    private def followButton(p: FidePlayer.WithFollow) =
+      val id = s"fide-player-follow-${p.player.id}"
       label(cls := "fide-player__follow")(
         form3.cmnToggle(
           fieldId = id,
           fieldName = id,
-          checked = isFollowing,
-          action = Some(routes.Fide.follow(player.id, isFollowing).url)
-        ),
-        trans.site.follow()
+          checked = p.follow,
+          action = Some(routes.Fide.follow(p.player.id, p.follow).url)
+        )
       )
 
-    def show(player: FidePlayer, user: Option[User], tours: Option[Frag], isFollowing: Option[Boolean])(using
-        Context
+    def show(player: FidePlayer, user: Option[User], tours: Option[Frag], isFollowing: Boolean)(using
+        ctx: Context
     ) =
       page(s"${player.name} - FIDE player ${player.id}", "players")(
         cls := "box-pad fide-player",
@@ -208,7 +207,7 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
             span(titleTag(player.title), player.name),
             user.map(userLink(_, withTitle = false)(cls := "fide-player__user"))
           ),
-          isFollowing.map(followButton(player, _))
+          ctx.isAuth.option(followButton(FidePlayer.WithFollow(player, isFollowing))(trans.site.follow()))
         ),
         div(cls := "fide-cards fide-player__cards")(
           player.fed.map: fed =>

@@ -34,13 +34,17 @@ final class Env(db: lila.db.Db, cacheApi: CacheApi, ws: StandaloneWSClient)(usin
   def getPlayer: hub.GetPlayer = playerApi.get
   def getPlayerFollowers: hub.GetPlayerFollowers = repo.follower.followers
 
-  def search(q: Option[String], page: Int = 1): Fu[Either[FidePlayer, Paginator[FidePlayer]]] =
+  def search(q: Option[String], page: Int = 1)(using
+      me: Option[Me]
+  ): Fu[Either[FidePlayer.WithFollow, Paginator[FidePlayer.WithFollow]]] =
     val query = q.so(_.trim)
     chess.FideId
       .from(query.toIntOption)
       .so(playerApi.fetch)
       .flatMap:
-        case Some(player) => fuccess(Left(player))
+        case Some(player) => me.so(repo.follower.isFollowing(_, player.id))
+        .map(FidePlayer.WithFollow(player, _))
+        .map(Left(_))
         case None => paginator.best(page, query).map(Right(_))
 
   private lazy val fideSync = wire[FidePlayerSync]

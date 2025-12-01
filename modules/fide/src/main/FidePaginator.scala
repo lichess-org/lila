@@ -29,7 +29,7 @@ final class FidePaginator(repo: FideRepo)(using Executor):
       maxPerPage = maxPerPage
     )
 
-  def federationPlayers(fed: Federation, page: Int): Fu[Paginator[FidePlayer]] =
+  def federationPlayers(fed: Federation, page: Int)(using Option[Me]): Fu[Paginator[FidePlayer.WithFollow]] =
     Paginator(
       adapter = new AdapterLike[FidePlayer]:
         def nbResults: Fu[Int] = fuccess(100 * maxPerPage.value)
@@ -43,9 +43,9 @@ final class FidePaginator(repo: FideRepo)(using Executor):
       ,
       currentPage = page,
       maxPerPage = maxPerPage
-    )
+    ).flatMap(addFollows)
 
-  def best(page: Int, query: String): Fu[Paginator[FidePlayer]] =
+  def best(page: Int, query: String)(using Option[Me]): Fu[Paginator[FidePlayer.WithFollow]] =
     val search = FidePlayer.tokenize(query).some.filter(_.size > 1)
     Paginator(
       adapter = search match
@@ -72,4 +72,11 @@ final class FidePaginator(repo: FideRepo)(using Executor):
       ,
       currentPage = page,
       maxPerPage = maxPerPage
-    )
+    ).flatMap(addFollows)
+
+  private def addFollows(
+      pager: Paginator[FidePlayer]
+  )(using me: Option[Me]): Fu[Paginator[FidePlayer.WithFollow]] =
+    pager.mapFutureList: players =>
+      me.fold(fuccess(players.map(FidePlayer.WithFollow(_, false)))): me =>
+        repo.follower.withFollows(players, me.userId)

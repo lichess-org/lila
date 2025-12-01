@@ -31,13 +31,28 @@ final private class FideRepo(
     def fetch(code: hub.Federation.Id): Fu[Option[Federation]] = federationColl.byId[Federation](code)
 
   object follower:
-    private def makeId(u: UserId, p: FideId) = s"$p/$u"
+    // { _id: '14204118/thibault', u: 'thibault' }
+    type FollowId = String
+    private object followId:
+      def make(p: FideId, u: UserId) = s"$p/$u"
+      def toUserId(id: FollowId): UserId = UserId(id.drop(id.indexOf('/') + 1))
+      def toFideId(id: FollowId): FideId = FideId(id.takeWhile(_ != '/').toInt)
+
     def followers(p: FideId): Fu[Set[UserId]] = (p.value > 0).so:
-      for ids <- followerColl.distinctEasy[String, Set]("_id", "_id".$startsWith(s"$p/"))
-      yield UserId.from(ids.map(id => id.drop(id.indexOf('/') + 1)))
+      for ids <- followerColl.distinctEasy[FollowId, Set]("_id", "_id".$startsWith(s"$p/"))
+      yield ids.map(followId.toUserId)
     def follow(u: UserId, p: FideId) = playerColl
       .exists($id(p))
       .flatMapz:
-        followerColl.update.one($id(makeId(u, p)), $doc("u" -> u), upsert = true).void
-    def unfollow(u: UserId, p: FideId) = followerColl.delete.one($id(makeId(u, p))).void
-    def isFollowing(u: UserId, p: FideId) = followerColl.exists($id(makeId(u, p)))
+        followerColl.update.one($id(followId.make(p, u)), $doc("u" -> u), upsert = true).void
+    def unfollow(u: UserId, p: FideId) = followerColl.delete.one($id(followId.make(p, u))).void
+    def isFollowing(u: UserId, p: FideId) = followerColl.exists($id(followId.make(p, u)))
+
+    def withFollows(players: Seq[FidePlayer], u: UserId): Fu[Seq[FidePlayer.WithFollow]] =
+      val ids = players.map(_.id).map(followId.make(_, u))
+      followerColl
+        .distinctEasy[FollowId, Set]("_id", "_id".$in(ids))
+        .map(_.map(followId.toFideId))
+        .map: followedIds =>
+          players.map: p =>
+            FidePlayer.WithFollow(p, followedIds.contains(p.id))
