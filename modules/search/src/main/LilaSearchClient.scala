@@ -6,8 +6,8 @@ import lila.search.spec.*
 class LilaSearchClient(client: SearchClient, cacheApi: lila.memo.CacheApi)(using Executor)
     extends SearchClient:
 
-  private val cache = cacheApi[Query, CountOutput](1024, "lila.search.count"):
-    _.expireAfterWrite(5.minutes).buildAsyncFuture: query =>
+  private val cache = cacheApi[Query, CountOutput](1024, "search.count"):
+    _.expireAfterWrite(2.minutes).buildAsyncFuture: query =>
       monitor("count", query.index):
         client
           .count(query)
