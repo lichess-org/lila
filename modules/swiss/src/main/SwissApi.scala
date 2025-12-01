@@ -603,7 +603,7 @@ final class SwissApi(
         mongo.pairing
           .aggregateList(100): framework =>
             import framework.*
-            Match($doc(f.status -> SwissPairing.ongoing)) -> List(
+            Match($doc(f.status -> SwissPairing.ongoing, f.isDelayed -> false)) -> List(
               GroupField(f.swissId)("ids" -> PushField(f.id)),
               Limit(100)
             )
@@ -611,7 +611,7 @@ final class SwissApi(
         _.flatMap: doc =>
           for
             swissId <- doc.getAsOpt[SwissId]("_id")
-            gameIds <- doc.getAsOpt[List[GameId]]("ids")
+            gameIds <- doc.getAsOpt[List[GameId]]("ids") 
           yield swissId -> gameIds
       .flatMap:
         _.sequentiallyVoid { (swissId, gameIds) =>
