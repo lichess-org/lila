@@ -243,8 +243,9 @@ export class StudyChapterScroller {
   ) {}
 
   scrollIfNeeded(list: HTMLElement) {
+    if (!this.request) return;
     const active = list.querySelector('.active');
-    if (!active || !this.request) return;
+    if (!active) return;
     const request = this.request;
     this.request = undefined;
     const [c, l] = [list.getBoundingClientRect(), active.getBoundingClientRect()];
