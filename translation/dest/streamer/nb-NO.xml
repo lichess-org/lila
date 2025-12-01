@@ -31,6 +31,10 @@
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Når du er klar til å bli listet som en Lichess-strømmer, %s</string>
   <string name="submitForReview">Send inn for gjennomgang</string>
   <string name="streamerLanguageSettings">Strømmesiden til Lichess retter seg mot publikummet ditt med språket strømmeplattformen din leverer. Angi riktig språk for sjakkstrømmene dine i appen eller tjenesten du bruker for overføringer.</string>
+  <string name="pleaseAllow">Det kan ta opptil 72 timer før strømmermerket og -oppføringen din blir godkjent.</string>
+  <string name="chooseYoutubeChannel">Velg YouTube-kanalen du vil bruke for Lichess.</string>
+  <string name="connect" comment="This button appears for streamers who wish to connect a Twitch or YouTube account, to their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Koble til</string>
+  <string name="disconnect" comment="This button appears for streamers who wish to disconnect an already-linked Twitch or YouTube account, from their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Koble fra</string>
   <string name="streamerName">Ditt strømmernavn på Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Hold deg kort; maks %s tegn</item>
