@@ -73,7 +73,8 @@ object BsonHandlers:
             white = w,
             black = b,
             status = r.getO[SwissPairing.Status](status) | Right(none),
-            isForfeit = r.boolD(isForfeit)
+            isForfeit = r.boolD(isForfeit),
+            isDelayed = r.boolD(isDelayed)
           )
         case _ => sys.error("Invalid swiss pairing users")
     def writes(w: BSON.Writer, o: SwissPairing) =
@@ -83,7 +84,8 @@ object BsonHandlers:
         round -> o.round,
         players -> o.players,
         status -> o.status,
-        isForfeit -> w.boolO(o.isForfeit)
+        isForfeit -> w.boolO(o.isForfeit),
+        isDelayed -> w.boolO(o.isDelayed)
       )
 
   import SwissCondition.bsonHandler

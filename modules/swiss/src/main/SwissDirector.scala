@@ -38,7 +38,8 @@ final private class SwissDirector(
                 round = swiss.round,
                 white = w,
                 black = b,
-                status = Left(SwissPairing.Ongoing)
+                status = Left(SwissPairing.Ongoing),
+                isDelayed = swiss.settings.flexible.getOrElse(false)
               )
             }
             _ <-
