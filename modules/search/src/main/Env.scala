@@ -13,7 +13,8 @@ private class SearchConfig(val enabled: Boolean, val endpoint: String)
 @Module
 final class Env(
     appConfig: Configuration,
-    ws: StandaloneWSClient
+    ws: StandaloneWSClient,
+    cacheApi: lila.memo.CacheApi
 )(using Executor):
 
   private val config = appConfig.get[SearchConfig]("search")(using AutoConfig.loader)
@@ -21,4 +22,4 @@ final class Env(
   val client: SearchClient =
     val _client =
       if config.enabled then SearchClient.play(ws, s"${config.endpoint}/api") else SearchClient.noop
-    LilaSearchClient(_client)
+    LilaSearchClient(_client, cacheApi)

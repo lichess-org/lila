@@ -3,16 +3,21 @@ package lila.search
 import lila.search.client.SearchClient
 import lila.search.spec.*
 
-class LilaSearchClient(client: SearchClient)(using Executor) extends SearchClient:
+class LilaSearchClient(client: SearchClient, cacheApi: lila.memo.CacheApi)(using Executor)
+    extends SearchClient:
+
+  private val cache = cacheApi[Query, CountOutput](1024, "search.count"):
+    _.expireAfterWrite(2.minutes).buildAsyncFuture: query =>
+      monitor("count", query.index):
+        client
+          .count(query)
+          .handleError:
+            case e =>
+              logger.info(s"Count error: query={$query}", e)
+              CountOutput(0)
 
   override def count(query: Query): Future[CountOutput] =
-    monitor("count", query.index):
-      client
-        .count(query)
-        .handleError:
-          case e =>
-            logger.info(s"Count error: query={$query}", e)
-            CountOutput(0)
+    cache.get(query)
 
   override def search(query: Query, from: From, size: Size): Future[SearchOutput] =
     monitor("search", query.index):
