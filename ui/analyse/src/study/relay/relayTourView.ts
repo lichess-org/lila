@@ -106,8 +106,8 @@ export const tourSide = (ctx: RelayViewContext, kid: LooseVNode) => {
         resizeId &&
         verticalResize({
           key: `relay-games.${resizeId}`,
-          min: () => 48,
-          max: () => 48 * study.chapters.list.size(),
+          min: () => 50, // Height of one .relay-game in _tour.scss
+          max: () => 50 * study.chapters.list.size(),
           initialMaxHeight: () => window.innerHeight / 2,
         }),
       ctx.ctrl.chatCtrl && renderChat(ctx.ctrl.chatCtrl),
