@@ -63,11 +63,13 @@ final private class SwissDirector(
                 .void
             }
             _ <- mongo.pairing.insert.many(pairings).void
-            games =
-              if swiss.settings.flexible.getOrElse(false) then Nil
-              else pairings.map(makeGame(swiss, players.mapBy(_.userId)))
-            _ <- games.sequentiallyVoid: game =>
-              for _ <- gameRepo.insertDenormalized(game) yield onStart.exec(game.id)
+
+            _ <-
+              if swiss.settings.flexible.getOrElse(false) then fuccess(())
+              else
+                val games = pairings.map(makeGame(swiss, players.mapBy(_.userId)))
+                games.sequentiallyVoid: game =>
+                  for _ <- gameRepo.insertDenormalized(game) yield onStart.exec(game.id)
           yield swiss.some
       }
       .recover { case PairingSystem.BBPairingException(msg, input) =>
