@@ -102,17 +102,19 @@ square {
     }
   }
 
-  &.move-dest:hover {
-    background: rgba(20, 85, 30, 0.3);
+  @media (hover: hover) {
+    &.move-dest:hover {
+      background: rgba(20, 85, 30, 0.3);
 
-    body[data-board='horsey'] .is2d & {
-      background: url(../images/board/horsey.move-dest.png);
-      background-size: cover;
+      body[data-board='horsey'] .is2d & {
+        background: url(../images/board/horsey.move-dest.png);
+        background-size: cover;
+      }
     }
-  }
 
-  &.premove-dest:hover {
-    background: rgba(20, 30, 85, 0.2);
+    &.premove-dest:hover {
+      background: rgba(20, 30, 85, 0.2);
+    }
   }
 
   &.bh1 piece {
