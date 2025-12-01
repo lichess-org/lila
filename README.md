@@ -1,4 +1,4 @@
-Run with `cloudflared tunnel --protocol http2 --edge-ip-version 4 --url http://127.0.0.1:9663 --http-host-header localhost:9663`
+Run with `./start-public-dev.sh`
 
 # [lichess.org](https://lichess.org)
 

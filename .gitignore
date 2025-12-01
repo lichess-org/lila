@@ -14,6 +14,7 @@
 /conf/application.conf
 /conf/secrets.conf
 /conf/version.conf
+/conf/local.conf
 /translation/js
 logs/
 /project/metals.sbt
@@ -37,6 +38,7 @@ ui/*/tsconfig.tsbuildinfo
 hs_*.log
 dependency-graph.png
 dump.rdb
+/.tmp/
 
 RUNNING_PID
 instance.lock
