@@ -34,7 +34,7 @@ trait Context:
   def flash(name: String): Option[String] = req.flash.get(name)
   inline def noBot = !isBot
   lazy val acceptLanguages: Set[Language] =
-    req.acceptLanguages.view.map(toLanguage).toSet + defaultLanguage ++
+    lila.core.i18n.playAcceptLanguages(req).view.map(toLanguage).toSet + defaultLanguage ++
       user.flatMap(_.realLang.map(toLanguage)).toSet
 
 object Context:
