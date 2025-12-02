@@ -4,6 +4,7 @@ import { throttlePromiseDelay } from 'lib/async';
 import { maxPerPage, myPage, players } from './pagination';
 import type { SwissData, SwissOpts, Pages, Standing, Player } from './interfaces';
 import { storage } from 'lib/storage';
+import { myUserId } from 'lib';
 
 export default class SwissCtrl {
   data: SwissData;
@@ -145,6 +146,17 @@ export default class SwissCtrl {
 
   changeReadyState = () => {
     xhr.changeReadyState(this);
+    const isDelayed = this.data.me?.isDelayed;
+    const playerReady = this.data.me?.playerReady;
+    const iAmReady = myUserId() == playerReady;
+    if (isDelayed && !playerReady && this.data.me) {
+      this.data.me.playerReady = myUserId();
+    } else if (isDelayed && iAmReady && this.data.me) {
+      this.data.me.playerReady = undefined;
+    } else if (isDelayed && playerReady && !iAmReady && this.data.me) {
+      this.data.me.isDelayed = false;
+    }
+    this.redraw();
   };
 
   private reloadSoonThrottle: () => void;
