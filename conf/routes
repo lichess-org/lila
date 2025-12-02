@@ -751,6 +751,7 @@ POST  /api/swiss/new/:teamId           controllers.Swiss.apiCreate(teamId: TeamI
 POST  /api/swiss/$id<\w{8}>/edit       controllers.Swiss.apiUpdate(id: SwissId)
 POST  /api/swiss/$id<\w{8}>/join       controllers.Swiss.join(id: SwissId)
 POST  /api/swiss/$id<\w{8}>/withdraw   controllers.Swiss.withdraw(id: SwissId)
+POST  /api/swiss/$id<\w{8}>/ready      controllers.Swiss.ready(id: SwissId)
 POST  /api/swiss/$id<\w{8}>/terminate  controllers.Swiss.apiTerminate(id: SwissId)
 GET   /api/swiss/$id<\w{8}>            controllers.Swiss.apiShow(id: SwissId)
 GET   /api/swiss/$id<\w{8}>/games      controllers.Api.swissGames(id: SwissId)

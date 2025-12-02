@@ -179,6 +179,10 @@ final class Swiss(
       negotiate(Redirect(routes.Swiss.show(id)), jsonOkResult)
   }
 
+  def ready(id: SwissId) = AuthOrScoped(_.Tournament.Write) { ctx ?=> me ?=>
+    env.swiss.api.ready(id, me) >> jsonOkResult
+  }
+
   def edit(id: SwissId) = Auth { ctx ?=> me ?=>
     WithEditableSwiss(id): swiss =>
       Ok.page(views.swiss.form.edit(swiss, env.swiss.forms.edit(me, swiss)))

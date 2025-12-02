@@ -5,7 +5,7 @@ import lila.core.chess.Rank
 opaque type SwissRoundNumber = Int
 object SwissRoundNumber extends RelaxedOpaqueInt[SwissRoundNumber]
 
-case class MyInfo(rank: Rank, gameId: Option[GameId], user: User, player: SwissPlayer):
+case class MyInfo(rank: Rank, gameId: Option[GameId], user: User, player: SwissPlayer, isDelayed: Boolean, playerReady: Option[UserId]):
   def page = (rank + 9).value / 10
 
 final class GetSwissName(cache: lila.memo.Syncache[SwissId, Option[String]]):
