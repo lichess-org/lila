@@ -135,9 +135,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     val prefs = trans.preferences.preferences.txt()
     frag(
       a(href := s"${routes.Auth.login.url}?referrer=${ctx.req.path}", cls := "signin")(trans.site.signIn()),
-      "or",
-      raw("&nbsp;&nbsp;"),
-      a(href := routes.Auth.signup.url, cls := "signup")("REGISTER"),
+      a(href := routes.Auth.signup, cls := "signup")(trans.site.signUp()),
       div(cls := "dasher")(
         button(cls := "toggle anon link", title := prefs, aria.label := prefs, dataIcon := Icon.Gear),
         div(id := "dasher_app", cls := "dropdown")
