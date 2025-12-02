@@ -59,7 +59,8 @@ export default class SwissCtrl {
 
   private redirectToMyGame() {
     const gameId = this.myGameId();
-    if (gameId && !this.isDelayed) this.redirectFirst(gameId);
+    const isDelayed = this.isDelayed();
+    if (gameId && !isDelayed) this.redirectFirst(gameId);
   }
 
   redirectFirst = (gameId: string, rightNow?: boolean) => {
