@@ -108,7 +108,7 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
               bits.orderSelect(order, "search", url = o => routes.Study.search(text, 1, o.some)),
               bits.newForm()
             ),
-            paginate(pag, routes.Study.search(text, pag.currentPage, order.some))
+            paginate(pag, routes.Study.search(text, 1, order.some))
           )
         )
 
