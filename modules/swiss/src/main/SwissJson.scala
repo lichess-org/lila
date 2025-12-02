@@ -77,21 +77,31 @@ final class SwissJson(
   def fetchMyInfo(swiss: Swiss, me: User): Fu[Option[MyInfo]] =
     mongo.player.byId[SwissPlayer](SwissPlayer.makeId(swiss.id, me.id).value).flatMapz { player =>
       updatePlayerRating(swiss, player, me) >>
-        SwissPairing.fields: f =>
+        SwissPairing.fields { f =>
           (swiss.nbOngoing > 0)
-            .so:
+            .so {
               mongo.pairing
                 .find(
-                  $doc(f.swissId -> swiss.id, f.players -> player.userId, f.status -> SwissPairing.ongoing),
-                  $doc(f.id -> true).some
+                  $doc(
+                    f.swissId -> swiss.id,
+                    f.players -> player.userId,
+                    f.status -> SwissPairing.ongoing
+                  ),
+                  $doc(f.id -> true, f.isDelayed -> true, f.playerReady -> true).some
                 )
                 .one[Bdoc]
-                .dmap { _.flatMap(_.getAsOpt[GameId](f.id)) }
-            .flatMap: gameId =>
+            }
+            .flatMap { maybeDoc =>
+              val gameId = maybeDoc.flatMap(_.getAsOpt[GameId](f.id))
+              val isDelayed = maybeDoc.flatMap(_.getAsOpt[Boolean](f.isDelayed)).getOrElse(false)
+              val playerReady = maybeDoc.flatMap(_.getAsOpt[UserId](f.playerReady))
               rankingApi(swiss)
                 .dmap(_.get(player.userId))
-                .map2:
-                  MyInfo(_, if swiss.settings.flexible.getOrElse(false) then None else gameId, me, player)
+                .map2 { ranking =>
+                  MyInfo(ranking, gameId, me, player, isDelayed, playerReady)
+                }
+            }
+        }
     }
 
   private def updatePlayerRating(swiss: Swiss, player: SwissPlayer, user: User): Funit =
@@ -265,7 +275,9 @@ object SwissJson:
         "gameId" -> i.gameId,
         "id" -> i.user.id,
         "name" -> i.user.username,
-        "absent" -> i.player.absent
+        "absent" -> i.player.absent,
+        "isDelayed" -> i.isDelayed,
+        "playerReady" -> i.playerReady
       )
 
   private[swiss] def boardJson(b: SwissBoard.WithGame) =

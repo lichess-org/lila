@@ -49,6 +49,7 @@ export default class SwissCtrl {
   isFinished = () => this.data.status === 'finished';
 
   myGameId = () => this.data.me?.gameId;
+  isDelayed = () => this.data.me?.isDelayed;
 
   join = (password?: string) => {
     xhr.join(this, password);
@@ -58,7 +59,7 @@ export default class SwissCtrl {
 
   private redirectToMyGame() {
     const gameId = this.myGameId();
-    if (gameId) this.redirectFirst(gameId);
+    if (gameId && !this.isDelayed) this.redirectFirst(gameId);
   }
 
   redirectFirst = (gameId: string, rightNow?: boolean) => {
@@ -139,6 +140,10 @@ export default class SwissCtrl {
   withdraw = () => {
     xhr.withdraw(this);
     this.joinSpinner = true;
+  };
+
+  changeReadyState  = () => {
+    xhr.changeReadyState(this);
   };
 
   private reloadSoonThrottle: () => void;

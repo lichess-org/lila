@@ -386,6 +386,10 @@ final class SwissApi(
           }
     .void >> recomputeAndUpdateAll(id)
 
+  def ready(id: SwissId, userId: UserId): Funit =
+    logger.info(s"ready ${id} ${userId}")
+    fuccess(())   
+
   private def forfeitPairings(swiss: Swiss, userId: UserId): Funit =
     SwissPairing.fields: F =>
       mongo.pairing

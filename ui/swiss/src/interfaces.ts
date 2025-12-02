@@ -55,6 +55,8 @@ export interface MyInfo {
   rank: number;
   absent: boolean;
   gameId?: string;
+  isDelayed: boolean;
+  playerReady?: string;
 }
 
 export interface PairingBase {

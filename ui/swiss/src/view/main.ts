@@ -15,6 +15,7 @@ import { use24h } from 'lib/i18n';
 import { once } from 'lib/storage';
 import { watchers } from 'lib/view/watchers';
 import standaloneChat from 'lib/chat/standalone';
+import { myUserId } from 'lib';
 
 export default function (ctrl: SwissCtrl) {
   const d = ctrl.data;
@@ -63,7 +64,7 @@ function started(ctrl: SwissCtrl): LooseVNodes {
   const pag = players(ctrl);
   return [
     header(ctrl),
-    joinTheGame(ctrl) || notice(ctrl),
+    waitForTheGame(ctrl) || joinTheGame(ctrl) || notice(ctrl),
     nextRound(ctrl),
     controls(ctrl, pag),
     standing(ctrl, pag, 'started'),
@@ -169,6 +170,24 @@ function joinButton(ctrl: SwissCtrl): VNode | undefined {
           );
 
   return;
+}
+
+function waitForTheGame(ctrl: SwissCtrl) {
+  const isDelayed = ctrl.data.me?.isDelayed;
+  const playerReady = ctrl.data.me?.playerReady;
+  const iAmReady = myUserId() == playerReady;
+  const line1 = !playerReady
+    ? 'Your opponent is not ready yet'
+    : iAmReady
+      ? 'You are waiting for you opponent'
+      : 'Your opponent is ready';
+  const line2 = !playerReady
+    ? 'Click if you are ready'
+    : iAmReady
+      ? 'Click to cancel'
+      : 'Click to start the game';
+
+  return isDelayed && hl('a.swiss__ur-playing.button.is.is-after', { hook: bind('click', ctrl.changeReadyState,) }, [line1, hl('br'), line2]);
 }
 
 function joinTheGame(ctrl: SwissCtrl) {
