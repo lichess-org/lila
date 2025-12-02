@@ -64,7 +64,7 @@ function started(ctrl: SwissCtrl): LooseVNodes {
   const pag = players(ctrl);
   return [
     header(ctrl),
-    waitForTheGame(ctrl) || joinTheGame(ctrl) || notice(ctrl),
+    waitForTheGame(ctrl) || gameAboutToStart(ctrl) || joinTheGame(ctrl) || notice(ctrl),
     nextRound(ctrl),
     controls(ctrl, pag),
     standing(ctrl, pag, 'started'),
@@ -196,6 +196,12 @@ function waitForTheGame(ctrl: SwissCtrl) {
     ])
   );
 }
+
+const gameAboutToStart = (ctrl: SwissCtrl) => {
+  const isDelayed = ctrl.data.me?.isDelayed;
+  const playerReady = ctrl.data.me?.playerReady;
+  return !isDelayed && playerReady && hl('div.swiss__notice.bar-glider', 'Game is about to start');
+};
 
 function joinTheGame(ctrl: SwissCtrl) {
   const gameId = ctrl.data.me?.gameId;
