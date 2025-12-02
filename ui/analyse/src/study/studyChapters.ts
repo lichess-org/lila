@@ -244,18 +244,17 @@ export class StudyChapterScroller {
 
   scrollIfNeeded(list: HTMLElement) {
     if (!this.request) return;
+    const active = list.querySelector('.active');
+    if (!active) return;
     const request = this.request;
     this.request = undefined;
-    const active = list.querySelector('.active');
-    if (active) {
-      const [c, l] = [list.getBoundingClientRect(), active.getBoundingClientRect()];
-      if (c.top < l.top || c.bottom > l.bottom) {
-        cancelAnimationFrame(this.rafId ?? 0);
-        this.rafId = requestAnimationFrame(() => {
-          scrollToInnerSelector(list, '.active', false, request);
-          this.rafId = undefined;
-        });
-      }
+    const [c, l] = [list.getBoundingClientRect(), active.getBoundingClientRect()];
+    if (c.top < l.top || c.bottom > l.bottom) {
+      cancelAnimationFrame(this.rafId ?? 0);
+      this.rafId = requestAnimationFrame(() => {
+        scrollToInnerSelector(list, '.active', false, request);
+        this.rafId = undefined;
+      });
     }
   }
 }

@@ -4,7 +4,13 @@ import play.api.i18n.Lang
 import play.api.mvc.RequestHeader
 import scalalib.model.{ Language, LangTag }
 
-import lila.core.i18n.{ toLanguage, defaultLang, defaultLanguage, fixJavaLanguage }
+import lila.core.i18n.{
+  toLanguage,
+  defaultLang,
+  defaultLanguage,
+  fixJavaLanguage,
+  playAcceptLanguages as acceptLanguages
+}
 
 object LangPicker extends lila.core.i18n.LangPicker:
 
@@ -17,11 +23,11 @@ object LangPicker extends lila.core.i18n.LangPicker:
       .getOrElse(defaultLang)
 
   def bestFromRequestHeaders(req: RequestHeader): Option[Lang] =
-    req.acceptLanguages.collectFirstSome(findCloser)
+    acceptLanguages(req).collectFirstSome(findCloser)
 
   def allFromRequestHeaders(req: RequestHeader): List[Lang] = {
-    req.acceptLanguages.flatMap(findCloser) ++
-      req.acceptLanguages.flatMap(lang => ~byCountry.get(lang.country))
+    acceptLanguages(req).flatMap(findCloser) ++
+      acceptLanguages(req).flatMap(lang => ~byCountry.get(lang.country))
   }.distinct.toList
 
   def byStr(str: String): Option[Lang] =
@@ -35,7 +41,7 @@ object LangPicker extends lila.core.i18n.LangPicker:
     langs.sortBy { mine.getOrElse(_, Int.MaxValue) }
 
   def preferedLanguages(req: RequestHeader, prefLang: Lang): List[Language] = {
-    toLanguage(prefLang) +: req.acceptLanguages.map(toLanguage)
+    toLanguage(prefLang) +: acceptLanguages(req).map(toLanguage)
   }.distinct.view.filter(LangList.popularLanguages.contains).toList
 
   def pickBestOf(
@@ -46,7 +52,7 @@ object LangPicker extends lila.core.i18n.LangPicker:
       .map(toLanguage)
       .filter(candidates.contains)
       .orElse:
-        req.acceptLanguages
+        acceptLanguages(req)
           .map(toLanguage)
           .collectFirst:
             case l if candidates.contains(l) => l
@@ -66,9 +72,10 @@ object LangPicker extends lila.core.i18n.LangPicker:
     else defaultByLanguage.get(to.language).orElse(lichessCodes.get(to.language))
 
   def byHref(language: Language, req: RequestHeader): ByHref =
+    val accepted = acceptLanguages(req)
     Lang.get(language.value).flatMap(findCloser) match
       case Some(lang) if fixJavaLanguage(lang) == language =>
-        if req.acceptLanguages.isEmpty || req.acceptLanguages.exists(_.language == lang.language)
+        if accepted.isEmpty || accepted.exists(_.language == lang.language)
         then ByHref.Found(lang)
         else ByHref.Refused(lang)
       case Some(lang) => ByHref.Redir(fixJavaLanguage(lang))

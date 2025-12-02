@@ -164,6 +164,22 @@
     line-height: 14px;
     font-size: 0.9em;
     transition: width 1s;
+
+    &:first-child,
+    /* draw radius when white is at 0% */
+    &[style='width: 0%'] + span:not(:last-child):not([style*='width: 100%']) {
+      @extend %box-radius-inline-start-only;
+    }
+
+    &:last-child,
+    /* draw radius when black is at 0% */
+    &:not(:first-child):has(+ [style='width: 0%']) {
+      @extend %box-radius-inline-end-only;
+    }
+
+    &[style*='width: 100%'] {
+      border-radius: $box-radius-size;
+    }
   }
 
   .white {
@@ -202,28 +218,6 @@
       background: #555;
     }
     color: #ddd;
-  }
-
-  .bar span:first-child {
-    @extend %box-radius-left;
-    border-left-width: 1px;
-
-    @include if-rtl {
-      @extend %box-radius-right;
-      border-left-width: initial;
-      border-right-width: 1px;
-    }
-  }
-
-  .bar span:last-child {
-    @extend %box-radius-right;
-    border-right-width: 1px;
-
-    @include if-rtl {
-      @extend %box-radius-left;
-      border-right-width: initial;
-      border-left-width: 1px;
-    }
   }
 
   .games {
