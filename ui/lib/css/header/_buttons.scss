@@ -75,9 +75,9 @@
     }
   }
 
-  .signin {
-    text-transform: uppercase;
-    padding: 0 0.7rem;
+  .signin-or-signup {
+    @extend %flex-center;
+    gap: 1em;
   }
 
   .link-center {
