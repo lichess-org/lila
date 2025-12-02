@@ -179,8 +179,8 @@ final class Swiss(
       negotiate(Redirect(routes.Swiss.show(id)), jsonOkResult)
   }
 
-  def ready(id: SwissId) = AuthOrScoped(_.Tournament.Write) { ctx ?=> me ?=>
-    env.swiss.api.ready(id, me) >> jsonOkResult
+  def playerReady(id: SwissId) = AuthOrScoped(_.Tournament.Write) { ctx ?=> me ?=>
+    env.swiss.api.playerReady(id, me) >> jsonOkResult
   }
 
   def edit(id: SwissId) = Auth { ctx ?=> me ?=>

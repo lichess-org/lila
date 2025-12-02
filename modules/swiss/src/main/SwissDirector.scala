@@ -82,7 +82,7 @@ final private class SwissDirector(
       }
       .monSuccess(_.swiss.startRound)
 
-  private def makeGame(swiss: Swiss, players: Map[UserId, SwissPlayer])(pairing: SwissPairing): Game =
+  private[swiss] def makeGame(swiss: Swiss, players: Map[UserId, SwissPlayer])(pairing: SwissPairing): Game =
     lila.core.game
       .newGame(
         chess = chess
