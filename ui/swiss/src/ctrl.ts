@@ -143,7 +143,7 @@ export default class SwissCtrl {
     this.joinSpinner = true;
   };
 
-  changeReadyState  = () => {
+  changeReadyState = () => {
     xhr.changeReadyState(this);
   };
 

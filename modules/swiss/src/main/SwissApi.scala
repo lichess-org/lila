@@ -33,8 +33,7 @@ final class SwissApi(
     userApi: lila.core.user.UserApi,
     lightUserApi: lila.core.user.LightUserApi,
     roundApi: lila.core.round.RoundApi,
-    gameRepo: lila.core.game.GameRepo,
-    onStart: lila.core.game.OnStart
+    gameRepo: lila.core.game.GameRepo
 )(using scheduler: Scheduler)(using Executor, akka.stream.Materializer, lila.core.config.RateLimit)
     extends lila.core.swiss.SwissApi:
 
@@ -395,7 +394,7 @@ final class SwissApi(
         .flatMap:
           _.parallelVoid: pairing =>
             pairing.playerReady match
-              // set me ready
+              // I am ready
               case None =>
                 mongo.pairing.update.one($id(pairing.id), $doc("$set" -> $doc(F.playerReady -> userId)))
               // I'm not ready anymore
@@ -411,15 +410,19 @@ final class SwissApi(
                     // scope the players query to this swiss
                     SwissPlayer.fields: f =>
                       for
-                        players <- mongo.player.list[SwissPlayer]($doc(f.swissId -> swissId, f.userId.$in(userIds)))
+                        players <- mongo.player.list[SwissPlayer](
+                          $doc(f.swissId -> swissId, f.userId.$in(userIds))
+                        )
                         // unset ready/delayed flags then create the game
-                        _ <- mongo.pairing.update.one(
-                          $id(pairing.id),
-                          $doc("$unset" -> $doc(F.playerReady -> "", F.isDelayed -> ""))
-                        ).void
+                        _ <- mongo.pairing.update
+                          .one(
+                            $id(pairing.id),
+                            $doc("$unset" -> $doc(F.playerReady -> "", F.isDelayed -> ""))
+                          )
+                          .void
                         game = director.makeGame(swiss, players.mapBy(_.userId))(pairing)
                         _ <- gameRepo.insertDenormalized(game)
-                        _ <- onStart.exec(game.id)
+                        _ <- game.swissId.fold(funit)(sid => fuccess(socket.reload(sid)))
                       yield ()
                 yield ()
 
@@ -648,7 +651,7 @@ final class SwissApi(
         _.flatMap: doc =>
           for
             swissId <- doc.getAsOpt[SwissId]("_id")
-            gameIds <- doc.getAsOpt[List[GameId]]("ids") 
+            gameIds <- doc.getAsOpt[List[GameId]]("ids")
           yield swissId -> gameIds
       .flatMap:
         _.sequentiallyVoid { (swissId, gameIds) =>
