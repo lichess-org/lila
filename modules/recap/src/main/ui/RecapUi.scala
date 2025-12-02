@@ -28,6 +28,6 @@ final class RecapUi(helpers: Helpers):
       main(cls := "page-small box box-pad page")(
         h1(cls := "box__top")(s"Lichess Recap $year will be available soon."),
         div(
-          p("Check back later!")
+          p("Check back at the end of the year!")
         )
       )
