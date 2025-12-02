@@ -187,7 +187,14 @@ function waitForTheGame(ctrl: SwissCtrl) {
       ? 'Click to cancel'
       : 'Click to start the game';
 
-  return isDelayed && hl('a.swiss__ur-playing.button.is.is-after', { hook: bind('click', ctrl.changeReadyState,) }, [line1, hl('br'), line2]);
+  return (
+    isDelayed &&
+    hl('a.swiss__ur-playing.button.is.is-after', { hook: bind('click', ctrl.changeReadyState) }, [
+      line1,
+      hl('br'),
+      line2,
+    ])
+  );
 }
 
 function joinTheGame(ctrl: SwissCtrl) {
