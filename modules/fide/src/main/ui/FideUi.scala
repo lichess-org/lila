@@ -193,7 +193,8 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
           fieldId = id,
           fieldName = id,
           checked = p.follow,
-          action = Some(routes.Fide.follow(p.player.id, p.follow).url)
+          action = Some(routes.Fide.follow(p.player.id, p.follow).url),
+          styleClass = "cmn-favourite"
         )
       )
 
