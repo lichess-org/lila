@@ -5,6 +5,7 @@ import scalalib.paginator.{ AdapterLike, Paginator }
 
 import lila.db.dsl.*
 import lila.db.paginator.{ Adapter, CachedAdapter }
+import lila.core.fide.FidePlayerOrder
 
 final class FidePaginator(repo: FideRepo)(using Executor):
 
@@ -45,7 +46,9 @@ final class FidePaginator(repo: FideRepo)(using Executor):
       maxPerPage = maxPerPage
     ).flatMap(addFollows)
 
-  def best(page: Int, query: String)(using Option[Me]): Fu[Paginator[FidePlayer.WithFollow]] =
+  def ordered(page: Int, query: String, order: FidePlayerOrder)(using
+      Option[Me]
+  ): Fu[Paginator[FidePlayer.WithFollow]] =
     val search = FidePlayer.tokenize(query).some.filter(_.size > 1)
     Paginator(
       adapter = search match
@@ -55,7 +58,7 @@ final class FidePaginator(repo: FideRepo)(using Executor):
             collection = repo.playerColl,
             selector = $text(search),
             projection = textScore.some,
-            sort = textScore ++ repo.player.sortStandard,
+            sort = textScore ++ repo.player.sortStandard, // don't touch, hits FTS index with standard
             _.sec
           )
         case _ =>
@@ -65,7 +68,7 @@ final class FidePaginator(repo: FideRepo)(using Executor):
               collection = repo.playerColl,
               selector = repo.player.selectActive,
               projection = none,
-              sort = repo.player.sortStandard,
+              sort = repo.player.sortBy(order),
               _.sec
             )
           )

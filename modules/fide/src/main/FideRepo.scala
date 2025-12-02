@@ -3,7 +3,7 @@ package lila.fide
 import chess.FideId
 import reactivemongo.api.bson.*
 
-import lila.core.fide as hub
+import lila.core.fide.{ Federation, FidePlayerOrder }
 import lila.db.dsl.{ *, given }
 import scala.util.Success
 
@@ -16,19 +16,27 @@ final private class FideRepo(
   object player:
     given handler: BSONDocumentHandler[FidePlayer] = Macros.handler
     val selectActive: Bdoc = $doc("inactive".$ne(true))
-    def selectFed(fed: hub.Federation.Id): Bdoc = $doc("fed" -> fed)
+    def selectFed(fed: Federation.Id): Bdoc = $doc("fed" -> fed)
     def sortStandard: Bdoc = $sort.desc("standard")
+    def sortBy(o: FidePlayerOrder) = o match
+      case FidePlayerOrder.name => $sort.asc("name")
+      case FidePlayerOrder.federation => $sort.asc("fed")
+      case FidePlayerOrder.standard => $sort.desc("standard")
+      case FidePlayerOrder.rapid => $sort.desc("rapid")
+      case FidePlayerOrder.blitz => $sort.desc("blitz")
+      case FidePlayerOrder.year => $sort.desc("year")
+      case FidePlayerOrder.follow => $empty // TODO
     def fetch(id: FideId): Fu[Option[FidePlayer]] = playerColl.byId[FidePlayer](id)
     def fetch(ids: Seq[FideId]): Fu[List[FidePlayer]] =
       playerColl.find($inIds(ids)).cursor[FidePlayer](ReadPref.sec).listAll()
     def countAll = playerColl.count()
 
   object federation:
-    given BSONDocumentHandler[hub.Federation.Stats] = Macros.handler
+    given BSONDocumentHandler[Federation.Stats] = Macros.handler
     given handler: BSONDocumentHandler[Federation] = Macros.handler
     def upsert(fed: Federation): Funit =
       federationColl.update.one($id(fed.id), fed, upsert = true).void
-    def fetch(code: hub.Federation.Id): Fu[Option[Federation]] = federationColl.byId[Federation](code)
+    def fetch(code: Federation.Id): Fu[Option[Federation]] = federationColl.byId[Federation](code)
 
   object follower:
     // { _id: '14204118/thibault', u: 'thibault' }

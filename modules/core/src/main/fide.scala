@@ -34,6 +34,15 @@ type GetPlayerFollowers = FideId => Fu[Set[UserId]]
 
 type Tokenize = String => PlayerToken
 
+enum FidePlayerOrder:
+  case name, federation, standard, rapid, blitz, year, follow
+  def key = toString
+
+object FidePlayerOrder:
+  def all: List[FidePlayerOrder] = values.toList
+  val byKey = values.mapBy(_.key)
+  val default: FidePlayerOrder = standard
+
 // FIDE's weird way of not supporting unicode
 object diacritics:
   private val replacements = List(

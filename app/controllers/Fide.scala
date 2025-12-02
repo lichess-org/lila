@@ -3,6 +3,7 @@ package controllers
 import play.api.mvc.*
 
 import lila.app.{ *, given }
+import lila.core.fide.FidePlayerOrder
 import lila.fide.Federation
 import lila.fide.FideJson.given
 
@@ -10,11 +11,12 @@ final class Fide(env: Env) extends LilaController(env):
 
   def index(page: Int, q: Option[String] = None) = Open:
     Reasonable(page):
+      val order = get("order").flatMap(FidePlayerOrder.byKey.get) | FidePlayerOrder.default
       env.fide
-        .search(q, page)
+        .search(q, page, order)
         .flatMap:
           case Left(p) => Redirect(routes.Fide.show(p.player.id, p.player.slug))
-          case Right(pager) => renderPage(views.fide.player.index(pager, q.so(_.trim))).map(Ok(_))
+          case Right(pager) => renderPage(views.fide.player.index(pager, q.so(_.trim), order)).map(Ok(_))
 
   def show(id: chess.FideId, slug: String, page: Int) = Open:
     env.fide.repo.player
@@ -40,7 +42,7 @@ final class Fide(env: Env) extends LilaController(env):
     Found(env.fide.repo.player.fetch(id))(JsonOk)
 
   def apiSearch(q: String) = Anon:
-    env.fide.search(q.some, 1).map(_.fold(Seq(_), _.currentPageResults)).map(JsonOk)
+    env.fide.search(q.some, 1, FidePlayerOrder.default).map(_.fold(Seq(_), _.currentPageResults)).map(JsonOk)
 
   def federations(page: Int) = Open:
     for

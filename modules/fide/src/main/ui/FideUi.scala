@@ -4,9 +4,9 @@ package ui
 import scalalib.paginator.Paginator
 import chess.FideTC
 
+import lila.core.fide.FidePlayerOrder
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
   import helpers.{ *, given }
@@ -80,7 +80,13 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
               )
             )
         ),
-        player.playerList(players, routes.Fide.federation(fed.slug, _), withFlag = false)
+        player.playerList(
+          players,
+          FidePlayerOrder.default,
+          routes.Fide.federation(fed.slug, _),
+          sortable = false,
+          withFlag = false
+        )
       )
 
     private val kosovoText =
@@ -97,7 +103,9 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
 
   object player:
 
-    def index(players: Paginator[FidePlayer.WithFollow], query: String)(using Context) =
+    def index(players: Paginator[FidePlayer.WithFollow], query: String, order: FidePlayerOrder)(using
+        Context
+    ) =
       page("FIDE players", "players")(
         cls := "fide-players",
         boxTop(
@@ -105,7 +113,12 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
           div(cls := "box__top__actions"):
             searchForm(query)
         ),
-        playerList(players, np => routes.Fide.index(np, query.some.filter(_.nonEmpty)))
+        playerList(
+          players,
+          order,
+          np => routes.Fide.index(np, query.some.filter(_.nonEmpty)),
+          sortable = query.isEmpty
+        )
       )
 
     def notFound(id: chess.FideId)(using Context) =
@@ -148,18 +161,32 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
 
     def playerList(
         players: Paginator[FidePlayer.WithFollow],
+        order: FidePlayerOrder,
         url: Int => Call,
+        sortable: Boolean,
         withFlag: Boolean = true
     )(using ctx: Context) =
-      table(cls := "slist slist-pad")(
+      def header(label: Frag, o: FidePlayerOrder) =
+        if sortable then
+          val current = o == order
+          th(
+            a(
+              href := current.not.option(addQueryParam(url(1).url, "order", o.key)),
+              cls := List("active" -> current)
+            )(label)
+          )
+        else th(label)
+      table(
+        cls := List("slist slist-pad fide-players-table" -> true, "fide-players-table--sortable" -> sortable)
+      )(
         thead:
           tr(
-            th(trs.name()),
-            withFlag.option(th(iconTag(Icon.FlagOutline))),
-            th(trs.classical()),
-            th(trs.rapid()),
-            th(trs.blitz()),
-            th(trb.ageThisYear()),
+            header(trs.name(), FidePlayerOrder.name),
+            withFlag.option(header(iconTag(Icon.FlagOutline), FidePlayerOrder.federation)),
+            header(trs.classical(), FidePlayerOrder.standard),
+            header(trs.rapid(), FidePlayerOrder.rapid),
+            header(trs.blitz(), FidePlayerOrder.blitz),
+            header(trb.ageThisYear(), FidePlayerOrder.year),
             ctx.isAuth.option(th("Follow"))
           )
         ,
@@ -179,16 +206,16 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
               ctx.isAuth.option(td(followButton(p)))
             )
           ,
-          pagerNextTable(players, np => url(np).url)
+          pagerNextTable(players, np => addQueryParam(url(np).url, "order", order.key))
         )
       )
 
     private def card(name: Frag, value: Frag) =
       div(cls := "fide-card fide-player__card")(em(name), strong(value))
 
-    private def followButton(p: FidePlayer.WithFollow) =
+    private def followButton(p: FidePlayer.WithFollow)(using Translate) =
       val id = s"fide-player-follow-${p.player.id}"
-      label(cls := "fide-player__follow")(
+      label(cls := "fide-player__follow", title := trans.site.follow.txt())(
         form3.cmnToggle(
           fieldId = id,
           fieldName = id,

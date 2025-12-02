@@ -33,6 +33,25 @@
   }
 }
 
+.fide-players-table--sortable {
+  th {
+    padding: 0;
+    a {
+      color: $c-font-dim;
+      font-weight: normal;
+      padding: 0.5em 0.8em;
+      &:hover {
+        color: $c-brag;
+      }
+      &.active {
+        font-weight: bold;
+        color: $c-brag;
+        background: $m-brag--fade-85;
+      }
+    }
+  }
+}
+
 .fide-cards {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
