@@ -29,14 +29,8 @@
   <string name="pendingReview">A tua stream está a ser revista por moderadores.</string>
   <string name="pleaseFillIn">Por favor preenche a tua informação informação de streamer, e coloca uma imagem.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Quando estiveres pronto para ser listado como um streamer do Lichess, %s</string>
-  <string name="submitForReview" comment="Appears on a button when editing the page which lets you be listed as a streamer: https://lichess.org/streamer/edit&#10;&#10;As this is public, any changes to a streamer page are first sent to the Lichess team for review.">Submeter para revisão</string>
+  <string name="submitForReview">Submeter para revisão</string>
   <string name="streamerLanguageSettings">A página do streamer Lichess visa o seu público com o idioma fornecido pela sua plataforma de streaming. Defina o idioma padrão correto para os seus streams de xadrez no aplicativo ou serviço usado para transmitir.</string>
-  <string name="twitchUsername">O teu nome de utilizador ou link na Twitch</string>
-  <string name="twitchOrYouTubeRequired" comment="A notice when creating/editing your streamer page (https://lichess.org/streamer/edit), denoting that you can only be listed if you stream from a Twitch or YouTube channel.">É necessário Twitch ou YouTube</string>
-  <string name="twitchOrYouTubeMustBeVerified" comment="For background: The &quot;streamer badge&quot; refers to the microphone icon on the streamer's profile (https://lichess.org/@/Lichess).&#10;The listing is the streamer's page that appears at https://lichess.org/streamer">As alterações na Twitch e no YouTube devem ser verificadas.
-  
-  O teu ícone de streamer e a tua listagem serão suspensos enquanto a análise estiver em curso. Isto pode demorar até 72 horas.</string>
-  <string name="youTubeChannelId">O seu ID de canal do YouTube</string>
   <string name="streamerName">O teu nome de streamer no Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Mantem-no curto: %s carácter no máximo</item>

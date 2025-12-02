@@ -16,6 +16,8 @@
   <string name="backRankMateDescription">Sett kongen sjakk matt på sisteraden, når den er fanget der av egne brikker.</string>
   <string name="balestraMate">Armbrøstmatt</string>
   <string name="balestraMateDescription">Løper setter matt, mens dronning blokkerer fluktfeltene</string>
+  <string name="blindSwineMate">Grisematt</string>
+  <string name="blindSwineMateDescription">To tårn samarbeider om å matte kongen i et kvadratisk område på 4 felt.</string>
   <string name="bishopEndgame">Løpersluttspill</string>
   <string name="bishopEndgameDescription">Et sluttspill med kun løpere og bønder.</string>
   <string name="bodenMate">Bodens matt</string>
@@ -24,8 +26,12 @@
   <string name="castlingDescription">Få kongen i sikkerhet og gjør tårnet klart for angrep.</string>
   <string name="capturingDefender">Slå forsvareren</string>
   <string name="capturingDefenderDescription">Ta en brikke som gir avgjørende dekning for en annen brikke, slik at den nå udekkede brikken kan slås senere.</string>
+  <string name="cornerMate">Hjørnematt</string>
+  <string name="cornerMateDescription">Press kongen inn i hjørnet ved hjelp av tårn eller dronning, og la springer sette matt.</string>
   <string name="crushing">Knusende</string>
   <string name="crushingDescription">Oppdag motstanderens bukk og oppnå en knusende fordel. (eval ≥ 600cp)</string>
+  <string name="discoveredCheck" comment="Description (translatable separately):&#10;&#10;Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage.">Avdekkersjakk</string>
+  <string name="discoveredCheckDescription" comment="Description for the &quot;Discovered check&quot; puzzle theme.">Flytt en brikke for å avsløre sjakk fra en skjult angriper, noe som ofte gir en avgjørende fordel.</string>
   <string name="doubleBishopMate">Dobbeltløpermatt</string>
   <string name="doubleBishopMateDescription">To angripende løpere på tilstøtende diagonaler setter matt, da kongen er blokkert av egne brikker.</string>
   <string name="dovetailMate">Halematt</string>

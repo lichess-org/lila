@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="featuredEvents">رویدادهای ویژه</string>
-  <string name="moveList">لیست حرکات</string>
+  <string name="moveList">فِهرست‌حرکت</string>
   <string name="gameInfo">اطلاعات بازی</string>
   <string name="pieces">مهره</string>
   <string name="gameStatus">وضعیت بازی</string>
@@ -11,7 +11,7 @@
   <string name="yourClock">ساعت شما</string>
   <string name="opponentClock">ساعت حریف</string>
   <string name="gameStart">شروع بازی</string>
-  <string name="boardCommandList">لیست دستورها وقتی تخته فعال است</string>
+  <string name="boardCommandList">فهرستِ دستور وقتی تخته فعال است</string>
   <string name="inputFormCommandList">این دستورها را در کادر دستور تایپ کنید.</string>
   <string name="goToInputForm">رفتن به کادر دستور</string>
   <string name="announceCurrentSquare">اعلام نام خانهٔ فعلی</string>
@@ -26,7 +26,7 @@
   <string name="announcePieceLocations" comment="This is an instruction for how blind users can use the command form.&#10;&#10;Here, they can type in &quot;p N&quot;, &quot;p k&quot;, or &quot;p A&quot; for the respective commands. Capital letters are for white pieces while lowercase letters are for black pieces.&#10;&#10;Please write out &quot;capital&quot; or &quot;lowercase&quot; to distinguish it for blind users.">اعلام مکان مهره‌ها. برای مثال: `pN` برای اسب‌های سفید، `pk` برای شاه سیاه، `pA` برای تمام مهره‌های سفید.</string>
   <string name="announcePiecesOnRankOrFile" comment="This is an instruction for how blind users can use the command form.&#10;&#10;Here, they must type in &quot;s&quot; to announce pieces on the rank or file. So &quot;s a&quot; would announce all pieces on file a, while &quot;s 1&quot; would announce all pieces on file 1.&#10;&#10;Please keep the space. Screen readers may not read the text out correctly without a space present.">اعلام مهره‌های یک ردیف یا ستون. مثال: `sa` (برای ستون a)، `s1` (برای ردیف ۱).</string>
   <string name="goToBoard" comment="Please keep the hyphen in or use a space for moves (e.g. &quot;a 1&quot;). Screen readers may not read the text out correctly without a hyphen or space present.">رفتن به تخته. خانهٔ پیش‌فرض e4 است. می‌توانید یک خانهٔ مشخص را هم انتخاب کنید: دستور `board a-1` یا `b a-1` شما را به خانهٔ a-1 می‌برد.</string>
-  <string name="movePiece">برای حرکت دادن مهره، از علامت‌گذاری جبری استاندارد استفاده کنید.</string>
+  <string name="movePiece">برای حرکتِ مهره، از نشانه‌گذاری جبری اِستانده بِبَهرید.</string>
   <string name="promotion" comment="This is meant to be read verbally by a screen reader. Please do NOT use the symbol &quot;=&quot; when translating &quot;equals&quot;. Write it as a full word.">برای ترفیع به مهره‌ای به جز وزیر، از علامت مساوی (=) استفاده کنید. برای مثال: `a8=N` پیاده را به اسب تبدیل می‌کند.</string>
   <string name="king">شاه</string>
   <string name="whiteKing">شاه سفید</string>
