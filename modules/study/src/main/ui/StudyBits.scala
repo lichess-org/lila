@@ -2,7 +2,7 @@ package lila.study
 package ui
 
 import lila.common.String.removeMultibyteSymbols
-import lila.core.study.Order
+import lila.core.study.StudyOrder
 import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
@@ -10,7 +10,7 @@ import ScalatagsTemplate.{ *, given }
 final class StudyBits(helpers: Helpers):
   import helpers.{ *, given }
 
-  def orderSelect(order: Order, active: String, url: Order => Call)(using Context) =
+  def orderSelect(order: StudyOrder, active: String, url: StudyOrder => Call)(using Context) =
     val orders =
       if active == "search" then Orders.search
       else if active == "all" then Orders.withoutSelector
@@ -32,7 +32,7 @@ final class StudyBits(helpers: Helpers):
       )
     )
 
-  def authLinks(active: String, order: Order)(using Context) =
+  def authLinks(active: String, order: StudyOrder)(using Context) =
     def activeCls(c: String) = cls := (c == active).option("active")
     frag(
       a(activeCls("mine"), href := routes.Study.mine(order))(trans.study.myStudies()),

@@ -8,7 +8,7 @@ import lila.search.client.SearchClient
 import lila.search.spec.{ Query, StudySorting }
 import lila.study.Study
 import lila.search.spec.{ Order as SpecOrder, StudySortField }
-import lila.core.study.Order
+import lila.core.study.StudyOrder
 
 final class Env(
     studyRepo: lila.study.StudyRepo,
@@ -18,7 +18,7 @@ final class Env(
 
   val api: StudySearchApi = wire[StudySearchApi]
 
-  def apply(text: String, order: Order, page: Int)(using me: Option[Me]) =
+  def apply(text: String, order: StudyOrder, page: Int)(using me: Option[Me]) =
     Paginator[Study.WithChaptersAndLiked](
       adapter = new AdapterLike[Study]:
         def query =
@@ -34,14 +34,14 @@ final class Env(
       maxPerPage = pager.maxPerPage
     )
 
-  extension (x: Order)
+  extension (x: StudyOrder)
     def toSpec: Option[StudySorting] =
       x.match
-        case Order.alphabetical => StudySorting(StudySortField.Name, SpecOrder.Asc).some
-        case Order.hot => StudySorting(StudySortField.Hot, SpecOrder.Desc).some
-        case Order.newest => StudySorting(StudySortField.CreatedAt, SpecOrder.Desc).some
-        case Order.oldest => StudySorting(StudySortField.CreatedAt, SpecOrder.Asc).some
-        case Order.popular => StudySorting(StudySortField.Likes, SpecOrder.Desc).some
-        case Order.updated => StudySorting(StudySortField.UpdatedAt, SpecOrder.Desc).some
-        case Order.mine => StudySorting(StudySortField.Likes, SpecOrder.Asc).some
-        case Order.relevant => none
+        case StudyOrder.alphabetical => StudySorting(StudySortField.Name, SpecOrder.Asc).some
+        case StudyOrder.hot => StudySorting(StudySortField.Hot, SpecOrder.Desc).some
+        case StudyOrder.newest => StudySorting(StudySortField.CreatedAt, SpecOrder.Desc).some
+        case StudyOrder.oldest => StudySorting(StudySortField.CreatedAt, SpecOrder.Asc).some
+        case StudyOrder.popular => StudySorting(StudySortField.Likes, SpecOrder.Desc).some
+        case StudyOrder.updated => StudySorting(StudySortField.UpdatedAt, SpecOrder.Desc).some
+        case StudyOrder.mine => StudySorting(StudySortField.Likes, SpecOrder.Asc).some
+        case StudyOrder.relevant => none
