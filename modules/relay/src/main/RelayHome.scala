@@ -14,7 +14,7 @@ final class RelayHomeApi(listing: RelayListing, pager: RelayPager, jsonView: Rel
     active <- listing.active
     past <- pager.inactive(1)
     (recent, reallyPast) = stealRecentFromPast(past.currentPageResults)
-  yield RelayHome(active, recent.pp, past.withCurrentPageResults(reallyPast))
+  yield RelayHome(active, recent, past.withCurrentPageResults(reallyPast))
 
   def get(page: Int): Fu[RelayHome | Paginator[WithLastRound]] =
     if page == 1 then home

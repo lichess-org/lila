@@ -229,7 +229,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
   def oauthLinkYoutube = Auth { _ ?=> _ ?=>
     Found(myStreamer): _ =>
       val state = oauth.makeState()
-      val redirectUri = routeUrl(routes.Streamer.oauthYoutubeRedirect).pp
+      val redirectUri = routeUrl(routes.Streamer.oauthYoutubeRedirect)
       val url = oauth.authorizeUrl.youtube(redirectUri, state, getBool("force_verify"))
       Redirect(url).withCookies(oauthMakeCookie("youtube", state))
   }
