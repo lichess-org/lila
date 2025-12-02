@@ -59,6 +59,10 @@ trait LangPicker:
   def preferedLanguages(req: RequestHeader, prefLang: Lang): List[Language]
   def byStrOrDefault(str: Option[String]): Lang
 
+// play's req.acceptLanguages can throw exceptions if request headers are malformed
+def playAcceptLanguages(req: RequestHeader): Seq[Lang] =
+  scala.util.Try(req.acceptLanguages).toOption.getOrElse(Seq.empty)
+
 trait JsDump:
   def keysToObject(keys: Seq[I18nKey])(using Translate): play.api.libs.json.JsObject
 
