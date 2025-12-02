@@ -393,38 +393,39 @@ final class SwissApi(
         .list[SwissPairing]($doc(F.swissId -> swissId, F.players -> userId))
         .flatMap:
           _.parallelVoid: pairing =>
-            pairing.playerReady match
-              // I am ready
-              case None =>
-                mongo.pairing.update.one($id(pairing.id), $doc("$set" -> $doc(F.playerReady -> userId)))
-              // I'm not ready anymore
-              case Some(pr) if userId.is(pr) =>
-                mongo.pairing.update.one($id(pairing.id), $doc("$unset" -> $doc(F.playerReady -> "")))
-              // my opponent is ready, let's start the game
-              case Some(_) =>
-                val userIds = pairing.players.map(_.e)
-                for
-                  // load swiss from cache
-                  swissOpt <- cache.swissCache.byId(swissId)
-                  _ <- swissOpt.fold(funit): swiss =>
-                    // scope the players query to this swiss
-                    SwissPlayer.fields: f =>
-                      for
-                        players <- mongo.player.list[SwissPlayer](
-                          $doc(f.swissId -> swissId, f.userId.$in(userIds))
-                        )
-                        // unset ready/delayed flags then create the game
-                        _ <- mongo.pairing.update
-                          .one(
-                            $id(pairing.id),
-                            $doc("$unset" -> $doc(F.playerReady -> "", F.isDelayed -> ""))
+            val effect =
+              pairing.playerReady match
+                // I am ready
+                case None =>
+                  mongo.pairing.update.one($id(pairing.id), $doc("$set" -> $doc(F.playerReady -> userId)))
+                // I'm not ready anymore
+                case Some(pr) if userId.is(pr) =>
+                  mongo.pairing.update.one($id(pairing.id), $doc("$unset" -> $doc(F.playerReady -> "")))
+                // my opponent is ready, let's start the game
+                case Some(_) =>
+                  val userIds = pairing.players.map(_.e)
+                  for
+                    // load swiss from cache
+                    swissOpt <- cache.swissCache.byId(swissId)
+                    _ <- swissOpt.fold(funit): swiss =>
+                      // scope the players query to this swiss
+                      SwissPlayer.fields: f =>
+                        for
+                          players <- mongo.player.list[SwissPlayer](
+                            $doc(f.swissId -> swissId, f.userId.$in(userIds))
                           )
-                          .void
-                        game = director.makeGame(swiss, players.mapBy(_.userId))(pairing)
-                        _ <- gameRepo.insertDenormalized(game)
-                        _ <- game.swissId.fold(funit)(sid => fuccess(socket.reload(sid)))
-                      yield ()
-                yield ()
+                          // unset ready/delayed flags then create the game
+                          _ <- mongo.pairing.update
+                            .one(
+                              $id(pairing.id),
+                              $doc("$unset" -> $doc(F.playerReady -> "", F.isDelayed -> ""))
+                            )
+                            .void
+                          game = director.makeGame(swiss, players.mapBy(_.userId))(pairing)
+                          _ <- gameRepo.insertDenormalized(game)
+                        yield ()
+                  yield ()
+            effect.flatMap(_ => fuccess(socket.reload(swissId)))
 
   private def forfeitPairings(swiss: Swiss, userId: UserId): Funit =
     SwissPairing.fields: F =>
