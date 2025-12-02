@@ -10,7 +10,7 @@ import scala.util.Success
 final private class FideRepo(
     private[fide] val playerColl: Coll,
     private[fide] val federationColl: Coll,
-    private val followerColl: Coll
+    private[fide] val followerColl: Coll
 )(using Executor):
 
   object player:
@@ -39,7 +39,7 @@ final private class FideRepo(
     def fetch(code: Federation.Id): Fu[Option[Federation]] = federationColl.byId[Federation](code)
 
   object follower:
-    // { _id: '14204118/thibault', u: 'thibault' }
+    // { _id: '14204118/thibault', u: 'thibault', p: 14204118 }
     type FollowId = String
     private object followId:
       def make(p: FideId, u: UserId) = s"$p/$u"
@@ -52,9 +52,11 @@ final private class FideRepo(
     def follow(u: UserId, p: FideId) = playerColl
       .exists($id(p))
       .flatMapz:
-        followerColl.update.one($id(followId.make(p, u)), $doc("u" -> u), upsert = true).void
+        followerColl.update.one($id(followId.make(p, u)), $doc("u" -> u, "p" -> p), upsert = true).void
     def unfollow(u: UserId, p: FideId) = followerColl.delete.one($id(followId.make(p, u))).void
     def isFollowing(u: UserId, p: FideId) = followerColl.exists($id(followId.make(p, u)))
+
+    def count(u: UserId): Fu[Int] = followerColl.countSel($doc("u" -> u))
 
     def withFollows(players: Seq[FidePlayer], u: UserId): Fu[Seq[FidePlayer.WithFollow]] =
       val ids = players.map(_.id).map(followId.make(_, u))

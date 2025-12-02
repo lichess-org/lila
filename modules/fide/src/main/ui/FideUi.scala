@@ -187,7 +187,7 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
             header(trs.rapid(), FidePlayerOrder.rapid),
             header(trs.blitz(), FidePlayerOrder.blitz),
             header(trb.ageThisYear(), FidePlayerOrder.year),
-            ctx.isAuth.option(th("Follow"))
+            ctx.isAuth.option(header(trs.follow(), FidePlayerOrder.follow))
           )
         ,
         tbody(cls := "infinite-scroll")(

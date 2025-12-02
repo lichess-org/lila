@@ -93,6 +93,7 @@ db.fide_player.createIndex(
   { _fts: 'text', _ftsx: 1, standard: -1 },
   { weights: { token: 1 }, default_language: 'english', language_override: 'language', textIndexVersion: 3 },
 );
+db.fide_player_follower.createIndex({ u: 1 });
 db.note.createIndex({ to: 1, date: -1 });
 db.note.createIndex({ from: 1 }, { partialFilterExpression: { mod: false } });
 db.note.createIndex(

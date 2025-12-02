@@ -3,7 +3,7 @@ package lila.fide
 import reactivemongo.api.*
 import scalalib.paginator.{ AdapterLike, Paginator }
 
-import lila.db.dsl.*
+import lila.db.dsl.{ *, given }
 import lila.db.paginator.{ Adapter, CachedAdapter }
 import lila.core.fide.FidePlayerOrder
 
@@ -47,14 +47,14 @@ final class FidePaginator(repo: FideRepo)(using Executor):
     ).flatMap(addFollows)
 
   def ordered(page: Int, query: String, order: FidePlayerOrder)(using
-      Option[Me]
+      me: Option[Me]
   ): Fu[Paginator[FidePlayer.WithFollow]] =
     val search = FidePlayer.tokenize(query).some.filter(_.size > 1)
     Paginator(
       adapter = search match
         case Some(search) =>
           val textScore = $doc("score" -> $doc("$meta" -> "textScore"))
-          new Adapter[FidePlayer](
+          Adapter[FidePlayer](
             collection = repo.playerColl,
             selector = $text(search),
             projection = textScore.some,
@@ -62,16 +62,39 @@ final class FidePaginator(repo: FideRepo)(using Executor):
             _.sec
           )
         case _ =>
-          new CachedAdapter[FidePlayer](
-            nbResults = fuccess(100 * maxPerPage.value),
-            adapter = new Adapter(
-              collection = repo.playerColl,
-              selector = repo.player.selectActive,
-              projection = none,
-              sort = repo.player.sortBy(order),
-              _.sec
-            )
-          )
+          val plentyOfResults = fuccess(100 * maxPerPage.value)
+          me match
+            case Some(me) if order == FidePlayerOrder.follow =>
+              new AdapterLike[FidePlayer]:
+                def nbResults: Fu[Int] = plentyOfResults
+                def slice(offset: Int, length: Int): Fu[Seq[FidePlayer]] =
+                  repo.followerColl
+                    .aggregateList(length, _.sec): framework =>
+                      import framework.*
+                      Match($doc("u" -> me.userId)) -> List(
+                        Project($doc("_id" -> false, "p" -> true)),
+                        PipelineOperator:
+                          $lookup.simple(from = repo.playerColl, as = "player", local = "p", foreign = "_id")
+                        ,
+                        Unwind("player"),
+                        ReplaceRootField("player"),
+                        Sort(Descending(FidePlayerOrder.default.key)),
+                        Skip(offset),
+                        Limit(length)
+                      )
+                    .map:
+                      _.flatMap(repo.player.handler.readOpt)
+            case _ =>
+              CachedAdapter(
+                Adapter[FidePlayer](
+                  collection = repo.playerColl,
+                  selector = repo.player.selectActive,
+                  projection = none,
+                  sort = repo.player.sortBy(order),
+                  _.sec
+                ),
+                plentyOfResults
+              )
       ,
       currentPage = page,
       maxPerPage = maxPerPage
