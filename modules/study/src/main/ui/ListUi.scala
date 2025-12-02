@@ -4,7 +4,7 @@ package ui
 import play.api.data.Form
 import scalalib.paginator.Paginator
 
-import lila.core.study.Order
+import lila.core.study.StudyOrder
 import lila.study.Study.WithChaptersAndLiked
 import lila.ui.*
 
@@ -14,7 +14,7 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
   import helpers.{ *, given }
   import trans.study as trs
 
-  def all(pag: Paginator[WithChaptersAndLiked], order: Order)(using Context) =
+  def all(pag: Paginator[WithChaptersAndLiked], order: StudyOrder)(using Context) =
     page(
       title = trs.allStudies.txt(),
       active = "all",
@@ -25,7 +25,7 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
     )
       .hrefLangs(lila.ui.LangPath(routes.Study.allDefault()))
 
-  def byOwner(pag: Paginator[WithChaptersAndLiked], order: Order, owner: User)(using Context) =
+  def byOwner(pag: Paginator[WithChaptersAndLiked], order: StudyOrder, owner: User)(using Context) =
     page(
       title = trs.studiesCreatedByX.txt(owner.titleUsername),
       active = "owner",
@@ -35,7 +35,7 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
       url = routes.Study.byOwner(owner.username, _)
     )
 
-  def mine(pag: Paginator[WithChaptersAndLiked], order: Order, topics: StudyTopics)(using
+  def mine(pag: Paginator[WithChaptersAndLiked], order: StudyOrder, topics: StudyTopics)(using
       ctx: Context,
       me: Me
   ) =
@@ -51,7 +51,7 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
 
   def mineLikes(
       pag: Paginator[WithChaptersAndLiked],
-      order: Order
+      order: StudyOrder
   )(using Context) =
     page(
       title = trs.myFavoriteStudies.txt(),
@@ -62,7 +62,7 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
       url = routes.Study.mineLikes(_)
     )
 
-  def mineMember(pag: Paginator[WithChaptersAndLiked], order: Order, topics: StudyTopics)(using
+  def mineMember(pag: Paginator[WithChaptersAndLiked], order: StudyOrder, topics: StudyTopics)(using
       ctx: Context,
       me: Me
   ) =
@@ -76,7 +76,7 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
       topics = topics.some
     )
 
-  def minePublic(pag: Paginator[WithChaptersAndLiked], order: Order)(using Context)(using me: Me) =
+  def minePublic(pag: Paginator[WithChaptersAndLiked], order: StudyOrder)(using Context)(using me: Me) =
     page(
       title = trs.myPublicStudies.txt(),
       active = "minePublic",
@@ -86,7 +86,7 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
       url = routes.Study.minePublic(_)
     )
 
-  def minePrivate(pag: Paginator[WithChaptersAndLiked], order: Order)(using Context)(using me: Me) =
+  def minePrivate(pag: Paginator[WithChaptersAndLiked], order: StudyOrder)(using Context)(using me: Me) =
     page(
       title = trs.myPrivateStudies.txt(),
       active = "minePrivate",
@@ -96,7 +96,7 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
       url = routes.Study.minePrivate(_)
     )
 
-  def search(pag: Paginator[WithChaptersAndLiked], order: Order, text: String)(using Context) =
+  def search(pag: Paginator[WithChaptersAndLiked], order: StudyOrder, text: String)(using Context) =
     Page(text)
       .css("analyse.study.index")
       .js(infiniteScrollEsmInit):
@@ -115,9 +115,9 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
   private def page(
       title: String,
       active: String,
-      order: Order,
+      order: StudyOrder,
       pag: Paginator[WithChaptersAndLiked],
-      url: Order => Call,
+      url: StudyOrder => Call,
       searchFilter: String,
       topics: Option[StudyTopics] = None
   )(using Context): Page =
@@ -133,7 +133,7 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
               bits.newForm()
             ),
             topics.map: ts =>
-              div(cls := "box__pad")(topic.topicsList(ts, Order.mine)),
+              div(cls := "box__pad")(topic.topicsList(ts, StudyOrder.mine)),
             paginate(pag, url(order))
           )
         )
@@ -152,8 +152,8 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
         pagerNext(pager, np => addQueryParam(url.url, "page", np.toString))
       )
 
-  def menu(active: String, order: Order, topics: List[StudyTopic] = Nil)(using ctx: Context) =
-    val nonMineOrder = if order == Order.mine then Order.hot else order
+  def menu(active: String, order: StudyOrder, topics: List[StudyTopic] = Nil)(using ctx: Context) =
+    val nonMineOrder = if order == StudyOrder.mine then StudyOrder.hot else order
     lila.ui.bits.pageMenuSubnav(
       a(cls := active.active("all"), href := routes.Study.all(nonMineOrder))(trs.allStudies()),
       ctx.isAuth.option(bits.authLinks(active, nonMineOrder)),
@@ -172,7 +172,7 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
       )(trs.whatAreStudies())
     )
 
-  def searchForm(placeholder: String, value: String, order: Order) =
+  def searchForm(placeholder: String, value: String, order: StudyOrder) =
     form(cls := "search", action := routes.Study.search(order = order.some), method := "get")(
       input(name := "q", st.placeholder := placeholder, st.value := value, enterkeyhint := "search"),
       submitButton(cls := "button", dataIcon := Icon.Search)
@@ -180,7 +180,7 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
 
   object topic:
 
-    def topicsList(topics: StudyTopics, order: Order = Orders.default) =
+    def topicsList(topics: StudyTopics, order: StudyOrder = Orders.default) =
       div(cls := "topic-list")(
         topics.value.map: t =>
           a(href := routes.Study.byTopic(t.value, order))(t.value)
@@ -191,7 +191,7 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
         .css("analyse.study.index", "bits.form3", "bits.tagify")
         .js(Esm("analyse.study.topic.form")):
           main(cls := "page-menu")(
-            menu("topic", Order.mine, mine.so(_.value)),
+            menu("topic", StudyOrder.mine, mine.so(_.value)),
             main(cls := "page-menu__content study-topics box box-pad")(
               h1(cls := "box__top")(trans.study.topics()),
               myForm.map { form =>
@@ -211,11 +211,11 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
     def show(
         topic: StudyTopic,
         pag: Paginator[WithChaptersAndLiked],
-        order: Order,
+        order: StudyOrder,
         myTopics: Option[StudyTopics]
     )(using Context) =
       val active = s"topic:$topic"
-      val url = (o: Order) => routes.Study.byTopic(topic.value, o)
+      val url = (o: StudyOrder) => routes.Study.byTopic(topic.value, o)
       Page(topic.value)
         .css("analyse.study.index")
         .js(infiniteScrollEsmInit):
@@ -227,9 +227,9 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
                 bits.orderSelect(order, active, url),
                 bits.newForm()
               ),
-              myTopics.ifTrue(order == Order.mine).map { ts =>
+              myTopics.ifTrue(order == StudyOrder.mine).map { ts =>
                 div(cls := "box__pad")(
-                  topicsList(ts, Order.mine)
+                  topicsList(ts, StudyOrder.mine)
                 )
               },
               paginate(pag, url(order))
