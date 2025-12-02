@@ -237,12 +237,16 @@ function streamerSubscribe() {
 }
 
 function fidePlayerFollow() {
-  const el = $('#fide-player-follow');
-  el.on(
+  $('.fide-player__follow').on(
     'change',
     debounce(
-      () =>
-        text(el.data('action').replace(/follow=[^&]+/, `follow=${el.prop('checked')}`), { method: 'post' }),
+      e =>
+        text(
+          $(e.target)
+            .data('action')
+            .replace(/follow=[^&]+/, `follow=${$(e.target).prop('checked')}`),
+          { method: 'post' },
+        ),
       1000,
       true,
     ),
