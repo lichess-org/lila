@@ -65,6 +65,6 @@ java_env=(
 )
 
 # print info
-printf '%s\n' "java $java_version" "sbt ${java_env[*]} $*"
+printf '%s / %s\n' "java $java_version" "sbt ${java_env[*]} $*"
 
 exec sbt "${java_env[@]}" "$@"
