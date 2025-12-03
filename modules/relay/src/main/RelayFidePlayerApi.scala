@@ -8,11 +8,9 @@ import lila.core.fide.Player
 final private class RelayFidePlayerApi(guessPlayer: lila.core.fide.GuessPlayer)(using Executor):
 
   def enrichGames(tour: RelayTour)(games: RelayGames): Fu[RelayGames] =
-    tour.players
-      .fold(games)(_.parse.update(games)._1)
-      .traverse: game =>
-        enrichTags(game.tags, tour.info.fideTcOrGuess).map: tags =>
-          game.copy(tags = tags)
+    games.traverse: game =>
+      enrichTags(game.tags, tour.info.fideTcOrGuess).map: tags =>
+        game.copy(tags = tags)
 
   def enrichTags(tour: RelayTour): Tags => Fu[Tags] =
     tags => enrichTags(tags, tour.info.fideTcOrGuess)

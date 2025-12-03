@@ -90,8 +90,9 @@ final private class RelayFetch(
         limited = sliced.take(RelayFetch.maxChaptersToShow.value)
         _ <- (sliced.sizeCompare(limited) != 0 && rt.tour.official)
           .so(notifyAdmin.tooManyGames(rt, sliced.size, RelayFetch.maxChaptersToShow))
-        withFide <- fidePlayers.enrichGames(rt.tour)(limited)
-        withReplacements = playerEnrich.enrichAndReportAmbiguous(rt)(withFide)
+        withPlayers = playerEnrich.enrichAndReportAmbiguous(rt)(limited)
+        withFide <- fidePlayers.enrichGames(rt.tour)(withPlayers)
+        withReplacements = rt.tour.players.fold(withFide)(_.parse.update(withFide)._1)
         withTeams = rt.tour.teams.fold(withReplacements)(_.update(withReplacements))
         res <- sync
           .updateStudyChapters(rt, withTeams)
