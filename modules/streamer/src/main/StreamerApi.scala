@@ -80,10 +80,9 @@ final class StreamerApi(
   def pubsubSubscribe(userId: UserId, subscribe: Boolean): Funit =
     repo
       .byId(userId.into(Streamer.Id))
-      .collect:
-        case Some(s) =>
-          s.youtube.fold(funit)(tuber => ytApi.channelSubscribe(tuber.channelId, subscribe))
-          s.twitch.fold(funit)(twitcher => twitchApi.pubsubSubscribe(twitcher.id, subscribe))
+      .flatMapz: s =>
+        s.youtube.so(tuber => ytApi.channelSubscribe(tuber.channelId, subscribe))
+        s.twitch.so(twitcher => twitchApi.pubsubSubscribe(twitcher.id, subscribe))
 
   def oauthUnlink(streamer: Streamer, platform: Platform): Funit =
     for _ <- repo.oauth.unlink(streamer, platform)
