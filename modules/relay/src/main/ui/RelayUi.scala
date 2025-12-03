@@ -113,7 +113,7 @@ final class RelayUi(helpers: Helpers)(
       span(cls := "content")(
         span(cls := "name")(tr.tour.spotlight.flatMap(_.title) | tr.tour.name.value),
         span(cls := "more")(
-          tr.display.caption.fold(tr.display.name.value)(_.value),
+          tr.display.caption.fold(localizedRoundName(tr.display))(_.value),
           " • ",
           if tr.display.hasStarted
           then trans.site.eventInProgress()
@@ -126,3 +126,7 @@ final class RelayUi(helpers: Helpers)(
     a(dataIcon := Icon.InfoCircle, cls := "text", href := routes.RelayTour.help)(
       trans.broadcast.howToUseLichessBroadcasts()
     )
+
+  def localizedRoundName(round: RelayRound)(using Translate): String =
+    val roundRegex = """(?i)^Round (\d+)$""".r
+    roundRegex.replaceAllIn(round.name.value, m => trans.broadcast.roundX.txt(m.group(1)))
