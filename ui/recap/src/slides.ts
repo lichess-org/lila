@@ -5,7 +5,7 @@ import { formatNumber, loadOpeningLpv } from './ui';
 import { shuffle } from 'lib/algo';
 import { fullName, userFlair, userTitle } from 'lib/view/userLink';
 import { spinnerVdom } from 'lib/view';
-import { formatDuration, perfLabel, perfNames } from './util';
+import { formatDuration, perfLabel } from './util';
 import perfIcons from 'lib/game/perfIcons';
 
 const confettiCanvas = (): VNode =>
@@ -286,7 +286,15 @@ export const thanks = (r: Recap): VNode =>
 const renderPerf = (perf: RecapPerf): VNode => {
   return hl('span', [
     hl('i.text', { attrs: dataIcon(perfIcons[perf.key]) }),
-    perfNames[perf.key] || perf.key,
+    perf.key === 'bullet' ||
+    perf.key === 'blitz' ||
+    perf.key === 'rapid' ||
+    perf.key === 'classical' ||
+    perf.key === 'correspondence'
+      ? i18n.site[perf.key]
+      : perf.key !== 'ultraBullet'
+        ? i18n.variant[perf.key]
+        : perf.key,
   ]);
 };
 
