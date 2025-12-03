@@ -53,7 +53,7 @@ final private class TwitchApi(ws: StandaloneWSClient, repo: StreamerRepo, cfg: T
 
   import Twitch.{ given, * }
 
-  private val webhook = s"https://${net.domain}/api/streamer/twitch-eventsub"
+  private val webhook = net.routeUrl(routes.Streamer.onTwitchEventSub)
   private val eventSubEndpoint = s"${cfg.helixEndpoint}/eventsub/subscriptions"
   private val eventVersions =
     Map("stream.online" -> "1", "stream.offline" -> "1", "channel.update" -> "2")
@@ -172,7 +172,7 @@ final private class TwitchApi(ws: StandaloneWSClient, repo: StreamerRepo, cfg: T
           for
             subId <- (sub \ "id").asOpt[String]
             event <- (sub \ "type").asOpt[String]
-            hook <- (sub \ "transport" \ "callback").asOpt[String]
+            hook <- (sub \ "transport" \ "callback").asOpt[Url]
             if hook == webhook
           yield EventSub(subId, id, event)
 
@@ -190,7 +190,7 @@ final private class TwitchApi(ws: StandaloneWSClient, repo: StreamerRepo, cfg: T
               subId <- (d \ "id").asOpt[String]
               broadcasterId <- (d \ "condition" \ "broadcaster_user_id").asOpt[String]
               event <- (d \ "type").asOpt[String]
-              hook <- (d \ "transport" \ "callback").asOpt[String]
+              hook <- (d \ "transport" \ "callback").asOpt[Url]
               if hook == webhook
             yield EventSub(subId, broadcasterId, event)
 

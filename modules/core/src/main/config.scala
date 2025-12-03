@@ -60,7 +60,8 @@ object config:
       rateLimit: RateLimit,
       email: EmailAddress,
       logRequests: Boolean
-  )
+  ):
+    def routeUrl(call: play.api.mvc.Call) = data.Url(s"${baseUrl}${call.url}")
 
   opaque type ImageGetOrigin = String
   object ImageGetOrigin extends OpaqueString[ImageGetOrigin]

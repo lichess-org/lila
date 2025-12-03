@@ -11,6 +11,7 @@ trait AssetHelper:
   export lila.ui.Esm
 
   def netBaseUrl: BaseUrl
+  def routeUrl: Call => Url
   def assetBaseUrl: AssetBaseUrl
   def assetUrl(path: String): Url
   def safeJsonValue(jsValue: JsValue): SafeJsonStr
@@ -78,7 +79,6 @@ trait AssetHelper:
 
   def analyseNvuiTag(using ctx: Context) = ctx.blind.option(Esm("analyse.nvui"))
 
-  def routeUrl(call: Call): Url = Url(s"${netBaseUrl}${call.url}")
   def pathUrl(path: String): Url = Url(s"${netBaseUrl}$path")
 
   def fenThumbnailUrl(
