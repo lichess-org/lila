@@ -84,13 +84,7 @@
     }
 
     .date {
-      position: absolute;
-      bottom: 1px;
-      right: 1px;
-      z-index: 2;
-      opacity: 1;
-      padding: 0 5px;
-      background: $m-bg--fade-20;
+      display: none;
     }
 
     .view {

@@ -160,7 +160,6 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
       href := s"${langHref(routes.Video.show(vv.video.id))}?${control.queryStringUnlessBot}"
     )(
       vv.view.option(span(cls := "view")("watched")),
-      vv.video.metadata.publishedAt.map(at => span(cls := "date")(momentFromNow(at))),
       span(cls := "img", style := s"background-image: url(${vv.video.thumbnail})"),
       span(cls := "info")(
         span(cls := "title")(vv.video.title)
