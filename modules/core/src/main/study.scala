@@ -36,10 +36,10 @@ trait StudyApi:
 case class StartStudy(studyId: StudyId)
 case class RemoveStudy(studyId: StudyId)
 
-enum Order:
+enum StudyOrder:
   case hot, newest, oldest, updated, popular, alphabetical, mine, relevant
   def key = toString
 
-object Order:
-  def all: List[Order] = values.toList
+object StudyOrder:
+  def all: List[StudyOrder] = values.toList
   val byKey = values.mapBy(_.key)

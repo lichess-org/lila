@@ -29,14 +29,8 @@
   <string name="pendingReview">Jūsų transliacija peržiūrima moderatorių.</string>
   <string name="pleaseFillIn">Užpildykite savo transliuotojo informaciją ir įkelkite nuotrauką.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Kai būsite pasiruošę būti pažymėti kaip Lichess transliuotojas, %s</string>
-  <string name="submitForReview" comment="Appears on a button when editing the page which lets you be listed as a streamer: https://lichess.org/streamer/edit&#10;&#10;As this is public, any changes to a streamer page are first sent to the Lichess team for review.">Pateikti peržiūrai</string>
+  <string name="submitForReview">Pateikti peržiūrai</string>
   <string name="streamerLanguageSettings">Lichess transliuotojo puslapius nukreipia jūsų auditoriją su kalba nurodyta jūsų transliacijos platformoje. Nustatykite tinkamą numatytąją kalbą savo šachmatų transliacijoms programėlėje ar platformoje iš kurios transliuojate.</string>
-  <string name="twitchUsername">Jūsų Twitch vartotojo vardas ar adresas</string>
-  <string name="twitchOrYouTubeRequired" comment="A notice when creating/editing your streamer page (https://lichess.org/streamer/edit), denoting that you can only be listed if you stream from a Twitch or YouTube channel.">Privaloma naudoti Twitch arba YouTube</string>
-  <string name="twitchOrYouTubeMustBeVerified" comment="For background: The &quot;streamer badge&quot; refers to the microphone icon on the streamer's profile (https://lichess.org/@/Lichess).&#10;The listing is the streamer's page that appears at https://lichess.org/streamer">Twitch ir YouTube pakeitimai privalo būti patikrinti.
-  
-  Jūsų transliuotojo ženkliukas vieta sąraše taps neaktyvūs, kol vyks peržiūra. Tai gali užtrukti iki 72 valandų.</string>
-  <string name="youTubeChannelId">Jūsų YouTube kanalo ID (channel ID)</string>
   <string name="streamerName">Jūsų transliuotojo vardas Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Pasirinkite trumpą: daugiausia %s ženklas</item>

@@ -30,9 +30,6 @@
   <string name="pleaseFillIn">Fëll wgl. deng Streamer-Informatiounen aus a luet e Bild erop.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Wanns du prett bass als Lichess Streamer gelëscht ze ginn, %s</string>
   <string name="streamerLanguageSettings">D\'Lichess-Streamer-Säit riicht sech un däi Publikum mat der Sprooch vun denger Streaming-Plattform. Lee déi richteg Standardsprooch fir deng Schach-Streams fest an der App oder dem Déngscht, deen s du fir d\'Iwwerdroung benotz.</string>
-  <string name="twitchUsername">Däin Twitch-Benotzernumm oder d\'URL</string>
-  <string name="twitchOrYouTubeRequired" comment="A notice when creating/editing your streamer page (https://lichess.org/streamer/edit), denoting that you can only be listed if you stream from a Twitch or YouTube channel.">Entweeder Twitch oder YouTube sinn néideg</string>
-  <string name="youTubeChannelId">Deng YouTube-Kanal-ID</string>
   <string name="streamerName">Däi Streamernumm op Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Faass dech kuerz: maximal %s Zeechen</item>

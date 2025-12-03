@@ -14,6 +14,8 @@
   <string name="attractionDescription">Vaihto tai uhraus, joka houkuttelee tai pakottaa vastustajan nappulan tiettyyn ruutuun ja mahdollistaa siten taktisen jatkon.</string>
   <string name="backRankMate">Takarivin matti</string>
   <string name="backRankMateDescription">Matita kuningas takarivillä, kun sen omat nappulat estävät sitä siirtymästä pois.</string>
+  <string name="balestraMate">Varsijousimatti</string>
+  <string name="balestraMateDescription">Lähetti tekee matin daamin viedessä kuninkaalta muut pakoruudut</string>
   <string name="blindSwineMate">Sokeiden sikojen matti</string>
   <string name="blindSwineMateDescription">Kaksi tornia matittavat kuninkaan 2x2 ruudun suuruiselle alueelle.</string>
   <string name="bishopEndgame">Lähettiloppupeli</string>
@@ -28,6 +30,8 @@
   <string name="cornerMateDescription">Kahlitse kuningas laudan nurkkaan tornilla tai daamilla ja tee sitten matti ratsulla.</string>
   <string name="crushing">Murskaava etu</string>
   <string name="crushingDescription">Löydä vastustajan vakava virhe ja hanki murskaava etu. (eval ≥ 600cp)</string>
+  <string name="discoveredCheck" comment="Description (translatable separately):&#10;&#10;Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage.">Paljastusshakki</string>
+  <string name="discoveredCheckDescription" comment="Description for the &quot;Discovered check&quot; puzzle theme.">Paljasta yhtä nappulaa siirtämällä toisen hyökkäävän nappulasi shakkaus, millä usein saavuttaa ratkaisevan edun.</string>
   <string name="doubleBishopMate">Kahden lähetin matti</string>
   <string name="doubleBishopMateDescription">Kaksi vierekkäisiltä diagonaaleilta hyökkäävää lähettiä matittaa omien nappuloidensa estämän kuninkaan.</string>
   <string name="dovetailMate">Cozion matti</string>

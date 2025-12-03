@@ -9,7 +9,7 @@
   <string name="boardHighlights">رنگ‌نمایی صفحه (آخرین حرکت و کیش)</string>
   <string name="pieceDestinations">مقصد مهره(حرکت معتبر و پیش حرکت )</string>
   <string name="boardCoordinates">مختصات صفحه(A-H، 1-8)</string>
-  <string name="moveListWhilePlaying">فهرست حرکت هنگام بازی کردن</string>
+  <string name="moveListWhilePlaying">فهرست‌حرکت هنگام بازی کردن</string>
   <string name="pgnPieceNotation">نشانه‌گذاری حرکات</string>
   <string name="chessPieceSymbol">نماد مهره</string>
   <string name="pgnLetter">حرف (K, Q, R, B, N)</string>

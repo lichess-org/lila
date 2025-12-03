@@ -84,10 +84,16 @@ db.fide_player.createIndex({ fed: 1, standard: -1 });
 db.fide_player.createIndex({ fed: 1, rapid: -1 });
 db.fide_player.createIndex({ fed: 1, blitz: -1 });
 db.fide_player.createIndex({ standard: -1 });
+db.fide_player.createIndex({ rapid: -1 });
+db.fide_player.createIndex({ blitz: -1 });
+db.fide_player.createIndex({ name: 1 });
+db.fide_player.createIndex({ fed: 1 });
+db.fide_player.createIndex({ year: -1 });
 db.fide_player.createIndex(
   { _fts: 'text', _ftsx: 1, standard: -1 },
   { weights: { token: 1 }, default_language: 'english', language_override: 'language', textIndexVersion: 3 },
 );
+db.fide_player_follower.createIndex({ u: 1 });
 db.note.createIndex({ to: 1, date: -1 });
 db.note.createIndex({ from: 1 }, { partialFilterExpression: { mod: false } });
 db.note.createIndex(

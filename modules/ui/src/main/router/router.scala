@@ -12,7 +12,7 @@ package routes:
   export lila.core.user.FlagCode
   export lila.core.perf.PerfKey
   export lila.core.socket.Sri
-  export lila.core.study.Order as StudyOrder
+  export lila.core.study.StudyOrder
   export lila.core.ublog.{ BlogsBy, QualityFilter as BlogQualityFilter }
   export lila.ui.LilaRouter.given
 
@@ -28,7 +28,7 @@ package router.router:
   export lila.core.user.FlagCode
   export lila.core.perf.PerfKey
   export lila.core.socket.Sri
-  export lila.core.study.Order as StudyOrder
+  export lila.core.study.StudyOrder
   export lila.core.ublog.{ BlogsBy, QualityFilter as BlogQualityFilter }
   export lila.ui.LilaRouter.given
 
