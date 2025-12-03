@@ -7,10 +7,13 @@
 # Then in the sbt console:
 # run
 
+if [[ "${BASH_SOURCE[0]}" != "$0" ]]; then
+  >&2 echo "Fatal: lila.sh should be run, not sourced!"
+  return 1
+fi
+
 WARN() { >&2 printf '%s\n' "[warning] $*"; }
 ABORT() { >&2 printf '%s\n' "[FATAL] $*"; exit 1; }
-
-[[ "${BASH_SOURCE[0]}" == "$0" ]] || ABORT "should not be sourced!"
 
 cd "$(dirname -- "$0")"  # set cwd
 
@@ -54,7 +57,7 @@ fi
 java_bin="${java_home_bin:-$java_path_bin}"
 
 if ! "$java_bin" --list-modules 2>/dev/null | grep -Fq jdk.compiler; then
-    WARN "$java_bin incomplete. Is it a JRE (and not a JDK)?"
+  WARN "$java_bin incomplete. Is it a JRE (and not a JDK)?"
 fi
 
 java_version=$("$java_bin" -version 2>&1 | head -n1 | cut -d'"' -f2)
