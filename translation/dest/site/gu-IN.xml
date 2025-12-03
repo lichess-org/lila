@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="gameSetup">રમત સેટઅપ</string>
-  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">મિત્રને પડકાર આપો</string>
+  <string name="gameSetup">રમતની ગોઠવણી</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">મિત્ર સાથે રમો</string>
   <string name="playAgainstComputer">કમ્પ્યુટર સામે રમો</string>
   <string name="gameMode">ગેમ મોડ</string>
   <string name="createLobbyGame">રમત બનાવો</string>
