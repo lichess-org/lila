@@ -179,7 +179,7 @@ function waitForTheGame(ctrl: SwissCtrl) {
   const line1 = !playerReady
     ? 'Your opponent is not ready yet'
     : iAmReady
-      ? 'You are waiting for you opponent'
+      ? 'You are waiting for your opponent'
       : 'Your opponent is ready';
   const line2 = !playerReady
     ? 'Click if you are ready'

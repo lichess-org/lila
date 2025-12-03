@@ -405,16 +405,13 @@ final class SwissApi(
                 case Some(_) =>
                   val userIds = pairing.players.map(_.e)
                   for
-                    // load swiss from cache
                     swissOpt <- cache.swissCache.byId(swissId)
                     _ <- swissOpt.fold(funit): swiss =>
-                      // scope the players query to this swiss
                       SwissPlayer.fields: f =>
                         for
                           players <- mongo.player.list[SwissPlayer](
                             $doc(f.swissId -> swissId, f.userId.$in(userIds))
                           )
-                          // unset ready/delayed flags then create the game
                           _ <- mongo.pairing.update
                             .one(
                               $id(pairing.id),
