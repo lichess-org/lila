@@ -93,11 +93,11 @@ final class MarkdownRender(
 
   // https://github.com/vsch/flexmark-java/issues/496
   private val tooManyUnderscoreRegex = """(_{6,})""".r
-  private val tooManyQuotes = """^[>\s*]{5,}""".r
+  private val tooManyQuotes = """[>\s*]{5,}""".r
   private def preventStackOverflow(text: Markdown) =
     text.map:
       _.pipe(tooManyUnderscoreRegex.replaceAllIn(_, "_" * 3))
-        .pipe(tooManyQuotes.replaceAllIn(_, ">" * 4))
+        .pipe(tooManyQuotes.replaceAllIn(_, "> " * 4))
 
   def apply(key: MarkdownRender.Key)(text: Markdown): Html = Html:
     Chronometer
