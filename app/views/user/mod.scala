@@ -119,7 +119,10 @@ object mod:
               cls := o.is(u).option("same")
             )(
               if o.is(u) || lila.security.Granter.canViewAltUsername(o)
-              then td(dataSort := o.id)(userLink(o, withPerfRating = o.perfs.some, params = "?mod"))
+              then
+                td(dataSort := o.id, dataUsername := o.username, dataTitle := o.title)(
+                  userLink(o, withPerfRating = o.perfs.some, params = "?mod")
+                )
               else td,
               Granter.opt(_.Admin).option(td(emailValueOf(othersWithEmail)(o))),
               td(

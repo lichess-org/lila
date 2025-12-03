@@ -100,8 +100,8 @@ site.load.then(() => {
   });
 
   $('.user-show, .appeal').on('click', '.mz-section--others .add-to-note', function (this: HTMLElement) {
-    const username = $(this).parents('tr').find('td:first-child .user-link').text().split(' ')[0];
-    addToNote(`Alt: @${username}`);
+    const userTd = $(this).parents('tr').find('td:first-child');
+    addToNote(`Alt: ${[userTd.data('title') || '', `@${userTd.data('username')}`].join(' ').trim()}`);
   });
 
   const highlightUsername = () => highlightSearchTerm(username, '#main-wrap .user-link');
