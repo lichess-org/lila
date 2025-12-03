@@ -29,7 +29,7 @@ try {
   for (const doc of await coll
     .find({ 'twitch.userId': { $exists: true } }, { projection: { _id: 1, 'twitch.userId': 1 } })
     .toArray()) {
-    loginToStreamerId.set(doc.twitch.userId, doc._id);
+    loginToStreamerId.set(doc.twitch.userId.toLowerCase(), doc._id);
   }
   if (loginToStreamerId.size > 0) {
     const token = await tokenFromClientCreds();
