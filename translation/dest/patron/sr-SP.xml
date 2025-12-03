@@ -49,8 +49,10 @@
   <string name="tyvm">Хвала ти пуно на твојој помоћи. Супер си!</string>
   <string name="currentStatus">Тренутни статус</string>
   <string name="nextPayment">Следећа уплата</string>
+  <string name="youWillBeChargedXOnY">Биће ти наплаћено %1$s на %2$s.</string>
   <string name="makeAdditionalDonation">Направи додатну донацију сада</string>
-  <string name="changeMonthlyAmount">Промени месечну вредност (%s)</string>
+  <string name="update">Ажурирај</string>
+  <string name="changeMonthlyAmount">Промени месечни износ (%s)</string>
   <string name="cancelSupport">откажи твоју пордшку</string>
   <string name="xOrY">%1$s или %2$s</string>
   <string name="decideHowMuch">Одлучи колико Личес теби вреди:</string>
