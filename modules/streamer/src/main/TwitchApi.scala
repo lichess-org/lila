@@ -38,6 +38,7 @@ private[streamer] object Twitch:
   given Reads[HelixStream] = Json.reads
   given Reads[Result] = Json.reads
   given Reads[Pagination] = Json.reads
+  private val logger = lila.streamer.logger.branch("twitch")
 
 private class TwitchConfig(
     val endpoint: String,
@@ -81,7 +82,7 @@ final private class TwitchApi(ws: StandaloneWSClient, repo: StreamerRepo, cfg: T
               Twitch.TwitchStream(helix, streamer)
 
   def onMessage(rawBody: String, headers: Headers): Fu[Option[String]] =
-    verifyMessage(rawBody, headers).fold(fuccess(none)): messageType =>
+    verifyMessage(rawBody, headers).so: messageType =>
       val js = Json.parse(rawBody)
       messageType match
         case "webhook_callback_verification" => fuccess((js \ "challenge").asOpt[String])
@@ -187,9 +188,9 @@ final private class TwitchApi(ws: StandaloneWSClient, repo: StreamerRepo, cfg: T
           val data = (js \ "data").asOpt[List[JsValue]].getOrElse(Nil)
           val pageSet = data.flatMap: d =>
             for
-              subId <- (d \ "id").asOpt[String]
+              subId <- d.str("id")
               broadcasterId <- (d \ "condition" \ "broadcaster_user_id").asOpt[String]
-              event <- (d \ "type").asOpt[String]
+              event <- d.str("type")
               hook <- (d \ "transport" \ "callback").asOpt[Url]
               if hook == webhook
             yield EventSub(subId, broadcasterId, event)
@@ -247,9 +248,10 @@ final private class TwitchApi(ws: StandaloneWSClient, repo: StreamerRepo, cfg: T
       .post(Map.empty[String, String])
       .flatMap:
         case res if res.status == 200 =>
-          res.body[JsValue].asOpt[JsObject].flatMap(_.str("access_token")) match
+          res.body[JsValue].str("access_token") match
             case Some(token) =>
               tmpToken = Secret(token)
+              logger.info("token renewed")
               funit
             case _ => fufail(s"twitch.renewToken ${lila.log.http(res.status, res.body)}")
         case res => fufail(s"twitch.renewToken ${lila.log.http(res.status, res.body)}")
