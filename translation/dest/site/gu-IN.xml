@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="gameSetup">રમત સેટઅપ</string>
-  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">મિત્રને પડકાર આપો</string>
+  <string name="gameSetup">રમતની ગોઠવણી</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">મિત્ર સાથે રમો</string>
   <string name="playAgainstComputer">કમ્પ્યુટર સામે રમો</string>
-  <string name="gameMode">ગેમ મોડ</string>
+  <string name="gameMode">રમતની રિત</string>
   <string name="createLobbyGame">રમત બનાવો</string>
-  <string name="youPlayAs">તમે રમો છો</string>
+  <string name="youPlayAs">તમે આ રીતે રમો છો</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">રમવા માટે કોઈને આમંત્રણ આપવા, આ URL આપો</string>
   <string name="gameOver">રમત પુરી</string>
   <string name="waitingForOpponent">વિરોધિ માટે રાહ જુએ છે</string>
-  <string name="orLetYourOpponentScanQrCode">અથવા તમારા પ્રતિસ્પર્ધીને આ QR કોડ સ્કેન કરવા દો</string>
+  <string name="orLetYourOpponentScanQrCode">નઈ તો તમારા વિરોધી ને આ ક્યુ આર કોડ સ્કેન કરવા આપો</string>
   <string name="waiting">રાહ જુએ છે</string>
-  <string name="yourTurn">તમરો વારો</string>
+  <string name="yourTurn">તમારો વારો</string>
   <string name="aiNameLevelAiLevel">%1$s સ્તર %2$s</string>
-  <string name="level">ધોરણ</string>
+  <string name="level">સ્તર</string>
   <string name="strength">શક્તિ</string>
   <string name="toggleTheChat">તમે ચેટ છોડી દિધી</string>
   <string name="chat">વાત ચીત</string>
