@@ -111,6 +111,8 @@ object mod:
             val userAppeal = appeals.find(_.isAbout(o.id))
             val closedInfo = log.closed
             tr(
+              dataUsername := o.username,
+              dataTitle := o.title,
               dataTags := List(
                 other.ips.map(renderIp),
                 other.fps,
@@ -120,7 +122,7 @@ object mod:
             )(
               if o.is(u) || lila.security.Granter.canViewAltUsername(o)
               then
-                td(dataSort := o.id, dataUsername := o.username, dataTitle := o.title)(
+                td(dataSort := o.id)(
                   userLink(o, withPerfRating = o.perfs.some, params = "?mod")
                 )
               else td,
