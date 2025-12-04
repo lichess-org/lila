@@ -51,7 +51,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
               else if r.hasStarted then Icon.DiscBig
               else Icon.DiscOutline
             )
-          )(r.name),
+          )(r.transName),
         a(
           href := routes.RelayRound.create(nav.tour.id),
           cls := List(
@@ -119,7 +119,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
         form: Form[RelayRoundForm.Data],
         nav: FormNavigation
     )(using Context) =
-      page(r.name.value, nav):
+      page(r.transName, nav):
         val rt = r.withTour(nav.tour)
         frag(
           boxTop(h1(a(href := rt.path)(rt.fullName))),
