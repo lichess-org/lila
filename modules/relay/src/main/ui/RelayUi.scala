@@ -26,7 +26,7 @@ final class RelayUi(helpers: Helpers)(
       chatOption: Option[(JsObject, Frag)],
       socketVersion: SocketVersion
   )(using ctx: Context) =
-    Page(rt.fullName)
+    Page(rt.transName)
       .css("analyse.relay")
       .i18n(_.study, _.broadcast)
       .i18nOpt(ctx.blind, _.keyboardMove, _.nvui)
@@ -35,7 +35,7 @@ final class RelayUi(helpers: Helpers)(
       .flag(_.zoom)
       .graph(
         OpenGraph(
-          title = rt.fullName,
+          title = rt.transName,
           url = pathUrl(rt.path),
           description = shorten(rt.tour.info.toString, 152),
           image = rt.tour.image.map(thumbnail.url(_, _.Size.Large))

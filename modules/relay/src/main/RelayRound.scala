@@ -7,6 +7,7 @@ import scalalib.model.Seconds
 import chess.{ Rated, ByColor }
 
 import lila.study.Study
+import lila.core.i18n.Translate
 
 case class RelayRound(
     /* Same as the Study id it refers to */
@@ -211,6 +212,7 @@ object RelayRound:
     def display: RelayRound
     def link: RelayRound
     def fullName = s"${tour.name} • ${display.name}"
+    def transName(using Translate) = s"${tour.name} • ${display.transName}"
     def path: String =
       s"/broadcast/${tour.slug}/${if link.slug == tour.slug then "-" else link.slug}/${link.id}"
     def path(chapterId: StudyChapterId): String = s"$path/$chapterId"
@@ -235,6 +237,7 @@ object RelayRound:
     def withTour = WithTour(relay, tour)
     def path = withTour.path
     def fullName = withTour.fullName
+    def transName(using Translate) = withTour.transName
 
   case class WithStudy(relay: RelayRound, study: Study):
     def withTour(tour: RelayTour) = WithTourAndStudy(relay, tour, study)

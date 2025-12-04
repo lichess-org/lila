@@ -122,13 +122,13 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
       page(r.transName, nav):
         val rt = r.withTour(nav.tour)
         frag(
-          boxTop(h1(a(href := rt.path)(rt.fullName))),
+          boxTop(h1(a(href := rt.path)(rt.transName))),
           standardFlash,
           nav.targetRound.map: tr =>
             flashMessage("success")(
               "Your tournament round is officially broadcasted by Lichess!",
               br,
-              strong(a(href := tr.path, cls := "text", dataIcon := Icon.RadioTower)(tr.fullName)),
+              strong(a(href := tr.path, cls := "text", dataIcon := Icon.RadioTower)(tr.transName)),
               "."
             ),
           inner(form, routes.RelayRound.update(r.id), nav),
@@ -219,7 +219,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
             nav.sourceRound.map: source =>
               flashMessage("round-push")(
                 "Getting real-time updates from ",
-                strong(a(href := source.path)(source.fullName)),
+                strong(a(href := source.path)(source.transName)),
                 br,
                 "Owner: ",
                 fragList(source.tour.ownerIds.toList.map(u => userIdLink(u.some))),
