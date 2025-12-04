@@ -31,6 +31,10 @@
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Lichess yayıncısı olarak listelenmeye hazırsanız, %s</string>
   <string name="submitForReview">Inceleme için gönder</string>
   <string name="streamerLanguageSettings">Lichess yayıncı sayfası yayın platformunuz tarafından sunulan dile göre izleyici kitlenizi hedefler. Yayınlarınız için kullandığınız uygulama veya servis üzerinde satranç yayınlarınızın varsayılan dilini doğru ayarlayın.</string>
+  <string name="pleaseAllow">Yayıncı rozetinizin ve kaydınızın onaylanması için lütfen 72 saate dek süre tanıyın.</string>
+  <string name="chooseYoutubeChannel">Lichess\'te kullanacağınız Youtube hesabını seçin.</string>
+  <string name="connect" comment="This button appears for streamers who wish to connect a Twitch or YouTube account, to their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Bağla</string>
+  <string name="disconnect" comment="This button appears for streamers who wish to disconnect an already-linked Twitch or YouTube account, from their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Bağlantıyı kes</string>
   <string name="streamerName">Lichess üzerindeki yayıncı isminiz</string>
   <plurals name="keepItShort">
     <item quantity="one">Kısa tutun: En fazla %s karakter</item>

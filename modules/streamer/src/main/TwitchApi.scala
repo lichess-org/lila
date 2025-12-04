@@ -47,17 +47,23 @@ private class TwitchConfig(
   val authEndpoint = "https://id.twitch.tv/oauth2"
   val helixEndpoint = "https://api.twitch.tv/helix"
 
-final private class TwitchApi(ws: StandaloneWSClient, repo: StreamerRepo, cfg: TwitchConfig, net: NetConfig)(
-    using Executor
+final private class TwitchApi(
+    ws: StandaloneWSClient,
+    repo: StreamerRepo,
+    cfg: TwitchConfig,
+    net: NetConfig,
+    cacheApi: lila.memo.CacheApi
+)(using
+    Executor
 ):
 
   import Twitch.{ given, * }
 
-  private val webhook = s"https://${net.domain}/api/streamer/twitch-eventsub"
+  private val logger = lila.streamer.logger.branch("twitch")
+  private val webhook = net.routeUrl(routes.Streamer.onTwitchEventSub)
   private val eventSubEndpoint = s"${cfg.helixEndpoint}/eventsub/subscriptions"
   private val eventVersions =
     Map("stream.online" -> "1", "stream.offline" -> "1", "channel.update" -> "2")
-  private var tmpToken = Secret("init")
   private val lives = TrieMap.empty[String, HelixStream]
 
   private case class EventSub(subId: String, broadcasterId: String, event: String)
@@ -81,7 +87,7 @@ final private class TwitchApi(ws: StandaloneWSClient, repo: StreamerRepo, cfg: T
               Twitch.TwitchStream(helix, streamer)
 
   def onMessage(rawBody: String, headers: Headers): Fu[Option[String]] =
-    verifyMessage(rawBody, headers).fold(fuccess(none)): messageType =>
+    verifyMessage(rawBody, headers).so: messageType =>
       val js = Json.parse(rawBody)
       messageType match
         case "webhook_callback_verification" => fuccess((js \ "challenge").asOpt[String])
@@ -114,8 +120,7 @@ final private class TwitchApi(ws: StandaloneWSClient, repo: StreamerRepo, cfg: T
           .filterNot(event => existing(id, event))
           .map(event => (id, event))
       _ <- deleteSubs(subs.filter { case EventSub(_, id, _) => !approved(id) }.toList)
-      _ <- wanted.parallelN(8):
-        case (id, event) => subscribeEvent(id, event)
+      _ <- wanted.parallelN(8)(subscribeEvent)
     yield ()
 
   private[streamer] def syncAll: Funit = cfg.clientId.nonEmpty.so:
@@ -141,86 +146,99 @@ final private class TwitchApi(ws: StandaloneWSClient, repo: StreamerRepo, cfg: T
     else fetchStreamSubs(id).map(deleteSubs)
 
   private def subscribeEvent(id: String, event: String) =
-    val body = Json
-      .obj(
-        "type" -> event,
-        "condition" -> Json.obj("broadcaster_user_id" -> id),
-        "transport" -> Json.obj(
-          "method" -> "webhook",
-          "callback" -> webhook,
-          "secret" -> cfg.secret.value
+    for
+      headers <- headersAuth
+      body = Json
+        .obj(
+          "type" -> event,
+          "condition" -> Json.obj("broadcaster_user_id" -> id),
+          "transport" -> Json.obj(
+            "method" -> "webhook",
+            "callback" -> webhook,
+            "secret" -> cfg.secret.value
+          )
         )
-      )
-      .add("version" -> eventVersions.get(event))
-    ensureToken() >>
-      ws.url(eventSubEndpoint)
-        .withHttpHeaders(headersAuth*)
+        .add("version" -> eventVersions.get(event))
+      res <- ws
+        .url(eventSubEndpoint)
+        .withHttpHeaders(headers*)
         .post(body)
+    yield
+      logger.debug(s"subscribeEvent $id $event ${res.status}")
+      res
 
   private def fetchStream(id: String): Fu[Option[HelixStream]] =
     fetchStreams(Seq(id)).map(_.headOption)
 
   private def fetchStreamSubs(id: String): Fu[Seq[EventSub]] =
-    ws.url(eventSubEndpoint)
-      .withQueryStringParameters("user_id" -> id)
-      .withHttpHeaders(headersAuth*)
-      .get()
-      .map: res =>
-        val js = res.body[JsValue]
-        val data = (js \ "data").asOpt[List[JsValue]].getOrElse(Nil)
-        data.flatMap: sub =>
-          for
-            subId <- (sub \ "id").asOpt[String]
-            event <- (sub \ "type").asOpt[String]
-            hook <- (sub \ "transport" \ "callback").asOpt[String]
-            if hook == webhook
-          yield EventSub(subId, id, event)
+    for
+      headers <- headersAuth
+      res <- ws
+        .url(eventSubEndpoint)
+        .withQueryStringParameters("user_id" -> id)
+        .withHttpHeaders(headers*)
+        .get()
+    yield
+      for
+        sub <- ~res.body[JsValue].get[List[JsValue]]("data")
+        subId <- (sub \ "id").asOpt[String]
+        event <- (sub \ "type").asOpt[String]
+        hook <- (sub \ "transport" \ "callback").asOpt[Url]
+        if hook == webhook
+      yield EventSub(subId, id, event)
 
   private def listSubs(soFar: Set[EventSub], after: Option[String]): Fu[Set[EventSub]] =
-    val request = ws.url(eventSubEndpoint).withHttpHeaders(headersAuth*)
-    ensureToken() >>
-      after
+    for
+      headers <- headersAuth
+      request = ws.url(eventSubEndpoint).withHttpHeaders(headers*)
+      res <- after
         .fold(request)(cursor => request.withQueryStringParameters("after" -> cursor))
         .get()
-        .flatMap: res =>
-          val js = res.body[JsValue]
-          val data = (js \ "data").asOpt[List[JsValue]].getOrElse(Nil)
-          val pageSet = data.flatMap: d =>
-            for
-              subId <- (d \ "id").asOpt[String]
-              broadcasterId <- (d \ "condition" \ "broadcaster_user_id").asOpt[String]
-              event <- (d \ "type").asOpt[String]
-              hook <- (d \ "transport" \ "callback").asOpt[String]
-              if hook == webhook
-            yield EventSub(subId, broadcasterId, event)
+      subs <-
+        val js = res.body[JsValue]
+        val pageSet = for
+          d <- ~js.get[List[JsValue]]("data")
+          subId <- d.str("id")
+          broadcasterId <- (d \ "condition" \ "broadcaster_user_id").asOpt[String]
+          event <- d.str("type")
+          hook <- (d \ "transport" \ "callback").asOpt[Url]
+          if hook == webhook
+        yield EventSub(subId, broadcasterId, event)
 
-          val result = soFar ++ pageSet.toSet
-          (js \ "pagination" \ "cursor")
-            .asOpt[String]
-            .fold(fuccess(result))(after => listSubs(result, after.some))
+        val result = soFar ++ pageSet.toSet
+        (js \ "pagination" \ "cursor")
+          .asOpt[String]
+          .fold(fuccess(result))(after => listSubs(result, after.some))
+    yield subs
 
   private def deleteSubs(subs: Seq[EventSub]): Funit =
-    ensureToken() >>
-      subs.parallelN(8):
-        case EventSub(subId, _, _) =>
-          ws.url(s"$eventSubEndpoint?id=$subId")
-            .withHttpHeaders(headersAuth*)
-            .delete()
-            .void
+    for
+      headers <- headersAuth
+      _ <- subs.parallelN(8): sub =>
+        ws.url(s"$eventSubEndpoint?id=${sub.subId}")
+          .withHttpHeaders(headers*)
+          .delete()
+          .void
+    yield ()
 
   private def fetchStreams(ids: Seq[String]): Fu[Seq[HelixStream]] =
     if ids.isEmpty then fuccess(Nil)
     else
-      ensureToken() >>
-        ws.url(s"${cfg.helixEndpoint}/streams")
+      for
+        headers <- headersAuth
+        res <- ws
+          .url(s"${cfg.helixEndpoint}/streams")
           .withQueryStringParameters(ids.map(l => "user_id" -> l)*)
-          .withHttpHeaders(headersAuth*)
+          .withHttpHeaders(headers*)
           .get()
-          .map: res =>
-            val data = (res.body[JsValue] \ "data").asOpt[Seq[JsValue]].getOrElse(Nil)
-            data.flatMap: d =>
-              if (d \ "type").asOpt[String].contains("live") then d.asOpt[HelixStream]
-              else none
+        streams =
+          for
+            d <- ~res.body[JsValue].get[Seq[JsObject]]("data")
+            tpe <- d.str("type")
+            if tpe == "live"
+            stream <- d.asOpt[HelixStream]
+          yield stream
+      yield streams
 
   private def verifyMessage(rawBody: String, headers: Headers): Option[String] =
     def header(name: String): Option[String] = headers.get(s"Twitch-Eventsub-Message-$name")
@@ -234,29 +252,35 @@ final private class TwitchApi(ws: StandaloneWSClient, repo: StreamerRepo, cfg: T
     if header("Signature").exists(_.equalsIgnoreCase(s"sha256=$mac")) then header("Type")
     else none
 
-  private def ensureToken(): Funit =
-    if tmpToken.value == "init" then renewToken() else funit
+  private object bearerToken:
 
-  private def renewToken(): Funit =
-    ws.url(s"${cfg.authEndpoint}/token")
-      .withQueryStringParameters(
-        "client_id" -> cfg.clientId,
-        "client_secret" -> cfg.secret.value,
-        "grant_type" -> "client_credentials"
-      )
-      .post(Map.empty[String, String])
-      .flatMap:
-        case res if res.status == 200 =>
-          res.body[JsValue].asOpt[JsObject].flatMap(_.str("access_token")) match
-            case Some(token) =>
-              tmpToken = Secret(token)
-              funit
-            case _ => fufail(s"twitch.renewToken ${lila.log.http(res.status, res.body)}")
-        case res => fufail(s"twitch.renewToken ${lila.log.http(res.status, res.body)}")
+    private val cache = cacheApi.unit[Secret]:
+      _.refreshAfterWrite(55.minutes).buildAsyncFuture: _ =>
+        renewToken()
 
-  private def headersAuth =
+    def get: Fu[Secret] = cache.get({})
+
+    private def renewToken(): Fu[Secret] =
+      ws.url(s"${cfg.authEndpoint}/token")
+        .withQueryStringParameters(
+          "client_id" -> cfg.clientId,
+          "client_secret" -> cfg.secret.value,
+          "grant_type" -> "client_credentials"
+        )
+        .post(Map.empty[String, String])
+        .flatMap:
+          case res if res.status == 200 =>
+            res.body[JsValue].str("access_token") match
+              case Some(token) =>
+                logger.info("token renewed")
+                fuccess(Secret(token))
+              case _ => fufail(s"twitch.renewToken ${lila.log.http(res.status, res.body)}")
+          case res => fufail(s"twitch.renewToken ${lila.log.http(res.status, res.body)}")
+
+  private def headersAuth = bearerToken.get.map { tmpToken =>
     Seq(
       "Client-ID" -> cfg.clientId,
       "Authorization" -> s"Bearer ${tmpToken.value}",
       "Content-Type" -> "application/json"
     )
+  }

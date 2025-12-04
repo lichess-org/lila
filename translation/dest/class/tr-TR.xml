@@ -118,4 +118,6 @@ Bu yatay bir çizgi oluşturacaktır.</string>
   <string name="xIsAKidAccountWarning">%1$s adlı oyuncu çocuk hesabı kullandığı için mesajlarınızı alamaz. Oyuncuya bağlantıyı kendiniz göndermelisiniz: %2$s</string>
   <string name="moveToClass">%s\'e oyna</string>
   <string name="moveToAnotherClass">Başka bir satrança geç</string>
+  <string name="allowMessagingBetweenStudents">Öğrenciler arası mesajlaşmaya izin ver</string>
+  <string name="allowMessagingBetweenStudentsDesc">Bu, yalnızca öğrencilerinize oluşturduğunuz hesaplar için geçerlidir.</string>
 </resources>
