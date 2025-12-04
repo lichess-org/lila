@@ -92,7 +92,8 @@ final private class RelayFetch(
           .so(notifyAdmin.tooManyGames(rt, sliced.size, RelayFetch.maxChaptersToShow))
         withPlayers = playerEnrich.enrichAndReportAmbiguous(rt)(limited)
         withFide <- fidePlayers.enrichGames(rt.tour)(withPlayers)
-        withTeams = rt.tour.teams.fold(withFide)(_.update(withFide))
+        withReplacements = rt.tour.players.fold(withFide)(_.parse.update(withFide)._1)
+        withTeams = rt.tour.teams.fold(withReplacements)(_.update(withReplacements))
         res <- sync
           .updateStudyChapters(rt, withTeams)
           .withTimeoutError(7.seconds, SyncResult.Timeout)
