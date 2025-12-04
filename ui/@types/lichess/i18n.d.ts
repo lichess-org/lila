@@ -2855,7 +2855,7 @@ interface I18n {
     shareableMostPlayedOpponent: string;
     /** spent playing */
     shareableSpentPlaying: string;
-    /** My %s Recap */
+    /** My %s recap */
     shareableTitle: I18nFormat;
     /** Pool pairing */
     sourcesPoolPairing: string;
