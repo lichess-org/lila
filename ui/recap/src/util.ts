@@ -15,7 +15,8 @@ export function formatDuration(seconds: number, glue = '<br>'): string {
   return result.slice(0, 2).join(glue);
 }
 
-export const perfLabel = (p: RecapPerf): string => {
-  const tcs: Perf[] = ['ultraBullet', 'bullet', 'blitz', 'rapid', 'classical', 'correspondence'];
-  return tcs.includes(p.key) ? 'favorite time control' : 'favorite variant';
-};
+export const perfIsSpeed = (p: Perf): p is Speed =>
+  (['ultraBullet', 'bullet', 'blitz', 'rapid', 'classical', 'correspondence'] as const).includes(p as Speed);
+
+export const perfLabel = (p: RecapPerf): string =>
+  perfIsSpeed(p.key) ? i18n.recap.shareableFavouriteTimeControl : i18n.recap.shareableFavouriteVariant;
