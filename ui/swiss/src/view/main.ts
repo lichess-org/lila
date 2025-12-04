@@ -249,7 +249,9 @@ function stats(ctrl: SwissCtrl) {
       hl('br'),
       hl(
         'a.text',
-        { attrs: { 'data-icon': licon.InfoCircle, href: 'https://lichess.org/api#tag/swiss-tournaments' } },
+        {
+          attrs: { 'data-icon': licon.InfoCircle, href: '/api#tag/swiss-tournaments' },
+        },
         'Swiss API documentation',
       ),
     ]),
