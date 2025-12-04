@@ -36,7 +36,7 @@ final class RelayCardUi(helpers: Helpers, ui: RelayUi):
         span(cls := "relay-card__info")(
           tr.tour.active.option:
             span(cls := "relay-card__round")(
-              tr.display.name,
+              tr.display.transName,
               (tr.group, alt).mapN: (group, alt) =>
                 frag(" & ", group.shortTourName(alt.tour.name))
             )
