@@ -110,16 +110,17 @@ final private class TwitchApi(
 
   private[streamer] def subscribeAll: Funit = cfg.clientId.nonEmpty.so:
     for
-      ids <- repo.approvedIds("twitch")
+      latestSeenApprovedIds <- repo.approvedIds("twitch")
       subs <- listSubs(Set.empty, none)
+      _ = logger.info(s"Currently subscribed to ${subs.size} event subs")
       existing = subs.map(sub => (sub.broadcasterId, sub.event)).toSet
-      approved = ids.toSet
-      wanted = ids.flatMap: id =>
+      approved = latestSeenApprovedIds.toSet
+      wanted = latestSeenApprovedIds.flatMap: id =>
         eventVersions.keys
-          .filterNot(event => existing(id, event))
+          .filterNot(event => existing(id -> event))
           .map(event => (id, event))
       _ <- deleteSubs(subs.filter { case EventSub(_, id, _) => !approved(id) }.toList)
-      _ <- wanted.parallelN(8)(subscribeEvent)
+      _ <- subscribeMany(wanted)
     yield ()
 
   private[streamer] def syncAll: Funit = cfg.clientId.nonEmpty.so:
@@ -142,6 +143,10 @@ final private class TwitchApi(
   private[streamer] def pubsubSubscribe(id: String, subscribe: Boolean): Funit =
     if subscribe then eventVersions.keys.map(event => subscribeEvent(id, event)).parallel.void
     else fetchStreamSubs(id).map(deleteSubs)
+
+  private def subscribeMany(wanted: Seq[(String, String)]): Funit =
+    logger.info(s"Subscribing to ${wanted.size} new event subs")
+    wanted.parallelN(8)(subscribeEvent)
 
   private def subscribeEvent(id: String, event: String) =
     for
@@ -186,6 +191,7 @@ final private class TwitchApi(
       yield EventSub(subId, id, event)
 
   private def listSubs(soFar: Set[EventSub], after: Option[String]): Fu[Set[EventSub]] =
+    logger.info(s"Listing subs, so far ${soFar.size}")
     for
       headers <- headersAuth
       request = ws.url(eventSubEndpoint).withHttpHeaders(headers*)
@@ -210,14 +216,16 @@ final private class TwitchApi(
     yield subs
 
   private def deleteSubs(subs: Seq[EventSub]): Funit =
-    for
-      headers <- headersAuth
-      _ <- subs.parallelN(8): sub =>
-        ws.url(s"$eventSubEndpoint?id=${sub.subId}")
-          .withHttpHeaders(headers*)
-          .delete()
-          .void
-    yield ()
+    logger.info(s"Deleting ${subs.size} subs")
+    subs.nonEmpty.so:
+      for
+        headers <- headersAuth
+        _ <- subs.parallelN(8): sub =>
+          ws.url(s"$eventSubEndpoint?id=${sub.subId}")
+            .withHttpHeaders(headers*)
+            .delete()
+            .void
+      yield ()
 
   private def fetchStreams(ids: Seq[String]): Fu[Seq[HelixStream]] =
     ids.nonEmpty.so:
