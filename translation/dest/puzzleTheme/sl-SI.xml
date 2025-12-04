@@ -16,7 +16,7 @@ Eden od vaših kmetov je globoko na nasprotnikovem področju in ima morda možno
   <string name="attractionDescription">Izmenjava ali žrtvovanje, ki spodbuja ali sili nasprotnika na polje, ki omogoča nadaljevanje taktike.</string>
   <string name="backRankMate">Mat zadnje vrste</string>
   <string name="backRankMateDescription">Matiranje kralja, ko je še na začetni vrsti, ujet s svojimi figurami.</string>
-  <string name="balestraMate">Balestra mat</string>
+  <string name="balestraMate">Mat dan z lovcem</string>
   <string name="balestraMateDescription">Lovec da šah-mat, medtem ko dama blokira preostala polja za pobeg</string>
   <string name="bishopEndgame">Končnica lovcev</string>
   <string name="bishopEndgameDescription">Končnica s samo lovci in kmeti.</string>
@@ -26,8 +26,12 @@ Eden od vaših kmetov je globoko na nasprotnikovem področju in ima morda možno
   <string name="castlingDescription">Umik kralja na varno in razporeditev trdnjave za napad.</string>
   <string name="capturingDefender">Zajem branilca</string>
   <string name="capturingDefenderDescription">Odstranitev figure, ki je ključna za obrambo druge figure, kar omogoča, da se nezaščitena figura zajame z naslednjo potezo.</string>
+  <string name="cornerMate">Mat v kotu</string>
+  <string name="cornerMateDescription">Kralja omejite v kot z uporabo trdnjave ali dame in skakača, da se spopadete z matom.</string>
   <string name="crushing">Odločilna prednost</string>
   <string name="crushingDescription">Spoznanje nasprotnikove napake, za odločilno prednost. (ocena ≥ 600sk)</string>
+  <string name="discoveredCheck" comment="Description (translatable separately):&#10;&#10;Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage.">Odkrit šah</string>
+  <string name="discoveredCheckDescription" comment="Description for the &quot;Discovered check&quot; puzzle theme.">Premakni figuro, da razkriješ šah skrite napadalne figure, kar pogosto vodi do odločilne prednosti.</string>
   <string name="doubleBishopMate">Mat z lovcema</string>
   <string name="doubleBishopMateDescription">Lovca na sosednjih diagonalah matirata kralja, ki ga ovirajo njegove figure.</string>
   <string name="dovetailMate">Coziov mat</string>
@@ -63,6 +67,8 @@ Eden od vaših kmetov je globoko na nasprotnikovem področju in ima morda možno
   <string name="intermezzoDescription">Namesto pričakovane poteze, vrinemo drugo potezo ki predstavlja takojšnjo grožnjo na katero mora nasprotnik odgovorit. Z drugim imenom tudi kot \"Zwischenzug\" ali medpoteza.</string>
   <string name="killBoxMate">Vaba</string>
   <string name="killBoxMateDescription">Ob sovražnikovem kralju stoji trdnjava, ki jo podpira dama, ki prav tako blokira kraljeva pobegna polja. Trdnjava in dama ujameta sovražnikovega kralja v \"vabi\" velikosti 3 krat 3.</string>
+  <string name="triangleMate">Trikotni mat</string>
+  <string name="triangleMateDescription">Kraljica in trdnjava, eno polje stran od sovražnega kralja, sta v isti vrsti ali liniji, ločeni z enim poljem in tvorita trikotnik.</string>
   <string name="vukovicMate">Vukovic mat</string>
   <string name="vukovicMateDescription">Top in konj se združita, da matirata kralja. Top zagotavlja pomoč, medtem ko ga podpira tretja figura, konj pa se uporablja za blokiranje polj, kjer bi kralj pobegnil.</string>
   <string name="knightEndgame">Končnica skakačev</string>

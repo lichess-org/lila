@@ -38,9 +38,7 @@ final class TwoFactorUi(helpers: Helpers, ui: AccountUi)(
               p(strong("iOS"), " : ", a(href := "https://2fas.com/")("2FAS"))
             ),
             div(cls := "form-group")(trt.scanTheCode()),
-            qrcode(
-              s"otpauth://totp/${domain}:${me.userId}?secret=${secret}&issuer=${domain}"
-            ),
+            qrcode(Url(s"otpauth://totp/${domain}:${me.userId}?secret=${secret}&issuer=${domain}")),
             div(cls := "form-group"):
               trt.ifYouCannotScanEnterX:
                 span(cls := "redacted")(secret)

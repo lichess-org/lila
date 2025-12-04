@@ -14,8 +14,10 @@
   <string name="attractionDescription">Un cambio o sacrificio que invita o fuerza al oponente a colocar una pieza en una casilla que propicia una oportunidad táctica.</string>
   <string name="backRankMate">Mate del pasillo</string>
   <string name="backRankMateDescription">Jaque mate en la última fila, cuando el rey se encuentra atrapado por sus propias piezas.</string>
-  <string name="balestraMate">Mate de Balestra</string>
+  <string name="balestraMate">Mate de alfil y dama</string>
   <string name="balestraMateDescription">El alfil da jaque mate mientras la dama bloquea las casillas de escape</string>
+  <string name="blindSwineMate">Mate del cerdo ciego</string>
+  <string name="blindSwineMateDescription">Dos torres se unen para dar mate al rey en un área de 2 por 2 casillas.</string>
   <string name="bishopEndgame">Final de alfiles</string>
   <string name="bishopEndgameDescription">Un final con sólo alfiles y peones.</string>
   <string name="bodenMate">Mate de Boden</string>
@@ -24,8 +26,12 @@
   <string name="castlingDescription">Lleva al rey a un lugar seguro y despliega la torre para atacar.</string>
   <string name="capturingDefender">Capturar al defensor</string>
   <string name="capturingDefenderDescription">Eliminar una pieza fundamental para la defensa de otra, permitiendo capturar la pieza, ahora indefensa, en el futuro.</string>
+  <string name="cornerMate">Mate de la esquina</string>
+  <string name="cornerMateDescription">Encierra al rey en una esquina usando una torre o dama y un caballo para dar mate.</string>
   <string name="crushing">Aplastante</string>
   <string name="crushingDescription">Detecta el error del oponente para obtener una ventaja ganadora. (eval ≥ 600cp)</string>
+  <string name="discoveredCheck" comment="Description (translatable separately):&#10;&#10;Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage.">Jaque a la descubierta</string>
+  <string name="discoveredCheckDescription" comment="Description for the &quot;Discovered check&quot; puzzle theme.">Mueve una pieza para dar jaque con otra que se encuentra detrás, lo que a menudo conduce a una ventaja decisiva.</string>
   <string name="doubleBishopMate">Mate de los dos alfiles</string>
   <string name="doubleBishopMateDescription">Dos alfiles atacantes en diagonales adyacentes dan mate al rey obstruido por piezas de su bando.</string>
   <string name="dovetailMate">Mate de Cozio</string>
@@ -61,6 +67,8 @@
   <string name="intermezzoDescription">En lugar de jugar el movimiento esperado, se realiza antes otro movimiento que plantea una amenaza inmediata a la que el oponente debe responder. También conocido como \"Zwischenzug\" o \"Intermezzo\".</string>
   <string name="killBoxMate">Mate del recuadro mortal</string>
   <string name="killBoxMateDescription">Una torre está cerca del rey enemigo apoyada por una dama que también bloquea las casillas de escape del rey. La torre y la dama capturan al rey enemigo en un recuadro mortal de 3 por 3.</string>
+  <string name="triangleMate">Mate del triángulo</string>
+  <string name="triangleMateDescription">La dama y la torre, a una casilla de distancia del rey rival, están en la misma fila o columna, separadas por una casilla, formando un triángulo.</string>
   <string name="vukovicMate">Mate de Vukovic</string>
   <string name="vukovicMateDescription">Una torre y un caballo se unen para dar mate al rey. La torre da mate apoyada por una tercera pieza y el caballo se utiliza para bloquear las casillas de escape del rey.</string>
   <string name="knightEndgame">Final de caballos</string>

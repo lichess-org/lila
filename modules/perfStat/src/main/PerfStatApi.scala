@@ -3,9 +3,10 @@ package lila.perfStat
 import chess.IntRating
 import lila.core.perf.{ PerfId, UserWithPerfs }
 import lila.core.perm.Granter
+import lila.core.rating.UserRankMap
 import lila.rating.Glicko.minRating
 import lila.rating.PerfExt.established
-import lila.rating.{ PerfType, UserRankMap }
+import lila.rating.PerfType
 import lila.rating.PerfType.GamePerf
 
 case class PerfStatData(

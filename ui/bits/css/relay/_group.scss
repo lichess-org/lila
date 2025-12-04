@@ -9,6 +9,13 @@
         color: $c-font-clear;
       }
     }
+    &__info {
+      @extend %flex-between;
+      align-self: stretch;
+    }
+    &__live {
+      flex: 0 0 auto;
+    }
   }
   @media (min-width: at-least($xx-small)) {
     .relay-card {

@@ -8,6 +8,7 @@ import lila.core.LightUser
 import lila.relay.RelayTour.{ WithLastRound, WithFirstRound }
 import lila.ui.*
 import ScalatagsTemplate.{ *, given }
+import scalatags.Text.TypedTag
 
 final class RelayTourUi(helpers: Helpers, ui: RelayUi, card: RelayCardUi, pageMenu: RelayMenuUi):
   import helpers.{ *, given }
@@ -16,16 +17,21 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi, card: RelayCardUi, pageMe
   def asRelayPager(p: Paginator[WithLastRound]): Paginator[RelayTour | WithLastRound] = p.mapResults(identity)
 
   def index(
-      active: List[RelayCard],
-      past: Seq[WithLastRound],
+      data: RelayHome | Paginator[WithLastRound],
       announcement: Option[Html]
   )(using Context) =
+    val (active, past) = data match
+      case h: RelayHome => (h.ongoing ::: h.recent, h.past)
+      case p: Paginator[WithLastRound] => (Nil, p)
     def nonEmptyTier(selector: RelayTour.Tier.Selector) =
       val tier = RelayTour.Tier(selector)
       val selected = active.filter(_.tour.tierIs(selector))
       selected.nonEmpty.option(st.section(cls := s"relay-cards relay-cards--tier-$tier"):
         selected.map: sel =>
-          card.render(sel, live = _.display.hasStarted, sel.crowd, alt = sel.alts.headOption))
+          val (crowd, alt, live) = sel match
+            case card: RelayCard => (card.crowd, card.alts.headOption, card.display.hasStarted)
+            case _ => (Crowd(0), None, false)
+          card.render(sel, live = live, crowd, alt))
     Page(trc.liveBroadcasts.txt())
       .css("bits.relay.index")
       .css(announcement.isDefined.option("bits.page"))
@@ -38,14 +44,19 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi, card: RelayCardUi, pageMe
               div(cls := "relay__announcement page"):
                 div(cls := "body expand-text")(html)
             ,
-            Granter.opt(_.StudyAdmin).option(adminIndex(active)),
+            Granter
+              .opt(_.StudyAdmin)
+              .so[Option[Tag]]:
+                data match
+                  case RelayHome(ongoing, _, _) => adminIndex(ongoing)
+                  case _ => none[Tag],
             nonEmptyTier(_.best),
             nonEmptyTier(_.high),
             nonEmptyTier(_.normal),
             h2(cls := "relay-index__section")(trc.pastBroadcasts()),
             div(cls := "relay-cards"):
-              past.map: t =>
-                card.render(t, live = _ => false, crowd = Crowd(0))
+              past.currentPageResults.map: t =>
+                card.render(t, live = false, crowd = Crowd(0))
             ,
             h2(cls := "relay-index__section relay-index__calendar"):
               a(cls := "button button-fat button-no-upper", href := routes.RelayTour.calendar)(
@@ -55,7 +66,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi, card: RelayCardUi, pageMe
           )
         )
 
-  private def adminIndex(active: List[RelayCard])(using Context) =
+  private def adminIndex(active: List[RelayCard])(using Context): Option[Tag] =
     val errored = for
       main <- active
       card <- main :: main.alts.map: alt =>
@@ -76,7 +87,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi, card: RelayCardUi, pageMe
           errored.map: (tr, errors) =>
             card.render(
               tr.copy(link = tr.display),
-              live = _.display.hasStarted,
+              live = tr.display.hasStarted,
               crowd = tr.crowd,
               errors = errors.take(5)
             )
@@ -200,7 +211,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi, card: RelayCardUi, pageMe
   def renderPager(pager: Paginator[RelayTour | WithLastRound])(next: Int => Call)(using Context): Tag =
     st.section(cls := "infinite-scroll relay-cards")(
       pager.currentPageResults.map:
-        case w: WithLastRound => card.render(w, live = _ => false, crowd = Crowd(0))(cls := "paginated")
+        case w: WithLastRound => card.render(w, live = false, crowd = Crowd(0))(cls := "paginated")
         case t: RelayTour => card.empty(t)(cls := "paginated")
       ,
       pagerNext(pager, next(_).url)

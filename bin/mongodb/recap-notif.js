@@ -1,4 +1,4 @@
-const year = 2024;
+const year = 2025;
 const dry = false;
 
 let countAll = 0;

@@ -67,7 +67,7 @@ interface Handlers {
   clock(d: ServerClockMsg): void;
   forceVariation(d: WithWhoAndPos & { force: boolean }): void;
   chapters(d: ChapterPreviewFromServer[]): void;
-  reload(): void;
+  reload(d: { reason?: 'overweight' }): void;
   changeChapter(d: WithWhoAndPos): void;
   updateChapter(d: WithWhoAndChap): void;
   descChapter(d: WithWhoAndChap & { desc?: string }): void;
@@ -135,7 +135,6 @@ export default class StudyCtrl {
       // how stale is the study
       updatedAt: Date.now() - data.secondsSinceUpdate * 1000,
       gamebookOverride: undefined,
-      scrollToActiveChapter: 'instant',
     };
 
     this.members = new StudyMemberCtrl({
@@ -263,7 +262,7 @@ export default class StudyCtrl {
   };
 
   setTab = (tab: Tab) => {
-    if (tab === 'chapters') this.vm.scrollToActiveChapter = 'instant';
+    if (tab === 'chapters') this.chapters.scroller.request = 'instant';
     this.vm.tab(tab);
     this.redraw();
   };
@@ -327,7 +326,9 @@ export default class StudyCtrl {
   };
 
   isCevalAllowed = () =>
-    !this.isGamebookPlay() && !!(this.data.chapter.features.computer || this.data.chapter.practice);
+    !this.relay?.tourShow() &&
+    !this.isGamebookPlay() &&
+    !!(this.data.chapter.features.computer || this.data.chapter.practice);
 
   configurePractice = () => {
     if (!this.data.chapter.practice && this.ctrl.practice) this.ctrl.togglePractice();
@@ -483,7 +484,7 @@ export default class StudyCtrl {
       this.redraw();
       return true;
     }
-    this.vm.scrollToActiveChapter = 'smooth';
+    this.chapters.scroller.request = 'smooth';
     this.vm.nextChapterId = id;
     this.vm.justSetChapterId = id;
     if (this.vm.mode.sticky && this.makeChange('setChapter', id)) {
@@ -614,6 +615,7 @@ export default class StudyCtrl {
     this.configureAnalysis();
     this.ctrl.userJump(this.ctrl.path);
     if (!o) this.xhrReload();
+    else if (o === 'analyse') this.ctrl.startCeval();
   };
   explorerGame = (gameId: string, insert: boolean) =>
     this.makeChange('explorerGame', this.withPosition({ gameId, insert }));
@@ -723,7 +725,10 @@ export default class StudyCtrl {
       else if (this.relay) this.ctrl.jump(d.p.path);
       return this.redraw();
     },
-    reload: () => this.xhrReload(),
+    reload: d => {
+      if (d?.reason === 'overweight') alert('This chapter is too big to add moves.');
+      this.xhrReload();
+    },
     changeChapter: d => {
       this.setMemberActive(d.w);
       if (!this.vm.mode.sticky) this.vm.behind++;
@@ -763,6 +768,8 @@ export default class StudyCtrl {
       if (d.w?.s === site.sri) {
         this.vm.mode.write = this.relay ? this.relayRecProp() : this.nonRelayRecMapProp(this.data.id);
         this.vm.chapterId = d.p.chapterId;
+        this.vm.nextChapterId = d.p.chapterId;
+        this.chapters.scroller.request = 'instant';
       }
       this.xhrReload(true);
     },

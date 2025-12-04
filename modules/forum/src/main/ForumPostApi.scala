@@ -17,7 +17,8 @@ final class ForumPostApi(
     spam: lila.core.security.SpamApi,
     promotion: lila.core.security.PromotionApi,
     shutupApi: lila.core.shutup.ShutupApi,
-    detectLanguage: DetectLanguage
+    detectLanguage: DetectLanguage,
+    picfitApi: lila.memo.PicfitApi
 )(using Executor)(using scheduler: Scheduler)
     extends lila.core.forum.ForumPostApi:
 
@@ -204,11 +205,12 @@ final class ForumPostApi(
       categOpt <- categRepo.byId(ForumCateg.diagnosticId)
       topicOpt <- topicRepo.byTree(ForumCateg.diagnosticId, ForumTopic.problemReportSlug(user.id))
       postOpt <- topicOpt.so(t => postRepo.coll.byId[ForumPost](t.lastPostId(user.some)))
-    yield for
-      post <- postOpt
-      topic <- topicOpt
-      categ <- categOpt
-    yield CategView(categ, (topic, post, topic.lastPage(config.postMaxPerPage)).some, user.some)
+    yield
+      for
+        post <- postOpt
+        topic <- topicOpt
+        categ <- categOpt
+      yield CategView(categ, (topic, post, topic.lastPage(config.postMaxPerPage)).some, user.some)
 
   private def recentUserIds(topic: ForumTopic, newPostNumber: Int) =
     postRepo.coll
@@ -222,9 +224,10 @@ final class ForumPostApi(
       )
 
   def erasePost(post: ForumPost) =
-    postRepo.coll.update
-      .one($id(post.id), post.erase)
-      .void
+    for
+      _ <- picfitApi.pullRef(picRef(post.id))
+      _ <- postRepo.coll.update.one($id(post.id), post.erase)
+    yield ()
 
   def teamIdOfPost(post: ForumPost): Fu[Option[TeamId]] =
     categRepo.coll.primitiveOne[TeamId]($id(post.categId), "team")

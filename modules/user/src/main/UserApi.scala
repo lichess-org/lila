@@ -128,7 +128,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
       userRepo.coll
         .aggregateList(Int.MaxValue): framework =>
           import framework.*
-          Match($inIds(ids)) -> List(
+          Match($inIds(ids) ++ userRepo.enabledSelect) -> List(
             PipelineOperator(perfsRepo.aggregate.lookup),
             AddFields($sort.orderField(ids)),
             Sort(Ascending("_order"))

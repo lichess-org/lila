@@ -67,6 +67,7 @@ export default function (pgn: string): Partial<AnalyseData> {
   return {
     game: {
       fen,
+      initialFen: fen,
       id: 'synthetic',
       opening: undefined, // TODO
       player: start.turn,

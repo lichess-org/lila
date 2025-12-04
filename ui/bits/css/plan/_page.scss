@@ -140,10 +140,12 @@
 
     @media (min-width: at-least($large)) {
       group div:first-child label {
-        border-radius: $box-radius-size 0 0 $box-radius-size;
+        border-start-start-radius: $box-radius-size;
+        border-end-start-radius: $box-radius-size;
       }
       group div:last-child label {
-        border-radius: 0 $box-radius-size $box-radius-size 0;
+        border-start-end-radius: $box-radius-size;
+        border-end-end-radius: $box-radius-size;
       }
     }
 

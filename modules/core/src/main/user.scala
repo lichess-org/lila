@@ -16,6 +16,7 @@ import lila.core.perf.{ KeyedPerf, Perf, PerfKey, UserPerfs, UserWithPerfs }
 import lila.core.userId.*
 import lila.core.misc.AtInstant
 import lila.core.plan.{ PatronMonths, PatronTier, PatronColorChoice }
+import lila.core.rating.UserRankMap
 
 object user:
 
@@ -378,4 +379,9 @@ object user:
     def userIdsLike(text: UserSearch): Fu[List[UserId]]
 
   trait JsonView:
-    def full(u: User, perfs: Option[UserPerfs | KeyedPerf], withProfile: Boolean): JsObject
+    def full(
+        u: User,
+        perfs: Option[UserPerfs | KeyedPerf],
+        withProfile: Boolean,
+        rankMap: Option[UserRankMap] = None
+    ): JsObject

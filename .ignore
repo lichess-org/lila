@@ -8,4 +8,6 @@ public/piece-css
 public/flair
 public/images
 public/cursors
+public/fide
 *.png
+*.webp

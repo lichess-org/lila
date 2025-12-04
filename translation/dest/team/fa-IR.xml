@@ -21,8 +21,8 @@
     <item quantity="other">رهبران گروه</item>
   </plurals>
   <string name="teamRecentMembers">اعضای اخیر</string>
-  <string name="kickSomeone">آیا می خواهید {0} را از تیم اخراج کنید</string>
-  <string name="whoToKick">چه کسی را می خواهید از تیم اخراج کنید?</string>
+  <string name="kickSomeone">اخراج کردنِ کسی از تیم</string>
+  <string name="whoToKick">چه کسی را می خواهید از تیم اخراج کنید؟</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s درخواست پیوستن</item>
     <item quantity="other">%s درخواست پیوستن</item>
@@ -45,7 +45,7 @@
   <string name="youWayWantToLinkOneOfTheseTournaments">شما می‌خواهید آدرس اینترنتی یکی از مسابقات آتی را قرار دهید؟</string>
   <string name="leadersChat">چت رهبران</string>
   <string name="introduction">مقدمه</string>
-  <string name="teamIntroductionHelp">توضیح کوتاهی که در لیست تیم‌ها نمایش داده می‌شود. تا ۲۰۰ حرف.</string>
+  <string name="teamIntroductionHelp">وصفِ کوتاهِ مرئی در فهرستِشِ تیم‌ها. تا ۲۰۰ نویسه.</string>
   <string name="teamDescriptionHelp">توضیح کامل که در صفحه تیم نمایش داده می‌شود.</string>
   <string name="closeTeam">بستن گروه</string>
   <string name="closeTeamDescription">تیم را برای همیشه می‌بندد.</string>
@@ -58,11 +58,11 @@
   <string name="declinedRequests">درخواست‌های رد شده</string>
   <string name="joinLichessVariantTeam">برای خبرها و رویدادها به یَران رسمی %s بپیوندید</string>
   <string name="thisTeamBattleIsOver">این مسابقات به پایان رسیده‌است و تیم‌ها دیگر نمی‌توانند به‌روز شوند.</string>
-  <string name="listTheTeamsThatWillCompete">تیم‌هایی که در این نبرد با یکدیگر رقابت خواهند کرد را لیست کنید.</string>
+  <string name="listTheTeamsThatWillCompete">تیم‌هایی که در این نبرد رقابت خواهند کرد را بفهرستید.</string>
   <string name="oneTeamPerLine">هر تیم در یک خط. از تکمیل خودکار استفاده کنید.</string>
-  <string name="oneTeamPerLineHelp">می توانید این فهرست یک مسابقات را جای دیگری جای‌گذارید!
+  <string name="oneTeamPerLineHelp">می توانید این فهرست از مسابقات را جای دیگری جای‌گذارید!
 
-اگر بازیکنی از قبل با یک یَران به مسابقات پیوسته باشد، نمی‌توانید آن یَران را حذف کنید.</string>
+اگر بازیکنی از قبل با یک تیم به مسابقات پیوسته باشد، نمی‌توانید آن تیم را حذف کنید.</string>
   <string name="numberOfLeadsPerTeam">تعداد رهبران در هر تیم. مجموع امتیاز آنها امتیاز تیم است.</string>
   <string name="numberOfLeadsPerTeamHelp">واقعا نباید این مقدار را پس از شروع مسابقه تغییر دهید!</string>
   <string name="innerTeam">تیم داخلی</string>

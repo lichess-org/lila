@@ -50,6 +50,7 @@ export default class StudyChaptersCtrl {
   newForm: StudyChapterNewForm;
   editForm: StudyChapterEditForm;
   localPaths: LocalPaths = {};
+  scroller = new StudyChapterScroller();
 
   constructor(
     initChapters: ChapterPreviewFromServer[],
@@ -127,13 +128,10 @@ export const convertPlayerFromServer = <A extends StudyPlayerFromServer>(
 
 export function isFinished(c: StudyChapter) {
   const result = findTag(c.tags, 'result');
-  return result && result !== '*';
+  return !!result && result !== '*';
 }
 
-export function findTag(tags: TagArray[], name: string): string | undefined {
-  const t = tags.find(t => t[0].toLowerCase() === name);
-  return t && t[1];
-}
+export const findTag = (tags: TagArray[], name: string) => tags.find(t => t[0].toLowerCase() === name)?.[1];
 
 export const looksLikeLichessGame = (tags: TagArray[]) =>
   !!findTag(tags, 'site')?.match(new RegExp(location.hostname + '/\\w{8}$'));
@@ -163,33 +161,24 @@ export const gameLinksListener = (select: ChapterSelect) => (vnode: VNode) =>
     { passive: false },
   );
 
+function onListUpdate(ctrl: StudyCtrl, vnode: VNode) {
+  const vData = vnode.data!.li!,
+    el = vnode.elm as HTMLElement;
+  ctrl.chapters.scroller.scrollIfNeeded(el);
+  if (ctrl.members.canContribute() && ctrl.chapters.list.size() > 1 && !vData.sortable) {
+    site.asset.loadEsm<typeof Sortable>('sortable.esm', { npm: true }).then(s => {
+      vData.sortable = s.create(el, {
+        draggable: '.draggable',
+        handle: 'ontouchstart' in window ? 'span' : undefined,
+        onSort: () => ctrl.chapters.sort(vData.sortable.toArray()),
+      });
+    });
+  }
+}
+
 export function view(ctrl: StudyCtrl): VNode {
   const canContribute = ctrl.members.canContribute(),
     current = ctrl.currentChapter();
-  function update(vnode: VNode) {
-    const vData = vnode.data!.li!,
-      el = vnode.elm as HTMLElement;
-    if (ctrl.vm.scrollToActiveChapter) {
-      const behavior = ctrl.vm.scrollToActiveChapter;
-      ctrl.vm.scrollToActiveChapter = false;
-      const active = el.querySelector('.active') as HTMLElement | null;
-      if (active) {
-        const [c, l] = [el.getBoundingClientRect(), active.getBoundingClientRect()];
-        if (c.top < l.top || c.bottom > l.bottom) {
-          requestAnimationFrame(() => scrollToInnerSelector(el, '.active', false, behavior));
-        }
-      }
-    }
-    if (canContribute && ctrl.chapters.list.size() > 1 && !vData.sortable) {
-      site.asset.loadEsm<typeof Sortable>('sortable.esm', { npm: true }).then(s => {
-        vData.sortable = s.create(el, {
-          draggable: '.draggable',
-          handle: 'ontouchstart' in window ? 'span' : undefined,
-          onSort: () => ctrl.chapters.sort(vData.sortable.toArray()),
-        });
-      });
-    }
-  }
 
   return hl('div.study__chapters', [
     hl(
@@ -207,11 +196,11 @@ export function view(ctrl: StudyCtrl): VNode {
               } else ctrl.setChapter(id);
             });
             vnode.data!.li = {};
-            update(vnode);
+            onListUpdate(ctrl, vnode);
           },
           postpatch(old, vnode) {
             vnode.data!.li = old.data!.li;
-            update(vnode);
+            onListUpdate(ctrl, vnode);
           },
           destroy: vnode => {
             const sortable: Sortable = vnode.data!.li!.sortable;
@@ -245,4 +234,27 @@ export function view(ctrl: StudyCtrl): VNode {
         hl('h3', i18n.study.addNewChapter),
       ]),
   ]);
+}
+
+export class StudyChapterScroller {
+  constructor(
+    public request: ScrollBehavior | undefined = 'instant',
+    public rafId?: number,
+  ) {}
+
+  scrollIfNeeded(list: HTMLElement) {
+    if (!this.request) return;
+    const active = list.querySelector('.active');
+    if (!active) return;
+    const request = this.request;
+    this.request = undefined;
+    const [c, l] = [list.getBoundingClientRect(), active.getBoundingClientRect()];
+    if (c.top < l.top || c.bottom > l.bottom) {
+      cancelAnimationFrame(this.rafId ?? 0);
+      this.rafId = requestAnimationFrame(() => {
+        scrollToInnerSelector(list, '.active', false, request);
+        this.rafId = undefined;
+      });
+    }
+  }
 }

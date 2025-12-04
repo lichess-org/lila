@@ -1,12 +1,12 @@
 package lila.fide
 
-import chess.{ FideId, PlayerName, PlayerTitle }
+import chess.{ FideId, FideTC, PlayerName, PlayerTitle }
 import chess.rating.{ Elo, KFactor }
 import reactivemongo.api.bson.Macros.Annotations.Key
 
 import java.text.Normalizer
 
-import lila.core.fide.{ FideTC, PlayerToken, Tokenize, diacritics }
+import lila.core.fide.{ PlayerToken, Tokenize, diacritics }
 
 case class FidePlayer(
     @Key("_id") id: FideId,
@@ -57,6 +57,8 @@ case class FidePlayer(
   .mkString(", ")
 
 object FidePlayer:
+
+  case class WithFollow(player: FidePlayer, follow: Boolean)
 
   private[fide] val tokenize: Tokenize =
     val nonLetterRegex = """[^a-zA-Z0-9\s]+""".r

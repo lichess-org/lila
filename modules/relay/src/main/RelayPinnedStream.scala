@@ -11,11 +11,11 @@ case class RelayPinnedStream(name: String, url: URL, text: Option[String]):
   def upstream: Option[RelayPinnedStream.Upstream] =
     parseYoutube.orElse(parseTwitch)
 
-  def parseYoutube: Option[YouTube] =
+  def parseYoutube: Option[Youtube] =
     if List("www.youtube.com", "youtube.com", "youtu.be").contains(url.host.toString) then
       url.pathSegments.asScala.toList match
-        case List("live", id) => Some(YouTube(id))
-        case _ => Option(url.queryParameter("v")).map(YouTube.apply)
+        case List("live", id) => Some(Youtube(id))
+        case _ => Option(url.queryParameter("v")).map(Youtube.apply)
     else None
 
   // https://www.twitch.tv/tcec_chess_tv
@@ -32,7 +32,7 @@ object RelayPinnedStream:
     def toPair(domain: NetDomain) = (embed(domain), redirect)
   sealed trait Upstream:
     def urls: Urls
-  case class YouTube(id: String) extends Upstream:
+  case class Youtube(id: String) extends Upstream:
     def urls = Urls(
       _ => s"https://www.youtube-nocookie.com/embed/${id}?disablekb=1&modestbranding=1&autoplay=1",
       s"https://www.youtube.com/watch?v=${id}"

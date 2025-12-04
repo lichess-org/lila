@@ -35,7 +35,7 @@ final private[video] class VideoApi(
     private val maxPerPage = MaxPerPage(18)
 
     def find(id: Video.ID): Fu[Option[Video]] =
-      videoColl.find($id(id)).one[Video]
+      videoColl.byId[Video](id)
 
     def search(user: Option[UserId], query: String, page: Int): Fu[Paginator[VideoView]] =
       val q = query
@@ -69,13 +69,7 @@ final private[video] class VideoApi(
       videoColl.delete.one($doc("_id".$nin(ids))).map(_.n)
 
     def setMetadata(id: Video.ID, metadata: Youtube.Metadata) =
-      videoColl.update
-        .one(
-          $id(id),
-          $doc("$set" -> $doc("metadata" -> metadata)),
-          upsert = false
-        )
-        .void
+      videoColl.updateField($id(id), "metadata", metadata).void
 
     def allIds: Fu[List[Video.ID]] =
       videoColl.distinctEasy[String, List]("_id", $empty, _.sec)
@@ -86,7 +80,7 @@ final private[video] class VideoApi(
           collection = videoColl,
           selector = $empty,
           projection = none,
-          sort = $doc("metadata.likes" -> -1),
+          sort = $doc("metadata.refreshedAt" -> -1),
           _.sec
         ).mapFutureList(videoViews(user)),
         currentPage = page,
@@ -101,7 +95,7 @@ final private[video] class VideoApi(
             collection = videoColl,
             selector = $doc("tags".$all(tags)),
             projection = none,
-            sort = $doc("metadata.likes" -> -1),
+            sort = $doc("metadata.refreshedAt" -> -1),
             _.sec
           ).mapFutureList(videoViews(user)),
           currentPage = page,
@@ -114,7 +108,7 @@ final private[video] class VideoApi(
           collection = videoColl,
           selector = $doc("author" -> author),
           projection = none,
-          sort = $doc("metadata.likes" -> -1),
+          sort = $doc("metadata.publishedAt" -> -1),
           _.sec
         ).mapFutureList(videoViews(user)),
         currentPage = page,
@@ -142,7 +136,7 @@ final private[video] class VideoApi(
             ,
             Sort(
               Descending("int"),
-              Descending("metadata.likes")
+              Descending("metadata.refreshedAt")
             ),
             Limit(max)
           )

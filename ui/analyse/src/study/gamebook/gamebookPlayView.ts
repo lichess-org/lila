@@ -90,13 +90,14 @@ function renderEnd(ctrl: GamebookPlayCtrl) {
       },
       i18n.study.playAgain,
     ),
-    hl(
-      'button.analyse',
-      {
-        attrs: { 'data-icon': licon.Microscope, type: 'button' },
-        hook: bind('click', () => study.setGamebookOverride('analyse'), ctrl.redraw),
-      },
-      i18n.site.analysis,
-    ),
+    !study.vm.gamebookOverride &&
+      hl(
+        'button.analyse',
+        {
+          attrs: { 'data-icon': licon.Microscope, type: 'button' },
+          hook: bind('click', () => study.setGamebookOverride('analyse'), ctrl.redraw),
+        },
+        i18n.site.analysis,
+      ),
   ]);
 }

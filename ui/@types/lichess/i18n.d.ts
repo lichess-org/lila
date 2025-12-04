@@ -8,7 +8,9 @@ interface I18nPlural {
   asArray: <T>(quantity: number, ...args: T[]) => (T | string)[]; // vdomPlural / plural
 }
 interface I18n {
-  /** Global noarg key lookup (only if absolutely necessary). */
+  /** fetch i18n dynamically */
+  load(catalog: string): Promise<void>;
+  /** global noarg key lookup */
   (key: string): string;
   quantity: (count: number) => 'zero' | 'one' | 'two' | 'few' | 'many' | 'other';
 
@@ -253,6 +255,8 @@ interface I18n {
     createdAndManagedBy: I18nFormat;
     /** Current game URL */
     currentGameUrl: string;
+    /** Keeping the default name will automatically translate it to all other languages. */
+    defaultRoundNameHelp: string;
     /** Definitively delete the round and all its games. */
     definitivelyDeleteRound: string;
     /** Definitively delete the entire tournament, all its rounds and all its games. */
@@ -331,6 +335,8 @@ interface I18n {
     resetRound: string;
     /** Round name */
     roundName: string;
+    /** Round %s */
+    roundX: I18nFormat;
     /** Score */
     score: string;
     /** Show players scores based on game results */
@@ -2679,6 +2685,10 @@ interface I18n {
     bishopEndgame: string;
     /** An endgame with only bishops and pawns. */
     bishopEndgameDescription: string;
+    /** Blind Swine mate */
+    blindSwineMate: string;
+    /** Two rooks team up to mate the king in an area of 2 by 2 squares. */
+    blindSwineMateDescription: string;
     /** Boden's mate */
     bodenMate: string;
     /** Two attacking bishops on criss-crossing diagonals deliver mate to a king obstructed by friendly pieces. */
@@ -2695,6 +2705,10 @@ interface I18n {
     clearance: string;
     /** A move, often with tempo, that clears a square, file or diagonal for a follow-up tactical idea. */
     clearanceDescription: string;
+    /** Corner mate */
+    cornerMate: string;
+    /** Confine the king to the corner using a rook or queen and a knight to engage the checkmate. */
+    cornerMateDescription: string;
     /** Crushing */
     crushing: string;
     /** Spot the opponent blunder to obtain a crushing advantage. (eval ≥ 600cp) */
@@ -2711,6 +2725,10 @@ interface I18n {
     discoveredAttack: string;
     /** Moving a piece (such as a knight), that previously blocked an attack by a long range piece (such as a rook), out of the way of that piece. */
     discoveredAttackDescription: string;
+    /** Discovered check */
+    discoveredCheck: string;
+    /** Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage. */
+    discoveredCheckDescription: string;
     /** Double bishop mate */
     doubleBishopMate: string;
     /** Two attacking bishops on adjacent diagonals deliver mate to a king obstructed by friendly pieces. */
@@ -2883,6 +2901,10 @@ interface I18n {
     trappedPiece: string;
     /** A piece is unable to escape capture as it has limited moves. */
     trappedPieceDescription: string;
+    /** Triangle mate */
+    triangleMate: string;
+    /** The queen and rook, one square away from the enemy king, are on the same rank or file, separated by one square, forming a triangle. */
+    triangleMateDescription: string;
     /** Underpromotion */
     underPromotion: string;
     /** Promotion to a knight, bishop, or rook. */
@@ -3905,7 +3927,7 @@ interface I18n {
     noConditionalPremoves: string;
     /** You cannot draw before 30 moves are played in a Swiss tournament. */
     noDrawBeforeSwissLimit: string;
-    /** No game found */
+    /** No games found */
     noGameFound: string;
     /** No mistakes found for black */
     noMistakesFoundForBlack: string;
@@ -4857,8 +4879,14 @@ interface I18n {
     becomeStreamer: string;
     /** Change/delete your picture */
     changePicture: string;
+    /** Choose the YouTube channel you will use on Lichess. */
+    chooseYoutubeChannel: string;
+    /** Connect */
+    connect: string;
     /** Currently streaming: %s */
     currentlyStreaming: I18nFormat;
+    /** Disconnect */
+    disconnect: string;
     /** Download streamer kit */
     downloadKit: string;
     /** Do you have a Twitch or YouTube channel? */
@@ -4897,6 +4925,8 @@ interface I18n {
     perk4: string;
     /** Benefits of streaming with the keyword */
     perks: string;
+    /** Please allow up to 72 hours before your streamer badge and listing are approved. */
+    pleaseAllow: string;
     /** Please fill in your streamer information, and upload a picture. */
     pleaseFillIn: string;
     /** Include the keyword "lichess.org" in your stream title and use the category "Chess" when you stream on Lichess. */
@@ -4919,12 +4949,6 @@ interface I18n {
     submitForReview: string;
     /** Tell us about your stream in one sentence */
     tellUsAboutTheStream: string;
-    /** Twitch and YouTube changes must be verified. */
-    twitchOrYouTubeMustBeVerified: string;
-    /** Either Twitch or YouTube is required */
-    twitchOrYouTubeRequired: string;
-    /** Your Twitch username or URL */
-    twitchUsername: string;
     /** Upload a picture */
     uploadPicture: string;
     /** Visible on the streamers page */
@@ -4939,8 +4963,6 @@ interface I18n {
     xStreamerPicture: I18nFormat;
     /** Your streamer page */
     yourPage: string;
-    /** Your YouTube channel ID */
-    youTubeChannelId: string;
   };
   study: {
     /** Add members */

@@ -182,7 +182,7 @@ final class RelayRound(
     studyC.pgnWithFlags(
       id.into(StudyId),
       _.copy(
-        updateTags = _ + Tag("GameURL", s"${env.net.baseUrl}${routes.RelayRound.show(ts, rs, id)}"),
+        updateTags = _ + Tag("GameURL", routeUrl(routes.RelayRound.show(ts, rs, id))),
         comments = false,
         variations = false
       )
@@ -215,7 +215,7 @@ final class RelayRound(
     Found(env.relay.api.byIdWithTourAndStudy(id)): rt =>
       if !rt.study.canContribute(me) then forbiddenJson()
       else
-        import lila.relay.JsonView.given
+        import lila.relay.RelayJsonView.given
         env.relay
           .push(rt.withTour, PgnStr(ctx.body.body))
           .map(JsonOk)
@@ -272,7 +272,7 @@ final class RelayRound(
           case VideoEmbed.Stream(userId) =>
             env.streamer.api
               .find(userId)
-              .flatMapz(s => env.streamer.liveStreamApi.of(s).dmap(some))
+              .flatMapz(s => env.streamer.liveApi.of(s).dmap(some))
               .map:
                 _.flatMap(_.stream).map(_.urls.toPair(netDomain))
           case VideoEmbed.PinnedStream =>

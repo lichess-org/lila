@@ -16,6 +16,8 @@
   <string name="backRankMateDescription">Jepini mat mbretin në rreshtin e tij, kur ai është bllokuar atje nga gurë të vetët.</string>
   <string name="balestraMate">Mat Balestra</string>
   <string name="balestraMateDescription">Një oficer jep shahmat, teksa një mbretëreshë bllokon kuadratet e ikjes</string>
+  <string name="blindSwineMate">Mat Derri Qorr</string>
+  <string name="blindSwineMateDescription">Dy torre bëhen tok për t’i dhënë mat mbretit në një zonë prej 2 herë 2 kuadratesh.</string>
   <string name="bishopEndgame">Fund loje me oficer</string>
   <string name="bishopEndgameDescription">Fund loje me vetëm oficerë dhe ushtarë.</string>
   <string name="bodenMate">Mati i Bodenit</string>
@@ -24,6 +26,8 @@
   <string name="castlingDescription">Siguroni mbretin dhe futeni torrën në sulm.</string>
   <string name="capturingDefender">Merrni mbrojtësin</string>
   <string name="capturingDefenderDescription">Heqja e një pjese që është kritike për mbrojtjen e një pjese tjetër, çka tani lejon që pjesa e pambrojtur të merret me një lëvizje vijuese.</string>
+  <string name="cornerMate">Mat qosheje</string>
+  <string name="cornerMateDescription">Mbërthejeni mbretin në qoshe, duke përdorur një torre, ose një mbretëreshë dhe një kalë, për të dhënë shah-mat.</string>
   <string name="crushing">Shkatërrim</string>
   <string name="crushingDescription">Shfrytëzoni gafën e kundërshtarit për të përfituar një avantazh shkatërrues. (vlera ≥ 600 cp)</string>
   <string name="doubleBishopMate">Mat me dy oficerë</string>
@@ -59,6 +63,8 @@
   <string name="interferenceDescription">Lëvizja e një guri mes dy gurësh të kundërshtarit për të lënë të pambrojtur një ose të dy gurët e kundërshtarit, bie fjala, një kalë në një kuadrat mes dy torresh.</string>
   <string name="intermezzo">Ndërmjetësim</string>
   <string name="intermezzoDescription">Në vend që të luhet lëvizja e pritshme, së pari ndërhyni një lëvizje tjetër që paraqet një kërcënim të menjëhershëm, që kundërshtari duhet t\'i përgjigjet. Njihet gjithashtu si \"Zwischenzug\" ose \"Në mes\".</string>
+  <string name="triangleMate">Mat trekëndësh</string>
+  <string name="triangleMateDescription">Mbretëresha dhe torra, një kuadrat larg nga mbreti armik, gjenden në të njëjtin rresht ose shtyllë, një kuadrat larg njëri-tjetrit, duke formuar një trekëndësh.</string>
   <string name="vukovicMate">Mat Vukoviç</string>
   <string name="vukovicMateDescription">Një torre dhe një kalë bëhen tok për ta kapur mbretin mat. Torrja kryen matin teksa mbështetet nga një gur i tretë dhe kali përdoret për të bllokuar kuti shpëtimi të mbretit.</string>
   <string name="knightEndgame">Fund loje me kalë</string>

@@ -5,6 +5,7 @@ import lila.ui.*
 import ScalatagsTemplate.{ *, given }
 
 final class RelayGroupUi(ui: RelayUi, card: RelayCardUi, pageMenu: RelayMenuUi):
+
   def show(
       group: lila.relay.RelayGroup,
       tours: List[lila.relay.RelayTour]

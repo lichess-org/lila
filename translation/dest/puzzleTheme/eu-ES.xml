@@ -14,6 +14,10 @@
   <string name="attractionDescription">Aurkariaren pieza bat ondorengo erasoa erraztuko duen lauki batera mugitzeko pieza-aldaketa edo sakrifizioa.</string>
   <string name="backRankMate">Azken lerroko matea</string>
   <string name="backRankMateDescription">Bere piezekin trabatuta dagoenean erregeari bere errenkadan matea ematea.</string>
+  <string name="balestraMate">Balestra matea</string>
+  <string name="balestraMateDescription">Damak ihes egiteko laukiak babesten dituenean alfilak mate ematen du</string>
+  <string name="blindSwineMate">Txerri itxuaren matea</string>
+  <string name="blindSwineMateDescription">Bi gazteluk elkarrekin egiten dute lana 2x2 laukiko azalearen erregeari mate emateko.</string>
   <string name="bishopEndgame">Alfilen bukaera</string>
   <string name="bishopEndgameDescription">Alfilak eta peoiak bakarrik dituen partida-bukaera.</string>
   <string name="bodenMate">Bodenen matea</string>
@@ -22,6 +26,8 @@
   <string name="castlingDescription">Babestu erregea eta ekarri gaztelua erasora.</string>
   <string name="capturingDefender">Defendatzailea harrapatu</string>
   <string name="capturingDefenderDescription">Beste pieza bat defendatzeko funtsezkoa den pieza kentzea, hurrengo jokaldietan lehenengo pieza hori harrapatzeko.</string>
+  <string name="cornerMate">Bazterreko matea</string>
+  <string name="cornerMateDescription">Baztertu erregea gaztelua edo dama eta zaldia erabiliz matea emateako.</string>
   <string name="crushing">Zapalketa</string>
   <string name="crushingDescription">Akatsa aurkitu eta guztizko abantaila lortu. (ebaluazioa ≥ 600cp)</string>
   <string name="doubleBishopMate">Bi alfilen matea</string>
@@ -59,6 +65,8 @@
   <string name="intermezzoDescription">Esperotako jokaldia egin beharrean, aurkariari mehatxu bat eginez beste jokaldi bat egin aurkaria jokaldi horri erantzutera derrigortuz.</string>
   <string name="killBoxMate">Hilkutxaren matea</string>
   <string name="killBoxMateDescription">Gaztelua aurkariaren erregearen ondoan dago damaren laguntzarekin, honek gainera erregearen ihes-laukiak babesten ditu. Gazteluak eta damak erregea 3x3ko \"hilkutxa\" baten harrapatu dezakete.</string>
+  <string name="triangleMate">Hirukiaren matea</string>
+  <string name="triangleMateDescription">Dama eta gaztelua erregearengandik lauki batera daudela, errenkada edo zutabe berean, biak lauki batez banatuta, hiruki bat osatuz.</string>
   <string name="vukovicMate">Vukovicen matea</string>
   <string name="vukovicMateDescription">Gaztelu eta zaldunak batera lan egiten dute matea emateko. Gazteluak mate ematen du hirugaren piezak lagundurik, zaldunak erregearen ihes-laukiak babesten dituen artean.</string>
   <string name="knightEndgame">Zaldunen finala</string>

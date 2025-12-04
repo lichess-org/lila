@@ -12,7 +12,7 @@ import lila.core.id.RelayRoundId
 import lila.core.misc.lpv.LpvEmbed
 import lila.core.net.IpAddress
 import lila.core.socket.Sri
-import lila.core.study.Order
+import lila.core.study.StudyOrder
 import lila.core.data.ErrorMsg
 import lila.study.JsonView.JsData
 import lila.study.PgnDump.WithFlags
@@ -30,7 +30,7 @@ final class Study(
     apiC: => Api
 ) extends LilaController(env):
 
-  def search(text: String, page: Int, order: Option[Order]) =
+  def search(text: String, page: Int, order: Option[StudyOrder]) =
     OpenOrScopedBody(parse.anyContent)(_.Study.Read, _.Web.Mobile):
       Reasonable(page):
         WithProxy: proxy ?=>
@@ -52,21 +52,21 @@ final class Study(
             case Some(clean) =>
               limit.enumeration.search(rateLimited):
                 env
-                  .studySearch(clean.take(100), order | Order.relevant, page)
+                  .studySearch(clean.take(100), order | StudyOrder.relevant, page)
                   .flatMap: pag =>
                     negotiate(
-                      Ok.page(views.study.list.search(pag, order | Order.relevant, text)),
+                      Ok.page(views.study.list.search(pag, order | StudyOrder.relevant, text)),
                       apiStudies(pag)
                     )
 
-  def homeLang = LangPage(routes.Study.allDefault())(allResults(Order.hot, 1))
+  def homeLang = LangPage(routes.Study.allDefault())(allResults(StudyOrder.hot, 1))
 
-  def allDefault(page: Int) = all(Order.hot, page)
+  def allDefault(page: Int) = all(StudyOrder.hot, page)
 
-  def all(order: Order, page: Int) = OpenOrScoped(_.Study.Read, _.Web.Mobile):
+  def all(order: StudyOrder, page: Int) = OpenOrScoped(_.Study.Read, _.Web.Mobile):
     allResults(order, page)
 
-  private def allResults(order: Order, page: Int)(using ctx: Context) =
+  private def allResults(order: StudyOrder, page: Int)(using ctx: Context) =
     Reasonable(page):
       order match
         case order if !Orders.withoutSelector.contains(order) =>
@@ -83,7 +83,7 @@ final class Study(
 
   def byOwnerDefault(username: UserStr, page: Int) = byOwner(username, Orders.default, page)
 
-  def byOwner(username: UserStr, order: Order, page: Int) = Open:
+  def byOwner(username: UserStr, order: StudyOrder, page: Int) = Open:
     Found(meOrFetch(username)): owner =>
       for
         pag <- env.study.pager.byOwner(owner, order, page)
@@ -110,9 +110,9 @@ final class Study(
   private type StudyPager = Paginator[StudyModel.WithChaptersAndLiked]
 
   private def MyStudyPager(
-      makePager: (Order, Int) => Me ?=> Fu[StudyPager],
-      render: (StudyPager, Order) => Context ?=> Me ?=> Fu[Page]
-  ) = (order: Order, page: Int) =>
+      makePager: (StudyOrder, Int) => Me ?=> Fu[StudyPager],
+      render: (StudyPager, StudyOrder) => Context ?=> Me ?=> Fu[Page]
+  ) = (order: StudyOrder, page: Int) =>
     AuthOrScoped(_.Web.Mobile) { ctx ?=> me ?=>
       for
         pager <- makePager(order, page)
@@ -121,7 +121,7 @@ final class Study(
       yield res
     }
 
-  def byTopic(name: String, order: Order, page: Int) = Open:
+  def byTopic(name: String, order: StudyOrder, page: Int) = Open:
     Found(lila.study.StudyTopic.fromStr(name)): topic =>
       for
         pag <- env.study.pager.byTopic(topic, order, page)
@@ -299,7 +299,7 @@ final class Study(
         round <- env.relay.api.deleteRound(id.into(RelayRoundId))
         _ <- env.study.api.delete(study)
       yield round match
-        case None => Redirect(routes.Study.mine(Order.hot))
+        case None => Redirect(routes.Study.mine(StudyOrder.hot))
         case Some(tour) => Redirect(routes.RelayTour.show(tour.slug, tour.id))
   }
 
@@ -566,7 +566,7 @@ final class Study(
   private val streamerCache =
     env.memo.cacheApi[StudyId, List[UserId]](64, "study.streamers"):
       _.expireAfterWrite(10.seconds).buildAsyncFuture: studyId =>
-        env.study.findConnectedUsersIn(studyId)(env.streamer.liveStreamApi.streamerUserIds)
+        env.study.findConnectedUsersIn(studyId)(env.streamer.liveApi.streamerUserIds)
 
   def glyphs(lang: String) = Anon:
     Found(play.api.i18n.Lang.get(lang)): lang =>

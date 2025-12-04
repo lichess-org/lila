@@ -25,7 +25,8 @@ final class Env(
     swissApi: lila.core.swiss.SwissApi,
     getLightTeam: lila.core.team.LightTeam.GetterSync,
     lightUserApi: lila.core.user.LightUserApi,
-    userApi: lila.core.user.UserApi
+    userApi: lila.core.user.UserApi,
+    routeUrl: play.api.mvc.Call => Url
 )(using ec: Executor, scheduler: Scheduler):
 
   private lazy val coll = db(CollName("activity2")).failingSilently()

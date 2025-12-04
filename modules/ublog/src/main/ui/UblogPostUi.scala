@@ -90,7 +90,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
                     routes.Report.form.url,
                     Map(
                       "username" -> user.username.value,
-                      "postUrl" -> s"$netBaseUrl${ui.urlOfPost(post)}",
+                      "postUrl" -> routeUrl(ui.urlOfPost(post)).value,
                       "from" -> "ublog"
                     )
                   ),

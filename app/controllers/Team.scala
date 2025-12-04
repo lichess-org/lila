@@ -122,10 +122,12 @@ final class Team(env: Env) extends LilaController(env):
       bindForm(forms.edit(team))(
         err => BadRequest.async(renderEdit(team, err)),
         data =>
-          for automodText <- api.update(team, data)
+          for
+            automodText <- api.update(team, data)
+            url = routes.Team.show(team.id).url
+            _ <- env.memo.picfitApi.addRef(Markdown(automodText), ref(team.id), url.some)
           yield
-            val url = routes.Team.show(team.id)
-            discard { env.report.api.automodComms(automodText, url.url) }
+            discard { env.report.api.automodComms(team.automodText, url) }
             Redirect(url).flashSuccess
       )
   }
@@ -183,7 +185,7 @@ final class Team(env: Env) extends LilaController(env):
                           if asMod then LightUser.fallback(UserName.lichess) else me.light,
                           team.team.light,
                           change.perms.map(_.name),
-                          env.net.baseUrl
+                          routeUrl(routes.Team.show(team.id))
                         )
                       )
                     .inject:
@@ -258,6 +260,9 @@ final class Team(env: Env) extends LilaController(env):
     ttl = 10.minutes,
     maxConcurrency = 1
   )
+
+  private def ref(id: TeamId) = s"team:$id"
+
   def create = AuthBody { ctx ?=> me ?=>
     OneAtATime(me, rateLimited):
       LimitPerWeek:
@@ -265,10 +270,12 @@ final class Team(env: Env) extends LilaController(env):
           bindForm(forms.create)(
             err => BadRequest.page(views.team.form.create(err, anyCaptcha)),
             data =>
-              for team <- api.create(data, me)
+              for
+                team <- api.create(data, me)
+                url = routes.Team.show(team.id).url
+                _ <- env.memo.picfitApi.addRef(Markdown(team.automodText), ref(team.id), url.some)
               yield
-                val url = routes.Team.show(team.id)
-                discard { env.report.api.automodComms(team.automodText, url.url) }
+                discard { env.report.api.automodComms(team.automodText, url) }
                 Redirect(url)
           )
   }
@@ -443,7 +450,7 @@ final class Team(env: Env) extends LilaController(env):
           val normalized = msg.replaceAll("\r\n?", "\n")
           env.team.limiter.pmAll
             .dedupAndLimit(team.id, normalized): () =>
-              val url = s"${env.net.baseUrl}${routes.Team.show(team.id)}"
+              val url = routeUrl(routes.Team.show(team.id))
               val full = s"""$normalized
   ---
   You received this because you are subscribed to messages of the team $url."""

@@ -49,7 +49,7 @@
   <string name="mustHavePlayedTheirLastSwissGame">باید آخرین بازی سوییسی‌شان را کرده باشند</string>
   <string name="mustHavePlayedTheirLastSwissGameHelp">فقط به بازیکنانی اجازهٔ ورود بده که آخرین بازی سوئیسی خود را انجام داده‌اند. اگر آن‌ها در یک رویداد سوئیسی اخیر شرکت نکرده باشند، نمی‌توانند وارد رویداد شما شوند. این امر منجر به تجربهٔ بهتری در مسابقات سوئیسی برای بازیکنانی می‌شود که واقعاً حاضر می‌شوند.</string>
   <string name="newSwiss">مسابقات سوئیسی جدید</string>
-  <string name="swissVsArenaQ">کِی از مسابقات سوئیسی به جای راوان استفاده کنیم؟</string>
+  <string name="swissVsArenaQ">کِی از مسابقات سوئیسی به جای راوان بِبَهریم؟</string>
   <string name="swissVsArenaA">در یک مسابقهٔ سوئیسی، همه شرکت‌گران به تعداد یکسان و فقط یک‌بار می‌توانند با یکدیگر بازی کنند.
 می‌تواند گزینهٔ خوبی برای باشگاه‌ها و مسابقات رسمی باشد.</string>
   <string name="pointsCalculationQ">چگونه امتیازات محاسبه میشوند؟</string>
@@ -98,7 +98,7 @@
   <string name="startingSoon">بزودی شروع می‌شود</string>
   <string name="comparison">مقایسه</string>
   <string name="tournDuration">مدت زمان مسابقه</string>
-  <string name="predefinedDuration">مدت زمان از پیش تعریف شده به دقیقه</string>
+  <string name="predefinedDuration">مدتِ پیش‌تعریفیده به دقیقه</string>
   <string name="durationUnknown">حداکثر تعداد دورها از قبل تعیین شده، ولی زمان نا مشخص است</string>
   <string name="numberOfGames">تعداد بازی‌ها</string>
   <string name="numberOfGamesAsManyAsPossible">هر تعداد که می توان در مدت زمان تعیین شده بازی کرد</string>
@@ -120,7 +120,7 @@
   <string name="similarToOTB">مشابه مسابقات بر روی تخته</string>
   <string name="unlimitedAndFree">بدون محدودیت و رایگان</string>
   <string name="predefinedUsers">تنها کاربران از پیش تعریف شده اجازه ورود دارند</string>
-  <string name="forbiddedUsers">اگر این لیست خالی نیست، بنابراین کاربرانی که در لیست نیستند امکان ورود ندارند. یک نام کاربری در هر خط.</string>
+  <string name="forbiddedUsers">اگر این فهرست خالی نیست، کاربرانی که در فهرست نیستند اجازهٔ پیوستن ندارند. یک نام کاربری در هر خط.</string>
   <string name="playYourGames">بازی‌های خود را بازی کنید</string>
   <string name="byes">استراحت</string>
   <string name="absences">غيبت ها</string>

@@ -161,10 +161,10 @@ object header:
                   .map(strong(cls := "name")(_)),
                 info.publicFideId.map: id =>
                   p(a(href := routes.Fide.show(id, u.username.value))("FIDE player #" + id)),
-                (showLinks && ctx.kid.no && u.kid.no && !hideTroll)
+                (showLinks && ctx.kid.no && u.kid.no && !hideTroll || isGranted(_.UserModView))
                   .so(profile.nonEmptyBio)
                   .map: bio =>
-                    p(cls := "bio")(richText(bio, nl2br = true)),
+                    p(cls := List("bio" -> true, "muted" -> hideTroll))(richText(bio, nl2br = true)),
                 div(cls := "stats")(
                   profile.officialRating.map: r =>
                     div(r.name.toUpperCase, " rating: ", strong(r.rating)),

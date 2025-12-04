@@ -22,11 +22,13 @@ private object RelayPlayerLine:
     private val nonLetterRegex = """[^a-zA-Z0-9\s]+""".r
     private val splitRegex = """\W""".r
     private val titleRegex = """(?i)(dr|prof)\.""".r
+    private val chessTitleRegex = s"""^(${chess.PlayerTitle.acronyms.mkString("|")} )""".r
     def apply(str: String): PlayerToken =
+      val trimmed = str.trim.replaceAllIn(chessTitleRegex, "").trim
       splitRegex
         .split:
           java.text.Normalizer
-            .normalize(str.trim, java.text.Normalizer.Form.NFD)
+            .normalize(trimmed, java.text.Normalizer.Form.NFD)
             .replace(",", " ")
             .replaceAllIn(titleRegex, "")
             .replaceAllIn(nonLetterRegex, "")

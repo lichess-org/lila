@@ -15,6 +15,12 @@ lazy val root = Project("lila", file("."))
 organization := "org.lichess"
 Compile / run / fork := true
 javaOptions ++= Seq("-Xms64m", "-Xmx512m", "-Dlogger.file=conf/logger.dev.xml")
+javaOptions ++= {
+  if (sys.props("java.specification.version").toInt > 21)
+    Seq("--enable-native-access=ALL-UNNAMED")
+  else
+    Seq.empty
+}
 ThisBuild / scalacOptions ++= Seq("-unchecked", "-deprecation")
 ThisBuild / usePipelining := false
 // shorter prod classpath
@@ -199,7 +205,7 @@ lazy val history = module("history",
 )
 
 lazy val search = module("search",
-  Seq(common),
+  Seq(memo),
   Seq(playWs.ahc, lilaSearch)
 )
 

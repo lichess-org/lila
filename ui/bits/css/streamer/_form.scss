@@ -32,7 +32,20 @@
       height: min(350px, calc(100vw - 4em));
     }
   }
-
+  .twitch-link-box,
+  .youtube-link-box {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    gap: 1em;
+    &.linked button.link {
+      display: none;
+    }
+    &:not(.linked) button.unlink {
+      display: none;
+    }
+  }
   .status {
     @extend %box-radius;
 

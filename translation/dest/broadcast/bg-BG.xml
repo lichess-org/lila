@@ -10,10 +10,10 @@
   <string name="broadcastCalendar">Календар на излъчванията</string>
   <string name="newBroadcast">Нови предавания на живо</string>
   <string name="subscribedBroadcasts">Излчвания които следя</string>
-  <string name="addRound">Добави рунд</string>
+  <string name="addRound">Добави кръг</string>
   <string name="ongoing">Текущи</string>
   <string name="upcoming">Предстоящи</string>
-  <string name="roundName">Име на рунда</string>
+  <string name="roundName">Име на кръга</string>
   <string name="tournamentName">Име на турнира</string>
   <string name="tournamentDescription">Кратко описание на турнира</string>
   <string name="fullDescription">Пълно описание на събитието</string>
@@ -23,13 +23,13 @@
   <string name="sourceGameIds">До 64 идентификатора на игри в Lichess, разделени с празни места.</string>
   <string name="startDateHelp">По избор, ако знаете, кога започва събитието</string>
   <string name="currentGameUrl">URL на настоящата партия</string>
-  <string name="downloadAllRounds">Изтегли всички рундове</string>
-  <string name="resetRound">Нулирай този рунд</string>
-  <string name="deleteRound">Изтрий този рунд</string>
-  <string name="definitivelyDeleteRound">Окончателно изтрийте този рунд и всичките му игри.</string>
-  <string name="deleteAllGamesOfThisRound">Изтрийте този рунд и всичките му игри. Източникът трябва да е активен за да можете да ги възстановите.</string>
+  <string name="downloadAllRounds">Изтегли всички кръгове</string>
+  <string name="resetRound">Нулирай този кръг</string>
+  <string name="deleteRound">Изтрий този кръг</string>
+  <string name="definitivelyDeleteRound">Окончателно изтрийте този кръг и всичките му игри.</string>
+  <string name="deleteAllGamesOfThisRound">Изтрийте този кръг и всичките му игри. Източникът трябва да е активен за да можете да ги възстановите.</string>
   <string name="deleteTournament">Изтрий този турнир</string>
-  <string name="definitivelyDeleteTournament">Окончателно изтрий целия турнир, всичките му рундове и игри.</string>
+  <string name="definitivelyDeleteTournament">Окончателно изтрий целия турнир, всичките му кръгове и игри.</string>
   <string name="replacePlayerTags">По избор: промени имената на играчите, рейтингите и титлите</string>
   <string name="fideFederations">ФИДЕ федерации</string>
   <string name="fideProfile">ФИДЕ профил</string>
@@ -51,4 +51,5 @@
   <string name="allBroadcastsByMonth">Виж всички излъчвания по месец</string>
   <string name="communityBroadcast">Излъчване от общността</string>
   <string name="createdAndManagedBy">Създадено и управлявано от %s.</string>
+  <string name="roundX" comment="%s is the number of the round.&#10;e.g. &quot;Round 2&quot;.&#10;&#10;If your language changes the word &quot;Round&quot; based on the number after it, consider using punctuation to get around the problem (e.g. &quot;Round: %s&quot;).&#10;&#10;This is the standard name for a round in a broadcast (https://lichess.org/broadcast), so it is translatable.&#10;&#10;Broadcasters may optionally override it. If they override the default name, it will be in a language and words of their choice e.g. &quot;Semifinals Tiebreak 1&quot; - no longer being translatable.">Кръг %s</string>
 </resources>
