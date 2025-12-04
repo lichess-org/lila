@@ -319,7 +319,7 @@ export const shareable = (r: Recap): VNode =>
       hl('h2', i18n.recap.shareableTitle.asArray(r.year)),
       hl('div.grid', [
         stati18n(r.games.nbs.total, i18n.site.nbGames),
-        stati18n(r.games.moves, i18n.recap.nbMoves),
+        stati18n(r.games.moves, i18n.recap.nbMovesPlayed),
         stat(formatDuration(r.games.timePlaying, ', '), i18n.recap.shareableSpentPlaying),
         r.games.perfs[0]?.games && stat(renderPerf(r.games.perfs[0]), perfLabel(r.games.perfs[0])),
         r.games.opponents.length &&
