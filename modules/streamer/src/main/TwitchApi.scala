@@ -62,8 +62,7 @@ final private class TwitchApi(
   private val logger = lila.streamer.logger.branch("twitch")
   private val webhook = net.routeUrl(routes.Streamer.onTwitchEventSub)
   private val eventSubEndpoint = s"${cfg.helixEndpoint}/eventsub/subscriptions"
-  private val eventVersions =
-    Map("stream.online" -> "1", "stream.offline" -> "1", "channel.update" -> "2")
+  private val eventVersions = Map("stream.online" -> "1", "stream.offline" -> "1", "channel.update" -> "2")
   private val lives = TrieMap.empty[String, HelixStream]
 
   private case class EventSub(subId: String, broadcasterId: String, event: String)
@@ -124,19 +123,18 @@ final private class TwitchApi(
     yield ()
 
   private[streamer] def syncAll: Funit = cfg.clientId.nonEmpty.so:
-    repo
-      .approvedIds("twitch")
-      .map: ids =>
-        ids
-          .grouped(100)
-          .toList
-          .sequentially(fetchStreams)
-          .map(_.flatten)
-          .foreach: streams =>
-            val newLives = streams.iterator.map(l => l.user_id -> l).toMap
-            val freshIds = newLives.keySet
-            ids.iterator.filterNot(freshIds).foreach(lives.remove)
-            newLives.foreach { case (id, live) => lives.update(id, live) }
+    for
+      latestSeenApprovedIds <- repo.approvedIds("twitch")
+      allOngoingStreams <- latestSeenApprovedIds
+        .grouped(100)
+        .toList
+        .sequentially(fetchStreams)
+        .map(_.flatten)
+      newLives = allOngoingStreams.view.map(l => l.user_id -> l).toMap
+      freshIds = newLives.keySet
+    yield
+      latestSeenApprovedIds.filterNot(freshIds).foreach(lives.remove)
+      newLives.foreach(lives.update)
 
   private[streamer] def forceCheck(s: Streamer.Twitch): Funit =
     fetchStream(s.id).map(helix => lives.updateWith(s.id)(_ => helix))
@@ -222,8 +220,7 @@ final private class TwitchApi(
     yield ()
 
   private def fetchStreams(ids: Seq[String]): Fu[Seq[HelixStream]] =
-    if ids.isEmpty then fuccess(Nil)
-    else
+    ids.nonEmpty.so:
       for
         headers <- headersAuth
         res <- ws
