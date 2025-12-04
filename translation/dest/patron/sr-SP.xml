@@ -55,9 +55,10 @@
   <string name="changeMonthlyAmount">Промени месечни износ (%s)</string>
   <string name="cancelSupport">откажи твоју пордшку</string>
   <string name="xOrY">%1$s или %2$s</string>
-  <string name="decideHowMuch">Одлучи колико Личес теби вреди:</string>
-  <string name="stopPayments">Повуци своју кредитну картицу и обустави наплате:</string>
-  <string name="viewOthers">Погледај остале Личес Патроне</string>
+  <string name="decideHowMuch">Одлучи колико ти Lichess вреди:</string>
+  <string name="stopPayments">Повуци своју кредитну картицу и заустави плаћања:</string>
+  <string name="noLongerSupport">Не подржавај више Lichess</string>
+  <string name="viewOthers">Погледај остале Lichess Покровитеље</string>
   <string name="date">Датум</string>
   <string name="amount">Износ</string>
   <string name="transactionCompleted">Твоја трансакција је завршена и рачун за твоју донацију је послат на твоју е-пошту.</string>
