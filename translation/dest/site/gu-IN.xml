@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="gameSetup">રમત સેટઅપ</string>
-  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">મિત્રને પડકાર આપો</string>
+  <string name="gameSetup">રમતની ગોઠવણી</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">મિત્ર સાથે રમો</string>
   <string name="playAgainstComputer">કમ્પ્યુટર સામે રમો</string>
-  <string name="gameMode">ગેમ મોડ</string>
+  <string name="gameMode">રમતની રિત</string>
   <string name="createLobbyGame">રમત બનાવો</string>
-  <string name="youPlayAs">તમે રમો છો</string>
+  <string name="youPlayAs">તમે આ રીતે રમો છો</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">રમવા માટે કોઈને આમંત્રણ આપવા, આ URL આપો</string>
   <string name="gameOver">રમત પુરી</string>
-  <string name="waitingForOpponent">વિરોધિ માટે રાહ જુએ છે</string>
-  <string name="orLetYourOpponentScanQrCode">અથવા તમારા પ્રતિસ્પર્ધીને આ QR કોડ સ્કેન કરવા દો</string>
+  <string name="waitingForOpponent">વિરોધી માટે રાહ જોઈ રહ્યા છો</string>
+  <string name="orLetYourOpponentScanQrCode">નઈ તો તમારા વિરોધી ને આ ક્યુ આર કોડ સ્કેન કરવા આપો</string>
   <string name="waiting">રાહ જુએ છે</string>
-  <string name="yourTurn">તમરો વારો</string>
+  <string name="yourTurn">તમારો વારો</string>
   <string name="aiNameLevelAiLevel">%1$s સ્તર %2$s</string>
-  <string name="level">ધોરણ</string>
+  <string name="level">સ્તર</string>
   <string name="strength">શક્તિ</string>
   <string name="toggleTheChat">તમે ચેટ છોડી દિધી</string>
   <string name="chat">વાત ચીત</string>
@@ -22,36 +22,34 @@
   <string name="stalemate">સ્ટેલમેટ</string>
   <string name="white">સફેદ</string>
   <string name="black">કાળુ</string>
-  <string name="asWhite">સફેદ તરફથી</string>
-  <string name="asBlack">કાળા તરફથી</string>
-  <string name="randomColor">કોઇ પણ બાજુ</string>
+  <string name="asWhite">સફેદ થી</string>
+  <string name="asBlack">કાળા થી</string>
+  <string name="randomColor">કોઈ ભી (કાળું કે સફેદ)</string>
   <string name="createAGame">રમત બનાવો</string>
   <string name="createTheGame">રમત બનાવો</string>
   <string name="whiteIsVictorious">સફેદ વિજય રહ્યો</string>
   <string name="blackIsVictorious">કાળો વિજય રહ્યો</string>
-  <string name="youPlayTheWhitePieces">તમે સફેદ ટુકડાઓ સાથે રમસો</string>
-  <string name="youPlayTheBlackPieces">તમે કાળા ટુકડાઓ સાથે રમસો</string>
+  <string name="youPlayTheWhitePieces">તમે સફેદ કૂકરીઓથી રમો</string>
+  <string name="youPlayTheBlackPieces">તમે કાળા કૂકરીઓથી રમો</string>
   <string name="itsYourTurn">તમારો વારો!</string>
-  <string name="cheatDetected">આ રમત સમાપ્તિની સ્થિતિ છે, જો રમત ચાલુ હોય ત્યારે કોઈ ખેલાડી છેતરપિંડી કરે છે. રમત તરત જ સમાપ્ત થાય છે.
-
- અનુવાદ નિષ્ક્રિય અવાજમાં હોવો જોઈએ કારણ કે ખેલાડીઓ અને દર્શકો બંને તેને જુએ છે. કૃપા કરીને શક્ય તેટલું ટૂંકું રાખો.</string>
+  <string name="cheatDetected">ચીટિંગ પકડાઈ</string>
   <string name="kingInTheCenter">મધ્યમાં રાજા</string>
   <string name="threeChecks">ત્રણ ચેક</string>
   <string name="raceFinished">રેસ પુરી થઇ ગઇ</string>
   <string name="variantEnding">પ્રકાર નો અંત</string>
-  <string name="newOpponent">નવો  પ્રાતીસ્પર્ધી</string>
-  <string name="yourOpponentWantsToPlayANewGameWithYou">તમારો સ્પર્ધક તમારી સાથે નવી ગેમ રમવા માંગે છે</string>
-  <string name="joinTheGame">રમત માં જોડવ</string>
-  <string name="whitePlays">સફેદની ચાલ</string>
-  <string name="blackPlays">કાળાની ચાલ</string>
+  <string name="newOpponent">નવો વિરોધી</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">તમારો વિરોધી તમારી સાથે નવી રમત રમવા માંગે છે</string>
+  <string name="joinTheGame">રમતમાં જોડાવો</string>
+  <string name="whitePlays">સફેદનો વારો</string>
+  <string name="blackPlays">કાળાનો વારો</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">તમારી સામેના ખેલાડી એ રમત છોડી દીધી છે તો તમે %s સેકન્ડમાં જીત નોંધાવી શકો છો.</item>
-    <item quantity="other">તમારી સામેના ખેલાડી એ રમત છોડી દીધી છે તો તમે %s સેકન્ડમાં જીત નોંધાવી શકો છો.</item>
+    <item quantity="one">તમારા વિરોધી એ રમત છોડી દીધી છે. તમે %s સેકન્ડમાં જીત નોંધાવી શકો છો.</item>
+    <item quantity="other">તમારા વિરોધી એ રમત છોડી દીધી છે. તમે %s સેકન્ડમાં જીત નોંધાવી શકો છો.</item>
   </plurals>
-  <string name="opponentLeftChoices">અન્ય ખેલાડીએ રમત છોડી દીધી છે. તમે વિજયનો દાવો કરી શકો છો, તમે તેને ડ્રો કહી શકો છો અથવા તમે રાહ જોઇ શકો છો.</string>
-  <string name="forceResignation">વિજયનો દાવો કરો</string>
-  <string name="forceDraw">ફોર્સ ડ્રો</string>
-  <string name="talkInChat">કૃપા કરીને ચેટમાં સભ્યતા રાખવી!</string>
+  <string name="opponentLeftChoices">અન્ય ખેલાડીએ રમત છોડી દીધી છે. તમે જીતવાનો દાવો કરી શકો છો, તમે તેને ડ્રો કહી શકો છો અથવા તમે રાહ જોઇ શકો છો.</string>
+  <string name="forceResignation">જીતવાનો દાવો કરો</string>
+  <string name="forceDraw">ડ્રો બોલો</string>
+  <string name="talkInChat">કૃપા કરીને વાત ચીતમાં સભ્યતા રાખજો!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">જે સ્પર્ધક પહેલા આવશે url પર તે તમારી સાથે રમશે.</string>
   <string name="whiteResigned">સફેદ દ્વારા resign કરવામાં આવ્યું</string>
   <string name="blackResigned">કાળા દ્વારા resign કરવામાં આવ્યું</string>

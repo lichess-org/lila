@@ -71,6 +71,8 @@ final private class YoutubeApi(
     net: NetConfig
 )(using Executor):
 
+  private val logger = lila.streamer.logger.branch("youtube")
+
   private var lastResults: List[Youtube.YoutubeStream] = Nil
 
   def onVideoXml(xml: scala.xml.NodeSeq): Funit =
@@ -81,7 +83,7 @@ final private class YoutubeApi(
     else
       val deleted = (xml \ "deleted-entry" \@ "ref")
       if deleted.nonEmpty
-      then logger.debug(s"onYoutubeVideo deleted-entry $deleted")
+      then logger.debug(s"onVideoXml deleted-entry $deleted")
       funit
 
   private[streamer] def liveMatching(streamers: List[Streamer]): Fu[List[Youtube.YoutubeStream]] =
@@ -107,7 +109,7 @@ final private class YoutubeApi(
                 case JsSuccess(data, _) =>
                   data.streams(keyword, tubers.map(_.streamer))
                 case JsError(err) =>
-                  logger.warn(s"youtube ${rsp.status} $err ${rsp.body[String].take(200)}")
+                  logger.warn(s"${rsp.status} $err ${rsp.body[String].take(200)}")
                   Nil
       .map(_.flatten)
       .addEffect: streams =>
@@ -157,7 +159,7 @@ final private class YoutubeApi(
     for
       channelIds <- repo.approvedIds("youtube")
       _ <- channelIds.parallelN(8) { channelSubscribe(_, true) }
-    yield logger.info(s"YoutubeApi.subscribeAll: done ${channelIds.size}")
+    yield logger.info(s"subscribeAll: done ${channelIds.size}")
 
   private def onVideo(channelId: String, videoId: String): Funit =
     repo
@@ -168,11 +170,11 @@ final private class YoutubeApi(
             // this is the only notification we'll get, so don't filter offline users here.
             if isLive then
               repo.setYoutubePubsubVideo(s.id, videoId)
-              logger.info(s"Youtube: LIVE ${s.id} vid:$videoId ch:$channelId")
-            else logger.debug(s"Youtube: IGNORED ${s.id} vid:$videoId ch:$channelId")
+              logger.info(s"LIVE ${s.id} vid:$videoId ch:$channelId")
+            else logger.debug(s"IGNORED ${s.id} vid:$videoId ch:$channelId")
         case None =>
           fuccess:
-            logger.info(s"Youtube: UNAPPROVED vid:$videoId ch:$channelId")
+            logger.info(s"UNAPPROVED vid:$videoId ch:$channelId")
 
   private def isLiveStream(videoId: String): Fu[Boolean] =
     cfg.apiKey.value.nonEmpty.so(
@@ -191,7 +193,7 @@ final private class YoutubeApi(
                 item.snippet.liveBroadcastContent == "live" && item.snippet.title.value.toLowerCase
                   .contains(keyword.toLowerCase)
             case JsError(err) =>
-              logger.warn(s"Youtube ERROR: ${rsp.status} $err ${rsp.body[String].take(200)}")
+              logger.warn(s"ERROR: ${rsp.status} $err ${rsp.body[String].take(200)}")
               false
         }
     )

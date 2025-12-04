@@ -78,6 +78,12 @@
   .signin-or-signup {
     @extend %flex-center;
     gap: 1em;
+    .signup {
+      background: none;
+      border: 2px solid $c-link;
+      color: $c-link;
+      order: -1;
+    }
   }
 
   .link-center {
