@@ -2797,9 +2797,9 @@ interface I18n {
     gamesYouWon: I18nFormat;
     /** Hi, %s */
     hiUser: I18nFormat;
-    /** What a chess year you had! */
+    /** What a chess year you've had! */
     initTitle: string;
-    /** %s of them are yours. */
+    /** %s of them were yours. */
     lichessGamesOfThemYours: I18nFormat;
     /** %1$s games played on Lichess in %2$s */
     lichessGamesPlayedIn: I18nFormat;
@@ -2809,9 +2809,9 @@ interface I18n {
     malwareNoneLoaded: I18nFormat;
     /** We didn't sell your personal data */
     malwareNoSell: string;
-    /** be careful. */
+    /** be careful */
     malwareWarningCta: string;
-    /** But other websites do, so please %s */
+    /** But other websites do, so please %s. */
     malwareWarningPrefix: I18nFormat;
     /** That's %s of wood pushed! */
     movesOfWoodPushed: I18nFormat;
@@ -2835,7 +2835,7 @@ interface I18n {
     openingsMostPlayedAsWhite: I18nFormat;
     /** What time controls and variants did you play? */
     perfsTitle: string;
-    /** You also helped tagging %s of them. */
+    /** You also helped tag %s of them. */
     puzzlesHelpedTagging: I18nFormat;
     /** You did not solve any puzzles this year. */
     puzzlesNone: string;
