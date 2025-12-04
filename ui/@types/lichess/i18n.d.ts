@@ -2845,6 +2845,8 @@ interface I18n {
     puzzlesTryNow: string;
     /** You won %s of them on the first try! */
     puzzlesYouWonOnFirstTry: I18nFormat;
+    /** Your %s recap is ready! */
+    recapReady: I18nFormat;
     /** favourite time control */
     shareableFavouriteTimeControl: string;
     /** favourite variant */

@@ -1469,6 +1469,7 @@ object I18nKey:
     val `shareableMostPlayedOpponent`: I18nKey = "recap:shareableMostPlayedOpponent"
     val `shareableFavouriteVariant`: I18nKey = "recap:shareableFavouriteVariant"
     val `shareableFavouriteTimeControl`: I18nKey = "recap:shareableFavouriteTimeControl"
+    val `recapReady`: I18nKey = "recap:recapReady"
     val `nbMovesPlayed`: I18nKey = "recap:nbMovesPlayed"
     val `nbMoves`: I18nKey = "recap:nbMoves"
     val `nbGrams`: I18nKey = "recap:nbGrams"

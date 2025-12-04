@@ -59,4 +59,5 @@
 	<string name="shareableMostPlayedOpponent">most played opponent</string>
     <string name="shareableFavouriteVariant">favourite variant</string>
     <string name="shareableFavouriteTimeControl">favourite time control</string>
+	<string name="recapReady" comment="%s is the year of the recap">Your %s recap is ready!</string>
 </resources>
