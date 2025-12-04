@@ -3,6 +3,7 @@ package lila.relay
 import scalalib.paginator.Paginator
 
 import lila.relay.RelayTour.WithLastRound
+import lila.core.i18n.Translate
 
 case class RelayHome(ongoing: List[RelayCard], recent: List[WithLastRound], past: Paginator[WithLastRound])
 
@@ -20,7 +21,7 @@ final class RelayHomeApi(listing: RelayListing, pager: RelayPager, jsonView: Rel
     if page == 1 then home
     else pager.inactive(page)
 
-  def getJson(page: Int)(using RelayJsonView.Config) =
+  def getJson(page: Int)(using RelayJsonView.Config, Translate) =
     if page == 1 then home.map(jsonView.home)
     else pager.inactive(page).map(jsonView.top(Nil, _))
 
