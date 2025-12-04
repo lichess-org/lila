@@ -39,7 +39,7 @@ final class Fide(env: Env) extends LilaController(env):
       for _ <- f(me.userId, fideId) yield NoContent
 
   def apiShow(id: chess.FideId) = Anon:
-    Found(env.fide.repo.player.fetch(id))(JsonOk)
+    Found(env.fide.playerApi.withFollow(id))(JsonOk)
 
   def apiSearch(q: String) = Anon:
     env.fide.search(q.some, 1, FidePlayerOrder.default).map(_.fold(Seq(_), _.currentPageResults)).map(JsonOk)
