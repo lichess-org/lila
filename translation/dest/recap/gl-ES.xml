@@ -32,11 +32,19 @@
 		<item quantity="other">%s quilogramos</item>
 	</plurals>
 	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">é como empezaches %s das túas partidas con brancas</string>
+	<plurals name="openingsMostPlayedAsWhite" comment="%s is the number of games">
+		<item quantity="one">A túa apertura máis xogada con brancas con %s partida</item>
+		<item quantity="other">A túa apertura máis xogada con brancas con %s partidas</item>
+	</plurals>
+	<plurals name="openingsMostPlayedAsBlack" comment="%s is the number of games">
+		<item quantity="one"> A túa apertura máis xogada con negras con %s partida</item>
+		<item quantity="other"> A túa apertura máis xogada con negras con %s partidas</item>
+	</plurals>
 	<plurals name="puzzlesThanksVoting" comment="%s is the number of puzzles. It is also translated.">
 		<item quantity="one">Grazas por votar %s crebacabezas.</item>
 		<item quantity="other">Grazas por votar %s crebacabezas.</item>
 	</plurals>
-	<string name="puzzlesHelpedTagging" comment="%s is a number e.g. 5">Axudaches a etiquetar %s crebacabezas.</string>
+	<string name="puzzlesHelpedTagging" comment="%s is a number e.g. 5">Tamén axudaches a etiquetar %s crebacabezas.</string>
 	<string name="puzzlesNone">Este ano non resolviches ningún crebacabezas.</string>
 	<string name="puzzlesTryNow">Queres probar agora?</string>
 	<string name="puzzlesYouWonOnFirstTry">Acertaches %s crebacabezas no primeiro intento!</string>
@@ -52,7 +60,7 @@
 	<string name="thanksTitle">Grazas por xogar no Lichess!</string>
 	<string name="thanksHaveAGreat" comment="%s is the next year">Aledámonos de que esteas aquí. Que teñas un bo %s!</string>
 	<string name="shareableTitle" comment="%s is the current year">O meu resumo do %s</string>
-	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">tempo xogado</string>
+	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">tempo dedicado a xogar</string>
 	<string name="shareableMostPlayedOpponent">o rival con quen máis xogaches</string>
 	<string name="shareableFavouriteVariant">variante favorita</string>
 	<string name="shareableFavouriteTimeControl">control de tempo favorito</string>
