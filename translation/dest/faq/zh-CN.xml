@@ -6,7 +6,7 @@
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess 是 live/light/libre 和 chess 的组合。它的发音是 %1$s。</string>
   <string name="leechess">lee-chess</string>
   <string name="hearItPronouncedBySpecialist">请听一位专家的发音。</string>
-  <string name="whyLiveLightLibre">Live 代表棋局全年无休，实时可游玩、可观看。 Light 和 Libre 代表 Lichess 完全开源，没有其他网站特有的种种专有限制和问题。</string>
+  <string name="whyLiveLightLibre">实时 (live)，因为对局可 24/7 实时进行与观看；轻量 (light) 且自由 (libre)，这源于 Lichess 的开源本质，使其免受那些困扰其他网站的专有臃肿功能所累。</string>
   <string name="whyIsLilaCalledLila">同样，Lichess 的源代码 %1$s，表示 li[chess in sca]la，因为 Lichess 的主体是用 %2$s，一种直观的编程语言写的。</string>
   <string name="howCanIContributeToLichess">我可以如何为 Lichess 做出贡献？</string>
   <string name="lichessPoweredByDonationsAndVolunteers">Lichess 由赞助者的捐赠和志愿者团队的努力驱动。</string>
@@ -21,8 +21,8 @@
   <string name="fairPlay">公平竞争</string>
   <string name="whenAmIEligibleRatinRefund">我因与作弊者对弈而损失等级分，何时有资格获得自动补偿？</string>
   <string name="ratingRefundExplanation">在棋手被标记为作弊者 1 分钟后，他们在过去 3 天内最新的 40 个评分对局也会被标记。 如果你下了这些对局并丢分 (因为输棋或者平局) ，并且你的等级分不是临时的，那么所丢的分数会返还给你。返还分数情况各异，具体分数基于你的最高分和该对局应得分数自动设定，且最多不会超过 150 分。(例如，如果你的评分在与作弊者对弈后一段时间内大幅增加，则你可能只能得到部分返还分数或得不到返还分数。)</string>
-  <string name="preventLeavingGameWithoutResigning">玩家没有认输就离开棋局，怎么处理？</string>
-  <string name="leavingGameWithoutResigningExplanation">如果你的对手频繁中止或离开棋局，他们会被 “禁止游戏”，即暂时禁止他们参加对局。 这一限制不会显示在他们的个人资料中。如果他们继续这样做，禁止的期限就会延长――长期被禁止可能会导致账户封禁。</string>
+  <string name="preventLeavingGameWithoutResigning">玩家没有认输就离开对局，怎么处理？</string>
+  <string name="leavingGameWithoutResigningExplanation">如果您的对手频繁地中止/离开对局，他们将会被处以“禁赛”，即暂时禁止进行对局。此处罚不会在其个人资料中公开显示。若此行为持续发生，禁赛时长将会增加——长期如此的行为可能导致账户被封禁。</string>
   <string name="howCanIBecomeModerator">如何成为仲裁人？</string>
   <string name="youCannotApply">你没有办法主动申请成为管理员。 如果有我们认为有能力担任管理员的人，我们会直接与他们联系。</string>
   <string name="isCorrespondenceDifferent">通讯棋是否不同于常规棋？</string>
@@ -111,9 +111,9 @@ Lichess 上的电脑分析是基于 Stockfish 的。</string>
 此外，随着时间的推移，置信区间将会逐步增大。这使你获得/损失的分值能够更快速地匹配你在此段时间内棋力的变化。</string>
   <string name="whatIsProvisionalRating">为什么在等级分旁边有一个问号 (?) ？</string>
   <string name="provisionalRatingExplanation">问号标记表示等级分是暂时的。原因包括：</string>
-  <string name="notPlayedEnoughRatedGamesAgainstX">用户还没有在变体中与 %1$s 完成足够多的排位棋局。</string>
+  <string name="notPlayedEnoughRatedGamesAgainstX">用户还没有在变体中与 %1$s 完成足够多的排位对局。</string>
   <string name="similarOpponents">相近实力的对手</string>
-  <string name="notPlayedRecently">用户最近没有下足够多的棋局。根据你下过的对局数量，你的等级分可能需要一年左右的不活跃状态才会再次变成暂时性的。</string>
+  <string name="notPlayedRecently">用户最近没有下足够多的对局。根据你下过的对局数量，你的等级分可能需要一年左右的不活跃状态才会再次变成暂时性的。</string>
   <string name="ratingDeviationMorethanOneHundredTen">具体地说，这表示 Glicko-2 标准差大于 110。标准差是等级分的可靠性，标准差越低，等级分就越稳定。</string>
   <string name="howDoLeaderoardsWork">排名及排行榜是如何运作的呢？</string>
   <string name="inOrderToAppearsYouMust">为了登上 %1$s 你必须：</string>
