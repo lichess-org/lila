@@ -154,7 +154,6 @@ object Schedule:
       case (Weekly, _, Rapid) => 60 * 4
       case (Weekly, _, Classical) => 60 * 5
 
-      case (Weekend, Crazyhouse, _) => 60 * 2
       case (Weekend, _, UltraBullet | HyperBullet | Bullet) => 90
       case (Weekend, _, HippoBullet | SuperBlitz) => 60 * 2
       case (Weekend, _, Blitz) => 60 * 3
@@ -193,15 +192,6 @@ object Schedule:
   private given Conversion[Int, LimitSeconds] = LimitSeconds(_)
   private given Conversion[Int, IncrementSeconds] = IncrementSeconds(_)
 
-  private def zhEliteTc(s: Schedule) =
-    val TC = chess.Clock.Config
-    s.at.getDayOfMonth / 7 match
-      case 0 => TC(3 * 60, 0)
-      case 1 => TC(1 * 60, 1)
-      case 2 => TC(3 * 60, 2)
-      case 3 => TC(1 * 60, 0)
-      case _ => TC(2 * 60, 0) // for the sporadic 5th Saturday
-
   private[tournament] def clockFor(s: Schedule) =
     import Freq.*, Speed.*
     import chess.variant.*
@@ -210,7 +200,6 @@ object Schedule:
 
     (s.freq, s.variant, s.speed) match
       // Special cases.
-      case (Weekend, Crazyhouse, Blitz) => zhEliteTc(s)
       case (Hourly, Standard, Blitz) if standardInc(s) => TC(3 * 60, 2)
       case (Hourly, Standard, Bullet) if s.hasMaxRating && bottomOfHour(s) => TC(60, 1)
       case (Hourly, Chess960, Blitz) => TC(5 * 60, 3)
