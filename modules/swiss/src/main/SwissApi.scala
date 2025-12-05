@@ -390,7 +390,7 @@ final class SwissApi(
   def playerReady(swissId: SwissId, userId: UserId): Funit =
     SwissPairing.fields: F =>
       mongo.pairing
-        .list[SwissPairing]($doc(F.swissId -> swissId, F.players -> userId))
+        .list[SwissPairing]($doc(F.swissId -> swissId, F.players -> userId, F.isDelayed -> true))
         .flatMap:
           _.parallelVoid: pairing =>
             val effect =
