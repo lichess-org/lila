@@ -22,7 +22,7 @@ private[streamer] object Twitch:
   case class TwitchStream(id: String, login: String, status: Html, streamer: Streamer, lang: Lang)
       extends lila.streamer.Stream:
     def platform = "twitch"
-    def urls = Stream.Urls(
+    def urls = lila.streamer.Stream.Urls(
       embed = parent => s"https://player.twitch.tv/?channel=${login}&parent=${parent}",
       redirect = s"https://www.twitch.tv/${login}"
     )
@@ -53,9 +53,7 @@ final private class TwitchApi(
     cfg: TwitchConfig,
     net: NetConfig,
     cacheApi: lila.memo.CacheApi
-)(using
-    Executor
-):
+)(using Executor):
 
   import Twitch.{ given, * }
 
@@ -66,6 +64,8 @@ final private class TwitchApi(
   private val lives = TrieMap.empty[String, HelixStream]
 
   private case class EventSub(subId: String, broadcasterId: String, event: String)
+
+  def debugLives: String = lives.toString
 
   def liveMatching(
       streamers: List[Streamer],

@@ -92,6 +92,8 @@ final class Env(
   lila.common.Cli.handle:
     case "streamer" :: "twitch" :: "resync" :: Nil =>
       twitchApi.syncAll.inject("done")
+    case "streamer" :: "live" :: "show" :: Nil =>
+      fuccess(twitchApi.debugLives)
 
   scheduler.scheduleWithFixedDelay(1.hour, 1.day): () =>
     repo.autoDemoteFakes
