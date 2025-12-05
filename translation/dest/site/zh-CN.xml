@@ -104,10 +104,10 @@
   <string name="maxDepthReached">已达到最大深度！</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">请尝试在选项里包括更多对局</string>
   <string name="openings">开局</string>
-  <string name="openingExplorer">开局浏览器</string>
-  <string name="openingEndgameExplorer">开局/残局浏览器</string>
-  <string name="xOpeningExplorer">%s开局浏览器</string>
-  <string name="playFirstOpeningEndgameExplorerMove">走开局/残局浏览器列表中的第一个着法</string>
+  <string name="openingExplorer">开局探索器</string>
+  <string name="openingEndgameExplorer">开局/残局探索器</string>
+  <string name="xOpeningExplorer">%s 开局探索器</string>
+  <string name="playFirstOpeningEndgameExplorerMove">走开局/残局探索器列表中的第一个着法</string>
   <string name="winPreventedBy50MoveRule">因 50 回合规则未赢棋</string>
   <string name="lossSavedBy50MoveRule">因 50 回合规则未输棋</string>
   <string name="winOr50MovesByPriorMistake">赢棋或因先前错误而 50 步作和</string>
@@ -327,7 +327,7 @@
     <item quantity="other">添加对方 %s 秒</item>
   </plurals>
   <string name="thisAccountViolatedTos">该账户违反了 Lichess 服务条款</string>
-  <string name="openingExplorerAndTablebase">开局浏览器和残局数据库</string>
+  <string name="openingExplorerAndTablebase">开局探索器和残局数据库</string>
   <string name="takeback">悔棋</string>
   <string name="proposeATakeback">请求悔棋</string>
   <string name="whiteProposesTakeback">白方提议悔棋</string>
