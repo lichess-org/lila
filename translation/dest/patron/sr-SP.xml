@@ -61,9 +61,10 @@
   <string name="viewOthers">Погледај остале Lichess Покровитеље</string>
   <string name="date">Датум</string>
   <string name="amount">Износ</string>
-  <string name="transactionCompleted">Твоја трансакција је завршена и рачун за твоју донацију је послат на твоју е-пошту.</string>
+  <string name="transactionCompleted">Твоја трансакција је завршена и рачун за твоју донацију је послат на твој имејл.</string>
   <string name="permanentPatron">Сада имаш трајни Патрон налог.</string>
-  <string name="nowLifetime">Сада си доживотни Личес Патрон!</string>
-  <string name="nowOneMonth">Сада си Личес Патрон један месец!</string>
+  <string name="checkOutProfile">Погледај своју профилну страницу!</string>
+  <string name="nowLifetime">Сада си доживотни Lichess Покровитељ!</string>
+  <string name="nowOneMonth">Сада си Lichess Покровитељ на један месец!</string>
   <string name="downgradeNextMonth">За месец дана, нећете бити поново наплаћени, а ваш Личес налог ће се вратити на обичан налог.</string>
 </resources>
