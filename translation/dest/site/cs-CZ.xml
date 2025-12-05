@@ -2,6 +2,8 @@
 <resources>
   <string name="gameSetup">Vytvořit hru</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Vyzvi přítele</string>
+  <string name="playAgainstComputer">Hrát proti počítači</string>
+  <string name="youPlayAs">Hrajete jako</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Pro pozvání někoho ke hře využijte tento odkaz</string>
   <string name="gameOver">Konec hry</string>
   <string name="waitingForOpponent">Čekání na soupeře</string>
@@ -1054,7 +1056,6 @@ Nechte toto pole prázdné, pokud chcete začínat z běžného základního pos
   <string name="simulFeaturedHelp">Zobrazit vaši simultánní hru všem na %s. Vypnout pro soukromé simultánní hry.</string>
   <string name="simulDescription">Popis simultánky</string>
   <string name="simulDescriptionHelp">Je tu něco co by jste chtěli sdělit účastníkům?</string>
-  <string name="markdownAvailable">%s je k dispozici pro pokročilé formátování.</string>
   <string name="embedsAvailable">Vložte URL hry nebo kapitoly studie pro zobrazení.</string>
   <string name="inYourLocalTimezone">Ve vašem časovém pásmu</string>
   <string name="tournChat">Turnajový chat</string>
@@ -1094,4 +1095,8 @@ Veškeré provozní náklady, vývoj a obsah jsou financovány výhradně z př�
   <string name="accessibility">Přístupnost</string>
   <string name="enableBlindMode">Zapnout režim sleposti</string>
   <string name="disableBlindMode">Vypnout režim sleposti</string>
+  <string name="online" comment="status of a user">online</string>
+  <string name="offline" comment="status of a user">offline</string>
+  <string name="search">Hledat</string>
+  <string name="clearSearch">Vymazat vyhledávání</string>
 </resources>

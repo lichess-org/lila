@@ -19,7 +19,7 @@ object mon:
     def escape: String =
       val builder = java.lang.StringBuilder(s.length)
       for c <- s.toCharArray do
-        if c != '"' & c != '\n' && c != '\\'
+        if c != '"' && c != '\n' && c != '\\'
         then builder.append(c)
       builder.toString
 
@@ -211,26 +211,22 @@ object mon:
     val online = gauge("user.online").withoutTags()
     object register:
       def count(
-          emailDomain: Option[Domain],
           confirm: String,
           captcha: String,
           ipSusp: Boolean,
           fp: Boolean,
           proxy: Option[String],
           country: String,
-          dispAttempts: Int,
           api: Option[ApiVersion]
       ) =
         counter("user.register.count").withTags:
           tags(
-            "email" -> emailDomain.fold("?")(_.value),
             "confirm" -> confirm,
             "captcha" -> captcha,
             "ipSusp" -> ipSusp,
             "fp" -> fp,
             "proxy" -> proxy.getOrElse("no"),
             "country" -> country.escape,
-            "dispAttempts" -> dispAttempts,
             "api" -> apiTag(api)
           )
       def mustConfirmEmail(v: String) = counter("user.register.mustConfirmEmail").withTag("type", v)
@@ -266,6 +262,8 @@ object mon:
       object automod:
         val request = future("mod.report.automod.request")
         def assessment(a: String) = counter("mod.report.automod.assessment").withTag("assessment", a)
+        val imageRequest = future("mod.report.automod.image.request")
+        def imageFlagged(v: Boolean) = counter("mod.report.automod.image.flagged").withTag("flagged", v)
     object log:
       val create = counter("mod.log.create").withoutTags()
     object irwin:
@@ -708,7 +706,6 @@ object mon:
     val time = future("fide.sync.time")
     val players = gauge("fide.sync.players").withoutTags()
     val updated = gauge("fide.sync.updated").withoutTags()
-    val deleted = gauge("fide.sync.deleted").withoutTags()
   object link:
     def external(tag: String, auth: Boolean) = counter("link.external").withTags:
       tags("tag" -> tag.escape, "auth" -> auth)

@@ -8,26 +8,35 @@ on:
     paths-ignore:
       - 'translation/dest/**'
 
+permissions:
+  actions: read
+  contents: read
+  security-events: write
+
 jobs:
   lint:
     runs-on: ubuntu-latest
-    permissions:
-      actions: read
-      contents: read
-      security-events: write
+    strategy:
+      fail-fast: false
+      matrix:
+        script:
+          - lint
+          - check-format
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - uses: pnpm/action-setup@v4
-        with:
-          run_install: false
-      - uses: actions/setup-node@v5
+      - uses: actions/setup-node@v6
         with:
           node-version-file: .node-version
-          cache: 'pnpm'
-      - uses: github/codeql-action/init@v3
+          cache: pnpm
+      - run: pnpm install
+      - run: pnpm run ${{ matrix.script }}
+
+  codeql:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: github/codeql-action/init@v4
         with:
           languages: javascript
-      - uses: github/codeql-action/analyze@v3
-      - run: pnpm install
-      - run: pnpm run lint
-      - run: pnpm run check-format
+      - uses: github/codeql-action/analyze@v4

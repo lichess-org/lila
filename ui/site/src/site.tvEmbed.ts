@@ -1,4 +1,4 @@
-import { initMiniGame, updateMiniGame } from 'lib/view/miniBoard';
+import { initMiniGame, updateMiniGame } from 'lib/view';
 import { embedChessground } from './asset';
 
 function resize() {

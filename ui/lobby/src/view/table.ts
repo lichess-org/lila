@@ -1,4 +1,4 @@
-import { bind, onInsert, hl, thunk } from 'lib/snabbdom';
+import { bind, onInsert, hl, thunk } from 'lib/view';
 import type LobbyController from '../ctrl';
 import type { GameType } from '../interfaces';
 import renderSetupModal from './setup/modal';
@@ -39,11 +39,6 @@ export default function table(ctrl: LobbyController) {
     lobbyButtons.push({
       gameType: 'bots',
       label: 'play bot',
-    });
-  if (opts.botEditor)
-    lobbyButtons.push({
-      gameType: 'dev',
-      label: 'bot development',
     });
 
   return hl('div.lobby__table', [

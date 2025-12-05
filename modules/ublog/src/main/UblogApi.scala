@@ -22,7 +22,7 @@ final class UblogApi(
     picfitApi: PicfitApi,
     shutupApi: ShutupApi,
     irc: lila.core.irc.IrcApi,
-    automod: UblogAutomod,
+    ublogAutomod: UblogAutomod,
     config: UblogConfig,
     settingStore: lila.memo.SettingStore.Builder,
     cacheApi: lila.memo.CacheApi
@@ -46,9 +46,10 @@ final class UblogApi(
 
   def create(data: UblogForm.UblogPostData, author: User): Fu[UblogPost] =
     val post = data.create(author)
-    colls.post.insert
-      .one(bsonWriteObjTry[UblogPost](post).get ++ $doc("likers" -> List(author.id)))
-      .inject(post)
+    for
+      _ <- colls.post.insert.one(bsonWriteObjTry[UblogPost](post).get ++ $doc("likers" -> List(author.id)))
+      _ <- picfitApi.addRef(post.markdown, s"ublog:${post.id}", routes.Ublog.redirect(post.id).url.some)
+    yield post
 
   def getByPrismicId(id: String): Fu[Option[UblogPost]] = colls.post.one[UblogPost]($doc("prismicId" -> id))
 
@@ -58,6 +59,7 @@ final class UblogApi(
     post = data.update(me.value, prev)
     isFirstPublish = prev.lived.isEmpty && post.live
     _ <- colls.post.update.one($id(prev.id), $set(bsonWriteObjTry[UblogPost](post).get))
+    _ <- picfitApi.addRef(post.markdown, s"ublog:${post.id}", routes.Ublog.redirect(post.id).url.some)
     _ = if isFirstPublish then onFirstPublish(author.light, blog, post)
   yield
     triggerAutomod(post).foreach: res =>
@@ -194,7 +196,7 @@ final class UblogApi(
   def triggerAutomod(post: UblogPost): Fu[Option[UblogAutomod.Assessment]] =
     val retries = 5 // 30s, 1m, 2m, 4m, 8m
     def attempt(n: Int): Fu[Option[UblogAutomod.Assessment]] =
-      automod(post, n * 0.1)
+      ublogAutomod(post, n * 0.1)
         .flatMapz: llm =>
           val result = post.automod.foldLeft(llm)(_.updateByLLM(_))
           for _ <- colls.post.updateField($id(post.id), "automod", result)
@@ -217,8 +219,10 @@ final class UblogApi(
     _ <- image.deleteAll(post)
   yield ()
 
-  def setTierIfBlogExists(blog: UblogBlog.Id, tier: Tier): Funit =
-    colls.blog.update.one($id(blog), $set("tier" -> tier)).void
+  private def setTierIfBlogExists(blog: UblogBlog.Id, tier: Tier): Funit = for
+    _ <- colls.blog.updateField($id(blog), "tier", tier)
+    _ <- onTierChange(blog, tier)
+  yield ()
 
   def onAccountClose(user: User) = setTierIfBlogExists(UblogBlog.Id.User(user.id), Tier.HIDDEN)
 
@@ -271,7 +275,11 @@ final class UblogApi(
       ++ note.filter(_ != "").so(n => $doc("modNote" -> n))
     val unsets = note.exists(_ == "").so($unset("modNote")) // "" is unset, none to ignore
     mod.foreach(m => irc.ublogBlog(blogger, m.username, tier.map(Tier.name), note))
-    colls.blog.update.one($id(UblogBlog.Id.User(blogger)), $set(setFields) ++ unsets, upsert = true).void
+    val id = UblogBlog.Id.User(blogger)
+    for
+      _ <- colls.blog.update.one($id(id), $set(setFields) ++ unsets, upsert = true)
+      _ <- tier.so(onTierChange(id, _))
+    yield ()
 
   def modPost(
       post: UblogPost,
@@ -308,6 +316,12 @@ final class UblogApi(
         )
       for _ <- colls.post.updateOrUnsetField($id(post.id), "featured", featured)
       yield featured
+
+  private def onTierChange(blog: UblogBlog.Id, tier: Tier): Funit =
+    (tier <= Tier.LOW).so(unfeatureAllOf(blog))
+
+  private def unfeatureAllOf(blog: UblogBlog.Id): Funit =
+    colls.post.unsetField($doc("blog" -> blog), "featured").void
 
   private[ublog] def setShadowban(userId: UserId, v: Boolean) = {
     if v then fuccess(Tier.HIDDEN)
@@ -380,17 +394,17 @@ final class UblogApi(
     )
 
   object image:
-    private def rel(post: UblogPost) = s"ublog:${post.id}"
+    private def ref(post: UblogPost) = s"ublogHead:${post.id}"
 
     def upload(user: User, post: UblogPost, picture: PicfitApi.FilePart): Fu[UblogPost] = for
-      pic <- picfitApi.uploadFile(rel(post), picture, userId = user.id)
+      pic <- picfitApi.uploadFile(picture, userId = user.id, ref(post).some)
       image = post.image.fold(UblogImage(pic.id))(_.copy(id = pic.id))
       _ <- colls.post.updateField($id(post.id), "image", image)
     yield post.copy(image = image.some)
 
     def deleteAll(post: UblogPost): Funit = for
       _ <- deleteImage(post)
-      _ <- picfitApi.deleteByIdsAndUser(PicfitApi.findInMarkdown(post.markdown).toSeq, post.created.by)
+      _ <- picfitApi.pullRef("ublog:${post.id}") // not ublogHead
     yield ()
 
     def delete(post: UblogPost): Fu[UblogPost] = for
@@ -398,4 +412,4 @@ final class UblogApi(
       _ <- colls.post.unsetField($id(post.id), "image")
     yield post.copy(image = none)
 
-    def deleteImage(post: UblogPost): Funit = picfitApi.deleteByRel(rel(post))
+    def deleteImage(post: UblogPost): Funit = picfitApi.pullRef(ref(post))

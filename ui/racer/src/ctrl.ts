@@ -11,7 +11,7 @@ import { makeCgOpts } from 'lib/puz/run';
 import { parseUci } from 'chessops/util';
 import type { PuzCtrl, Run } from 'lib/puz/interfaces';
 import { PuzFilters } from 'lib/puz/filters';
-import { defined, prop } from 'lib';
+import { type Prop, defined, prop } from 'lib';
 import type {
   RacerOpts,
   RacerData,
@@ -41,8 +41,8 @@ export default class RacerCtrl implements PuzCtrl {
   countdown: Countdown;
   boost: Boost = new Boost();
   skipAvailable = true;
-  knowsSkip = storedBooleanProp('racer.skip', false);
-  ground = prop<CgApi | false>(false);
+  knowsSkip: Prop<boolean> = storedBooleanProp('racer.skip', false);
+  ground: Prop<CgApi | false> = prop<CgApi | false>(false);
   flipped = false;
   redrawInterval: Timeout;
   vehicle: Vehicle[];
@@ -132,11 +132,11 @@ export default class RacerCtrl implements PuzCtrl {
   };
 
   join = throttle(1000, () => {
-    if (!this.isPlayer()) this.socketSend('racerJoin');
+    if (!this.isPlayer()) this.socketSend('racerJoin', undefined);
   });
 
   start = throttle(1000, () => {
-    if (this.isOwner()) this.socketSend('racerStart');
+    if (this.isOwner()) this.socketSend('racerStart', undefined);
   });
 
   countdownSeconds = (): number | undefined =>
@@ -270,7 +270,10 @@ export default class RacerCtrl implements PuzCtrl {
     this.redraw();
   };
 
-  private socketSend = (tpe: string, data?: any) => wsSend(tpe, data, { sign: this.sign });
+  private socketSend = <K extends 'racerScore' | 'racerStart' | 'racerJoin'>(
+    tpe: K,
+    data: K extends 'racerScore' ? number : undefined,
+  ) => wsSend(tpe, data, { sign: this.sign, ackable: false });
 
   private setZen = throttlePromiseDelay(
     () => 1000,

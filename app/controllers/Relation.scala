@@ -97,12 +97,6 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
           )
         yield res
 
-  def followers(username: UserStr, page: Int) = Open:
-    negotiateJson:
-      Reasonable(page, Max(20)):
-        RelatedPager(api.followersPaginatorAdapter(username.id), page).flatMap: pag =>
-          Ok(jsonRelatedPaginator(pag))
-
   def apiFollowing = Scoped(_.Follow.Read, _.Web.Mobile) { ctx ?=> me ?=>
     apiC.jsonDownload:
       env.relation.stream

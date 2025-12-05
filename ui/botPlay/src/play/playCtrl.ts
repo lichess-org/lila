@@ -11,7 +11,7 @@ import { playMoveSounds } from './sound';
 import { PromotionCtrl } from 'lib/game/promotion';
 import type { WithGround } from 'lib/game/ground';
 import { ClockCtrl, type ClockOpts } from 'lib/game/clock/clockCtrl';
-import type { TopOrBottom } from 'lib/game/game';
+import type { TopOrBottom } from 'lib/game';
 
 export interface PlayOpts {
   pref: Pref;

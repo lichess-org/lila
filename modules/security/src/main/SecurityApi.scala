@@ -13,13 +13,13 @@ import lila.common.HTTPRequest
 import lila.core.id.SessionId
 import lila.core.mod.{ LoginWithBlankedPassword, LoginWithWeakPassword }
 import lila.core.email.UserStrOrEmail
+import lila.core.perm.Permission
 import lila.core.net.{ ApiVersion, IpAddress }
 import lila.core.misc.oauth.AccessTokenId
 import lila.core.security.{ ClearPassword, FingerHash, Ip2ProxyApi, IsProxy }
 import lila.db.dsl.{ *, given }
 import lila.oauth.{ OAuthScope, OAuthServer }
 import lila.security.LoginCandidate.Result
-import lila.core.user.RoleDbKey
 
 final class SecurityApi(
     userRepo: lila.user.UserRepo,
@@ -174,8 +174,6 @@ final class SecurityApi(
         val mobile = Mobile.LichessMobileUa.parse(req)
         store.upsertOAuth(access.me.userId, access.tokenId, mobile, req)
 
-  private lazy val nonModRoles: Set[RoleDbKey] = lila.core.perm.Permission.nonModPermissions.map(_.dbKey)
-
   private def stripRolesOfOAuthUser(scoped: OAuthScope.Scoped) =
     if scoped.scopes.has(_.Web.Mod) then scoped
     else scoped.copy(me = stripRolesOf(scoped.me))
@@ -186,7 +184,12 @@ final class SecurityApi(
 
   private def stripRolesOf(me: Me) =
     if me.roles.nonEmpty
-    then me.map(_.copy(roles = me.roles.filter(nonModRoles.contains)))
+    then
+      def expandWithoutModPerms(perm: Permission): List[Permission] =
+        if Permission.nonModPermissions.contains(perm)
+        then perm :: perm.alsoGrants.flatMap(expandWithoutModPerms)
+        else perm.alsoGrants.flatMap(expandWithoutModPerms)
+      me.map(_.copy(roles = Permission(me).flatMap(expandWithoutModPerms).toSet.map(_.dbKey).toList))
     else me
 
   def locatedOpenSessions(userId: UserId, nb: Int): Fu[List[LocatedSession]] =

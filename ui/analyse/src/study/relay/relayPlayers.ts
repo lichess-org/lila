@@ -1,7 +1,7 @@
-import { type VNode, bind, dataIcon, hl, onInsert } from 'lib/snabbdom';
+import { type VNode, bind, dataIcon, hl, onInsert } from 'lib/view';
 import { json as xhrJson } from 'lib/xhr';
 import * as licon from 'lib/licon';
-import { spinnerVdom as spinner } from 'lib/view/controls';
+import { spinnerVdom as spinner } from 'lib/view';
 import type { RelayTour, RoundId, TourId } from './interfaces';
 import { playerFed } from '../playerBars';
 import { userTitle } from 'lib/view/userLink';
@@ -18,6 +18,7 @@ import { defined } from 'lib';
 import { type Attrs, type Hooks, init as initSnabbdom, attributesModule, type VNodeData } from 'snabbdom';
 import { convertPlayerFromServer } from '../studyChapters';
 import { isTouchDevice } from 'lib/device';
+import { pubsub } from 'lib/pubsub';
 
 export type RelayPlayerId = FideId | string;
 
@@ -56,6 +57,7 @@ interface FidePlayer {
     [key: string]: number;
   };
   year?: number;
+  follow?: boolean;
 }
 
 interface PlayerToShow {
@@ -63,7 +65,7 @@ interface PlayerToShow {
   player?: RelayPlayerWithGames;
 }
 
-const playerId = (p: StudyPlayer) => p.fideId || p.name;
+export const playerId = (p: StudyPlayer) => p.fideId || p.name;
 
 export default class RelayPlayers {
   loading = false;
@@ -149,14 +151,34 @@ const playerView = (ctrl: RelayPlayers, show: PlayerToShow, tour: RelayTour): VN
     p
       ? [
           hl(
-            'a.relay-tour__player__name.text',
+            'div.relay-tour__player__head',
             {
-              attrs: {
-                ...fidePageAttrs,
-                ...dataIcon(licon.AccountCircle),
-              },
+              hook: onInsert(el => pubsub.emit('content-loaded', el)),
             },
-            [userTitle(p), p.name],
+            [
+              hl(
+                'a.relay-tour__player__name.text',
+                {
+                  attrs: {
+                    ...fidePageAttrs,
+                    ...dataIcon(licon.AccountCircle),
+                  },
+                },
+                [userTitle(p), p.name],
+              ),
+              p.fide &&
+                hl('label.fide-player__follow', [
+                  hl(`input#fide-follow-${p.fideId}.cmn-favourite`, {
+                    attrs: {
+                      type: 'checkbox',
+                      'data-action': `/fide/${p.fideId}/follow?follow=true`,
+                      checked: !!p.fide?.follow,
+                    },
+                  }),
+                  hl('label', { attrs: { for: `fide-follow-${p.fideId}` } }),
+                  i18n.site.follow,
+                ]),
+            ],
           ),
           p.team
             ? hl('div.relay-tour__player__team.text', { attrs: dataIcon(licon.Group) }, p.team)
@@ -176,7 +198,7 @@ const playerView = (ctrl: RelayPlayers, show: PlayerToShow, tour: RelayTour): VN
                 hl('em', i18n.broadcast.federation),
                 hl('a.relay-tour__player__fed', { attrs: { href: `/fide/federation/${p.fed.name}` } }, [
                   hl('img.mini-game__flag', {
-                    attrs: { src: site.asset.url(`fide/fed-webp/${p.fed.id}.webp`) },
+                    attrs: { src: site.asset.fideFedSrc(p.fed.id) },
                   }),
                   p.fed.name,
                 ]),

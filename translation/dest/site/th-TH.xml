@@ -918,7 +918,6 @@
   <string name="simulFeaturedHelp">แสคงไซมัลให้ทุกคนบน %s ถูกปิดการใช้งานสำหรับไซมัลส่วนตัว</string>
   <string name="simulDescription">คำบรรยายไซมัล</string>
   <string name="simulDescriptionHelp">คุณต้องการบอกอะไรผู้เข้าร่วมไหม?</string>
-  <string name="markdownAvailable">%s พร้อมใช้งานสำหรับไวยากรณ์ขั้นสูงเพิ่มเติม</string>
   <string name="embedsAvailable">วาง URLของเกม หรือ ศึกษา URL ของบทที่จะตรึงไว้</string>
   <string name="inYourLocalTimezone">ในเขตเวลาท้องถิ่นของคุณ</string>
   <string name="tournChat">แชททัวร์นาเมนต์</string>

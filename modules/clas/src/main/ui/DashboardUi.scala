@@ -88,7 +88,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
                 ul(
                   li(trans.clas.newsEdit2()),
                   li(trans.clas.newsEdit3()),
-                  li(markdownAvailable)
+                  li(markdownIsAvailable)
                 )
               ),
               postForm(cls := "form3", action := routes.Clas.wallUpdate(c.id))(
@@ -170,7 +170,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
             ))
 
     private def renderLogin(students: List[Student], login: ClasLogin)(using Context) =
-      val url = s"$netBaseUrl/class"
+      val url = routeUrl(routes.Clas.index)
       div(cls := "clas-login")(
         div(cls := "clas-login__top")(
           p(h2("Quick login codes - expire ", momentFromNow(login.expiresAt))),

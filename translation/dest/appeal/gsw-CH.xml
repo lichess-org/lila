@@ -13,9 +13,9 @@
   <string name="excludedFromLeaderboardsInfo">Mir definiered das als es Usnütze vu jegliche unfaire Methode, zum uf d\'Beschtelischte zcho.</string>
   <string name="closedByModerators">Dis Konto isch vu de Moderatore g\'schlosse worde.</string>
   <string name="hiddenBlog">Moderatore händ dini Blogs unsichtbar g\'macht.</string>
-  <string name="hiddenBlogInfo">Lies unbedingt nomal euseri %s.</string>
+  <string name="hiddenBlogInfo" comment="%s is &quot;blog rules&quot;, a separately translateable string (key: blogRules).&#10;&#10;Full sentence: &quot;Make sure to read again our blog rules.&quot;">Lies unbedingt nomal euseri %s.</string>
   <string name="playTimeout">Du häsch es Schpil - Timeout.</string>
   <string name="communicationGuidelines">Kommunikations - Richtlinie</string>
-  <string name="blogRules">Blog-Regle</string>
+  <string name="blogRules" comment="This text links to https://lichess.org/page/blog-etiquette&#10;&#10;Part of longer sentence, &quot;Make sure to read again our blog rules.&quot; (key: hiddenBlogInfo)">Blog-Regle</string>
   <string name="fairPlay">Fair Play</string>
 </resources>

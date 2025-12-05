@@ -19,7 +19,8 @@ final class Env(
     settingStore: lila.memo.SettingStore.Builder,
     cacheApi: lila.memo.CacheApi,
     appConfig: play.api.Configuration,
-    ws: play.api.libs.ws.StandaloneWSClient
+    ws: play.api.libs.ws.StandaloneWSClient,
+    picfitApi: lila.memo.PicfitApi
 )(using Executor, NetDomain)(using scheduler: Scheduler):
 
   private def lazyPlaybansOf = () => playbansOf
@@ -42,7 +43,7 @@ final class Env(
   private given UserIdOf[Report.SnoozeKey] = _.snoozerId
   private lazy val snoozer = lila.memo.Snoozer[Report.SnoozeKey]("report.snooze", cacheApi)
 
-  private val automod = Automod(ws, appConfig)
+  lazy val automod = wire[Automod]
   lazy val api = wire[ReportApi]
 
   lazy val modFilters = new ModReportFilter

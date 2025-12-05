@@ -1,7 +1,7 @@
 import type { Ctrl, NotifyData, Notification } from './interfaces';
-import { hl, type VNode, type LooseVNodes } from 'lib/snabbdom';
+import { hl, type VNode, type LooseVNodes } from 'lib/view';
 import * as licon from 'lib/licon';
-import { spinnerVdom as spinner } from 'lib/view/controls';
+import { spinnerVdom as spinner } from 'lib/view';
 import makeRenderers from './renderers';
 import { pubsub } from 'lib/pubsub';
 
@@ -74,7 +74,7 @@ function clickHook(f: () => void) {
   };
 }
 
-const contentLoaded = (vnode: VNode) => pubsub.emit('content-loaded', vnode.elm);
+const contentLoaded = (vnode: VNode) => pubsub.emit('content-loaded', vnode.elm as HTMLElement);
 
 function recentNotifications(d: NotifyData, scrolling: boolean): VNode {
   return hl(

@@ -1,5 +1,5 @@
 import type { AnalyseNvuiContext } from '../analyse.nvui';
-import { type LooseVNodes, hl } from 'lib/snabbdom';
+import { type LooseVNodes, hl } from 'lib/view';
 import { type VNodeData } from 'snabbdom';
 import type AnalyseCtrl from '../ctrl';
 import type { RetroCtrl } from '../retrospect/retroCtrl';

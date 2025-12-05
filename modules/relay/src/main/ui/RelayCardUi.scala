@@ -25,23 +25,23 @@ final class RelayCardUi(helpers: Helpers, ui: RelayUi):
 
   def render[A <: RelayRound.AndTourAndGroup](
       tr: A,
-      live: A => Boolean,
+      live: Boolean,
       crowd: Crowd,
       alt: Option[RelayRound.WithTour] = None,
       errors: List[String] = Nil
   )(using Context) =
-    link(tr.tour, tr.path, live(tr))(
+    link(tr.tour, tr.path, live)(
       image(tr.tour),
       span(cls := "relay-card__body")(
         span(cls := "relay-card__info")(
           tr.tour.active.option:
             span(cls := "relay-card__round")(
-              tr.display.name,
+              tr.display.transName,
               (tr.group, alt).mapN: (group, alt) =>
                 frag(" & ", group.shortTourName(alt.tour.name))
             )
           ,
-          if live(tr)
+          if live
           then
             span(cls := "relay-card__live")(
               "LIVE",
@@ -75,25 +75,25 @@ final class RelayCardUi(helpers: Helpers, ui: RelayUi):
     )
 
   def renderTourOfGroup(group: RelayGroup)(tour: RelayTour)(using Context) =
-    link(tour, routes.RelayTour.show(tour.slug, tour.id).url, false)(
+    link(tour, routes.RelayTour.show(tour.slug, tour.id).url, ~tour.live)(
       cls := s"relay-card--tier-${tour.tier.so(_.v)}"
-    )(
-      image(tour),
-      span(cls := "relay-card__body")(
-        span(cls := "relay-card__info")(
-          tour.dates.map: dates =>
-            span(showDate(dates.start))
-        ),
-        h3(cls := "relay-card__title")(group.name.shortTourName(tour.name)),
-        truncatedPlayers(tour)
-      )
-    )
+    )(tourBody(tour, group.name.shortTourName(tour.name)))
 
-  def empty(t: RelayTour) =
-    link(t, routes.RelayTour.show(t.slug, t.id).url, false)(
-      image(t),
-      span(cls := "relay-card__body")(
-        h3(cls := "relay-card__title")(t.name),
-        span(cls := "relay-card__desc")(t.info.toString)
-      )
+  def empty(t: RelayTour)(using Translate) =
+    link(t, routes.RelayTour.show(t.slug, t.id).url, ~t.live)(tourBody(t, t.name))
+
+  private def tourBody(t: RelayTour, name: RelayTour.Name)(using Translate) = frag(
+    image(t),
+    span(cls := "relay-card__body")(
+      span(cls := "relay-card__info")(
+        t.dates.map: dates =>
+          span(showDate(dates.start)),
+        if ~t.live then span(cls := "relay-card__live text", dataIcon := Icon.Disc)("LIVE")
+        else if !t.active then
+          span(cls := "relay-card__finished text", dataIcon := Icon.Checkmark)(trans.site.finished())
+        else emptyFrag
+      ),
+      h3(cls := "relay-card__title")(name),
+      truncatedPlayers(t)
     )
+  )

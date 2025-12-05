@@ -4,6 +4,8 @@ declare namespace Tree {
   export type Path = string;
 
   interface ClientEvalBase extends EvalScore {
+    bestmove?: Uci;
+    ponder?: Uci;
     fen: FEN;
     depth: number;
     nodes: number;
@@ -20,7 +22,7 @@ declare namespace Tree {
   export type ClientEval = CloudEval | LocalEval;
 
   export interface ServerEval extends EvalScore {
-    best?: Uci;
+    best?: Uci | '(none)';
     fen: FEN;
     knodes: number;
     depth: number;
@@ -68,9 +70,11 @@ declare namespace Tree {
     crazy?: NodeCrazy;
     collapsed?: boolean;
   }
-  export interface NodeFromServer extends NodeBase {
+
+  export interface NodeOptionalChildren extends NodeBase {
     children?: Node[];
   }
+
   export interface Node extends NodeBase {
     children: Node[];
   }

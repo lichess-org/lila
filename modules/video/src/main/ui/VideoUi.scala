@@ -29,7 +29,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
         OpenGraph(
           title = trv.xByY.txt(video.title, video.author),
           description = shorten(~video.metadata.description, 152),
-          url = s"$netBaseUrl${langHref(routes.Video.show(video.id))}",
+          url = pathUrl(langHref(routes.Video.show(video.id))),
           `type` = "video"
         )
       ):
@@ -38,7 +38,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
             iframe(
               id := "ytplayer",
               tpe := "text/html",
-              src := s"https://www.youtube.com/embed/${video.id}?autoplay=1&origin=https://lichess.org&start=${video.startTime}",
+              src := s"https://www.youtube-nocookie.com/embed/${video.id}?autoplay=1&origin=https://lichess.org&start=${video.startTime}",
               st.frameborder := "0",
               frame.allowfullscreen,
               frame.credentialless
@@ -80,7 +80,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
             if tagString.nonEmpty then trv.xWithTagsY(" ", tagString)
             else " • "
           }${trv.freeForAll.txt()}",
-        url = s"$netBaseUrl${langHref(routes.Video.index)}?${control.queryString}"
+        url = pathUrl(s"${langHref(routes.Video.index)}?${control.queryString}")
       ):
         frag(
           boxTop(
@@ -160,7 +160,6 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
       href := s"${langHref(routes.Video.show(vv.video.id))}?${control.queryStringUnlessBot}"
     )(
       vv.view.option(span(cls := "view")("watched")),
-      span(cls := "duration")(vv.video.durationString),
       span(cls := "img", style := s"background-image: url(${vv.video.thumbnail})"),
       span(cls := "info")(
         span(cls := "title")(vv.video.title)

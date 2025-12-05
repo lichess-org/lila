@@ -7,7 +7,7 @@
   <string name="kingsideCastle">Hrókering á kóngsvæng</string>
   <string name="queensideCastle">Hrókering á drottningarvæng</string>
   <string name="promoteC8ToQueen">Breyta c8 í drottningu</string>
-  <string name="dropARookAtB4">Sleppa hrók á b4 (Crazyhouse-afbrigðið eingöngu)</string>
+  <string name="dropARookAtB4">Sleppa hrók á b4 (Geðveikraskákar-afbrigðið eingöngu)</string>
   <string name="offerOrAcceptDraw">Bjóða eða samþykkja jafntefli</string>
   <string name="readOutClocks">Lesa klukkurnar upphátt</string>
   <string name="readOutOpponentName">Lesa nafn mótherjans upphátt</string>

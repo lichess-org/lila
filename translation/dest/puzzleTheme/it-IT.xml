@@ -14,6 +14,10 @@
   <string name="attractionDescription">Un cambio o un sacrificio che spinge o forza un pezzo avversario su una casa che consente una successiva tattica.</string>
   <string name="backRankMate">Matto del corridoio</string>
   <string name="backRankMateDescription">Matto al re sulla traversa di partenza, dove è intrappolato dai suoi stessi pezzi.</string>
+  <string name="balestraMate">Matto della balestra</string>
+  <string name="balestraMateDescription">L\'alfiere dà scacco matto, mentre la regina blocca le caselle di fuga rimanenti</string>
+  <string name="blindSwineMate">Matto del maiale cieco</string>
+  <string name="blindSwineMateDescription">Due torri collaborano per dare scacco al re in un\'area di 2 caselle per 2.</string>
   <string name="bishopEndgame">Finale d\'alfiere</string>
   <string name="bishopEndgameDescription">Un finale con soli alfieri e pedoni.</string>
   <string name="bodenMate">Matto di Boden</string>
@@ -22,8 +26,12 @@
   <string name="castlingDescription">Porta il re al sicuro, e sviluppa la torre per attaccare.</string>
   <string name="capturingDefender">Cattura del difensore</string>
   <string name="capturingDefenderDescription">Rimozione di un pezzo essenziale per la difesa di un altro pezzo, che permette al pezzo ora indifeso di essere catturato con una mossa successiva.</string>
+  <string name="cornerMate">Matto nell\'angolo</string>
+  <string name="cornerMateDescription">Restringi il re nell\'angolo usando una torre o una regina, e usa un cavallo per dare scacco matto.</string>
   <string name="crushing">Posizione schiacciante</string>
   <string name="crushingDescription">Trova l\'errore grave del tuo avversario per ottenere un vantaggio schiacciante. (valutazione ≥ 600cp)</string>
+  <string name="discoveredCheck" comment="Description (translatable separately):&#10;&#10;Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage.">Scacco di scoperta</string>
+  <string name="discoveredCheckDescription" comment="Description for the &quot;Discovered check&quot; puzzle theme.">Sposta un pezzo per rivelare uno scacco di un pezzo nascosto, che spesso porta a un vantaggio decisivo.</string>
   <string name="doubleBishopMate">Matto dei due alfieri</string>
   <string name="doubleBishopMateDescription">Due alfieri danno matto lungo diagonali adiacenti ad un re ostruito dai suoi stessi pezzi.</string>
   <string name="dovetailMate">Matto a coda di rondine</string>
@@ -59,6 +67,8 @@
   <string name="intermezzoDescription">Esecuzione, prima della mossa più naturale, di un\'altra mossa che pone una minaccia più immediata, alla quale l\'avversario deve necessariamente reagire. Conosciuto anche come \"Zwischenzug\" o \"Mossa intermedia\".</string>
   <string name="killBoxMate">Matto della scatola assassina</string>
   <string name="killBoxMateDescription">Una Torre è vicina al Re nemico e supportata da una Regina che blocca i quadrati di fuga del Re. La Torre e la Regina catturano il Re nemico in una \"scatola assassina\" 3 x 3.</string>
+  <string name="triangleMate">Matto triangolare</string>
+  <string name="triangleMateDescription">La regina e la torre, a una casella di distanza dal re avversario, sono sulla stessa riga o colonna, separati da una casella, formando un triangolo.</string>
   <string name="vukovicMate">Scacco matto Vukovic</string>
   <string name="vukovicMateDescription">Una Torre e un Cavallo collaborano per fare scacco al Re. La Torre mette in scacco supportata da un terzo pezzo, e il Cavallo viene usato per bloccare i quadrati di fuga del Re.</string>
   <string name="knightEndgame">Finale di cavallo</string>

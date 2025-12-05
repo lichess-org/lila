@@ -2,7 +2,7 @@ import type { Move } from 'chessops/types';
 import type { VNode } from 'snabbdom';
 import type { Coords } from 'lib/prefs';
 import perfIcons from 'lib/game/perfIcons';
-import type { ExternalEngineInfo } from 'lib/ceval/ceval';
+import type { ExternalEngineInfo } from 'lib/ceval';
 
 export type PuzzleId = string;
 export type ThemeKey = keyof I18n['puzzleTheme'];

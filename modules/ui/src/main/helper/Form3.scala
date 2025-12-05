@@ -94,6 +94,7 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
       checked: Boolean,
       disabled: Boolean = false,
       value: Value = "true",
+      styleClass: String = "cmn-toggle",
       title: Option[String] = None,
       action: Option[String] = None
   ) =
@@ -106,15 +107,12 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
         name := fieldName,
         st.value := value.show,
         tpe := "checkbox",
-        cls := "form-control cmn-toggle",
+        cls := s"form-control $styleClass",
         checked.option(st.checked),
         disabled.option(st.disabled),
         action.map(st.data("action") := _)
       ),
-      label(
-        `for` := fieldId,
-        title.map(st.title := _)
-      )
+      label(`for` := fieldId, title.map(st.title := _))
     )
 
   def nativeCheckbox[Value: Show](
@@ -215,7 +213,7 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
     div(cls := "password-complexity")(
       label(cls := "password-complexity-label")(labelContent),
       div(cls := "password-complexity-meter"):
-        for (_ <- 1 to 4) yield span
+        for _ <- 1 to 4 yield span
     )
 
   def globalError(form: Form[?])(using Translate): Option[Frag] =
@@ -263,7 +261,7 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
           st.select(st.id := id(field), name := field.name, cls := "form-control")(
             current.map(f => option(value := f, selected := ""))
           ),
-          img(src := current.fold("")(formHelper.flairSrc(_)))
+          img(src := current.fold(Url(""))(formHelper.flairSrc(_)))
         ),
         div(
           cls := "flair-picker none",

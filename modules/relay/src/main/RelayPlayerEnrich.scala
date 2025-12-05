@@ -22,11 +22,13 @@ private object RelayPlayerLine:
     private val nonLetterRegex = """[^a-zA-Z0-9\s]+""".r
     private val splitRegex = """\W""".r
     private val titleRegex = """(?i)(dr|prof)\.""".r
+    private val chessTitleRegex = s"""^(${chess.PlayerTitle.acronyms.mkString("|")} )""".r
     def apply(str: String): PlayerToken =
+      val trimmed = str.trim.replaceAllIn(chessTitleRegex, "").trim
       splitRegex
         .split:
           java.text.Normalizer
-            .normalize(str.trim, java.text.Normalizer.Form.NFD)
+            .normalize(trimmed, java.text.Normalizer.Form.NFD)
             .replace(",", " ")
             .replaceAllIn(titleRegex, "")
             .replaceAllIn(nonLetterRegex, "")
@@ -192,11 +194,13 @@ private final class RelayPlayerEnrich(
                 (newTags != chapter.tags).so:
                   enrichFromFideId(newTags)
                     .flatMap: enriched =>
-                      val newName = Chapter.nameFromPlayerTags(enriched)
+                      val forcedReplacements = newTags.map(_.filterNot(enriched.value.contains))
+                      val finalTags = enriched ++ forcedReplacements
+                      val newName = Chapter.nameFromPlayerTags(finalTags)
                       studyApi.setTagsAndRename(
                         studyId = chapter.studyId,
                         chapterId = chapter.id,
-                        tags = enriched,
+                        tags = finalTags,
                         newName = newName.filter(_ != chapter.name)
                       )(lila.study.Who(chapter.ownerId, Sri("")))
               .runWith(Sink.ignore)

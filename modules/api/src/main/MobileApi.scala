@@ -20,23 +20,21 @@ final class MobileApi(
     teamCached: lila.team.Cached,
     tourFeaturing: lila.tournament.TournamentFeaturing,
     tourApiJson: lila.tournament.ApiJsonView,
-    topRelay: Int => lila.relay.JsonView.Config ?=> Fu[JsObject],
+    relayHome: lila.relay.RelayHomeApi,
     tv: lila.tv.Tv,
-    liveStreamApi: lila.streamer.LiveStreamApi,
+    liveStreamApi: lila.streamer.LiveApi,
     activityRead: lila.activity.ActivityReadApi,
     activityJsonView: lila.activity.JsonView,
     challengeApi: lila.challenge.ChallengeApi,
     challengeJson: lila.challenge.JsonView,
-    picfitUrl: lila.core.misc.PicfitUrl,
-    isOnline: lila.core.socket.IsOnline,
-    ublogJson: lila.ublog.UblogJsonView,
-    ublogApi: lila.ublog.UblogApi
+    webMobile: lila.web.Mobile,
+    picfitUrl: lila.memo.PicfitUrl,
+    isOnline: lila.core.socket.IsOnline
 )(using Executor):
 
   private given (using trans: Translate): Lang = trans.lang
 
   def home(using me: Option[Me], ua: UserAgent)(using RequestHeader, Translate, KidMode): Fu[JsObject] =
-    import ublogJson.given
     val myUser = me.map(_.value)
     for
       tours <- tournaments
@@ -46,13 +44,8 @@ final class MobileApi(
         gameProxy.urgentGames(u).map(_.take(20).map(lobbyApi.nowPlaying))
       inbox <- me.traverse(unreadCount.mobile)
       challenges <- me.traverse(challengeApi.allFor(_))
-      needsPosts = lila.common.HTTPRequest.lichessMobileVersion(ua).exists(_.gte(0, 18))
-      posts <- needsPosts.so(ublogApi.myCarousel)
     yield Json
-      .obj(
-        "tournaments" -> tours,
-        "blog" -> posts
-      )
+      .obj("tournaments" -> tours, "version" -> webMobile.json)
       .add("account", account)
       .add("recentGames", recentGames)
       .add("ongoingGames", ongoingGames)
@@ -69,9 +62,9 @@ final class MobileApi(
       json <- spotlight.sequentially(tourApiJson.fullJson)
     yield Json.obj("featured" -> json)
 
-  def watch: Fu[JsObject] =
+  def watch(using Translate): Fu[JsObject] =
     for
-      relay <- topRelay(1)(using lila.relay.JsonView.Config(html = false))
+      relay <- relayHome.getJson(1)(using lila.relay.RelayJsonView.Config(html = false))
       champs <- tv.getChampions
       tvChannels = champs.channels.mapKeys(_.key)
       streamers <- featuredStreamers
@@ -88,7 +81,7 @@ final class MobileApi(
     .zip(users)
     .map: (stream, user) =>
       Json.toJsObject(user) ++
-        lila.streamer.Stream.toJson(picfitUrl, stream)
+        lila.streamer.Stream.toLichessJson(picfitUrl, stream)
 
   def profile(user: User)(using me: Option[Me])(using Lang): Fu[JsObject] =
     for

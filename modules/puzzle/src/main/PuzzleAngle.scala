@@ -46,7 +46,7 @@ object PuzzleAngle:
 
   def find(key: String): Option[PuzzleAngle] =
     PuzzleTheme
-      .find(key)
+      .findVisible(key)
       .map(apply)
       .orElse(LilaOpeningFamily.find(key).map(apply))
       .orElse(SimpleOpening.find(key).map(apply))

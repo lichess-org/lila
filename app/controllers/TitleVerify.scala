@@ -85,18 +85,18 @@ final class TitleVerify(env: Env, cmsC: => Cms, reportC: => report.Report, userC
           Redirect(routes.TitleVerify.index).flashSuccess
   }
 
-  def image(id: TitleRequestId, tag: String) = AuthBody(parse.multipartFormData) { ctx ?=> me ?=>
+  def image(id: TitleRequestId, tag: String) = AuthBody(lila.web.HashedMultiPart(parse)) { ctx ?=> me ?=>
     Found(api.getForMe(id)): req =>
       ctx.body.body.file("image") match
         case Some(image) =>
-          limit.imageUpload(ctx.ip, rateLimited):
+          limit.imageUpload(rateLimited):
             api.image
               .upload(req, image, tag)
               .inject(Ok)
               .recover { case e: Exception =>
                 BadRequest(e.getMessage)
               }
-        case None => api.image.delete(req, tag) >> Ok
+        case None => api.image.delete(req, tag).inject(Ok)
   }
 
   def queue = Secure(_.TitleRequest) { ctx ?=> me ?=>
@@ -124,7 +124,7 @@ final class TitleVerify(env: Env, cmsC: => Cms, reportC: => report.Report, userC
     for
       user <- env.user.api.byId(req.userId).orFail(s"User ${req.userId} not found")
       _ <- modC.doSetTitle(user.id, req.data.title.some)
-      url = s"${env.net.baseUrl}${routes.TitleVerify.show(req.id)}"
+      url = routeUrl(routes.TitleVerify.show(req.id))
       note = s"Title verified: ${req.data.title}. Public: ${if req.data.public then "Yes" else "No"}. $url"
       _ <- env.user.noteApi.write(user.id, note, modOnly = true, dox = false)
       _ <- req.data.public.so:

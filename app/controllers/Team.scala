@@ -109,7 +109,7 @@ final class Team(env: Env) extends LilaController(env):
 
   private def renderEdit(team: TeamModel, form: Form[?])(using me: Me, ctx: Context) = for
     member <- env.team.memberRepo.get(team.id, me)
-    _ <- env.msg.twoFactorReminder(me)
+    _ <- env.msg.systemMsg.twoFactorReminder(me)
   yield views.team.form.edit(team, form, member)
 
   def edit(id: TeamId) = Auth { ctx ?=> me ?=>
@@ -122,10 +122,12 @@ final class Team(env: Env) extends LilaController(env):
       bindForm(forms.edit(team))(
         err => BadRequest.async(renderEdit(team, err)),
         data =>
-          for automodText <- api.update(team, data)
+          for
+            automodText <- api.update(team, data)
+            url = routes.Team.show(team.id).url
+            _ <- env.memo.picfitApi.addRef(Markdown(automodText), ref(team.id), url.some)
           yield
-            val url = routes.Team.show(team.id)
-            discard { env.report.api.automodComms(automodText, url.url) }
+            discard { env.report.api.automodComms(team.automodText, url) }
             Redirect(url).flashSuccess
       )
   }
@@ -183,7 +185,7 @@ final class Team(env: Env) extends LilaController(env):
                           if asMod then LightUser.fallback(UserName.lichess) else me.light,
                           team.team.light,
                           change.perms.map(_.name),
-                          env.net.baseUrl
+                          routeUrl(routes.Team.show(team.id))
                         )
                       )
                     .inject:
@@ -258,6 +260,9 @@ final class Team(env: Env) extends LilaController(env):
     ttl = 10.minutes,
     maxConcurrency = 1
   )
+
+  private def ref(id: TeamId) = s"team:$id"
+
   def create = AuthBody { ctx ?=> me ?=>
     OneAtATime(me, rateLimited):
       LimitPerWeek:
@@ -265,10 +270,12 @@ final class Team(env: Env) extends LilaController(env):
           bindForm(forms.create)(
             err => BadRequest.page(views.team.form.create(err, anyCaptcha)),
             data =>
-              for team <- api.create(data, me)
+              for
+                team <- api.create(data, me)
+                url = routes.Team.show(team.id).url
+                _ <- env.memo.picfitApi.addRef(Markdown(team.automodText), ref(team.id), url.some)
               yield
-                val url = routes.Team.show(team.id)
-                discard { env.report.api.automodComms(team.automodText, url.url) }
+                discard { env.report.api.automodComms(team.automodText, url) }
                 Redirect(url)
           )
   }
@@ -430,7 +437,7 @@ final class Team(env: Env) extends LilaController(env):
   private def renderPmAll(team: TeamModel, form: Form[?])(using Context) = for
     tours <- env.tournament.api.visibleByTeam(team.id, 0, 20).dmap(_.next)
     unsubs <- env.team.cached.unsubs.get(team.id)
-    limiter <- env.teamInfo.pmAll.status(team.id)
+    limiter <- env.team.limiter.pmAll.status(team.id)
     page <- renderPage(views.team.admin.pmAll(team, form, tours, unsubs, limiter))
   yield Ok(page)
 
@@ -441,26 +448,21 @@ final class Team(env: Env) extends LilaController(env):
         Left(_),
         msg =>
           val normalized = msg.replaceAll("\r\n?", "\n")
-          if env.teamInfo.pmAll.dedup(team.id, normalized) then
-            Right:
-              env.teamInfo.pmAll.limiter[LimitResult](
-                team.id,
-                if me.isVerifiedOrAdmin then 1 else mashup.TeamInfo.pmAllCost
-              ) {
-                val url = s"${env.net.baseUrl}${routes.Team.show(team.id)}"
-                val full = s"""$normalized
+          env.team.limiter.pmAll
+            .dedupAndLimit(team.id, normalized): () =>
+              val url = routeUrl(routes.Team.show(team.id))
+              val full = s"""$normalized
   ---
   You received this because you are subscribed to messages of the team $url."""
-                env.msg.api
-                  .multiPost(
-                    env.team.memberStream.subscribedIds(team, MaxPerSecond(50)),
-                    full
-                  )
-                  .addEffect(lila.mon.msg.teamBulk.record(_))
-                // we don't wait for the stream to complete, it would make lichess time out
-                fuccess(LimitResult.Through)
-              }(LimitResult.Limited)
-          else Left(forms.pmAll.withError("duplicate", "You already sent this message recently"))
+              env.msg.api
+                .multiPost(
+                  env.team.memberStream.subscribedIds(team, MaxPerSecond(50)),
+                  full
+                )
+                .addEffect(lila.mon.msg.teamBulk.record(_))
+                .void
+            .left
+            .map(forms.pmAll.withError("duplicate", _))
       )
         .fold(
           err => negotiate(renderPmAll(team, err), BadRequest(errorsAsJson(err))),

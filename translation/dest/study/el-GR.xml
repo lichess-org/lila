@@ -16,6 +16,7 @@
   <string name="recentlyUpdated">Πρόσφατα ενημερωμένες</string>
   <string name="mostPopular">Οι πιο δημοφιλείς</string>
   <string name="alphabetical">Αλφαβητικά</string>
+  <string name="relevant">Συναφή</string>
   <string name="addNewChapter">Προσθήκη νέου κεφαλαίου</string>
   <plurals name="nbChapters">
     <item quantity="one">%s Κεφάλαιο</item>
@@ -32,7 +33,7 @@
   </plurals>
   <string name="inviteToTheStudy">Πρόσκληση χρηστών στη μελέτη</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">Προσκαλέστε μόνο άτομα που γνωρίζετε και τα οποία επιθυμούν να συμμετέχουν ενεργά σε αυτήν την μελέτη.</string>
-  <string name="searchByUsername" comment="Appears when adding members to a Lichess Study as placeholder text in a search box.">Αναζήτηση με όνομα χρήστη</string>
+  <string name="searchByUsername">Αναζήτηση με όνομα χρήστη</string>
   <string name="spectator">Θεατής</string>
   <string name="contributor">Συνεισφέρων</string>
   <string name="kick">Αποβολή</string>

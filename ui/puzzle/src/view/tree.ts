@@ -1,9 +1,9 @@
 import type { VNode, Classes } from 'snabbdom';
 import { defined } from 'lib';
 import { throttle } from 'lib/async';
-import { renderEval as normalizeEval } from 'lib/ceval/ceval';
+import { renderEval as normalizeEval } from 'lib/ceval';
 import { path as treePath } from 'lib/tree/tree';
-import { type MaybeVNode, type LooseVNodes, hl } from 'lib/snabbdom';
+import { type MaybeVNode, type LooseVNodes, hl } from 'lib/view';
 import type PuzzleCtrl from '../ctrl';
 import { plyToTurn } from 'lib/game/chess';
 

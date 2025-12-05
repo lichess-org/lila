@@ -224,11 +224,12 @@ final class JsonView(
             for
               ranking <- cached.ranking(tour)
               pairOption <- playerRepo.pairByTourAndUserIds(tour.id, pairing.user1, pairing.user2)
-            yield for
-              (p1, p2) <- pairOption
-              rp1 <- RankedPlayer(ranking.ranking)(p1)
-              rp2 <- RankedPlayer(ranking.ranking)(p2)
-            yield FeaturedGame(game, rp1, rp2)
+            yield
+              for
+                (p1, p2) <- pairOption
+                rp1 <- RankedPlayer(ranking.ranking)(p1)
+                rp2 <- RankedPlayer(ranking.ranking)(p2)
+              yield FeaturedGame(game, rp1, rp2)
 
   private def sheetNbs(s: arena.Sheet) =
     Json.obj(

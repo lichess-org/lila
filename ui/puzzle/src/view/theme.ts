@@ -1,5 +1,5 @@
 import * as licon from 'lib/licon';
-import { type VNode, type MaybeVNode, bind, dataIcon, hl } from 'lib/snabbdom';
+import { type VNode, type MaybeVNode, bind, dataIcon, hl } from 'lib/view';
 import type { ThemeKey, RoundThemes } from '../interfaces';
 import { renderColorForm } from './side';
 import type PuzzleCtrl from '../ctrl';

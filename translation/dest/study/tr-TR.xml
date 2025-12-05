@@ -32,7 +32,7 @@
   </plurals>
   <string name="inviteToTheStudy">Bu çalışmaya davet edin</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">Lütfen sadece tanıdığınız ve katkı sağlayacağını düşündüğünüz kişileri davet ediniz.</string>
-  <string name="searchByUsername" comment="Appears when adding members to a Lichess Study as placeholder text in a search box.">Kullanıcı adına göre ara</string>
+  <string name="searchByUsername">Kullanıcı adına göre ara</string>
   <string name="spectator">İzleyici</string>
   <string name="contributor">Katılımcı</string>
   <string name="kick">Çıkar</string>
@@ -61,6 +61,7 @@
   <string name="studyPgn">Çalışma PGN\'si</string>
   <string name="chapterPgn">Bölüm PGN\'si</string>
   <string name="copyChapterPgn">PGN \'yi kopyala</string>
+  <string name="copyRawChapterPgn">PGN kopyala</string>
   <string name="downloadGame">Oyunu indir</string>
   <string name="studyUrl">Çalışma Adresi</string>
   <string name="currentChapterUrl">Mevcut Bölümün Adresi</string>
@@ -191,5 +192,6 @@
   <string name="fromFenStringTitle">Bir FEN dizisinden</string>
   <string name="fromPgnGameTitle">PGN oyunundan</string>
   <string name="doubleDefeat">Çift mağlubiyet</string>
+  <string name="blackDefeatWhiteCanNotWin">Siyah kaybetti, ancak beyaz kazanamaz</string>
   <string name="whiteDefeatBlackCanNotWin">Beyaz kaybeder fakat siyah kazanamaz</string>
 </resources>

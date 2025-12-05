@@ -12,7 +12,6 @@ import crypto from 'node:crypto';
 //   "$(dirname "$0")/ublog-automod.mjs" --key=your-together-api-key --host=your-mongo-host "$@"
 
 // see also:
-//   file://./../../sysadmin/prompts/ublog-system-prompt.txt
 //   file://./../modules/ublog/src/main/UblogAutomod.scala
 
 const usage = `

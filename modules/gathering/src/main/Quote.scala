@@ -1088,7 +1088,7 @@ object Quote:
       "Igor Aleksander"
     ),
     Quote(
-      "By the time a player becomes a Grandmaster, almost all of his training time is dedicated to work on this first phase. The opening is the only phase that holds out the potential for true creativity and doing something entirely.",
+      "By the time a player becomes a Grandmaster, almost all of his training time is dedicated to work on this first phase. The opening is the only phase that holds out the potential for true creativity and doing something entirely new.",
       "Garry Kasparov"
     ),
     Quote(

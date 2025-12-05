@@ -1,11 +1,13 @@
 package views.streamer
 
 import scalalib.paginator.Paginator
+import play.api.libs.json.*
 
 import lila.app.UiEnv.{ *, given }
 import lila.core.perf.{ UserPerfs, UserWithPerfs }
 import lila.rating.UserPerfsExt.best6Perfs
-import lila.streamer.Streamer
+import lila.streamer.{ Streamer, Platform }
+import lila.common.Json.given
 
 lazy val bits = lila.streamer.ui.StreamerBits(helpers)(picfitUrl)
 private lazy val ui = lila.streamer.ui.StreamerUi(helpers, bits)
@@ -28,18 +30,37 @@ def create(using Context) =
     )
     .css("bits.streamer.form")(bits.create)
 
+object oauth:
+  def apply(platform: Platform, href: Url, result: Either[String, Map[String, String]]) =
+    val assetUrl = staticCompiledUrl(~assetHelper.manifest.js("bits.oauthPopup"))
+    val jsonResult = Json.obj(
+      "platform" -> platform,
+      "href" -> href,
+      "result" -> result.fold(identity, Json.toJsObject)
+    )
+    frag(
+      views.base.page.ui.doctype,
+      html(
+        st.body(
+          script(tpe := "text/javascript")(
+            raw(s"import('$assetUrl').then(m => m.initModule(${safeJsonValue(jsonResult).value}));")
+          )
+        )
+      )
+    )
+
 object edit:
 
-  private lazy val ui = lila.streamer.ui.StreamerEdit(helpers, bits)
+  private val ui = lila.streamer.ui.StreamerEdit(helpers, bits)
 
   def apply(
       s: Streamer.WithUserAndStream,
       form: play.api.data.Form[?],
-      modData: Option[((List[lila.mod.Modlog], List[lila.user.Note]), List[Streamer])]
+      modData: Option[(List[lila.mod.Modlog], List[lila.user.Note])]
   )(using ctx: Context) =
     val modZone = modData.map:
-      case ((log, notes), streamers) =>
-        div(cls := "mod_log status")(modLog(log), br, modNotes(notes)) -> streamers
+      case (log, notes) =>
+        div(cls := "mod_log status")(modLog(log), br, modNotes(notes))
     ui(s, form, modZone)
 
   private def modLog(log: List[lila.mod.Modlog])(using Context) = frag(

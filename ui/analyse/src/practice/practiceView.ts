@@ -1,5 +1,5 @@
 import type { Outcome } from 'chessops/types';
-import { hl, type VNode, bind, type MaybeVNodes } from 'lib/snabbdom';
+import { hl, type VNode, bind, type MaybeVNodes } from 'lib/view';
 import type { PracticeCtrl, Comment } from './practiceCtrl';
 import type AnalyseCtrl from '../ctrl';
 import { renderNextChapter } from '../study/nextChapter';
@@ -114,7 +114,7 @@ export default function (root: AnalyseCtrl): VNode | undefined {
     hl('div.title', i18n.site.practiceWithComputer),
     hl(
       'div.feedback',
-      !running ? renderOffTrack(ctrl) : end ? renderEnd(root, end) : renderRunning(root, ctrl),
+      end ? renderEnd(root, end) : running ? renderRunning(root, ctrl) : renderOffTrack(ctrl),
     ),
     running
       ? hl(

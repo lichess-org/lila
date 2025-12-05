@@ -1,14 +1,14 @@
 import { next, prev, view } from '../keyboard';
 import crazyView from '../crazy/crazyView';
 import type RoundController from '../ctrl';
-import { stepwiseScroll } from 'lib/view/controls';
-import { type VNode, hl, bind } from 'lib/snabbdom';
+import { stepwiseScroll } from 'lib/view';
+import { type VNode, hl, bind } from 'lib/view';
 import { render as renderKeyboardMove } from 'keyboardMove';
 import { render as renderGround } from '../ground';
 import { renderTable } from './table';
 import { renderMaterialDiffs } from 'lib/game/view/material';
 import { renderVoiceBar } from 'voice';
-import { playable } from 'lib/game/game';
+import { playable } from 'lib/game';
 import { storage } from 'lib/storage';
 import { displayColumns, isTouchDevice } from 'lib/device';
 

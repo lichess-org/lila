@@ -5,7 +5,7 @@ import { debounce, defer, sync, type Sync } from 'lib/async';
 import { opposite } from '@lichess-org/chessground/util';
 import * as xhr from './explorerXhr';
 import { winnerOf } from './explorerUtil';
-import { replayable } from 'lib/game/game';
+import { replayable } from 'lib/game';
 import type AnalyseCtrl from '../ctrl';
 import type { Hovering, ExplorerData, OpeningData, SimpleTablebaseHit, ExplorerOpts } from './interfaces';
 import { ExplorerConfigCtrl } from './explorerConfig';

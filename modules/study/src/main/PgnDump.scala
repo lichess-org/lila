@@ -126,7 +126,10 @@ object PgnDump:
     rootToPgn(NewRoot(root), tags)
 
   def rootToPgn(root: NewRoot, tags: Tags)(using flags: WithFlags): Pgn =
-    rootToPgn(root, tags, InitialComments(root.metas.commentWithShapes))
+    val comments =
+      if flags.comments then InitialComments(root.metas.commentWithShapes)
+      else InitialComments.empty
+    rootToPgn(root, tags, comments)
 
   def rootToPgn(root: NewRoot, tags: Tags, comments: InitialComments)(using WithFlags): Pgn =
     Pgn(tags, comments, root.tree.map(treeToTree), root.ply.next)

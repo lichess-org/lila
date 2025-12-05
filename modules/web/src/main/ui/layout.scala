@@ -35,7 +35,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     )(nonce)
   val noTranslate = raw("""<meta name="google" content="notranslate">""")
 
-  def preload(href: String, as: String, crossorigin: Boolean, tpe: Option[String] = None) =
+  def preload(href: Url, as: String, crossorigin: Boolean, tpe: Option[String] = None) =
     val linkType = tpe.so(t => s"""type="$t" """)
     raw:
       s"""<link rel="preload" href="$href" as="$as" $linkType${crossorigin.so("crossorigin")}>"""
@@ -86,7 +86,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
 
   val warnNoAutoplay =
     div(id := "warn-no-autoplay")(
-      a(dataIcon := Icon.Mute, target := "_blank", href := s"${routes.Main.faq}#autoplay")
+      a(dataIcon := Icon.Mute, targetBlank, href := s"${routes.Main.faq}#autoplay")
     )
 
   def botImage = img(
@@ -134,7 +134,10 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
   def anonDasher(using ctx: Context) =
     val prefs = trans.preferences.preferences.txt()
     frag(
-      a(href := s"${routes.Auth.login.url}?referrer=${ctx.req.path}", cls := "signin")(trans.site.signIn()),
+      div(cls := "signin-or-signup")(
+        a(href := s"${routes.Auth.login.url}?referrer=${ctx.req.path}", cls := "signin")(trans.site.signIn()),
+        a(href := routes.Auth.signup, cls := "button signup")(trans.site.signUp())
+      ),
       div(cls := "dasher")(
         button(cls := "toggle anon link", title := prefs, aria.label := prefs, dataIcon := Icon.Gear),
         div(id := "dasher_app", cls := "dropdown")
@@ -146,13 +149,10 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     scriptsPreload(i18nModules ::: "site" :: modules.map(_.map(_.key)).flatten)
 
   def scriptsPreload(keys: List[String]) =
-    frag(
-      cashTag,
-      assetHelper.manifest.jsAndDeps("manifest" :: keys).map(jsTag)
-    )
+    frag(cashTag, assetHelper.manifest.jsAndDeps("manifest" :: keys).map(jsTag))
 
   private def jsTag(name: String): Frag =
-    script(tpe := "module", src := staticAssetUrl(s"compiled/$name"))
+    script(tpe := "module", src := staticCompiledUrl(name))
 
   def modulesInit(modules: EsmList, nonce: Optionce) =
     modules.flatMap(_.map(_.init(nonce))) // in body
@@ -336,7 +336,8 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
             ctx.me
               .map: me =>
                 frag(allNotifications(challenges, notifications), dasher(me))
-              .getOrElse { (!error).option(anonDasher) }
+              .getOrElse:
+                error.not.option(anonDasher)
         )
       )
 

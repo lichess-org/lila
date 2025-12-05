@@ -22,7 +22,7 @@ final class ChallengeUi(helpers: Helpers):
     Page(title)
       .graph(
         title = title,
-        url = s"$netBaseUrl${routes.Round.watcher(c.gameId, Color.white).url}",
+        url = routeUrl(routes.Round.watcher(c.gameId, Color.white)),
         description = "Join the challenge or watch the game here."
       )
       .js(Esm("bits.qrcode"))
@@ -112,7 +112,7 @@ final class ChallengeUi(helpers: Helpers):
         submitButton(cls := "button button-red text", dataIcon := Icon.X)(trans.site.cancel())
 
     page(c, json, owner = true):
-      val challengeLink = s"$netBaseUrl${routes.Round.watcher(c.gameId, Color.white)}"
+      val challengeLink = routeUrl(routes.Round.watcher(c.gameId, Color.white))
       main(cls := s"page-small challenge-page box box-pad challenge--${c.status.name}")(
         c.status match
           case Status.Created | Status.Offline =>
@@ -144,7 +144,7 @@ final class ChallengeUi(helpers: Helpers):
                       div(cls := "invite__url")(
                         h2(cls := "ninja-title", trans.site.toInviteSomeoneToPlayGiveThisUrl()),
                         br,
-                        copyMeInput(challengeLink),
+                        copyMeInput(challengeLink.value),
                         br,
                         p(trans.site.theFirstPersonToComeOnThisUrlWillPlayWithYou())
                       ),

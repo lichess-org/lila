@@ -67,31 +67,20 @@ final class ReplayUi(helpers: Helpers)(analyseUi: AnalyseUi):
         trans.site.gameAsGIF()
       )(cls := "game-gif"),
       copyMeLink(
-        cdnUrl(
-          routes.Export
-            .fenThumbnail(
-              Fen.write(pov.game.position).value,
-              pov.color.some,
-              None,
-              pov.game.variant.key.some,
-              ctx.pref.theme.some,
-              ctx.pref.pieceSet.some
-            )
-            .url
-        ),
+        fenThumbnailUrl(Fen.write(pov.game.position).opening, pov.color.some, pov.game.variant),
         trans.site.screenshotCurrentPosition()
       )(cls := "position-gif")
     )
 
     val shareLinks = frag(
       a(dataIcon := Icon.Expand, cls := "text embed-howto")(trans.site.embedInYourWebsite()),
-      copyMeInput(s"${netBaseUrl}${routes.Round.watcher(pov.gameId, pov.color)}")
+      copyMeInput(routeUrl(routes.Round.watcher(pov.gameId, pov.color)).value)
     )
     val pgnLinks = frag(
-      copyMeContent(s"${routes.Game.exportOne(game.id)}?literate=1", trans.site.downloadAnnotated()),
-      copyMeContent(s"${routes.Game.exportOne(game.id)}?evals=0&clocks=0", trans.site.downloadRaw()),
+      copyMeContent(pathUrl(s"${routes.Game.exportOne(game.id)}?literate=1"), trans.site.downloadAnnotated()),
+      copyMeContent(pathUrl(s"${routes.Game.exportOne(game.id)}?evals=0&clocks=0"), trans.site.downloadRaw()),
       game.isPgnImport.option:
-        copyMeContent(s"${routes.Game.exportOne(game.id)}?imported=1", trans.site.downloadImported())
+        copyMeContent(pathUrl(s"${routes.Game.exportOne(game.id)}?imported=1"), trans.site.downloadImported())
     )
 
     analyseUi.bits

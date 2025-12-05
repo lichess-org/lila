@@ -276,10 +276,10 @@ abstract private[controllers] class LilaController(val env: Env)
     }
 
   /* OAuth requests requiring certain permissions, with a body */
-  def SecuredScopedBody(perm: Permission.Selector)(
+  def SecuredScopedBody(perm: Permission.Selector)(scopes: OAuthScope.Selector*)(
       f: BodyContext[?] ?=> Me ?=> Fu[Result]
   ) =
-    ScopedBody() { _ ?=> _ ?=>
+    ScopedBody(scopes*) { _ ?=> _ ?=>
       IfGranted(perm)(f)
     }
 
@@ -369,4 +369,18 @@ abstract private[controllers] class LilaController(val env: Env)
   def anyCaptcha = env.game.captcha.any
 
   def bindForm[T, R](form: Form[T])(error: Form[T] => R, success: T => R)(using Request[?], FormBinding): R =
-    form.bindFromRequest().fold(error, success)
+    val bound =
+      if getBool("patch")
+      then bindPatchForm(form)
+      else form.bindFromRequest()
+    bound.fold(error, success)
+
+  private def bindPatchForm[T](form: Form[T])(using req: Request[?], formBinding: FormBinding): Form[T] =
+    form.bind:
+      // combine pre-filled data with request data
+      formBinding(req).foldLeft(form.data) { case (s, (key, values)) =>
+        if key.endsWith("[]") then
+          val k = key.dropRight(2)
+          s ++ values.zipWithIndex.map { (v, i) => s"$k[$i]" -> v }
+        else s + (key -> ~values.headOption)
+      }

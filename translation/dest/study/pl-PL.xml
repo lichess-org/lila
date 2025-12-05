@@ -16,6 +16,7 @@
   <string name="recentlyUpdated">Ostatnio aktualizowane</string>
   <string name="mostPopular">Najpopularniejsze</string>
   <string name="alphabetical">Alfabetycznie</string>
+  <string name="relevant">Powiązane</string>
   <string name="addNewChapter">Dodaj nowy rozdział</string>
   <plurals name="nbChapters">
     <item quantity="one">%s rozdział</item>
@@ -38,7 +39,7 @@
   </plurals>
   <string name="inviteToTheStudy">Zaproś do opracowania</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">Zapraszaj do opracowania tylko znajomych, którzy chcą w nim aktywnie uczestniczyć.</string>
-  <string name="searchByUsername" comment="Appears when adding members to a Lichess Study as placeholder text in a search box.">Szukaj wg nazwy użytkownika</string>
+  <string name="searchByUsername">Szukaj wg nazwy użytkownika</string>
   <string name="spectator">Obserwator</string>
   <string name="contributor">Współautor</string>
   <string name="kick">Wyrzuć</string>
@@ -67,6 +68,7 @@
   <string name="studyPgn">PGN opracowania</string>
   <string name="chapterPgn">PGN rozdziału</string>
   <string name="copyChapterPgn">Kopiuj PGN</string>
+  <string name="copyRawChapterPgn">Skopiuj PGN</string>
   <string name="downloadGame">Pobierz partię</string>
   <string name="studyUrl">Link do opracowania</string>
   <string name="currentChapterUrl">URL bieżącego rozdziału</string>

@@ -51,7 +51,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
               else if r.hasStarted then Icon.DiscBig
               else Icon.DiscOutline
             )
-          )(r.name),
+          )(r.transName),
         a(
           href := routes.RelayRound.create(nav.tour.id),
           cls := List(
@@ -119,16 +119,16 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
         form: Form[RelayRoundForm.Data],
         nav: FormNavigation
     )(using Context) =
-      page(r.name.value, nav):
+      page(r.transName, nav):
         val rt = r.withTour(nav.tour)
         frag(
-          boxTop(h1(a(href := rt.path)(rt.fullName))),
+          boxTop(h1(a(href := rt.path)(rt.transName))),
           standardFlash,
           nav.targetRound.map: tr =>
             flashMessage("success")(
               "Your tournament round is officially broadcasted by Lichess!",
               br,
-              strong(a(href := tr.path, cls := "text", dataIcon := Icon.RadioTower)(tr.fullName)),
+              strong(a(href := tr.path, cls := "text", dataIcon := Icon.RadioTower)(tr.transName)),
               "."
             ),
           inner(form, routes.RelayRound.update(r.id), nav),
@@ -201,7 +201,9 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
           )
         ,
         form3.globalError(form),
-        form3.group(form("name"), trb.roundName())(form3.input(_)(autofocus)),
+        form3.group(form("name"), trb.roundName(), help = trb.defaultRoundNameHelp().some)(
+          form3.input(_)(autofocus)
+        ),
         form3.fieldset("Source", toggle = true.some)(cls := "box-pad")(
           form3.group(
             form("syncSource"),
@@ -217,7 +219,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
             nav.sourceRound.map: source =>
               flashMessage("round-push")(
                 "Getting real-time updates from ",
-                strong(a(href := source.path)(source.fullName)),
+                strong(a(href := source.path)(source.transName)),
                 br,
                 "Owner: ",
                 fragList(source.tour.ownerIds.toList.map(u => userIdLink(u.some))),
@@ -423,8 +425,8 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
             div(cls := "page-menu__content box box-pad")(body)
           )
 
-    def create(form: Form[lila.relay.RelayTourForm.Data])(using Context) =
-      page(trb.newBroadcast.txt(), menu = Left("new")):
+    def create(form: Form[lila.relay.RelayTourForm.Data])(using Context, Me) =
+      page(trb.newBroadcast.txt(), menu = Left("new")).markdownTextarea:
         frag(
           boxTop(h1(dataIcon := Icon.RadioTower, cls := "text")(trb.newBroadcast())),
           postForm(cls := "form3", action := routes.RelayTour.create)(
@@ -436,8 +438,8 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
           )
         )
 
-    def edit(form: Form[RelayTourForm.Data], nav: FormNavigation)(using Context) =
-      page(nav.tour.name.value, menu = Right(nav)):
+    def edit(form: Form[RelayTourForm.Data], nav: FormNavigation)(using Context, Me) =
+      page(nav.tour.name.value, menu = Right(nav)).markdownTextarea:
         frag(
           boxTop(h1(a(href := routes.RelayTour.show(nav.tour.slug, nav.tour.id))(nav.tour.name))),
           standardFlash,
@@ -472,7 +474,10 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
 
     private val sortedTiebreaks = Tiebreak.preset.sortBy(_.extendedCode)
 
-    private def inner(form: Form[RelayTourForm.Data], tg: Option[RelayTour.WithGroupTours])(using Context) =
+    private def inner(form: Form[RelayTourForm.Data], tg: Option[RelayTour.WithGroupTours])(using
+        Context,
+        Me
+    ) =
       frag(
         (!Granter.opt(_.StudyAdmin)).option(div(cls := "form-group")(ui.howToUse)),
         form3.globalError(form),
@@ -521,7 +526,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
             ):
               form3.select(
                 _,
-                lila.core.fide.FideTC.values.map: tc =>
+                chess.FideTC.values.map: tc =>
                   tc.toString -> tc.toString.capitalize
               )
           ),
@@ -551,7 +556,9 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
                 20000.localize
               )
               .some
-          )(form3.textarea(_)(rows := 10))
+          ): field =>
+            lila.ui.bits.markdownTextarea("broadcastDescription".some):
+              form3.textarea(field)(rows := 10)
         ),
         form3
           .fieldset(

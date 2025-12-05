@@ -19,6 +19,10 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
       canReact: Boolean
   )(using ctx: Context) = postWithFrag match
     case ForumPost.WithFrag(post, body, hide) =>
+      val postFrag = div(cls := "forum-post__message expand-text")(
+        if post.erased then "<Comment deleted by user>"
+        else body
+      )
       st.article(cls := List("forum-post" -> true, "erased" -> post.erased), id := post.number)(
         div(cls := "forum-post__metas")(
           (!post.erased || canModCateg).option(
@@ -73,7 +77,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                       )
                     else
                       post.userId.map: userId =>
-                        val postUrl = s"${netBaseUrl}${routes.ForumPost.redirect(post.id)}"
+                        val postUrl = routeUrl(routes.ForumPost.redirect(post.id))
                         frag(
                           nbsp,
                           a(
@@ -81,7 +85,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                             cls := "mod report button button-empty",
                             href := addQueryParams(
                               routes.Report.form.url,
-                              Map("username" -> userId.value, "postUrl" -> postUrl, "from" -> "forum")
+                              Map("username" -> userId.value, "postUrl" -> postUrl.value, "from" -> "forum")
                             ),
                             dataIcon := Icon.CautionTriangle
                           )
@@ -100,32 +104,28 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
           ctx.blind.not.option:
             a(cls := "anchor", href := url)(s"#${post.number}")
         ),
-        frag:
-          val postFrag = div(cls := s"forum-post__message expand-text")(
-            if post.erased then "<Comment deleted by user>"
-            else body
-          )
-          if hide then
-            div(cls := "forum-post__blocked")(
-              postFrag,
-              button(cls := "button button-empty", tpe := "button")(
-                "Show blocked message"
-              )
+        if hide then
+          div(cls := "forum-post__blocked")(
+            postFrag,
+            button(cls := "button button-empty", tpe := "button")(
+              "Show blocked message"
             )
-          else postFrag
+          )
+        else postFrag,
+        (!post.erased).option:
+          frag(div(cls := "forum-post__message-source")(post.text), reactions(post, canReact))
         ,
-        (!post.erased).option(reactions(post, canReact)),
-        ctx.me
-          .soUse(post.shouldShowEditForm)
-          .option(
-            postForm(cls := "edit-post-form", action := routes.ForumPost.edit(post.id))(
-              textarea(
-                bits.dataTopic := topic.id,
-                name := "changes",
-                cls := "post-text-area edit-post-box",
-                minlength := 3,
-                required
-              )(post.text),
+        ctx.me.soUse[Option[Tag]]: _ ?=>
+          post.shouldShowEditForm.option:
+            postForm(cls := "edit-post-form none", action := routes.ForumPost.edit(post.id))(
+              lila.ui.bits.markdownTextarea("forumPostBody".some):
+                textarea(
+                  bits.dataTopic := topic.id,
+                  name := "changes",
+                  cls := "form-control post-text-area edit-post-box",
+                  required
+                )
+              ,
               div(cls := "edit-buttons")(
                 a(
                   cls := "edit-post-cancel",
@@ -137,7 +137,6 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                 submitButton(cls := "button")(trans.site.apply())
               )
             )
-          )
       )
 
   def reactions(post: ForumPost, canReact: Boolean)(using ctx: Context) =
@@ -201,7 +200,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                             "#",
                             view.post.number
                           ),
-                          p(shorten(view.post.text, 200))
+                          p(shorten(Markdown(view.post.text).unlink, 200))
                         ),
                         info
                       )

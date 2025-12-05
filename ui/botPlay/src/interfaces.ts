@@ -1,5 +1,5 @@
 import type { BotInfo, MoveSource, SoundEvent } from 'lib/bot/types';
-import type { StatusName } from 'lib/game/game';
+import type { StatusName } from 'lib/game';
 import * as Prefs from 'lib/prefs';
 import type { ClockConfig } from 'lib/game/clock/clockCtrl';
 
@@ -39,6 +39,7 @@ export interface Bot extends BotInfo {
 export interface BotOpts {
   bots: Bot[];
   pref: Pref;
+  devBots?: BotKey[];
 }
 
 export interface Pref {

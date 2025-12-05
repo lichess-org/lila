@@ -15,6 +15,12 @@ lazy val root = Project("lila", file("."))
 organization := "org.lichess"
 Compile / run / fork := true
 javaOptions ++= Seq("-Xms64m", "-Xmx512m", "-Dlogger.file=conf/logger.dev.xml")
+javaOptions ++= {
+  if (sys.props("java.specification.version").toInt > 21)
+    Seq("--enable-native-access=ALL-UNNAMED")
+  else
+    Seq.empty
+}
 ThisBuild / scalacOptions ++= Seq("-unchecked", "-deprecation")
 ThisBuild / usePipelining := false
 // shorter prod classpath
@@ -117,7 +123,7 @@ lazy val i18n = module("i18n",
     I18n.serialize(
       sourceDir = new File("translation/source"),
       destDir = new File("translation/dest"),
-      dbs = "site arena emails learn activity coordinates study class contact appeal patron coach broadcast streamer tfa settings preferences team perfStat search tourname faq lag swiss puzzle puzzleTheme challenge storm ublog insight keyboardMove timeago oauthScope dgt voiceCommands onboarding features nvui video".split(' ').toList,
+      dbs = "site arena emails learn activity coordinates study class contact appeal patron coach broadcast streamer tfa settings preferences team perfStat search tourname faq lag swiss puzzle puzzleTheme challenge storm ublog insight keyboardMove timeago oauthScope dgt voiceCommands onboarding features nvui video variant".split(' ').toList,
       outputDir = (Compile / resourceManaged).value
     )
   }.taskValue
@@ -199,7 +205,7 @@ lazy val history = module("history",
 )
 
 lazy val search = module("search",
-  Seq(common),
+  Seq(memo),
   Seq(playWs.ahc, lilaSearch)
 )
 
@@ -365,7 +371,7 @@ lazy val study = module("study",
 ).dependsOn(common % "test->test")
 
 lazy val relay = module("relay",
-  Seq(study, game),
+  Seq(study, game, report),
   Seq(chess.tiebreak) ++ tests.bundle
 )
 
@@ -430,7 +436,7 @@ lazy val msg = module("msg",
 )
 
 lazy val forum = module("forum",
-  Seq(memo, ui),
+  Seq(memo, ui, report),
   Seq()
 )
 
@@ -440,7 +446,7 @@ lazy val forumSearch = module("forumSearch",
 )
 
 lazy val team = module("team",
-  Seq(memo, room, ui),
+  Seq(memo, room, ui, report),
   Seq()
 )
 

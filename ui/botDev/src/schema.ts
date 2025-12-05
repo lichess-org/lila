@@ -1,4 +1,7 @@
 import type { Schema, InfoKey, PropertyValue } from './devTypes';
+import { memoize } from 'lib';
+import { Bot } from 'lib/bot/bot';
+import type { FilterSpec } from 'lib/bot/filter';
 import { deepFreeze } from 'lib/algo';
 
 // describe dialog content, define constraints, maps to Bot instance data
@@ -24,7 +27,7 @@ export const infoKeys: InfoKey[] = [
 
 export const requiresOpRe: RegExp = /==|>=|>|<<=|<=|<|!=/; // <<= means startsWith
 
-export const schema: Schema = deepFreeze<Schema>({
+const base: Schema = {
   info: {
     description: {
       type: 'textarea',
@@ -241,50 +244,18 @@ export const schema: Schema = deepFreeze<Schema>({
       value: { range: { min: 0, max: 100 }, by: 'max' },
       requires: 'bot_filters_cplTarget',
       title: $trim`
-        cpl stdev, if given, describes the standard deviation of the folder normal
+        cpl stdev, if given, describes the standard deviation of the folded normal
         distribution from which each move's random cpl target is chosen. if not given, it defaults
         to 50. cpl stdev participates in the cpl target
         weight calculation. it does not assign its own weight.`,
     },
-    aggression: {
-      label: 'aggression',
-      type: 'filter',
-      class: ['filter'],
-      value: { range: { min: -1, max: 1 }, by: 'avg' },
-      requires: {
-        some: [
-          'behavior_fish_multipv > 1',
-          'behavior_zero_multipv > 1',
-          { every: ['behavior_zero', 'behavior_fish'] },
-        ],
-      },
-      title: $trim`
-        aggression assigns weights to moves that remove opponent material from the board.
+  },
+};
 
-        a value of 1 will increase the likelihood of captures, 0 is neutral, and -1 will avoid
-        captures.
-        
-        this one should be combined with other filters.`,
-    },
-    pawnStructure: {
-      label: 'pawn structure',
-      type: 'filter',
-      class: ['filter'],
-      value: { range: { min: 0, max: 1 }, by: 'avg' },
-      requires: {
-        some: [
-          'behavior_fish_multipv > 1',
-          'behavior_zero_multipv > 1',
-          { every: ['behavior_zero', 'behavior_fish'] },
-        ],
-      },
-      title: $trim`
-        pawn structure assigns weights up to the graph value for pawns that support each other, control the center,
-        and are not doubled or isolated.
-        
-        This filter assigns a weight between 0 and 1.`,
-    },
-    moveDecay: {
+const lastFilter: [string, Omit<FilterSpec, 'score'>] = [
+  'moveDecay',
+  {
+    info: {
       label: 'move quality decay',
       type: 'filter',
       class: ['filter'],
@@ -313,13 +284,25 @@ export const schema: Schema = deepFreeze<Schema>({
         
         move quality decay is engine independent and can be used to resolve between
         scored stockfish and unscored lc0 moves.
-        it operates on the full list provided by engine behavior and pairs well
+        it operates on the full list provided by both engines and pairs well
         with the think time facet and a crisp chardonnay.`,
     },
   },
+];
+
+export const schema: () => Schema = memoize(() => {
+  const withFilters = structuredClone(base);
+  const filterEntries = [...Bot.registeredFilters(), lastFilter]; // moveDecay is applied last so it appears last
+  Object.defineProperties(
+    withFilters.bot_filters,
+    Object.fromEntries(
+      filterEntries.map(([key, { info }]) => [key, { enumerable: true, value: structuredClone(info) }]),
+    ),
+  );
+  return deepFreeze<Schema>(withFilters);
 });
 
 export function getSchemaDefault(id: string): PropertyValue {
-  const setting = schema[id] ?? id.split('_').reduce((obj, key) => obj[key], schema);
+  const setting = schema()[id] ?? id.split('_').reduce((obj, key) => obj[key], schema());
   return typeof setting === 'object' && 'value' in setting ? setting.value : undefined;
 }

@@ -6,7 +6,7 @@ import play.api.libs.json.Json
 import lila.app.UiEnv.{ *, given }
 import lila.common.Json.given
 import lila.core.socket.SocketVersion
-import lila.core.study.{ IdName, Order }
+import lila.core.study.{ IdName, StudyOrder }
 
 lazy val bits = lila.study.ui.StudyBits(helpers)
 lazy val ui = lila.study.ui.StudyUi(helpers)
@@ -15,7 +15,7 @@ lazy val list = lila.study.ui.ListUi(helpers, bits)
 def staffPicks(p: lila.cms.CmsPage.Render)(using Context) =
   Page(p.title).css("analyse.study.index", "bits.page"):
     main(cls := "page-menu")(
-      list.menu("staffPicks", Order.mine, Nil),
+      list.menu("staffPicks", StudyOrder.mine, Nil),
       main(cls := "page-menu__content box box-pad page"):
         views.cms.pageContent(p)
     )
@@ -42,6 +42,7 @@ def create(
 
 def show(
     s: lila.study.Study,
+    chapter: lila.study.Chapter,
     data: lila.study.JsonView.JsData,
     chatOption: Option[lila.chat.UserChat.Mine],
     socketVersion: SocketVersion,
@@ -85,9 +86,16 @@ def show(
     .flag(_.zoom)
     .csp(views.analyse.ui.bits.cspExternalEngine.compose(_.withPeer.withExternalAnalysisApis))
     .graph(
-      title = s.name.value,
-      url = s"$netBaseUrl${routes.Study.show(s.id).url}",
-      description = s"A chess study by ${titleNameOrId(s.ownerId)}"
+      OpenGraph(
+        title = s.name.value,
+        url = routeUrl(routes.Study.show(s.id)),
+        description = s"A chess study by ${titleNameOrId(s.ownerId)}",
+        image = fenThumbnailUrl(
+          chapter.root.fen.opening,
+          chapter.setup.orientation.some,
+          chapter.setup.variant
+        ).some
+      )
     ):
       frag(
         main(cls := "analyse"),

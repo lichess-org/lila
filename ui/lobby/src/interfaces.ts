@@ -61,7 +61,6 @@ export interface LobbyOpts {
   showRatings: boolean;
   data: LobbyData;
   bots?: boolean;
-  botEditor?: boolean;
 }
 
 export interface LobbyMe {

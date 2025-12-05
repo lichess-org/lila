@@ -108,9 +108,7 @@ export const env = new (class {
     if (this.manifestOk() && taskOk()) {
       if (this.startTime) {
         const doneMsg = `Done in ${c.green((Date.now() - this.startTime) / 1000 + '')}s`;
-        this.log(
-          doneMsg + (this.stdin ? `. Press ${c.grey('<space>')} to clean, ${c.grey('<esc>')} to exit` : ''),
-        );
+        this.log(doneMsg + (this.stdin ? `. Press ${c.grey('<space>')} to clean and rebuild` : ''));
       }
       updateManifest();
       this.startTime = undefined;
@@ -118,22 +116,25 @@ export const env = new (class {
     if (!this.watch && code) process.exit(code);
   }
 
-  instanceLock(checkStale = true): boolean {
+  instanceLock(strategy: 'check' | 'kill' | 'acquire' = 'check'): boolean {
     try {
       const fd = fs.openSync(env.lockFile, 'wx');
       fs.writeFileSync(fd, String(ps.pid), { flag: 'w' });
       fs.closeSync(fd);
-      ps.on('exit', () => fs.unlinkSync(env.lockFile));
+      ps.on('exit', () => {
+        try {
+          if (ps.pid === Number(fs.readFileSync(env.lockFile))) fs.unlinkSync(env.lockFile);
+        } catch {}
+      });
     } catch {
       const pid = parseInt(fs.readFileSync(env.lockFile, 'utf8'), 10);
       if (!isNaN(pid) && pid > 0 && ps.platform !== 'win32') {
         try {
-          ps.kill(pid, 0);
-          return false;
-        } catch {
-          fs.unlinkSync(env.lockFile); // it's a craplet
-          if (checkStale) return this.instanceLock(false);
-        }
+          ps.kill(pid, strategy === 'kill' ? 'SIGINT' : 0);
+          if (strategy === 'check') return false;
+        } catch {}
+        fs.unlinkSync(env.lockFile); // it's a craplet
+        if (strategy !== 'acquire') return this.instanceLock('acquire');
       }
     }
     return true;

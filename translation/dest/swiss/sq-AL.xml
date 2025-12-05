@@ -109,6 +109,7 @@ Gjëja më e afërt e një Round Robin-i në internet është të luhet një tur
   <string name="streaksAndBerserk">Vijimësi dhe Berserk</string>
   <string name="similarToOTB">I ngjashëm me turne OTB</string>
   <string name="unlimitedAndFree">I pakufizuar dhe i lirë</string>
+  <string name="forbiddedUsers">Nëse kjo listë s’është e zbrazët, atëherë përdorues jo të pranishën në këtë listë s’do të lejohen të marrin pjesë. Një emër përdoruesi për rresht.</string>
   <string name="playYourGames">Luani lojërat tuaja</string>
   <string name="absences">Mungesa</string>
 </resources>

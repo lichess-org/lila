@@ -18,7 +18,7 @@ final class Report(env: Env, userC: => User, modC: => Mod) extends LilaControlle
   private given Conversion[Me, AsMod] = me => AsMod(me)
 
   def list = Secure(_.SeeReport) { _ ?=> me ?=>
-    if env.streamer.liveStreamApi.isStreaming(me.user.id) && !getBool("force")
+    if env.streamer.liveApi.isStreaming(me.user.id) && !getBool("force")
     then Forbidden.page(views.site.message.streamingMod)
     else renderList(env.report.modFilters.get(me).fold("all")(_.key))
   }
@@ -30,11 +30,12 @@ final class Report(env: Env, userC: => User, modC: => Mod) extends LilaControlle
 
   protected[controllers] def getScores: Future[(Scores, PendingCounts)] = (
     api.maxScores,
-    env.streamer.api.approval.countRequests,
+    env.streamer.repo.countRequests,
     env.appeal.api.countUnread,
-    env.title.api.countPending
-  ).mapN: (scores, streamers, appeals, titles) =>
-    (scores, PendingCounts(streamers, appeals, titles))
+    env.title.api.countPending,
+    env.memo.picfitApi.countFlagged
+  ).mapN: (scores, streamers, appeals, titles, images) =>
+    (scores, PendingCounts(streamers, appeals, titles, images))
 
   private def renderList(room: String)(using Context, Me) =
     api.openAndRecentWithFilter(12, Room(room)).zip(getScores).flatMap { case (reports, (scores, pending)) =>

@@ -3,8 +3,8 @@
     font-weight: bold;
   }
   .flag {
-    height: 1em;
-    aspect-ratio: 134/100;
+    height: 1.2em;
+    width: 1.2em;
   }
   &__search {
     &-form {
@@ -28,6 +28,25 @@
 
         padding: 0 1.5em;
         border-inline-start: 0;
+      }
+    }
+  }
+}
+
+.fide-players-table--sortable {
+  th {
+    padding: 0;
+    a {
+      color: $c-font-dim;
+      font-weight: normal;
+      padding: 0.5em 0.8em;
+      &:hover {
+        color: $c-brag;
+      }
+      &.active {
+        font-weight: bold;
+        color: $c-brag;
+        background: $m-brag--fade-85;
       }
     }
   }
@@ -59,9 +78,9 @@
 .fide-federations {
   .flag {
     height: 1.5em;
+    width: 1.5em;
     margin-right: 1em;
     vertical-align: middle;
-    aspect-ratio: 134/100;
   }
   a {
     font-weight: bold;
@@ -74,7 +93,7 @@
     .flag {
       @extend %box-radius;
       height: 5em;
-      aspect-ratio: 134/100;
+      width: 5em;
     }
   }
   &__cards {
@@ -110,9 +129,15 @@
     @extend %flex-between-nowrap;
   }
   &__follow {
-    @extend %flex-center-nowrap;
+    @extend %flex-center-nowrap, %box-radius;
     gap: 1ch;
     cursor: pointer;
+    border: $border;
+    padding: 0.5em 1em;
+    background: $m-brag--fade-90;
+    &:hover {
+      border-color: $c-brag;
+    }
   }
   &__user {
     font-size: 0.7em;
@@ -121,6 +146,7 @@
     @extend %flex-center-nowrap;
     .flag {
       height: 1em;
+      width: 1em;
       margin-right: 1ch;
       vertical-align: middle;
     }

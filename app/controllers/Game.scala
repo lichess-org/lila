@@ -47,7 +47,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
         .as(gameContentType(config))
 
   def exportByUser(username: UserStr) = OpenOrScoped()(handleExport(username))
-  def apiExportByUser(username: UserStr) = AnonOrScoped()(handleExport(username))
+  def apiExportByUser(username: UserStr) = OpenOrScoped()(handleExport(username))
 
   private def handleExport(username: UserStr)(using ctx: Context) =
     meOrFetch(username).flatMap:

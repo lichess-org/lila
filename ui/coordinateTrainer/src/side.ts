@@ -1,8 +1,7 @@
 import { h, type VNode, type VNodes } from 'snabbdom';
-import { bind } from 'lib/snabbdom';
+import { bind, toggle } from 'lib/view';
 import type CoordinateTrainerCtrl from './ctrl';
 import type { TimeControl, Mode } from './interfaces';
-import { toggle } from 'lib/view/controls';
 import { colors, type ColorChoice } from 'lib/setup/color';
 
 const timeControls: [TimeControl, string][] = [
@@ -273,8 +272,8 @@ const side = (ctrl: CoordinateTrainerCtrl): VNode =>
       ? [
           scoreBox(ctrl),
           !ctrl.timeDisabled() ? timeBox(ctrl) : null,
-          ctrl.isAuth && ctrl.hasModeScores() ? scoreCharts(ctrl) : null,
           playingAs(ctrl),
+          ctrl.isAuth && ctrl.hasModeScores() ? scoreCharts(ctrl) : null,
           ctrl.timeDisabled() ? backButton(ctrl) : null,
         ]
       : [

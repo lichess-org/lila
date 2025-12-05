@@ -1,7 +1,7 @@
-import type AnalyseCtrl from '../../ctrl';
+import type AnalyseCtrl from '@/ctrl';
 import RelayCtrl, { type RelayTab } from './relayCtrl';
 import * as licon from 'lib/licon';
-import { bind, dataIcon, onInsert, hl, type LooseVNode } from 'lib/snabbdom';
+import { bind, dataIcon, onInsert, hl, type LooseVNode } from 'lib/view';
 import type { VNode } from 'snabbdom';
 import { innerHTML, richHTML } from 'lib/richText';
 import type {
@@ -15,16 +15,16 @@ import type {
 import { view as multiBoardView } from '../multiBoard';
 import { defined, memoize } from 'lib';
 import type StudyCtrl from '../studyCtrl';
-import { toggle, copyMeInput } from 'lib/view/controls';
+import { toggle, copyMeInput } from 'lib/view';
 import { text as xhrText } from 'lib/xhr';
 import { teamsView } from './relayTeams';
 import { statsView } from './relayStats';
-import { type RelayViewContext } from '../../view/components';
+import { type RelayViewContext } from '@/view/components';
 import { gamesList } from './relayGames';
 import { renderStreamerMenu } from './relayView';
 import { playersView } from './relayPlayers';
 import { gameLinksListener } from '../studyChapters';
-import { baseUrl } from '../../view/util';
+import { baseUrl } from '@/view/util';
 import { commonDateFormat, timeago } from 'lib/i18n';
 import { renderChat } from 'lib/chat/renderChat';
 import { displayColumns, isTouchDevice } from 'lib/device';
@@ -78,7 +78,7 @@ export const tourSide = (ctx: RelayViewContext, kid: LooseVNode) => {
               hl(
                 'button.relay-tour__side__name',
                 { hook: bind('mousedown', relay.tourShow.toggle, relay.redraw) },
-                relay.round.name,
+                relay.i18nRoundName(relay.round),
               ),
               !ctrl.isEmbed &&
                 hl('button.streamer-show.data-count', {
@@ -106,8 +106,8 @@ export const tourSide = (ctx: RelayViewContext, kid: LooseVNode) => {
         resizeId &&
         verticalResize({
           key: `relay-games.${resizeId}`,
-          min: () => 48,
-          max: () => 48 * study.chapters.list.size(),
+          min: () => 50, // Height of one .relay-game in _tour.scss
+          max: () => 50 * study.chapters.list.size(),
           initialMaxHeight: () => window.innerHeight / 2,
         }),
       ctx.ctrl.chatCtrl && renderChat(ctx.ctrl.chatCtrl),
@@ -130,7 +130,7 @@ const startCountdown = (relay: RelayCtrl) => {
     startsAt = defined(round.startsAt) && new Date(round.startsAt),
     date = startsAt && hl('time', commonDateFormat(startsAt));
   return hl('div.relay-tour__side__empty', { attrs: dataIcon(licon.RadioTower) }, [
-    hl('strong', round.name),
+    hl('strong', relay.i18nRoundName(round)),
     startsAt
       ? startsAt.getTime() < Date.now() + 1000 * 10 * 60 // in the last 10 minutes, only say it's soon.
         ? [i18n.broadcast.startVerySoon, date]
@@ -240,7 +240,7 @@ const share = (ctx: RelayViewContext) => {
           'To synchronize ongoing games, use ',
           hl(
             'a',
-            { attrs: { href: '/api#tag/Broadcasts/operation/broadcastStreamRoundPgn' } },
+            { attrs: { href: '/api#tag/broadcasts/get/apistreambroadcastroundbroadcastroundidpgn' } },
             'our free streaming API',
           ),
           ' for stupendous speed and efficiency.',
@@ -296,8 +296,6 @@ const groupSelect = (ctx: RelayViewContext, group: RelayGroup) => {
               {
                 class: {
                   current: tour.id === ctx.relay.data.tour.id,
-                  ['ongoing-tour']: !!tour.live,
-                  ['finished-tour']: !!tour.live,
                 },
                 attrs: { href: ctx.study.embeddablePath(`/broadcast/-/${tour.id}`) },
               },
@@ -335,7 +333,7 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
     },
     [
       hl('label.mselect__label.relay-tour__round-select__label', clickHook, [
-        hl('span.relay-tour__round-select__name', round.name),
+        hl('span.relay-tour__round-select__name', relay.i18nRoundName(round)),
         hl('span.relay-tour__round-select__status', icon || (!!round.startsAt && timeago(round.startsAt))),
       ]),
       toggle() && [
@@ -375,7 +373,7 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
                       hl(
                         'a',
                         { attrs: { href: study.embeddablePath(relay.roundUrlWithHash(round)) } },
-                        round.name,
+                        relay.i18nRoundName(round),
                       ),
                     ),
                     hl(
@@ -384,7 +382,9 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
                         ? commonDateFormat(new Date(round.startsAt))
                         : round.startsAfterPrevious &&
                             i18n.broadcast.startsAfter(
-                              relay.data.rounds[i - 1]?.name || 'the previous round',
+                              relay.data.rounds[i - 1]
+                                ? relay.i18nRoundName(relay.data.rounds[i - 1])
+                                : 'the previous round',
                             ),
                     ),
                     hl(
@@ -449,7 +449,15 @@ const header = (ctx: RelayViewContext) => {
     d.tour.communityOwner &&
       renderNote(
         hl('div', i18n.broadcast.communityBroadcast),
-        hl('small', i18n.broadcast.createdAndManagedBy.asArray(userLink(d.tour.communityOwner))),
+        hl(
+          'small',
+          i18n.broadcast.createdAndManagedBy.asArray(
+            userLink({
+              ...d.tour.communityOwner,
+              flair: undefined,
+            }),
+          ),
+        ),
       ),
     d.note &&
       renderNote(

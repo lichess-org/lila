@@ -1,6 +1,6 @@
 import { RateBot, rateBotMatchup } from './rateBot';
 import type { BotInfo, LocalSpeed } from 'lib/bot/types';
-import { statusOf } from 'lib/game/game';
+import { statusOf } from 'lib/game';
 import { defined, type Prop } from 'lib';
 import { shuffle } from 'lib/algo';
 import { type ObjectStorage, objectStorage } from 'lib/objectStorage';

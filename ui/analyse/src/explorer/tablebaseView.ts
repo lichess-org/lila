@@ -29,38 +29,38 @@ export function showTablebase(
 }
 
 function showDtm(fen: FEN, move: TablebaseMoveStats) {
-  if (move.dtm)
-    return h(
-      'result.' + winnerOf(fen, move),
-      {
-        attrs: { title: i18n.site.mateInXHalfMoves(Math.abs(move.dtm)) + ' (Depth To Mate)' },
-      },
-      'DTM ' + Math.abs(move.dtm),
-    );
-  return undefined;
+  return move.dtm
+    ? h(
+        'result.' + winnerOf(fen, move),
+        {
+          attrs: { title: i18n.site.mateInXHalfMoves(Math.abs(move.dtm)) + ' (Depth To Mate)' },
+        },
+        'DTM ' + Math.abs(move.dtm),
+      )
+    : undefined;
 }
 
 function showDtw(fen: FEN, move: TablebaseMoveStats) {
-  if (move.dtw)
-    return h(
-      'result.' + winnerOf(fen, move),
-      { attrs: { title: 'Depth To Win' } },
-      'DTW ' + Math.abs(move.dtw),
-    );
-  return undefined;
+  return move.dtw
+    ? h(
+        'result.' + winnerOf(fen, move),
+        { attrs: { title: 'Half-moves to win (Depth To Win)' } },
+        'DTW ' + Math.abs(move.dtw),
+      )
+    : undefined;
 }
 
 function showDtc(fen: FEN, move: TablebaseMoveStats) {
-  if (move.dtc)
-    return h(
-      'result.' + winnerOf(fen, move),
-      { attrs: { title: 'Depth To Conversion (experimental)' } },
-      'DTC ' + Math.abs(move.dtc),
-    );
-  return undefined;
+  return move.dtc
+    ? h(
+        'result.' + winnerOf(fen, move),
+        { attrs: { title: 'Moves to capture, promotion, or checkmate (Depth To Conversion, experimental)' } },
+        'DTC ' + Math.abs(move.dtc),
+      )
+    : undefined;
 }
 
-function showDtz(fen: FEN, move: TablebaseMoveStats): VNode | null {
+function showDtz(fen: FEN, move: TablebaseMoveStats): VNode | undefined {
   if (move.checkmate) return h('result.' + winnerOf(fen, move), i18n.site.checkmate);
   if (move.variant_win) return h('result.' + winnerOf(fen, move), i18n.site.variantLoss);
   if (move.variant_loss) return h('result.' + winnerOf(fen, move), i18n.site.variantWin);
@@ -71,14 +71,15 @@ function showDtz(fen: FEN, move: TablebaseMoveStats): VNode | null {
     return move.san.includes('x')
       ? h('result.' + winnerOf(fen, move), i18n.site.capture)
       : h('result.' + winnerOf(fen, move), i18n.site.pawnMove);
-  if (move.dtz === null) return null;
-  return h(
-    'result.' + winnerOf(fen, move),
-    {
-      attrs: {
-        title: i18n.site.dtzWithRounding + ' (Distance To Zeroing)',
-      },
-    },
-    'DTZ ' + Math.abs(move.dtz),
-  );
+  return move.dtz
+    ? h(
+        'result.' + winnerOf(fen, move),
+        {
+          attrs: {
+            title: i18n.site.dtzWithRounding + ' (Distance To Zeroing)',
+          },
+        },
+        'DTZ ' + Math.abs(move.dtz),
+      )
+    : undefined;
 }

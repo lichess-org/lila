@@ -1,3 +1,5 @@
+/* eslint no-restricted-syntax:"error" */ // no side effects allowed due to re-export by index.ts
+
 export const defined = <T>(value: T | undefined): value is T => value !== undefined;
 
 export const notNull = <T>(value: T | null | undefined): value is T => value !== null && value !== undefined;
@@ -73,14 +75,25 @@ export const memoize = <A>(compute: () => A): (() => A) => {
   };
 };
 
-export const scrollToInnerSelector = (el: HTMLElement, selector: string, horiz: boolean = false): void =>
-  scrollTo(el, el.querySelector(selector), horiz);
+export const scrollToInnerSelector = (
+  el: HTMLElement,
+  selector: string,
+  horiz: boolean = false,
+  behavior: ScrollBehavior = 'instant',
+): void => scrollTo(el, el.querySelector(selector), horiz, behavior);
 
-export const scrollTo = (el: HTMLElement, target: HTMLElement | null, horiz: boolean = false): void => {
-  if (target)
+export const scrollTo = (
+  el: HTMLElement,
+  target: HTMLElement | null,
+  horiz: boolean = false,
+  behavior: ScrollBehavior = 'instant',
+): void => {
+  if (!target) return;
+  el.scrollTo(
     horiz
-      ? (el.scrollLeft = target.offsetLeft - el.offsetWidth / 2 + target.offsetWidth / 2)
-      : (el.scrollTop = target.offsetTop - el.offsetHeight / 2 + target.offsetHeight / 2);
+      ? { behavior, left: target.offsetLeft - el.offsetWidth / 2 + target.offsetWidth / 2 }
+      : { behavior, top: target.offsetTop - el.offsetHeight / 2 + target.offsetHeight / 2 },
+  );
 };
 
 export const onClickAway =
@@ -119,6 +132,10 @@ export function escapeHtml(str: string): string {
 export function frag<T extends Node = Node>(html: string): T {
   const fragment = document.createRange().createContextualFragment(html);
   return (fragment.childElementCount === 1 ? fragment.firstElementChild : fragment) as unknown as T;
+}
+
+export function scopedQuery(scope: Element): <T extends Element = HTMLElement>(sel: string) => T | null {
+  return <T extends Element = HTMLElement>(sel: string) => scope.querySelector<T>(sel);
 }
 
 // The username with all characters lowercase

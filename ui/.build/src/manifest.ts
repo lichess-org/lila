@@ -16,7 +16,7 @@ const manifest = {
 };
 let writeTimer: NodeJS.Timeout;
 
-type SplitAsset = { hash?: string; path?: string; imports?: string[]; inline?: string };
+type SplitAsset = { hash?: string; path?: string; imports?: string[]; inline?: string; omit?: boolean };
 
 export type Manifest = { [key: string]: SplitAsset };
 export type ManifestUpdate = Partial<Omit<typeof manifest, 'dirty'>>;
@@ -75,8 +75,10 @@ async function writeManifest() {
     .map(pairLine)
     .join(',');
   const cssLines = Object.entries(manifest.css).map(pairLine).join(',');
-  const hashedLines = Object.entries(manifest.hashed).map(pairLine).join(',');
-
+  const hashedLines = Object.entries(manifest.hashed)
+    .filter(([, { omit }]) => !omit)
+    .map(([name, { hash }]) => pairLine([name, { hash }]))
+    .join(',');
   clientJs.push(`s.manifest={\ncss:{${cssLines}},\njs:{${jsLines}},\nhashed:{${hashedLines}}\n};`);
 
   const hashable = clientJs.join('\n');
@@ -85,9 +87,9 @@ async function writeManifest() {
   const clientManifest = hashable + `\ns.info.date='${new Date().toISOString().split('.')[0] + '+00:00'}';\n`;
   const serverManifest = JSON.stringify(
     {
-      js: { manifest: { hash }, ...manifest.js, ...manifest.i18n },
-      css: { ...manifest.css },
-      hashed: { ...manifest.hashed },
+      js: compactManifest({ manifest: { hash }, ...manifest.js, ...manifest.i18n }),
+      css: compactManifest(manifest.css),
+      hashed: compactManifest(manifest.hashed),
     },
     null,
     env.prod ? undefined : 2,
@@ -102,4 +104,14 @@ async function writeManifest() {
     `'${c.cyan(`public/compiled/manifest.${hash}.js`)}', '${c.cyan(`public/compiled/manifest.json`)}' ${c.grey(serverHash)}`,
     'manifest',
   );
+}
+
+function compactManifest(manifest: Manifest): Record<string, SplitAsset | string> {
+  const compacted: Record<string, SplitAsset | string> = {};
+  for (const [key, info] of Object.entries(manifest)) {
+    const infoKeys = Object.keys(info);
+    if (infoKeys.length === 1 && infoKeys[0] === 'hash') compacted[key] = info.hash!;
+    else compacted[key] = info;
+  }
+  return compacted;
 }

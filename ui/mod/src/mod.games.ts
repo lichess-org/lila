@@ -2,7 +2,7 @@ import { sortTable, extendTablesortNumber } from 'lib/tablesort';
 import { debounce } from 'lib/async';
 import { formToXhr } from 'lib/xhr';
 import { checkBoxAll, expandCheckboxZone, shiftClickCheckboxRange } from './checkBoxes';
-import { confirm } from 'lib/view/dialogs';
+import { confirm } from 'lib/view';
 
 site.load.then(() => {
   setupTable();

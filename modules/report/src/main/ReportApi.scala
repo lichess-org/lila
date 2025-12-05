@@ -36,13 +36,13 @@ final class ReportApi(
 
   private lazy val scorer = wire[ReportScore]
 
-  val promptSetting = settingStore[Text](
+  val commsPromptSetting = settingStore[Text](
     "commsAutomodPrompt",
     text = "Comms automod prompt".some,
     default = Text("")
   )
 
-  val modelSetting = settingStore[String](
+  val commsModelSetting = settingStore[String](
     "commsAutomodModel",
     text = "Comms automod model".some,
     default = "Qwen/Qwen3-235B-A22B-Instruct-2507-tput"
@@ -125,11 +125,13 @@ final class ReportApi(
   def getLichessReporter: Fu[Reporter] =
     getLichessMod.map: l =>
       Reporter(l.user)
+
   lazy val automodReporter: Fu[Reporter] =
     userApi
       .byId(UserId.ai.into(ReporterId))
       .dmap2(Reporter.apply)
       .orFail("User ai is missing")
+
   def autoAltPrintReport(userId: UserId): Funit =
     coll
       .exists(
@@ -171,6 +173,15 @@ final class ReportApi(
             )
           )
         case _ => funit
+
+  def countClosedAutoCheatReport(userId: UserId): Fu[Int] =
+    coll.secondary.countSel:
+      $doc(
+        "user" -> userId,
+        "room" -> Room.Cheat.key,
+        "open" -> false,
+        "atoms.by" -> UserId.lichess
+      )
 
   def autoCheatDetectedReport(userId: UserId, cheatedGames: Int): Funit =
     userApi
@@ -313,37 +324,51 @@ final class ReportApi(
     for _ <- doProcessReport(selector, unsetInquiry = true)
     yield onReportClose()
 
-  def automodRequest(
+  def automodComms(
       userText: String,
-      systemPrompt: Text,
-      model: String,
-      temperature: Double = 0
-  ): Fu[Option[play.api.libs.json.JsObject]] =
-    automodApi.request(userText, systemPrompt, model, temperature)
-
-  def automodComms(userText: String, url: String)(using me: Me): Funit =
+      url: String,
+      onlyIfFlaggedImages: Boolean = false // if true, will not create an automod report based on text alone
+  )(using
+      me: Me
+  ): Funit =
+    val assessText = automodApi
+      .text(
+        userText,
+        systemPrompt = commsPromptSetting.get(),
+        model = commsModelSetting.get()
+      )
+      .monSuccess(_.mod.report.automod.request)
     for
-      rsp <- automodRequest(userText, systemPrompt = promptSetting.get(), model = modelSetting.get())
-        .monSuccess(_.mod.report.automod.request)
+      (images, textResponse) <- automodApi.markdownImages(Markdown(userText)).zip(assessText)
+      flaggedImages = images.flatMap(_.automod).flatMap(_.flagged)
       suspectOpt <- getSuspect(me)
       reporter <- automodReporter
-    yield for
-      res <- rsp
-      fromLlm <- (res \ "assessment").asOpt[String]
-      _ = lila.mon.mod.report.automod.assessment(if fromLlm == "pass" then "ok" else fromLlm).increment()
-      reason <- Reason(if fromLlm == "other" then "comm" else fromLlm) // to avoid explaining "comm" in prompt
-      suspect <- suspectOpt
-      summary = ~(res \ "reason").asOpt[String]
-    yield create(
-      Candidate(
-        reporter = reporter,
-        suspect = suspect,
-        reason = reason,
-        text = s"AUTOMOD: $summary $url"
-      )
-    ).recoverWith: e =>
-      logger.warn(s"Comms automod failed for ${me.username}: ${e.getMessage}", e)
-      funit
+    yield
+      for
+        res <- textResponse
+        fromLlm <- res.str("assessment")
+        hasFlaggedImages = flaggedImages.nonEmpty
+        kamonTag = if hasFlaggedImages then "image" else if fromLlm == "pass" then "ok" else fromLlm
+        _ = lila.mon.mod.report.automod.assessment(kamonTag).increment()
+        reason <- fromLlm match
+          case "pass" if hasFlaggedImages => Reason("comm")
+          case "other" => Reason("comm") // llm knows "other"
+          case r => Reason(r)
+        suspect <- suspectOpt
+        summary = (flaggedImages ++ res.str("reason")).mkString(", ")
+        if hasFlaggedImages || !onlyIfFlaggedImages
+      yield create(
+        Candidate(
+          reporter = reporter,
+          suspect = suspect,
+          reason = reason,
+          text = s"[AUTO " + (hasFlaggedImages.option("IMG") ++ (fromLlm != "pass").option("TXT"))
+            .mkString("/") +
+            s"]: $summary $url"
+        )
+      ).recoverWith: e =>
+        logger.warn(s"Comms automod failed for ${me.username}: ${e.getMessage}", e)
+        funit
 
   private def onReportClose() =
     maxScoreCache.invalidateUnit()

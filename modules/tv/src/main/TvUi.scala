@@ -29,7 +29,7 @@ final class TvUi(helpers: lila.ui.Helpers)(
         title = s"Watch the best ${channel.name.toLowerCase} games of lichess.org",
         description =
           s"Sit back, relax, and watch the best ${channel.name.toLowerCase} Lichess players compete on Lichess TV",
-        url = s"$netBaseUrl${routes.Tv.onChannel(channel.key)}"
+        url = routeUrl(routes.Tv.onChannel(channel.key))
       )
       .flag(_.zen)
       .hrefLangs(lila.ui.LangPath(routes.Tv.index)):
@@ -55,7 +55,7 @@ final class TvUi(helpers: lila.ui.Helpers)(
       .js(Esm("bits.tvGames")):
         main(
           cls := "page-menu tv-games",
-          dataRel := s"$netBaseUrl${routes.Tv.gameChannelReplacement(channel.key, GameId("gameId"), Nil)}"
+          dataRel := routeUrl(routes.Tv.gameChannelReplacement(channel.key, GameId("gameId"), Nil))
         )(
           st.aside(cls := "page-menu__menu"):
             side.channels(channel, champions, "/games")

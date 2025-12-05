@@ -1,11 +1,9 @@
 import { type Prop, type Toggle, escapeHtml, propWithEffect, toggle } from 'lib';
 import * as licon from 'lib/licon';
-import { bind, dataIcon, onInsert } from 'lib/snabbdom';
-import { snabDialog } from 'lib/view/dialog';
+import { bind, dataIcon, onInsert, snabDialog } from 'lib/view';
 import { h, type VNode } from 'snabbdom';
 import type { ChapterPreview } from './interfaces';
 import type { StudyChapters } from './studyChapters';
-import { pubsub } from 'lib/pubsub';
 
 export class SearchCtrl {
   open: Toggle;
@@ -18,7 +16,6 @@ export class SearchCtrl {
     readonly redraw: Redraw,
   ) {
     this.open = toggle(false, () => this.query(''));
-    pubsub.on('study.search.open', () => this.open(true));
   }
 
   cleanQuery = () => this.query().toLowerCase().trim();

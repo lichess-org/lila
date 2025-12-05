@@ -1,14 +1,11 @@
 {
   "name": "analyse",
-  "version": "2.0.0",
   "private": true,
-  "description": "lichess.org analysis board",
-  "author": "Thibault Duplessis",
-  "license": "AGPL-3.0-or-later",
+  "type": "module",
   "dependencies": {
     "@badrap/result": "^0.3.1",
     "@types/debounce-promise": "^3.1.9",
-    "@types/sortablejs": "^1.15.8",
+    "@types/sortablejs": "^1.15.9",
     "@types/yaireo__tagify": "4.27.0",
     "@yaireo/tagify": "4.17.9",
     "bits": "workspace:*",
@@ -18,7 +15,7 @@
     "keyboardMove": "workspace:*",
     "lib": "workspace:*",
     "prop-types": "^15.8.1",
-    "shepherd.js": "^11.2.0",
+    "shepherd.js": "11.2.0",
     "sortablejs": "^1.15.6"
   },
   "build": {

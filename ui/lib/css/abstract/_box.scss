@@ -22,6 +22,16 @@
   border-end-end-radius: $box-radius-size;
 }
 
+%box-radius-inline-start-only {
+  border-start-start-radius: $box-radius-size;
+  border-end-start-radius: $box-radius-size;
+}
+
+%box-radius-inline-end-only {
+  border-start-end-radius: $box-radius-size;
+  border-end-end-radius: $box-radius-size;
+}
+
 %box-radius-left {
   border-radius: $box-radius-size 0 0 $box-radius-size;
 }

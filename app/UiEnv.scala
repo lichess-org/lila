@@ -24,6 +24,7 @@ object UiEnv
 
   def netConfig = env.net
   def picfitUrl = env.memo.picfitUrl
+  def imageGetOrigin = env.memo.imageGetOrigin
 
   given lila.core.config.NetDomain = env.net.domain
   given (using ctx: PageContext): Option[Nonce] = ctx.nonce
@@ -34,6 +35,7 @@ object UiEnv
   // helpers dependencies
   def assetBaseUrl = netConfig.assetBaseUrl
   def netBaseUrl = netConfig.baseUrl
+  def routeUrl = netConfig.routeUrl
   protected val ratingApi = lila.rating.ratingApi
   protected lazy val flairApi = env.user.flairApi
   def isOnline = env.socket.isOnline
@@ -53,4 +55,4 @@ object UiEnv
   def flagApi = lila.user.Flags
 
   def lightUserFallback = env.user.lightUserSyncFallback
-  def isStreaming(userId: UserId) = env.streamer.liveStreamApi.isStreaming(userId)
+  def isStreaming(userId: UserId) = env.streamer.liveApi.isStreaming(userId)

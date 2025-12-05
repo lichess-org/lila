@@ -1,11 +1,8 @@
-import { h, type VNode, type VNodeChildren } from 'snabbdom';
+import { h } from 'snabbdom';
 import * as licon from 'lib/licon';
-import { numberFormat } from 'lib/i18n';
-import { dataIcon } from 'lib/snabbdom';
+import { dataIcon } from 'lib/view';
 import { fullName, userLine, userRating } from 'lib/view/userLink';
 import type { SimplePlayer } from '../interfaces';
-
-export const ratio2percent = (r: number) => Math.round(100 * r) + '%';
 
 export const player = (
   p: SimplePlayer,
@@ -29,22 +26,3 @@ export const player = (
       withRating ? h('span.rating', userRating({ ...p, brackets: false })) : null,
     ],
   );
-
-export function numberRow(name: string, value: number): VNode;
-export function numberRow(name: string, value: [number, number], typ: 'percent'): VNode;
-export function numberRow(name: string, value: VNodeChildren, typ: 'raw'): VNode;
-export function numberRow(name: string, value: any, typ?: string) {
-  return h('tr', [
-    h('th', name),
-    h(
-      'td',
-      typ === 'raw'
-        ? value
-        : typ === 'percent'
-          ? value[1] > 0
-            ? ratio2percent(value[0] / value[1])
-            : 0
-          : numberFormat(value),
-    ),
-  ]);
-}

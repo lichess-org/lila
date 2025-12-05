@@ -20,7 +20,9 @@ object data:
   object RichText extends OpaqueString[RichText]
 
   opaque type Markdown = String
-  object Markdown extends OpaqueString[Markdown]
+  object Markdown extends OpaqueString[Markdown]:
+    extension (md: Markdown)
+      def unlink: String = md.value.replaceAll(raw"""(?i)!?\[([^\]\n]*)\]\([^)]*\)""", "[$1]")
 
   opaque type Html = String
   // not an OpaqueString, because we don't want the default Render[Html]
@@ -34,6 +36,9 @@ object data:
   // JSON string that is safe to include in HTML
   opaque type SafeJsonStr = String
   object SafeJsonStr extends OpaqueString[SafeJsonStr]
+
+  opaque type Url = String
+  object Url extends OpaqueString[Url]
 
   opaque type Template = String
   object Template extends OpaqueString[Template]

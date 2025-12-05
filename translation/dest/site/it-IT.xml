@@ -4,11 +4,12 @@
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Lancia una sfida</string>
   <string name="playAgainstComputer">Gioca contro il computer</string>
   <string name="gameMode">Modalità di gioco</string>
+  <string name="createLobbyGame">Crea una partita nella lobby</string>
   <string name="youPlayAs">Giochi come</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Per invitare qualcuno a giocare, dagli questo URL</string>
   <string name="gameOver">Partita terminata</string>
   <string name="waitingForOpponent">In attesa dell\'avversario</string>
-  <string name="orLetYourOpponentScanQrCode">Oppure fai scansionare questo codice QR al tuo avversario</string>
+  <string name="orLetYourOpponentScanQrCode">O fai scansionare questo codice QR al tuo avversario</string>
   <string name="waiting">In attesa</string>
   <string name="yourTurn">Tocca a te</string>
   <string name="aiNameLevelAiLevel">%1$s livello %2$s</string>
@@ -25,7 +26,7 @@
   <string name="asBlack">come nero</string>
   <string name="randomColor">Colore casuale</string>
   <string name="createAGame">Crea una partita</string>
-  <string name="createTheGame">Inizia una partita</string>
+  <string name="createTheGame">Inizia la partita</string>
   <string name="whiteIsVictorious">Vince il Bianco</string>
   <string name="blackIsVictorious">Vince il Nero</string>
   <string name="youPlayTheWhitePieces">Sei il Bianco</string>
@@ -74,7 +75,7 @@
   <string name="promoteVariation">Promuovi la variante</string>
   <string name="makeMainLine">Rendi questa la variante principale</string>
   <string name="deleteFromHere">Elimina da qui</string>
-  <string name="collapseVariations">Riduci varianti</string>
+  <string name="collapseVariations">Comprimi varianti</string>
   <string name="expandVariations">Espandi varianti</string>
   <string name="forceVariation">Mostra come variante</string>
   <string name="copyVariationPgn">Copia il PGN della variante</string>
@@ -769,6 +770,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">È inoltre possibile scorrere sopra il bordo per entrare nel gioco.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Scorri sulle varianti del computer per vederle in anteprima.</string>
   <string name="analysisShapesHowTo">Premere MAIUSC+click o tasto destro del mouse per disegnare cerchi e frecce sulla scacchiera.</string>
+  <string name="primaryColorArrowsHowTo">Ctrl o shift = rosso; comand, alt, o meta = blu; un tasto da ogni combinazione = giallo.</string>
   <string name="letOtherPlayersMessageYou">Lascia che gli altri giocatori ti inviino messaggi</string>
   <string name="receiveForumNotifications">Ricevi notifiche quando vieni menzionato nel forum</string>
   <string name="shareYourInsightsData">Condividi i tuoi dati Insights</string>
@@ -974,7 +976,7 @@ Lascia vuoto per avviare le partite dalla posizione iniziale normale.</string>
   <string name="simulFeaturedHelp">Mostra la tua simulazione a tutti su %s. Disabilita per le simulazioni private.</string>
   <string name="simulDescription">Descrizione della simulazione</string>
   <string name="simulDescriptionHelp">Vuoi dire qualcosa ai partecipanti?</string>
-  <string name="markdownAvailable">%s è disponibile per la sintassi più avanzata.</string>
+  <string name="markdownIsAvailable">%s è disponibile per la formattazione.</string>
   <string name="embedsAvailable">Incolla l\'URL di un gioco o l\'URL di un capitolo di studio per incorporarlo.</string>
   <string name="inYourLocalTimezone">Nel tuo fuso orario locale</string>
   <string name="tournChat">Chat del torneo</string>

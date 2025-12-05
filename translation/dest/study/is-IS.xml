@@ -16,6 +16,7 @@
   <string name="recentlyUpdated">Nýlega uppfært</string>
   <string name="mostPopular">Vinsælast</string>
   <string name="alphabetical">Stafrófsröð</string>
+  <string name="relevant">Markvert</string>
   <string name="addNewChapter">Bæta nýjum kafla við</string>
   <plurals name="nbChapters">
     <item quantity="one">%s kafli</item>
@@ -32,7 +33,7 @@
   </plurals>
   <string name="inviteToTheStudy">Bjóða í stúderingu</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">Vinsamlegast bjóddu bara fólki sem þú þekkir og sem hefur áhuga á að taka þátt í þessari stúderingu.</string>
-  <string name="searchByUsername" comment="Appears when adding members to a Lichess Study as placeholder text in a search box.">Leita eftir notandanafni</string>
+  <string name="searchByUsername">Leita eftir notandanafni</string>
   <string name="spectator">Áhorfandi</string>
   <string name="contributor">Þátttakandi</string>
   <string name="kick">Henda</string>
@@ -194,7 +195,7 @@
   <string name="fromPgnGameTitle">Úr skák í formi PGN</string>
   <string name="fromPgnGameText">Límdu inn skák í formi PGN.&lt;br&gt;til að hlaða inn leikjum, athugasemdum og afbrigðum í kaflanum.</string>
   <string name="variantsAreSupportedTitle">Stúderingar styðja afbrigði</string>
-  <string name="variantsAreSupportedText">Já, þú getur stúderað crazyhouse&lt;br&gt; og öll Lichess-afbrigði!</string>
+  <string name="variantsAreSupportedText">Já, þú getur stúderað geðveikraskákar-afbrigðið&lt;br&gt; og öll Lichess-afbrigði!</string>
   <string name="chapterConclusionText">Kaflar vistast að eilífu.&lt;br&gt;Góða skemmtun við að skipuleggja skákefnið þitt!</string>
   <string name="doubleDefeat">Tvöfalt tap</string>
   <string name="blackDefeatWhiteCanNotWin">Svartur tapar, en hvítur getur ekki unnið</string>

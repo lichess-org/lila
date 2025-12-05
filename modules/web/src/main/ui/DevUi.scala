@@ -10,24 +10,28 @@ import ScalatagsTemplate.{ *, given }
 final class DevUi(helpers: Helpers)(modMenu: String => Context ?=> Frag):
   import helpers.*
 
-  def settings(settings: List[lila.memo.SettingStore[?]])(using Context) =
+  def settings(settings: List[(String, List[lila.memo.SettingStore[?]])])(using Context) =
     val title = "Settings"
     Page(title).css("mod.misc"):
       main(cls := "page-menu")(
         modMenu("setting"),
         div(id := "settings", cls := "page-menu__content box box-pad")(
           h1(cls := "box__top")(title),
-          p("Tread lightly."),
-          settings.map: s =>
-            postForm(action := routes.Dev.settingsPost(s.id))(
-              p(s.text | s.id),
-              s.form.value match
-                case Some(v: Boolean) => div(span(cls := "form-check-input")(form3.cmnToggle(s.id, "v", v)))
-                case Some(v: lila.core.data.Text) => textarea(name := "v")(v.value)
-                case v => input(name := "v", value := v.map(_.toString))
-              ,
-              submitButton(cls := "button button-empty", dataIcon := Icon.Checkmark)
-            )
+          settings.map: (group, list) =>
+            form3.fieldset(group, false.some):
+              div: // necessary for styling
+                div: // necessary for styling
+                  list.map: s =>
+                    postForm(action := routes.Dev.settingsPost(s.id))(
+                      label(`for` := "v")(s.text | s.id),
+                      s.form.value match
+                        case Some(v: Boolean) =>
+                          div(span(cls := "form-check-input")(form3.cmnToggle(s.id, "v", v)))
+                        case Some(v: lila.core.data.Text) => textarea(name := "v")(v.value)
+                        case v => input(name := "v", value := v.map(_.toString))
+                      ,
+                      submitButton(cls := "button button-empty", dataIcon := Icon.Checkmark)
+                    )
         )
       )
 
@@ -74,8 +78,9 @@ notify url users {username1,username2,username3} {url} {link title} | {link desc
 notify url titled {url} {link title} | {link description}
 notify url titled-arena {url} {link title} | {link description}
 patron lifetime {username}
-patron month {username}
+patron gift-month {username}
 patron remove {username}
+patron set-months {username} {months}
 tournament feature {id}
 tournament unfeature {id}
 eval-cache drop standard 8/8/1k6/8/2K5/1P6/8/8 w - - 0 1

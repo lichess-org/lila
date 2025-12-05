@@ -1,7 +1,7 @@
 import { text as xhrText } from 'lib/xhr';
 import { sortTable, extendTablesortNumber } from 'lib/tablesort';
 import { checkBoxAll, expandCheckboxZone, selector, shiftClickCheckboxRange } from './checkBoxes';
-import { confirm } from 'lib/view/dialogs';
+import { confirm } from 'lib/view';
 
 site.load.then(() => {
   $('.slist, slist-pad')

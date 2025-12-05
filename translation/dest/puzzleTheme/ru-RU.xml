@@ -14,6 +14,8 @@
   <string name="attractionDescription">Размен или жертва, вынуждающая или подталкивающая фигуру противника занять поле, после чего становится возможен последующий тактический приём.</string>
   <string name="backRankMate">Мат на последней горизонтали</string>
   <string name="backRankMateDescription">Матование короля на его горизонтали, когда он заблокирован своими же фигурами.</string>
+  <string name="balestraMate">Мат Балестра</string>
+  <string name="balestraMateDescription">Слон ставит мат, а ферзь перекрывает оставшиеся поля отступления</string>
   <string name="bishopEndgame">Слоновый эндшпиль</string>
   <string name="bishopEndgameDescription">Эндшпиль, где присутствуют лишь слоны и пешки.</string>
   <string name="bodenMate">Мат Бодена</string>
@@ -59,6 +61,8 @@
   <string name="intermezzoDescription">Вместо того, чтобы сделать ожидаемый ход, сначала делается другой ход, представляющий непосредственную угрозу, на которую противник должен ответить. Также известен как «Zwischenzug» или «Intermezzo».</string>
   <string name="killBoxMate">Мат «Смертельная коробка»</string>
   <string name="killBoxMateDescription">Ладья ставится рядом с королём противника под защитой ферзя, который одновременно препятствует побегу короля. Ладья и ферзь ловят вражеского короля в «смертельную коробку» 3×3.</string>
+  <string name="triangleMate">Треугольный мат</string>
+  <string name="triangleMateDescription">Ферзь и ладья находятся на соседних полях с вражеским королём, на той же горизонтали или вертикали, образуюя треугольник.</string>
   <string name="vukovicMate">Мат Вуковича</string>
   <string name="vukovicMateDescription">Ладья и конь совместно матуют короля. Ладья, защищённая ещё одной фигурой, ставит мат, а конь отрезает поля отступления вражеского короля.</string>
   <string name="knightEndgame">Коневой эндшпиль</string>

@@ -1,10 +1,7 @@
 {
   "name": "tutor",
-  "version": "2.0.0",
   "private": true,
-  "description": "lichess.org tutor",
-  "author": "Thibault Duplessis",
-  "license": "AGPL-3.0-or-later",
+  "type": "module",
   "dependencies": {
     "lib": "workspace:*"
   },

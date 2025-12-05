@@ -54,7 +54,7 @@ final class AnalyseUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
       .i18nOpt(ctx.blind, _.keyboardMove, _.nvui)
       .graph(
         title = "Chess analysis board",
-        url = s"$netBaseUrl${routes.UserAnalysis.index.url}",
+        url = routeUrl(routes.UserAnalysis.index),
         description = "Analyse chess positions and variations on an interactive chess board"
       )
       .flag(_.zoom):
@@ -135,7 +135,7 @@ final class AnalyseUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
       _.withWebAssembly.withExternalEngine(endpoints.externalEngine)
 
     def analyseModule(mode: "userAnalysis" | "replay", json: JsObject) =
-      PageModule("analyse", Json.obj("mode" -> mode, "cfg" -> json))
+      PageModule("analyse.user", Json.obj("mode" -> mode, "cfg" -> json))
 
     val embedUserAnalysisBody = div(id := "main-wrap", cls := "is2d")(
       main(cls := "analyse")(

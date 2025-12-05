@@ -1,9 +1,9 @@
 import * as licon from 'lib/licon';
-import { bind, bindNonPassive, type MaybeVNodes } from 'lib/snabbdom';
-import { spinnerVdom as spinner, toggle } from 'lib/view/controls';
+import { bind, bindNonPassive, type MaybeVNodes } from 'lib/view';
+import { spinnerVdom as spinner, toggle } from 'lib/view';
 import { h, thunk, type VNode } from 'snabbdom';
 import { richHTML } from 'lib/richText';
-import { option, plural } from '../../view/util';
+import { option, plural } from '@/view/util';
 import { view as descView } from '../description';
 import type { StudyPracticeData } from './interfaces';
 import type StudyCtrl from '../studyCtrl';

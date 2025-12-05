@@ -1,4 +1,4 @@
-import { winningChances, type CustomCeval } from 'lib/ceval/ceval';
+import { winningChances, type CustomCeval } from 'lib/ceval';
 import { path as treePath } from 'lib/tree/tree';
 import { detectThreefold } from '../nodeFinder';
 import { tablebaseGuaranteed } from '../explorer/explorerCtrl';

@@ -1,7 +1,7 @@
 import { botAssetUrl } from 'lib/bot/botLoader';
-import { bind, hl } from 'lib/snabbdom';
+import { bind, hl } from 'lib/view';
 import type SetupCtrl from '../setupCtrl';
-import { miniBoard } from '../../ground';
+import { miniBoard } from '@/ground';
 import { type Bot } from '@/interfaces';
 import { setupDialog } from './setupDialog';
 
@@ -39,7 +39,10 @@ const viewBotCard = (ctrl: SetupCtrl, bot: Bot, ongoing: boolean) =>
     'div.bot-card.bot-color--' + bot.key,
     {
       hook: bind('click', () => ctrl.select(bot)),
-      class: { 'bot-card--ongoing': ongoing },
+      class: {
+        'bot-card--ongoing': ongoing,
+        'bot-card--dev': !!ctrl.opts.devBots?.includes(bot.key),
+      },
     },
     [
       hl('img.bot-card__image', {

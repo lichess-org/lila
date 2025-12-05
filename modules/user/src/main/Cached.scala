@@ -5,6 +5,7 @@ import reactivemongo.api.bson.*
 import lila.core.perf.UserWithPerfs
 import lila.core.user.LightPerf
 import lila.core.userId.UserSearch
+import lila.core.rating.UserRankMap
 import lila.db.dsl.*
 import lila.memo.CacheApi.*
 import lila.rating.{ PerfType, UserPerfs }
@@ -65,7 +66,7 @@ final class Cached(
 
   def getTop50Online: Fu[List[UserWithPerfs]] = top50OnlineCache.getUnit
 
-  def rankingsOf(userId: UserId): lila.rating.UserRankMap = rankingApi.weeklyStableRanking.of(userId)
+  def rankingsOf(userId: UserId): UserRankMap = rankingApi.weeklyStableRanking.of(userId)
 
   private val botIds = cacheApi.unit[Set[UserId]]:
     _.refreshAfterWrite(5.minutes).buildAsyncTimeout()(_ => userRepo.botIds)

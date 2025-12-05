@@ -89,7 +89,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
     WithClassAny(id)(
       forTeacher = WithClass(id): clas =>
         for
-          _ <- env.msg.twoFactorReminder(me)
+          _ <- env.msg.systemMsg.twoFactorReminder(me)
           students <- env.clas.api.student.activeWithUsers(clas)
           _ = preloadStudentUsers(students)
           students <- env.clas.api.student.withPerfs(students)
@@ -196,8 +196,8 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
         text =>
           env.clas.api.student.activeWithUsers(clas).flatMap { students =>
             Reasonable(clas, students, "notify"):
-              val url = routes.Clas.show(clas.id).url
-              val full = if text.contains(url) then text else s"$text\n\n${env.net.baseUrl}$url"
+              val call = routes.Clas.show(clas.id)
+              val full = if text.contains(call.url) then text else s"$text\n\n${routeUrl(call)}"
               env.msg.api
                 .multiPost(Source(students.map(_.user.id)), full)
                 .addEffect(lila.mon.msg.clasBulk(clas.id).record(_))

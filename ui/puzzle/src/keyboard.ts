@@ -1,6 +1,6 @@
 import * as control from './control';
 import type PuzzleCtrl from './ctrl';
-import { snabDialog } from 'lib/view/dialog';
+import { snabDialog } from 'lib/view';
 import { pubsub } from 'lib/pubsub';
 
 export default (ctrl: PuzzleCtrl) =>

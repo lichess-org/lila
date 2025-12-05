@@ -110,13 +110,13 @@ Lichess가 자동으로 쌍을 만들 수 있도록 하려면 이 필드를 비�
   <string name="lateJoin">늦게 참가</string>
   <string name="lateJoinUntil">절반 이상 라운드가 지나기 전까지 가능</string>
   <string name="pause">일시 중지</string>
-  <string name="pauseSwiss">예 하지만 라운드가 줄어들 수 있습니다</string>
+  <string name="pauseSwiss">가능하나 라운드의 수가 줄어들 수 있음</string>
   <string name="streaksAndBerserk">연승/버서크 모드</string>
   <string name="similarToOTB">OTB 토너먼트와 유사한가</string>
-  <string name="unlimitedAndFree">무제한/무료인가</string>
+  <string name="unlimitedAndFree">무제한이며 무료인가</string>
   <string name="predefinedUsers">특정한 사용자만 참가할 수 있도록 허용</string>
   <string name="forbiddedUsers">이 목록이 비어있지 않다면, 이 목록에 없는 사용자는 가입이 금지됩니다. 한 줄에 한 사용자 이름을 적으세요.</string>
-  <string name="playYourGames">더 많은 게임을 시작하세요.</string>
+  <string name="playYourGames">게임을 더 플레이하고 오세요</string>
   <string name="byes">Byes</string>
   <string name="absences">Absences</string>
   <string name="tieBreak">타이 브레이크</string>

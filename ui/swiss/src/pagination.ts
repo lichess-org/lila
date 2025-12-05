@@ -1,6 +1,6 @@
 import { h, type VNode } from 'snabbdom';
 import * as licon from 'lib/licon';
-import { bind, type MaybeVNodes } from 'lib/snabbdom';
+import { bind, type MaybeVNodes } from 'lib/view';
 import type SwissCtrl from './ctrl';
 import type { Pager } from './interfaces';
 import * as search from './search';
@@ -15,8 +15,8 @@ function button(text: string, icon: string, click: () => void, enable: boolean, 
 }
 
 function scrollToMeButton(ctrl: SwissCtrl): VNode | undefined {
-  return ctrl.data.me
-    ? h('button.fbt' + (ctrl.focusOnMe ? '.active' : ''), {
+  return ctrl.data.me && myPage(ctrl) !== ctrl.page
+    ? h('button.fbt', {
         attrs: { 'data-icon': licon.Target, title: 'Scroll to your player' },
         hook: bind('mousedown', ctrl.toggleFocusOnMe, ctrl.redraw),
       })

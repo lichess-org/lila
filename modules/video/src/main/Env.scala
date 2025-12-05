@@ -9,15 +9,13 @@ import lila.common.config.given
 import lila.core.config.*
 
 @Module
-private class VideoConfig(
+private final class VideoConfig(
     @ConfigName("collection.video") val videoColl: CollName,
     @ConfigName("collection.view") val viewColl: CollName,
     @ConfigName("sheet.url") val sheetUrl: String,
-    @ConfigName("sheet.delay") val sheetDelay: FiniteDuration,
     @ConfigName("youtube.url") val youtubeUrl: String,
     @ConfigName("youtube.api_key") val youtubeApiKey: Secret,
-    @ConfigName("youtube.max") val youtubeMax: Max,
-    @ConfigName("youtube.delay") val youtubeDelay: FiniteDuration
+    @ConfigName("youtube.max") val youtubeMax: Max
 )
 
 final class Env(
@@ -52,8 +50,8 @@ final class Env(
       sheet.fetchAll.map { nb => s"Processed $nb videos" }
 
   if mode.isProd then
-    scheduler.scheduleWithFixedDelay(config.sheetDelay, config.sheetDelay): () =>
+    scheduler.scheduleWithFixedDelay(6.hours, 6.hours): () =>
       sheet.fetchAll.logFailure(logger)
 
-    scheduler.scheduleWithFixedDelay(config.youtubeDelay, config.youtubeDelay): () =>
-      youtube.updateAll.logFailure(logger)
+    scheduler.scheduleWithFixedDelay(98.minutes, 98.minutes): () =>
+      youtube.updateMany.logFailure(logger)

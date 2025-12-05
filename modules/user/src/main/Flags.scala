@@ -275,8 +275,7 @@ object Flags extends FlagApi:
     F("YT", "Mayotte"),
     F("ZA", "South Africa"),
     F("ZM", "Zambia"),
-    F("ZW", "Zimbabwe")
-  ).sortBy(_.name) ::: List(
+    F("ZW", "Zimbabwe"),
     // whatever
     F("EU", "European Union"),
     F("_adygea", "Adygea"),
@@ -286,7 +285,7 @@ object Flags extends FlagApi:
     F("_russia-wbw", "Russia White-blue-white"),
     F("_united-nations", "United Nations"),
     F("_earth", "Earth")
-  )
+  ).sortBy(_.name)
 
   val map: Map[FlagCode, Flag] = all.mapBy(_.code)
 

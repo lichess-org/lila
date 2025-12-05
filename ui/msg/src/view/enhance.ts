@@ -1,7 +1,7 @@
 import { scroller } from './scroller';
 import * as licon from 'lib/licon';
 import { linkRegex, linkReplace, newLineRegex, expandMentions } from 'lib/richText';
-import { escapeHtml } from 'lib';
+import { escapeHtml } from 'lib/index';
 export { isMoreThanText } from 'lib/richText';
 
 export const imgurRegex = /https?:\/\/(?:i\.)?imgur\.com\/(?!gallery\b)(\w{7})(?:\.jpe?g|\.png|\.gif)?/;

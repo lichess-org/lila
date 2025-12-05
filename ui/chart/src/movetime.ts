@@ -23,13 +23,11 @@ import {
   tooltipBgColor,
   whiteFill,
   axisOpts,
-  resizePolyfill,
-} from './common';
+} from './index';
 import type { AnalyseData, Player, PlyChart } from './interface';
 import division from './division';
 import { pubsub } from 'lib/pubsub';
 
-resizePolyfill();
 Chart.register(LineController, LinearScale, PointElement, LineElement, Tooltip, BarElement, BarController);
 
 export default async function (

@@ -48,7 +48,7 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
       )
       .graph(
         title = s"${tour.name()}: ${tour.variant.name} ${tour.clock.show} ${tour.rated.name} #${tour.id}",
-        url = s"$netBaseUrl${routes.Tournament.show(tour.id).url}",
+        url = routeUrl(routes.Tournament.show(tour.id)),
         description =
           s"${tour.nbPlayers} players compete in the ${showEnglishDate(tour.startsAt)} ${tour.name()}. " +
             s"${tour.clock.show} ${tour.rated.name} games are played during ${tour.minutes} minutes. " +
@@ -222,7 +222,7 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
         privateId.map: id =>
           frag(
             h2(trans.arena.thisIsPrivate()),
-            p(trans.arena.shareUrl(s"$netBaseUrl${routes.Tournament.show(id)}"))
+            p(trans.arena.shareUrl(routeUrl(routes.Tournament.show(id))))
           ),
         p(trans.arena.willBeNotified()),
         h2(trans.arena.isItRated()),

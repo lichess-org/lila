@@ -28,11 +28,13 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
               err => BadRequest.page(views.forum.topic.form(categ, err, anyCaptcha)),
               data =>
                 limit.forumTopic(ctx.ip, rateLimited):
-                  topicApi.makeTopic(categ, data).map { topic =>
-                    val url = routes.ForumTopic.show(categ.id, topic.slug, 1).url
-                    discard { env.report.api.automodComms(data.automodText, url) }
-                    Redirect(url)
-                  }
+                  for
+                    topic <- topicApi.makeTopic(categ, data)
+                    url = routes.ForumTopic.show(categ.id, topic.slug, 1).url
+                    ref = lila.forum.picRef(topic.lastPostId)
+                    _ <- env.memo.picfitApi.addRef(Markdown(data.post.text), ref, url.some)
+                    _ = discard { env.report.api.automodComms(data.automodText, url) }
+                  yield Redirect(url)
             )
           }
   }
@@ -98,14 +100,15 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
       val slug = problemReportSlug(me.userId)
       bindForm(env.forum.forms.diagnostic)(
         err => jsonFormError(err),
-        text =>
+        data =>
           env.forum.topicRepo
             .existsByTree(diagnosticId, slug)
             .flatMap:
-              if _ then showDiagnostic(slug, text)
+              if _ then showDiagnostic(slug, data.text, ~data.plaintext)
               else
                 FoundPage(env.forum.categRepo.byId(diagnosticId)): categ =>
-                  views.forum.topic.makeDiagnostic(categ, forms.topic(false), anyCaptcha, text)
+                  views.forum.topic
+                    .makeDiagnostic(categ, forms.topic(false), anyCaptcha, data.text, ~data.plaintext)
       )
   }
 
@@ -114,7 +117,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
     else env.forum.topicApi.removeTopic(diagnosticId, slug).inject(Redirect(routes.ForumCateg.index))
   }
 
-  private def showDiagnostic(slug: ForumTopicSlug, formText: String)(using Context, Me) =
+  private def showDiagnostic(slug: ForumTopicSlug, formText: String, plaintext: Boolean)(using Context, Me) =
     FoundPage(topicApi.showLastPage(diagnosticId, slug)): (categ, topic, posts) =>
       val form = forms.postWithCaptcha(false).some
-      views.forum.topic.show(categ, topic, posts, form, None, true, formText.some)
+      views.forum.topic.show(categ, topic, posts, form, None, true, formText.some, plaintext = plaintext)

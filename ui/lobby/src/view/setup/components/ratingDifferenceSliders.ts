@@ -1,5 +1,5 @@
-import { hl } from 'lib/snabbdom';
-import type LobbyController from '../../../ctrl';
+import { hl } from 'lib/view';
+import type LobbyController from '@/ctrl';
 
 export const ratingDifferenceSliders = (ctrl: LobbyController) => {
   if (!ctrl.me || !ctrl.data.ratingMap) return null;

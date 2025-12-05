@@ -2,17 +2,22 @@ package lila.ui
 
 import play.api.libs.json.*
 
-import lila.core.config.AssetBaseUrl
+import lila.core.config.{ BaseUrl, AssetBaseUrl, ImageGetOrigin }
 import lila.core.data.SafeJsonStr
-import lila.ui.ScalatagsTemplate.*
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 trait AssetHelper:
 
   export lila.ui.Esm
 
+  def netBaseUrl: BaseUrl
+  def routeUrl: Call => Url
   def assetBaseUrl: AssetBaseUrl
-  def assetUrl(path: String): String
+  def assetUrl(path: String): Url
   def safeJsonValue(jsValue: JsValue): SafeJsonStr
+  def imageGetOrigin: ImageGetOrigin
+
+  given ImageGetOrigin = imageGetOrigin
 
   private val load = "site.asset.loadEsm"
 
@@ -40,7 +45,7 @@ trait AssetHelper:
   val captchaEsm: Esm = Esm("bits.captcha")
 
   // load iife scripts in <head> and defer
-  def iifeModule(path: String): Frag = script(deferAttr, src := assetUrl(path))
+  def iifeModule(path: String): Frag = script(deferAttr, src := assetUrl(path).value)
 
   def embedJsUnsafe(js: String): WithNonce[Frag] = nonce =>
     raw:
@@ -52,13 +57,20 @@ trait AssetHelper:
   // bump flairs version if a flair is changed only (not added or removed)
   val flairVersion = "______4"
 
-  def staticAssetUrl(path: String): String = s"$assetBaseUrl/assets/$path"
+  // bump fide fed version if a fide fed is changed only (not added or removed)
+  val fideFedVersion = "______2"
 
-  def cdnUrl(path: String) = s"$assetBaseUrl$path"
+  def staticAssetUrl(path: String): Url = Url(s"$assetBaseUrl/assets/$path")
 
-  def flairSrc(flair: Flair): String = staticAssetUrl(s"$flairVersion/flair/img/$flair.webp")
+  def staticCompiledUrl(path: String): Url = staticAssetUrl(s"compiled/$path")
+
+  def cdnUrl(path: String) = Url(s"$assetBaseUrl$path")
+
+  def flairSrc(flair: Flair): Url = staticAssetUrl(s"$flairVersion/flair/img/$flair.webp")
 
   def iconFlair(flair: Flair): Tag = decorativeImg(cls := "icon-flair", src := flairSrc(flair))
+
+  def fideFedSrc(fideFed: String): Url = staticAssetUrl(s"$fideFedVersion/fide/fed-webp/${fideFed}.webp")
 
   def fingerprintTag: EsmList = Esm("bits.fipr")
 
@@ -66,3 +78,21 @@ trait AssetHelper:
     re.enabled.so(esmInitBit("hcaptcha"))
 
   def analyseNvuiTag(using ctx: Context) = ctx.blind.option(Esm("analyse.nvui"))
+
+  def pathUrl(path: String): Url = Url(s"${netBaseUrl}$path")
+
+  def fenThumbnailUrl(
+      fen: chess.format.StandardFen,
+      color: Option[chess.Color] = None,
+      variant: chess.variant.Variant = chess.variant.Standard
+  )(using ctx: Context): Url = cdnUrl:
+    routes.Export
+      .fenThumbnail(
+        fen.value,
+        color,
+        none,
+        Option.when(variant.exotic)(variant.key),
+        ctx.pref.theme.some,
+        ctx.pref.pieceSet.some
+      )
+      .url

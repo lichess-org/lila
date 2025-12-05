@@ -1,8 +1,7 @@
-import { hl } from 'lib/snabbdom';
+import { hl, alert } from 'lib/view';
 import * as licon from 'lib/licon';
 import Peer from 'peerjs';
 import { pubsub } from 'lib/pubsub';
-import { alert } from 'lib/view/dialogs';
 import type { VoiceChat } from 'lib/chat/interfaces';
 
 type State =
@@ -186,7 +185,6 @@ export function initModule(opts: VoiceChatOpts): VoiceChat | undefined {
   }
 
   pubsub.on('socket.in.voiceChat', uids => uids.forEach(call));
-  pubsub.on('socket.in.voiceChatOff', site.reload); // remote disconnection
   pubsub.on('voiceChat.toggle', v => {
     if (!v) stop();
   });

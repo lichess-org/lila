@@ -1,12 +1,12 @@
 import type { Bot, BotOpts } from '../interfaces';
 import { type BotInfo } from 'lib/bot/types';
 import { Game } from '../game';
-import { prop, propWithEffect } from 'lib';
+import { type Prop, prop, propWithEffect } from 'lib';
 import { type TimeControl, timeControlFromStoredValues } from 'lib/setup/timeControl';
 import { storedJsonProp } from 'lib/storage';
 import type { ClockConfig } from 'lib/game/clock/clockCtrl';
 import type { ColorChoice, ColorProp } from 'lib/setup/color';
-import type { Dialog } from 'lib/view/dialog';
+import type { Dialog } from 'lib/view';
 
 interface Settings {
   color: ColorChoice;
@@ -18,7 +18,7 @@ interface Settings {
 export default class SetupCtrl {
   selectedBot?: Bot;
   timeControl: TimeControl;
-  settings = storedJsonProp<Settings>('botPlay.setup.settings', () => ({
+  settings: Prop<Settings> = storedJsonProp<Settings>('botPlay.setup.settings', () => ({
     color: 'random',
     clock: false,
     time: 5,

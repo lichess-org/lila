@@ -18,6 +18,9 @@ object PuzzleTheme:
   enum VoteError:
     case Fail(msg: String) extends VoteError
     case Unchanged extends VoteError
+    def message: String = this match
+      case Fail(msg) => msg
+      case Unchanged => "unchanged"
 
   val mix = PuzzleTheme(i.mix, i.mixDescription)
   val advancedPawn = PuzzleTheme(i.advancedPawn, i.advancedPawnDescription)
@@ -27,17 +30,22 @@ object PuzzleTheme:
   val attackingF2F7 = PuzzleTheme(i.attackingF2F7, i.attackingF2F7Description)
   val attraction = PuzzleTheme(i.attraction, i.attractionDescription)
   val backRankMate = PuzzleTheme(i.backRankMate, i.backRankMateDescription)
+  val balestraMate = PuzzleTheme(i.balestraMate, i.balestraMateDescription)
+  val blindSwineMate = PuzzleTheme(i.blindSwineMate, i.blindSwineMateDescription)
+  val triangleMate = PuzzleTheme(i.triangleMate, i.triangleMateDescription)
   val bishopEndgame = PuzzleTheme(i.bishopEndgame, i.bishopEndgameDescription)
   val bodenMate = PuzzleTheme(i.bodenMate, i.bodenMateDescription)
   val capturingDefender =
     PuzzleTheme(i.capturingDefender, i.capturingDefenderDescription)
   val castling = PuzzleTheme(i.castling, i.castlingDescription)
   val clearance = PuzzleTheme(i.clearance, i.clearanceDescription)
+  val cornerMate = PuzzleTheme(i.cornerMate, i.cornerMateDescription)
   val crushing = PuzzleTheme(i.crushing, i.crushingDescription)
   val defensiveMove = PuzzleTheme(i.defensiveMove, i.defensiveMoveDescription)
   val deflection = PuzzleTheme(i.deflection, i.deflectionDescription)
   val discoveredAttack =
     PuzzleTheme(i.discoveredAttack, i.discoveredAttackDescription)
+  val discoveredCheck = PuzzleTheme(i.discoveredCheck, i.discoveredCheckDescription)
   val doubleBishopMate =
     PuzzleTheme(i.doubleBishopMate, i.doubleBishopMateDescription)
   val doubleCheck = PuzzleTheme(i.doubleCheck, i.doubleCheckDescription)
@@ -123,6 +131,7 @@ object PuzzleTheme:
     I18nKey.puzzle.advanced -> List(
       attraction,
       clearance,
+      discoveredCheck,
       defensiveMove,
       deflection,
       interference,
@@ -137,15 +146,21 @@ object PuzzleTheme:
       mateIn2,
       mateIn3,
       mateIn4,
-      mateIn5,
+      mateIn5
+    ),
+    I18nKey.puzzle.mateThemes -> List(
       anastasiaMate,
       arabianMate,
       backRankMate,
+      balestraMate,
+      blindSwineMate,
       bodenMate,
+      cornerMate,
       doubleBishopMate,
       dovetailMate,
       hookMate,
       killBoxMate,
+      triangleMate,
       vukovicMate,
       smotheredMate
     ),
@@ -174,15 +189,16 @@ object PuzzleTheme:
     )
   )
 
-  lazy val visible: List[PuzzleTheme] = categorized.flatMap(_._2)
+  val visible: List[PuzzleTheme] = categorized.flatMap(_._2)
+  // themes that can't be viewed by players
+  private[puzzle] val hiddenThemes: List[PuzzleTheme] = List(checkFirst)
 
-  lazy val allTranslationKeys = visible.flatMap { t =>
-    List(t.name, t.description)
-  }
+  private val all: List[PuzzleTheme] = visible ::: hiddenThemes
+  val hiddenThemesKey: Set[Key] = hiddenThemes.map(_.key).toSet
 
-  private lazy val byKey: Map[Key, PuzzleTheme] = visible.mapBy(_.key)
+  private val byKey: Map[Key, PuzzleTheme] = all.mapBy(_.key)
 
-  private lazy val byLowerKey: Map[String, PuzzleTheme] = visible.mapBy(_.key.value.toLowerCase)
+  private val byLowerKey: Map[String, PuzzleTheme] = all.mapBy(_.key.value.toLowerCase)
 
   // themes that can't be voted by players
   val staticThemes: Set[Key] = Set(
@@ -213,9 +229,6 @@ object PuzzleTheme:
 
   val allMates: Set[Key] = visible.filter(_.key.value.endsWith("Mate")).map(_.key).toSet
 
-  // themes that can't be viewed by players
-  val hiddenThemes: Set[Key] = Set(checkFirst.key)
-
   val studyChapterIds: Map[PuzzleTheme.Key, String] = List(
     advancedPawn -> "sw8VyTe1",
     attackingF2F7 -> "r1ZAcrjZ",
@@ -243,8 +256,9 @@ object PuzzleTheme:
 
   def apply(key: Key): PuzzleTheme = byKey.getOrElse(key, mix)
 
-  def find(key: String) = byLowerKey.get(key.toLowerCase)
+  def findAny(key: String) = byLowerKey.get(key.toLowerCase)
+  def findVisible(key: String) = findAny(key).filterNot(hiddenThemes.contains)
 
-  def findOrMix(key: String) = find(key) | mix
+  def findOrMix(key: String) = findVisible(key) | mix
 
-  def findDynamic(key: String) = find(key).filterNot(t => staticThemes(t.key))
+  def findDynamic(key: String) = findVisible(key).filterNot(t => staticThemes(t.key))

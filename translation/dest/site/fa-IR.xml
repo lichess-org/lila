@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">برای دعوت یک نفر به بازی، این آدرس را به او بدهید</string>
+  <string name="gameSetup">بَرپایشِ بازی</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">دعوت به بازی</string>
+  <string name="playAgainstComputer">بازی با رایانه</string>
+  <string name="gameMode">حالتِ بازی</string>
+  <string name="createLobbyGame">ایجاد بازی در سَرسَرا</string>
+  <string name="youPlayAs">رنگِ مُهرهٔ شما</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">برای دعوت کسی به بازی، این وب‌نشانی را دهید</string>
   <string name="gameOver">پایان بازی</string>
-  <string name="waitingForOpponent">انتطار برای حریف</string>
-  <string name="orLetYourOpponentScanQrCode">یا از حریفتان بخواهید این کد QR را اسکن کندl</string>
+  <string name="waitingForOpponent">در انتظار حریف</string>
+  <string name="orLetYourOpponentScanQrCode">یا از حریف‌تان بخواهید این کدِ QR را بِپویَد</string>
   <string name="waiting">در حال انتظار</string>
   <string name="yourTurn">نوبت شماست</string>
   <string name="aiNameLevelAiLevel">%1$s سطح %2$s</string>
@@ -16,14 +22,14 @@
   <string name="stalemate">پات</string>
   <string name="white">سفید</string>
   <string name="black">سیاه</string>
-  <string name="asWhite">به عنوان سفید</string>
-  <string name="asBlack">به عنوان سیاه</string>
+  <string name="asWhite">با مهرهٔ سفید</string>
+  <string name="asBlack">با مهرهٔ سیاه</string>
   <string name="randomColor">رنگ تصادفی</string>
   <string name="createAGame">ایجاد بازی</string>
   <string name="createTheGame">ایجاد بازی</string>
-  <string name="whiteIsVictorious">سفید برنده شد</string>
-  <string name="blackIsVictorious">سیاه برنده شد</string>
-  <string name="youPlayTheWhitePieces">شما با مهره سفید بازی میکنید</string>
+  <string name="whiteIsVictorious">سفید برنده است</string>
+  <string name="blackIsVictorious">سیاه برنده است</string>
+  <string name="youPlayTheWhitePieces">شما با مهره سفید بازی می‌کنید</string>
   <string name="youPlayTheBlackPieces">شما با مهره سیاه بازی می‌کنید</string>
   <string name="itsYourTurn">نوبت شماست!</string>
   <string name="cheatDetected">تقلب تشخیص داده شد</string>
@@ -234,7 +240,7 @@
   <string name="forgotPassword">گذرواژه را فراموش کرده‌اید?</string>
   <string name="error.weakPassword">این گذرواژه بسیار رایج و آسان‌حدس است.</string>
   <string name="error.namePassword">خواهشانه از نام کاربری‌تان برای گذرواژه‌تان استفاده نکنید.</string>
-  <string name="blankedPassword">شما از گذرواژهٔ یکسانی در وبگاه دیگری بهراییده‌اید و آن وبگاه به خطر افتاده است. برای اطمینان از ایمنی حساب لیچس‌تان، به شما نیاز داریم تا گذرواژهٔ نویی را تعیین کنید. از درک‌تان سپاسگزاریم.</string>
+  <string name="blankedPassword">شما از گذرواژهٔ یکسانی در وبگاه دیگری بهریده‌اید و آن وبگاه به خطر افتاده است. برای اطمینان از ایمنی حساب Lichessتان، به شما نیاز داریم تا گذرواژهٔ نویی را تعیین کنید. از درک‌تان سپاسگزاریم.</string>
   <string name="youAreLeavingLichess">در حال ترک lichess هستید</string>
   <string name="neverTypeYourPassword">هرگز گذرواژهٔ Lichessتان را در وبگاه دیگری ننویسید!</string>
   <string name="proceedToX">بروید به %s</string>
@@ -290,7 +296,7 @@
   <string name="finished">تمام شده</string>
   <string name="abortGame">انصراف از بازی</string>
   <string name="gameAborted">بازی لغو شد</string>
-  <string name="standard">استاندارد</string>
+  <string name="standard">معیار</string>
   <string name="customPosition">وضعیت به‌دلخواه</string>
   <string name="unlimited">نامحدود</string>
   <string name="mode">حالت</string>
@@ -339,6 +345,7 @@
     <item quantity="other">%s بازیِ اکنونی</item>
   </plurals>
   <string name="exportGames">برون‏بُرد بازی‌ها</string>
+  <string name="ratingFilter">پالاگرِ درجه‌بندی</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">%s ثانیه اضافه کن</item>
     <item quantity="other">%s ثانیه اضافه کن</item>
@@ -394,6 +401,7 @@
     <item quantity="other">شما باید%s بازی رسمی دیگر انجام دهید.</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">درجه‌بندی %s شما موقتی است</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">پالاگرهای درجه‌بندی قفل شده‌اند زیرا درجه‌بندی‌تان پایدار نیست. انجامِ بازی‌های رسمی، پایداری را می‌اَفزایند.</string>
   <string name="yourPerfRatingIsTooHigh">درجه‌بندی %1$s شما (%2$s) بیش از حد بالاست</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">درجه‌بندی %1$s هفتگی‌تان (%2$s) بیش از حد بالاست</string>
   <string name="yourPerfRatingIsTooLow">درجه‌بندی %1$s شما (%2$s) بیش از حد پایین است</string>
@@ -409,7 +417,7 @@
   <string name="xStartedStreaming">%s جریان‌سازی را آغازید</string>
   <string name="averageElo">میانگین درجه‌بندی</string>
   <string name="location">محل</string>
-  <string name="filterGames">پالابش بازی‌ها</string>
+  <string name="filterGames">پالاگرِ بازی‌ها</string>
   <string name="reset">بازنشانی</string>
   <string name="apply">تایید</string>
   <string name="save">ذخیره</string>
@@ -724,7 +732,7 @@
   <string name="playSelectedMove">حرکت انتخاب شده را بازی کن</string>
   <string name="newTournament">مسابقه جدید</string>
   <string name="tournamentHomeTitle">مسابقات شطرنج با وَرتاها و زمان‌بندی‌های گوناگون</string>
-  <string name="tournamentHomeDescription">هرچه زودتر شطرنج بازی کنید! به یک مسابقه رسمی برنامه‌ریزی‌شده بپیوندید یا مسابقات خودتان را بسازید. شطرنج گلوله‌ای، برق‌آسا، فکری، ۹۶۰، پادشاه تپه‌ها، سه‌کیش و دیگر گزینه‌ها، برای لذت بی‌پایان از شطرنج در دسترسند.</string>
+  <string name="tournamentHomeDescription">هرچه زودتر شطرنج بازی کنید! به یک مسابقه رسمی برنامه‌ریزی‌شده بپیوندید یا مسابقات خودتان را بسازید. شطرنج گلوله، برق‌آسا، فکری، ۹۶۰، پادشاه تپه‌ها، سه‌کیش و دیگر گزینه‌ها، برای لذت بی‌پایان از شطرنج در دسترسند.</string>
   <string name="tournamentNotFound">مسابقات یافت نشد</string>
   <string name="tournamentDoesNotExist">این مسابقات وجود ندارد</string>
   <string name="tournamentMayHaveBeenCanceled">ممکن است مسابقه لغو شده باشد,شاید همه ی بازیکنان مسابقه را قبل از شروع ترک کرده باشند</string>
@@ -744,7 +752,7 @@
   <string name="glicko2Rating">درجه‌بندی Glicko-2</string>
   <string name="checkYourEmail">به رایانامه‌تان سر زنید</string>
   <string name="weHaveSentYouAnEmailClickTheLink">ما به شما ایمیل فرستادیم. روی لینکی که در ایمیل است کلیک کنید</string>
-  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">اگر رایانامه را نمی‌بینید، مکان‌های دیگری مانند پوشه‌های ناخواسته، هرزنامه، اجتماعی یا سایر موردها را بررسی کنید.</string>
+  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">اگر رایانامه را نمی‌بینید، جاهای دیگری مانند پوشه‌های ناخواسته، هرزنامه، اجتماعی یا سایر موردها را بررسی کنید.</string>
   <string name="ifYouDoNotGetTheEmail">اگر ایمیل را در 5 دقیقه دریافت نکرده اید</string>
   <string name="checkAllEmailFolders">فولدر های junk, spam و دیگر را چک کنید</string>
   <string name="verifyYourAddress">تائید کنید که %s ایمیل شما هست</string>
@@ -761,6 +769,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">برای حرکت، روی صفحه بازی بِنَوَردید.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">برای پیش‌نمایش آن‌ها، روی وَرتِش‌های رایانه‌ای بِغَرالید.</string>
   <string name="analysisShapesHowTo">برای رسم دایره و پیکان روی تخته، shift+click یا راست-تِلیک را بفشارید.</string>
+  <string name="primaryColorArrowsHowTo">Ctrl یا shift = قرمز؛ command، alt یا meta = آبی؛ یک کلید از هر کدام = زرد.</string>
   <string name="letOtherPlayersMessageYou">ارسال پیام توسط بقیه به شما</string>
   <string name="receiveForumNotifications">دریافت اعلان هنگام نام‌بَری در انجمن</string>
   <string name="shareYourInsightsData">اشتراک گذاشتن داده های شما</string>
@@ -822,6 +831,7 @@
   <string name="notifications">اعلان</string>
   <string name="notificationsX">اعلان: %1$s</string>
   <string name="perfRatingX">درجه‌بندی: %s</string>
+  <string name="yourRatingIsX">درجه‌بندی‌تان %s است</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s ثانیه برای شروع اولین حرکت</item>
     <item quantity="other">%s ثانیه برای شروع اولین حرکت</item>
@@ -873,6 +883,7 @@
   <string name="playVariationToCreateConditionalPremoves">بازی کردن یک وَرتِش، برای ایجاد پیش‌حرکت‌های شرطی</string>
   <string name="noConditionalPremoves">بدون پیش‌حرکت‌های شرطی</string>
   <string name="playX">%s را انجام دهید</string>
+  <string name="challengeX">پیشنهادِ بازی با %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">و پیش حرکت %s را حفظ کنید</item>
     <item quantity="other">و پیش حرکت های %s را حفظ کنید</item>
@@ -900,7 +911,7 @@
   <string name="agreementPolicy">با پیروی از همهٔ خط‌مشی‌های لیچس، موافقم.</string>
   <string name="searchOrStartNewDiscussion">جستجو یا شروع کردن مکالمه جدید</string>
   <string name="edit">ویرایش</string>
-  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">گلوله‌ای</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">گلوله</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">برق‌آسا</string>
   <string name="rapid">سریع</string>
   <string name="classical">فکری</string>
@@ -956,7 +967,7 @@
   <string name="maximumWeeklyRating">حداکثر درجه‌بندی هفتگی</string>
   <string name="positionInputHelp">برای آغاز هر بازی از یک وضعیت مشخص، یک FEN معتبر جای‌گذارید.
 تنها برای شطرنج معیار کار می‌کند، نه با وَرتاها.
-می‌توانید از %s برای آزانیدن وضعیت FEN بهرایید، سپس آن را اینجا جای‌گذارید.
+می‌توانید از %s برای آزانیدن وضعیت FEN بَهرید، سپس آن را اینجا جای‌گذارید.
 برای آغاز بازی از وضعیت نخستین معمولی، خالی بگذارید.</string>
   <string name="cancelSimul">بازی هم‌زمان (سیمولتانه) را لغو نمایید</string>
   <string name="simulHostcolor">رنگ مربوط به نمایش‌دهنده یا میزبان برای هر بازی</string>
@@ -965,7 +976,7 @@
   <string name="simulFeaturedHelp">بازی هم‌زمان خود را برای همه بر روی لینک %s نشان بدهید. برای دسترسی خصوصی آن را غیرفعال نمایید.</string>
   <string name="simulDescription">توصیف بازی هم‌زمان</string>
   <string name="simulDescriptionHelp">آیا می‌خواهید مطلبی را به شرکت‌کنندگان بگویید؟</string>
-  <string name="markdownAvailable">%s برای کُدهای دستوری پیچیده‌تر در دسترس است.</string>
+  <string name="markdownIsAvailable">امکان %s برای قالب‌دِهی وجود دارد.</string>
   <string name="embedsAvailable">وب‌نشانی بازی یا وب‌نشانی بخشی از مطالعه را، برای جاسازی آن، جایگذاری کنید.</string>
   <string name="inYourLocalTimezone">ذر منطقه زمانی شما</string>
   <string name="tournChat">چت مسابقه</string>
@@ -1005,4 +1016,9 @@
   <string name="enableBlindMode">فعال‌سازی حالت نابینایی</string>
   <string name="disableBlindMode">غیرفعال سازی حالت نابینایی</string>
   <string name="copyToClipboard">کپی در کلیپ‌بورد</string>
+  <string name="online" comment="status of a user">بَرخط</string>
+  <string name="offline" comment="status of a user">بُرون‌خط</string>
+  <string name="search">جستجو</string>
+  <string name="clearSearch">پاکیدنِ جستجو</string>
+  <string name="tags">برچسب‌ها</string>
 </resources>

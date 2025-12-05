@@ -95,7 +95,7 @@ final class Ublog(env: Env) extends LilaController(env):
                 env.forum.topicApi.makeUblogDiscuss(
                   slug = topicSlug,
                   name = post.title,
-                  url = s"${env.net.baseUrl}${routes.Ublog.post(post.created.by, post.slug, id)}",
+                  url = routeUrl(routes.Ublog.post(post.created.by, post.slug, id)),
                   ublogId = id,
                   authorId = post.created.by
                 )
@@ -272,13 +272,13 @@ final class Ublog(env: Env) extends LilaController(env):
       )
   }
 
-  def image(id: UblogPostId) = AuthBody(parse.multipartFormData) { ctx ?=> me ?=>
+  def image(id: UblogPostId) = AuthBody(lila.web.HashedMultiPart(parse)) { ctx ?=> me ?=>
     Found(env.ublog.api.findEditableByMe(id)): post =>
       ctx.body.body
         .file("image")
         .match
           case Some(image) =>
-            limit.imageUpload(ctx.ip, rateLimited):
+            limit.imageUpload(rateLimited):
               env.ublog.api.image.upload(me, post, image)
           case None =>
             env.ublog.api.image

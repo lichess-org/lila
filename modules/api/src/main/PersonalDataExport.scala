@@ -69,11 +69,11 @@ final class PersonalDataExport(
             List(textTitle("Streamer profile")) :::
               List(
                 "name" -> s.name,
-                "image" -> s.picture.so(p => picfitUrl.thumbnail(p, Streamer.imageSize, Streamer.imageSize)),
+                "image" -> s.picture.so(p => picfitUrl.thumbnail(p)(Streamer.imageDimensions).value),
                 "headline" -> s.headline.so(_.value),
                 "description" -> s.description.so(_.value),
                 "twitch" -> s.twitch.so(_.fullUrl),
-                "youTube" -> s.youTube.so(_.fullUrl),
+                "youtube" -> s.youtube.so(_.fullUrl),
                 "createdAt" -> textDate(s.createdAt),
                 "updatedAt" -> textDate(s.updatedAt),
                 "seenAt" -> textDate(s.seenAt),
@@ -90,7 +90,7 @@ final class PersonalDataExport(
             List(textTitle("Coach profile")) :::
               c.profile.textLines :::
               List(
-                "image" -> c.picture.so(p => picfitUrl.thumbnail(p, Coach.imageSize, Coach.imageSize)),
+                "image" -> c.picture.so(p => picfitUrl.thumbnail(p)(Coach.imageDimensions).value),
                 "languages" -> c.languages.mkString(", "),
                 "createdAt" -> textDate(c.createdAt),
                 "updatedAt" -> textDate(c.updatedAt)
@@ -179,7 +179,9 @@ final class PersonalDataExport(
               "title" -> post.title,
               "intro" -> post.intro,
               "body" -> post.markdown,
-              "image" -> post.image.so(i => lila.ublog.UblogPost.thumbnail(picfitUrl, i.id, _.Size.Large)),
+              "image" -> post.image.so(i =>
+                lila.ublog.UblogPost.thumbnail(picfitUrl, i.id, _.Size.Large).value
+              ),
               "topics" -> post.topics.mkString(", ")
             ).map: (k, v) =>
               s"$k: $v"

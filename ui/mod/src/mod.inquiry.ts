@@ -1,7 +1,7 @@
 import { formToXhr } from 'lib/xhr';
 
 import { storage } from 'lib/storage';
-import { alert } from 'lib/view/dialogs';
+import { alert } from 'lib/view';
 import { highlightSearchTerm } from 'lib/highlight';
 import { pubsub } from 'lib/pubsub';
 import { autolinkAtoms } from './mod.autolink';
@@ -100,8 +100,8 @@ site.load.then(() => {
   });
 
   $('.user-show, .appeal').on('click', '.mz-section--others .add-to-note', function (this: HTMLElement) {
-    const username = $(this).parents('tr').find('td:first-child .user-link').text().split(' ')[0];
-    addToNote(`Alt: @${username}`);
+    const userRow = $(this).parents('tr');
+    addToNote(`Alt: ${[userRow.data('title') || '', `@${userRow.data('username')}`].join(' ').trim()}`);
   });
 
   const highlightUsername = () => highlightSearchTerm(username, '#main-wrap .user-link');

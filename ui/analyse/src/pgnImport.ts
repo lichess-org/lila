@@ -11,7 +11,7 @@ import {
   type PgnNodeData,
 } from 'chessops/pgn';
 import { IllegalSetup, type Position } from 'chessops/chess';
-import type { Player } from 'lib/game/game';
+import type { Player } from 'lib/game';
 import { scalachessCharPair } from 'chessops/compat';
 import { makeSquare } from 'chessops/util';
 
@@ -67,6 +67,7 @@ export default function (pgn: string): Partial<AnalyseData> {
   return {
     game: {
       fen,
+      initialFen: fen,
       id: 'synthetic',
       opening: undefined, // TODO
       player: start.turn,

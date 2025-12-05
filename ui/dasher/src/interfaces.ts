@@ -1,7 +1,7 @@
 import type { LangsData } from './langs';
 import type { BackgroundData } from './background';
 import { DasherCtrl } from './ctrl';
-import type { VNode } from 'lib/snabbdom';
+import type { VNode } from 'lib/view';
 
 export { DasherCtrl };
 

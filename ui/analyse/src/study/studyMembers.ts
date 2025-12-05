@@ -1,6 +1,6 @@
 import type { AnalyseSocketSend } from '../socket';
 import * as licon from 'lib/licon';
-import { type VNode, iconTag, bind, onInsert, dataIcon, bindNonPassive, hl } from 'lib/snabbdom';
+import { type VNode, iconTag, bind, onInsert, dataIcon, bindNonPassive, hl } from 'lib/view';
 import { makeCtrl as inviteFormCtrl, type StudyInviteFormCtrl } from './inviteForm';
 import type { NotifCtrl } from './notif';
 import { prop, type Prop, scrollTo } from 'lib';

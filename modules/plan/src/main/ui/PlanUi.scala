@@ -55,7 +55,7 @@ final class PlanUi(helpers: Helpers)(style: PlanStyle, contactEmail: EmailAddres
       .js(infiniteScrollEsmInit)
       .graph(
         title = trans.patron.becomePatron.txt(),
-        url = s"$netBaseUrl${routes.Plan.index().url}",
+        url = routeUrl(routes.Plan.index()),
         description = trans.patron.freeChess.txt()
       )
       .csp(paymentCsp):

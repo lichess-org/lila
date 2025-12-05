@@ -31,7 +31,7 @@ final class RelayApi(
     playerEnrich: RelayPlayerEnrich,
     studyApi: StudyApi,
     studyRepo: StudyRepo,
-    jsonView: JsonView,
+    jsonView: RelayJsonView,
     formatApi: RelayFormatApi,
     cacheApi: CacheApi,
     players: RelayPlayerApi,
@@ -41,7 +41,7 @@ final class RelayApi(
 )(using Executor, akka.stream.Materializer):
 
   import BSONHandlers.{ readRoundWithTour, given }
-  import JsonView.given
+  import RelayJsonView.given
 
   export groupRepo.byId as groupById
   export tourRepo.byIds as toursByIds
@@ -208,7 +208,11 @@ final class RelayApi(
 
   def tourCreate(data: RelayTourForm.Data)(using Me): Fu[RelayTour] =
     val tour = data.make
-    tourRepo.coll.insert.one(tour).inject(tour)
+    for
+      _ <- tourRepo.coll.insert.one(tour)
+      _ <- tour.markup.so:
+        picfitApi.addRef(_, image.markdownRef(tour), routes.RelayTour.show("-", tour.id).url.some)
+    yield tour
 
   def tourUpdate(prev: RelayTour, data: RelayTourForm.Data)(using Me): Funit =
     val tour = data.update(prev)
@@ -237,6 +241,8 @@ final class RelayApi(
       _ <- data.grouping.so(updateGrouping(tour, _))
       _ <- playerEnrich.onPlayerTextareaUpdate(tour, prev)
       _ <- (tour.visibility != prev.visibility).so(studyPropagation.onVisibilityChange(tour))
+      _ <- tour.markup.so:
+        picfitApi.addRef(_, image.markdownRef(tour), routes.RelayTour.show("-", tour.id).url.some)
       studyIds <- roundRepo.studyIdsOf(tour.id)
     yield
       players.invalidate(tour.id)
@@ -393,6 +399,8 @@ final class RelayApi(
         rounds <- roundRepo.idsByTourOrdered(tour.id)
         _ <- roundRepo.deleteByTour(tour)
         _ <- rounds.map(_.into(StudyId)).sequentiallyVoid(studyApi.deleteById)
+        _ <- picfitApi.pullRef(image.markdownRef(tour))
+        _ <- picfitApi.pullRef(image.headRef(tour, none))
       yield true
 
   def canUpdate(tour: RelayTour)(using me: Me): Fu[Boolean] =
@@ -472,21 +480,21 @@ final class RelayApi(
   export roundRepo.nextRoundThatStartsAfterThisOneCompletes
 
   object image:
-    def rel(rt: RelayTour, tag: Option[String]) =
-      tag.fold(s"relay:${rt.id}")(t => s"relay.$t:${rt.id}")
+    private[RelayApi] def markdownRef(rt: RelayTour) = s"relay:${rt.id}"
+    private[RelayApi] def headRef(rt: RelayTour, tag: Option[String]) =
+      tag.fold(s"relayHead:${rt.id}")(t => s"relayHead.$t:${rt.id}")
 
     def upload(
-        user: User,
         t: RelayTour,
         picture: PicfitApi.FilePart,
         tag: Option[String] = None
-    ): Fu[RelayTour] = for
-      image <- picfitApi.uploadFile(rel(t, tag), picture, userId = user.id)
+    )(using me: Me): Fu[RelayTour] = for
+      image <- picfitApi.uploadFile(picture, userId = me.userId, headRef(t, tag).some)
       _ <- tourRepo.coll.updateField($id(t.id), tag.getOrElse("image"), image.id)
     yield t.copy(image = image.id.some)
 
-    def delete(t: RelayTour, tag: Option[String] = None): Fu[RelayTour] = for
-      _ <- picfitApi.deleteByRel(rel(t, tag))
+    def delete(t: RelayTour, tag: Option[String] = None)(using me: Me): Fu[RelayTour] = for
+      _ <- picfitApi.pullRef(headRef(t, tag))
       _ <- tourRepo.coll.unsetField($id(t.id), tag.getOrElse("image"))
     yield t.copy(image = none)
 

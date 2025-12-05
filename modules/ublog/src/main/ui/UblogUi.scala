@@ -10,7 +10,9 @@ import lila.core.ublog.{ BlogsBy, QualityFilter }
 
 import ScalatagsTemplate.{ *, given }
 
-final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.PicfitUrl):
+final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)(
+    picfitUrl: lila.memo.PicfitUrl
+):
   import helpers.{ *, given }
 
   def thumbnail(post: UblogPost.BasePost, size: UblogPost.thumbnail.SizeSelector) =
@@ -21,7 +23,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
       alt := post.image.flatMap(_.alt)
     )(src := thumbnailUrl(post, size))
 
-  def thumbnailUrl(post: UblogPost.BasePost, size: UblogPost.thumbnail.SizeSelector) =
+  def thumbnailUrl(post: UblogPost.BasePost, size: UblogPost.thumbnail.SizeSelector): Url =
     post.image match
       case Some(image) => UblogPost.thumbnail(picfitUrl, image.id, size)
       case _ => assetUrl("images/user-blog-default.png")
@@ -314,7 +316,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
       .css("bits.ublog")
       .js(Esm("bits.ublog")):
         main(cls := "page-menu")(
-          bits.modMenu("carousel"),
+          modMenu,
           div(cls := "page-menu__content box box-pad column-gap")(
             postForm(action := routes.Ublog.modSetCarouselSize)(
               label("Carousel size: "),
@@ -525,20 +527,20 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
 
     private def renderPost(post: UblogPost.PreviewPost, authorName: String) =
       frag(
-        tag("id")(s"$netBaseUrl${urlOfPost(post)}"),
+        tag("id")(routeUrl(urlOfPost(post))),
         tag("published")(post.lived.map(_.at).map(atomUi.atomDate)),
         tag("updated")(post.updated.orElse(post.lived).map(_.at).map(atomUi.atomDate)),
         link(
           rel := "alternate",
           tpe := "text/html",
-          href := s"$netBaseUrl${urlOfPost(post)}"
+          href := routeUrl(urlOfPost(post))
         ),
         tag("title")(post.title),
         post.topics.map { topic =>
           atomUi.category(
             term = topic.url,
             label = topic.value,
-            scheme = s"$netBaseUrl${routes.Ublog.topic(topic.url)}".some
+            scheme = routeUrl(routes.Ublog.topic(topic.url)).some
           )
         },
         tag("content")(tpe := "html")(

@@ -5,7 +5,7 @@ import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
 
-final class StreamerBits(helpers: Helpers)(picfitUrl: lila.core.misc.PicfitUrl):
+final class StreamerBits(helpers: Helpers)(picfitUrl: lila.memo.PicfitUrl):
   import helpers.{ *, given }
   import trans.streamer as trs
 
@@ -25,6 +25,7 @@ final class StreamerBits(helpers: Helpers)(picfitUrl: lila.core.misc.PicfitUrl):
   def header(s: Streamer.WithUserAndStream, modView: Boolean = false)(using ctx: Context) =
     val isMe = ctx.is(s.streamer)
     val isMod = Granter.opt(_.ModLog)
+    val hasStream = (s.streamer.youtube.isDefined || s.streamer.twitch.isDefined)
     div(cls := "streamer-header")(
       thumbnail(s.streamer, s.user),
       div(cls := "overview")(
@@ -45,15 +46,15 @@ final class StreamerBits(helpers: Helpers)(picfitUrl: lila.core.misc.PicfitUrl):
               )(twitch.minUrl)
             )
           },
-          s.streamer.youTube.map { youTube =>
+          s.streamer.youtube.map { youtube =>
             li(
               a(
                 cls := List(
-                  "service youTube" -> true,
-                  "live" -> s.stream.exists(_.youTube)
+                  "service youtube" -> true,
+                  "live" -> s.stream.exists(_.youtube)
                 ),
-                href := youTube.fullUrl
-              )(youTube.minUrl)
+                href := youtube.fullUrl
+              )(youtube.minUrl)
             )
           }
         ),
@@ -72,7 +73,7 @@ final class StreamerBits(helpers: Helpers)(picfitUrl: lila.core.misc.PicfitUrl):
                 )
               )
           ),
-          (s.streamer.youTube.isDefined && s.stream.isEmpty && (isMe || isMod)).option(
+          (hasStream && s.stream.isEmpty && (isMe || isMod)).option(
             form(
               action := routes.Streamer.checkOnline(s.streamer.userId).url,
               method := "post"
@@ -89,15 +90,15 @@ final class StreamerBits(helpers: Helpers)(picfitUrl: lila.core.misc.PicfitUrl):
   object thumbnail:
     def apply(s: Streamer, u: User) =
       img(
-        widthA := Streamer.imageSize,
-        heightA := Streamer.imageSize,
+        widthA := Streamer.imageDimensions.width,
+        heightA := Streamer.imageDimensions.height,
         cls := "picture",
         src := url(s),
         alt := s"${u.titleUsername} Lichess streamer picture"
       )
     def url(s: Streamer) =
       s.picture match
-        case Some(image) => picfitUrl.thumbnail(image, Streamer.imageSize, Streamer.imageSize)
+        case Some(image) => picfitUrl.thumbnail(image)(Streamer.imageDimensions)
         case _ => assetUrl("images/placeholder.png")
 
   def menu(active: String, s: Option[Streamer.WithContext])(using ctx: Context) =

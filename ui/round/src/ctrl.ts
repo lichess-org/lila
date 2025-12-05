@@ -1,7 +1,7 @@
 /// <reference types="../types/ab" />
 
 import * as ab from 'ab';
-import * as game from 'lib/game/game';
+import * as game from 'lib/game';
 import { game as gameRoute } from 'lib/game/router';
 import { playing } from 'lib/game/status';
 import { boardOrientation, reload as groundReload } from './ground';
@@ -36,12 +36,12 @@ import type {
   RoundData,
   SocketMove,
   SocketDrop,
-  SocketOpts,
   MoveMetadata,
   NvuiPlugin,
   RoundTour,
   ApiMove,
   ApiEnd,
+  EventsWithPayload,
 } from './interfaces';
 import { defined, type Toggle, type Prop, toggle, requestIdleCallback, memoize } from 'lib';
 import { storage, once, storedBooleanProp, type LichessBooleanStorage } from 'lib/storage';
@@ -49,12 +49,10 @@ import * as poolRangeStorage from 'lib/poolRangeStorage';
 import { pubsub } from 'lib/pubsub';
 import { readFen, almostSanOf, speakable } from 'lib/game/sanWriter';
 import { plyToTurn } from 'lib/game/chess';
-import { wsDestroy } from 'lib/socket';
+import { type SocketSendOpts } from 'lib/socket';
 import Server from './server';
 
 type GoneBerserk = Partial<ByColor<boolean>>;
-
-type Timeout = number;
 
 export default class RoundController implements MoveRootCtrl {
   data: RoundData;
@@ -297,8 +295,12 @@ export default class RoundController implements MoveRootCtrl {
 
   setTitle = (): void => title.set(this);
 
-  actualSendMove = (tpe: string, data: any, meta: MoveMetadata = { premove: false }): void => {
-    const socketOpts: SocketOpts = {
+  actualSendMove = <moveOrDrop extends 'move' | 'drop'>(
+    tpe: moveOrDrop,
+    data: EventsWithPayload[moveOrDrop],
+    meta: MoveMetadata = { premove: false },
+  ): void => {
+    const socketOpts: SocketSendOpts = {
       sign: this.sign,
       ackable: true,
     };
@@ -696,7 +698,7 @@ export default class RoundController implements MoveRootCtrl {
     else return false;
   };
 
-  opponentRequest(req: string, text: string): void {
+  opponentRequest(req: 'takeback' | 'rematch' | 'draw', text: string): void {
     this.voiceMove?.listenForResponse(req, (v: boolean) =>
       this.socket.sendLoading(`${req}-${v ? 'yes' : 'no'}`),
     );
@@ -856,7 +858,7 @@ export default class RoundController implements MoveRootCtrl {
 
   private doOfferDraw = () => {
     this.data.player.lastDrawOfferAtPly = this.lastPly();
-    this.socket.sendLoading('draw-yes', null);
+    this.socket.sendLoading('draw-yes');
   };
 
   setChessground = (cg: CgApi): void => {
@@ -943,21 +945,6 @@ export default class RoundController implements MoveRootCtrl {
           this.blindfold(this.blindfoldStorage.get());
         }
         if (!d.local && d.game.speed !== 'correspondence') wakeLock.request();
-
-        // temporary: migrate local `courtesy` to server `sayGG`
-        if (storage.boolean('courtesy').get()) {
-          xhr.setPreference('sayGG', '2');
-          storage.remove('courtesy');
-        }
-
-        setTimeout(() => {
-          if ($('#KeyboardO,#show_btn,#shadowHostId').length) {
-            alert('Play enhancement extensions are no longer allowed!');
-            wsDestroy();
-            this.setRedirecting();
-            location.href = '/page/play-extensions';
-          }
-        }, 1000);
       },
 
       800,

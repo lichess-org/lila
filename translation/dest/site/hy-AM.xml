@@ -921,7 +921,6 @@
   <string name="simulFeaturedHelp">Ցուցադրել խաղաշարը %s-ում։ Անջատեք մասնավոր խաղաշարերի համար։</string>
   <string name="simulDescription">Խաղաշարի նկարագրությունը</string>
   <string name="simulDescriptionHelp">Ցանկանո՞ւմ եք որևէ բան պատմել մասնակիցներին։</string>
-  <string name="markdownAvailable">%s հասանելի է ընդլայնված ֆորմատավորման համար</string>
   <string name="embedsAvailable">Ներդնելու համար տեղադրեք պարտիայի կամ ստուդիայի URL-հասցեն։</string>
   <string name="inYourLocalTimezone">Ձեր ժամագոտում</string>
   <string name="tournChat">Մրցաշարի զրուցարան</string>

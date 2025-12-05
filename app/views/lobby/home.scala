@@ -21,8 +21,7 @@ object home:
               "showRatings" -> ctx.pref.showRatings,
               "hasUnreadLichessMessage" -> hasUnreadLichessMessage
             )
-            .add("bots", /* Granter.opt(_.Beta) || */ Granter.opt(_.BotEditor))
-            .add("botEditor", Granter.opt(_.BotEditor))
+            .add("bots", Granter.opt(_.Beta))
             .add(
               "playban",
               playban.map: pb =>
@@ -35,7 +34,7 @@ object home:
         OpenGraph(
           image = staticAssetUrl("logo/lichess-tile-wide.png").some,
           title = "The best free, adless Chess server",
-          url = netBaseUrl.value,
+          url = netBaseUrl.into(Url),
           description = trans.site.siteDescription.txt()
         )
       )

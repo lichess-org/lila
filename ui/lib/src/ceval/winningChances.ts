@@ -1,3 +1,5 @@
+/* eslint no-restricted-syntax:"error" */ // no side effects allowed due to re-export by index.ts
+
 import type { WinningChances } from './types';
 
 const toPov = (color: Color, diff: number): number => (color === 'white' ? diff : -diff);

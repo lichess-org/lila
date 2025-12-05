@@ -3,6 +3,7 @@ import type RoundController from './ctrl';
 import type { ApiMove, RoundData } from './interfaces';
 import { text as xhrText } from 'lib/xhr';
 import { storage } from 'lib/storage';
+import { playedTurns } from 'lib/game';
 
 let found = false;
 
@@ -25,6 +26,7 @@ export function subscribe(ctrl: RoundController): void {
     if (
       !found &&
       step.ply > 14 &&
+      playedTurns(ctrl.data) > 5 &&
       ctrl.isPlaying() &&
       e.value &&
       truncateFen(step.fen) === truncateFen(e.value)

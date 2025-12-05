@@ -1,4 +1,4 @@
-import { isPlayerTurn } from 'lib/game/game';
+import { isPlayerTurn } from 'lib/game';
 import { dragNewPiece } from '@lichess-org/chessground/drag';
 import { setDropMode, cancelDropMode } from '@lichess-org/chessground/drop';
 import type RoundController from '../ctrl';

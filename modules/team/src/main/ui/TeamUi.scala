@@ -77,7 +77,7 @@ final class TeamUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCache):
   def membersPage(t: Team, pager: Paginator[TeamMember.UserAndDate])(using Context) =
     TeamPage(t.name).graph(
       title = s"${t.name} • ${trt.teamRecentMembers.txt()}",
-      url = s"$netBaseUrl${routes.Team.show(t.id).url}",
+      url = routeUrl(routes.Team.show(t.id)),
       description = t.intro.so(shorten(_, 152))
     ):
       main(cls := "page-small box")(
