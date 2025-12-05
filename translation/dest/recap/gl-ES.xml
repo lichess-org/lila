@@ -37,8 +37,8 @@
 		<item quantity="other">A túa apertura máis xogada con brancas con %s partidas</item>
 	</plurals>
 	<plurals name="openingsMostPlayedAsBlack" comment="%s is the number of games">
-		<item quantity="one"> A túa apertura máis xogada con negras con %s partida</item>
-		<item quantity="other"> A túa apertura máis xogada con negras con %s partidas</item>
+		<item quantity="one">A túa apertura máis xogada con negras con %s partida</item>
+		<item quantity="other">A túa apertura máis xogada con negras con %s partidas</item>
 	</plurals>
 	<plurals name="puzzlesThanksVoting" comment="%s is the number of puzzles. It is also translated.">
 		<item quantity="one">Grazas por votar %s crebacabezas.</item>
