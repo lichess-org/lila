@@ -14,8 +14,8 @@
   <string name="allChessBasicsLessons">所有国际象棋基础课程</string>
   <string name="tacticalPuzzlesFromUserGames">来自用户对局的战术谜题</string>
   <string name="personalOpeningExplorerX">%1$s (也适用于 %2$s)</string>
-  <string name="personalOpeningExplorer">个人的开局浏览器</string>
-  <string name="globalOpeningExplorerInNbGames">全球的开局浏览器 (%s 局棋！)</string>
+  <string name="personalOpeningExplorer">个人的开局探索器</string>
+  <string name="globalOpeningExplorerInNbGames">全球的开局探索器 (%s 局棋！)</string>
   <string name="endgameTablebase">7 子残局库</string>
   <string name="downloadOrUploadAnyGameAsPgn">以 PGN 格式下载/上传任何对局</string>
   <string name="tvForumBlogTeamsMessagingFriendsChallenges">博客、论坛、团队、电视、短信、朋友、挑战</string>
