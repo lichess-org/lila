@@ -1,4 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<string name="hiUser" comment="%s is the title+username e.g. 'GM ABC' or simply ABC if there is no title">Bonjour %s</string>
+	<string name="awaitQuestion" comment="Displayed while waiting for results">Qu\'avez-vous fait cette année?</string>
+	<string name="initTitle">Vous avez eu d\'excellents résultats!</string>
+	<string name="noGamesText">Vous n\'avez joué aucune partie cette année.</string>
+	<string name="noGamesCta">Voulez-vous jouer une partie?</string>
 	<string name="gamesYouWon" comment="%s is the number of games won">Et t\'en a gagné %s !</string>
+	<string name="gamesNextQuestion">Qu\'avez-vous fait pour y parvenir?</string>
+	<string name="timeSpentPlayingExclam" comment="%s is the time spent playing animated from 0 e.g. '1 day, 17 hours'. The time is also translated">Temps passé à jouer : %s</string>
+	<string name="timeTooMuch">Vous jouez beaucoup trop.</string>
+	<string name="timeALot">Vous jouez beaucoup.</string>
+	<string name="timeReasonable">C\'est un temps raisonnable.</string>
+	<string name="timeHowManyMoves">Combien de coups avez-vous joué pendant tout ce temps?</string>
+	<string name="movesOfWoodPushed" comment="%s is a weight in grams or kilograms">Vous avez déplacé l\'équivalent de %s!</string>
 </resources>
