@@ -6,26 +6,25 @@
 	<string name="noGamesText">No has jugat cap partida aquest any.</string>
 	<string name="noGamesCta">Vols jugar ara?</string>
 	<string name="gamesYouWon" comment="%s is the number of games won">I has guanyat %s partides!</string>
-	<string name="gamesNextQuestion" comment="Appears in the recap to set up some questions about the games you have played.&#10;&#10;In context, it appears in this sequence:&#10;&#10;&quot;What a chess year you've had!&quot;&#10;&quot;You played %s games this year&quot;&#10;&quot;And you won %s of them!&quot;&#10;&#10;&quot;What did it takes to get there?&quot; &lt;--- THIS MESSAGE&#10;&#10;&quot;𝑦 {minutes/hours/days} spent playing&quot;&#10;&quot;{That is way too much chess./That is a lot of chess./That seems like a reasonable about of chess.}&quot;&#10;&quot;That's 𝑥g of wood pushed&quot;&#10;&#10;There are more messages afterwards but it should give an idea of where it appears.">Que t\'ha portat fins aquí?</string>
+	<string name="gamesNextQuestion">Que t\'ha portat fins aquí?</string>
 	<string name="timeSpentPlayingExclam" comment="%s is the time spent playing animated from 0 e.g. '1 day, 17 hours'. The time is also translated">Has passat %s jugant!</string>
 	<string name="timeTooMuch">Això és una mica massa escacs.</string>
 	<string name="timeALot">Això són molts escacs.</string>
 	<string name="timeReasonable">Sembla un bona dosi d\'escacs.</string>
 	<string name="timeHowManyMoves">Quants moviments has fet durat aquest temps?</string>
-	<string name="movesOfWoodPushed" comment="%s is a weight in grams or kilograms&#10;&#10;This shows you the weight from all the moves you made in the year, if you were moving wooden pieces.">Això són %s de fusta moguda!</string>
-	<string name="movesStandardPiecesWeight" comment="40g as in 40 grams">Les peces estàndard pesen normalment 40g cada una</string>
-	<string name="chessFoes" comment="Best as in strongest opponents.">Els teus millors rivals dels escacs</string>
-	<string name="firstMoveStats" comment="%s is the number of games played and their percentage of the total, in parentheses.&#10;&#10;Subtitle to your most played move e.g. '1. e4'.&#10;&#10;e.g.&#10;&quot;1. e4&#10;is how you started 50 (67%) of your games as white&quot;&#10;Meaning you played 50 games as white over the past year, which was 67% of the games you played as white.">és com has començat el %s de les teves partides amb blanques</string>
+	<string name="movesOfWoodPushed" comment="%s is a weight in grams or kilograms">Això són %s de fusta moguda!</string>
+	<string name="movesStandardPiecesWeight">Les peces estàndard pesen normalment 40g cada una</string>
+	<string name="chessFoes">Els teus millors rivals dels escacs</string>
+	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">és com has començat el %s de les teves partides amb blanques</string>
 	<string name="openingsMostPlayedAsWhite" comment="%s is the number of games (translated)">La teva obertura més jugada amb blanques amb %s partides</string>
 	<string name="openingsMostPlayedAsBlack" comment="%s is the number of games (translated)">La teva obertura més jugada amb negres amb %s partides</string>
 	<string name="puzzlesHelpedTagging" comment="%s is a number e.g. 5">També has ajudat a etiquetar %s d\'ells.</string>
 	<string name="puzzlesNone">No has resolt cap problema aquest any.</string>
 	<string name="puzzlesTryNow">Vols provar-n\'he algun ara?</string>
 	<string name="puzzlesYouWonOnFirstTry">Has guanyat %s d\'ells a la primera!</string>
-	<string name="sourcesPoolPairing" comment="Pool pairing in this context is the &quot;Quick pairing&quot; on the home page">Emparellament global</string>
-	<string name="sourcesTitle" comment="Find is about seeking, e.g. quick pairing or the lobby">Com trobes les teves partides?</string>
+	<string name="sourcesTitle">Com trobes les teves partides?</string>
 	<string name="perfsTitle">Quins controls de temps i variants has jugat?</string>
-	<string name="malwareNoneLoaded" comment="%s is always &quot;0&quot;">%s anuncis i rastrejadors carregats</string>
+	<string name="malwareNoneLoaded" comment="%s is 0">%s anuncis i rastrejadors carregats</string>
 	<string name="malwareNoSell">Nosaltres no venem les teves dades personals</string>
 	<string name="malwareNoAbuse">No utilitzem el teu dispositiu en contra teu</string>
 	<string name="malwareWarningPrefix" comment="%s is 'be careful'">Però hi ha altres llocs que si que ho fan. Així que, siusplau %s.</string>
@@ -35,9 +34,9 @@
 	<string name="thanksTitle">Gràcies per jugar a Lichess!</string>
 	<string name="thanksHaveAGreat" comment="%s is the next year">Un plaer que hagis estat aquí. Que tinguis un feliç %s!</string>
 	<string name="shareableTitle" comment="%s is the current year">El meu recap del %s</string>
-	<string name="shareableSpentPlaying" comment="Subtitle to the translated time they have spent playing">dedicat a jugar</string>
-	<string name="shareableMostPlayedOpponent" comment="Subtitle to the username of the opponent you have played the most games against">oponent més jugat</string>
-	<string name="shareableFavouriteVariant" comment="Subtitle to the variant you played the most games in">variant preferida</string>
-	<string name="shareableFavouriteTimeControl" comment="Subtitle to the time control you played the most games in">control de temps preferit</string>
+	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">dedicat a jugar</string>
+	<string name="shareableMostPlayedOpponent">oponent més jugat</string>
+	<string name="shareableFavouriteVariant">variant preferida</string>
+	<string name="shareableFavouriteTimeControl">control de temps preferit</string>
 	<string name="recapReady" comment="%s is the year of the recap">El teu resum del %s esta disponible!</string>
 </resources>
