@@ -7,7 +7,7 @@
   <string name="createLobbyGame">创建对局</string>
   <string name="youPlayAs">你执</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">分享这个网址以邀请好友下棋</string>
-  <string name="gameOver">棋局结束</string>
+  <string name="gameOver">对局结束</string>
   <string name="waitingForOpponent">正在等待对手</string>
   <string name="orLetYourOpponentScanQrCode">或让对方扫描这个二维码</string>
   <string name="waiting">等待中</string>
@@ -45,7 +45,7 @@
   <plurals name="opponentLeftCounter">
     <item quantity="other">你的对手已离开对局，你可以在 %s 秒后宣布胜利。</item>
   </plurals>
-  <string name="opponentLeftChoices">你的对手已离开棋局。你可以宣布胜利、和棋或继续等待。</string>
+  <string name="opponentLeftChoices">你的对手已离开对局。你可以宣布胜利、和棋或继续等待。</string>
   <string name="forceResignation">宣布胜利</string>
   <string name="forceDraw">宣布和棋</string>
   <string name="talkInChat">聊天时请注意文明用语！</string>
@@ -116,7 +116,7 @@
   <string name="allSet">好了！</string>
   <string name="importPgn">导入 PGN</string>
   <string name="delete">删除</string>
-  <string name="deleteThisImportedGame">删除此导入的棋局？</string>
+  <string name="deleteThisImportedGame">删除此导入的对局？</string>
   <string name="replayMode">回放模式</string>
   <string name="realtimeReplay">实时回放</string>
   <string name="byCPL">按厘兵损失</string>
@@ -179,7 +179,7 @@
   <string name="rememberMe">保持登录状态</string>
   <string name="youNeedAnAccountToDoThat">请登录以完成该操作</string>
   <string name="signUp">注册</string>
-  <string name="computersAreNotAllowedToPlay">电脑与电脑辅助棋手不允许参加对局。下棋时，请不要从国际象棋引擎、数据库或其他棋手得到帮助。另外，强烈建议你不要创建备用账户。过度使用多余的账户会导致账号被封禁。</string>
+  <string name="computersAreNotAllowedToPlay">电脑与电脑辅助棋手不允许参加对局。下棋时，请不要从国际象棋引擎、数据库或其他棋手得到帮助。另外，强烈建议你不要创建备用账户。过度使用多余的账户会导致账户被封禁。</string>
   <string name="games">对局</string>
   <string name="forum">论坛</string>
   <string name="xPostedInForumY">%1$s 发文：%2$s</string>
@@ -370,7 +370,7 @@
     <item quantity="other">你需要再完成 %s 局排位赛</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">你的 %s 等级分是暂时的</string>
-  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">你的等级分不稳定，暂时无法选择等级分范围。下排位对局会增加稳定性。</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control for filtering by rating is disabled">你的等级分不稳定，暂时无法选择等级分范围。下排位对局会增加稳定性。</string>
   <string name="yourPerfRatingIsTooHigh">你的 %1$s 等级分 (%2$s) 过高</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">你本周 %1$s 的最高等级分 (%2$s) 过高</string>
   <string name="yourPerfRatingIsTooLow">你的 %1$s 等级分 (%2$s) 过低</string>
@@ -862,6 +862,7 @@
   <string name="currentMatchScore">当前比赛分数</string>
   <string name="agreementAssistance">本人在对局进行中不会接受任何帮助（包括来自电脑程序、书籍、残局库或其他人）。</string>
   <string name="agreementNice">本人将尊重所有棋手。</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">我同意不会创建多个账户（除非符合 %s 中所述的原因）。</string>
   <string name="agreementPolicy">本人将遵守所有 Lichess 规范。</string>
   <string name="searchOrStartNewDiscussion">搜索或开始新对话</string>
   <string name="edit">编辑</string>
