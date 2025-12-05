@@ -32,8 +32,6 @@
 		<item quantity="other">%s kilogramë</item>
 	</plurals>
 	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">është si filluat %s të lojërave tuaja si i bardhi</string>
-	<string name="openingsMostPlayedAsWhite" comment="%s is the number of games (translated)">Hapja juaj më e luajtur si i bardhi me %s</string>
-	<string name="openingsMostPlayedAsBlack" comment="%s is the number of games (translated)">Hapja juaj më e luajtur si i ziu me %s</string>
 	<string name="puzzlesHelpedTagging" comment="%s is a number e.g. 5">Ndihmuat gjithashtu të etiketohen %s prej tyre.</string>
 	<string name="puzzlesTryNow">Doni të provoni ndonjë tani?</string>
 	<string name="puzzlesYouWonOnFirstTry">Fituat %s prej tyre me provën e parë!</string>
