@@ -33,8 +33,8 @@
 	</plurals>
 	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">is how you started %s of your games as white</string>
 	<plurals name="openingsMostPlayedAsWhite" comment="%s is the number of games">
-		<item quantity="one"> Your most played opening as white with %s game</item>
-		<item quantity="other"> Your most played opening as white with %s games</item>
+		<item quantity="one">Your most played opening as white with %s game</item>
+		<item quantity="other">Your most played opening as white with %s games</item>
 	</plurals>
 	<plurals name="openingsMostPlayedAsBlack" comment="%s is the number of games">
 		<item quantity="one"> Your most played opening as black with %s game</item>
