@@ -23,7 +23,9 @@
   <string name="ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess">超子弹棋、子弹棋、闪电棋、快棋、慢棋、通讯棋</string>
   <string name="allFeaturesToCome">所有即将到来的功能，永远！</string>
   <string name="landscapeSupportOnApp">iPhone &amp; Android 手机以及平板电脑，横屏支持</string>
+  <string name="everybodyGetsAllFeaturesForFree">是的，两个账户的功能完全相同！</string>
   <string name="weBelieveEveryChessPlayerDeservesTheBest">我们相信每个棋手都应该得到最好的，所以：</string>
   <string name="allFeaturesAreFreeForEverybody">所有功能都是免费的，永远！</string>
   <string name="ifYouLoveLichess">如果你爱 Lichess，</string>
+  <string name="supportUsWithAPatronAccount">成为赞助者以此支持我们！</string>
 </resources>
