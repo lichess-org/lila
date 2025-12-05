@@ -52,6 +52,7 @@
   <string name="teams">团队</string>
   <string name="boards">棋盘</string>
   <string name="overview">概览</string>
+  <string name="subscribeTitle">订阅后可在每轮比赛开始时收到通知。您可以在账户偏好设置中切换广播的铃声或推送通知。</string>
   <string name="uploadImage">上传锦标赛图像</string>
   <string name="noBoardsYet">尚无看板。这些游戏一旦上传就会出现。</string>
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">可以通过 %s加载看板</string>
