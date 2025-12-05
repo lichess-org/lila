@@ -162,7 +162,8 @@ export const openingColor = (os: ByColor<Counted<Opening>>, color: Color): VNode
       hl(
         'p',
         i18n.recap[color === 'white' ? 'openingsMostPlayedAsWhite' : 'openingsMostPlayedAsBlack'].asArray(
-          i18n.site.nbGames.asArray(o.count, hl('strong', animateNumber(o.count))),
+          o.count,
+          hl('strong', animateNumber(o.count)),
         ),
       ),
     ]),
