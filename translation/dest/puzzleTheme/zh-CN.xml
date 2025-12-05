@@ -14,6 +14,8 @@
   <string name="attractionDescription">以兑子或弃子吸引或迫使对方的棋子走到后续可实施战术的格子。</string>
   <string name="backRankMate">底线杀王</string>
   <string name="backRankMateDescription">在底线将杀被同一方棋子困住的王。</string>
+  <string name="balestraMate">巴莱斯特拉将杀</string>
+  <string name="balestraMateDescription">一象将军制胜，同时一后封锁了王剩余的所有逃逸格。</string>
   <string name="bishopEndgame">象残局</string>
   <string name="bishopEndgameDescription">只有象和兵的残局。</string>
   <string name="bodenMate">波登杀法</string>
@@ -24,6 +26,8 @@
   <string name="capturingDefenderDescription">消除保护另一个棋子的重要棋子，以在后续着法中吃掉已消除保护的棋子。</string>
   <string name="crushing">压倒性优势</string>
   <string name="crushingDescription">抓住对手的失误以获得压倒性的优势 (评估 ≥ 600 厘兵)。</string>
+  <string name="discoveredCheck" comment="Description (translatable separately):&#10;&#10;Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage.">闪将</string>
+  <string name="discoveredCheckDescription" comment="Description for the &quot;Discovered check&quot; puzzle theme.">移动一个棋子，露出隐藏的攻击性子力进行将军，这通常能带来决定性的优势。</string>
   <string name="doubleBishopMate">双象杀王</string>
   <string name="doubleBishopMateDescription">双象在相邻的斜线上将杀被同一方棋子阻挡的王。</string>
   <string name="dovetailMate">燕尾杀法</string>
@@ -59,6 +63,8 @@
   <string name="intermezzoDescription">不走预期的着法，而是走一着对手必须应对的直接威胁。</string>
   <string name="killBoxMate">封盒杀法</string>
   <string name="killBoxMateDescription">被后保护的车在敌方王侧封锁了所有逃脱格。后与车合作将王封杀在 3x3 的盒中。</string>
+  <string name="triangleMate">三角将杀</string>
+  <string name="triangleMateDescription">后和车与敌方王仅隔一格，且位于同一横线或竖线上，中间被一格隔开，形成一个三角形。</string>
   <string name="vukovicMate">武科维奇杀法</string>
   <string name="vukovicMateDescription">车和马一起合作将死了王。车在第三个子的合作下杀死了王，马用来挡住敌王的出路格子。</string>
   <string name="knightEndgame">马残局</string>
@@ -69,7 +75,7 @@
   <string name="masterDescription">出自有名棋手对局的谜题。</string>
   <string name="masterVsMaster">大师与大师对局</string>
   <string name="masterVsMasterDescription">出自两位有名棋手对局的谜题。</string>
-  <string name="mate">将死</string>
+  <string name="mate">将杀</string>
   <string name="mateDescription">有型地赢棋。</string>
   <string name="mateIn1">一步杀</string>
   <string name="mateIn1Description">一步之内将杀。</string>
