@@ -5,7 +5,7 @@
   <string name="advantage">优势</string>
   <string name="advantageDescription">抓住能让你获得决定性优势的机会。(200 厘兵 ≤ 评估 ≤ 600 厘兵)</string>
   <string name="anastasiaMate">阿纳斯塔西亚杀法</string>
-  <string name="anastasiaMateDescription">马与车或者后配合将对方的王将死在被同一方棋子卡住的边角。</string>
+  <string name="anastasiaMateDescription">马同车或者后协同将对方的王闷杀。</string>
   <string name="arabianMate">阿拉伯杀法</string>
   <string name="arabianMateDescription">马与车配合将杀对方在角落上的王。</string>
   <string name="attackingF2F7">进攻 f2 或 f7</string>
@@ -15,7 +15,9 @@
   <string name="backRankMate">底线杀王</string>
   <string name="backRankMateDescription">在底线将杀被同一方棋子困住的王。</string>
   <string name="balestraMate">巴莱斯特拉将杀</string>
-  <string name="balestraMateDescription">一象将军制胜，同时一后封锁了王剩余的所有逃逸格。</string>
+  <string name="balestraMateDescription">后阻止逃逸并用象将杀</string>
+  <string name="blindSwineMate">盲猪将杀</string>
+  <string name="blindSwineMateDescription">两车协同在2*2方格内将杀。</string>
   <string name="bishopEndgame">象残局</string>
   <string name="bishopEndgameDescription">只有象和兵的残局。</string>
   <string name="bodenMate">波登杀法</string>
@@ -24,6 +26,8 @@
   <string name="castlingDescription">将王转移到安全的地方，同时将车投入进攻。</string>
   <string name="capturingDefender">消除保护</string>
   <string name="capturingDefenderDescription">消除保护另一个棋子的重要棋子，以在后续着法中吃掉已消除保护的棋子。</string>
+  <string name="cornerMate">角落将杀</string>
+  <string name="cornerMateDescription">通过车或后同马将王困于角落将杀。</string>
   <string name="crushing">压倒性优势</string>
   <string name="crushingDescription">抓住对手的失误以获得压倒性的优势 (评估 ≥ 600 厘兵)。</string>
   <string name="discoveredCheck" comment="Description (translatable separately):&#10;&#10;Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage.">闪将</string>
