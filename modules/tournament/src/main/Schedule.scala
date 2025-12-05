@@ -145,6 +145,7 @@ object Schedule:
       case (Daily | Eastern, Standard, SuperBlitz) => 90
       case (Daily | Eastern, Standard, Blitz) => 120
       case (Daily | Eastern, _, Blitz) => 90
+      case (Daily, variant, Rapid) if variant.exotic => 120
       case (Daily | Eastern, _, Rapid | Classical) => 150
       case (Daily | Eastern, _, _) => 60
 
@@ -212,12 +213,15 @@ object Schedule:
       case (Weekend, Crazyhouse, Blitz) => zhEliteTc(s)
       case (Hourly, Standard, Blitz) if standardInc(s) => TC(3 * 60, 2)
       case (Hourly, Standard, Bullet) if s.hasMaxRating && bottomOfHour(s) => TC(60, 1)
+      case (Hourly, Chess960, Blitz) => TC(5 * 60, 3)
+      case (Hourly, Chess960, SuperBlitz) => TC(3 * 60, 2)
       case (Hourly, variant, Blitz) if variant.exotic => TC(3 * 60, 2)
       case (Hourly, Antichess | Atomic, Bullet) if bottomOfHour(s) => TC(0, 2)
       case (Hourly, variant, HippoBullet) if variant.exotic => TC(60, 2)
       case (Hourly, Antichess, Bullet) if bottomOfHour(s) => TC(0, 2)
 
-      case (Shield, variant, Blitz) if variant.exotic => TC(3 * 60, 2)
+      case (Daily | Shield, variant, Blitz) if variant.exotic => TC(3 * 60, 2)
+      case (Daily, Chess960, Rapid) => TC(10 * 60, 2)
 
       case (_, _, UltraBullet) => TC(15, 0)
       case (_, _, HyperBullet) => TC(30, 0)

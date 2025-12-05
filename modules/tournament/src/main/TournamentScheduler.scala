@@ -259,11 +259,11 @@ Thank you all, you rock!""".some,
       // to avoid two dailies being cancelled in a row from a single higher importance tourney
       List( // daily variant tournaments!
         at(today, 18).pipe: date =>
-          Schedule(Daily, SuperBlitz, Crazyhouse, none, date.pipe(orTomorrow)).plan,
+          Schedule(Daily, Blitz, Crazyhouse, none, date.pipe(orTomorrow)).plan,
         at(today, 18).pipe: date =>
           Schedule(Daily, SuperBlitz, Atomic, none, date.pipe(orTomorrow)).plan,
         at(today, 19).pipe: date =>
-          Schedule(Daily, SuperBlitz, Chess960, none, date.pipe(orTomorrow)).plan,
+          Schedule(Daily, Rapid, Chess960, none, date.pipe(orTomorrow)).plan,
         at(today, 19).pipe: date =>
           Schedule(Daily, SuperBlitz, Antichess, none, date.pipe(orTomorrow)).plan,
         at(tomorrow, 20).pipe: date =>
@@ -391,7 +391,7 @@ Thank you all, you rock!""".some,
       // medium speed variants
       for
         variant <- List(Atomic, ThreeCheck)
-        hourDelta <- (-1 to 6).toList
+        hourDelta <- -1 to 6
         when = atTopOfHour(rightNow, hourDelta)
         // Offsets should be balanced mod 3 between all 6 variants at 2/3 hours
         variantCycle = when.getHour + variant.match
@@ -416,34 +416,43 @@ Thank you all, you rock!""".some,
 
       // slow variant hourlies
       for
-        variant <- List(Crazyhouse, Chess960, KingOfTheHill)
-        hourDelta <- (-1 to 6).toList
+        variant <- List(Crazyhouse, KingOfTheHill)
+        hourDelta <- -1 to 6
         when = atTopOfHour(rightNow, hourDelta)
         // Offsets should be balanced mod 3 between all 6 variants at 2/3 hours
-        variantCycle = when.getHour + variant.match
-          case Crazyhouse => 1
-          case Chess960 => 0
-          case KingOfTheHill => 1
-        if variantCycle % 3 != 0
+        if when.getHour % 3 != 2
         // assignments for TCs when variantCycle % 3 == 0 don't currently
         // matter, as those hours are excluded from the schedule.
         // Meaning values of 0, 3, 6, 9 do not occur, and there are
         // just 8 relevant hours in the repeating cycle.
-        speed = variantCycle % 12 match
-          case 2 | 5 | 8 => Blitz
-          case 1 | 7 => SuperBlitz
-          case 4 | 11 => HippoBullet
+        speed = when.getHour % 12 match
+          case 1 | 6 | 9 => Blitz
+          case 0 | 4 => SuperBlitz
+          case 3 | 10 => HippoBullet
           case _ => Bullet
         first = Schedule(Hourly, speed, variant, none, when)
         second = Option.when(speed == Bullet):
-          val speed = if variantCycle % 12 == 10 then HyperBullet else Bullet
+          val speed = if when.getHour % 12 == 8 then HyperBullet else Bullet
           Schedule(Hourly, speed, variant, none, when.plusMinutes(30))
         schedule <- first :: second.toList
       yield schedule.plan,
 
-      // hourly exotic variant tournaments
+      // just Chess960 ... cause they special
       for
-        hourDelta <- (-1 to 6).toList
+        hourDelta <- -1 to 6
+        when = atTopOfHour(rightNow, hourDelta)
+        if when.getHour % 3 != 0
+
+        speed = when.getHour % 12 match
+          case 2 | 5 | 10 => Blitz
+          case 1 | 7 => SuperBlitz
+          case 4 | 11 => HippoBullet
+          case _ => Bullet
+      yield Schedule(Hourly, speed, Chess960, none, when).plan,
+
+      // hourly rare variant tournaments
+      for
+        hourDelta <- -1 to 6
         when = atTopOfHour(rightNow, hourDelta)
         // Avoid grouping TCs by mod 2, so that the distribution doesn't
         // get skewed as we alternate between 2 variants.
