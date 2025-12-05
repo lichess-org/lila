@@ -40,6 +40,18 @@
 		<item quantity="other">%s kilogramov</item>
 	</plurals>
 	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">tako si začel %s svojih iger kot bel</string>
+	<plurals name="openingsMostPlayedAsWhite" comment="%s is the number of games">
+		<item quantity="one">Vaša najpogosteje igrana otvoritev kot bela z %s igro</item>
+		<item quantity="two">Vaša najpogosteje igrana otvoritev kot bela z %s igrama</item>
+		<item quantity="few">Vaša najpogosteje igrana otvoritev kot bela z %s igrami</item>
+		<item quantity="other">Vaša najpogosteje igrana otvoritev kot bela z %s igrami</item>
+	</plurals>
+	<plurals name="openingsMostPlayedAsBlack" comment="%s is the number of games">
+		<item quantity="one"> Vaša najpogosteje igrana otvoritev kot črni z %s igro</item>
+		<item quantity="two"> Vaša najpogosteje igrana otvoritev kot črni z %s igrama</item>
+		<item quantity="few"> Vaša najpogosteje igrana otvoritev kot črni z %s igrami</item>
+		<item quantity="other"> Vaša najpogosteje igrana otvoritev kot črni z %s igrami</item>
+	</plurals>
 	<plurals name="puzzlesThanksVoting" comment="%s is the number of puzzles. It is also translated.">
 		<item quantity="one">Hvala, ker ste glasovali za %s uganko.</item>
 		<item quantity="two">Hvala, ker ste glasovali za %s uganki.</item>
