@@ -91,20 +91,20 @@ final private class TwitchApi(
       messageType match
         case "webhook_callback_verification" => fuccess((js \ "challenge").asOpt[String])
         case "notification" =>
-          for
+          val done = for
             event <- (js \ "event").asOpt[JsObject]
             login <- (event \ "broadcaster_user_login").asOpt[String]
             id <- (event \ "broadcaster_user_id").asOpt[String]
             subType <- (js \ "subscription" \ "type").asOpt[String]
-          do
-            subType match
-              case "stream.online" => fetchStream(id).map(_.foreach(l => lives.update(l.user_id, l)))
-              case "stream.offline" => lives.remove(id)
-              case "channel.update" =>
-                val title = ~(event \ "title").asOpt[String]
-                val lang = (event \ "language").asOpt[String].filter(_.nonEmpty).getOrElse("en")
-                lives.updateWith(id)(_.map(_.copy(user_login = login, title = Html(title), language = lang)))
-              case _ => ()
+          yield subType match
+            case "stream.online" => fetchStream(id).map(_.foreach(l => lives.update(l.user_id, l)))
+            case "stream.offline" => lives.remove(id)
+            case "channel.update" =>
+              val title = ~(event \ "title").asOpt[String]
+              val lang = (event \ "language").asOpt[String].filter(_.nonEmpty).getOrElse("en")
+              lives.updateWith(id)(_.map(_.copy(user_login = login, title = Html(title), language = lang)))
+            case _ => ()
+          if done.isEmpty then logger.warn(s"Unknown Twitch event notification: $js")
           fuccess(none)
         case _ => fuccess(none)
 
@@ -254,8 +254,7 @@ final private class TwitchApi(
       .doFinal(((header("Id") ++ header("Timestamp")).mkString + rawBody).getBytes())
       .map("%02x".format(_))
       .mkString
-    if header("Signature").exists(_.equalsIgnoreCase(s"sha256=$mac")) then header("Type")
-    else none
+    header("Signature").exists(_.equalsIgnoreCase(s"sha256=$mac")) so header("Type")
 
   private object bearerToken:
 
