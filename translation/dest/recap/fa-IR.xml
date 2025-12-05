@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+	<string name="hiUser" comment="%s is the title+username e.g. 'GM ABC' or simply ABC if there is no title">سلام %s</string>
+	<string name="awaitQuestion" comment="Displayed while waiting for results">امسال چه کرده‌اید؟</string>
+	<string name="initTitle">چه سالِ شطرنج-ی داشته‌اید!</string>
+	<string name="noGamesText">امسال هیچ بازی‌ای نکردید.</string>
+	<string name="noGamesCta">می‌خواهید اکنون بازی کنید؟</string>
+	<string name="gamesYouWon" comment="%s is the number of games won">و %sتای‌شان را بردید!</string>
+	<string name="gamesNextQuestion">لازمهٔ رسیدن به این آمار چه بود؟</string>
+	<string name="timeSpentPlayingExclam" comment="%s is the time spent playing animated from 0 e.g. '1 day, 17 hours'. The time is also translated">صرفِ %s!</string>
+	<string name="timeTooMuch">این مقدار شطرنج، زیاده‌روی‌ست.</string>
+</resources>
