@@ -37,8 +37,8 @@
 		<item quantity="other">Your most played opening as white with %s games</item>
 	</plurals>
 	<plurals name="openingsMostPlayedAsBlack" comment="%s is the number of games">
-		<item quantity="one"> Your most played opening as black with %s game</item>
-		<item quantity="other"> Your most played opening as black with %s games</item>
+		<item quantity="one">Your most played opening as black with %s game</item>
+		<item quantity="other">Your most played opening as black with %s games</item>
 	</plurals>
 	<plurals name="puzzlesThanksVoting" comment="%s is the number of puzzles. It is also translated.">
         <item quantity="one">Thank you for voting on %s puzzle.</item>
