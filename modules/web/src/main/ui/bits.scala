@@ -84,6 +84,6 @@ z-index: 99;
   </head>
   <body>
     <redoc spec-url="https://raw.githubusercontent.com/lichess-org/api/master/doc/specs/lichess-api.yaml"></redoc>
-    <script src="https://cdn.jsdelivr.net/npm/redoc@2.0.0-rc.56/bundles/redoc.standalone.js"></script>  </body>
-  <body>
+    <script src="https://cdn.jsdelivr.net/npm/redoc@2.0.0-rc.56/bundles/redoc.standalone.js"></script>
+  </body>
 </html>"""
