@@ -45,6 +45,7 @@
   <string name="createDesc1">如果学生还没有 Lichess 账户，你可以在此为他们创建一个。</string>
   <string name="createDesc2">无需邮箱地址。密码将自动生成，将其发给学生以让他们登录。</string>
   <string name="createDesc3">重要：学生不得拥有多个账户。</string>
+  <string name="createDesc4">如果对方已有账户，请使用邀请表单。</string>
   <string name="createStudentWarning">仅为每个真实的学生创建账户，不要用此功能为你自己创建多个账户，否则你会被封号。</string>
   <string name="lichessUsername">Lichess 用户名</string>
   <string name="generateANewUsername">生成一个新用户名</string>
@@ -115,4 +116,5 @@
   <string name="moveToClass">移动至 %s</string>
   <string name="moveToAnotherClass">移到另一个班级</string>
   <string name="allowMessagingBetweenStudents">允许学生之间的消息</string>
+  <string name="allowMessagingBetweenStudentsDesc">此规定仅适用于您为学生创建的账户。</string>
 </resources>
