@@ -11,6 +11,7 @@
   <string name="youCanLoginWithEmail">你可以使用你注册的电子邮箱地址登录</string>
   <string name="lost2FA">我丢失了我的双重认证码</string>
   <string name="doPasswordReset">重置密码会解除双重认证</string>
+  <string name="accountSupport">我需要账户支持</string>
   <string name="wantTitle">我想要在 Lichess 显示我的国际象棋称号</string>
   <string name="visitTitleConfirmation">如果要在你的 Lichess 档案显示你的称号或参与限于大师的锦标赛，请浏览称号认证页面</string>
   <string name="wantCloseAccount">我想要关闭我的账户</string>
