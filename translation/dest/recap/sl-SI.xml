@@ -1,2 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+	<string name="hiUser" comment="%s is the title+username e.g. 'GM ABC' or simply ABC if there is no title">Živjo, %s</string>
+	<string name="awaitQuestion" comment="Displayed while waiting for results">Kaj si počel letos?</string>
+	<string name="initTitle">Kakšno šahovsko leto si imel!</string>
+	<string name="noGamesText">Letos nisi igral nobene tekme.</string>
+	<string name="noGamesCta">Bi rad igral zdaj?</string>
+	<string name="gamesYouWon" comment="%s is the number of games won">In zmagali ste %s!</string>
+	<string name="gamesNextQuestion">Kaj je bilo potrebno, da sem prišel tja?</string>
+	<string name="timeSpentPlayingExclam" comment="%s is the time spent playing animated from 0 e.g. '1 day, 17 hours'. The time is also translated">%s je bilo igranja!</string>
+	<string name="timeTooMuch">To je pa preveč šaha.</string>
+	<string name="timeALot">To je veliko šaha.</string>
+	<string name="timeReasonable">Zdi se, da je to razumna količina šaha.</string>
+	<string name="timeHowManyMoves">Koliko potez si odigral v vsem tem času?</string>
+	<plurals name="nbMovesPlayed">
+		<item quantity="one">%s poteza odigrana</item>
+		<item quantity="two">%s potezi odigrani</item>
+		<item quantity="few">%s poteze odigrane</item>
+		<item quantity="other">%s potez odigranih</item>
+	</plurals>
+	<string name="movesOfWoodPushed" comment="%s is a weight in grams or kilograms">To je %s potisnjenega lesa!</string>
+	<string name="movesStandardPiecesWeight">Standardne figure tehtajo približno 40 g vsaka</string>
+	<plurals name="nbMoves">
+		<item quantity="one">%s poteza</item>
+		<item quantity="two">%s potezi</item>
+		<item quantity="few">%s poteze</item>
+		<item quantity="other">%s potez</item>
+	</plurals>
+	<string name="chessFoes">Vaši najboljši šahovski nasprotniki</string>
+	<plurals name="nbGrams">
+		<item quantity="one">%s gram</item>
+		<item quantity="two">%s grama</item>
+		<item quantity="few">%s grami</item>
+		<item quantity="other">%s gramov</item>
+	</plurals>
+	<plurals name="nbKilograms">
+		<item quantity="one">%s kilogram</item>
+		<item quantity="two">%s kilograma</item>
+		<item quantity="few">%s kilogrami</item>
+		<item quantity="other">%s kilogramov</item>
+	</plurals>
+	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">tako si začel %s svojih iger kot bel</string>
+	<plurals name="puzzlesThanksVoting" comment="%s is the number of puzzles. It is also translated.">
+		<item quantity="one">Hvala, ker ste glasovali za %s uganko.</item>
+		<item quantity="two">Hvala, ker ste glasovali za %s uganki.</item>
+		<item quantity="few">Hvala, ker ste glasovali za %s uganke.</item>
+		<item quantity="other">Hvala, ker ste glasovali za %s ugank.</item>
+	</plurals>
+	<string name="puzzlesHelpedTagging" comment="%s is a number e.g. 5">Pomagali ste označiti tudi %s jih.</string>
+	<string name="puzzlesNone">Letos nisi rešil nobene uganke.</string>
+	<string name="puzzlesTryNow">Bi radi poskusili nekaj zdaj?</string>
+	<string name="puzzlesYouWonOnFirstTry">V prvem poskusu si jih rešil %s!</string>
+	<string name="sourcesTitle">Kje si našel igre?</string>
+	<string name="perfsTitle">Katere časovne kontrole in različice si igral?</string>
+	<string name="malwareNoneLoaded" comment="%s is 0">Naloženih je bilo %s oglasov in sledilnikov</string>
+	<string name="malwareNoSell">Vaših osebnih podatkov nismo prodali</string>
+	<string name="malwareNoAbuse">Vaše naprave nismo uporabili proti vam</string>
+	<string name="malwareWarningPrefix" comment="%s is 'be careful'">Ampak druga spletna mesta to počnejo, zato prosim %s.</string>
+	<string name="malwareWarningCta" comment="It is a link to https://lichess.org/ads">bodi previden</string>
+	<string name="lichessGamesPlayedIn" comment="%1$s is the number of games, %2$s is the year">%1$s odigranih iger na Lichessu v %2$s</string>
+	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours">%s jih je bilo tvojih.</string>
+	<string name="thanksTitle">Hvala, ker igraš na Lichessu!</string>
+	<string name="thanksHaveAGreat" comment="%s is the next year">Veseli smo, da ste tukaj. Imejte se lepo!</string>
+	<string name="shareableTitle" comment="%s is the current year">Moj %s povzetek</string>
+	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">je bilo igranja</string>
+	<string name="shareableMostPlayedOpponent">najbolj igrani nasprotnik</string>
+	<string name="shareableFavouriteVariant">najljubša varianta</string>
+	<string name="shareableFavouriteTimeControl">priljubljeni časovni nadzor</string>
+	<string name="recapReady" comment="%s is the year of the recap">Vaš %s povzetek je pripravljen!</string>
+</resources>
