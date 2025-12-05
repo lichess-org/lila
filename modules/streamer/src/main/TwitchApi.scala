@@ -98,7 +98,9 @@ final private class TwitchApi(
             subType <- (js \ "subscription" \ "type").asOpt[String]
           yield subType match
             case "stream.online" => fetchStream(id).map(_.foreach(l => lives.update(l.user_id, l)))
-            case "stream.offline" => lives.remove(id)
+            case "stream.offline" =>
+              logger.info(s"Twitch stream offline: $login ($id) exists: ${lives.contains(id)})")
+              lives.remove(id)
             case "channel.update" =>
               val title = ~(event \ "title").asOpt[String]
               val lang = (event \ "language").asOpt[String].filter(_.nonEmpty).getOrElse("en")
