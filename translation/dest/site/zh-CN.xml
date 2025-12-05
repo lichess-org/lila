@@ -529,7 +529,7 @@
   <string name="views">浏览</string>
   <string name="replies">回复</string>
   <string name="replyToThisTopic">回复</string>
-  <string name="reply">回复</string>
+  <string name="reply" comment="Appears on buttons in the forum. Clicking the button will post a reply to a topic.">回复</string>
   <string name="message">信息</string>
   <string name="createTheTopic">创建话题</string>
   <string name="reportAUser">举报用户</string>
