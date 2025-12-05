@@ -14,8 +14,8 @@
   <string name="specialMoves">حرکات ویژه</string>
   <string name="didYouLikeThisPuzzle">این معما را دوست داشتید؟</string>
   <string name="voteToLoadNextOne">رأی‌ دهید تا معمای بعدی بار شود!</string>
-  <string name="upVote">معمای خوبی بود</string>
-  <string name="downVote">معمای بدی بود</string>
+  <string name="upVote">رأیِ مثبت به معما</string>
+  <string name="downVote">رأیِ منفی به معما</string>
   <string name="yourPuzzleRatingWillNotChange">درجه‌بندی معمایی شما تغییری نخواهد کرد. توجه داشته باشید که معماها یک رقابت نیستند. درجه‌بندی‌تان به انتخاب بهترین معماها برای سطح مهارت فعلی‌تان کمک می‌کند.</string>
   <string name="findTheBestMoveForWhite">بهترین حرکت سفید را بیابید.</string>
   <string name="findTheBestMoveForBlack">بهترین حرکت سیاه را بیابید.</string>
