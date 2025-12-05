@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="hiUser" comment="%s is the title+username e.g. 'GM ABC' or simply ABC if there is no title">سلام %s</string>
+	<string name="hiUser" comment="%s is the title+username e.g. 'GM ABC' or simply ABC if there is no title">درود %s</string>
 	<string name="awaitQuestion" comment="Displayed while waiting for results">امسال چه کرده‌اید؟</string>
 	<string name="initTitle">چه سالِ شطرنج-ی داشته‌اید!</string>
 	<string name="noGamesText">امسال هیچ بازی‌ای نکردید.</string>
@@ -40,4 +40,14 @@
 		<item quantity="one"> بیشترین گشایشِ بازی‌شده‌تان با سیاه، %s بازی</item>
 		<item quantity="other"> بیشترین گشایشِ بازی‌شده‌تان با سیاه، %s بازی</item>
 	</plurals>
+	<plurals name="puzzlesThanksVoting" comment="%s is the number of puzzles. It is also translated.">
+		<item quantity="one">از شما برای رأی‌دهی به %s معما سپاسگزاریم.</item>
+		<item quantity="other">از شما برای رأی‌دهی به %s معما سپاسگزاریم.</item>
+	</plurals>
+	<string name="puzzlesHelpedTagging" comment="%s is a number e.g. 5">همچنین شما به برچسب‌زنی %s از آنها کمک کردید.</string>
+	<string name="puzzlesNone">امسال هیچ معمایی را حل نکردید.</string>
+	<string name="puzzlesTryNow">می‌خواهی اکنون امتحان کنی؟</string>
+	<string name="puzzlesYouWonOnFirstTry">شما %s از آنها را در تلاشِ نخست حل کردید!</string>
+	<string name="sourcesTitle">کجا بازی‌ها را یافتید؟</string>
+	<string name="perfsTitle">شما چه زمان‌بندی‌ها و وَرتاهایی را بازی کردید؟</string>
 </resources>
