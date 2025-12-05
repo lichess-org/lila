@@ -1,2 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+	<string name="hiUser" comment="%s is the title+username e.g. 'GM ABC' or simply ABC if there is no title">Hallo, %s</string>
+	<string name="awaitQuestion" comment="Displayed while waiting for results">Was häsch das Jahr eso g\'macht?</string>
+	<string name="initTitle">Wie isch dis Schach-Jahr gsi!</string>
+	<string name="noGamesText">Du häsch das Jahr keis Schpiel g\'schpillt.</string>
+	<string name="noGamesCta">Wottsch jetzt schpille?</string>
+	<string name="gamesYouWon" comment="%s is the number of games won">Und du häsch %s gunne!</string>
+	<string name="gamesNextQuestion">Was häts brucht, zum da here cho?</string>
+	<string name="timeSpentPlayingExclam" comment="%s is the time spent playing animated from 0 e.g. '1 day, 17 hours'. The time is also translated">%s häsch g\'schpillt!</string>
+	<string name="timeTooMuch">Das isch z\'vill Schach.</string>
+	<string name="timeALot">Das isch en hufe Schach.</string>
+	<string name="timeReasonable">Das schint e agmässeni Mängi Schach z\'si.</string>
+	<string name="timeHowManyMoves">Wievill Züg häsch g\'schpillt während dere Zit?</string>
+	<plurals name="nbMovesPlayed">
+		<item quantity="one">%s Zug g\'schpillt</item>
+		<item quantity="other">%s Züg g\'schpillt</item>
+	</plurals>
+	<string name="movesOfWoodPushed" comment="%s is a weight in grams or kilograms">Das sind %s ume g\'schobes Holz!</string>
+	<string name="movesStandardPiecesWeight">Ei normali Figur isch öppe 40 Gramm</string>
+	<plurals name="nbMoves">
+		<item quantity="one">%s Zug</item>
+		<item quantity="other">%s Züg</item>
+	</plurals>
+	<string name="chessFoes">Dini beschte Schach-Gägner</string>
+	<plurals name="nbGrams">
+		<item quantity="one">%s Gramm</item>
+		<item quantity="other">%s Gramm</item>
+	</plurals>
+	<plurals name="nbKilograms">
+		<item quantity="one">%s Kilo</item>
+		<item quantity="other">%s Kilo</item>
+	</plurals>
+	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">so häsch du %s vu dine Schpiel - mit Wiss - agfange</string>
+	<plurals name="puzzlesThanksVoting" comment="%s is the number of puzzles. It is also translated.">
+		<item quantity="one">Danke für dini Stimm bi %s Ufgab.</item>
+		<item quantity="other">Danke für dini Stimm bi %s Ufgabe.</item>
+	</plurals>
+	<string name="puzzlesHelpedTagging" comment="%s is a number e.g. 5">Du häsch au bi %s vu dene g\'holfe.</string>
+	<string name="puzzlesNone">Du häsch das Jahr kei Ufgabe g\'löst.</string>
+	<string name="puzzlesTryNow">Wottsch jetzt es paar probiere?</string>
+	<string name="puzzlesYouWonOnFirstTry">Du häsch %s devo uf a\'hieb g\'löst!</string>
+	<string name="sourcesTitle">Wo findsch Schpiel und Gägner?</string>
+	<string name="perfsTitle">Was für Zite und Variante schpillsch du?</string>
+	<string name="malwareNoneLoaded" comment="%s is 0">%s Ads und Tracker g\'lade</string>
+	<string name="malwareNoSell">Mir verchaufed dini persönliche Date nöd</string>
+	<string name="malwareNoAbuse">Mir mached nüt mit dim G\'rät</string>
+	<string name="malwareWarningPrefix" comment="%s is 'be careful'">Aber anderi Website mached das, also %s.</string>
+	<string name="malwareWarningCta" comment="It is a link to https://lichess.org/ads">bis vorsichtig</string>
+	<string name="lichessGamesPlayedIn" comment="%1$s is the number of games, %2$s is the year">%2$s häsch du uf Lichess %1$s Schpiel g\'schpillt</string>
+</resources>
