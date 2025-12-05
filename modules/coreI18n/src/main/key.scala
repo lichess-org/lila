@@ -1446,8 +1446,6 @@ object I18nKey:
     val `movesStandardPiecesWeight`: I18nKey = "recap:movesStandardPiecesWeight"
     val `chessFoes`: I18nKey = "recap:chessFoes"
     val `firstMoveStats`: I18nKey = "recap:firstMoveStats"
-    val `openingsMostPlayedAsWhite`: I18nKey = "recap:openingsMostPlayedAsWhite"
-    val `openingsMostPlayedAsBlack`: I18nKey = "recap:openingsMostPlayedAsBlack"
     val `puzzlesHelpedTagging`: I18nKey = "recap:puzzlesHelpedTagging"
     val `puzzlesNone`: I18nKey = "recap:puzzlesNone"
     val `puzzlesTryNow`: I18nKey = "recap:puzzlesTryNow"
@@ -1473,6 +1471,8 @@ object I18nKey:
     val `nbMoves`: I18nKey = "recap:nbMoves"
     val `nbGrams`: I18nKey = "recap:nbGrams"
     val `nbKilograms`: I18nKey = "recap:nbKilograms"
+    val `openingsMostPlayedAsWhite`: I18nKey = "recap:openingsMostPlayedAsWhite"
+    val `openingsMostPlayedAsBlack`: I18nKey = "recap:openingsMostPlayedAsBlack"
     val `puzzlesThanksVoting`: I18nKey = "recap:puzzlesThanksVoting"
 
   object search:
