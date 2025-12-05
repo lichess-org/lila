@@ -218,7 +218,7 @@ export const sources = (r: Recap): VNode => {
     ['arena', i18n.arena.arenaTournaments],
     ['swiss', i18n.swiss.swissTournaments],
     ['simul', i18n.site.simultaneousExhibitions],
-    ['pool', i18n.recap.sourcesPoolPairing],
+    ['pool', i18n.site.quickPairing],
     ['lobby', i18n.site.lobby],
   ];
   const best: [string, number][] = all.map(([k, n]) => [n, r.games.sources[k] || 0]);

@@ -2857,8 +2857,6 @@ interface I18n {
     shareableSpentPlaying: string;
     /** My %s recap */
     shareableTitle: I18nFormat;
-    /** Pool pairing */
-    sourcesPoolPairing: string;
     /** Where did you find games? */
     sourcesTitle: string;
     /** We're glad you're here. Have a great %s! */

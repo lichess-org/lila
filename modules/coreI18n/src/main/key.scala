@@ -1452,7 +1452,6 @@ object I18nKey:
     val `puzzlesNone`: I18nKey = "recap:puzzlesNone"
     val `puzzlesTryNow`: I18nKey = "recap:puzzlesTryNow"
     val `puzzlesYouWonOnFirstTry`: I18nKey = "recap:puzzlesYouWonOnFirstTry"
-    val `sourcesPoolPairing`: I18nKey = "recap:sourcesPoolPairing"
     val `sourcesTitle`: I18nKey = "recap:sourcesTitle"
     val `perfsTitle`: I18nKey = "recap:perfsTitle"
     val `malwareNoneLoaded`: I18nKey = "recap:malwareNoneLoaded"

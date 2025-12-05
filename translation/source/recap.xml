@@ -42,7 +42,6 @@
 	<string name="puzzlesNone">You did not solve any puzzles this year.</string>
 	<string name="puzzlesTryNow">Wanna try some now?</string>
 	<string name="puzzlesYouWonOnFirstTry">You won %s of them on the first try!</string>
-	<string name="sourcesPoolPairing">Pool pairing</string>
 	<string name="sourcesTitle">Where did you find games?</string>
 	<string name="perfsTitle">What time controls and variants did you play?</string>
 	<string name="malwareNoneLoaded" comment="%s is 0">%s ads and trackers loaded</string>
