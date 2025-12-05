@@ -50,4 +50,13 @@
 	<string name="puzzlesYouWonOnFirstTry">شما %s از آنها را در تلاشِ نخست حل کردید!</string>
 	<string name="sourcesTitle">کجا بازی‌ها را یافتید؟</string>
 	<string name="perfsTitle">شما چه زمان‌بندی‌ها و وَرتاهایی را بازی کردید؟</string>
+	<string name="malwareNoneLoaded" comment="%s is 0">%s تَبلیغ و تُرگر بار شد</string>
+	<string name="malwareNoSell">ما داده‌های شخصی‌تان را نفروختیم</string>
+	<string name="malwareNoAbuse">ما از اَفزاره‌تان علیه‌تان نَبَهریدیم</string>
+	<string name="malwareWarningPrefix" comment="%s is 'be careful'">اما وبگاه‌های دیگر این کار را می‌کنند، بنابراین لطفاً %s.</string>
+	<string name="malwareWarningCta" comment="It is a link to https://lichess.org/ads">مراقب باشید</string>
+	<string name="lichessGamesPlayedIn" comment="%1$s is the number of games, %2$s is the year">%1$s بازی در سالِ %2$s در Lichess شده</string>
+	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours">%s‌ شان مالِ شما بود.</string>
+	<string name="thanksTitle">از بازی کردن‌تان در Lichess سپاسگزاریم!</string>
+	<string name="thanksHaveAGreat" comment="%s is the next year">خُرسندیم که اینجایید. سال %s محشری داشته باشید!</string>
 </resources>
