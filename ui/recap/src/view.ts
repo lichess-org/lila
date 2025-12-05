@@ -8,8 +8,6 @@ export function awaiter(user: LightUser): VNode {
 }
 
 export function view(r: Recap, opts: Opts): VNode {
-  // DELETEME DEBUG
-  r.puzzles.votes.nb = r.puzzles.votes.themes = 500;
   return hl('div#recap-swiper.swiper', [
     hl('div.swiper-wrapper', [
       slides.init(opts.user),
