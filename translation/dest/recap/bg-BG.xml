@@ -1,2 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+	<string name="hiUser" comment="%s is the title+username e.g. 'GM ABC' or simply ABC if there is no title">Здравей %s,</string>
+	<string name="awaitQuestion" comment="Displayed while waiting for results">С какво се занимаваше през тази година?</string>
+	<string name="initTitle">Каква шахматна година само!</string>
+	<string name="noGamesText">Не изигра нито една партия тази година.</string>
+	<string name="noGamesCta">Искаш ли да играеш сега?</string>
+	<string name="gamesYouWon" comment="%s is the number of games won">И победи %s!</string>
+	<string name="gamesNextQuestion">Какво ти костваше да стигнеш до тук?</string>
+	<string name="timeSpentPlayingExclam" comment="%s is the time spent playing animated from 0 e.g. '1 day, 17 hours'. The time is also translated">%s прекарани в игра!</string>
+	<string name="timeTooMuch">Това е страшно много шах.</string>
+	<string name="timeALot">Това е много шах.</string>
+	<string name="timeReasonable">Това изглежда като разумно количество шах.</string>
+	<string name="timeHowManyMoves">Колко хода направи през цялото това време?</string>
+	<plurals name="nbMovesPlayed">
+		<item quantity="one">%s изигран ход</item>
+		<item quantity="other">%s изиграни хода</item>
+	</plurals>
+	<string name="movesOfWoodPushed" comment="%s is a weight in grams or kilograms">Това са %s преместени дървени фигури!</string>
+	<string name="movesStandardPiecesWeight">Стандартните фигури тежат по около 40 г</string>
+	<plurals name="nbMoves">
+		<item quantity="one">%s ход</item>
+		<item quantity="other">%s хода</item>
+	</plurals>
+	<string name="chessFoes">Най-добрите ти съперници</string>
+	<plurals name="nbGrams">
+		<item quantity="one">%s грам</item>
+		<item quantity="other">%s грама</item>
+	</plurals>
+	<plurals name="nbKilograms">
+		<item quantity="one">%s килограм</item>
+		<item quantity="other">%s килограма</item>
+	</plurals>
+	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">така започна %s от партиите си с белите</string>
+	<plurals name="puzzlesThanksVoting" comment="%s is the number of puzzles. It is also translated.">
+		<item quantity="one">Благодаря, че гласува за %s задача.</item>
+		<item quantity="other">Благодаря, че гласува за %s задачи.</item>
+	</plurals>
+	<string name="puzzlesHelpedTagging" comment="%s is a number e.g. 5">Помогна и за тагването на %s от тях.</string>
+	<string name="puzzlesNone">Не реши нито едина задача тази година.</string>
+	<string name="puzzlesTryNow">Искаш ли да пробваш няколко сега?</string>
+	<string name="puzzlesYouWonOnFirstTry">Реши %s от тях от първия път!</string>
+</resources>
