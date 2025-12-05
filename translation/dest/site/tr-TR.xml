@@ -345,6 +345,7 @@
     <item quantity="other">%s oynuyor</item>
   </plurals>
   <string name="exportGames">Oyunları indir</string>
+  <string name="ratingFilter">Puan filtreleme</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">%s saniye ver</item>
     <item quantity="other">%s saniye ver</item>
