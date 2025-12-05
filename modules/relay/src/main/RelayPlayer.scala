@@ -135,7 +135,7 @@ object RelayPlayer:
         .add("rank" -> p.rank)
     def full(
         tour: RelayTour
-    )(p: RelayPlayer, fidePlayer: Option[FidePlayer], isFollowing: Option[Boolean]): JsObject =
+    )(p: RelayPlayer, fidePlayer: Option[FidePlayer], follow: Option[Boolean]): JsObject =
       val tc = tour.info.fideTcOrGuess
       lazy val eloPlayer = p.rating
         .map(_.into(Elo))
@@ -158,8 +158,8 @@ object RelayPlayer:
           .add("ratingDiff" -> rd)
       Json
         .toJsObject(p)
-        .add("fide", fidePlayer)
-        .add("isFollowing" -> isFollowing) ++ Json.obj("games" -> gamesJson)
+        .add("fide", fidePlayer.map(Json.toJsObject).map(_.add("follow", follow))) ++
+        Json.obj("games" -> gamesJson)
     given OWrites[FidePlayer] = OWrites: p =>
       Json.obj("ratings" -> p.ratingsMap.mapKeys(_.toString), "year" -> p.year)
 

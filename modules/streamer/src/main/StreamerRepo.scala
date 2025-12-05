@@ -1,5 +1,7 @@
 package lila.streamer
 
+import reactivemongo.api.bson.*
+
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 
@@ -45,17 +47,18 @@ final class StreamerRepo(
     yield ()
 
   private[streamer] def approvedIds(platform: Platform, limit: Int = 1000): Fu[Seq[String]] =
-    val field = if platform == "youtube" then "youtube.channelId" else "twitch.id"
-    val Array(docType, id) = field.split("\\.", 2)
+    val idField = if platform == "youtube" then "channelId" else "id"
+    val fullField = s"$platform.$idField"
     coll
-      .find(
-        $doc(field.$exists(true), "approval.granted" -> true),
-        $doc(field -> true).some
-      )
-      .sort($doc("lastSeenAt" -> -1))
-      .cursor[Bdoc]()
-      .list(limit)
-      .map(_.flatMap(_.getAsOpt[Bdoc](docType).flatMap(_.string(id))))
+      .aggregateOne(_.sec): framework =>
+        import framework.*
+        Match($doc(fullField.$exists(true), "approval.granted" -> true)) -> List(
+          Sort(Descending("lastSeenAt")),
+          Limit(limit),
+          Group(BSONNull)("ids" -> PushField(fullField))
+        )
+      .map:
+        _.so(~_.getAsOpt[Seq[String]]("ids"))
 
   private[streamer] def approvedByChannelId(channelId: String): Fu[Option[Streamer]] =
     coll

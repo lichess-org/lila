@@ -213,9 +213,9 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
     private def card(name: Frag, value: Frag) =
       div(cls := "fide-card fide-player__card")(em(name), strong(value))
 
-    private def followButton(p: FidePlayer.WithFollow)(using Translate) =
+    private def followButton(p: FidePlayer.WithFollow) =
       val id = s"fide-player-follow-${p.player.id}"
-      label(cls := "fide-player__follow", title := trans.site.follow.txt())(
+      label(cls := "fide-player__follow")(
         form3.cmnToggle(
           fieldId = id,
           fieldName = id,
