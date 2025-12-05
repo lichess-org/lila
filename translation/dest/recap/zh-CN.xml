@@ -28,8 +28,6 @@
 		<item quantity="other">%s 千克</item>
 	</plurals>
 	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">这是您执白时，%s 对局的开局方式</string>
-	<string name="openingsMostPlayedAsWhite" comment="%s is the number of games (translated)">您执白时最常用的开局是 %s</string>
-	<string name="openingsMostPlayedAsBlack" comment="%s is the number of games (translated)">您执黑时最常用的开局是 %s</string>
 	<plurals name="puzzlesThanksVoting" comment="%s is the number of puzzles. It is also translated.">
 		<item quantity="other">感谢您对 %s 道谜题进行了投票。</item>
 	</plurals>
