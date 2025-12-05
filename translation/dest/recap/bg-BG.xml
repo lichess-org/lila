@@ -22,7 +22,7 @@
 		<item quantity="one">%s ход</item>
 		<item quantity="other">%s хода</item>
 	</plurals>
-	<string name="chessFoes">Най-добрите ти съперници</string>
+	<string name="chessFoes">Най-силнте ти съперници</string>
 	<plurals name="nbGrams">
 		<item quantity="one">%s грам</item>
 		<item quantity="other">%s грама</item>
@@ -32,6 +32,14 @@
 		<item quantity="other">%s килограма</item>
 	</plurals>
 	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">така започна %s от партиите си с белите</string>
+	<plurals name="openingsMostPlayedAsWhite" comment="%s is the number of games">
+		<item quantity="one">Твоят най-игран дебют с белите с %s партия</item>
+		<item quantity="other">Твоят най-игран дебют с белите с %s партии</item>
+	</plurals>
+	<plurals name="openingsMostPlayedAsBlack" comment="%s is the number of games">
+		<item quantity="one"> Твоят най-игран дебют с черните с %s партия</item>
+		<item quantity="other"> Твоят най-игран дебют с черните с %s партии</item>
+	</plurals>
 	<plurals name="puzzlesThanksVoting" comment="%s is the number of puzzles. It is also translated.">
 		<item quantity="one">Благодаря, че гласува за %s задача.</item>
 		<item quantity="other">Благодаря, че гласува за %s задачи.</item>
@@ -40,4 +48,21 @@
 	<string name="puzzlesNone">Не реши нито едина задача тази година.</string>
 	<string name="puzzlesTryNow">Искаш ли да пробваш няколко сега?</string>
 	<string name="puzzlesYouWonOnFirstTry">Реши %s от тях от първия път!</string>
+	<string name="sourcesTitle">Къде намери партии?</string>
+	<string name="perfsTitle">Какви конторли и варианти игра?</string>
+	<string name="malwareNoneLoaded" comment="%s is 0">%s заредени реклами и тракери</string>
+	<string name="malwareNoSell">Не продадохме личните ви данни</string>
+	<string name="malwareNoAbuse">Не използвахме устройството ви срещу вас</string>
+	<string name="malwareWarningPrefix" comment="%s is 'be careful'">Но други сайтове го правят, затова, моля, %s.</string>
+	<string name="malwareWarningCta" comment="It is a link to https://lichess.org/ads">внимавай</string>
+	<string name="lichessGamesPlayedIn" comment="%1$s is the number of games, %2$s is the year">%1$s изиграни партии в Lichess през %2$s</string>
+	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours">%s от тях бяха твои.</string>
+	<string name="thanksTitle">Благодарим ти, че играеш в Lichess!</string>
+	<string name="thanksHaveAGreat" comment="%s is the next year">Радваме се, че си тук. Желаем ти страхотна %s!</string>
+	<string name="shareableTitle" comment="%s is the current year">Моят обзор за %s</string>
+	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">прекарани в игра</string>
+	<string name="shareableMostPlayedOpponent">най-чест противник</string>
+	<string name="shareableFavouriteVariant">любим вариант</string>
+	<string name="shareableFavouriteTimeControl">любима контрола</string>
+	<string name="recapReady" comment="%s is the year of the recap">Твоят обзор за %s е готов!</string>
 </resources>
