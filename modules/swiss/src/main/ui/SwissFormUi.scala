@@ -213,7 +213,7 @@ final class SwissFormUi(helpers: Helpers)(
           ),
           form3.checkbox(
             form("flexible"),
-            "Flexible",
+            "Flexible Game Start",
             help = frag("Paired users can agree when they start their game").some,
             half = true
           ),
