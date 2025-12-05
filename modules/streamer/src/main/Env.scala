@@ -73,7 +73,7 @@ final class Env(
     repo = repo,
     isOnline = isOnline,
     keyword = config.keyword,
-    alwaysFeatured = (() => alwaysFeaturedSetting.get()),
+    alwaysFeatured = () => alwaysFeaturedSetting.get(),
     twitchApi = twitchApi,
     ytApi = ytApi,
     langList = langList
@@ -88,6 +88,10 @@ final class Env(
   Bus.sub[lila.core.mod.Shadowban]:
     case lila.core.mod.Shadowban(userId, true) => api.demote(userId)
     case lila.core.mod.Shadowban(userId, false) => repo.unignore(userId)
+
+  lila.common.Cli.handle:
+    case "streamer" :: "twitch" :: "resync" :: Nil =>
+      twitchApi.syncAll.inject("done")
 
   scheduler.scheduleWithFixedDelay(1.hour, 1.day): () =>
     repo.autoDemoteFakes
