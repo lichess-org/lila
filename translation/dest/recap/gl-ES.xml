@@ -6,7 +6,7 @@
 	<string name="noGamesText">Este ano non xogaches ningunha partida.</string>
 	<string name="noGamesCta">Queres xogar agora?</string>
 	<string name="gamesYouWon" comment="%s is the number of games won">E gañaches %s!</string>
-	<string name="gamesNextQuestion" comment="Appears in the recap to set up some questions about the games you have played.&#10;&#10;In context, it appears in this sequence:&#10;&#10;&quot;What a chess year you've had!&quot;&#10;&quot;You played %s games this year&quot;&#10;&quot;And you won %s of them!&quot;&#10;&#10;&quot;What did it takes to get there?&quot; &lt;--- THIS MESSAGE&#10;&#10;&quot;𝑦 {minutes/hours/days} spent playing&quot;&#10;&quot;{That is way too much chess./That is a lot of chess./That seems like a reasonable about of chess.}&quot;&#10;&quot;That's 𝑥g of wood pushed&quot;&#10;&#10;There are more messages afterwards but it should give an idea of where it appears.">Canto che custou acadalo?</string>
+	<string name="gamesNextQuestion">Canto che custou acadalo?</string>
 	<string name="timeSpentPlayingExclam" comment="%s is the time spent playing animated from 0 e.g. '1 day, 17 hours'. The time is also translated">Pasaches %s xogando!</string>
 	<string name="timeTooMuch">Iso é demasiado xadrez.</string>
 	<string name="timeALot">Iso é unha manchea de xadrez.</string>
@@ -16,13 +16,13 @@
 		<item quantity="one">%s movemento xogado</item>
 		<item quantity="other">%s movementos xogados</item>
 	</plurals>
-	<string name="movesOfWoodPushed" comment="%s is a weight in grams or kilograms&#10;&#10;This shows you the weight from all the moves you made in the year, if you were moving wooden pieces.">Apañaches %s de leña!</string>
-	<string name="movesStandardPiecesWeight" comment="40g as in 40 grams">Cada peza pesa tipicamente uns 40 gramos</string>
+	<string name="movesOfWoodPushed" comment="%s is a weight in grams or kilograms">Apañaches %s de leña!</string>
+	<string name="movesStandardPiecesWeight">Cada peza pesa tipicamente uns 40 gramos</string>
 	<plurals name="nbMoves">
 		<item quantity="one">%s movemento</item>
 		<item quantity="other">%s movementos</item>
 	</plurals>
-	<string name="chessFoes" comment="Best as in strongest opponents.">Os teus mellores adversarios</string>
+	<string name="chessFoes">Os teus mellores adversarios</string>
 	<plurals name="nbGrams">
 		<item quantity="one">%s gramo</item>
 		<item quantity="other">%s gramos</item>
@@ -31,7 +31,7 @@
 		<item quantity="one">%s quilogramo</item>
 		<item quantity="other">%s quilogramos</item>
 	</plurals>
-	<string name="firstMoveStats" comment="%s is the number of games played and their percentage of the total, in parentheses.&#10;&#10;Subtitle to your most played move e.g. '1. e4'.&#10;&#10;e.g.&#10;&quot;1. e4&#10;is how you started 50 (67%) of your games as white&quot;&#10;Meaning you played 50 games as white over the past year, which was 67% of the games you played as white.">é como empezaches %s das túas partidas con brancas</string>
+	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">é como empezaches %s das túas partidas con brancas</string>
 	<string name="openingsMostPlayedAsWhite" comment="%s is the number of games (translated)">A túa apertura máis xogada con brancas (%s partidas)</string>
 	<string name="openingsMostPlayedAsBlack" comment="%s is the number of games (translated)">A túa apertura máis xogada con negras (%s partidas)</string>
 	<plurals name="puzzlesThanksVoting" comment="%s is the number of puzzles. It is also translated.">
@@ -42,10 +42,9 @@
 	<string name="puzzlesNone">Este ano non resolviches ningún crebacabezas.</string>
 	<string name="puzzlesTryNow">Queres probar agora?</string>
 	<string name="puzzlesYouWonOnFirstTry">Acertaches %s crebacabezas no primeiro intento!</string>
-	<string name="sourcesPoolPairing" comment="Pool pairing in this context is the &quot;Quick pairing&quot; on the home page">Emparellamento rápido</string>
-	<string name="sourcesTitle" comment="Find is about seeking, e.g. quick pairing or the lobby">Onde buscas con quen xogar?</string>
+	<string name="sourcesTitle">Onde buscas con quen xogar?</string>
 	<string name="perfsTitle">Que controis de tempo e variantes xogaches?</string>
-	<string name="malwareNoneLoaded" comment="%s is always &quot;0&quot;">%s anuncios e rastrexadores cargados</string>
+	<string name="malwareNoneLoaded" comment="%s is 0">%s anuncios e rastrexadores cargados</string>
 	<string name="malwareNoSell">Non vendimos os teus datos persoais</string>
 	<string name="malwareNoAbuse">Non empregamos o teu dispositivo contra ti</string>
 	<string name="malwareWarningPrefix" comment="%s is 'be careful'">Outros sitios o fan, así que, por favor %s.</string>
@@ -55,9 +54,9 @@
 	<string name="thanksTitle">Grazas por xogar no Lichess!</string>
 	<string name="thanksHaveAGreat" comment="%s is the next year">Aledámonos de que esteas aquí. Que teñas un bo %s!</string>
 	<string name="shareableTitle" comment="%s is the current year">O meu resumo do %s</string>
-	<string name="shareableSpentPlaying" comment="Subtitle to the translated time they have spent playing">tempo xogado</string>
-	<string name="shareableMostPlayedOpponent" comment="Subtitle to the username of the opponent you have played the most games against">o rival con quen máis xogaches</string>
-	<string name="shareableFavouriteVariant" comment="Subtitle to the variant you played the most games in">variante favorita</string>
-	<string name="shareableFavouriteTimeControl" comment="Subtitle to the time control you played the most games in">control de tempo favorito</string>
+	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">tempo xogado</string>
+	<string name="shareableMostPlayedOpponent">o rival con quen máis xogaches</string>
+	<string name="shareableFavouriteVariant">variante favorita</string>
+	<string name="shareableFavouriteTimeControl">control de tempo favorito</string>
 	<string name="recapReady" comment="%s is the year of the recap">O teu resumo do %s está listo!</string>
 </resources>
