@@ -16,8 +16,6 @@
 	<string name="movesStandardPiecesWeight">Les peces estàndard pesen normalment 40g cada una</string>
 	<string name="chessFoes">Els teus millors rivals dels escacs</string>
 	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">és com has començat el %s de les teves partides amb blanques</string>
-	<string name="openingsMostPlayedAsWhite" comment="%s is the number of games (translated)">La teva obertura més jugada amb blanques amb %s partides</string>
-	<string name="openingsMostPlayedAsBlack" comment="%s is the number of games (translated)">La teva obertura més jugada amb negres amb %s partides</string>
 	<string name="puzzlesHelpedTagging" comment="%s is a number e.g. 5">També has ajudat a etiquetar %s d\'ells.</string>
 	<string name="puzzlesNone">No has resolt cap problema aquest any.</string>
 	<string name="puzzlesTryNow">Vols provar-n\'he algun ara?</string>
