@@ -184,8 +184,8 @@
   <string name="fromInitialPositionText">起始局面。&lt;br&gt;可以用来研讨开局。</string>
   <string name="customPositionTitle">自定义局面</string>
   <string name="customPositionText">自定义局面。&lt;br&gt;可以用来研讨终局。</string>
-  <string name="loadExistingLichessGameTitle">导入 Lichess 棋局</string>
-  <string name="loadExistingLichessGameText">导入Lichess棋局链接&lt;br&gt;(例如 lichess.org/7fHIU0XI)&lt;br&gt;来导入这局棋中的所有棋步</string>
+  <string name="loadExistingLichessGameTitle">加载一个已有的 Lichess 对局</string>
+  <string name="loadExistingLichessGameText">粘贴 Lichess 对局 URL&lt;br&gt;（例如 lichess.org/7fHIU0XI）&lt;br&gt;以便将对局着法加载到本章节中。</string>
   <string name="fromFenStringTitle">导入 FEN 代码</string>
   <string name="fromFenStringText">粘贴一个局面的 FEN 代码&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;来从这个局面开始章节</string>
   <string name="fromPgnGameTitle">导入 PGN 代码</string>
