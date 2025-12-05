@@ -42,7 +42,7 @@
   <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">时间剩余 &lt; 30 秒时</string>
   <string name="moveConfirmation">确认走棋</string>
   <string name="explainCanThenBeTemporarilyDisabled">可以在游戏中使用棋盘菜单禁用此功能</string>
-  <string name="inCorrespondenceGames">通信棋局</string>
+  <string name="inCorrespondenceGames">通讯棋</string>
   <string name="correspondenceAndUnlimited">通信和无限</string>
   <string name="confirmResignationAndDrawOffers">认输以及提出和棋需要确认</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">王车易位方法</string>
@@ -54,15 +54,15 @@
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">输棋、和棋后自动发送：“厉害，玩得不错！”</string>
   <string name="yourPreferencesHaveBeenSaved">你的设置已保存。</string>
   <string name="scrollOnTheBoardToReplayMoves">在棋盘上滚动鼠标滚轮以回退</string>
-  <string name="correspondenceEmailNotification">每日发送邮件通知你正在进行的通讯棋局</string>
+  <string name="correspondenceEmailNotification">每日发送邮件通知你正在进行的通讯棋</string>
   <string name="notifyStreamStart">主播开始直播</string>
   <string name="notifyInboxMsg">新消息</string>
   <string name="notifyForumMention">论坛评论提到了你</string>
   <string name="notifyInvitedStudy">研讨邀请</string>
-  <string name="notifyGameEvent">通信棋局更新</string>
+  <string name="notifyGameEvent">通信棋更新</string>
   <string name="notifyChallenge">挑战</string>
   <string name="notifyTournamentSoon">比赛即将开始</string>
-  <string name="notifyTimeAlarm">通讯棋局时间快要耗尽</string>
+  <string name="notifyTimeAlarm">通讯棋时间快要耗尽</string>
   <string name="notifyBell">Lichess 内的铃声通知</string>
   <string name="notifyPush">Lichess 外的设备通知</string>
   <string name="notifyWeb">浏览器通知</string>
