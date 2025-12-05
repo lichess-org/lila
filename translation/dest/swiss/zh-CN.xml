@@ -23,7 +23,7 @@
   </plurals>
   <string name="nextRound">下一轮</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
-    <item quantity="other">进行中的棋局</item>
+    <item quantity="other">进行中的对局</item>
   </plurals>
   <string name="tournStartDate">比赛开始日期</string>
   <string name="numberOfRounds">回合数</string>
@@ -43,7 +43,7 @@
   <string name="mustHavePlayedTheirLastSwissGameHelp">只允许完成他们最近一轮 Swiss 游戏的玩家加入。如果他们未能在最近的 Swiss 赛事中出现，他们将无法进入您的比赛。 这给实际出现的玩家带来更好的 Swiss 体验。</string>
   <string name="newSwiss">新 Swiss 锦标赛</string>
   <string name="swissVsArenaQ">什么时候适合用 Swiss 锦标赛而不是竞技场？</string>
-  <string name="swissVsArenaA">在 Swiss 锦标赛中，所有选手将参与相同数量的棋局，并且每位对手只会遇到一次。因此适合俱乐部或正式比赛。</string>
+  <string name="swissVsArenaA">在瑞士锦标赛中，所有选手将参与相同数量的对局，并且每位对手只会遇到一次。因此适合俱乐部或正式比赛。</string>
   <string name="pointsCalculationQ">如何计算积分？</string>
   <string name="pointsCalculationA">获胜得一分，平局得半分，失败得零分。
 若玩家在某回合中无法配对，他将被轮空并得一分。</string>
@@ -64,8 +64,8 @@
   <string name="numberOfByesA">每当系统无法为某选手配对，他将轮空一轮并获得一分。
 此外，一个晚加入比赛的选手将轮空一轮并获得半分。</string>
   <string name="earlyDrawsQ">过早平局会发生什么？</string>
-  <string name="earlyDrawsAnswer">在瑞士锦标赛中，当棋局长度不足 30 回合时，玩家将不能提和。尽管这不能防止提前约定好的和棋，但至少使商定和棋更加困难。</string>
-  <string name="whatIfOneDoesntPlayQ">如果玩家不进行棋局会怎样？</string>
+  <string name="earlyDrawsAnswer">在瑞士锦标赛中，当对局长度不足 30 回合时，玩家将不能提和。尽管这不能防止提前约定好的和棋，但至少使商定和棋更加困难。</string>
+  <string name="whatIfOneDoesntPlayQ">如果玩家不进行对局会怎样？</string>
   <string name="whatIfOneDoesntPlayA">当时间耗尽，他们会被标记，并输掉比赛。
 然后系统会将该玩家从比赛中踢出，使他不至于输掉更多比赛。
 他们随时可以重新加入比赛。</string>
