@@ -32,8 +32,8 @@
 		<item quantity="other">%s Kilogramm</item>
 	</plurals>
 	<string name="firstMoveStats" comment="%s is the number of games played and their percentage of the total, in parentheses.&#10;&#10;Subtitle to your most played move e.g. '1. e4'.&#10;&#10;e.g.&#10;&quot;1. e4&#10;is how you started 50 (67%) of your games as white&quot;&#10;Meaning you played 50 games as white over the past year, which was 67% of the games you played as white.">ist der Zug, mit dem du %s deiner Partien mit Weiß begonnen hast</string>
-	<string name="openingsMostPlayedAsWhite" comment="%s is the number of games (translated)">Deine meistgespielte Eröffnung mit Weiß mit %s Partien</string>
-	<string name="openingsMostPlayedAsBlack" comment="%s is the number of games (translated)">Deine meistgespielte Eröffnung mit Schwarz mit %s Partien</string>
+	<string name="openingsMostPlayedAsWhite" comment="Appears as a subtitle to your most-played opening as white.&#10;&#10;%s is the count of games.&#10;&#10;e.g.&#10;&quot;King's Gambit&#10;Your most played opening as white with 14&quot;">Deine meistgespielte Eröffnung mit Weiß mit %s Partien</string>
+	<string name="openingsMostPlayedAsBlack" comment="Appears as a subtitle to your most-played opening as black.&#10;&#10;%s is the count of games.&#10;&#10;e.g.&#10;&quot;French Defence&#10;Your most played opening as black with 14&quot;">Deine meistgespielte Eröffnung mit Schwarz mit %s Partien</string>
 	<plurals name="puzzlesThanksVoting" comment="%s is the number of puzzles. It is also translated.">
 		<item quantity="one">Danke für das Abstimmen bei %s Aufgabe.</item>
 		<item quantity="other">Danke für das Abstimmen bei %s Partien.</item>
@@ -51,6 +51,13 @@
 	<string name="malwareWarningPrefix" comment="%s is 'be careful'">Andere Webseiten setzen diese Praktiken ein, deshalb %s.</string>
 	<string name="malwareWarningCta" comment="It is a link to https://lichess.org/ads">sei vorsichtig</string>
 	<string name="lichessGamesPlayedIn" comment="%1$s is the number of games, %2$s is the year">%1$s Partien auf Lichess in %2$s gespielt</string>
+	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours">%s der Partien waren deine.</string>
+	<string name="thanksTitle">Vielen Dank, dass du auf Lichess spielst!</string>
+	<string name="thanksHaveAGreat" comment="%s is the next year">Wir sind froh, dass du hier bist. Hab\' ein fantastisches %s!</string>
 	<string name="shareableTitle" comment="%s is the current year">Deine %s Zusammenfassung</string>
+	<string name="shareableSpentPlaying" comment="Subtitle to the translated time they have spent playing">Gesamtspielzeit</string>
+	<string name="shareableMostPlayedOpponent" comment="Subtitle to the username of the opponent you have played the most games against">Häufigster Gegner</string>
+	<string name="shareableFavouriteVariant" comment="Subtitle to the variant you played the most games in">Lieblingsvariante</string>
+	<string name="shareableFavouriteTimeControl" comment="Subtitle to the time control you played the most games in">Lieblings-Zeitkontrolle</string>
 	<string name="recapReady" comment="%s is the year of the recap">Deine %s Zusammenfassung ist da!</string>
 </resources>
