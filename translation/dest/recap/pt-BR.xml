@@ -32,8 +32,6 @@
 		<item quantity="other">%s kilogramas</item>
 	</plurals>
 	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">é como você começou %s das suas partidas com as brancas</string>
-	<string name="openingsMostPlayedAsWhite" comment="%s is the number of games (translated)">Sua abertura mais jogada com as brancas em %s</string>
-	<string name="openingsMostPlayedAsBlack" comment="%s is the number of games (translated)">Sua abertura mais jogada com as pretas em %s</string>
 	<plurals name="puzzlesThanksVoting" comment="%s is the number of puzzles. It is also translated.">
 		<item quantity="one">Obrigado por votar em %s quebra-cabeça.</item>
 		<item quantity="other">Obrigado por votar em %s quebra-cabeças.</item>
