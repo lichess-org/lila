@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="hiUser" comment="%s is the title+username e.g. 'GM ABC' or simply ABC if there is no title">Hallo, %s</string>
+	<string name="hiUser" comment="%s is the title+username e.g. 'GM ABC' or simply ABC if there is no title">Hoi, %s</string>
 	<string name="awaitQuestion" comment="Displayed while waiting for results">Was häsch das Jahr eso g\'macht?</string>
 	<string name="initTitle">Wie isch dis Schach-Jahr gsi!</string>
 	<string name="noGamesText">Du häsch das Jahr keis Schpiel g\'schpillt.</string>
@@ -32,6 +32,14 @@
 		<item quantity="other">%s Kilo</item>
 	</plurals>
 	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">so häsch du %s vu dine Schpiel - mit Wiss - agfange</string>
+	<plurals name="openingsMostPlayedAsWhite" comment="%s is the number of games">
+		<item quantity="one">Dini meischt-g\'schpillti Eröffnig - mit Wiss - in %s Schpiel</item>
+		<item quantity="other">Dini meischt-g\'schpillti Eröffnig - mit Wiss - in %s Schpiel</item>
+	</plurals>
+	<plurals name="openingsMostPlayedAsBlack" comment="%s is the number of games">
+		<item quantity="one"> Dini meischt-g\'schpillti Eröffnig - mit Schwarz - in %s Schpiel</item>
+		<item quantity="other"> Dini meischt-g\'schpillti Eröffnig - mit Schwarz - in %s Schpiel</item>
+	</plurals>
 	<plurals name="puzzlesThanksVoting" comment="%s is the number of puzzles. It is also translated.">
 		<item quantity="one">Danke für dini Stimm bi %s Ufgab.</item>
 		<item quantity="other">Danke für dini Stimm bi %s Ufgabe.</item>
@@ -47,5 +55,14 @@
 	<string name="malwareNoAbuse">Mir mached nüt mit dim G\'rät</string>
 	<string name="malwareWarningPrefix" comment="%s is 'be careful'">Aber anderi Website mached das, also %s.</string>
 	<string name="malwareWarningCta" comment="It is a link to https://lichess.org/ads">bis vorsichtig</string>
-	<string name="lichessGamesPlayedIn" comment="%1$s is the number of games, %2$s is the year">%2$s häsch du uf Lichess %1$s Schpiel g\'schpillt</string>
+	<string name="lichessGamesPlayedIn" comment="%1$s is the number of games, %2$s is the year">Im Jahr %2$s sind uf Lichess %1$s Schpiel g\'schpillt worde</string>
+	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours">%s devo vu dir.</string>
+	<string name="thanksTitle">Danke, dass du uf Lichess schpillsch!</string>
+	<string name="thanksHaveAGreat" comment="%s is the next year">Mir freued eus, dass du da bisch und wünsched dir es super %s!</string>
+	<string name="shareableTitle" comment="%s is the current year">Mini Zämmefassig vu %s</string>
+	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">g\'schpillt</string>
+	<string name="shareableMostPlayedOpponent">meischt\' g\'schpillti Gägner</string>
+	<string name="shareableFavouriteVariant">bevorzugti Schpiel-Variante</string>
+	<string name="shareableFavouriteTimeControl">bevorzugti Zit-Variante</string>
+	<string name="recapReady" comment="%s is the year of the recap">Dini Zämmefassig für %s isch parat!</string>
 </resources>
