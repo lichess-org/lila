@@ -70,8 +70,6 @@ trait AssetHelper:
 
   def iconFlair(flair: Flair): Tag = decorativeImg(cls := "icon-flair", src := flairSrc(flair))
 
-  def fideFedSrc(fideFed: String): Url = staticAssetUrl(s"$fideFedVersion/fide/fed-webp/${fideFed}.webp")
-
   def fingerprintTag: EsmList = Esm("bits.fipr")
 
   def hcaptchaScript(re: lila.core.security.HcaptchaForm[?]): EsmList =
