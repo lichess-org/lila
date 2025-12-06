@@ -14,7 +14,7 @@ import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
 
-final class SwissShow(helpers: Helpers, ui: SwissBitsUi, gathering: GatheringUi)(using NetDomain):
+final class SwissShowUi(helpers: Helpers, ui: SwissBitsUi, gathering: GatheringUi)(using NetDomain):
   import helpers.{ *, given }
 
   private def fullName(s: Swiss, t: LightTeam) = s"${s.name} by ${t.name}"
@@ -112,12 +112,11 @@ final class SwissShow(helpers: Helpers, ui: SwissBitsUi, gathering: GatheringUi)
               ),
               separator,
               a(href := routes.Swiss.home)(trans.swiss.swiss()),
-              (Granter.opt(_.ManageTournament) || (ctx.is(s.createdBy) && s.isEnterable)).option(
+              (Granter.opt(_.ManageTournament) || (ctx.is(s.createdBy) && s.isNotFinished)).option:
                 frag(
                   " ",
                   a(href := routes.Swiss.edit(s.id), title := "Edit tournament")(iconTag(Icon.Gear))
                 )
-              )
             ),
             ui.showInterval(s)
           )
