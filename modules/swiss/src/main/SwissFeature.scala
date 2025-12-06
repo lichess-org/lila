@@ -33,12 +33,11 @@ final class SwissFeature(
       .map: (cached, teamed) =>
         FeaturedSwisses(
           created = (teamed.created ::: cached.created)
-          .distinctBy(_.id)
-          .sorted(using startsAtOrdering),
-
+            .distinctBy(_.id)
+            .sorted(using startsAtOrdering),
           started = (teamed.started ::: cached.started)
-          .distinctBy(_.id)
-          .sorted(using startsAtOrdering.reverse)
+            .distinctBy(_.id)
+            .sorted(using startsAtOrdering.reverse)
         )
 
   def idNames: Fu[FeaturedIdNames] = get(Nil).map: f =>
