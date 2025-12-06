@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+	<plurals name="openingsMostPlayedAsWhite" comment="%s is the number of games">
+		<item quantity="one">Met %s partij je meest gespeelde opening met wit</item>
+		<item quantity="other">Met %s partijen je meest gespeelde opening met wit</item>
+	</plurals>
+	<plurals name="openingsMostPlayedAsBlack" comment="%s is the number of games">
+		<item quantity="one">Met %s partij je meest gespeelde opening met zwart</item>
+		<item quantity="other">Met %s partijen je meest gespeelde opening met zwart</item>
+	</plurals>
+</resources>
