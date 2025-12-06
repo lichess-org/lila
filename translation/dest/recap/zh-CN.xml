@@ -28,6 +28,12 @@
 		<item quantity="other">%s 千克</item>
 	</plurals>
 	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">这是您执白时，%s 对局的开局方式</string>
+	<plurals name="openingsMostPlayedAsWhite" comment="%s is the number of games">
+		<item quantity="other">您执白时最常使用的开局，共 %s 局</item>
+	</plurals>
+	<plurals name="openingsMostPlayedAsBlack" comment="%s is the number of games">
+		<item quantity="other">您执黑时最常使用的开局，共 %s 局</item>
+	</plurals>
 	<plurals name="puzzlesThanksVoting" comment="%s is the number of puzzles. It is also translated.">
 		<item quantity="other">感谢您对 %s 道谜题进行了投票。</item>
 	</plurals>
@@ -40,8 +46,8 @@
 	<string name="malwareNoneLoaded" comment="%s is 0">加载了 %s 个广告和跟踪器</string>
 	<string name="malwareNoSell">我们没有出售您的个人数据</string>
 	<string name="malwareNoAbuse">我们没有利用您的设备对付您</string>
-	<string name="malwareWarningPrefix" comment="%s is 'be careful'">但其他网站会，所以请 %s。</string>
-	<string name="malwareWarningCta" comment="It is a link to https://lichess.org/ads">多加小心</string>
+	<string name="malwareWarningPrefix" comment="%s is 'be careful', which is translatable separately.">但其他网站会，所以请 %s。</string>
+	<string name="malwareWarningCta" comment="Part of a longer sentence &quot;But other websites do, so please be careful.&quot;&#10;&#10;Appears in the context of noting that Lichess served zero ads.&#10;The text links to https://lichess.org/ads">多加小心</string>
 	<string name="lichessGamesPlayedIn" comment="%1$s is the number of games, %2$s is the year">%2$s 年，在 Lichess 上共进行了 %1$s 局对弈</string>
 	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours">其中有 %s 局属于您。</string>
 	<string name="thanksTitle">感谢您在 Lichess 上对弈！</string>
