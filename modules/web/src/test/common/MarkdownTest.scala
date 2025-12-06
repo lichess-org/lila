@@ -128,7 +128,7 @@ class MarkdownTest extends munit.FunSuite:
     val render = MarkdownRender(sourceMap = true)("test")
     assert(render(Markdown(text)).value.contains("QuieroAprender"))
 
-  test("quote flood prevention".only):
+  test("quote flood prevention"):
     assertEquals(
       MarkdownRender.preventStackOverflow(Markdown(">>>>>>>>>> Hello")),
       Markdown("> > > > > Hello")
@@ -153,5 +153,6 @@ Line 2""")
   test("markdown 5 quotes to 4 escaped quotes with spaces"):
     assertEquals(
       render(Markdown(">>>>> Hi")),
-      Html("""<p>&gt; &gt; &gt; &gt; Hi</p>""")
+      Html("""<p>&gt; &gt; &gt; &gt; &gt; Hi</p>
+""")
     )
