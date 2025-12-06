@@ -57,6 +57,7 @@
 	<string name="thanksHaveAGreat" comment="%s is the next year">We zijn blij dat je hier bent. Fijn %s!</string>
 	<string name="shareableTitle" comment="%s is the current year">Mijn samenvatting van %s</string>
 	<string name="shareableSpentPlaying" comment="Subtitle to the translated time they have spent playing&#10;&#10;Will be rendered like:&#10;&quot;1 day, 2 hours&#10;spent playing&quot;">geschaakt</string>
+	<string name="shareableMostPlayedOpponent" comment="Subtitle to the username of the opponent you have played the most games against&#10;&#10; Will be rendered like:&#10;&quot;GM Magnus&#10;most played opponent&quot;&#10;&#10;(where GM Magnus is the title+username of the player)">meest frequente tegenstander</string>
 	<string name="shareableFavouriteVariant">favoriete variant</string>
 	<string name="shareableFavouriteTimeControl" comment="Subtitle to the time control you played the most games in&#10;&#10; Will be rendered like:&#10;&quot;Rapid&#10;favourite time control&quot;">favoriet speeltempo</string>
 	<string name="recapReady" comment="%s is the year of the recap">Je samenvatting van %s is klaar!</string>
