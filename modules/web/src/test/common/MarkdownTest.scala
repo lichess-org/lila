@@ -127,3 +127,10 @@ class MarkdownTest extends munit.FunSuite:
     val text = """@Betcomcpiey @QuieroAprender"""
     val render = MarkdownRender(sourceMap = true)("test")
     assert(render(Markdown(text)).value.contains("QuieroAprender"))
+
+  test("markdown 5 quotes to 4 escaped quotes with spaces"):
+    assertEquals(
+      render(Markdown(">>>>> Hi")),
+      Html("""<p>&gt; &gt; &gt; &gt; Hi</p>
+""")
+    )
