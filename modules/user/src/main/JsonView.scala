@@ -100,11 +100,9 @@ object JsonView:
     JsObject:
       p.perfsList.collect:
         case (key, perf) if perf.nb > 0 || lila.rating.PerfType.standardSet(key) =>
-          val perfJson = perfWrites.writes(perf)
-          key.value -> rankMap
-            .flatMap(_.get(key))
-            .fold(perfJson): rank =>
-              perfJson + ("rank" -> JsNumber(rank))
+          key.value -> perfWrites
+            .writes(perf)
+            .add("rank" -> rankMap.flatMap(_.get(key)))
     .add("storm", p.storm.option)
       .add("racer", p.racer.option)
       .add("streak", p.streak.option)
