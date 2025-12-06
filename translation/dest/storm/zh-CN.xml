@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="moveToStart">开始解题</string>
+  <string name="moveToStart">走一步棋以开始</string>
   <string name="youPlayTheWhitePiecesInAllPuzzles">所有谜题中您执白方</string>
   <string name="youPlayTheBlackPiecesInAllPuzzles">所有谜题中您执黑方</string>
   <string name="puzzlesSolved">已解决的谜题数</string>
