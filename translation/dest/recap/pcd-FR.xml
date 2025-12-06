@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="gamesYouWon" comment="%s is the number of games won">Et t\'en a gagné %s !</string>
+</resources>

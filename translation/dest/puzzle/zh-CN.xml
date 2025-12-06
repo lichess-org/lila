@@ -7,7 +7,8 @@
   <string name="motifs">分主题</string>
   <string name="advanced">进阶</string>
   <string name="lengths">分长度</string>
-  <string name="mates">将死</string>
+  <string name="mates">将杀</string>
+  <string name="mateThemes">将杀主题</string>
   <string name="goals">分目标</string>
   <string name="origin">来源</string>
   <string name="specialMoves">特殊着法</string>
@@ -72,8 +73,8 @@
   <string name="fromMyGames">来自我的对局</string>
   <string name="lookupOfPlayer">从玩家的对局中查找谜题</string>
   <string name="searchPuzzles">搜索谜题</string>
-  <string name="fromMyGamesNone">你下过的棋局暂时没有被纳入到谜题数据库中，但 Lichess 将一如既往地记着你所走的每一步。
-多下快棋和慢棋可以提升你的棋局被纳入谜题数据库的概率哦！</string>
+  <string name="fromMyGamesNone">你下过的对局暂时没有被纳入到谜题数据库中，但 Lichess 将一如既往地记着你所走的每一步。
+多下快棋和慢棋可以提升你的对局被纳入谜题数据库的概率哦！</string>
   <plurals name="puzzlesFoundInUserGames">
     <item quantity="other">在%2$s 的对局中发现了 %1$s 个谜题</item>
   </plurals>

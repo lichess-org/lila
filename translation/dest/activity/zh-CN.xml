@@ -21,13 +21,13 @@
     <item quantity="other">下了 %1$s 手棋</item>
   </plurals>
   <plurals name="inNbCorrespondenceGames">
-    <item quantity="other">在 %1$s 局通讯棋局中</item>
+    <item quantity="other">在 %1$s 局通讯棋中</item>
   </plurals>
   <plurals name="completedNbGames">
     <item quantity="other">完成了 %s 盘通讯棋</item>
   </plurals>
   <plurals name="completedNbVariantGames">
-    <item quantity="other">下完了%1$s%2$s局通信棋局</item>
+    <item quantity="other">已完成 %1$s 局 %2$s 通讯棋</item>
   </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="other">新关注 %s 个用户</item>

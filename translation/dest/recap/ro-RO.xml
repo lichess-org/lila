@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="hiUser" comment="%s is the title+username e.g. 'GM ABC' or simply ABC if there is no title">Salut, %s</string>
+	<string name="awaitQuestion" comment="Displayed while waiting for results">Cu ce te-ai ocupat anul acesta?</string>
+	<string name="noGamesText">Nu ai jucat niciun joc în acest an.</string>
+	<string name="noGamesCta">Vrei să joci acum?</string>
+	<string name="gamesYouWon" comment="%s is the number of games won">Și ai câștigat %s!</string>
+	<string name="malwareWarningCta" comment="It is a link to https://lichess.org/ads">ai grijă</string>
+	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">petrecut jucând</string>
+	<string name="shareableMostPlayedOpponent">oponentul cel mai frecvent</string>
+	<string name="recapReady" comment="%s is the year of the recap">Recapitularea ta pentru %s este gata!</string>
+</resources>

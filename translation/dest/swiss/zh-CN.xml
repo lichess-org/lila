@@ -1,121 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="swiss">Swiss</string>
-  <string name="swissTournaments">瑞士锦标赛</string>
+  <string name="swiss">瑞士制</string>
+  <string name="swissTournaments">瑞士制锦标赛</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
-    <item quantity="other">查看所有 %s 回合</item>
+    <item quantity="other">查看全部 %s 轮</item>
   </plurals>
   <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
     <item quantity="other">%s 轮</item>
   </plurals>
   <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
-    <item quantity="other">%s 回合瑞士锦标赛</item>
+    <item quantity="other">%s 轮瑞士制</item>
   </plurals>
   <plurals name="oneRoundEveryXDays">
-    <item quantity="other">每 %s 天一轮</item>
+    <item quantity="other">每 %s 天进行一轮</item>
   </plurals>
-  <string name="roundsAreStartedManually">回合由手动开启</string>
+  <string name="roundsAreStartedManually">手动开始各轮次</string>
   <plurals name="xSecondsBetweenRounds">
-    <item quantity="other">回合间隔 %s 秒</item>
+    <item quantity="other">每轮间隔 %s 秒</item>
   </plurals>
   <plurals name="xMinutesBetweenRounds">
-    <item quantity="other">回合间隔 %s 分钟</item>
+    <item quantity="other">每轮间隔 %s 分钟</item>
   </plurals>
   <string name="nextRound">下一轮</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
-    <item quantity="other">进行中的棋局</item>
+    <item quantity="other">进行中的对局</item>
   </plurals>
-  <string name="tournStartDate">比赛开始日期</string>
-  <string name="numberOfRounds">回合数</string>
-  <string name="numberOfRoundsHelp">奇数回合可以使执色得到最佳平衡。</string>
-  <string name="roundInterval">回合间歇时间</string>
+  <string name="tournStartDate">锦标赛开始日期</string>
+  <string name="numberOfRounds">轮次数</string>
+  <string name="numberOfRoundsHelp">奇数轮次能实现最佳颜色平衡。</string>
+  <string name="roundInterval">轮次间隔</string>
   <string name="forbiddenPairings">禁止配对</string>
-  <string name="forbiddenPairingsHelp">不能配对的玩家用户名（例如家人或兄弟）。每行两个用户名用空格隔开。</string>
-  <string name="manualPairings">在下一轮中手动匹配</string>
-  <string name="manualPairingsHelp">手动指定下一轮的所有配对。每队玩家一行。 例如：
-玩家A 玩家B
-玩家C 玩家D
-如果轮空某位玩家不分配 (1 分)，添加一行：
-玩家E 1
-缺失的玩家将被视为缺席并获得零分。
-将此字段留空以允许 Lichess 自动创建配对。</string>
-  <string name="mustHavePlayedTheirLastSwissGame">必须已经完成他们最近一轮 Swiss 游戏</string>
-  <string name="mustHavePlayedTheirLastSwissGameHelp">只允许完成他们最近一轮 Swiss 游戏的玩家加入。如果他们未能在最近的 Swiss 赛事中出现，他们将无法进入您的比赛。 这给实际出现的玩家带来更好的 Swiss 体验。</string>
-  <string name="newSwiss">新 Swiss 锦标赛</string>
-  <string name="swissVsArenaQ">什么时候适合用 Swiss 锦标赛而不是竞技场？</string>
-  <string name="swissVsArenaA">在 Swiss 锦标赛中，所有选手将参与相同数量的棋局，并且每位对手只会遇到一次。因此适合俱乐部或正式比赛。</string>
-  <string name="pointsCalculationQ">如何计算积分？</string>
-  <string name="pointsCalculationA">获胜得一分，平局得半分，失败得零分。
-若玩家在某回合中无法配对，他将被轮空并得一分。</string>
-  <string name="tiebreaksCalculationQ">平局如何决胜？</string>
-  <string name="sonnebornBergerScore">Sonneborn-Berger 分制</string>
+  <string name="forbiddenPairingsHelp">必须禁止一起对弈的棋手用户名（例如，兄弟姐妹）。每行两个用户名，用空格分隔。</string>
+  <string name="manualPairings">手动指定下一轮配对</string>
+  <string name="manualPairingsHelp">手动指定下一轮的所有配对。每行一对棋手。例如：
+棋手A 棋手B
+棋手C 棋手D
+若想给予棋手轮空（1 分）而非配对，请添加如下一行：
+棋手E 1
+未列出的棋手将被视为缺席并获得零分。
+留空此字段，将由 lichess 自动创建配对。</string>
+  <string name="mustHavePlayedTheirLastSwissGame">必须已完成其上一场瑞士制对局</string>
+  <string name="mustHavePlayedTheirLastSwissGameHelp">仅允许已完成其上一场瑞士制对局的棋手加入。如果他们在最近的瑞士制赛事中缺席，他们将无法进入您的赛事。这将为实际到场的棋手带来更好的瑞士制体验。</string>
+  <string name="newSwiss">新建瑞士制锦标赛</string>
+  <string name="swissVsArenaQ">何时使用瑞士制锦标赛而非竞技场锦标赛？</string>
+  <string name="swissVsArenaA">在瑞士制锦标赛中，所有参赛者进行相同数量的对局，且彼此最多只对战一次。
+对于俱乐部和官方赛事来说，这可能是一个不错的选择。</string>
+  <string name="pointsCalculationQ">积分如何计算？</string>
+  <string name="pointsCalculationA">胜局得 1 分，和局得 0.5 分，负局得 0 分。
+当棋手在一轮中无法配对时，他们将获得轮空，计 1 分。</string>
+  <string name="tiebreaksCalculationQ">如何计算破同分？</string>
+  <string name="sonnebornBergerScore">索恩伯恩-贝格尔分</string>
   <string name="tiebreaksCalculationA">使用 %s。
-加上选手所有战胜的对手的得分以及所有战平的对手的得分的一半。</string>
+将棋手击败的每个对手的得分相加，加上与棋手战平的每个对手得分的一半。</string>
   <string name="pairingsQ">如何决定配对？</string>
-  <string name="dutchSystem">荷兰规则</string>
+  <string name="dutchSystem">荷兰制</string>
   <string name="FIDEHandbook">国际棋联手册</string>
-  <string name="pairingsA">根据 %3$s，采用 %2$s 实现的 %1$s。</string>
-  <string name="moreRoundsThanPlayersQ">如果比赛回合数多于玩家怎么办？</string>
-  <string name="moreRoundsThanPlayersA">当所有可能的配对都轮过后，比赛将立即结束并决出获胜者。</string>
-  <string name="restrictedToTeamsQ">为什么仅限于团队使用？</string>
-  <string name="restrictedToTeamsA">瑞士锦标赛不是为线上对弈设计的，它需要玩家高度守时、全身心投入并保持耐心。
-相对于公开比赛，我们认为在团队内更有可能满足这些条件。</string>
-  <string name="numberOfByesQ">选手可能被轮空多少次？</string>
-  <string name="numberOfByesA">每当系统无法为某选手配对，他将轮空一轮并获得一分。
-此外，一个晚加入比赛的选手将轮空一轮并获得半分。</string>
-  <string name="earlyDrawsQ">过早平局会发生什么？</string>
-  <string name="earlyDrawsAnswer">在瑞士锦标赛中，当棋局长度不足 30 回合时，玩家将不能提和。尽管这不能防止提前约定好的和棋，但至少使商定和棋更加困难。</string>
-  <string name="whatIfOneDoesntPlayQ">如果玩家不进行棋局会怎样？</string>
-  <string name="whatIfOneDoesntPlayA">当时间耗尽，他们会被标记，并输掉比赛。
-然后系统会将该玩家从比赛中踢出，使他不至于输掉更多比赛。
-他们随时可以重新加入比赛。</string>
-  <string name="protectionAgainstNoShowQ">对于没有参加的情况怎么办？</string>
-  <string name="protectionAgainstNoShowA">报名参加瑞士锦标赛但不下棋的玩家可能导致问题。
-为了缓解这些麻烦，Lichess 会阻止未能在加入锦标赛一段时间内下出一盘棋的玩家。
-瑞士锦标赛的创建者也可以决定是否让他们加入。</string>
-  <string name="lateJoinQ">玩家可以稍后加入吗？</string>
-  <string name="lateJoinA">是的，直到一半的回合完成之前。比如一个有 11 轮的比赛，选手可以在第 6 轮开始前加入；一个 12 轮的比赛可以在第 7 轮开始前加入。
-晚加入的选手将轮空一次，无论他之前错过了多少轮。</string>
-  <string name="willSwissReplaceArenasQ">瑞士锦标赛将取代竞技场吗？</string>
-  <string name="willSwissReplaceArenasA">不会，他们是互补的。</string>
-  <string name="roundRobinQ">会加入循环赛吗？</string>
-  <string name="roundRobinA">我们曾想加入它，但很遗憾，循环赛不适用于线上。
-原因是没有公平的方法处理玩家提前离开比赛的情况。我们不能指望所有玩家在线上完成所有的比赛，这不现实。结果是，大部分循环赛都存在缺陷和不公平问题，从而缺少存在的理由。
-在线上，最能达到和循环赛相近的方法是举办一场回合数很多的瑞士锦标赛，这样在比赛结束前所有可能的配对都将进行一场对局。</string>
-  <string name="otherSystemsQ">会有其它的比赛系统吗？</string>
-  <string name="otherSystemsA">目前我们不打算为 Lichess 增加其它的比赛系统。</string>
-  <string name="swissDescription">在瑞士锦标赛（%1$s）中，选手们不需要依次面对所有其他参赛者。在每一轮比赛中，系统将根据一组规则来为选手配对，保证选手总是和得分相近的对手比赛，但相同的对手只会遇到一次。所有回合总得分最多的选手将获得比赛冠军。除非玩家仅剩奇数名，否则他们将参与每一轮比赛。</string>
-  <string name="teamOnly">瑞士锦标赛只能由队长创建，并且只能由队员参与。%1$s 以开始瑞士锦标赛。</string>
+  <string name="pairingsA">使用由 %2$s 实现的 %1$s，并遵循 %3$s。</string>
+  <string name="moreRoundsThanPlayersQ">如果锦标赛的轮次多于棋手数量会怎样？</string>
+  <string name="moreRoundsThanPlayersA">当所有可能的配对都已完成时，锦标赛将结束并宣布获胜者。</string>
+  <string name="restrictedToTeamsQ">为什么仅限于团队？</string>
+  <string name="restrictedToTeamsA">瑞士制锦标赛并非为在线对弈设计。它们要求棋手准时、投入和耐心。
+我们认为这些条件在团队内部比在全球性锦标赛中更容易满足。</string>
+  <string name="numberOfByesQ">一名棋手最多可获得几次轮空？</string>
+  <string name="numberOfByesA">每当配对系统无法为棋手找到对手时，该棋手将获得一次轮空（计 1 分）。
+此外，若棋手在锦标赛中途加入，将获得一次 0.5 分的轮空。</string>
+  <string name="earlyDrawsQ">提前和棋如何处理？</string>
+  <string name="earlyDrawsAnswer">在瑞士制对局中，双方走满 30 步之前不能和棋。虽然此措施无法防止事先约定的和棋，但至少让临时达成和意变得困难。</string>
+  <string name="whatIfOneDoesntPlayQ">如果棋手不进行对局会怎样？</string>
+  <string name="whatIfOneDoesntPlayA">他们的棋钟会继续走动，直到超时判负。
+然后系统会将棋手从锦标赛中除名，以避免他们输掉更多对局。
+他们可以随时重新加入锦标赛。</string>
+  <string name="protectionAgainstNoShowQ">如何处理缺席情况？</string>
+  <string name="protectionAgainstNoShowA">报名瑞士制赛事但不进行对局的棋手可能会造成问题。
+为缓解此问题，Lichess 会阻止未能完成对局的棋手在一定时间内加入新的瑞士制赛事。
+瑞士制赛事的创建者可以选择允许他们加入。</string>
+  <string name="lateJoinQ">棋手可以中途加入吗？</string>
+  <string name="lateJoinA">可以，在超过一半轮次开始之前；例如，在一个 11 轮的瑞士制赛事中，棋手可以在第 6 轮开始前加入；在 12 轮赛事中，则可在第 7 轮开始前加入。
+中途加入者即使错过数轮，也仅获得一次轮空。</string>
+  <string name="willSwissReplaceArenasQ">瑞士制会取代竞技场锦标赛吗？</string>
+  <string name="willSwissReplaceArenasA">不会。它们是互补的功能。</string>
+  <string name="roundRobinQ">未来会引入循环赛嘛？</string>
+  <string name="roundRobinA">我们希望能添加，但遗憾的是循环赛不适合线上环境。
+原因在于，它没有公平的方式处理棋手提前离开锦标赛的情况。我们不能指望所有棋手都在线上赛事中完成所有对局。这根本不会发生，结果导致大多数循环赛制锦标赛会出现缺陷和不公，这违背了其存在的初衷。
+您能在线上获得最接近循环赛体验的方法是举办一个轮次非常多的瑞士制锦标赛。这样，在锦标赛结束前，所有可能的配对都将完成。</string>
+  <string name="otherSystemsQ">其他锦标赛系统呢？</string>
+  <string name="otherSystemsA">目前我们没有计划在 Lichess 中添加更多的锦标赛系统。</string>
+  <string name="swissDescription">在瑞士制锦标赛 %1$s 中，每位参赛者不一定与其他所有参赛者对战。每轮中参赛者进行一对一比赛，并采用一套规则进行配对，以确保每位参赛者与累计得分相近的对手相遇，但不会与同一对手对战超过一次。获胜者是在所有轮次中获得总积分最高的参赛者。除非棋手人数为奇数，否则所有参赛者均参与每轮比赛。</string>
+  <string name="teamOnly">瑞士制锦标赛只能由团队领导创建，且只能由团队成员参加。
+%1$s 以开始在瑞士制锦标赛中对弈。</string>
   <string name="joinOrCreateTeam">加入或创建团队</string>
   <string name="nowPlaying">正在对局</string>
   <string name="startingSoon">即将开始</string>
   <string name="comparison">对比</string>
-  <string name="tournDuration">比赛时长</string>
-  <string name="predefinedDuration">预定义时长</string>
-  <string name="durationUnknown">预定义最大回合，但持续时间不确定</string>
-  <string name="numberOfGames">比赛场数</string>
-  <string name="numberOfGamesAsManyAsPossible">在允许的时间内尽可能多地参与比赛</string>
-  <string name="numberOfGamesPreDefined">事先决定，对所有玩家都是相同的</string>
-  <string name="pairingSystem">配对机制</string>
-  <string name="pairingSystemArena">任何具有相近排名的对手</string>
-  <string name="pairingSystemSwiss">基于得分和平局数量的最佳匹配</string>
+  <string name="tournDuration">锦标赛时长</string>
+  <string name="predefinedDuration">预定义的分钟数时长</string>
+  <string name="durationUnknown">预定义最大轮次，但时长未知</string>
+  <string name="numberOfGames">对局数</string>
+  <string name="numberOfGamesAsManyAsPossible">在指定时长内尽可能多地对弈</string>
+  <string name="numberOfGamesPreDefined">事先确定，所有棋手相同</string>
+  <string name="pairingSystem">配对系统</string>
+  <string name="pairingSystemArena">与排名相近的任何可用对手配对</string>
+  <string name="pairingSystemSwiss">基于积分和破同分进行最佳配对</string>
   <string name="pairingWaitTime">配对等待时间</string>
-  <string name="pairingWaitTimeArena">快速：不等待所有玩家</string>
-  <string name="pairingWaitTimeSwiss">慢速：等待所有玩家</string>
+  <string name="pairingWaitTimeArena">快速：不等待所有棋手</string>
+  <string name="pairingWaitTimeSwiss">慢速：等待所有棋手</string>
   <string name="identicalPairing">相同配对</string>
-  <string name="possibleButNotConsecutive">有可能，但不会连续</string>
-  <string name="identicalForbidden">禁止的</string>
-  <string name="lateJoin">稍后加入</string>
-  <string name="lateJoinUntil">是的，直到一半以上的回合开始为止。</string>
+  <string name="possibleButNotConsecutive">可能，但不会连续</string>
+  <string name="identicalForbidden">禁止</string>
+  <string name="lateJoin">中途加入</string>
+  <string name="lateJoinUntil">可以，在一半以上轮次开始之前</string>
   <string name="pause">暂停</string>
-  <string name="pauseSwiss">可以，但是可能会减少回合数量</string>
-  <string name="streaksAndBerserk">允许连胜和狂暴</string>
-  <string name="similarToOTB">和 OTB 锦标赛相似</string>
-  <string name="unlimitedAndFree">无限制并免费</string>
-  <string name="predefinedUsers">仅允许预定义的用户加入</string>
-  <string name="forbiddedUsers">如果这个列表是非空的，则此列表中缺少的用户将被禁止加入。每行一个用户名。</string>
-  <string name="playYourGames">开始你的对局</string>
-  <string name="byes">Byes</string>
+  <string name="pauseSwiss">可以，但可能减少轮次数量</string>
+  <string name="streaksAndBerserk">连胜与狂暴</string>
+  <string name="similarToOTB">类似于线下锦标赛</string>
+  <string name="unlimitedAndFree">无限制且免费</string>
+  <string name="predefinedUsers">仅允许预定义用户加入</string>
+  <string name="forbiddedUsers">如果此列表非空，则未在列表中的用户将被禁止加入。每行一个用户名。</string>
+  <string name="playYourGames">进行您的对局</string>
+  <string name="byes">轮空</string>
   <string name="absences">缺席</string>
-  <string name="tieBreak">决胜局</string>
+  <string name="tieBreak">破同分</string>
 </resources>

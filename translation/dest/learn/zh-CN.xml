@@ -108,7 +108,7 @@
   <string name="mateInOneComplete">恭喜！这就是国际象棋赢局的方式！</string>
   <string name="intermediate">中级</string>
   <string name="boardSetup">开局时摆法</string>
-  <string name="howTheGameStarts">棋局是怎么开始的</string>
+  <string name="howTheGameStarts">对局是怎么开始的</string>
   <string name="boardSetupIntro">两军对峙，准备战斗</string>
   <string name="thisIsTheInitialPosition">这是每一盘国际象棋开局时的棋子摆法！请走任意棋子继续。</string>
   <string name="firstPlaceTheRooks">首先是车！

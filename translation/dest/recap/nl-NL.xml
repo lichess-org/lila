@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="hiUser" comment="%s is the title+username e.g. 'GM ABC' or simply ABC if there is no title">Hoi, %s</string>
+	<string name="awaitQuestion" comment="Displayed while waiting for results">Wat heb je dit jaar gedaan?</string>
+	<string name="initTitle">Wat een schaakjaar was het!</string>
+	<string name="noGamesText">Je hebt dit jaar geen puzzels opgelost.</string>
+	<string name="noGamesCta">Wil je nu spelen?</string>
+	<string name="gamesYouWon" comment="%s is the number of games won">En je hebt %s gewonnen!</string>
+	<string name="gamesNextQuestion">Hoeveel tijd heeft dat gekost?</string>
+	<string name="timeSpentPlayingExclam" comment="%s is the time spent playing animated from 0 e.g. '1 day, 17 hours'. The time is also translated">%s geschaakt!</string>
+	<string name="timeTooMuch">Dat is veel te veel schaak.</string>
+	<string name="timeALot">Dat is een heleboel schaak.</string>
+	<string name="timeReasonable">Dat lijkt me een redelijke schaal.</string>
+	<string name="timeHowManyMoves">Hoeveel zetten heb je al die tijd gespeeld?</string>
+	<plurals name="nbMovesPlayed">
+		<item quantity="one">%s zet gespeeld</item>
+		<item quantity="other">%s zetten gespeeld</item>
+	</plurals>
+	<string name="movesOfWoodPushed" comment="%s is a weight in grams or kilograms">Dat is %s hout verplaatst!</string>
+	<string name="movesStandardPiecesWeight">Standaard stukken wegen ongeveer 40g elk</string>
+	<plurals name="nbMoves">
+		<item quantity="one">%s zet</item>
+		<item quantity="other">%s zetten</item>
+	</plurals>
+	<string name="chessFoes">Jouw sterkste tegenstanders</string>
+	<plurals name="nbKilograms">
+		<item quantity="one">%s kilogram</item>
+		<item quantity="other">%s kilogram</item>
+	</plurals>
+	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">is hoe je %s van je partijen met wit hebt geopend</string>
+	<plurals name="openingsMostPlayedAsWhite" comment="%s is the number of games">
+		<item quantity="one">Met %s partij je meest gespeelde opening met wit</item>
+		<item quantity="other">Met %s partijen je meest gespeelde opening met wit</item>
+	</plurals>
+	<plurals name="openingsMostPlayedAsBlack" comment="%s is the number of games">
+		<item quantity="one">Met %s partij je meest gespeelde opening met zwart</item>
+		<item quantity="other">Met %s partijen je meest gespeelde opening met zwart</item>
+	</plurals>
+	<plurals name="puzzlesThanksVoting" comment="%s is the number of puzzles. It is also translated.">
+		<item quantity="one">Bedankt voor het stemmen op %s puzzel.</item>
+		<item quantity="other">Bedankt voor het stemmen op %s puzzels.</item>
+	</plurals>
+	<string name="puzzlesHelpedTagging" comment="%s is a number e.g. 5">Je hebt ook meegeholpen door %s van de puzzels te beoordelen.</string>
+	<string name="puzzlesNone">Je hebt dit jaar geen puzzels opgelost.</string>
+	<string name="puzzlesTryNow">Wil je er nu een paar proberen?</string>
+	<string name="puzzlesYouWonOnFirstTry">Je hebt er %s opgelost de eerste poging!</string>
+	<string name="sourcesTitle">Waar heb je partijen gevonden?</string>
+	<string name="perfsTitle">Welke speeltempo\'s en varianten heb je gebruikt?</string>
+	<string name="malwareNoneLoaded" comment="%s is 0">%s advertenties en trackers geladen</string>
+	<string name="malwareNoSell">We hebben uw persoonlijke gegevens niet verkocht</string>
+	<string name="malwareNoAbuse">We hebben uw apparaat niet tegen u gebruikt</string>
+	<string name="malwareWarningPrefix" comment="%s is 'be careful', which is translatable separately.">Andere websites doen dat wel, dus %s.</string>
+	<string name="malwareWarningCta" comment="Part of a longer sentence &quot;But other websites do, so please be careful.&quot;&#10;&#10;Appears in the context of noting that Lichess served zero ads.&#10;The text links to https://lichess.org/ads">wees voorzichtig</string>
+	<string name="lichessGamesPlayedIn" comment="%1$s is the number of games, %2$s is the year">%1$s partijen gespeeld op Lichess in %2$s</string>
+	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours">%s daarvan waren jouw partijen.</string>
+	<string name="thanksTitle">Bedankt voor het spelen op Lichess!</string>
+	<string name="thanksHaveAGreat" comment="%s is the next year">We zijn blij dat je hier bent. Fijn %s!</string>
+	<string name="shareableTitle" comment="%s is the current year">Mijn samenvatting van %s</string>
+	<string name="shareableSpentPlaying" comment="Subtitle to the translated time they have spent playing&#10;&#10;Will be rendered like:&#10;&quot;1 day, 2 hours&#10;spent playing&quot;">geschaakt</string>
+	<string name="shareableMostPlayedOpponent" comment="Subtitle to the username of the opponent you have played the most games against&#10;&#10; Will be rendered like:&#10;&quot;GM Magnus&#10;most played opponent&quot;&#10;&#10;(where GM Magnus is the title+username of the player)">meest frequente tegenstander</string>
+	<string name="shareableFavouriteVariant">favoriete variant</string>
+	<string name="shareableFavouriteTimeControl" comment="Subtitle to the time control you played the most games in&#10;&#10; Will be rendered like:&#10;&quot;Rapid&#10;favourite time control&quot;">favoriet speeltempo</string>
+	<string name="recapReady" comment="%s is the year of the recap">Je samenvatting van %s is klaar!</string>
+</resources>

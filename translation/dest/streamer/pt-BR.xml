@@ -32,7 +32,7 @@
   <string name="submitForReview">Enviar para revisão</string>
   <string name="streamerLanguageSettings">A página de streamer do Lichess aparece para o seu público com a língua da sua plataforma de streaming. Selecione a língua correta para suas streams de xadrez na plataforma de transmissão que você usa.</string>
   <string name="pleaseAllow">Aguarde até 72 horas para que sua lista e medalha de streamer sejam aprovadas.</string>
-  <string name="chooseYoutubeChannel">Escolha o canal do YouTube a ser usado no Lichess.</string>
+  <string name="chooseYoutubeChannel">Escolha o canal do YouTube que você irá usar no Lichess.</string>
   <string name="connect" comment="This button appears for streamers who wish to connect a Twitch or YouTube account, to their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Conectar</string>
   <string name="disconnect" comment="This button appears for streamers who wish to disconnect an already-linked Twitch or YouTube account, from their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Desconectar</string>
   <string name="streamerName">Seu nome de streamer no Lichess</string>

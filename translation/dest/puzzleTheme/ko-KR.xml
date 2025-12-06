@@ -30,6 +30,8 @@
   <string name="cornerMateDescription">킹을 룩이나 퀸으로 구석에 가두고, 나이트로 체크메이트를 가합니다.</string>
   <string name="crushing">박살내기</string>
   <string name="crushingDescription">상대의 블런더를 포착하고 박살내어 이득을 얻으세요. (eval ≥ 600cp)</string>
+  <string name="discoveredCheck" comment="Description (translatable separately):&#10;&#10;Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage.">디스커버드 체크</string>
+  <string name="discoveredCheckDescription" comment="Description for the &quot;Discovered check&quot; puzzle theme.">기물을 움직여서 가려졌던 공격 기물로 체크합니다. 많은 경우 결정적인 이점을 얻습니다.</string>
   <string name="doubleBishopMate">2비숍 메이트</string>
   <string name="doubleBishopMateDescription">자신의 기물에 막힌 킹에게 두 비숍이 인접한 대각선을 막아 메이트를 합니다.</string>
   <string name="dovetailMate">도브테일 메이트</string>

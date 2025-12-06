@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="emailConfirm_subject">%s, lichess.org аккаунтуңузду тастыктаңыз</string>
   <string name="common_orPaste">(Башсаныз иштебей жатыр бы? Анда башка браузер мен кириниз)</string>
 </resources>
