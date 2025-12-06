@@ -632,9 +632,8 @@ final class StudyApi(
     sequenceStudy(studyId): study =>
       Contribute(who.u, study):
         chapterRepo.byIdAndStudy(data.id, studyId).flatMapz { chapter =>
-          val name = Chapter.fixName(data.name)
           val newChapter = chapter.copy(
-            name = name,
+            name = Chapter.fixName(data.name),
             practice = data.isPractice.option(true),
             gamebook = data.isGamebook.option(true),
             conceal = (chapter.conceal, data.isConceal) match
@@ -651,24 +650,21 @@ final class StudyApi(
               chapter.description | "-"
             }
           )
-          if chapter == newChapter then funit
-          else
+          (chapter != newChapter).so:
             chapterRepo.update(newChapter) >> {
-              if chapter.conceal != newChapter.conceal then
-                val shouldResetPosition =
-                  (newChapter.conceal.isDefined && study.position.chapterId == chapter.id)
-                for _ <- shouldResetPosition
-                    .so(studyRepo.setPosition(study.id, study.position.withPath(UciPath.root)))
-                yield sendTo(study.id)(_.reloadAll)
-              else
-                fuccess:
-                  val shouldReload =
-                    (newChapter.setup.orientation != chapter.setup.orientation) ||
-                      (newChapter.practice != chapter.practice) ||
-                      (newChapter.gamebook != chapter.gamebook) ||
-                      (newChapter.description != chapter.description)
-                  if shouldReload then sendTo(study.id)(_.updateChapter(chapter.id, who))
-                  else reloadChapters(study)
+              val concealChanged = chapter.conceal != newChapter.conceal
+              val shouldResetPosition =
+                concealChanged && newChapter.conceal.isDefined && study.position.chapterId == chapter.id
+              val shouldReload =
+                concealChanged ||
+                  newChapter.setup.orientation != chapter.setup.orientation ||
+                  newChapter.practice != chapter.practice ||
+                  newChapter.gamebook != chapter.gamebook ||
+                  newChapter.description != chapter.description
+              shouldResetPosition
+                .so(studyRepo.setPosition(study.id, study.position.withPath(UciPath.root)))
+                >> (if shouldReload then fuccess(sendTo(study.id)(_.updateChapter(chapter.id, who)))
+                    else fuccess(reloadChapters(study)))
             }
         }
 
