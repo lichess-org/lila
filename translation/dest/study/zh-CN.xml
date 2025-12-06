@@ -99,7 +99,7 @@
   <string name="loadAGameFromPgn">从 PGN 文件加载游戏</string>
   <string name="automatic">自动</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
-    <item quantity="other">在此粘贴你的 PGN 文本，最多支持 %s 个游戏</item>
+    <item quantity="other">在此粘贴您的 PGN 文本，最多支持 %s 个游戏</item>
   </plurals>
   <string name="urlOfTheGame">游戏的 URL</string>
   <string name="createChapter">创建章节</string>
@@ -125,10 +125,9 @@
   <string name="deleteTheStudyChatHistory">删除研讨聊天记录？本操作无法撤销！</string>
   <string name="deleteStudy">删除研讨</string>
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">确定删除整个研讨？该操作不可恢复，输入研讨名以确认：%s</string>
-  <string name="whereDoYouWantToStudyThat">你想从哪里开始此项研究？</string>
+  <string name="whereDoYouWantToStudyThat">您想从哪里开始此项研究？</string>
   <string name="goodMove">好棋</string>
   <string name="mistake">错着</string>
-  <string name="brilliantMove">妙着！</string>
   <string name="blunder">漏着</string>
   <string name="interestingMove">趣着</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">惑着</string>
