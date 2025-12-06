@@ -32,8 +32,13 @@ final class SwissFeature(
       .zip(getForTeams((teams :+ lichessTeamId).distinct))
       .map: (cached, teamed) =>
         FeaturedSwisses(
-          created = (teamed.created ::: cached.created).distinctBy(_.id),
-          started = (teamed.started ::: cached.started).distinctBy(_.id)
+          created = (teamed.created ::: cached.created)
+          .distinctBy(_.id)
+          .sorted(using startsAtOrdering),
+
+          started = (teamed.started ::: cached.started)
+          .distinctBy(_.id)
+          .sorted(using startsAtOrdering.reverse)
         )
 
   def idNames: Fu[FeaturedIdNames] = get(Nil).map: f =>
