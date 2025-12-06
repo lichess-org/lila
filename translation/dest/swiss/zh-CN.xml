@@ -30,7 +30,7 @@
   <string name="numberOfRoundsHelp">奇数轮次能实现最佳颜色平衡。</string>
   <string name="roundInterval">轮次间隔</string>
   <string name="forbiddenPairings">禁止配对</string>
-  <string name="forbiddenPairingsHelp">必须禁止一起对弈的玩家用户名（例如，兄弟姐妹）。每行两个用户名，用空格分隔。</string>
+  <string name="forbiddenPairingsHelp">必须禁止一起对弈的棋手用户名（例如，兄弟姐妹）。每行两个用户名，用空格分隔。</string>
   <string name="manualPairings">手动指定下一轮配对</string>
   <string name="manualPairingsHelp">手动指定下一轮的所有配对。每行一对棋手。例如：
 棋手A 棋手B
@@ -47,7 +47,7 @@
 对于俱乐部和官方赛事来说，这可能是一个不错的选择。</string>
   <string name="pointsCalculationQ">积分如何计算？</string>
   <string name="pointsCalculationA">胜局得 1 分，和局得 0.5 分，负局得 0 分。
-当玩家在一轮中无法配对时，他们将获得轮空，计 1 分。</string>
+当棋手在一轮中无法配对时，他们将获得轮空，计 1 分。</string>
   <string name="tiebreaksCalculationQ">如何计算破同分？</string>
   <string name="sonnebornBergerScore">索恩伯恩-贝格尔分</string>
   <string name="tiebreaksCalculationA">使用 %s。
@@ -85,7 +85,7 @@
 您能在线上获得最接近循环赛体验的方法是举办一个轮次非常多的瑞士制锦标赛。这样，在锦标赛结束前，所有可能的配对都将完成。</string>
   <string name="otherSystemsQ">其他锦标赛系统呢？</string>
   <string name="otherSystemsA">目前我们没有计划在 Lichess 中添加更多的锦标赛系统。</string>
-  <string name="swissDescription">在瑞士制锦标赛 %1$s 中，每位参赛者不一定与其他所有参赛者对战。每轮中参赛者进行一对一比赛，并采用一套规则进行配对，以确保每位参赛者与累计得分相近的对手相遇，但不会与同一对手对战超过一次。获胜者是在所有轮次中获得总积分最高的参赛者。除非玩家人数为奇数，否则所有参赛者均参与每轮比赛。</string>
+  <string name="swissDescription">在瑞士制锦标赛 %1$s 中，每位参赛者不一定与其他所有参赛者对战。每轮中参赛者进行一对一比赛，并采用一套规则进行配对，以确保每位参赛者与累计得分相近的对手相遇，但不会与同一对手对战超过一次。获胜者是在所有轮次中获得总积分最高的参赛者。除非棋手人数为奇数，否则所有参赛者均参与每轮比赛。</string>
   <string name="teamOnly">瑞士制锦标赛只能由团队领导创建，且只能由团队成员参加。
 %1$s 以开始在瑞士制锦标赛中对弈。</string>
   <string name="joinOrCreateTeam">加入或创建团队</string>
