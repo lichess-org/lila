@@ -32,9 +32,9 @@
 	<string name="thanksTitle">Merci de jouer sur Lichess!</string>
 	<string name="thanksHaveAGreat" comment="%s is the next year">Nous sommes heureux de vous compter parmi nous et nous vous souhaitons une bonne année %s!</string>
 	<string name="shareableTitle" comment="%s is the current year">Mon récapitulatif %s</string>
-	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">– temps passé à jouer </string>
-	<string name="shareableMostPlayedOpponent">Adversaire le plus fréquent</string>
+	<string name="shareableSpentPlaying" comment="Subtitle to the translated time they have spent playing&#10;&#10;Will be rendered like:&#10;&quot;1 day, 2 hours&#10;spent playing&quot;">de temps passé à jouer</string>
+	<string name="shareableMostPlayedOpponent" comment="Subtitle to the username of the opponent you have played the most games against&#10;&#10; Will be rendered like:&#10;&quot;GM Magnus&#10;most played opponent&quot;&#10;&#10;(where GM Magnus is the title+username of the player)">Adversaire le plus fréquent</string>
 	<string name="shareableFavouriteVariant">Variante préférée</string>
-	<string name="shareableFavouriteTimeControl">Cadence préférée</string>
+	<string name="shareableFavouriteTimeControl" comment="Subtitle to the time control you played the most games in&#10;&#10; Will be rendered like:&#10;&quot;Rapid&#10;favourite time control&quot;">Cadence préférée</string>
 	<string name="recapReady" comment="%s is the year of the recap">Votre récapitulatif %s est prêt!</string>
 </resources>
