@@ -1,5 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<string name="awaitQuestion" comment="Displayed while waiting for results">Wat heb je dit jaar gedaan?</string>
+	<string name="initTitle">Wat een schaakjaar heb je achter de rug!</string>
+	<string name="noGamesText">Je hebt dit jaar geen puzzels opgelost.</string>
+	<string name="noGamesCta">Wil je nu spelen?</string>
+	<string name="gamesYouWon" comment="%s is the number of games won">En je hebt %s gewonnen!</string>
+	<string name="timeSpentPlayingExclam" comment="%s is the time spent playing animated from 0 e.g. '1 day, 17 hours'. The time is also translated">%s geschaakt!</string>
+	<plurals name="nbMovesPlayed">
+		<item quantity="one">%s zet gespeeld</item>
+		<item quantity="other">%s zetten gespeeld</item>
+	</plurals>
+	<string name="movesStandardPiecesWeight">Standaard stukken wegen ongeveer 40g elk</string>
+	<plurals name="nbMoves">
+		<item quantity="one">%s zet</item>
+		<item quantity="other">%s zetten</item>
+	</plurals>
+	<plurals name="nbKilograms">
+		<item quantity="one">%s kilogram</item>
+		<item quantity="other">%s kilogram</item>
+	</plurals>
 	<plurals name="openingsMostPlayedAsWhite" comment="%s is the number of games">
 		<item quantity="one">Met %s partij je meest gespeelde opening met wit</item>
 		<item quantity="other">Met %s partijen je meest gespeelde opening met wit</item>
@@ -8,4 +27,16 @@
 		<item quantity="one">Met %s partij je meest gespeelde opening met zwart</item>
 		<item quantity="other">Met %s partijen je meest gespeelde opening met zwart</item>
 	</plurals>
+	<string name="puzzlesNone">Je hebt dit jaar geen puzzels opgelost.</string>
+	<string name="puzzlesTryNow">Wil je er nu een paar proberen?</string>
+	<string name="puzzlesYouWonOnFirstTry">Je hebt er %s opgelost de eerste poging!</string>
+	<string name="sourcesTitle">Waar heb je partijen gevonden?</string>
+	<string name="perfsTitle">Welke speeltempo\'s en varianten heb je gebruikt?</string>
+	<string name="malwareWarningCta" comment="Part of a longer sentence &quot;But other websites do, so please be careful.&quot;&#10;&#10;Appears in the context of noting that Lichess served zero ads.&#10;The text links to https://lichess.org/ads">wees voorzichtig</string>
+	<string name="lichessGamesPlayedIn" comment="%1$s is the number of games, %2$s is the year">%1$s partijen gespeeld op Lichess in %2$s</string>
+	<string name="shareableTitle" comment="%s is the current year">Mijn overzicht van %s</string>
+	<string name="shareableSpentPlaying" comment="Subtitle to the translated time they have spent playing&#10;&#10;Will be rendered like:&#10;&quot;1 day, 2 hours&#10;spent playing&quot;">geschaakt</string>
+	<string name="shareableFavouriteVariant">favoriete variant</string>
+	<string name="shareableFavouriteTimeControl" comment="Subtitle to the time control you played the most games in&#10;&#10; Will be rendered like:&#10;&quot;Rapid&#10;favourite time control&quot;">favoriet speeltempo</string>
+	<string name="recapReady" comment="%s is the year of the recap">Je %s overzicht is klaar!</string>
 </resources>
