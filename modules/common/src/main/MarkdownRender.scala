@@ -93,7 +93,7 @@ final class MarkdownRender(
 
   // https://github.com/vsch/flexmark-java/issues/496
   private val tooManyUnderscoreRegex = """(_{6,})""".r
-  private val tooManyQuotes = """[>\s*]{5,}""".r
+  private val tooManyQuotes = """>{5,}\s*""".r
   private def preventStackOverflow(text: Markdown) =
     text.map:
       _.pipe(tooManyUnderscoreRegex.replaceAllIn(_, "_" * 3))
