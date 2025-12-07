@@ -226,8 +226,9 @@ final class UblogApi(
 
   def onAccountClose(user: User) = setTierIfBlogExists(UblogBlog.Id.User(user.id), Tier.HIDDEN)
 
-  def onAccountReopen(user: User) = getUserBlogOption(user).flatMapz: blog =>
-    setTierIfBlogExists(UblogBlog.Id.User(user.id), blog.modTier | Tier.default(user))
+  private[ublog] def resetDefaultTier(user: User) =
+    getUserBlogOption(user).flatMapz: blog =>
+      setTierIfBlogExists(UblogBlog.Id.User(user.id), blog.modTier | Tier.default(user))
 
   def onAccountDelete(user: User) = for
     _ <- colls.blog.delete.one($id(UblogBlog.Id.User(user.id)))
