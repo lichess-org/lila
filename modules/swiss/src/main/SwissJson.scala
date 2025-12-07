@@ -271,7 +271,9 @@ object SwissJson:
   private def pairingJsonOrOutcome(
       player: SwissPlayer
   ): ((Option[SwissPairing], SwissSheet.Outcome)) => String =
-    case (Some(pairing), _) => pairingJsonMin(player, pairing)
+    case (Some(pairing), outcome) =>
+      if pairing.isForfeit && pairing.status == Right(None) then outcomeJson(outcome)
+      else pairingJsonMin(player, pairing)
     case (_, outcome) => outcomeJson(outcome)
 
   private def myInfoJson(i: MyInfo) =
