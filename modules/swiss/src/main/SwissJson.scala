@@ -214,11 +214,14 @@ object SwissJson:
         .reverse
         .map { case (round, outcome) =>
           view.pairings.get(round).fold[JsValue](JsString(outcomeJson(outcome))) { p =>
-            pairingJson(view.player, p.pairing) ++
-              Json.obj(
-                "user" -> p.player.user,
-                "rating" -> p.player.player.rating
-              )
+            val pairing = p.pairing
+            if pairing.isForfeit && pairing.status == Right(None) then JsString(outcomeJson(SwissSheet.Outcome.Absent))
+            else
+              pairingJson(view.player, pairing) ++
+                Json.obj(
+                  "user" -> p.player.user,
+                  "rating" -> p.player.player.rating
+                )
           }
         }
     )
