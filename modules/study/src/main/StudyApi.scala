@@ -656,7 +656,7 @@ final class StudyApi(
               val shouldResetPosition =
                 concealChanged && newChapter.conceal.isDefined && study.position.chapterId == chapter.id
               val orientationRelevant =
-                    data.currentlyFlipped || newChapter.setup.orientation != chapter.setup.orientation
+                data.currentlyFlipped || newChapter.setup.orientation != chapter.setup.orientation
               val shouldReload =
                 concealChanged ||
                   orientationRelevant ||
@@ -665,7 +665,8 @@ final class StudyApi(
                   newChapter.description != chapter.description
               shouldResetPosition
                 .so(studyRepo.setPosition(study.id, study.position.withPath(UciPath.root)))
-                >> (if shouldReload then fuccess(sendTo(study.id)(_.updateChapter(chapter.id, who, orientationRelevant)))
+                >> (if shouldReload then
+                      fuccess(sendTo(study.id)(_.updateChapter(chapter.id, who, orientationRelevant)))
                     else fuccess(reloadChapters(study)))
             }
         }
