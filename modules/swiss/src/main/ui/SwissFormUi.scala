@@ -77,7 +77,7 @@ final class SwissFormUi(helpers: Helpers)(
                 trans.site.cancelTournament()
               )
             ),
-            postForm(cls := "closeCurrentRound", action := routes.Swiss.closeCurrentRound(swiss.id))(
+            postForm(cls := "closeRound", action := routes.Swiss.closeRound(swiss.id))(
               submitButton(dataIcon := Icon.CautionCircle, cls := "text button button-red yes-no-confirm")(
                 "Close current round"
               )

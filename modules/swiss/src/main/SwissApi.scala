@@ -469,7 +469,7 @@ final class SwissApi(
       .flatMapz:
         recomputeAndUpdateAll(swissId) >> banApi.onGameFinish(game)
 
-  def closeCurrentRound(swiss: Swiss): Funit =
+  def closeRound(swiss: Swiss): Funit =
     Sequencing(swiss.id)(cache.swissCache.byId): swiss =>
       for
         result <- SwissPairing.fields: f =>

@@ -222,9 +222,9 @@ final class Swiss(
       env.swiss.api.kill(swiss).inject(Redirect(routes.Team.show(swiss.teamId)))
   }
 
-  def closeCurrentRound(id: SwissId) = Auth { _ ?=> me ?=>
+  def closeRound(id: SwissId) = Auth { _ ?=> me ?=>
     WithEditableSwiss(id): swiss =>
-      for _ <- env.swiss.api.closeCurrentRound(swiss) yield Redirect(routes.Swiss.show(id))
+      for _ <- env.swiss.api.closeRound(swiss) yield Redirect(routes.Swiss.show(id))
   }
 
   def standing(id: SwissId, page: Int) = Anon:
