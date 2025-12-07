@@ -126,11 +126,11 @@ export const bind = (ctrl: AnalyseCtrl) => {
     keyToMouseEvent('d', 'mousedown', '.study__buttons .comments');
     keyToMouseEvent('g', 'mousedown', '.study__buttons .glyphs');
 
-    // navigation for next and prev chapters
     kbd.bind('p', ctrl.study.goToPrevChapter);
     kbd.bind('n', ctrl.study.goToNextChapter);
-    // ! ? !! ?? !? ?!
-    for (let i = 1; i < 7; i++) kbd.bind(i.toString(), () => ctrl.study?.glyphForm.toggleGlyph(i));
+    // ! ? !! ?? !? ?! □ ⨀
+    for (let i = 1; i < 9; i++)
+      kbd.bind(i.toString(), () => ctrl.study?.glyphForm.toggleGlyph(i === 8 ? 22 : i));
     // = ∞ ⩲ ⩱ ± ∓ +- -+
     for (let i = 1; i < 9; i++)
       kbd.bind(`shift+${i}`, () => ctrl.study?.glyphForm.toggleGlyph(i === 1 ? 10 : 11 + i));
