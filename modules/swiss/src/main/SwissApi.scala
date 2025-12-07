@@ -485,7 +485,7 @@ final class SwissApi(
               multi = true
             )
         _ <- mongo.swiss.update.one($id(swiss.id), $inc("nbOngoing" -> -1 * result.nModified))
-        _ <- (swiss.nbOngoing <= 1).so(onRoundFinish(swiss, none))
+        _ <- (swiss.nbOngoing - result.nModified < 1).so(onRoundFinish(swiss, none))
       yield (true)
     .flatMapz:
       recomputeAndUpdateAll(swiss.id)
