@@ -123,7 +123,7 @@ object help:
               row(kbd("g"), trans.study.annotateWithGlyphs()),
               row(kbd("n"), trans.study.nextChapter()),
               row(kbd("p"), trans.study.prevChapter()),
-              row(frag((1 to 6).map(kbd(_))), trans.site.toggleGlyphAnnotations()),
+              row(frag((1 to 8).map(kbd(_))), trans.site.toggleGlyphAnnotations()),
               row(
                 frag(kbd("shift"), (1 to 8).map(kbd(_))),
                 trans.site.togglePositionAnnotations()
