@@ -90,17 +90,16 @@ final class SwissJson(
                   $doc(
                     f.id -> true,
                     f.isDelayed -> true,
-                    f.playerReady -> true,
-                    f.isDoubleForfeit -> true
+                    f.playerReady -> true
                   ).some
                 )
                 .one[Bdoc]
             }
             .flatMap { maybeDoc =>
               val isDelayed = maybeDoc.flatMap(_.getAsOpt[Boolean](f.isDelayed)).getOrElse(false)
-              val isDoubleForfeit = maybeDoc.flatMap(_.getAsOpt[Boolean](f.isDoubleForfeit)).getOrElse(false)
+              val isForfeit = maybeDoc.flatMap(_.getAsOpt[Boolean](f.isForfeit)).getOrElse(false)
               val gameId =
-                if isDelayed || isDoubleForfeit then None else maybeDoc.flatMap(_.getAsOpt[GameId](f.id))
+                if isDelayed || isForfeit then None else maybeDoc.flatMap(_.getAsOpt[GameId](f.id))
               val playerReady = maybeDoc.flatMap(_.getAsOpt[UserId](f.playerReady))
               rankingApi(swiss)
                 .dmap(_.get(player.userId))

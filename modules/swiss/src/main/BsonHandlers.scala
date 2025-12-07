@@ -74,7 +74,6 @@ object BsonHandlers:
             black = b,
             status = r.getO[SwissPairing.Status](status) | Right(none),
             isForfeit = r.boolD(isForfeit),
-            isDoubleForfeit = r.boolD(isDoubleForfeit),
             isDelayed = r.boolD(isDelayed),
             playerReady = r.getO[UserId](playerReady)
           )
@@ -87,7 +86,6 @@ object BsonHandlers:
         players -> o.players,
         status -> o.status,
         isForfeit -> w.boolO(o.isForfeit),
-        isDoubleForfeit -> w.boolO(o.isDoubleForfeit),
         isDelayed -> w.boolO(o.isDelayed),
         playerReady -> o.playerReady
       )

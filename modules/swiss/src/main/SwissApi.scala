@@ -481,7 +481,7 @@ final class SwissApi(
                 f.isDelayed -> true
               ),
               $unset(f.isDelayed, f.playerReady) ++
-                $set(f.isDoubleForfeit -> true, f.status -> BSONNull),
+                $set(f.isForfeit -> true, f.status -> BSONNull),
               multi = true
             )
         _ <- mongo.swiss.update.one($id(swiss.id), $inc("nbOngoing" -> -1 * result.nModified))
