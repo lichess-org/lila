@@ -174,7 +174,7 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
 
   def searchForm(placeholder: String, value: String, order: StudyOrder) =
     form(cls := "search", action := routes.Study.search(), method := "get")(
-      input(name := "order", `type` := "hidden", st.value := order.key),
+      form3.hidden("order", order.key),
       input(name := "q", st.placeholder := placeholder, st.value := value, enterkeyhint := "search"),
       submitButton(cls := "button", dataIcon := Icon.Search)
     )
