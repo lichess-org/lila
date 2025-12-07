@@ -128,6 +128,10 @@ object help:
                 frag(kbd("shift"), (1 to 8).map(kbd(_))),
                 trans.site.togglePositionAnnotations()
               ),
+              row(
+                frag(kbd("ctrl"), kbd("shift"), (1 to 8).map(kbd(_))),
+                trans.site.toggleObservationAnnotations()
+              ),
               row(frag(kbd("ctrl"), kbd("z")), "Undo arrow changes")
             )
           ),
