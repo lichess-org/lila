@@ -28,6 +28,7 @@ private object SwissSheet:
     case Draw
     case ForfeitLoss
     case ForfeitWin
+    case Waiting
 
   import Outcome.*
 

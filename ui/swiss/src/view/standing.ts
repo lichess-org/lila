@@ -6,6 +6,7 @@ import { player as renderPlayer } from './util';
 import type { Player, Pager } from '../interfaces';
 
 function playerTr(ctrl: SwissCtrl, player: Player) {
+  console.log('player.sheet ' + JSON.stringify(player.sheet, null, 2));
   const userId = player.user.id;
   return h(
     'tr',
@@ -28,17 +29,19 @@ function playerTr(ctrl: SwissCtrl, player: Player) {
           'div',
           player.sheet
             .map(p =>
-              p == 'absent'
-                ? h(p, title('Absent'), '-')
-                : p == 'bye'
-                  ? h(p, title('Bye'), '1')
-                  : p == 'late'
-                    ? h(p, title('Late'), '½')
-                    : h(
-                        'a.glpt.' + (p.o ? 'ongoing' : !!p.w ? 'win' : p.w === false ? 'loss' : 'draw'),
-                        { attrs: { key: p.g, href: `/${p.g}` }, hook: onInsert(site.powertip.manualGame) },
-                        p.o ? '*' : !!p.w ? '1' : p.w === false ? '0' : '½',
-                      ),
+              p == 'waiting'
+                ? h(p, title('Waiting'), '*')
+                : p == 'absent'
+                  ? h(p, title('Absent'), '-')
+                  : p == 'bye'
+                    ? h(p, title('Bye'), '1')
+                    : p == 'late'
+                      ? h(p, title('Late'), '½')
+                      : h(
+                          'a.glpt.' + (p.o ? 'ongoing' : !!p.w ? 'win' : p.w === false ? 'loss' : 'draw'),
+                          { attrs: { key: p.g, href: `/${p.g}` }, hook: onInsert(site.powertip.manualGame) },
+                          p.o ? '*' : !!p.w ? '1' : p.w === false ? '0' : '½',
+                        ),
             )
             .concat([...Array(Math.max(0, ctrl.data.nbRounds - player.sheet.length))].map(_ => h('r'))),
         ),

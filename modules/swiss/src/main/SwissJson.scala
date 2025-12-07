@@ -215,7 +215,8 @@ object SwissJson:
         .map { case (round, outcome) =>
           view.pairings.get(round).fold[JsValue](JsString(outcomeJson(outcome))) { p =>
             val pairing = p.pairing
-            if pairing.isForfeit && pairing.status == Right(None) then JsString(outcomeJson(SwissSheet.Outcome.Absent))
+            if pairing.isForfeit && pairing.status == Right(None) then
+              JsString(outcomeJson(SwissSheet.Outcome.Absent))
             else
               pairingJson(view.player, pairing) ++
                 Json.obj(
@@ -254,6 +255,7 @@ object SwissJson:
       case SwissSheet.Outcome.Absent => "absent"
       case SwissSheet.Outcome.Late => "late"
       case SwissSheet.Outcome.Bye => "bye"
+      case SwissSheet.Outcome.Waiting => "waiting"
       case _ => ""
 
   private def pairingJsonMin(player: SwissPlayer, pairing: SwissPairing): String =
@@ -276,6 +278,7 @@ object SwissJson:
   ): ((Option[SwissPairing], SwissSheet.Outcome)) => String =
     case (Some(pairing), outcome) =>
       if pairing.isForfeit && pairing.status == Right(None) then outcomeJson(outcome)
+      else if pairing.isDelayed then outcomeJson(SwissSheet.Outcome.Waiting)
       else pairingJsonMin(player, pairing)
     case (_, outcome) => outcomeJson(outcome)
 

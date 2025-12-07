@@ -78,7 +78,7 @@ export interface Standing {
   players: Player[];
 }
 
-export type Outcome = 'absent' | 'late' | 'bye';
+export type Outcome = 'waiting' | 'absent' | 'late' | 'bye';
 
 export type Sheet = (PairingBase | Outcome)[];
 
