@@ -217,6 +217,7 @@ object SwissJson:
             val pairing = p.pairing
             if pairing.isForfeit && pairing.status == Right(None) then
               JsString(outcomeJson(SwissSheet.Outcome.Absent))
+            else if pairing.isDelayed then JsString(outcomeJson(SwissSheet.Outcome.Waiting))
             else
               pairingJson(view.player, pairing) ++
                 Json.obj(
