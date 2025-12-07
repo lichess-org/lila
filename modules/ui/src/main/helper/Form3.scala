@@ -152,7 +152,7 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
           )(name)
         }
       ),
-      disabled.option(hidden(field))
+      disabled.option(hidden[String](field))
     )
 
   def textarea(
