@@ -239,6 +239,7 @@ private[study] object ChapterMaker:
       id: StudyChapterId,
       name: StudyChapterName,
       orientation: Orientation,
+      currentlyFlipped: Boolean,
       mode: ChapterMaker.Mode,
       description: String // boolean
   ) extends ChapterData:

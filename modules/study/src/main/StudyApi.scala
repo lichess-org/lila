@@ -391,7 +391,7 @@ final class StudyApi(
   export studyRepo.{ isMember, isContributor }
 
   private def onChapterChange(id: StudyId, chapterId: StudyChapterId, who: Who) =
-    sendTo(id)(_.updateChapter(chapterId, who))
+    sendTo(id)(_.updateChapter(chapterId, who, false))
     studyRepo.updateNow(id)
 
   private def onMembersChange(
@@ -650,20 +650,22 @@ final class StudyApi(
               chapter.description | "-"
             }
           )
-          (chapter != newChapter).so:
+          (chapter != newChapter || data.currentlyFlipped).so:
             chapterRepo.update(newChapter) >> {
               val concealChanged = chapter.conceal != newChapter.conceal
               val shouldResetPosition =
                 concealChanged && newChapter.conceal.isDefined && study.position.chapterId == chapter.id
+              val orientationRelevant =
+                    data.currentlyFlipped || newChapter.setup.orientation != chapter.setup.orientation
               val shouldReload =
                 concealChanged ||
-                  newChapter.setup.orientation != chapter.setup.orientation ||
+                  orientationRelevant ||
                   newChapter.practice != chapter.practice ||
                   newChapter.gamebook != chapter.gamebook ||
                   newChapter.description != chapter.description
               shouldResetPosition
                 .so(studyRepo.setPosition(study.id, study.position.withPath(UciPath.root)))
-                >> (if shouldReload then fuccess(sendTo(study.id)(_.updateChapter(chapter.id, who)))
+                >> (if shouldReload then fuccess(sendTo(study.id)(_.updateChapter(chapter.id, who, orientationRelevant)))
                     else fuccess(reloadChapters(study)))
             }
         }

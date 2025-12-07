@@ -238,6 +238,7 @@ export interface EditChapterData {
   id: ChapterId;
   name: string;
   orientation: Orientation;
+  currentlyFlipped: boolean;
   mode: ChapterMode;
   description: string;
 }

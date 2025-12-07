@@ -385,8 +385,8 @@ final private class StudySocket(
   private[study] def reloadChapters(previews: ChapterPreview.AsJsons) = version("chapters", previews)
   def reloadAll = version("reload", JsNull)
   def changeChapter(pos: Position.Ref, who: Who) = version("changeChapter", Json.obj("p" -> pos, "w" -> who))
-  def updateChapter(chapterId: StudyChapterId, who: Who) =
-    version("updateChapter", Json.obj("chapterId" -> chapterId, "w" -> who))
+  def updateChapter(chapterId: StudyChapterId, who: Who, resetFlip: Boolean) =
+    version("updateChapter", Json.obj("chapterId" -> chapterId, "w" -> who, "resetFlip" -> resetFlip))
   def descChapter(chapterId: StudyChapterId, desc: Option[String], who: Who) =
     version(
       "descChapter",

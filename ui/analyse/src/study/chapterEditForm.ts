@@ -11,6 +11,7 @@ import type {
 import { defined, prop } from 'lib';
 import { h, type VNode } from 'snabbdom';
 import type { StudySocketSend } from '../socket';
+import { opposite } from 'chessops';
 
 export class StudyChapterEditForm {
   current = prop<ChapterPreview | StudyChapterConfig | null>(null);
@@ -20,6 +21,7 @@ export class StudyChapterEditForm {
     private readonly chapterConfig: (id: string) => Promise<StudyChapterConfig>,
     readonly isBroadcast: boolean,
     readonly redraw: Redraw,
+    readonly flipped: () => boolean,
   ) {}
 
   open = (data: ChapterPreview) => {
@@ -78,6 +80,7 @@ export function view(ctrl: StudyChapterEditForm): VNode | undefined {
                   name: fieldValue(e, 'name'),
                   mode: fieldValue(e, 'mode') as ChapterMode,
                   orientation: fieldValue(e, 'orientation') as Orientation,
+                  currentlyFlipped: ctrl.flipped(),
                   description: fieldValue(e, 'description'),
                 });
               }, ctrl.redraw),
@@ -121,7 +124,13 @@ function viewLoaded(ctrl: StudyChapterEditForm, data: StudyChapterConfig): VNode
         h('label.form-label', { attrs: { for: 'chapter-orientation' } }, i18n.study.orientation),
         h(
           'select#chapter-orientation.form-control',
-          (['white', 'black'] as const).map(color => option(color, data.orientation, i18n.site[color])),
+          (['white', 'black'] as const).map(color =>
+            option(
+              color,
+              data.orientation && ctrl.flipped() ? opposite(data.orientation) : data.orientation,
+              i18n.site[color],
+            ),
+          ),
         ),
       ]),
       h('div.form-group.form-half' + (ctrl.isBroadcast ? '.none' : ''), [
