@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessCoaches">Личес тренери</string>
+  <string name="lichessCoaches">Lichess тренери</string>
   <string name="lichessCoach">Личес тренер</string>
   <string name="areYouCoach">Да ли си одличан тренер шаха са %s?</string>
   <string name="confirmTitle">Потврди своју титулу овде и ми ћемо прегледати вашу пријаву.</string>

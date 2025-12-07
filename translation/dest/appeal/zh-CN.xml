@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="cleanAllGood">您的帐户没有被标记或限制。一切安好！</string>
-  <string name="engineMarked">您的帐号因在对局内使用外部辅助而被标记。</string>
-  <string name="engineMarkedInfo">我们将此定义为使用任何外部帮助来增强你的知识和计算能力，以便得到对对手不公平的优势。更多详情请访问 %s 页面。</string>
-  <string name="arenaBanned">您的帐户被禁止加入竞技场。</string>
-  <string name="prizeBanned">您的帐户禁止参加包含真实奖品的锦标赛。</string>
-  <string name="boosterMarked">您的账户因刷分而被标记。</string>
-  <string name="boosterMarkedInfo">我们将此定义为故意摆弄评级，其方法是故意失去游戏，或针对另一个蓄意失去游戏的帐户。</string>
-  <string name="accountMuted">您的账号被禁言。</string>
-  <string name="accountMutedInfo">阅读我们的 %s。不遵守通讯指南可能导致帐户被静音。</string>
-  <string name="excludedFromLeaderboards">您的帐户已被排除在排行榜之外。</string>
-  <string name="excludedFromLeaderboardsInfo">我们将此定义为使用任何不公平的方式加入积分榜。</string>
-  <string name="closedByModerators">您的帐户已被版主关闭。</string>
+  <string name="cleanAllGood">您的账户未被标记或限制。一切正常！</string>
+  <string name="engineMarked">您的账户因在对局中使用外部辅助而被标记。</string>
+  <string name="engineMarkedInfo">我们将其定义为：使用任何外部帮助来增强您的棋艺知识和/或计算能力，从而获取相对于对手的不公平优势。详情请参见 %s 页面。</string>
+  <string name="arenaBanned">您的账户被禁止加入竞技场。</string>
+  <string name="prizeBanned">您的账户被禁止参加有真实奖品的锦标赛。</string>
+  <string name="boosterMarked">您的账户因操纵等级分而被标记。</string>
+  <string name="boosterMarkedInfo">我们将其定义为：通过故意输棋或与故意输棋的另一个账户对弈，来蓄意操纵等级分。</string>
+  <string name="accountMuted">您的账户已被禁言。</string>
+  <string name="accountMutedInfo">请阅读我们的 %s。未能遵守沟通准则可能导致账户被禁言。</string>
+  <string name="excludedFromLeaderboards">您的账户已被排除在排行榜之外。</string>
+  <string name="excludedFromLeaderboardsInfo">我们将其定义为：使用任何不公平手段进入排行榜。</string>
+  <string name="closedByModerators">您的账户已被管理员关闭。</string>
   <string name="hiddenBlog">您的博客已被版主隐藏。</string>
-  <string name="hiddenBlogInfo" comment="%s is &quot;blog rules&quot;, a separately translateable string (key: blogRules).&#10;&#10;Full sentence: &quot;Make sure to read again our blog rules.&quot;">请务必再次阅读我们的 %s。</string>
-  <string name="playTimeout">您正处于冷却状态。</string>
-  <string name="communicationGuidelines">沟通原则</string>
+  <string name="hiddenBlogInfo" comment="%s is &quot;blog rules&quot;, a separately translateable string (key: blogRules).&#10;&#10;Full sentence: &quot;Make sure to read again our blog rules.&quot;">请务必重新阅读我们的 %s。</string>
+  <string name="playTimeout">您处于禁赛期。</string>
+  <string name="communicationGuidelines">沟通准则</string>
   <string name="blogRules" comment="This text links to https://lichess.org/page/blog-etiquette&#10;&#10;Part of longer sentence, &quot;Make sure to read again our blog rules.&quot; (key: hiddenBlogInfo)">博客规则</string>
-  <string name="fairPlay">公平竞争</string>
+  <string name="fairPlay">公平竞赛</string>
 </resources>
