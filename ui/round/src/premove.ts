@@ -215,12 +215,12 @@ export class Premove {
     (this.variant !== 'antichess' &&
       ctx.orig.pos[1] === ctx.dest.pos[1] &&
       ctx.orig.pos[1] === (ctx.color === 'white' ? 0 : 7) &&
-      (((this.rookCastle || this.variant === 'chess960') &&
-        ctx.rookFilesFriendlies.includes(ctx.dest.pos[0])) ||
-        (ctx.orig.pos[0] === 4 &&
-          this.variant !== 'chess960' &&
-          ((ctx.dest.pos[0] === 2 && ctx.rookFilesFriendlies.includes(0)) ||
-            (ctx.dest.pos[0] === 6 && ctx.rookFilesFriendlies.includes(7))))) &&
+      ((ctx.orig.pos[0] === 4 &&
+        this.variant !== 'chess960' &&
+        ((ctx.dest.pos[0] === 2 && ctx.rookFilesFriendlies.includes(0)) ||
+          (ctx.dest.pos[0] === 6 && ctx.rookFilesFriendlies.includes(7)))) ||
+        ((this.rookCastle || this.variant === 'chess960') &&
+          ctx.rookFilesFriendlies.includes(ctx.dest.pos[0]))) &&
       (this.unrestrictedPremoves ||
         /* The following checks if no non-rook friendly piece is in the way between the king and its castling destination.
          Note that for the Chess960 edge case of Kb1 "long castling", the check passes even if there is a piece in the way
