@@ -152,7 +152,7 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
           )(name)
         }
       ),
-      disabled.option(hidden[String](field))
+      disabled.option(hidden(field))
     )
 
   def textarea(
@@ -186,6 +186,9 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
       ),
       title := confirm
     )(content)
+
+  def hidden(field: Field): Tag =
+    hidden(field.name, ~field.value)
 
   def hidden[Value: Show](field: Field, value: Option[Value] = None): Tag =
     hidden(field.name, ~value.map(_.show).orElse(field.value))
