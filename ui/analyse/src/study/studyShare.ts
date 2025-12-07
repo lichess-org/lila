@@ -2,7 +2,7 @@ import { prop } from 'lib';
 import * as licon from 'lib/licon';
 import { type VNode, bind, dataIcon, hl } from 'lib/view';
 import { copyMeInput } from 'lib/view';
-import { text as xhrText, url as xhrUrl } from 'lib/xhr';
+import { writePgnClipboard, url as xhrUrl } from 'lib/xhr';
 import { renderIndexAndMove } from '../view/components';
 import { baseUrl } from '../view/util';
 import type { ChapterPreview, StudyData } from './interfaces';
@@ -47,19 +47,6 @@ export class StudyShare {
   cloneable = () => this.data.features.cloneable;
   shareable = () => this.data.features.shareable;
   gamebook = this.data.chapter.gamebook;
-}
-
-async function writePgnClipboard(url: string): Promise<void> {
-  // Firefox does not support `ClipboardItem`
-  if (typeof ClipboardItem === 'undefined') {
-    const pgn = await xhrText(url);
-    return navigator.clipboard.writeText(pgn);
-  } else {
-    const clipboardItem = new ClipboardItem({
-      'text/plain': xhrText(url).then(pgn => new Blob([pgn], { type: 'text/plain' })),
-    });
-    return navigator.clipboard.write([clipboardItem]);
-  }
 }
 
 export function view(ctrl: StudyShare): VNode {
