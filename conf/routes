@@ -458,6 +458,7 @@ GET   /swiss/$id<\w{8}>.trf                   controllers.Swiss.exportTrf(id: Sw
 GET   /swiss/$id<\w{8}>/edit                  controllers.Swiss.edit(id: SwissId)
 POST  /swiss/$id<\w{8}>/edit                  controllers.Swiss.update(id: SwissId)
 POST  /swiss/$id<\w{8}>/terminate             controllers.Swiss.terminate(id: SwissId)
+POST  /swiss/$id<\w{8}>/closeCurrentRound     controllers.Swiss.closeCurrentRound(id: SwissId)
 GET   /swiss/$id<\w{8}>/standing/:page        controllers.Swiss.standing(id: SwissId, page: Int)
 GET   /swiss/$id<\w{8}>/page-of/:user         controllers.Swiss.pageOf(id: SwissId, user: UserStr)
 GET   /swiss/$id<\w{8}>/player/:user          controllers.Swiss.player(id: SwissId, user: UserStr)

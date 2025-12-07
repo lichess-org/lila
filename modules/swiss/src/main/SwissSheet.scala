@@ -73,7 +73,7 @@ private object SwissSheet:
           case Some(pairing) =>
             pairing.status match
               case Left(_) => Ongoing
-              case Right(None) => Draw
+              case Right(None) => if pairing.isDoubleForfeit then Absent else Draw
               case Right(Some(color)) if pairing.isForfeit =>
                 if pairing(color) == player.userId then ForfeitWin else ForfeitLoss
               case Right(Some(color)) => if pairing(color) == player.userId then Win else Loss

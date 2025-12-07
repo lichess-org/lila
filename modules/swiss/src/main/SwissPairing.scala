@@ -8,6 +8,7 @@ case class SwissPairing(
     black: UserId,
     status: SwissPairing.Status,
     isForfeit: Boolean = false,
+    isDoubleForfeit: Boolean = false,
     isDelayed: Boolean = false,
     playerReady: Option[UserId] = None
 ):
@@ -51,6 +52,7 @@ object SwissPairing:
     val players = "p"
     val status = "t"
     val isForfeit = "f"
+    val isDoubleForfeit = "ff"
     val isDelayed = "d"
     val playerReady = "y"
   def fields[A](f: Fields.type => A): A = f(Fields)

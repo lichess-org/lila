@@ -469,6 +469,27 @@ final class SwissApi(
       .flatMapz:
         recomputeAndUpdateAll(swissId) >> banApi.onGameFinish(game)
 
+  def closeCurrentRound(swiss: Swiss): Funit =
+    Sequencing(swiss.id)(cache.swissCache.byId): swiss =>
+      for
+        result <- SwissPairing.fields: f =>
+          mongo.pairing.update
+            .one(
+              $doc(
+                f.swissId -> swiss.id,
+                f.round -> swiss.round,
+                f.isDelayed -> true
+              ),
+              $unset(f.isDelayed, f.playerReady) ++
+                $set(f.isDoubleForfeit -> true, f.status -> BSONNull),
+              multi = true
+            )
+        _ <- mongo.swiss.update.one($id(swiss.id), $inc("nbOngoing" -> -1 * result.nModified))
+        _ <- (swiss.nbOngoing <= 1).so(onRoundFinish(swiss, none))
+      yield (true)
+    .flatMapz:
+      recomputeAndUpdateAll(swiss.id)
+
   private def onRoundFinish(swiss: Swiss, lastGame: Option[Game]): Funit =
     if swiss.round.value == swiss.settings.nbRounds then doFinish(swiss)
     else if swiss.settings.manualRounds then
