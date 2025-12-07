@@ -1,4 +1,4 @@
-import { hl, type VNode } from 'lib/snabbdom';
+import { hl, type VNode } from 'lib/view';
 import type { TopOrBottom } from 'lib/game';
 import type { CorresClockController } from './corresClockCtrl';
 import { moretime } from '../view/button';

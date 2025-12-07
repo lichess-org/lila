@@ -11,7 +11,7 @@
   </plurals>
   <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (Stockfish, Fairy-Stockfish)">Editor de tablă și tablă de analiză cu %s</string>
   <string name="cloudEngineAnalysis">Analiza motorului în cloud</string>
-  <string name="studies">Studii (analiză partajabilă și persistentă)</string>
+  <string name="studies">Studii (analiză distribuibilă și persistentă)</string>
   <string name="chessInsights">Informații despre șah (analiză detaliată a jocului tău)</string>
   <string name="allChessBasicsLessons">Toate lecțiile de bază ale șahului</string>
   <string name="tacticalPuzzlesFromUserGames">puzzle-uri tactice din jocurile utilizatorului</string>

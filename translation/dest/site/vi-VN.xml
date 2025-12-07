@@ -4,9 +4,9 @@
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Thách đấu một người bạn</string>
   <string name="playAgainstComputer">Chơi với máy</string>
   <string name="gameMode">Chế độ chơi</string>
-  <string name="createLobbyGame">Tạo ván đấu tại sảnh</string>
+  <string name="createLobbyGame">Tạo sảnh ván đấu</string>
   <string name="youPlayAs">Bạn cầm quân</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">Để mời ai đó chơi, hãy gửi URL này</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Để mời ai đó chơi, hãy gửi đường dẫn này</string>
   <string name="gameOver">Ván cờ kết thúc</string>
   <string name="waitingForOpponent">Đang chờ đối thủ</string>
   <string name="orLetYourOpponentScanQrCode">Hoặc để đối thủ của bạn quét mã QR này</string>
@@ -14,17 +14,17 @@
   <string name="yourTurn">Đến lượt bạn</string>
   <string name="aiNameLevelAiLevel">%1$s cấp độ %2$s</string>
   <string name="level">Cấp độ</string>
-  <string name="strength">Sức mạnh</string>
+  <string name="strength">Độ mạnh</string>
   <string name="toggleTheChat">Bật/Tắt trò chuyện</string>
-  <string name="chat">Trò chuyện</string>
-  <string name="resign">Chịu thua</string>
+  <string name="chat">Tán gẫu</string>
+  <string name="resign">Đầu hàng</string>
   <string name="checkmate">Chiếu hết</string>
   <string name="stalemate">Hết nước đi hợp lệ</string>
   <string name="white">Quân Trắng</string>
   <string name="black">Quân Đen</string>
   <string name="asWhite">khi chơi quân trắng</string>
   <string name="asBlack">khi chơi quân đen</string>
-  <string name="randomColor">Màu quân ngẫu nhiên</string>
+  <string name="randomColor">Chọn màu quân ngẫu nhiên</string>
   <string name="createAGame">Tạo một ván cờ</string>
   <string name="createTheGame">Khởi tạo ván cờ</string>
   <string name="whiteIsVictorious">Bên Trắng thắng</string>

@@ -9,7 +9,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Per invitare qualcuno a giocare, dagli questo URL</string>
   <string name="gameOver">Partita terminata</string>
   <string name="waitingForOpponent">In attesa dell\'avversario</string>
-  <string name="orLetYourOpponentScanQrCode">Oppure fai scansionare questo codice QR al tuo avversario</string>
+  <string name="orLetYourOpponentScanQrCode">O fai scansionare questo codice QR al tuo avversario</string>
   <string name="waiting">In attesa</string>
   <string name="yourTurn">Tocca a te</string>
   <string name="aiNameLevelAiLevel">%1$s livello %2$s</string>
@@ -26,7 +26,7 @@
   <string name="asBlack">come nero</string>
   <string name="randomColor">Colore casuale</string>
   <string name="createAGame">Crea una partita</string>
-  <string name="createTheGame">Inizia una partita</string>
+  <string name="createTheGame">Inizia la partita</string>
   <string name="whiteIsVictorious">Vince il Bianco</string>
   <string name="blackIsVictorious">Vince il Nero</string>
   <string name="youPlayTheWhitePieces">Sei il Bianco</string>
@@ -75,7 +75,7 @@
   <string name="promoteVariation">Promuovi la variante</string>
   <string name="makeMainLine">Rendi questa la variante principale</string>
   <string name="deleteFromHere">Elimina da qui</string>
-  <string name="collapseVariations">Riduci varianti</string>
+  <string name="collapseVariations">Comprimi varianti</string>
   <string name="expandVariations">Espandi varianti</string>
   <string name="forceVariation">Mostra come variante</string>
   <string name="copyVariationPgn">Copia il PGN della variante</string>

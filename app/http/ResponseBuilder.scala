@@ -20,6 +20,8 @@ trait ResponseBuilder(using Executor)
 
   given (using Context): Zero[Fu[Result]] = Zero(notFound)
 
+  def routeUrl(call: Call): Url = Url(s"${env.net.baseUrl}${call.url}")
+
   def Found[A](a: Fu[Option[A]])(f: A => Fu[Result])(using Context): Fu[Result] =
     a.flatMap(_.fold(notFound)(f))
 
@@ -47,6 +49,11 @@ trait ResponseBuilder(using Executor)
   extension [A](fua: Fu[Boolean])
     def elseNotFound(f: => Fu[Result])(using Context): Fu[Result] =
       fua.flatMap { if _ then f else notFound }
+
+  def WithEnabledUserId(name: UserStr)(op: UserId => Fu[Result])(using Context) =
+    name.validateId
+      .so(userId => env.user.repo.isEnabled(userId).map(_.option(userId)))
+      .flatMap(_.fold(notFound("No such user".some))(op))
 
   def rateLimited(using Context): Fu[Result] = rateLimited(rateLimitedMsg)
   def rateLimited(msg: String = rateLimitedMsg)(using ctx: Context): Fu[Result] = negotiate(

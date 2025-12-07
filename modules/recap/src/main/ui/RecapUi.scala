@@ -22,3 +22,12 @@ final class RecapUi(helpers: Helpers):
       .csp(_.withInlineIconFont): // swiper's `data: font`
         main(cls := "recap"):
           div(id := "recap-swiper", cls := "swiper")
+
+  def notAvailable(year: Int) =
+    Page("Recap not available yet"):
+      main(cls := "page-small box box-pad page")(
+        h1(cls := "box__top")(s"Lichess Recap $year will be available soon."),
+        div(
+          p("Check back later!")
+        )
+      )

@@ -1,5 +1,5 @@
 db.event.createIndex({ startsAt: 1 });
-db.picfit_image.createIndex({ rel: 1 }, { unique: true });
+db.picfit_image.createIndex({ refs: 1 });
 db.picfit_image.createIndex(
   { 'automod.flagged': 1 },
   { partialFilterExpression: { 'automod.flagged': { $exists: true } } },
@@ -221,9 +221,9 @@ db.forecast.createIndex({ date: 1 }, { expireAfterSeconds: 1296000 });
 db.msg_thread.createIndex({ users: 1, 'lastMsg.date': -1 });
 db.msg_thread.createIndex({ users: 1 }, { partialFilterExpression: { 'lastMsg.read': false } });
 db.msg_thread.createIndex({ users: 1, 'maskWith.date': -1 });
-db.video.createIndex({ 'metadata.likes': -1 });
-db.video.createIndex({ tags: 1, 'metadata.likes': -1 });
-db.video.createIndex({ author: 1, 'metadata.likes': -1 });
+db.video.createIndex({ 'metadata.refreshedAt': -1 });
+db.video.createIndex({ tags: 1, 'metadata.refreshedAt': -1 });
+db.video.createIndex({ author: 1, 'metadata.publishedAt': -1 });
 db.video.createIndex(
   { _fts: 'text', _ftsx: 1 },
   {

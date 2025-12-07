@@ -2,8 +2,8 @@ package lila.fide
 package ui
 
 import scalalib.paginator.Paginator
+import chess.FideTC
 
-import lila.core.fide.FideTC
 import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
@@ -93,7 +93,7 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
     def flag(id: lila.core.fide.Federation.Id, title: Option[String]) = img(
       cls := "flag",
       st.title := title.getOrElse(id.value),
-      src := assetUrl(s"fide/fed-webp/${id}.webp")
+      src := fideFedSrc(id.value)
     )
 
     private def card(name: Frag, value: Frag) =

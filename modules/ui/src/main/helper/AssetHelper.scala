@@ -56,13 +56,20 @@ trait AssetHelper:
   // bump flairs version if a flair is changed only (not added or removed)
   val flairVersion = "______4"
 
+  // bump fide fed version if a fide fed is changed only (not added or removed)
+  val fideFedVersion = "______2"
+
   def staticAssetUrl(path: String): Url = Url(s"$assetBaseUrl/assets/$path")
+
+  def staticCompiledUrl(path: String): Url = staticAssetUrl(s"compiled/$path")
 
   def cdnUrl(path: String) = Url(s"$assetBaseUrl$path")
 
   def flairSrc(flair: Flair): Url = staticAssetUrl(s"$flairVersion/flair/img/$flair.webp")
 
   def iconFlair(flair: Flair): Tag = decorativeImg(cls := "icon-flair", src := flairSrc(flair))
+
+  def fideFedSrc(fideFed: String): Url = staticAssetUrl(s"$fideFedVersion/fide/fed-webp/${fideFed}.webp")
 
   def fingerprintTag: EsmList = Esm("bits.fipr")
 

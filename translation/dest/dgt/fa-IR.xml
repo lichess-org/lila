@@ -38,7 +38,7 @@
   <string name="announceMoveFormat">فرمت اعلام حرکت</string>
   <string name="moveFormatDescription">SAN استانداردی در Lichess مانند «Nf6» است. UCI در موتورهایی مانند «g8f6» رایج است.</string>
   <string name="keywords">کلیدواژه‌ها</string>
-  <string name="keywordFormatDescription">کلمات کلیدی در فرمت JSON هستند و برای ترجمهٔ حرکات و نتایج به زبان شما به کار می‌روند. زبان پیش‌فرض انگلیسی است، اما می‌توانید به‌راحتی آن را تغییر دهید.</string>
+  <string name="keywordFormatDescription">کلیدواژه‌ها در دیسارِ JSON اَند. آن‌ها برای ترجمهٔ حرکات و نتایج به زبان شما استفاده می‌شوند. پیش‌فرض انگلیسی است، اما آزادید آن را تغییر دهید.</string>
   <string name="debug">اشکال‌یابی</string>
   <string name="verboseLogging">گزارش‌دهی مفصل</string>
   <string name="toSeeConsoleMessage">برای دیدن پیام کنسول، این کلیدها را فشار دهید: Command + Option + C (در مک) یا Control + Shift + C (در ویندوز، لینوکس و کروم او‌اس).</string>

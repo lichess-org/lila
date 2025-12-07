@@ -18,6 +18,9 @@ object PuzzleTheme:
   enum VoteError:
     case Fail(msg: String) extends VoteError
     case Unchanged extends VoteError
+    def message: String = this match
+      case Fail(msg) => msg
+      case Unchanged => "unchanged"
 
   val mix = PuzzleTheme(i.mix, i.mixDescription)
   val advancedPawn = PuzzleTheme(i.advancedPawn, i.advancedPawnDescription)
@@ -27,17 +30,22 @@ object PuzzleTheme:
   val attackingF2F7 = PuzzleTheme(i.attackingF2F7, i.attackingF2F7Description)
   val attraction = PuzzleTheme(i.attraction, i.attractionDescription)
   val backRankMate = PuzzleTheme(i.backRankMate, i.backRankMateDescription)
+  val balestraMate = PuzzleTheme(i.balestraMate, i.balestraMateDescription)
+  val blindSwineMate = PuzzleTheme(i.blindSwineMate, i.blindSwineMateDescription)
+  val triangleMate = PuzzleTheme(i.triangleMate, i.triangleMateDescription)
   val bishopEndgame = PuzzleTheme(i.bishopEndgame, i.bishopEndgameDescription)
   val bodenMate = PuzzleTheme(i.bodenMate, i.bodenMateDescription)
   val capturingDefender =
     PuzzleTheme(i.capturingDefender, i.capturingDefenderDescription)
   val castling = PuzzleTheme(i.castling, i.castlingDescription)
   val clearance = PuzzleTheme(i.clearance, i.clearanceDescription)
+  val cornerMate = PuzzleTheme(i.cornerMate, i.cornerMateDescription)
   val crushing = PuzzleTheme(i.crushing, i.crushingDescription)
   val defensiveMove = PuzzleTheme(i.defensiveMove, i.defensiveMoveDescription)
   val deflection = PuzzleTheme(i.deflection, i.deflectionDescription)
   val discoveredAttack =
     PuzzleTheme(i.discoveredAttack, i.discoveredAttackDescription)
+  val discoveredCheck = PuzzleTheme(i.discoveredCheck, i.discoveredCheckDescription)
   val doubleBishopMate =
     PuzzleTheme(i.doubleBishopMate, i.doubleBishopMateDescription)
   val doubleCheck = PuzzleTheme(i.doubleCheck, i.doubleCheckDescription)
@@ -123,6 +131,7 @@ object PuzzleTheme:
     I18nKey.puzzle.advanced -> List(
       attraction,
       clearance,
+      discoveredCheck,
       defensiveMove,
       deflection,
       interference,
@@ -137,15 +146,21 @@ object PuzzleTheme:
       mateIn2,
       mateIn3,
       mateIn4,
-      mateIn5,
+      mateIn5
+    ),
+    I18nKey.puzzle.mateThemes -> List(
       anastasiaMate,
       arabianMate,
       backRankMate,
+      balestraMate,
+      blindSwineMate,
       bodenMate,
+      cornerMate,
       doubleBishopMate,
       dovetailMate,
       hookMate,
       killBoxMate,
+      triangleMate,
       vukovicMate,
       smotheredMate
     ),

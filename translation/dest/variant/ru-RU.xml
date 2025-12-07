@@ -16,6 +16,6 @@
   <string name="hordeTitle" comment="Description for the Horde chess variant">Одна сторона имеет большое количество пешек, когда другая имеет стандартный набор фигур.</string>
   <string name="racingKings" comment="The name of a chess variant where both sides start on the same rank, and need to reach the other side of the board win.&#10;&#10;No need to translate literally. Focus on making it fun, capturing the spirit of the variant.">Гонка королей</string>
   <string name="racingKingsTitle" comment="Description for the Racing Kings chess variant">Проведите своего короля на другою сторону доски, чтобы победить.</string>
-  <string name="crazyhouse" comment="The name of a chess variant where pieces you capture can be put on the board (similar to shogi).">Швейцарка на двоих</string>
+  <string name="crazyhouse" comment="The name of a chess variant where pieces you capture can be put on the board (similar to shogi).">Шведка на двоих</string>
   <string name="crazyhouseTitle" comment="Description for the Crazyhouse chess variant">Срубленные фигуры могут быть возвращены на доску вместо хода фигурой.</string>
 </resources>

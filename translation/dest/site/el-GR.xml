@@ -36,7 +36,7 @@
   <string name="kingInTheCenter">Βασιλιάς στο κέντρο</string>
   <string name="threeChecks">Τρία σαχ</string>
   <string name="raceFinished">Τέλος αγώνα</string>
-  <string name="variantEnding">Εκδοχή ολοκληρώθηκε</string>
+  <string name="variantEnding">Ολοκλήρωση παραλλαγής</string>
   <string name="newOpponent">Νέος αντίπαλος</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Ο αντίπαλος θέλει να παίξει νέο παιχνίδι μαζί σας</string>
   <string name="joinTheGame">Λάβετε μέρος στο παιχνίδι</string>
@@ -294,8 +294,8 @@
   <string name="playingRightNow">Σε εξέλιξη</string>
   <string name="eventInProgress">Σε εξέλιξη τώρα</string>
   <string name="finished">Ολοκληρωμένα</string>
-  <string name="abortGame">Εγκαταλείψτε το παιχνίδι</string>
-  <string name="gameAborted">Παιχνίδι εγκατελήφθη</string>
+  <string name="abortGame">Ματαίωση παρτίδας</string>
+  <string name="gameAborted">Η παρτίδα ματαιώθηκε</string>
   <string name="standard">Κανονικό</string>
   <string name="customPosition">Προσαρμοσμένη θέση</string>
   <string name="unlimited">Απεριόριστου χρόνου</string>
@@ -405,8 +405,8 @@
   <string name="yourPerfRatingIsTooHigh">Η %1$s βαθμολογία σας (%2$s) είναι πολύ υψηλή</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Η κορυφαία εβδομαδιαία %1$s βαθμολογία σας (%2$s) είναι πολύ υψηλή</string>
   <string name="yourPerfRatingIsTooLow">Η %1$s βαθμολογία σας (%2$s) είναι πολύ χαμηλή</string>
-  <string name="ratedMoreThanInPerf">Βαθμολογημένο ≥ %1$s στο %2$s</string>
-  <string name="ratedLessThanInPerf">Βαθμολογημένο ≤ %1$s στο %2$s</string>
+  <string name="ratedMoreThanInPerf">Βαθμολογία ≥ %1$s στο %2$s</string>
+  <string name="ratedLessThanInPerf">Βαθμολογία ≤ %1$s στο %2$s</string>
   <string name="mustBeInTeam">Πρέπει να είστε μέλος της ομάδας %s</string>
   <string name="youAreNotInTeam">Δεν είστε μέλος της ομάδας %s</string>
   <string name="backToGame">Επιστρέψτε στο παιχνίδι</string>
@@ -589,12 +589,12 @@
   <string name="writeAPrivateNoteAboutThisUser">Γράψτε μια ιδιωτική σημείωση για αυτόν το χρήστη</string>
   <string name="noNoteYet">Καμία σημείωση ακόμη</string>
   <string name="invalidUsernameOrPassword">Άκυρο όνομα χρήστη ή κωδικός</string>
-  <string name="incorrectPassword">Εσφαλμένος κωδικός</string>
+  <string name="incorrectPassword">Εσφαλμένος κωδικός πρόσβασης</string>
   <string name="invalidAuthenticationCode">Μη έγκυρος κωδικός επαλήθευσης</string>
   <string name="emailMeALink">Στείλτε μου σύνδεσμο μέσω ηλ. ταχυδρομείου</string>
-  <string name="currentPassword">Κωδικός σε ισχύ</string>
-  <string name="newPassword">Νέος κωδικός</string>
-  <string name="newPasswordAgain">Νέος κωδικός (επαλήθευση)</string>
+  <string name="currentPassword">Τρέχων κωδικός πρόσβασης</string>
+  <string name="newPassword">Νέος κωδικός πρόσβασης</string>
+  <string name="newPasswordAgain">Νέος κωδικός πρόσβασης (επαλήθευση)</string>
   <string name="newPasswordsDontMatch">Οι νέοι κωδικοί πρόσβασης δεν ταιριάζουν</string>
   <string name="newPasswordStrength">Ισχύς κωδικού πρόσβασης</string>
   <string name="clockInitialTime">Αρχικός χρόνος</string>

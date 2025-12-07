@@ -14,6 +14,10 @@
   <string name="attractionDescription">Un échange ou un sacrifice encourageant ou forçant une pièce adverse à bouger sur une case, permettant une tactique.</string>
   <string name="backRankMate">Mat du couloir</string>
   <string name="backRankMateDescription">Matez le Roi sur la dernière rangée, lorsqu\'il est piégé par ses propres pièces.</string>
+  <string name="balestraMate">Mat de l\'arbalète</string>
+  <string name="balestraMateDescription">Un fou fait échec tandis que la dame contrôle les cases de fuite.</string>
+  <string name="blindSwineMate">Mat des deux tours</string>
+  <string name="blindSwineMateDescription">Deux tours matent le roi adverse dans un espace de deux cases par deux cases.</string>
   <string name="bishopEndgame">Finale de Fous</string>
   <string name="bishopEndgameDescription">Une finale avec seulement des Fous et des pions.</string>
   <string name="bodenMate">Mat de Boden</string>
@@ -22,8 +26,12 @@
   <string name="castlingDescription">Mettez votre Roi en sécurité et développez vos Tours pour attaquer.</string>
   <string name="capturingDefender">Capturez le défenseur</string>
   <string name="capturingDefenderDescription">Retire une pièce essentielle à la défense d\'une autre pièce, permettant à la pièce non protégée d\'être capturée au coup suivant.</string>
+  <string name="cornerMate">Mat en coin</string>
+  <string name="cornerMateDescription">Le roi adverse est confiné dans un coin de l\'échiquier par une tour ou la dame, puis un cavalier le met mat.</string>
   <string name="crushing">Écrasant</string>
   <string name="crushingDescription">Repérez la gaffe de l\'adversaire pour obtenir un avantage écrasant. (évaluation &gt; 600cp)</string>
+  <string name="discoveredCheck" comment="Description (translatable separately):&#10;&#10;Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage.">Échec à la découverte</string>
+  <string name="discoveredCheckDescription" comment="Description for the &quot;Discovered check&quot; puzzle theme.">En se déplaçant, une pièce permet à une autre pièce de mettre le roi adverse en échec et d\'obtenir souvent un avantage décisif.</string>
   <string name="doubleBishopMate">Mat des deux Fous</string>
   <string name="doubleBishopMateDescription">Deux Fous contrôlant des diagonales adjacentes matent un Roi bloqué par ses propres pièces.</string>
   <string name="dovetailMate">Mat de Cozio</string>
@@ -59,6 +67,8 @@
   <string name="intermezzoDescription">Au lieu de jouer le coup attendu, jouez d\'abord un autre coup posant une menace immédiate à laquelle l\'adversaire doit répondre. Aussi connu sous le nom de \"Zwischenzug\".</string>
   <string name="killBoxMate">Mat par mise en boîte</string>
   <string name="killBoxMateDescription">La tour, protégée par la dame, met le roi adverse en échec et la dame bloque la seule case de fuite du roi (le roi est enfermé dans une boîte de 3 cases par 3 cases formée par la tour et la dame).</string>
+  <string name="triangleMate">Mat du triangle</string>
+  <string name="triangleMateDescription">La dame et la tour, à une case de distance du roi adverse, sont sur la même rangée ou colonne et donnent mat en formant un triangle.</string>
   <string name="vukovicMate">Mat de Vukovic</string>
   <string name="vukovicMateDescription">Une tour et un cavalier collaborent pour mater le roi adverse. Protégée par une troisième pièce, la tour fait mat, car le cavalier bloque la case de fuite du roi.</string>
   <string name="knightEndgame">Finale de Cavaliers</string>

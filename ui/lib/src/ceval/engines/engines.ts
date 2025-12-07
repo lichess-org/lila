@@ -66,15 +66,16 @@ export class Engines {
     const browserEngines: WithMake[] = [
       {
         info: {
-          id: '__sf17_1nnue7',
-          name: 'Stockfish 17.1 NNUE · 7MB',
-          short: 'SF 17.1 · 7MB',
+          id: '__sf17_1nnue7v2',
+          name: 'Stockfish 17.1 NNUE · 7MB v2',
+          short: 'SF 17.1 · 7MB v2',
           tech: 'NNUE',
           requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
           minMem: 1536,
           cloudEval: true,
           assets: {
             root: 'npm/stockfish-web',
+            nnue: ['nn-9067e33176e8.nnue'],
             js: 'sf171-7.js',
           },
         },

@@ -18,7 +18,8 @@ final class JsonView(isOnline: lila.core.socket.IsOnline) extends lila.core.user
   def full(
       u: User,
       perfs: Option[UserPerfs | KeyedPerf],
-      withProfile: Boolean
+      withProfile: Boolean,
+      rankMap: Option[lila.core.rating.UserRankMap] = None
   ): JsObject =
     if u.enabled.no then disabled(u.light)
     else

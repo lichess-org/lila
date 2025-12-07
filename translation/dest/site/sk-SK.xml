@@ -869,7 +869,7 @@
   <string name="revokeAllSessions">zrušiť všetky pripojenia</string>
   <string name="playChessEverywhere">Hrajte šachy kdekoľvek</string>
   <string name="everybodyGetsAllFeaturesForFree">Každý dostane všetky možnosti zadarmo</string>
-  <string name="viewTheSolution">Pozrite riešenie</string>
+  <string name="viewTheSolution">Zobraziť riešenie</string>
   <string name="noChallenges">Žiadne výzvy.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Dostupné v %s jazyku!</item>
@@ -882,7 +882,7 @@
   <string name="xLikesY">%1$s lajkol %2$s</string>
   <string name="quickPairing">Rýchle nájdenie súpera</string>
   <string name="lobby">Výzvy hráčov</string>
-  <string name="anonymous">Anonymný</string>
+  <string name="anonymous">Anonym</string>
   <string name="yourScore">Vaše skóre: %s</string>
   <string name="language">Jazyk</string>
   <string name="allLanguages">Všetky jazyky</string>

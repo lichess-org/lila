@@ -13,18 +13,18 @@ import lila.study.Settings
 import lila.core.socket.SocketVersion
 import lila.core.LightUser.GetterSync
 
-final class JsonView(
+final class RelayJsonView(
     baseUrl: BaseUrl,
     picfitUrl: PicfitUrl,
     lightUserSync: GetterSync,
     markdown: RelayMarkdown
 ):
 
-  import JsonView.{ Config, given }
+  import RelayJsonView.{ Config, given }
 
   given Writes[RelayTour.Tier] = writeAs(_.v)
 
-  given Writes[lila.core.fide.FideTC] = writeAs(_.toString)
+  given Writes[chess.FideTC] = writeAs(_.toString)
   given Writes[java.time.ZoneId] = writeAs(_.getId)
 
   given OWrites[RelayTour.Info] = Json.writes
@@ -73,7 +73,7 @@ final class JsonView(
           withUrl(round.withTour(trs.tour), withTour = false)
       )
       .add("group" -> group)
-      .add("defaultRoundId" -> RelayListing.defaultRoundToLink(trs).map(_.id))
+      .add("defaultRoundId" -> RelayDefaults.defaultRoundToLink(trs).map(_.id))
 
   def tourWithAnyRound(t: RelayTour | WithLastRound | RelayCard)(using Config): JsObject = t match
     case tour: RelayTour => Json.obj("tour" -> fullTour(tour))
@@ -150,13 +150,13 @@ final class JsonView(
       pinned: Option[RelayPinnedStream],
       delayedUntil: Option[Instant]
   ) =
-    JsonView.JsData(
+    RelayJsonView.JsData(
       relay = fullTourWithRounds(trs, group)(using Config(html = true))
         .add("sync" -> canContribute.so(trs.rounds.find(_.id == currentRoundId).map(_.sync)))
         .add("lcc", trs.rounds.find(_.id == currentRoundId).map(_.sync.upstream.exists(_.hasLcc)))
         .add("isSubscribed" -> isSubscribed)
         .add("videoUrls" -> videoUrls)
-        .add("note" -> trs.tour.note.ifTrue(canContribute))
+        .add("note" -> canContribute.so(trs.tour.note))
         .add("delayedUntil" -> delayedUntil)
         .add("pinned" -> pinned.map: p =>
           Json
@@ -168,20 +168,19 @@ final class JsonView(
       group = group.map(_.group.name)
     )
 
-  def top(
-      active: List[RelayCard],
-      past: Paginator[WithLastRound]
-  )(using Config) =
+  def home(h: RelayHome)(using Config) = top(h.ongoing ::: h.recent, h.past)
+
+  def top(active: List[RelayCard | WithLastRound], tours: Paginator[WithLastRound])(using Config) =
     Json.obj(
-      "active" -> active.map(tourWithAnyRound(_)),
+      "active" -> active.map(tourWithAnyRound),
       "upcoming" -> Json.arr(), // BC
-      "past" -> paginatorWriteNoNbResults.writes(past.map(tourWithAnyRound(_)))
+      "past" -> paginatorWriteNoNbResults.writes(tours.map(tourWithAnyRound))
     )
 
   def search(tours: Paginator[WithLastRound])(using Config) =
     paginatorWriteNoNbResults.writes(tours.map(tourWithAnyRound(_)))
 
-object JsonView:
+object RelayJsonView:
 
   case class Config(html: Boolean)
 

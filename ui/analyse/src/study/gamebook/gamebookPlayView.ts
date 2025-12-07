@@ -1,6 +1,6 @@
 import GamebookPlayCtrl, { type State } from './gamebookPlayCtrl';
 import * as licon from 'lib/licon';
-import { type VNode, iconTag, bind, dataIcon, hl } from 'lib/snabbdom';
+import { type VNode, iconTag, bind, dataIcon, hl } from 'lib/view';
 import { richHTML } from 'lib/richText';
 
 export function render(ctrl: GamebookPlayCtrl): VNode {
@@ -90,13 +90,14 @@ function renderEnd(ctrl: GamebookPlayCtrl) {
       },
       i18n.study.playAgain,
     ),
-    hl(
-      'button.analyse',
-      {
-        attrs: { 'data-icon': licon.Microscope, type: 'button' },
-        hook: bind('click', () => study.setGamebookOverride('analyse'), ctrl.redraw),
-      },
-      i18n.site.analysis,
-    ),
+    !study.vm.gamebookOverride &&
+      hl(
+        'button.analyse',
+        {
+          attrs: { 'data-icon': licon.Microscope, type: 'button' },
+          hook: bind('click', () => study.setGamebookOverride('analyse'), ctrl.redraw),
+        },
+        i18n.site.analysis,
+      ),
   ]);
 }

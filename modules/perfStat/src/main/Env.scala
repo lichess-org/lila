@@ -13,7 +13,7 @@ final class Env(
     gameRepo: lila.core.game.GameRepo,
     userApi: lila.core.user.UserApi,
     rankingRepo: lila.core.user.RankingRepo,
-    rankingsOf: UserId => lila.rating.UserRankMap,
+    rankingsOf: UserId => lila.core.rating.UserRankMap,
     yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb
 )(using Executor, Scheduler):
 

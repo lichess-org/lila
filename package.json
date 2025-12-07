@@ -1,7 +1,7 @@
 {
   "name": "lila",
   "private": true,
-  "packageManager": "pnpm@10.18.3+sha512.bbd16e6d7286fd7e01f6b3c0b3c932cda2965c06a908328f74663f10a9aea51f1129eea615134bf992831b009eabe167ecb7008b597f40ff9bc75946aadfb08d",
+  "packageManager": "pnpm@10.22.0+sha512.bf049efe995b28f527fd2b41ae0474ce29186f7edcb3bf545087bd61fbbebb2bf75362d1307fda09c2d288e1e499787ac12d4fcb617a974718a6051f2eee741c",
   "engines": {
     "node": ">=24",
     "pnpm": "10"
@@ -15,8 +15,8 @@
     }
   },
   "dependencies": {
-    "@lichess-org/chessground": "9.8.4",
-    "@lichess-org/pgn-viewer": "2.5.3",
+    "@lichess-org/chessground": "9.9.0",
+    "@lichess-org/pgn-viewer": "^2.5.4",
     "@types/lichess": "workspace:*",
     "@types/node": "^24.10.0",
     "@typescript-eslint/eslint-plugin": "^8.46.3",
@@ -25,9 +25,9 @@
     "chessops": "^0.15",
     "eslint": "^9.39.1",
     "eslint-plugin-compat": "^6.0.2",
+    "eslint-plugin-import": "^2.32.0",
     "jsdom": "^27.1.0",
     "lint-staged": "^16.2.6",
-    "onchange": "^7.1.0",
     "prettier": "^3.6.2",
     "snabbdom": "3.5.1",
     "tsx": "^4.20.6",
@@ -40,7 +40,6 @@
   "scripts": {
     "format": "prettier --config=ui/.prettierrc.json --cache --write --log-level=warn .",
     "check-format": "prettier --config=ui/.prettierrc.json --cache --check --log-level=warn .",
-    "watch-format": "onchange \"**/*\" -- prettier --config=ui/.prettierrc.json --cache --write --log-level=warn {{changed}}",
     "add-hooks": "git config get --all core.hooksPath | grep -Fxq bin/git-hooks || git config set --append core.hooksPath bin/git-hooks",
     "remove-hooks": "git config unset --value=bin/git-hooks core.hooksPath || true",
     "lint": "eslint --config=ui/eslint.config.mjs --cache --cache-location=ui/.eslintcache",
@@ -48,7 +47,6 @@
     "journal": "journalctl --user -fu lila -o cat",
     "metals": "tail -F .metals/metals.log | stdbuf -oL cut -c 21- | rg -v '(notification for request|handleCancellation)'",
     "serverlog": "pnpm journal & pnpm metals",
-    "kill-build": "[ -f ui/.build/instance.lock ] && kill \"$(cat ui/.build/instance.lock)\" 2>/dev/null || true",
     "i18n-file-gen": "pnpx tsx bin/i18n-file-gen.ts",
     "multilog": "pnpm serverlog & ui/build -w"
   },

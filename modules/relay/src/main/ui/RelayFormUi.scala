@@ -201,7 +201,9 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
           )
         ,
         form3.globalError(form),
-        form3.group(form("name"), trb.roundName())(form3.input(_)(autofocus)),
+        form3.group(form("name"), trb.roundName(), help = trb.defaultRoundNameHelp().some)(
+          form3.input(_)(autofocus)
+        ),
         form3.fieldset("Source", toggle = true.some)(cls := "box-pad")(
           form3.group(
             form("syncSource"),
@@ -524,7 +526,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
             ):
               form3.select(
                 _,
-                lila.core.fide.FideTC.values.map: tc =>
+                chess.FideTC.values.map: tc =>
                   tc.toString -> tc.toString.capitalize
               )
           ),

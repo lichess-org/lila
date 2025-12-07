@@ -20,13 +20,14 @@ final class MobileApi(
     teamCached: lila.team.Cached,
     tourFeaturing: lila.tournament.TournamentFeaturing,
     tourApiJson: lila.tournament.ApiJsonView,
-    topRelay: Int => lila.relay.JsonView.Config ?=> Fu[JsObject],
+    relayHome: lila.relay.RelayHomeApi,
     tv: lila.tv.Tv,
-    liveStreamApi: lila.streamer.LiveStreamApi,
+    liveStreamApi: lila.streamer.LiveApi,
     activityRead: lila.activity.ActivityReadApi,
     activityJsonView: lila.activity.JsonView,
     challengeApi: lila.challenge.ChallengeApi,
     challengeJson: lila.challenge.JsonView,
+    webMobile: lila.web.Mobile,
     picfitUrl: lila.memo.PicfitUrl,
     isOnline: lila.core.socket.IsOnline
 )(using Executor):
@@ -44,7 +45,7 @@ final class MobileApi(
       inbox <- me.traverse(unreadCount.mobile)
       challenges <- me.traverse(challengeApi.allFor(_))
     yield Json
-      .obj("tournaments" -> tours)
+      .obj("tournaments" -> tours, "version" -> webMobile.json)
       .add("account", account)
       .add("recentGames", recentGames)
       .add("ongoingGames", ongoingGames)
@@ -63,7 +64,7 @@ final class MobileApi(
 
   def watch: Fu[JsObject] =
     for
-      relay <- topRelay(1)(using lila.relay.JsonView.Config(html = false))
+      relay <- relayHome.getJson(1)(using lila.relay.RelayJsonView.Config(html = false))
       champs <- tv.getChampions
       tvChannels = champs.channels.mapKeys(_.key)
       streamers <- featuredStreamers
@@ -80,7 +81,7 @@ final class MobileApi(
     .zip(users)
     .map: (stream, user) =>
       Json.toJsObject(user) ++
-        lila.streamer.Stream.toJson(picfitUrl, stream)
+        lila.streamer.Stream.toLichessJson(picfitUrl, stream)
 
   def profile(user: User)(using me: Option[Me])(using Lang): Fu[JsObject] =
     for

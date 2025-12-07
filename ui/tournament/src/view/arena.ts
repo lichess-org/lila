@@ -1,6 +1,6 @@
 import { h, type VNode } from 'snabbdom';
 import * as licon from 'lib/licon';
-import { bind, dataIcon, type MaybeVNodes } from 'lib/snabbdom';
+import { bind, dataIcon, type MaybeVNodes } from 'lib/view';
 import { numberRow } from 'lib/view/util';
 import type TournamentController from '../ctrl';
 import { player as renderPlayer } from './util';

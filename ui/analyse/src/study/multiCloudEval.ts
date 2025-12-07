@@ -2,7 +2,7 @@ import { type Prop, defined } from 'lib';
 import type { EvalHitMulti } from '../interfaces';
 import { storedBooleanPropWithEffect } from 'lib/storage';
 import { povChances } from 'lib/ceval/winningChances';
-import { type VNode, bind, hl } from 'lib/snabbdom';
+import { type VNode, bind, hl } from 'lib/view';
 import type { StudyChapters } from './studyChapters';
 import { debounce } from 'lib/async';
 import type { ServerNodeMsg } from './interfaces';

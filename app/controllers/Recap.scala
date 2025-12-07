@@ -24,11 +24,15 @@ final class Recap(env: Env) extends LilaController(env):
       username: UserStr
   )(f: Context ?=> UserModel => Availability => Fu[Result]): EssentialAction =
     Auth { ctx ?=> me ?=>
-      def proceed(user: lila.core.user.User) = for
-        av <- env.recap.api.availability(user)
-        res <- f(using ctx.updatePref(_.forceDarkBg))(user)(av)
-      yield res
-      if me.is(username) then proceed(me)
-      else if isGranted(_.SeeInsight) || !env.mode.isProd then Found(env.user.api.byId(username))(proceed)
-      else Redirect(routes.Recap.home).toFuccess
+      val availableAt = java.time.LocalDate.of(lila.recap.yearToRecap, java.time.Month.DECEMBER, 15)
+      if env.mode.isProd && java.time.LocalDate.now().isBefore(availableAt) then
+        Ok.page(views.recap.notAvailable(lila.recap.yearToRecap))
+      else
+        def proceed(user: lila.core.user.User) = for
+          av <- env.recap.api.availability(user)
+          res <- f(using ctx.updatePref(_.forceDarkBg))(user)(av)
+        yield res
+        if me.is(username) then proceed(me)
+        else if isGranted(_.SeeInsight) || !env.mode.isProd then Found(env.user.api.byId(username))(proceed)
+        else Redirect(routes.Recap.home).toFuccess
     }

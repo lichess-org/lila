@@ -70,9 +70,11 @@ declare namespace Tree {
     crazy?: NodeCrazy;
     collapsed?: boolean;
   }
-  export interface NodeFromServer extends NodeBase {
+
+  export interface NodeOptionalChildren extends NodeBase {
     children?: Node[];
   }
+
   export interface Node extends NodeBase {
     children: Node[];
   }

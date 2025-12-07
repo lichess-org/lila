@@ -1,12 +1,9 @@
 package lila.core
 package fide
 
-import _root_.chess.{ FideId, PlayerName, PlayerTitle }
+import _root_.chess.{ FideId, FideTC, PlayerName, PlayerTitle }
 import _root_.chess.rating.{ Elo, KFactor }
 import lila.core.userId.UserId
-
-enum FideTC:
-  case standard, rapid, blitz
 
 object Federation:
 

@@ -7,7 +7,7 @@ import { renderSetting } from 'lib/nvui/setting';
 import type { PuzzleNvuiContext } from '../puzzle.nvui';
 import { commands, boardCommands, addBreaks } from 'lib/nvui/command';
 import { next as controlNext, prev } from '../control';
-import { bind, onInsert } from 'lib/snabbdom';
+import { bind, onInsert } from 'lib/view';
 import { throttle } from 'lib/async';
 import type PuzzleCtrl from '../ctrl';
 import { Chessground as makeChessground } from '@lichess-org/chessground';
@@ -206,7 +206,7 @@ function lastMove(ctrl: PuzzleCtrl, style: nv.MoveStyle): string {
   return node.ply === 0
     ? 'Initial position'
     : // make sure consecutive moves are different so that they get re-read
-      nv.renderSan(node.san || '', node.uci, style) + (node.ply % 2 === 0 ? '' : ' ');
+      nv.renderSan(node.san || '', node.uci, style) + (node.ply % 2 === 0 ? '' : '\u00A0');
 }
 
 function onSubmit(

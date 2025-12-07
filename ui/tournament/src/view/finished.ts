@@ -9,7 +9,7 @@ import header from './header';
 import playerInfo from './playerInfo';
 import teamInfo from './teamInfo';
 import { numberRow } from 'lib/view/util';
-import { type MaybeVNodes } from 'lib/snabbdom';
+import { type MaybeVNodes } from 'lib/view';
 import { once } from 'lib/storage';
 
 function confetti(data: TournamentData): VNode | undefined {
@@ -88,7 +88,7 @@ function stats(ctrl: TournamentController): VNode | undefined {
       h('br'),
       h(
         'a.text',
-        { attrs: { 'data-icon': licon.InfoCircle, href: 'https://lichess.org/api#tag/Arena-tournaments' } },
+        { attrs: { 'data-icon': licon.InfoCircle, href: 'https://lichess.org/api#tag/arena-tournaments' } },
         'Arena API documentation',
       ),
     ]),

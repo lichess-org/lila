@@ -14,6 +14,8 @@
   <string name="attractionDescription">Uppskipti eða fórn sem hvetur eða neyðir andstæðing til að færa taflmann sinn á reit sem gerir kleift að halda áfram með bragðvísi.</string>
   <string name="backRankMate">Endaraðarmát</string>
   <string name="backRankMateDescription">Mátaðu kónginn á endaröðinni, þegar hann er tepptur þar af eigin taflmönnum.</string>
+  <string name="balestraMate">Lásbogamát</string>
+  <string name="balestraMateDescription">Biskup mátar en drottning hindrar þá undankomureiti sem eftir eru</string>
   <string name="bishopEndgame">Biskups endatafl</string>
   <string name="bishopEndgameDescription">Endatafl með einungis biskupum og peðum.</string>
   <string name="bodenMate">Boden-mát</string>

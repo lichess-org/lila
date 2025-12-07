@@ -51,8 +51,9 @@ final class GameProxyRepo(
     inDb <- gameRepo.urgentPovsUnsorted(user)
     povs <- inDb.parallel: pov =>
       gameIfPresent(pov.gameId).dmap(_.fold(pov)(pov.withGame))
-  yield try povs.sortWith(lila.game.Pov.priority)
-  catch
-    case e: IllegalArgumentException =>
-      lila.log("round").error(s"Could not sort urgent games of ${user.id}", e)
-      povs.sortBy(-_.game.movedAt.toSeconds)
+  yield
+    try povs.sortWith(lila.game.Pov.priority)
+    catch
+      case e: IllegalArgumentException =>
+        lila.log("round").error(s"Could not sort urgent games of ${user.id}", e)
+        povs.sortBy(-_.game.movedAt.toSeconds)

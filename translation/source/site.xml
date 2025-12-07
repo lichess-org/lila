@@ -102,7 +102,7 @@
     <item quantity="other">Mate in %s half-moves</item>
   </plurals>
   <string name="dtzWithRounding">DTZ50'' with rounding, based on number of half-moves until next capture, pawn move, or checkmate</string>
-  <string name="noGameFound">No game found</string>
+  <string name="noGameFound">No games found</string>
   <string name="maxDepthReached">Max depth reached!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Maybe include more games from the preferences menu?</string>
   <string name="openings">Openings</string>

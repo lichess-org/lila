@@ -14,6 +14,10 @@
   <string name="attractionDescription">An exchange or sacrifice encouraging or forcing an opponent piece to a square that allows a follow-up tactic.</string>
   <string name="backRankMate">Back rank mate</string>
   <string name="backRankMateDescription">Checkmate the king on the home rank, when it is trapped there by its own pieces.</string>
+  <string name="balestraMate">Balestra mate</string>
+  <string name="balestraMateDescription">A bishop delivers the checkmate, while a queen blocks the remaining escape squares</string>
+  <string name="blindSwineMate">Blind Swine mate</string>
+  <string name="blindSwineMateDescription">Two rooks team up to mate the king in an area of 2 by 2 squares.</string>
   <string name="bishopEndgame">Bishop endgame</string>
   <string name="bishopEndgameDescription">An endgame with only bishops and pawns.</string>
   <string name="bodenMate">Boden's mate</string>
@@ -22,8 +26,12 @@
   <string name="castlingDescription">Bring the king to safety, and deploy the rook for attack.</string>
   <string name="capturingDefender">Capture the defender</string>
   <string name="capturingDefenderDescription">Removing a piece that is critical to defence of another piece, allowing the now undefended piece to be captured on a following move.</string>
+  <string name="cornerMate">Corner mate</string>
+  <string name="cornerMateDescription">Confine the king to the corner using a rook or queen and a knight to engage the checkmate.</string>
   <string name="crushing">Crushing</string>
   <string name="crushingDescription">Spot the opponent blunder to obtain a crushing advantage. (eval ≥ 600cp)</string>
+  <string name="discoveredCheck">Discovered check</string>
+  <string name="discoveredCheckDescription">Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage.</string>
   <string name="doubleBishopMate">Double bishop mate</string>
   <string name="doubleBishopMateDescription">Two attacking bishops on adjacent diagonals deliver mate to a king obstructed by friendly pieces.</string>
   <string name="dovetailMate">Dovetail mate</string>
@@ -59,6 +67,8 @@
   <string name="intermezzoDescription">Instead of playing the expected move, first interpose another move posing an immediate threat that the opponent must answer. Also known as "Zwischenzug" or "In between".</string>
   <string name="killBoxMate">Kill box mate</string>
   <string name="killBoxMateDescription">A rook is next to the enemy king and supported by a queen that also blocks the king's escape squares. The rook and the queen catch the enemy king in a 3 by 3 "kill box".</string>
+  <string name="triangleMate">Triangle mate</string>
+  <string name="triangleMateDescription">The queen and rook, one square away from the enemy king, are on the same rank or file, separated by one square, forming a triangle.</string>
   <string name="vukovicMate">Vukovic mate</string>
   <string name="vukovicMateDescription">A rook and knight team up to mate the king. The rook delivers mate while supported by a third piece, and the knight is used to block the king's escape squares.</string>
   <string name="knightEndgame">Knight endgame</string>

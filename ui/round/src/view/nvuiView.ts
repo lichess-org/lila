@@ -1,6 +1,6 @@
 import type { RoundNvuiContext } from '../round.nvui';
 import type RoundController from '../ctrl';
-import { type LooseVNodes, type VNode, bind, hl, noTrans, onInsert } from 'lib/snabbdom';
+import { type LooseVNodes, type VNode, bind, hl, noTrans, onInsert } from 'lib/view';
 import { renderClock } from 'lib/game/clock/clockView';
 import { type Player, type TopOrBottom, playable } from 'lib/game';
 import { renderTableWatch, renderTablePlay, renderTableEnd } from './table';
@@ -174,7 +174,7 @@ function gameInfo(ctx: RoundNvuiContext): LooseVNodes {
       'p.lastMove',
       { attrs: { 'aria-live': 'assertive', 'aria-atomic': 'true' } },
       // make sure consecutive moves are different so that they get re-read
-      nv.renderSan(step.san, step.uci, style) + (ctrl.ply % 2 === 0 ? '' : ' '),
+      nv.renderSan(step.san, step.uci, style) + (ctrl.ply % 2 === 0 ? '' : '\u00A0'),
     ),
     clocks.some(c => !!c) &&
       hl('div.clocks', [

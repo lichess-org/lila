@@ -13,9 +13,9 @@
   <string name="excludedFromLeaderboardsInfo">Definujeme to ako používanie akéhokoľvek neférového spôsobu, ako sa dostať do rebríčka.</string>
   <string name="closedByModerators">Váš účet bol zrušený moderátormi.</string>
   <string name="hiddenBlog">Vaše blogy boli skryté moderátormi.</string>
-  <string name="hiddenBlogInfo">Nezabudnite si znovu prečítať naše %s.</string>
+  <string name="hiddenBlogInfo" comment="%s is &quot;blog rules&quot;, a separately translateable string (key: blogRules).&#10;&#10;Full sentence: &quot;Make sure to read again our blog rules.&quot;">Nezabudnite si znovu prečítať naše %s.</string>
   <string name="playTimeout">Máte dočasný zákaz hrania.</string>
   <string name="communicationGuidelines">komunikačné smernice</string>
-  <string name="blogRules">pravidlá blogovania</string>
+  <string name="blogRules" comment="This text links to https://lichess.org/page/blog-etiquette&#10;&#10;Part of longer sentence, &quot;Make sure to read again our blog rules.&quot; (key: hiddenBlogInfo)">pravidlá blogovania</string>
   <string name="fairPlay">Fair Play</string>
 </resources>

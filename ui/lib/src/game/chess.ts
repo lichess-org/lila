@@ -1,9 +1,9 @@
+/* eslint no-restricted-syntax:"error" */ // no side effects allowed due to re-export by index.ts
+
 import { uciChar } from './uciChar';
 import { shuffle } from '../algo';
 import { normalizeMove } from 'chessops/chess';
 import { type Chess, type NormalMove, parseUci, makeUci } from 'chessops';
-
-export * from './sanWriter';
 
 export const fixCrazySan = (san: San): San => (san[0] === 'P' ? san.slice(1) : san);
 
@@ -14,19 +14,20 @@ export { uciToMove } from '@lichess-org/chessground/util';
 
 export const fenColor = (fen: string): Color => (fen.includes(' w') ? 'white' : 'black');
 
-export const readDests = (lines?: string): Dests | null =>
-  lines
-    ? lines.split(' ').reduce<Dests>((dests, line) => {
-        dests.set(
-          uciChar[line[0]],
-          line
-            .slice(1)
-            .split('')
-            .map(c => uciChar[c]),
-        );
-        return dests;
-      }, new Map())
-    : null;
+export const readDests = (lines?: string): Dests | null => {
+  if (lines == null) return null;
+  if (lines == '') return new Map();
+  return lines.split(' ').reduce<Dests>((dests, line) => {
+    dests.set(
+      uciChar[line[0]],
+      line
+        .slice(1)
+        .split('')
+        .map(c => uciChar[c]),
+    );
+    return dests;
+  }, new Map());
+};
 
 export const readDrops = (line?: string | null): Key[] | null =>
   line ? (line.match(/.{2}/g) as Key[]) || [] : null;
@@ -63,6 +64,6 @@ export function isUci(maybeUci: string | undefined | null): maybeUci is Uci {
   return !!parseUci(maybeUci ?? '');
 }
 
-export function validUci(maybeUci: string | undefined | null): string | undefined {
+export function validUci(maybeUci: string | undefined | null): Uci | undefined {
   return isUci(maybeUci) ? maybeUci : undefined;
 }

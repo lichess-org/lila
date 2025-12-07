@@ -142,19 +142,24 @@ $baseUrl/verify-title
     lila.common.Bus.pub(SystemMsg(to, pm))
 
   object image:
-    def rel(req: TitleRequest, tag: String) =
+    def ref(req: TitleRequest, tag: String) =
       s"title-request.$tag:${req.id}"
 
     def upload(req: TitleRequest, picture: PicfitApi.FilePart, tag: String)(using me: Me): Fu[TitleRequest] =
       if !Set("idDocument", "selfie").contains(tag) then fufail(s"Invalid tag $tag")
       else
         for
-          image <- picfitApi.uploadFile(rel(req, tag), picture, userId = me.userId, requestAutomod = false)
+          image <- picfitApi.uploadFile(
+            picture,
+            userId = me.userId,
+            ref(req, tag).some,
+            requestAutomod = false
+          )
           _ <- coll.updateField($id(req.id), tag, image.id)
         yield req.focusImage(tag).replace(image.id.some)
 
     def delete(req: TitleRequest, tag: String): Fu[TitleRequest] = for
-      _ <- picfitApi.deleteByRel(rel(req, tag))
+      _ <- picfitApi.pullRef(ref(req, tag))
       _ <- coll.unsetField($id(req.id), tag)
     yield req.focusImage(tag).replace(none)
 

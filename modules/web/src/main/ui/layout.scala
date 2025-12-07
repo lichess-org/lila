@@ -146,13 +146,10 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     scriptsPreload(i18nModules ::: "site" :: modules.map(_.map(_.key)).flatten)
 
   def scriptsPreload(keys: List[String]) =
-    frag(
-      cashTag,
-      assetHelper.manifest.jsAndDeps("manifest" :: keys).map(jsTag)
-    )
+    frag(cashTag, assetHelper.manifest.jsAndDeps("manifest" :: keys).map(jsTag))
 
   private def jsTag(name: String): Frag =
-    script(tpe := "module", src := staticAssetUrl(s"compiled/$name"))
+    script(tpe := "module", src := staticCompiledUrl(name))
 
   def modulesInit(modules: EsmList, nonce: Optionce) =
     modules.flatMap(_.map(_.init(nonce))) // in body

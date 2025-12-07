@@ -1,4 +1,4 @@
-import { type VNode, type LooseVNodes, type VNodeChildren, hl, bind, noTrans } from 'lib/snabbdom';
+import { type VNode, type LooseVNodes, type VNodeChildren, hl, bind, noTrans } from 'lib/view';
 import { defined } from 'lib';
 import { text as xhrText } from 'lib/xhr';
 import type AnalyseCtrl from '../ctrl';
@@ -532,6 +532,7 @@ export function renderCurrentNode({
   if (!node.san || !node.uci) return i18n.nvui.gameStart;
   return [
     plyToTurn(node.ply),
+    node.ply % 2 === 1 ? i18n.site.white : i18n.site.black,
     renderSan(node.san, node.uci, moveStyle.get()),
     renderLineIndex(ctrl),
     !ctrl.retro && renderComments(node, moveStyle.get()),
@@ -683,7 +684,7 @@ function studyDetails(ctrl: AnalyseCtrl) {
                       url: `/broadcast/${tour.slug}/${r.slug}/${r.id}#round-select`,
                     },
                   },
-                  r.name,
+                  study.relay?.i18nRoundName(r),
                 ),
               ),
             ),

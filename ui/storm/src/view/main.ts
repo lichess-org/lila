@@ -8,7 +8,7 @@ import { makeConfig as makeCgConfig } from 'lib/puz/view/chessground';
 import { getNow } from 'lib/puz/util';
 import { playModifiers, renderCombo } from 'lib/puz/view/util';
 import * as licon from 'lib/licon';
-import { onInsert, hl } from 'lib/snabbdom';
+import { onInsert, hl } from 'lib/view';
 import { Chessground as makeChessground } from '@lichess-org/chessground';
 import { pubsub } from 'lib/pubsub';
 
