@@ -5,7 +5,6 @@ import play.api.data.*
 import play.api.data.format.Formatter
 
 import lila.common.config.GetRelativeFile
-import lila.core.net.IpAddress
 
 // reads and writes an nginx ip tier config file like:
 // {ip_address} {tier_number}; # {some comment including contact info}
