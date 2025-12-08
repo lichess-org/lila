@@ -72,7 +72,7 @@ export function view(ctrl: SearchCtrl) {
                 hook: highlightRegex
                   ? {
                       insert(vnode: VNode) {
-                        if (c.name != escapeHtml(c.name)) return;
+                        if (c.name !== escapeHtml(c.name)) return;
                         const el = vnode.elm as HTMLElement;
                         el.innerHTML = c.name.replace(highlightRegex, `<high>$&</high>`);
                       },

@@ -78,7 +78,7 @@ export default class SwissCtrl {
   };
 
   setPage = (page: number | undefined) => {
-    if (page && page != this.page && page >= 1 && page <= players(this).nbPages) {
+    if (page && page !== this.page && page >= 1 && page <= players(this).nbPages) {
       this.page = page;
       xhr.loadPage(this, page);
     }

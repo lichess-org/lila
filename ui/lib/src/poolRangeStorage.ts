@@ -18,7 +18,7 @@ export const shiftRangeAfter = (game: GameData): void => {
   const username = game.player.user?.username,
     delta = game.player.ratingDiff;
   if (
-    game.game.variant.key == 'standard' &&
+    game.game.variant.key === 'standard' &&
     username &&
     delta &&
     defined(game.clock?.initial) &&

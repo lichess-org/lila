@@ -108,7 +108,7 @@ function renderPgnTags(tags: TagsForm, showRatings: boolean): VNode {
     chapter.tags
       .filter(
         tag =>
-          tag[0] != 'Variant' &&
+          tag[0] !== 'Variant' &&
           (showRatings || !['WhiteElo', 'BlackElo'].includes(tag[0]) || !looksLikeLichessGame(chapter.tags)),
       )
       .map(tag => [tag[0], tags.editable() ? editable(tag[0], tag[1], tags.submit) : fixed(tag)]),
