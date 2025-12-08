@@ -9,9 +9,9 @@
   <string name="location">Локација</string>
   <string name="languages">Језици</string>
   <string name="rating">Рејтинг</string>
-  <string name="hourlyRate">Цена по сату</string>
+  <string name="hourlyRate">Сатница</string>
   <string name="availability">Доступност</string>
-  <string name="accepting">Прихвата студенте</string>
+  <string name="accepting">Прихвата ученике</string>
   <string name="notAccepting">Не прихвата студенте у овом тренутку</string>
   <string name="xCoachesStudents">%s тренира ученике шаха</string>
   <string name="viewXProfile">Погледај %s Личес профил</string>
