@@ -140,6 +140,16 @@
           visibility: visible;
         }
       }
+      @media (hover: none) or (pointer: coarse) {
+        .dropdown .dropdown-window a:active,
+        .dropdown .dropdown-window button:active {
+          background: $c-primary;
+          &,
+          &::after {
+            color: $c-over;
+          }
+        }
+      }
     }
   }
 
