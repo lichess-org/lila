@@ -273,7 +273,6 @@ final class ClasApi(
           .orFail(s"No user could be created for ${data.username}")
         _ = studentCache.addStudent(user.id)
         student = Student.make(user, clas, teacher.id, data.realName, managed = true)
-        _ <- userRepo.setKid(user, KidMode.Yes)
         _ <- perfsRepo.setManagedUserInitialPerfs(user.id)
         _ <- coll.insert.one(student)
         _ <- sendWelcomeMessage(teacher.id, user, clas)

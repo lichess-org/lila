@@ -314,11 +314,8 @@ final class Account(
             ),
           _ =>
             for
-              _ <- env.user.repo.setKid(me, getBoolAs[KidMode]("v"))
-              res <- negotiate(
-                Redirect(routes.Account.kid).flashSuccess,
-                jsonOkResult
-              )
+              _ <- env.user.api.setKid(me, getBoolAs[KidMode]("v"))
+              res <- negotiate(Redirect(routes.Account.kid).flashSuccess, jsonOkResult)
             yield res
         )
   }
@@ -326,7 +323,7 @@ final class Account(
   def apiKidPost = Scoped(_.Preference.Write) { ctx ?=> me ?=>
     getBoolOptAs[KidMode]("v") match
       case None => BadRequest(jsonError("Missing v parameter"))
-      case Some(v) => env.user.repo.setKid(me, v).inject(jsonOkResult)
+      case Some(v) => env.user.api.setKid(me, v).inject(jsonOkResult)
   }
 
   def security = Auth { _ ?=> me ?=>

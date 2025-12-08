@@ -4377,6 +4377,8 @@ interface I18n {
     toggleLocalAnalysis: string;
     /** Toggle local evaluation */
     toggleLocalEvaluation: string;
+    /** Toggle observation annotations */
+    toggleObservationAnnotations: string;
     /** Toggle position annotations */
     togglePositionAnnotations: string;
     /** Toggle the chat */
