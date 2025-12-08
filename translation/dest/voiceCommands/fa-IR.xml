@@ -9,7 +9,7 @@
   <string name="instructions5">از الفبای آوایی NATO برای بهبود تشخیص پرونده‌های صفحه شطرنج استفاده کنید.</string>
   <string name="instructions6">%s تنظیمات حرکت صوتی را با جزئیات توضیح می‌دهد.</string>
   <string name="thisBlogPost">این وبنوشته</string>
-  <string name="moveToE4OrSelectE4Piece">حرکت به e4 یا انتخاب خانه e4</string>
+  <string name="moveToE4OrSelectE4Piece">حرکت به e4 یا انتخاب مُهرهٔ e4</string>
   <string name="selectOrCaptureABishop">انتخاب کردن یا زدن یک فیل</string>
   <string name="takeRookWithQueen">گرفتن رخ با وزیر</string>
   <string name="castle" comment="Castle is used as a verb here, referring to castling.">قلعه (از هر سو)</string>

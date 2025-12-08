@@ -55,7 +55,7 @@ export function scanDirectionsHandler(pov: Color, pieces: Pieces, style: MoveSty
     let nextRay: Key[] = [];
     let nextDirectionIndex = 0;
 
-    if (currentDirection == null) {
+    if (currentDirection === null) {
       nextDirectionIndex = ev.altKey ? 0 : 1;
     } else {
       nextDirectionIndex = directions.indexOf(currentDirection);
@@ -66,7 +66,7 @@ export function scanDirectionsHandler(pov: Color, pieces: Pieces, style: MoveSty
 
     for (let i = 0; i < 4; i++) {
       const rayKeys = getKeysOnRay(originKey, directions[nextDirectionIndex], pov);
-      if (rayKeys.length == 0) {
+      if (rayKeys.length === 0) {
         nextDirectionIndex = (nextDirectionIndex + (ev.shiftKey ? 6 : 2)) % 8;
       } else {
         nextRay = rayKeys;

@@ -232,7 +232,7 @@ export default class RoundController implements MoveRootCtrl {
   userJump = (ply: Ply): void => {
     this.toSubmit = undefined;
     this.chessground.selectSquare(null);
-    if (ply != this.ply && this.jump(ply)) site.sound.saySan(this.stepAt(this.ply).san, true);
+    if (ply !== this.ply && this.jump(ply)) site.sound.saySan(this.stepAt(this.ply).san, true);
     else this.redraw();
   };
 
@@ -282,7 +282,7 @@ export default class RoundController implements MoveRootCtrl {
   isLate = (): boolean => this.replaying() && playing(this.data);
 
   playerAt = (position: game.TopOrBottom): game.Player =>
-    this.flip != (position === 'top') ? this.data.opponent : this.data.player;
+    this.flip !== (position === 'top') ? this.data.opponent : this.data.player;
 
   flipNow = (): void => {
     this.flip = !this.nvui && !this.flip;
@@ -487,7 +487,7 @@ export default class RoundController implements MoveRootCtrl {
       this.moveOn.next();
       cevalSub.publish(d, o);
     }
-    if (!this.replaying() && playedColor != d.player.color) {
+    if (!this.replaying() && playedColor !== d.player.color) {
       if (this.vibration() && 'vibrate' in navigator) navigator.vibrate(100);
       // prevent race conditions with explosions and premoves
       // https://github.com/lichess-org/lila/issues/343

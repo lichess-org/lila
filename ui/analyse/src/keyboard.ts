@@ -122,21 +122,24 @@ export const bind = (ctrl: AnalyseCtrl) => {
     ['i', '?!'],
   ].forEach(([key, symbol]) => kbd.bind(key, () => ctrl.jumpToGlyphSymbol(ctrl.bottomColor(), symbol)));
 
-  if (ctrl.study) {
-    keyToMouseEvent('d', 'mousedown', '.study__buttons .comments');
-    keyToMouseEvent('g', 'mousedown', '.study__buttons .glyphs');
+  if (!ctrl.study) return;
 
-    // navigation for next and prev chapters
-    kbd.bind('p', ctrl.study.goToPrevChapter);
-    kbd.bind('n', ctrl.study.goToNextChapter);
-    // ! ? !! ?? !? ?!
-    for (let i = 1; i < 7; i++) kbd.bind(i.toString(), () => ctrl.study?.glyphForm.toggleGlyph(i));
-    // = ∞ ⩲ ⩱ ± ∓ +- -+
-    for (let i = 1; i < 9; i++)
-      kbd.bind(`shift+${i}`, () => ctrl.study?.glyphForm.toggleGlyph(i === 1 ? 10 : 11 + i));
+  keyToMouseEvent('d', 'mousedown', '.study__buttons .comments');
+  keyToMouseEvent('g', 'mousedown', '.study__buttons .glyphs');
 
-    kbd.bind('mod+z', ctrl.study.undoShapeChange);
-  }
+  kbd.bind('p', ctrl.study.goToPrevChapter);
+  kbd.bind('n', ctrl.study.goToNextChapter);
+  // ! ? !! ?? !? ?! □ ⨀
+  for (let i = 1; i < 9; i++)
+    kbd.bind(i.toString(), () => ctrl.study?.glyphForm.toggleGlyph(i === 8 ? 22 : i));
+  // = ∞ ⩲ ⩱ ± ∓ +- -+
+  for (let i = 1; i < 9; i++)
+    kbd.bind(`shift+${i}`, () => ctrl.study?.glyphForm.toggleGlyph(i === 1 ? 10 : 11 + i));
+  // N ↑↑ ↑ → ⇆ ⊕ =∞ ∆
+  const observationIds = [146, 32, 36, 40, 132, 138, 44, 140];
+  for (let i = 1; i < 9; i++)
+    kbd.bind(`ctrl+shift+${i}`, () => ctrl.study?.glyphForm.toggleGlyph(observationIds[i - 1]));
+  kbd.bind('mod+z', ctrl.study.undoShapeChange);
 };
 
 export function view(ctrl: AnalyseCtrl): VNode {

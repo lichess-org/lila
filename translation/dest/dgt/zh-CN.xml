@@ -13,8 +13,8 @@
   <string name="configurationSection">配置页面</string>
   <string name="keepPlayPageOpen">对局页面需要在您的浏览器中保持打开状态。它不需要处于可见状态，您可以将其最小化或与 Lichess 对局页面并排放置，但不要关闭它，否则棋盘将停止工作。</string>
   <string name="boardWillAutoConnect">棋盘将自动连接到任何已经在进行中的对局或任何新开始的对局。选择对局进行对弈的功能即将推出。</string>
-  <string name="timeControlsForCasualGames">休闲对局的时间控制：仅限古典棋、通讯棋和中速棋。</string>
-  <string name="timeControlsForRatedGames">排位对局的时间控制：古典棋、通讯棋以及部分中速棋，包括 15+10 和 20+0。</string>
+  <string name="timeControlsForCasualGames">休闲对局的时间控制：仅限古典棋、通讯棋和常规棋。</string>
+  <string name="timeControlsForRatedGames">排位对局的时间控制：古典棋、通讯棋以及部分常规棋，包括 15+10 和 20+0。</string>
   <string name="whenReadySetupBoard">准备就绪后，设置好您的棋盘，然后点击 %s。</string>
   <string name="ifMoveNotDetected">如果着法未被识别</string>
   <string name="checkYouHaveMadeOpponentsMove">请检查您是否已在 DGT 棋盘上走了对手的着法。然后撤销您自己的着法，重新走子。</string>
