@@ -174,7 +174,10 @@ Thank you all, you rock!""".some,
             at(day, 19).pipe: date =>
               Schedule(
                 Monthly,
-                if variant == Chess960 || variant == Crazyhouse then Blitz else SuperBlitz,
+                variant match
+                  case Chess960 => ChillBlitz
+                  case Crazyhouse => Blitz
+                  case _ => SuperBlitz,
                 variant,
                 none,
                 date
@@ -228,7 +231,10 @@ Thank you all, you rock!""".some,
         at(day, 19).pipe: date =>
           Schedule(
             Weekly,
-            if variant == Chess960 || variant == Crazyhouse then Blitz else SuperBlitz,
+            variant match
+              case Chess960 => Rapid
+              case Crazyhouse => Blitz
+              case _ => SuperBlitz,
             variant,
             none,
             date.pipe(orNextWeek)
@@ -263,7 +269,7 @@ Thank you all, you rock!""".some,
         at(today, 18).pipe: date =>
           Schedule(Daily, SuperBlitz, Atomic, none, date.pipe(orTomorrow)).plan,
         at(today, 19).pipe: date =>
-          Schedule(Daily, Rapid, Chess960, none, date.pipe(orTomorrow)).plan,
+          Schedule(Daily, Blitz, Chess960, none, date.pipe(orTomorrow)).plan,
         at(today, 19).pipe: date =>
           Schedule(Daily, SuperBlitz, Antichess, none, date.pipe(orTomorrow)).plan,
         at(tomorrow, 20).pipe: date =>
@@ -428,11 +434,11 @@ Thank you all, you rock!""".some,
         speed = when.getHour % 12 match
           case 1 | 6 | 9 => Blitz
           case 0 | 4 => SuperBlitz
-          case 3 | 10 => HippoBullet
+          case 3 => HippoBullet
           case _ => Bullet
         first = Schedule(Hourly, speed, variant, none, when)
         second = Option.when(speed == Bullet):
-          val speed = if when.getHour % 12 == 8 then HyperBullet else Bullet
+          val speed = if when.getHour % 12 == 7 then HyperBullet else Bullet
           Schedule(Hourly, speed, variant, none, when.plusMinutes(30))
         schedule <- first :: second.toList
       yield schedule.plan,
@@ -444,11 +450,15 @@ Thank you all, you rock!""".some,
         if when.getHour % 3 != 0
 
         speed = when.getHour % 12 match
-          case 2 | 5 | 10 => Blitz
-          case 1 | 7 => SuperBlitz
-          case 4 | 11 => HippoBullet
+          case 1 | 7 => Blitz
+          case 2 | 5 | 10 => ChillBlitz
+          case 4 => SuperBlitz
           case _ => Bullet
-      yield Schedule(Hourly, speed, Chess960, none, when).plan,
+        first = Schedule(Hourly, speed, Chess960, none, when)
+        second = Option.when(speed == Bullet):
+          Schedule(Hourly, Bullet, Chess960, none, when.plusMinutes(30))
+        schedule <- first :: second.toList
+      yield schedule.plan,
 
       // hourly rare variant tournaments
       for
