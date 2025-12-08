@@ -1,5 +1,5 @@
 import * as licon from 'lib/licon';
-import { writePgnClipboard, text as xhrText } from 'lib/xhr';
+import { writeTextClipboard, text as xhrText } from 'lib/xhr';
 import topBar from './topBar';
 import { userComplete } from 'lib/view/userComplete';
 import { confirm } from 'lib/view';
@@ -29,7 +29,7 @@ export function addDomHandlers() {
     const fetchContent = $(this).parent().hasClass('fetch-content');
     $(this.parentElement!.firstElementChild!).each(function (this: any) {
       try {
-        if (fetchContent) writePgnClipboard(this.href, showCheckmark);
+        if (fetchContent) writeTextClipboard(this.href, showCheckmark);
         else navigator.clipboard.writeText(this.value || this.href).then(showCheckmark);
       } catch (e) {
         console.error(e);

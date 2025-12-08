@@ -117,17 +117,17 @@ export const readNdJson = async <T>(response: Response, processLine: ProcessLine
   } while (!done);
 };
 
-export async function writePgnClipboard(
+export async function writeTextClipboard(
   url: string,
   callbackOnSuccess: (() => void) | undefined = undefined,
 ): Promise<void> {
-  // Firefox does not support `ClipboardItem`
+  // Ancient browsers may not support `ClipboardItem`
   if (typeof ClipboardItem === 'undefined') {
-    const pgn = await text(url);
-    return navigator.clipboard.writeText(pgn).then(callbackOnSuccess);
+    const t = await text(url);
+    return navigator.clipboard.writeText(t).then(callbackOnSuccess);
   } else {
     const clipboardItem = new ClipboardItem({
-      'text/plain': text(url).then(pgn => new Blob([pgn], { type: 'text/plain' })),
+      'text/plain': text(url).then(t => new Blob([t], { type: 'text/plain' })),
     });
     return navigator.clipboard.write([clipboardItem]).then(callbackOnSuccess);
   }
