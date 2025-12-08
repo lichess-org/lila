@@ -176,24 +176,25 @@ function waitForTheGame(ctrl: SwissCtrl) {
   const isDelayed = ctrl.data.me?.isDelayed;
   const playerReady = ctrl.data.me?.playerReady;
   const iAmReady = myUserId() == playerReady;
+  const opponent = ctrl.data.me?.opponent;
   const line1 = !playerReady
-    ? 'Your opponent is not ready yet'
+    ? opponent + ' is not ready yet'
     : iAmReady
-      ? 'You are waiting for your opponent'
-      : 'Your opponent is ready';
+      ? 'You are waiting for ' + opponent
+      : opponent + ' is ready';
   const line2 = !playerReady
     ? 'Click if you are ready'
     : iAmReady
       ? 'Click to cancel'
-      : 'Click to start the game';
+      : 'Click to start the game with ' + opponent;
 
   return (
     isDelayed &&
-    hl('a.swiss__ur-playing.button.is.is-after', { hook: bind('click', ctrl.changeReadyState) }, [
-      line1,
-      hl('br'),
-      line2,
-    ])
+    hl(
+      'a.swiss__ur-playing.button.is.is-after' + (playerReady ? '.button-green' : ''),
+      { hook: bind('click', ctrl.changeReadyState) },
+      [line1, hl('br'), line2],
+    )
   );
 }
 

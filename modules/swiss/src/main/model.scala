@@ -11,7 +11,8 @@ case class MyInfo(
     user: User,
     player: SwissPlayer,
     isDelayed: Boolean,
-    playerReady: Option[UserId]
+    playerReady: Option[UserId],
+    opponent: Option[UserId],
 ):
   def page = (rank + 9).value / 10
 

@@ -57,6 +57,7 @@ export interface MyInfo {
   gameId?: string;
   isDelayed: boolean;
   playerReady?: string;
+  opponent?: string;
 }
 
 export interface PairingBase {

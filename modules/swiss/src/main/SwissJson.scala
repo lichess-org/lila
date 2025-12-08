@@ -90,7 +90,8 @@ final class SwissJson(
                   $doc(
                     f.id -> true,
                     f.isDelayed -> true,
-                    f.playerReady -> true
+                    f.playerReady -> true,
+                    f.players -> true
                   ).some
                 )
                 .one[Bdoc]
@@ -101,10 +102,11 @@ final class SwissJson(
               val gameId =
                 if isDelayed || isForfeit then None else maybeDoc.flatMap(_.getAsOpt[GameId](f.id))
               val playerReady = maybeDoc.flatMap(_.getAsOpt[UserId](f.playerReady))
+              val opponent = maybeDoc.flatMap(_.getAsOpt[List[UserId]](f.players)).get.find(_ != me.id)
               rankingApi(swiss)
                 .dmap(_.get(player.userId))
                 .map2 { ranking =>
-                  MyInfo(ranking, gameId, me, player, isDelayed, playerReady)
+                  MyInfo(ranking, gameId, me, player, isDelayed, playerReady, opponent)
                 }
             }
         }
@@ -291,7 +293,8 @@ object SwissJson:
         "name" -> i.user.username,
         "absent" -> i.player.absent,
         "isDelayed" -> i.isDelayed,
-        "playerReady" -> i.playerReady
+        "playerReady" -> i.playerReady,
+        "opponent" -> i.opponent
       )
 
   private[swiss] def boardJson(b: SwissBoard.WithGame) =
