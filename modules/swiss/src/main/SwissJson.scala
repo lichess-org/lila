@@ -259,7 +259,8 @@ object SwissJson:
 
   private def pairingJsonMin(player: SwissPlayer, pairing: SwissPairing): String =
     val status =
-      if pairing.isOngoing then "o"
+      if pairing.isDelayed then "z"
+      else if pairing.isOngoing then "o"
       else pairing.resultFor(player.userId).fold("d") { r => if r then "w" else "l" }
     s"${pairing.gameId}$status"
 
@@ -269,6 +270,7 @@ object SwissJson:
         "g" -> pairing.gameId
       )
       .add("o" -> pairing.isOngoing)
+      .add("z" -> pairing.isDelayed)
       .add("w" -> pairing.resultFor(player.userId))
       .add("c" -> (pairing.white == player.userId))
 

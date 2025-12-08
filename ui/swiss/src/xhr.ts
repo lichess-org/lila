@@ -56,6 +56,7 @@ const readSheetMin = (str: string): Sheet =>
               g: s.slice(0, 8),
               o: s[8] === 'o',
               w: s[8] === 'w' ? true : s[8] === 'l' ? false : undefined,
+              z: s[8] === 'z',
             },
       )
     : [];

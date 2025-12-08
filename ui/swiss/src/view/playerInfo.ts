@@ -55,6 +55,14 @@ export default function (ctrl: SwissCtrl): VNode | undefined {
               hl('td.outcome', { attrs: { colspan: 3 } }, p),
               hl('td', p === 'absent' ? '-' : p === 'bye' ? '1' : '½'),
             ]);
+          if (p.z)
+            return hl('tr.waiting', { key: round }, [
+              hl('th', '' + round),
+              hl('td', fullName(p.user)),
+              hl('td.outcome', 'Waiting'),
+              hl('td.is.color-icon.' + (p.c ? 'white' : 'black')),
+              hl('td', '∞'),
+            ]);
           const res = result(p);
           return hl(
             'tr.glpt.' + (res === '1' ? '.win' : res === '0' ? '.loss' : ''),

@@ -63,6 +63,7 @@ export interface PairingBase {
   g: string; // game
   o?: boolean; // ongoing
   w?: boolean; // won
+  z?: boolean; // delayed
 }
 
 export interface Pairing extends PairingBase {

@@ -6,7 +6,6 @@ import { player as renderPlayer } from './util';
 import type { Player, Pager } from '../interfaces';
 
 function playerTr(ctrl: SwissCtrl, player: Player) {
-  console.log('player.sheet ' + JSON.stringify(player.sheet, null, 2));
   const userId = player.user.id;
   return h(
     'tr',
@@ -30,11 +29,13 @@ function playerTr(ctrl: SwissCtrl, player: Player) {
           player.sheet
             .map(p =>
               p == 'absent'
-                  ? h(p, title('Absent'), '-')
-                  : p == 'bye'
-                    ? h(p, title('Bye'), '1')
-                    : p == 'late'
-                      ? h(p, title('Late'), '½')
+                ? h(p, title('Absent'), '-')
+                : p == 'bye'
+                  ? h(p, title('Bye'), '1')
+                  : p == 'late'
+                    ? h(p, title('Late'), '½')
+                    : p.z
+                      ? h('waiting', title('Waiting'), '∞')
                       : h(
                           'a.glpt.' + (p.o ? 'ongoing' : !!p.w ? 'win' : p.w === false ? 'loss' : 'draw'),
                           { attrs: { key: p.g, href: `/${p.g}` }, hook: onInsert(site.powertip.manualGame) },
