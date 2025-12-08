@@ -50,7 +50,7 @@ export class StudyShare {
 }
 
 async function writePgnClipboard(url: string): Promise<void> {
-  // Firefox does not support `ClipboardItem`
+  // Ancient browsers may not support `ClipboardItem`
   if (typeof ClipboardItem === 'undefined') {
     const pgn = await xhrText(url);
     return navigator.clipboard.writeText(pgn);
