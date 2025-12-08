@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+	<string name="hiUser" comment="%s is the title+username e.g. 'GM ABC' or simply ABC if there is no title">Hei %s</string>
+	<string name="initTitle">Millainen shakkivuosi sinulla onkaan ollut!</string>
+	<plurals name="openingsMostPlayedAsBlack" comment="%s is the number of games">
+		<item quantity="one">Eniten pelaamasi avaus mustilla, %s peli</item>
+		<item quantity="other">Eniten pelaamasi avaus valkeilla, %s peliä</item>
+	</plurals>
+</resources>
