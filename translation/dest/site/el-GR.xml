@@ -566,7 +566,7 @@
   <string name="views">Εμφανίσεις</string>
   <string name="replies">Απαντήσεις</string>
   <string name="replyToThisTopic">Απαντήστε σε αυτό το θέμα</string>
-  <string name="reply" comment="Appears on buttons in the forum. Clicking the button will post a reply to a topic.">Απάντηση</string>
+  <string name="reply">Απάντηση</string>
   <string name="message">Μήνυμα</string>
   <string name="createTheTopic">Δημιουργήστε θέμα</string>
   <string name="reportAUser">Αναφορά χρήστη</string>
