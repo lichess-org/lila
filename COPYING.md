@@ -86,6 +86,9 @@ public/piece/leipzig | Armando Hernandez Marroquin | ["freeware"](http://www.enp
 public/piece/reillycraig | [Reilly Craig](https://instagram.com/fader_) |
 public/piece/riohacha | |
 public/images/staunton/piece/Staunton | [Eden Murs](https://userstyles.org/styles/134558/lichess-pieces-3d-staunton) (?) |
+public/piece/shahi-ivory-brown | Tamer Karatekin | Free for personal and commercial use, but non-derivative non-modify license (Şahî Chess & Shatranj Font License v1.0 – https://github.com/TamerKaratekin/shahi-chess-shatranj-font/blob/main/LICENSE.txt)
+public/piece/shahi-white-gray | Tamer Karatekin | Free for personal and commercial use, but non-derivative non-modify license (Şahî (Shahi) Chess & Shatranj Font License v1.0 – https://github.com/TamerKaratekin/shahi-chess-shatranj-font/blob/main/LICENSE.txt)
+
 
 - The other sounds in public/sound
 - The other artwork in public/images
