@@ -151,7 +151,7 @@ function joinButton(ctrl: SwissCtrl): VNode | undefined {
           i18n.site.join,
         );
 
-  if (d.me && d.status != 'finished')
+  if (d.me && d.status !== 'finished')
     return d.me.absent
       ? ctrl.joinSpinner
         ? spinnerVdom()
