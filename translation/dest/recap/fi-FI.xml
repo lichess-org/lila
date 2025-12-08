@@ -22,8 +22,29 @@
 		<item quantity="one">%s siirto</item>
 		<item quantity="other">%s siirtoa</item>
 	</plurals>
+	<string name="chessFoes">Vahvimmat vastustajasi</string>
+	<plurals name="nbKilograms">
+		<item quantity="one">%s kilogramma</item>
+		<item quantity="other">%s kilogrammaa</item>
+	</plurals>
+	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">oli avaussiirtosi %s valkeilla pelaamassasi pelissä</string>
 	<plurals name="openingsMostPlayedAsBlack" comment="%s is the number of games">
 		<item quantity="one">Eniten pelaamasi avaus mustilla, %s peli</item>
 		<item quantity="other">Eniten pelaamasi avaus valkeilla, %s peliä</item>
 	</plurals>
+	<string name="puzzlesHelpedTagging" comment="%s is a number e.g. 5">Autoit myös tunnisteiden lisäämisessä %s tehtävään.</string>
+	<string name="puzzlesNone">Et ratkaissut tänä vuonna yhtään tehtävää.</string>
+	<string name="puzzlesTryNow">Yrittäisitkö nyt?</string>
+	<string name="puzzlesYouWonOnFirstTry">Ratkaisit niistä %s ensimmäisellä yrityksellä!</string>
+	<string name="sourcesTitle">Mistä löysit pelisi?</string>
+	<string name="perfsTitle">Millä aikajärjestelmillä ja varianteilla pelasit?</string>
+	<string name="malwareNoneLoaded" comment="%s is 0">%s mainosta ja jäljitintä ladattiin</string>
+	<string name="malwareNoSell">Me emme myyneet henkilötietojasi</string>
+	<string name="malwareNoAbuse">Me emme käyttäneet laitettasi sinua vastaan</string>
+	<string name="malwareWarningPrefix" comment="%s is 'be careful', which is translatable separately.">Mutta muut sivustot tekevät niin, joten %s.</string>
+	<string name="malwareWarningCta" comment="Part of a longer sentence &quot;But other websites do, so please be careful.&quot;&#10;&#10;Appears in the context of noting that Lichess served zero ads.&#10;The text links to https://lichess.org/ads">pidä varasi</string>
+	<string name="lichessGamesPlayedIn" comment="%1$s is the number of games, %2$s is the year">%1$s peliä pelattiin Lichessissä yhteensä vuonna %2$s</string>
+	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours">%s niistä olivat sinun.</string>
+	<string name="thanksTitle">Kiitoksia, että pelaat Lichessissä!</string>
+	<string name="thanksHaveAGreat" comment="%s is the next year">Olemme iloisia siitä, että olet täällä. Toivotamme mahtavaa %s!</string>
 </resources>
