@@ -952,8 +952,8 @@
   <string name="timeAlmostUp">Vous n\'avez presque plus de temps!</string>
   <string name="clickToRevealEmailAddress">[Cliquer pour révéler l\'adresse courriel]</string>
   <string name="download">Télécharger</string>
-  <string name="coachManager">Config. param. coach</string>
-  <string name="streamerManager">Config. param. streamer</string>
+  <string name="coachManager">Votre profil de coach</string>
+  <string name="streamerManager">Votre profil de streamer</string>
   <string name="cancelTournament">Annuler le tournoi</string>
   <string name="tournDescription">Description du tournoi</string>
   <string name="tournDescriptionHelp">Quelque chose de spécial à dire aux participants ? Soyez bref. Des liens Markdown sont disponibles : [name](https://url)</string>
