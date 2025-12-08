@@ -728,6 +728,7 @@
   <string name="cyclePreviousOrNextVariation">Επιλογή προηγούμενης/επόμενης βαριάντας</string>
   <string name="toggleGlyphAnnotations">Εμφάνιση/απόκρυψη σχολίων κινήσεων</string>
   <string name="togglePositionAnnotations">Εμφάνιση/απόκρυψη σχολίων με σύμβολα</string>
+  <string name="toggleObservationAnnotations">Εμφάνιση/απόκρυψη σχολίων με σύμβολα</string>
   <string name="variationArrowsInfo">Τα βέλη για βαριάντες σας επιτρέπουν να περιηγηθείτε χωρίς να χρησιμοποιήσετε τη λίστα κινήσεων.</string>
   <string name="playSelectedMove">πραγματοποίηση επιλεγμένης κίνησης</string>
   <string name="newTournament">Νέο τουρνουά</string>
