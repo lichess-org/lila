@@ -370,12 +370,11 @@ Thank you all, you rock!""".some,
 
       // fast popular variant tournaments -- 2/3 of the time
       for
-        variant <- List(Antichess)
+        (variant, hourOffset) <- List(Antichess -> 2)
         hourDelta <- (-1 to 6).toList
         when = atTopOfHour(rightNow, hourDelta)
         // Offsets should be balanced mod 3 between all 6 variants at 2/3 hours
-        variantCycle = when.getHour + variant.match
-          case Antichess => 2
+        variantCycle = when.getHour + hourOffset
         if variantCycle % 3 != 0
         // assignments for TCs when variantCycle % 3 == 0 don't currently
         // matter, as those hours are excluded from the schedule.
@@ -396,13 +395,11 @@ Thank you all, you rock!""".some,
 
       // medium speed variants
       for
-        variant <- List(Atomic, ThreeCheck)
+        (variant, hourOffset) <- List(Atomic -> 0, ThreeCheck -> 2)
         hourDelta <- -1 to 6
         when = atTopOfHour(rightNow, hourDelta)
         // Offsets should be balanced mod 3 between all 6 variants at 2/3 hours
-        variantCycle = when.getHour + variant.match
-          case Atomic => 0
-          case ThreeCheck => 2
+        variantCycle = when.getHour + hourOffset
         if variantCycle % 3 != 0
         // assignments for TCs when variantCycle % 3 == 0 don't currently
         // matter, as those hours are excluded from the schedule.
