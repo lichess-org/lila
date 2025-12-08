@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="hiUser" comment="%s is the title+username e.g. 'GM ABC' or simply ABC if there is no title">Hei %s</string>
+	<string name="awaitQuestion" comment="Displayed while waiting for results">Mitä olet puuhannut tänä vuonna?</string>
 	<string name="initTitle">Millainen shakkivuosi sinulla onkaan ollut!</string>
+	<string name="noGamesText">Et pelannut tänä vuonna yhtään peliä.</string>
+	<string name="noGamesCta">Pelaisitko nyt?</string>
+	<string name="gamesYouWon" comment="%s is the number of games won">Ja voitit niistä %s!</string>
+	<string name="gamesNextQuestion">Miten pääsit näihin lukuihin?</string>
+	<string name="timeSpentPlayingExclam" comment="%s is the time spent playing animated from 0 e.g. '1 day, 17 hours'. The time is also translated">Käytit pelaamiseen %s!</string>
+	<string name="timeTooMuch">Se on jo aivan liikaa shakkia.</string>
+	<string name="timeALot">Se on aika paljon shakkia.</string>
+	<string name="timeReasonable">Se vaikuttaa aika kohtuulliselta määrältä shakkia.</string>
+	<string name="timeHowManyMoves">Kuinka monta siirtoa teit sinä aikana?</string>
 	<plurals name="openingsMostPlayedAsBlack" comment="%s is the number of games">
 		<item quantity="one">Eniten pelaamasi avaus mustilla, %s peli</item>
 		<item quantity="other">Eniten pelaamasi avaus valkeilla, %s peliä</item>
