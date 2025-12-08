@@ -12,6 +12,16 @@
 	<string name="timeALot">Se on aika paljon shakkia.</string>
 	<string name="timeReasonable">Se vaikuttaa aika kohtuulliselta määrältä shakkia.</string>
 	<string name="timeHowManyMoves">Kuinka monta siirtoa teit sinä aikana?</string>
+	<plurals name="nbMovesPlayed">
+		<item quantity="one">Pelasit %s siirron</item>
+		<item quantity="other">Teit %s siirtoa</item>
+	</plurals>
+	<string name="movesOfWoodPushed" comment="%s is a weight in grams or kilograms">Tuuppasit siis %s:n edestä puuta!</string>
+	<string name="movesStandardPiecesWeight">Normaalit nappulat painavat kukin noin 40 g</string>
+	<plurals name="nbMoves">
+		<item quantity="one">%s siirto</item>
+		<item quantity="other">%s siirtoa</item>
+	</plurals>
 	<plurals name="openingsMostPlayedAsBlack" comment="%s is the number of games">
 		<item quantity="one">Eniten pelaamasi avaus mustilla, %s peli</item>
 		<item quantity="other">Eniten pelaamasi avaus valkeilla, %s peliä</item>
