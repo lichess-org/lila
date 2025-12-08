@@ -429,8 +429,22 @@ $hover-bg: $m-primary_bg--mix-30;
         color: $c-primary;
       }
     }
+    &__head {
+      @extend %flex-center, %tour-margin-horiz;
+      gap: 1em;
+      .fide-player__follow {
+        @extend %flex-center-nowrap, %box-radius;
+        cursor: pointer;
+        gap: 1ch;
+        border: $border;
+        padding: 0.5em 1em;
+        background: $m-brag--fade-90;
+        &:hover {
+          border-color: $c-brag;
+        }
+      }
+    }
     &__name {
-      @extend %tour-margin-horiz;
       font-size: 1.7em;
       &::before {
         font-size: 1.8em;
@@ -505,6 +519,7 @@ $hover-bg: $m-primary_bg--mix-30;
   align-items: stretch;
   gap: 0.5em;
   padding: 0.5em 0.7em 0.5em 0.2em;
+  height: 50px;
   border-bottom: $border;
   border-left: 3px solid transparent;
   &:hover {

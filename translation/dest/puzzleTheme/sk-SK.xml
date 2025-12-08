@@ -16,8 +16,8 @@
   <string name="backRankMateDescription">Zmatujte kráľa na poslednej rade, keď je tam uväznený svojimi vlastnými figúrami.</string>
   <string name="balestraMate">Mat Balestra (kuša)</string>
   <string name="balestraMateDescription">Strelec dáva mat, zatiaľ čo dáma blokuje zostávajúce únikové polia</string>
-  <string name="blindSwineMate" comment="Description (translatable separately):&#10;&#10;Two rooks team up to mate the king in an area of 2 by 2 squares.">Mat slepého prasaťa</string>
-  <string name="blindSwineMateDescription" comment="Description for the Blind Swine checkmate pattern.">Kráľa matujú dve veže na území o veľkosti 2 x 2 políčok.</string>
+  <string name="blindSwineMate">Mat slepého prasaťa</string>
+  <string name="blindSwineMateDescription">Kráľa matujú dve veže na území o veľkosti 2 x 2 políčok.</string>
   <string name="bishopEndgame">Strelcová koncovka</string>
   <string name="bishopEndgameDescription">Koncovka iba so strelcami a pešiakmi.</string>
   <string name="bodenMate">Bodenov mat</string>
@@ -26,8 +26,12 @@
   <string name="castlingDescription">Schovajte svojho kráľa do bezpečia a nasaďte vežu do útoku.</string>
   <string name="capturingDefender">Odstránenie obrany</string>
   <string name="capturingDefenderDescription">Odstránenie figúry, ktorá je dôležitá pri obrane inej figúry, dovoľujúc branie novo nebránenej figúry v následujúcom ťahu.</string>
+  <string name="cornerMate">Rohový mat</string>
+  <string name="cornerMateDescription">Zatlačte kráľa do rohu pomocou veže a jazdca alebo dámy a jazdca, aby ste dosiahli mat.</string>
   <string name="crushing">Rozdrvenie</string>
   <string name="crushingDescription">Odhaľte súperovu hrubú chybu a získajte drvivú výhodu. (eval ≥ 600cp)</string>
+  <string name="discoveredCheck" comment="Description (translatable separately):&#10;&#10;Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage.">Odkrytý šach</string>
+  <string name="discoveredCheckDescription" comment="Description for the &quot;Discovered check&quot; puzzle theme.">Pohnite figúrkou, aby ste odkryli šach od skrytej útočiacej figúry. Často to vedie k rozhodujúcej výhode.</string>
   <string name="doubleBishopMate">Mat dvojicou strelcov</string>
   <string name="doubleBishopMateDescription">Dvaja útočiaci strelci na susediacich diagonálach zmatujú kráľa zablokovaného vlastnými figúrkami.</string>
   <string name="dovetailMate">Devetailov mat</string>

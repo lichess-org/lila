@@ -16,8 +16,8 @@
   <string name="backRankMateDescription">Checkmate the king on the home rank, when it is trapped there by its own pieces.</string>
   <string name="balestraMate">Balestra mate</string>
   <string name="balestraMateDescription">A bishop delivers the checkmate, while a queen blocks the remaining escape squares</string>
-  <string name="blindSwineMate" comment="Description (translatable separately):&#10;&#10;Two rooks team up to mate the king in an area of 2 by 2 squares.">Blind Swine mate</string>
-  <string name="blindSwineMateDescription" comment="Description for the Blind Swine checkmate pattern.">Two rooks team up to mate the king in an area of 2 by 2 squares.</string>
+  <string name="blindSwineMate">Blind Swine mate</string>
+  <string name="blindSwineMateDescription">Two rooks team up to mate the king in an area of 2 by 2 squares.</string>
   <string name="bishopEndgame">Bishop endgame</string>
   <string name="bishopEndgameDescription">An endgame with only bishops and pawns.</string>
   <string name="bodenMate">Boden\'s mate</string>
@@ -26,8 +26,11 @@
   <string name="castlingDescription">Bring the king to safety, and deploy the rook for attack.</string>
   <string name="capturingDefender">Capture the defender</string>
   <string name="capturingDefenderDescription">Removing a piece that is critical to defense of another piece, allowing the now undefended piece to be captured on a following move.</string>
+  <string name="cornerMate">Corner mate</string>
   <string name="crushing">Crushing</string>
   <string name="crushingDescription">Spot the opponent blunder to obtain a crushing advantage. (eval ≥ 600cp)</string>
+  <string name="discoveredCheck" comment="Description (translatable separately):&#10;&#10;Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage.">Discovered check</string>
+  <string name="discoveredCheckDescription" comment="Description for the &quot;Discovered check&quot; puzzle theme.">Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage.</string>
   <string name="doubleBishopMate">Double bishop mate</string>
   <string name="doubleBishopMateDescription">Two attacking bishops on adjacent diagonals deliver mate to a king obstructed by friendly pieces.</string>
   <string name="dovetailMate">Dovetail mate</string>

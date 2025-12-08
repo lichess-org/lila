@@ -2,13 +2,13 @@ package lila.fide
 
 import akka.stream.contrib.ZipInputStreamSource
 import akka.stream.scaladsl.*
-import chess.{ FideId, PlayerName, PlayerTitle }
+import chess.{ FideId, FideTC, PlayerName, PlayerTitle }
 import chess.rating.{ Elo, KFactor }
 import play.api.libs.ws.StandaloneWSClient
 import reactivemongo.api.bson.*
 import java.util.zip.ZipInputStream
 
-import lila.core.fide.{ Federation, FideTC }
+import lila.core.fide.Federation
 import lila.db.dsl.{ *, given }
 
 final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
@@ -113,6 +113,7 @@ final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
                 .drop(1) // first line is a header
                 .map(parseLine)
                 .mapConcat(_.toList)
+                .filter(validatePlayer)
                 .grouped(200)
                 .mapAsync(1)(saveIfChanged)
                 .runWith(lila.common.LilaStream.sinkSum)
@@ -160,6 +161,10 @@ final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
         year = year,
         inactive = flags.exists(_.contains("i"))
       )
+
+    private def validatePlayer(p: FidePlayer): Boolean =
+      p.age.exists: age =>
+        age > 9 || (age > 5 && p.ratingsMap.nonEmpty)
 
     private def saveIfChanged(players: Seq[FidePlayer]): Future[Int] =
       repo.player

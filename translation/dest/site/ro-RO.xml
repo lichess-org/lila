@@ -4,7 +4,7 @@
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Provoacă un prieten</string>
   <string name="playAgainstComputer">Joacă împotriva calculatorului</string>
   <string name="gameMode">Mod joc</string>
-  <string name="createLobbyGame" comment="One of three buttons on the home page. Opens the modal to create a game that goes in the lobby.">Creează un joc nou</string>
+  <string name="createLobbyGame">Creează un joc nou</string>
   <string name="youPlayAs">Tu joci ca</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Pentru a invita pe cineva să joace, folosiți acest URL</string>
   <string name="gameOver">Partidă încheiată</string>
@@ -732,7 +732,7 @@
   <string name="signUpToHostOrJoinASimul">Înregistrează-te pentru a găzdui sau pentru participarea la un simultan</string>
   <string name="noSimulFound">Simultanul nu a fost găsit</string>
   <string name="noSimulExplanation">Acest simultan nu există.</string>
-  <string name="returnToSimulHomepage">Înapoi la pagina simultanului</string>
+  <string name="returnToSimulHomepage">Înapoi la pagina pentru simultane</string>
   <string name="aboutSimul">Simultanele înseamnă un singur jucător în fața mai multor jucători în același timp.</string>
   <string name="aboutSimulImage">Din 50 de oponenți, Fischer a câștigat 47 de partide, a făcut remiză în 2 partide și a pierdut 1 partida.</string>
   <string name="aboutSimulRealLife">Conceptul provine din evenimentele din lumea reală. În viața reală, jucătorul care acordă un simultan se deplasează de la o tablă la alta pentru a juca la fiecare câte o singură mutare.</string>

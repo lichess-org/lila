@@ -11,6 +11,7 @@ trait AssetHelper:
   export lila.ui.Esm
 
   def netBaseUrl: BaseUrl
+  def routeUrl: Call => Url
   def assetBaseUrl: AssetBaseUrl
   def assetUrl(path: String): Url
   def safeJsonValue(jsValue: JsValue): SafeJsonStr
@@ -61,13 +62,13 @@ trait AssetHelper:
 
   def staticAssetUrl(path: String): Url = Url(s"$assetBaseUrl/assets/$path")
 
+  def staticCompiledUrl(path: String): Url = staticAssetUrl(s"compiled/$path")
+
   def cdnUrl(path: String) = Url(s"$assetBaseUrl$path")
 
   def flairSrc(flair: Flair): Url = staticAssetUrl(s"$flairVersion/flair/img/$flair.webp")
 
   def iconFlair(flair: Flair): Tag = decorativeImg(cls := "icon-flair", src := flairSrc(flair))
-
-  def fideFedSrc(fideFed: String): Url = staticAssetUrl(s"$fideFedVersion/fide/fed-webp/${fideFed}.webp")
 
   def fingerprintTag: EsmList = Esm("bits.fipr")
 
@@ -76,7 +77,6 @@ trait AssetHelper:
 
   def analyseNvuiTag(using ctx: Context) = ctx.blind.option(Esm("analyse.nvui"))
 
-  def routeUrl(call: Call): Url = Url(s"${netBaseUrl}${call.url}")
   def pathUrl(path: String): Url = Url(s"${netBaseUrl}$path")
 
   def fenThumbnailUrl(

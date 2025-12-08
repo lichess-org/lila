@@ -16,8 +16,8 @@
   <string name="backRankMateDescription">Matez le Roi sur la dernière rangée, lorsqu\'il est piégé par ses propres pièces.</string>
   <string name="balestraMate">Mat de l\'arbalète</string>
   <string name="balestraMateDescription">Un fou fait échec tandis que la dame contrôle les cases de fuite.</string>
-  <string name="blindSwineMate" comment="Description (translatable separately):&#10;&#10;Two rooks team up to mate the king in an area of 2 by 2 squares.">Mat des deux tours</string>
-  <string name="blindSwineMateDescription" comment="Description for the Blind Swine checkmate pattern.">Deux tours matent le roi adverse dans un espace de deux cases par deux cases.</string>
+  <string name="blindSwineMate">Mat des deux tours</string>
+  <string name="blindSwineMateDescription">Deux tours matent le roi adverse dans un espace de deux cases par deux cases.</string>
   <string name="bishopEndgame">Finale de Fous</string>
   <string name="bishopEndgameDescription">Une finale avec seulement des Fous et des pions.</string>
   <string name="bodenMate">Mat de Boden</string>
@@ -26,8 +26,12 @@
   <string name="castlingDescription">Mettez votre Roi en sécurité et développez vos Tours pour attaquer.</string>
   <string name="capturingDefender">Capturez le défenseur</string>
   <string name="capturingDefenderDescription">Retire une pièce essentielle à la défense d\'une autre pièce, permettant à la pièce non protégée d\'être capturée au coup suivant.</string>
+  <string name="cornerMate">Mat en coin</string>
+  <string name="cornerMateDescription">Le roi adverse est confiné dans un coin de l\'échiquier par une tour ou la dame, puis un cavalier le met mat.</string>
   <string name="crushing">Écrasant</string>
   <string name="crushingDescription">Repérez la gaffe de l\'adversaire pour obtenir un avantage écrasant. (évaluation &gt; 600cp)</string>
+  <string name="discoveredCheck" comment="Description (translatable separately):&#10;&#10;Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage.">Échec à la découverte</string>
+  <string name="discoveredCheckDescription" comment="Description for the &quot;Discovered check&quot; puzzle theme.">En se déplaçant, une pièce permet à une autre pièce de mettre le roi adverse en échec et d\'obtenir souvent un avantage décisif.</string>
   <string name="doubleBishopMate">Mat des deux Fous</string>
   <string name="doubleBishopMateDescription">Deux Fous contrôlant des diagonales adjacentes matent un Roi bloqué par ses propres pièces.</string>
   <string name="dovetailMate">Mat de Cozio</string>

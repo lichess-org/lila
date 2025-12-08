@@ -26,8 +26,12 @@ Eden od vaših kmetov je globoko na nasprotnikovem področju in ima morda možno
   <string name="castlingDescription">Umik kralja na varno in razporeditev trdnjave za napad.</string>
   <string name="capturingDefender">Zajem branilca</string>
   <string name="capturingDefenderDescription">Odstranitev figure, ki je ključna za obrambo druge figure, kar omogoča, da se nezaščitena figura zajame z naslednjo potezo.</string>
+  <string name="cornerMate">Mat v kotu</string>
+  <string name="cornerMateDescription">Kralja omejite v kot z uporabo trdnjave ali dame in skakača, da se spopadete z matom.</string>
   <string name="crushing">Odločilna prednost</string>
   <string name="crushingDescription">Spoznanje nasprotnikove napake, za odločilno prednost. (ocena ≥ 600sk)</string>
+  <string name="discoveredCheck" comment="Description (translatable separately):&#10;&#10;Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage.">Odkrit šah</string>
+  <string name="discoveredCheckDescription" comment="Description for the &quot;Discovered check&quot; puzzle theme.">Premakni figuro, da razkriješ šah skrite napadalne figure, kar pogosto vodi do odločilne prednosti.</string>
   <string name="doubleBishopMate">Mat z lovcema</string>
   <string name="doubleBishopMateDescription">Lovca na sosednjih diagonalah matirata kralja, ki ga ovirajo njegove figure.</string>
   <string name="dovetailMate">Coziov mat</string>

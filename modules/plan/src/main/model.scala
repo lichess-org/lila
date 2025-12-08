@@ -31,7 +31,7 @@ object Usd extends TotalWrapper[Usd, BigDecimal]:
 opaque type Country = String
 object Country extends OpaqueString[Country]
 
-case class NextUrls(cancel: String, success: String)
+case class NextUrls(cancel: Url, success: Url)
 
 case class ProductIds(monthly: String, onetime: String, gift: String)
 

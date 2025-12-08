@@ -7,9 +7,8 @@ import java.time.ZoneId
 import scalalib.model.Language
 import lila.memo.{ Dimensions, PicfitUrl }
 import lila.core.id.ImageId
-import lila.core.fide.FideTC
 import lila.core.study.Visibility
-import chess.TournamentClock
+import chess.{ FideTC, TournamentClock }
 import chess.tiebreak.Tiebreak
 
 case class RelayTour(
@@ -153,3 +152,5 @@ object RelayTour:
       picfitUrl.thumbnail(image)(size(thumbnail).dimensions)
 
   def makeId = RelayTourId(scalalib.ThreadLocalRandom.nextString(8))
+
+  private[relay] def tierPriority(t: RelayTour) = -t.tier.so(_.v)

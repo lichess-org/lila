@@ -18,6 +18,9 @@ object PuzzleTheme:
   enum VoteError:
     case Fail(msg: String) extends VoteError
     case Unchanged extends VoteError
+    def message: String = this match
+      case Fail(msg) => msg
+      case Unchanged => "unchanged"
 
   val mix = PuzzleTheme(i.mix, i.mixDescription)
   val advancedPawn = PuzzleTheme(i.advancedPawn, i.advancedPawnDescription)
@@ -42,6 +45,7 @@ object PuzzleTheme:
   val deflection = PuzzleTheme(i.deflection, i.deflectionDescription)
   val discoveredAttack =
     PuzzleTheme(i.discoveredAttack, i.discoveredAttackDescription)
+  val discoveredCheck = PuzzleTheme(i.discoveredCheck, i.discoveredCheckDescription)
   val doubleBishopMate =
     PuzzleTheme(i.doubleBishopMate, i.doubleBishopMateDescription)
   val doubleCheck = PuzzleTheme(i.doubleCheck, i.doubleCheckDescription)
@@ -127,6 +131,7 @@ object PuzzleTheme:
     I18nKey.puzzle.advanced -> List(
       attraction,
       clearance,
+      discoveredCheck,
       defensiveMove,
       deflection,
       interference,

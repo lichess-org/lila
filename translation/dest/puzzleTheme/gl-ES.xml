@@ -14,7 +14,7 @@
   <string name="attractionDescription">Un intercambio ou sacrificio alentando ou forzando unha peza do opoñente a unha casa que permite unha táctica de seguimento.</string>
   <string name="backRankMate">Mate do corredor</string>
   <string name="backRankMateDescription">Xaque mate na última fila, onde o rei está atrapado polas súas propias pezas.</string>
-  <string name="balestraMate">Mate da bésta</string>
+  <string name="balestraMate">Mate da besta</string>
   <string name="balestraMateDescription">O bispo dá xaque mate mentres a dama bloquea as casas de escape</string>
   <string name="blindSwineMate">Mate do porco cego</string>
   <string name="blindSwineMateDescription">Dúas torres colaboran para dar mate ó rei nunha área de 2 x 2 casas.</string>
@@ -26,8 +26,12 @@
   <string name="castlingDescription">Pon o teu rei a salvo e desprega a túa torre para o ataque.</string>
   <string name="capturingDefender">Captura ao defensor</string>
   <string name="capturingDefenderDescription">Eliminar unha peza fundamental para a defensa doutra, permitindo capturar a peza, agora indefensa, no seguinte movemento.</string>
+  <string name="cornerMate">Mate do curruncho</string>
+  <string name="cornerMateDescription">Confina o rei nun recuncho usando unha torre ou unha dama e un cabalo para facer xaque mate.</string>
   <string name="crushing">Vantaxe decisiva</string>
   <string name="crushingDescription">Detecta a metida de zoca do opoñente para obter unha vantaxe decisiva. (eval ≥ 600cp)</string>
+  <string name="discoveredCheck" comment="Description (translatable separately):&#10;&#10;Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage.">Xaque descuberto</string>
+  <string name="discoveredCheckDescription" comment="Description for the &quot;Discovered check&quot; puzzle theme.">Aparta unha peza para desbloquear o xaque doutra peza atacante. A miúdo produce unha vantaxe decisiva.</string>
   <string name="doubleBishopMate">Mate de dous alfís</string>
   <string name="doubleBishopMateDescription">Dous alfís atacando en diagonais cruzadas dan mate ao rei obstaculizado polas súas propias pezas.</string>
   <string name="dovetailMate">Mate de Cozio</string>
@@ -45,7 +49,7 @@
   <string name="discoveredAttack">Ataque descuberto</string>
   <string name="discoveredAttackDescription">Apartar unha peza (por exemplo un cabalo) que previamente bloqueaba o ataque doutra peza de longo alcance (por exemplo unha torre).</string>
   <string name="doubleCheck">Xaque dobre</string>
-  <string name="doubleCheckDescription">Xaque con dúas pezas á vez, como resultado dun ataque descuberto onde tanto a peza en movemento como a desvelada atacan ao rei do opoñente.</string>
+  <string name="doubleCheckDescription">Xaque con dúas pezas á vez, como resultado dun ataque descuberto onde tanto a peza que se move como a descuberta atacan ao rei do opoñente.</string>
   <string name="endgame">Final</string>
   <string name="endgameDescription">Táctica durante a derradeira fase do xogo.</string>
   <string name="enPassantDescription">Táctica que involucra a captura ao paso, onde un peón pode capturar a un peón opoñente que o deixou atrás usando o seu movemento inicial de dúas casas.</string>

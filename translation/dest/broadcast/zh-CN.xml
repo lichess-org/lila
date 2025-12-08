@@ -25,16 +25,16 @@
   <string name="fullDescriptionHelp">转播内容的详细描述 (可选）。可以使用 %1$s，字数少于 %2$s 个。</string>
   <string name="sourceSingleUrl">PGN 的 URL 源</string>
   <string name="sourceUrlHelp">Lichess 将从该网址搜查 PGN 的更新。它必须是公开的。</string>
-  <string name="sourceGameIds">最多 64 个 Lichess 棋局 ID，用空格隔开。</string>
+  <string name="sourceGameIds">最多 64 个 Lichess 对局 ID，用空格隔开。</string>
   <string name="startDateTimeZone">比赛本地时区开始时间：%s</string>
   <string name="startDateHelp">如果你知道比赛开始时间 (可选)</string>
-  <string name="currentGameUrl">当前棋局链接</string>
-  <string name="downloadAllRounds">下载所有棋局</string>
+  <string name="currentGameUrl">当前对局链接</string>
+  <string name="downloadAllRounds">下载所有对局</string>
   <string name="resetRound">重置此轮</string>
   <string name="deleteRound">删除此轮</string>
   <string name="definitivelyDeleteRound">确定删除该回合及其游戏。</string>
   <string name="deleteAllGamesOfThisRound">删除此回合的所有游戏。源需要激活才能重新创建。</string>
-  <string name="editRoundStudy">编辑该轮次的棋局研究</string>
+  <string name="editRoundStudy">编辑该轮次的对局研究</string>
   <string name="deleteTournament">删除该锦标赛</string>
   <string name="definitivelyDeleteTournament">确定删除整个锦标赛、所有轮次和其中所有比赛。</string>
   <string name="showScores">根据比赛结果显示棋手分数</string>
@@ -52,7 +52,7 @@
   <string name="teams">团队</string>
   <string name="boards">棋盘</string>
   <string name="overview">概览</string>
-  <string name="subscribeTitle">订阅后会在每轮开始时通知。您可以在帐户首选项中切换铃声或推送广播通知。</string>
+  <string name="subscribeTitle">订阅后可在每轮比赛开始时收到通知。您可以在账户偏好设置中切换广播的铃声或推送通知。</string>
   <string name="uploadImage">上传锦标赛图像</string>
   <string name="noBoardsYet">尚无看板。这些游戏一旦上传就会出现。</string>
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">可以通过 %s加载看板</string>
@@ -77,8 +77,10 @@
   <string name="pastBroadcasts">结束的转播</string>
   <string name="allBroadcastsByMonth">按月查看所有转播</string>
   <string name="backToLiveMove">回到实时着法</string>
-  <string name="sinceHideResults">由于您选择隐藏比赛结果，为避免剧透，所有棋局预览均为空白状态。</string>
-  <string name="liveboard">实时棋局</string>
+  <string name="sinceHideResults">由于您选择隐藏比赛结果，为避免剧透，所有对局预览均为空白状态。</string>
+  <string name="liveboard">实时对局</string>
   <string name="communityBroadcast">社区转播</string>
   <string name="createdAndManagedBy">由 %s 创建和管理。</string>
+  <string name="roundX" comment="%s is the number of the round.&#10;e.g. &quot;Round 2&quot;.&#10;&#10;If your language changes the word &quot;Round&quot; based on the number after it, consider using punctuation to get around the problem (e.g. &quot;Round: %s&quot;).&#10;&#10;This is the standard name for a round in a broadcast (https://lichess.org/broadcast), so it is translatable.&#10;&#10;Broadcasters may optionally override it. If they override the default name, it will be in a language and words of their choice e.g. &quot;Semifinals Tiebreak 1&quot; - no longer being translatable.">第%s轮</string>
+  <string name="defaultRoundNameHelp" comment="This is help text for broadcast authors setting a round name. The default is &quot;Round %s&quot; (translatable separately).&#10;&#10;If broadcasters keep the round name to the default, it will be automatically translated.&#10;&#10;Broadcasters may optionally override it. If they override the default name, it will be in a language and words of their choice e.g. &quot;Semifinals Tiebreak 1&quot; - no longer being translatable.">保留默认名称会将其自动翻译为其他语言。</string>
 </resources>

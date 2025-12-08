@@ -134,7 +134,10 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
   def anonDasher(using ctx: Context) =
     val prefs = trans.preferences.preferences.txt()
     frag(
-      a(href := s"${routes.Auth.login.url}?referrer=${ctx.req.path}", cls := "signin")(trans.site.signIn()),
+      div(cls := "signin-or-signup")(
+        a(href := s"${routes.Auth.login.url}?referrer=${ctx.req.path}", cls := "signin")(trans.site.signIn()),
+        a(href := routes.Auth.signup, cls := "button signup")(trans.site.signUp())
+      ),
       div(cls := "dasher")(
         button(cls := "toggle anon link", title := prefs, aria.label := prefs, dataIcon := Icon.Gear),
         div(id := "dasher_app", cls := "dropdown")
@@ -149,7 +152,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     frag(cashTag, assetHelper.manifest.jsAndDeps("manifest" :: keys).map(jsTag))
 
   private def jsTag(name: String): Frag =
-    script(tpe := "module", src := staticAssetUrl(s"compiled/$name"))
+    script(tpe := "module", src := staticCompiledUrl(name))
 
   def modulesInit(modules: EsmList, nonce: Optionce) =
     modules.flatMap(_.map(_.init(nonce))) // in body
@@ -333,7 +336,8 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
             ctx.me
               .map: me =>
                 frag(allNotifications(challenges, notifications), dasher(me))
-              .getOrElse { (!error).option(anonDasher) }
+              .getOrElse:
+                error.not.option(anonDasher)
         )
       )
 

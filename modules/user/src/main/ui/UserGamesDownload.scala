@@ -27,15 +27,17 @@ final class UserGamesDownload(helpers: Helpers):
               perfToggles,
               includeToggles,
               amount,
-              tr(cls := "output")(
-                th(label(`for` := "dl-api-url")("API URL")),
-                td(
-                  copyMeInput("")(
-                    id := "dl-api-url",
-                    attr("data-api-path") := routes.Game.apiExportByUser(user.username)
+              user.enabled.yes.option:
+                tr(cls := "output")(
+                  th(label(`for` := "dl-api-url")("API URL")),
+                  td(
+                    copyMeInput("")(
+                      id := "dl-api-url",
+                      attr("data-api-path") := routes.Game.apiExportByUser(user.username)
+                    )
                   )
                 )
-              ),
+              ,
               tr(
                 td(cls := "action", colspan := "2")(
                   a(

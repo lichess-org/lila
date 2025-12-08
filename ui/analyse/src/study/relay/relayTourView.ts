@@ -106,8 +106,8 @@ export const tourSide = (ctx: RelayViewContext, kid: LooseVNode) => {
         resizeId &&
         verticalResize({
           key: `relay-games.${resizeId}`,
-          min: () => 48,
-          max: () => 48 * study.chapters.list.size(),
+          min: () => 50, // Height of one .relay-game in _tour.scss
+          max: () => 50 * study.chapters.list.size(),
           initialMaxHeight: () => window.innerHeight / 2,
         }),
       ctx.ctrl.chatCtrl && renderChat(ctx.ctrl.chatCtrl),
@@ -240,7 +240,7 @@ const share = (ctx: RelayViewContext) => {
           'To synchronize ongoing games, use ',
           hl(
             'a',
-            { attrs: { href: '/api#tag/Broadcasts/operation/broadcastStreamRoundPgn' } },
+            { attrs: { href: '/api#tag/broadcasts/get/apistreambroadcastroundbroadcastroundidpgn' } },
             'our free streaming API',
           ),
           ' for stupendous speed and efficiency.',
@@ -382,7 +382,7 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
                         ? commonDateFormat(new Date(round.startsAt))
                         : round.startsAfterPrevious &&
                             i18n.broadcast.startsAfter(
-                              relay.data.rounds[i - 1]?.name || 'the previous round',
+                              relay.data.rounds[i - 1] ? relay.data.rounds[i - 1].name : 'the previous round',
                             ),
                     ),
                     hl(
@@ -447,7 +447,15 @@ const header = (ctx: RelayViewContext) => {
     d.tour.communityOwner &&
       renderNote(
         hl('div', i18n.broadcast.communityBroadcast),
-        hl('small', i18n.broadcast.createdAndManagedBy.asArray(userLink(d.tour.communityOwner))),
+        hl(
+          'small',
+          i18n.broadcast.createdAndManagedBy.asArray(
+            userLink({
+              ...d.tour.communityOwner,
+              flair: undefined,
+            }),
+          ),
+        ),
       ),
     d.note &&
       renderNote(

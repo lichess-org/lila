@@ -3,7 +3,7 @@
   <string name="community">社区</string>
   <string name="byMonth">按月份</string>
   <string name="byTopic">按主题</string>
-  <string name="byLichess">由Lichess创建</string>
+  <string name="byLichess">Lichess 官方</string>
   <string name="myFriends">我的好友</string>
   <string name="myLikes" comment="A page which lists blog posts that you have pressed ❤️ Like on: https://lichess.org/blog/liked">我的点赞</string>
   <string name="myBlog">我的博客</string>
@@ -11,49 +11,49 @@
   <plurals name="blogPosts">
     <item quantity="other">%s 篇博客文章</item>
   </plurals>
-  <string name="continueReadingPost">继续阅读这篇文章</string>
-  <string name="lichessBlogPostsFromXYear">Lichess 博客于 %s 年发布的文章</string>
-  <string name="previousBlogPosts">之前发布的文章</string>
+  <string name="continueReadingPost">继续阅读此文章</string>
+  <string name="lichessBlogPostsFromXYear">%s 年的 Lichess 博客文章</string>
+  <string name="previousBlogPosts">之前的博客文章</string>
   <string name="xBlog">%s 的博客</string>
-  <string name="newPost">新文章</string>
-  <string name="editYourBlogPost">编辑你的博客文章</string>
+  <string name="newPost">新建文章</string>
+  <string name="editYourBlogPost">编辑您的博客文章</string>
   <string name="saveDraft">保存草稿</string>
   <string name="postTitle">文章标题</string>
   <string name="postIntro">文章简介</string>
-  <string name="postBody">文章内容</string>
-  <string name="drafts">草稿箱</string>
+  <string name="postBody">文章正文</string>
+  <string name="drafts">草稿</string>
   <string name="published">已发布</string>
   <string name="createBlogDiscussion">启用评论</string>
-  <string name="createBlogDiscussionHelp">将创建一个论坛主题，供人们对你的帖子发表评论</string>
-  <string name="publishOnYourBlog">在博客上发布</string>
-  <string name="publishHelp">如果选中，文章将列于你的博客上。如果未选择，它将是私密的，在你的草稿箱中</string>
+  <string name="createBlogDiscussionHelp">将创建一个论坛主题，供人们对您的文章进行评论</string>
+  <string name="publishOnYourBlog">发布到您的博客</string>
+  <string name="publishHelp">如果勾选，文章将列在您的博客中。否则，它将作为私人文章保存在您的草稿中。</string>
   <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">置顶文章</string>
-  <string name="stickyPostHelp">如果勾选，该文章将在您的个人资料最近文章和博客中列在首位。</string>
+  <string name="stickyPostHelp">如果勾选，此文章将显示在您个人资料的最新动态和您博客的首位。</string>
   <plurals name="publishedNbBlogPosts">
-    <item quantity="other">已发布 %s 博客文章</item>
+    <item quantity="other">已发布 %s 篇博客文章</item>
   </plurals>
   <plurals name="nbViews">
-    <item quantity="other">%s 次阅读</item>
+    <item quantity="other">%s 次查看</item>
   </plurals>
   <string name="xPublishedY">%1$s 发布了 %2$s</string>
   <string name="thisPostIsPublished">文章已发布</string>
   <string name="thisIsADraft">这是一个草稿</string>
-  <string name="noPostsInThisBlogYet">此博客中尚无文章</string>
-  <string name="noDrafts">没有草稿</string>
+  <string name="noPostsInThisBlogYet">此博客尚无文章</string>
+  <string name="noDrafts">没有草稿可显示</string>
   <string name="latestBlogPosts">最新博客文章</string>
   <plurals name="viewAllNbPosts">
     <item quantity="other">查看所有 %s 篇文章</item>
   </plurals>
-  <string name="uploadAnImageForYourPost">上传一张图片</string>
-  <string name="imageAlt">图片备选文字</string>
-  <string name="imageCredit">图片引自</string>
-  <string name="deleteBlog">确定删除该博客</string>
-  <string name="safeToUseImages">使用来自下列网站的图像是安全的：</string>
-  <string name="selectPostTopics">选择帖子的主题</string>
-  <string name="useImagesYouMadeYourself">你也可以使用你自己制作的图像，你拍摄的照片，Lichess 的屏幕截图... 任何不是他人版权所有的东西。</string>
-  <string name="safeAndRespectfulContent">请发布安全和表示尊重的内容。不要复制他人的内容。</string>
-  <string name="inappropriateContentAccountClosed">任何违规的内容都可能导致你的账户被封禁。</string>
-  <string name="blogTips">写出好博文的小提示</string>
-  <string name="discussThisBlogPostInTheForum">在论坛讨论这篇博客</string>
-  <string name="youBlockedByBlogAuthor">您被博客作者拉黑了</string>
+  <string name="uploadAnImageForYourPost">为您的文章上传一张图片</string>
+  <string name="imageAlt">图片备选文本</string>
+  <string name="imageCredit">图片来源</string>
+  <string name="deleteBlog">永久删除此博客文章</string>
+  <string name="safeToUseImages">可以安全使用以下网站的图片：</string>
+  <string name="selectPostTopics">请选择您文章涉及的主题</string>
+  <string name="useImagesYouMadeYourself">您也可以使用自己制作的图片、拍摄的照片、Lichess 的截图…任何非他人拥有版权的内容。</string>
+  <string name="safeAndRespectfulContent">请仅发布安全且尊重他人的内容。请勿复制他人的内容。</string>
+  <string name="inappropriateContentAccountClosed">任何不当内容都可能导致您的账户被封禁。</string>
+  <string name="blogTips">我们撰写优秀博客文章的简单技巧</string>
+  <string name="discussThisBlogPostInTheForum">在论坛中讨论此博客文章</string>
+  <string name="youBlockedByBlogAuthor">您已被博客作者屏蔽</string>
 </resources>

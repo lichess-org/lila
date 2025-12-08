@@ -16,6 +16,8 @@
   <string name="backRankMateDescription">Zet de koning mat op de achterste rij, ingesloten door zijn eigen stukken.</string>
   <string name="balestraMate">Kruisboogmat</string>
   <string name="balestraMateDescription">Een loper zet mat waarbij een dame de resterende vluchtvelden blokkeert</string>
+  <string name="blindSwineMate">Blind zwijn-mat</string>
+  <string name="blindSwineMateDescription">Twee torens werken samen om de koning mat te zetten in een 2x2-vierkant.</string>
   <string name="bishopEndgame">Lopereindspel</string>
   <string name="bishopEndgameDescription">Een eindspel met alleen lopers en pionnen.</string>
   <string name="bodenMate">Mat van Boden</string>
@@ -24,8 +26,12 @@
   <string name="castlingDescription">Breng de koning in veiligheid en zet de toren in voor een aanval.</string>
   <string name="capturingDefender">De verdediger slaan</string>
   <string name="capturingDefenderDescription">Een stuk slaan dat essentieel is voor de verdediging van een ander stuk, waardoor vervolgens het nu onverdedigde stuk een volgende zet kan worden geslagen.</string>
+  <string name="cornerMate">Mat in een hoek</string>
+  <string name="cornerMateDescription">Dring de koning met behulp van een toren of dame en een paard een hoek in om hem schaakmat te zetten.</string>
   <string name="crushing">Verpletteren</string>
   <string name="crushingDescription">Zie de blunder van de tegenstander om een verpletterend voordeel te verkrijgen. (eval ≥ 600cp)</string>
+  <string name="discoveredCheck" comment="Description (translatable separately):&#10;&#10;Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage.">Aftrekschaak</string>
+  <string name="discoveredCheckDescription" comment="Description for the &quot;Discovered check&quot; puzzle theme.">Een stuk verplaatsen om schaak te geven met een verborgen aanvalsstuk, wat vaak leidt tot beslissend voordeel.</string>
   <string name="doubleBishopMate">Mat met twee lopers</string>
   <string name="doubleBishopMateDescription">Twee lopers op belendende diagonalen zetten een koning mat die wordt belemmerd door de eigen stukken.</string>
   <string name="dovetailMate">Zwaluwstaartmat</string>
@@ -62,6 +68,7 @@
   <string name="killBoxMate">Mat in dodelijk vierkant</string>
   <string name="killBoxMateDescription">Een toren staat naast de vijandelijke koning en wordt gedekt door een dame die ook de ontsnappingsvelden van de koning blokkeert. De toren en de dame vangen de vijandelijke koning in een dodelijk 3x3-vierkant.</string>
   <string name="triangleMate">Driehoeksmat</string>
+  <string name="triangleMateDescription">De toren en koningin, een vakje verwijderd van de vijandelijke koning, staan op dezelfde rij of kolom, gescheiden door een vakje, en vormen samen een driehoek.</string>
   <string name="vukovicMate">Vukovic-mat</string>
   <string name="vukovicMateDescription">Een toren en een paard werken samen om de koning mat te zetten. De toren zet mat terwijl hij door een ander stuk wordt ondersteund; het paard wordt gebruikt om ontsnappingsvelden van de koning te blokkeren.</string>
   <string name="knightEndgame">Paardeneindspel</string>

@@ -4,7 +4,7 @@
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">دعوت به بازی</string>
   <string name="playAgainstComputer">بازی با رایانه</string>
   <string name="gameMode">حالتِ بازی</string>
-  <string name="createLobbyGame" comment="One of three buttons on the home page. Opens the modal to create a game that goes in the lobby.">ایجاد بازی در سَرسَرا</string>
+  <string name="createLobbyGame">ایجاد بازی در سَرسَرا</string>
   <string name="youPlayAs">رنگِ مُهرهٔ شما</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">برای دعوت کسی به بازی، این وب‌نشانی را دهید</string>
   <string name="gameOver">پایان بازی</string>
@@ -225,9 +225,9 @@
   <string name="time">زمان</string>
   <string name="rating">درجه‌بندی</string>
   <string name="ratingStats">آماره‌های درجه‌بندی</string>
-  <string name="username">نام کاربر</string>
-  <string name="usernameOrEmail">نام کاربر یا رایانامه</string>
-  <string name="changeUsername">تغییر نام کاربر</string>
+  <string name="username">نام کاربری</string>
+  <string name="usernameOrEmail">نام کاربری یا رایانامه</string>
+  <string name="changeUsername">تغییر نام کاربری</string>
   <string name="changeUsernameNotSame">تنها اندازه حروف میتوانند تغییر کنند. برای مثال \"johndoe\" به \"JohnDoe\".</string>
   <string name="changeUsernameDescription">نام کاربری خود را تغییر دهید. این تنها یک بار انجام پذیر است و شما تنها مجازید اندازه حروف نام کاربری‌تان را تغییر دهید.</string>
   <string name="signupUsernameHint">مطمئن شوید که یک نام کاربری مناسب انتخاب میکنید. بعداً نمی توانید آن را تغییر دهید و هر حسابی با نام کاربری نامناسب بسته می شود!</string>
@@ -240,7 +240,7 @@
   <string name="forgotPassword">گذرواژه را فراموش کرده‌اید?</string>
   <string name="error.weakPassword">این گذرواژه بسیار رایج و آسان‌حدس است.</string>
   <string name="error.namePassword">خواهشانه از نام کاربری‌تان برای گذرواژه‌تان استفاده نکنید.</string>
-  <string name="blankedPassword">شما از گذرواژهٔ یکسانی در وبگاه دیگری بهراییده‌اید و آن وبگاه به خطر افتاده است. برای اطمینان از ایمنی حساب لیچس‌تان، به شما نیاز داریم تا گذرواژهٔ نویی را تعیین کنید. از درک‌تان سپاسگزاریم.</string>
+  <string name="blankedPassword">شما از گذرواژهٔ یکسانی در وبگاه دیگری بهریده‌اید و آن وبگاه به خطر افتاده است. برای اطمینان از ایمنی حساب Lichessتان، به شما نیاز داریم تا گذرواژهٔ نویی را تعیین کنید. از درک‌تان سپاسگزاریم.</string>
   <string name="youAreLeavingLichess">در حال ترک lichess هستید</string>
   <string name="neverTypeYourPassword">هرگز گذرواژهٔ Lichessتان را در وبگاه دیگری ننویسید!</string>
   <string name="proceedToX">بروید به %s</string>
@@ -296,7 +296,7 @@
   <string name="finished">تمام شده</string>
   <string name="abortGame">انصراف از بازی</string>
   <string name="gameAborted">بازی لغو شد</string>
-  <string name="standard">استاندارد</string>
+  <string name="standard">معیار</string>
   <string name="customPosition">وضعیت به‌دلخواه</string>
   <string name="unlimited">نامحدود</string>
   <string name="mode">حالت</string>
@@ -967,7 +967,7 @@
   <string name="maximumWeeklyRating">حداکثر درجه‌بندی هفتگی</string>
   <string name="positionInputHelp">برای آغاز هر بازی از یک وضعیت مشخص، یک FEN معتبر جای‌گذارید.
 تنها برای شطرنج معیار کار می‌کند، نه با وَرتاها.
-می‌توانید از %s برای آزانیدن وضعیت FEN بهرایید، سپس آن را اینجا جای‌گذارید.
+می‌توانید از %s برای آزانیدن وضعیت FEN بَهرید، سپس آن را اینجا جای‌گذارید.
 برای آغاز بازی از وضعیت نخستین معمولی، خالی بگذارید.</string>
   <string name="cancelSimul">بازی هم‌زمان (سیمولتانه) را لغو نمایید</string>
   <string name="simulHostcolor">رنگ مربوط به نمایش‌دهنده یا میزبان برای هر بازی</string>

@@ -9,7 +9,7 @@ import lila.core.LightUser
 import lila.core.email.NormalizedEmailAddress
 import lila.core.lilaism.LilaInvalid
 import lila.core.perf.{ UserPerfs, UserWithPerfs }
-import lila.core.user.{ GameUsers, UserMark, WithEmails, WithPerf }
+import lila.core.user.{ GameUsers, UserMark, WithEmails, WithPerf, KidMode, SetKidMode }
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 import lila.rating.PerfType
@@ -128,7 +128,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
       userRepo.coll
         .aggregateList(Int.MaxValue): framework =>
           import framework.*
-          Match($inIds(ids)) -> List(
+          Match($inIds(ids) ++ userRepo.enabledSelect) -> List(
             PipelineOperator(perfsRepo.aggregate.lookup),
             AddFields($sort.orderField(ids)),
             Sort(Ascending("_order"))
@@ -221,6 +221,15 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
       userRepo.setTitle(user.id, PlayerTitle.BOT) >>
         userRepo.setRoles(user.id, Nil) >>
         perfsRepo.setBotInitialPerfs(user.id)
+
+  def setKid(user: User, v: KidMode): Fu[Option[KidMode]] =
+    (user.kid != v)
+      .option:
+        for
+          _ <- userRepo.setKid(user, v)
+          _ = lila.common.Bus.pub(SetKidMode(user.copy(kid = v)))
+        yield v
+      .sequence
 
   def visibleBotsByIds(ids: Iterable[UserId]): Fu[List[UserWithPerfs]] =
     userRepo.coll

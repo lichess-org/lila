@@ -22,10 +22,10 @@ object Dependencies {
   val maxmind = "com.maxmind.geoip2" % "geoip2" % "4.0.1"
   val caffeine = "com.github.ben-manes.caffeine" % "caffeine" % "3.2.3" % "compile"
   val scaffeine = "com.github.blemale" %% "scaffeine" % "5.3.0" % "compile"
-  val googleOAuth = "com.google.auth" % "google-auth-library-oauth2-http" % "1.40.0"
+  val googleOAuth = "com.google.auth" % "google-auth-library-oauth2-http" % "1.41.0"
   val galimatias = "io.mola.galimatias" % "galimatias" % "0.2.2-NF"
   val scalatags = "com.lihaoyi" %% "scalatags" % "0.13.1"
-  val lettuce = "io.lettuce" % "lettuce-core" % "7.1.0.RELEASE"
+  val lettuce = "io.lettuce" % "lettuce-core" % "7.2.0.RELEASE"
   val nettyTransport =
     ("io.netty" % s"netty-transport-native-$notifier" % "4.2.7.Final").classifier(s"$os-$arch")
   val lilaSearch = "com.github.lichess-org.lila-search" %% "client" % "3.3.0"
@@ -44,7 +44,7 @@ object Dependencies {
   }
 
   object chess {
-    val version = "17.12.4"
+    val version = "17.14.1"
     val org = "com.github.lichess-org.scalachess"
     // val org = "org.lichess" // for publishLocal
     val core = org %% "scalachess" % version
@@ -110,7 +110,7 @@ object Dependencies {
   }
 
   object kamon {
-    val version = "2.7.7"
+    val version = "2.8.0"
     val core = "io.kamon" %% "kamon-core" % version
     val influxdb = "io.kamon" %% "kamon-influxdb" % version
     val metrics = "io.kamon" %% "kamon-system-metrics" % version

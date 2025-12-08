@@ -16,8 +16,8 @@
   <string name="backRankMateDescription">Dê o xeque-mate no rei na última fileira, quando ele estiver bloqueado pelas próprias peças.</string>
   <string name="balestraMate">Mate da besta</string>
   <string name="balestraMateDescription">Um bispo dá o xeque-mate, enquanto uma dama bloqueia as casas de fuga</string>
-  <string name="blindSwineMate" comment="Description (translatable separately):&#10;&#10;Two rooks team up to mate the king in an area of 2 by 2 squares.">Mate do porco cego</string>
-  <string name="blindSwineMateDescription" comment="Description for the Blind Swine checkmate pattern.">Duas torres se unem para pôr o rei em cheque em um quadrado de 2x2.</string>
+  <string name="blindSwineMate">Mate do porco cego</string>
+  <string name="blindSwineMateDescription">Duas torres se unem para pôr o rei em cheque em um quadrado de 2x2.</string>
   <string name="bishopEndgame">Finais de bispo</string>
   <string name="bishopEndgameDescription">Final com somente bispos e peões.</string>
   <string name="bodenMate">Mate de Boden</string>
@@ -26,8 +26,12 @@
   <string name="castlingDescription">Traga o seu rei para a segurança, e prepare sua torre para o ataque.</string>
   <string name="capturingDefender">Capture o defensor</string>
   <string name="capturingDefenderDescription">Remover uma peça que seja importante na defesa de outra, permitindo que agora a peça indefesa seja capturada na jogada seguinte.</string>
+  <string name="cornerMate">Mate de canto</string>
+  <string name="cornerMateDescription">Confine o rei no canto usando uma torre ou dama e um cavalo para executar o xeque-mate.</string>
   <string name="crushing">Punindo</string>
   <string name="crushingDescription">Perceba a capivarada do oponente para obter uma vantagem decisiva. (vantagem ≥ 600cp)</string>
+  <string name="discoveredCheck" comment="Description (translatable separately):&#10;&#10;Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage.">Xeque Descoberto</string>
+  <string name="discoveredCheckDescription" comment="Description for the &quot;Discovered check&quot; puzzle theme.">Movimente uma peça para revelar um xeque de uma peça atacante escondida, que costuma levar a uma vantagem decisiva.</string>
   <string name="doubleBishopMate">Mate de dois bispos</string>
   <string name="doubleBishopMateDescription">Dois bispos atacantes em diagonais adjacentes dão um mate em um rei obstruído por peças amigas.</string>
   <string name="dovetailMate">Mate da cauda de andorinha</string>
@@ -63,6 +67,8 @@
   <string name="intermezzoDescription">Em vez de jogar o movimento esperado, primeiro realiza outro movimento criando uma ameaça imediata a que o oponente deve responder. Também conhecido como \"Zwischenzug\" ou \"In between\".</string>
   <string name="killBoxMate">Mate de torre e dama</string>
   <string name="killBoxMateDescription">Uma torre fica perto do rei inimigo e é defendida por uma dama que também bloqueia as casas de fuga. A torre e a dama capturam o rei inimigo em uma \"caixa mortal\" de 3 por 3.</string>
+  <string name="triangleMate">Mate do triângulo</string>
+  <string name="triangleMateDescription">A dama e a torre, há uma casa de distância do rei inimigo, estão na mesma fila ou coluna, separadas por uma casa, formando um triângulo.</string>
   <string name="vukovicMate">Mate de Vukovic</string>
   <string name="vukovicMateDescription">Uma torre e um cavalo colocam o rei em xeque. A torre dá xeque-mate protegida por outra peça, e o cavalo bloqueia as casas de fuga do rei.</string>
   <string name="knightEndgame">Finais de Cavalo</string>

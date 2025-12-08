@@ -255,6 +255,8 @@ interface I18n {
     createdAndManagedBy: I18nFormat;
     /** Current game URL */
     currentGameUrl: string;
+    /** Keeping the default name will automatically translate it to all other languages. */
+    defaultRoundNameHelp: string;
     /** Definitively delete the round and all its games. */
     definitivelyDeleteRound: string;
     /** Definitively delete the entire tournament, all its rounds and all its games. */
@@ -333,6 +335,8 @@ interface I18n {
     resetRound: string;
     /** Round name */
     roundName: string;
+    /** Round %s */
+    roundX: I18nFormat;
     /** Score */
     score: string;
     /** Show players scores based on game results */
@@ -2579,6 +2583,10 @@ interface I18n {
     discoveredAttack: string;
     /** Moving a piece (such as a knight), that previously blocked an attack by a long range piece (such as a rook), out of the way of that piece. */
     discoveredAttackDescription: string;
+    /** Discovered check */
+    discoveredCheck: string;
+    /** Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage. */
+    discoveredCheckDescription: string;
     /** Double bishop mate */
     doubleBishopMate: string;
     /** Two attacking bishops on adjacent diagonals deliver mate to a king obstructed by friendly pieces. */
@@ -2775,6 +2783,96 @@ interface I18n {
     zugzwang: string;
     /** The opponent is limited in the moves they can make, and all moves worsen their position. */
     zugzwangDescription: string;
+  };
+  recap: {
+    /** What have you been up to this year? */
+    awaitQuestion: string;
+    /** Your best chess foes */
+    chessFoes: string;
+    /** is how you started %s of your games as white */
+    firstMoveStats: I18nFormat;
+    /** What did it take to get there? */
+    gamesNextQuestion: string;
+    /** And you won %s! */
+    gamesYouWon: I18nFormat;
+    /** Hi, %s */
+    hiUser: I18nFormat;
+    /** What a chess year you've had! */
+    initTitle: string;
+    /** %s of them were yours. */
+    lichessGamesOfThemYours: I18nFormat;
+    /** %1$s games played on Lichess in %2$s */
+    lichessGamesPlayedIn: I18nFormat;
+    /** We didn't use your device against you */
+    malwareNoAbuse: string;
+    /** %s ads and trackers loaded */
+    malwareNoneLoaded: I18nFormat;
+    /** We didn't sell your personal data */
+    malwareNoSell: string;
+    /** be careful */
+    malwareWarningCta: string;
+    /** But other websites do, so please %s. */
+    malwareWarningPrefix: I18nFormat;
+    /** That's %s of wood pushed! */
+    movesOfWoodPushed: I18nFormat;
+    /** Standard pieces weigh about 40g each */
+    movesStandardPiecesWeight: string;
+    /** %s grams */
+    nbGrams: I18nPlural;
+    /** %s kilograms */
+    nbKilograms: I18nPlural;
+    /** %s moves */
+    nbMoves: I18nPlural;
+    /** %s moves played */
+    nbMovesPlayed: I18nPlural;
+    /** Wanna play now? */
+    noGamesCta: string;
+    /** You did not play any games this year. */
+    noGamesText: string;
+    /** Your most played opening as black with %s games */
+    openingsMostPlayedAsBlack: I18nPlural;
+    /** Your most played opening as white with %s games */
+    openingsMostPlayedAsWhite: I18nPlural;
+    /** What time controls and variants did you play? */
+    perfsTitle: string;
+    /** You also helped tag %s of them. */
+    puzzlesHelpedTagging: I18nFormat;
+    /** You did not solve any puzzles this year. */
+    puzzlesNone: string;
+    /** Thank you for voting on %s puzzles. */
+    puzzlesThanksVoting: I18nPlural;
+    /** Wanna try some now? */
+    puzzlesTryNow: string;
+    /** You won %s of them on the first try! */
+    puzzlesYouWonOnFirstTry: I18nFormat;
+    /** Your %s recap is ready! */
+    recapReady: I18nFormat;
+    /** favourite time control */
+    shareableFavouriteTimeControl: string;
+    /** favourite variant */
+    shareableFavouriteVariant: string;
+    /** most played opponent */
+    shareableMostPlayedOpponent: string;
+    /** spent playing */
+    shareableSpentPlaying: string;
+    /** My %s recap */
+    shareableTitle: I18nFormat;
+    /** Where did you find games? */
+    sourcesTitle: string;
+    /** We're glad you're here. Have a great %s! */
+    thanksHaveAGreat: I18nFormat;
+    /** Thank you for playing on Lichess! */
+    thanksTitle: string;
+    /** That is a lot of chess. */
+    timeALot: string;
+    /** How many moves did you play in all that time? */
+    timeHowManyMoves: string;
+    /** That seems like a reasonable amount of chess. */
+    timeReasonable: string;
+    /** %s spent playing! */
+    timeSpentPlayingExclam: I18nFormat;
+    /** That is way too much chess. */
+    timeTooMuch: string;
   };
   search: {
     /** Advanced search */
@@ -3777,7 +3875,7 @@ interface I18n {
     noConditionalPremoves: string;
     /** You cannot draw before 30 moves are played in a Swiss tournament. */
     noDrawBeforeSwissLimit: string;
-    /** No game found */
+    /** No games found */
     noGameFound: string;
     /** No mistakes found for black */
     noMistakesFoundForBlack: string;
@@ -4729,8 +4827,14 @@ interface I18n {
     becomeStreamer: string;
     /** Change/delete your picture */
     changePicture: string;
+    /** Choose the YouTube channel you will use on Lichess. */
+    chooseYoutubeChannel: string;
+    /** Connect */
+    connect: string;
     /** Currently streaming: %s */
     currentlyStreaming: I18nFormat;
+    /** Disconnect */
+    disconnect: string;
     /** Download streamer kit */
     downloadKit: string;
     /** Do you have a Twitch or YouTube channel? */
@@ -4769,6 +4873,8 @@ interface I18n {
     perk4: string;
     /** Benefits of streaming with the keyword */
     perks: string;
+    /** Please allow up to 72 hours before your streamer badge and listing are approved. */
+    pleaseAllow: string;
     /** Please fill in your streamer information, and upload a picture. */
     pleaseFillIn: string;
     /** Include the keyword "lichess.org" in your stream title and use the category "Chess" when you stream on Lichess. */
@@ -4791,12 +4897,6 @@ interface I18n {
     submitForReview: string;
     /** Tell us about your stream in one sentence */
     tellUsAboutTheStream: string;
-    /** Twitch and YouTube changes must be verified. */
-    twitchOrYouTubeMustBeVerified: string;
-    /** Either Twitch or YouTube is required */
-    twitchOrYouTubeRequired: string;
-    /** Your Twitch username or URL */
-    twitchUsername: string;
     /** Upload a picture */
     uploadPicture: string;
     /** Visible on the streamers page */
@@ -4811,8 +4911,6 @@ interface I18n {
     xStreamerPicture: I18nFormat;
     /** Your streamer page */
     yourPage: string;
-    /** Your YouTube channel ID */
-    youTubeChannelId: string;
   };
   study: {
     /** Add members */

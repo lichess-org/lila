@@ -16,16 +16,22 @@
   <string name="backRankMateDescription">به دام انداختن شاه حریف در عرض اولیه خود زمانی که با مهره های خودی به دام افتاده است.</string>
   <string name="balestraMate">ماتِ کمان‌فَنگ</string>
   <string name="balestraMateDescription">فیل مات را می‌انجامد و وزیر خانه‌های فرارِ باقی‌مانده را می‌بندد</string>
+  <string name="blindSwineMate">ماتِ دورُخ‌کُنج</string>
+  <string name="blindSwineMateDescription">دو رخ با برای ماتِ شاه در ناحیه‌ای ۲ در ۲، همکاری می‌کنند.</string>
   <string name="bishopEndgame">آخربازی فیل</string>
   <string name="bishopEndgameDescription">آخربازی، تنها با فیل‌ها و پیاده‌ها.</string>
-  <string name="bodenMate">مات بودِن یا دوشمشیر</string>
+  <string name="bodenMate">مات دوشمشیر</string>
   <string name="bodenMateDescription">دو فیل، شاهی را که با مهره‌های خودی مسدود شده است، با حملهٔ ضربدری مات می‌کنند.</string>
   <string name="castling">قلعه‌روی</string>
   <string name="castlingDescription">شاه خود را ایمن کنید و رخ خود را برای حمله مستقر کنید.</string>
   <string name="capturingDefender">زدنِ دفاع‌گر</string>
   <string name="capturingDefenderDescription">گرفتن یک مهره که برای دفاع از یک مهره دیگر حیاتی است، اجازه می دهد مهره ای که اکنون بدون دفاع است در حرکت بعدی گرفته شود.</string>
+  <string name="cornerMate">ماتِ کُنج</string>
+  <string name="cornerMateDescription">شاه را به کنج محدود کنید و با استفاده از یک رخ یا وزیر و یک اسب، او را مات کنید.</string>
   <string name="crushing">تخریب</string>
   <string name="crushingDescription">تشخیص اشتباه فاحش حریف، برای رسیدن به برتری‌ای کوبنده. (ارزیابی ≥ ۶۰۰ص‌پ)</string>
+  <string name="discoveredCheck" comment="Description (translatable separately):&#10;&#10;Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage.">کیشِ برخاست</string>
+  <string name="discoveredCheckDescription" comment="Description for the &quot;Discovered check&quot; puzzle theme.">حرکتِ یک مهره، کیشِ مهاجمِ پنهانی را فاش می‌کند که اغلب به مزیتی قاطع مُنجَر می‌شود.</string>
   <string name="doubleBishopMate">ماتِ دوفیل</string>
   <string name="doubleBishopMateDescription">دو فیل روی قطرهای همجوار، شاهی را که با مهره‌های خودی مسدود شده است، مات می‌کنند.</string>
   <string name="dovetailMate">مات بوسه ای</string>
@@ -61,6 +67,8 @@
   <string name="intermezzoDescription">به جای انجام حرکت موردانتظار، نخست حرکت دیگری را روید که تهدیدی فوری‌ست و حریف باید به آن پاسخ دهد. همچنین به آن «قطار میانی - Zwischenzug» یا «در میانه» می‌گویند.</string>
   <string name="killBoxMate">مات جعبه مرگ</string>
   <string name="killBoxMateDescription">رُخ در کنار شاه دشمن قرار دارد و توسط یک وزیر حمایت می‌شود که همچنین مسیرهای فرار شاه را مسدود کرده است. رُخ و وزیر شاه دشمن را در یک \"جعبه مرگ\" ۳ در ۳ گیر انداخته‌اند.</string>
+  <string name="triangleMate">ماتِ مثلث</string>
+  <string name="triangleMateDescription">وزیر و رخ، در خانهٔ اُریبِ شاه حریف، روی عرض یا ستونِ یکسان و با یک خانه فاصله از یکدیگر، مثلثی تشکیل می‌دهند.</string>
   <string name="vukovicMate">مات ووکویچ</string>
   <string name="vukovicMateDescription">یک رخ و یک اسب برای مات کردن شاه همکاری می‌کنند. رخ در حالی که توسط مهرهٔ سومی پشتیبانی می‌شود، مات می‌کند و اسب برای مسدود کردن خانه‌های فرار شاه استفاده می‌شود.</string>
   <string name="knightEndgame">آخربازی اسب</string>

@@ -241,7 +241,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
       if me.is(UserId.lichess) then 1
       else if isGranted(_.ManageTournament) then 2
       else if me.hasTitle ||
-        env.streamer.liveStreamApi.isStreaming(me) ||
+        env.streamer.liveApi.isStreaming(me) ||
         me.isVerified ||
         isPrivate
       then 5
@@ -482,7 +482,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
         repo
           .isUnfinished(tourId)
           .flatMapz:
-            env.streamer.liveStreamApi.all.flatMap:
+            env.streamer.liveApi.all.flatMap:
               _.streams
                 .sequentially: stream =>
                   env.tournament

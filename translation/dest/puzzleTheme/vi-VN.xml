@@ -16,8 +16,8 @@
   <string name="backRankMateDescription">Chiếu hết trên hàng cuối, khi vua bị mắc kẹt bởi chính quân của nó.</string>
   <string name="balestraMate">Chiếu hết kiểu Nỏ thần</string>
   <string name="balestraMateDescription">Một tượng đưa ra nước chiếu hết, trong khi một hậu chặn các ô thoát còn lại</string>
-  <string name="blindSwineMate" comment="Description (translatable separately):&#10;&#10;Two rooks team up to mate the king in an area of 2 by 2 squares.">Chiếu hết kiểu Chú lợn mù</string>
-  <string name="blindSwineMateDescription" comment="Description for the Blind Swine checkmate pattern.">Hai quân xe cùng nhau chiếu hết vua trong một vùng có kích thước 2 x 2 ô vuông.</string>
+  <string name="blindSwineMate">Chiếu hết kiểu Chú lợn mù</string>
+  <string name="blindSwineMateDescription">Hai quân xe cùng nhau chiếu hết vua trong một vùng có kích thước 2 x 2 ô vuông.</string>
   <string name="bishopEndgame">Cờ tàn tượng</string>
   <string name="bishopEndgameDescription">Một thế cờ tàn chỉ có tượng và tốt.</string>
   <string name="bodenMate">Chiếu hết kiểu Boden</string>
@@ -26,8 +26,12 @@
   <string name="castlingDescription">Chuyển quân vua đến vị trí an toàn và triển khai quân xe để tấn công.</string>
   <string name="capturingDefender">Ăn quân phòng thủ</string>
   <string name="capturingDefenderDescription">Loại bỏ một quân cực kỳ quan trọng đối với việc bảo vệ một quân cờ khác, khiến cho quân cờ hiện không được bảo vệ có thể bị ăn vào một nước sau đó.</string>
+  <string name="cornerMate">Góc chiếu hết chết chóc</string>
+  <string name="cornerMateDescription">Kìm hãm vua ở góc bằng cách sử dụng một xe hoặc hậu và một mã để chiếu hết.</string>
   <string name="crushing">Áp đảo</string>
   <string name="crushingDescription">Phát hiện sai lầm nghiêm trọng của đối phương để giành được lợi thế áp đảo. (đánh giá ≥ 600cp)</string>
+  <string name="discoveredCheck" comment="Description (translatable separately):&#10;&#10;Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage.">Đòn chiếu mở</string>
+  <string name="discoveredCheckDescription" comment="Description for the &quot;Discovered check&quot; puzzle theme.">Đi một quân để lộ ra quân cờ tấn công đang ẩn núp, điều này thường dẫn đến lợi thế quyết định.</string>
   <string name="doubleBishopMate">Chiếu hết bằng cặp Tượng</string>
   <string name="doubleBishopMateDescription">Hai quân Tượng tấn công trên các đường chéo liền kề chiếu hết một quân vua bị cản trở bởi quân cờ.</string>
   <string name="dovetailMate">Chiếu hết kiểu Đuôi én</string>

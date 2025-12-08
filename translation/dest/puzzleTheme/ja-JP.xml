@@ -16,6 +16,8 @@
   <string name="backRankMateDescription">一番下のランクで、上を自分の駒に塞がれたキングをメイトする。</string>
   <string name="balestraMate">バレストラ（クロスボウ）のメイト</string>
   <string name="balestraMateDescription">ビショップがチェックし、クイーンが残りの逃げ道をおさえる</string>
+  <string name="blindSwineMate">ブラインド・スワイン・メイト</string>
+  <string name="blindSwineMateDescription">2 つのルークが協力して 2 マス四方の空間でキングをメイトする。</string>
   <string name="bishopEndgame">ビショップ・エンドゲーム</string>
   <string name="bishopEndgameDescription">ビショップとポーンだけの終盤。</string>
   <string name="bodenMate">ボーデンのメイト</string>
@@ -24,6 +26,8 @@
   <string name="castlingDescription">キングを安全にし、ルークを攻撃に活用する。</string>
   <string name="capturingDefender">守り駒の除去</string>
   <string name="capturingDefenderDescription">別の駒を守っている駒を消して、無防備になった駒を取る。</string>
+  <string name="cornerMate">コーナー・メイト</string>
+  <string name="cornerMateDescription">ルークかクイーンでキングを隅に追い詰め、ナイトでメイトする形。</string>
   <string name="crushing">圧倒</string>
   <string name="crushingDescription">相手の悪手をとがめて圧倒的な優位を築きます。（評価値は 600cp 以上）</string>
   <string name="doubleBishopMate">ダブル・ビショップのメイト</string>

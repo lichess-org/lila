@@ -16,8 +16,8 @@
   <string name="backRankMateDescription">Sæt kongen skakmat på baglinjen, når den er fanget der af sine egne brikker.</string>
   <string name="balestraMate">Balestra-mat</string>
   <string name="balestraMateDescription">En biskop sætter mat, mens en dronning blokerer de resterende flugtfelter</string>
-  <string name="blindSwineMate" comment="Description (translatable separately):&#10;&#10;Two rooks team up to mate the king in an area of 2 by 2 squares.">Blindt svin-mat</string>
-  <string name="blindSwineMateDescription" comment="Description for the Blind Swine checkmate pattern.">To tårne går sammen om at sætte kongen mat i et område på 2 x 2 felter.</string>
+  <string name="blindSwineMate">Blindt svin-mat</string>
+  <string name="blindSwineMateDescription">To tårne går sammen om at sætte kongen mat i et område på 2 x 2 felter.</string>
   <string name="bishopEndgame">Løberslutspil</string>
   <string name="bishopEndgameDescription">Et slutspil med kun løbere og bønder.</string>
   <string name="bodenMate">Bodens mat</string>
@@ -26,8 +26,12 @@
   <string name="castlingDescription">Bring din konge i sikkerhed og gør dit tårn klar til angreb.</string>
   <string name="capturingDefender">Tag forsvareren</string>
   <string name="capturingDefenderDescription">Tag en brik som er kritisk i forsvaret af en anden brik, så det er muligt at tage den uforsvarede brik på et efterfølgende træk.</string>
+  <string name="cornerMate">Hjørnemat</string>
+  <string name="cornerMateDescription">Træng kongen op i hjørnet ved hjælp af et tårn eller dronning og en springer til at udføre skakmat.</string>
   <string name="crushing">Knusende</string>
   <string name="crushingDescription">Spot modstanderens brøler for at opnå en knusende fordel. (eval ≥ 600cb)</string>
+  <string name="discoveredCheck" comment="Description (translatable separately):&#10;&#10;Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage.">Afdækkertræk</string>
+  <string name="discoveredCheckDescription" comment="Description for the &quot;Discovered check&quot; puzzle theme.">Flyt en brik for at afsløre en skak fra en skjult angribende brik, hvilket ofte fører til en afgørende fordel.</string>
   <string name="doubleBishopMate">Dobbelt løbermat</string>
   <string name="doubleBishopMateDescription">To angribende løbere på tilstødende diagonaler giver mat til en konge, som er blokeret af egne brikker.</string>
   <string name="dovetailMate">Duehale-mat</string>

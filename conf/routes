@@ -55,7 +55,6 @@ POST  /rel/unfollow/:user              controllers.Relation.unfollowBc(user: Use
 POST  /rel/follow/:user                controllers.Relation.followBc(user: UserStr)
 # end lichobile BC
 GET   /@/:username/following           controllers.Relation.following(username: UserStr, page: Int ?= 1)
-GET   /@/:username/followers           controllers.Relation.followers(username: UserStr, page: Int ?= 1)
 GET   /rel/blocks                      controllers.Relation.blocks(page: Int ?= 1)
 POST  /rel/:action/:user               controllers.Relation.bcAction(action: String, user: UserStr)
 
@@ -351,9 +350,9 @@ POST  /practice/complete/:chapterId/:moves        controllers.Practice.complete(
 GET   /streamer                        controllers.Streamer.index(page: Int ?= 1)
 GET   /api/streamer/featured           controllers.Streamer.featured
 GET   /api/streamer/live               controllers.Streamer.live
- # /api/x indicates xml request payload (PubSubHubub)
-POST  /api/x/streamer/youtube-pubsub   controllers.Streamer.onYouTubeVideo
-GET   /api/x/streamer/youtube-pubsub   controllers.Streamer.youTubePubSubChallenge
+POST  /api/x/streamer/youtube-pubsub   controllers.Streamer.onYoutubeVideo
+GET   /api/x/streamer/youtube-pubsub   controllers.Streamer.youtubePubSubChallenge
+POST  /api/streamer/twitch-eventsub    controllers.Streamer.onTwitchEventSub
 GET   /streamer/live                   controllers.Main.movedPermanently(to = "/api/streamer/live")
 GET   /streamer/edit                   controllers.Streamer.edit
 POST  /streamer/new                    controllers.Streamer.create
@@ -363,6 +362,12 @@ POST  /upload/image/streamer           controllers.Streamer.pictureApply
 GET   /streamer/:username              controllers.Streamer.show(username: UserStr)
 GET   /streamer/:username/redirect     controllers.Streamer.redirect(username: UserStr)
 POST  /streamer/:username/check        controllers.Streamer.checkOnline(username: UserStr)
+GET   /streamer/twitch/oauth/link      controllers.Streamer.oauthLinkTwitch
+GET   /streamer/twitch/oauth/redirect  controllers.Streamer.oauthTwitchRedirect
+GET   /streamer/youtube/oauth/link     controllers.Streamer.oauthLinkYoutube
+GET   /streamer/youtube/oauth/redirect controllers.Streamer.oauthYoutubeRedirect
+POST  /streamer/youtube/oauth/choose/:channelId controllers.Streamer.oauthYoutubeChannel(channelId: String)
+POST  /streamer/$platform<youtube|twitch>/oauth/unlink controllers.Streamer.oauthUnlink(platform: String, user: Option[UserStr] ?= None)
 
 # Private Play
 
@@ -709,13 +714,13 @@ GET   /api/mobile/my-games             controllers.Api.mobileGames
 GET    /stat/rating/distribution/:perf controllers.User.ratingDistribution(perf: PerfKey, username: Option[UserStr] ?= None)
 
 # API
-GET   /api                             controllers.Api.index
 POST  /api/users                       controllers.Api.usersByIds
 GET   /api/puzzle/daily                controllers.Puzzle.apiDaily
 GET   /api/puzzle/activity             controllers.Puzzle.activity
 GET   /api/puzzle/dashboard/$days<\d+> controllers.Puzzle.apiDashboard(days: Days)
 GET   /api/puzzle/$id<\w{5}>           controllers.Puzzle.apiShow(id: PuzzleId)
 GET   /api/puzzle/next                 controllers.Puzzle.apiNext
+POST  /api/puzzle/vote-themes          controllers.Puzzle.apiBatchVoteThemes
 GET   /api/puzzle/batch/:angle         controllers.Puzzle.apiBatchSelect(angle)
 POST  /api/puzzle/batch/:angle         controllers.Puzzle.apiBatchSolve(angle)
 GET   /api/puzzle/replay/$days<\d+>/:theme controllers.Puzzle.apiReplay(days: Days, theme)

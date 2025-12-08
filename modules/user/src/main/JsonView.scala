@@ -6,6 +6,7 @@ import lila.common.Json.{ writeAs, given }
 import lila.core.LightUser
 import lila.core.perf.{ KeyedPerf, Perf, PuzPerf, UserPerfs, UserWithPerfs }
 import lila.core.user.{ LightPerf, PlayTime, Profile }
+import lila.core.rating.UserRankMap
 import lila.rating.UserPerfsExt.perfsList
 
 final class JsonView(isOnline: lila.core.socket.IsOnline) extends lila.core.user.JsonView:
@@ -18,11 +19,12 @@ final class JsonView(isOnline: lila.core.socket.IsOnline) extends lila.core.user
   def full(
       u: User,
       perfs: Option[UserPerfs | KeyedPerf],
-      withProfile: Boolean
+      withProfile: Boolean,
+      rankMap: Option[UserRankMap] = None
   ): JsObject =
     if u.enabled.no then disabled(u.light)
     else
-      base(u, perfs) ++ Json
+      base(u, perfs, rankMap) ++ Json
         .obj("createdAt" -> u.createdAt)
         .add(
           "profile" -> u.profile
@@ -36,13 +38,13 @@ final class JsonView(isOnline: lila.core.socket.IsOnline) extends lila.core.user
     if u.enabled.no then disabled(u.light)
     else base(u, perf).add("online" -> isOnline.exec(u.id))
 
-  private def base(u: User, perfs: Option[UserPerfs | KeyedPerf]) =
+  private def base(u: User, perfs: Option[UserPerfs | KeyedPerf], rankMap: Option[UserRankMap] = None) =
     Json
       .obj(
         "id" -> u.id,
         "username" -> u.username,
         "perfs" -> perfs.fold(Json.obj()):
-          case p: UserPerfs => perfsJson(p)
+          case p: UserPerfs => perfsJson(p, rankMap)
           case p: KeyedPerf => keyedPerfJson(p)
       )
       .add("title" -> u.title)
@@ -94,11 +96,13 @@ object JsonView:
   def keyedPerfJson(p: KeyedPerf): JsObject =
     Json.obj(p.key.value -> p.perf)
 
-  def perfsJson(p: UserPerfs): JsObject =
+  def perfsJson(p: UserPerfs, rankMap: Option[UserRankMap] = None): JsObject =
     JsObject:
       p.perfsList.collect:
         case (key, perf) if perf.nb > 0 || lila.rating.PerfType.standardSet(key) =>
-          key.value -> perfWrites.writes(perf)
+          key.value -> perfWrites
+            .writes(perf)
+            .add("rank" -> rankMap.flatMap(_.get(key)))
     .add("storm", p.storm.option)
       .add("racer", p.racer.option)
       .add("streak", p.streak.option)

@@ -7,10 +7,11 @@ import lila.core.perm.Permission
 import lila.core.report.SuspectId
 import lila.core.user.{ UserMark, UserMarks, KidMode }
 import lila.report.{ Room, Suspect }
-import lila.user.{ LightUserApi, UserRepo }
+import lila.user.{ LightUserApi, UserRepo, UserApi }
 
 final class ModApi(
     userRepo: UserRepo,
+    userApi: UserApi,
     logApi: ModlogApi,
     reportApi: lila.report.ReportApi,
     noteApi: lila.user.NoteApi,
@@ -50,7 +51,8 @@ final class ModApi(
     for
       sus <- reportApi.getSuspect(suspectId.value).orFail(s"No such suspect $suspectId")
       unengined <- logApi.wasUnengined(sus)
-      _ <- (!sus.user.isBot && !sus.user.marks.engine && !unengined).so:
+      closedReports <- reportApi.countClosedAutoCheatReport(sus.user.id)
+      _ <- (!sus.user.isBot && !sus.user.marks.engine && !unengined && closedReports < 2).so:
         lila.mon.cheat.autoMark.increment()
         setEngine(sus, v = true) >>
           noteApi.lichessWrite(sus.user, note) >>
@@ -128,10 +130,7 @@ final class ModApi(
 
   def setKid(mod: ModId, username: UserStr, v: KidMode): Funit =
     withUser(username): user =>
-      for
-        prev <- userRepo.isKid(user.id)
-        _ <- (v != prev).so(userRepo.setKid(user, v))
-      yield if v != prev then logApi.setKidMode(mod, user.id, v)
+      userApi.setKid(user, v).mapz(logApi.setKidMode(mod, user.id, _))
 
   def setTitle(username: UserStr, title: Option[PlayerTitle])(using Me): Funit =
     withUser(username): user =>

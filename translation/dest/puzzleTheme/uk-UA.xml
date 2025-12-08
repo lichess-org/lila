@@ -26,8 +26,12 @@
   <string name="castlingDescription">Захистіть свого короля й виведіть у бій туру.</string>
   <string name="capturingDefender">Захоплення захисника</string>
   <string name="capturingDefenderDescription">Захоплення фігури, що захищає іншу фігуру, дозволяє захопити незахищену фігуру наступним ходом.</string>
+  <string name="cornerMate">Кутовий мат</string>
+  <string name="cornerMateDescription">Тура й ферзь заганяють короля в кут, а кінь ставить мат.</string>
   <string name="crushing">Руйнування</string>
   <string name="crushingDescription">Знайдіть грубу помилку суперника, щоб отримати нищівну перевагу. (eval ≥ 600 cp)</string>
+  <string name="discoveredCheck" comment="Description (translatable separately):&#10;&#10;Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage.">Відкритий шах</string>
+  <string name="discoveredCheckDescription" comment="Description for the &quot;Discovered check&quot; puzzle theme.">Переміщення однієї фігури відкриває іншу, яка ставить шах королю. Часто призводить до вирішальної переваги.</string>
   <string name="doubleBishopMate">Мат двома слонами</string>
   <string name="doubleBishopMateDescription">Два слони на сусідніх діагоналях ставлять мат королю, який оточений власними фігурами.</string>
   <string name="dovetailMate">Мат \"ластів\'ячий хвіст\"</string>
@@ -64,6 +68,7 @@
   <string name="killBoxMate">Мат: Смертельна коробка</string>
   <string name="killBoxMateDescription">Тура стає біля ворожого короля під захистом ферзя. Ферзь у той самий час блокує всі поля, через які король може втекти. Тура й ферзь ловлять ворожого короля у «смертельну коробку» розміру 3 на 3.</string>
   <string name="triangleMate">Трикутний мат</string>
+  <string name="triangleMateDescription">Ферзь і тура на відстані одного поля від ворожого короля перебувають на одній горизонталі чи вертикалі та формують трикутник.</string>
   <string name="vukovicMate">Мат Вуковіча</string>
   <string name="vukovicMateDescription">Тура й кінь об\'єднуються, аби поставити мат королю. Тура, яку захищає третя фігура, ставить мат, а кінь блокує всі поля, через які король може втекти.</string>
   <string name="knightEndgame">Коньовий ендшпіль</string>

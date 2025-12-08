@@ -125,11 +125,13 @@ final class ReportApi(
   def getLichessReporter: Fu[Reporter] =
     getLichessMod.map: l =>
       Reporter(l.user)
+
   lazy val automodReporter: Fu[Reporter] =
     userApi
       .byId(UserId.ai.into(ReporterId))
       .dmap2(Reporter.apply)
       .orFail("User ai is missing")
+
   def autoAltPrintReport(userId: UserId): Funit =
     coll
       .exists(
@@ -171,6 +173,15 @@ final class ReportApi(
             )
           )
         case _ => funit
+
+  def countClosedAutoCheatReport(userId: UserId): Fu[Int] =
+    coll.secondary.countSel:
+      $doc(
+        "user" -> userId,
+        "room" -> Room.Cheat.key,
+        "open" -> false,
+        "atoms.by" -> UserId.lichess
+      )
 
   def autoCheatDetectedReport(userId: UserId, cheatedGames: Int): Funit =
     userApi
@@ -332,31 +343,32 @@ final class ReportApi(
       flaggedImages = images.flatMap(_.automod).flatMap(_.flagged)
       suspectOpt <- getSuspect(me)
       reporter <- automodReporter
-    yield for
-      res <- textResponse
-      fromLlm <- res.str("assessment")
-      hasFlaggedImages = flaggedImages.nonEmpty
-      kamonTag = if hasFlaggedImages then "image" else if fromLlm == "pass" then "ok" else fromLlm
-      _ = lila.mon.mod.report.automod.assessment(kamonTag).increment()
-      reason <- fromLlm match
-        case "pass" if hasFlaggedImages => Reason("comm")
-        case "other" => Reason("comm") // llm knows "other"
-        case r => Reason(r)
-      suspect <- suspectOpt
-      summary = (flaggedImages ++ res.str("reason")).mkString(", ")
-      if hasFlaggedImages || !onlyIfFlaggedImages
-    yield create(
-      Candidate(
-        reporter = reporter,
-        suspect = suspect,
-        reason = reason,
-        text = s"[AUTO " + (hasFlaggedImages.option("IMG") ++ (fromLlm != "pass").option("TXT"))
-          .mkString("/") +
-          s"]: $summary $url"
-      )
-    ).recoverWith: e =>
-      logger.warn(s"Comms automod failed for ${me.username}: ${e.getMessage}", e)
-      funit
+    yield
+      for
+        res <- textResponse
+        fromLlm <- res.str("assessment")
+        hasFlaggedImages = flaggedImages.nonEmpty
+        kamonTag = if hasFlaggedImages then "image" else if fromLlm == "pass" then "ok" else fromLlm
+        _ = lila.mon.mod.report.automod.assessment(kamonTag).increment()
+        reason <- fromLlm match
+          case "pass" if hasFlaggedImages => Reason("comm")
+          case "other" => Reason("comm") // llm knows "other"
+          case r => Reason(r)
+        suspect <- suspectOpt
+        summary = (flaggedImages ++ res.str("reason")).mkString(", ")
+        if hasFlaggedImages || !onlyIfFlaggedImages
+      yield create(
+        Candidate(
+          reporter = reporter,
+          suspect = suspect,
+          reason = reason,
+          text = s"[AUTO " + (hasFlaggedImages.option("IMG") ++ (fromLlm != "pass").option("TXT"))
+            .mkString("/") +
+            s"]: $summary $url"
+        )
+      ).recoverWith: e =>
+        logger.warn(s"Comms automod failed for ${me.username}: ${e.getMessage}", e)
+        funit
 
   private def onReportClose() =
     maxScoreCache.invalidateUnit()

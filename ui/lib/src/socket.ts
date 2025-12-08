@@ -132,6 +132,7 @@ class WsSocket {
       events: settings.events || {},
       params: {
         sri: site.sri,
+        from: 'website',
         ...(settings.params || {}),
       },
     };

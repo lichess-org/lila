@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="hiUser" comment="%s is the title+username e.g. 'GM ABC' or simply ABC if there is no title">Olá, %s</string>
+	<string name="awaitQuestion" comment="Displayed while waiting for results">O que você será que você fez nesse ano?</string>
+	<string name="initTitle">Que ano enxadrístico você teve!</string>
+	<string name="noGamesText">Você não jogou nenhuma partida esse ano.</string>
+	<string name="noGamesCta">Quer jogar agora?</string>
+	<string name="gamesYouWon" comment="%s is the number of games won">E você ganhou %s!</string>
+	<string name="gamesNextQuestion">O que foi preciso para chegar lá?</string>
+	<string name="timeSpentPlayingExclam" comment="%s is the time spent playing animated from 0 e.g. '1 day, 17 hours'. The time is also translated">%s gasto jogando!</string>
+	<string name="timeTooMuch">Isso é realmente bastante xadrez.</string>
+	<string name="timeALot">Isso é bastante xadrez.</string>
+	<string name="timeReasonable">Isso parece uma quantidade razoável de xadrez.</string>
+	<string name="timeHowManyMoves">Quantos lances você jogou ao longo desse tempo?</string>
+	<plurals name="nbMovesPlayed">
+		<item quantity="one">%s lance jogado</item>
+		<item quantity="other">%s lances jogados</item>
+	</plurals>
+	<string name="movesOfWoodPushed" comment="%s is a weight in grams or kilograms">Isso é %s de madeira movimentada!</string>
+	<string name="movesStandardPiecesWeight">Peças padrão pesam em torno de 40g cada</string>
+	<plurals name="nbMoves">
+		<item quantity="one">%s lance</item>
+		<item quantity="other">%s lances</item>
+	</plurals>
+	<string name="chessFoes">Seus melhores inimigos de xadrez</string>
+	<plurals name="nbGrams">
+		<item quantity="one">%s grama</item>
+		<item quantity="other">%s gramas</item>
+	</plurals>
+	<plurals name="nbKilograms">
+		<item quantity="one">%s kilograma</item>
+		<item quantity="other">%s kilogramas</item>
+	</plurals>
+	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">é como você começou %s das suas partidas com as brancas</string>
+	<plurals name="puzzlesThanksVoting" comment="%s is the number of puzzles. It is also translated.">
+		<item quantity="one">Obrigado por votar em %s quebra-cabeça.</item>
+		<item quantity="other">Obrigado por votar em %s quebra-cabeças.</item>
+	</plurals>
+	<string name="puzzlesHelpedTagging" comment="%s is a number e.g. 5">Você também ajudou a etiquetar %s deles.</string>
+	<string name="puzzlesNone">Você não resolveu nenhum quebra-cabeça desse ano.</string>
+	<string name="puzzlesTryNow">Quer tentar alguns agora?</string>
+	<string name="puzzlesYouWonOnFirstTry">Você venceu %s deles na primeira tentativa!</string>
+	<string name="sourcesTitle">Onde você encontrou partidas?</string>
+	<string name="perfsTitle">Quais controles de tempo e variantes você jogou?</string>
+	<string name="malwareNoneLoaded" comment="%s is 0">%s anúncios e rastreadores carregados</string>
+	<string name="malwareNoSell">Nós não vendemos seus dados pessoais</string>
+	<string name="malwareNoAbuse">Não utilizamos seu dispositivo contra você</string>
+	<string name="malwareWarningPrefix" comment="%s is 'be careful'">Mas outros sites fazem, então por favor %s.</string>
+	<string name="malwareWarningCta" comment="It is a link to https://lichess.org/ads">tenha cuidado</string>
+	<string name="lichessGamesPlayedIn" comment="%1$s is the number of games, %2$s is the year">%1$s partidas jogadas no Lichess em %2$s</string>
+	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours">%s delas foram suas.</string>
+	<string name="thanksTitle">Obrigado por jogar no Lichess!</string>
+	<string name="thanksHaveAGreat" comment="%s is the next year">Estamos felizes por você estar aqui. Tenha um grande %s!</string>
+	<string name="shareableTitle" comment="%s is the current year">Minha %s recapitulação</string>
+	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">gasto jogando</string>
+	<string name="shareableMostPlayedOpponent">oponente que você mais disputou</string>
+	<string name="shareableFavouriteVariant">variante favorita</string>
+	<string name="shareableFavouriteTimeControl">controle de tempo favorito</string>
+	<string name="recapReady" comment="%s is the year of the recap">Sua recapitulação %s está pronta!</string>
+</resources>

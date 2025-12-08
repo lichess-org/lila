@@ -36,7 +36,6 @@ export interface StudyVm {
   behind: number;
   updatedAt: number;
   gamebookOverride: GamebookOverride;
-  scrollToActiveChapter: ScrollBehavior | false;
 }
 
 export type Federations = { [key: string]: string };
@@ -269,7 +268,7 @@ export interface AnaDrop {
   ch?: string;
 }
 export interface ServerNodeMsg extends WithWhoAndPos {
-  n: Tree.NodeFromServer;
+  n: Tree.NodeOptionalChildren;
   o: Opening;
   s: boolean;
   relayPath?: Tree.Path;

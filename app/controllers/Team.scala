@@ -185,7 +185,7 @@ final class Team(env: Env) extends LilaController(env):
                           if asMod then LightUser.fallback(UserName.lichess) else me.light,
                           team.team.light,
                           change.perms.map(_.name),
-                          env.net.baseUrl
+                          routeUrl(routes.Team.show(team.id))
                         )
                       )
                     .inject:
@@ -450,7 +450,7 @@ final class Team(env: Env) extends LilaController(env):
           val normalized = msg.replaceAll("\r\n?", "\n")
           env.team.limiter.pmAll
             .dedupAndLimit(team.id, normalized): () =>
-              val url = s"${env.net.baseUrl}${routes.Team.show(team.id)}"
+              val url = routeUrl(routes.Team.show(team.id))
               val full = s"""$normalized
   ---
   You received this because you are subscribed to messages of the team $url."""

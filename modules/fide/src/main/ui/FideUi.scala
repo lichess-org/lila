@@ -2,11 +2,11 @@ package lila.fide
 package ui
 
 import scalalib.paginator.Paginator
+import chess.FideTC
 
-import lila.core.fide.FideTC
+import lila.core.fide.FidePlayerOrder
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
   import helpers.{ *, given }
@@ -60,7 +60,7 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
         )
       )
 
-    def show(fed: Federation, players: Paginator[FidePlayer])(using Context) =
+    def show(fed: Federation, players: Paginator[FidePlayer.WithFollow])(using Context) =
       page(s"${fed.name} - FIDE federation", "federations")(
         cls := "fide-federation",
         div(cls := "box__top fide-federation__head")(
@@ -82,7 +82,9 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
         ),
         player.playerList(
           players,
-          np => routes.Fide.federation(fed.slug, np),
+          FidePlayerOrder.default,
+          routes.Fide.federation(fed.slug, _),
+          sortable = false,
           withFlag = false
         )
       )
@@ -93,15 +95,20 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
     def flag(id: lila.core.fide.Federation.Id, title: Option[String]) = img(
       cls := "flag",
       st.title := title.getOrElse(id.value),
-      src := fideFedSrc(id.value)
+      src := fideFedSrc(id)
     )
+
+    private def fideFedSrc(fideFed: lila.core.fide.Federation.Id): Url =
+      staticAssetUrl(s"$fideFedVersion/fide/fed-webp/${fideFed}.webp")
 
     private def card(name: Frag, value: Frag) =
       div(cls := "fide-card fide-federation__card")(em(name), div(value))
 
   object player:
 
-    def index(players: Paginator[FidePlayer], query: String)(using Context) =
+    def index(players: Paginator[FidePlayer.WithFollow], query: String, order: FidePlayerOrder)(using
+        Context
+    ) =
       page("FIDE players", "players")(
         cls := "fide-players",
         boxTop(
@@ -109,7 +116,12 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
           div(cls := "box__top__actions"):
             searchForm(query)
         ),
-        playerList(players, np => routes.Fide.index(np, query.some.filter(_.nonEmpty)))
+        playerList(
+          players,
+          order,
+          np => routes.Fide.index(np, query.some.filter(_.nonEmpty)),
+          sortable = query.isEmpty
+        )
       )
 
     def notFound(id: chess.FideId)(using Context) =
@@ -151,23 +163,39 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
       )
 
     def playerList(
-        players: Paginator[FidePlayer],
+        players: Paginator[FidePlayer.WithFollow],
+        order: FidePlayerOrder,
         url: Int => Call,
+        sortable: Boolean,
         withFlag: Boolean = true
-    )(using Context) =
-      table(cls := "slist slist-pad")(
+    )(using ctx: Context) =
+      def header(label: Frag, o: FidePlayerOrder) =
+        if sortable then
+          val current = o == order
+          th(
+            a(
+              href := current.not.option(addQueryParam(url(1).url, "order", o.key)),
+              cls := List("active" -> current)
+            )(label)
+          )
+        else th(label)
+      table(
+        cls := List("slist slist-pad fide-players-table" -> true, "fide-players-table--sortable" -> sortable)
+      )(
         thead:
           tr(
-            th(trs.name()),
-            withFlag.option(th(iconTag(Icon.FlagOutline))),
-            th(trs.classical()),
-            th(trs.rapid()),
-            th(trs.blitz()),
-            th(trb.ageThisYear())
+            header(trs.name(), FidePlayerOrder.name),
+            withFlag.option(header(iconTag(Icon.FlagOutline), FidePlayerOrder.federation)),
+            header(trs.classical(), FidePlayerOrder.standard),
+            header(trs.rapid(), FidePlayerOrder.rapid),
+            header(trs.blitz(), FidePlayerOrder.blitz),
+            header(trb.ageThisYear(), FidePlayerOrder.year),
+            ctx.isAuth.option(header(trs.follow(), FidePlayerOrder.follow))
           )
         ,
         tbody(cls := "infinite-scroll")(
-          players.currentPageResults.map: player =>
+          players.currentPageResults.map: p =>
+            val player = p.player
             tr(cls := "paginated")(
               td(a(href := routes.Fide.show(player.id, player.slug))(titleTag(player.title), player.name)),
               withFlag.option(td:
@@ -177,29 +205,31 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
               td(player.standard),
               td(player.rapid),
               td(player.blitz),
-              td(player.age)
-            ),
-          pagerNextTable(players, np => url(np).url)
+              td(player.age),
+              ctx.isAuth.option(td(followButton(p)))
+            )
+          ,
+          pagerNextTable(players, np => addQueryParam(url(np).url, "order", order.key))
         )
       )
 
     private def card(name: Frag, value: Frag) =
       div(cls := "fide-card fide-player__card")(em(name), strong(value))
 
-    private def followButton(player: FidePlayer, isFollowing: Boolean)(using Context) =
-      val id = "fide-player-follow"
+    private def followButton(p: FidePlayer.WithFollow) =
+      val id = s"fide-player-follow-${p.player.id}"
       label(cls := "fide-player__follow")(
         form3.cmnToggle(
           fieldId = id,
           fieldName = id,
-          checked = isFollowing,
-          action = Some(routes.Fide.follow(player.id, isFollowing).url)
-        ),
-        trans.site.follow()
+          checked = p.follow,
+          action = Some(routes.Fide.follow(p.player.id, p.follow).url),
+          styleClass = "cmn-favourite"
+        )
       )
 
-    def show(player: FidePlayer, user: Option[User], tours: Option[Frag], isFollowing: Option[Boolean])(using
-        Context
+    def show(player: FidePlayer, user: Option[User], tours: Option[Frag], isFollowing: Boolean)(using
+        ctx: Context
     ) =
       page(s"${player.name} - FIDE player ${player.id}", "players")(
         cls := "box-pad fide-player",
@@ -208,7 +238,7 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
             span(titleTag(player.title), player.name),
             user.map(userLink(_, withTitle = false)(cls := "fide-player__user"))
           ),
-          isFollowing.map(followButton(player, _))
+          ctx.isAuth.option(followButton(FidePlayer.WithFollow(player, isFollowing))(trans.site.follow()))
         ),
         div(cls := "fide-cards fide-player__cards")(
           player.fed.map: fed =>

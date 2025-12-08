@@ -1,7 +1,9 @@
+$gradient-start: #667eea;
+$gradient-end: #764ba2;
+
 // dark theme is forced on this page
 body {
-  // background-image: linear-gradient(to right, #fa709a 0%, #fee140 100%);
-  background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background-image: linear-gradient(135deg, $gradient-start 0%, $gradient-end 100%);
   --c-font-page: #fff;
   --c-font-shadow: hsla(0, 0, 0%, 0);
   &,
@@ -32,6 +34,19 @@ body {
       display: none;
     }
   }
+
+  .recap .is2d cg-board {
+    background-color: #6c6bcf80;
+
+    &::before {
+      background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4PSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIgogICAgIHZpZXdCb3g9IjAgMCA4IDgiIHNoYXBlLXJlbmRlcmluZz0iY3Jpc3BFZGdlcyI+CjxnIGlkPSJhIj4KICA8ZyBpZD0iYiI+CiAgICA8ZyBpZD0iYyI+CiAgICAgIDxnIGlkPSJkIj4KICAgICAgICA8cmVjdCB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBpZD0iZSIgb3BhY2l0eT0iMCIvPgogICAgICAgIDx1c2UgeD0iMSIgeT0iMSIgaHJlZj0iI2UiIHg6aHJlZj0iI2UiLz4KICAgICAgICA8cmVjdCB5PSIxIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBpZD0iZiIgb3BhY2l0eT0iMC4yIi8+CiAgICAgICAgPHVzZSB4PSIxIiB5PSItMSIgaHJlZj0iI2YiIHg6aHJlZj0iI2YiLz4KICAgICAgPC9nPgogICAgICA8dXNlIHg9IjIiIGhyZWY9IiNkIiB4OmhyZWY9IiNkIi8+CiAgICA8L2c+CiAgICA8dXNlIHg9IjQiIGhyZWY9IiNjIiB4OmhyZWY9IiNjIi8+CiAgPC9nPgogIDx1c2UgeT0iMiIgaHJlZj0iI2IiIHg6aHJlZj0iI2IiLz4KPC9nPgo8dXNlIHk9IjQiIGhyZWY9IiNhIiB4OmhyZWY9IiNhIi8+Cjwvc3ZnPg==');
+    }
+
+    square.last-move {
+      background-color: $gradient-end;
+      opacity: 0.5;
+    }
+  }
 }
 .recap {
   position: absolute;
@@ -41,11 +56,29 @@ body {
   right: 1vw;
   height: 100%;
   text-align: center;
-}
 
-.recap a {
-  color: #fff;
-  border-bottom: 1px dotted #ddd;
+  canvas#confetti {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    pointer-events: none;
+  }
+
+  a {
+    color: #fff;
+    border-bottom: 1px dotted #ddd;
+  }
+
+  .utitle {
+    color: hsl(37, 82%, 58%);
+  }
+
+  img.uflair {
+    filter: drop-shadow(0 0 5px $gradient-end);
+  }
 }
 
 .swiper {

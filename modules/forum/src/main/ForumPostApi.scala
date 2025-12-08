@@ -205,11 +205,12 @@ final class ForumPostApi(
       categOpt <- categRepo.byId(ForumCateg.diagnosticId)
       topicOpt <- topicRepo.byTree(ForumCateg.diagnosticId, ForumTopic.problemReportSlug(user.id))
       postOpt <- topicOpt.so(t => postRepo.coll.byId[ForumPost](t.lastPostId(user.some)))
-    yield for
-      post <- postOpt
-      topic <- topicOpt
-      categ <- categOpt
-    yield CategView(categ, (topic, post, topic.lastPage(config.postMaxPerPage)).some, user.some)
+    yield
+      for
+        post <- postOpt
+        topic <- topicOpt
+        categ <- categOpt
+      yield CategView(categ, (topic, post, topic.lastPage(config.postMaxPerPage)).some, user.some)
 
   private def recentUserIds(topic: ForumTopic, newPostNumber: Int) =
     postRepo.coll
