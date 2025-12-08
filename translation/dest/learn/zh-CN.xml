@@ -27,7 +27,7 @@
 两者您都需要！</string>
   <string name="bishopComplete">恭喜！您可以指挥象了。</string>
   <string name="theQueen">后</string>
-  <string name="queenCombinesRookAndBishop">后＝车＋象</string>
+  <string name="queenCombinesRookAndBishop">后 = 车 + 象</string>
   <string name="queenIntro">最强大的棋子登场。女皇陛下——后！</string>
   <string name="queenComplete">恭喜！后对您已无秘密可言。</string>
   <string name="theKing">王</string>
@@ -150,7 +150,7 @@
   <string name="theSpecialPawnMove">兵的特殊走法</string>
   <string name="enPassantIntro">当对方的兵移动了两格时，您可以像它只移动了一格那样吃掉它。</string>
   <string name="blackJustMovedThePawnByTwoSquares">黑方刚刚将兵移动了两格！
-请吃吃过路兵。</string>
+请吃过路兵。</string>
   <string name="enPassantOnlyWorksImmediately">吃过路兵仅在对方刚移动兵之后立即有效。</string>
   <string name="enPassantOnlyWorksOnFifthRank">只有当您的兵位于第 5 横线时，吃过路兵才有效。</string>
   <string name="takeAllThePawnsEnPassant">通过吃过路兵吃掉所有敌兵！</string>
@@ -196,7 +196,7 @@
   <string name="register">注册</string>
   <string name="getAFreeLichessAccount">获取免费的 Lichess 账户</string>
   <string name="practice">练习</string>
-  <string name="learnCommonChessPositions">学习常见国际象棋局面</string>
+  <string name="learnCommonChessPositions">学习常见的国际象棋局面</string>
   <string name="puzzles">谜题</string>
   <string name="exerciseYourTacticalSkills">锻炼您的战术技巧</string>
   <string name="videos">视频</string>
@@ -207,7 +207,7 @@
   <string name="testYourSkillsWithTheComputer">和不同等级的电脑对弈</string>
   <string name="letsGo">开始！</string>
   <string name="stageX">阶段 %s</string>
-  <string name="awesome">很好！</string>
+  <string name="awesome">太棒了！</string>
   <string name="excellent">优秀！</string>
   <string name="greatJob">做得好！</string>
   <string name="perfect">完美！</string>
