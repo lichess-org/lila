@@ -31,7 +31,7 @@ object Dependencies {
   val lilaSearch = "com.github.lichess-org.lila-search" %% "client" % "3.3.0"
   val munit = "org.scalameta" %% "munit" % "1.2.1" % Test
   val uaparser = "org.uaparser" %% "uap-scala" % "0.20.0"
-  val apacheText = "org.apache.commons" % "commons-text" % "1.14.0"
+  val apacheText = "org.apache.commons" % "commons-text" % "1.15.0"
   val apacheMath = "org.apache.commons" % "commons-math3" % "3.6.1"
   val bloomFilter = "com.github.alexandrnikitin" %% "bloom-filter" % "0.13.1_lila-1"
   val kittens = "org.typelevel" %% "kittens" % "3.5.0"
