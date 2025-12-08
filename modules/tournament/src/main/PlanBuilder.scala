@@ -38,7 +38,9 @@ object PlanBuilder:
       val s2 = si2.schedule
       s1.variant == s2.variant && (
         // prevent daily && weekly within X hours of each other
-        if s1.freq.isDailyOrBetter && s2.freq.isDailyOrBetter && s1.sameSpeed(s2) then
+        if s1.freq.isDailyOrBetter && s2.freq.isDailyOrBetter &&
+          (s1.variant.exotic || s1.sameSpeed(s2))
+        then
           si2.startsAt.minusMinutes(SCHEDULE_DAILY_OVERLAP_MINS).isBefore(endsAt) &&
           startsAt.minusMinutes(SCHEDULE_DAILY_OVERLAP_MINS).isBefore(si2.endsAt)
         else
