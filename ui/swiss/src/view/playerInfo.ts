@@ -53,7 +53,7 @@ export default function (ctrl: SwissCtrl): VNode | undefined {
             return hl('tr.' + p, { key: round }, [
               hl('th', '' + round),
               hl('td.outcome', { attrs: { colspan: 3 } }, p),
-              hl('td', p === 'waiting' ? '*' : p === 'absent' ? '-' : p === 'bye' ? '1' : '½'),
+              hl('td', p === 'absent' ? '-' : p === 'bye' ? '1' : '½'),
             ]);
           const res = result(p);
           return hl(

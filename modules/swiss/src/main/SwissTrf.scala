@@ -72,7 +72,6 @@ final class SwissTrf(
               case Ongoing => "Z"
               case ForfeitLoss => "-"
               case ForfeitWin => "+"
-              case Waiting => "*"
           }
         ).map { case (l, s) => (l + (rn.value - 1) * 10, s) }
       }

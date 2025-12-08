@@ -29,9 +29,7 @@ function playerTr(ctrl: SwissCtrl, player: Player) {
           'div',
           player.sheet
             .map(p =>
-              p == 'waiting'
-                ? h(p, title('Waiting'), '*')
-                : p == 'absent'
+              p == 'absent'
                   ? h(p, title('Absent'), '-')
                   : p == 'bye'
                     ? h(p, title('Bye'), '1')
