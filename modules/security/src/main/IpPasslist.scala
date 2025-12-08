@@ -15,7 +15,7 @@ final class IpPasslist(getFile: GetRelativeFile)(using Executor):
   private val filePath = "data/ip-passlist.txt"
   private def fullPath = getFile.exec(filePath).toPath
 
-  case class Line(ip: IpAddress, tier: Int, comment: String):
+  case class Line(ip: String, tier: Int, comment: String):
     override def toString: String = s"$ip $tier; # $comment"
 
   def get: Fu[Either[String, List[Line]]] = Future:
@@ -32,13 +32,11 @@ final class IpPasslist(getFile: GetRelativeFile)(using Executor):
     Files.writeString(fullPath, newLines.mkString("\n"))
 
   private object parse:
-    val regex = """([\w\.:]+) (\d+); ?#(.+)""".r
+    val regex = """([\w\.:/]+) +(\d+); *#(.+)""".r
     def apply(line: String): Either[String, Line] = line match
       case regex(ipStr, tierStr, comment) =>
-        for
-          ip <- IpAddress.from(ipStr).toRight(s"Invalid IP address: $ipStr")
-          tier <- tierStr.toIntOption.filter(_ >= 1).filter(_ <= 3).toRight(s"Invalid tier: $tierStr")
-        yield Line(ip, tier, comment.trim)
+        for tier <- tierStr.toIntOption.filter(_ >= 1).filter(_ <= 3).toRight(s"Invalid tier: $tierStr")
+        yield Line(ipStr, tier, comment.trim)
       case str => Left(s"Invalid line format: $str")
 
   private given Formatter[List[Line]] =
@@ -46,7 +44,7 @@ final class IpPasslist(getFile: GetRelativeFile)(using Executor):
       str =>
         val strs = str.linesIterator.map(_.trim).filter(_.nonEmpty).zipWithIndex.toList
         val parsed = strs.map((l, i) => i -> parse(l))
-        val errors = parsed.collect { case (i, Left(err)) => s"l.$i: $err" }
+        val errors = parsed.collect { case (i, Left(err)) => s"l.${i + 1}: $err" }
         if errors.nonEmpty then Left(errors.mkString("\n"))
         else
           val allLines = parsed.collect { case (_, Right(line)) => line }
