@@ -36,7 +36,7 @@ final class DevUi(helpers: Helpers)(modMenu: String => Context ?=> Frag):
         )
       )
 
-  def ipPasslist(form: Either[String, Form[?]])(using Context, Translate) =
+  def ipPasslist(form: Either[String, Form[?]])(using Context) =
     val title = "IP Passlist"
     Page(title)
       .css("mod.misc")
@@ -60,7 +60,7 @@ final class DevUi(helpers: Helpers)(modMenu: String => Context ?=> Frag):
                   val field = form("list")
                   frag(
                     div(cls := "form-group")(
-                      form3.textarea(field)(),
+                      form3.textarea(field)(spellcheck := "false"),
                       field.errors.map: err =>
                         p(cls := "error")(nl2br(err.message))
                     ),
