@@ -46,5 +46,11 @@
 	<string name="lichessGamesPlayedIn" comment="%1$s is the number of games, %2$s is the year">%1$s peliä pelattiin Lichessissä yhteensä vuonna %2$s</string>
 	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours">%s niistä olivat sinun.</string>
 	<string name="thanksTitle">Kiitoksia, että pelaat Lichessissä!</string>
-	<string name="thanksHaveAGreat" comment="%s is the next year">Olemme iloisia siitä, että olet täällä. Toivotamme mahtavaa %s!</string>
+	<string name="thanksHaveAGreat" comment="%s is the next year">Olemme iloisia siitä, että olet täällä. Toivotamme mahtavaa uutta vuotta %s!</string>
+	<string name="shareableTitle" comment="%s is the current year">Vuoden %s yhteenvetoni</string>
+	<string name="shareableSpentPlaying" comment="Subtitle to the translated time they have spent playing&#10;&#10;Will be rendered like:&#10;&quot;1 day, 2 hours&#10;spent playing&quot;">käytetty pelaamiseen</string>
+	<string name="shareableMostPlayedOpponent" comment="Subtitle to the username of the opponent you have played the most games against&#10;&#10; Will be rendered like:&#10;&quot;GM Magnus&#10;most played opponent&quot;&#10;&#10;(where GM Magnus is the title+username of the player)">useimmin kohtaamani vastustaja</string>
+	<string name="shareableFavouriteVariant">suosikkivarianttini</string>
+	<string name="shareableFavouriteTimeControl" comment="Subtitle to the time control you played the most games in&#10;&#10; Will be rendered like:&#10;&quot;Rapid&#10;favourite time control&quot;">suosimani aikajärjestelmä</string>
+	<string name="recapReady" comment="%s is the year of the recap">Yhteenvetosi vuodesta %s on valmis!</string>
 </resources>
