@@ -10,6 +10,10 @@ import lila.db.dsl.*
 import lila.memo.CacheApi.*
 import lila.rating.{ PerfType, UserPerfs }
 import scalalib.paginator.Paginator
+import chess.rating.IntRatingDiff
+import lila.core.LightUser
+import lila.core.userId.UserName
+import chess.IntRating
 
 final class Cached(
     userRepo: UserRepo,
@@ -23,9 +27,28 @@ final class Cached(
 
   import BSONHandlers.given
 
+  // DEBUG: hardcode users onto leaderboards (dev/local only)
+  private def debugInjected(perf: PerfKey): List[LightPerf] =
+    if perf == PerfKey.classical then
+      List(
+        LightPerf(LightUser.fallback(UserName("abcdefghijklmnopqrst")), perf, IntRating(4000), IntRatingDiff(+12)),
+        LightPerf(LightUser.fallback(UserName("BBBB")), perf, IntRating(3990), IntRatingDiff(-5)),
+        LightPerf(LightUser.fallback(UserName("CCCC")), perf, IntRating(3980), IntRatingDiff(0))
+      )
+    else Nil
+
+  private def injectLeaderboardsDebug(lbs: UserPerfs.Leaderboards): UserPerfs.Leaderboards =
+    val injected = debugInjected(PerfKey.classical)
+    if injected.isEmpty then lbs
+    else
+      val injectedIds = injected.map(_.user.id).toSet
+      val merged = (injected ++ lbs.classical.filterNot(lp => injectedIds.contains(lp.user.id))).take(10)
+      lbs.copy(classical = merged)
+
+
   val top10 = cacheApi.unit[UserPerfs.Leaderboards]:
     _.refreshAfterWrite(2.minutes).buildAsyncTimeout(2.minutes): _ =>
-      rankingApi.fetchLeaderboard(10).monSuccess(_.user.leaderboardCompute)
+      rankingApi.fetchLeaderboard(10).map(injectLeaderboardsDebug).monSuccess(_.user.leaderboardCompute)
 
   private val topPerfFirstPage = mongoCache[PerfKey, Seq[LightPerf]](
     PerfType.leaderboardable.size,
@@ -42,12 +65,18 @@ final class Cached(
   def topPerfPager(perf: PerfKey, page: Int): Fu[Paginator[LightPerf]] =
     if page == 1 then
       for users <- firstPageOf(perf)
-      yield Paginator.fromResults(
-        users,
-        nbResults = 500_000,
-        currentPage = page,
-        rankingApi.topPerf.maxPerPage
-      )
+      yield
+        val injected = debugInjected(perf)
+        val injectedIds = injected.map(_.user.id).toSet
+        val merged =
+          (injected ++ users.filterNot(lp => injectedIds.contains(lp.user.id)))
+            .take(100)
+        Paginator.fromResults(
+          merged,
+          nbResults = 500_000,
+          currentPage = page,
+          rankingApi.topPerf.maxPerPage
+        )
     else rankingApi.topPerf.pager(perf, page)
 
   val top10NbGame = mongoCache.unit[List[LightCount]](
