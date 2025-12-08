@@ -95,8 +95,11 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
     def flag(id: lila.core.fide.Federation.Id, title: Option[String]) = img(
       cls := "flag",
       st.title := title.getOrElse(id.value),
-      src := fideFedSrc(id.value)
+      src := fideFedSrc(id)
     )
+
+    private def fideFedSrc(fideFed: lila.core.fide.Federation.Id): Url =
+      staticAssetUrl(s"$fideFedVersion/fide/fed-webp/${fideFed}.webp")
 
     private def card(name: Frag, value: Frag) =
       div(cls := "fide-card fide-federation__card")(em(name), div(value))

@@ -11,6 +11,8 @@
   <string name="yourClock">Senin saatin</string>
   <string name="opponentClock">Rakibin saati</string>
   <string name="gameStart">Oyun başlangıcı</string>
+  <string name="boardCommandList">Tahtaya odaklanıldığında mevcut komut listesi</string>
+  <string name="inputFormCommandList">Bu komutları komut giriş formuna yaz.</string>
   <string name="goToInputForm">Komut girdi formuna git.</string>
   <string name="announceCurrentSquare">Geçerli kareyi duyur.</string>
   <string name="announceLastMove">Son hamleyi duyur.</string>
@@ -53,6 +55,7 @@
   <string name="invalidMove">Geçersiz hamle</string>
   <string name="premoveCancelled">Ön hamle iptal edildi</string>
   <string name="premoveRecorded">Ön hamle kaydedildi: %s. İptal etmek için gir tuşuna bas</string>
+  <string name="copyToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">Panoya kopyala %s</string>
   <string name="copiedToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">%s panoya kopyalandı</string>
   <string name="pgnAndFen" comment="Will be a heading read out over text-to-speech for blind users looking to share a PGN or FEN of a game.">PGN ve FEN</string>
 </resources>

@@ -463,7 +463,7 @@
     <item quantity="other">Musisz rozegrać jeszcze %s partii rankingowych</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Twój ranking (%s) jest prowizoryczny</string>
-  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Filtry rankingu są zablokowane, ponieważ Twój ranking nie jest stabilny. Rozegranie partii rankingowych zwiększy tę stabilność.</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control for filtering by rating is disabled">Filtry rankingu są zablokowane, ponieważ Twój ranking nie jest stabilny. Rozegranie partii rankingowych zwiększy tę stabilność.</string>
   <string name="yourPerfRatingIsTooHigh">Twój ranking %2$s (%1$s) jest za wysoki</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Twój ranking tygodniowy %2$s (%1$s) jest za wysoki</string>
   <string name="yourPerfRatingIsTooLow">Twój ranking %2$s (%1$s) jest za niski</string>
@@ -640,7 +640,7 @@
   <string name="views">Wyświetleń</string>
   <string name="replies">Odpowiedzi</string>
   <string name="replyToThisTopic">Odpowiedz w tym temacie</string>
-  <string name="reply">Odpowiedz</string>
+  <string name="reply" comment="Appears on buttons in the forum. Clicking the button will post a reply to a topic.">Odpowiedz</string>
   <string name="message">Wiadomość</string>
   <string name="createTheTopic">Załóż temat</string>
   <string name="reportAUser">Zgłoś użytkownika</string>
@@ -851,6 +851,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Możesz także przewijać nad szachownicą, by zmieniać postęp partii.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Przewiń po wariantach komputera, aby je podglądać.</string>
   <string name="analysisShapesHowTo">Kliknij podczas trzymania Shift lub przytrzymaj prawy przycisk myszy aby rysować okręgi i strzałki na szachownicy.</string>
+  <string name="primaryColorArrowsHowTo">Ctrl lub shift = kolor czerwony; command, alt lub meta = kolor niebieski; Ctrl lub shift + command, alt lub meta = kolor żółty.</string>
   <string name="letOtherPlayersMessageYou">Zezwól na wiadomości od innych graczy</string>
   <string name="receiveForumNotifications">Otrzymuj powiadomienia, kiedy ktoś wspomni o Tobie na forum</string>
   <string name="shareYourInsightsData">Udostępniaj szczegółowe statystyki</string>

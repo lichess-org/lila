@@ -714,7 +714,6 @@ GET   /api/mobile/my-games             controllers.Api.mobileGames
 GET    /stat/rating/distribution/:perf controllers.User.ratingDistribution(perf: PerfKey, username: Option[UserStr] ?= None)
 
 # API
-GET   /api                             controllers.Api.index
 POST  /api/users                       controllers.Api.usersByIds
 GET   /api/puzzle/daily                controllers.Puzzle.apiDaily
 GET   /api/puzzle/activity             controllers.Puzzle.activity

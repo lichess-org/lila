@@ -50,7 +50,7 @@ let numberFormatter: false | Intl.NumberFormat | null = false;
 
 export const numberFormat = (n: number): string => {
   if (numberFormatter === false)
-    numberFormatter = window.Intl && Intl.NumberFormat ? new Intl.NumberFormat() : null;
+    numberFormatter = window.Intl && Intl.NumberFormat ? new Intl.NumberFormat(displayLocale) : null;
   if (numberFormatter === null) return '' + n;
   return numberFormatter.format(n);
 };

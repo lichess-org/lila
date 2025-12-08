@@ -36,7 +36,7 @@ final class SitePages(helpers: Helpers):
       sep,
       a(activeCls("webmasters"), href := routes.Main.webmasters)(trans.site.webmasters()),
       a(activeCls("database"), href := "https://database.lichess.org")(trans.site.database(), external),
-      a(activeCls("api"), href := routes.Api.index)("API", external),
+      a(activeCls("api"), href := "/api")("API", external),
       sep,
       a(activeCls("lag"), href := routes.Main.lag)(trans.lag.isLichessLagging()),
       a(activeCls("ads"), href := "/ads")("Block ads")
