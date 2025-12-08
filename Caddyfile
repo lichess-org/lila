@@ -1,0 +1,5 @@
+:9670 {
+  @socket path /socket* /lobby/socket* /analysis/socket* /play* /watch* /round* /challenge* /tournament* /simul* /swiss* /team* /racer*
+  reverse_proxy @socket localhost:9664
+  reverse_proxy localhost:9663
+}

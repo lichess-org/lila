@@ -1,3 +1,5 @@
+Run with `./start-public-dev.sh`
+
 # [lichess.org](https://lichess.org)
 
 [![Build server](https://github.com/lichess-org/lila/actions/workflows/server.yml/badge.svg)](https://github.com/lichess-org/lila/actions/workflows/server.yml)
