@@ -6,6 +6,7 @@ import play.api.data.Form
 import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
+import lila.common.RawHtml.nl2br
 
 final class DevUi(helpers: Helpers)(modMenu: String => Context ?=> Frag):
   import helpers.*
@@ -34,6 +35,41 @@ final class DevUi(helpers: Helpers)(modMenu: String => Context ?=> Frag):
                     )
         )
       )
+
+  def ipPasslist(form: Either[String, Form[?]])(using Context, Translate) =
+    val title = "IP Passlist"
+    Page(title)
+      .css("mod.misc")
+      .css("bits.form3"):
+        main(cls := "page-menu")(
+          modMenu("ip-passlist"),
+          div(id := "ip-passlist", cls := "page-menu__content box box-pad")(
+            h1(cls := "box__top")(title),
+            p(
+              "Upgrade rate limits for specific IP addresses.",
+              br,
+              "Only necessary when more than 20 devices connect from the same IP at the same time.",
+              br,
+              "This requires a service to copy the lila file to the nginx server and reload nginx."
+            ),
+            standardFlash,
+            postForm(action := routes.Dev.ipPasslistPost, cls := "form3")(
+              form match
+                case Left(err) => p(cls := "error")(err)
+                case Right(form) =>
+                  val field = form("list")
+                  frag(
+                    div(cls := "form-group")(
+                      form3.textarea(field)(),
+                      field.errors.map: err =>
+                        p(cls := "error")(nl2br(err.message))
+                    ),
+                    br,
+                    form3.submit(frag("Save and reload nginx"))
+                  )
+            )
+          )
+        )
 
   def cli(form: Form[?], res: Option[String])(using Context) =
     val title = "Command Line Interface"
