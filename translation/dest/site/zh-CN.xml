@@ -370,7 +370,7 @@
     <item quantity="other">你需要再完成 %s 局排位赛</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">你的 %s 等级分是暂时的</string>
-  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control for filtering by rating is disabled">你的等级分不稳定，暂时无法选择等级分范围。下排位对局会增加稳定性。</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">你的等级分不稳定，暂时无法选择等级分范围。下排位对局会增加稳定性。</string>
   <string name="yourPerfRatingIsTooHigh">你的 %1$s 等级分 (%2$s) 过高</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">你本周 %1$s 的最高等级分 (%2$s) 过高</string>
   <string name="yourPerfRatingIsTooLow">你的 %1$s 等级分 (%2$s) 过低</string>
@@ -529,7 +529,7 @@
   <string name="views">浏览</string>
   <string name="replies">回复</string>
   <string name="replyToThisTopic">回复</string>
-  <string name="reply" comment="Appears on buttons in the forum. Clicking the button will post a reply to a topic.">回复</string>
+  <string name="reply">回复</string>
   <string name="message">信息</string>
   <string name="createTheTopic">创建话题</string>
   <string name="reportAUser">举报用户</string>
