@@ -728,6 +728,7 @@
   <string name="cyclePreviousOrNextVariation">Variante seguinte/anterior</string>
   <string name="toggleGlyphAnnotations">Ativar/desativar anotações</string>
   <string name="togglePositionAnnotations">Ativar/desativar anotações de posição</string>
+  <string name="toggleObservationAnnotations">Ativar/desativar anotações de observação</string>
   <string name="variationArrowsInfo">Setas de variação permitem navegar sem usar a lista de movimentos.</string>
   <string name="playSelectedMove">jogar movimento selecionado</string>
   <string name="newTournament">Novo torneio</string>
