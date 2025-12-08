@@ -96,4 +96,4 @@ else
   export LILA_CSRF_ORIGIN="$PUBLIC_URL"
 fi
 
-exec "$ROOT/custom-start-lila.sh"
+exec "$ROOT/auxiliary-script.sh"
