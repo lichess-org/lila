@@ -15,7 +15,7 @@
   <string name="aiNameLevelAiLevel">%1$s سطح %2$s</string>
   <string name="level">سطح</string>
   <string name="strength">قدرت</string>
-  <string name="toggleTheChat">گپ روشن/خاموش</string>
+  <string name="toggleTheChat">کلیدِ گپ</string>
   <string name="chat">گپ</string>
   <string name="resign">تسلیم شدن</string>
   <string name="checkmate">کیش و مات</string>
@@ -728,6 +728,7 @@
   <string name="cyclePreviousOrNextVariation">چرخاندن پیشین/پسین وَرتِش</string>
   <string name="toggleGlyphAnnotations">کلید علائم حرکت‌نویسی</string>
   <string name="togglePositionAnnotations">تغییر حرکت‌نویسی وضعیت</string>
+  <string name="toggleObservationAnnotations">کلید مشاهدهٔ حرکت‌نویسی</string>
   <string name="variationArrowsInfo">پیکان های وَرتِش به شما امکان ناوِش بدون استفاده از فهرستِ حرکت را می‌دهد.</string>
   <string name="playSelectedMove">حرکت انتخاب شده را بازی کن</string>
   <string name="newTournament">مسابقه جدید</string>
