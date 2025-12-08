@@ -636,7 +636,7 @@
   <string name="views">Zobrazení</string>
   <string name="replies">Odpovědi</string>
   <string name="replyToThisTopic">Odpovědět na toto téma</string>
-  <string name="reply" comment="Appears on buttons in the forum. Clicking the button will post a reply to a topic.">Odpovědět</string>
+  <string name="reply">Odpovědět</string>
   <string name="message">Zpráva</string>
   <string name="createTheTopic">Vytvořit téma</string>
   <string name="reportAUser">Nahlásit uživatele</string>
