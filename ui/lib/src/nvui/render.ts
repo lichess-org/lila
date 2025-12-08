@@ -157,7 +157,10 @@ export function renderBoard(
           : renderPieceStr(roleCh, pieceStyle, piece.color, prefixStyle);
       return h(pieceWrapper, doPieceButton(rank, file, roleCh, piece.color, pieceText, plusOrMinus === '-'));
     } else {
-      return h(pieceWrapper, doPieceButton(rank, file, plusOrMinus, 'none', plusOrMinus, plusOrMinus === '-'));
+      return h(
+        pieceWrapper,
+        doPieceButton(rank, file, plusOrMinus, 'none', plusOrMinus, plusOrMinus === '-'),
+      );
     }
   };
 

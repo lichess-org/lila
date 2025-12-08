@@ -147,7 +147,7 @@ export function initModule(opts: VoiceChatOpts): VoiceChat | undefined {
   const connectionsTo = (peerId: any) => (peer && peer.connections[peerId]) || [];
 
   const findOpenConnectionTo = (peerId: any) => connectionsTo(peerId).find((c: any) => c.open);
-  
+
   function closeOtherConnectionsTo(peerId: any) {
     const conns = connectionsTo(peerId);
     for (let i = 0; i < conns.length - 1; i++) conns[i].close();
@@ -167,7 +167,7 @@ export function initModule(opts: VoiceChatOpts): VoiceChat | undefined {
   const allOpenConnections = (): any[] => {
     if (!peer) return [];
     return Object.keys(peer.connections).map(findOpenConnectionTo).filter(Boolean);
-  }
+  };
   const hasAnOpenConnection = () => allOpenConnections().length > 0;
 
   function ping() {

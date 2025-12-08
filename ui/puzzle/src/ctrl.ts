@@ -414,7 +414,7 @@ export default class PuzzleCtrl implements CevalHandler {
         const sent = this.mode === 'play' ? this.sendResult(true) : Promise.resolve();
         this.mode = 'view';
         this.withGround(this.showGround);
-        sent.then(_ => this.autoNext() ? this.nextPuzzle() : this.startCeval());
+        sent.then(_ => (this.autoNext() ? this.nextPuzzle() : this.startCeval()));
       }
     } else if (progress) {
       this.lastFeedback = 'good';
