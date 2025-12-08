@@ -2863,6 +2863,8 @@ interface I18n {
     shareableFavouriteVariant: string;
     /** most played opponent */
     shareableMostPlayedOpponent: string;
+    /** %s puzzles solved */
+    shareableNbPuzzlesSolved: I18nPlural;
     /** spent playing */
     shareableSpentPlaying: string;
     /** My %s recap */

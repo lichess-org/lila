@@ -1473,6 +1473,7 @@ object I18nKey:
     val `shareableFavouriteTimeControl`: I18nKey = "recap:shareableFavouriteTimeControl"
     val `recapReady`: I18nKey = "recap:recapReady"
     val `nbMovesPlayed`: I18nKey = "recap:nbMovesPlayed"
+    val `nbPuzzlesSolved`: I18nKey = "recap:nbPuzzlesSolved"
     val `nbMoves`: I18nKey = "recap:nbMoves"
     val `nbGrams`: I18nKey = "recap:nbGrams"
     val `nbKilograms`: I18nKey = "recap:nbKilograms"

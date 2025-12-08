@@ -358,7 +358,7 @@ export const shareable = (r: Recap): VNode =>
         r.games.perfs[0]?.games && stat(renderPerf(r.games.perfs[0]), perfLabel(r.games.perfs[0])),
         r.games.opponents.length &&
           stat(opponentLink(r.games.opponents[0].value), i18n.recap.shareableMostPlayedOpponent),
-        stat(numberFormat(r.puzzles.nbs.total), i18n.storm.puzzlesSolved),
+        stati18n(r.puzzles.nbs.total, i18n.recap.shareableNbPuzzlesSolved),
       ]),
       hl(
         'div.openings',
