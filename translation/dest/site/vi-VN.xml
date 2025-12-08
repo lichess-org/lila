@@ -689,6 +689,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="cyclePreviousOrNextVariation">Chu kì của biến trước/tiếp theo</string>
   <string name="toggleGlyphAnnotations">Đổi chú thích nước cờ</string>
   <string name="togglePositionAnnotations">Chuyển đổi chú thích thế cờ</string>
+  <string name="toggleObservationAnnotations">Chuyển đổi chú thích quan sát</string>
   <string name="variationArrowsInfo">Mũi tên của biến cho phép bạn điều hướng mà không cần sử dụng danh sách nước đi.</string>
   <string name="playSelectedMove">chơi nước đi đã chọn</string>
   <string name="newTournament">Giải đấu mới</string>
