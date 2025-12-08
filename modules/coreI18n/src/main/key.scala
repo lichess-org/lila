@@ -2082,6 +2082,7 @@ object I18nKey:
     val `cyclePreviousOrNextVariation`: I18nKey = "cyclePreviousOrNextVariation"
     val `toggleGlyphAnnotations`: I18nKey = "toggleGlyphAnnotations"
     val `togglePositionAnnotations`: I18nKey = "togglePositionAnnotations"
+    val `toggleObservationAnnotations`: I18nKey = "toggleObservationAnnotations"
     val `variationArrowsInfo`: I18nKey = "variationArrowsInfo"
     val `playSelectedMove`: I18nKey = "playSelectedMove"
     val `newTournament`: I18nKey = "newTournament"
