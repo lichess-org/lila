@@ -164,9 +164,9 @@ export function initModule(opts: VoiceChatOpts): VoiceChat | undefined {
       });
     }
   }
-  function allOpenConnections(): any[] {
+  const allOpenConnections = (): any[] => {
     if (!peer) return [];
-    return peer.connections.map(findOpenConnectionTo).filter(Boolean);
+    return Object.keys(peer.connections).map(findOpenConnectionTo).filter(Boolean);
   }
   const hasAnOpenConnection = () => allOpenConnections().length > 0;
 
