@@ -63,7 +63,7 @@
   <string name="editTournament">编辑锦标赛</string>
   <string name="editTeamBattle">编辑团队战</string>
   <string name="defender">防守方</string>
-  <string name="pickYourTeam">选择您的团队</string>
+  <string name="pickYourTeam">请选择您的团队</string>
   <string name="whichTeamWillYouRepresentInThisBattle">您将在此战中代表哪支团队？</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">您必须加入其中一支团队才能参与！</string>
   <string name="created">创建于</string>
