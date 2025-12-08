@@ -146,7 +146,6 @@ object Schedule:
       case (Daily | Eastern, Standard, SuperBlitz) => 90
       case (Daily | Eastern, Standard, Blitz) => 120
       case (Daily | Eastern, _, Blitz | ChillBlitz) => 90
-      case (Daily, variant, Rapid) if variant.exotic => 120
       case (Daily | Eastern, _, Rapid | Classical) => 150
       case (Daily | Eastern, _, _) => 60
 
@@ -208,7 +207,6 @@ object Schedule:
       case (_, variant, Blitz) if variant.exotic => TC(3 * 60, 2)
       case (Hourly, Antichess | Atomic, Bullet) if bottomOfHour(s) => TC(0, 2)
       case (Hourly, variant, HippoBullet) if variant.exotic => TC(60, 2)
-      case (Hourly, Antichess, Bullet) if bottomOfHour(s) => TC(0, 2)
 
       case (_, _, UltraBullet) => TC(15, 0)
       case (_, _, HyperBullet) => TC(30, 0)
