@@ -55,10 +55,15 @@
 	<string name="patronCostsThisYear" comment="%1$s is 'costs'. %2$s is the cost with currency symbol e.g. '$750,000'">올해 Lichess의 %1$s은 %2$s였습니다.</string>
 	<string name="patronCosts" comment="It is a link to lichess.org/costs">비용</string>
 	<string name="patronCharity">Lichess는 자선단체이며, 기부금만으로 비용을 충당합니다.</string>
+	<string name="patronConsiderDonating" comment="%s is 'supporting us with a donation'">올해 Lichess를 즐겁게 이용하셨거나 가치 있다고 생각하시면, %s해주세요!</string>
+	<string name="patronMakeDonation" comment="It is a link to https://lichess.org/patron">기부를 통해 지원</string>
 	<string name="shareableTitle" comment="%s is the current year">나의 %s년 요약</string>
-	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">동안 플레이함</string>
+	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">플레이한 시간</string>
 	<string name="shareableMostPlayedOpponent">가장 자주 플레이한 상대</string>
 	<string name="shareableFavouriteVariant">좋아하는 변형 체스</string>
 	<string name="shareableFavouriteTimeControl">좋아하는 시간 제한</string>
+	<plurals name="shareableNbPuzzlesSolved">
+		<item quantity="other">%s 해결한 퍼즐의 수</item>
+	</plurals>
 	<string name="recapReady" comment="%s is the year of the recap">당신의 %s년 요약이 준비되었습니다!</string>
 </resources>
