@@ -24,8 +24,8 @@ final class Recap(env: Env) extends LilaController(env):
       username: UserStr
   )(f: Context ?=> UserModel => Availability => Fu[Result]): EssentialAction =
     Auth { ctx ?=> me ?=>
-      val availableAt = java.time.LocalDate.of(lila.recap.yearToRecap, java.time.Month.DECEMBER, 15)
-      if env.mode.isProd && java.time.LocalDate.now().isBefore(availableAt) then
+      val availableAt = instantOf(lila.recap.yearToRecap, 12, 15, 0, 0)
+      if env.mode.isProd && nowInstant.isBefore(availableAt) then
         Ok.page(views.recap.notAvailable(lila.recap.yearToRecap))
       else
         def proceed(user: lila.core.user.User) = for
