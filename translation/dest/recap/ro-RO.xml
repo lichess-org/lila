@@ -2,11 +2,25 @@
 <resources>
 	<string name="hiUser" comment="%s is the title+username e.g. 'GM ABC' or simply ABC if there is no title">Salut, %s</string>
 	<string name="awaitQuestion" comment="Displayed while waiting for results">Cu ce te-ai ocupat anul acesta?</string>
+	<string name="initTitle">Ce an de șah ai avut!</string>
 	<string name="noGamesText">Nu ai jucat niciun joc în acest an.</string>
 	<string name="noGamesCta">Vrei să joci acum?</string>
 	<string name="gamesYouWon" comment="%s is the number of games won">Și ai câștigat %s!</string>
+	<string name="gamesNextQuestion">De ce a fost nevoie pentru a ajunge aici?</string>
+	<string name="timeSpentPlayingExclam" comment="%s is the time spent playing animated from 0 e.g. '1 day, 17 hours'. The time is also translated">%s petrecute jucând!</string>
+	<string name="timeTooMuch">Este mult prea mult șah.</string>
+	<string name="timeALot">E o grămadă de șah.</string>
+	<string name="timeReasonable">Pare să fie o cantitate rezonabilă de șah.</string>
+	<string name="timeHowManyMoves">Câte mutări ai jucat în tot timpul acela?</string>
 	<string name="malwareWarningCta" comment="It is a link to https://lichess.org/ads">ai grijă</string>
+	<string name="patronCosts" comment="It is a link to lichess.org/costs">costuri</string>
+	<string name="patronCharity">Suntem o organizație caritabilă care funcționează doar din donații.</string>
+	<string name="patronConsiderDonating" comment="%s is 'supporting us with a donation'">Dacă v-am oferit o experiență plăcută în acest an sau apreciați munca noastră, vă rugăm să luați în considerare %s!</string>
+	<string name="patronMakeDonation" comment="It is a link to https://lichess.org/patron">să ne sprijiniți cu o donație</string>
+	<string name="shareableTitle" comment="%s is the current year">Rezumatul meu %s</string>
 	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">petrecut jucând</string>
 	<string name="shareableMostPlayedOpponent">oponentul cel mai frecvent</string>
+	<string name="shareableFavouriteVariant">variantă favorită</string>
+	<string name="shareableFavouriteTimeControl">timp de control favorit</string>
 	<string name="recapReady" comment="%s is the year of the recap">Recapitularea ta pentru %s este gata!</string>
 </resources>
