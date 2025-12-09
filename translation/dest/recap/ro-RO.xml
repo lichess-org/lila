@@ -12,7 +12,15 @@
 	<string name="timeALot">E o grămadă de șah.</string>
 	<string name="timeReasonable">Pare să fie o cantitate rezonabilă de șah.</string>
 	<string name="timeHowManyMoves">Câte mutări ai jucat în tot timpul acela?</string>
+	<string name="puzzlesTryNow">Vrei să încerci câteva acum?</string>
+	<string name="malwareNoneLoaded" comment="%s is 0">%s reclame și instrumente de urmărire încărcate</string>
+	<string name="malwareNoSell">Noi nu ți-am vândut datele personale</string>
+	<string name="malwareNoAbuse">Noi nu ți-am folosit dispozitivul împotriva ta</string>
+	<string name="malwareWarningPrefix" comment="%s is 'be careful'">Dar alte site-uri o fac, deci te rugăm %s.</string>
 	<string name="malwareWarningCta" comment="It is a link to https://lichess.org/ads">ai grijă</string>
+	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours">%s dintre ele au fost ale tale.</string>
+	<string name="thanksTitle">Îți mulțumim că ai jucat pe Lichess!</string>
+	<string name="patronCostsThisYear" comment="%1$s is 'costs'. %2$s is the cost with currency symbol e.g. '$750,000'">%1$sle de la Lichess din acest an au fost %2$s.</string>
 	<string name="patronCosts" comment="It is a link to lichess.org/costs">costuri</string>
 	<string name="patronCharity">Suntem o organizație caritabilă care funcționează doar din donații.</string>
 	<string name="patronConsiderDonating" comment="%s is 'supporting us with a donation'">Dacă v-am oferit o experiență plăcută în acest an sau apreciați munca noastră, vă rugăm să luați în considerare %s!</string>
