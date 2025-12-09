@@ -33,7 +33,7 @@ private final class RelayStatsApi(colls: RelayColls)(using scheduler: Scheduler)
     nowMinutes = nowSeconds / 60
     lastValuesDocs <- colls.stats.aggregateList(crowds.size): framework =>
       import framework.*
-      Match($inIds(crowds.map(_._1))) -> List(
+      Match($inIds(crowds._1F)) -> List(
         Project($doc("last" -> $doc("$arrayElemAt" -> $arr("$d", -1))))
       )
     lastValues =

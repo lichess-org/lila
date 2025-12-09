@@ -41,7 +41,7 @@ final class SwissShowUi(helpers: Helpers, ui: SwissBitsUi, gathering: GatheringU
             .obj(
               "data" -> data,
               "userId" -> ctx.userId,
-              "chat" -> chatOption.map(_._1),
+              "chat" -> chatOption._1F,
               "showRatings" -> ctx.pref.showRatings
             )
             .add("schedule" -> hasScheduleInput)
@@ -58,7 +58,7 @@ final class SwissShowUi(helpers: Helpers, ui: SwissBitsUi, gathering: GatheringU
       ):
         main(cls := "swiss")(
           st.aside(cls := "swiss__side")(
-            side(s, verdicts, streamers, chatOption.map(_._2))
+            side(s, verdicts, streamers, chatOption._2F)
           ),
           div(cls := "swiss__main")(div(cls := "box"))
         )

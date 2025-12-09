@@ -37,7 +37,7 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
           Json.obj(
             "data" -> data,
             "userId" -> ctx.userId,
-            "chat" -> chat.map(_._2),
+            "chat" -> chat._2F,
             "showRatings" -> ctx.pref.showRatings
           )
         )
@@ -58,7 +58,7 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
       .csp(_.withLilaHttp):
         main(cls := s"tour$extraCls")(
           st.aside(cls := "tour__side"):
-            side(tour, verdicts, shieldOwner, chat.map(_._1), streamers)
+            side(tour, verdicts, shieldOwner, chat._1F, streamers)
           ,
           div(cls := "tour__main")(div(cls := "box")),
           tour.isCreated.option(div(cls := "tour__faq"):

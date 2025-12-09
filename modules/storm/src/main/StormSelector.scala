@@ -43,7 +43,7 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(using Executor
     2349 -> 19,
     2499 -> 21
   )
-  private val setSize = ratingBuckets.map(_._2).sum
+  private val setSize = ratingBuckets._2F.sum
 
   private val batchProvider =
     BatchProvider[PuzzleSet]("stormSelector", timeout = 15.seconds): () =>

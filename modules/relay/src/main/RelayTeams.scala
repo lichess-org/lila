@@ -27,7 +27,7 @@ private class RelayTeamsTextarea(val text: String):
         case _ => none
     .groupBy(_._1)
     .view
-    .mapValues(_.map(_._2))
+    .mapValues(_._2F)
     .toMap
 
   private lazy val playerTeams: Map[PlayerNameStr | FideId, TeamName] =
