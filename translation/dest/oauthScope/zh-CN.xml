@@ -46,8 +46,8 @@
   <string name="lastUsed">最后使用于 %s</string>
   <string name="alreadyHavePlayedGames">您已经进行过对局了！</string>
   <string name="attentionOfDevelopers">仅限开发者注意：</string>
-  <string name="possibleToPrefill">可以通过调整 URL 的查询参数来预填此表单。</string>
+  <string name="possibleToPrefill">您可以通过调整链接内的查询参数来预填此表单。</string>
   <string name="forExample">例如：%s</string>
   <string name="ticksTheScopes">会勾选 %1$s 和 %2$s 权限范围，并设置令牌描述。</string>
-  <string name="givingPrefilledUrls">向您的用户提供这些预填 URL 将有助于他们获取正确权限范围的令牌。</string>
+  <string name="givingPrefilledUrls">向您的用户提供这些预填链接将有助于他们获取正确权限范围的令牌。</string>
 </resources>
