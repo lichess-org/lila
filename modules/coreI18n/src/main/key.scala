@@ -1479,6 +1479,7 @@ object I18nKey:
     val `openingsMostPlayedAsWhite`: I18nKey = "recap:openingsMostPlayedAsWhite"
     val `openingsMostPlayedAsBlack`: I18nKey = "recap:openingsMostPlayedAsBlack"
     val `puzzlesThanksVoting`: I18nKey = "recap:puzzlesThanksVoting"
+    val `shareableNbPuzzlesSolved`: I18nKey = "recap:shareableNbPuzzlesSolved"
 
   object search:
     val `search`: I18nKey = "search:search"

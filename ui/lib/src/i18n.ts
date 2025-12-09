@@ -65,6 +65,11 @@ export const currencyFormat = (n: number, currency: string, options?: Intl.Numbe
   return new Intl.NumberFormat(displayLocale, { style: 'currency', currency, ...options }).format(n);
 };
 
+export const percentFormat = (n: number, precision: number): string =>
+  getNumberFormatter()
+    ? new Intl.NumberFormat(displayLocale, { style: 'percent', minimumFractionDigits: precision }).format(n)
+    : n.toFixed(precision) + '%';
+
 export const numberSpread = (el: HTMLElement, nbSteps: number, duration: number, previous: number) => {
   let displayed: string;
   const display = (prev: number, cur: number, it: number) => {

@@ -8,7 +8,7 @@ import { spinnerVdom } from 'lib/view';
 import { formatDuration, perfIsSpeed, perfLabel } from './util';
 import perfIcons from 'lib/game/perfIcons';
 import * as licon from 'lib/licon';
-import { currencyFormat, numberFormat } from 'lib/i18n';
+import { currencyFormat, numberFormat, percentFormat } from 'lib/i18n';
 
 const confettiCanvas = (): VNode =>
   hl('canvas#confetti', {
@@ -127,15 +127,14 @@ const noFlair = (o: LightUser): VNode => {
 };
 
 export const firstMoves = (r: Recap, firstMove: Counted<string>): VNode => {
-  const percent = Math.round((firstMove.count * 100) / r.games.nbWhite);
+  const ofTotal = firstMove.count / r.games.nbWhite;
   return slideTag('first')([
     hl('div.recap--massive', [hl('strong.animated-pulse', '1. ' + firstMove.value)]),
     hl('div', [
       hl(
         'p',
         i18n.recap.firstMoveStats.asArray(
-          hl('strong', animateNumber(firstMove.count)),
-          animateNumber(percent),
+          hl('div', [hl('strong', animateNumber(firstMove.count)), ` (${percentFormat(ofTotal, 2)})`]),
         ),
       ),
     ]),
@@ -277,14 +276,19 @@ export const malware = (): VNode =>
   ]);
 
 export const lichessGames = (r: Recap): VNode => {
-  const gamesPercentOfTotal = (r.games.nbs.total * 100) / totalGames;
-  const showGamesPercentOfTotal = gamesPercentOfTotal.toFixed(6) + '%';
+  const gamesPercentOfTotal = r.games.nbs.total / totalGames;
   return slideTag('lichess-games')([
     hl(
       'div.recap--massive',
       i18n.recap.lichessGamesPlayedIn.asArray<LooseVNodes>(hl('strong', animateNumber(totalGames)), r.year),
     ),
-    hl('div', hl('p', i18n.recap.lichessGamesOfThemYours.asArray(hl('strong', showGamesPercentOfTotal)))),
+    hl(
+      'div',
+      hl(
+        'p',
+        i18n.recap.lichessGamesOfThemYours.asArray(hl('strong', percentFormat(gamesPercentOfTotal, 6))),
+      ),
+    ),
   ]);
 };
 
@@ -338,7 +342,7 @@ const stat = (value: string | VNode, label: string): VNode =>
   hl('div.stat', [hl('div', hl('strong', value)), hl('div', hl('small', label))]);
 
 const stati18n = (value: number, plural: I18nPlural): VNode => {
-  const [_, num, label] = plural.asArray(value, hl('strong', value));
+  const [_, num, label] = plural.asArray(value, hl('strong', numberFormat(value)));
   return hl('div.stat', [hl('div', num), hl('div', hl('small', label))]);
 };
 
@@ -354,7 +358,7 @@ export const shareable = (r: Recap): VNode =>
         r.games.perfs[0]?.games && stat(renderPerf(r.games.perfs[0]), perfLabel(r.games.perfs[0])),
         r.games.opponents.length &&
           stat(opponentLink(r.games.opponents[0].value), i18n.recap.shareableMostPlayedOpponent),
-        stat(numberFormat(r.puzzles.nbs.total), i18n.storm.puzzlesSolved),
+        stati18n(r.puzzles.nbs.total, i18n.recap.shareableNbPuzzlesSolved),
       ]),
       hl(
         'div.openings',
