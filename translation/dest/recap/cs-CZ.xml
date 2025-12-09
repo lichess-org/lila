@@ -25,7 +25,7 @@
 	</plurals>
 	<string name="thanksTitle">Děkujeme za hraní na Lichess!</string>
 	<string name="shareableTitle" comment="%s is the current year">Můj %s souhrn</string>
-	<string name="shareableSpentPlaying" comment="Subtitle to the translated time they have spent playing&#10;&#10;Will be rendered like:&#10;&quot;1 day, 2 hours&#10;spent playing&quot;">tráveno hraním</string>
-	<string name="shareableMostPlayedOpponent" comment="Subtitle to the username of the opponent you have played the most games against&#10;&#10; Will be rendered like:&#10;&quot;GM Magnus&#10;most played opponent&quot;&#10;&#10;(where GM Magnus is the title+username of the player)">nejhranější soupeř</string>
+	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">tráveno hraním</string>
+	<string name="shareableMostPlayedOpponent">nejhranější soupeř</string>
 	<string name="shareableFavouriteVariant">oblíbená varianta</string>
 </resources>
