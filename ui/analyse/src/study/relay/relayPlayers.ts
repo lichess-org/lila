@@ -392,8 +392,11 @@ const renderPlayerTipHead = (ctrl: RelayPlayers, p: StudyPlayer | RelayPlayer): 
     hl(`a.tpp__player__name`, playerLinkConfig(ctrl, p, false), [userTitle(p), p.name]),
     p.team && hl('div.tpp__player__team', p.team),
     hl('div.tpp__player__info', [
-      hl('div', [playerFed(p.fed), !!p.rating && [`${p.rating}`, isRelayPlayer(p) && ratingDiff(p)]]),
-      isRelayPlayer(p) && p.score !== undefined && hl('div', `${p.score}`),
+      hl('div', [
+        playerFed(p.fed),
+        !!p.rating && [`${p.rating}`, isRelayPlayer(p) && !ctrl.hideResultsSinceRoundId() && ratingDiff(p)],
+      ]),
+      isRelayPlayer(p) && !ctrl.hideResultsSinceRoundId() && p.score !== undefined && hl('div', `${p.score}`),
     ]),
   ]);
 
