@@ -1473,13 +1473,13 @@ object I18nKey:
     val `shareableFavouriteTimeControl`: I18nKey = "recap:shareableFavouriteTimeControl"
     val `recapReady`: I18nKey = "recap:recapReady"
     val `nbMovesPlayed`: I18nKey = "recap:nbMovesPlayed"
-    val `nbPuzzlesSolved`: I18nKey = "recap:nbPuzzlesSolved"
     val `nbMoves`: I18nKey = "recap:nbMoves"
     val `nbGrams`: I18nKey = "recap:nbGrams"
     val `nbKilograms`: I18nKey = "recap:nbKilograms"
     val `openingsMostPlayedAsWhite`: I18nKey = "recap:openingsMostPlayedAsWhite"
     val `openingsMostPlayedAsBlack`: I18nKey = "recap:openingsMostPlayedAsBlack"
     val `puzzlesThanksVoting`: I18nKey = "recap:puzzlesThanksVoting"
+    val `shareableNbPuzzlesSolved`: I18nKey = "recap:shareableNbPuzzlesSolved"
 
   object search:
     val `search`: I18nKey = "search:search"
