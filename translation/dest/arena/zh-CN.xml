@@ -80,7 +80,7 @@
   <string name="pointsSum">总得分</string>
   <string name="rankAvg">平均排名</string>
   <string name="tournamentWinners">锦标赛获胜者</string>
-  <string name="tournamentShields">锦标赛盾牌赛</string>
+  <string name="tournamentShields">锦标赛盾牌</string>
   <string name="onlyTitled">仅限有头衔棋手</string>
   <string name="onlyTitledHelp">需要官方头衔才能加入锦标赛</string>
   <string name="tournamentPairingsAreNowClosed">锦标赛配对现已关闭。</string>
