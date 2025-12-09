@@ -10,6 +10,7 @@
   <string name="actions">Akce</string>
   <string name="yourClock">Vaše hodiny</string>
   <string name="opponentClock">Soupeřovy hodiny</string>
+  <string name="gameStart">Začátek hry</string>
   <string name="whiteKing">bílý král</string>
   <string name="queen">královna</string>
   <string name="whiteQueen">bílá královna</string>
