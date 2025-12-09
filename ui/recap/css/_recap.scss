@@ -70,6 +70,10 @@ body {
   a {
     color: #fff;
     border-bottom: 1px dotted #ddd;
+
+    &:hover {
+      border-bottom-width: 3px;
+    }
   }
 
   .utitle {
@@ -190,6 +194,18 @@ body {
 .recap__perf__games strong {
   display: block;
   font-weight: 2em;
+}
+
+.recap__slide--patron {
+  gap: 2em;
+
+  i {
+    font-size: 3em;
+  }
+
+  .cta {
+    max-width: 80%;
+  }
 }
 
 .recap__shareable {

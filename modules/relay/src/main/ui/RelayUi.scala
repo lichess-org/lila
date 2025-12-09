@@ -60,7 +60,7 @@ final class RelayUi(helpers: Helpers)(
           "data" -> data.analysis,
           "tagTypes" -> lila.study.StudyPgnTags.typesToString,
           "userId" -> ctx.userId,
-          "chat" -> chatOption.map(_._1),
+          "chat" -> chatOption._1F,
           "socketUrl" -> socketUrl(rt.study.id),
           "socketVersion" -> socketVersion
         )

@@ -55,7 +55,7 @@ private[tree] object CpAdvice:
       prevWinningChances = WinPercent.winningChances(cp)
       currentWinningChances = WinPercent.winningChances(infoCp)
       delta = (currentWinningChances - prevWinningChances).pipe(d => info.color.fold(-d, d))
-      judgement <- winningChanceJudgements.find((d, _) => d <= delta).map(_._2)
+      judgement <- winningChanceJudgements.find((d, _) => d <= delta)._2F
     yield CpAdvice(judgement, info, prev)
 
 sealed abstract private[tree] class MateSequence(val desc: String)

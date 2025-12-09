@@ -2,6 +2,10 @@ export interface Opts {
   recap?: Recap;
   user: LightUser;
   navigation: boolean;
+  costs?: {
+    amount: number;
+    currency: string;
+  };
 }
 
 interface NbWin {

@@ -44,7 +44,7 @@ final private class FarmBoostDetection(
       users.zipColor
         .find: (c, u) =>
           u.perfs(g.perfKey).intRating < (users(!c).perfs(g.perfKey).intRating - IntRating(150))
-        .map(_._1) // color of the lower rated player
+        ._1F // color of the lower rated player
         .so(newAccountBoostingInFavorOf(g, users, _))
 
   private def newAccountBoostingWin(g: Game, users: ByColor[UserWithPerfs]): Fu[Boolean] =
