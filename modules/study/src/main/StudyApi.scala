@@ -665,7 +665,7 @@ final class StudyApi(
               _ <- shouldResetPosition.so:
                 studyRepo.setPosition(study.id, study.position.withPath(UciPath.root))
             yield
-              if shouldReload
+              if shouldReload // `updateChapter` makes the client reload the whole thing with XHR
               then sendTo(study.id)(_.updateChapter(chapter.id, who))
               else reloadChapters(study)
         }
