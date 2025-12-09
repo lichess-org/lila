@@ -1,6 +1,6 @@
 import type { VNode } from 'snabbdom';
 import * as licon from 'lib/licon';
-import { numberFormat } from 'lib/i18n';
+import { displayLocale, numberFormat } from 'lib/i18n';
 import perfIcons from 'lib/game/perfIcons';
 import { bind, dataIcon, type MaybeVNode, type LooseVNodes, hl } from 'lib/view';
 import { view as renderConfig } from './explorerConfig';
@@ -68,13 +68,16 @@ function showMoveTable(ctrl: AnalyseCtrl, data: OpeningData): VNode | null {
             move.san,
           ),
           hl('td', ((total / sumTotal) * 100).toFixed(0) + '%'),
-          hl('td', numberFormat(total)),
+          hl('td', bigNumberFormatter ? bigNumberFormatter.format(total) : numberFormat(total)),
           hl('td', { attrs: { title: moveStatsTooltip(ctrl, move) } }, resultBar(move)),
         ]);
       }),
     ),
   ]);
 }
+
+const bigNumberFormatter =
+  window.Intl && Intl.NumberFormat ? new Intl.NumberFormat(displayLocale, { notation: 'compact' }) : null;
 
 function moveStatsTooltip(ctrl: AnalyseCtrl, move: OpeningMoveStats): string {
   if (!move.uci) return 'Total';
