@@ -20,7 +20,7 @@
   <string name="downloadOrUploadAnyGameAsPgn">任意对局的 PGN 文件下载/上传</string>
   <string name="tvForumBlogTeamsMessagingFriendsChallenges">博客、论坛、团队、直播、消息、好友、挑战</string>
   <string name="lightOrDarkThemeCustomBoardsPiecesAndBackground">浅色/深色主题，自定义棋盘、棋子和背景</string>
-  <string name="ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess">超超快棋、超快棋、快棋、中速棋、古典棋、通讯棋</string>
+  <string name="ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess">超超快棋、超快棋、快棋、常规棋、古典棋、通讯棋</string>
   <string name="allFeaturesToCome">所有未来开发的功能，永久免费！</string>
   <string name="landscapeSupportOnApp">支持 iPhone 和 Android 手机与平板，支持横屏模式</string>
   <string name="everybodyGetsAllFeaturesForFree">是的，两个账户享有完全相同的功能！</string>

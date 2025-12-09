@@ -330,6 +330,8 @@ final class ModUi(helpers: Helpers):
       Granter(_.Admin).option(a(cls := itemCls(active, "mods"), href := routes.Mod.table)("Mods")),
       Granter(_.Presets)
         .option(a(cls := itemCls(active, "presets"), href := routes.Mod.presets("PM"))("Msg presets")),
+      Granter(_.IpPasslist)
+        .option(a(cls := itemCls(active, "ip-passlist"), href := routes.Dev.ipPasslist)("IP Passlist")),
       Granter(_.Settings)
         .option(a(cls := itemCls(active, "setting"), href := routes.Dev.settings)("Settings")),
       Granter(_.Cli).option(a(cls := itemCls(active, "cli"), href := routes.Dev.cli)("CLI"))

@@ -1,14 +1,15 @@
 package lila.ublog
 
+import reactivemongo.api.bson.Macros.Annotations.Key
+
 import lila.core.perm.Granter
 
 case class UblogBlog(
-    _id: UblogBlog.Id,
+    @Key("_id") id: UblogBlog.Id,
     tier: UblogBlog.Tier, // actual tier, auto or set by a mod
     modTier: Option[UblogBlog.Tier], // tier set by a mod
     modNote: Option[String]
 ):
-  inline def id = _id
   def visible = tier >= UblogBlog.Tier.UNLISTED
   def listed = tier >= UblogBlog.Tier.LOW
 
@@ -29,6 +30,7 @@ object UblogBlog:
 
     def default(user: User) =
       if user.marks.troll then Tier.HIDDEN
+      else if user.kid.yes then Tier.UNLISTED
       else Tier.LOW
 
     val options = List(
@@ -53,7 +55,7 @@ object UblogBlog:
       case _ => none
 
   def make(user: User) = UblogBlog(
-    _id = Id.User(user.id),
+    id = Id.User(user.id),
     tier = UblogBlog.Tier.default(user),
     modTier = none,
     modNote = none
