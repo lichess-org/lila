@@ -30,7 +30,7 @@
   <string name="fairPlayPage">公平竞赛页面</string>
   <string name="youCanUseOpeningBookNoEngine">在 Lichess 上，通讯棋规则的主要区别是允许使用开局库。但使用引擎仍然是被禁止的，并会导致因引擎辅助而被标记。尽管 ICCF 在通讯棋中允许使用引擎，但 Lichess 不允许。</string>
   <string name="gameplay">对弈</string>
-  <string name="howBulletBlitzEtcDecided">超快棋、快棋以及其他时限的时间是如何划分的？</string>
+  <string name="howBulletBlitzEtcDecided">子弹棋、超快棋以及其他时限的时间是如何划分的？</string>
   <string name="basedOnGameDuration">Lichess 的时间控制基于预计对局时长 = %1$s。
 例如，一盘 5+3 对局的预计时长为 5 × 60 + 40 × 3 = 420 秒。</string>
   <string name="durationFormula">（棋钟初始秒数）+ 40 × （棋钟加秒）</string>
@@ -99,7 +99,7 @@ Lichess 的电脑分析由 Stockfish 引擎驱动。</string>
   <string name="usernamesCannotBeChanged">不能，由于技术和实际原因，用户名无法更改。用户名在太多地方被固化：数据库、导出文件、日志以及人们的记忆中。但您可以调整一次用户名的大小写。</string>
   <string name="uniqueTrophies">独一无二的奖杯</string>
   <string name="ownerUniqueTrophies">这个奖杯在 Lichess 历史上是独一无二的，除了 %1$s 之外，永远不会再有其他人获得它。</string>
-  <string name="aHourlyBulletTournament">一小时超快棋锦标赛</string>
+  <string name="aHourlyBulletTournament">每小时子弹棋锦标赛</string>
   <string name="goldenZeeExplanation">ZugAddict 当时正在直播，在过去的 2 小时里，他一直尝试在 1+0 的时限下击败第八级 AI，但未能成功。Thibault（网站创始人）告诉他，如果他在直播中成功做到，他将获得一个独一无二的奖杯。一小时后，他击败了 Stockfish，承诺也得到了兑现。</string>
   <string name="lichessRatings">Lichess 等级分</string>
   <string name="whichRatingSystemUsedByLichess">Lichess 使用什么等级分系统？</string>
