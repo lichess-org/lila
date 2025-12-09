@@ -69,5 +69,9 @@
 	<string name="shareableMostPlayedOpponent">oponente que você mais disputou</string>
 	<string name="shareableFavouriteVariant">variante favorita</string>
 	<string name="shareableFavouriteTimeControl">controle de tempo favorito</string>
+	<plurals name="shareableNbPuzzlesSolved">
+		<item quantity="one">Quebra-cabeça %s resolvido</item>
+		<item quantity="other">Quebra-cabeças %s resolvidos</item>
+	</plurals>
 	<string name="recapReady" comment="%s is the year of the recap">Sua recapitulação %s está pronta!</string>
 </resources>
