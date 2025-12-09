@@ -13,6 +13,10 @@ object StripeJson:
   def toClient(session: StripeSession) =
     Json.obj("session" -> Json.obj("id" -> session.id, "clientSecret" -> session.clientSecret))
 
+object LichessJson:
+  given OWrites[Money] = OWrites: money =>
+    Json.obj("amount" -> money.amount, "currency" -> money.currencyCode)
+
 private object JsonHandlers:
 
   given Reads[Currency] = lila.common.Json.tryRead(code => Try(Currency.getInstance(code.toUpperCase)))

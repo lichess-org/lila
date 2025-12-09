@@ -348,7 +348,7 @@ final private class RelayFetch(
                     .map(game -> _)
                 .parallel
                 .map: pgns =>
-                  MultiPgn(pgns.sortBy(_._1).map(_._2))
+                  MultiPgn(pgns.sortBy(_._1)._2F)
                 .map(injectTimeControl.in(rt.tour.info.clock))
                 .flatMap(multiPgnToGames.future)
         case RelayFormat.LccWithoutGames(lcc) =>
@@ -403,7 +403,7 @@ private object RelayFetch:
               .flatMap: game =>
                 if game.isEmpty then LilaInvalid(s"Found an empty PGN at index $index").asLeft
                 else (acc :+ game, index + 1).asRight
-        .map(_._1)
+        ._1F
 
     def future(multiPgn: MultiPgn): Fu[Vector[RelayGame]] = either(multiPgn).toFuture
 

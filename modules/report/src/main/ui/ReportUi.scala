@@ -127,7 +127,7 @@ final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
     import Reason.*
     val maxLength = "Maximum 3000 characters."
     translatedReasonChoices
-      .map(_._1)
+      ._1F
       .distinct
       .map: reason =>
         span(

@@ -931,8 +931,8 @@ GET   /dev/cli                         controllers.Dev.cli
 POST  /dev/cli                         controllers.Dev.cliPost
 GET   /dev/settings                    controllers.Dev.settings
 POST  /dev/settings/:id                controllers.Dev.settingsPost(id)
-GET   /dev/ip-passlist                 controllers.Dev.ipPasslist
-POST  /dev/ip-passlist                 controllers.Dev.ipPasslistPost
+GET   /dev/ip-tiers                    controllers.Dev.ipTiers
+POST  /dev/ip-tiers                    controllers.Dev.ipTiersPost
 
 GET   /prometheus-metrics/:key         controllers.Main.prometheusMetrics(key: String)
 

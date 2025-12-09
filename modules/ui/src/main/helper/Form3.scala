@@ -177,8 +177,8 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
     button(
       tpe := "submit",
       dataIcon := icon,
-      name := nameValue.map(_._1),
-      value := nameValue.map(_._2),
+      name := nameValue._1F,
+      value := nameValue._2F,
       cls := List(
         "submit button" -> true,
         "text" -> icon.isDefined,

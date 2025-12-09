@@ -37,7 +37,7 @@ object JsonView extends lila.tree.AnalysisJson:
   def player(pov: SideAndStart)(analysis: Analysis, accuracy: Option[ByColor[AccuracyPercent]]) =
     analysis.summary
       .find(_._1 == pov.color)
-      .map(_._2)
+      ._2F
       .map { s =>
         JsObject(s.map { (nag, nb) =>
           nag.toString.toLowerCase -> JsNumber(nb)

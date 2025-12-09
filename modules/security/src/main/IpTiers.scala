@@ -9,13 +9,13 @@ import lila.common.config.GetRelativeFile
 // reads and writes an nginx ip tier config file like:
 // {ip_address} {tier_number}; # {some comment including contact info}
 // 1.1.1.1 2; # contact info
-final class IpPasslist(getFile: GetRelativeFile)(using Executor):
+final class IpTiers(getFile: GetRelativeFile)(using Executor):
 
-  private val filePath = "data/ip-passlist.txt"
+  private val filePath = "data/ip-tiers.txt"
   private def fullPath = getFile.exec(filePath).toPath
 
   case class Line(ip: String, tier: Int, comment: String):
-    override def toString: String = s"$ip $tier; # $comment"
+    override def toString: String = s"$ip ${" " * (20 - ip.size)}$tier; # $comment"
 
   def get: Fu[Either[String, List[Line]]] = Future:
     val strs = Files.readString(fullPath).linesIterator.toList
@@ -42,11 +42,11 @@ final class IpPasslist(getFile: GetRelativeFile)(using Executor):
     lila.common.Form.formatter.stringTryFormatter(
       str =>
         val strs = str.linesIterator.map(_.trim).filter(_.nonEmpty).zipWithIndex.toList
-        val parsed = strs.map((l, i) => i -> parse(l))
-        val errors = parsed.collect { case (i, Left(err)) => s"l.${i + 1}: $err" }
+        val parsed = strs.map((l, i) => parse(l).left.map(_ -> i))
+        val errors = parsed.collect { case Left(err, i) => s"l.${i + 1}: $err" }
         if errors.nonEmpty then Left(errors.mkString("\n"))
         else
-          val allLines = parsed.collect { case (_, Right(line)) => line }
+          val allLines = parsed.collect { case Right(line) => line }
           val dups = allLines
             .groupBy(_.ip)
             .collect:

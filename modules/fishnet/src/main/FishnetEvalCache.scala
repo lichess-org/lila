@@ -14,7 +14,7 @@ final private class FishnetEvalCache(getSinglePvEval: CloudEval.GetSinglePvEval)
 
   // indexes of positions to skip
   def skipPositions(game: Work.Game): Fu[List[Int]] =
-    rawEvals(game).dmap(_.map(_._1))
+    rawEvals(game).dmap(_._1F)
 
   def evals(work: Work.Analysis): Fu[Map[Int, Evaluation]] =
     rawEvals(work.game).map:
