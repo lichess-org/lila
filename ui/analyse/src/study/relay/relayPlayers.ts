@@ -1,4 +1,4 @@
-import { type VNode, bind, dataIcon, hl, onInsert } from 'lib/view';
+import { type VNode, bind, dataIcon, hl, onInsert, type MaybeVNodes } from 'lib/view';
 import { json as xhrJson } from 'lib/xhr';
 import * as licon from 'lib/licon';
 import { spinnerVdom as spinner } from 'lib/view';
@@ -242,7 +242,7 @@ const playersList = (ctrl: RelayPlayers): VNode =>
     ctrl.players ? renderPlayers(ctrl, ctrl.players) : [spinner()],
   );
 
-const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): VNode => {
+const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): MaybeVNodes => {
   const withRating = !!players.find(p => p.rating);
   const withScores = !!players.find(p => p.score !== undefined);
   const withRank = !!players.find(p => p.rank);
@@ -251,13 +251,14 @@ const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): VNode => {
   const sortByBoth = (x?: number, y?: number) => ({
     attrs: { 'data-sort': (x || 0) * 100000 + (y || 0) },
   });
-  return hl('div.table', [
-    withRank &&
-      hl(
-        'p.relay-tour__standings--disclaimer',
-        { attrs: { 'data-icon': licon.InfoCircle } },
-        'Standings are calculated using broadcasted games and may differ from official results.',
-      ),
+  return [
+    withRank
+      ? hl(
+          'p.relay-tour__standings--disclaimer.text',
+          { attrs: dataIcon(licon.InfoCircle) },
+          'Standings are calculated using broadcasted games and may differ from official results.',
+        )
+      : undefined,
     hl(
       'table.relay-tour__players.slist.slist-invert.slist-pad',
       {
@@ -332,7 +333,7 @@ const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): VNode => {
         ),
       ],
     ),
-  ]);
+  ];
 };
 
 const playerTipId = 'tour-player-tip';
@@ -401,8 +402,15 @@ const renderPlayerTipWithGames = (ctrl: RelayPlayers, p: RelayPlayerWithGames): 
     hl('div.tpp__games', hl('table', renderPlayerGames(ctrl, p, false))),
   ]);
 
-const renderPlayerGames = (ctrl: RelayPlayers, p: RelayPlayerWithGames, withTips: boolean): VNode =>
-  hl(
+const renderPlayerGames = (
+  ctrl: RelayPlayers,
+  p: RelayPlayerWithGames,
+  withTips: boolean,
+  hideResultsSinceRoundId?: RoundId,
+): VNode => {
+  const hideResultsSinceIndex =
+    (hideResultsSinceRoundId && p.games.findIndex(g => g.round === hideResultsSinceRoundId)) || 999;
+  return hl(
     'tbody',
     p.games.map((game, i) => {
       const op = game.opponent;
@@ -414,7 +422,9 @@ const renderPlayerGames = (ctrl: RelayPlayers, p: RelayPlayerWithGames, withTips
           ? formatPointsStr(points)
           : `${formatPointsStr(points)} (${customPoints})`;
       const pointsVnode = (points: PointsStr, customPoints: number | undefined): VNode =>
-        hl(points === '1' ? 'good' : points === '0' ? 'bad' : 'span', formatPoints(points, customPoints));
+        hideResultsSinceIndex >= i
+          ? hl('span', '?')
+          : hl(points === '1' ? 'good' : points === '0' ? 'bad' : 'span', formatPoints(points, customPoints));
       return hl(
         'tr',
         {
@@ -441,11 +451,15 @@ const renderPlayerGames = (ctrl: RelayPlayers, p: RelayPlayerWithGames, withTips
           hl('td', op.rating?.toString()),
           hl('td.is.color-icon.' + game.color),
           hl('td.tpp__games__status', points !== undefined ? pointsVnode(points, customPoints) : '*'),
-          hl('td', defined(game.ratingDiff) ? ratingDiff(game) : undefined),
+          hl(
+            'td',
+            defined(game.ratingDiff) ? (hideResultsSinceIndex >= i ? '?' : ratingDiff(game)) : undefined,
+          ),
         ],
       );
     }),
   );
+};
 
 const ratingDiff = (p: RelayPlayer | RelayPlayerGame) => {
   const rd = p.ratingDiff;
