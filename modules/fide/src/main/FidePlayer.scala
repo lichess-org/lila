@@ -58,6 +58,8 @@ case class FidePlayer(
 
 object FidePlayer:
 
+  case class WithFollow(player: FidePlayer, follow: Boolean)
+
   private[fide] val tokenize: Tokenize =
     val nonLetterRegex = """[^a-zA-Z0-9\s]+""".r
     val splitRegex = """\W""".r

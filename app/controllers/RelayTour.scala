@@ -255,16 +255,14 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
           yield res
         case None => JsonBadRequest("Search query cannot be empty")
 
-  def player(tourId: RelayTourId, id: String) = AnonOrScoped(_.Study.Read, _.Web.Mobile): ctx ?=>
+  def player(tourId: RelayTourId, id: String) = OpenOrScoped(_.Study.Read, _.Web.Mobile): ctx ?=>
     Found(env.relay.api.tourById(tourId)): tour =>
       val decoded = lila.common.String.decodeUriPathSegment(id) | id
       val json =
         for
           player <- env.relay.playerApi.player(tour, decoded)
-          fidePlayer <- player.flatMap(_.fideId).so(env.fide.repo.player.fetch)
-          isFollowing <- (ctx.userId, fidePlayer.map(_.id)).tupled.traverse:
-            env.fide.repo.follower.isFollowing
-        yield player.map(RelayPlayer.json.full(tour)(_, fidePlayer, isFollowing))
+          fp <- player.flatMap(_.fideId).so(env.fide.playerApi.withFollow)
+        yield player.map(RelayPlayer.json.full(tour)(_, fp.map(_.player), fp.map(_.follow)))
       Found(json)(JsonOk)
 
   private given (using RequestHeader): RelayJsonView.Config = RelayJsonView.Config(html = getBool("html"))

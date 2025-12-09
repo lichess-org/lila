@@ -18,3 +18,6 @@ object FideJson:
       .add("standard" -> p.standard)
       .add("rapid" -> p.rapid)
       .add("blitz" -> p.blitz)
+
+  given OWrites[FidePlayer.WithFollow] = OWrites: p =>
+    Json.toJsObject(p.player).add("following" -> p.follow)

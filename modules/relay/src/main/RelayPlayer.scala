@@ -20,7 +20,7 @@ case class RelayPlayer(
     score: Option[Float],
     ratingDiff: Option[IntRatingDiff],
     performance: Option[IntRating],
-    tiebreaks: Option[SeqMap[Tiebreak, TiebreakPoint]],
+    tiebreaks: Option[Seq[(Tiebreak, TiebreakPoint)]],
     rank: Option[RelayPlayer.Rank],
     games: Vector[RelayPlayer.Game]
 ):
@@ -60,7 +60,7 @@ given Ordering[RelayPlayer] = new Ordering[RelayPlayer]:
   def compare(a: RelayPlayer, b: RelayPlayer): Int =
     val scoreComparison = b.score.compare(a.score)
     lazy val tiebreakComparison = Ordering[Option[List[TiebreakPoint]]]
-      .compare(a.tiebreaks.map(_.values.toList), b.tiebreaks.map(_.values.toList))
+      .compare(a.tiebreaks.map(_._2F.toList), b.tiebreaks.map(_._2F.toList))
     lazy val ratingComparison = b.rating.map(_.value).compare(a.rating.map(_.value))
     if scoreComparison != 0 then scoreComparison
     else if tiebreakComparison != 0 then tiebreakComparison
@@ -117,7 +117,7 @@ object RelayPlayer:
     given Writes[Outcome.Points] = writeAs(_.show)
     given Writes[Outcome.GamePoints] = writeAs(points => Outcome.showPoints(points.some))
     given Writes[RelayPlayer.Game] = Json.writes
-    given Writes[SeqMap[Tiebreak, TiebreakPoint]] = Writes: tbs =>
+    given Writes[Seq[(Tiebreak, TiebreakPoint)]] = Writes: tbs =>
       Json.toJson:
         tbs.map: (tb, tbv) =>
           Json.obj(
@@ -135,7 +135,7 @@ object RelayPlayer:
         .add("rank" -> p.rank)
     def full(
         tour: RelayTour
-    )(p: RelayPlayer, fidePlayer: Option[FidePlayer], isFollowing: Option[Boolean]): JsObject =
+    )(p: RelayPlayer, fidePlayer: Option[FidePlayer], follow: Option[Boolean]): JsObject =
       val tc = tour.info.fideTcOrGuess
       lazy val eloPlayer = p.rating
         .map(_.into(Elo))
@@ -158,8 +158,8 @@ object RelayPlayer:
           .add("ratingDiff" -> rd)
       Json
         .toJsObject(p)
-        .add("fide", fidePlayer)
-        .add("isFollowing" -> isFollowing) ++ Json.obj("games" -> gamesJson)
+        .add("fide", fidePlayer.map(Json.toJsObject).map(_.add("follow", follow))) ++
+        Json.obj("games" -> gamesJson)
     given OWrites[FidePlayer] = OWrites: p =>
       Json.obj("ratings" -> p.ratingsMap.mapKeys(_.toString), "year" -> p.year)
 
@@ -311,7 +311,7 @@ private final class RelayPlayerApi(
       .map: (id, rp) =>
         val found = result.find(p => p.player.id == id.toString)
         id -> rp.copy(
-          tiebreaks = found.map(t => tiebreaks.zip(t.tiebreakPoints).to(SeqMap))
+          tiebreaks = found.map(t => tiebreaks.zip(t.tiebreakPoints).to(Seq))
         )
       .toList
       .sortBy(_._2)

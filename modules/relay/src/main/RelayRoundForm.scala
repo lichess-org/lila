@@ -75,7 +75,7 @@ final class RelayRoundForm(using mode: Mode):
     mapping(
       "name" -> cleanText(minLength = 3, maxLength = 80).into[RelayRound.Name],
       "caption" -> optional(cleanText(minLength = 3, maxLength = 80).into[RelayRound.Caption]),
-      "syncSource" -> optional(stringIn(sourceTypes.map(_._1).toSet)),
+      "syncSource" -> optional(stringIn(sourceTypes._1F.toSet)),
       "syncUrl" -> optional(of[Upstream.Url]),
       "syncUrls" -> optional(of[Upstream.Urls]),
       "syncIds" -> optional(of[Upstream.Ids]),
@@ -137,8 +137,7 @@ object RelayRoundForm:
     val nextNumber = (prevNumber | rounds.size) + 1
     val guessName = for
       n <- prevNumber
-      if prevs
-        .map(_._2)
+      if prevs._2F
         .forall: old =>
           roundNumberIn(old.name.value).contains(n - 1)
       p <- prev

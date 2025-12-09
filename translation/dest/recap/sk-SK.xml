@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<plurals name="openingsMostPlayedAsWhite" comment="%s is the number of games">
+		<item quantity="one">Vaše najčastejšie hrané otvorenie za bieleho v %s partii</item>
+		<item quantity="few">Vaše najčastejšie hrané otvorenie za bieleho v %s partiách</item>
+		<item quantity="many">Vaše najčastejšie hrané otvorenie za bieleho v %s partiách</item>
+		<item quantity="other">Vaše najčastejšie hrané otvorenie za bieleho v %s partiách</item>
+	</plurals>
+	<plurals name="openingsMostPlayedAsBlack" comment="%s is the number of games">
+		<item quantity="one">Vaše najčastejšie hrané otvorenie za čierneho v %s partii</item>
+		<item quantity="few">Vaše najčastejšie hrané otvorenie za čierneho v %s partiách</item>
+		<item quantity="many">Vaše najčastejšie hrané otvorenie za čierneho v %s partiách</item>
+		<item quantity="other">Vaše najčastejšie hrané otvorenie za čierneho v %s partiách</item>
+	</plurals>
+</resources>

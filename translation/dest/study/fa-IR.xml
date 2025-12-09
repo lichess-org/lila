@@ -177,9 +177,9 @@
   <string name="studyChaptersTitle">فصل های قابل مطالعه</string>
   <string name="studyChaptersText">یک مطالعه می‌تواند شامل چندین فصل باشد. هر فصل یک وضعیت اولیه و درخت حرکات مشخص دارد.</string>
   <string name="commentPositionTitle">نظر دادن روی یک وضعیت</string>
-  <string name="commentPositionText" comment="%s is an icon that will added at runtime">روی دکمهٔ %s کلیک کنید، یا روی لیست حرکات در سمت راست، راست-کلیک کنید. نظرات به اشتراک گذاشته و ذخیره می‌شوند.</string>
+  <string name="commentPositionText" comment="%s is an icon that will added at runtime">روی دکمهٔ %s بتِلیکید، یا روی فهرستِ حرکاتِ سمت راست، راست-تِلیکید.&lt;br&gt;دیدگاه‌ها ذخیره و همرسانیده می‌شوند.</string>
   <string name="annotatePositionTitle">یادداشت‌گذاری روی یک وضعیت</string>
-  <string name="annotatePositionText">روی دکمهٔ !؟ کلیک کنید، یا روی لیست حرکات در سمت راست، راست-کلیک کنید. علائم یادداشت‌گذاری به اشتراک گذاشته و ذخیره می‌شوند.</string>
+  <string name="annotatePositionText">روی دکمهٔ !؟ بتِلیکید، یا روی فهرستِ حرکاتِ سمت راست، راست-تِلیکید.&lt;br&gt;علائمِ حرکت‌نویسی ذخیره و همرسانیده می‌شوند.</string>
   <string name="conclusionTitle">ممنون از وقتی که گذاشتید</string>
   <string name="conclusionText">شما می‌توانید مطالعه‌های قبلی خود را از صفحهٔ پروفایلتان پیدا کنید، همچنین یک پست وبلاگ دربارهٔ مطالعه‌ها وجود دارد. کاربران حرفه‌ای می‌توانند کلید «؟» را برای دیدن میان‌برهای صفحه‌کلید فشار دهند. خوش بگذره!</string>
   <string name="createChapterTitle">بیایید یک فصل مطالعه بسازیم</string>

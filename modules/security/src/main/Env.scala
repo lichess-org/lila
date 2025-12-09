@@ -12,6 +12,7 @@ import lila.memo.SettingStore
 import lila.memo.SettingStore.Strings.given
 import lila.oauth.OAuthServer
 import lila.common.Bus
+import lila.common.config.GetRelativeFile
 
 @Module
 final class Env(
@@ -28,7 +29,8 @@ final class Env(
     canSendEmails: SettingStore[Boolean] @@ lila.mailer.CanSendEmails,
     cookieBaker: play.api.mvc.SessionCookieBaker,
     lazyCurrentlyPlaying: => lila.core.round.CurrentlyPlaying,
-    db: lila.db.Db
+    db: lila.db.Db,
+    getFile: GetRelativeFile
 )(using Executor, play.api.Mode, lila.core.i18n.Translator, lila.core.config.RateLimit)(using
     scheduler: Scheduler
 ):
@@ -170,6 +172,8 @@ final class Env(
   lazy val api = wire[SecurityApi]
 
   lazy val csrfRequestHandler = wire[CSRFRequestHandler]
+
+  lazy val ipTiers = wire[IpTiers]
 
   wire[Cli]
 

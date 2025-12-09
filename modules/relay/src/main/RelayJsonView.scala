@@ -12,6 +12,7 @@ import lila.study.ChapterPreview
 import lila.study.Settings
 import lila.core.socket.SocketVersion
 import lila.core.LightUser.GetterSync
+import lila.core.i18n.Translate
 
 final class RelayJsonView(
     baseUrl: BaseUrl,
@@ -65,7 +66,10 @@ final class RelayJsonView(
       .add("teamTable" -> tour.teamTable)
       .add("communityOwner" -> tour.communityOwner.map(lightUserSync))
 
-  def fullTourWithRounds(trs: WithRounds, group: Option[RelayGroup.WithTours])(using Config): JsObject =
+  def fullTourWithRounds(trs: WithRounds, group: Option[RelayGroup.WithTours])(using
+      Config,
+      Translate
+  ): JsObject =
     Json
       .obj(
         "tour" -> fullTour(trs.tour),
@@ -75,7 +79,7 @@ final class RelayJsonView(
       .add("group" -> group)
       .add("defaultRoundId" -> RelayDefaults.defaultRoundToLink(trs).map(_.id))
 
-  def tourWithAnyRound(t: RelayTour | WithLastRound | RelayCard)(using Config): JsObject = t match
+  def tourWithAnyRound(t: RelayTour | WithLastRound | RelayCard)(using Config, Translate): JsObject = t match
     case tour: RelayTour => Json.obj("tour" -> fullTour(tour))
     case tr: WithLastRound =>
       Json
@@ -93,9 +97,9 @@ final class RelayJsonView(
         .add("roundToLink" -> (tr.link.id != tr.display.id).option(apply(tr.link)))
         .add("group" -> tr.group)
 
-  def apply(round: RelayRound): JsObject = Json.toJsObject(round)
+  def apply(round: RelayRound)(using Translate): JsObject = Json.toJsObject(round)
 
-  def withUrl(rt: RelayRound.WithTour, withTour: Boolean): JsObject =
+  def withUrl(rt: RelayRound.WithTour, withTour: Boolean)(using Translate): JsObject =
     apply(rt.round) ++ Json
       .obj("url" -> s"$baseUrl${rt.path}")
       .add("tour" -> withTour.option(rt.tour))
@@ -107,7 +111,7 @@ final class RelayJsonView(
       targetRound: Option[RelayRound.WithTour],
       isSubscribed: Option[Boolean],
       socketVersion: Option[SocketVersion]
-  )(using Option[Me]): JsObject =
+  )(using Option[Me])(using Translate): JsObject =
     myRound(rt) ++ Json
       .obj("games" -> previews)
       .add("group" -> group)
@@ -117,7 +121,7 @@ final class RelayJsonView(
 
   def sync(round: RelayRound) = Json.toJsObject(round.sync)
 
-  def myRound(r: RelayRound.WithTourAndStudy)(using me: Option[Me]) =
+  def myRound(r: RelayRound.WithTourAndStudy)(using me: Option[Me])(using Translate) =
 
     def allowed(selection: Settings => Settings.UserSelection): Boolean =
       Settings.UserSelection.allows(selection(r.study.settings), r.study, me.map(_.userId))
@@ -149,7 +153,7 @@ final class RelayJsonView(
       videoUrls: Option[PairOf[String]],
       pinned: Option[RelayPinnedStream],
       delayedUntil: Option[Instant]
-  ) =
+  )(using Translate) =
     RelayJsonView.JsData(
       relay = fullTourWithRounds(trs, group)(using Config(html = true))
         .add("sync" -> canContribute.so(trs.rounds.find(_.id == currentRoundId).map(_.sync)))
@@ -168,16 +172,16 @@ final class RelayJsonView(
       group = group.map(_.group.name)
     )
 
-  def home(h: RelayHome)(using Config) = top(h.ongoing ::: h.recent, h.past)
+  def home(h: RelayHome)(using Config, Translate) = top(h.ongoing ::: h.recent, h.past)
 
-  def top(active: List[RelayCard | WithLastRound], tours: Paginator[WithLastRound])(using Config) =
+  def top(active: List[RelayCard | WithLastRound], tours: Paginator[WithLastRound])(using Config, Translate) =
     Json.obj(
       "active" -> active.map(tourWithAnyRound),
       "upcoming" -> Json.arr(), // BC
       "past" -> paginatorWriteNoNbResults.writes(tours.map(tourWithAnyRound))
     )
 
-  def search(tours: Paginator[WithLastRound])(using Config) =
+  def search(tours: Paginator[WithLastRound])(using Config, Translate) =
     paginatorWriteNoNbResults.writes(tours.map(tourWithAnyRound(_)))
 
 object RelayJsonView:
@@ -193,11 +197,11 @@ object RelayJsonView:
 
   given OWrites[RelayRound.CustomScoring] = Json.writes
 
-  given OWrites[RelayRound] = OWrites: r =>
+  given (using Translate): OWrites[RelayRound] = OWrites: r =>
     Json
       .obj(
         "id" -> r.id,
-        "name" -> r.name,
+        "name" -> r.transName,
         "slug" -> r.slug,
         "createdAt" -> r.createdAt,
         "rated" -> r.rated

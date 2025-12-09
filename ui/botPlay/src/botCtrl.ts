@@ -43,7 +43,7 @@ export class BotCtrl {
   };
 
   private newGame = (bot: BotInfo, pov: ColorChoice, clock?: ClockConfig) => {
-    const color = pov == 'random' ? (Math.random() < 0.5 ? 'white' : 'black') : pov;
+    const color = pov === 'random' ? (Math.random() < 0.5 ? 'white' : 'black') : pov;
     this.resumeGameAndRedraw(
       new Game({
         id: Game.randomId(),

@@ -18,7 +18,7 @@ final class FavoriteOpponents(
   def apply(userId: UserId): Fu[List[(User, Int)]] =
     userIdsCache.get(userId).flatMap { opponents =>
       userApi
-        .enabledByIds(opponents.map(_._1))
+        .enabledByIds(opponents._1F)
         .map:
           _.flatMap { user =>
             opponents.find(_._1 == user.id).map { opponent =>

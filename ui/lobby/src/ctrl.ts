@@ -100,7 +100,7 @@ export default class LobbyController {
         forceOptions.timeMode = 'correspondence';
       }
 
-      if (locationHash != 'hook' && urlParams.get('fen')) {
+      if (locationHash !== 'hook' && urlParams.get('fen')) {
         forceOptions.fen = urlParams.get('fen')!;
         forceOptions.variant = 'fromPosition';
       }

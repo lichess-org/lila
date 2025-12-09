@@ -29,14 +29,12 @@
   <string name="pendingReview">Streamul tău este revizuit de moderatori.</string>
   <string name="pleaseFillIn">Vă rugăm să introduceți informațiile de streamer și să încărcați o imagine.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Când ești gata să fii listat ca și Lichess streamer, %s</string>
-  <string name="submitForReview" comment="Appears on a button when editing the page which lets you be listed as a streamer: https://lichess.org/streamer/edit&#10;&#10;As this is public, any changes to a streamer page are first sent to the Lichess team for review.">Trimite spre verificare</string>
+  <string name="submitForReview">Trimite spre verificare</string>
   <string name="streamerLanguageSettings">Pagina de streamer Lichess țintește publicul tău cu limba furnizată de platforma ta de streaming. Setați limba implicită corectă pentru fluxurile de șah din aplicația sau serviciul pe care îl utilizați pentru difuzare.</string>
-  <string name="twitchUsername">Numele tău de utilizator Twitch sau URL-ul</string>
-  <string name="twitchOrYouTubeRequired" comment="A notice when creating/editing your streamer page (https://lichess.org/streamer/edit), denoting that you can only be listed if you stream from a Twitch or YouTube channel.">Fie Twitch, fie YouTube este necesar</string>
-  <string name="twitchOrYouTubeMustBeVerified" comment="For background: The &quot;streamer badge&quot; refers to the microphone icon on the streamer's profile (https://lichess.org/@/Lichess).&#10;The listing is the streamer's page that appears at https://lichess.org/streamer">Modificările Twitch și YouTube trebuie verificate.
-  
-  Insigna de streamer și listarea vor fi suspendate în timp ce verificarea este în desfășurare. Acest lucru poate dura până la 72 de ore.</string>
-  <string name="youTubeChannelId">ID-ul canalului dvs YouTube</string>
+  <string name="pleaseAllow">Vă rugăm să permiteți până la 72 de ore înainte ca insigna de streamer și listarea să fie aprobate.</string>
+  <string name="chooseYoutubeChannel">Alege canalul YouTube pe care îl vei folosi pe Lichess.</string>
+  <string name="connect" comment="This button appears for streamers who wish to connect a Twitch or YouTube account, to their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Conectare</string>
+  <string name="disconnect" comment="This button appears for streamers who wish to disconnect an already-linked Twitch or YouTube account, from their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Deconectare</string>
   <string name="streamerName">Numele tău de streamer pe Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Ține-o scurt: maxim %s caracter</item>

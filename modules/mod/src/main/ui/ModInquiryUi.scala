@@ -271,7 +271,7 @@ final class ModInquiryUi(helpers: Helpers)(
         submitButton(dataIcon := Icon.X, cls := "fbt")(in.alreadyMarked.option(disabled))
     )
 
-  private def autoNextInput = input(cls := "auto-next", tpe := "hidden", name := "next", value := "1")
+  private def autoNextInput = form3.hidden("next", "1")(cls := "auto-next")
 
   private def snoozeUrl(report: Report, duration: String): String =
     if report.isAppeal then routes.Appeal.snooze(report.user, duration).url

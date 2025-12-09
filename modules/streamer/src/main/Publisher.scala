@@ -22,15 +22,14 @@ final private class Publisher(
   LilaScheduler("OnlinePublisher", _.Every(15.seconds), _.AtMost(10.seconds), _.Delay(20.seconds)):
     for
       streamerIds <- api.allListedIds
-      activeIds = streamerIds.filter { id =>
+      activeIds = streamerIds.filter: id =>
         liveStreams.has(id) || isOnline.exec(id.userId)
-      }
       streamers <- repo.byIds(activeIds)
       (twitchStreams, youtubeStreams) <-
         twitchApi
           .liveMatching(
             streamers,
-            (s: Twitch.TwitchStream) =>
+            s =>
               s.status.value.toLowerCase.contains(keyword.toLowerCase) ||
                 alwaysFeatured().value.contains(s.streamer.id)
           )

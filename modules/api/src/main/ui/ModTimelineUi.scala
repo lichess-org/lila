@@ -33,7 +33,7 @@ final class ModTimelineUi(helpers: Helpers)(
         else daysFromNow(e.at.date) -> e
       .groupBy(_._1)
       .view
-      .mapValues(_.map(_._2))
+      .mapValues(_._2F)
       .toList
       .sortByReverse(_._2.head.at)
       .map: (period, events) =>

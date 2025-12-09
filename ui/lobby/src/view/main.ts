@@ -10,7 +10,7 @@ import type LobbyController from '../ctrl';
 export default function (ctrl: LobbyController) {
   let body,
     data: VNodeData = {};
-  const redirBlock = ctrl.redirecting && ctrl.tab != 'pools';
+  const redirBlock = ctrl.redirecting && ctrl.tab !== 'pools';
   if (redirBlock) body = spinner();
   else
     switch (ctrl.tab) {

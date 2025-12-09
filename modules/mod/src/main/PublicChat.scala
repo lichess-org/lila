@@ -25,7 +25,7 @@ final class PublicChat(
 
   def deleteAll(suspect: Suspect): Funit =
     all.flatMap: (tours, swisses, relays) =>
-      (tours.map(_._2) ::: swisses.map(_._2) ::: relays.map(_._2))
+      (tours._2F ::: swisses._2F ::: relays._2F)
         .filter(_.hasLinesOf(suspect.user))
         .parallelVoid(chatApi.userChat.delete(_, suspect.user, _.global))
 

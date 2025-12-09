@@ -3,41 +3,66 @@ package lila.fide
 import chess.FideId
 import reactivemongo.api.bson.*
 
-import lila.core.fide as hub
+import lila.core.fide.{ Federation, FidePlayerOrder }
 import lila.db.dsl.{ *, given }
 import scala.util.Success
 
 final private class FideRepo(
     private[fide] val playerColl: Coll,
     private[fide] val federationColl: Coll,
-    private val followerColl: Coll
+    private[fide] val followerColl: Coll
 )(using Executor):
 
   object player:
     given handler: BSONDocumentHandler[FidePlayer] = Macros.handler
     val selectActive: Bdoc = $doc("inactive".$ne(true))
-    def selectFed(fed: hub.Federation.Id): Bdoc = $doc("fed" -> fed)
+    def selectFed(fed: Federation.Id): Bdoc = $doc("fed" -> fed)
     def sortStandard: Bdoc = $sort.desc("standard")
+    def sortBy(o: FidePlayerOrder) = o match
+      case FidePlayerOrder.name => $sort.asc("name")
+      case FidePlayerOrder.federation => $sort.asc("fed")
+      case FidePlayerOrder.standard => $sort.desc("standard")
+      case FidePlayerOrder.rapid => $sort.desc("rapid")
+      case FidePlayerOrder.blitz => $sort.desc("blitz")
+      case FidePlayerOrder.year => $sort.desc("year")
+      case FidePlayerOrder.follow => $empty // TODO
     def fetch(id: FideId): Fu[Option[FidePlayer]] = playerColl.byId[FidePlayer](id)
     def fetch(ids: Seq[FideId]): Fu[List[FidePlayer]] =
       playerColl.find($inIds(ids)).cursor[FidePlayer](ReadPref.sec).listAll()
     def countAll = playerColl.count()
 
   object federation:
-    given BSONDocumentHandler[hub.Federation.Stats] = Macros.handler
+    given BSONDocumentHandler[Federation.Stats] = Macros.handler
     given handler: BSONDocumentHandler[Federation] = Macros.handler
     def upsert(fed: Federation): Funit =
       federationColl.update.one($id(fed.id), fed, upsert = true).void
-    def fetch(code: hub.Federation.Id): Fu[Option[Federation]] = federationColl.byId[Federation](code)
+    def fetch(code: Federation.Id): Fu[Option[Federation]] = federationColl.byId[Federation](code)
 
   object follower:
-    private def makeId(u: UserId, p: FideId) = s"$p/$u"
+    // { _id: '14204118/thibault', u: 'thibault', p: 14204118 }
+    type FollowId = String
+    private object followId:
+      def make(p: FideId, u: UserId) = s"$p/$u"
+      def toUserId(id: FollowId): UserId = UserId(id.drop(id.indexOf('/') + 1))
+      def toFideId(id: FollowId): FideId = FideId(id.takeWhile(_ != '/').toInt)
+
     def followers(p: FideId): Fu[Set[UserId]] = (p.value > 0).so:
-      for ids <- followerColl.distinctEasy[String, Set]("_id", "_id".$startsWith(s"$p/"))
-      yield UserId.from(ids.map(id => id.drop(id.indexOf('/') + 1)))
+      for ids <- followerColl.distinctEasy[FollowId, Set]("_id", "_id".$startsWith(s"$p/"))
+      yield ids.map(followId.toUserId)
     def follow(u: UserId, p: FideId) = playerColl
       .exists($id(p))
       .flatMapz:
-        followerColl.update.one($id(makeId(u, p)), $doc("u" -> u), upsert = true).void
-    def unfollow(u: UserId, p: FideId) = followerColl.delete.one($id(makeId(u, p))).void
-    def isFollowing(u: UserId, p: FideId) = followerColl.exists($id(makeId(u, p)))
+        followerColl.update.one($id(followId.make(p, u)), $doc("u" -> u, "p" -> p), upsert = true).void
+    def unfollow(u: UserId, p: FideId) = followerColl.delete.one($id(followId.make(p, u))).void
+    def isFollowing(u: UserId, p: FideId) = followerColl.exists($id(followId.make(p, u)))
+
+    def count(u: UserId): Fu[Int] = followerColl.countSel($doc("u" -> u))
+
+    def withFollows(players: Seq[FidePlayer], u: UserId): Fu[Seq[FidePlayer.WithFollow]] =
+      val ids = players.map(_.id).map(followId.make(_, u))
+      followerColl
+        .distinctEasy[FollowId, Set]("_id", "_id".$in(ids))
+        .map(_.map(followId.toFideId))
+        .map: followedIds =>
+          players.map: p =>
+            FidePlayer.WithFollow(p, followedIds.contains(p.id))
