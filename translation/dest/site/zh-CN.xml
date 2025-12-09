@@ -18,7 +18,7 @@
   <string name="toggleTheChat">聊天开关</string>
   <string name="chat">聊天</string>
   <string name="resign">认输</string>
-  <string name="checkmate">将死</string>
+  <string name="checkmate">将杀</string>
   <string name="stalemate">逼和</string>
   <string name="white">白方</string>
   <string name="black">黑方</string>
@@ -29,14 +29,14 @@
   <string name="createTheGame">创建对局</string>
   <string name="whiteIsVictorious">白方胜利</string>
   <string name="blackIsVictorious">黑方胜利</string>
-  <string name="youPlayTheWhitePieces">你执白棋</string>
-  <string name="youPlayTheBlackPieces">你执黑棋</string>
+  <string name="youPlayTheWhitePieces">您执白棋</string>
+  <string name="youPlayTheBlackPieces">您执黑棋</string>
   <string name="itsYourTurn">你的回合！</string>
   <string name="cheatDetected">检测到作弊</string>
   <string name="kingInTheCenter">王占中央</string>
   <string name="threeChecks">三次将军</string>
   <string name="raceFinished">竞王结束</string>
-  <string name="variantEnding">变种结束</string>
+  <string name="variantEnding">变体终局</string>
   <string name="newOpponent">新对手</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">你的对手想和你再玩一局</string>
   <string name="joinTheGame">加入对局</string>
@@ -45,7 +45,7 @@
   <plurals name="opponentLeftCounter">
     <item quantity="other">你的对手已离开对局，你可以在 %s 秒后宣布胜利。</item>
   </plurals>
-  <string name="opponentLeftChoices">你的对手已离开对局。你可以宣布胜利、和棋或继续等待。</string>
+  <string name="opponentLeftChoices">您的对手可能已离开棋局。您可以宣布胜利，和棋，或继续等待。</string>
   <string name="forceResignation">宣布胜利</string>
   <string name="forceDraw">宣布和棋</string>
   <string name="talkInChat">聊天时请注意文明用语！</string>
@@ -80,8 +80,8 @@
   <string name="copyVariationPgn">复制变着的 PGN</string>
   <string name="copyMainLinePgn">复制主线的 PGN</string>
   <string name="move">着法</string>
-  <string name="variantLoss">变种输棋</string>
-  <string name="variantWin">变种胜利</string>
+  <string name="variantLoss">变体输棋</string>
+  <string name="variantWin">变体胜利</string>
   <string name="insufficientMaterial">子力不足</string>
   <string name="pawnMove">走兵</string>
   <string name="capture">吃子</string>
@@ -100,9 +100,9 @@
     <item quantity="other">剩 %s 着将死</item>
   </plurals>
   <string name="dtzWithRounding">经过四舍五入的DTZ50\'\'，基于到下次吃子或走兵所需的一半着数</string>
-  <string name="noGameFound">未找到棋局</string>
-  <string name="maxDepthReached">已达到最大深度！</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">请尝试在选项里包括更多对局</string>
+  <string name="noGameFound">未找到对局</string>
+  <string name="maxDepthReached">已达最大深度！</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">请尝试在选项里包含更多对局</string>
   <string name="openings">开局</string>
   <string name="openingExplorer">开局探索器</string>
   <string name="openingEndgameExplorer">开局/残局探索器</string>
