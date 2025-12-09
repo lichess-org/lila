@@ -310,13 +310,13 @@
     <item quantity="other">%s 排位赛</item>
   </plurals>
   <plurals name="nbWins">
-    <item quantity="other">%s胜</item>
+    <item quantity="other">%s 胜</item>
   </plurals>
   <plurals name="nbLosses">
-    <item quantity="other">%s负</item>
+    <item quantity="other">%s 负</item>
   </plurals>
   <plurals name="nbDraws">
-    <item quantity="other">%s和</item>
+    <item quantity="other">%s 和</item>
   </plurals>
   <plurals name="nbPlaying">
     <item quantity="other">%s 正在进行</item>
@@ -330,32 +330,32 @@
   <string name="openingExplorerAndTablebase">开局探索器和残局数据库</string>
   <string name="takeback">悔棋</string>
   <string name="proposeATakeback">请求悔棋</string>
-  <string name="whiteProposesTakeback">白方提议悔棋</string>
-  <string name="blackProposesTakeback">黑方提议悔棋</string>
+  <string name="whiteProposesTakeback">白方请求悔棋</string>
+  <string name="blackProposesTakeback">黑方请求悔棋</string>
   <string name="takebackPropositionSent">悔棋请求已发送</string>
   <string name="whiteDeclinesTakeback">白方拒绝悔棋</string>
   <string name="blackDeclinesTakeback">黑方拒绝悔棋</string>
-  <string name="whiteAcceptsTakeback">白方同意悔棋</string>
-  <string name="blackAcceptsTakeback">黑方同意悔棋</string>
+  <string name="whiteAcceptsTakeback">白方接受悔棋</string>
+  <string name="blackAcceptsTakeback">黑方接受悔棋</string>
   <string name="whiteCancelsTakeback">白方取消悔棋</string>
   <string name="blackCancelsTakeback">黑方取消悔棋</string>
-  <string name="yourOpponentProposesATakeback">对手请求悔棋</string>
+  <string name="yourOpponentProposesATakeback">对方请求悔棋</string>
   <string name="bookmarkThisGame">收藏此对局</string>
   <string name="tournament">锦标赛</string>
   <string name="tournaments">锦标赛</string>
-  <string name="tournamentPoints">锦标赛积分</string>
+  <string name="tournamentPoints">锦标赛得分</string>
   <plurals name="nbTournamentPoints">
-    <item quantity="other">%s 锦标赛积分</item>
+    <item quantity="other">%s 锦标赛得分</item>
   </plurals>
   <plurals name="nbStudies">
-    <item quantity="other">%s研讨</item>
+    <item quantity="other">%s 研习</item>
   </plurals>
   <plurals name="nbSimuls">
-    <item quantity="other">%s 个进行的车轮战对局</item>
+    <item quantity="other">%s 车轮战</item>
   </plurals>
   <string name="viewTournament">观看锦标赛</string>
-  <string name="backToTournament">回到锦标赛主页</string>
-  <string name="noDrawBeforeSwissLimit">你不能在瑞士锦标赛中 30 步棋之前和棋。</string>
+  <string name="backToTournament">返回锦标赛</string>
+  <string name="noDrawBeforeSwissLimit">在瑞士制锦标赛中，对局未满 30 步不能提和。</string>
   <string name="thematic">从常见开局开始的锦标赛</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="other">完成至少 %s 局排位赛</item>
