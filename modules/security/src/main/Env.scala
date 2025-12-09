@@ -173,7 +173,7 @@ final class Env(
 
   lazy val csrfRequestHandler = wire[CSRFRequestHandler]
 
-  lazy val ipPasslist = wire[IpPasslist]
+  lazy val ipTiers = wire[IpTiers]
 
   wire[Cli]
 

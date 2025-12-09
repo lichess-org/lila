@@ -9,13 +9,13 @@ import lila.common.config.GetRelativeFile
 // reads and writes an nginx ip tier config file like:
 // {ip_address} {tier_number}; # {some comment including contact info}
 // 1.1.1.1 2; # contact info
-final class IpPasslist(getFile: GetRelativeFile)(using Executor):
+final class IpTiers(getFile: GetRelativeFile)(using Executor):
 
-  private val filePath = "data/ip-passlist.txt"
+  private val filePath = "data/ip-tiers.txt"
   private def fullPath = getFile.exec(filePath).toPath
 
   case class Line(ip: String, tier: Int, comment: String):
-    override def toString: String = s"$ip $tier; # $comment"
+    override def toString: String = s"$ip ${" " * (20 - ip.size)}$tier; # $comment"
 
   def get: Fu[Either[String, List[Line]]] = Future:
     val strs = Files.readString(fullPath).linesIterator.toList
