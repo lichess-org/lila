@@ -1,4 +1,4 @@
-import { pieceGrams, totalGames } from './constants';
+import { pieceGrams, totalCosts, totalGames } from './constants';
 import type { ByColor, Counted, Opening, Recap, Sources, RecapPerf } from './interfaces';
 import { onInsert, hl, type LooseVNodes, type VNode, dataIcon } from 'lib/view';
 import { loadOpeningLpv } from './ui';
@@ -7,7 +7,8 @@ import { fullName, userFlair, userTitle } from 'lib/view/userLink';
 import { spinnerVdom } from 'lib/view';
 import { formatDuration, perfIsSpeed, perfLabel } from './util';
 import perfIcons from 'lib/game/perfIcons';
-import { numberFormat } from 'lib/i18n';
+import * as licon from 'lib/licon';
+import { currencyFormat, numberFormat } from 'lib/i18n';
 
 const confettiCanvas = (): VNode =>
   hl('canvas#confetti', {
@@ -292,6 +293,33 @@ export const thanks = (r: Recap): VNode =>
     hl('div.recap--massive', i18n.recap.thanksTitle),
     hl('img.recap__logo', { attrs: { src: site.asset.url('logo/lichess-white.svg') } }),
     hl('div', i18n.recap.thanksHaveAGreat.asArray(r.year + 1)),
+  ]);
+
+export const patron = (user: LightUser): VNode =>
+  slideTag('patron')([
+    hl(
+      'div.recap--big',
+      i18n.recap.patronCostsThisYear.asArray(
+        hl('a', { attrs: { href: '/costs', target: '_blank' } }, i18n.recap.patronCosts),
+        hl(
+          'strong',
+          currencyFormat(totalCosts, 'USD', {
+            maximumFractionDigits: 0,
+          }),
+        ),
+      ),
+    ),
+    hl('p', i18n.recap.patronCharity),
+    hl('i.text', { attrs: dataIcon(licon.Wings) }),
+
+    user.patron
+      ? hl('p', i18n.patron.thankYou)
+      : hl(
+          'div.cta',
+          i18n.recap.patronConsiderDonating.asArray(
+            hl('a', { attrs: { href: '/patron', target: '_blank' } }, i18n.recap.patronMakeDonation),
+          ),
+        ),
   ]);
 
 const renderPerf = (perf: RecapPerf): VNode => {
