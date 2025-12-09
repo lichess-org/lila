@@ -64,5 +64,9 @@
 	<string name="shareableMostPlayedOpponent">Häufigster Gegner</string>
 	<string name="shareableFavouriteVariant">Lieblingsvariante</string>
 	<string name="shareableFavouriteTimeControl">Lieblings-Zeitkontrolle</string>
+	<plurals name="shareableNbPuzzlesSolved">
+		<item quantity="one">%s Aufgabe gelöst</item>
+		<item quantity="other">%s Aufgaben gelöst</item>
+	</plurals>
 	<string name="recapReady" comment="%s is the year of the recap">Deine %s Zusammenfassung ist da!</string>
 </resources>
