@@ -69,5 +69,9 @@
 	<string name="shareableMostPlayedOpponent">mest spillede modstander</string>
 	<string name="shareableFavouriteVariant">favoritvariant</string>
 	<string name="shareableFavouriteTimeControl">favorittidskontrol</string>
+	<plurals name="shareableNbPuzzlesSolved">
+		<item quantity="one">%s opgave løst</item>
+		<item quantity="other">%s opgaver løst</item>
+	</plurals>
 	<string name="recapReady" comment="%s is the year of the recap">Dit %s resumé er klar!</string>
 </resources>
