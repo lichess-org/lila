@@ -77,6 +77,7 @@ export default class RelayPlayers {
     readonly switchToPlayerTab: () => void,
     readonly isEmbed: boolean,
     private readonly federations: () => Federations | undefined,
+    readonly hideResultsSinceRoundId: () => RoundId | undefined,
     private readonly redraw: Redraw,
   ) {
     const locationPlayer = location.hash.startsWith('#players/') && location.hash.slice(9);
@@ -402,12 +403,8 @@ const renderPlayerTipWithGames = (ctrl: RelayPlayers, p: RelayPlayerWithGames): 
     hl('div.tpp__games', hl('table', renderPlayerGames(ctrl, p, false))),
   ]);
 
-const renderPlayerGames = (
-  ctrl: RelayPlayers,
-  p: RelayPlayerWithGames,
-  withTips: boolean,
-  hideResultsSinceRoundId?: RoundId,
-): VNode => {
+const renderPlayerGames = (ctrl: RelayPlayers, p: RelayPlayerWithGames, withTips: boolean): VNode => {
+  const hideResultsSinceRoundId = ctrl.hideResultsSinceRoundId();
   const hideResultsSinceIndex =
     (hideResultsSinceRoundId && p.games.findIndex(g => g.round === hideResultsSinceRoundId)) || 999;
   return hl(
@@ -422,7 +419,7 @@ const renderPlayerGames = (
           ? formatPointsStr(points)
           : `${formatPointsStr(points)} (${customPoints})`;
       const pointsVnode = (points: PointsStr, customPoints: number | undefined): VNode =>
-        hideResultsSinceIndex >= i
+        hideResultsSinceIndex <= i
           ? hl('span', '?')
           : hl(points === '1' ? 'good' : points === '0' ? 'bad' : 'span', formatPoints(points, customPoints));
       return hl(
@@ -451,10 +448,7 @@ const renderPlayerGames = (
           hl('td', op.rating?.toString()),
           hl('td.is.color-icon.' + game.color),
           hl('td.tpp__games__status', points !== undefined ? pointsVnode(points, customPoints) : '*'),
-          hl(
-            'td',
-            defined(game.ratingDiff) ? (hideResultsSinceIndex >= i ? '?' : ratingDiff(game)) : undefined,
-          ),
+          hl('td', defined(game.ratingDiff) && hideResultsSinceIndex > i ? ratingDiff(game) : undefined),
         ],
       );
     }),

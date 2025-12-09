@@ -58,6 +58,7 @@ export default class RelayCtrl {
       () => this.openTab('players'),
       study.ctrl.isEmbed,
       () => study.data.federations,
+      () => (study.multiBoard.showResults() ? undefined : this.round.id),
       this.redraw,
     );
     this.stats = new RelayStats(this.round, this.redraw);
