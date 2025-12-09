@@ -52,6 +52,11 @@
 	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours">其中有 %s 局属于您。</string>
 	<string name="thanksTitle">感谢您在 Lichess 上对弈！</string>
 	<string name="thanksHaveAGreat" comment="%s is the next year">我们很高兴您在这里。祝您 %s 愉快！</string>
+	<string name="patronCostsThisYear" comment="%1$s is 'costs'. %2$s is the cost with currency symbol e.g. '$750,000'">Lichess今年的%1$s是%2$s。</string>
+	<string name="patronCosts" comment="It is a link to lichess.org/costs">支出</string>
+	<string name="patronCharity">我们是一个慈善机构，完全依靠捐款运作。</string>
+	<string name="patronConsiderDonating" comment="%s is 'supporting us with a donation'">如果我们在今年为您带来了快乐，或者您认可我们的工作，请考虑%s！</string>
+	<string name="patronMakeDonation" comment="It is a link to https://lichess.org/patron">通过捐款支持我们</string>
 	<string name="shareableTitle" comment="%s is the current year">我的 %s 年度回顾</string>
 	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">对局总时长</string>
 	<string name="shareableMostPlayedOpponent">最多对局的对手</string>
