@@ -120,4 +120,6 @@ Evo linka za pristup času.</string>
   <string name="xIsAKidAccountWarning">%1$s je dječiji račun i ne može primati vaše poruke. Morate im ručno poslati vezu: %2$s</string>
   <string name="moveToClass">Premjesti u %s</string>
   <string name="moveToAnotherClass">Premjesti se u drugi razred</string>
+  <string name="allowMessagingBetweenStudents">Dozvoli poruke između učenika</string>
+  <string name="allowMessagingBetweenStudentsDesc">Ovo se odnosi samo na račune koje ste kreirali za svoje učenike.</string>
 </resources>
