@@ -75,7 +75,7 @@
   <string name="searchPuzzles">搜索谜题</string>
   <string name="fromMyGamesNone">您的对局数据库中暂无谜题，但 Lichess 依然记得您走过的每一着。
 
-多进行常规棋和古典棋对局，会增加您的对局被收录为谜题的机会！</string>
+多进行快棋和慢棋对局，会增加您的对局被收录为谜题的机会！</string>
   <plurals name="puzzlesFoundInUserGames">
     <item quantity="other">在 %2$s 的对局中找到了 %1$s 道谜题</item>
   </plurals>
