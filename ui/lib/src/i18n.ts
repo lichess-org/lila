@@ -48,17 +48,20 @@ const agoUnits: [keyof I18n['timeago'] | undefined, keyof I18n['timeago'], numbe
 
 let numberFormatter: false | Intl.NumberFormat | null = false;
 
-export const numberFormat = (n: number): string => {
+const getNumberFormatter = (): Intl.NumberFormat | null => {
   if (numberFormatter === false)
     numberFormatter = window.Intl && Intl.NumberFormat ? new Intl.NumberFormat(displayLocale) : null;
-  if (numberFormatter === null) return '' + n;
-  return numberFormatter.format(n);
+  return numberFormatter;
+};
+
+export const numberFormat = (n: number): string => {
+  const nf = getNumberFormatter();
+  return nf ? nf.format(n) : '' + n;
 };
 
 export const currencyFormat = (n: number, currency: string, options?: Intl.NumberFormatOptions): string => {
-  if (numberFormatter === false)
-    numberFormatter = window.Intl && Intl.NumberFormat ? new Intl.NumberFormat(displayLocale) : null;
-  if (numberFormatter === null) return n + ' ' + currency;
+  const nf = getNumberFormatter();
+  if (!nf) return currency + ' ' + n;
   return new Intl.NumberFormat(displayLocale, { style: 'currency', currency, ...options }).format(n);
 };
 
