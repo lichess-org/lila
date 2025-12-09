@@ -329,7 +329,8 @@ final private class RelayFetch(
             .map(injectTimeControl.in(rt.tour.info.clock))
             .flatMap(multiPgnToGames.future)
         case RelayFormat.LccWithGames(lcc) =>
-          httpGetRoundJson(lcc.indexUrl)
+          formatApi
+            .httpGetRoundJson(lcc.indexUrl)
             .flatMap: round =>
               val lookForStart: Boolean =
                 rt.round.startsAtTime
@@ -352,7 +353,8 @@ final private class RelayFetch(
                 .map(injectTimeControl.in(rt.tour.info.clock))
                 .flatMap(multiPgnToGames.future)
         case RelayFormat.LccWithoutGames(lcc) =>
-          httpGetRoundJson(lcc.indexUrl)
+          formatApi
+            .httpGetRoundJson(lcc.indexUrl)
             .map: round =>
               MultiPgn:
                 round.pairings.mapWithIndex: (pairing, i) =>
@@ -361,14 +363,8 @@ final private class RelayFetch(
             .flatMap(multiPgnToGames.future)
 
   private def httpGetPgn(url: URL)(using CanProxy): Fu[PgnStr] = PgnStr.from(http.get(url))
-  private def httpGetRoundJson(url: URL)(using CanProxy): Fu[DgtJson.RoundJson] =
-    http.get(url).flatMap(readAsJson[DgtJson.RoundJson](url))
   private def httpGetGameJson(url: URL)(using CanProxy): Fu[DgtJson.GameJson] =
-    http.get(url).flatMap(readAsJson[DgtJson.GameJson](url))
-  private def readAsJson[A: Reads](url: URL)(body: HttpClient.Body): Fu[A] = for
-    json <- Future(Json.parse(body)) // Json.parse throws exceptions (!)
-    data <- summon[Reads[A]].reads(json).fold(err => fufail(s"Invalid JSON from $url: $err"), fuccess)
-  yield data
+    http.get(url).flatMap(formatApi.readAsJson[DgtJson.GameJson](url))
 
 private object RelayFetch:
 
