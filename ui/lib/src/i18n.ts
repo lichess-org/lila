@@ -55,6 +55,13 @@ export const numberFormat = (n: number): string => {
   return numberFormatter.format(n);
 };
 
+export const currencyFormat = (n: number, currency: string, options?: Intl.NumberFormatOptions): string => {
+  if (numberFormatter === false)
+    numberFormatter = window.Intl && Intl.NumberFormat ? new Intl.NumberFormat(displayLocale) : null;
+  if (numberFormatter === null) return n + ' ' + currency;
+  return new Intl.NumberFormat(displayLocale, { style: 'currency', currency, ...options }).format(n);
+};
+
 export const numberSpread = (el: HTMLElement, nbSteps: number, duration: number, previous: number) => {
   let displayed: string;
   const display = (prev: number, cur: number, it: number) => {

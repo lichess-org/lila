@@ -24,13 +24,16 @@ final class Recap(env: Env) extends LilaController(env):
       username: UserStr
   )(f: Context ?=> UserModel => Availability => Fu[Result]): EssentialAction =
     Auth { ctx ?=> me ?=>
-      val availableAt = java.time.LocalDate.of(lila.recap.yearToRecap, java.time.Month.DECEMBER, 15)
-      if env.mode.isProd && java.time.LocalDate.now().isBefore(availableAt) then
+      val availableAt = instantOf(lila.recap.yearToRecap, 12, 15, 0, 0)
+      if env.mode.isProd && nowInstant.isBefore(availableAt) then
         Ok.page(views.recap.notAvailable(lila.recap.yearToRecap))
       else
+        import lila.plan.LichessJson.given
         def proceed(user: lila.core.user.User) = for
           av <- env.recap.api.availability(user)
-          res <- f(using ctx.updatePref(_.forceDarkBg))(user)(av)
+          withCosts <- env.recap.api.addCosts(av):
+            env.plan.currencyApi.yearlyCostsFor(env.security.geoIP(ctx.ip).flatMap(_.countryCode))
+          res <- f(using ctx.updatePref(_.forceDarkBg))(user)(withCosts)
         yield res
         if me.is(username) then proceed(me)
         else if isGranted(_.SeeInsight) || !env.mode.isProd then Found(env.user.api.byId(username))(proceed)
