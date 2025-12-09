@@ -103,7 +103,7 @@ final class UserList(helpers: Helpers, bits: UserBits):
       ):
         main(cls := "page-small box")(
           boxTop(h1(a(href := routes.User.list, dataIcon := Icon.LessThan, cls := "text"), title)),
-          table(cls := "slist slist-pad slist-invert")(
+          table(cls := "slist slist-pad slist-invert slist-leaderboard")(
             tbody(cls := "infinite-scroll")(
               pager.currentPageResults.mapWithIndex: (u, i) =>
                 val rank = from + i
