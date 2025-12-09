@@ -60,7 +60,7 @@ function renderPlayer(
   const showResult: boolean =
       !defined(ctrl.study?.relay) ||
       ctrl.study?.multiBoard.showResults() ||
-      ctrl.node.ply == ctrl.tree.lastPly(),
+      ctrl.node.ply === ctrl.tree.lastPly(),
     team = findTag(tags, `${color}team`),
     result = showResult && resultOf(tags, color === 'white'),
     top = ctrl.bottomColor() !== color,

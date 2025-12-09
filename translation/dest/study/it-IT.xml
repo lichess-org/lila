@@ -42,7 +42,7 @@
   <string name="youAreNowASpectator">Ora sei uno spettatore</string>
   <string name="pgnTags">Tag PGN</string>
   <string name="like">Mi piace</string>
-  <string name="unlike">Non mi Piace</string>
+  <string name="unlike">Non mi piace più</string>
   <string name="newTag">Nuovo tag</string>
   <string name="commentThisPosition">Commenta questa posizione</string>
   <string name="commentThisMove">Commenta questa mossa</string>

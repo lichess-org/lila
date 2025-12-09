@@ -37,7 +37,7 @@ export default class PuzzleSession {
 
   get = () => {
     const prev = this.store();
-    return prev.theme == this.theme && prev.at > Date.now() - this.maxAge ? prev : this.default();
+    return prev.theme === this.theme && prev.at > Date.now() - this.maxAge ? prev : this.default();
   };
 
   update = (f: (s: Store) => Store): Store => this.store(f(this.get()));

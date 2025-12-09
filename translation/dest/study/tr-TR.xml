@@ -16,6 +16,7 @@
   <string name="recentlyUpdated">Yeni güncellenmiş</string>
   <string name="mostPopular">En popüler</string>
   <string name="alphabetical">Alfabetik</string>
+  <string name="relevant">İlgili</string>
   <string name="addNewChapter">Yeni bir bölüm ekle</string>
   <plurals name="nbChapters">
     <item quantity="one">%s Bölüm</item>
@@ -190,7 +191,12 @@
   <string name="loadExistingLichessGameTitle">Mevcut bir lichess oyununu yükle</string>
   <string name="loadExistingLichessGameText">Lichess oyun URL\'sini yapıştırın&lt;br&gt;(örneğin lichess.org/7fHIU0XI)&lt;br&gt;bölümdeki oyun hamlelerini yüklemek için.</string>
   <string name="fromFenStringTitle">Bir FEN dizisinden</string>
+  <string name="fromFenStringText">FEN formatında bir pozisyon &lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt; yapıştırarak bölümü belirli bir yerden başlat.</string>
   <string name="fromPgnGameTitle">PGN oyunundan</string>
+  <string name="fromPgnGameText">Bir oyunu PGN formatında&lt;br&gt;yapıştırarak hamleleri, yorumları ve varyasyonları bölüme yükle.</string>
+  <string name="variantsAreSupportedTitle">Çalışmaların desteklediği oyun türleri</string>
+  <string name="variantsAreSupportedText">Evet, çılgın satranç&lt;br&gt;dahil olmak üzere tüm oyun türlerini çalışabilirsin!</string>
+  <string name="chapterConclusionText">Bölümler sonsuza kadar kayıt altında kalır.&lt;br&gt;Satranç içeriğini yönetirken keyfine bak!</string>
   <string name="doubleDefeat">Çift mağlubiyet</string>
   <string name="blackDefeatWhiteCanNotWin">Siyah kaybetti, ancak beyaz kazanamaz</string>
   <string name="whiteDefeatBlackCanNotWin">Beyaz kaybeder fakat siyah kazanamaz</string>

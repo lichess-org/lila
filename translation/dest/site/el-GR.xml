@@ -245,7 +245,7 @@
   <string name="neverTypeYourPassword">Ποτέ μην πληκτρολογήσετε τον κωδικό σας από το Lichess σε άλλον ιστότοπο!</string>
   <string name="proceedToX">Μεταβείτε στον τομέα %s</string>
   <string name="passwordSuggestion">Μην ορίσετε κωδικό πρόσβασης που σας πρότεινε κάποιος άλλος — ενδεχομένως να χρησιμοποιηθεί για κακόβουλη πρόσβαση στον λογαριασμό σας.</string>
-  <string name="emailSuggestion">Μη χρησιμοποιήσετε email που στάλθηκε από κάποιον άλλο — ενδεχομένως να χρησιμοποιηθεί για κακόβουλη πρόσβαση στον λογαριασμό σας.</string>
+  <string name="emailSuggestion">Μη χρησιμοποιήσετε διεύθυνση email που σας πρότεινε άλλο άτομο — ενδεχομένως να χρησιμοποιηθεί για κακόβουλη πρόσβαση στον λογαριασμό σας.</string>
   <string name="emailConfirmHelp">Βοήθεια για την επιβεβαίωση της διεύθυνσης email</string>
   <string name="emailConfirmNotReceived">Δε λάβατε το email επιβεβαίωσης μετά την εγγραφή;</string>
   <string name="whatSignupUsername">Τι όνομα χρήστη χρησιμοποιήσατε για να εγγραφείτε;</string>
@@ -566,7 +566,7 @@
   <string name="views">Εμφανίσεις</string>
   <string name="replies">Απαντήσεις</string>
   <string name="replyToThisTopic">Απαντήστε σε αυτό το θέμα</string>
-  <string name="reply">Απάντηση</string>
+  <string name="reply" comment="Appears on buttons in the forum. Clicking the button will post a reply to a topic.">Απάντηση</string>
   <string name="message">Μήνυμα</string>
   <string name="createTheTopic">Δημιουργήστε θέμα</string>
   <string name="reportAUser">Αναφορά χρήστη</string>

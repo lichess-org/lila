@@ -166,7 +166,7 @@ object LeaderboardApi:
 
   case class ChartData(perfResults: List[(PerfType, ChartData.PerfResult)]):
     import ChartData.*
-    lazy val allPerfResults: PerfResult = perfResults.map(_._2) match
+    lazy val allPerfResults: PerfResult = perfResults._2F match
       case head :: tail =>
         tail.foldLeft(head) { case (acc, res) =>
           PerfResult(

@@ -15,8 +15,8 @@ export { uciToMove } from '@lichess-org/chessground/util';
 export const fenColor = (fen: string): Color => (fen.includes(' w') ? 'white' : 'black');
 
 export const readDests = (lines?: string): Dests | null => {
-  if (lines == null) return null;
-  if (lines == '') return new Map();
+  if (lines == null) return null; // TODO: technically works, but should this be `=== undefined`?
+  if (lines === '') return new Map();
   return lines.split(' ').reduce<Dests>((dests, line) => {
     dests.set(
       uciChar[line[0]],

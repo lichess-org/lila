@@ -10,6 +10,7 @@
   <string name="actions">Toiminnot</string>
   <string name="yourClock">Sinun kellosi</string>
   <string name="opponentClock">Vastustajan kello</string>
+  <string name="gameStart">Pelin alku</string>
   <string name="boardCommandList">Komentoluettelo, kun on kohdennettu lautaan</string>
   <string name="inputFormCommandList">Nämä komennot kirjoitetaan komentojen syöttökenttään.</string>
   <string name="goToInputForm">Siirry komentojen syöttökenttään.</string>

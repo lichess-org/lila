@@ -113,6 +113,7 @@ final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
                 .drop(1) // first line is a header
                 .map(parseLine)
                 .mapConcat(_.toList)
+                .filter(validatePlayer)
                 .grouped(200)
                 .mapAsync(1)(saveIfChanged)
                 .runWith(lila.common.LilaStream.sinkSum)
@@ -160,6 +161,10 @@ final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
         year = year,
         inactive = flags.exists(_.contains("i"))
       )
+
+    private def validatePlayer(p: FidePlayer): Boolean =
+      p.age.exists: age =>
+        age > 9 || (age > 5 && p.ratingsMap.nonEmpty)
 
     private def saveIfChanged(players: Seq[FidePlayer]): Future[Int] =
       repo.player

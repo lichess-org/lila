@@ -598,7 +598,7 @@ POST  /mod/:username/title             controllers.Mod.setTitle(username: UserSt
 POST  /mod/:username/inquiry           controllers.Mod.spontaneousInquiry(username: UserStr)
 GET   /mod/:username/communication     controllers.Mod.communicationPublic(username: UserStr)
 GET   /mod/:username/communication/private controllers.Mod.communicationPrivate(username: UserStr)
-POST   /mod/:username/communication/full-comms-export controllers.Mod.fullCommsExport(username: UserStr)
+POST  /mod/:username/communication/full-comms-export controllers.Mod.fullCommsExport(username: UserStr)
 POST  /mod/:username/rankban/:v        controllers.Mod.rankban(username: UserStr, v: Boolean)
 POST  /mod/:username/arenaban/:v       controllers.Mod.arenaBan(username: UserStr, v: Boolean)
 POST  /mod/:username/prizeban/:v       controllers.Mod.prizeban(username: UserStr, v: Boolean)
@@ -714,7 +714,6 @@ GET   /api/mobile/my-games             controllers.Api.mobileGames
 GET    /stat/rating/distribution/:perf controllers.User.ratingDistribution(perf: PerfKey, username: Option[UserStr] ?= None)
 
 # API
-GET   /api                             controllers.Api.index
 POST  /api/users                       controllers.Api.usersByIds
 GET   /api/puzzle/daily                controllers.Puzzle.apiDaily
 GET   /api/puzzle/activity             controllers.Puzzle.activity
@@ -932,6 +931,8 @@ GET   /dev/cli                         controllers.Dev.cli
 POST  /dev/cli                         controllers.Dev.cliPost
 GET   /dev/settings                    controllers.Dev.settings
 POST  /dev/settings/:id                controllers.Dev.settingsPost(id)
+GET   /dev/ip-tiers                    controllers.Dev.ipTiers
+POST  /dev/ip-tiers                    controllers.Dev.ipTiersPost
 
 GET   /prometheus-metrics/:key         controllers.Main.prometheusMetrics(key: String)
 

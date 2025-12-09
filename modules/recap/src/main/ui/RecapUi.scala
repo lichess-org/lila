@@ -19,6 +19,7 @@ final class RecapUi(helpers: Helpers):
     Page(title(user))
       .css("recap")
       .js(esmInit("recap", data))
+      .i18n(_.recap, _.variant, _.arena, _.swiss, _.patron, _.preferences, _.storm)
       .csp(_.withInlineIconFont): // swiper's `data: font`
         main(cls := "recap"):
           div(id := "recap-swiper", cls := "swiper")
@@ -28,6 +29,6 @@ final class RecapUi(helpers: Helpers):
       main(cls := "page-small box box-pad page")(
         h1(cls := "box__top")(s"Lichess Recap $year will be available soon."),
         div(
-          p("Check back later!")
+          p("Check back at the end of the year!")
         )
       )

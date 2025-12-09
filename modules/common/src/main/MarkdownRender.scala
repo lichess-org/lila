@@ -91,16 +91,11 @@ final class MarkdownRender(
   private def mentionsToLinks(markdown: Markdown): Markdown =
     Markdown(RawHtml.atUsernameRegex.replaceAllIn(markdown.value, "[@$1](/@/$1)"))
 
-  // https://github.com/vsch/flexmark-java/issues/496
-  private val tooManyUnderscoreRegex = """(_{6,})""".r
-  private def preventStackOverflow(text: Markdown) = Markdown:
-    tooManyUnderscoreRegex.replaceAllIn(text.value, "_" * 3)
-
   def apply(key: MarkdownRender.Key)(text: Markdown): Html = Html:
     Chronometer
       .sync:
         try
-          val saferText = preventStackOverflow(text)
+          val saferText = MarkdownRender.preventStackOverflow(text)
           renderer.render(parser.parse((if sourceMap then saferText else mentionsToLinks(saferText)).value))
         catch
           case e: StackOverflowError =>
@@ -121,6 +116,19 @@ object MarkdownRender:
     text.value.replaceAll(raw"""(?i)!?\[([^\]\n]*)\]\([^)]*\)""", "[$1]")
 
   private val rel = "nofollow noreferrer"
+
+  object preventStackOverflow:
+    // https://github.com/vsch/flexmark-java/issues/496
+    private val tooManyUnderscoreRegex = """(_{6,})""".r
+    private val tooManyQuotes = """^\s*(>\s*){5,}""".r
+    def apply(text: Markdown) =
+      text.map: t =>
+        tooManyUnderscoreRegex
+          .replaceAllIn(t, "_" * 3)
+          .linesIterator
+          .map: line =>
+            tooManyQuotes.replaceAllIn(line, "> " * 5)
+          .mkString("\n")
 
   private object WhitelistedImage:
 

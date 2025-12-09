@@ -2784,6 +2784,106 @@ interface I18n {
     /** The opponent is limited in the moves they can make, and all moves worsen their position. */
     zugzwangDescription: string;
   };
+  recap: {
+    /** What have you been up to this year? */
+    awaitQuestion: string;
+    /** Your best chess foes */
+    chessFoes: string;
+    /** is how you started %s of your games as white */
+    firstMoveStats: I18nFormat;
+    /** What did it take to get there? */
+    gamesNextQuestion: string;
+    /** And you won %s! */
+    gamesYouWon: I18nFormat;
+    /** Hi, %s */
+    hiUser: I18nFormat;
+    /** What a chess year you've had! */
+    initTitle: string;
+    /** %s of them were yours. */
+    lichessGamesOfThemYours: I18nFormat;
+    /** %1$s games played on Lichess in %2$s */
+    lichessGamesPlayedIn: I18nFormat;
+    /** We didn't use your device against you */
+    malwareNoAbuse: string;
+    /** %s ads and trackers loaded */
+    malwareNoneLoaded: I18nFormat;
+    /** We didn't sell your personal data */
+    malwareNoSell: string;
+    /** be careful */
+    malwareWarningCta: string;
+    /** But other websites do, so please %s. */
+    malwareWarningPrefix: I18nFormat;
+    /** That's %s of wood pushed! */
+    movesOfWoodPushed: I18nFormat;
+    /** Standard pieces weigh about 40g each */
+    movesStandardPiecesWeight: string;
+    /** %s grams */
+    nbGrams: I18nPlural;
+    /** %s kilograms */
+    nbKilograms: I18nPlural;
+    /** %s moves */
+    nbMoves: I18nPlural;
+    /** %s moves played */
+    nbMovesPlayed: I18nPlural;
+    /** Wanna play now? */
+    noGamesCta: string;
+    /** You did not play any games this year. */
+    noGamesText: string;
+    /** Your most played opening as black with %s games */
+    openingsMostPlayedAsBlack: I18nPlural;
+    /** Your most played opening as white with %s games */
+    openingsMostPlayedAsWhite: I18nPlural;
+    /** We're a charity, running purely on donations. */
+    patronCharity: string;
+    /** If we helped entertain you this year, or you believe in our work, please consider %s! */
+    patronConsiderDonating: I18nFormat;
+    /** costs */
+    patronCosts: string;
+    /** Lichess's %1$s this year were %2$s. */
+    patronCostsThisYear: I18nFormat;
+    /** supporting us with a donation */
+    patronMakeDonation: string;
+    /** What time controls and variants did you play? */
+    perfsTitle: string;
+    /** You also helped tag %s of them. */
+    puzzlesHelpedTagging: I18nFormat;
+    /** You did not solve any puzzles this year. */
+    puzzlesNone: string;
+    /** Thank you for voting on %s puzzles. */
+    puzzlesThanksVoting: I18nPlural;
+    /** Wanna try some now? */
+    puzzlesTryNow: string;
+    /** You won %s of them on the first try! */
+    puzzlesYouWonOnFirstTry: I18nFormat;
+    /** Your %s recap is ready! */
+    recapReady: I18nFormat;
+    /** favourite time control */
+    shareableFavouriteTimeControl: string;
+    /** favourite variant */
+    shareableFavouriteVariant: string;
+    /** most played opponent */
+    shareableMostPlayedOpponent: string;
+    /** spent playing */
+    shareableSpentPlaying: string;
+    /** My %s recap */
+    shareableTitle: I18nFormat;
+    /** Where did you find games? */
+    sourcesTitle: string;
+    /** We're glad you're here. Have a great %s! */
+    thanksHaveAGreat: I18nFormat;
+    /** Thank you for playing on Lichess! */
+    thanksTitle: string;
+    /** That is a lot of chess. */
+    timeALot: string;
+    /** How many moves did you play in all that time? */
+    timeHowManyMoves: string;
+    /** That seems like a reasonable amount of chess. */
+    timeReasonable: string;
+    /** %s spent playing! */
+    timeSpentPlayingExclam: I18nFormat;
+    /** That is way too much chess. */
+    timeTooMuch: string;
+  };
   search: {
     /** Advanced search */
     advancedSearch: string;
@@ -4287,6 +4387,8 @@ interface I18n {
     toggleLocalAnalysis: string;
     /** Toggle local evaluation */
     toggleLocalEvaluation: string;
+    /** Toggle observation annotations */
+    toggleObservationAnnotations: string;
     /** Toggle position annotations */
     togglePositionAnnotations: string;
     /** Toggle the chat */

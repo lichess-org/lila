@@ -116,3 +116,19 @@ export const readNdJson = async <T>(response: Response, processLine: ProcessLine
     for (const part of parts) if (part) processLine(JSON.parse(part));
   } while (!done);
 };
+
+export async function writeTextClipboard(
+  url: string,
+  callbackOnSuccess: (() => void) | undefined = undefined,
+): Promise<void> {
+  // Ancient browsers may not support `ClipboardItem`
+  if (typeof ClipboardItem === 'undefined') {
+    const t = await text(url);
+    return navigator.clipboard.writeText(t).then(callbackOnSuccess);
+  } else {
+    const clipboardItem = new ClipboardItem({
+      'text/plain': text(url).then(t => new Blob([t], { type: 'text/plain' })),
+    });
+    return navigator.clipboard.write([clipboardItem]).then(callbackOnSuccess);
+  }
+}

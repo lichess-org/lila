@@ -25,7 +25,7 @@ final class UserActionMenu(helpers: Helpers):
           .option(
             MenuItem(trans.site.editProfile.txt(), Icon.Gear, routes.Account.profile.url)
           ),
-        Some(
+        (u.count.game > 0).option(
           MenuItem(trans.site.watch.txt(), Icon.AnalogTv, routes.User.tv(u.username).url)
         )
       ).flatten ++

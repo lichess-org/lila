@@ -31,7 +31,7 @@ final class SimulShow(helpers: Helpers, gathering: GatheringUi):
             "data" -> data,
             "socketVersion" -> socketVersion,
             "userId" -> ctx.userId,
-            "chat" -> chatOption.map(_._1),
+            "chat" -> chatOption._1F,
             "showRatings" -> ctx.pref.showRatings
           )
         )
@@ -94,7 +94,7 @@ final class SimulShow(helpers: Helpers, gathering: GatheringUi):
                 frag(br, absClientInstant(d))
             ),
             stream,
-            chatOption.map(_._2)
+            chatOption._2F
           ),
           div(cls := "simul__main box")(spinner)
         )

@@ -35,6 +35,7 @@ object UiEnv
   // helpers dependencies
   def assetBaseUrl = netConfig.assetBaseUrl
   def netBaseUrl = netConfig.baseUrl
+  def routeUrl = netConfig.routeUrl
   protected val ratingApi = lila.rating.ratingApi
   protected lazy val flairApi = env.user.flairApi
   def isOnline = env.socket.isOnline

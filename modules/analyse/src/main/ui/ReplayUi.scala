@@ -99,7 +99,7 @@ final class ReplayUi(helpers: Helpers)(analyseUi: AnalyseUi):
             .obj(
               "data" -> data,
               "userId" -> ctx.userId,
-              "chat" -> chatOption.map(_._1)
+              "chat" -> chatOption._1F
             )
             .add("hunter" -> Granter.opt(_.ViewBlurs)) ++
             analyseUi.explorerAndCevalConfig
@@ -108,7 +108,7 @@ final class ReplayUi(helpers: Helpers)(analyseUi: AnalyseUi):
         frag(
           main(cls := "analyse")(
             st.aside(cls := "analyse__side")(gameSide),
-            chatOption.map(_._2),
+            chatOption._2F,
             div(cls := "analyse__board main-board")(chessgroundBoard),
             div(cls := "analyse__tools")(div(cls := "ceval")),
             div(cls := "analyse__controls"),

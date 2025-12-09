@@ -32,7 +32,15 @@ final class FidePlayerApi(repo: FideRepo, cacheApi: lila.memo.CacheApi)(using Ex
       .map: players =>
         lila.fide.Federation.namesByIds(players.values.flatMap(_.flatMap(_.fed)))
 
-  private val idToPlayerCache = cacheApi[FideId, Option[FidePlayer]](8192, "player.fidePlayer.byId"):
+  def withFollow(id: FideId)(using me: Option[Me]): Fu[Option[FidePlayer.WithFollow]] =
+    idToPlayerCache
+      .get(id)
+      .flatMapz: player =>
+        me.map(_.userId)
+          .so(repo.follower.isFollowing(_, id))
+          .map(FidePlayer.WithFollow(player, _).some)
+
+  private val idToPlayerCache = cacheApi[FideId, Option[FidePlayer]](8_192, "player.fidePlayer.byId"):
     _.expireAfterWrite(3.minutes).buildAsyncFuture(repo.player.fetch)
 
   export idToPlayerCache.get
