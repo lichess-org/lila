@@ -315,7 +315,7 @@ export const patron = (user: LightUser): VNode =>
     user.patron
       ? hl('p', i18n.patron.thankYou)
       : hl(
-          'div.cta',
+          'p.cta',
           i18n.recap.patronConsiderDonating.asArray(
             hl('a', { attrs: { href: '/patron', target: '_blank' } }, i18n.recap.patronMakeDonation),
           ),
