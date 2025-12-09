@@ -62,5 +62,8 @@
 	<string name="shareableMostPlayedOpponent">最多对局的对手</string>
 	<string name="shareableFavouriteVariant">最喜爱的变体</string>
 	<string name="shareableFavouriteTimeControl">最喜爱的时限</string>
+	<plurals name="shareableNbPuzzlesSolved">
+		<item quantity="other">已解决 %s 道谜题</item>
+	</plurals>
 	<string name="recapReady" comment="%s is the year of the recap">您的 %s 年度回顾已就绪！</string>
 </resources>
