@@ -94,14 +94,14 @@
   <string name="startFromInitialPosition">从初始局面开始</string>
   <string name="editor">编辑器</string>
   <string name="startFromCustomPosition">从自定义局面开始</string>
-  <string name="loadAGameByUrl">通过 URL 加载对局</string>
+  <string name="loadAGameByUrl">通过链接加载对局</string>
   <string name="loadAPositionFromFen">从 FEN 加载局面</string>
   <string name="loadAGameFromPgn">从 PGN 加载对局</string>
   <string name="automatic">自动</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
     <item quantity="other">在此处以 PGN 文本格式粘贴对局。每个对局将创建一个新章节。研习最多可包含 %s 个章节。</item>
   </plurals>
-  <string name="urlOfTheGame">对局的 URL，每行一个</string>
+  <string name="urlOfTheGame">对局的链接，每行一个</string>
   <string name="createChapter">创建章节</string>
   <string name="createStudy">创建研习</string>
   <string name="editStudy">编辑研习</string>
@@ -185,7 +185,7 @@
   <string name="customPositionTitle">自定义局面</string>
   <string name="customPositionText">按您的方式设置棋盘。&lt;br&gt;适合探索残局。</string>
   <string name="loadExistingLichessGameTitle">加载已有的 Lichess 对局</string>
-  <string name="loadExistingLichessGameText">粘贴一个 Lichess 对局 URL&lt;br&gt;（例如 lichess.org/7fHIU0XI）&lt;br&gt;以将对局着法加载到章节中。</string>
+  <string name="loadExistingLichessGameText">粘贴一个 Lichess 对局链接&lt;br&gt;（例如 lichess.org/7fHIU0XI）&lt;br&gt;以将对局着法加载到章节中。</string>
   <string name="fromFenStringTitle">导入 FEN 代码</string>
   <string name="fromFenStringText">粘贴 FEN 格式的局面&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;以从某个局面开始章节。</string>
   <string name="fromPgnGameTitle">导入 PGN 代码</string>
