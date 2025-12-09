@@ -11,7 +11,6 @@ object Dependencies {
       ("linux", "epoll")
 
   val jitpack = "jitpack".at("https://jitpack.io")
-  val lilaMaven = "lila-maven".at("https://raw.githubusercontent.com/lichess-org/lila-maven/master")
   val sonashots = "sonashots".at("https://oss.sonatype.org/content/repositories/snapshots")
 
   val cats = "org.typelevel" %% "cats-core" % "2.13.0"
