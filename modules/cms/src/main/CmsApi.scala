@@ -1,9 +1,10 @@
 package lila.cms
 
+import play.api.i18n.Lang
 import reactivemongo.api.bson.*
 import scalalib.model.Language
 
-import lila.core.i18n.{ LangList, LangPicker, defaultLanguage }
+import lila.core.i18n.{ LangList, LangPicker, defaultLanguage, toLanguage }
 import lila.core.id.{ CmsPageId, CmsPageKey }
 import lila.db.dsl.{ *, given }
 import lila.ui.Context
@@ -52,7 +53,10 @@ final class CmsApi(coll: Coll, markdown: lila.memo.MarkdownCache, langList: Lang
   def delete(id: CmsPageId): Funit = coll.delete.one($id(id)).void
 
   private def getBestFor(key: CmsPageKey)(using ctx: Context): Fu[Option[CmsPage]] =
-    val prefered = langPicker.preferedLanguages(ctx.req, ctx.lang) :+ defaultLanguage
+    val queryLang = ctx.req.getQueryString("lang").flatMap(Lang.get).map(toLanguage)
+    val prefered = queryLang match
+      case Some(query) => List(query)
+      case None => langPicker.preferedLanguages(ctx.req, ctx.lang) :+ defaultLanguage
     coll
       .list[CmsPage]($doc("key" -> key, "language".$in(prefered)))
       .map: pages =>
