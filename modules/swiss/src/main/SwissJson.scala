@@ -102,7 +102,8 @@ final class SwissJson(
               val gameId =
                 if isDelayed || isForfeit then None else maybeDoc.flatMap(_.getAsOpt[GameId](f.id))
               val playerReady = maybeDoc.flatMap(_.getAsOpt[UserId](f.playerReady))
-              val opponent = maybeDoc.flatMap(_.getAsOpt[List[UserId]](f.players)).get.find(_ != me.id)
+              val opponent =
+                maybeDoc.flatMap(_.getAsOpt[List[UserId]](f.players)).flatMap(list => list.find(_ != me.id))
               rankingApi(swiss)
                 .dmap(_.get(player.userId))
                 .map2 { ranking =>
