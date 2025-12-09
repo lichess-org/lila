@@ -59,6 +59,11 @@
 	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours">%s de ellas fueron tuyas.</string>
 	<string name="thanksTitle">¡Gracias por jugar en Lichess!</string>
 	<string name="thanksHaveAGreat" comment="%s is the next year">Nos alegra que estés aquí. ¡Que tengas un gran año %s!</string>
+	<string name="patronCostsThisYear" comment="%1$s is 'costs'. %2$s is the cost with currency symbol e.g. '$750,000'">El %1$s de este año fue %2$s.</string>
+	<string name="patronCosts" comment="It is a link to lichess.org/costs">costes</string>
+	<string name="patronCharity">Somos una organización sin ánimo de lucro, que funciona exclusivamente con donaciones.</string>
+	<string name="patronConsiderDonating" comment="%s is 'supporting us with a donation'">¡Si te hemos ayudado a entretenerte este año, o crees en nuestro trabajo, por favor considera %s!</string>
+	<string name="patronMakeDonation" comment="It is a link to https://lichess.org/patron">apoyándonos con una donación</string>
 	<string name="shareableTitle" comment="%s is the current year">Mi resumen del %s</string>
 	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">tiempo jugado</string>
 	<string name="shareableMostPlayedOpponent">oponente más frecuente</string>
