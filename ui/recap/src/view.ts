@@ -28,7 +28,7 @@ export function view(r: Recap, opts: Opts): VNode {
       slides.malware(),
       slides.lichessGames(r),
       slides.thanks(r),
-      slides.patron(opts.user),
+      slides.patron(opts),
       slides.shareable(r),
     ]),
     opts.navigation && [hl('div.swiper-button-next'), hl('div.swiper-button-prev')],

@@ -1,5 +1,5 @@
-import { pieceGrams, totalCosts, totalGames } from './constants';
-import type { ByColor, Counted, Opening, Recap, Sources, RecapPerf } from './interfaces';
+import { pieceGrams, totalGames } from './constants';
+import type { ByColor, Counted, Opening, Recap, Sources, RecapPerf, Opts } from './interfaces';
 import { onInsert, hl, type LooseVNodes, type VNode, dataIcon } from 'lib/view';
 import { loadOpeningLpv } from './ui';
 import { shuffle } from 'lib/algo';
@@ -295,24 +295,25 @@ export const thanks = (r: Recap): VNode =>
     hl('div', i18n.recap.thanksHaveAGreat.asArray(r.year + 1)),
   ]);
 
-export const patron = (user: LightUser): VNode =>
+export const patron = (opts: Opts): VNode =>
   slideTag('patron')([
     hl(
       'div.recap--big',
       i18n.recap.patronCostsThisYear.asArray(
         hl('a', { attrs: { href: '/costs', target: '_blank' } }, i18n.recap.patronCosts),
-        hl(
-          'strong',
-          currencyFormat(totalCosts, 'USD', {
-            maximumFractionDigits: 0,
-          }),
-        ),
+        opts.costs &&
+          hl(
+            'strong',
+            currencyFormat(opts.costs.amount, opts.costs.currency, {
+              maximumFractionDigits: 0,
+            }),
+          ),
       ),
     ),
     hl('p', i18n.recap.patronCharity),
     hl('i.text', { attrs: dataIcon(licon.Wings) }),
 
-    user.patron
+    opts.user.patron
       ? hl('p', i18n.patron.thankYou)
       : hl(
           'p.cta',
