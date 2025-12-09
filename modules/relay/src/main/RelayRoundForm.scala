@@ -137,8 +137,7 @@ object RelayRoundForm:
     val nextNumber = (prevNumber | rounds.size) + 1
     val guessName = for
       n <- prevNumber
-      if prevs
-        ._2F
+      if prevs._2F
         .forall: old =>
           roundNumberIn(old.name.value).contains(n - 1)
       p <- prev
