@@ -651,21 +651,23 @@ final class StudyApi(
             }
           )
           (chapter != newChapter).so:
-            chapterRepo.update(newChapter) >> {
-              val concealChanged = chapter.conceal != newChapter.conceal
-              val shouldResetPosition =
+            for
+              _ <- chapterRepo.update(newChapter)
+              concealChanged = chapter.conceal != newChapter.conceal
+              shouldResetPosition =
                 concealChanged && newChapter.conceal.isDefined && study.position.chapterId == chapter.id
-              val shouldReload =
+              shouldReload =
                 concealChanged ||
                   newChapter.setup.orientation != chapter.setup.orientation ||
                   newChapter.practice != chapter.practice ||
                   newChapter.gamebook != chapter.gamebook ||
                   newChapter.description != chapter.description
-              shouldResetPosition
-                .so(studyRepo.setPosition(study.id, study.position.withPath(UciPath.root)))
-                >> (if shouldReload then fuccess(sendTo(study.id)(_.updateChapter(chapter.id, who)))
-                    else fuccess(reloadChapters(study)))
-            }
+              _ <- shouldResetPosition.so:
+                studyRepo.setPosition(study.id, study.position.withPath(UciPath.root))
+            yield
+              if shouldReload
+              then sendTo(study.id)(_.updateChapter(chapter.id, who))
+              else reloadChapters(study)
         }
 
   def descChapter(studyId: StudyId, data: ChapterMaker.DescData)(who: Who) =
