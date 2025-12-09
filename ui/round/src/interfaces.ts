@@ -200,7 +200,7 @@ export interface Pref {
   moveEvent: Prefs.MoveEvent;
   ratings: boolean;
   replay: Prefs.Replay;
-  rookCastle: boolean; // TODO: is undefined when user has setting toggled off in ui/round/src/ground.ts.
+  rookCastle?: boolean;
   showCaptured: boolean;
   submitMove: boolean;
   resizeHandle: Prefs.ShowResizeHandle;
