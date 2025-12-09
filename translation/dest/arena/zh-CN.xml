@@ -38,7 +38,7 @@
     <item quantity="other">在前 %s 步内和棋，双方棋手均不得分。</item>
   </plurals>
   <string name="thisIsPrivate">这是私人锦标赛</string>
-  <string name="shareUrl">分享此 URL 以允许他人加入：%s</string>
+  <string name="shareUrl">分享此链接以允许他人加入：%s</string>
   <string name="drawStreakStandard">和棋连胜：当棋手在竞技场中连续和棋时，只有第一次和棋会获得分数，或者在标准对局中和棋步数超过 %s 步时才会得分。和棋连胜只能通过胜局来终结，负局或和局不能。</string>
   <string name="drawStreakVariants">和棋对局需达到最短步数限制才能获得分数，此限制因变体而异。下表列出了各变体的阈值。</string>
   <string name="variant">变体</string>
