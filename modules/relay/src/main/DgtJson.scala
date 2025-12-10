@@ -36,7 +36,7 @@ private object DgtJson:
         Tag(_.Round, s"$round.$game").some,
         date.map(Tag(_.Date, _))
       ).flatten
-    def nonEmpty = live || white.isDefined || black.isDefined
+    def nonEmpty = white.isDefined && black.isDefined
 
   case class RoundJson(
       date: Option[String],
