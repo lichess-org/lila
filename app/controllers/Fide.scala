@@ -9,13 +9,15 @@ import lila.fide.FideJson.given
 
 final class Fide(env: Env) extends LilaController(env):
 
+  private def playerUrl(player: lila.fide.FidePlayer) = routes.Fide.show(player.id, player.slug)
+
   def index(page: Int, q: Option[String] = None) = Open:
     Reasonable(page):
       val order = get("order").flatMap(FidePlayerOrder.byKey.get) | FidePlayerOrder.default
       env.fide
         .search(q, page, order)
         .flatMap:
-          case Left(p) => Redirect(routes.Fide.show(p.player.id, p.player.slug))
+          case Left(p) => Redirect(playerUrl(p.player))
           case Right(pager) => renderPage(views.fide.player.index(pager, q.so(_.trim), order)).map(Ok(_))
 
   def show(id: chess.FideId, slug: String, page: Int) = Open:
@@ -24,7 +26,7 @@ final class Fide(env: Env) extends LilaController(env):
       .flatMap:
         case None => NotFound.page(views.fide.player.notFound(id))
         case Some(player) =>
-          if player.slug != slug then Redirect(routes.Fide.show(id, player.slug))
+          if player.slug != slug then Redirect(playerUrl(player))
           else
             for
               user <- env.title.api.publicUserOf(player.id)
@@ -59,3 +61,13 @@ final class Fide(env: Env) extends LilaController(env):
           players <- env.fide.paginator.federationPlayers(fed, page)
           rendered <- renderPage(views.fide.federation.show(fed, players))
         yield Ok(rendered)
+
+  def playerPhoto(id: chess.FideId) = SecureBody(lila.web.HashedMultiPart(parse))(_.StudyAdmin) {
+    ctx ?=> _ ?=>
+      Found(env.fide.repo.player.fetch(id)): p =>
+        ctx.body.body.file("photo") match
+          case Some(photo) =>
+            for _ <- env.fide.playerApi.uploadPhoto(p, photo)
+            yield Redirect(routes.Coach.edit)
+          case None => Redirect(playerUrl(p))
+  }

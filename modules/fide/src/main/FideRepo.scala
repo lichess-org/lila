@@ -14,6 +14,7 @@ final private class FideRepo(
 )(using Executor):
 
   object player:
+    given BSONDocumentHandler[FidePlayer.PlayerPhoto] = Macros.handler
     given handler: BSONDocumentHandler[FidePlayer] = Macros.handler
     val selectActive: Bdoc = $doc("inactive".$ne(true))
     def selectFed(fed: Federation.Id): Bdoc = $doc("fed" -> fed)
@@ -30,6 +31,8 @@ final private class FideRepo(
     def fetch(ids: Seq[FideId]): Fu[List[FidePlayer]] =
       playerColl.find($inIds(ids)).cursor[FidePlayer](ReadPref.sec).listAll()
     def countAll = playerColl.count()
+    def setPhoto(id: FideId, photo: FidePlayer.PlayerPhoto): Funit =
+      playerColl.updateField($id(id), "photo", photo).void
 
   object federation:
     given BSONDocumentHandler[Federation.Stats] = Macros.handler

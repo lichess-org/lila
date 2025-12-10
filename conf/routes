@@ -102,6 +102,7 @@ GET   /fide/:fideId/:name              controllers.Fide.show(fideId: chess.FideI
 POST  /fide/:fideId/follow             controllers.Fide.follow(fideId: chess.FideId, follow: Boolean)
 GET   /api/fide/player/:id             controllers.Fide.apiShow(id: chess.FideId)
 GET   /api/fide/player                 controllers.Fide.apiSearch(q: String)
+POST  /upload/image/fide/player/:id    controllers.Fide.playerPhoto(id: chess.FideId)
 
 GET   /dasher                          controllers.Dasher.get
 
