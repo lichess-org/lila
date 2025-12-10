@@ -1,4 +1,4 @@
-name: Lint translations
+name: Translations
 
 on:
   push:
@@ -42,7 +42,6 @@ jobs:
       - run: pnpm i18n-file-gen
       - run: ./ui/build --i18n
       - name: i18n files up-to-date check
-        id: check_changes
         run: |
           git status --porcelain
           if [[ -n $(git status --porcelain) ]]; then
