@@ -3,7 +3,6 @@ package lila.api
 import lila.common.Bus
 import lila.core.perm.Granter
 import lila.user.UserDelete
-import akka.stream.scaladsl.*
 import lila.db.dsl.{ *, given }
 
 /* There are 2 flavours of account termination.
