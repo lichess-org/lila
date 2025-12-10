@@ -5,7 +5,7 @@ import play.api.libs.json.*
 import play.api.libs.ws.DefaultBodyWritables.*
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.JsonBodyWritables.*
-import play.api.libs.ws.StandaloneWSClient
+import play.api.libs.ws.{ StandaloneWSClient, StandaloneWSResponse }
 import play.api.mvc.Headers
 import scala.collection.concurrent.TrieMap
 
@@ -134,10 +134,8 @@ final private class TwitchApi(
       wanted = latestSeenApprovedIds.flatMap: id =>
         eventVersions.keys.filterNot(event => existing(id -> event)).map(id -> _)
       subsToDelete = subs.filter(s => !approved(s.broadcasterId)).toList
-      _ = logger.info(s"Deleting ${subsToDelete.size} unwanted event subs")
       _ <- deleteSubs(subsToDelete)
       _ = logger.info(s"Subscribing to ${wanted.size} new event subs")
-      _ = println(wanted.take(3))
       _ <- subscribeMany(wanted)
     yield ()
 
@@ -184,9 +182,8 @@ final private class TwitchApi(
         .url(eventSubEndpoint)
         .withHttpHeaders(headers*)
         .post(body)
-    yield
-      logger.debug(s"subscribeEvent $id $event ${res.status}")
-      res
+        .addEffect(logFailed(s"subscribeEvent $id $event"))
+    yield res
 
   private def fetchStream(id: TwitchId): Fu[Option[HelixStream]] =
     fetchStreams(Seq(id)).map(_.headOption)
@@ -199,6 +196,7 @@ final private class TwitchApi(
         .withQueryStringParameters("user_id" -> id.value)
         .withHttpHeaders(headers*)
         .get()
+        .addEffect(logFailed(s"fetchStreamSubs $id"))
     yield
       for
         sub <- ~res.body[JsValue].get[List[JsValue]]("data")
@@ -215,6 +213,7 @@ final private class TwitchApi(
       res <- after
         .fold(request)(cursor => request.withQueryStringParameters("after" -> cursor))
         .get()
+        .addEffect(logFailed(s"listSubs (so far: ${soFar.size})"))
       subs <-
         val js = res.body[JsValue]
         val pageSet = for
@@ -236,8 +235,14 @@ final private class TwitchApi(
     for
       headers <- headersAuth
       _ <- subs.parallelN(8): sub =>
-        ws.url(s"$eventSubEndpoint?id=${sub.subId}").withHttpHeaders(headers*).delete()
+        ws.url(s"$eventSubEndpoint?id=${sub.subId}")
+          .withHttpHeaders(headers*)
+          .delete()
+          .addEffect(logFailed(s"deleteSub ${sub.subId}"))
     yield ()
+
+  private def logFailed(context: String)(res: StandaloneWSResponse) =
+    if res.status / 100 != 2 then logger.warn(s"$context failed: ${lila.log.http(res.status, res.body)}")
 
   private def fetchStreams(ids: Seq[TwitchId]): Fu[Seq[HelixStream]] =
     ids.nonEmpty.so:
@@ -248,6 +253,7 @@ final private class TwitchApi(
           .withQueryStringParameters(ids.map(l => "user_id" -> l.value)*)
           .withHttpHeaders(headers*)
           .get()
+          .addEffect(logFailed(s"fetchStreams ${ids.mkString(",")}"))
       yield res.body[JsValue].get[Seq[HelixStream]]("data").orZero.filter(_.live)
 
   private def verifyMessage(rawBody: String, headers: Headers): Option[String] =
