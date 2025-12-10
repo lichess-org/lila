@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+	<string name="patronCostsThisYear" comment="%1$s is 'costs'. %2$s is the cost with currency symbol e.g. '$750,000'">今年の Lichess の %1$s は %2$s でした。</string>
+	<string name="patronCosts" comment="It is a link to lichess.org/costs">経費</string>
+	<string name="patronCharity">私たちは非営利団体で、寄付金だけで運営しています。</string>
+	<string name="patronConsiderDonating" comment="%s is 'supporting us with a donation'">今年 Lichess を楽しんだなら、あるいは私たちの仕事に共感しているのなら、%sをご検討ください！</string>
+	<string name="patronMakeDonation" comment="It is a link to https://lichess.org/patron">支援のための寄付</string>
+	<plurals name="shareableNbPuzzlesSolved">
+		<item quantity="other">%s 問に正解</item>
+	</plurals>
+</resources>
