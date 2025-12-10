@@ -1,5 +1,7 @@
 package lila.streamer
 
+import scala.collection.concurrent.TrieMap
+import akka.stream.scaladsl.Source
 import play.api.i18n.Lang
 import play.api.libs.json.*
 import play.api.libs.ws.DefaultBodyWritables.*
@@ -7,7 +9,6 @@ import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.JsonBodyWritables.*
 import play.api.libs.ws.{ StandaloneWSClient, StandaloneWSResponse }
 import play.api.mvc.Headers
-import scala.collection.concurrent.TrieMap
 
 import lila.common.Json.given
 import lila.core.config.Secret
@@ -59,7 +60,7 @@ final private class TwitchApi(
     cfg: TwitchConfig,
     net: NetConfig,
     cacheApi: lila.memo.CacheApi
-)(using Executor):
+)(using Executor, akka.stream.Materializer):
 
   import Twitch.{ given, * }
 
@@ -67,6 +68,7 @@ final private class TwitchApi(
   private val webhook = net.routeUrl(routes.Streamer.onTwitchEventSub)
   private val eventSubEndpoint = s"${cfg.helixEndpoint}/eventsub/subscriptions"
   private val eventVersions = Map("stream.online" -> "1", "stream.offline" -> "1", "channel.update" -> "2")
+  private val reqsPerMinute = 30
   private val lives = TrieMap.empty[TwitchId, HelixStream]
 
   private case class EventSub(subId: String, broadcasterId: TwitchId, event: String, hook: Url)
@@ -157,12 +159,13 @@ final private class TwitchApi(
     fetchStream(s.id).map(helix => lives.updateWith(s.id)(_ => helix))
 
   private[streamer] def pubsubSubscribe(id: TwitchId, subscribe: Boolean): Funit =
-    if subscribe then eventVersions.keys.map(event => subscribeEvent(id, event)).parallel.void
+    if subscribe
+    then streamRequests(eventVersions.keys.toList)(subscribeEvent(id, _))
     else fetchStreamSubs(id).map(deleteSubs)
 
   private def subscribeMany(wanted: Seq[(TwitchId, String)]): Funit =
     logger.info(s"Subscribing to ${wanted.size} new event subs")
-    wanted.parallelN(8)(subscribeEvent)
+    streamRequests(wanted.toList)(subscribeEvent)
 
   private def subscribeEvent(id: TwitchId, event: String) =
     for
@@ -234,12 +237,15 @@ final private class TwitchApi(
     logger.info(s"Deleting ${subs.size} subs")
     for
       headers <- headersAuth
-      _ <- subs.parallelN(8): sub =>
+      _ <- streamRequests(subs.toList): sub =>
         ws.url(s"$eventSubEndpoint?id=${sub.subId}")
           .withHttpHeaders(headers*)
           .delete()
           .addEffect(logFailed(s"deleteSub ${sub.subId}"))
     yield ()
+
+  private def streamRequests[A](list: List[A])(send: A => Fu[StandaloneWSResponse]): Funit =
+    Source(list).throttle(reqsPerMinute * 9 / 10, 1.minute).mapAsync(1)(send).run().void
 
   private def logFailed(context: String)(res: StandaloneWSResponse) =
     if res.status / 100 != 2 then logger.warn(s"$context failed: ${lila.log.http(res.status, res.body)}")
