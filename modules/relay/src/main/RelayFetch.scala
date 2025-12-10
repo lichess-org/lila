@@ -4,7 +4,6 @@ import chess.format.pgn.{ PgnStr, Tag, Tags }
 import chess.TournamentClock
 import com.github.blemale.scaffeine.LoadingCache
 import io.mola.galimatias.URL
-import play.api.libs.json.*
 import scalalib.model.Seconds
 
 import lila.common.LilaScheduler
