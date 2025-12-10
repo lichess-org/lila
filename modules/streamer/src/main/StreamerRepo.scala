@@ -4,6 +4,7 @@ import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
+import Twitch.TwitchId
 
 final class StreamerRepo(
     coll: Coll,
@@ -46,19 +47,23 @@ final class StreamerRepo(
       _ <- elements.nonEmpty.so(update.many(elements).void)
     yield ()
 
-  private[streamer] def approvedIds(platform: Platform, limit: Int = 1000): Fu[Seq[String]] =
-    val idField = if platform == "youtube" then "channelId" else "id"
-    val fullField = s"$platform.$idField"
+  private[streamer] def approvedTwitchIds(limit: Int = 1000): Fu[Seq[TwitchId]] =
+    approvedIds[TwitchId]("twitch.id", limit)
+
+  private[streamer] def approvedYoutubeIds(limit: Int = 1000): Fu[Seq[String]] =
+    approvedIds[String]("youtube.channelId", limit)
+
+  private def approvedIds[Id: BSONReader](field: String, limit: Int): Fu[Seq[Id]] =
     coll
       .aggregateOne(_.sec): framework =>
         import framework.*
-        Match($doc(fullField.$exists(true), "approval.granted" -> true)) -> List(
+        Match($doc(field.$exists(true), "approval.granted" -> true)) -> List(
           Sort(Descending("lastSeenAt")),
           Limit(limit),
-          Group(BSONNull)("ids" -> PushField(fullField))
+          Group(BSONNull)("ids" -> PushField(field))
         )
       .map:
-        _.so(~_.getAsOpt[Seq[String]]("ids"))
+        _.so(~_.getAsOpt[Seq[Id]]("ids"))
 
   private[streamer] def approvedByChannelId(channelId: String): Fu[Option[Streamer]] =
     coll
@@ -108,7 +113,7 @@ final class StreamerRepo(
         )
       .map(bulk.many(_))
 
-  private[streamer] def setTwitchLogin(id: Streamer.Id, login: String): Funit =
+  private[streamer] def setTwitchLogin(id: Streamer.Id, login: Twitch.TwitchLogin): Funit =
     coll.update.one($id(id), $set("twitch.login" -> login)).void
 
   private[streamer] def setYoutubePubsubVideo(id: Streamer.Id, videoId: String): Funit =

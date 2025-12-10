@@ -157,7 +157,7 @@ final private class YoutubeApi(
 
   private[streamer] def subscribeAll: Funit = cfg.apiKey.value.nonEmpty.so:
     for
-      channelIds <- repo.approvedIds("youtube")
+      channelIds <- repo.approvedYoutubeIds()
       _ <- channelIds.parallelN(8) { channelSubscribe(_, true) }
     yield logger.info(s"subscribeAll: done ${channelIds.size}")
 
