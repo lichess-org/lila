@@ -30,6 +30,8 @@
   <string name="cornerMateDescription">ルークかクイーンでキングを隅に追い詰め、ナイトでメイトする形。</string>
   <string name="crushing">圧倒</string>
   <string name="crushingDescription">相手の悪手をとがめて圧倒的な優位を築きます。（評価値は 600cp 以上）</string>
+  <string name="discoveredCheck" comment="Description (translatable separately):&#10;&#10;Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage.">ディスカバード・チェック</string>
+  <string name="discoveredCheckDescription" comment="Description for the &quot;Discovered check&quot; puzzle theme.">駒を動かして、その陰にいた別の駒でチェックをかける。決定的な優位につながることが多い。</string>
   <string name="doubleBishopMate">ダブル・ビショップのメイト</string>
   <string name="doubleBishopMateDescription">味方の駒にじゃまされたキングを、2 個のビショップが平行な効き筋でメイトする形。</string>
   <string name="dovetailMate">燕尾のメイト</string>
