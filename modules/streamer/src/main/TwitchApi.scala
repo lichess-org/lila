@@ -28,10 +28,11 @@ private object Twitch:
       title: Html,
       language: String,
       `type`: String
-  )
+  ):
+    def live = `type` == "live"
   case class Pagination(cursor: Option[String])
   case class Result(data: Option[List[HelixStream]], pagination: Option[Pagination]):
-    def liveStreams = (~data).filter(_.`type` == "live")
+    def liveStreams = (~data).filter(_.live)
   case class TwitchStream(stream: HelixStream, streamer: Streamer) extends lila.streamer.Stream:
     def platform = "twitch"
     def status = stream.title
@@ -68,7 +69,7 @@ final private class TwitchApi(
   private val eventVersions = Map("stream.online" -> "1", "stream.offline" -> "1", "channel.update" -> "2")
   private val lives = TrieMap.empty[TwitchId, HelixStream]
 
-  private case class EventSub(subId: String, broadcasterId: TwitchId, event: String)
+  private case class EventSub(subId: String, broadcasterId: TwitchId, event: String, hook: Url)
 
   def debugLives: String = lives.toString
 
@@ -121,15 +122,22 @@ final private class TwitchApi(
   private[streamer] def subscribeAll: Funit = cfg.clientId.nonEmpty.so:
     for
       latestSeenApprovedIds <- repo.approvedTwitchIds()
-      subs <- listSubs(Set.empty, none)
-      _ = logger.info(s"Currently subscribed to ${subs.size} event subs")
+      _ = logger.info(s"${latestSeenApprovedIds.size} approved twitch ids")
+      allSubs <- listSubs(Set.empty, none)
+      _ = logger.info(s"Currently subscribed to ${allSubs.size} valid event subs")
+      (invalid, subs) = allSubs.partition(_.hook != webhook)
+      _ = logger.info(s"Deleting ${invalid.size} invalid event subs")
+      _ <- deleteSubs(invalid.toList)
+      _ = logger.info(s"Currently subscribed to ${subs.size} valid event subs")
       existing = subs.map(sub => (sub.broadcasterId, sub.event)).toSet
       approved = latestSeenApprovedIds.toSet
       wanted = latestSeenApprovedIds.flatMap: id =>
-        eventVersions.keys
-          .filterNot(event => existing(id -> event))
-          .map(event => (id, event))
-      _ <- deleteSubs(subs.filter { case EventSub(_, id, _) => !approved(id) }.toList)
+        eventVersions.keys.filterNot(event => existing(id -> event)).map(id -> _)
+      subsToDelete = subs.filter(s => !approved(s.broadcasterId)).toList
+      _ = logger.info(s"Deleting ${subsToDelete.size} unwanted event subs")
+      _ <- deleteSubs(subsToDelete)
+      _ = logger.info(s"Subscribing to ${wanted.size} new event subs")
+      _ = println(wanted.take(3))
       _ <- subscribeMany(wanted)
     yield ()
 
@@ -197,8 +205,7 @@ final private class TwitchApi(
         subId <- (sub \ "id").asOpt[String]
         event <- (sub \ "type").asOpt[String]
         hook <- (sub \ "transport" \ "callback").asOpt[Url]
-        if hook == webhook
-      yield EventSub(subId, id, event)
+      yield EventSub(subId, id, event, hook)
 
   private def listSubs(soFar: Set[EventSub], after: Option[String]): Fu[Set[EventSub]] =
     logger.info(s"Listing subs, so far ${soFar.size}")
@@ -216,8 +223,7 @@ final private class TwitchApi(
           broadcasterId <- (d \ "condition" \ "broadcaster_user_id").asOpt[TwitchId]
           event <- d.str("type")
           hook <- (d \ "transport" \ "callback").asOpt[Url]
-          if hook == webhook
-        yield EventSub(subId, broadcasterId, event)
+        yield EventSub(subId, broadcasterId, event, hook)
 
         val result = soFar ++ pageSet.toSet
         (js \ "pagination" \ "cursor")
@@ -227,15 +233,11 @@ final private class TwitchApi(
 
   private def deleteSubs(subs: Seq[EventSub]): Funit =
     logger.info(s"Deleting ${subs.size} subs")
-    subs.nonEmpty.so:
-      for
-        headers <- headersAuth
-        _ <- subs.parallelN(8): sub =>
-          ws.url(s"$eventSubEndpoint?id=${sub.subId}")
-            .withHttpHeaders(headers*)
-            .delete()
-            .void
-      yield ()
+    for
+      headers <- headersAuth
+      _ <- subs.parallelN(8): sub =>
+        ws.url(s"$eventSubEndpoint?id=${sub.subId}").withHttpHeaders(headers*).delete()
+    yield ()
 
   private def fetchStreams(ids: Seq[TwitchId]): Fu[Seq[HelixStream]] =
     ids.nonEmpty.so:
@@ -246,14 +248,7 @@ final private class TwitchApi(
           .withQueryStringParameters(ids.map(l => "user_id" -> l.value)*)
           .withHttpHeaders(headers*)
           .get()
-        streams =
-          for
-            d <- ~res.body[JsValue].get[Seq[JsObject]]("data")
-            tpe <- d.str("type")
-            if tpe == "live"
-            stream <- d.asOpt[HelixStream]
-          yield stream
-      yield streams
+      yield res.body[JsValue].get[Seq[HelixStream]]("data").orZero.filter(_.live)
 
   private def verifyMessage(rawBody: String, headers: Headers): Option[String] =
     def header(name: String): Option[String] = headers.get(s"Twitch-Eventsub-Message-$name")
