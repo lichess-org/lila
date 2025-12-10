@@ -76,5 +76,10 @@
 	<string name="shareableMostPlayedOpponent">najigraniji protivnik</string>
 	<string name="shareableFavouriteVariant">omiljena varijanta</string>
 	<string name="shareableFavouriteTimeControl">omiljena kontrola vremena</string>
+	<plurals name="shareableNbPuzzlesSolved">
+		<item quantity="one">%s zagonetka riješena</item>
+		<item quantity="few">%s zagonetke riješene</item>
+		<item quantity="other">%s zagonetkih riješeno</item>
+	</plurals>
 	<string name="recapReady" comment="%s is the year of the recap">Vaš sažetak za %s je spreman!</string>
 </resources>
