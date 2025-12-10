@@ -1,5 +1,5 @@
 import { pieceGrams, totalGames } from './constants';
-import type { ByColor, Counted, Opening, Recap, Sources, RecapPerf } from './interfaces';
+import type { ByColor, Counted, Opening, Recap, Sources, RecapPerf, Opts } from './interfaces';
 import { onInsert, hl, type LooseVNodes, type VNode, dataIcon } from 'lib/view';
 import { loadOpeningLpv } from './ui';
 import { shuffle } from 'lib/algo';
@@ -7,7 +7,8 @@ import { fullName, userFlair, userTitle } from 'lib/view/userLink';
 import { spinnerVdom } from 'lib/view';
 import { formatDuration, perfIsSpeed, perfLabel } from './util';
 import perfIcons from 'lib/game/perfIcons';
-import { numberFormat } from 'lib/i18n';
+import * as licon from 'lib/licon';
+import { currencyFormat, numberFormat, percentFormat } from 'lib/i18n';
 
 const confettiCanvas = (): VNode =>
   hl('canvas#confetti', {
@@ -126,15 +127,14 @@ const noFlair = (o: LightUser): VNode => {
 };
 
 export const firstMoves = (r: Recap, firstMove: Counted<string>): VNode => {
-  const percent = Math.round((firstMove.count * 100) / r.games.nbWhite);
+  const ofTotal = firstMove.count / r.games.nbWhite;
   return slideTag('first')([
     hl('div.recap--massive', [hl('strong.animated-pulse', '1. ' + firstMove.value)]),
     hl('div', [
       hl(
         'p',
         i18n.recap.firstMoveStats.asArray(
-          hl('strong', animateNumber(firstMove.count)),
-          animateNumber(percent),
+          hl('div', [hl('strong', animateNumber(firstMove.count)), ` (${percentFormat(ofTotal, 2)})`]),
         ),
       ),
     ]),
@@ -276,14 +276,19 @@ export const malware = (): VNode =>
   ]);
 
 export const lichessGames = (r: Recap): VNode => {
-  const gamesPercentOfTotal = (r.games.nbs.total * 100) / totalGames;
-  const showGamesPercentOfTotal = gamesPercentOfTotal.toFixed(6) + '%';
+  const gamesPercentOfTotal = r.games.nbs.total / totalGames;
   return slideTag('lichess-games')([
     hl(
       'div.recap--massive',
       i18n.recap.lichessGamesPlayedIn.asArray<LooseVNodes>(hl('strong', animateNumber(totalGames)), r.year),
     ),
-    hl('div', hl('p', i18n.recap.lichessGamesOfThemYours.asArray(hl('strong', showGamesPercentOfTotal)))),
+    hl(
+      'div',
+      hl(
+        'p',
+        i18n.recap.lichessGamesOfThemYours.asArray(hl('strong', percentFormat(gamesPercentOfTotal, 6))),
+      ),
+    ),
   ]);
 };
 
@@ -292,6 +297,34 @@ export const thanks = (r: Recap): VNode =>
     hl('div.recap--massive', i18n.recap.thanksTitle),
     hl('img.recap__logo', { attrs: { src: site.asset.url('logo/lichess-white.svg') } }),
     hl('div', i18n.recap.thanksHaveAGreat.asArray(r.year + 1)),
+  ]);
+
+export const patron = (opts: Opts): VNode =>
+  slideTag('patron')([
+    hl(
+      'div.recap--big',
+      i18n.recap.patronCostsThisYear.asArray(
+        hl('a', { attrs: { href: '/costs', target: '_blank' } }, i18n.recap.patronCosts),
+        opts.costs &&
+          hl(
+            'strong',
+            currencyFormat(opts.costs.amount, opts.costs.currency, {
+              maximumFractionDigits: 0,
+            }),
+          ),
+      ),
+    ),
+    hl('p', i18n.recap.patronCharity),
+    hl('i.text', { attrs: dataIcon(licon.Wings) }),
+
+    opts.user.patron
+      ? hl('p', i18n.patron.thankYou)
+      : hl(
+          'p.cta',
+          i18n.recap.patronConsiderDonating.asArray(
+            hl('a', { attrs: { href: '/patron', target: '_blank' } }, i18n.recap.patronMakeDonation),
+          ),
+        ),
   ]);
 
 const renderPerf = (perf: RecapPerf): VNode => {
@@ -309,7 +342,7 @@ const stat = (value: string | VNode, label: string): VNode =>
   hl('div.stat', [hl('div', hl('strong', value)), hl('div', hl('small', label))]);
 
 const stati18n = (value: number, plural: I18nPlural): VNode => {
-  const [_, num, label] = plural.asArray(value, hl('strong', value));
+  const [_, num, label] = plural.asArray(value, hl('strong', numberFormat(value)));
   return hl('div.stat', [hl('div', num), hl('div', hl('small', label))]);
 };
 
@@ -325,7 +358,7 @@ export const shareable = (r: Recap): VNode =>
         r.games.perfs[0]?.games && stat(renderPerf(r.games.perfs[0]), perfLabel(r.games.perfs[0])),
         r.games.opponents.length &&
           stat(opponentLink(r.games.opponents[0].value), i18n.recap.shareableMostPlayedOpponent),
-        stat(numberFormat(r.puzzles.nbs.total), i18n.storm.puzzlesSolved),
+        stati18n(r.puzzles.nbs.total, i18n.recap.shareableNbPuzzlesSolved),
       ]),
       hl(
         'div.openings',

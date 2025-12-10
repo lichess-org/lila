@@ -31,3 +31,22 @@
 .pager__label {
   margin-right: 6px;
 }
+
+@media (max-width: at-most($x-small)) {
+  .slist-leaderboard {
+    td:first-child {
+      white-space: nowrap;
+    }
+    td:nth-child(2) {
+      padding-right: 0;
+      a.user-link {
+        display: inline-block;
+        max-width: min(26ch, 50vw);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        vertical-align: middle;
+      }
+    }
+  }
+}

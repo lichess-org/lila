@@ -534,8 +534,8 @@ final class User(
     Found(user): user =>
       for
         usersAndGames <- env.game.favoriteOpponents(user.id)
-        withPerfs <- env.user.api.listWithPerfs(usersAndGames.map(_._1))
-        ops = withPerfs.toList.zip(usersAndGames.map(_._2))
+        withPerfs <- env.user.api.listWithPerfs(usersAndGames._1F)
+        ops = withPerfs.toList.zip(usersAndGames._2F)
         followables <- env.pref.api.followables(ops.map(_._1.id))
         relateds <-
           ops

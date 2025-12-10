@@ -2833,6 +2833,16 @@ interface I18n {
     openingsMostPlayedAsBlack: I18nPlural;
     /** Your most played opening as white with %s games */
     openingsMostPlayedAsWhite: I18nPlural;
+    /** We're a charity, running purely on donations. */
+    patronCharity: string;
+    /** If we helped entertain you this year, or you believe in our work, please consider %s! */
+    patronConsiderDonating: I18nFormat;
+    /** costs */
+    patronCosts: string;
+    /** Lichess's %1$s this year were %2$s. */
+    patronCostsThisYear: I18nFormat;
+    /** supporting us with a donation */
+    patronMakeDonation: string;
     /** What time controls and variants did you play? */
     perfsTitle: string;
     /** You also helped tag %s of them. */
@@ -2853,6 +2863,8 @@ interface I18n {
     shareableFavouriteVariant: string;
     /** most played opponent */
     shareableMostPlayedOpponent: string;
+    /** %s puzzles solved */
+    shareableNbPuzzlesSolved: I18nPlural;
     /** spent playing */
     shareableSpentPlaying: string;
     /** My %s recap */

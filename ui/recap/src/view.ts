@@ -25,8 +25,9 @@ export function view(r: Recap, opts: Opts): VNode {
           ]
         : [slides.noGames()],
       slides.puzzles(r),
-      slides.malware(),
       slides.lichessGames(r),
+      slides.malware(),
+      slides.patron(opts),
       slides.thanks(r),
       slides.shareable(r),
     ]),

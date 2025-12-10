@@ -36,14 +36,14 @@ final class DevUi(helpers: Helpers)(modMenu: String => Context ?=> Frag):
         )
       )
 
-  def ipPasslist(form: Either[String, Form[?]])(using Context) =
-    val title = "IP Passlist"
+  def ipTiers(form: Either[String, Form[?]])(using Context) =
+    val title = "IP limit tiers"
     Page(title)
       .css("mod.misc")
       .css("bits.form3"):
         main(cls := "page-menu")(
-          modMenu("ip-passlist"),
-          div(id := "ip-passlist", cls := "page-menu__content box box-pad")(
+          modMenu("ip-tiers"),
+          div(id := "ip-tiers", cls := "page-menu__content box box-pad")(
             h1(cls := "box__top")(title),
             p(
               "Upgrade rate limits for specific IP addresses.",
@@ -52,8 +52,19 @@ final class DevUi(helpers: Helpers)(modMenu: String => Context ?=> Frag):
               br,
               "This requires a service to copy the lila file to the nginx server and reload nginx."
             ),
+            p(
+              "Format: ",
+              br,
+              code("{IP} {tier}; # contact info"),
+              br,
+              nl2br("""
+  Tier 1: normal limits (default, up to 30 players)
+  Tier 2: higher limits (well enough for schools and hotels)
+  Tier 3: much higher limits (only for official bots like maia)
+  """)
+            ),
             standardFlash,
-            postForm(action := routes.Dev.ipPasslistPost, cls := "form3")(
+            postForm(action := routes.Dev.ipTiersPost, cls := "form3")(
               form match
                 case Left(err) => p(cls := "error")(err)
                 case Right(form) =>

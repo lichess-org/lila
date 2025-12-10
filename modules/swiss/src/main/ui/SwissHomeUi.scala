@@ -15,7 +15,7 @@ final class SwissHomeUi(helpers: Helpers):
         main(cls := "page-small box box-pad page swiss-home")(
           h1(cls := "box__top")(trans.swiss.swissTournaments()),
           renderList(trans.swiss.nowPlaying.txt())(featured.started),
-          renderList(trans.swiss.startingSoon.txt())(featured.created),
+          renderList(trans.swiss.startingSoon.txt())(featured.created.sortBy(_.startsAt)),
           div(cls := "swiss-home__infos")(
             div(cls := "wiki")(
               iconTag(Icon.InfoCircle),

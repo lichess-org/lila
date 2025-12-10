@@ -1461,6 +1461,11 @@ object I18nKey:
     val `lichessGamesOfThemYours`: I18nKey = "recap:lichessGamesOfThemYours"
     val `thanksTitle`: I18nKey = "recap:thanksTitle"
     val `thanksHaveAGreat`: I18nKey = "recap:thanksHaveAGreat"
+    val `patronCostsThisYear`: I18nKey = "recap:patronCostsThisYear"
+    val `patronCosts`: I18nKey = "recap:patronCosts"
+    val `patronCharity`: I18nKey = "recap:patronCharity"
+    val `patronConsiderDonating`: I18nKey = "recap:patronConsiderDonating"
+    val `patronMakeDonation`: I18nKey = "recap:patronMakeDonation"
     val `shareableTitle`: I18nKey = "recap:shareableTitle"
     val `shareableSpentPlaying`: I18nKey = "recap:shareableSpentPlaying"
     val `shareableMostPlayedOpponent`: I18nKey = "recap:shareableMostPlayedOpponent"
@@ -1474,6 +1479,7 @@ object I18nKey:
     val `openingsMostPlayedAsWhite`: I18nKey = "recap:openingsMostPlayedAsWhite"
     val `openingsMostPlayedAsBlack`: I18nKey = "recap:openingsMostPlayedAsBlack"
     val `puzzlesThanksVoting`: I18nKey = "recap:puzzlesThanksVoting"
+    val `shareableNbPuzzlesSolved`: I18nKey = "recap:shareableNbPuzzlesSolved"
 
   object search:
     val `search`: I18nKey = "search:search"

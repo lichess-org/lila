@@ -19,14 +19,14 @@ final class TeamMemberStream(
       .mapAsync(1): members =>
         val users =
           if fullUser
-          then userApi.listWithPerfs(members.view.map(_._1).toList)
-          else lightApi.asyncManyFallback(members.view.map(_._1).toList)
-        users.map(_.zip(members.map(_._2)))
+          then userApi.listWithPerfs(members._1F.toList)
+          else lightApi.asyncManyFallback(members._1F.toList)
+        users.map(_.zip(members._2F))
       .mapConcat(identity)
 
   def subscribedIds(team: Team, perSecond: MaxPerSecond): Source[UserId, ?] =
     idsBatches(team, perSecond, $doc("unsub".$ne(true)))
-      .map(_.map(_._1))
+      .map(_._1F)
       .mapConcat(identity)
 
   private def idsBatches(

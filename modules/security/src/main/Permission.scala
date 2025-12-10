@@ -74,7 +74,7 @@ object Permission:
       Diagnostics,
       Cli,
       Settings,
-      IpPasslist,
+      IpTiers,
       Impersonate,
       ChangePermission,
       PayPal

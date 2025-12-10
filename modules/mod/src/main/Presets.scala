@@ -40,7 +40,7 @@ final class ModPresetsApi(settingStore: lila.memo.SettingStore.Builder):
 case class ModPresets(value: List[ModPreset]):
   def named(name: String) = value.find(_.name == name)
   def byPermission: Map[Permission, List[ModPreset]] =
-    value.flatMap(v => v.permissions.map(_ -> v)).groupBy(_._1).view.mapValues(_.map(_._2)).toMap
+    value.flatMap(v => v.permissions.map(_ -> v)).groupBy(_._1).view.mapValues(_._2F).toMap
 
 case class ModPreset(name: String, text: String, permissions: Set[Permission]):
   def isNameClose = name.contains(ModPresets.nameClosePresetName)

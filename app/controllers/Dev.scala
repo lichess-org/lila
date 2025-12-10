@@ -42,16 +42,16 @@ final class Dev(env: Env) extends LilaController(env):
       runCommand(ctx.body.body).map { Ok(_) }
   }
 
-  def ipPasslist = Secure(_.IpPasslist) { ctx ?=> _ ?=>
-    env.security.ipPasslist.form.flatMap: form =>
-      Ok.page(views.dev.ipPasslist(form))
+  def ipTiers = Secure(_.IpTiers) { ctx ?=> _ ?=>
+    env.security.ipTiers.form.flatMap: form =>
+      Ok.page(views.dev.ipTiers(form))
   }
 
-  def ipPasslistPost = SecureBody(_.IpPasslist) { ctx ?=> _ ?=>
-    Found(env.security.ipPasslist.form.map(_.toOption)): form =>
+  def ipTiersPost = SecureBody(_.IpTiers) { ctx ?=> _ ?=>
+    Found(env.security.ipTiers.form.map(_.toOption)): form =>
       bindForm(form)(
-        err => BadRequest.page(views.dev.ipPasslist(Right(err))),
-        v => env.security.ipPasslist.set(v).inject(Redirect(routes.Dev.ipPasslist).flashSuccess)
+        err => BadRequest.page(views.dev.ipTiers(Right(err))),
+        v => env.security.ipTiers.set(v).inject(Redirect(routes.Dev.ipTiers).flashSuccess)
       )
   }
 
