@@ -7,11 +7,13 @@ import reactivemongo.api.bson.Macros.Annotations.Key
 import java.text.Normalizer
 
 import lila.core.fide.{ PlayerToken, Tokenize, diacritics }
+import lila.core.id.ImageId
 
 case class FidePlayer(
     @Key("_id") id: FideId,
     name: PlayerName,
     token: PlayerToken,
+    photo: Option[FidePlayer.PlayerPhoto],
     fed: Option[lila.core.fide.Federation.Id],
     title: Option[PlayerTitle],
     standard: Option[Elo],
@@ -57,6 +59,8 @@ case class FidePlayer(
   .mkString(", ")
 
 object FidePlayer:
+
+  case class PlayerPhoto(id: ImageId, credit: Option[String] = None)
 
   case class WithFollow(player: FidePlayer, follow: Boolean)
 
