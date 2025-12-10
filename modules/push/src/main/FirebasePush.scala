@@ -82,7 +82,8 @@ final private class FirebasePush(
                   case Some(PushApi.Data.FirebaseMod.NotifOnly(mod)) => mod(data.payload.userData)
                   case _ =>
                     data.payload.userData ++ (data.iosBadge.map: number =>
-                      "iosBadge" -> number.toString)
+                      "iosBadge" -> number.toString),
+              "android" -> Json.obj("priority" -> "high")
             )
             .add:
               "notification" -> data.firebaseMod.match
@@ -90,9 +91,11 @@ final private class FirebasePush(
                 case _ => Json.obj("body" -> data.body, "title" -> data.title).some
             .add:
               "apns" -> data.iosBadge.map: number =>
-                Json.obj:
+                Json.obj(
+                  "headers" -> Json.obj("apns-priority" -> "10"),
                   "payload" -> Json.obj:
                     "aps" -> Json.obj("badge" -> number)
+                )
         )
       .flatMap: res =>
         lila.mon.push.firebaseStatus(res.status).increment()
