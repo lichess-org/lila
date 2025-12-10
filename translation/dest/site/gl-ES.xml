@@ -728,6 +728,7 @@
   <string name="cyclePreviousOrNextVariation">Variante anterior/seguinte</string>
   <string name="toggleGlyphAnnotations">Activar/desactivar as anotacións con símbolos</string>
   <string name="togglePositionAnnotations">Activar/desactivar as anotacións</string>
+  <string name="toggleObservationAnnotations">Activar/desactivar as anotacións</string>
   <string name="variationArrowsInfo">As frechas das variantes permítenche navegar sen usar a lista de movementos.</string>
   <string name="playSelectedMove">facer a xogada seleccionada</string>
   <string name="newTournament">Novo torneo</string>

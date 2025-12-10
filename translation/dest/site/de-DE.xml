@@ -728,6 +728,7 @@
   <string name="cyclePreviousOrNextVariation">Durch vorherige/nächste Variante schalten</string>
   <string name="toggleGlyphAnnotations">Schalten der Zeichen-Anmerkungen</string>
   <string name="togglePositionAnnotations">Positionsanmerkungen umschalten</string>
+  <string name="toggleObservationAnnotations">Stellungsanmerkungen umschalten</string>
   <string name="variationArrowsInfo">Mit Varianten-Pfeilen navigierst du durch die Zugliste.</string>
   <string name="playSelectedMove">den ausgewählten Zug ausführen</string>
   <string name="newTournament">Neues Turnier</string>

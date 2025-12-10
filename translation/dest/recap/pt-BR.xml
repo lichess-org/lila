@@ -32,6 +32,14 @@
 		<item quantity="other">%s kilogramas</item>
 	</plurals>
 	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">é como você começou %s das suas partidas com as brancas</string>
+	<plurals name="openingsMostPlayedAsWhite" comment="%s is the number of games">
+		<item quantity="one">Sua abertura mais jogada de brancas com %s partida</item>
+		<item quantity="other">Sua abertura mais jogada de brancas com %s partidas</item>
+	</plurals>
+	<plurals name="openingsMostPlayedAsBlack" comment="%s is the number of games">
+		<item quantity="one">Sua abertura mais jogada de pretas com %s partida</item>
+		<item quantity="other">Sua abertura mais jogada de pretas com %s partidas</item>
+	</plurals>
 	<plurals name="puzzlesThanksVoting" comment="%s is the number of puzzles. It is also translated.">
 		<item quantity="one">Obrigado por votar em %s quebra-cabeça.</item>
 		<item quantity="other">Obrigado por votar em %s quebra-cabeças.</item>
@@ -51,10 +59,19 @@
 	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours">%s delas foram suas.</string>
 	<string name="thanksTitle">Obrigado por jogar no Lichess!</string>
 	<string name="thanksHaveAGreat" comment="%s is the next year">Estamos felizes por você estar aqui. Tenha um grande %s!</string>
+	<string name="patronCostsThisYear" comment="%1$s is 'costs'. %2$s is the cost with currency symbol e.g. '$750,000'">Nesse ano, os %1$s do Lichess foram de %2$s.</string>
+	<string name="patronCosts" comment="It is a link to lichess.org/costs">custos</string>
+	<string name="patronCharity">Nós somos uma instituição de caridade, que depende exclusivamente de doações.</string>
+	<string name="patronConsiderDonating" comment="%s is 'supporting us with a donation'">Se nós ajudamos a entreter você nesse ano, ou você acredita no nosso trabalho, por favor, considere %s!</string>
+	<string name="patronMakeDonation" comment="It is a link to https://lichess.org/patron">nos apoie com uma doação</string>
 	<string name="shareableTitle" comment="%s is the current year">Minha %s recapitulação</string>
 	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">gasto jogando</string>
 	<string name="shareableMostPlayedOpponent">oponente que você mais disputou</string>
 	<string name="shareableFavouriteVariant">variante favorita</string>
 	<string name="shareableFavouriteTimeControl">controle de tempo favorito</string>
+	<plurals name="shareableNbPuzzlesSolved">
+		<item quantity="one">Quebra-cabeça %s resolvido</item>
+		<item quantity="other">Quebra-cabeças %s resolvidos</item>
+	</plurals>
 	<string name="recapReady" comment="%s is the year of the recap">Sua recapitulação %s está pronta!</string>
 </resources>

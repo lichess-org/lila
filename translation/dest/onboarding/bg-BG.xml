@@ -6,10 +6,13 @@
   <string name="thisIsYourProfilePage">Това е страницата на Вашия профил.</string>
   <string name="enabledKidModeSuggestion">Тази регистрация ще бъде ли използвана от дете? Можете да активирате %s.</string>
   <string name="whatNowSuggestions">А сега какво? Ето няколко предложения:</string>
-  <string name="learnChessRules">Научете правилата на шахмата</string>
-  <string name="playOpponentsFromAroundTheWorld">Играй срещу протовници от целия свят.</string>
+  <string name="learnChessRules">Научeте правилата на шахмата</string>
+  <string name="improveWithChessTacticsPuzzles">Подобрете уменията си с тактически задачи.</string>
+  <string name="playTheArtificialIntelligence">Играйте срещу изкуствения интелект.</string>
+  <string name="playOpponentsFromAroundTheWorld">Играйте срещу противници от цял свят.</string>
   <string name="followYourFriendsOnLichess">Следвайте приятелите си в Lichess.</string>
   <string name="playInTournaments">Участвайте в турнири.</string>
   <string name="learnFromXAndY">Учете се с помощта на %1$s и %2$s.</string>
   <string name="configureLichess">Нагласете Lichess както Ви харесва.</string>
+  <string name="exploreTheSiteAndHaveFun">Разгледайте сайта и се забавлявайте :)</string>
 </resources>

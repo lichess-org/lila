@@ -728,6 +728,7 @@
   <string name="cyclePreviousOrNextVariation">Alterna entre la siguiente variante y la anterior</string>
   <string name="toggleGlyphAnnotations">Activa o desactiva la anotación de figurines</string>
   <string name="togglePositionAnnotations">Activa o desactiva anotaciones de posición</string>
+  <string name="toggleObservationAnnotations">Alternar las anotaciones de observación</string>
   <string name="variationArrowsInfo">Las flechas de variantes te permiten navegar sin usar la lista de movimientos.</string>
   <string name="playSelectedMove">hacer movimiento seleccionado</string>
   <string name="newTournament">Nuevo torneo</string>

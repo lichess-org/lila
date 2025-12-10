@@ -728,6 +728,7 @@
   <string name="cyclePreviousOrNextVariation">Canvia la variació següent/anterior</string>
   <string name="toggleGlyphAnnotations">Mostra/amaga les anotacions glif</string>
   <string name="togglePositionAnnotations">Mostra/amaga les anotacions de la posició</string>
+  <string name="toggleObservationAnnotations">Motra/amaga les anotacions dels observadors</string>
   <string name="variationArrowsInfo">Les fletxes de variants et permeten navegar sense utilitzar la llista de moviments.</string>
   <string name="playSelectedMove">juga el moviment seleccionat</string>
   <string name="newTournament">Nou torneig</string>

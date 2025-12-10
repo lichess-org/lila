@@ -166,8 +166,8 @@
   <string name="offerDraw">Propor empate</string>
   <string name="draw">Empate</string>
   <plurals name="nbPlayers">
-    <item quantity="one">%s jogadores conectados</item>
-    <item quantity="other">%s jogadores conectados</item>
+    <item quantity="one">%s jogador</item>
+    <item quantity="other">%s jogadores</item>
   </plurals>
   <string name="drawByMutualAgreement">Empate por acordo mútuo</string>
   <string name="fiftyMovesWithoutProgress">Cinquenta jogadas sem progresso</string>
@@ -728,6 +728,7 @@
   <string name="cyclePreviousOrNextVariation">Variante seguinte/anterior</string>
   <string name="toggleGlyphAnnotations">Ativar/desativar anotações</string>
   <string name="togglePositionAnnotations">Ativar/desativar anotações de posição</string>
+  <string name="toggleObservationAnnotations">Ativar/desativar anotações de observação</string>
   <string name="variationArrowsInfo">Setas de variação permitem navegar sem usar a lista de movimentos.</string>
   <string name="playSelectedMove">jogar movimento selecionado</string>
   <string name="newTournament">Novo torneio</string>

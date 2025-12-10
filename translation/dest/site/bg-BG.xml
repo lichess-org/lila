@@ -708,6 +708,7 @@
   <string name="keyPreviousBranch">Предходен клон</string>
   <string name="keyNextBranch">Следващ клон</string>
   <string name="cyclePreviousOrNextVariation">Превключи между предходна/следваща вариация</string>
+  <string name="toggleObservationAnnotations">Показване/скриване на анотациите</string>
   <string name="playSelectedMove">изиграй избраният ход</string>
   <string name="newTournament">Нов турнир</string>
   <string name="tournamentHomeTitle">Шахматният турнир включва различни времеви контроли и варианти</string>

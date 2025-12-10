@@ -10,4 +10,27 @@
   <string name="actions">Akce</string>
   <string name="yourClock">Vaše hodiny</string>
   <string name="opponentClock">Soupeřovy hodiny</string>
+  <string name="gameStart">Začátek hry</string>
+  <string name="whiteKing">bílý král</string>
+  <string name="queen">královna</string>
+  <string name="whiteQueen">bílá královna</string>
+  <string name="blackQueen">černá královna</string>
+  <string name="rook">věž</string>
+  <string name="whiteRook">bílá věž</string>
+  <string name="blackRook">černá věž</string>
+  <string name="bishop">střelec</string>
+  <string name="whiteBishop">bílý střelec</string>
+  <string name="blackBishop">černý střelec</string>
+  <string name="knight">kůň</string>
+  <string name="whiteKnight">bílý kůň</string>
+  <string name="blackKnight">černý kůň</string>
+  <string name="pawn">pěšec</string>
+  <string name="whitePawn">bílý pěšec</string>
+  <string name="blackPawn">černý pěšec</string>
+  <string name="sanTakes" comment="Indicates a piece captured another piece as part of a longer sentence.&#10;Examples:&#10;&quot;knight takes f 3&quot;&#10;&quot;e takes f 3&quot;&#10;The exact format can vary depending on the user's preferences.&#10;&#10;Used only in blind mode when the screen reader verbally announces a move.&#10;&#10;&quot;Takes&quot; corresponds to &quot;x&quot; in Standard Algebraic Notation, for pieces being captured.">bere</string>
+  <string name="sanCheck" comment="+ in standard notation">šach</string>
+  <string name="sanCheckmate" comment="# in standard notation">šach mat</string>
+  <string name="sanShortCastling" comment="O-O in standard notation; also known as kingside castling">krátká rošáda</string>
+  <string name="sanLongCastling" comment="O-O-O in standard notation; also known as queenside castling.">dlouhá rošáda</string>
+  <string name="invalidMove">Neplatný tah</string>
 </resources>

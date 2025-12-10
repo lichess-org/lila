@@ -25,16 +25,21 @@
 	<string name="malwareNoneLoaded" comment="%s is 0">%s publicités et traceurs chargés</string>
 	<string name="malwareNoSell">Nous n\'avons pas vendu vos données personnelles.</string>
 	<string name="malwareNoAbuse">Nous n\'avons pas utilisé votre appareil contre vous.</string>
-	<string name="malwareWarningPrefix" comment="%s is 'be careful', which is translatable separately.">Mais les autres sites Web le font, alors %s svp.</string>
-	<string name="malwareWarningCta" comment="Part of a longer sentence &quot;But other websites do, so please be careful.&quot;&#10;&#10;Appears in the context of noting that Lichess served zero ads.&#10;The text links to https://lichess.org/ads">méfiez-vous</string>
+	<string name="malwareWarningPrefix" comment="%s is 'be careful'">Mais les autres sites Web le font, alors %s svp.</string>
+	<string name="malwareWarningCta" comment="It is a link to https://lichess.org/ads">méfiez-vous</string>
 	<string name="lichessGamesPlayedIn" comment="%1$s is the number of games, %2$s is the year">%1$s parties jouées sur Lichess en %2$s</string>
 	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours">Vous en avez joué %s.</string>
 	<string name="thanksTitle">Merci de jouer sur Lichess!</string>
 	<string name="thanksHaveAGreat" comment="%s is the next year">Nous sommes heureux de vous compter parmi nous et nous vous souhaitons une bonne année %s!</string>
+	<string name="patronCostsThisYear" comment="%1$s is 'costs'. %2$s is the cost with currency symbol e.g. '$750,000'">Les %1$s de Lichess cette année étaient de %2$s.</string>
+	<string name="patronCosts" comment="It is a link to lichess.org/costs">coûts</string>
+	<string name="patronCharity">Nous sommes un organisme caritatif financé uniquement pas des dons.</string>
+	<string name="patronConsiderDonating" comment="%s is 'supporting us with a donation'">Nous avons aidé à vous divertir cette année? Vous croyez en notre travail? %s!</string>
+	<string name="patronMakeDonation" comment="It is a link to https://lichess.org/patron">Appuyez-nous par un don</string>
 	<string name="shareableTitle" comment="%s is the current year">Mon récapitulatif %s</string>
-	<string name="shareableSpentPlaying" comment="Subtitle to the translated time they have spent playing&#10;&#10;Will be rendered like:&#10;&quot;1 day, 2 hours&#10;spent playing&quot;">de temps passé à jouer</string>
-	<string name="shareableMostPlayedOpponent" comment="Subtitle to the username of the opponent you have played the most games against&#10;&#10; Will be rendered like:&#10;&quot;GM Magnus&#10;most played opponent&quot;&#10;&#10;(where GM Magnus is the title+username of the player)">Adversaire le plus fréquent</string>
+	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">de temps passé à jouer</string>
+	<string name="shareableMostPlayedOpponent">Adversaire le plus fréquent</string>
 	<string name="shareableFavouriteVariant">Variante préférée</string>
-	<string name="shareableFavouriteTimeControl" comment="Subtitle to the time control you played the most games in&#10;&#10; Will be rendered like:&#10;&quot;Rapid&#10;favourite time control&quot;">Cadence préférée</string>
+	<string name="shareableFavouriteTimeControl">Cadence préférée</string>
 	<string name="recapReady" comment="%s is the year of the recap">Votre récapitulatif %s est prêt!</string>
 </resources>

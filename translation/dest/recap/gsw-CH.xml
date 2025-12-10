@@ -59,10 +59,19 @@
 	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours">%s devo vu dir.</string>
 	<string name="thanksTitle">Danke, dass du uf Lichess schpillsch!</string>
 	<string name="thanksHaveAGreat" comment="%s is the next year">Mir freued eus, dass du da bisch und wünsched dir es super %s!</string>
+	<string name="patronCostsThisYear" comment="%1$s is 'costs'. %2$s is the cost with currency symbol e.g. '$750,000'">Lichess hät das Jahr %1$s vu %2$s.</string>
+	<string name="patronCosts" comment="It is a link to lichess.org/costs">Chöschte</string>
+	<string name="patronCharity">Mir sind e g\'meinnützigi Organisation, wo usschliesslich dur Schpände finanziert wird.</string>
+	<string name="patronConsiderDonating" comment="%s is 'supporting us with a donation'">Händ mir dir das Jahr Freud g\'macht oder glaubsch du a eusi Arbet, dänn dänk bitte drüber na, ob du %s möchtsch!</string>
+	<string name="patronMakeDonation" comment="It is a link to https://lichess.org/patron">eus mit ere Schpänd underschtütze</string>
 	<string name="shareableTitle" comment="%s is the current year">Mini Zämmefassig vu %s</string>
 	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">g\'schpillt</string>
 	<string name="shareableMostPlayedOpponent">meischt\' g\'schpillti Gägner</string>
 	<string name="shareableFavouriteVariant">bevorzugti Schpiel-Variante</string>
 	<string name="shareableFavouriteTimeControl">bevorzugti Zit-Variante</string>
+	<plurals name="shareableNbPuzzlesSolved">
+		<item quantity="one">%s Ufgab g\'löst</item>
+		<item quantity="other">%s Ufgabe g\'löst</item>
+	</plurals>
 	<string name="recapReady" comment="%s is the year of the recap">Dini Zämmefassig für %s isch parat!</string>
 </resources>

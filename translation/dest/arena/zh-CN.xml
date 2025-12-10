@@ -38,7 +38,7 @@
     <item quantity="other">在前 %s 步内和棋，双方棋手均不得分。</item>
   </plurals>
   <string name="thisIsPrivate">这是私人锦标赛</string>
-  <string name="shareUrl">分享此 URL 以允许他人加入：%s</string>
+  <string name="shareUrl">分享此链接以允许他人加入：%s</string>
   <string name="drawStreakStandard">和棋连胜：当棋手在竞技场中连续和棋时，只有第一次和棋会获得分数，或者在标准对局中和棋步数超过 %s 步时才会得分。和棋连胜只能通过胜局来终结，负局或和局不能。</string>
   <string name="drawStreakVariants">和棋对局需达到最短步数限制才能获得分数，此限制因变体而异。下表列出了各变体的阈值。</string>
   <string name="variant">变体</string>
@@ -63,7 +63,7 @@
   <string name="editTournament">编辑锦标赛</string>
   <string name="editTeamBattle">编辑团队战</string>
   <string name="defender">防守方</string>
-  <string name="pickYourTeam">选择您的团队</string>
+  <string name="pickYourTeam">请选择您的团队</string>
   <string name="whichTeamWillYouRepresentInThisBattle">您将在此战中代表哪支团队？</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">您必须加入其中一支团队才能参与！</string>
   <string name="created">创建于</string>
@@ -80,7 +80,7 @@
   <string name="pointsSum">总得分</string>
   <string name="rankAvg">平均排名</string>
   <string name="tournamentWinners">锦标赛获胜者</string>
-  <string name="tournamentShields">锦标赛盾牌赛</string>
+  <string name="tournamentShields">锦标赛盾牌</string>
   <string name="onlyTitled">仅限有头衔棋手</string>
   <string name="onlyTitledHelp">需要官方头衔才能加入锦标赛</string>
   <string name="tournamentPairingsAreNowClosed">锦标赛配对现已关闭。</string>
