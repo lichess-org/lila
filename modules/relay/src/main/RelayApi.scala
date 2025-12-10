@@ -112,7 +112,7 @@ final class RelayApi(
     tourRepo.oldActiveCursor
       .documentSource()
       .mapAsync(1)(t => denormalizeTour(t.id))
-      .runWith(Sink.ignore)
+      .run()
       .void
 
   private def computeDates(tourId: RelayTourId): Fu[Option[RelayTour.Dates]] =
@@ -428,7 +428,7 @@ final class RelayApi(
         .byTourOrderedCursor(from.id)
         .documentSource()
         .mapAsync(1)(cloneWithStudy(_, tour))
-        .runWith(Sink.ignore)
+        .run()
     yield tour
 
   private def cloneWithStudy(from: RelayRound, to: RelayTour)(using me: Me): Fu[RelayRound] =

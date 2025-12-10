@@ -539,7 +539,7 @@ final class TournamentApi(
               score = sheet.total,
               fire = tour.streakable && sheet.isOnFire
             )
-        .runWith(Sink.ignore)
+        .run()
         .void
     }
 
@@ -739,7 +739,7 @@ final class TournamentApi(
           _ <- playerRepo.anonymize(tour.id, u)(ghostId)
           _ <- pairingRepo.anonymize(tour.id, u)(ghostId)
         yield ()
-      .runWith(Sink.ignore)
+      .run()
 
   private def playerPovs(tour: Tournament, userId: UserId, nb: Int): Fu[List[LightPov]] =
     pairingRepo

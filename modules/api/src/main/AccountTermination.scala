@@ -150,7 +150,7 @@ final class AccountTermination(
     .mapConcat(_.getAsOpt[GameId]("_id").toList)
     .grouped(100)
     .mapAsync(1)(ids => chatApi.userChat.removeMessagesBy(ids, u.id))
-    .runWith(Sink.ignore)
+    .run()
 
   private val isEssential: Set[UserId] =
     Set(

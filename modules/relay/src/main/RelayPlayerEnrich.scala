@@ -2,7 +2,6 @@ package lila.relay
 
 import chess.format.pgn.{ Tag, Tags }
 import chess.{ FideId, PlayerName, PlayerTitle, IntRating }
-import akka.stream.scaladsl.Sink
 
 import lila.core.socket.Sri
 import lila.core.fide.{ PlayerToken, diacritics }
@@ -203,5 +202,5 @@ private final class RelayPlayerEnrich(
                         tags = finalTags,
                         newName = newName.filter(_ != chapter.name)
                       )(lila.study.Who(chapter.ownerId, Sri("")))
-              .runWith(Sink.ignore)
+              .run()
           yield ()
