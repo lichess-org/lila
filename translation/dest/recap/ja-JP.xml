@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<plurals name="openingsMostPlayedAsWhite" comment="%s is the number of games">
+		<item quantity="other">あなたが白番でいちばんよく指した戦法（%s 局）</item>
+	</plurals>
+	<plurals name="openingsMostPlayedAsBlack" comment="%s is the number of games">
+		<item quantity="other">あなたが黒番でいちばんよく指した戦法（%s 局）</item>
+	</plurals>
 	<string name="patronCostsThisYear" comment="%1$s is 'costs'. %2$s is the cost with currency symbol e.g. '$750,000'">今年の Lichess の %1$s は %2$s でした。</string>
 	<string name="patronCosts" comment="It is a link to lichess.org/costs">経費</string>
 	<string name="patronCharity">私たちは非営利団体で、寄付金だけで運営しています。</string>
