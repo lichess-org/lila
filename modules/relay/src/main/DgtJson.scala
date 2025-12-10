@@ -42,8 +42,6 @@ private object DgtJson:
       date: Option[String],
       pairings: List[RoundJsonPairing]
   ):
-    def finishedGameIndexes: List[Int] = pairings.zipWithIndex.collect:
-      case (pairing, i) if pairing.result.forall(_ != "*") => i
     def formattedDate = date.map(_.replace("-", "."))
     def firstNonEmptyPairingIndex: Option[Int] =
       pairings.indexWhere(_.nonEmpty).some.filter(_ >= 0)
