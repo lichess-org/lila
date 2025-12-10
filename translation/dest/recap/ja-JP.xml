@@ -1,16 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<string name="hiUser" comment="%s is the title+username e.g. 'GM ABC' or simply ABC if there is no title">やあ %s さん</string>
+	<string name="initTitle">今年のチェスはすばらしかったね！</string>
+	<string name="noGamesText">今年は 1 局も指していませんね。</string>
+	<string name="noGamesCta">今指してみますか？</string>
+	<string name="gamesYouWon" comment="%s is the number of games won">あなたは %s 勝しました！</string>
+	<string name="timeSpentPlayingExclam" comment="%s is the time spent playing animated from 0 e.g. '1 day, 17 hours'. The time is also translated">対局に %s 費やしました！</string>
+	<string name="timeTooMuch">チェスのやりすぎです。</string>
+	<string name="timeALot">ずいぶんチェスをやっています。</string>
+	<string name="timeReasonable">チェスに割く時間としては妥当なところでしょう。</string>
+	<string name="timeHowManyMoves">この間にいったい何手指したのでしょうか？</string>
+	<plurals name="nbMovesPlayed">
+		<item quantity="other">%s 手です</item>
+	</plurals>
+	<string name="movesOfWoodPushed" comment="%s is a weight in grams or kilograms">%s の木を動かしたことになります！</string>
+	<string name="movesStandardPiecesWeight">一般的なチェス駒は約 40g の重さがあります</string>
+	<plurals name="nbMoves">
+		<item quantity="other">%s 手</item>
+	</plurals>
+	<string name="chessFoes">あなたの最高の対戦相手</string>
+	<plurals name="nbGrams">
+		<item quantity="other">%s グラム</item>
+	</plurals>
+	<plurals name="nbKilograms">
+		<item quantity="other">%s キログラム</item>
+	</plurals>
+	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">はあなたが白で %s 回指しています</string>
 	<plurals name="openingsMostPlayedAsWhite" comment="%s is the number of games">
 		<item quantity="other">あなたが白番でいちばんよく指した戦法（%s 局）</item>
 	</plurals>
 	<plurals name="openingsMostPlayedAsBlack" comment="%s is the number of games">
 		<item quantity="other">あなたが黒番でいちばんよく指した戦法（%s 局）</item>
 	</plurals>
+	<string name="puzzlesNone">今年は 1 問も解いていませんね。</string>
+	<string name="puzzlesTryNow">今ちょっとやってみますか？</string>
+	<string name="puzzlesYouWonOnFirstTry">最初のトライで解けたのは %s 問でした！</string>
+	<string name="sourcesTitle">どこで対局相手を探しているか</string>
+	<string name="perfsTitle">どんな持時間とバリアントでプレイしているか</string>
+	<string name="malwareNoSell">私たちはあなたの個人データを売ったりしません</string>
+	<string name="malwareNoAbuse">私たちはあなたのデバイスを悪用しません</string>
+	<string name="malwareWarningPrefix" comment="%s is 'be careful'">しかし他のサイトはそうしています。%s。</string>
+	<string name="malwareWarningCta" comment="It is a link to https://lichess.org/ads">お気をつけて</string>
 	<string name="patronCostsThisYear" comment="%1$s is 'costs'. %2$s is the cost with currency symbol e.g. '$750,000'">今年の Lichess の %1$s は %2$s でした。</string>
 	<string name="patronCosts" comment="It is a link to lichess.org/costs">経費</string>
 	<string name="patronCharity">私たちは非営利団体で、寄付金だけで運営しています。</string>
 	<string name="patronConsiderDonating" comment="%s is 'supporting us with a donation'">今年 Lichess を楽しんだなら、あるいは私たちの仕事に共感しているのなら、%sをご検討ください！</string>
 	<string name="patronMakeDonation" comment="It is a link to https://lichess.org/patron">支援のための寄付</string>
+	<string name="shareableFavouriteVariant">お気に入りのバリアント</string>
+	<string name="shareableFavouriteTimeControl">お気に入りの持時間</string>
 	<plurals name="shareableNbPuzzlesSolved">
 		<item quantity="other">%s 問に正解</item>
 	</plurals>
