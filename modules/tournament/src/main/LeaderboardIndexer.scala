@@ -28,7 +28,7 @@ final private class LeaderboardIndexer(
   //       .via(lila.common.LilaStream.logRate[Entry]("leaderboard index entries")(logger))
   //       .grouped(500)
   //       .mapAsyncUnordered(1)(saveEntries)
-  //       .runWith(Sink.ignore)
+  //       .run()
   //       .void
 
   def indexOne(tour: Tournament): Funit =
