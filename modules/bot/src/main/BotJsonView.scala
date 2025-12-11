@@ -5,7 +5,7 @@ import play.api.libs.json.*
 import lila.common.Json.given
 import lila.core.game.{ Game, GameRepo, Pov, WithInitialFen }
 import lila.core.i18n.Translate
-import lila.game.GameExt.{ perfType, expirable, timeForFirstMove }
+import lila.game.GameExt.perfType
 import lila.game.JsonView.given
 
 final class BotJsonView(
