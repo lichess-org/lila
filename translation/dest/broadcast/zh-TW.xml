@@ -45,7 +45,6 @@
   <string name="fidePlayerNotFound">找不到 FIDE 玩家</string>
   <string name="fideProfile">FIDE 序號</string>
   <string name="federation">國籍</string>
-  <string name="ageThisYear">年齡</string>
   <string name="unrated">未評級</string>
   <string name="recentTournaments">最近錦標賽</string>
   <string name="openLichess">在 lichess 中開啟</string>
