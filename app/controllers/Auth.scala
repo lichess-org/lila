@@ -106,7 +106,6 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
                 .flatMap: pwned =>
                   if pwned.yes then chargeLimiters()
                   val isEmail = EmailAddress.isValid(login.value)
-                  val stuffing = ctx.req.headers.get("X-Stuffing") | "no" // from nginx
                   api.loadLoginForm(login, pwned).flatMap {
                     _.bindFromRequest()
                       .fold(
