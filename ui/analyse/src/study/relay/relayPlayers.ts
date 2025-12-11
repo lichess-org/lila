@@ -192,8 +192,7 @@ const playerView = (ctrl: RelayPlayers, show: PlayerToShow, tour: RelayTour): VN
                   hl('span', [p.fide?.ratings[key] || '-']),
                 ]),
               ),
-            !!age &&
-              hl('div.relay-tour__player__card', [hl('em', i18n.broadcast.ageThisYear), hl('span', [age])]),
+            !!age && hl('div.relay-tour__player__card', [hl('em', i18n.broadcast.age), hl('span', [age])]),
             p.fed &&
               hl('div.relay-tour__player__card', [
                 hl('em', i18n.broadcast.federation),

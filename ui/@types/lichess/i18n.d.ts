@@ -233,8 +233,8 @@ interface I18n {
     aboutBroadcasts: string;
     /** Add a round */
     addRound: string;
-    /** Age this year */
-    ageThisYear: string;
+    /** Age */
+    age: string;
     /** View all broadcasts by month */
     allBroadcastsByMonth: string;
     /** All teams */

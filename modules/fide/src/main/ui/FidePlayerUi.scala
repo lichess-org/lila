@@ -72,8 +72,7 @@ final class FidePlayerUi(helpers: Helpers, fideUi: FideUi, picfitUrl: lila.memo.
       players: Paginator[FidePlayer.WithFollow],
       order: FidePlayerOrder,
       url: Int => Call,
-      sortable: Boolean,
-      withFlag: Boolean = true
+      sortable: Boolean
   )(using ctx: Context) =
     def header(label: Frag, o: FidePlayerOrder) =
       if sortable then
@@ -91,23 +90,34 @@ final class FidePlayerUi(helpers: Helpers, fideUi: FideUi, picfitUrl: lila.memo.
       thead:
         tr(
           header(trs.name(), FidePlayerOrder.name),
-          withFlag.option(header(iconTag(Icon.FlagOutline), FidePlayerOrder.federation)),
           header(trs.classical(), FidePlayerOrder.standard),
           header(trs.rapid(), FidePlayerOrder.rapid),
           header(trs.blitz(), FidePlayerOrder.blitz),
-          header(trb.ageThisYear(), FidePlayerOrder.year),
+          header(trb.age(), FidePlayerOrder.year),
           ctx.isAuth.option(header(trs.follow(), FidePlayerOrder.follow))
         )
       ,
       tbody(cls := "infinite-scroll")(
         players.currentPageResults.map: p =>
           val player = p.player
+          val link = a(href := routes.Fide.show(player.id, player.slug))
           tr(cls := "paginated")(
-            td(a(href := routes.Fide.show(player.id, player.slug))(titleTag(player.title), player.name)),
-            withFlag.option(td:
-              player.fed.map: fed =>
-                a(href := routes.Fide.federation(Federation.name(fed))):
-                  fideUi.federation.flag(fed, Federation.names.get(fed))),
+            td(cls := "player-intro-td")(
+              div(cls := "player-intro")(
+                link(cls := "player-intro__photo"):
+                  player.photo.fold(thumbnail.fallback): photo =>
+                    img(src := thumbnail.url(photo.id, _.Size.Small), cls := "fide-players__photo")
+                ,
+                span(cls := "player-intro__info")(
+                  link(cls := "player-intro__name")(titleTag(player.title), player.name),
+                  player.fed.map: fed =>
+                    span(cls := "player-intro__fed")(
+                      fideUi.federation.flag(fed, none),
+                      Federation.names.get(fed)
+                    )
+                )
+              )
+            ),
             td(player.standard),
             td(player.rapid),
             td(player.blitz),
@@ -171,7 +181,7 @@ final class FidePlayerUi(helpers: Helpers, fideUi: FideUi, picfitUrl: lila.memo.
                 th(trb.fideProfile()),
                 td(a(href := s"https://ratings.fide.com/profile/${player.id}")(player.id))
               ),
-              tr(th(trb.ageThisYear()), td(player.age))
+              tr(th(trb.age()), td(player.age))
             )
           )
         )
@@ -189,7 +199,7 @@ final class FidePlayerUi(helpers: Helpers, fideUi: FideUi, picfitUrl: lila.memo.
     def apply(image: Option[ImageId], size: FidePlayer.PlayerPhoto.SizeSelector): Tag =
       image.fold(fallback): id =>
         img(src := url(id, size))
-    def fallback = iconTag(Icon.User)(cls := "fide-player-photo--fallback")
+    def fallback = img(cls := "fide-player-photo--fallback", src := staticAssetUrl("images/anon-face.png"))
     def url(id: ImageId, size: FidePlayer.PlayerPhoto.SizeSelector) =
       FidePlayer.PlayerPhoto(picfitUrl, id, size)
 

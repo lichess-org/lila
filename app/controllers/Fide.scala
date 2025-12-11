@@ -59,7 +59,13 @@ final class Fide(env: Env) extends LilaController(env):
       else
         for
           players <- env.fide.paginator.federationPlayers(fed, page)
-          rendered <- renderPage(views.fide.federation.show(fed, players))
+          playersList = views.fide.playerUi.playerList(
+            players,
+            FidePlayerOrder.default,
+            routes.Fide.federation(fed.slug, _),
+            sortable = false
+          )
+          rendered <- renderPage(views.fide.federation.show(fed, playersList))
         yield Ok(rendered)
 
   def playerPhoto(id: chess.FideId) = SecureBody(lila.web.HashedMultiPart(parse))(_.FidePlayer) {

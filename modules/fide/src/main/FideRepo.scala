@@ -21,7 +21,6 @@ final private class FideRepo(
     def sortStandard: Bdoc = $sort.desc("standard")
     def sortBy(o: FidePlayerOrder) = o match
       case FidePlayerOrder.name => $sort.asc("name")
-      case FidePlayerOrder.federation => $sort.asc("fed")
       case FidePlayerOrder.standard => $sort.desc("standard")
       case FidePlayerOrder.rapid => $sort.desc("rapid")
       case FidePlayerOrder.blitz => $sort.desc("blitz")

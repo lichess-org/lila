@@ -11,7 +11,7 @@ lazy val playerUi = lila.fide.ui.FidePlayerUi(helpers, ui, picfitUrl)
 export ui.federation
 
 object player:
-  export ui.player.{ index, notFound }
+  export playerUi.{ index, notFound }
 
   def show(
       player: FidePlayer,

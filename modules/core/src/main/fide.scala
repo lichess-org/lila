@@ -35,7 +35,7 @@ type GetPlayerFollowers = FideId => Fu[Set[UserId]]
 type Tokenize = String => PlayerToken
 
 enum FidePlayerOrder:
-  case name, federation, standard, rapid, blitz, year, follow
+  case name, standard, rapid, blitz, year, follow
   def key = toString
 
 object FidePlayerOrder:
