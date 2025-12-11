@@ -5,7 +5,7 @@ import play.api.libs.json.*
 import lila.common.Json.given
 import lila.core.game.{ Game, GameRepo, Pov, WithInitialFen }
 import lila.core.i18n.Translate
-import lila.game.GameExt.perfType
+import lila.game.GameExt.{ perfType, expirable, timeForFirstMove }
 import lila.game.JsonView.given
 
 final class BotJsonView(
@@ -60,6 +60,7 @@ final class BotJsonView(
       .add("btakeback" -> game.blackPlayer.isProposingTakeback)
       .add("winner" -> game.winnerColor)
       .add("rematch" -> rematches.getAcceptedId(game.id))
+      .add("expiration" -> lila.game.JsonView.expiration(game))
 
   private def millisRemaining(game: Game, color: Color): Int =
     game.clock
