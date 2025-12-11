@@ -23,6 +23,10 @@
 		<item quantity="other">%s zetten</item>
 	</plurals>
 	<string name="chessFoes">Jouw sterkste tegenstanders</string>
+	<plurals name="nbGrams">
+		<item quantity="one">%s gram</item>
+		<item quantity="other">%s gram</item>
+	</plurals>
 	<plurals name="nbKilograms">
 		<item quantity="one">%s kilogram</item>
 		<item quantity="other">%s kilogram</item>
@@ -55,6 +59,11 @@
 	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours">%s daarvan waren jouw partijen.</string>
 	<string name="thanksTitle">Bedankt voor het spelen op Lichess!</string>
 	<string name="thanksHaveAGreat" comment="%s is the next year">We zijn blij dat je hier bent. Fijn %s!</string>
+	<string name="patronCostsThisYear" comment="%1$s is 'costs'. %2$s is the cost with currency symbol e.g. '$750,000'">De %1$s van Lichess dit jaar waren %2$s.</string>
+	<string name="patronCosts" comment="It is a link to lichess.org/costs">kosten</string>
+	<string name="patronCharity">We zijn een liefdadigheid, volledig afhankelijk van donaties.</string>
+	<string name="patronConsiderDonating" comment="%s is 'supporting us with a donation'">Als we geholpen hebben om je dit jaar te vermaken, of als je in ons werk gelooft, overweeg dan %s!</string>
+	<string name="patronMakeDonation" comment="It is a link to https://lichess.org/patron">om ons the steunen met een donatie</string>
 	<string name="shareableTitle" comment="%s is the current year">Mijn samenvatting van %s</string>
 	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">geschaakt</string>
 	<string name="shareableMostPlayedOpponent">meest frequente tegenstander</string>
