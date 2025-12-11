@@ -1,6 +1,8 @@
 @import 'card';
 
 .fide-player {
+  @extend %flex-column;
+  gap: 2em;
   &__photo {
     @extend %flex-column;
     flex: 0 2 300px;
@@ -22,6 +24,12 @@
     flex-flow: row wrap;
     justify-content: center;
     gap: 2em;
+    &__name {
+      @extend %flex-between;
+      @include fluid-size('font-size', 18px, 38px);
+      align-items: center;
+      gap: 1em;
+    }
     &__info {
       @extend %flex-column;
       gap: 2em;
@@ -37,11 +45,6 @@
         padding: 0.4em 0.5em;
       }
     }
-  }
-  h1 {
-    @extend %flex-between;
-    align-items: center;
-    gap: 1em;
   }
   &__follow {
     @extend %flex-center-nowrap, %box-radius;
@@ -66,11 +69,7 @@
       vertical-align: middle;
     }
   }
-  &__cards {
-    margin-top: var(---box-padding);
-  }
   &__tours {
-    margin-top: var(---box-padding);
     h2 {
       margin-bottom: 1em;
     }

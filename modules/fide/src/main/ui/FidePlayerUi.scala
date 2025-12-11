@@ -158,7 +158,7 @@ final class FidePlayerUi(helpers: Helpers, fideUi: FideUi, picfitUrl: lila.memo.
               span(cls := "fide-player__photo__credit")("Credit: ", credit)
           ),
         div(cls := "fide-player__header__info")(
-          h1(
+          h1(cls := "fide-player__header__name")(
             span(titleTag(player.title), player.name),
             user.map(userLink(_, withTitle = false)(cls := "fide-player__user"))
           ),

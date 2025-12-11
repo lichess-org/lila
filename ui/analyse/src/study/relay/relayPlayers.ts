@@ -4,7 +4,7 @@ import * as licon from 'lib/licon';
 import { spinnerVdom as spinner } from 'lib/view';
 import type { Photo, RelayTour, RoundId, TourId } from './interfaces';
 import { playerFedFlag } from '../playerBars';
-import { userTitle } from 'lib/view/userLink';
+import { userLink, userTitle } from 'lib/view/userLink';
 import type {
   ChapterId,
   Federations,
@@ -50,6 +50,7 @@ interface RelayPlayerGame {
 interface RelayPlayerWithGames extends RelayPlayer {
   games: RelayPlayerGame[];
   fide?: FidePlayer;
+  user?: LightUser;
 }
 
 interface FidePlayer {
@@ -145,29 +146,21 @@ const playerView = (ctrl: RelayPlayers, show: PlayerToShow, tour: RelayTour): VN
   const tc = tour.info.fideTc || 'standard';
   const age: number | undefined = p?.fide?.year && year - p.fide.year;
   const fidePageAttrs = p ? fidePageLinkAttrs(p, ctrl.isEmbed) : {};
+  const photo = p?.fideId && ctrl.fidePhoto(p.fideId);
   return hl(
-    'div.relay-tour__player',
+    'div.fide-player',
     {
       class: { loading: !show.player },
     },
     p
       ? [
-          hl(
-            'div.relay-tour__player__head',
-            {
-              hook: onInsert(el => pubsub.emit('content-loaded', el)),
-            },
-            [
-              hl(
-                'a.relay-tour__player__name.text',
-                {
-                  attrs: {
-                    ...fidePageAttrs,
-                    ...dataIcon(licon.AccountCircle),
-                  },
-                },
-                [userTitle(p), p.name],
-              ),
+          hl('div.fide-player__header', { hook: onInsert(el => pubsub.emit('content-loaded', el)) }, [
+            photo && hl('div.fide-player__photo', [hl('img', { attrs: { src: photo.medium } })]),
+            hl('div.fide-player__header__info', [
+              hl('a.fide-player__header__name', { attrs: fidePageAttrs }, [
+                hl('span', [userTitle(p), p.name]),
+                p.user && userLink({ ...p.user, title: undefined }),
+              ]),
               p.fide &&
                 hl('label.fide-player__follow', [
                   hl(`input#fide-follow-${p.fideId}.cmn-favourite`, {
@@ -180,47 +173,47 @@ const playerView = (ctrl: RelayPlayers, show: PlayerToShow, tour: RelayTour): VN
                   hl('label', { attrs: { for: `fide-follow-${p.fideId}` } }),
                   i18n.site.follow,
                 ]),
-            ],
-          ),
-          p.team
-            ? hl('div.relay-tour__player__team.text', { attrs: dataIcon(licon.Group) }, p.team)
-            : undefined,
-          hl('div.relay-tour__player__cards', [
+              hl('table.fide-player__header__table', [
+                hl('tbody', [
+                  p.fed &&
+                    hl('tr', [
+                      hl('th', i18n.broadcast.federation),
+                      hl(
+                        'td',
+                        hl(
+                          'a.fide-player__federation',
+                          { attrs: { href: `/fide/federation/${p.fed.name}` } },
+                          [playerFedFlag(p.fed), p.fed.name],
+                        ),
+                      ),
+                    ]),
+                  p.team &&
+                    hl('tr', [hl('th', 'Team'), hl('td.text', { attrs: dataIcon(licon.Group) }, p.team)]),
+                  age && hl('tr', [hl('th', i18n.broadcast.age), hl('td', age.toString())]),
+                ]),
+              ]),
+            ]),
+          ]),
+          hl('div.fide-player__cards', [
             p.fide?.ratings &&
               ratingCategs.map(([key, name]) =>
-                hl(`div.relay-tour__player__card${key === tc ? '.active' : ''}`, [
+                hl(`div.fide-player__card${key === tc ? '.active' : ''}`, [
                   hl('em', name),
                   hl('span', [p.fide?.ratings[key] || '-']),
                 ]),
               ),
-            !!age && hl('div.relay-tour__player__card', [hl('em', i18n.broadcast.age), hl('span', [age])]),
-            p.fed &&
-              hl('div.relay-tour__player__card', [
-                hl('em', i18n.broadcast.federation),
-                hl('a.relay-tour__player__fed', { attrs: { href: `/fide/federation/${p.fed.name}` } }, [
-                  hl('img.mini-game__flag', {
-                    attrs: { src: site.asset.fideFedSrc(p.fed.id) },
-                  }),
-                  p.fed.name,
-                ]),
-              ]),
-            !!p.fideId &&
-              hl('div.relay-tour__player__card', [
-                hl('em', 'FIDE ID'),
-                hl('a', { attrs: fidePageAttrs }, p.fideId.toString()),
-              ]),
             p.score !== undefined &&
-              hl('div.relay-tour__player__card', [
+              hl('div.fide-player__card', [
                 hl('em', i18n.broadcast.score),
                 hl('span', [p.score, ' / ', p.played]),
               ]),
             !!p.performance &&
-              hl('div.relay-tour__player__card', [
+              hl('div.fide-player__card', [
                 hl('em', i18n.site.performance),
                 hl('span', [p.performance, p.games.length < 4 ? '?' : '']),
               ]),
             p.ratingDiff !== undefined &&
-              hl('div.relay-tour__player__card', [hl('em', i18n.broadcast.ratingDiff), ratingDiff(p)]),
+              hl('div.fide-player__card', [hl('em', i18n.broadcast.ratingDiff), ratingDiff(p)]),
           ]),
           hl('table.relay-tour__player__games.slist.slist-pad', [
             hl('thead', hl('tr', hl('td', { attrs: { colspan: 69 } }, i18n.broadcast.gamesThisTournament))),
@@ -374,7 +367,7 @@ export const playerLinkHook = (ctrl: RelayPlayers, player: RelayPlayer, withTip:
                 const tipEl = document.getElementById(playerTipId) as HTMLElement;
                 const patch = initSnabbdom([attributesModule]);
                 tipEl.style.display = 'none';
-                ctrl.loadPlayerWithGames(id).then((p: RelayPlayerWithGames) => {
+                ctrl.loadPlayerWithGames(id).then(p => {
                   const vdom = renderPlayerTipWithGames(ctrl, p);
                   tipEl.innerHTML = '';
                   patch(tipEl, hl(`div#${playerTipId}`, vdom));
