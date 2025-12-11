@@ -103,10 +103,11 @@ final class FidePlayerUi(helpers: Helpers, fideUi: FideUi, picfitUrl: lila.memo.
           val link = a(href := routes.Fide.show(player.id, player.slug))
           tr(cls := "paginated")(
             td(cls := "player-intro-td")(
-              div(cls := "player-intro")(
+              span(cls := "player-intro")(
                 link(cls := "player-intro__photo"):
-                  player.photo.fold(thumbnail.fallback): photo =>
-                    img(src := thumbnail.url(photo.id, _.Size.Small), cls := "fide-players__photo")
+                  player.photo
+                    .fold(thumbnail.fallback(cls := "fide-players__photo fide-players__photo--fallback")):
+                      photo => img(src := thumbnail.url(photo.id, _.Small), cls := "fide-players__photo")
                 ,
                 span(cls := "player-intro__info")(
                   link(cls := "player-intro__name")(titleTag(player.title), player.name),
@@ -152,7 +153,7 @@ final class FidePlayerUi(helpers: Helpers, fideUi: FideUi, picfitUrl: lila.memo.
       div(cls := "fide-player__header")(
         player.photo.map: photo =>
           div(cls := "fide-player__photo")(
-            img(src := thumbnail.url(photo.id, _.Size.Large)),
+            img(src := thumbnail.url(photo.id, _.Medium)),
             photo.credit.map: credit =>
               span(cls := "fide-player__photo__credit")("Credit: ", credit)
           ),
@@ -199,7 +200,7 @@ final class FidePlayerUi(helpers: Helpers, fideUi: FideUi, picfitUrl: lila.memo.
     def apply(image: Option[ImageId], size: FidePlayer.PlayerPhoto.SizeSelector): Tag =
       image.fold(fallback): id =>
         img(src := url(id, size))
-    def fallback = img(cls := "fide-player-photo--fallback", src := staticAssetUrl("images/anon-face.png"))
+    def fallback = img(src := staticAssetUrl("images/anon-face.png"))
     def url(id: ImageId, size: FidePlayer.PlayerPhoto.SizeSelector) =
       FidePlayer.PlayerPhoto(picfitUrl, id, size)
 

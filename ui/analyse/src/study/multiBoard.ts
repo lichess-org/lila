@@ -9,7 +9,7 @@ import { type CloudEval, type MultiCloudEval, renderEvalToggle, renderScore } fr
 import { type Prop, type Toggle, defined, notNull, prop, toggle } from 'lib';
 import type { Color } from 'chessops';
 import { type StudyChapters, gameLinkAttrs, gameLinksListener } from './studyChapters';
-import { playerFed } from './playerBars';
+import { playerFedFlag } from './playerBars';
 import { userTitle } from 'lib/view/userLink';
 import { h } from 'snabbdom';
 import { storage, storedBooleanProp } from 'lib/storage';
@@ -274,7 +274,7 @@ export const verticalEvalGauge = (chap: ChapterPreview, cloudEval: MultiCloudEva
 
 const renderUser = (player: StudyPlayer): VNode =>
   h('span.mini-game__user', [
-    playerFed(player.fed),
+    playerFedFlag(player.fed),
     h('span.name', [userTitle(player), player.name || '?']),
     player.rating ? h('span.rating', player.rating.toString()) : undefined,
   ]);

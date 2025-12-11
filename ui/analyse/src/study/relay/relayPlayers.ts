@@ -2,8 +2,8 @@ import { type VNode, bind, dataIcon, hl, onInsert, type MaybeVNodes } from 'lib/
 import { json as xhrJson } from 'lib/xhr';
 import * as licon from 'lib/licon';
 import { spinnerVdom as spinner } from 'lib/view';
-import type { RelayTour, RoundId, TourId } from './interfaces';
-import { playerFed } from '../playerBars';
+import type { Photo, RelayTour, RoundId, TourId } from './interfaces';
+import { playerFedFlag } from '../playerBars';
 import { userTitle } from 'lib/view/userLink';
 import type {
   ChapterId,
@@ -78,6 +78,7 @@ export default class RelayPlayers {
     readonly isEmbed: boolean,
     private readonly federations: () => Federations | undefined,
     readonly hideResultsSinceRoundId: () => RoundId | undefined,
+    readonly fidePhoto: (id: FideId) => Photo | undefined,
     private readonly redraw: Redraw,
   ) {
     const locationPlayer = location.hash.startsWith('#players/') && location.hash.slice(9);
@@ -260,7 +261,7 @@ const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): MaybeVNodes 
         )
       : undefined,
     hl(
-      'table.relay-tour__players.slist.slist-invert.slist-pad',
+      'table.relay-tour__players.fide-players-table.slist.slist-invert.slist-pad',
       {
         hook: onInsert(tableAugment),
       },
@@ -284,16 +285,34 @@ const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): MaybeVNodes 
         ),
         hl(
           'tbody',
-          players.map(player =>
-            hl('tr', [
+          players.map(player => {
+            const linkCfg = playerLinkConfig(ctrl, player, true);
+            const photo = player.fideId && ctrl.fidePhoto(player.fideId);
+            return hl('tr', [
               withRank && hl('td.rank', { attrs: { 'data-sort': player.rank || 0 } }, player.rank),
               hl(
-                'td.player-name',
+                'td.player-intro-td',
                 { attrs: { 'data-sort': player.name || '' } },
-                hl('a', playerLinkConfig(ctrl, player, true), [
-                  playerFed(player.fed),
-                  userTitle(player),
-                  player.name,
+                hl('span.player-intro', [
+                  hl(
+                    'a.player-intro__photo',
+                    linkCfg,
+                    photo
+                      ? hl('img.fide-players__photo', { attrs: { src: photo.small } })
+                      : hl('img.fide-players__photo.fide-players__photo--fallback', {
+                          attrs: { src: site.asset.url('images/anon-face.png') },
+                        }),
+                  ),
+                  hl('span.player-intro__info', [
+                    hl('a.player-intro__name', linkCfg, [userTitle(player), player.name]),
+                    player.fed &&
+                      hl('span.player-intro__fed', [
+                        hl('img.mini-game__flag', {
+                          attrs: { src: site.asset.fideFedSrc(player.fed.id) },
+                        }),
+                        player.fed.name,
+                      ]),
+                  ]),
                 ]),
               ),
               withRating &&
@@ -328,8 +347,8 @@ const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): MaybeVNodes 
                   `${tb.points}`,
                 ),
               ),
-            ]),
-          ),
+            ]);
+          }),
         ),
       ],
     ),
@@ -392,7 +411,7 @@ const renderPlayerTipHead = (ctrl: RelayPlayers, p: StudyPlayer | RelayPlayer): 
     p.team && hl('div.tpp__player__team', p.team),
     hl('div.tpp__player__info', [
       hl('div', [
-        playerFed(p.fed),
+        playerFedFlag(p.fed),
         !!p.rating && [`${p.rating}`, isRelayPlayer(p) && !ctrl.hideResultsSinceRoundId() && ratingDiff(p)],
       ]),
       isRelayPlayer(p) && !ctrl.hideResultsSinceRoundId() && p.score !== undefined && hl('div', `${p.score}`),
@@ -444,7 +463,7 @@ const renderPlayerGames = (ctrl: RelayPlayers, p: RelayPlayerWithGames, withTips
                 hook: withTips ? playerLinkHook(ctrl, op, true) : {},
                 attrs: { href: `/broadcast/-/-/${game.round}/${game.id}` },
               },
-              [playerFed(op.fed), userTitle(op), op.name],
+              [playerFedFlag(op.fed), userTitle(op), op.name],
             ),
           ),
           hl('td', op.rating?.toString()),

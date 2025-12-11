@@ -52,6 +52,14 @@ final class FidePlayerApi(repo: FideRepo, cacheApi: CacheApi, picfitApi: PicfitA
 
   export idToPlayerCache.get
 
+  def photos(ids: Set[FideId]): Fu[Map[FideId, FidePlayer.PlayerPhoto]] =
+    ids.toList
+      .traverse(get)
+      .map:
+        _.flatten.flatMap: p =>
+          p.photo.map(p.id -> _)
+      .map(_.toMap)
+
   object guessPlayer:
 
     private case class TitleName(title: Option[PlayerTitle], name: PlayerName)

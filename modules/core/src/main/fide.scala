@@ -31,6 +31,7 @@ type PlayerToken = String
 type GuessPlayer = (Option[FideId], Option[PlayerName], Option[PlayerTitle]) => Fu[Option[Player]]
 type GetPlayer = FideId => Fu[Option[Player]]
 type GetPlayerFollowers = FideId => Fu[Set[UserId]]
+type PhotosJson = Set[FideId] => play.api.libs.json.JsObject
 
 type Tokenize = String => PlayerToken
 

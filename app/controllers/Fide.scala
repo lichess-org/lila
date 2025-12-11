@@ -5,10 +5,10 @@ import play.api.mvc.*
 import lila.app.{ *, given }
 import lila.core.fide.FidePlayerOrder
 import lila.fide.Federation
-import lila.fide.FideJson.given
 
 final class Fide(env: Env) extends LilaController(env):
 
+  import env.fide.json.given
   private def playerUrl(player: lila.fide.FidePlayer) = routes.Fide.show(player.id, player.slug)
 
   def index(page: Int, q: Option[String] = None) = Open:

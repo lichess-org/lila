@@ -1,3 +1,5 @@
+@import 'table';
+
 .fide-players {
   a {
     font-weight: bold;
@@ -29,45 +31,6 @@
   }
 }
 
-.fide-players-table {
-  tr td {
-    padding-top: 0.7rem;
-    padding-bottom: 0.7rem;
-  }
-  .fide-players__photo,
-  .fide-player-photo--fallback {
-    @extend %box-radius;
-    width: 50px;
-    height: 50px;
-  }
-  .fide-player-photo--fallback {
-    opacity: 0.5;
-  }
-  .player-intro {
-    @extend %flex-center-nowrap;
-    gap: 1em;
-    &__photo {
-      line-height: 0;
-    }
-    &__info {
-      @extend %flex-column;
-      gap: 0.2em;
-    }
-    &__name {
-      color: $c-font;
-      font-size: 1.1em;
-    }
-    &__fed {
-      @extend %flex-center-nowrap, %roboto;
-      font-size: 0.9em;
-      gap: 0.5em;
-      .flag {
-        height: 1.2em;
-        width: 1.2em;
-      }
-    }
-  }
-}
 .fide-players-table--sortable {
   th {
     padding: 0;

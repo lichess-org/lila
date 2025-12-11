@@ -5,11 +5,17 @@ import play.api.libs.ws.StandaloneWSClient
 
 import lila.core.config.CollName
 import lila.core.fide.*
-import lila.memo.{ CacheApi, PicfitApi }
+import lila.memo.{ CacheApi, PicfitApi, PicfitUrl }
 import scalalib.paginator.Paginator
 
 @Module
-final class Env(db: lila.db.Db, cacheApi: CacheApi, picfitApi: PicfitApi, ws: StandaloneWSClient)(using
+final class Env(
+    db: lila.db.Db,
+    cacheApi: CacheApi,
+    picfitApi: PicfitApi,
+    picfitUrl: PicfitUrl,
+    ws: StandaloneWSClient
+)(using
     Executor,
     akka.stream.Materializer
 )(using mode: play.api.Mode, scheduler: Scheduler):
@@ -20,6 +26,8 @@ final class Env(db: lila.db.Db, cacheApi: CacheApi, picfitApi: PicfitApi, ws: St
       federationColl = db(CollName("fide_federation")),
       followerColl = db(CollName("fide_player_follower"))
     )
+
+  lazy val json = wire[FideJson]
 
   lazy val playerApi = wire[FidePlayerApi]
 
@@ -33,6 +41,9 @@ final class Env(db: lila.db.Db, cacheApi: CacheApi, picfitApi: PicfitApi, ws: St
   def guessPlayer: GuessPlayer = playerApi.guessPlayer.apply
   def getPlayer: GetPlayer = playerApi.get
   def getPlayerFollowers: GetPlayerFollowers = repo.follower.followers
+
+  def photosJson(ids: Set[chess.FideId]): Fu[play.api.libs.json.JsObject] =
+    playerApi.photos(ids).map(json.photosJson)
 
   def search(q: Option[String], page: Int = 1, order: FidePlayerOrder)(using
       me: Option[Me]

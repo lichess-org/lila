@@ -78,7 +78,7 @@ function renderPlayer(
       result && hl(`${resultTag(result)}.result`, result),
       hl('span.info', [
         team ? hl('span.team', team) : undefined,
-        playerFed(player?.fed),
+        playerFedFlag(player?.fed),
         !!player.title && userTitle(player),
         playerId(player) &&
           (relayPlayers
@@ -96,7 +96,7 @@ function renderPlayer(
   ]);
 }
 
-export const playerFed = (fed?: Federation): VNode | undefined =>
+export const playerFedFlag = (fed?: Federation): VNode | undefined =>
   fed &&
   hl('img.mini-game__flag', {
     attrs: {

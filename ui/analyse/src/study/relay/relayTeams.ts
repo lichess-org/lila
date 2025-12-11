@@ -4,7 +4,7 @@ import type { RoundId } from './interfaces';
 import type { ChapterId, ChapterPreview, StudyPlayer, ChapterSelect, StatusStr } from '../interfaces';
 import { type MultiCloudEval, renderScore } from '../multiCloudEval';
 import { spinnerVdom as spinner } from 'lib/view';
-import { playerFed } from '../playerBars';
+import { playerFedFlag } from '../playerBars';
 import { gameLinkAttrs, gameLinksListener, StudyChapters } from '../studyChapters';
 import { userTitle } from 'lib/view/userLink';
 import type RelayPlayers from './relayPlayers';
@@ -107,7 +107,7 @@ const renderTeams = (
 const playerView = (players: RelayPlayers, p: StudyPlayer) =>
   hl('span.relay-tour__team-match__game__player', [
     hl('span.mini-game__user', players.playerLinkConfig(p), [
-      playerFed(p.fed),
+      playerFedFlag(p.fed),
       hl('span.name', [userTitle(p), p.name]),
     ]),
     !!p.rating && hl('rating', `${p.rating}`),
