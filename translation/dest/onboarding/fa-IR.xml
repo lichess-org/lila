@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="logInAsUsername">ورود از طرف %s</string>
+  <string name="logInAsUsername">ورود با %s</string>
   <string name="welcome">خوش آمدید!</string>
   <string name="welcomeToLichess">به lichess.org خوش آمدید!</string>
   <string name="thisIsYourProfilePage">این صفحه رُخ‌نمای‌تان است.</string>
