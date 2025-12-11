@@ -4,7 +4,9 @@ $span-width: 1.7em;
   @extend %study-list, %study-list-ongoing;
 
   @include mq-at-least-col3 {
-    max-height: unset;
+    @media ((hover: hover) and (pointer: fine)) {
+      max-height: unset;
+    }
   }
 
   h3 {
