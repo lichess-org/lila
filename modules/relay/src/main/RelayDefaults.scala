@@ -43,12 +43,13 @@ private object RelayDefaults:
         .match
           case None => trs.rounds.headOption
           case Some(_, last) =>
-            trs.rounds.find(!_.isFinished) match
-              case None => last.some
-              case Some(next) =>
+            trs.rounds
+              .find(!_.isFinished)
+              .fold(last): next =>
                 if next.startsAtTime.exists(_.isBefore(nowInstant.plusHours(1)))
-                then next.some
-                else last.some
+                then next
+                else last
+              .some
 
   def defaultTourOfGroup(tours: List[RelayTour]): Option[RelayTour] =
     val active = tours.filter(_.active)

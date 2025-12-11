@@ -13,7 +13,7 @@ final private class RelayFidePlayerApi(guessPlayer: lila.core.fide.GuessPlayer)(
         game.copy(tags = tags)
 
   def enrichTags(tour: RelayTour): Tags => Fu[Tags] =
-    tags => enrichTags(tags, tour.info.fideTcOrGuess)
+    enrichTags(_, tour.info.fideTcOrGuess)
 
   private def enrichTags(tags: Tags, tc: FideTC): Fu[Tags] =
     (tags.fideIds
