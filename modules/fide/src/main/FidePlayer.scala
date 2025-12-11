@@ -62,6 +62,21 @@ object FidePlayer:
 
   case class PlayerPhoto(id: ImageId, credit: Option[String] = None)
 
+  object PlayerPhoto:
+    //   def form(player: FidePlayer) =
+    //     import play.api.data.Form
+    //     Form(mapping(
+
+    enum Size(val width: Int):
+      def height = width
+      def dimensions = lila.memo.Dimensions(width, height)
+      case Large extends Size(600)
+      case Small extends Size(200)
+    type SizeSelector = PlayerPhoto.type => Size
+
+    def apply(picfitUrl: lila.memo.PicfitUrl, image: ImageId, size: SizeSelector): Url =
+      picfitUrl.thumbnail(image)(size(PlayerPhoto).dimensions)
+
   case class WithFollow(player: FidePlayer, follow: Boolean)
 
   private[fide] val tokenize: Tokenize =

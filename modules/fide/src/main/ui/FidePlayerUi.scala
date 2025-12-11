@@ -6,8 +6,9 @@ import scalalib.paginator.Paginator
 import lila.core.fide.FidePlayerOrder
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.core.id.ImageId
 
-final class FidePlayerUi(helpers: Helpers, fideUi: FideUi):
+final class FidePlayerUi(helpers: Helpers, fideUi: FideUi, picfitUrl: lila.memo.PicfitUrl):
   import helpers.{ *, given }
   import trans.{ site as trs, broadcast as trb }
 
@@ -145,6 +146,7 @@ final class FidePlayerUi(helpers: Helpers, fideUi: FideUi):
         ),
         ctx.isAuth.option(followButton(FidePlayer.WithFollow(player, isFollowing))(trans.site.follow()))
       ),
+      Granter.opt(_.StudyAdmin).option(photoForm(player)),
       div(cls := "fide-cards fide-player__cards")(
         player.fed.map: fed =>
           card(
@@ -169,44 +171,39 @@ final class FidePlayerUi(helpers: Helpers, fideUi: FideUi):
         div(cls := "fide-player__tours")(h2(trb.recentTournaments()), tours)
     )
 
-    // private def image(post: UblogPost, form: Form[UblogForm.UblogPostData])(using ctx: Context) =
-    //   form3.fieldset("Image", toggle = true.some)(
-    //     div(cls := "form-group ublog-image-edit", data("post-url") := routes.Ublog.image(post.id))(
-    //       ui.thumbnail(post, _.Size.Large)(
-    //         cls := "drop-target " + post.image.isDefined.so("user-image"),
-    //         attr("draggable") := "true"
-    //       ),
-    //       div(
-    //         ctx
-    //           .is(post.created.by)
-    //           .option(
-    //             frag(
-    //               p(strong(trans.ublog.uploadAnImageForYourPost())),
-    //               p(
-    //                 trans.ublog.safeToUseImages(),
-    //                 fragList(
-    //                   List(
-    //                     "unsplash.com" -> "https://unsplash.com",
-    //                     "commons.wikimedia.org" -> "https://commons.wikimedia.org",
-    //                     "pixabay.com" -> "https://pixabay.com",
-    //                     "pexels.com" -> "https://pexels.com",
-    //                     "piqsels.com" -> "https://piqsels.com",
-    //                     "freeimages.com" -> "https://freeimages.com"
-    //                   ).map: (name, url) =>
-    //                     a(href := url, targetBlank)(name)
-    //                 )
-    //               ),
-    //               p(trans.ublog.useImagesYouMadeYourself()),
-    //               p(strong(trans.streamer.maxSize(s"${lila.memo.PicfitApi.uploadMaxMb}MB."))),
-    //               form3.file.selectImage()
-    //             )
-    //           )
-    //       )
-    //     ),
-    //     post.image.isDefined.option(
-    //       form3.split(
-    //         form3.group(form("imageAlt"), trans.ublog.imageAlt(), half = true)(form3.input(_)),
-    //         form3.group(form("imageCredit"), trans.ublog.imageCredit(), half = true)(form3.input(_))
-    //       )(cls := s"ublog-post-form__image-text visible")
-    //     )
-    //   )
+  object thumbnail:
+    def apply(image: Option[ImageId], size: FidePlayer.PlayerPhoto.SizeSelector): Tag =
+      image.fold(fallback): id =>
+        img(
+          cls := "fide-player-photo",
+          widthA := size(FidePlayer.PlayerPhoto).width,
+          heightA := size(FidePlayer.PlayerPhoto).height,
+          src := url(id, size)
+        )
+    def fallback = iconTag(Icon.RadioTower)(cls := "fide-player-photo--fallback")
+    def url(id: ImageId, size: FidePlayer.PlayerPhoto.SizeSelector) =
+      FidePlayer.PlayerPhoto(picfitUrl, id, size)
+
+  private def photoForm(player: FidePlayer)(using ctx: Context) =
+    form3.fieldset("Photo", toggle = true.some)(
+      div(
+        cls := "form-group fide-player__photo-edit",
+        data("post-url") := routes.Fide.playerPhoto(player.id)
+      )(
+        thumbnail(player.photo.map(_.id), _.Size.Large)(
+          cls := "drop-target " + player.photo.isDefined.so("fide-player__photo"),
+          attr("draggable") := "true"
+        ),
+        div(
+          p("Portrait of the player. It should be recognizable even at small sizes."),
+          p(strong(trans.streamer.maxSize(s"${lila.memo.PicfitApi.uploadMaxMb}MB."))),
+          form3.file.selectImage()
+        )
+      )
+      // player.photo.isDefined.option(
+      //   form3.split(
+      //     form3.group(form("imageAlt"), trans.ublog.imageAlt(), half = true)(form3.input(_)),
+      //     form3.group(form("imageCredit"), trans.ublog.imageCredit(), half = true)(form3.input(_))
+      //   )(cls := s"ublog-post-form__image-text visible")
+      // )
+    )
