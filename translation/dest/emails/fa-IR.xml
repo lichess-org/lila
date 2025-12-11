@@ -2,13 +2,13 @@
 <resources>
   <string name="emailConfirm_subject">حساب خود را در lichess.org تایید کنید،%s</string>
   <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">بر روی این پیوند کلیک کنید تا حساب کاربری لیچس شما پویا گردد:</string>
-  <string name="emailConfirm_justIgnore" comment="This text is included in the registration email for new users.">اگر با لیچس ثبت‌نام نکرده‌اید، می‌توانید این پیام را نادیده بگیرید. حساب کاربری تأییدنشده و تمام اطلاعات ایمیل شما پس از ۴۸ ساعت از سیستم ما حذف خواهد شد.</string>
+  <string name="emailConfirm_justIgnore" comment="This text is included in the registration email for new users.">اگر در Lichess نام‌نویسی نکرده‌اید، می‌توانید آسوده این پیام را نادیده گیرید. حساب تأیید نشده و تمام ردپاهای نشانیِ رایانامه‌تان پس از ۴۸ ساعت از سامانهٔ ما خواهد حذفید.</string>
   <string name="passwordReset_subject">%s، رمز عبور خود در lichess.org را دوباره تعریف نمایید.</string>
   <string name="passwordReset_intro">ما یک درخواست برای تغییر رمز عبور حساب کاربری شما دریافت کرده ایم.</string>
   <string name="passwordReset_clickOrIgnore">اگر شما درخواست داده اید، بر روی لینک زیر کلیک کنید. اگر نه، میتوانید این ایمیل را نادیده بگیرید.</string>
   <string name="emailChange_subject">آدرس ایمیل جدید خود را تایید کنید، %s</string>
   <string name="emailChange_intro">شما درخواست داده اید که آدرس ایمیل خود را تغییر دهید.</string>
-  <string name="emailChange_click">برای اینکه تایید کنید که شما به این ایمیل دسترسی دارید، لطفا بر روی لینک زیر کلیک کنید:</string>
+  <string name="emailChange_click">برای تایید اینکه شما به این رایانامه دسترسی دارید، لطفا روی پیوندِ زیر بِتِلیکید:</string>
   <string name="welcome_subject">%s، به lichess.org خوش آمدید.</string>
   <string name="welcome_text">شما با موفقیت حساب خود را در https://lichess.org ایجاد کردید.
 
@@ -17,6 +17,6 @@
 خوش بگذرانید، و به امید آن که مهره‌های شما همیشه راه خود را به سوی شاه حریف پیدا کنند!</string>
   <string name="logInToLichess">%s، وارد lichess.org شوید.</string>
   <string name="common_orPaste">(با کلیک کردن عمل نمیکند؟ سعی کنید در مرورگر خود وارد کنید!)</string>
-  <string name="common_note">این یک رایانامهٔ خدمات، مربوط به استفاده‌تان از %s است.</string>
+  <string name="common_note">این یک رایانامهٔ خدماتی، مربوط به استفاده‌تان از %s است.</string>
   <string name="common_contact">خواهشمندیم برای تماس با ما از %s بَهرید.</string>
 </resources>
