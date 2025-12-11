@@ -93,6 +93,7 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
   case PayPal extends Permission("PAYPAL", "PayPal")
   // Set the tier of own broadcasts, making them official. Group own broadcasts.
   case Relay extends Permission("RELAY", "Broadcast official")
+  case FidePlayer extends Permission("FIDE_PLAYER", "Edit FIDE players")
   case Cli extends Permission("CLI", "Command line")
   case Settings extends Permission("SETTINGS", "Lila settings")
   case Streamers extends Permission("STREAMERS", "Manage streamers")
@@ -232,6 +233,7 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
           DisableTwoFactor,
           ChangePermission,
           StudyAdmin,
+          FidePlayer,
           BroadcastTimeout,
           ApiChallengeAdmin,
           Feed
