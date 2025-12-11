@@ -1,0 +1,47 @@
+@import 'card';
+
+.fide-federation {
+  &__head {
+    justify-content: flex-start;
+    gap: 2em;
+    .flag {
+      @extend %box-radius;
+      height: 5em;
+      width: 5em;
+    }
+  }
+  &__cards {
+    margin-bottom: var(---box-padding);
+  }
+  &__card {
+    div {
+      width: 100%;
+    }
+    p {
+      @extend %flex-between;
+      color: $c-font-dim;
+      font-size: 1.2rem;
+      margin-bottom: 0.5em;
+    }
+    strong {
+      color: $c-brag;
+    }
+  }
+  &__kosovo {
+    font-size: 0.8em;
+    color: $c-font-dim;
+    font-style: italic;
+  }
+}
+
+.fide-federations {
+  .flag {
+    height: 1.5em;
+    width: 1.5em;
+    margin-right: 1em;
+    vertical-align: middle;
+  }
+  a {
+    font-weight: bold;
+  }
+}

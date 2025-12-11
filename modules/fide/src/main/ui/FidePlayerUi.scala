@@ -140,31 +140,44 @@ final class FidePlayerUi(helpers: Helpers, fideUi: FideUi, picfitUrl: lila.memo.
     fideUi.page(s"${player.name} - FIDE player ${player.id}", "players")(
       cls := "box-pad fide-player",
       div(cls := "fide-player__header")(
-        h1(
-          span(titleTag(player.title), player.name),
-          user.map(userLink(_, withTitle = false)(cls := "fide-player__user"))
-        ),
-        ctx.isAuth.option(followButton(FidePlayer.WithFollow(player, isFollowing))(trans.site.follow()))
+        player.photo.map: photo =>
+          div(cls := "fide-player__photo")(
+            img(src := thumbnail.url(photo.id, _.Size.Large)),
+            photo.credit.map: credit =>
+              span(cls := "fide-player__photo__credit")("Credit: ", credit)
+          ),
+        div(cls := "fide-player__header__info")(
+          h1(
+            span(titleTag(player.title), player.name),
+            user.map(userLink(_, withTitle = false)(cls := "fide-player__user"))
+          ),
+          ctx.isAuth.option(followButton(FidePlayer.WithFollow(player, isFollowing))(trans.site.follow())),
+          table(cls := "fide-player__header__table")(
+            tbody(
+              player.fed.map: fed =>
+                tr(
+                  th(trb.federation()),
+                  td(
+                    a(
+                      cls := "fide-player__federation",
+                      href := routes.Fide.federation(Federation.idToSlug(fed))
+                    )(
+                      fideUi.federation.flag(fed, none),
+                      Federation.name(fed)
+                    )
+                  )
+                ),
+              tr(
+                th(trb.fideProfile()),
+                td(a(href := s"https://ratings.fide.com/profile/${player.id}")(player.id))
+              ),
+              tr(th(trb.ageThisYear()), td(player.age))
+            )
+          )
+        )
       ),
-      thumbnail(player.photo.map(_.id), _.Size.Large),
       Granter.opt(_.FidePlayer).option(photoForm(player)),
       div(cls := "fide-cards fide-player__cards")(
-        player.fed.map: fed =>
-          card(
-            trb.federation(),
-            a(cls := "fide-player__federation", href := routes.Fide.federation(Federation.idToSlug(fed)))(
-              fideUi.federation.flag(fed, none),
-              Federation.name(fed)
-            )
-          ),
-        card(
-          trb.fideProfile(),
-          a(href := s"https://ratings.fide.com/profile/${player.id}")(player.id)
-        ),
-        card(
-          trb.ageThisYear(),
-          player.age
-        ),
         fideUi.tcTrans.map: (tc, name) =>
           card(name(), player.ratingOf(tc).fold(trb.unrated())(_.toString))
       ),
@@ -175,13 +188,8 @@ final class FidePlayerUi(helpers: Helpers, fideUi: FideUi, picfitUrl: lila.memo.
   object thumbnail:
     def apply(image: Option[ImageId], size: FidePlayer.PlayerPhoto.SizeSelector): Tag =
       image.fold(fallback): id =>
-        img(
-          cls := "fide-player-photo",
-          widthA := size(FidePlayer.PlayerPhoto).width,
-          heightA := size(FidePlayer.PlayerPhoto).height,
-          src := url(id, size)
-        )
-    def fallback = iconTag(Icon.RadioTower)(cls := "fide-player-photo--fallback")
+        img(src := url(id, size))
+    def fallback = iconTag(Icon.User)(cls := "fide-player-photo--fallback")
     def url(id: ImageId, size: FidePlayer.PlayerPhoto.SizeSelector) =
       FidePlayer.PlayerPhoto(picfitUrl, id, size)
 

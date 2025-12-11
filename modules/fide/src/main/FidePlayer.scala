@@ -66,8 +66,8 @@ object FidePlayer:
     enum Size(val width: Int):
       def height = width
       def dimensions = lila.memo.Dimensions(width, height)
-      case Large extends Size(600)
-      case Small extends Size(200)
+      case Large extends Size(300)
+      case Small extends Size(100)
     type SizeSelector = PlayerPhoto.type => Size
 
     def apply(picfitUrl: lila.memo.PicfitUrl, image: ImageId, size: SizeSelector): Url =
