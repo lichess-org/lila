@@ -63,10 +63,6 @@ object FidePlayer:
   case class PlayerPhoto(id: ImageId, credit: Option[String] = None)
 
   object PlayerPhoto:
-    //   def form(player: FidePlayer) =
-    //     import play.api.data.Form
-    //     Form(mapping(
-
     enum Size(val width: Int):
       def height = width
       def dimensions = lila.memo.Dimensions(width, height)
@@ -76,6 +72,12 @@ object FidePlayer:
 
     def apply(picfitUrl: lila.memo.PicfitUrl, image: ImageId, size: SizeSelector): Url =
       picfitUrl.thumbnail(image)(size(PlayerPhoto).dimensions)
+
+  object form:
+    import play.api.data.*
+    import play.api.data.Forms.*
+    def credit(p: FidePlayer) =
+      Form(single("photo.credit" -> optional(nonEmptyText))).fill(p.photo.flatMap(_.credit))
 
   case class WithFollow(player: FidePlayer, follow: Boolean)
 

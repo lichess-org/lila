@@ -33,6 +33,8 @@ final private class FideRepo(
     def countAll = playerColl.count()
     def setPhoto(id: FideId, photo: FidePlayer.PlayerPhoto): Funit =
       playerColl.updateField($id(id), "photo", photo).void
+    def setPhotoCredit(p: FidePlayer, credit: Option[String]): Funit =
+      playerColl.updateOrUnsetField($id(p.id), "photo.credit", credit).void
 
   object federation:
     given BSONDocumentHandler[Federation.Stats] = Macros.handler

@@ -146,7 +146,8 @@ final class FidePlayerUi(helpers: Helpers, fideUi: FideUi, picfitUrl: lila.memo.
         ),
         ctx.isAuth.option(followButton(FidePlayer.WithFollow(player, isFollowing))(trans.site.follow()))
       ),
-      Granter.opt(_.StudyAdmin).option(photoForm(player)),
+      thumbnail(player.photo.map(_.id), _.Size.Large),
+      Granter.opt(_.FidePlayer).option(photoForm(player)),
       div(cls := "fide-cards fide-player__cards")(
         player.fed.map: fed =>
           card(
@@ -185,25 +186,22 @@ final class FidePlayerUi(helpers: Helpers, fideUi: FideUi, picfitUrl: lila.memo.
       FidePlayer.PlayerPhoto(picfitUrl, id, size)
 
   private def photoForm(player: FidePlayer)(using ctx: Context) =
-    form3.fieldset("Photo", toggle = true.some)(
-      div(
-        cls := "form-group fide-player__photo-edit",
-        data("post-url") := routes.Fide.playerPhoto(player.id)
-      )(
-        thumbnail(player.photo.map(_.id), _.Size.Large)(
-          cls := "drop-target " + player.photo.isDefined.so("fide-player__photo"),
-          attr("draggable") := "true"
+    val credit = lila.fide.FidePlayer.form.credit(player)
+    form3.fieldset("Photo", toggle = player.photo.isEmpty.some)(
+      postForm(cls := "form3 fide-player__form", action := routes.Fide.playerUpdate(player.id))(
+        form3.split(
+          div(
+            cls := "form-group form-half fide-player__photo-edit",
+            data("post-url") := routes.Fide.playerPhoto(player.id)
+          )(
+            p(
+              "Portrait of the player. It should be recognizable even at small sizes. ",
+              strong(trans.streamer.maxSize(s"${lila.memo.PicfitApi.uploadMaxMb}MB."))
+            ),
+            form3.file.selectImage()
+          ),
+          form3.group(credit("photo.credit"), trans.ublog.imageCredit(), half = true)(form3.input(_))
         ),
-        div(
-          p("Portrait of the player. It should be recognizable even at small sizes."),
-          p(strong(trans.streamer.maxSize(s"${lila.memo.PicfitApi.uploadMaxMb}MB."))),
-          form3.file.selectImage()
-        )
+        form3.action(form3.submit("Save"))
       )
-      // player.photo.isDefined.option(
-      //   form3.split(
-      //     form3.group(form("imageAlt"), trans.ublog.imageAlt(), half = true)(form3.input(_)),
-      //     form3.group(form("imageCredit"), trans.ublog.imageCredit(), half = true)(form3.input(_))
-      //   )(cls := s"ublog-post-form__image-text visible")
-      // )
     )

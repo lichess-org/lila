@@ -11,7 +11,7 @@ final class FidePlayerApi(repo: FideRepo, cacheApi: CacheApi, picfitApi: PicfitA
 
   import repo.player.handler
 
-  export repo.player.fetch
+  export repo.player.{ fetch, setPhotoCredit }
 
   def players(ids: ByColor[Option[FideId]]): Fu[ByColor[Option[FidePlayer]]] =
     ids.traverse:

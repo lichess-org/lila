@@ -5,11 +5,11 @@ import play.api.libs.ws.StandaloneWSClient
 
 import lila.core.config.CollName
 import lila.core.fide.*
-import lila.memo.CacheApi
+import lila.memo.{ CacheApi, PicfitApi }
 import scalalib.paginator.Paginator
 
 @Module
-final class Env(db: lila.db.Db, cacheApi: CacheApi, ws: StandaloneWSClient)(using
+final class Env(db: lila.db.Db, cacheApi: CacheApi, picfitApi: PicfitApi, ws: StandaloneWSClient)(using
     Executor,
     akka.stream.Materializer
 )(using mode: play.api.Mode, scheduler: Scheduler):
