@@ -25,6 +25,5 @@
   <string name="fidePlayerNotFound">FIDE spēlētājs nav atrasts</string>
   <string name="fideProfile">FIDE profils</string>
   <string name="federation">Federācija</string>
-  <string name="ageThisYear">Vecums šogad</string>
   <string name="unrated">Nevērtēta</string>
 </resources>
