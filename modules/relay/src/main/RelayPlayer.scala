@@ -10,7 +10,7 @@ import chess.rating.{ Elo, IntRatingDiff }
 import lila.study.{ ChapterPreviewApi, StudyPlayer }
 import lila.study.StudyPlayer.json.given
 import lila.memo.CacheApi
-import lila.core.fide.Player as FidePlayer
+import lila.core.fide.{ PhotosJson, Player as FidePlayer }
 import lila.common.Json.given
 import chess.tiebreak.{ Tiebreak, TiebreakPoint }
 
@@ -170,7 +170,8 @@ private final class RelayPlayerApi(
     chapterRepo: lila.study.ChapterRepo,
     chapterPreviewApi: ChapterPreviewApi,
     cacheApi: CacheApi,
-    fidePlayerGet: lila.core.fide.GetPlayer
+    fidePlayerGet: lila.core.fide.GetPlayer,
+    photosJson: PhotosJson.Get
 )(using Executor)(using scheduler: Scheduler):
   import RelayPlayer.*
 
@@ -190,11 +191,15 @@ private final class RelayPlayerApi(
   export cache.get
   export jsonCache.get as jsonList
 
-  def fideIds(tour: RelayTourId): Fu[Set[FideId]] =
-    cache
-      .get(tour)
-      .map:
-        _.values.flatMap(_.fideId).toSet
+  private val photosJsonCache = cacheApi[RelayTourId, PhotosJson](32, "relay.players.photos.json"):
+    _.expireAfterWrite(10.seconds).buildAsyncFuture: tourId =>
+      for
+        players <- cache.get(tourId)
+        fideIds = players.values.flatMap(_.fideId).toSet
+        photos <- photosJson(fideIds)
+      yield photos
+
+  def photosJson(tourId: RelayTourId): Fu[PhotosJson] = photosJsonCache.get(tourId)
 
   def player(tour: RelayTour, str: String): Fu[Option[RelayPlayer]] =
     val id = FideId.from(str.toIntOption) | PlayerName(str)

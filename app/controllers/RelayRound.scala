@@ -134,7 +134,7 @@ final class RelayRound(
               (sc, studyData) <- studyC.getJsonData(oldSc, withChapters = true)
               rounds <- env.relay.api.byTourOrdered(rt.tour)
               group <- env.relay.api.withTours.get(rt.tour.id)
-              photos <- photosOf(rt.tour)
+              photos <- env.relay.playerApi.photosJson(rt.tour.id)
               data = env.relay.jsonView.makeData(
                 rt.tour.withRounds(rounds.map(_.round)),
                 rt.round.id,
@@ -287,7 +287,7 @@ final class RelayRound(
         crossSiteIsolation = videoUrls.isEmpty || (
           rt.tour.pinnedStream.isDefined && crossOriginPolicy.supportsCredentiallessIFrames(ctx.req)
         )
-        photos <- photosOf(rt.tour)
+        photos <- env.relay.playerApi.photosJson(rt.tour.id)
         data = env.relay.jsonView.makeData(
           rt.tour.withRounds(rounds.map(_.round)),
           rt.round.id,
@@ -311,9 +311,6 @@ final class RelayRound(
       studyC.privateUnauthorizedFu(oldSc.study),
       studyC.privateForbiddenFu(oldSc.study)
     )
-
-  private def photosOf(tour: TourModel): Fu[play.api.libs.json.JsObject] =
-    env.relay.playerApi.fideIds(tour.id).flatMap(env.fide.photosJson)
 
   private[controllers] def rateLimitCreation(fail: => Fu[Result])(
       create: => Fu[Result]

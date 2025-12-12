@@ -2,6 +2,7 @@ package lila.fide
 
 import play.api.libs.json.*
 import lila.common.Json.given
+import lila.core.fide.PhotosJson
 
 final class FideJson(picfitUrl: lila.memo.PicfitUrl):
 
@@ -13,7 +14,7 @@ final class FideJson(picfitUrl: lila.memo.PicfitUrl):
       )
       .add("credit" -> p.credit)
 
-  def photosJson(photos: Map[chess.FideId, FidePlayer.PlayerPhoto]): JsObject =
+  def photosJson(photos: Map[chess.FideId, FidePlayer.PlayerPhoto]) = PhotosJson:
     JsObject:
       photos.map: (id, photo) =>
         id.value.toString -> photoWrites.writes(photo)

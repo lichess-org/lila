@@ -13,6 +13,7 @@ import lila.study.Settings
 import lila.core.socket.SocketVersion
 import lila.core.LightUser.GetterSync
 import lila.core.i18n.Translate
+import lila.core.fide.PhotosJson
 
 final class RelayJsonView(
     baseUrl: BaseUrl,
@@ -153,7 +154,7 @@ final class RelayJsonView(
       videoUrls: Option[PairOf[String]],
       pinned: Option[RelayPinnedStream],
       delayedUntil: Option[Instant],
-      photos: JsObject
+      photos: PhotosJson
   )(using Translate) =
     RelayJsonView.JsData(
       relay = fullTourWithRounds(trs, group)(using Config(html = true))
@@ -196,7 +197,7 @@ object RelayJsonView:
       study: JsObject,
       analysis: JsObject,
       group: Option[RelayGroup.Name],
-      photos: JsObject
+      photos: PhotosJson
   )
 
   given OWrites[RelayPinnedStream] = OWrites: s =>
