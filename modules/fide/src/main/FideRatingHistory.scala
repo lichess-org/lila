@@ -24,6 +24,10 @@ case class FideRatingHistory(
     elos.foldLeft(this):
       case (hist, (tc, elo)) => hist.set(date, tc, elo)
 
+  def compress =
+    FideTC.values.foldLeft(this): (hist, tc) =>
+      hist.focusTC(tc).modify(FideRatingHistory.compress)
+
 object FideRatingHistory:
 
   type RatingPoint = (YearMonth, Elo)
@@ -31,6 +35,18 @@ object FideRatingHistory:
 
   def empty(id: FideId): FideRatingHistory = FideRatingHistory(id, Nil, Nil, Nil)
 
-  def set(points: RatingPoints, date: YearMonth, elo: Elo): RatingPoints =
+  private def set(points: RatingPoints, date: YearMonth, elo: Elo): RatingPoints =
     val cleaned = points.filterNot(_._1 == date)
-    ((date -> elo) :: cleaned).sortBy(_._1)
+    compress(((date -> elo) :: cleaned).sortBy(_._1))
+
+  // keep the first and last of each streak of identical ratings
+  private def compress(points: RatingPoints): RatingPoints =
+    if points.sizeIs < 3 then points
+    else
+      val middle = points
+        .sliding(3)
+        .foldLeft(List.empty[RatingPoint]):
+          case (acc, List(a, b, c)) =>
+            if a._2 == b._2 && b._2 == c._2 then acc else b :: acc
+          case (acc, _) => acc
+      points.headOption.toList ::: middle.reverse ::: points.lastOption.toList
