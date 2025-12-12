@@ -47,7 +47,6 @@
   <string name="fidePlayerNotFound">Joueur FIDE introuvable</string>
   <string name="fideProfile">Profil FIDE</string>
   <string name="federation">Fédération</string>
-  <string name="ageThisYear">Âge cette année</string>
   <string name="unrated">Non classé</string>
   <string name="recentTournaments">Tournois récents</string>
   <string name="openLichess">Ouvrir dans Lichess</string>
@@ -83,4 +82,6 @@
   <string name="liveboard">Échiquier en direct</string>
   <string name="communityBroadcast">Diffusion communautaire</string>
   <string name="createdAndManagedBy">Créée et gérée par %s.</string>
+  <string name="roundX">Ronde : %s</string>
+  <string name="defaultRoundNameHelp">Si le nom par défaut est conservé, il sera automatiquement traduit dans les autres langues.</string>
 </resources>

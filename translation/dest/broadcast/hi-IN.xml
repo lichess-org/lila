@@ -28,7 +28,6 @@
   <string name="deleteTournament">इस टूर्नामेंट को हटाएं</string>
   <string name="definitivelyDeleteTournament">संपूर्ण टूर्नामेंट, उसके सभी राउंड और उसके सभी गेम को निश्चित रूप से हटा दें।</string>
   <string name="top10Rating">शीर्ष 10 रेटिंग</string>
-  <string name="ageThisYear">इस वर्ष आयु</string>
   <string name="unrated">बिना रेटेड</string>
   <string name="allBroadcastsByMonth">सभी प्रसारण महीने के अनुसार देखें</string>
 </resources>
