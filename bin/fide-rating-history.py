@@ -1,4 +1,6 @@
 import requests
+from requests.adapters import HTTPAdapter
+from urllib3.util import Retry
 import re
 import zipfile
 import io
@@ -18,11 +20,21 @@ DOWNLOAD_ENDPOINT = "https://ratings.fide.com/a_download.php"
 # Data store: players[fide_id][rating_type] = list of [date_str, rating]
 players = defaultdict(lambda: {"standard": [], "rapid": [], "blitz": []})
 
+# define the retry strategy
+retry_strategy = Retry(
+    total=10,  # maximum number of retries
+    backoff_factor=2,
+    status_forcelist=[ 403, 429, 500, 502, 503, 504 ],
+)
+adapter = HTTPAdapter(max_retries=retry_strategy)
+session = requests.Session()
+session.mount("https://", adapter)
+
 def get_periods():
     """Scrapes available YYYY-MM-DD periods from the FIDE dropdown and filters by range."""
     print(f"Fetching period list from {LIST_URL}...")
     try:
-        resp = requests.get(LIST_URL)
+        resp = session.get(LIST_URL)
         resp.raise_for_status()
     except Exception as e:
         sys.exit(f"Failed to fetch period list: {e}")
@@ -42,7 +54,7 @@ def get_periods():
 def get_xml_links(period):
     """Fetches the download page for a period and finds XML zip links."""
     try:
-        resp = requests.get(DOWNLOAD_ENDPOINT, params={'period': period})
+        resp = session.get(DOWNLOAD_ENDPOINT, params={'period': period})
         resp.raise_for_status()
     except Exception as e:
         print(f"[{period}] Request failed: {e}")
@@ -115,7 +127,7 @@ def main():
         for url, rtype in links:
             print(f"    -> Downloading {rtype.upper()}...")
             try:
-                r = requests.get(url)
+                r = session.get(url)
                 z = zipfile.ZipFile(io.BytesIO(r.content))
 
                 found_xml = False
