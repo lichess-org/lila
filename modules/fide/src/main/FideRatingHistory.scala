@@ -2,6 +2,7 @@ package lila.fide
 
 import reactivemongo.api.bson.Macros.Annotations.Key
 import java.time.YearMonth
+import play.api.libs.json.*
 import monocle.syntax.all.*
 import chess.{ FideId, FideTC }
 import chess.rating.Elo
@@ -28,12 +29,25 @@ case class FideRatingHistory(
     FideTC.values.foldLeft(this): (hist, tc) =>
       hist.focusTC(tc).modify(FideRatingHistory.compress)
 
+  def allRatings: Map[FideTC, FideRatingHistory.RatingPoints] =
+    Map(
+      FideTC.standard -> standard,
+      FideTC.rapid -> rapid,
+      FideTC.blitz -> blitz
+    )
+
+  def toJson =
+    import FideRatingHistory.pointWrites
+    Json.toJsObject(allRatings.mapKeys(_.toString))
+
 object FideRatingHistory:
 
   type RatingPoint = (YearMonth, Elo)
   type RatingPoints = List[RatingPoint] // chronological order, oldest first
 
   def empty(id: FideId): FideRatingHistory = FideRatingHistory(id, Nil, Nil, Nil)
+
+  private given pointWrites: Writes[RatingPoint] = point => Json.arr(point._1.toString, point._2.value)
 
   private def set(points: RatingPoints, date: YearMonth, elo: Elo): RatingPoints =
     val cleaned = points.filterNot(_._1 == date)

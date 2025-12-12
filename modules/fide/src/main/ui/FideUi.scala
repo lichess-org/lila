@@ -18,14 +18,19 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
       FideTC.blitz -> trs.blitz
     )
 
-  private[ui] def page(title: String, active: String)(modifiers: Modifier*)(using Context): Page =
+  private[ui] def page(title: String, active: String, pageMods: Update[Page] = identity)(
+      modifiers: Modifier*
+  )(using
+      Context
+  ): Page =
     val editor = Granter.opt(_.FidePlayer)
     Page(title)
       .css("fide")
       .css(editor.option("fidePlayerForm"))
       .js(infiniteScrollEsmInit)
       .js(esmInit("fidePlayerFollow"))
-      .js(editor.option(esmInit("fidePlayerForm"))):
+      .js(editor.option(esmInit("fidePlayerForm")))
+      .pipe(pageMods):
         main(cls := "page-menu")(
           menu(active),
           div(cls := "page-menu__content box")(modifiers)
