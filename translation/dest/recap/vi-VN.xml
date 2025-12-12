@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+	<string name="hiUser" comment="%s is the title+username e.g. 'GM ABC' or simply ABC if there is no title">Xin chào, %s</string>
+	<string name="awaitQuestion" comment="Displayed while waiting for results">Bạn đã làm được những gì trong năm nay?</string>
+	<string name="initTitle">Bạn đã có một năm chơi cờ tuyệt vời!</string>
+	<string name="noGamesText">Bạn chưa chơi một ván cờ nào trong năm này.</string>
+	<string name="noGamesCta">Bạn muốn chơi ngay bây giờ không?</string>
+</resources>
