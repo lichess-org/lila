@@ -111,10 +111,11 @@ final class RelayJsonView(
       group: Option[RelayGroup.WithTours],
       targetRound: Option[RelayRound.WithTour],
       isSubscribed: Option[Boolean],
-      socketVersion: Option[SocketVersion]
+      socketVersion: Option[SocketVersion],
+      photos: PhotosJson
   )(using Option[Me])(using Translate): JsObject =
     myRound(rt) ++ Json
-      .obj("games" -> previews)
+      .obj("games" -> previews, "photos" -> photos)
       .add("group" -> group)
       .add("targetRound" -> targetRound.map(withUrl(_, true)))
       .add("isSubscribed", isSubscribed)
