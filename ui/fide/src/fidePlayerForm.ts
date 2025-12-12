@@ -1,4 +1,4 @@
-import { wireCropDialog } from './crop';
+import { wireCropDialog } from 'bits/crop';
 
 site.load.then(() => {
   $('.fide-player__photo-edit').each(function (this: HTMLElement) {

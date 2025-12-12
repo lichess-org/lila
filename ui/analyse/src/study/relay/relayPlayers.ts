@@ -154,46 +154,55 @@ const playerView = (ctrl: RelayPlayers, show: PlayerToShow, tour: RelayTour): VN
     },
     p
       ? [
-          hl('div.fide-player__header', { hook: onInsert(el => pubsub.emit('content-loaded', el)) }, [
-            photo && hl('div.fide-player__photo', [hl('img', { attrs: { src: photo.medium } })]),
-            hl('div.fide-player__header__info', [
-              hl('a.fide-player__header__name', { attrs: fidePageAttrs }, [
-                hl('span', [userTitle(p), p.name]),
-                p.user && userLink({ ...p.user, title: undefined }),
-              ]),
-              p.fide &&
-                hl('label.fide-player__follow', [
-                  hl(`input#fide-follow-${p.fideId}.cmn-favourite`, {
-                    attrs: {
-                      type: 'checkbox',
-                      'data-action': `/fide/${p.fideId}/follow?follow=true`,
-                      checked: !!p.fide?.follow,
-                    },
-                  }),
-                  hl('label', { attrs: { for: `fide-follow-${p.fideId}` } }),
-                  i18n.site.follow,
+          hl(
+            'div.fide-player__header',
+            {
+              hook: onInsert(el => {
+                site.asset.loadEsm('fidePlayer');
+                pubsub.emit('content-loaded', el);
+              }),
+            },
+            [
+              photo && hl('div.fide-player__photo', [hl('img', { attrs: { src: photo.medium } })]),
+              hl('div.fide-player__header__info', [
+                hl('a.fide-player__header__name', { attrs: fidePageAttrs }, [
+                  hl('span', [userTitle(p), p.name]),
+                  p.user && userLink({ ...p.user, title: undefined }),
                 ]),
-              hl('table.fide-player__header__table', [
-                hl('tbody', [
-                  p.fed &&
-                    hl('tr', [
-                      hl('th', i18n.broadcast.federation),
-                      hl(
-                        'td',
+                p.fide &&
+                  hl('label.fide-player__follow', [
+                    hl(`input#fide-follow-${p.fideId}.cmn-favourite`, {
+                      attrs: {
+                        type: 'checkbox',
+                        'data-action': `/fide/${p.fideId}/follow?follow=true`,
+                        checked: !!p.fide?.follow,
+                      },
+                    }),
+                    hl('label', { attrs: { for: `fide-follow-${p.fideId}` } }),
+                    i18n.site.follow,
+                  ]),
+                hl('table.fide-player__header__table', [
+                  hl('tbody', [
+                    p.fed &&
+                      hl('tr', [
+                        hl('th', i18n.broadcast.federation),
                         hl(
-                          'a.fide-player__federation',
-                          { attrs: { href: `/fide/federation/${p.fed.name}` } },
-                          [playerFedFlag(p.fed), p.fed.name],
+                          'td',
+                          hl(
+                            'a.fide-player__federation',
+                            { attrs: { href: `/fide/federation/${p.fed.name}` } },
+                            [playerFedFlag(p.fed), p.fed.name],
+                          ),
                         ),
-                      ),
-                    ]),
-                  p.team &&
-                    hl('tr', [hl('th', 'Team'), hl('td.text', { attrs: dataIcon(licon.Group) }, p.team)]),
-                  age && hl('tr', [hl('th', i18n.broadcast.age), hl('td', age.toString())]),
+                      ]),
+                    p.team &&
+                      hl('tr', [hl('th', 'Team'), hl('td.text', { attrs: dataIcon(licon.Group) }, p.team)]),
+                    age && hl('tr', [hl('th', i18n.broadcast.age), hl('td', age.toString())]),
+                  ]),
                 ]),
               ]),
-            ]),
-          ]),
+            ],
+          ),
           hl('div.fide-player__cards', [
             p.fide?.ratings &&
               ratingCategs.map(([key, name]) =>

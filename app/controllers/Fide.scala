@@ -32,7 +32,8 @@ final class Fide(env: Env) extends LilaController(env):
               user <- env.title.api.publicUserOf(player.id)
               tours <- env.relay.playerTour.playerTours(player, page)
               isFollowing <- ctx.userId.so(env.fide.repo.follower.isFollowing(_, id))
-              rendered <- renderPage(views.fide.player.show(player, user, tours, isFollowing))
+              ratings <- env.fide.repo.rating.get(player.id)
+              rendered <- renderPage(views.fide.player.show(player, user, tours, ratings, isFollowing))
             yield Ok(rendered)
 
   def follow(fideId: chess.FideId, follow: Boolean) = AuthOrScopedBody(_.Web.Mobile): _ ?=>

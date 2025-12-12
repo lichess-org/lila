@@ -145,9 +145,13 @@ final class FidePlayerUi(helpers: Helpers, fideUi: FideUi, picfitUrl: lila.memo.
       )
     )
 
-  def show(player: FidePlayer, user: Option[User], tours: Option[Frag], isFollowing: Boolean)(using
-      ctx: Context
-  ) =
+  def show(
+      player: FidePlayer,
+      user: Option[User],
+      tours: Option[Frag],
+      ratings: FideRatingHistory,
+      isFollowing: Boolean
+  )(using ctx: Context) =
     fideUi.page(s"${player.name} - FIDE player ${player.id}", "players")(
       cls := "box-pad fide-player",
       div(cls := "fide-player__header")(

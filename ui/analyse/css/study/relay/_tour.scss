@@ -399,7 +399,7 @@ $hover-bg: $m-primary_bg--mix-30;
     .score {
       font-weight: bold;
     }
-    td + td:not(.player-name) {
+    td + td:not(.player-intro-td) {
       font-family: monospace;
       text-align: end;
       padding: 1rem 2rem;

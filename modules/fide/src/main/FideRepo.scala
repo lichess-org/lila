@@ -43,11 +43,11 @@ final private class FideRepo(
       quickHandler({ case BSONString(s) => YearMonth.parse(s) }, ym => BSONString(ym.toString))
     given BSONHandler[FideRatingHistory.RatingPoint] = tupleHandler
     given BSONDocumentHandler[FideRatingHistory] = Macros.handler
-    def get(id: FideId): Fu[Option[FideRatingHistory]] = ratingColl.byId[FideRatingHistory](id)
+    def get(id: FideId): Fu[FideRatingHistory] =
+      ratingColl.byId[FideRatingHistory](id).map(_ | FideRatingHistory.empty(id))
     def set(id: FideId, date: YearMonth, elos: Map[FideTC, Elo]): Funit = elos.nonEmpty.so:
       for
-        opt <- get(id)
-        history = opt | FideRatingHistory.empty(id)
+        history <- get(id)
         updated = history.set(date, elos)
         _ <- ratingColl.update.one($id(id), updated, upsert = true)
       yield ()

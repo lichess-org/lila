@@ -21,10 +21,10 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
   private[ui] def page(title: String, active: String)(modifiers: Modifier*)(using Context): Page =
     val editor = Granter.opt(_.FidePlayer)
     Page(title)
-      .css("bits.fide")
-      .css(editor.option("bits.fidePlayerForm"))
-      .js(infiniteScrollEsmInit ++ esmInitBit("fidePlayerFollow"))
-      .js(editor.option(Esm("bits.fidePlayerForm"))):
+      .css("fide")
+      .css(editor.option("fidePlayerForm"))
+      .js(infiniteScrollEsmInit ++ esmInit("fidePlayer"))
+      .js(editor.option(esmInit("fidePlayerForm"))):
         main(cls := "page-menu")(
           menu(active),
           div(cls := "page-menu__content box")(modifiers)
