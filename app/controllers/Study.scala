@@ -274,9 +274,8 @@ final class Study(
             else
               val back = HTTPRequest
                 .referer(ctx.req)
-                .orElse(
+                .orElse:
                   data.fen.map(fen => editorC.editorUrl(fen, data.variant | chess.variant.Variant.default))
-                )
               Ok.page(views.study.create(data, owner, contrib, back))
         yield res
     )
