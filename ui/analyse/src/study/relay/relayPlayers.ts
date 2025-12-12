@@ -158,7 +158,7 @@ const playerView = (ctrl: RelayPlayers, show: PlayerToShow, tour: RelayTour): VN
             'div.fide-player__header',
             {
               hook: onInsert(el => {
-                site.asset.loadEsm('fidePlayer');
+                site.asset.loadEsm('fidePlayerFollow');
                 pubsub.emit('content-loaded', el);
               }),
             },

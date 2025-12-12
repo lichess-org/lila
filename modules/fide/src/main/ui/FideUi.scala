@@ -23,7 +23,8 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
     Page(title)
       .css("fide")
       .css(editor.option("fidePlayerForm"))
-      .js(infiniteScrollEsmInit ++ esmInit("fidePlayer"))
+      .js(infiniteScrollEsmInit)
+      .js(esmInit("fidePlayerFollow"))
       .js(editor.option(esmInit("fidePlayerForm"))):
         main(cls := "page-menu")(
           menu(active),

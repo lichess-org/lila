@@ -11,9 +11,9 @@
   },
   "build": {
     "bundle": [
-      "src/fidePlayer.ts",
       "src/fidePlayerFollow.ts",
-      "src/fidePlayerForm.ts"
+      "src/fidePlayerForm.ts",
+      "src/fideRatingChart.ts"
     ]
   },
   "exports": {
