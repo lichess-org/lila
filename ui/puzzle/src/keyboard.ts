@@ -22,7 +22,7 @@ export default (ctrl: PuzzleCtrl) =>
       ctrl.redraw();
     })
     .bind('l', () => {
-      if (ctrl.isCevalAllowed()) ctrl.cevalEnabled(!ctrl.cevalEnabled())
+      if (ctrl.isCevalAllowed()) ctrl.cevalEnabled(!ctrl.cevalEnabled());
     })
     .bind('x', ctrl.toggleThreatMode)
     .bind('space', () => {
