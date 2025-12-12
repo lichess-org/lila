@@ -42,9 +42,7 @@ final class Env(
   def guessPlayer: GuessPlayer = playerApi.guessPlayer.apply
   def getPlayer: GetPlayer = playerApi.get
   def getPlayerFollowers: GetPlayerFollowers = repo.follower.followers
-
-  def photosJson(ids: Set[chess.FideId]): Fu[play.api.libs.json.JsObject] =
-    playerApi.photos(ids).map(json.photosJson)
+  def photosJson: PhotosJson.Get = ids => playerApi.photos(ids).map(json.photosJson)
 
   def search(q: Option[String], page: Int = 1, order: FidePlayerOrder)(using
       me: Option[Me]

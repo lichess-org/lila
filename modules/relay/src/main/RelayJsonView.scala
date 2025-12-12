@@ -13,6 +13,7 @@ import lila.study.Settings
 import lila.core.socket.SocketVersion
 import lila.core.LightUser.GetterSync
 import lila.core.i18n.Translate
+import lila.core.fide.PhotosJson
 
 final class RelayJsonView(
     baseUrl: BaseUrl,
@@ -110,10 +111,11 @@ final class RelayJsonView(
       group: Option[RelayGroup.WithTours],
       targetRound: Option[RelayRound.WithTour],
       isSubscribed: Option[Boolean],
-      socketVersion: Option[SocketVersion]
+      socketVersion: Option[SocketVersion],
+      photos: PhotosJson
   )(using Option[Me])(using Translate): JsObject =
     myRound(rt) ++ Json
-      .obj("games" -> previews)
+      .obj("games" -> previews, "photos" -> photos)
       .add("group" -> group)
       .add("targetRound" -> targetRound.map(withUrl(_, true)))
       .add("isSubscribed", isSubscribed)
@@ -153,7 +155,7 @@ final class RelayJsonView(
       videoUrls: Option[PairOf[String]],
       pinned: Option[RelayPinnedStream],
       delayedUntil: Option[Instant],
-      photos: JsObject
+      photos: PhotosJson
   )(using Translate) =
     RelayJsonView.JsData(
       relay = fullTourWithRounds(trs, group)(using Config(html = true))
@@ -171,8 +173,7 @@ final class RelayJsonView(
             .add("text" -> p.text)),
       study = studyData.study,
       analysis = studyData.analysis,
-      group = group.map(_.group.name),
-      photos = photos
+      group = group.map(_.group.name)
     )
 
   def home(h: RelayHome)(using Config, Translate) = top(h.ongoing ::: h.recent, h.past)
@@ -195,8 +196,7 @@ object RelayJsonView:
       relay: JsObject,
       study: JsObject,
       analysis: JsObject,
-      group: Option[RelayGroup.Name],
-      photos: JsObject
+      group: Option[RelayGroup.Name]
   )
 
   given OWrites[RelayPinnedStream] = OWrites: s =>

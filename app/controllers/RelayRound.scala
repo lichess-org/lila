@@ -134,7 +134,7 @@ final class RelayRound(
               (sc, studyData) <- studyC.getJsonData(oldSc, withChapters = true)
               rounds <- env.relay.api.byTourOrdered(rt.tour)
               group <- env.relay.api.withTours.get(rt.tour.id)
-              photos <- photosOf(rt.tour)
+              photos <- env.relay.playerApi.photosJson(rt.tour.id)
               data = env.relay.jsonView.makeData(
                 rt.tour.withRounds(rounds.map(_.round)),
                 rt.round.id,
@@ -167,9 +167,18 @@ final class RelayRound(
           targetRound <- env.relay.api.officialTarget(rt.round)
           isSubscribed <- ctx.userId.traverse(env.relay.api.isSubscribed(rt.tour.id, _))
           sVersion <- HTTPRequest.isLichessMobile(ctx.req).optionFu(env.study.version(study.id))
+          photos <- env.relay.playerApi.photosJson(rt.tour.id)
         yield JsonOk:
           env.relay.jsonView
-            .withUrlAndPreviews(rt.withStudy(study), previews, group, targetRound, isSubscribed, sVersion)
+            .withUrlAndPreviews(
+              rt.withStudy(study),
+              previews,
+              group,
+              targetRound,
+              isSubscribed,
+              sVersion,
+              photos
+            )
       )(studyC.privateUnauthorizedJson, studyC.privateForbiddenJson)
 
   def pgn(ts: String, rs: String, id: RelayRoundId) = Open:
@@ -287,7 +296,7 @@ final class RelayRound(
         crossSiteIsolation = videoUrls.isEmpty || (
           rt.tour.pinnedStream.isDefined && crossOriginPolicy.supportsCredentiallessIFrames(ctx.req)
         )
-        photos <- photosOf(rt.tour)
+        photos <- env.relay.playerApi.photosJson(rt.tour.id)
         data = env.relay.jsonView.makeData(
           rt.tour.withRounds(rounds.map(_.round)),
           rt.round.id,
@@ -311,9 +320,6 @@ final class RelayRound(
       studyC.privateUnauthorizedFu(oldSc.study),
       studyC.privateForbiddenFu(oldSc.study)
     )
-
-  private def photosOf(tour: TourModel): Fu[play.api.libs.json.JsObject] =
-    env.relay.playerApi.fideIds(tour.id).flatMap(env.fide.photosJson)
 
   private[controllers] def rateLimitCreation(fail: => Fu[Result])(
       create: => Fu[Result]
