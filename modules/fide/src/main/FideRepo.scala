@@ -1,14 +1,17 @@
 package lila.fide
 
-import chess.FideId
+import scala.util.Success
+import java.time.YearMonth
+import chess.{ FideId, FideTC }
+import chess.rating.Elo
 import reactivemongo.api.bson.*
 
 import lila.core.fide.{ Federation, FidePlayerOrder }
 import lila.db.dsl.{ *, given }
-import scala.util.Success
 
 final private class FideRepo(
     private[fide] val playerColl: Coll,
+    private[fide] val ratingColl: Coll,
     private[fide] val federationColl: Coll,
     private[fide] val followerColl: Coll
 )(using Executor):
@@ -34,6 +37,20 @@ final private class FideRepo(
       playerColl.updateField($id(id), "photo", photo).void
     def setPhotoCredit(p: FidePlayer, credit: Option[String]): Funit =
       playerColl.updateOrUnsetField($id(p.id), "photo.credit", credit).void
+
+  object rating:
+    private given BSONHandler[YearMonth] =
+      quickHandler({ case BSONString(s) => YearMonth.parse(s) }, ym => BSONString(ym.toString))
+    given BSONHandler[FideRatingHistory.RatingPoint] = tupleHandler
+    given BSONDocumentHandler[FideRatingHistory] = Macros.handler
+    def get(id: FideId): Fu[Option[FideRatingHistory]] = ratingColl.byId[FideRatingHistory](id)
+    def set(id: FideId, date: YearMonth, elos: Map[FideTC, Elo]): Funit = elos.nonEmpty.so:
+      for
+        opt <- get(id)
+        history = opt | FideRatingHistory.empty(id)
+        updated = history.set(date, elos)
+        _ <- ratingColl.update.one($id(id), updated, upsert = true)
+      yield ()
 
   object federation:
     given BSONDocumentHandler[Federation.Stats] = Macros.handler

@@ -23,6 +23,7 @@ final class Env(
   val repo =
     FideRepo(
       playerColl = db(CollName("fide_player")),
+      ratingColl = db(CollName("fide_player_rating")),
       federationColl = db(CollName("fide_federation")),
       followerColl = db(CollName("fide_player_follower"))
     )
