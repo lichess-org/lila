@@ -37,7 +37,9 @@ final private class ExplorerGameApi(
   private def compareFens(a: Fen.Full, b: Fen.Full) = a.simple == b.simple
 
   private def merge(fromNode: Node, fromPath: UciPath, game: Root): Option[(Branch, UciPath)] =
-    val gameNodes = game.mainline.dropWhile(n => !compareFens(n.fen, fromNode.fen)).drop(1)
+    val gameNodes =
+      if compareFens(fromNode.fen, game.fen) then game.mainline
+      else game.mainline.dropWhile(n => !compareFens(n.fen, fromNode.fen)).drop(1)
     val (path, foundGameNode) = gameNodes.foldLeft((UciPath.root, none[Branch])):
       case ((path, None), gameNode) =>
         val nextPath = path + gameNode.id
