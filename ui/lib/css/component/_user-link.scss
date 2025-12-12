@@ -60,8 +60,17 @@
   }
 }
 
-a.user-link:hover {
-  color: $c-link;
+a.user-link {
+  @media (hover: hover), (pointer: fine) {
+    &:hover {
+      color: $c-link;
+    }
+  }
+  @media (hover: none) and (pointer: coarse) {
+    &:active {
+      color: $c-link;
+    }
+  }
 }
 
 .utitle {
