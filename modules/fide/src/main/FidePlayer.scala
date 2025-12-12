@@ -66,7 +66,7 @@ object FidePlayer:
     enum Size(val width: Int):
       def height = width
       def dimensions = lila.memo.Dimensions(width, height)
-      case Medium extends Size(300)
+      case Medium extends Size(500)
       case Small extends Size(100)
     type SizeSelector = Size.type => Size
 
