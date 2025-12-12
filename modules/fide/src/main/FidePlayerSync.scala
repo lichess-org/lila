@@ -150,6 +150,7 @@ final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
         id = FideId(id),
         name = PlayerName(name),
         token = token,
+        photo = none,
         fed = Federation.Id.from(string(76, 79).map(_.toUpperCase).filter(_ != "NON")),
         title = PlayerTitle.mostValuable(title, wTitle),
         standard = rating(113),

@@ -59,6 +59,7 @@ export default class RelayCtrl {
       study.ctrl.isEmbed,
       () => study.data.federations,
       () => (study.multiBoard.showResults() ? undefined : this.round.id),
+      fideId => data.photos[fideId],
       this.redraw,
     );
     this.stats = new RelayStats(this.round, this.redraw);

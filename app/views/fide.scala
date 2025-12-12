@@ -7,10 +7,11 @@ import lila.fide.FidePlayer
 import lila.relay.RelayTour
 
 lazy val ui = lila.fide.ui.FideUi(helpers)(active => Context ?=> views.relay.menu(active))
+lazy val playerUi = lila.fide.ui.FidePlayerUi(helpers, ui, picfitUrl)
 export ui.federation
 
 object player:
-  export ui.player.{ index, notFound }
+  export playerUi.{ index, notFound }
 
   def show(
       player: FidePlayer,
@@ -18,7 +19,7 @@ object player:
       tours: Paginator[RelayTour.WithLastRound],
       isFollowing: Boolean
   )(using Context) =
-    ui.player.show(
+    playerUi.show(
       player,
       user,
       (tours.nbResults > 0).option:

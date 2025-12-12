@@ -106,14 +106,13 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
                 .flatMap: pwned =>
                   if pwned.yes then chargeLimiters()
                   val isEmail = EmailAddress.isValid(login.value)
-                  val stuffing = ctx.req.headers.get("X-Stuffing") | "no" // from nginx
                   api.loadLoginForm(login, pwned).flatMap {
                     _.bindFromRequest()
                       .fold(
                         err =>
                           chargeLimiters()
                           lila.mon.security.login
-                            .attempt(isEmail, stuffing = stuffing, pwned = pwned.yes, result = false)
+                            .attempt(isEmail, pwned = pwned.yes, result = false)
                             .increment()
                           negotiate(
                             err.errors match
@@ -142,7 +141,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
                               )
                             case Some(u) =>
                               lila.mon.security.login
-                                .attempt(isEmail, stuffing = stuffing, pwned = pwned.yes, result = true)
+                                .attempt(isEmail, pwned = pwned.yes, result = true)
                               env.user.repo.email(u.id).foreach(_.foreach(garbageCollect(u)))
                               authenticateUser(u, pwned, isRemember, Some(redirectTo))
                       )

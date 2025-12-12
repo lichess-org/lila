@@ -2,7 +2,8 @@ package lila.round
 
 import chess.{ Centis, Color }
 
-import lila.core.game.{ Player, Source }
+import lila.core.game.Player
+import lila.game.GameExt.{ expirable, timeForFirstMove }
 
 object RoundGame:
 
@@ -28,34 +29,6 @@ object RoundGame:
     def secondsSinceCreation = (nowSeconds - g.createdAt.toSeconds).toInt
 
     def justCreated = g.secondsSinceCreation < 2
-
-    def timeForFirstMove: Centis =
-      Centis.ofSeconds:
-        import chess.Speed.*
-        val base =
-          if g.isTournament then
-            g.speed match
-              case UltraBullet => 11
-              case Bullet => 16
-              case Blitz => 21
-              case Rapid => 25
-              case _ => 30
-          else
-            g.speed match
-              case UltraBullet => 15
-              case Bullet => 20
-              case Blitz => 25
-              case Rapid => 30
-              case _ => 35
-        if g.variant.chess960 then base * 3 / 2
-        else base
-
-    def expirable =
-      !g.bothPlayersHaveMoved &&
-        g.source.exists(Source.expirable.contains) &&
-        g.playable &&
-        g.nonAi &&
-        g.clock.exists(!_.isRunning)
 
     def timeBeforeExpiration: Option[Centis] = g.expirable.option:
       Centis.ofMillis(g.movedAt.toMillis - nowMillis + g.timeForFirstMove.millis).nonNeg

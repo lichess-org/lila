@@ -135,7 +135,7 @@ object RelayPlayer:
         .add("rank" -> p.rank)
     def full(
         tour: RelayTour
-    )(p: RelayPlayer, fidePlayer: Option[FidePlayer], follow: Option[Boolean]): JsObject =
+    )(p: RelayPlayer, fidePlayer: Option[FidePlayer], user: Option[User], follow: Option[Boolean]): JsObject =
       val tc = tour.info.fideTcOrGuess
       lazy val eloPlayer = p.rating
         .map(_.into(Elo))
@@ -158,6 +158,7 @@ object RelayPlayer:
           .add("ratingDiff" -> rd)
       Json
         .toJsObject(p)
+        .add("user", user.map(_.light))
         .add("fide", fidePlayer.map(Json.toJsObject).map(_.add("follow", follow))) ++
         Json.obj("games" -> gamesJson)
     given OWrites[FidePlayer] = OWrites: p =>
@@ -188,6 +189,12 @@ private final class RelayPlayerApi(
 
   export cache.get
   export jsonCache.get as jsonList
+
+  def fideIds(tour: RelayTourId): Fu[Set[FideId]] =
+    cache
+      .get(tour)
+      .map:
+        _.values.flatMap(_.fideId).toSet
 
   def player(tour: RelayTour, str: String): Fu[Option[RelayPlayer]] =
     val id = FideId.from(str.toIntOption) | PlayerName(str)

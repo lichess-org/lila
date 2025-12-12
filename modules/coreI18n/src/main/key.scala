@@ -169,7 +169,7 @@ object I18nKey:
     val `fidePlayerNotFound`: I18nKey = "broadcast:fidePlayerNotFound"
     val `fideProfile`: I18nKey = "broadcast:fideProfile"
     val `federation`: I18nKey = "broadcast:federation"
-    val `ageThisYear`: I18nKey = "broadcast:ageThisYear"
+    val `age`: I18nKey = "broadcast:age"
     val `unrated`: I18nKey = "broadcast:unrated"
     val `recentTournaments`: I18nKey = "broadcast:recentTournaments"
     val `openLichess`: I18nKey = "broadcast:openLichess"

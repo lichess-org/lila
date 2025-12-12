@@ -10,7 +10,7 @@
   <string name="copyTokenNow">مطمعن شوید توکن را هم اکنون ذخیره کرده اید. در آینده دسترسی به آن امکان پذیر نیست!</string>
   <string name="preferenceRead">خواندن تنظیمات</string>
   <string name="preferenceWrite">ایجاد تنظیمات</string>
-  <string name="emailRead">خواندن ایمیل</string>
+  <string name="emailRead">خواندنِ نشانیِ رایانامه</string>
   <string name="challengeRead">خواندن پیشنهادهای بازی دریافت‌شده</string>
   <string name="challengeWrite">ارسال، پذیرش و رد پیشنهادهای بازی</string>
   <string name="challengeBulk">ایجاد چندین بازی به طور همزمان برای بازیکنان دیگر</string>

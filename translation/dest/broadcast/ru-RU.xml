@@ -51,7 +51,6 @@
   <string name="fidePlayerNotFound">Профиль FIDE не найден</string>
   <string name="fideProfile">Профиль FIDE</string>
   <string name="federation">Федерация</string>
-  <string name="ageThisYear">Возраст в этом году</string>
   <string name="unrated">Без рейтинга</string>
   <string name="recentTournaments">Недавние турниры</string>
   <string name="openLichess">Открыть в Lichess</string>

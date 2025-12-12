@@ -368,11 +368,10 @@ object mon:
       val epoch = gauge("security.geoip.epoch").withoutTags()
       val loadTime = gauge("security.geoip.loadTime").withoutTags()
     object login:
-      def attempt(byEmail: Boolean, stuffing: String, pwned: Boolean, result: Boolean) =
+      def attempt(byEmail: Boolean, pwned: Boolean, result: Boolean) =
         counter("security.login.attempt").withTags:
           tags(
             "by" -> (if byEmail then "email" else "name"),
-            "stuffing" -> stuffing,
             "pwned" -> pwned,
             "result" -> result
           )
