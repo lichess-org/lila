@@ -1,7 +1,7 @@
 package lila.streamer
 
 import scala.collection.concurrent.TrieMap
-import akka.stream.scaladsl.Source
+import akka.stream.scaladsl.*
 import play.api.i18n.Lang
 import play.api.libs.json.*
 import play.api.libs.ws.DefaultBodyWritables.*
@@ -160,12 +160,11 @@ final private class TwitchApi(
 
   private[streamer] def pubsubSubscribe(id: TwitchId, subscribe: Boolean): Funit =
     if subscribe
-    then streamRequests(eventVersions.keys.toList)(subscribeEvent(id, _))
+    then streamRequests(eventVersions.keys.toList)("subscribe")(subscribeEvent(id, _))
     else fetchStreamSubs(id).map(deleteSubs)
 
   private def subscribeMany(wanted: Seq[(TwitchId, String)]): Funit =
-    logger.info(s"Subscribing to ${wanted.size} new event subs")
-    streamRequests(wanted.toList)(subscribeEvent)
+    streamRequests(wanted.toList)("subscribe")(subscribeEvent)
 
   private def subscribeEvent(id: TwitchId, event: String) =
     for
@@ -234,18 +233,26 @@ final private class TwitchApi(
     yield subs
 
   private def deleteSubs(subs: Seq[EventSub]): Funit =
-    logger.info(s"Deleting ${subs.size} subs")
     for
       headers <- headersAuth
-      _ <- streamRequests(subs.toList): sub =>
+      _ <- streamRequests(subs.toList)("unsubscribe"): sub =>
         ws.url(s"$eventSubEndpoint?id=${sub.subId}")
           .withHttpHeaders(headers*)
           .delete()
           .addEffect(logFailed(s"deleteSub ${sub.subId}"))
     yield ()
 
-  private def streamRequests[A](list: List[A])(send: A => Fu[StandaloneWSResponse]): Funit =
-    Source(list).throttle(reqsPerMinute * 9 / 10, 1.minute).mapAsync(1)(send).run().void
+  private def streamRequests[A](list: List[A])(msg: String)(send: A => Fu[StandaloneWSResponse]): Funit =
+    val size = list.size
+    Source(list)
+      .throttle(reqsPerMinute * 9 / 10, 1.minute)
+      .mapAsync(1)(send)
+      .map(_ => ())
+      .runWith:
+        Sink.fold[Int, Unit](0): (counter, _) =>
+          if counter % 20 == 0 then logger.info(s"$counter/$size $msg")
+          counter + 1
+      .void
 
   private def logFailed(context: String)(res: StandaloneWSResponse) =
     if res.status / 100 != 2 then logger.warn(s"$context failed: ${lila.log.http(res.status, res.body)}")

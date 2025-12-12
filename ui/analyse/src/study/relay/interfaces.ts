@@ -1,3 +1,5 @@
+import type { FideId } from '../interfaces';
+
 export interface RelayData {
   tour: RelayTour;
   rounds: RelayRound[];
@@ -9,6 +11,17 @@ export interface RelayData {
   note?: string;
   lcc?: boolean;
   delayedUntil?: number;
+  photos: Photos;
+}
+
+export interface Photos {
+  [id: FideId]: Photo;
+}
+
+export interface Photo {
+  small: string;
+  medium: string;
+  credit?: string;
 }
 
 export interface RelayGroup {

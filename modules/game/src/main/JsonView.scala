@@ -7,6 +7,7 @@ import play.api.libs.json.*
 import lila.common.Json.{ *, given }
 import lila.core.LightUser
 import lila.core.game.{ Blurs, Game, Player, Pov, Source }
+import lila.game.GameExt.{ expirable, timeForFirstMove }
 
 final class JsonView(rematches: Rematches):
 
@@ -101,6 +102,13 @@ final class JsonView(rematches: Rematches):
       .add("blindfold" -> p.blindfold)
 
 object JsonView:
+
+  def expiration(game: Game) =
+    game.expirable.option:
+      Json.obj(
+        "idleMillis" -> (nowMillis - game.movedAt.toMillis),
+        "millisToMove" -> game.timeForFirstMove.millis
+      )
 
   given OWrites[chess.Status] = OWrites: s =>
     Json.obj(

@@ -17,10 +17,10 @@
   <string name="viewXProfile">Погледај %s Lichess профил</string>
   <string name="sendPM">Пошаљи приватну поруку</string>
   <string name="aboutMe">О мени</string>
-  <string name="playingExperience">Играчко искуство</string>
+  <string name="playingExperience">Искуство у игрању</string>
   <string name="teachingExperience">Искуство у подучавању</string>
   <string name="otherExperiences">Остала искуства</string>
-  <string name="bestSkills">Најбоља умећа</string>
+  <string name="bestSkills">Најбоље вештине</string>
   <string name="teachingMethod">Методологија учења</string>
   <string name="publicStudies">Јавне студије</string>
   <string name="youtubeVideos">Јутјуб снимци</string>

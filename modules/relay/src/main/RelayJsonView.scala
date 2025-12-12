@@ -152,7 +152,8 @@ final class RelayJsonView(
       isSubscribed: Option[Boolean],
       videoUrls: Option[PairOf[String]],
       pinned: Option[RelayPinnedStream],
-      delayedUntil: Option[Instant]
+      delayedUntil: Option[Instant],
+      photos: JsObject
   )(using Translate) =
     RelayJsonView.JsData(
       relay = fullTourWithRounds(trs, group)(using Config(html = true))
@@ -162,6 +163,7 @@ final class RelayJsonView(
         .add("videoUrls" -> videoUrls)
         .add("note" -> canContribute.so(trs.tour.note))
         .add("delayedUntil" -> delayedUntil)
+        .add("photos" -> photos.some)
         .add("pinned" -> pinned.map: p =>
           Json
             .obj("name" -> p.name)
@@ -169,7 +171,8 @@ final class RelayJsonView(
             .add("text" -> p.text)),
       study = studyData.study,
       analysis = studyData.analysis,
-      group = group.map(_.group.name)
+      group = group.map(_.group.name),
+      photos = photos
     )
 
   def home(h: RelayHome)(using Config, Translate) = top(h.ongoing ::: h.recent, h.past)
@@ -188,7 +191,13 @@ object RelayJsonView:
 
   case class Config(html: Boolean)
 
-  case class JsData(relay: JsObject, study: JsObject, analysis: JsObject, group: Option[RelayGroup.Name])
+  case class JsData(
+      relay: JsObject,
+      study: JsObject,
+      analysis: JsObject,
+      group: Option[RelayGroup.Name],
+      photos: JsObject
+  )
 
   given OWrites[RelayPinnedStream] = OWrites: s =>
     Json.obj("name" -> s.name)

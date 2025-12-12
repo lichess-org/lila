@@ -64,11 +64,10 @@ final class CoachApi(
       .void
 
   def uploadPicture(c: Coach.WithUser, picture: PicfitApi.FilePart): Funit =
-    picfitApi
-      .uploadFile(picture, userId = c.user.id, s"coach:${c.coach.id}".some, requestAutomod = false)
-      .flatMap { pic =>
-        coll.update.one($id(c.coach.id), $set("picture" -> pic.id)).void
-      }
+    for
+      pic <- picfitApi.uploadFile(picture, c.user.id, s"coach:${c.coach.id}".some, requestAutomod = false)
+      _ <- coll.update.one($id(c.coach.id), $set("picture" -> pic.id))
+    yield ()
 
   private val languagesCache = cacheApi.unit[Set[String]]:
     _.refreshAfterWrite(1.hour).buildAsyncTimeout(): _ =>

@@ -5,7 +5,7 @@ import { defined, scrollToInnerSelector } from 'lib';
 import { renderClock, verticalEvalGauge } from '../multiBoard';
 import type { ChapterPreview } from '../interfaces';
 import { gameLinkAttrs } from '../studyChapters';
-import { playerFed } from '../playerBars';
+import { playerFedFlag } from '../playerBars';
 import { h } from 'snabbdom';
 import { resultTag } from '../studyView';
 
@@ -57,7 +57,7 @@ export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
                     p
                       ? [
                           h('span.mini-game__user', [
-                            playerFed(p.fed),
+                            playerFedFlag(p.fed),
                             h('span.name', [userTitle(p), p.name]),
                           ]),
                           showResults ? h(resultTag(s), [s]) : null,

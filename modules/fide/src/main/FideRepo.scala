@@ -14,13 +14,13 @@ final private class FideRepo(
 )(using Executor):
 
   object player:
+    given BSONDocumentHandler[FidePlayer.PlayerPhoto] = Macros.handler
     given handler: BSONDocumentHandler[FidePlayer] = Macros.handler
     val selectActive: Bdoc = $doc("inactive".$ne(true))
     def selectFed(fed: Federation.Id): Bdoc = $doc("fed" -> fed)
     def sortStandard: Bdoc = $sort.desc("standard")
     def sortBy(o: FidePlayerOrder) = o match
       case FidePlayerOrder.name => $sort.asc("name")
-      case FidePlayerOrder.federation => $sort.asc("fed")
       case FidePlayerOrder.standard => $sort.desc("standard")
       case FidePlayerOrder.rapid => $sort.desc("rapid")
       case FidePlayerOrder.blitz => $sort.desc("blitz")
@@ -30,6 +30,10 @@ final private class FideRepo(
     def fetch(ids: Seq[FideId]): Fu[List[FidePlayer]] =
       playerColl.find($inIds(ids)).cursor[FidePlayer](ReadPref.sec).listAll()
     def countAll = playerColl.count()
+    def setPhoto(id: FideId, photo: FidePlayer.PlayerPhoto): Funit =
+      playerColl.updateField($id(id), "photo", photo).void
+    def setPhotoCredit(p: FidePlayer, credit: Option[String]): Funit =
+      playerColl.updateOrUnsetField($id(p.id), "photo.credit", credit).void
 
   object federation:
     given BSONDocumentHandler[Federation.Stats] = Macros.handler
