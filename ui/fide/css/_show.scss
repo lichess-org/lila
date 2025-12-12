@@ -10,6 +10,7 @@
       @extend %box-neat;
       aspect-ratio: 1;
       display: block;
+      max-width: 300px;
     }
     gap: 3px;
     &__credit {
