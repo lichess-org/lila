@@ -176,7 +176,7 @@ private final class RelayPlayerApi(
 
   type RelayPlayers = SeqMap[StudyPlayer.Id, RelayPlayer]
 
-  private val cache = cacheApi[RelayTourId, RelayPlayers](32, "relay.players.data"):
+  private val cache = cacheApi[RelayTourId, RelayPlayers](128, "relay.players.data"):
     _.expireAfterWrite(1.minute).buildAsyncFuture(compute)
 
   private val jsonCache = cacheApi[RelayTourId, JsonStr](32, "relay.players.json"):
