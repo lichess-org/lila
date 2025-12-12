@@ -172,8 +172,7 @@ final class RelayJsonView(
             .add("text" -> p.text)),
       study = studyData.study,
       analysis = studyData.analysis,
-      group = group.map(_.group.name),
-      photos = photos
+      group = group.map(_.group.name)
     )
 
   def home(h: RelayHome)(using Config, Translate) = top(h.ongoing ::: h.recent, h.past)
@@ -196,8 +195,7 @@ object RelayJsonView:
       relay: JsObject,
       study: JsObject,
       analysis: JsObject,
-      group: Option[RelayGroup.Name],
-      photos: PhotosJson
+      group: Option[RelayGroup.Name]
   )
 
   given OWrites[RelayPinnedStream] = OWrites: s =>
