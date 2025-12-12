@@ -7,7 +7,7 @@
 	<string name="noGamesCta">Bạn muốn chơi ngay bây giờ không?</string>
 	<string name="gamesYouWon" comment="%s is the number of games won">Và bạn đã thắng %s ván cờ đó!</string>
 	<string name="gamesNextQuestion">Bạn đã nỗ lực như thế nào để đạt được như thế?</string>
-	<string name="timeSpentPlayingExclam" comment="%s is the time spent playing animated from 0 e.g. '1 day, 17 hours'. The time is also translated">%s được bạn dành ra để chơi!</string>
+	<string name="timeSpentPlayingExclam" comment="%s is the time spent playing animated from 0 e.g. '1 day, 17 hours'. The time is also translated">%s là thời gian bạn đã dành ra để chơi!</string>
 	<string name="timeTooMuch">Chơi cờ nhiều quá rồi.</string>
 	<string name="timeALot">Khoảng thời gian đó là rất nhiều.</string>
 	<string name="timeReasonable">Đó có vẻ là lượng thời gian chơi cờ hợp lý.</string>
