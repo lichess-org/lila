@@ -6,7 +6,7 @@ FROM docker.io/library/node:24-bullseye-slim AS ui-builder
 WORKDIR /workspace
 # Install common build deps needed for native Node modules (sharp, vips, etc.)
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    build-essential python3 make g++ ca-certificates libvips-dev libjpeg-dev libpng-dev libcairo2-dev \
+    git build-essential python3 make g++ ca-certificates libvips-dev libjpeg-dev libpng-dev libcairo2-dev \
     && rm -rf /var/lib/apt/lists/*
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 RUN npm install -g pnpm@10.4.1
