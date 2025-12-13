@@ -2,7 +2,7 @@
 # Builds UI with Node/PNPM and the Scala Play backend with sbt, produces a lightweight runtime image.
 
 # 1) UI builder (Node 24 + pnpm)
-FROM docker.io/library/node:24-bullseye AS ui-builder
+FROM docker.io/library/node:24-bullseye-slim AS ui-builder
 WORKDIR /workspace
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 RUN npm install -g pnpm@10.4.1
@@ -13,12 +13,12 @@ RUN chmod +x ./ui/build || true
 RUN ./ui/build --no-install || ./ui/build
 
 
-# 2) sbt builder (OpenJDK 21 + sbt)
-FROM eclipse-temurin:21-jdk-jammy AS sbt-builder
+# 2) sbt builder (Temurin 21 + sbt)
+FROM eclipse-temurin:21-jdk AS sbt-builder
 WORKDIR /workspace
-RUN apt-get update && apt-get install -y curl gnupg ca-certificates && \
-    echo "deb https://repo.scala-sbt.org/scalasbt/debian all main" > /etc/apt/sources.list.d/sbt.list && \
-    curl -sL https://repo.scala-sbt.org/scalasbt/debian/sbt.gpg | apt-key add - && \
+RUN apt-get update && apt-get install -y curl gnupg ca-certificates dirmngr gnupg2 && \
+    curl -sL https://repo.scala-sbt.org/scalasbt/debian/sbt.gpg | gpg --dearmor -o /usr/share/keyrings/sbt-archive-keyring.gpg && \
+    echo "deb [signed-by=/usr/share/keyrings/sbt-archive-keyring.gpg] https://repo.scala-sbt.org/scalasbt/debian all main" > /etc/apt/sources.list.d/sbt.list && \
     apt-get update && apt-get install -y sbt && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Copy full workspace (includes UI artifacts from ui-builder)
@@ -27,8 +27,8 @@ ENV JAVA_TOOL_OPTIONS="-Xms512m -Xmx2g"
 RUN sbt -batch -no-colors clean stage
 
 
-# 3) Runtime image (lightweight OpenJDK 21 JRE)
-FROM eclipse-temurin:21-jre-jammy
+# 3) Runtime image (lightweight Temurin 21 JRE)
+FROM eclipse-temurin:21-jre
 WORKDIR /opt/lila
 ENV PORT=9000
 # Copy staged distribution produced by `sbt stage`
