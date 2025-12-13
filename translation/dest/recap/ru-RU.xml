@@ -8,6 +8,66 @@
 	<string name="gamesYouWon" comment="%s is the number of games won">И выиграли %s!</string>
 	<string name="gamesNextQuestion">Как у вас это получилось?</string>
 	<string name="timeSpentPlayingExclam" comment="%s is the time spent playing animated from 0 e.g. '1 day, 17 hours'. The time is also translated">%s прошли за игрой!</string>
+	<string name="timeTooMuch">Это слишком много шахмат.</string>
+	<string name="timeALot">Это очень много шахмат.</string>
+	<string name="timeReasonable">Это кажется вразумительным количеством шахмат.</string>
 	<string name="timeHowManyMoves">Как много ходов вы сделали за все это время?</string>
+	<plurals name="nbMovesPlayed">
+		<item quantity="one">%s ход сделан</item>
+		<item quantity="few">%s хода(-ов) сделано</item>
+		<item quantity="many">%s хода(-ов) сделано</item>
+		<item quantity="other">%s хода(-ов) сделано</item>
+	</plurals>
+	<string name="movesOfWoodPushed" comment="%s is a weight in grams or kilograms">Это %s телодвижений!</string>
 	<string name="movesStandardPiecesWeight">Стандартные фигуры весят примерно 40г каждый</string>
+	<plurals name="nbMoves">
+		<item quantity="one">Ход: %s</item>
+		<item quantity="few">%s хода(-ов)</item>
+		<item quantity="many">%s хода(-ов)</item>
+		<item quantity="other">%s хода(-ов)</item>
+	</plurals>
+	<string name="chessFoes">Ваши лучшие шахматные соперники</string>
+	<plurals name="nbGrams">
+		<item quantity="one">%s</item>
+		<item quantity="few">%s</item>
+		<item quantity="many">%s</item>
+		<item quantity="other">%s</item>
+	</plurals>
+	<plurals name="nbKilograms">
+		<item quantity="one">%s</item>
+		<item quantity="few">%s</item>
+		<item quantity="many">%s</item>
+		<item quantity="other">%s</item>
+	</plurals>
+	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">в партиях вы обычно начинаете за белых так: %s</string>
+	<plurals name="openingsMostPlayedAsWhite" comment="%s is the number of games">
+		<item quantity="one">Наиболее часто используемый дебют за белых в %s игре</item>
+		<item quantity="few">Наиболее часто используемый дебют за белых в %s играх(-е)</item>
+		<item quantity="many">Наиболее часто используемый дебют за белых в игре %s</item>
+		<item quantity="other">Наиболее часто используемый дебют за белых в игре %s</item>
+	</plurals>
+	<plurals name="openingsMostPlayedAsBlack" comment="%s is the number of games">
+		<item quantity="one">Наиболее часто используемый дебют за чёрных в %s игре</item>
+		<item quantity="few">Наиболее часто используемый дебют за чёрных в %s играх(-е)</item>
+		<item quantity="many">Наиболее часто используемый дебют за чёрных в %s играх(-е)</item>
+		<item quantity="other">Наиболее часто используемый дебют за чёрных в %s играх(-е)</item>
+	</plurals>
+	<plurals name="puzzlesThanksVoting" comment="%s is the number of puzzles. It is also translated.">
+		<item quantity="one">Благодарим вас, что проголосовали за задачу.</item>
+		<item quantity="few">Благодарим вас, что проголосовали за %s задач(-и/-у).</item>
+		<item quantity="many">Благодарим вас, что проголосовали за %s задач(-и/-у).</item>
+		<item quantity="other">Благодарим вас, что проголосовали за %s задач(-и/-у).</item>
+	</plurals>
+	<string name="puzzlesHelpedTagging" comment="%s is a number e.g. 5">Вы также помогли отметить %s из них.</string>
+	<string name="puzzlesNone">В этом году вы не решили ни одной задачи.</string>
+	<string name="puzzlesTryNow">Хотите попробовать сейчас?</string>
+	<string name="puzzlesYouWonOnFirstTry">Вы выиграли %s из них с первой попытки!</string>
+	<string name="sourcesTitle">Где вы нашли партии?</string>
+	<string name="perfsTitle">В какие варианты партий/времени вы играли?</string>
+	<string name="malwareNoneLoaded" comment="%s is 0">%s реклам(-а/ы) и трекер(-а/-ов) загружено</string>
+	<string name="malwareNoSell">Мы не продали ваши персональные данные</string>
+	<string name="malwareNoAbuse">Мы не использовали ваше устройство против вас</string>
+	<string name="malwareWarningPrefix" comment="%s is 'be careful'">Но на других сайтах такое бывает, поэтому, пожалуйста, %s.</string>
+	<string name="malwareWarningCta" comment="It is a link to https://lichess.org/ads">будьте осторожны</string>
+	<string name="lichessGamesPlayedIn" comment="%1$s is the number of games, %2$s is the year">%1$s парт(-ия/-ии/-ий) сыграно на Lichess в %2$s</string>
 </resources>
