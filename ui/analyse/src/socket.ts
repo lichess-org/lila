@@ -40,7 +40,7 @@ export interface StudySocketSendParams {
   promote: (d: ReqPosition & { toMainline: boolean }) => void;
   forceVariation: (d: ReqPosition & { force: boolean }) => void;
   shapes: (d: ReqPosition & { shapes: Tree.Shape[] }) => void;
-  setComment: (d: ReqPosition & { text: string }) => void;
+  setComment: (d: ReqPosition & { id?: string; text: string }) => void;
   deleteComment: (d: ReqPosition & { id: string }) => void;
   setGamebook: (d: ReqPosition & { gamebook: { deviation?: string; hint?: string } }) => void;
   toggleGlyph: (d: ReqPosition & { id: number }) => void;

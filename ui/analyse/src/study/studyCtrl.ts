@@ -592,13 +592,18 @@ export default class StudyCtrl {
     );
   toggleSticky = () => {
     this.vm.mode.sticky = !this.vm.mode.sticky && this.data.features.sticky;
-    this.xhrReload();
+    // Only reload if actually changing sticky mode
+    if (this.vm.mode.sticky) {
+      this.xhrReload();
+    } else {
+      this.redraw();
+    }
   };
   toggleWrite = () => {
     this.vm.mode.write = !this.vm.mode.write && this.members.canContribute();
     if (this.relay) this.relayRecProp(this.vm.mode.write);
     else this.nonRelayRecMapProp(this.data.id, this.vm.mode.write);
-    this.xhrReload();
+    this.redraw();
   };
   goToPrevChapter = () => {
     const chapter = this.prevChapter();

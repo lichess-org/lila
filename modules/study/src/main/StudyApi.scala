@@ -327,7 +327,7 @@ final class StudyApi(
             .updateRoot:
               _.withChildren: children =>
                 if toMainline then children.promoteToMainlineAt(position.path)
-                else children.promoteUpAt(position.path)._1F
+                else children.promoteUpAt(position.path).map(_._1)
             .match
               case Some(newChapter) =>
                 chapterRepo.update(newChapter) >>
@@ -468,7 +468,9 @@ final class StudyApi(
               doSetClock(Study.WithChapter(study, c), Position(c, UciPath.root).ref, clock)(who)
       yield sendTo(study.id)(_.setTags(chapter.id, chapter.tags, who))
 
-  def setComment(studyId: StudyId, position: Position.Ref, text: CommentStr)(who: Who) =
+  def setComment(studyId: StudyId, position: Position.Ref, commentId: Option[Comment.Id], text: CommentStr)(
+      who: Who
+  ) =
     sequenceStudyWithChapter(studyId, position.chapterId):
       case Study.WithChapter(study, chapter) =>
         Contribute(who.u, study):
@@ -476,7 +478,7 @@ final class StudyApi(
             .async(who.u)
             .flatMapz: author =>
               val comment = Comment(
-                id = Comment.Id.make,
+                id = commentId.getOrElse(Comment.Id.make),
                 text = text,
                 by = Comment.Author.User(author.id, author.titleName)
               )
@@ -486,8 +488,8 @@ final class StudyApi(
     position.chapter.setComment(comment, position.path) match
       case Some(newChapter) =>
         newChapter.root.nodeAt(position.path).so { node =>
-          node.comments.findBy(comment.by).so { c =>
-            for _ <- chapterRepo.setComments(node.comments.filterEmpty)(newChapter, position.path)
+          node.comments.findByIdAndAuthor(comment.id, comment.by).so { c =>
+            for _ <- chapterRepo.setComments(node.comments.set(c))(newChapter, position.path)
             yield
               sendTo(study.id)(_.setComment(position.ref, c, who))
               studyRepo.updateNow(study)
@@ -632,8 +634,9 @@ final class StudyApi(
     sequenceStudy(studyId): study =>
       Contribute(who.u, study):
         chapterRepo.byIdAndStudy(data.id, studyId).flatMapz { chapter =>
+          val name = Chapter.fixName(data.name)
           val newChapter = chapter.copy(
-            name = Chapter.fixName(data.name),
+            name = name,
             practice = data.isPractice.option(true),
             gamebook = data.isGamebook.option(true),
             conceal = (chapter.conceal, data.isConceal) match
@@ -650,24 +653,25 @@ final class StudyApi(
               chapter.description | "-"
             }
           )
-          (chapter != newChapter).so:
-            for
-              _ <- chapterRepo.update(newChapter)
-              concealChanged = chapter.conceal != newChapter.conceal
-              shouldResetPosition =
-                concealChanged && newChapter.conceal.isDefined && study.position.chapterId == chapter.id
-              shouldReload =
-                concealChanged ||
-                  newChapter.setup.orientation != chapter.setup.orientation ||
-                  newChapter.practice != chapter.practice ||
-                  newChapter.gamebook != chapter.gamebook ||
-                  newChapter.description != chapter.description
-              _ <- shouldResetPosition.so:
-                studyRepo.setPosition(study.id, study.position.withPath(UciPath.root))
-            yield
-              if shouldReload // `updateChapter` makes the client reload the whole thing with XHR
-              then sendTo(study.id)(_.updateChapter(chapter.id, who))
-              else reloadChapters(study)
+          if chapter == newChapter then funit
+          else
+            chapterRepo.update(newChapter) >> {
+              if chapter.conceal != newChapter.conceal then
+                val shouldResetPosition =
+                  (newChapter.conceal.isDefined && study.position.chapterId == chapter.id)
+                for _ <- shouldResetPosition
+                    .so(studyRepo.setPosition(study.id, study.position.withPath(UciPath.root)))
+                yield sendTo(study.id)(_.reloadAll)
+              else
+                fuccess:
+                  val shouldReload =
+                    (newChapter.setup.orientation != chapter.setup.orientation) ||
+                      (newChapter.practice != chapter.practice) ||
+                      (newChapter.gamebook != chapter.gamebook) ||
+                      (newChapter.description != chapter.description)
+                  if shouldReload then sendTo(study.id)(_.updateChapter(chapter.id, who))
+                  else reloadChapters(study)
+            }
         }
 
   def descChapter(studyId: StudyId, data: ChapterMaker.DescData)(who: Who) =

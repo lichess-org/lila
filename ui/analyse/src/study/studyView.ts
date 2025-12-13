@@ -118,7 +118,9 @@ export function contextMenu(ctrl: StudyCtrl, path: Tree.Path, node: Tree.Node): 
             attrs: dataIcon(licon.BubbleSpeech),
             hook: bind('click', () => {
               ctrl.vm.toolTab('comments');
-              ctrl.commentForm.start(ctrl.currentChapter().id, path, node);
+              ctrl.commentForm.setnewComment(true);
+              ctrl.commentForm.start(ctrl.currentChapter().id, path, node, '');
+              ctrl.redraw();
             }),
           },
           i18n.study.commentThisMove,
@@ -260,7 +262,9 @@ function buttons(root: AnalyseCtrl): VNode {
           hint: i18n.study.commentThisPosition,
           icon: iconTag(licon.BubbleSpeech),
           onClick() {
-            ctrl.commentForm.start(ctrl.vm.chapterId, root.path, root.node);
+            root.node.comments?.forEach(comment =>
+              ctrl.commentForm.start(ctrl.vm.chapterId, root.path, root.node, comment.id),
+            );
           },
           count: (root.node.comments || []).length,
         }),
