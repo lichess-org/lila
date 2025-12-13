@@ -41,7 +41,7 @@ export const bind = (ctrl: AnalyseCtrl) => {
     if (gb) gb.onSpace();
     else if (ctrl.practice || ctrl.study?.practice) return;
     else if (ctrl.cevalEnabled()) ctrl.playBestMove();
-    else if (ctrl.ceval.analysable) ctrl.cevalEnabled(!ctrl.cevalEnabled());
+    else if (ctrl.isCevalAllowed() && ctrl.ceval.analysable) ctrl.cevalEnabled(!ctrl.cevalEnabled());
   });
 
   if (ctrl.study?.practice) return;
@@ -54,7 +54,7 @@ export const bind = (ctrl: AnalyseCtrl) => {
       ctrl.redraw();
     })
     .bind('l', () => {
-      if (ctrl.ceval.analysable) ctrl.cevalEnabled(!ctrl.cevalEnabled());
+      if (ctrl.isCevalAllowed() && ctrl.ceval.analysable) ctrl.cevalEnabled(!ctrl.cevalEnabled());
     })
     .bind('z', () => {
       ctrl.toggleFishnetAnalysis();
