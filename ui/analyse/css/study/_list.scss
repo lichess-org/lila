@@ -68,6 +68,13 @@
     min-height: 16em;
     max-height: 16em;
   }
+
+  @include mq-at-least-col3 {
+    @media not all and (hover: hover) and (pointer: fine) {
+      max-height: 30vh;
+    }
+  }
+
   position: relative;
   display: flex;
   flex-direction: column;

@@ -58,7 +58,9 @@ main.is-relay.has-relay-tour {
     grid-template-areas: 'relay-tour . side';
 
     .relay-games {
-      max-height: unset;
+      @media (hover: hover) and (pointer: fine) {
+        max-height: unset;
+      }
     }
   }
 }
