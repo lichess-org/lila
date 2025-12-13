@@ -66,34 +66,59 @@ function renderPlayer(
     top = ctrl.bottomColor() !== color,
     eloTag = findTag(tags, `${color}elo`),
     fideIdTag = findTag(tags, `${color}fideid`),
+    fideId = fideIdTag ? parseInt(fideIdTag) : undefined,
     player: StudyPlayer = {
       ...players?.[color],
       name: findTag(tags, color),
       title: findTag(tags, `${color}title`),
       rating: showRatings && eloTag ? parseInt(eloTag) : undefined,
-      fideId: fideIdTag ? parseInt(fideIdTag) : undefined,
-    };
-  return hl(`div.study__player.study__player-${top ? 'top' : 'bot'}`, { class: { ticking } }, [
-    hl('div.left', [
-      result && hl(`${resultTag(result)}.result`, result),
-      hl('span.info', [
-        team ? hl('span.team', team) : undefined,
-        playerFedFlag(player?.fed),
-        !!player.title && userTitle(player),
-        playerId(player) &&
-          (relayPlayers
-            ? hl(`a.name.relay-player-${color}`, relayPlayers.playerLinkConfig(player), player.name)
-            : hl(
+      fideId,
+    },
+    photo = fideId && relayPlayers?.fidePhoto(fideId);
+  return relayPlayers
+    ? hl(`div.relay-board-player.relay-board-player-${top ? 'top' : 'bot'}`, { class: { ticking } }, [
+        hl('div.left', [
+          photo
+            ? hl('img.relay-board-player__photo', { attrs: { src: photo.small } })
+            : hl('img.relay-board-player__photo.relay-board-player__photo--fallback', {
+                attrs: { src: site.asset.url('images/anon-face.png') },
+              }),
+          hl('span.info-split', [
+            hl('span.info-primary', [
+              !!player.title && userTitle(player),
+              playerId(player) &&
+                hl(`a.name.relay-player-${color}`, relayPlayers.playerLinkConfig(player), player.name),
+            ]),
+            hl('span.info-secondary', [
+              team ? hl('span.team', team) : undefined,
+              playerFedFlag(player?.fed),
+              player.rating && hl('span.elo', `${player.rating}`),
+            ]),
+          ]),
+          result && hl(`${resultTag(result)}.result`, result),
+        ]),
+        materialDiffs[top ? 0 : 1],
+        clocks?.[color === 'white' ? 0 : 1],
+      ])
+    : hl(`div.study__player.study__player-${top ? 'top' : 'bot'}`, { class: { ticking } }, [
+        hl('div.left', [
+          result && hl(`${resultTag(result)}.result`, result),
+          hl('span.info', [
+            team ? hl('span.team', team) : undefined,
+            playerFedFlag(player?.fed),
+            !!player.title && userTitle(player),
+            playerId(player) &&
+              hl(
                 player.fideId ? 'a.name' : 'span.name',
                 { attrs: fidePageLinkAttrs(player, ctrl.isEmbed) },
                 player.name,
-              )),
-        player.rating && hl('span.elo', `${player.rating}`),
-      ]),
-    ]),
-    materialDiffs[top ? 0 : 1],
-    clocks?.[color === 'white' ? 0 : 1],
-  ]);
+              ),
+            player.rating && hl('span.elo', `${player.rating}`),
+          ]),
+        ]),
+        materialDiffs[top ? 0 : 1],
+        clocks?.[color === 'white' ? 0 : 1],
+      ]);
 }
 
 export const playerFedFlag = (fed?: Federation): VNode | undefined =>
