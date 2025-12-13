@@ -4,13 +4,19 @@
 # 1) UI builder (Node 24 + pnpm)
 FROM docker.io/library/node:24-bullseye-slim AS ui-builder
 WORKDIR /workspace
+# Install common build deps needed for native Node modules (sharp, vips, etc.)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential python3 make g++ ca-certificates libvips-dev libjpeg-dev libpng-dev libcairo2-dev \
+    && rm -rf /var/lib/apt/lists/*
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 RUN npm install -g pnpm@10.4.1
 COPY . .
-RUN pnpm install --frozen-lockfile
+ENV CI=true
+# Install project dependencies (show full logs on failure)
+RUN pnpm install --frozen-lockfile || (pnpm install --loglevel debug --frozen-lockfile && false)
 RUN chmod +x ./ui/build || true
-# Build all UI packages; try with --no-install first for caching, fallback to plain build
-RUN ./ui/build --no-install || ./ui/build
+# Build all UI packages; run normally so logs surface in build output
+RUN ./ui/build
 
 
 # 2) sbt builder (Temurin 21 + sbt)
