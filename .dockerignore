@@ -1,0 +1,12 @@
+target
+node_modules
+ui/node_modules
+public
+.git
+*.log
+.idea
+.vscode
+dist
+*.tgz
+/.cache
+/.history
