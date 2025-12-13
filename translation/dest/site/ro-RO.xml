@@ -768,6 +768,7 @@
   <string name="cyclePreviousOrNextVariation">Ciclu de variație precedentă/următoare</string>
   <string name="toggleGlyphAnnotations">Comută comentarii la mutări</string>
   <string name="togglePositionAnnotations">Activează/Dezactivează adnotările pozițiilor</string>
+  <string name="toggleObservationAnnotations">Romana</string>
   <string name="variationArrowsInfo">Săgețile de variație vă permit să navigați fără a utiliza lista mutărilor.</string>
   <string name="playSelectedMove">joacă mutarea selectată</string>
   <string name="newTournament">Turneu nou</string>
