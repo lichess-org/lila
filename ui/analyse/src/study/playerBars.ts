@@ -78,18 +78,20 @@ function renderPlayer(
   return relayPlayers
     ? hl(`div.relay-board-player.relay-board-player-${top ? 'top' : 'bot'}`, { class: { ticking } }, [
         hl('div.left', [
-          photo
-            ? hl('img.relay-board-player__photo', { attrs: { src: photo.small } })
-            : hl('img.relay-board-player__photo.relay-board-player__photo--fallback', {
-                attrs: { src: site.asset.url('images/anon-face.png') },
-              }),
-          hl('span.info-split', [
-            hl('span.info-primary', [
+          player.title === 'BOT'
+            ? hl('span', '')
+            : photo
+              ? hl('img.relay-board-player__photo', { attrs: { src: photo.small } })
+              : hl('img.relay-board-player__photo.relay-board-player__photo--fallback', {
+                  attrs: { src: site.asset.url('images/anon-face.png') },
+                }),
+          hl('div.info-split', [
+            hl('div.info-primary', [
               !!player.title && userTitle(player),
               playerId(player) &&
                 hl(`a.name.relay-player-${color}`, relayPlayers.playerLinkConfig(player), player.name),
             ]),
-            hl('span.info-secondary', [
+            hl('div.info-secondary', [
               team ? hl('span.team', team) : undefined,
               playerFedFlag(player?.fed),
               player.rating && hl('span.elo', `${player.rating}`),
