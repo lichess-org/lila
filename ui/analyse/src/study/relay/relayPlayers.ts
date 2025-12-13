@@ -271,10 +271,10 @@ const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): MaybeVNodes 
         hl(
           'thead',
           hl('tr', [
-            withRank && hl('th.rank', i18n.site.rank),
+            withRank && hl('th.rank', { attrs: { 'data-sort-default': 1, ...dataIcon(licon.Trophy) } }),
             hl('th.player-name', i18n.site.player),
-            withRating && hl('th', !withScores && defaultSort, 'Elo'),
-            withScores && hl('th.score', defaultSort, i18n.broadcast.score),
+            withRating && hl('th', !withScores && !withRank && defaultSort, 'Elo'),
+            withScores && hl('th.score', !withRank && defaultSort, i18n.broadcast.score),
             hl('th', i18n.site.games),
             tbs?.map(tb =>
               hl(
@@ -291,7 +291,8 @@ const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): MaybeVNodes 
             const linkCfg = playerLinkConfig(ctrl, player, true);
             const photo = player.fideId && ctrl.fidePhoto(player.fideId);
             return hl('tr', [
-              withRank && hl('td.rank', { attrs: { 'data-sort': player.rank || 0 } }, player.rank),
+              withRank &&
+                hl('td.rank', { attrs: { 'data-sort': player.rank ? -player.rank : 0 } }, player.rank),
               hl(
                 'td.player-intro-td',
                 { attrs: { 'data-sort': player.name || '' } },

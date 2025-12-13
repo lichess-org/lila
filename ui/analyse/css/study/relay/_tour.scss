@@ -373,15 +373,23 @@ $hover-bg: $m-primary_bg--mix-30;
       th {
         border: none;
         text-align: end;
-        padding: 0.5rem 2rem 0.5rem 2rem;
+        padding: 0.5rem 1rem 0.5rem 2rem;
       }
     }
     th,
     td {
       &.rank {
         text-align: end;
-        padding: 0.4em;
+        padding: 0.4em 0 0.4em 0.4em;
+        width: 6ch;
+        font-weight: bold;
       }
+    }
+    th.rank {
+      display: inline-block;
+    }
+    th.player-name {
+      text-align: start;
     }
     th {
       a {
@@ -396,13 +404,12 @@ $hover-bg: $m-primary_bg--mix-30;
         }
       }
     }
-    .score {
+    td.score {
       font-weight: bold;
     }
     td + td:not(.player-intro-td) {
       font-family: monospace;
       text-align: end;
-      padding: 1rem 2rem;
     }
     .rp,
     .rp--same {

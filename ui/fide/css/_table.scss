@@ -22,11 +22,13 @@
       gap: 0.2em;
     }
     &__name {
+      white-space: nowrap;
       color: $c-font;
       font-size: 1.1em;
     }
     &__fed {
       @extend %flex-center-nowrap, %roboto;
+      white-space: nowrap;
       font-size: 0.9em;
       gap: 0.5em;
       .flag {
