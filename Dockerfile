@@ -32,7 +32,11 @@ RUN pnpm install --frozen-lockfile || pnpm install
 RUN ./ui/build -p || true
 
 # Build Scala/Play application (stage creates runnable script under target/universal/stage)
-RUN sbt -DskipTests=true stage
+ENV SBT_OPTS "-Dsbt.log.noformat=true -Dcoursier.progress=false -Dfile.encoding=UTF-8"
+RUN set -eux; \
+  for i in 1 2 3 4 5; do \
+    sbt -batch -DskipTests=true stage && break || { echo "sbt failed, retrying ($i/5)"; sleep $((i*5)); }; \
+  done
 
 # Stage 2: runtime image
 FROM eclipse-temurin:21-jre-jammy AS runtime
