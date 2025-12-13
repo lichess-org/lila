@@ -7,7 +7,9 @@ case class SwissPairing(
     white: UserId,
     black: UserId,
     status: SwissPairing.Status,
-    isForfeit: Boolean = false
+    isForfeit: Boolean = false,
+    isDelayed: Boolean = false,
+    playerReady: Option[UserId] = None
 ):
   def apply(c: Color) = c.fold(white, black)
   def gameId = id
@@ -49,6 +51,8 @@ object SwissPairing:
     val players = "p"
     val status = "t"
     val isForfeit = "f"
+    val isDelayed = "d"
+    val playerReady = "y"
   def fields[A](f: Fields.type => A): A = f(Fields)
 
   def toMap(pairings: List[SwissPairing]): PairingMap =

@@ -4,6 +4,7 @@ import { throttlePromiseDelay } from 'lib/async';
 import { maxPerPage, myPage, players } from './pagination';
 import type { SwissData, SwissOpts, Pages, Standing, Player } from './interfaces';
 import { storage } from 'lib/storage';
+import { myUserId } from 'lib';
 
 export default class SwissCtrl {
   data: SwissData;
@@ -49,6 +50,7 @@ export default class SwissCtrl {
   isFinished = () => this.data.status === 'finished';
 
   myGameId = () => this.data.me?.gameId;
+  isDelayed = () => this.data.me?.isDelayed;
 
   join = (password?: string) => {
     xhr.join(this, password);
@@ -58,7 +60,8 @@ export default class SwissCtrl {
 
   private redirectToMyGame() {
     const gameId = this.myGameId();
-    if (gameId) this.redirectFirst(gameId);
+    const isDelayed = this.isDelayed();
+    if (gameId && !isDelayed) this.redirectFirst(gameId);
   }
 
   redirectFirst = (gameId: string, rightNow?: boolean) => {
@@ -139,6 +142,21 @@ export default class SwissCtrl {
   withdraw = () => {
     xhr.withdraw(this);
     this.joinSpinner = true;
+  };
+
+  changeReadyState = () => {
+    xhr.changeReadyState(this);
+    const isDelayed = this.data.me?.isDelayed;
+    const playerReady = this.data.me?.playerReady;
+    const iAmReady = myUserId() == playerReady;
+    if (isDelayed && !playerReady && this.data.me) {
+      this.data.me.playerReady = myUserId();
+    } else if (isDelayed && iAmReady && this.data.me) {
+      this.data.me.playerReady = undefined;
+    } else if (isDelayed && playerReady && !iAmReady && this.data.me) {
+      this.data.me.isDelayed = false;
+    }
+    this.redraw();
   };
 
   private reloadSoonThrottle: () => void;

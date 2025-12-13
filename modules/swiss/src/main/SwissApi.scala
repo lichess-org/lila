@@ -32,7 +32,8 @@ final class SwissApi(
     chatApi: lila.core.chat.ChatApi,
     userApi: lila.core.user.UserApi,
     lightUserApi: lila.core.user.LightUserApi,
-    roundApi: lila.core.round.RoundApi
+    roundApi: lila.core.round.RoundApi,
+    gameRepo: lila.core.game.GameRepo
 )(using scheduler: Scheduler)(using Executor, akka.stream.Materializer, lila.core.config.RateLimit)
     extends lila.core.swiss.SwissApi:
 
@@ -67,6 +68,7 @@ final class SwissApi(
       settings = Swiss.Settings(
         nbRounds = data.nbRounds,
         rated = chess.Rated(data.isRated && data.realPosition.isEmpty),
+        flexible = data.flexible,
         description = data.description,
         position = data.realPosition,
         chatFor = data.realChatFor,
@@ -385,6 +387,43 @@ final class SwissApi(
           }
     .void >> recomputeAndUpdateAll(id)
 
+  def playerReady(swissId: SwissId, userId: UserId): Funit =
+    SwissPairing.fields: F =>
+      mongo.pairing
+        .list[SwissPairing]($doc(F.swissId -> swissId, F.players -> userId, F.isDelayed -> true))
+        .flatMap:
+          _.parallelVoid: pairing =>
+            val effect =
+              pairing.playerReady match
+                // I am ready
+                case None =>
+                  mongo.pairing.update.one($id(pairing.id), $doc("$set" -> $doc(F.playerReady -> userId)))
+                // I'm not ready anymore
+                case Some(pr) if userId.is(pr) =>
+                  mongo.pairing.update.one($id(pairing.id), $doc("$unset" -> $doc(F.playerReady -> "")))
+                // my opponent is ready, let's start the game
+                case Some(_) =>
+                  val userIds = pairing.players.map(_.e)
+                  for
+                    swissOpt <- cache.swissCache.byId(swissId)
+                    _ <- swissOpt.fold(funit): swiss =>
+                      SwissPlayer.fields: f =>
+                        for
+                          players <- mongo.player.list[SwissPlayer](
+                            $doc(f.swissId -> swissId, f.userId.$in(userIds))
+                          )
+                          _ <- mongo.pairing.update
+                            .one(
+                              $id(pairing.id),
+                              $doc("$unset" -> $doc(F.playerReady -> "", F.isDelayed -> ""))
+                            )
+                            .void
+                          game = director.makeGame(swiss, players.mapBy(_.userId))(pairing)
+                          _ <- gameRepo.insertDenormalized(game)
+                        yield ()
+                  yield ()
+            effect.flatMap(_ => fuccess(socket.reload(swissId)))
+
   private def forfeitPairings(swiss: Swiss, userId: UserId): Funit =
     SwissPairing.fields: F =>
       mongo.pairing
@@ -429,6 +468,27 @@ final class SwissApi(
           yield isModified
       .flatMapz:
         recomputeAndUpdateAll(swissId) >> banApi.onGameFinish(game)
+
+  def closeRound(swiss: Swiss): Funit =
+    Sequencing(swiss.id)(cache.swissCache.byId): swiss =>
+      for
+        result <- SwissPairing.fields: f =>
+          mongo.pairing.update
+            .one(
+              $doc(
+                f.swissId -> swiss.id,
+                f.round -> swiss.round,
+                f.isDelayed -> true
+              ),
+              $unset(f.isDelayed, f.playerReady) ++
+                $set(f.isForfeit -> true, f.status -> BSONNull),
+              multi = true
+            )
+        _ <- mongo.swiss.update.one($id(swiss.id), $inc("nbOngoing" -> -1 * result.nModified))
+        _ <- (swiss.nbOngoing - result.nModified < 1).so(onRoundFinish(swiss, none))
+      yield (true)
+    .flatMapz:
+      recomputeAndUpdateAll(swiss.id)
 
   private def onRoundFinish(swiss: Swiss, lastGame: Option[Game]): Funit =
     if swiss.round.value == swiss.settings.nbRounds then doFinish(swiss)
@@ -602,7 +662,7 @@ final class SwissApi(
         mongo.pairing
           .aggregateList(100): framework =>
             import framework.*
-            Match($doc(f.status -> SwissPairing.ongoing)) -> List(
+            Match($doc(f.status -> SwissPairing.ongoing, f.isDelayed -> false)) -> List(
               GroupField(f.swissId)("ids" -> PushField(f.id)),
               Limit(100)
             )

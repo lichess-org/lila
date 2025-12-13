@@ -76,6 +76,11 @@ final class SwissFormUi(helpers: Helpers)(
               submitButton(dataIcon := Icon.CautionCircle, cls := "text button button-red yes-no-confirm")(
                 trans.site.cancelTournament()
               )
+            ),
+            postForm(cls := "close-round", action := routes.Swiss.closeRound(swiss.id))(
+              submitButton(dataIcon := Icon.CautionCircle, cls := "text button button-red yes-no-confirm")(
+                "Close current round"
+              )
             )
           )
         )
@@ -209,6 +214,14 @@ final class SwissFormUi(helpers: Helpers)(
             form("rated"),
             trans.site.rated(),
             help = trans.site.ratedFormHelp().some,
+            half = true
+          ),
+          form3.checkbox(
+            form("flexible"),
+            "Flexible Game Start",
+            help = frag(
+              "A game will start when the paired players both agree. You will find a button at the end of this page if you need to close a round with unstarted games."
+            ).some,
             half = true
           ),
           form3.hidden(form("rated"), "false".some) // hack allow disabling rated

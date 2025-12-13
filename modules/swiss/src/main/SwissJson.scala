@@ -77,21 +77,40 @@ final class SwissJson(
   def fetchMyInfo(swiss: Swiss, me: User): Fu[Option[MyInfo]] =
     mongo.player.byId[SwissPlayer](SwissPlayer.makeId(swiss.id, me.id).value).flatMapz { player =>
       updatePlayerRating(swiss, player, me) >>
-        SwissPairing.fields: f =>
+        SwissPairing.fields { f =>
           (swiss.nbOngoing > 0)
-            .so:
+            .so {
               mongo.pairing
                 .find(
-                  $doc(f.swissId -> swiss.id, f.players -> player.userId, f.status -> SwissPairing.ongoing),
-                  $doc(f.id -> true).some
+                  $doc(
+                    f.swissId -> swiss.id,
+                    f.players -> player.userId,
+                    f.status -> SwissPairing.ongoing
+                  ),
+                  $doc(
+                    f.id -> true,
+                    f.isDelayed -> true,
+                    f.playerReady -> true,
+                    f.players -> true
+                  ).some
                 )
                 .one[Bdoc]
-                .dmap { _.flatMap(_.getAsOpt[GameId](f.id)) }
-            .flatMap: gameId =>
+            }
+            .flatMap { maybeDoc =>
+              val isDelayed = maybeDoc.flatMap(_.getAsOpt[Boolean](f.isDelayed)).getOrElse(false)
+              val isForfeit = maybeDoc.flatMap(_.getAsOpt[Boolean](f.isForfeit)).getOrElse(false)
+              val gameId =
+                if isDelayed || isForfeit then None else maybeDoc.flatMap(_.getAsOpt[GameId](f.id))
+              val playerReady = maybeDoc.flatMap(_.getAsOpt[UserId](f.playerReady))
+              val opponent =
+                maybeDoc.flatMap(_.getAsOpt[List[UserId]](f.players)).flatMap(list => list.find(_ != me.id))
               rankingApi(swiss)
                 .dmap(_.get(player.userId))
-                .map2:
-                  MyInfo(_, gameId, me, player)
+                .map2 { ranking =>
+                  MyInfo(ranking, gameId, me, player, isDelayed, playerReady, opponent)
+                }
+            }
+        }
     }
 
   private def updatePlayerRating(swiss: Swiss, player: SwissPlayer, user: User): Funit =
@@ -198,11 +217,15 @@ object SwissJson:
         .reverse
         .map { case (round, outcome) =>
           view.pairings.get(round).fold[JsValue](JsString(outcomeJson(outcome))) { p =>
-            pairingJson(view.player, p.pairing) ++
-              Json.obj(
-                "user" -> p.player.user,
-                "rating" -> p.player.player.rating
-              )
+            val pairing = p.pairing
+            if pairing.isForfeit && pairing.status == Right(None) then
+              JsString(outcomeJson(SwissSheet.Outcome.Absent))
+            else
+              pairingJson(view.player, pairing) ++
+                Json.obj(
+                  "user" -> p.player.user,
+                  "rating" -> p.player.player.rating
+                )
           }
         }
     )
@@ -239,7 +262,8 @@ object SwissJson:
 
   private def pairingJsonMin(player: SwissPlayer, pairing: SwissPairing): String =
     val status =
-      if pairing.isOngoing then "o"
+      if pairing.isDelayed then "z"
+      else if pairing.isOngoing then "o"
       else pairing.resultFor(player.userId).fold("d") { r => if r then "w" else "l" }
     s"${pairing.gameId}$status"
 
@@ -249,13 +273,16 @@ object SwissJson:
         "g" -> pairing.gameId
       )
       .add("o" -> pairing.isOngoing)
+      .add("z" -> pairing.isDelayed)
       .add("w" -> pairing.resultFor(player.userId))
       .add("c" -> (pairing.white == player.userId))
 
   private def pairingJsonOrOutcome(
       player: SwissPlayer
   ): ((Option[SwissPairing], SwissSheet.Outcome)) => String =
-    case (Some(pairing), _) => pairingJsonMin(player, pairing)
+    case (Some(pairing), outcome) =>
+      if pairing.isForfeit && pairing.status == Right(None) then outcomeJson(outcome)
+      else pairingJsonMin(player, pairing)
     case (_, outcome) => outcomeJson(outcome)
 
   private def myInfoJson(i: MyInfo) =
@@ -265,7 +292,10 @@ object SwissJson:
         "gameId" -> i.gameId,
         "id" -> i.user.id,
         "name" -> i.user.username,
-        "absent" -> i.player.absent
+        "absent" -> i.player.absent,
+        "isDelayed" -> i.isDelayed,
+        "playerReady" -> i.playerReady,
+        "opponent" -> i.opponent
       )
 
   private[swiss] def boardJson(b: SwissBoard.WithGame) =

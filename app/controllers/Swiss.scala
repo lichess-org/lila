@@ -179,6 +179,10 @@ final class Swiss(
       negotiate(Redirect(routes.Swiss.show(id)), jsonOkResult)
   }
 
+  def playerReady(id: SwissId) = AuthOrScoped(_.Tournament.Write) { ctx ?=> me ?=>
+    env.swiss.api.playerReady(id, me) >> jsonOkResult
+  }
+
   def edit(id: SwissId) = Auth { ctx ?=> me ?=>
     WithEditableSwiss(id): swiss =>
       Ok.page(views.swiss.form.edit(swiss, env.swiss.forms.edit(me, swiss)))
@@ -216,6 +220,11 @@ final class Swiss(
   def terminate(id: SwissId) = Auth { _ ?=> me ?=>
     WithEditableSwiss(id): swiss =>
       env.swiss.api.kill(swiss).inject(Redirect(routes.Team.show(swiss.teamId)))
+  }
+
+  def closeRound(id: SwissId) = Auth { _ ?=> me ?=>
+    WithEditableSwiss(id): swiss =>
+      for _ <- env.swiss.api.closeRound(swiss) yield Redirect(routes.Swiss.show(id))
   }
 
   def standing(id: SwissId, page: Int) = Anon:

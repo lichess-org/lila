@@ -38,7 +38,8 @@ final private class SwissDirector(
                 round = swiss.round,
                 white = w,
                 black = b,
-                status = Left(SwissPairing.Ongoing)
+                status = Left(SwissPairing.Ongoing),
+                isDelayed = swiss.settings.flexible.getOrElse(false)
               )
             }
             _ <-
@@ -63,9 +64,13 @@ final private class SwissDirector(
                 .void
             }
             _ <- mongo.pairing.insert.many(pairings).void
-            games = pairings.map(makeGame(swiss, players.mapBy(_.userId)))
-            _ <- games.sequentiallyVoid: game =>
-              for _ <- gameRepo.insertDenormalized(game) yield onStart.exec(game.id)
+
+            _ <-
+              if swiss.settings.flexible.getOrElse(false) then fuccess(())
+              else
+                val games = pairings.map(makeGame(swiss, players.mapBy(_.userId)))
+                games.sequentiallyVoid: game =>
+                  for _ <- gameRepo.insertDenormalized(game) yield onStart.exec(game.id)
           yield swiss.some
       }
       .recover { case PairingSystem.BBPairingException(msg, input) =>
@@ -77,7 +82,7 @@ final private class SwissDirector(
       }
       .monSuccess(_.swiss.startRound)
 
-  private def makeGame(swiss: Swiss, players: Map[UserId, SwissPlayer])(pairing: SwissPairing): Game =
+  private[swiss] def makeGame(swiss: Swiss, players: Map[UserId, SwissPlayer])(pairing: SwissPairing): Game =
     lila.core.game
       .newGame(
         chess = chess

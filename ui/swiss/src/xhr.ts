@@ -7,6 +7,11 @@ import type { Sheet } from './interfaces';
 // when the tournament no longer exists
 const onFail = () => site.reload();
 
+const changeReadyState = (ctrl: SwissCtrl) =>
+  json(`/api/swiss/${ctrl.data.id}/ready`, {
+    method: 'post',
+  }).catch(onFail);
+
 const join = (ctrl: SwissCtrl, password?: string) =>
   json(`/api/swiss/${ctrl.data.id}/join`, {
     method: 'post',
@@ -51,6 +56,7 @@ const readSheetMin = (str: string): Sheet =>
               g: s.slice(0, 8),
               o: s[8] === 'o',
               w: s[8] === 'w' ? true : s[8] === 'l' ? false : undefined,
+              z: s[8] === 'z',
             },
       )
     : [];
@@ -59,6 +65,7 @@ export default {
   join: throttlePromiseDelay(() => 1000, join),
   withdraw: throttlePromiseDelay(() => 1000, withdraw),
   loadPage: throttlePromiseDelay(() => 1000, loadPage),
+  changeReadyState: throttlePromiseDelay(() => 1000, changeReadyState),
   loadPageOf,
   reloadNow: reload,
   playerInfo,
