@@ -1,68 +1,49 @@
-# Multi-stage Dockerfile for Randolila (Lila)
-# Builds UI with Node/PNPM and the Scala Play backend with sbt, produces a lightweight runtime image.
+# Multi-stage Dockerfile for Lila (lichess) suitable for Fly.io
+# Stage 1: build UI and backend
+FROM ubuntu:24.04 AS builder
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends \
+    curl ca-certificates gnupg git unzip build-essential wget ca-certificates \
+    apt-transport-https \
+  && rm -rf /var/lib/apt/lists/*
 
-# 1) UI builder (Node 24 + pnpm)
-FROM docker.io/library/node:24-bullseye-slim AS ui-builder
-WORKDIR /workspace
-# Install common build deps needed for native Node modules (sharp, vips, etc.)
-RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
-    git build-essential python3 make g++ ca-certificates libvips-dev libjpeg-dev libpng-dev libcairo2-dev \
-    && rm -rf /var/lib/apt/lists/*
-COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
-RUN npm install -g pnpm@10.4.1
-COPY . .
-ENV CI=true
-# Install project dependencies (show full logs on failure)
-RUN pnpm install --frozen-lockfile || (pnpm install --loglevel debug --frozen-lockfile && false)
-RUN chmod +x ./ui/build || true
-# Verify `git` is available (some build caches removed it in earlier attempts)
-# Verify `git` is available (some build caches removed it in earlier attempts).
-# If `git` isn't available we install it; as a last resort provide a tiny shim
-# that returns deterministic placeholders for the two commands the build uses.
-RUN git --version || (apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y git && git --version) || \
-        (cat > /usr/local/bin/git <<'SHIM'
-#!/bin/sh
-case "$1" in
-    log)
-        echo "fallback-commit-message"
-        ;;
-    rev-parse)
-        echo "0000000000000000000000000000000000000000"
-        ;;
-    *)
-        echo "git shim: unsupported command" >&2
-        exit 1
-        ;;
-esac
-SHIM
-chmod +x /usr/local/bin/git)
-# Build all UI packages; run normally so logs surface in build output
-RUN ./ui/build
+# Install Java 21
+RUN apt-get update && apt-get install -y --no-install-recommends openjdk-21-jdk && rm -rf /var/lib/apt/lists/*
 
+# Install Node 24
+RUN curl -fsSL https://deb.nodesource.com/setup_24.x | bash - \
+  && apt-get install -y --no-install-recommends nodejs \
+  && npm --version
 
-# 2) sbt builder (Temurin 21 + sbt)
-FROM eclipse-temurin:21-jdk-jammy AS sbt-builder
-WORKDIR /workspace
-# Install minimal tools and download a lightweight sbt launcher (sbt-extras)
-RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
-    curl ca-certificates git && \
-    curl -sL https://git.io/sbt -o /usr/local/bin/sbt && chmod +x /usr/local/bin/sbt && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
+# Install pnpm (locked to workspace version used by this repo)
+RUN npm i -g pnpm@10.4.1
 
-# Copy full workspace (includes UI artifacts from ui-builder)
-COPY --from=ui-builder /workspace /workspace
-ENV JAVA_TOOL_OPTIONS="-Xms512m -Xmx2g"
-RUN sbt -batch -no-colors clean stage
+# Install sbt (Scala build tool)
+RUN curl -sL "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x99E82A75642AC823" | gpg --dearmor -o /usr/share/keyrings/sbt.gpg || true
+RUN echo "deb [signed-by=/usr/share/keyrings/sbt.gpg] https://repo.scala-sbt.org/scalasbt/debian all main" > /etc/apt/sources.list.d/sbt.list
+RUN apt-get update && apt-get install -y --no-install-recommends sbt && rm -rf /var/lib/apt/lists/*
 
+WORKDIR /src
+COPY . /src
 
-# 3) Runtime image (lightweight Temurin 21 JRE)
-FROM eclipse-temurin:21-jre-jammy
-WORKDIR /opt/lila
-ENV PORT=9000
-# Copy staged distribution produced by `sbt stage`
-COPY --from=sbt-builder /workspace/target/universal/stage /opt/lila
-EXPOSE 9000
-# Run as non-root user where possible (UID/GID 1000 is a common default)
-USER 1000:1000
-# Entrypoint: start Play app on $PORT
-CMD ["bin/lila", "-Dhttp.port=${PORT}", "-J-XX:MaxRAMPercentage=75.0"]
+# Install JS deps and build UI assets
+RUN pnpm install --frozen-lockfile || pnpm install
+RUN ./ui/build -p || true
+
+# Build Scala/Play application (stage creates runnable script under target/universal/stage)
+RUN sbt -DskipTests=true stage
+
+# Stage 2: runtime image
+FROM eclipse-temurin:21-jre-jammy AS runtime
+ENV PORT=8080
+WORKDIR /app
+COPY --from=builder /src/target/universal/stage/ /app
+EXPOSE 8080
+
+HEALTHCHECK --interval=30s --timeout=3s CMD curl -f http://localhost:${PORT}/ || exit 1
+
+ENV JAVA_OPTS="-Xms256m -Xmx1g"
+
+# Use shell form so $PORT and other env vars can be expanded at runtime
+CMD /app/bin/lila -Dhttp.port=${PORT} $JAVA_OPTS
