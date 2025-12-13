@@ -5,7 +5,7 @@
 FROM docker.io/library/node:24-bullseye-slim AS ui-builder
 WORKDIR /workspace
 # Install common build deps needed for native Node modules (sharp, vips, etc.)
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
     git build-essential python3 make g++ ca-certificates libvips-dev libjpeg-dev libpng-dev libcairo2-dev \
     && rm -rf /var/lib/apt/lists/*
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
@@ -15,6 +15,8 @@ ENV CI=true
 # Install project dependencies (show full logs on failure)
 RUN pnpm install --frozen-lockfile || (pnpm install --loglevel debug --frozen-lockfile && false)
 RUN chmod +x ./ui/build || true
+# Verify `git` is available (some build caches removed it in earlier attempts)
+RUN git --version || (apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y git && git --version)
 # Build all UI packages; run normally so logs surface in build output
 RUN ./ui/build
 
@@ -23,7 +25,8 @@ RUN ./ui/build
 FROM eclipse-temurin:21-jdk-jammy AS sbt-builder
 WORKDIR /workspace
 # Install minimal tools and download a lightweight sbt launcher (sbt-extras)
-RUN apt-get update && apt-get install -y curl ca-certificates --no-install-recommends && \
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+    curl ca-certificates git && \
     curl -sL https://git.io/sbt -o /usr/local/bin/sbt && chmod +x /usr/local/bin/sbt && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
