@@ -53,7 +53,7 @@
   <string name="endgame">Эндшпиль</string>
   <string name="endgameDescription">Тактика в последней стадии игры.</string>
   <string name="enPassantDescription">Тактика с применением правила «взятие на проходе», где своя пешка может взять пешку противника, сходившую на две клетки из своего начального положения, и при этом пропущенное поле было под боем своей пешки.</string>
-  <string name="exposedKing">Голый король</string>
+  <string name="exposedKing">Открытый король</string>
   <string name="exposedKingDescription">Незащищённый или слабо защищённый король часто становится жертвой матовой атаки.</string>
   <string name="fork">Вилка</string>
   <string name="forkDescription">Ход, при котором под удар попадают две фигуры противника.</string>
