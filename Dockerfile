@@ -14,7 +14,7 @@ RUN ./ui/build --no-install || ./ui/build
 
 
 # 2) sbt builder (Temurin 21 + sbt)
-FROM eclipse-temurin:21-jdk AS sbt-builder
+FROM eclipse-temurin:21-jdk-jammy AS sbt-builder
 WORKDIR /workspace
 RUN apt-get update && apt-get install -y curl gnupg ca-certificates dirmngr gnupg2 && \
     curl -sL https://repo.scala-sbt.org/scalasbt/debian/sbt.gpg | gpg --dearmor -o /usr/share/keyrings/sbt-archive-keyring.gpg && \
@@ -28,7 +28,7 @@ RUN sbt -batch -no-colors clean stage
 
 
 # 3) Runtime image (lightweight Temurin 21 JRE)
-FROM eclipse-temurin:21-jre
+FROM eclipse-temurin:21-jre-jammy
 WORKDIR /opt/lila
 ENV PORT=9000
 # Copy staged distribution produced by `sbt stage`
