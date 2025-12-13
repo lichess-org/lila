@@ -48,7 +48,9 @@
     "metals": "tail -F .metals/metals.log | stdbuf -oL cut -c 21- | rg -v '(notification for request|handleCancellation)'",
     "serverlog": "pnpm journal & pnpm metals",
     "i18n-file-gen": "pnpx tsx bin/i18n-file-gen.ts",
-    "multilog": "pnpm serverlog & ui/build -w"
+    "multilog": "pnpm serverlog & ui/build -w",
+    "crowdin:upload": "crowdin upload sources",
+    "crowdin:download": "crowdin download"
   },
   "browserslist": [
     "defaults",

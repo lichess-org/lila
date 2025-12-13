@@ -1,0 +1,45 @@
+name: Crowdin Sync
+
+on:
+  workflow_dispatch: {}
+  schedule:
+    - cron: '0 2 * * *' # daily at 02:00 UTC
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Install pnpm
+        run: npm i -g pnpm@10.4.1
+
+      - name: Install Crowdin CLI
+        run: npm i -g @crowdin/cli
+
+      - name: Crowdin download
+        env:
+          CROWDIN_TOKEN: ${{ secrets.CROWDIN_TOKEN }}
+        run: |
+          set -e
+          crowdin download
+
+      - name: Commit translations
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add translation || true
+          if ! git diff --staged --quiet; then
+            git commit -m "chore: update translations from Crowdin"
+            git push origin HEAD:${{ github.ref_name }}
+          else
+            echo "No translation changes"
+          fi
