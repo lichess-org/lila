@@ -1,0 +1,4 @@
+app = "randolila"
+
+[build]
+  dockerfile = "Dockerfile"
