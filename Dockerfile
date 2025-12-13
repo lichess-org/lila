@@ -2,7 +2,7 @@
 # Builds UI with Node/PNPM and the Scala Play backend with sbt, produces a lightweight runtime image.
 
 # 1) UI builder (Node 24 + pnpm)
-FROM node:24-bullseye AS ui-builder
+FROM docker.io/library/node:24-bullseye AS ui-builder
 WORKDIR /workspace
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 RUN npm install -g pnpm@10.4.1
@@ -14,7 +14,7 @@ RUN ./ui/build --no-install || ./ui/build
 
 
 # 2) sbt builder (OpenJDK 21 + sbt)
-FROM eclipse-temurin:21-jdk-jammy AS sbt-builder
+FROM ghcr.io/adoptium/temurin:21-jdk-jammy AS sbt-builder
 WORKDIR /workspace
 RUN apt-get update && apt-get install -y curl gnupg ca-certificates && \
     echo "deb https://repo.scala-sbt.org/scalasbt/debian all main" > /etc/apt/sources.list.d/sbt.list && \
@@ -28,7 +28,7 @@ RUN sbt -batch -no-colors clean stage
 
 
 # 3) Runtime image (lightweight OpenJDK 21 JRE)
-FROM eclipse-temurin:21-jre-jammy
+FROM ghcr.io/adoptium/temurin:21-jre-jammy
 WORKDIR /opt/lila
 ENV PORT=9000
 # Copy staged distribution produced by `sbt stage`
