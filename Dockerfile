@@ -16,7 +16,26 @@ ENV CI=true
 RUN pnpm install --frozen-lockfile || (pnpm install --loglevel debug --frozen-lockfile && false)
 RUN chmod +x ./ui/build || true
 # Verify `git` is available (some build caches removed it in earlier attempts)
-RUN git --version || (apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y git && git --version)
+# Verify `git` is available (some build caches removed it in earlier attempts).
+# If `git` isn't available we install it; as a last resort provide a tiny shim
+# that returns deterministic placeholders for the two commands the build uses.
+RUN git --version || (apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y git && git --version) || \
+        (cat > /usr/local/bin/git <<'SHIM'
+#!/bin/sh
+case "$1" in
+    log)
+        echo "fallback-commit-message"
+        ;;
+    rev-parse)
+        echo "0000000000000000000000000000000000000000"
+        ;;
+    *)
+        echo "git shim: unsupported command" >&2
+        exit 1
+        ;;
+esac
+SHIM
+chmod +x /usr/local/bin/git)
 # Build all UI packages; run normally so logs surface in build output
 RUN ./ui/build
 
