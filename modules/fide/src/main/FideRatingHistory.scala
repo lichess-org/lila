@@ -51,16 +51,17 @@ object FideRatingHistory:
 
   private def set(points: RatingPoints, date: YearMonth, elo: Elo): RatingPoints =
     val cleaned = points.filterNot(_._1 == date)
-    compress(((date -> elo) :: cleaned).sortBy(_._1))
+    compress(((date -> elo) :: cleaned))
 
   // keep the first and last of each streak of identical ratings
   private def compress(points: RatingPoints): RatingPoints =
     if points.sizeIs < 3 then points
     else
-      val middle = points
+      val sorted = points.sortBy(_._1)
+      val middle = sorted
         .sliding(3)
         .foldLeft(List.empty[RatingPoint]):
           case (acc, List(a, b, c)) =>
             if a._2 == b._2 && b._2 == c._2 then acc else b :: acc
           case (acc, _) => acc
-      points.headOption.toList ::: middle.reverse ::: points.lastOption.toList
+      sorted.headOption.toList ::: middle.reverse ::: sorted.lastOption.toList
