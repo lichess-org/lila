@@ -52,17 +52,6 @@ final private class FideRepo(
         updated = history.set(date, elos)
         _ <- ratingColl.update.one($id(id), updated, upsert = true)
       yield ()
-    def compressAll: Funit =
-      ratingColl
-        .find($empty)
-        .cursor[FideRatingHistory](ReadPref.sec)
-        .documentSource()
-        .mapAsync(4): hist =>
-          val compressed = hist.compress
-          (compressed != hist).so:
-            ratingColl.update.one($id(hist.id), compressed).void
-        .run()
-        .void
 
   object federation:
     given BSONDocumentHandler[Federation.Stats] = Macros.handler
