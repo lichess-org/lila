@@ -55,13 +55,6 @@
     td {
       padding: 0.4rem;
       border-top: $border;
-      cursor: pointer;
-    }
-    tr {
-      cursor: pointer;
-      &:hover {
-        background: $c-bg-zebra;
-      }
     }
     tr:first-child td {
       border-top: none;

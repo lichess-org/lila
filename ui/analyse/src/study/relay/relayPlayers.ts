@@ -1,4 +1,4 @@
-import { type VNode, bind, dataIcon, hl, onInsert, type MaybeVNodes } from 'lib/view';
+import { type VNode, dataIcon, hl, onInsert, type MaybeVNodes } from 'lib/view';
 import { json as xhrJson } from 'lib/xhr';
 import * as licon from 'lib/licon';
 import { spinnerVdom as spinner } from 'lib/view';
@@ -287,28 +287,11 @@ const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): MaybeVNodes 
         ),
         hl(
           'tbody',
-          players.map(player => {
-            const linkCfg = playerLinkConfig(ctrl, player, true);
-            return hl('tr', [
+          players.map(player =>
+            hl('tr', [
               withRank &&
                 hl('td.rank', { attrs: { 'data-sort': player.rank ? -player.rank : 0 } }, player.rank),
-              hl(
-                'td.player-intro-td',
-                { attrs: { 'data-sort': player.name || '' } },
-                hl('span.player-intro', [
-                  hl('a.player-intro__photo', linkCfg, playerPhotoOrFallback(player, ctrl)),
-                  hl('span.player-intro__info', [
-                    hl('a.player-intro__name', linkCfg, [userTitle(player), player.name]),
-                    player.fed &&
-                      hl('span.player-intro__fed', [
-                        hl('img.mini-game__flag', {
-                          attrs: { src: site.asset.fideFedSrc(player.fed.id) },
-                        }),
-                        player.fed.name,
-                      ]),
-                  ]),
-                ]),
-              ),
+              playerTd(player, ctrl, true),
               withRating &&
                 hl(
                   'td',
@@ -341,8 +324,8 @@ const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): MaybeVNodes 
                   `${tb.points}`,
                 ),
               ),
-            ]);
-          }),
+            ]),
+          ),
         ),
       ],
     ),
@@ -429,7 +412,7 @@ const renderPlayerGames = (ctrl: RelayPlayers, p: RelayPlayerWithGames, withTips
   const hideResultsSinceIndex =
     (hideResultsSinceRoundId && p.games.findIndex(g => g.round === hideResultsSinceRoundId)) || 999;
   return hl(
-    'tbody',
+    'tbody.fide-players-table',
     p.games.map((game, i) => {
       const op = game.opponent;
       const points = game.points;
@@ -443,35 +426,21 @@ const renderPlayerGames = (ctrl: RelayPlayers, p: RelayPlayerWithGames, withTips
         hideResultsSinceIndex <= i
           ? hl('span', '?')
           : hl(points === '1' ? 'good' : points === '0' ? 'bad' : 'span', formatPoints(points, customPoints));
-      return hl(
-        'tr',
-        {
-          hook: bind('click', e => {
-            let tr = e.target as HTMLLinkElement;
-            while (tr && tr.tagName !== 'TR') tr = tr.parentNode as HTMLLinkElement;
-            const href = tr.querySelector('a')?.href;
-            if (href) location.href = href;
-          }),
-        },
-        [
-          hl('td', `${i + 1}`),
+      return hl('tr', [
+        hl(
+          'td',
           hl(
-            'td',
-            hl(
-              'a',
-              {
-                hook: withTips ? playerLinkHook(ctrl, op, true) : {},
-                attrs: { href: `/broadcast/-/-/${game.round}/${game.id}` },
-              },
-              [playerFedFlag(op.fed), userTitle(op), op.name],
-            ),
+            'a.game-link.text',
+            { attrs: { ...dataIcon(licon.StudyBoard), href: `/broadcast/-/-/${game.round}/${game.id}` } },
+            `${i + 1}`,
           ),
-          hl('td', op.rating?.toString()),
-          hl('td.is.color-icon.' + game.color),
-          hl('td.tpp__games__status', points !== undefined ? pointsVnode(points, customPoints) : '*'),
-          hl('td', defined(game.ratingDiff) && hideResultsSinceIndex > i ? ratingDiff(game) : undefined),
-        ],
-      );
+        ),
+        playerTd(op, ctrl, withTips),
+        hl('td', op.rating?.toString()),
+        hl('td.is.color-icon.' + game.color),
+        hl('td.tpp__games__status', points !== undefined ? pointsVnode(points, customPoints) : '*'),
+        hl('td', defined(game.ratingDiff) && hideResultsSinceIndex > i ? ratingDiff(game) : undefined),
+      ]);
     }),
   );
 };
@@ -487,6 +456,27 @@ const playerPhotoOrFallback = (
     : hl('img.fide-players__photo.fide-players__photo--fallback', {
         attrs: { src: site.asset.url('images/anon-face.png') },
       });
+};
+
+const playerTd = (player: RelayPlayer, ctrl: RelayPlayers, withTips: boolean): VNode => {
+  const linkCfg = playerLinkConfig(ctrl, player, withTips);
+  return hl(
+    'td.player-intro-td',
+    { attrs: { 'data-sort': player.name || '' } },
+    hl('span.player-intro', [
+      hl('a.player-intro__photo', linkCfg, playerPhotoOrFallback(player, ctrl)),
+      hl('span.player-intro__info', [
+        hl('a.player-intro__name', linkCfg, [userTitle(player), player.name]),
+        player.fed &&
+          hl('span.player-intro__fed', [
+            hl('img.mini-game__flag', {
+              attrs: { src: site.asset.fideFedSrc(player.fed.id) },
+            }),
+            player.fed.name,
+          ]),
+      ]),
+    ]),
+  );
 };
 
 const ratingDiff = (p: RelayPlayer | RelayPlayerGame) => {

@@ -463,24 +463,22 @@ $hover-bg: $m-primary_bg--mix-30;
     .mini-game__flag {
       width: 1em;
     }
-    &__fed-team {
-      @extend %flex-center;
-      gap: 1em;
-    }
-    &__games {
-      tr {
-        cursor: pointer;
-        &:hover {
-          background: $m-primary_bg--mix-15 !important;
-        }
-      }
-    }
   }
 
   .study__multiboard {
     @media (min-width: at-least($xx-large)) {
       margin: 0 0.5em;
     }
+  }
+}
+
+.fide-players-table .game-link {
+  @extend %flex-center-nowrap, %box-radius;
+  padding: 0.4em 0.5em;
+  font-size: 1.6em;
+  &:hover {
+    background: $m-primary_bg--mix-20;
+    color: $c-font-clearer;
   }
 }
 
