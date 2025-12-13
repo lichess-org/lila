@@ -289,7 +289,6 @@ const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): MaybeVNodes 
           'tbody',
           players.map(player => {
             const linkCfg = playerLinkConfig(ctrl, player, true);
-            const photo = player.fideId && ctrl.fidePhoto(player.fideId);
             return hl('tr', [
               withRank &&
                 hl('td.rank', { attrs: { 'data-sort': player.rank ? -player.rank : 0 } }, player.rank),
@@ -297,15 +296,7 @@ const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): MaybeVNodes 
                 'td.player-intro-td',
                 { attrs: { 'data-sort': player.name || '' } },
                 hl('span.player-intro', [
-                  hl(
-                    'a.player-intro__photo',
-                    linkCfg,
-                    photo
-                      ? hl('img.fide-players__photo', { attrs: { src: photo.small } })
-                      : hl('img.fide-players__photo.fide-players__photo--fallback', {
-                          attrs: { src: site.asset.url('images/anon-face.png') },
-                        }),
-                  ),
+                  hl('a.player-intro__photo', linkCfg, playerPhotoOrFallback(player, ctrl)),
                   hl('span.player-intro__info', [
                     hl('a.player-intro__name', linkCfg, [userTitle(player), player.name]),
                     player.fed &&
@@ -410,14 +401,20 @@ const isRelayPlayer = (p: StudyPlayer | RelayPlayer): p is RelayPlayer => 'score
 
 const renderPlayerTipHead = (ctrl: RelayPlayers, p: StudyPlayer | RelayPlayer): VNode =>
   hl('div.tpp__player', [
-    hl(`a.tpp__player__name`, playerLinkConfig(ctrl, p, false), [userTitle(p), p.name]),
-    p.team && hl('div.tpp__player__team', p.team),
+    playerPhotoOrFallback(p, ctrl, 'medium'),
     hl('div.tpp__player__info', [
-      hl('div', [
-        playerFedFlag(p.fed),
-        !!p.rating && [`${p.rating}`, isRelayPlayer(p) && !ctrl.hideResultsSinceRoundId() && ratingDiff(p)],
+      hl(`a.tpp__player__name`, playerLinkConfig(ctrl, p, false), [userTitle(p), p.name]),
+      hl('div.tpp__player__details', [
+        p.team && hl('div.tpp__player__team', p.team),
+        hl('div', [
+          playerFedFlag(p.fed),
+          !!p.rating && [`${p.rating}`, isRelayPlayer(p) && !ctrl.hideResultsSinceRoundId() && ratingDiff(p)],
+        ]),
+        isRelayPlayer(p) &&
+          !ctrl.hideResultsSinceRoundId() &&
+          p.score !== undefined &&
+          hl('div', [i18n.broadcast.score, ' ', hl('strong', p.score)]),
       ]),
-      isRelayPlayer(p) && !ctrl.hideResultsSinceRoundId() && p.score !== undefined && hl('div', `${p.score}`),
     ]),
   ]);
 
@@ -477,6 +474,19 @@ const renderPlayerGames = (ctrl: RelayPlayers, p: RelayPlayerWithGames, withTips
       );
     }),
   );
+};
+
+const playerPhotoOrFallback = (
+  player: StudyPlayer,
+  ctrl: RelayPlayers,
+  which: 'small' | 'medium' = 'small',
+): VNode => {
+  const photo = player.fideId && ctrl.fidePhoto(player.fideId);
+  return photo
+    ? hl('img.fide-players__photo', { attrs: { src: photo[which] } })
+    : hl('img.fide-players__photo.fide-players__photo--fallback', {
+        attrs: { src: site.asset.url('images/anon-face.png') },
+      });
 };
 
 const ratingDiff = (p: RelayPlayer | RelayPlayerGame) => {
