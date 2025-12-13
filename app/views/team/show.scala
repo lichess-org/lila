@@ -106,7 +106,7 @@ object show:
               log.nonEmpty.option(renderLog(log)),
               (t.enabled || canManage).option(
                 st.section(cls := "team-show__desc")(
-                  bits.markdown(t.team, t.descPrivate.ifTrue(info.mine) | t.description)
+                  bits.markdown(t.team, t.descPrivate.ifTrue(info.mine || canManage) | t.description)
                 )
               ),
               (t.enabled && info.hasRequests).option(
