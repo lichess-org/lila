@@ -6,7 +6,7 @@ $vp-max-width: 1200px;
 
   background: $c-bg-box;
 
-  @include fluid-size('---box-padding', 15px, 60px);
+  @include fluid-size('---box-padding', 15px, 50px);
 
   &-pad {
     @extend %box-padding;
