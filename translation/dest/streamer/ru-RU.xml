@@ -32,6 +32,7 @@
   <string name="submitForReview">Отправить на проверку</string>
   <string name="streamerLanguageSettings">Страница стримера Lichess ориентирована на ту аудиторию, язык которой предоставлен вашей платформой. Установите для ваших шахматных стримов правильный язык по умолчанию в приложении или сервисе, который вы используете для трансляции.</string>
   <string name="pleaseAllow">Пожалуйста, подождите до 72 часов, пока ваш значок стримера и информация о нем будет одобрена.</string>
+  <string name="chooseYoutubeChannel">Выберите канал YouTube, который вы будете использовать на Lichess.</string>
   <string name="connect" comment="This button appears for streamers who wish to connect a Twitch or YouTube account, to their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Подключить</string>
   <string name="disconnect" comment="This button appears for streamers who wish to disconnect an already-linked Twitch or YouTube account, from their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Отключить</string>
   <string name="streamerName">Ваше имя стримера на Lichess</string>
