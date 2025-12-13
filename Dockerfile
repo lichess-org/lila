@@ -31,6 +31,19 @@ COPY . /src
 RUN pnpm install --frozen-lockfile || pnpm install
 RUN ./ui/build -p || true
 
+# Prepare local lichess maven repo so coursier can resolve custom artifacts reliably
+RUN set -eux; \
+  if [ ! -d /tmp/lila-maven ]; then \
+    git clone --depth=1 https://github.com/lichess-org/lila-maven.git /tmp/lila-maven || true; \
+  fi; \
+  mkdir -p /root/.sbt; \
+  cat > /root/.sbt/repositories <<'REPOS'; \
+[repositories] \
+local \
+lichess-maven: file:/tmp/lila-maven \
+maven-central: https://repo1.maven.org/maven2/ \
+REPOS
+
 # Build Scala/Play application (stage creates runnable script under target/universal/stage)
 ENV SBT_OPTS "-Dsbt.log.noformat=true -Dcoursier.progress=false -Dfile.encoding=UTF-8"
 RUN set -eux; \
