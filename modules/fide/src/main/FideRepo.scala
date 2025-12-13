@@ -5,7 +5,6 @@ import java.time.YearMonth
 import chess.{ FideId, FideTC }
 import chess.rating.Elo
 import reactivemongo.api.bson.*
-import reactivemongo.akkastream.cursorProducer
 
 import lila.core.fide.{ Federation, FidePlayerOrder }
 import lila.db.dsl.{ *, given }
@@ -15,7 +14,7 @@ final private class FideRepo(
     private[fide] val ratingColl: Coll,
     private[fide] val federationColl: Coll,
     private[fide] val followerColl: Coll
-)(using Executor, akka.stream.Materializer):
+)(using Executor):
 
   object player:
     given BSONDocumentHandler[FidePlayer.PlayerPhoto] = Macros.handler
