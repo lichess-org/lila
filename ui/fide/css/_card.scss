@@ -10,7 +10,6 @@
 }
 .fide-card {
   @extend %box-neat, %flex-column;
-  align-items: center;
   gap: 1em;
   background: $c-bg-zebra;
   padding: 1.5em 1em;
