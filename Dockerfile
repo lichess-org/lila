@@ -14,12 +14,15 @@ RUN ./ui/build --no-install || ./ui/build
 
 
 # 2) sbt builder (Temurin 21 + sbt)
-FROM eclipse-temurin:21-jdk-jammy AS sbt-builder
+FROM docker.io/eclipse-temurin:21-jdk-jammy AS sbt-builder
 WORKDIR /workspace
-RUN apt-get update && apt-get install -y curl gnupg ca-certificates dirmngr gnupg2 && \
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends curl gnupg ca-certificates dirmngr && \
     curl -sL https://repo.scala-sbt.org/scalasbt/debian/sbt.gpg | gpg --dearmor -o /usr/share/keyrings/sbt-archive-keyring.gpg && \
     echo "deb [signed-by=/usr/share/keyrings/sbt-archive-keyring.gpg] https://repo.scala-sbt.org/scalasbt/debian all main" > /etc/apt/sources.list.d/sbt.list && \
-    apt-get update && apt-get install -y sbt && apt-get clean && rm -rf /var/lib/apt/lists/*
+    apt-get update && apt-get install -y --no-install-recommends sbt && \
+    apt-get purge -y --auto-remove dirmngr && apt-get clean && rm -rf /var/lib/apt/lists/* /var/cache/apt/*
 
 # Copy full workspace (includes UI artifacts from ui-builder)
 COPY --from=ui-builder /workspace /workspace
@@ -28,7 +31,7 @@ RUN sbt -batch -no-colors clean stage
 
 
 # 3) Runtime image (lightweight Temurin 21 JRE)
-FROM eclipse-temurin:21-jre-jammy
+FROM docker.io/eclipse-temurin:21-jre-jammy
 WORKDIR /opt/lila
 ENV PORT=9000
 # Copy staged distribution produced by `sbt stage`
