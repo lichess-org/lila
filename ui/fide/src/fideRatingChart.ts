@@ -10,7 +10,6 @@ interface FideRatingChartOpts {
 type Point = [string, number];
 
 export function initModule(opts: FideRatingChartOpts): void {
-  console.log(opts);
   chart.Chart.register(
     chart.LineController,
     chart.LinearScale,
@@ -18,7 +17,6 @@ export function initModule(opts: FideRatingChartOpts): void {
     chart.LineElement,
     chart.Tooltip,
     chart.Filler,
-    chart.Title,
     chart.TimeScale,
   );
   for (const [tc, points] of Object.entries(opts)) {
@@ -43,6 +41,8 @@ export const renderRatingChart = (canvas: HTMLCanvasElement, data: Point[]): voi
       ],
     },
     options: {
+      animation: false,
+      aspectRatio: 2, // also in CSS for FOUC
       scales: {
         x: {
           type: 'time',
@@ -53,9 +53,8 @@ export const renderRatingChart = (canvas: HTMLCanvasElement, data: Point[]): voi
         },
         y: {
           display: false,
-          title: {
-            display: false,
-          },
+          suggestedMin: 2000,
+          suggestedMax: 2800,
         },
       },
       elements: {
@@ -67,8 +66,6 @@ export const renderRatingChart = (canvas: HTMLCanvasElement, data: Point[]): voi
           borderWidth: 1,
         },
       },
-      // https://www.chartjs.org/docs/latest/configuration/responsive.html
-      // responsive: false, // just doesn't work
       interaction: {
         mode: 'index',
         intersect: false,
