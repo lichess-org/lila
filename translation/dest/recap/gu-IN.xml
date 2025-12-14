@@ -53,6 +53,7 @@
 	<string name="malwareNoneLoaded" comment="%s is 0">%s જાહેરાતો અને ટ્રેકર્સ લોડ થયા</string>
 	<string name="malwareNoSell">અમે તમારો વ્યક્તિગત ડેટા વેચ્યો નથી</string>
 	<string name="malwareNoAbuse">અમે તમારા ઉપકરણનો ઉપયોગ તમારી વિરુદ્ધ કર્યો નથી</string>
+	<string name="malwareWarningPrefix" comment="%s is 'be careful'">પરંતુ અન્ય વેબસાઇટ્સ કરે છે, તેથી કૃપા %s</string>
 	<string name="malwareWarningCta" comment="It is a link to https://lichess.org/ads">સાવચેત રહો</string>
 	<string name="lichessGamesPlayedIn" comment="%1$s is the number of games, %2$s is the year">%2$s માં Lichess પર %1$s રમતો રમાઈ</string>
 	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours">તેમાંથી %s તમારી હતી.</string>
