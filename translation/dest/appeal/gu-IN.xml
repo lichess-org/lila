@@ -13,7 +13,6 @@
   <string name="excludedFromLeaderboardsInfo">અમે આને લીડરબોર્ડ પર આવવા માટે કોઈપણ અયોગ્ય રીતનો ઉપયોગ કરવા તરીકે વ્યાખ્યાયિત કરીએ છીએ.</string>
   <string name="closedByModerators">તમારું એકાઉન્ટ મધ્યસ્થીઓ દ્વારા બંધ કરવામાં આવ્યું હતું.</string>
   <string name="hiddenBlog">તમારા બ્લોગ્સ મધ્યસ્થીઓ દ્વારા છુપાવવામાં આવ્યા છે.</string>
-  <string name="hiddenBlogInfo" comment="%s is &quot;blog rules&quot;, a separately translateable string (key: blogRules).&#10;&#10;Full sentence: &quot;Make sure to read again our blog rules.&quot;">અમારા બ્લોગ નિયમો ફરીથી વાંચવાની ખાતરી કરો.</string>
   <string name="playTimeout">તમારી પાસે પ્લે ટાઇમઆઉટ છે.</string>
   <string name="communicationGuidelines">સંદેશાવ્યવહાર માર્ગદર્શિકા</string>
   <string name="blogRules" comment="This text links to https://lichess.org/page/blog-etiquette&#10;&#10;Part of longer sentence, &quot;Make sure to read again our blog rules.&quot; (key: hiddenBlogInfo)">બ્લોગ નિયમો</string>
