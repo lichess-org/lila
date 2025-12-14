@@ -65,7 +65,7 @@ export class InlineView {
       .map(comment =>
         this.ctrl.retro?.hideComputerLine(node)
           ? hl('comment', i18n.site.learnFromThisMistake)
-          : (comment.by !== 'lichess' || this.ctrl.showFishnetAnalysis()) &&
+          : (!this.isFishnetComment(comment) || this.ctrl.showFishnetAnalysis()) &&
             hl('comment', {
               class: {
                 inaccuracy: comment.text.startsWith('Inaccuracy.'),
@@ -81,6 +81,10 @@ export class InlineView {
             }),
       )
       .filter(Boolean);
+  }
+
+  private isFishnetComment(comment: Tree.Comment): boolean {
+    return comment.by === 'lichess' && comment.text.endsWith(' was best.');
   }
 
   protected lines(lines: Tree.Node[], args: Args): LooseVNodes {
