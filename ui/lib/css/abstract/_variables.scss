@@ -5,7 +5,7 @@ $viewport-min-width: 320px;
 $block-gap: var(---block-gap);
 
 $box-radius-size: 6px;
-$box-padding-vert: 5vh;
+$box-padding-vert: 4vh;
 
 $transition-duration: 150ms;
 
@@ -18,7 +18,7 @@ $site-header-margin-extra: 1.3em;
 $site-header-outer-height: calc($site-header-height + $site-header-margin + var(---sticky-gap));
 
 $main-margin: var(---main-margin);
-$main-max-width: 1300px !default;
+$main-max-width: 1300px;
 
 $topnav-visible: 1020px; // where topnav menu & WWWWWWWWWWWWWWWWWWWW both fit at 100%
 

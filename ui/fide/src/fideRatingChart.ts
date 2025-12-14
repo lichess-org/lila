@@ -19,14 +19,22 @@ export function initModule(opts: FideRatingChartOpts): void {
     chart.Filler,
     chart.TimeScale,
   );
+  const ratings = [...opts.standard, ...opts.rapid, ...opts.blitz].map(a => a[1]);
+  const minRating = Math.min(...ratings, 2000);
+  const maxRating = Math.max(...ratings, 2800);
   for (const [tc, points] of Object.entries(opts)) {
     $(`.fide-player__rating__history--${tc}`).each(function (this: HTMLCanvasElement) {
-      renderRatingChart(this, points);
+      renderRatingChart(this, points, minRating, maxRating);
     });
   }
 }
 
-export const renderRatingChart = (canvas: HTMLCanvasElement, data: Point[]): void => {
+export const renderRatingChart = (
+  canvas: HTMLCanvasElement,
+  data: Point[],
+  minRating: number,
+  maxRating: number,
+): void => {
   const chartData = data.map(([date, elo]) => ({ x: dayjs(date).valueOf(), y: elo }));
   new chart.Chart(canvas, {
     type: 'line',
@@ -53,8 +61,8 @@ export const renderRatingChart = (canvas: HTMLCanvasElement, data: Point[]): voi
         },
         y: {
           display: false,
-          suggestedMin: 2000,
-          suggestedMax: 2800,
+          min: minRating,
+          max: maxRating,
         },
       },
       elements: {

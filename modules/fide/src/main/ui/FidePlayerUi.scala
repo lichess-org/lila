@@ -194,10 +194,10 @@ final class FidePlayerUi(helpers: Helpers, fideUi: FideUi, picfitUrl: lila.memo.
       ),
       Granter.opt(_.FidePlayer).option(photoForm(player)),
       div(cls := "fide-player__ratings")(
-        fideUi.tcTrans.map: (tc, name) =>
+        fideUi.tcTrans.map: (tc, name, icon) =>
           div(cls := "fide-player__rating")(
             div(cls := "fide-player__rating__text")(
-              em(name()),
+              em(dataIcon := icon, cls := "text")(name()),
               strong(player.ratingOf(tc).fold(trb.unrated())(_.toString))
             ),
             canvas(cls := s"fide-player__rating__history fide-player__rating__history--$tc")
