@@ -4,4 +4,22 @@
   <string name="puzzleThemes">કોયડાના વિષયો</string>
   <string name="recommended">ભલામણ કરેલ</string>
   <string name="phases">તબક્કાઓ</string>
+  <string name="motifs">પઝલ શોધ</string>
+  <string name="advanced">મોટિફ્સ</string>
+  <string name="lengths">અદ્યતન</string>
+  <string name="mates">લંબાઈ</string>
+  <string name="mateThemes">મેઇટ થીમ્સ</string>
+  <string name="goals">ધ્યેયો</string>
+  <string name="origin">મૂળ</string>
+  <string name="specialMoves">ખાસ ચાલ</string>
+  <string name="didYouLikeThisPuzzle">શું તમને આ પઝલ ગમી?</string>
+  <string name="voteToLoadNextOne">આગળની પઝલ લોડ કરવા માટે વોટ કરો!</string>
+  <string name="upVote">પઝલને અપ વોટ કરો</string>
+  <string name="downVote">પઝલને ડાઉન વોટ કરો</string>
+  <string name="yourPuzzleRatingWillNotChange">તમારું પઝલ રેટિંગ બદલાશે નહીં. નોંધ લો કે પઝલ કોઈ સ્પર્ધા નથી. તમારું રેટિંગ તમારી વર્તમાન કુશળતા માટે શ્રેષ્ઠ પઝલ પસંદ કરવામાં મદદ કરે છે.</string>
+  <string name="findTheBestMoveForWhite">સફેદ માટે શ્રેષ્ઠ ચાલ શોધો.</string>
+  <string name="findTheBestMoveForBlack">કાળા માટે શ્રેષ્ઠ ચાલ શોધો.</string>
+  <string name="toGetPersonalizedPuzzles">વ્યક્તિગત પઝલ મેળવવા માટે:</string>
+  <string name="puzzleId">પઝલ %s</string>
+  <string name="puzzleOfTheDay">આજની પઝલ</string>
 </resources>
