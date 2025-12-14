@@ -56,12 +56,6 @@ main.is-relay.has-relay-tour {
     grid-template-columns: var(---col2-uniboard-width) $analyse-block-gap $embed-uniboard-table;
     grid-template-rows: 100vh;
     grid-template-areas: 'relay-tour . side';
-
-    .relay-games {
-      @media (hover: hover) and (pointer: fine) {
-        max-height: unset;
-      }
-    }
   }
 }
 
