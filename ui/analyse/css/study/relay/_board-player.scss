@@ -24,7 +24,7 @@ $player-height: 2.7rem;
     .is3d & {
       @extend %box-radius;
 
-      top: calc(#{-$player-height} - var(---cg-width) / 20);
+      top: calc(#{-$player-height} - var(---cg-height) * 4 / 100);
     }
   }
 
