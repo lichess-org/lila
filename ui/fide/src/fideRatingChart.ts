@@ -1,12 +1,15 @@
 import * as chart from 'chart.js';
 import 'chartjs-adapter-dayjs-4';
-// import dayjs from 'dayjs';
+import dayjs from 'dayjs';
 
-export function initModule(): void {
-  fideRatingChart();
+interface FideRatingChartOpts {
+  standard: Point[];
+  rapid: Point[];
+  blitz: Point[];
 }
+type Point = [string, number];
 
-export function fideRatingChart(): void {
+export function initModule(opts: FideRatingChartOpts): void {
   chart.Chart.register(
     chart.LineController,
     chart.LinearScale,
@@ -14,53 +17,69 @@ export function fideRatingChart(): void {
     chart.LineElement,
     chart.Tooltip,
     chart.Filler,
-    chart.Title,
     chart.TimeScale,
   );
+  const ratings = [...opts.standard, ...opts.rapid, ...opts.blitz].map(a => a[1]);
+  const minRating = Math.min(...ratings, 2000);
+  const maxRating = Math.max(...ratings, 2800);
+  for (const [tc, points] of Object.entries(opts)) {
+    $(`.fide-player__rating__history--${tc}`).each(function (this: HTMLCanvasElement) {
+      renderRatingChart(this, points, minRating, maxRating);
+    });
+  }
 }
 
-// const firstDate = dayjs('2017-01-01');
-//
-// export const renderHistoryChart = (data: OpeningPage): void => {
-//   if (!data.history.find(p => p > 0)) return;
-//   const canvas = $('.opening__popularity__chart')[0] as HTMLCanvasElement;
-//   new chart.Chart(canvas, {
-//     type: 'line',
-//     data: {
-//       datasets: [
-//         {
-//           data: data.history.map((n, i) => ({ x: firstDate.add(i, 'M').valueOf(), y: n })),
-//           borderColor: 'hsla(37,74%,43%,1)',
-//           backgroundColor: 'hsla(37,74%,43%,0.5)',
-//           fill: true,
-//         },
-//       ],
-//     },
-//     options: {
-//       animation: false,
-//       scales: {
-//         x: {
-//           type: 'time',
-//           time: {
-//             tooltipFormat: 'MMMM YYYY',
-//           },
-//           display: false,
-//         },
-//         y: {
-//           title: {
-//             display: true,
-//             text: 'Popularity in %',
-//           },
-//         },
-//       },
-//       // https://www.chartjs.org/docs/latest/configuration/responsive.html
-//       // responsive: false, // just doesn't work
-//       interaction: {
-//         mode: 'index',
-//         intersect: false,
-//       },
-//       parsing: false,
-//       normalized: true,
-//     },
-//   });
-// };
+export const renderRatingChart = (
+  canvas: HTMLCanvasElement,
+  data: Point[],
+  minRating: number,
+  maxRating: number,
+): void => {
+  const chartData = data.map(([date, elo]) => ({ x: dayjs(date).valueOf(), y: elo }));
+  new chart.Chart(canvas, {
+    type: 'line',
+    data: {
+      datasets: [
+        {
+          data: chartData,
+          borderColor: 'hsla(37,74%,43%,1)',
+          backgroundColor: 'hsla(37,74%,43%,0.5)',
+          fill: true,
+        },
+      ],
+    },
+    options: {
+      animation: false,
+      aspectRatio: 2, // also in CSS for FOUC
+      scales: {
+        x: {
+          type: 'time',
+          time: {
+            tooltipFormat: 'MMMM YYYY',
+          },
+          display: false,
+        },
+        y: {
+          display: false,
+          min: minRating,
+          max: maxRating,
+        },
+      },
+      elements: {
+        point: {
+          radius: 0,
+        },
+        line: {
+          tension: 0,
+          borderWidth: 1,
+        },
+      },
+      interaction: {
+        mode: 'index',
+        intersect: false,
+      },
+      parsing: false,
+      normalized: true,
+    },
+  });
+};

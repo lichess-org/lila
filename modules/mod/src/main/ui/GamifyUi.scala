@@ -91,7 +91,7 @@ final class GamifyUi(helpers: Helpers)(modMenu: Context ?=> Frag):
 
   private def champion(champ: Option[Gamify.ModMixed], img: String, period: Gamify.Period)(using Translate) =
     div(cls := "champ")(
-      st.img(src := assetUrl(s"images/mod/$img.png")),
+      st.img(src := assetUrl(s"images/mod/$img.webp")),
       h2("Mod of the ", period.name),
       champ
         .map { m =>
