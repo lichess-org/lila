@@ -39,7 +39,7 @@ final private class SwissDirector(
                 white = w,
                 black = b,
                 status = Left(SwissPairing.Ongoing),
-                isDelayed = swiss.settings.flexible.getOrElse(false)
+                isDelayed = ~swiss.settings.flexible
               )
             }
             _ <-
@@ -66,7 +66,7 @@ final private class SwissDirector(
             _ <- mongo.pairing.insert.many(pairings).void
 
             _ <-
-              if swiss.settings.flexible.getOrElse(false) then fuccess(())
+              if ~swiss.settings.flexible then funit
               else
                 val games = pairings.map(makeGame(swiss, players.mapBy(_.userId)))
                 games.sequentiallyVoid: game =>

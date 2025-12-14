@@ -397,10 +397,10 @@ final class SwissApi(
               pairing.playerReady match
                 // I am ready
                 case None =>
-                  mongo.pairing.update.one($id(pairing.id), $doc("$set" -> $doc(F.playerReady -> userId)))
+                  mongo.pairing.updateField($id(pairing.id), F.playerReady, userId)
                 // I'm not ready anymore
                 case Some(pr) if userId.is(pr) =>
-                  mongo.pairing.update.one($id(pairing.id), $doc("$unset" -> $doc(F.playerReady -> "")))
+                  mongo.pairing.unsetField($id(pairing.id), F.playerReady)
                 // my opponent is ready, let's start the game
                 case Some(_) =>
                   val userIds = pairing.players.map(_.e)
@@ -422,7 +422,7 @@ final class SwissApi(
                           _ <- gameRepo.insertDenormalized(game)
                         yield ()
                   yield ()
-            effect.flatMap(_ => fuccess(socket.reload(swissId)))
+            effect.andDo(socket.reload(swissId))
 
   private def forfeitPairings(swiss: Swiss, userId: UserId): Funit =
     SwissPairing.fields: F =>
@@ -484,9 +484,9 @@ final class SwissApi(
                 $set(f.isForfeit -> true, f.status -> BSONNull),
               multi = true
             )
-        _ <- mongo.swiss.update.one($id(swiss.id), $inc("nbOngoing" -> -1 * result.nModified))
+        _ <- mongo.swiss.update.one($id(swiss.id), $inc("nbOngoing" -> -result.nModified))
         _ <- (swiss.nbOngoing - result.nModified < 1).so(onRoundFinish(swiss, none))
-      yield (true)
+      yield true
     .flatMapz:
       recomputeAndUpdateAll(swiss.id)
 
