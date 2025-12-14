@@ -218,9 +218,9 @@ final class SwissFormUi(helpers: Helpers)(
           ),
           form3.checkbox(
             form("flexible"),
-            "Flexible Game Start",
+            "Flexible game start",
             help = frag(
-              "A game will start when the paired players both agree. You will find a button at the end of this page if you need to close a round with unstarted games."
+              "Game will only start when the paired players both agree. You will find a button at the end of this page if you need to close a round with unstarted games."
             ).some,
             half = true
           ),
