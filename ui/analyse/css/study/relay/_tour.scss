@@ -57,6 +57,7 @@ $hover-bg: $m-primary_bg--mix-30;
       }
     }
     &__name {
+      @extend %nowrap-ellipsis;
       flex: 1;
       padding: 1em;
       gap: 0.7em;
