@@ -60,6 +60,7 @@ final class BotJsonView(
       .add("btakeback" -> game.blackPlayer.isProposingTakeback)
       .add("winner" -> game.winnerColor)
       .add("rematch" -> rematches.getAcceptedId(game.id))
+      .add("expiration" -> lila.game.JsonView.expiration(game))
 
   private def millisRemaining(game: Game, color: Color): Int =
     game.clock

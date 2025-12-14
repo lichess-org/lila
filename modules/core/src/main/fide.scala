@@ -3,6 +3,7 @@ package fide
 
 import _root_.chess.{ FideId, FideTC, PlayerName, PlayerTitle }
 import _root_.chess.rating.{ Elo, KFactor }
+import play.api.libs.json.JsObject
 import lila.core.userId.UserId
 
 object Federation:
@@ -32,10 +33,14 @@ type GuessPlayer = (Option[FideId], Option[PlayerName], Option[PlayerTitle]) => 
 type GetPlayer = FideId => Fu[Option[Player]]
 type GetPlayerFollowers = FideId => Fu[Set[UserId]]
 
+opaque type PhotosJson = JsObject
+object PhotosJson extends TotalWrapper[PhotosJson, JsObject]:
+  type Get = Set[FideId] => Fu[PhotosJson]
+
 type Tokenize = String => PlayerToken
 
 enum FidePlayerOrder:
-  case name, federation, standard, rapid, blitz, year, follow
+  case name, standard, rapid, blitz, year, follow
   def key = toString
 
 object FidePlayerOrder:

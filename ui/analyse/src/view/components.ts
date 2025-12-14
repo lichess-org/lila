@@ -99,7 +99,7 @@ export function renderMain(ctx: ViewContext, ...kids: LooseVNodes[]): VNode {
       hook: {
         insert: () => {
           forceInnerCoords(ctrl, needsInnerCoords);
-          if (!!playerBars !== document.body.classList.contains('header-margin'))
+          if (!ctx.relay && !!playerBars !== document.body.classList.contains('header-margin'))
             $('body').toggleClass('header-margin', !!playerBars);
         },
         update(_, _2) {

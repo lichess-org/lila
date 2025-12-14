@@ -47,7 +47,7 @@
   <string name="fidePlayerNotFound">FIDE-Spieler nicht gefunden</string>
   <string name="fideProfile">FIDE-Profil</string>
   <string name="federation">Verband</string>
-  <string name="ageThisYear">Alter in diesem Jahr</string>
+  <string name="age" comment="Label for the age of a player. Appears on players' FIDE profiles.">Alter</string>
   <string name="unrated">Ungewertet</string>
   <string name="recentTournaments">Letzte Turniere</string>
   <string name="openLichess">In Lichess öffnen</string>
@@ -83,6 +83,6 @@
   <string name="liveboard">Live-Brett</string>
   <string name="communityBroadcast">Gemeinschafts-Übertragung</string>
   <string name="createdAndManagedBy">Erstellt und verwaltet von %s.</string>
-  <string name="roundX" comment="%s is the number of the round.&#10;e.g. &quot;Round 2&quot;.&#10;&#10;This is the standard name for a round in a broadcast (https://lichess.org/broadcast), so it is translatable.&#10;&#10;Broadcast authors may optionally  override it - and if they do, it will be in a language and words of their choice e.g. &quot;Semifinals Tiebreak 1&quot;.">Runde %s</string>
+  <string name="roundX">Runde %s</string>
   <string name="defaultRoundNameHelp">Wenn der Standardname beibehalten wird, wird er automatisch in alle anderen Sprachen übersetzt.</string>
 </resources>

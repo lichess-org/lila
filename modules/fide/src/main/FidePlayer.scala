@@ -7,11 +7,13 @@ import reactivemongo.api.bson.Macros.Annotations.Key
 import java.text.Normalizer
 
 import lila.core.fide.{ PlayerToken, Tokenize, diacritics }
+import lila.core.id.ImageId
 
 case class FidePlayer(
     @Key("_id") id: FideId,
     name: PlayerName,
     token: PlayerToken,
+    photo: Option[FidePlayer.PlayerPhoto],
     fed: Option[lila.core.fide.Federation.Id],
     title: Option[PlayerTitle],
     standard: Option[Elo],
@@ -57,6 +59,25 @@ case class FidePlayer(
   .mkString(", ")
 
 object FidePlayer:
+
+  case class PlayerPhoto(id: ImageId, credit: Option[String] = None)
+
+  object PlayerPhoto:
+    enum Size(val width: Int):
+      def height = width
+      def dimensions = lila.memo.Dimensions(width, height)
+      case Medium extends Size(500)
+      case Small extends Size(100)
+    type SizeSelector = Size.type => Size
+
+    def apply(picfitUrl: lila.memo.PicfitUrl, image: ImageId, size: SizeSelector): Url =
+      picfitUrl.thumbnail(image)(size(Size).dimensions)
+
+  object form:
+    import play.api.data.*
+    import play.api.data.Forms.*
+    def credit(p: FidePlayer) =
+      Form(single("photo.credit" -> optional(nonEmptyText))).fill(p.photo.flatMap(_.credit))
 
   case class WithFollow(player: FidePlayer, follow: Boolean)
 

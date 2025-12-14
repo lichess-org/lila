@@ -10,7 +10,7 @@ import chess.rating.{ Elo, IntRatingDiff }
 import lila.study.{ ChapterPreviewApi, StudyPlayer }
 import lila.study.StudyPlayer.json.given
 import lila.memo.CacheApi
-import lila.core.fide.Player as FidePlayer
+import lila.core.fide.{ PhotosJson, Player as FidePlayer }
 import lila.common.Json.given
 import chess.tiebreak.{ Tiebreak, TiebreakPoint }
 
@@ -135,7 +135,7 @@ object RelayPlayer:
         .add("rank" -> p.rank)
     def full(
         tour: RelayTour
-    )(p: RelayPlayer, fidePlayer: Option[FidePlayer], follow: Option[Boolean]): JsObject =
+    )(p: RelayPlayer, fidePlayer: Option[FidePlayer], user: Option[User], follow: Option[Boolean]): JsObject =
       val tc = tour.info.fideTcOrGuess
       lazy val eloPlayer = p.rating
         .map(_.into(Elo))
@@ -158,6 +158,7 @@ object RelayPlayer:
           .add("ratingDiff" -> rd)
       Json
         .toJsObject(p)
+        .add("user", user.map(_.light))
         .add("fide", fidePlayer.map(Json.toJsObject).map(_.add("follow", follow))) ++
         Json.obj("games" -> gamesJson)
     given OWrites[FidePlayer] = OWrites: p =>
@@ -169,13 +170,14 @@ private final class RelayPlayerApi(
     chapterRepo: lila.study.ChapterRepo,
     chapterPreviewApi: ChapterPreviewApi,
     cacheApi: CacheApi,
-    fidePlayerGet: lila.core.fide.GetPlayer
+    fidePlayerGet: lila.core.fide.GetPlayer,
+    photosJson: PhotosJson.Get
 )(using Executor)(using scheduler: Scheduler):
   import RelayPlayer.*
 
   type RelayPlayers = SeqMap[StudyPlayer.Id, RelayPlayer]
 
-  private val cache = cacheApi[RelayTourId, RelayPlayers](32, "relay.players.data"):
+  private val cache = cacheApi[RelayTourId, RelayPlayers](128, "relay.players.data"):
     _.expireAfterWrite(1.minute).buildAsyncFuture(compute)
 
   private val jsonCache = cacheApi[RelayTourId, JsonStr](32, "relay.players.json"):
@@ -188,6 +190,16 @@ private final class RelayPlayerApi(
 
   export cache.get
   export jsonCache.get as jsonList
+
+  private val photosJsonCache = cacheApi[RelayTourId, PhotosJson](32, "relay.players.photos.json"):
+    _.expireAfterWrite(10.seconds).buildAsyncFuture: tourId =>
+      for
+        players <- cache.get(tourId)
+        fideIds = players.values.flatMap(_.fideId).toSet
+        photos <- photosJson(fideIds)
+      yield photos
+
+  def photosJson(tourId: RelayTourId): Fu[PhotosJson] = photosJsonCache.get(tourId)
 
   def player(tour: RelayTour, str: String): Fu[Option[RelayPlayer]] =
     val id = FideId.from(str.toIntOption) | PlayerName(str)

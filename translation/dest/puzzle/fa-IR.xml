@@ -73,7 +73,7 @@
   <string name="streakSkipExplanation">این حرکت را رد کنید تا رکورد خود را حفظ کنید! فقط یک بار در هر دور امکان‌پذیر است.</string>
   <string name="continueTheStreak">توالی را ادامه دهید</string>
   <string name="newStreak">رکورد جدید</string>
-  <string name="fromMyGames">از بازی های من</string>
+  <string name="fromMyGames">از بازی‌های من</string>
   <string name="lookupOfPlayer">به دنبال معماهای برگرفته از بازی‌های یک بازیکن مشخص، بگردید</string>
   <string name="searchPuzzles">جستجوی معما</string>
   <string name="fromMyGamesNone">شما هیچ معمایی در دادگان ندارید، اما Lichess همچنان شما را بسیار دوست دارد.

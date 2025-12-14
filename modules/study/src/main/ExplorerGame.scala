@@ -34,11 +34,17 @@ final private class ExplorerGameApi(
                 position.chapter.addNode(newNode, path).map(_ -> path)
               }
 
-  private def compareFens(a: Fen.Full, b: Fen.Full) = a.simple == b.simple
+  private def compareFens(a: Fen.Full, b: Fen.Full, strict: Boolean) =
+    if strict then a == b else a.simple == b.simple
+
+  private def gameNodes(fromNode: Node, game: Root, firstTry: Boolean): List[Branch] =
+    if compareFens(fromNode.fen, game.fen, firstTry) then game.mainline
+    else
+      val nodes = game.mainline.dropWhile(n => !compareFens(n.fen, fromNode.fen, firstTry))
+      if nodes.nonEmpty || !firstTry then nodes.drop(1) else gameNodes(fromNode, game, false)
 
   private def merge(fromNode: Node, fromPath: UciPath, game: Root): Option[(Branch, UciPath)] =
-    val gameNodes = game.mainline.dropWhile(n => !compareFens(n.fen, fromNode.fen)).drop(1)
-    val (path, foundGameNode) = gameNodes.foldLeft((UciPath.root, none[Branch])):
+    val (path, foundGameNode) = gameNodes(fromNode, game, true).foldLeft((UciPath.root, none[Branch])):
       case ((path, None), gameNode) =>
         val nextPath = path + gameNode.id
         if fromNode.children.nodeAt(nextPath).isDefined then (nextPath, none)

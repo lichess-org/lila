@@ -32,8 +32,8 @@ final class RelayUi(helpers: Helpers)(
       .i18nOpt(ctx.blind, _.keyboardMove, _.nvui)
       .js(analyseNvuiTag)
       .js(pageModule(rt, data, chatOption, socketVersion))
-      .js(esmInitBit("fidePlayerFollow"))
       .flag(_.zoom)
+      .flag(_.noTopNav)
       .graph(
         OpenGraph(
           title = rt.transName,

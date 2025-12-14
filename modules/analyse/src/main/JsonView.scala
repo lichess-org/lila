@@ -21,7 +21,7 @@ object JsonView extends lila.tree.AnalysisJson:
           Json
             .obj(
               "name" -> a.judgment.name,
-              "comment" -> a.makeComment(withEval = false, withBestMove = true)
+              "comment" -> a.makeComment(false)
             )
             .add(
               "glyph" -> withGlyph.option(

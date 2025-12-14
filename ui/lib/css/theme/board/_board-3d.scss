@@ -101,7 +101,7 @@ $piece-files: (
 
 .main-board,
 .eval-gauge {
-  margin-top: 4vh;
+  margin-top: calc(var(---cg-height) * 2 / 100);
 }
 
 .board-resize {

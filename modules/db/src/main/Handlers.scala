@@ -170,10 +170,12 @@ trait Handlers:
   given perfKeyFailingIso: Iso.StringIso[PerfKey] =
     Iso.string[PerfKey](str => PerfKey(str).err(s"Unknown perf $str"), _.value)
 
-  given pairHandler[T: BSONHandler]: BSONHandler[(T, T)] = tryHandler[(T, T)](
-    { case arr: BSONArray => for a <- arr.getAsTry[T](0); b <- arr.getAsTry[T](1) yield (a, b) },
+  given tupleHandler[A: BSONHandler, B: BSONHandler]: BSONHandler[(A, B)] = tryHandler[(A, B)](
+    { case arr: BSONArray => for a <- arr.getAsTry[A](0); b <- arr.getAsTry[B](1) yield (a, b) },
     { case (a, b) => BSONArray(a, b) }
   )
+
+  given pairHandler[T: BSONHandler]: BSONHandler[(T, T)] = tupleHandler[T, T]
 
   given [T: BSONHandler]: BSONHandler[chess.ByColor[T]] =
     pairHandler[T].as[chess.ByColor[T]](c => chess.ByColor.fromPair(c), _.toPair)
@@ -248,7 +250,10 @@ trait Handlers:
     }
     def writeTry(v: V) = keyHandler.writeTry(toKey(v))
 
-  def optionPairHandler[A](using handler: BSONHandler[A]): BSONHandler[PairOf[Option[A]]] = quickHandler(
-    { case BSONArray(els) => (els.headOption.flatMap(_.asOpt[A]), els.lift(1).flatMap(_.asOpt[A])) },
-    { (a, b) => BSONArray(Seq(a.flatMap(handler.writeOpt), b.flatMap(handler.writeOpt)).map(_ | BSONNull)) }
+  def optionTupleHandler[A, B](using
+      handlerA: BSONHandler[A],
+      handlerB: BSONHandler[B]
+  ): BSONHandler[(Option[A], Option[B])] = quickHandler(
+    { case BSONArray(els) => (els.headOption.flatMap(_.asOpt[A]), els.lift(1).flatMap(_.asOpt[B])) },
+    { (a, b) => BSONArray(Seq(a.flatMap(handlerA.writeOpt), b.flatMap(handlerB.writeOpt)).map(_ | BSONNull)) }
   )
