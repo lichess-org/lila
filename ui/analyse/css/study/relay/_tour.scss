@@ -373,15 +373,23 @@ $hover-bg: $m-primary_bg--mix-30;
       th {
         border: none;
         text-align: end;
-        padding: 0.5rem 2rem 0.5rem 2rem;
+        padding: 0.5rem 1rem 0.5rem 2rem;
       }
     }
     th,
     td {
       &.rank {
         text-align: end;
-        padding: 0.4em;
+        padding: 0.4em 0 0.4em 0.4em;
+        width: 6ch;
+        font-weight: bold;
       }
+    }
+    th.rank {
+      display: inline-block;
+    }
+    th.player-name {
+      text-align: start;
     }
     th {
       a {
@@ -396,13 +404,12 @@ $hover-bg: $m-primary_bg--mix-30;
         }
       }
     }
-    .score {
+    td.score {
       font-weight: bold;
     }
     td + td:not(.player-intro-td) {
       font-family: monospace;
       text-align: end;
-      padding: 1rem 2rem;
     }
     .rp,
     .rp--same {
@@ -456,24 +463,22 @@ $hover-bg: $m-primary_bg--mix-30;
     .mini-game__flag {
       width: 1em;
     }
-    &__fed-team {
-      @extend %flex-center;
-      gap: 1em;
-    }
-    &__games {
-      tr {
-        cursor: pointer;
-        &:hover {
-          background: $m-primary_bg--mix-15 !important;
-        }
-      }
-    }
   }
 
   .study__multiboard {
     @media (min-width: at-least($xx-large)) {
       margin: 0 0.5em;
     }
+  }
+}
+
+.fide-players-table .game-link {
+  @extend %flex-center-nowrap, %box-radius;
+  padding: 0.4em 0.5em;
+  font-size: 1.6em;
+  &:hover {
+    background: $m-primary_bg--mix-20;
+    color: $c-font-clearer;
   }
 }
 

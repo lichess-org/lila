@@ -2,6 +2,7 @@ package lila.fide
 
 import reactivemongo.api.bson.Macros.Annotations.Key
 import java.time.YearMonth
+import play.api.libs.json.*
 import monocle.syntax.all.*
 import chess.{ FideId, FideTC }
 import chess.rating.Elo
@@ -28,6 +29,17 @@ case class FideRatingHistory(
     FideTC.values.foldLeft(this): (hist, tc) =>
       hist.focusTC(tc).modify(FideRatingHistory.compress)
 
+  def allRatings: Map[FideTC, FideRatingHistory.RatingPoints] =
+    Map(
+      FideTC.standard -> standard,
+      FideTC.rapid -> rapid,
+      FideTC.blitz -> blitz
+    )
+
+  def toJson =
+    import FideRatingHistory.pointWrites
+    Json.toJsObject(allRatings.mapKeys(_.toString))
+
 object FideRatingHistory:
 
   type RatingPoint = (YearMonth, Elo)
@@ -35,18 +47,21 @@ object FideRatingHistory:
 
   def empty(id: FideId): FideRatingHistory = FideRatingHistory(id, Nil, Nil, Nil)
 
+  private given pointWrites: Writes[RatingPoint] = point => Json.arr(point._1.toString, point._2.value)
+
   private def set(points: RatingPoints, date: YearMonth, elo: Elo): RatingPoints =
     val cleaned = points.filterNot(_._1 == date)
-    compress(((date -> elo) :: cleaned).sortBy(_._1))
+    compress(((date -> elo) :: cleaned))
 
   // keep the first and last of each streak of identical ratings
   private def compress(points: RatingPoints): RatingPoints =
     if points.sizeIs < 3 then points
     else
-      val middle = points
+      val sorted = points.sortBy(_._1)
+      val middle = sorted
         .sliding(3)
         .foldLeft(List.empty[RatingPoint]):
           case (acc, List(a, b, c)) =>
             if a._2 == b._2 && b._2 == c._2 then acc else b :: acc
           case (acc, _) => acc
-      points.headOption.toList ::: middle.reverse ::: points.lastOption.toList
+      sorted.headOption.toList ::: middle.reverse ::: sorted.lastOption.toList

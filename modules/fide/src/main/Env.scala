@@ -69,6 +69,3 @@ final class Env(
     case "fide" :: "player" :: "sync" :: Nil =>
       fideSync()
       fuccess("Updating the player database in the background.")
-    case "fide" :: "rating" :: "compress" :: Nil =>
-      repo.rating.compressAll
-      fuccess("Compressing all rating histories in the background.")
