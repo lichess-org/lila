@@ -4,6 +4,12 @@ body {
 
   @include mq-at-least-col3 {
     ---allow-video: true;
+    .site-title-nav__donate {
+      display: none;
+    }
+  }
+  @include mq-less-than-col3 {
+    ---site-header-margin: 30px;
   }
 }
 
