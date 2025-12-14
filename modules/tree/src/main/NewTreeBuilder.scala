@@ -66,7 +66,7 @@ object NewTreeBuilder:
               .option(TreeBuilder.makeLichessComment(Comment(s"${!ply.turn} offers draw")))
               .toList :::
               advice
-                .map(_.makeComment(withEval = false, withBestMove = true))
+                .map(_.makeComment(false))
                 .toList
                 .map(TreeBuilder.makeLichessComment)
           )
