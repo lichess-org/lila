@@ -52,6 +52,11 @@ case class Page(
   def csp(up: Update[ContentSecurityPolicy]): Page = copy(csp = csp.fold(up)(up.compose).some)
   def hrefLangs(path: Option[LangPath]): Page = copy(withHrefLangs = path)
   def hrefLangs(path: LangPath): Page = copy(withHrefLangs = path.some)
+  def transformHead(f: Update[Frag]): Page = copy(transformHead = transformHead.compose(f))
+  def preloadImage(url: Url)(helper: AssetHelper): Page =
+    transformHead(head => frag(head, helper.imagePreload(url)))
+  def preloadImage(url: Option[Url])(helper: AssetHelper): Page =
+    url.fold(this)(preloadImage(_)(helper))
 
   // body stuff
   def body(b: Frag): Page = copy(body = b.some)

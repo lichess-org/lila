@@ -23,9 +23,9 @@ object page:
     raw(s"""<meta name="theme-color" content="${ctx.pref.themeColor}">""")
 
   private def boardPreload(using ctx: Context) = frag(
-    imagePathPreload(s"images/board/${ctx.pref.currentTheme.file}"),
+    imagePreload(assetUrl(s"images/board/${ctx.pref.currentTheme.file}")),
     ctx.pref.is3d.option:
-      imagePathPreload(s"images/staunton/board/${ctx.pref.currentTheme3d.file}")
+      imagePreload(assetUrl(s"images/staunton/board/${ctx.pref.currentTheme3d.file}"))
   )
 
   def boardStyle(zoomable: Boolean)(using ctx: Context) =
