@@ -96,8 +96,7 @@ export default class AnalyseCtrl implements CevalHandler {
   showGauge = storedBooleanProp('analyse.show-gauge', true);
   private showCevalProp: Prop<boolean> = storedBooleanProp('analyse.show-engine', !!this.cevalEnabledProp());
   showFishnetAnalysis = storedBooleanProp('analyse.show-computer', true);
-  showMoveAnnotation = storedBooleanProp('analyse.show-move-annotation', true);
-  // todo - rename above to include 'OnBoard'
+  possiblyShowMoveAnnotationsOnBoard = storedBooleanProp('analyse.show-move-annotation', true);
   keyboardHelp: boolean = location.hash === '#keyboard';
   threatMode: Prop<boolean> = prop(false);
   disclosureMode = storedBooleanProp('analyse.disclosure.enabled', false);
@@ -804,6 +803,9 @@ export default class AnalyseCtrl implements CevalHandler {
 
   showMoveGlyphs = (): boolean => (this.study && !this.study.relay) || this.showFishnetAnalysis();
 
+  showMoveAnnotationsOnBoard = (): boolean =>
+    this.possiblyShowMoveAnnotationsOnBoard() && this.showMoveGlyphs();
+
   showEvalGauge(): boolean {
     return (
       this.showGauge() &&
@@ -862,8 +864,8 @@ export default class AnalyseCtrl implements CevalHandler {
     this.redraw();
   };
 
-  toggleMoveAnnotation = (v: boolean): void => {
-    this.showMoveAnnotation(v);
+  togglePossiblyShowMoveAnnotationsOnBoard = (v: boolean): void => {
+    this.possiblyShowMoveAnnotationsOnBoard(v);
     this.resetAutoShapes();
   };
 
@@ -1069,7 +1071,11 @@ export default class AnalyseCtrl implements CevalHandler {
   showBestMoveArrows = () => this.showBestMoveArrowsProp() && !this.retro?.hideComputerLine(this.node);
 
   private resetAutoShapes = () => {
-    if (this.showBestMoveArrows() || this.showMoveAnnotation() || this.variationArrowOpacity())
+    if (
+      this.showBestMoveArrows() ||
+      this.possiblyShowMoveAnnotationsOnBoard() ||
+      this.variationArrowOpacity()
+    )
       this.setAutoShapes();
     else this.chessground?.setAutoShapes([]);
   };
