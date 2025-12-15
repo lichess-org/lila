@@ -161,7 +161,7 @@ export class InlineView {
       'pending-deletion': path.startsWith(ctrl.pendingDeletionPath() || ' '),
       'pending-copy': !!ctrl.pendingCopyPath()?.startsWith(path),
     };
-    if ((!!ctrl.study && !ctrl.study?.relay) || ctrl.showFishnetAnalysis())
+    if (ctrl.showMoveGlyphs())
       node.glyphs
         ?.map(g => this.glyphs[g.id - 1])
         .filter(Boolean)
@@ -172,7 +172,7 @@ export class InlineView {
       renderMoveNodes(
         node,
         isMainline && !this.inline,
-        (!!ctrl.study && !ctrl.study.relay) || ctrl.showFishnetAnalysis(),
+        ctrl.showMoveGlyphs(),
         ctrl.allowedEval(node) || false,
       ),
     ]);
