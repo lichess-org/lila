@@ -97,6 +97,7 @@ export default class AnalyseCtrl implements CevalHandler {
   private showCevalProp: Prop<boolean> = storedBooleanProp('analyse.show-engine', !!this.cevalEnabledProp());
   showFishnetAnalysis = storedBooleanProp('analyse.show-computer', true);
   showMoveAnnotation = storedBooleanProp('analyse.show-move-annotation', true);
+  // todo - rename above to include 'OnBoard'
   keyboardHelp: boolean = location.hash === '#keyboard';
   threatMode: Prop<boolean> = prop(false);
   disclosureMode = storedBooleanProp('analyse.disclosure.enabled', false);
@@ -800,6 +801,8 @@ export default class AnalyseCtrl implements CevalHandler {
   showAnalysis() {
     return this.showFishnetAnalysis() || (this.cevalEnabled() && this.isCevalAllowed());
   }
+
+  showMoveGlyphs = (): boolean => (this.study && !this.study.relay) || this.showFishnetAnalysis();
 
   showEvalGauge(): boolean {
     return (

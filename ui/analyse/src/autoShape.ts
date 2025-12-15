@@ -117,7 +117,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
       }
     });
   }
-  if (ctrl.showMoveAnnotation()) shapes = shapes.concat(annotationShapes(ctrl.node));
+  if (ctrl.showMoveAnnotation() && ctrl.showMoveGlyphs()) shapes = shapes.concat(annotationShapes(ctrl.node));
   if (ctrl.showVariationArrows()) hiliteVariations(ctrl, shapes);
   return shapes;
 }
