@@ -57,14 +57,13 @@ final private class TvBroadcast(
     case Remove(client) => clients = clients - client
 
     case TvSelect(gameId, speed, chanKey, data) if chanKey == channel.key =>
-      gameProxy.game(gameId).foreach {
-        _.foreach { game =>
+      gameProxy
+        .game(gameId)
+        .map2: game =>
           Bus
             .ask[Html, RenderFeaturedJs](RenderFeaturedJs(game, _))
-            .map { BroadcastGame(game, data, _) }
+            .map(BroadcastGame(game, data, _))
             .pipeTo(self)
-        }
-      }
 
     case BroadcastGame(game, data, html) =>
       unsubscribeFromFeaturedId()
@@ -86,17 +85,17 @@ final private class TvBroadcast(
         ),
         fen = Fen.write(game.position)
       )
+      lazy val featuredHtmlMsg = makeMessage(
+        "featured",
+        Json.obj(
+          "html" -> html.toString,
+          "color" -> game.naturalOrientation.name,
+          "id" -> game.id
+        )
+      )
       clients.foreach: client =>
         client.queue.offer:
-          if client.fromLichess then
-            makeMessage(
-              "featured",
-              Json.obj(
-                "html" -> html.toString,
-                "color" -> game.naturalOrientation.name,
-                "id" -> game.id
-              )
-            )
+          if client.fromLichess then featuredHtmlMsg
           else feat.socketMsg
       featured = feat.some
 
