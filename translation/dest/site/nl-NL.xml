@@ -724,10 +724,11 @@
   <string name="keyNextInaccuracy">Volgende onnauwkeurigheid</string>
   <string name="keyPreviousBranch">Vorige vertakking</string>
   <string name="keyNextBranch">Volgende vertakking</string>
-  <string name="toggleVariationArrows">Schakel variatiepijlen in/uit</string>
+  <string name="toggleVariationArrows">Variatiepijlen in/uitschakelen</string>
   <string name="cyclePreviousOrNextVariation">Bekijk vorige/volgende variant</string>
-  <string name="toggleGlyphAnnotations">Zet glyph-aantekeningen aan of uit</string>
-  <string name="togglePositionAnnotations">Zet stellingsaantekeningen aan of uit</string>
+  <string name="toggleGlyphAnnotations">Zetaantekeningen in-/uitschakelen</string>
+  <string name="togglePositionAnnotations">Stellingsaantekeningen in-/uitschakelen</string>
+  <string name="toggleObservationAnnotations">Observatie-aantekeningen in-/uitschakelen</string>
   <string name="variationArrowsInfo">Met de variantpijlen kunt u navigeren zonder de zettenlijst te gebruiken.</string>
   <string name="playSelectedMove">speel geselecteerde zet</string>
   <string name="newTournament">Nieuw toernooi</string>

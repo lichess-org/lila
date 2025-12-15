@@ -736,6 +736,7 @@
   <string name="cyclePreviousOrNextVariation">ચક્ર પાછલું/આગલું ભિન્નતા</string>
   <string name="toggleGlyphAnnotations">ખસેડવાની ટીકાઓ ટૉગલ કરો</string>
   <string name="togglePositionAnnotations">પોઝિશન એનોટેશન ટૉગલ કરો</string>
+  <string name="toggleObservationAnnotations">અવલોકન ટીકાઓ ટૉગલ કરો</string>
   <string name="variationArrowsInfo">ભિન્નતા તીર તમને મૂવ લિસ્ટનો ઉપયોગ કર્યા વિના નેવિગેટ કરવા દે છે.</string>
   <string name="playSelectedMove">પસંદ કરેલી ચાલ ચલાવો</string>
   <string name="newTournament">નવી ટુર્નામેન્ટ</string>
