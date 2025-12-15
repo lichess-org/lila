@@ -2,6 +2,7 @@ package lila.tv
 
 import akka.actor.*
 import akka.stream.scaladsl.*
+import akka.pattern.pipe
 import chess.format.Fen
 import play.api.libs.json.*
 
@@ -28,6 +29,7 @@ final private class TvBroadcast(
   Bus.subscribeActorRef[lila.core.game.TvSelect](self)
 
   given Executor = context.system.dispatcher
+  given Scheduler = context.system.scheduler
 
   override def postStop() =
     super.postStop()
@@ -55,32 +57,47 @@ final private class TvBroadcast(
     case Remove(client) => clients = clients - client
 
     case TvSelect(gameId, speed, chanKey, data) if chanKey == channel.key =>
-      gameProxy.game(gameId).map2 { game =>
-        unsubscribeFromFeaturedId()
-        Bus.subscribeActorRefDyn(self, List(MoveGameEvent.makeChan(gameId)))
-        val pov = Pov.naturalOrientation(game)
-        val feat = Featured(
-          gameId,
-          Json.obj(
-            "id" -> gameId,
-            "orientation" -> pov.color.name,
-            "players" -> game.players.mapList: p =>
-              val user = p.userId.flatMap(lightUserSync)
-              Json
-                .obj("color" -> p.color.name)
-                .add("user" -> user)
-                .add("ai" -> p.aiLevel)
-                .add("rating" -> p.rating)
-                .add("seconds" -> game.clock.map(_.remainingTime(pov.color).roundSeconds))
-          ),
-          fen = Fen.write(game.position)
+      gameProxy
+        .game(gameId)
+        .map2: game =>
+          Bus
+            .ask[Html, RenderFeaturedJs](RenderFeaturedJs(game, _))
+            .map(BroadcastGame(game, data, _))
+            .pipeTo(self)
+
+    case BroadcastGame(game, data, html) =>
+      unsubscribeFromFeaturedId()
+      Bus.subscribeActorRefDyn(self, List(MoveGameEvent.makeChan(game.id)))
+      val pov = Pov.naturalOrientation(game)
+      val feat = Featured(
+        game.id,
+        Json.obj(
+          "id" -> game.id,
+          "orientation" -> pov.color.name,
+          "players" -> game.players.mapList: p =>
+            val user = p.userId.flatMap(lightUserSync)
+            Json
+              .obj("color" -> p.color.name)
+              .add("user" -> user)
+              .add("ai" -> p.aiLevel)
+              .add("rating" -> p.rating)
+              .add("seconds" -> game.clock.map(_.remainingTime(pov.color).roundSeconds))
+        ),
+        fen = Fen.write(game.position)
+      )
+      lazy val featuredHtmlMsg = makeMessage(
+        "featured",
+        Json.obj(
+          "html" -> html.toString,
+          "color" -> game.naturalOrientation.name,
+          "id" -> game.id
         )
-        clients.foreach: client =>
-          client.queue.offer:
-            if client.fromLichess then data
-            else feat.socketMsg
-        featured = feat.some
-      }
+      )
+      clients.foreach: client =>
+        client.queue.offer:
+          if client.fromLichess then featuredHtmlMsg
+          else feat.socketMsg
+      featured = feat.some
 
     case MoveGameEvent(game, fen, move) =>
       val msg = makeMessage(
@@ -114,6 +131,8 @@ object TvBroadcast:
 
   case class Connect(bc: Boolean)
   case class Client(queue: Queue, fromLichess: Boolean)
+
+  case class BroadcastGame(game: Game, data: JsObject, html: Html)
 
   case class Add(c: Client)
   case class Remove(c: Client)
