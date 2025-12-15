@@ -1,4 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessStreamers">Lichess સ્ટ્રીમર્સ</string>
+  <string name="lichessStreamer">Lichess સ્ટ્રીમર</string>
+  <string name="live">LIVE!</string>
+  <string name="offline">OFFLINE</string>
+  <string name="currentlyStreaming">હાલમાં સ્ટ્રીમિંગ: %s</string>
+  <string name="lastStream">છેલ્લું સ્ટ્રીમ %s</string>
+  <string name="becomeStreamer">Lichess સ્ટ્રીમર બનો</string>
+  <string name="doYouHaveStream">શું તમારી પાસે Twitch કે YouTube ચેનલ છે?</string>
+  <string name="hereWeGo">ચાલો, શરૂ કરીએ!</string>
+  <string name="allStreamers">બધા સ્ટ્રીમર્સ</string>
+  <string name="editPage">સ્ટ્રીમર પેજ એડિટ કરો</string>
+  <string name="yourPage">તમારું સ્ટ્રીમર પેજ</string>
+  <string name="downloadKit">સ્ટ્રીમર કિટ ડાઉનલોડ કરો</string>
+  <string name="xIsStreaming">%s સ્ટ્રીમિંગ કરી રહ્યું છે</string>
+  <string name="rules">સ્ટ્રીમિંગ નિયમો</string>
+  <string name="rule1">જ્યારે તમે Lichess પર સ્ટ્રીમ કરો ત્યારે તમારા સ્ટ્રીમ શીર્ષકમાં \"lichess.org\" કીવર્ડ શામેલ કરો અને \"Chess\" કેટેગરીનો ઉપયોગ કરો.</string>
+  <string name="rule2">જ્યારે તમે Lichess સિવાયની વસ્તુઓનું સ્ટ્રીમ કરો ત્યારે કીવર્ડ દૂર કરો.</string>
+  <string name="rule3">Lichess તમારા સ્ટ્રીમને આપમેળે શોધી કાઢશે અને નીચેના લાભો સક્ષમ કરશે:</string>
+  <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">તમારા સ્ટ્રીમ દરમિયાન દરેક માટે ફેર પ્લે સુનિશ્ચિત કરવા માટે અમારા %s વાંચો.</string>
+  <string name="streamingFairplayFAQ">સ્ટ્રીમિંગ ફેરપ્લે FAQ</string>
+  <string name="perks">કીવર્ડ સાથે સ્ટ્રીમિંગ કરવાના ફાયદાઓ</string>
+  <string name="perk1">તમારી Lichess પ્રોફાઇલ પર ફ્લેમિંગ સ્ટ્રીમર આઇકન મેળવો.</string>
+  <string name="perk2">સ્ટ્રીમર્સની સૂચિમાં ટોચ પર બમ્પ અપ થાઓ.</string>
+  <string name="perk3">તમારા Lichess ફોલોઅર્સને સૂચિત કરો.</string>
+  <string name="perk4">તમારી ગેમ્સ, ટુર્નામેન્ટ્સ અને સ્ટડીઝમાં તમારું સ્ટ્રીમ બતાવો.</string>
+  <string name="approved">તમારું સ્ટ્રીમ મંજૂર થયેલું છે</string>
+  <string name="pendingReview">તમારા સ્ટ્રીમની મોડરેટર્સ દ્વારા સમીક્ષા કરવામાં આવી રહી છે.</string>
+  <string name="pleaseFillIn">કૃપા કરીને તમારી સ્ટ્રીમર માહિતી ભરો અને એક ચિત્ર અપલોડ કરો.</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">જ્યારે તમે Lichess સ્ટ્રીમર તરીકે સૂચિબદ્ધ થવા માટે તૈયાર હોવ, %s</string>
+  <string name="submitForReview">સમીક્ષા માટે સબમિટ કરો</string>
+  <string name="streamerLanguageSettings">Lichess સ્ટ્રીમર પેજ તમારા સ્ટ્રીમિંગ પ્લેટફોર્મ દ્વારા પ્રદાન કરવામાં આવેલી ભાષા સાથે તમારા પ્રેક્ષકોને લક્ષ્ય બનાવે છે. તમે પ્રસારણ કરવા માટે ઉપયોગ કરો છો તે એપ્લિકેશન અથવા સેવામાં તમારા ચેસ સ્ટ્રીમ્સ માટે યોગ્ય ડિફોલ્ટ ભાષા સેટ કરો.</string>
+  <string name="pleaseAllow">તમારા સ્ટ્રીમર બેજ અને સૂચિને મંજૂર કરવામાં આવે તે પહેલાં કૃપા કરીને 72 કલાક સુધીનો સમય આપો.</string>
+  <string name="chooseYoutubeChannel">તમે Lichess પર જે YouTube ચેનલનો ઉપયોગ કરશો તે પસંદ કરો.</string>
+  <string name="connect" comment="This button appears for streamers who wish to connect a Twitch or YouTube account, to their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">જોડો</string>
+  <string name="disconnect" comment="This button appears for streamers who wish to disconnect an already-linked Twitch or YouTube account, from their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">ડિસ્કનેક્ટ કરો</string>
+  <string name="streamerName">Lichess પર તમારું સ્ટ્રીમર નામ</string>
+  <plurals name="keepItShort">
+    <item quantity="one">તેને ટૂંકું રાખો: %s અક્ષર મહત્તમ</item>
+    <item quantity="other">તેને ટૂંકું રાખો: %s અક્ષરો મહત્તમ</item>
+  </plurals>
+  <string name="visibility">સ્ટ્રીમર્સ પેજ પર દૃશ્યમાન</string>
+  <string name="whenApproved">મોડરેટર્સ દ્વારા મંજૂર થયા પછી</string>
+  <string name="headline">હેડલાઇન</string>
+  <string name="tellUsAboutTheStream">એક વાક્યમાં તમારા સ્ટ્રીમ વિશે અમને કહો</string>
+  <string name="longDescription">લાંબુ વર્ણન</string>
+  <string name="xStreamerPicture">%s સ્ટ્રીમર પિક્ચર</string>
+  <string name="changePicture">તમારું ચિત્ર બદલો/કાઢી નાખો</string>
+  <string name="uploadPicture">એક ચિત્ર અપલોડ કરો</string>
+  <string name="maxSize">મહત્તમ કદ: %s</string>
 </resources>

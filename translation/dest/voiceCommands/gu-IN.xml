@@ -1,2 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="voiceCommands">વોઇસ કમાન્ડ્સ</string>
+  <string name="watchTheVideoTutorial">વિડિઓ ટ્યુટોરીયલ જુઓ</string>
+  <string name="instructions1">વોઇસ રેકગ્નિશન ટૉગલ કરવા માટે %1$s બટનનો, આ મદદ સંવાદ ખોલવા માટે %2$s બટનનો, અને સ્પીચ સેટિંગ્સ બદલવા માટે %3$s મેનૂનો ઉપયોગ કરો.</string>
+  <string name="instructions2">જ્યારે અમે ચોક્કસ ન હોઈએ ત્યારે અમે બહુવિધ ચાલ માટે તીર બતાવીએ છીએ. તેને પસંદ કરવા માટે ચાલના તીરનો રંગ અથવા નંબર બોલો.</string>
+  <string name="instructions3">જો કોઈ તીર ફરતું રડાર બતાવે છે, તો વર્તુળ પૂર્ણ થાય ત્યારે તે ચાલ રમવામાં આવશે. આ સમય દરમિયાન, તમે તરત જ ચાલ રમવા માટે ફક્ત %1$s, રદ કરવા માટે %2$s, અથવા અલગ તીરનો રંગ/નંબર બોલી શકો છો. આ ટાઈમર સેટિંગ્સમાં એડજસ્ટ કરી શકાય છે અથવા બંધ કરી શકાય છે.</string>
+  <string name="instructions4">ઘોંઘાટવાળા વાતાવરણમાં %s સક્ષમ કરો. જ્યારે આ ચાલુ હોય ત્યારે આદેશો બોલતી વખતે શિફ્ટ દબાવી રાખો.</string>
+  <string name="instructions5">ચેસબોર્ડ ફાઇલોની ઓળખ સુધારવા માટે ફોનેટિક આલ્ફાબેટનો ઉપયોગ કરો.</string>
+  <string name="instructions6">%s વોઇસ મૂવ સેટિંગ્સને વિગતવાર સમજાવે છે.</string>
+  <string name="thisBlogPost">આ બ્લોગ પોસ્ટ</string>
+  <string name="moveToE4OrSelectE4Piece">e4 પર ખસેડો અથવા e4 ટુકડો પસંદ કરો</string>
+  <string name="selectOrCaptureABishop">એક ઊંટ પસંદ કરો અથવા પકડો</string>
+  <string name="takeRookWithQueen">રાણી સાથે હાથી ને પકડો</string>
+  <string name="castle" comment="Castle is used as a verb here, referring to castling.">કેસલ (કોઈપણ બાજુ)</string>
+  <string name="phoneticAlphabetIsBest">ફોનેટિક આલ્ફાબેટ શ્રેષ્ઠ છે</string>
+  <string name="cancelTimerOrDenyARequest">ટાઈમર રદ કરો અથવા વિનંતી નકારો</string>
+  <string name="playPreferredMoveOrConfirmSomething">પસંદગીની ચાલ રમો અથવા કંઈક પુષ્ટિ કરો</string>
+  <string name="sleep">સ્લીપ (જો વેક વર્ડ સક્ષમ હોય તો)</string>
+  <string name="turnOffVoiceRecognition">વોઇસ રેકગ્નિશન બંધ કરો</string>
+  <string name="showPuzzleSolution">પઝલનો ઉકેલ બતાવો</string>
+</resources>

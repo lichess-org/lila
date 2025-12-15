@@ -1,2 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="zeroAdsAndNoTracking">શૂન્ય જાહેરાત, કોઈ ટ્રેકિંગ નહીં</string>
+  <string name="correspondenceWithConditionalPremoves">શરતી પ્રીમૂવ્સ સાથે પત્રવ્યવહાર ચેસ</string>
+  <string name="standardChessAndX" comment="%s is 8 variants">સ્ટાન્ડર્ડ ચેસ અને %s</string>
+  <string name="deepXServerAnalysis" comment="%s is the engine name">ડીપ %s સર્વર વિશ્લેષણ</string>
+  <plurals name="gamesPerDay">
+    <item quantity="one">પ્રતિ દિવસ %s ગેમ</item>
+    <item quantity="other">પ્રતિ દિવસ %s ગેમ્સ</item>
+  </plurals>
+  <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (Stockfish, Fairy-Stockfish)">%s સાથે બોર્ડ એડિટર અને વિશ્લેષણ બોર્ડ</string>
+  <string name="cloudEngineAnalysis">ક્લાઉડ એન્જિન વિશ્લેષણ</string>
+  <string name="studies">સ્ટડીઝ (શેર કરી શકાય તેવું અને સતત વિશ્લેષણ)</string>
+  <string name="chessInsights">ચેસ ઇનસાઇટ્સ (તમારી રમતનું વિગતવાર વિશ્લેષણ)</string>
+  <string name="allChessBasicsLessons">બધા ચેસ બેઝિક્સ પાઠ</string>
+  <string name="tacticalPuzzlesFromUserGames">વપરાશકર્તાની રમતોમાંથી ટેક્ટિકલ પઝલ્સ</string>
+  <string name="personalOpeningExplorerX">%1$s ( %2$s પર પણ કામ કરે છે)</string>
+  <string name="personalOpeningExplorer">વ્યક્તિગત ઓપનિંગ એક્સપ્લોરર</string>
+  <string name="globalOpeningExplorerInNbGames">ગ્લોબલ ઓપનિંગ એક્સપ્લોરર (%s ગેમ્સ!)</string>
+  <string name="endgameTablebase">7-પીસ એન્ડગેમ ટેબલબેઝ</string>
+  <string name="downloadOrUploadAnyGameAsPgn">કોઈપણ રમત PGN તરીકે ડાઉનલોડ/અપલોડ કરો</string>
+  <string name="tvForumBlogTeamsMessagingFriendsChallenges">બ્લોગ, ફોરમ, ટીમો, ટીવી, મેસેજિંગ, મિત્રો, પડકારો</string>
+  <string name="lightOrDarkThemeCustomBoardsPiecesAndBackground">લાઇટ/ડાર્ક થીમ, કસ્ટમ બોર્ડ, ટુકડાઓ અને પૃષ્ઠભૂમિ</string>
+  <string name="ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess">અલ્ટ્રાબુલેટ, બુલેટ, બ્લિટ્ઝ, રેપિડ, ક્લાસિકલ, પત્રવ્યવહાર ચેસ</string>
+  <string name="allFeaturesToCome">બધી સુવિધાઓ આવવા માટે, કાયમ માટે!</string>
+  <string name="landscapeSupportOnApp">iPhone &amp; Android ફોન અને ટેબ્લેટ, લેન્ડસ્કેપ સપોર્ટ</string>
+  <string name="everybodyGetsAllFeaturesForFree">હા, બંને એકાઉન્ટમાં સમાન સુવિધાઓ છે!</string>
+  <string name="weBelieveEveryChessPlayerDeservesTheBest">અમારું માનવું છે કે દરેક ચેસ ખેલાડી શ્રેષ્ઠને પાત્ર છે, અને તેથી:</string>
+  <string name="allFeaturesAreFreeForEverybody">બધી સુવિધાઓ દરેક માટે મફત છે, કાયમ માટે!</string>
+  <string name="ifYouLoveLichess">જો તમને Lichess ગમે છે,</string>
+  <string name="supportUsWithAPatronAccount">પેટ્રન એકાઉન્ટ સાથે અમને સપોર્ટ કરો!</string>
+</resources>
