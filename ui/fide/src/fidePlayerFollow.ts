@@ -4,9 +4,10 @@ import { pubsub } from 'lib/pubsub';
 
 export function initModule(): void {
   fidePlayerFollow();
+  pubsub.on('content-loaded', fidePlayerFollow);
 }
 
-export function fidePlayerFollow(el?: HTMLElement): void {
+function fidePlayerFollow(el?: HTMLElement): void {
   (el || document.body)
     .querySelectorAll<HTMLInputElement>('.fide-player__follow input:not(.loaded)')
     .forEach(el => {
@@ -26,5 +27,4 @@ export function fidePlayerFollow(el?: HTMLElement): void {
       );
       el.classList.add('loaded');
     });
-  pubsub.on('content-loaded', fidePlayerFollow);
 }

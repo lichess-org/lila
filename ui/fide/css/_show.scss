@@ -1,4 +1,4 @@
-@import 'card';
+@import 'ratings';
 
 .fide-player {
   @extend %flex-column;
@@ -10,6 +10,7 @@
       @extend %box-neat;
       aspect-ratio: 1;
       display: block;
+      max-width: 300px;
     }
     gap: 3px;
     &__credit {
@@ -73,5 +74,13 @@
     h2 {
       margin-bottom: 1em;
     }
+  }
+  .toggle-box {
+    margin: -1.5rem 0 -1rem 0;
+  }
+  .toggle-box--toggle-off {
+    opacity: 0.6;
+    font-size: 0.5em;
+    border: none;
   }
 }

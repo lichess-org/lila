@@ -1,6 +1,6 @@
 import { wireCropDialog } from 'bits/crop';
 
-site.load.then(() => {
+export function initModule(): void {
   $('.fide-player__photo-edit').each(function (this: HTMLElement) {
     const form = this;
     wireCropDialog({
@@ -9,4 +9,4 @@ site.load.then(() => {
       selectClicks: $('.select-image'),
     });
   });
-});
+}

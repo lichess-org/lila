@@ -130,9 +130,6 @@ final class FidePlayerUi(helpers: Helpers, fideUi: FideUi, picfitUrl: lila.memo.
       )
     )
 
-  private def card(name: Frag, value: Frag) =
-    div(cls := "fide-card fide-player__card")(em(name), strong(value))
-
   private def followButton(p: FidePlayer.WithFollow) =
     val id = s"fide-player-follow-${p.player.id}"
     label(cls := "fide-player__follow")(
@@ -152,7 +149,11 @@ final class FidePlayerUi(helpers: Helpers, fideUi: FideUi, picfitUrl: lila.memo.
       ratings: FideRatingHistory,
       isFollowing: Boolean
   )(using ctx: Context) =
-    fideUi.page(s"${player.name} - FIDE player ${player.id}", "players")(
+    fideUi.page(
+      s"${player.name} - FIDE player ${player.id}",
+      "players",
+      _.js(esmInit("fideRatingChart", ratings.toJson))
+    )(
       cls := "box-pad fide-player",
       div(cls := "fide-player__header")(
         player.photo.map: photo =>
@@ -192,9 +193,15 @@ final class FidePlayerUi(helpers: Helpers, fideUi: FideUi, picfitUrl: lila.memo.
         )
       ),
       Granter.opt(_.FidePlayer).option(photoForm(player)),
-      div(cls := "fide-cards fide-player__cards")(
-        fideUi.tcTrans.map: (tc, name) =>
-          card(name(), player.ratingOf(tc).fold(trb.unrated())(_.toString))
+      div(cls := "fide-player__ratings")(
+        fideUi.tcTrans.map: (tc, name, icon) =>
+          div(cls := "fide-player__rating")(
+            div(cls := "fide-player__rating__text")(
+              em(dataIcon := icon, cls := "text")(name()),
+              strong(player.ratingOf(tc).fold(trb.unrated())(_.toString))
+            ),
+            canvas(cls := s"fide-player__rating__history fide-player__rating__history--$tc")
+          )
       ),
       tours.map: tours =>
         div(cls := "fide-player__tours")(h2(trb.recentTournaments()), tours)

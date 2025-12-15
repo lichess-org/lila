@@ -30,6 +30,8 @@
   <string name="cornerMateDescription">Baztertu erregea gaztelua edo dama eta zaldia erabiliz matea emateako.</string>
   <string name="crushing">Zapalketa</string>
   <string name="crushingDescription">Akatsa aurkitu eta guztizko abantaila lortu. (ebaluazioa ≥ 600cp)</string>
+  <string name="discoveredCheck" comment="Description (translatable separately):&#10;&#10;Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage.">Ageriko xakea</string>
+  <string name="discoveredCheckDescription" comment="Description for the &quot;Discovered check&quot; puzzle theme.">Mugitu pieza bat, atzean dagoen pieza batek aurkariari xake emateko. Normalean abantaila nabarmena lortzen da.</string>
   <string name="doubleBishopMate">Bi alfilen matea</string>
   <string name="doubleBishopMateDescription">Bi alfilek beren piezen artean trabatuta dagoen erregeari ematen dioten matea.</string>
   <string name="dovetailMate">Mirubuztanaren matea</string>

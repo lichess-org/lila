@@ -56,7 +56,7 @@ final class Annotator(netDomain: lila.core.config.NetDomain) extends lila.tree.A
               node.copy(
                 value = node.value.copy(
                   glyphs = Glyphs.fromList(advice.judgment.glyph :: Nil),
-                  comments = advice.makeComment(withEval = true, withBestMove = true) :: node.value.comments
+                  comments = advice.makeComment(true) :: node.value.comments
                 ),
                 variations = makeVariation(advice).toList ++ node.variations
               )

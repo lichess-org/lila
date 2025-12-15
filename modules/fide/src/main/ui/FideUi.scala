@@ -6,25 +6,32 @@ import chess.FideTC
 
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.core.i18n.I18nKey
 
 final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
   import helpers.{ *, given }
   import trans.{ site as trs, broadcast as trb }
 
-  private[ui] val tcTrans: List[(FideTC, lila.core.i18n.I18nKey)] =
+  private[ui] val tcTrans: List[(FideTC, I18nKey, Icon)] =
     List(
-      FideTC.standard -> trs.classical,
-      FideTC.rapid -> trs.rapid,
-      FideTC.blitz -> trs.blitz
+      (FideTC.standard, trs.classical, Icon.Turtle),
+      (FideTC.rapid, trs.rapid, Icon.Rabbit),
+      (FideTC.blitz, trs.blitz, Icon.Fire)
     )
 
-  private[ui] def page(title: String, active: String)(modifiers: Modifier*)(using Context): Page =
+  private[ui] def page(title: String, active: String, pageMods: Update[Page] = identity)(
+      modifiers: Modifier*
+  )(using
+      Context
+  ): Page =
     val editor = Granter.opt(_.FidePlayer)
     Page(title)
       .css("fide")
       .css(editor.option("fidePlayerForm"))
-      .js(infiniteScrollEsmInit ++ esmInit("fidePlayer"))
-      .js(editor.option(esmInit("fidePlayerForm"))):
+      .js(infiniteScrollEsmInit)
+      .js(esmInit("fidePlayerFollow"))
+      .js(editor.option(esmInit("fidePlayerForm")))
+      .pipe(pageMods):
         main(cls := "page-menu")(
           menu(active),
           div(cls := "page-menu__content box")(modifiers)
@@ -71,10 +78,10 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
           (fed.id.value == "KOS").option(p(cls := "fide-federation__kosovo")(kosovoText))
         ),
         div(cls := "fide-cards fide-federation__cards box__pad")(
-          tcTrans.map: (tc, name) =>
+          tcTrans.map: (tc, name, icon) =>
             val stats = fed.stats(tc)
             card(
-              name(),
+              em(dataIcon := icon, cls := "text")(name()),
               frag(
                 p(trs.rank(), strong(stats.get.rank)),
                 p(trb.top10Rating(), strong(stats.get.top10Rating)),
@@ -98,12 +105,15 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
       staticAssetUrl(s"$fideFedVersion/fide/fed-webp/${fideFed}.webp")
 
     private def card(name: Frag, value: Frag) =
-      div(cls := "fide-card fide-federation__card")(em(name), div(value))
+      div(cls := "fide-card fide-federation__card")(name, div(value))
 
   object player:
 
-    private def card(name: Frag, value: Frag) =
-      div(cls := "fide-card fide-player__card")(em(name), strong(value))
+    private def card(name: Frag, value: Frag, icon: Option[Icon] = None) =
+      div(cls := "fide-card fide-player__card")(
+        em(dataIcon := icon, cls := List("text" -> icon.isDefined))(name),
+        strong(value)
+      )
 
     private def followButton(p: FidePlayer.WithFollow) =
       val id = s"fide-player-follow-${p.player.id}"
@@ -146,8 +156,12 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
             trb.age(),
             player.age
           ),
-          tcTrans.map: (tc, name) =>
-            card(name(), player.ratingOf(tc).fold(trb.unrated())(_.toString))
+          tcTrans.map: (tc, name, icon) =>
+            card(
+              name(),
+              player.ratingOf(tc).fold(trb.unrated())(_.toString),
+              icon.some
+            )
         ),
         tours.map: tours =>
           div(cls := "fide-player__tours")(h2(trb.recentTournaments()), tours)

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessStreamers">Личес стримери</string>
-  <string name="lichessStreamer">Личес стример</string>
+  <string name="lichessStreamers">Lichess стримери</string>
+  <string name="lichessStreamer">Lichess стример</string>
   <string name="live">УЖИВО!</string>
-  <string name="offline">ОФЛАЈН</string>
+  <string name="offline">НИЈЕ НА МРЕЖИ</string>
   <string name="currentlyStreaming">Тренутно стримује: %s</string>
   <string name="lastStream">Последњи стрим %s</string>
   <string name="becomeStreamer">Постани Личес стример</string>
