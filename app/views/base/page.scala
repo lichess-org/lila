@@ -93,7 +93,7 @@ object page:
           pieceSetImages.load(ctx.pref.currentPieceSet.name),
           (ctx.pref.bg === lila.pref.Pref.Bg.SYSTEM || ctx.impersonatedBy.isDefined)
             .so(systemThemeScript(ctx.nonce))
-        ),
+        ).pipe(p.transformHead),
         st.body(
           cls := {
             val baseClass = s"${pref.currentBg} coords-${pref.coordsClass}"
@@ -168,7 +168,6 @@ object page:
           bottomHtml,
           ctx.nonce.map(inlineJs(_, allModules)),
           modulesInit(allModules, ctx.nonce),
-          p.jsFrag.fold(emptyFrag)(_(ctx.nonce)),
           p.pageModule.map { mod => frag(jsonScript(mod.data)) }
         )
       )
