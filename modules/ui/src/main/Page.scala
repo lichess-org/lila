@@ -24,7 +24,7 @@ case class Page(
     body: Option[Frag] = None,
     fullTitle: Option[String] = None,
     cssKeys: List[String] = Nil,
-    i18nModules: List[I18nModule.Selector] = List(_.site, _.timeago, _.preferences, _.nvui), // nvui temporary
+    i18nModules: List[I18nModule.Selector] = List(_.site, _.timeago, _.preferences),
     modules: EsmList = Nil,
     jsFrag: Option[WithNonce[Frag]] = None,
     pageModule: Option[PageModule] = None,
