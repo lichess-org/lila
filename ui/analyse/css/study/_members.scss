@@ -1,10 +1,6 @@
 .study__members {
   @extend %study-list;
 
-  @include mq-at-least-col3 {
-    max-height: unset;
-  }
-
   button {
     @extend %button-none;
 
