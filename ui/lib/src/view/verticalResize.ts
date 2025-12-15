@@ -41,6 +41,7 @@ export function verticalResize(o: Opts): VNode {
 
           divider.addEventListener('pointerdown', down => {
             document.body.classList.add('prevent-select');
+            divider.classList.add('is-dragging');
 
             const el = o.selector
               ? document.querySelector<HTMLElement>(o.selector)!
@@ -54,6 +55,7 @@ export function verticalResize(o: Opts): VNode {
 
             const up = () => {
               document.body.classList.remove('prevent-select');
+              divider.classList.remove('is-dragging');
 
               divider.releasePointerCapture(down.pointerId);
               window.removeEventListener('pointermove', move);

@@ -27,7 +27,7 @@ import { gameLinksListener } from '../studyChapters';
 import { baseUrl } from '@/view/util';
 import { commonDateFormat, timeago } from 'lib/i18n';
 import { renderChat } from 'lib/chat/renderChat';
-import { displayColumns, isTouchDevice } from 'lib/device';
+import { displayColumns } from 'lib/device';
 import { verticalResize } from 'lib/view/verticalResize';
 import { watchers } from 'lib/view/watchers';
 import { userLink } from 'lib/view/userLink';
@@ -53,10 +53,7 @@ export const tourSide = (ctx: RelayViewContext, kid: LooseVNode) => {
   const { ctrl, study, relay } = ctx;
   const empty = study.chapters.list.looksNew();
   const resizeId =
-    !ctrl.isEmbed &&
-    !isTouchDevice() &&
-    displayColumns() > (ctx.hasRelayTour ? 1 : 2) &&
-    `relayTour/${relay.data.tour.id}`;
+    !ctrl.isEmbed && displayColumns() > (ctx.hasRelayTour ? 1 : 2) && `relayTour/${relay.data.tour.id}`;
   return hl(
     'aside.relay-tour__side',
     {
