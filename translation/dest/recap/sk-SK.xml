@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<string name="hiUser" comment="%s is the title+username e.g. 'GM ABC' or simply ABC if there is no title">Ahoj, %s</string>
+	<string name="awaitQuestion" comment="Displayed while waiting for results">Čomu si sa venoval tento rok?</string>
+	<string name="initTitle">Aký si mal šachový rok!</string>
+	<string name="noGamesText">Tento rok si nehral žiadnu hru.</string>
+	<string name="noGamesCta">Chceš si zahrať?</string>
 	<plurals name="openingsMostPlayedAsWhite" comment="%s is the number of games">
 		<item quantity="one">Vaše najčastejšie hrané otvorenie za bieleho v %s partii</item>
 		<item quantity="few">Vaše najčastejšie hrané otvorenie za bieleho v %s partiách</item>
