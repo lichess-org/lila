@@ -46,7 +46,7 @@
 	</plurals>
 	<string name="puzzlesHelpedTagging" comment="To tag in this context is to categorise the themes the puzzles fit into.&#10;%s is a number e.g. 5">Vous avez aidé à étiqueter %s problèmes.</string>
 	<string name="puzzlesNone">Vous n\'avez fait aucun problème cette année.</string>
-	<string name="puzzlesTryNow" comment="This is context of a user who did not solve any puzzles in the past year. This is a call to action, inviting them to try Lichess puzzles.">Voulez-vous en faire maintenant?</string>
+	<string name="puzzlesTryNow" comment="This is context of a user who did not solve any puzzles in the past year. This is a call to action, inviting them to try Lichess puzzles.">Voulez-vous en essayer un?</string>
 	<string name="puzzlesYouWonOnFirstTry" comment="%s is the number of puzzles the user successfully solved that year.">Vous avez réussi %s problèmes au premier essai!</string>
 	<string name="sourcesTitle">Où avez-vous trouvé des parties à jouer?</string>
 	<string name="perfsTitle">Quelles étaient les cadences et les variantes?</string>
@@ -61,7 +61,7 @@
 	<string name="thanksHaveAGreat" comment="thanksHaveAGreat&#10;%s is the next year as a numeral (e.g. in 2025, the next year was 2026, so 2026 was displayed on this screen)">Nous sommes heureux de vous compter parmi nous et nous vous souhaitons une bonne année %s!</string>
 	<string name="patronCostsThisYear" comment="%1$s is 'costs', translatable separately.&#10;%2$s is a monetary amount with a currency symbol e.g. &quot;$750,000&quot;.&#10;The amount is localised automatically according to language and location, e.g. in France it would be rendered &quot;678 750 €&quot;, and in the UK as &quot;£589,539&quot;">Les %1$s de Lichess cette année étaient de %2$s.</string>
 	<string name="patronCosts" comment="Part of a longer sentence &quot;Lichess's costs this year were &lt;monetary amount in local currency&gt;.&quot;&#10;&#10;The text links to lichess.org/costs">coûts</string>
-	<string name="patronCharity">Nous sommes un organisme caritatif financé uniquement pas des dons.</string>
+	<string name="patronCharity">Nous sommes un organisme caritatif financé uniquement par des dons.</string>
 	<string name="patronConsiderDonating" comment="%s is 'supporting us with a donation'. Appears if you are not currently a Patron (donor).">Nous avons aidé à vous divertir cette année? Vous croyez en notre travail? %s!</string>
 	<string name="patronMakeDonation" comment="Part of a longer sentence, translatable separately:&#10;&quot;If we helped entertain you this year, or you believe in our work, please consider supporting us with a donation!&quot;&#10;&#10;The text links to https://lichess.org/patron - so it should ideally be phrased as a call to action.&#10;&#10;Appears if you are not currently a Patron (donor).">Appuyez-nous par un don</string>
 	<string name="shareableTitle" comment="%s is the current year">Mon récapitulatif %s</string>
