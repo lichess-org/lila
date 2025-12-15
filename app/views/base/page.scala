@@ -1,4 +1,5 @@
 package views.base
+
 import scalalib.StringUtils.escapeHtmlRaw
 
 import lila.app.UiEnv.{ *, given }
@@ -22,14 +23,9 @@ object page:
     raw(s"""<meta name="theme-color" content="${ctx.pref.themeColor}">""")
 
   private def boardPreload(using ctx: Context) = frag(
-    preload(assetUrl(s"images/board/${ctx.pref.currentTheme.file}"), "image", crossorigin = false),
-    ctx.pref.is3d.option(
-      preload(
-        assetUrl(s"images/staunton/board/${ctx.pref.currentTheme3d.file}"),
-        "image",
-        crossorigin = false
-      )
-    )
+    imagePathPreload(s"images/board/${ctx.pref.currentTheme.file}"),
+    ctx.pref.is3d.option:
+      imagePathPreload(s"images/staunton/board/${ctx.pref.currentTheme3d.file}")
   )
 
   def boardStyle(zoomable: Boolean)(using ctx: Context) =

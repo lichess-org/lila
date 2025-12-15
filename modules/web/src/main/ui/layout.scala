@@ -40,6 +40,8 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     raw:
       s"""<link rel="preload" href="$href" as="$as" $linkType${crossorigin.so("crossorigin")}>"""
 
+  def imagePathPreload(path: String) = preload(assetUrl(path), "image", crossorigin = false)
+
   def fontPreload(using ctx: Context) = frag(
     preload(assetUrl("font/lichess.woff2"), "font", crossorigin = true, "font/woff2".some),
     preload(
