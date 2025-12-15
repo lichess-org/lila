@@ -3,10 +3,171 @@
   <string name="faqAbbreviation">વારંવાર પૂછાતા પ્રશ્નો</string>
   <string name="frequentlyAskedQuestions">વારંવાર પૂછાતા પ્રશ્નો</string>
   <string name="whyIsLichessCalledLichess">Lichess ને Lichess શા માટે કેહવામાં આવે છે?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess એ live/light/libre અને chess નું સંયોજન છે. તેનો ઉચ્ચાર %1$s થાય છે.</string>
   <string name="leechess">લિચેસ</string>
+  <string name="hearItPronouncedBySpecialist">તેનો ઉચ્ચાર કોઈ નિષ્ણાત દ્વારા સાંભળો.</string>
+  <string name="whyLiveLightLibre">Live, કારણ કે રમતો 24/7 રીઅલ-ટાઇમમાં રમાય છે અને જોવામાં આવે છે; light અને libre એ હકીકત માટે છે કે Lichess ઓપન-સોર્સ છે અને અન્ય વેબસાઇટ્સને અસર કરતા માલિકી હકના કચરાથી મુક્ત છે.</string>
+  <string name="whyIsLilaCalledLila">તેવી જ રીતે, Lichess નો સોર્સ કોડ, %1$s, li[chess in sca]la નું પ્રતીક છે, કારણ કે Lichess નો મોટો ભાગ %2$s, એક સાહજિક પ્રોગ્રામિંગ ભાષામાં લખાયેલો છે.</string>
   <string name="howCanIContributeToLichess">હું Lichess ને કેવી રીતે ફાળો આપી શકું?</string>
   <string name="lichessPoweredByDonationsAndVolunteers">Lichess સમર્થકો તરફથી દાન અને સ્વયંસેવકોની ટીમના પ્રયત્નો દ્વારા સંચાલિત છે.</string>
+  <string name="findMoreAndSeeHowHelp">તમે %1$s વિશે વધુ માહિતી મેળવી શકો છો (જેમાં %2$s નો સમાવેશ થાય છે). જો તમે તમારો સમય અને કુશળતા સ્વૈચ્છિક રીતે આપીને Lichess ને મદદ કરવા માંગતા હો, તો ત્યાં ઘણી %3$s છે.</string>
   <string name="beingAPatron">પ્રોત્સાહક બનીને</string>
   <string name="breakdownOfOurCosts">અમારા ખર્ચની યાદી</string>
   <string name="otherWaysToHelp">મદદ કરવાની અન્ય રીતો</string>
+  <string name="areThereWebsitesBasedOnLichess">Lichess પર આધારિત વેબસાઇટ્સ છે?</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">હા. Lichess એ અન્ય ઓપન-સોર્સ સાઇટ્સને ખરેખર પ્રેરણા આપી છે જે અમારા %1$s, %2$s, અથવા %3$s નો ઉપયોગ કરે છે.</string>
+  <string name="keyboardShortcuts">કયા કીબોર્ડ શોર્ટકટ્સ છે?</string>
+  <string name="keyboardShortcutsExplanation">કેટલાક Lichess પૃષ્ઠોમાં તમે ઉપયોગ કરી શકો તેવા કીબોર્ડ શોર્ટકટ્સ છે. ઉપલબ્ધ કીબોર્ડ શોર્ટકટ્સની સૂચિ જોવા માટે સ્ટડી, એનાલિસિસ, પઝલ અથવા ગેમ પેજ પર \'?\' કી દબાવવાનો પ્રયાસ કરો.</string>
+  <string name="fairPlay">ફેર પ્લે</string>
+  <string name="whenAmIEligibleRatinRefund">ચીટર્સ તરફથી આપોઆપ રેટિંગ રિફંડ માટે હું ક્યારે પાત્ર છું?</string>
+  <string name="ratingRefundExplanation">કોઈ ખેલાડીને ચિહ્નિત કર્યાના એક મિનિટ પછી, છેલ્લા 5 દિવસમાં તેમની 40 સૌથી તાજેતરની રેટેડ ગેમ્સ લેવામાં આવે છે. જો તમે તેમાંથી કોઈ એક ગેમમાં તેમના પ્રતિસ્પર્ધી હતા, તમે રેટિંગ ગુમાવ્યું (હાર અથવા ડ્રોને કારણે), અને તમારું રેટિંગ કામચલાઉ નહોતું, તો તમને રેટિંગ રિફંડ મળે છે. રિફંડ તમારા પીક રેટિંગ અને ગેમ પછીની તમારી રેટિંગ પ્રગતિના આધારે મર્યાદિત હોય છે. (ઉદાહરણ તરીકે, જો તે ગેમ પછી તમારું રેટિંગ ઘણું વધ્યું હોય, તો તમને કોઈ રિફંડ નહીં મળે અથવા માત્ર આંશિક રિફંડ મળી શકે.) રિફંડ ક્યારેય 150 પોઇન્ટથી વધુ નહીં હોય.</string>
+  <string name="preventLeavingGameWithoutResigning">રાજીનામું આપ્યા વિના રમત છોડતા ખેલાડીઓ માટે શું કરવામાં આવે છે?</string>
+  <string name="leavingGameWithoutResigningExplanation">જો તમારા વિરોધી વારંવાર રમતો એબોર્ટ (abort) કરે/છોડી દે, તો તેમને \"પ્લે બેન\" મળે છે, જેનો અર્થ છે કે તેઓને કામચલાઉ ધોરણે રમતો રમવાથી પ્રતિબંધિત કરવામાં આવે છે. આ તેમના પ્રોફાઇલ પર જાહેરમાં દર્શાવવામાં આવતું નથી. જો આ વર્તન ચાલુ રહે, તો પ્લેબેનની અવધિ વધે છે - અને આ પ્રકારનું લાંબુ વર્તન એકાઉન્ટ બંધ થવા તરફ દોરી શકે છે.</string>
+  <string name="howCanIBecomeModerator">હું કેવી રીતે મોડરેટર (moderator) બની શકું?</string>
+  <string name="youCannotApply">મોડરેટર બનવા માટે અરજી કરવી શક્ય નથી. જો અમને કોઈ એવું વ્યક્તિ દેખાશે જે અમને લાગે છે કે મોડરેટર તરીકે સારો રહેશે, તો અમે તેમનો સીધો સંપર્ક કરીશું.</string>
+  <string name="isCorrespondenceDifferent">શું કોરેસ્પોન્ડન્સ (પત્રવ્યવહાર) ચેસ સામાન્ય ચેસ કરતાં અલગ છે?</string>
+  <string name="pleaseReadFairPlayPage">વધુ માહિતી માટે, કૃપા કરીને અમારું %s વાંચો.</string>
+  <string name="fairPlayPage">ફેર પ્લે પેજ</string>
+  <string name="youCanUseOpeningBookNoEngine">Lichess પર, કોરેસ્પોન્ડન્સ ચેસ (Correspondence Chess) માટેના નિયમોમાં મુખ્ય તફાવત એ છે કે ઓપનિંગ બુક (opening book) ને મંજૂરી છે. એન્જિન (engines) નો ઉપયોગ હજી પણ પ્રતિબંધિત છે અને તેના પરિણામે એન્જિન સહાયતા માટે ફ્લેગ (flagged) કરવામાં આવશે. ભલે ICCF (International Correspondence Chess Federation) કોરેસ્પોન્ડન્સમાં એન્જિનના ઉપયોગની મંજૂરી આપે છે, Lichess તેમ કરતું નથી.</string>
+  <string name="gameplay">ગેમપ્લે</string>
+  <string name="howBulletBlitzEtcDecided">બુલેટ, બ્લિટ્ઝ અને અન્ય સમય નિયંત્રણો (Time Controls) કેવી રીતે નક્કી થાય છે?</string>
+  <string name="basedOnGameDuration">Lichess સમય નિયંત્રણો અંદાજિત રમતની અવધિ (estimated game duration) = %1$s પર આધારિત છે.ઉદાહરણ તરીકે, 5+3 રમતની અંદાજિત અવધિ $5 \times 60 + 40 \times 3 = 420$ સેકન્ડ છે.</string>
+  <string name="durationFormula">(ઘડિયાળનો શરૂઆતનો સમય સેકન્ડમાં) $+ 40 \times$ (ઘડિયાળનો વધારો/ઇન્ક્રિમેન્ટ)</string>
+  <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
+  <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
+  <string name="whatVariantsCanIplay">Lichess પર હું કયા વેરિઅન્ટ્સ (Variants) રમી શકું?</string>
+  <string name="lichessSupportChessAnd">Lichess સ્ટાન્ડર્ડ ચેસ (Standard Chess) અને %1$s ને સપોર્ટ કરે છે.</string>
+  <string name="eightVariants">8 ચેસ વેરિઅન્ટ્સ</string>
+  <string name="whatIsACPL">એવરેજ સેન્ટિપોન લોસ (Average Centipawn Loss - ACPL) શું છે?</string>
+  <string name="acplExplanation">સેન્ટિપોન એ ફાયદાના પ્રતિનિધિત્વ તરીકે ચેસમાં ઉપયોગમાં લેવાતું માપનનું એકમ છે. એક સેન્ટિપોન એક પ્યાદાના $1/100$ મા ભાગ બરાબર છે. તેથી $100$ સેન્ટિપોન $= 1$ પ્યાદો. આ મૂલ્યો રમતમાં કોઈ ઔપચારિક ભૂમિકા ભજવતા નથી, પરંતુ તે ખેલાડીઓ માટે ઉપયોગી છે, અને પોઝિશનનું મૂલ્યાંકન કરવા માટે કમ્પ્યુટર ચેસમાં આવશ્યક છે.ટોચની કમ્પ્યુટર ચાલ શૂન્ય સેન્ટિપોન ગુમાવશે, પરંતુ ઓછી સારી ચાલના પરિણામે પોઝિશનમાં બગાડ થશે, જે સેન્ટિપોનમાં માપવામાં આવે છે.આ મૂલ્યનો ઉપયોગ રમતની ગુણવત્તાના સૂચક તરીકે થઈ શકે છે. પ્રતિ ચાલ જેટલા ઓછા સેન્ટિપોન ગુમાવવામાં આવે, તેટલી મજબૂત રમત ગણાય.Lichess પરનું કમ્પ્યુટર વિશ્લેષણ સ્ટોકફિશ દ્વારા સંચાલિત છે.</string>
+  <string name="insufficientMaterial">સમય પર હાર, ડ્રો અને અપૂરતી સામગ્રી</string>
+  <string name="lichessFollowFIDErules">જો એક ખેલાડીનો સમય સમાપ્ત થઈ જાય, તો તે ખેલાડી સામાન્ય રીતે રમત હારી જાય છે. જોકે, જો પોઝિશન એવી હોય કે પ્રતિસ્પર્ધી કાયદેસરની ચાલની કોઈપણ સંભવિત શ્રેણી દ્વારા ખેલાડીના રાજાને ચેકમેટ ન કરી શકે (%1$s), તો રમત ડ્રો જાહેર થાય છે.
+
+દુર્લભ કિસ્સાઓમાં આ આપમેળે નક્કી કરવું મુશ્કેલ બની શકે છે (ફોર્સ્ડ લાઇન, કિલ્લાઓ). મૂળભૂત રીતે અમે હંમેશા એવા ખેલાડીની તરફેણ કરીએ છીએ જેનો સમય સમાપ્ત ન થયો હોય. નોંધ કરો કે જો પ્રતિસ્પર્ધી પાસે એક ટુકડો હોય જે રાજાને અવરોધિત કરી શકે, તો એકલા નાઇટ અથવા બિશપ સાથે પણ મેટ કરવું શક્ય બની શકે છે.</string>
+  <string name="fideHandbook">FIDE હેન્ડબુક</string>
+  <string name="fideHandbookX">FIDE હેન્ડબુક %s</string>
+  <string name="discoveringEnPassant">પ્યાદો જ્યારે પહેલેથી જ પસાર થઈ ગયો હોય ત્યારે તે બીજા પ્યાદાને શા માટે પકડી શકે છે (en passant)?</string>
+  <string name="explainingEnPassant">આ એક કાયદેસરની ચાલ છે જે \"en passant\" તરીકે ઓળખાય છે. વિકિપીડિયા લેખ એક %1$s આપે છે.
+
+તે %2$s ના વિભાગો 3.7.3.1 અને 3.7.3.2 માં વર્ણવેલ છે:
+
+\"એક પ્યાદો જે તેના પ્રતિસ્પર્ધીના પ્યાદાની સમાન રેન્ક પર અને બાજુની ફાઇલ પર એક ચોરસ પર કબજો કરે છે, જેણે હમણાં જ તેની મૂળ ચોરસ પરથી એક ચાલમાં બે ચોરસ આગળ વધ્યા છે, તે પ્રતિસ્પર્ધીના પ્યાદાને એવી રીતે પકડી શકે છે જાણે કે તે ફક્ત એક ચોરસ જ ખસ્યો હોય. આ કેપ્ચર ફક્ત આ પ્રગતિ પછીની ચાલ પર જ કાયદેસર છે અને તેને \'en passant\' કેપ્ચર કહેવામાં આવે છે.\"
+
+આ ચાલ પર %3$s જુઓ, તેનાથી થોડો અભ્યાસ થઈ જશે.</string>
+  <string name="goodIntroduction">સારી પ્રસ્તાવના</string>
+  <string name="lichessTraining">Lichess તાલીમ</string>
+  <string name="watchIMRosenCheckmate">ઇન્ટરનેશનલ માસ્ટર એરિક રોઝન ચેકમેટ %s જુઓ.</string>
+  <string name="threefoldRepetition">ત્રણગણી પુનરાવૃત્તિ</string>
+  <string name="threefoldRepetitionExplanation">જો કોઈ પોઝિશન ત્રણ વખત થાય, તો ખેલાડીઓ %1$s દ્વારા ડ્રોનો દાવો કરી શકે છે. Lichess સત્તાવાર FIDE નિયમોનું અમલ કરે છે, જે %2$s ના આર્ટિકલ 9.2 માં વર્ણવેલ છે.</string>
+  <string name="threefoldRepetitionLowerCase">ત્રણગણી પુનરાવૃત્તિ</string>
+  <string name="notRepeatedMoves">આપણે ચાલનું પુનરાવર્તન કર્યું નથી. તો પણ રમત પુનરાવર્તન દ્વારા ડ્રો શા માટે થઈ?</string>
+  <string name="repeatedPositionsThatMatters">ત્રણગણી પુનરાવૃત્તિ એ પુનરાવર્તિત %1$s વિશે છે, ન કે ચાલ વિશે. પુનરાવૃત્તિ સતત થવી જરૂરી નથી.</string>
+  <string name="positions">પોઝિશન્સ</string>
+  <string name="weRepeatedthreeTimesPosButNoDraw">અમે એક પોઝિશનનું ત્રણ વખત પુનરાવર્તન કર્યું. તો પણ રમત ડ્રો કેમ ન થઈ?</string>
+  <string name="threeFoldHasToBeClaimed">પુનરાવૃત્તિનો દાવો ખેલાડીઓમાંથી કોઈ એક દ્વારા થવો જરૂરી છે. તમે બતાવેલ બટન દબાવીને, અથવા તમારી છેલ્લી પુનરાવર્તિત ચાલ પહેલાં ડ્રોની ઓફર કરીને તેમ કરી શકો છો. જો તમારો પ્રતિસ્પર્ધી ડ્રોની ઓફરને નકારે તો પણ કોઈ ફરક પડતો નથી, ત્રણગણી પુનરાવૃત્તિનો ડ્રોનો દાવો તો પણ થઈ જશે. તમે %1$s Lichess ને તમારા માટે આપમેળે પુનરાવૃત્તિનો દાવો કરવા માટે પણ કહી શકો છો. વધારામાં, પાંચગણી પુનરાવૃત્તિ હંમેશા રમતનો તાત્કાલિક અંત લાવે છે.</string>
+  <string name="configure">કન્ફિગર</string>
+  <string name="accounts">એકાઉન્ટ્સ</string>
+  <string name="titlesAvailableOnLichess">Lichess પર કયા ટાઇટલ છે?</string>
+  <string name="lichessRecognizeAllOTBtitles">Lichess OTB (ઓવર ધ બોર્ડ) રમતમાંથી મેળવેલા તમામ FIDE ટાઇટલને તેમજ %1$s ને પણ માન્યતા આપે છે. અહીં FIDE ટાઇટલ્સની સૂચિ આપેલી છે:</string>
+  <string name="showYourTitle">જો તમારી પાસે OTB ટાઇટલ હોય, તો તમે ઓળખ દસ્તાવેજ/કાર્ડની સ્પષ્ટ છબી અને દસ્તાવેજ/કાર્ડ પકડેલી તમારી સેલ્ફીનો સમાવેશ કરીને %1$s પૂર્ણ કરીને તમારા એકાઉન્ટ પર આ પ્રદર્શિત કરાવવા માટે અરજી કરી શકો છો.
+
+Lichess પર ટાઇટલવાળા ખેલાડી તરીકે વેરિફાય કરવાથી Titled Arena ઇવેન્ટ્સમાં રમવાની ઍક્સેસ મળે છે.
+
+છેલ્લે, એક માનદ %2$s ટાઇટલ પણ છે.</string>
+  <string name="asWellAsManyNMtitles">અસંખ્ય રાષ્ટ્રીય માસ્ટર ટાઇટલ</string>
+  <string name="verificationForm">વેરિફિકેશન ફોર્મ</string>
+  <string name="canIbecomeLM">શું હું Lichess માસ્ટર (LM) ટાઇટલ મેળવી શકું?</string>
+  <string name="noUpperCaseDot">ના</string>
+  <string name="lMtitleComesToYouDoNotRequestIt">આ માનદ ટાઇટલ અનધિકૃત છે અને તે માત્ર Lichess પર જ અસ્તિત્વ ધરાવે છે.
+
+અમે તે અત્યંત નોંધપાત્ર ખેલાડીઓ ને ભાગ્યે જ એનાયત કરીએ છીએ જેઓ Lichess ના સારા નાગરિક હોય, અમારા વિવેકબુદ્ધિ મુજબ. તમે LM ટાઇટલ મેળવતા નથી, LM ટાઇટલ તમારી પાસે આવે છે. જો તમે લાયક ઠરો, તો તમને તે અંગેનો એક સંદેશો અમારા તરફથી પ્રાપ્ત થશે અને તેને સ્વીકારવાનો અથવા નકારવાનો વિકલ્પ મળશે.
+
+LM ટાઇટલ માટે પૂછશો નહીં.</string>
+  <string name="whatUsernameCanIchoose">મારું યુઝરનેમ શું હોઈ શકે?</string>
+  <string name="usernamesNotOffensive">સામાન્ય રીતે, યુઝરનેમ આ ન હોવા જોઈએ: અપમાનજનક, કોઈ અન્યની નકલ કરતું, અથવા જાહેરાત કરતું. તમે %1$s વિશે વધુ વાંચી શકો છો.</string>
+  <string name="guidelines">માર્ગદર્શિકા</string>
+  <string name="canIChangeMyUsername">શું હું મારું યુઝરનેમ બદલી શકું?</string>
+  <string name="usernamesCannotBeChanged">ના, ટેકનિકલ અને વ્યવહારિક કારણોસર યુઝરનેમ બદલી શકાતા નથી. યુઝરનેમ ઘણી બધી જગ્યાએ મૂર્ત સ્વરૂપ પામેલા હોય છે: ડેટાબેસેસ, નિકાસ, લોગ્સ અને લોકોના મનમાં. તમે એકવાર કેપિટલાઇઝેશનને સમાયોજિત કરી શકો છો.</string>
+  <string name="uniqueTrophies">અનન્ય ટ્રોફી </string>
+  <string name="ownerUniqueTrophies">તે ટ્રોફી Lichess ના ઇતિહાસમાં અનન્ય છે, %1$s સિવાય અન્ય કોઈને તે ક્યારેય મળશે નહીં.</string>
+  <string name="aHourlyBulletTournament">એક કલાકની બુલેટ ટુર્નામેન્ટ</string>
+  <string name="goldenZeeExplanation">ZugAddict સ્ટ્રીમિંગ કરી રહ્યો હતો અને છેલ્લા 2 કલાકથી તે 1+0 ગેમમાં A.I. લેવલ 8 ને હરાવવાનો પ્રયાસ કરી રહ્યો હતો, પણ સફળ થયો નહોતો. Thibault એ તેને કહ્યું કે જો તે સ્ટ્રીમ પર સફળતાપૂર્વક આમ કરશે, તો તેને એક અનન્ય ટ્રોફી મળશે. એક કલાક પછી, તેણે Stockfish ને હરાવ્યું, અને વચનનું સન્માન કરવામાં આવ્યું.</string>
+  <string name="lichessRatings">Lichess રેટિંગ્સ</string>
+  <string name="whichRatingSystemUsedByLichess">Lichess કઈ રેટિંગ સિસ્ટમનો ઉપયોગ કરે છે?</string>
+  <string name="ratingSystemUsedByLichess">માર્ક ગ્લિકમેન દ્વારા વિકસિત Glicko-2 રેટિંગ પદ્ધતિ નો ઉપયોગ કરીને રેટિંગ્સની ગણતરી કરવામાં આવે છે. આ એક ખૂબ જ લોકપ્રિય રેટિંગ પદ્ધતિ છે, અને તેનો ઉપયોગ નોંધપાત્ર સંખ્યામાં ચેસ સંસ્થાઓ દ્વારા કરવામાં આવે છે (FIDE એક નોંધનીય વિરુદ્ધ-ઉદાહરણ છે, કારણ કે તેઓ હજી પણ જૂની Elo રેટિંગ સિસ્ટમનો ઉપયોગ કરે છે).મૂળભૂત રીતે, Glicko રેટિંગ્સ તમારા રેટિંગની ગણતરી અને રજૂઆત કરતી વખતે \"કોન્ફિડન્સ ઇન્ટરવલ્સ\" નો ઉપયોગ કરે છે. જ્યારે તમે પ્રથમ વખત સાઇટનો ઉપયોગ કરવાનું શરૂ કરો છો, ત્યારે તમારું રેટિંગ $1500 \pm 1000$ થી શરૂ થાય છે. 1500 તમારું રેટિંગ રજૂ કરે છે, અને 1000 કોન્ફિડન્સ ઇન્ટરવલ રજૂ કરે છે.મૂળભૂત રીતે, સિસ્ટમ 95% ખાતરી સાથે કહે છે કે તમારું રેટિંગ 500 અને 2500 ની વચ્ચે ક્યાંક છે. તે અત્યંત અનિશ્ચિત છે. આ કારણોસર, જ્યારે કોઈ ખેલાડી હમણાં જ શરૂઆત કરી રહ્યો હોય, ત્યારે તેનું રેટિંગ ખૂબ જ નાટકીય રીતે બદલાશે, સંભવતઃ એક સમયે સેંકડો પોઇન્ટ. પરંતુ સ્થાપિત ખેલાડીઓ સામેની કેટલીક રમતો પછી કોન્ફિડન્સ ઇન્ટરવલ સંકુચિત થશે, અને દરેક રમત પછી મેળવેલા/ગુમાવેલા પોઇન્ટ્સની સંખ્યા ઘટશે.નોંધ લેવા જેવો બીજો મુદ્દો એ છે કે, સમય પસાર થવાની સાથે, કોન્ફિડન્સ ઇન્ટરવલ વધશે. આ તમને તે સમય દરમિયાન તમારી કુશળતાના સ્તરમાં થતા કોઈપણ ફેરફારો સાથે મેળ કરવા માટે વધુ ઝડપથી પોઇન્ટ મેળવવા/ગુમાવવાની મંજૂરી આપે છે.</string>
+  <string name="whatIsProvisionalRating">રેટિંગની બાજુમાં પ્રશ્ન ચિહ્ન (?) શા માટે છે?</string>
+  <string name="provisionalRatingExplanation">પ્રશ્ન ચિહ્નનો અર્થ છે કે રેટિંગ કામચલાઉ (provisional) છે. કારણોમાં શામેલ છે:</string>
+  <string name="notPlayedEnoughRatedGamesAgainstX">ખેલાડીએ રેટિંગ કેટેગરીમાં %1$s સામે પૂરતી રેટેડ રમતો હજી પૂરી કરી નથી.</string>
+  <string name="similarOpponents">સમાન શક્તિના પ્રતિસ્પર્ધીઓ (Opponents of Similar Strength)</string>
+  <string name="notPlayedRecently">ખેલાડીએ પૂરતી તાજેતરની રમતો રમી નથી. તમે કેટલી રમતો રમી છે તેના આધારે, તમારું રેટિંગ ફરીથી કામચલાઉ બનવામાં લગભગ એક વર્ષની નિષ્ક્રિયતા લાગી શકે છે.</string>
+  <string name="ratingDeviationMorethanOneHundredTen">ચોક્કસપણે, તેનો અર્થ એ છે કે Glicko-2 વિચલન 110 કરતા વધારે છે. વિચલન એ સિસ્ટમનું રેટિંગમાં રહેલા વિશ્વાસનું સ્તર છે. વિચલન જેટલું ઓછું હોય, રેટિંગ એટલું જ વધુ સ્થિર હોય છે.</string>
+  <string name="howDoLeaderoardsWork">રેન્ક અને લીડરબોર્ડ્સ કેવી રીતે કામ કરે છે?</string>
+  <string name="inOrderToAppearsYouMust">%1$s પર આવવા માટે તમારે આ કરવું આવશ્યક છે:</string>
+  <string name="ratingLeaderboards">રેટિંગ લીડરબોર્ડ</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">આપેલ રેટિંગમાં ઓછામાં ઓછી 30 રેટેડ ગેમ્સ રમી હોય,</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">આ રેટિંગ માટે છેલ્લા એક સપ્તાહમાં રેટેડ ગેમ રમી હોય,</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">સ્ટાન્ડર્ડ ચેસમાં %1$s કરતાં ઓછું, અને વેરિઅન્ટ્સમાં %2$s કરતાં ઓછું રેટિંગ વિચલન હોય,</string>
+  <string name="beInTopTen">આ રેટિંગમાં ટોચના 10 માં હોવા જોઈએ.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">બીજી આવશ્યકતા એ છે કે જે ખેલાડીઓ હવે તેમના એકાઉન્ટનો ઉપયોગ કરતા નથી તેઓ લીડરબોર્ડ્સમાં આવતા બંધ થાય.</string>
+  <string name="whyAreRatingHigher">FIDE, USCF અને ICC જેવી અન્ય સાઇટ્સ અને સંસ્થાઓની તુલનામાં રેટિંગ્સ શા માટે ઊંચા છે?</string>
+  <string name="whyAreRatingHigherExplanation">રેટિંગ્સને સંપૂર્ણ સંખ્યાઓ તરીકે વિચારવું અથવા અન્ય સંસ્થાઓ સાથે તેમની તુલના કરવી શ્રેષ્ઠ નથી. જુદી જુદી સંસ્થાઓમાં ખેલાડીઓના જુદા જુદા સ્તરો હોય છે, જુદી જુદી રેટિંગ સિસ્ટમ્સ (Elo, Glicko, Glicko-2, અથવા ઉપરોક્તમાં ફેરફાર કરેલ સંસ્કરણ) હોય છે. આ પરિબળો સંપૂર્ણ સંખ્યાઓ (રેટિંગ્સ) ને ભારે અસર કરી શકે છે.
+
+રેટિંગ્સને \"સંબંધિત\" આંકડાઓ (વિરુદ્ધ \"સંપૂર્ણ\" આંકડાઓ) તરીકે વિચારવું શ્રેષ્ઠ છે: ખેલાડીઓના સમૂહની અંદર, તેમના રેટિંગ્સમાં સંબંધિત તફાવતો તમને કોણ જીતશે/ડ્રો કરશે/હારશે અને કેટલી વાર, તેનો અંદાજ લગાવવામાં મદદ કરશે. \"મારી પાસે X રેટિંગ છે\" એમ કહેવું કંઈ કહેતું નથી સિવાય કે તે રેટિંગની તુલના કરવા માટે અન્ય ખેલાડીઓ હોય.</string>
+  <string name="howToHideRatingWhilePlaying">રમતી વખતે રેટિંગ્સ કેવી રીતે છુપાવવા?</string>
+  <string name="enableZenMode">%1$s માં ઝેન-મોડ (Zen-mode) સક્ષમ કરો, અથવા રમત દરમિયાન %2$s દબાવો.</string>
+  <string name="displayPreferences">ડિસ્પ્લે પસંદગીઓ </string>
+  <string name="connexionLostCanIGetMyRatingBack">હું લેગ/ડિસ્કનેક્શનને કારણે રમત હારી ગયો. શું હું મારા રેટિંગ પોઇન્ટ્સ પાછા મેળવી શકું? </string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">દુર્ભાગ્યે, લેગ અથવા ડિસ્કનેક્શનને કારણે હારેલી રમતો માટે અમે રેટિંગ પોઇન્ટ્સ પાછા આપી શકતા નથી, ભલે સમસ્યા તમારા છેડે હોય કે અમારા છેડે. જોકે, પછીનું કારણ ખૂબ જ દુર્લભ છે. એ પણ નોંધ લો કે જ્યારે Lichess પુનઃપ્રારંભ થાય છે અને તમે તેના કારણે સમયસર હારી જાઓ છો, ત્યારે અમે અયોગ્ય હારને રોકવા માટે રમતને એબોર્ટ કરીએ છીએ.</string>
+  <string name="howToThreeDots">કેવી રીતે...</string>
+  <string name="enableDisableNotificationPopUps">નોટિફિકેશન પોપઅપ્સ સક્ષમ અથવા નિષ્ક્રિય કરવા?</string>
+  <string name="viewSiteInformationPopUp">સાઇટ માહિતી પોપઅપ જુઓ</string>
+  <string name="lichessCanOptionnalySendPopUps">Lichess વૈકલ્પિક રીતે પોપઅપ નોટિફિકેશન્સ મોકલી શકે છે, ઉદાહરણ તરીકે જ્યારે તમારો વારો હોય અથવા તમને કોઈ ખાનગી સંદેશ મળ્યો હોય. તમારા બ્રાઉઝરના URL બારમાં lichess.org એડ્રેસની બાજુમાં આપેલા લોક આઇકન પર ક્લિક કરો
+
+પછી Lichess તરફથી નોટિફિકેશન્સને મંજૂરી આપવી કે બ્લોક કરવી તે પસંદ કરો.</string>
+  <string name="enableAutoplayForSoundsQ">સાઉન્ડ માટે ઓટોપ્લે સક્ષમ કરવું?</string>
+  <string name="enableAutoplayForSoundsA">મોટાભાગના બ્રાઉઝર્સ વપરાશકર્તાઓને સુરક્ષિત રાખવા માટે તાજી લોડ થયેલા પેજ પર સાઉન્ડ વગાડતા અટકાવી શકે છે. કલ્પના કરો કે જો દરેક વેબસાઇટ તરત જ તમને ઓડિયો જાહેરાતોથી ભરી દે તો?
+
+જ્યારે તમારું બ્રાઉઝર lichess.org ને સાઉન્ડ વગાડતા અટકાવે છે, ત્યારે લાલ મ્યૂટ આઇકન દેખાય છે. સામાન્ય રીતે એકવાર તમે કંઈક ક્લિક કરો પછી આ પ્રતિબંધ દૂર થઈ જાય છે. કેટલાક મોબાઇલ બ્રાઉઝર્સ પર, ટચ કરીને કોઈ ટુકડો ખેંચવાથી તેને ક્લિક ગણવામાં આવતું નથી. તે કિસ્સામાં તમારે દરેક રમતની શરૂઆતમાં સાઉન્ડની મંજૂરી આપવા માટે બોર્ડ પર ટેપ કરવું પડશે.
+
+જ્યારે આવું થાય છે ત્યારે તમને ચેતવણી આપવા માટે અમે લાલ આઇકન બતાવીએ છીએ. ઘણીવાર તમે lichess.org ને સાઉન્ડ વગાડવાની સ્પષ્ટપણે મંજૂરી આપી શકો છો. અહીં કેટલાક લોકપ્રિય બ્રાઉઝર્સના તાજેતરના સંસ્કરણો પર આ કરવા માટેની સૂચનાઓ આપેલી છે:</string>
+  <string name="desktop">ડેસ્કટોપ</string>
+  <string name="enableAutoplayForSoundsFirefox">1. lichess.org પર જાઓ
+
+2. Linux/Windows પર Ctrl-i અથવા MacOS પર cmd-i દબાવો
+
+3. Permissions ટેબ પર ક્લિક કરો
+
+4. lichess.org પર Audio અને Video ને મંજૂરી આપો</string>
+  <string name="enableAutoplayForSoundsChrome">1. lichess.org પર જાઓ
+
+2. એડ્રેસ બારમાં લોક આઇકન પર ક્લિક કરો
+
+3. Site Settings પર ક્લિક કરો
+
+4. Sound ને મંજૂરી આપો</string>
+  <string name="enableAutoplayForSoundsSafari">lichess.org પર જાઓ
+
+મેનૂ બારમાં Safari પર ક્લિક કરો
+
+Settings for lichess.org ... પર ક્લિક કરો
+
+Allow All Auto-Play ને મંજૂરી આપો</string>
+  <string name="enableAutoplayForSoundsMicrosoftEdge">ઉપરના જમણા ખૂણામાં ત્રણ ટપકાં પર ક્લિક કરો
+
+Settings પર ક્લિક કરો
+
+Cookies and Site Permissions પર ક્લિક કરો
+
+નીચે સ્ક્રોલ કરો અને Media autoplay પર ક્લિક કરો
+
+Allow માં lichess.org ઉમેરો</string>
+  <string name="stopMyselfFromPlaying">રમવાથી મારી જાતને કેવી રીતે રોકવી?</string>
+  <string name="mentalHealthCondition">સ્વતંત્ર માનસિક સ્વાસ્થ્યની સ્થિતિ</string>
+  <string name="lichessUserstyles">Lichess યુઝરસ્ટાઇલ્સ</string>
+  <string name="fewerLobbyPools">ઓછા લોબી પૂલ</string>
+  <string name="adviceOnMitigatingAddiction">અમને નિયમિતપણે વપરાશકર્તાઓ તરફથી સંદેશાઓ મળે છે જેઓ તેમને વધારે પડતું રમવાથી રોકવા માટે મદદ માંગે છે.
+
+જોકે Lichess સર્વિસની શરતોના ઉલ્લંઘન સિવાય ખેલાડીઓને પ્રતિબંધિત કે બ્લોક કરતું નથી, અમે અતિશય રમવાના વર્તનને મર્યાદિત કરવા માટે બાહ્ય સાધનો નો ઉપયોગ કરવાની ભલામણ કરીએ છીએ. વેબસાઇટ બ્લોકર્સ માટેના કેટલાક સામાન્ય સૂચનોમાં %1$s, %2$s, અને %3$s શામેલ છે. જો તમે સાઇટનો ઉપયોગ ચાલુ રાખવા માંગો છો પરંતુ ઝડપી ટાઇમ કંટ્રોલ્સથી લલચાવવા માંગતા નથી, તો તમને %4$s માં પણ રસ હોઈ શકે છે, અહીં %5$s સાથેનું એક છે.
+
+કેટલાક ખેલાડીઓને એવું લાગી શકે છે કે તેમનું રમવાનું વર્તન વ્યસનમાં ફેરવાઈ રહ્યું છે. હકીકતમાં, WHO ગેમિંગ ડિસઓર્ડરને %6$s તરીકે વર્ગીકૃત કરે છે, જેના આવશ્યક લક્ષણો છે 1) ગેમિંગ પર ક્ષતિગ્રસ્ત નિયંત્રણ, 2) ગેમિંગને વધતી જતી પ્રાથમિકતા, અને 3) નકારાત્મક પરિણામો છતાં ગેમિંગમાં વધારો. જો તમને લાગે કે તમારું ચેસ રમવાનું વર્તન આ પદ્ધતિને અનુસરે છે, તો અમે તમને મિત્ર અથવા કુટુંબના સભ્ય સાથે અને/અથવા કોઈ વ્યાવસાયિક સાથે તે વિશે વાત કરવા પ્રોત્સાહિત કરીએ છીએ.</string>
 </resources>

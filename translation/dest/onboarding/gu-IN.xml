@@ -1,2 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="logInAsUsername">%s તરીકે લૉગ ઇન કરો</string>
+  <string name="welcome">સ્વાગત!</string>
+  <string name="welcomeToLichess">lichess.org માં તમારું સ્વાગત છે!</string>
+  <string name="thisIsYourProfilePage">આ તમારું પ્રોફાઇલ પેજ છે.</string>
+  <string name="enabledKidModeSuggestion">શું આ એકાઉન્ટનો ઉપયોગ બાળક કરશે? તમે કદાચ %s સક્ષમ કરવા માંગો છો.</string>
+  <string name="whatNowSuggestions">હવે શું? અહીં કેટલાક સૂચનો આપેલા છે:</string>
+  <string name="learnChessRules">ચેસના નિયમો શીખો</string>
+  <string name="improveWithChessTacticsPuzzles">ચેસ ટેક્ટિક્સ પઝલ્સથી સુધારો.</string>
+  <string name="playTheArtificialIntelligence">આર્ટિફિશિયલ ઇન્ટેલિજન્સ રમો.</string>
+  <string name="playOpponentsFromAroundTheWorld">સમગ્ર વિશ્વના પ્રતિસ્પર્ધીઓ સામે રમો.</string>
+  <string name="followYourFriendsOnLichess">Lichess પર તમારા મિત્રોને ફોલો કરો.</string>
+  <string name="playInTournaments">ટુર્નામેન્ટમાં રમો.</string>
+  <string name="learnFromXAndY">%1$s અને %2$s પાસેથી શીખો.</string>
+  <string name="configureLichess">તમારી પસંદ મુજબ Lichess રૂપરેખાંકિત કરો.</string>
+  <string name="exploreTheSiteAndHaveFun">સાઇટનું અન્વેષણ કરો અને આનંદ કરો :)</string>
+</resources>

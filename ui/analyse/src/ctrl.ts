@@ -920,7 +920,7 @@ export default class AnalyseCtrl implements CevalHandler {
 
   gamebookPlay = (): GamebookPlayCtrl | undefined => this.study?.gamebookPlay;
 
-  isGamebook = (): boolean => !!(this.study && this.study.data.chapter.gamebook);
+  isGamebook = (): boolean => !!this.study?.data.chapter.gamebook;
 
   private closeTools = () => {
     this.retro = undefined;
