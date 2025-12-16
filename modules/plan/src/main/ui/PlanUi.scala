@@ -30,8 +30,8 @@ final class PlanUi(helpers: Helpers)(style: PlanStyle, contactEmail: EmailAddres
     val localeParam = lila.plan.PayPalClient.locale(ctx.lang).so { l => s"&locale=$l" }
     Page(trans.patron.becomePatron.txt())
       .css("bits.plan")
-      .iife:
-        ctx.isAuth.option(
+      .append:
+        ctx.isAuth.so:
           frag(
             stripeScript,
             pricing.payPalSupportsCurrency.option:
@@ -48,7 +48,6 @@ final class PlanUi(helpers: Helpers)(style: PlanStyle, contactEmail: EmailAddres
                 )
               )
           )
-        )
       .js:
         ctx.isAuth.option:
           esmInitObj("bits.checkout", "stripePublicKey" -> stripePublicKey, "pricing" -> pricing)
@@ -404,7 +403,7 @@ final class PlanUi(helpers: Helpers)(style: PlanStyle, contactEmail: EmailAddres
   )(using ctx: Context) =
     Page(trans.patron.thankYou.txt())
       .css("bits.plan")
-      .iife(stripeScript)
+      .append(stripeScript)
       .js(esmInitObj("bits.plan", Json.obj("stripePublicKey" -> stripePublicKey)))
       .csp(paymentCsp):
         main(cls := "box box-pad plan")(

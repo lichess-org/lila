@@ -1,4 +1,5 @@
 package views.base
+
 import scalalib.StringUtils.escapeHtmlRaw
 
 import lila.app.UiEnv.{ *, given }
@@ -22,14 +23,9 @@ object page:
     raw(s"""<meta name="theme-color" content="${ctx.pref.themeColor}">""")
 
   private def boardPreload(using ctx: Context) = frag(
-    preload(assetUrl(s"images/board/${ctx.pref.currentTheme.file}"), "image", crossorigin = false),
-    ctx.pref.is3d.option(
-      preload(
-        assetUrl(s"images/staunton/board/${ctx.pref.currentTheme3d.file}"),
-        "image",
-        crossorigin = false
-      )
-    )
+    imagePreload(assetUrl(s"images/board/${ctx.pref.currentTheme.file}")),
+    ctx.pref.is3d.option:
+      imagePreload(assetUrl(s"images/staunton/board/${ctx.pref.currentTheme3d.file}"))
   )
 
   def boardStyle(zoomable: Boolean)(using ctx: Context) =
@@ -97,7 +93,7 @@ object page:
           pieceSetImages.load(ctx.pref.currentPieceSet.name),
           (ctx.pref.bg === lila.pref.Pref.Bg.SYSTEM || ctx.impersonatedBy.isDefined)
             .so(systemThemeScript(ctx.nonce))
-        ),
+        ).pipe(p.transformHead),
         st.body(
           cls := {
             val baseClass = s"${pref.currentBg} coords-${pref.coordsClass}"
@@ -172,7 +168,6 @@ object page:
           bottomHtml,
           ctx.nonce.map(inlineJs(_, allModules)),
           modulesInit(allModules, ctx.nonce),
-          p.jsFrag.fold(emptyFrag)(_(ctx.nonce)),
           p.pageModule.map { mod => frag(jsonScript(mod.data)) }
         )
       )

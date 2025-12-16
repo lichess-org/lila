@@ -26,6 +26,7 @@ final class RelayUi(helpers: Helpers)(
       chatOption: Option[(JsObject, Frag)],
       socketVersion: SocketVersion
   )(using ctx: Context) =
+    val imageUrl = rt.tour.image.map(thumbnail.url(_, _.Size.Large))
     Page(rt.transName)
       .css("analyse.relay")
       .i18n(_.study, _.broadcast)
@@ -39,9 +40,10 @@ final class RelayUi(helpers: Helpers)(
           title = rt.transName,
           url = pathUrl(rt.path),
           description = shorten(rt.tour.info.toString, 152),
-          image = rt.tour.image.map(thumbnail.url(_, _.Size.Large))
+          image = imageUrl
         )
-      ):
+      )
+      .preloadImage(imageUrl)(helpers):
         showPreload(rt, data)
 
   def pageModule(
