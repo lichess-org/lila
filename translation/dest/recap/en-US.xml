@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="hiUser" comment="%s is the title+username e.g. 'GM ABC' or simply ABC if there is no title">Hi, %s</string>
-	<string name="awaitQuestion" comment="Displayed while waiting for results">What have you been up to this year?</string>
+	<string name="awaitQuestion" comment="Displayed while waiting for results and also as a notification.">What have you been up to this year?</string>
 	<string name="initTitle">What a chess year you\'ve had!</string>
 	<string name="noGamesText">You did not play any games this year.</string>
 	<string name="noGamesCta">Wanna play now?</string>
@@ -32,4 +32,12 @@
 		<item quantity="other">%s kilograms</item>
 	</plurals>
 	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">is how you started %s of your games as white</string>
+	<plurals name="openingsMostPlayedAsWhite" comment="%s is the number of games">
+		<item quantity="one">Your most played opening as white in %s game</item>
+		<item quantity="other">Your most played opening as white in %s games</item>
+	</plurals>
+	<plurals name="openingsMostPlayedAsBlack" comment="%s is the number of games">
+		<item quantity="one">Your most played opening as black in %s game</item>
+		<item quantity="other">Your most played opening as black in %s games</item>
+	</plurals>
 </resources>

@@ -14,6 +14,9 @@
   <string name="attractionDescription">Interŝanĝo aŭ ofero kiu instigas aŭ trudas kontraŭulan ŝakpecon al kvadrato ke ebligas taktikon.</string>
   <string name="backRankMate">Malantaŭvico mato</string>
   <string name="backRankMateDescription">Ŝakmati la reĝo sur la hejmrango, kiam ĝi estas kaptita per ĝiaj propraj ŝakpecoj.</string>
+  <string name="balestraMate">Balestra mato</string>
+  <string name="balestraMateDescription">Kuriero liveras la ŝakmaton, dum damo blokas la ceterajn eskapajn ĉelojn</string>
+  <string name="blindSwineMate">Blinda-porka mato</string>
   <string name="bishopEndgame">Kuriera finaĵo</string>
   <string name="bishopEndgameDescription">Finaĵo nur kun kurieroj kaj soldatoj.</string>
   <string name="bodenMate">Boden ŝakmato</string>
@@ -26,7 +29,7 @@
   <string name="crushingDescription">Trovu la kontraŭulan eraregon por akiri disbatantan avantaĝon. (takso ≥ 600cp)</string>
   <string name="doubleBishopMate">Duokuriera ŝakmato</string>
   <string name="doubleBishopMateDescription">Du kontraŭaj kurieroj sur apudaj diagonaloj liveras maton al reĝo ĉirkaŭbarita per amikaj ŝakpecoj.</string>
-  <string name="dovetailMate">Mato de Cozio</string>
+  <string name="dovetailMate">Kolombo-vosta mato</string>
   <string name="dovetailMateDescription">Damo liveras maton al apuda reĝo, kies du eskapajn ĉelojn blokas amikaj ŝakpecoj.</string>
   <string name="equality">Egaligi</string>
   <string name="equalityDescription">Reiru el malvenkanta pozicio, kaj sekurigi egalvenkon aŭ egalan pozicion. (takso ≤ 200cp)</string>
@@ -57,6 +60,7 @@
   <string name="interferenceDescription">Movo de peco inter du kontraŭaj pecoj por lasi unu aŭ ambaŭ kontraŭaj pecoj sendefenda, kiel ĉevalo sur defendita ĉelo inter du turoj.</string>
   <string name="intermezzo">Intermeza movo</string>
   <string name="intermezzoDescription">Anstataŭ ludo de la atendita movo, unue intermetu alian movon, kiu faras tujan minacon, al kiu via kontraŭulo devas respondi.</string>
+  <string name="triangleMate">Triangula mato</string>
   <string name="knightEndgame">Ĉevala finaĵo</string>
   <string name="knightEndgameDescription">Finaĵo nur kun ĉevaloj kaj soldatoj.</string>
   <string name="long">Longa puzlo</string>
