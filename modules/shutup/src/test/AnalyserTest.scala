@@ -96,3 +96,6 @@ class AnalyserTest extends munit.FunSuite:
     assertEquals(find("V/igger"), List("vigger"))
     assertEquals(find("/vigger"), List("vigger"))
     assertEquals(find("I like /Viggers"), List("viggers"))
+
+  test("i workaround with https://www.codetable.net/decimal/775"):
+    assertEquals(find("ni̇gger"), List("nigger"))
