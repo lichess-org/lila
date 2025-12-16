@@ -6,7 +6,7 @@
   <string name="offline">НИЈЕ НА МРЕЖИ</string>
   <string name="currentlyStreaming">Тренутно стримује: %s</string>
   <string name="lastStream">Последњи стрим %s</string>
-  <string name="becomeStreamer">Постани Личес стример</string>
+  <string name="becomeStreamer">Постани Lichess стример</string>
   <string name="doYouHaveStream">Имаш ли Твич или Јутјуб канал?</string>
   <string name="hereWeGo">Идемо!</string>
   <string name="allStreamers">Сви стримери</string>
