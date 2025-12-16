@@ -60,7 +60,7 @@ export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
                             playerFedFlag(p.fed),
                             hl('span.name', [userTitle(p), p.name]),
                           ]),
-                          showResults && hl(resultTag(s), [s]),
+                          showResults && typeof s === 'string' && hl(resultTag(s), [s]),
                         ]
                       : [hl('span.mini-game__user', hl('span.name', 'Unknown player'))],
                   );

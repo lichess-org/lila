@@ -194,7 +194,7 @@ export function underboard(ctrl: AnalyseCtrl): LooseVNodes {
   return [notifView(study.notif), descView(study, true), descView(study, false), buttons(ctrl), panel];
 }
 
-export const resultTag = (s: any) => (s === '1' ? 'good' : s === '0' ? 'bad' : 'status');
+export const resultTag = (s: string) => (s === '1' ? 'good' : s === '0' ? 'bad' : 'status');
 
 interface ToolButtonOpts {
   ctrl: StudyCtrl;
