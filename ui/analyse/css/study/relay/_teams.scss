@@ -1,3 +1,4 @@
+@import './result-box';
 .relay-tour {
   &__team-table {
     &.loading {
@@ -32,6 +33,7 @@
       padding: 0.5em 1em;
       &__points {
         @extend %flex-around;
+        @extend %result-box;
         points {
           font-weight: bold;
         }
