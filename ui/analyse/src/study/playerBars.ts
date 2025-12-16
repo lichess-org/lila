@@ -83,7 +83,7 @@ function renderPlayer(
             : photo
               ? hl('img.relay-board-player__photo', { attrs: { src: photo.small } })
               : hl('img.relay-board-player__photo.relay-board-player__photo--fallback', {
-                  attrs: { src: site.asset.url('images/anon-face.png') },
+                  attrs: { src: site.asset.url('images/anon-face.webp') },
                 }),
           hl('div.info-split', [
             hl('div', [

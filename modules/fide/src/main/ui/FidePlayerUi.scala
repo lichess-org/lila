@@ -211,7 +211,7 @@ final class FidePlayerUi(helpers: Helpers, fideUi: FideUi, picfitUrl: lila.memo.
     def apply(image: Option[ImageId], size: FidePlayer.PlayerPhoto.SizeSelector): Tag =
       image.fold(fallback): id =>
         img(src := url(id, size))
-    def fallback = img(src := staticAssetUrl("images/anon-face.png"))
+    def fallback = img(src := staticAssetUrl("images/anon-face.webp"))
     def url(id: ImageId, size: FidePlayer.PlayerPhoto.SizeSelector) =
       FidePlayer.PlayerPhoto(picfitUrl, id, size)
 
