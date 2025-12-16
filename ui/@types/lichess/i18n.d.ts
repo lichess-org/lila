@@ -4459,6 +4459,8 @@ interface I18n {
     tryToWin: string;
     /** Type private notes here */
     typePrivateNotesHere: string;
+    /** UltraBullet */
+    ultraBullet: string;
     /** Insanely fast games: less than 30 seconds */
     ultraBulletDesc: string;
     /** Unblock */
