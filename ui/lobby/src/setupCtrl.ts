@@ -36,6 +36,8 @@ export default class SetupController {
   ratingMax: Prop<number>;
   aiLevel: Prop<number>;
 
+  variantMenuOpen = false;
+
   timeControl: TimeControl;
 
   constructor(ctrl: LobbyController) {
@@ -173,10 +175,16 @@ export default class SetupController {
     this.fenError = false;
     this.lastValidFen = '';
     this.friendUser = friendUser || '';
+    this.variantMenuOpen = false;
     this.loadPropsFromStore(forceOptions);
   };
 
   closeModal?: () => void; // managed by view/setup/modal.ts
+
+  toggleVariantMenu = () => {
+    this.variantMenuOpen = !this.variantMenuOpen;
+    this.root.redraw();
+  };
 
   validateFen = debounce(() => {
     const fen = this.fen();

@@ -18,4 +18,6 @@
   <string name="racingKingsTitle">Get your king to the other side of the board to win.</string>
   <string name="crazyhouse">Crazyhouse</string>
   <string name="crazyhouseTitle">Captured pieces can be dropped back on the board instead of moving a piece.</string>
+  <string name="fromPosition">From Position</string>
+  <string name="fromPositionTitle">Standard chess from a custom position</string>
 </resources>

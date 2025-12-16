@@ -21,7 +21,7 @@ export const levelButtons = (ctrl: LobbyController) => {
       ]
     : h('div.config-group', [
         h('div.radio-pane', [
-          i18n.site.strength,
+          h('div.label', i18n.site.strength),
           h(
             'group.radio',
             levels.map(level =>

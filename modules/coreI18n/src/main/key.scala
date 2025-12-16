@@ -1677,6 +1677,7 @@ object I18nKey:
     val `minutesPerSide`: I18nKey = "minutesPerSide"
     val `variant`: I18nKey = "variant"
     val `variants`: I18nKey = "variants"
+    val `variantsDescription`: I18nKey = "variantsDescription"
     val `timeControl`: I18nKey = "timeControl"
     val `realTime`: I18nKey = "realTime"
     val `correspondence`: I18nKey = "correspondence"
@@ -1747,6 +1748,7 @@ object I18nKey:
     val `standard`: I18nKey = "standard"
     val `customPosition`: I18nKey = "customPosition"
     val `unlimited`: I18nKey = "unlimited"
+    val `unlimitedDescription`: I18nKey = "unlimitedDescription"
     val `mode`: I18nKey = "mode"
     val `casual`: I18nKey = "casual"
     val `rated`: I18nKey = "rated"
@@ -1823,7 +1825,6 @@ object I18nKey:
     val `pasteTheFenStringHere`: I18nKey = "pasteTheFenStringHere"
     val `pasteThePgnStringHere`: I18nKey = "pasteThePgnStringHere"
     val `orUploadPgnFile`: I18nKey = "orUploadPgnFile"
-    val `fromPosition`: I18nKey = "fromPosition"
     val `continueFromHere`: I18nKey = "continueFromHere"
     val `toStudy`: I18nKey = "toStudy"
     val `importGame`: I18nKey = "importGame"
@@ -2994,6 +2995,8 @@ object I18nKey:
     val `racingKingsTitle`: I18nKey = "variant:racingKingsTitle"
     val `crazyhouse`: I18nKey = "variant:crazyhouse"
     val `crazyhouseTitle`: I18nKey = "variant:crazyhouseTitle"
+    val `fromPosition`: I18nKey = "variant:fromPosition"
+    val `fromPositionTitle`: I18nKey = "variant:fromPositionTitle"
 
   object video:
     val `chessVideos`: I18nKey = "video:chessVideos"
