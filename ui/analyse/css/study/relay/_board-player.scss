@@ -80,11 +80,6 @@
     @extend %flex-column;
     line-height: 1.2;
   }
-  &-top {
-    .info-primary {
-      order: 1;
-    }
-  }
   .info-secondary {
     @extend %flex-center-nowrap;
     gap: 0.5em;
