@@ -454,7 +454,7 @@ const playerPhotoOrFallback = (
   return photo
     ? hl('img.fide-players__photo', { attrs: { src: photo[which] } })
     : hl('img.fide-players__photo.fide-players__photo--fallback', {
-        attrs: { src: site.asset.url('images/anon-face.png') },
+        attrs: { src: site.asset.url('images/anon-face.webp') },
       });
 };
 
