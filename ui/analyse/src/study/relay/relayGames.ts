@@ -30,12 +30,12 @@ export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
     chapters.length === 1 && chapters[0].name === 'Chapter 1'
       ? []
       : chapters.map((c, i) => {
-          const status =
+          const clocksOrStatuses =
             !c.status || c.status === '*' ? renderClocks(c) : [c.status.slice(2, 3), c.status.slice(0, 1)];
           const players = [c.players?.black, c.players?.white];
           if (c.orientation === 'black') {
             players.reverse();
-            status.reverse();
+            clocksOrStatuses.reverse();
           }
           return hl(
             `a.relay-game.relay-game--${c.id}`,
@@ -51,7 +51,7 @@ export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
               hl(
                 'span.relay-game__players',
                 players.map((p, i) => {
-                  const s = status[i];
+                  const s = clocksOrStatuses[i];
                   return hl(
                     'span.relay-game__player',
                     p
