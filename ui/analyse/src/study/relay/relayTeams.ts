@@ -1,13 +1,14 @@
-import { type MaybeVNodes, type VNode, onInsert, hl, type LooseVNodes, type LooseVNode } from 'lib/view';
+import { type MaybeVNodes, type VNode, onInsert, hl } from 'lib/view';
 import { json as xhrJson } from 'lib/xhr';
-import type { CustomScoring, RelayRound } from './interfaces';
-import type { ChapterId, ChapterPreview, StudyPlayer, ChapterSelect, StatusStr } from '../interfaces';
+import type { RelayRound } from './interfaces';
+import type { ChapterId, ChapterPreview, StudyPlayer, ChapterSelect } from '../interfaces';
 import { type MultiCloudEval, renderScore } from '../multiCloudEval';
 import { spinnerVdom as spinner } from 'lib/view';
 import { playerFedFlag } from '../playerBars';
 import { gameLinkAttrs, gameLinksListener, StudyChapters } from '../studyChapters';
 import { userTitle } from 'lib/view/userLink';
 import type RelayPlayers from './relayPlayers';
+import { coloredStatusStr } from './customScoreStatus';
 
 interface TeamWithPoints {
   name: string;
@@ -71,7 +72,7 @@ export const teamsView = (
           ctrl.roundPath(),
           players,
           ctrl.multiCloudEval?.thisIfShowEval(),
-          round.customScoring,
+          round,
         )
       : [spinner()],
   );
@@ -82,7 +83,7 @@ const renderTeams = (
   roundPath: string,
   playersCtrl: RelayPlayers,
   cloudEval?: MultiCloudEval,
-  customScoring?: CustomScoring,
+  round?: RelayRound,
 ): MaybeVNodes =>
   teams.table.map(row => {
     const firstTeam = row.teams[0];
@@ -115,7 +116,7 @@ const renderTeams = (
             chap &&
             hl('a.relay-tour__team-match__game', { attrs: gameLinkAttrs(roundPath, chap) }, [
               playerView(playersCtrl, sortedPlayers[0]),
-              statusView(chap, game.pov, chapters, cloudEval, customScoring),
+              statusView(chap, game.pov, chapters, cloudEval, round),
               playerView(playersCtrl, sortedPlayers[1]),
             ])
           );
@@ -133,47 +134,17 @@ const playerView = (players: RelayPlayers, p: StudyPlayer) =>
     !!p.rating && hl('rating', `${p.rating}`),
   ]);
 
-const coloredStatus = (
-  status: Exclude<StatusStr, '*'>,
-  pov: Color,
-  customScoring?: CustomScoring,
-): LooseVNodes => {
-  const points = (point: string) => parseFloat(point.replace('½', '.5'));
-  const colorClass = (point: string) => (points(point) === 1 ? 'good.' : points(point) === 0 ? 'bad.' : '');
-  const withCustomScore = (point: string, color: Color): LooseVNode => {
-    if (!customScoring) return point;
-    const base = points(point);
-    return base === 1
-      ? customScoring[color].win
-      : base === 0.5
-        ? customScoring[color].draw !== 0.5
-          ? customScoring[color].draw
-          : '½'
-        : 0;
-  };
-
-  const povStatus = pov === 'white' ? status : (status?.split('').reverse().join('') as StatusStr);
-  return [
-    hl(`${colorClass(povStatus[0])}result`, withCustomScore(povStatus[0], 'white')),
-    '-',
-    hl(
-      `${colorClass(povStatus.split('').reverse()[0])}result`,
-      withCustomScore(povStatus.split('').reverse()[0], 'black'),
-    ),
-  ];
-};
-
 const statusView = (
   g: ChapterPreview,
   pov: Color,
   chapters: StudyChapters,
   cloudEval?: MultiCloudEval,
-  customScoring?: CustomScoring,
+  round?: RelayRound,
 ) => {
   return hl(
     'span.relay-tour__team-match__game__status',
     g.status && g.status !== '*'
-      ? coloredStatus(g.status, pov, customScoring)
+      ? coloredStatusStr(g.status, pov, round)
       : cloudEval
         ? evalGauge(g, pov, chapters, cloudEval)
         : '*',
