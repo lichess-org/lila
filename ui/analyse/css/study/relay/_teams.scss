@@ -15,9 +15,9 @@
     &__game {
       @extend %flex-center-nowrap;
       > * {
-        flex: 0 0 43%;
+        flex: 0 1 43%;
         &:nth-child(2) {
-          flex: 0 0 14%;
+          flex: 1 0 14%;
         }
       }
     }
@@ -33,6 +33,7 @@
       padding: 0.5em 1em;
       &__points {
         @extend %flex-around;
+        flex-flow: row nowrap;
         @extend %result-box;
         points {
           font-weight: bold;
