@@ -96,8 +96,10 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
       .addClass('active');
     if ((panel === 'move-times' || ctrl.opts.hunter) && !timeChartLoaded)
       site.asset.loadEsm<ChartGame>('chart.game').then(m => {
-        timeChartLoaded = true;
-        m.movetime($('#movetimes-chart')[0] as HTMLCanvasElement, data, ctrl.opts.hunter);
+        $('#movetimes-chart').each(function (this: HTMLCanvasElement) {
+          timeChartLoaded = true;
+          m.movetime(this, data, ctrl.opts.hunter);
+        });
       });
     if ((panel === 'computer-analysis' || ctrl.opts.hunter) && $('#acpl-chart-container').length)
       setTimeout(startAdvantageChart, 200);
