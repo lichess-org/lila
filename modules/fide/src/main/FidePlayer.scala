@@ -23,6 +23,7 @@ case class FidePlayer(
     blitz: Option[Elo],
     blitzK: Option[KFactor],
     year: Option[Int],
+    deceasedYear: Option[Int] = None,
     inactive: Boolean
 ) extends lila.core.fide.Player:
 
