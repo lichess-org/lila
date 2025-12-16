@@ -7,13 +7,15 @@ import type { ChapterPreview } from '../interfaces';
 import { gameLinkAttrs } from '../studyChapters';
 import { playerFedFlag } from '../playerBars';
 import { hl } from 'lib/view';
-import { resultTag } from '../studyView';
+import { playerColoredResult } from './customScoreStatus';
+import { COLORS } from 'chessops';
 
 export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
   const chapters = study.chapters.list.all();
   const cloudEval = study.multiCloudEval?.thisIfShowEval();
   const roundPath = relay.roundPath();
   const showResults = study.multiBoard.showResults();
+  const round = study.relay?.round;
   return hl(
     'div.relay-games',
     {
@@ -30,12 +32,11 @@ export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
     chapters.length === 1 && chapters[0].name === 'Chapter 1'
       ? []
       : chapters.map((c, i) => {
-          const clocksOrStatuses =
-            !c.status || c.status === '*' ? renderClocks(c) : [c.status.slice(2, 3), c.status.slice(0, 1)];
+          const clocks = renderClocks(c);
           const players = [c.players?.black, c.players?.white];
           if (c.orientation === 'black') {
             players.reverse();
-            clocksOrStatuses.reverse();
+            clocks.reverse();
           }
           return hl(
             `a.relay-game.relay-game--${c.id}`,
@@ -51,7 +52,14 @@ export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
               hl(
                 'span.relay-game__players',
                 players.map((p, i) => {
-                  const s = clocksOrStatuses[i];
+                  const playerColor: Color = (c.orientation === 'black' ? COLORS : COLORS.slice().reverse())[
+                    i
+                  ];
+                  const coloredResult =
+                    showResults &&
+                    c.status &&
+                    c.status !== '*' &&
+                    playerColoredResult(c.status, playerColor, round);
                   return hl(
                     'span.relay-game__player',
                     p
@@ -60,7 +68,9 @@ export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
                             playerFedFlag(p.fed),
                             hl('span.name', [userTitle(p), p.name]),
                           ]),
-                          showResults && typeof s === 'string' && hl(resultTag(s), [s]),
+                          coloredResult
+                            ? hl(`${coloredResult.tag}`, [coloredResult.points])
+                            : showResults && hl('span', clocks[i]),
                         ]
                       : [hl('span.mini-game__user', hl('span.name', 'Unknown player'))],
                   );
