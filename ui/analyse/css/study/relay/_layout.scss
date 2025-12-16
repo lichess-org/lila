@@ -1,15 +1,13 @@
+@import 'variables';
+
 body {
-  ---site-header-margin: #{$site-header-margin-extra};
   ---allow-video: false;
 
   @include mq-at-least-col3 {
     ---allow-video: true;
-    .site-title-nav__donate {
-      display: none;
-    }
   }
-  @include mq-less-than-col3 {
-    ---site-header-margin: 30px;
+  &.header-margin-more {
+    ---site-header-margin: #{$player-height};
   }
 }
 
@@ -34,6 +32,21 @@ main.is-relay {
     grid-area: relay-tour;
     &__side {
       grid-area: side;
+    }
+  }
+  &:not(.has-relay-tour) {
+    @include mq-at-least-col2 {
+      .relay-tour__side {
+        margin-top: #{-$player-height};
+      }
+    }
+    @include mq-at-least-col3 {
+      .analyse__tools {
+        margin-top: #{-$player-height};
+        .ceval {
+          flex: 0 0 $player-height;
+        }
+      }
     }
   }
   .analyse__round-training,
@@ -96,7 +109,7 @@ main.analyse.is-relay:not(.has-relay-tour) {
     display: none;
   }
   @include mq-at-least-col2 {
-    grid-template-rows: repeat(2, calc(var(---cg-height) / 2)) 2.7em;
+    grid-template-rows: repeat(2, calc(var(---cg-height) / 2)) $player-height;
     grid-template-areas:
       'board        gauge side'
       'board        gauge tools'
@@ -114,7 +127,7 @@ main.analyse.is-relay:not(.has-relay-tour) {
     }
   }
   @include mq-at-least-col3 {
-    grid-template-rows: var(---cg-height) 2.7em;
+    grid-template-rows: var(---cg-height) $player-height;
     grid-template-areas:
       'side           . board gauge tools'
       'side           . board .     controls'

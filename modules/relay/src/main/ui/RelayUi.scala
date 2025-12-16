@@ -34,15 +34,13 @@ final class RelayUi(helpers: Helpers)(
       .js(analyseNvuiTag)
       .js(pageModule(rt, data, chatOption, socketVersion))
       .flag(_.zoom)
-      .flag(_.noTopNav)
-      .graph(
+      .graph:
         OpenGraph(
           title = rt.transName,
           url = pathUrl(rt.path),
           description = shorten(rt.tour.info.toString, 152),
           image = imageUrl
         )
-      )
       .preloadImage(imageUrl)(helpers):
         showPreload(rt, data)
 

@@ -33,11 +33,9 @@ body > header {
     }
 
     @include if-transp {
-      body:not(.no-topnav) {
-        @include back-blur(6px);
-        border: none;
-        background: hsla(0, 0, 60%, 0.14);
-      }
+      @include back-blur(6px);
+      border: none;
+      background: hsla(0, 0, 60%, 0.14);
     }
 
     .dropdown {

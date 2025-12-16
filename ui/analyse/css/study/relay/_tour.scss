@@ -1,3 +1,5 @@
+@import 'variables';
+
 $hover-bg: $m-primary_bg--mix-30;
 %tour-margin-horiz {
   margin-left: 2vw;
@@ -22,7 +24,7 @@ $hover-bg: $m-primary_bg--mix-30;
       position: relative;
       overflow: hidden;
       align-items: stretch;
-      flex: 0 0 auto;
+      flex: 0 0 $player-height;
       button {
         @extend %flex-center-nowrap, %metal;
         border: none;

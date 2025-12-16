@@ -58,9 +58,7 @@ object page:
             else s"${ctx.me.so(_.username.value + " ")} $prodTitle"
           ,
           cssTag("lib.theme.all"),
-          cssTag:
-            if p.flags(PageFlags.noTopNav) then "site.no-nav" else "site"
-          ,
+          cssTag("site"),
           pref.is3d.option(cssTag("lib.board-3d")),
           ctx.data.inquiry.isDefined.option(cssTag("mod.inquiry")),
           ctx.impersonatedBy.isDefined.option(cssTag("mod.impersonate")),
@@ -107,7 +105,6 @@ object page:
               "playing fixed-scroll" -> playing,
               "no-rating" -> (!pref.showRatings || (playing && pref.hideRatingsInGame)),
               "no-flair" -> !pref.flairs,
-              "no-topnav" -> p.flags(PageFlags.noTopNav),
               "zen" -> (pref.isZen || (playing && pref.isZenAuto)),
               "zenable" -> zenable,
               "zen-auto" -> (zenable && pref.isZenAuto)
