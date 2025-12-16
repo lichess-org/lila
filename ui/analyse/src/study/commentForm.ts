@@ -128,22 +128,23 @@ function renderTextarea(root: AnalyseCtrl, ctrl: CommentForm, current: Current, 
 
 export function view(root: AnalyseCtrl): VNode {
   const study = root.study!;
-  const ctrl = study.commentForm;
+  const commForm = study.commentForm;
 
   const commentKeys = new Set(
-    (root.node.comments || []).map(c => ctrl.makeKey(study.vm.chapterId, root.path, c.id)),
+    (root.node.comments || []).map(c => commForm.makeKey(study.vm.chapterId, root.path, c.id)),
   );
 
-  const rerender = Array.from(ctrl.currents.keys()).some(key => !commentKeys.has(key));
+  const rerender = Array.from(commForm.currents.keys()).some(key => !commentKeys.has(key));
   const comments = root.node.comments || [];
-  if (rerender || ctrl.currents.size === 0) {
-    if (!ctrl.newComment) ctrl.clear();
+  if (rerender || commForm.currents.size === 0) {
+    if (!commForm.newComment) commForm.clear();
+    commForm.setnewComment(false);
     comments.forEach(comment => {
-      ctrl.start(study.vm.chapterId, root.path, root.node, comment.id);
+      commForm.start(study.vm.chapterId, root.path, root.node, comment.id);
     });
   }
 
-  if (ctrl.currents.size === 0) {
+  if (commForm.currents.size === 0) {
     return viewDisabled(root, 'Select a move to comment');
   }
 
@@ -155,8 +156,8 @@ export function view(root: AnalyseCtrl): VNode {
     [
       h(
         'div.study__comment-forms',
-        Array.from(ctrl.currents.entries()).map(([key, current]) => {
-          return renderTextarea(root, ctrl, current, key);
+        Array.from(commForm.currents.entries()).map(([key, current]) => {
+          return renderTextarea(root, commForm, current, key);
         }),
       ),
       h('div.analyse__wiki.study__wiki.force-ltr'),
