@@ -808,6 +808,7 @@
   <string name="cyclePreviousOrNextVariation">Прокрутити попередній/наступний варіант</string>
   <string name="toggleGlyphAnnotations">Перемкнути анотації ходів</string>
   <string name="togglePositionAnnotations">Перемкнути анотації позицій</string>
+  <string name="toggleObservationAnnotations">Перемкнути анотації спостереження</string>
   <string name="variationArrowsInfo">Стрілки варіантів дозволяють переміщуватись без використання списку ходів.</string>
   <string name="playSelectedMove">зіграти обраний хід</string>
   <string name="newTournament">Новий турнір</string>
