@@ -6,7 +6,7 @@ import { renderClock, verticalEvalGauge } from '../multiBoard';
 import type { ChapterPreview } from '../interfaces';
 import { gameLinkAttrs } from '../studyChapters';
 import { playerFedFlag } from '../playerBars';
-import { h } from 'snabbdom';
+import { hl } from 'lib/view';
 import { resultTag } from '../studyView';
 
 export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
@@ -14,7 +14,7 @@ export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
   const cloudEval = study.multiCloudEval?.thisIfShowEval();
   const roundPath = relay.roundPath();
   const showResults = study.multiBoard.showResults();
-  return h(
+  return hl(
     'div.relay-games',
     {
       class: { 'relay-games__eval': defined(cloudEval) },
@@ -37,7 +37,7 @@ export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
             players.reverse();
             status.reverse();
           }
-          return h(
+          return hl(
             `a.relay-game.relay-game--${c.id}`,
             {
               attrs: {
@@ -47,22 +47,22 @@ export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
               class: { 'relay-game--current': c.id === study.data.chapter.id },
             },
             [
-              showResults ? cloudEval && verticalEvalGauge(c, cloudEval) : undefined,
-              h(
+              showResults && cloudEval && verticalEvalGauge(c, cloudEval),
+              hl(
                 'span.relay-game__players',
                 players.map((p, i) => {
                   const s = status[i];
-                  return h(
+                  return hl(
                     'span.relay-game__player',
                     p
                       ? [
-                          h('span.mini-game__user', [
+                          hl('span.mini-game__user', [
                             playerFedFlag(p.fed),
-                            h('span.name', [userTitle(p), p.name]),
+                            hl('span.name', [userTitle(p), p.name]),
                           ]),
-                          showResults ? h(resultTag(s), [s]) : null,
+                          showResults && hl(resultTag(s), [s]),
                         ]
-                      : [h('span.mini-game__user', h('span.name', 'Unknown player'))],
+                      : [hl('span.mini-game__user', hl('span.name', 'Unknown player'))],
                   );
                 }),
               ),
