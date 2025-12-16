@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="hiUser" comment="%s is the title+username e.g. 'GM ABC' or simply ABC if there is no title">Hoi, %s</string>
-	<string name="awaitQuestion" comment="Displayed while waiting for results">Was häsch das Jahr eso g\'macht?</string>
+	<string name="awaitQuestion" comment="Displayed while waiting for results and also as a notification.">Was häsch das Jahr eso g\'macht?</string>
 	<string name="initTitle">Wie isch dis Schach-Jahr gsi!</string>
 	<string name="noGamesText">Du häsch das Jahr keis Schpiel g\'schpillt.</string>
 	<string name="noGamesCta">Wottsch jetzt schpille?</string>
-	<string name="gamesYouWon" comment="%s is the number of games won">Und du häsch %s gunne!</string>
-	<string name="gamesNextQuestion">Was häts brucht, zum da here cho?</string>
+	<string name="gamesYouWon" comment="%s is the number of games won">...häsch absolviert und %s devo häsch chönne günne!</string>
+	<string name="gamesNextQuestion">Was häts für das brucht?</string>
 	<string name="timeSpentPlayingExclam" comment="%s is the time spent playing animated from 0 e.g. '1 day, 17 hours'. The time is also translated">%s häsch g\'schpillt!</string>
 	<string name="timeTooMuch">Das isch z\'vill Schach.</string>
-	<string name="timeALot">Das isch en hufe Schach.</string>
+	<string name="timeALot">Das isch en hufe Schach!</string>
 	<string name="timeReasonable">Das schint e agmässeni Mängi Schach z\'si.</string>
 	<string name="timeHowManyMoves">Wievill Züg häsch g\'schpillt während dere Zit?</string>
 	<plurals name="nbMovesPlayed">
@@ -44,10 +44,10 @@
 		<item quantity="one">Danke für dini Stimm bi %s Ufgab.</item>
 		<item quantity="other">Danke für dini Stimm bi %s Ufgabe.</item>
 	</plurals>
-	<string name="puzzlesHelpedTagging" comment="%s is a number e.g. 5">Du häsch au bi %s vu dene g\'holfe.</string>
+	<string name="puzzlesHelpedTagging" comment="To tag in this context is to categorise the themes the puzzles fit into.&#10;%s is a number e.g. 5">Du häsch au bi %s vu dene g\'holfe.</string>
 	<string name="puzzlesNone">Du häsch das Jahr kei Ufgabe g\'löst.</string>
-	<string name="puzzlesTryNow">Wottsch jetzt es paar probiere?</string>
-	<string name="puzzlesYouWonOnFirstTry">Du häsch %s devo uf a\'hieb g\'löst!</string>
+	<string name="puzzlesTryNow" comment="This is context of a user who did not solve any puzzles in the past year. This is a call to action, inviting them to try Lichess puzzles.">Wottsch jetzt es paar probiere?</string>
+	<string name="puzzlesYouWonOnFirstTry" comment="%s is the number of puzzles the user successfully solved that year.">Du häsch %s devo uf a\'hieb g\'löst!</string>
 	<string name="sourcesTitle">Wo findsch Schpiel und Gägner?</string>
 	<string name="perfsTitle">Was für Zite und Variante schpillsch du?</string>
 	<string name="malwareNoneLoaded" comment="%s is 0">%s Ads und Tracker g\'lade</string>
@@ -55,15 +55,15 @@
 	<string name="malwareNoAbuse">Mir mached nüt mit dim G\'rät</string>
 	<string name="malwareWarningPrefix" comment="%s is 'be careful'">Aber anderi Website mached das, also %s.</string>
 	<string name="malwareWarningCta" comment="It is a link to https://lichess.org/ads">bis vorsichtig</string>
-	<string name="lichessGamesPlayedIn" comment="%1$s is the number of games, %2$s is the year">Im Jahr %2$s sind uf Lichess %1$s Schpiel g\'schpillt worde</string>
-	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours">%s devo vu dir.</string>
+	<string name="lichessGamesPlayedIn" comment="lichessGamesPlayedIn&#10;%1$s is the number of games, %2$s is the year of the recap.">Im Jahr %2$s sind uf Lichess %1$s Schpiel g\'schpillt worde</string>
+	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours, out of all Lichess games.">%s devo vu dir.</string>
 	<string name="thanksTitle">Danke, dass du uf Lichess schpillsch!</string>
-	<string name="thanksHaveAGreat" comment="%s is the next year">Mir freued eus, dass du da bisch und wünsched dir es super %s!</string>
-	<string name="patronCostsThisYear" comment="%1$s is 'costs'. %2$s is the cost with currency symbol e.g. '$750,000'">Lichess hät das Jahr %1$s vu %2$s.</string>
-	<string name="patronCosts" comment="It is a link to lichess.org/costs">Chöschte</string>
+	<string name="thanksHaveAGreat" comment="thanksHaveAGreat&#10;%s is the next year as a numeral (e.g. in 2025, the next year was 2026, so 2026 was displayed on this screen)">Mir freued eus, dass du da bisch und wünsched dir es super %s!</string>
+	<string name="patronCostsThisYear" comment="%1$s is 'costs', translatable separately.&#10;%2$s is a monetary amount with a currency symbol e.g. &quot;$750,000&quot;.&#10;The amount is localised automatically according to language and location, e.g. in France it would be rendered &quot;678 750 €&quot;, and in the UK as &quot;£589,539&quot;">Lichess hät das Jahr %1$s vu %2$s.</string>
+	<string name="patronCosts" comment="Part of a longer sentence &quot;Lichess's costs this year were &lt;monetary amount in local currency&gt;.&quot;&#10;&#10;The text links to lichess.org/costs">Chöschte</string>
 	<string name="patronCharity">Mir sind e g\'meinnützigi Organisation, wo usschliesslich dur Schpände finanziert wird.</string>
-	<string name="patronConsiderDonating" comment="%s is 'supporting us with a donation'">Händ mir dir das Jahr Freud g\'macht oder glaubsch du a eusi Arbet, dänn dänk bitte drüber na, ob du %s möchtsch!</string>
-	<string name="patronMakeDonation" comment="It is a link to https://lichess.org/patron">eus mit ere Schpänd underschtütze</string>
+	<string name="patronConsiderDonating" comment="%s is 'supporting us with a donation'. Appears if you are not currently a Patron (donor).">Händ mir dir das Jahr Freud g\'macht oder glaubsch du a eusi Arbet, dänn dänk bitte drüber na, ob du %s möchtsch!</string>
+	<string name="patronMakeDonation" comment="Part of a longer sentence, translatable separately:&#10;&quot;If we helped entertain you this year, or you believe in our work, please consider supporting us with a donation!&quot;&#10;&#10;The text links to https://lichess.org/patron - so it should ideally be phrased as a call to action.&#10;&#10;Appears if you are not currently a Patron (donor).">eus mit ere Schpänd underschtütze</string>
 	<string name="shareableTitle" comment="%s is the current year">Mini Zämmefassig vu %s</string>
 	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">g\'schpillt</string>
 	<string name="shareableMostPlayedOpponent">meischt\' g\'schpillti Gägner</string>
@@ -73,5 +73,5 @@
 		<item quantity="one">%s Ufgab g\'löst</item>
 		<item quantity="other">%s Ufgabe g\'löst</item>
 	</plurals>
-	<string name="recapReady" comment="%s is the year of the recap">Dini Zämmefassig für %s isch parat!</string>
+	<string name="recapReady" comment="%s is the year of the recap&#10;&#10;Appears as a notification.">Dini Zämmefassig für %s isch parat!</string>
 </resources>
