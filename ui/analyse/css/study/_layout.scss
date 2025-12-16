@@ -22,10 +22,6 @@
     .mchat {
       margin-top: 0;
       min-height: 34px;
-
-      @media not all and (hover: hover) and (pointer: fine) {
-        max-height: 40vh;
-      }
     }
   }
 }
