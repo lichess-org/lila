@@ -254,7 +254,7 @@
     <item quantity="other">Thứ hạng được cập nhật mỗi %s phút</item>
   </plurals>
   <plurals name="nbPuzzles">
-    <item quantity="other">%s cấu đố</item>
+    <item quantity="other">%s câu đố</item>
   </plurals>
   <string name="gamesPlayed">Số ván đã chơi</string>
   <plurals name="nbGamesWithYou">
