@@ -14,5 +14,5 @@
   <string name="twoFactorToDisable">Zure pasahitza eta aplikazioak sortutako kodea behar duzu faktore anitzeko autentifikazioa desaktibatzeko.</string>
   <string name="openTwoFactorApp">Ireki bi faktoreko autentifikazio aplikazioa zure telefonoan, ikusi zure autentifikazio kodea eta idatzi hemen.</string>
   <string name="setupReminder">Aktibatu bi faktoreko autentifikazioa zure kontua babesteko, horretarako joan helbide honetara https://lichess.org/account/twofactor.
-Mezu hau zure kontuak ardura bereziak dituelako jaso duzu, ala nola taldearen kapitaina, entrenatzailea, irakaslea edo streamerra zara</string>
+Mezu hau zure kontuak ardura bereziak dituelako jaso duzu, ala nola taldearen kapitaina, entrenatzailea, irakaslea edo esatari bazara.</string>
 </resources>

@@ -1,2 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="isLichessLagging">શું Lichess માં લેગ થઈ રહ્યો છે?</string>
+  <string name="measurementInProgressThreeDot">માપન પ્રગતિમાં છે...</string>
+  <string name="noAndYourNetworkIsGood">ના. અને તમારું નેટવર્ક સારું છે.</string>
+  <string name="noAndYourNetworkIsBad" comment="noAndYourNetworkIsBad&#10;&#10;The system checks the network lag and replies in response to the question &quot;Is Lichess lagging?&quot;&#10;In this case, it's the user's network connection that is making the game lag.">ના. અને તમારું નેટવર્ક ખરાબ છે.</string>
+  <string name="yesItWillBeFixedSoon">હા. તે જલ્દીથી ઠીક થઈ જશે!</string>
+  <string name="andNowTheLongAnswerLagComposedOfTwoValues">અને હવે, લાંબો જવાબ! ગેમ લેગ બે અસંબંધિત મૂલ્યોનું બનેલું છે (ઓછું હોય તે વધુ સારું છે):</string>
+  <string name="lichessServerLatency">Lichess સર્વર લેટન્સી</string>
+  <string name="lichessServerLatencyExplanation">સર્વર પર એક ચાલની પ્રક્રિયા કરવામાં જે સમય લાગે છે. તે દરેક માટે સમાન હોય છે, અને તે ફક્ત સર્વરના લોડ પર આધાર રાખે છે. જેટલા વધુ ખેલાડીઓ, તેટલું તે વધે છે, પરંતુ Lichess ડેવલપર્સ તેને ઓછું રાખવા માટે શ્રેષ્ઠ પ્રયાસ કરે છે. તે ભાગ્યે જ 10ms થી વધે છે.</string>
+  <string name="networkBetweenLichessAndYou">Lichess અને તમારી વચ્ચેનું નેટવર્ક</string>
+  <string name="networkBetweenLichessAndYouExplanation">તમારા કમ્પ્યુટરથી Lichess સર્વર પર એક ચાલ મોકલવામાં અને પ્રતિસાદ પાછો મેળવવામાં જે સમય લાગે છે. તે Lichess (ફ્રાન્સ) થી તમારા અંતર અને તમારા ઇન્ટરનેટ કનેક્શનની ગુણવત્તા માટે વિશિષ્ટ છે. Lichess ડેવલપર્સ તમારું વાઇફાઇ ઠીક કરી શકતા નથી અથવા પ્રકાશને વધુ ઝડપી બનાવી શકતા નથી.</string>
+  <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">તમે ટોચના બારમાં તમારા યુઝરનેમ પર ક્લિક કરીને આ બંને મૂલ્યો કોઈપણ સમયે શોધી શકો છો.</string>
+  <string name="lagCompensation">લેગ વળતર</string>
+  <string name="lagCompensationExplanation">Lichess નેટવર્ક લેગની ભરપાઈ કરે છે. આમાં સતત લેગ અને પ્રસંગોપાત લેગ સ્પાઇક્સનો સમાવેશ થાય છે. સમય નિયંત્રણ અને અત્યાર સુધીના વળતર આપેલા લેગના આધારે મર્યાદાઓ અને હ્યુરિસ્ટિક્સ હોય છે, જેથી પરિણામ બંને ખેલાડીઓ માટે વાજબી લાગે. પરિણામે, તમારા પ્રતિસ્પર્ધી કરતાં વધુ નેટવર્ક લેગ હોવો એ કોઈ હેન્ડીકેપ નથી!</string>
+</resources>

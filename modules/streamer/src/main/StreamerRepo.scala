@@ -58,7 +58,7 @@ final class StreamerRepo(
       .aggregateOne(_.sec): framework =>
         import framework.*
         Match($doc(field.$exists(true), "approval.granted" -> true)) -> List(
-          Sort(Descending("lastSeenAt")),
+          Sort(Descending("seenAt")),
           Limit(limit),
           Group(BSONNull)("ids" -> PushField(field))
         )

@@ -1,2 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="hourlyRapidArena">કલાકદીઠ રેપિડ એરેના</string>
+  <string name="hourlyRapid">કલાકદીઠ રેપિડ</string>
+  <string name="hourlyXArena">કલાકદીઠ %s એરેના</string>
+  <string name="hourlyX" comment="%s is a time control (like &quot;Blitz&quot;) or a variant (like &quot;Chess960&quot;)&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Hourly Rapid' and 'Hourly %s Arena'.">કલાકદીઠ %s</string>
+  <string name="dailyRapidArena">દૈનિક રેપિડ એરેના</string>
+  <string name="dailyRapid">દૈનિક રેપિડ</string>
+  <string name="dailyClassicalArena" comment="dailyClassicalArena&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily Rapid' and 'Daily %s Arena'.">દૈનિક ક્લાસિકલ એરેના</string>
+  <string name="dailyClassical" comment="dailyClassical&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily Rapid' and 'Daily %s Arena'.">દૈનિક ક્લાસિકલ</string>
+  <string name="dailyXArena" comment="dailyXArena %s is a time control (like &quot;Blitz&quot;) or a variant (like &quot;Chess960&quot;)&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily %s'.">દૈનિક %s એરેના</string>
+  <string name="dailyX">દૈનિક %s</string>
+  <string name="easternRapidArena" comment="easternRapidArena&#10;&#10;Eastern refers to the time zone these tournaments are scheduled in for, accommodating East Asia, Oceania and the Pacific.">ઇસ્ટર્ન રેપિડ એરેના</string>
+  <string name="easternRapid" comment="easternRapid&#10;Eastern refers to the time zone these tournaments are scheduled in for, accommodating East Asia, Oceania and the Pacific.&#10;&#10;Please keep this string short and consistent with 'Eastern Rapid Arena' and 'Eastern %s Arena'.">ઇસ્ટર્ન રેપિડ</string>
+  <string name="easternClassicalArena">ઇસ્ટર્ન ક્લાસિકલ એરેના</string>
+  <string name="easternClassical">ઇસ્ટર્ન ક્લાસિકલ</string>
+  <string name="easternXArena">ઇસ્ટર્ન %s એરેના</string>
+  <string name="easternX">ઇસ્ટર્ન %s</string>
+  <string name="weeklyRapidArena">સાપ્તાહિક રેપિડ એરેના</string>
+  <string name="weeklyRapid">સાપ્તાહિક રેપિડ</string>
+  <string name="weeklyClassicalArena">સાપ્તાહિક ક્લાસિકલ એરેના</string>
+  <string name="weeklyClassical">સાપ્તાહિક ક્લાસિકલ</string>
+  <string name="weeklyXArena">સાપ્તાહિક %s એરેના</string>
+  <string name="weeklyX">સાપ્તાહિક %s</string>
+  <string name="monthlyRapidArena">માસિક રેપિડ એરેના</string>
+  <string name="monthlyRapid">માસિક રેપિડ</string>
+  <string name="monthlyClassicalArena">માસિક ક્લાસિકલ એરેના</string>
+  <string name="monthlyClassical">માસિક ક્લાસિકલ</string>
+  <string name="monthlyXArena">માસિક %s એરેના</string>
+  <string name="monthlyX">માસિક %s</string>
+  <string name="yearlyRapidArena">વાર્ષિક રેપિડ એરેના</string>
+  <string name="yearlyRapid">વાર્ષિક રેપિડ</string>
+  <string name="yearlyClassicalArena">વાર્ષિક ક્લાસિકલ એરેના</string>
+  <string name="yearlyClassical">વાર્ષિક ક્લાસિકલ</string>
+  <string name="yearlyXArena">વાર્ષિક %s એરેના</string>
+  <string name="yearlyX">વાર્ષિક %s</string>
+  <string name="rapidShieldArena">રેપિડ શીલ્ડ એરેના</string>
+  <string name="rapidShield">રેપિડ શીલ્ડ</string>
+  <string name="classicalShieldArena">ક્લાસિકલ શીલ્ડ એરેના</string>
+  <string name="classicalShield">ક્લાસિકલ શીલ્ડ</string>
+  <string name="xShieldArena">%s શીલ્ડ એરેના</string>
+  <string name="xShield">%s શીલ્ડ</string>
+  <string name="xTeamBattle">%s ટીમ બેટલ</string>
+  <string name="eliteXArena">એલિટ %s એરેના</string>
+  <string name="eliteX">એલિટ %s</string>
+  <string name="xArena">%s એરેના</string>
+</resources>
