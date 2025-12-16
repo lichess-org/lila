@@ -4237,7 +4237,7 @@ interface I18n {
     signIn: string;
     /** Register */
     signUp: string;
-    /** We will only use it for password reset. */
+    /** We will only use it for password reset and account activation. */
     signupEmailHint: string;
     /** Sign up to host or join a simul */
     signUpToHostOrJoinASimul: string;
