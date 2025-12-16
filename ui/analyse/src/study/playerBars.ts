@@ -86,7 +86,7 @@ function renderPlayer(
                   attrs: { src: site.asset.url('images/anon-face.png') },
                 }),
           hl('div.info-split', [
-            hl('div.info-primary', [
+            hl('div', [
               !!player.title && userTitle(player),
               playerId(player) &&
                 hl(`a.name.relay-player-${color}`, relayPlayers.playerLinkConfig(player), player.name),
