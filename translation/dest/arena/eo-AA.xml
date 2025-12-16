@@ -83,4 +83,6 @@ Ekzemple, se vi estas rangita 3 en turniro de 100 ludantoj = 3%. Se vi estas ran
   <string name="tournamentShields">Turniraj ŝildoj</string>
   <string name="onlyTitled">Nur titolitaj ludantoj</string>
   <string name="onlyTitledHelp">Necesigi oficialan titolon por aliĝi al la turniro</string>
+  <string name="tournamentPairingsAreNowClosed">La turniraj parigoj nun fermiĝis.</string>
+  <string name="berserkRate">Berserka procento</string>
 </resources>
