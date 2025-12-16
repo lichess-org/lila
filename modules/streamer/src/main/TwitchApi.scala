@@ -150,9 +150,8 @@ final private class TwitchApi(
         .sequentially(fetchStreams)
         .map(_.flatten)
       newLives = allOngoingStreams.view.map(l => l.user_id -> l).toMap
-      freshIds = newLives.keySet
     yield
-      latestSeenApprovedIds.filterNot(freshIds).foreach(lives.remove)
+      (lives.keySet.toSet -- newLives.keySet).foreach(lives.remove)
       newLives.foreach(lives.update)
 
   private[streamer] def forceCheck(s: Streamer.Twitch): Funit =
