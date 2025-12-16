@@ -47,6 +47,8 @@ final class ClasForm(
 
     def notifyText = Form(single("text" -> nonEmptyText(minLength = 10, maxLength = 300)))
 
+    val bulkAction = Form(single("ids" -> cleanNonEmptyText))
+
   object student:
 
     val create: Form[CreateStudent] = Form:
@@ -89,8 +91,6 @@ final class ClasForm(
         s"There can't be more than ${lila.clas.Clas.maxStudents} per class. Split the students into more classes.",
         _.realNames.lengthIs <= max
       )
-
-    val bulkAction = Form(single("ids" -> Forms.text))
 
   private def blockingFetchUser(username: UserStr) =
     lightUserAsync(username.id).await(1.second, "clasInviteUser")

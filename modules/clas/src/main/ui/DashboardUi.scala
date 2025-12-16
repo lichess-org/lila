@@ -119,7 +119,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
           else studentList(c, students)
         )
 
-    def studentsBulkActions(
+    def bulkActions(
         c: Clas,
         otherClasses: List[Clas],
         all: List[Student.WithUserPerfs],
@@ -127,45 +127,45 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
         archivedStudents: Form[?],
         invitees: Form[?]
     )(using Context) =
-      val classForms: Frag = otherClasses.map: toClass =>
-        form3.submit(toClass.name, icon = Icon.InternalArrow.some)(
+      val classButtons: Frag = otherClasses.map: toClass =>
+        form3.submit(toClass.name, icon = Icon.InternalArrow.some, ("action", s"move-to-${toClass.id}").some)(
           cls := "yes-no-confirm button-blue button-empty",
           title := trans.clas.moveToClass.txt(toClass.name)
         )
 
       TeacherPage(c, all.filter(_.student.isActive), "students")():
         div(cls := "clas-show__body")(
-          postForm(cls := "form3")(
+          postForm(cls := "form3", action := routes.Clas.bulkActionsActive(c.id))(
             form3.group(
               activeStudents("ids"),
               frag("Active students")
             )(form3.textarea(_)(rows := 3)),
-            classForms,
-            form3.submit("Archive", icon = none)(
+            classButtons,
+            form3.submit("Archive", icon = none, ("action", "archive").some)(
               cls := "yes-no-confirm button-red button-empty"
             )
           ),
-          postForm(cls := "form3")(
+          postForm(cls := "form3", action := routes.Clas.bulkActionsArchived(c.id))(
             form3.group(
               archivedStudents("ids"),
               frag("Archived students")
             )(form3.textarea(_)(rows := 3)),
-            form3.submit("Re-integrate", icon = none)(
+            form3.submit("Invite back", icon = none, ("action", "invite-back").some)(
               cls := "yes-no-confirm button-blue button-empty"
             ),
-            form3.submit("Remove", icon = none)(
+            form3.submit("Remove", icon = Icon.Trash.some, ("action", "remove").some)(
               cls := "yes-no-confirm button-red button-empty"
             ),
-            form3.submit("Close account", icon = none)(
+            form3.submit("Close account", icon = none, ("action", "close-account").some)(
               cls := "yes-no-confirm button-red button-empty"
             )
           ),
-          postForm(cls := "form3")(
+          postForm(cls := "form3", action := routes.Clas.bulkActionsInvites(c.id))(
             form3.group(
               invitees("ids"),
               frag("Invites")
             )(form3.textarea(_)(rows := 3)),
-            form3.submit("Delete", icon = none)(
+            form3.submit("Delete", icon = Icon.Trash.some, ("action", "delete").some)(
               cls := "yes-no-confirm button-red button-empty"
             )
           ),
@@ -193,7 +193,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
                   dataIcon := Icon.PlusButton
                 )(trans.clas.addStudent()),
                 a(
-                  href := routes.Clas.studentsBulkActions(c.id),
+                  href := routes.Clas.bulkActions(c.id),
                   cls := "button button-clas text",
                   dataIcon := Icon.Tools
                 )("Bulk actions"),

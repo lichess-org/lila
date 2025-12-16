@@ -206,7 +206,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       )
   }
 
-  def studentsBulkActions(id: ClasId) = Secure(_.Teacher) { ctx ?=> me ?=>
+  def bulkActions(id: ClasId) = Secure(_.Teacher) { ctx ?=> me ?=>
     WithClass(id): clas =>
       for
         students <- env.clas.api.student.allWithUsers(clas)
@@ -215,27 +215,51 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
         classes <- env.clas.api.clas.of(me)
         otherClasses = classes.filter(_.id != clas.id)
         page <- renderPage(
-          views.clas.teacherDashboard.studentsBulkActions(
+          views.clas.teacherDashboard.bulkActions(
             clas,
             otherClasses,
             students,
-            env.clas.forms.student.bulkAction.fill(
+            env.clas.forms.clas.bulkAction.fill(
               students
                 .filter(_.student.isActive)
                 .map(s => s"${s.student.userId} ${s.student.realName}")
                 .mkString("\n")
             ),
-            env.clas.forms.student.bulkAction.fill(
+            env.clas.forms.clas.bulkAction.fill(
               students
                 .filter(_.student.isArchived)
                 .map(s => s"${s.student.userId} ${s.student.realName}")
                 .mkString("\n")
             ),
-            env.clas.forms.student.bulkAction
+            env.clas.forms.clas.bulkAction
               .fill(invites.map(i => s"${i.userId} ${i.realName}").mkString("\n"))
           )
         )
       yield Ok(page)
+  }
+
+  def bulkActionsActive(id: ClasId) = SecureBody(_.Teacher) { ctx ?=> me ?=>
+    WithClass(id): clas =>
+      bindForm(env.clas.forms.clas.bulkAction)(
+        err => Redirect(routes.Clas.bulkActions(id)).flashFailure,
+        ids => Redirect(routes.Clas.bulkActions(id)).flashSuccess
+      )
+  }
+
+  def bulkActionsArchived(id: ClasId) = SecureBody(_.Teacher) { ctx ?=> me ?=>
+    WithClass(id): clas =>
+      bindForm(env.clas.forms.clas.bulkAction)(
+        err => Redirect(routes.Clas.bulkActions(id)).flashFailure,
+        ids => Redirect(routes.Clas.bulkActions(id)).flashSuccess
+      )
+  }
+
+  def bulkActionsInvites(id: ClasId) = SecureBody(_.Teacher) { ctx ?=> me ?=>
+    WithClass(id): clas =>
+      bindForm(env.clas.forms.clas.bulkAction)(
+        err => Redirect(routes.Clas.bulkActions(id)).flashFailure,
+        ids => Redirect(routes.Clas.bulkActions(id)).flashSuccess
+      )
   }
 
   def students(id: ClasId) = Secure(_.Teacher) { ctx ?=> me ?=>
