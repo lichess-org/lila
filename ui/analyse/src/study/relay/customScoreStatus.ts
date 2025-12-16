@@ -1,4 +1,4 @@
-import { hl, type LooseVNode, type LooseVNodes } from 'lib/view';
+import { hl, type LooseVNodes, type VNodeChildElement } from 'lib/view';
 import type { StatusStr } from '../interfaces';
 import type { RelayRound } from './interfaces';
 
@@ -9,7 +9,7 @@ const withCustomScore = (
   point: string,
   color: Color,
   customScoring?: RelayRound['customScoring'],
-): LooseVNode => {
+): VNodeChildElement => {
   if (!customScoring) return point;
   const base = points(point);
   return base === 1
@@ -42,7 +42,7 @@ export const playerColoredResult = (
   status: Exclude<StatusStr, '*'>,
   color: Color,
   round?: RelayRound,
-): { tag: 'good' | 'bad' | 'status'; points: LooseVNode } => {
+): { tag: 'good' | 'bad' | 'status'; points: VNodeChildElement } => {
   const customScoring = round?.customScoring;
   const resultPart = status.split('-')[color === 'white' ? 0 : 1];
   return {
