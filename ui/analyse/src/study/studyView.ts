@@ -120,7 +120,6 @@ export function contextMenu(ctrl: StudyCtrl, path: Tree.Path, node: Tree.Node): 
               ctrl.vm.toolTab('comments');
               ctrl.commentForm.setnewComment(true);
               ctrl.commentForm.start(ctrl.currentChapter().id, path, node, '');
-              ctrl.redraw();
             }),
           },
           i18n.study.commentThisMove,
