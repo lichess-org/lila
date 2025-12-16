@@ -90,6 +90,8 @@ final class ClasForm(
         _.realNames.lengthIs <= max
       )
 
+    val bulkAction = Form(single("ids" -> Forms.text))
+
   private def blockingFetchUser(username: UserStr) =
     lightUserAsync(username.id).await(1.second, "clasInviteUser")
 

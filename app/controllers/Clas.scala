@@ -206,6 +206,38 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       )
   }
 
+  def studentsBulkActions(id: ClasId) = Secure(_.Teacher) { ctx ?=> me ?=>
+    WithClass(id): clas =>
+      for
+        students <- env.clas.api.student.allWithUsers(clas)
+        students <- env.clas.api.student.withPerfs(students)
+        invites <- env.clas.api.invite.listPending(clas)
+        classes <- env.clas.api.clas.of(me)
+        otherClasses = classes.filter(_.id != clas.id)
+        page <- renderPage(
+          views.clas.teacherDashboard.studentsBulkActions(
+            clas,
+            otherClasses,
+            students,
+            env.clas.forms.student.bulkAction.fill(
+              students
+                .filter(_.student.isActive)
+                .map(s => s"${s.student.userId} ${s.student.realName}")
+                .mkString("\n")
+            ),
+            env.clas.forms.student.bulkAction.fill(
+              students
+                .filter(_.student.isArchived)
+                .map(s => s"${s.student.userId} ${s.student.realName}")
+                .mkString("\n")
+            ),
+            env.clas.forms.student.bulkAction
+              .fill(invites.map(i => s"${i.userId} ${i.realName}").mkString("\n"))
+          )
+        )
+      yield Ok(page)
+  }
+
   def students(id: ClasId) = Secure(_.Teacher) { ctx ?=> me ?=>
     WithClass(id): clas =>
       for
