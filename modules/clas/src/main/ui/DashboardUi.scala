@@ -138,7 +138,9 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
               form("activeStudents"),
               frag("Active students"),
               klass = "bulk-action",
-              help = frag("Edit this list to keep the students selected for the bulk action. Only the user identifiers are mandatory.").some
+              help = frag(
+                "Edit this list to keep the students selected for the bulk action. Only the user identifiers are mandatory."
+              ).some
             )(form3.textarea(_)(rows := 10)),
             form3.submit("Archive", icon = none, ("action", "archive").some)(
               cls := "yes-no-confirm button-blue button-empty"
@@ -148,7 +150,9 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
               form("archivedStudents"),
               frag("Archived students"),
               klass = "bulk-action",
-              help = frag("BEWARE: removing a student with managed account will close the account permanently.").some
+              help = frag(
+                "BEWARE: removing a student with managed account will close the account permanently."
+              ).some
             )(form3.textarea(_)(rows := 3)),
             form3.submit("Restore", icon = none, ("action", "restore").some)(
               cls := "yes-no-confirm button-blue button-empty"
