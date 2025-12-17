@@ -261,6 +261,9 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
                 yield Redirect(routes.Clas.bulkActions(id)).flashSuccess
               }
             }
+          case "delete-invites" =>
+            env.clas.api.invite.deleteInvites(id, data.invitesUserIds)
+            Redirect(routes.Clas.bulkActions(id)).flashSuccess
           case _ =>
             Redirect(routes.Clas.bulkActions(id)).flashFailure(s"Action ${data.action} not supported.")
     )

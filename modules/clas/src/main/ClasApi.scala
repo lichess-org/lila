@@ -408,6 +408,18 @@ ${clas.desc}""",
     def delete(id: ClasInviteId): Funit =
       colls.invite.delete.one($id(id)).void
 
+    def deleteInvites(id: ClasId, userIds: List[UserId]): Funit =
+      if userIds.isEmpty then funit
+      else
+        colls.invite.delete
+          .one(
+            q = $doc(
+              "userId" -> $doc("$in" -> userIds),
+              "clasId" -> id
+            )
+          )
+          .void
+
     private def sendInviteMessage(
         teacher: Me,
         student: User,
