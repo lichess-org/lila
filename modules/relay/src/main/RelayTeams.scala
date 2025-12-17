@@ -6,7 +6,6 @@ import chess.{ FideId, PlayerName }
 import lila.core.fide.{ PlayerToken, Tokenize }
 import lila.study.ChapterPreview
 import lila.study.StudyPlayer
-import chess.ByColor
 
 type TeamName = String
 
@@ -69,12 +68,12 @@ final class RelayTeamTable(
 
   def tableJson(relay: RelayRound): Fu[JsonStr] = cache.get(relay.studyId)
 
-  private val cache = cacheApi[StudyId, JsonStr](16, "relay.teamTable"):
+  private val cache = cacheApi[StudyId, JsonStr](8, "relay.teamTable"):
     _.expireAfterWrite(3.seconds).buildAsyncFuture(impl.makeJson)
 
   private object impl:
 
-    import chess.{ Color, Outcome }
+    import chess.{ Color, ByColor, Outcome }
 
     def makeJson(studyId: StudyId): Fu[JsonStr] =
       import json.given
@@ -87,7 +86,7 @@ final class RelayTeamTable(
 
     case class TeamWithPoints(name: String, points: Float = 0):
       def add(result: Option[Outcome.GamePoints], customPoints: Option[ByColor[Float]], as: Color) =
-        copy(points = points + customPoints.map(_(as)).orElse(result.map(_(as).value)).so(p => p))
+        copy(points = points + customPoints.map(_(as)).orElse(result.map(_(as).value)).orZero)
     case class Pair[A](a: A, b: A):
       def is(p: Pair[A]) = (a == p.a && b == p.b) || (a == p.b && b == p.a)
       def map[B](f: A => B) = Pair(f(a), f(b))
@@ -118,15 +117,14 @@ final class RelayTeamTable(
           points <- chap.points
           players <- chap.players.map(_.map(_.studyPlayer))
           teams <- players.traverse(_.team).map(_.toPair).map(Pair.apply)
-          game = players.mapWithColor((c, p) =>
+          game = players.mapWithColor: (c, p) =>
             RelayPlayer.Game(round.id, chap.id, p, c, points, round.rated, round.customScoring, false)
-          )
           m0 = table.find(_.is(teams)) | TeamMatch(teams.map(TeamWithPoints(_)), Nil)
           m1 = m0.add(
             chap,
             Pair(players.white.player -> teams.a, players.black.player -> teams.b),
             points,
-            game.map(_.playerScore.so(s => s)).some
+            game.map(_.playerScore.orZero).some
           )
           newTable = m1 :: table.filterNot(_.is(teams))
         yield newTable) | table
