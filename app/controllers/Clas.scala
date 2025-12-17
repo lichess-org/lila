@@ -7,7 +7,7 @@ import play.api.mvc.*
 import scalalib.model.Days
 
 import lila.app.{ *, given }
-import lila.clas.ClasForm.ClasData
+import lila.clas.ClasForm.{ ClasData, BulkActionData }
 import lila.core.id.{ ClasId, ClasInviteId }
 import lila.core.security.ClearPassword
 
@@ -209,8 +209,9 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
   def bulkActions(id: ClasId) = Secure(_.Teacher) { ctx ?=> me ?=>
     WithClass(id): clas =>
       for
-        students <- env.clas.api.student.allWithUsers(clas)
-        students <- env.clas.api.student.withPerfs(students)
+        students0 <- env.clas.api.student.allWithUsers(clas)
+        students <- env.clas.api.student.withPerfs(students0)
+        (activeStudents, archivedStudents) = students.partition(_.student.isActive)
         invites <- env.clas.api.invite.listPending(clas)
         classes <- env.clas.api.clas.of(me)
         otherClasses = classes.filter(_.id != clas.id)
@@ -219,46 +220,30 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
             clas,
             otherClasses,
             students,
-            env.clas.forms.clas.bulkAction.fill(
-              students
-                .filter(_.student.isActive)
-                .map(s => s"${s.student.userId} ${s.student.realName}")
-                .mkString("\n")
-            ),
-            env.clas.forms.clas.bulkAction.fill(
-              students
-                .filter(_.student.isArchived)
-                .map(s => s"${s.student.userId} ${s.student.realName}")
-                .mkString("\n")
-            ),
-            env.clas.forms.clas.bulkAction
-              .fill(invites.map(i => s"${i.userId} ${i.realName}").mkString("\n"))
+            env.clas.forms.clas.bulkActionForm.fill(
+              BulkActionData(
+                activeStudents
+                  .map(s => s"${s.student.userId} ${s.student.realName}")
+                  .mkString("\n"),
+                archivedStudents
+                  .map(s => s"${s.student.userId} ${s.student.realName}")
+                  .mkString("\n"),
+                invites.map(i => s"${i.userId} ${i.realName}").mkString("\n"),
+                ""
+              )
+            )
           )
         )
       yield Ok(page)
   }
 
-  def bulkActionsActive(id: ClasId) = SecureBody(_.Teacher) { ctx ?=> me ?=>
+  def bulkActionsPost(id: ClasId) = SecureBody(_.Teacher) { ctx ?=> me ?=>
     WithClass(id): clas =>
-      bindForm(env.clas.forms.clas.bulkAction)(
+      bindForm(env.clas.forms.clas.bulkActionForm)(
         err => Redirect(routes.Clas.bulkActions(id)).flashFailure,
-        ids => Redirect(routes.Clas.bulkActions(id)).flashSuccess
-      )
-  }
-
-  def bulkActionsArchived(id: ClasId) = SecureBody(_.Teacher) { ctx ?=> me ?=>
-    WithClass(id): clas =>
-      bindForm(env.clas.forms.clas.bulkAction)(
-        err => Redirect(routes.Clas.bulkActions(id)).flashFailure,
-        ids => Redirect(routes.Clas.bulkActions(id)).flashSuccess
-      )
-  }
-
-  def bulkActionsInvites(id: ClasId) = SecureBody(_.Teacher) { ctx ?=> me ?=>
-    WithClass(id): clas =>
-      bindForm(env.clas.forms.clas.bulkAction)(
-        err => Redirect(routes.Clas.bulkActions(id)).flashFailure,
-        ids => Redirect(routes.Clas.bulkActions(id)).flashSuccess
+        data =>
+          lila.log("class").info(s"${data}")
+          Redirect(routes.Clas.bulkActions(id)).flashSuccess
       )
   }
 

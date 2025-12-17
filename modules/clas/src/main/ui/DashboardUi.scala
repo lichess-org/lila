@@ -123,9 +123,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
         c: Clas,
         otherClasses: List[Clas],
         all: List[Student.WithUserPerfs],
-        activeStudents: Form[?],
-        archivedStudents: Form[?],
-        invitees: Form[?]
+        form: Form[?]
     )(using Context) =
       val classButtons: Frag = otherClasses.map: toClass =>
         form3.submit(toClass.name, icon = Icon.InternalArrow.some, ("action", s"move-to-${toClass.id}").some)(
@@ -135,19 +133,17 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
 
       TeacherPage(c, all.filter(_.student.isActive), "students")():
         div(cls := "clas-show__body")(
-          postForm(cls := "form3", action := routes.Clas.bulkActionsActive(c.id))(
+          postForm(cls := "form3", action := routes.Clas.bulkActionsPost(c.id))(
             form3.group(
-              activeStudents("ids"),
+              form("activeStudents"),
               frag("Active students")
             )(form3.textarea(_)(rows := 3)),
             classButtons,
             form3.submit("Archive", icon = none, ("action", "archive").some)(
               cls := "yes-no-confirm button-red button-empty"
-            )
-          ),
-          postForm(cls := "form3", action := routes.Clas.bulkActionsArchived(c.id))(
+            ),
             form3.group(
-              archivedStudents("ids"),
+              form("archivedStudents"),
               frag("Archived students")
             )(form3.textarea(_)(rows := 3)),
             form3.submit("Invite back", icon = none, ("action", "invite-back").some)(
@@ -158,11 +154,9 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
             ),
             form3.submit("Close account", icon = none, ("action", "close-account").some)(
               cls := "yes-no-confirm button-red button-empty"
-            )
-          ),
-          postForm(cls := "form3", action := routes.Clas.bulkActionsInvites(c.id))(
+            ),
             form3.group(
-              invitees("ids"),
+              form("invites"),
               frag("Invites")
             )(form3.textarea(_)(rows := 3)),
             form3.submit("Delete", icon = Icon.Trash.some, ("action", "delete").some)(

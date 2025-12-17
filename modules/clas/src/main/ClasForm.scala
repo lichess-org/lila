@@ -47,7 +47,14 @@ final class ClasForm(
 
     def notifyText = Form(single("text" -> nonEmptyText(minLength = 10, maxLength = 300)))
 
-    val bulkAction = Form(single("ids" -> cleanNonEmptyText))
+    val bulkActionForm = Form(
+      mapping(
+        "activeStudents" -> text,
+        "archivedStudents" -> text,
+        "invites" -> text,
+        "action" -> nonEmptyText
+      )(BulkActionData.apply)(unapply)
+    )
 
   object student:
 
@@ -136,3 +143,10 @@ object ClasForm:
   case class ManyNewStudent(realNamesText: String):
     def realNames =
       realNamesText.linesIterator.map(_.trim.take(realNameMaxSize)).filter(_.nonEmpty).distinct.toList
+
+  case class BulkActionData(
+      activeStudents: String,
+      archivedStudents: String,
+      invites: String,
+      action: String
+  )
