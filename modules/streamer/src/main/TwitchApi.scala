@@ -126,7 +126,7 @@ final private class TwitchApi(
       latestSeenApprovedIds <- repo.approvedTwitchIds()
       _ = logger.info(s"${latestSeenApprovedIds.size} approved twitch ids")
       allSubs <- listSubs(Set.empty, none)
-      _ = logger.info(s"Currently subscribed to ${allSubs.size} valid event subs")
+      _ = logger.info(s"Currently subscribed to ${allSubs.size} event subs")
       (invalid, subs) = allSubs.partition(_.hook != webhook)
       _ = logger.info(s"Deleting ${invalid.size} invalid event subs")
       _ <- deleteSubs(invalid.toList)
