@@ -93,7 +93,13 @@ const renderTeams = (
       return chap?.status !== '*';
     });
     const resultClass = (team1: TeamWithPoints, team2: TeamWithPoints) =>
-      !isFinished || team1.points === team2.points ? '' : team1.points > team2.points ? 'good.' : 'bad.';
+      !isFinished
+        ? ''
+        : team1.points > team2.points
+          ? 'good.'
+          : team1.points < team2.points
+            ? 'bad.'
+            : 'result.';
     return hl('div.relay-tour__team-match', [
       hl('div.relay-tour__team-match__teams', [
         hl('strong.relay-tour__team-match__team', row.teams[0].name),
