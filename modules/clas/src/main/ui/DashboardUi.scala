@@ -137,23 +137,23 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
             form3.group(
               form("activeStudents"),
               frag("Active students")
-            )(form3.textarea(_)(rows := 3)),
+            )(form3.textarea(_)(rows := 10)),
             form3.submit("Archive", icon = none, ("action", "archive").some)(
-              cls := "yes-no-confirm button-red button-empty"
+              cls := "yes-no-confirm button-blue button-empty"
             ),
             classButtons,
             form3.group(
               form("archivedStudents"),
               frag("Archived students")
             )(form3.textarea(_)(rows := 3)),
+            form3.submit("Restore", icon = none, ("action", "restore").some)(
+              cls := "yes-no-confirm button-blue button-empty"
+            ),
             form3.submit("Remove", icon = Icon.Trash.some, ("action", "remove").some)(
               cls := "yes-no-confirm button-red button-empty"
             ),
-            form3.submit("Close account", icon = none, ("action", "close-account").some)(
+            form3.submit("Close account", icon = Icon.Trash.some, ("action", "close-account").some)(
               cls := "yes-no-confirm button-red button-empty"
-            ),
-            form3.submit("Restore", icon = none, ("action", "restore").some)(
-              cls := "yes-no-confirm button-blue button-empty"
             ),
             form3.group(
               form("invites"),

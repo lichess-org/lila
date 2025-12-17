@@ -239,6 +239,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
   }
 
   def bulkActionsPost(id: ClasId) = SecureBody(_.Teacher) { ctx ?=> me ?=>
+    val moveTo = """move-to-(.+)""".r
     bindForm(env.clas.forms.clas.bulkActionForm)(
       _ => Redirect(routes.Clas.bulkActions(id)).flashFailure,
       data =>
@@ -246,6 +247,20 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
           case "archive" =>
             env.clas.api.student.archiveMany(data.activeUserIds.map { u => Student.makeId(u, id) }, true)
             Redirect(routes.Clas.bulkActions(id)).flashSuccess
+          case "restore" =>
+            env.clas.api.student.archiveMany(data.archivedUserIds.map { u => Student.makeId(u, id) }, false)
+            Redirect(routes.Clas.bulkActions(id)).flashSuccess
+          case moveTo(to) =>
+            WithClass(id) { fromClas =>
+              WithClass(ClasId(to)) { toClas =>
+                val studentIdsSet = data.activeUserIds.toSet
+                for
+                  students <- env.clas.api.student.allWithUsers(fromClas)
+                  selected = students.filter(s => studentIdsSet.contains(s.user.id))
+                  _ <- selected.traverse(env.clas.api.student.move(_, toClas))
+                yield Redirect(routes.Clas.bulkActions(id)).flashSuccess
+              }
+            }
           case _ =>
             Redirect(routes.Clas.bulkActions(id)).flashFailure(s"Action ${data.action} not supported.")
     )
