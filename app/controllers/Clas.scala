@@ -261,6 +261,15 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
                 yield Redirect(routes.Clas.bulkActions(id)).flashSuccess
               }
             }
+          case "remove" =>
+            WithClass(id) { clas =>
+              val studentIdsSet = data.archivedUserIds.toSet
+              for
+                students <- env.clas.api.student.allWithUsers(clas)
+                selected = students.filter(s => studentIdsSet.contains(s.user.id))
+                _ <- selected.traverse(closeStudent(_))
+              yield Redirect(routes.Clas.bulkActions(id)).flashSuccess
+            }
           case "delete-invites" =>
             env.clas.api.invite.deleteInvites(id, data.invitesUserIds)
             Redirect(routes.Clas.bulkActions(id)).flashSuccess
@@ -541,6 +550,15 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
           for _ <- env.clas.api.student.closeAccount(s) yield redirectTo(clas).flashSuccess
         else redirectTo(clas)
   }
+
+  private def closeStudent(s: Student.WithUser)(using me: Me): Funit =
+    if s.student.managed then
+      for
+        _ <- env.clas.api.student.closeAccount(s)
+        _ <- env.api.accountTermination.disable(s.user, forever = false)
+      yield ()
+    else if s.student.isArchived then env.clas.api.student.closeAccount(s).void
+    else fuccess(none)
 
   def studentMove(id: ClasId, username: UserStr) = Secure(_.Teacher) { ctx ?=> me ?=>
     WithClassAndStudents(id): (clas, students) =>
