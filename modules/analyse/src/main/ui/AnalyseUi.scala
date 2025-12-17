@@ -68,7 +68,9 @@ final class AnalyseUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
             st.aside(cls := "analyse__side")(
               lila.ui.bits.mselect(
                 "analyse-variant",
-                span(cls := "text", dataIcon := iconByVariant(pov.game.variant))(pov.game.variant.name),
+                span(cls := "text", dataIcon := iconByVariant(pov.game.variant))(
+                  pov.game.variant.variantTrans.txt()
+                ),
                 Variant.list.all
                   .filter(FromPosition != _)
                   .map: v =>
@@ -76,7 +78,7 @@ final class AnalyseUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
                       dataIcon := iconByVariant(v),
                       cls := (pov.game.variant == v).option("current"),
                       href := routes.UserAnalysis.parseArg(v.key.value)
-                    )(v.name)
+                    )(v.variantTrans.txt())
               ),
               pov.game.variant.chess960.option(chess960selector(chess960PositionNum)),
               pov.game.variant.standard.option(
