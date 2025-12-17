@@ -8,6 +8,7 @@ import scalalib.model.Days
 
 import lila.app.{ *, given }
 import lila.clas.ClasForm.{ ClasData, BulkActionData }
+import lila.clas.Student
 import lila.core.id.{ ClasId, ClasInviteId }
 import lila.core.security.ClearPassword
 
@@ -238,13 +239,16 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
   }
 
   def bulkActionsPost(id: ClasId) = SecureBody(_.Teacher) { ctx ?=> me ?=>
-    WithClass(id): clas =>
-      bindForm(env.clas.forms.clas.bulkActionForm)(
-        err => Redirect(routes.Clas.bulkActions(id)).flashFailure,
-        data =>
-          lila.log("class").info(s"${data}")
-          Redirect(routes.Clas.bulkActions(id)).flashSuccess
-      )
+    bindForm(env.clas.forms.clas.bulkActionForm)(
+      _ => Redirect(routes.Clas.bulkActions(id)).flashFailure,
+      data =>
+        data.action match
+          case "archive" =>
+            env.clas.api.student.archiveMany(data.activeUserIds.map { u => Student.makeId(u, id) }, true)
+            Redirect(routes.Clas.bulkActions(id)).flashSuccess
+          case _ =>
+            Redirect(routes.Clas.bulkActions(id)).flashFailure(s"Action ${data.action} not supported.")
+    )
   }
 
   def students(id: ClasId) = Secure(_.Teacher) { ctx ?=> me ?=>

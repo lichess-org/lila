@@ -149,4 +149,14 @@ object ClasForm:
       archivedStudents: String,
       invites: String,
       action: String
-  )
+  ):
+    def activeUserIds = readUserIds(activeStudents)
+    def archivedUserIds = readUserIds(archivedStudents)
+    def invitesUserIds = readUserIds(invites)
+
+  private def readUserIds(str: String) =
+    UserStr
+      .from(str.linesIterator.map(_.trim).filter(_.nonEmpty).map(_.takeWhile(!_.isWhitespace)))
+      .map(_.id)
+      .distinct
+      .toList
