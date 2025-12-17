@@ -12,9 +12,8 @@ export function autolinkAtoms(el: HTMLElement = document.body): void {
   }
 }
 
-export function autolink(text: string): string {
-  return expandMentions(text.replace(pathMatchRe, `<a href="$1">${location.hostname}$1</a>`));
-}
+export const autolink = (text: string): string =>
+  expandMentions(text.replace(pathMatchRe, `<a href="$1">${location.hostname}$1</a>`));
 
 const greedyAutoLinks = [
   'inbox',
@@ -29,7 +28,7 @@ const greedyAutoLinks = [
 ];
 
 const pathMatchRe = new RegExp(
-  `(?:^|(?<![/="'\\w@>])|(?<=[,;(]))(?:https://)?` +
+  `(?:^|(?<![/="'\\w-@>])|(?<=[,;(]))(?:https://)?` +
     `(?:${location.hostname.replace('.', '\\.')})?` +
     `(/(?:${greedyAutoLinks.join('|')})(?:/|\\?|#|\\b|$)(?:[^\\s,."';)]+)?)`,
   'gi',

@@ -37,6 +37,8 @@ final private class FideRepo(
       playerColl.updateField($id(id), "photo", photo).void
     def setPhotoCredit(p: FidePlayer, credit: Option[String]): Funit =
       playerColl.updateOrUnsetField($id(p.id), "photo.credit", credit).void
+    def setDeceasedYear(id: FideId, year: Option[Int]): Funit =
+      playerColl.updateOrUnsetField($id(id), "deceasedYear", year).void
 
   object rating:
     private given BSONHandler[YearMonth] =

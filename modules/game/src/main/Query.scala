@@ -25,7 +25,8 @@ object Query:
 
   val mate: Bdoc = status(Status.Mate)
 
-  def draw(u: UserId): Bdoc = user(u) ++ finished ++ F.winnerId.$exists(false)
+  def draw(u: UserId): Bdoc =
+    user(u) ++ finished ++ F.winnerId.$exists(false) ++ $or(notAi, status(Status.Draw))
 
   val finished: Bdoc = F.status.$gte(Status.Mate.id)
 
@@ -40,7 +41,8 @@ object Query:
   def imported(u: UserId): Bdoc = s"${F.pgnImport}.user".$eq(u)
   def importedSort: Bdoc = $sort.desc(s"${F.pgnImport}.ca")
 
-  val friend: Bdoc = s"${F.source}".$eq(lila.core.game.Source.Friend.id)
+  val friend: Bdoc = F.source.$eq(lila.core.game.Source.Friend.id)
+  val notAi: Bdoc = F.source.$ne(lila.core.game.Source.Ai.id)
 
   def clock(c: Boolean): Bdoc = F.clock.$exists(c)
 

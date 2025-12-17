@@ -42,17 +42,31 @@ const pad2 = (num: number): string => (num < 10 ? '0' : '') + num;
 const sepHigh = '<sep>:</sep>';
 const sepLow = '<sep class="low">:</sep>';
 
-export function formatClockTimeVerbal(time: Millis): string {
-  const totalSeconds = Math.floor(time / 1000);
-  const days = Math.floor(totalSeconds / (3600 * 24));
-  const hours = Math.floor((totalSeconds % (3600 * 24)) / 3600);
-  const minutes = Math.floor((totalSeconds % 3600) / 60);
-  const seconds = totalSeconds % 60;
+interface ParsedTime {
+  millis: Millis;
+  seconds: Seconds;
+  minutes: Minutes;
+  hours: Hours;
+}
 
+function parseClockTime(time: Millis): ParsedTime {
+  const totalSeconds = time / 1000;
+  return {
+    millis: Math.floor(time % 1000),
+    seconds: Math.floor(totalSeconds % 60),
+    minutes: Math.floor((totalSeconds / 60) % 60),
+    hours: Math.floor(totalSeconds / 3600),
+  };
+}
+
+export function formatClockTimeVerbal(time: Millis): string {
+  const { seconds, minutes, hours } = parseClockTime(time);
+  const hoursOfDay = hours % 24;
+  const days = Math.floor(hours / 24);
   const parts: string[] = [];
   if (days > 0) {
     parts.push(i18n.site.nbDays(days));
-    if (hours > 0) parts.push(i18n.site.nbHours(hours));
+    if (hoursOfDay > 0) parts.push(i18n.site.nbHours(hoursOfDay));
   } else if (hours > 0) {
     parts.push(i18n.site.nbHours(hours));
     if (minutes > 0) parts.push(i18n.site.nbMinutes(minutes));
@@ -65,21 +79,18 @@ export function formatClockTimeVerbal(time: Millis): string {
 }
 
 function formatClockTime(time: Millis, showTenths: boolean, isRunning: boolean) {
-  const date = new Date(time);
   if (site.blindMode) return formatClockTimeVerbal(time);
-  const millis = date.getUTCMilliseconds(),
-    sep = isRunning && millis < 500 ? sepLow : sepHigh,
-    baseStr = pad2(date.getUTCMinutes()) + sep + pad2(date.getUTCSeconds());
-  if (time >= 3600000) {
-    const hours = pad2(Math.floor(time / 3600000));
-    return hours + sepHigh + baseStr;
+  const { millis, seconds, minutes, hours } = parseClockTime(time);
+  const sep = isRunning && millis < 500 ? sepLow : sepHigh,
+    baseStr = pad2(minutes) + sep + pad2(seconds);
+  if (hours > 0) {
+    return pad2(hours) + sepHigh + baseStr;
   } else if (showTenths) {
     let tenthsStr = Math.floor(millis / 100).toString();
     if (!isRunning && time < 1000) {
-      tenthsStr += '<huns>' + (Math.floor(millis / 10) % 10) + '</huns>';
+      tenthsStr += `<huns>${Math.floor(millis / 10) % 10}</huns>`;
     }
-
-    return baseStr + '<tenths><sep>.</sep>' + tenthsStr + '</tenths>';
+    return `${baseStr}<tenths><sep>.</sep>${tenthsStr}</tenths>`;
   } else {
     return baseStr;
   }
@@ -101,7 +112,7 @@ function showBar(ctrl: ClockCtrl, color: Color) {
       if (color === ctrl.times.activeColor) {
         if (remaining > ctrl.barTime) {
           // Player was given more time than the duration of the animation. So we update the duration to reflect this.
-          el.style.animationDuration = String(remaining / 1000) + 's';
+          el.style.animationDuration = `${remaining}ms`;
         } else if (remaining > 0) {
           // Calling play after animations finishes restarts anim
           anim.play();
@@ -123,10 +134,12 @@ function showBar(ctrl: ClockCtrl, color: Color) {
       });
 }
 
+/**
+ * This function is used to update the active clock (and bar) during ticks.
+ * For larger updates (such as after a move), a redraw is expected.
+ */
 export function updateElements(clock: ClockCtrl, els: ClockElements, millis: Millis): void {
   if (els.time) els.time.innerHTML = formatClockTime(millis, clock.showTenths(millis), true);
-  // 12/02/2025 Brave 1.74.51 android flickers the bar oninline transforms, even though .bar is display: none
-  if (els.bar) els.bar.style.transform = 'scale(' + clock.timeRatio(millis) + ',1)';
   if (els.clock) {
     const cl = els.clock.classList;
     if (millis < clock.emergMs) cl.add('emerg');

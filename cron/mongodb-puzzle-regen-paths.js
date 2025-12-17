@@ -80,7 +80,7 @@ let anyBuggy = false;
   // ['mix'].forEach(theme => {
   const isOpening = openings.includes(theme);
   const selector = {
-    ...{ issue: { $exists: false } },
+    ...{ issue: { $exists: false }, tooSubtle: { $ne: true } },
     ...(isOpening
       ? { opening: theme }
       : {
