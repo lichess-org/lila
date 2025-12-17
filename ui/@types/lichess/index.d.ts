@@ -231,6 +231,7 @@ type UserId = string;
 type Uci = string;
 type San = string;
 type Ply = number;
+type Hours = number;
 type Minutes = number;
 type Seconds = number;
 type Centis = number;

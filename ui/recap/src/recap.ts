@@ -16,7 +16,6 @@ export async function initModule(opts: Opts): Promise<void> {
   } else {
     patch(getEl(), awaiter(opts.user));
     const loaded: Opts = await json(location.pathname);
-    if (loaded.costs) initModule(loaded);
-    else site.reload();
+    initModule(loaded);
   }
 }
