@@ -421,8 +421,9 @@ const renderPlayerGames = (ctrl: RelayPlayers, p: RelayPlayerWithGames, withTips
       const customPoints = game.customPoints;
       const coloredPoint = (points: PointsStr): VNode => {
         if (hideResultsSinceIndex <= i) return hl('span', '?');
-        const statusStr = points === '1' ? '1-0' : points === '0' ? '0-1' : '½-½';
-        const coloredResult = playerColoredResult(statusStr, game.color, game.roundObj);
+        const povResultStr =
+          points === '1/2' ? '½-½' : (points === '1') === (game.color === 'white') ? '1-0' : '0-1';
+        const coloredResult = playerColoredResult(povResultStr, game.color, game.roundObj);
         const displayValue =
           customPoints !== undefined && points.replace('1/2', '0.5') !== customPoints.toString()
             ? customPoints
