@@ -2,4 +2,60 @@
 <resources>
 	<string name="hiUser" comment="%s is the title+username e.g. 'GM ABC' or simply ABC if there is no title">Szia, %s</string>
 	<string name="awaitQuestion" comment="Displayed while waiting for results and also as a notification.">Mit csináltál idén?</string>
+	<string name="initTitle">Micsoda sakkéved volt!</string>
+	<string name="noGamesText">Idén nem játszottál egyetlen partit sem.</string>
+	<string name="noGamesCta">Játszanál most?</string>
+	<string name="gamesYouWon" comment="%s is the number of games won">És nyertél %s-szor!</string>
+	<string name="gamesNextQuestion">Mi kellett ahhoz, hogy elérj ideáig?</string>
+	<string name="timeSpentPlayingExclam" comment="%s is the time spent playing animated from 0 e.g. '1 day, 17 hours'. The time is also translated">%s játékkal töltött idő!</string>
+	<string name="timeTooMuch">Ez túlságosan sok sakk.</string>
+	<string name="timeALot">Ez jó sok sakk.</string>
+	<string name="timeReasonable">Ez reális mennyiségű sakknak tűnik.</string>
+	<string name="timeHowManyMoves">Hány lépést tettél meg ennyi idő alatt?</string>
+	<plurals name="nbMovesPlayed">
+		<item quantity="one">%s lépés</item>
+		<item quantity="other">%s lépés</item>
+	</plurals>
+	<string name="movesOfWoodPushed" comment="%s is a weight in grams or kilograms">Az %s kiló fa eltolva!</string>
+	<string name="movesStandardPiecesWeight">Az átlagos bábuk körülbelül 40 grammot nyomnak</string>
+	<plurals name="nbMoves">
+		<item quantity="one">%s lépés</item>
+		<item quantity="other">%s lépés</item>
+	</plurals>
+	<string name="chessFoes">Leggyakoribb ellenfeleid</string>
+	<plurals name="nbGrams">
+		<item quantity="one">%s gramm</item>
+		<item quantity="other">%s gramm</item>
+	</plurals>
+	<plurals name="nbKilograms">
+		<item quantity="one">%s kilogramm</item>
+		<item quantity="other">%s kilogramm</item>
+	</plurals>
+	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">lépéssel kezdted %s játszmádat világossal</string>
+	<plurals name="openingsMostPlayedAsWhite" comment="%s is the number of games">
+		<item quantity="one">Legtöbbet játszott megnyitásod %s játszmával, világossal</item>
+		<item quantity="other">Legtöbbet játszott megnyitásod %s játszmával, világossal</item>
+	</plurals>
+	<plurals name="openingsMostPlayedAsBlack" comment="%s is the number of games">
+		<item quantity="one">Legtöbbet játszott megnyitásod %s játszmával, sötéttel</item>
+		<item quantity="other">Legtöbbet játszott megnyitásod %s játszmával, sötéttel</item>
+	</plurals>
+	<plurals name="puzzlesThanksVoting" comment="%s is the number of puzzles. It is also translated.">
+		<item quantity="one">Köszönjük, hogy szavaztál %s feladványra.</item>
+		<item quantity="other">Köszönjük, hogy szavaztál %s feladványra.</item>
+	</plurals>
+	<string name="puzzlesHelpedTagging" comment="To tag in this context is to categorise the themes the puzzles fit into.&#10;%s is a number e.g. 5">Illetve segítettél kategorizálni %s darabot.</string>
+	<string name="puzzlesNone">Egyetlen feladványt sem oldottál meg idén.</string>
+	<string name="puzzlesTryNow" comment="This is context of a user who did not solve any puzzles in the past year. This is a call to action, inviting them to try Lichess puzzles.">Megpróbálnál párat most?</string>
+	<string name="puzzlesYouWonOnFirstTry" comment="%s is the number of puzzles the user successfully solved that year.">%s darabot elsőre megoldottál!</string>
+	<string name="sourcesTitle">Hol találtál játszmát?</string>
+	<string name="perfsTitle">Milyen játékmódot és variánst játszottál?</string>
+	<string name="malwareNoneLoaded" comment="%s is 0">%s reklám és adatgyűjtő betöltve</string>
+	<string name="malwareNoSell">Nem adtuk ki a személyes adataidat</string>
+	<string name="malwareNoAbuse">Nem használtuk az eszközöd ellened</string>
+	<string name="malwareWarningPrefix" comment="%s is 'be careful'">De más weboldalak igen, szóval kérjük %s.</string>
+	<string name="malwareWarningCta" comment="It is a link to https://lichess.org/ads">légy óvatos</string>
+	<string name="lichessGamesPlayedIn" comment="lichessGamesPlayedIn&#10;%1$s is the number of games, %2$s is the year of the recap.">%1$s játszma Lichessen %2$s-ban/ben</string>
+	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours, out of all Lichess games.">%s a tiéd volt.</string>
+	<string name="thanksTitle">Köszönjük, hogy Lichessen játszol!</string>
 </resources>
