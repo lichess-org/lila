@@ -136,7 +136,9 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
           postForm(cls := "form3", action := routes.Clas.bulkActionsPost(c.id))(
             form3.group(
               form("activeStudents"),
-              frag("Active students")
+              frag("Active students"),
+              klass = "bulk-action",
+              help = frag("Edit this list to keep the students selected for the bulk action. Only the user identifiers are mandatory.").some
             )(form3.textarea(_)(rows := 10)),
             form3.submit("Archive", icon = none, ("action", "archive").some)(
               cls := "yes-no-confirm button-blue button-empty"
@@ -144,7 +146,9 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
             classButtons,
             form3.group(
               form("archivedStudents"),
-              frag("Archived students")
+              frag("Archived students"),
+              klass = "bulk-action",
+              help = frag("BEWARE: removing a student with managed account will close the account permanently.").some
             )(form3.textarea(_)(rows := 3)),
             form3.submit("Restore", icon = none, ("action", "restore").some)(
               cls := "yes-no-confirm button-blue button-empty"
@@ -154,7 +158,8 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
             ),
             form3.group(
               form("invites"),
-              frag("Invites")
+              frag("Invites"),
+              klass = "bulk-action"
             )(form3.textarea(_)(rows := 3)),
             form3.submit("Delete", icon = Icon.Trash.some, ("action", "delete-invites").some)(
               cls := "yes-no-confirm button-red button-empty"

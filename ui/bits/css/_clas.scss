@@ -295,6 +295,13 @@ $c-bg-clas-over-dim: $m-clas_white--mix-20;
       margin: 0;
     }
 
+    .clas-show__body {
+      .bulk-action {
+        margin-top: 3rem;
+        margin-bottom: 0;
+      }
+    }
+
     .clas-show__desc {
       margin-bottom: 2em;
     }
