@@ -14,13 +14,13 @@ await client.connect();
 const db = client.db();
 const coll = db.collection('puzzle2_puzzle');
 
-const rl = createInterface({ input: createReadStream(file), crlfDelay: Infinity, });
+const rl = createInterface({ input: createReadStream(file), crlfDelay: Infinity });
 
 const buffer = [];
 let counter = 0;
 
 async function flush() {
-  await coll.updateMany({ _id: { $in: buffer }, tooSubtle: { $ne: true } }, { $set: { tooSubtle: true } })
+  await coll.updateMany({ _id: { $in: buffer }, tooSubtle: { $ne: true } }, { $set: { tooSubtle: true } });
   counter += buffer.length;
   buffer.length = 0;
   console.log(`Flagged ${counter} puzzles`);
