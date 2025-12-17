@@ -79,8 +79,10 @@ let anyBuggy = false;
   // [...openings].forEach(theme => {
   // ['mix'].forEach(theme => {
   const isOpening = openings.includes(theme);
+  const subtleSelector = { $or: [{ tooSubtle: { $ne: true } }, { 'glicko.r': { $gte: 2200 } }] };
   const selector = {
-    ...{ issue: { $exists: false }, tooSubtle: { $ne: true } },
+    ...{ issue: { $exists: false } },
+    ...subtleSelector,
     ...(isOpening
       ? { opening: theme }
       : {
