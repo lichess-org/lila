@@ -330,7 +330,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
             )
           )
         ),
-        form3.fieldset("Advanced", toggle = nav.round.exists(r => r.sync.delay.isDefined).some)(
+        form3.fieldset("Advanced", toggle = nav.round.exists(_.sync.delay.isDefined).some)(
           form3.split(
             form3.group(
               form("delay"),
@@ -353,6 +353,23 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
               form3.select(_, Seq("new" -> "New", "started" -> "Started", "finished" -> "Finished"))
           )
         ),
+        form3
+          .fieldset("Game ordering", toggle = nav.round.flatMap(_.sync.reorder).isDefined.some)(
+            cls := "box-pad"
+          )(
+            form3.group(
+              form("reorder"),
+              "Optional: reorder games by player names",
+              help = frag( // do not translate
+                "One line per game, containing one or two player names.",
+                "Example:",
+                pre("""Helmut Kleissl
+Hanna Marie ; Kozul, Zdenko"""),
+                "By default the source game order is used. Extra games are added after the reordered ones."
+              ).some,
+              half = true
+            )(form3.textarea(_)(rows := 7, spellcheck := "false", cls := "monospace"))
+          ),
         (nav.tour.showScores || nav.tour.showRatingDiffs).option(
           form3.fieldset(
             "Custom scoring",
