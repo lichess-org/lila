@@ -2,7 +2,8 @@ import { type VNode, dataIcon, hl, onInsert, type MaybeVNodes } from 'lib/view';
 import { json as xhrJson } from 'lib/xhr';
 import * as licon from 'lib/licon';
 import { spinnerVdom as spinner } from 'lib/view';
-import type { Photo, RelayTour, RoundId, TourId } from './interfaces';
+import type { Photo, RelayRound, RelayTour, RoundId, TourId } from './interfaces';
+import { playerColoredResult } from './customScoreStatus';
 import { playerFedFlag } from '../playerBars';
 import { userLink, userTitle } from 'lib/view/userLink';
 import type {
@@ -40,6 +41,7 @@ interface RelayPlayer extends StudyPlayer {
 interface RelayPlayerGame {
   id: ChapterId;
   round: RoundId;
+  roundObj?: RelayRound;
   opponent: RelayPlayer;
   color: Color;
   points?: PointsStr;
@@ -417,15 +419,17 @@ const renderPlayerGames = (ctrl: RelayPlayers, p: RelayPlayerWithGames, withTips
       const op = game.opponent;
       const points = game.points;
       const customPoints = game.customPoints;
-      const formatPointsStr = (points: PointsStr): string => points.replace('1/2', '½');
-      const formatPoints = (points: PointsStr, customPoints: number | undefined): string =>
-        customPoints === undefined || points.replace('1/2', '0.5') === customPoints.toString()
-          ? formatPointsStr(points)
-          : `${formatPointsStr(points)} (${customPoints})`;
-      const pointsVnode = (points: PointsStr, customPoints: number | undefined): VNode =>
-        hideResultsSinceIndex <= i
-          ? hl('span', '?')
-          : hl(points === '1' ? 'good' : points === '0' ? 'bad' : 'span', formatPoints(points, customPoints));
+      const coloredPoint = (points: PointsStr): VNode => {
+        if (hideResultsSinceIndex <= i) return hl('span', '?');
+        const povResultStr =
+          points === '1/2' ? '½-½' : (points === '1') === (game.color === 'white') ? '1-0' : '0-1';
+        const coloredResult = playerColoredResult(povResultStr, game.color, game.roundObj);
+        const displayValue =
+          customPoints !== undefined && points.replace('1/2', '0.5') !== customPoints.toString()
+            ? customPoints
+            : coloredResult.points;
+        return hl(`${coloredResult.tag}`, displayValue);
+      };
       return hl('tr', [
         hl(
           'td',
@@ -438,7 +442,7 @@ const renderPlayerGames = (ctrl: RelayPlayers, p: RelayPlayerWithGames, withTips
         playerTd(op, ctrl, withTips),
         hl('td', op.rating?.toString()),
         hl('td.is.color-icon.' + game.color),
-        hl('td.tpp__games__status', points !== undefined ? pointsVnode(points, customPoints) : '*'),
+        hl('td.tpp__games__status', points !== undefined ? coloredPoint(points) : '*'),
         hl('td', defined(game.ratingDiff) && hideResultsSinceIndex > i ? ratingDiff(game) : undefined),
       ]);
     }),

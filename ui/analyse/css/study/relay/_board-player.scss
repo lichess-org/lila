@@ -1,3 +1,4 @@
+@import './result-box';
 @import 'variables';
 
 @include mq-is-col1 {
@@ -45,20 +46,7 @@
     gap: 1em;
   }
 
-  .result {
-    @extend %box-radius;
-    flex: 0 0 auto;
-    padding: 0.1em 0.6em;
-    background: $c-font-dimmer;
-    text-shadow: none;
-    color: $c-over;
-  }
-  good.result {
-    background: $c-good;
-  }
-  bad.result {
-    background: $c-bad;
-  }
+  @extend %result-box;
 
   .analyse__clock {
     @extend %roboto, %flex-center-nowrap;
