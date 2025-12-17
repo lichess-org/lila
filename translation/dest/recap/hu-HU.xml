@@ -49,7 +49,7 @@
 	<string name="puzzlesTryNow" comment="This is context of a user who did not solve any puzzles in the past year. This is a call to action, inviting them to try Lichess puzzles.">Megpróbálnál párat most?</string>
 	<string name="puzzlesYouWonOnFirstTry" comment="%s is the number of puzzles the user successfully solved that year.">%s darabot elsőre megoldottál!</string>
 	<string name="sourcesTitle">Hol találtál játszmát?</string>
-	<string name="perfsTitle">Milyen játékmódot és variánst játszottál?</string>
+	<string name="perfsTitle">Milyen játékidőt és variánst játszottál?</string>
 	<string name="malwareNoneLoaded" comment="%s is 0">%s reklám és adatgyűjtő betöltve</string>
 	<string name="malwareNoSell">Nem adtuk ki a személyes adataidat</string>
 	<string name="malwareNoAbuse">Nem használtuk az eszközöd ellened</string>
@@ -58,4 +58,20 @@
 	<string name="lichessGamesPlayedIn" comment="lichessGamesPlayedIn&#10;%1$s is the number of games, %2$s is the year of the recap.">%1$s játszma Lichessen %2$s-ban/ben</string>
 	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours, out of all Lichess games.">%s a tiéd volt.</string>
 	<string name="thanksTitle">Köszönjük, hogy Lichessen játszol!</string>
+	<string name="thanksHaveAGreat" comment="thanksHaveAGreat&#10;%s is the next year as a numeral (e.g. in 2025, the next year was 2026, so 2026 was displayed on this screen)">Örülünk, hogy itt vagy. Legyen jó %s-os éved!</string>
+	<string name="patronCostsThisYear" comment="%1$s is 'costs', translatable separately.&#10;%2$s is a monetary amount with a currency symbol e.g. &quot;$750,000&quot;.&#10;The amount is localised automatically according to language and location, e.g. in France it would be rendered &quot;678 750 €&quot;, and in the UK as &quot;£589,539&quot;">Lichess %1$s ebben az évben %2$s volt.</string>
+	<string name="patronCosts" comment="Part of a longer sentence &quot;Lichess's costs this year were &lt;monetary amount in local currency&gt;.&quot;&#10;&#10;The text links to lichess.org/costs">kiadása</string>
+	<string name="patronCharity">Jótékonysági szervezet vagyunk, amely kizárólag adományokból tartja fenn magát.</string>
+	<string name="patronConsiderDonating" comment="%s is 'supporting us with a donation'. Appears if you are not currently a Patron (donor).">Ha idén örömet szereztünk neked, vagy hiszel a munkánkban, kérjük, %s!</string>
+	<string name="patronMakeDonation" comment="Part of a longer sentence, translatable separately:&#10;&quot;If we helped entertain you this year, or you believe in our work, please consider supporting us with a donation!&quot;&#10;&#10;The text links to https://lichess.org/patron - so it should ideally be phrased as a call to action.&#10;&#10;Appears if you are not currently a Patron (donor).">támogasd működésünket</string>
+	<string name="shareableTitle" comment="%s is the current year">Az én összefoglalóm, %s</string>
+	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">játékkal töltött idő</string>
+	<string name="shareableMostPlayedOpponent">leggyakoribb ellenfél</string>
+	<string name="shareableFavouriteVariant">kedvenc variáns</string>
+	<string name="shareableFavouriteTimeControl">kedvenc játékidő</string>
+	<plurals name="shareableNbPuzzlesSolved">
+		<item quantity="one">%s feladvány megoldva</item>
+		<item quantity="other">%s feladvány megoldva</item>
+	</plurals>
+	<string name="recapReady" comment="%s is the year of the recap&#10;&#10;Appears as a notification.">Elkészült az éves összefoglalód: %s!</string>
 </resources>
