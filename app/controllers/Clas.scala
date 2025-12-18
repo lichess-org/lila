@@ -8,7 +8,7 @@ import scalalib.model.Days
 
 import lila.app.{ *, given }
 import lila.clas.ClasForm.ClasData
-import lila.clas.Student
+import lila.clas.{ ClasBulk, ClasBulkForm, Student }
 import lila.core.id.{ ClasId, ClasInviteId }
 import lila.core.security.ClearPassword
 
@@ -216,43 +216,23 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
   }
 
   def bulkActionsPost(id: ClasId) = SecureBody(_.Teacher) { ctx ?=> me ?=>
-    val moveTo = """move-to-(.+)""".r
-    bindForm(lila.clas.ClasBulkForm.form)(
-      _ => Redirect(routes.Clas.bulkActions(id)).flashFailure,
-      data =>
-        data.action match
-          case "archive" =>
-            env.clas.api.student.archiveMany(data.activeUserIds.map { u => Student.makeId(u, id) }, true)
-            Redirect(routes.Clas.bulkActions(id)).flashSuccess
-          case "restore" =>
-            env.clas.api.student.archiveMany(data.archivedUserIds.map { u => Student.makeId(u, id) }, false)
-            Redirect(routes.Clas.bulkActions(id)).flashSuccess
-          case moveTo(to) =>
-            WithClass(id) { fromClas =>
-              WithClass(ClasId(to)) { toClas =>
-                val studentIdsSet = data.activeUserIds.toSet
-                for
-                  students <- env.clas.api.student.allWithUsers(fromClas)
-                  selected = students.filter(s => studentIdsSet.contains(s.user.id))
-                  _ <- selected.traverse(env.clas.api.student.move(_, toClas))
-                yield Redirect(routes.Clas.bulkActions(id)).flashSuccess
-              }
-            }
-          case "remove" =>
-            WithClass(id) { clas =>
-              val studentIdsSet = data.archivedUserIds.toSet
-              for
-                students <- env.clas.api.student.allWithUsers(clas)
-                selected = students.filter(s => studentIdsSet.contains(s.user.id))
-                _ <- selected.traverse(closeStudent(_))
-              yield Redirect(routes.Clas.bulkActions(id)).flashSuccess
-            }
-          case "delete-invites" =>
-            env.clas.api.invite.deleteInvites(id, data.invitesUserIds)
-            Redirect(routes.Clas.bulkActions(id)).flashSuccess
-          case _ =>
-            Redirect(routes.Clas.bulkActions(id)).flashFailure(s"Action ${data.action} not supported.")
-    )
+    WithClass(id): clas =>
+      bindForm(ClasBulkForm.form)(
+        _ => Redirect(routes.Clas.bulkActions(id)).flashFailure,
+        data =>
+          import ClasBulk.PostResponse.*
+          for
+            done <- env.clas.bulk.post(clas, data)
+            redirect = Redirect(routes.Clas.bulkActions(id))
+            res <- done match
+              case Done => redirect.flashSuccess.toFuccess
+              case Fail => redirect.flashFailure(s"Action ${data.action} not supported.").toFuccess
+              case CloseAccounts(users) =>
+                users
+                  .sequentiallyVoid(env.api.accountTermination.disable(_, forever = false))
+                  .inject(redirect.flashSuccess)
+          yield res
+      )
   }
 
   def students(id: ClasId) = Secure(_.Teacher) { ctx ?=> me ?=>
@@ -527,15 +507,6 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
           for _ <- env.clas.api.student.closeAccount(s) yield redirectTo(clas).flashSuccess
         else redirectTo(clas)
   }
-
-  private def closeStudent(s: Student.WithUser)(using me: Me): Funit =
-    if s.student.managed then
-      for
-        _ <- env.clas.api.student.closeAccount(s)
-        _ <- env.api.accountTermination.disable(s.user, forever = false)
-      yield ()
-    else if s.student.isArchived then env.clas.api.student.closeAccount(s).void
-    else fuccess(none)
 
   def studentMove(id: ClasId, username: UserStr) = Secure(_.Teacher) { ctx ?=> me ?=>
     WithClassAndStudents(id): (clas, students) =>

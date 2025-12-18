@@ -323,14 +323,16 @@ final class ClasApi(
           fetchNewObject = true
         )
 
-    def archiveMany(studentIds: List[StudentId], v: Boolean)(using me: Me): Fu[coll.UpdateWriteResult] =
-      coll.update.one(
-        q = $doc("_id" -> $doc("$in" -> studentIds)),
-        u =
-          if v then $set("archived" -> Clas.Recorded(me, nowInstant))
-          else $unset("archived"),
-        multi = true
-      )
+    def archiveMany(studentIds: List[StudentId], v: Boolean)(using me: Me): Funit =
+      coll.update
+        .one(
+          q = $inIds(studentIds),
+          u =
+            if v then $set("archived" -> Clas.Recorded(me, nowInstant))
+            else $unset("archived"),
+          multi = true
+        )
+        .void
 
     def closeAccount(s: Student.WithUser): Funit =
       coll.delete.one($id(s.student.id)).void
@@ -409,12 +411,11 @@ ${clas.desc}""",
       colls.invite.delete.one($id(id)).void
 
     def deleteInvites(id: ClasId, userIds: List[UserId]): Funit =
-      if userIds.isEmpty then funit
-      else
+      userIds.nonEmpty.so:
         colls.invite.delete
           .one(
-            q = $doc(
-              "userId" -> $doc("$in" -> userIds),
+            $doc(
+              "userId".$in(userIds),
               "clasId" -> id
             )
           )

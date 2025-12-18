@@ -1,6 +1,8 @@
 package lila.clas
 
 import play.api.data.Form
+import lila.clas.ClasBulk.PostResponse
+import lila.core.id.ClasId
 
 object ClasBulk:
   case class PageData(
@@ -9,6 +11,10 @@ object ClasBulk:
       all: List[Student.WithUser],
       form: Form[ClasBulkForm.ActionData]
   )
+  enum PostResponse:
+    case Done
+    case Fail
+    case CloseAccounts(users: List[User])
 
 object ClasBulkForm:
 
@@ -70,3 +76,39 @@ final class ClasBulkApi(api: ClasApi)(using Executor):
       students,
       ClasBulkForm.filled(students, invites)
     )
+
+  def post(clas: Clas, data: ClasBulkForm.ActionData)(using me: Me): Fu[PostResponse] =
+    val moveTo = """move-to-(.+)""".r
+    def studentId(id: UserId) = Student.makeId(id, clas.id)
+    data.action match
+      case "archive" =>
+        api.student.archiveMany(data.activeUserIds.map(studentId), true).inject(PostResponse.Done)
+      case "restore" =>
+        api.student.archiveMany(data.activeUserIds.map(studentId), true).inject(PostResponse.Done)
+      case moveTo(to) =>
+        api.clas
+          .getAndView(ClasId(to))
+          .flatMap:
+            case None => fuccess(PostResponse.Fail)
+            case Some(toClas) =>
+              val studentIdsSet = data.activeUserIds.toSet
+              for
+                students <- api.student.allWithUsers(clas)
+                selected = students.filter(s => studentIdsSet.contains(s.user.id))
+                _ <- selected.traverse(api.student.move(_, toClas))
+              yield PostResponse.Done
+      case "remove" =>
+        val studentIdsSet = data.archivedUserIds.toSet
+        for
+          students <- api.student.allWithUsers(clas)
+          selected = students.filter(s => studentIdsSet.contains(s.user.id))
+          _ <- selected.sequentiallyVoid(closeStudent(_))
+        yield PostResponse.CloseAccounts(selected.map(_.user))
+      case "delete-invites" =>
+        api.invite.deleteInvites(clas.id, data.invitesUserIds).inject(PostResponse.Done)
+      case _ => fuccess(PostResponse.Fail)
+
+  private def closeStudent(s: Student.WithUser)(using me: Me): Fu[Option[UserId]] =
+    if s.student.managed then api.student.closeAccount(s).inject(s.user.id.some)
+    else if s.student.isArchived then api.student.closeAccount(s).inject(none)
+    else fuccess(none)
