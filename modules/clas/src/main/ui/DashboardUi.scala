@@ -119,12 +119,8 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
           else studentList(c, students)
         )
 
-    def bulkActions(
-        c: Clas,
-        otherClasses: List[Clas],
-        all: List[Student.WithUser],
-        form: Form[?]
-    )(using Context) =
+    def bulkActions(data: ClasBulk.PageData)(using Context) =
+      import data.*
       val classButtons: Frag = otherClasses.map: toClass =>
         form3.submit(toClass.name, icon = Icon.InternalArrow.some, ("action", s"move-to-${toClass.id}").some)(
           cls := "yes-no-confirm button-blue button-empty button-no-upper",
