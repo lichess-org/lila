@@ -474,10 +474,6 @@
   <string name="player">Jugador</string>
   <string name="list">Llista</string>
   <string name="graph">Gràfica</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">Menys de %s minuts</item>
-    <item quantity="other">Menys de %s minuts</item>
-  </plurals>
   <string name="required">Necessari.</string>
   <string name="openTournaments">Tornejos oberts</string>
   <string name="duration">Durada</string>
