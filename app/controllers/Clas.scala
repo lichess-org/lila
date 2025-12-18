@@ -8,6 +8,7 @@ import scalalib.model.Days
 
 import lila.app.{ *, given }
 import lila.clas.ClasForm.ClasData
+import lila.clas.{ ClasBulk, ClasBulkForm, Student }
 import lila.core.id.{ ClasId, ClasInviteId }
 import lila.core.security.ClearPassword
 
@@ -203,6 +204,34 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
                 .addEffect(lila.mon.msg.clasBulk(clas.id).record(_))
                 .inject(redirectTo(clas).flashSuccess)
           }
+      )
+  }
+
+  def bulkActions(id: ClasId) = Secure(_.Teacher) { ctx ?=> me ?=>
+    WithClass(id): clas =>
+      for
+        data <- env.clas.bulk.load(clas)
+        page <- renderPage(views.clas.teacherDashboard.bulkActions(data))
+      yield Ok(page)
+  }
+
+  def bulkActionsPost(id: ClasId) = SecureBody(_.Teacher) { ctx ?=> me ?=>
+    WithClass(id): clas =>
+      bindForm(ClasBulkForm.form)(
+        _ => Redirect(routes.Clas.bulkActions(id)).flashFailure,
+        data =>
+          import ClasBulk.PostResponse.*
+          for
+            done <- env.clas.bulk.post(clas, data)
+            redirect = Redirect(routes.Clas.bulkActions(id))
+            res <- done match
+              case Done => redirect.flashSuccess.toFuccess
+              case Fail => redirect.flashFailure(s"Action ${data.action} not supported.").toFuccess
+              case CloseAccounts(users) =>
+                users
+                  .sequentiallyVoid(env.api.accountTermination.disable(_, forever = false))
+                  .inject(redirect.flashSuccess)
+          yield res
       )
   }
 

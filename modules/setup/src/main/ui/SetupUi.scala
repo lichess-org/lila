@@ -6,6 +6,7 @@ import chess.{ Rated, Speed }
 import play.api.data.{ Field, Form }
 
 import lila.core.rating.RatingRange
+import lila.rating.PerfType
 import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
@@ -172,9 +173,9 @@ final class SetupUi(helpers: Helpers):
 
   private def translatedSpeedChoices(using Translate) =
     Speed.limited.map: s =>
-      val minutes = s.range.max / 60 + 1
+      val perfType = PerfType(chess.variant.Standard, s)
       (
         s.id.toString,
-        s.toString + " - " + trans.site.lessThanNbMinutes.pluralSameTxt(minutes),
+        perfType.trans + " - " + perfType.desc,
         none
       )

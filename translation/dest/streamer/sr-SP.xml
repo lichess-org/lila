@@ -10,8 +10,9 @@
   <string name="doYouHaveStream">Имаш ли Твич или Јутјуб канал?</string>
   <string name="hereWeGo">Идемо!</string>
   <string name="allStreamers">Сви стримери</string>
-  <string name="editPage">Уреди страницу стримера</string>
-  <string name="yourPage">Твоја страница стримера</string>
+  <string name="editPage">Уреди стример страницу</string>
+  <string name="yourPage">Твоја стример страница</string>
+  <string name="downloadKit">Преузми стирмер опрему</string>
   <string name="xIsStreaming">%s стримује</string>
   <string name="rules">Правила стримовања</string>
   <string name="rule1">Када стримујеш на Личесу, користи категорију \"Chess\" и укључи реч \"lichess.org\" у наслову стрима.</string>

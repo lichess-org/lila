@@ -23,6 +23,7 @@ case class FidePlayer(
     blitz: Option[Elo],
     blitzK: Option[KFactor],
     year: Option[Int],
+    deceasedYear: Option[Int] = None,
     inactive: Boolean
 ) extends lila.core.fide.Player:
 
@@ -40,9 +41,10 @@ case class FidePlayer(
 
   def slug: String = FidePlayer.slugify(name)
 
-  def age: Option[Int] = year.map(nowInstant.date.getYear - _)
-
-  def ageAt(date: Instant): Option[Int] = year.map(date.date.getYear - _)
+  def age: Option[Int] =
+    val nowYear = nowInstant.date.getYear
+    year.map: birthYear =>
+      deceasedYear.fold(nowYear - birthYear)(deceasedYear => deceasedYear - birthYear)
 
   def ratingsMap: Map[FideTC, Elo] = FideTC.values.flatMap(tc => ratingOf(tc).map(tc -> _)).toMap
 

@@ -187,7 +187,14 @@ final class FidePlayerUi(helpers: Helpers, fideUi: FideUi, picfitUrl: lila.memo.
                 th(trb.fideProfile()),
                 td(a(href := s"https://ratings.fide.com/profile/${player.id}")(player.id))
               ),
-              tr(th(trb.age()), td(player.age))
+              tr(
+                th(trb.age()),
+                td(
+                  player.age,
+                  for by <- player.year; dy <- player.deceasedYear
+                  yield s" ($by - $dy)"
+                )
+              )
             )
           )
         )
@@ -211,7 +218,7 @@ final class FidePlayerUi(helpers: Helpers, fideUi: FideUi, picfitUrl: lila.memo.
     def apply(image: Option[ImageId], size: FidePlayer.PlayerPhoto.SizeSelector): Tag =
       image.fold(fallback): id =>
         img(src := url(id, size))
-    def fallback = img(src := staticAssetUrl("images/anon-face.png"))
+    def fallback = img(src := staticAssetUrl("images/anon-face.webp"))
     def url(id: ImageId, size: FidePlayer.PlayerPhoto.SizeSelector) =
       FidePlayer.PlayerPhoto(picfitUrl, id, size)
 

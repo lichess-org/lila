@@ -119,6 +119,84 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
           else studentList(c, students)
         )
 
+    def bulkActions(data: ClasBulk.PageData)(using Context) =
+      import data.*
+      val classButtons: Frag = otherClasses.map: toClass =>
+        form3.submit(toClass.name, icon = Icon.InternalArrow.some, ("action", s"move-to-${toClass.id}").some)(
+          cls := "yes-no-confirm button-blue button-empty button-no-upper",
+          title := trans.clas.moveToClass.txt(toClass.name)
+        )
+      val doubleHelp: Tag =
+        div(cls := "clas-show__bulk__helps form-group")(
+          div(cls := "clas-show__bulk__help")(
+            strong("Important! Make sure you understand how this works:"),
+            p(
+              "Edit the list above to keep some students selected for a bulk action.",
+              br,
+              "All the students remaining in the list will be affected by the action.",
+              br,
+              "The students you removed from the list will remain in the class, unchanged."
+            )
+          ),
+          div(cls := "clas-show__bulk__help")(
+            "Choose the action to perform on the students listed above:"
+          )
+        )
+      TeacherPage(c, all.filter(_.student.isActive), "students")():
+        div(cls := "clas-show__body clas-show__bulk")(
+          postForm(cls := "form3", action := routes.Clas.bulkActionsPost(c.id))(
+            form3.fieldset("Active students", toggle = true.some)(cls := "box-pad")(
+              form3.group(
+                form("activeStudents"),
+                frag("Active students")
+              )(form3.textarea(_)(rows := 12)),
+              doubleHelp,
+              div(cls := "form-group")(
+                form3.submit("Archive", icon = none, ("action", "archive").some)(
+                  cls := "yes-no-confirm button-blue button-empty"
+                ),
+                br,
+                classButtons
+              )
+            ),
+            form3.fieldset("Archived students", toggle = all.exists(_.student.isArchived).some)(
+              cls := "box-pad"
+            )(
+              form3.group(
+                form("archivedStudents"),
+                frag("Archived students")
+              )(form3.textarea(_)(rows := 7)),
+              doubleHelp(
+                "BEWARE: removing a student with managed account will close the account permanently."
+              ),
+              div(cls := "form-group")(
+                form3.submit("Restore", icon = none, ("action", "restore").some)(
+                  cls := "yes-no-confirm button-blue button-empty"
+                ),
+                form3.submit("Remove", icon = Icon.Trash.some, ("action", "remove").some)(
+                  cls := "yes-no-confirm button-red button-empty"
+                )
+              )
+            ),
+            form3.fieldset("Pending invites", toggle = form("invites").value.exists(_.nonEmpty).some)(
+              cls := "box-pad"
+            )(
+              form3.group(
+                form("invites"),
+                frag("Invites")
+              )(form3.textarea(_)(rows := 7)),
+              div(cls := "form-group")(
+                form3.submit("Delete", icon = Icon.Trash.some, ("action", "delete-invites").some)(
+                  cls := "yes-no-confirm button-red button-empty"
+                )
+              )
+            )
+          ),
+          form3.actions(
+            a(href := routes.Clas.students(c.id))(trans.site.cancel())
+          )
+        )
+
     def students(
         c: Clas,
         all: List[Student.WithUserPerfs],
@@ -137,6 +215,11 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
                   cls := "button button-clas text",
                   dataIcon := Icon.PlusButton
                 )(trans.clas.addStudent()),
+                a(
+                  href := routes.Clas.bulkActions(c.id),
+                  cls := "button button-clas text",
+                  dataIcon := Icon.Tools
+                )("Bulk actions"),
                 postForm(action := routes.Clas.loginCreate(c.id))(
                   submitButton(cls := "button button-clas text", dataIcon := Icon.Group)("Quick login codes")
                 )

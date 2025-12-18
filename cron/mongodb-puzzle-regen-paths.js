@@ -79,23 +79,30 @@ let anyBuggy = false;
   // [...openings].forEach(theme => {
   // ['mix'].forEach(theme => {
   const isOpening = openings.includes(theme);
+  const subtleSelector = {
+    $or: [
+      { tooSubtle: { $ne: true } },
+      { 'glicko.r': { $gte: 2200 } },
+      { 'glicko.d': { $gte: 120 } },
+    ]
+  };
+  const themeSelector = isOpening
+    ? { opening: theme }
+    : {
+      themes:
+        theme == 'mix'
+          ? { $ne: 'equality', }
+          : theme == 'equality'
+            ? 'equality'
+            : {
+              $eq: theme,
+              $ne: 'equality',
+            },
+    };
   const selector = {
     ...{ issue: { $exists: false } },
-    ...(isOpening
-      ? { opening: theme }
-      : {
-        themes:
-          theme == 'mix'
-            ? {
-              $ne: 'equality',
-            }
-            : theme == 'equality'
-              ? 'equality'
-              : {
-                $eq: theme,
-                $ne: 'equality',
-              },
-      }),
+    ...subtleSelector,
+    ...themeSelector,
   };
 
   const bucketBase = {

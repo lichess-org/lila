@@ -69,3 +69,8 @@ final class Env(
     case "fide" :: "player" :: "sync" :: Nil =>
       fideSync()
       fuccess("Updating the player database in the background.")
+    case "fide" :: "player" :: "rip" :: fideId :: year :: Nil =>
+      chess.FideId
+        .from(fideId.toIntOption)
+        .so(repo.player.setDeceasedYear(_, year.toIntOption))
+        .inject("done")

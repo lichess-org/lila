@@ -137,4 +137,5 @@ video sheet
 puzzle issue {id} {longer-win | ambiguous | ...}
 fide player sync
 cache clear security.session.info
+fide player rip 2026961 2025
 """

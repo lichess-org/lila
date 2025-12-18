@@ -10,7 +10,8 @@ final class AnySearch(
     tourEnv: lila.tournament.Env,
     swissEnv: lila.swiss.Env,
     ublogApi: lila.ublog.UblogApi,
-    teamEnv: lila.team.Env
+    teamEnv: lila.team.Env,
+    fideEnv: lila.fide.Env
 )(using Executor):
 
   private val idRegex = """^[a-zA-Z0-9]{4,12}$""".r
@@ -38,6 +39,10 @@ final class AnySearch(
 
         def team = teamEnv.teamRepo.enabled(TeamId(id)).map2(_ => routes.Team.show(TeamId(id)).url)
 
+        def fideplayer = chess.FideId
+          .from(str.toIntOption)
+          .so(id => fideEnv.playerApi.fetch(id).map2(p => routes.Fide.show(id, p.slug).url))
+
         game
           .orElse(broadcastRound)
           .orElse(broadcastTour)
@@ -48,3 +53,4 @@ final class AnySearch(
           .orElse(swiss)
           .orElse(ublog)
           .orElse(team)
+          .orElse(fideplayer)

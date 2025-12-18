@@ -1,5 +1,3 @@
-@import 'variables';
-
 body {
   ---allow-video: false;
 
@@ -124,6 +122,12 @@ main.analyse.is-relay:not(.has-relay-tour) {
     }
     .eval-chart-and-training {
       flex-wrap: nowrap;
+    }
+    .analyse__controls {
+      height: $player-height;
+      .jumps {
+        padding-bottom: 0;
+      }
     }
   }
   @include mq-at-least-col3 {
