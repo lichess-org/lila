@@ -102,13 +102,13 @@ final class ClasBulkApi(api: ClasApi)(using Executor):
         for
           students <- api.student.allWithUsers(clas)
           selected = students.filter(s => studentIdsSet.contains(s.user.id))
-          _ <- selected.sequentiallyVoid(closeStudent(_))
-        yield PostResponse.CloseAccounts(selected.map(_.user))
+          closeUsers <- selected.sequentially(closeStudent(_))
+        yield PostResponse.CloseAccounts(closeUsers.flatten)
       case "delete-invites" =>
         api.invite.deleteInvites(clas.id, data.invitesUserIds).inject(PostResponse.Done)
       case _ => fuccess(PostResponse.Fail)
 
-  private def closeStudent(s: Student.WithUser)(using me: Me): Fu[Option[UserId]] =
-    if s.student.managed then api.student.closeAccount(s).inject(s.user.id.some)
+  private def closeStudent(s: Student.WithUser)(using me: Me): Fu[Option[User]] =
+    if s.student.managed then api.student.closeAccount(s).inject(s.user.some)
     else if s.student.isArchived then api.student.closeAccount(s).inject(none)
     else fuccess(none)
