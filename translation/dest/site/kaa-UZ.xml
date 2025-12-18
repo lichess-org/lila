@@ -252,10 +252,6 @@
   <string name="player">Oyınshı</string>
   <string name="list">Dizim</string>
   <string name="graph">Diagramma</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">%s minuttan az</item>
-    <item quantity="other">%s minuttan az</item>
-  </plurals>
   <string name="required">Toltırılıwı shárt qatar.</string>
   <string name="openTournaments">Ashıq turnirler</string>
   <string name="duration">Uzaqlıq</string>
