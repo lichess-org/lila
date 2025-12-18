@@ -10,6 +10,10 @@ $c-bg-clas-over-dim: $m-clas_white--mix-20;
   margin-bottom: 2em;
 }
 
+.page-menu__content.box {
+  @extend %box-radius-force;
+}
+
 .subnav a {
   white-space: normal;
   max-width: 22vw;
