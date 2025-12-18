@@ -23,7 +23,7 @@ enum PerfType(
         PerfId(0),
         key = PerfKey.ultraBullet,
         icon = Icon.UltraBullet,
-        nameKey = I18nKey(Speed.UltraBullet.name),
+        nameKey = I18nKey.site.ultraBullet,
         descKey = I18nKey.site.ultraBulletDesc
       )
 
