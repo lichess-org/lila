@@ -439,9 +439,6 @@
   <string name="player">플레이어</string>
   <string name="list">목록</string>
   <string name="graph">그래프</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="other">%s분 미만</item>
-  </plurals>
   <string name="required">필수 항목</string>
   <string name="openTournaments">시작 예정 토너먼트</string>
   <string name="duration">경기 시간</string>
