@@ -452,10 +452,6 @@
   <string name="player">खिलाड़ी</string>
   <string name="list">सूची</string>
   <string name="graph">लेखाचित्र</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">%s मिनट से कम</item>
-    <item quantity="other">%s मिनट से कम</item>
-  </plurals>
   <string name="required">जरूरी है</string>
   <string name="openTournaments">खुली प्रतियोगिता</string>
   <string name="duration">अवधि</string>
