@@ -3,7 +3,12 @@ package lila.relay
 import reactivemongo.api.bson.Macros.Annotations.Key
 import lila.core.config.BaseUrl
 
-case class RelayGroup(@Key("_id") id: RelayGroupId, name: RelayGroup.Name, tours: List[RelayTourId])
+case class RelayGroup(
+    @Key("_id") id: RelayGroupId,
+    name: RelayGroup.Name,
+    tours: List[RelayTourId],
+    sharePlayers: Boolean = false
+)
 
 object RelayGroup:
 
@@ -28,8 +33,9 @@ object RelayGroup:
 
 private case class RelayGroupData(name: RelayGroup.Name, tours: List[RelayTour.TourPreview]):
   def tourIds = tours.map(_.id)
-  def update(group: RelayGroup): RelayGroup = group.copy(name = name, tours = tourIds)
-  def make: RelayGroup = RelayGroup(RelayGroup.makeId, name, tourIds)
+  def update(group: RelayGroup, sharePlayers: Boolean): RelayGroup =
+    group.copy(name = name, tours = tourIds, sharePlayers = sharePlayers)
+  def make(sharePlayers: Boolean): RelayGroup = RelayGroup(RelayGroup.makeId, name, tourIds, sharePlayers)
 
 private final class RelayGroupForm(baseUrl: BaseUrl):
   import play.api.data.*
@@ -82,14 +88,19 @@ final private class RelayGroupRepo(coll: Coll)(using Executor):
   def allTourIdsOfGroup(tourId: RelayTourId): Fu[List[RelayTourId]] =
     byTour(tourId).map(_.fold(List(tourId))(_.tours))
 
-  def update(tourId: RelayTourId, data: RelayGroupData): Funit =
+  def sharedPlayersTourIds(tourId: RelayTourId): Fu[List[RelayTourId]] =
+    coll
+      .primitiveOne[List[RelayTourId]]($doc("tours" -> tourId, "sharePlayers" -> true), "tours")
+      .dmap(_.orZero)
+
+  def update(tourId: RelayTourId, data: RelayGroupData, sharePlayers: Boolean): Funit =
     for
       prev <- byTour(tourId)
       curId <- prev match
         case Some(prev) if data.tours.isEmpty => coll.delete.one($id(prev.id)).inject(none)
-        case Some(prev) => coll.update.one($id(prev.id), data.update(prev)).inject(prev.id.some)
+        case Some(prev) => coll.update.one($id(prev.id), data.update(prev, sharePlayers)).inject(prev.id.some)
         case None =>
-          val newGroup = data.make
+          val newGroup = data.make(sharePlayers)
           coll.insert.one(newGroup).inject(newGroup.id.some)
       // make sure the tours of this group are not in other groups
       _ <- curId.so: id =>

@@ -201,7 +201,8 @@ private final class RelayPlayerApi(
 
   def groupPlayers(tourId: RelayTourId): Fu[RelayPlayers] =
     for
-      tourIds <- groupRepo.allTourIdsOfGroup(tourId)
+      sharingTourIds <- groupRepo.sharedPlayersTourIds(tourId)
+      tourIds = if sharingTourIds.isEmpty then List(tourId) else sharingTourIds
       tourPlayers <- tourIds.traverse(singleTourCache.get)
     yield tourPlayers match
       case List(singleTour) => singleTour
