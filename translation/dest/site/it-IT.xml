@@ -475,10 +475,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="player">Giocatore</string>
   <string name="list">Lista</string>
   <string name="graph">Grafico</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">Meno di %s minuto</item>
-    <item quantity="other">Meno di %s minuti</item>
-  </plurals>
   <string name="required">Richiesto.</string>
   <string name="openTournaments">Tornei aperti</string>
   <string name="duration">Durata</string>
