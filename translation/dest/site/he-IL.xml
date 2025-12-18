@@ -525,12 +525,6 @@
   <string name="player">שחקן/ית</string>
   <string name="list">רשימה</string>
   <string name="graph">גרף</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">פחות מדקה %s</item>
-    <item quantity="two">פחות מ־ %s דקות</item>
-    <item quantity="many">פחות מ%s דקות</item>
-    <item quantity="other">פחות מ%s דקות</item>
-  </plurals>
   <string name="required">נדרש.</string>
   <string name="openTournaments">הטורנירים הפתוחים</string>
   <string name="duration">משך</string>

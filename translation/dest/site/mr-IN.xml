@@ -473,10 +473,6 @@
   <string name="player">खेळाडू</string>
   <string name="list">यादी</string>
   <string name="graph">आलेख</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">%s मिनिटापेक्षा कमी</item>
-    <item quantity="other">%s मिनिटांपेक्षा कमी</item>
-  </plurals>
   <string name="required">गरजेचे आहे.</string>
   <string name="openTournaments">खुली क्रीडासत्रे</string>
   <string name="duration">कालावधी</string>

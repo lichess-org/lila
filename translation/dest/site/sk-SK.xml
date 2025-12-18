@@ -544,12 +544,6 @@
   <string name="player">Hráč</string>
   <string name="list">Zoznam</string>
   <string name="graph">Graf</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">Menej ako %s minúta</item>
-    <item quantity="few">Menej ako %s minúty</item>
-    <item quantity="many">Menej ako %s minút</item>
-    <item quantity="other">Menej ako %s minút</item>
-  </plurals>
   <string name="required">Vyžaduje sa.</string>
   <string name="openTournaments">Otvorené turnaje</string>
   <string name="duration">Dĺžka</string>

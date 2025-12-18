@@ -474,10 +474,6 @@
   <string name="player">Xugador</string>
   <string name="list">Llista</string>
   <string name="graph">Gráficu</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">Menos de %s minutu</item>
-    <item quantity="other">Menos de %s minutos</item>
-  </plurals>
   <string name="required">Requeríu.</string>
   <string name="openTournaments">Torneos abiertos</string>
   <string name="duration">Duración</string>

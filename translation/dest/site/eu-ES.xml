@@ -474,10 +474,6 @@
   <string name="player">Jokalaria</string>
   <string name="list">Zerrenda</string>
   <string name="graph">Grafikoa</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">%s minutu baino gutxiago</item>
-    <item quantity="other">%s minutu baino gutxiago</item>
-  </plurals>
   <string name="required">Beharrezkoa.</string>
   <string name="openTournaments">Txapelketa irekiak</string>
   <string name="duration">Iraupena</string>

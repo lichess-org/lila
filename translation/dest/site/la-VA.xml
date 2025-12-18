@@ -405,10 +405,6 @@
   <string name="player">Lusor</string>
   <string name="list">Tabula</string>
   <string name="graph">Graphus</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">Minus quam %s minutas</item>
-    <item quantity="other">Minus quam %s minutas</item>
-  </plurals>
   <string name="required">Necesse est</string>
   <string name="openTournaments">Certamina publica</string>
   <string name="duration">Duratio</string>
