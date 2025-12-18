@@ -430,9 +430,6 @@
   <string name="player">Pemain</string>
   <string name="list">Daftar</string>
   <string name="graph">Grafik</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="other">Kurang dari %s menit</item>
-  </plurals>
   <string name="required">Dibutuhkan.</string>
   <string name="openTournaments">Turnamen terbuka</string>
   <string name="duration">Durasi</string>
