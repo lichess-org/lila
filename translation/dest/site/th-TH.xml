@@ -431,9 +431,6 @@
   <string name="player">ผู้เล่น</string>
   <string name="list">รายการ</string>
   <string name="graph">กราฟ</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="other">น้อยกว่า %s นาที</item>
-  </plurals>
   <string name="required">ต้องการ</string>
   <string name="openTournaments">ทัวร์นาเมนต์ที่เปิด</string>
   <string name="duration">ระยะเวลา</string>
