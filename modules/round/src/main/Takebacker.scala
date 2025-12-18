@@ -144,6 +144,10 @@ final private class Takebacker(
     proxy.save(p2).inject(p2.events)
 
   private def publishTakebackOffer(game: Game): Unit =
+    if game.isCorrespondence && game.nonAi then
+      Bus.pub(
+        lila.core.round.CorresTakebackOfferEvent(game.id)
+      )
     if lila.game.Game.mightBeBoardOrBotCompatible(game) then
       Bus.publishDyn(
         lila.game.actorApi.BoardTakebackOffer(game),
