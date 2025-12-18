@@ -464,10 +464,6 @@
   <string name="player">খেলোয়াড়</string>
   <string name="list">তালিকা</string>
   <string name="graph">গ্রাফ</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">%s মিনিটের কম সময়ে</item>
-    <item quantity="other">%s মিনিটের কম সময়ে</item>
-  </plurals>
   <string name="required">প্রয়োজনীয়</string>
   <string name="openTournaments">উন্মুক্ত টুর্নামেন্টগুলো</string>
   <string name="duration">সময়কাল</string>
