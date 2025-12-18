@@ -41,6 +41,13 @@ export interface RelayTourPreview {
   live?: boolean; // see modules/relay/src/main/RelayTour.scala
 }
 
+interface CustomScore {
+  win: number;
+  draw: number;
+}
+
+export type CustomScoring = ByColor<CustomScore>;
+
 export interface RelayRound {
   id: RoundId;
   name: string;
@@ -50,6 +57,7 @@ export interface RelayRound {
   ongoing?: boolean;
   startsAt?: number;
   startsAfterPrevious?: boolean;
+  customScoring?: CustomScoring;
 }
 
 export interface RelayTourInfo {
