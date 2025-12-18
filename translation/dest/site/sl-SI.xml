@@ -544,12 +544,6 @@
   <string name="player">Igralec</string>
   <string name="list">Seznam</string>
   <string name="graph">Graf</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">Manj kot %s minuta</item>
-    <item quantity="two">Manj kot %s minuti</item>
-    <item quantity="few">Manj kot %s minute</item>
-    <item quantity="other">Manj kot %s minut</item>
-  </plurals>
   <string name="required">Zahtevano</string>
   <string name="openTournaments">Odprti turnirji</string>
   <string name="duration">Trajanje</string>
