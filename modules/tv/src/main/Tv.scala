@@ -34,7 +34,7 @@ final class Tv(
       .flatMap:
         case GameIdAndHistory(gameId, historyIds) =>
           for
-            game <- gameId.so(gameProxy.game)
+            game <- gameId.so(gameProxy.game).orElse(gameRepo.random)
             games <-
               historyIds
                 .traverse: id =>
