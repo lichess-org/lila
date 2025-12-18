@@ -44,8 +44,8 @@ object variant:
       active = perfType.key.some
     ).csp(_.withInlineIconFont):
       frag(
-        boxTop(h1(cls := "text", dataIcon := perfType.icon)(variant.variantTrans.txt())),
-        h2(cls := "headline")(variant.variantTitleTrans.txt()),
+        boxTop(h1(cls := "text", dataIcon := perfType.icon)(variant.variantTrans())),
+        h2(cls := "headline")(variant.variantTitleTrans()),
         div(cls := "body expand-text")(views.cms.render(p))
       )
 
@@ -66,8 +66,8 @@ object variant:
               dataIcon := pt.icon
             ):
               span(
-                h2(variant.variantTrans.txt()),
-                h3(cls := "headline")(variant.variantTitleTrans.txt())
+                h2(variant.variantTrans()),
+                h3(cls := "headline")(variant.variantTitleTrans())
               )
         )
       )
@@ -85,7 +85,7 @@ object variant:
                 cls := List("text" -> true, "active" -> active.contains(pk)),
                 href := routes.Cms.variant(variant.key),
                 dataIcon := pk.perfIcon
-              )(variant.variantTrans.txt())
+              )(variant.variantTrans())
           ),
           div(cls := s"page-menu__content box $klass")(body)
         )
