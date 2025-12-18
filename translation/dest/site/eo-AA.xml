@@ -474,10 +474,6 @@
   <string name="player">Ludanto</string>
   <string name="list">Listo</string>
   <string name="graph">Grafo</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">Malpli ol %s minuto</item>
-    <item quantity="other">Malpli ol %s minutoj</item>
-  </plurals>
   <string name="required">Necesa.</string>
   <string name="openTournaments">Enireblaj turniroj</string>
   <string name="duration">Daŭro</string>
