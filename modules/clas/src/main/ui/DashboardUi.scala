@@ -139,7 +139,14 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
               frag("Active students"),
               klass = "bulk-action",
               help = frag(
-                "Edit this list to keep the students selected for the bulk action. Only the user identifiers are mandatory."
+                strong("Important! Make sure you understand how this works:"),
+                p(
+                  "Edit this list to keep the students selected for the bulk action.",
+                  br,
+                  "All the students remaining in the list will be affected by the action.",
+                  br,
+                  "The students you removed from the list will remain in the class, unchanged."
+                )
               ).some
             )(form3.textarea(_)(rows := 10)),
             form3.submit("Archive", icon = none, ("action", "archive").some)(
