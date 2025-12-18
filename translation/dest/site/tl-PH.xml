@@ -440,10 +440,6 @@
   <string name="player">Manlalaro</string>
   <string name="list">Listahan</string>
   <string name="graph">Graph</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">Mas maliit ng %s minuto</item>
-    <item quantity="other">Mas maliit ng %s mga minuto</item>
-  </plurals>
   <string name="required">Kinakailangan.</string>
   <string name="openTournaments">Bukas na mga paligsahan</string>
   <string name="duration">Tagal</string>
