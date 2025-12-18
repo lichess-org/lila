@@ -480,10 +480,6 @@
   <string name="player">ખેલાડી</string>
   <string name="list">યાદી</string>
   <string name="graph">આલેખ</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">%s કરતા ઓછી મિનિટ</item>
-    <item quantity="other">%s કરતા ઓછી મિનિટો</item>
-  </plurals>
   <string name="required">જરુરી.</string>
   <string name="openTournaments">ખુલ્લી પ્રતિયોગિતા</string>
   <string name="duration">અવધિ</string>
