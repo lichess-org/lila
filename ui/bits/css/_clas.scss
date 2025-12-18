@@ -167,6 +167,23 @@ $c-bg-clas-over-dim: $m-clas_white--mix-20;
   &__actions {
     @extend %flex-between;
   }
+
+  &__bulk {
+    &__helps {
+      margin-top: -2em;
+    }
+    &__help {
+      @extend %box-radius;
+      display: block;
+      background: $c-bg-zebra2;
+      margin-bottom: 1em;
+      padding: 0.5em 1em;
+      strong {
+        color: $c-font-clear;
+        line-height: 2em;
+      }
+    }
+  }
 }
 
 .dashboard {
@@ -297,13 +314,6 @@ $c-bg-clas-over-dim: $m-clas_white--mix-20;
     .clas-show__top h1 {
       padding: 1.5em var(---box-padding);
       margin: 0;
-    }
-
-    .clas-show__body {
-      .bulk-action {
-        margin-top: 3rem;
-        margin-bottom: 0;
-      }
     }
 
     .clas-show__desc {
