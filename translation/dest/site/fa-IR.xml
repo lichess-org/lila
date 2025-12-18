@@ -474,10 +474,6 @@
   <string name="player">بازیکن</string>
   <string name="list">فهرست</string>
   <string name="graph">نمودار</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">کمتر از %s دقیقه</item>
-    <item quantity="other">کمتر از %s دقیقه</item>
-  </plurals>
   <string name="required">مورد نیاز است</string>
   <string name="openTournaments">باز کردن مسابقه</string>
   <string name="duration">مدت</string>
