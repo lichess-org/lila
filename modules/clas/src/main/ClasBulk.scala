@@ -49,8 +49,9 @@ object ClasBulkForm:
     def invitesUserIds = readUserIds(invites)
 
     private def readUserIds(str: String) =
-      UserStr // TODO use UserStr.read
-        .from(str.linesIterator.map(_.trim).filter(_.nonEmpty).map(_.takeWhile(!_.isWhitespace)))
+      str.linesIterator
+        .map(_.trim.takeWhile(!_.isWhitespace))
+        .flatMap(UserStr.read)
         .map(_.id)
         .distinct
         .toList
