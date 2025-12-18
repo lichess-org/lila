@@ -983,7 +983,7 @@ Skildu eftir autt til að tefla útfrá hefðbundinni upphafsstöðu.</string>
   <string name="toggleAllAnalysis">Virkja tölvugreiningu á öllum vélum</string>
   <string name="playComputerMove">Leika eftirlætisleik tölvunnar</string>
   <string name="analysisOptions">Valkostir greiningar</string>
-  <string name="focusChat">Skerpa spjall</string>
+  <string name="focusChat">Virkja spjallgluggann</string>
   <string name="showHelpDialog">Sýna þennan hjálpglugga</string>
   <string name="reopenYourAccount">Endurheimta aðgang þinn</string>
   <string name="reopenYourAccountDescription">Ef þú lokaðir aðganginum þínum, en hefur síðan skipt um skoðun, átt þú möguleika á að fá hann aftur.</string>
