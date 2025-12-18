@@ -544,12 +544,6 @@
   <string name="player">Gracz</string>
   <string name="list">Lista</string>
   <string name="graph">Wykres</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">Poniżej %s minuty</item>
-    <item quantity="few">Poniżej %s minut</item>
-    <item quantity="many">Poniżej %s minut</item>
-    <item quantity="other">Poniżej %s minut</item>
-  </plurals>
   <string name="required">Wymagane.</string>
   <string name="openTournaments">Dostępne turnieje</string>
   <string name="duration">Czas trwania</string>
