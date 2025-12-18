@@ -221,7 +221,9 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
                   dataIcon := Icon.Tools
                 )("Bulk actions"),
                 postForm(action := routes.Clas.loginCreate(c.id))(
-                  submitButton(cls := "button button-clas text", dataIcon := Icon.Group)(trans.clas.quickLoginCodes())
+                  submitButton(cls := "button button-clas text", dataIcon := Icon.Group)(
+                    trans.clas.quickLoginCodes()
+                  )
                 )
               ),
               div(cls := "invites")(
