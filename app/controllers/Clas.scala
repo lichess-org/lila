@@ -214,7 +214,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
         (activeStudents, archivedStudents) = students.partition(_.student.isActive)
         invites <- env.clas.api.invite.listPending(clas)
         classes <- env.clas.api.clas.of(me)
-        otherClasses = classes.filter(_.id != clas.id)
+        otherClasses = classes.filter(_.id != clas.id).filter(_.isActive)
         page <- renderPage(
           views.clas.teacherDashboard.bulkActions(
             clas,
