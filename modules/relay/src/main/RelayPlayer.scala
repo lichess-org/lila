@@ -194,8 +194,8 @@ private final class RelayPlayerApi(
   private val photosJsonCache = cacheApi[RelayTourId, PhotosJson](32, "relay.players.photos.json"):
     _.expireAfterWrite(10.seconds).buildAsyncFuture: tourId =>
       for
-        players <- cache.get(tourId)
-        fideIds = players.values.flatMap(_.fideId).toSet
+        studyIds <- roundRepo.studyIdsOf(tourId)
+        fideIds <- chapterRepo.fideIdsOf(studyIds)
         photos <- photosJson(fideIds)
       yield photos
 
