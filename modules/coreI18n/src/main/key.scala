@@ -2393,7 +2393,6 @@ object I18nKey:
     val `nbFriendsOnline`: I18nKey = "nbFriendsOnline"
     val `nbFollowers`: I18nKey = "nbFollowers"
     val `nbFollowing`: I18nKey = "nbFollowing"
-    val `lessThanNbMinutes`: I18nKey = "lessThanNbMinutes"
     val `nbGamesInPlay`: I18nKey = "nbGamesInPlay"
     val `maximumNbCharacters`: I18nKey = "maximumNbCharacters"
     val `blocks`: I18nKey = "blocks"
