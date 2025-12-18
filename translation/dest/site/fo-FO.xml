@@ -397,10 +397,6 @@
   <string name="player">Telvari</string>
   <string name="list">Listi</string>
   <string name="graph">Strikumynd</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">Minni enn %s minuttur</item>
-    <item quantity="other">Minni enn %s minuttir</item>
-  </plurals>
   <string name="required">Kravt.</string>
   <string name="openTournaments">Opnar kappingar</string>
   <string name="duration">Longd</string>
