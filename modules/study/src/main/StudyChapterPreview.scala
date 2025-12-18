@@ -111,7 +111,7 @@ final class ChapterPreviewApi(
     )
 
   object federations:
-    private val cache = cacheApi[StudyId, JsObject](256, "study.chapterPreview.federations"):
+    private val cache = cacheApi[StudyId, JsObject](512, "study.chapterPreview.federations"):
       _.expireAfterWrite(1.minute).buildAsyncFuture: studyId =>
         for
           chapters <- dataList(studyId)
