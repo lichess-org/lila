@@ -122,6 +122,7 @@ It will display a horizontal line.</string>
   <string name="allowMessagingBetweenStudentsDesc">This only applies to the accounts you have created for your students.</string>
   <string name="quickLoginCode">Quick login code</string>
   <string name="quickLoginCodes">Quick login codes</string>
-  <string name="quickLoginCodesDesc1" comment="variable string is a URL">Use these codes on %s to log your students into Lichess.</string>
+  <string name="quickLoginCodesDesc1" comment="String is a URL">Use these codes on %s to log your students into Lichess.</string>
   <string name="quickLoginCodesDesc2">When the codes expire, the opened sessions will remain valid, until manually closed.</string>
+  <string name="expirationInMomentFromNow" comment="String is the translation of, for example, 'in 2 hours'">Expiration %s</string>
 </resources>

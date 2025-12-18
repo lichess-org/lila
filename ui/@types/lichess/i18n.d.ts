@@ -489,6 +489,8 @@ interface I18n {
     declined: string;
     /** Edit news */
     editNews: string;
+    /** Expiration %s */
+    expirationInMomentFromNow: I18nFormat;
     /** Features */
     features: string;
     /** 100% free for all, forever, with no ads or trackers */

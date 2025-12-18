@@ -344,6 +344,7 @@ object I18nKey:
     val `quickLoginCodes`: I18nKey = "class:quickLoginCodes"
     val `quickLoginCodesDesc1`: I18nKey = "class:quickLoginCodesDesc1"
     val `quickLoginCodesDesc2`: I18nKey = "class:quickLoginCodesDesc2"
+    val `expirationInMomentFromNow`: I18nKey = "class:expirationInMomentFromNow"
     val `nbPendingInvitations`: I18nKey = "class:nbPendingInvitations"
     val `nbTeachers`: I18nKey = "class:nbTeachers"
     val `nbStudents`: I18nKey = "class:nbStudents"

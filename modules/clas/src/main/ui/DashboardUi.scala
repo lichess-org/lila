@@ -258,7 +258,13 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
       val url = routeUrl(routes.Clas.index)
       div(cls := "clas-login")(
         div(cls := "clas-login__top")(
-          p(h2(trans.clas.quickLoginCodes(), "- expire ", momentFromNow(login.expiresAt))),
+          p(
+            h2(
+              trans.clas.quickLoginCodes(),
+              " - ",
+              trans.clas.expirationInMomentFromNow(momentFromNow(login.expiresAt))
+            )
+          ),
           p(trans.clas.quickLoginCodesDesc1(a(href := url)(url))),
           p(trans.clas.quickLoginCodesDesc2())
         ),
