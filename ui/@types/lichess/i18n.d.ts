@@ -581,6 +581,14 @@ interface I18n {
     privateWillNeverBeShown: string;
     /** Progress */
     progress: string;
+    /** Quick login code */
+    quickLoginCode: string;
+    /** Quick login codes */
+    quickLoginCodes: string;
+    /** Use these codes on %s to log your students into Lichess. */
+    quickLoginCodesDesc1: I18nFormat;
+    /** When the codes expire, the opened sessions will remain valid, until manually closed. */
+    quickLoginCodesDesc2: string;
     /** Quickly generate safe usernames and passwords for students */
     quicklyGenerateSafeUsernames: string;
     /** Real name */

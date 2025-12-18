@@ -221,7 +221,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
                   dataIcon := Icon.Tools
                 )("Bulk actions"),
                 postForm(action := routes.Clas.loginCreate(c.id))(
-                  submitButton(cls := "button button-clas text", dataIcon := Icon.Group)("Quick login codes")
+                  submitButton(cls := "button button-clas text", dataIcon := Icon.Group)(trans.clas.quickLoginCodes)
                 )
               ),
               div(cls := "invites")(
@@ -256,9 +256,9 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
       val url = routeUrl(routes.Clas.index)
       div(cls := "clas-login")(
         div(cls := "clas-login__top")(
-          p(h2("Quick login codes - expire ", momentFromNow(login.expiresAt))),
-          p("Use these codes on ", a(href := url)(url), " to log your students into Lichess."),
-          p("When the codes expire, the opened sessions will remain valid, until manually closed.")
+          p(h2(trans.clas.quickLoginCodes, "- expire ", momentFromNow(login.expiresAt))),
+          p(trans.clas.quickLoginCodesDesc1(a(href := url)(url))),
+          p(trans.clas.quickLoginCodesDesc2)
         ),
         div(cls := "clas-login__cards"):
           for
