@@ -210,8 +210,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
   def bulkActions(id: ClasId) = Secure(_.Teacher) { ctx ?=> me ?=>
     WithClass(id): clas =>
       for
-        students0 <- env.clas.api.student.allWithUsers(clas)
-        students <- env.clas.api.student.withPerfs(students0)
+        students <- env.clas.api.student.allWithUsers(clas)
         (activeStudents, archivedStudents) = students.partition(_.student.isActive)
         invites <- env.clas.api.invite.listPending(clas)
         classes <- env.clas.api.clas.of(me)

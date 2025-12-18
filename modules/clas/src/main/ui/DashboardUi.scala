@@ -122,7 +122,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
     def bulkActions(
         c: Clas,
         otherClasses: List[Clas],
-        all: List[Student.WithUserPerfs],
+        all: List[Student.WithUser],
         form: Form[?]
     )(using Context) =
       val classButtons: Frag = otherClasses.map: toClass =>
