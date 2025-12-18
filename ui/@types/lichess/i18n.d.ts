@@ -3679,8 +3679,6 @@ interface I18n {
     learnFromYourMistakes: string;
     /** Learn */
     learnMenu: string;
-    /** Less than %s minutes */
-    lessThanNbMinutes: I18nPlural;
     /** Let other players challenge you */
     letOtherPlayersChallengeYou: string;
     /** Let other players follow you */
