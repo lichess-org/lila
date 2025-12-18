@@ -163,11 +163,11 @@ const sanToWords = (san: string): string =>
   san
     .split('')
     .map(c => {
-      if (c === 'x') return i18n.nvui.sanTakes;
-      if (c === '+') return i18n.nvui.sanCheck;
-      if (c === '#') return i18n.nvui.sanCheckmate;
-      if (c === '=') return i18n.nvui.sanPromotesTo;
-      if (c === '@') return i18n.nvui.sanDroppedOn;
+      if (c === 'x') return i18n.site.sanTakes;
+      if (c === '+') return i18n.site.sanCheck;
+      if (c === '#') return i18n.site.sanCheckmate;
+      if (c === '=') return i18n.site.sanPromotesTo;
+      if (c === '@') return i18n.site.sanDroppedOn;
       const code = c.charCodeAt(0);
       if (code > 48 && code < 58) return c; // 1-8
       if (code > 96 && code < 105) return c.toUpperCase(); // a-h
@@ -175,15 +175,15 @@ const sanToWords = (san: string): string =>
       return role ? transRole(role) : c;
     })
     .join(' ')
-    .replace('O - O - O', i18n.nvui.sanLongCastling)
-    .replace('O - O', i18n.nvui.sanShortCastling);
+    .replace('O - O - O', i18n.site.sanLongCastling)
+    .replace('O - O', i18n.site.sanShortCastling);
 
 const transRole = (role: Role): string =>
-  (i18n.nvui[role as keyof typeof i18n.nvui] as string) || (role as string);
+  (i18n.site[role as keyof typeof i18n.site] as string) || (role as string);
 
 export function speakable(san?: San): string {
   const text = !san
-    ? i18n.nvui.gameStart
+    ? i18n.site.gameStart
     : sanToWords(san)
         .replace(/^A /, '"A"') // "A takes" & "A 3" are mispronounced
         .replace(/(\d) E (\d)/, '$1,E $2') // Strings such as 1E5 are treated as scientific notation

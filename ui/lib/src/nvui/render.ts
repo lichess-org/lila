@@ -27,7 +27,7 @@ export const renderPieceStr = (
 
 export const renderSan = (san: San | undefined, uci: Uci | undefined, style: MoveStyle): string =>
   !san
-    ? i18n.nvui.gameStart
+    ? i18n.site.gameStart
     : style === 'uci'
       ? (uci ?? '')
       : style === 'san'
@@ -62,7 +62,7 @@ export const renderPockets = (pockets: Tree.NodeCrazy['pockets']): VNode =>
 
 export const pocketsStr = (pocket: Tree.CrazyPocket): string =>
   Object.entries(pocket)
-    .map(([role, count]) => `${i18n.nvui[role as Role]}: ${count}`)
+    .map(([role, count]) => `${i18n.site[role as Role]}: ${count}`)
     .join(', ');
 
 export function renderPieceKeys(pieces: Pieces, p: string, style: MoveStyle): string {
@@ -288,11 +288,11 @@ const transSanToWords = (san: string): string =>
   san
     .split('')
     .map(c => {
-      if (c === 'x') return i18n.nvui.sanTakes;
-      if (c === '+') return i18n.nvui.sanCheck;
-      if (c === '#') return i18n.nvui.sanCheckmate;
-      if (c === '=') return i18n.nvui.sanPromotesTo;
-      if (c === '@') return i18n.nvui.sanDroppedOn;
+      if (c === 'x') return i18n.site.sanTakes;
+      if (c === '+') return i18n.site.sanCheck;
+      if (c === '#') return i18n.site.sanCheckmate;
+      if (c === '=') return i18n.site.sanPromotesTo;
+      if (c === '@') return i18n.site.sanDroppedOn;
       const code = c.charCodeAt(0);
       if (code > 48 && code < 58) return c; // 1-8
       if (code > 96 && code < 105) return c.toUpperCase(); // a-h
@@ -300,8 +300,8 @@ const transSanToWords = (san: string): string =>
       return role ? transRole(role) : c;
     })
     .join(' ')
-    .replace('O - O - O', i18n.nvui.sanLongCastling)
-    .replace('O - O', i18n.nvui.sanShortCastling);
+    .replace('O - O - O', i18n.site.sanLongCastling)
+    .replace('O - O', i18n.site.sanShortCastling);
 
 const transRole = (role: Role): string =>
   (i18n.nvui[role as keyof typeof i18n.nvui] as string) || (role as string);

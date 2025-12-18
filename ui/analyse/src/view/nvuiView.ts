@@ -529,7 +529,7 @@ export function renderCurrentNode({
   moveStyle,
 }: Pick<AnalyseNvuiContext, 'ctrl' | 'moveStyle'>): string {
   const node = ctrl.node;
-  if (!node.san || !node.uci) return i18n.nvui.gameStart;
+  if (!node.san || !node.uci) return i18n.site.gameStart;
   return [
     plyToTurn(node.ply),
     node.ply % 2 === 1 ? i18n.site.white : i18n.site.black,

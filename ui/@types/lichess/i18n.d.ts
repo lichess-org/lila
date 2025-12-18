@@ -1759,8 +1759,6 @@ interface I18n {
     announcePossibleCaptures: string;
     /** Announce possible moves for the selected piece. */
     announcePossibleMoves: string;
-    /** bishop */
-    bishop: string;
     /** black bishop */
     blackBishop: string;
     /** black king */
@@ -1783,8 +1781,6 @@ interface I18n {
     featuredEvents: string;
     /** Game info */
     gameInfo: string;
-    /** Game start */
-    gameStart: string;
     /** Game status */
     gameStatus: string;
     /** Go to the board. Default square is e-4. You can specify a square: board a-1 or b a-1 will take you to square a-1. */
@@ -1797,10 +1793,6 @@ interface I18n {
     inputFormCommandList: string;
     /** Invalid move */
     invalidMove: string;
-    /** king */
-    king: string;
-    /** knight */
-    knight: string;
     /** Last move */
     lastMove: string;
     /** Move list */
@@ -1817,8 +1809,6 @@ interface I18n {
     moveWithArrows: string;
     /** Opponent clock */
     opponentClock: string;
-    /** pawn */
-    pawn: string;
     /** PGN and FEN */
     pgnAndFen: string;
     /** Pieces */
@@ -1831,26 +1821,8 @@ interface I18n {
     premoveRecorded: I18nFormat;
     /** To promote to anything else than a queen, use equals. For example a-8-equals-n promotes to a knight. */
     promotion: string;
-    /** queen */
-    queen: string;
-    /** rook */
-    rook: string;
-    /** check */
-    sanCheck: string;
-    /** checkmate */
-    sanCheckmate: string;
-    /** is dropped on */
-    sanDroppedOn: string;
-    /** long castling */
-    sanLongCastling: string;
-    /** promotes to */
-    sanPromotesTo: string;
-    /** short castling */
-    sanShortCastling: string;
     /** K Q R B N x */
     sanSymbols: string;
-    /** takes */
-    sanTakes: string;
     /** white bishop */
     whiteBishop: string;
     /** white king */
@@ -3075,6 +3047,8 @@ interface I18n {
     biography: string;
     /** Talk about yourself, your interests, what you like in chess, your favourite openings, players, ... */
     biographyDescription: string;
+    /** bishop */
+    bishop: string;
     /** Black */
     black: string;
     /** Black accepts takeback */
@@ -3523,6 +3497,8 @@ interface I18n {
     gameSetup: string;
     /** Games played */
     gamesPlayed: string;
+    /** Game start */
+    gameStart: string;
     /** Game vs %1$s */
     gameVsX: I18nFormat;
     /** Get a hint */
@@ -3661,8 +3637,12 @@ interface I18n {
     kidModeExplanation: string;
     /** Kid mode is enabled. */
     kidModeIsEnabled: string;
+    /** king */
+    king: string;
     /** King in the centre */
     kingInTheCenter: string;
+    /** knight */
+    knight: string;
     /** Language */
     language: string;
     /** Last post */
@@ -3995,6 +3975,8 @@ interface I18n {
     pasteThePgnStringHere: string;
     /** Pause */
     pause: string;
+    /** pawn */
+    pawn: string;
     /** Pawn move */
     pawnMove: string;
     /** Performance */
@@ -4067,6 +4049,8 @@ interface I18n {
     puzzleDesc: string;
     /** Puzzles */
     puzzles: string;
+    /** queen */
+    queen: string;
     /** Quick pairing */
     quickPairing: string;
     /** Race finished */
@@ -4193,8 +4177,24 @@ interface I18n {
     reviewWhiteMistakes: string;
     /** revoke all sessions */
     revokeAllSessions: string;
+    /** rook */
+    rook: string;
     /** Pick a very safe name for the tournament. */
     safeTournamentName: string;
+    /** check */
+    sanCheck: string;
+    /** checkmate */
+    sanCheckmate: string;
+    /** is dropped on */
+    sanDroppedOn: string;
+    /** long castling */
+    sanLongCastling: string;
+    /** promotes to */
+    sanPromotesTo: string;
+    /** short castling */
+    sanShortCastling: string;
+    /** takes */
+    sanTakes: string;
     /** Save */
     save: string;
     /** Screenshot current position */
