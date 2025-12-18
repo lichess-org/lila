@@ -474,10 +474,6 @@
   <string name="player">Pelaaja</string>
   <string name="list">Lista</string>
   <string name="graph">Kaavio</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">Alle %s minuutti</item>
-    <item quantity="other">Alle %s minuuttia</item>
-  </plurals>
   <string name="required">Vaadittu.</string>
   <string name="openTournaments">Avoimet turnaukset</string>
   <string name="duration">Kesto</string>
