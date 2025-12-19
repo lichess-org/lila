@@ -644,6 +644,19 @@ $c-bg-clas-over-dim: $m-clas_white--mix-20;
 .clas-login {
   @extend %flex-column;
   gap: 2em;
+  &__title {
+    @extend %flex-between;
+  }
+  &__expiration {
+    @extend %box-radius;
+    background: $c-bg-zebra;
+    font-size: 1.2em;
+    padding: 0.3em 1em;
+    .timeago {
+      font-weight: bold;
+      color: $c-font-clear;
+    }
+  }
   &__cards {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
