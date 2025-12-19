@@ -67,6 +67,7 @@
   <string name="intermezzoDescription">Em vez de jogar o movimento esperado, primeiro realiza outro movimento criando uma ameaça imediata a que o oponente deve responder. Também conhecido como \"Zwischenzug\" ou \"In between\".</string>
   <string name="killBoxMate">Mate de torre e dama</string>
   <string name="killBoxMateDescription">Uma torre fica perto do rei inimigo e é defendida por uma dama que também bloqueia as casas de fuga. A torre e a dama capturam o rei inimigo em uma \"caixa mortal\" de 3 por 3.</string>
+  <string name="pillsburysMate">Mate de Pillsbury</string>
   <string name="morphysMate">Mate de Morphy</string>
   <string name="triangleMate">Mate do triângulo</string>
   <string name="triangleMateDescription">A dama e a torre, há uma casa de distância do rei inimigo, estão na mesma fila ou coluna, separadas por uma casa, formando um triângulo.</string>
