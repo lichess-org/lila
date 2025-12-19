@@ -2645,6 +2645,10 @@ interface I18n {
     killBoxMate: string;
     /** A rook is next to the enemy king and supported by a queen that also blocks the king's escape squares. The rook and the queen catch the enemy king in a 3 by 3 "kill box". */
     killBoxMateDescription: string;
+    /** Morphys mate */
+    morphysMate: string;
+    /** Use the bishop to check the king, while your rook helps to confine it. */
+    morphysMateDescription: string;
     /** Kingside attack */
     kingsideAttack: string;
     /** An attack of the opponent's king, after they castled on the king side. */
@@ -2705,6 +2709,10 @@ interface I18n {
     opening: string;
     /** A tactic during the first phase of the game. */
     openingDescription: string;
+    /** Opera mate */
+    operaMate: string;
+    /** Check the king with a rook and use a bishop to defend the rook. */
+    operaMateDescription: string;
     /** Pawn endgame */
     pawnEndgame: string;
     /** An endgame with only pawns. */
