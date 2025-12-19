@@ -67,6 +67,10 @@
   <string name="intermezzoDescription">不走出预期的着法，而是先插入一步构成直接威胁的着法，迫使对方必须应对。也称为“中间着”或“过渡着”。</string>
   <string name="killBoxMate">杀箱将杀</string>
   <string name="killBoxMateDescription">车紧邻对方王，并得到后的支持，后也同时封锁了王的逃逸格。车和后将对方王困在一个 3x3 的“杀王箱”中。</string>
+  <string name="pillsburysMate">皮尔斯伯里将杀</string>
+  <string name="pillsburysMateDescription">车执行将杀，而象协助限制王移动。</string>
+  <string name="morphysMate">摩菲将杀</string>
+  <string name="morphysMateDescription">利用象来将军，同时您的车协助限制王移动。</string>
   <string name="triangleMate">三角将杀</string>
   <string name="triangleMateDescription">后和车距离对方王一格，且位于同一横线或直线，中间相隔一格，形成一个三角形。</string>
   <string name="vukovicMate">瓦科维奇将杀</string>
@@ -97,6 +101,8 @@
   <string name="oneMoveDescription">仅包含一步棋的谜题。</string>
   <string name="opening">开局</string>
   <string name="openingDescription">对局第一阶段的战术。</string>
+  <string name="operaMate">歌剧将杀</string>
+  <string name="operaMateDescription">用车将军，并用象来保护车。</string>
   <string name="pawnEndgame">兵残局</string>
   <string name="pawnEndgameDescription">只有兵的残局。</string>
   <string name="pin">牵制</string>
