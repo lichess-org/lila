@@ -589,7 +589,7 @@ interface I18n {
     quickLoginCodes: string;
     /** Use these codes on %s to log your students into Lichess. */
     quickLoginCodesDesc1: I18nFormat;
-    /** When the codes expire, the opened sessions will remain valid, until manually closed. */
+    /** When the codes expire, your students will remain logged in, until they manually log out. */
     quickLoginCodesDesc2: string;
     /** Quickly generate safe usernames and passwords for students */
     quicklyGenerateSafeUsernames: string;
