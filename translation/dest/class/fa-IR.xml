@@ -120,4 +120,9 @@
   <string name="moveToAnotherClass">حرکت به کلاس دیگر</string>
   <string name="allowMessagingBetweenStudents">اِجازهٔ پیامیدنِ میانِ شطرنج‌آموزان</string>
   <string name="allowMessagingBetweenStudentsDesc">این فقط مربوط به حساب‌هایی‌ست که برای شطرنج‌آموزان‌تان ایجاد کرده‌اید.</string>
+  <string name="quickLoginCode">کدِ ورودِ فوری</string>
+  <string name="quickLoginCodes">کدهای ورودِ فوری</string>
+  <string name="quickLoginCodesDesc1" comment="String is a URL">از این کدها در %s برای ورود شطرنج‌آموزان‌تان به Lichess ببَهرید.</string>
+  <string name="quickLoginCodesDesc2">زمانی که کدها انقضا شوند، شطرنج‌آموزان‌تان در حالت ورود باقی خواهند ماند تا وقتی که دستی خارج شوند.</string>
+  <string name="expirationInMomentFromNow" comment="String is the translation of, for example, 'in 2 hours'">انقضا %s</string>
 </resources>
