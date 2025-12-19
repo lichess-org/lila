@@ -30,8 +30,8 @@
   <string name="cornerMateDescription">Confina o rei nun recuncho usando unha torre ou unha dama e un cabalo para facer xaque mate.</string>
   <string name="crushing">Vantaxe decisiva</string>
   <string name="crushingDescription">Detecta a metida de zoca do opoñente para obter unha vantaxe decisiva. (eval ≥ 600cp)</string>
-  <string name="discoveredCheck" comment="Description (translatable separately):&#10;&#10;Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage.">Xaque descuberto</string>
-  <string name="discoveredCheckDescription" comment="Description for the &quot;Discovered check&quot; puzzle theme.">Aparta unha peza para desbloquear o xaque doutra peza atacante. A miúdo produce unha vantaxe decisiva.</string>
+  <string name="discoveredCheck">Xaque descuberto</string>
+  <string name="discoveredCheckDescription">Aparta unha peza para desbloquear o xaque doutra peza atacante. A miúdo produce unha vantaxe decisiva.</string>
   <string name="doubleBishopMate">Mate de dous alfís</string>
   <string name="doubleBishopMateDescription">Dous alfís atacando en diagonais cruzadas dan mate ao rei obstaculizado polas súas propias pezas.</string>
   <string name="dovetailMate">Mate de Cozio</string>
