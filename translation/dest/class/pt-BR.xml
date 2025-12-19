@@ -119,4 +119,7 @@ Aqui está o link para acessar a turma.</string>
   <string name="moveToAnotherClass">Mover para outra turma</string>
   <string name="allowMessagingBetweenStudents">Permitir mensagens entre alunos</string>
   <string name="allowMessagingBetweenStudentsDesc">Isso só se aplica às contas criadas para seus alunos.</string>
+  <string name="quickLoginCode">Código de acesso rápido</string>
+  <string name="quickLoginCodes">Códigos de acesso rápido</string>
+  <string name="expirationInMomentFromNow" comment="String is the translation of, for example, 'in 2 hours'">Expiração %s</string>
 </resources>
