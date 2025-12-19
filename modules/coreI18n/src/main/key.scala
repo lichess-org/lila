@@ -1392,6 +1392,8 @@ object I18nKey:
     val `oneMoveDescription`: I18nKey = "puzzleTheme:oneMoveDescription"
     val `opening`: I18nKey = "puzzleTheme:opening"
     val `openingDescription`: I18nKey = "puzzleTheme:openingDescription"
+    val `operaMate`: I18nKey = "puzzleTheme:operaMate"
+    val `operaMateDescription`: I18nKey = "puzzleTheme:operaMateDescription"
     val `pawnEndgame`: I18nKey = "puzzleTheme:pawnEndgame"
     val `pawnEndgameDescription`: I18nKey = "puzzleTheme:pawnEndgameDescription"
     val `pin`: I18nKey = "puzzleTheme:pin"

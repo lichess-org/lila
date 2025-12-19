@@ -2705,6 +2705,10 @@ interface I18n {
     opening: string;
     /** A tactic during the first phase of the game. */
     openingDescription: string;
+    /** Opera mate */
+    operaMate: string;
+    /** Check the king with a rook and use a bishop to defend the rook. */
+    operaMateDescription: string;
     /** Pawn endgame */
     pawnEndgame: string;
     /** An endgame with only pawns. */
