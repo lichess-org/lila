@@ -67,6 +67,8 @@
   <string name="intermezzoDescription">Anstatt den erwarteten Zug zu spielen, schiebe einen anderen Zug dazwischen, der eine sofortige Drohung aufstellt, welche der Gegner beantworten muss.</string>
   <string name="killBoxMate">Killbox Matt</string>
   <string name="killBoxMateDescription">Ein Turm befindet sich neben dem gegnerischen König und wird durch die Dame unterstützt, welche ebenfalls die Fluchtfelder des Königs blockiert. Der Turm und die Dame halten den gegnerischen König in einer 3x3 \"Killbox\".</string>
+  <string name="morphysMate">Morphys Matt</string>
+  <string name="morphysMateDescription">Benutze den Läufer, um den König ins Schach zu stellen, während dein Turm ihn weiter beschränkt.</string>
   <string name="triangleMate">Dreiecks-Matt</string>
   <string name="triangleMateDescription">Die Dame und der Turm bilden auf derselben Reihe oder Linie und im Abstand von einem Feld mit dem gegnerischen König ein Dreieck.</string>
   <string name="vukovicMate">Vukovic-Matt</string>
@@ -97,6 +99,8 @@
   <string name="oneMoveDescription">Eine Aufgabe, die nur einen Zug erfordert.</string>
   <string name="opening">Eröffnung</string>
   <string name="openingDescription">Eine Taktik in der ersten Phase der Partie.</string>
+  <string name="operaMate">Opern Matt</string>
+  <string name="operaMateDescription">Stelle den König mithilfe deines Turms ins Schach und benutze einen Läufer, um den Turm zu verteidigen.</string>
   <string name="pawnEndgame">Bauernendspiel</string>
   <string name="pawnEndgameDescription">Ein Endspiel nur mit Bauern.</string>
   <string name="pin">Fesselung</string>
