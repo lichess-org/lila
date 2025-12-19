@@ -165,7 +165,7 @@
   <string name="currentGames">진행 중인 대국들</string>
   <string name="joinedX">%s 전에 가입함</string>
   <plurals name="nbGames">
-    <item quantity="other">대국 %s개</item>
+    <item quantity="other">%s개의 대국</item>
   </plurals>
   <plurals name="ratingXOverYGames">
     <item quantity="other">%1$s 점수 (대국 %2$s 회)</item>
@@ -786,7 +786,7 @@
   <string name="notifications">알림</string>
   <string name="notificationsX">알림: %1$s</string>
   <string name="perfRatingX">레이팅: %s</string>
-  <string name="yourRatingIsX">%s 귀하의 평가는</string>
+  <string name="yourRatingIsX">당신의 레이팅: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">%s 초 안에 첫 수를 두십시오.</item>
   </plurals>
@@ -863,6 +863,7 @@
   <string name="agreementPolicy">나는 모든 Lichess 정책을 따르겠습니다.</string>
   <string name="searchOrStartNewDiscussion">대화 찾기 또는 새 대화 시작하기</string>
   <string name="edit">편집</string>
+  <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">울트라불릿</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">불릿</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">블리츠</string>
   <string name="rapid">래피드</string>
