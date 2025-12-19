@@ -187,8 +187,13 @@ private final class RelayPlayerApi(
   private val groupJsonCache = cacheApi[RelayTourId, JsonStr](32, "relay.players.json"):
     _.expireAfterWrite(1.minute).buildAsyncFuture: tourId =>
       import RelayPlayer.json.given
-      groupPlayers(tourId).map: allPlayers =>
-        JsonStr(Json.stringify(Json.toJson(allPlayers.values.toList)))
+      for
+        tourIds <- groupRepo.allTourIdsOfGroup(tourId)
+        tourPlayers <- tourIds.traverse(singleTourCache.get)
+        allPlayers = tourPlayers match
+          case List(singleTour) => singleTour
+          case many => many.foldLeft(SeqMap.empty: RelayPlayers)(_ ++ _).toList.sortBy(_._2).to(SeqMap)
+      yield JsonStr(Json.stringify(Json.toJson(allPlayers.values.toList)))
 
   private val photosJsonCache = cacheApi[RelayTourId, PhotosJson](32, "relay.players.photos.json"):
     _.expireAfterWrite(10.seconds).buildAsyncFuture: tourId =>
@@ -202,21 +207,12 @@ private final class RelayPlayerApi(
 
   def photosJson(tourId: RelayTourId): Fu[PhotosJson] = photosJsonCache.get(tourId)
 
-  def groupPlayers(tourId: RelayTourId): Fu[RelayPlayers] =
-    for
-      tourIds <- groupRepo.allTourIdsOfGroup(tourId)
-      tourPlayers <- tourIds.traverse(singleTourCache.get)
-    yield tourPlayers match
-      case List(singleTour) => singleTour
-      case many => many.foldLeft(SeqMap.empty: RelayPlayers)(_ ++ _).toList.sortBy(_._2).to(SeqMap)
-
   def player(tour: RelayTour, str: String): Fu[Option[RelayPlayer]] =
     val id = FideId.from(str.toIntOption) | PlayerName(str)
-    singleTourCache
-      .get(tour.id)
-      .map(_.get(id))
-      .orElse:
-        groupPlayers(tour.id).map(_.get(id))
+    for
+      players <- singleTourCache.get(tour.id)
+      player = players.get(id)
+    yield player
 
   def invalidate(id: RelayTourId) = invalidateDebouncer.push(id)
 
