@@ -67,6 +67,8 @@ Eden od vaših kmetov je globoko na nasprotnikovem področju in ima morda možno
   <string name="intermezzoDescription">Namesto pričakovane poteze, vrinemo drugo potezo ki predstavlja takojšnjo grožnjo na katero mora nasprotnik odgovorit. Z drugim imenom tudi kot \"Zwischenzug\" ali medpoteza.</string>
   <string name="killBoxMate">Vaba</string>
   <string name="killBoxMateDescription">Ob sovražnikovem kralju stoji trdnjava, ki jo podpira dama, ki prav tako blokira kraljeva pobegna polja. Trdnjava in dama ujameta sovražnikovega kralja v \"vabi\" velikosti 3 krat 3.</string>
+  <string name="morphysMate">Morphyjev mat</string>
+  <string name="morphysMateDescription">S lovcem šahiraj kralja, medtem ko ti trdnjava pomaga omejiti napad.</string>
   <string name="triangleMate">Trikotni mat</string>
   <string name="triangleMateDescription">Kraljica in trdnjava, eno polje stran od sovražnega kralja, sta v isti vrsti ali liniji, ločeni z enim poljem in tvorita trikotnik.</string>
   <string name="vukovicMate">Vukovic mat</string>
@@ -97,6 +99,8 @@ Eden od vaših kmetov je globoko na nasprotnikovem področju in ima morda možno
   <string name="oneMoveDescription">Uganka, ki ima eno potezo.</string>
   <string name="opening">Otvoritev</string>
   <string name="openingDescription">Taktika v prvi fazi partije.</string>
+  <string name="operaMate">Operin mat</string>
+  <string name="operaMateDescription">Kralja šahiraj z trdnjavo in uporabi lovca za obrambo trdnjave.</string>
   <string name="pawnEndgame">Končnica s kmeti</string>
   <string name="pawnEndgameDescription">Končnica samo s kmeti.</string>
   <string name="pin">Vezava</string>
