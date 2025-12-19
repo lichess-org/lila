@@ -67,6 +67,8 @@
   <string name="intermezzoDescription">Instead of playing the expected move, first interpose another move posing an immediate threat that the opponent must answer. Also known as "Zwischenzug" or "In between".</string>
   <string name="killBoxMate">Kill box mate</string>
   <string name="killBoxMateDescription">A rook is next to the enemy king and supported by a queen that also blocks the king's escape squares. The rook and the queen catch the enemy king in a 3 by 3 "kill box".</string>
+  <string name="pillsburysMate">Pillsbury's mate</string>
+  <string name="pillsburysMateDescription">The rook delivers checkmate, while the bishop helps to confine it.</string>
   <string name="morphysMate">Morphy's mate</string>
   <string name="morphysMateDescription">Use the bishop to check the king, while your rook helps to confine it.</string>
   <string name="triangleMate">Triangle mate</string>

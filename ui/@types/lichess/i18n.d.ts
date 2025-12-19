@@ -2717,6 +2717,10 @@ interface I18n {
     pawnEndgame: string;
     /** An endgame with only pawns. */
     pawnEndgameDescription: string;
+    /** Pillsbury's mate */
+    pillsburysMate: string;
+    /** The rook delivers checkmate, while the bishop helps to confine it. */
+    pillsburysMateDescription: string;
     /** Pin */
     pin: string;
     /** A tactic involving pins, where a piece is unable to move without revealing an attack on a higher value piece. */
