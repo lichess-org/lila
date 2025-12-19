@@ -82,7 +82,7 @@ object page:
               else escapeHtmlRaw(loc).replace("&amp;", "&")
             raw(s"""<style id="bg-data">html.transp::before{background-image:url("$url");}</style>""")
           },
-          fontPreload,
+          fontsPreload,
           boardPreload,
           manifests,
           p.withHrefLangs.map(hrefLangs),
