@@ -30,8 +30,8 @@
   <string name="cornerMateDescription">Zatlačte kráľa do rohu pomocou veže a jazdca alebo dámy a jazdca, aby ste dosiahli mat.</string>
   <string name="crushing">Rozdrvenie</string>
   <string name="crushingDescription">Odhaľte súperovu hrubú chybu a získajte drvivú výhodu. (eval ≥ 600cp)</string>
-  <string name="discoveredCheck" comment="Description (translatable separately):&#10;&#10;Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage.">Odkrytý šach</string>
-  <string name="discoveredCheckDescription" comment="Description for the &quot;Discovered check&quot; puzzle theme.">Pohnite figúrkou, aby ste odkryli šach od skrytej útočiacej figúry. Často to vedie k rozhodujúcej výhode.</string>
+  <string name="discoveredCheck">Odkrytý šach</string>
+  <string name="discoveredCheckDescription">Pohnite figúrkou, aby ste odkryli šach od skrytej útočiacej figúry. Často to vedie k rozhodujúcej výhode.</string>
   <string name="doubleBishopMate">Mat dvojicou strelcov</string>
   <string name="doubleBishopMateDescription">Dvaja útočiaci strelci na susediacich diagonálach zmatujú kráľa zablokovaného vlastnými figúrkami.</string>
   <string name="dovetailMate">Devetailov mat</string>
