@@ -35,21 +35,29 @@ object RelayGroup:
     )
 
 private case class RelayGroupData(
-    name: RelayGroup.Name,
-    tours: List[RelayTour.TourPreview],
+    info: RelayGroupData.Info,
     scoreGroups: Option[List[ScoreGroup]]
 ):
-  def tourIds = tours.map(_.id)
+  def tourIds = info.tours.map(_.id)
   def update(group: RelayGroup): RelayGroup =
-    group.copy(name = name, tours = tourIds, scoreGroups = scoreGroups)
-  def make: RelayGroup = RelayGroup(RelayGroup.makeId, name, tourIds, scoreGroups)
+    group.copy(name = info.name, tours = tourIds, scoreGroups = scoreGroups)
+  def make: RelayGroup = RelayGroup(RelayGroup.makeId, info.name, tourIds, scoreGroups)
+
+object RelayGroupData:
+  case class Info(
+      name: RelayGroup.Name,
+      tours: List[RelayTour.TourPreview]
+  )
 
 private final class RelayGroupForm(baseUrl: BaseUrl):
   import play.api.data.*
   import play.api.data.Forms.*
 
   def data(group: RelayGroup.WithTours) =
-    RelayGroupData(group.group.name, group.tours, group.group.scoreGroups)
+    RelayGroupData(
+      RelayGroupData.Info(group.group.name, group.tours),
+      group.group.scoreGroups
+    )
 
   private def parseId(str: String): Option[RelayTourId] =
     def looksLikeId(id: String): Boolean = id.size == 8 && id.forall(_.isLetterOrDigit)
@@ -62,17 +70,6 @@ private final class RelayGroupForm(baseUrl: BaseUrl):
           case Array("broadcast", _, id) if looksLikeId(id) => id.some
           case _ => none
       yield RelayTourId(id)
-
-  private val tourIdsMapping = nonEmptyText.transform[List[RelayTourId]](
-    str =>
-      str
-        .split("\n")
-        .toList
-        .take(50)
-        .map(_.trim.takeWhile(' ' != _))
-        .flatMap(parseId),
-    tourIds => tourIds.map(id => s"$baseUrl${routes.RelayTour.show("-", id)}").mkString("\n")
-  )
 
   private val scoreGroupsMapping = nonEmptyText.transform[List[ScoreGroup]](
     str =>
@@ -97,16 +94,28 @@ private final class RelayGroupForm(baseUrl: BaseUrl):
     val groupTourIds = tourIds.toSet
     scoreGroups.flatMap(_.tourIds).forall(id => groupTourIds.contains(id))
 
+  private val infoMapping = nonEmptyText.transform[RelayGroupData.Info](
+    str =>
+      val lines = str.split("\n").toList.map(_.trim).filter(_.nonEmpty)
+      lines match
+        case Nil => RelayGroupData.Info(RelayGroup.Name(""), Nil)
+        case name :: tourLines =>
+          val tourIds = tourLines
+            .flatMap(parseId)
+          val tours = tourIds.map(RelayTour.TourPreview(_, RelayTour.Name(""), active = false, live = none))
+          RelayGroupData.Info(RelayGroup.Name(name), tours)
+    ,
+    info =>
+      val name = info.name.value
+      val tourUrls = info.tours.map(t => s"$baseUrl${routes.RelayTour.show("-", t.id)}")
+      (name :: tourUrls).mkString("\n")
+  )
+
   val mapping = Forms
     .mapping(
-      "name" -> lila.common.Form.cleanNonEmptyText,
-      "tourIds" -> tourIdsMapping,
+      "info" -> infoMapping,
       "scoreGroups" -> optional(scoreGroupsMapping)
-    )((name: String, tourIds: List[RelayTourId], scoreGroups: Option[List[ScoreGroup]]) =>
-      val tours = tourIds.map(RelayTour.TourPreview(_, RelayTour.Name(""), active = false, live = none))
-      RelayGroupData(RelayGroup.Name(name), tours, scoreGroups)
-    )((data: RelayGroupData) => Some((data.name.value, data.tourIds, data.scoreGroups)))
-    .verifying("Tour IDs cannot be empty", data => data.tourIds.nonEmpty)
+    )(RelayGroupData.apply)(data => Some(data.info, data.scoreGroups))
     .verifying(
       "scoregroups cannot contain broadcasts not present in this group",
       data => data.scoreGroups.forall(isValidScoreGroup(data.tourIds, _))
@@ -134,14 +143,14 @@ final private class RelayGroupRepo(coll: Coll)(using Executor):
     for
       prev <- byTour(tourId)
       curId <- prev match
-        case Some(prev) if data.tours.isEmpty => coll.delete.one($id(prev.id)).inject(none)
+        case Some(prev) if data.info.tours.isEmpty => coll.delete.one($id(prev.id)).inject(none)
         case Some(prev) => coll.update.one($id(prev.id), data.update(prev)).inject(prev.id.some)
         case None =>
           val newGroup = data.make
           coll.insert.one(newGroup).inject(newGroup.id.some)
       // make sure the tours of this group are not in other groups
       _ <- curId.so: id =>
-        data.tours.map(_.id).sequentiallyVoid { tourId =>
+        data.tourIds.sequentiallyVoid { tourId =>
           coll.update.one($doc("_id".$ne(id), "tours" -> tourId), $pull("tours" -> tourId), multi = true)
         }
     yield ()

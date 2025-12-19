@@ -796,7 +796,7 @@ Team Dogs ; Scooby Doo"""),
   private def grouping(form: Form[RelayTourForm.Data])(using Context) =
     div(cls := "relay-form__grouping")(
       form3.group(
-        form("grouping.data"),
+        form("grouping.info"),
         "Optional: assign tournaments to a group",
         help = frag( // do not translate
           "First line is the group name.",

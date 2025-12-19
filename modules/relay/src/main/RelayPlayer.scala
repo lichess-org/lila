@@ -257,10 +257,10 @@ private final class RelayPlayerApi(
         case CacheKey.Tour(id) => List(id)
 
     // Use the first tour to retrieve display settings (scores, rating diffs, tiebreaks)
-    val primaryTourId = tourIds.headOption
-    primaryTourId.so: ptid =>
+    val firstTourId = tourIds.headOption
+    firstTourId.so: tourId =>
       tourRepo
-        .byId(ptid)
+        .byId(tourId)
         .flatMapz: tour =>
           tourIds
             .foldLeft(fuccess(SeqMap.empty: RelayPlayers))((fuAcc, tId) =>
