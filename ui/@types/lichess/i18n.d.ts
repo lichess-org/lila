@@ -455,6 +455,16 @@ interface I18n {
     archiveAction: string;
     /** Archived students */
     archivedStudents: string;
+    /** Important! Make sure you understand how this works: */
+    bulkActionDisclaimer: string;
+    /** Edit the list above to keep some students selected for a bulk action. */
+    bulkActionHelpLine1: string;
+    /** All the students remaining in the list will be affected by the action. */
+    bulkActionHelpLine2: string;
+    /** The students you removed from the list will remain in the class, unchanged. */
+    bulkActionHelpLine3: string;
+    /** Choose the action to perform on the students listed above: */
+    bulkActionInstruction: string;
     /** Bulk actions */
     bulkActions: string;
     /** Class description */
@@ -615,6 +625,8 @@ interface I18n {
     releaseTheAccount: string;
     /** Remove */
     removeAction: string;
+    /** BEWARE: removing a student with managed account will close the account permanently. */
+    removeActionWarning: string;
     /** Removed by %s */
     removedByX: I18nFormat;
     /** Removed */

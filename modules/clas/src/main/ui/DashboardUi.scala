@@ -129,13 +129,13 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
       val doubleHelp: Tag =
         div(cls := "clas-show__bulk__helps form-group")(
           div(cls := "clas-show__bulk__help")(
-            strong("Important! Make sure you understand how this works:"),
+            strong(trans.clas.bulkActionDisclaimer()),
             p(
-              "Edit the list above to keep some students selected for a bulk action.",
+              trans.clas.bulkActionHelpLine1(),
               br,
-              "All the students remaining in the list will be affected by the action.",
+              trans.clas.bulkActionHelpLine2(),
               br,
-              "The students you removed from the list will remain in the class, unchanged."
+              trans.clas.bulkActionHelpLine3()
             )
           ),
           div(cls := "clas-show__bulk__help")(
@@ -167,7 +167,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
                 frag(trans.clas.archivedStudents())
               )(form3.textarea(_)(rows := 7)),
               doubleHelp(
-                "BEWARE: removing a student with managed account will close the account permanently."
+                trans.clas.removeActionWarning()
               ),
               div(cls := "form-group")(
                 form3.submit(trans.clas.restoreAction.txt(), icon = none, ("action", "restore").some)(

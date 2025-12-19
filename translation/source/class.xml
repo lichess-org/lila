@@ -132,4 +132,10 @@ It will display a horizontal line.</string>
   <string name="archiveAction" comment="Action to move selected students to the archived student list">Archive</string>
   <string name="restoreAction" comment="Action to move selected students back to the active student list">Restore</string>
   <string name="removeAction" comment="Action to completely remove selected students">Remove</string>
+  <string name="bulkActionDisclaimer">Important! Make sure you understand how this works:</string>
+  <string name="bulkActionHelpLine1">Edit the list above to keep some students selected for a bulk action.</string>
+  <string name="bulkActionHelpLine2">All the students remaining in the list will be affected by the action.</string>
+  <string name="bulkActionHelpLine3">The students you removed from the list will remain in the class, unchanged.</string>
+  <string name="bulkActionInstruction">Choose the action to perform on the students listed above:</string>
+  <string name="removeActionWarning">BEWARE: removing a student with managed account will close the account permanently.</string>
 </resources>
