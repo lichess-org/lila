@@ -190,9 +190,7 @@ private final class RelayPlayerApi(
       for
         tourIds <- groupRepo.allTourIdsOfGroup(tourId)
         tourPlayers <- tourIds.traverse(singleTourCache.get)
-        allPlayers = tourPlayers match
-          case List(singleTour) => singleTour
-          case many => many.foldLeft(SeqMap.empty: RelayPlayers)(_ ++ _).toList.sortBy(_._2).to(SeqMap)
+        allPlayers = tourPlayers.foldLeft(SeqMap.empty: RelayPlayers)(_ ++ _)
       yield JsonStr(Json.stringify(Json.toJson(allPlayers.values.toList)))
 
   private val photosJsonCache = cacheApi[RelayTourId, PhotosJson](32, "relay.players.photos.json"):
