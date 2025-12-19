@@ -120,4 +120,9 @@ Se luo vaakasuoran erotinviivan.</string>
   <string name="moveToAnotherClass">Siirrä toiselle luokalle</string>
   <string name="allowMessagingBetweenStudents">Salli oppilaiden väliset viestit</string>
   <string name="allowMessagingBetweenStudentsDesc">Tämä koskee vain käyttäjätunnuksia, jotka olet luonut oppilaillesi.</string>
+  <string name="quickLoginCode">Nopean kirjautumisen koodi</string>
+  <string name="quickLoginCodes">Nopean kirjautumisen koodit</string>
+  <string name="quickLoginCodesDesc1" comment="String is a URL">Näitä koodeja käyttämällä voit kirjata oppilaasi sisään Lichessiin täältä: %s</string>
+  <string name="quickLoginCodesDesc2">Kun koodit vanhentuvat, oppilaasi pysyvät sisäänkirjautuneina siihen asti, kunnes he kirjautuvat itse ulos.</string>
+  <string name="expirationInMomentFromNow" comment="String is the translation of, for example, 'in 2 hours'">Vanhentuu %s</string>
 </resources>
