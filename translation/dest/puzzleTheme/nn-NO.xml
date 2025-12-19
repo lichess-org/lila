@@ -68,6 +68,7 @@
   <string name="killBoxMate">Kassematt</string>
   <string name="killBoxMateDescription">Eit tårn står ved sida av motspelarens konge og er støtta av ei dronning som i tillegg stengjer fluktfelta til kongen. Tårnet og dronninga fangar motspelarkongen i ei 3x3 «kasse».</string>
   <string name="morphysMate">Morphys matt</string>
+  <string name="morphysMateDescription">Bruk løparen til å sjakke kongen, medan tårnet avgrensar rørslene til kongen.</string>
   <string name="triangleMate">Trekantmatt</string>
   <string name="triangleMateDescription">Dronning og tårn, eit felt frå motspelarkongen, står på samme rad eller linje med ett felt mellom, slik at dei tre brikkene dannea ein trekant.</string>
   <string name="vukovicMate">Vuković-matt</string>
@@ -98,6 +99,8 @@
   <string name="oneMoveDescription">Ei taktikkoppgåve på berre eitt trekk.</string>
   <string name="opening">Opning</string>
   <string name="openingDescription">Taktikk i den første fasen av partiet.</string>
+  <string name="operaMate">Operamatt</string>
+  <string name="operaMateDescription">Sett kongen i sjakk med eit tårn og bruk ein løpar til å forsvare tårnet.</string>
   <string name="pawnEndgame">Bondesluttspel</string>
   <string name="pawnEndgameDescription">Sluttspel med berre bønder.</string>
   <string name="pin">Binding</string>
