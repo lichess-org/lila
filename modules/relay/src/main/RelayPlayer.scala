@@ -273,7 +273,7 @@ private final class RelayPlayerApi(
                   if tour.showRatingDiffs then computeRatingDiffs(tour.info.fideTcOrGuess, withScore)
                   else fuccess(withScore)
                 lastRoundId <- tourIds.lastOption.so: lastId =>
-                  roundRepo.byTourOrdered(lastId).map(_.lastOption.map(_.id))
+                  roundRepo.idsByTourOrdered(lastId).map(_.lastOption)
                 withTiebreaks = tour.tiebreaks.foldLeft(withRatingDiff)(
                   computeTiebreaks(_, _, lastRoundId)
                 )
