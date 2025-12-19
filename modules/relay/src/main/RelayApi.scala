@@ -238,7 +238,7 @@ final class RelayApi(
           "note" -> tour.note
         )
       )
-      _ <- data.grouping.so(updateGrouping(tour, _, data.sharePlayers))
+      _ <- data.grouping.so(updateGrouping(tour, _))
       _ <- playerEnrich.onPlayerTextareaUpdate(tour, prev)
       _ <- (tour.visibility != prev.visibility).so(studyPropagation.onVisibilityChange(tour))
       _ <- tour.markup.so:
@@ -249,12 +249,10 @@ final class RelayApi(
       studyIds.foreach(preview.invalidate)
       (tour.id :: data.grouping.so(_.tourIds)).foreach(withTours.invalidate)
 
-  private def updateGrouping(tour: RelayTour, data: RelayGroupData, sharePlayers: Boolean)(using
-      me: Me
-  ): Funit =
+  private def updateGrouping(tour: RelayTour, data: RelayGroupData)(using me: Me): Funit =
     (Granter(_.Relay) || !tour.official).so:
       val canGroup = fuccess(Granter(_.StudyAdmin)) >>| tourRepo.isOwnerOfAll(me.userId, data.tourIds)
-      canGroup.flatMapz(groupRepo.update(tour.id, data, sharePlayers))
+      canGroup.flatMapz(groupRepo.update(tour.id, data))
 
   def create(data: RelayRoundForm.Data, tour: RelayTour)(using me: Me): Fu[RelayRound.WithTourAndStudy] = for
     last <- roundRepo.lastByTour(tour)

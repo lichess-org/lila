@@ -73,7 +73,6 @@ final class RelayTourForm(langList: lila.core.i18n.LangList, groupForm: RelayGro
       ),
       "spotlight" -> optional(spotlightMapping),
       "grouping" -> groupForm.mapping,
-      "sharePlayers" -> boolean,
       "pinnedStream" -> optional(pinnedStreamMapping),
       "note" -> optional(nonEmptyText(maxLength = 20_000))
     )(Data.apply)(unapply)
@@ -106,7 +105,6 @@ final class RelayTourForm(langList: lila.core.i18n.LangList, groupForm: RelayGro
       teams = tour.teams,
       spotlight = tour.spotlight,
       grouping = group.map(groupForm.data),
-      sharePlayers = group.so(_.group.sharePlayers),
       pinnedStream = tour.pinnedStream,
       note = tour.note
     )
@@ -127,7 +125,6 @@ object RelayTourForm:
       teams: Option[RelayTeamsTextarea] = none,
       spotlight: Option[RelayTour.Spotlight] = none,
       grouping: Option[RelayGroupData] = none,
-      sharePlayers: Boolean = false,
       pinnedStream: Option[RelayPinnedStream] = none,
       note: Option[String] = none
   ):
