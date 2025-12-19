@@ -123,6 +123,6 @@ Amosará unha liña separadora horizontal.</string>
   <string name="quickLoginCode">Código de inicio de sesión rápida</string>
   <string name="quickLoginCodes">Códigos de inicio de sesión rápida</string>
   <string name="quickLoginCodesDesc1" comment="String is a URL">Emprega estes códigos en %s para que os teus estudantes inicien a sesión en Lichess.</string>
-  <string name="quickLoginCodesDesc2">Cando os códigos expiran os teus estudantes permanecerán na sesión ata que eles saian manualmente do Lichess.</string>
+  <string name="quickLoginCodesDesc2">Cando os códigos expiren os teus estudantes permanecerán na sesión ata que saian manualmente do Lichess.</string>
   <string name="expirationInMomentFromNow" comment="String is the translation of, for example, 'in 2 hours'">Caducan %s</string>
 </resources>
