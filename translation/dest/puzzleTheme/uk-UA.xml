@@ -30,8 +30,8 @@
   <string name="cornerMateDescription">Тура й ферзь заганяють короля в кут, а кінь ставить мат.</string>
   <string name="crushing">Руйнування</string>
   <string name="crushingDescription">Знайдіть грубу помилку суперника, щоб отримати нищівну перевагу. (eval ≥ 600 cp)</string>
-  <string name="discoveredCheck" comment="Description (translatable separately):&#10;&#10;Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage.">Відкритий шах</string>
-  <string name="discoveredCheckDescription" comment="Description for the &quot;Discovered check&quot; puzzle theme.">Переміщення однієї фігури відкриває іншу, яка ставить шах королю. Часто призводить до вирішальної переваги.</string>
+  <string name="discoveredCheck">Відкритий шах</string>
+  <string name="discoveredCheckDescription">Переміщення однієї фігури відкриває іншу, яка ставить шах королю. Часто призводить до вирішальної переваги.</string>
   <string name="doubleBishopMate">Мат двома слонами</string>
   <string name="doubleBishopMateDescription">Два слони на сусідніх діагоналях ставлять мат королю, який оточений власними фігурами.</string>
   <string name="dovetailMate">Мат \"ластів\'ячий хвіст\"</string>
