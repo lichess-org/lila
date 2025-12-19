@@ -29,8 +29,8 @@
   <string name="cornerMateDescription">Ο πύργος ή η βασίλισσα περιορίζουν τον αντίπαλο βασιλιά στη γωνία, με τον ίππο να δίνει ματ.</string>
   <string name="crushing">Σαρωτική επίθεση</string>
   <string name="crushingDescription">Εντοπίστε το σοβαρό λάθος του αντιπάλου και αποκτήστε καθοριστικό πλεονέκτημα. (eval ≥ 600cp)</string>
-  <string name="discoveredCheck" comment="Description (translatable separately):&#10;&#10;Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage.">Σαχ με αποκάλυψη</string>
-  <string name="discoveredCheckDescription" comment="Description for the &quot;Discovered check&quot; puzzle theme.">Μετακινήστε ένα κομμάτι ώστε ένα άλλο κομμάτι να αποκαλυφθεί και να δώσει σαχ, αποκτώντας παράλληλα ένα αποφασιστικό πλεονέκτημα.</string>
+  <string name="discoveredCheck">Σαχ με αποκάλυψη</string>
+  <string name="discoveredCheckDescription">Μετακινήστε ένα κομμάτι ώστε ένα άλλο κομμάτι να αποκαλυφθεί και να δώσει σαχ, αποκτώντας παράλληλα ένα αποφασιστικό πλεονέκτημα.</string>
   <string name="doubleBishopMate">Ματ με δύο αξιωματικούς</string>
   <string name="doubleBishopMateDescription">Δύο αξιωματικοί σε γειτονικές διαγώνιους κάνουν ματ σε βασιλιά που εμποδίζεται από δικά του κομμάτια.</string>
   <string name="dovetailMate">Dovetail ματ</string>
