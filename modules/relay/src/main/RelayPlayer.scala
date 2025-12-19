@@ -72,6 +72,9 @@ object RelayPlayer:
   opaque type Rank = Int
   object Rank extends OpaqueInt[Rank]
 
+  def empty(player: StudyPlayer.WithFed) =
+    RelayPlayer(player, None, None, None, None, None, Vector.empty)
+
   case class Game(
       round: RelayRoundId,
       id: StudyChapterId,
@@ -261,10 +264,7 @@ private final class RelayPlayerApi(
                             players.updated(
                               playerId,
                               players
-                                .getOrElse(
-                                  playerId,
-                                  RelayPlayer(player, None, None, None, None, None, Vector.empty)
-                                )
+                                .getOrElse(playerId, RelayPlayer.empty(player))
                                 .withGame(game)
                             )
                   }
