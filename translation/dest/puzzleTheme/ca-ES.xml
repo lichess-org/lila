@@ -29,8 +29,8 @@
   <string name="cornerMateDescription">Confina el rei a una cantonada utilitzant una torre o una dama i donar li mat amb un cavall.</string>
   <string name="crushing">Fort avantatge</string>
   <string name="crushingDescription">Veure l\'error de l\'adversari per a obtenir un gran avantatge (aval ≥ 600cp)</string>
-  <string name="discoveredCheck" comment="Description (translatable separately):&#10;&#10;Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage.">Escac a la descoberta</string>
-  <string name="discoveredCheckDescription" comment="Description for the &quot;Discovered check&quot; puzzle theme.">Mou una peça per revelar un escac d\'una peça atacant amagada que normalment porta a un avantatge decisiu.</string>
+  <string name="discoveredCheck">Escac a la descoberta</string>
+  <string name="discoveredCheckDescription">Mou una peça per revelar un escac d\'una peça atacant amagada que normalment porta a un avantatge decisiu.</string>
   <string name="doubleBishopMate">Mat dels dos alfils</string>
   <string name="doubleBishopMateDescription">Dos alfils atacant en diagonals adjacents fan mat a un rei que queda obstruït per peces amigues.</string>
   <string name="dovetailMate">Mat de la coça</string>
