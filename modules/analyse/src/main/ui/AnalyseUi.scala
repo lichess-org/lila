@@ -50,7 +50,7 @@ final class AnalyseUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
             .add("inlinePgn", inlinePgn) ++
             explorerAndCevalConfig
         )
-      .i18n(_.puzzle, _.study)
+      .i18n(_.study)
       .i18nOpt(ctx.speechSynthesis, _.nvui)
       .i18nOpt(ctx.blind, _.keyboardMove)
       .graph(
