@@ -21,10 +21,11 @@
   <string name="perks">Предности стримовања са кључном речи</string>
   <string name="perk1">Добићеш горећу стример икону на твом Lichess профилу.</string>
   <string name="perk2">Бићете пробијеени на врх листе стримера.</string>
-  <string name="perk3">Обавестите ваше Личес пратиоце.</string>
+  <string name="perk3">Обавести своје Lichess пратиоце.</string>
+  <string name="perk4">Покажи твој стрим у својим партијама, турнирима и студијама.</string>
   <string name="approved">Твој стрим је одобрен.</string>
   <string name="pendingReview">Твој стрим проверавају модератори.</string>
-  <string name="pleaseFillIn">Молимо попуните стримерске информације и поставите слику.</string>
+  <string name="pleaseFillIn">Молимо да попуниш твоје стримерске информације и поставиш слику.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Када будете спремни да постанете Личес стример, %s</string>
   <string name="headline">Наслов</string>
   <string name="tellUsAboutTheStream">Реци нам нешто о свом стриму у једној реченици</string>
