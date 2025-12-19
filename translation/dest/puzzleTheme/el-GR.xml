@@ -66,6 +66,8 @@
   <string name="intermezzoDescription">Αντί για την αναμενόμενη κίνηση παίζεται πρώτα κάποια ενδιάμεση κίνηση που δημιουργεί μια απειλή την οποία ο αντίπαλος πρέπει να αντιμετωπίσει αμέσως. Επίσης γνωστό ως \"Zwischenzug\" ή \"Intermezzo\".</string>
   <string name="killBoxMate">Ματ του κουτιού εξόντωσης</string>
   <string name="killBoxMateDescription">Ένας πύργος βρίσκεται δίπλα από τον αντίπαλο βασιλιά και υποστηρίζεται από τη βασίλισσα η οποία εμποδίζει τα τετράγωνα διαφυγής του βασιλιά. Ο πύργος και η βασίλισσα εγκλωβίζουν τον αντίπαλο βασιλιά σε ένα 3 επί 3 «κουτί εξόντωσης».</string>
+  <string name="morphysMate">Ματ του Μόρφυ</string>
+  <string name="morphysMateDescription">Ένας αξιωματικός κάνει σαχ στον αντίπαλο βασιλιά, περιορίζοντάς τον με τη βοήθεια ενός πύργου.</string>
   <string name="triangleMate">Τριγωνικό ματ</string>
   <string name="triangleMateDescription">Η βασίλισσα και ο πύργος βρίσκονται ένα τετράγωνο μακριά από στον αντίπαλο βασιλιά και είναι στην ίδια γραμμή ή στην ίδια στήλη, ενώ χωρίζονται μεταξύ τους από ένα τετράγωνο, σχηματίζοντας κατά τον τρόπο αυτό ένα τρίγωνο.</string>
   <string name="vukovicMate">Ματ του Vukovic</string>
@@ -96,6 +98,8 @@
   <string name="oneMoveDescription">Τακτικά που έχουν μόνο μία κίνηση.</string>
   <string name="opening">Άνοιγμα</string>
   <string name="openingDescription">Τακτικά κατά την πρώτη φάση της παρτίδας.</string>
+  <string name="operaMate">Ματ της όπερας</string>
+  <string name="operaMateDescription">Ένας πύργος που προστατεύεται από έναν αξιωματικό κάνει ματ στον αντίπαλο βασιλιά.</string>
   <string name="pawnEndgame">Φινάλε πιονιών</string>
   <string name="pawnEndgameDescription">Φινάλε μόνο με πιόνια.</string>
   <string name="pin">Κάρφωμα</string>
