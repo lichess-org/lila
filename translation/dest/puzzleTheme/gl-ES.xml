@@ -67,6 +67,8 @@
   <string name="intermezzoDescription">En troques de facer a xogada agardada, interpoñer un movemento que xera unha ameaza inmediata que forza unha resposta do opoñente. Tamén se di \"Zwischenzug\" ou \"Intermezzo\".</string>
   <string name="killBoxMate">Mate da caixa</string>
   <string name="killBoxMateDescription">Unha torre canda o rei do adversario, defendida por unha dama que tamén bloquea as casas de escape do rei. A torre e a dama apreixan ao rei nun curruncho de 3 por 3.</string>
+  <string name="morphysMate">Mate de Morphy</string>
+  <string name="morphysMateDescription">Usa o bispo para dar xaque mentres a torre axuda a confinar ó rei.</string>
   <string name="triangleMate">Mate do triángulo</string>
   <string name="triangleMateDescription">Un triángulo fórmase do seguinte xeito: a dama e a torre atópanse na mesma fila ou columna, a unha casa de distancia entre si e do rei do opoñente.</string>
   <string name="vukovicMate">Mate de Vuković</string>
@@ -97,6 +99,8 @@
   <string name="oneMoveDescription">Un crebacabezas dunha soa xogada.</string>
   <string name="opening">Apertura</string>
   <string name="openingDescription">Táctica durante a primeira fase do xogo.</string>
+  <string name="operaMate">Mate da Ópera</string>
+  <string name="operaMateDescription">Dá xaque ó rei cunha torre defendida por un alfil.</string>
   <string name="pawnEndgame">Final de peóns</string>
   <string name="pawnEndgameDescription">Un final no que só hai peóns.</string>
   <string name="pin">Cravada</string>
