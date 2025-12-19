@@ -6,7 +6,7 @@ import lila.core.userId.{ UserId, MyId, UserName }
 import lila.core.study.data.StudyChapterName
 
 enum ModDomain:
-  case Admin, Cheat, Boost, Comm, Other
+  case Admin, Cheat, Boost, Comm, Image, Other
 
 enum Event:
   case Error(msg: String)

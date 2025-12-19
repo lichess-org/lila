@@ -405,9 +405,10 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
     given MyId = m.mod.into(MyId)
     val icon = m.action match
       case M.alt | M.arenaBan | M.engine | M.booster | M.troll | M.isolate | M.closeAccount => "thorhammer"
-      case M.unalt | M.unArenaBan | M.unengine | M.unbooster | M.untroll | M.unisolate | M.reopenAccount =>
+      case M.unalt | M.unArenaBan | M.unengine | M.unbooster | M.untroll | M.unisolate | M.reopenAccount |
+          M.imagePass =>
         "blue_circle"
-      case M.deletePost | M.deleteTeam | M.terminateTournament => "x"
+      case M.deletePost | M.deleteTeam | M.terminateTournament | M.imagePurge => "x"
       case M.chatTimeout => "hourglass_flowing_sand"
       case M.closeTopic | M.disableTeam => "locked"
       case M.openTopic | M.enableTeam => "unlocked"
@@ -426,6 +427,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
             M.disableTeam | M.enableTeam | M.setKidMode | M.unsetKidMode | M.deletePost | M.postAsAnonMod |
             M.editAsAnonMod | M.blogTier | M.blogPostEdit =>
           Some(domain.Comm)
+        case M.imagePass | M.imagePurge => Some(domain.Image)
         case _ => Some(domain.Other)
       import Permission.*
       monitorType.so: dom =>

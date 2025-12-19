@@ -83,6 +83,7 @@ private object ZulipClient:
         case ModDomain.Comm => "mod-admin-monitor-comm"
         case ModDomain.Cheat => "mod-admin-monitor-cheat"
         case ModDomain.Boost => "mod-admin-monitor-boost"
+        case ModDomain.Image => "mod-admin-monitor-image"
         case _ => "mod-admin-monitor-other"
     val general = "general"
     val broadcast = "content-broadcast"
