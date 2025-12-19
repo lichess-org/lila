@@ -78,6 +78,7 @@ object PuzzleTheme:
   val middlegame = PuzzleTheme(i.middlegame, i.middlegameDescription)
   val oneMove = PuzzleTheme(i.oneMove, i.oneMoveDescription)
   val opening = PuzzleTheme(i.opening, i.openingDescription)
+  val operaMate = PuzzleTheme(i.operaMate, i.operaMateDescription)
   val pawnEndgame = PuzzleTheme(i.pawnEndgame, i.pawnEndgameDescription)
   val pin = PuzzleTheme(i.pin, i.pinDescription)
   val promotion = PuzzleTheme(i.promotion, i.promotionDescription)
@@ -162,6 +163,7 @@ object PuzzleTheme:
       hookMate,
       killBoxMate,
       morphysMate,
+      operaMate,
       triangleMate,
       vukovicMate,
       smotheredMate
