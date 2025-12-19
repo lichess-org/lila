@@ -11,7 +11,7 @@
    viewBox="0 0 512 512"
    version="1.1"
    id="svg8"
-   sodipodi:docname="cornerMate_withKnight.svg"
+   sodipodi:docname="PillsburyMate_withRook.svg"
    inkscape:version="0.92.3 (2405546, 2018-03-11)">
   <metadata
      id="metadata14">
@@ -40,7 +40,7 @@
      id="namedview10"
      showgrid="false"
      inkscape:zoom="2.6074563"
-     inkscape:cx="315.39796"
+     inkscape:cx="201.87736"
      inkscape:cy="239.91952"
      inkscape:window-x="-16"
      inkscape:window-y="-16"
@@ -63,21 +63,21 @@
        style="fill:#7f7f7f;fill-opacity:1;stroke-width:2" />
   </g>
   <g
-     id="g838"
-     transform="matrix(0.5,0,0,0.5,128.74851,38.391934)"
+     id="g836"
+     transform="matrix(0.5,0,0,0.5,125.73421,35.158975)"
      style="stroke-width:2">
     <path
-       id="path821"
+       id="path818-1"
        d="M 0,0 H 512 V 512 H 0 Z"
        inkscape:connector-curvature="0"
        style="fill:#000000;fill-opacity:0;stroke-width:2" />
     <g
-       id="g825"
+       id="g822-8"
        class=""
        style="stroke-width:2">
       <path
-         id="path823"
-         d="m 60.81,476.91 h 300 v -60 h -300 z M 294.6,129.61 308.54,137 c 31.88,-43.62 61.34,-31.85 61.34,-31.85 l -21.62,53 35.64,19 2.87,33 64.42,108.75 -43.55,29.37 c 0,0 -26.82,-36.39 -39.65,-43.66 -10.66,-6 -41.22,-10.25 -56.17,-12 l -67.54,-76.91 -12,10.56 37.15,42.31 c -0.13,0.18 -0.25,0.37 -0.38,0.57 -35.78,58.17 23,105.69 68.49,131.78 H 84.14 C 93,85 294.6,129.61 294.6,129.61 Z"
+         id="path820-6"
+         d="M 406,484.7 H 106 v -60 H 406 Z M 349.33,153.87 H 299.28 V 91.3 h -82.39 v 62.57 H 162.67 V 91.3 H 108.44 V 204.97 H 403.56 V 91.3 h -54.23 z m 23.35,67.23 H 139.32 v 187.6 h 233.36 z"
          inkscape:connector-curvature="0"
          style="fill:#7f7f7f;fill-opacity:1;stroke-width:2" />
     </g>

@@ -67,6 +67,10 @@
   <string name="intermezzoDescription">Instead of playing the expected move, first interpose another move posing an immediate threat that the opponent must answer. Also known as "Zwischenzug" or "In between".</string>
   <string name="killBoxMate">Kill box mate</string>
   <string name="killBoxMateDescription">A rook is next to the enemy king and supported by a queen that also blocks the king's escape squares. The rook and the queen catch the enemy king in a 3 by 3 "kill box".</string>
+  <string name="pillsburysMate">Pillsbury's mate</string>
+  <string name="pillsburysMateDescription">The rook delivers checkmate, while the bishop helps to confine it.</string>
+  <string name="morphysMate">Morphy's mate</string>
+  <string name="morphysMateDescription">Use the bishop to check the king, while your rook helps to confine it.</string>
   <string name="triangleMate">Triangle mate</string>
   <string name="triangleMateDescription">The queen and rook, one square away from the enemy king, are on the same rank or file, separated by one square, forming a triangle.</string>
   <string name="vukovicMate">Vukovic mate</string>
@@ -97,6 +101,8 @@
   <string name="oneMoveDescription">A puzzle that is only one move long.</string>
   <string name="opening">Opening</string>
   <string name="openingDescription">A tactic during the first phase of the game.</string>
+  <string name="operaMate">Opera mate</string>
+  <string name="operaMateDescription">Check the king with a rook and use a bishop to defend the rook.</string>
   <string name="pawnEndgame">Pawn endgame</string>
   <string name="pawnEndgameDescription">An endgame with only pawns.</string>
   <string name="pin">Pin</string>

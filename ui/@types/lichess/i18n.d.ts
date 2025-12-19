@@ -2697,6 +2697,10 @@ interface I18n {
     mix: string;
     /** A bit of everything. You don't know what to expect, so you remain ready for anything! Just like in real games. */
     mixDescription: string;
+    /** Morphy's mate */
+    morphysMate: string;
+    /** Use the bishop to check the king, while your rook helps to confine it. */
+    morphysMateDescription: string;
     /** One-move puzzle */
     oneMove: string;
     /** A puzzle that is only one move long. */
@@ -2705,10 +2709,18 @@ interface I18n {
     opening: string;
     /** A tactic during the first phase of the game. */
     openingDescription: string;
+    /** Opera mate */
+    operaMate: string;
+    /** Check the king with a rook and use a bishop to defend the rook. */
+    operaMateDescription: string;
     /** Pawn endgame */
     pawnEndgame: string;
     /** An endgame with only pawns. */
     pawnEndgameDescription: string;
+    /** Pillsbury's mate */
+    pillsburysMate: string;
+    /** The rook delivers checkmate, while the bishop helps to confine it. */
+    pillsburysMateDescription: string;
     /** Pin */
     pin: string;
     /** A tactic involving pins, where a piece is unable to move without revealing an attack on a higher value piece. */
