@@ -22,7 +22,10 @@ private object PlanCheckout:
     .verifying(Constraints.max(pricing.max.amount))
     .verifying(Constraints.min(pricing.min.amount))
 
-final class PlanCheckoutForm(lightUserApi: lila.core.user.LightUserApi):
+final class PlanCheckoutForm(
+    lightUserApi: lila.core.user.LightUserApi,
+    relationApi: lila.core.relation.RelationApi
+):
 
   private def make(
       currency: Currency
@@ -34,12 +37,13 @@ final class PlanCheckoutForm(lightUserApi: lila.core.user.LightUserApi):
       giftTo = giftTo
     )
 
-  def form(pricing: PlanPricing) = Form[PlanCheckout](
+  def form(pricing: PlanPricing)(using me: Me) = Form[PlanCheckout](
     mapping(
       "email" -> optional(email),
       "amount" -> PlanCheckout.amountField(pricing),
       "freq" -> nonEmptyText,
       "gift" -> optional(lila.common.Form.username.historicalField)
+        .verifying("That player doesn't want to be gifted Patron", _.forall(u => !blockingIsBlockedBy(u)))
         .verifying("Unknown receiver", n => n.forall { blockingFetchUser(_).isDefined })
         .verifying(
           "Receiver is already a Patron",
@@ -50,6 +54,9 @@ final class PlanCheckoutForm(lightUserApi: lila.core.user.LightUserApi):
 
   private def blockingFetchUser(user: UserStr) =
     lightUserApi.async(user.id).await(1.second, "giftUser")
+
+  private def blockingIsBlockedBy(by: UserStr)(using me: Me) =
+    relationApi.fetchBlocks(by.id, me.userId).await(1.second, "giftUser.blocked")
 
 case class Switch(money: Money)
 
