@@ -67,6 +67,8 @@
   <string name="intermezzoDescription">En troques de facer a xogada agardada, interpoñer un movemento que xera unha ameaza inmediata que forza unha resposta do opoñente. Tamén se di \"Zwischenzug\" ou \"Intermezzo\".</string>
   <string name="killBoxMate">Mate da caixa</string>
   <string name="killBoxMateDescription">Unha torre canda o rei do adversario, defendida por unha dama que tamén bloquea as casas de escape do rei. A torre e a dama apreixan ao rei nun curruncho de 3 por 3.</string>
+  <string name="pillsburysMate">Mate de Pillsbury</string>
+  <string name="pillsburysMateDescription">A torre dá xaque mate mentres o alfil confina ó rei rival.</string>
   <string name="morphysMate">Mate de Morphy</string>
   <string name="morphysMateDescription">Usa o bispo para dar xaque mentres a torre axuda a confinar ó rei.</string>
   <string name="triangleMate">Mate do triángulo</string>
