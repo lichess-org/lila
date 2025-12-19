@@ -269,15 +269,6 @@ const siteInit = await minify(`
       if (v[k]) return v[k];
       return k;
     }
-  };
-  window.i18n.load = function(c) {
-    let s = window.site;
-    return import(document.body.dataset.i18nCatalog).then(
-      function() {
-        let p = 'compiled/i18n/' + c + '.' + s.displayLocale + '.' + s.manifest.i18n[c] + '.js';
-        return import(s.asset.url(p));
-      }
-    );
   };`);
 
 const jsQuantity = [
