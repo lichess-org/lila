@@ -67,6 +67,8 @@
   <string name="intermezzoDescription">En lugar de jugar el movimiento esperado, se realiza antes otro movimiento que plantea una amenaza inmediata a la que el oponente debe responder. También conocido como \"Zwischenzug\" o \"Intermezzo\".</string>
   <string name="killBoxMate">Mate del recuadro mortal</string>
   <string name="killBoxMateDescription">Una torre está cerca del rey enemigo apoyada por una dama que también bloquea las casillas de escape del rey. La torre y la dama capturan al rey enemigo en un recuadro mortal de 3 por 3.</string>
+  <string name="morphysMate">Mate de Morphy</string>
+  <string name="morphysMateDescription">Utiliza el alfil para dar jaque al rey, mientras que tu torre ayuda a mantenerlo confinado.</string>
   <string name="triangleMate">Mate del triángulo</string>
   <string name="triangleMateDescription">La dama y la torre, a una casilla de distancia del rey rival, están en la misma fila o columna, separadas por una casilla, formando un triángulo.</string>
   <string name="vukovicMate">Mate de Vukovic</string>
@@ -97,6 +99,8 @@
   <string name="oneMoveDescription">Un movimiento para ganar.</string>
   <string name="opening">Apertura</string>
   <string name="openingDescription">Una táctica durante la primera fase de la partida.</string>
+  <string name="operaMate">Mate de la Ópera</string>
+  <string name="operaMateDescription">Da jaque al rey con una torre defendida por un alfil.</string>
   <string name="pawnEndgame">Final de peones</string>
   <string name="pawnEndgameDescription">Un final solo con peones.</string>
   <string name="pin">Clavada</string>
