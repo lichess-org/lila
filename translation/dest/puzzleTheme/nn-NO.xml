@@ -30,8 +30,8 @@
   <string name="cornerMateDescription">Sperr kongen inn i hjørnet ved hjelp av tårn eller dronning og la springar sette matt.</string>
   <string name="crushing">Avgjerande fordel</string>
   <string name="crushingDescription">Finn motspelarens feil for å få ein avgjerande fordel. (eval ≥ 600 centibønder)</string>
-  <string name="discoveredCheck" comment="Description (translatable separately):&#10;&#10;Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage.">Avdekkarsjakk</string>
-  <string name="discoveredCheckDescription" comment="Description for the &quot;Discovered check&quot; puzzle theme.">Flytt ei brikke for å avdekke sjakk frå en skjult angripar. Ein slik avdekkarsjakk gir ofte ein avgjerande fordel.</string>
+  <string name="discoveredCheck">Avdekkarsjakk</string>
+  <string name="discoveredCheckDescription">Flytt ei brikke for å avdekke sjakk frå en skjult angripar. Ein slik avdekkarsjakk gir ofte ein avgjerande fordel.</string>
   <string name="doubleBishopMate">Dobbeltløparmatt</string>
   <string name="doubleBishopMateDescription">To angripande løparar på tilstøytande diagonalar mattar, hjelpt av at kongen er blokkert av eigne brikker.</string>
   <string name="dovetailMate">Stjertmatt</string>
