@@ -6,11 +6,13 @@ on:
       - '.github/workflows/translations.yml'
       - 'translation/**'
       - 'bin/trans-lint'
+      - 'ui/.build/src/i18n.ts'
   pull_request:
     paths:
       - '.github/workflows/translations.yml'
       - 'translation/**'
       - 'bin/trans-lint'
+      - 'ui/.build/src/i18n.ts'
 
 jobs:
   xmllint:
