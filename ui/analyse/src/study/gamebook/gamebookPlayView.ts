@@ -1,6 +1,6 @@
 import GamebookPlayCtrl, { type State } from './gamebookPlayCtrl';
 import * as licon from 'lib/licon';
-import { type VNode, iconTag, bind, dataIcon, hl, requiresI18nCatalog } from 'lib/view';
+import { type VNode, iconTag, bind, dataIcon, hl, requiresI18n } from 'lib/view';
 import { richHTML } from 'lib/richText';
 
 export function render(ctrl: GamebookPlayCtrl): VNode {
@@ -59,7 +59,7 @@ function renderFeedback(ctrl: GamebookPlayCtrl, state: State) {
             hl('div.no-square', hl('piece.king.' + color)),
             hl('div.instruction', [
               hl('strong', i18n.site.yourTurn),
-              requiresI18nCatalog('puzzle', ctrl.redraw, cat =>
+              requiresI18n('puzzle', ctrl.redraw, cat =>
                 hl('em', cat[color === 'white' ? 'findTheBestMoveForWhite' : 'findTheBestMoveForBlack']),
               ),
             ]),

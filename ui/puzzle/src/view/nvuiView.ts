@@ -7,7 +7,7 @@ import { renderSetting } from 'lib/nvui/setting';
 import type { PuzzleNvuiContext } from '../puzzle.nvui';
 import { commands, boardCommands, addBreaks } from 'lib/nvui/command';
 import { next as controlNext, prev } from '../control';
-import { bind, onInsert, requiresI18nCatalog } from 'lib/view';
+import { bind, onInsert, requiresI18n } from 'lib/view';
 import { throttle } from 'lib/async';
 import type PuzzleCtrl from '../ctrl';
 import { Chessground as makeChessground } from '@lichess-org/chessground';
@@ -301,7 +301,7 @@ function renderReplay(ctrl: PuzzleCtrl): string {
 const playActions = (ctx: PuzzleNvuiContext): VNode => {
   const { ctrl, notify } = ctx;
   return ctrl.streak
-    ? requiresI18nCatalog('storm', ctx.ctrl.redraw, cat =>
+    ? requiresI18n('storm', ctx.ctrl.redraw, cat =>
         button(cat.skip, ctrl.skip, i18n.puzzle.streakSkipExplanation, !ctrl.streak?.data.skip),
       )
     : h('div.actions_play', [

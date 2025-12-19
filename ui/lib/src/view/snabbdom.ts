@@ -91,7 +91,7 @@ const flattenKids = (maybeArray: LooseVNodes, out: LooseVNode[]) => {
 
 export const noTrans: (s: string) => VNode = s => snabH('span', { attrs: { lang: 'en' } }, s);
 
-export const requiresI18nCatalog = <Cat extends keyof I18n>(
+export const requiresI18n = <Cat extends keyof I18n>(
   catalog: Cat,
   redraw: Redraw,
   render: (cat: I18n[Cat]) => VNode,
