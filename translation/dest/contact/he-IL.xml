@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="contact">צרו קשר</string>
-  <string name="contactLichess">צרו קשר עם ליצ\'ס</string>
+  <string name="contact">יצירת קשר</string>
+  <string name="contactLichess">יצירת קשר עם Lichess</string>
   <string name="whatCanWeHelpYouWith">במה נוכל לעזור?</string>
   <string name="visitThisPage">צפו בעמוד זה כדי לפתור את הבעיה</string>
   <string name="iCantLogIn">אני לא מצליח/ה להתחבר</string>
-  <string name="noConfirmationEmail">לא קיבלתי את אימייל האישור</string>
+  <string name="noConfirmationEmail">לא קיבלתי את הודעת הדוא״ל לאישור</string>
   <string name="forgotPassword">שכחתי את הסיסמה</string>
   <string name="forgotUsername">שכחתי את שם המשתמש</string>
-  <string name="youCanLoginWithEmail">את/ה יכול/ה להתחבר עם כתובת האימייל שאיתה נרשמת</string>
-  <string name="lost2FA">איבדתי גישה לקודי האימות הדו־שלביים שלי</string>
+  <string name="youCanLoginWithEmail">אפשר להתחבר עם כתובת הדוא״ל שנרשמת איתה</string>
+  <string name="lost2FA">איבדתי גישה לקודי האימות הדו־שלבי שלי</string>
   <string name="doPasswordReset">השלימו איפוס סיסמה כדי להסיר את השלב השני שלכם</string>
   <string name="accountSupport">אני צריך/ה תמיכת חשבון</string>
   <string name="wantTitle">אני רוצה שהתואר שלי יוצג בליצ\'ס</string>
   <string name="visitTitleConfirmation">כדי להציג את התואר שלך בפרופיל בלִיצֶ\'ס, וכדי להשתתף בארנות לבעלי תארים (Titled Arenas), בקר/י בעמוד אימות התארים</string>
-  <string name="wantCloseAccount">אני מעוניין/ת לסגור את חשבוני</string>
-  <string name="closeYourAccount">את/ה יכול/ה לסגור את חשבונך בעמוד זה</string>
+  <string name="wantCloseAccount">ברצוני לסגור את החשבון שלי</string>
+  <string name="closeYourAccount">אפשר לסגור את חשבונך בעמוד זה</string>
   <string name="doNotAskByEmail">אל תבקשו מאיתנו לסגור את החשבון ע\"י אימייל, אנחנו לא נעשה את זה.</string>
   <string name="wantReopen">אני רוצה לפתוח מחדש את חשבוני</string>
-  <string name="reopenOnThisPage">את/ה יכול/ה לפתוח מחדש את חשבונך בעמוד זה. זה עובד רק פעם אחת.</string>
+  <string name="reopenOnThisPage">אפשר לפתוח מחדש את חשבונך בעמוד זה.</string>
   <string name="doNotAskByEmailToReopen">אל תבקשו מאיתנו לפתוח מחדש את חשבונכם ע\"י אימייל, אנחנו לא נעשה את זה.</string>
   <string name="wantChangeUsername">אני רוצה לשנות את שם המשתמש שלי</string>
   <string name="changeUsernameCase">בקר/י בדף זה כדי להחליף בין אותיות קטנות וגדולות בשם המשתמש שלך</string>
   <string name="cantChangeMore">איננו יכולים לשנות יותר מאותיות קטנות או גדולות. מסיבות טכניות זה ממש בלתי אפשרי.</string>
-  <string name="orCloseAccount">עם זאת, את/ה יכול/ה לסגור את חשבונך הנוכחי וליצור חשבון חדש.</string>
+  <string name="orCloseAccount">עם זאת, אפשר לסגור את חשבונך הנוכחי וליצור חשבון חדש.</string>
   <string name="wantClearHistory">אני רוצה למחוק את ההיסטוריה או הדירוג שלי</string>
   <string name="cantClearHistory">לא ניתן למחוק את היסטוריית המשחק, היסטוריית הפאזלים, או הדירוגים שלך.</string>
   <string name="wantReport">אני רוצה לדווח על שחקן</string>
   <string name="toReportAPlayerUseForm">כדי לדווח על שחקן, השתמשו בטופס הדיווח</string>
-  <string name="youCanAlsoReachReportPage">את/ה יכול/ה גם להגיע לעמוד הדיווח על ידי לחיצה על הכפתור %s בעמוד הפרופיל.</string>
+  <string name="youCanAlsoReachReportPage">אפשר גם להגיע לעמוד הדיווח על ידי לחיצה על הכפתור %s בעמוד הפרופיל.</string>
   <string name="doNotReportInForum">אל תדווחו על שחקנים בפורום.</string>
   <string name="doNotSendReportEmails">אל תשלחו לנו מיילים כדי לדווח.</string>
   <string name="doNotMessageModerators">נא לא לשלוח הודעות ישירות למנהלים.</string>
@@ -39,7 +39,7 @@
   <string name="reportMobileIssue">כבעיה (issue) בעמוד של אפליקציית Lichess ב-GitHub</string>
   <string name="reportBugInDiscord">בשרת הDiscord של ליצ\'ס</string>
   <string name="howToReportBug">אנא תארו כיצד נראית התקלה, מה ציפיתם שיקרה במקום זאת ואת הצעדים לשחזור התקלה.</string>
-  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">הכאת (אכילת) חייל לא חוקית</string>
+  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">הכאה לא חוקית של חייל רגלי</string>
   <string name="calledEnPassant">זה נקרא \"הכאה דרך הילוכו״ וזה מסע חוקי בשחמט.</string>
   <string name="tryEnPassant">נסו את המשחק האינטראקטיבי הקצר הזה כדי ללמוד עוד על ״הכאה דרך הילוכו״.</string>
   <string name="illegalCastling">הצרחה לא חוקית או לא אפשרית</string>
@@ -54,11 +54,11 @@
   <string name="ratedGame">בדקו אם שיחקתם משחק מדורג. משחק לא מדורג לא משפיע על הדירוג (מד הכושר).</string>
   <string name="botRatingAbuse">בנסיבות מסויימות כאשר משחק הוא מול בוט, משחק מדורג עשוי לא להעניק נקודות אם ייקבע שהשחקן/ית מנצל/ת את הבוט לצבירת ניקוד.</string>
   <string name="errorPage">שגיאה בדף</string>
-  <string name="reportErrorPage">אם התמודדת עם שגיאה בדף, את/ה יכול/ה לדווח על זה:</string>
+  <string name="reportErrorPage">אם נתקלת בשגיאה בעמוד, אפשר לדווח על זה:</string>
   <string name="learnHowToMakeBroadcasts">למדו כיצד ליצור הקרנות חיות של טורנירים ב־Lichess</string>
   <string name="banAppeal">ערעור על איסור או על הגבלה בIP</string>
   <string name="engineAppeal">סימן שימוש במנוע או רמאות</string>
-  <string name="sendAppealTo">את/ה יכול/ה לשלוח ערעור ל%s.</string>
+  <string name="sendAppealTo">אפשר לשלוח ערעור אל %s.</string>
   <string name="falsePositives">אבחנות שגויות קורות לפעמים, ואנחנו מצטערים על כך.</string>
   <string name="ifLegit">אם הערעור שלך מוצדק, אנו נבטל את האיסור בהקדם האפשרי.</string>
   <string name="accountLost">עם זאת, אם אכן הסתייעת במנועים, אפילו פעם אחת בלבד, אז לצערנו חשבונך אבד.</string>

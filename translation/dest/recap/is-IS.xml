@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+	<string name="hiUser" comment="%s is the title+username e.g. 'GM ABC' or simply ABC if there is no title">Hæ, %s</string>
+	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">varið í að tefla</string>
+	<string name="shareableMostPlayedOpponent">teflt oftast við</string>
+	<string name="shareableFavouriteVariant">uppáhaldsafbrigði</string>
+	<string name="shareableFavouriteTimeControl">uppáhaldstímaskorður</string>
+	<plurals name="shareableNbPuzzlesSolved">
+		<item quantity="one">%s þraut leyst</item>
+		<item quantity="other">%s þrautir leystar</item>
+	</plurals>
+</resources>
