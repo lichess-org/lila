@@ -435,6 +435,8 @@ interface I18n {
     yourXRatingIsTooFarFromY: I18nFormat;
   };
   class: {
+    /** Active students */
+    activeStudents: string;
     /** Add Lichess usernames to invite them as teachers. One per line. */
     addLichessUsernames: string;
     /** Add student */
@@ -449,6 +451,12 @@ interface I18n {
     anInvitationHasBeenSentToX: I18nFormat;
     /** Apply to be a Lichess Teacher */
     applyToBeLichessTeacher: string;
+    /** Archive */
+    archiveAction: string;
+    /** Archived students */
+    archivedStudents: string;
+    /** Bulk actions */
+    bulkActions: string;
     /** Class description */
     classDescription: string;
     /** Class name */
@@ -577,6 +585,8 @@ interface I18n {
     passwordX: I18nFormat;
     /** Pending */
     pending: string;
+    /** Pending invites */
+    pendingInvites: string;
     /** Private. Will never be shown outside the class. Helps you remember who the student is. */
     privateWillNeverBeShown: string;
     /** Progress */
@@ -603,6 +613,8 @@ interface I18n {
     releaseDesc2: string;
     /** Graduate the account so the student can manage it autonomously. */
     releaseTheAccount: string;
+    /** Remove */
+    removeAction: string;
     /** Removed by %s */
     removedByX: I18nFormat;
     /** Removed */
@@ -613,6 +625,8 @@ interface I18n {
     reopen: string;
     /** Reset password */
     resetPassword: string;
+    /** Restore */
+    restoreAction: string;
     /** Send a message to all students. */
     sendAMessage: string;
     /** Student:  %1$s */

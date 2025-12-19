@@ -145,50 +145,55 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
       TeacherPage(c, all.filter(_.student.isActive), "students")():
         div(cls := "clas-show__body clas-show__bulk")(
           postForm(cls := "form3", action := routes.Clas.bulkActionsPost(c.id))(
-            form3.fieldset("Active students", toggle = true.some)(cls := "box-pad")(
+            form3.fieldset(trans.clas.activeStudents.txt(), toggle = true.some)(cls := "box-pad")(
               form3.group(
                 form("activeStudents"),
-                frag("Active students")
+                frag(trans.clas.activeStudents())
               )(form3.textarea(_)(rows := 12)),
               doubleHelp,
               div(cls := "form-group")(
-                form3.submit("Archive", icon = none, ("action", "archive").some)(
+                form3.submit(trans.clas.archiveAction.txt(), icon = none, ("action", "archive").some)(
                   cls := "yes-no-confirm button-blue button-empty"
                 ),
                 br,
                 classButtons
               )
             ),
-            form3.fieldset("Archived students", toggle = all.exists(_.student.isArchived).some)(
+            form3.fieldset(trans.clas.archivedStudents.txt(), toggle = all.exists(_.student.isArchived).some)(
               cls := "box-pad"
             )(
               form3.group(
                 form("archivedStudents"),
-                frag("Archived students")
+                frag(trans.clas.archivedStudents())
               )(form3.textarea(_)(rows := 7)),
               doubleHelp(
                 "BEWARE: removing a student with managed account will close the account permanently."
               ),
               div(cls := "form-group")(
-                form3.submit("Restore", icon = none, ("action", "restore").some)(
+                form3.submit(trans.clas.restoreAction.txt(), icon = none, ("action", "restore").some)(
                   cls := "yes-no-confirm button-blue button-empty"
                 ),
-                form3.submit("Remove", icon = Icon.Trash.some, ("action", "remove").some)(
-                  cls := "yes-no-confirm button-red button-empty"
-                )
+                form3
+                  .submit(trans.clas.removeAction.txt(), icon = Icon.Trash.some, ("action", "remove").some)(
+                    cls := "yes-no-confirm button-red button-empty"
+                  )
               )
             ),
-            form3.fieldset("Pending invites", toggle = form("invites").value.exists(_.nonEmpty).some)(
+            form3.fieldset(
+              trans.clas.pendingInvites.txt(),
+              toggle = form("invites").value.exists(_.nonEmpty).some
+            )(
               cls := "box-pad"
             )(
               form3.group(
                 form("invites"),
-                frag("Invites")
+                frag(trans.clas.pendingInvites())
               )(form3.textarea(_)(rows := 7)),
               div(cls := "form-group")(
-                form3.submit("Delete", icon = Icon.Trash.some, ("action", "delete-invites").some)(
-                  cls := "yes-no-confirm button-red button-empty"
-                )
+                form3
+                  .submit(trans.site.delete.txt(), icon = Icon.Trash.some, ("action", "delete-invites").some)(
+                    cls := "yes-no-confirm button-red button-empty"
+                  )
               )
             )
           ),
@@ -219,7 +224,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
                   href := routes.Clas.bulkActions(c.id),
                   cls := "button button-clas text",
                   dataIcon := Icon.Tools
-                )("Bulk actions"),
+                )(trans.clas.bulkActions()),
                 postForm(action := routes.Clas.loginCreate(c.id))(
                   submitButton(cls := "button button-clas text", dataIcon := Icon.Group)(
                     trans.clas.quickLoginCodes()
