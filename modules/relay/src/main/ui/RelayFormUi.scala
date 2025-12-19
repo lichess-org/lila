@@ -729,7 +729,7 @@ Team Dogs ; Scooby Doo"""),
                   )
                 )
             ),
-            tg.isDefined.option:
+            (tg.isDefined && Granter.opt(_.StudyAdmin)).option:
               form3.fieldset("Pinned stream", toggle = form("pinnedStream.url").value.isDefined.some)(
                 form3.split(
                   form3.group(
