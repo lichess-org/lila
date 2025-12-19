@@ -30,8 +30,8 @@
   <string name="cornerMateDescription">De König wird mit Turm - oder Dame - und Springer, imeme Egge, Matt gsetzt.</string>
   <string name="crushing">Vernichtend</string>
   <string name="crushingDescription">Find de gägnerisch Patzer und chumm zume vernichtende Vorteil. (Bewertig ≥ 600 Hundertschtel-Pure)</string>
-  <string name="discoveredCheck" comment="Description (translatable separately):&#10;&#10;Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage.">Abzugs-Schach</string>
-  <string name="discoveredCheckDescription" comment="Description for the &quot;Discovered check&quot; puzzle theme.">Beweg e Figur und deck so es verdeckts Schach uf, was oft zume entscheidende Vorteil füert.</string>
+  <string name="discoveredCheck">Abzugs-Schach</string>
+  <string name="discoveredCheckDescription">Beweg e Figur und deck so es verdeckts Schach uf, was oft zume entscheidende Vorteil füert.</string>
   <string name="doubleBishopMate">Läuferpaar Matt</string>
   <string name="doubleBishopMateDescription">Zwei Läufer, uf näbenand ligende Diagonale, setzed en König matt, wo dur eigeni Figure behinderet wird.</string>
   <string name="dovetailMate">Schwalbeschwanz Matt</string>
