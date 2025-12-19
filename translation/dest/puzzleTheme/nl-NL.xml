@@ -30,8 +30,8 @@
   <string name="cornerMateDescription">Dring de koning met behulp van een toren of dame en een paard een hoek in om hem schaakmat te zetten.</string>
   <string name="crushing">Verpletteren</string>
   <string name="crushingDescription">Zie de blunder van de tegenstander om een verpletterend voordeel te verkrijgen. (eval ≥ 600cp)</string>
-  <string name="discoveredCheck" comment="Description (translatable separately):&#10;&#10;Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage.">Aftrekschaak</string>
-  <string name="discoveredCheckDescription" comment="Description for the &quot;Discovered check&quot; puzzle theme.">Een stuk verplaatsen om schaak te geven met een verborgen aanvalsstuk, wat vaak leidt tot beslissend voordeel.</string>
+  <string name="discoveredCheck">Aftrekschaak</string>
+  <string name="discoveredCheckDescription">Een stuk verplaatsen om schaak te geven met een verborgen aanvalsstuk, wat vaak leidt tot beslissend voordeel.</string>
   <string name="doubleBishopMate">Mat met twee lopers</string>
   <string name="doubleBishopMateDescription">Twee lopers op belendende diagonalen zetten een koning mat die wordt belemmerd door de eigen stukken.</string>
   <string name="dovetailMate">Zwaluwstaartmat</string>
