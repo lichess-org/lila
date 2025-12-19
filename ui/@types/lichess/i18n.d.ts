@@ -2713,6 +2713,10 @@ interface I18n {
     pin: string;
     /** A tactic involving pins, where a piece is unable to move without revealing an attack on a higher value piece. */
     pinDescription: string;
+    /** Pillsburys mate */
+    pillsburysMate: string;
+    /** The rook delivers checkmate, while the bishop helps to confine it. */
+    pillsburysMateDescription: string;
     /** Player games */
     playerGames: string;
     /** Lookup puzzles generated from your games, or from another player's games. */

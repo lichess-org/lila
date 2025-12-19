@@ -62,6 +62,7 @@ object PuzzleTheme:
   val intermezzo = PuzzleTheme(i.intermezzo, i.intermezzoDescription)
   val kingsideAttack = PuzzleTheme(i.kingsideAttack, i.kingsideAttackDescription)
   val killBoxMate = PuzzleTheme(i.killBoxMate, i.killBoxMateDescription)
+  val pillsburysMate = PuzzleTheme(i.pillsburysMate, i.pillsburysMateDescription)
   val vukovicMate = PuzzleTheme(i.vukovicMate, i.vukovicMateDescription)
   val knightEndgame = PuzzleTheme(i.knightEndgame, i.knightEndgameDescription)
   val long = PuzzleTheme(i.long, i.longDescription)
@@ -160,6 +161,7 @@ object PuzzleTheme:
       dovetailMate,
       hookMate,
       killBoxMate,
+      pillsburysMate,
       triangleMate,
       vukovicMate,
       smotheredMate
