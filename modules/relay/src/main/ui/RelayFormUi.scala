@@ -729,7 +729,7 @@ Team Dogs ; Scooby Doo"""),
                   )
                 )
             ),
-            tg.isDefined.option:
+            (tg.isDefined && Granter.opt(_.StudyAdmin)).option:
               form3.fieldset("Pinned stream", toggle = form("pinnedStream.url").value.isDefined.some)(
                 form3.split(
                   form3.group(
@@ -812,5 +812,9 @@ https://lichess.org/broadcast/dutch-championships-2025--women--first-stage/PGFBk
 https://lichess.org/broadcast/dutch-championships-2025--open--quarterfinals/Zi12QchK
 """)
         ).some
-      )(form3.textarea(_)(rows := 5, spellcheck := "false", cls := "monospace"))
+      )(form3.textarea(_)(rows := 5, spellcheck := "false", cls := "monospace")),
+      form3.checkbox(
+        form("sharePlayers"),
+        "Share players and leaderboards across group tournaments"
+      )
     )

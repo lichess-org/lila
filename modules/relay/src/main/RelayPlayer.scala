@@ -167,6 +167,7 @@ object RelayPlayer:
 private final class RelayPlayerApi(
     tourRepo: RelayTourRepo,
     roundRepo: RelayRoundRepo,
+    groupRepo: RelayGroupRepo,
     chapterRepo: lila.study.ChapterRepo,
     chapterPreviewApi: ChapterPreviewApi,
     cacheApi: CacheApi,
@@ -177,45 +178,52 @@ private final class RelayPlayerApi(
 
   type RelayPlayers = SeqMap[StudyPlayer.Id, RelayPlayer]
 
-  private val cache = cacheApi[RelayTourId, RelayPlayers](128, "relay.players.data"):
-    _.expireAfterWrite(1.minute).buildAsyncFuture(compute)
+  private val singleTourCache = cacheApi[RelayTourId, RelayPlayers](128, "relay.players.data"):
+    _.expireAfterWrite(3.minute).buildAsyncFuture(computeTour)
 
-  private val jsonCache = cacheApi[RelayTourId, JsonStr](32, "relay.players.json"):
+  private val groupJsonCache = cacheApi[RelayTourId, JsonStr](32, "relay.players.json"):
     _.expireAfterWrite(1.minute).buildAsyncFuture: tourId =>
       import RelayPlayer.json.given
-      cache
-        .get(tourId)
-        .map: players =>
-          JsonStr(Json.stringify(Json.toJson(players.values.toList)))
-
-  export cache.get
-  export jsonCache.get as jsonList
+      groupPlayers(tourId).map: allPlayers =>
+        JsonStr(Json.stringify(Json.toJson(allPlayers.values.toList)))
 
   private val photosJsonCache = cacheApi[RelayTourId, PhotosJson](32, "relay.players.photos.json"):
     _.expireAfterWrite(10.seconds).buildAsyncFuture: tourId =>
       for
-        players <- cache.get(tourId)
-        fideIds = players.values.flatMap(_.fideId).toSet
+        studyIds <- roundRepo.studyIdsOf(tourId)
+        fideIds <- chapterRepo.fideIdsOf(studyIds)
         photos <- photosJson(fideIds)
       yield photos
 
+  def jsonList(tourId: RelayTourId): Fu[JsonStr] = groupJsonCache.get(tourId)
+
   def photosJson(tourId: RelayTourId): Fu[PhotosJson] = photosJsonCache.get(tourId)
+
+  def groupPlayers(tourId: RelayTourId): Fu[RelayPlayers] =
+    for
+      sharingTourIds <- groupRepo.sharedPlayersTourIds(tourId)
+      tourIds = if sharingTourIds.isEmpty then List(tourId) else sharingTourIds
+      tourPlayers <- tourIds.traverse(singleTourCache.get)
+    yield tourPlayers match
+      case List(singleTour) => singleTour
+      case many => many.foldLeft(SeqMap.empty: RelayPlayers)(_ ++ _).toList.sortBy(_._2).to(SeqMap)
 
   def player(tour: RelayTour, str: String): Fu[Option[RelayPlayer]] =
     val id = FideId.from(str.toIntOption) | PlayerName(str)
-    for
-      players <- cache.get(tour.id)
-      player = players.get(id)
-    yield player
+    singleTourCache
+      .get(tour.id)
+      .map(_.get(id))
+      .orElse:
+        groupPlayers(tour.id).map(_.get(id))
 
   def invalidate(id: RelayTourId) = invalidateDebouncer.push(id)
 
   private val invalidateDebouncer = Debouncer[RelayTourId](scheduler.scheduleOnce(3.seconds, _), 32): id =>
     import lila.memo.CacheApi.invalidate
-    cache.invalidate(id)
-    jsonCache.invalidate(id)
+    singleTourCache.invalidate(id)
+    groupJsonCache.invalidate(id)
 
-  private def compute(tourId: RelayTourId): Fu[RelayPlayers] =
+  private def computeTour(tourId: RelayTourId): Fu[RelayPlayers] =
     tourRepo
       .byId(tourId)
       .flatMapz: tour =>
