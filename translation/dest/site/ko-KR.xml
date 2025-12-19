@@ -99,7 +99,7 @@
   <plurals name="mateInXHalfMoves">
     <item quantity="other">%s개의 반수 후 체크메이트</item>
   </plurals>
-  <string name="dtzWithRounding">다음 포획 혹은 폰 수까지 남은 반수를 반올림후 나타낸 DTZ50\" 수치</string>
+  <string name="dtzWithRounding">다음 포획, 폰 이동 혹은 체크메이트까지 남은 반수를 반올림 후 나타낸 DTZ50\" 수치</string>
   <string name="noGameFound">대국을 찾을 수 없습니다</string>
   <string name="maxDepthReached">최대 깊이 도달!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">설정에서 더 많은 대국을 포함하세요.</string>
@@ -369,11 +369,11 @@
   <plurals name="needNbMoreGames">
     <item quantity="other">공식 대국을 %s회 더 두어야 합니다.</item>
   </plurals>
-  <string name="yourPerfRatingIsProvisional">사용자의 임시 등급 %s는 임시적입니다.</string>
-  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">귀하의 평가가 안정적이지 않기 때문에 평가 필터가 잠겨 있습니다. 정격 게임을 플레이하면 안정성이 향상됩니다.</string>
-  <string name="yourPerfRatingIsTooHigh">귀하의 %1$s 레이팅(%2$s)은 너무 높습니다.</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">%1$s 랭크가 너무 높습니다. (%2$s)</string>
-  <string name="yourPerfRatingIsTooLow">%1$s 랭크가 너무 낮습니다. (%2$s)</string>
+  <string name="yourPerfRatingIsProvisional">당신의 %s 레이팅은 임시 레이팅입니다</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">귀하의 레이팅이 안정적이지 않기 때문에 레이팅 필터가 잠겨 있습니다. 레이팅 반영 게임을 플레이하면 안정성이 향상됩니다.</string>
+  <string name="yourPerfRatingIsTooHigh">당신의 %1$s 레이팅(%2$s)은 너무 높습니다.</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">당신의 주간 최고 %1$s 레이팅(%2$s)은 너무 높습니다.</string>
+  <string name="yourPerfRatingIsTooLow">당신의 %1$s 레이팅(%2$s)은 너무 낮습니다.</string>
   <string name="ratedMoreThanInPerf">%2$s 레이팅 %1$s 이상</string>
   <string name="ratedLessThanInPerf">%2$s 레이팅 %1$s 이하</string>
   <string name="mustBeInTeam">팀 %s 의 멤버에 한정</string>
