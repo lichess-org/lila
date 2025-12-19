@@ -2645,10 +2645,6 @@ interface I18n {
     killBoxMate: string;
     /** A rook is next to the enemy king and supported by a queen that also blocks the king's escape squares. The rook and the queen catch the enemy king in a 3 by 3 "kill box". */
     killBoxMateDescription: string;
-    /** Morphys mate */
-    morphysMate: string;
-    /** Use the bishop to check the king, while your rook helps to confine it. */
-    morphysMateDescription: string;
     /** Kingside attack */
     kingsideAttack: string;
     /** An attack of the opponent's king, after they castled on the king side. */
@@ -2701,6 +2697,10 @@ interface I18n {
     mix: string;
     /** A bit of everything. You don't know what to expect, so you remain ready for anything! Just like in real games. */
     mixDescription: string;
+    /** Morphy's mate */
+    morphysMate: string;
+    /** Use the bishop to check the king, while your rook helps to confine it. */
+    morphysMateDescription: string;
     /** One-move puzzle */
     oneMove: string;
     /** A puzzle that is only one move long. */
@@ -2717,14 +2717,14 @@ interface I18n {
     pawnEndgame: string;
     /** An endgame with only pawns. */
     pawnEndgameDescription: string;
-    /** Pin */
-    pin: string;
-    /** A tactic involving pins, where a piece is unable to move without revealing an attack on a higher value piece. */
-    pinDescription: string;
     /** Pillsburys mate */
     pillsburysMate: string;
     /** The rook delivers checkmate, while the bishop helps to confine it. */
     pillsburysMateDescription: string;
+    /** Pin */
+    pin: string;
+    /** A tactic involving pins, where a piece is unable to move without revealing an attack on a higher value piece. */
+    pinDescription: string;
     /** Player games */
     playerGames: string;
     /** Lookup puzzles generated from your games, or from another player's games. */
