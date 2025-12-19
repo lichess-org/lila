@@ -27,3 +27,16 @@ private object BSONHandlers:
 
   given BSONDocumentHandler[ForumPostMini] = Macros.handler
   given BSONDocumentHandler[ForumTopicMini] = Macros.handler
+
+  given BSONHandler[Either[Boolean, UserId]] = lila.db.dsl.quickHandler(
+    {
+      case BSONBoolean(true) => Left(true)
+      case BSONString(str) => Right(UserId(str))
+      case _ => Left(false)
+    },
+    {
+      case Left(true) => BSONBoolean(true)
+      case Right(userId) => BSONString(userId.toString())
+      case _ => BSONNull
+    }
+  )

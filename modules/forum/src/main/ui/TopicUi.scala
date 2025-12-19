@@ -164,7 +164,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
               (canModCateg || Granter.opt(_.StickyPosts)).option:
                 postForm(action := routes.ForumTopic.sticky(categ.id, topic.slug))(
                   button(cls := "button button-empty button-brag")(
-                    if topic.isSticky then "Unsticky" else "Sticky"
+                    if topic.isSticky then s"${topic.whoToggledSticky().getOrElse("")} Unsticky" else "Sticky"
                   )
                 )
               ,
