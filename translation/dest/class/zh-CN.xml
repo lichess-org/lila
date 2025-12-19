@@ -117,4 +117,9 @@
   <string name="moveToAnotherClass">移至另一个班级</string>
   <string name="allowMessagingBetweenStudents">允许学生之间互发消息</string>
   <string name="allowMessagingBetweenStudentsDesc">此设置仅适用于您为学生创建的账户。</string>
+  <string name="quickLoginCode">快速登录代码</string>
+  <string name="quickLoginCodes">快速登录代码</string>
+  <string name="quickLoginCodesDesc1" comment="%s is a link to https://lichess.org/class">在 %s 上使用这些代码，以便您的学生登录 Lichess。</string>
+  <string name="quickLoginCodesDesc2">即使这些代码过期后，您的学生仍将保持登录状态，直至他们手动登出。</string>
+  <string name="expirationInMomentFromNow" comment="%s is relative time in the future. For example, 'in 2 hours'&#10;&#10;If it works better for your language, you can use punctuation e.g. &quot;Expiration: %s&quot;">过期时间：%s</string>
 </resources>
