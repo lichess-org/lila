@@ -110,5 +110,4 @@ object BSONHandlers:
     tour <- doc.getAsOpt[RelayTour]("tour")
   yield RelayRound.WithTour(round, tour)
 
-  given BSONDocumentHandler[RelayGroup.ScoreGroup] = Macros.handler
   given BSONDocumentHandler[RelayGroup] = Macros.handler
