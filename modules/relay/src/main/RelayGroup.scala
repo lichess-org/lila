@@ -106,7 +106,7 @@ private final class RelayGroupForm(baseUrl: BaseUrl):
 
   private def infoAsText(info: RelayGroupData.Info): String =
     val name = info.name.value
-    val tourUrls = info.tours.map(t => s"$baseUrl${routes.RelayTour.show("-", t.id)}")
+    val tourUrls = info.tours.map(t => s"$baseUrl${routes.RelayTour.show(t.name.toSlug, t.id)}")
     (name :: tourUrls).mkString("\n")
 
   given Formatter[RelayGroupData.Info] = formatter.stringOptionFormatter(infoAsText, infoParse)
