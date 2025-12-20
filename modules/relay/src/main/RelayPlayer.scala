@@ -241,8 +241,11 @@ private final class RelayPlayerApi(
           withRatingDiff <-
             if tour.showRatingDiffs then computeRatingDiffs(tour.info.fideTcOrGuess, withScore)
             else fuccess(withScore)
-          lastRoundId <- roundRepo.idsByTourOrdered(sg.last).map(_.lastOption)
-          withTiebreaks = tour.tiebreaks.foldLeft(withRatingDiff)(computeTiebreaks(_, _, lastRoundId))
+          withTiebreaks <- tour.tiebreaks.fold(fuccess(withRatingDiff)): tiebreaks =>
+            roundRepo
+              .idsByTourOrdered(sg.last)
+              .map(_.lastOption)
+              .map(computeTiebreaks(withRatingDiff, tiebreaks, _))
         yield withTiebreaks
 
   private def accumulateForTour(acc: RelayPlayers, tId: RelayTourId): Fu[RelayPlayers] =
