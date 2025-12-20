@@ -59,7 +59,7 @@
   <string name="forkDescription">一步棋同时攻击对方两个棋子。</string>
   <string name="hangingPiece">悬子</string>
   <string name="hangingPieceDescription">针对对方未被保护或保护不足、可以免费吃掉的棋子的战术。</string>
-  <string name="hookMate">钩子将杀</string>
+  <string name="hookMate">钩形将杀</string>
   <string name="hookMateDescription">用车、马和兵，配合对方的一个兵来限制对方王的逃跑路线，从而完成将杀。</string>
   <string name="interference">拦截</string>
   <string name="interferenceDescription">将己方棋子走到对方两个棋子之间，使得其中一个或两个对方棋子失去保护，例如将一个马走到被保护的两个车之间的格子上。</string>
