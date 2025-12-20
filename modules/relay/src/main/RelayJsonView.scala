@@ -5,7 +5,7 @@ import scalalib.Json.paginatorWriteNoNbResults
 import scalalib.paginator.Paginator
 
 import lila.common.Json.{ *, given }
-import lila.core.config.BaseUrl
+import lila.core.config.RouteUrl
 import lila.memo.PicfitUrl
 import lila.relay.RelayTour.{ WithLastRound, WithRounds }
 import lila.study.ChapterPreview
@@ -16,7 +16,7 @@ import lila.core.i18n.Translate
 import lila.core.fide.PhotosJson
 
 final class RelayJsonView(
-    baseUrl: BaseUrl,
+    routeUrl: RouteUrl,
     picfitUrl: PicfitUrl,
     lightUserSync: GetterSync,
     markdown: RelayMarkdown
@@ -42,7 +42,7 @@ final class RelayJsonView(
         "slug" -> t.slug,
         "info" -> t.info,
         "createdAt" -> t.createdAt,
-        "url" -> s"$baseUrl${t.path}"
+        "url" -> routeUrl(t.call)
       )
       .add("tier" -> t.tier)
       .add("dates" -> t.dates)
@@ -102,7 +102,7 @@ final class RelayJsonView(
 
   def withUrl(rt: RelayRound.WithTour, withTour: Boolean)(using Translate): JsObject =
     apply(rt.round) ++ Json
-      .obj("url" -> s"$baseUrl${rt.path}")
+      .obj("url" -> routeUrl(rt.call))
       .add("tour" -> withTour.option(rt.tour))
 
   def withUrlAndPreviews(
@@ -132,7 +132,7 @@ final class RelayJsonView(
 
     Json.obj(
       "round" -> apply(r.relay)
-        .add("url" -> s"$baseUrl${r.path}".some)
+        .add("url" -> routeUrl(r.call).some)
         .add("delay" -> r.relay.sync.delay),
       "tour" -> fullTour(r.tour)(using Config(html = false)),
       "study" -> Json.obj(
