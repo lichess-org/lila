@@ -18,7 +18,7 @@ case class ForumTopic(
     lastPostIdTroll: ForumPostId,
     troll: Boolean,
     closed: Boolean,
-    sticky: Option[Either[Boolean, UserId]],
+    sticky: Option[ForumTopic.Sticky],
     userId: Option[UserId] = None, // only since SB mutes
     ublogId: Option[UblogPostId] = None
 ):
@@ -33,21 +33,13 @@ case class ForumTopic(
 
   def isTooBig = nbPosts > (if isTeam then 500 else 50)
 
-  def isSticky: Boolean = sticky match
-    case Some(Left(true)) => true
-    case Some(Left(false)) => false
-    case Some(Right(_)) => true
-    case None => false
+  def isSticky: Boolean = sticky.exists:
+    case Left(v) => v
+    case _ => true
 
-  def toggleSticky()(using me: Me): Either[Boolean, UserId] = sticky match
-    case Some(Left(true)) => Left(false)
-    case Some(Left(false)) => Right(me.userId)
-    case Some(Right(_)) => Left(false)
-    case _ => Right(me.userId)
+  def toggleSticky(using me: Me): ForumTopic.Sticky = if isSticky then Left(false) else Right(me.userId)
 
-  def whoToggledSticky(): Option[UserId] = sticky match
-    case Some(Right(u)) => u.some
-    case _ => none
+  def whoToggledSticky: Option[UserId] = sticky.flatMap(_.toOption)
 
   def isAuthor(user: User): Boolean = userId contains user.id
   def isUblog = ublogId.isDefined
@@ -75,6 +67,8 @@ case class ForumTopic(
     (nbPosts + maxPerPage.value - 1) / maxPerPage.value
 
 object ForumTopic:
+
+  type Sticky = Either[Boolean, UserId]
 
   def nameToId(name: String) =
     val slug = scalalib.StringOps.slug(name)

@@ -46,7 +46,7 @@ final private class ForumTopicRepo(val coll: Coll, filter: Filter = Safe)(using
   def sticky(id: ForumTopicId, value: Boolean): Funit =
     coll.updateField($id(id), "sticky", value).void
 
-  def sticky(id: ForumTopicId, value: Either[Boolean, UserId]): Funit =
+  def sticky(id: ForumTopicId, value: ForumTopic.Sticky): Funit =
     coll.updateField($id(id), "sticky", value).void
 
   def byCateg(categ: ForumCategId): Fu[List[ForumTopic]] =
