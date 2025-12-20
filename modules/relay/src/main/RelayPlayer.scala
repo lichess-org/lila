@@ -235,8 +235,7 @@ private final class RelayPlayerApi(
       .byId(sg.head)
       .flatMapz: tour =>
         for
-          players <- sg.foldLeft(fuccess(SeqMap.empty: RelayPlayers)): (fuAcc, tId) =>
-            fuAcc.flatMap(accumulateForTour(_, tId))
+          players <- readGamesAndPlayers(sg.toList)
           withScore = if tour.showScores then computeScores(players) else players
           withRatingDiff <-
             if tour.showRatingDiffs then computeRatingDiffs(tour.info.fideTcOrGuess, withScore)
@@ -248,13 +247,13 @@ private final class RelayPlayerApi(
               .map(computeTiebreaks(withRatingDiff, tiebreaks, _))
         yield withTiebreaks
 
-  private def accumulateForTour(acc: RelayPlayers, tId: RelayTourId): Fu[RelayPlayers] =
+  private def readGamesAndPlayers(tourIds: Seq[RelayTourId]): Fu[RelayPlayers] =
     for
-      rounds <- roundRepo.byTourOrdered(tId)
+      rounds <- roundRepo.byToursOrdered(tourIds)
       roundsById = rounds.mapBy(_.id)
       studyPlayers <- fetchStudyPlayers(rounds.map(_.id))
       chapters <- chapterRepo.tagsByStudyIds(rounds.map(_.studyId))
-    yield chapters.foldLeft(acc):
+    yield chapters.foldLeft(SeqMap.empty: RelayPlayers):
       case (playersAcc, (studyId, chaps)) =>
         roundsById
           .get(studyId.into(RelayRoundId))
