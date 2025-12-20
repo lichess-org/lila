@@ -54,7 +54,7 @@ case class RelayTour(
           else ownerIds.filterNot(_ == UserId.broadcaster).toNel | ownerIds
       )
 
-  def path = routes.RelayTour.show(slug, id).url
+  def call = routes.RelayTour.show(slug, id)
 
   def tierIs(selector: RelayTour.Tier.Selector) = tier.has(selector(RelayTour.Tier))
 

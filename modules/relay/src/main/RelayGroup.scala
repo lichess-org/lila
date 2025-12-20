@@ -1,14 +1,9 @@
 package lila.relay
 
 import reactivemongo.api.bson.Macros.Annotations.Key
-import lila.core.config.BaseUrl
+import lila.core.config.RouteUrl
 
-case class RelayGroup(
-    @Key("_id") id: RelayGroupId,
-    name: RelayGroup.Name,
-    tours: List[RelayTourId],
-    sharePlayers: Boolean = false
-)
+case class RelayGroup(@Key("_id") id: RelayGroupId, name: RelayGroup.Name, tours: List[RelayTourId])
 
 object RelayGroup:
 
@@ -33,18 +28,17 @@ object RelayGroup:
 
 private case class RelayGroupData(name: RelayGroup.Name, tours: List[RelayTour.TourPreview]):
   def tourIds = tours.map(_.id)
-  def update(group: RelayGroup, sharePlayers: Boolean): RelayGroup =
-    group.copy(name = name, tours = tourIds, sharePlayers = sharePlayers)
-  def make(sharePlayers: Boolean): RelayGroup = RelayGroup(RelayGroup.makeId, name, tourIds, sharePlayers)
+  def update(group: RelayGroup): RelayGroup = group.copy(name = name, tours = tourIds)
+  def make: RelayGroup = RelayGroup(RelayGroup.makeId, name, tourIds)
 
-private final class RelayGroupForm(baseUrl: BaseUrl):
+private final class RelayGroupForm(routeUrl: RouteUrl):
   import play.api.data.*
   import play.api.data.Forms.*
   import play.api.data.format.Formatter
   import lila.common.Form.formatter
   def data(group: RelayGroup.WithTours) = RelayGroupData(group.group.name, group.tours)
   def asText(data: RelayGroupData): String =
-    s"${data.name}\n${data.tours.map(t => s"$baseUrl${routes.RelayTour.show(t.name.toSlug, t.id)}").mkString("\n")}"
+    s"${data.name}\n${data.tours.map(t => routeUrl(routes.RelayTour.show(t.name.toSlug, t.id))).mkString("\n")}"
   def parse(value: String): Option[RelayGroupData] =
     value.split("\n").toList match
       case Nil => none
@@ -88,19 +82,14 @@ final private class RelayGroupRepo(coll: Coll)(using Executor):
   def allTourIdsOfGroup(tourId: RelayTourId): Fu[List[RelayTourId]] =
     byTour(tourId).map(_.fold(List(tourId))(_.tours))
 
-  def sharedPlayersTourIds(tourId: RelayTourId): Fu[List[RelayTourId]] =
-    coll
-      .primitiveOne[List[RelayTourId]]($doc("tours" -> tourId, "sharePlayers" -> true), "tours")
-      .dmap(_.orZero)
-
-  def update(tourId: RelayTourId, data: RelayGroupData, sharePlayers: Boolean): Funit =
+  def update(tourId: RelayTourId, data: RelayGroupData): Funit =
     for
       prev <- byTour(tourId)
       curId <- prev match
         case Some(prev) if data.tours.isEmpty => coll.delete.one($id(prev.id)).inject(none)
-        case Some(prev) => coll.update.one($id(prev.id), data.update(prev, sharePlayers)).inject(prev.id.some)
+        case Some(prev) => coll.update.one($id(prev.id), data.update(prev)).inject(prev.id.some)
         case None =>
-          val newGroup = data.make(sharePlayers)
+          val newGroup = data.make
           coll.insert.one(newGroup).inject(newGroup.id.some)
       // make sure the tours of this group are not in other groups
       _ <- curId.so: id =>

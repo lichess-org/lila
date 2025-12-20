@@ -38,7 +38,7 @@ final class RelayUi(helpers: Helpers)(
       .graph:
         OpenGraph(
           title = rt.transName,
-          url = pathUrl(rt.path),
+          url = routeUrl(rt.call),
           description = shorten(rt.tour.info.toString, 152),
           image = imageUrl
         )

@@ -103,7 +103,10 @@ final class Env(
   scheduler.scheduleWithFixedDelay(21.minutes, 8.days): () =>
     ytApi.subscribeAll
 
-  scheduler.scheduleWithFixedDelay(30.seconds, 1.day): () =>
-    twitchApi.syncAll
-  scheduler.scheduleWithFixedDelay(72.seconds, 1.day): () =>
-    twitchApi.subscribeAll
+  if config.twitchConfig.clientId.nonEmpty then
+    scheduler.scheduleWithFixedDelay(30.seconds, 1.day): () =>
+      twitchApi.syncAll
+    scheduler.scheduleWithFixedDelay(72.seconds, 1.day): () =>
+      twitchApi.subscribeAll
+    scheduler.scheduleWithFixedDelay(4.minutes, 4.minutes): () =>
+      twitchApi.checkThatLiveStreamersReallyAreLive
