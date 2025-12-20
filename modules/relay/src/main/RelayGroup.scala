@@ -1,7 +1,7 @@
 package lila.relay
 
 import reactivemongo.api.bson.Macros.Annotations.Key
-import lila.core.config.BaseUrl
+import lila.core.config.RouteUrl
 import lila.relay.RelayGroup.ScoreGroup
 
 case class RelayGroup(
@@ -51,7 +51,7 @@ object RelayGroupData:
       tours: List[RelayTour.TourPreview]
   )
 
-private final class RelayGroupForm(baseUrl: BaseUrl):
+private final class RelayGroupForm(routeUrl: RouteUrl):
   import play.api.data.*
   import play.api.data.Forms.*
   import play.api.data.format.Formatter
@@ -106,7 +106,7 @@ private final class RelayGroupForm(baseUrl: BaseUrl):
 
   private def infoAsText(info: RelayGroupData.Info): String =
     val name = info.name.value
-    val tourUrls = info.tours.map(t => s"$baseUrl${routes.RelayTour.show(t.name.toSlug, t.id)}")
+    val tourUrls = info.tours.map(t => s"${routeUrl(routes.RelayTour.show(t.name.toSlug, t.id))}")
     (name :: tourUrls).mkString("\n")
 
   given Formatter[RelayGroupData.Info] = formatter.stringOptionFormatter(infoAsText, infoParse)
