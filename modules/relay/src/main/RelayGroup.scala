@@ -52,6 +52,8 @@ object RelayGroupData:
 private final class RelayGroupForm(baseUrl: BaseUrl):
   import play.api.data.*
   import play.api.data.Forms.*
+  import play.api.data.format.Formatter
+  import lila.common.Form.formatter
 
   def data(group: RelayGroup.WithTours) =
     RelayGroupData(
@@ -81,6 +83,7 @@ private final class RelayGroupForm(baseUrl: BaseUrl):
         .map: line =>
           val tourIds = line
             .split(",")
+            .take(50)
             .map(_.trim)
             .filter(_.nonEmpty)
             .flatMap(parseId)
@@ -98,28 +101,32 @@ private final class RelayGroupForm(baseUrl: BaseUrl):
     val ids = scoreGroups.flatMap(_.tourIds)
     ids.distinct.size == ids.size
 
-  private val infoMapping = nonEmptyText.transform[RelayGroupData.Info](
-    str =>
-      val lines = str.split("\n").toList.map(_.trim).filter(_.nonEmpty)
-      lines match
-        case Nil => RelayGroupData.Info(RelayGroup.Name(""), Nil)
-        case name :: tourLines =>
-          val tourIds = tourLines
-            .flatMap(parseId)
-          val tours = tourIds.map(RelayTour.TourPreview(_, RelayTour.Name(""), active = false, live = none))
-          RelayGroupData.Info(RelayGroup.Name(name), tours)
-    ,
-    info =>
-      val name = info.name.value
-      val tourUrls = info.tours.map(t => s"$baseUrl${routes.RelayTour.show("-", t.id)}")
-      (name :: tourUrls).mkString("\n")
-  )
+  private def infoParse(value: String): Option[RelayGroupData.Info] =
+    value.split("\n").toList match
+      case Nil => none
+      case name :: tourIds =>
+        val tours = tourIds
+          .take(50)
+          .map(_.trim.takeWhile(' ' != _))
+          .flatMap(parseId)
+          .map(RelayTour.TourPreview(_, RelayTour.Name(""), active = false, live = none))
+        RelayGroupData.Info(RelayGroup.Name(name.linesIterator.next.trim), tours).some
+
+  private def infoAsText(info: RelayGroupData.Info): String =
+    val name = info.name.value
+    val tourUrls = info.tours.map(t => s"$baseUrl${routes.RelayTour.show("-", t.id)}")
+    (name :: tourUrls).mkString("\n")
+
+  given Formatter[RelayGroupData.Info] = formatter.stringOptionFormatter(infoAsText, infoParse)
+  val infoMapping: Mapping[Option[RelayGroupData.Info]] = optional(of[RelayGroupData.Info])
 
   val mapping = Forms
     .mapping(
       "info" -> infoMapping,
       "scoreGroups" -> optional(scoreGroupsMapping)
-    )(RelayGroupData.apply)(data => Some(data.info, data.scoreGroups))
+    )((info, scoreGroups) =>
+      RelayGroupData(info.getOrElse(RelayGroupData.Info(RelayGroup.Name(""), List())), scoreGroups)
+    )(data => Some(data.info.some, data.scoreGroups))
     .verifying(
       "score groups cannot contain broadcasts not present in this group",
       data => data.scoreGroups.forall(allIdsFromGroup(data.tourIds, _))
