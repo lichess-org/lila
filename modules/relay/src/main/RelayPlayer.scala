@@ -70,8 +70,6 @@ given Ordering[RelayPlayer] = new Ordering[RelayPlayer]:
 
 object RelayPlayer:
 
-  type CacheKey = RelayTourId | ScoreGroup
-
   opaque type Rank = Int
   object Rank extends OpaqueInt[Rank]
 
