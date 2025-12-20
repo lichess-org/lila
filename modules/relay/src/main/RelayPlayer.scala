@@ -6,13 +6,14 @@ import scalalib.Json.writeAs
 import scalalib.Debouncer
 import chess.{ ByColor, Color, FideId, FideTC, Outcome, PlayerName, IntRating }
 import chess.rating.{ Elo, IntRatingDiff }
+import chess.tiebreak.{ Tiebreak, TiebreakPoint }
 
 import lila.study.{ ChapterPreviewApi, StudyPlayer }
 import lila.study.StudyPlayer.json.given
 import lila.memo.CacheApi
 import lila.core.fide.{ PhotosJson, Player as FidePlayer }
 import lila.common.Json.given
-import chess.tiebreak.{ Tiebreak, TiebreakPoint }
+import lila.relay.RelayGroup.ScoreGroup
 
 // Player in a tournament with current performance rating and list of games
 case class RelayPlayer(
@@ -69,10 +70,7 @@ given Ordering[RelayPlayer] = new Ordering[RelayPlayer]:
 
 object RelayPlayer:
 
-  sealed trait CacheKey
-  object CacheKey:
-    case class Tour(id: RelayTourId) extends CacheKey
-    case class ScoreGroup(scoreGroup: RelayGroup.ScoreGroup) extends CacheKey
+  type CacheKey = RelayTourId | ScoreGroup
 
   opaque type Rank = Int
   object Rank extends OpaqueInt[Rank]
@@ -186,26 +184,15 @@ private final class RelayPlayerApi(
 
   type RelayPlayers = SeqMap[StudyPlayer.Id, RelayPlayer]
 
-  private val cacheKeyFor =
-    cacheApi[RelayTourId, CacheKey](128, "relay.players.cachekey"):
-      _.expireAfterWrite(1.minute)
-        .buildAsyncFuture: tourId =>
-          groupRepo
-            .byTour(tourId)
-            .map: groupOpt =>
-              groupOpt
-                .flatMap(group =>
-                  group.scoreGroups.flatMap: scoreGroups =>
-                    scoreGroups
-                      .find(_.tourIds.contains(tourId))
-                      .map(CacheKey.ScoreGroup(_))
-                )
-                .|(CacheKey.Tour(tourId))
+  private val scoreGroupCache = cacheApi[RelayTourId, ScoreGroup](128, "relay.players.scoreGroup"):
+    _.expireAfterWrite(1.minute).buildAsyncFuture: tourId =>
+      for group <- groupRepo.byTour(tourId)
+      yield group.flatMap(_.scoreGroupOf(tourId)) | NonEmptyList.of(tourId)
 
-  private val cache = cacheApi[CacheKey, RelayPlayers](128, "relay.players.data"):
-    _.expireAfterWrite(1.minute).buildAsyncFuture(computeKeyed)
+  private val cache = cacheApi[ScoreGroup, RelayPlayers](128, "relay.players.data"):
+    _.expireAfterWrite(1.minute).buildAsyncFuture(computeScoreGroup)
 
-  private val jsonCache = cacheApi[CacheKey, JsonStr](32, "relay.players.json"):
+  private val jsonCache = cacheApi[ScoreGroup, JsonStr](32, "relay.players.json"):
     _.expireAfterWrite(1.minute).buildAsyncFuture: key =>
       import RelayPlayer.json.given
       cache
@@ -214,14 +201,10 @@ private final class RelayPlayerApi(
           JsonStr(Json.stringify(Json.toJson(players.values.toList)))
 
   def get(tourId: RelayTourId): Fu[RelayPlayers] =
-    cacheKeyFor
-      .get(tourId)
-      .flatMap(cache.get)
+    scoreGroupCache.get(tourId).flatMap(cache.get)
 
   def jsonList(tourId: RelayTourId): Fu[JsonStr] =
-    cacheKeyFor
-      .get(tourId)
-      .flatMap(jsonCache.get)
+    scoreGroupCache.get(tourId).flatMap(jsonCache.get)
 
   private val photosJsonCache = cacheApi[RelayTourId, PhotosJson](32, "relay.players.photos.json"):
     _.expireAfterWrite(10.seconds).buildAsyncFuture: tourId =>
@@ -244,40 +227,29 @@ private final class RelayPlayerApi(
 
   private val invalidateDebouncer = Debouncer[RelayTourId](scheduler.scheduleOnce(3.seconds, _), 32): id =>
     import lila.memo.CacheApi.invalidate
-    cacheKeyFor
+    scoreGroupCache
       .get(id)
       .foreach: key =>
         cache.invalidate(key)
         jsonCache.invalidate(key)
 
-  private def computeKeyed(key: CacheKey): Fu[RelayPlayers] =
-    val tourIds: List[RelayTourId] =
-      key match
-        case CacheKey.ScoreGroup(sg) => sg.tourIds.toList
-        case CacheKey.Tour(id) => List(id)
-
+  private def computeScoreGroup(sg: ScoreGroup): Fu[RelayPlayers] =
     // Use the first tour to retrieve display settings (scores, rating diffs, tiebreaks)
-    val firstTourId = tourIds.headOption
-    firstTourId.so: tourId =>
-      tourRepo
-        .byId(tourId)
-        .flatMapz: tour =>
-          tourIds
-            .foldLeft(fuccess(SeqMap.empty: RelayPlayers))((fuAcc, tId) =>
-              fuAcc.flatMap(accumulateForTour(_, tId))
-            )
-            .flatMap: players =>
-              val withScore = if tour.showScores then computeScores(players) else players
-              for
-                withRatingDiff <-
-                  if tour.showRatingDiffs then computeRatingDiffs(tour.info.fideTcOrGuess, withScore)
-                  else fuccess(withScore)
-                lastRoundId <- tourIds.lastOption.so: lastId =>
-                  roundRepo.idsByTourOrdered(lastId).map(_.lastOption)
-                withTiebreaks = tour.tiebreaks.foldLeft(withRatingDiff)(
-                  computeTiebreaks(_, _, lastRoundId)
-                )
-              yield withTiebreaks
+    tourRepo
+      .byId(sg.head)
+      .flatMapz: tour =>
+        sg
+          .foldLeft(fuccess(SeqMap.empty: RelayPlayers)): (fuAcc, tId) =>
+            fuAcc.flatMap(accumulateForTour(_, tId))
+          .flatMap: players =>
+            val withScore = if tour.showScores then computeScores(players) else players
+            for
+              withRatingDiff <-
+                if tour.showRatingDiffs then computeRatingDiffs(tour.info.fideTcOrGuess, withScore)
+                else fuccess(withScore)
+              lastRoundId <- roundRepo.idsByTourOrdered(sg.last).map(_.lastOption)
+              withTiebreaks = tour.tiebreaks.foldLeft(withRatingDiff)(computeTiebreaks(_, _, lastRoundId))
+            yield withTiebreaks
 
   private def accumulateForTour(acc: RelayPlayers, tId: RelayTourId): Fu[RelayPlayers] =
     for

@@ -9,13 +9,15 @@ case class RelayGroup(
     name: RelayGroup.Name,
     tours: List[RelayTourId],
     scoreGroups: Option[List[ScoreGroup]]
-)
+):
+  def scoreGroupOf(tourId: RelayTourId): Option[ScoreGroup] =
+    scoreGroups.flatMap(_.find(_.toList.contains(tourId)))
 
 object RelayGroup:
 
   def makeId = RelayGroupId(scalalib.ThreadLocalRandom.nextString(8))
 
-  case class ScoreGroup(tourIds: Set[RelayTourId])
+  type ScoreGroup = NonEmptyList[RelayTourId]
 
   opaque type Name = String
   object Name extends OpaqueString[Name]:
@@ -74,31 +76,21 @@ private final class RelayGroupForm(baseUrl: BaseUrl):
       yield RelayTourId(id)
 
   private val scoreGroupsMapping = nonEmptyText.transform[List[ScoreGroup]](
-    str =>
-      str
-        .split("\n")
-        .toList
-        .map(_.trim)
-        .filter(_.nonEmpty)
-        .map: line =>
-          val tourIds = line
-            .split(",")
-            .take(50)
-            .map(_.trim)
-            .filter(_.nonEmpty)
-            .flatMap(parseId)
-            .toSet
-          ScoreGroup(tourIds)
+    _.split("\n").toList
+      .map(_.trim)
+      .filter(_.nonEmpty)
+      .flatMap:
+        _.split(",").take(50).map(_.trim).filter(_.nonEmpty).flatMap(parseId).distinct.toList.toNel
     ,
-    scoreGroups => scoreGroups.map(_.tourIds.mkString(",")).mkString("\n")
+    _.map(_.toList.mkString(",")).mkString("\n")
   )
 
   private def allIdsFromGroup(tourIds: List[RelayTourId], scoreGroups: List[ScoreGroup]): Boolean =
     val groupTourIds = tourIds.toSet
-    scoreGroups.flatMap(_.tourIds).forall(id => groupTourIds.contains(id))
+    scoreGroups.flatMap(_.toList).forall(id => groupTourIds.contains(id))
 
   private def noOverlappingScoreGroups(scoreGroups: List[ScoreGroup]): Boolean =
-    val ids = scoreGroups.flatMap(_.tourIds)
+    val ids = scoreGroups.flatMap(_.toList)
     ids.distinct.size == ids.size
 
   private def infoParse(value: String): Option[RelayGroupData.Info] =
