@@ -135,18 +135,6 @@
 
     group {
       margin-bottom: 2em;
-      overflow: visible;
-    }
-
-    @media (min-width: at-least($large)) {
-      group div:first-child label {
-        border-start-start-radius: $box-radius-size;
-        border-end-start-radius: $box-radius-size;
-      }
-      group div:last-child label {
-        border-start-end-radius: $box-radius-size;
-        border-end-end-radius: $box-radius-size;
-      }
     }
 
     group input:checked + label,
@@ -180,7 +168,7 @@
       .buttons {
         @extend %flex-between;
         font-size: 1.1em;
-
+        gap: 1em;
         $button-height: 55px;
 
         .button {
@@ -193,7 +181,6 @@
           display: flex;
           height: $button-height;
           overflow: hidden;
-          margin-inline-start: 1em;
 
           iframe {
             color-scheme: normal;
@@ -273,6 +260,7 @@
     }
 
     .list div {
+      @extend %ellipsis;
       flex: 1 1 25%;
       min-width: 17ch;
       padding: 0.5em 0;
