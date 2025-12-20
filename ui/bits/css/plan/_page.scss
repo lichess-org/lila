@@ -130,11 +130,7 @@
     group input:checked + label,
     .amount_fixed label,
     .lifetime-check + label {
-      background: $c-good;
-      border-color: $c-border;
-      box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15) inset !important;
-      color: $c-over;
-      text-shadow: 0 1px 0 #000 !important;
+      @extend %active-secondary;
     }
 
     group {
