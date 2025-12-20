@@ -67,6 +67,8 @@
   <string name="intermezzoDescription">Thay vì chơi nước đi dự kiến, trước tiên hãy xen vào một nước đi khác gây ra mối đe dọa ngay lập tức mà đối thủ phải đáp trả. Còn được gọi là \"Zwischenzug\" hoặc \"Ở giữa\".</string>
   <string name="killBoxMate">Hộp chết chiếu hết</string>
   <string name="killBoxMateDescription">Một quân xe ở cạnh vua địch và được hỗ trợ bởi quân hậu cũng chặn các ô trốn thoát của vua địch. Xe và hậu bắt vua địch trong ô \"kill box\" chết chóc 3 x 3.</string>
+  <string name="morphysMate">Chiếu hết kiểu Morphy</string>
+  <string name="morphysMateDescription">Dùng quân tượng để chiếu vua, trong khi quân xe giúp kìm hãm vua.</string>
   <string name="triangleMate">Chiếu hết kiểu tam giác</string>
   <string name="triangleMateDescription">Quân hậu và quân xe, cách quân vua của đối phương một ô, nằm trên cùng một hàng, cách nhau một ô, tạo thành một hình tam giác.</string>
   <string name="vukovicMate">Chiếu hết kiểu Vukovic</string>
@@ -97,6 +99,7 @@
   <string name="oneMoveDescription">Câu đố mà chỉ có một nước đi.</string>
   <string name="opening">Khai cuộc</string>
   <string name="openingDescription">Chiến thuật trong phần mở đầu của ván cờ.</string>
+  <string name="operaMateDescription">Dùng quân xe chiếu vua và dùng quân tượng để bảo vệ quân xe.</string>
   <string name="pawnEndgame">Tàn cuộc Tốt</string>
   <string name="pawnEndgameDescription">Một thế tàn cuộc chỉ với tốt.</string>
   <string name="pin">Ghim</string>
