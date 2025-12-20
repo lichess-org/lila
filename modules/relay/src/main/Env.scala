@@ -32,7 +32,7 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     settingStore: SettingStore.Builder,
     irc: lila.core.irc.IrcApi,
-    baseUrl: BaseUrl,
+    routeUrl: RouteUrl,
     notifyApi: lila.core.notify.NotifyApi,
     picfitApi: lila.memo.PicfitApi,
     picfitUrl: lila.memo.PicfitUrl,

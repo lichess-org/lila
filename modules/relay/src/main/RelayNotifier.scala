@@ -29,7 +29,7 @@ final private class RelayNotifier(
               _ <- notifyApi.notifyMany(
                 followers,
                 NotificationContent.BroadcastRound(
-                  url = rt.path(chapter.id),
+                  url = rt.call(chapter.id).url,
                   title = rt.tour.name.value,
                   text = s"${name} is playing${opponent}in ${rt.round.name}"
                 )

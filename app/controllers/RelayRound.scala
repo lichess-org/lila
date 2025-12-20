@@ -252,7 +252,7 @@ final class RelayRound(
   )(using ctx: Context): Fu[Result] =
     Found(env.relay.api.byIdWithTour(id)): rt =>
       if !ctx.req.path.startsWith(rt.path) && HTTPRequest.isRedirectable(ctx.req)
-      then Redirect(chapterId.fold(rt.path)(rt.path))
+      then Redirect(chapterId.fold(rt.call)(rt.call))
       else f(rt)
 
   private def WithTour(id: RelayTourId)(
