@@ -191,12 +191,10 @@ private final class RelayPlayerApi(
     _.expireAfterWrite(1.minute).buildAsyncFuture(computeScoreGroup)
 
   private val jsonCache = cacheApi[ScoreGroup, JsonStr](32, "relay.players.json"):
-    _.expireAfterWrite(1.minute).buildAsyncFuture: key =>
+    _.expireAfterWrite(1.minute).buildAsyncFuture: sg =>
       import RelayPlayer.json.given
-      cache
-        .get(key)
-        .map: players =>
-          JsonStr(Json.stringify(Json.toJson(players.values.toList)))
+      for players <- cache.get(sg)
+      yield JsonStr(Json.stringify(Json.toJson(players.values.toList)))
 
   def get(tourId: RelayTourId): Fu[RelayPlayers] =
     scoreGroupCache.get(tourId).flatMap(cache.get)
@@ -236,18 +234,16 @@ private final class RelayPlayerApi(
     tourRepo
       .byId(sg.head)
       .flatMapz: tour =>
-        sg
-          .foldLeft(fuccess(SeqMap.empty: RelayPlayers)): (fuAcc, tId) =>
+        for
+          players <- sg.foldLeft(fuccess(SeqMap.empty: RelayPlayers)): (fuAcc, tId) =>
             fuAcc.flatMap(accumulateForTour(_, tId))
-          .flatMap: players =>
-            val withScore = if tour.showScores then computeScores(players) else players
-            for
-              withRatingDiff <-
-                if tour.showRatingDiffs then computeRatingDiffs(tour.info.fideTcOrGuess, withScore)
-                else fuccess(withScore)
-              lastRoundId <- roundRepo.idsByTourOrdered(sg.last).map(_.lastOption)
-              withTiebreaks = tour.tiebreaks.foldLeft(withRatingDiff)(computeTiebreaks(_, _, lastRoundId))
-            yield withTiebreaks
+          withScore = if tour.showScores then computeScores(players) else players
+          withRatingDiff <-
+            if tour.showRatingDiffs then computeRatingDiffs(tour.info.fideTcOrGuess, withScore)
+            else fuccess(withScore)
+          lastRoundId <- roundRepo.idsByTourOrdered(sg.last).map(_.lastOption)
+          withTiebreaks = tour.tiebreaks.foldLeft(withRatingDiff)(computeTiebreaks(_, _, lastRoundId))
+        yield withTiebreaks
 
   private def accumulateForTour(acc: RelayPlayers, tId: RelayTourId): Fu[RelayPlayers] =
     for
@@ -285,10 +281,7 @@ private final class RelayPlayerApi(
                         playersAcc.updated(
                           playerId,
                           playersAcc
-                            .getOrElse(
-                              playerId,
-                              RelayPlayer(player, None, None, None, None, None, Vector.empty)
-                            )
+                            .getOrElse(playerId, RelayPlayer.empty(player))
                             .withGame(game)
                         )
 
