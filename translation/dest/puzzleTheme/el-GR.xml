@@ -66,6 +66,8 @@
   <string name="intermezzoDescription">Αντί για την αναμενόμενη κίνηση παίζεται πρώτα κάποια ενδιάμεση κίνηση που δημιουργεί μια απειλή την οποία ο αντίπαλος πρέπει να αντιμετωπίσει αμέσως. Επίσης γνωστό ως \"Zwischenzug\" ή \"Intermezzo\".</string>
   <string name="killBoxMate">Ματ του κουτιού εξόντωσης</string>
   <string name="killBoxMateDescription">Ένας πύργος βρίσκεται δίπλα από τον αντίπαλο βασιλιά και υποστηρίζεται από τη βασίλισσα η οποία εμποδίζει τα τετράγωνα διαφυγής του βασιλιά. Ο πύργος και η βασίλισσα εγκλωβίζουν τον αντίπαλο βασιλιά σε ένα 3 επί 3 «κουτί εξόντωσης».</string>
+  <string name="pillsburysMate">Ματ του Πίλσμπερι</string>
+  <string name="pillsburysMateDescription">Ο πύργος κάνει ματ στον αντίπαλο βασιλιά, τον οποίο ένας αξιωματικός έχει περιορίσει.</string>
   <string name="morphysMate">Ματ του Μόρφυ</string>
   <string name="morphysMateDescription">Ένας αξιωματικός κάνει σαχ στον αντίπαλο βασιλιά, περιορίζοντάς τον με τη βοήθεια ενός πύργου.</string>
   <string name="triangleMate">Τριγωνικό ματ</string>
