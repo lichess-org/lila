@@ -90,9 +90,13 @@ private final class RelayGroupForm(baseUrl: BaseUrl):
     scoreGroups => scoreGroups.map(_.tourIds.mkString(",")).mkString("\n")
   )
 
-  private def isValidScoreGroup(tourIds: List[RelayTourId], scoreGroups: List[ScoreGroup]): Boolean =
+  private def allIdsFromGroup(tourIds: List[RelayTourId], scoreGroups: List[ScoreGroup]): Boolean =
     val groupTourIds = tourIds.toSet
     scoreGroups.flatMap(_.tourIds).forall(id => groupTourIds.contains(id))
+
+  private def noOverlappingScoreGroups(scoreGroups: List[ScoreGroup]): Boolean =
+    val ids = scoreGroups.flatMap(_.tourIds)
+    ids.distinct.size == ids.size
 
   private val infoMapping = nonEmptyText.transform[RelayGroupData.Info](
     str =>
@@ -117,8 +121,12 @@ private final class RelayGroupForm(baseUrl: BaseUrl):
       "scoreGroups" -> optional(scoreGroupsMapping)
     )(RelayGroupData.apply)(data => Some(data.info, data.scoreGroups))
     .verifying(
-      "scoregroups cannot contain broadcasts not present in this group",
-      data => data.scoreGroups.forall(isValidScoreGroup(data.tourIds, _))
+      "score groups cannot contain broadcasts not present in this group",
+      data => data.scoreGroups.forall(allIdsFromGroup(data.tourIds, _))
+    )
+    .verifying(
+      "score groups cannot have overlapping broadcasts",
+      data => data.scoreGroups.forall(noOverlappingScoreGroups)
     )
 
 import lila.db.dsl.{ *, given }
