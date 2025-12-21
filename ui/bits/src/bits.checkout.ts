@@ -107,7 +107,7 @@ export function initModule({
 
   $userInput.on('change', toggleCheckout).on('input', toggleCheckout);
 
-  const getAmountToCharge = () => {
+  const getAmountToCharge = (): number | undefined => {
     const freq = getFreq(),
       amount =
         freq === 'lifetime'
@@ -115,13 +115,16 @@ export function initModule({
           : parseFloat($checkout.find('group.amount input:checked').data('amount'));
     const isGift = !!$checkout.find('.gift input').val();
     const min = isGift ? pricing.giftMin : pricing.min;
-    if (amount < min && isGift) {
-      alert(`Minimum gift amount is ${pricing.currency} ${pricing.giftMin}`);
+
+    if (amount < min) {
+      const message = isGift
+        ? `Minimum gift amount is ${pricing.currency} ${min}`
+        : `Minimum amount is ${pricing.currency} ${min}`;
+      alert(message);
       return undefined;
-    } else if (amount < min && !isGift) {
-      alert(`Minimum amount is ${pricing.currency} ${pricing.giftMin}`);
-      return undefined;
-    } else if (amount > pricing.max) {
+    }
+
+    if (amount > pricing.max) {
       alert(`Maximum amount is ${pricing.currency} ${pricing.max}`);
       return undefined;
     }
