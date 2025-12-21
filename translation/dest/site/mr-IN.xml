@@ -401,6 +401,7 @@
     <item quantity="other">आपल्याला आणखी %s गुणांकित खेळ खेळण्याची आवश्यकता आहे</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">आपला %s गुणांकन तात्पुरते आहे</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">तुमचे रेटिंग स्थिर नसल्याने रेटिंग गाळी बंद केले गेले आहे. रेटेड खेळ खेळल्याने स्थिरता वाढेल.</string>
   <string name="yourPerfRatingIsTooHigh">आपले %1$s गुणांकन (%2$s) खूप जास्त आहे</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">आपले साप्ताहिक %1$s गुणांकन (%2$s) खूप जास्त आहे</string>
   <string name="yourPerfRatingIsTooLow">आपले %1$s गुणांकन (%2$s) खूप कमी आहे</string>
@@ -720,6 +721,10 @@
   <string name="keyPreviousBranch">मागील शाखा</string>
   <string name="keyNextBranch">पुढील शाखा</string>
   <string name="toggleVariationArrows">भिन्नतेंचे बाण निवडा</string>
+  <string name="cyclePreviousOrNextVariation">पूर्वीच्या/नंतरच्या प्रकारावर जा</string>
+  <string name="toggleGlyphAnnotations">डावांच्या भाष्यांनचे खुंटन करा</string>
+  <string name="togglePositionAnnotations">स्तिथीच्या भाष्यांनचे खुंटन करा</string>
+  <string name="toggleObservationAnnotations">निरक्षणकयोग्य भाष्यांनचे खुंटन करा</string>
   <string name="playSelectedMove">निवडलेली चाल खेळा</string>
   <string name="newTournament">नविन क्रीडासत्र</string>
   <string name="tournamentHomeTitle">विविध वेळ नियंत्रणे आणि प्रकार दर्शविणारे बुद्धीबळ क्रीडासत्र</string>
@@ -773,6 +778,7 @@
   <string name="playChessEverywhere">सगळीकडे बुद्धिबळ खेळा</string>
   <string name="everybodyGetsAllFeaturesForFree">प्रत्येकास सर्व वैशिष्ट्ये विनामूल्य मिळतात</string>
   <string name="viewTheSolution">समाधान पहा</string>
+  <string name="noChallenges">काही आव्हाने नाहीत</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">%s भाषेत उपलब्ध!</item>
     <item quantity="other">%s भाषेत उपलब्ध!</item>
@@ -785,12 +791,19 @@
   <string name="anonymous">अनामिक</string>
   <string name="yourScore">तुमचे गुण: %s</string>
   <string name="language">भाषा</string>
+  <string name="allLanguages">सर्व भाषा</string>
   <string name="background">पार्श्वभूमी</string>
   <string name="light">सौम्य</string>
   <string name="dark">गडद</string>
   <string name="transparent">पारदर्शक</string>
   <string name="deviceTheme">उपकरणानुसार</string>
   <string name="backgroundImageUrl">Background चित्रासाठी URL:</string>
+  <string name="board">फळी</string>
+  <string name="size">आकार</string>
+  <string name="opacity">अपारदर्शकता</string>
+  <string name="brightness">तेजस्वीपणा</string>
+  <string name="hue">रंग</string>
+  <string name="boardReset">रंगांना परत पाहिल्यासारखे करा</string>
   <string name="pieceSet">सोंगट्या</string>
   <string name="embedInYourWebsite">तुमच्या वेबसाइटवर टाका</string>
   <string name="usernameAlreadyUsed">हे नाव अगोदर वापरलेले आहे, कृपया अन्य वापरा.</string>
@@ -807,6 +820,7 @@
   <string name="notifications">Notifications</string>
   <string name="notificationsX">%1$s सूचना</string>
   <string name="perfRatingX">गुणांकन: %s</string>
+  <string name="yourRatingIsX">तुमचे रेटिंग आहे %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">पहिली चाल खेळण्यासाठी %s सेकंद आहेत</item>
     <item quantity="other">पहिली चाल खेळण्यासाठी %s सेकंद आहेत</item>
@@ -858,10 +872,13 @@
   <string name="playVariationToCreateConditionalPremoves">सशर्त प्रिमुव्ह तयार करण्यासाठी variation खेळा</string>
   <string name="noConditionalPremoves">सशर्त प्रिमुव्ह नाही</string>
   <string name="playX">%s खेळा</string>
+  <string name="challengeX">आव्हाने %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">आणि %s प्रिमुव्ह संपादित करा</item>
     <item quantity="other">आणि %s प्रिमुव्ह संपादित करा</item>
   </plurals>
+  <string name="showUnreadLichessMessage">तुम्हाला Lichess कडून एक गुप्त संदेश आला आहे.</string>
+  <string name="clickHereToReadIt">वाचण्यासाठी इथे दाबा</string>
   <string name="sorry">माफ करा</string>
   <string name="weHadToTimeYouOutForAWhile">आम्हाला आपल्याला काही वेळ खेळू देता येणार नाही.</string>
   <string name="why">कारण?</string>
@@ -883,6 +900,9 @@
   <string name="agreementPolicy">मी Lichess च्या सर्व नियमांचे पालन करेल.</string>
   <string name="searchOrStartNewDiscussion">संभाषण शोधा किंवा नविन सुरू करा</string>
   <string name="edit">सुधार करा</string>
+  <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">अल्ट्राबुलेट वेग</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">बुलेट वेग</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">ब्लित्झ वेग</string>
   <string name="rapid">द्रुतगती</string>
   <string name="classical">क्लासिकल</string>
   <string name="ultraBulletDesc">अत्यंत वेगवान खेळ: ३० सेकंदांपेक्षा कमी</string>
