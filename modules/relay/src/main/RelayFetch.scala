@@ -321,7 +321,7 @@ final private class RelayFetch(
       .flatMap:
         case RelayFormat.Round(id) =>
           studyChapterRepo
-            .orderedByStudyLoadingAllInMemory(id.into(StudyId))
+            .orderedByStudyLoadingAllInMemory(id.studyId)
             .map(_.view.map(RelayGame.fromChapter).toVector)
         case RelayFormat.SingleFile(url) =>
           httpGetPgn(url)
