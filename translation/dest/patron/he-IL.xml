@@ -16,7 +16,7 @@
   <string name="newPatrons">תומכים חדשים</string>
   <string name="freeChess">שחמט חינם לכולם, לעד!</string>
   <string name="noAdsNoSubs">ללא פרסומות, ללא מנוי – רק קוד־פתוח ואהבה למשחק.</string>
-  <string name="thankYou">תודה על תרומתך!</string>
+  <string name="thankYou" comment="&quot;you&quot; is in singular here.">תודה על תרומתך!</string>
   <string name="youHaveLifetime">יש לך חשבון תומך/ת לכל החיים. זה מדהים!</string>
   <string name="patronUntil">הפכת לתומך/ת עד %s.</string>
   <string name="ifNotRenewedThenAccountWillRevert">אם לא יחודש מנוי התורם/ת, חשבונכם ישוב להיות חשבון רגיל.</string>
