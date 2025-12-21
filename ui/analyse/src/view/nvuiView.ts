@@ -43,6 +43,7 @@ import { pubsub } from 'lib/pubsub';
 import { renderResult, viewContext, type RelayViewContext } from '../view/components';
 import { view as chapterNewFormView } from '../study/chapterNewForm';
 import { view as chapterEditFormView } from '../study/chapterEditForm';
+import { view as studyFormView } from '../study/studyForm';
 import renderClocks from '../view/clocks';
 import { renderChat } from 'lib/chat/renderChat';
 import { throttle } from 'lib/async';
@@ -718,10 +719,15 @@ function studyDetails(ctrl: AnalyseCtrl) {
         study.members.canContribute()
           ? hl('div.buttons', [
               hl(
+                'button.edit-study',
+                clickHook(() => study.form.open(!study.form.open()), ctrl.redraw),
+                [i18n.study.editStudy, study.form.open() ? studyFormView(study.form) : undefined],
+              ),
+              hl(
                 'button.edit-chapter',
                 clickHook(() => study.chapters.editForm.toggle(study.currentChapter()), ctrl.redraw),
                 [
-                  'Edit current chapter',
+                  i18n.study.editChapter,
                   study.chapters.editForm.current() && chapterEditFormView(study.chapters.editForm),
                 ],
               ),
@@ -729,7 +735,7 @@ function studyDetails(ctrl: AnalyseCtrl) {
                 'button.create-chapter',
                 clickHook(() => study.chapters.newForm.toggle(), ctrl.redraw),
                 [
-                  'Add new chapter',
+                  i18n.study.newChapter,
                   study.chapters.newForm.isOpen() ? chapterNewFormView(study.chapters.newForm) : undefined,
                 ],
               ),
