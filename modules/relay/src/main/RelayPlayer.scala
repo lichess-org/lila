@@ -296,17 +296,19 @@ private final class RelayPlayerApi(
   private def computeRatingDiffs(tc: FideTC, players: RelayPlayers): Fu[RelayPlayers] =
     players.toList
       .traverse: (id, player) =>
-        player.fideId
-          .so(fidePlayerGet)
-          .map: fidePlayerOpt =>
-            for
-              fidePlayer <- fidePlayerOpt
-              r <- player.rating.map(_.into(Elo)).orElse(fidePlayer.ratingOf(tc))
-              p = Elo.Player(r, fidePlayer.kFactorOf(tc))
-              games = player.eloGames
-            yield player.copy(ratingDiff = games.nonEmpty.option(Elo.computeRatingDiff(tc)(p, games)))
-          .map: newPlayer =>
-            id -> (newPlayer | player)
+        val eloGames = player.eloGames
+        if eloGames.isEmpty then fuccess(id -> player)
+        else
+          player.fideId
+            .so(fidePlayerGet)
+            .map: fidePlayerOpt =>
+              for
+                fidePlayer <- fidePlayerOpt
+                r <- player.rating.map(_.into(Elo)).orElse(fidePlayer.ratingOf(tc))
+                p = Elo.Player(r, fidePlayer.kFactorOf(tc))
+              yield player.copy(ratingDiff = Elo.computeRatingDiff(tc)(p, eloGames).some)
+            .map: newPlayer =>
+              id -> (newPlayer | player)
       .map(_.to(SeqMap))
 
   private def computeTiebreaks(
