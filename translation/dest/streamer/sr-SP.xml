@@ -27,6 +27,14 @@
   <string name="pendingReview">Твој стрим проверавају модератори.</string>
   <string name="pleaseFillIn">Молимо да попуниш твоје стримерске информације и поставиш слику.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Када будете спремни да постанете Личес стример, %s</string>
+  <string name="streamerName">Твоје стримерско име на Lichess-у</string>
+  <plurals name="keepItShort">
+    <item quantity="one">Нека буде кратко: %s карактер највише</item>
+    <item quantity="few">Нека буде кратко: %s карактера највише</item>
+    <item quantity="other">Нека буде кратко: %s карактера највише</item>
+  </plurals>
+  <string name="visibility">Видљиво на страници стримера</string>
+  <string name="whenApproved">Након одобрења модератора</string>
   <string name="headline">Наслов</string>
   <string name="tellUsAboutTheStream">Реци нам нешто о свом стриму у једној реченици</string>
   <string name="longDescription">Дужи опис</string>
