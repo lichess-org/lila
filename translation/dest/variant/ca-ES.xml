@@ -12,6 +12,9 @@
   <string name="antichessTitle" comment="Description for the Antichess variant">Perds tot les teves peces (o aconsegueix l\'ofegat) per guanyar la partida.</string>
   <string name="atomic" comment="The name of a chess variant where pieces explode when captured. Named after nuclear explosions.">Atòmic</string>
   <string name="atomicTitle" comment="Description for the Atomic Chess variant. Alternatives to nuke could be &quot;blow up&quot; or &quot;explode&quot;.">Explota el rei del teu oponent per guanyar la partida.</string>
+  <string name="horde" comment="The name of a chess variant where one side has a regular chess army but the other has dozens of pawns, resembling a horde.">Horda</string>
+  <string name="racingKings" comment="The name of a chess variant where both sides start on the same rank, and need to reach the other side of the board win.&#10;&#10;No need to translate literally. Focus on making it fun, capturing the spirit of the variant.">Carrera de reis</string>
+  <string name="racingKingsTitle" comment="Description for the Racing Kings chess variant">Fes arribar el teu rei a l\'altre costat del tauler per guanyar.</string>
   <string name="crazyhouse" comment="The name of a chess variant where pieces you capture can be put on the board (similar to shogi).">Passa peces</string>
   <string name="crazyhouseTitle" comment="Description for the Crazyhouse chess variant">Les peces capturades es poden tornar a ficar al tauler en comptes de moure una peça.</string>
 </resources>
