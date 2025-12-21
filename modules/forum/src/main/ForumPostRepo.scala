@@ -9,9 +9,7 @@ import lila.forum.Filter.*
 final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using Executor):
 
   def forUser(user: Option[User]) =
-    withFilter(user.filter(_.marks.troll).fold[Filter](Safe) { u =>
-      SafeAnd(u.id)
-    })
+    withFilter(user.filter(_.marks.troll).fold[Filter](Safe)(u => SafeAnd(u.id)))
   def withFilter(f: Filter) = if f == filter then this else new ForumPostRepo(coll, f)
   def unsafe = withFilter(Unsafe)
 
@@ -38,7 +36,7 @@ final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using Executor)
     coll.countSel(selectTopic(topicId) ++ $doc("number" -> $lt(number)))
 
   def isFirstPost(topicId: ForumTopicId, postId: ForumPostId): Fu[Boolean] =
-    coll.primitiveOne[String](selectTopic(topicId), $sort.createdAsc, "_id").dmap { _ contains postId }
+    coll.primitiveOne[ForumPostId](selectTopic(topicId), $sort.createdAsc, "_id").dmap { _ contains postId }
 
   def countByTopic(topic: ForumTopic): Fu[Int] =
     coll.countSel(selectTopic(topic.id))
@@ -64,7 +62,7 @@ final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using Executor)
       .list(nb)
       .map:
         _.flatMap:
-          _.getAsOpt[ForumPostId]("_id")
+          _.getAsOpt("_id")
 
   def allByUserCursor(user: User): AkkaStreamCursor[ForumPost] =
     coll
@@ -92,23 +90,18 @@ final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using Executor)
     else $doc("lang".$in(langs))
 
   def findDuplicate(post: ForumPost): Fu[Option[ForumPost]] =
-    coll.one[ForumPost](
+    coll.one:
       $doc(
         "createdAt".$gt(nowInstant.minusHours(1)),
         "userId" -> post.userId,
         "text" -> post.text
       )
-    )
 
   def idsByTopicId(topicId: ForumTopicId): Fu[List[ForumPostId]] =
-    coll.distinctEasy[ForumPostId, List]("_id", $doc("topicId" -> topicId), _.sec)
+    coll.distinctEasy("_id", $doc("topicId" -> topicId), _.sec)
 
   def allUserIdsByTopicId(topicId: ForumTopicId): Fu[List[UserId]] =
-    coll.distinctEasy[UserId, List](
-      "userId",
-      $doc("topicId" -> topicId) ++ selectNotErased,
-      _.sec
-    )
+    coll.distinctEasy("userId", $doc("topicId" -> topicId) ++ selectNotErased, _.sec)
 
   def eraseAllBy(id: UserId) =
     coll.update.one(
