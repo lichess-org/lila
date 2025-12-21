@@ -251,6 +251,10 @@ private final class RelayPlayerApi(
       rounds <- roundRepo.byToursOrdered(tourIds)
       roundsById = rounds.mapBy(_.id)
       chapters <- chapterRepo.tagsByStudyIds(rounds.map(_.studyId))
+      allFideIds = chapters.flatMap(_._2.flatMap((_, tags) => tags.fideIds.flatten)).toSet.toList
+      fedsById <- allFideIds
+        .traverse(id => fidePlayerGet(id).map(id -> _))
+        .map(_.flatMap((id, playerOpt) => playerOpt.flatMap(_.fed.map(id -> _))).toMap)
     yield chapters.foldLeft(SeqMap.empty: RelayPlayers):
       case (playersAcc, (studyId, chaps)) =>
         roundsById
@@ -262,7 +266,7 @@ private final class RelayPlayerApi(
                   .fromTags(tags)
                   .flatMap:
                     _.traverse: p =>
-                      p.id.map(_ -> StudyPlayer.WithFed(p, none))
+                      p.id.map(_ -> StudyPlayer.WithFed(p, p.fideId.flatMap(fedsById.get)))
                   .fold(playersAcc): gamePlayers =>
                     gamePlayers.zipColor.foldLeft(playersAcc):
                       case (playersAcc, (color, (playerId, player))) =>
