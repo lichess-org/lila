@@ -8,7 +8,7 @@ import chess.{ ByColor, Color, FideId, FideTC, Outcome, PlayerName, IntRating }
 import chess.rating.{ Elo, IntRatingDiff }
 import chess.tiebreak.{ Tiebreak, TiebreakPoint }
 
-import lila.study.{ ChapterPreviewApi, StudyPlayer }
+import lila.study.StudyPlayer
 import lila.study.StudyPlayer.json.given
 import lila.memo.CacheApi
 import lila.core.fide.{ PhotosJson, Player as FidePlayer }
@@ -173,7 +173,6 @@ private final class RelayPlayerApi(
     roundRepo: RelayRoundRepo,
     groupRepo: RelayGroupRepo,
     chapterRepo: lila.study.ChapterRepo,
-    chapterPreviewApi: ChapterPreviewApi,
     cacheApi: CacheApi,
     fidePlayerGet: lila.core.fide.GetPlayer,
     photosJson: PhotosJson.Get
@@ -251,7 +250,6 @@ private final class RelayPlayerApi(
     for
       rounds <- roundRepo.byToursOrdered(tourIds)
       roundsById = rounds.mapBy(_.id)
-      studyPlayers <- fetchStudyPlayers(rounds.map(_.id))
       chapters <- chapterRepo.tagsByStudyIds(rounds.map(_.studyId))
     yield chapters.foldLeft(SeqMap.empty: RelayPlayers):
       case (playersAcc, (studyId, chaps)) =>
@@ -264,8 +262,7 @@ private final class RelayPlayerApi(
                   .fromTags(tags)
                   .flatMap:
                     _.traverse: p =>
-                      p.id.flatMap: id =>
-                        studyPlayers.get(id).map(id -> _)
+                      p.id.map(_ -> StudyPlayer.WithFed(p, none))
                   .fold(playersAcc): gamePlayers =>
                     gamePlayers.zipColor.foldLeft(playersAcc):
                       case (playersAcc, (color, (playerId, player))) =>
@@ -287,24 +284,11 @@ private final class RelayPlayerApi(
                             .withGame(game)
                         )
 
-  type StudyPlayers = SeqMap[StudyPlayer.Id, StudyPlayer.WithFed]
-  private def fetchStudyPlayers(roundIds: List[RelayRoundId]): Fu[StudyPlayers] =
-    roundIds
-      .traverse: roundId =>
-        chapterPreviewApi.dataList.uniquePlayers(roundId.studyId)
-      .map:
-        _.foldLeft(SeqMap.empty: StudyPlayers): (players, roundPlayers) =>
-          roundPlayers.foldLeft(players):
-            case (players, (id, p)) =>
-              if players.contains(id) then players
-              else players.updated(id, p.studyPlayer)
-
   private def computeScores(players: RelayPlayers): RelayPlayers =
     players.view
       .mapValues: p =>
         p.copy(
-          score = p.games
-            .foldMap(game => game.playerScore),
+          score = p.games.foldMap(_.playerScore),
           performance = Elo.computePerformanceRating(p.eloGames).map(_.into(IntRating))
         )
       .to(SeqMap)
