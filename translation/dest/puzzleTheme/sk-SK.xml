@@ -67,6 +67,10 @@
   <string name="intermezzoDescription">Namiesto očakávaného ťahu, zahranie ťahu znamenajúceho okamžitú hrozbu, na ktorú musí protihráč reagovať. Nazývaný tiež \"Zwischenzug\".</string>
   <string name="killBoxMate">Mat na poli smrti</string>
   <string name="killBoxMateDescription">Veža je vedľa súperovho kráľa a podporuje ju dáma, ktorá zároveň blokuje kráľove únikové polia. Veža a dáma chytia súperovho kráľa do pasce na 3 x 3 „poli smrti“.</string>
+  <string name="pillsburysMate">Pillsburyho mat</string>
+  <string name="pillsburysMateDescription">Veža dáva kráľovi mat, zatiaľ čo strelec obmedzuje jeho pohyb.</string>
+  <string name="morphysMate">Morphyho mat</string>
+  <string name="morphysMateDescription">Strelec dáva kráľovi mat, zatiaľ čo veža obmedzuje jeho pohyb.</string>
   <string name="triangleMate">Trojuholníkový mat</string>
   <string name="triangleMateDescription">Dáma a veža, vzdialené jedno políčko od súperovho kráľa, sú na rovnakom rade alebo stĺpci, oddelené jedným políčkom, a tvoria trojuholník.</string>
   <string name="vukovicMate">Vukovičov mat</string>
@@ -97,6 +101,8 @@
   <string name="oneMoveDescription">Úloha, ktorá je iba jednoťahová.</string>
   <string name="opening">Otvorenie</string>
   <string name="openingDescription">Taktika počas prvého úseku hry.</string>
+  <string name="operaMate">Opera mat</string>
+  <string name="operaMateDescription">Veža dáva kráľovi mat, zatiaľ čo strelec ju kryje.</string>
   <string name="pawnEndgame">Pešiaková koncovka</string>
   <string name="pawnEndgameDescription">Koncovka iba s pešiakmi.</string>
   <string name="pin">Väzba</string>
