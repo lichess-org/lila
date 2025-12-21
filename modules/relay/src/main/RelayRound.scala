@@ -30,7 +30,7 @@ case class RelayRound(
     rated: Rated = Rated.Yes,
     customScoring: Option[ByColor[RelayRound.CustomScoring]] = none
 ):
-  inline def studyId = id.into(StudyId)
+  inline def studyId = id.studyId
 
   lazy val slug =
     val s = scalalib.StringOps.slug(name.value)

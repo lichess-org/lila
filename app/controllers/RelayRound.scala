@@ -191,7 +191,7 @@ final class RelayRound(
 
   private def pgnWithFlags(ts: String, rs: String, id: RelayRoundId)(using Context): Fu[Result] =
     studyC.pgnWithFlags(
-      id.into(StudyId),
+      id.studyId,
       _.copy(
         updateTags = _ + Tag("GameURL", routeUrl(routes.RelayRound.show(ts, rs, id))),
         comments = false,

@@ -273,7 +273,7 @@ private final class RelayPlayerApi(
   private def fetchStudyPlayers(roundIds: List[RelayRoundId]): Fu[StudyPlayers] =
     roundIds
       .traverse: roundId =>
-        chapterPreviewApi.dataList.uniquePlayers(roundId.into(StudyId))
+        chapterPreviewApi.dataList.uniquePlayers(roundId.studyId)
       .map:
         _.foldLeft(SeqMap.empty: StudyPlayers): (players, roundPlayers) =>
           roundPlayers.foldLeft(players):
