@@ -1,5 +1,6 @@
 import * as xhr from 'lib/xhr';
 import { spinnerHtml, prompt } from 'lib/view';
+import { currencyFormat } from 'lib/i18n';
 import { contactEmail } from './bits';
 import { myUserId } from 'lib';
 
@@ -86,7 +87,7 @@ export function initModule({
     const isGift = !!$checkout.find('.gift input').val();
     const min = isGift ? pricing.giftMin : pricing.min;
     amount = Math.max(min, Math.min(pricing.max, amount));
-    $(this).text(`${pricing.currency} ${amount}`);
+    $(this).text(currencyFormat(amount, pricing.currency));
     ($(this).siblings('input').data('amount', amount)[0] as HTMLInputElement).checked = true;
   });
 
@@ -107,7 +108,7 @@ export function initModule({
 
   $userInput.on('change', toggleCheckout).on('input', toggleCheckout);
 
-  const getAmountToCharge = () => {
+  const getAmountToCharge = (): number | undefined => {
     const freq = getFreq(),
       amount =
         freq === 'lifetime'
@@ -115,14 +116,17 @@ export function initModule({
           : parseFloat($checkout.find('group.amount input:checked').data('amount'));
     const isGift = !!$checkout.find('.gift input').val();
     const min = isGift ? pricing.giftMin : pricing.min;
-    if (amount < min && isGift) {
-      alert(`Minimum gift amount is ${pricing.currency} ${pricing.giftMin}`);
+
+    if (amount < min) {
+      const message = isGift
+        ? `Minimum gift amount is ${currencyFormat(min, pricing.currency)}`
+        : `Minimum amount is ${currencyFormat(min, pricing.currency)}`;
+      alert(message);
       return undefined;
-    } else if (amount < min && !isGift) {
-      alert(`Minimum amount is ${pricing.currency} ${pricing.giftMin}`);
-      return undefined;
-    } else if (amount > pricing.max) {
-      alert(`Maximum amount is ${pricing.currency} ${pricing.max}`);
+    }
+
+    if (amount > pricing.max) {
+      alert(`Maximum amount is ${currencyFormat(pricing.max, pricing.currency)}`);
       return undefined;
     }
     return amount;
