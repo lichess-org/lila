@@ -16,7 +16,7 @@ final class RelayPgnStream(
     studyRepo: StudyRepo,
     studyChapterRepo: ChapterRepo,
     studyPgnDump: PgnDump,
-    baseUrl: lila.core.config.BaseUrl
+    routeUrl: lila.core.config.RouteUrl
 )(using Executor, Materializer):
 
   def ofGame(rt: RelayRound.WithTourAndStudy, chapter: Chapter): Fu[PgnStr] =
@@ -64,14 +64,14 @@ final class RelayPgnStream(
   private def flagsFor(rt: RelayRound.WithTour, chapter: Chapter) =
     baseFlags.copy(
       updateTags = tags =>
-        val gameUrl = s"$baseUrl${rt.path}/${chapter.id}"
+        val gameUrl = routeUrl(rt.call(chapter.id))
         val site = tags(_.Site)
           .flatMap(site => lila.common.url.parse(site).toOption)
           .filter(_.path.sizeIs > 6)
           .fold(gameUrl)(_.toString)
         tags +
           Tag("BroadcastName", rt.tour.name.value) +
-          Tag("BroadcastURL", s"$baseUrl${rt.path}") +
+          Tag("BroadcastURL", routeUrl(rt.call)) +
           Tag("GameURL", gameUrl) +
           Tag(_.Site, site)
     )

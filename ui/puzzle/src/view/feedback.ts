@@ -1,4 +1,4 @@
-import { bind, type MaybeVNode } from 'lib/view';
+import { bind, requiresI18n, type MaybeVNode } from 'lib/view';
 import { h, type VNode } from 'snabbdom';
 import afterView from './after';
 import type PuzzleCtrl from '../ctrl';
@@ -6,10 +6,12 @@ import type PuzzleCtrl from '../ctrl';
 const viewSolution = (ctrl: PuzzleCtrl): VNode =>
   ctrl.streak
     ? h('div.view_solution.skip', { class: { show: !!ctrl.streak?.data.skip } }, [
-        h(
-          'a.button.button-empty',
-          { hook: bind('click', ctrl.skip), attrs: { title: i18n.puzzle.streakSkipExplanation } },
-          i18n.storm.skip,
+        requiresI18n('storm', ctrl.redraw, cat =>
+          h(
+            'a.button.button-empty',
+            { hook: bind('click', ctrl.skip), attrs: { title: i18n.puzzle.streakSkipExplanation } },
+            cat.skip,
+          ),
         ),
       ])
     : h('div.view_solution', { class: { show: ctrl.canViewSolution() } }, [

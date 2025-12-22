@@ -10,6 +10,10 @@ $c-bg-clas-over-dim: $m-clas_white--mix-20;
   margin-bottom: 2em;
 }
 
+.page-menu__content.box {
+  @extend %box-radius-force;
+}
+
 .subnav a {
   white-space: normal;
   max-width: 22vw;
@@ -162,6 +166,23 @@ $c-bg-clas-over-dim: $m-clas_white--mix-20;
 
   &__actions {
     @extend %flex-between;
+  }
+
+  &__bulk {
+    &__helps {
+      margin-top: -2em;
+    }
+    &__help {
+      @extend %box-radius;
+      display: block;
+      background: $c-bg-zebra2;
+      margin-bottom: 1em;
+      padding: 0.5em 1em;
+      strong {
+        color: $c-font-clear;
+        line-height: 2em;
+      }
+    }
   }
 }
 
@@ -623,6 +644,19 @@ $c-bg-clas-over-dim: $m-clas_white--mix-20;
 .clas-login {
   @extend %flex-column;
   gap: 2em;
+  &__title {
+    @extend %flex-between;
+  }
+  &__expiration {
+    @extend %box-radius;
+    background: $c-bg-zebra;
+    font-size: 1.2em;
+    padding: 0.3em 1em;
+    .timeago {
+      font-weight: bold;
+      color: $c-font-clear;
+    }
+  }
   &__cards {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));

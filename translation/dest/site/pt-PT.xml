@@ -475,10 +475,6 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="player">Jogador</string>
   <string name="list">Lista</string>
   <string name="graph">Gráfico</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">Menos de %s minuto</item>
-    <item quantity="other">Menos de %s minutos</item>
-  </plurals>
   <string name="required">Obrigatório.</string>
   <string name="openTournaments">Torneios abertos</string>
   <string name="duration">Duração</string>

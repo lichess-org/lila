@@ -35,17 +35,13 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     )(nonce)
   val noTranslate = raw("""<meta name="google" content="notranslate">""")
 
-  def fontPreload(using ctx: Context) = frag(
-    preload(assetUrl("font/lichess.woff2"), "font", crossorigin = true, "font/woff2".some),
-    preload(
-      assetUrl("font/noto-sans-latin.woff2"),
-      "font",
-      crossorigin = true,
-      "font/woff2".some
-    ),
-    (!ctx.pref.pieceNotationIsLetter).option(
-      preload(assetUrl("font/lichess-chess.woff2"), "font", crossorigin = true, "font/woff2".some)
-    )
+  private def fontPreload(path: String) = preload(assetUrl(s"font/$path"), "font", true, "font/woff2".some)
+
+  def fontsPreload(using ctx: Context) = frag(
+    fontPreload("lichess.woff2"),
+    fontPreload("noto-sans-latin.woff2"),
+    fontPreload("roboto-latin.woff2"),
+    ctx.pref.pieceNotationIsLetter.not.option(fontPreload("lichess-chess.woff2"))
   )
 
   def allNotifications(challenges: Int, notifs: Int)(using Translate) =

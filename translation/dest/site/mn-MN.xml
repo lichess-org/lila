@@ -405,10 +405,6 @@
   <string name="player">Гишүүн</string>
   <string name="list">Жагсаалт</string>
   <string name="graph">Үзүүлэлтийн хүснэгт, диаграмм, график</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">%s минутаас бага</item>
-    <item quantity="other">%s минутаас бага</item>
-  </plurals>
   <string name="required">Мэдээлэл заавал оруулах шаардлагатай.</string>
   <string name="openTournaments">Бүгдэд нээлттэй тэмцээнүүд</string>
   <string name="duration">Үргэлжлэх хугацаа</string>

@@ -41,6 +41,8 @@ final class Env(
 
   lazy val login = wire[ClasLoginApi]
 
+  lazy val bulk = wire[ClasBulkApi]
+
   def hasClas(using me: Me) =
     lila.core.perm.Granter(_.Teacher) || studentCache.isStudent(me)
 

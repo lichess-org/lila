@@ -384,10 +384,6 @@
   <string name="player">کھلاڑی</string>
   <string name="list">فہرست</string>
   <string name="graph">گراف</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">%s منٹ سے کم</item>
-    <item quantity="other">%s منٹ سے کم</item>
-  </plurals>
   <string name="required">ضروری ہے</string>
   <string name="openTournaments">جاری مسابقہ جات</string>
   <string name="duration">دورانیہ</string>

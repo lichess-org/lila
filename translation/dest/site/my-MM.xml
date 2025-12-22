@@ -115,9 +115,6 @@
   <string name="screenshotCurrentPosition">ဖန်သားပြင်မှ လက်ရှိ အနေအထားကို ရိုက်ကူးပါ</string>
   <string name="gameAsGIF">ပွဲ အစအဆုံးကို GIF အဖြစ် ရယူမည်</string>
   <string name="orUploadPgnFile">သို့မဟုတ် PGN ဖိုင် တစ်ခုကို တင်ပို့</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="other">Less than %s minute</item>
-  </plurals>
   <string name="pause">ခေတ္တ နားမည်</string>
   <string name="ifNoneLeaveEmpty">If none, leave empty</string>
   <string name="makeAStudy">ဘေးကင်းးရေးနှင့် ဝေမျှနိုင်ရေးတို့ အတွက် လေ့လာချက် အဖြစ် သိမ်းဆည်းရန် စဉ်းစားပါ။</string>

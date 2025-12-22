@@ -474,10 +474,6 @@
   <string name="player">Speler</string>
   <string name="list">Lijst</string>
   <string name="graph">Grafiek</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">Minder dan %s minuut</item>
-    <item quantity="other">Minder dan %s minuten</item>
-  </plurals>
   <string name="required">Vereist.</string>
   <string name="openTournaments">Open toernooien</string>
   <string name="duration">Tijdsduur</string>

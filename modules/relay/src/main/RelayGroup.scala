@@ -1,7 +1,7 @@
 package lila.relay
 
 import reactivemongo.api.bson.Macros.Annotations.Key
-import lila.core.config.BaseUrl
+import lila.core.config.RouteUrl
 
 case class RelayGroup(@Key("_id") id: RelayGroupId, name: RelayGroup.Name, tours: List[RelayTourId])
 
@@ -31,14 +31,14 @@ private case class RelayGroupData(name: RelayGroup.Name, tours: List[RelayTour.T
   def update(group: RelayGroup): RelayGroup = group.copy(name = name, tours = tourIds)
   def make: RelayGroup = RelayGroup(RelayGroup.makeId, name, tourIds)
 
-private final class RelayGroupForm(baseUrl: BaseUrl):
+private final class RelayGroupForm(routeUrl: RouteUrl):
   import play.api.data.*
   import play.api.data.Forms.*
   import play.api.data.format.Formatter
   import lila.common.Form.formatter
   def data(group: RelayGroup.WithTours) = RelayGroupData(group.group.name, group.tours)
   def asText(data: RelayGroupData): String =
-    s"${data.name}\n${data.tours.map(t => s"$baseUrl${routes.RelayTour.show(t.name.toSlug, t.id)}").mkString("\n")}"
+    s"${data.name}\n${data.tours.map(t => routeUrl(routes.RelayTour.show(t.name.toSlug, t.id))).mkString("\n")}"
   def parse(value: String): Option[RelayGroupData] =
     value.split("\n").toList match
       case Nil => none

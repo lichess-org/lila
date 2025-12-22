@@ -91,6 +91,7 @@ final class RelayRoundForm(using mode: Mode):
       "slices" -> optional:
         nonEmptyText.transform[List[RelayGame.Slice]](RelayGame.Slices.parse, RelayGame.Slices.show)
       ,
+      "reorder" -> optional(nonEmptyText.into[RelayGame.ReorderNames]),
       "rated" -> optional(boolean.into[Rated]),
       "customScoring" -> optional(byColor.mappingOf(customScoringMapping))
     )(Data.apply)(unapply)
@@ -235,6 +236,7 @@ object RelayRoundForm:
       delay: Option[Seconds] = None,
       onlyRound: Option[String] = None,
       slices: Option[List[RelayGame.Slice]] = None,
+      reorder: Option[RelayGame.ReorderNames] = None,
       rated: Option[Rated] = None,
       customScoring: Option[ByColor[RelayRound.CustomScoring]] = None
   ):
@@ -274,6 +276,7 @@ object RelayRoundForm:
         delay = delay,
         onlyRound = onlyRound.ifFalse(upstream.exists(_.isInternal)).map(Sync.OnlyRound.parse),
         slices = slices,
+        reorder = reorder,
         log = SyncLog.empty
       )
 
@@ -327,6 +330,7 @@ object RelayRoundForm:
         period = round.sync.period,
         onlyRound = round.sync.onlyRound.map(Sync.OnlyRound.toString),
         slices = round.sync.slices,
+        reorder = round.sync.reorder,
         delay = round.sync.delay,
         rated = round.rated.some,
         customScoring = round.customScoring

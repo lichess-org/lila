@@ -1,5 +1,6 @@
 package lila.relay
 
+import play.api.mvc.Call
 import io.mola.galimatias.URL
 import reactivemongo.api.bson.Macros.Annotations.Key
 import scalalib.ThreadLocalRandom
@@ -29,7 +30,7 @@ case class RelayRound(
     rated: Rated = Rated.Yes,
     customScoring: Option[ByColor[RelayRound.CustomScoring]] = none
 ):
-  inline def studyId = id.into(StudyId)
+  inline def studyId = id.studyId
 
   lazy val slug =
     val s = scalalib.StringOps.slug(name.value)
@@ -106,7 +107,8 @@ object RelayRound:
       period: Option[Seconds], // override time between two sync (rare)
       delay: Option[Seconds], // add delay between the source and the study
       onlyRound: Option[Sync.OnlyRound], // only keep games with [Round "x"]
-      slices: Option[List[RelayGame.Slice]] = none,
+      slices: Option[List[RelayGame.Slice]] = None,
+      reorder: Option[RelayGame.ReorderNames] = None,
       log: SyncLog
   ):
     def hasUpstream = upstream.isDefined
@@ -213,9 +215,9 @@ object RelayRound:
     def link: RelayRound
     def fullName = s"${tour.name} • ${display.name}"
     def transName(using Translate) = s"${tour.name} • ${display.transName}"
-    def path: String =
-      s"/broadcast/${tour.slug}/${if link.slug == tour.slug then "-" else link.slug}/${link.id}"
-    def path(chapterId: StudyChapterId): String = s"$path/$chapterId"
+    def path = s"/broadcast/${tour.slug}/${if link.slug == tour.slug then "-" else link.slug}/${link.id}"
+    def call: Call = Call("GET", path)
+    def call(chapterId: StudyChapterId): Call = Call("GET", s"$path/$chapterId")
 
   trait AndGroup:
     def group: Option[RelayGroup.Name]
@@ -235,7 +237,7 @@ object RelayRound:
 
   case class WithTourAndStudy(relay: RelayRound, tour: RelayTour, study: Study):
     def withTour = WithTour(relay, tour)
-    def path = withTour.path
+    def call = withTour.call
     def fullName = withTour.fullName
     def transName(using Translate) = withTour.transName
 

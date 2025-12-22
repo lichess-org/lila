@@ -474,10 +474,6 @@
   <string name="player">Jokalaria</string>
   <string name="list">Zerrenda</string>
   <string name="graph">Grafikoa</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">%s minutu baino gutxiago</item>
-    <item quantity="other">%s minutu baino gutxiago</item>
-  </plurals>
   <string name="required">Beharrezkoa.</string>
   <string name="openTournaments">Txapelketa irekiak</string>
   <string name="duration">Iraupena</string>
@@ -912,6 +908,7 @@
   <string name="agreementPolicy">Lichessek ezarritako politikak beteko ditut.</string>
   <string name="searchOrStartNewDiscussion">Hizketaldia bilatu edo berria hasi</string>
   <string name="edit">Aldatu</string>
+  <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">UltraBullet</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Aktiboa</string>

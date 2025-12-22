@@ -243,9 +243,6 @@
   <string name="player">Вӑйӑҫӑ</string>
   <string name="list">Тапӑл</string>
   <string name="graph">Графӗк</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="other">%s минутран сахалтарах</item>
-  </plurals>
   <string name="required">Тивӗҫлӗ.</string>
   <string name="openTournaments">Уҫӑ турнирсем</string>
   <string name="duration">Вӑрӑмӑш</string>

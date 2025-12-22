@@ -103,7 +103,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\" kun rondigo, bazita en nombro de inter-movoj ĝis sekva kapto aŭ peona movo</string>
   <string name="noGameFound">Neniu ludo trovita</string>
-  <string name="maxDepthReached" comment="Appears when the maximum number of moves have been checked in the opening explorer of the analysis board.&#10;&#10;Technical information: derived from constant MAX_DEPTH which is given in plies. As of 2025 this is 50 plies (i.e. 25 moves by white and black).">Maksimuma profundeco kulminas!</string>
+  <string name="maxDepthReached">Maksimuma profundeco kulminas!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Eble inkluzivi pli da ludoj de la menuo de preferoj?</string>
   <string name="openings">Ludkomencoj</string>
   <string name="openingExplorer">Esplorilo pri malfermoj</string>
@@ -474,10 +474,6 @@
   <string name="player">Ludanto</string>
   <string name="list">Listo</string>
   <string name="graph">Grafo</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">Malpli ol %s minuto</item>
-    <item quantity="other">Malpli ol %s minutoj</item>
-  </plurals>
   <string name="required">Necesa.</string>
   <string name="openTournaments">Enireblaj turniroj</string>
   <string name="duration">Daŭro</string>

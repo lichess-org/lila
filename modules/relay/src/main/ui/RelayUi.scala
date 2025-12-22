@@ -30,14 +30,15 @@ final class RelayUi(helpers: Helpers)(
     Page(rt.transName)
       .css("analyse.relay")
       .i18n(_.study, _.broadcast)
-      .i18nOpt(ctx.blind, _.keyboardMove, _.nvui)
+      .i18nOpt(ctx.speechSynthesis, _.nvui)
+      .i18nOpt(ctx.blind, _.keyboardMove)
       .js(analyseNvuiTag)
       .js(pageModule(rt, data, chatOption, socketVersion))
       .flag(_.zoom)
       .graph:
         OpenGraph(
           title = rt.transName,
-          url = pathUrl(rt.path),
+          url = routeUrl(rt.call),
           description = shorten(rt.tour.info.toString, 152),
           image = imageUrl
         )

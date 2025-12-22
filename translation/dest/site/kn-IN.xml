@@ -446,10 +446,6 @@
   <string name="player">ಆಟದ ವ್ಯಕ್ತಿ</string>
   <string name="list">ಪಟ್ಟಿ</string>
   <string name="graph">ರೇಖಾನಕ್ಷೆ</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">%s ನಿಮಿಷಕ್ಕಿಂತ ಕಡಿಮೆ</item>
-    <item quantity="other">%s ನಿಮಿಷಗಳಿಗಿಂತ ಕಡಿಮೆ</item>
-  </plurals>
   <string name="required">ಅವಶ್ಯಕವಾಗಿದೆ.</string>
   <string name="openTournaments">ಮುಕ್ತ ಪಂದ್ಯಾವಳಿಗಳು</string>
   <string name="duration">ಕಾಲಾವಧಿ</string>

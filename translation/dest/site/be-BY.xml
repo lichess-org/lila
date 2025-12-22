@@ -513,12 +513,6 @@
   <string name="player">Гулец</string>
   <string name="list">Спіс</string>
   <string name="graph">Дыяграма</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">Менш за %s хвіліну</item>
-    <item quantity="few">Менш за %s хвіліны</item>
-    <item quantity="many">Менш за %s хвілін</item>
-    <item quantity="other">Менш за %s хвілін</item>
-  </plurals>
   <string name="required">Абавязкова.</string>
   <string name="openTournaments">Адкрытыя турніры</string>
   <string name="duration">Працягласць</string>

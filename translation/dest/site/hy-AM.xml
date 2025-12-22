@@ -454,10 +454,6 @@
   <string name="player">Խաղացող</string>
   <string name="list">ցուցակ</string>
   <string name="graph">Գրաֆիկ</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">ավելի քիչ քան %s րոպե</item>
-    <item quantity="other">ավելի քիչ քան %s րոպե</item>
-  </plurals>
   <string name="required">Պարտադիր.</string>
   <string name="openTournaments">Բաց մրցաշարեր</string>
   <string name="duration">Տևողություն</string>

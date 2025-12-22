@@ -382,7 +382,7 @@ export default class AnalyseCtrl implements CevalHandler {
   setChessground = (cg: CgApi) => {
     this.chessground = cg;
 
-    if (this.data.pref.keyboardMove) {
+    if (this.data.pref.keyboardMove && !this.study?.relay) {
       this.keyboardMove ??= makeKeyboardMove({
         ...this,
         data: { ...this.data, player: { color: 'both' } },

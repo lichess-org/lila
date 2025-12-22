@@ -51,7 +51,7 @@ export default class RelayCtrl {
         : 'boards';
     this.tab = prop<RelayTab>(initialTab);
     this.teams = data.tour.teamTable
-      ? new RelayTeams(study.data.id, study.multiCloudEval, study.chapterSelect, this.roundPath, this.redraw)
+      ? new RelayTeams(this.round, study.multiCloudEval, study.chapterSelect, this.roundPath, this.redraw)
       : undefined;
     this.players = new RelayPlayers(
       data.tour.id,
