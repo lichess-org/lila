@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<string name="initTitle">Que ano de xadrez!</string>
+	<string name="noGamesText">Não jogou nenhum jogo neste ano.</string>
+	<string name="noGamesCta">Quer jogar agora?</string>
+	<string name="gamesYouWon" comment="%s is the number of games won">E ganhou %s!</string>
+	<string name="gamesNextQuestion">O que foi preciso para chegar até aqui?</string>
+	<string name="timeSpentPlayingExclam" comment="%s is the time spent playing animated from 0 e.g. '1 day, 17 hours'. The time is also translated">%s passados a jogar!</string>
+	<string name="timeTooMuch">Isso é demasiado xadrez.</string>
+	<string name="timeALot">Isso é muito xadrez.</string>
+	<string name="timeReasonable">Isso parece uma quantidade razoável de xadrez.</string>
+	<string name="timeHowManyMoves">Quantos movimentos jogou nesse tempo todo?</string>
+	<plurals name="nbMovesPlayed">
+		<item quantity="one">%s movimento feito</item>
+		<item quantity="other">%s movimentos feitos</item>
+	</plurals>
 	<string name="thanksTitle">Obrigado por jogar no Lichess!</string>
 	<string name="patronCosts" comment="Part of a longer sentence &quot;Lichess's costs this year were &lt;monetary amount in local currency&gt;.&quot;&#10;&#10;The text links to lichess.org/costs">custos</string>
 </resources>
