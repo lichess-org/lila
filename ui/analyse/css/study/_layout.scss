@@ -22,10 +22,18 @@
     .mchat {
       margin-top: 0;
       min-height: 34px;
-
-      @media not all and (hover: hover) and (pointer: fine) {
-        max-height: 40vh;
-      }
     }
+  }
+  .analyse.variant-crazyhouse {
+    $pocket-height: 60px;
+    grid-template-rows: $pocket-height auto var(---chat-height) $pocket-height 2.5em 1fr;
+    grid-template-areas:
+      'side    . board   gauge pocket-top'
+      'side    . board   gauge tools'
+      'side    . board   gauge tools'
+      'side    . board   gauge pocket-bot'
+      'side    . kb-move .     controls'
+      'side    . under   .     controls'
+      'side    . under   .     round-training';
   }
 }

@@ -39,20 +39,20 @@ object variant:
       perfType: lila.rating.PerfType
   )(using Context) =
     page(
-      title = s"${variant.name} • ${variant.title}",
+      title = s"${variant.variantTrans.txt()} • ${variant.variantTitleTrans.txt()}",
       klass = "box-pad page variant",
       active = perfType.key.some
     ).csp(_.withInlineIconFont):
       frag(
-        boxTop(h1(cls := "text", dataIcon := perfType.icon)(variant.name)),
-        h2(cls := "headline")(variant.title),
+        boxTop(h1(cls := "text", dataIcon := perfType.icon)(variant.variantTrans())),
+        h2(cls := "headline")(variant.variantTitleTrans()),
         div(cls := "body expand-text")(views.cms.render(p))
       )
 
   def home(using Context) =
     page(title = "Lichess variants", klass = "variants"):
       frag(
-        h1(cls := "box__top")("Lichess variants"),
+        h1(cls := "box__top")(trans.site.variants()),
         div(cls := "body box__pad")(
           "Chess variants introduce variations of or new mechanics in regular Chess that gives it a unique, compelling, or sophisticated gameplay. Are you ready to think outside the box?"
         ),
@@ -66,8 +66,8 @@ object variant:
               dataIcon := pt.icon
             ):
               span(
-                h2(variant.name),
-                h3(cls := "headline")(variant.title)
+                h2(variant.variantTrans()),
+                h3(cls := "headline")(variant.variantTitleTrans())
               )
         )
       )
@@ -85,7 +85,7 @@ object variant:
                 cls := List("text" -> true, "active" -> active.contains(pk)),
                 href := routes.Cms.variant(variant.key),
                 dataIcon := pk.perfIcon
-              )(pk.perfTrans)
+              )(variant.variantTrans())
           ),
           div(cls := s"page-menu__content box $klass")(body)
         )

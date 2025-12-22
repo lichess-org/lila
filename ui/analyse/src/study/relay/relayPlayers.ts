@@ -2,7 +2,8 @@ import { type VNode, dataIcon, hl, onInsert, type MaybeVNodes } from 'lib/view';
 import { json as xhrJson } from 'lib/xhr';
 import * as licon from 'lib/licon';
 import { spinnerVdom as spinner } from 'lib/view';
-import type { Photo, RelayTour, RoundId, TourId } from './interfaces';
+import type { Photo, RelayRound, RelayTour, RoundId, TourId } from './interfaces';
+import { playerColoredResult } from './customScoreStatus';
 import { playerFedFlag } from '../playerBars';
 import { userLink, userTitle } from 'lib/view/userLink';
 import type {
@@ -40,6 +41,7 @@ interface RelayPlayer extends StudyPlayer {
 interface RelayPlayerGame {
   id: ChapterId;
   round: RoundId;
+  roundObj?: RelayRound;
   opponent: RelayPlayer;
   color: Color;
   points?: PointsStr;
@@ -146,7 +148,7 @@ const playerView = (ctrl: RelayPlayers, show: PlayerToShow, tour: RelayTour): VN
   const tc = tour.info.fideTc || 'standard';
   const age: number | undefined = p?.fide?.year && year - p.fide.year;
   const fidePageAttrs = p ? fidePageLinkAttrs(p, ctrl.isEmbed) : {};
-  const photo = p?.fideId && ctrl.fidePhoto(p.fideId);
+  const photo = p?.fideId ? ctrl.fidePhoto(p.fideId) : undefined;
   return hl(
     'div.fide-player',
     {
@@ -163,7 +165,7 @@ const playerView = (ctrl: RelayPlayers, show: PlayerToShow, tour: RelayTour): VN
               }),
             },
             [
-              photo && hl('div.fide-player__photo', [hl('img', { attrs: { src: photo.medium } })]),
+              photo && playerPhotoOrFallback(p, photo, 'medium', 'fide-player__photo'),
               hl('div.fide-player__header__info', [
                 hl('a.fide-player__header__name', { attrs: fidePageAttrs }, [
                   hl('span', [userTitle(p), p.name]),
@@ -384,7 +386,7 @@ const isRelayPlayer = (p: StudyPlayer | RelayPlayer): p is RelayPlayer => 'score
 
 const renderPlayerTipHead = (ctrl: RelayPlayers, p: StudyPlayer | RelayPlayer): VNode =>
   hl('div.tpp__player', [
-    playerPhotoOrFallback(p, ctrl, 'medium'),
+    playerPhoto(p, ctrl, 'medium'),
     hl('div.tpp__player__info', [
       hl(`a.tpp__player__name`, playerLinkConfig(ctrl, p, false), [userTitle(p), p.name]),
       hl('div.tpp__player__details', [
@@ -417,15 +419,17 @@ const renderPlayerGames = (ctrl: RelayPlayers, p: RelayPlayerWithGames, withTips
       const op = game.opponent;
       const points = game.points;
       const customPoints = game.customPoints;
-      const formatPointsStr = (points: PointsStr): string => points.replace('1/2', '½');
-      const formatPoints = (points: PointsStr, customPoints: number | undefined): string =>
-        customPoints === undefined || points.replace('1/2', '0.5') === customPoints.toString()
-          ? formatPointsStr(points)
-          : `${formatPointsStr(points)} (${customPoints})`;
-      const pointsVnode = (points: PointsStr, customPoints: number | undefined): VNode =>
-        hideResultsSinceIndex <= i
-          ? hl('span', '?')
-          : hl(points === '1' ? 'good' : points === '0' ? 'bad' : 'span', formatPoints(points, customPoints));
+      const coloredPoint = (points: PointsStr): VNode => {
+        if (hideResultsSinceIndex <= i) return hl('span', '?');
+        const povResultStr =
+          points === '1/2' ? '½-½' : (points === '1') === (game.color === 'white') ? '1-0' : '0-1';
+        const coloredResult = playerColoredResult(povResultStr, game.color, game.roundObj);
+        const displayValue =
+          customPoints !== undefined && points.replace('1/2', '0.5') !== customPoints.toString()
+            ? customPoints
+            : coloredResult.points;
+        return hl(`${coloredResult.tag}`, displayValue);
+      };
       return hl('tr', [
         hl(
           'td',
@@ -438,25 +442,32 @@ const renderPlayerGames = (ctrl: RelayPlayers, p: RelayPlayerWithGames, withTips
         playerTd(op, ctrl, withTips),
         hl('td', op.rating?.toString()),
         hl('td.is.color-icon.' + game.color),
-        hl('td.tpp__games__status', points !== undefined ? pointsVnode(points, customPoints) : '*'),
+        hl('td.tpp__games__status', points !== undefined ? coloredPoint(points) : '*'),
         hl('td', defined(game.ratingDiff) && hideResultsSinceIndex > i ? ratingDiff(game) : undefined),
       ]);
     }),
   );
 };
 
-const playerPhotoOrFallback = (
+const playerPhoto = (player: StudyPlayer, ctrl: RelayPlayers, which: 'small' | 'medium' = 'small'): VNode =>
+  playerPhotoOrFallback(
+    player,
+    player.fideId ? ctrl.fidePhoto(player.fideId) : undefined,
+    which,
+    'fide-players__photo',
+  );
+
+export const playerPhotoOrFallback = (
   player: StudyPlayer,
-  ctrl: RelayPlayers,
-  which: 'small' | 'medium' = 'small',
-): VNode => {
-  const photo = player.fideId && ctrl.fidePhoto(player.fideId);
-  return photo
-    ? hl('img.fide-players__photo', { attrs: { src: photo[which] } })
-    : hl('img.fide-players__photo.fide-players__photo--fallback', {
-        attrs: { src: site.asset.url('images/anon-face.png') },
+  photo: Photo | undefined,
+  which: 'small' | 'medium',
+  cls: string,
+): VNode =>
+  photo
+    ? hl(`img.${cls}`, { attrs: { src: photo[which] } })
+    : hl(`img.${cls}.${cls}--fallback`, {
+        attrs: { src: site.asset.url(`images/anon-${player.title === 'BOT' ? 'engine' : 'face'}.webp`) },
       });
-};
 
 const playerTd = (player: RelayPlayer, ctrl: RelayPlayers, withTips: boolean): VNode => {
   const linkCfg = playerLinkConfig(ctrl, player, withTips);
@@ -464,7 +475,7 @@ const playerTd = (player: RelayPlayer, ctrl: RelayPlayers, withTips: boolean): V
     'td.player-intro-td',
     { attrs: { 'data-sort': player.name || '' } },
     hl('span.player-intro', [
-      hl('a.player-intro__photo', linkCfg, playerPhotoOrFallback(player, ctrl)),
+      hl('a.player-intro__photo', linkCfg, playerPhoto(player, ctrl)),
       hl('span.player-intro__info', [
         hl('a.player-intro__name', linkCfg, [userTitle(player), player.name]),
         player.fed &&

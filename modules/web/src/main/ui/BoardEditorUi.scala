@@ -24,6 +24,7 @@ final class BoardEditorUi(helpers: Helpers):
           jsData(fen) ++ Json.obj("positions" -> positionsJson, "endgamePositions" -> endgamePositionsJson)
         )
       )
+      .i18n(_.variant)
       .css("editor")
       .flag(_.zoom)
       .graph(

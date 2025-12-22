@@ -5,7 +5,7 @@
   margin-bottom: 1em;
 
   &--tier-best {
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
     @media (max-width: at-most($xx-small)) {
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     }

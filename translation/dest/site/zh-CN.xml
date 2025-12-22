@@ -216,7 +216,7 @@
   <string name="changeUsernameNotSame">只能更改字母大小写。例如，将“johndoe”改为“JohnDoe”。</string>
   <string name="changeUsernameDescription">更改用户名。注意只能更改一次，且只能更改用户名字母的大小写。</string>
   <string name="signupUsernameHint">请务必选择一个和谐的用户名，用户名设置后无法更改，并且不合规的用户名会导致账户被封禁！</string>
-  <string name="signupEmailHint">仅用于重置密码</string>
+  <string name="signupEmailHint">该邮箱仅用于密码重置和账户激活</string>
   <string name="password">密码</string>
   <string name="changePassword">更改密码</string>
   <string name="changeEmail">更改邮箱</string>
@@ -439,9 +439,6 @@
   <string name="player">棋手</string>
   <string name="list">列表</string>
   <string name="graph">图表</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="other">少于 %s 分钟</item>
-  </plurals>
   <string name="required">必填项目</string>
   <string name="openTournaments">公开锦标赛</string>
   <string name="duration">时长</string>
@@ -867,6 +864,7 @@
   <string name="agreementPolicy">我同意我将遵守所有 Lichess 规范。</string>
   <string name="searchOrStartNewDiscussion">搜索或开始新对话</string>
   <string name="edit">编辑</string>
+  <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">超子弹棋</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">子弹棋</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">超快棋</string>
   <string name="rapid">快棋</string>

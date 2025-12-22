@@ -447,10 +447,6 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="player">jan</string>
   <string name="list">sewi tawa anpa</string>
   <string name="graph">sitelen</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">tenpo tawa li lili tawa tenpo Minuta %s</item>
-    <item quantity="other">tenpo tawa li lili tawa tenpo Minuta %s</item>
-  </plurals>
   <string name="required">wile</string>
   <string name="openTournaments">musi open</string>
   <string name="duration">tenpo</string>

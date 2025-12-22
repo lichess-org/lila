@@ -119,7 +119,12 @@ export default class StudyCtrl {
     this.data = data;
     this.notif = new NotifCtrl(ctrl.redraw);
     const isManualChapter = data.chapter.id !== data.position.chapterId;
-    const sticked = data.features.sticky && !ctrl.initialPath && !isManualChapter && !practiceData;
+    const sticked =
+      data.features.sticky &&
+      !ctrl.initialPath &&
+      ctrl.requestInitialPly === undefined &&
+      !isManualChapter &&
+      !practiceData;
     this.vm = {
       loading: false,
       tab: prop<Tab>(!relayData && data.chapters?.[1] ? 'chapters' : 'members'),

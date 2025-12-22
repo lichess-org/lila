@@ -474,10 +474,6 @@
   <string name="player">بازیکن</string>
   <string name="list">فهرست</string>
   <string name="graph">نمودار</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">کمتر از %s دقیقه</item>
-    <item quantity="other">کمتر از %s دقیقه</item>
-  </plurals>
   <string name="required">مورد نیاز است</string>
   <string name="openTournaments">باز کردن مسابقه</string>
   <string name="duration">مدت</string>
@@ -913,6 +909,7 @@
   <string name="agreementPolicy">با پیروی از همهٔ خط‌مشی‌های لیچس، موافقم.</string>
   <string name="searchOrStartNewDiscussion">جستجو یا شروع کردن مکالمه جدید</string>
   <string name="edit">ویرایش</string>
+  <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">اولاگلوله</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">گلوله</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">برق‌آسا</string>
   <string name="rapid">سریع</string>

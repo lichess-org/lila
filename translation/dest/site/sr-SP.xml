@@ -474,11 +474,6 @@
   <string name="player">Играч</string>
   <string name="list">Листа</string>
   <string name="graph">Графикон</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">Мање од %s минуте</item>
-    <item quantity="few">Мање од %s минута</item>
-    <item quantity="other">Мање од %s минута</item>
-  </plurals>
   <string name="required">Неопходно.</string>
   <string name="openTournaments">Отворени турнири</string>
   <string name="duration">Трајање</string>

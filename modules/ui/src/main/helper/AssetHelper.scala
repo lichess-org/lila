@@ -70,12 +70,13 @@ trait AssetHelper:
 
   def iconFlair(flair: Flair): Tag = decorativeImg(cls := "icon-flair", src := flairSrc(flair))
 
-  def imagePreload(url: Url) = preload(url, "image", crossorigin = false) // images don't need crossorigin
+  def imagePreload(url: Url) =
+    raw(s"""<link rel="preload" href="$url" as="image" fetchpriority="high">""")
 
-  def preload(href: Url, as: String, crossorigin: Boolean, tpe: Option[String] = None) =
-    val linkType = tpe.so(t => s"""type="$t" """)
+  def preload(url: Url, as: String, crossorigin: Boolean, tpe: Option[String] = None) =
+    val linkType = tpe.so(t => s""" type="$t"""")
     raw:
-      s"""<link rel="preload" href="$href" as="$as" $linkType${crossorigin.so("crossorigin")}>"""
+      s"""<link rel="preload" href="$url" as="$as"$linkType${crossorigin.so(" crossorigin")}>"""
 
   def fingerprintTag: EsmList = Esm("bits.fipr")
 

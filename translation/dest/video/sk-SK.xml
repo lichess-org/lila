@@ -1,4 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="chessVideos">Šachové videá</string>
+  <string name="allVideosAreFree">Všetky videá sú zadarmo pre všetkých.</string>
+  <string name="selectTagsToFilter">Vyber kľúčové slovo pre filtrovanie videí.</string>
+  <string name="weHaveCarefullySelectedX" comment="%s is the number of videos.&#10;&#10;Appears on https://lichess.org/video">Zatiaľ sme starostlivo vybrali %s videí!</string>
+  <string name="freeChessVideos">Bezplatné šachové videá</string>
+  <string name="xFreeCarefullyCurated" comment="%s is the number of videos. Appears in social media embeds (i.e. OpenGraph information) when linking Lichess videos.">%s bezplatné, starostlivo vybrané šachové videá</string>
+  <string name="xCuratedChessVideos" comment="%s is the number of videos. Appears in social media embeds (i.e. OpenGraph information) when linking Lichess videos.">%s starostlivo vyberané šachové videá</string>
+  <string name="xWithTagsY" comment="%1$s is the number of videos found.&#10;&#10;%2$s is a list of tags.&#10;&#10;Appears when filtering for videos by tag.">%1$s s kľúčovým slovom %2$s</string>
   <string name="freeForAll" comment="Appears in social media embeds (i.e. OpenGraph information) when linking Lichess videos. Part of a longer piece of text.&#10;&#10;The full text will be something like &quot;%s carefully curated chess videos • free for all&quot;">zadarmo pre všetkých</string>
+  <string name="noVideosForTheseTags">Žiadne video pre tieto kľúčové slová:</string>
+  <string name="thatsAllWeGotForTheseTags">Toto je všetko, čo sme našli pre tieto kľúčové slová:</string>
+  <string name="thatsAllWeGotForThisSearchX" comment="%s is the search term that the user entered.&#10;&#10;Appears at the end of a list of search results on https://lichess.org/video">Toto je všetko, čo sme našli pre toto vyhľadávanie: \"%s\"</string>
+  <string name="thereAreNoResultsForX" comment="%s is the search term that the user entered.">Žiadny výsledok pre \"%s\"</string>
+  <string name="viewMoreTags" comment="Appears as a link on https://lichess.org/video&#10;&#10;The link leads to https://lichess.org/video/tags">Pozri viac kľúčových slov</string>
+  <string name="videoNotFound">Video sa nenašlo!</string>
+  <string name="xByY" comment="%1$s is the video's title.&#10;&#10;%2$s is the video's author. This will be the author's display name on YouTube.&#10;&#10;Appears in embeds on social media platform, when a Lichess video is linked.&#10;&#10;Examples:&#10;&quot;Chess Fundamentals #1: Undefended Pieces by IM John Bartholomew&quot;&#10;&quot;Chess Traps: Halosar Trap by thechesswebsite&quot;">%1$s od %2$s</string>
+  <string name="allNbVideoTags" comment="%s is the number of video tags. Appears on https://lichess.org/video/tags">Všetky %s kľúčové slová videí</string>
 </resources>

@@ -50,8 +50,9 @@ final class AnalyseUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
             .add("inlinePgn", inlinePgn) ++
             explorerAndCevalConfig
         )
-      .i18n(_.puzzle, _.study)
-      .i18nOpt(ctx.blind, _.keyboardMove, _.nvui)
+      .i18n(_.study)
+      .i18nOpt(ctx.speechSynthesis, _.nvui)
+      .i18nOpt(ctx.blind, _.keyboardMove)
       .graph(
         title = "Chess analysis board",
         url = routeUrl(routes.UserAnalysis.index),
@@ -68,7 +69,9 @@ final class AnalyseUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
             st.aside(cls := "analyse__side")(
               lila.ui.bits.mselect(
                 "analyse-variant",
-                span(cls := "text", dataIcon := iconByVariant(pov.game.variant))(pov.game.variant.name),
+                span(cls := "text", dataIcon := iconByVariant(pov.game.variant))(
+                  pov.game.variant.variantTrans()
+                ),
                 Variant.list.all
                   .filter(FromPosition != _)
                   .map: v =>
@@ -76,7 +79,7 @@ final class AnalyseUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
                       dataIcon := iconByVariant(v),
                       cls := (pov.game.variant == v).option("current"),
                       href := routes.UserAnalysis.parseArg(v.key.value)
-                    )(v.name)
+                    )(v.variantTrans())
               ),
               pov.game.variant.chess960.option(chess960selector(chess960PositionNum)),
               pov.game.variant.standard.option(

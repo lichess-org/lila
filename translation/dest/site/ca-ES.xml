@@ -474,10 +474,6 @@
   <string name="player">Jugador</string>
   <string name="list">Llista</string>
   <string name="graph">Gràfica</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">Menys de %s minuts</item>
-    <item quantity="other">Menys de %s minuts</item>
-  </plurals>
   <string name="required">Necessari.</string>
   <string name="openTournaments">Tornejos oberts</string>
   <string name="duration">Durada</string>
@@ -911,6 +907,7 @@
   <string name="agreementPolicy">Estic d’acord que seguiré totes les polítiques de Lichess.</string>
   <string name="searchOrStartNewDiscussion">Cerca o inicia una nova discusió</string>
   <string name="edit">Edita</string>
+  <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">Ultra-Bala</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bala</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Llampec</string>
   <string name="rapid">Ràpides</string>

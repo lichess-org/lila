@@ -474,10 +474,6 @@
   <string name="player">Παίκτης</string>
   <string name="list">Κατάλογος</string>
   <string name="graph">Διάγραμμα</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">Λιγότερο από %s λεπτό</item>
-    <item quantity="other">Λιγότερο από %s λεπτά</item>
-  </plurals>
   <string name="required">Απαιτείται.</string>
   <string name="openTournaments">Ανοικτά τουρνουά</string>
   <string name="duration">Διάρκεια</string>
@@ -912,6 +908,7 @@
   <string name="agreementPolicy">Δηλώνω ότι θα συμμορφωθώ με όλες τις πολιτικές του Lichess.</string>
   <string name="searchOrStartNewDiscussion">Αναζήτηση ή έναρξη νέας συνομιλίας</string>
   <string name="edit">Επεξεργασία</string>
+  <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">UltraBullet</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Rapid</string>

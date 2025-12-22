@@ -51,7 +51,7 @@ export default class RelayCtrl {
         : 'boards';
     this.tab = prop<RelayTab>(initialTab);
     this.teams = data.tour.teamTable
-      ? new RelayTeams(study.data.id, study.multiCloudEval, study.chapterSelect, this.roundPath, this.redraw)
+      ? new RelayTeams(this.round, study.multiCloudEval, study.chapterSelect, this.roundPath, this.redraw)
       : undefined;
     this.players = new RelayPlayers(
       data.tour.id,
@@ -75,6 +75,7 @@ export default class RelayCtrl {
       );
     const pinnedName = this.isPinnedStreamOngoing() && data.pinned?.name;
     if (pinnedName) this.streams.push(['ps', { name: pinnedName, lang: '' }]);
+    this.setBodyClass();
     pubsub.on('socket.in.crowd', d => {
       const s = d.streams?.slice() ?? [];
       if (pinnedName) s.unshift(['ps', { name: pinnedName, lang: '' }]);
@@ -139,6 +140,8 @@ export default class RelayCtrl {
     if (!this.tourShow() && location.href.includes('#')) history.pushState({}, '', url);
     else history.replaceState({}, '', url);
   };
+
+  setBodyClass = () => document.body.classList.toggle('header-margin-more', !this.tourShow());
 
   isOfficial = () => !!this.data.tour.tier;
 

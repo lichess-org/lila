@@ -93,8 +93,9 @@ final private class RelayFetch(
         withFide <- fidePlayers.enrichGames(rt.tour)(withPlayers)
         withReplacements = rt.tour.players.fold(withFide)(_.parse.update(withFide)._1)
         withTeams = rt.tour.teams.fold(withReplacements)(_.update(withReplacements))
+        reordered = rt.round.sync.reorder.fold(withTeams)(_.reorder(withTeams))
         res <- sync
-          .updateStudyChapters(rt, withTeams)
+          .updateStudyChapters(rt, reordered)
           .withTimeoutError(7.seconds, SyncResult.Timeout)
           .mon(_.relay.syncTime(rt.tour.official, rt.tour.id, rt.tour.slug))
         games = res.plan.input.games
@@ -320,7 +321,7 @@ final private class RelayFetch(
       .flatMap:
         case RelayFormat.Round(id) =>
           studyChapterRepo
-            .orderedByStudyLoadingAllInMemory(id.into(StudyId))
+            .orderedByStudyLoadingAllInMemory(id.studyId)
             .map(_.view.map(RelayGame.fromChapter).toVector)
         case RelayFormat.SingleFile(url) =>
           httpGetPgn(url)

@@ -127,7 +127,8 @@ object MarkdownRender:
           .replaceAllIn(t, "_" * 3)
           .linesIterator
           .map: line =>
-            tooManyQuotes.replaceAllIn(line, "> " * 5)
+            if line.count(_ == '>') > 15 then line.replaceAll(">", "").trim
+            else tooManyQuotes.replaceAllIn(line, "> " * 5)
           .mkString("\n")
 
   private object WhitelistedImage:

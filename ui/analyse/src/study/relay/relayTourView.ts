@@ -27,7 +27,7 @@ import { gameLinksListener } from '../studyChapters';
 import { baseUrl } from '@/view/util';
 import { commonDateFormat, timeago } from 'lib/i18n';
 import { renderChat } from 'lib/chat/renderChat';
-import { displayColumns, isTouchDevice } from 'lib/device';
+import { displayColumns } from 'lib/device';
 import { verticalResize } from 'lib/view/verticalResize';
 import { watchers } from 'lib/view/watchers';
 import { userLink } from 'lib/view/userLink';
@@ -53,10 +53,7 @@ export const tourSide = (ctx: RelayViewContext, kid: LooseVNode) => {
   const { ctrl, study, relay } = ctx;
   const empty = study.chapters.list.looksNew();
   const resizeId =
-    !ctrl.isEmbed &&
-    !isTouchDevice() &&
-    displayColumns() > (ctx.hasRelayTour ? 1 : 2) &&
-    `relayTour/${relay.data.tour.id}`;
+    !ctrl.isEmbed && displayColumns() > (ctx.hasRelayTour ? 1 : 2) && `relayTour/${relay.data.tour.id}`;
   return hl(
     'aside.relay-tour__side',
     {
@@ -419,7 +416,7 @@ const games = (ctx: RelayViewContext) => [
 
 const teams = (ctx: RelayViewContext) => [
   header(ctx),
-  ctx.relay.teams && teamsView(ctx.relay.teams, ctx.study.chapters.list, ctx.relay.players),
+  ctx.relay.teams && teamsView(ctx.relay.teams, ctx.study.chapters.list, ctx.relay.players, ctx.relay.round),
 ];
 
 const stats = (ctx: RelayViewContext) => [header(ctx), statsView(ctx.relay.stats)];
@@ -556,7 +553,7 @@ const broadcastImageOrStream = (ctx: RelayViewContext) => {
     embedVideo
       ? relay.videoPlayer?.render()
       : d.tour.image
-        ? hl('img', { attrs: { src: d.tour.image } })
+        ? hl('img', { attrs: { src: d.tour.image, alt: '' } })
         : ctx.study.members.isOwner()
           ? hl(
               'a.button.relay-tour__header__image-upload',

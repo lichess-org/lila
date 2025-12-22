@@ -391,9 +391,6 @@
   <string name="player">Уенчы</string>
   <string name="list">Тезем</string>
   <string name="graph">График</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="other">%s минуттан әзрәк</item>
-  </plurals>
   <string name="required">Тәлап ителгән.</string>
   <string name="openTournaments">Ачык бәйгеләр</string>
   <string name="duration">Озаклыгы</string>

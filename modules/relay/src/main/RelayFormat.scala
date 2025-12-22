@@ -44,7 +44,7 @@ final private class RelayFormatApi(
           httpGetRoundJson(lcc.indexUrl)
             .flatMap:
               _.firstNonEmptyPairingIndex
-                .so(index => looksLikeJson(lcc.gameUrl(index + 1)).recoverDefault)
+                .so(index => looksLikeJson(lcc.gameUrl(index + 1)).recoverDefault(_ => {}))
                 .map:
                   if _ then LccWithGames(lcc).some
                   else LccWithoutGames(lcc).some

@@ -32,6 +32,9 @@ main.analyse.is-relay:not(.has-relay-tour) {
       /* space for the top player bar */
       margin-top: calc((100vh - var(---col2-uniboard-width)) / 2);
     }
+    .relay-tour__side {
+      margin-top: 0;
+    }
   }
   @include mq-is-col1 {
     .main-board {
@@ -61,6 +64,7 @@ main.is-relay.has-relay-tour {
 
 .relay-tour__markup,
 .relay-tour__team-table,
-.study__multiboard {
+.study__multiboard,
+.fide-player {
   overflow-y: auto;
 }

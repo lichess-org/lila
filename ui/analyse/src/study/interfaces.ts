@@ -50,7 +50,7 @@ export interface StudyData {
   settings: StudySettings;
   visibility: Visibility;
   createdAt: number;
-  from: string;
+  from: string | object;
   likes: number;
   isNew?: boolean;
   liked: boolean;

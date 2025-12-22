@@ -17,7 +17,7 @@ case class OpenGraph(
 )
 
 enum PageFlags:
-  case noRobots, playing, zoom, zen, fullScreen, noHeader, noTopNav
+  case noRobots, playing, zoom, zen, fullScreen, noHeader
 
 case class Page(
     title: String,

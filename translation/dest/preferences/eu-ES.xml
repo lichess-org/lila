@@ -55,7 +55,7 @@
   <string name="yourPreferencesHaveBeenSaved">Zure ezarpenak ondo gorde dira.</string>
   <string name="scrollOnTheBoardToReplayMoves">Mugitu taula gainean jokaldiak ikusteko</string>
   <string name="correspondenceEmailNotification">Jaso posta elektronikoz zure posta-bidezko partiden jakinarazpenen zerrenda egunero</string>
-  <string name="notifyStreamStart">Streamerra zuzenean dago</string>
+  <string name="notifyStreamStart">Esataria zuzenean dago</string>
   <string name="notifyInboxMsg">Mezu berria postontzian</string>
   <string name="notifyForumMention">Foroko erantzunean aipatu zaituzte</string>
   <string name="notifyInvitedStudy">Azterlanreko gonbidapena</string>

@@ -398,7 +398,7 @@ final class RelayApi(
         _ <- tourRepo.delete(tour)
         rounds <- roundRepo.idsByTourOrdered(tour.id)
         _ <- roundRepo.deleteByTour(tour)
-        _ <- rounds.map(_.into(StudyId)).sequentiallyVoid(studyApi.deleteById)
+        _ <- rounds.map(_.studyId).sequentiallyVoid(studyApi.deleteById)
         _ <- picfitApi.pullRef(image.markdownRef(tour))
         _ <- picfitApi.pullRef(image.headRef(tour, none))
       yield true
@@ -555,7 +555,7 @@ final class RelayApi(
 
   private def sendToContributors(id: RelayRoundId, t: String, msg: JsObject): Funit =
     studyApi
-      .members(id.into(StudyId))
+      .members(id.studyId)
       .map:
         _.map(_.contributorIds).withFilter(_.nonEmpty).foreach { userIds =>
           import lila.core.socket.SendTos

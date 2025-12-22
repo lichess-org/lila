@@ -72,6 +72,9 @@ object RelayPlayer:
   opaque type Rank = Int
   object Rank extends OpaqueInt[Rank]
 
+  def empty(player: StudyPlayer.WithFed) =
+    RelayPlayer(player, None, None, None, None, None, Vector.empty)
+
   case class Game(
       round: RelayRoundId,
       id: StudyChapterId,
@@ -194,8 +197,8 @@ private final class RelayPlayerApi(
   private val photosJsonCache = cacheApi[RelayTourId, PhotosJson](32, "relay.players.photos.json"):
     _.expireAfterWrite(10.seconds).buildAsyncFuture: tourId =>
       for
-        players <- cache.get(tourId)
-        fideIds = players.values.flatMap(_.fideId).toSet
+        studyIds <- roundRepo.studyIdsOf(tourId)
+        fideIds <- chapterRepo.fideIdsOf(studyIds)
         photos <- photosJson(fideIds)
       yield photos
 
@@ -253,10 +256,7 @@ private final class RelayPlayerApi(
                             players.updated(
                               playerId,
                               players
-                                .getOrElse(
-                                  playerId,
-                                  RelayPlayer(player, None, None, None, None, None, Vector.empty)
-                                )
+                                .getOrElse(playerId, RelayPlayer.empty(player))
                                 .withGame(game)
                             )
                   }
@@ -273,7 +273,7 @@ private final class RelayPlayerApi(
   private def fetchStudyPlayers(roundIds: List[RelayRoundId]): Fu[StudyPlayers] =
     roundIds
       .traverse: roundId =>
-        chapterPreviewApi.dataList.uniquePlayers(roundId.into(StudyId))
+        chapterPreviewApi.dataList.uniquePlayers(roundId.studyId)
       .map:
         _.foldLeft(SeqMap.empty: StudyPlayers): (players, roundPlayers) =>
           roundPlayers.foldLeft(players):

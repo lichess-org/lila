@@ -509,11 +509,6 @@
   <string name="player">Jucător</string>
   <string name="list">Listă</string>
   <string name="graph">Grafic</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">Mai puțin de un minut</item>
-    <item quantity="few">Mai puțin de %s minute</item>
-    <item quantity="other">Mai puțin de %s de minute</item>
-  </plurals>
   <string name="required">Obligatoriu.</string>
   <string name="openTournaments">Turnee deschise</string>
   <string name="duration">Durată</string>

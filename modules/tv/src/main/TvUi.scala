@@ -14,6 +14,17 @@ final class TvUi(helpers: lila.ui.Helpers)(
 ):
   import helpers.{ *, given }
 
+  extension (channel: Tv.Channel)
+    private def translate(using Context): String =
+      (channel.speed.map(_.key) orElse channel.variant.map(_.key))
+        .flatMap(k => PerfKey(k.toString))
+        .map(_.perfTrans)
+        .getOrElse {
+          channel match
+            case Tv.Channel.Computer => trans.site.computer
+            case _ => channel.name
+        }
+
   def index(
       channel: Tv.Channel,
       champions: Tv.Champions,
@@ -50,7 +61,7 @@ final class TvUi(helpers: lila.ui.Helpers)(
         )
 
   def games(channel: Tv.Channel, povs: List[Pov], champions: Tv.Champions)(using Context) =
-    Page(s"${channel.name} • ${trans.site.currentGames.txt()}")
+    Page(s"${channel.translate} • ${trans.site.currentGames.txt()}")
       .css("bits.tv.games")
       .js(Esm("bits.tvGames")):
         main(
@@ -93,7 +104,7 @@ final class TvUi(helpers: lila.ui.Helpers)(
             tournamentLink(tourId)
       )
 
-    def channels(channel: Tv.Channel, champions: Tv.Champions, baseUrl: String): Frag =
+    def channels(channel: Tv.Channel, champions: Tv.Champions, baseUrl: String)(using Context): Frag =
       lila.ui.bits.subnav:
         Tv.Channel.list.map: c =>
           a(
@@ -106,7 +117,7 @@ final class TvUi(helpers: lila.ui.Helpers)(
           ):
             span(dataIcon := c.icon):
               span(
-                strong(c.name),
+                strong(c.translate),
                 span(cls := "champion")(
                   champions
                     .get(c)
