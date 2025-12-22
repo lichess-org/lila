@@ -5,6 +5,7 @@
   <string name="playAgainstComputer">Игра срещу компютъра</string>
   <string name="gameMode">Режим на игра</string>
   <string name="createLobbyGame">Създаване на игра</string>
+  <string name="youPlayAs">Играете с</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">За да поканите някого на игра, дайте му този адрес</string>
   <string name="gameOver">Край на партията</string>
   <string name="waitingForOpponent">Изчакване на противник</string>
@@ -23,7 +24,7 @@
   <string name="black">Черни</string>
   <string name="asWhite">с белите</string>
   <string name="asBlack">с черните</string>
-  <string name="randomColor">Произволна страна</string>
+  <string name="randomColor">Случаен цвят</string>
   <string name="createAGame">Създай игра</string>
   <string name="createTheGame">Създай играта</string>
   <string name="whiteIsVictorious">Белите победиха</string>
@@ -77,7 +78,8 @@
   <string name="collapseVariations">Скрий вариациите</string>
   <string name="expandVariations">Покажи вариациите</string>
   <string name="forceVariation">Покажи като вариация</string>
-  <string name="copyVariationPgn">Копирай PGN на вариацията</string>
+  <string name="copyVariationPgn">Копирай варианта (PGN)</string>
+  <string name="copyMainLinePgn">Копирай основния вариант (PGN)</string>
   <string name="move">Ход</string>
   <string name="variantLoss">Вариант на загуба</string>
   <string name="variantWin">Вариант на победа</string>
@@ -295,6 +297,7 @@
   <string name="abortGame">Отмени играта</string>
   <string name="gameAborted">Играта е отменена</string>
   <string name="standard">Обикновен</string>
+  <string name="customPosition">От позиция</string>
   <string name="unlimited">Неограничено</string>
   <string name="mode">Начин</string>
   <string name="casual">Приятелски</string>
@@ -342,6 +345,7 @@
     <item quantity="other">%s текущи</item>
   </plurals>
   <string name="exportGames">Изтегли партиите</string>
+  <string name="ratingFilter">Рейтингов филтър</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Дай %s sec</item>
     <item quantity="other">Дай %s sec</item>
@@ -369,8 +373,8 @@
     <item quantity="other">%s точки от турнира</item>
   </plurals>
   <plurals name="nbStudies">
-    <item quantity="one">%s казус</item>
-    <item quantity="other">%s казуси</item>
+    <item quantity="one">%s студия</item>
+    <item quantity="other">%s студии</item>
   </plurals>
   <plurals name="nbSimuls">
     <item quantity="one">%s сеанс</item>
@@ -397,6 +401,7 @@
     <item quantity="other">Трябва да изиграете още %s оценени игри</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Вашият %s рейтинг е условен</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Филтрите за рейтинг са заключени, защото рейтингът ви не е стабилен. Играйте партии за рейтинг, за да го стабилизирате.</string>
   <string name="yourPerfRatingIsTooHigh">Вашият %1$s рейтинг (%2$s) е твърде висок</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Вашият топ седмичен %1$s рейтинг (%2$s) е твърде висок</string>
   <string name="yourPerfRatingIsTooLow">Вашият %1$s рейтинг (%2$s) е твърде висок</string>
@@ -428,6 +433,7 @@
   <string name="importGame">Добави игра</string>
   <string name="importGameExplanation">При поставяне на PGN може да разгледате играта с чата,
 да получите компютърен анализ и линк за споделяне.</string>
+  <string name="importGameDataPrivacyWarning">Този PGN е публично достъпен. За да импортирате партия поверително, използвайте студия.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Добавени игри</item>
     <item quantity="other">%s Добавени игри</item>
@@ -524,7 +530,7 @@
   <string name="socialMediaLinks">Връзки към социални медии</string>
   <string name="oneUrlPerLine">Един URL на ред.</string>
   <string name="inlineNotation">Вградена нотация</string>
-  <string name="makeAStudy">За съхранение и споделяне помислете за изготвяне на казус.</string>
+  <string name="makeAStudy">За по-сигурно съхранение и споделяне, обмислете създаването на студия.</string>
   <string name="clearSavedMoves">Изтрий ходовете</string>
   <string name="previouslyOnLichessTV">Приключили игри</string>
   <string name="onlinePlayers">Играчи на линия</string>
@@ -590,7 +596,7 @@
   <string name="privacyPolicy">Политика за поверителност</string>
   <string name="letOtherPlayersFollowYou">Позволи на другите играчи да ви следват</string>
   <string name="letOtherPlayersChallengeYou">Позволи на други играчи да ви предизвикват</string>
-  <string name="letOtherPlayersInviteYouToStudy">Позволяване на играчи да ви поканят в проучване</string>
+  <string name="letOtherPlayersInviteYouToStudy">Позволи на други играчи да те канят в студия</string>
   <string name="sound">Звук</string>
   <string name="none">Не</string>
   <string name="fast">Бързо</string>
@@ -627,7 +633,7 @@
   <string name="clock">Часовник</string>
   <string name="opponent">Противник</string>
   <string name="learnMenu">Научи</string>
-  <string name="studyMenu">Казус</string>
+  <string name="studyMenu">Студия</string>
   <string name="practice">Упражнявайте се</string>
   <string name="community">Общност</string>
   <string name="tools">Средства</string>
@@ -777,7 +783,7 @@
   <string name="xHostsY">%1$s води %2$s</string>
   <string name="xJoinsY">%1$s се присъедини към %2$s</string>
   <string name="xLikesY">%1$s хареса %2$s</string>
-  <string name="quickPairing">Бързо свързване</string>
+  <string name="quickPairing">Бърза игра</string>
   <string name="lobby">Лоби</string>
   <string name="anonymous">Анонимен</string>
   <string name="yourScore">Резултатът ви: %s</string>
@@ -811,6 +817,7 @@
   <string name="notifications">Известия</string>
   <string name="notificationsX">Известия: %1$s</string>
   <string name="perfRatingX">Рейтинг: %s</string>
+  <string name="yourRatingIsX">Вашият рейтинг е %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s секунда за първия ход</item>
     <item quantity="other">%s секунди за първия ход</item>
@@ -951,7 +958,7 @@
   <string name="simulFeaturedHelp">Показвайте сеанса си всички на %s. Изключете за частни сеанси.</string>
   <string name="simulDescription">Описание на сеанса</string>
   <string name="simulDescriptionHelp">Има ли нещо което искате да кажете на участниците?</string>
-  <string name="embedsAvailable">Копирайте URL на игра или на глава от проучване за да я включите в страницата.</string>
+  <string name="embedsAvailable">Постави URL на партия или на глава от студия, за да ги вградиш.</string>
   <string name="inYourLocalTimezone">Във Вашата часова зона</string>
   <string name="tournChat">Чат в турнира</string>
   <string name="noChat">Без чат</string>
