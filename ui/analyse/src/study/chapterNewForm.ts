@@ -201,7 +201,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
           ]),
           hl('div.tabs-horiz', { attrs: { role: 'tablist' } }, [
             makeTab('init', i18n.study.empty, i18n.study.startFromInitialPosition),
-            makeTab('edit', i18n.study.editor, i18n.study.startFromCustomPosition),
+            !site.blindMode && makeTab('edit', i18n.study.editor, i18n.study.startFromCustomPosition),
             makeTab('game', 'URL', i18n.study.loadAGameByUrl),
             makeTab('fen', 'FEN', i18n.study.loadAPositionFromFen),
             makeTab('pgn', 'PGN', i18n.study.loadAGameFromPgn),
@@ -276,13 +276,14 @@ export function view(ctrl: StudyChapterNewForm): VNode {
                   });
                 }),
               }),
-              hl(
-                'a.preview-in-editor',
-                {
-                  hook: bind('click', () => ctrl.tab('edit'), ctrl.root.redraw),
-                },
-                [hl('i.text', { attrs: dataIcon(licon.Eye) }), i18n.study.editor],
-              ),
+              !site.blindMode &&
+                hl(
+                  'a.preview-in-editor',
+                  {
+                    hook: bind('click', () => ctrl.tab('edit'), ctrl.root.redraw),
+                  },
+                  [hl('i.text', { attrs: dataIcon(licon.Eye) }), i18n.study.editor],
+                ),
             ]),
           activeTab === 'pgn' &&
             hl('div.form-group', [
