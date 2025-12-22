@@ -33,6 +33,11 @@ export function initModule({
 }): void {
   contactEmail();
 
+  const formatter = new Intl.NumberFormat(document.documentElement.lang, {
+    style: 'currency',
+    currency: pricing.currency,
+  });
+
   const hasLifetime = $('#freq_lifetime').prop('disabled');
 
   const toggleInput = ($input: Cash, enable: boolean) =>
@@ -86,7 +91,7 @@ export function initModule({
     const isGift = !!$checkout.find('.gift input').val();
     const min = isGift ? pricing.giftMin : pricing.min;
     amount = Math.max(min, Math.min(pricing.max, amount));
-    $(this).text(`${pricing.currency} ${amount}`);
+    $(this).text(formatter.format(amount));
     ($(this).siblings('input').data('amount', amount)[0] as HTMLInputElement).checked = true;
   });
 
@@ -107,7 +112,7 @@ export function initModule({
 
   $userInput.on('change', toggleCheckout).on('input', toggleCheckout);
 
-  const getAmountToCharge = () => {
+  const getAmountToCharge = (): number | undefined => {
     const freq = getFreq(),
       amount =
         freq === 'lifetime'
@@ -115,14 +120,17 @@ export function initModule({
           : parseFloat($checkout.find('group.amount input:checked').data('amount'));
     const isGift = !!$checkout.find('.gift input').val();
     const min = isGift ? pricing.giftMin : pricing.min;
-    if (amount < min && isGift) {
-      alert(`Minimum gift amount is ${pricing.currency} ${pricing.giftMin}`);
+
+    if (amount < min) {
+      const message = isGift
+        ? `Minimum gift amount is ${formatter.format(min)}`
+        : `Minimum amount is ${formatter.format(min)}`;
+      alert(message);
       return undefined;
-    } else if (amount < min && !isGift) {
-      alert(`Minimum amount is ${pricing.currency} ${pricing.giftMin}`);
-      return undefined;
-    } else if (amount > pricing.max) {
-      alert(`Maximum amount is ${pricing.currency} ${pricing.max}`);
+    }
+
+    if (amount > pricing.max) {
+      alert(`Maximum amount is ${formatter.format(pricing.max)}`);
       return undefined;
     }
     return amount;
