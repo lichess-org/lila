@@ -121,5 +121,7 @@ Aqui está o link para acessar a turma.</string>
   <string name="allowMessagingBetweenStudentsDesc">Isso só se aplica às contas criadas para seus alunos.</string>
   <string name="quickLoginCode">Código de acesso rápido</string>
   <string name="quickLoginCodes">Códigos de acesso rápido</string>
-  <string name="expirationInMomentFromNow" comment="String is the translation of, for example, 'in 2 hours'">Expiração %s</string>
+  <string name="quickLoginCodesDesc1" comment="%s is a link to https://lichess.org/class">Use esses códigos no %s para registrar seus alunos no Lichess.</string>
+  <string name="quickLoginCodesDesc2">Quando os códigos expirarem, seus alunos permanecerão conectados, até que eles saiam manualmente.</string>
+  <string name="expirationInMomentFromNow" comment="%s is relative time in the future. For example, 'in 2 hours'&#10;&#10;If it works better for your language, you can use punctuation e.g. &quot;Expiration: %s&quot;">Expiração %s</string>
 </resources>
