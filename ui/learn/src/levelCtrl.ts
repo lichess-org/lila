@@ -188,6 +188,7 @@ export class LevelCtrl {
       } else {
         ground.selectSquare(dest);
         if (!inScenario) {
+          if (blueprint.color !== chess.getColor()) chess.instance.epSquare = undefined;
           chess.setColor(blueprint.color);
           this.setColorDests(blueprint.color, this.makeChessDests());
         }
