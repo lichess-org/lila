@@ -172,8 +172,7 @@ export class LevelCtrl {
       if (this.isAppleLevel()) this.setShapes();
       if (!vm.failed && detectSuccess()) this.complete();
       if (vm.willComplete) return;
-      if (took) take();
-      else if (inScenario) take();
+      if ((!vm.failed && took) || inScenario) take();
       else moveSound();
       if (vm.failed) {
         if (blueprint.showFailureFollowUp && !captured)
