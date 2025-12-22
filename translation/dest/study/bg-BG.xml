@@ -185,9 +185,15 @@
   <string name="createChapterTitle">Нека създадем глава към студията</string>
   <string name="createChapterText">Една студия може да има няколко глави.&lt;br&gt;Всяка глава има различно дърво с ходове&lt;br&gt;и може да бъде създадена по различни начини.</string>
   <string name="fromInitialPositionTitle">От начална позиция</string>
+  <string name="fromInitialPositionText">Просто начална подредба на дъската за нова партия.&lt;br&gt;Подходящо за изследване на дебюти.</string>
   <string name="customPositionTitle">От позиция</string>
+  <string name="customPositionText">Подреди дъската по свой начин.&lt;br&gt;Подходящо за изследване на ендшпили.</string>
+  <string name="loadExistingLichessGameTitle">Зареди съществуваща партия от Lichess</string>
+  <string name="loadExistingLichessGameText">Постави URL адрес на партия от Lichess&lt;br&gt;(например lichess.org/7fHIU0XI)&lt;br&gt;за да заредиш ходовете на партията в главата.</string>
   <string name="fromFenStringTitle">От FEN нотация</string>
+  <string name="fromFenStringText">Постави позиция във FEN формат&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;за да започнеш главата от конкретна позиция.</string>
   <string name="fromPgnGameTitle">От PGN нотация</string>
+  <string name="fromPgnGameText">Постави партия в PGN формат.&lt;br&gt;за да заредиш ходове, коментари и варианти в главата.</string>
   <string name="variantsAreSupportedTitle">Студиите поддържат варианти</string>
   <string name="variantsAreSupportedText">Да, можеш да изучаваш crazyhouse&lt;br&gt;и всички варианти в Lichess!</string>
   <string name="chapterConclusionText">Главите се запазват завинаги.&lt;br&gt;Приятно организиране на твоето шахматно съдържание!</string>
