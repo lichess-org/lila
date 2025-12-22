@@ -61,6 +61,7 @@ export function view(ctrl: StudyChapterEditForm): VNode | undefined {
   const data = ctrl.current();
   return data
     ? snabDialog({
+        attrs: { dialog: { 'aria-labelledBy': 'study-modal-title', 'aria-modal': 'true' } },
         class: 'edit-' + data.id, // full redraw when changing chapter
         onClose() {
           ctrl.current(null);
@@ -69,7 +70,7 @@ export function view(ctrl: StudyChapterEditForm): VNode | undefined {
         modal: true,
         noClickAway: true,
         vnodes: [
-          h('h2', i18n.study.editChapter),
+          h('h2#study-modal-title', i18n.study.editChapter),
           h(
             'form.form3',
             {

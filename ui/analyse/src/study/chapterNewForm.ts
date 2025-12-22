@@ -145,6 +145,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
         : 'normal';
 
   return snabDialog({
+    attrs: { dialog: { 'aria-labelledBy': 'study-modal-title', 'aria-modal': 'true' } },
     class: 'chapter-new',
     onClose() {
       ctrl.dialog = undefined;
@@ -159,7 +160,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
     },
     vnodes: [
       activeTab !== 'edit' &&
-        hl('h2', [
+        hl('h2#study-modal-title', [
           i18n.study.newChapter,
           hl('i.help', { attrs: { 'data-icon': licon.InfoCircle }, hook: bind('click', ctrl.startTour) }),
         ]),

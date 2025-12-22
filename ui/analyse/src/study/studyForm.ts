@@ -258,6 +258,7 @@ export function view(ctrl: StudyForm): VNode {
       ),
   ]);
   return snabDialog({
+    attrs: { dialog: { 'aria-labelledBy': 'study-modal-title', 'aria-modal': 'true' } },
     class: 'study-edit',
     onClose() {
       ctrl.open(false);
@@ -267,7 +268,7 @@ export function view(ctrl: StudyForm): VNode {
     noClickAway: true,
     vnodes: [
       hl(
-        'h2',
+        'h2#study-modal-title',
         ctrl.relay ? i18n.broadcast.editRoundStudy : isNew ? i18n.study.createStudy : i18n.study.editStudy,
       ),
       hl(
