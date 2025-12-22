@@ -6,7 +6,7 @@ import * as timeouts from './timeouts';
 import { failure, levelStart, levelEnd, take, move as moveSound } from './sound';
 import makeChess, { type ChessCtrl } from './chess';
 import makeScenario, { type Scenario } from './scenario';
-import { type SquareName, makeSquare, makeUci, opposite } from 'chessops';
+import { type SquareName, makeSquare, makeUci, opposite, parseSquare } from 'chessops';
 import type { CgMove } from './chessground';
 import { PromotionCtrl } from './promotionCtrl';
 import { type Prop, prop } from 'lib';
@@ -138,6 +138,7 @@ export class LevelCtrl {
 
     return (orig: SquareName, dest: SquareName, prom?: PromotionRole) => {
       vm.nbMoves++;
+      const pieceFormerlyAtDest = chess.instance.board.get(parseSquare(dest));
       const move = chess.move(orig, dest, prom);
       if (move) this.setFen(chess.fen(), blueprint.color, new Map());
       else {
@@ -156,9 +157,8 @@ export class LevelCtrl {
         items.remove(makeSquare(move.to));
         took = true;
       });
-      const pieceAtKey = chess.instance.board.get(move.to);
-      if (!took && pieceAtKey && blueprint.pointsForCapture && pieceAtKey.role !== 'king') {
-        vm.score += blueprint.showPieceValues ? pieceValue(pieceAtKey.role) : capture;
+      if (!took && pieceFormerlyAtDest && blueprint.pointsForCapture && pieceFormerlyAtDest.role !== 'king') {
+        vm.score += blueprint.showPieceValues ? pieceValue(pieceFormerlyAtDest.role) : capture;
         took = true;
       }
       this.setCheck();
