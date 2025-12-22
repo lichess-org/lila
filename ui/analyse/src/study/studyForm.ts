@@ -91,9 +91,9 @@ export function view(ctrl: StudyForm): VNode {
   ];
   const formFields = [
     hl('div.form-split.flair-and-name' + (ctrl.relay ? '.none' : ''), [
-      hl('div.form-group', [
-        !site.blindMode && hl('label.form-label', 'Flair'),
-        !site.blindMode && hl(
+      hl('div.form-group' + (site.blindMode ? '.none' : ''), [
+        hl('label.form-label', 'Flair'),
+        hl(
           'div.form-control.emoji-details',
           {
             hook: onInsert(el => flairPickerLoader(el)),
