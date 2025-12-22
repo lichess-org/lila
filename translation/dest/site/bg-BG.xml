@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="gameSetup">Настройки на играта</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Покана за игра</string>
+  <string name="playAgainstComputer">Игра срещу компютъра</string>
+  <string name="gameMode">Режим на игра</string>
+  <string name="createLobbyGame">Създаване на игра</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">За да поканите някого на игра, дайте му този адрес</string>
   <string name="gameOver">Край на партията</string>
   <string name="waitingForOpponent">Изчакване на противник</string>
@@ -925,7 +930,7 @@
   <string name="timeAlmostUp">Времето почти изтече!</string>
   <string name="clickToRevealEmailAddress">[Щракнете, за да видите имейл адреса]</string>
   <string name="download">Изтегли</string>
-  <string name="coachManager">Настройки за треньори</string>
+  <string name="coachManager" comment="coachManager&#10;&#10;In the user pop-up menu, a link to the Coach Manager page (http://lichess.org/coach/edit)&#10;It leads to coach-specific settings, and is only visible to coaches.">Настройки за треньори</string>
   <string name="streamerManager">Настройки за стриймъри</string>
   <string name="cancelTournament">Отмяна на турнира</string>
   <string name="tournDescription">Описание на турнира</string>
