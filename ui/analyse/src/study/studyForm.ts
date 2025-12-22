@@ -92,8 +92,8 @@ export function view(ctrl: StudyForm): VNode {
   const formFields = [
     hl('div.form-split.flair-and-name' + (ctrl.relay ? '.none' : ''), [
       hl('div.form-group', [
-        hl('label.form-label', 'Flair'),
-        hl(
+        !site.blindMode && hl('label.form-label', 'Flair'),
+        !site.blindMode && hl(
           'div.form-control.emoji-details',
           {
             hook: onInsert(el => flairPickerLoader(el)),
@@ -125,7 +125,7 @@ export function view(ctrl: StudyForm): VNode {
               const el = vnode.elm as HTMLInputElement;
               el.addEventListener('focus', () => el.select());
               // set initial modal focus
-              setTimeout(() => el.focus());
+              if (!site.blindMode) setTimeout(() => el.focus());
             },
             postpatch: (_, vnode) => updateName(vnode, true),
           },
