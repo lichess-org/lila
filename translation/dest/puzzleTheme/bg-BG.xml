@@ -57,6 +57,10 @@
   <string name="interferenceDescription">Преместване на фигура между две противникови, така че едната или и двете да останат незащитени. Например кон на защитено поле между два топа.</string>
   <string name="intermezzo">Междинен ход</string>
   <string name="intermezzoDescription">Вместо да се играе очаквания ход, първо се прави друг (междинен) ход, който представлява заплаха за опонента и трябва да бъде предотвратена.</string>
+  <string name="pillsburysMate">Мат на Пилсбъри</string>
+  <string name="pillsburysMateDescription">Офицерът отрязва пътя на царя, а топът дава мат.</string>
+  <string name="morphysMate">Мат на Морфи</string>
+  <string name="morphysMateDescription">Oфицерът нанася мат, докато топът блокира царя по вертикала.</string>
   <string name="vukovicMate">Мат на Вукович</string>
   <string name="vukovicMateDescription">Топ и кон се комбинират да матират краля. Топът, защитен от още една фигура, поставя мат, докато конят блокира полетата за отстрпление на краля.</string>
   <string name="knightEndgame">Конски ендшпил</string>
@@ -85,6 +89,8 @@
   <string name="oneMoveDescription">Задача, която се решава само с един ход.</string>
   <string name="opening">Дебют</string>
   <string name="openingDescription">Тактика в първата фаза на играта.</string>
+  <string name="operaMate">Оперен мат</string>
+  <string name="operaMateDescription">Матирайте царя с топ, защитен от офицер.</string>
   <string name="pawnEndgame">Пешечен Ендшпил</string>
   <string name="pawnEndgameDescription">Ендшпил само с пешки.</string>
   <string name="pin">Свръзка</string>
