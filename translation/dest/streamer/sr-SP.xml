@@ -33,11 +33,12 @@
     <item quantity="few">Нека буде кратко: %s карактера највише</item>
     <item quantity="other">Нека буде кратко: %s карактера највише</item>
   </plurals>
-  <string name="visibility">Видљиво на страници стримера</string>
+  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">Видљив на страници стримера</string>
   <string name="whenApproved">Након одобрења модератора</string>
   <string name="headline">Наслов</string>
   <string name="tellUsAboutTheStream">Реци нам нешто о свом стриму у једној реченици</string>
-  <string name="longDescription">Дужи опис</string>
+  <string name="longDescription">Дуги опис</string>
+  <string name="xStreamerPicture">%s стримерска слика</string>
   <string name="changePicture">Измени/избриши своју слику</string>
   <string name="uploadPicture">Постави слику</string>
   <string name="maxSize">Максимална величина: %s</string>
