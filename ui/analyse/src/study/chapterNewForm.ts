@@ -115,12 +115,18 @@ export class StudyChapterNewForm {
 export function view(ctrl: StudyChapterNewForm): VNode {
   const study = ctrl.root.study!;
   const activeTab = ctrl.tab();
-  const makeTab = (key: ChapterTab, name: string, title: string) =>
+  const makeTab = (key: ChapterTab, name: string, title: string, ariaControls: string = '') =>
     hl(
       'span.' + key,
       {
         class: { active: activeTab === key },
-        attrs: { role: 'tab', title, tabindex: '0' },
+        attrs: {
+          role: 'tab',
+          id: 'tab-' + key,
+          title,
+          tabindex: '0',
+          'aria-selected': activeTab === key ? 'true' : 'false',
+        },
         hook: onInsert(el => {
           const select = (e: Event) => {
             ctrl.setTab(key);
@@ -130,6 +136,14 @@ export function view(ctrl: StudyChapterNewForm): VNode {
           el.addEventListener('keydown', e => {
             if (e.key === 'Enter' || e.key === ' ') select(e);
           });
+          if (site.blindMode)
+            el.addEventListener('keydown', event => {
+              if (event.key === 'ArrowDown') {
+                event.preventDefault();
+                const panel = document.getElementById(ariaControls);
+                panel?.focus();
+              }
+            });
         }),
       },
       name,
@@ -200,11 +214,11 @@ export function view(ctrl: StudyChapterNewForm): VNode {
             }),
           ]),
           hl('div.tabs-horiz', { attrs: { role: 'tablist' } }, [
-            makeTab('init', i18n.study.empty, i18n.study.startFromInitialPosition),
+            makeTab('init', i18n.study.empty, i18n.study.startFromInitialPosition, 'chapter-variant'),
             !site.blindMode && makeTab('edit', i18n.study.editor, i18n.study.startFromCustomPosition),
-            makeTab('game', 'URL', i18n.study.loadAGameByUrl),
-            makeTab('fen', 'FEN', i18n.study.loadAPositionFromFen),
-            makeTab('pgn', 'PGN', i18n.study.loadAGameFromPgn),
+            makeTab('game', 'URL', i18n.study.loadAGameByUrl, 'chapter-game'),
+            makeTab('fen', 'FEN', i18n.study.loadAPositionFromFen, 'chapter-fen'),
+            makeTab('pgn', 'PGN', i18n.study.loadAGameFromPgn, 'chapter-pgn'),
           ]),
           activeTab === 'edit' &&
             hl(
