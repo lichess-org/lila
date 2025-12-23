@@ -138,7 +138,9 @@ export class LevelCtrl {
 
     return (orig: SquareName, dest: SquareName, prom?: PromotionRole) => {
       vm.nbMoves++;
+      const pieceBeingMoved = chess.instance.board.get(parseSquare(orig));
       const pieceFormerlyAtDest = chess.instance.board.get(parseSquare(dest));
+      const formerEnPassantSq = chess.instance.epSquare;
       const move = chess.move(orig, dest, prom);
       if (move) this.setFen(chess.fen(), blueprint.color, new Map());
       else {
@@ -149,6 +151,8 @@ export class LevelCtrl {
         redraw();
         return;
       }
+      // Todo: refactor so that flows for scenario / non-scenario / apple level get their own functions?
+      // E.g., currently the semantics for `took` vary depending on the flow we're in.
       let took = false,
         inScenario,
         captured = false;
@@ -157,8 +161,11 @@ export class LevelCtrl {
         items.remove(makeSquare(move.to));
         took = true;
       });
-      if (!took && pieceFormerlyAtDest && blueprint.pointsForCapture && pieceFormerlyAtDest.role !== 'king') {
-        vm.score += blueprint.showPieceValues ? pieceValue(pieceFormerlyAtDest.role) : capture;
+      const enPassantPlayed = move.to === formerEnPassantSq && pieceBeingMoved?.role === 'pawn';
+      const enemyRoleCaptured = enPassantPlayed ? 'pawn' : pieceFormerlyAtDest?.role;
+      console.log(enPassantPlayed, took, blueprint.pointsForCapture);
+      if (!took && enemyRoleCaptured && blueprint.pointsForCapture && enemyRoleCaptured !== 'king') {
+        vm.score += blueprint.showPieceValues ? pieceValue(enemyRoleCaptured) : capture;
         took = true;
       }
       this.setCheck();
