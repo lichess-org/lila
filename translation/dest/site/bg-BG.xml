@@ -498,12 +498,13 @@
   <string name="pause">Пауза</string>
   <string name="resume">Възобновяване</string>
   <string name="youArePlaying">Играете!</string>
-  <string name="winRate">Успеваемост</string>
+  <string name="winRate">Победи</string>
   <string name="performance">Производителност</string>
   <string name="tournamentComplete">Турнирът завърши</string>
   <string name="movesPlayed">Изиграни ходове</string>
   <string name="whiteWins">Белите печелят</string>
   <string name="blackWins">Черните печелят</string>
+  <string name="drawRate">Ремита</string>
   <string name="draws">Равенства</string>
   <string name="averageOpponent">Среден противник</string>
   <string name="boardEditor">Шахматен редактор</string>
@@ -524,6 +525,7 @@
   <string name="realName">Истинско име</string>
   <string name="setFlair">Изберете вашето емоджи</string>
   <string name="flair">Емоджи</string>
+  <string name="youCanHideFlair">Съществува настройка за скриване на емблемите в целия сайт.</string>
   <string name="biography">Животопис</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Държава или регион</string>
   <string name="thankYou">Благодаря!</string>
@@ -544,6 +546,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Автоматично преминаване към следващата игра след хода</string>
   <string name="autoSwitch">Автоматично превключване</string>
   <string name="puzzles">Задачи</string>
+  <string name="onlineBots">Онлайн ботове</string>
   <string name="name">Име</string>
   <string name="description">Описание</string>
   <string name="descPrivate">Вътрешно описание</string>
@@ -572,6 +575,7 @@
   <string name="other">Друго</string>
   <string name="reportCheatBoostHelp">Поставете линкът към играта/игрите и обяснете какво не е наред с поведението на този потребител. Не казвайте само \"мами\", а ни кажете как стигнахте до това заключение.</string>
   <string name="reportUsernameHelp">Обяснете защо потребителското име е обидно. Не казвайте само \"обидно/неуместно е\", а ни кажете как стигнахте до това заключение - особено ако обидата е прикрита, не е на английски, или е историческа или културна препратка.</string>
+  <string name="reportProcessedFasterInEnglish">Докладът ви ще бъде обработен по-бързо, ако е написан на английски.</string>
   <string name="error.provideOneCheatedGameLink">Моля дай поне един линк до измамна игра.</string>
   <string name="by">от %s</string>
   <string name="importedByX">Внесени от %s</string>
@@ -681,6 +685,7 @@
   <string name="hostColorX">Домакин: %s</string>
   <string name="createdSimuls">Нови сеанси</string>
   <string name="hostANewSimul">Бъди домакин на сеанс</string>
+  <string name="signUpToHostOrJoinASimul">Регистрация за участие в сеанс</string>
   <string name="noSimulFound">Сеансът не е намерен</string>
   <string name="noSimulExplanation">Този сеанс не съществува.</string>
   <string name="returnToSimulHomepage">Връщане към Главната страница</string>
@@ -869,10 +874,12 @@
   <string name="playVariationToCreateConditionalPremoves">Изиграйте вариация за да създадете предварителни ходове под условие</string>
   <string name="noConditionalPremoves">Без предварителни ходове под условие</string>
   <string name="playX">Играй %s</string>
+  <string name="challengeX">Предизвикай %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">и запиши %s като предварителен ход</item>
     <item quantity="other">и запиши %s като предварителен ход</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Получихте лично съобщение от Lichess.</string>
   <string name="clickHereToReadIt">Щракнете тук, за да го прочетете</string>
   <string name="sorry">Съжалявам :(</string>
   <string name="weHadToTimeYouOutForAWhile">Наложи се да Ви сложим в принудителна почивка за известно време.</string>
@@ -995,6 +1002,10 @@
   <string name="accessibility">Достъпност</string>
   <string name="enableBlindMode">Включи режима за незрящи</string>
   <string name="disableBlindMode">Изключи режима за незрящи</string>
+  <string name="copyToClipboard">Копиране в клипборда</string>
   <string name="online" comment="status of a user">онлайн</string>
   <string name="offline" comment="status of a user">офлайн</string>
+  <string name="search">Търсене</string>
+  <string name="clearSearch">Изчистване на търсенето</string>
+  <string name="tags">Етикети</string>
 </resources>
