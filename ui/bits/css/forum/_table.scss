@@ -1,66 +1,76 @@
-.forum .slist {
-  td {
-    padding-top: 1.5rem;
-    padding-bottom: 1.5rem;
+.forum {
+  &.index,
+  &.forum-categ {
+    .slist {
+      thead,
+      td:not(.subject):not(.right) {
+        display: none;
+
+        @media (min-width: at-least($xx-small)) {
+          display: table-cell;
+        }
+      }
+
+      .right {
+        display: none;
+
+        @media (min-width: at-least($small)) {
+          display: table-cell;
+        }
+      }
+
+      thead {
+        @media (min-width: at-least($xx-small)) {
+          display: table-header-group;
+        }
+      }
+
+      td:last-child {
+        white-space: nowrap;
+        padding-inline-end: 1em;
+
+        time {
+          color: $c-link;
+          font-size: 1em;
+        }
+      }
+    }
   }
 
-  td.right,
-  & th.right {
-    display: none;
-
-    @media (min-width: at-least($small)) {
-      display: table-cell;
+  .slist {
+    .right {
       text-align: right;
       padding-inline-end: 2em;
     }
-  }
 
-  td:last-child {
-    white-space: nowrap;
-    padding-inline-end: 1em;
-
-    time {
-      color: $c-link;
-      font-size: 1em;
+    td {
+      padding-top: 1.5rem;
+      padding-bottom: 1.5rem;
     }
 
-    display: none;
+    &.topics {
+      table-layout: fixed;
+      margin-bottom: 2rem;
 
-    @media (min-width: at-least($xx-small)) {
-      display: table-cell;
-    }
-  }
+      .subject {
+        font-size: 1.2em;
+      }
 
-  thead {
-    display: none;
+      th:nth-child(2) {
+        width: 7%;
+      }
 
-    @media (min-width: at-least($xx-small)) {
-      display: table-header-group;
-    }
-  }
+      th:nth-child(3) {
+        width: 26%;
+      }
 
-  &.topics {
-    table-layout: fixed;
-    margin-bottom: 2rem;
-
-    .subject {
-      font-size: 1.2em;
+      td:nth-child(3) {
+        overflow-x: hidden;
+      }
     }
 
-    th:nth-child(2) {
-      width: 7%;
+    &.categs .subject p {
+      margin-top: 0.3em;
     }
-
-    th:nth-child(3) {
-      width: 26%;
-    }
-
-    td:nth-child(3) {
-      overflow-x: hidden;
-    }
-  }
-
-  &.categs .subject p {
-    margin-top: 0.3em;
   }
 }
