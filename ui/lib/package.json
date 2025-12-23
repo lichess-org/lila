@@ -3,8 +3,8 @@
   "private": true,
   "type": "module",
   "dependencies": {
-    "@lichess-org/stockfish-web": "0.0.14",
-    "@lichess-org/zerofish": "^0.0.40",
+    "@lichess-org/stockfish-web": "0.1.1",
+    "@lichess-org/zerofish": "0.0.40",
     "@types/debounce-promise": "^3.1.9",
     "debounce-promise": "^3.1.2",
     "idb-keyval": "^6.2.1",

@@ -72,9 +72,9 @@ let cevalShown = false;
 
 export default function (ctrl: PuzzleCtrl): VNode {
   const gaugeOn = ctrl.showEvalGauge();
-  if (cevalShown !== ctrl.showAnalysis()) {
+  if (cevalShown !== ctrl.showEvaluation()) {
     if (!cevalShown) ctrl.autoScrollNow = true;
-    cevalShown = ctrl.showAnalysis();
+    cevalShown = ctrl.showEvaluation();
   }
   return hl(
     `main.puzzle.puzzle-${ctrl.data.replay ? 'replay' : 'play'}${ctrl.streak ? '.puzzle--streak' : ''}`,
@@ -132,8 +132,8 @@ export default function (ctrl: PuzzleCtrl): VNode {
         // so the siblings are only updated when ceval is added
         hl(
           'div.ceval-wrap',
-          { class: { none: !ctrl.showAnalysis() } },
-          ctrl.showAnalysis() ? [cevalView.renderCeval(ctrl), cevalView.renderPvs(ctrl)] : [],
+          { class: { none: !ctrl.showEvaluation() } },
+          ctrl.showEvaluation() ? [cevalView.renderCeval(ctrl), cevalView.renderPvs(ctrl)] : [],
         ),
         renderAnalyse(ctrl),
         feedbackView(ctrl),

@@ -69,9 +69,6 @@ declare namespace Tree {
     puzzle?: 'win' | 'fail' | 'good' | 'retry';
     crazy?: NodeCrazy;
     collapsed?: boolean;
-  }
-
-  export interface NodeOptionalChildren extends NodeBase {
     children?: Node[];
   }
 

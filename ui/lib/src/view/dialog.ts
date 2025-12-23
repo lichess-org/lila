@@ -15,6 +15,7 @@ export interface Dialog {
 
   show(): Promise<Dialog>; // promise resolves on close
   updateActions(actions?: Action | Action[]): void; // set new actions or reattach existing if no args
+  clickAway(enable: boolean): void; // toggle click-away-to-close
   close(returnValue?: string): void;
 }
 
@@ -141,6 +142,7 @@ class DialogWrapper implements Dialog {
   private dialogEvents = new Janitor();
   private actionEvents = new Janitor();
   private resolve?: (dialog: Dialog) => void;
+  private noClickAway: boolean;
   private observer: MutationObserver = new MutationObserver(list => {
     for (const m of list)
       if (m.type === 'childList')
@@ -162,10 +164,12 @@ class DialogWrapper implements Dialog {
     readonly o: DialogOpts,
     readonly isSnab: boolean,
   ) {
+    this.noClickAway = o.noClickAway ?? false;
+
     const justThen = Date.now();
     const cancelOnInterval = (e: PointerEvent) => {
       if (!this.dialog.isConnected) console.trace('likely zombie dialog. Always Be Close()ing');
-      if (Date.now() - justThen < 200) return;
+      if (Date.now() - justThen < 200 || this.noClickAway) return;
       const r = dialog.getBoundingClientRect();
       if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom)
         this.close('cancel');
@@ -175,7 +179,7 @@ class DialogWrapper implements Dialog {
     this.dialogEvents.addListener(view, 'click', e => e.stopPropagation());
 
     this.dialogEvents.addListener(dialog, 'cancel', e => {
-      if (o.noClickAway && o.noCloseButton && o.class !== 'alert') return e.preventDefault();
+      if (this.noClickAway && o.noCloseButton && o.class !== 'alert') return e.preventDefault();
       if (!this.returnValue) this.returnValue = 'cancel';
     });
     this.dialogEvents.addListener(dialog, 'close', this.onRemove);
@@ -185,12 +189,10 @@ class DialogWrapper implements Dialog {
         'click',
         () => this.close('cancel'),
       );
-
-    if (!o.noClickAway)
-      setTimeout(() => {
-        this.dialogEvents.addListener(document.body, 'pointerdown', cancelOnInterval);
-        this.dialogEvents.addListener(dialog, 'pointerdown', cancelOnInterval);
-      });
+    setTimeout(() => {
+      this.dialogEvents.addListener(document.body, 'pointerdown', cancelOnInterval);
+      this.dialogEvents.addListener(dialog, 'pointerdown', cancelOnInterval);
+    });
     for (const app of o.append ?? []) {
       if (app.node === view) break;
       const where = (app.where ? view.querySelector(app.where) : view)!;
@@ -247,8 +249,12 @@ class DialogWrapper implements Dialog {
     }
   };
 
+  clickAway(enable: boolean) {
+    this.noClickAway = !enable;
+  }
+
   private onKeydown = (e: KeyboardEvent) => {
-    if (e.key === 'Escape' && !(this.o.noCloseButton && this.o.noClickAway)) {
+    if (e.key === 'Escape' && !(this.o.noCloseButton && this.noClickAway)) {
       this.close('cancel');
       e.preventDefault();
     } else if (e.key === 'Tab') {

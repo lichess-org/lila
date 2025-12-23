@@ -1,4 +1,4 @@
-import CevalCtrl from './ctrl';
+import { CevalCtrl } from './ctrl';
 import * as view from './view/main';
 import * as winningChances from './winningChances';
 
