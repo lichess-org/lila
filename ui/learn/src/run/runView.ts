@@ -34,15 +34,18 @@ const renderCompleted = (level: LevelCtrl): VNode =>
 export const runView = (ctrl: LearnCtrl) => {
   const runCtrl = ctrl.runCtrl;
   const { stage, levelCtrl } = runCtrl;
+  const rootClass: Record<string, boolean> = {
+    starting: !!levelCtrl.vm.starting,
+    completed: levelCtrl.vm.completed && !levelCtrl.blueprint.nextButton,
+    'last-step': !!levelCtrl.vm.lastStep,
+    'piece-values': !!levelCtrl.blueprint.showPieceValues,
+  };
+  if (stage.cssClass) rootClass[stage.cssClass] = true;
+  if (levelCtrl.blueprint.cssClass) rootClass[levelCtrl.blueprint.cssClass] = true;
   return h(
-    `div.learn.learn--run.${stage.cssClass}.${levelCtrl.blueprint.cssClass}`,
+    'div.learn.learn--run',
     {
-      class: {
-        starting: !!levelCtrl.vm.starting,
-        completed: levelCtrl.vm.completed && !levelCtrl.blueprint.nextButton,
-        'last-step': !!levelCtrl.vm.lastStep,
-        'piece-values': !!levelCtrl.blueprint.showPieceValues,
-      },
+      class: rootClass,
     },
     [
       h('div.learn__side', mapSideView(ctrl)),
