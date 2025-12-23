@@ -135,12 +135,16 @@ export class LevelCtrl {
       failure();
       return true;
     };
+    const enemyRoleToBeCaptured = (orig: SquareName, dest: SquareName): Role | undefined => {
+      const destSquare = parseSquare(dest);
+      const pieceBeingMoved = chess.instance.board.get(parseSquare(orig));
+      const enPassant = destSquare === chess.instance.epSquare && pieceBeingMoved?.role === 'pawn';
+      return enPassant ? 'pawn' : chess.instance.board.get(destSquare)?.role;
+    };
 
     return (orig: SquareName, dest: SquareName, prom?: PromotionRole) => {
       vm.nbMoves++;
-      const pieceBeingMoved = chess.instance.board.get(parseSquare(orig));
-      const pieceFormerlyAtDest = chess.instance.board.get(parseSquare(dest));
-      const formerEnPassantSq = chess.instance.epSquare;
+      const enemyRoleCaptured = enemyRoleToBeCaptured(orig, dest);
       const move = chess.move(orig, dest, prom);
       if (move) this.setFen(chess.fen(), blueprint.color, new Map());
       else {
@@ -161,9 +165,6 @@ export class LevelCtrl {
         items.remove(makeSquare(move.to));
         took = true;
       });
-      const enPassantPlayed = move.to === formerEnPassantSq && pieceBeingMoved?.role === 'pawn';
-      const enemyRoleCaptured = enPassantPlayed ? 'pawn' : pieceFormerlyAtDest?.role;
-      console.log(enPassantPlayed, took, blueprint.pointsForCapture);
       if (!took && enemyRoleCaptured && blueprint.pointsForCapture && enemyRoleCaptured !== 'king') {
         vm.score += blueprint.showPieceValues ? pieceValue(enemyRoleCaptured) : capture;
         took = true;
