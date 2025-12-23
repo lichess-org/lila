@@ -61,8 +61,11 @@
   <string name="averageScore">Среден резултат</string>
   <string name="myTournaments">Моите турнири</string>
   <string name="editTournament">Редактиране на турнира</string>
+  <string name="editTeamBattle">Редактирай отборната битка</string>
   <string name="defender">Защитаващ</string>
   <string name="pickYourTeam">Изберете отбора си</string>
+  <string name="whichTeamWillYouRepresentInThisBattle">Кой отбор ще представлявате в тази битка?</string>
+  <string name="youMustJoinOneOfTheseTeamsToParticipate">Трябва да се присъедините към един от тези отбори, за да участвате!</string>
   <string name="created">Създадено</string>
   <string name="recentlyPlayed">Изиграни наскоро</string>
   <string name="bestResults">Най-добри резултати</string>
