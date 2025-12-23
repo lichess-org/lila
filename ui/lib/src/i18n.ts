@@ -65,6 +65,31 @@ export const currencyFormat = (n: number, currency: string, options?: Intl.Numbe
   return new Intl.NumberFormat(displayLocale, { style: 'currency', currency, ...options }).format(n);
 };
 
+const currencyDigitsCache = new Map<string, number>();
+
+export const getCurrencyDigits = (currency: string): number => {
+  const cached = currencyDigitsCache.get(currency);
+  if (cached !== undefined) return cached;
+
+  try {
+    const nf = new Intl.NumberFormat(displayLocale, {
+      style: 'currency',
+      currency,
+    });
+    const digits = nf.resolvedOptions().maximumFractionDigits ?? 2;
+    currencyDigitsCache.set(currency, digits);
+    return digits;
+  } catch (e) {
+    return 2;
+  }
+};
+
+export const roundToCurrency = (n: number, currency: string): number => {
+  const digits = getCurrencyDigits(currency);
+  const factor = Math.pow(10, digits);
+  return Math.round(n * factor) / factor;
+};
+
 export const percentFormat = (n: number, precision: number): string =>
   getNumberFormatter()
     ? new Intl.NumberFormat(displayLocale, { style: 'percent', minimumFractionDigits: precision }).format(n)
