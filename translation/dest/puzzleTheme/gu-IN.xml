@@ -30,8 +30,8 @@
   <string name="cornerMateDescription">ચેકમેટ જોડવા માટે રૂક અથવા રાણી અને ઘોડા નો ઉપયોગ કરીને રાજા ને ખૂણા સુધી સીમિત કરો.</string>
   <string name="crushing">કચડી નાખવું</string>
   <string name="crushingDescription">નિર્ણાયક ફાયદો મેળવવા માટે પ્રતિસ્પર્ધીની ભૂલ શોધો. (eval ≥ 600cp)</string>
-  <string name="discoveredCheck" comment="Description (translatable separately):&#10;&#10;Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage.">શોધાયેલ ચેક</string>
-  <string name="discoveredCheckDescription" comment="Description for the &quot;Discovered check&quot; puzzle theme.">છુપાયેલા હુમલો કરતા ટુકડામાંથી ચેક જાહેર કરવા માટે એક ટુકડો ખસેડો, જે ઘણીવાર નિર્ણાયક ફાયદા તરફ દોરી જાય છે.</string>
+  <string name="discoveredCheck">શોધાયેલ ચેક</string>
+  <string name="discoveredCheckDescription">છુપાયેલા હુમલો કરતા ટુકડામાંથી ચેક જાહેર કરવા માટે એક ટુકડો ખસેડો, જે ઘણીવાર નિર્ણાયક ફાયદા તરફ દોરી જાય છે.</string>
   <string name="doubleBishopMate">ડબલ ઊંટ મેટ</string>
   <string name="doubleBishopMateDescription">અડીને આવેલા કર્ણ પર બે હુમલો કરતા ઊંટ મિત્રતાપૂર્ણ ટુકડાઓ દ્વારા અવરોધિત રાજા ને મેટ પહોંચાડે છે.</string>
   <string name="dovetailMate">ડોવેટેલ મેટ</string>

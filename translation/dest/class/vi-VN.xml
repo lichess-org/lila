@@ -116,4 +116,9 @@ Mật khẩu: %3$s</string>
   <string name="moveToAnotherClass">Chuyển sang một lớp học khác</string>
   <string name="allowMessagingBetweenStudents">Cho phép nhắn tin giữa các học viên</string>
   <string name="allowMessagingBetweenStudentsDesc">Điều này chỉ áp dụng cho những tài khoản bạn đã tạo cho học viên của mình.</string>
+  <string name="quickLoginCode">Mã đăng nhập nhanh</string>
+  <string name="quickLoginCodes">Mã đăng nhập nhanh</string>
+  <string name="quickLoginCodesDesc1" comment="%s is a link to https://lichess.org/class">Sử dụng các mã này trong %s để cho học sinh của bạn đăng nhập vào Lichess.</string>
+  <string name="quickLoginCodesDesc2">Khi mã đăng nhập hết hạn, học sinh của bạn sẽ vẫn được đăng nhập cho đến khi họ tự đăng xuất.</string>
+  <string name="expirationInMomentFromNow" comment="%s is relative time in the future. For example, 'in 2 hours'&#10;&#10;If it works better for your language, you can use punctuation e.g. &quot;Expiration: %s&quot;">Hết hạn %s</string>
 </resources>

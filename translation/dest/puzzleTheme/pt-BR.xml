@@ -30,8 +30,8 @@
   <string name="cornerMateDescription">Confine o rei no canto usando uma torre ou dama e um cavalo para executar o xeque-mate.</string>
   <string name="crushing">Punindo</string>
   <string name="crushingDescription">Perceba a capivarada do oponente para obter uma vantagem decisiva. (vantagem ≥ 600cp)</string>
-  <string name="discoveredCheck" comment="Description (translatable separately):&#10;&#10;Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage.">Xeque Descoberto</string>
-  <string name="discoveredCheckDescription" comment="Description for the &quot;Discovered check&quot; puzzle theme.">Movimente uma peça para revelar um xeque de uma peça atacante escondida, que costuma levar a uma vantagem decisiva.</string>
+  <string name="discoveredCheck">Xeque Descoberto</string>
+  <string name="discoveredCheckDescription">Movimente uma peça para revelar um xeque de uma peça atacante escondida, que costuma levar a uma vantagem decisiva.</string>
   <string name="doubleBishopMate">Mate de dois bispos</string>
   <string name="doubleBishopMateDescription">Dois bispos atacantes em diagonais adjacentes dão um mate em um rei obstruído por peças amigas.</string>
   <string name="dovetailMate">Mate da cauda de andorinha</string>
@@ -67,6 +67,10 @@
   <string name="intermezzoDescription">Em vez de jogar o movimento esperado, primeiro realiza outro movimento criando uma ameaça imediata a que o oponente deve responder. Também conhecido como \"Zwischenzug\" ou \"In between\".</string>
   <string name="killBoxMate">Mate de torre e dama</string>
   <string name="killBoxMateDescription">Uma torre fica perto do rei inimigo e é defendida por uma dama que também bloqueia as casas de fuga. A torre e a dama capturam o rei inimigo em uma \"caixa mortal\" de 3 por 3.</string>
+  <string name="pillsburysMate">Mate de Pillsbury</string>
+  <string name="pillsburysMateDescription">A torre realiza o checkmate, enquanto o bispo ajuda a prender o rei.</string>
+  <string name="morphysMate">Mate de Morphy</string>
+  <string name="morphysMateDescription">Use o bispo para dar xeque no rei, enquanto sua torre ajuda a confiná-lo.</string>
   <string name="triangleMate">Mate do triângulo</string>
   <string name="triangleMateDescription">A dama e a torre, há uma casa de distância do rei inimigo, estão na mesma fila ou coluna, separadas por uma casa, formando um triângulo.</string>
   <string name="vukovicMate">Mate de Vukovic</string>
@@ -97,6 +101,8 @@
   <string name="oneMoveDescription">Quebra-cabeças de um movimento.</string>
   <string name="opening">Abertura</string>
   <string name="openingDescription">Tática durante a primeira fase do jogo.</string>
+  <string name="operaMate">Mate da ópera</string>
+  <string name="operaMateDescription">Dê xeque no rei com uma torre e use um bispo para defender a torre.</string>
   <string name="pawnEndgame">Finais de peões</string>
   <string name="pawnEndgameDescription">Um final apenas com peões.</string>
   <string name="pin">Cravada</string>

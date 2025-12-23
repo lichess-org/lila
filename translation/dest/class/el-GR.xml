@@ -120,4 +120,9 @@
   <string name="moveToAnotherClass">Μετακίνηση σε άλλη τάξη</string>
   <string name="allowMessagingBetweenStudents">Να επιτρέπεται η αποστολή μηνυμάτων μεταξύ των μαθητών</string>
   <string name="allowMessagingBetweenStudentsDesc">Η ρύθμιση αυτή ισχύει μόνο για τους λογαριασμούς που έχετε δημιουργήσει εσείς για τους μαθητές σας.</string>
+  <string name="quickLoginCode">Γρήγορος κωδικός σύνδεσης</string>
+  <string name="quickLoginCodes">Γρήγοροι κωδικοί σύνδεσης</string>
+  <string name="quickLoginCodesDesc1" comment="String is a URL">Χρησιμοποιήστε αυτούς τους κωδικούς στη διεύθυνση %s για να πραγματοποιήσετε την είσοδο των μαθητών σας στο Lichess.</string>
+  <string name="quickLoginCodesDesc2">Αφού οι κωδικοί λήξουν, οι μαθητές σας θα παραμείνουν συνδεδεμένοι έως ότου επιλέξουν να αποσυνδεθούν.</string>
+  <string name="expirationInMomentFromNow" comment="String is the translation of, for example, 'in 2 hours'">Λήγει %s</string>
 </resources>

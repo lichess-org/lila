@@ -11,10 +11,11 @@
   <string name="antichess" comment="The name of a chess variant where you must lose your pieces or get stalemated to win. Basically, the opposite of chess (hence being &quot;anti&quot; chess).">Anti-xadrez</string>
   <string name="antichessTitle" comment="Description for the Antichess variant">Perde todas as tuas peças (ou fica em impedido) para ganhar o jogo.</string>
   <string name="atomic" comment="The name of a chess variant where pieces explode when captured. Named after nuclear explosions.">Atómico</string>
-  <string name="atomicTitle" comment="Description for the Atomic Chess variant. Alternatives to nuke could be &quot;blow up&quot; or &quot;explode&quot;.">Explode o rei do oponente para vencer.</string>
+  <string name="atomicTitle" comment="Description for the Atomic Chess variant. Alternatives to nuke could be &quot;blow up&quot; or &quot;explode&quot;.">Explode o rei do adversário para vencer.</string>
   <string name="horde" comment="The name of a chess variant where one side has a regular chess army but the other has dozens of pawns, resembling a horde.">Horda</string>
   <string name="hordeTitle" comment="Description for the Horde chess variant">Um lado tem um grande número de peões, o outro tem um exército normal.</string>
   <string name="racingKings" comment="The name of a chess variant where both sides start on the same rank, and need to reach the other side of the board win.&#10;&#10;No need to translate literally. Focus on making it fun, capturing the spirit of the variant.">Corrida dos Reis</string>
-  <string name="racingKingsTitle" comment="Description for the Racing Kings chess variant">Leva o teu rei para o outro lado do tabuleiro para ganhar.</string>
+  <string name="racingKingsTitle" comment="Description for the Racing Kings chess variant">Leve o seu rei para o outro lado do tabuleiro para ganhar.</string>
+  <string name="crazyhouse" comment="The name of a chess variant where pieces you capture can be put on the board (similar to shogi).">Crazyhouse</string>
   <string name="crazyhouseTitle" comment="Description for the Crazyhouse chess variant">As peças capturadas podem ser colocadas de volta no tabuleiro em vez de mover uma peça.</string>
 </resources>

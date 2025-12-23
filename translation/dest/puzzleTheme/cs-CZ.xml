@@ -26,7 +26,7 @@
   <string name="cornerMate">Mat v rohu</string>
   <string name="crushing">Potrestání</string>
   <string name="crushingDescription">Odhalte chybu soupeře a získejte drtivou výhodu. (eval ≥ 600cp)</string>
-  <string name="discoveredCheck" comment="Description (translatable separately):&#10;&#10;Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage.">Odtažný šach</string>
+  <string name="discoveredCheck">Odtažný šach</string>
   <string name="doubleBishopMate">Mat dvěma střelci</string>
   <string name="doubleBishopMateDescription">Dva útočící střelci na různých diagonálách dají mat soupeřovu králi.</string>
   <string name="dovetailMate">Coziův mat</string>

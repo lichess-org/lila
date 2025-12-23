@@ -30,8 +30,8 @@
   <string name="cornerMateDescription">شاه را به کنج محدود کنید و با استفاده از یک رخ یا وزیر و یک اسب، او را مات کنید.</string>
   <string name="crushing">تخریب</string>
   <string name="crushingDescription">تشخیص اشتباه فاحش حریف، برای رسیدن به برتری‌ای کوبنده. (ارزیابی ≥ ۶۰۰ص‌پ)</string>
-  <string name="discoveredCheck" comment="Description (translatable separately):&#10;&#10;Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage.">کیشِ برخاست</string>
-  <string name="discoveredCheckDescription" comment="Description for the &quot;Discovered check&quot; puzzle theme.">حرکتِ یک مهره، کیشِ مهاجمِ پنهانی را فاش می‌کند که اغلب به مزیتی قاطع مُنجَر می‌شود.</string>
+  <string name="discoveredCheck">کیشِ برخاست</string>
+  <string name="discoveredCheckDescription">حرکتِ یک مهره، کیشِ مهاجمِ پنهانی را فاش می‌کند که اغلب به مزیتی قاطع مُنجَر می‌شود.</string>
   <string name="doubleBishopMate">ماتِ دوفیل</string>
   <string name="doubleBishopMateDescription">دو فیل روی قطرهای همجوار، شاهی را که با مهره‌های خودی مسدود شده است، مات می‌کنند.</string>
   <string name="dovetailMate">مات بوسه ای</string>

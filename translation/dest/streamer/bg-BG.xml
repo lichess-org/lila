@@ -35,8 +35,8 @@
     <item quantity="one">Накратко: най-много %s знак</item>
     <item quantity="other">Накратко: най-много %s знака</item>
   </plurals>
-  <string name="visibility">Видимо на публичната страницата със стриймъри</string>
-  <string name="whenApproved">Когато е одобрена от модераторите</string>
+  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">Видимо на публичната страницата със стриймъри</string>
+  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">Когато е одобрена от модераторите</string>
   <string name="headline">Заглавие</string>
   <string name="tellUsAboutTheStream">Разкажете ни за вашия поток с едно изречение</string>
   <string name="longDescription">Дълго описание</string>

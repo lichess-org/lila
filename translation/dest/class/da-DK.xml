@@ -119,4 +119,9 @@ Her er linket, der giver adgang til klassen.</string>
   <string name="moveToAnotherClass">Flyt til en anden klasse</string>
   <string name="allowMessagingBetweenStudents">Tillad beskeder mellem elever</string>
   <string name="allowMessagingBetweenStudentsDesc">Dette gælder kun for de konti, du har oprettet for dine elever.</string>
+  <string name="quickLoginCode">Hurtig login-kode</string>
+  <string name="quickLoginCodes">Hurtig login-koder</string>
+  <string name="quickLoginCodesDesc1" comment="String is a URL">Brug disse koder på %s til at logge dine elever ind i Lichess.</string>
+  <string name="quickLoginCodesDesc2">Når koderne udløber, vil dine elever forblive logget ind, indtil de manuelt logger ud.</string>
+  <string name="expirationInMomentFromNow" comment="String is the translation of, for example, 'in 2 hours'">Udløber %s</string>
 </resources>

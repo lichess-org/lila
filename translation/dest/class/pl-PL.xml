@@ -125,4 +125,9 @@ Oto link do klasy.</string>
   <string name="moveToAnotherClass">Przenieś do innej klasy</string>
   <string name="allowMessagingBetweenStudents">Zezwól na wiadomości między uczniami</string>
   <string name="allowMessagingBetweenStudentsDesc">Dotyczy to tylko kont, które utworzyłeś dla swoich uczniów.</string>
+  <string name="quickLoginCode">Kod szybkiego logowania</string>
+  <string name="quickLoginCodes">Kody szybkiego logowania</string>
+  <string name="quickLoginCodesDesc1" comment="%s is a link to https://lichess.org/class">Te kody pozwolą Twoim uczniom zalogować się do klasy Lichess na %s.</string>
+  <string name="quickLoginCodesDesc2">Po wygaśnięciu kodów, Twoi uczniowie pozostaną zalogowani, dopóki się nie wylogują.</string>
+  <string name="expirationInMomentFromNow" comment="%s is relative time in the future. For example, 'in 2 hours'&#10;&#10;If it works better for your language, you can use punctuation e.g. &quot;Expiration: %s&quot;">Wygasa %s</string>
 </resources>

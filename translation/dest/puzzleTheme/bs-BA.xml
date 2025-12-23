@@ -30,8 +30,8 @@
   <string name="cornerMateDescription">Ograničite kralja u ugao koristeći top ili damu i skakača kako biste se suočili sa šah-matom.</string>
   <string name="crushing">Uništavanje</string>
   <string name="crushingDescription">Uočite protivnikov grubi previd kako biste stekli razornu prednost (≥ 600 cp)</string>
-  <string name="discoveredCheck" comment="Description (translatable separately):&#10;&#10;Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage.">Otkriveni ček</string>
-  <string name="discoveredCheckDescription" comment="Description for the &quot;Discovered check&quot; puzzle theme.">Pomaknite figuru da biste otkrili šah skrivene napadačke figure, što često dovodi do odlučujuće prednosti.</string>
+  <string name="discoveredCheck">Otkriveni ček</string>
+  <string name="discoveredCheckDescription">Pomaknite figuru da biste otkrili šah skrivene napadačke figure, što često dovodi do odlučujuće prednosti.</string>
   <string name="doubleBishopMate">Dvostruki biskupski mat</string>
   <string name="doubleBishopMateDescription">Dva napadačka biskupa na susjednim dijagonalama isporučuju partnera kralju spriječenom prijateljskim figurama.</string>
   <string name="dovetailMate">Mat lastinog repa</string>

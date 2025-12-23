@@ -120,4 +120,9 @@ Mostrará una línea separadora horizontal.</string>
   <string name="moveToAnotherClass">Mover a otra clase</string>
   <string name="allowMessagingBetweenStudents">Permitir mensajes entre estudiantes</string>
   <string name="allowMessagingBetweenStudentsDesc">Esto solo se aplica en las cuentas que has creado para tus estudiantes.</string>
+  <string name="quickLoginCode">Código de acceso rápido</string>
+  <string name="quickLoginCodes">Códigos de acceso rápido</string>
+  <string name="quickLoginCodesDesc1" comment="%s is a link to https://lichess.org/class">Usa estos códigos en %s para dar acceso a tus estudiantes a Lichess.</string>
+  <string name="quickLoginCodesDesc2">Cuando los códigos caduquen, tus estudiantes permanecerán conectados hasta que se desconecten manualmente.</string>
+  <string name="expirationInMomentFromNow" comment="%s is relative time in the future. For example, 'in 2 hours'&#10;&#10;If it works better for your language, you can use punctuation e.g. &quot;Expiration: %s&quot;">Caducidad %s</string>
 </resources>

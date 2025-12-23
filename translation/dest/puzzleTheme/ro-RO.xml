@@ -30,8 +30,8 @@
   <string name="cornerMateDescription">Restrânge regele spre colț folosind o tură sau regină și un nebun pentru a duce la mat.</string>
   <string name="crushing">Zdrobitor</string>
   <string name="crushingDescription">Observă gafa adversarului pentru a obține un avantaj zdrobitor. (eval ≥ 600cp)</string>
-  <string name="discoveredCheck" comment="Description (translatable separately):&#10;&#10;Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage.">Șah prin descoperire</string>
-  <string name="discoveredCheckDescription" comment="Description for the &quot;Discovered check&quot; puzzle theme.">Mută o piesă pentru a descoperi un șah de la o piesă de atac ascunsă, ceea ce duce adesea la un avantaj decisiv.</string>
+  <string name="discoveredCheck">Șah prin descoperire</string>
+  <string name="discoveredCheckDescription">Mută o piesă pentru a descoperi un șah de la o piesă de atac ascunsă, ceea ce duce adesea la un avantaj decisiv.</string>
   <string name="doubleBishopMate">Mat-ul cu doi nebuni</string>
   <string name="doubleBishopMateDescription">Doi nebuni care atacă pe diagonale adiacente livrează mat-ul unui rege blocat de piese aliate.</string>
   <string name="dovetailMate">Mat-ul dovertail</string>

@@ -21,14 +21,24 @@
   <string name="perks">Предности стримовања са кључном речи</string>
   <string name="perk1">Добићеш горећу стример икону на твом Lichess профилу.</string>
   <string name="perk2">Бићете пробијеени на врх листе стримера.</string>
-  <string name="perk3">Обавестите ваше Личес пратиоце.</string>
+  <string name="perk3">Обавести своје Lichess пратиоце.</string>
+  <string name="perk4">Покажи твој стрим у својим партијама, турнирима и студијама.</string>
   <string name="approved">Твој стрим је одобрен.</string>
   <string name="pendingReview">Твој стрим проверавају модератори.</string>
-  <string name="pleaseFillIn">Молимо попуните стримерске информације и поставите слику.</string>
+  <string name="pleaseFillIn">Молимо да попуниш твоје стримерске информације и поставиш слику.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Када будете спремни да постанете Личес стример, %s</string>
+  <string name="streamerName">Твоје стримерско име на Lichess-у</string>
+  <plurals name="keepItShort">
+    <item quantity="one">Нека буде кратко: %s карактер највише</item>
+    <item quantity="few">Нека буде кратко: %s карактера највише</item>
+    <item quantity="other">Нека буде кратко: %s карактера највише</item>
+  </plurals>
+  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">Видљив на страници стримера</string>
+  <string name="whenApproved">Након одобрења модератора</string>
   <string name="headline">Наслов</string>
   <string name="tellUsAboutTheStream">Реци нам нешто о свом стриму у једној реченици</string>
-  <string name="longDescription">Дужи опис</string>
+  <string name="longDescription">Дуги опис</string>
+  <string name="xStreamerPicture">%s стримерска слика</string>
   <string name="changePicture">Измени/избриши своју слику</string>
   <string name="uploadPicture">Постави слику</string>
   <string name="maxSize">Максимална величина: %s</string>

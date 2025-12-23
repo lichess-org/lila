@@ -30,6 +30,8 @@
   <string name="cornerMateDescription">Le roi adverse est confiné dans un coin de l\'échiquier par une tour ou la dame, puis un cavalier le met mat.</string>
   <string name="crushing">Écrasant</string>
   <string name="crushingDescription">Repérez la gaffe de l\'adversaire pour obtenir un avantage écrasant. (évaluation &gt; 600cp)</string>
+  <string name="discoveredCheck">Échec à la découverte</string>
+  <string name="discoveredCheckDescription">En se déplaçant, une pièce permet à une autre pièce de mettre le roi adverse en échec et d\'obtenir souvent un avantage décisif.</string>
   <string name="doubleBishopMate">Mat des deux Fous</string>
   <string name="doubleBishopMateDescription">Deux Fous contrôlant des diagonales adjacentes matent un Roi bloqué par ses propres pièces.</string>
   <string name="dovetailMate">Mat de Cozio</string>

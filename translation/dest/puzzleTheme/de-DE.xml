@@ -30,8 +30,8 @@
   <string name="cornerMateDescription">Sperrt den König in einer Ecke des Bretts ein, um dann mit Turm oder Dame und einem Springer Matt zu setzen.</string>
   <string name="crushing">Vernichtend</string>
   <string name="crushingDescription">Finde den gegnerischen Patzer, um einen vernichtenden Vorteil zu erhalten. (Bewertung ≥ 600 Hundertstel-Bauern)</string>
-  <string name="discoveredCheck" comment="Description (translatable separately):&#10;&#10;Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage.">Abzugsschach</string>
-  <string name="discoveredCheckDescription" comment="Description for the &quot;Discovered check&quot; puzzle theme.">Bewege eine Figur, um mit einer anderen versteckten Figur ein Schach zu gebe, was oft zu entscheidendem Vorteil führt.</string>
+  <string name="discoveredCheck">Abzugsschach</string>
+  <string name="discoveredCheckDescription">Bewege eine Figur, um mit einer anderen versteckten Figur ein Schach zu gebe, was oft zu entscheidendem Vorteil führt.</string>
   <string name="doubleBishopMate">Läuferpaarmatt</string>
   <string name="doubleBishopMateDescription">Zwei angreifende Läufer auf nebeneinander liegenden Diagonalen setzen den König matt, der durch eigene Figuren behindert wird.</string>
   <string name="dovetailMate">Sternmatt</string>
@@ -67,6 +67,10 @@
   <string name="intermezzoDescription">Anstatt den erwarteten Zug zu spielen, schiebe einen anderen Zug dazwischen, der eine sofortige Drohung aufstellt, welche der Gegner beantworten muss.</string>
   <string name="killBoxMate">Killbox Matt</string>
   <string name="killBoxMateDescription">Ein Turm befindet sich neben dem gegnerischen König und wird durch die Dame unterstützt, welche ebenfalls die Fluchtfelder des Königs blockiert. Der Turm und die Dame halten den gegnerischen König in einer 3x3 \"Killbox\".</string>
+  <string name="pillsburysMate">Pillsburys Matt</string>
+  <string name="pillsburysMateDescription">Der Turm setzt Matt, während der Läufer hilft, ihn zu beschränken.</string>
+  <string name="morphysMate">Morphys Matt</string>
+  <string name="morphysMateDescription">Benutze den Läufer, um den König ins Schach zu stellen, während dein Turm ihn weiter beschränkt.</string>
   <string name="triangleMate">Dreiecks-Matt</string>
   <string name="triangleMateDescription">Die Dame und der Turm bilden auf derselben Reihe oder Linie und im Abstand von einem Feld mit dem gegnerischen König ein Dreieck.</string>
   <string name="vukovicMate">Vukovic-Matt</string>
@@ -97,6 +101,8 @@
   <string name="oneMoveDescription">Eine Aufgabe, die nur einen Zug erfordert.</string>
   <string name="opening">Eröffnung</string>
   <string name="openingDescription">Eine Taktik in der ersten Phase der Partie.</string>
+  <string name="operaMate">Opern Matt</string>
+  <string name="operaMateDescription">Stelle den König mithilfe deines Turms ins Schach und benutze einen Läufer, um den Turm zu verteidigen.</string>
   <string name="pawnEndgame">Bauernendspiel</string>
   <string name="pawnEndgameDescription">Ein Endspiel nur mit Bauern.</string>
   <string name="pin">Fesselung</string>

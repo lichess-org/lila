@@ -30,8 +30,8 @@
   <string name="cornerMateDescription">用车或后与马配合，将对方的王困在角落并将其将杀。</string>
   <string name="crushing">压倒性优势</string>
   <string name="crushingDescription">利用对手失误以获得压倒性优势（评估 ≥ 600 厘兵）</string>
-  <string name="discoveredCheck" comment="Description (translatable separately):&#10;&#10;Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage.">闪将</string>
-  <string name="discoveredCheckDescription" comment="Description for the &quot;Discovered check&quot; puzzle theme.">移动一个棋子，露出隐藏的攻击性子力进行将军，这通常能带来决定性的优势。</string>
+  <string name="discoveredCheck">闪将</string>
+  <string name="discoveredCheckDescription">移动一个棋子，露出隐藏的攻击性子力进行将军，这通常能带来决定性的优势。</string>
   <string name="doubleBishopMate">双象杀王</string>
   <string name="doubleBishopMateDescription">两条相邻斜线上的两个进攻象，在己方棋子阻挡下将杀对方的王。</string>
   <string name="dovetailMate">燕尾杀王</string>
@@ -59,7 +59,7 @@
   <string name="forkDescription">一步棋同时攻击对方两个棋子。</string>
   <string name="hangingPiece">悬子</string>
   <string name="hangingPieceDescription">针对对方未被保护或保护不足、可以免费吃掉的棋子的战术。</string>
-  <string name="hookMate">钩子将杀</string>
+  <string name="hookMate">钩形将杀</string>
   <string name="hookMateDescription">用车、马和兵，配合对方的一个兵来限制对方王的逃跑路线，从而完成将杀。</string>
   <string name="interference">拦截</string>
   <string name="interferenceDescription">将己方棋子走到对方两个棋子之间，使得其中一个或两个对方棋子失去保护，例如将一个马走到被保护的两个车之间的格子上。</string>
@@ -67,6 +67,10 @@
   <string name="intermezzoDescription">不走出预期的着法，而是先插入一步构成直接威胁的着法，迫使对方必须应对。也称为“中间着”或“过渡着”。</string>
   <string name="killBoxMate">杀箱将杀</string>
   <string name="killBoxMateDescription">车紧邻对方王，并得到后的支持，后也同时封锁了王的逃逸格。车和后将对方王困在一个 3x3 的“杀王箱”中。</string>
+  <string name="pillsburysMate">皮尔斯伯里将杀</string>
+  <string name="pillsburysMateDescription">车执行将杀，而象协助限制王移动。</string>
+  <string name="morphysMate">摩菲将杀</string>
+  <string name="morphysMateDescription">利用象来将军，同时您的车协助限制王移动。</string>
   <string name="triangleMate">三角将杀</string>
   <string name="triangleMateDescription">后和车距离对方王一格，且位于同一横线或直线，中间相隔一格，形成一个三角形。</string>
   <string name="vukovicMate">瓦科维奇将杀</string>
@@ -97,6 +101,8 @@
   <string name="oneMoveDescription">仅包含一步棋的谜题。</string>
   <string name="opening">开局</string>
   <string name="openingDescription">对局第一阶段的战术。</string>
+  <string name="operaMate">歌剧将杀</string>
+  <string name="operaMateDescription">用车将军，并用象来保护车。</string>
   <string name="pawnEndgame">兵残局</string>
   <string name="pawnEndgameDescription">只有兵的残局。</string>
   <string name="pin">牵制</string>

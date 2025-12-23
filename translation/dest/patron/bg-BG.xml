@@ -14,7 +14,7 @@
   <string name="newPatrons">Нови Дарители</string>
   <string name="freeChess">Безплатен шахмат за всеки, за винаги!</string>
   <string name="noAdsNoSubs">Без реклами, без абонаменти; просто отворен код и страст.</string>
-  <string name="thankYou">Благодарим Ви за дарението!</string>
+  <string name="thankYou" comment="&quot;you&quot; is in singular here.">Благодарим Ви за дарението!</string>
   <string name="youHaveLifetime">Имате доживотен дарителски акаунт. Това е просто невероятно!</string>
   <string name="patronUntil">Имате дарителски акаунт до %s.</string>
   <string name="ifNotRenewedThenAccountWillRevert">Ако не бъде подновена, Вашата регистрация ще стане пак обикновена.</string>
