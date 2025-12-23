@@ -7,7 +7,7 @@ import type { LevelCtrl } from '../levelCtrl';
 import type { RunCtrl } from './runCtrl';
 import { mapSideView } from '../mapSideView';
 import type { LearnCtrl } from '../ctrl';
-import { h, type VNode } from 'snabbdom';
+import { h, type Classes, type VNode } from 'snabbdom';
 import { bind } from 'lib/view';
 import { makeStars, progressView } from '../progressView';
 import { promotionView } from '../promotionView';
@@ -34,7 +34,7 @@ const renderCompleted = (level: LevelCtrl): VNode =>
 export const runView = (ctrl: LearnCtrl) => {
   const runCtrl = ctrl.runCtrl;
   const { stage, levelCtrl } = runCtrl;
-  const rootClass: Record<string, boolean> = {
+  const rootClass: Classes = {
     starting: !!levelCtrl.vm.starting,
     completed: levelCtrl.vm.completed && !levelCtrl.blueprint.nextButton,
     'last-step': !!levelCtrl.vm.lastStep,
