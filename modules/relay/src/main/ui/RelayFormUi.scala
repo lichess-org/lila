@@ -796,7 +796,7 @@ Team Dogs ; Scooby Doo"""),
   private def grouping(form: Form[RelayTourForm.Data])(using Context) =
     div(cls := "relay-form__grouping")(
       form3.group(
-        form("grouping"),
+        form("grouping.info"),
         "Optional: assign tournaments to a group",
         help = frag( // do not translate
           "First line is the group name.",
@@ -812,5 +812,25 @@ https://lichess.org/broadcast/dutch-championships-2025--women--first-stage/PGFBk
 https://lichess.org/broadcast/dutch-championships-2025--open--quarterfinals/Zi12QchK
 """)
         ).some
-      )(form3.textarea(_)(rows := 5, spellcheck := "false", cls := "monospace"))
+      )(form3.textarea(_)(rows := 5, spellcheck := "false", cls := "monospace")),
+      form3.group(
+        form("grouping.scoreGroups"),
+        "Optional: Divide the group into score groups",
+        help = frag(
+          "Each line defines a new score group with comma-separated tournament IDs.",
+          br,
+          "Only tournaments that are part of this group can be used in score groups.",
+          br,
+          "Settings for scores, rating diffs and tiebreaks are taken from the first tournament in each score group.",
+          br,
+          "Example:",
+          pre("""ISdmqct3,Zi12QchK
+PGFBkEha"""),
+          "Using the same example as above, this will create 2 score groups:",
+          br,
+          "1) Combines the open sections",
+          br,
+          "2) Is the lone women's section"
+        ).some
+      )(form3.textarea(_)(rows := 3, spellcheck := "false", cls := "monospace"))
     )
