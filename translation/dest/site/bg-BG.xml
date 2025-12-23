@@ -71,7 +71,7 @@
   <string name="goDeeper">По-детайлно</string>
   <string name="showThreat">Покажи заплаха</string>
   <string name="inLocalBrowser">в локалния браузър</string>
-  <string name="toggleLocalEvaluation">Превключване на локална оценка</string>
+  <string name="toggleLocalEvaluation">Превключи локалната оценка</string>
   <string name="promoteVariation">Повиши вариацията</string>
   <string name="makeMainLine">Направи основна линия</string>
   <string name="deleteFromHere">Изтриване от тук</string>
@@ -683,6 +683,7 @@
   <string name="simultaneousExhibitions">Сеанси</string>
   <string name="host">Домакин</string>
   <string name="hostColorX">Домакин: %s</string>
+  <string name="yourPendingSimuls">Предстоящите ви сеанси</string>
   <string name="createdSimuls">Нови сеанси</string>
   <string name="hostANewSimul">Бъди домакин на сеанс</string>
   <string name="signUpToHostOrJoinASimul">Регистрация за участие в сеанс</string>
@@ -708,8 +709,9 @@
   <string name="averageCentipawnLoss">Средна загуба в стотни на пешка</string>
   <string name="accuracy">Точност</string>
   <string name="keyboardShortcuts">Клавиатурни комбинации</string>
-  <string name="keyMoveBackwardOrForward">мести напред/назад</string>
+  <string name="keyMoveBackwardOrForward">назад/напред</string>
   <string name="keyGoToStartOrEnd">към началото/края</string>
+  <string name="keyCycleSelectedVariation">Превключи избрания вариант</string>
   <string name="keyShowOrHideComments">покажи/скрий коментарите</string>
   <string name="keyEnterOrExitVariation">влез/излез от вариацията</string>
   <string name="keyRequestComputerAnalysis">Поискайте компютърен анализ, Учете се от грешките си</string>
@@ -717,10 +719,14 @@
   <string name="keyNextBlunder">Следваща груба грешка</string>
   <string name="keyNextMistake">Следваща грешка</string>
   <string name="keyNextInaccuracy">Следваща неточност</string>
-  <string name="keyPreviousBranch">Предходен клон</string>
-  <string name="keyNextBranch">Следващ клон</string>
+  <string name="keyPreviousBranch">Предишно разклонение</string>
+  <string name="keyNextBranch">Следващо разклонение</string>
+  <string name="toggleVariationArrows">Превключване на стрелките за варианти</string>
   <string name="cyclePreviousOrNextVariation">Превключи между предходна/следваща вариация</string>
-  <string name="toggleObservationAnnotations">Показване/скриване на анотациите</string>
+  <string name="toggleGlyphAnnotations">Превключване на анотациите за ходове</string>
+  <string name="togglePositionAnnotations">Превключване на анотациите за позиция</string>
+  <string name="toggleObservationAnnotations">Превключване на анотациите за наблюдение</string>
+  <string name="variationArrowsInfo">Стрелките за вариантите позволяват да навигирате без използване на списъка с ходове.</string>
   <string name="playSelectedMove">изиграй избраният ход</string>
   <string name="newTournament">Нов турнир</string>
   <string name="tournamentHomeTitle">Шахматният турнир включва различни времеви контроли и варианти</string>
@@ -761,6 +767,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Може още да скролираш върху дъската, за да местиш ходовете.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Задръжте курсора над компютърните вариации за да ги прегледате.</string>
   <string name="analysisShapesHowTo">Натисни shift едновременно с ляво или дясно копче за да рисуваш кръгове и стрелки върху дъската.</string>
+  <string name="primaryColorArrowsHowTo">Ctrl или Shift = червено; Command, Alt или Meta = синьо; по един клавиш от двете = жълто.</string>
   <string name="letOtherPlayersMessageYou">Разреши на другите да ви пишат</string>
   <string name="receiveForumNotifications">Получаване на съобщения когато сте споменати във форума</string>
   <string name="shareYourInsightsData">Споделете измерванията върху вашата игра</string>
@@ -965,6 +972,7 @@
   <string name="simulFeaturedHelp">Показвайте сеанса си всички на %s. Изключете за частни сеанси.</string>
   <string name="simulDescription">Описание на сеанса</string>
   <string name="simulDescriptionHelp">Има ли нещо което искате да кажете на участниците?</string>
+  <string name="markdownIsAvailable">Можете да използвате %s за форматиране.</string>
   <string name="embedsAvailable">Постави URL на партия или на глава от студия, за да ги вградиш.</string>
   <string name="inYourLocalTimezone">Във Вашата часова зона</string>
   <string name="tournChat">Чат в турнира</string>
@@ -973,8 +981,8 @@
   <string name="onlyTeamMembers">Само членовете на отбора</string>
   <string name="navigateMoveTree">Навигирайте листа на ходовете</string>
   <string name="mouseTricks">Миши трик</string>
-  <string name="toggleLocalAnalysis">Включи/изключи локалния компютърен анализ</string>
-  <string name="toggleAllAnalysis">Включи/изключи целия компютърен анализ</string>
+  <string name="toggleLocalAnalysis">Превключване на локален компютърен анализ</string>
+  <string name="toggleAllAnalysis">Превключване на целия компютърен анализ</string>
   <string name="playComputerMove">Изиграй най-добрия компютърен ход</string>
   <string name="analysisOptions">Параметри на анализа</string>
   <string name="focusChat">Фокусирай текста</string>
@@ -998,6 +1006,7 @@
   <string name="instructions">Инструкции</string>
   <string name="showMeEverything">Покажи ми всичко</string>
   <string name="lichessPatronInfo">Lichess е благотворителна организация и работи с напълно безплатен софтуер и отворен код. Всички разходи за опериране, разработка и съдържание са финансирани единствено от дарения от потребителите ни.</string>
+  <string name="nothingToSeeHere">Засега тук няма нищо.</string>
   <string name="stats">Статистика</string>
   <string name="accessibility">Достъпност</string>
   <string name="enableBlindMode">Включи режима за незрящи</string>
