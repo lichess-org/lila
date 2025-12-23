@@ -251,10 +251,10 @@ private final class RelayPlayerApi(
       rounds <- roundRepo.byToursOrdered(tourIds)
       roundsById = rounds.mapBy(_.id)
       chapters <- chapterRepo.tagsByStudyIds(rounds.map(_.studyId))
-      allFideIds = chapters.flatMap(_._2.flatMap((_, tags) => tags.fideIds.flatten)).toSet.toList
+      allFideIds = chapters.flatMap(_._2.flatMap((_, tags) => tags.fideIds.flatten)).toList.distinct
       fedsById <- allFideIds
         .traverse(id => fidePlayerGet(id).map(id -> _))
-        .map(_.flatMap((id, playerOpt) => playerOpt.flatMap(_.fed.map(id -> _))).toMap)
+        .map(_.flatMap((id, playerOpt) => playerOpt.flatMap(_.fed).map(id -> _)).toMap)
     yield chapters.foldLeft(SeqMap.empty: RelayPlayers):
       case (playersAcc, (studyId, chaps)) =>
         roundsById
