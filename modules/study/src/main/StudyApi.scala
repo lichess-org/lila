@@ -702,10 +702,14 @@ final class StudyApi(
               // deleting the current chapter? Automatically move to another one
               else
                 (study.position.chapterId == chapterId).so:
-                  chaps
-                    .find(_.id != chapterId)
-                    .so: newChap =>
-                      doSetChapter(study, newChap.id, who)
+                  val ids = chaps.map(_.id)
+                  val newIdOpt =
+                    val i = ids.indexOf(chapterId)
+                    if i == -1 then ids.headOption
+                    else if i == ids.size - 1 then ids.lift(i - 1)
+                    else ids.lift(i + 1)
+                  newIdOpt.so: newId =>
+                    doSetChapter(study, newId, who)
             _ <- chapterRepo.delete(chapter.id)
           yield
             reloadChapters(study)
