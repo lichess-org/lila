@@ -106,18 +106,20 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
     for _ <- ups.all.map(perfsRepo.updatePerfs).parallelVoid
     yield gamePlayers.cache.invalidate(ups.map(_._1.id.some).toPair -> gamePerfType)
 
-  def withPerfs[U: UserIdOf](u: U): Fu[Option[UserWithPerfs]] =
-    userRepo.coll
-      .aggregateOne(): framework =>
-        import framework.*
-        Match($id(u.id)) -> List:
-          PipelineOperator(perfsRepo.aggregate.lookup)
-      .map: docO =>
-        for
-          doc <- docO
-          user <- doc.asOpt[User]
-          perfs = perfsRepo.aggregate.readFirst(doc, user)
-        yield UserWithPerfs(user, perfs)
+  def withPerfs[U: UserIdOf](u: U): Fu[Option[UserWithPerfs]] = u.id
+    .isnt(UserId.undefined)
+    .so:
+      userRepo.coll
+        .aggregateOne(): framework =>
+          import framework.*
+          Match($id(u.id)) -> List:
+            PipelineOperator(perfsRepo.aggregate.lookup)
+        .map: docO =>
+          for
+            doc <- docO
+            user <- doc.asOpt[User]
+            perfs = perfsRepo.aggregate.readFirst(doc, user)
+          yield UserWithPerfs(user, perfs)
 
   def enabledWithPerf[U: UserIdOf](id: U, perfType: PerfType): Fu[Option[WithPerf]] =
     byIdWithPerf(id, perfType).dmap(_.filter(_.user.enabled.yes))
