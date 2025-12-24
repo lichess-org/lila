@@ -703,11 +703,8 @@ final class StudyApi(
               else
                 (study.position.chapterId == chapterId).so:
                   val ids = chaps.map(_.id)
-                  val newIdOpt =
-                    val i = ids.indexOf(chapterId)
-                    if i == -1 then ids.headOption
-                    else if i == ids.size - 1 then ids.lift(i - 1)
-                    else ids.lift(i + 1)
+                  val i = ids.indexOf(chapterId)
+                  val newIdOpt = LazyList(i + 1, i - 1, 0).flatMap(ids.lift).headOption
                   newIdOpt.so: newId =>
                     doSetChapter(study, newId, who)
             _ <- chapterRepo.delete(chapter.id)
