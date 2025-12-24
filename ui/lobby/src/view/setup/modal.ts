@@ -30,7 +30,7 @@ export default function setupModal(ctrl: LobbyController): VNode | null {
     },
     modal: true,
     vnodes: [
-      hl('h2', i18n.site.gameSetup),
+      hl('h2#lobby-setup-modal-title', i18n.site.gameSetup),
       hl('div.setup-content', views[setupCtrl.gameType](ctrl)),
       hl('div.footer', [
         hl(
