@@ -31,6 +31,8 @@
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">כאשר אתם מוכנים להיכנס לרשימת שדרני Lichess, %s</string>
   <string name="submitForReview">שלח לבדיקה</string>
   <string name="streamerLanguageSettings">עמוד השדרנים של Lichess מכוון את הקהל שלך לפי השפה שבימת השידור שלך סיפקה לנו. הגדירו את השפה הנכונה באפליקציה או בשירות המשמשים אתכם לשידור.</string>
+  <string name="connect" comment="This button appears for streamers who wish to connect a Twitch or YouTube account, to their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">חיבור</string>
+  <string name="disconnect" comment="This button appears for streamers who wish to disconnect an already-linked Twitch or YouTube account, from their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">ניתוק</string>
   <string name="streamerName">השם שלכם כשדרנים ב־Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">עד תו %s</item>
@@ -38,8 +40,8 @@
     <item quantity="many">עד %s תווים</item>
     <item quantity="other">עד %s תווים</item>
   </plurals>
-  <string name="visibility">גלוי בעמוד השדרנים</string>
-  <string name="whenApproved">לאחר אישור מנהלים</string>
+  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">גלוי בעמוד השדרנים</string>
+  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">לאחר אישור מנהלים</string>
   <string name="headline">כּוֹתֶרֶת</string>
   <string name="tellUsAboutTheStream">ספרו לנו על שידורכם במשפט אחד</string>
   <string name="longDescription">תיאור ארוך</string>
