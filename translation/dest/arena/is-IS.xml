@@ -26,7 +26,7 @@ Berserk gefur aðeins aukastig ef þú leikur a. m. k. 7 leiki í skákinni.</st
   <string name="howIsTheWinnerDecidedAnswer">Þeir skákmenn (eða sá skákmaður) með flest stig eftir ákveðinn tíma mótsins verða útnefndir sigurvegarar.
 
 Þegar tveir eða fleiri skákmenn hafa jafnmörg stig, þá miðar bráðabaninn við frammistöðuna á mótinu.</string>
-  <string name="howDoesPairingWork">Hvernig eru mætingar ákvarðaðar?</string>
+  <string name="howDoesPairingWork">Hvernig eru viðureignir ákvarðaðar?</string>
   <string name="howDoesPairingWorkAnswer">Þegar mótið hefst, mætast keppendur í samræmi við skákstig sín.
 Um leið og þú hefur lokið við skák skaltu skila þér aftur í salinn: þar mun þér verða úthlutað andstæðingi sem svipaður þér að stigum. Þetta lágmarkar biðtímann, þótt það þýði að þú gætir ekki mætt öllum þátttakendum.
 Tefldu hratt og skilaðu þér í salinn til þess að tefla meira og safna fleiri stigum.</string>
@@ -84,6 +84,6 @@ Til dæmis, ef þú ert í 3. sæti á móti með 100 skákmönnum jafngildir þ
   <string name="tournamentShields">Mót með verðlaunaskjöld</string>
   <string name="onlyTitled">Eingöngu skákmenn með titil</string>
   <string name="onlyTitledHelp">Krefjast opinbers titils til þess að taka þátt í mótinu</string>
-  <string name="tournamentPairingsAreNowClosed">Nú er hætt að ákvarða mætingar móts.</string>
+  <string name="tournamentPairingsAreNowClosed">Nú er hætt að ákvarða viðureignir móts.</string>
   <string name="berserkRate">Berserk-hlutfall</string>
 </resources>
