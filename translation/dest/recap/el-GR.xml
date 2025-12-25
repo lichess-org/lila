@@ -7,7 +7,7 @@
 	<string name="noGamesCta">Θέλετε να παίξετε τώρα;</string>
 	<string name="gamesYouWon" comment="%s is the number of games won">Και κερδίσατε %s!</string>
 	<string name="gamesNextQuestion">Πώς φτάσατε ως εδώ;</string>
-	<string name="timeSpentPlayingExclam" comment="%s is the time spent playing animated from 0 e.g. '1 day, 17 hours'. The time is also translated">Παίξατε συνολικά %s!</string>
+	<string name="timeSpentPlayingExclam" comment="%s is the time spent playing animated from 0 e.g. '1 day, 17 hours'. The time is also translated">Παίξατε συνολικά %s</string>
 	<string name="timeHowManyMoves">Πόσες κινήσεις κάνατε φέτος;</string>
 	<plurals name="nbMovesPlayed">
 		<item quantity="one">%s κίνηση παίχτηκε</item>
