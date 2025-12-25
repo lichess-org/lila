@@ -120,6 +120,9 @@ Hér er tengillinn til að fá aðgang að bekknum.</string>
   <string name="moveToAnotherClass">Færa í annan bekk</string>
   <string name="allowMessagingBetweenStudents">Leyfa skilaboð milli nemenda</string>
   <string name="allowMessagingBetweenStudentsDesc">Þetta á aðeins við um aðganga sem þú hefur stofnað fyrir nemendur þína.</string>
+  <string name="quickLoginCode">Kóði fyrir flýtiskráningu</string>
+  <string name="quickLoginCodes">Kóðar fyrir flýtiskráningu</string>
   <string name="quickLoginCodesDesc1" comment="%s is a link to https://lichess.org/class">Notaðu þessa kóða á %s til þess að skrá nemendur þína inn á Lichess.</string>
+  <string name="quickLoginCodesDesc2">Þegar kóðarnir renna út verða nemendur þínir áfram skráðir inn þar til þeir skrá sig sjálfir út.</string>
   <string name="expirationInMomentFromNow" comment="%s is relative time in the future. For example, 'in 2 hours'&#10;&#10;If it works better for your language, you can use punctuation e.g. &quot;Expiration: %s&quot;">Rennur út %s</string>
 </resources>
