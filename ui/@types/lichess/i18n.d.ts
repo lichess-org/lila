@@ -3525,8 +3525,6 @@ interface I18n {
     freeOnlineChess: string;
     /** Friends */
     friends: string;
-    /** From position */
-    fromPosition: string;
     /** Game aborted */
     gameAborted: string;
     /** Game as GIF */
@@ -4493,6 +4491,8 @@ interface I18n {
     unknownDueToRounding: string;
     /** Unlimited */
     unlimited: string;
+    /** Take all the time you need */
+    unlimitedDescription: string;
     /** Unsubscribe */
     unsubscribe: string;
     /** Until */
@@ -4531,6 +4531,8 @@ interface I18n {
     variantLoss: string;
     /** Variants */
     variants: string;
+    /** More ways to play */
+    variantsDescription: string;
     /** Variant win */
     variantWin: string;
     /** Variation arrows let you navigate without using the move list. */
@@ -5885,6 +5887,10 @@ interface I18n {
     crazyhouse: string;
     /** Captured pieces can be dropped back on the board instead of moving a piece. */
     crazyhouseTitle: string;
+    /** From Position */
+    fromPosition: string;
+    /** Standard chess from a custom position */
+    fromPositionTitle: string;
     /** Horde */
     horde: string;
     /** One side has a large number of pawns, the other has a normal army. */
