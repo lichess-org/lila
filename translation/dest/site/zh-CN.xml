@@ -559,7 +559,7 @@
   <string name="newPasswordStrength">密码强度</string>
   <string name="clockInitialTime">起始时限</string>
   <string name="clockIncrement">加秒</string>
-  <string name="privacy">隐私</string>
+  <string name="privacy">隐私政策</string>
   <string name="privacyPolicy">隐私政策</string>
   <string name="letOtherPlayersFollowYou">允许其他棋手关注您</string>
   <string name="letOtherPlayersChallengeYou">允许其他棋手向您发起挑战</string>
@@ -906,7 +906,7 @@
   <string name="timeAlmostUp">时间快到了！</string>
   <string name="clickToRevealEmailAddress">[点击显示邮箱地址]</string>
   <string name="download">下载</string>
-  <string name="coachManager">教练管理</string>
+  <string name="coachManager" comment="coachManager&#10;&#10;In the user pop-up menu, a link to the Coach Manager page (http://lichess.org/coach/edit)&#10;It leads to coach-specific settings, and is only visible to coaches.">教练管理</string>
   <string name="streamerManager">直播管理</string>
   <string name="cancelTournament">取消锦标赛</string>
   <string name="tournDescription">锦标赛描述</string>

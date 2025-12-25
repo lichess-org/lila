@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="byLichess">מאת Lichess</string>
+  <string name="myFriends">החברים שלי</string>
+  <string name="myBlog">הבלוג שלי</string>
   <string name="likedBlogs">בלוגים שאהבת</string>
   <plurals name="blogPosts">
     <item quantity="one">פוסט %s בבלוג</item>

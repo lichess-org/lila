@@ -16,6 +16,6 @@
   <string name="hordeTitle" comment="Description for the Horde chess variant">一方拥有大量兵，另一方拥有常规军队。</string>
   <string name="racingKings" comment="The name of a chess variant where both sides start on the same rank, and need to reach the other side of the board win.&#10;&#10;No need to translate literally. Focus on making it fun, capturing the spirit of the variant.">竞速棋</string>
   <string name="racingKingsTitle" comment="Description for the Racing Kings chess variant">将您的王移动至棋盘另一侧即可获胜。</string>
-  <string name="crazyhouse" comment="The name of a chess variant where pieces you capture can be put on the board (similar to shogi).">疯狂城堡</string>
+  <string name="crazyhouse" comment="The name of a chess variant where pieces you capture can be put on the board (similar to shogi).">Crazyhouse</string>
   <string name="crazyhouseTitle" comment="Description for the Crazyhouse chess variant">被吃掉的棋子可以放回棋盘上，代替走子。</string>
 </resources>

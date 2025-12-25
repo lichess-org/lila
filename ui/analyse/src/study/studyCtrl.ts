@@ -788,9 +788,12 @@ export default class StudyCtrl {
       this.redraw();
     },
     chapters: d => {
+      const prevChapters = this.chapters.list.all();
       this.chapters.loadFromServer(d);
       if (!this.currentChapter()) {
-        this.vm.chapterId = d[0].id;
+        const prevIndex = prevChapters.findIndex(ch => ch.id === this.vm.chapterId);
+        const newIndex = prevIndex === -1 ? 0 : prevIndex >= d.length ? d.length - 1 : prevIndex;
+        this.vm.chapterId = d[newIndex].id;
         if (!this.vm.mode.sticky) this.xhrReload();
       }
       this.redraw();
