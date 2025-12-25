@@ -5,16 +5,41 @@
 	<string name="initTitle">Glæsilegu skákári er nú senn að ljúka hjá þér!</string>
 	<string name="noGamesText">Þú tefldir ekkert í ár.</string>
 	<string name="noGamesCta">Viltu tefla núna?</string>
+	<string name="gamesYouWon" comment="%s is the number of games won">Og þú sigraðir %s!</string>
+	<string name="gamesNextQuestion">Hvaða forsendur lágu til grundvallar þessum árangri?</string>
 	<string name="timeSpentPlayingExclam" comment="%s is the time spent playing animated from 0 e.g. '1 day, 17 hours'. The time is also translated">%s varið í að tefla!</string>
+	<string name="timeTooMuch">Þetta er óhóflegt magn af skák.</string>
+	<string name="timeALot">Þetta er mikið magn af skák.</string>
+	<string name="timeReasonable">Þetta virðist vera hóflegt magn af skák.</string>
+	<string name="timeHowManyMoves">Hve marga leiki lékst þú á öllum þessum tíma?</string>
 	<plurals name="nbMovesPlayed">
 		<item quantity="one">%s leikur leikinn</item>
 		<item quantity="other">%s leikir leiknir</item>
 	</plurals>
+	<string name="movesOfWoodPushed" comment="%s is a weight in grams or kilograms">Það jafngildir því að þú hafir hreyft %s af viði!</string>
+	<string name="movesStandardPiecesWeight">Til samanburðar vega hefðbundnir taflmenn um 40g hver</string>
 	<plurals name="nbMoves">
 		<item quantity="one">%s leikur</item>
 		<item quantity="other">%s leikir</item>
 	</plurals>
 	<string name="chessFoes">Kröfuhörðustu andstæðingar þínir</string>
+	<plurals name="nbGrams">
+		<item quantity="one">%s gramm</item>
+		<item quantity="other">%s grömm</item>
+	</plurals>
+	<plurals name="nbKilograms">
+		<item quantity="one">%s kílógramm</item>
+		<item quantity="other">%s kílógrömm</item>
+	</plurals>
+	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">var upphafið að %s skákum þínum sem hvítur</string>
+	<plurals name="openingsMostPlayedAsWhite" comment="%s is the number of games">
+		<item quantity="one">Þá byrjun sem þú tefldir oftast, sem hvítur í %s skák</item>
+		<item quantity="other">Þá byrjun sem þú tefldir oftast, sem hvítur í %s skákum</item>
+	</plurals>
+	<plurals name="openingsMostPlayedAsBlack" comment="%s is the number of games">
+		<item quantity="one">Þá byrjun sem þú tefldir oftast, sem svartur í %s skák</item>
+		<item quantity="other">Þá byrjun sem þú tefldir oftast, sem svartur í %s skákum</item>
+	</plurals>
 	<plurals name="puzzlesThanksVoting" comment="%s is the number of puzzles. It is also translated.">
 		<item quantity="one">Takk fyrir að meta %s þraut.</item>
 		<item quantity="other">Takk fyrir að meta %s þrautir.</item>
